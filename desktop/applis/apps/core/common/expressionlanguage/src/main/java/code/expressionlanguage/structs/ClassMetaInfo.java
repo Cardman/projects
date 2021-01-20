@@ -3,6 +3,7 @@ package code.expressionlanguage.structs;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.common.StringExpUtil;
+import code.expressionlanguage.exec.blocks.ExecAbstractSwitchMethod;
 import code.expressionlanguage.exec.blocks.ExecAnnotableBlock;
 import code.expressionlanguage.exec.blocks.ExecAnonymousFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
@@ -361,6 +362,14 @@ public final class ClassMetaInfo extends WithoutParentStruct implements Annotate
             return rootBlock.getAnonymousRootLambda();
         }
         return new CustList<ExecAnonymousFunctionBlock>();
+    }
+
+    @Override
+    public CustList<ExecAbstractSwitchMethod> getSwitchMethods() {
+        if (rootBlock != null) {
+            return rootBlock.getSwitchMethods();
+        }
+        return new CustList<ExecAbstractSwitchMethod>();
     }
 
     @Override

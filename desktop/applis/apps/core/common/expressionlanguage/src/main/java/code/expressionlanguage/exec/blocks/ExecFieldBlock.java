@@ -26,6 +26,7 @@ public final class ExecFieldBlock extends ExecLeaf implements ExecInfoBlock {
     private final CustList<CustList<ExecOperationNode>> annotationsOps = new CustList<CustList<ExecOperationNode>>();
     private final CustList<ExecRootBlock> anonymous = new CustList<ExecRootBlock>();
     private final CustList<ExecAnonymousFunctionBlock> anonymousLambda = new CustList<ExecAnonymousFunctionBlock>();
+    private final CustList<ExecAbstractSwitchMethod> switchMethods = new CustList<ExecAbstractSwitchMethod>();
     public ExecFieldBlock(int _offsetTrim, AnaFieldContent _fieldContent) {
         super(_offsetTrim);
         fieldContent = new ExecFieldContent(_fieldContent);
@@ -109,5 +110,10 @@ public final class ExecFieldBlock extends ExecLeaf implements ExecInfoBlock {
     @Override
     public CustList<ExecAnonymousFunctionBlock> getAnonymousLambda() {
         return anonymousLambda;
+    }
+
+    @Override
+    public CustList<ExecAbstractSwitchMethod> getSwitchMethods() {
+        return switchMethods;
     }
 }

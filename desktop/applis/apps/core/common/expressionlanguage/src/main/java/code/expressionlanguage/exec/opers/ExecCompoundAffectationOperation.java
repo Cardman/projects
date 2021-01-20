@@ -126,6 +126,9 @@ public final class ExecCompoundAffectationOperation extends ExecMethodOperation 
         if (settable instanceof ExecSettableCallFctOperation) {
             arg_ = ((ExecSettableCallFctOperation)settable).calculateCompoundSetting(_nodes, _conf, operatorContent.getOper(), _rightArg, getResultClass(), getResultClass().getUnwrapObjectNb(), _stackCall);
         }
+        if (settable instanceof ExecSwitchOperation) {
+            arg_ = ((ExecSwitchOperation)settable).calculateCompoundSetting(_nodes, _conf, operatorContent.getOper(), _rightArg, getResultClass(), getResultClass().getUnwrapObjectNb(), _stackCall);
+        }
         if (settable instanceof ExecRefTernaryOperation) {
             arg_ = ((ExecRefTernaryOperation)settable).calculateCompoundSetting(_nodes, _conf, operatorContent.getOper(), _rightArg, getResultClass(), getResultClass().getUnwrapObjectNb(), _stackCall);
         }
@@ -173,6 +176,9 @@ public final class ExecCompoundAffectationOperation extends ExecMethodOperation 
         }
         if (_set instanceof ExecSettableCallFctOperation) {
             arg_ = ((ExecSettableCallFctOperation)_set).endCalculate(_conf, _nodes,_right, _stackCall);
+        }
+        if (_set instanceof ExecSwitchOperation) {
+            arg_ = ((ExecSwitchOperation)_set).endCalculate(_conf, _nodes,_right, _stackCall);
         }
         if (_set instanceof ExecRefTernaryOperation) {
             arg_ = ((ExecRefTernaryOperation)_set).endCalculate(_conf, _nodes,_right, _stackCall);

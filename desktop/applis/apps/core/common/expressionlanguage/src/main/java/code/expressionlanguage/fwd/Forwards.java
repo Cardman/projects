@@ -11,6 +11,7 @@ public final class Forwards {
     private final IdMap<RootBlock,Members> mapMembers = new IdMap<RootBlock,Members>();
     private final IdMap<OperatorBlock,ExecOperatorBlock> mapOperators = new IdMap<OperatorBlock,ExecOperatorBlock>();
     private final IdMap<AnonymousFunctionBlock,ExecAnonymousFunctionBlock> mapAnonLambda = new IdMap<AnonymousFunctionBlock,ExecAnonymousFunctionBlock>();
+    private final IdMap<SwitchMethodBlock,ExecAbstractSwitchMethod> mapSwitchMethods = new IdMap<SwitchMethodBlock,ExecAbstractSwitchMethod>();
     private final IdMap<AnonymousTypeBlock,ExecAnonymousTypeBlock> mapAnonTypes = new IdMap<AnonymousTypeBlock,ExecAnonymousTypeBlock>();
     private final IdMap<MemberCallingsBlock,ExecMemberCallingsBlock> allFct = new IdMap<MemberCallingsBlock,ExecMemberCallingsBlock>();
     private final IdMap<MemberCallingsBlock,ExecMemberCallingsBlock> allFctBodies = new IdMap<MemberCallingsBlock,ExecMemberCallingsBlock>();
@@ -29,6 +30,10 @@ public final class Forwards {
 
     public IdMap<AnonymousFunctionBlock, ExecAnonymousFunctionBlock> getMapAnonLambda() {
         return mapAnonLambda;
+    }
+
+    public IdMap<SwitchMethodBlock, ExecAbstractSwitchMethod> getMapSwitchMethods() {
+        return mapSwitchMethods;
     }
 
     public IdMap<OperatorBlock, ExecOperatorBlock> getMapOperators() {

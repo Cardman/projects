@@ -23,8 +23,8 @@ public final class ReturnMethod extends AbruptBlock {
 
     private final String expression;
 
-    private ResultExpression res = new ResultExpression();
-    private int expressionOffset;
+    private final ResultExpression res = new ResultExpression();
+    private final int expressionOffset;
     private boolean implicit;
     private String returnType = "";
 
@@ -79,6 +79,23 @@ public final class ReturnMethod extends AbruptBlock {
                 return;
             }
         }
+        if (f_ instanceof SwitchMethodBlock) {
+            if (((SwitchMethodBlock)f_).isRetRef()) {
+                AnaClassArgumentMatching ret_ = res.getRoot().getResultClass();
+                if (!(res.getRoot() instanceof WrappOperation)||!ret_.matchClass(retType_)) {
+                    FoundErrorInterpret cast_ = new FoundErrorInterpret();
+                    cast_.setFileName(getFile().getFileName());
+                    cast_.setIndexFile(expressionOffset);
+                    //original type
+                    cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
+                            StringUtil.join(ret_.getNames(), "&"),
+                            retType_);
+                    _page.addLocError(cast_);
+                    addErrorBlock(cast_.getBuiltError());
+                }
+                return;
+            }
+        }
         checkTypes(retType_, res.getRoot(), _page);
     }
 
@@ -90,6 +107,12 @@ public final class ReturnMethod extends AbruptBlock {
                 NamedFunctionBlock meth_;
                 meth_ = (NamedFunctionBlock) par_;
                 retType_ = meth_.getImportedReturnType();
+                break;
+            }
+            if (par_ instanceof SwitchMethodBlock) {
+                SwitchMethodBlock meth_;
+                meth_ = (SwitchMethodBlock) par_;
+                retType_ = meth_.getRetType();
                 break;
             }
             par_ = par_.getParent();

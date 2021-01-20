@@ -3,9 +3,10 @@ package code.expressionlanguage.exec.blocks;
 import code.util.CustList;
 
 public abstract class ExecMemberCallingsBlock extends ExecBracedBlock {
-    private CustList<ExecRootBlock> reserved = new CustList<ExecRootBlock>();
-    private CustList<ExecRootBlock> anonymous = new CustList<ExecRootBlock>();
-    private CustList<ExecAnonymousFunctionBlock> anonymousLambda = new CustList<ExecAnonymousFunctionBlock>();
+    private final CustList<ExecRootBlock> reserved = new CustList<ExecRootBlock>();
+    private final CustList<ExecRootBlock> anonymous = new CustList<ExecRootBlock>();
+    private final CustList<ExecAnonymousFunctionBlock> anonymousLambda = new CustList<ExecAnonymousFunctionBlock>();
+    private final CustList<ExecAbstractSwitchMethod> switchMethods = new CustList<ExecAbstractSwitchMethod>();
     ExecMemberCallingsBlock(int _offsetTrim) {
         super(_offsetTrim);
     }
@@ -19,5 +20,9 @@ public abstract class ExecMemberCallingsBlock extends ExecBracedBlock {
     }
     public CustList<ExecAnonymousFunctionBlock> getAnonymousLambda(){
         return anonymousLambda;
+    }
+
+    public CustList<ExecAbstractSwitchMethod> getSwitchMethods() {
+        return switchMethods;
     }
 }

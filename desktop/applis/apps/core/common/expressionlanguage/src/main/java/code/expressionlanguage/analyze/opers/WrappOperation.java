@@ -1,15 +1,11 @@
 package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.analyze.blocks.Block;
-import code.expressionlanguage.analyze.blocks.MemberCallingsBlock;
-import code.expressionlanguage.analyze.blocks.NamedFunctionBlock;
-import code.expressionlanguage.analyze.blocks.ReturnMethod;
+import code.expressionlanguage.analyze.blocks.*;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
-import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.fwd.opers.AnaSettableOperationContent;
 import code.util.IntTreeMap;
 
@@ -42,6 +38,12 @@ public final class WrappOperation extends AbstractUnaryOperation implements PreA
                 type_ = ((NamedFunctionBlock)f_).getImportedReturnType();
             }
         }
+        if (m_ == null && f_ instanceof SwitchMethodBlock && cur_ instanceof ReturnMethod) {
+            if (((SwitchMethodBlock)f_).isRetRef()) {
+                retRef_ = true;
+                type_ = ((SwitchMethodBlock)f_).getRetType();
+            }
+        }
         if (!retRef_) {
             return;
         }
@@ -57,6 +59,11 @@ public final class WrappOperation extends AbstractUnaryOperation implements PreA
         MemberCallingsBlock f_ = _page.getCurrentFct();
         if (m_ == null && f_ instanceof NamedFunctionBlock && cur_ instanceof ReturnMethod) {
             if (((NamedFunctionBlock)f_).isRetRef()) {
+                retRef_ = true;
+            }
+        }
+        if (m_ == null && f_ instanceof SwitchMethodBlock && cur_ instanceof ReturnMethod) {
+            if (((SwitchMethodBlock)f_).isRetRef()) {
                 retRef_ = true;
             }
         }
@@ -97,7 +104,7 @@ public final class WrappOperation extends AbstractUnaryOperation implements PreA
             setResultClass(new AnaClassArgumentMatching(firstChild_.getResultClass().getNames()));
             return;
         }
-        if (!(firstChild_ instanceof RefVariableOperation)&&!(firstChild_ instanceof VariableOperation)&&!(firstChild_ instanceof MutableLoopVariableOperation)&&!(firstChild_ instanceof SettableAbstractFieldOperation)&&!(firstChild_ instanceof DotOperation)&&!(firstChild_ instanceof AbstractRefTernaryOperation)) {
+        if (!(firstChild_ instanceof RefVariableOperation)&&!(firstChild_ instanceof VariableOperation)&&!(firstChild_ instanceof MutableLoopVariableOperation)&&!(firstChild_ instanceof SettableAbstractFieldOperation)&&!(firstChild_ instanceof DotOperation)&&!(firstChild_ instanceof AbstractRefTernaryOperation)&&!(firstChild_ instanceof SwitchOperation)) {
             FoundErrorInterpret varg_ = new FoundErrorInterpret();
             varg_.setFileName(_page.getLocalizer().getCurrentFileName());
             varg_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
@@ -192,6 +199,11 @@ public final class WrappOperation extends AbstractUnaryOperation implements PreA
         }
         if (firstChild_ instanceof AbstractRefTernaryOperation) {
             AbstractRefTernaryOperation v_ = (AbstractRefTernaryOperation)firstChild_;
+            setResultClass(AnaClassArgumentMatching.copy(v_.getResultClass(), _page.getPrimitiveTypes()));
+            return;
+        }
+        if (firstChild_ instanceof SwitchOperation) {
+            SwitchOperation v_ = (SwitchOperation)firstChild_;
             setResultClass(AnaClassArgumentMatching.copy(v_.getResultClass(), _page.getPrimitiveTypes()));
             return;
         }

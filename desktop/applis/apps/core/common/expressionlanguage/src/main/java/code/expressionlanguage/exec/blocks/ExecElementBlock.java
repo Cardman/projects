@@ -25,6 +25,7 @@ public final class ExecElementBlock extends ExecLeaf implements ExecInnerTypeOrE
     private final CustList<CustList<ExecOperationNode>> annotationsOps = new CustList<CustList<ExecOperationNode>>();
     private final CustList<ExecRootBlock> anonymous = new CustList<ExecRootBlock>();
     private final CustList<ExecAnonymousFunctionBlock> anonymousLambda = new CustList<ExecAnonymousFunctionBlock>();
+    private final CustList<ExecAbstractSwitchMethod> switchMethods = new CustList<ExecAbstractSwitchMethod>();
     public ExecElementBlock(int _offsetTrim, ExecElementContent _elementContent, int _trOffset) {
         super(_offsetTrim);
         elementContent = _elementContent;
@@ -110,5 +111,10 @@ public final class ExecElementBlock extends ExecLeaf implements ExecInnerTypeOrE
     @Override
     public CustList<ExecAnonymousFunctionBlock> getAnonymousLambda() {
         return anonymousLambda;
+    }
+
+    @Override
+    public CustList<ExecAbstractSwitchMethod> getSwitchMethods() {
+        return switchMethods;
     }
 }

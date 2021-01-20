@@ -262,7 +262,7 @@ public final class LinkageUtil {
             }
             if (vars_.getStack().last().getCurrent() == null) {
                 if (!(child_ instanceof NamedFunctionBlock)&&!(child_ instanceof InfoBlock)
-                        &&!(child_ instanceof Line)&&!(child_ instanceof DeclareVariable)
+                        &&!(child_ instanceof Line)&&!(child_ instanceof DeclareVariable)&&!(child_ instanceof SwitchMethodBlock)
                         &&!(child_ instanceof EmptyInstruction)&&!(child_ instanceof RootBlock)&&!isImplicitReturn(child_)) {
                     if (!child_.getErrorsBlock().isEmpty()) {
                         String err_ = StringUtil.join(child_.getErrorsBlock(),"\n\n");
@@ -294,6 +294,9 @@ public final class LinkageUtil {
             }
             if (child_ instanceof AnonymousFunctionBlock) {
                 processAnonymousFctBlockError(vars_,(AnonymousFunctionBlock) child_,list_);
+            }
+            if (child_ instanceof SwitchMethodBlock) {
+                processSwitchMethodError((SwitchMethodBlock) child_,list_);
             }
             if (child_ instanceof AnnotationMethodBlock) {
                 processAnnotationMethodBlockError(vars_,(AnnotationMethodBlock)child_, list_);
@@ -507,6 +510,9 @@ public final class LinkageUtil {
             }
             if (child_ instanceof AnonymousFunctionBlock) {
                 processAnonymousFctReport(vars_,(AnonymousFunctionBlock)child_,list_,_coverage);
+            }
+            if (child_ instanceof SwitchMethodBlock) {
+                processSwitchMethodReport((SwitchMethodBlock)child_,list_);
             }
             if (child_ instanceof AnnotationMethodBlock) {
                 processAnnotationMethodBlockReport(vars_,(AnnotationMethodBlock)child_, list_, _coverage);
@@ -850,7 +856,12 @@ public final class LinkageUtil {
     }
     private static void processCaseConditionReport(VariablesOffsets _vars, CaseCondition _cond, CustList<PartOffset> _parts, Coverage _cov) {
         SwitchBlock parent_ = _cond.getSwitchParent();
-        AbstractCoverageResult result_ = _cov.getCoverSwitchs(parent_,_cond);
+        AbstractCoverageResult result_;
+        if (parent_ != null) {
+            result_ = _cov.getCoverSwitchs(parent_,_cond);
+        } else {
+            result_ = _cov.getCoverSwitchsMethod(_cond.getSwitchMethod(),_cond);
+        }
         int off_ = _cond.getValueOffset();
         String tag_ = getCaseDefaultTag(result_);
         if (_vars.getStack().last().getCurrent() == null) {
@@ -926,7 +937,12 @@ public final class LinkageUtil {
 
     private static void processDefaultConditionReport(VariablesOffsets _vars, DefaultCondition _cond, CustList<PartOffset> _parts, Coverage _cov) {
         SwitchBlock parent_ = _cond.getSwitchParent();
-        AbstractCoverageResult result_ = _cov.getCoverSwitchs(parent_,_cond);
+        AbstractCoverageResult result_;
+        if (parent_ != null) {
+            result_ = _cov.getCoverSwitchs(parent_,_cond);
+        } else {
+            result_ = _cov.getCoverSwitchsMethod(_cond.getSwitchMethod(),_cond);
+        }
         String tag_ = getCaseDefaultTag(result_);
         int off_ = _cond.getOffset().getOffsetTrim();
         _parts.add(new PartOffset(tag_,off_));
@@ -1786,6 +1802,10 @@ public final class LinkageUtil {
         addNameParts(_cond,_parts, begName_, 2);
     }
 
+    private static void processSwitchMethodReport(SwitchMethodBlock _cond, CustList<PartOffset> _parts) {
+        _parts.add(new PartOffset("<span class=\"t\">", _cond.getBegin()));
+    }
+
 
     private static void processOverridableBlockError(VariablesOffsets _vars, NamedFunctionBlock _cond, CustList<PartOffset> _parts) {
         int k_ = _vars.getStack().last().getIndexAnnotationGroup();
@@ -1876,6 +1896,9 @@ public final class LinkageUtil {
         }
         int begName_ = _cond.getNameOffset();
         addNameParts(errs_,_cond,_parts, begName_, 2);
+    }
+    private static void processSwitchMethodError(SwitchMethodBlock _cond, CustList<PartOffset> _parts) {
+        _parts.add(new PartOffset("<span class=\"t\">", _cond.getBegin()));
     }
 
     private static void processAnnotationMethodBlockReport(VariablesOffsets _vars, AnnotationMethodBlock _cond, CustList<PartOffset> _parts, Coverage _cov) {
@@ -2351,7 +2374,7 @@ public final class LinkageUtil {
                 AbstractCoverageResult result_ = getCovers(_block, val_, _cov, _annotation, _indexAnnotationGroup, _indexAnnotation);
                 if (!_vars.getVisitedAnnotations().containsObj(val_)) {
                     getBeginOpReport(_block, _parts, _fieldName, _root, val_, sum_, addCover_, result_, _cov, _annotation, _indexAnnotationGroup, _indexAnnotation);
-                    leftReport(_vars, _block,sum_,val_, result_,_parts, currentFileName_);
+                    leftReport(_vars, _block,sum_,val_, _cov,result_,_parts, currentFileName_);
                 }
                 if (val_ instanceof AnonymousLambdaOperation) {
                     LinkageStackElement state_ = new LinkageStackElement();
@@ -2394,11 +2417,9 @@ public final class LinkageUtil {
                     val_ = firstChildOp_;
                     continue;
                 }
-                if (val_ instanceof AnonymousInstancingOperation) {
+                if (isInner(val_)) {
                     LinkageStackElement state_ = new LinkageStackElement();
-                    AnonymousTypeBlock block_ = ((AnonymousInstancingOperation) val_).getBlock();
-                    state_.setBlock(block_);
-                    state_.setIndexEnd(block_.getIndexEnd());
+                    processInner(val_, state_);
                     _vars.setState(state_);
                     _vars.getStack().last().setCurrent(val_);
                     _vars.getStack().last().setBlock(_block);
@@ -2430,11 +2451,9 @@ public final class LinkageUtil {
                     val_=nextSiblingOp_;
                     break;
                 }
-                if (parent_ instanceof AnonymousInstancingOperation) {
+                if (isInner(parent_)) {
                     LinkageStackElement state_ = new LinkageStackElement();
-                    AnonymousTypeBlock block_ = ((AnonymousInstancingOperation) parent_).getBlock();
-                    state_.setBlock(block_);
-                    state_.setIndexEnd(block_.getIndexEnd());
+                    processInner(parent_, state_);
                     _vars.setState(state_);
                     _vars.getStack().last().setCurrent(parent_);
                     _vars.getStack().last().setBlock(_block);
@@ -2461,6 +2480,23 @@ public final class LinkageUtil {
             }
         }
     }
+
+    private static boolean isInner(OperationNode _val) {
+        return _val instanceof AnonymousInstancingOperation || _val instanceof SwitchOperation;
+    }
+
+    private static void processInner(OperationNode _val, LinkageStackElement _state) {
+        if (_val instanceof AnonymousInstancingOperation) {
+            AnonymousTypeBlock block_ = ((AnonymousInstancingOperation) _val).getBlock();
+            _state.setBlock(block_);
+            _state.setIndexEnd(block_.getIndexEnd());
+        } else {
+            SwitchMethodBlock block_ = ((SwitchOperation) _val).getSwitchMethod();
+            _state.setBlock(block_);
+            _state.setIndexEnd(block_.getIndexEnd());
+        }
+    }
+
     private static void buildErrorReport(int _indexLoop, int _indexAnnotationGroup, int _indexAnnotation, VariablesOffsets _vars, int _offsetBlock,
                                          Block _block,
                                          OperationNode _from, OperationNode _root,
@@ -2517,11 +2553,9 @@ public final class LinkageUtil {
                     val_ = firstChildOp_;
                     continue;
                 }
-                if (val_ instanceof AnonymousInstancingOperation) {
+                if (isInner(val_)) {
                     LinkageStackElement state_ = new LinkageStackElement();
-                    AnonymousTypeBlock block_ = ((AnonymousInstancingOperation) val_).getBlock();
-                    state_.setBlock(block_);
-                    state_.setIndexEnd(block_.getIndexEnd());
+                    processInner(val_,state_);
                     _vars.setState(state_);
                     _vars.getStack().last().setCurrent(val_);
                     _vars.getStack().last().setBlock(_block);
@@ -2551,11 +2585,9 @@ public final class LinkageUtil {
                     val_=nextSiblingOp_;
                     break;
                 }
-                if (parent_ instanceof AnonymousInstancingOperation) {
+                if (isInner(parent_)) {
                     LinkageStackElement state_ = new LinkageStackElement();
-                    AnonymousTypeBlock block_ = ((AnonymousInstancingOperation) parent_).getBlock();
-                    state_.setBlock(block_);
-                    state_.setIndexEnd(block_.getIndexEnd());
+                    processInner(parent_,state_);
                     _vars.setState(state_);
                     _vars.getStack().last().setCurrent(parent_);
                     _vars.getStack().last().setBlock(_block);
@@ -2772,6 +2804,7 @@ public final class LinkageUtil {
                                    Block _block,
                                    int _sum,
                                    OperationNode _val,
+                                   Coverage _cov,
                                    AbstractCoverageResult _result,
                                    CustList<PartOffset> _parts, String _currentFileName) {
         MethodOperation par_ = _val.getParent();
@@ -2805,6 +2838,28 @@ public final class LinkageUtil {
         processDynamicCall(_sum, _val, _parts);
         processRichHeader(_vars, _currentFileName, _sum, _val, _parts);
         processUnaryLeftOperationsCoversReport(_vars, _sum, _val, _result, _parts);
+        if (_val instanceof SwitchOperation) {
+            SwitchMethodBlock switchMethod_ = ((SwitchOperation) _val).getSwitchMethod();
+            int full_ = 0;
+            int count_ = 0;
+            for (StandardCoverageResult e : _cov.getCoverSwitchsMethod(switchMethod_).values()) {
+                count_ += e.getCovered();
+                full_ += e.getFull();
+            }
+            String tag_;
+            if (count_ == full_) {
+                tag_ = "<span class=\"f\">";
+            } else if (count_ > 0) {
+                tag_ = "<span class=\"p\">";
+            } else {
+                tag_ = "<span class=\"n\">";
+            }
+            int off_ = _sum + _val.getIndexInEl() + ((SwitchOperation)_val).getDelta();
+            _parts.add(new PartOffset(tag_ + "<a title=\"" + count_ + "/" + full_ + "\">", off_));
+            tag_ = "</span>";
+            _parts.add(new PartOffset("</a>" + tag_, off_ + _vars.getKeyWords().getKeyWordSwitch().length()));
+            _parts.addAllElts(((SwitchOperation)_val).getPartOffsets());
+        }
         processUnaryLeftOperationsLinks(_vars, _currentFileName, _sum, _val, _parts);
         processLeftIndexer(_vars, _currentFileName, _sum, _val, _parts);
         processArrLength(_sum, _val, _parts);
@@ -2885,6 +2940,17 @@ public final class LinkageUtil {
         processLeafType(_vars, _sum,_val, _parts);
         processDynamicCall(_sum, _val, _parts);
         processRichHeader(_vars, _currentFileName, _sum, _val, _parts);
+        if (_val instanceof SwitchOperation) {
+            StringList all_ = new StringList(_val.getErrs());
+            SwitchMethodBlock switchMethod_ = ((SwitchOperation) _val).getSwitchMethod();
+            all_.addAllElts(switchMethod_.getErrorsBlock());
+            if (!all_.isEmpty()) {
+                int begin_ = _sum + _val.getIndexInEl() + ((SwitchOperation)_val).getDelta();
+                _parts.add(new PartOffset("<a title=\""+LinkageUtil.transform(StringUtil.join(all_,"\n\n")) +"\" class=\"e\">",begin_));
+                _parts.add(new PartOffset("</a>",begin_+ _vars.getKeyWords().getKeyWordSwitch().length()));
+            }
+            _parts.addAllElts(((SwitchOperation)_val).getPartOffsets());
+        }
         processUnaryLeftOperationsLinks(_vars, _currentFileName, _sum, _val, _parts);
         processLeftIndexer(_vars, _currentFileName, _sum, _val, _parts);
         if (_val instanceof AnnotationInstanceOperation&&_val.getFirstChild() == null) {

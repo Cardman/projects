@@ -3,10 +3,7 @@ package code.expressionlanguage.structs;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.AccessEnum;
-import code.expressionlanguage.exec.blocks.ExecAnnotableBlock;
-import code.expressionlanguage.exec.blocks.ExecAnonymousFunctionBlock;
-import code.expressionlanguage.exec.blocks.ExecInfoBlock;
-import code.expressionlanguage.exec.blocks.ExecRootBlock;
+import code.expressionlanguage.exec.blocks.*;
 import code.util.CustList;
 import code.util.core.StringUtil;
 
@@ -120,6 +117,14 @@ public final class FieldMetaInfo extends WithoutParentStruct implements Annotate
             return (((ExecInfoBlock)annotableBlock).getAnonymousLambda());
         }
         return new CustList<ExecAnonymousFunctionBlock>();
+    }
+
+    @Override
+    public CustList<ExecAbstractSwitchMethod> getSwitchMethods() {
+        if (annotableBlock instanceof ExecInfoBlock) {
+            return ((ExecInfoBlock)annotableBlock).getSwitchMethods();
+        }
+        return new CustList<ExecAbstractSwitchMethod>();
     }
 
     @Override

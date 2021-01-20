@@ -372,6 +372,7 @@ public final class KeyWordsMap {
         _lgNames.getContent().getReflect().setAliasGetDeclaredAnonymousLambdaLocalVarsNb("getDeclaredAnonymousLambdaLocVarsNb");
         _lgNames.getContent().getReflect().setAliasGetDeclaredAnonymousLambdaLoopVars("getDeclaredAnonymousLambdaLoopVars");
         _lgNames.getContent().getReflect().setAliasGetDeclaredBlocks("getDeclaredBlocks");
+        _lgNames.getContent().getReflect().setAliasGetDeclaredSwitchMethods("getDeclaredSwitchMethods");
         _lgNames.getContent().getReflect().setAliasGetDeclaredLocalTypes("getDeclaredLocalTypes");
         _lgNames.getContent().getReflect().setAliasGetDeclaredMethods("getDeclaredMethods");
         _lgNames.getContent().getReflect().setAliasGetDeclaredExplicits("getDeclaredExplicits");
@@ -711,6 +712,7 @@ public final class KeyWordsMap {
         _lgNames.getContent().getReflect().setAliasGetDeclaredAnonymousLambdaLocalVarsNb("valLocalVarsLambdaAnonymesDeclaresNb");
         _lgNames.getContent().getReflect().setAliasGetDeclaredAnonymousLambdaLoopVars("valBoucleVarsLambdaAnonymesDeclares");
         _lgNames.getContent().getReflect().setAliasGetDeclaredBlocks("valBlocsDeclares");
+        _lgNames.getContent().getReflect().setAliasGetDeclaredSwitchMethods("valMethodesSelon");
         _lgNames.getContent().getReflect().setAliasGetDeclaredLocalTypes("valLocalTypesDeclares");
         _lgNames.getContent().getReflect().setAliasGetDeclaredMethods("valMethodsDeclares");
         _lgNames.getContent().getReflect().setAliasGetDeclaredExplicits("valExplicitesDeclares");

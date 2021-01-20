@@ -10268,6 +10268,366 @@ public final class CoverageReportZTest extends ProcessMethodCommon {
                 "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
+    public void coverage632Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ext {\n");
+        xml_.append(" public static int m(){\n");
+        xml_.append("  int a = 10;\n");
+        xml_.append("  int t = switch(a) {\n");
+        xml_.append("   case 10:\n");
+        xml_.append("    return 5;\n");
+        xml_.append("   default:\n");
+        xml_.append("    return 1;\n");
+        xml_.append("  };\n");
+        xml_.append("  return t;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("src/pkg/Ex", xml_.toString());
+        ContextEl cont_ = covEnReadOnlyImpl(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("m");
+        calculateNormal("pkg.Ext", id_, args_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ext</a> {\n" +
+                " public static int <a name=\"m42\">m</a>(){\n" +
+                "  int <span class=\"f\"><span class=\"f\"><a name=\"m53\">a</a> </span>=<span class=\"f\"> 10</span></span>;\n" +
+                "  int <span class=\"f\"><span class=\"f\"><a name=\"m67\">t</a> </span>=<span class=\"f\"> <span class=\"p\"><a title=\"1/2\">switch</a></span>(<span class=\"f\"><a href=\"#m53\">a</a></span>) <span class=\"t\">{\n" +
+                "   case <span class=\"f\">10</span>:\n" +
+                "    return <span class=\"f\">5</span>;\n" +
+                "   <span class=\"n\">default</span>:\n" +
+                "    return <span class=\"n\">1</span>;\n" +
+                "  }</span></span></span>;\n" +
+                "  return <span class=\"f\"><a href=\"#m67\">t</a></span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void coverage633Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ext {\n");
+        xml_.append(" public static int m(){\n");
+        xml_.append("  int a = 9;\n");
+        xml_.append("  int t = switch(a) {\n");
+        xml_.append("   case 10:\n");
+        xml_.append("    return 5;\n");
+        xml_.append("   default:\n");
+        xml_.append("    return 1;\n");
+        xml_.append("  };\n");
+        xml_.append("  return t;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("src/pkg/Ex", xml_.toString());
+        ContextEl cont_ = covEnReadOnlyImpl(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("m");
+        calculateNormal("pkg.Ext", id_, args_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ext</a> {\n" +
+                " public static int <a name=\"m42\">m</a>(){\n" +
+                "  int <span class=\"f\"><span class=\"f\"><a name=\"m53\">a</a> </span>=<span class=\"f\"> 9</span></span>;\n" +
+                "  int <span class=\"f\"><span class=\"f\"><a name=\"m66\">t</a> </span>=<span class=\"f\"> <span class=\"p\"><a title=\"1/2\">switch</a></span>(<span class=\"f\"><a href=\"#m53\">a</a></span>) <span class=\"t\">{\n" +
+                "   case <span class=\"n\">10</span>:\n" +
+                "    return <span class=\"n\">5</span>;\n" +
+                "   <span class=\"f\">default</span>:\n" +
+                "    return <span class=\"f\">1</span>;\n" +
+                "  }</span></span></span>;\n" +
+                "  return <span class=\"f\"><a href=\"#m66\">t</a></span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void coverage634Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ext {\n");
+        xml_.append(" public static int m(){\n");
+        xml_.append("  int t = 0;\n");
+        xml_.append("  for (int a: {9,10}) {\n");
+        xml_.append("   t += switch[int](a) {\n");
+        xml_.append("    case 10:\n");
+        xml_.append("     return 5;\n");
+        xml_.append("    default:\n");
+        xml_.append("     return 1;\n");
+        xml_.append("   };\n");
+        xml_.append("  }\n");
+        xml_.append("  return t;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("src/pkg/Ex", xml_.toString());
+        ContextEl cont_ = covEnReadOnlyImpl(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("m");
+        calculateNormal("pkg.Ext", id_, args_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ext</a> {\n" +
+                " public static int <a name=\"m42\">m</a>(){\n" +
+                "  int <span class=\"f\"><span class=\"f\"><a name=\"m53\">t</a> </span>=<span class=\"f\"> 0</span></span>;\n" +
+                "  <span class=\"f\">for (int <a name=\"m71\">a</a></span>: <span class=\"f\">{<span class=\"f\">9</span>,<span class=\"f\">10</span>}</span>) {\n" +
+                "   <span class=\"f\"><span class=\"f\"><a href=\"#m53\">t</a> </span>+=<span class=\"f\"> <span class=\"f\"><a title=\"2/2\">switch</a></span>[int](<span class=\"f\"><a href=\"#m71\">a</a></span>) <span class=\"t\">{\n" +
+                "    case <span class=\"f\">10</span>:\n" +
+                "     return <span class=\"f\">5</span>;\n" +
+                "    <span class=\"f\">default</span>:\n" +
+                "     return <span class=\"f\">1</span>;\n" +
+                "   }</span></span></span>;\n" +
+                "  }\n" +
+                "  return <span class=\"f\"><a href=\"#m53\">t</a></span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void coverage635Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ext {\n");
+        xml_.append(" public static int m(){\n");
+        xml_.append("  int t = 0;\n");
+        xml_.append("  for (int a: {}) {\n");
+        xml_.append("   t += switch[int](a) {\n");
+        xml_.append("    case 10:\n");
+        xml_.append("     return 5;\n");
+        xml_.append("    default:\n");
+        xml_.append("     return 1;\n");
+        xml_.append("   };\n");
+        xml_.append("  }\n");
+        xml_.append("  return t;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("src/pkg/Ex", xml_.toString());
+        ContextEl cont_ = covEnReadOnlyImpl(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("m");
+        calculateNormal("pkg.Ext", id_, args_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ext</a> {\n" +
+                " public static int <a name=\"m42\">m</a>(){\n" +
+                "  int <span class=\"f\"><span class=\"f\"><a name=\"m53\">t</a> </span>=<span class=\"f\"> 0</span></span>;\n" +
+                "  <span class=\"p\">for (int <a name=\"m71\">a</a></span>: <span class=\"f\">{}</span>) {\n" +
+                "   <span class=\"n\"><span class=\"n\"><a href=\"#m53\">t</a> </span>+=<span class=\"n\"> <span class=\"n\"><a title=\"0/2\">switch</a></span>[int](<span class=\"n\"><a href=\"#m71\">a</a></span>) <span class=\"t\">{\n" +
+                "    case <span class=\"n\">10</span>:\n" +
+                "     return <span class=\"n\">5</span>;\n" +
+                "    <span class=\"n\">default</span>:\n" +
+                "     return <span class=\"n\">1</span>;\n" +
+                "   }</span></span></span>;\n" +
+                "  }\n" +
+                "  return <span class=\"f\"><a href=\"#m53\">t</a></span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void coverage636Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ext {\n");
+        xml_.append(" public static Compo field = new Compo(7);\n");
+        xml_.append(" public static int m(){\n");
+        xml_.append("  (switch[Compo](10) {\n");
+        xml_.append("   default:\n");
+        xml_.append("    return that(field);\n");
+        xml_.append("  } += new Compo(8));\n");
+        xml_.append("  return field.f;\n");
+        xml_.append(" }\n");
+        xml_.append(" static class Compo {\n");
+        xml_.append("  public int f;\n");
+        xml_.append("  public Compo(int p){\n");
+        xml_.append("   f = p;\n");
+        xml_.append("  }\n");
+        xml_.append("  operator+ Compo (Compo a, Compo b){\n");
+        xml_.append("   return new Compo(a.f+b.f);\n");
+        xml_.append("  }\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("src/pkg/Ex", xml_.toString());
+        ContextEl cont_ = covEnReadOnlyImpl(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("m");
+        calculateNormal("pkg.Ext", id_, args_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ext</a> {\n" +
+                " public static <a title=\"pkg.Ext..Compo\" href=\"#m206\">Compo</a> <span class=\"g\"><span class=\"g\"><a name=\"m44\">field</a> </span>=<span class=\"g\"> <a title=\"pkg.Ext..Compo.pkg.Ext..Compo(int)\" href=\"#m232\">new</a> <a title=\"pkg.Ext..Compo\" href=\"#m206\">Compo</a>(<span class=\"g\">7</span>)</span></span>;\n" +
+                " public static int <a name=\"m85\">m</a>(){\n" +
+                "  <span class=\"f\">(<span class=\"f\"><span class=\"f\"><span class=\"f\"><a title=\"1/1\">switch</a></span>[<a title=\"pkg.Ext..Compo\" href=\"#m206\">Compo</a>](<span class=\"f\">10</span>) <span class=\"t\">{\n" +
+                "   <span class=\"f\">default</span>:\n" +
+                "    return <span class=\"f\">that(<span class=\"f\"><a title=\"pkg.Ext.field\" href=\"#m44\">field</a></span>)</span>;\n" +
+                "  }</span> </span><a title=\"pkg.Ext..Compo.static +(pkg.Ext..Compo,pkg.Ext..Compo)\" href=\"#m277\">+</a>=<span class=\"f\"> <a title=\"pkg.Ext..Compo.pkg.Ext..Compo(int)\" href=\"#m232\">new</a> <a title=\"pkg.Ext..Compo\" href=\"#m206\">Compo</a>(<span class=\"f\">8</span>)</span></span>)</span>;\n" +
+                "  return <span class=\"f\"><span class=\"f\"><a title=\"pkg.Ext.field\" href=\"#m44\">field</a></span>.<span class=\"f\"><a title=\"pkg.Ext..Compo.f\" href=\"#m227\">f</a></span></span>;\n" +
+                " }\n" +
+                " static class <a name=\"m206\">Compo</a> {\n" +
+                "  public int <span class=\"g\"><a name=\"m227\">f</a></span>;\n" +
+                "  <a name=\"m232\">public Compo(</a>int <a name=\"m249\">p</a>){\n" +
+                "   <span class=\"g\"><span class=\"g\"><a title=\"pkg.Ext..Compo.f\" href=\"#m227\">f</a> </span>=<span class=\"g\"> <a href=\"#m249\">p</a></span></span>;\n" +
+                "  }\n" +
+                "  operator<a name=\"m277\">+</a> <a title=\"pkg.Ext..Compo\" href=\"#m206\">Compo</a> (<a title=\"pkg.Ext..Compo\" href=\"#m206\">Compo</a> <a name=\"m292\">a</a>, <a title=\"pkg.Ext..Compo\" href=\"#m206\">Compo</a> <a name=\"m301\">b</a>){\n" +
+                "   return <span class=\"f\"><a title=\"pkg.Ext..Compo.pkg.Ext..Compo(int)\" href=\"#m232\">new</a> <a title=\"pkg.Ext..Compo\" href=\"#m206\">Compo</a>(<span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m292\">a</a></span>.<span class=\"f\"><a title=\"pkg.Ext..Compo.f\" href=\"#m227\">f</a></span></span>+<span class=\"f\"><span class=\"f\"><a href=\"#m301\">b</a></span>.<span class=\"f\"><a title=\"pkg.Ext..Compo.f\" href=\"#m227\">f</a></span></span></span>)</span>;\n" +
+                "  }\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void coverage637Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ext {\n");
+        xml_.append(" public static Compo field = new Compo(7);\n");
+        xml_.append(" public static int m(){\n");
+        xml_.append("  (switch [ Compo](10) {\n");
+        xml_.append("   default:\n");
+        xml_.append("    return that(field);\n");
+        xml_.append("  } += new Compo(8));\n");
+        xml_.append("  return field.f;\n");
+        xml_.append(" }\n");
+        xml_.append(" static class Compo {\n");
+        xml_.append("  public int f;\n");
+        xml_.append("  public Compo(int p){\n");
+        xml_.append("   f = p;\n");
+        xml_.append("  }\n");
+        xml_.append("  operator+ Compo (Compo a, Compo b){\n");
+        xml_.append("   return new Compo(a.f+b.f);\n");
+        xml_.append("  }\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("src/pkg/Ex", xml_.toString());
+        ContextEl cont_ = covEnReadOnlyImpl(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("m");
+        calculateNormal("pkg.Ext", id_, args_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ext</a> {\n" +
+                " public static <a title=\"pkg.Ext..Compo\" href=\"#m208\">Compo</a> <span class=\"g\"><span class=\"g\"><a name=\"m44\">field</a> </span>=<span class=\"g\"> <a title=\"pkg.Ext..Compo.pkg.Ext..Compo(int)\" href=\"#m234\">new</a> <a title=\"pkg.Ext..Compo\" href=\"#m208\">Compo</a>(<span class=\"g\">7</span>)</span></span>;\n" +
+                " public static int <a name=\"m85\">m</a>(){\n" +
+                "  <span class=\"f\">(<span class=\"f\"><span class=\"f\"><span class=\"f\"><a title=\"1/1\">switch</a></span> [ <a title=\"pkg.Ext..Compo\" href=\"#m208\">Compo</a>](<span class=\"f\">10</span>) <span class=\"t\">{\n" +
+                "   <span class=\"f\">default</span>:\n" +
+                "    return <span class=\"f\">that(<span class=\"f\"><a title=\"pkg.Ext.field\" href=\"#m44\">field</a></span>)</span>;\n" +
+                "  }</span> </span><a title=\"pkg.Ext..Compo.static +(pkg.Ext..Compo,pkg.Ext..Compo)\" href=\"#m279\">+</a>=<span class=\"f\"> <a title=\"pkg.Ext..Compo.pkg.Ext..Compo(int)\" href=\"#m234\">new</a> <a title=\"pkg.Ext..Compo\" href=\"#m208\">Compo</a>(<span class=\"f\">8</span>)</span></span>)</span>;\n" +
+                "  return <span class=\"f\"><span class=\"f\"><a title=\"pkg.Ext.field\" href=\"#m44\">field</a></span>.<span class=\"f\"><a title=\"pkg.Ext..Compo.f\" href=\"#m229\">f</a></span></span>;\n" +
+                " }\n" +
+                " static class <a name=\"m208\">Compo</a> {\n" +
+                "  public int <span class=\"g\"><a name=\"m229\">f</a></span>;\n" +
+                "  <a name=\"m234\">public Compo(</a>int <a name=\"m251\">p</a>){\n" +
+                "   <span class=\"g\"><span class=\"g\"><a title=\"pkg.Ext..Compo.f\" href=\"#m229\">f</a> </span>=<span class=\"g\"> <a href=\"#m251\">p</a></span></span>;\n" +
+                "  }\n" +
+                "  operator<a name=\"m279\">+</a> <a title=\"pkg.Ext..Compo\" href=\"#m208\">Compo</a> (<a title=\"pkg.Ext..Compo\" href=\"#m208\">Compo</a> <a name=\"m294\">a</a>, <a title=\"pkg.Ext..Compo\" href=\"#m208\">Compo</a> <a name=\"m303\">b</a>){\n" +
+                "   return <span class=\"f\"><a title=\"pkg.Ext..Compo.pkg.Ext..Compo(int)\" href=\"#m234\">new</a> <a title=\"pkg.Ext..Compo\" href=\"#m208\">Compo</a>(<span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m294\">a</a></span>.<span class=\"f\"><a title=\"pkg.Ext..Compo.f\" href=\"#m229\">f</a></span></span>+<span class=\"f\"><span class=\"f\"><a href=\"#m303\">b</a></span>.<span class=\"f\"><a title=\"pkg.Ext..Compo.f\" href=\"#m229\">f</a></span></span></span>)</span>;\n" +
+                "  }\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void coverage638Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ext {\n");
+        xml_.append(" public static Compo field = new Compo(7);\n");
+        xml_.append(" public static int m(){\n");
+        xml_.append("  (switch [  Compo](10) {\n");
+        xml_.append("   default:\n");
+        xml_.append("    return that(field);\n");
+        xml_.append("  } +=new Compo(8));\n");
+        xml_.append("  return field.f;\n");
+        xml_.append(" }\n");
+        xml_.append(" static class Compo {\n");
+        xml_.append("  public int f;\n");
+        xml_.append("  public Compo(int p){\n");
+        xml_.append("   f = p;\n");
+        xml_.append("  }\n");
+        xml_.append("  operator+ Compo (Compo a, Compo b){\n");
+        xml_.append("   return new Compo(a.f+b.f);\n");
+        xml_.append("  }\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("src/pkg/Ex", xml_.toString());
+        ContextEl cont_ = covEnReadOnlyImpl(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("m");
+        calculateNormal("pkg.Ext", id_, args_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ext</a> {\n" +
+                " public static <a title=\"pkg.Ext..Compo\" href=\"#m208\">Compo</a> <span class=\"g\"><span class=\"g\"><a name=\"m44\">field</a> </span>=<span class=\"g\"> <a title=\"pkg.Ext..Compo.pkg.Ext..Compo(int)\" href=\"#m234\">new</a> <a title=\"pkg.Ext..Compo\" href=\"#m208\">Compo</a>(<span class=\"g\">7</span>)</span></span>;\n" +
+                " public static int <a name=\"m85\">m</a>(){\n" +
+                "  <span class=\"f\">(<span class=\"f\"><span class=\"f\"><span class=\"f\"><a title=\"1/1\">switch</a></span> [  <a title=\"pkg.Ext..Compo\" href=\"#m208\">Compo</a>](<span class=\"f\">10</span>) <span class=\"t\">{\n" +
+                "   <span class=\"f\">default</span>:\n" +
+                "    return <span class=\"f\">that(<span class=\"f\"><a title=\"pkg.Ext.field\" href=\"#m44\">field</a></span>)</span>;\n" +
+                "  }</span> </span><a title=\"pkg.Ext..Compo.static +(pkg.Ext..Compo,pkg.Ext..Compo)\" href=\"#m279\">+</a>=<span class=\"f\"><a title=\"pkg.Ext..Compo.pkg.Ext..Compo(int)\" href=\"#m234\">new</a> <a title=\"pkg.Ext..Compo\" href=\"#m208\">Compo</a>(<span class=\"f\">8</span>)</span></span>)</span>;\n" +
+                "  return <span class=\"f\"><span class=\"f\"><a title=\"pkg.Ext.field\" href=\"#m44\">field</a></span>.<span class=\"f\"><a title=\"pkg.Ext..Compo.f\" href=\"#m229\">f</a></span></span>;\n" +
+                " }\n" +
+                " static class <a name=\"m208\">Compo</a> {\n" +
+                "  public int <span class=\"g\"><a name=\"m229\">f</a></span>;\n" +
+                "  <a name=\"m234\">public Compo(</a>int <a name=\"m251\">p</a>){\n" +
+                "   <span class=\"g\"><span class=\"g\"><a title=\"pkg.Ext..Compo.f\" href=\"#m229\">f</a> </span>=<span class=\"g\"> <a href=\"#m251\">p</a></span></span>;\n" +
+                "  }\n" +
+                "  operator<a name=\"m279\">+</a> <a title=\"pkg.Ext..Compo\" href=\"#m208\">Compo</a> (<a title=\"pkg.Ext..Compo\" href=\"#m208\">Compo</a> <a name=\"m294\">a</a>, <a title=\"pkg.Ext..Compo\" href=\"#m208\">Compo</a> <a name=\"m303\">b</a>){\n" +
+                "   return <span class=\"f\"><a title=\"pkg.Ext..Compo.pkg.Ext..Compo(int)\" href=\"#m234\">new</a> <a title=\"pkg.Ext..Compo\" href=\"#m208\">Compo</a>(<span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m294\">a</a></span>.<span class=\"f\"><a title=\"pkg.Ext..Compo.f\" href=\"#m229\">f</a></span></span>+<span class=\"f\"><span class=\"f\"><a href=\"#m303\">b</a></span>.<span class=\"f\"><a title=\"pkg.Ext..Compo.f\" href=\"#m229\">f</a></span></span></span>)</span>;\n" +
+                "  }\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void coverage639Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ext {\n");
+        xml_.append(" public static Compo field = new Compo(7);\n");
+        xml_.append(" public static int m(){\n");
+        xml_.append("  (switch  [ Compo](10) {\n");
+        xml_.append("   default:\n");
+        xml_.append("    return that(field);\n");
+        xml_.append("  } +=new Compo(8));\n");
+        xml_.append("  return field.f;\n");
+        xml_.append(" }\n");
+        xml_.append(" static class Compo {\n");
+        xml_.append("  public int f;\n");
+        xml_.append("  public Compo(int p){\n");
+        xml_.append("   f = p;\n");
+        xml_.append("  }\n");
+        xml_.append("  operator+ Compo (Compo a, Compo b){\n");
+        xml_.append("   return new Compo(a.f+b.f);\n");
+        xml_.append("  }\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("src/pkg/Ex", xml_.toString());
+        ContextEl cont_ = covEnReadOnlyImpl(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("m");
+        calculateNormal("pkg.Ext", id_, args_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ext</a> {\n" +
+                " public static <a title=\"pkg.Ext..Compo\" href=\"#m208\">Compo</a> <span class=\"g\"><span class=\"g\"><a name=\"m44\">field</a> </span>=<span class=\"g\"> <a title=\"pkg.Ext..Compo.pkg.Ext..Compo(int)\" href=\"#m234\">new</a> <a title=\"pkg.Ext..Compo\" href=\"#m208\">Compo</a>(<span class=\"g\">7</span>)</span></span>;\n" +
+                " public static int <a name=\"m85\">m</a>(){\n" +
+                "  <span class=\"f\">(<span class=\"f\"><span class=\"f\"><span class=\"f\"><a title=\"1/1\">switch</a></span>  [ <a title=\"pkg.Ext..Compo\" href=\"#m208\">Compo</a>](<span class=\"f\">10</span>) <span class=\"t\">{\n" +
+                "   <span class=\"f\">default</span>:\n" +
+                "    return <span class=\"f\">that(<span class=\"f\"><a title=\"pkg.Ext.field\" href=\"#m44\">field</a></span>)</span>;\n" +
+                "  }</span> </span><a title=\"pkg.Ext..Compo.static +(pkg.Ext..Compo,pkg.Ext..Compo)\" href=\"#m279\">+</a>=<span class=\"f\"><a title=\"pkg.Ext..Compo.pkg.Ext..Compo(int)\" href=\"#m234\">new</a> <a title=\"pkg.Ext..Compo\" href=\"#m208\">Compo</a>(<span class=\"f\">8</span>)</span></span>)</span>;\n" +
+                "  return <span class=\"f\"><span class=\"f\"><a title=\"pkg.Ext.field\" href=\"#m44\">field</a></span>.<span class=\"f\"><a title=\"pkg.Ext..Compo.f\" href=\"#m229\">f</a></span></span>;\n" +
+                " }\n" +
+                " static class <a name=\"m208\">Compo</a> {\n" +
+                "  public int <span class=\"g\"><a name=\"m229\">f</a></span>;\n" +
+                "  <a name=\"m234\">public Compo(</a>int <a name=\"m251\">p</a>){\n" +
+                "   <span class=\"g\"><span class=\"g\"><a title=\"pkg.Ext..Compo.f\" href=\"#m229\">f</a> </span>=<span class=\"g\"> <a href=\"#m251\">p</a></span></span>;\n" +
+                "  }\n" +
+                "  operator<a name=\"m279\">+</a> <a title=\"pkg.Ext..Compo\" href=\"#m208\">Compo</a> (<a title=\"pkg.Ext..Compo\" href=\"#m208\">Compo</a> <a name=\"m294\">a</a>, <a title=\"pkg.Ext..Compo\" href=\"#m208\">Compo</a> <a name=\"m303\">b</a>){\n" +
+                "   return <span class=\"f\"><a title=\"pkg.Ext..Compo.pkg.Ext..Compo(int)\" href=\"#m234\">new</a> <a title=\"pkg.Ext..Compo\" href=\"#m208\">Compo</a>(<span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m294\">a</a></span>.<span class=\"f\"><a title=\"pkg.Ext..Compo.f\" href=\"#m229\">f</a></span></span>+<span class=\"f\"><span class=\"f\"><a href=\"#m303\">b</a></span>.<span class=\"f\"><a title=\"pkg.Ext..Compo.f\" href=\"#m229\">f</a></span></span></span>)</span>;\n" +
+                "  }\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
     public void coverageComment17Test() {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;

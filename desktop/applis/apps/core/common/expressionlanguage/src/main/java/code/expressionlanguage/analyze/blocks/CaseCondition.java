@@ -25,7 +25,7 @@ public final class CaseCondition extends SwitchPartBlock {
 
     private final String value;
     private Argument argument;
-    private ResultExpression res = new ResultExpression();
+    private final ResultExpression res = new ResultExpression();
 
     private boolean builtEnum;
     private boolean emptyType;
@@ -35,7 +35,7 @@ public final class CaseCondition extends SwitchPartBlock {
     private String importedType = EMPTY_STRING;
     private String instanceTest = "";
 
-    private CustList<PartOffset> partOffsets = new CustList<PartOffset>();
+    private final CustList<PartOffset> partOffsets = new CustList<PartOffset>();
 
     private final StringList nameErrors = new StringList();
 
@@ -44,7 +44,7 @@ public final class CaseCondition extends SwitchPartBlock {
 
     private String typeEnum = EMPTY_STRING;
 
-    private int valueOffset;
+    private final int valueOffset;
     private int fieldNameOffset=-1;
     private EnumBlock enumBlock;
 
@@ -69,7 +69,7 @@ public final class CaseCondition extends SwitchPartBlock {
         _page.setOffset(0);
         BracedBlock par_ = getParent();
         MethodAccessKind stCtx_ = f_.getStaticContext();
-        if (!(par_ instanceof SwitchBlock)) {
+        if (!(par_ instanceof SwitchBlock)&&!(par_ instanceof SwitchMethodBlock)) {
             _page.setGlobalOffset(getOffset().getOffsetTrim());
             _page.setOffset(0);
             FoundErrorInterpret un_ = new FoundErrorInterpret();
@@ -85,11 +85,21 @@ public final class CaseCondition extends SwitchPartBlock {
             res.setRoot(ElUtil.getRootAnalyzedOperationsReadOnly(res, value, Calculation.staticCalculation(stCtx_), _page));
             return;
         }
-        SwitchBlock sw_ = (SwitchBlock) par_;
-        setSwitchParent(sw_);
-        AnaClassArgumentMatching resSwitch_ = sw_.getResult();
-        String type_ = resSwitch_.getSingleNameOrEmpty();
-        String instanceTest_ = sw_.getInstanceTest();
+        String type_;
+        String instanceTest_;
+        if (par_ instanceof SwitchBlock) {
+            SwitchBlock sw_ = (SwitchBlock) par_;
+            setSwitchParent(sw_);
+            AnaClassArgumentMatching resSwitch_ = sw_.getResult();
+            type_ = resSwitch_.getSingleNameOrEmpty();
+            instanceTest_ = sw_.getInstanceTest();
+        } else {
+            SwitchMethodBlock sw_ = (SwitchMethodBlock) par_;
+            setSwitchMethod(sw_);
+            AnaClassArgumentMatching resSwitch_ = sw_.getResult();
+            type_ = resSwitch_.getSingleNameOrEmpty();
+            instanceTest_ = sw_.getInstanceTest();
+        }
         instanceTest = instanceTest_;
         if (!instanceTest_.isEmpty()) {
             ParsedType p_ = new ParsedType();

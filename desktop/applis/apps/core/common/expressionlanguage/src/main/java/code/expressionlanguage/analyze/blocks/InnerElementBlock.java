@@ -28,21 +28,22 @@ public final class InnerElementBlock extends ImmutableNameRootBlock implements I
 
     private final String tempClass;
 
-    private int tempClassOffset;
+    private final int tempClassOffset;
 
     private String importedClassName;
 
-    private int valueOffest;
+    private final int valueOffest;
 
-    private CustList<PartOffset> partOffsets = new CustList<PartOffset>();
+    private final CustList<PartOffset> partOffsets = new CustList<PartOffset>();
     private int trOffset;
-    private ResultExpression res = new ResultExpression();
+    private final ResultExpression res = new ResultExpression();
     private int fieldNumber;
-    private EnumBlock parentEnum;
-    private StringList fieldList = new StringList();
+    private final EnumBlock parentEnum;
+    private final StringList fieldList = new StringList();
     private int numberInner = -1;
-    private CustList<AnonymousTypeBlock> anonymous = new CustList<AnonymousTypeBlock>();
-    private CustList<AnonymousFunctionBlock> anonymousFct = new CustList<AnonymousFunctionBlock>();
+    private final CustList<AnonymousTypeBlock> anonymous = new CustList<AnonymousTypeBlock>();
+    private final CustList<AnonymousFunctionBlock> anonymousFct = new CustList<AnonymousFunctionBlock>();
+    private final CustList<SwitchMethodBlock> switchMethods = new CustList<SwitchMethodBlock>();
     public InnerElementBlock(EnumBlock _m, String _pkgName,OffsetStringInfo _fieldName,
                              OffsetStringInfo _type,
                              OffsetStringInfo _value, OffsetsBlock _offset) {
@@ -255,6 +256,11 @@ public final class InnerElementBlock extends ImmutableNameRootBlock implements I
     @Override
     public CustList<AnonymousFunctionBlock> getAnonymousFct() {
         return anonymousFct;
+    }
+
+    @Override
+    public CustList<SwitchMethodBlock> getSwitchMethods() {
+        return switchMethods;
     }
 
     public AnaElementContent getElementContent() {

@@ -25,4 +25,5 @@ public interface InfoBlock extends AnnotableBlock {
     AccessEnum getAccess();
     CustList<AnonymousTypeBlock> getAnonymous();
     CustList<AnonymousFunctionBlock> getAnonymousFct();
+    CustList<SwitchMethodBlock> getSwitchMethods();
 }

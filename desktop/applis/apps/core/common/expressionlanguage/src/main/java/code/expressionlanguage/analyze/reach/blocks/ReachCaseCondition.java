@@ -17,11 +17,11 @@ import code.util.StringList;
 import code.util.core.StringUtil;
 
 public final class ReachCaseCondition extends ReachSwitchPartBlock {
-    private OperationNode root;
-    private int valueOffset;
-    private String value;
-    private String importedType;
-    private CaseCondition meta;
+    private final OperationNode root;
+    private final int valueOffset;
+    private final String value;
+    private final String importedType;
+    private final CaseCondition meta;
 
     protected ReachCaseCondition(CaseCondition _info) {
         super(_info);
@@ -37,13 +37,23 @@ public final class ReachCaseCondition extends ReachSwitchPartBlock {
         _page.setGlobalOffset(valueOffset);
         _page.setOffset(0);
         ReachBracedBlock par_ = getParent();
-        if (!(par_ instanceof ReachSwitchBlock)) {
+        if (!(par_ instanceof ReachSwitchBlock)&&!(par_ instanceof ReachSwitchMethodBlock)) {
             return;
         }
-        ReachSwitchBlock sw_ = (ReachSwitchBlock) par_;
-        AnaClassArgumentMatching resSwitch_ = sw_.getResult();
-        String type_ = resSwitch_.getSingleNameOrEmpty();
-        if (!sw_.getInstanceTest().isEmpty()) {
+        AnaClassArgumentMatching resSwitch_;
+        String type_;
+        String instanceTest_;
+        if (par_ instanceof ReachSwitchBlock) {
+            ReachSwitchBlock sw_ = (ReachSwitchBlock) par_;
+            resSwitch_ = sw_.getResult();
+            instanceTest_ = sw_.getInstanceTest();
+        } else {
+            ReachSwitchMethodBlock sw_ = (ReachSwitchMethodBlock) par_;
+            resSwitch_ = sw_.getResult();
+            instanceTest_ = sw_.getInstanceTest();
+        }
+        type_ = resSwitch_.getSingleNameOrEmpty();
+        if (!instanceTest_.isEmpty()) {
             return;
         }
         EnumBlock e_ = getEnumType(type_, _page);

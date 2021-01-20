@@ -29,33 +29,34 @@ public final class FieldBlock extends Leaf implements InfoBlock {
     private final AnaFieldContent fieldContent = new AnaFieldContent();
     private final String className;
 
-    private int classNameOffset;
+    private final int classNameOffset;
 
     private String importedClassName;
 
     private final String value;
 
-    private Ints valuesOffset = new Ints();
+    private final Ints valuesOffset = new Ints();
 
-    private int staticFieldOffset;
+    private final int staticFieldOffset;
 
-    private int finalFieldOffset;
+    private final int finalFieldOffset;
 
-    private int accessOffset;
+    private final int accessOffset;
 
-    private StringList annotations = new StringList();
+    private final StringList annotations = new StringList();
 
-    private Ints annotationsIndexes = new Ints();
-    private CustList<PartOffset> partOffsets = new CustList<PartOffset>();
-    private StringList assignedDeclaredFields = new StringList();
-    private ResultExpression res = new ResultExpression();
+    private final Ints annotationsIndexes = new Ints();
+    private final CustList<PartOffset> partOffsets = new CustList<PartOffset>();
+    private final StringList assignedDeclaredFields = new StringList();
+    private final ResultExpression res = new ResultExpression();
     private CustList<OperationNode> roots = new CustList<OperationNode>();
-    private CustList<ResultExpression> resList = new CustList<ResultExpression>();
+    private final CustList<ResultExpression> resList = new CustList<ResultExpression>();
     private final StringList nameRetErrors = new StringList();
     private final CustList<StringList> nameErrorsFields = new CustList<StringList>();
     private final CustList<StringList> cstErrorsFields = new CustList<StringList>();
-    private CustList<AnonymousTypeBlock> anonymous = new CustList<AnonymousTypeBlock>();
-    private CustList<AnonymousFunctionBlock> anonymousFct = new CustList<AnonymousFunctionBlock>();
+    private final CustList<AnonymousTypeBlock> anonymous = new CustList<AnonymousTypeBlock>();
+    private final CustList<AnonymousFunctionBlock> anonymousFct = new CustList<AnonymousFunctionBlock>();
+    private final CustList<SwitchMethodBlock> switchMethods = new CustList<SwitchMethodBlock>();
     private int fieldNumber;
     public FieldBlock(OffsetAccessInfo _access,
                       OffsetBooleanInfo _static, OffsetBooleanInfo _final,
@@ -325,6 +326,11 @@ public final class FieldBlock extends Leaf implements InfoBlock {
     @Override
     public CustList<AnonymousFunctionBlock> getAnonymousFct() {
         return anonymousFct;
+    }
+
+    @Override
+    public CustList<SwitchMethodBlock> getSwitchMethods() {
+        return switchMethods;
     }
 
     public AnaFieldContent getFieldContent() {

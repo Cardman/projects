@@ -720,6 +720,7 @@ public final class ElResolver {
         String keyWordInterfaces_ = keyWords_.getKeyWordInterfaces();
         String keyWordLambda_ = keyWords_.getKeyWordLambda();
         String keyWordNew_ = keyWords_.getKeyWordNew();
+        String keyWordSwitch_ = keyWords_.getKeyWordSwitch();
         String keyWordStatic_ = keyWords_.getKeyWordStatic();
         String keyWordStaticCall_ = keyWords_.getKeyWordStaticCall();
         String keyWordSuper_ = keyWords_.getKeyWordSuper();
@@ -740,6 +741,55 @@ public final class ElResolver {
             next_ = incrInstanceOf(_string, len_, next_);
             i_ = next_;
             return i_;
+        }
+        if (StringExpUtil.startsWithKeyWord(_string,i_, keyWordSwitch_)) {
+            int j_ = i_+keyWordSwitch_.length();
+            String afterSwitch_ = _string.substring(j_);
+            if (afterSwitch_.trim().startsWith("[")) {
+                int k_ = afterSwitch_.indexOf('[') + 1;
+                int count_ = 1;
+                int lenSw_ = afterSwitch_.length();
+                while (k_ < lenSw_) {
+                    char ch_ = afterSwitch_.charAt(k_);
+                    if (ch_ == '[') {
+                        count_++;
+                    }
+                    if (ch_ == ']') {
+                        count_--;
+                        if (count_ == 0) {
+                            break;
+                        }
+                    }
+                    k_++;
+                }
+                int next_ = DefaultProcessKeyWord.skipWhiteSpace(_string,j_+k_+1);
+                if (_string.startsWith("(",next_)) {
+                    _stack.getAnnotationsIndexes().add(new Ints());
+                    _stack.getAnnotations().add(new StringList());
+                    _stack.getStringsSwitch().add("");
+                    _stack.getIndexesSwitch().add(next_);
+                    _stack.getCallings().add(next_);
+                    return next_;
+                }
+                return j_+k_;
+            }
+            if (_string.startsWith("(",j_)) {
+                _stack.getAnnotationsIndexes().add(new Ints());
+                _stack.getAnnotations().add(new StringList());
+                _stack.getStringsSwitch().add("");
+                _stack.getIndexesSwitch().add(j_);
+                _stack.getCallings().add(j_);
+                return j_;
+            }
+            int next_ = DefaultProcessKeyWord.skipWhiteSpace(_string,j_+1);
+            if (_string.startsWith("(",next_)) {
+                _stack.getAnnotationsIndexes().add(new Ints());
+                _stack.getAnnotations().add(new StringList());
+                _stack.getStringsSwitch().add("");
+                _stack.getIndexesSwitch().add(next_);
+                _stack.getCallings().add(next_);
+            }
+            return j_;
         }
         if (StringExpUtil.startsWithKeyWord(_string,i_, keyWordNew_)) {
             int j_ = i_+keyWordNew_.length();
@@ -1189,6 +1239,19 @@ public final class ElResolver {
                     int j_ = res_.getNextIndex() - 1;
                     return j_+1;
                 }
+                int indexLastSw_ = _stack.getIndexesSwitchEnd().indexOf(bk_);
+                if (indexLastSw_ > -1) {
+                    String beforeCall_ = _stack.getStringsSwitchEnd().get(indexLastSw_);
+                    int instrLoc_ = _page.getLocalizer().getCurrentLocationIndex();
+                    InputTypeCreation input_ = new InputTypeCreation();
+                    input_.setType(OuterBlockEnum.SWITCH_METHOD);
+                    input_.setFile(_file);
+                    input_.setNextIndex(i_);
+                    input_.generatedId(beforeCall_, keyWords_.getKeyWordId());
+                    ResultCreation res_ = FileResolver.processOuterTypeBody(input_, _packageName, instrLoc_, _string, _page);
+                    int j_ = res_.getNextIndex() - 1;
+                    return j_+1;
+                }
             }
             parsBrackets_.put(i_, _curChar);
         }
@@ -1467,6 +1530,28 @@ public final class ElResolver {
                     input_.generatedId(beforeCall_, keyWords_.getKeyWordId());
                     input_.setAnnotations(_stack.getAnnotationsEnd().get(indexLast_));
                     input_.setAnnotationsIndexes(_stack.getAnnotationsIndexesEnd().get(indexLast_));
+                    ResultCreation res_ = FileResolver.processOuterTypeBody(input_, _packageName, instrLoc_, _string, _page);
+                    if (res_.isOkType()) {
+                        int j_ = res_.getNextIndex() - 1;
+                        AnonymousResult anonymous_ = new AnonymousResult();
+                        anonymous_.setIndex(i_);
+                        anonymous_.setUntil(j_);
+                        anonymous_.setLength(j_-i_+1);
+                        anonymous_.setType(res_.getBlock());
+                        anonymous_.setNext(j_ + 1);
+                        _page.getAnonymousResults().add(anonymous_);
+                        return j_ + 1;
+                    }
+                }
+                int indexLastSw_ = _stack.getIndexesSwitchEnd().indexOf(bk_);
+                if (indexLastSw_ > -1) {
+                    String beforeCall_ = _stack.getStringsSwitchEnd().get(indexLastSw_);
+                    int instrLoc_ = _page.getLocalizer().getCurrentLocationIndex();
+                    InputTypeCreation input_ = new InputTypeCreation();
+                    input_.setType(OuterBlockEnum.SWITCH_METHOD);
+                    input_.setFile(_file);
+                    input_.setNextIndex(i_);
+                    input_.generatedId(beforeCall_, keyWords_.getKeyWordId());
                     ResultCreation res_ = FileResolver.processOuterTypeBody(input_, _packageName, instrLoc_, _string, _page);
                     if (res_.isOkType()) {
                         int j_ = res_.getNextIndex() - 1;
@@ -2967,6 +3052,11 @@ public final class ElResolver {
         if (indexLast_ > -1) {
             _stack.getIndexesNewEnd().add(_i);
             _stack.getStringsNewEnd().add(_stack.getStringsNew().get(indexLast_));
+        }
+        int indexLastSwitch_ = _stack.getIndexesSwitch().indexOf(_parsBrackets.lastKey());
+        if (indexLastSwitch_ > -1) {
+            _stack.getIndexesSwitchEnd().add(_i);
+            _stack.getStringsSwitchEnd().add(_stack.getStringsSwitch().get(indexLastSwitch_));
         }
     }
 

@@ -39,6 +39,7 @@ public final class AliasReflection {
     private String aliasGetDeclaredConstructors;
     private String aliasGetDeclaredFields;
     private String aliasGetDeclaredBlocks;
+    private String aliasGetDeclaredSwitchMethods;
     private String aliasGetDeclaredAnonymousLambda;
     private String aliasGetDeclaredAnonymousLambdaLocalVars;
     private String aliasGetDeclaredAnonymousLambdaLocalVarsNb;
@@ -625,6 +626,9 @@ public final class AliasReflection {
         params_ = new StringList();
         method_ = new StandardMethod(aliasGetDeclaredAnonymousLambda, params_, StringExpUtil.getPrettyArrayType(aliasMethod), false, MethodModifier.FINAL);
         methods_.add( method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasGetDeclaredSwitchMethods, params_, StringExpUtil.getPrettyArrayType(aliasMethod), false, MethodModifier.FINAL);
+        methods_.add( method_);
         _stds.getStandards().addEntry(aliasAnnotated, stdcl_);
     }
 
@@ -636,6 +640,7 @@ public final class AliasReflection {
         String aliasGetAnnotations_ = ref_.getAliasGetAnnotations();
         String aliasGetAnnotationsParam_ = ref_.getAliasGetAnnotationsParameters();
         String aliasGetDeclaredAnonymousLambda_ = ref_.getAliasGetDeclaredAnonymousLambda();
+        String aliasGetDeclaredSwitchMethods_ = ref_.getAliasGetDeclaredSwitchMethods();
         AnnotatedStruct annotated_ = NumParsers.getAnnotated(_struct);
         if (StringUtil.quickEq(aliasGetAnnotations_, name_)) {
             _stackCall.setCallingState(new CustomReflectAnnotations(ReflectingType.ANNOTATION, annotated_, ExecTemplates.getArgs(_args), false));
@@ -647,6 +652,10 @@ public final class AliasReflection {
         }
         if (StringUtil.quickEq(aliasGetDeclaredAnonymousLambda_, name_)) {
             result_.setResult(fetchAnonLambdaCallee(_cont,annotated_,_args));
+            return result_;
+        }
+        if (StringUtil.quickEq(aliasGetDeclaredSwitchMethods_, name_)) {
+            result_.setResult(fetchSwitchMethod(_cont,annotated_));
             return result_;
         }
         String fileName_ = annotated_.getFileName();
@@ -701,6 +710,46 @@ public final class AliasReflection {
         CustList<MethodMetaInfo> candidates_ = filterMethods(_cont, methods_, declaringClass_, _args[0], _args[1], _args[2], _args[3]);
         String className_= StringExpUtil.getPrettyArrayType(aliasMethod_);
         return getMethodsMeta(className_, candidates_);
+    }
+
+    private static ArrayStruct fetchSwitchMethod(ContextEl _cont, AnnotatedStruct _annot) {
+        LgNames standards_ = _cont.getStandards();
+        String aliasMethod_ = standards_.getContent().getReflect().getAliasMethod();
+        CustList<MethodMetaInfo> methods_ = new CustList<MethodMetaInfo>();
+        String declaringClass_ = _annot.getDeclaringClass();
+        for (ExecAbstractSwitchMethod f: _annot.getSwitchMethods()) {
+            MethodId id_ = f.getId();
+            ExecRootBlock type_ = f.getParentType();
+            if (type_ != null) {
+                String ret_ = standards_.getContent().getCoreNames().getAliasObject();
+                boolean param_ = id_.getKind() == MethodAccessKind.STATIC_CALL;
+                String idType_ = type_.getFullName();
+                String formCl_ = MetaInfoUtil.tryFormatType(idType_, declaringClass_, _cont);
+                String idCl_ = type_.getFullName();
+                if (param_) {
+                    idCl_ = declaringClass_;
+                }
+                MethodMetaInfo met_ = new MethodMetaInfo(declaringClass_, idCl_, id_, f.getModifier(), ret_, formCl_);
+                met_.setCallee(f);
+                met_.pair(type_,null);
+                met_.setFileName(f.getFile().getFileName());
+                methods_.add(met_);
+            }
+            ExecOperatorBlock operator_ = f.getOperator();
+            if (operator_ != null) {
+                String ret_ = standards_.getContent().getCoreNames().getAliasObject();
+                String idType_ = "";
+                String formCl_ = MetaInfoUtil.tryFormatType(idType_, declaringClass_, _cont);
+                String idCl_ = "";
+                MethodMetaInfo met_ = new MethodMetaInfo(declaringClass_, idCl_, id_, f.getModifier(), ret_, formCl_);
+                met_.setCallee(f);
+                met_.pair(null,null);
+                met_.setFileName(f.getFile().getFileName());
+                methods_.add(met_);
+            }
+        }
+        String className_= StringExpUtil.getPrettyArrayType(aliasMethod_);
+        return getMethodsMeta(className_, methods_);
     }
 
     public static ResultErrorStd invokeFieldInfo(ContextEl _cont, ClassMethodId _method, Struct _struct, Struct[] _args, StackCall _stackCall) {
@@ -2368,6 +2417,14 @@ public final class AliasReflection {
 
     public void setAliasGetDeclaredBlocks(String _aliasGetDeclaredBlocks) {
         this.aliasGetDeclaredBlocks = _aliasGetDeclaredBlocks;
+    }
+
+    public String getAliasGetDeclaredSwitchMethods() {
+        return aliasGetDeclaredSwitchMethods;
+    }
+
+    public void setAliasGetDeclaredSwitchMethods(String _aliasGetDeclaredSwitchMethods) {
+        this.aliasGetDeclaredSwitchMethods = _aliasGetDeclaredSwitchMethods;
     }
 
     public String getAliasGetDeclaredLocalTypes() {

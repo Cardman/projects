@@ -7,6 +7,8 @@ public abstract class SwitchPartBlock extends BracedBlock implements
 
     private SwitchBlock switchParent;
 
+    private SwitchMethodBlock switchMethod;
+
     private int conditionNb;
 
     protected SwitchPartBlock(OffsetsBlock _offset) {
@@ -19,6 +21,14 @@ public abstract class SwitchPartBlock extends BracedBlock implements
 
     public void setSwitchParent(SwitchBlock _switchParent) {
         switchParent = _switchParent;
+    }
+
+    public SwitchMethodBlock getSwitchMethod() {
+        return switchMethod;
+    }
+
+    public void setSwitchMethod(SwitchMethodBlock _switchMethod) {
+        this.switchMethod = _switchMethod;
     }
 
     public int getConditionNb() {

@@ -729,7 +729,14 @@ public final class FileResolver {
             Ints badIndexes_ = _input.getBadIndexes();
             String trimType_ = afterAccessType_.trim();
             if (trimType_.isEmpty()) {
-                if (_input.getType() == OuterBlockEnum.ANON_FCT) {
+                if (_input.getType() == OuterBlockEnum.SWITCH_METHOD) {
+                    SwitchMethodBlock typeBlock_ = new SwitchMethodBlock(new OffsetsBlock(instructionRealLocation_ +_offset, instructionRealLocation_ +_offset), _page);
+                    typeBlock_.setBegin(instructionRealLocation_ +_offset);
+                    typeBlock_.setLengthHeader(1);
+                    typeBlock_.setFile(file_);
+                    _out.setBlock(typeBlock_);
+                    currentParent_ = typeBlock_;
+                } else if (_input.getType() == OuterBlockEnum.ANON_FCT) {
                     AnonymousFunctionBlock typeBlock_;
                     typeBlock_ = new AnonymousFunctionBlock(_input.getNextIndexBef()+_offset,
                             new OffsetsBlock(instructionRealLocation_ +_offset, instructionRealLocation_ +_offset), _page);

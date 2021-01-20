@@ -15,4 +15,5 @@ public interface ExecInfoBlock extends WithNotEmptyEl, ExecAnnotableBlock {
 
     CustList<ExecRootBlock> getAnonymous();
     CustList<ExecAnonymousFunctionBlock> getAnonymousLambda();
+    CustList<ExecAbstractSwitchMethod> getSwitchMethods();
 }

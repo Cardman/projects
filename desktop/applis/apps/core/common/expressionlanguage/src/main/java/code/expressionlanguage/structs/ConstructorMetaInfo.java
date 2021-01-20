@@ -123,6 +123,15 @@ public final class ConstructorMetaInfo extends WithoutParentStruct implements An
         return new CustList<ExecAnonymousFunctionBlock>();
     }
     @Override
+    public CustList<ExecAbstractSwitchMethod> getSwitchMethods() {
+        ExecNamedFunctionBlock fct_ = pair.getFct();
+        if (fct_ != null) {
+            return fct_.getSwitchMethods();
+        }
+        return new CustList<ExecAbstractSwitchMethod>();
+    }
+
+    @Override
     public String getDeclaringClass() {
         return declaringClass;
     }

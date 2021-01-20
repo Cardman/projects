@@ -94,6 +94,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
     private ConstructorBlock emptyCtor;
     private final CustList<AnonymousTypeBlock> anonymousRoot = new CustList<AnonymousTypeBlock>();
     private final CustList<AnonymousFunctionBlock> anonymousRootFct = new CustList<AnonymousFunctionBlock>();
+    private final CustList<SwitchMethodBlock> switchMethods = new CustList<SwitchMethodBlock>();
     private final CustList<OverridableBlock> overridableBlocks = new CustList<OverridableBlock>();
     private final CustList<AnnotationMethodBlock> annotationsMethodsBlocks = new CustList<AnnotationMethodBlock>();
     private final CustList<ConstructorBlock> constructorBlocks = new CustList<ConstructorBlock>();
@@ -2079,6 +2080,10 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
 
     public CustList<AnonymousTypeBlock> getAnonymousRoot() {
         return anonymousRoot;
+    }
+
+    public CustList<SwitchMethodBlock> getSwitchMethods() {
+        return switchMethods;
     }
 
     public CustList<OverridableBlock> getOverridableBlocks() {

@@ -353,6 +353,9 @@ public final class ClassesUtil {
             for (AnonymousFunctionBlock e: s.getAnonymousFunctions()) {
                 processType(basePkgFound_,pkgFound_, e, _page);
             }
+            for (SwitchMethodBlock e: s.getSwitchMethods()) {
+                processType(basePkgFound_,pkgFound_, e, _page);
+            }
             processMapping(_page);
             validateInheritingClasses(_page);
             validateIds(_page);
@@ -380,6 +383,19 @@ public final class ClassesUtil {
                 AnalyzingEl a_ = _page.getAnalysisAss();
                 a_.setVariableIssue(_page.isVariableIssue());
                 _page.getResultsMethod().addEntry(e,a_);
+            }
+            for (SwitchMethodBlock e:s.getSwitchMethods()) {
+                _page.setupFctChars(e);
+                _page.getCache().getLocalVariables().clear();
+                _page.getCache().getLoopVariables().clear();
+                _page.getCache().getLocalVariables().addAllElts(e.getCache().getLocalVariables());
+                _page.getCache().getLoopVariables().addAllElts(e.getCache().getLoopVariables());
+                _page.getMappingLocal().clear();
+                _page.getMappingLocal().putAllMap(e.getMappings());
+                e.buildFctInstructionsReadOnly(_page);
+                AnalyzingEl a_ = _page.getAnalysisAss();
+                a_.setVariableIssue(_page.isVariableIssue());
+                _page.getResultsSwMethod().addEntry(e,a_);
             }
             _page.setAnnotAnalysis(true);
             for (AnonymousFunctionBlock e:s.getAnonymousFunctions()) {
@@ -770,6 +786,10 @@ public final class ClassesUtil {
         }
         if (_r instanceof AnonymousFunctionBlock) {
             AnonymousFunctionBlock r_ = (AnonymousFunctionBlock) _r;
+            allReservedInnersRoot_.addAllElts(r_.getAllReservedInners());
+        }
+        if (_r instanceof SwitchMethodBlock) {
+            SwitchMethodBlock r_ = (SwitchMethodBlock) _r;
             allReservedInnersRoot_.addAllElts(r_.getAllReservedInners());
         }
         if (_r instanceof OperatorBlock) {
@@ -2311,6 +2331,15 @@ public final class ClassesUtil {
             tryAnalyseAssign(assVars_, null, anAss_, assign_, _page);
             _page.clearAllLocalVars(assVars_);
         }
+        for (EntryCust<SwitchMethodBlock, AnalyzingEl> e: _page.getResultsSwMethod().entryList()) {
+            SwitchMethodBlock method_ = e.getKey();
+            _page.setupFctChars(method_);
+            AnalyzingEl anAss_ = e.getValue();
+            assVars_.setCache(method_.getCache());
+            AssMemberCallingsBlock assign_ = AssBlockUtil.getExecutableNodes(anAss_.getCanCompleteNormally(), anAss_.getCanCompleteNormallyGroup(), anAss_.getLabelsMapping(), method_);
+            tryAnalyseAssign(assVars_, null, anAss_, assign_, _page);
+            _page.clearAllLocalVars(assVars_);
+        }
         assVars_.setCache(new AnaCache());
         _page.setGlobalClass("");
         _page.setGlobalType(null);
@@ -2419,6 +2448,15 @@ public final class ClassesUtil {
 
         for (EntryCust<AnonymousFunctionBlock, AnalyzingEl> e: _page.getResultsMethod().entryList()) {
             AnonymousFunctionBlock method_ = e.getKey();
+            _page.setupFctChars(method_);
+            AnalyzingEl anAss_ = e.getValue();
+            assVars_.setCache(method_.getCache());
+            AssSimStdMethodBlock assign_ = AssBlockUtil.getSimExecutableNodes(anAss_.getCanCompleteNormally(), anAss_.getCanCompleteNormallyGroup(), method_);
+            tryAnalyseAssign(assVars_, anAss_, assign_, _page);
+            _page.clearAllLocalVars(assVars_);
+        }
+        for (EntryCust<SwitchMethodBlock, AnalyzingEl> e: _page.getResultsSwMethod().entryList()) {
+            SwitchMethodBlock method_ = e.getKey();
             _page.setupFctChars(method_);
             AnalyzingEl anAss_ = e.getValue();
             assVars_.setCache(method_.getCache());

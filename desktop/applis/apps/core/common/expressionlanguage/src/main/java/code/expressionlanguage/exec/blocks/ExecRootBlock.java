@@ -22,7 +22,7 @@ public abstract class ExecRootBlock extends ExecBracedBlock implements GeneType,
 
     private final StringList staticInitImportedInterfaces = new StringList();
 
-    private CustList<CustList<ExecOperationNode>> annotationsOps = new CustList<CustList<ExecOperationNode>>();
+    private final CustList<CustList<ExecOperationNode>> annotationsOps = new CustList<CustList<ExecOperationNode>>();
     private final CustList<ExecFormattedRootBlock> allGenericSuperTypes = new CustList<ExecFormattedRootBlock>();
     private final CustList<ExecFunctionalInfo> functionalBodies = new CustList<ExecFunctionalInfo>();
     private ExecRootBlock uniqueType;
@@ -34,8 +34,9 @@ public abstract class ExecRootBlock extends ExecBracedBlock implements GeneType,
     private final CustList<ExecAnnotationMethodBlock> annotationsFields = new CustList<ExecAnnotationMethodBlock>();
     private final CustList<ExecInnerTypeOrElement> enumElements = new CustList<ExecInnerTypeOrElement>();
     private ExecTypeFunction emptyCtorPair;
-    private CustList<ExecRootBlock> anonymousRoot = new CustList<ExecRootBlock>();
-    private CustList<ExecAnonymousFunctionBlock> anonymousRootLambda = new CustList<ExecAnonymousFunctionBlock>();
+    private final CustList<ExecRootBlock> anonymousRoot = new CustList<ExecRootBlock>();
+    private final CustList<ExecAnonymousFunctionBlock> anonymousRootLambda = new CustList<ExecAnonymousFunctionBlock>();
+    private final CustList<ExecAbstractSwitchMethod> switchMethods = new CustList<ExecAbstractSwitchMethod>();
     private boolean withInstanceElements;
     private final CustList<ExecInfoBlock> allFields = new CustList<ExecInfoBlock>();
     private final CustList<ExecMemberCallingsBlock> allFct = new CustList<ExecMemberCallingsBlock>();
@@ -199,6 +200,10 @@ public abstract class ExecRootBlock extends ExecBracedBlock implements GeneType,
 
     public CustList<ExecAnonymousFunctionBlock> getAnonymousRootLambda() {
         return anonymousRootLambda;
+    }
+
+    public CustList<ExecAbstractSwitchMethod> getSwitchMethods() {
+        return switchMethods;
     }
 
     public ExecRootBlockContent getRootBlockContent() {

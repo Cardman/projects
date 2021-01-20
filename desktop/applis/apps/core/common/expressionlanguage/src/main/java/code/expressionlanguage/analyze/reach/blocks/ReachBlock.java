@@ -6,7 +6,7 @@ import code.expressionlanguage.analyze.files.OffsetsBlock;
 import code.util.StringList;
 
 public abstract class ReachBlock {
-    private Block info;
+    private final Block info;
     private ReachBlock previousSibling;
     private ReachBlock nextSibling;
     private ReachBracedBlock parent;
@@ -98,6 +98,9 @@ public abstract class ReachBlock {
         }
         if (_info instanceof NamedFunctionBlock) {
             return new ReachStdNamedFunctionBlock((NamedFunctionBlock) _info);
+        }
+        if (_info instanceof SwitchMethodBlock) {
+            return new ReachSwitchMethodBlock((SwitchMethodBlock) _info);
         }
         return new ReachInitFunctionBlock(_info);
     }

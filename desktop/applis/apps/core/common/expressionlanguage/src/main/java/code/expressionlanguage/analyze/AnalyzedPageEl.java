@@ -6,6 +6,7 @@ import code.expressionlanguage.analyze.blocks.*;
 import code.expressionlanguage.analyze.files.DefaultAccess;
 import code.expressionlanguage.analyze.opers.AnonymousInstancingOperation;
 import code.expressionlanguage.analyze.opers.AnonymousLambdaOperation;
+import code.expressionlanguage.analyze.opers.SwitchOperation;
 import code.expressionlanguage.analyze.syntax.IntermediaryResults;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.InaccessibleType;
@@ -79,6 +80,7 @@ public final class AnalyzedPageEl {
     private final IdMap<MemberCallingsBlock,AnalyzingEl> resultsAnaNamed = new IdMap<MemberCallingsBlock,AnalyzingEl>();
     private final IdMap<MemberCallingsBlock,AnalyzingEl> resultsAnaMethod = new IdMap<MemberCallingsBlock,AnalyzingEl>();
     private final IdMap<AnonymousFunctionBlock,AnalyzingEl> resultsMethod = new IdMap<AnonymousFunctionBlock,AnalyzingEl>();
+    private final IdMap<SwitchMethodBlock,AnalyzingEl> resultsSwMethod = new IdMap<SwitchMethodBlock,AnalyzingEl>();
     private final IdMap<OperatorBlock,AnalyzingEl> resultsAnaOperator = new IdMap<OperatorBlock,AnalyzingEl>();
     private final CustList<RootBlock> outerTypes = new CustList<RootBlock>();
     private final CustList<RootBlock> foundTypes = new CustList<RootBlock>();
@@ -149,6 +151,7 @@ public final class AnalyzedPageEl {
     private final CustList<AnonymousInstancingOperation> anonymousList = new CustList<AnonymousInstancingOperation>();
     private final CustList<AnonymousLambdaOperation> anonymousLambda = new CustList<AnonymousLambdaOperation>();
     private final CustList<AnonymousLambdaOperation> allAnonymousLambda = new CustList<AnonymousLambdaOperation>();
+    private final CustList<SwitchOperation> allSwitchMethods = new CustList<SwitchOperation>();
     private final StringMap<FileBlock> filesBodies = new StringMap<FileBlock>();
     private int localInType = -1;
     private String refFileName = "";
@@ -455,6 +458,34 @@ public final class AnalyzedPageEl {
     }
 
     public void setupFctChars(AnonymousFunctionBlock _fct) {
+        setImporting(null);
+        setGlobalType(null);
+        setImportingTypes(null);
+        setGlobalClass("");
+        setCurrentPkg("");
+        setCurrentFile(null);
+        RootBlock c_ = _fct.getParentType();
+        if (c_ != null) {
+            setImporting(c_);
+            setImportingAcces(new TypeAccessor(c_.getFullName()));
+            setImportingTypes(c_);
+            setGlobalClass(c_.getGenericString());
+            setGlobalType(c_);
+            setCurrentPkg(c_.getPackageName());
+            setCurrentFile(c_.getFile());
+        }
+        OperatorBlock operator_ = _fct.getOperator();
+        if (operator_ != null) {
+            setImporting(operator_);
+            setImportingAcces(new OperatorAccessor());
+            setImportingTypes(operator_);
+            setGlobalClass("");
+            setCurrentPkg(getDefaultPkg());
+            setCurrentFile(operator_.getFile());
+        }
+    }
+
+    public void setupFctChars(SwitchMethodBlock _fct) {
         setImporting(null);
         setGlobalType(null);
         setImportingTypes(null);
@@ -1183,6 +1214,10 @@ public final class AnalyzedPageEl {
         return allAnonymousLambda;
     }
 
+    public CustList<SwitchOperation> getAllSwitchMethods() {
+        return allSwitchMethods;
+    }
+
     public int getCountAnonTypes() {
         return countAnonTypes;
     }
@@ -1213,6 +1248,10 @@ public final class AnalyzedPageEl {
 
     public IdMap<MemberCallingsBlock, AnalyzingEl> getResultsAnaMethod() {
         return resultsAnaMethod;
+    }
+
+    public IdMap<SwitchMethodBlock, AnalyzingEl> getResultsSwMethod() {
+        return resultsSwMethod;
     }
 
     public IdMap<AnonymousFunctionBlock, AnalyzingEl> getResultsMethod() {

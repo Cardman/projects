@@ -45,10 +45,11 @@ public final class SplitExpressionUtil {
         for (RootBlock c: allInit_) {
             processType(_page, int_, c);
         }
-        while (!int_.getAnonymousTypes().isEmpty()||!int_.getAnonymousFunctions().isEmpty()) {
+        while (!int_.getAnonymousTypes().isEmpty()||!int_.getAnonymousFunctions().isEmpty()||!int_.getSwitchMethods().isEmpty()) {
             list_.add(int_);
             CustList<AnonymousTypeBlock> anonymousTypes_ = int_.getAnonymousTypes();
             CustList<AnonymousFunctionBlock> anonymousFunctions_ = int_.getAnonymousFunctions();
+            CustList<SwitchMethodBlock> switchMethods_ = int_.getSwitchMethods();
             int_ = new IntermediaryResults();
             CustList<RootBlock> all_ = new CustList<RootBlock>();
             for (AnonymousTypeBlock c: anonymousTypes_) {
@@ -77,16 +78,35 @@ public final class SplitExpressionUtil {
                     c.setIntenName(Long.toString(operator_.getCountsAnonFct()));
                 }
             }
+            for (SwitchMethodBlock c: switchMethods_) {
+                RootBlock parentType_ = c.getParentType();
+                if (parentType_ != null) {
+                    parentType_.setCountsAnonFct(parentType_.getCountsAnonFct() + 1);
+                    c.setIntenName(Long.toString(parentType_.getCountsAnonFct()));
+                }
+                OperatorBlock operator_ = c.getOperator();
+                if (operator_ != null) {
+                    operator_.setCountsAnonFct(operator_.getCountsAnonFct() + 1);
+                    c.setIntenName(Long.toString(operator_.getCountsAnonFct()));
+                }
+            }
             for (RootBlock c: anonymousTypes_) {
                 all_.addAllElts(walkType(c));
             }
             for (AnonymousFunctionBlock c: anonymousFunctions_) {
                 all_.addAllElts(walkType(c));
             }
+            for (SwitchMethodBlock c: switchMethods_) {
+                all_.addAllElts(walkType(c));
+            }
             for (RootBlock c: all_) {
                 processType(_page, int_, c);
             }
             for (AnonymousFunctionBlock c: anonymousFunctions_) {
+                _page.setupFctChars(c);
+                processFunction(_page,int_,c, c.getParentType());
+            }
+            for (SwitchMethodBlock c: switchMethods_) {
                 _page.setupFctChars(c);
                 processFunction(_page,int_,c, c.getParentType());
             }
@@ -128,6 +148,9 @@ public final class SplitExpressionUtil {
                             OperatorBlock op_ = null;
                             if (_type instanceof AnonymousFunctionBlock) {
                                 op_ = ((AnonymousFunctionBlock)_type).getOperator();
+                            }
+                            if (_type instanceof SwitchMethodBlock) {
+                                op_ = ((SwitchMethodBlock)_type).getOperator();
                             }
                             if (_type instanceof OperatorBlock) {
                                 op_ = (OperatorBlock)_type;
@@ -463,6 +486,9 @@ public final class SplitExpressionUtil {
         if (_mem instanceof AnonymousFunctionBlock) {
             op_ = ((AnonymousFunctionBlock) _mem).getOperator();
         }
+        if (_mem instanceof SwitchMethodBlock) {
+            op_ = ((SwitchMethodBlock) _mem).getOperator();
+        }
         for (AnonymousResult a: _resultExpression.getAnonymousResults()) {
             Block type_ = a.getType();
             if (type_ instanceof AnonymousTypeBlock) {
@@ -481,6 +507,13 @@ public final class SplitExpressionUtil {
                     ((AnonymousFunctionBlock)type_).setOperator(op_);
                 }
                 _int.getAnonymousFunctions().add((AnonymousFunctionBlock)type_);
+            }
+            if (type_ instanceof SwitchMethodBlock) {
+                ((SwitchMethodBlock)type_).setParentType(_type);
+                if (((SwitchMethodBlock)type_).getParentType() == null) {
+                    ((SwitchMethodBlock)type_).setOperator(op_);
+                }
+                _int.getSwitchMethods().add((SwitchMethodBlock)type_);
             }
         }
     }

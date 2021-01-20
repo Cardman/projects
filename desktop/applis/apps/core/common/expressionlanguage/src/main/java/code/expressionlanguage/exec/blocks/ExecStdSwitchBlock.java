@@ -12,6 +12,10 @@ public final class ExecStdSwitchBlock extends ExecEnumValueSwitchBlock {
 
     @Override
     protected ExecBracedBlock process(CustList<ExecBracedBlock> _children, Argument _arg) {
+        return innerProcess(_children, _arg);
+    }
+
+    public static ExecBracedBlock innerProcess(CustList<ExecBracedBlock> _children, Argument _arg) {
         ExecBracedBlock def_ = null;
         ExecBracedBlock found_ = null;
         for (ExecBracedBlock b: _children) {

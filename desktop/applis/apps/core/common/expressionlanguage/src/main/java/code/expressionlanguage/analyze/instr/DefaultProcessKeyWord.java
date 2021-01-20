@@ -25,6 +25,54 @@ public final class DefaultProcessKeyWord implements AbstractProcessKeyWord {
     @Override
     public void processInternKeyWord(String _exp, int _fr, Delimiters _d, ResultAfterInstKeyWord _out) {
         KeyWords keyWords_ = page.getKeyWords();
+        String keyWordSwitch_ = keyWords_.getKeyWordSwitch();
+        if (StringExpUtil.startsWithKeyWord(_exp,_fr, keyWordSwitch_)) {
+            int j_ = _fr+keyWordSwitch_.length();
+            String afterSwitch_ = _exp.substring(j_);
+            if (afterSwitch_.trim().startsWith("[")) {
+                int k_ = afterSwitch_.indexOf('[') + 1;
+                int len_ = afterSwitch_.length();
+                int count_ = 1;
+                while (k_ < len_) {
+                    char ch_ = afterSwitch_.charAt(k_);
+                    if (ch_ == '[') {
+                        count_++;
+                    }
+                    if (ch_ == ']') {
+                        count_--;
+                        if (count_ == 0) {
+                            break;
+                        }
+                    }
+                    k_++;
+                }
+                if (k_ >= len_) {
+                    _d.setBadOffset(len_);
+                    return;
+                }
+                int next_ = DefaultProcessKeyWord.skipWhiteSpace(_exp,j_+k_+1);
+                if (_exp.startsWith("(",next_)) {
+                    _d.getStack().getCallings().add(next_);
+                    _out.setNextIndex(next_);
+                    return;
+                }
+                _out.setNextIndex(j_);
+                return;
+            }
+            if (_exp.startsWith("(",j_)) {
+                _d.getStack().getCallings().add(j_);
+                _out.setNextIndex(j_);
+                return;
+            }
+            int next_ = DefaultProcessKeyWord.skipWhiteSpace(_exp,j_+1);
+            if (_exp.startsWith("(",next_)) {
+                _d.getStack().getCallings().add(next_);
+                _out.setNextIndex(next_);
+                return;
+            }
+            _out.setNextIndex(j_);
+            return;
+        }
         String keyWordNew_ = keyWords_.getKeyWordNew();
         String keyWordInterfaces_ = keyWords_.getKeyWordInterfaces();
         if (StringExpUtil.startsWithKeyWord(_exp,_fr, keyWordNew_)) {

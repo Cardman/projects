@@ -5222,4 +5222,253 @@ public final class ErrorsZTest extends ProcessMethodCommon {
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
     }
+    @Test
+    public void report823Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("class pkg.Ext {\n");
+        xml_.append(" static int m(){\n");
+        xml_.append("  int a = 10;\n");
+        xml_.append("  int t = switch(a) {\n");
+        xml_.append("   case 10:\n");
+        xml_.append("    return 5;\n");
+        xml_.append("   default:\n");
+        xml_.append("    return 1;\n");
+        xml_.append("  };\n");
+        xml_.append("  return 0;\n");
+        xml_.append("  return 0;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("src/pkg/Ex", xml_.toString());
+        StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
+                " static int <a name=\"m28\">m</a>(){\n" +
+                "  int <a name=\"m39\">a</a> = 10;\n" +
+                "  int <a name=\"m53\">t</a> = switch(<a href=\"#m39\">a</a>) <span class=\"t\">{\n" +
+                "   case 10:\n" +
+                "    return 5;\n" +
+                "   default:\n" +
+                "    return 1;\n" +
+                "  }</span>;\n" +
+                "  return 0;\n" +
+                "  <a title=\"The code is unreachable in the function static m()\" class=\"e\">return</a> 0;\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report824Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("class pkg.Ext {\n");
+        xml_.append(" static int m(){\n");
+        xml_.append("  int a = 10;\n");
+        xml_.append("  int t = switch(a) {\n");
+        xml_.append("   case 10:\n");
+        xml_.append("    return 5;\n");
+        xml_.append("  };\n");
+        xml_.append("  return 0;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("src/pkg/Ex", xml_.toString());
+        StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
+                " static int <a name=\"m28\">m</a>(){\n" +
+                "  int <a name=\"m39\">a</a> = 10;\n" +
+                "  int <a name=\"m53\">t</a> = <a title=\"A throw block or a return block is missing for the method static .1(int).\" class=\"e\">switch</a>(<a href=\"#m39\">a</a>) <span class=\"t\">{\n" +
+                "   case 10:\n" +
+                "    return 5;\n" +
+                "  }</span>;\n" +
+                "  return 0;\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report825Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("class pkg.Ext {\n");
+        xml_.append(" static int m(){\n");
+        xml_.append("  int a = 10;\n");
+        xml_.append("  int t = switch(a) {\n");
+        xml_.append("   case 10:\n");
+        xml_.append("    break;\n");
+        xml_.append("   default:\n");
+        xml_.append("    return 1;\n");
+        xml_.append("  };\n");
+        xml_.append("  return 0;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("src/pkg/Ex", xml_.toString());
+        StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
+                " static int <a name=\"m28\">m</a>(){\n" +
+                "  int <a name=\"m39\">a</a> = 10;\n" +
+                "  int <a name=\"m53\">t</a> = switch(<a href=\"#m39\">a</a>) <span class=\"t\">{\n" +
+                "   case 10:\n" +
+                "    <a title=\"The break block must be inner of the blocks switch|for|foreach|do|iter|while.\" class=\"e\">break</a>;\n" +
+                "   default:\n" +
+                "    return 1;\n" +
+                "  }</span>;\n" +
+                "  return 0;\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report826Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("class pkg.Ext {\n");
+        xml_.append(" static int m(){\n");
+        xml_.append("  int t = switch(0) {\n");
+        xml_.append("  };\n");
+        xml_.append("  return 0;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("src/pkg/Ex", xml_.toString());
+        StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
+                " static int <a name=\"m28\">m</a>(){\n" +
+                "  int <a name=\"m39\">t</a> = <a title=\"A throw block or a return block is missing for the method static .1(int).\" class=\"e\">switch</a>(0) <span class=\"t\">{\n" +
+                "  }</span>;\n" +
+                "  return 0;\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report827Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("class pkg.Ext {\n");
+        xml_.append(" static int m(){\n");
+        xml_.append("  int t = switch(0) {\n");
+        xml_.append("   default:\n");
+        xml_.append("  };\n");
+        xml_.append("  return 0;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("src/pkg/Ex", xml_.toString());
+        StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
+                " static int <a name=\"m28\">m</a>(){\n" +
+                "  int <a name=\"m39\">t</a> = <a title=\"A throw block or a return block is missing for the method static .1(int).\" class=\"e\">switch</a>(0) <span class=\"t\">{\n" +
+                "   default:\n" +
+                "  }</span>;\n" +
+                "  return 0;\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report828Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("class pkg.Ext {\n");
+        xml_.append(" static int m(){\n");
+        xml_.append("  int t = switch((Object)null) {\n");
+        xml_.append("   default d:\n");
+        xml_.append("  };\n");
+        xml_.append("  return 0;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("src/pkg/Ex", xml_.toString());
+        StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
+                " static int <a name=\"m28\">m</a>(){\n" +
+                "  int <a name=\"m39\">t</a> = <a title=\"A throw block or a return block is missing for the method static .1($core.Object).\" class=\"e\">switch</a>((Object)null) <span class=\"t\">{\n" +
+                "   default <a title=\"$core.Object\" name=\"m77\">d</a>:\n" +
+                "  }</span>;\n" +
+                "  return 0;\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report829Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("class pkg.Ext {\n");
+        xml_.append(" static int m(){\n");
+        xml_.append("  int t = switch(0) {\n");
+        xml_.append("   int i;\n");
+        xml_.append("  };\n");
+        xml_.append("  return 0;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("src/pkg/Ex", xml_.toString());
+        StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
+                " static int <a name=\"m28\">m</a>(){\n" +
+                "  int <a name=\"m39\">t</a> = <a title=\"A throw block or a return block is missing for the method static .1(int).\" class=\"e\">switch</a>(0) <span class=\"t\">{\n" +
+                "   int <a name=\"m62\">i</a><a title=\"The switch block must contain only one of the blocks case|default.\" class=\"e\">;</a>\n" +
+                "  }</span>;\n" +
+                "  return 0;\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report830Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("class pkg.Ext {\n");
+        xml_.append(" static int m(){\n");
+        xml_.append("  (switch(0) {\n");
+        xml_.append("   default:\n");
+        xml_.append("    return 0;\n");
+        xml_.append("  })=1;\n");
+        xml_.append("  return 0;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("src/pkg/Ex", xml_.toString());
+        StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
+                " static int <a name=\"m28\">m</a>(){\n" +
+                "  (switch(0) <span class=\"t\">{\n" +
+                "   default:\n" +
+                "    <a title=\"The type int cannot be implicitly cast to $core.Object\" class=\"e\">return</a> 0;\n" +
+                "  }</span>)=1;\n" +
+                "  return 0;\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report831Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("class pkg.Ext {\n");
+        xml_.append(" static int m(){\n");
+        xml_.append("  (switch[String](0) {\n");
+        xml_.append("   default:\n");
+        xml_.append("    return that(0);\n");
+        xml_.append("  })=\"1\";\n");
+        xml_.append("  return 0;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("src/pkg/Ex", xml_.toString());
+        StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
+                " static int <a name=\"m28\">m</a>(){\n" +
+                "  (switch[String](0) <span class=\"t\">{\n" +
+                "   default:\n" +
+                "    <a title=\"The type $core.Object cannot be implicitly cast to $core.String\" class=\"e\">return</a> <a title=\"The key word that is unexpected here.\" class=\"e\">that</a>(0);\n" +
+                "  }</span>)=<span class=\"s\">\"1\"</span>;\n" +
+                "  return 0;\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
 }

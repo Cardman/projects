@@ -25,6 +25,7 @@ public final class ExecInnerElementBlock extends ExecRootBlock implements ExecIn
     private final int trOffset;
     private final CustList<ExecRootBlock> anonymous = new CustList<ExecRootBlock>();
     private final CustList<ExecAnonymousFunctionBlock> anonymousLambda = new CustList<ExecAnonymousFunctionBlock>();
+    private final CustList<ExecAbstractSwitchMethod> switchMethods = new CustList<ExecAbstractSwitchMethod>();
     public ExecInnerElementBlock(int _offsetTrim, ExecRootBlockContent _rootBlockContent, AccessEnum _access, ExecElementContent _elementContent, int _trOffset) {
         super(_offsetTrim, _rootBlockContent, _access);
         elementContent = _elementContent;
@@ -112,5 +113,10 @@ public final class ExecInnerElementBlock extends ExecRootBlock implements ExecIn
     @Override
     public CustList<ExecAnonymousFunctionBlock> getAnonymousLambda() {
         return anonymousLambda;
+    }
+
+    @Override
+    public CustList<ExecAbstractSwitchMethod> getSwitchMethods() {
+        return switchMethods;
     }
 }

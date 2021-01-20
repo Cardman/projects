@@ -225,6 +225,7 @@ public final class LgNamesContent {
     private static final String GET_DECLARED_ANONYMOUS_LAMBDA_LOOP_VARS = "GetDeclaredAnonymousLambdaLoopVars";
     private static final String GET_DECLARED_LOCAL_TYPES = "GetDeclaredLocalTypes";
     private static final String GET_DECLARED_BLOCKS = "GetDeclaredBlocks";
+    private static final String GET_DECLARED_SWITCH_METHODS = "GetDeclaredSwitchMethods";
     private static final String FIELD = "Field";
     private static final String IS_NORMAL = "IsNormal";
     private static final String SAME_REF = "SameRef";
@@ -573,6 +574,7 @@ public final class LgNamesContent {
         getReflect().setAliasGetDeclaredAnonymousLambdaLocalVarsNb(get(_util,_cust, GET_DECLARED_ANONYMOUS_LAMBDA_LOCAL_VARS_NB));
         getReflect().setAliasGetDeclaredAnonymousLambdaLoopVars(get(_util,_cust, GET_DECLARED_ANONYMOUS_LAMBDA_LOOP_VARS));
         getReflect().setAliasGetDeclaredBlocks(get(_util,_cust, GET_DECLARED_BLOCKS));
+        getReflect().setAliasGetDeclaredSwitchMethods(get(_util,_cust, GET_DECLARED_SWITCH_METHODS));
         getReflect().setAliasGetDeclaredLocalTypes(get(_util,_cust, GET_DECLARED_LOCAL_TYPES));
         getReflect().setAliasField(get(_util,_cust, FIELD));
         getReflect().setAliasIsNormal(get(_util,_cust, IS_NORMAL));
@@ -1336,6 +1338,7 @@ public final class LgNamesContent {
         map_.addEntry(getReflect().getAliasAnnotated(), new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(GET_FILE_NAME, getReflect().getAliasGetFileName()),
                 new KeyValueMemberName(GET_DECLARED_ANONYMOUS_LAMBDA, getReflect().getAliasGetDeclaredAnonymousLambda()),
+                new KeyValueMemberName(GET_DECLARED_SWITCH_METHODS,getReflect().getAliasGetDeclaredSwitchMethods()),
                 new KeyValueMemberName(GET_ANNOTATIONS, getReflect().getAliasGetAnnotations()),
                 new KeyValueMemberName(GET_ANNOTATIONS_PARAMETERS, getReflect().getAliasGetAnnotationsParameters())));
         map_.addEntry(getReflect().getAliasAnnotationType(), new CustList<KeyValueMemberName>(
@@ -1357,6 +1360,7 @@ public final class LgNamesContent {
                 new KeyValueMemberName(GET_DECLARED_FIELDS, getReflect().getAliasGetDeclaredFields()),
                 new KeyValueMemberName(GET_DECLARED_ANONYMOUS_TYPES, getReflect().getAliasGetDeclaredAnonymousTypes()),
                 new KeyValueMemberName(GET_DECLARED_ANONYMOUS_LAMBDA, getReflect().getAliasGetDeclaredAnonymousLambda()),
+                new KeyValueMemberName(GET_DECLARED_SWITCH_METHODS,getReflect().getAliasGetDeclaredSwitchMethods()),
                 new KeyValueMemberName(GET_DECLARED_LOCAL_TYPES,getReflect().getAliasGetDeclaredLocalTypes()),
                 new KeyValueMemberName(GET_DECLARED_BLOCKS,getReflect().getAliasGetDeclaredBlocks()),
                 new KeyValueMemberName(GET_DECLARED_EXPLICITS,getReflect().getAliasGetDeclaredExplicits()),
@@ -1416,6 +1420,7 @@ public final class LgNamesContent {
                 new KeyValueMemberName(GET_ANNOTATIONS_PARAMETERS,getReflect().getAliasGetAnnotationsParameters()),
                 new KeyValueMemberName(GET_DECLARED_ANONYMOUS_TYPES,getReflect().getAliasGetDeclaredAnonymousTypes()),
                 new KeyValueMemberName(GET_DECLARED_ANONYMOUS_LAMBDA,getReflect().getAliasGetDeclaredAnonymousLambda()),
+                new KeyValueMemberName(GET_DECLARED_SWITCH_METHODS,getReflect().getAliasGetDeclaredSwitchMethods()),
                 new KeyValueMemberName(GET_DECLARING_CLASS,getReflect().getAliasGetDeclaringClass()),
                 new KeyValueMemberName(GET_GENERIC_RETURN_TYPE,getReflect().getAliasGetGenericReturnType()),
                 new KeyValueMemberName(GET_FILE_NAME,getReflect().getAliasGetFileName()),
@@ -1438,6 +1443,7 @@ public final class LgNamesContent {
                 new KeyValueMemberName(GET_ANNOTATIONS_PARAMETERS,getReflect().getAliasGetAnnotationsParameters()),
                 new KeyValueMemberName(GET_DECLARED_ANONYMOUS_TYPES,getReflect().getAliasGetDeclaredAnonymousTypes()),
                 new KeyValueMemberName(GET_DECLARED_ANONYMOUS_LAMBDA,getReflect().getAliasGetDeclaredAnonymousLambda()),
+                new KeyValueMemberName(GET_DECLARED_SWITCH_METHODS,getReflect().getAliasGetDeclaredSwitchMethods()),
                 new KeyValueMemberName(GET_FIELD,getReflect().getAliasGetField()),
                 new KeyValueMemberName(GET_DECLARING_CLASS,getReflect().getAliasGetDeclaringClass()),
                 new KeyValueMemberName(GET_GENERIC_TYPE,getReflect().getAliasGetGenericType()),
@@ -1456,6 +1462,7 @@ public final class LgNamesContent {
                 new KeyValueMemberName(GET_ANNOTATIONS_PARAMETERS,getReflect().getAliasGetAnnotationsParameters()),
                 new KeyValueMemberName(GET_DECLARED_ANONYMOUS_TYPES,getReflect().getAliasGetDeclaredAnonymousTypes()),
                 new KeyValueMemberName(GET_DECLARED_ANONYMOUS_LAMBDA,getReflect().getAliasGetDeclaredAnonymousLambda()),
+                new KeyValueMemberName(GET_DECLARED_SWITCH_METHODS,getReflect().getAliasGetDeclaredSwitchMethods()),
                 new KeyValueMemberName(GET_DECLARED_ANONYMOUS_LAMBDA_LOCAL_VARS,getReflect().getAliasGetDeclaredAnonymousLambdaLocalVars()),
                 new KeyValueMemberName(GET_DECLARED_ANONYMOUS_LAMBDA_LOCAL_VARS_NB,getReflect().getAliasGetDeclaredAnonymousLambdaLocalVarsNb()),
                 new KeyValueMemberName(GET_DECLARED_ANONYMOUS_LAMBDA_LOOP_VARS,getReflect().getAliasGetDeclaredAnonymousLambdaLoopVars()),

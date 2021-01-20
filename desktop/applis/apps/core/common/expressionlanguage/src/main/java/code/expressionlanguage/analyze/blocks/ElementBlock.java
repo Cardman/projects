@@ -28,25 +28,26 @@ public final class ElementBlock extends Leaf implements InnerTypeOrElement{
 
     private final String tempClass;
 
-    private int tempClassOffset;
+    private final int tempClassOffset;
 
     private String importedClassName;
 
-    private int valueOffest;
+    private final int valueOffest;
 
-    private StringList annotations = new StringList();
-    private ResultExpression res = new ResultExpression();
+    private final StringList annotations = new StringList();
+    private final ResultExpression res = new ResultExpression();
     private CustList<OperationNode> roots = new CustList<OperationNode>();
-    private CustList<ResultExpression> resList = new CustList<ResultExpression>();
-    private Ints annotationsIndexes = new Ints();
-    private CustList<PartOffset> partOffsets = new CustList<PartOffset>();
+    private final CustList<ResultExpression> resList = new CustList<ResultExpression>();
+    private final Ints annotationsIndexes = new Ints();
+    private final CustList<PartOffset> partOffsets = new CustList<PartOffset>();
     private int trOffset;
     private final StringList nameErrors = new StringList();
     private int fieldNumber;
-    private EnumBlock parentEnum;
-    private StringList fieldList = new StringList();
-    private CustList<AnonymousTypeBlock> anonymous = new CustList<AnonymousTypeBlock>();
-    private CustList<AnonymousFunctionBlock> anonymousFct = new CustList<AnonymousFunctionBlock>();
+    private final EnumBlock parentEnum;
+    private final StringList fieldList = new StringList();
+    private final CustList<AnonymousTypeBlock> anonymous = new CustList<AnonymousTypeBlock>();
+    private final CustList<AnonymousFunctionBlock> anonymousFct = new CustList<AnonymousFunctionBlock>();
+    private final CustList<SwitchMethodBlock> switchMethods = new CustList<SwitchMethodBlock>();
 
     public ElementBlock(EnumBlock _m, OffsetStringInfo _fieldName,
                         OffsetStringInfo _type,
@@ -272,6 +273,11 @@ public final class ElementBlock extends Leaf implements InnerTypeOrElement{
     @Override
     public CustList<AnonymousFunctionBlock> getAnonymousFct() {
         return anonymousFct;
+    }
+
+    @Override
+    public CustList<SwitchMethodBlock> getSwitchMethods() {
+        return switchMethods;
     }
 
     public AnaElementContent getElementContent() {

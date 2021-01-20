@@ -111,6 +111,10 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
                 return ret_;
             }
         }
+        if (f_ instanceof SwitchMethodBlock) {
+            SwitchMethodBlock n_ = (SwitchMethodBlock) f_;
+            return n_.getRetType();
+        }
         return EMPTY_STRING;
     }
     protected static String tryGetTypeAff(OperationNode _m) {

@@ -12,6 +12,7 @@ public final class FunctionCoverageResult {
     private final CustList<BlockCoverageResult> blocks = new CustList<BlockCoverageResult>();
     private final IdMap<ExecBlock,BooleanCoverageResult> coverLoops = new IdMap<ExecBlock,BooleanCoverageResult>();
     private final IdMap<ExecBlock,SwitchCoverageResult> coverSwitchs = new IdMap<ExecBlock,SwitchCoverageResult>();
+    private final SwitchCoverageResult coverSwitchsMethod = new SwitchCoverageResult();
     private final IdMap<ExecBlock,BoolVal> catches = new IdMap<ExecBlock,BoolVal>();
     private final IdMap<ExecBlock,Block> mappingBlocks = new IdMap<ExecBlock,Block>();
     private final CustList<BlockCoverageResult> annotations = new CustList<BlockCoverageResult>();
@@ -36,6 +37,10 @@ public final class FunctionCoverageResult {
 
     public IdMap<ExecBlock, SwitchCoverageResult> getCoverSwitchs() {
         return coverSwitchs;
+    }
+
+    public SwitchCoverageResult getCoverSwitchsMethod() {
+        return coverSwitchsMethod;
     }
 
     public IdMap<ExecBlock, BoolVal> getCatches() {

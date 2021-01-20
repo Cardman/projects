@@ -111,6 +111,9 @@ public final class ExecAffectationOperation extends ExecMethodOperation implemen
         if (_set instanceof ExecSettableCallFctOperation) {
             arg_ = ((ExecSettableCallFctOperation)_set).calculateSetting(_nodes, _conf, _right, _stackCall);
         }
+        if (_set instanceof ExecSwitchOperation) {
+            arg_ = ((ExecSwitchOperation)_set).calculateSetting(_nodes, _conf, _right, _stackCall);
+        }
         if (_set instanceof ExecRefTernaryOperation) {
             arg_ = ((ExecRefTernaryOperation)_set).calculateSetting(_nodes, _conf, _right, _stackCall);
         }

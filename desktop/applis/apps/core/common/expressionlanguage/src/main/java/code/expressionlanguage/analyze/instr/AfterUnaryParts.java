@@ -67,6 +67,7 @@ final class AfterUnaryParts {
     private boolean enabledId;
     private boolean instance;
     private boolean instanceStrict;
+    private boolean switchStrict;
     private boolean errorDot;
     private final Ints laterIndexesDouble = new Ints();
     private final ExpPartDelimiters del;
@@ -132,9 +133,13 @@ final class AfterUnaryParts {
         int firstPrintChar_ = del.getFirstPrintIndex();
         KeyWords keyWords_ = _page.getKeyWords();
         String keyWordNew_ = keyWords_.getKeyWordNew();
+        String keyWordSwitch_ = keyWords_.getKeyWordSwitch();
         if (StringExpUtil.startsWithKeyWord(_string,firstPrintChar_, keyWordNew_)) {
             instance = true;
             instanceStrict = true;
+        }
+        if (StringExpUtil.startsWithKeyWord(_string,firstPrintChar_, keyWordSwitch_)) {
+            switchStrict = true;
         }
         if (_string.charAt(firstPrintChar_) == ANN_ARR_LEFT) {
             instance = true;
@@ -145,6 +150,16 @@ final class AfterUnaryParts {
         char curChar_ = _string.charAt(index);
         block =  null;
         if (instanceStrict) {
+            for (AnonymousResult a: anonymousResults) {
+                if (a.getIndex() == index + _offset) {
+                    index = a.getUntil() - _offset + 1;
+                    block = a.getType();
+                    length = a.getLength();
+                    return;
+                }
+            }
+        }
+        if (switchStrict) {
             for (AnonymousResult a: anonymousResults) {
                 if (a.getIndex() == index + _offset) {
                     index = a.getUntil() - _offset + 1;

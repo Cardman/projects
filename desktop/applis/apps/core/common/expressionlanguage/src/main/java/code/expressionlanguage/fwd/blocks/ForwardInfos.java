@@ -10,6 +10,7 @@ import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.GeneStringOverridable;
 import code.expressionlanguage.analyze.util.AnaFormattedRootBlock;
 import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
+import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.fwd.Members;
 import code.expressionlanguage.common.ConstType;
 import code.expressionlanguage.exec.Classes;
@@ -261,6 +262,16 @@ public final class ForwardInfos {
             ExecFileBlock value_ = files_.getValue(numberFile_);
             function_.setFile(value_);
         }
+        for (SwitchOperation e: _page.getAllSwitchMethods()) {
+            SwitchMethodBlock method_ = e.getSwitchMethod();
+            coverage_.putCallsSwitchMethod();
+            ExecAbstractSwitchMethod function_ = buildExecSwitchOperation(e, _forwards);
+            _forwards.getAllFct().addEntry(method_, function_);
+            _forwards.getAllFctBodies().addEntry(method_, function_);
+            int numberFile_ = method_.getFile().getNumberFile();
+            ExecFileBlock value_ = files_.getValue(numberFile_);
+            function_.setFile(value_);
+        }
         for (EntryCust<RootBlock, Members> e: _forwards.getMapMembers().entryList()) {
             RootBlock c = e.getKey();
             Members mem_ = e.getValue();
@@ -382,17 +393,25 @@ public final class ForwardInfos {
                     for (AnonymousTypeBlock a: ((InfoBlock)b).getAnonymous()) {
                         value_.getAnonymous().add(_forwards.getMapAnonTypes().getValue(a.getNumberAnonType()));
                     }
+                    for (SwitchMethodBlock a: ((InfoBlock)b).getSwitchMethods()) {
+                        value_.getSwitchMethods().add(_forwards.getMapSwitchMethods().getValue(a.getConditionNb()));
+                    }
                     for (AnonymousFunctionBlock a: ((InfoBlock)b).getAnonymousFct()) {
                         value_.getAnonymousLambda().add(_forwards.getMapAnonLambda().getValue(a.getNumberLambda()));
                     }
                 }
             }
             ExecRootBlock value_ = e.getValue().getRootBlock();
-            for (AnonymousFunctionBlock a: root_.getAnonymousRootFct()) {
-                value_.getAnonymousRootLambda().add(_forwards.getMapAnonLambda().getValue(a.getNumberLambda()));
-            }
-            for (AnonymousTypeBlock a: root_.getAnonymousRoot()) {
-                value_.getAnonymousRoot().add(_forwards.getMapAnonTypes().getValue(a.getNumberAnonType()));
+            if (!(value_ instanceof ExecInnerElementBlock)) {
+                for (AnonymousFunctionBlock a: root_.getAnonymousRootFct()) {
+                    value_.getAnonymousRootLambda().add(_forwards.getMapAnonLambda().getValue(a.getNumberLambda()));
+                }
+                for (SwitchMethodBlock a: root_.getSwitchMethods()) {
+                    value_.getSwitchMethods().add(_forwards.getMapSwitchMethods().getValue(a.getConditionNb()));
+                }
+                for (AnonymousTypeBlock a: root_.getAnonymousRoot()) {
+                    value_.getAnonymousRoot().add(_forwards.getMapAnonTypes().getValue(a.getNumberAnonType()));
+                }
             }
         }
         for (EntryCust<OperatorBlock, ExecOperatorBlock> e: _forwards.getMapOperators().entryList()) {
@@ -405,9 +424,17 @@ public final class ForwardInfos {
             ExecAnonymousFunctionBlock value_ = a.getValue();
             feedFct(key_, value_, _forwards);
         }
+        for (EntryCust<SwitchMethodBlock, ExecAbstractSwitchMethod> a: _forwards.getMapSwitchMethods().entryList()) {
+            SwitchMethodBlock key_ = a.getKey();
+            ExecAbstractSwitchMethod value_ = a.getValue();
+            feedFct(key_, value_, _forwards);
+        }
     }
 
     private static void feedFct(MemberCallingsBlock _b1, ExecMemberCallingsBlock _value, Forwards _forwards) {
+        for (SwitchMethodBlock a: _b1.getSwitchMethods()) {
+            _value.getSwitchMethods().add(_forwards.getMapSwitchMethods().getValue(a.getConditionNb()));
+        }
         for (AnonymousFunctionBlock a: _b1.getAnonymousFct()) {
             _value.getAnonymousLambda().add(_forwards.getMapAnonLambda().getValue(a.getNumberLambda()));
         }
@@ -555,6 +582,28 @@ public final class ForwardInfos {
         return fct_;
     }
 
+    private static ExecAbstractSwitchMethod buildExecSwitchOperation(SwitchOperation _s, Forwards _forwards) {
+        SwitchMethodBlock block_ = _s.getSwitchMethod();
+        block_.setConditionNb(_forwards.getMapSwitchMethods().size());
+        String parType_ = block_.getResult().getSingleNameOrEmpty();
+        boolean retRef_ = block_.isRetRef();
+        String name_ = block_.getName();
+        MethodAccessKind kind_ = block_.getStaticContext();
+        ExecAbstractSwitchMethod fct_;
+        if (!block_.getInstanceTest().isEmpty()) {
+            fct_ = new ExecSwitchInstanceMethod(retRef_, name_, kind_, parType_,block_.getOffset().getOffsetTrim());
+        } else if (block_.isEnumTest()) {
+            fct_ = new ExecSwitchEnumMethod(retRef_, name_, kind_, parType_,block_.getOffset().getOffsetTrim());
+        } else {
+            fct_ = new ExecSwitchValueMethod(retRef_, name_, kind_, parType_, block_.getOffset().getOffsetTrim());
+        }
+        ExecRootBlock declaring_ = FetchMemberUtil.fetchType(_s.getRootNumber(),_forwards);
+        fct_.setParentType(declaring_);
+        fct_.setOperator(FetchMemberUtil.fetchOperator(_s.getOperatorNumber(),_forwards));
+        _forwards.getMapSwitchMethods().addEntry(block_,fct_);
+        return fct_;
+    }
+
     private static void buildExec(MemberCallingsBlock _from, ExecMemberCallingsBlock _dest, Coverage _coverage, Forwards _forwards) {
         ExecBracedBlock blockToWrite_ = _dest;
         ExecFileBlock fileDest_ = _dest.getFile();
@@ -576,7 +625,6 @@ public final class ForwardInfos {
                 _coverage.putBlockOperations(_from,exec_,en_);
             } else if (en_ instanceof CaseCondition) {
                 ExecBracedBlock exec_;
-                SwitchBlock par_ = ((CaseCondition) en_).getSwitchParent();
                 if (!((CaseCondition) en_).getInstanceTest().isEmpty()) {
                     if (((CaseCondition) en_).getImportedType().isEmpty()) {
                         exec_ = new ExecNullInstanceCaseCondition(((CaseCondition) en_).getValueOffset(), en_.getOffset().getOffsetTrim());
@@ -600,7 +648,14 @@ public final class ForwardInfos {
                         }
                     }
                 }
-                _coverage.putBlockOperationsSwitchsPart(_from,par_,(CaseCondition)en_, exec_);
+                SwitchBlock par_ = ((CaseCondition) en_).getSwitchParent();
+                if (par_ != null) {
+                    _coverage.putBlockOperationsSwitchsPart(_from, par_, (CaseCondition) en_, exec_);
+                }
+                SwitchMethodBlock met_ = ((CaseCondition)en_).getSwitchMethod();
+                if (met_ != null) {
+                    _coverage.putBlockOperationsSwitchsMethodPart(met_, (CaseCondition) en_, exec_);
+                }
                 exec_.setFile(fileDest_);
                 blockToWrite_.appendChild(exec_);
                 _coverage.putBlockOperations(_from,exec_,en_);
@@ -668,7 +723,6 @@ public final class ForwardInfos {
                     _coverage.putBlockOperations(_from,exec_,en_);
                 }
             } else if (en_ instanceof DefaultCondition) {
-                SwitchBlock b_ = ((DefaultCondition)en_).getSwitchParent();
                 ExecBracedBlock exec_;
                 String instanceTest_ = ((DefaultCondition)en_).getInstanceTest();
                 if (instanceTest_.isEmpty()) {
@@ -676,7 +730,14 @@ public final class ForwardInfos {
                 } else {
                     exec_ = new ExecInstanceDefaultCondition(((DefaultCondition)en_).getVariableName(), instanceTest_, ((DefaultCondition)en_).getVariableOffset(), en_.getOffset().getOffsetTrim());
                 }
-                _coverage.putBlockOperationsSwitchsPart(_from,b_,(DefaultCondition)en_, exec_);
+                SwitchBlock b_ = ((DefaultCondition)en_).getSwitchParent();
+                if (b_ != null) {
+                    _coverage.putBlockOperationsSwitchsPart(_from, b_, (DefaultCondition) en_, exec_);
+                }
+                SwitchMethodBlock met_ = ((DefaultCondition)en_).getSwitchMethod();
+                if (met_ != null) {
+                    _coverage.putBlockOperationsSwitchsMethodPart(met_, (DefaultCondition) en_, exec_);
+                }
                 exec_.setFile(fileDest_);
                 blockToWrite_.appendChild(exec_);
                 _coverage.putBlockOperations(_from,exec_,en_);
@@ -1041,6 +1102,13 @@ public final class ForwardInfos {
                 return new ExecCustArrOperation(get_,set_, new ExecOperationContent(a_.getContent()), a_.isIntermediateDottedOperation(), new ExecArrContent(a_.getArrContent()), new ExecInstFctContent(a_.getCallFctContent(), a_.getAnc(), a_.isStaticChoiceMethod()));
             }
             return new ExecArrOperation(new ExecOperationContent(a_.getContent()), a_.isIntermediateDottedOperation(), new ExecArrContent(a_.getArrContent()));
+        }
+        if (_anaNode instanceof SwitchOperation) {
+            SwitchOperation s_ = (SwitchOperation) _anaNode;
+            SwitchMethodBlock switchMethod_ = s_.getSwitchMethod();
+            ExecAbstractSwitchMethod r_ = _forwards.getMapSwitchMethods().getValue(switchMethod_.getConditionNb());
+            ExecRootBlock type_ = FetchMemberUtil.fetchType(s_.getRootNumber(), _forwards);
+            return new ExecSwitchOperation(new ExecOperationContent(s_.getContent()),type_,r_, new ExecArrContent(s_.getArrContent()));
         }
         if (_anaNode instanceof IdOperation) {
             IdOperation d_ = (IdOperation) _anaNode;

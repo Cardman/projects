@@ -212,6 +212,14 @@ public final class MethodMetaInfo extends WithoutParentStruct implements Annotat
         return new CustList<ExecAnonymousFunctionBlock>();
     }
     @Override
+    public CustList<ExecAbstractSwitchMethod> getSwitchMethods() {
+        if (callee != null) {
+            return callee.getSwitchMethods();
+        }
+        return new CustList<ExecAbstractSwitchMethod>();
+    }
+
+    @Override
     public String getClassName(ContextEl _contextEl) {
         return _contextEl.getStandards().getContent().getReflect().getAliasMethod();
     }

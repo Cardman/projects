@@ -168,7 +168,7 @@ public abstract class OperationNode {
         return isParentSetter(p_);
     }
 
-    private static boolean isParentSetter(OperationNode _p) {
+    protected static boolean isParentSetter(OperationNode _p) {
         if (_p instanceof WrappOperation) {
             return true;
         }
@@ -241,7 +241,7 @@ public abstract class OperationNode {
         if (ternary_ == BOOLEAN_ARGS) {
             MethodOperation m_ = _m;
             int indCh_ = _indexChild;
-            while (m_ instanceof IdOperation && m_.getOperations().getValues().size() <= 1) {
+            while (atMostOne(m_)) {
                 indCh_ = m_.getIndexChild();
                 m_ = m_.getParent();
             }
@@ -294,6 +294,11 @@ public abstract class OperationNode {
                     return new AnonymousInstancingOperation(_index,_indexChild,_m,_op,(AnonymousTypeBlock)block_);
                 }
                 return new StandardInstancingOperation(_index, _indexChild, _m, _op);
+            }
+            Block block_ = _op.getBlock();
+            if (block_ instanceof SwitchMethodBlock) {
+                ((SwitchMethodBlock)block_).setIndexEnd(block_.getOffset().getOffsetTrim()+_op.getLength());
+                return new SwitchOperation(_index, _indexChild, _m, _op,(SwitchMethodBlock)block_,delta_);
             }
             if (fctName_.isEmpty()) {
                 return new IdOperation(_index, _indexChild, _m, _op,_op.getFctName().length());
@@ -442,6 +447,10 @@ public abstract class OperationNode {
             return new AffectationOperation(_index, _indexChild, _m, _op);
         }
         return new ErrorPartOperation(_index, _indexChild, _m, _op);
+    }
+
+    protected static boolean atMostOne(MethodOperation _m) {
+        return _m instanceof IdOperation && _m.getOperations().getValues().size() <= 1;
     }
 
     private static OperationNode createLeaf(int _index, int _indexChild, MethodOperation _m, OperationsSequence _op, AnalyzedPageEl _page) {

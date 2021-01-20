@@ -31,7 +31,7 @@ public final class DefaultCondition extends SwitchPartBlock {
 
     private void checkDefault(AnalyzedPageEl _page) {
         BracedBlock b_ = getParent();
-        if (!(b_ instanceof SwitchBlock)) {
+        if (!(b_ instanceof SwitchBlock)&&!(b_ instanceof SwitchMethodBlock)) {
             _page.setGlobalOffset(getOffset().getOffsetTrim());
             _page.setOffset(0);
             FoundErrorInterpret un_ = new FoundErrorInterpret();
@@ -45,9 +45,16 @@ public final class DefaultCondition extends SwitchPartBlock {
             _page.addLocError(un_);
             addErrorBlock(un_.getBuiltError());
         } else {
-            SwitchBlock s_ = (SwitchBlock) b_;
-            setSwitchParent(s_);
-            String instanceTest_ = s_.getInstanceTest();
+            String instanceTest_;
+            if (b_ instanceof SwitchBlock) {
+                SwitchBlock s_ = (SwitchBlock) b_;
+                setSwitchParent(s_);
+                instanceTest_ = s_.getInstanceTest();
+            } else {
+                SwitchMethodBlock s_ = (SwitchMethodBlock) b_;
+                setSwitchMethod(s_);
+                instanceTest_ = s_.getInstanceTest();
+            }
             if (instanceTest_.isEmpty()) {
                 Block first_ = b_.getFirstChild();
                 while (first_ != this) {

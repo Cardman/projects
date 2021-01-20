@@ -1,5 +1,6 @@
 package code.expressionlanguage.analyze.instr;
 import code.expressionlanguage.analyze.blocks.Block;
+import code.expressionlanguage.analyze.blocks.SwitchMethodBlock;
 import code.expressionlanguage.common.*;
 import code.expressionlanguage.analyze.files.ParsedFctHeader;
 import code.util.CustList;
@@ -102,16 +103,18 @@ public final class OperationsSequence {
                         if (op_.charAt(0) == ARR && _instance) {
                             initArrayDim_ = true;
                         }
-                        if (!filter_.substring(afterLastPar_).trim().isEmpty()) {
-                            if (!instance) {
-                                operators.clear();
-                                operators.put(afterLastPar_,"");
-                                return;
-                            }
-                            if (block == null) {
-                                values.put((int) IndexConstants.FIRST_INDEX, _string);
-                                constType = ConstType.ERROR;
-                                return;
+                        if (!(block instanceof SwitchMethodBlock)) {
+                            if (!filter_.substring(afterLastPar_).trim().isEmpty()) {
+                                if (!instance) {
+                                    operators.clear();
+                                    operators.put(afterLastPar_, "");
+                                    return;
+                                }
+                                if (block == null) {
+                                    values.put((int) IndexConstants.FIRST_INDEX, _string);
+                                    constType = ConstType.ERROR;
+                                    return;
+                                }
                             }
                         }
                     } else {

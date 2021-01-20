@@ -1037,6 +1037,7 @@ public final class RenderInitNavTest extends CommonRender {
         _lgNames.getContent().getReflect().setAliasGetDeclaredAnonymousLambdaLocalVarsNb("getDeclaredAnonymousLambdaLocVarsNb");
         _lgNames.getContent().getReflect().setAliasGetDeclaredAnonymousLambdaLoopVars("getDeclaredAnonymousLambdaLoopVars");
         _lgNames.getContent().getReflect().setAliasGetDeclaredBlocks("getDeclaredBlocks");
+        _lgNames.getContent().getReflect().setAliasGetDeclaredSwitchMethods("getDeclaredSwitchMethods");
         _lgNames.getContent().getReflect().setAliasGetDeclaredLocalTypes("getDeclaredLocalTypes");
         _lgNames.getContent().getReflect().setAliasGetDeclaredMethods("getDeclaredMethods");
         _lgNames.getContent().getReflect().setAliasGetDeclaredExplicits("getDeclaredExplicits");

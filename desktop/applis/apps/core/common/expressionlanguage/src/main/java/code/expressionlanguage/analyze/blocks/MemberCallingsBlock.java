@@ -14,10 +14,11 @@ import code.util.StringMap;
 
 public abstract class MemberCallingsBlock extends BracedBlock implements FunctionBlock,ReturnableWithSignature {
 
-    private StringMap<MappingLocalType> mappings = new StringMap<MappingLocalType>();
-    private CustList<RootBlock> reserved = new CustList<RootBlock>();
-    private CustList<AnonymousTypeBlock> anonymous = new CustList<AnonymousTypeBlock>();
-    private CustList<AnonymousFunctionBlock> anonymousFct = new CustList<AnonymousFunctionBlock>();
+    private final StringMap<MappingLocalType> mappings = new StringMap<MappingLocalType>();
+    private final CustList<RootBlock> reserved = new CustList<RootBlock>();
+    private final CustList<AnonymousTypeBlock> anonymous = new CustList<AnonymousTypeBlock>();
+    private final CustList<AnonymousFunctionBlock> anonymousFct = new CustList<AnonymousFunctionBlock>();
+    private final CustList<SwitchMethodBlock> switchMethods = new CustList<SwitchMethodBlock>();
     private int numberFct;
     private int numberBodyFct;
     MemberCallingsBlock(OffsetsBlock _offset) {
@@ -139,6 +140,10 @@ public abstract class MemberCallingsBlock extends BracedBlock implements Functio
 
     public CustList<AnonymousFunctionBlock> getAnonymousFct() {
         return anonymousFct;
+    }
+
+    public CustList<SwitchMethodBlock> getSwitchMethods() {
+        return switchMethods;
     }
 
     public int getNumberFct() {
