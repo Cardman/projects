@@ -70,7 +70,7 @@ public final class SwitchOperation extends AbstractUnaryOperation implements Pre
         if (m_ == null && cur_ instanceof ReturnMethod) {
             retType = InvokingOperation.tryGetRetType(_page);
         } else {
-            retType = InvokingOperation.tryGetTypeAff(m_);
+            retType = InvokingOperation.tryGetTypeAff(m_, par_.getOperationChild().getIndexChild());
         }
         KeyWords keyWords_ = _page.getKeyWords();
         String switchWord_ = keyWords_.getKeyWordSwitch();

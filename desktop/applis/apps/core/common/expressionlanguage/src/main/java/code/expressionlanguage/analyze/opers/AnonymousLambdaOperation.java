@@ -71,7 +71,7 @@ public final class AnonymousLambdaOperation extends
         if (m_ == null && cur_ instanceof ReturnMethod) {
             typeAff_ = InvokingOperation.tryGetRetType(_page);
         } else {
-            typeAff_ = InvokingOperation.tryGetTypeAff(m_);
+            typeAff_ = InvokingOperation.tryGetTypeAff(m_, par_.getOperationChild().getIndexChild());
         }
         String keyWordVar_ = _page.getKeyWords().getKeyWordVar();
         String foundType_ = EMPTY_STRING;

@@ -61,7 +61,7 @@ public final class ElementArrayInstancing extends AbstractArrayInstancingOperati
                 typeAff_ = StringExpUtil.getPrettyArrayType(typeAff_);
             }
         } else {
-            typeAff_ = tryGetTypeAff(m_);
+            typeAff_ = tryGetTypeAff(m_, par_.getOperationChild().getIndexChild());
         }
         CustList<PartOffset> partOffsets_ = new CustList<PartOffset>();
         DimComp dim_ = AnaTemplates.getComponentForm(className_);

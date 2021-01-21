@@ -25,7 +25,7 @@ import code.util.StringMap;
 import code.util.core.StringUtil;
 
 public final class InferArrayInstancing extends AbstractArrayInstancingOperation implements PreAnalyzableOperation {
-    private CustList<PartOffset> partOffsetsErr = new CustList<PartOffset>();
+    private final CustList<PartOffset> partOffsetsErr = new CustList<PartOffset>();
     private String typeInfer = EMPTY_STRING;
 
     InferArrayInstancing(int _index, int _indexChild,
@@ -113,7 +113,7 @@ public final class InferArrayInstancing extends AbstractArrayInstancingOperation
                 type_ = StringExpUtil.getPrettyArrayType(type_);
             }
         } else {
-            type_ = tryGetTypeAff(m_);
+            type_ = tryGetTypeAff(m_, par_.getOperationChild().getIndexChild());
         }
         KeyWords keyWords_ = _page.getKeyWords();
         String keyWordVar_ = keyWords_.getKeyWordVar();

@@ -134,7 +134,7 @@ public abstract class AbstractInstancingOperation extends InvokingOperation {
                 typeAff_ = StringUtil.concat(iter_,Templates.TEMPLATE_BEGIN,typeAffOne_,Templates.TEMPLATE_SEP,typeAffTwo_,Templates.TEMPLATE_END);
             }
         } else {
-            typeAff_ = tryGetTypeAff(m_);
+            typeAff_ = tryGetTypeAff(m_, par_.getOperationChild().getIndexChild());
         }
         String keyWordVar_ = keyWords_.getKeyWordVar();
         if (className_.trim().isEmpty()) {

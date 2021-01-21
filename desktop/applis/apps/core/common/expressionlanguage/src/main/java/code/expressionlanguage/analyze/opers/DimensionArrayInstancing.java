@@ -55,7 +55,7 @@ public final class DimensionArrayInstancing extends
         if (m_ == null && cur_ instanceof ReturnMethod) {
             typeAff_ = tryGetRetType(_page);
         } else {
-            typeAff_ = tryGetTypeAff(m_);
+            typeAff_ = tryGetTypeAff(m_, par_.getOperationChild().getIndexChild());
         }
         if (className_.trim().isEmpty()) {
             String keyWordVar_ = keyWords_.getKeyWordVar();

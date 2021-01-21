@@ -117,7 +117,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
         }
         return EMPTY_STRING;
     }
-    protected static String tryGetTypeAff(OperationNode _m) {
+    protected static String tryGetTypeAff(OperationNode _m, int _indexChild) {
         if (_m instanceof CastOperation) {
             CastOperation c_ = (CastOperation) _m;
             return c_.getClassName();
@@ -125,7 +125,10 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
             return _m.getResultClass().getSingleNameOrEmpty();
         } else if (_m instanceof AffectationOperation) {
             AffectationOperation a_ = (AffectationOperation) _m;
-            SettableElResult s_ = AffectationOperation.tryGetSettable(a_);
+            SettableElResult s_ = null;
+            if (_indexChild > 0) {
+                s_ = AffectationOperation.tryGetSettable(a_);
+            }
             if (s_ != null) {
                 AnaClassArgumentMatching c_ = s_.getResultClass();
                 return c_.getSingleNameOrEmpty();
@@ -356,7 +359,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
             if (_parentMatching == null &&cur_ instanceof ReturnMethod) {
                 typeAff_ = tryGetRetType(_page);
             } else {
-                typeAff_ = tryGetTypeAff(_parentMatching);
+                typeAff_ = tryGetTypeAff(_parentMatching, 1);
             }
         }
         filterByReturnType(typeAff_, _methodInfos, _page);

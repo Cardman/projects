@@ -21,7 +21,7 @@ public final class ParentInferring {
         m_ = _from.getParent();
         while (m_ != null) {
             if (!(m_ instanceof ElementArrayInstancing) && !(m_ instanceof InferArrayInstancing)) {
-                if (m_ instanceof IdOperation || m_ instanceof FirstOptOperation) {
+                if (m_ instanceof IdOperation || m_ instanceof FirstOptOperation  || m_ instanceof WrappOperation) {
                     current_ = current_.getParent();
                     m_ = m_.getParent();
                     continue;
