@@ -961,6 +961,66 @@ public final class ParsedFctHeaderTest {
         assertEq(15,p_.getOffestsParams().get(1));
     }
     @Test
+    public void test42() {
+        ParsedFctHeader p_ = new ParsedFctHeader();
+        p_.parseAnonymous(0,"( a,b)->",12,"that");
+        assertEq(5,p_.getNextIndex());
+        assertEq("",p_.getReturnType());
+        assertTrue(!p_.isRetRef());
+        assertEq(17,p_.getReturnOffest());
+        assertEq(0,p_.getAnnotations().size());
+        assertEq(0,p_.getAnnotationsIndexes().size());
+        assertEq(2,p_.getAnnotationsParams().size());
+        assertEq(0,p_.getAnnotationsParams().get(0).size());
+        assertEq(2,p_.getAnnotationsIndexesParams().size());
+        assertEq(0,p_.getAnnotationsIndexesParams().get(0).size());
+        assertEq(2,p_.getParametersType().size());
+        assertEq("",p_.getParametersType().get(0));
+        assertEq("",p_.getParametersType().get(1));
+        assertEq(2,p_.getParametersRef().size());
+        assertTrue(!p_.getParametersRef().get(0));
+        assertTrue(!p_.getParametersRef().get(1));
+        assertEq(2,p_.getParametersName().size());
+        assertEq("a",p_.getParametersName().get(0));
+        assertEq("b",p_.getParametersName().get(1));
+        assertEq(2,p_.getOffestsTypes().size());
+        assertEq(14,p_.getOffestsTypes().get(0));
+        assertEq(16,p_.getOffestsTypes().get(1));
+        assertEq(2,p_.getOffestsParams().size());
+        assertEq(14,p_.getOffestsParams().get(0));
+        assertEq(16,p_.getOffestsParams().get(1));
+    }
+    @Test
+    public void test43() {
+        ParsedFctHeader p_ = new ParsedFctHeader();
+        p_.parseAnonymous(0,"(a, b)->",12,"that");
+        assertEq(5,p_.getNextIndex());
+        assertEq("",p_.getReturnType());
+        assertTrue(!p_.isRetRef());
+        assertEq(17,p_.getReturnOffest());
+        assertEq(0,p_.getAnnotations().size());
+        assertEq(0,p_.getAnnotationsIndexes().size());
+        assertEq(2,p_.getAnnotationsParams().size());
+        assertEq(0,p_.getAnnotationsParams().get(0).size());
+        assertEq(2,p_.getAnnotationsIndexesParams().size());
+        assertEq(0,p_.getAnnotationsIndexesParams().get(0).size());
+        assertEq(2,p_.getParametersType().size());
+        assertEq("",p_.getParametersType().get(0));
+        assertEq("",p_.getParametersType().get(1));
+        assertEq(2,p_.getParametersRef().size());
+        assertTrue(!p_.getParametersRef().get(0));
+        assertTrue(!p_.getParametersRef().get(1));
+        assertEq(2,p_.getParametersName().size());
+        assertEq("a",p_.getParametersName().get(0));
+        assertEq("b",p_.getParametersName().get(1));
+        assertEq(2,p_.getOffestsTypes().size());
+        assertEq(13,p_.getOffestsTypes().get(0));
+        assertEq(16,p_.getOffestsTypes().get(1));
+        assertEq(2,p_.getOffestsParams().size());
+        assertEq(13,p_.getOffestsParams().get(0));
+        assertEq(16,p_.getOffestsParams().get(1));
+    }
+    @Test
     public void testNon1() {
         ParsedFctHeader p_ = new ParsedFctHeader();
         p_.parseAnonymous(0,"",12,"that");

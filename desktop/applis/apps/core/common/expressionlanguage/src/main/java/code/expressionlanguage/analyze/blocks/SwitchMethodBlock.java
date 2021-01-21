@@ -18,7 +18,7 @@ public final class SwitchMethodBlock extends MemberCallingsBlock {
     private int indexEnd;
     private final StringList allReservedInners = new StringList();
 
-    private AnaClassArgumentMatching result;
+    private AnaClassArgumentMatching result = new AnaClassArgumentMatching("");
 
     private boolean enumTest;
     private String instanceTest = "";
