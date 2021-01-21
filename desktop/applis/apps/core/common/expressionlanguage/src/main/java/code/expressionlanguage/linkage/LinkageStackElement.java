@@ -17,6 +17,13 @@ public final class LinkageStackElement {
     private final CustList<PartOffset> partsAfter = new CustList<PartOffset>();
     private boolean visitedParams;
 
+    public void element(LinkageStackElement _v) {
+        block = _v.block;
+        indexLoop = _v.indexLoop;
+        indexAnnotation = _v.indexAnnotation;
+        indexAnnotationGroup = _v.indexAnnotationGroup;
+    }
+
     public Block getBlock() {
         return block;
     }

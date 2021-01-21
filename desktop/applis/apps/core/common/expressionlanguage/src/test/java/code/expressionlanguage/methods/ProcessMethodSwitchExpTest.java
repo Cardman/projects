@@ -2102,6 +2102,70 @@ public final class ProcessMethodSwitchExpTest extends ProcessMethodCommon {
         assertEq(1, getNumber(ret_));
     }
     @Test
+    public void test85() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public annotation pkg.Annot {\n");
+        xml_.append(" int info();\n");
+        xml_.append("}\n");
+        xml_.append("public interface pkg.Int {\n");
+        xml_.append(" normal int field(){return 0;}\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static int exmeth(){\n");
+        xml_.append("  return exmeth(10)+class(Ex).getDeclaredMethods()[1].getDeclaredAnonymousTypes()[0].getAnnotations().length;\n");
+        xml_.append(" }\n");
+        xml_.append(" public static int exmeth(int... p){\n");
+        xml_.append("  int q = switch[int](p) {\n");
+        xml_.append("   case int[] i:\n");
+        xml_.append("    return i[0]+1;\n");
+        xml_.append("   default d:\n");
+        xml_.append("    return (int)d;\n");
+        xml_.append("  } + new @Annot(0) Int(){}.field();\n");
+        xml_.append("  return q;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxLgReadOnlyOk("en",files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(12, getNumber(ret_));
+    }
+    @Test
+    public void test86() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public annotation pkg.Annot {\n");
+        xml_.append(" int info();\n");
+        xml_.append("}\n");
+        xml_.append("public interface pkg.Int {\n");
+        xml_.append(" normal int field(){return 0;}\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static int exmeth(){\n");
+        xml_.append("  return exmeth(10)+class(Ex).getDeclaredMethods()[1].getDeclaredAnonymousTypes()[0].getAnnotations().length;\n");
+        xml_.append(" }\n");
+        xml_.append(" public static int exmeth(int... p){\n");
+        xml_.append("  int q = new @Annot(0) Int(){}.field() + switch[int](p) {\n");
+        xml_.append("   case int[] i:\n");
+        xml_.append("    return i[0]+1;\n");
+        xml_.append("   default d:\n");
+        xml_.append("    return (int)d;\n");
+        xml_.append("  };\n");
+        xml_.append("  return q;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxLgReadOnlyOk("en",files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(12, getNumber(ret_));
+    }
+    @Test
     public void testAss() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("public class pkg.Ex {\n");

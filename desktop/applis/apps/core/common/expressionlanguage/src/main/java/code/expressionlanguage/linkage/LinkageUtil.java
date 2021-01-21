@@ -2344,12 +2344,22 @@ public final class LinkageUtil {
 
     private static void buildCoverageReport(VariablesOffsets _vars, Block _cond, int _index, CustList<PartOffset> _parts, Coverage _cov, int _indexAnnotation, int _begin, int _end, OperationNode _root, int _indexLoop, int _tr, String _field, boolean _annot) {
         OperationNode current_ = getCurrent(_vars, _root);
-        buildCoverageReport(_indexLoop, _index, _indexAnnotation, _vars, _begin, _cond, current_, _root, _end, _parts, _tr, _field, _annot, _cov);
+        LinkageStackElement l_ = new LinkageStackElement();
+        l_.setIndexLoop(_indexLoop);
+        l_.setIndexAnnotationGroup(_index);
+        l_.setIndexAnnotation(_indexAnnotation);
+        l_.setBlock(_cond);
+        buildCoverageReport(l_, _vars, _begin, current_, _root, _end, _parts, _tr, _field, _annot, _cov);
     }
 
     private static void buildErrorReport(VariablesOffsets _vars, Block _cond, int _index, CustList<PartOffset> _parts, int _indexAnnotation, int _begin, OperationNode _root, int _indexLoop, int _tr, String _field) {
         OperationNode current_ = getCurrent(_vars, _root);
-        buildErrorReport(_indexLoop, _index, _indexAnnotation, _vars, _begin, _cond, current_, _root, _parts, _tr, _field);
+        LinkageStackElement l_ = new LinkageStackElement();
+        l_.setIndexLoop(_indexLoop);
+        l_.setIndexAnnotationGroup(_index);
+        l_.setIndexAnnotation(_indexAnnotation);
+        l_.setBlock(_cond);
+        buildErrorReport(l_, _vars, _begin, current_, _root, _parts, _tr, _field);
     }
 
     private static OperationNode getCurrent(VariablesOffsets _vars,OperationNode _root) {
@@ -2360,21 +2370,23 @@ public final class LinkageUtil {
         return current_;
     }
 
-    private static void buildCoverageReport(int _indexLoop, int _indexAnnotationGroup, int _indexAnnotation, VariablesOffsets _vars, int _offsetBlock,
-                                            Block _block,
+    private static void buildCoverageReport(LinkageStackElement _element, VariablesOffsets _vars, int _offsetBlock,
                                             OperationNode _from, OperationNode _root,
                                             int _endBlock,
                                             CustList<PartOffset> _parts, int _tr, String _fieldName, boolean _annotation, Coverage _cov) {
         int sum_ = _tr + _offsetBlock - _fieldName.length();
         String currentFileName_ = _vars.getCurrentFileName();
-        boolean addCover_ = !(_block instanceof CaseCondition);
+        Block bl_ = _element.getBlock();
+        int indexAnnotation_ = _element.getIndexAnnotation();
+        int indexAnnotationGroup_ = _element.getIndexAnnotationGroup();
+        boolean addCover_ = !(bl_ instanceof CaseCondition);
         OperationNode val_ = _from;
         while (true) {
             if (!_vars.getVisited().containsObj(val_)) {
-                AbstractCoverageResult result_ = getCovers(_block, val_, _cov, _annotation, _indexAnnotationGroup, _indexAnnotation);
+                AbstractCoverageResult result_ = getCovers(bl_, val_, _cov, _annotation, indexAnnotationGroup_, indexAnnotation_);
                 if (!_vars.getVisitedAnnotations().containsObj(val_)) {
-                    getBeginOpReport(_block, _parts, _fieldName, _root, val_, sum_, addCover_, result_, _cov, _annotation, _indexAnnotationGroup, _indexAnnotation);
-                    leftReport(_vars, _block,sum_,val_, _cov,result_,_parts, currentFileName_);
+                    getBeginOpReport(bl_, _parts, _fieldName, _root, val_, sum_, addCover_, result_, _cov, _annotation, indexAnnotationGroup_, indexAnnotation_);
+                    leftReport(_vars, bl_,sum_,val_, _cov,result_,_parts, currentFileName_);
                 }
                 if (val_ instanceof AnonymousLambdaOperation) {
                     LinkageStackElement state_ = new LinkageStackElement();
@@ -2386,10 +2398,7 @@ public final class LinkageUtil {
                     state_.setIndexAnnotationGroup(0);
                     _vars.setState(state_);
                     _vars.getStack().last().setCurrent(val_);
-                    _vars.getStack().last().setBlock(_block);
-                    _vars.getStack().last().setIndexLoop(_indexLoop);
-                    _vars.getStack().last().setIndexAnnotation(_indexAnnotation);
-                    _vars.getStack().last().setIndexAnnotationGroup(_indexAnnotationGroup);
+                    _vars.getStack().last().element(_element);
                     _vars.getVisited().add(val_);
                     break;
                 }
@@ -2404,10 +2413,7 @@ public final class LinkageUtil {
                         state_.getPartsAfter().addAllElts(((AnonymousInstancingOperation) val_).getPartOffsets());
                         _vars.setState(state_);
                         _vars.getStack().last().setCurrent(val_);
-                        _vars.getStack().last().setBlock(_block);
-                        _vars.getStack().last().setIndexLoop(_indexLoop);
-                        _vars.getStack().last().setIndexAnnotation(_indexAnnotation);
-                        _vars.getStack().last().setIndexAnnotationGroup(_indexAnnotationGroup);
+                        _vars.getStack().last().element(_element);
                         _vars.getVisitedAnnotations().add(val_);
                         break;
                     }
@@ -2422,10 +2428,7 @@ public final class LinkageUtil {
                     processInner(val_, state_);
                     _vars.setState(state_);
                     _vars.getStack().last().setCurrent(val_);
-                    _vars.getStack().last().setBlock(_block);
-                    _vars.getStack().last().setIndexLoop(_indexLoop);
-                    _vars.getStack().last().setIndexAnnotation(_indexAnnotation);
-                    _vars.getStack().last().setIndexAnnotationGroup(_indexAnnotationGroup);
+                    _vars.getStack().last().element(_element);
                     _vars.getVisited().add(val_);
                     break;
                 }
@@ -2446,8 +2449,8 @@ public final class LinkageUtil {
                 _parts.add(new PartOffset(tag_,offsetEnd_));
                 processUnaryRightOperations(_vars, currentFileName_, sum_, offsetEnd_, val_,parent_, _parts);
                 if (nextSiblingOp_ != null) {
-                    middleReport(_vars,currentFileName_,_block, offsetEnd_,val_,nextSiblingOp_,
-                            parent_,_parts, _cov, _annotation, _indexAnnotationGroup, _indexAnnotation);
+                    middleReport(_vars,currentFileName_,bl_, offsetEnd_,val_,nextSiblingOp_,
+                            parent_,_parts, _cov, _annotation, indexAnnotationGroup_, indexAnnotation_);
                     val_=nextSiblingOp_;
                     break;
                 }
@@ -2456,10 +2459,7 @@ public final class LinkageUtil {
                     processInner(parent_, state_);
                     _vars.setState(state_);
                     _vars.getStack().last().setCurrent(parent_);
-                    _vars.getStack().last().setBlock(_block);
-                    _vars.getStack().last().setIndexLoop(_indexLoop);
-                    _vars.getStack().last().setIndexAnnotation(_indexAnnotation);
-                    _vars.getStack().last().setIndexAnnotationGroup(_indexAnnotationGroup);
+                    _vars.getStack().last().element(_element);
                     _vars.getVisited().add(parent_);
                     stopOp_ = true;
                     break;
@@ -2497,20 +2497,20 @@ public final class LinkageUtil {
         }
     }
 
-    private static void buildErrorReport(int _indexLoop, int _indexAnnotationGroup, int _indexAnnotation, VariablesOffsets _vars, int _offsetBlock,
-                                         Block _block,
+    private static void buildErrorReport(LinkageStackElement _element, VariablesOffsets _vars, int _offsetBlock,
                                          OperationNode _from, OperationNode _root,
                                          CustList<PartOffset> _parts, int _tr, String _fieldName) {
         if (_from == null) {
             return;
         }
+        Block bl_ = _element.getBlock();
         int sum_ = _tr + _offsetBlock - _fieldName.length();
         String currentFileName_ = _vars.getCurrentFileName();
         OperationNode val_ = _from;
         while (true) {
             if (!_vars.getVisited().containsObj(val_)) {
                 if (!_vars.getVisitedAnnotations().containsObj(val_)) {
-                    leftError(_vars, _block,sum_,val_, _parts, currentFileName_);
+                    leftError(_vars, bl_,sum_,val_, _parts, currentFileName_);
                 }
                 if (val_ instanceof AnonymousLambdaOperation) {
                     LinkageStackElement state_ = new LinkageStackElement();
@@ -2522,10 +2522,7 @@ public final class LinkageUtil {
                     _parts.add(new PartOffset("<span class=\"t\">", begin_));
                     _vars.setState(state_);
                     _vars.getStack().last().setCurrent(val_);
-                    _vars.getStack().last().setBlock(_block);
-                    _vars.getStack().last().setIndexLoop(_indexLoop);
-                    _vars.getStack().last().setIndexAnnotation(_indexAnnotation);
-                    _vars.getStack().last().setIndexAnnotationGroup(_indexAnnotationGroup);
+                    _vars.getStack().last().element(_element);
                     _vars.getVisited().add(val_);
                     break;
                 }
@@ -2540,10 +2537,7 @@ public final class LinkageUtil {
                         state_.getPartsAfter().addAllElts(((AnonymousInstancingOperation) val_).getPartOffsets());
                         _vars.setState(state_);
                         _vars.getStack().last().setCurrent(val_);
-                        _vars.getStack().last().setBlock(_block);
-                        _vars.getStack().last().setIndexLoop(_indexLoop);
-                        _vars.getStack().last().setIndexAnnotation(_indexAnnotation);
-                        _vars.getStack().last().setIndexAnnotationGroup(_indexAnnotationGroup);
+                        _vars.getStack().last().element(_element);
                         _vars.getVisitedAnnotations().add(val_);
                         break;
                     }
@@ -2558,10 +2552,7 @@ public final class LinkageUtil {
                     processInner(val_,state_);
                     _vars.setState(state_);
                     _vars.getStack().last().setCurrent(val_);
-                    _vars.getStack().last().setBlock(_block);
-                    _vars.getStack().last().setIndexLoop(_indexLoop);
-                    _vars.getStack().last().setIndexAnnotation(_indexAnnotation);
-                    _vars.getStack().last().setIndexAnnotationGroup(_indexAnnotationGroup);
+                    _vars.getStack().last().element(_element);
                     _vars.getVisited().add(val_);
                     break;
                 }
@@ -2590,10 +2581,7 @@ public final class LinkageUtil {
                     processInner(parent_,state_);
                     _vars.setState(state_);
                     _vars.getStack().last().setCurrent(parent_);
-                    _vars.getStack().last().setBlock(_block);
-                    _vars.getStack().last().setIndexLoop(_indexLoop);
-                    _vars.getStack().last().setIndexAnnotation(_indexAnnotation);
-                    _vars.getStack().last().setIndexAnnotationGroup(_indexAnnotationGroup);
+                    _vars.getStack().last().element(_element);
                     _vars.getVisited().add(parent_);
                     stopOp_ = true;
                     break;

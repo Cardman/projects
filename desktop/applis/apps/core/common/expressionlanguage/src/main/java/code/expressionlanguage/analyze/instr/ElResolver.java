@@ -764,8 +764,6 @@ public final class ElResolver {
                 }
                 int next_ = DefaultProcessKeyWord.skipWhiteSpace(_string,j_+k_+1);
                 if (_string.startsWith("(",next_)) {
-                    _stack.getAnnotationsIndexes().add(new Ints());
-                    _stack.getAnnotations().add(new StringList());
                     _stack.getStringsSwitch().add("");
                     _stack.getIndexesSwitch().add(next_);
                     _stack.getCallings().add(next_);
@@ -775,8 +773,6 @@ public final class ElResolver {
             }
             int next_ = DefaultProcessKeyWord.skipWhiteSpace(_string,j_);
             if (_string.startsWith("(",next_)) {
-                _stack.getAnnotationsIndexes().add(new Ints());
-                _stack.getAnnotations().add(new StringList());
                 _stack.getStringsSwitch().add("");
                 _stack.getIndexesSwitch().add(next_);
                 _stack.getCallings().add(next_);
