@@ -788,6 +788,7 @@ public final class ElResolver {
                 _stack.getStringsSwitch().add("");
                 _stack.getIndexesSwitch().add(next_);
                 _stack.getCallings().add(next_);
+                return next_;
             }
             return j_;
         }

@@ -18,14 +18,14 @@ import code.util.StringList;
 import code.util.core.StringUtil;
 
 public final class ExplicitOperatorOperation extends InvokingOperation implements PreAnalyzableOperation,RetrieveMethod,AbstractCallLeftOperation,SettableElResult {
-    private AnaCallFctContent callFctContent;
-    private AnaArrContent arrContent;
+    private final AnaCallFctContent callFctContent;
+    private final AnaArrContent arrContent;
     private AnaTypeFct function;
 
-    private int offsetOper;
+    private final int offsetOper;
     private String from;
 
-    private CustList<PartOffset> partOffsets = new CustList<PartOffset>();
+    private final CustList<PartOffset> partOffsets = new CustList<PartOffset>();
     private String methodFound = EMPTY_STRING;
     private CustList<CustList<MethodInfo>> methodInfos = new CustList<CustList<MethodInfo>>();
 
@@ -116,6 +116,16 @@ public final class ExplicitOperatorOperation extends InvokingOperation implement
         if (!name_.isOk()) {
             setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
             return;
+        }
+        if (StringExpUtil.isWildCard(from)) {
+            FoundErrorInterpret badAccess_ = new FoundErrorInterpret();
+            badAccess_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+            badAccess_.setFileName(_page.getLocalizer().getCurrentFileName());
+            //type len
+            badAccess_.buildError(_page.getAnalysisMessages().getUnexpectedType(),
+                    from);
+            _page.getLocalizer().addError(badAccess_);
+            addErr(badAccess_.getBuiltError());
         }
         ClassMethodIdReturn cust_;
         if (from.isEmpty()) {
