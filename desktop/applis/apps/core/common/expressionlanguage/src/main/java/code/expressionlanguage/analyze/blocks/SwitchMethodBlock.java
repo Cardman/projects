@@ -12,7 +12,7 @@ import code.util.BooleanList;
 import code.util.StringList;
 import code.util.core.StringUtil;
 
-public final class SwitchMethodBlock extends MemberCallingsBlock {
+public final class SwitchMethodBlock extends MemberCallingsBlock implements AnalyzedSwitch {
     private RootBlock parentType;
     private OperatorBlock operator;
     private int indexEnd;
@@ -33,36 +33,6 @@ public final class SwitchMethodBlock extends MemberCallingsBlock {
     public SwitchMethodBlock(OffsetsBlock _offset, AnalyzedPageEl _page) {
         super(_offset);
         kind = _page.getStaticContext();
-    }
-
-    public void processAfterEl(AnalyzedPageEl _page) {
-        Block first_ = getFirstChild();
-        while (first_ != null) {
-            Block elt_ = first_;
-            if (elt_ instanceof CaseCondition) {
-                first_ = first_.getNextSibling();
-                continue;
-            }
-            if (elt_ instanceof DefaultCondition) {
-                first_ = first_.getNextSibling();
-                continue;
-            }
-            FoundErrorInterpret un_ = new FoundErrorInterpret();
-            un_.setFileName(getFile().getFileName());
-            un_.setIndexFile(getOffset().getOffsetTrim());
-            //key word len
-            un_.buildError(_page.getAnalysisMessages().getUnexpectedSwitch(),
-                    _page.getKeyWords().getKeyWordSwitch(),
-                    StringUtil.join(
-                            new StringList(
-                                    _page.getKeyWords().getKeyWordCase(),
-                                    _page.getKeyWords().getKeyWordDefault()
-                            ),
-                            "|"));
-            _page.addLocError(un_);
-            first_.addErrorBlock(un_.getBuiltError());
-            first_ = first_.getNextSibling();
-        }
     }
 
     public AnaClassArgumentMatching getResult() {

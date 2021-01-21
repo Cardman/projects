@@ -16,20 +16,20 @@ import code.expressionlanguage.analyze.opers.OperationNode;
 import code.util.*;
 import code.util.core.StringUtil;
 
-public final class SwitchBlock extends BracedBlock implements BreakableBlock,BuildableElMethod {
+public final class SwitchBlock extends BracedBlock implements BreakableBlock,BuildableElMethod,AnalyzedSwitch {
 
-    private String label;
-    private int labelOffset;
+    private final String label;
+    private final int labelOffset;
 
     private final String value;
-    private int valueOffset;
+    private final int valueOffset;
 
     private AnaClassArgumentMatching result;
 
     private boolean enumTest;
     private String instanceTest = "";
 
-    private ResultExpression res = new ResultExpression();
+    private final ResultExpression res = new ResultExpression();
 
     private String err = "";
 
@@ -80,16 +80,23 @@ public final class SwitchBlock extends BracedBlock implements BreakableBlock,Bui
     }
 
     private void processAfterEl(AnalyzedPageEl _page) {
-        String type_ = result.getSingleNameOrEmpty();
+        _page.setGlobalOffset(valueOffset);
+        _page.setOffset(0);
+        processAfterEl(result,this,_page);
+        processChildren(this,_page);
+    }
+
+    public static void processAfterEl(AnaClassArgumentMatching _result,AnalyzedSwitch _braced,AnalyzedPageEl _page) {
+        String type_ = _result.getSingleNameOrEmpty();
         if (type_.isEmpty()) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
-            un_.setFileName(getFile().getFileName());
-            un_.setIndexFile(valueOffset);
+            un_.setFileName(_braced.getFile().getFileName());
+            un_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
             //one char => change to first left par
             un_.buildError(_page.getAnalysisMessages().getUnknownType(),
                     type_);
             _page.addLocError(un_);
-            addErrorBlock(un_.getBuiltError());
+            _braced.addErrorBlock(un_.getBuiltError());
         } else {
             String id_ = StringExpUtil.getIdFromAllTypes(type_);
             AnaGeneType classBody_ = _page.getAnaGeneType(id_);
@@ -103,24 +110,26 @@ public final class SwitchBlock extends BracedBlock implements BreakableBlock,Bui
                 if (!StringUtil.quickEq(id_, _page.getAliasString())) {
                     if (!(classBody_ instanceof EnumBlock)) {
                         if (!final_) {
-                            instanceTest = type_;
+                            _braced.setInstanceTest(type_);
                         } else {
                             FoundErrorInterpret un_ = new FoundErrorInterpret();
-                            un_.setFileName(getFile().getFileName());
-                            un_.setIndexFile(valueOffset);
+                            un_.setFileName(_braced.getFile().getFileName());
+                            un_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
                             //one char => change to first left par
                             un_.buildError(_page.getAnalysisMessages().getUnexpectedType(),
                                     id_);
                             _page.addLocError(un_);
-                            addErrorBlock(un_.getBuiltError());
+                            _braced.addErrorBlock(un_.getBuiltError());
                         }
                     } else {
-                        enumTest = true;
+                        _braced.setEnumTest(true);
                     }
                 }
             }
         }
-        Block first_ = getFirstChild();
+    }
+    public static void processChildren(BracedBlock _braced,AnalyzedPageEl _page) {
+        Block first_ = _braced.getFirstChild();
         while (first_ != null) {
             Block elt_ = first_;
             if (elt_ instanceof CaseCondition) {
@@ -131,11 +140,9 @@ public final class SwitchBlock extends BracedBlock implements BreakableBlock,Bui
                 first_ = first_.getNextSibling();
                 continue;
             }
-            _page.setGlobalOffset(getOffset().getOffsetTrim());
-            _page.setOffset(0);
             FoundErrorInterpret un_ = new FoundErrorInterpret();
-            un_.setFileName(getFile().getFileName());
-            un_.setIndexFile(getOffset().getOffsetTrim());
+            un_.setFileName(_braced.getFile().getFileName());
+            un_.setIndexFile(_braced.getOffset().getOffsetTrim());
             //key word len
             un_.buildError(_page.getAnalysisMessages().getUnexpectedSwitch(),
                     _page.getKeyWords().getKeyWordSwitch(),
@@ -150,7 +157,6 @@ public final class SwitchBlock extends BracedBlock implements BreakableBlock,Bui
             first_ = first_.getNextSibling();
         }
     }
-
     public AnaClassArgumentMatching getResult() {
         return result;
     }
@@ -171,8 +177,18 @@ public final class SwitchBlock extends BracedBlock implements BreakableBlock,Bui
         return instanceTest;
     }
 
+    @Override
+    public void setInstanceTest(String _instanceTest) {
+        this.instanceTest = _instanceTest;
+    }
+
     public boolean isEnumTest() {
         return enumTest;
+    }
+
+    @Override
+    public void setEnumTest(boolean _enumTest) {
+        this.enumTest = _enumTest;
     }
 
     public int getConditionNb() {

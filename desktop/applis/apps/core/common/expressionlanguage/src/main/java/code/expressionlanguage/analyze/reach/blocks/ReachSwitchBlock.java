@@ -9,12 +9,12 @@ import code.util.CustList;
 import code.util.EntryCust;
 import code.util.IdMap;
 
-public final class ReachSwitchBlock extends ReachBracedBlock implements ReachBreakableBlock,ReachBuildableElMethod {
-    private String label;
-    private AnaClassArgumentMatching result;
-    private int valueOffset;
-    private OperationNode root;
-    private String instanceTest;
+public final class ReachSwitchBlock extends ReachBracedBlock implements ReachBreakableBlock,ReachBuildableElMethod,ReachAnalyzedSwitch {
+    private final String label;
+    private final AnaClassArgumentMatching result;
+    private final int valueOffset;
+    private final OperationNode root;
+    private final String instanceTest;
 
     protected ReachSwitchBlock(SwitchBlock _info) {
         super(_info);
@@ -63,17 +63,32 @@ public final class ReachSwitchBlock extends ReachBracedBlock implements ReachBre
     }
     @Override
     public void abrupt(AnalyzingEl _anEl) {
-        ReachBlock ch_ = getFirstChild();
+        boolean abrupt_ = abruptCore(this,this,_anEl);
+        IdMap<ReachBreakBlock, ReachBreakableBlock> breakables_;
+        breakables_ = _anEl.getReachBreakables();
+        for (EntryCust<ReachBreakBlock, ReachBreakableBlock> e: breakables_.entryList()) {
+            if (e.getValue() == this && _anEl.isReachable(e.getKey())) {
+                abrupt_ = false;
+                break;
+            }
+        }
+        if (abrupt_) {
+            _anEl.completeAbruptGroup(this);
+        }
+    }
+
+    static boolean abruptCore(ReachBracedBlock _braced, ReachAnalyzedSwitch _ana,AnalyzingEl _anEl) {
+        ReachBlock ch_ = _braced.getFirstChild();
         if (ch_ == null) {
-            return;
+            return false;
         }
         boolean abrupt_ = true;
-        boolean def_ = hasDefaultCase();
+        boolean def_ = hasDefaultCase(_braced);
         if (!def_) {
             abrupt_ = false;
-        } else if (!instanceTest.isEmpty()) {
+        } else if (!_ana.getInstanceTest().isEmpty()) {
             CustList<ReachBlock> group_ = new CustList<ReachBlock>();
-            for (ReachBlock b: getDirectChildren(this)) {
+            for (ReachBlock b: getDirectChildren(_braced)) {
                 group_.add(b);
             }
             boolean canCmpNormally_ = false;
@@ -94,21 +109,10 @@ public final class ReachSwitchBlock extends ReachBracedBlock implements ReachBre
                 abrupt_ = false;
             }
         }
-        IdMap<ReachBreakBlock, ReachBreakableBlock> breakables_;
-        breakables_ = _anEl.getReachBreakables();
-        for (EntryCust<ReachBreakBlock, ReachBreakableBlock> e: breakables_.entryList()) {
-            if (e.getValue() == this && _anEl.isReachable(e.getKey())) {
-                abrupt_ = false;
-                break;
-            }
-        }
-        if (abrupt_) {
-            _anEl.completeAbruptGroup(this);
-        }
+        return abrupt_;
     }
-
-    private boolean hasDefaultCase() {
-        ReachBlock ch_ = getFirstChild();
+    private static boolean hasDefaultCase(ReachBracedBlock _braced) {
+        ReachBlock ch_ = _braced.getFirstChild();
         boolean def_ = false;
         while (ch_.getNextSibling() != null) {
             if (ch_ instanceof ReachDefaultCondition) {

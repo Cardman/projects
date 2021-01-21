@@ -145,16 +145,7 @@ public final class SplitExpressionUtil {
                                 ((RootBlock) current_).setSuffix("+"+(val_+1));
                             }
                         } else {
-                            OperatorBlock op_ = null;
-                            if (_type instanceof AnonymousFunctionBlock) {
-                                op_ = ((AnonymousFunctionBlock)_type).getOperator();
-                            }
-                            if (_type instanceof SwitchMethodBlock) {
-                                op_ = ((SwitchMethodBlock)_type).getOperator();
-                            }
-                            if (_type instanceof OperatorBlock) {
-                                op_ = (OperatorBlock)_type;
-                            }
+                            OperatorBlock op_ = SplitExpressionUtil.tryGetOperator(_type);
                             if (op_ != null) {
                                 ((RootBlock) current_).setOperator(op_);
                                 op_.getLocalTypes().add((RootBlock) current_);
@@ -479,16 +470,7 @@ public final class SplitExpressionUtil {
     }
 
     private static void feedResult(MemberCallingsBlock _mem, ResultExpression _resultExpression, IntermediaryResults _int, RootBlock _type) {
-        OperatorBlock op_ = null;
-        if (_mem instanceof OperatorBlock) {
-            op_ = (OperatorBlock) _mem;
-        }
-        if (_mem instanceof AnonymousFunctionBlock) {
-            op_ = ((AnonymousFunctionBlock) _mem).getOperator();
-        }
-        if (_mem instanceof SwitchMethodBlock) {
-            op_ = ((SwitchMethodBlock) _mem).getOperator();
-        }
+        OperatorBlock op_ = tryGetOperator(_mem);
         for (AnonymousResult a: _resultExpression.getAnonymousResults()) {
             Block type_ = a.getType();
             if (type_ instanceof AnonymousTypeBlock) {
@@ -516,5 +498,19 @@ public final class SplitExpressionUtil {
                 _int.getSwitchMethods().add((SwitchMethodBlock)type_);
             }
         }
+    }
+
+    private static OperatorBlock tryGetOperator(BracedBlock _mem) {
+        OperatorBlock op_ = null;
+        if (_mem instanceof OperatorBlock) {
+            op_ = (OperatorBlock) _mem;
+        }
+        if (_mem instanceof AnonymousFunctionBlock) {
+            op_ = ((AnonymousFunctionBlock) _mem).getOperator();
+        }
+        if (_mem instanceof SwitchMethodBlock) {
+            op_ = ((SwitchMethodBlock) _mem).getOperator();
+        }
+        return op_;
     }
 }

@@ -2,19 +2,15 @@ package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.*;
-import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.analyze.instr.PartOffset;
 import code.expressionlanguage.analyze.opers.util.ParentInferring;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
-import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.analyze.types.ResolvingTypes;
-import code.expressionlanguage.analyze.util.ContextUtil;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.expressionlanguage.analyze.variables.AnaLoopVariable;
 import code.expressionlanguage.analyze.variables.AnaNamedLocalVariable;
 import code.expressionlanguage.analyze.variables.AnaNamedLoopVariable;
-import code.expressionlanguage.common.AnaGeneType;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.fwd.opers.AnaArrContent;
 import code.expressionlanguage.options.KeyWords;
@@ -151,49 +147,11 @@ public final class SwitchOperation extends AbstractUnaryOperation implements Pre
 
     @Override
     public void analyzeUnary(AnalyzedPageEl _page) {
-        String type_ = getFirstChild().getResultClass().getSingleNameOrEmpty();
-        if (type_.isEmpty()) {
-            FoundErrorInterpret un_ = new FoundErrorInterpret();
-            un_.setFileName(switchMethod.getFile().getFileName());
-            un_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
-            //one char => change to first left par
-            un_.buildError(_page.getAnalysisMessages().getUnknownType(),
-                    type_);
-            _page.addLocError(un_);
-            addErr(un_.getBuiltError());
-        } else {
-            String id_ = StringExpUtil.getIdFromAllTypes(type_);
-            AnaGeneType classBody_ = _page.getAnaGeneType(id_);
-            boolean final_ = true;
-            if (classBody_ != null) {
-                final_ = ContextUtil.isHyperAbstract(classBody_);
-            } else if (type_.startsWith("#")||type_.startsWith("[")) {
-                final_ = false;
-            }
-            if (!AnaTypeUtil.isPrimitiveOrWrapper(id_, _page)) {
-                if (!StringUtil.quickEq(id_, _page.getAliasString())) {
-                    if (!(classBody_ instanceof EnumBlock)) {
-                        if (!final_) {
-                            switchMethod.setInstanceTest(type_);
-                        } else {
-                            FoundErrorInterpret un_ = new FoundErrorInterpret();
-                            un_.setFileName(switchMethod.getFile().getFileName());
-                            un_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
-                            //one char => change to first left par
-                            un_.buildError(_page.getAnalysisMessages().getUnexpectedType(),
-                                    id_);
-                            _page.addLocError(un_);
-                            addErr(un_.getBuiltError());
-                        }
-                    } else {
-                        switchMethod.setEnumTest(true);
-                    }
-                }
-            }
-        }
-        switchMethod.setResult(AnaClassArgumentMatching.copy(getFirstChild().getResultClass(), _page.getPrimitiveTypes()));
+        AnaClassArgumentMatching resCh_ = getFirstChild().getResultClass();
+        SwitchBlock.processAfterEl(resCh_,switchMethod,_page);
+        switchMethod.setResult(AnaClassArgumentMatching.copy(resCh_, _page.getPrimitiveTypes()));
         setResultClass(new AnaClassArgumentMatching(retType));
-        switchMethod.processAfterEl(_page);
+        SwitchBlock.processChildren(switchMethod,_page);
     }
 
     public SwitchMethodBlock getSwitchMethod() {
