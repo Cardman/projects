@@ -2071,6 +2071,37 @@ public final class ProcessMethodSwitchExpTest extends ProcessMethodCommon {
         assertEq(1, getNumber(ret_));
     }
     @Test
+    public void test84() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public annotation pkg.Annot {\n");
+        xml_.append(" int info();\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static int exmeth(){\n");
+        xml_.append("  return class(Ex).getDeclaredMethods()[1].getDeclaredSwitchMethods().length;\n");
+        xml_.append(" }\n");
+        xml_.append(" @Annot(\n");
+        xml_.append("  switch[int](new int[1]) {\n");
+        xml_.append("   case int[] i:\n");
+        xml_.append("    return i[0]+1;\n");
+        xml_.append("   default d:\n");
+        xml_.append("    return (int)d;\n");
+        xml_.append("  }\n");
+        xml_.append(" )\n");
+        xml_.append(" public int exmeth(int... p){\n");
+        xml_.append("  return p.length;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxLgReadOnlyOk("en",files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(1, getNumber(ret_));
+    }
+    @Test
     public void testAss() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("public class pkg.Ex {\n");
