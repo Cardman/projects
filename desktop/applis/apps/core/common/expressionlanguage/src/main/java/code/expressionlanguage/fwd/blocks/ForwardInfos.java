@@ -377,6 +377,12 @@ public final class ForwardInfos {
             fwdAnnotations(key_, value_, coverage_, _forwards);
             fwdAnnotationsParameters(key_, value_, coverage_, _forwards);
         }
+        for (EntryCust<SwitchMethodBlock, ExecAbstractSwitchMethod> a: _forwards.getMapSwitchMethods().entryList()) {
+            SwitchMethodBlock key_ = a.getKey();
+            ExecAbstractSwitchMethod value_ = a.getValue();
+            fwdAnnotationsSw(key_, value_, coverage_, _forwards);
+            fwdAnnotationsParametersSw(key_, value_, coverage_, _forwards);
+        }
         for (EntryCust<RootBlock, Members> e: _forwards.getMapMembers().entryList()) {
             RootBlock root_ = e.getKey();
             Members valueMember_ = e.getValue();
@@ -1520,6 +1526,24 @@ public final class ForwardInfos {
         }
         _ann.getAnnotationsOpsParams().addAllElts(ops_);
     }
+    private static void fwdAnnotationsParametersSw(SwitchMethodBlock _ana, ExecAbstractSwitchMethod _ann, Coverage _coverage, Forwards _forwards) {
+        CustList<CustList<CustList<ExecOperationNode>>> ops_ = new CustList<CustList<CustList<ExecOperationNode>>>();
+        int i_ = 0;
+        for (CustList<OperationNode> l: _ana.getRootsList()) {
+            CustList<CustList<ExecOperationNode>> annotation_;
+            annotation_ = new CustList<CustList<ExecOperationNode>>();
+            _coverage.putBlockOperationsAnnotMethodParam(_ana);
+            int j_ = 0;
+            for (OperationNode r: l) {
+                _coverage.putBlockOperationsAnnotMethod(_ana,i_);
+                annotation_.add(getExecutableNodes(i_,j_,r, _coverage, _forwards, PutCoveragePhase.ANNOTATION, _ana));
+                j_++;
+            }
+            ops_.add(annotation_);
+            i_++;
+        }
+        _ann.getAnnotationsOpsParams().addAllElts(ops_);
+    }
 
     private static void fwdAnnotations(InnerTypeOrElement _ana, ExecInnerTypeOrElement _ann, Coverage _coverage, Forwards _forwards) {
         CustList<CustList<ExecOperationNode>> ops_ = new CustList<CustList<ExecOperationNode>>();
@@ -1549,6 +1573,16 @@ public final class ForwardInfos {
         return getExecutableNodes(0,-1,_root, _coverage, _forwards, PutCoveragePhase.NORMAL, (Block)_ana);
     }
     private static void fwdAnnotations(NamedFunctionBlock _ana, ExecNamedFunctionBlock _ex, Coverage _coverage, Forwards _forwards) {
+        CustList<CustList<ExecOperationNode>> ops_ = new CustList<CustList<ExecOperationNode>>();
+        int i_ = 0;
+        for (OperationNode r: _ana.getRoots()) {
+            _coverage.putBlockOperationsAnnotMethod(_ana);
+            ops_.add(getExecutableNodes(-1,i_,r, _coverage, _forwards, PutCoveragePhase.ANNOTATION, _ana));
+            i_++;
+        }
+        _ex.getAnnotationsOps().addAllElts(ops_);
+    }
+    private static void fwdAnnotationsSw(SwitchMethodBlock _ana, ExecAbstractSwitchMethod _ex, Coverage _coverage, Forwards _forwards) {
         CustList<CustList<ExecOperationNode>> ops_ = new CustList<CustList<ExecOperationNode>>();
         int i_ = 0;
         for (OperationNode r: _ana.getRoots()) {

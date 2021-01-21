@@ -10628,6 +10628,110 @@ public final class CoverageReportZTest extends ProcessMethodCommon {
                 "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
+    public void coverage640Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("public annotation pkg.Annot {\n");
+        xml_.append("}\n");
+        xml_.append("public annotation pkg.AnnotTwo {\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.Ext {\n");
+        xml_.append(" public static int m(){\n");
+        xml_.append("  int a = 10;\n");
+        xml_.append("  int t = switch[int:@Annot:@AnnotTwo](a) {\n");
+        xml_.append("   case 10:\n");
+        xml_.append("    return 5;\n");
+        xml_.append("   default:\n");
+        xml_.append("    return 1;\n");
+        xml_.append("  };\n");
+        xml_.append("  return class(Ext).getDeclaredMethods()[0].getDeclaredSwitchMethods()[0].getAnnotations().length+\n");
+        xml_.append("class(Ext).getDeclaredMethods()[0].getDeclaredSwitchMethods()[0].getAnnotationsParameters().length;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("src/pkg/Ex", xml_.toString());
+        ContextEl cont_ = covEnReadOnlyImpl(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("m");
+        calculateNormal("pkg.Ext", id_, args_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public annotation <a name=\"m18\">pkg.Annot</a> {\n" +
+                "}\n" +
+                "public annotation <a name=\"m50\">pkg.AnnotTwo</a> {\n" +
+                "}\n" +
+                "public class <a name=\"m80\">pkg.Ext</a> {\n" +
+                " public static int <a name=\"m109\">m</a>(){\n" +
+                "  int <span class=\"f\"><span class=\"f\"><a name=\"m120\">a</a> </span>=<span class=\"f\"> 10</span></span>;\n" +
+                "  int <span class=\"f\"><span class=\"f\"><a name=\"m134\">t</a> </span>=<span class=\"f\"> <span class=\"p\"><a title=\"1/2\">switch</a></span>[int:<span class=\"f2\">@<a title=\"pkg.Annot\" href=\"#m18\">Annot</a></span>:<span class=\"f2\">@<a title=\"pkg.AnnotTwo\" href=\"#m50\">AnnotTwo</a></span>](<span class=\"f\"><a href=\"#m120\">a</a></span>) <span class=\"t\">{\n" +
+                "   case <span class=\"f\">10</span>:\n" +
+                "    return <span class=\"f\">5</span>;\n" +
+                "   <span class=\"n\">default</span>:\n" +
+                "    return <span class=\"n\">1</span>;\n" +
+                "  }</span></span></span>;\n" +
+                "  return <span class=\"f\"><span class=\"f\"><span class=\"f\"><span class=\"f\"><span class=\"f\"><span class=\"f\"><span class=\"f\"><span class=\"f\">class(<a title=\"pkg.Ext\" href=\"#m80\">Ext</a>)</span>.<span class=\"f\">getDeclaredMethods()</span></span><span class=\"f\">[<span class=\"f\">0</span>]</span></span>.<span class=\"f\">getDeclaredSwitchMethods()</span></span><span class=\"f\">[<span class=\"f\">0</span>]</span></span>.<span class=\"f\">getAnnotations()</span></span>.<span class=\"f\"><b>length</b></span></span>+<span class=\"f\"><span class=\"f\"><span class=\"f\"><span class=\"f\"><span class=\"f\"><span class=\"f\"><span class=\"f\">\n" +
+                "class(<a title=\"pkg.Ext\" href=\"#m80\">Ext</a>)</span>.<span class=\"f\">getDeclaredMethods()</span></span><span class=\"f\">[<span class=\"f\">0</span>]</span></span>.<span class=\"f\">getDeclaredSwitchMethods()</span></span><span class=\"f\">[<span class=\"f\">0</span>]</span></span>.<span class=\"f\">getAnnotationsParameters()</span></span>.<span class=\"f\"><b>length</b></span></span></span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void coverage641Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("public annotation pkg.Annot {\n");
+        xml_.append(" int info1();\n");
+        xml_.append("}\n");
+        xml_.append("public annotation pkg.AnnotTwo {\n");
+        xml_.append(" int info2();\n");
+        xml_.append("}\n");
+        xml_.append("public interface pkg.Int {\n");
+        xml_.append(" normal int field(){return 0;}\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.Ext {\n");
+        xml_.append(" public static int m(){\n");
+        xml_.append("  int a = 10;\n");
+        xml_.append("  int t = switch[int:@Annot(new Int(){}.field()):@AnnotTwo(new Int(){}.field())](a) {\n");
+        xml_.append("   case 10:\n");
+        xml_.append("    return 5;\n");
+        xml_.append("   default:\n");
+        xml_.append("    return 1;\n");
+        xml_.append("  };\n");
+        xml_.append("  return class(Ext).getDeclaredMethods()[0].getDeclaredSwitchMethods()[0].getAnnotations().length+\n");
+        xml_.append("class(Ext).getDeclaredMethods()[0].getDeclaredSwitchMethods()[0].getAnnotationsParameters().length;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("src/pkg/Ex", xml_.toString());
+        ContextEl cont_ = covEnReadOnlyImpl(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("m");
+        calculateNormal("pkg.Ext", id_, args_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public annotation <a name=\"m18\">pkg.Annot</a> {\n" +
+                " int <a name=\"m35\">info1</a>();\n" +
+                "}\n" +
+                "public annotation <a name=\"m64\">pkg.AnnotTwo</a> {\n" +
+                " int <a name=\"m84\">info2</a>();\n" +
+                "}\n" +
+                "public interface <a name=\"m112\">pkg.Int</a> {\n" +
+                " normal int <a name=\"m134\">field</a>(){return <span class=\"f\">0</span>;}\n" +
+                "}\n" +
+                "public class <a name=\"m168\">pkg.Ext</a> {\n" +
+                " public static int <a name=\"m197\">m</a>(){\n" +
+                "  int <span class=\"f\"><span class=\"f\"><a name=\"m208\">a</a> </span>=<span class=\"f\"> 10</span></span>;\n" +
+                "  int <span class=\"f\"><span class=\"f\"><a name=\"m222\">t</a> </span>=<span class=\"f\"> <span class=\"p\"><a title=\"1/2\">switch</a></span>[int:<span class=\"f2\">@<a title=\"pkg.Annot\" href=\"#m18\">Annot</a>(<span class=\"f2\"><span class=\"f2\">new <a title=\"pkg.Int\" href=\"#m112\">Int</a>()<span class=\"t\"><a name=\"m253\">{</a>}</span></span>.<span class=\"f2\"><a title=\"pkg.Int.field()\" href=\"#m134\">field</a>()</span></span>)</span>:<span class=\"f2\">@<a title=\"pkg.AnnotTwo\" href=\"#m64\">AnnotTwo</a>(<span class=\"f2\"><span class=\"f2\">new <a title=\"pkg.Int\" href=\"#m112\">Int</a>()<span class=\"t\"><a name=\"m284\">{</a>}</span></span>.<span class=\"f2\"><a title=\"pkg.Int.field()\" href=\"#m134\">field</a>()</span></span>)</span>](<span class=\"f\"><a href=\"#m208\">a</a></span>) <span class=\"t\">{\n" +
+                "   case <span class=\"f\">10</span>:\n" +
+                "    return <span class=\"f\">5</span>;\n" +
+                "   <span class=\"n\">default</span>:\n" +
+                "    return <span class=\"n\">1</span>;\n" +
+                "  }</span></span></span>;\n" +
+                "  return <span class=\"f\"><span class=\"f\"><span class=\"f\"><span class=\"f\"><span class=\"f\"><span class=\"f\"><span class=\"f\"><span class=\"f\">class(<a title=\"pkg.Ext\" href=\"#m168\">Ext</a>)</span>.<span class=\"f\">getDeclaredMethods()</span></span><span class=\"f\">[<span class=\"f\">0</span>]</span></span>.<span class=\"f\">getDeclaredSwitchMethods()</span></span><span class=\"f\">[<span class=\"f\">0</span>]</span></span>.<span class=\"f\">getAnnotations()</span></span>.<span class=\"f\"><b>length</b></span></span>+<span class=\"f\"><span class=\"f\"><span class=\"f\"><span class=\"f\"><span class=\"f\"><span class=\"f\"><span class=\"f\">\n" +
+                "class(<a title=\"pkg.Ext\" href=\"#m168\">Ext</a>)</span>.<span class=\"f\">getDeclaredMethods()</span></span><span class=\"f\">[<span class=\"f\">0</span>]</span></span>.<span class=\"f\">getDeclaredSwitchMethods()</span></span><span class=\"f\">[<span class=\"f\">0</span>]</span></span>.<span class=\"f\">getAnnotationsParameters()</span></span>.<span class=\"f\"><b>length</b></span></span></span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
     public void coverageComment17Test() {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;

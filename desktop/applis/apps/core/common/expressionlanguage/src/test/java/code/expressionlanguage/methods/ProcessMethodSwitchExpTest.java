@@ -2166,6 +2166,255 @@ public final class ProcessMethodSwitchExpTest extends ProcessMethodCommon {
         assertEq(12, getNumber(ret_));
     }
     @Test
+    public void test87() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public annotation pkg.Annot {\n");
+        xml_.append("}\n");
+        xml_.append("public annotation pkg.AnnotTwo {\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static int exmeth(){\n");
+        xml_.append("  int a = 10;\n");
+        xml_.append("  int t = switch[int:@Annot:@AnnotTwo](a) {\n");
+        xml_.append("   case 10:\n");
+        xml_.append("    return 5;\n");
+        xml_.append("   default:\n");
+        xml_.append("    return 1;\n");
+        xml_.append("  };\n");
+        xml_.append("  return class(Ex).getDeclaredMethods()[0].getDeclaredSwitchMethods()[0].getAnnotations().length;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxLgReadOnlyOk("en",files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(1, getNumber(ret_));
+    }
+    @Test
+    public void test88() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public annotation pkg.Annot {\n");
+        xml_.append("}\n");
+        xml_.append("public annotation pkg.AnnotTwo {\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static int exmeth(){\n");
+        xml_.append("  int a = 10;\n");
+        xml_.append("  int t = switch[int:@Annot:@AnnotTwo](a) {\n");
+        xml_.append("   case 10:\n");
+        xml_.append("    return 5;\n");
+        xml_.append("   default:\n");
+        xml_.append("    return 1;\n");
+        xml_.append("  };\n");
+        xml_.append("  return class(Ex).getDeclaredMethods()[0].getDeclaredSwitchMethods()[0].getAnnotationsParameters()[0].length;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxLgReadOnlyOk("en",files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(1, getNumber(ret_));
+    }
+    @Test
+    public void test89() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public annotation pkg.Annot {\n");
+        xml_.append("}\n");
+        xml_.append("public annotation pkg.AnnotTwo {\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static int exmeth(){\n");
+        xml_.append("  int a = 10;\n");
+        xml_.append("  int t = switch[:@Annot:@AnnotTwo](a) {\n");
+        xml_.append("   case 10:\n");
+        xml_.append("    return 5;\n");
+        xml_.append("   default:\n");
+        xml_.append("    return 1;\n");
+        xml_.append("  };\n");
+        xml_.append("  return t;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxLgReadOnlyOk("en",files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(5, getNumber(ret_));
+    }
+    @Test
+    public void test90() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public annotation pkg.Annot {\n");
+        xml_.append("}\n");
+        xml_.append("public annotation pkg.AnnotTwo {\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static int exmeth(){\n");
+        xml_.append("  int a = 10;\n");
+        xml_.append("  int t = switch[int:@Annot:](a) {\n");
+        xml_.append("   case 10:\n");
+        xml_.append("    return 5;\n");
+        xml_.append("   default:\n");
+        xml_.append("    return 1;\n");
+        xml_.append("  };\n");
+        xml_.append("  return class(Ex).getDeclaredMethods()[0].getDeclaredSwitchMethods()[0].getAnnotations().length;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxLgReadOnlyOk("en",files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(1, getNumber(ret_));
+    }
+    @Test
+    public void test91() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public annotation pkg.Annot {\n");
+        xml_.append("}\n");
+        xml_.append("public annotation pkg.AnnotTwo {\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static int exmeth(){\n");
+        xml_.append("  int a = 10;\n");
+        xml_.append("  int t = switch[int::@AnnotTwo](a) {\n");
+        xml_.append("   case 10:\n");
+        xml_.append("    return 5;\n");
+        xml_.append("   default:\n");
+        xml_.append("    return 1;\n");
+        xml_.append("  };\n");
+        xml_.append("  return class(Ex).getDeclaredMethods()[0].getDeclaredSwitchMethods()[0].getAnnotationsParameters()[0].length;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxLgReadOnlyOk("en",files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(1, getNumber(ret_));
+    }
+    @Test
+    public void test92() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public annotation pkg.Annot {\n");
+        xml_.append("}\n");
+        xml_.append("public annotation pkg.AnnotTwo {\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static int exmeth(){\n");
+        xml_.append("  int a = 10;\n");
+        xml_.append("  int t = switch[int::@AnnotTwo](a) {\n");
+        xml_.append("   case 10:\n");
+        xml_.append("    return 5;\n");
+        xml_.append("   default:\n");
+        xml_.append("    return 1;\n");
+        xml_.append("  };\n");
+        xml_.append("  return class(Ex).getDeclaredMethods()[0].getDeclaredSwitchMethods()[0].getAnnotations().length;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxLgReadOnlyOk("en",files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(0, getNumber(ret_));
+    }
+    @Test
+    public void test93() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public annotation pkg.Annot {\n");
+        xml_.append("}\n");
+        xml_.append("public annotation pkg.AnnotTwo {\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static int exmeth(){\n");
+        xml_.append("  int a = 10;\n");
+        xml_.append("  int t = switch[int:@Annot:](a) {\n");
+        xml_.append("   case 10:\n");
+        xml_.append("    return 5;\n");
+        xml_.append("   default:\n");
+        xml_.append("    return 1;\n");
+        xml_.append("  };\n");
+        xml_.append("  return class(Ex).getDeclaredMethods()[0].getDeclaredSwitchMethods()[0].getAnnotationsParameters()[0].length;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxLgReadOnlyOk("en",files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(0, getNumber(ret_));
+    }
+    @Test
+    public void test94() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public annotation pkg.Annot {\n");
+        xml_.append("}\n");
+        xml_.append("public annotation pkg.AnnotTwo {\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static int exmeth(){\n");
+        xml_.append("  int a = 10;\n");
+        xml_.append("  int t = switch[:@Annot](a) {\n");
+        xml_.append("   case 10:\n");
+        xml_.append("    return 5;\n");
+        xml_.append("   default:\n");
+        xml_.append("    return 1;\n");
+        xml_.append("  };\n");
+        xml_.append("  return t;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxLgReadOnlyOk("en",files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(5, getNumber(ret_));
+    }
+    @Test
+    public void test95() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static int exmeth(){\n");
+        xml_.append("  int a = 10;\n");
+        xml_.append("  int t = switch[](a) {\n");
+        xml_.append("   case 10:\n");
+        xml_.append("    return 5;\n");
+        xml_.append("   default:\n");
+        xml_.append("    return 1;\n");
+        xml_.append("  };\n");
+        xml_.append("  return t;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxLgReadOnlyOk("en",files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(5, getNumber(ret_));
+    }
+
+    @Test
     public void testAss() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("public class pkg.Ex {\n");
@@ -2216,6 +2465,7 @@ public final class ProcessMethodSwitchExpTest extends ProcessMethodCommon {
         xml_.append("  (switch[int]((Object)null){default d: that(null);});\n");
         xml_.append("  (switch[int]((Object)null){default d: that(null);));\n");
         xml_.append("  (switch[int][(Object)null]{default d: that(null);});\n");
+        xml_.append("  (switch[int:::]((Object)null){});\n");
         xml_.append("  return 0;\n");
         xml_.append(" }\n");
         xml_.append("}\n");

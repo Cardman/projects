@@ -745,6 +745,10 @@ public final class ElResolver {
         if (StringExpUtil.startsWithKeyWord(_string,i_, keyWordSwitch_)) {
             int j_ = i_+keyWordSwitch_.length();
             String afterSwitch_ = _string.substring(j_);
+            Ints annotationsIndexes_ = new Ints();
+            StringList annotations_ = new StringList();
+            Ints annotationsIndexesParam_ = new Ints();
+            StringList annotationsParam_ = new StringList();
             if (afterSwitch_.trim().startsWith("[")) {
                 int k_ = afterSwitch_.indexOf('[') + 1;
                 int count_ = 1;
@@ -753,6 +757,34 @@ public final class ElResolver {
                     char ch_ = afterSwitch_.charAt(k_);
                     if (ch_ == '[') {
                         count_++;
+                    }
+                    if (count_ == 1 && ch_ == ':') {
+                        int l_ = DefaultProcessKeyWord.skipWhiteSpace(afterSwitch_,k_+1);
+                        int gl_ = _page.getLocalizer().getCurrentLocationIndex();
+                        if (afterSwitch_.startsWith("@",l_)) {
+                            ParsedAnnotations parse_ = new ParsedAnnotations(afterSwitch_.substring(l_),j_+l_+ gl_);
+                            parse_.parse();
+                            annotationsIndexes_ = parse_.getAnnotationsIndexes();
+                            annotations_ = parse_.getAnnotations();
+                            l_ = parse_.getIndex() - j_ - gl_;
+                            l_ = DefaultProcessKeyWord.skipWhiteSpace(afterSwitch_,l_);
+                        }
+                        if (afterSwitch_.startsWith(":",l_)) {
+                            int m_ = DefaultProcessKeyWord.skipWhiteSpace(afterSwitch_,l_+1);
+                            if (afterSwitch_.startsWith("@",m_)) {
+                                ParsedAnnotations parse_ = new ParsedAnnotations(afterSwitch_.substring(m_),j_+m_+ gl_);
+                                parse_.parse();
+                                annotationsIndexesParam_ = parse_.getAnnotationsIndexes();
+                                annotationsParam_ = parse_.getAnnotations();
+                                m_ = parse_.getIndex() - j_ - gl_;
+                                m_ = DefaultProcessKeyWord.skipWhiteSpace(afterSwitch_,m_);
+                            }
+                            l_ = m_;
+                        }
+                        if (afterSwitch_.startsWith("]",l_)) {
+                            k_ = l_;
+                            break;
+                        }
                     }
                     if (ch_ == ']') {
                         count_--;
@@ -767,6 +799,10 @@ public final class ElResolver {
                     _stack.getStringsSwitch().add("");
                     _stack.getIndexesSwitch().add(next_);
                     _stack.getCallings().add(next_);
+                    _stack.getAnnotationsIndexesSw().add(annotationsIndexes_);
+                    _stack.getAnnotationsSw().add(annotations_);
+                    _stack.getAnnotationsIndexesSwPar().add(annotationsIndexesParam_);
+                    _stack.getAnnotationsSwPar().add(annotationsParam_);
                     return next_;
                 }
                 return j_+k_;
@@ -775,6 +811,10 @@ public final class ElResolver {
             if (_string.startsWith("(",next_)) {
                 _stack.getStringsSwitch().add("");
                 _stack.getIndexesSwitch().add(next_);
+                _stack.getAnnotationsIndexesSw().add(annotationsIndexes_);
+                _stack.getAnnotationsSw().add(annotations_);
+                _stack.getAnnotationsIndexesSwPar().add(annotationsIndexesParam_);
+                _stack.getAnnotationsSwPar().add(annotationsParam_);
                 _stack.getCallings().add(next_);
                 return next_;
             }
@@ -1237,6 +1277,10 @@ public final class ElResolver {
                     input_.setFile(_file);
                     input_.setNextIndex(i_);
                     input_.generatedId(beforeCall_, keyWords_.getKeyWordId());
+                    input_.setAnnotations(_stack.getAnnotationsEndSw().get(indexLastSw_));
+                    input_.setAnnotationsIndexes(_stack.getAnnotationsIndexesEndSw().get(indexLastSw_));
+                    input_.setAnnotationsParams(new CustList<StringList>(_stack.getAnnotationsEndSwPar().get(indexLastSw_)));
+                    input_.setAnnotationsIndexesParams(new CustList<Ints>(_stack.getAnnotationsIndexesEndSwPar().get(indexLastSw_)));
                     ResultCreation res_ = FileResolver.processOuterTypeBody(input_, _packageName, instrLoc_, _string, _page);
                     int j_ = res_.getNextIndex() - 1;
                     return j_+1;
@@ -1541,6 +1585,10 @@ public final class ElResolver {
                     input_.setFile(_file);
                     input_.setNextIndex(i_);
                     input_.generatedId(beforeCall_, keyWords_.getKeyWordId());
+                    input_.setAnnotations(_stack.getAnnotationsEndSw().get(indexLastSw_));
+                    input_.setAnnotationsIndexes(_stack.getAnnotationsIndexesEndSw().get(indexLastSw_));
+                    input_.setAnnotationsParams(new CustList<StringList>(_stack.getAnnotationsEndSwPar().get(indexLastSw_)));
+                    input_.setAnnotationsIndexesParams(new CustList<Ints>(_stack.getAnnotationsIndexesEndSwPar().get(indexLastSw_)));
                     ResultCreation res_ = FileResolver.processOuterTypeBody(input_, _packageName, instrLoc_, _string, _page);
                     if (res_.isOkType()) {
                         int j_ = res_.getNextIndex() - 1;
@@ -3054,6 +3102,13 @@ public final class ElResolver {
         if (indexLast_ > -1) {
             _stack.getAnnotationsEnd().add(_stack.getAnnotations().get(indexLast_));
             _stack.getAnnotationsIndexesEnd().add(_stack.getAnnotationsIndexes().get(indexLast_));
+        }
+        int indexLastSw_ = _stack.getIndexesSwitch().indexOf(_parsBrackets.lastKey());
+        if (indexLastSw_ > -1) {
+            _stack.getAnnotationsEndSw().add(_stack.getAnnotationsSw().get(indexLastSw_));
+            _stack.getAnnotationsIndexesEndSw().add(_stack.getAnnotationsIndexesSw().get(indexLastSw_));
+            _stack.getAnnotationsEndSwPar().add(_stack.getAnnotationsSwPar().get(indexLastSw_));
+            _stack.getAnnotationsIndexesEndSwPar().add(_stack.getAnnotationsIndexesSwPar().get(indexLastSw_));
         }
     }
 

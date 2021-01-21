@@ -114,6 +114,10 @@ public final class SplitExpressionUtil {
                 _page.setupFctChars(c);
                 processAnnotFct(_page,int_,c, c.getParentType());
             }
+            for (SwitchMethodBlock c: switchMethods_) {
+                _page.setupFctChars(c);
+                processAnnotSw(_page,int_,c, c.getParentType());
+            }
         }
         return list_;
     }
@@ -325,6 +329,39 @@ public final class SplitExpressionUtil {
                 resList_.add(res_);
             }
             ((NamedFunctionBlock) _fct).getResLists().add(resList_);
+            j_++;
+        }
+    }
+
+    private static void processAnnotSw(AnalyzedPageEl _page, IntermediaryResults _int, SwitchMethodBlock _fct, RootBlock _type) {
+        _page.setCurrentBlock(_fct);
+        int len_ = _fct.getAnnotationsIndexes().size();
+        for (int i = 0; i < len_; i++) {
+            int begin_ = _fct.getAnnotationsIndexes().get(i);
+            _page.setGlobalOffset(begin_);
+            _page.setOffset(0);
+            ResultExpression res_ = new ResultExpression();
+            _page.setAccessStaticContext(MethodAccessKind.STATIC);
+            ElResolver.commonCheckQuick(_fct.getAnnotations().get(i).trim(),0,_page,res_);
+            feedResult(_fct, res_, _int, _type);
+            _fct.getResList().add(res_);
+        }
+        int j_ = 0;
+        for (Ints l: _fct.getAnnotationsIndexesParams()) {
+            CustList<ResultExpression> resList_ = new CustList<ResultExpression>();
+            len_ = l.size();
+            StringList list_ = _fct.getAnnotationsParams().get(j_);
+            for (int i = 0; i < len_; i++) {
+                int begin_ = l.get(i);
+                _page.setGlobalOffset(begin_);
+                _page.setOffset(0);
+                ResultExpression res_ = new ResultExpression();
+                _page.setAccessStaticContext(MethodAccessKind.STATIC);
+                ElResolver.commonCheckQuick(list_.get(i).trim(),0,_page,res_);
+                feedResult(_fct, res_, _int, _type);
+                resList_.add(res_);
+            }
+            _fct.getResLists().add(resList_);
             j_++;
         }
     }

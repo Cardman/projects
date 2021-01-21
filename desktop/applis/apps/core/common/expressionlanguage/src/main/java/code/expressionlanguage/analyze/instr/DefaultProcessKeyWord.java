@@ -38,6 +38,27 @@ public final class DefaultProcessKeyWord implements AbstractProcessKeyWord {
                     if (ch_ == ARR_LEFT) {
                         count_++;
                     }
+                    if (count_ == 1 && ch_ == ':') {
+                        int l_ = DefaultProcessKeyWord.skipWhiteSpace(afterSwitch_,k_+1);
+                        if (afterSwitch_.startsWith("@",l_)) {
+                            ParsedAnnotations parse_ = new ParsedAnnotations(afterSwitch_.substring(l_),l_);
+                            parse_.parse();
+                            l_ = DefaultProcessKeyWord.skipWhiteSpace(afterSwitch_,parse_.getIndex());
+                        }
+                        if (afterSwitch_.startsWith(":",l_)) {
+                            int m_ = DefaultProcessKeyWord.skipWhiteSpace(afterSwitch_,l_+1);
+                            if (afterSwitch_.startsWith("@",m_)) {
+                                ParsedAnnotations parse_ = new ParsedAnnotations(afterSwitch_.substring(m_),m_);
+                                parse_.parse();
+                                m_ = DefaultProcessKeyWord.skipWhiteSpace(afterSwitch_,parse_.getIndex());
+                            }
+                            l_ = m_;
+                        }
+                        if (afterSwitch_.startsWith("]",l_)) {
+                            k_ = l_;
+                            break;
+                        }
+                    }
                     if (ch_ == ARR_RIGHT) {
                         count_--;
                         if (count_ == 0) {

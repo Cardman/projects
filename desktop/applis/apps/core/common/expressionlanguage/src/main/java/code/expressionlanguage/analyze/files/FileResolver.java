@@ -733,6 +733,10 @@ public final class FileResolver {
                     SwitchMethodBlock typeBlock_ = new SwitchMethodBlock(new OffsetsBlock(instructionRealLocation_ +_offset, instructionRealLocation_ +_offset), _page);
                     typeBlock_.setBegin(instructionRealLocation_ +_offset);
                     typeBlock_.setLengthHeader(1);
+                    typeBlock_.getAnnotations().addAllElts(_input.getAnnotations());
+                    typeBlock_.getAnnotationsIndexes().addAllElts(_input.getAnnotationsIndexes());
+                    typeBlock_.getAnnotationsParams().addAllElts(_input.getAnnotationsParams());
+                    typeBlock_.getAnnotationsIndexesParams().addAllElts(_input.getAnnotationsIndexesParams());
                     typeBlock_.setFile(file_);
                     _out.setBlock(typeBlock_);
                     currentParent_ = typeBlock_;

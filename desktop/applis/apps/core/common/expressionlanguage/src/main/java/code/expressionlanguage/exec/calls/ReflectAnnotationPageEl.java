@@ -44,7 +44,7 @@ public final class ReflectAnnotationPageEl extends AbstractReflectPageEl {
             if (onParameters) {
                 if (annotated instanceof AnnotatedParamStruct){
                     AnnotatedParamStruct a_ = (AnnotatedParamStruct) annotated;
-                    ExecNamedFunctionBlock annotableBlockParam_ = a_.getAnnotableBlockParam();
+                    ExecAnnotableParamBlock annotableBlockParam_ = a_.getAnnotableBlockParam();
                     if (annotableBlockParam_ != null) {
                         annotationsParams = annotableBlockParam_.getAnnotationsOpsParams();
                     }

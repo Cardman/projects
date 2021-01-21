@@ -4,14 +4,18 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
+import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.exec.stacks.SwitchBlockStack;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.functionid.MethodModifier;
 import code.util.BooleanList;
+import code.util.CustList;
 import code.util.StringList;
 
-public abstract class ExecAbstractSwitchMethod extends ExecMemberCallingsBlock implements ExecReturnableWithSignature {
+public abstract class ExecAbstractSwitchMethod extends ExecMemberCallingsBlock implements ExecReturnableWithSignature,ExecAnnotableParamBlock {
+
+    private final CustList<CustList<ExecOperationNode>> annotationsOps = new CustList<CustList<ExecOperationNode>>();
 
     private final String name;
 
@@ -22,6 +26,7 @@ public abstract class ExecAbstractSwitchMethod extends ExecMemberCallingsBlock i
     private final MethodAccessKind kind;
     private ExecRootBlock parentType;
     private ExecOperatorBlock operator;
+    private final CustList<CustList<CustList<ExecOperationNode>>> annotationsOpsParams = new CustList<CustList<CustList<ExecOperationNode>>>();
 
     public ExecAbstractSwitchMethod(boolean _retRef, String _name, MethodAccessKind _modifier, String _importedParamType, int _offsetTrim) {
         super(_offsetTrim);
@@ -88,4 +93,13 @@ public abstract class ExecAbstractSwitchMethod extends ExecMemberCallingsBlock i
         page_.addBlock(_if);
     }
 
+    @Override
+    public CustList<CustList<CustList<ExecOperationNode>>> getAnnotationsOpsParams() {
+        return annotationsOpsParams;
+    }
+
+    @Override
+    public CustList<CustList<ExecOperationNode>> getAnnotationsOps() {
+        return annotationsOps;
+    }
 }

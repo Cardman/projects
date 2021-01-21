@@ -296,7 +296,7 @@ public final class LinkageUtil {
                 processAnonymousFctBlockError(vars_,(AnonymousFunctionBlock) child_,list_);
             }
             if (child_ instanceof SwitchMethodBlock) {
-                processSwitchMethodError((SwitchMethodBlock) child_,list_);
+                processSwitchMethodError(vars_,(SwitchMethodBlock) child_,list_);
             }
             if (child_ instanceof AnnotationMethodBlock) {
                 processAnnotationMethodBlockError(vars_,(AnnotationMethodBlock)child_, list_);
@@ -512,7 +512,7 @@ public final class LinkageUtil {
                 processAnonymousFctReport(vars_,(AnonymousFunctionBlock)child_,list_,_coverage);
             }
             if (child_ instanceof SwitchMethodBlock) {
-                processSwitchMethodReport((SwitchMethodBlock)child_,list_);
+                processSwitchMethodReport(vars_,(SwitchMethodBlock)child_,list_,_coverage);
             }
             if (child_ instanceof AnnotationMethodBlock) {
                 processAnnotationMethodBlockReport(vars_,(AnnotationMethodBlock)child_, list_, _coverage);
@@ -1802,7 +1802,23 @@ public final class LinkageUtil {
         addNameParts(_cond,_parts, begName_, 2);
     }
 
-    private static void processSwitchMethodReport(SwitchMethodBlock _cond, CustList<PartOffset> _parts) {
+    private static void processSwitchMethodReport(VariablesOffsets _vars, SwitchMethodBlock _cond, CustList<PartOffset> _parts, Coverage _cov) {
+        if (_vars.getStack().last().isAnnotationMode()) {
+            int k_ = _vars.getStack().last().getIndexAnnotationGroup();
+            if (k_ == -1) {
+                buildAnnotationsReport(_vars,_cond, _parts, _cov);
+                if (_vars.getState() != null) {
+                    return;
+                }
+                _vars.getStack().last().setIndexAnnotationGroup(0);
+            }
+            refParams(_vars,_cond, _parts, _cov);
+            if (_vars.getState() != null) {
+                return;
+            }
+            _vars.getStack().last().setStopVisit(true);
+            return;
+        }
         _parts.add(new PartOffset("<span class=\"t\">", _cond.getBegin()));
     }
 
@@ -1897,7 +1913,23 @@ public final class LinkageUtil {
         int begName_ = _cond.getNameOffset();
         addNameParts(errs_,_cond,_parts, begName_, 2);
     }
-    private static void processSwitchMethodError(SwitchMethodBlock _cond, CustList<PartOffset> _parts) {
+    private static void processSwitchMethodError(VariablesOffsets _vars, SwitchMethodBlock _cond, CustList<PartOffset> _parts) {
+        if (_vars.getStack().last().isAnnotationMode()) {
+            int k_ = _vars.getStack().last().getIndexAnnotationGroup();
+            if (k_ == -1) {
+                buildAnnotationsError(_vars,_cond, _parts);
+                if (_vars.getState() != null) {
+                    return;
+                }
+                _vars.getStack().last().setIndexAnnotationGroup(0);
+            }
+            refParamsError(_vars,_cond, _parts);
+            if (_vars.getState() != null) {
+                return;
+            }
+            _vars.getStack().last().setStopVisit(true);
+            return;
+        }
         _parts.add(new PartOffset("<span class=\"t\">", _cond.getBegin()));
     }
 
@@ -2237,6 +2269,38 @@ public final class LinkageUtil {
         _vars.getStack().last().setIndexAnnotation(0);
         _vars.getStack().last().setIndexAnnotationGroup(_index+1);
     }
+    private static void buildAnnotationsReport(VariablesOffsets _vars, SwitchMethodBlock _cond, CustList<PartOffset> _parts, Coverage _cov) {
+        int len_ = _cond.getAnnotationsIndexes().size();
+        int j_ = _vars.getStack().last().getIndexAnnotation();
+        for (int i = j_; i < len_; i++) {
+            int begin_ = _cond.getAnnotationsIndexes().get(i);
+            int end_ = begin_ + _cond.getAnnotations().get(i).trim().length();
+            OperationNode root_ = _cond.getRoots().get(i);
+            buildCoverageReport(_vars, _cond, -1, _parts, _cov, i, begin_, end_, root_, 0, 0, "", true);
+            if (_vars.getState() != null) {
+                return;
+            }
+            _vars.getStack().last().setIndexAnnotation(i+1);
+        }
+        _vars.getStack().last().setIndexAnnotation(0);
+    }
+    private static void buildAnnotationsReport(VariablesOffsets _vars, SwitchMethodBlock _cond, int _index, CustList<PartOffset> _parts, Coverage _cov) {
+        int len_ = _cond.getAnnotationsIndexesParams().get(_index).size();
+        StringList list_ = _cond.getAnnotationsParams().get(_index);
+        int j_ = _vars.getStack().last().getIndexAnnotation();
+        for (int i = j_; i < len_; i++) {
+            int begin_ = _cond.getAnnotationsIndexesParams().get(_index).get(i);
+            int end_ = begin_ + list_.get(i).trim().length();
+            OperationNode root_ = _cond.getRootsList().get(_index).get(i);
+            buildCoverageReport(_vars, _cond, _index, _parts, _cov, i, begin_, end_, root_, 0, 0, "", true);
+            if (_vars.getState() != null) {
+                return;
+            }
+            _vars.getStack().last().setIndexAnnotation(i+1);
+        }
+        _vars.getStack().last().setIndexAnnotation(0);
+        _vars.getStack().last().setIndexAnnotationGroup(_index+1);
+    }
 
     private static void processAnnotationError(VariablesOffsets _vars, RootBlock _cond, CustList<PartOffset> _parts) {
         int len_ = _cond.getAnnotationsIndexes().size();
@@ -2281,6 +2345,35 @@ public final class LinkageUtil {
         _vars.getStack().last().setIndexAnnotation(0);
         _vars.getStack().last().setIndexAnnotationGroup(_index+1);
     }
+    private static void buildAnnotationsError(VariablesOffsets _vars, SwitchMethodBlock _cond, CustList<PartOffset> _parts) {
+        int len_ = _cond.getAnnotationsIndexes().size();
+        int j_ = _vars.getStack().last().getIndexAnnotation();
+        for (int i = j_; i < len_; i++) {
+            int begin_ = _cond.getAnnotationsIndexes().get(i);
+            OperationNode root_ = _cond.getRoots().get(i);
+            buildErrorReport(_vars, _cond, -1, _parts, i, begin_, root_, 0, 0, "");
+            if (_vars.getState() != null) {
+                return;
+            }
+            _vars.getStack().last().setIndexAnnotation(i+1);
+        }
+        _vars.getStack().last().setIndexAnnotation(0);
+    }
+    private static void buildAnnotationsError(VariablesOffsets _vars, SwitchMethodBlock _cond, int _index, CustList<PartOffset> _parts) {
+        int len_ = _cond.getAnnotationsIndexesParams().get(_index).size();
+        int j_ = _vars.getStack().last().getIndexAnnotation();
+        for (int i = j_; i < len_; i++) {
+            int begin_ = _cond.getAnnotationsIndexesParams().get(_index).get(i);
+            OperationNode root_ = _cond.getRootsList().get(_index).get(i);
+            buildErrorReport(_vars, _cond, _index, _parts, i, begin_, root_, 0, 0, "");
+            if (_vars.getState() != null) {
+                return;
+            }
+            _vars.getStack().last().setIndexAnnotation(i+1);
+        }
+        _vars.getStack().last().setIndexAnnotation(0);
+        _vars.getStack().last().setIndexAnnotationGroup(_index+1);
+    }
     private static void refParams(VariablesOffsets _vars, NamedFunctionBlock _cond, CustList<PartOffset> _parts, Coverage _cov) {
         int len_ = _cond.getParametersNamesOffset().size();
         int k_ = _vars.getStack().last().getIndexAnnotationGroup();
@@ -2295,6 +2388,18 @@ public final class LinkageUtil {
             String param_ = _cond.getParametersNames().get(i);
             _parts.add(new PartOffset("<a name=\"m"+off_+"\">",off_));
             _parts.add(new PartOffset("</a>",off_+param_.length()));
+        }
+        _vars.getStack().last().setIndexAnnotationGroup(-1);
+    }
+    private static void refParams(VariablesOffsets _vars, SwitchMethodBlock _cond, CustList<PartOffset> _parts, Coverage _cov) {
+        int len_ = 1;
+        int k_ = _vars.getStack().last().getIndexAnnotationGroup();
+        for (int i = k_; i < len_; i++) {
+            buildAnnotationsReport(_vars,_cond,i, _parts, _cov);
+            if (_vars.getState() != null) {
+                return;
+            }
+            _vars.getStack().last().setIndexAnnotationGroup(i+1);
         }
         _vars.getStack().last().setIndexAnnotationGroup(-1);
     }
@@ -2320,6 +2425,19 @@ public final class LinkageUtil {
                 _parts.add(new PartOffset("<a title=\""+err_+"\" class=\"e\">",off_));
                 _parts.add(new PartOffset("</a>",off_+Math.max(1,param_.length())));
             }
+        }
+        _vars.getStack().last().setIndexAnnotationGroup(-1);
+    }
+
+    private static void refParamsError(VariablesOffsets _vars, SwitchMethodBlock _cond, CustList<PartOffset> _parts) {
+        int len_ = 1;
+        int k_ = _vars.getStack().last().getIndexAnnotationGroup();
+        for (int i = k_; i < len_; i++) {
+            buildAnnotationsError(_vars,_cond,i, _parts);
+            if (_vars.getState() != null) {
+                return;
+            }
+            _vars.getStack().last().setIndexAnnotationGroup(i+1);
         }
         _vars.getStack().last().setIndexAnnotationGroup(-1);
     }
@@ -2402,15 +2520,10 @@ public final class LinkageUtil {
                     _vars.getVisited().add(val_);
                     break;
                 }
-                if (val_ instanceof AnonymousInstancingOperation) {
+                if (isInner(val_)) {
                     if (!_vars.getVisitedAnnotations().containsObj(val_)) {
                         LinkageStackElement state_ = new LinkageStackElement();
-                        AnonymousTypeBlock block_ = ((AnonymousInstancingOperation) val_).getBlock();
-                        state_.setBlock(block_);
-                        state_.setIndexEnd(block_.getIndexEnd());
-                        state_.setAnnotationMode(true);
-                        state_.getPartsAfter().addAllElts(((AnonymousInstancingOperation) val_).getBlock().getPartsStaticInitInterfacesOffset());
-                        state_.getPartsAfter().addAllElts(((AnonymousInstancingOperation) val_).getPartOffsets());
+                        prepareAnnot(val_, state_);
                         _vars.setState(state_);
                         _vars.getStack().last().setCurrent(val_);
                         _vars.getStack().last().element(_element);
@@ -2481,6 +2594,24 @@ public final class LinkageUtil {
         }
     }
 
+    private static void prepareAnnot(OperationNode _val, LinkageStackElement _state) {
+        if (_val instanceof AnonymousInstancingOperation) {
+            AnonymousInstancingOperation val_ = (AnonymousInstancingOperation) _val;
+            AnonymousTypeBlock block_ = val_.getBlock();
+            _state.setBlock(block_);
+            _state.setIndexEnd(block_.getIndexEnd());
+            _state.setAnnotationMode(true);
+            _state.getPartsAfter().addAllElts(val_.getBlock().getPartsStaticInitInterfacesOffset());
+            _state.getPartsAfter().addAllElts(val_.getPartOffsets());
+        } else {
+            SwitchOperation val_ = (SwitchOperation) _val;
+            SwitchMethodBlock block_ = val_.getSwitchMethod();
+            _state.setBlock(block_);
+            _state.setIndexEnd(block_.getIndexEnd());
+            _state.setAnnotationMode(true);
+        }
+    }
+
     private static boolean isInner(OperationNode _val) {
         return _val instanceof AnonymousInstancingOperation || _val instanceof SwitchOperation;
     }
@@ -2526,15 +2657,10 @@ public final class LinkageUtil {
                     _vars.getVisited().add(val_);
                     break;
                 }
-                if (val_ instanceof AnonymousInstancingOperation) {
+                if (isInner(val_)) {
                     if (!_vars.getVisitedAnnotations().containsObj(val_)) {
                         LinkageStackElement state_ = new LinkageStackElement();
-                        AnonymousTypeBlock block_ = ((AnonymousInstancingOperation) val_).getBlock();
-                        state_.setBlock(block_);
-                        state_.setIndexEnd(block_.getIndexEnd());
-                        state_.setAnnotationMode(true);
-                        state_.getPartsAfter().addAllElts(((AnonymousInstancingOperation) val_).getBlock().getPartsStaticInitInterfacesOffset());
-                        state_.getPartsAfter().addAllElts(((AnonymousInstancingOperation) val_).getPartOffsets());
+                        prepareAnnot(val_, state_);
                         _vars.setState(state_);
                         _vars.getStack().last().setCurrent(val_);
                         _vars.getStack().last().element(_element);

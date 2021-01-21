@@ -467,7 +467,7 @@ public final class Coverage {
                 if (annotableBlock_ instanceof ExecAnnotationMethodBlock){
                     matchBl_ = types.get(typeAna_.getNumberAll()).getMappingFields().getVal((ExecBlock) annotableBlock_);
                 } else {
-                    matchBl_ = getFctBlock(((AnnotatedParamStruct) annotated_).getAnnotableBlockParam(), typeAna_);
+                    matchBl_ = getFctBlock((ExecMemberCallingsBlock) ((AnnotatedParamStruct) annotated_).getAnnotableBlockParam(), typeAna_);
                 }
             } else {
                 matchBl_ = typeAna_;
@@ -578,6 +578,14 @@ public final class Coverage {
             }
             if (_block instanceof NamedFunctionBlock) {
                 NamedFunctionBlock mem_ = (NamedFunctionBlock) _block;
+                FunctionCoverageResult fctRes_ = getFctRes(mem_);
+                if (_indexAnnotGroup < 0) {
+                    return fctRes_.getAnnotations().get(_indexAnnot);
+                }
+                return fctRes_.getAnnotationsParams().get(_indexAnnotGroup).get(_indexAnnot);
+            }
+            if (_block instanceof SwitchMethodBlock) {
+                SwitchMethodBlock mem_ = (SwitchMethodBlock) _block;
                 FunctionCoverageResult fctRes_ = getFctRes(mem_);
                 if (_indexAnnotGroup < 0) {
                     return fctRes_.getAnnotations().get(_indexAnnot);

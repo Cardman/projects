@@ -6,9 +6,9 @@ import code.util.BooleanList;
 import code.util.CustList;
 import code.util.StringList;
 
-public abstract class ExecNamedFunctionBlock extends ExecMemberCallingsBlock implements ExecAnnotableBlock {
+public abstract class ExecNamedFunctionBlock extends ExecMemberCallingsBlock implements ExecAnnotableParamBlock {
 
-    private CustList<CustList<ExecOperationNode>> annotationsOps = new CustList<CustList<ExecOperationNode>>();
+    private final CustList<CustList<ExecOperationNode>> annotationsOps = new CustList<CustList<ExecOperationNode>>();
 
     private final String name;
 
@@ -23,7 +23,7 @@ public abstract class ExecNamedFunctionBlock extends ExecMemberCallingsBlock imp
 
     private final boolean retRef;
     private final boolean varargs;
-    private CustList<CustList<CustList<ExecOperationNode>>> annotationsOpsParams = new CustList<CustList<CustList<ExecOperationNode>>>();
+    private final CustList<CustList<CustList<ExecOperationNode>>> annotationsOpsParams = new CustList<CustList<CustList<ExecOperationNode>>>();
 
     ExecNamedFunctionBlock(boolean _retRef, String _name, boolean _varargs, AccessEnum _access, StringList _parametersNames, int _offsetTrim, StringList _importedParametersTypes, BooleanList _parametersRef) {
         super(_offsetTrim);

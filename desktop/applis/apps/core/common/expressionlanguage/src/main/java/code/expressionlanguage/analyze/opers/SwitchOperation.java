@@ -2,6 +2,8 @@ package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.*;
+import code.expressionlanguage.analyze.files.ParsedAnnotations;
+import code.expressionlanguage.analyze.instr.DefaultProcessKeyWord;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.analyze.instr.PartOffset;
 import code.expressionlanguage.analyze.opers.util.ParentInferring;
@@ -79,15 +81,45 @@ public final class SwitchOperation extends AbstractUnaryOperation implements Pre
             int k_ = start_;
             int len_ = afterSwitch_.length();
             int count_ = 1;
+            boolean defined_ = false;
             while (k_ < len_) {
                 char ch_ = afterSwitch_.charAt(k_);
                 if (ch_ == '[') {
                     count_++;
                 }
+                if (count_ == 1 && ch_ == ':') {
+                    int l_ = DefaultProcessKeyWord.skipWhiteSpace(afterSwitch_,k_+1);
+                    if (afterSwitch_.startsWith("@",l_)) {
+                        ParsedAnnotations parse_ = new ParsedAnnotations(afterSwitch_.substring(l_),l_);
+                        parse_.parse();
+                        l_ = DefaultProcessKeyWord.skipWhiteSpace(afterSwitch_,parse_.getIndex());
+                    }
+                    if (afterSwitch_.startsWith(":",l_)) {
+                        int n_ = DefaultProcessKeyWord.skipWhiteSpace(afterSwitch_,l_+1);
+                        if (afterSwitch_.startsWith("@",n_)) {
+                            ParsedAnnotations parse_ = new ParsedAnnotations(afterSwitch_.substring(n_),n_);
+                            parse_.parse();
+                            n_ = DefaultProcessKeyWord.skipWhiteSpace(afterSwitch_,parse_.getIndex());
+                        }
+                        l_ = n_;
+                    }
+                    if (afterSwitch_.startsWith("]",l_)) {
+                        suppType_ = afterSwitch_.substring(start_,k_);
+                        if (suppType_.trim().isEmpty()) {
+                            defined_ = true;
+                        }
+                        delta_ += StringExpUtil.getOffset(suppType_);
+                        k_ = len_;
+                        continue;
+                    }
+                }
                 if (ch_ == ']') {
                     count_--;
                     if (count_ == 0) {
                         suppType_ = afterSwitch_.substring(start_,k_);
+                        if (suppType_.trim().isEmpty()) {
+                            defined_ = true;
+                        }
                         delta_ += StringExpUtil.getOffset(suppType_);
                         k_ = len_;
                         continue;
@@ -95,9 +127,11 @@ public final class SwitchOperation extends AbstractUnaryOperation implements Pre
                 }
                 k_++;
             }
-            String res_ = ResolvingTypes.resolveCorrectType(switchWord_.length()+delta_,suppType_.trim(), _page);
-            partOffsets.addAllElts(_page.getCurrentParts());
-            retType = res_;
+            if (!defined_) {
+                String res_ = ResolvingTypes.resolveCorrectType(switchWord_.length()+delta_,suppType_.trim(), _page);
+                partOffsets.addAllElts(_page.getCurrentParts());
+                retType = res_;
+            }
         }
         if (retType.isEmpty()) {
             retType = _page.getAliasObject();

@@ -405,6 +405,13 @@ public final class ClassesUtil {
                 e.buildAnnotations(_page);
                 e.buildAnnotationsParameters(_page);
             }
+            for (SwitchMethodBlock e:s.getSwitchMethods()) {
+                _page.setupFctChars(e);
+                _page.getMappingLocal().clear();
+                _page.getMappingLocal().putAllMap(e.getMappings());
+                e.buildAnnotations(_page);
+                e.buildAnnotationsParameters(_page);
+            }
             _page.setAnnotAnalysis(false);
             AnaTypeUtil.checkInterfaces(_page);
         }

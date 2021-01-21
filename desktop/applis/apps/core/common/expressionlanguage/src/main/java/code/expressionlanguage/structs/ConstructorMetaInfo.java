@@ -51,7 +51,7 @@ public final class ConstructorMetaInfo extends WithoutParentStruct implements An
         return getAnnotableBlockParam();
     }
 
-    public ExecNamedFunctionBlock getAnnotableBlockParam() {
+    public ExecAnnotableParamBlock getAnnotableBlockParam() {
         return pair.getFct();
     }
 

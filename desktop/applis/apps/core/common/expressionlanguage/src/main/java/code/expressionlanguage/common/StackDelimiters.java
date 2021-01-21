@@ -12,6 +12,14 @@ public final class StackDelimiters {
     private final CustList<StringList> annotations = new CustList<StringList>();
     private final CustList<Ints> annotationsIndexesEnd = new CustList<Ints>();
     private final CustList<StringList> annotationsEnd = new CustList<StringList>();
+    private final CustList<Ints> annotationsIndexesSw = new CustList<Ints>();
+    private final CustList<StringList> annotationsSw = new CustList<StringList>();
+    private final CustList<Ints> annotationsIndexesEndSw = new CustList<Ints>();
+    private final CustList<StringList> annotationsEndSw = new CustList<StringList>();
+    private final CustList<Ints> annotationsIndexesSwPar = new CustList<Ints>();
+    private final CustList<StringList> annotationsSwPar = new CustList<StringList>();
+    private final CustList<Ints> annotationsIndexesEndSwPar = new CustList<Ints>();
+    private final CustList<StringList> annotationsEndSwPar = new CustList<StringList>();
     private final StringList stringsNew = new StringList();
     private final StringList stringsSwitch = new StringList();
     private final Ints indexesNewEnd = new Ints();
@@ -41,6 +49,38 @@ public final class StackDelimiters {
 
     public CustList<StringList> getAnnotationsEnd() {
         return annotationsEnd;
+    }
+
+    public CustList<Ints> getAnnotationsIndexesSw() {
+        return annotationsIndexesSw;
+    }
+
+    public CustList<StringList> getAnnotationsSw() {
+        return annotationsSw;
+    }
+
+    public CustList<Ints> getAnnotationsIndexesEndSw() {
+        return annotationsIndexesEndSw;
+    }
+
+    public CustList<StringList> getAnnotationsEndSw() {
+        return annotationsEndSw;
+    }
+
+    public CustList<Ints> getAnnotationsIndexesSwPar() {
+        return annotationsIndexesSwPar;
+    }
+
+    public CustList<StringList> getAnnotationsSwPar() {
+        return annotationsSwPar;
+    }
+
+    public CustList<Ints> getAnnotationsIndexesEndSwPar() {
+        return annotationsIndexesEndSwPar;
+    }
+
+    public CustList<StringList> getAnnotationsEndSwPar() {
+        return annotationsEndSwPar;
     }
 
     public StringList getStringsNew() {
