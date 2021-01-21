@@ -30,15 +30,15 @@ public final class DefaultProcessKeyWord implements AbstractProcessKeyWord {
             int j_ = _fr+keyWordSwitch_.length();
             String afterSwitch_ = _exp.substring(j_);
             if (afterSwitch_.trim().startsWith("[")) {
-                int k_ = afterSwitch_.indexOf('[') + 1;
+                int k_ = afterSwitch_.indexOf(ARR_LEFT) + 1;
                 int len_ = afterSwitch_.length();
                 int count_ = 1;
                 while (k_ < len_) {
                     char ch_ = afterSwitch_.charAt(k_);
-                    if (ch_ == '[') {
+                    if (ch_ == ARR_LEFT) {
                         count_++;
                     }
-                    if (ch_ == ']') {
+                    if (ch_ == ARR_RIGHT) {
                         count_--;
                         if (count_ == 0) {
                             break;
@@ -59,12 +59,7 @@ public final class DefaultProcessKeyWord implements AbstractProcessKeyWord {
                 _out.setNextIndex(j_);
                 return;
             }
-            if (_exp.startsWith("(",j_)) {
-                _d.getStack().getCallings().add(j_);
-                _out.setNextIndex(j_);
-                return;
-            }
-            int next_ = DefaultProcessKeyWord.skipWhiteSpace(_exp,j_+1);
+            int next_ = DefaultProcessKeyWord.skipWhiteSpace(_exp,j_);
             if (_exp.startsWith("(",next_)) {
                 _d.getStack().getCallings().add(next_);
                 _out.setNextIndex(next_);

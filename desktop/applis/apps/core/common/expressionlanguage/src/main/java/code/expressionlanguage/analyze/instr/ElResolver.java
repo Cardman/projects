@@ -773,15 +773,7 @@ public final class ElResolver {
                 }
                 return j_+k_;
             }
-            if (_string.startsWith("(",j_)) {
-                _stack.getAnnotationsIndexes().add(new Ints());
-                _stack.getAnnotations().add(new StringList());
-                _stack.getStringsSwitch().add("");
-                _stack.getIndexesSwitch().add(j_);
-                _stack.getCallings().add(j_);
-                return j_;
-            }
-            int next_ = DefaultProcessKeyWord.skipWhiteSpace(_string,j_+1);
+            int next_ = DefaultProcessKeyWord.skipWhiteSpace(_string,j_);
             if (_string.startsWith("(",next_)) {
                 _stack.getAnnotationsIndexes().add(new Ints());
                 _stack.getAnnotations().add(new StringList());
