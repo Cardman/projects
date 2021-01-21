@@ -51,4 +51,17 @@ public abstract class ExecAbstractSwitchBlock extends ExecBracedBlock implements
 
     protected abstract void processCase(ContextEl _cont, SwitchBlockStack _if, Argument _arg, StackCall _stack);
 
+    protected void addStack(ContextEl _cont, SwitchBlockStack _if, Argument _arg, StackCall _stack, ExecBracedBlock _found) {
+        AbstractPageEl ip_ = _stack.getLastPage();
+        if (_found == null) {
+            _cont.getCoverage().passSwitch(this, _arg, _stack);
+            _if.setCurrentVisitedBlock(this);
+        } else {
+            _cont.getCoverage().passSwitch(this, _found, _arg, _stack);
+            ip_.setBlock(_found);
+            _if.setCurrentVisitedBlock(_found);
+        }
+        ip_.addBlock(_if);
+    }
+
 }

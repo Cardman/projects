@@ -7,7 +7,6 @@ import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.exec.calls.*;
 import code.expressionlanguage.exec.calls.util.*;
 import code.expressionlanguage.exec.inherits.Parameters;
-import code.expressionlanguage.exec.stacks.SwitchBlockStack;
 import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.exec.util.Cache;
 import code.expressionlanguage.exec.variables.LocalVariable;
@@ -99,18 +98,19 @@ public final class ExecutingUtil {
         String cl_ = _e.getClassName();
         Argument gl_ = _e.getGl();
         _stackCall.setCallingState(null);
-        AbstractMethodPageEl pageLoc_;
+        AbstractSwitchMethodPageEl pageLoc_;
         if (_e.getSwitchMethod().getKind() == MethodAccessKind.STATIC_CALL) {
-            pageLoc_ = new CastPageEl(Argument.createVoid(),cl_);
+            pageLoc_ = new SwitchCastPageEl(Argument.createVoid(),cl_, _e.getValue());
         } else {
-            pageLoc_ = new MethodPageEl(gl_,cl_);
+            pageLoc_ = new SwitchMethodPageEl(gl_,cl_, _e.getValue());
         }
-        setSwitchInfos(_context, pageLoc_, _e.getType(),_e.getSwitchMethod(),_e.getCache(), _e.getValue(),_stackCall);
+        setSwitchInfos(_context, pageLoc_, _e.getType(),_e.getSwitchMethod(),_e.getCache());
         return pageLoc_;
     }
-    public static MethodPageEl createCallingMethod(ContextEl _context, Argument _gl, String _class, ExecTypeFunction _method, Parameters _args, StackCall _stackCall) {
+    public static AbstractPageEl createCallingMethod(ContextEl _context, Argument _gl, String _class, ExecTypeFunction _method, Parameters _args, StackCall _stackCall) {
         _stackCall.setCallingState(null);
         MethodPageEl pageLoc_ = new MethodPageEl(_gl,_class);
+        pageLoc_.initReturnType(_args.getRight());
         setMethodInfos(_context, pageLoc_, _method, _args);
         return pageLoc_;
     }
@@ -120,19 +120,19 @@ public final class ExecutingUtil {
         Parameters args_ = _e.getArguments();
         return createCallingCast(_context,cl_,_e.getPair(), args_, _stackCall);
     }
-    public static CastPageEl createCallingCast(ContextEl _context, String _class, ExecTypeFunction _method, Parameters _args, StackCall _stackCall) {
+    public static AbstractPageEl createCallingCast(ContextEl _context, String _class, ExecTypeFunction _method, Parameters _args, StackCall _stackCall) {
         _stackCall.setCallingState(null);
         CastPageEl pageLoc_ = new CastPageEl(Argument.createVoid(),_class);
+        pageLoc_.initReturnType(_args.getRight());
         setMethodInfos(_context, pageLoc_, _method, _args);
         return pageLoc_;
     }
-    private static void setMethodInfos(ContextEl _context, AbstractMethodPageEl _page, ExecTypeFunction _block, Parameters _args) {
+    private static void setMethodInfos(ContextEl _context, AbstractPageEl _page, ExecTypeFunction _block, Parameters _args) {
         ExecNamedFunctionBlock fct_ = _block.getFct();
         ExecRootBlock type_ = _block.getType();
         _page.setBlockRootType(type_);
         _page.setBlockRoot(fct_);
         _context.getCoverage().passCalls(_page);
-        _page.initReturnType(_args.getRight());
         for (EntryCust<String, LocalVariable> e: _args.getParameters().entryList()) {
             _page.getRefParams().addEntry(e.getKey(),new VariableWrapper(e.getValue()));
         }
@@ -143,16 +143,14 @@ public final class ExecutingUtil {
         _page.setReadWrite(rwLoc_);
         _page.setFile(fct_.getFile());
     }
-    private static void setSwitchInfos(ContextEl _context, AbstractMethodPageEl _page, ExecRootBlock _type, ExecAbstractSwitchMethod _block, Cache _cache, Argument _value, StackCall _stackCall) {
+    private static void setSwitchInfos(ContextEl _context, AbstractSwitchMethodPageEl _page, ExecRootBlock _type, ExecAbstractSwitchMethod _block, Cache _cache) {
         _page.setBlockRootType(_type);
         _page.setBlockRoot(_block);
         _context.getCoverage().passCalls(_page);
         _page.setCache(_cache);
         _page.setFile(_block.getFile());
         ReadWrite rwLoc_ = new ReadWrite();
-        SwitchBlockStack st_ = new SwitchBlockStack();
-        st_.setLabel("");
-        rwLoc_.setBlock(_block.processCase(_context,st_,_value,_stackCall, _page));
+        rwLoc_.setBlock(_block);
         _page.setReadWrite(rwLoc_);
     }
     public static AbstractPageEl createRecordInstancing(ContextEl _context, CustomFoundRecordConstructor _e, StackCall _stackCall) {

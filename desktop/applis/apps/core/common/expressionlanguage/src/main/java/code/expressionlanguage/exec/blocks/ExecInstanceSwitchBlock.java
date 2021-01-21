@@ -18,15 +18,19 @@ public final class ExecInstanceSwitchBlock extends ExecAbstractSwitchBlock {
 
     @Override
     protected void processCase(ContextEl _cont, SwitchBlockStack _if, Argument _arg, StackCall _stack) {
-        AbstractPageEl ip_ = _stack.getLastPage();
-        ExecBlock n_ = getFirstChild();
+        ExecBracedBlock found_ = innerProcess(this,_cont, _if, _arg, _stack);
+        addStack(_cont, _if, _arg, _stack, found_);
+    }
+
+    public static ExecBracedBlock innerProcess(ExecBracedBlock _braced, ContextEl _cont, SwitchBlockStack _if, Argument _arg, StackCall _stack) {
+        ExecBlock n_ = _braced.getFirstChild();
         CustList<ExecBracedBlock> children_;
         children_ = new CustList<ExecBracedBlock>();
         while (n_ instanceof ExecBracedBlock) {
             children_.add((ExecBracedBlock)n_);
             n_ = n_.getNextSibling();
         }
-        _if.setExecBlock(this);
+        _if.setExecBlock(_braced);
         ExecBracedBlock found_ = null;
         if (_arg.isNull()) {
             for (ExecBracedBlock b: children_) {
@@ -52,16 +56,9 @@ public final class ExecInstanceSwitchBlock extends ExecAbstractSwitchBlock {
                 }
             }
         }
-        if (found_ == null) {
-            _cont.getCoverage().passSwitch(this, _arg, _stack);
-            _if.setCurrentVisitedBlock(this);
-        } else {
-            _cont.getCoverage().passSwitch(this, found_, _arg, _stack);
-            ip_.setBlock(found_);
-            _if.setCurrentVisitedBlock(found_);
-        }
-        ip_.addBlock(_if);
+        return found_;
     }
+
     private static ExecBracedBlock fetch(ContextEl _cont, SwitchBlockStack _if, Argument _arg,
                                          ExecBracedBlock _found, ExecAbstractInstanceTypeCaseCondition _s, StackCall _stackCall) {
         if (_found != null) {

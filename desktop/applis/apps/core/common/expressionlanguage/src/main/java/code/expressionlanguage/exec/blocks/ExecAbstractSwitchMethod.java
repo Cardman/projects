@@ -79,11 +79,13 @@ public abstract class ExecAbstractSwitchMethod extends ExecMemberCallingsBlock i
         this.operator = _operator;
     }
 
-    public abstract ExecBlock processCase(ContextEl _cont, SwitchBlockStack _if, Argument _arg, StackCall _stack, AbstractPageEl _page);
-    public static void cover(ContextEl _cont, SwitchBlockStack _if, Argument _arg, StackCall _stack, AbstractPageEl _ip, ExecBracedBlock _found) {
-        _cont.getCoverage().passSwitchMethod(_found, _arg, _stack,_ip);
-        _ip.setBlock(_found);
+    public abstract ExecBlock processCase(ContextEl _cont, SwitchBlockStack _if, Argument _arg, StackCall _stack);
+    public static void cover(ContextEl _cont, SwitchBlockStack _if, Argument _arg, StackCall _stack, ExecBracedBlock _found) {
+        AbstractPageEl page_ = _stack.getLastPage();
+        _cont.getCoverage().passSwitchMethod(_found, _arg, _stack);
+        page_.setBlock(_found);
         _if.setCurrentVisitedBlock(_found);
+        page_.addBlock(_if);
     }
 
 }

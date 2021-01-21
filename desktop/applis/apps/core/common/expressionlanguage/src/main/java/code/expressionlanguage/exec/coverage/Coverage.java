@@ -402,11 +402,12 @@ public final class Coverage {
         covTwo_.setInit(_stackCall.getInitializingTypeInfos().isWideInitEnums());
         covTwo_.cover(_value);
     }
-    public void passSwitchMethod(ExecBlock _child, Argument _value, StackCall _stackCall, AbstractPageEl _page) {
+    public void passSwitchMethod(ExecBlock _child, Argument _value, StackCall _stackCall) {
         if (!isCovering()) {
             return;
         }
-        FunctionCoverageResult fctRes_ = getFctRes(_page);
+        AbstractPageEl lastPage_ = _stackCall.getLastPage();
+        FunctionCoverageResult fctRes_ = getFctRes(lastPage_);
         StandardCoverageResult covTwo_ = fctRes_.getCoverSwitchsMethod().getChildren().getVal(_child);
         covTwo_.setInit(_stackCall.getInitializingTypeInfos().isWideInitEnums());
         covTwo_.cover(_value);
