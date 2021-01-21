@@ -367,7 +367,7 @@ public final class ClassMetaInfo extends WithoutParentStruct implements Annotate
     @Override
     public CustList<ExecAbstractSwitchMethod> getSwitchMethods() {
         if (rootBlock != null) {
-            return rootBlock.getSwitchMethods();
+            return rootBlock.getSwitchMethodsRoot();
         }
         return new CustList<ExecAbstractSwitchMethod>();
     }

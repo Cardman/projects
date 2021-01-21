@@ -36,7 +36,7 @@ public abstract class ExecRootBlock extends ExecBracedBlock implements GeneType,
     private ExecTypeFunction emptyCtorPair;
     private final CustList<ExecRootBlock> anonymousRoot = new CustList<ExecRootBlock>();
     private final CustList<ExecAnonymousFunctionBlock> anonymousRootLambda = new CustList<ExecAnonymousFunctionBlock>();
-    private final CustList<ExecAbstractSwitchMethod> switchMethods = new CustList<ExecAbstractSwitchMethod>();
+    private final CustList<ExecAbstractSwitchMethod> switchMethodsRoot = new CustList<ExecAbstractSwitchMethod>();
     private boolean withInstanceElements;
     private final CustList<ExecInfoBlock> allFields = new CustList<ExecInfoBlock>();
     private final CustList<ExecMemberCallingsBlock> allFct = new CustList<ExecMemberCallingsBlock>();
@@ -202,8 +202,8 @@ public abstract class ExecRootBlock extends ExecBracedBlock implements GeneType,
         return anonymousRootLambda;
     }
 
-    public CustList<ExecAbstractSwitchMethod> getSwitchMethods() {
-        return switchMethods;
+    public CustList<ExecAbstractSwitchMethod> getSwitchMethodsRoot() {
+        return switchMethodsRoot;
     }
 
     public ExecRootBlockContent getRootBlockContent() {

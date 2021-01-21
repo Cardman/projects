@@ -402,16 +402,14 @@ public final class ForwardInfos {
                 }
             }
             ExecRootBlock value_ = e.getValue().getRootBlock();
-            if (!(value_ instanceof ExecInnerElementBlock)) {
-                for (AnonymousFunctionBlock a: root_.getAnonymousRootFct()) {
-                    value_.getAnonymousRootLambda().add(_forwards.getMapAnonLambda().getValue(a.getNumberLambda()));
-                }
-                for (SwitchMethodBlock a: root_.getSwitchMethods()) {
-                    value_.getSwitchMethods().add(_forwards.getMapSwitchMethods().getValue(a.getConditionNb()));
-                }
-                for (AnonymousTypeBlock a: root_.getAnonymousRoot()) {
-                    value_.getAnonymousRoot().add(_forwards.getMapAnonTypes().getValue(a.getNumberAnonType()));
-                }
+            for (AnonymousFunctionBlock a: root_.getAnonymousRootFct()) {
+                value_.getAnonymousRootLambda().add(_forwards.getMapAnonLambda().getValue(a.getNumberLambda()));
+            }
+            for (SwitchMethodBlock a: root_.getSwitchMethods()) {
+                value_.getSwitchMethodsRoot().add(_forwards.getMapSwitchMethods().getValue(a.getConditionNb()));
+            }
+            for (AnonymousTypeBlock a: root_.getAnonymousRoot()) {
+                value_.getAnonymousRoot().add(_forwards.getMapAnonTypes().getValue(a.getNumberAnonType()));
             }
         }
         for (EntryCust<OperatorBlock, ExecOperatorBlock> e: _forwards.getMapOperators().entryList()) {
