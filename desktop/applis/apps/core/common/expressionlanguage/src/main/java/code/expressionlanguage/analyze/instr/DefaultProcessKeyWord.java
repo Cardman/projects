@@ -87,37 +87,35 @@ public final class DefaultProcessKeyWord implements AbstractProcessKeyWord {
                 return;
             }
             _out.setNextIndex(j_);
+        }
+    }
+
+    public static void processKeyWordNew(String _exp, int _fr, Delimiters _d, ResultAfterInstKeyWord _out, String _keyWordNew, String _keyWordInterfaces) {
+        int j_ = _fr + _keyWordNew.length();
+        int af_ = extractPrefix(_exp, _d, _out, j_);
+        if (af_ < 0) {
             return;
         }
-        String keyWordNew_ = keyWords_.getKeyWordNew();
-        String keyWordInterfaces_ = keyWords_.getKeyWordInterfaces();
-        if (StringExpUtil.startsWithKeyWord(_exp,_fr, keyWordNew_)) {
-            int j_ = _fr+keyWordNew_.length();
-            int af_ = extractPrefix(_exp, _d, _out, j_);
-            if (af_ < 0) {
+        j_ = af_;
+        if (_exp.startsWith("@",j_)) {
+            ParsedAnnotations parse_ = new ParsedAnnotations(_exp.substring(j_),j_);
+            parse_.parse();
+            j_ = DefaultProcessKeyWord.skipWhiteSpace(_exp,parse_.getIndex());
+        }
+        if (StringExpUtil.startsWithKeyWord(_exp,j_, _keyWordInterfaces)) {
+            int k_ = _exp.indexOf(PAR_LEFT, j_);
+            if (k_ < 0) {
+                _d.setBadOffset(j_);
                 return;
             }
-            j_ = af_;
-            if (_exp.startsWith("@",j_)) {
-                ParsedAnnotations parse_ = new ParsedAnnotations(_exp.substring(j_),j_);
-                parse_.parse();
-                j_ = DefaultProcessKeyWord.skipWhiteSpace(_exp,parse_.getIndex());
+            k_ = _exp.indexOf(PAR_RIGHT, k_);
+            if (k_ < 0) {
+                _d.setBadOffset(j_);
+                return;
             }
-            if (StringExpUtil.startsWithKeyWord(_exp,j_, keyWordInterfaces_)) {
-                int k_ = _exp.indexOf(PAR_LEFT, j_);
-                if (k_ < 0) {
-                    _d.setBadOffset(j_);
-                    return;
-                }
-                k_ = _exp.indexOf(PAR_RIGHT, k_);
-                if (k_ < 0) {
-                    _d.setBadOffset(j_);
-                    return;
-                }
-                j_ = k_+1;
-            }
-            extractType(_exp, _d, _out, j_);
+            j_ = k_+1;
         }
+        extractType(_exp, _d, _out, j_);
     }
 
     public static int extractPrefix(String _exp, Delimiters _d, ResultAfterInstKeyWord _out, int _fr) {

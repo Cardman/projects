@@ -1799,6 +1799,7 @@ public final class ElResolver {
         String keyWordInterfaces_ = keyWords_.getKeyWordInterfaces();
         String keyWordLambda_ = keyWords_.getKeyWordLambda();
         String keyWordNull_ = keyWords_.getKeyWordNull();
+        String keyWordNew_ = keyWords_.getKeyWordNew();
         String keyWordStatic_ = keyWords_.getKeyWordStatic();
         String keyWordStaticCall_ = keyWords_.getKeyWordStaticCall();
         String keyWordSuper_ = keyWords_.getKeyWordSuper();
@@ -1899,6 +1900,10 @@ public final class ElResolver {
             _d.getDelClass().add(indexParRight_);
             i_ = indexParRight_ + 1;
             _out.setNextIndex(i_);
+            return;
+        }
+        if (StringExpUtil.startsWithKeyWord(_string,i_, keyWordNew_)) {
+            DefaultProcessKeyWord.processKeyWordNew(_string,i_,_d,_out,keyWordNew_,keyWordInterfaces_);
             return;
         }
         if (StringExpUtil.startsWithKeyWord(_string,i_, keyWordInstanceof_)) {
@@ -2644,7 +2649,7 @@ public final class ElResolver {
         String keyWordExplicit_ = keyWords_.getKeyWordExplicit();
         char curChar_ = _string.charAt(i_);
         StackDelimiters stack_ = _dout.getStack();
-        if (_page.isAnnotAnalysis() && curChar_ == ANNOT) {
+        if (curChar_ == ANNOT) {
             int j_ = i_ + 1;
             int last_ = i_;
             while (j_ < len_) {
