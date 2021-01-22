@@ -97,12 +97,14 @@ public abstract class AbstractInstancingOperation extends InvokingOperation {
                     ownersMap_.put(o, owners_.first());
                 }
             }
-            if (ownersMap_.size() != 1) {
-                return;
+            if (!className_.trim().isEmpty()) {
+                if (ownersMap_.size() != 1) {
+                    return;
+                }
+                sup_ = ownersMap_.values().first();
+                RootBlock root_ = _page.getAnaClassBody(StringExpUtil.getIdFromAllTypes(sup_));
+                vars_ = AnaTemplates.getVarTypes(root_,sup_);
             }
-            sup_ = ownersMap_.values().first();
-            RootBlock root_ = _page.getAnaClassBody(StringExpUtil.getIdFromAllTypes(sup_));
-            vars_ = AnaTemplates.getVarTypes(root_,sup_);
         } else {
             setStaticAccess(_page.getStaticContext());
         }
@@ -138,6 +140,115 @@ public abstract class AbstractInstancingOperation extends InvokingOperation {
         }
         String keyWordVar_ = keyWords_.getKeyWordVar();
         if (className_.trim().isEmpty()) {
+            boolean list_ = false;
+            if (m_ instanceof ArgumentListInstancing){
+                list_ = true;
+                m_ = m_.getParent().getParent();
+            }
+            if (m_ instanceof NamedArgumentOperation){
+                NamedArgumentOperation n_ = (NamedArgumentOperation) m_;
+                String name_ = n_.getName();
+                MethodOperation call_ = n_.getParent();
+                if (call_ instanceof RetrieveMethod) {
+                    RetrieveMethod f_ = (RetrieveMethod) call_;
+                    NameParametersFilter filter_ = buildQuickFilter(call_);
+                    CustList<CustList<MethodInfo>> methodInfos_ = f_.getMethodInfos();
+                    int len_ = methodInfos_.size();
+                    StringList candidates_ = new StringList();
+                    for (int i = 0; i < len_; i++) {
+                        int gr_ = methodInfos_.get(i).size();
+                        CustList<MethodInfo> newList_ = new CustList<MethodInfo>();
+                        for (int j = 0; j < gr_; j++) {
+                            MethodInfo methodInfo_ = methodInfos_.get(i).get(j);
+                            String format_ = tryParamFormatEmpInst(this,filter_,methodInfo_, name_, nbParentsInfer_, _page);
+                            if (format_ == null) {
+                                continue;
+                            }
+                            candidates_.add(format_);
+                            newList_.add(methodInfo_);
+                        }
+                        methodInfos_.set(i,newList_);
+                    }
+                    if (candidates_.onlyOneElt()) {
+                        typeInfer = candidates_.first();
+                    }
+                }
+                if (call_ instanceof RetrieveConstructor) {
+                    RetrieveConstructor f_ = (RetrieveConstructor) call_;
+                    NameParametersFilter filter_ = buildQuickFilter(call_);
+                    CustList<ConstructorInfo> methodInfos_ = f_.getCtors();
+                    int len_ = methodInfos_.size();
+                    StringList candidates_ = new StringList();
+                    CustList<ConstructorInfo> newList_ = new CustList<ConstructorInfo>();
+                    for (int i = 0; i < len_; i++) {
+                        ConstructorInfo methodInfo_ = methodInfos_.get(i);
+                        String format_ = tryParamFormatEmpInst(this,filter_,methodInfo_, name_, nbParentsInfer_, _page);
+                        if (format_ == null) {
+                            continue;
+                        }
+                        candidates_.add(format_);
+                        newList_.add(methodInfo_);
+                    }
+                    methodInfos_.clear();
+                    methodInfos_.addAllElts(newList_);
+                    if (candidates_.onlyOneElt()) {
+                        typeInfer = candidates_.first();
+                    }
+                }
+                return;
+            }
+            if (m_ instanceof RetrieveMethod){
+                RetrieveMethod f_ = (RetrieveMethod) m_;
+                OperationNode firstChild_ = f_.getFirstChild();
+                int deltaCount_ = getDeltaCount(list_,firstChild_);
+                int indexChild_ = par_.getOperationChild().getIndexChild()-deltaCount_;
+                CustList<CustList<MethodInfo>> methodInfos_ = f_.getMethodInfos();
+                int len_ = methodInfos_.size();
+                StringList candidates_ = new StringList();
+                for (int i = 0; i < len_; i++) {
+                    int gr_ = methodInfos_.get(i).size();
+                    CustList<MethodInfo> newList_ = new CustList<MethodInfo>();
+                    for (int j = 0; j < gr_; j++) {
+                        MethodInfo methodInfo_ = methodInfos_.get(i).get(j);
+                        String format_ = tryFormatEmpInst(this,methodInfo_, indexChild_, nbParentsInfer_, _page);
+                        if (format_ == null) {
+                            continue;
+                        }
+                        candidates_.add(format_);
+                        newList_.add(methodInfo_);
+                    }
+                    methodInfos_.set(i,newList_);
+                }
+                if (candidates_.onlyOneElt()) {
+                    typeInfer = candidates_.first();
+                }
+                return;
+            }
+            if (m_ instanceof RetrieveConstructor){
+                RetrieveConstructor f_ = (RetrieveConstructor) m_;
+                OperationNode firstChild_ = f_.getFirstChild();
+                int deltaCount_ = getDeltaCount(list_,firstChild_);
+                int indexChild_ = par_.getOperationChild().getIndexChild()-deltaCount_;
+                CustList<ConstructorInfo> methodInfos_ = f_.getCtors();
+                int len_ = methodInfos_.size();
+                StringList candidates_ = new StringList();
+                CustList<ConstructorInfo> newList_ = new CustList<ConstructorInfo>();
+                for (int i = 0; i < len_; i++) {
+                    ConstructorInfo methodInfo_ = methodInfos_.get(i);
+                    String format_ = tryFormatEmpInst(this,methodInfo_, indexChild_, nbParentsInfer_, _page);
+                    if (format_ == null) {
+                        continue;
+                    }
+                    candidates_.add(format_);
+                    newList_.add(methodInfo_);
+                }
+                methodInfos_.clear();
+                methodInfos_.addAllElts(newList_);
+                if (candidates_.onlyOneElt()) {
+                    typeInfer = candidates_.first();
+                }
+                return;
+            }
             if (isUndefined(typeAff_, keyWordVar_)) {
                 return;
             }
@@ -332,6 +443,40 @@ public abstract class AbstractInstancingOperation extends InvokingOperation {
         ContextUtil.appendTitleParts(lt_, gt_,infer_,partOffsets, _page);
         typeInfer = infer_;
     }
+    protected static String tryParamFormatEmpInst(AbstractInstancingOperation _current,NameParametersFilter _filter, Parametrable _param, String _name, int _nbParentsInfer, AnalyzedPageEl _page) {
+        if (!isValidNameIndex(_filter,_param,_name)) {
+            return null;
+        }
+        int ind_ = StringUtil.indexOf(_param.getParametersNames(), _name);
+        return tryFormatEmpInst(_current,_param, ind_, _nbParentsInfer, _page);
+    }
+    protected static String tryFormatEmpInst(AbstractInstancingOperation _current,Parametrable _param, int _indexChild, int _nbParentsInfer, AnalyzedPageEl _page) {
+        String cp_ = tryGetParamDim(_param,_indexChild,_nbParentsInfer);
+        if (cp_ == null) {
+            return null;
+        }
+        String base_ = StringExpUtil.getIdFromAllTypes(cp_);
+        AnaGeneType g_ = _page.getAnaGeneType(base_);
+        if (g_ == null) {
+            return null;
+        }
+        if (StringExpUtil.isWildCard(cp_)) {
+            return null;
+        }
+        String enumClassName_ = _page.getAliasEnumType();
+        String enumParamClassName_ = _page.getAliasEnumParam();
+        if (StringUtil.quickEq(enumParamClassName_, base_)) {
+            return null;
+        }
+        if (StringUtil.quickEq(enumClassName_, base_)) {
+            return null;
+        }
+        if (_current.koType(g_,cp_,_page)) {
+            return null;
+        }
+        return cp_;
+    }
+    protected abstract boolean koType(AnaGeneType _type,String _realClassName,  AnalyzedPageEl _page);
 
     void checkInstancingType(String _realClassName, MethodAccessKind _staticAccess, AnalyzedPageEl _page) {
         String base_ = StringExpUtil.getIdFromAllTypes(_realClassName);
@@ -368,6 +513,23 @@ public abstract class AbstractInstancingOperation extends InvokingOperation {
                 }
             }
         }
+    }
+    static boolean koInstancingType(String _realClassName, MethodAccessKind _staticAccess, AnalyzedPageEl _page, AnaGeneType _type) {
+        if (!_type.withoutInstance()) {
+            String glClass_ = _page.getGlobalClass();
+            StringList parts_ = StringExpUtil.getAllPartInnerTypes(_realClassName);
+            String outer_ = StringUtil.join(parts_.left(parts_.size() - 2),"");
+            if (_staticAccess != MethodAccessKind.INSTANCE) {
+                return true;
+            }
+            StringMap<StringList> vars_ = _page.getCurrentConstraints().getCurrentConstraints();
+            Mapping m_ = new Mapping();
+            m_.setArg(glClass_);
+            m_.setParam(outer_);
+            m_.setMapping(vars_);
+            return !AnaTemplates.isCorrectOrNumbers(m_, _page);
+        }
+        return false;
     }
     public String getTypeInfer() {
         return typeInfer;

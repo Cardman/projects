@@ -8,6 +8,7 @@ import code.expressionlanguage.analyze.opers.util.MemberId;
 import code.expressionlanguage.analyze.opers.util.NameParametersFilter;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.ResolvingTypes;
+import code.expressionlanguage.analyze.util.ContextUtil;
 import code.expressionlanguage.common.AnaGeneType;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
@@ -98,6 +99,21 @@ public final class AnonymousInstancingOperation extends
         addErr(static_.getBuiltError());
         setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
     }
+
+    @Override
+    protected boolean koType(AnaGeneType _type, String _realClassName, AnalyzedPageEl _page) {
+        if (_realClassName.contains("#")) {
+            return true;
+        }
+        if (!(_type instanceof ImmutableNameRootBlock)) {
+            return true;
+        }
+        if (ContextUtil.isFinalType(_type)) {
+            return true;
+        }
+        return !_type.withoutInstance();
+    }
+
     private void preAnalyzeCtor(String _realClassName, AnalyzedPageEl _page) {
         String base_ = StringExpUtil.getIdFromAllTypes(_realClassName);
         AnaGeneType g_ = _page.getAnaGeneType(base_);

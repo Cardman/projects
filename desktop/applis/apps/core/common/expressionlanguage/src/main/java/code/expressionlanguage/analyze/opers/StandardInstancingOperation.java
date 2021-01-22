@@ -180,6 +180,16 @@ public final class StandardInstancingOperation extends
         analyzeCtor(realClassName_, varargParam_, _page);
     }
 
+    @Override
+    protected boolean koType(AnaGeneType _type,String _realClassName, AnalyzedPageEl _page) {
+        if (ContextUtil.isAbstractType(_type)) {
+            return true;
+        }
+        if (!isIntermediateDottedOperation()) {
+            return koInstancingType(_realClassName, _page.getStaticContext(), _page, _type);
+        }
+        return false;
+    }
 
     private void analyzeCtor(String _realClassName, String _paramVargArg, AnalyzedPageEl _page) {
         int varargOnly_ = lookOnlyForVarArg();

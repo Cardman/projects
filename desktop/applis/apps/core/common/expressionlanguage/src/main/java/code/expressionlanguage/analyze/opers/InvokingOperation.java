@@ -222,7 +222,15 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
         return StringExpUtil.getPrettyArrayType(idMethod_.getParametersTypes().last());
     }
     protected static String tryFormat(Parametrable _param, int _indexChild, int _nbParentsInfer, String _type, StringMap<String> _vars, AnalyzedPageEl _page) {
-        String parametersType_ = tryGetParam(_param,_indexChild);
+        String cp_ = tryGetParamDim(_param, _indexChild, _nbParentsInfer);
+        if (cp_ == null) {
+            return null;
+        }
+        return AnaTemplates.tryInfer(_type,_vars, cp_, _page);
+    }
+
+    protected static String tryGetParamDim(Parametrable _param, int _indexChild, int _nbParentsInfer) {
+        String parametersType_ = tryGetParam(_param, _indexChild);
         if (parametersType_ == null) {
             return null;
         }
@@ -234,15 +242,16 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
             }
         } else {
             if (isNotCorrectDim(cp_)) {
-                String cpTwo_ = StringExpUtil.getQuickComponentType(parametersType_, _nbParentsInfer-1);
+                String cpTwo_ = StringExpUtil.getQuickComponentType(parametersType_, _nbParentsInfer -1);
                 if (isNotCorrectDim(cpTwo_)) {
                     return null;
                 }
                 cp_ = cpTwo_;
             }
         }
-        return AnaTemplates.tryInfer(_type,_vars, cp_, _page);
+        return cp_;
     }
+
     protected static String tryGetParam(Parametrable _param, int _indexChild) {
         String parametersType_;
         Identifiable idMethod_ = _param.getGeneFormatted();
