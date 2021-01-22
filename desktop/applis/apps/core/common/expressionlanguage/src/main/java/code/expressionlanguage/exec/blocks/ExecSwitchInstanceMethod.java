@@ -9,8 +9,8 @@ import code.expressionlanguage.functionid.MethodAccessKind;
 
 public final class ExecSwitchInstanceMethod extends ExecAbstractSwitchMethod {
 
-    public ExecSwitchInstanceMethod(boolean _retRef, String _name, MethodAccessKind _modifier, String _importedParamType, int _offsetTrim) {
-        super(_retRef, _name, _modifier, _importedParamType, _offsetTrim);
+    public ExecSwitchInstanceMethod(boolean _retRef, String _name, MethodAccessKind _modifier, String _importedParamType, int _offsetTrim, String _retType) {
+        super(_retRef, _name, _modifier, _importedParamType, _offsetTrim, _retType);
     }
 
     @Override

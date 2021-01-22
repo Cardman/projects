@@ -10,8 +10,8 @@ import code.util.CustList;
 
 public final class ExecSwitchValueMethod extends ExecAbstractSwitchMethod {
 
-    public ExecSwitchValueMethod(boolean _retRef, String _name, MethodAccessKind _modifier, String _importedParamType, int _offsetTrim) {
-        super(_retRef, _name, _modifier, _importedParamType, _offsetTrim);
+    public ExecSwitchValueMethod(boolean _retRef, String _name, MethodAccessKind _modifier, String _importedParamType, int _offsetTrim, String _retType) {
+        super(_retRef, _name, _modifier, _importedParamType, _offsetTrim, _retType);
     }
 
     @Override

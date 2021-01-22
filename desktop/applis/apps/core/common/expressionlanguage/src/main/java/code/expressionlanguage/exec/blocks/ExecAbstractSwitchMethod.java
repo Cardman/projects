@@ -27,13 +27,15 @@ public abstract class ExecAbstractSwitchMethod extends ExecMemberCallingsBlock i
     private ExecRootBlock parentType;
     private ExecOperatorBlock operator;
     private final CustList<CustList<CustList<ExecOperationNode>>> annotationsOpsParams = new CustList<CustList<CustList<ExecOperationNode>>>();
+    private final String retType;
 
-    public ExecAbstractSwitchMethod(boolean _retRef, String _name, MethodAccessKind _modifier, String _importedParamType, int _offsetTrim) {
+    public ExecAbstractSwitchMethod(boolean _retRef, String _name, MethodAccessKind _modifier, String _importedParamType, int _offsetTrim, String _retType) {
         super(_offsetTrim);
         name = _name;
         retRef = _retRef;
         importedParamType = _importedParamType;
         kind = _modifier;
+        retType = _retType;
     }
 
     @Override
@@ -45,6 +47,10 @@ public abstract class ExecAbstractSwitchMethod extends ExecMemberCallingsBlock i
         String name_ = getName();
         StringList pTypes_ = new StringList(importedParamType);
         return new MethodId(isRetRef(), kind, name_, pTypes_,new BooleanList(false), false);
+    }
+
+    public String getRetType() {
+        return retType;
     }
 
     public MethodAccessKind getKind() {

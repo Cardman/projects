@@ -593,13 +593,14 @@ public final class ForwardInfos {
         boolean retRef_ = block_.isRetRef();
         String name_ = block_.getName();
         MethodAccessKind kind_ = block_.getStaticContext();
+        String retType_ = block_.getRetType();
         ExecAbstractSwitchMethod fct_;
         if (!block_.getInstanceTest().isEmpty()) {
-            fct_ = new ExecSwitchInstanceMethod(retRef_, name_, kind_, parType_,block_.getOffset().getOffsetTrim());
+            fct_ = new ExecSwitchInstanceMethod(retRef_, name_, kind_, parType_,block_.getOffset().getOffsetTrim(),retType_);
         } else if (block_.isEnumTest()) {
-            fct_ = new ExecSwitchEnumMethod(retRef_, name_, kind_, parType_,block_.getOffset().getOffsetTrim());
+            fct_ = new ExecSwitchEnumMethod(retRef_, name_, kind_, parType_,block_.getOffset().getOffsetTrim(),retType_);
         } else {
-            fct_ = new ExecSwitchValueMethod(retRef_, name_, kind_, parType_, block_.getOffset().getOffsetTrim());
+            fct_ = new ExecSwitchValueMethod(retRef_, name_, kind_, parType_, block_.getOffset().getOffsetTrim(),retType_);
         }
         ExecRootBlock declaring_ = FetchMemberUtil.fetchType(_s.getRootNumber(),_forwards);
         fct_.setParentType(declaring_);

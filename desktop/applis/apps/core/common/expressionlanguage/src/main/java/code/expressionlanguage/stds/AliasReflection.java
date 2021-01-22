@@ -721,7 +721,8 @@ public final class AliasReflection {
             MethodId id_ = f.getId();
             ExecRootBlock type_ = f.getParentType();
             if (type_ != null) {
-                String ret_ = standards_.getContent().getCoreNames().getAliasObject();
+                String ret_ = f.getRetType();
+                MethodId fid_ = MetaInfoUtil.tryFormatId(declaringClass_, _cont, id_);
                 boolean param_ = id_.getKind() == MethodAccessKind.STATIC_CALL;
                 String idType_ = type_.getFullName();
                 String formCl_ = MetaInfoUtil.tryFormatType(idType_, declaringClass_, _cont);
@@ -729,7 +730,7 @@ public final class AliasReflection {
                 if (param_) {
                     idCl_ = declaringClass_;
                 }
-                MethodMetaInfo met_ = new MethodMetaInfo(declaringClass_, idCl_, id_, f.getModifier(), ret_, formCl_);
+                MethodMetaInfo met_ = new MethodMetaInfo(declaringClass_, idCl_, id_, f.getModifier(), ret_, fid_, formCl_);
                 met_.setCallee(f);
                 met_.pair(type_,null);
                 met_.setFileName(f.getFile().getFileName());
@@ -737,11 +738,12 @@ public final class AliasReflection {
             }
             ExecOperatorBlock operator_ = f.getOperator();
             if (operator_ != null) {
-                String ret_ = standards_.getContent().getCoreNames().getAliasObject();
+                String ret_ = f.getRetType();
+                MethodId fid_ = MetaInfoUtil.tryFormatId(declaringClass_, _cont, id_);
                 String idType_ = "";
                 String formCl_ = MetaInfoUtil.tryFormatType(idType_, declaringClass_, _cont);
                 String idCl_ = "";
-                MethodMetaInfo met_ = new MethodMetaInfo(declaringClass_, idCl_, id_, f.getModifier(), ret_, formCl_);
+                MethodMetaInfo met_ = new MethodMetaInfo(declaringClass_, idCl_, id_, f.getModifier(), ret_, fid_, formCl_);
                 met_.setCallee(f);
                 met_.pair(null,null);
                 met_.setFileName(f.getFile().getFileName());
