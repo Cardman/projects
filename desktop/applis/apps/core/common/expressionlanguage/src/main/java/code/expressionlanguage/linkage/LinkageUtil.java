@@ -261,8 +261,8 @@ public final class LinkageUtil {
                 }
             }
             if (vars_.getStack().last().getCurrent() == null) {
-                if (!(child_ instanceof NamedFunctionBlock)&&!(child_ instanceof InfoBlock)
-                        &&!(child_ instanceof Line)&&!(child_ instanceof DeclareVariable)&&!(child_ instanceof SwitchMethodBlock)
+                if (!(child_ instanceof AnnotableParametersBlock)&&!(child_ instanceof InfoBlock)
+                        &&!(child_ instanceof Line)&&!(child_ instanceof DeclareVariable)
                         &&!(child_ instanceof EmptyInstruction)&&!(child_ instanceof RootBlock)&&!isImplicitReturn(child_)) {
                     if (!child_.getErrorsBlock().isEmpty()) {
                         String err_ = StringUtil.join(child_.getErrorsBlock(),"\n\n");

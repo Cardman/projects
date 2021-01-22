@@ -576,16 +576,8 @@ public final class Coverage {
                 BlockCoverageResult fctRes_ = types.get(((RootBlock)mem_.getParent()).getNumberAll()).getAnnotationsFields().get(mem_.getNameNumber());
                 return fctRes_.getAnnotations().get(_indexAnnot);
             }
-            if (_block instanceof NamedFunctionBlock) {
-                NamedFunctionBlock mem_ = (NamedFunctionBlock) _block;
-                FunctionCoverageResult fctRes_ = getFctRes(mem_);
-                if (_indexAnnotGroup < 0) {
-                    return fctRes_.getAnnotations().get(_indexAnnot);
-                }
-                return fctRes_.getAnnotationsParams().get(_indexAnnotGroup).get(_indexAnnot);
-            }
-            if (_block instanceof SwitchMethodBlock) {
-                SwitchMethodBlock mem_ = (SwitchMethodBlock) _block;
+            if (_block instanceof MemberCallingsBlock) {
+                MemberCallingsBlock mem_ = (MemberCallingsBlock) _block;
                 FunctionCoverageResult fctRes_ = getFctRes(mem_);
                 if (_indexAnnotGroup < 0) {
                     return fctRes_.getAnnotations().get(_indexAnnot);
