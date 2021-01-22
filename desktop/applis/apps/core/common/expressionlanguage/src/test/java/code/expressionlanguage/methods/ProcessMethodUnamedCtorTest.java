@@ -1043,6 +1043,29 @@ public final class ProcessMethodUnamedCtorTest extends ProcessMethodCommon {
         assertEq("1", getString(ret_));
     }
     @Test
+    public void test41() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex<T> {\n");
+        xml_.append(" public T f;\n");
+        xml_.append(" public Ex(T p){f = p;}\n");
+        xml_.append(" public static String exmeth(){\n");
+        xml_.append("  Fct<Ex<int>,String> fct = staticCall(Ex<int>).$lambda(Ex<int>,id,$id,,Ex<T>);\n");
+        xml_.append("  return fct.call(new(1));\n");
+        xml_.append(" }\n");
+        xml_.append(" public staticCall String id(Ex<T> p){\n");
+        xml_.append("  return \"\"+p.f;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxLgReadOnlyOk("en",files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq("1", getString(ret_));
+    }
+    @Test
     public void testFail() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("public class pkg.Ex<T> {\n");
@@ -1069,6 +1092,16 @@ public final class ProcessMethodUnamedCtorTest extends ProcessMethodCommon {
         xml_.append(" public ExOther(int p, U q){f = (U)p;}\n");
         xml_.append("}\n");
         xml_.append("public class pkg.ExArr {\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.Ex1<T> {\n");
+        xml_.append(" public T f;\n");
+        xml_.append(" public Ex1(T p){f = p;}\n");
+        xml_.append(" public static void exmeth(){\n");
+        xml_.append("  staticCall(Ex1<?>).$lambda(Ex1<?>,id,$id,,Ex1<T>);\n");
+        xml_.append(" }\n");
+        xml_.append(" public staticCall String id(Ex1<T> p){\n");
+        xml_.append("  return \"\"+p.f;\n");
+        xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
