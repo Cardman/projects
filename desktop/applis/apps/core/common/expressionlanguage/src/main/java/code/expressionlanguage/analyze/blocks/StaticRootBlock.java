@@ -5,14 +5,11 @@ import code.expressionlanguage.analyze.files.OffsetAccessInfo;
 import code.expressionlanguage.analyze.files.OffsetsBlock;
 import code.util.IntMap;
 
-public final class RecordBlock extends RootBlock {
-
-    private final boolean mutable;
-    public RecordBlock(boolean _mutable,int _idRowCol, String _name, String _packageName, OffsetAccessInfo _access,
+public abstract class StaticRootBlock extends RootBlock {
+    public StaticRootBlock(int _idRowCol, String _name, String _packageName, OffsetAccessInfo _access,
                        String _templateDef, IntMap<String> _directSuperTypes,
                        OffsetsBlock _offset) {
         super(_idRowCol, _packageName, _access, _templateDef, _directSuperTypes, _offset, _name);
-        mutable = _mutable;
     }
 
     @Override
@@ -26,10 +23,7 @@ public final class RecordBlock extends RootBlock {
 
     @Override
     public boolean mustImplement() {
-        return true;
+        return false;
     }
 
-    public boolean isMutable() {
-        return mutable;
-    }
 }

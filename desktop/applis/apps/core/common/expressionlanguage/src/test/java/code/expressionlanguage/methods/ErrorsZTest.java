@@ -5548,5 +5548,35 @@ public final class ErrorsZTest extends ProcessMethodCommon {
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
     }
-
+    @Test
+    public void report834Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $classe pkg.Ex{}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("src/pkg/Ex", xml_.toString());
+        StringMap<String> filesExp_ = ctxErrReadOnly(files_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public <a name=\"m8\" title=\"The part $classe pkg in a type is not valid. It must be a word.\" class=\"e\">$classe pkg.Ex</a><a title=\"Bad index by parsing.\" class=\"e\">{</a>}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report835Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo{}\n");
+        xml_.append("$classe pkg.Ex{}");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("src/pkg/Ex", xml_.toString());
+        StringMap<String> filesExp_ = ctxErrReadOnly(files_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.ExTwo</a>{}\n" +
+                "<a name=\"m27\" title=\"The part $classe pkg in a type is not valid. It must be a word.\" class=\"e\">$classe pkg.Ex</a><a title=\"Bad index by parsing.\" class=\"e\">{</a>}</span></pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report836Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class $interfaces pkg.Ex{}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("src/pkg/Ex", xml_.toString());
+        StringMap<String> filesExp_ = ctxErrReadOnly(files_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public <a title=\"Bad index by parsing.\" class=\"e\">$class</a> <a name=\"m15\" title=\"The part $interfaces pkg in a type is not valid. It must be a word.\" class=\"e\">$interfaces pkg.Ex</a>{}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
 }

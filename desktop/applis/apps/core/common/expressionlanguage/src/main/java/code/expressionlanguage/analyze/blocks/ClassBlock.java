@@ -5,7 +5,7 @@ import code.expressionlanguage.analyze.files.OffsetsBlock;
 import code.expressionlanguage.fwd.blocks.AnaClassContent;
 import code.util.*;
 
-public final class ClassBlock extends ImmutableNameRootBlock implements UniqueRootedBlock {
+public final class ClassBlock extends RootBlock implements UniqueRootedBlock {
 
     private final AnaClassContent classContent;
 
@@ -14,7 +14,7 @@ public final class ClassBlock extends ImmutableNameRootBlock implements UniqueRo
                       boolean _finalType,
                       boolean _abstractType, boolean _staticType,
                       OffsetsBlock _offset) {
-        super(_idRowCol, _name, _packageName, _access, _templateDef, _directSuperTypes, _offset);
+        super(_idRowCol, _packageName, _access, _templateDef, _directSuperTypes, _offset, _name);
         classContent = new AnaClassContent(_finalType,_abstractType,_staticType);
     }
 

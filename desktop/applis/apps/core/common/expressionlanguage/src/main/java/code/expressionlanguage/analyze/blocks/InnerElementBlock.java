@@ -20,7 +20,7 @@ import code.expressionlanguage.options.KeyWords;
 import code.util.*;
 import code.util.core.StringUtil;
 
-public final class InnerElementBlock extends ImmutableNameRootBlock implements InnerTypeOrElement,UniqueRootedBlock {
+public final class InnerElementBlock extends RootBlock implements InnerTypeOrElement,UniqueRootedBlock {
 
     private final AnaElementContent elementContent = new AnaElementContent();
 
@@ -47,7 +47,7 @@ public final class InnerElementBlock extends ImmutableNameRootBlock implements I
     public InnerElementBlock(EnumBlock _m, String _pkgName,OffsetStringInfo _fieldName,
                              OffsetStringInfo _type,
                              OffsetStringInfo _value, OffsetsBlock _offset) {
-        super(_fieldName.getOffset(), _fieldName.getInfo(), _pkgName, new OffsetAccessInfo(0,AccessEnum.PUBLIC), "", new IntMap< String>(), _offset);
+        super(_fieldName.getOffset(), _pkgName, new OffsetAccessInfo(0,AccessEnum.PUBLIC), "", new IntMap< String>(), _offset, _fieldName.getInfo());
         parentEnum = _m;
         elementContent.setFieldNameOffest(_fieldName.getOffset());
         valueOffest = _value.getOffset();

@@ -255,7 +255,7 @@ public final class ParsedAnnotations {
         return startsWithAnnot(_trimmedInstruction, _keyWordClass);
     }
     static boolean startsWithAnnot(String _trimmedInstruction, String... _keyWordClass) {
-        if (_trimmedInstruction.charAt(0) != ANNOT) {
+        if (!StringExpUtil.nextCharIs(_trimmedInstruction,0,_trimmedInstruction.length(),ANNOT)) {
             return false;
         }
         boolean exist_ = false;

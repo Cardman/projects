@@ -394,60 +394,7 @@ public final class FileResolver {
         String tr_ = _instruction.toString().trim();
         KeyWords keyWords_ = _page.getKeyWords();
         if (_parent == null) {
-            if (tr_.isEmpty()) {
-                return EndInstruction.DECLARE_TYPE;
-            }
-            if (ParsedAnnotations.startsWithAnnot(tr_, keyWords_.getKeyWordClass(),keyWords_.getKeyWordInterface())) {
-                ParsedAnnotations par_ = new ParsedAnnotations(tr_, 0);
-                par_.parse(keyWords_.getKeyWordClass(),keyWords_.getKeyWordInterface());
-                tr_ = par_.getAfter();
-            }
-            String word_ = EMPTY_STRING;
-            if (StringExpUtil.startsWithKeyWord(tr_,keyWords_.getKeyWordPrivate())) {
-                word_ = keyWords_.getKeyWordPrivate();
-            } else if (StringExpUtil.startsWithKeyWord(tr_,keyWords_.getKeyWordPackage())) {
-                word_ = keyWords_.getKeyWordPackage();
-            } else if (StringExpUtil.startsWithKeyWord(tr_,keyWords_.getKeyWordProtected())) {
-                word_ = keyWords_.getKeyWordProtected();
-            } else {
-                if (StringExpUtil.startsWithKeyWord(tr_,keyWords_.getKeyWordPublic())) {
-                    word_ = keyWords_.getKeyWordPublic();
-                }
-            }
-            String afterAccess_ = tr_.substring(word_.length()).trim();
-            String keyWordAbstract_ = keyWords_.getKeyWordAbstract();
-            String keyWordAnnotation_ = keyWords_.getKeyWordAnnotation();
-            String keyWordClass_ = keyWords_.getKeyWordClass();
-            String keyWordEnum_ = keyWords_.getKeyWordEnum();
-            String keyWordFinal_ = keyWords_.getKeyWordFinal();
-            String keyWordInterface_ = keyWords_.getKeyWordInterface();
-            String beforeQu_ = afterAccess_;
-            if (StringExpUtil.startsWithKeyWord(beforeQu_,keyWordAbstract_)) {
-                beforeQu_ = beforeQu_.substring(keyWordAbstract_.length()).trim();
-            }
-            if (StringExpUtil.startsWithKeyWord(beforeQu_,keyWordFinal_)) {
-                beforeQu_ = beforeQu_.substring(keyWordFinal_.length()).trim();
-            }
-            boolean dType_ = false;
-            if (StringExpUtil.startsWithKeyWord(beforeQu_,keyWordClass_)) {
-                dType_ = true;
-            } else if (StringExpUtil.startsWithArobaseKeyWord(beforeQu_,keyWordClass_)) {
-                dType_ = true;
-            } else if (StringExpUtil.startsWithArobaseKeyWord(beforeQu_,keyWordInterface_)) {
-                dType_ = true;
-            } else if (StringExpUtil.startsWithKeyWord(beforeQu_,keyWordEnum_)) {
-                dType_ = true;
-            } else if (StringExpUtil.startsWithKeyWord(beforeQu_,keyWordInterface_)) {
-                dType_ = true;
-            } else {
-                if (StringExpUtil.startsWithKeyWord(beforeQu_,keyWordAnnotation_)) {
-                    dType_ = true;
-                }
-            }
-            if (dType_) {
-                return EndInstruction.DECLARE_TYPE;
-            }
-            return EndInstruction.NO_DECLARE_TYPE;
+            return EndInstruction.DECLARE_TYPE;
         }
         if (tr_.isEmpty()) {
             return EndInstruction.NO_DECLARE_TYPE;
@@ -727,47 +674,45 @@ public final class FileResolver {
             Ints annotationsIndexesTypes_ = new Ints();
             StringList annotationsTypes_ = new StringList();
             Ints badIndexes_ = _input.getBadIndexes();
-            String trimType_ = afterAccessType_.trim();
-            if (trimType_.isEmpty()) {
-                if (_input.getType() == OuterBlockEnum.SWITCH_METHOD) {
-                    SwitchMethodBlock typeBlock_ = new SwitchMethodBlock(new OffsetsBlock(instructionRealLocation_ +_offset, instructionRealLocation_ +_offset), _page);
-                    typeBlock_.setBegin(instructionRealLocation_ +_offset);
-                    typeBlock_.setLengthHeader(1);
-                    typeBlock_.getAnnotations().addAllElts(_input.getAnnotations());
-                    typeBlock_.getAnnotationsIndexes().addAllElts(_input.getAnnotationsIndexes());
-                    typeBlock_.getAnnotationsParams().addAllElts(_input.getAnnotationsParams());
-                    typeBlock_.getAnnotationsIndexesParams().addAllElts(_input.getAnnotationsIndexesParams());
-                    typeBlock_.setFile(file_);
-                    _out.setBlock(typeBlock_);
-                    currentParent_ = typeBlock_;
-                } else if (_input.getType() == OuterBlockEnum.ANON_FCT) {
-                    AnonymousFunctionBlock typeBlock_;
-                    typeBlock_ = new AnonymousFunctionBlock(_input.getNextIndexBef()+_offset,
-                            new OffsetsBlock(instructionRealLocation_ +_offset, instructionRealLocation_ +_offset), _page);
-                    typeBlock_.setBegin(instructionRealLocation_ +_offset);
-                    typeBlock_.setLengthHeader(1);
-                    typeBlock_.getAnnotations().addAllElts(_input.getAnnotations());
-                    typeBlock_.getAnnotationsIndexes().addAllElts(_input.getAnnotationsIndexes());
-                    typeBlock_.getAnnotationsParams().addAllElts(_input.getAnnotationsParams());
-                    typeBlock_.getAnnotationsIndexesParams().addAllElts(_input.getAnnotationsIndexesParams());
-                    typeBlock_.setFile(file_);
-                    _out.setBlock(typeBlock_);
-                    currentParent_ = typeBlock_;
-                } else {
-                    RootBlock typeBlock_;
-                    typeBlock_ = new AnonymousTypeBlock(instructionRealLocation_ +_offset, packageName_,
-                            new OffsetAccessInfo(instructionRealLocation_ +_offset, AccessEnum.PUBLIC), "", new IntMap<String>(),
-                            new OffsetsBlock(instructionRealLocation_ +_offset, instructionRealLocation_ +_offset),_input.getGeneratedId());
-                    typeBlock_.setBegin(instructionRealLocation_ +_offset);
-                    typeBlock_.setNameLength(1);
-                    typeBlock_.setLengthHeader(1);
-                    typeBlock_.getAnnotations().addAllElts(_input.getAnnotations());
-                    typeBlock_.getAnnotationsIndexes().addAllElts(_input.getAnnotationsIndexes());
-                    typeBlock_.setFile(file_);
-                    _out.setBlock(typeBlock_);
-                    currentParent_ = typeBlock_;
-                }
+            if (_input.getType() == OuterBlockEnum.SWITCH_METHOD) {
+                SwitchMethodBlock typeBlock_ = new SwitchMethodBlock(new OffsetsBlock(instructionRealLocation_ +_offset, instructionRealLocation_ +_offset), _page);
+                typeBlock_.setBegin(instructionRealLocation_ +_offset);
+                typeBlock_.setLengthHeader(1);
+                typeBlock_.getAnnotations().addAllElts(_input.getAnnotations());
+                typeBlock_.getAnnotationsIndexes().addAllElts(_input.getAnnotationsIndexes());
+                typeBlock_.getAnnotationsParams().addAllElts(_input.getAnnotationsParams());
+                typeBlock_.getAnnotationsIndexesParams().addAllElts(_input.getAnnotationsIndexesParams());
+                typeBlock_.setFile(file_);
+                _out.setBlock(typeBlock_);
+                currentParent_ = typeBlock_;
+            } else if (_input.getType() == OuterBlockEnum.ANON_FCT) {
+                AnonymousFunctionBlock typeBlock_;
+                typeBlock_ = new AnonymousFunctionBlock(_input.getNextIndexBef()+_offset,
+                        new OffsetsBlock(instructionRealLocation_ +_offset, instructionRealLocation_ +_offset), _page);
+                typeBlock_.setBegin(instructionRealLocation_ +_offset);
+                typeBlock_.setLengthHeader(1);
+                typeBlock_.getAnnotations().addAllElts(_input.getAnnotations());
+                typeBlock_.getAnnotationsIndexes().addAllElts(_input.getAnnotationsIndexes());
+                typeBlock_.getAnnotationsParams().addAllElts(_input.getAnnotationsParams());
+                typeBlock_.getAnnotationsIndexesParams().addAllElts(_input.getAnnotationsIndexesParams());
+                typeBlock_.setFile(file_);
+                _out.setBlock(typeBlock_);
+                currentParent_ = typeBlock_;
+            } else if (_input.getType() == OuterBlockEnum.ANON_TYPE) {
+                RootBlock typeBlock_;
+                typeBlock_ = new AnonymousTypeBlock(instructionRealLocation_ +_offset, packageName_,
+                        new OffsetAccessInfo(instructionRealLocation_ +_offset, AccessEnum.PUBLIC), "", new IntMap<String>(),
+                        new OffsetsBlock(instructionRealLocation_ +_offset, instructionRealLocation_ +_offset),_input.getGeneratedId());
+                typeBlock_.setBegin(instructionRealLocation_ +_offset);
+                typeBlock_.setNameLength(1);
+                typeBlock_.setLengthHeader(1);
+                typeBlock_.getAnnotations().addAllElts(_input.getAnnotations());
+                typeBlock_.getAnnotationsIndexes().addAllElts(_input.getAnnotationsIndexes());
+                typeBlock_.setFile(file_);
+                _out.setBlock(typeBlock_);
+                currentParent_ = typeBlock_;
             } else {
+                String trimType_ = afterAccessType_.trim();
                 int accessOffsetType_ = instructionRealLocation_;
                 if (ParsedAnnotations.startsWithAnnot(trimType_, keyWords_.getKeyWordClass(),keyWords_.getKeyWordInterface())) {
                     // accessOffesType_ == nextIndex_ == i_ + 1;
@@ -867,6 +812,7 @@ public final class FileResolver {
                     String keyWordPrivate_ = keyWords_.getKeyWordPrivate();
                     String keyWordProtected_ = keyWords_.getKeyWordProtected();
                     String keyWordPublic_ = keyWords_.getKeyWordPublic();
+                    boolean okHeader_ = true;
                     if (StringExpUtil.startsWithKeyWord(afterAccessType_, keyWordPublic_)) {
                         access_ = AccessEnum.PUBLIC;
                         nextIndex_ += keyWordPublic_.length();
@@ -909,7 +855,7 @@ public final class FileResolver {
                         access_ = _page.getDefaultAccess().getAccOuter();
                     } else {
                         //ERROR
-                        badIndexes_.add(nextIndex_);
+                        okHeader_ = false;
                     }
                     boolean abstractType_ = false;
                     boolean finalType_ = false;
@@ -929,8 +875,8 @@ public final class FileResolver {
                         beforeQu_ = afterAccess_.trim();
                     }
                     int categoryOffset_ = nextIndex_;
-                    String type_ = keyWordClass_;
-                    boolean okCat_ = true;
+                    String type_ = "";
+                    boolean okCat_ = okHeader_;
                     if (StringExpUtil.startsWithKeyWord(beforeQu_, keyWordClass_)) {
                         type_ = keyWordClass_;
                         nextIndex_ = nextIndex_ + keyWordClass_.length();
@@ -969,7 +915,6 @@ public final class FileResolver {
                         beforeQu_ = afterAccess_.trim();
                     } else {
                         //ERROR
-                        badIndexes_.add(nextIndex_);
                         okCat_ = false;
                     }
                     ParsedImportedTypes p_ = new ParsedImportedTypes(nextIndex_,_offset, beforeQu_);
@@ -1014,7 +959,10 @@ public final class FileResolver {
                         baseName_ = typeName_.substring(lastDot_);
                     }
                     RootBlock typeBlock_;
-                    if (StringUtil.quickEq(type_, keyWordEnum_)) {
+                    if (!okCat_) {
+                        typeBlock_ = new RootErrorBlock(beginDefinition_+_offset, baseName_, packageName_,
+                                new OffsetAccessInfo(accessOffsetType_+_offset, access_) , tempDef_, superTypes_, new OffsetsBlock(instructionRealLocation_ +_offset, instructionRealLocation_ +_offset));
+                    } else if (StringUtil.quickEq(type_, keyWordEnum_)) {
                         typeBlock_ = new EnumBlock(beginDefinition_+_offset, baseName_, packageName_,
                                 new OffsetAccessInfo(accessOffsetType_+_offset, access_) , tempDef_, superTypes_, new OffsetsBlock(instructionRealLocation_ +_offset, instructionRealLocation_ +_offset));
                     } else if (StringUtil.quickEq(type_, keyWordClass_)) {
@@ -1039,8 +987,13 @@ public final class FileResolver {
                     typeBlock_.setupOffsets(baseName_,packageName_);
                     typeBlock_.setBegin(categoryOffset_+_offset);
                     typeBlock_.setLengthHeader(type_.length());
-                    if (!okCat_ || !okType_) {
-                        typeBlock_.getBadIndexesGlobal().add(bad_);
+                    if (typeBlock_ instanceof RootErrorBlock) {
+                        typeBlock_.setBegin(_i);
+                        typeBlock_.setLengthHeader(1);
+                        typeBlock_.getBadIndexes().add(bad_);
+                    }
+                    if (!okType_) {
+                        typeBlock_.getBadIndexes().add(bad_);
                     }
                     typeBlock_.getImports().addAllElts(importedTypes_);
                     typeBlock_.getImportsOffset().addAllElts(offsetsImports_);

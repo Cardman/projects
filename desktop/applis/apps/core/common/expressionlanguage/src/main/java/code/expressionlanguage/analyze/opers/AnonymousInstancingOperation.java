@@ -105,7 +105,7 @@ public final class AnonymousInstancingOperation extends
         if (_realClassName.contains("#")) {
             return true;
         }
-        if (!(_type instanceof ImmutableNameRootBlock)) {
+        if (!(_type instanceof RootBlock)) {
             return true;
         }
         if (ContextUtil.isFinalType(_type)) {
@@ -117,7 +117,7 @@ public final class AnonymousInstancingOperation extends
     private void preAnalyzeCtor(String _realClassName, AnalyzedPageEl _page) {
         String base_ = StringExpUtil.getIdFromAllTypes(_realClassName);
         AnaGeneType g_ = _page.getAnaGeneType(base_);
-        if (!(g_ instanceof ImmutableNameRootBlock)) {
+        if (!(g_ instanceof RootBlock)) {
             FoundErrorInterpret call_ = new FoundErrorInterpret();
             call_.setFileName(_page.getLocalizer().getCurrentFileName());
             call_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
@@ -187,7 +187,7 @@ public final class AnonymousInstancingOperation extends
     private void analyzeCtor(AnalyzedPageEl _page) {
         String base_ = StringExpUtil.getIdFromAllTypes(type);
         AnaGeneType g_ = _page.getAnaGeneType(base_);
-        if (!(g_ instanceof ImmutableNameRootBlock)) {
+        if (!(g_ instanceof RootBlock)) {
             setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
             return;
         }

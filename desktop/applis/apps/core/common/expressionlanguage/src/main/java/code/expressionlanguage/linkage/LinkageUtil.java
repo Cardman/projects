@@ -2174,11 +2174,8 @@ public final class LinkageUtil {
         if (_vars.getState() != null) {
             return;
         }
-        if (!_cond.getErrorsBlock().isEmpty()) {
-            StringList listCat_ = _cond.getErrorsBlock();
-            _parts.add(new PartOffset("<a title=\""+ LinkageUtil.transform(StringUtil.join(listCat_,"\n\n"))+"\" class=\"e\">", _cond.getBegin()));
-            _parts.add(new PartOffset("</a>", _cond.getBegin() + _cond.getLengthHeader()));
-
+        if (!(_cond instanceof RootErrorBlock)) {
+            processRootHeaderError(_cond, _parts);
         }
         int len_ = _cond.getImports().size();
         for (int i = 0; i < len_; i++) {
@@ -2203,6 +2200,17 @@ public final class LinkageUtil {
 
         for (PartOffset p: _cond.getSuperTypesParts()) {
             _parts.add(p);
+        }
+        if ((_cond instanceof RootErrorBlock)) {
+            processRootHeaderError(_cond, _parts);
+        }
+    }
+
+    private static void processRootHeaderError(RootBlock _cond, CustList<PartOffset> _parts) {
+        if (!_cond.getErrorsBlock().isEmpty()) {
+            StringList listCat_ = _cond.getErrorsBlock();
+            _parts.add(new PartOffset("<a title=\"" + LinkageUtil.transform(StringUtil.join(listCat_, "\n\n")) + "\" class=\"e\">", _cond.getBegin()));
+            _parts.add(new PartOffset("</a>", _cond.getBegin() + _cond.getLengthHeader()));
         }
     }
 
