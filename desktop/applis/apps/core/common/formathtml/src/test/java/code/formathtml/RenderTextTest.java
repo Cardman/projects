@@ -1694,7 +1694,7 @@ public final class RenderTextTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\"><body><c:set className='Inner' value='i=$static().$lambda(Inner,valueOf,String).call(&quot;ONE&quot;)'/>{i.$name()}</body></html>";
+        String html_ = "<html c:bean=\"bean_one\"><body><c:set className='Inner' value='i=$static().$lambda(BeanOne.Inner,valueOf,String).call(&quot;ONE&quot;)'/>{i.$name()}</body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);

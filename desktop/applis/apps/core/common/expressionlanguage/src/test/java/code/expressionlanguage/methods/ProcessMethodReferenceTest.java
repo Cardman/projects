@@ -3336,7 +3336,7 @@ public final class ProcessMethodReferenceTest extends ProcessMethodCommon {
         xml_.append("public class pkg.Ex {\n");
         xml_.append(" public static class Inner {\n");
         xml_.append("  public static int exmeth(){\n");
-        xml_.append("   Fct<Integer,Integer> f = static().$lambda(Inner,get,$id,Ex,1,Integer);\n");
+        xml_.append("   Fct<Integer,Integer> f = static().$lambda(Ex.Inner,get,$id,Ex,1,Integer);\n");
         xml_.append("   return f.call(14);\n");
         xml_.append("  }\n");
         xml_.append(" }\n");

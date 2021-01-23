@@ -45,7 +45,7 @@ public final class AdvancedCurrentGlobalBlock implements AbstractCurrentGlobalBl
 
     @Override
     public AccessedBlock getCurrentGlobalBlock() {
-        return analyzingDoc.getCurrentDoc();
+        return page.getImporting();
     }
 
     @Override

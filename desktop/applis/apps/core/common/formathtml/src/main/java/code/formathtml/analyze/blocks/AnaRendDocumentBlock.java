@@ -42,10 +42,13 @@ public final class AnaRendDocumentBlock extends AnaRendParentBlock implements Ac
             _page.setAccessStaticContext(MethodAccessKind.INSTANCE);
             String clName_ = _anaDoc.getBeansInfosBefore().getVal(beanName).getResolvedClassName();
             _page.setGlobalClass(clName_);
-            _page.setGlobalType(_page.getAnaClassBody(StringExpUtil.getIdFromAllTypes(clName_)));
+            RootBlock bean_ = _page.getAnaClassBody(StringExpUtil.getIdFromAllTypes(clName_));
+            _page.setGlobalType(bean_);
+            _page.setImporting(bean_);
         } else {
             _page.setGlobalClass("");
             _page.setGlobalType(null);
+            _page.setImporting(null);
         }
         AnaRendBlock en_ = this;
         CustList<AnaRendParentBlock> parents_ = new CustList<AnaRendParentBlock>();
