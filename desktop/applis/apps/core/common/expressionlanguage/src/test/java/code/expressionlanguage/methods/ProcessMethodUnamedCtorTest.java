@@ -1066,6 +1066,46 @@ public final class ProcessMethodUnamedCtorTest extends ProcessMethodCommon {
         assertEq("1", getString(ret_));
     }
     @Test
+    public void test42() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.ExOther<U> {\n");
+        xml_.append(" public U f;\n");
+        xml_.append(" public ExOther(U p){f = p;}\n");
+        xml_.append(" public class ExOtherInner<V> {\n");
+        xml_.append("  public V g;\n");
+        xml_.append("  public ExOtherInner(V p){g = p;}\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.Ex<T> {\n");
+        xml_.append(" public class ExInner<S> {\n");
+        xml_.append("  public S g;\n");
+        xml_.append("  public ExInner(S p){g = p;}\n");
+        xml_.append(" }\n");
+        xml_.append(" public T f;\n");
+        xml_.append(" public Ex(T p){f = p;}\n");
+        xml_.append(" public static String exmeth(){\n");
+        xml_.append("  return new Ex<int>(2).exmeth();\n");
+        xml_.append(" }\n");
+        xml_.append(" public String exmeth(){\n");
+        xml_.append("  return \"\"+f+\";\"+id(this.new(\"1\"));\n");
+        xml_.append(" }\n");
+        xml_.append(" public String id(ExInner<String> p){\n");
+        xml_.append("  return \"\"+p.f+\",\"+p.g;\n");
+        xml_.append(" }\n");
+        xml_.append(" public String id(ExOther<int>.ExOtherInner<String> p){\n");
+        xml_.append("  return \"\"+p.f+\",\"+p.g;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxLgReadOnlyOk("en",files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq("2;2,1", getString(ret_));
+    }
+    @Test
     public void testFail() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("public class pkg.Ex<T> {\n");

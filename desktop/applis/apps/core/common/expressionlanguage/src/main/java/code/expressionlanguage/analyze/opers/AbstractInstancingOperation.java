@@ -514,9 +514,8 @@ public abstract class AbstractInstancingOperation extends InvokingOperation {
             }
         }
     }
-    static boolean koInstancingType(String _realClassName, MethodAccessKind _staticAccess, AnalyzedPageEl _page, AnaGeneType _type) {
+    static boolean koInstancingType(String _realClassName, MethodAccessKind _staticAccess, AnalyzedPageEl _page, AnaGeneType _type, String _argOwner) {
         if (!_type.withoutInstance()) {
-            String glClass_ = _page.getGlobalClass();
             StringList parts_ = StringExpUtil.getAllPartInnerTypes(_realClassName);
             String outer_ = StringUtil.join(parts_.left(parts_.size() - 2),"");
             if (_staticAccess != MethodAccessKind.INSTANCE) {
@@ -524,7 +523,7 @@ public abstract class AbstractInstancingOperation extends InvokingOperation {
             }
             StringMap<StringList> vars_ = _page.getCurrentConstraints().getCurrentConstraints();
             Mapping m_ = new Mapping();
-            m_.setArg(glClass_);
+            m_.setArg(_argOwner);
             m_.setParam(outer_);
             m_.setMapping(vars_);
             return !AnaTemplates.isCorrectOrNumbers(m_, _page);

@@ -185,10 +185,16 @@ public final class StandardInstancingOperation extends
         if (ContextUtil.isAbstractType(_type)) {
             return true;
         }
+        String arg_;
+        MethodAccessKind ctx_;
         if (!isIntermediateDottedOperation()) {
-            return koInstancingType(_realClassName, _page.getStaticContext(), _page, _type);
+            arg_ = _page.getGlobalClass();
+            ctx_ = _page.getStaticContext();
+        } else {
+            arg_ = getPreviousResultClass().getSingleNameOrEmpty();
+            ctx_ = isStaticAccess();
         }
-        return false;
+        return koInstancingType(_realClassName, ctx_, _page, _type, arg_);
     }
 
     private void analyzeCtor(String _realClassName, String _paramVargArg, AnalyzedPageEl _page) {
