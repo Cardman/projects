@@ -696,22 +696,19 @@ public final class AnaTemplates {
                 if (StringUtil.quickEq(argLoc_,SUB_TYPE)) {
                     continue;
                 }
-                if (argLoc_.startsWith(SUB_TYPE)) {
-                    if (paramLoc_.startsWith(SUB_TYPE)) {
-                        InferenceConstraints n_ = new InferenceConstraints();
-                        n_.setArg(argLoc_.substring(SUB_TYPE.length()));
-                        n_.setParam(paramLoc_.substring(SUB_TYPE.length()));
-                        next_.add(n_);
+                boolean seen_ = false;
+                for (String s: new StringList(SUB_TYPE,SUP_TYPE,"~")) {
+                    if (argLoc_.startsWith(s)) {
+                        if (paramLoc_.startsWith(s)) {
+                            InferenceConstraints n_ = new InferenceConstraints();
+                            n_.setArg(argLoc_.substring(s.length()));
+                            n_.setParam(paramLoc_.substring(s.length()));
+                            next_.add(n_);
+                        }
+                        seen_ = true;
                     }
-                    continue;
                 }
-                if (argLoc_.startsWith(SUP_TYPE)) {
-                    if (paramLoc_.startsWith(SUP_TYPE)) {
-                        InferenceConstraints n_ = new InferenceConstraints();
-                        n_.setArg(argLoc_.substring(SUP_TYPE.length()));
-                        n_.setParam(paramLoc_.substring(SUP_TYPE.length()));
-                        next_.add(n_);
-                    }
+                if (seen_) {
                     continue;
                 }
                 StringList nArgTypes_ = StringExpUtil.getAllTypes(argLoc_);
