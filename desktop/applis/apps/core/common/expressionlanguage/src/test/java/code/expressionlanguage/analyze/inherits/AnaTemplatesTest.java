@@ -2464,7 +2464,10 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         inh_.addEntry("0",new StringList(cont_.getAnalyzing().getAliasObject()));
         mapp_.setMapping(inh_);
         CustList<Matching> cts_ = inferEx(cont_, mapp_);
-        assertEq(0, cts_.size());
+        assertEq(1, cts_.size());
+        assertEq("pkg.Ex", cts_.get(0).getArg());
+        assertEq("[#0", cts_.get(0).getParam());
+        assertSame(MatchingEnum.EQ, cts_.get(0).getMatchEq());
     }
 
     @Test

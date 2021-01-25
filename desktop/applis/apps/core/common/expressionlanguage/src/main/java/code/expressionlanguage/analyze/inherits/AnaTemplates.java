@@ -1470,35 +1470,34 @@ public final class AnaTemplates {
                 if (_arg.isEmpty()) {
                     return new MappingPairs();
                 }
-                if (dArg_.getDim() != dParam_.getDim()) {
-                    return null;
-                }
+                int min_ = Math.min(dArg_.getDim(), dParam_.getDim());
                 if (tryGetUnknownVar(baseArrayParam_)>=0) {
                     MappingPairs pairs_ = new MappingPairs();
                     CustList<Matching> pairsArgParam_ = new CustList<Matching>();
                     Matching match_ = new Matching();
                     match_.setMatchEq(_ct);
-                    match_.setArg(baseArrayArg_);
-                    match_.setParam(baseArrayParam_);
+                    match_.setArg(StringExpUtil.getQuickComponentType(_arg,min_));
+                    match_.setParam(StringExpUtil.getQuickComponentType(_param,min_));
                     pairsArgParam_.add(match_);
                     pairs_.setPairsArgParam(pairsArgParam_);
                     return pairs_;
                 }
                 return new MappingPairs();
             }
-            if (dArg_.getDim() != dParam_.getDim()) {
-                return null;
-            }
+            int min_ = Math.min(dArg_.getDim(), dParam_.getDim());
             if (tryGetUnknownVar(baseArrayArg_)>=0) {
                 MappingPairs pairs_ = new MappingPairs();
                 CustList<Matching> pairsArgParam_ = new CustList<Matching>();
                 Matching match_ = new Matching();
                 match_.setMatchEq(_ct);
-                match_.setArg(baseArrayArg_);
-                match_.setParam(baseArrayParam_);
+                match_.setArg(StringExpUtil.getQuickComponentType(_arg,min_));
+                match_.setParam(StringExpUtil.getQuickComponentType(_param,min_));
                 pairsArgParam_.add(match_);
                 pairs_.setPairsArgParam(pairsArgParam_);
                 return pairs_;
+            }
+            if (dArg_.getDim() != dParam_.getDim()) {
+                return null;
             }
             StringList foundArgTypes_ = StringExpUtil.getAllTypes(baseArrayArg_);
             StringList foundParamTypes_ = StringExpUtil.getAllTypes(baseArrayParam_);
