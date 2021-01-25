@@ -1002,6 +1002,9 @@ public final class StringExpUtil {
     public static String getPrettyArrayType(String _className) {
         return StringUtil.concat(ARR_CLASS,_className);
     }
+    public static String getQuickComponentBase(String _className) {
+        return getQuickComponentBaseType(_className).getComponent();
+    }
     /**Custom classes*/
     public static DimComp getQuickComponentBaseType(String _className) {
         int count_ = countPrefix(_className, ARR_BEG);
@@ -1119,7 +1122,7 @@ public final class StringExpUtil {
                 if (last_ < 0) {
                     return ArrayResult.ERROR;
                 }
-                _values.addEntry((int) IndexConstants.FIRST_INDEX, str_);
+                _values.addEntry(IndexConstants.FIRST_INDEX, str_);
                 _operators.addEntry(last_, _string.substring(j_));
                 return ArrayResult.OK;
             }

@@ -5,6 +5,7 @@ import code.expressionlanguage.analyze.accessing.Accessed;
 import code.expressionlanguage.analyze.accessing.TypeAccessor;
 import code.expressionlanguage.analyze.blocks.*;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
+import code.expressionlanguage.analyze.inherits.Mapping;
 import code.expressionlanguage.analyze.util.AnaFormattedRootBlock;
 import code.expressionlanguage.analyze.util.ContextUtil;
 import code.expressionlanguage.analyze.util.FormattedMethodId;
@@ -516,6 +517,30 @@ public final class AnaTypeUtil {
                 _owners.add(_s);
             }
         }
+    }
+    public static StringList getSubTypes(StringList _classNames, StringMap<StringList> _vars, AnalyzedPageEl _page) {
+        StringList types_ = new StringList();
+        for (String i: _classNames) {
+            boolean sub_ = true;
+            for (String j: _classNames) {
+                if (StringUtil.quickEq(i, j)) {
+                    continue;
+                }
+                Mapping m_ = new Mapping();
+                m_.setArg(j);
+                m_.setParam(i);
+                m_.setMapping(_vars);
+                if (AnaTemplates.isCorrectOrNumbers(m_,_page)) {
+                    sub_ = false;
+                    break;
+                }
+            }
+            if (!sub_) {
+                continue;
+            }
+            types_.add(i);
+        }
+        return types_;
     }
 
     /** Only "object" classes are used as arguments */

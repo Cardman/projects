@@ -4,10 +4,16 @@ import code.expressionlanguage.AnalyzedTestContext;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.RootBlock;
+import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaPartTypeUtil;
 import code.expressionlanguage.analyze.types.AnaResultPartType;
+import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.common.DimComp;
 import code.expressionlanguage.analyze.instr.PartOffset;
+import code.expressionlanguage.functionid.MethodAccessKind;
+import code.expressionlanguage.functionid.MethodId;
+import code.expressionlanguage.inherits.Matching;
+import code.expressionlanguage.inherits.MatchingEnum;
 import code.expressionlanguage.methods.ProcessMethodCommon;
 import code.expressionlanguage.structs.DoubleStruct;
 import code.expressionlanguage.structs.IntStruct;
@@ -16,8 +22,7 @@ import code.util.core.StringUtil;
 import org.junit.Test;
 
 import static code.expressionlanguage.EquallableElUtil.assertEq;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 public final class AnaTemplatesTest extends ProcessMethodCommon {
 
@@ -392,6 +397,21 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         assertEq("java.lang.$Fct<java.lang.Number>", inferred_);
     }
     @Test
+    public void tryInfer16Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<X> {\n");
+        xml_.append("$public $class Inner<Y> {}\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        RootBlock root_ = cont_.getAnalyzing().getAnaClassBody("pkg.Ex");
+        StringMap<String> vars_ = getVarTypes(root_, "pkg.Ex<java.lang.Number>");
+        String inferred_ = tryInfer(cont_,"pkg.Ex..Inner", "pkg.Ex<java.lang.Number>..Inner<java.lang.Number>",vars_);
+        assertEq("pkg.Ex<java.lang.Number>..Inner<java.lang.Number>", inferred_);
+    }
+    @Test
     public void tryInfer17Test() {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
@@ -474,26 +494,2735 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     }
 
     @Test
+    public void removeDup1() {
+        assertNull(AnaTemplates.removeDup(null));
+    }
+
+    @Test
+    public void removeDup2() {
+        CustList<Matching> l_ = new CustList<Matching>();
+        Matching mapp_ = new Matching();
+        mapp_.setArg("pkg.Ex");
+        mapp_.setParam("pkg.ExParam");
+        mapp_.setMatchEq(MatchingEnum.EQ);
+        l_.add(mapp_);
+        CustList<Matching> res_ = AnaTemplates.removeDup(l_);
+        assertEq(1,res_.size());
+        assertEq("pkg.Ex",res_.get(0).getArg());
+        assertEq("pkg.ExParam",res_.get(0).getParam());
+        assertSame(MatchingEnum.EQ,res_.get(0).getMatchEq());
+    }
+
+    @Test
+    public void removeDup3() {
+        CustList<Matching> l_ = new CustList<Matching>();
+        Matching mapp_ = new Matching();
+        mapp_.setArg("pkg.Ex");
+        mapp_.setParam("pkg.ExParam");
+        mapp_.setMatchEq(MatchingEnum.EQ);
+        l_.add(mapp_);
+        mapp_ = new Matching();
+        mapp_.setArg("pkg.Ex");
+        mapp_.setParam("pkg.ExParam");
+        mapp_.setMatchEq(MatchingEnum.EQ);
+        l_.add(mapp_);
+        CustList<Matching> res_ = AnaTemplates.removeDup(l_);
+        assertEq(1,res_.size());
+        assertEq("pkg.Ex",res_.get(0).getArg());
+        assertEq("pkg.ExParam",res_.get(0).getParam());
+        assertSame(MatchingEnum.EQ,res_.get(0).getMatchEq());
+    }
+
+    @Test
+    public void removeDup4() {
+        CustList<Matching> l_ = new CustList<Matching>();
+        Matching mapp_ = new Matching();
+        mapp_.setArg("pkg.Ex");
+        mapp_.setParam("pkg.ExParam");
+        mapp_.setMatchEq(MatchingEnum.EQ);
+        l_.add(mapp_);
+        mapp_ = new Matching();
+        mapp_.setArg("pkg.ExParam");
+        mapp_.setParam("pkg.Ex");
+        mapp_.setMatchEq(MatchingEnum.EQ);
+        l_.add(mapp_);
+        CustList<Matching> res_ = AnaTemplates.removeDup(l_);
+        assertEq(1,res_.size());
+        assertEq("pkg.Ex",res_.get(0).getArg());
+        assertEq("pkg.ExParam",res_.get(0).getParam());
+        assertSame(MatchingEnum.EQ,res_.get(0).getMatchEq());
+    }
+
+    @Test
+    public void removeDup5() {
+        CustList<Matching> l_ = new CustList<Matching>();
+        Matching mapp_ = new Matching();
+        mapp_.setArg("pkg.Ex");
+        mapp_.setParam("pkg.ExParam");
+        mapp_.setMatchEq(MatchingEnum.SUB);
+        l_.add(mapp_);
+        mapp_ = new Matching();
+        mapp_.setArg("pkg.Ex");
+        mapp_.setParam("pkg.ExParam");
+        mapp_.setMatchEq(MatchingEnum.SUB);
+        l_.add(mapp_);
+        CustList<Matching> res_ = AnaTemplates.removeDup(l_);
+        assertEq(1,res_.size());
+        assertEq("pkg.Ex",res_.get(0).getArg());
+        assertEq("pkg.ExParam",res_.get(0).getParam());
+        assertSame(MatchingEnum.SUB,res_.get(0).getMatchEq());
+    }
+
+    @Test
+    public void removeDup6() {
+        CustList<Matching> l_ = new CustList<Matching>();
+        Matching mapp_ = new Matching();
+        mapp_.setArg("pkg.Ex");
+        mapp_.setParam("pkg.ExParam");
+        mapp_.setMatchEq(MatchingEnum.SUP);
+        l_.add(mapp_);
+        mapp_ = new Matching();
+        mapp_.setArg("pkg.Ex");
+        mapp_.setParam("pkg.ExParam");
+        mapp_.setMatchEq(MatchingEnum.SUP);
+        l_.add(mapp_);
+        CustList<Matching> res_ = AnaTemplates.removeDup(l_);
+        assertEq(1,res_.size());
+        assertEq("pkg.Ex",res_.get(0).getArg());
+        assertEq("pkg.ExParam",res_.get(0).getParam());
+        assertSame(MatchingEnum.SUP,res_.get(0).getMatchEq());
+    }
+
+    @Test
+    public void removeDup7() {
+        CustList<Matching> l_ = new CustList<Matching>();
+        Matching mapp_ = new Matching();
+        mapp_.setArg("pkg.Ex");
+        mapp_.setParam("pkg.ExParam");
+        mapp_.setMatchEq(MatchingEnum.SUB);
+        l_.add(mapp_);
+        mapp_ = new Matching();
+        mapp_.setArg("pkg.ExParam");
+        mapp_.setParam("pkg.Ex");
+        mapp_.setMatchEq(MatchingEnum.SUP);
+        l_.add(mapp_);
+        CustList<Matching> res_ = AnaTemplates.removeDup(l_);
+        assertEq(1,res_.size());
+        assertEq("pkg.Ex",res_.get(0).getArg());
+        assertEq("pkg.ExParam",res_.get(0).getParam());
+        assertSame(MatchingEnum.SUB,res_.get(0).getMatchEq());
+    }
+
+    @Test
+    public void removeDup8() {
+        CustList<Matching> l_ = new CustList<Matching>();
+        Matching mapp_ = new Matching();
+        mapp_.setArg("pkg.Ex");
+        mapp_.setParam("pkg.ExParam");
+        mapp_.setMatchEq(MatchingEnum.SUP);
+        l_.add(mapp_);
+        mapp_ = new Matching();
+        mapp_.setArg("pkg.ExParam");
+        mapp_.setParam("pkg.Ex");
+        mapp_.setMatchEq(MatchingEnum.SUB);
+        l_.add(mapp_);
+        CustList<Matching> res_ = AnaTemplates.removeDup(l_);
+        assertEq(1,res_.size());
+        assertEq("pkg.Ex",res_.get(0).getArg());
+        assertEq("pkg.ExParam",res_.get(0).getParam());
+        assertSame(MatchingEnum.SUP,res_.get(0).getMatchEq());
+    }
+
+    @Test
+    public void removeDup9() {
+        CustList<Matching> l_ = new CustList<Matching>();
+        Matching mapp_ = new Matching();
+        mapp_.setArg("pkg.Ex");
+        mapp_.setParam("pkg.ExParam");
+        mapp_.setMatchEq(MatchingEnum.EQ);
+        l_.add(mapp_);
+        mapp_ = new Matching();
+        mapp_.setArg("pkg.Ex");
+        mapp_.setParam("pkg.ExParamTwo");
+        mapp_.setMatchEq(MatchingEnum.EQ);
+        l_.add(mapp_);
+        CustList<Matching> res_ = AnaTemplates.removeDup(l_);
+        assertEq(2,res_.size());
+        assertEq("pkg.Ex",res_.get(0).getArg());
+        assertEq("pkg.ExParam",res_.get(0).getParam());
+        assertSame(MatchingEnum.EQ,res_.get(0).getMatchEq());
+        assertEq("pkg.Ex",res_.get(1).getArg());
+        assertEq("pkg.ExParamTwo",res_.get(1).getParam());
+        assertSame(MatchingEnum.EQ,res_.get(1).getMatchEq());
+    }
+
+    @Test
+    public void removeDup10() {
+        CustList<Matching> l_ = new CustList<Matching>();
+        Matching mapp_ = new Matching();
+        mapp_.setArg("pkg.Ex");
+        mapp_.setParam("pkg.ExParam");
+        mapp_.setMatchEq(MatchingEnum.EQ);
+        l_.add(mapp_);
+        mapp_ = new Matching();
+        mapp_.setArg("pkg.ExTwo");
+        mapp_.setParam("pkg.ExParam");
+        mapp_.setMatchEq(MatchingEnum.EQ);
+        l_.add(mapp_);
+        CustList<Matching> res_ = AnaTemplates.removeDup(l_);
+        assertEq(2,res_.size());
+        assertEq("pkg.Ex",res_.get(0).getArg());
+        assertEq("pkg.ExParam",res_.get(0).getParam());
+        assertSame(MatchingEnum.EQ,res_.get(0).getMatchEq());
+        assertEq("pkg.ExTwo",res_.get(1).getArg());
+        assertEq("pkg.ExParam",res_.get(1).getParam());
+        assertSame(MatchingEnum.EQ,res_.get(1).getMatchEq());
+    }
+
+    @Test
+    public void removeDup11() {
+        CustList<Matching> l_ = new CustList<Matching>();
+        Matching mapp_ = new Matching();
+        mapp_.setArg("pkg.Ex");
+        mapp_.setParam("pkg.ExParam");
+        mapp_.setMatchEq(MatchingEnum.EQ);
+        l_.add(mapp_);
+        mapp_ = new Matching();
+        mapp_.setArg("pkg.ExParamTwo");
+        mapp_.setParam("pkg.Ex");
+        mapp_.setMatchEq(MatchingEnum.EQ);
+        l_.add(mapp_);
+        CustList<Matching> res_ = AnaTemplates.removeDup(l_);
+        assertEq(2,res_.size());
+        assertEq("pkg.Ex",res_.get(0).getArg());
+        assertEq("pkg.ExParam",res_.get(0).getParam());
+        assertSame(MatchingEnum.EQ,res_.get(0).getMatchEq());
+        assertEq("pkg.ExParamTwo",res_.get(1).getArg());
+        assertEq("pkg.Ex",res_.get(1).getParam());
+        assertSame(MatchingEnum.EQ,res_.get(1).getMatchEq());
+    }
+
+    @Test
+    public void removeDup12() {
+        CustList<Matching> l_ = new CustList<Matching>();
+        Matching mapp_ = new Matching();
+        mapp_.setArg("pkg.Ex");
+        mapp_.setParam("pkg.ExParam");
+        mapp_.setMatchEq(MatchingEnum.EQ);
+        l_.add(mapp_);
+        mapp_ = new Matching();
+        mapp_.setArg("pkg.ExParam");
+        mapp_.setParam("pkg.ExTwo");
+        mapp_.setMatchEq(MatchingEnum.EQ);
+        l_.add(mapp_);
+        CustList<Matching> res_ = AnaTemplates.removeDup(l_);
+        assertEq(2,res_.size());
+        assertEq("pkg.Ex",res_.get(0).getArg());
+        assertEq("pkg.ExParam",res_.get(0).getParam());
+        assertSame(MatchingEnum.EQ,res_.get(0).getMatchEq());
+        assertEq("pkg.ExParam",res_.get(1).getArg());
+        assertEq("pkg.ExTwo",res_.get(1).getParam());
+        assertSame(MatchingEnum.EQ,res_.get(1).getMatchEq());
+    }
+
+    @Test
+    public void removeDup13() {
+        CustList<Matching> l_ = new CustList<Matching>();
+        Matching mapp_ = new Matching();
+        mapp_.setArg("pkg.Ex");
+        mapp_.setParam("pkg.ExParam");
+        mapp_.setMatchEq(MatchingEnum.SUB);
+        l_.add(mapp_);
+        mapp_ = new Matching();
+        mapp_.setArg("pkg.ExParam");
+        mapp_.setParam("pkg.ExTwo");
+        mapp_.setMatchEq(MatchingEnum.SUP);
+        l_.add(mapp_);
+        CustList<Matching> res_ = AnaTemplates.removeDup(l_);
+        assertEq(2,res_.size());
+        assertEq("pkg.Ex",res_.get(0).getArg());
+        assertEq("pkg.ExParam",res_.get(0).getParam());
+        assertSame(MatchingEnum.SUB,res_.get(0).getMatchEq());
+        assertEq("pkg.ExParam",res_.get(1).getArg());
+        assertEq("pkg.ExTwo",res_.get(1).getParam());
+        assertSame(MatchingEnum.SUP,res_.get(1).getMatchEq());
+    }
+
+    @Test
+    public void removeDup14() {
+        CustList<Matching> l_ = new CustList<Matching>();
+        Matching mapp_ = new Matching();
+        mapp_.setArg("pkg.Ex");
+        mapp_.setParam("pkg.ExParam");
+        mapp_.setMatchEq(MatchingEnum.SUB);
+        l_.add(mapp_);
+        mapp_ = new Matching();
+        mapp_.setArg("pkg.ExParamTwo");
+        mapp_.setParam("pkg.Ex");
+        mapp_.setMatchEq(MatchingEnum.SUP);
+        l_.add(mapp_);
+        CustList<Matching> res_ = AnaTemplates.removeDup(l_);
+        assertEq(2,res_.size());
+        assertEq("pkg.Ex",res_.get(0).getArg());
+        assertEq("pkg.ExParam",res_.get(0).getParam());
+        assertSame(MatchingEnum.SUB,res_.get(0).getMatchEq());
+        assertEq("pkg.ExParamTwo",res_.get(1).getArg());
+        assertEq("pkg.Ex",res_.get(1).getParam());
+        assertSame(MatchingEnum.SUP,res_.get(1).getMatchEq());
+    }
+
+    @Test
+    public void removeDup15() {
+        CustList<Matching> l_ = new CustList<Matching>();
+        Matching mapp_ = new Matching();
+        mapp_.setArg("pkg.Ex");
+        mapp_.setParam("pkg.ExParam");
+        mapp_.setMatchEq(MatchingEnum.SUP);
+        l_.add(mapp_);
+        mapp_ = new Matching();
+        mapp_.setArg("pkg.ExParam");
+        mapp_.setParam("pkg.ExTwo");
+        mapp_.setMatchEq(MatchingEnum.SUB);
+        l_.add(mapp_);
+        CustList<Matching> res_ = AnaTemplates.removeDup(l_);
+        assertEq(2,res_.size());
+        assertEq("pkg.Ex",res_.get(0).getArg());
+        assertEq("pkg.ExParam",res_.get(0).getParam());
+        assertSame(MatchingEnum.SUP,res_.get(0).getMatchEq());
+        assertEq("pkg.ExParam",res_.get(1).getArg());
+        assertEq("pkg.ExTwo",res_.get(1).getParam());
+        assertSame(MatchingEnum.SUB,res_.get(1).getMatchEq());
+    }
+    @Test
+    public void removeDup16() {
+        CustList<Matching> l_ = new CustList<Matching>();
+        Matching mapp_ = new Matching();
+        mapp_.setArg("pkg.Ex");
+        mapp_.setParam("pkg.ExParam");
+        mapp_.setMatchEq(MatchingEnum.SUP);
+        l_.add(mapp_);
+        mapp_ = new Matching();
+        mapp_.setArg("pkg.ExParamTwo");
+        mapp_.setParam("pkg.Ex");
+        mapp_.setMatchEq(MatchingEnum.SUB);
+        l_.add(mapp_);
+        CustList<Matching> res_ = AnaTemplates.removeDup(l_);
+        assertEq(2,res_.size());
+        assertEq("pkg.Ex",res_.get(0).getArg());
+        assertEq("pkg.ExParam",res_.get(0).getParam());
+        assertSame(MatchingEnum.SUP,res_.get(0).getMatchEq());
+        assertEq("pkg.ExParamTwo",res_.get(1).getArg());
+        assertEq("pkg.Ex",res_.get(1).getParam());
+        assertSame(MatchingEnum.SUB,res_.get(1).getMatchEq());
+    }
+
+    @Test
+    public void removeDup17() {
+        CustList<Matching> l_ = new CustList<Matching>();
+        Matching mapp_ = new Matching();
+        mapp_.setArg("pkg.Ex");
+        mapp_.setParam("pkg.ExParam");
+        mapp_.setMatchEq(MatchingEnum.SUB);
+        l_.add(mapp_);
+        mapp_ = new Matching();
+        mapp_.setArg("pkg.Ex");
+        mapp_.setParam("pkg.ExParamTwo");
+        mapp_.setMatchEq(MatchingEnum.SUB);
+        l_.add(mapp_);
+        CustList<Matching> res_ = AnaTemplates.removeDup(l_);
+        assertEq(2,res_.size());
+        assertEq("pkg.Ex",res_.get(0).getArg());
+        assertEq("pkg.ExParam",res_.get(0).getParam());
+        assertSame(MatchingEnum.SUB,res_.get(0).getMatchEq());
+        assertEq("pkg.Ex",res_.get(1).getArg());
+        assertEq("pkg.ExParamTwo",res_.get(1).getParam());
+        assertSame(MatchingEnum.SUB,res_.get(1).getMatchEq());
+    }
+
+    @Test
+    public void removeDup18() {
+        CustList<Matching> l_ = new CustList<Matching>();
+        Matching mapp_ = new Matching();
+        mapp_.setArg("pkg.Ex");
+        mapp_.setParam("pkg.ExParam");
+        mapp_.setMatchEq(MatchingEnum.SUB);
+        l_.add(mapp_);
+        mapp_ = new Matching();
+        mapp_.setArg("pkg.ExTwo");
+        mapp_.setParam("pkg.ExParam");
+        mapp_.setMatchEq(MatchingEnum.SUB);
+        l_.add(mapp_);
+        CustList<Matching> res_ = AnaTemplates.removeDup(l_);
+        assertEq(2,res_.size());
+        assertEq("pkg.Ex",res_.get(0).getArg());
+        assertEq("pkg.ExParam",res_.get(0).getParam());
+        assertSame(MatchingEnum.SUB,res_.get(0).getMatchEq());
+        assertEq("pkg.ExTwo",res_.get(1).getArg());
+        assertEq("pkg.ExParam",res_.get(1).getParam());
+        assertSame(MatchingEnum.SUB,res_.get(1).getMatchEq());
+    }
+
+    @Test
+    public void removeDup19() {
+        CustList<Matching> l_ = new CustList<Matching>();
+        Matching mapp_ = new Matching();
+        mapp_.setArg("pkg.Ex");
+        mapp_.setParam("pkg.ExParam");
+        mapp_.setMatchEq(MatchingEnum.SUP);
+        l_.add(mapp_);
+        mapp_ = new Matching();
+        mapp_.setArg("pkg.Ex");
+        mapp_.setParam("pkg.ExParamTwo");
+        mapp_.setMatchEq(MatchingEnum.SUP);
+        l_.add(mapp_);
+        CustList<Matching> res_ = AnaTemplates.removeDup(l_);
+        assertEq(2,res_.size());
+        assertEq("pkg.Ex",res_.get(0).getArg());
+        assertEq("pkg.ExParam",res_.get(0).getParam());
+        assertSame(MatchingEnum.SUP,res_.get(0).getMatchEq());
+        assertEq("pkg.Ex",res_.get(1).getArg());
+        assertEq("pkg.ExParamTwo",res_.get(1).getParam());
+        assertSame(MatchingEnum.SUP,res_.get(1).getMatchEq());
+    }
+
+    @Test
+    public void removeDup20() {
+        CustList<Matching> l_ = new CustList<Matching>();
+        Matching mapp_ = new Matching();
+        mapp_.setArg("pkg.Ex");
+        mapp_.setParam("pkg.ExParam");
+        mapp_.setMatchEq(MatchingEnum.SUP);
+        l_.add(mapp_);
+        mapp_ = new Matching();
+        mapp_.setArg("pkg.ExTwo");
+        mapp_.setParam("pkg.ExParam");
+        mapp_.setMatchEq(MatchingEnum.SUP);
+        l_.add(mapp_);
+        CustList<Matching> res_ = AnaTemplates.removeDup(l_);
+        assertEq(2,res_.size());
+        assertEq("pkg.Ex",res_.get(0).getArg());
+        assertEq("pkg.ExParam",res_.get(0).getParam());
+        assertSame(MatchingEnum.SUP,res_.get(0).getMatchEq());
+        assertEq("pkg.ExTwo",res_.get(1).getArg());
+        assertEq("pkg.ExParam",res_.get(1).getParam());
+        assertSame(MatchingEnum.SUP,res_.get(1).getMatchEq());
+    }
+
+    @Test
+    public void removeDup21() {
+        CustList<Matching> l_ = new CustList<Matching>();
+        Matching mapp_ = new Matching();
+        mapp_.setArg("pkg.Ex");
+        mapp_.setParam("pkg.ExParam");
+        mapp_.setMatchEq(MatchingEnum.SUP);
+        l_.add(mapp_);
+        mapp_ = new Matching();
+        mapp_.setArg("pkg.Ex");
+        mapp_.setParam("pkg.ExParam");
+        mapp_.setMatchEq(MatchingEnum.SUB);
+        l_.add(mapp_);
+        CustList<Matching> res_ = AnaTemplates.removeDup(l_);
+        assertEq(2,res_.size());
+        assertEq("pkg.Ex",res_.get(0).getArg());
+        assertEq("pkg.ExParam",res_.get(0).getParam());
+        assertSame(MatchingEnum.SUP,res_.get(0).getMatchEq());
+        assertEq("pkg.Ex",res_.get(1).getArg());
+        assertEq("pkg.ExParam",res_.get(1).getParam());
+        assertSame(MatchingEnum.SUB,res_.get(1).getMatchEq());
+    }
+
+    @Test
+    public void removeDup22() {
+        CustList<Matching> l_ = new CustList<Matching>();
+        Matching mapp_ = new Matching();
+        mapp_.setArg("pkg.Ex");
+        mapp_.setParam("pkg.ExParam");
+        mapp_.setMatchEq(MatchingEnum.SUB);
+        l_.add(mapp_);
+        mapp_ = new Matching();
+        mapp_.setArg("pkg.Ex");
+        mapp_.setParam("pkg.ExParam");
+        mapp_.setMatchEq(MatchingEnum.SUP);
+        l_.add(mapp_);
+        CustList<Matching> res_ = AnaTemplates.removeDup(l_);
+        assertEq(2,res_.size());
+        assertEq("pkg.Ex",res_.get(0).getArg());
+        assertEq("pkg.ExParam",res_.get(0).getParam());
+        assertSame(MatchingEnum.SUB,res_.get(0).getMatchEq());
+        assertEq("pkg.Ex",res_.get(1).getArg());
+        assertEq("pkg.ExParam",res_.get(1).getParam());
+        assertSame(MatchingEnum.SUP,res_.get(1).getMatchEq());
+    }
+
+    @Test
+    public void removeDup23() {
+        CustList<Matching> l_ = new CustList<Matching>();
+        Matching mapp_ = new Matching();
+        mapp_.setArg("pkg.Ex");
+        mapp_.setParam("pkg.ExParam");
+        mapp_.setMatchEq(MatchingEnum.EQ);
+        l_.add(mapp_);
+        mapp_ = new Matching();
+        mapp_.setArg("pkg.Ex");
+        mapp_.setParam("pkg.ExParam");
+        mapp_.setMatchEq(MatchingEnum.SUP);
+        l_.add(mapp_);
+        CustList<Matching> res_ = AnaTemplates.removeDup(l_);
+        assertEq(2,res_.size());
+        assertEq("pkg.Ex",res_.get(0).getArg());
+        assertEq("pkg.ExParam",res_.get(0).getParam());
+        assertSame(MatchingEnum.EQ,res_.get(0).getMatchEq());
+        assertEq("pkg.Ex",res_.get(1).getArg());
+        assertEq("pkg.ExParam",res_.get(1).getParam());
+        assertSame(MatchingEnum.SUP,res_.get(1).getMatchEq());
+    }
+
+    @Test
+    public void removeDup24() {
+        CustList<Matching> l_ = new CustList<Matching>();
+        Matching mapp_ = new Matching();
+        mapp_.setArg("pkg.Ex");
+        mapp_.setParam("pkg.ExParam");
+        mapp_.setMatchEq(MatchingEnum.SUB);
+        l_.add(mapp_);
+        mapp_ = new Matching();
+        mapp_.setArg("pkg.Ex");
+        mapp_.setParam("pkg.ExParam");
+        mapp_.setMatchEq(MatchingEnum.EQ);
+        l_.add(mapp_);
+        CustList<Matching> res_ = AnaTemplates.removeDup(l_);
+        assertEq(2,res_.size());
+        assertEq("pkg.Ex",res_.get(0).getArg());
+        assertEq("pkg.ExParam",res_.get(0).getParam());
+        assertSame(MatchingEnum.SUB,res_.get(0).getMatchEq());
+        assertEq("pkg.Ex",res_.get(1).getArg());
+        assertEq("pkg.ExParam",res_.get(1).getParam());
+        assertSame(MatchingEnum.EQ,res_.get(1).getMatchEq());
+    }
+    @Test
+    public void resolveEq1() {
+        assertNull(AnaTemplates.resolveEq(null, 2));
+    }
+    @Test
+    public void resolveEq2() {
+        CustList<Matching> l_ = new CustList<Matching>();
+        Matching mapp_ = new Matching();
+        mapp_.setArg("pkg.Ex");
+        mapp_.setParam("#0");
+        mapp_.setMatchEq(MatchingEnum.EQ);
+        l_.add(mapp_);
+        mapp_ = new Matching();
+        mapp_.setArg("#0");
+        mapp_.setParam("#1");
+        mapp_.setMatchEq(MatchingEnum.EQ);
+        l_.add(mapp_);
+        CustList<Matching> res_ = AnaTemplates.resolveEq(l_, 2);
+        assertEq(2,res_.size());
+        assertEq("pkg.Ex",res_.get(0).getArg());
+        assertEq("#0",res_.get(0).getParam());
+        assertSame(MatchingEnum.EQ,res_.get(0).getMatchEq());
+        assertEq("pkg.Ex",res_.get(1).getArg());
+        assertEq("#1",res_.get(1).getParam());
+        assertSame(MatchingEnum.EQ,res_.get(1).getMatchEq());
+    }
+    @Test
+    public void resolveEq3() {
+        CustList<Matching> l_ = new CustList<Matching>();
+        Matching mapp_ = new Matching();
+        mapp_.setArg("pkg.Ex");
+        mapp_.setParam("#0");
+        mapp_.setMatchEq(MatchingEnum.EQ);
+        l_.add(mapp_);
+        mapp_ = new Matching();
+        mapp_.setArg("#1");
+        mapp_.setParam("#0");
+        mapp_.setMatchEq(MatchingEnum.EQ);
+        l_.add(mapp_);
+        CustList<Matching> res_ = AnaTemplates.resolveEq(l_, 2);
+        assertEq(2,res_.size());
+        assertEq("pkg.Ex",res_.get(0).getArg());
+        assertEq("#0",res_.get(0).getParam());
+        assertSame(MatchingEnum.EQ,res_.get(0).getMatchEq());
+        assertEq("#1",res_.get(1).getArg());
+        assertEq("pkg.Ex",res_.get(1).getParam());
+        assertSame(MatchingEnum.EQ,res_.get(1).getMatchEq());
+    }
+    @Test
+    public void resolveEq4() {
+        CustList<Matching> l_ = new CustList<Matching>();
+        Matching mapp_ = new Matching();
+        mapp_.setArg("#0");
+        mapp_.setParam("#1");
+        mapp_.setMatchEq(MatchingEnum.EQ);
+        l_.add(mapp_);
+        mapp_ = new Matching();
+        mapp_.setArg("pkg.Ex");
+        mapp_.setParam("#0");
+        mapp_.setMatchEq(MatchingEnum.EQ);
+        l_.add(mapp_);
+        CustList<Matching> res_ = AnaTemplates.resolveEq(l_, 2);
+        assertEq(2,res_.size());
+        assertEq("pkg.Ex",res_.get(0).getArg());
+        assertEq("#1",res_.get(0).getParam());
+        assertSame(MatchingEnum.EQ,res_.get(0).getMatchEq());
+        assertEq("pkg.Ex",res_.get(1).getArg());
+        assertEq("#0",res_.get(1).getParam());
+        assertSame(MatchingEnum.EQ,res_.get(1).getMatchEq());
+    }
+    @Test
+    public void resolveEq5() {
+        CustList<Matching> l_ = new CustList<Matching>();
+        Matching mapp_ = new Matching();
+        mapp_.setArg("#1");
+        mapp_.setParam("#0");
+        mapp_.setMatchEq(MatchingEnum.EQ);
+        l_.add(mapp_);
+        mapp_ = new Matching();
+        mapp_.setArg("pkg.Ex");
+        mapp_.setParam("#0");
+        mapp_.setMatchEq(MatchingEnum.EQ);
+        l_.add(mapp_);
+        CustList<Matching> res_ = AnaTemplates.resolveEq(l_, 2);
+        assertEq(2,res_.size());
+        assertEq("#1",res_.get(0).getArg());
+        assertEq("pkg.Ex",res_.get(0).getParam());
+        assertSame(MatchingEnum.EQ,res_.get(0).getMatchEq());
+        assertEq("pkg.Ex",res_.get(1).getArg());
+        assertEq("#0",res_.get(1).getParam());
+        assertSame(MatchingEnum.EQ,res_.get(1).getMatchEq());
+    }
+
+    @Test
+    public void resolveEq6() {
+        CustList<Matching> l_ = new CustList<Matching>();
+        Matching mapp_ = new Matching();
+        mapp_.setArg("#0");
+        mapp_.setParam("pkg.Ex");
+        mapp_.setMatchEq(MatchingEnum.EQ);
+        l_.add(mapp_);
+        mapp_ = new Matching();
+        mapp_.setArg("#1");
+        mapp_.setParam("#0");
+        mapp_.setMatchEq(MatchingEnum.EQ);
+        l_.add(mapp_);
+        CustList<Matching> res_ = AnaTemplates.resolveEq(l_, 2);
+        assertEq(2,res_.size());
+        assertEq("#0",res_.get(0).getArg());
+        assertEq("pkg.Ex",res_.get(0).getParam());
+        assertSame(MatchingEnum.EQ,res_.get(0).getMatchEq());
+        assertEq("#1",res_.get(1).getArg());
+        assertEq("pkg.Ex",res_.get(1).getParam());
+        assertSame(MatchingEnum.EQ,res_.get(1).getMatchEq());
+    }
+    @Test
+    public void resolveEq7() {
+        CustList<Matching> l_ = new CustList<Matching>();
+        Matching mapp_ = new Matching();
+        mapp_.setArg("#0");
+        mapp_.setParam("pkg.Ex");
+        mapp_.setMatchEq(MatchingEnum.EQ);
+        l_.add(mapp_);
+        mapp_ = new Matching();
+        mapp_.setArg("#0");
+        mapp_.setParam("#1");
+        mapp_.setMatchEq(MatchingEnum.EQ);
+        l_.add(mapp_);
+        CustList<Matching> res_ = AnaTemplates.resolveEq(l_, 2);
+        assertEq(2,res_.size());
+        assertEq("#0",res_.get(0).getArg());
+        assertEq("pkg.Ex",res_.get(0).getParam());
+        assertSame(MatchingEnum.EQ,res_.get(0).getMatchEq());
+        assertEq("pkg.Ex",res_.get(1).getArg());
+        assertEq("#1",res_.get(1).getParam());
+        assertSame(MatchingEnum.EQ,res_.get(1).getMatchEq());
+    }
+    @Test
+    public void resolveEq8() {
+        CustList<Matching> l_ = new CustList<Matching>();
+        Matching mapp_ = new Matching();
+        mapp_.setArg("#1");
+        mapp_.setParam("#0");
+        mapp_.setMatchEq(MatchingEnum.EQ);
+        l_.add(mapp_);
+        mapp_ = new Matching();
+        mapp_.setArg("#0");
+        mapp_.setParam("pkg.Ex");
+        mapp_.setMatchEq(MatchingEnum.EQ);
+        l_.add(mapp_);
+        CustList<Matching> res_ = AnaTemplates.resolveEq(l_, 2);
+        assertEq(2,res_.size());
+        assertEq("#1",res_.get(0).getArg());
+        assertEq("pkg.Ex",res_.get(0).getParam());
+        assertSame(MatchingEnum.EQ,res_.get(0).getMatchEq());
+        assertEq("#0",res_.get(1).getArg());
+        assertEq("pkg.Ex",res_.get(1).getParam());
+        assertSame(MatchingEnum.EQ,res_.get(1).getMatchEq());
+    }
+    @Test
+    public void resolveEq9() {
+        CustList<Matching> l_ = new CustList<Matching>();
+        Matching mapp_ = new Matching();
+        mapp_.setArg("#0");
+        mapp_.setParam("#1");
+        mapp_.setMatchEq(MatchingEnum.EQ);
+        l_.add(mapp_);
+        mapp_ = new Matching();
+        mapp_.setArg("#0");
+        mapp_.setParam("pkg.Ex");
+        mapp_.setMatchEq(MatchingEnum.EQ);
+        l_.add(mapp_);
+        CustList<Matching> res_ = AnaTemplates.resolveEq(l_, 2);
+        assertEq(2,res_.size());
+        assertEq("pkg.Ex",res_.get(0).getArg());
+        assertEq("#1",res_.get(0).getParam());
+        assertSame(MatchingEnum.EQ,res_.get(0).getMatchEq());
+        assertEq("#0",res_.get(1).getArg());
+        assertEq("pkg.Ex",res_.get(1).getParam());
+        assertSame(MatchingEnum.EQ,res_.get(1).getMatchEq());
+    }
+    @Test
+    public void resolveEq10() {
+        CustList<Matching> l_ = new CustList<Matching>();
+        Matching mapp_ = new Matching();
+        mapp_.setArg("#0");
+        mapp_.setParam("#1");
+        mapp_.setMatchEq(MatchingEnum.EQ);
+        l_.add(mapp_);
+        mapp_ = new Matching();
+        mapp_.setArg("#0");
+        mapp_.setParam("pkg.Ex");
+        mapp_.setMatchEq(MatchingEnum.EQ);
+        l_.add(mapp_);
+        mapp_ = new Matching();
+        mapp_.setArg("pkg.ExTwo");
+        mapp_.setParam("pkg.ExTwo");
+        mapp_.setMatchEq(MatchingEnum.EQ);
+        l_.add(mapp_);
+        CustList<Matching> res_ = AnaTemplates.resolveEq(l_, 2);
+        assertEq(3,res_.size());
+        assertEq("pkg.Ex",res_.get(0).getArg());
+        assertEq("#1",res_.get(0).getParam());
+        assertSame(MatchingEnum.EQ,res_.get(0).getMatchEq());
+        assertEq("#0",res_.get(1).getArg());
+        assertEq("pkg.Ex",res_.get(1).getParam());
+        assertSame(MatchingEnum.EQ,res_.get(1).getMatchEq());
+        assertEq("pkg.ExTwo",res_.get(2).getArg());
+        assertEq("pkg.ExTwo",res_.get(2).getParam());
+        assertSame(MatchingEnum.EQ,res_.get(2).getMatchEq());
+    }
+    @Test
+    public void resolveEq11() {
+        CustList<Matching> l_ = new CustList<Matching>();
+        Matching mapp_ = new Matching();
+        mapp_.setArg("#0");
+        mapp_.setParam("pkg.Ex");
+        mapp_.setMatchEq(MatchingEnum.SUP);
+        l_.add(mapp_);
+        mapp_ = new Matching();
+        mapp_.setArg("#1");
+        mapp_.setParam("pkg.ExTwo");
+        mapp_.setMatchEq(MatchingEnum.SUP);
+        l_.add(mapp_);
+        CustList<Matching> res_ = AnaTemplates.resolveEq(l_, 2);
+        assertEq(2,res_.size());
+        assertEq("#0",res_.get(0).getArg());
+        assertEq("pkg.Ex",res_.get(0).getParam());
+        assertSame(MatchingEnum.SUP,res_.get(0).getMatchEq());
+        assertEq("#1",res_.get(1).getArg());
+        assertEq("pkg.ExTwo",res_.get(1).getParam());
+        assertSame(MatchingEnum.SUP,res_.get(1).getMatchEq());
+    }
+    @Test
+    public void resolveEq12() {
+        CustList<Matching> l_ = new CustList<Matching>();
+        Matching mapp_ = new Matching();
+        mapp_.setArg("#0");
+        mapp_.setParam("pkg.Ex");
+        mapp_.setMatchEq(MatchingEnum.SUB);
+        l_.add(mapp_);
+        mapp_ = new Matching();
+        mapp_.setArg("#1");
+        mapp_.setParam("pkg.ExTwo");
+        mapp_.setMatchEq(MatchingEnum.SUB);
+        l_.add(mapp_);
+        CustList<Matching> res_ = AnaTemplates.resolveEq(l_, 2);
+        assertEq(2,res_.size());
+        assertEq("#0",res_.get(0).getArg());
+        assertEq("pkg.Ex",res_.get(0).getParam());
+        assertSame(MatchingEnum.SUB,res_.get(0).getMatchEq());
+        assertEq("#1",res_.get(1).getArg());
+        assertEq("pkg.ExTwo",res_.get(1).getParam());
+        assertSame(MatchingEnum.SUB,res_.get(1).getMatchEq());
+    }
+    @Test
+    public void resolveEq13() {
+        CustList<Matching> l_ = new CustList<Matching>();
+        Matching mapp_ = new Matching();
+        mapp_.setArg("#0");
+        mapp_.setParam("#1");
+        mapp_.setMatchEq(MatchingEnum.EQ);
+        l_.add(mapp_);
+        mapp_ = new Matching();
+        mapp_.setArg("#0");
+        mapp_.setParam("pkg.Ex");
+        mapp_.setMatchEq(MatchingEnum.EQ);
+        l_.add(mapp_);
+        mapp_ = new Matching();
+        mapp_.setArg("pkg.ExTwo");
+        mapp_.setParam("pkg.ExTwo");
+        mapp_.setMatchEq(MatchingEnum.SUB);
+        l_.add(mapp_);
+        CustList<Matching> res_ = AnaTemplates.resolveEq(l_, 2);
+        assertEq(3,res_.size());
+        assertEq("pkg.Ex",res_.get(0).getArg());
+        assertEq("#1",res_.get(0).getParam());
+        assertSame(MatchingEnum.EQ,res_.get(0).getMatchEq());
+        assertEq("#0",res_.get(1).getArg());
+        assertEq("pkg.Ex",res_.get(1).getParam());
+        assertSame(MatchingEnum.EQ,res_.get(1).getMatchEq());
+        assertEq("pkg.ExTwo",res_.get(2).getArg());
+        assertEq("pkg.ExTwo",res_.get(2).getParam());
+        assertSame(MatchingEnum.SUB,res_.get(2).getMatchEq());
+    }
+
+    @Test
+    public void resolveEq14() {
+        CustList<Matching> l_ = new CustList<Matching>();
+        Matching mapp_ = new Matching();
+        mapp_.setArg("#0");
+        mapp_.setParam("#1");
+        mapp_.setMatchEq(MatchingEnum.EQ);
+        l_.add(mapp_);
+        mapp_ = new Matching();
+        mapp_.setArg("#0");
+        mapp_.setParam("pkg.Ex");
+        mapp_.setMatchEq(MatchingEnum.EQ);
+        l_.add(mapp_);
+        mapp_ = new Matching();
+        mapp_.setArg("pkg.ExTwo");
+        mapp_.setParam("pkg.ExTwo");
+        mapp_.setMatchEq(MatchingEnum.SUP);
+        l_.add(mapp_);
+        CustList<Matching> res_ = AnaTemplates.resolveEq(l_, 2);
+        assertEq(3,res_.size());
+        assertEq("pkg.Ex",res_.get(0).getArg());
+        assertEq("#1",res_.get(0).getParam());
+        assertSame(MatchingEnum.EQ,res_.get(0).getMatchEq());
+        assertEq("#0",res_.get(1).getArg());
+        assertEq("pkg.Ex",res_.get(1).getParam());
+        assertSame(MatchingEnum.EQ,res_.get(1).getMatchEq());
+        assertEq("pkg.ExTwo",res_.get(2).getArg());
+        assertEq("pkg.ExTwo",res_.get(2).getParam());
+        assertSame(MatchingEnum.SUP,res_.get(2).getMatchEq());
+    }
+
+    @Test
+    public void mergeEq1() {
+        assertNull(AnaTemplates.mergeEq(null));
+    }
+    @Test
+    public void mergeEq2() {
+        CustList<Matching> l_ = new CustList<Matching>();
+        Matching mapp_ = new Matching();
+        mapp_.setArg("#0");
+        mapp_.setParam("#1");
+        mapp_.setMatchEq(MatchingEnum.EQ);
+        l_.add(mapp_);
+        CustList<Matching> res_ = AnaTemplates.mergeEq(l_);
+        assertEq(1,res_.size());
+        assertEq("#0",res_.get(0).getArg());
+        assertEq("#1",res_.get(0).getParam());
+        assertSame(MatchingEnum.EQ,res_.get(0).getMatchEq());
+    }
+    @Test
+    public void mergeEq3() {
+        CustList<Matching> l_ = new CustList<Matching>();
+        Matching mapp_ = new Matching();
+        mapp_.setArg("#0");
+        mapp_.setParam("#1");
+        mapp_.setMatchEq(MatchingEnum.SUB);
+        l_.add(mapp_);
+        mapp_ = new Matching();
+        mapp_.setArg("#0");
+        mapp_.setParam("#1");
+        mapp_.setMatchEq(MatchingEnum.SUP);
+        l_.add(mapp_);
+        CustList<Matching> res_ = AnaTemplates.mergeEq(l_);
+        assertEq(1,res_.size());
+        assertEq("#0",res_.get(0).getArg());
+        assertEq("#1",res_.get(0).getParam());
+        assertSame(MatchingEnum.EQ,res_.get(0).getMatchEq());
+    }
+    @Test
+    public void mergeEq4() {
+        CustList<Matching> l_ = new CustList<Matching>();
+        Matching mapp_ = new Matching();
+        mapp_.setArg("#0");
+        mapp_.setParam("#1");
+        mapp_.setMatchEq(MatchingEnum.SUB);
+        l_.add(mapp_);
+        mapp_ = new Matching();
+        mapp_.setArg("#1");
+        mapp_.setParam("#0");
+        mapp_.setMatchEq(MatchingEnum.SUB);
+        l_.add(mapp_);
+        CustList<Matching> res_ = AnaTemplates.mergeEq(l_);
+        assertEq(1,res_.size());
+        assertEq("#0",res_.get(0).getArg());
+        assertEq("#1",res_.get(0).getParam());
+        assertSame(MatchingEnum.EQ,res_.get(0).getMatchEq());
+    }
+    @Test
+    public void mergeEq5() {
+        CustList<Matching> l_ = new CustList<Matching>();
+        Matching mapp_ = new Matching();
+        mapp_.setArg("#0");
+        mapp_.setParam("#1");
+        mapp_.setMatchEq(MatchingEnum.SUB);
+        l_.add(mapp_);
+        mapp_ = new Matching();
+        mapp_.setArg("#0");
+        mapp_.setParam("#2");
+        mapp_.setMatchEq(MatchingEnum.SUP);
+        l_.add(mapp_);
+        CustList<Matching> res_ = AnaTemplates.mergeEq(l_);
+        assertEq(2,res_.size());
+        assertEq("#0",res_.get(0).getArg());
+        assertEq("#1",res_.get(0).getParam());
+        assertSame(MatchingEnum.SUB,res_.get(0).getMatchEq());
+        assertEq("#0",res_.get(1).getArg());
+        assertEq("#2",res_.get(1).getParam());
+        assertSame(MatchingEnum.SUP,res_.get(1).getMatchEq());
+    }
+    @Test
+    public void mergeEq6() {
+        CustList<Matching> l_ = new CustList<Matching>();
+        Matching mapp_ = new Matching();
+        mapp_.setArg("#0");
+        mapp_.setParam("#1");
+        mapp_.setMatchEq(MatchingEnum.SUB);
+        l_.add(mapp_);
+        mapp_ = new Matching();
+        mapp_.setArg("#2");
+        mapp_.setParam("#0");
+        mapp_.setMatchEq(MatchingEnum.SUB);
+        l_.add(mapp_);
+        CustList<Matching> res_ = AnaTemplates.mergeEq(l_);
+        assertEq(2,res_.size());
+        assertEq("#0",res_.get(0).getArg());
+        assertEq("#1",res_.get(0).getParam());
+        assertSame(MatchingEnum.SUB,res_.get(0).getMatchEq());
+        assertEq("#2",res_.get(1).getArg());
+        assertEq("#0",res_.get(1).getParam());
+        assertSame(MatchingEnum.SUB,res_.get(1).getMatchEq());
+    }
+    @Test
+    public void mergeEq7() {
+        CustList<Matching> l_ = new CustList<Matching>();
+        Matching mapp_ = new Matching();
+        mapp_.setArg("#0");
+        mapp_.setParam("#1");
+        mapp_.setMatchEq(MatchingEnum.SUB);
+        l_.add(mapp_);
+        mapp_ = new Matching();
+        mapp_.setArg("#0");
+        mapp_.setParam("#1");
+        mapp_.setMatchEq(MatchingEnum.SUP);
+        l_.add(mapp_);
+        mapp_ = new Matching();
+        mapp_.setArg("#2");
+        mapp_.setParam("#3");
+        mapp_.setMatchEq(MatchingEnum.EQ);
+        l_.add(mapp_);
+        CustList<Matching> res_ = AnaTemplates.mergeEq(l_);
+        assertEq(2,res_.size());
+        assertEq("#0",res_.get(0).getArg());
+        assertEq("#1",res_.get(0).getParam());
+        assertSame(MatchingEnum.EQ,res_.get(0).getMatchEq());
+        assertEq("#2",res_.get(1).getArg());
+        assertEq("#3",res_.get(1).getParam());
+        assertSame(MatchingEnum.EQ,res_.get(1).getMatchEq());
+    }
+    @Test
+    public void mergeEq8() {
+        CustList<Matching> l_ = new CustList<Matching>();
+        Matching mapp_ = new Matching();
+        mapp_.setArg("#0");
+        mapp_.setParam("#1");
+        mapp_.setMatchEq(MatchingEnum.SUB);
+        l_.add(mapp_);
+        mapp_ = new Matching();
+        mapp_.setArg("#1");
+        mapp_.setParam("#0");
+        mapp_.setMatchEq(MatchingEnum.SUB);
+        l_.add(mapp_);
+        mapp_ = new Matching();
+        mapp_.setArg("#2");
+        mapp_.setParam("#3");
+        mapp_.setMatchEq(MatchingEnum.EQ);
+        l_.add(mapp_);
+        CustList<Matching> res_ = AnaTemplates.mergeEq(l_);
+        assertEq(2,res_.size());
+        assertEq("#0",res_.get(0).getArg());
+        assertEq("#1",res_.get(0).getParam());
+        assertSame(MatchingEnum.EQ,res_.get(0).getMatchEq());
+        assertEq("#2",res_.get(1).getArg());
+        assertEq("#3",res_.get(1).getParam());
+        assertSame(MatchingEnum.EQ,res_.get(1).getMatchEq());
+    }
+    @Test
+    public void mergeEq9() {
+        CustList<Matching> l_ = new CustList<Matching>();
+        Matching mapp_ = new Matching();
+        mapp_.setArg("#1");
+        mapp_.setParam("#0");
+        mapp_.setMatchEq(MatchingEnum.SUB);
+        l_.add(mapp_);
+        mapp_ = new Matching();
+        mapp_.setArg("#1");
+        mapp_.setParam("#0");
+        mapp_.setMatchEq(MatchingEnum.EQ);
+        l_.add(mapp_);
+        CustList<Matching> res_ = AnaTemplates.mergeEq(l_);
+        assertEq(2,res_.size());
+        assertEq("#1",res_.get(0).getArg());
+        assertEq("#0",res_.get(0).getParam());
+        assertSame(MatchingEnum.SUB,res_.get(0).getMatchEq());
+        assertEq("#1",res_.get(1).getArg());
+        assertEq("#0",res_.get(1).getParam());
+        assertSame(MatchingEnum.EQ,res_.get(1).getMatchEq());
+    }
+    @Test
+    public void mergeEq10() {
+        CustList<Matching> l_ = new CustList<Matching>();
+        Matching mapp_ = new Matching();
+        mapp_.setArg("#0");
+        mapp_.setParam("#1");
+        mapp_.setMatchEq(MatchingEnum.SUP);
+        l_.add(mapp_);
+        mapp_ = new Matching();
+        mapp_.setArg("#1");
+        mapp_.setParam("#0");
+        mapp_.setMatchEq(MatchingEnum.EQ);
+        l_.add(mapp_);
+        CustList<Matching> res_ = AnaTemplates.mergeEq(l_);
+        assertEq(2,res_.size());
+        assertEq("#0",res_.get(0).getArg());
+        assertEq("#1",res_.get(0).getParam());
+        assertSame(MatchingEnum.SUP,res_.get(0).getMatchEq());
+        assertEq("#1",res_.get(1).getArg());
+        assertEq("#0",res_.get(1).getParam());
+        assertSame(MatchingEnum.EQ,res_.get(1).getMatchEq());
+    }
+    @Test
+    public void getSubTypes1() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex{}\n");
+        xml_.append("$public $class pkg.ExOther{}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        StringList res_ = AnaTypeUtil.getSubTypes(new StringList("pkg.Ex", "pkg.ExOther"), new StringMap<StringList>(), cont_.getAnalyzing());
+        assertEq(2,res_.size());
+        assertTrue(StringUtil.contains(res_,"pkg.Ex"));
+        assertTrue(StringUtil.contains(res_,"pkg.ExOther"));
+    }
+    @Test
+    public void getSubTypes2() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex:ExSuper{}\n");
+        xml_.append("$public $class pkg.ExSuper{}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        StringList res_ = AnaTypeUtil.getSubTypes(new StringList("pkg.Ex", "pkg.ExSuper"), new StringMap<StringList>(), cont_.getAnalyzing());
+        assertEq(1,res_.size());
+        assertTrue(StringUtil.contains(res_,"pkg.Ex"));
+    }
+    @Test
+    public void getSubTypes3() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex{}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        StringList res_ = AnaTypeUtil.getSubTypes(new StringList("pkg.Ex", "pkg.Ex"), new StringMap<StringList>(), cont_.getAnalyzing());
+        assertTrue(res_.onlyOneElt());
+        assertTrue(StringUtil.contains(res_,"pkg.Ex"));
+    }
+    @Test
+    public void getSubTypes4() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex{}\n");
+        xml_.append("$public $class pkg.ExTwo{}\n");
+        xml_.append("$public $class pkg.ExParam<T>{}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        StringList res_ = AnaTypeUtil.getSubTypes(new StringList("pkg.ExParam<pkg.Ex>", "pkg.ExParam<pkg.ExTwo>"), new StringMap<StringList>(), cont_.getAnalyzing());
+        assertEq(2,res_.size());
+        assertTrue(StringUtil.contains(res_,"pkg.ExParam<pkg.Ex>"));
+        assertTrue(StringUtil.contains(res_,"pkg.ExParam<pkg.ExTwo>"));
+    }
+    @Test
+    public void getSubTypes5() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex{}\n");
+        xml_.append("$public $class pkg.ExParam<T>{}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        StringList res_ = AnaTypeUtil.getSubTypes(new StringList("pkg.ExParam<pkg.Ex>", "pkg.ExParam<pkg.Ex>"), new StringMap<StringList>(), cont_.getAnalyzing());
+        assertTrue(res_.onlyOneElt());
+        assertTrue(StringUtil.contains(res_,"pkg.ExParam<pkg.Ex>"));
+    }
+    @Test
+    public void getSubTypes6() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex{}\n");
+        xml_.append("$public $class pkg.ExParam<T>:ExParamSuper<T>{}\n");
+        xml_.append("$public $class pkg.ExParamSuper<S>{}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        StringList res_ = AnaTypeUtil.getSubTypes(new StringList("pkg.ExParam<pkg.Ex>", "pkg.ExParamSuper<pkg.Ex>"), new StringMap<StringList>(), cont_.getAnalyzing());
+        assertEq(1,res_.size());
+        assertTrue(StringUtil.contains(res_,"pkg.ExParam<pkg.Ex>"));
+    }
+    @Test
+    public void getSubTypes7() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex:ExSuper{}\n");
+        xml_.append("$public $class pkg.ExSuper{}\n");
+        xml_.append("$public $class pkg.ExParam<T>{}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        StringList res_ = AnaTypeUtil.getSubTypes(new StringList("pkg.ExParam<pkg.Ex>", "pkg.ExParam<pkg.ExSuper>"), new StringMap<StringList>(), cont_.getAnalyzing());
+        assertEq(2,res_.size());
+        assertTrue(StringUtil.contains(res_,"pkg.ExParam<pkg.Ex>"));
+        assertTrue(StringUtil.contains(res_,"pkg.ExParam<pkg.ExSuper>"));
+    }
+    @Test
+    public void getSubTypes8() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex:ExSuper{}\n");
+        xml_.append("$public $class pkg.ExSuper{}\n");
+        xml_.append("$public $class pkg.ExParam<T>{}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        StringList res_ = AnaTypeUtil.getSubTypes(new StringList("pkg.ExParam<?pkg.Ex>", "pkg.ExParam<?pkg.ExSuper>"), new StringMap<StringList>(), cont_.getAnalyzing());
+        assertEq(1,res_.size());
+        assertTrue(StringUtil.contains(res_,"pkg.ExParam<?pkg.Ex>"));
+    }
+    @Test
+    public void getSubTypes9() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex:ExSuper{}\n");
+        xml_.append("$public $class pkg.ExSuper{}\n");
+        xml_.append("$public $class pkg.ExParam<T>{}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        StringList res_ = AnaTypeUtil.getSubTypes(new StringList("pkg.ExParam<!pkg.Ex>", "pkg.ExParam<!pkg.ExSuper>"), new StringMap<StringList>(), cont_.getAnalyzing());
+        assertEq(1,res_.size());
+        assertTrue(StringUtil.contains(res_,"pkg.ExParam<!pkg.ExSuper>"));
+    }
+    @Test
+    public void reverseEq1() {
+        CustList<Matching> l_ = new CustList<Matching>();
+        Matching mapp_ = new Matching();
+        mapp_.setArg("pkg.Ex");
+        mapp_.setParam("#0");
+        mapp_.setMatchEq(MatchingEnum.EQ);
+        l_.add(mapp_);
+        AnaTemplates.reverseEq(l_);
+        assertEq("pkg.Ex",l_.get(0).getArg());
+        assertEq("#0",l_.get(0).getParam());
+        assertSame(MatchingEnum.EQ,l_.get(0).getMatchEq());
+    }
+    @Test
+    public void reverseEq2() {
+        CustList<Matching> l_ = new CustList<Matching>();
+        Matching mapp_ = new Matching();
+        mapp_.setArg("#0");
+        mapp_.setParam("pkg.Ex");
+        mapp_.setMatchEq(MatchingEnum.EQ);
+        l_.add(mapp_);
+        AnaTemplates.reverseEq(l_);
+        assertEq("pkg.Ex",l_.get(0).getArg());
+        assertEq("#0",l_.get(0).getParam());
+        assertSame(MatchingEnum.EQ,l_.get(0).getMatchEq());
+    }
+    @Test
+    public void reverseEq3() {
+        CustList<Matching> l_ = new CustList<Matching>();
+        Matching mapp_ = new Matching();
+        mapp_.setArg("pkg.Ex");
+        mapp_.setParam("#A");
+        mapp_.setMatchEq(MatchingEnum.EQ);
+        l_.add(mapp_);
+        AnaTemplates.reverseEq(l_);
+        assertEq("pkg.Ex",l_.get(0).getArg());
+        assertEq("#A",l_.get(0).getParam());
+        assertSame(MatchingEnum.EQ,l_.get(0).getMatchEq());
+    }
+    @Test
+    public void reverseEq4() {
+        CustList<Matching> l_ = new CustList<Matching>();
+        Matching mapp_ = new Matching();
+        mapp_.setArg("#A");
+        mapp_.setParam("pkg.Ex");
+        mapp_.setMatchEq(MatchingEnum.EQ);
+        l_.add(mapp_);
+        AnaTemplates.reverseEq(l_);
+        assertEq("#A",l_.get(0).getArg());
+        assertEq("pkg.Ex",l_.get(0).getParam());
+        assertSame(MatchingEnum.EQ,l_.get(0).getMatchEq());
+    }
+    @Test
+    public void reverseEq5() {
+        CustList<Matching> l_ = new CustList<Matching>();
+        Matching mapp_ = new Matching();
+        mapp_.setArg("pkg.Ex");
+        mapp_.setParam("#0");
+        mapp_.setMatchEq(MatchingEnum.SUB);
+        l_.add(mapp_);
+        AnaTemplates.reverseEq(l_);
+        assertEq("pkg.Ex",l_.get(0).getArg());
+        assertEq("#0",l_.get(0).getParam());
+        assertSame(MatchingEnum.SUB,l_.get(0).getMatchEq());
+    }
+    @Test
+    public void reverseEq6() {
+        CustList<Matching> l_ = new CustList<Matching>();
+        Matching mapp_ = new Matching();
+        mapp_.setArg("#0");
+        mapp_.setParam("pkg.Ex");
+        mapp_.setMatchEq(MatchingEnum.SUP);
+        l_.add(mapp_);
+        AnaTemplates.reverseEq(l_);
+        assertEq("pkg.Ex",l_.get(0).getArg());
+        assertEq("#0",l_.get(0).getParam());
+        assertSame(MatchingEnum.SUB,l_.get(0).getMatchEq());
+    }
+
+    @Test
+    public void processConstraints0() {
+        assertNull(AnaTemplates.processConstraints(null,2));
+    }
+    @Test
+    public void processConstraints1() {
+        CustList<Matching> l_ = new CustList<Matching>();
+        Matching mapp_ = new Matching();
+        mapp_.setArg("#1");
+        mapp_.setParam("#0");
+        mapp_.setMatchEq(MatchingEnum.EQ);
+        l_.add(mapp_);
+        mapp_ = new Matching();
+        mapp_.setArg("#0");
+        mapp_.setParam("pkg.Ex");
+        mapp_.setMatchEq(MatchingEnum.EQ);
+        l_.add(mapp_);
+        StringMap<StringList> res_ = AnaTemplates.processConstraints(l_,2);
+        assertEq(2,res_.size());
+        assertEq("#0",res_.getKey(0));
+        assertEq(1,res_.getValue(0).size());
+        assertEq("pkg.Ex",res_.getValue(0).get(0));
+        assertEq("#1",res_.getKey(1));
+        assertEq(1,res_.getValue(1).size());
+        assertEq("pkg.Ex",res_.getValue(1).get(0));
+    }
+    @Test
+    public void processConstraints2() {
+        CustList<Matching> l_ = new CustList<Matching>();
+        Matching mapp_ = new Matching();
+        mapp_.setArg("#0");
+        mapp_.setParam("pkg.Ex");
+        mapp_.setMatchEq(MatchingEnum.SUB);
+        l_.add(mapp_);
+        StringMap<StringList> res_ = AnaTemplates.processConstraints(l_,1);
+        assertEq(1,res_.size());
+        assertEq("#0",res_.getKey(0));
+        assertEq(1,res_.getValue(0).size());
+        assertEq("pkg.Ex",res_.getValue(0).get(0));
+    }
+    @Test
+    public void processConstraints3() {
+        CustList<Matching> l_ = new CustList<Matching>();
+        Matching mapp_ = new Matching();
+        mapp_.setArg("#0");
+        mapp_.setParam("pkg.Ex");
+        mapp_.setMatchEq(MatchingEnum.SUP);
+        l_.add(mapp_);
+        StringMap<StringList> res_ = AnaTemplates.processConstraints(l_,1);
+        assertEq(1,res_.size());
+        assertEq("#0",res_.getKey(0));
+        assertEq(1,res_.getValue(0).size());
+        assertEq("pkg.Ex",res_.getValue(0).get(0));
+    }
+    @Test
+    public void processConstraints4() {
+        CustList<Matching> l_ = new CustList<Matching>();
+        Matching mapp_ = new Matching();
+        mapp_.setArg("#0");
+        mapp_.setParam("pkg.Ex");
+        mapp_.setMatchEq(MatchingEnum.EQ);
+        l_.add(mapp_);
+        mapp_ = new Matching();
+        mapp_.setArg("pkg.Ex");
+        mapp_.setParam("pkg.Ex");
+        mapp_.setMatchEq(MatchingEnum.EQ);
+        l_.add(mapp_);
+        StringMap<StringList> res_ = AnaTemplates.processConstraints(l_,1);
+        assertEq(1,res_.size());
+        assertEq("#0",res_.getKey(0));
+        assertEq(1,res_.getValue(0).size());
+        assertEq("pkg.Ex",res_.getValue(0).get(0));
+    }
+    @Test
+    public void processConstraints5() {
+        CustList<Matching> l_ = new CustList<Matching>();
+        Matching mapp_ = new Matching();
+        mapp_.setArg("pkg.ExThree");
+        mapp_.setParam("pkg.ExThree");
+        mapp_.setMatchEq(MatchingEnum.SUB);
+        l_.add(mapp_);
+        mapp_ = new Matching();
+        mapp_.setArg("#0");
+        mapp_.setParam("pkg.Ex");
+        mapp_.setMatchEq(MatchingEnum.SUB);
+        l_.add(mapp_);
+        mapp_ = new Matching();
+        mapp_.setArg("#1");
+        mapp_.setParam("pkg.ExTwo");
+        mapp_.setMatchEq(MatchingEnum.SUB);
+        l_.add(mapp_);
+        StringMap<StringList> res_ = AnaTemplates.processConstraints(l_,2);
+        assertEq(2,res_.size());
+        assertEq("#0",res_.getKey(0));
+        assertEq(1,res_.getValue(0).size());
+        assertEq("pkg.Ex",res_.getValue(0).get(0));
+        assertEq("#1",res_.getKey(1));
+        assertEq(1,res_.getValue(1).size());
+        assertEq("pkg.ExTwo",res_.getValue(1).get(0));
+    }
+    @Test
+    public void processConstraints6() {
+        CustList<Matching> l_ = new CustList<Matching>();
+        Matching mapp_ = new Matching();
+        mapp_.setArg("pkg.ExThree");
+        mapp_.setParam("pkg.ExThree");
+        mapp_.setMatchEq(MatchingEnum.SUP);
+        l_.add(mapp_);
+        mapp_ = new Matching();
+        mapp_.setArg("#0");
+        mapp_.setParam("pkg.Ex");
+        mapp_.setMatchEq(MatchingEnum.SUP);
+        l_.add(mapp_);
+        mapp_ = new Matching();
+        mapp_.setArg("#1");
+        mapp_.setParam("pkg.ExTwo");
+        mapp_.setMatchEq(MatchingEnum.SUP);
+        l_.add(mapp_);
+        StringMap<StringList> res_ = AnaTemplates.processConstraints(l_,2);
+        assertEq(2,res_.size());
+        assertEq("#0",res_.getKey(0));
+        assertEq(1,res_.getValue(0).size());
+        assertEq("pkg.Ex",res_.getValue(0).get(0));
+        assertEq("#1",res_.getKey(1));
+        assertEq(1,res_.getValue(1).size());
+        assertEq("pkg.ExTwo",res_.getValue(1).get(0));
+    }
+    @Test
+    public void infer1() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex{}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        Mapping mapp_ = new Mapping();
+        mapp_.setArg("pkg.Ex");
+        mapp_.setParam("pkg.Ex");
+        assertEq(0,infer(cont_, mapp_).size());
+    }
+
+    @Test
+    public void infer2() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex{}\n");
+        xml_.append("$public $class pkg.ExParam<T>{}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        Mapping mapp_ = new Mapping();
+        mapp_.setArg("pkg.ExParam<pkg.Ex>");
+        mapp_.setParam("pkg.ExParam<pkg.Ex>");
+        assertEq(0,infer(cont_, mapp_).size());
+    }
+
+    @Test
+    public void infer3() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex{}\n");
+        xml_.append("$public $class pkg.ExParam{}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        Mapping mapp_ = new Mapping();
+        mapp_.setArg("pkg.Ex");
+        mapp_.setParam("pkg.ExParam");
+        assertEq(0,infer(cont_, mapp_).size());
+    }
+
+    @Test
+    public void infer4() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex:ExOther{}\n");
+        xml_.append("$public $class pkg.ExOther{}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        Mapping mapp_ = new Mapping();
+        mapp_.setArg("pkg.ExOther");
+        mapp_.setParam("pkg.Ex");
+        assertEq(0,infer(cont_, mapp_).size());
+    }
+
+    @Test
+    public void infer5() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex{}\n");
+        xml_.append("$public $class pkg.ExTwo{}\n");
+        xml_.append("$public $class pkg.ExParam<T>{}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        Mapping mapp_ = new Mapping();
+        mapp_.setArg("pkg.ExParam<pkg.Ex>");
+        mapp_.setParam("pkg.ExParam<pkg.ExTwo>");
+        assertEq(0,infer(cont_, mapp_).size());
+    }
+
+    @Test
+    public void infer5_() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex{}\n");
+        xml_.append("$public $class pkg.ExTwo{}\n");
+        xml_.append("$public $class pkg.ExParam<T,S>{}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        Mapping mapp_ = new Mapping();
+        mapp_.setArg("pkg.ExParam<pkg.Ex,pkg.Ex>");
+        mapp_.setParam("pkg.ExParam<pkg.Ex,pkg.ExTwo>");
+        assertEq(0,infer(cont_, mapp_).size());
+    }
+
+    @Test
+    public void infer5__() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex{}\n");
+        xml_.append("$public $class pkg.ExTwo{}\n");
+        xml_.append("$public $class pkg.ExParam<T,S>{}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        Mapping mapp_ = new Mapping();
+        mapp_.setArg("pkg.ExParam<pkg.Ex,pkg.Ex>");
+        mapp_.setParam("pkg.ExParam<pkg.Ex,pkg.ExParam<pkg.Ex,pkg.Ex>>");
+        assertEq(0,infer(cont_, mapp_).size());
+    }
+
+    @Test
+    public void infer6() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex{}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        Mapping mapp_ = new Mapping();
+        mapp_.setArg("pkg.Ex");
+        mapp_.setParam("#0");
+        StringMap<StringList> inh_ = new StringMap<StringList>();
+        inh_.addEntry("0",new StringList(cont_.getAnalyzing().getAliasObject()));
+        mapp_.setMapping(inh_);
+        CustList<Matching> cts_ = infer(cont_, mapp_);
+        assertEq(1, cts_.size());
+        assertEq("pkg.Ex", cts_.get(0).getArg());
+        assertEq("#0", cts_.get(0).getParam());
+        assertSame(MatchingEnum.SUB, cts_.get(0).getMatchEq());
+    }
+
+    @Test
+    public void infer6_() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex{}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        Mapping mapp_ = new Mapping();
+        mapp_.setArg("#A");
+        mapp_.setParam("#B");
+        StringMap<StringList> inh_ = new StringMap<StringList>();
+        inh_.addEntry("A",new StringList("#B"));
+        inh_.addEntry("B",new StringList(cont_.getAnalyzing().getAliasObject()));
+        mapp_.setMapping(inh_);
+        CustList<Matching> cts_ = infer(cont_, mapp_);
+        assertEq(0, cts_.size());
+    }
+
+    @Test
+    public void infer6__() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex{}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        Mapping mapp_ = new Mapping();
+        mapp_.setArg("pkg.Ex");
+        mapp_.setParam("[#0");
+        StringMap<StringList> inh_ = new StringMap<StringList>();
+        inh_.addEntry("0",new StringList(cont_.getAnalyzing().getAliasObject()));
+        mapp_.setMapping(inh_);
+        CustList<Matching> cts_ = infer(cont_, mapp_);
+        assertEq(0, cts_.size());
+    }
+    @Test
+    public void infer7() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex{}\n");
+        xml_.append("$public $class pkg.ExParam<T>{}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        Mapping mapp_ = new Mapping();
+        mapp_.setArg("pkg.ExParam<pkg.Ex>");
+        mapp_.setParam("pkg.ExParam<#0>");
+        StringMap<StringList> inh_ = new StringMap<StringList>();
+        inh_.addEntry("0",new StringList(cont_.getAnalyzing().getAliasObject()));
+        mapp_.setMapping(inh_);
+        CustList<Matching> cts_ = infer(cont_, mapp_);
+        assertEq(1, cts_.size());
+        assertEq("pkg.Ex", cts_.get(0).getArg());
+        assertEq("#0", cts_.get(0).getParam());
+        assertSame(MatchingEnum.EQ, cts_.get(0).getMatchEq());
+    }
+
+    @Test
+    public void infer8() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex{}\n");
+        xml_.append("$public $class pkg.ExParam<T>{}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        Mapping mapp_ = new Mapping();
+        mapp_.setArg("pkg.ExParam<?pkg.Ex>");
+        mapp_.setParam("pkg.ExParam<?#0>");
+        StringMap<StringList> inh_ = new StringMap<StringList>();
+        inh_.addEntry("0",new StringList(cont_.getAnalyzing().getAliasObject()));
+        mapp_.setMapping(inh_);
+        CustList<Matching> cts_ = infer(cont_, mapp_);
+        assertEq(1, cts_.size());
+        assertEq("pkg.Ex", cts_.get(0).getArg());
+        assertEq("#0", cts_.get(0).getParam());
+        assertSame(MatchingEnum.SUB, cts_.get(0).getMatchEq());
+    }
+
+    @Test
+    public void infer9() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex{}\n");
+        xml_.append("$public $class pkg.ExParam<T>{}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        Mapping mapp_ = new Mapping();
+        mapp_.setArg("pkg.ExParam<!pkg.Ex>");
+        mapp_.setParam("pkg.ExParam<!#0>");
+        StringMap<StringList> inh_ = new StringMap<StringList>();
+        inh_.addEntry("0",new StringList(cont_.getAnalyzing().getAliasObject()));
+        mapp_.setMapping(inh_);
+        CustList<Matching> cts_ = infer(cont_, mapp_);
+        assertEq(1, cts_.size());
+        assertEq("pkg.Ex", cts_.get(0).getArg());
+        assertEq("#0", cts_.get(0).getParam());
+        assertSame(MatchingEnum.SUP, cts_.get(0).getMatchEq());
+    }
+    @Test
+    public void infer10() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex{}\n");
+        xml_.append("$public $class pkg.ExParam<T>{}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        Mapping mapp_ = new Mapping();
+        mapp_.setArg("pkg.ExParam<?pkg.ExParam<pkg.Ex>>");
+        mapp_.setParam("pkg.ExParam<?pkg.ExParam<#0>>");
+        StringMap<StringList> inh_ = new StringMap<StringList>();
+        inh_.addEntry("0",new StringList(cont_.getAnalyzing().getAliasObject()));
+        mapp_.setMapping(inh_);
+        CustList<Matching> cts_ = infer(cont_, mapp_);
+        assertEq(1, cts_.size());
+        assertEq("pkg.Ex", cts_.get(0).getArg());
+        assertEq("#0", cts_.get(0).getParam());
+        assertSame(MatchingEnum.EQ, cts_.get(0).getMatchEq());
+    }
+    @Test
+    public void infer10_() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex{}\n");
+        xml_.append("$public $class pkg.ExParam<T>{}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        Mapping mapp_ = new Mapping();
+        mapp_.setArg("pkg.ExParam<?pkg.ExParam<pkg.Ex>>");
+        mapp_.setParam("pkg.ExParam<?pkg.ExParam<pkg.Ex>>");
+        StringMap<StringList> inh_ = new StringMap<StringList>();
+        inh_.addEntry("0",new StringList(cont_.getAnalyzing().getAliasObject()));
+        mapp_.setMapping(inh_);
+        CustList<Matching> cts_ = infer(cont_, mapp_);
+        assertEq(0, cts_.size());
+    }
+
+    @Test
+    public void infer11() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex{}\n");
+        xml_.append("$public $class pkg.ExParam<T>{}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        Mapping mapp_ = new Mapping();
+        mapp_.setArg("pkg.ExParam<!pkg.ExParam<pkg.Ex>>");
+        mapp_.setParam("pkg.ExParam<!pkg.ExParam<#0>>");
+        StringMap<StringList> inh_ = new StringMap<StringList>();
+        inh_.addEntry("0",new StringList(cont_.getAnalyzing().getAliasObject()));
+        mapp_.setMapping(inh_);
+        CustList<Matching> cts_ = infer(cont_, mapp_);
+        assertEq(1, cts_.size());
+        assertEq("pkg.Ex", cts_.get(0).getParam());
+        assertEq("#0", cts_.get(0).getArg());
+        assertSame(MatchingEnum.EQ, cts_.get(0).getMatchEq());
+    }
+
+    @Test
+    public void infer11_() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex{}\n");
+        xml_.append("$public $class pkg.ExParam<T>{}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        Mapping mapp_ = new Mapping();
+        mapp_.setArg("pkg.ExParam<!pkg.ExParam<pkg.Ex>>");
+        mapp_.setParam("pkg.ExParam<!pkg.ExParam<pkg.Ex>>");
+        StringMap<StringList> inh_ = new StringMap<StringList>();
+        inh_.addEntry("0",new StringList(cont_.getAnalyzing().getAliasObject()));
+        mapp_.setMapping(inh_);
+        CustList<Matching> cts_ = infer(cont_, mapp_);
+        assertEq(0, cts_.size());
+    }
+
+    @Test
+    public void infer12() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex{}\n");
+        xml_.append("$public $class pkg.ExParam<T,U>{}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        Mapping mapp_ = new Mapping();
+        mapp_.setArg("pkg.ExParam<pkg.Ex,pkg.Ex>");
+        mapp_.setParam("pkg.ExParam<#0,#0>");
+        StringMap<StringList> inh_ = new StringMap<StringList>();
+        inh_.addEntry("0",new StringList(cont_.getAnalyzing().getAliasObject()));
+        mapp_.setMapping(inh_);
+        CustList<Matching> cts_ = infer(cont_, mapp_);
+        assertEq(1, cts_.size());
+        assertEq("pkg.Ex", cts_.get(0).getArg());
+        assertEq("#0", cts_.get(0).getParam());
+        assertSame(MatchingEnum.EQ, cts_.get(0).getMatchEq());
+    }
+
+    @Test
+    public void infer13() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex{}\n");
+        xml_.append("$public $class pkg.ExTwo{}\n");
+        xml_.append("$public $class pkg.ExParam<T,U>{}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        Mapping mapp_ = new Mapping();
+        mapp_.setArg("pkg.ExParam<pkg.Ex,pkg.ExTwo>");
+        mapp_.setParam("pkg.ExParam<#0,#1>");
+        StringMap<StringList> inh_ = new StringMap<StringList>();
+        inh_.addEntry("0",new StringList(cont_.getAnalyzing().getAliasObject()));
+        inh_.addEntry("1",new StringList(cont_.getAnalyzing().getAliasObject()));
+        mapp_.setMapping(inh_);
+        CustList<Matching> cts_ = infer(cont_, mapp_);
+        assertEq(2, cts_.size());
+        assertEq("pkg.Ex", cts_.get(0).getArg());
+        assertEq("#0", cts_.get(0).getParam());
+        assertSame(MatchingEnum.EQ, cts_.get(0).getMatchEq());
+        assertEq("pkg.ExTwo", cts_.get(1).getArg());
+        assertEq("#1", cts_.get(1).getParam());
+        assertSame(MatchingEnum.EQ, cts_.get(1).getMatchEq());
+    }
+
+    @Test
+    public void infer14() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex{}\n");
+        xml_.append("$public $class pkg.ExParam<T,U:T>{}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        Mapping mapp_ = new Mapping();
+        mapp_.setArg("pkg.ExParam<pkg.Ex,#0>");
+        mapp_.setParam("pkg.ExParam<#0,#1>");
+        StringMap<StringList> inh_ = new StringMap<StringList>();
+        inh_.addEntry("0",new StringList(cont_.getAnalyzing().getAliasObject()));
+        inh_.addEntry("1",new StringList("#0"));
+        mapp_.setMapping(inh_);
+        CustList<Matching> cts_ = infer(cont_, mapp_);
+        assertEq(2, cts_.size());
+        assertEq("pkg.Ex", cts_.get(0).getArg());
+        assertEq("#0", cts_.get(0).getParam());
+        assertSame(MatchingEnum.EQ, cts_.get(0).getMatchEq());
+        assertEq("#0", cts_.get(1).getArg());
+        assertEq("#1", cts_.get(1).getParam());
+        assertSame(MatchingEnum.EQ, cts_.get(1).getMatchEq());
+    }
+
+    @Test
+    public void infer15() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex{}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        Mapping mapp_ = new Mapping();
+        mapp_.setArg("");
+        mapp_.setParam("#0");
+        StringMap<StringList> inh_ = new StringMap<StringList>();
+        inh_.addEntry("0",new StringList(cont_.getAnalyzing().getAliasObject()));
+        mapp_.setMapping(inh_);
+        CustList<Matching> cts_ = infer(cont_, mapp_);
+        assertEq(0, cts_.size());
+    }
+
+    @Test
+    public void inferEx1() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex{}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        Mapping mapp_ = new Mapping();
+        mapp_.setArg("pkg.Ex");
+        mapp_.setParam("pkg.Ex");
+        assertEq(0,inferEx(cont_, mapp_).size());
+    }
+
+    @Test
+    public void inferEx2() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex{}\n");
+        xml_.append("$public $class pkg.ExParam<T>{}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        Mapping mapp_ = new Mapping();
+        mapp_.setArg("pkg.ExParam<pkg.Ex>");
+        mapp_.setParam("pkg.ExParam<pkg.Ex>");
+        assertEq(0,inferEx(cont_, mapp_).size());
+    }
+
+    @Test
+    public void inferEx3() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex{}\n");
+        xml_.append("$public $class pkg.ExParam{}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        Mapping mapp_ = new Mapping();
+        mapp_.setArg("pkg.Ex");
+        mapp_.setParam("pkg.ExParam");
+        assertEq(0,inferEx(cont_, mapp_).size());
+    }
+
+    @Test
+    public void inferEx4() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex:ExOther{}\n");
+        xml_.append("$public $class pkg.ExOther{}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        Mapping mapp_ = new Mapping();
+        mapp_.setArg("pkg.ExOther");
+        mapp_.setParam("pkg.Ex");
+        assertEq(0,inferEx(cont_, mapp_).size());
+    }
+
+    @Test
+    public void inferEx5() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex{}\n");
+        xml_.append("$public $class pkg.ExTwo{}\n");
+        xml_.append("$public $class pkg.ExParam<T>{}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        Mapping mapp_ = new Mapping();
+        mapp_.setArg("pkg.ExParam<pkg.Ex>");
+        mapp_.setParam("pkg.ExParam<pkg.ExTwo>");
+        assertEq(0,inferEx(cont_, mapp_).size());
+    }
+
+    @Test
+    public void inferEx6() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex{}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        Mapping mapp_ = new Mapping();
+        mapp_.setArg("pkg.Ex");
+        mapp_.setParam("#0");
+        StringMap<StringList> inh_ = new StringMap<StringList>();
+        inh_.addEntry("0",new StringList(cont_.getAnalyzing().getAliasObject()));
+        mapp_.setMapping(inh_);
+        CustList<Matching> cts_ = inferEx(cont_, mapp_);
+        assertEq(1, cts_.size());
+        assertEq("pkg.Ex", cts_.get(0).getArg());
+        assertEq("#0", cts_.get(0).getParam());
+        assertSame(MatchingEnum.EQ, cts_.get(0).getMatchEq());
+    }
+
+    @Test
+    public void inferEx_6() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex{}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        Mapping mapp_ = new Mapping();
+        mapp_.setArg("#0");
+        mapp_.setParam("pkg.Ex");
+        StringMap<StringList> inh_ = new StringMap<StringList>();
+        inh_.addEntry("0",new StringList(cont_.getAnalyzing().getAliasObject()));
+        mapp_.setMapping(inh_);
+        CustList<Matching> cts_ = inferEx(cont_, mapp_);
+        assertEq(1, cts_.size());
+        assertEq("#0", cts_.get(0).getArg());
+        assertEq("pkg.Ex", cts_.get(0).getParam());
+        assertSame(MatchingEnum.EQ, cts_.get(0).getMatchEq());
+    }
+
+    @Test
+    public void infer6Ex_() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex{}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        Mapping mapp_ = new Mapping();
+        mapp_.setArg("#A");
+        mapp_.setParam("#B");
+        StringMap<StringList> inh_ = new StringMap<StringList>();
+        inh_.addEntry("A",new StringList("#B"));
+        inh_.addEntry("B",new StringList(cont_.getAnalyzing().getAliasObject()));
+        mapp_.setMapping(inh_);
+        CustList<Matching> cts_ = inferEx(cont_, mapp_);
+        assertEq(0, cts_.size());
+    }
+
+    @Test
+    public void infer6Ex__() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex{}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        Mapping mapp_ = new Mapping();
+        mapp_.setArg("pkg.Ex");
+        mapp_.setParam("[#0");
+        StringMap<StringList> inh_ = new StringMap<StringList>();
+        inh_.addEntry("0",new StringList(cont_.getAnalyzing().getAliasObject()));
+        mapp_.setMapping(inh_);
+        CustList<Matching> cts_ = inferEx(cont_, mapp_);
+        assertEq(0, cts_.size());
+    }
+
+    @Test
+    public void inferEx7() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex{}\n");
+        xml_.append("$public $class pkg.ExParam<T>{}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        Mapping mapp_ = new Mapping();
+        mapp_.setArg("pkg.ExParam<pkg.Ex>");
+        mapp_.setParam("pkg.ExParam<#0>");
+        StringMap<StringList> inh_ = new StringMap<StringList>();
+        inh_.addEntry("0",new StringList(cont_.getAnalyzing().getAliasObject()));
+        mapp_.setMapping(inh_);
+        CustList<Matching> cts_ = inferEx(cont_, mapp_);
+        assertEq(1, cts_.size());
+        assertEq("pkg.Ex", cts_.get(0).getArg());
+        assertEq("#0", cts_.get(0).getParam());
+        assertSame(MatchingEnum.EQ, cts_.get(0).getMatchEq());
+    }
+
+    @Test
+    public void inferEx8() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex{}\n");
+        xml_.append("$public $class pkg.ExParam<T>{}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        Mapping mapp_ = new Mapping();
+        mapp_.setArg("pkg.ExParam<?pkg.Ex>");
+        mapp_.setParam("pkg.ExParam<?#0>");
+        StringMap<StringList> inh_ = new StringMap<StringList>();
+        inh_.addEntry("0",new StringList(cont_.getAnalyzing().getAliasObject()));
+        mapp_.setMapping(inh_);
+        CustList<Matching> cts_ = inferEx(cont_, mapp_);
+        assertEq(1, cts_.size());
+        assertEq("pkg.Ex", cts_.get(0).getArg());
+        assertEq("#0", cts_.get(0).getParam());
+        assertSame(MatchingEnum.EQ, cts_.get(0).getMatchEq());
+    }
+
+    @Test
+    public void inferEx9() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex{}\n");
+        xml_.append("$public $class pkg.ExParam<T>{}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        Mapping mapp_ = new Mapping();
+        mapp_.setArg("pkg.ExParam<!pkg.Ex>");
+        mapp_.setParam("pkg.ExParam<!#0>");
+        StringMap<StringList> inh_ = new StringMap<StringList>();
+        inh_.addEntry("0",new StringList(cont_.getAnalyzing().getAliasObject()));
+        mapp_.setMapping(inh_);
+        CustList<Matching> cts_ = inferEx(cont_, mapp_);
+        assertEq(1, cts_.size());
+        assertEq("pkg.Ex", cts_.get(0).getArg());
+        assertEq("#0", cts_.get(0).getParam());
+        assertSame(MatchingEnum.EQ, cts_.get(0).getMatchEq());
+    }
+    @Test
+    public void inferEx10() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex{}\n");
+        xml_.append("$public $class pkg.ExParam<T>{}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        Mapping mapp_ = new Mapping();
+        mapp_.setArg("pkg.ExParam<?pkg.ExParam<pkg.Ex>>");
+        mapp_.setParam("pkg.ExParam<?pkg.ExParam<#0>>");
+        StringMap<StringList> inh_ = new StringMap<StringList>();
+        inh_.addEntry("0",new StringList(cont_.getAnalyzing().getAliasObject()));
+        mapp_.setMapping(inh_);
+        CustList<Matching> cts_ = inferEx(cont_, mapp_);
+        assertEq(1, cts_.size());
+        assertEq("pkg.Ex", cts_.get(0).getArg());
+        assertEq("#0", cts_.get(0).getParam());
+        assertSame(MatchingEnum.EQ, cts_.get(0).getMatchEq());
+    }
+
+    @Test
+    public void inferEx11() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex{}\n");
+        xml_.append("$public $class pkg.ExParam<T>{}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        Mapping mapp_ = new Mapping();
+        mapp_.setArg("pkg.ExParam<!pkg.ExParam<pkg.Ex>>");
+        mapp_.setParam("pkg.ExParam<!pkg.ExParam<#0>>");
+        StringMap<StringList> inh_ = new StringMap<StringList>();
+        inh_.addEntry("0",new StringList(cont_.getAnalyzing().getAliasObject()));
+        mapp_.setMapping(inh_);
+        CustList<Matching> cts_ = inferEx(cont_, mapp_);
+        assertEq(1, cts_.size());
+        assertEq("#0", cts_.get(0).getParam());
+        assertEq("pkg.Ex", cts_.get(0).getArg());
+        assertSame(MatchingEnum.EQ, cts_.get(0).getMatchEq());
+    }
+
+    @Test
+    public void inferEx12() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex{}\n");
+        xml_.append("$public $class pkg.ExParam<T,U>{}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        Mapping mapp_ = new Mapping();
+        mapp_.setArg("pkg.ExParam<pkg.Ex,pkg.Ex>");
+        mapp_.setParam("pkg.ExParam<#0,#0>");
+        StringMap<StringList> inh_ = new StringMap<StringList>();
+        inh_.addEntry("0",new StringList(cont_.getAnalyzing().getAliasObject()));
+        mapp_.setMapping(inh_);
+        CustList<Matching> cts_ = inferEx(cont_, mapp_);
+        assertEq(1, cts_.size());
+        assertEq("pkg.Ex", cts_.get(0).getArg());
+        assertEq("#0", cts_.get(0).getParam());
+        assertSame(MatchingEnum.EQ, cts_.get(0).getMatchEq());
+    }
+
+    @Test
+    public void inferEx12_() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex{}\n");
+        xml_.append("$public $class pkg.ExParam<T,U>{}\n");
+        xml_.append("$public $class pkg.ExParam2<T>{}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        Mapping mapp_ = new Mapping();
+        mapp_.setArg("pkg.ExParam<pkg.Ex,pkg.Ex>");
+        mapp_.setParam("pkg.ExParam2<#0>");
+        StringMap<StringList> inh_ = new StringMap<StringList>();
+        inh_.addEntry("0",new StringList(cont_.getAnalyzing().getAliasObject()));
+        mapp_.setMapping(inh_);
+        CustList<Matching> cts_ = inferEx(cont_, mapp_);
+        assertEq(0, cts_.size());
+    }
+
+    @Test
+    public void inferEx12__() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex{}\n");
+        xml_.append("$public $class pkg.ExParam<T,U>{}\n");
+        xml_.append("$public $class pkg.ExParam2<T,U>{}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        Mapping mapp_ = new Mapping();
+        mapp_.setArg("pkg.ExParam<pkg.Ex,pkg.Ex>");
+        mapp_.setParam("pkg.ExParam2<#0,#0>");
+        StringMap<StringList> inh_ = new StringMap<StringList>();
+        inh_.addEntry("0",new StringList(cont_.getAnalyzing().getAliasObject()));
+        mapp_.setMapping(inh_);
+        CustList<Matching> cts_ = inferEx(cont_, mapp_);
+        assertEq(0, cts_.size());
+    }
+
+    @Test
+    public void inferEx12___() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex{}\n");
+        xml_.append("$public $class pkg.ExParam<T,U>{}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        Mapping mapp_ = new Mapping();
+        mapp_.setArg("pkg.ExParam<?pkg.Ex,pkg.Ex>");
+        mapp_.setParam("pkg.ExParam<#0,#0>");
+        StringMap<StringList> inh_ = new StringMap<StringList>();
+        inh_.addEntry("0",new StringList(cont_.getAnalyzing().getAliasObject()));
+        mapp_.setMapping(inh_);
+        CustList<Matching> cts_ = inferEx(cont_, mapp_);
+        assertEq(0, cts_.size());
+    }
+
+    @Test
+    public void inferEx13() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex{}\n");
+        xml_.append("$public $class pkg.ExTwo{}\n");
+        xml_.append("$public $class pkg.ExParam<T,U>{}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        Mapping mapp_ = new Mapping();
+        mapp_.setArg("pkg.ExParam<pkg.Ex,pkg.ExTwo>");
+        mapp_.setParam("pkg.ExParam<#0,#1>");
+        StringMap<StringList> inh_ = new StringMap<StringList>();
+        inh_.addEntry("0",new StringList(cont_.getAnalyzing().getAliasObject()));
+        inh_.addEntry("1",new StringList(cont_.getAnalyzing().getAliasObject()));
+        mapp_.setMapping(inh_);
+        CustList<Matching> cts_ = inferEx(cont_, mapp_);
+        assertEq(2, cts_.size());
+        assertEq("pkg.Ex", cts_.get(0).getArg());
+        assertEq("#0", cts_.get(0).getParam());
+        assertSame(MatchingEnum.EQ, cts_.get(0).getMatchEq());
+        assertEq("pkg.ExTwo", cts_.get(1).getArg());
+        assertEq("#1", cts_.get(1).getParam());
+        assertSame(MatchingEnum.EQ, cts_.get(1).getMatchEq());
+    }
+
+    @Test
+    public void inferEx13_() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex{}\n");
+        xml_.append("$public $class pkg.ExParam<T,U>{}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        Mapping mapp_ = new Mapping();
+        mapp_.setArg("pkg.ExParam<pkg.Ex,pkg.Ex>");
+        mapp_.setParam("[pkg.ExParam<#0,#0>");
+        StringMap<StringList> inh_ = new StringMap<StringList>();
+        inh_.addEntry("0",new StringList(cont_.getAnalyzing().getAliasObject()));
+        mapp_.setMapping(inh_);
+        CustList<Matching> cts_ = inferEx(cont_, mapp_);
+        assertEq(0, cts_.size());
+    }
+
+    @Test
+    public void inferEx14() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex{}\n");
+        xml_.append("$public $class pkg.ExParam<T,U:T>{}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        Mapping mapp_ = new Mapping();
+        mapp_.setArg("pkg.ExParam<pkg.Ex,#0>");
+        mapp_.setParam("pkg.ExParam<#0,#1>");
+        StringMap<StringList> inh_ = new StringMap<StringList>();
+        inh_.addEntry("0",new StringList(cont_.getAnalyzing().getAliasObject()));
+        inh_.addEntry("1",new StringList("#0"));
+        mapp_.setMapping(inh_);
+        CustList<Matching> cts_ = inferEx(cont_, mapp_);
+        assertEq(2, cts_.size());
+        assertEq("pkg.Ex", cts_.get(0).getArg());
+        assertEq("#0", cts_.get(0).getParam());
+        assertSame(MatchingEnum.EQ, cts_.get(0).getMatchEq());
+        assertEq("#0", cts_.get(1).getArg());
+        assertEq("#1", cts_.get(1).getParam());
+        assertSame(MatchingEnum.EQ, cts_.get(1).getMatchEq());
+    }
+
+    @Test
+    public void inferEx15() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex{}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        Mapping mapp_ = new Mapping();
+        mapp_.setArg("");
+        mapp_.setParam("#0");
+        StringMap<StringList> inh_ = new StringMap<StringList>();
+        inh_.addEntry("0",new StringList(cont_.getAnalyzing().getAliasObject()));
+        mapp_.setMapping(inh_);
+        CustList<Matching> cts_ = inferEx(cont_, mapp_);
+        assertEq(0, cts_.size());
+    }
+
+    @Test
+    public void inhNb() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExParam<T,U:T>{}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        StringMap<StringList> res_ = AnaTemplates.inhNb(cont_.getAnalyzing().getAnaClassBody("pkg.ExParam"));
+        assertEq(2,res_.size());
+        assertEq(1,res_.getVal("0").size());
+        assertEq(cont_.getAnalyzing().getAliasObject(), res_.getVal("0").get(0));
+        assertEq(1,res_.getVal("1").size());
+        assertEq("#0",res_.getVal("1").get(0));
+    }
+
+    @Test
+    public void processConstraints_1() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex{}\n");
+        xml_.append("$public $class pkg.ExTwo{}\n");
+        xml_.append("$public $class pkg.ExParam<T,U>{}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        String geneNb_ = AnaTemplates.getGeneNb(cont_.getAnalyzing().getAnaClassBody("pkg.ExParam"));
+        assertEq("",AnaTemplates.processConstraints(geneNb_,null,2, new StringMap<StringList>(),cont_.getAnalyzing()));
+    }
+
+    @Test
+    public void processConstraints_2() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex{}\n");
+        xml_.append("$public $class pkg.ExTwo{}\n");
+        xml_.append("$public $class pkg.ExParam<T,U>{}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        String geneNb_ = AnaTemplates.getGeneNb(cont_.getAnalyzing().getAnaClassBody("pkg.ExParam"));
+        CustList<Matching> l_ = new CustList<Matching>();
+        Matching mapp_ = new Matching();
+        mapp_.setArg("pkg.Ex");
+        mapp_.setParam("#0");
+        mapp_.setMatchEq(MatchingEnum.EQ);
+        l_.add(mapp_);
+        mapp_ = new Matching();
+        mapp_.setArg("pkg.ExTwo");
+        mapp_.setParam("#1");
+        mapp_.setMatchEq(MatchingEnum.EQ);
+        l_.add(mapp_);
+        assertEq("pkg.ExParam<pkg.Ex,pkg.ExTwo>",AnaTemplates.processConstraints(geneNb_,l_,2, new StringMap<StringList>(),cont_.getAnalyzing()));
+    }
+
+    @Test
+    public void tryInferMethod1() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex{}\n");
+        xml_.append("$public $class pkg.ExParam<T>{}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        CustList<AnaClassArgumentMatching> args_ = new CustList<AnaClassArgumentMatching>();
+        args_.add(new AnaClassArgumentMatching("pkg.ExParam<pkg.Ex>"));
+        String inf_ = AnaTemplates.tryInferMethod(-1, "pkg.ExParam",
+                new MethodId(false, MethodAccessKind.STATIC_CALL, "",
+                        new StringList("pkg.ExParam<#T>"), new BooleanList(false),
+                        false),
+                "pkg.ExParam",
+                new StringMap<StringList>(), new BooleanList(false),
+                args_,
+                cont_.getAnalyzing());
+        assertEq("pkg.ExParam<pkg.Ex>",inf_);
+    }
+
+    @Test
+    public void tryInferMethod2() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex{}\n");
+        xml_.append("$public $class pkg.ExParam<T>:ExSuper<T>{}\n");
+        xml_.append("$public $class pkg.ExSuper<S>{}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        CustList<AnaClassArgumentMatching> args_ = new CustList<AnaClassArgumentMatching>();
+        args_.add(new AnaClassArgumentMatching("pkg.ExParam<pkg.Ex>"));
+        String inf_ = AnaTemplates.tryInferMethod(-1, "pkg.ExSuper",
+                new MethodId(false, MethodAccessKind.STATIC_CALL, "",
+                        new StringList("pkg.ExParam<#S>"), new BooleanList(false),
+                        false),
+                "pkg.ExParam",
+                new StringMap<StringList>(), new BooleanList(false),
+                args_,
+                cont_.getAnalyzing());
+        assertEq("pkg.ExParam<pkg.Ex>",inf_);
+    }
+
+    @Test
+    public void tryInferMethod3() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex{}\n");
+        xml_.append("$public $class pkg.ExParam<T>:ExSuper<T>{}\n");
+        xml_.append("$public $class pkg.ExSuper<S>{}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        CustList<AnaClassArgumentMatching> args_ = new CustList<AnaClassArgumentMatching>();
+        args_.add(new AnaClassArgumentMatching("pkg.ExParam<pkg.Ex>"));
+        String inf_ = AnaTemplates.tryInferMethod(-1, "pkg.ExSuper",
+                new MethodId(false, MethodAccessKind.STATIC_CALL, "",
+                        new StringList("pkg.ExSuper<#S>"), new BooleanList(false),
+                        false),
+                "pkg.ExParam",
+                new StringMap<StringList>(), new BooleanList(false),
+                args_,
+                cont_.getAnalyzing());
+        assertEq("pkg.ExParam<pkg.Ex>",inf_);
+    }
+
+    @Test
+    public void tryInferMethod4() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex{}\n");
+        xml_.append("$public $class pkg.ExParam<T>:ExSuper<T>{}\n");
+        xml_.append("$public $class pkg.ExSuper<S>{}\n");
+        xml_.append("$public $class pkg.ExParam2<T2>:ExSuper2<T2>{}\n");
+        xml_.append("$public $class pkg.ExSuper2<S2>{}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        CustList<AnaClassArgumentMatching> args_ = new CustList<AnaClassArgumentMatching>();
+        args_.add(new AnaClassArgumentMatching("pkg.ExParam2<pkg.Ex>"));
+        String inf_ = AnaTemplates.tryInferMethod(-1, "pkg.ExSuper",
+                new MethodId(false, MethodAccessKind.STATIC_CALL, "",
+                        new StringList("pkg.ExSuper2<#S>"), new BooleanList(false),
+                        false),
+                "pkg.ExParam",
+                new StringMap<StringList>(), new BooleanList(false),
+                args_,
+                cont_.getAnalyzing());
+        assertEq("pkg.ExParam<pkg.Ex>",inf_);
+    }
+
+    @Test
+    public void tryInferMethod5() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex{}\n");
+        xml_.append("$public $class pkg.ExParam<T>{}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        CustList<AnaClassArgumentMatching> args_ = new CustList<AnaClassArgumentMatching>();
+        args_.add(new AnaClassArgumentMatching("pkg.ExParam<pkg.Ex>"));
+        String inf_ = AnaTemplates.tryInferMethod(-1, "pkg.ExParam",
+                new MethodId(false, MethodAccessKind.STATIC_CALL, "",
+                        new StringList("pkg.ExParam<#T>"), new BooleanList(true),
+                        false),
+                "pkg.ExParam",
+                new StringMap<StringList>(), new BooleanList(true),
+                args_,
+                cont_.getAnalyzing());
+        assertEq("pkg.ExParam<pkg.Ex>",inf_);
+    }
+
+    @Test
+    public void tryInferMethod6() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex{}\n");
+        xml_.append("$public $class pkg.ExParam<T>{}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        CustList<AnaClassArgumentMatching> args_ = new CustList<AnaClassArgumentMatching>();
+        args_.add(new AnaClassArgumentMatching("pkg.ExParam<pkg.Ex>"));
+        args_.add(new AnaClassArgumentMatching(""));
+        String inf_ = AnaTemplates.tryInferMethod(-1, "pkg.ExParam",
+                new MethodId(false, MethodAccessKind.STATIC_CALL, "",
+                        new StringList("pkg.ExParam<#T>",cont_.getAliasObject()), new BooleanList(false,false),
+                        false),
+                "pkg.ExParam",
+                new StringMap<StringList>(), new BooleanList(false,false),
+                args_,
+                cont_.getAnalyzing());
+        assertEq("pkg.ExParam<pkg.Ex>",inf_);
+    }
+
+    @Test
+    public void tryInferMethod7() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex{}\n");
+        xml_.append("$public $class pkg.ExParam<T>{}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        CustList<AnaClassArgumentMatching> args_ = new CustList<AnaClassArgumentMatching>();
+        args_.add(new AnaClassArgumentMatching("pkg.ExParam<pkg.Ex>"));
+        String inf_ = AnaTemplates.tryInferMethod(-1, "pkg.ExParam",
+                new MethodId(false, MethodAccessKind.STATIC_CALL, "",
+                        new StringList("pkg.ExParam<#T>"), new BooleanList(false),
+                        true),
+                "pkg.ExParam",
+                new StringMap<StringList>(), new BooleanList(false),
+                args_,
+                cont_.getAnalyzing());
+        assertEq("pkg.ExParam<pkg.Ex>",inf_);
+    }
+
+    @Test
+    public void tryInferMethod8() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex{}\n");
+        xml_.append("$public $class pkg.ExParam<T>{}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        CustList<AnaClassArgumentMatching> args_ = new CustList<AnaClassArgumentMatching>();
+        args_.add(new AnaClassArgumentMatching("[pkg.ExParam<pkg.Ex>"));
+        String inf_ = AnaTemplates.tryInferMethod(-1, "pkg.ExParam",
+                new MethodId(false, MethodAccessKind.STATIC_CALL, "",
+                        new StringList("pkg.ExParam<#T>"), new BooleanList(false),
+                        true),
+                "pkg.ExParam",
+                new StringMap<StringList>(), new BooleanList(false),
+                args_,
+                cont_.getAnalyzing());
+        assertEq("pkg.ExParam<pkg.Ex>",inf_);
+    }
+
+
+    @Test
+    public void tryInferMethod9() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex{}\n");
+        xml_.append("$public $class pkg.ExParam<T>{}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        CustList<AnaClassArgumentMatching> args_ = new CustList<AnaClassArgumentMatching>();
+        args_.add(new AnaClassArgumentMatching("[pkg.ExParam<pkg.Ex>"));
+        String inf_ = AnaTemplates.tryInferMethod(-1, "pkg.ExParam",
+                new MethodId(false, MethodAccessKind.STATIC_CALL, "",
+                        new StringList("pkg.ExParam<#T>"), new BooleanList(true),
+                        true),
+                "pkg.ExParam",
+                new StringMap<StringList>(), new BooleanList(true),
+                args_,
+                cont_.getAnalyzing());
+        assertEq("pkg.ExParam<pkg.Ex>",inf_);
+    }
+
+    @Test
+    public void tryInferMethod10() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex{}\n");
+        xml_.append("$public $class pkg.ExParam<T>{}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        CustList<AnaClassArgumentMatching> args_ = new CustList<AnaClassArgumentMatching>();
+        args_.add(new AnaClassArgumentMatching("pkg.ExParam<pkg.Ex>"));
+        args_.add(new AnaClassArgumentMatching("pkg.ExParam<pkg.Ex>"));
+        String inf_ = AnaTemplates.tryInferMethod(-1, "pkg.ExParam",
+                new MethodId(false, MethodAccessKind.STATIC_CALL, "",
+                        new StringList("pkg.ExParam<#T>"), new BooleanList(false),
+                        true),
+                "pkg.ExParam",
+                new StringMap<StringList>(), new BooleanList(false,false),
+                args_,
+                cont_.getAnalyzing());
+        assertEq("pkg.ExParam<pkg.Ex>",inf_);
+    }
+
+    @Test
+    public void tryInferMethod11() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex{}\n");
+        xml_.append("$public $class pkg.ExParam<T>{}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        CustList<AnaClassArgumentMatching> args_ = new CustList<AnaClassArgumentMatching>();
+        args_.add(new AnaClassArgumentMatching("pkg.ExParam<pkg.Ex>"));
+        String inf_ = AnaTemplates.tryInferMethod(-1, "pkg.ExParam",
+                new MethodId(false, MethodAccessKind.STATIC_CALL, "",
+                        new StringList("pkg.ExParam<#T>","pkg.ExParam<#T>"), new BooleanList(false,false),
+                        true),
+                "pkg.ExParam",
+                new StringMap<StringList>(), new BooleanList(false),
+                args_,
+                cont_.getAnalyzing());
+        assertEq("pkg.ExParam<pkg.Ex>",inf_);
+    }
+
+    @Test
+    public void tryInferMethod12() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex{}\n");
+        xml_.append("$public $class pkg.ExParam<T>{}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        CustList<AnaClassArgumentMatching> args_ = new CustList<AnaClassArgumentMatching>();
+        args_.add(new AnaClassArgumentMatching("pkg.ExParam<pkg.Ex>"));
+        String inf_ = AnaTemplates.tryInferMethod(0, "pkg.ExParam",
+                new MethodId(false, MethodAccessKind.STATIC_CALL, "",
+                        new StringList("pkg.ExParam<#T>","pkg.ExParam<#T>"), new BooleanList(false,false),
+                        true),
+                "pkg.ExParam",
+                new StringMap<StringList>(), new BooleanList(false),
+                args_,
+                cont_.getAnalyzing());
+        assertEq("pkg.ExParam<pkg.Ex>",inf_);
+    }
+
+    @Test
+    public void tryInferMethod13() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex{}\n");
+        xml_.append("$public $class pkg.ExParam<T>{}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        CustList<AnaClassArgumentMatching> args_ = new CustList<AnaClassArgumentMatching>();
+        args_.add(new AnaClassArgumentMatching("pkg.ExParam<pkg.Ex>"));
+        String inf_ = AnaTemplates.tryInferMethod(0, "pkg.ExParam",
+                new MethodId(false, MethodAccessKind.STATIC_CALL, "",
+                        new StringList("pkg.ExParam<#T>","pkg.ExParam<#T>"), new BooleanList(false,false),
+                        true),
+                "pkg.ExParam",
+                new StringMap<StringList>(), new BooleanList(false,false),
+                args_,
+                cont_.getAnalyzing());
+        assertEq("pkg.ExParam<pkg.Ex>",inf_);
+    }
+
+    @Test
+    public void tryInferMethod14() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex{}\n");
+        xml_.append("$public $class pkg.ExParam<T>{}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        CustList<AnaClassArgumentMatching> args_ = new CustList<AnaClassArgumentMatching>();
+        args_.add(new AnaClassArgumentMatching("pkg.ExParam<pkg.Ex>"));
+        args_.add(new AnaClassArgumentMatching("pkg.ExParam<pkg.Ex>"));
+        String inf_ = AnaTemplates.tryInferMethod(-1, "pkg.ExParam",
+                new MethodId(false, MethodAccessKind.STATIC_CALL, "",
+                        new StringList("pkg.ExParam<#T>"), new BooleanList(false),
+                        false),
+                "pkg.ExParam",
+                new StringMap<StringList>(), new BooleanList(false,false),
+                args_,
+                cont_.getAnalyzing());
+        assertEq("",inf_);
+    }
+
+    @Test
+    public void tryInferMethod15() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex{}\n");
+        xml_.append("$public $class pkg.ExParam<T>{}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        CustList<AnaClassArgumentMatching> args_ = new CustList<AnaClassArgumentMatching>();
+        String inf_ = AnaTemplates.tryInferMethod(-1, "pkg.ExParam",
+                new MethodId(false, MethodAccessKind.STATIC_CALL, "",
+                        new StringList("pkg.ExParam<#T>","pkg.ExParam<#T>"), new BooleanList(false,false),
+                        true),
+                "pkg.ExParam",
+                new StringMap<StringList>(), new BooleanList(),
+                args_,
+                cont_.getAnalyzing());
+        assertEq("",inf_);
+    }
+
+    @Test
+    public void tryInferMethod16() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex{}\n");
+        xml_.append("$public $class pkg.ExParam<T>{}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        CustList<AnaClassArgumentMatching> args_ = new CustList<AnaClassArgumentMatching>();
+        args_.add(new AnaClassArgumentMatching("pkg.ExParam<pkg.Ex>"));
+        args_.add(new AnaClassArgumentMatching("pkg.ExParam<pkg.Ex>"));
+        String inf_ = AnaTemplates.tryInferMethod(2, "pkg.ExParam",
+                new MethodId(false, MethodAccessKind.STATIC_CALL, "",
+                        new StringList("pkg.ExParam<#T>","pkg.ExParam<#T>"), new BooleanList(false,false),
+                        true),
+                "pkg.ExParam",
+                new StringMap<StringList>(), new BooleanList(false,false),
+                args_,
+                cont_.getAnalyzing());
+        assertEq("pkg.ExParam<pkg.Ex>",inf_);
+    }
+
+    @Test
+    public void tryInferMethod17() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex{}\n");
+        xml_.append("$public $class pkg.ExParam<T>{}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        CustList<AnaClassArgumentMatching> args_ = new CustList<AnaClassArgumentMatching>();
+        args_.add(new AnaClassArgumentMatching("pkg.ExParam<pkg.Ex>"));
+        args_.add(new AnaClassArgumentMatching("pkg.ExParam<pkg.Ex>"));
+        String inf_ = AnaTemplates.tryInferMethod(1, "pkg.ExParam",
+                new MethodId(false, MethodAccessKind.STATIC_CALL, "",
+                        new StringList("pkg.ExParam<#T>","pkg.ExParam<#T>"), new BooleanList(false,false),
+                        true),
+                "pkg.ExParam",
+                new StringMap<StringList>(), new BooleanList(false,false),
+                args_,
+                cont_.getAnalyzing());
+        assertEq("",inf_);
+    }
+
+    @Test
+    public void tryInferMethod18() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex{}\n");
+        xml_.append("$public $class pkg.ExParam<T>{}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        CustList<AnaClassArgumentMatching> args_ = new CustList<AnaClassArgumentMatching>();
+        args_.add(new AnaClassArgumentMatching("pkg.ExParam<pkg.Ex>"));
+        args_.add(new AnaClassArgumentMatching("pkg.ExParam<pkg.Ex>"));
+        String inf_ = AnaTemplates.tryInferMethod(1, "",
+                new MethodId(false, MethodAccessKind.STATIC_CALL, "",
+                        new StringList("pkg.ExParam<#T>","pkg.ExParam<#T>"), new BooleanList(false,false),
+                        true),
+                "pkg.ExParam",
+                new StringMap<StringList>(), new BooleanList(false,false),
+                args_,
+                cont_.getAnalyzing());
+        assertEq("",inf_);
+    }
+
+    @Test
+    public void tryInferMethod19() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex{}\n");
+        xml_.append("$public $class pkg.ExParam<T>{}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        CustList<AnaClassArgumentMatching> args_ = new CustList<AnaClassArgumentMatching>();
+        args_.add(new AnaClassArgumentMatching("pkg.ExParam<pkg.Ex>"));
+        args_.add(new AnaClassArgumentMatching("pkg.ExParam<pkg.Ex>"));
+        String inf_ = AnaTemplates.tryInferMethod(1, "pkg.ExParam",
+                new MethodId(false, MethodAccessKind.STATIC_CALL, "",
+                        new StringList("pkg.ExParam<#T>","pkg.ExParam<#T>"), new BooleanList(false,false),
+                        true),
+                "",
+                new StringMap<StringList>(), new BooleanList(false,false),
+                args_,
+                cont_.getAnalyzing());
+        assertEq("",inf_);
+    }
+
+    @Test
+    public void tryInferMethod20() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex{}\n");
+        xml_.append("$public $class pkg.ExParam<T>{}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        CustList<AnaClassArgumentMatching> args_ = new CustList<AnaClassArgumentMatching>();
+        args_.add(new AnaClassArgumentMatching("pkg.ExParam<pkg.Ex>"));
+        args_.add(new AnaClassArgumentMatching("pkg.ExParam<pkg.Ex>"));
+        String inf_ = AnaTemplates.tryInferMethod(0, "pkg.ExParam",
+                new MethodId(false, MethodAccessKind.STATIC_CALL, "",
+                        new StringList("pkg.ExParam<#T>","pkg.ExParam<#T>"), new BooleanList(false,false),
+                        true),
+                "pkg.ExParam",
+                new StringMap<StringList>(), new BooleanList(false,false),
+                args_,
+                cont_.getAnalyzing());
+        assertEq("",inf_);
+    }
+
+    @Test
+    public void tryInferMethod21() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex{}\n");
+        xml_.append("$public $class pkg.ExParam<T>:ExSuper<T>{}\n");
+        xml_.append("$public $class pkg.ExSuper<S>{}\n");
+        xml_.append("$public $class pkg.ExParam2<T2>:ExSuper2<T2>{}\n");
+        xml_.append("$public $class pkg.ExSuper2<S2>{}\n");
+        xml_.append("$public $class pkg.ExCont<A>{}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        CustList<AnaClassArgumentMatching> args_ = new CustList<AnaClassArgumentMatching>();
+        args_.add(new AnaClassArgumentMatching("pkg.ExParam2<#A>"));
+        StringMap<StringList> vars_ = new StringMap<StringList>();
+        vars_.addEntry("A",new StringList(cont_.getAliasObject()));
+        String inf_ = AnaTemplates.tryInferMethod(-1, "pkg.ExSuper",
+                new MethodId(false, MethodAccessKind.STATIC_CALL, "",
+                        new StringList("pkg.ExSuper2<#S>"), new BooleanList(false),
+                        false),
+                "pkg.ExParam",
+                vars_, new BooleanList(false),
+                args_,
+                cont_.getAnalyzing());
+        assertEq("pkg.ExParam<#A>",inf_);
+    }
+
+    @Test
     public void getVarTypes() {
         StringMap<String> files_ = new StringMap<String>();
         unfullValidateOverridingMethods(files_);
         StringMap<String> vars_ = getVarTypes(null, "");
         assertEq(0, vars_.size());
-    }
-    @Test
-    public void tryInfer16Test() {
-        StringMap<String> files_ = new StringMap<String>();
-        StringBuilder xml_;
-        xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex<X> {\n");
-        xml_.append("$public $class Inner<Y> {}\n");
-        xml_.append("}\n");
-        files_.put("pkg/Ex", xml_.toString());
-        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
-        RootBlock root_ = cont_.getAnalyzing().getAnaClassBody("pkg.Ex");
-        StringMap<String> vars_ = getVarTypes(root_, "pkg.Ex<java.lang.Number>");
-        String inferred_ = tryInfer(cont_,"pkg.Ex..Inner", "pkg.Ex<java.lang.Number>..Inner<java.lang.Number>",vars_);
-        assertEq("pkg.Ex<java.lang.Number>..Inner<java.lang.Number>", inferred_);
     }
 
     private static StringMap<String> getVarTypes(RootBlock _root, String _s) {
@@ -6500,6 +9229,14 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
 
     private static String tryInfer(AnalyzedTestContext _cont, String _s, String _s2, StringMap<String> _vars) {
         return AnaTemplates.tryInfer(_s, _vars, _s2, _cont.getAnalyzing());
+    }
+
+    private static CustList<Matching> infer(AnalyzedTestContext _cont, Mapping _m) {
+        return AnaTemplates.removeDup(AnaTemplates.infer(_m,MatchingEnum.SUB, _cont.getAnalyzing()));
+    }
+
+    private static CustList<Matching> inferEx(AnalyzedTestContext _cont, Mapping _m) {
+        return AnaTemplates.removeDup(AnaTemplates.infer(_m,MatchingEnum.EQ, _cont.getAnalyzing()));
     }
 
 
