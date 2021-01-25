@@ -2006,7 +2006,10 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         inh_.addEntry("0",new StringList(cont_.getAnalyzing().getAliasObject()));
         mapp_.setMapping(inh_);
         CustList<Matching> cts_ = infer(cont_, mapp_);
-        assertEq(0, cts_.size());
+        assertEq(1, cts_.size());
+        assertEq("pkg.Ex", cts_.get(0).getArg());
+        assertEq("[#0", cts_.get(0).getParam());
+        assertSame(MatchingEnum.SUB, cts_.get(0).getMatchEq());
     }
     @Test
     public void infer7() {
@@ -2245,6 +2248,69 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         mapp_.setMapping(inh_);
         CustList<Matching> cts_ = infer(cont_, mapp_);
         assertEq(0, cts_.size());
+    }
+
+    @Test
+    public void infer16() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex{}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        Mapping mapp_ = new Mapping();
+        mapp_.setArg("#0");
+        mapp_.setParam("pkg.Ex");
+        StringMap<StringList> inh_ = new StringMap<StringList>();
+        inh_.addEntry("0",new StringList(cont_.getAnalyzing().getAliasObject()));
+        mapp_.setMapping(inh_);
+        CustList<Matching> cts_ = infer(cont_, mapp_);
+        assertEq(1, cts_.size());
+        assertEq("#0", cts_.get(0).getArg());
+        assertEq("pkg.Ex", cts_.get(0).getParam());
+        assertSame(MatchingEnum.SUB, cts_.get(0).getMatchEq());
+    }
+
+    @Test
+    public void infer17() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex{}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        Mapping mapp_ = new Mapping();
+        mapp_.setArg("[#0");
+        mapp_.setParam("pkg.Ex");
+        StringMap<StringList> inh_ = new StringMap<StringList>();
+        inh_.addEntry("0",new StringList(cont_.getAnalyzing().getAliasObject()));
+        mapp_.setMapping(inh_);
+        CustList<Matching> cts_ = infer(cont_, mapp_);
+        assertEq(1, cts_.size());
+        assertEq("[#0", cts_.get(0).getArg());
+        assertEq("pkg.Ex", cts_.get(0).getParam());
+        assertSame(MatchingEnum.SUB, cts_.get(0).getMatchEq());
+    }
+
+    @Test
+    public void infer18() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex{}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        Mapping mapp_ = new Mapping();
+        mapp_.setArg("[#0");
+        mapp_.setParam("[pkg.Ex");
+        StringMap<StringList> inh_ = new StringMap<StringList>();
+        inh_.addEntry("0",new StringList(cont_.getAnalyzing().getAliasObject()));
+        mapp_.setMapping(inh_);
+        CustList<Matching> cts_ = infer(cont_, mapp_);
+        assertEq(1, cts_.size());
+        assertEq("#0", cts_.get(0).getArg());
+        assertEq("pkg.Ex", cts_.get(0).getParam());
+        assertSame(MatchingEnum.SUB, cts_.get(0).getMatchEq());
     }
 
     @Test
@@ -2752,9 +2818,9 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
                         new StringList("pkg.ExParam<#T>"), new BooleanList(false),
                         false),
                 "pkg.ExParam",
-                new StringMap<StringList>(), new BooleanList(false),
+                new StringMap<StringList>(),
                 args_,
-                cont_.getAnalyzing());
+                "", "", cont_.getAnalyzing());
         assertEq("pkg.ExParam<pkg.Ex>",inf_);
     }
 
@@ -2775,9 +2841,9 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
                         new StringList("pkg.ExParam<#S>"), new BooleanList(false),
                         false),
                 "pkg.ExParam",
-                new StringMap<StringList>(), new BooleanList(false),
+                new StringMap<StringList>(),
                 args_,
-                cont_.getAnalyzing());
+                "", "", cont_.getAnalyzing());
         assertEq("pkg.ExParam<pkg.Ex>",inf_);
     }
 
@@ -2798,9 +2864,9 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
                         new StringList("pkg.ExSuper<#S>"), new BooleanList(false),
                         false),
                 "pkg.ExParam",
-                new StringMap<StringList>(), new BooleanList(false),
+                new StringMap<StringList>(),
                 args_,
-                cont_.getAnalyzing());
+                "", "", cont_.getAnalyzing());
         assertEq("pkg.ExParam<pkg.Ex>",inf_);
     }
 
@@ -2823,9 +2889,9 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
                         new StringList("pkg.ExSuper2<#S>"), new BooleanList(false),
                         false),
                 "pkg.ExParam",
-                new StringMap<StringList>(), new BooleanList(false),
+                new StringMap<StringList>(),
                 args_,
-                cont_.getAnalyzing());
+                "", "", cont_.getAnalyzing());
         assertEq("pkg.ExParam<pkg.Ex>",inf_);
     }
 
@@ -2845,9 +2911,9 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
                         new StringList("pkg.ExParam<#T>"), new BooleanList(true),
                         false),
                 "pkg.ExParam",
-                new StringMap<StringList>(), new BooleanList(true),
+                new StringMap<StringList>(),
                 args_,
-                cont_.getAnalyzing());
+                "", "", cont_.getAnalyzing());
         assertEq("pkg.ExParam<pkg.Ex>",inf_);
     }
 
@@ -2868,9 +2934,9 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
                         new StringList("pkg.ExParam<#T>",cont_.getAliasObject()), new BooleanList(false,false),
                         false),
                 "pkg.ExParam",
-                new StringMap<StringList>(), new BooleanList(false,false),
+                new StringMap<StringList>(),
                 args_,
-                cont_.getAnalyzing());
+                "", "", cont_.getAnalyzing());
         assertEq("pkg.ExParam<pkg.Ex>",inf_);
     }
 
@@ -2890,9 +2956,9 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
                         new StringList("pkg.ExParam<#T>"), new BooleanList(false),
                         true),
                 "pkg.ExParam",
-                new StringMap<StringList>(), new BooleanList(false),
+                new StringMap<StringList>(),
                 args_,
-                cont_.getAnalyzing());
+                "", "", cont_.getAnalyzing());
         assertEq("pkg.ExParam<pkg.Ex>",inf_);
     }
 
@@ -2912,9 +2978,9 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
                         new StringList("pkg.ExParam<#T>"), new BooleanList(false),
                         true),
                 "pkg.ExParam",
-                new StringMap<StringList>(), new BooleanList(false),
+                new StringMap<StringList>(),
                 args_,
-                cont_.getAnalyzing());
+                "", "", cont_.getAnalyzing());
         assertEq("pkg.ExParam<pkg.Ex>",inf_);
     }
 
@@ -2935,9 +3001,9 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
                         new StringList("pkg.ExParam<#T>"), new BooleanList(true),
                         true),
                 "pkg.ExParam",
-                new StringMap<StringList>(), new BooleanList(true),
+                new StringMap<StringList>(),
                 args_,
-                cont_.getAnalyzing());
+                "", "", cont_.getAnalyzing());
         assertEq("pkg.ExParam<pkg.Ex>",inf_);
     }
 
@@ -2958,9 +3024,9 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
                         new StringList("pkg.ExParam<#T>"), new BooleanList(false),
                         true),
                 "pkg.ExParam",
-                new StringMap<StringList>(), new BooleanList(false,false),
+                new StringMap<StringList>(),
                 args_,
-                cont_.getAnalyzing());
+                "", "", cont_.getAnalyzing());
         assertEq("pkg.ExParam<pkg.Ex>",inf_);
     }
 
@@ -2980,9 +3046,9 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
                         new StringList("pkg.ExParam<#T>","pkg.ExParam<#T>"), new BooleanList(false,false),
                         true),
                 "pkg.ExParam",
-                new StringMap<StringList>(), new BooleanList(false),
+                new StringMap<StringList>(),
                 args_,
-                cont_.getAnalyzing());
+                "", "", cont_.getAnalyzing());
         assertEq("pkg.ExParam<pkg.Ex>",inf_);
     }
 
@@ -3002,9 +3068,9 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
                         new StringList("pkg.ExParam<#T>","pkg.ExParam<#T>"), new BooleanList(false,false),
                         true),
                 "pkg.ExParam",
-                new StringMap<StringList>(), new BooleanList(false),
+                new StringMap<StringList>(),
                 args_,
-                cont_.getAnalyzing());
+                "", "", cont_.getAnalyzing());
         assertEq("pkg.ExParam<pkg.Ex>",inf_);
     }
 
@@ -3024,9 +3090,9 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
                         new StringList("pkg.ExParam<#T>","pkg.ExParam<#T>"), new BooleanList(false,false),
                         true),
                 "pkg.ExParam",
-                new StringMap<StringList>(), new BooleanList(false,false),
+                new StringMap<StringList>(),
                 args_,
-                cont_.getAnalyzing());
+                "", "", cont_.getAnalyzing());
         assertEq("pkg.ExParam<pkg.Ex>",inf_);
     }
 
@@ -3047,9 +3113,9 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
                         new StringList("pkg.ExParam<#T>"), new BooleanList(false),
                         false),
                 "pkg.ExParam",
-                new StringMap<StringList>(), new BooleanList(false,false),
+                new StringMap<StringList>(),
                 args_,
-                cont_.getAnalyzing());
+                "", "", cont_.getAnalyzing());
         assertEq("",inf_);
     }
 
@@ -3068,9 +3134,9 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
                         new StringList("pkg.ExParam<#T>","pkg.ExParam<#T>"), new BooleanList(false,false),
                         true),
                 "pkg.ExParam",
-                new StringMap<StringList>(), new BooleanList(),
+                new StringMap<StringList>(),
                 args_,
-                cont_.getAnalyzing());
+                "", "", cont_.getAnalyzing());
         assertEq("",inf_);
     }
 
@@ -3091,9 +3157,9 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
                         new StringList("pkg.ExParam<#T>","pkg.ExParam<#T>"), new BooleanList(false,false),
                         true),
                 "pkg.ExParam",
-                new StringMap<StringList>(), new BooleanList(false,false),
+                new StringMap<StringList>(),
                 args_,
-                cont_.getAnalyzing());
+                "", "", cont_.getAnalyzing());
         assertEq("pkg.ExParam<pkg.Ex>",inf_);
     }
 
@@ -3114,9 +3180,9 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
                         new StringList("pkg.ExParam<#T>","pkg.ExParam<#T>"), new BooleanList(false,false),
                         true),
                 "pkg.ExParam",
-                new StringMap<StringList>(), new BooleanList(false,false),
+                new StringMap<StringList>(),
                 args_,
-                cont_.getAnalyzing());
+                "", "", cont_.getAnalyzing());
         assertEq("",inf_);
     }
 
@@ -3137,9 +3203,9 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
                         new StringList("pkg.ExParam<#T>","pkg.ExParam<#T>"), new BooleanList(false,false),
                         true),
                 "pkg.ExParam",
-                new StringMap<StringList>(), new BooleanList(false,false),
+                new StringMap<StringList>(),
                 args_,
-                cont_.getAnalyzing());
+                "", "", cont_.getAnalyzing());
         assertEq("",inf_);
     }
 
@@ -3160,9 +3226,9 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
                         new StringList("pkg.ExParam<#T>","pkg.ExParam<#T>"), new BooleanList(false,false),
                         true),
                 "",
-                new StringMap<StringList>(), new BooleanList(false,false),
+                new StringMap<StringList>(),
                 args_,
-                cont_.getAnalyzing());
+                "", "", cont_.getAnalyzing());
         assertEq("",inf_);
     }
 
@@ -3183,9 +3249,9 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
                         new StringList("pkg.ExParam<#T>","pkg.ExParam<#T>"), new BooleanList(false,false),
                         true),
                 "pkg.ExParam",
-                new StringMap<StringList>(), new BooleanList(false,false),
+                new StringMap<StringList>(),
                 args_,
-                cont_.getAnalyzing());
+                "", "", cont_.getAnalyzing());
         assertEq("",inf_);
     }
 
@@ -3211,11 +3277,143 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
                         new StringList("pkg.ExSuper2<#S>"), new BooleanList(false),
                         false),
                 "pkg.ExParam",
-                vars_, new BooleanList(false),
+                vars_,
                 args_,
-                cont_.getAnalyzing());
+                "", "", cont_.getAnalyzing());
         assertEq("pkg.ExParam<#A>",inf_);
     }
+
+    @Test
+    public void tryInferMethodEv1() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex{}\n");
+        xml_.append("$public $class pkg.ExParam<T>{}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        CustList<AnaClassArgumentMatching> args_ = new CustList<AnaClassArgumentMatching>();
+        String inf_ = AnaTemplates.tryInferMethod(-1, "pkg.ExParam",
+                new MethodId(false, MethodAccessKind.STATIC_CALL, "",
+                        new StringList(), new BooleanList(),
+                        false),
+                "pkg.ExParam",
+                new StringMap<StringList>(),
+                args_,
+                "pkg.ExParam<#T>", "pkg.ExParam<pkg.Ex>", cont_.getAnalyzing());
+        assertEq("pkg.ExParam<pkg.Ex>",inf_);
+    }
+
+    @Test
+    public void tryInferMethodEv2() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex{}\n");
+        xml_.append("$public $class pkg.ExParam<T>:ExSuper<T>{}\n");
+        xml_.append("$public $class pkg.ExSuper<S>{}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        CustList<AnaClassArgumentMatching> args_ = new CustList<AnaClassArgumentMatching>();
+        String inf_ = AnaTemplates.tryInferMethod(-1, "pkg.ExParam",
+                new MethodId(false, MethodAccessKind.STATIC_CALL, "",
+                        new StringList(), new BooleanList(),
+                        false),
+                "pkg.ExParam",
+                new StringMap<StringList>(),
+                args_,
+                "pkg.ExParam<#T>", "pkg.ExSuper<pkg.Ex>", cont_.getAnalyzing());
+        assertEq("pkg.ExParam<pkg.Ex>",inf_);
+    }
+
+    @Test
+    public void tryInferMethodEv3() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex{}\n");
+        xml_.append("$public $class pkg.ExParam<T>:ExSuper<T>{}\n");
+        xml_.append("$public $class pkg.ExSuper<S>{}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        CustList<AnaClassArgumentMatching> args_ = new CustList<AnaClassArgumentMatching>();
+        String inf_ = AnaTemplates.tryInferMethod(-1, "pkg.ExSuper",
+                new MethodId(false, MethodAccessKind.STATIC_CALL, "",
+                        new StringList(), new BooleanList(),
+                        false),
+                "pkg.ExParam",
+                new StringMap<StringList>(),
+                args_,
+                "pkg.ExParam<#S>", "pkg.ExSuper<pkg.Ex>", cont_.getAnalyzing());
+        assertEq("pkg.ExParam<pkg.Ex>",inf_);
+    }
+
+    @Test
+    public void tryInferMethodEv4() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex{}\n");
+        xml_.append("$public $class pkg.ExParam<T>:ExSuper<T>{}\n");
+        xml_.append("$public $class pkg.ExSuper<S>{}\n");
+        xml_.append("$public $class pkg.ExParam2<T2>:ExSuper2<T2>{}\n");
+        xml_.append("$public $class pkg.ExSuper2<S2>{}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        CustList<AnaClassArgumentMatching> args_ = new CustList<AnaClassArgumentMatching>();
+        String inf_ = AnaTemplates.tryInferMethod(-1, "pkg.ExSuper",
+                new MethodId(false, MethodAccessKind.STATIC_CALL, "",
+                        new StringList(), new BooleanList(),
+                        false),
+                "pkg.ExParam",
+                new StringMap<StringList>(),
+                args_,
+                "pkg.ExParam2<#S>", "pkg.ExSuper2<pkg.Ex>", cont_.getAnalyzing());
+        assertEq("pkg.ExParam<pkg.Ex>",inf_);
+    }
+
+    @Test
+    public void tryInferMethodEv5() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex{}\n");
+        xml_.append("$public $class pkg.ExParam<T>{}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        CustList<AnaClassArgumentMatching> args_ = new CustList<AnaClassArgumentMatching>();
+        String inf_ = AnaTemplates.tryInferMethod(-1, "pkg.ExParam",
+                new MethodId(false, MethodAccessKind.STATIC_CALL, "",
+                        new StringList(), new BooleanList(),
+                        false),
+                "pkg.ExParam",
+                new StringMap<StringList>(),
+                args_,
+                "pkg.ExParam<#T>", "", cont_.getAnalyzing());
+        assertEq("",inf_);
+    }
+
+    @Test
+    public void tryInferMethodEv6() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex{}\n");
+        xml_.append("$public $class pkg.ExParam<T>{}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        CustList<AnaClassArgumentMatching> args_ = new CustList<AnaClassArgumentMatching>();
+        String inf_ = AnaTemplates.tryInferMethod(-1, "pkg.ExParam",
+                new MethodId(true, MethodAccessKind.STATIC_CALL, "",
+                        new StringList(), new BooleanList(),
+                        false),
+                "pkg.ExParam",
+                new StringMap<StringList>(),
+                args_,
+                "pkg.ExParam<#T>", "pkg.ExParam<pkg.Ex>", cont_.getAnalyzing());
+        assertEq("pkg.ExParam<pkg.Ex>",inf_);
+    }
+
 
     @Test
     public void getVarTypes() {
