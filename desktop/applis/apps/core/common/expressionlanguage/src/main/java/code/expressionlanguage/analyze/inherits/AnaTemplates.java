@@ -778,12 +778,46 @@ public final class AnaTemplates {
         //try infer here
         return processConstraints(genericString_, all_, sizeVar_,_vars, _page);
     }
+    public static String tryGetDeclaredImplicitCast(String _classes, StringMap<String> _varsOwner, String _arg, AnalyzedPageEl _page, StringMap<StringList> _vars) {
+        AnaGeneType anaGeneType_ = _page.getAnaGeneType(_arg);
+        StringMap<StringList> map_ = inhNb(anaGeneType_);
+        map_.addAllEntries(_vars);
+        String geneNb_ = getGeneNb(anaGeneType_);
+        ClassMethodIdReturn res_ = tryGetDeclaredImplicitCast(_classes, new AnaClassArgumentMatching(geneNb_), _page, map_);
+        if (!res_.isFoundMethod()) {
+            return null;
+        }
+        String formPar_ = res_.getId().getConstraints().shiftFirst().first();
+        if (isVar(formPar_)) {
+            AnaGeneType typePar_ = _page.getAnaGeneType(StringExpUtil.getIdFromAllTypes(formPar_));
+            StringMap<StringList> mapTwo_ = inhNb(typePar_);
+            mapTwo_.addAllEntries(_vars);
+            String geneNbTwo_ = getGeneNb(typePar_);
+            CustList<TypeVar> varTypes_ = ContextUtil.getParamTypesMapValues(typePar_);
+            int sizeVar_ = varTypes_.size();
+            CustList<Matching> cts_ = inf(res_.getReturnType(),_classes,mapTwo_, _page);
+            cts_.addAllElts(inf(geneNb_,formPar_,mapTwo_, _page));
+            String formParam_ = processConstraints(geneNbTwo_, cts_, sizeVar_, mapTwo_, _page);
+            return tryInfer(_arg,_varsOwner,formParam_,_page);
+        }
+        return tryInfer(_arg,_varsOwner,formPar_,_page);
+    }
+    private static CustList<Matching> inf(String _arg, String _par,StringMap<StringList> _inh, AnalyzedPageEl _page) {
+        Mapping mapping_ = new Mapping();
+        mapping_.setArg(_arg);
+        mapping_.setParam(_par);
+        mapping_.setMapping(_inh);
+        return infer(mapping_,MatchingEnum.SUB,_page);
+    }
     public static ClassMethodIdReturn tryGetDeclaredImplicitCast(String _classes, AnaClassArgumentMatching _arg, AnalyzedPageEl _page, StringMap<StringList> _vars) {
         return OperationNode.tryGetDeclaredImplicitCast(_classes, _arg, _page, _vars, new VarsComparer());
     }
 
 
     public static StringMap<StringList> inhNb(AnaGeneType _sub) {
+        if (_sub == null) {
+            return new StringMap<StringList>();
+        }
         CustList<StringList> bounds_ = ContextUtil.getBoundAllAll(_sub);
         CustList<TypeVar> varTypes_ = ContextUtil.getParamTypesMapValues(_sub);
         int sizeVar_ = varTypes_.size();
@@ -804,6 +838,9 @@ public final class AnaTemplates {
         return inh_;
     }
     public static String getGeneNb(AnaGeneType _sub) {
+        if (_sub == null) {
+            return "";
+        }
         CustList<TypeVar> varTypes_ = ContextUtil.getParamTypesMapValues(_sub);
         int sizeVar_ = varTypes_.size();
         StringList args_ = new StringList();

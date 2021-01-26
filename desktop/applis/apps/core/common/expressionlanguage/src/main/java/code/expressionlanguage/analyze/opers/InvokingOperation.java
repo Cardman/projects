@@ -261,7 +261,11 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
         if (cp_ == null) {
             return null;
         }
-        return AnaTemplates.tryInfer(_type,_vars, cp_, _page);
+        String inferred_ = AnaTemplates.tryInfer(_type, _vars, cp_, _page);
+        if (inferred_ != null) {
+            return inferred_;
+        }
+        return AnaTemplates.tryGetDeclaredImplicitCast(cp_,_vars,_type,_page,_page.getCurrentConstraints().getCurrentConstraints());
     }
 
     protected static String tryGetParamDim(Parametrable _param, int _indexChild, int _nbParentsInfer) {

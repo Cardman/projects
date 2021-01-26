@@ -2939,6 +2939,66 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         assertEq("pkg.ExSub<#0>",result_.getReturnType());
     }
 
+
+    @Test
+    public void tryGetDeclaredImplicitCast5() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<T>{\n");
+        xml_.append(" $public $static ExTwo<T> $(Ex<T> p){$return $null;}\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExTwo<U>{\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethodsIds(files_);
+        assertEq("pkg.Ex<$int>",tryGetDeclaredImplicitCast("pkg.ExTwo<$int>",new StringMap<String>(),"pkg.Ex", cont_));
+    }
+
+    @Test
+    public void tryGetDeclaredImplicitCast6() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<T>{\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExTwo<U>{\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethodsIds(files_);
+        assertNull(tryGetDeclaredImplicitCast("pkg.ExTwo<$int>",new StringMap<String>(),"pkg.Ex", cont_));
+    }
+
+    @Test
+    public void tryGetDeclaredImplicitCast7() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<T>{\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExTwo<U>{\n");
+        xml_.append(" $public $static ExTwo<U> $(Ex<U> p){$return $null;}\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethodsIds(files_);
+        assertEq("pkg.Ex<$int>",tryGetDeclaredImplicitCast("pkg.ExTwo<$int>",new StringMap<String>(),"pkg.Ex", cont_));
+    }
+
+    @Test
+    public void tryGetDeclaredImplicitCast8() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<T>{\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExTwo<U>{\n");
+        xml_.append(" $public $static ExTwo<U> $(Ex<U> p){$return $null;}\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethodsIds(files_);
+        assertNull(tryGetDeclaredImplicitCast("pkg.Ex",new StringMap<String>(),"", cont_));
+    }
+
     @Test
     public void inferOrImplicit1() {
         StringMap<String> files_ = new StringMap<String>();
@@ -10424,6 +10484,9 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         return AnaTemplates.removeDup(AnaTemplates.infer(_m,MatchingEnum.EQ, _cont.getAnalyzing()));
     }
 
+    static String tryGetDeclaredImplicitCast(String _classes, StringMap<String> _varsOwner, String _arg, AnalyzedTestContext _page) {
+        return AnaTemplates.tryGetDeclaredImplicitCast(_classes, _varsOwner, _arg, _page.getAnalyzing(), new StringMap<StringList>());
+    }
     private static ClassMethodIdReturn tryGetDeclaredImplicitCast(AnalyzedTestContext _cont, Mapping _m) {
         return AnaTemplates.tryGetDeclaredImplicitCast(_m.getParam().getSingleNameOrEmpty(), _m.getArg(), _cont.getAnalyzing(),_m.getMapping());
     }
