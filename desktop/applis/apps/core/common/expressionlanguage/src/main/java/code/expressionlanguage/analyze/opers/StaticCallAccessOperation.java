@@ -42,17 +42,24 @@ public final class StaticCallAccessOperation extends LeafOperation {
                 int rel_ = trace_ + str_.indexOf(PAR_LEFT) + 1;
                 lt = rel_ + realCl_.indexOf('<');
                 gt = rel_ + realCl_.indexOf('>') + 1;
-                String solved_ = ResolvingTypes.resolveAccessibleIdType(str_.indexOf(PAR_LEFT) + 1, form_, _page);
-                stCall =solved_;
-                RootBlock r_ = _page.getAnaClassBody(solved_);
-                if (r_ != null) {
-                    solved_ = r_.getWildCardString();
+                if (!form_.trim().isEmpty()) {
+                    String solved_ = ResolvingTypes.resolveAccessibleIdType(str_.indexOf(PAR_LEFT) + 1, form_, _page);
+                    partOffsets = new CustList<PartOffset>(_page.getCurrentParts());
+                    stCall =solved_;
+                    RootBlock r_ = _page.getAnaClassBody(solved_);
+                    if (r_ != null) {
+                        solved_ = r_.getWildCardString();
+                    }
+                    classStr_ = emptyToObject(solved_,_page);
+                } else {
+                    stCall = "<>";
+                    classStr_ = emptyToObject("",_page);
+                    partOffsets = new CustList<PartOffset>();
                 }
-                classStr_ = emptyToObject(solved_,_page);
             } else {
                 classStr_ = ResolvingTypes.resolveCorrectType(str_.indexOf(PAR_LEFT)+1,realCl_, _page);
+                partOffsets = new CustList<PartOffset>(_page.getCurrentParts());
             }
-            partOffsets = new CustList<PartOffset>(_page.getCurrentParts());
         } else {
             implicit = true;
             classStr_ = glClass_;

@@ -9,6 +9,7 @@ import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.analyze.util.ContextUtil;
 import code.expressionlanguage.common.*;
 import code.expressionlanguage.functionid.ClassMethodId;
+import code.expressionlanguage.functionid.MethodModifier;
 import code.expressionlanguage.stds.StandardField;
 import code.expressionlanguage.stds.StandardMethod;
 import code.expressionlanguage.stds.StandardType;
@@ -140,19 +141,19 @@ public final class ResolvingImportTypes {
                     continue;
                 }
                 String st_ = tr_.substring(keyWordStatic_.length()).trim();
+                String end_ = StringExpUtil.removeDottedSpaces(st_.substring(st_.lastIndexOf('.')+1));
+                if (!StringUtil.quickEq(end_, _method.trim())) {
+                    continue;
+                }
                 String typeLoc_ = StringExpUtil.removeDottedSpaces(st_.substring(0,st_.lastIndexOf('.')));
                 String foundCandidate_ = resolveCandidate(typeLoc_, _page);
                 AnaGeneType root_ = _page.getAnaGeneType(foundCandidate_);
                 if (root_ == null) {
                     continue;
                 }
-                String end_ = StringExpUtil.removeDottedSpaces(st_.substring(st_.lastIndexOf('.')+1));
-                if (!StringUtil.quickEq(end_, _method.trim())) {
-                    continue;
-                }
                 StringList typesLoc_ = new StringList(foundCandidate_);
                 typesLoc_.addAllElts(root_.getAllSuperTypes());
-                fetchImportStaticMethods(_glClass, _method, m_, foundCandidate_, typesLoc_, _page);
+                fetchImportStaticMethods(_glClass, _method, m_, foundCandidate_, typesLoc_, _page, MethodModifier.STATIC);
             }
             methods_.add(m_);
         }
@@ -179,20 +180,83 @@ public final class ResolvingImportTypes {
                 }
                 StringList typesLoc_ = new StringList(foundCandidate_);
                 typesLoc_.addAllElts(root_.getAllSuperTypes());
-                fetchImportStaticMethods(_glClass, _method, m_, foundCandidate_, typesLoc_, _page);
+                fetchImportStaticMethods(_glClass, _method, m_, foundCandidate_, typesLoc_, _page, MethodModifier.STATIC);
             }
             methods_.add(m_);
         }
         return methods_;
     }
 
-    private static void fetchImportStaticMethods(String _glClass, String _method, CustList<ImportedMethod> _methods, String _typeLoc, StringList _typesLoc, AnalyzedPageEl _page) {
+    public static CustList<CustList<ImportedMethod>> lookupImportStaticCallMethods(String _glClass, String _method, AnalyzedPageEl _page) {
+        CustList<CustList<ImportedMethod>> methods_ = new CustList<CustList<ImportedMethod>>();
+        CustList<StringList> imports_ = _page.getCurrentGlobalBlock().getCurrentGlobalBlockImportingTypes();
+        String keyWordStatic_ = _page.getKeyWords().getKeyWordStaticCall();
+        for (StringList t: imports_) {
+            CustList<ImportedMethod> m_ = new CustList<ImportedMethod>();
+            for (String i: t) {
+                String tr_ = i.trim();
+                if (!tr_.contains(".")) {
+                    continue;
+                }
+                if (!StringExpUtil.startsWithKeyWord(tr_, keyWordStatic_)) {
+                    continue;
+                }
+                String st_ = tr_.substring(keyWordStatic_.length()).trim();
+                String end_ = StringExpUtil.removeDottedSpaces(st_.substring(st_.lastIndexOf('.')+1));
+                if (!StringUtil.quickEq(end_, _method.trim())) {
+                    continue;
+                }
+                String typeLoc_ = StringExpUtil.removeDottedSpaces(st_.substring(0,st_.lastIndexOf('.')));
+                String foundCandidate_ = resolveCandidate(typeLoc_, _page);
+                AnaGeneType root_ = _page.getAnaGeneType(foundCandidate_);
+                if (root_ == null) {
+                    continue;
+                }
+                StringList typesLoc_ = new StringList(foundCandidate_);
+                typesLoc_.addAllElts(root_.getAllSuperTypes());
+                fetchImportStaticMethods(_glClass, _method, m_, foundCandidate_, typesLoc_, _page, MethodModifier.STATIC_CALL);
+                fetchImportStaticMethods(_glClass, _method, m_, foundCandidate_, typesLoc_, _page, MethodModifier.STATIC);
+            }
+            methods_.add(m_);
+        }
+        for (StringList t: imports_) {
+            CustList<ImportedMethod> m_ = new CustList<ImportedMethod>();
+            for (String i: t) {
+                String tr_ = i.trim();
+                if (!tr_.contains(".")) {
+                    continue;
+                }
+                if (!StringExpUtil.startsWithKeyWord(tr_, keyWordStatic_)) {
+                    continue;
+                }
+                String st_ = tr_.substring(keyWordStatic_.length()).trim();
+                String end_ = StringExpUtil.removeDottedSpaces(st_.substring(st_.lastIndexOf('.')+1));
+                if (!StringUtil.quickEq(end_, "*")) {
+                    continue;
+                }
+                String typeLoc_ = StringExpUtil.removeDottedSpaces(st_.substring(0,st_.lastIndexOf('.')));
+                String foundCandidate_ = resolveCandidate(typeLoc_, _page);
+                AnaGeneType root_ = _page.getAnaGeneType(foundCandidate_);
+                if (root_ == null) {
+                    continue;
+                }
+                StringList typesLoc_ = new StringList(foundCandidate_);
+                typesLoc_.addAllElts(root_.getAllSuperTypes());
+                fetchImportStaticMethods(_glClass, _method, m_, foundCandidate_, typesLoc_, _page, MethodModifier.STATIC_CALL);
+                fetchImportStaticMethods(_glClass, _method, m_, foundCandidate_, typesLoc_, _page, MethodModifier.STATIC);
+            }
+            methods_.add(m_);
+        }
+        return methods_;
+    }
+
+    private static void fetchImportStaticMethods(String _glClass, String _method, CustList<ImportedMethod> _methods, String _typeLoc, StringList _typesLoc, AnalyzedPageEl _page, MethodModifier _modif) {
         for (String s: _typesLoc) {
             AnaGeneType super_ = _page.getAnaGeneType(s);
             if (super_ instanceof RootBlock) {
                 RootBlock t_ = (RootBlock) super_;
                 for (OverridableBlock e: t_.getOverridableBlocks()) {
-                    if (!e.isStaticMethod()) {
+                    if (e.getModifier() != _modif) {
                         continue;
                     }
                     if (!StringUtil.quickEq(_method.trim(), e.getId().getName())) {
@@ -217,7 +281,7 @@ public final class ResolvingImportTypes {
             }
             if (super_ instanceof StandardType) {
                 for (StandardMethod e: ((StandardType) super_).getMethods()) {
-                    if (!e.isStaticMethod()) {
+                    if (e.getModifier() != _modif) {
                         continue;
                     }
                     if (!StringUtil.quickEq(_method.trim(), e.getId().getName())) {
@@ -256,14 +320,14 @@ public final class ResolvingImportTypes {
                     continue;
                 }
                 String st_ = tr_.substring(keyWordStatic_.length()).trim();
+                String end_ = StringExpUtil.removeDottedSpaces(st_.substring(st_.lastIndexOf('.')+1));
+                if (!StringUtil.quickEq(end_, _method.trim())) {
+                    continue;
+                }
                 String typeLoc_ = StringExpUtil.removeDottedSpaces(st_.substring(0,st_.lastIndexOf('.')));
                 String foundCandidate_ = resolveCandidate(typeLoc_, _page);
                 AnaGeneType root_ = _page.getAnaGeneType(foundCandidate_);
                 if (root_ == null) {
-                    continue;
-                }
-                String end_ = StringExpUtil.removeDottedSpaces(st_.substring(st_.lastIndexOf('.')+1));
-                if (!StringUtil.quickEq(end_, _method.trim())) {
                     continue;
                 }
                 StringList typesLoc_ = new StringList(foundCandidate_);

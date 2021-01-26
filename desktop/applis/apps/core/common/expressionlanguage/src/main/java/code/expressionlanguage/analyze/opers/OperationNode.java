@@ -2193,6 +2193,35 @@ public abstract class OperationNode {
                 methods_.add(m_);
             }
         }
+        if (StringUtil.quickEq(_stCall,"<>")) {
+            for (CustList<ImportedMethod> l: ResolvingImportTypes.lookupImportStaticCallMethods(_page.getGlobalClass(), _name, _page)) {
+                CustList<MethodInfo> m_ = new CustList<MethodInfo>();
+                for (ImportedMethod e:l) {
+                    ClassMethodId m = e.getId();
+                    String clName_ = m.getClassName();
+                    MethodId id_ = m.getConstraints();
+                    if (isCandidateMethod(_sc.getId(),0, clName_, id_)) {
+                        continue;
+                    }
+                    ParametersGroup p_ = new ParametersGroup();
+                    MethodInfo mloc_ = new MethodInfo();
+                    mloc_.setClassName(clName_);
+                    mloc_.setConstraints(id_);
+                    mloc_.setParameters(p_);
+                    mloc_.setStCall(_stCall);
+                    mloc_.format(id_.getKind() == MethodAccessKind.STATIC, _page);
+                    mloc_.setReturnType(e.getReturnType());
+                    mloc_.setOriginalReturnType(e.getReturnType());
+                    mloc_.setFileName(e.getFileName());
+                    mloc_.setMemberId(e.getMemberId());
+                    mloc_.setStandardMethod(e.getStandardMethod());
+                    mloc_.setCustMethod(e.getCustMethod());
+                    mloc_.pair(e.getType(),e.getCustMethod());
+                    m_.add(mloc_);
+                }
+                methods_.add(m_);
+            }
+        }
         return methods_;
     }
 
@@ -2717,7 +2746,30 @@ public abstract class OperationNode {
             named_.add(m_);
         }
         CustList<CustList<MethodInfo>> next_ = new CustList<CustList<MethodInfo>>();
-        if (!_filter.getStaticCall().isEmpty()) {
+        if (StringUtil.quickEq(_filter.getStaticCall(),"<>")) {
+            for (CustList<MethodInfo> l: named_) {
+                CustList<MethodInfo> m_ = new CustList<MethodInfo>();
+                for (MethodInfo e: l) {
+                    if (e.getConstraints().getKind() == MethodAccessKind.STATIC) {
+                        m_.add(e);
+                        continue;
+                    }
+                    CustList<OperationNode> allOps_ = e.getAllOps();
+                    CustList<AnaClassArgumentMatching> args_ = new CustList<AnaClassArgumentMatching>();
+                    for (OperationNode o: allOps_) {
+                        args_.add(o.getResultClass());
+                    }
+                    String result_ = AnaTemplates.tryInferMethod(_varargOnly, e.getClassName(), e.getConstraints(), e.getClassName(),
+                            _page.getCurrentConstraints().getCurrentConstraints(), args_, e.getOriginalReturnType(), _filter.getReturnType(), _page);
+                    if (result_.isEmpty()) {
+                        continue;
+                    }
+                    e.reformat(result_,_page);
+                    m_.add(e);
+                }
+                next_.add(m_);
+            }
+        } else if (!_filter.getStaticCall().isEmpty()) {
             for (CustList<MethodInfo> l: named_) {
                 CustList<MethodInfo> m_ = new CustList<MethodInfo>();
                 for (MethodInfo e: l) {

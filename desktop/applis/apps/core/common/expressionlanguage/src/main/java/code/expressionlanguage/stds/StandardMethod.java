@@ -24,10 +24,6 @@ public final class StandardMethod extends StandardNamedFunction {
         return new MethodId(MethodId.getKind(modifier), name_, getImportedParametersTypes(), isVarargs());
     }
 
-    public boolean isStaticMethod() {
-        return modifier == MethodModifier.STATIC;
-    }
-
     public MethodModifier getModifier() {
         return modifier;
     }
