@@ -2,6 +2,7 @@ package code.expressionlanguage.analyze.opers.util;
 
 import code.expressionlanguage.analyze.opers.NamedArgumentOperation;
 import code.expressionlanguage.analyze.opers.OperationNode;
+import code.expressionlanguage.analyze.opers.StaticCallAccessOperation;
 import code.util.CustList;
 
 public final class NameParametersFilter {
@@ -10,6 +11,9 @@ public final class NameParametersFilter {
     private final CustList<NamedArgumentOperation> parameterFilter = new CustList<NamedArgumentOperation>();
     private final CustList<NamedArgumentOperation> parameterFilterErr = new CustList<NamedArgumentOperation>();
     private final CustList<OperationNode> positional = new CustList<OperationNode>();
+    private StaticCallAccessOperation staticCallOp;
+    private String staticCall = "";
+    private String returnType = "";
 
     public int getIndex() {
         return index;
@@ -69,4 +73,29 @@ public final class NameParametersFilter {
     public CustList<OperationNode> getPositional() {
         return positional;
     }
+
+    public StaticCallAccessOperation getStaticCallOp() {
+        return staticCallOp;
+    }
+
+    public void setStaticCallOp(StaticCallAccessOperation _staticCallOp) {
+        this.staticCallOp = _staticCallOp;
+    }
+
+    public String getStaticCall() {
+        return staticCall;
+    }
+
+    public void setStaticCall(String _staticCall) {
+        staticCall = _staticCall;
+    }
+
+    public String getReturnType() {
+        return returnType;
+    }
+
+    public void setReturnType(String _returnType) {
+        returnType = _returnType;
+    }
 }
+

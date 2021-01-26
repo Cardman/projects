@@ -19,8 +19,8 @@ import code.util.core.StringUtil;
 
 public final class ChoiceFctOperation extends InvokingOperation implements PreAnalyzableOperation,RetrieveMethod,AbstractCallFctOperation,SettableElResult {
 
-    private AnaCallFctContent callFctContent;
-    private AnaArrContent arrContent;
+    private final AnaCallFctContent callFctContent;
+    private final AnaArrContent arrContent;
     private AnaTypeFct function;
 
     private boolean staticMethod;
@@ -30,7 +30,7 @@ public final class ChoiceFctOperation extends InvokingOperation implements PreAn
     private int delta;
     private int lengthMethod;
 
-    private CustList<PartOffset> partOffsets = new CustList<PartOffset>();
+    private final CustList<PartOffset> partOffsets = new CustList<PartOffset>();
     private boolean trueFalse;
     private String typeInfer = EMPTY_STRING;
     private String methodFound = EMPTY_STRING;
@@ -74,7 +74,7 @@ public final class ChoiceFctOperation extends InvokingOperation implements PreAn
         String clCurName_ = className_;
         StringList bounds_ = getBounds(clCurName_, _page);
         methodFound = trimMeth_;
-        methodInfos = getDeclaredCustMethodByType(isStaticAccess(), bounds_, trimMeth_, import_, _page, new ScopeFilter(null, false, false, isLvalue(), _page.getGlobalClass()));
+        methodInfos = getDeclaredCustMethodByType(isStaticAccess(), bounds_, trimMeth_, import_, _page, new ScopeFilter(null, false, false, isLvalue(), _page.getGlobalClass()), getStCall());
         filterByNameReturnType(_page, trimMeth_, methodInfos);
     }
 

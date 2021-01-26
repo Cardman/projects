@@ -23,8 +23,8 @@ import code.util.core.StringUtil;
 
 public final class SuperFctOperation extends InvokingOperation implements PreAnalyzableOperation,RetrieveMethod,AbstractCallFctOperation,SettableElResult {
 
-    private AnaCallFctContent callFctContent;
-    private AnaArrContent arrContent;
+    private final AnaCallFctContent callFctContent;
+    private final AnaArrContent arrContent;
     private boolean staticMethod;
 
     private int anc;
@@ -32,7 +32,7 @@ public final class SuperFctOperation extends InvokingOperation implements PreAna
     private int lengthMethod;
     private boolean trueFalse;
     private boolean errLeftValue;
-    private CustList<PartOffset> partOffsets = new CustList<PartOffset>();
+    private final CustList<PartOffset> partOffsets = new CustList<PartOffset>();
     private String typeInfer = EMPTY_STRING;
     private String methodFound = EMPTY_STRING;
     private CustList<CustList<MethodInfo>> methodInfos = new CustList<CustList<MethodInfo>>();
@@ -75,7 +75,7 @@ public final class SuperFctOperation extends InvokingOperation implements PreAna
             return;
         }
         methodFound = trimMeth_;
-        methodInfos = getDeclaredCustMethodByType(isStaticAccess(), bounds_, trimMeth_, import_, _page, new ScopeFilter(null, false, true, isLvalue(), _page.getGlobalClass()));
+        methodInfos = getDeclaredCustMethodByType(isStaticAccess(), bounds_, trimMeth_, import_, _page, new ScopeFilter(null, false, true, isLvalue(), _page.getGlobalClass()), getStCall());
         filterByNameReturnType(_page, trimMeth_, methodInfos);
     }
 

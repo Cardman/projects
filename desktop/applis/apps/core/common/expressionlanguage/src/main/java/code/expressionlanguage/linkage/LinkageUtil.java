@@ -3534,6 +3534,7 @@ public final class LinkageUtil {
                 _parts.add(new PartOffset("</a>",begin_+ _vars.getKeyWords().getKeyWordStaticCall().length()));
             }
             _parts.addAllElts(((StaticCallAccessOperation)_val).getPartOffsets());
+            _parts.addAllElts(((StaticCallAccessOperation)_val).getStCallSolved());
         }
         if (_val instanceof ThisOperation) {
             if (!_val.getErrs().isEmpty()) {

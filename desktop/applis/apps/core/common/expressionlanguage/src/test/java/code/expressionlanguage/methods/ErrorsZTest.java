@@ -5579,4 +5579,45 @@ public final class ErrorsZTest extends ProcessMethodCommon {
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public <a title=\"Bad index by parsing.\" class=\"e\">$class</a> <a name=\"m15\" title=\"The part $interfaces pkg in a type is not valid. It must be a word.\" class=\"e\">$interfaces pkg.Ex</a>{}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
     }
+    @Test
+    public void report837Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ext {\n");
+        xml_.append(" $public $static Object m(){\n");
+        xml_.append("  $return $staticCall(ExInext<>).inst(2);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("src/pkg/Ex", xml_.toString());
+        StringMap<String> filesExp_ = ctxErrReadOnly(files_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Ext</a> {\n" +
+                " $public $static Object <a name=\"m49\">m</a>(){\n" +
+                "  $return $staticCall(<a title=\"The type ExInext is unknown.\" class=\"e\">ExInext</a>&lt;&gt;).<a title=\"The function $staticCall inst($int) is undefined.\" class=\"e\">inst</a>(2);\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report838Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ext {\n");
+        xml_.append(" $public $static Object m(){\n");
+        xml_.append("  $return $staticCall(ExInext<>).inst(2);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExInext<T> {\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("src/pkg/Ex", xml_.toString());
+        StringMap<String> filesExp_ = ctxErrReadOnly(files_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Ext</a> {\n" +
+                " $public $static Object <a name=\"m49\">m</a>(){\n" +
+                "  $return $staticCall(<a title=\"pkg.ExInext\" href=\"#m116\">ExInext</a>&lt;&gt;).<a title=\"The function $staticCall inst($int) is undefined.\" class=\"e\">inst</a>(2);\n" +
+                " }\n" +
+                "}\n" +
+                "$public $class <a name=\"m116\">pkg.ExInext</a>&lt;<a name=\"m128\">T</a>&gt; {\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+
 }

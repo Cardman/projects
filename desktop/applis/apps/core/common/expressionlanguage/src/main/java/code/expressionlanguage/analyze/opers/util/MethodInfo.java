@@ -4,6 +4,8 @@ import code.expressionlanguage.analyze.blocks.NamedFunctionBlock;
 import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.analyze.opers.OperationNode;
+import code.expressionlanguage.common.AnaGeneType;
+import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.functionid.*;
 import code.expressionlanguage.stds.StandardMethod;
 import code.util.CustList;
@@ -18,9 +20,9 @@ public final class MethodInfo implements Parametrable {
 
     private ParametersGroup parameters;
 
-    private String className;
+    private String className = "";
 
-    private String returnType;
+    private String returnType = "";
     private String originalReturnType = "";
     private String fileName = "";
     private MemberId memberId = new MemberId();
@@ -39,6 +41,7 @@ public final class MethodInfo implements Parametrable {
     private StringList parametersNames = new StringList();
     private final Ints nameParametersFilterIndexes = new Ints();
     private final CustList<OperationNode> allOps = new CustList<OperationNode>();
+    private String stCall = "";
 
     public MethodId getConstraints() {
         return constraints;
@@ -133,7 +136,32 @@ public final class MethodInfo implements Parametrable {
         varArgWrap = _v;
     }
 
+    public void reformat(String _foundType,AnalyzedPageEl _page) {
+        AnaGeneType type_ = _page.getAnaGeneType(StringExpUtil.getIdFromAllTypes(_foundType));
+        className = AnaTemplates.getOverridingFullTypeByBases(type_,_foundType,className,_page);
+        StringList params_ = new StringList();
+        for (String p: constraints.getParametersTypes()) {
+            params_.add(AnaTemplates.wildCardFormatParam(className,p, _page));
+        }
+        formattedParams = params_;
+        formatted = buildFormatted(MethodId.getKind(false), params_, constraints);
+        returnType = AnaTemplates.wildCardFormatReturn(className,originalReturnType,_page);
+    }
+
     public void format(boolean _keepParams, AnalyzedPageEl _page) {
+        if (!stCall.isEmpty()) {
+            StringList params_ = new StringList();
+            for (String p: constraints.getParametersTypes()) {
+                if (p.contains("#")) {
+                    params_.add("");
+                } else {
+                    params_.add(p);
+                }
+            }
+            formattedParams = params_;
+            formatted = buildFormatted(MethodId.getKind(_keepParams), params_, constraints);
+            return;
+        }
         StringList params_ = new StringList();
         for (String p: constraints.getParametersTypes()) {
             params_.add(AnaTemplates.wildCardFormatParam(className,p, _page));
@@ -249,5 +277,9 @@ public final class MethodInfo implements Parametrable {
 
     public CustList<OperationNode> getAllOps() {
         return allOps;
+    }
+
+    public void setStCall(String _stCall) {
+        this.stCall = _stCall;
     }
 }

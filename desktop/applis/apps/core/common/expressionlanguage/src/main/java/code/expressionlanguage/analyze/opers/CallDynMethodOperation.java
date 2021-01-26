@@ -103,7 +103,7 @@ public final class CallDynMethodOperation extends InvokingOperation implements P
                 m_.format(new MethodId(refRet_, MethodAccessKind.INSTANCE,
                         name_,cls_,refs_,false));
             } else {
-                m_ = OperationNode.getMethodInfo(e,false,0,fct_,_page,id_,e.getImportedReturnType(),e.getImportedReturnType());
+                m_ = OperationNode.getMethodInfo(e,false,0,fct_,_page,id_,e.getImportedReturnType(),e.getImportedReturnType(), getStCall());
             }
             methodInfos_.add(m_);
         }

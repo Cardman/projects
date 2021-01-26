@@ -2,6 +2,7 @@ package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.ResolvingTypes;
@@ -14,7 +15,12 @@ import code.util.core.IndexConstants;
 
 public final class StaticCallAccessOperation extends LeafOperation {
     private CustList<PartOffset> partOffsets;
+    private String stCall = "";
+    private final CustList<PartOffset> stCallSolved = new CustList<PartOffset>();
     private boolean implicit;
+    private int lt;
+    private int gt;
+
     public StaticCallAccessOperation(int _indexInEl, int _indexChild,
                                  MethodOperation _m, OperationsSequence _op) {
         super(_indexInEl, _indexChild, _m, _op);
@@ -30,7 +36,22 @@ public final class StaticCallAccessOperation extends LeafOperation {
         String glClass_ = _page.getGlobalClass();
         String classStr_;
         if (!realCl_.trim().isEmpty()) {
-            classStr_ = ResolvingTypes.resolveCorrectType(str_.indexOf(PAR_LEFT)+1,realCl_, _page);
+            String form_ = AnaTemplates.getInferForm(realCl_);
+            if (form_ != null) {
+                int trace_ = _page.getLocalizer().getCurrentLocationIndex();
+                int rel_ = trace_ + str_.indexOf(PAR_LEFT) + 1;
+                lt = rel_ + realCl_.indexOf('<');
+                gt = rel_ + realCl_.indexOf('>') + 1;
+                String solved_ = ResolvingTypes.resolveAccessibleIdType(str_.indexOf(PAR_LEFT) + 1, form_, _page);
+                stCall =solved_;
+                RootBlock r_ = _page.getAnaClassBody(solved_);
+                if (r_ != null) {
+                    solved_ = r_.getWildCardString();
+                }
+                classStr_ = emptyToObject(solved_,_page);
+            } else {
+                classStr_ = ResolvingTypes.resolveCorrectType(str_.indexOf(PAR_LEFT)+1,realCl_, _page);
+            }
             partOffsets = new CustList<PartOffset>(_page.getCurrentParts());
         } else {
             implicit = true;
@@ -57,7 +78,7 @@ public final class StaticCallAccessOperation extends LeafOperation {
             _page.getLocalizer().addError(badAccess_);
             addErr(badAccess_.getBuiltError());
         }
-        if (StringExpUtil.isWildCard(classStr_)) {
+        if (stCall.isEmpty()&&StringExpUtil.isWildCard(classStr_)) {
             FoundErrorInterpret badAccess_ = new FoundErrorInterpret();
             badAccess_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
             badAccess_.setFileName(_page.getLocalizer().getCurrentFileName());
@@ -80,4 +101,21 @@ public final class StaticCallAccessOperation extends LeafOperation {
     public CustList<PartOffset> getPartOffsets() {
         return partOffsets;
     }
+
+    public String getStCall() {
+        return stCall;
+    }
+
+    public CustList<PartOffset> getStCallSolved() {
+        return stCallSolved;
+    }
+
+    public int getGt() {
+        return gt;
+    }
+
+    public int getLt() {
+        return lt;
+    }
+
 }

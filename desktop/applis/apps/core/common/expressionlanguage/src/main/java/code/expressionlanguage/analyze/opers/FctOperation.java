@@ -24,8 +24,8 @@ import code.util.core.StringUtil;
 
 public final class FctOperation extends InvokingOperation implements PreAnalyzableOperation,RetrieveMethod,AbstractCallFctOperation,SettableElResult {
 
-    private AnaCallFctContent callFctContent;
-    private AnaArrContent arrContent;
+    private final AnaCallFctContent callFctContent;
+    private final AnaArrContent arrContent;
     private boolean staticMethod;
 
     private boolean staticChoiceMethod;
@@ -40,7 +40,7 @@ public final class FctOperation extends InvokingOperation implements PreAnalyzab
     private String methodFound = EMPTY_STRING;
     private CustList<CustList<MethodInfo>> methodInfos = new CustList<CustList<MethodInfo>>();
 
-    private CustList<PartOffset> partOffsets = new CustList<PartOffset>();
+    private final CustList<PartOffset> partOffsets = new CustList<PartOffset>();
     private StandardMethod standardMethod;
     private AnaTypeFct function;
     private boolean errLeftValue;
@@ -105,7 +105,7 @@ public final class FctOperation extends InvokingOperation implements PreAnalyzab
             return;
         }
         methodFound = trimMeth_;
-        methodInfos = getDeclaredCustMethodByType(isStaticAccess(), bounds_, trimMeth_, import_, _page, new ScopeFilter(null, accessFromSuper_, accessSuperTypes_, isLvalue(), _page.getGlobalClass()));
+        methodInfos = getDeclaredCustMethodByType(isStaticAccess(), bounds_, trimMeth_, import_, _page, new ScopeFilter(null, accessFromSuper_, accessSuperTypes_, isLvalue(), _page.getGlobalClass()), getStCall());
         filterByNameReturnType(_page, trimMeth_, methodInfos);
     }
 

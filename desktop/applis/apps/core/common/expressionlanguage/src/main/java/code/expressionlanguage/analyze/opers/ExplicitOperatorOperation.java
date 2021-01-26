@@ -57,7 +57,7 @@ public final class ExplicitOperatorOperation extends InvokingOperation implement
             methodInfos.add(ops_);
         } else {
             methodFound = op_;
-            methodInfos = getDeclaredCustMethodByType(MethodAccessKind.STATIC_CALL, new StringList(from), op_, false, _page, new ScopeFilter(null, false, false, isLvalue(), _page.getGlobalClass()));
+            methodInfos = getDeclaredCustMethodByType(MethodAccessKind.STATIC_CALL, new StringList(from), op_, false, _page, new ScopeFilter(null, false, false, isLvalue(), _page.getGlobalClass()), getStCall());
         }
         int len_ = methodInfos.size();
         for (int i = 0; i < len_; i++) {

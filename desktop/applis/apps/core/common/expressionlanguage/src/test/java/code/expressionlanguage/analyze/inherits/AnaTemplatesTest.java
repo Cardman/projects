@@ -8,6 +8,7 @@ import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaPartTypeUtil;
 import code.expressionlanguage.analyze.types.AnaResultPartType;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
+import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
 import code.expressionlanguage.common.DimComp;
 import code.expressionlanguage.analyze.instr.PartOffset;
 import code.expressionlanguage.functionid.MethodAccessKind;
@@ -2652,7 +2653,70 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
         Mapping mapp_ = new Mapping();
         mapp_.setArg("pkg.ExParam<?pkg.Ex,pkg.Ex>");
-        mapp_.setParam("pkg.ExParam<#0,#0>");
+        mapp_.setParam("pkg.ExParam<?#0,#0>");
+        StringMap<StringList> inh_ = new StringMap<StringList>();
+        inh_.addEntry("0",new StringList(cont_.getAnalyzing().getAliasObject()));
+        mapp_.setMapping(inh_);
+        CustList<Matching> cts_ = inferEx(cont_, mapp_);
+        assertEq(1, cts_.size());
+        assertEq("pkg.Ex", cts_.get(0).getArg());
+        assertEq("#0", cts_.get(0).getParam());
+        assertSame(MatchingEnum.EQ, cts_.get(0).getMatchEq());
+    }
+
+    @Test
+    public void inferEx13___() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex{}\n");
+        xml_.append("$public $class pkg.ExTwo{}\n");
+        xml_.append("$public $class pkg.ExParam<T,U>{}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        Mapping mapp_ = new Mapping();
+        mapp_.setArg("pkg.ExParam<?pkg.Ex,pkg.Ex>");
+        mapp_.setParam("pkg.ExParam<!pkg.Ex,#0>");
+        StringMap<StringList> inh_ = new StringMap<StringList>();
+        inh_.addEntry("0",new StringList(cont_.getAnalyzing().getAliasObject()));
+        mapp_.setMapping(inh_);
+        CustList<Matching> cts_ = inferEx(cont_, mapp_);
+        assertEq(0, cts_.size());
+    }
+
+    @Test
+    public void inferEx14___() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex{}\n");
+        xml_.append("$public $class pkg.ExTwo{}\n");
+        xml_.append("$public $class pkg.ExParam<T,U>{}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        Mapping mapp_ = new Mapping();
+        mapp_.setArg("pkg.ExParam<?pkg.Ex,pkg.Ex>");
+        mapp_.setParam("pkg.ExParam<!#0,#0>");
+        StringMap<StringList> inh_ = new StringMap<StringList>();
+        inh_.addEntry("0",new StringList(cont_.getAnalyzing().getAliasObject()));
+        mapp_.setMapping(inh_);
+        CustList<Matching> cts_ = inferEx(cont_, mapp_);
+        assertEq(0, cts_.size());
+    }
+
+    @Test
+    public void inferEx15___() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex{}\n");
+        xml_.append("$public $class pkg.ExTwo{}\n");
+        xml_.append("$public $class pkg.ExParam<T,U>{}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        Mapping mapp_ = new Mapping();
+        mapp_.setArg("pkg.ExParam<!#0,#0>");
+        mapp_.setParam("pkg.ExParam<?pkg.Ex,pkg.Ex>");
         StringMap<StringList> inh_ = new StringMap<StringList>();
         inh_.addEntry("0",new StringList(cont_.getAnalyzing().getAliasObject()));
         mapp_.setMapping(inh_);
@@ -2750,6 +2814,898 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         assertEq(0, cts_.size());
     }
 
+
+    @Test
+    public void isVar1() {
+        assertTrue(!AnaTemplates.isVar("pkg.MyClass"));
+    }
+
+    @Test
+    public void isVar2() {
+        assertTrue(!AnaTemplates.isVar("pkg.MyClass<#T>"));
+    }
+
+    @Test
+    public void isVar3() {
+        assertTrue(AnaTemplates.isVar("pkg.MyClass<#0>"));
+    }
+
+    @Test
+    public void isVar4() {
+        assertTrue(!AnaTemplates.isVar("#"));
+    }
+
+    @Test
+    public void getCorrectTemplateAllAll() {
+        StringMap<String> files_ = new StringMap<String>();
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethodsIds(files_);
+        assertEq("",AnaTemplates.getCorrectTemplateAllAll("",new StringList(),new StringMap<StringList>(),cont_.getAnalyzing()));
+    }
+
+    @Test
+    public void tryGetDeclaredImplicitCast1() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex{\n");
+        xml_.append(" $public $static ExTwo $(Ex p){$return $null;}\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExTwo{\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethodsIds(files_);
+        Mapping mapp_ = new Mapping();
+        mapp_.setArg("pkg.Ex");
+        mapp_.setParam("pkg.ExTwo");
+        ClassMethodIdReturn result_ = tryGetDeclaredImplicitCast(cont_, mapp_);
+        assertTrue(result_.isFoundMethod());
+        assertEq("pkg.Ex",result_.getId().getClassName());
+        assertEq("pkg.ExTwo",result_.getReturnType());
+    }
+
+    @Test
+    public void tryGetDeclaredImplicitCast2() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<T>{\n");
+        xml_.append(" $public $static ExTwo<T> $(Ex<T> p){$return $null;}\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExTwo<U>{\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethodsIds(files_);
+        Mapping mapp_ = new Mapping();
+        mapp_.setArg("pkg.Ex<#0>");
+        mapp_.setParam("pkg.ExTwo<#0>");
+        StringMap<StringList> inh_ = new StringMap<StringList>();
+        inh_.addEntry("0",new StringList(cont_.getAnalyzing().getAliasObject()));
+        mapp_.setMapping(inh_);
+        ClassMethodIdReturn result_ = tryGetDeclaredImplicitCast(cont_, mapp_);
+        assertTrue(result_.isFoundMethod());
+        assertEq("pkg.Ex<#0>",result_.getId().getClassName());
+        assertEq("pkg.ExTwo<#0>",result_.getReturnType());
+    }
+
+    @Test
+    public void tryGetDeclaredImplicitCast3() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<T>{\n");
+        xml_.append(" $public $static ExTwo<T> $(Ex<T> p){$return $null;}\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExTwo<U>{\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethodsIds(files_);
+        Mapping mapp_ = new Mapping();
+        mapp_.setArg("pkg.Ex<#0>");
+        mapp_.setParam("pkg.ExTwo<#1>");
+        StringMap<StringList> inh_ = new StringMap<StringList>();
+        inh_.addEntry("0",new StringList(cont_.getAnalyzing().getAliasObject()));
+        inh_.addEntry("1",new StringList(cont_.getAnalyzing().getAliasObject()));
+        mapp_.setMapping(inh_);
+        ClassMethodIdReturn result_ = tryGetDeclaredImplicitCast(cont_, mapp_);
+        assertTrue(result_.isFoundMethod());
+        assertEq("pkg.Ex<#0>",result_.getId().getClassName());
+        assertEq("pkg.ExTwo<#0>",result_.getReturnType());
+    }
+
+    @Test
+    public void tryGetDeclaredImplicitCast4() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<T>{\n");
+        xml_.append(" $public $static ExTwo<T> $(Ex<T> p){$return $null;}\n");
+        xml_.append(" $public $static ExSub<T> $(Ex<T> p){$return $null;}\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExTwo<U>{\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExSub<V>:ExTwo<V>{\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethodsIds(files_);
+        Mapping mapp_ = new Mapping();
+        mapp_.setArg("pkg.Ex<#0>");
+        mapp_.setParam("pkg.ExTwo<#0>");
+        StringMap<StringList> inh_ = new StringMap<StringList>();
+        inh_.addEntry("0",new StringList(cont_.getAnalyzing().getAliasObject()));
+        mapp_.setMapping(inh_);
+        ClassMethodIdReturn result_ = tryGetDeclaredImplicitCast(cont_, mapp_);
+        assertTrue(result_.isFoundMethod());
+        assertEq("pkg.Ex<#0>",result_.getId().getClassName());
+        assertEq("pkg.ExSub<#0>",result_.getReturnType());
+    }
+
+    @Test
+    public void inferOrImplicit1() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<T>{\n");
+        xml_.append(" $public $static ExTwo<T> $(Ex<T> p){$return $null;}\n");
+        xml_.append(" $public $static ExSub<T> $(Ex<T> p){$return $null;}\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExTwo<U>{\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExSub<V>:ExTwo<V>{\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Simple{\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethodsIds(files_);
+        Mapping mapp_ = new Mapping();
+        mapp_.setArg("pkg.Ex<pkg.Simple>");
+        mapp_.setParam("pkg.ExTwo<#0>");
+        StringMap<StringList> inh_ = new StringMap<StringList>();
+        inh_.addEntry("0",new StringList(cont_.getAnalyzing().getAliasObject()));
+        mapp_.setMapping(inh_);
+        CustList<Matching> result_ = inferOrImplicit(cont_, mapp_,MatchingEnum.SUB);
+        assertEq(1,result_.size());
+        assertEq("pkg.Simple",result_.get(0).getArg());
+        assertEq("#0",result_.get(0).getParam());
+        assertSame(MatchingEnum.EQ,result_.get(0).getMatchEq());
+    }
+
+    @Test
+    public void inferOrImplicit2() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<T>{\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExTwo<U>{\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExSub<V>:ExTwo<V>{\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Simple{\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethodsIds(files_);
+        Mapping mapp_ = new Mapping();
+        mapp_.setArg("pkg.Ex<pkg.Simple>");
+        mapp_.setParam("pkg.ExTwo<#0>");
+        StringMap<StringList> inh_ = new StringMap<StringList>();
+        inh_.addEntry("0",new StringList(cont_.getAnalyzing().getAliasObject()));
+        mapp_.setMapping(inh_);
+        CustList<Matching> result_ = inferOrImplicit(cont_, mapp_,MatchingEnum.SUB);
+        assertEq(0,result_.size());
+    }
+
+    @Test
+    public void inferOrImplicit3() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<T>:ExTwo<T>{\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExTwo<U>{\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExSub<V>:ExTwo<V>{\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Simple{\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethodsIds(files_);
+        Mapping mapp_ = new Mapping();
+        mapp_.setArg("pkg.Ex<pkg.Simple>");
+        mapp_.setParam("pkg.ExTwo<#0>");
+        StringMap<StringList> inh_ = new StringMap<StringList>();
+        inh_.addEntry("0",new StringList(cont_.getAnalyzing().getAliasObject()));
+        mapp_.setMapping(inh_);
+        CustList<Matching> result_ = inferOrImplicit(cont_, mapp_,MatchingEnum.SUB);
+        assertEq(1,result_.size());
+        assertEq("pkg.Simple",result_.get(0).getArg());
+        assertEq("#0",result_.get(0).getParam());
+        assertSame(MatchingEnum.EQ,result_.get(0).getMatchEq());
+    }
+
+    @Test
+    public void inferOrImplicit4() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<T>{\n");
+        xml_.append(" $public $static ExTwo<T> $(Ex<T> p){$return $null;}\n");
+        xml_.append(" $public $static ExSub<T> $(Ex<T> p){$return $null;}\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExTwo<U>{\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExSub<V>:ExTwo<V>{\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Simple{\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethodsIds(files_);
+        Mapping mapp_ = new Mapping();
+        mapp_.setArg("pkg.Ex<#0>");
+        mapp_.setParam("pkg.ExTwo<pkg.Simple>");
+        StringMap<StringList> inh_ = new StringMap<StringList>();
+        inh_.addEntry("0",new StringList(cont_.getAnalyzing().getAliasObject()));
+        mapp_.setMapping(inh_);
+        CustList<Matching> result_ = inferOrImplicit(cont_, mapp_,MatchingEnum.SUB);
+        assertEq(1,result_.size());
+        assertEq("#0",result_.get(0).getArg());
+        assertEq("pkg.Simple",result_.get(0).getParam());
+        assertSame(MatchingEnum.EQ,result_.get(0).getMatchEq());
+    }
+
+    @Test
+    public void inferOrImplicit5() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<T>{\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExTwo<U>{\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExSub<V>:ExTwo<V>{\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Simple{\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethodsIds(files_);
+        Mapping mapp_ = new Mapping();
+        mapp_.setArg("pkg.Ex<#0>");
+        mapp_.setParam("pkg.ExTwo<pkg.Simple>");
+        StringMap<StringList> inh_ = new StringMap<StringList>();
+        inh_.addEntry("0",new StringList(cont_.getAnalyzing().getAliasObject()));
+        mapp_.setMapping(inh_);
+        CustList<Matching> result_ = inferOrImplicit(cont_, mapp_,MatchingEnum.SUB);
+        assertEq(0,result_.size());
+    }
+
+    @Test
+    public void inferOrImplicit6() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<T>:ExTwo<T>{\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExTwo<U>{\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExSub<V>:ExTwo<V>{\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Simple{\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethodsIds(files_);
+        Mapping mapp_ = new Mapping();
+        mapp_.setArg("pkg.Ex<#0>");
+        mapp_.setParam("pkg.ExTwo<pkg.Simple>");
+        StringMap<StringList> inh_ = new StringMap<StringList>();
+        inh_.addEntry("0",new StringList(cont_.getAnalyzing().getAliasObject()));
+        mapp_.setMapping(inh_);
+        CustList<Matching> result_ = inferOrImplicit(cont_, mapp_,MatchingEnum.SUB);
+        assertEq(1,result_.size());
+        assertEq("#0",result_.get(0).getArg());
+        assertEq("pkg.Simple",result_.get(0).getParam());
+        assertSame(MatchingEnum.EQ,result_.get(0).getMatchEq());
+    }
+
+    @Test
+    public void inferOrImplicit7() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<T>{\n");
+        xml_.append(" $public $static ExTwo<T> $(Ex<T> p){$return $null;}\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExTwo<U>{\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExSub<V>:ExTwo<V>{\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Simple{\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethodsIds(files_);
+        Mapping mapp_ = new Mapping();
+        mapp_.setArg("pkg.Ex<pkg.Simple>");
+        mapp_.setParam("pkg.ExTwo<pkg.Simple>");
+        StringMap<StringList> inh_ = new StringMap<StringList>();
+        mapp_.setMapping(inh_);
+        CustList<Matching> result_ = inferOrImplicit(cont_, mapp_,MatchingEnum.SUB);
+        assertEq(0,result_.size());
+    }
+
+    @Test
+    public void inferOrImplicit8() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<T>{\n");
+        xml_.append(" $public $static ExTwo<T> $(Ex<T> p){$return $null;}\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExTwo<U>{\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExSub<V>:ExTwo<V>{\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Simple{\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Simple2{\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethodsIds(files_);
+        Mapping mapp_ = new Mapping();
+        mapp_.setArg("pkg.Ex<pkg.Simple>");
+        mapp_.setParam("pkg.ExTwo<pkg.Simple2>");
+        StringMap<StringList> inh_ = new StringMap<StringList>();
+        mapp_.setMapping(inh_);
+        CustList<Matching> result_ = inferOrImplicit(cont_, mapp_,MatchingEnum.SUB);
+        assertEq(0,result_.size());
+    }
+
+    @Test
+    public void inferOrImplicit9() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<T>{\n");
+        xml_.append(" $public $static ExTwo<T> $(Ex<T> p){$return $null;}\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExTwo<U>{\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExSub<V>:ExTwo<V>{\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Simple{\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethodsIds(files_);
+        Mapping mapp_ = new Mapping();
+        mapp_.setArg("pkg.Ex<pkg.Ex<pkg.Simple>>");
+        mapp_.setParam("pkg.ExTwo<pkg.Ex<pkg.Simple>>");
+        StringMap<StringList> inh_ = new StringMap<StringList>();
+        mapp_.setMapping(inh_);
+        CustList<Matching> result_ = inferOrImplicit(cont_, mapp_,MatchingEnum.SUB);
+        assertEq(0,result_.size());
+    }
+
+    @Test
+    public void inferOrImplicit10() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<T>{\n");
+        xml_.append(" $public $static ExTwo<T> $(Ex<T> p){$return $null;}\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExTwo<U>{\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExSub<V>:ExTwo<V>{\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Simple{\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Simple2{\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethodsIds(files_);
+        Mapping mapp_ = new Mapping();
+        mapp_.setArg("pkg.Ex<pkg.Ex<pkg.Simple>>");
+        mapp_.setParam("pkg.ExTwo<pkg.Ex<pkg.Simple2>>");
+        StringMap<StringList> inh_ = new StringMap<StringList>();
+        mapp_.setMapping(inh_);
+        CustList<Matching> result_ = inferOrImplicit(cont_, mapp_,MatchingEnum.SUB);
+        assertEq(0,result_.size());
+    }
+
+    @Test
+    public void inferOrImplicit11() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<T>{\n");
+        xml_.append(" $public $static ExTwo<T> $(Ex<T> p){$return $null;}\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExTwo<U>{\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExSub<V>:ExTwo<V>{\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Simple{\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Simple2{\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethodsIds(files_);
+        Mapping mapp_ = new Mapping();
+        mapp_.setArg("pkg.Ex<pkg.Ex<pkg.Simple>>");
+        mapp_.setParam("pkg.ExTwo<pkg.ExTwo<pkg.Simple2>>");
+        StringMap<StringList> inh_ = new StringMap<StringList>();
+        mapp_.setMapping(inh_);
+        CustList<Matching> result_ = inferOrImplicit(cont_, mapp_,MatchingEnum.SUB);
+        assertEq(0,result_.size());
+    }
+
+    @Test
+    public void inferOrImplicit12() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<T>{\n");
+        xml_.append(" $public $static ExTwo<T> $(Ex<T> p){$return $null;}\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExTwo<U>{\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExSub<V>:ExTwo<V>{\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Simple{\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Simple2{\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethodsIds(files_);
+        Mapping mapp_ = new Mapping();
+        mapp_.setArg("pkg.Ex<pkg.Ex<#0>>");
+        mapp_.setParam("pkg.ExTwo<pkg.Ex<pkg.Simple>>");
+        StringMap<StringList> inh_ = new StringMap<StringList>();
+        mapp_.setMapping(inh_);
+        CustList<Matching> result_ = inferOrImplicit(cont_, mapp_,MatchingEnum.SUB);
+        assertEq(1,result_.size());
+        assertEq("#0",result_.get(0).getArg());
+        assertEq("pkg.Simple",result_.get(0).getParam());
+        assertSame(MatchingEnum.EQ,result_.get(0).getMatchEq());
+    }
+
+    @Test
+    public void inferOrImplicit13() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<T>{\n");
+        xml_.append(" $public $static ExTwo<T> $(Ex<T> p){$return $null;}\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExTwo<U>{\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExSub<V>:ExTwo<V>{\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Simple{\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Simple2{\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethodsIds(files_);
+        Mapping mapp_ = new Mapping();
+        mapp_.setArg("pkg.Ex<pkg.Ex<pkg.Simple>>");
+        mapp_.setParam("pkg.ExTwo<pkg.Ex<#0>>");
+        StringMap<StringList> inh_ = new StringMap<StringList>();
+        mapp_.setMapping(inh_);
+        CustList<Matching> result_ = inferOrImplicit(cont_, mapp_,MatchingEnum.SUB);
+        assertEq(1,result_.size());
+        assertEq("pkg.Simple",result_.get(0).getArg());
+        assertEq("#0",result_.get(0).getParam());
+        assertSame(MatchingEnum.EQ,result_.get(0).getMatchEq());
+    }
+
+    @Test
+    public void inferOrImplicit14() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<T>{\n");
+        xml_.append(" $public $static ExTwo<T> $(Ex<T> p){$return $null;}\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExTwo<U>{\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExSub<V>:ExTwo<V>{\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Simple{\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Simple2{\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethodsIds(files_);
+        Mapping mapp_ = new Mapping();
+        mapp_.setArg("pkg.Ex<pkg.Ex<?#0>>");
+        mapp_.setParam("pkg.ExTwo<pkg.Ex<?pkg.Simple>>");
+        StringMap<StringList> inh_ = new StringMap<StringList>();
+        mapp_.setMapping(inh_);
+        CustList<Matching> result_ = inferOrImplicit(cont_, mapp_,MatchingEnum.SUB);
+        assertEq(1,result_.size());
+        assertEq("#0",result_.get(0).getArg());
+        assertEq("pkg.Simple",result_.get(0).getParam());
+        assertSame(MatchingEnum.EQ,result_.get(0).getMatchEq());
+    }
+
+    @Test
+    public void inferOrImplicit15() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<T>{\n");
+        xml_.append(" $public $static ExTwo<T> $(Ex<T> p){$return $null;}\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExTwo<U>{\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExSub<V>:ExTwo<V>{\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Simple{\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Simple2{\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethodsIds(files_);
+        Mapping mapp_ = new Mapping();
+        mapp_.setArg("pkg.Ex<pkg.Ex<?pkg.Simple>>");
+        mapp_.setParam("pkg.ExTwo<pkg.Ex<?#0>>");
+        StringMap<StringList> inh_ = new StringMap<StringList>();
+        mapp_.setMapping(inh_);
+        CustList<Matching> result_ = inferOrImplicit(cont_, mapp_,MatchingEnum.SUB);
+        assertEq(1,result_.size());
+        assertEq("pkg.Simple",result_.get(0).getArg());
+        assertEq("#0",result_.get(0).getParam());
+        assertSame(MatchingEnum.EQ,result_.get(0).getMatchEq());
+    }
+
+    @Test
+    public void inferOrImplicit16() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<T>{\n");
+        xml_.append(" $public $static ExTwo<T> $(Ex<T> p){$return $null;}\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExTwo<U>{\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExTwoPar<W,X>{\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExSub<V>:ExTwo<V>{\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Simple{\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Simple2{\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethodsIds(files_);
+        Mapping mapp_ = new Mapping();
+        mapp_.setArg("pkg.Ex<pkg.ExTwoPar<?pkg.Ex<pkg.Simple2>,?pkg.Simple>>");
+        mapp_.setParam("pkg.ExTwo<pkg.ExTwoPar<?pkg.Ex<pkg.Simple2>,?#0>>");
+        StringMap<StringList> inh_ = new StringMap<StringList>();
+        mapp_.setMapping(inh_);
+        CustList<Matching> result_ = inferOrImplicit(cont_, mapp_,MatchingEnum.SUB);
+        assertEq(1,result_.size());
+        assertEq("pkg.Simple",result_.get(0).getArg());
+        assertEq("#0",result_.get(0).getParam());
+        assertSame(MatchingEnum.EQ,result_.get(0).getMatchEq());
+    }
+
+    @Test
+    public void inferOrImplicit17() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<T>{\n");
+        xml_.append(" $public $static ExTwo<T> $(Ex<T> p){$return $null;}\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExTwo<U>{\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExTwoPar<W,X>{\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExSub<V>:ExTwo<V>{\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Simple{\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Simple2{\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethodsIds(files_);
+        Mapping mapp_ = new Mapping();
+        mapp_.setArg("pkg.Ex<pkg.ExTwoPar<?pkg.Ex<pkg.Simple2>,?pkg.Simple>>");
+        mapp_.setParam("pkg.ExTwo<pkg.ExTwoPar<?java.lang.Object,?#0>>");
+        StringMap<StringList> inh_ = new StringMap<StringList>();
+        mapp_.setMapping(inh_);
+        CustList<Matching> result_ = inferOrImplicit(cont_, mapp_,MatchingEnum.SUB);
+        assertEq(1,result_.size());
+        assertEq("pkg.Simple",result_.get(0).getArg());
+        assertEq("#0",result_.get(0).getParam());
+        assertSame(MatchingEnum.EQ,result_.get(0).getMatchEq());
+    }
+
+    @Test
+    public void inferOrImplicit18() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<T>{\n");
+        xml_.append(" $public $static ExTwo<T> $(Ex<T> p){$return $null;}\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExTwo<U>{\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExTwoPar<W,X>{\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExSub<V>:ExTwo<V>{\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Simple{\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Simple2{\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethodsIds(files_);
+        Mapping mapp_ = new Mapping();
+        mapp_.setArg("pkg.Ex<pkg.ExTwoPar<!java.lang.Object,?pkg.Simple>>");
+        mapp_.setParam("pkg.ExTwo<pkg.ExTwoPar<!pkg.Ex<pkg.Simple2>,?#0>>");
+        StringMap<StringList> inh_ = new StringMap<StringList>();
+        mapp_.setMapping(inh_);
+        CustList<Matching> result_ = inferOrImplicit(cont_, mapp_,MatchingEnum.SUB);
+        assertEq(1,result_.size());
+        assertEq("pkg.Simple",result_.get(0).getArg());
+        assertEq("#0",result_.get(0).getParam());
+        assertSame(MatchingEnum.EQ,result_.get(0).getMatchEq());
+    }
+
+    @Test
+    public void inferOrImplicit19() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<T>{\n");
+        xml_.append(" $public $static ExTwo<T> $(Ex<T> p){$return $null;}\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExTwo<U>{\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExTwoPar<W,X>{\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExSub<V>:ExTwo<V>{\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Simple{\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Simple2{\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethodsIds(files_);
+        Mapping mapp_ = new Mapping();
+        mapp_.setArg("pkg.Ex<pkg.ExTwoPar<!java.lang.Object,?>>");
+        mapp_.setParam("pkg.ExTwo<pkg.ExTwoPar<!java.lang.Object,?pkg.Simple>>");
+        StringMap<StringList> inh_ = new StringMap<StringList>();
+        mapp_.setMapping(inh_);
+        CustList<Matching> result_ = inferOrImplicit(cont_, mapp_,MatchingEnum.SUB);
+        assertEq(0,result_.size());
+    }
+
+    @Test
+    public void inferOrImplicit20() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<T>{\n");
+        xml_.append(" $public $static ExTwo<T> $(Ex<T> p){$return $null;}\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExTwo<U>{\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExTwoPar<W,X>{\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExSub<V>:ExTwo<V>{\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Simple{\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Simple2{\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethodsIds(files_);
+        Mapping mapp_ = new Mapping();
+        mapp_.setArg("pkg.Ex<pkg.ExTwoPar<?java.lang.String,pkg.ExTwoPar<#0,java.lang.Object>>>");
+        mapp_.setParam("pkg.ExTwo<pkg.ExTwoPar<?java.lang.Object,pkg.Ex<java.lang.Object>>>");
+        StringMap<StringList> inh_ = new StringMap<StringList>();
+        mapp_.setMapping(inh_);
+        CustList<Matching> result_ = inferOrImplicit(cont_, mapp_,MatchingEnum.SUB);
+        assertEq(0,result_.size());
+    }
+    @Test
+    public void isCorrectOrNumbersVars1() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<T>{\n");
+        xml_.append(" $public $static ExTwo<T> $(Ex<T> p){$return $null;}\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExTwo<U>{\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExTwoPar<W,X>{\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExSub<V>:ExTwo<V>{\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Simple{\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Simple2{\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethodsIds(files_);
+        Mapping mapp_ = new Mapping();
+        mapp_.setArg("pkg.Simple");
+        mapp_.setParam("#0");
+        StringMap<StringList> inh_ = new StringMap<StringList>();
+        mapp_.setMapping(inh_);
+        assertTrue(AnaTemplates.isCorrectOrNumbersVars(mapp_,cont_.getAnalyzing()));
+    }
+    @Test
+    public void isCorrectOrNumbersVars2() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<T>{\n");
+        xml_.append(" $public $static ExTwo<T> $(Ex<T> p){$return $null;}\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExTwo<U>{\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExTwoPar<W,X>{\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExSub<V>:ExTwo<V>{\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Simple{\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Simple2{\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethodsIds(files_);
+        Mapping mapp_ = new Mapping();
+        mapp_.setArg("#A");
+        mapp_.setParam("#A");
+        StringMap<StringList> inh_ = new StringMap<StringList>();
+        inh_.addEntry("A",new StringList("pkg.Simple"));
+        mapp_.setMapping(inh_);
+        assertTrue(AnaTemplates.isCorrectOrNumbersVars(mapp_,cont_.getAnalyzing()));
+    }
+
+    @Test
+    public void isCorrectOrNumbersVars3() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<T>{\n");
+        xml_.append(" $public $static ExTwo<T> $(Ex<T> p){$return $null;}\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExTwo<U>{\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExTwoPar<W,X>{\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExSub<V>:ExTwo<V>{\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Simple{\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Simple2{\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethodsIds(files_);
+        Mapping mapp_ = new Mapping();
+        mapp_.setArg("");
+        mapp_.setParam("#A");
+        StringMap<StringList> inh_ = new StringMap<StringList>();
+        inh_.addEntry("A",new StringList("pkg.Simple"));
+        mapp_.setMapping(inh_);
+        assertTrue(AnaTemplates.isCorrectOrNumbersVars(mapp_,cont_.getAnalyzing()));
+    }
+
+    @Test
+    public void isCorrectOrNumbersVars4() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<T>{\n");
+        xml_.append(" $public $static ExTwo<T> $(Ex<T> p){$return $null;}\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExTwo<U>{\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExTwoPar<W,X>{\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExSub<V>:ExTwo<V>{\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Simple{\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Simple2{\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethodsIds(files_);
+        Mapping mapp_ = new Mapping();
+        mapp_.setArg("");
+        mapp_.setParam("#A");
+        StringMap<StringList> inh_ = new StringMap<StringList>();
+        inh_.addEntry("A",new StringList("pkg.Simple"));
+        mapp_.setMapping(inh_);
+        assertTrue(AnaTemplates.isCorrectVars(mapp_,cont_.getAnalyzing()));
+    }
+
+    @Test
+    public void isCorrectOrNumbersVars5() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<T>{\n");
+        xml_.append(" $public $static ExTwo<T> $(Ex<T> p){$return $null;}\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExTwo<U>{\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExTwoPar<W,X>{\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExSub<V>:ExTwo<V>{\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Simple{\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Simple2{\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethodsIds(files_);
+        Mapping mapp_ = new Mapping();
+        mapp_.setArg("");
+        mapp_.setParam(cont_.getAliasPrimInteger());
+        StringMap<StringList> inh_ = new StringMap<StringList>();
+        mapp_.setMapping(inh_);
+        assertTrue(!AnaTemplates.isCorrectOrNumbersVars(mapp_,cont_.getAnalyzing()));
+    }
+
+    @Test
+    public void isCorrectOrNumbersVars6() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<T>{\n");
+        xml_.append(" $public $static ExTwo<T> $(Ex<T> p){$return $null;}\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExTwo<U>{\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExTwoPar<W,X>{\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExSub<V>:ExTwo<V>{\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Simple{\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Simple2{\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethodsIds(files_);
+        Mapping mapp_ = new Mapping();
+        mapp_.setArg(cont_.getAliasPrimInteger());
+        mapp_.setParam(cont_.getAliasPrimInteger());
+        StringMap<StringList> inh_ = new StringMap<StringList>();
+        mapp_.setMapping(inh_);
+        assertTrue(AnaTemplates.isCorrectOrNumbersVars(mapp_,cont_.getAnalyzing()));
+    }
+
+    @Test
+    public void isCorrectOrNumbersVars7() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<T>{\n");
+        xml_.append(" $public $static ExTwo<T> $(Ex<T> p){$return $null;}\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExTwo<U>{\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExTwoPar<W,X>{\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExSub<V>:ExTwo<V>{\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Simple{\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Simple2{\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethodsIds(files_);
+        Mapping mapp_ = new Mapping();
+        mapp_.setArg(cont_.getAliasPrimInteger());
+        mapp_.setParam("");
+        StringMap<StringList> inh_ = new StringMap<StringList>();
+        mapp_.setMapping(inh_);
+        assertTrue(!AnaTemplates.isCorrectOrNumbersVars(mapp_,cont_.getAnalyzing()));
+    }
     @Test
     public void inhNb() {
         StringMap<String> files_ = new StringMap<String>();
@@ -3284,6 +4240,23 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
                 args_,
                 "", "", cont_.getAnalyzing());
         assertEq("pkg.ExParam<#A>",inf_);
+    }
+
+    @Test
+    public void tryInferMethod22() {
+        StringMap<String> files_ = new StringMap<String>();
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        CustList<AnaClassArgumentMatching> args_ = new CustList<AnaClassArgumentMatching>();
+        args_.add(new AnaClassArgumentMatching(cont_.getAliasString()));
+        String inf_ = AnaTemplates.tryInferMethod(-1, cont_.getAliasString(),
+                new MethodId(false, MethodAccessKind.STATIC_CALL, "",
+                        new StringList(cont_.getAliasString()), new BooleanList(false),
+                        false),
+                cont_.getAliasString(),
+                new StringMap<StringList>(),
+                args_,
+                "", "", cont_.getAnalyzing());
+        assertEq(cont_.getAliasString(),inf_);
     }
 
     @Test
@@ -9409,6 +10382,17 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         return cont_;
     }
 
+    private static AnalyzedTestContext unfullValidateOverridingMethodsIds(StringMap<String> _files) {
+        AnalyzedTestContext cont_ = ctxAna();
+        parseCustomFiles(_files, cont_);
+        assertTrue( isEmptyErrors(cont_));
+        validateInheritingClasses(cont_);
+        assertTrue( isEmptyErrors(cont_));
+        validateIds(cont_);
+        assertTrue( isEmptyErrors(cont_));
+        return cont_;
+    }
+
     private static AnalyzedTestContext simpleContextEl() {
         AnalyzedTestContext cont_ = ctxAna();
         AnalyzedPageEl page_ = cont_.getAnalyzing();
@@ -9438,6 +10422,14 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
 
     private static CustList<Matching> inferEx(AnalyzedTestContext _cont, Mapping _m) {
         return AnaTemplates.removeDup(AnaTemplates.infer(_m,MatchingEnum.EQ, _cont.getAnalyzing()));
+    }
+
+    private static ClassMethodIdReturn tryGetDeclaredImplicitCast(AnalyzedTestContext _cont, Mapping _m) {
+        return AnaTemplates.tryGetDeclaredImplicitCast(_m.getParam().getSingleNameOrEmpty(), _m.getArg(), _cont.getAnalyzing(),_m.getMapping());
+    }
+
+    private static CustList<Matching> inferOrImplicit(AnalyzedTestContext _cont, Mapping _m, MatchingEnum _mat) {
+        return AnaTemplates.inferOrImplicit(_m.getArg(),_m.getParam().getSingleNameOrEmpty(),_mat, _m.getMapping(), _cont.getAnalyzing());
     }
 
 

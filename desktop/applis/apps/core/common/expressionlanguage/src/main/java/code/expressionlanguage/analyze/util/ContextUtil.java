@@ -82,6 +82,13 @@ public final class ContextUtil {
         return _outer == _root.getOuterParent();
     }
 
+    public static CustList<StringList> getBoundAllAll(AnaGeneType _type) {
+        if (_type instanceof RootBlock) {
+            return ((RootBlock)_type).getBoundAllAll();
+        }
+        return new CustList<StringList>();
+    }
+
     public static CustList<TypeVar> getParamTypesMapValues(AnaGeneType _type) {
         if (_type instanceof RootBlock) {
             return ((RootBlock)_type).getParamTypesMapValues();
@@ -211,6 +218,14 @@ public final class ContextUtil {
         int rc_ = _page.getTraceIndex();
         _parts.add(new PartOffset("<a title=\""+LinkageUtil.transform(_in)+"\">",rc_+_begin));
         _parts.add(new PartOffset("</a>",rc_+_end));
+    }
+
+    public static void appendTitlePartsAbs(int _begin, int _end, String _in, CustList<PartOffset> _parts, AnalyzedPageEl _page) {
+        if (!_page.isGettingParts()) {
+            return;
+        }
+        _parts.add(new PartOffset("<a title=\""+LinkageUtil.transform(_in)+"\">",_begin));
+        _parts.add(new PartOffset("</a>",_end));
     }
 
     public static boolean isFromCustFile(AnaGeneType _g) {

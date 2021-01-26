@@ -42,10 +42,45 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
     }
 
     NameParametersFilter buildFilter(AnalyzedPageEl _page) {
+        String staticCall_ = "";
+        boolean apply_ = false;
+        StaticCallAccessOperation st_ = null;
+        if (getParent() instanceof AbstractDotOperation) {
+            OperationNode firstChild_ = getParent().getFirstChild();
+            if (firstChild_ instanceof StaticCallAccessOperation) {
+                st_ = (StaticCallAccessOperation) firstChild_;
+                staticCall_ = st_.getStCall();
+                apply_ = applyMatching();
+            }
+        }
+        String typeAff_ = EMPTY_STRING;
+        if (apply_) {
+            OperationNode parentMatching_ = getParentMatching();
+            Block cur_ = _page.getCurrentBlock();
+            if (parentMatching_ == null &&cur_ instanceof ReturnMethod) {
+                typeAff_ = tryGetRetType(_page);
+            } else {
+                typeAff_ = tryGetTypeAff(parentMatching_, 1);
+            }
+        }
         NameParametersFilter out_ = buildQuickFilter(this);
+        out_.setStaticCall(staticCall_);
+        out_.setReturnType(typeAff_);
+        out_.setStaticCallOp(st_);
         buildFilter(out_, _page);
         out_.setOk(out_.getParameterFilterErr().isEmpty());
         return out_;
+    }
+
+    String getStCall() {
+        if (getParent() instanceof AbstractDotOperation) {
+            OperationNode firstChild_ = getParent().getFirstChild();
+            if (firstChild_ instanceof StaticCallAccessOperation) {
+                StaticCallAccessOperation st_ = (StaticCallAccessOperation) firstChild_;
+                return st_.getStCall();
+            }
+        }
+        return "";
     }
     private static void buildFilter(NameParametersFilter _filter, AnalyzedPageEl _page) {
         for (NamedArgumentOperation o: _filter.getParameterFilterErr()) {
