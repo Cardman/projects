@@ -1756,26 +1756,6 @@ public final class AnaTemplates {
                 String cPar_ = foundParamTypes_.get(i);
                 String prArg_ = getPrefix(cArg_);
                 String prPar_ = getPrefix(cPar_);
-                DimComp dArgElt_ = StringExpUtil.getQuickComponentBaseType(cArg_.substring(prArg_.length()));
-                DimComp dParamElt_ = StringExpUtil.getQuickComponentBaseType(cPar_.substring(prPar_.length()));
-                if (tryGetUnknownVar(dArgElt_.getComponent())>=0&&prArg_.isEmpty()) {
-                    int minArg_ = Math.min(dArgElt_.getDim(), dParamElt_.getDim());
-                    Matching match_ = new Matching();
-                    match_.setMatchEq(_ct);
-                    match_.setArg(cArg_.substring(minArg_));
-                    match_.setParam(cPar_.substring(prPar_.length()).substring(minArg_));
-                    pairsArgParam_.add(match_);
-                    continue;
-                }
-                if (tryGetUnknownVar(dParamElt_.getComponent())>=0&&prPar_.isEmpty()) {
-                    int minArg_ = Math.min(dArgElt_.getDim(), dParamElt_.getDim());
-                    Matching match_ = new Matching();
-                    match_.setMatchEq(_ct);
-                    match_.setArg(cArg_.substring(prArg_.length()).substring(minArg_));
-                    match_.setParam(cPar_.substring(minArg_));
-                    pairsArgParam_.add(match_);
-                    continue;
-                }
                 if (!StringUtil.quickEq(
                         prArg_,
                         prPar_)) {
