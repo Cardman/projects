@@ -498,6 +498,14 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         assertNotNull(getTrueException(cont_));
     }
     @Test
+    public void okArgsSetSw() {
+        StringMap<String> files_ = new StringMap<String>();
+        AnalyzedTestContext cont_ = validated(files_);
+        StackCall stackCall_ = StackCall.newInstance(InitPhase.NOTHING, cont_.getContext());
+        assertNotNull(ExecTemplates.okArgsSetSw(null,null, "", null, cont_.getContext(),true, stackCall_, new ArgumentListCall()).getError());
+        assertNotNull(getTrueException(stackCall_));
+    }
+    @Test
     public void okArgs1Test() {
         StringMap<String> files_ = new StringMap<String>();
         AnalyzedTestContext cont_ = validated(files_);

@@ -3,9 +3,14 @@ package code.expressionlanguage.exec.calls;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.StackCall;
+import code.expressionlanguage.exec.blocks.ExecAbstractSwitchMethod;
+import code.expressionlanguage.exec.blocks.ExecMemberCallingsBlock;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
+import code.expressionlanguage.exec.calls.util.CustomFoundSwitch;
 import code.expressionlanguage.exec.calls.util.NotInitializedClass;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
+import code.expressionlanguage.exec.inherits.FormattedParameters;
+import code.expressionlanguage.exec.inherits.Parameters;
 import code.expressionlanguage.exec.opers.ExecInvokingOperation;
 import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.functionid.MethodId;
@@ -25,10 +30,15 @@ public abstract class AbstractRefectMethodPageEl extends AbstractRefectCommonMet
     private CustList<Argument> args = new CustList<Argument>();
     private final Argument array;
     private Argument rightArg;
-
+    private final ExecMemberCallingsBlock callee;
     public AbstractRefectMethodPageEl(Argument _instance,Argument _array, MethodMetaInfo _metaInfo) {
         super(_instance, _metaInfo);
         array = _array;
+        callee = _metaInfo.getCallee();
+    }
+
+    ExecMemberCallingsBlock getCallee() {
+        return callee;
     }
 
     @Override
@@ -91,6 +101,16 @@ public abstract class AbstractRefectMethodPageEl extends AbstractRefectCommonMet
     }
 
     Argument prepare(ContextEl _context, String _className, MethodId _mid, Argument _instance, CustList<Argument> _args, Argument _right, StackCall _stack) {
+        if (callee instanceof ExecAbstractSwitchMethod) {
+            ArgumentListCall l_ = ExecTemplates.wrapAndCallDirectSw(_args);
+            FormattedParameters formatted_ = ExecTemplates.checkParamsSw(_context, _className, getPair().getType(), (ExecAbstractSwitchMethod) callee, _instance, getMetaInfo().getCache(), l_, getAccessKind(), _stack);
+            if (_context.callsOrException(_stack)) {
+                return Argument.createVoid();
+            }
+            Parameters parameters_ = formatted_.getParameters();
+            _stack.setCallingState(new CustomFoundSwitch(_instance,formatted_.getFormattedClass(),getPair().getType(),(ExecAbstractSwitchMethod) callee,parameters_.getCache(),new Argument(parameters_.getParameters().firstValue().getStruct())));
+            return Argument.createVoid();
+        }
         ArgumentListCall l_ = ExecTemplates.wrapAndCallDirect(getPair(),_className,_instance,_args,_context, getAccessKind());
         return ExecInvokingOperation.callPrepare(_context.getExiting(), _context, _className, getPair(), _instance, getMetaInfo().getCache(), l_, _right, getAccessKind(), getMethodName(), _stack);
     }

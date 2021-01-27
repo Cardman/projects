@@ -1184,6 +1184,10 @@ public final class LgNamesContent {
         getReflect().getParams().setAliasAnnotated0GetDeclaredAnonymousLambda1(get(_util,_cust, AliasParamReflection.ANNOTATED_0_GET_DECLARED_ANONYMOUS_LAMBDA_1));
         getReflect().getParams().setAliasAnnotated0GetDeclaredAnonymousLambda2(get(_util,_cust, AliasParamReflection.ANNOTATED_0_GET_DECLARED_ANONYMOUS_LAMBDA_2));
         getReflect().getParams().setAliasAnnotated0GetDeclaredAnonymousLambda3(get(_util,_cust, AliasParamReflection.ANNOTATED_0_GET_DECLARED_ANONYMOUS_LAMBDA_3));
+        getReflect().getParams().setAliasAnnotated0GetDeclaredSwitchMethods0(get(_util,_cust, AliasParamReflection.ANNOTATED_0_GET_DECLARED_SWITCH_METHODS_0));
+        getReflect().getParams().setAliasAnnotated0GetDeclaredSwitchMethods1(get(_util,_cust, AliasParamReflection.ANNOTATED_0_GET_DECLARED_SWITCH_METHODS_1));
+        getReflect().getParams().setAliasAnnotated0GetDeclaredSwitchMethods2(get(_util,_cust, AliasParamReflection.ANNOTATED_0_GET_DECLARED_SWITCH_METHODS_2));
+        getReflect().getParams().setAliasAnnotated0GetDeclaredSwitchMethods3(get(_util,_cust, AliasParamReflection.ANNOTATED_0_GET_DECLARED_SWITCH_METHODS_3));
     }
 
     public StringMap<String> allPrimitives() {
@@ -2125,6 +2129,7 @@ public final class LgNamesContent {
         map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamReflection.ANNOTATED_0_GET_ANNOTATIONS_0, getReflect().getParams().getAliasAnnotated0GetAnnotations0())));
         map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamReflection.ANNOTATED_0_GET_ANNOTATIONS_PARAMETERS_0, getReflect().getParams().getAliasAnnotated0GetAnnotationsParameters0())));
         map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamReflection.ANNOTATED_0_GET_DECLARED_ANONYMOUS_LAMBDA_0, getReflect().getParams().getAliasAnnotated0GetDeclaredAnonymousLambda0()),new KeyValueMemberName(AliasParamReflection.ANNOTATED_0_GET_DECLARED_ANONYMOUS_LAMBDA_1, getReflect().getParams().getAliasAnnotated0GetDeclaredAnonymousLambda1()),new KeyValueMemberName(AliasParamReflection.ANNOTATED_0_GET_DECLARED_ANONYMOUS_LAMBDA_2, getReflect().getParams().getAliasAnnotated0GetDeclaredAnonymousLambda2()),new KeyValueMemberName(AliasParamReflection.ANNOTATED_0_GET_DECLARED_ANONYMOUS_LAMBDA_3, getReflect().getParams().getAliasAnnotated0GetDeclaredAnonymousLambda3())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamReflection.ANNOTATED_0_GET_DECLARED_SWITCH_METHODS_0, getReflect().getParams().getAliasAnnotated0GetDeclaredSwitchMethods0()),new KeyValueMemberName(AliasParamReflection.ANNOTATED_0_GET_DECLARED_SWITCH_METHODS_1, getReflect().getParams().getAliasAnnotated0GetDeclaredSwitchMethods1()),new KeyValueMemberName(AliasParamReflection.ANNOTATED_0_GET_DECLARED_SWITCH_METHODS_2, getReflect().getParams().getAliasAnnotated0GetDeclaredSwitchMethods2()),new KeyValueMemberName(AliasParamReflection.ANNOTATED_0_GET_DECLARED_SWITCH_METHODS_3, getReflect().getParams().getAliasAnnotated0GetDeclaredSwitchMethods3())));
         return map_;
     }
     public static String get(StringMap<String> _util, StringMap<String> _cust,String _key) {

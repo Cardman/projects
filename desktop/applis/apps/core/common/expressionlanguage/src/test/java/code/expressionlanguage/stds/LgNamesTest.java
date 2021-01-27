@@ -2209,6 +2209,10 @@ public class LgNamesTest extends ProcessMethodCommon {
         lgName_.getReflect().getParams().setAliasAnnotated0GetDeclaredAnonymousLambda1("");
         lgName_.getReflect().getParams().setAliasAnnotated0GetDeclaredAnonymousLambda2("");
         lgName_.getReflect().getParams().setAliasAnnotated0GetDeclaredAnonymousLambda3("");
+        lgName_.getReflect().getParams().setAliasAnnotated0GetDeclaredSwitchMethods0("");
+        lgName_.getReflect().getParams().setAliasAnnotated0GetDeclaredSwitchMethods1("");
+        lgName_.getReflect().getParams().setAliasAnnotated0GetDeclaredSwitchMethods2("");
+        lgName_.getReflect().getParams().setAliasAnnotated0GetDeclaredSwitchMethods3("");
         AnalyzedTestContext s_ = getCtx(kw_, lgName_);
         
         StringMap<String> keyWords_ = kw_.allKeyWords();

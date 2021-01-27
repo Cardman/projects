@@ -4,10 +4,12 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.StackCall;
+import code.expressionlanguage.exec.blocks.ExecAbstractSwitchMethod;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.calls.util.CustomFoundCast;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
+import code.expressionlanguage.exec.calls.util.CustomFoundSwitch;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.inherits.Parameters;
 import code.expressionlanguage.exec.opers.ExecExplicitOperation;
@@ -127,6 +129,15 @@ public abstract class AbstractRefectCommonMethodPageEl extends AbstractReflectPa
             return Argument.createVoid();
         }
         _stackCall.setCallingState(new CustomFoundCast(_paramName, _pair, parameters_));
+        return Argument.createVoid();
+    }
+
+    static Argument checkStaticCallSw(ExecRootBlock _type, ExecAbstractSwitchMethod _sw, Cache _cache, ContextEl _conf, String _paramName, ArgumentListCall _list, StackCall _stackCall) {
+        Parameters parameters_ = ExecTemplates.okArgsSetSw(_type, _sw, _paramName, _cache, _conf,true, _stackCall,_list);
+        if (parameters_.getError() != null) {
+            return Argument.createVoid();
+        }
+        _stackCall.setCallingState(new CustomFoundSwitch(Argument.createVoid(),_paramName,_type,_sw,_cache,new Argument(parameters_.getParameters().firstValue().getStruct())));
         return Argument.createVoid();
     }
     boolean initType(ContextEl _cont, boolean _direct, StackCall _stackCall){

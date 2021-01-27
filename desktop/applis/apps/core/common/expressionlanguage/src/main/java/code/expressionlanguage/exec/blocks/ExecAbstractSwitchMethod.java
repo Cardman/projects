@@ -6,14 +6,16 @@ import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.exec.stacks.SwitchBlockStack;
+import code.expressionlanguage.exec.util.CacheInfo;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.functionid.MethodModifier;
+import code.expressionlanguage.fwd.blocks.ExecAnonFctContent;
 import code.util.BooleanList;
 import code.util.CustList;
 import code.util.StringList;
 
-public abstract class ExecAbstractSwitchMethod extends ExecMemberCallingsBlock implements ExecReturnableWithSignature,ExecAnnotableParamBlock {
+public abstract class ExecAbstractSwitchMethod extends ExecMemberCallingsBlock implements ExecReturnableWithSignature,ExecAnnotableParamBlock,WithCache {
 
     private final CustList<CustList<ExecOperationNode>> annotationsOps = new CustList<CustList<ExecOperationNode>>();
 
@@ -28,14 +30,15 @@ public abstract class ExecAbstractSwitchMethod extends ExecMemberCallingsBlock i
     private ExecOperatorBlock operator;
     private final CustList<CustList<CustList<ExecOperationNode>>> annotationsOpsParams = new CustList<CustList<CustList<ExecOperationNode>>>();
     private final String retType;
-
-    public ExecAbstractSwitchMethod(boolean _retRef, String _name, MethodAccessKind _modifier, String _importedParamType, int _offsetTrim, String _retType) {
+    private final ExecAnonFctContent anonFctContent;
+    public ExecAbstractSwitchMethod(boolean _retRef, String _name, MethodAccessKind _modifier, String _importedParamType, int _offsetTrim, String _retType, ExecAnonFctContent _anonFctContent) {
         super(_offsetTrim);
         name = _name;
         retRef = _retRef;
         importedParamType = _importedParamType;
         kind = _modifier;
         retType = _retType;
+        anonFctContent = _anonFctContent;
     }
 
     @Override
@@ -47,6 +50,10 @@ public abstract class ExecAbstractSwitchMethod extends ExecMemberCallingsBlock i
         String name_ = getName();
         StringList pTypes_ = new StringList(importedParamType);
         return new MethodId(isRetRef(), kind, name_, pTypes_,new BooleanList(false), false);
+    }
+
+    public String getImportedParamType() {
+        return importedParamType;
     }
 
     public String getRetType() {
@@ -99,6 +106,9 @@ public abstract class ExecAbstractSwitchMethod extends ExecMemberCallingsBlock i
         page_.addBlock(_if);
     }
 
+    public CacheInfo getCacheInfo() {
+        return anonFctContent.getCacheInfo();
+    }
     @Override
     public CustList<CustList<CustList<ExecOperationNode>>> getAnnotationsOpsParams() {
         return annotationsOpsParams;

@@ -66,8 +66,8 @@ public final class MethodMetaInfo extends WithoutParentStruct implements Annotat
     public MethodMetaInfo(String _declaringClass, String _className, MethodId _realId, MethodModifier _modifier, String _returnType,
                           MethodId _fid, String _formDeclaringClass) {
         declaringClass = StringUtil.nullToEmpty(_declaringClass);
-        invokable = false;
-        access = AccessEnum.PRIVATE;
+        invokable = true;
+        access = AccessEnum.PUBLIC;
         className = StringUtil.nullToEmpty(_className);
         realId = _realId;
         modifier = _modifier;

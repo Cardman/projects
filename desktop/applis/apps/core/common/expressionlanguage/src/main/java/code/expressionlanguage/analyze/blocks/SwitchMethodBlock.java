@@ -94,6 +94,10 @@ public final class SwitchMethodBlock extends MemberCallingsBlock implements Anal
         this.instanceTest = _instanceTest;
     }
 
+    public AnaAnonFctContent getAnaAnonFctContent() {
+        return anaAnonFctContent;
+    }
+
     public AnaCache getCache() {
         return anaAnonFctContent.getCache();
     }

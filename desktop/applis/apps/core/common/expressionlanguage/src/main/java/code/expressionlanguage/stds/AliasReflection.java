@@ -626,6 +626,9 @@ public final class AliasReflection {
         params_ = new StringList();
         method_ = new StandardMethod(aliasGetDeclaredAnonymousLambda, params_, StringExpUtil.getPrettyArrayType(aliasMethod), false, MethodModifier.FINAL);
         methods_.add( method_);
+        params_ = new StringList(aliasString_,aliasBoolean_,aliasBoolean_, aliasClassType);
+        method_ = new StandardMethod(aliasGetDeclaredSwitchMethods, params_, StringExpUtil.getPrettyArrayType(aliasMethod), true, MethodModifier.FINAL,new StringList(params.getAliasAnnotated0GetDeclaredSwitchMethods0(),params.getAliasAnnotated0GetDeclaredSwitchMethods1(),params.getAliasAnnotated0GetDeclaredSwitchMethods2(),params.getAliasAnnotated0GetDeclaredSwitchMethods3()));
+        methods_.add( method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasGetDeclaredSwitchMethods, params_, StringExpUtil.getPrettyArrayType(aliasMethod), false, MethodModifier.FINAL);
         methods_.add( method_);
@@ -655,7 +658,7 @@ public final class AliasReflection {
             return result_;
         }
         if (StringUtil.quickEq(aliasGetDeclaredSwitchMethods_, name_)) {
-            result_.setResult(fetchSwitchMethod(_cont,annotated_));
+            result_.setResult(fetchSwitchMethod(_cont,annotated_,_args));
             return result_;
         }
         String fileName_ = annotated_.getFileName();
@@ -712,7 +715,7 @@ public final class AliasReflection {
         return getMethodsMeta(className_, candidates_);
     }
 
-    private static ArrayStruct fetchSwitchMethod(ContextEl _cont, AnnotatedStruct _annot) {
+    private static ArrayStruct fetchSwitchMethod(ContextEl _cont, AnnotatedStruct _annot, Struct... _args) {
         LgNames standards_ = _cont.getStandards();
         String aliasMethod_ = standards_.getContent().getReflect().getAliasMethod();
         CustList<MethodMetaInfo> methods_ = new CustList<MethodMetaInfo>();
@@ -731,6 +734,7 @@ public final class AliasReflection {
                     idCl_ = declaringClass_;
                 }
                 MethodMetaInfo met_ = new MethodMetaInfo(declaringClass_, idCl_, id_, f.getModifier(), ret_, fid_, formCl_);
+                met_.setCache(new Cache(f, standards_.getContent().getCoreNames().getAliasObject()));
                 met_.setCallee(f);
                 met_.pair(type_,null);
                 met_.setFileName(f.getFile().getFileName());
@@ -744,14 +748,20 @@ public final class AliasReflection {
                 String formCl_ = MetaInfoUtil.tryFormatType(idType_, declaringClass_, _cont);
                 String idCl_ = "";
                 MethodMetaInfo met_ = new MethodMetaInfo(declaringClass_, idCl_, id_, f.getModifier(), ret_, fid_, formCl_);
+                met_.setCache(new Cache(f, standards_.getContent().getCoreNames().getAliasObject()));
                 met_.setCallee(f);
                 met_.pair(null,null);
                 met_.setFileName(f.getFile().getFileName());
                 methods_.add(met_);
             }
         }
+        if (_args.length == 0) {
+            String className_= StringExpUtil.getPrettyArrayType(aliasMethod_);
+            return getMethodsMeta(className_, methods_);
+        }
+        CustList<MethodMetaInfo> candidates_ = filterMethods(_cont, methods_, declaringClass_, _args[0], _args[1], _args[2], _args[3]);
         String className_= StringExpUtil.getPrettyArrayType(aliasMethod_);
-        return getMethodsMeta(className_, methods_);
+        return getMethodsMeta(className_, candidates_);
     }
 
     public static ResultErrorStd invokeFieldInfo(ContextEl _cont, ClassMethodId _method, Struct _struct, Struct[] _args, StackCall _stackCall) {
@@ -864,6 +874,14 @@ public final class AliasReflection {
                 ExecRootBlock e_ = method_.getPair().getType();
                 if (e_ instanceof ExecAnnotationBlock) {
                     _stackCall.setCallingState(new CustomReflectMethod(ReflectingType.ANNOT_FCT, method_, new Argument(_args[0]),new Argument(_args[1]), false));
+                    return result_;
+                }
+                if (method_.getCallee() instanceof ExecAbstractSwitchMethod) {
+                    if (method_.isStaticCall()) {
+                        _stackCall.setCallingState(new CustomReflectMethod(ReflectingType.STATIC_CALL, method_, new Argument(_args[0]),new Argument(_args[1]), false));
+                        return result_;
+                    }
+                    _stackCall.setCallingState(new CustomReflectMethod(ReflectingType.DIRECT, method_, new Argument(_args[0]),new Argument(_args[1]), false));
                     return result_;
                 }
             }

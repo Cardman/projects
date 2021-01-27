@@ -10,7 +10,7 @@ import code.util.BooleanList;
 import code.util.StringList;
 import code.util.core.IndexConstants;
 
-public final class ExecAnonymousFunctionBlock extends ExecNamedFunctionBlock implements ExecReturnableWithSignature {
+public final class ExecAnonymousFunctionBlock extends ExecNamedFunctionBlock implements ExecReturnableWithSignature,WithCache {
 
     private final MethodModifier methodModifier;
     private ExecRootBlock parentType;

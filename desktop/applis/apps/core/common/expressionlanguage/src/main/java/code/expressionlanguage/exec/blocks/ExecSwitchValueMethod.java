@@ -3,15 +3,14 @@ package code.expressionlanguage.exec.blocks;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.StackCall;
-import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.stacks.SwitchBlockStack;
 import code.expressionlanguage.functionid.MethodAccessKind;
-import code.util.CustList;
+import code.expressionlanguage.fwd.blocks.ExecAnonFctContent;
 
 public final class ExecSwitchValueMethod extends ExecAbstractSwitchMethod {
 
-    public ExecSwitchValueMethod(boolean _retRef, String _name, MethodAccessKind _modifier, String _importedParamType, int _offsetTrim, String _retType) {
-        super(_retRef, _name, _modifier, _importedParamType, _offsetTrim, _retType);
+    public ExecSwitchValueMethod(boolean _retRef, String _name, MethodAccessKind _modifier, String _importedParamType, int _offsetTrim, String _retType, ExecAnonFctContent _anonFctContent) {
+        super(_retRef, _name, _modifier, _importedParamType, _offsetTrim, _retType, _anonFctContent);
     }
 
     @Override

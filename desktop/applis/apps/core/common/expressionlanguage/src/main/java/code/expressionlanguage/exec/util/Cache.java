@@ -3,8 +3,8 @@ package code.expressionlanguage.exec.util;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.StackCall;
-import code.expressionlanguage.exec.blocks.ExecAnonymousFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
+import code.expressionlanguage.exec.blocks.WithCache;
 import code.expressionlanguage.exec.calls.PageEl;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.variables.*;
@@ -25,7 +25,7 @@ public final class Cache {
 
     public Cache() {
     }
-    public Cache(ExecAnonymousFunctionBlock _fct, String _aliasObject) {
+    public Cache(WithCache _fct, String _aliasObject) {
         reflection = true;
         for (NameAndType v: _fct.getCacheInfo().getCacheLocalNames()) {
             addLocalWrapper(v.getName(),new VariableWrapper(LocalVariable.newLocalVariable(NullStruct.NULL_VALUE,_aliasObject)));

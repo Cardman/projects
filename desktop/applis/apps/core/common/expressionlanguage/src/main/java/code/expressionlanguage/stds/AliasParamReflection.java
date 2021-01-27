@@ -70,6 +70,10 @@ public final class AliasParamReflection {
     public static final String ANNOTATED_0_GET_DECLARED_ANONYMOUS_LAMBDA_1="Annotated0GetDeclaredAnonymousLambda1";
     public static final String ANNOTATED_0_GET_DECLARED_ANONYMOUS_LAMBDA_2="Annotated0GetDeclaredAnonymousLambda2";
     public static final String ANNOTATED_0_GET_DECLARED_ANONYMOUS_LAMBDA_3="Annotated0GetDeclaredAnonymousLambda3";
+    public static final String ANNOTATED_0_GET_DECLARED_SWITCH_METHODS_0="Annotated0GetDeclaredSwitchMethods0";
+    public static final String ANNOTATED_0_GET_DECLARED_SWITCH_METHODS_1="Annotated0GetDeclaredSwitchMethods1";
+    public static final String ANNOTATED_0_GET_DECLARED_SWITCH_METHODS_2="Annotated0GetDeclaredSwitchMethods2";
+    public static final String ANNOTATED_0_GET_DECLARED_SWITCH_METHODS_3="Annotated0GetDeclaredSwitchMethods3";
 
     private String aliasFct0Call0="a";
     private String aliasClassType0GetClass0="a";
@@ -140,6 +144,10 @@ public final class AliasParamReflection {
     private String aliasAnnotated0GetDeclaredAnonymousLambda1="b";
     private String aliasAnnotated0GetDeclaredAnonymousLambda2="c";
     private String aliasAnnotated0GetDeclaredAnonymousLambda3="d";
+    private String aliasAnnotated0GetDeclaredSwitchMethods0="a";
+    private String aliasAnnotated0GetDeclaredSwitchMethods1="b";
+    private String aliasAnnotated0GetDeclaredSwitchMethods2="c";
+    private String aliasAnnotated0GetDeclaredSwitchMethods3="d";
 
     public String getAliasFct0Call0() {
         return aliasFct0Call0;
@@ -691,5 +699,37 @@ public final class AliasParamReflection {
 
     public void setAliasAnnotated0GetDeclaredAnonymousLambda3(String _v) {
         this.aliasAnnotated0GetDeclaredAnonymousLambda3 =_v;
+    }
+
+    public String getAliasAnnotated0GetDeclaredSwitchMethods0() {
+        return aliasAnnotated0GetDeclaredSwitchMethods0;
+    }
+
+    public void setAliasAnnotated0GetDeclaredSwitchMethods0(String _v) {
+        this.aliasAnnotated0GetDeclaredSwitchMethods0 = _v;
+    }
+
+    public String getAliasAnnotated0GetDeclaredSwitchMethods1() {
+        return aliasAnnotated0GetDeclaredSwitchMethods1;
+    }
+
+    public void setAliasAnnotated0GetDeclaredSwitchMethods1(String _v) {
+        this.aliasAnnotated0GetDeclaredSwitchMethods1 = _v;
+    }
+
+    public String getAliasAnnotated0GetDeclaredSwitchMethods2() {
+        return aliasAnnotated0GetDeclaredSwitchMethods2;
+    }
+
+    public void setAliasAnnotated0GetDeclaredSwitchMethods2(String _v) {
+        this.aliasAnnotated0GetDeclaredSwitchMethods2 = _v;
+    }
+
+    public String getAliasAnnotated0GetDeclaredSwitchMethods3() {
+        return aliasAnnotated0GetDeclaredSwitchMethods3;
+    }
+
+    public void setAliasAnnotated0GetDeclaredSwitchMethods3(String _v) {
+        this.aliasAnnotated0GetDeclaredSwitchMethods3 = _v;
     }
 }

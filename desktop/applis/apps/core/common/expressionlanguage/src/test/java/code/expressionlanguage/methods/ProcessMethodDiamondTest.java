@@ -589,5 +589,51 @@ public final class ProcessMethodDiamondTest extends ProcessMethodCommon {
         assertEq(2, getNumber(ret_));
     }
 
+    @Test
+    public void test20() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex<U> {\n");
+        xml_.append(" public static int exmeth(){\n");
+        xml_.append("  return exmeth(new From<>(2));\n");
+        xml_.append(" }\n");
+        xml_.append(" public static int exmeth(To<int> t){\n");
+        xml_.append("  return t.f;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.From<S>:FromSup<S> {\n");
+        xml_.append(" public From(S p){\n");
+        xml_.append("  super(p);\n");
+        xml_.append(" }\n");
+        xml_.append(" public static ToSub<S> $(From<S> p){\n");
+        xml_.append("  return new(p.f);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.FromSup<S2> {\n");
+        xml_.append(" public S2 f;\n");
+        xml_.append(" public FromSup(S2 p){\n");
+        xml_.append("  f = p;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.To<T> {\n");
+        xml_.append(" public T f;\n");
+        xml_.append(" public To(T p){\n");
+        xml_.append("  f = p;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.ToSub<T2>:To<T2> {\n");
+        xml_.append(" public ToSub(T2 p){\n");
+        xml_.append("  super(p);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxLgOk("en", files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(2, getNumber(ret_));
+    }
+
 
 }
