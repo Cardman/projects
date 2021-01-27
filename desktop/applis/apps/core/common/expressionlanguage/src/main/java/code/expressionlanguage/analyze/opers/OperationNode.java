@@ -2773,6 +2773,10 @@ public abstract class OperationNode {
             for (CustList<MethodInfo> l: named_) {
                 CustList<MethodInfo> m_ = new CustList<MethodInfo>();
                 for (MethodInfo e: l) {
+                    if (e.getConstraints().getKind() == MethodAccessKind.STATIC) {
+                        m_.add(e);
+                        continue;
+                    }
                     CustList<OperationNode> allOps_ = e.getAllOps();
                     CustList<AnaClassArgumentMatching> args_ = new CustList<AnaClassArgumentMatching>();
                     for (OperationNode o: allOps_) {

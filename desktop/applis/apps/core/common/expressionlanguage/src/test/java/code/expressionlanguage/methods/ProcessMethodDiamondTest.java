@@ -562,5 +562,32 @@ public final class ProcessMethodDiamondTest extends ProcessMethodCommon {
         assertEq(2, getNumber(ret_));
     }
 
+    @Test
+    public void test19() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static int exmeth(){\n");
+        xml_.append("  return staticCall(ExParam<>).inst(2).f;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.ExParam<T> {\n");
+        xml_.append(" public T f;\n");
+        xml_.append(" public ExParam(T p){\n");
+        xml_.append("  f = p;\n");
+        xml_.append(" }\n");
+        xml_.append(" public static ExParam<int> inst(int p){\n");
+        xml_.append("  return new(p);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxLgOk("en", files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(2, getNumber(ret_));
+    }
+
 
 }
