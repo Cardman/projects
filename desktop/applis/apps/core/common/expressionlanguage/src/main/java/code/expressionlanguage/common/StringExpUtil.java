@@ -357,6 +357,45 @@ public final class StringExpUtil {
         }
         _str.append(value_);
     }
+
+    public static String getQuickFormattedTypeKeep(String _type, StringMap<String> _varTypes) {
+        StringBuilder str_ = new StringBuilder();
+        int len_ = _type.length();
+        int diese_ = 0;
+        boolean var_ = false;
+        for (int i = 0; i < len_; i++) {
+            char ch_ = _type.charAt(i);
+            if (ch_ == PREFIX_VAR_TYPE_CHAR) {
+                var_ = true;
+                diese_ = i;
+                continue;
+            }
+            if (!var_) {
+                str_.append(ch_);
+                continue;
+            }
+            if (isDollarWordChar(ch_)) {
+                continue;
+            }
+            quickReplaceTypeKeep(str_,_type,_varTypes,diese_,i);
+            str_.append(ch_);
+            var_ = false;
+        }
+        if (var_) {
+            quickReplaceTypeKeep(str_,_type,_varTypes,diese_,len_);
+        }
+        return str_.toString();
+    }
+    private static void quickReplaceTypeKeep(StringBuilder _str, String _type, StringMap<String> _varTypes, int _diese, int _max) {
+        String sub_ = _type.substring(_diese+1, _max);
+        String value_ = _varTypes.getVal(sub_);
+        if (value_ == null) {
+            _str.append('#');
+            _str.append(sub_);
+            return;
+        }
+        _str.append(value_);
+    }
     public static String getFormattedType(String _type, StringMap<String> _varTypes) {
         if (_varTypes.isEmpty()) {
             return _type;

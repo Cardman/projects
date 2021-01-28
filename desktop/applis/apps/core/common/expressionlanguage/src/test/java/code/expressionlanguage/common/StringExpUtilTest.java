@@ -5,6 +5,7 @@ import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.methods.ProcessMethodCommon;
 import code.util.Ints;
 import code.util.StringList;
+import code.util.StringMap;
 import org.junit.Test;
 
 import static code.expressionlanguage.EquallableElUtil.assertEq;
@@ -87,6 +88,78 @@ public final class StringExpUtilTest extends ProcessMethodCommon {
     @Test
     public void getAllTypes19Test(){
         assertEq(new StringList("Map","Map<[String..Character,Rate>","Number"), StringExpUtil.getAllTypes("Map<Map<[String..Character,Rate>,Number>"));
+    }
+
+    @Test
+    public void getQuickFormattedType1() {
+        StringMap<String> varTypes_ = new StringMap<String>();
+        varTypes_.addEntry("K","V");
+        assertEq("V",StringExpUtil.getQuickFormattedTypeKeep("#K",varTypes_));
+    }
+
+    @Test
+    public void getQuickFormattedType2() {
+        StringMap<String> varTypes_ = new StringMap<String>();
+        varTypes_.addEntry("K","V");
+        assertEq("#K2",StringExpUtil.getQuickFormattedTypeKeep("#K2",varTypes_));
+    }
+
+    @Test
+    public void getQuickFormattedType3() {
+        StringMap<String> varTypes_ = new StringMap<String>();
+        varTypes_.addEntry("K2","V");
+        assertEq("#K",StringExpUtil.getQuickFormattedTypeKeep("#K",varTypes_));
+    }
+
+    @Test
+    public void getQuickFormattedType4() {
+        StringMap<String> varTypes_ = new StringMap<String>();
+        varTypes_.addEntry("K2","V");
+        assertEq("V",StringExpUtil.getQuickFormattedTypeKeep("#K2",varTypes_));
+    }
+
+    @Test
+    public void getQuickFormattedType5() {
+        StringMap<String> varTypes_ = new StringMap<String>();
+        varTypes_.addEntry("K","V");
+        assertEq("T<V>",StringExpUtil.getQuickFormattedTypeKeep("T<#K>",varTypes_));
+    }
+
+    @Test
+    public void getQuickFormattedType6() {
+        StringMap<String> varTypes_ = new StringMap<String>();
+        varTypes_.addEntry("K","V");
+        assertEq("T<#K2>",StringExpUtil.getQuickFormattedTypeKeep("T<#K2>",varTypes_));
+    }
+
+    @Test
+    public void getQuickFormattedType7() {
+        StringMap<String> varTypes_ = new StringMap<String>();
+        varTypes_.addEntry("K2","V");
+        assertEq("T<#K>",StringExpUtil.getQuickFormattedTypeKeep("T<#K>",varTypes_));
+    }
+
+    @Test
+    public void getQuickFormattedType8() {
+        StringMap<String> varTypes_ = new StringMap<String>();
+        varTypes_.addEntry("K2","V");
+        assertEq("T<V>",StringExpUtil.getQuickFormattedTypeKeep("T<#K2>",varTypes_));
+    }
+
+    @Test
+    public void getQuickFormattedType9() {
+        StringMap<String> varTypes_ = new StringMap<String>();
+        varTypes_.addEntry("K","V");
+        varTypes_.addEntry("K2","W");
+        assertEq("T<V,W>",StringExpUtil.getQuickFormattedTypeKeep("T<#K,#K2>",varTypes_));
+    }
+
+    @Test
+    public void getQuickFormattedType10() {
+        StringMap<String> varTypes_ = new StringMap<String>();
+        varTypes_.addEntry("K","V");
+        varTypes_.addEntry("K2","W");
+        assertEq("T<W,V>",StringExpUtil.getQuickFormattedTypeKeep("T<#K2,#K>",varTypes_));
     }
 
     @Test

@@ -1208,12 +1208,15 @@ public final class AnaTemplates {
                         for (Matching n: m_.getPairsArgParam()) {
                             String baseArrayParamNext_ = StringExpUtil.getQuickComponentBase(n.getParam());
                             String baseArrayArgNext_ = StringExpUtil.getQuickComponentBase(n.getArg());
+                            if (StringUtil.quickEq(n.getParam(), n.getArg())) {
+                                continue;
+                            }
                             if (tryGetUnknownVar(baseArrayParamNext_) >= 0 || tryGetUnknownVar(baseArrayArgNext_) >= 0) {
                                 continue;
                             }
                             if (n.getMatchEq() == MatchingEnum.EQ) {
-                                StringList foundArgTypes_ = StringExpUtil.getAllTypes(baseArrayParamNext_);
-                                StringList foundParamTypes_ = StringExpUtil.getAllTypes(baseArrayArgNext_);
+                                StringList foundArgTypes_ = StringExpUtil.getAllTypes(n.getArg());
+                                StringList foundParamTypes_ = StringExpUtil.getAllTypes(n.getParam());
                                 int len_ = foundArgTypes_.size();
                                 if (foundParamTypes_.size() != len_) {
                                     okTree_ = false;
@@ -1229,14 +1232,8 @@ public final class AnaTemplates {
                                     new_.add(n);
                                     continue;
                                 }
-                                if (!StringUtil.quickEq(n.getParam(), n.getArg())) {
-                                    okTree_ = false;
-                                    break;
-                                }
-                                continue;
-                            }
-                            if (StringUtil.quickEq(n.getParam(), n.getArg())) {
-                                continue;
+                                okTree_ = false;
+                                break;
                             }
                             Matching n_ = new Matching();
                             if (n.getMatchEq() == MatchingEnum.SUB) {
@@ -1428,13 +1425,10 @@ public final class AnaTemplates {
                         if (other_.getMatchEq() != MatchingEnum.EQ) {
                             continue;
                         }
-                        if (StringUtil.quickEq(resVar_, other_.getParam())) {
-                            other_.setParam(value_);
-                            continue;
-                        }
-                        if (StringUtil.quickEq(resVar_, other_.getArg())) {
-                            other_.setArg(value_);
-                        }
+                        StringMap<String> varTypes_ = new StringMap<String>();
+                        varTypes_.addEntry(Integer.toString(k),value_);
+                        other_.setParam(StringExpUtil.getQuickFormattedTypeKeep(other_.getParam(), varTypes_));
+                        other_.setArg(StringExpUtil.getQuickFormattedTypeKeep(other_.getArg(), varTypes_));
                     }
                     continue;
                 }
@@ -1447,13 +1441,10 @@ public final class AnaTemplates {
                         if (other_.getMatchEq() != MatchingEnum.EQ) {
                             continue;
                         }
-                        if (StringUtil.quickEq(value_,other_.getParam())) {
-                            other_.setParam(resVar_);
-                            continue;
-                        }
-                        if (StringUtil.quickEq(value_,other_.getArg())) {
-                            other_.setArg(resVar_);
-                        }
+                        StringMap<String> varTypes_ = new StringMap<String>();
+                        varTypes_.addEntry(Integer.toString(k),resVar_);
+                        other_.setParam(StringExpUtil.getQuickFormattedTypeKeep(other_.getParam(), varTypes_));
+                        other_.setArg(StringExpUtil.getQuickFormattedTypeKeep(other_.getArg(), varTypes_));
                     }
                 }
             }
@@ -1583,6 +1574,9 @@ public final class AnaTemplates {
                             continue;
                         }
                         for (Matching n: m_.getPairsArgParam()) {
+                            if (StringUtil.quickEq(n.getParam(), n.getArg())) {
+                                continue;
+                            }
                             String baseArrayParamNext_ = StringExpUtil.getQuickComponentBase(n.getParam());
                             String baseArrayArgNext_ = StringExpUtil.getQuickComponentBase(n.getArg());
                             if (tryGetUnknownVar(baseArrayParamNext_) >= 0 || tryGetUnknownVar(baseArrayArgNext_) >= 0) {
@@ -1590,8 +1584,8 @@ public final class AnaTemplates {
                                 continue;
                             }
                             if (n.getMatchEq() == MatchingEnum.EQ) {
-                                StringList foundArgTypes_ = StringExpUtil.getAllTypes(baseArrayParamNext_);
-                                StringList foundParamTypes_ = StringExpUtil.getAllTypes(baseArrayArgNext_);
+                                StringList foundArgTypes_ = StringExpUtil.getAllTypes(n.getArg());
+                                StringList foundParamTypes_ = StringExpUtil.getAllTypes(n.getParam());
                                 int len_ = foundArgTypes_.size();
                                 if (foundParamTypes_.size() != len_) {
                                     continue;
@@ -1599,13 +1593,7 @@ public final class AnaTemplates {
                                 if (!StringUtil.quickEq(foundArgTypes_.first(),foundParamTypes_.first())) {
                                     continue;
                                 }
-                                if (len_ > 1) {
-                                    new_.add(n);
-                                    continue;
-                                }
-                                continue;
-                            }
-                            if (StringUtil.quickEq(n.getParam(), n.getArg())) {
+                                new_.add(n);
                                 continue;
                             }
                             Matching n_ = new Matching();
