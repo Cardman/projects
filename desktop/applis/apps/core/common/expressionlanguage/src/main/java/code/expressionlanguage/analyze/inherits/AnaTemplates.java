@@ -5,12 +5,14 @@ import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.AnnotationBlock;
 import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.expressionlanguage.analyze.opers.OperationNode;
+import code.expressionlanguage.analyze.opers.util.ConstrustorIdVarArg;
 import code.expressionlanguage.analyze.opers.util.VarsComparer;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.analyze.util.*;
 import code.expressionlanguage.common.*;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
+import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.inherits.*;
 
@@ -43,6 +45,48 @@ public final class AnaTemplates {
     private AnaTemplates() {
     }
 
+    public static CustList<ConstrustorIdVarArg> reduceCtors(CustList<ConstrustorIdVarArg> _ls) {
+        CustList<ConstrustorIdVarArg> ls_ = new CustList<ConstrustorIdVarArg>();
+        for (ConstrustorIdVarArg c: _ls) {
+            if (!containsResCtor(ls_,c)) {
+                ls_.add(c);
+            }
+        }
+        return ls_;
+    }
+    public static boolean containsResCtor(CustList<ConstrustorIdVarArg> _ls, ConstrustorIdVarArg _res) {
+        for (ConstrustorIdVarArg c: _ls) {
+            if (!c.getRealId().eq(_res.getRealId())) {
+                continue;
+            }
+            return true;
+        }
+        return false;
+    }
+
+    public static CustList<ClassMethodIdReturn> reduceMethods(CustList<ClassMethodIdReturn> _ls) {
+        CustList<ClassMethodIdReturn> ls_ = new CustList<ClassMethodIdReturn>();
+        for (ClassMethodIdReturn c: _ls) {
+            if (!containsResMethod(ls_,c)) {
+                ls_.add(c);
+            }
+        }
+        return ls_;
+    }
+    public static boolean containsResMethod(CustList<ClassMethodIdReturn> _ls, ClassMethodIdReturn _res) {
+        ClassMethodId input_ = new ClassMethodId(_res.getRealClass(),_res.getRealId());
+        for (ClassMethodIdReturn c: _ls) {
+            if (c.getAncestor() != _res.getAncestor()) {
+                continue;
+            }
+            ClassMethodId cur_ = new ClassMethodId(c.getRealClass(),c.getRealId());
+            if (!cur_.eq(input_)) {
+                continue;
+            }
+            return true;
+        }
+        return false;
+    }
     public static ResultTernary getResultTernary(StringList _first, Argument _firstArg,
                                                  StringList _second, Argument _secondArg,
                                                  StringMap<StringList> _vars,

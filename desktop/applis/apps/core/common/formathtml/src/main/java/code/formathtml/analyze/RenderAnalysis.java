@@ -4,10 +4,9 @@ import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.AnonymousResult;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.instr.ElResolver;
+import code.expressionlanguage.analyze.instr.ElUtil;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.analyze.opers.*;
-import code.expressionlanguage.analyze.reach.opers.ReachMethodOperation;
-import code.expressionlanguage.analyze.reach.opers.ReachOperationUtil;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.common.ConstType;
@@ -118,6 +117,7 @@ public final class RenderAnalysis {
                 if (par_ instanceof AbstractDotOperation) {
                     if (next_ instanceof PossibleIntermediateDotted) {
                         PossibleIntermediateDotted possible_ = (PossibleIntermediateDotted) next_;
+                        ElUtil.check(current_, possible_, _page);
                         MethodAccessKind static_ = MethodId.getKind(current_ instanceof StaticAccessOperation);
                         possible_.setIntermediateDotted();
                         possible_.setPreviousResultClass(current_.getResultClass(), static_);

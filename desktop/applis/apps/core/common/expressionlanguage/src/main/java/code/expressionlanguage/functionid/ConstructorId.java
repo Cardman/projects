@@ -45,6 +45,11 @@ public final class ConstructorId implements Identifiable {
             refParams.add(s);
         }
     }
+
+    public static MethodId to(ConstructorId _id) {
+        return new MethodId(false, MethodAccessKind.INSTANCE, _id.name, _id.classNames,_id.refParams, _id.vararg);
+    }
+
     public static ConstructorId to(String _access, StringList _params,ConstructorId _id) {
         return new ConstructorId(_access,_params,_id.refParams, _id.vararg);
     }

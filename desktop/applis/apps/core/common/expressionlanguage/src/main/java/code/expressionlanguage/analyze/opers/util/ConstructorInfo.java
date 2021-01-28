@@ -5,9 +5,12 @@ import code.expressionlanguage.analyze.blocks.NamedFunctionBlock;
 import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.analyze.opers.OperationNode;
+import code.expressionlanguage.common.AnaGeneType;
+import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.functionid.ConstructorId;
 import code.expressionlanguage.functionid.Identifiable;
 import code.expressionlanguage.functionid.IdentifiableUtil;
+import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.stds.StandardType;
 import code.util.CustList;
 import code.util.Ints;
@@ -25,15 +28,17 @@ public final class ConstructorInfo implements Parametrable {
 
     private boolean varArgWrap;
     private InvocationMethod invocation;
-    private MemberId memberId = new MemberId();
+    private final MemberId memberId = new MemberId();
 
     private StandardType standardType;
     private String fileName = "";
-    private CustList<CustList<ImplicitInfos>> implicits = new CustList<CustList<ImplicitInfos>>();
+    private final CustList<CustList<ImplicitInfos>> implicits = new CustList<CustList<ImplicitInfos>>();
     private StringList parametersNames = new StringList();
     private NamedFunctionBlock customCtor;
-    private Ints nameParametersFilterIndexes = new Ints();
+    private final Ints nameParametersFilterIndexes = new Ints();
     private final CustList<OperationNode> allOps = new CustList<OperationNode>();
+    private String stCall = "";
+
     public ConstructorId getConstraints() {
         return constraints;
     }
@@ -100,6 +105,28 @@ public final class ConstructorInfo implements Parametrable {
     }
 
     public void format(AnalyzedPageEl _page) {
+        if (!stCall.isEmpty()) {
+            StringList params_ = new StringList();
+            for (String p: constraints.getParametersTypes()) {
+                if (p.contains("#")) {
+                    params_.add("");
+                } else {
+                    params_.add(p);
+                }
+            }
+            formatted = ConstructorId.to(className, params_, constraints);
+            return;
+        }
+        StringList params_ = new StringList();
+        for (String p: constraints.getParametersTypes()) {
+            params_.add(AnaTemplates.wildCardFormatParam(className,p, _page));
+        }
+        formatted = ConstructorId.to(className, params_, constraints);
+    }
+
+    public void reformat(String _foundType,AnalyzedPageEl _page) {
+        AnaGeneType type_ = _page.getAnaGeneType(StringExpUtil.getIdFromAllTypes(_foundType));
+        className = AnaTemplates.getOverridingFullTypeByBases(type_,_foundType,className,_page);
         StringList params_ = new StringList();
         for (String p: constraints.getParametersTypes()) {
             params_.add(AnaTemplates.wildCardFormatParam(className,p, _page));
@@ -180,5 +207,9 @@ public final class ConstructorInfo implements Parametrable {
 
     public CustList<OperationNode> getAllOps() {
         return allOps;
+    }
+
+    public void setStCall(String _stCall) {
+        this.stCall = _stCall;
     }
 }

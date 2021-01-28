@@ -65,27 +65,7 @@ public final class StaticCallAccessOperation extends LeafOperation {
             classStr_ = glClass_;
             partOffsets = new CustList<PartOffset>();
         }
-        if (classStr_.startsWith(AnaTemplates.PREFIX_VAR_TYPE)) {
-            FoundErrorInterpret badAccess_ = new FoundErrorInterpret();
-            badAccess_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
-            badAccess_.setFileName(_page.getLocalizer().getCurrentFileName());
-            //type len
-            badAccess_.buildError(_page.getAnalysisMessages().getUnexpectedType(),
-                    classStr_);
-            _page.getLocalizer().addError(badAccess_);
-            addErr(badAccess_.getBuiltError());
-        }
         if (classStr_.startsWith(AnaTemplates.ARR_BEG_STRING)) {
-            FoundErrorInterpret badAccess_ = new FoundErrorInterpret();
-            badAccess_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
-            badAccess_.setFileName(_page.getLocalizer().getCurrentFileName());
-            //type len
-            badAccess_.buildError(_page.getAnalysisMessages().getUnexpectedType(),
-                    classStr_);
-            _page.getLocalizer().addError(badAccess_);
-            addErr(badAccess_.getBuiltError());
-        }
-        if (stCall.isEmpty()&&StringExpUtil.isWildCard(classStr_)) {
             FoundErrorInterpret badAccess_ = new FoundErrorInterpret();
             badAccess_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
             badAccess_.setFileName(_page.getLocalizer().getCurrentFileName());
@@ -101,6 +81,29 @@ public final class StaticCallAccessOperation extends LeafOperation {
         setResultClass(new AnaClassArgumentMatching(classStr_));
     }
 
+    public void check(AnalyzedPageEl _page) {
+        String type_ = getResultClass().getSingleNameOrEmpty();
+        if (type_.startsWith(AnaTemplates.PREFIX_VAR_TYPE)) {
+            FoundErrorInterpret badAccess_ = new FoundErrorInterpret();
+            badAccess_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+            badAccess_.setFileName(_page.getLocalizer().getCurrentFileName());
+            //type len
+            badAccess_.buildError(_page.getAnalysisMessages().getUnexpectedType(),
+                    type_);
+            _page.getLocalizer().addError(badAccess_);
+            addErr(badAccess_.getBuiltError());
+        }
+        if (stCall.isEmpty()&&StringExpUtil.isWildCard(type_)) {
+            FoundErrorInterpret badAccess_ = new FoundErrorInterpret();
+            badAccess_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+            badAccess_.setFileName(_page.getLocalizer().getCurrentFileName());
+            //type len
+            badAccess_.buildError(_page.getAnalysisMessages().getUnexpectedType(),
+                    type_);
+            _page.getLocalizer().addError(badAccess_);
+            addErr(badAccess_.getBuiltError());
+        }
+    }
     public boolean isImplicit() {
         return implicit;
     }

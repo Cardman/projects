@@ -75,6 +75,355 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         StringList args_ = StringExpUtil.getAllSepCommaTypes(extr_);
         int len_ = args_.size();
         if (len_ < 2) {
+            MethodOperation parent_ = getParent();
+            if (parent_ instanceof DotOperation && getIndexChild() > 0 && !(parent_.getFirstChild() instanceof StaticAccessOperation)) {
+                KeyWords keyWords_ = _page.getKeyWords();
+                String new_ = keyWords_.getKeyWordNew();
+                OperationNode o_ = parent_.getFirstChild();
+                ParentInferring par_ = ParentInferring.getParentInferring(parent_);
+                OperationNode m_ = par_.getOperation();
+                int nbParentsInfer_ = par_.getNbParentsInfer();
+                String typeAff_;
+                Block cur_ = _page.getCurrentBlock();
+                if (m_ == null &&cur_ instanceof ReturnMethod) {
+                    typeAff_ = InvokingOperation.tryGetRetType(_page);
+                } else {
+                    typeAff_ = InvokingOperation.tryGetTypeAff(m_, 1);
+                }
+                String keyWordVar_ = _page.getKeyWords().getKeyWordVar();
+                String foundType_ = EMPTY_STRING;
+                if (!InvokingOperation.isUndefined(typeAff_, keyWordVar_)) {
+                    String cp_ = StringExpUtil.getQuickComponentType(typeAff_, nbParentsInfer_);
+                    if (!InvokingOperation.isNotCorrectDim(cp_)){
+                        foundType_ = cp_;
+                    }
+                }
+                String type_ = _page.getAliasFct();
+                StringMap<String> vars_ = new StringMap<String>();
+                StringBuilder pattern_ = new StringBuilder(type_);
+                StringList candidates_ = new StringList();
+                if (!foundType_.isEmpty()) {
+                    Mapping mapping_ = new Mapping();
+                    mapping_.setMapping(_page.getCurrentConstraints().getCurrentConstraints());
+                    mapping_.setParam(pattern_.toString());
+                    mapping_.setArg(foundType_);
+                    if (AnaTemplates.isCorrectOrNumbers(mapping_, _page)) {
+                        candidates_.add(foundType_);
+                    }
+                }
+                boolean list_ = false;
+                if (m_ instanceof ArgumentListInstancing){
+                    list_ = true;
+                    m_ = m_.getParent().getParent();
+                }
+                if (m_ instanceof NamedArgumentOperation){
+                    NamedArgumentOperation n_ = (NamedArgumentOperation) m_;
+                    String name_ = n_.getName();
+                    MethodOperation call_ = n_.getParent();
+                    if (call_ instanceof RetrieveMethod) {
+                        RetrieveMethod f_ = (RetrieveMethod) call_;
+                        NameParametersFilter filter_ = InvokingOperation.buildQuickFilter(call_);
+                        CustList<CustList<MethodInfo>> methodInfos_ = f_.getMethodInfos();
+                        int lenMet_ = methodInfos_.size();
+                        for (int i = 0; i < lenMet_; i++) {
+                            int gr_ = methodInfos_.get(i).size();
+                            CustList<MethodInfo> newList_ = new CustList<MethodInfo>();
+                            for (int j = 0; j < gr_; j++) {
+                                MethodInfo methodInfo_ = methodInfos_.get(i).get(j);
+                                if (InvokingOperation.isValidNameIndex(filter_,methodInfo_,name_)) {
+                                    newList_.add(methodInfo_);
+                                }
+                                String format_ = InvokingOperation.tryParamFormat(filter_,methodInfo_, name_, nbParentsInfer_, type_, vars_, _page);
+                                if (format_ == null) {
+                                    continue;
+                                }
+                                candidates_.add(format_);
+                            }
+                            methodInfos_.set(i,newList_);
+                        }
+                    }
+                    if (call_ instanceof RetrieveConstructor) {
+                        RetrieveConstructor f_ = (RetrieveConstructor) call_;
+                        NameParametersFilter filter_ = InvokingOperation.buildQuickFilter(call_);
+                        CustList<ConstructorInfo> methodInfos_ = f_.getCtors();
+                        int lenMet_ = methodInfos_.size();
+                        CustList<ConstructorInfo> newList_ = new CustList<ConstructorInfo>();
+                        for (int i = 0; i < lenMet_; i++) {
+                            ConstructorInfo methodInfo_ = methodInfos_.get(i);
+                            if (InvokingOperation.isValidNameIndex(filter_,methodInfo_,name_)) {
+                                newList_.add(methodInfo_);
+                            }
+                            String format_ = InvokingOperation.tryParamFormat(filter_,methodInfo_, name_, nbParentsInfer_, type_, vars_, _page);
+                            if (format_ == null) {
+                                continue;
+                            }
+                            candidates_.add(format_);
+                        }
+                        methodInfos_.clear();
+                        methodInfos_.addAllElts(newList_);
+                    }
+                }
+                if (m_ instanceof RetrieveMethod){
+                    RetrieveMethod f_ = (RetrieveMethod) m_;
+                    OperationNode firstChild_ = f_.getFirstChild();
+                    int deltaCount_ = InvokingOperation.getDeltaCount(list_,firstChild_);
+                    int indexChild_ = par_.getOperationChild().getIndexChild()-deltaCount_;
+                    CustList<CustList<MethodInfo>> methodInfos_ = f_.getMethodInfos();
+                    int lenMet_ = methodInfos_.size();
+                    for (int i = 0; i < lenMet_; i++) {
+                        int gr_ = methodInfos_.get(i).size();
+                        for (int j = 0; j < gr_; j++) {
+                            MethodInfo methodInfo_ = methodInfos_.get(i).get(j);
+                            String format_ = InvokingOperation.tryFormat(methodInfo_, indexChild_, nbParentsInfer_, type_, vars_, _page);
+                            if (format_ == null) {
+                                continue;
+                            }
+                            candidates_.add(format_);
+                        }
+                    }
+                }
+                if (m_ instanceof RetrieveConstructor){
+                    RetrieveConstructor f_ = (RetrieveConstructor) m_;
+                    OperationNode firstChild_ = f_.getFirstChild();
+                    int deltaCount_ = InvokingOperation.getDeltaCount(list_,firstChild_);
+                    int indexChild_ = par_.getOperationChild().getIndexChild()-deltaCount_;
+                    CustList<ConstructorInfo> methodInfos_ = f_.getCtors();
+                    int lenMet_ = methodInfos_.size();
+                    for (int i = 0; i < lenMet_; i++) {
+                        ConstructorInfo methodInfo_ = methodInfos_.get(i);
+                        String format_ = InvokingOperation.tryFormat(methodInfo_, indexChild_, nbParentsInfer_, type_, vars_, _page);
+                        if (format_ == null) {
+                            continue;
+                        }
+                        candidates_.add(format_);
+                    }
+                }
+                StringList bounds_ = new StringList();
+                for (String c: previousResultClass.getNames()) {
+                    bounds_.addAllElts(InvokingOperation.getBounds(c, _page));
+                }
+                if (o_ instanceof StaticCallAccessOperation) {
+                    StaticCallAccessOperation stCall_ = (StaticCallAccessOperation) o_;
+                    if (StringUtil.quickEq("<>",stCall_.getStCall())) {
+                        FoundErrorInterpret badCall_ = new FoundErrorInterpret();
+                        badCall_.setFileName(_page.getLocalizer().getCurrentFileName());
+                        badCall_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+                        //last parenthesis
+                        badCall_.buildError(_page.getAnalysisMessages().getSplitComa(),
+                                Long.toString(2),
+                                Long.toString(len_)
+                        );
+                        _page.getLocalizer().addError(badCall_);
+                        int i_ = _page.getLocalizer().getCurrentLocationIndex()+className.lastIndexOf(')');
+                        partOffsetsEnd.add(new PartOffset("<a title=\""+LinkageUtil.transform(badCall_.getBuiltError()) +"\" class=\"e\">",i_));
+                        partOffsetsEnd.add(new PartOffset("</a>",i_+1));
+                        setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
+                        return;
+                    }
+                    if (StringUtil.quickEq(args_.first().trim(),new_)) {
+                        String prev_ = previousResultClass.getSingleNameOrEmpty();
+                        String id_ = StringExpUtil.getIdFromAllTypes(prev_);
+                        AnaGeneType h_ = _page.getAnaGeneType(id_);
+                        if (noDefCtor(h_)) {
+                            FoundErrorInterpret badCall_ = new FoundErrorInterpret();
+                            badCall_.setFileName(_page.getLocalizer().getCurrentFileName());
+                            badCall_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+                            //last parenthesis
+                            badCall_.buildError(_page.getAnalysisMessages().getSplitComa(),
+                                    Long.toString(2),
+                                    Long.toString(len_)
+                            );
+                            _page.getLocalizer().addError(badCall_);
+                            int i_ = _page.getLocalizer().getCurrentLocationIndex()+className.lastIndexOf(')');
+                            partOffsetsEnd.add(new PartOffset("<a title=\""+LinkageUtil.transform(badCall_.getBuiltError()) +"\" class=\"e\">",i_));
+                            partOffsetsEnd.add(new PartOffset("</a>",i_+1));
+                            setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
+                            return;
+                        }
+                        StringMap<StringList> mapCtr_ = _page.getCurrentConstraints().getCurrentConstraints();
+                        CustList<ConstrustorIdVarArg> ctors_ = new CustList<ConstrustorIdVarArg>();
+
+                        for (String s: candidates_) {
+                            StringList allTypes_ = StringExpUtil.getAllTypes(s);
+                            if (allTypes_.size() == 1) {
+                                if (noCtor(h_)) {
+                                    ConstrustorIdVarArg out_;
+                                    out_ = new ConstrustorIdVarArg();
+                                    out_.setRealId(new ConstructorId(prev_, new StringList(),false));
+                                    out_.setConstId(out_.getRealId());
+                                    setupContainer(h_, out_);
+                                    ctors_.add(out_);
+                                    continue;
+                                }
+                                tryAddCtor(_page, prev_, id_, h_, ctors_, null,stCall_.getStCall(),"");
+                                continue;
+                            }
+                            StringList argsTypes_ = new StringList(allTypes_.mid(1,allTypes_.size()-2));
+                            String ret_ = allTypes_.last();
+                            if (ret_.startsWith("~")) {
+                                continue;
+                            }
+                            String real_;
+                            if (!StringUtil.quickEq(ret_,"?")) {
+                                real_ = ret_;
+                            } else {
+                                real_ = prev_;
+                            }
+                            if (!StringUtil.quickEq(ret_,"?")) {
+                                if (stCall_.getStCall().isEmpty()) {
+                                    Mapping map_ = new Mapping();
+                                    map_.setArg(prev_);
+                                    map_.getMapping().putAllMap(mapCtr_);
+                                    map_.setParam(ret_);
+                                    if (!AnaTemplates.isCorrectOrNumbers(map_, _page)) {
+                                        continue;
+                                    }
+                                } else {
+                                    if (!h_.isSubTypeOf(StringExpUtil.getIdFromAllTypes(ret_),_page)) {
+                                        continue;
+                                    }
+                                }
+                            }
+                            if (!argsTypes_.isEmpty()) {
+                                if (AbstractInstancingOperation.koInstancingType(prev_,MethodAccessKind.INSTANCE,_page,h_,argsTypes_.first())) {
+                                    continue;
+                                }
+                                if (!h_.withoutInstance()) {
+                                    argsTypes_.remove(0);
+                                }
+                            }
+                            if (noCtor(h_)) {
+                                if (argsTypes_.isEmpty()) {
+                                    ConstrustorIdVarArg out_;
+                                    out_ = new ConstrustorIdVarArg();
+                                    out_.setRealId(new ConstructorId(real_, new StringList(),false));
+                                    out_.setConstId(out_.getRealId());
+                                    setupContainer(h_, out_);
+                                    ctors_.add(out_);
+                                    continue;
+                                }
+                            }
+                            tryAddCtor(_page, prev_, id_, h_, ctors_, argsTypes_,stCall_.getStCall(),ret_);
+                        }
+                        ctors_ = AnaTemplates.reduceCtors(ctors_);
+                        if (ctors_.size() == 1) {
+                            ConstrustorIdVarArg ctorRes_ = ctors_.first();
+                            realId = ctorRes_.getRealId();
+                            function = ctorRes_.getPair();
+                            standardType = ctorRes_.getStandardType();
+                            lambdaCommonContent.setFileName(ctorRes_.getFileName());
+                            lambdaMemberNumberContentId = ctorRes_.getMemberId();
+                            ConstructorId fid_ = ctorRes_.getConstId();
+                            StringList parts_ = new StringList();
+                            if (!h_.isStaticType()) {
+                                //From analyze
+                                StringList innerParts_ = StringExpUtil.getAllPartInnerTypes(fid_.getName());
+                                parts_.add(StringUtil.join(innerParts_.left(innerParts_.size() - 2), ""));
+                            }
+
+                            appendArgsCtor(fid_, parts_);
+                            lambdaCommonContent.setFoundClass(fid_.getName());
+                            parts_.add(fid_.getName());
+                            StringBuilder fct_ = new StringBuilder(_page.getAliasFct());
+                            fct_.append(Templates.TEMPLATE_BEGIN);
+                            fct_.append(StringUtil.join(parts_, Templates.TEMPLATE_SEP));
+                            fct_.append(Templates.TEMPLATE_END);
+                            setResultClass(new AnaClassArgumentMatching(fct_.toString()));
+                            return;
+                        }
+                        FoundErrorInterpret badCall_ = new FoundErrorInterpret();
+                        badCall_.setFileName(_page.getLocalizer().getCurrentFileName());
+                        badCall_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+                        //last parenthesis
+                        badCall_.buildError(_page.getAnalysisMessages().getSplitComa(),
+                                Long.toString(2),
+                                Long.toString(len_)
+                        );
+                        _page.getLocalizer().addError(badCall_);
+                        int i_ = _page.getLocalizer().getCurrentLocationIndex()+className.lastIndexOf(')');
+                        partOffsetsEnd.add(new PartOffset("<a title=\""+LinkageUtil.transform(badCall_.getBuiltError()) +"\" class=\"e\">",i_));
+                        partOffsetsEnd.add(new PartOffset("</a>",i_+1));
+                        setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
+                        return;
+                    }
+                    CustList<ClassMethodIdReturn> resList_ = new CustList<ClassMethodIdReturn>();
+                    //use types of previous operation
+                    for (String s: candidates_) {
+                        StringList allTypes_ = StringExpUtil.getAllTypes(s);
+                        if (allTypes_.size() == 1) {
+                            tryAddMeth(_page, args_, bounds_, resList_, null, "", MethodAccessKind.INSTANCE, stCall_.getStCall());
+                            continue;
+                        }
+                        StringList argsTypes_ = new StringList(allTypes_.mid(1,allTypes_.size()-2));
+                        String ret_ = allTypes_.last();
+                        tryAddMeth(_page, args_, bounds_, resList_, argsTypes_, ret_, MethodAccessKind.STATIC_CALL, stCall_.getStCall());
+                        if (!argsTypes_.isEmpty()&&!argsTypes_.first().startsWith("~")) {
+                            Mapping mapp_ = new Mapping();
+                            mapp_.setArg(argsTypes_.first());
+                            mapp_.setParam(new AnaClassArgumentMatching(bounds_));
+                            mapp_.setMapping(_page.getCurrentConstraints().getCurrentConstraints());
+                            if (AnaTemplates.isCorrectOrNumbers(mapp_,_page)) {
+                                argsTypes_.remove(0);
+                                tryAddMeth(_page, args_, bounds_, resList_, argsTypes_, ret_, MethodAccessKind.INSTANCE, stCall_.getStCall());
+                            }
+                        }
+                    }
+                    resList_ = AnaTemplates.reduceMethods(resList_);
+                    if (okList(resList_)) {
+                        ClassMethodIdReturn id_ = resList_.first();
+                        standardMethod = id_.getStandardMethod();
+                        lambdaCommonContent.setReturnFieldType(id_.getOriginalReturnType());
+                        lambdaCommonContent.setFileName(id_.getFileName());
+                        lambdaMemberNumberContentId = id_.getMemberId();
+                        function = id_.getPair();
+                        String foundClass_ = id_.getRealClass();
+                        if (!stCall_.getStCall().isEmpty()) {
+                            ContextUtil.appendTitlePartsAbs(stCall_.getLt(), stCall_.getGt(), foundClass_, stCall_.getStCallSolved(), _page);
+                        }
+                        foundClass_ = StringExpUtil.getIdFromAllTypes(foundClass_);
+                        lambdaCommonContent.setFoundClass(id_.getId().getClassName());
+                        MethodId idCt_ = id_.getRealId();
+                        method = new ClassMethodId(foundClass_, idCt_);
+                        lambdaCommonContent.setAncestor(id_.getAncestor());
+                        lambdaMethodContent.setAbstractMethod(id_.isAbstractMethod());
+                        lambdaCommonContent.setShiftArgument(!id_.getRealId().isStaticMethod());
+                        String fct_ = formatReturn(lambdaCommonContent.getFoundClass(), _page, id_.getReturnType(), id_.getRealClass(), id_.getRealId(), id_.getId().getConstraints());
+                        setResultClass(new AnaClassArgumentMatching(fct_));
+                        return;
+                    }
+                } else {
+                    CustList<ClassMethodIdReturn> resList_ = new CustList<ClassMethodIdReturn>();
+                    for (String s: candidates_) {
+                        StringList allTypes_ = StringExpUtil.getAllTypes(s);
+                        if (allTypes_.size() == 1) {
+                            tryAddMeth(_page, args_, bounds_, resList_, null, "", MethodAccessKind.INSTANCE, "");
+                            continue;
+                        }
+                        StringList argsTypes_ = new StringList(allTypes_.mid(1,allTypes_.size()-2));
+                        String ret_ = allTypes_.last();
+                        tryAddMeth(_page, args_, bounds_, resList_, argsTypes_, ret_, MethodAccessKind.INSTANCE, "");
+                    }
+                    resList_ = AnaTemplates.reduceMethods(resList_);
+                    if (okList(resList_)) {
+                        ClassMethodIdReturn id_ = resList_.first();
+                        standardMethod = id_.getStandardMethod();
+                        lambdaCommonContent.setReturnFieldType(id_.getOriginalReturnType());
+                        lambdaCommonContent.setFileName(id_.getFileName());
+                        lambdaMemberNumberContentId = id_.getMemberId();
+                        function = id_.getPair();
+                        String foundClass_ = id_.getRealClass();
+                        foundClass_ = StringExpUtil.getIdFromAllTypes(foundClass_);
+                        lambdaCommonContent.setFoundClass(id_.getId().getClassName());
+                        lambdaMethodContent.setAbstractMethod(id_.isAbstractMethod());
+                        MethodId idCt_ = id_.getRealId();
+                        method = new ClassMethodId(foundClass_, idCt_);
+                        lambdaCommonContent.setAncestor(id_.getAncestor());
+                        String fct_ = formatReturn(_page, id_.getReturnType(), id_.getRealClass(), id_.getRealId(), id_.getId().getConstraints());
+                        setResultClass(new AnaClassArgumentMatching(fct_));
+                        return;
+                    }
+                }
+            }
             FoundErrorInterpret badCall_ = new FoundErrorInterpret();
             badCall_.setFileName(_page.getLocalizer().getCurrentFileName());
             badCall_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
@@ -90,7 +439,49 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
             return;
         }
+        MethodOperation parent_ = getParent();
+        if (parent_ != null) {
+            OperationNode firstChild_ = parent_.getFirstChild();
+            if (firstChild_ instanceof StaticCallAccessOperation) {
+                ((StaticCallAccessOperation)firstChild_).check(_page);
+            }
+        }
         generalProcess(args_, _page);
+    }
+
+    private static void tryAddMeth(AnalyzedPageEl _page, StringList _args, StringList _bounds, CustList<ClassMethodIdReturn> _resList, StringList _argsTypes, String _ret, MethodAccessKind _instance, String _stCall) {
+        ClassMethodIdReturn resultOther_ = tryGetDeclaredCustMethodLambdaInfer(_instance, _bounds,
+                _args.first(), true, false, false, null,
+                _stCall, _argsTypes, _page, _ret);
+        if (resultOther_.isFoundMethod()) {
+            _resList.add(resultOther_);
+        }
+    }
+
+    private static void tryAddCtor(AnalyzedPageEl _page, String _prev, String _id, AnaGeneType _h, CustList<ConstrustorIdVarArg> _ctors, StringList _argsTypes, String _stCall, String _retType) {
+        ConstructorInfo constructorInfo_ = tryGetSignaturesInfer(_id, _h, _page, _argsTypes, _prev,_stCall,_retType);
+        if (constructorInfo_ != null) {
+            _ctors.add(buildCtorInfo(constructorInfo_));
+        }
+    }
+
+    private static boolean okList(CustList<ClassMethodIdReturn> _resList) {
+        return _resList.size() == 1 && !errOwner(_resList.first().getRealClass(), _resList.first().getRealId());
+    }
+
+    private static void appendArgsCtor(ConstructorId _fid, StringList _parts) {
+        int lenArg_ = _fid.getParametersTypesLength();
+        for (int i = 0; i < lenArg_; i++) {
+            String p_ = _fid.getParametersType(i);
+            if (i + 1 == lenArg_ && _fid.isVararg()) {
+                p_ = StringExpUtil.getPrettyArrayType(p_);
+            }
+            if (_fid.getParametersRef(i)) {
+                _parts.add("~" + p_);
+            } else {
+                _parts.add(p_);
+            }
+        }
     }
 
     private void generalProcess(StringList _args, AnalyzedPageEl _page) {
@@ -827,7 +1218,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         }
     }
     private boolean errOwner(String _type, MethodId _id, AnalyzedPageEl _page) {
-        if (_id.getKind() == MethodAccessKind.STATIC_CALL && StringExpUtil.isWildCard(_type)) {
+        if (errOwner(_type,_id)) {
             FoundErrorInterpret static_ = new FoundErrorInterpret();
             static_.setFileName(_page.getLocalizer().getCurrentFileName());
             static_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
@@ -839,6 +1230,9 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             return true;
         }
         return false;
+    }
+    private static boolean errOwner(String _type, MethodId _id) {
+        return _id.getKind() == MethodAccessKind.STATIC_CALL && StringExpUtil.isWildCard(_type);
     }
     private static boolean matchIdKeyWord(StringList _args, int _len, int _i, String _keyWordId) {
         return _i < _len && StringUtil.quickEq(_args.get(_i).trim(), _keyWordId);
@@ -1044,18 +1438,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                 parts_.add(StringUtil.join(innerParts_.left(innerParts_.size() - 2), ""));
             }
 
-            int len_ = fid_.getParametersTypesLength();
-            for (int i = 0; i < len_; i++) {
-                String p_ = fid_.getParametersType(i);
-                if (i + 1 == len_ && fid_.isVararg()) {
-                    p_ = StringExpUtil.getPrettyArrayType(p_);
-                }
-                if (fid_.getParametersRef(i)) {
-                    parts_.add("~"+p_);
-                } else {
-                    parts_.add(p_);
-                }
-            }
+            appendArgsCtor(fid_, parts_);
             lambdaCommonContent.setFoundClass(clFrom_);
             parts_.add(clFrom_);
             StringBuilder fct_ = new StringBuilder(_page.getAliasFct());
@@ -1173,18 +1556,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         lambdaMemberNumberContentId = ctorRes_.getMemberId();
         ConstructorId fid_ = ctorRes_.getConstId();
         StringList parts_ = new StringList();
-        int len_ = fid_.getParametersTypesLength();
-        for (int i = 0; i < len_; i++) {
-            String p_ = fid_.getParametersType(i);
-            if (i + 1 == len_ && fid_.isVararg()) {
-                p_ = StringExpUtil.getPrettyArrayType(p_);
-            }
-            if (fid_.getParametersRef(i)) {
-                parts_.add("~"+p_);
-            } else {
-                parts_.add(p_);
-            }
-        }
+        appendArgsCtor(fid_, parts_);
         parts_.add(_cl);
         StringBuilder fct_ = new StringBuilder(_page.getAliasFct());
         fct_.append(Templates.TEMPLATE_BEGIN);

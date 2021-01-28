@@ -221,8 +221,9 @@ public final class ElUtil {
             if (!(_next instanceof PossibleIntermediateDotted)) {
                 return;
             }
+            PossibleIntermediateDotted possible_ = (PossibleIntermediateDotted) _next;
+            check(_current, possible_, _page);
             if (_current instanceof StaticCallAccessOperation){
-                PossibleIntermediateDotted possible_ = (PossibleIntermediateDotted) _next;
                 possible_.setIntermediateDotted();
                 MethodAccessKind access_ = MethodAccessKind.STATIC_CALL;
                 if (!(_next instanceof LambdaOperation) && ((StaticCallAccessOperation)_current).isImplicit() && _page.getStaticContext() == MethodAccessKind.STATIC) {
@@ -231,12 +232,17 @@ public final class ElUtil {
                 possible_.setPreviousResultClass(_current.getResultClass(), access_);
 
             } else {
-                PossibleIntermediateDotted possible_ = (PossibleIntermediateDotted) _next;
                 MethodAccessKind static_ = MethodId.getKind(_current instanceof StaticAccessOperation);
                 possible_.setIntermediateDotted();
                 possible_.setPreviousResultClass(_current.getResultClass(), static_);
 
             }
+        }
+    }
+
+    public static void check(OperationNode _current, PossibleIntermediateDotted _next, AnalyzedPageEl _page) {
+        if (_current instanceof StaticCallAccessOperation&&!(_next instanceof LambdaOperation)) {
+            ((StaticCallAccessOperation)_current).check(_page);
         }
     }
 
