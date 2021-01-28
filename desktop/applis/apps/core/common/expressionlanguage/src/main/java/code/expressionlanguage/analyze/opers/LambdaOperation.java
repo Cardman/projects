@@ -221,6 +221,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                         return;
                     }
                     if (StringUtil.quickEq(args_.first().trim(),new_)) {
+                        stCall_.check(_page);
                         String prev_ = previousResultClass.getSingleNameOrEmpty();
                         String id_ = StringExpUtil.getIdFromAllTypes(prev_);
                         AnaGeneType h_ = _page.getAnaGeneType(id_);
@@ -263,12 +264,6 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                             if (ret_.startsWith("~")) {
                                 continue;
                             }
-                            String real_;
-                            if (!StringUtil.quickEq(ret_,"?")) {
-                                real_ = ret_;
-                            } else {
-                                real_ = prev_;
-                            }
                             if (!StringUtil.quickEq(ret_,"?")) {
                                 if (stCall_.getStCall().isEmpty()) {
                                     Mapping map_ = new Mapping();
@@ -293,6 +288,10 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                                 }
                             }
                             if (noCtor(h_)) {
+                                String real_ = tryInf(_page, stCall_, prev_, h_, ret_);
+                                if (real_.isEmpty()) {
+                                    continue;
+                                }
                                 if (argsTypes_.isEmpty()) {
                                     ConstrustorIdVarArg out_;
                                     out_ = new ConstrustorIdVarArg();
@@ -391,6 +390,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                         setResultClass(new AnaClassArgumentMatching(fct_));
                         return;
                     }
+                    stCall_.check(_page);
                 } else {
                     CustList<ClassMethodIdReturn> resList_ = new CustList<ClassMethodIdReturn>();
                     for (String s: candidates_) {
@@ -447,6 +447,18 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             }
         }
         generalProcess(args_, _page);
+    }
+
+    private static String tryInf(AnalyzedPageEl _page, StaticCallAccessOperation _stCall, String _prev, AnaGeneType _h, String _ret) {
+        String real_;
+        if (_stCall.getStCall().isEmpty()) {
+            real_ = _prev;
+        } else {
+            real_ = AnaTemplates.tryInferMethod(-1, _prev, ConstructorId.to(new ConstructorId(_prev, new StringList(), false)),
+                    _stCall.getStCall(), _page.getCurrentConstraints().getCurrentConstraints(),
+                    new CustList<AnaClassArgumentMatching>(), _h.getGenericString(), _ret, _page);
+        }
+        return real_;
     }
 
     private static void tryAddMeth(AnalyzedPageEl _page, StringList _args, StringList _bounds, CustList<ClassMethodIdReturn> _resList, StringList _argsTypes, String _ret, MethodAccessKind _instance, String _stCall) {

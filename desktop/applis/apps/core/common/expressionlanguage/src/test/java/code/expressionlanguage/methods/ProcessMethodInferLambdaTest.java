@@ -2025,6 +2025,36 @@ public final class ProcessMethodInferLambdaTest extends ProcessMethodCommon {
 
 
     @Test
+    public void test67() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo<S>:Ex<S> {\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Ex<T> {\n");
+        xml_.append(" $public T[] f = $new T[14];\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  $return $staticCall(Ex<$int>).inn().length;\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $staticCall T[] inn(){\n");
+        xml_.append("  $Fct<Ex<T>> e = $staticCall(ExTwo<>).$lambda($new);\n");
+        xml_.append("  $Fct<Ex<T>,T[]> f = $staticCall(Ex<>).$lambda(exmethtwo);\n");
+        xml_.append("  $return f.call(e.call());\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $staticCall T[] exmethtwo(Ex<T> e){\n");
+        xml_.append("  $return e.f;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxOkRead(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(14, getNumber(ret_));
+    }
+
+
+    @Test
     public void fail1() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {\n");
@@ -2311,6 +2341,47 @@ public final class ProcessMethodInferLambdaTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append(" $public $staticCall T exmethtwo(Ex<T> e){\n");
         xml_.append("  $return e.f;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        assertTrue(hasErrReadOnly(files_));
+    }
+
+    @Test
+    public void fail14() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<T> {\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  $return pr($staticCall(Ex<>).$lambda($new));\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $int pr($Fct<Ex<$int>> f){\n");
+        xml_.append("  $return -1;\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $int pr($Fct<Ex<String>> f){\n");
+        xml_.append("  $return -1;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        assertTrue(hasErrReadOnly(files_));
+    }
+
+    @Test
+    public void fail15() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Simple {}\n");
+        xml_.append("$public $class pkg.ExTwo<T:Simple>:Ex<T> {}\n");
+        xml_.append("$public $class pkg.Ex<T> {\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  $Fct<Ex<Object>> p = $staticCall(ExTwo<>).$lambda($new);\n");
+        xml_.append("  $return -1;\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $int pr($Fct<Ex<$int>> f){\n");
+        xml_.append("  $return -1;\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $int pr($Fct<Ex<String>> f){\n");
+        xml_.append("  $return -1;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();

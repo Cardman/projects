@@ -56,6 +56,9 @@ public final class AnaTemplates {
     }
     public static boolean containsResCtor(CustList<ConstrustorIdVarArg> _ls, ConstrustorIdVarArg _res) {
         for (ConstrustorIdVarArg c: _ls) {
+            if (!StringUtil.quickEq(c.getConstId().getName(),_res.getConstId().getName())) {
+                continue;
+            }
             if (!c.getRealId().eq(_res.getRealId())) {
                 continue;
             }
