@@ -1422,13 +1422,10 @@ public final class AnaTemplates {
                             continue;
                         }
                         Matching other_ = _infer.get(j);
-                        if (other_.getMatchEq() != MatchingEnum.EQ) {
-                            continue;
-                        }
                         StringMap<String> varTypes_ = new StringMap<String>();
                         varTypes_.addEntry(Integer.toString(k),value_);
-                        other_.setParam(StringExpUtil.getQuickFormattedTypeKeep(other_.getParam(), varTypes_));
-                        other_.setArg(StringExpUtil.getQuickFormattedTypeKeep(other_.getArg(), varTypes_));
+                        other_.setParam(StringExpUtil.getQuickFormattedType(other_.getParam(), varTypes_));
+                        other_.setArg(StringExpUtil.getQuickFormattedType(other_.getArg(), varTypes_));
                     }
                     continue;
                 }
@@ -1438,13 +1435,10 @@ public final class AnaTemplates {
                             continue;
                         }
                         Matching other_ = _infer.get(j);
-                        if (other_.getMatchEq() != MatchingEnum.EQ) {
-                            continue;
-                        }
                         StringMap<String> varTypes_ = new StringMap<String>();
                         varTypes_.addEntry(Integer.toString(k),resVar_);
-                        other_.setParam(StringExpUtil.getQuickFormattedTypeKeep(other_.getParam(), varTypes_));
-                        other_.setArg(StringExpUtil.getQuickFormattedTypeKeep(other_.getArg(), varTypes_));
+                        other_.setParam(StringExpUtil.getQuickFormattedType(other_.getParam(), varTypes_));
+                        other_.setArg(StringExpUtil.getQuickFormattedType(other_.getArg(), varTypes_));
                     }
                 }
             }

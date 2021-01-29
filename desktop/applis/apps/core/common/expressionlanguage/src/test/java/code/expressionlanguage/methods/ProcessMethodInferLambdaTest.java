@@ -2053,6 +2053,56 @@ public final class ProcessMethodInferLambdaTest extends ProcessMethodCommon {
         assertEq(14, getNumber(ret_));
     }
 
+    @Test
+    public void test68() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $int f;\n");
+        xml_.append(" $public Ex($int p){\n");
+        xml_.append("  f = p;\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  $Fct<?> f = $new Ex(14).$lambda(exmethtwo);\n");
+        xml_.append("  $return ($int)f.call();\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $int exmethtwo(){\n");
+        xml_.append("  $return f;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxOkRead(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(14, getNumber(ret_));
+    }
+
+    @Test
+    public void test69() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  $Fct<?,$int> f = $staticCall().$lambda(exmethtwo);\n");
+        xml_.append("  $return ($int)f.call(5i);\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $int exmethtwo($int p){\n");
+        xml_.append("  $long t;\n");
+        xml_.append("  t=8;\n");
+        xml_.append("  $return 1i+$($int)t+p;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxOkRead(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(14, getNumber(ret_));
+    }
+
 
     @Test
     public void fail1() {
@@ -2388,4 +2438,23 @@ public final class ProcessMethodInferLambdaTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         assertTrue(hasErrReadOnly(files_));
     }
+
+    @Test
+    public void fail16() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<T> {\n");
+        xml_.append(" $public $int f=14;\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  $Fct c = $staticCall(Ex<>).$lambda($new);\n");
+        xml_.append("  $return ((Ex<?>)c.call()).exmethtwo();\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $int exmethtwo(){\n");
+        xml_.append("  $return f;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        assertTrue(hasErrReadOnly(files_));
+    }
+
 }

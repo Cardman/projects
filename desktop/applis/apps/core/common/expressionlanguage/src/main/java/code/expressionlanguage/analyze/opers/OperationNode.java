@@ -2862,7 +2862,7 @@ public abstract class OperationNode {
                 CustList<MethodInfo> m_ = new CustList<MethodInfo>();
                 for (MethodInfo e: l) {
                     MethodId id_ = e.getConstraints();
-                    if (!matchRef(_retType,id_.isRetRef())) {
+                    if (!matchRefInf(_retType,id_.isRetRef())) {
                         continue;
                     }
                     if (!subsType(e.getReturnType(),_retType,id_.isRetRef(),_page)) {
@@ -2898,10 +2898,15 @@ public abstract class OperationNode {
         return res_;
     }
     private static boolean subsType(String _arg, String _param, boolean _ref,AnalyzedPageEl _page) {
+        if (StringUtil.quickEq(_arg,"?")) {
+            return true;
+        }
         StringMap<StringList> mapCtr_ = _page.getCurrentConstraints().getCurrentConstraints();
         String realParam_ = _param;
         if (_param.startsWith("~")) {
             realParam_ = _param.substring(1);
+        } else if (StringUtil.quickEq(_param,"?")) {
+            realParam_ = _page.getAliasObject();
         }
         String realArg_ = _arg;
         if (_arg.startsWith("~")) {
@@ -3222,7 +3227,7 @@ public abstract class OperationNode {
             wc_ = wrap(i,all_,vararg_,wc_);
             String arg_ = _argsClass.get(i);
             boolean ref_ = _id.getGeneFormatted().getParametersRef(i);
-            if (!matchRef(arg_, ref_)) {
+            if (!matchRefInf(arg_, ref_)) {
                 return false;
             }
             if (!subsType(arg_,wc_,ref_,_page)) {
@@ -3231,6 +3236,12 @@ public abstract class OperationNode {
         }
         _id.setInvocation(InvocationMethod.STRICT);
         return true;
+    }
+    private static boolean matchRefInf(String _arg, boolean _ref) {
+        if (StringUtil.quickEq(_arg,"?")) {
+            return true;
+        }
+        return matchRef(_arg, _ref);
     }
     private static boolean matchRef(String _arg, boolean _ref) {
         if (_arg.startsWith("~")) {

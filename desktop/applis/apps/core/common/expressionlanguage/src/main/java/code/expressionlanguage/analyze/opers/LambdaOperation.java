@@ -205,6 +205,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                 if (o_ instanceof StaticCallAccessOperation) {
                     StaticCallAccessOperation stCall_ = (StaticCallAccessOperation) o_;
                     if (StringUtil.quickEq("<>",stCall_.getStCall())) {
+                        stCall_.check(_page);
                         FoundErrorInterpret badCall_ = new FoundErrorInterpret();
                         badCall_.setFileName(_page.getLocalizer().getCurrentFileName());
                         badCall_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
@@ -248,6 +249,9 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                             StringList allTypes_ = StringExpUtil.getAllTypes(s);
                             if (allTypes_.size() == 1) {
                                 if (noCtor(h_)) {
+                                    if (!stCall_.getStCall().isEmpty()) {
+                                        continue;
+                                    }
                                     ConstrustorIdVarArg out_;
                                     out_ = new ConstrustorIdVarArg();
                                     out_.setRealId(new ConstructorId(prev_, new StringList(),false));
@@ -390,7 +394,6 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                         setResultClass(new AnaClassArgumentMatching(fct_));
                         return;
                     }
-                    stCall_.check(_page);
                 } else {
                     CustList<ClassMethodIdReturn> resList_ = new CustList<ClassMethodIdReturn>();
                     for (String s: candidates_) {
@@ -424,6 +427,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                     }
                 }
             }
+            tryCheck(_page);
             FoundErrorInterpret badCall_ = new FoundErrorInterpret();
             badCall_.setFileName(_page.getLocalizer().getCurrentFileName());
             badCall_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
@@ -439,6 +443,11 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
             return;
         }
+        tryCheck(_page);
+        generalProcess(args_, _page);
+    }
+
+    private void tryCheck(AnalyzedPageEl _page) {
         MethodOperation parent_ = getParent();
         if (parent_ != null) {
             OperationNode firstChild_ = parent_.getFirstChild();
@@ -446,7 +455,6 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                 ((StaticCallAccessOperation)firstChild_).check(_page);
             }
         }
-        generalProcess(args_, _page);
     }
 
     private static String tryInf(AnalyzedPageEl _page, StaticCallAccessOperation _stCall, String _prev, AnaGeneType _h, String _ret) {
@@ -1446,13 +1454,13 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             StringList parts_ = new StringList();
             if (!h_.isStaticType()) {
                 //From analyze
-                StringList innerParts_ = StringExpUtil.getAllPartInnerTypes(clFrom_);
+                StringList innerParts_ = StringExpUtil.getAllPartInnerTypes(fid_.getName());
                 parts_.add(StringUtil.join(innerParts_.left(innerParts_.size() - 2), ""));
             }
 
             appendArgsCtor(fid_, parts_);
-            lambdaCommonContent.setFoundClass(clFrom_);
-            parts_.add(clFrom_);
+            lambdaCommonContent.setFoundClass(fid_.getName());
+            parts_.add(fid_.getName());
             StringBuilder fct_ = new StringBuilder(_page.getAliasFct());
             fct_.append(Templates.TEMPLATE_BEGIN);
             fct_.append(StringUtil.join(parts_, Templates.TEMPLATE_SEP));
@@ -1569,7 +1577,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         ConstructorId fid_ = ctorRes_.getConstId();
         StringList parts_ = new StringList();
         appendArgsCtor(fid_, parts_);
-        parts_.add(_cl);
+        parts_.add(fid_.getName());
         StringBuilder fct_ = new StringBuilder(_page.getAliasFct());
         fct_.append(Templates.TEMPLATE_BEGIN);
         fct_.append(StringUtil.join(parts_, Templates.TEMPLATE_SEP));

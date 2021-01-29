@@ -323,7 +323,7 @@ public final class TemplatesTest extends ProcessMethodCommon {
         AnalyzedTestContext context_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex<java.lang.Number,java.lang.Number>";
         String second_ = "#S";
-        assertEq("S", quickFormat(context_, first_, second_));
+        assertEq("#S", quickFormat(context_, first_, second_));
     }
     @Test
     public void quickFormat0Test() {
