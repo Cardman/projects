@@ -2457,4 +2457,39 @@ public final class ProcessMethodInferLambdaTest extends ProcessMethodCommon {
         assertTrue(hasErrReadOnly(files_));
     }
 
+    @Test
+    public void fail17() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<T> {\n");
+        xml_.append(" $public $int f=14;\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  $Fct<?,?> c = $staticCall(Ex<>).$lambda($new);\n");
+        xml_.append("  $return ((Ex<?>)c.call()).exmethtwo();\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $int exmethtwo(){\n");
+        xml_.append("  $return f;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        assertTrue(hasErrReadOnly(files_));
+    }
+    @Test
+    public void fail18() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<T> {\n");
+        xml_.append(" $public $int f=14;\n");
+        xml_.append(" $public Ex(){}\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  $Fct<?,?> c = $staticCall(Ex<>).$lambda($new);\n");
+        xml_.append("  $return ((Ex<?>)c.call()).exmethtwo();\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $int exmethtwo(){\n");
+        xml_.append("  $return f;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        assertTrue(hasErrReadOnly(files_));
+    }
 }

@@ -103,18 +103,16 @@ public final class OperationsSequence {
                         if (op_.charAt(0) == ARR && _instance) {
                             initArrayDim_ = true;
                         }
-                        if (!(block instanceof SwitchMethodBlock)) {
+                        if (block == null) {
                             if (!filter_.substring(afterLastPar_).trim().isEmpty()) {
                                 if (!instance) {
                                     operators.clear();
                                     operators.put(afterLastPar_, "");
                                     return;
                                 }
-                                if (block == null) {
-                                    values.put((int) IndexConstants.FIRST_INDEX, _string);
-                                    constType = ConstType.ERROR;
-                                    return;
-                                }
+                                values.put((int) IndexConstants.FIRST_INDEX, _string);
+                                constType = ConstType.ERROR;
+                                return;
                             }
                         }
                     } else {

@@ -6344,7 +6344,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         m_.setParam("pkg.Param<?>");
         StringMap<StringList> t_ = new StringMap<StringList>();
         m_.setMapping(t_);
-        assertTrue(!isCorrect(context_, m_));
+        assertTrue(isCorrect(context_, m_));
     }
 
     @Test

@@ -499,17 +499,6 @@ public final class ExecTemplates {
 
     private static Struct okArgsEx(Identifiable _id, String _classNameFound, CustList<Argument> _firstArgs, ContextEl _conf, StackCall _stackCall) {
         StringList params_ = new StringList();
-        boolean hasFormat_;
-        if (_id instanceof MethodId) {
-            hasFormat_ = ((MethodId) _id).canAccessParamTypes();
-        } else {
-            hasFormat_ = true;
-        }
-        if (hasFormat_ && !correctNbParameters(_classNameFound,_conf)) {
-            LgNames stds_ = _conf.getStandards();
-            String npe_ = stds_.getContent().getCoreNames().getAliasIllegalArg();
-            return new ErrorStruct(_conf,_classNameFound,npe_, _stackCall);
-        }
         int i_ = 0;
         for (String c: _id.getParametersTypes()) {
             String c_ = c;
@@ -550,12 +539,6 @@ public final class ExecTemplates {
     }
     private static Parameters okArgsEx(ExecRootBlock _rootBlock, ExecNamedFunctionBlock _id, String _classNameFound, Cache _cache, ArgumentListCall _firstArgs, ContextEl _conf, Argument _right, boolean _hasFormat, StackCall _stackCall) {
         Parameters p_ = new Parameters();
-        if (_hasFormat && !correctNbParameters(_classNameFound,_conf)) {
-            LgNames stds_ = _conf.getStandards();
-            String npe_ = stds_.getContent().getCoreNames().getAliasIllegalArg();
-            p_.setError(new ErrorStruct(_conf,_classNameFound,npe_, _stackCall));
-            return p_;
-        }
         possibleCheck(_rootBlock, _classNameFound, _cache, _conf, _stackCall, p_);
         if (p_.getError() != null) {
             return p_;
@@ -760,9 +743,6 @@ public final class ExecTemplates {
         String classFormat_ = _formatted;
         if (_kind != null && !_previous.isNull()) {
             classFormat_ = getQuickFullTypeByBases(_previous.getStruct().getClassName(_conf), classFormat_, _conf);
-        }
-        if (_kind != MethodAccessKind.STATIC &&!correctNbParameters(classFormat_,_conf)) {
-            return out_;
         }
         ExecRootBlock type_ = _pair.getType();
         ExecNamedFunctionBlock fct_ = _pair.getFct();
@@ -1110,9 +1090,6 @@ public final class ExecTemplates {
         return getFullObject(_subType, _superType,_context);
     }
     public static String getSuperGeneric(String _arg, String _classParam, ContextEl _context) {
-        if (!correctNbParameters(_arg,_context)) {
-            return "";
-        }
         String idArg_ = StringExpUtil.getIdFromAllTypes(_arg);
         String idSuperType_ = StringExpUtil.getIdFromAllTypes(_classParam);
         if (StringUtil.quickEq(idArg_,idSuperType_)) {
@@ -1130,9 +1107,6 @@ public final class ExecTemplates {
         String idArg_ = StringExpUtil.getIdFromAllTypes(_subType);
         DimComp dBaseArg_ = StringExpUtil.getQuickComponentBaseType(idArg_);
         String baseArr_ = dBaseArg_.getComponent();
-        if (!correctNbParameters(_subType,_context)) {
-            return "";
-        }
         if (StringUtil.quickEq(idArg_,idSuperType_)) {
             return _subType;
         }
@@ -1416,9 +1390,6 @@ public final class ExecTemplates {
      Sample 4: "my.pkg.MyClass&lt;long,int&gt;" - "my.pkg.MySecondClass[]" => "my.pkg.MySecondClass&lt;long,int&gt;[]"<br/>
      */
     public static String getFullTypeByBases(String _subType, String _superType, ContextEl _context) {
-        if (!correctNbParameters(_subType,_context)) {
-            return "";
-        }
         String idArg_ = StringExpUtil.getIdFromAllTypes(_subType);
         String idSuperType_ = StringExpUtil.getIdFromAllTypes(_superType);
         if (StringUtil.quickEq(idArg_,idSuperType_)) {

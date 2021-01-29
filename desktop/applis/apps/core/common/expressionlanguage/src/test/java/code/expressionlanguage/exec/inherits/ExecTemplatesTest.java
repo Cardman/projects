@@ -384,7 +384,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         String first_ = "pkg.Ex";
         String second_ = "pkg.ExTwo";
         String t_ = getFullObject(context_.getContext(), first_, second_);
-        assertEq("",t_);
+        assertEq("pkg.ExTwo<java.lang.$iterable<?#T>>",t_);
     }
 
     @Test
@@ -653,8 +653,9 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         ArgumentListCall l_ = new ArgumentListCall();
         l_.getArguments().addAllElts(args_);
-        ExecTemplates.okArgsSet(cont_.getClasses().getClassBody("pkg.Ex"), null, "pkg.Ex", null, l_, cont_.getContext(), null,true, cont_.getStackCall());
-        assertNotNull(getTrueException(cont_));
+        StackCall stackCall_ = cont_.getStackCall();
+        ExecTemplates.okArgsSet(cont_.getClasses().getClassBody("pkg.Ex"), null, "pkg.Ex", null, l_, cont_.getContext(), null,true, stackCall_);
+        assertNull(stackCall_.getCallingState());
     }
     @Test
     public void getErrorWhenContain1Test() {

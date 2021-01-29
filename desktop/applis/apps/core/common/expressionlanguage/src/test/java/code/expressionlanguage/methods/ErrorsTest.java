@@ -2901,7 +2901,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrReadOnly(files_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
-                " $iterable<a title=\"The type java.lang.$iterable&lt;pkg.MyCl..Inner&gt; is not parameterized correctly.\" class=\"e\">&lt;</a><a title=\"pkg.MyCl\" href=\"#m70\">MyCl</a><a title=\"The type pkg.MyCl..Inner is not parameterized correctly.\" class=\"e\">.</a><a title=\"pkg.MyCl..Inner\" href=\"#m96\">Inner</a>&gt; <a name=\"m50\">v</a>;\n" +
+                " $iterable&lt;<a title=\"pkg.MyCl\" href=\"#m70\">MyCl</a><a title=\"The type pkg.MyCl..Inner is not parameterized correctly.\" class=\"e\">.</a><a title=\"pkg.MyCl..Inner\" href=\"#m96\">Inner</a>&gt; <a name=\"m50\">v</a>;\n" +
                 "}\n" +
                 "$public $class <a name=\"m70\">pkg.MyCl</a>{\n" +
                 " $public $class <a name=\"m96\">Inner</a>&lt;<a name=\"m102\">T</a>&gt;{\n" +
@@ -2923,7 +2923,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrReadOnly(files_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
-                " $iterable<a title=\"The type java.lang.$iterable&lt;[pkg.MyCl..Inner&gt; is not parameterized correctly.\" class=\"e\">&lt;</a><a title=\"pkg.MyCl\" href=\"#m72\">MyCl</a><a title=\"The type pkg.MyCl..Inner is not parameterized correctly.\" class=\"e\">.</a><a title=\"pkg.MyCl..Inner\" href=\"#m98\">Inner</a>[]&gt; <a name=\"m52\">v</a>;\n" +
+                " $iterable&lt;<a title=\"pkg.MyCl\" href=\"#m72\">MyCl</a><a title=\"The type pkg.MyCl..Inner is not parameterized correctly.\" class=\"e\">.</a><a title=\"pkg.MyCl..Inner\" href=\"#m98\">Inner</a>[]&gt; <a name=\"m52\">v</a>;\n" +
                 "}\n" +
                 "$public $class <a name=\"m72\">pkg.MyCl</a>{\n" +
                 " $public $class <a name=\"m98\">Inner</a>&lt;<a name=\"m104\">T</a>&gt;{\n" +
@@ -2943,7 +2943,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrReadOnly(files_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
-                " $iterable<a title=\"The type java.lang.$iterable&lt;[pkg.MyCl&gt; is not parameterized correctly.\" class=\"e\">&lt;</a><a title=\"The type pkg.MyCl is not parameterized correctly.\n" +
+                " $iterable&lt;<a title=\"The type pkg.MyCl is not parameterized correctly.\n" +
                 "\n" +
                 "pkg.MyCl\" href=\"#m66\" class=\"e\">MyCl</a>[]&gt; <a name=\"m46\">v</a>;\n" +
                 "}\n" +
@@ -2983,7 +2983,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrReadOnly(files_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
-                " $iterable<a title=\"The type java.lang.$iterable&lt;pkg.MyCl&gt; is not parameterized correctly.\" class=\"e\">&lt;</a><a title=\"The type pkg.MyCl is not parameterized correctly.\n" +
+                " $iterable&lt;<a title=\"The type pkg.MyCl is not parameterized correctly.\n" +
                 "\n" +
                 "pkg.MyCl\" href=\"#m64\" class=\"e\">MyCl</a>&gt; <a name=\"m44\">v</a>;\n" +
                 "}\n" +
@@ -3007,7 +3007,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrReadOnly(files_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
-                " <a title=\"pkg.MyParam\" href=\"#m126\">MyParam</a><a title=\"The type pkg.MyParam&lt;[pkg.MyCl..Inner&gt; is not parameterized correctly.\" class=\"e\">&lt;</a><a title=\"pkg.MyCl\" href=\"#m70\">MyCl</a><a title=\"The type pkg.MyCl..Inner is not parameterized correctly.\" class=\"e\">.</a><a title=\"pkg.MyCl..Inner\" href=\"#m96\">Inner</a>[]&gt; <a name=\"m50\">v</a>;\n" +
+                " <a title=\"pkg.MyParam\" href=\"#m126\">MyParam</a>&lt;<a title=\"pkg.MyCl\" href=\"#m70\">MyCl</a><a title=\"The type pkg.MyCl..Inner is not parameterized correctly.\" class=\"e\">.</a><a title=\"pkg.MyCl..Inner\" href=\"#m96\">Inner</a>[]&gt; <a name=\"m50\">v</a>;\n" +
                 "}\n" +
                 "$public $class <a name=\"m70\">pkg.MyCl</a>{\n" +
                 " $public $class <a name=\"m96\">Inner</a>&lt;<a name=\"m102\">T</a>&gt;{\n" +
@@ -3031,7 +3031,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrReadOnly(files_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
-                " <a title=\"pkg.MyParam\" href=\"#m94\">MyParam</a><a title=\"The type pkg.MyParam&lt;[pkg.MyCl&gt; is not parameterized correctly.\" class=\"e\">&lt;</a><a title=\"The type pkg.MyCl is not parameterized correctly.\n" +
+                " <a title=\"pkg.MyParam\" href=\"#m94\">MyParam</a>&lt;<a title=\"The type pkg.MyCl is not parameterized correctly.\n" +
                 "\n" +
                 "pkg.MyCl\" href=\"#m64\" class=\"e\">MyCl</a>[]&gt; <a name=\"m44\">v</a>;\n" +
                 "}\n" +
@@ -3079,7 +3079,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrReadOnly(files_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
-                " <a title=\"pkg.MyParam\" href=\"#m92\">MyParam</a><a title=\"The type pkg.MyParam&lt;pkg.MyCl&gt; is not parameterized correctly.\" class=\"e\">&lt;</a><a title=\"The type pkg.MyCl is not parameterized correctly.\n" +
+                " <a title=\"pkg.MyParam\" href=\"#m92\">MyParam</a>&lt;<a title=\"The type pkg.MyCl is not parameterized correctly.\n" +
                 "\n" +
                 "pkg.MyCl\" href=\"#m62\" class=\"e\">MyCl</a>&gt; <a name=\"m42\">v</a>;\n" +
                 "}\n" +
@@ -12340,7 +12340,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrReadOnly(files_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
-                " $iterable<a title=\"The type java.lang.$iterable&lt;pkg.MyCl&gt; is not parameterized correctly.\" class=\"e\">&lt;</a><a title=\"The type pkg.MyCl is not parameterized correctly.\n" +
+                " $iterable&lt;<a title=\"The type pkg.MyCl is not parameterized correctly.\n" +
                 "\n" +
                 "pkg.MyCl\" href=\"#m64\" class=\"e\">MyCl</a>&gt; <a name=\"m44\">v</a>;\n" +
                 "}\n" +
@@ -12362,7 +12362,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrReadOnly(files_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
-                " <a title=\"pkg.MyParam\" href=\"#m92\">MyParam</a><a title=\"The type pkg.MyParam&lt;pkg.MyCl&gt; is not parameterized correctly.\" class=\"e\">&lt;</a><a title=\"The type pkg.MyCl is not parameterized correctly.\n" +
+                " <a title=\"pkg.MyParam\" href=\"#m92\">MyParam</a>&lt;<a title=\"The type pkg.MyCl is not parameterized correctly.\n" +
                 "\n" +
                 "pkg.MyCl\" href=\"#m62\" class=\"e\">MyCl</a>&gt; <a name=\"m42\">v</a>;\n" +
                 "}\n" +

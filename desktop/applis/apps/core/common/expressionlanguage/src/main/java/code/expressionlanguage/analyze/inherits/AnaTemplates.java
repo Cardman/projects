@@ -1865,9 +1865,6 @@ public final class AnaTemplates {
     }
 
     public static String getFullTypeByBases(AnaGeneType _typeSub, String _subType, String _superType, AnalyzedPageEl _page) {
-        if (!correctNbParameters(_typeSub,_subType, _page)) {
-            return "";
-        }
         String idArg_ = StringExpUtil.getIdFromAllTypes(_subType);
         String idSuperType_ = StringExpUtil.getIdFromAllTypes(_superType);
         if (StringUtil.quickEq(idArg_,idSuperType_)) {
@@ -1910,9 +1907,6 @@ public final class AnaTemplates {
         if (StringUtil.quickEq(idArg_,idSuperType_)) {
             return _subType;
         }
-        if (_typSub == null) {
-            return "";
-        }
         String generic_ = getSuperGeneric(_typSub, 0, idSuperType_, _page);
         return quickFormat(_typSub,_subType, generic_);
     }
@@ -1933,6 +1927,9 @@ public final class AnaTemplates {
     }
 
     public static String getSuperGeneric(AnaGeneType _subType, int _dim, String _classParam, AnalyzedPageEl _page) {
+        if (_subType == null) {
+            return "";
+        }
         String generic_ = "";
         String param_ = StringExpUtil.getIdFromAllTypes(_classParam);
         if (_subType instanceof AnnotationBlock) {
