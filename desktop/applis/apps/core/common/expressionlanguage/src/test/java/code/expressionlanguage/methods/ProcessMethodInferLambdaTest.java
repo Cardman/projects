@@ -2105,6 +2105,101 @@ public final class ProcessMethodInferLambdaTest extends ProcessMethodCommon {
 
 
     @Test
+    public void test70() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExSub:Ex {\n");
+        xml_.append(" $public ExSub($int p){\n");
+        xml_.append("  $super(p);\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $int exmethtwo(){\n");
+        xml_.append("  $return 10+$super.exmethtwo();\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $int f;\n");
+        xml_.append(" $public Ex($int p){\n");
+        xml_.append("  f = p;\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  $Fct<Ex,$int> f = $staticCall().$lambda(exmethtwo);\n");
+        xml_.append("  $return f.call($new ExSub(14));\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $int exmethtwo(){\n");
+        xml_.append("  $return f;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxOkRead(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(24, getNumber(ret_));
+    }
+
+    @Test
+    public void test71() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExSub:Ex {\n");
+        xml_.append(" $public ExSub($int p){\n");
+        xml_.append("  $super(p);\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $int exmethtwo(){\n");
+        xml_.append("  $return 10+$super.exmethtwo();\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $int f;\n");
+        xml_.append(" $public Ex($int p){\n");
+        xml_.append("  f = p;\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  Ex s = $new ExSub(14);\n");
+        xml_.append("  $Fct<$int> f = s.$lambda(exmethtwo);\n");
+        xml_.append("  $return f.call();\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $int exmethtwo(){\n");
+        xml_.append("  $return f;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxOkRead(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(24, getNumber(ret_));
+    }
+
+    @Test
+    public void test72() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $int f;\n");
+        xml_.append(" $public Ex($int p){\n");
+        xml_.append("  f = p;\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  $Fct<$int> f = $new Ex(0).$lambda(exmethtwo);\n");
+        xml_.append("  $return f.call();\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $int exmethtwo(){\n");
+        xml_.append("  $return 14;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxOkRead(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(14, getNumber(ret_));
+    }
+
+    @Test
     public void fail1() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {\n");
