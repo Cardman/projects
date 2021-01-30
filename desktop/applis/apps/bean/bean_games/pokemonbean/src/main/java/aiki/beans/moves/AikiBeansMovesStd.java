@@ -576,7 +576,7 @@ public final class AikiBeansMovesStd {
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,MOVE_LINE)) {
-            res_.setResult(new MvLineStruct(instance_.getMoveLine(),AikiBeansFacadeDtoStd.TYPE_MOVE_LINE));
+            res_.setResult(PokemonStandards.newMoveLine(instance_.getMoveLine()));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,PRIORITY)) {

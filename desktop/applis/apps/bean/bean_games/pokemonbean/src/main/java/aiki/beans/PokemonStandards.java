@@ -3,7 +3,6 @@ import aiki.beans.abilities.AbilitiesBean;
 import aiki.beans.abilities.AbilityBean;
 import aiki.beans.abilities.AikiBeansAbilitiesStd;
 import aiki.beans.effects.AikiBeansEffectsStd;
-import aiki.beans.effects.ComboDto;
 import aiki.beans.effects.CombosBean;
 import aiki.beans.effects.EffectComboBean;
 import aiki.beans.effects.EffectWhileSendingBean;
@@ -23,36 +22,10 @@ import aiki.beans.endround.EffectEndRoundTeamBean;
 import aiki.beans.endround.EndRoundBean;
 import aiki.beans.facade.AikiBeansFacadeStd;
 import aiki.beans.facade.comparators.AikiBeansFacadeComparatorsStd;
-import aiki.beans.facade.comparators.ComparatorCategoryMult;
-import aiki.beans.facade.comparators.ComparatorDirection;
-import aiki.beans.facade.comparators.ComparatorLanguageString;
-import aiki.beans.facade.comparators.ComparatorMiniMapCoords;
-import aiki.beans.facade.comparators.ComparatorMoveTarget;
-import aiki.beans.facade.comparators.ComparatorMoveTeamPosition;
-import aiki.beans.facade.comparators.ComparatorMoves;
-import aiki.beans.facade.comparators.ComparatorPlaceIndex;
-import aiki.beans.facade.comparators.ComparatorPlaceNumber;
-import aiki.beans.facade.comparators.ComparatorPoint;
-import aiki.beans.facade.comparators.ComparatorRadioLineMoves;
-import aiki.beans.facade.comparators.ComparatorStatistic;
-import aiki.beans.facade.comparators.ComparatorStatisticCategory;
-import aiki.beans.facade.comparators.ComparatorStatisticInfo;
-import aiki.beans.facade.comparators.ComparatorStatisticInfoPkPlayer;
-import aiki.beans.facade.comparators.ComparatorStatisticPokemon;
-import aiki.beans.facade.comparators.ComparatorStatisticTr;
-import aiki.beans.facade.comparators.ComparatorStatisticType;
-import aiki.beans.facade.comparators.ComparatorStatusStatistic;
-import aiki.beans.facade.comparators.ComparatorStringList;
-import aiki.beans.facade.comparators.ComparatorTypesDuo;
-import aiki.beans.facade.comparators.ComparatorWeatherType;
-import aiki.beans.facade.comparators.ComparatorWildPokemonDto;
 import aiki.beans.facade.dto.AikiBeansFacadeDtoStd;
 import aiki.beans.facade.dto.ItemLine;
-import aiki.beans.facade.dto.ItemTypeLine;
-import aiki.beans.facade.dto.KeptMovesAfterFight;
 import aiki.beans.facade.dto.MoveLine;
 import aiki.beans.facade.dto.PokemonLine;
-import aiki.beans.facade.dto.WeatherTypeLine;
 import aiki.beans.facade.fight.AikiBeansFacadeFightStd;
 import aiki.beans.facade.fight.KeyHypothesis;
 import aiki.beans.facade.fight.MultPowerMoves;
@@ -69,7 +42,6 @@ import aiki.beans.facade.simulation.dto.PokemonTrainerDto;
 import aiki.beans.facade.simulation.dto.RadioLineMove;
 import aiki.beans.facade.simulation.dto.SelectLineMove;
 import aiki.beans.facade.simulation.enums.AikiBeansFacadeSimulationEnumsStd;
-import aiki.beans.facade.simulation.enums.SimulationSteps;
 import aiki.beans.facade.solution.dto.AikiBeansFacadeSolutionDtoStd;
 import aiki.beans.facade.solution.dto.PlaceTrainerDto;
 import aiki.beans.facade.solution.dto.StepDto;
@@ -87,7 +59,6 @@ import aiki.beans.help.AikiBeansHelpStd;
 import aiki.beans.help.FightHelpBean;
 import aiki.beans.help.GeneralHelpBean;
 import aiki.beans.help.LangsBean;
-import aiki.beans.help.LanguageElementStringKey;
 import aiki.beans.items.AikiBeansItemsStd;
 import aiki.beans.items.BallBean;
 import aiki.beans.items.BerryBean;
@@ -196,7 +167,6 @@ import aiki.beans.validators.UnselectedRadio;
 import aiki.db.DataBase;
 import aiki.facade.FacadeGame;
 import aiki.fight.EndRoundMainElements;
-import aiki.fight.effects.EffectWhileSendingWithStatistic;
 import aiki.fight.enums.Statistic;
 import aiki.fight.pokemon.TrainerPlaceNames;
 import aiki.fight.status.effects.EffectPartnerStatus;
@@ -208,11 +178,6 @@ import aiki.game.fight.util.CopiedMove;
 import aiki.game.fight.util.MoveTarget;
 import aiki.game.params.enums.DifficultyModelLaw;
 import aiki.game.params.enums.DifficultyWinPointsFight;
-import aiki.map.characters.Ally;
-import aiki.map.characters.Person;
-import aiki.map.characters.TempTrainer;
-import aiki.map.characters.Trainer;
-import aiki.map.characters.TrainerOneFight;
 import aiki.map.levels.AreaApparition;
 import aiki.map.levels.Level;
 import aiki.map.levels.enums.EnvironmentType;
@@ -247,9 +212,6 @@ import code.sml.Element;
 import code.util.*;
 import aiki.facade.enums.SelectedBoolean;
 import code.util.core.StringUtil;
-import code.util.ints.SimpleEntries;
-import code.util.ints.SimpleEntry;
-import code.util.ints.SimpleIterable;
 
 public final class PokemonStandards extends BeanNatLgNames {
     public static final String TYPE_ACTIVITY_OF_MOVE = "aiki.game.fight.ActivityOfMove";
@@ -1042,10 +1004,10 @@ public final class PokemonStandards extends BeanNatLgNames {
         if (_instance instanceof MvLineStruct) {
             MoveLine instance_ = ((MvLineStruct) _instance).getWildPk();
             if (instance_ instanceof SelectLineMove) {
-                return AikiBeansFacadeSimulationDtoStd.getResultSelectLineMove(_cont, _classField, _instance, (SelectLineMove) instance_);
+                return AikiBeansFacadeSimulationDtoStd.getResultSelectLineMove(_cont, _classField, (SelectLineMove) instance_);
             }
             if (instance_ instanceof RadioLineMove) {
-                return AikiBeansFacadeSimulationDtoStd.getResultRadioLineMove(_cont, _classField, _instance, (RadioLineMove) instance_);
+                return AikiBeansFacadeSimulationDtoStd.getResultRadioLineMove(_cont, _classField, (RadioLineMove) instance_);
             }
             return AikiBeansFacadeDtoStd.getResultMoveLine(_cont, _classField, instance_);
         }
@@ -3475,7 +3437,7 @@ public final class PokemonStandards extends BeanNatLgNames {
         ArrayStruct arr_ = new ArrayStruct(_ls.size(), StringExpUtil.getPrettyArrayType(AikiBeansFacadeDtoStd.TYPE_MOVE_LINE));
         int j_ = 0;
         for (MoveLine s:_ls) {
-            arr_.set(j_,new MvLineStruct(s, AikiBeansFacadeDtoStd.TYPE_MOVE_LINE));
+            arr_.set(j_,newMoveLine(s));
             j_++;
         }
         return arr_;
@@ -3484,7 +3446,7 @@ public final class PokemonStandards extends BeanNatLgNames {
         ArrayStruct arr_ = new ArrayStruct(_ls.size(), StringExpUtil.getPrettyArrayType(AikiBeansFacadeSimulationDtoStd.TYPE_RADIO_LINE_MOVE));
         int j_ = 0;
         for (MoveLine s:_ls) {
-            arr_.set(j_,new MvLineStruct(s, AikiBeansFacadeSimulationDtoStd.TYPE_RADIO_LINE_MOVE));
+            arr_.set(j_,newMoveLine(s));
             j_++;
         }
         return arr_;
@@ -3493,10 +3455,19 @@ public final class PokemonStandards extends BeanNatLgNames {
         ArrayStruct arr_ = new ArrayStruct(_ls.size(), StringExpUtil.getPrettyArrayType(AikiBeansFacadeSimulationDtoStd.TYPE_SELECT_LINE_MOVE));
         int j_ = 0;
         for (MoveLine s:_ls) {
-            arr_.set(j_,new MvLineStruct(s, AikiBeansFacadeSimulationDtoStd.TYPE_SELECT_LINE_MOVE));
+            arr_.set(j_,newMoveLine(s));
             j_++;
         }
         return arr_;
+    }
+    public static Struct newMoveLine(MoveLine _s) {
+        if (_s instanceof SelectLineMove) {
+            return new MvLineStruct(_s, AikiBeansFacadeSimulationDtoStd.TYPE_SELECT_LINE_MOVE);
+        }
+        if (_s instanceof RadioLineMove) {
+            return new MvLineStruct(_s, AikiBeansFacadeSimulationDtoStd.TYPE_RADIO_LINE_MOVE);
+        }
+        return new MvLineStruct(_s, AikiBeansFacadeDtoStd.TYPE_MOVE_LINE);
     }
     public static ArrayStruct getEffPartStat(CustList<EffectPartnerStatus> _ls) {
         ArrayStruct arr_ = new ArrayStruct(_ls.size(), StringExpUtil.getPrettyArrayType(TYPE_EFFECT_PARTNER_STATUS));

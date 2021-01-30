@@ -125,7 +125,7 @@ public final class AikiBeansFacadeSimulationDtoStd {
         }
         return res_;
     }
-    public static ResultErrorStd getResultRadioLineMove(ContextEl _cont, ClassField _classField, Struct _instance, RadioLineMove _inst) {
+    public static ResultErrorStd getResultRadioLineMove(ContextEl _cont, ClassField _classField, RadioLineMove _inst) {
         ResultErrorStd res_ = new ResultErrorStd();
         String fieldName_ = _classField.getFieldName();
         if (StringUtil.quickEq(fieldName_,INDEX)) {
@@ -134,7 +134,7 @@ public final class AikiBeansFacadeSimulationDtoStd {
         }
         return AikiBeansFacadeDtoStd.getResultMoveLine(_cont, _classField, _inst);
     }
-    public static ResultErrorStd getResultSelectLineMove(ContextEl _cont, ClassField _classField, Struct _instance, SelectLineMove _inst) {
+    public static ResultErrorStd getResultSelectLineMove(ContextEl _cont, ClassField _classField, SelectLineMove _inst) {
         ResultErrorStd res_ = new ResultErrorStd();
         String fieldName_ = _classField.getFieldName();
         if (StringUtil.quickEq(fieldName_,SELECTED)) {
