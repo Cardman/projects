@@ -2200,6 +2200,85 @@ public final class ProcessMethodInferLambdaTest extends ProcessMethodCommon {
     }
 
     @Test
+    public void test73() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  $Fct<$int[],$int[]> f = $staticCall($int[]).$lambda(clone);\n");
+        xml_.append("  $return f.call($new $int[2]).length;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxOkRead(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(2, getNumber(ret_));
+    }
+
+    @Test
+    public void test74() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  $Fct<$int[]> f = $new $int[2].$lambda(clone);\n");
+        xml_.append("  $return f.call().length;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxOkRead(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(2, getNumber(ret_));
+    }
+
+    @Test
+    public void test75() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  $Fct<$int,$int[]> f = $staticCall($int[]).$lambda($new);\n");
+        xml_.append("  $return f.call(2).length;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxOkRead(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(2, getNumber(ret_));
+    }
+
+    @Test
+    public void test76() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<T> {\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  $return $staticCall(Ex<$int>).exmeth();\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $staticCall $int exmeth(){\n");
+        xml_.append("  $Fct<$int,T[]> f = $staticCall(T[]).$lambda($new);\n");
+        xml_.append("  $return f.call(2).length;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxOkRead(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(2, getNumber(ret_));
+    }
+
+    @Test
     public void fail1() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {\n");
@@ -2394,6 +2473,8 @@ public final class ProcessMethodInferLambdaTest extends ProcessMethodCommon {
         xml_.append("  $staticCall(<>).$lambda($new);\n");
         xml_.append("  $staticCall().$lambda($new);\n");
         xml_.append("  $static().$lambda($new);\n");
+        xml_.append("  $staticCall($int[]).$lambda();\n");
+        xml_.append("  $new $int[1].$lambda();\n");
         xml_.append("  $lambda($new).f;\n");
         xml_.append("  $return -1;\n");
         xml_.append(" }\n");

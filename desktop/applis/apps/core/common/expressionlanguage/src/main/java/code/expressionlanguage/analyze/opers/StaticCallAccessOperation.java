@@ -65,16 +65,6 @@ public final class StaticCallAccessOperation extends LeafOperation {
             classStr_ = glClass_;
             partOffsets = new CustList<PartOffset>();
         }
-        if (classStr_.startsWith(AnaTemplates.ARR_BEG_STRING)) {
-            FoundErrorInterpret badAccess_ = new FoundErrorInterpret();
-            badAccess_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
-            badAccess_.setFileName(_page.getLocalizer().getCurrentFileName());
-            //type len
-            badAccess_.buildError(_page.getAnalysisMessages().getUnexpectedType(),
-                    classStr_);
-            _page.getLocalizer().addError(badAccess_);
-            addErr(badAccess_.getBuiltError());
-        }
         checkClassAccess(this, glClass_, classStr_, _page);
         Argument a_ = new Argument();
         setSimpleArgument(a_);
@@ -83,6 +73,16 @@ public final class StaticCallAccessOperation extends LeafOperation {
 
     public void check(AnalyzedPageEl _page) {
         String type_ = getResultClass().getSingleNameOrEmpty();
+        if (type_.startsWith(AnaTemplates.ARR_BEG_STRING)) {
+            FoundErrorInterpret badAccess_ = new FoundErrorInterpret();
+            badAccess_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+            badAccess_.setFileName(_page.getLocalizer().getCurrentFileName());
+            //type len
+            badAccess_.buildError(_page.getAnalysisMessages().getUnexpectedType(),
+                    type_);
+            _page.getLocalizer().addError(badAccess_);
+            addErr(badAccess_.getBuiltError());
+        }
         if (type_.startsWith(AnaTemplates.PREFIX_VAR_TYPE)) {
             FoundErrorInterpret badAccess_ = new FoundErrorInterpret();
             badAccess_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());

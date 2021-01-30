@@ -222,8 +222,24 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                         return;
                     }
                     if (StringUtil.quickEq(args_.first().trim(),new_)) {
-                        stCall_.check(_page);
+                        boolean cloneArray_ = cloneArray(bounds_);
+                        StringList a_ = new StringList();
+                        getArrayBounds(bounds_, a_);
                         String prev_ = previousResultClass.getSingleNameOrEmpty();
+                        if (cloneArray_) {
+                            StringList parts_ = new StringList();
+                            lambdaCommonContent.setFoundClass(prev_);
+                            realId = new ConstructorId(prev_, parts_, true);
+                            parts_.add(_page.getAliasPrimInteger());
+                            parts_.add(prev_);
+                            StringBuilder fct_ = new StringBuilder(_page.getAliasFct());
+                            fct_.append(Templates.TEMPLATE_BEGIN);
+                            fct_.append(StringUtil.join(parts_, Templates.TEMPLATE_SEP));
+                            fct_.append(Templates.TEMPLATE_END);
+                            setResultClass(new AnaClassArgumentMatching(fct_.toString()));
+                            return;
+                        }
+                        stCall_.check(_page);
                         String id_ = StringExpUtil.getIdFromAllTypes(prev_);
                         AnaGeneType h_ = _page.getAnaGeneType(id_);
                         if (noDefCtor(h_)) {
@@ -349,6 +365,29 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                         setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
                         return;
                     }
+                    boolean cloneArray_ = cloneArray(bounds_);
+                    StringList a_ = new StringList();
+                    getArrayBounds(bounds_, a_);
+                    if (cloneArray_) {
+                        String name_ = args_.first();
+                        if (checkArrayMethod(bounds_, name_, _page)) {
+                            setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
+                            return;
+                        }
+                        lambdaMethodContent.setClonedMethod(true);
+                        String foundClass_ = StringExpUtil.getPrettyArrayType(_page.getAliasObject());
+                        MethodId id_ = new MethodId(MethodAccessKind.INSTANCE, name_, new StringList());
+                        method = new ClassMethodId(foundClass_, id_);
+                        lambdaCommonContent.setShiftArgument(true);
+                        StringBuilder fct_ = new StringBuilder(_page.getAliasFct());
+                        fct_.append(Templates.TEMPLATE_BEGIN);
+                        fct_.append(lambdaCommonContent.getFoundClass());
+                        fct_.append(Templates.TEMPLATE_SEP);
+                        fct_.append(lambdaCommonContent.getFoundClass());
+                        fct_.append(Templates.TEMPLATE_END);
+                        setResultClass(new AnaClassArgumentMatching(fct_.toString()));
+                        return;
+                    }
                     CustList<ClassMethodIdReturn> resList_ = new CustList<ClassMethodIdReturn>();
                     //use types of previous operation
                     for (String s: candidates_) {
@@ -396,6 +435,26 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                         return;
                     }
                 } else {
+                    boolean cloneArray_ = cloneArray(bounds_);
+                    StringList a_ = new StringList();
+                    getArrayBounds(bounds_, a_);
+                    if (cloneArray_) {
+                        String name_ = args_.first();
+                        if (checkArrayMethod(bounds_, name_, _page)) {
+                            setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
+                            return;
+                        }
+                        lambdaMethodContent.setClonedMethod(true);
+                        String foundClass_ = StringExpUtil.getPrettyArrayType(_page.getAliasObject());
+                        MethodId id_ = new MethodId(MethodAccessKind.INSTANCE, name_, new StringList());
+                        method = new ClassMethodId(foundClass_, id_);
+                        StringBuilder fct_ = new StringBuilder(_page.getAliasFct());
+                        fct_.append(Templates.TEMPLATE_BEGIN);
+                        fct_.append(lambdaCommonContent.getFoundClass());
+                        fct_.append(Templates.TEMPLATE_END);
+                        setResultClass(new AnaClassArgumentMatching(fct_.toString()));
+                        return;
+                    }
                     CustList<ClassMethodIdReturn> resList_ = new CustList<ClassMethodIdReturn>();
                     for (String s: candidates_) {
                         StringList allTypes_ = StringExpUtil.getAllTypes(s);
