@@ -1,4 +1,4 @@
-package code.bean;
+package code.formathtml.nat;
 
 import code.expressionlanguage.structs.Struct;
 

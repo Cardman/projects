@@ -17,7 +17,7 @@ import code.formathtml.Configuration;
 import code.bean.nat.BeanNatLgNames;
 import code.bean.nat.DefaultInitialization;
 import code.bean.BeanStruct;
-import code.bean.RealInstanceStruct;
+import code.formathtml.nat.RealInstanceStruct;
 import code.formathtml.structs.BeanInfo;
 import code.util.*;
 import code.util.core.StringUtil;

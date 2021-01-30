@@ -1,9 +1,7 @@
 package code.formathtml.sample;
 
-import code.bean.RealInstanceStruct;
+import code.formathtml.nat.RealInstanceStruct;
 import code.bean.nat.CommNatStruct;
-import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.structs.WithoutParentIdStruct;
 import code.maths.LgInt;
 import code.maths.Rate;
 import code.util.*;
