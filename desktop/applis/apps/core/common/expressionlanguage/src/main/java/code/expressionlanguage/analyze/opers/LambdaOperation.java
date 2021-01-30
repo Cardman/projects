@@ -370,7 +370,20 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                     getArrayBounds(bounds_, a_);
                     if (cloneArray_) {
                         String name_ = args_.first();
-                        if (checkArrayMethod(bounds_, name_, _page)) {
+                        if (koArrayMethod(name_, _page)) {
+                            tryCheck(_page);
+                            FoundErrorInterpret badCall_ = new FoundErrorInterpret();
+                            badCall_.setFileName(_page.getLocalizer().getCurrentFileName());
+                            badCall_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+                            //last parenthesis
+                            badCall_.buildError(_page.getAnalysisMessages().getSplitComa(),
+                                    Long.toString(2),
+                                    Long.toString(len_)
+                            );
+                            _page.getLocalizer().addError(badCall_);
+                            int i_ = _page.getLocalizer().getCurrentLocationIndex()+className.lastIndexOf(')');
+                            partOffsetsEnd.add(new PartOffset("<a title=\""+LinkageUtil.transform(badCall_.getBuiltError()) +"\" class=\"e\">",i_));
+                            partOffsetsEnd.add(new PartOffset("</a>",i_+1));
                             setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
                             return;
                         }
@@ -440,7 +453,20 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                     getArrayBounds(bounds_, a_);
                     if (cloneArray_) {
                         String name_ = args_.first();
-                        if (checkArrayMethod(bounds_, name_, _page)) {
+                        if (koArrayMethod(name_, _page)) {
+                            tryCheck(_page);
+                            FoundErrorInterpret badCall_ = new FoundErrorInterpret();
+                            badCall_.setFileName(_page.getLocalizer().getCurrentFileName());
+                            badCall_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+                            //last parenthesis
+                            badCall_.buildError(_page.getAnalysisMessages().getSplitComa(),
+                                    Long.toString(2),
+                                    Long.toString(len_)
+                            );
+                            _page.getLocalizer().addError(badCall_);
+                            int i_ = _page.getLocalizer().getCurrentLocationIndex()+className.lastIndexOf(')');
+                            partOffsetsEnd.add(new PartOffset("<a title=\""+LinkageUtil.transform(badCall_.getBuiltError()) +"\" class=\"e\">",i_));
+                            partOffsetsEnd.add(new PartOffset("</a>",i_+1));
                             setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
                             return;
                         }
@@ -1350,6 +1376,11 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             return true;
         }
         return false;
+    }
+
+
+    private static boolean koArrayMethod(String _name, AnalyzedPageEl _page) {
+        return !StringUtil.quickEq(_name, _page.getAliasClone());
     }
 
     private void getArrayBounds(StringList _bounds, StringList _a) {
