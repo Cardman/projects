@@ -1,16 +1,13 @@
-package code.formathtml.nat;
+package code.bean.nat;
 
-import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.structs.Struct;
-import code.expressionlanguage.structs.WithoutParentIdStruct;
 
-public final class PairStruct extends WithoutParentIdStruct {
-    private final String className;
+public final class PairStruct extends CommNatStruct {
     private final Struct first;
     private final Struct second;
 
     public PairStruct(String _className, Struct _first, Struct _second) {
-        this.className = _className;
+        super(_className);
         this.first = _first;
         this.second = _second;
     }
@@ -21,10 +18,5 @@ public final class PairStruct extends WithoutParentIdStruct {
 
     public Struct getSecond() {
         return second;
-    }
-
-    @Override
-    public String getClassName(ContextEl _contextEl) {
-        return className;
     }
 }

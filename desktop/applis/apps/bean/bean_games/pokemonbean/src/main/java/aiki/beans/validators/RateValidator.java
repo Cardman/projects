@@ -1,5 +1,4 @@
 package aiki.beans.validators;
-import aiki.beans.DefaultStruct;
 import aiki.beans.RateStruct;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.structs.Message;

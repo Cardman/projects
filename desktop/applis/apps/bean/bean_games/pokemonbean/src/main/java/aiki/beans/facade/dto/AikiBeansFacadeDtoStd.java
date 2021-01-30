@@ -1,5 +1,4 @@
 package aiki.beans.facade.dto;
-import aiki.beans.DefaultStruct;
 import aiki.beans.PokemonStandards;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ClassField;
@@ -12,11 +11,8 @@ import code.expressionlanguage.stds.StandardField;
 import code.expressionlanguage.stds.StandardMethod;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.IntStruct;
-import code.bean.RealInstanceStruct;
-import code.expressionlanguage.structs.ShortStruct;
 import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.structs.Struct;
-import code.formathtml.util.BeanLgNames;
 import code.bean.nat.BeanNatLgNames;
 import code.util.CustList;
 import code.util.StringList;
@@ -137,80 +133,76 @@ public final class AikiBeansFacadeDtoStd {
         type_ = new StandardClass(TYPE_WEATHER_TYPE_LINE, fields_, constructors_, methods_, _std.getAliasObject(), MethodModifier.NORMAL);
         _std.getStandards().addEntry(TYPE_WEATHER_TYPE_LINE, type_);
     }
-    public static ResultErrorStd getResultItemLine(ContextEl _cont, ClassField _classField, Struct _instance) {
+    public static ResultErrorStd getResultItemLine(ContextEl _cont, ClassField _classField, ItemLine _inst) {
         ResultErrorStd res_ = new ResultErrorStd();
-        ItemLine instance_ = (ItemLine) ((RealInstanceStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringUtil.quickEq(fieldName_,DISPLAY_NAME)) {
-            res_.setResult(new StringStruct(instance_.getDisplayName()));
+            res_.setResult(new StringStruct(_inst.getDisplayName()));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,PRICE)) {
-            res_.setResult(new IntStruct(instance_.getPrice()));
+            res_.setResult(new IntStruct(_inst.getPrice()));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,DESCRIPTION_CLASS)) {
-            res_.setResult(new StringStruct(instance_.getDescriptionClass()));
+            res_.setResult(new StringStruct(_inst.getDescriptionClass()));
             return res_;
         }
         return res_;
     }
-    public static ResultErrorStd getResultMoveLine(ContextEl _cont, ClassField _classField, Struct _instance) {
+    public static ResultErrorStd getResultMoveLine(ContextEl _cont, ClassField _classField, MoveLine _inst) {
         ResultErrorStd res_ = new ResultErrorStd();
-        MoveLine instance_ = (MoveLine) ((RealInstanceStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringUtil.quickEq(fieldName_,DISPLAY_NAME)) {
-            res_.setResult(new StringStruct(instance_.getDisplayName()));
+            res_.setResult(new StringStruct(_inst.getDisplayName()));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,PP)) {
-            res_.setResult(new IntStruct(instance_.getPp()));
+            res_.setResult(new IntStruct(_inst.getPp()));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,CATEGORY)) {
-            res_.setResult(new StringStruct(instance_.getCategory()));
+            res_.setResult(new StringStruct(_inst.getCategory()));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,PRIORITY)) {
-            res_.setResult(new IntStruct(instance_.getPriority()));
+            res_.setResult(new IntStruct(_inst.getPriority()));
             return res_;
         }
         return res_;
     }
-    public static ResultErrorStd getResultPokemonLine(ContextEl _cont, ClassField _classField, Struct _instance) {
-        BeanLgNames std_ = (BeanLgNames) _cont.getStandards();
+    public static ResultErrorStd getResultPokemonLine(ContextEl _cont, ClassField _classField, PokemonLine _inst) {
+        BeanNatLgNames std_ = (BeanNatLgNames) _cont.getStandards();
         ResultErrorStd res_ = new ResultErrorStd();
-        PokemonLine instance_ = (PokemonLine) ((RealInstanceStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringUtil.quickEq(fieldName_,DISPLAY_NAME)) {
-            res_.setResult(new StringStruct(instance_.getDisplayName()));
+            res_.setResult(new StringStruct(_inst.getDisplayName()));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,TYPES)) {
-            res_.setResult(new DefaultStruct(instance_.getTypes(), BeanNatLgNames.TYPE_LIST));
+            res_.setResult(std_.getStringArray(_inst.getTypes()));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,EVOLUTIONS)) {
-            res_.setResult(new IntStruct(instance_.getEvolutions()));
+            res_.setResult(new IntStruct(_inst.getEvolutions()));
             return res_;
         }
         return res_;
     }
-    public static ResultErrorStd invokeMethodMoveLine(ContextEl _cont, Struct _instance, ClassMethodId _method, Struct... _args) {
-        BeanLgNames std_ = (BeanLgNames) _cont.getStandards();
-        MoveLine instance_ = (MoveLine) ((RealInstanceStruct)_instance).getInstance();
+    public static ResultErrorStd invokeMethodMoveLine(ContextEl _cont, ClassMethodId _method, MoveLine _inst, Struct... _args) {
+        BeanNatLgNames std_ = (BeanNatLgNames) _cont.getStandards();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringUtil.quickEq(methodName_,IS_DAMAGE_MOVE)) {
-            res_.setResult(BooleanStruct.of(instance_.isDamageMove()));
+            res_.setResult(BooleanStruct.of(_inst.isDamageMove()));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,IS_DIRECT)) {
-            res_.setResult(BooleanStruct.of(instance_.isDirect()));
+            res_.setResult(BooleanStruct.of(_inst.isDirect()));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TYPES)) {
-            res_.setResult(new DefaultStruct(instance_.getTypes(), BeanNatLgNames.TYPE_LIST));
+            res_.setResult(std_.getStringArray(_inst.getTypes()));
             return res_;
         }
         return res_;

@@ -1,8 +1,5 @@
 package aiki.beans.effects;
-import aiki.beans.AikiBeansStd;
-import aiki.beans.DefaultStruct;
-import aiki.beans.PokemonStandards;
-import aiki.beans.RateStruct;
+import aiki.beans.*;
 import aiki.fight.effects.EffectWhileSendingWithStatistic;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ClassField;
@@ -16,13 +13,10 @@ import code.expressionlanguage.stds.StandardField;
 import code.expressionlanguage.stds.StandardMethod;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.IntStruct;
-import code.expressionlanguage.structs.LongStruct;
 import code.expressionlanguage.structs.NullStruct;
 import code.bean.RealInstanceStruct;
-import code.expressionlanguage.structs.ShortStruct;
 import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.structs.Struct;
-import code.formathtml.util.BeanLgNames;
 import code.bean.nat.BeanNatLgNames;
 import code.util.CustList;
 import code.util.StringList;
@@ -205,18 +199,18 @@ public final class AikiBeansEffectsStd {
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,COMBOS)) {
-            res_.setResult(DefaultStruct.newInstance(instance_.getCombos(),AikiBeansEffectsStd.TYPE_COMBO_DTO));
+            res_.setResult(new ComboDtoStruct(instance_.getCombos(),AikiBeansEffectsStd.TYPE_COMBO_DTO));
             return res_;
         }
         return res_;
     }
     public static ResultErrorStd getResultEffectComboBean(ContextEl _cont, ClassField _classField, Struct _instance) {
-        BeanLgNames std_ = (BeanLgNames) _cont.getStandards();
+        BeanNatLgNames std_ = (BeanNatLgNames) _cont.getStandards();
         ResultErrorStd res_ = new ResultErrorStd();
         EffectComboBean instance_ = (EffectComboBean) ((RealInstanceStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringUtil.quickEq(fieldName_,MOVES)) {
-            res_.setResult(new DefaultStruct(instance_.getMoves(), BeanNatLgNames.TYPE_LIST));
+            res_.setResult(std_.getStringArray(instance_.getMoves()));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,INDEX)) {
@@ -232,11 +226,11 @@ public final class AikiBeansEffectsStd {
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,REASONS_END_ROUND)) {
-            res_.setResult(new DefaultStruct(instance_.getReasonsEndRound(), BeanNatLgNames.TYPE_LIST));
+            res_.setResult(std_.getStringArray(instance_.getReasonsEndRound()));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,MAP_VARS_FAIL_END_ROUND)) {
-            res_.setResult(new DefaultStruct(instance_.getMapVarsFailEndRound(), BeanNatLgNames.TYPE_MAP));
+            res_.setResult(PokemonStandards.getStrStr(_cont,instance_.getMapVarsFailEndRound()));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,MULT_EVT_RATE_SEC_EFF)) {
@@ -244,7 +238,7 @@ public final class AikiBeansEffectsStd {
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,MULT_STATISTIC_FOE)) {
-            res_.setResult(new DefaultStruct(instance_.getMultStatisticFoe(), BeanNatLgNames.TYPE_MAP));
+            res_.setResult(PokemonStandards.getStaRate(_cont,instance_.getMultStatisticFoe()));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,RANK_INCREMENT_NB_ROUND)) {
@@ -252,13 +246,13 @@ public final class AikiBeansEffectsStd {
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,REPEATED_ROUNDS_LAW)) {
-            res_.setResult(new DefaultStruct(instance_.getRepeatedRoundsLaw(), BeanNatLgNames.TYPE_MAP));
+            res_.setResult(PokemonStandards.getLgIntRate(_cont,instance_.getRepeatedRoundsLaw()));
             return res_;
         }
         return res_;
     }
     public static ResultErrorStd getResultEffectWhileSendingBean(ContextEl _cont, ClassField _classField, Struct _instance) {
-        BeanLgNames std_ = (BeanLgNames) _cont.getStandards();
+        BeanNatLgNames std_ = (BeanNatLgNames) _cont.getStandards();
         ResultErrorStd res_ = new ResultErrorStd();
         EffectWhileSendingBean instance_ = (EffectWhileSendingBean) ((RealInstanceStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
@@ -287,11 +281,11 @@ public final class AikiBeansEffectsStd {
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,REASONS)) {
-            res_.setResult(new DefaultStruct(instance_.getReasons(), BeanNatLgNames.TYPE_LIST));
+            res_.setResult(std_.getStringArray(instance_.getReasons()));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,MAP_VARS_FAIL)) {
-            res_.setResult(new DefaultStruct(instance_.getMapVarsFail(), BeanNatLgNames.TYPE_MAP));
+            res_.setResult(PokemonStandards.getStrStr(_cont,instance_.getMapVarsFail()));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,EVT_RATE)) {
@@ -303,19 +297,19 @@ public final class AikiBeansEffectsStd {
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,STATIS_VAR_RANK)) {
-            res_.setResult(new DefaultStruct(instance_.getStatisVarRank(), BeanNatLgNames.TYPE_MAP));
+            res_.setResult(PokemonStandards.getStrByte(_cont,instance_.getStatisVarRank()));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,MAP_VARS_STATISTICS)) {
-            res_.setResult(new DefaultStruct(instance_.getMapVarsStatistics(), BeanNatLgNames.TYPE_MAP));
+            res_.setResult(PokemonStandards.getStrStr(_cont,instance_.getMapVarsStatistics()));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,SWAP_BOOST_STATIS)) {
-            res_.setResult(new DefaultStruct(instance_.getSwapBoostStatis(), BeanNatLgNames.TYPE_LIST));
+            res_.setResult(std_.getStringArray(instance_.getSwapBoostStatis()));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,CANCEL_LOW_STAT)) {
-            res_.setResult(new DefaultStruct(instance_.getCancelLowStat(), BeanNatLgNames.TYPE_LIST));
+            res_.setResult(std_.getStringArray(instance_.getCancelLowStat()));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,DEFAULT_BOOST)) {
@@ -323,11 +317,11 @@ public final class AikiBeansEffectsStd {
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,CANCEL_CHGT_STAT)) {
-            res_.setResult(new DefaultStruct(instance_.getCancelChgtStat(), BeanNatLgNames.TYPE_LIST));
+            res_.setResult(std_.getStringArray(instance_.getCancelChgtStat()));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,COPY_BOOST)) {
-            res_.setResult(new DefaultStruct(instance_.getCopyBoost(), BeanNatLgNames.TYPE_LIST));
+            res_.setResult(std_.getStringArray(instance_.getCopyBoost()));
             return res_;
         }
         return res_;
@@ -342,7 +336,7 @@ public final class AikiBeansEffectsStd {
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,COMBOS)) {
-            instance_.setCombos((ComboDto) ((RealInstanceStruct)_val).getInstance());
+            instance_.setCombos(((ComboDtoStruct)_val).getInstance());
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }
@@ -353,19 +347,19 @@ public final class AikiBeansEffectsStd {
         EffectWhileSendingBean instance_ = (EffectWhileSendingBean) ((RealInstanceStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringUtil.quickEq(fieldName_,EFFECT)) {
-            instance_.setEffect((EffectWhileSendingWithStatistic) ((RealInstanceStruct)_val).getInstance());
+            instance_.setEffect(((EffectWhileSendingWithStatisticStruct)_val).getEffectPartnerStatus());
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }
         return res_;
     }
     public static ResultErrorStd invokeMethodCombosBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Struct... _args) {
-        BeanLgNames std_ = (BeanLgNames) _cont.getStandards();
+        BeanNatLgNames std_ = (BeanNatLgNames) _cont.getStandards();
         CombosBean instance_ = (CombosBean) ((RealInstanceStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringUtil.quickEq(methodName_,GET_COMBOS_KEY)) {
-            res_.setResult(new DefaultStruct(instance_.getCombosKey(), BeanNatLgNames.TYPE_LIST));
+            res_.setResult(PokemonStandards.getStrList(_cont,instance_.getCombosKey()));
             return res_;
         }
         return res_;

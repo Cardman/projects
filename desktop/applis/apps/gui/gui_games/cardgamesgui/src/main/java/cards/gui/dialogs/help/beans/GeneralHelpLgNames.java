@@ -6,7 +6,6 @@ import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.ConstructorId;
 import code.expressionlanguage.stds.ResultErrorStd;
-import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
 import code.bean.nat.DefaultInitialization;
 import code.bean.nat.BeanNatLgNames;
@@ -16,13 +15,6 @@ public final class GeneralHelpLgNames extends BeanNatLgNames {
 
     public GeneralHelpLgNames() {
         DefaultInitialization.basicStandards(this);
-    }
-    public Struct wrapStd(Object _element){
-        return NullStruct.NULL_VALUE;
-    }
-    @Override
-    protected Struct newId(Object _obj, String _className) {
-        return NullStruct.NULL_VALUE;
     }
 
     public ResultErrorStd getOtherResultBean(ContextEl _cont,

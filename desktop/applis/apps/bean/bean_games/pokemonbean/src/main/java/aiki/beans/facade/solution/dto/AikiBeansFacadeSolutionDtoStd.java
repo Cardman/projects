@@ -1,5 +1,4 @@
 package aiki.beans.facade.solution.dto;
-import aiki.beans.DefaultStruct;
 import aiki.beans.PokemonStandards;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ClassField;
@@ -10,10 +9,8 @@ import code.expressionlanguage.stds.StandardClass;
 import code.expressionlanguage.stds.StandardConstructor;
 import code.expressionlanguage.stds.StandardField;
 import code.expressionlanguage.stds.StandardMethod;
-import code.bean.RealInstanceStruct;
 import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.structs.Struct;
-import code.formathtml.util.BeanLgNames;
 import code.bean.nat.BeanNatLgNames;
 import code.util.CustList;
 import code.util.StringList;
@@ -83,49 +80,46 @@ public final class AikiBeansFacadeSolutionDtoStd {
         fields_.add(new StandardField(GENDER,_std.getAliasString(),false,false,type_));
         _std.getStandards().addEntry(TYPE_WILD_POKEMON_DTO, type_);
     }
-    public static ResultErrorStd getResultPlaceTrainerDto(ContextEl _cont, ClassField _classField, Struct _instance) {
+    public static ResultErrorStd getResultPlaceTrainerDto(ContextEl _cont, ClassField _classField, PlaceTrainerDto _inst) {
         ResultErrorStd res_ = new ResultErrorStd();
-        PlaceTrainerDto instance_ = (PlaceTrainerDto) ((RealInstanceStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringUtil.quickEq(fieldName_,TRAINER)) {
-            res_.setResult(new StringStruct(instance_.getTrainer()));
+            res_.setResult(new StringStruct(_inst.getTrainer()));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,PLACE)) {
-            res_.setResult(new StringStruct(instance_.getPlace()));
+            res_.setResult(new StringStruct(_inst.getPlace()));
             return res_;
         }
         return res_;
     }
-    public static ResultErrorStd getResultWildPokemonDto(ContextEl _cont, ClassField _classField, Struct _instance) {
+    public static ResultErrorStd getResultWildPokemonDto(ContextEl _cont, ClassField _classField, WildPokemonDto _inst) {
         ResultErrorStd res_ = new ResultErrorStd();
-        WildPokemonDto instance_ = (WildPokemonDto) ((RealInstanceStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringUtil.quickEq(fieldName_,IMAGE)) {
-            res_.setResult(new StringStruct(instance_.getImage()));
+            res_.setResult(new StringStruct(_inst.getImage()));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,NAME)) {
-            res_.setResult(new StringStruct(instance_.getName()));
+            res_.setResult(new StringStruct(_inst.getName()));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,GENDER)) {
-            res_.setResult(new StringStruct(instance_.getGender()));
+            res_.setResult(new StringStruct(_inst.getGender()));
             return res_;
         }
         return res_;
     }
-    public static ResultErrorStd invokeMethodStepDto(ContextEl _cont, Struct _instance, ClassMethodId _method, Struct... _args) {
-        BeanLgNames std_ = (BeanLgNames) _cont.getStandards();
-        StepDto instance_ = (StepDto) ((RealInstanceStruct)_instance).getInstance();
+    public static ResultErrorStd invokeMethodStepDto(ContextEl _cont, ClassMethodId _method, StepDto _inst, Struct... _args) {
+        BeanNatLgNames std_ = (BeanNatLgNames) _cont.getStandards();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringUtil.quickEq(methodName_,GET_POKEMON)) {
-            res_.setResult(new DefaultStruct(instance_.getPokemon(), BeanNatLgNames.TYPE_MAP));
+            res_.setResult(PokemonStandards.getPlLevWildPkDto(_cont,_inst.getPokemon()));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_NAMES)) {
-            res_.setResult(new DefaultStruct(instance_.getNames(), BeanNatLgNames.TYPE_LIST));
+            res_.setResult(PokemonStandards.getPlTr(_inst.getNames()));
             return res_;
         }
         return res_;

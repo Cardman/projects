@@ -1,25 +1,17 @@
-package code.formathtml.nat;
+package code.bean.nat;
 
-import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.structs.ArrayStruct;
 import code.expressionlanguage.structs.Struct;
-import code.expressionlanguage.structs.WithoutParentIdStruct;
 
-public class SimpleItrStruct extends WithoutParentIdStruct {
-    private final String className;
+public final class SimpleItrStruct extends CommNatStruct {
     private final ArrayStruct array;
     private int index;
-    private int length;
+    private final int length;
 
     public SimpleItrStruct(String _className, ArrayStruct _array) {
-        className = _className;
+        super(_className);
         array = _array;
         length = _array.getLength();
-    }
-
-    @Override
-    public String getClassName(ContextEl _contextEl) {
-        return className;
     }
 
     public boolean hasNext() {

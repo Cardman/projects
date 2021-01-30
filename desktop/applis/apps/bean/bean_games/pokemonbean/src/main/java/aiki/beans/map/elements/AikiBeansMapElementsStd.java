@@ -1,7 +1,5 @@
 package aiki.beans.map.elements;
-import aiki.beans.AikiBeansStd;
-import aiki.beans.DefaultStruct;
-import aiki.beans.PokemonStandards;
+import aiki.beans.*;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.NumParsers;
@@ -14,10 +12,8 @@ import code.expressionlanguage.stds.StandardField;
 import code.expressionlanguage.stds.StandardMethod;
 import code.bean.RealInstanceStruct;
 import code.expressionlanguage.structs.IntStruct;
-import code.expressionlanguage.structs.ShortStruct;
 import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.structs.Struct;
-import code.formathtml.util.BeanLgNames;
 import code.bean.nat.BeanNatLgNames;
 import code.util.CustList;
 import code.util.StringList;
@@ -188,7 +184,7 @@ public final class AikiBeansMapElementsStd {
         AreaBean instance_ = (AreaBean) ((RealInstanceStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringUtil.quickEq(fieldName_,AREA)) {
-            res_.setResult(DefaultStruct.newInstance(instance_.getArea(),PokemonStandards.TYPE_AREA_APPARITION));
+            res_.setResult(new AreaApparitionStruct(instance_.getArea(),PokemonStandards.TYPE_AREA_APPARITION));
             return res_;
         }
         return res_;
@@ -198,13 +194,13 @@ public final class AikiBeansMapElementsStd {
         LegendaryPokemonBean instance_ = (LegendaryPokemonBean) ((RealInstanceStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringUtil.quickEq(fieldName_,POKEMON)) {
-            res_.setResult(DefaultStruct.newInstance(instance_.getPokemon(),PokemonStandards.TYPE_POKEMON));
+            res_.setResult(new PkStruct(instance_.getPokemon(),PokemonStandards.TYPE_POKEMON));
             return res_;
         }
         return res_;
     }
     public static ResultErrorStd invokeMethodAreaBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Struct... _args) {
-        BeanLgNames std_ = (BeanLgNames) _cont.getStandards();
+        BeanNatLgNames std_ = (BeanNatLgNames) _cont.getStandards();
         AreaBean instance_ = (AreaBean) ((RealInstanceStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
@@ -241,7 +237,7 @@ public final class AikiBeansMapElementsStd {
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_MOVES_AT_LEVEL)) {
-            res_.setResult(new DefaultStruct(instance_.getMovesAtLevel(NumParsers.convertToNumber(_args[0]).intStruct()), BeanNatLgNames.TYPE_LIST));
+            res_.setResult(std_.getStringArray(instance_.getMovesAtLevel(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,CLICK_MOVE)) {
@@ -281,7 +277,7 @@ public final class AikiBeansMapElementsStd {
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_MOVES_AT_LEVEL_FISHING)) {
-            res_.setResult(new DefaultStruct(instance_.getMovesAtLevelFishing(NumParsers.convertToNumber(_args[0]).intStruct()), BeanNatLgNames.TYPE_LIST));
+            res_.setResult(std_.getStringArray(instance_.getMovesAtLevelFishing(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,CLICK_MOVE_FISHING)) {
@@ -295,7 +291,7 @@ public final class AikiBeansMapElementsStd {
         return res_;
     }
     public static ResultErrorStd invokeMethodLegendaryPokemonBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Struct... _args) {
-        BeanLgNames std_ = (BeanLgNames) _cont.getStandards();
+        BeanNatLgNames std_ = (BeanNatLgNames) _cont.getStandards();
         LegendaryPokemonBean instance_ = (LegendaryPokemonBean) ((RealInstanceStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
@@ -336,7 +332,7 @@ public final class AikiBeansMapElementsStd {
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_MOVES_AT_LEVEL)) {
-            res_.setResult(new DefaultStruct(instance_.getMovesAtLevel(), BeanNatLgNames.TYPE_LIST));
+            res_.setResult(std_.getStringArray(instance_.getMovesAtLevel()));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,CLICK_MOVE)) {

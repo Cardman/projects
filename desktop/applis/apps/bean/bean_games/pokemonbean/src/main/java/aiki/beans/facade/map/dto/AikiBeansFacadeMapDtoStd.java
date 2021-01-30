@@ -1,5 +1,5 @@
 package aiki.beans.facade.map.dto;
-import aiki.beans.DefaultStruct;
+import aiki.beans.PlaceStruct;
 import aiki.beans.PokemonStandards;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ClassField;
@@ -11,7 +11,6 @@ import code.expressionlanguage.stds.StandardConstructor;
 import code.expressionlanguage.stds.StandardField;
 import code.expressionlanguage.stds.StandardMethod;
 import code.expressionlanguage.structs.IntStruct;
-import code.bean.RealInstanceStruct;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 import code.util.StringList;
@@ -43,22 +42,20 @@ public final class AikiBeansFacadeMapDtoStd {
         methods_.add(method_);
         _std.getStandards().addEntry(TYPE_PLACE_INDEX, type_);
     }
-    public static ResultErrorStd getResultPlaceIndex(ContextEl _cont, ClassField _classField, Struct _instance) {
+    public static ResultErrorStd getResultPlaceIndex(ContextEl _cont, ClassField _classField, PlaceIndex _inst) {
         ResultErrorStd res_ = new ResultErrorStd();
-        PlaceIndex instance_ = (PlaceIndex) ((RealInstanceStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringUtil.quickEq(fieldName_,INDEX)) {
-            res_.setResult(new IntStruct(instance_.getIndex()));
+            res_.setResult(new IntStruct(_inst.getIndex()));
             return res_;
         }
         return res_;
     }
-    public static ResultErrorStd invokeMethodPlaceIndex(ContextEl _cont, Struct _instance, ClassMethodId _method, Struct... _args) {
-        PlaceIndex instance_ = (PlaceIndex) ((RealInstanceStruct)_instance).getInstance();
+    public static ResultErrorStd invokeMethodPlaceIndex(ContextEl _cont, ClassMethodId _method, PlaceIndex _inst, Struct... _args) {
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringUtil.quickEq(methodName_,GET_PLACE)) {
-            res_.setResult(DefaultStruct.newInstance(instance_.getPlace(),PokemonStandards.TYPE_PLACE));
+            res_.setResult(new PlaceStruct(_inst.getPlace(),PokemonStandards.TYPE_PLACE));
             return res_;
         }
         return res_;

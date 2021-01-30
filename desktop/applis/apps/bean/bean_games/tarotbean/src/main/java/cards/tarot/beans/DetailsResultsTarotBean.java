@@ -100,19 +100,24 @@ final class DetailsResultsTarotBean extends TarotBean {
                         TreeMap<Handfuls,Short> handfulsTakerLoc_ = handfulsTaker_.get(p);
                         line_.setNickname(getNicknames().get(p));
                         line_.setStatus(toString(game_.getTeamsRelation().statutDe(p), res_.getRes().getGeneral()));
-                        StringMap<Short> str_ = new StringMap<Short>();
+                        StringMap<Short> hands_ = new StringMap<Short>();
                         for (EntryCust<Handfuls,Short> e: handfulsTakerLoc_.entryList()) {
                             Handfuls h_ = e.getKey();
-                            str_.addEntry(toString(h_, res_.getRes().getSpecific()), e.getValue());
+                            hands_.addEntry(toString(h_, res_.getRes().getSpecific()), e.getValue());
                         }
-                        line_.setHandfuls(str_);
+                        line_.setHandfuls(hands_);
                         int sum_ = 0;
                         for (Handfuls h: getGame().getAnnoncesPoignees(p)) {
                             sumPlayers_ += handfulsTakerLoc_.getVal(h);
                             sum_ += handfulsTakerLoc_.getVal(h);
                         }
                         TreeMap<Miseres,Short> miseresTakerLoc_ = miseresTaker_.get(p);
-                        line_.setMiseres(miseresTakerLoc_);
+                        StringMap<Short> mis_ = new StringMap<Short>();
+                        for (EntryCust<Miseres, Short> e: miseresTakerLoc_.entryList()) {
+                            Miseres m_ = e.getKey();
+                            mis_.addEntry(toString(m_, res_.getRes().getSpecific()), e.getValue());
+                        }
+                        line_.setMiseres(mis_);
                         for (Miseres m: getGame().getAnnoncesMiseres(p)) {
                             sumPlayers_ += miseresTakerLoc_.getVal(m);
                             sum_ += miseresTakerLoc_.getVal(m);
@@ -195,17 +200,22 @@ final class DetailsResultsTarotBean extends TarotBean {
                             handfulsTakerLoc_.put(h, (short)0);
                         }
                         line_.setNickname(getNicknames().get(p));
-                        StringMap<Short> str_ = new StringMap<Short>();
+                        StringMap<Short> hands_ = new StringMap<Short>();
                         for (EntryCust<Handfuls,Short> e: handfulsTakerLoc_.entryList()) {
                             Handfuls h_ = e.getKey();
-                            str_.addEntry(toString(h_, res_.getRes().getSpecific()), e.getValue());
+                            hands_.addEntry(toString(h_, res_.getRes().getSpecific()), e.getValue());
                         }
-                        line_.setHandfuls(str_);
+                        line_.setHandfuls(hands_);
                         TreeMap<Miseres,Short> miseres_ = new TreeMap<Miseres,Short>(new MiseresComparator());
                         for (Miseres m: end_.calculMiseresScorePlayer(p).get(p).getKeys()) {
                             miseres_.put(m, (short)0);
                         }
-                        line_.setMiseres(miseres_);
+                        StringMap<Short> mis_ = new StringMap<Short>();
+                        for (EntryCust<Miseres, Short> e: miseres_.entryList()) {
+                            Miseres m_ = e.getKey();
+                            mis_.addEntry(toString(m_, res_.getRes().getSpecific()), e.getValue());
+                        }
+                        line_.setMiseres(mis_);
                         line_.setSum(0);
                         linesDeclaring.add(line_);
                     }

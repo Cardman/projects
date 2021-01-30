@@ -1,6 +1,7 @@
 package code.formathtml.nat;
 
 import code.bean.Bean;
+import code.bean.nat.PairStruct;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.structs.ArrayStruct;
@@ -13,12 +14,12 @@ import code.util.StringList;
 import code.util.core.StringUtil;
 
 public class SimpleOne extends Bean {
-    private StringList list = new StringList();
+    private final StringList list = new StringList();
 
-    private NatStringTreeMap<Integer> tree = new NatStringTreeMap< Integer>();
+    private final NatStringTreeMap<Integer> tree = new NatStringTreeMap< Integer>();
 
     private String typedString = "";
-    private CustList<SampleInput> typedStrings = new CustList<SampleInput>();
+    private final CustList<SampleInput> typedStrings = new CustList<SampleInput>();
 
     @Override
     public void beforeDisplaying() {

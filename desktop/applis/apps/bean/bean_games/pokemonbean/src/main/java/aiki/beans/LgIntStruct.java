@@ -1,32 +1,18 @@
 package aiki.beans;
 
-import code.bean.RealInstanceStruct;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.structs.WithoutParentIdStruct;
+import code.expressionlanguage.structs.DisplayableStruct;
+import code.expressionlanguage.structs.StringStruct;
 import code.maths.LgInt;
 
-public final class LgIntStruct extends WithoutParentIdStruct implements RealInstanceStruct {
-
-    private final LgInt instance;
-
-    private final String className;
+public final class LgIntStruct extends ParamNatStruct<LgInt> implements DisplayableStruct {
 
     public LgIntStruct(LgInt _instance, String _className) {
-        instance = _instance;
-        className = _className;
+        super(_instance,_className);
     }
 
     @Override
-    public String getClassName(ContextEl _contextEl) {
-        return className;
+    public StringStruct getDisplayedString(ContextEl _an) {
+        return new StringStruct(getInstance().toNumberString());
     }
-
-    @Override
-    public Object getInstance() {
-        return getInt();
-    }
-    public LgInt getInt() {
-        return instance;
-    }
-
 }

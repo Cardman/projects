@@ -1,6 +1,5 @@
 package aiki.beans.map.pokemon;
 import aiki.beans.AikiBeansStd;
-import aiki.beans.DefaultStruct;
 import aiki.beans.PokemonStandards;
 import aiki.map.characters.Trainer;
 import code.expressionlanguage.ContextEl;
@@ -16,10 +15,8 @@ import code.expressionlanguage.stds.StandardMethod;
 import code.expressionlanguage.structs.IntStruct;
 import code.expressionlanguage.structs.NullStruct;
 import code.bean.RealInstanceStruct;
-import code.expressionlanguage.structs.ShortStruct;
 import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.structs.Struct;
-import code.formathtml.util.BeanLgNames;
 import code.bean.nat.BeanNatLgNames;
 import code.util.CustList;
 import code.util.StringList;
@@ -92,7 +89,7 @@ public final class AikiBeansMapPokemonStd {
         _std.getStandards().addEntry(TYPE_POKEMON_TEAM_BEAN, type_);
     }
     public static ResultErrorStd getResultPokemonTeamBean(ContextEl _cont, ClassField _classField, Struct _instance) {
-        BeanLgNames std_ = (BeanLgNames) _cont.getStandards();
+        BeanNatLgNames std_ = (BeanNatLgNames) _cont.getStandards();
         ResultErrorStd res_ = new ResultErrorStd();
         PokemonTeamBean instance_ = (PokemonTeamBean) ((RealInstanceStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
@@ -105,7 +102,7 @@ public final class AikiBeansMapPokemonStd {
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,TEAM)) {
-            res_.setResult(new DefaultStruct(instance_.getTeam(), BeanNatLgNames.TYPE_LIST));
+            res_.setResult(PokemonStandards.getPkTrainerArray(instance_.getTeam()));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,NO_FIGHT)) {

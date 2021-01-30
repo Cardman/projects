@@ -11,7 +11,7 @@ final class SumDeclaringPlayer {
 
     private StringMap<Short> handfuls;
 
-    private TreeMap<Miseres,Short> miseres;
+    private StringMap<Short> miseres;
 
     private int sum;
 
@@ -39,11 +39,11 @@ final class SumDeclaringPlayer {
         handfuls = _handfuls;
     }
 
-    TreeMap<Miseres,Short> getMiseres() {
+    StringMap<Short> getMiseres() {
         return miseres;
     }
 
-    void setMiseres(TreeMap<Miseres,Short> _miseres) {
+    void setMiseres(StringMap<Short> _miseres) {
         miseres = _miseres;
     }
 

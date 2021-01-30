@@ -6,6 +6,7 @@ import code.bean.Bean;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ClassField;
+import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.ConstructorId;
@@ -125,23 +126,25 @@ public final class PresidentStandards extends BeanNatLgNames {
     public ResultErrorStd getOtherResult(ContextEl _cont, ClassField _classField, Struct _instance) {
         ResultErrorStd res_ = new ResultErrorStd();
         String fieldName_ = _classField.getFieldName();
-        if (((RealInstanceStruct)_instance).getInstance() instanceof PresidentBean) {
-            if (StringUtil.quickEq(fieldName_, NICKNAMES)) {
-                res_.setResult(new DefaultStruct(((PresidentBean)((RealInstanceStruct)_instance).getInstance()).getNicknames(), TYPE_LIST));
-                return res_;
-            }
-            if (StringUtil.quickEq(fieldName_, LINES_DEAL)) {
-                res_.setResult(new DefaultStruct(((PresidentBean)((RealInstanceStruct)_instance).getInstance()).getLinesDeal(), TYPE_LIST));
-                return res_;
-            }
-        }
-        if (((RealInstanceStruct)_instance).getInstance() instanceof LineDeal) {
+        if (_instance instanceof LineDealStruct) {
+            LineDeal instance_ = ((LineDealStruct)_instance).getLineDeal();
             if (StringUtil.quickEq(fieldName_, SCORES)) {
-                res_.setResult(DefaultStruct.newListLong(((LineDeal)((RealInstanceStruct)_instance).getInstance()).getScores(), TYPE_LIST));
+                res_.setResult(getLongArray(instance_.getScores()));
                 return res_;
             }
             if (StringUtil.quickEq(fieldName_, NUMBER)) {
-                res_.setResult(new IntStruct(((LineDeal)((RealInstanceStruct)_instance).getInstance()).getNumber()));
+                res_.setResult(new IntStruct(instance_.getNumber()));
+                return res_;
+            }
+            return res_;
+        }
+        if (((RealInstanceStruct)_instance).getInstance() instanceof PresidentBean) {
+            if (StringUtil.quickEq(fieldName_, NICKNAMES)) {
+                res_.setResult(getStringArray(((PresidentBean)((RealInstanceStruct)_instance).getInstance()).getNicknames()));
+                return res_;
+            }
+            if (StringUtil.quickEq(fieldName_, LINES_DEAL)) {
+                res_.setResult(getLineDealArray(((PresidentBean)((RealInstanceStruct)_instance).getInstance()).getLinesDeal()));
                 return res_;
             }
         }
@@ -194,6 +197,17 @@ public final class PresidentStandards extends BeanNatLgNames {
         }
         return res_;
     }
+
+    public static ArrayStruct getLineDealArray(CustList<LineDeal> _ls) {
+        ArrayStruct arr_ = new ArrayStruct(_ls.size(), StringExpUtil.getPrettyArrayType(TYPE_LINE_DEAL));
+        int j_ = 0;
+        for (LineDeal s:_ls) {
+            arr_.set(j_,new LineDealStruct(s, TYPE_LINE_DEAL));
+            j_++;
+        }
+        return arr_;
+    }
+
     @Override
     public ResultErrorStd getOtherResultBean(ContextEl _cont, Struct _instance,
             ClassMethodId _method, Struct... _args) {
@@ -229,43 +243,6 @@ public final class PresidentStandards extends BeanNatLgNames {
         return getAliasObject();
     }
 
-    @Override
-    public Struct wrapStd(Object _element) {
-        if (_element == null) {
-            return NullStruct.NULL_VALUE;
-        }
-        if (_element instanceof Byte) {
-            return new ByteStruct((Byte) _element);
-        }
-        if (_element instanceof Short) {
-            return new ShortStruct((Short) _element);
-        }
-        if (_element instanceof Character) {
-            return new CharStruct((Character) _element);
-        }
-        if (_element instanceof Integer) {
-            return new IntStruct((Integer) _element);
-        }
-        if (_element instanceof Long) {
-            return new LongStruct((Long) _element);
-        }
-        if (_element instanceof Boolean) {
-            return BooleanStruct.of((Boolean) _element);
-        }
-        if (_element instanceof String) {
-            return new StringStruct((String) _element);
-        }
-        if (_element instanceof StringBuilder) {
-            return new StringBuilderStruct((StringBuilder) _element);
-        }
-        String className_ = getOtherBeanStructClassName(_element);
-        return DefaultStruct.newInstance(_element, className_);
-    }
-
-    @Override
-    protected Struct newId(Object _obj, String _className) {
-        return DefaultStruct.newInstance(_obj, _className);
-    }
     public ResultErrorStd getOtherName(ContextEl _cont, Struct _instance) {
         return new ResultErrorStd();
     }

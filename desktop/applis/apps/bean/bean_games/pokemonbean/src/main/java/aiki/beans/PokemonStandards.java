@@ -195,21 +195,14 @@ import aiki.beans.validators.ShortValidator;
 import aiki.beans.validators.UnselectedRadio;
 import aiki.db.DataBase;
 import aiki.facade.FacadeGame;
+import aiki.fight.EndRoundMainElements;
 import aiki.fight.effects.EffectWhileSendingWithStatistic;
+import aiki.fight.enums.Statistic;
 import aiki.fight.pokemon.TrainerPlaceNames;
 import aiki.fight.status.effects.EffectPartnerStatus;
-import aiki.fight.util.BoostHpRate;
-import aiki.fight.util.CategoryMult;
-import aiki.fight.util.EfficiencyRate;
-import aiki.fight.util.LevelMove;
-import aiki.fight.util.TypeDamageBoost;
-import aiki.fight.util.TypesDuo;
+import aiki.fight.util.*;
 import aiki.game.UsesOfMove;
-import aiki.game.fight.ActivityOfMove;
-import aiki.game.fight.Anticipation;
-import aiki.game.fight.MoveTeamPosition;
-import aiki.game.fight.StacksOfUses;
-import aiki.game.fight.TargetCoords;
+import aiki.game.fight.*;
 import aiki.game.fight.util.AffectedMove;
 import aiki.game.fight.util.CopiedMove;
 import aiki.game.fight.util.MoveTarget;
@@ -221,18 +214,21 @@ import aiki.map.characters.TempTrainer;
 import aiki.map.characters.Trainer;
 import aiki.map.characters.TrainerOneFight;
 import aiki.map.levels.AreaApparition;
+import aiki.map.levels.Level;
 import aiki.map.levels.enums.EnvironmentType;
 import aiki.map.places.Place;
-import aiki.map.pokemon.PkTrainer;
-import aiki.map.pokemon.Pokemon;
-import aiki.map.pokemon.PokemonPlayer;
-import aiki.map.pokemon.WildPk;
+import aiki.map.pokemon.*;
 import aiki.map.pokemon.enums.Gender;
+import aiki.map.util.MiniMapCoords;
+import aiki.map.util.PlaceLevel;
+import aiki.util.Point;
 import code.bean.Bean;
+import code.bean.nat.PairStruct;
 import code.bean.validator.Validator;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ClassField;
+import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.InitPhase;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.functionid.ClassMethodId;
@@ -242,9 +238,7 @@ import code.expressionlanguage.stds.*;
 import code.expressionlanguage.structs.*;
 import code.formathtml.Configuration;
 import code.bean.BeanStruct;
-import code.bean.RealInstanceStruct;
 import code.formathtml.structs.BeanInfo;
-import code.formathtml.util.*;
 import code.bean.nat.BeanNatLgNames;
 import code.bean.nat.DefaultInitialization;
 import code.maths.LgInt;
@@ -1037,7 +1031,43 @@ public final class PokemonStandards extends BeanNatLgNames {
     }
     @Override
     public ResultErrorStd getOtherResult(ContextEl _cont, ClassField _classField, Struct _instance) {
-        Object instance_ = ((RealInstanceStruct)_instance).getInstance();
+        if (_instance instanceof PkLineStruct) {
+            PokemonLine instance_ = ((PkLineStruct) _instance).getWildPk();
+            return AikiBeansFacadeDtoStd.getResultPokemonLine(_cont, _classField, instance_);
+        }
+        if (_instance instanceof ItLineStruct) {
+            ItemLine instance_ = ((ItLineStruct) _instance).getWildPk();
+            return AikiBeansFacadeDtoStd.getResultItemLine(_cont, _classField, instance_);
+        }
+        if (_instance instanceof MvLineStruct) {
+            MoveLine instance_ = ((MvLineStruct) _instance).getWildPk();
+            if (instance_ instanceof SelectLineMove) {
+                return AikiBeansFacadeSimulationDtoStd.getResultSelectLineMove(_cont, _classField, _instance, (SelectLineMove) instance_);
+            }
+            if (instance_ instanceof RadioLineMove) {
+                return AikiBeansFacadeSimulationDtoStd.getResultRadioLineMove(_cont, _classField, _instance, (RadioLineMove) instance_);
+            }
+            return AikiBeansFacadeDtoStd.getResultMoveLine(_cont, _classField, instance_);
+        }
+        if (_instance instanceof EvLineStruct) {
+            return AikiBeansFacadeSimulationDtoStd.getResultEvLine(_cont, _classField, ((EvLineStruct) _instance).getEvLine());
+        }
+        if (_instance instanceof PlaceIndexStruct) {
+            return AikiBeansFacadeMapDtoStd.getResultPlaceIndex(_cont, _classField, ((PlaceIndexStruct) _instance).getPlaceIndex());
+        }
+        if (_instance instanceof PlaceTrainerDtoStruct) {
+            return AikiBeansFacadeSolutionDtoStd.getResultPlaceTrainerDto(_cont, _classField, ((PlaceTrainerDtoStruct) _instance).getInstance());
+        }
+        if (_instance instanceof PokemonPlayerDtoStruct) {
+            return AikiBeansFacadeSimulationDtoStd.getResultPokemonPlayerDto(_cont, _classField, ((PokemonPlayerDtoStruct) _instance).getInstance());
+        }
+        if (_instance instanceof PokemonTrainerDtoStruct) {
+            return AikiBeansFacadeSimulationDtoStd.getResultPokemonTrainerDto(_cont, _classField, ((PokemonTrainerDtoStruct) _instance).getInstance());
+        }
+        if (_instance instanceof WildPokemonDtoStruct) {
+            return AikiBeansFacadeSolutionDtoStd.getResultWildPokemonDto(_cont, _classField, ((WildPokemonDtoStruct) _instance).getInstance());
+        }
+        Bean instance_ = ((BeanStruct)_instance).getBean();
         if (instance_ instanceof AbilitiesBean) {
             return AikiBeansAbilitiesStd.getResultAbilitiesBean(_cont, _classField, _instance);
         }
@@ -1085,39 +1115,6 @@ public final class PokemonStandards extends BeanNatLgNames {
         }
         if (instance_ instanceof FightHelpBean) {
             return AikiBeansHelpStd.getResultFightHelpBean(_cont, _classField, _instance);
-        }
-        if (instance_ instanceof ItemLine) {
-            return AikiBeansFacadeDtoStd.getResultItemLine(_cont, _classField, _instance);
-        }
-        if (instance_ instanceof RadioLineMove) {
-            return AikiBeansFacadeSimulationDtoStd.getResultRadioLineMove(_cont, _classField, _instance);
-        }
-        if (instance_ instanceof PokemonLine) {
-            return AikiBeansFacadeDtoStd.getResultPokemonLine(_cont, _classField, _instance);
-        }
-        if (instance_ instanceof PlaceIndex) {
-            return AikiBeansFacadeMapDtoStd.getResultPlaceIndex(_cont, _classField, _instance);
-        }
-        if (instance_ instanceof EvLine) {
-            return AikiBeansFacadeSimulationDtoStd.getResultEvLine(_cont, _classField, _instance);
-        }
-        if (instance_ instanceof PokemonPlayerDto) {
-            return AikiBeansFacadeSimulationDtoStd.getResultPokemonPlayerDto(_cont, _classField, _instance);
-        }
-        if (instance_ instanceof PokemonTrainerDto) {
-            return AikiBeansFacadeSimulationDtoStd.getResultPokemonTrainerDto(_cont, _classField, _instance);
-        }
-        if (instance_ instanceof SelectLineMove) {
-            return AikiBeansFacadeSimulationDtoStd.getResultSelectLineMove(_cont, _classField, _instance);
-        }
-        if (instance_ instanceof MoveLine) {
-            return AikiBeansFacadeDtoStd.getResultMoveLine(_cont, _classField, _instance);
-        }
-        if (instance_ instanceof PlaceTrainerDto) {
-            return AikiBeansFacadeSolutionDtoStd.getResultPlaceTrainerDto(_cont, _classField, _instance);
-        }
-        if (instance_ instanceof WildPokemonDto) {
-            return AikiBeansFacadeSolutionDtoStd.getResultWildPokemonDto(_cont, _classField, _instance);
         }
         if (instance_ instanceof FightBean) {
             return AikiBeansFightStd.getResultFightBean(_cont, _classField, _instance);
@@ -1388,7 +1385,13 @@ public final class PokemonStandards extends BeanNatLgNames {
 
     @Override
     public ResultErrorStd setOtherResult(ContextEl _cont, ClassField _classField, Struct _instance, Struct _val) {
-        Object instance_ = ((RealInstanceStruct)_instance).getInstance();
+        if (_instance instanceof MvLineStruct) {
+            return AikiBeansFacadeSimulationDtoStd.setResultSelectLineMove(_cont, _classField, _val, (SelectLineMove) ((MvLineStruct) _instance).getWildPk());
+        }
+        if (_instance instanceof EvLineStruct) {
+            return AikiBeansFacadeSimulationDtoStd.setResultEvLine(_cont, _classField, _val, ((EvLineStruct) _instance).getEvLine());
+        }
+        Bean instance_ = ((BeanStruct)_instance).getBean();
         if (instance_ instanceof AbilitiesBean) {
             return AikiBeansAbilitiesStd.setResultAbilitiesBean(_cont, _classField, _instance, _val);
         }
@@ -1400,12 +1403,6 @@ public final class PokemonStandards extends BeanNatLgNames {
         }
         if (instance_ instanceof EffectEndRoundBean) {
             return AikiBeansEndroundStd.setResultEffectEndRoundBean(_cont, _classField, _instance, _val);
-        }
-        if (instance_ instanceof EvLine) {
-            return AikiBeansFacadeSimulationDtoStd.setResultEvLine(_cont, _classField, _instance, _val);
-        }
-        if (instance_ instanceof SelectLineMove) {
-            return AikiBeansFacadeSimulationDtoStd.setResultSelectLineMove(_cont, _classField, _instance, _val);
         }
         if (instance_ instanceof DifficultyBean) {
             return AikiBeansGameStd.setResultDifficultyBean(_cont, _classField, _instance, _val);
@@ -1469,7 +1466,105 @@ public final class PokemonStandards extends BeanNatLgNames {
 
     @Override
     public ResultErrorStd getOtherResultBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Struct... _args) {
-        Object instance_ = ((RealInstanceStruct)_instance).getInstance();
+        if (_instance instanceof PkStruct) {
+            Pokemon instance_ = ((PkStruct)_instance).getWildPk();
+            if (instance_ instanceof PkTrainer) {
+                return PokemonStandards.invokeMethodPkTrainer(_cont, _method, (PkTrainer) instance_, _args);
+            }
+            if (instance_ instanceof WildPk) {
+                return PokemonStandards.invokeMethodWildPk(_cont, _method, (WildPk) instance_, _args);
+            }
+            if (instance_ instanceof PokemonPlayer) {
+                return PokemonStandards.invokeMethodPokemonPlayer(_cont, _method, (PokemonPlayer) instance_, _args);
+            }
+            return PokemonStandards.invokeMethodPokemon(_cont, _method, instance_, _args);
+        }
+        if (_instance instanceof EffectPartnerStatusStruct) {
+            EffectPartnerStatus instance_ = ((EffectPartnerStatusStruct) _instance).getEffectPartnerStatus();
+            return PokemonStandards.invokeMethodEffectPartnerStatus(_cont, _method, instance_, _args);
+        }
+        if (_instance instanceof RateStruct) {
+            return PokemonStandards.invokeMethodRate(_cont, _method, ((RateStruct) _instance).getRate(), _args);
+        }
+        if (_instance instanceof MvLineStruct) {
+            return AikiBeansFacadeDtoStd.invokeMethodMoveLine(_cont, _method, ((MvLineStruct) _instance).getWildPk(), _args);
+        }
+        if (_instance instanceof PlaceStruct) {
+            return PokemonStandards.invokeMethodPlace(_cont, _method, ((PlaceStruct) _instance).getWildPk(), _args);
+        }
+        if (_instance instanceof AreaApparitionStruct) {
+            return PokemonStandards.invokeMethodAreaApparition(_cont, _method, ((AreaApparitionStruct) _instance).getWildPk(), _args);
+        }
+        if (_instance instanceof PlaceIndexStruct) {
+            return AikiBeansFacadeMapDtoStd.invokeMethodPlaceIndex(_cont, _method, ((PlaceIndexStruct) _instance).getPlaceIndex(), _args);
+        }
+        if (_instance instanceof StatisticInfoPkPlayerStruct) {
+            return AikiBeansFacadeGameDtoStd.invokeMethodStatisticInfoPkPlayer(_cont, _method, ((StatisticInfoPkPlayerStruct) _instance).getInstance(), _args);
+        }
+        if (_instance instanceof TrainerPlaceNamesStruct) {
+            return PokemonStandards.invokeMethodTrainerPlaceNames(_cont, _method, ((TrainerPlaceNamesStruct) _instance).getInstance(), _args);
+        }
+        if (_instance instanceof TypesDuoStruct) {
+            return PokemonStandards.invokeMethodTypesDuo(_cont, _method, ((TypesDuoStruct) _instance).getInstance(), _args);
+        }
+        if (_instance instanceof LevelMoveStruct) {
+            return PokemonStandards.invokeMethodLevelMove(_cont, _method, ((LevelMoveStruct) _instance).getInstance(), _args);
+        }
+        if (_instance instanceof KeyHypothesisStruct) {
+            return AikiBeansFacadeFightStd.invokeMethodKeyHypothesis(_cont, _method, ((KeyHypothesisStruct) _instance).getInstance(), _args);
+        }
+        if (_instance instanceof StatisticInfoStruct) {
+            return AikiBeansFacadeFightStd.invokeMethodStatisticInfo(_cont, _method, ((StatisticInfoStruct) _instance).getInstance(), _args);
+        }
+        if (_instance instanceof StepDtoStruct) {
+            return AikiBeansFacadeSolutionDtoStd.invokeMethodStepDto(_cont, _method, ((StepDtoStruct) _instance).getInstance(), _args);
+        }
+        if (_instance instanceof ActivityOfMoveStruct) {
+            return PokemonStandards.invokeMethodActivityOfMove(_cont, _method, ((ActivityOfMoveStruct) _instance).getInstance(), _args);
+        }
+        if (_instance instanceof TargetCoordsStruct) {
+            return PokemonStandards.invokeMethodTargetCoords(_cont, _method, ((TargetCoordsStruct) _instance).getInstance(), _args);
+        }
+        if (_instance instanceof TypeDamageBoostStruct) {
+            return PokemonStandards.invokeMethodTypeDamageBoost(_cont, _method, ((TypeDamageBoostStruct) _instance).getInstance(), _args);
+        }
+        if (_instance instanceof MoveTargetStruct) {
+            return PokemonStandards.invokeMethodMoveTarget(_cont, _method, ((MoveTargetStruct) _instance).getInstance(), _args);
+        }
+        if (_instance instanceof MultPowerMovesStruct) {
+            return AikiBeansFacadeFightStd.invokeMethodMultPowerMoves(_cont, _method, ((MultPowerMovesStruct) _instance).getInstance(), _args);
+        }
+        if (_instance instanceof SufferedDamageCategoryStruct) {
+            return AikiBeansFacadeFightStd.invokeMethodSufferedDamageCategory(_cont, _method, ((SufferedDamageCategoryStruct) _instance).getInstance(), _args);
+        }
+        if (_instance instanceof UsesOfMoveStruct) {
+            return PokemonStandards.invokeMethodUsesOfMove(_cont, _method, ((UsesOfMoveStruct) _instance).getInstance(), _args);
+        }
+        if (_instance instanceof CopiedMoveStruct) {
+            return PokemonStandards.invokeMethodCopiedMove(_cont, _method, ((CopiedMoveStruct) _instance).getInstance(), _args);
+        }
+        if (_instance instanceof MoveTeamPositionStruct) {
+            return PokemonStandards.invokeMethodMoveTeamPosition(_cont, _method, ((MoveTeamPositionStruct) _instance).getInstance(), _args);
+        }
+        if (_instance instanceof AffectedMoveStruct) {
+            return PokemonStandards.invokeMethodAffectedMove(_cont, _method, ((AffectedMoveStruct) _instance).getInstance(), _args);
+        }
+        if (_instance instanceof StacksOfUsesStruct) {
+            return PokemonStandards.invokeMethodStacksOfUses(_cont, _method, ((StacksOfUsesStruct) _instance).getInstance(), _args);
+        }
+        if (_instance instanceof AnticipationStruct) {
+            return PokemonStandards.invokeMethodAnticipation(_cont, _method, ((AnticipationStruct) _instance).getInstance(), _args);
+        }
+        if (_instance instanceof EfficiencyRateStruct) {
+            return PokemonStandards.invokeMethodEfficiencyRate(_cont, _method, ((EfficiencyRateStruct) _instance).getInstance(), _args);
+        }
+        if (_instance instanceof BoostHpRateStruct) {
+            return PokemonStandards.invokeMethodBoostHpRate(_cont, _method, ((BoostHpRateStruct) _instance).getInstance(), _args);
+        }
+        if (_instance instanceof CategoryMultStruct) {
+            return PokemonStandards.invokeMethodCategoryMult(_cont, _method, ((CategoryMultStruct) _instance).getInstance(), _args);
+        }
+        Bean instance_ = ((BeanStruct)_instance).getBean();
         if (instance_ instanceof AbilitiesBean) {
             return AikiBeansAbilitiesStd.invokeMethodAbilitiesBean(_cont, _instance, _method, _args);
         }
@@ -1505,30 +1600,6 @@ public final class PokemonStandards extends BeanNatLgNames {
         }
         if (instance_ instanceof FightHelpBean) {
             return AikiBeansHelpStd.invokeMethodFightHelpBean(_cont, _instance, _method, _args);
-        }
-        if (instance_ instanceof KeyHypothesis) {
-            return AikiBeansFacadeFightStd.invokeMethodKeyHypothesis(_cont, _instance, _method, _args);
-        }
-        if (instance_ instanceof MultPowerMoves) {
-            return AikiBeansFacadeFightStd.invokeMethodMultPowerMoves(_cont, _instance, _method, _args);
-        }
-        if (instance_ instanceof StatisticInfo) {
-            return AikiBeansFacadeFightStd.invokeMethodStatisticInfo(_cont, _instance, _method, _args);
-        }
-        if (instance_ instanceof SufferedDamageCategory) {
-            return AikiBeansFacadeFightStd.invokeMethodSufferedDamageCategory(_cont, _instance, _method, _args);
-        }
-        if (instance_ instanceof StatisticInfoPkPlayer) {
-            return AikiBeansFacadeGameDtoStd.invokeMethodStatisticInfoPkPlayer(_cont, _instance, _method, _args);
-        }
-        if (instance_ instanceof PlaceIndex) {
-            return AikiBeansFacadeMapDtoStd.invokeMethodPlaceIndex(_cont, _instance, _method, _args);
-        }
-        if (instance_ instanceof MoveLine) {
-            return AikiBeansFacadeDtoStd.invokeMethodMoveLine(_cont, _instance, _method, _args);
-        }
-        if (instance_ instanceof StepDto) {
-            return AikiBeansFacadeSolutionDtoStd.invokeMethodStepDto(_cont, _instance, _method, _args);
         }
         if (instance_ instanceof FightBean) {
             return AikiBeansFightStd.invokeMethodFightBean(_cont, _instance, _method, _args);
@@ -1751,78 +1822,6 @@ public final class PokemonStandards extends BeanNatLgNames {
         }
         if (instance_ instanceof StatusSetBean) {
             return AikiBeansStatusStd.invokeMethodStatusSetBean(_cont, _instance, _method, _args);
-        }
-        if (instance_ instanceof ActivityOfMove) {
-            return PokemonStandards.invokeMethodActivityOfMove(_cont, _instance, _method, _args);
-        }
-        if (instance_ instanceof MoveTarget) {
-            return PokemonStandards.invokeMethodMoveTarget(_cont, _instance, _method, _args);
-        }
-        if (instance_ instanceof TargetCoords) {
-            return PokemonStandards.invokeMethodTargetCoords(_cont, _instance, _method, _args);
-        }
-        if (instance_ instanceof UsesOfMove) {
-            return PokemonStandards.invokeMethodUsesOfMove(_cont, _instance, _method, _args);
-        }
-        if (instance_ instanceof CopiedMove) {
-            return PokemonStandards.invokeMethodCopiedMove(_cont, _instance, _method, _args);
-        }
-        if (instance_ instanceof MoveTeamPosition) {
-            return PokemonStandards.invokeMethodMoveTeamPosition(_cont, _instance, _method, _args);
-        }
-        if (instance_ instanceof AffectedMove) {
-            return PokemonStandards.invokeMethodAffectedMove(_cont, _instance, _method, _args);
-        }
-        if (instance_ instanceof StacksOfUses) {
-            return PokemonStandards.invokeMethodStacksOfUses(_cont, _instance, _method, _args);
-        }
-        if (instance_ instanceof Anticipation) {
-            return PokemonStandards.invokeMethodAnticipation(_cont, _instance, _method, _args);
-        }
-        if (instance_ instanceof Rate) {
-            return PokemonStandards.invokeMethodRate(_cont, _instance, _method, _args);
-        }
-        if (instance_ instanceof TypeDamageBoost) {
-            return PokemonStandards.invokeMethodTypeDamageBoost(_cont, _instance, _method, _args);
-        }
-        if (instance_ instanceof EfficiencyRate) {
-            return PokemonStandards.invokeMethodEfficiencyRate(_cont, _instance, _method, _args);
-        }
-        if (instance_ instanceof BoostHpRate) {
-            return PokemonStandards.invokeMethodBoostHpRate(_cont, _instance, _method, _args);
-        }
-        if (instance_ instanceof PkTrainer) {
-            return PokemonStandards.invokeMethodPkTrainer(_cont, _instance, _method, _args);
-        }
-        if (instance_ instanceof WildPk) {
-            return PokemonStandards.invokeMethodWildPk(_cont, _instance, _method, _args);
-        }
-        if (instance_ instanceof AreaApparition) {
-            return PokemonStandards.invokeMethodAreaApparition(_cont, _instance, _method, _args);
-        }
-        if (instance_ instanceof PokemonPlayer) {
-            return PokemonStandards.invokeMethodPokemonPlayer(_cont, _instance, _method, _args);
-        }
-        if (instance_ instanceof Place) {
-            return PokemonStandards.invokeMethodPlace(_cont, _instance, _method, _args);
-        }
-        if (instance_ instanceof TypesDuo) {
-            return PokemonStandards.invokeMethodTypesDuo(_cont, _instance, _method, _args);
-        }
-        if (instance_ instanceof CategoryMult) {
-            return PokemonStandards.invokeMethodCategoryMult(_cont, _instance, _method, _args);
-        }
-        if (instance_ instanceof LevelMove) {
-            return PokemonStandards.invokeMethodLevelMove(_cont, _instance, _method, _args);
-        }
-        if (instance_ instanceof Pokemon) {
-            return PokemonStandards.invokeMethodPokemon(_cont, _instance, _method, _args);
-        }
-        if (instance_ instanceof EffectPartnerStatus) {
-            return PokemonStandards.invokeMethodEffectPartnerStatus(_cont, _instance, _method, _args);
-        }
-        if (instance_ instanceof TrainerPlaceNames) {
-            return PokemonStandards.invokeMethodTrainerPlaceNames(_cont, _instance, _method, _args);
         }
         return new ResultErrorStd();
     }
@@ -2536,293 +2535,6 @@ public final class PokemonStandards extends BeanNatLgNames {
         return res_;
     }
 
-    private String getOtherBeanStructClassName(Object _struct) {
-        if (_struct instanceof ComboDto) {
-            return AikiBeansEffectsStd.TYPE_COMBO_DTO;
-        }
-        if (_struct instanceof ComparatorCategoryMult) {
-            return AikiBeansFacadeComparatorsStd.TYPE_COMPARATOR_CATEGORY_MULT;
-        }
-        if (_struct instanceof ComparatorDirection) {
-            return AikiBeansFacadeComparatorsStd.TYPE_COMPARATOR_DIRECTION;
-        }
-        if (_struct instanceof ComparatorLanguageString) {
-            return AikiBeansFacadeComparatorsStd.TYPE_COMPARATOR_LANGUAGE_STRING;
-        }
-        if (_struct instanceof ComparatorMiniMapCoords) {
-            return AikiBeansFacadeComparatorsStd.TYPE_COMPARATOR_MINI_MAP_COORDS;
-        }
-        if (_struct instanceof ComparatorMoves) {
-            return AikiBeansFacadeComparatorsStd.TYPE_COMPARATOR_MOVES;
-        }
-        if (_struct instanceof ComparatorMoveTarget) {
-            return AikiBeansFacadeComparatorsStd.TYPE_COMPARATOR_MOVE_TARGET;
-        }
-        if (_struct instanceof ComparatorMoveTeamPosition) {
-            return AikiBeansFacadeComparatorsStd.TYPE_COMPARATOR_MOVE_TEAM_POSITION;
-        }
-        if (_struct instanceof ComparatorPlaceIndex) {
-            return AikiBeansFacadeComparatorsStd.TYPE_COMPARATOR_PLACE_INDEX;
-        }
-        if (_struct instanceof ComparatorPlaceNumber) {
-            return AikiBeansFacadeComparatorsStd.TYPE_COMPARATOR_PLACE_NUMBER;
-        }
-        if (_struct instanceof ComparatorPoint) {
-            return AikiBeansFacadeComparatorsStd.TYPE_COMPARATOR_POINT;
-        }
-        if (_struct instanceof ComparatorRadioLineMoves) {
-            return AikiBeansFacadeComparatorsStd.TYPE_COMPARATOR_RADIO_LINE_MOVES;
-        }
-        if (_struct instanceof ComparatorStatistic) {
-            return AikiBeansFacadeComparatorsStd.TYPE_COMPARATOR_STATISTIC;
-        }
-        if (_struct instanceof ComparatorStatisticCategory) {
-            return AikiBeansFacadeComparatorsStd.TYPE_COMPARATOR_STATISTIC_CATEGORY;
-        }
-        if (_struct instanceof ComparatorStatisticInfo) {
-            return AikiBeansFacadeComparatorsStd.TYPE_COMPARATOR_STATISTIC_INFO;
-        }
-        if (_struct instanceof ComparatorStatisticInfoPkPlayer) {
-            return AikiBeansFacadeComparatorsStd.TYPE_COMPARATOR_STATISTIC_INFO_PK_PLAYER;
-        }
-        if (_struct instanceof ComparatorStatisticPokemon) {
-            return AikiBeansFacadeComparatorsStd.TYPE_COMPARATOR_STATISTIC_POKEMON;
-        }
-        if (_struct instanceof ComparatorStatisticTr) {
-            return AikiBeansFacadeComparatorsStd.TYPE_COMPARATOR_STATISTIC_TR;
-        }
-        if (_struct instanceof ComparatorStatisticType) {
-            return AikiBeansFacadeComparatorsStd.TYPE_COMPARATOR_STATISTIC_TYPE;
-        }
-        if (_struct instanceof ComparatorStatusStatistic) {
-            return AikiBeansFacadeComparatorsStd.TYPE_COMPARATOR_STATUS_STATISTIC;
-        }
-        if (_struct instanceof ComparatorStringList) {
-            return AikiBeansFacadeComparatorsStd.TYPE_COMPARATOR_STRING_LIST;
-        }
-        if (_struct instanceof ComparatorTypesDuo) {
-            return AikiBeansFacadeComparatorsStd.TYPE_COMPARATOR_TYPES_DUO;
-        }
-        if (_struct instanceof ComparatorWeatherType) {
-            return AikiBeansFacadeComparatorsStd.TYPE_COMPARATOR_WEATHER_TYPE;
-        }
-        if (_struct instanceof ComparatorWildPokemonDto) {
-            return AikiBeansFacadeComparatorsStd.TYPE_COMPARATOR_WILD_POKEMON_DTO;
-        }
-        if (_struct instanceof ItemLine) {
-            return AikiBeansFacadeDtoStd.TYPE_ITEM_LINE;
-        }
-        if (_struct instanceof ItemTypeLine) {
-            return AikiBeansFacadeDtoStd.TYPE_ITEM_TYPE_LINE;
-        }
-        if (_struct instanceof KeptMovesAfterFight) {
-            return AikiBeansFacadeDtoStd.TYPE_KEPT_MOVES_AFTER_FIGHT;
-        }
-        if (_struct instanceof PokemonLine) {
-            return AikiBeansFacadeDtoStd.TYPE_POKEMON_LINE;
-        }
-        if (_struct instanceof WeatherTypeLine) {
-            return AikiBeansFacadeDtoStd.TYPE_WEATHER_TYPE_LINE;
-        }
-        if (_struct instanceof KeyHypothesis) {
-            return AikiBeansFacadeFightStd.TYPE_KEY_HYPOTHESIS;
-        }
-        if (_struct instanceof MultPowerMoves) {
-            return AikiBeansFacadeFightStd.TYPE_MULT_POWER_MOVES;
-        }
-        if (_struct instanceof StatisticInfo) {
-            return AikiBeansFacadeFightStd.TYPE_STATISTIC_INFO;
-        }
-        if (_struct instanceof SufferedDamageCategory) {
-            return AikiBeansFacadeFightStd.TYPE_SUFFERED_DAMAGE_CATEGORY;
-        }
-        if (_struct instanceof StatisticInfoPkPlayer) {
-            return AikiBeansFacadeGameDtoStd.TYPE_STATISTIC_INFO_PK_PLAYER;
-        }
-        if (_struct instanceof PlaceIndex) {
-            return AikiBeansFacadeMapDtoStd.TYPE_PLACE_INDEX;
-        }
-        if (_struct instanceof EvLine) {
-            return AikiBeansFacadeSimulationDtoStd.TYPE_EV_LINE;
-        }
-        if (_struct instanceof PokemonPlayerDto) {
-            return AikiBeansFacadeSimulationDtoStd.TYPE_POKEMON_PLAYER_DTO;
-        }
-        if (_struct instanceof PokemonTrainerDto) {
-            return AikiBeansFacadeSimulationDtoStd.TYPE_POKEMON_TRAINER_DTO;
-        }
-        if (_struct instanceof RadioLineMove) {
-            return AikiBeansFacadeSimulationDtoStd.TYPE_RADIO_LINE_MOVE;
-        }
-        if (_struct instanceof SelectLineMove) {
-            return AikiBeansFacadeSimulationDtoStd.TYPE_SELECT_LINE_MOVE;
-        }
-        if (_struct instanceof SimulationSteps) {
-            return AikiBeansFacadeSimulationEnumsStd.TYPE_SIMULATION_STEPS;
-        }
-        if (_struct instanceof PlaceTrainerDto) {
-            return AikiBeansFacadeSolutionDtoStd.TYPE_PLACE_TRAINER_DTO;
-        }
-        if (_struct instanceof StepDto) {
-            return AikiBeansFacadeSolutionDtoStd.TYPE_STEP_DTO;
-        }
-        if (_struct instanceof WildPokemonDto) {
-            return AikiBeansFacadeSolutionDtoStd.TYPE_WILD_POKEMON_DTO;
-        }
-        if (_struct instanceof LanguageElementStringKey) {
-            return AikiBeansHelpStd.TYPE_LANGUAGE_ELEMENT_STRING_KEY;
-        }
-        if (_struct instanceof ActivityOfMove) {
-            return PokemonStandards.TYPE_ACTIVITY_OF_MOVE;
-        }
-        if (_struct instanceof MoveTarget) {
-            return PokemonStandards.TYPE_MOVE_TARGET;
-        }
-        if (_struct instanceof TargetCoords) {
-            return PokemonStandards.TYPE_TARGET_COORDS;
-        }
-        if (_struct instanceof UsesOfMove) {
-            return PokemonStandards.TYPE_USES_OF_MOVE;
-        }
-        if (_struct instanceof CopiedMove) {
-            return PokemonStandards.TYPE_COPIED_MOVE;
-        }
-        if (_struct instanceof MoveTeamPosition) {
-            return PokemonStandards.TYPE_MOVE_TEAM_POSITION;
-        }
-        if (_struct instanceof AffectedMove) {
-            return PokemonStandards.TYPE_AFFECTED_MOVE;
-        }
-        if (_struct instanceof StacksOfUses) {
-            return PokemonStandards.TYPE_STACKS_OF_USES;
-        }
-        if (_struct instanceof Anticipation) {
-            return PokemonStandards.TYPE_ANTICIPATION;
-        }
-        if (_struct instanceof Rate) {
-            return PokemonStandards.TYPE_RATE;
-        }
-        if (_struct instanceof TypeDamageBoost) {
-            return PokemonStandards.TYPE_TYPE_DAMAGE_BOOST;
-        }
-        if (_struct instanceof EfficiencyRate) {
-            return PokemonStandards.TYPE_EFFICIENCY_RATE;
-        }
-        if (_struct instanceof BoostHpRate) {
-            return PokemonStandards.TYPE_BOOST_HP_RATE;
-        }
-        if (_struct instanceof PkTrainer) {
-            return PokemonStandards.TYPE_PK_TRAINER;
-        }
-        if (_struct instanceof AreaApparition) {
-            return PokemonStandards.TYPE_AREA_APPARITION;
-        }
-        if (_struct instanceof WildPk) {
-            return PokemonStandards.TYPE_WILD_PK;
-        }
-        if (_struct instanceof TypesDuo) {
-            return PokemonStandards.TYPE_TYPES_DUO;
-        }
-        if (_struct instanceof CategoryMult) {
-            return PokemonStandards.TYPE_CATEGORY_MULT;
-        }
-        if (_struct instanceof LevelMove) {
-            return PokemonStandards.TYPE_LEVEL_MOVE;
-        }
-        if (_struct instanceof PokemonPlayer) {
-            return PokemonStandards.TYPE_POKEMON_PLAYER;
-        }
-        if (_struct instanceof EffectPartnerStatus) {
-            return PokemonStandards.TYPE_EFFECT_PARTNER_STATUS;
-        }
-        if (_struct instanceof TrainerPlaceNames) {
-            return PokemonStandards.TYPE_TRAINER_PLACE_NAMES;
-        }
-        if (_struct instanceof LgInt) {
-            return PokemonStandards.TYPE_LG_INT;
-        }
-        if (_struct instanceof Ally) {
-            return PokemonStandards.TYPE_ALLY;
-        }
-        if (_struct instanceof TempTrainer) {
-            return PokemonStandards.TYPE_TEMP_TRAINER;
-        }
-        if (_struct instanceof MoveLine) {
-            return AikiBeansFacadeDtoStd.TYPE_MOVE_LINE;
-        }
-        if (_struct instanceof Pokemon) {
-            return PokemonStandards.TYPE_POKEMON;
-        }
-        if (_struct instanceof Place) {
-            return PokemonStandards.TYPE_PLACE;
-        }
-        if (_struct instanceof EffectWhileSendingWithStatistic) {
-            return PokemonStandards.TYPE_EFFECT_WHILE_SENDING;
-        }
-        if (_struct instanceof TrainerOneFight) {
-            return PokemonStandards.TYPE_TRAINER_ONE_FIGHT;
-        }
-        if (_struct instanceof Trainer) {
-            return PokemonStandards.TYPE_TRAINER;
-        }
-        if (_struct instanceof Person) {
-            return PokemonStandards.TYPE_PERSON;
-        }
-        if (_struct instanceof Bean) {
-            return ((Bean)_struct).getClassName();
-        }
-        if (_struct instanceof SimpleIterable) {
-            return TYPE_LIST;
-        }
-        if (_struct instanceof SimpleEntries) {
-            return TYPE_MAP;
-        }
-        if (_struct instanceof SimpleEntry) {
-            return TYPE_ENTRY;
-        }
-        if (_struct instanceof SimpleItr) {
-            return TYPE_ITERATOR;
-        }
-        return getAliasObject();
-    }
-
-    @Override
-    public Struct wrapStd(Object _element) {
-        if (_element == null) {
-            return NullStruct.NULL_VALUE;
-        }
-        if (_element instanceof Byte) {
-            return new ByteStruct((Byte) _element);
-        }
-        if (_element instanceof Short) {
-            return new ShortStruct((Short) _element);
-        }
-        if (_element instanceof Character) {
-            return new CharStruct((Character) _element);
-        }
-        if (_element instanceof Integer) {
-            return new IntStruct((Integer) _element);
-        }
-        if (_element instanceof Long) {
-            return new LongStruct((Long) _element);
-        }
-        if (_element instanceof Boolean) {
-            return BooleanStruct.of((Boolean) _element);
-        }
-        if (_element instanceof String) {
-            return new StringStruct((String) _element);
-        }
-        if (_element instanceof StringBuilder) {
-            return new StringBuilderStruct((StringBuilder) _element);
-        }
-        String className_ = getOtherBeanStructClassName(_element);
-        return DefaultStruct.newInstance(_element, className_);
-    }
-
-    @Override
-    protected Struct newId(Object _obj, String _className) {
-        return DefaultStruct.newInstance(_obj, _className);
-    }
     @Override
     public ResultErrorStd getOtherName(ContextEl _cont, Struct _instance) {
         ResultErrorStd res_ = new ResultErrorStd();
@@ -2850,357 +2562,1206 @@ public final class PokemonStandards extends BeanNatLgNames {
         return super.getStructToBeValidated(_values,_className,_context, _ctx, _stack);
     }
 
-    public static ResultErrorStd invokeMethodActivityOfMove(ContextEl _cont, Struct _instance, ClassMethodId _method, Struct... _args) {
-        ActivityOfMove instance_ = (ActivityOfMove) ((RealInstanceStruct)_instance).getInstance();
+    public static ResultErrorStd invokeMethodActivityOfMove(ContextEl _cont, ClassMethodId _method, ActivityOfMove _inst, Struct... _args) {
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringUtil.quickEq(methodName_,IS_ENABLED)) {
-            res_.setResult(BooleanStruct.of(instance_.isEnabled()));
+            res_.setResult(BooleanStruct.of(_inst.isEnabled()));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,IS_INCREMENT_COUNT)) {
-            res_.setResult(BooleanStruct.of(instance_.isIncrementCount()));
+            res_.setResult(BooleanStruct.of(_inst.isIncrementCount()));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_NB_TURN)) {
-            res_.setResult(new IntStruct(instance_.getNbTurn()));
+            res_.setResult(new IntStruct(_inst.getNbTurn()));
             return res_;
         }
         return res_;
     }
-    public static ResultErrorStd invokeMethodMoveTarget(ContextEl _cont, Struct _instance, ClassMethodId _method, Struct... _args) {
-        MoveTarget instance_ = (MoveTarget) ((RealInstanceStruct)_instance).getInstance();
+    public static ResultErrorStd invokeMethodMoveTarget(ContextEl _cont, ClassMethodId _method, MoveTarget _inst, Struct... _args) {
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringUtil.quickEq(methodName_,GET_MOVE)) {
-            res_.setResult(new StringStruct(instance_.getMove()));
+            res_.setResult(new StringStruct(_inst.getMove()));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TARGET)) {
-            res_.setResult(new DefaultStruct(instance_.getTarget(),PokemonStandards.TYPE_TARGET_COORDS));
+            res_.setResult(new TargetCoordsStruct(_inst.getTarget(),PokemonStandards.TYPE_TARGET_COORDS));
             return res_;
         }
         return res_;
     }
-    public static ResultErrorStd invokeMethodTargetCoords(ContextEl _cont, Struct _instance, ClassMethodId _method, Struct... _args) {
-        TargetCoords instance_ = (TargetCoords) ((RealInstanceStruct)_instance).getInstance();
+    public static ResultErrorStd invokeMethodTargetCoords(ContextEl _cont, ClassMethodId _method, TargetCoords _inst, Struct... _args) {
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringUtil.quickEq(methodName_,GET_POSITION)) {
-            res_.setResult(new IntStruct(instance_.getPosition()));
+            res_.setResult(new IntStruct(_inst.getPosition()));
             return res_;
         }
         return res_;
     }
-    public static ResultErrorStd invokeMethodUsesOfMove(ContextEl _cont, Struct _instance, ClassMethodId _method, Struct... _args) {
-        UsesOfMove instance_ = (UsesOfMove) ((RealInstanceStruct)_instance).getInstance();
+    public static ResultErrorStd invokeMethodUsesOfMove(ContextEl _cont, ClassMethodId _method, UsesOfMove _inst, Struct... _args) {
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringUtil.quickEq(methodName_,GET_CURRENT)) {
-            res_.setResult(new IntStruct(instance_.getCurrent()));
+            res_.setResult(new IntStruct(_inst.getCurrent()));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_MAX)) {
-            res_.setResult(new IntStruct(instance_.getMax()));
+            res_.setResult(new IntStruct(_inst.getMax()));
             return res_;
         }
         return res_;
     }
-    public static ResultErrorStd invokeMethodCopiedMove(ContextEl _cont, Struct _instance, ClassMethodId _method, Struct... _args) {
-        CopiedMove instance_ = (CopiedMove) ((RealInstanceStruct)_instance).getInstance();
+    public static ResultErrorStd invokeMethodCopiedMove(ContextEl _cont, ClassMethodId _method, CopiedMove _inst, Struct... _args) {
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringUtil.quickEq(methodName_,GET_MOVE)) {
-            res_.setResult(new StringStruct(instance_.getMove()));
+            res_.setResult(new StringStruct(_inst.getMove()));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_PP)) {
-            res_.setResult(new IntStruct(instance_.getPp()));
+            res_.setResult(new IntStruct(_inst.getPp()));
             return res_;
         }
         return res_;
     }
-    public static ResultErrorStd invokeMethodMoveTeamPosition(ContextEl _cont, Struct _instance, ClassMethodId _method, Struct... _args) {
-        MoveTeamPosition instance_ = (MoveTeamPosition) ((RealInstanceStruct)_instance).getInstance();
+    public static ResultErrorStd invokeMethodMoveTeamPosition(ContextEl _cont, ClassMethodId _method, MoveTeamPosition _inst, Struct... _args) {
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringUtil.quickEq(methodName_,GET_MOVE)) {
-            res_.setResult(new StringStruct(instance_.getMove()));
+            res_.setResult(new StringStruct(_inst.getMove()));
             return res_;
         }
         return res_;
     }
-    public static ResultErrorStd invokeMethodAffectedMove(ContextEl _cont, Struct _instance, ClassMethodId _method, Struct... _args) {
-        AffectedMove instance_ = (AffectedMove) ((RealInstanceStruct)_instance).getInstance();
+    public static ResultErrorStd invokeMethodAffectedMove(ContextEl _cont, ClassMethodId _method, AffectedMove _inst, Struct... _args) {
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringUtil.quickEq(methodName_,GET_MOVE)) {
-            res_.setResult(new StringStruct(instance_.getMove()));
+            res_.setResult(new StringStruct(_inst.getMove()));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_ACTIVITY)) {
-            res_.setResult(new DefaultStruct(instance_.getActivity(),PokemonStandards.TYPE_ACTIVITY_OF_MOVE));
+            res_.setResult(new ActivityOfMoveStruct(_inst.getActivity(),PokemonStandards.TYPE_ACTIVITY_OF_MOVE));
             return res_;
         }
         return res_;
     }
-    public static ResultErrorStd invokeMethodStacksOfUses(ContextEl _cont, Struct _instance, ClassMethodId _method, Struct... _args) {
-        StacksOfUses instance_ = (StacksOfUses) ((RealInstanceStruct)_instance).getInstance();
+    public static ResultErrorStd invokeMethodStacksOfUses(ContextEl _cont, ClassMethodId _method, StacksOfUses _inst, Struct... _args) {
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringUtil.quickEq(methodName_,GET_NB_ROUNDS)) {
-            res_.setResult(new IntStruct(instance_.getNbRounds()));
+            res_.setResult(new IntStruct(_inst.getNbRounds()));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,IS_FIRST_STACKED)) {
-            res_.setResult(BooleanStruct.of(instance_.isFirstStacked()));
+            res_.setResult(BooleanStruct.of(_inst.isFirstStacked()));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,IS_LAST_STACKED)) {
-            res_.setResult(BooleanStruct.of(instance_.isLastStacked()));
+            res_.setResult(BooleanStruct.of(_inst.isLastStacked()));
             return res_;
         }
         return res_;
     }
-    public static ResultErrorStd invokeMethodAnticipation(ContextEl _cont, Struct _instance, ClassMethodId _method, Struct... _args) {
-        Anticipation instance_ = (Anticipation) ((RealInstanceStruct)_instance).getInstance();
+    public static ResultErrorStd invokeMethodAnticipation(ContextEl _cont, ClassMethodId _method, Anticipation _inst, Struct... _args) {
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringUtil.quickEq(methodName_,GET_TARGET_POSITION)) {
-            res_.setResult(new DefaultStruct(instance_.getTargetPosition(),PokemonStandards.TYPE_TARGET_COORDS));
+            res_.setResult(new TargetCoordsStruct(_inst.getTargetPosition(),PokemonStandards.TYPE_TARGET_COORDS));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_DAMAGE)) {
-            res_.setResult(new RateStruct(instance_.getDamage(),PokemonStandards.TYPE_RATE));
+            res_.setResult(new RateStruct(_inst.getDamage(),PokemonStandards.TYPE_RATE));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,IS_INCREMENTING)) {
-            res_.setResult(BooleanStruct.of(instance_.isIncrementing()));
+            res_.setResult(BooleanStruct.of(_inst.isIncrementing()));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_NB_ROUNDS)) {
-            res_.setResult(new IntStruct(instance_.getNbRounds()));
+            res_.setResult(new IntStruct(_inst.getNbRounds()));
             return res_;
         }
         return res_;
     }
-    public static ResultErrorStd invokeMethodRate(ContextEl _cont, Struct _instance, ClassMethodId _method, Struct... _args) {
-        Rate instance_ = ((RateStruct)_instance).getRate();
+    public static ResultErrorStd invokeMethodRate(ContextEl _cont, ClassMethodId _method, Rate _rate, Struct... _args) {
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringUtil.quickEq(methodName_,IS_ZERO)) {
-            res_.setResult(BooleanStruct.of(instance_.isZero()));
+            res_.setResult(BooleanStruct.of(_rate.isZero()));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,IS_ZERO_OR_GT)) {
-            res_.setResult(BooleanStruct.of(instance_.isZeroOrGt()));
+            res_.setResult(BooleanStruct.of(_rate.isZeroOrGt()));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,ABS_NB)) {
-            res_.setResult(new RateStruct(instance_.absNb(),PokemonStandards.TYPE_RATE));
+            res_.setResult(new RateStruct(_rate.absNb(),PokemonStandards.TYPE_RATE));
             return res_;
         }
         return res_;
     }
-    public static ResultErrorStd invokeMethodTypeDamageBoost(ContextEl _cont, Struct _instance, ClassMethodId _method, Struct... _args) {
-        TypeDamageBoost instance_ = (TypeDamageBoost) ((RealInstanceStruct)_instance).getInstance();
+    public static ResultErrorStd invokeMethodTypeDamageBoost(ContextEl _cont, ClassMethodId _method, TypeDamageBoost _inst, Struct... _args) {
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringUtil.quickEq(methodName_,GET_BOOST)) {
-            res_.setResult(new RateStruct(instance_.getBoost(),PokemonStandards.TYPE_RATE));
+            res_.setResult(new RateStruct(_inst.getBoost(),PokemonStandards.TYPE_RATE));
             return res_;
         }
         return res_;
     }
-    public static ResultErrorStd invokeMethodEfficiencyRate(ContextEl _cont, Struct _instance, ClassMethodId _method, Struct... _args) {
-        EfficiencyRate instance_ = (EfficiencyRate) ((RealInstanceStruct)_instance).getInstance();
+    public static ResultErrorStd invokeMethodEfficiencyRate(ContextEl _cont, ClassMethodId _method, EfficiencyRate _inst, Struct... _args) {
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringUtil.quickEq(methodName_,GET_EFF)) {
-            res_.setResult(new RateStruct(instance_.getEff(),PokemonStandards.TYPE_RATE));
+            res_.setResult(new RateStruct(_inst.getEff(),PokemonStandards.TYPE_RATE));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_HP_RATE)) {
-            res_.setResult(new RateStruct(instance_.getHpRate(),PokemonStandards.TYPE_RATE));
+            res_.setResult(new RateStruct(_inst.getHpRate(),PokemonStandards.TYPE_RATE));
             return res_;
         }
         return res_;
     }
-    public static ResultErrorStd invokeMethodBoostHpRate(ContextEl _cont, Struct _instance, ClassMethodId _method, Struct... _args) {
-        BoostHpRate instance_ = (BoostHpRate) ((RealInstanceStruct)_instance).getInstance();
+    public static ResultErrorStd invokeMethodBoostHpRate(ContextEl _cont, ClassMethodId _method, BoostHpRate _inst, Struct... _args) {
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringUtil.quickEq(methodName_,GET_HP_RATE)) {
-            res_.setResult(new RateStruct(instance_.getHpRate(),PokemonStandards.TYPE_RATE));
+            res_.setResult(new RateStruct(_inst.getHpRate(),PokemonStandards.TYPE_RATE));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_BOOST)) {
-            res_.setResult(new IntStruct(instance_.getBoost()));
+            res_.setResult(new IntStruct(_inst.getBoost()));
             return res_;
         }
         return res_;
     }
-    public static ResultErrorStd invokeMethodPkTrainer(ContextEl _cont, Struct _instance, ClassMethodId _method, Struct... _args) {
-        BeanLgNames std_ = (BeanLgNames) _cont.getStandards();
-        PkTrainer instance_ = (PkTrainer) ((RealInstanceStruct)_instance).getInstance();
+    public static ResultErrorStd invokeMethodPkTrainer(ContextEl _cont, ClassMethodId _method, PkTrainer _inst, Struct... _args) {
+        BeanNatLgNames std_ = (BeanNatLgNames) _cont.getStandards();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringUtil.quickEq(methodName_,GET_LEVEL)) {
-            res_.setResult(new IntStruct(instance_.getLevel()));
+            res_.setResult(new IntStruct(_inst.getLevel()));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_ITEM)) {
-            res_.setResult(new StringStruct(instance_.getItem()));
+            res_.setResult(new StringStruct(_inst.getItem()));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_MOVES)) {
-            res_.setResult(new DefaultStruct(instance_.getMoves(), TYPE_LIST));
+            res_.setResult(std_.getStringArray(_inst.getMoves()));
             return res_;
         }
-        return PokemonStandards.invokeMethodPokemon(_cont, _instance, _method, _args);
+        return PokemonStandards.invokeMethodPokemon(_cont, _method, _inst, _args);
     }
-    public static ResultErrorStd invokeMethodPokemon(ContextEl _cont, Struct _instance, ClassMethodId _method, Struct... _args) {
-        Pokemon instance_ = (Pokemon) ((RealInstanceStruct)_instance).getInstance();
+    public static ResultErrorStd invokeMethodPokemon(ContextEl _cont, ClassMethodId _method, Pokemon _inst, Struct... _args) {
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringUtil.quickEq(methodName_,GET_ITEM)) {
-            res_.setResult(new StringStruct(instance_.getItem()));
+            res_.setResult(new StringStruct(_inst.getItem()));
             return res_;
         }
         return res_;
     }
-    public static ResultErrorStd invokeMethodAreaApparition(ContextEl _cont, Struct _instance, ClassMethodId _method, Struct... _args) {
-        BeanLgNames std_ = (BeanLgNames) _cont.getStandards();
-        AreaApparition instance_ = (AreaApparition) ((RealInstanceStruct)_instance).getInstance();
+    public static ResultErrorStd invokeMethodAreaApparition(ContextEl _cont, ClassMethodId _method, AreaApparition _inst, Struct... _args) {
+        BeanNatLgNames std_ = (BeanNatLgNames) _cont.getStandards();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringUtil.quickEq(methodName_,GET_AVG_NB_STEPS)) {
-            res_.setResult(new IntStruct(instance_.getAvgNbSteps()));
+            res_.setResult(new IntStruct(_inst.getAvgNbSteps()));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_WILD_POKEMON)) {
-            res_.setResult(new DefaultStruct(instance_.getWildPokemon(), TYPE_LIST));
+            res_.setResult(getWildPkArray(_inst.getWildPokemon()));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_WILD_POKEMON_FISHING)) {
-            res_.setResult(new DefaultStruct(instance_.getWildPokemonFishing(), TYPE_LIST));
+            res_.setResult(getWildPkArray(_inst.getWildPokemonFishing()));
             return res_;
         }
         return res_;
     }
-    public static ResultErrorStd invokeMethodWildPk(ContextEl _cont, Struct _instance, ClassMethodId _method, Struct... _args) {
-        WildPk instance_ = (WildPk) ((RealInstanceStruct)_instance).getInstance();
+    public static ResultErrorStd invokeMethodWildPk(ContextEl _cont, ClassMethodId _method, WildPk _inst, Struct... _args) {
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringUtil.quickEq(methodName_,GET_LEVEL)) {
-            res_.setResult(new IntStruct(instance_.getLevel()));
+            res_.setResult(new IntStruct(_inst.getLevel()));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_ITEM)) {
-            res_.setResult(new StringStruct(instance_.getItem()));
+            res_.setResult(new StringStruct(_inst.getItem()));
             return res_;
         }
-        return PokemonStandards.invokeMethodPokemon(_cont, _instance, _method, _args);
+        return PokemonStandards.invokeMethodPokemon(_cont, _method, _inst, _args);
     }
-    public static ResultErrorStd invokeMethodPlace(ContextEl _cont, Struct _instance, ClassMethodId _method, Struct... _args) {
-        Place instance_ = (Place) ((RealInstanceStruct)_instance).getInstance();
+    public static ResultErrorStd invokeMethodPlace(ContextEl _cont, ClassMethodId _method, Place _inst, Struct... _args) {
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringUtil.quickEq(methodName_,GET_NAME)) {
-            res_.setResult(new StringStruct(instance_.getName()));
+            res_.setResult(new StringStruct(_inst.getName()));
             return res_;
         }
         return res_;
     }
-    public static ResultErrorStd invokeMethodTypesDuo(ContextEl _cont, Struct _instance, ClassMethodId _method, Struct... _args) {
-        TypesDuo instance_ = (TypesDuo) ((RealInstanceStruct)_instance).getInstance();
+    public static ResultErrorStd invokeMethodTypesDuo(ContextEl _cont, ClassMethodId _method, TypesDuo _inst, Struct... _args) {
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringUtil.quickEq(methodName_,GET_DAMAGE_TYPE)) {
-            res_.setResult(new StringStruct(instance_.getDamageType()));
+            res_.setResult(new StringStruct(_inst.getDamageType()));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_POKEMON_TYPE)) {
-            res_.setResult(new StringStruct(instance_.getPokemonType()));
+            res_.setResult(new StringStruct(_inst.getPokemonType()));
             return res_;
         }
         return res_;
     }
-    public static ResultErrorStd invokeMethodCategoryMult(ContextEl _cont, Struct _instance, ClassMethodId _method, Struct... _args) {
-        CategoryMult instance_ = (CategoryMult) ((RealInstanceStruct)_instance).getInstance();
+    public static ResultErrorStd invokeMethodCategoryMult(ContextEl _cont, ClassMethodId _method, CategoryMult _inst, Struct... _args) {
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringUtil.quickEq(methodName_,GET_CATEGORY)) {
-            res_.setResult(new StringStruct(instance_.getCategory()));
+            res_.setResult(new StringStruct(_inst.getCategory()));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_MULT)) {
-            res_.setResult(new IntStruct(instance_.getMult()));
+            res_.setResult(new IntStruct(_inst.getMult()));
             return res_;
         }
         return res_;
     }
-    public static ResultErrorStd invokeMethodLevelMove(ContextEl _cont, Struct _instance, ClassMethodId _method, Struct... _args) {
-        LevelMove instance_ = (LevelMove) ((RealInstanceStruct)_instance).getInstance();
+    public static ResultErrorStd invokeMethodLevelMove(ContextEl _cont, ClassMethodId _method, LevelMove _inst, Struct... _args) {
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringUtil.quickEq(methodName_,GET_LEVEL)) {
-            res_.setResult(new IntStruct(instance_.getLevel()));
+            res_.setResult(new IntStruct(_inst.getLevel()));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_MOVE)) {
-            res_.setResult(new StringStruct(instance_.getMove()));
+            res_.setResult(new StringStruct(_inst.getMove()));
             return res_;
         }
         return res_;
     }
-    public static ResultErrorStd invokeMethodPokemonPlayer(ContextEl _cont, Struct _instance, ClassMethodId _method, Struct... _args) {
-        PokemonPlayer instance_ = (PokemonPlayer) ((RealInstanceStruct)_instance).getInstance();
+    public static ResultErrorStd invokeMethodPokemonPlayer(ContextEl _cont, ClassMethodId _method, PokemonPlayer _inst, Struct... _args) {
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringUtil.quickEq(methodName_,GET_WON_EXP_SINCE_LAST_LEVEL)) {
-            res_.setResult(new RateStruct(instance_.getWonExpSinceLastLevel(),PokemonStandards.TYPE_RATE));
+            res_.setResult(new RateStruct(_inst.getWonExpSinceLastLevel(),PokemonStandards.TYPE_RATE));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_HAPPINESS)) {
-            res_.setResult(new IntStruct(instance_.getHappiness()));
+            res_.setResult(new IntStruct(_inst.getHappiness()));
             return res_;
         }
-        return PokemonStandards.invokeMethodPokemon(_cont, _instance, _method, _args);
+        return PokemonStandards.invokeMethodPokemon(_cont, _method, _inst, _args);
     }
-    public static ResultErrorStd invokeMethodEffectPartnerStatus(ContextEl _cont, Struct _instance, ClassMethodId _method, Struct... _args) {
-        EffectPartnerStatus instance_ = (EffectPartnerStatus) ((RealInstanceStruct)_instance).getInstance();
+    public static ResultErrorStd invokeMethodEffectPartnerStatus(ContextEl _cont, ClassMethodId _method, EffectPartnerStatus _inst, Struct... _args) {
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringUtil.quickEq(methodName_,GET_RESTORED_HP_RATE_LOVED_ALLY)) {
-            res_.setResult(new RateStruct(instance_.getRestoredHpRateLovedAlly(),PokemonStandards.TYPE_RATE));
+            res_.setResult(new RateStruct(_inst.getRestoredHpRateLovedAlly(),PokemonStandards.TYPE_RATE));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_WEDDING_ALLY)) {
-            res_.setResult(BooleanStruct.of(instance_.getWeddingAlly()));
+            res_.setResult(BooleanStruct.of(_inst.getWeddingAlly()));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_MULT_DAMAGE_AGAINST_FOE)) {
-            res_.setResult(new RateStruct(instance_.getMultDamageAgainstFoe(),PokemonStandards.TYPE_RATE));
+            res_.setResult(new RateStruct(_inst.getMultDamageAgainstFoe(),PokemonStandards.TYPE_RATE));
             return res_;
         }
         return res_;
     }
-    public static ResultErrorStd invokeMethodTrainerPlaceNames(ContextEl _cont, Struct _instance, ClassMethodId _method, Struct... _args) {
-        TrainerPlaceNames instance_ = (TrainerPlaceNames) ((RealInstanceStruct)_instance).getInstance();
+    public static ResultErrorStd invokeMethodTrainerPlaceNames(ContextEl _cont, ClassMethodId _method, TrainerPlaceNames _inst, Struct... _args) {
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringUtil.quickEq(methodName_,GET_TRAINER)) {
-            res_.setResult(new StringStruct(instance_.getTrainer()));
+            res_.setResult(new StringStruct(_inst.getTrainer()));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_PLACE)) {
-            res_.setResult(new StringStruct(instance_.getPlace()));
+            res_.setResult(new StringStruct(_inst.getPlace()));
             return res_;
         }
         return res_;
     }
+    public static ArrayStruct getBigByAn(ContextEl _cont, AbsMap<String, ByteTreeMap<Anticipation>> _map) {
+        ArrayStruct arr_ = new ArrayStruct(_map.size(), StringExpUtil.getPrettyArrayType(_cont.getStandards().getCoreNames().getAliasObject()));
+        int j_ = 0;
+        for (EntryCust<String, ByteTreeMap<Anticipation>> e:_map.entryList()) {
+            PairStruct p_ = new PairStruct(_cont.getStandards().getCoreNames().getAliasObject(),new StringStruct(e.getKey()),getByAn(_cont,e.getValue()));
+            arr_.set(j_,p_);
+            j_++;
+        }
+        return arr_;
+    }
+    public static ArrayStruct getBigBySt(ContextEl _cont, AbsMap<String, ByteTreeMap<StacksOfUses>> _map) {
+        ArrayStruct arr_ = new ArrayStruct(_map.size(), StringExpUtil.getPrettyArrayType(_cont.getStandards().getCoreNames().getAliasObject()));
+        int j_ = 0;
+        for (EntryCust<String, ByteTreeMap<StacksOfUses>> e:_map.entryList()) {
+            PairStruct p_ = new PairStruct(_cont.getStandards().getCoreNames().getAliasObject(),new StringStruct(e.getKey()),getBySt(_cont,e.getValue()));
+            arr_.set(j_,p_);
+            j_++;
+        }
+        return arr_;
+    }
+    public static ArrayStruct getByAn(ContextEl _cont, AbsMap<Byte, Anticipation> _map) {
+        ArrayStruct arr_ = new ArrayStruct(_map.size(), StringExpUtil.getPrettyArrayType(_cont.getStandards().getCoreNames().getAliasObject()));
+        int j_ = 0;
+        for (EntryCust<Byte, Anticipation> e:_map.entryList()) {
+            PairStruct p_ = new PairStruct(_cont.getStandards().getCoreNames().getAliasObject(),new ByteStruct(e.getKey()),new AnticipationStruct(e.getValue(),TYPE_ANTICIPATION));
+            arr_.set(j_,p_);
+            j_++;
+        }
+        return arr_;
+    }
+    public static ArrayStruct getBySt(ContextEl _cont, AbsMap<Byte, StacksOfUses> _map) {
+        ArrayStruct arr_ = new ArrayStruct(_map.size(), StringExpUtil.getPrettyArrayType(_cont.getStandards().getCoreNames().getAliasObject()));
+        int j_ = 0;
+        for (EntryCust<Byte, StacksOfUses> e:_map.entryList()) {
+            PairStruct p_ = new PairStruct(_cont.getStandards().getCoreNames().getAliasObject(),new ByteStruct(e.getKey()),new StacksOfUsesStruct(e.getValue(),TYPE_STACKS_OF_USES));
+            arr_.set(j_,p_);
+            j_++;
+        }
+        return arr_;
+    }
+    public static ArrayStruct getBigNatMapLs(ContextEl _cont, AbsMap<String, EqList<TeamPosition>> _map) {
+        ArrayStruct arr_ = new ArrayStruct(_map.size(), StringExpUtil.getPrettyArrayType(_cont.getStandards().getCoreNames().getAliasObject()));
+        int j_ = 0;
+        for (EntryCust<String, EqList<TeamPosition>> e:_map.entryList()) {
+            PairStruct p_ = new PairStruct(_cont.getStandards().getCoreNames().getAliasObject(),new StringStruct(e.getKey()),getTeamPos(_cont,e.getValue()));
+            arr_.set(j_,p_);
+            j_++;
+        }
+        return arr_;
+    }
 
+    public static ArrayStruct getBigNatMap(ContextEl _cont, AbsMap<String, NatCmpTreeMap<Rate, Rate>> _map) {
+        ArrayStruct arr_ = new ArrayStruct(_map.size(), StringExpUtil.getPrettyArrayType(_cont.getStandards().getCoreNames().getAliasObject()));
+        int j_ = 0;
+        for (EntryCust<String, NatCmpTreeMap<Rate, Rate>> e:_map.entryList()) {
+            PairStruct p_ = new PairStruct(_cont.getStandards().getCoreNames().getAliasObject(),new StringStruct(e.getKey()),getRateRate(_cont,e.getValue()));
+            arr_.set(j_,p_);
+            j_++;
+        }
+        return arr_;
+    }
+    public static ArrayStruct getBigNatMapSta(ContextEl _cont, AbsMap<String, TreeMap<Statistic, Byte>> _map) {
+        ArrayStruct arr_ = new ArrayStruct(_map.size(), StringExpUtil.getPrettyArrayType(_cont.getStandards().getCoreNames().getAliasObject()));
+        int j_ = 0;
+        for (EntryCust<String, TreeMap<Statistic, Byte>> e:_map.entryList()) {
+            PairStruct p_ = new PairStruct(_cont.getStandards().getCoreNames().getAliasObject(),new StringStruct(e.getKey()),getStaByte(_cont,e.getValue()));
+            arr_.set(j_,p_);
+            j_++;
+        }
+        return arr_;
+    }
+    public static ArrayStruct getStrAct(ContextEl _cont, AbsMap<StringList,ActivityOfMove> _map) {
+        ArrayStruct arr_ = new ArrayStruct(_map.size(), StringExpUtil.getPrettyArrayType(_cont.getStandards().getCoreNames().getAliasObject()));
+        int j_ = 0;
+        for (EntryCust<StringList, ActivityOfMove> e:_map.entryList()) {
+            PairStruct p_ = new PairStruct(_cont.getStandards().getCoreNames().getAliasObject(),((BeanNatLgNames)_cont.getStandards()).getStringArray(e.getKey()),new ActivityOfMoveStruct(e.getValue(),TYPE_ACTIVITY_OF_MOVE));
+            arr_.set(j_,p_);
+            j_++;
+        }
+        return arr_;
+    }
+    public static ArrayStruct getStaBoost(ContextEl _cont, AbsMap<Statistic,BoostHpRate> _map) {
+        ArrayStruct arr_ = new ArrayStruct(_map.size(), StringExpUtil.getPrettyArrayType(_cont.getStandards().getCoreNames().getAliasObject()));
+        int j_ = 0;
+        for (EntryCust<Statistic, BoostHpRate> e:_map.entryList()) {
+            PairStruct p_ = new PairStruct(_cont.getStandards().getCoreNames().getAliasObject(),new IdStruct(""),new BoostHpRateStruct(e.getValue(),TYPE_BOOST_HP_RATE));
+            arr_.set(j_,p_);
+            j_++;
+        }
+        return arr_;
+    }
+    public static ArrayStruct getWcMvTp(ContextEl _cont,AbsMap<MoveTeamPosition,AffectedMove> _map) {
+        ArrayStruct arr_ = new ArrayStruct(_map.size(), StringExpUtil.getPrettyArrayType(_cont.getStandards().getCoreNames().getAliasObject()));
+        int j_ = 0;
+        for (EntryCust<MoveTeamPosition, AffectedMove> e:_map.entryList()) {
+            PairStruct p_ = new PairStruct(_cont.getStandards().getCoreNames().getAliasObject(),new MoveTeamPositionStruct(e.getKey(),TYPE_MOVE_TEAM_POSITION),new AffectedMoveStruct(e.getValue(),TYPE_AFFECTED_MOVE));
+            arr_.set(j_,p_);
+            j_++;
+        }
+        return arr_;
+    }
+    public static ArrayStruct getWcMvAm(ContextEl _cont,AbsMap<MoveTeamPosition,ActivityOfMove> _map) {
+        ArrayStruct arr_ = new ArrayStruct(_map.size(), StringExpUtil.getPrettyArrayType(_cont.getStandards().getCoreNames().getAliasObject()));
+        int j_ = 0;
+        for (EntryCust<MoveTeamPosition, ActivityOfMove> e:_map.entryList()) {
+            PairStruct p_ = new PairStruct(_cont.getStandards().getCoreNames().getAliasObject(),new MoveTeamPositionStruct(e.getKey(),TYPE_MOVE_TEAM_POSITION),new ActivityOfMoveStruct(e.getValue(),TYPE_ACTIVITY_OF_MOVE));
+            arr_.set(j_,p_);
+            j_++;
+        }
+        return arr_;
+    }
+    public static ArrayStruct getWcMvTpNb(ContextEl _cont,AbsMap<MoveTeamPosition,Short> _map) {
+        ArrayStruct arr_ = new ArrayStruct(_map.size(), StringExpUtil.getPrettyArrayType(_cont.getStandards().getCoreNames().getAliasObject()));
+        int j_ = 0;
+        for (EntryCust<MoveTeamPosition, Short> e:_map.entryList()) {
+            PairStruct p_ = new PairStruct(_cont.getStandards().getCoreNames().getAliasObject(),new MoveTeamPositionStruct(e.getKey(),TYPE_MOVE_TEAM_POSITION),new ShortStruct(e.getValue()));
+            arr_.set(j_,p_);
+            j_++;
+        }
+        return arr_;
+    }
+    public static ArrayStruct getWcMvTpBool(ContextEl _cont,AbsMap<MoveTeamPosition,Boolean> _map) {
+        ArrayStruct arr_ = new ArrayStruct(_map.size(), StringExpUtil.getPrettyArrayType(_cont.getStandards().getCoreNames().getAliasObject()));
+        int j_ = 0;
+        for (EntryCust<MoveTeamPosition, Boolean> e:_map.entryList()) {
+            PairStruct p_ = new PairStruct(_cont.getStandards().getCoreNames().getAliasObject(),new MoveTeamPositionStruct(e.getKey(),TYPE_MOVE_TEAM_POSITION),BooleanStruct.of(e.getValue()));
+            arr_.set(j_,p_);
+            j_++;
+        }
+        return arr_;
+    }
+    public static ArrayStruct getWcStr(ContextEl _cont,AbsMap<MiniMapCoords,String> _map) {
+        ArrayStruct arr_ = new ArrayStruct(_map.size(), StringExpUtil.getPrettyArrayType(_cont.getStandards().getCoreNames().getAliasObject()));
+        int j_ = 0;
+        for (EntryCust<MiniMapCoords, String> e:_map.entryList()) {
+            PairStruct p_ = new PairStruct(_cont.getStandards().getCoreNames().getAliasObject(),new IdStruct(""),new StringStruct(e.getValue()));
+            arr_.set(j_,p_);
+            j_++;
+        }
+        return arr_;
+    }
+    public static ArrayStruct getPtStr(ContextEl _cont,AbsMap<Point,String> _map) {
+        ArrayStruct arr_ = new ArrayStruct(_map.size(), StringExpUtil.getPrettyArrayType(_cont.getStandards().getCoreNames().getAliasObject()));
+        int j_ = 0;
+        for (EntryCust<Point, String> e:_map.entryList()) {
+            PairStruct p_ = new PairStruct(_cont.getStandards().getCoreNames().getAliasObject(),new IdStruct(""),new StringStruct(e.getValue()));
+            arr_.set(j_,p_);
+            j_++;
+        }
+        return arr_;
+    }
+    public static ArrayStruct getMvTpStr(ContextEl _cont,AbsMap<MoveTeamPosition,String> _map) {
+        ArrayStruct arr_ = new ArrayStruct(_map.size(), StringExpUtil.getPrettyArrayType(_cont.getStandards().getCoreNames().getAliasObject()));
+        int j_ = 0;
+        for (EntryCust<MoveTeamPosition, String> e:_map.entryList()) {
+            PairStruct p_ = new PairStruct(_cont.getStandards().getCoreNames().getAliasObject(),new MoveTeamPositionStruct(e.getKey(),TYPE_MOVE_TEAM_POSITION),new StringStruct(e.getValue()));
+            arr_.set(j_,p_);
+            j_++;
+        }
+        return arr_;
+    }
+    public static ArrayStruct getCpStr(ContextEl _cont,AbsMap<String,CopiedMove> _map) {
+        ArrayStruct arr_ = new ArrayStruct(_map.size(), StringExpUtil.getPrettyArrayType(_cont.getStandards().getCoreNames().getAliasObject()));
+        int j_ = 0;
+        for (EntryCust<String, CopiedMove> e:_map.entryList()) {
+            PairStruct p_ = new PairStruct(_cont.getStandards().getCoreNames().getAliasObject(),new StringStruct(e.getKey()),new CopiedMoveStruct(e.getValue(),TYPE_COPIED_MOVE));
+            arr_.set(j_,p_);
+            j_++;
+        }
+        return arr_;
+    }
+    public static ArrayStruct getMultPowStr(ContextEl _cont,AbsMap<String,MultPowerMoves> _map) {
+        ArrayStruct arr_ = new ArrayStruct(_map.size(), StringExpUtil.getPrettyArrayType(_cont.getStandards().getCoreNames().getAliasObject()));
+        int j_ = 0;
+        for (EntryCust<String, MultPowerMoves> e:_map.entryList()) {
+            PairStruct p_ = new PairStruct(_cont.getStandards().getCoreNames().getAliasObject(),new StringStruct(e.getKey()),new MultPowerMovesStruct(e.getValue(),AikiBeansFacadeFightStd.TYPE_MULT_POWER_MOVES));
+            arr_.set(j_,p_);
+            j_++;
+        }
+        return arr_;
+    }
+    public static ArrayStruct getSuffCatStr(ContextEl _cont,AbsMap<String,SufferedDamageCategory> _map) {
+        ArrayStruct arr_ = new ArrayStruct(_map.size(), StringExpUtil.getPrettyArrayType(_cont.getStandards().getCoreNames().getAliasObject()));
+        int j_ = 0;
+        for (EntryCust<String, SufferedDamageCategory> e:_map.entryList()) {
+            PairStruct p_ = new PairStruct(_cont.getStandards().getCoreNames().getAliasObject(),new StringStruct(e.getKey()),new SufferedDamageCategoryStruct(e.getValue(),AikiBeansFacadeFightStd.TYPE_SUFFERED_DAMAGE_CATEGORY));
+            arr_.set(j_,p_);
+            j_++;
+        }
+        return arr_;
+    }
+    public static ArrayStruct getEffRateStr(ContextEl _cont,AbsMap<String,EfficiencyRate> _map) {
+        ArrayStruct arr_ = new ArrayStruct(_map.size(), StringExpUtil.getPrettyArrayType(_cont.getStandards().getCoreNames().getAliasObject()));
+        int j_ = 0;
+        for (EntryCust<String, EfficiencyRate> e:_map.entryList()) {
+            PairStruct p_ = new PairStruct(_cont.getStandards().getCoreNames().getAliasObject(),new StringStruct(e.getKey()),new EfficiencyRateStruct(e.getValue(),TYPE_EFFICIENCY_RATE));
+            arr_.set(j_,p_);
+            j_++;
+        }
+        return arr_;
+    }
+    public static ArrayStruct getUsesStr(ContextEl _cont,AbsMap<String,UsesOfMove> _map) {
+        ArrayStruct arr_ = new ArrayStruct(_map.size(), StringExpUtil.getPrettyArrayType(_cont.getStandards().getCoreNames().getAliasObject()));
+        int j_ = 0;
+        for (EntryCust<String, UsesOfMove> e:_map.entryList()) {
+            PairStruct p_ = new PairStruct(_cont.getStandards().getCoreNames().getAliasObject(),new StringStruct(e.getKey()),new UsesOfMoveStruct(e.getValue(),TYPE_USES_OF_MOVE));
+            arr_.set(j_,p_);
+            j_++;
+        }
+        return arr_;
+    }
+    public static ArrayStruct getWcByteMap(ContextEl _cont,AbsMap<StatisticPokemon,Byte> _map) {
+        ArrayStruct arr_ = new ArrayStruct(_map.size(), StringExpUtil.getPrettyArrayType(_cont.getStandards().getCoreNames().getAliasObject()));
+        int j_ = 0;
+        for (EntryCust<StatisticPokemon, Byte> e:_map.entryList()) {
+            PairStruct p_ = new PairStruct(_cont.getStandards().getCoreNames().getAliasObject(),new IdStruct(_cont.getStandards().getCoreNames().getAliasObject()),new ByteStruct(e.getValue()));
+            arr_.set(j_,p_);
+            j_++;
+        }
+        return arr_;
+    }
+    public static ArrayStruct getStatisticTypeByteMap(ContextEl _cont,AbsMap<StatisticType,Byte> _map) {
+        ArrayStruct arr_ = new ArrayStruct(_map.size(), StringExpUtil.getPrettyArrayType(_cont.getStandards().getCoreNames().getAliasObject()));
+        int j_ = 0;
+        for (EntryCust<StatisticType, Byte> e:_map.entryList()) {
+            PairStruct p_ = new PairStruct(_cont.getStandards().getCoreNames().getAliasObject(),new IdStruct(_cont.getStandards().getCoreNames().getAliasObject()),new ByteStruct(e.getValue()));
+            arr_.set(j_,p_);
+            j_++;
+        }
+        return arr_;
+    }
+    public static ArrayStruct getStatisticCategoryByteMap(ContextEl _cont,AbsMap<StatisticCategory,Byte> _map) {
+        ArrayStruct arr_ = new ArrayStruct(_map.size(), StringExpUtil.getPrettyArrayType(_cont.getStandards().getCoreNames().getAliasObject()));
+        int j_ = 0;
+        for (EntryCust<StatisticCategory, Byte> e:_map.entryList()) {
+            PairStruct p_ = new PairStruct(_cont.getStandards().getCoreNames().getAliasObject(),new IdStruct(_cont.getStandards().getCoreNames().getAliasObject()),new ByteStruct(e.getValue()));
+            arr_.set(j_,p_);
+            j_++;
+        }
+        return arr_;
+    }
+    public static ArrayStruct getStatisticStatusByteMap(ContextEl _cont,AbsMap<StatisticStatus,Byte> _map) {
+        ArrayStruct arr_ = new ArrayStruct(_map.size(), StringExpUtil.getPrettyArrayType(_cont.getStandards().getCoreNames().getAliasObject()));
+        int j_ = 0;
+        for (EntryCust<StatisticStatus, Byte> e:_map.entryList()) {
+            PairStruct p_ = new PairStruct(_cont.getStandards().getCoreNames().getAliasObject(),new StatisticStatusStruct(e.getKey(),_cont.getStandards().getCoreNames().getAliasObject()),new ByteStruct(e.getValue()));
+            arr_.set(j_,p_);
+            j_++;
+        }
+        return arr_;
+    }
+
+    public static ArrayStruct getCatMultRateMap(ContextEl _cont,AbsMap<CategoryMult,Rate> _map) {
+        ArrayStruct arr_ = new ArrayStruct(_map.size(), StringExpUtil.getPrettyArrayType(_cont.getStandards().getCoreNames().getAliasObject()));
+        int j_ = 0;
+        for (EntryCust<CategoryMult, Rate> e:_map.entryList()) {
+            PairStruct p_ = new PairStruct(_cont.getStandards().getCoreNames().getAliasObject(),new CategoryMultStruct(e.getKey(),TYPE_CATEGORY_MULT),new RateStruct(e.getValue(),TYPE_RATE));
+            arr_.set(j_,p_);
+            j_++;
+        }
+        return arr_;
+    }
+    public static ArrayStruct getStatisticCategoryRateMap(ContextEl _cont,AbsMap<StatisticCategory,Rate> _map) {
+        ArrayStruct arr_ = new ArrayStruct(_map.size(), StringExpUtil.getPrettyArrayType(_cont.getStandards().getCoreNames().getAliasObject()));
+        int j_ = 0;
+        for (EntryCust<StatisticCategory, Rate> e:_map.entryList()) {
+            PairStruct p_ = new PairStruct(_cont.getStandards().getCoreNames().getAliasObject(),new IdStruct(_cont.getStandards().getCoreNames().getAliasObject()),new RateStruct(e.getValue(),TYPE_RATE));
+            arr_.set(j_,p_);
+            j_++;
+        }
+        return arr_;
+    }
+    public static ArrayStruct getWcRateMap(ContextEl _cont,AbsMap<StatisticType,Rate> _map) {
+        ArrayStruct arr_ = new ArrayStruct(_map.size(), StringExpUtil.getPrettyArrayType(_cont.getStandards().getCoreNames().getAliasObject()));
+        int j_ = 0;
+        for (EntryCust<StatisticType, Rate> e:_map.entryList()) {
+            PairStruct p_ = new PairStruct(_cont.getStandards().getCoreNames().getAliasObject(),new IdStruct(_cont.getStandards().getCoreNames().getAliasObject()),new RateStruct(e.getValue(),TYPE_RATE));
+            arr_.set(j_,p_);
+            j_++;
+        }
+        return arr_;
+    }
+    public static ArrayStruct getWeatherTypeRateMap(ContextEl _cont,AbsMap<WeatherType,Rate> _map) {
+        ArrayStruct arr_ = new ArrayStruct(_map.size(), StringExpUtil.getPrettyArrayType(_cont.getStandards().getCoreNames().getAliasObject()));
+        int j_ = 0;
+        for (EntryCust<WeatherType, Rate> e:_map.entryList()) {
+            PairStruct p_ = new PairStruct(_cont.getStandards().getCoreNames().getAliasObject(),new IdStruct(_cont.getStandards().getCoreNames().getAliasObject()),new RateStruct(e.getValue(),TYPE_RATE));
+            arr_.set(j_,p_);
+            j_++;
+        }
+        return arr_;
+    }
+    public static ArrayStruct getStrListStaList(ContextEl _cont,AbsMap<String,EnumList<Statistic>> _map) {
+        ArrayStruct arr_ = new ArrayStruct(_map.size(), StringExpUtil.getPrettyArrayType(_cont.getStandards().getCoreNames().getAliasObject()));
+        int j_ = 0;
+        for (EntryCust<String, EnumList<Statistic>> e:_map.entryList()) {
+            PairStruct p_ = new PairStruct(_cont.getStandards().getCoreNames().getAliasObject(),new StringStruct(e.getKey()),getSta(_cont,e.getValue()));
+            arr_.set(j_,p_);
+            j_++;
+        }
+        return arr_;
+    }
+    public static ArrayStruct getStrListStrList(ContextEl _cont,AbsMap<String,CustList<StringList>> _map) {
+        ArrayStruct arr_ = new ArrayStruct(_map.size(), StringExpUtil.getPrettyArrayType(_cont.getStandards().getCoreNames().getAliasObject()));
+        int j_ = 0;
+        for (EntryCust<String, CustList<StringList>> e:_map.entryList()) {
+            PairStruct p_ = new PairStruct(_cont.getStandards().getCoreNames().getAliasObject(),new StringStruct(e.getKey()),getStrList(_cont,e.getValue()));
+            arr_.set(j_,p_);
+            j_++;
+        }
+        return arr_;
+    }
+    public static ArrayStruct getShStrList(ContextEl _cont,AbsMap<Short,StringList> _map) {
+        ArrayStruct arr_ = new ArrayStruct(_map.size(), StringExpUtil.getPrettyArrayType(_cont.getStandards().getCoreNames().getAliasObject()));
+        int j_ = 0;
+        for (EntryCust<Short, StringList> e:_map.entryList()) {
+            PairStruct p_ = new PairStruct(_cont.getStandards().getCoreNames().getAliasObject(),new ShortStruct(e.getKey()),((PokemonStandards)_cont.getStandards()).getStringArray(e.getValue()));
+            arr_.set(j_,p_);
+            j_++;
+        }
+        return arr_;
+    }
+    public static ArrayStruct getTpDuoRate(ContextEl _cont,AbsMap<TypesDuo,Rate> _map) {
+        ArrayStruct arr_ = new ArrayStruct(_map.size(), StringExpUtil.getPrettyArrayType(_cont.getStandards().getCoreNames().getAliasObject()));
+        int j_ = 0;
+        for (EntryCust<TypesDuo, Rate> e:_map.entryList()) {
+            PairStruct p_ = new PairStruct(_cont.getStandards().getCoreNames().getAliasObject(),new TypesDuoStruct(e.getKey(),TYPE_TYPES_DUO),new RateStruct(e.getValue(),TYPE_RATE));
+            arr_.set(j_,p_);
+            j_++;
+        }
+        return arr_;
+    }
+    public static ArrayStruct getIntIntMap(ContextEl _cont,AbsMap<Integer,Integer> _map) {
+        ArrayStruct arr_ = new ArrayStruct(_map.size(), StringExpUtil.getPrettyArrayType(_cont.getStandards().getCoreNames().getAliasObject()));
+        int j_ = 0;
+        for (EntryCust<Integer, Integer> e:_map.entryList()) {
+            PairStruct p_ = new PairStruct(_cont.getStandards().getCoreNames().getAliasObject(),new IntStruct(e.getKey()),new IntStruct(e.getValue()));
+            arr_.set(j_,p_);
+            j_++;
+        }
+        return arr_;
+    }
+    public static ArrayStruct getByteBytes(ContextEl _cont,AbsMap<Byte,Bytes> _map) {
+        ArrayStruct arr_ = new ArrayStruct(_map.size(), StringExpUtil.getPrettyArrayType(_cont.getStandards().getCoreNames().getAliasObject()));
+        int j_ = 0;
+        for (EntryCust<Byte, Bytes> e:_map.entryList()) {
+            PairStruct p_ = new PairStruct(_cont.getStandards().getCoreNames().getAliasObject(),new ByteStruct(e.getKey()),((PokemonStandards)_cont.getStandards()).getByteArray(e.getValue()));
+            arr_.set(j_,p_);
+            j_++;
+        }
+        return arr_;
+    }
+    public static ArrayStruct getStrInts(ContextEl _cont,AbsMap<String,Ints> _map) {
+        ArrayStruct arr_ = new ArrayStruct(_map.size(), StringExpUtil.getPrettyArrayType(_cont.getStandards().getCoreNames().getAliasObject()));
+        int j_ = 0;
+        for (EntryCust<String, Ints> e:_map.entryList()) {
+            PairStruct p_ = new PairStruct(_cont.getStandards().getCoreNames().getAliasObject(),new StringStruct(e.getKey()),((PokemonStandards)_cont.getStandards()).getIntArray(e.getValue()));
+            arr_.set(j_,p_);
+            j_++;
+        }
+        return arr_;
+    }
+    public static ArrayStruct getMvTars(ContextEl _cont,AbsMap<MoveTarget,MoveTarget> _map) {
+        ArrayStruct arr_ = new ArrayStruct(_map.size(), StringExpUtil.getPrettyArrayType(_cont.getStandards().getCoreNames().getAliasObject()));
+        int j_ = 0;
+        for (EntryCust<MoveTarget, MoveTarget> e:_map.entryList()) {
+            PairStruct p_ = new PairStruct(_cont.getStandards().getCoreNames().getAliasObject(),new MoveTargetStruct(e.getKey(),TYPE_MOVE_TARGET),new MoveTargetStruct(e.getValue(),TYPE_MOVE_TARGET));
+            arr_.set(j_,p_);
+            j_++;
+        }
+        return arr_;
+    }
+    public static ArrayStruct getMvTar(ContextEl _cont,AbsMap<Byte,MoveTarget> _map) {
+        ArrayStruct arr_ = new ArrayStruct(_map.size(), StringExpUtil.getPrettyArrayType(_cont.getStandards().getCoreNames().getAliasObject()));
+        int j_ = 0;
+        for (EntryCust<Byte, MoveTarget> e:_map.entryList()) {
+            PairStruct p_ = new PairStruct(_cont.getStandards().getCoreNames().getAliasObject(),new ByteStruct(e.getKey()),new MoveTargetStruct(e.getValue(),TYPE_MOVE_TARGET));
+            arr_.set(j_,p_);
+            j_++;
+        }
+        return arr_;
+    }
+    public static ArrayStruct getStrTpDam(ContextEl _cont,AbsMap<String,TypeDamageBoost> _map) {
+        ArrayStruct arr_ = new ArrayStruct(_map.size(), StringExpUtil.getPrettyArrayType(_cont.getStandards().getCoreNames().getAliasObject()));
+        int j_ = 0;
+        for (EntryCust<String, TypeDamageBoost> e:_map.entryList()) {
+            PairStruct p_ = new PairStruct(_cont.getStandards().getCoreNames().getAliasObject(),new StringStruct(e.getKey()),new TypeDamageBoostStruct(e.getValue(),TYPE_TYPE_DAMAGE_BOOST));
+            arr_.set(j_,p_);
+            j_++;
+        }
+        return arr_;
+    }
+    public static ArrayStruct getActMove(ContextEl _cont,AbsMap<String,ActivityOfMove> _map) {
+        ArrayStruct arr_ = new ArrayStruct(_map.size(), StringExpUtil.getPrettyArrayType(_cont.getStandards().getCoreNames().getAliasObject()));
+        int j_ = 0;
+        for (EntryCust<String, ActivityOfMove> e:_map.entryList()) {
+            PairStruct p_ = new PairStruct(_cont.getStandards().getCoreNames().getAliasObject(),new StringStruct(e.getKey()),new ActivityOfMoveStruct(e.getValue(),PokemonStandards.TYPE_ACTIVITY_OF_MOVE));
+            arr_.set(j_,p_);
+            j_++;
+        }
+        return arr_;
+    }
+    public static ArrayStruct getPlLevWildPkDto(ContextEl _cont,AbsMap<PlaceLevel,CustList<WildPokemonDto>> _map) {
+        ArrayStruct arr_ = new ArrayStruct(_map.size(), StringExpUtil.getPrettyArrayType(_cont.getStandards().getCoreNames().getAliasObject()));
+        int j_ = 0;
+        for (EntryCust<PlaceLevel, CustList<WildPokemonDto>> e:_map.entryList()) {
+            PairStruct p_ = new PairStruct(_cont.getStandards().getCoreNames().getAliasObject(),new PlaceLevelStruct(e.getKey(),_cont.getStandards().getCoreNames().getAliasObject()),getWildPkDto(e.getValue()));
+            arr_.set(j_,p_);
+            j_++;
+        }
+        return arr_;
+    }
+    public static ArrayStruct getWildPkDto(CustList<WildPokemonDto> _ls) {
+        ArrayStruct arr_ = new ArrayStruct(_ls.size(), StringExpUtil.getPrettyArrayType(AikiBeansFacadeSolutionDtoStd.TYPE_WILD_POKEMON_DTO));
+        int j_ = 0;
+        for (WildPokemonDto s:_ls) {
+            arr_.set(j_,new WildPokemonDtoStruct(s, AikiBeansFacadeSolutionDtoStd.TYPE_WILD_POKEMON_DTO));
+            j_++;
+        }
+        return arr_;
+    }
+    public static ArrayStruct getSteDto(CustList<StepDto> _ls) {
+        ArrayStruct arr_ = new ArrayStruct(_ls.size(), StringExpUtil.getPrettyArrayType(AikiBeansFacadeSolutionDtoStd.TYPE_STEP_DTO));
+        int j_ = 0;
+        for (StepDto s:_ls) {
+            arr_.set(j_,new StepDtoStruct(s, AikiBeansFacadeSolutionDtoStd.TYPE_STEP_DTO));
+            j_++;
+        }
+        return arr_;
+    }
+    public static ArrayStruct getPkPlDto(CustList<PokemonPlayerDto> _ls) {
+        ArrayStruct arr_ = new ArrayStruct(_ls.size(), StringExpUtil.getPrettyArrayType(AikiBeansFacadeSimulationDtoStd.TYPE_POKEMON_PLAYER_DTO));
+        int j_ = 0;
+        for (PokemonPlayerDto s:_ls) {
+            arr_.set(j_,new PokemonPlayerDtoStruct(s, AikiBeansFacadeSimulationDtoStd.TYPE_POKEMON_PLAYER_DTO));
+            j_++;
+        }
+        return arr_;
+    }
+    public static ArrayStruct getPkTrDto(CustList<PokemonTrainerDto> _ls) {
+        ArrayStruct arr_ = new ArrayStruct(_ls.size(), StringExpUtil.getPrettyArrayType(AikiBeansFacadeSimulationDtoStd.TYPE_POKEMON_TRAINER_DTO));
+        int j_ = 0;
+        for (PokemonTrainerDto s:_ls) {
+            arr_.set(j_,new PokemonTrainerDtoStruct(s, AikiBeansFacadeSimulationDtoStd.TYPE_POKEMON_TRAINER_DTO));
+            j_++;
+        }
+        return arr_;
+    }
+    public static ArrayStruct getStaInf(CustList<StatisticInfo> _ls) {
+        ArrayStruct arr_ = new ArrayStruct(_ls.size(), StringExpUtil.getPrettyArrayType(AikiBeansFacadeFightStd.TYPE_STATISTIC_INFO));
+        int j_ = 0;
+        for (StatisticInfo s:_ls) {
+            arr_.set(j_,new StatisticInfoStruct(s, AikiBeansFacadeFightStd.TYPE_STATISTIC_INFO));
+            j_++;
+        }
+        return arr_;
+    }
+    public static ArrayStruct getKeyHyp(CustList<KeyHypothesis> _ls) {
+        ArrayStruct arr_ = new ArrayStruct(_ls.size(), StringExpUtil.getPrettyArrayType(AikiBeansFacadeFightStd.TYPE_KEY_HYPOTHESIS));
+        int j_ = 0;
+        for (KeyHypothesis s:_ls) {
+            arr_.set(j_,new KeyHypothesisStruct(s, AikiBeansFacadeFightStd.TYPE_KEY_HYPOTHESIS));
+            j_++;
+        }
+        return arr_;
+    }
+    public static ArrayStruct getStPkPl(CustList<StatisticInfoPkPlayer> _ls) {
+        ArrayStruct arr_ = new ArrayStruct(_ls.size(), StringExpUtil.getPrettyArrayType(AikiBeansFacadeGameDtoStd.TYPE_STATISTIC_INFO_PK_PLAYER));
+        int j_ = 0;
+        for (StatisticInfoPkPlayer s:_ls) {
+            arr_.set(j_,new StatisticInfoPkPlayerStruct(s, AikiBeansFacadeGameDtoStd.TYPE_STATISTIC_INFO_PK_PLAYER));
+            j_++;
+        }
+        return arr_;
+    }
+    public static ArrayStruct getTrPlNa(CustList<TrainerPlaceNames> _ls) {
+        ArrayStruct arr_ = new ArrayStruct(_ls.size(), StringExpUtil.getPrettyArrayType(TYPE_TRAINER_PLACE_NAMES));
+        int j_ = 0;
+        for (TrainerPlaceNames s:_ls) {
+            arr_.set(j_,new TrainerPlaceNamesStruct(s, TYPE_TRAINER_PLACE_NAMES));
+            j_++;
+        }
+        return arr_;
+    }
+    public static ArrayStruct getLvMv(CustList<LevelMove> _ls) {
+        ArrayStruct arr_ = new ArrayStruct(_ls.size(), StringExpUtil.getPrettyArrayType(TYPE_LEVEL_MOVE));
+        int j_ = 0;
+        for (LevelMove s:_ls) {
+            arr_.set(j_,new LevelMoveStruct(s, TYPE_LEVEL_MOVE));
+            j_++;
+        }
+        return arr_;
+    }
+    public static ArrayStruct getPlTr(CustList<PlaceTrainerDto> _ls) {
+        ArrayStruct arr_ = new ArrayStruct(_ls.size(), StringExpUtil.getPrettyArrayType(AikiBeansFacadeSolutionDtoStd.TYPE_PLACE_TRAINER_DTO));
+        int j_ = 0;
+        for (PlaceTrainerDto s:_ls) {
+            arr_.set(j_,new PlaceTrainerDtoStruct(s, AikiBeansFacadeSolutionDtoStd.TYPE_PLACE_TRAINER_DTO));
+            j_++;
+        }
+        return arr_;
+    }
+    public static ArrayStruct getTypesDuo(CustList<TypesDuo> _ls) {
+        ArrayStruct arr_ = new ArrayStruct(_ls.size(), StringExpUtil.getPrettyArrayType(TYPE_TYPES_DUO));
+        int j_ = 0;
+        for (TypesDuo s:_ls) {
+            arr_.set(j_,new TypesDuoStruct(s, TYPE_TYPES_DUO));
+            j_++;
+        }
+        return arr_;
+    }
+    public static ArrayStruct getPkTeam(ContextEl _cont,CustList<PokemonTeam> _ls) {
+        ArrayStruct arr_ = new ArrayStruct(_ls.size(), StringExpUtil.getPrettyArrayType(_cont.getStandards().getCoreNames().getAliasObject()));
+        int j_ = 0;
+        for (PokemonTeam s:_ls) {
+            arr_.set(j_,new PokemonTeamStruct(s, _cont.getStandards().getCoreNames().getAliasObject()));
+            j_++;
+        }
+        return arr_;
+    }
+    public static ArrayStruct getSiSa(ContextEl _cont,CustList<StatisticStatus> _ls) {
+        ArrayStruct arr_ = new ArrayStruct(_ls.size(), StringExpUtil.getPrettyArrayType(_cont.getStandards().getCoreNames().getAliasObject()));
+        int j_ = 0;
+        for (StatisticStatus s:_ls) {
+            arr_.set(j_,new StatisticStatusStruct(s, _cont.getStandards().getCoreNames().getAliasObject()));
+            j_++;
+        }
+        return arr_;
+    }
+    public static ArrayStruct getPlInd(CustList<PlaceIndex> _ls) {
+        ArrayStruct arr_ = new ArrayStruct(_ls.size(), StringExpUtil.getPrettyArrayType(AikiBeansFacadeMapDtoStd.TYPE_PLACE_INDEX));
+        int j_ = 0;
+        for (PlaceIndex s:_ls) {
+            arr_.set(j_,new PlaceIndexStruct(s, AikiBeansFacadeMapDtoStd.TYPE_PLACE_INDEX));
+            j_++;
+        }
+        return arr_;
+    }
+    public static ArrayStruct getWildPkArray(CustList<WildPk> _ls) {
+        ArrayStruct arr_ = new ArrayStruct(_ls.size(), StringExpUtil.getPrettyArrayType(TYPE_WILD_PK));
+        int j_ = 0;
+        for (WildPk s:_ls) {
+            arr_.set(j_,new PkStruct(s, TYPE_WILD_PK));
+            j_++;
+        }
+        return arr_;
+    }
+    public static ArrayStruct getPkPlayerArray(CustList<PokemonPlayer> _ls) {
+        ArrayStruct arr_ = new ArrayStruct(_ls.size(), StringExpUtil.getPrettyArrayType(TYPE_POKEMON_PLAYER));
+        int j_ = 0;
+        for (PokemonPlayer s:_ls) {
+            arr_.set(j_,new PkStruct(s, TYPE_POKEMON_PLAYER));
+            j_++;
+        }
+        return arr_;
+    }
+    public static ArrayStruct getPkTrainerArray(CustList<PkTrainer> _ls) {
+        ArrayStruct arr_ = new ArrayStruct(_ls.size(), StringExpUtil.getPrettyArrayType(TYPE_PK_TRAINER));
+        int j_ = 0;
+        for (PkTrainer s:_ls) {
+            arr_.set(j_,new PkStruct(s, TYPE_PK_TRAINER));
+            j_++;
+        }
+        return arr_;
+    }
+    public static ArrayStruct getPkLine(CustList<PokemonLine> _ls) {
+        ArrayStruct arr_ = new ArrayStruct(_ls.size(), StringExpUtil.getPrettyArrayType(AikiBeansFacadeDtoStd.TYPE_POKEMON_LINE));
+        int j_ = 0;
+        for (PokemonLine s:_ls) {
+            arr_.set(j_,new PkLineStruct(s, AikiBeansFacadeDtoStd.TYPE_POKEMON_LINE));
+            j_++;
+        }
+        return arr_;
+    }
+    public static ArrayStruct getItLine(CustList<ItemLine> _ls) {
+        ArrayStruct arr_ = new ArrayStruct(_ls.size(), StringExpUtil.getPrettyArrayType(AikiBeansFacadeDtoStd.TYPE_ITEM_LINE));
+        int j_ = 0;
+        for (ItemLine s:_ls) {
+            arr_.set(j_,new ItLineStruct(s, AikiBeansFacadeDtoStd.TYPE_ITEM_LINE));
+            j_++;
+        }
+        return arr_;
+    }
+    public static ArrayStruct getMvLine(CustList<MoveLine> _ls) {
+        ArrayStruct arr_ = new ArrayStruct(_ls.size(), StringExpUtil.getPrettyArrayType(AikiBeansFacadeDtoStd.TYPE_MOVE_LINE));
+        int j_ = 0;
+        for (MoveLine s:_ls) {
+            arr_.set(j_,new MvLineStruct(s, AikiBeansFacadeDtoStd.TYPE_MOVE_LINE));
+            j_++;
+        }
+        return arr_;
+    }
+    public static ArrayStruct getRdMvLine(CustList<RadioLineMove> _ls) {
+        ArrayStruct arr_ = new ArrayStruct(_ls.size(), StringExpUtil.getPrettyArrayType(AikiBeansFacadeSimulationDtoStd.TYPE_RADIO_LINE_MOVE));
+        int j_ = 0;
+        for (MoveLine s:_ls) {
+            arr_.set(j_,new MvLineStruct(s, AikiBeansFacadeSimulationDtoStd.TYPE_RADIO_LINE_MOVE));
+            j_++;
+        }
+        return arr_;
+    }
+    public static ArrayStruct getSelectLineMove(CustList<SelectLineMove> _ls) {
+        ArrayStruct arr_ = new ArrayStruct(_ls.size(), StringExpUtil.getPrettyArrayType(AikiBeansFacadeSimulationDtoStd.TYPE_SELECT_LINE_MOVE));
+        int j_ = 0;
+        for (MoveLine s:_ls) {
+            arr_.set(j_,new MvLineStruct(s, AikiBeansFacadeSimulationDtoStd.TYPE_SELECT_LINE_MOVE));
+            j_++;
+        }
+        return arr_;
+    }
+    public static ArrayStruct getEffPartStat(CustList<EffectPartnerStatus> _ls) {
+        ArrayStruct arr_ = new ArrayStruct(_ls.size(), StringExpUtil.getPrettyArrayType(TYPE_EFFECT_PARTNER_STATUS));
+        int j_ = 0;
+        for (EffectPartnerStatus s:_ls) {
+            arr_.set(j_,new EffectPartnerStatusStruct(s, TYPE_EFFECT_PARTNER_STATUS));
+            j_++;
+        }
+        return arr_;
+    }
+    public static ArrayStruct getEvLine(ContextEl _cont,AbsMap<Statistic,EvLine> _map) {
+        ArrayStruct arr_ = new ArrayStruct(_map.size(), StringExpUtil.getPrettyArrayType(AikiBeansFacadeSimulationDtoStd.TYPE_EV_LINE));
+        int j_ = 0;
+        for (EntryCust<Statistic, EvLine> e:_map.entryList()) {
+            PairStruct p_ = new PairStruct(_cont.getStandards().getCoreNames().getAliasObject(),new IdStruct(_cont.getStandards().getCoreNames().getAliasObject()),new EvLineStruct(e.getValue(),AikiBeansFacadeSimulationDtoStd.TYPE_EV_LINE));
+            arr_.set(j_,p_);
+            j_++;
+        }
+        return arr_;
+    }
+    public static ArrayStruct getStrStr(ContextEl _cont,AbsMap<String, String> _map) {
+        ArrayStruct arr_ = new ArrayStruct(_map.size(), StringExpUtil.getPrettyArrayType(_cont.getStandards().getCoreNames().getAliasObject()));
+        int i_ = 0;
+        for (EntryCust<String,String> e: _map.entryList()){
+            PairStruct p_ = new PairStruct(_cont.getStandards().getCoreNames().getAliasObject(),new StringStruct(StringUtil.nullToEmpty(e.getKey())),new StringStruct(StringUtil.nullToEmpty(e.getValue())));
+            arr_.set(i_,p_);
+            i_++;
+        }
+        return arr_;
+    }
+    public static ArrayStruct getStrRate(ContextEl _cont,AbsMap<String, Rate> _map) {
+        ArrayStruct arr_ = new ArrayStruct(_map.size(), StringExpUtil.getPrettyArrayType(_cont.getStandards().getCoreNames().getAliasObject()));
+        int i_ = 0;
+        for (EntryCust<String,Rate> e: _map.entryList()){
+            PairStruct p_ = new PairStruct(_cont.getStandards().getCoreNames().getAliasObject(),new StringStruct(StringUtil.nullToEmpty(e.getKey())),new RateStruct(e.getValue(),TYPE_RATE));
+            arr_.set(i_,p_);
+            i_++;
+        }
+        return arr_;
+    }
+    public static ArrayStruct getStrLgInt(ContextEl _cont,AbsMap<String, LgInt> _map) {
+        ArrayStruct arr_ = new ArrayStruct(_map.size(), StringExpUtil.getPrettyArrayType(_cont.getStandards().getCoreNames().getAliasObject()));
+        int i_ = 0;
+        for (EntryCust<String,LgInt> e: _map.entryList()){
+            PairStruct p_ = new PairStruct(_cont.getStandards().getCoreNames().getAliasObject(),new StringStruct(StringUtil.nullToEmpty(e.getKey())),new LgIntStruct(e.getValue(),TYPE_LG_INT));
+            arr_.set(i_,p_);
+            i_++;
+        }
+        return arr_;
+    }
+    public static ArrayStruct getStrShort(ContextEl _cont,AbsMap<String, Short> _map) {
+        ArrayStruct arr_ = new ArrayStruct(_map.size(), StringExpUtil.getPrettyArrayType(_cont.getStandards().getCoreNames().getAliasObject()));
+        int i_ = 0;
+        for (EntryCust<String,Short> e: _map.entryList()){
+            PairStruct p_ = new PairStruct(_cont.getStandards().getCoreNames().getAliasObject(),new StringStruct(StringUtil.nullToEmpty(e.getKey())),new ShortStruct(e.getValue()));
+            arr_.set(i_,p_);
+            i_++;
+        }
+        return arr_;
+    }
+    public static ArrayStruct getStrInteger(ContextEl _cont,AbsMap<String, Integer> _map) {
+        ArrayStruct arr_ = new ArrayStruct(_map.size(), StringExpUtil.getPrettyArrayType(_cont.getStandards().getCoreNames().getAliasObject()));
+        int i_ = 0;
+        for (EntryCust<String,Integer> e: _map.entryList()){
+            PairStruct p_ = new PairStruct(_cont.getStandards().getCoreNames().getAliasObject(),new StringStruct(StringUtil.nullToEmpty(e.getKey())),new IntStruct(e.getValue()));
+            arr_.set(i_,p_);
+            i_++;
+        }
+        return arr_;
+    }
+    public static ArrayStruct getStrByte(ContextEl _cont,AbsMap<String, Byte> _map) {
+        ArrayStruct arr_ = new ArrayStruct(_map.size(), StringExpUtil.getPrettyArrayType(_cont.getStandards().getCoreNames().getAliasObject()));
+        int i_ = 0;
+        for (EntryCust<String,Byte> e: _map.entryList()){
+            PairStruct p_ = new PairStruct(_cont.getStandards().getCoreNames().getAliasObject(),new StringStruct(StringUtil.nullToEmpty(e.getKey())),new ByteStruct(e.getValue()));
+            arr_.set(i_,p_);
+            i_++;
+        }
+        return arr_;
+    }
+    public static ArrayStruct getStaByte(ContextEl _cont,AbsMap<Statistic, Byte> _map) {
+        ArrayStruct arr_ = new ArrayStruct(_map.size(), StringExpUtil.getPrettyArrayType(_cont.getStandards().getCoreNames().getAliasObject()));
+        int i_ = 0;
+        for (EntryCust<Statistic,Byte> e: _map.entryList()){
+            PairStruct p_ = new PairStruct(_cont.getStandards().getCoreNames().getAliasObject(),new IdStruct(_cont.getStandards().getCoreNames().getAliasObject()),new ByteStruct(e.getValue()));
+            arr_.set(i_,p_);
+            i_++;
+        }
+        return arr_;
+    }
+    public static ArrayStruct getStaShort(ContextEl _cont,AbsMap<Statistic, Short> _map) {
+        ArrayStruct arr_ = new ArrayStruct(_map.size(), StringExpUtil.getPrettyArrayType(_cont.getStandards().getCoreNames().getAliasObject()));
+        int i_ = 0;
+        for (EntryCust<Statistic,Short> e: _map.entryList()){
+            PairStruct p_ = new PairStruct(_cont.getStandards().getCoreNames().getAliasObject(),new IdStruct(_cont.getStandards().getCoreNames().getAliasObject()),new ShortStruct(e.getValue()));
+            arr_.set(i_,p_);
+            i_++;
+        }
+        return arr_;
+    }
+    public static ArrayStruct getStaStr(ContextEl _cont,AbsMap<Statistic, String> _map) {
+        ArrayStruct arr_ = new ArrayStruct(_map.size(), StringExpUtil.getPrettyArrayType(_cont.getStandards().getCoreNames().getAliasObject()));
+        int i_ = 0;
+        for (EntryCust<Statistic,String> e: _map.entryList()){
+            PairStruct p_ = new PairStruct(_cont.getStandards().getCoreNames().getAliasObject(),new IdStruct(_cont.getStandards().getCoreNames().getAliasObject()),new StringStruct(StringUtil.nullToEmpty(e.getValue())));
+            arr_.set(i_,p_);
+            i_++;
+        }
+        return arr_;
+    }
+    public static ArrayStruct getStaRate(ContextEl _cont,AbsMap<Statistic, Rate> _map) {
+        ArrayStruct arr_ = new ArrayStruct(_map.size(), StringExpUtil.getPrettyArrayType(_cont.getStandards().getCoreNames().getAliasObject()));
+        int i_ = 0;
+        for (EntryCust<Statistic,Rate> e: _map.entryList()){
+            PairStruct p_ = new PairStruct(_cont.getStandards().getCoreNames().getAliasObject(),new IdStruct(_cont.getStandards().getCoreNames().getAliasObject()),new RateStruct(e.getValue(),TYPE_RATE));
+            arr_.set(i_,p_);
+            i_++;
+        }
+        return arr_;
+    }
+    public static ArrayStruct getIntStr(ContextEl _cont,AbsMap<Integer, String> _map) {
+        ArrayStruct arr_ = new ArrayStruct(_map.size(), StringExpUtil.getPrettyArrayType(_cont.getStandards().getCoreNames().getAliasObject()));
+        int i_ = 0;
+        for (EntryCust<Integer,String> e: _map.entryList()){
+            PairStruct p_ = new PairStruct(_cont.getStandards().getCoreNames().getAliasObject(),new IntStruct(e.getKey()),new StringStruct(StringUtil.nullToEmpty(e.getValue())));
+            arr_.set(i_,p_);
+            i_++;
+        }
+        return arr_;
+    }
+    public static ArrayStruct getLgIntRate(ContextEl _cont,AbsMap<LgInt, Rate> _map) {
+        ArrayStruct arr_ = new ArrayStruct(_map.size(), StringExpUtil.getPrettyArrayType(_cont.getStandards().getCoreNames().getAliasObject()));
+        int i_ = 0;
+        for (EntryCust<LgInt,Rate> e: _map.entryList()){
+            PairStruct p_ = new PairStruct(_cont.getStandards().getCoreNames().getAliasObject(),new LgIntStruct(e.getKey(),TYPE_LG_INT),new RateStruct(e.getValue(),TYPE_RATE));
+            arr_.set(i_,p_);
+            i_++;
+        }
+        return arr_;
+    }
+    public static ArrayStruct getLongRate(ContextEl _cont,AbsMap<Long, Rate> _map) {
+        ArrayStruct arr_ = new ArrayStruct(_map.size(), StringExpUtil.getPrettyArrayType(_cont.getStandards().getCoreNames().getAliasObject()));
+        int i_ = 0;
+        for (EntryCust<Long,Rate> e: _map.entryList()){
+            PairStruct p_ = new PairStruct(_cont.getStandards().getCoreNames().getAliasObject(),new LongStruct(e.getKey()),new RateStruct(e.getValue(),TYPE_RATE));
+            arr_.set(i_,p_);
+            i_++;
+        }
+        return arr_;
+    }
+    public static ArrayStruct getRateRate(ContextEl _cont,AbsMap<Rate, Rate> _map) {
+        ArrayStruct arr_ = new ArrayStruct(_map.size(), StringExpUtil.getPrettyArrayType(_cont.getStandards().getCoreNames().getAliasObject()));
+        int i_ = 0;
+        for (EntryCust<Rate,Rate> e: _map.entryList()){
+            PairStruct p_ = new PairStruct(_cont.getStandards().getCoreNames().getAliasObject(),new RateStruct(e.getKey(),TYPE_RATE),new RateStruct(e.getValue(),TYPE_RATE));
+            arr_.set(i_,p_);
+            i_++;
+        }
+        return arr_;
+    }
+    public static ArrayStruct getStrBool(ContextEl _cont,AbsMap<String, Boolean> _map) {
+        ArrayStruct arr_ = new ArrayStruct(_map.size(), StringExpUtil.getPrettyArrayType(_cont.getStandards().getCoreNames().getAliasObject()));
+        int i_ = 0;
+        for (EntryCust<String,Boolean> e: _map.entryList()){
+            PairStruct p_ = new PairStruct(_cont.getStandards().getCoreNames().getAliasObject(),new StringStruct(StringUtil.nullToEmpty(e.getKey())),BooleanStruct.of(e.getValue()));
+            arr_.set(i_,p_);
+            i_++;
+        }
+        return arr_;
+    }
+    public static ArrayStruct getShortStr(ContextEl _cont,AbsMap<Short, String> _map) {
+        ArrayStruct arr_ = new ArrayStruct(_map.size(), StringExpUtil.getPrettyArrayType(_cont.getStandards().getCoreNames().getAliasObject()));
+        int i_ = 0;
+        for (EntryCust<Short, String> e: _map.entryList()){
+            PairStruct p_ = new PairStruct(_cont.getStandards().getCoreNames().getAliasObject(),new ShortStruct(e.getKey()),new StringStruct(StringUtil.nullToEmpty(e.getValue())));
+            arr_.set(i_,p_);
+            i_++;
+        }
+        return arr_;
+    }
+    public static ArrayStruct getShortInt(ContextEl _cont,AbsMap<Short, Integer> _map) {
+        ArrayStruct arr_ = new ArrayStruct(_map.size(), StringExpUtil.getPrettyArrayType(_cont.getStandards().getCoreNames().getAliasObject()));
+        int i_ = 0;
+        for (EntryCust<Short, Integer> e: _map.entryList()){
+            PairStruct p_ = new PairStruct(_cont.getStandards().getCoreNames().getAliasObject(),new ShortStruct(e.getKey()),new IntStruct(e.getValue()));
+            arr_.set(i_,p_);
+            i_++;
+        }
+        return arr_;
+    }
+    public static ArrayStruct getStrStrList(ContextEl _cont,AbsMap<String, StringList> _map) {
+        ArrayStruct arr_ = new ArrayStruct(_map.size(), StringExpUtil.getPrettyArrayType(_cont.getStandards().getCoreNames().getAliasObject()));
+        int i_ = 0;
+        for (EntryCust<String,StringList> e: _map.entryList()){
+            PairStruct p_ = new PairStruct(_cont.getStandards().getCoreNames().getAliasObject(),new StringStruct(StringUtil.nullToEmpty(e.getKey())),((BeanNatLgNames)_cont.getStandards()).getStringArray(e.getValue()));
+            arr_.set(i_,p_);
+            i_++;
+        }
+        return arr_;
+    }
+    public static ArrayStruct getLayers(ContextEl _cont,CustList<Level> _map) {
+        ArrayStruct arr_ = new ArrayStruct(_map.size(), StringExpUtil.getPrettyArrayType(_cont.getStandards().getCoreNames().getAliasObject()));
+        int i_ = 0;
+        for (Level e: _map){
+            arr_.set(i_,new IdStruct(_cont.getStandards().getCoreNames().getAliasObject()));
+            i_++;
+        }
+        return arr_;
+    }
+    public static ArrayStruct getEnd(ContextEl _cont,CustList<EndRoundMainElements> _map) {
+        ArrayStruct arr_ = new ArrayStruct(_map.size(), StringExpUtil.getPrettyArrayType(_cont.getStandards().getCoreNames().getAliasObject()));
+        int i_ = 0;
+        for (EndRoundMainElements e: _map){
+            arr_.set(i_,new IdStruct(_cont.getStandards().getCoreNames().getAliasObject()));
+            i_++;
+        }
+        return arr_;
+    }
+    public static ArrayStruct getSta(ContextEl _cont,CustList<Statistic> _map) {
+        ArrayStruct arr_ = new ArrayStruct(_map.size(), StringExpUtil.getPrettyArrayType(_cont.getStandards().getCoreNames().getAliasObject()));
+        int i_ = 0;
+        for (Statistic e: _map){
+            arr_.set(i_,new IdStruct(_cont.getStandards().getCoreNames().getAliasObject()));
+            i_++;
+        }
+        return arr_;
+    }
+    public static ArrayStruct getTeamPos(ContextEl _cont,CustList<TeamPosition> _map) {
+        ArrayStruct arr_ = new ArrayStruct(_map.size(), StringExpUtil.getPrettyArrayType(_cont.getStandards().getCoreNames().getAliasObject()));
+        int i_ = 0;
+        for (TeamPosition e: _map){
+            arr_.set(i_,new IdStruct(_cont.getStandards().getCoreNames().getAliasObject()));
+            i_++;
+        }
+        return arr_;
+    }
+    public static ArrayStruct getStrList(ContextEl _cont,CustList<StringList> _map) {
+        ArrayStruct arr_ = new ArrayStruct(_map.size(), StringExpUtil.getPrettyArrayType(_cont.getStandards().getCoreNames().getAliasObject()));
+        int i_ = 0;
+        for (StringList e: _map){
+            arr_.set(i_,((BeanNatLgNames)_cont.getStandards()).getStringArray(e));
+            i_++;
+        }
+        return arr_;
+    }
+
+    public ArrayStruct getIntArray(Ints _ls) {
+        ArrayStruct arr_ = new ArrayStruct(_ls.size(), StringExpUtil.getPrettyArrayType(getAliasPrimInteger()));
+        int j_ = 0;
+        for (Integer s:_ls) {
+            arr_.set(j_,new IntStruct(s));
+            j_++;
+        }
+        return arr_;
+    }
+
+    public ArrayStruct getByteArray(Bytes _ls) {
+        ArrayStruct arr_ = new ArrayStruct(_ls.size(), StringExpUtil.getPrettyArrayType(getAliasPrimByte()));
+        int j_ = 0;
+        for (Byte s:_ls) {
+            arr_.set(j_,new ByteStruct(s));
+            j_++;
+        }
+        return arr_;
+    }
 
     public static SelectedBoolean getBoolByName(String _env) {
         for (SelectedBoolean e : SelectedBoolean.values()) {
@@ -3241,6 +3802,10 @@ public final class PokemonStandards extends BeanNatLgNames {
             }
         }
         return Gender.NO_GENDER;
+    }
+
+    public String getAliasPrimByte() {
+        return getContent().getPrimTypes().getAliasPrimByte();
     }
 
     public String getAliasPrimInteger() {

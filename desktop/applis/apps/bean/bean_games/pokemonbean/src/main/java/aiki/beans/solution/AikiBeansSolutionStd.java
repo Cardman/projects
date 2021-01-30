@@ -1,6 +1,5 @@
 package aiki.beans.solution;
 import aiki.beans.AikiBeansStd;
-import aiki.beans.DefaultStruct;
 import aiki.beans.PokemonStandards;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ClassField;
@@ -15,7 +14,6 @@ import code.expressionlanguage.stds.StandardMethod;
 import code.bean.RealInstanceStruct;
 import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.structs.Struct;
-import code.formathtml.util.BeanLgNames;
 import code.bean.nat.BeanNatLgNames;
 import code.util.CustList;
 import code.util.StringList;
@@ -48,12 +46,12 @@ public final class AikiBeansSolutionStd {
         _std.getStandards().addEntry(TYPE_SOLUTION_BEAN, type_);
     }
     public static ResultErrorStd getResultSolutionBean(ContextEl _cont, ClassField _classField, Struct _instance) {
-        BeanLgNames std_ = (BeanLgNames) _cont.getStandards();
+        BeanNatLgNames std_ = (BeanNatLgNames) _cont.getStandards();
         ResultErrorStd res_ = new ResultErrorStd();
         SolutionBean instance_ = (SolutionBean) ((RealInstanceStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringUtil.quickEq(fieldName_,STEPS)) {
-            res_.setResult(new DefaultStruct(instance_.getSteps(), BeanNatLgNames.TYPE_LIST));
+            res_.setResult(PokemonStandards.getSteDto(instance_.getSteps()));
             return res_;
         }
         return res_;

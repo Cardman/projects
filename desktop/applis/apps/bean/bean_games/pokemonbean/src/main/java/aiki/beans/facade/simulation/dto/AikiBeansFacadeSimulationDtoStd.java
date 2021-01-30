@@ -1,6 +1,7 @@
 package aiki.beans.facade.simulation.dto;
 import aiki.beans.PokemonStandards;
 import aiki.beans.facade.dto.AikiBeansFacadeDtoStd;
+import aiki.beans.facade.dto.MoveLine;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.NumParsers;
@@ -14,7 +15,6 @@ import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.IntStruct;
 import code.expressionlanguage.structs.NullStruct;
 import code.bean.RealInstanceStruct;
-import code.expressionlanguage.structs.ShortStruct;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 import code.util.core.StringUtil;
@@ -97,73 +97,66 @@ public final class AikiBeansFacadeSimulationDtoStd {
         fields_.add(new StandardField(SELECTED,_std.getAliasPrimBoolean(),false,false,type_));
         _std.getStandards().addEntry(TYPE_SELECT_LINE_MOVE, type_);
     }
-    public static ResultErrorStd getResultEvLine(ContextEl _cont, ClassField _classField, Struct _instance) {
+    public static ResultErrorStd getResultEvLine(ContextEl _cont, ClassField _classField, EvLine _inst) {
         ResultErrorStd res_ = new ResultErrorStd();
-        EvLine instance_ = (EvLine) ((RealInstanceStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringUtil.quickEq(fieldName_,EV)) {
-            res_.setResult(new IntStruct(instance_.getEv()));
+            res_.setResult(new IntStruct(_inst.getEv()));
             return res_;
         }
         return res_;
     }
-    public static ResultErrorStd getResultPokemonPlayerDto(ContextEl _cont, ClassField _classField, Struct _instance) {
+    public static ResultErrorStd getResultPokemonPlayerDto(ContextEl _cont, ClassField _classField, PokemonPlayerDto _inst) {
         ResultErrorStd res_ = new ResultErrorStd();
-        PokemonPlayerDto instance_ = (PokemonPlayerDto) ((RealInstanceStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringUtil.quickEq(fieldName_,INDEX)) {
-            res_.setResult(new IntStruct(instance_.getIndex()));
+            res_.setResult(new IntStruct(_inst.getIndex()));
             return res_;
         }
         return res_;
     }
-    public static ResultErrorStd getResultPokemonTrainerDto(ContextEl _cont, ClassField _classField, Struct _instance) {
+    public static ResultErrorStd getResultPokemonTrainerDto(ContextEl _cont, ClassField _classField, PokemonTrainerDto _inst) {
         ResultErrorStd res_ = new ResultErrorStd();
-        PokemonTrainerDto instance_ = (PokemonTrainerDto) ((RealInstanceStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringUtil.quickEq(fieldName_,INDEX)) {
-            res_.setResult(new IntStruct(instance_.getIndex()));
+            res_.setResult(new IntStruct(_inst.getIndex()));
             return res_;
         }
         return res_;
     }
-    public static ResultErrorStd getResultRadioLineMove(ContextEl _cont, ClassField _classField, Struct _instance) {
+    public static ResultErrorStd getResultRadioLineMove(ContextEl _cont, ClassField _classField, Struct _instance, RadioLineMove _inst) {
         ResultErrorStd res_ = new ResultErrorStd();
-        RadioLineMove instance_ = (RadioLineMove) ((RealInstanceStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringUtil.quickEq(fieldName_,INDEX)) {
-            res_.setResult(new IntStruct(instance_.getIndex()));
+            res_.setResult(new IntStruct(_inst.getIndex()));
             return res_;
         }
-        return AikiBeansFacadeDtoStd.getResultMoveLine(_cont, _classField, _instance);
+        return AikiBeansFacadeDtoStd.getResultMoveLine(_cont, _classField, (MoveLine) ((RealInstanceStruct) _instance).getInstance());
     }
-    public static ResultErrorStd getResultSelectLineMove(ContextEl _cont, ClassField _classField, Struct _instance) {
+    public static ResultErrorStd getResultSelectLineMove(ContextEl _cont, ClassField _classField, Struct _instance, SelectLineMove _inst) {
         ResultErrorStd res_ = new ResultErrorStd();
-        SelectLineMove instance_ = (SelectLineMove) ((RealInstanceStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringUtil.quickEq(fieldName_,SELECTED)) {
-            res_.setResult(BooleanStruct.of(instance_.getSelected()));
+            res_.setResult(BooleanStruct.of(_inst.getSelected()));
             return res_;
         }
-        return AikiBeansFacadeDtoStd.getResultMoveLine(_cont, _classField, _instance);
+        return AikiBeansFacadeDtoStd.getResultMoveLine(_cont, _classField, (MoveLine) ((RealInstanceStruct) _instance).getInstance());
     }
-    public static ResultErrorStd setResultEvLine(ContextEl _cont, ClassField _classField, Struct _instance, Struct _val) {
+    public static ResultErrorStd setResultEvLine(ContextEl _cont, ClassField _classField, Struct _val, EvLine _inst) {
         ResultErrorStd res_ = new ResultErrorStd();
-        EvLine instance_ = (EvLine) ((RealInstanceStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringUtil.quickEq(fieldName_,EV)) {
-            instance_.setEv(NumParsers.convertToNumber(_val).intStruct());
+            _inst.setEv(NumParsers.convertToNumber(_val).intStruct());
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }
         return res_;
     }
-    public static ResultErrorStd setResultSelectLineMove(ContextEl _cont, ClassField _classField, Struct _instance, Struct _val) {
+    public static ResultErrorStd setResultSelectLineMove(ContextEl _cont, ClassField _classField, Struct _val, SelectLineMove _inst) {
         ResultErrorStd res_ = new ResultErrorStd();
-        SelectLineMove instance_ = (SelectLineMove) ((RealInstanceStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringUtil.quickEq(fieldName_,SELECTED)) {
-            instance_.setSelected(BooleanStruct.isTrue(_val));
+            _inst.setSelected(BooleanStruct.isTrue(_val));
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }

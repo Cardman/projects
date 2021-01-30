@@ -15,7 +15,6 @@ import code.expressionlanguage.structs.IntStruct;
 import code.expressionlanguage.structs.LongStruct;
 import code.expressionlanguage.structs.NullStruct;
 import code.bean.RealInstanceStruct;
-import code.expressionlanguage.structs.ShortStruct;
 import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.util.BeanLgNames;
@@ -267,7 +266,7 @@ public final class AikiBeansPokemonStd {
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,BOOLEANS)) {
-            res_.setResult(new DefaultStruct(instance_.getBooleans(), BeanNatLgNames.TYPE_MAP));
+            res_.setResult(PokemonStandards.getStrStr(_cont,instance_.getBooleans()));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,IS_EVO)) {
@@ -279,13 +278,13 @@ public final class AikiBeansPokemonStd {
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,POKEDEX)) {
-            res_.setResult(new DefaultStruct(instance_.getPokedex(), BeanNatLgNames.TYPE_LIST));
+            res_.setResult(PokemonStandards.getPkLine(instance_.getPokedex()));
             return res_;
         }
         return res_;
     }
     public static ResultErrorStd getResultPokemonBean(ContextEl _cont, ClassField _classField, Struct _instance) {
-        BeanLgNames std_ = (BeanLgNames) _cont.getStandards();
+        BeanNatLgNames std_ = (BeanNatLgNames) _cont.getStandards();
         ResultErrorStd res_ = new ResultErrorStd();
         PokemonBean instance_ = (PokemonBean) ((RealInstanceStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
@@ -310,15 +309,15 @@ public final class AikiBeansPokemonStd {
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,POSSIBLE_GENDERS)) {
-            res_.setResult(new DefaultStruct(instance_.getPossibleGenders(), BeanNatLgNames.TYPE_LIST));
+            res_.setResult(std_.getStringArray(instance_.getPossibleGenders()));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,TYPES)) {
-            res_.setResult(new DefaultStruct(instance_.getTypes(), BeanNatLgNames.TYPE_LIST));
+            res_.setResult(std_.getStringArray(instance_.getTypes()));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,ABILITIES)) {
-            res_.setResult(new DefaultStruct(instance_.getAbilities(), BeanNatLgNames.TYPE_LIST));
+            res_.setResult(std_.getStringArray(instance_.getAbilities()));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,CATCHING_RATE)) {
@@ -326,7 +325,7 @@ public final class AikiBeansPokemonStd {
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,EVOLUTIONS)) {
-            res_.setResult(new DefaultStruct(instance_.getEvolutions(), BeanNatLgNames.TYPE_LIST));
+            res_.setResult(std_.getStringArray(instance_.getEvolutions()));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,NAME)) {
@@ -342,7 +341,7 @@ public final class AikiBeansPokemonStd {
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,MAP_VARS)) {
-            res_.setResult(new DefaultStruct(instance_.getMapVars(), BeanNatLgNames.TYPE_MAP));
+            res_.setResult(PokemonStandards.getStrStr(_cont,instance_.getMapVars()));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,EXP_RATE)) {
@@ -350,27 +349,27 @@ public final class AikiBeansPokemonStd {
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,STATISTICS)) {
-            res_.setResult(new DefaultStruct(instance_.getStatistics(), BeanNatLgNames.TYPE_LIST));
+            res_.setResult(std_.getStringArray(instance_.getStatistics()));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,LEV_MOVES)) {
-            res_.setResult(new DefaultStruct(instance_.getLevMoves(), BeanNatLgNames.TYPE_LIST));
+            res_.setResult(PokemonStandards.getLvMv(instance_.getLevMoves()));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,TECHNICAL_MOVES)) {
-            res_.setResult(new DefaultStruct(instance_.getTechnicalMoves(), BeanNatLgNames.TYPE_MAP));
+            res_.setResult(PokemonStandards.getShortStr(_cont,instance_.getTechnicalMoves()));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,HIDDEN_MOVES)) {
-            res_.setResult(new DefaultStruct(instance_.getHiddenMoves(), BeanNatLgNames.TYPE_MAP));
+            res_.setResult(PokemonStandards.getShortStr(_cont,instance_.getHiddenMoves()));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,MOVE_TUTORS)) {
-            res_.setResult(new DefaultStruct(instance_.getMoveTutors(), BeanNatLgNames.TYPE_LIST));
+            res_.setResult(std_.getStringArray(instance_.getMoveTutors()));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,EGG_GROUPS_PK)) {
-            res_.setResult(new DefaultStruct(instance_.getEggGroupsPk(), BeanNatLgNames.TYPE_LIST));
+            res_.setResult(std_.getStringArray(instance_.getEggGroupsPk()));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,HATCHING_STEPS)) {
@@ -378,11 +377,11 @@ public final class AikiBeansPokemonStd {
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,PLACES)) {
-            res_.setResult(new DefaultStruct(instance_.getPlaces(), BeanNatLgNames.TYPE_LIST));
+            res_.setResult(PokemonStandards.getPlInd(instance_.getPlaces()));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,IMAGES)) {
-            res_.setResult(new DefaultStruct(instance_.getImages(), BeanNatLgNames.TYPE_MAP));
+            res_.setResult(PokemonStandards.getWcStr(_cont,instance_.getImages()));
             return res_;
         }
         return res_;
@@ -447,7 +446,7 @@ public final class AikiBeansPokemonStd {
         return res_;
     }
     public static ResultErrorStd invokeMethodPokemonBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Struct... _args) {
-        BeanLgNames std_ = (BeanLgNames) _cont.getStandards();
+        BeanNatLgNames std_ = (BeanNatLgNames) _cont.getStandards();
         PokemonBean instance_ = (PokemonBean) ((RealInstanceStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
@@ -528,7 +527,7 @@ public final class AikiBeansPokemonStd {
             return res_;
         }
         if (StringUtil.quickEq(methodName_,LAYERS)) {
-            res_.setResult(new DefaultStruct(instance_.layers(NumParsers.convertToNumber(_args[0]).intStruct()), BeanNatLgNames.TYPE_LIST));
+            res_.setResult(PokemonStandards.getLayers(_cont,instance_.layers(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,IS_APPEARING)) {

@@ -1,7 +1,5 @@
 package aiki.beans.map.characters;
-import aiki.beans.AikiBeansStd;
-import aiki.beans.DefaultStruct;
-import aiki.beans.PokemonStandards;
+import aiki.beans.*;
 import aiki.map.characters.Ally;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ClassField;
@@ -17,7 +15,6 @@ import code.expressionlanguage.structs.NullStruct;
 import code.bean.RealInstanceStruct;
 import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.structs.Struct;
-import code.formathtml.util.BeanLgNames;
 import code.bean.nat.BeanNatLgNames;
 import code.util.CustList;
 import code.util.StringList;
@@ -228,12 +225,12 @@ public final class AikiBeansMapCharactersStd {
         _std.getStandards().addEntry(TYPE_TRAINER_ONE_FIGHT_BEAN, type_);
     }
     public static ResultErrorStd getResultAllyBean(ContextEl _cont, ClassField _classField, Struct _instance) {
-        BeanLgNames std_ = (BeanLgNames) _cont.getStandards();
+        BeanNatLgNames std_ = (BeanNatLgNames) _cont.getStandards();
         ResultErrorStd res_ = new ResultErrorStd();
         AllyBean instance_ = (AllyBean) ((RealInstanceStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringUtil.quickEq(fieldName_,TEAM)) {
-            res_.setResult(new DefaultStruct(instance_.getTeam(), BeanNatLgNames.TYPE_LIST));
+            res_.setResult(PokemonStandards.getPkTrainerArray(instance_.getTeam()));
             return res_;
         }
         return res_;
@@ -259,7 +256,7 @@ public final class AikiBeansMapCharactersStd {
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,ALLY)) {
-            res_.setResult(DefaultStruct.newInstance(instance_.getAlly(),PokemonStandards.TYPE_ALLY));
+            res_.setResult(new AllyStruct(instance_.getAlly(),PokemonStandards.TYPE_ALLY));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,PAGE_TEAM)) {
@@ -267,7 +264,7 @@ public final class AikiBeansMapCharactersStd {
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,TRAINER)) {
-            res_.setResult(DefaultStruct.newInstance(instance_.getTrainer(),PokemonStandards.TYPE_TEMP_TRAINER));
+            res_.setResult(new PersonStruct(instance_.getTrainer(),PokemonStandards.TYPE_TEMP_TRAINER));
             return res_;
         }
         return res_;
@@ -289,7 +286,7 @@ public final class AikiBeansMapCharactersStd {
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,TRAINER)) {
-            res_.setResult(DefaultStruct.newInstance(instance_.getTrainer(),PokemonStandards.TYPE_TRAINER));
+            res_.setResult(new PersonStruct(instance_.getTrainer(),PokemonStandards.TYPE_TRAINER));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,MOVE)) {
@@ -303,7 +300,7 @@ public final class AikiBeansMapCharactersStd {
         AllyBean instance_ = (AllyBean) ((RealInstanceStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringUtil.quickEq(fieldName_,ALLY)) {
-            instance_.setAlly((Ally)((RealInstanceStruct)_val).getInstance());
+            instance_.setAlly(((AllyStruct)_val).getInstance());
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }
@@ -352,12 +349,12 @@ public final class AikiBeansMapCharactersStd {
         return res_;
     }
     public static ResultErrorStd invokeMethodDealerBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Struct... _args) {
-        BeanLgNames std_ = (BeanLgNames) _cont.getStandards();
+        BeanNatLgNames std_ = (BeanNatLgNames) _cont.getStandards();
         DealerBean instance_ = (DealerBean) ((RealInstanceStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringUtil.quickEq(methodName_,GET_ITEMS)) {
-            res_.setResult(new DefaultStruct(instance_.getItems(), BeanNatLgNames.TYPE_LIST));
+            res_.setResult(std_.getStringArray(instance_.getItems()));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,CLICK_ITEM)) {
@@ -369,7 +366,7 @@ public final class AikiBeansMapCharactersStd {
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_ALL_TM)) {
-            res_.setResult(new DefaultStruct(instance_.getAllTm(), BeanNatLgNames.TYPE_LIST));
+            res_.setResult(std_.getStringArray(instance_.getAllTm()));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,CLICK_TM)) {
@@ -383,12 +380,12 @@ public final class AikiBeansMapCharactersStd {
         return res_;
     }
     public static ResultErrorStd invokeMethodSellerBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Struct... _args) {
-        BeanLgNames std_ = (BeanLgNames) _cont.getStandards();
+        BeanNatLgNames std_ = (BeanNatLgNames) _cont.getStandards();
         SellerBean instance_ = (SellerBean) ((RealInstanceStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringUtil.quickEq(methodName_,GET_ITEMS)) {
-            res_.setResult(new DefaultStruct(instance_.getItems(), BeanNatLgNames.TYPE_LIST));
+            res_.setResult(std_.getStringArray(instance_.getItems()));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,CLICK_ITEM)) {
@@ -400,7 +397,7 @@ public final class AikiBeansMapCharactersStd {
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_ALL_TM)) {
-            res_.setResult(new DefaultStruct(instance_.getAllTm(), BeanNatLgNames.TYPE_LIST));
+            res_.setResult(std_.getStringArray(instance_.getAllTm()));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,CLICK_TM)) {
@@ -414,12 +411,12 @@ public final class AikiBeansMapCharactersStd {
         return res_;
     }
     public static ResultErrorStd invokeMethodTrainerBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Struct... _args) {
-        BeanLgNames std_ = (BeanLgNames) _cont.getStandards();
+        BeanNatLgNames std_ = (BeanNatLgNames) _cont.getStandards();
         TrainerBean instance_ = (TrainerBean) ((RealInstanceStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringUtil.quickEq(methodName_,GET_TEAMS_REWARDS)) {
-            res_.setResult(new DefaultStruct(instance_.getTeamsRewards(), BeanNatLgNames.TYPE_LIST));
+            res_.setResult(PokemonStandards.getPkTeam(_cont,instance_.getTeamsRewards()));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_NAME)) {

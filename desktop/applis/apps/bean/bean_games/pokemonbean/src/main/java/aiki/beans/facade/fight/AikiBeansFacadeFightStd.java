@@ -1,5 +1,4 @@
 package aiki.beans.facade.fight;
-import aiki.beans.DefaultStruct;
 import aiki.beans.PokemonStandards;
 import aiki.beans.RateStruct;
 import code.expressionlanguage.ContextEl;
@@ -11,10 +10,7 @@ import code.expressionlanguage.stds.StandardConstructor;
 import code.expressionlanguage.stds.StandardField;
 import code.expressionlanguage.stds.StandardMethod;
 import code.expressionlanguage.structs.BooleanStruct;
-import code.expressionlanguage.structs.ByteStruct;
 import code.expressionlanguage.structs.IntStruct;
-import code.bean.RealInstanceStruct;
-import code.expressionlanguage.structs.ShortStruct;
 import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.structs.Struct;
 import code.bean.nat.BeanNatLgNames;
@@ -156,94 +152,90 @@ public final class AikiBeansFacadeFightStd {
         methods_.add( method_);
         _std.getStandards().addEntry(TYPE_SUFFERED_DAMAGE_CATEGORY, type_);
     }
-    public static ResultErrorStd invokeMethodKeyHypothesis(ContextEl _cont, Struct _instance, ClassMethodId _method, Struct... _args) {
-        KeyHypothesis instance_ = (KeyHypothesis) ((RealInstanceStruct)_instance).getInstance();
+    public static ResultErrorStd invokeMethodKeyHypothesis(ContextEl _cont, ClassMethodId _method, KeyHypothesis _inst, Struct... _args) {
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringUtil.quickEq(methodName_,GET_PLAYER_POKEMON)) {
-            res_.setResult(new StringStruct(instance_.getPlayerPokemon()));
+            res_.setResult(new StringStruct(_inst.getPlayerPokemon()));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_MOVE)) {
-            res_.setResult(new StringStruct(instance_.getMove()));
+            res_.setResult(new StringStruct(_inst.getMove()));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TARGET_POKEMON)) {
-            res_.setResult(new StringStruct(instance_.getTargetPokemon()));
+            res_.setResult(new StringStruct(_inst.getTargetPokemon()));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,IS_BELONGS_TO_USER)) {
-            res_.setResult(BooleanStruct.of(instance_.isBelongsToUser()));
+            res_.setResult(BooleanStruct.of(_inst.isBelongsToUser()));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_NUMBER_TARGET)) {
-            res_.setResult(new IntStruct(instance_.getNumberTarget()));
+            res_.setResult(new IntStruct(_inst.getNumberTarget()));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_DAMAGE)) {
-            res_.setResult(new RateStruct(instance_.getDamage(),PokemonStandards.TYPE_RATE));
+            res_.setResult(new RateStruct(_inst.getDamage(),PokemonStandards.TYPE_RATE));
             return res_;
         }
         return res_;
     }
-    public static ResultErrorStd invokeMethodMultPowerMoves(ContextEl _cont, Struct _instance, ClassMethodId _method, Struct... _args) {
-        MultPowerMoves instance_ = (MultPowerMoves) ((RealInstanceStruct)_instance).getInstance();
+    public static ResultErrorStd invokeMethodMultPowerMoves(ContextEl _cont, ClassMethodId _method, MultPowerMoves _inst, Struct... _args) {
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringUtil.quickEq(methodName_,GET_MULT_INFLICTED)) {
-            res_.setResult(new RateStruct(instance_.getMultInflicted(),PokemonStandards.TYPE_RATE));
+            res_.setResult(new RateStruct(_inst.getMultInflicted(),PokemonStandards.TYPE_RATE));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_MULT_SUFFERING)) {
-            res_.setResult(new RateStruct(instance_.getMultSuffering(),PokemonStandards.TYPE_RATE));
+            res_.setResult(new RateStruct(_inst.getMultSuffering(),PokemonStandards.TYPE_RATE));
             return res_;
         }
         return res_;
     }
-    public static ResultErrorStd invokeMethodStatisticInfo(ContextEl _cont, Struct _instance, ClassMethodId _method, Struct... _args) {
-        StatisticInfo instance_ = (StatisticInfo) ((RealInstanceStruct)_instance).getInstance();
+    public static ResultErrorStd invokeMethodStatisticInfo(ContextEl _cont, ClassMethodId _method, StatisticInfo _inst, Struct... _args) {
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringUtil.quickEq(methodName_,GET_DISPLAY_STATISTIC)) {
-            res_.setResult(new StringStruct(instance_.getDisplayStatistic()));
+            res_.setResult(new StringStruct(_inst.getDisplayStatistic()));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,IS_BASE)) {
-            res_.setResult(BooleanStruct.of(instance_.isBase()));
+            res_.setResult(BooleanStruct.of(_inst.isBase()));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_STATIS_BASE)) {
-            res_.setResult(new RateStruct(instance_.getStatisBase(),PokemonStandards.TYPE_RATE));
+            res_.setResult(new RateStruct(_inst.getStatisBase(),PokemonStandards.TYPE_RATE));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_EV)) {
-            res_.setResult(new IntStruct(instance_.getEv()));
+            res_.setResult(new IntStruct(_inst.getEv()));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_IV)) {
-            res_.setResult(new IntStruct(instance_.getIv()));
+            res_.setResult(new IntStruct(_inst.getIv()));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,IS_BOOST)) {
-            res_.setResult(BooleanStruct.of(instance_.isBoost()));
+            res_.setResult(BooleanStruct.of(_inst.isBoost()));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_STATIS_BOOST)) {
-            res_.setResult(new IntStruct(instance_.getStatisBoost()));
+            res_.setResult(new IntStruct(_inst.getStatisBoost()));
             return res_;
         }
         return res_;
     }
-    public static ResultErrorStd invokeMethodSufferedDamageCategory(ContextEl _cont, Struct _instance, ClassMethodId _method, Struct... _args) {
-        SufferedDamageCategory instance_ = (SufferedDamageCategory) ((RealInstanceStruct)_instance).getInstance();
+    public static ResultErrorStd invokeMethodSufferedDamageCategory(ContextEl _cont, ClassMethodId _method, SufferedDamageCategory _inst, Struct... _args) {
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringUtil.quickEq(methodName_,GET_ROUND)) {
-            res_.setResult(new RateStruct(instance_.getRound(),PokemonStandards.TYPE_RATE));
+            res_.setResult(new RateStruct(_inst.getRound(),PokemonStandards.TYPE_RATE));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_USING)) {
-            res_.setResult(new RateStruct(instance_.getUsing(),PokemonStandards.TYPE_RATE));
+            res_.setResult(new RateStruct(_inst.getUsing(),PokemonStandards.TYPE_RATE));
             return res_;
         }
         return res_;

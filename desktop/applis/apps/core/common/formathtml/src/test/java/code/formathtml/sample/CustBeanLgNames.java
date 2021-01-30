@@ -1,6 +1,7 @@
 package code.formathtml.sample;
 
 import code.bean.Bean;
+import code.bean.nat.PairStruct;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ClassField;
@@ -859,7 +860,7 @@ public final class CustBeanLgNames extends BeanNatLgNames {
                 return res_;
             }
             if (StringUtil.quickEq(fieldName_,MAP)) {
-                res_.setResult(new StdStruct(i_.getMap(),ALIAS_LSE));
+                res_.setResult(getTree(i_.getMap(),_cont));
                 return res_;
             }
             if (StringUtil.quickEq(fieldName_,MESSAGE)) {
@@ -887,7 +888,7 @@ public final class CustBeanLgNames extends BeanNatLgNames {
                     res_.setResult(NullStruct.NULL_VALUE);
                     return res_;
                 }
-                res_.setResult(new StdStruct(i_.getTree(),ALIAS_LSE));
+                res_.setResult(getTree(i_.getTree(),_cont));
                 return res_;
             }
         }
@@ -1089,7 +1090,8 @@ public final class CustBeanLgNames extends BeanNatLgNames {
                 return res_;
             }
             if (StringUtil.quickEq(fieldName_,STRINGS)) {
-                res_.setResult(new StdStruct(i_.getStrings(),TYPE_STRING_LIST));
+                StringList ls_ = i_.getStrings();
+                res_.setResult(getStringArray(ls_));
                 return res_;
             }
         }
@@ -1946,53 +1948,6 @@ public final class CustBeanLgNames extends BeanNatLgNames {
     }
 
     @Override
-    public Struct wrapStd(Object _element) {
-        if (_element == null) {
-            return NullStruct.NULL_VALUE;
-        }
-        if (_element instanceof Byte) {
-            return new ByteStruct((Byte) _element);
-        }
-        if (_element instanceof Short) {
-            return new ShortStruct((Short) _element);
-        }
-        if (_element instanceof Character) {
-            return new CharStruct((Character) _element);
-        }
-        if (_element instanceof Integer) {
-            return new IntStruct((Integer) _element);
-        }
-        if (_element instanceof Long) {
-            return new LongStruct((Long) _element);
-        }
-        if (_element instanceof Float) {
-            return new FloatStruct((Float) _element);
-        }
-        if (_element instanceof Double) {
-            return new DoubleStruct((Double) _element);
-        }
-        if (_element instanceof Boolean) {
-            return BooleanStruct.of((Boolean) _element);
-        }
-        if (_element instanceof String) {
-            return new StringStruct((String) _element);
-        }
-        if (_element instanceof StringBuilder) {
-            return new StringBuilderStruct((StringBuilder) _element);
-        }
-        String aliasObject_ = getAliasObject();
-        String className_ = getOtherBeanStructClassName(_element);
-        if (StringUtil.quickEq(className_, getAliasObject())) {
-            return StdStruct.newInstance(_element, aliasObject_);
-        }
-        return StdStruct.newInstance(_element, className_);
-    }
-
-    @Override
-    protected Struct newId(Object _obj, String _className) {
-        return StdStruct.newInstance(_obj, _className);
-    }
-    @Override
     public ResultErrorStd getStructToBeValidated(StringList _values,
                                                  String _className, Configuration _context, ContextEl _ctx, StackCall _stack) {
         ResultErrorStd res_ = new ResultErrorStd();
@@ -2048,5 +2003,15 @@ public final class CustBeanLgNames extends BeanNatLgNames {
     }
     public void setDataBase(Composite _c) {
         dataBase = _c;
+    }
+    public ArrayStruct getTree(AbsMap<String, Integer> _tree,ContextEl _cont) {
+        ArrayStruct arr_ = new ArrayStruct(_tree.size(),StringExpUtil.getPrettyArrayType(_cont.getStandards().getCoreNames().getAliasObject()));
+        int i_ = 0;
+        for (EntryCust<String,Integer> e: _tree.entryList()){
+            PairStruct p_ = new PairStruct(_cont.getStandards().getCoreNames().getAliasObject(),new StringStruct(StringUtil.nullToEmpty(e.getKey())),new IntStruct(e.getValue()));
+            arr_.set(i_,p_);
+            i_++;
+        }
+        return arr_;
     }
 }

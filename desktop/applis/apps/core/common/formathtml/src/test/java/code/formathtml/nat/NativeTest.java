@@ -37,13 +37,7 @@ import code.formathtml.analyze.AnalyzingDoc;
 import code.formathtml.util.*;
 import code.sml.Document;
 import code.sml.DocumentBuilder;
-import code.util.CustList;
-import code.util.EntryCust;
-import code.util.LongMap;
-import code.util.LongTreeMap;
-import code.util.StringList;
-import code.util.StringMap;
-import code.util.StringMapObject;
+import code.util.*;
 import code.util.core.IndexConstants;
 import org.junit.Test;
 
@@ -53,6 +47,21 @@ import static org.junit.Assert.*;
 public final class NativeTest {
 
 
+    @Test
+    public void bases() {
+        NativeAnalyzedTestConfiguration conf_ = contextElSec();
+
+        AnalyzingDoc analyzingDoc_ = conf_.getAnalyzingDoc();
+        setLocalFiles(conf_, analyzingDoc_);
+        conf_.getAnalyzing().setForEachFetch(new NativeForEachFetch(conf_.getAdv()));
+        RendForwardInfos.buildExec(analyzingDoc_, conf_.getAnalyzed(), new Forwards(), conf_.getConfiguration());
+        setFirst(conf_);
+        assertTrue(conf_.isEmptyErrors());
+        conf_.setStackCall(StackCall.newInstance(InitPhase.NOTHING,conf_.getContext()));
+        assertNotNull(BeanNatCommonLgNames.getPairStruct(null,conf_.getContext()));
+        assertNotNull(BeanNatCommonLgNames.getSimpleItrStruct(null,conf_.getContext()));
+        assertNotNull(((BeanNatLgNames)conf_.getContext().getStandards()).getLongsArray(new CustList<Longs>(new Longs(0L))));
+    }
     @Test
     public void process0FailTest() {
         String locale_ = "en";

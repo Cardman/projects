@@ -1,12 +1,12 @@
 package code.formathtml.nat;
 
-import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.structs.WithoutParentIdStruct;
+import code.bean.nat.CommNatStruct;
 
-public final class SampleInputStruct extends WithoutParentIdStruct {
+public final class SampleInputStruct extends CommNatStruct {
     private final SampleInput sampleInput;
 
     public SampleInputStruct(SampleInput _sampleInput) {
+        super("simple.Input");
         sampleInput = _sampleInput;
     }
 
@@ -16,10 +16,5 @@ public final class SampleInputStruct extends WithoutParentIdStruct {
 
     public void setTypedString(String _typedString) {
         sampleInput.setTypedString(_typedString);
-    }
-
-    @Override
-    public String getClassName(ContextEl _contextEl) {
-        return "simple.Input";
     }
 }

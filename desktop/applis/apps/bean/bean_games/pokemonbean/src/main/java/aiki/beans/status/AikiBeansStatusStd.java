@@ -1,8 +1,5 @@
 package aiki.beans.status;
-import aiki.beans.AikiBeansStd;
-import aiki.beans.DefaultStruct;
-import aiki.beans.PokemonStandards;
-import aiki.beans.RateStruct;
+import aiki.beans.*;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.NumParsers;
@@ -19,7 +16,6 @@ import code.expressionlanguage.structs.NullStruct;
 import code.bean.RealInstanceStruct;
 import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.structs.Struct;
-import code.formathtml.util.BeanLgNames;
 import code.bean.nat.BeanNatLgNames;
 import code.util.CustList;
 import code.util.StringList;
@@ -147,7 +143,7 @@ public final class AikiBeansStatusStd {
         _std.getStandards().addEntry(TYPE_STATUS_SET_BEAN, type_);
     }
     public static ResultErrorStd getResultStatusBean(ContextEl _cont, ClassField _classField, Struct _instance) {
-        BeanLgNames std_ = (BeanLgNames) _cont.getStandards();
+        BeanNatLgNames std_ = (BeanNatLgNames) _cont.getStandards();
         ResultErrorStd res_ = new ResultErrorStd();
         StatusBean instance_ = (StatusBean) ((RealInstanceStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
@@ -168,11 +164,11 @@ public final class AikiBeansStatusStd {
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,REASONS_END_ROUND)) {
-            res_.setResult(new DefaultStruct(instance_.getReasonsEndRound(), BeanNatLgNames.TYPE_LIST));
+            res_.setResult(std_.getStringArray(instance_.getReasonsEndRound()));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,MAP_VARS_FAIL_END_ROUND)) {
-            res_.setResult(new DefaultStruct(instance_.getMapVarsFailEndRound(), BeanNatLgNames.TYPE_MAP));
+            res_.setResult(PokemonStandards.getStrStr(_cont,instance_.getMapVarsFailEndRound()));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,SINGLE_STATUS)) {
@@ -200,15 +196,15 @@ public final class AikiBeansStatusStd {
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,MULT_STAT)) {
-            res_.setResult(new DefaultStruct(instance_.getMultStat(), BeanNatLgNames.TYPE_MAP));
+            res_.setResult(PokemonStandards.getStaRate(_cont,instance_.getMultStat()));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,REASONS)) {
-            res_.setResult(new DefaultStruct(instance_.getReasons(), BeanNatLgNames.TYPE_LIST));
+            res_.setResult(std_.getStringArray(instance_.getReasons()));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,MAP_VARS_FAIL)) {
-            res_.setResult(new DefaultStruct(instance_.getMapVarsFail(), BeanNatLgNames.TYPE_MAP));
+            res_.setResult(PokemonStandards.getStrStr(_cont,instance_.getMapVarsFail()));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,RATE_FOR_USING_A_MOVE)) {
@@ -232,7 +228,7 @@ public final class AikiBeansStatusStd {
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,LAW_FOR_USING_A_MOVE_NB_ROUND)) {
-            res_.setResult(new DefaultStruct(instance_.getLawForUsingAMoveNbRound(), BeanNatLgNames.TYPE_MAP));
+            res_.setResult(PokemonStandards.getLgIntRate(_cont,instance_.getLawForUsingAMoveNbRound()));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,POWER)) {
@@ -248,13 +244,13 @@ public final class AikiBeansStatusStd {
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,EFFECTS_PARTNER)) {
-            res_.setResult(new DefaultStruct(instance_.getEffectsPartner(), BeanNatLgNames.TYPE_LIST));
+            res_.setResult(PokemonStandards.getEffPartStat(instance_.getEffectsPartner()));
             return res_;
         }
         return res_;
     }
     public static ResultErrorStd getResultStatusSetBean(ContextEl _cont, ClassField _classField, Struct _instance) {
-        BeanLgNames std_ = (BeanLgNames) _cont.getStandards();
+        BeanNatLgNames std_ = (BeanNatLgNames) _cont.getStandards();
         ResultErrorStd res_ = new ResultErrorStd();
         StatusSetBean instance_ = (StatusSetBean) ((RealInstanceStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
@@ -263,7 +259,7 @@ public final class AikiBeansStatusStd {
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,SORTED_STATUS)) {
-            res_.setResult(new DefaultStruct(instance_.getSortedStatus(), BeanNatLgNames.TYPE_LIST));
+            res_.setResult(std_.getStringArray(instance_.getSortedStatus()));
             return res_;
         }
         return res_;
@@ -300,7 +296,7 @@ public final class AikiBeansStatusStd {
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_EFFECT_PARTNER)) {
-            res_.setResult(DefaultStruct.newInstance(instance_.getEffectPartner(),PokemonStandards.TYPE_EFFECT_PARTNER_STATUS));
+            res_.setResult(new EffectPartnerStatusStruct(instance_.getEffectPartner(),PokemonStandards.TYPE_EFFECT_PARTNER_STATUS));
             return res_;
         }
         return res_;

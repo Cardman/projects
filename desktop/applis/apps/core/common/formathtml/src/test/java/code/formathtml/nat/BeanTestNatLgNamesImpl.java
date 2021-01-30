@@ -47,6 +47,12 @@ public final class BeanTestNatLgNamesImpl extends BeanTestNatLgNames {
         return new BeanStruct(bean_);
     }
 
+    @Override
+    protected Struct newSimpleBean(String _language, BeanInfo _bean, ContextEl _ctx, StackCall _stackCall) {
+        SimpleOne bean_ = newBeanOne();
+        return new BeanStruct(bean_);
+    }
+
     static SimpleOne newBeanOne() {
         SimpleOne bean_ = new SimpleOne();
         bean_.setClassName(TYPE_BEAN_ONE);

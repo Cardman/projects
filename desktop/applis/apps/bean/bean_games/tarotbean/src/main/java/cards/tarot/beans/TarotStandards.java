@@ -3,12 +3,12 @@ package cards.tarot.beans;
 import cards.tarot.ResultsTarot;
 import cards.tarot.RulesTarot;
 import cards.tarot.enumerations.BidTarot;
-import cards.tarot.enumerations.Handfuls;
-import cards.tarot.enumerations.Miseres;
 import code.bean.Bean;
+import code.bean.nat.PairStruct;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ClassField;
+import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.ConstructorId;
@@ -110,7 +110,6 @@ public final class TarotStandards extends BeanNatLgNames {
     private static final String TYPE_SCORES_PLAYERS = "cards.tarot.beans.ScoresPlayers";
     private static final String TYPE_SUM_DECLARING_PLAYER = "cards.tarot.beans.SumDeclaringPlayer";
     private static final String TYPE_DETAILS_RESULTS_TAROT_BEAN = "cards.tarot.beans.DetailsResultsTarotBean";
-    private static final String TYPE_MISERES = "$Miseres";
     private static final String TYPE_HANDFULS = "$Handfuls";
     private static final String TYPE_BID_TAROT = "$BidTarot";
     private static final String TYPE_RATE = "$Rate";
@@ -157,18 +156,6 @@ public final class TarotStandards extends BeanNatLgNames {
         std_ = new StandardClass(TYPE_BID_TAROT, fields_, constructors_, methods_, getAliasObject(), MethodModifier.NORMAL);
         std_.getDirectInterfaces().add(TYPE_DISPLAYABLE);
         getStandards().addEntry(TYPE_BID_TAROT, std_);
-        fields_ = new CustList<StandardField>();
-        constructors_ = new CustList<StandardConstructor>();
-        methods_ = new CustList<StandardMethod>();
-        std_ = new StandardClass(TYPE_HANDFULS, fields_, constructors_, methods_, getAliasObject(), MethodModifier.NORMAL);
-        std_.getDirectInterfaces().add(TYPE_DISPLAYABLE);
-        getStandards().addEntry(TYPE_HANDFULS, std_);
-        fields_ = new CustList<StandardField>();
-        constructors_ = new CustList<StandardConstructor>();
-        methods_ = new CustList<StandardMethod>();
-        std_ = new StandardClass(TYPE_MISERES, fields_, constructors_, methods_, getAliasObject(), MethodModifier.NORMAL);
-        std_.getDirectInterfaces().add(TYPE_DISPLAYABLE);
-        getStandards().addEntry(TYPE_MISERES, std_);
         fields_ = new CustList<StandardField>();
         constructors_ = new CustList<StandardConstructor>();
         methods_ = new CustList<StandardMethod>();
@@ -359,6 +346,132 @@ public final class TarotStandards extends BeanNatLgNames {
     public ResultErrorStd getOtherResult(ContextEl _cont, ClassField _classField, Struct _instance) {
         ResultErrorStd res_ = new ResultErrorStd();
         String fieldName_ = _classField.getFieldName();
+        if (_instance instanceof SumDeclaringPlayerStruct) {
+            SumDeclaringPlayer instance_ = ((SumDeclaringPlayerStruct) _instance).getSumDeclaringPlayer();
+            if (StringUtil.quickEq(fieldName_, SUM)) {
+                res_.setResult(new IntStruct(instance_.getSum()));
+                return res_;
+            }
+            if (StringUtil.quickEq(fieldName_, STATUS)) {
+                res_.setResult(new StringStruct(instance_.getStatus()));
+                return res_;
+            }
+            if (StringUtil.quickEq(fieldName_, NICKNAME)) {
+                res_.setResult(new StringStruct(instance_.getNickname()));
+                return res_;
+            }
+            if (StringUtil.quickEq(fieldName_, HANDFULS)) {
+                res_.setResult(getStringShortTree(instance_.getHandfuls(),_cont));
+                return res_;
+            }
+            if (StringUtil.quickEq(fieldName_, MISERES)) {
+                res_.setResult(getStringShortTree(instance_.getMiseres(), _cont));
+                return res_;
+            }
+            return res_;
+        }
+        if (_instance instanceof ScoresPlayersStruct) {
+            ScoresPlayers instance_ = ((ScoresPlayersStruct)_instance).getScoresPlayers();
+            if (StringUtil.quickEq(fieldName_, SUM)) {
+                res_.setResult(new RateTarotStruct(instance_.getRate(),TYPE_RATE));
+                return res_;
+            }
+            if (StringUtil.quickEq(fieldName_, NICKNAME)) {
+                res_.setResult(new StringStruct(instance_.getNickname()));
+                return res_;
+            }
+            if (StringUtil.quickEq(fieldName_, SCORE)) {
+                res_.setResult(new IntStruct(instance_.getScore()));
+                return res_;
+            }
+            if (StringUtil.quickEq(fieldName_, RATE)) {
+                res_.setResult(new RateTarotStruct(instance_.getRate(),TYPE_RATE));
+                return res_;
+            }
+            return res_;
+        }
+        if (_instance instanceof RankingPlayerVariantGameStruct) {
+            RankingPlayerVariantGame instance_ = ((RankingPlayerVariantGameStruct)_instance).getRankingPlayerVariantGame();
+            if (StringUtil.quickEq(fieldName_, NICKNAME)) {
+                res_.setResult(new StringStruct(instance_.getNickname()));
+                return res_;
+            }
+            if (StringUtil.quickEq(fieldName_, POSITION_DIFF)) {
+                res_.setResult(new IntStruct(instance_.getPositionDiff()));
+                return res_;
+            }
+            if (StringUtil.quickEq(fieldName_, POSITION_OUDLERS)) {
+                res_.setResult(new IntStruct(instance_.getPositionOudlers()));
+                return res_;
+            }
+            if (StringUtil.quickEq(fieldName_, POSITION_CHARACTERS)) {
+                res_.setResult(new IntStruct(instance_.getPositionCharacters()));
+                return res_;
+            }
+            if (StringUtil.quickEq(fieldName_, POSITION_STRENGTH_CHARACTERS)) {
+                res_.setResult(new IntStruct(instance_.getPositionStrengthCharacters()));
+                return res_;
+            }
+            if (StringUtil.quickEq(fieldName_, FINAL_POSITION)) {
+                res_.setResult(new IntStruct(instance_.getFinalPosition()));
+                return res_;
+            }
+            return res_;
+        }
+        if (_instance instanceof PointsPlayerVariantGameStruct) {
+            PointsPlayerVariantGame instance_ = ((PointsPlayerVariantGameStruct)_instance).getPointsPlayerVariantGame();
+            if (StringUtil.quickEq(fieldName_, NICKNAME)) {
+                res_.setResult(new StringStruct(instance_.getNickname()));
+                return res_;
+            }
+            if (StringUtil.quickEq(fieldName_, RATE)) {
+                res_.setResult(new IntStruct(instance_.getRate()));
+                return res_;
+            }
+            if (StringUtil.quickEq(fieldName_, SCORE)) {
+                res_.setResult(new IntStruct(instance_.getScore()));
+                return res_;
+            }
+            if (StringUtil.quickEq(fieldName_, MINIMUM_POINTS)) {
+                res_.setResult(new IntStruct(instance_.getMinimumPoints()));
+                return res_;
+            }
+            if (StringUtil.quickEq(fieldName_, DIFFERENCE_SCORE)) {
+                res_.setResult(new RateTarotStruct(instance_.getDifferenceScore(), TYPE_RATE));
+                return res_;
+            }
+            if (StringUtil.quickEq(fieldName_, POINTS_TRICKS)) {
+                res_.setResult(new RateTarotStruct(instance_.getPointsTricks(), TYPE_RATE));
+                return res_;
+            }
+            return res_;
+        }
+        if (_instance instanceof BonusesPlayersStruct) {
+            BonusesPlayers instance_ = ((BonusesPlayersStruct)_instance).getBonusesPlayers();
+            if (StringUtil.quickEq(fieldName_, NICKNAME)) {
+                res_.setResult(new StringStruct(instance_.getNickname()));
+                return res_;
+            }
+            if (StringUtil.quickEq(fieldName_, BONUS)) {
+                res_.setResult(new IntStruct(instance_.getBonus()));
+                return res_;
+            }
+            return res_;
+        }
+
+        if (_instance instanceof LineDealStruct) {
+            LineDeal instance_ = ((LineDealStruct)_instance).getLineDeal();
+            if (StringUtil.quickEq(fieldName_, NUMBER)) {
+                res_.setResult(new IntStruct(instance_.getNumber()));
+                return res_;
+            }
+            if (StringUtil.quickEq(fieldName_, SCORES)) {
+                res_.setResult(getLongArray(instance_.getScores()));
+                return res_;
+            }
+            return res_;
+        }
+        //
         if (((RealInstanceStruct)_instance).getInstance() instanceof TarotBean) {
 //            if (StringList.quickEq(_method.getConstraints().getName(), PLAY_CLASSIC_GAME)) {
 //                res_.setResult(BooleanStruct.of(((TarotBean)((RealInstanceStruct)_instance).getInstance()).playClassicGame()));
@@ -369,7 +482,7 @@ public final class TarotStandards extends BeanNatLgNames {
 //                return res_;
 //            }
             if (StringUtil.quickEq(fieldName_, NICKNAMES)) {
-                res_.setResult(new DefaultStruct(((TarotBean)((RealInstanceStruct)_instance).getInstance()).getNicknames(), TYPE_LIST));
+                res_.setResult(getStringArray(((TarotBean)((RealInstanceStruct)_instance).getInstance()).getNicknames()));
                 return res_;
             }
 //            if (StringList.quickEq(_method.getConstraints().getName(), GET_SCORES)) {
@@ -420,133 +533,27 @@ public final class TarotStandards extends BeanNatLgNames {
                 return res_;
             }
             if (StringUtil.quickEq(fieldName_, LINES_DECLARING)) {
-                res_.setResult(new DefaultStruct(instance_.getLinesDeclaring(), TYPE_LIST));
+                res_.setResult(getSumDeclaringPlayerArray(instance_.getLinesDeclaring()));
                 return res_;
             }
             if (StringUtil.quickEq(fieldName_, PLAYERS_SCORES)) {
-                res_.setResult(new DefaultStruct(instance_.getPlayersScores(), TYPE_LIST));
+                res_.setResult(getScoresPlayersArray(instance_.getPlayersScores()));
                 return res_;
             }
             if (StringUtil.quickEq(fieldName_, ORDERED_PLAYERS)) {
-                res_.setResult(new DefaultStruct(instance_.getOrderedPlayers(), TYPE_LIST));
+                res_.setResult(getRankingPlayerVariantGameArray(instance_.getOrderedPlayers()));
                 return res_;
             }
             if (StringUtil.quickEq(fieldName_, POINTS_PLAYERS)) {
-                res_.setResult(new DefaultStruct(instance_.getPointsPlayers(), TYPE_LIST));
+                res_.setResult(getPointsPlayerVariantGameArray(instance_.getPointsPlayers()));
                 return res_;
             }
             if (StringUtil.quickEq(fieldName_, BONUSES)) {
-                res_.setResult(new DefaultStruct(instance_.getBonuses(), TYPE_LIST));
+                res_.setResult(getBonusesPlayersArray(instance_.getBonuses()));
                 return res_;
             }
         }
-        if (((RealInstanceStruct)_instance).getInstance() instanceof SumDeclaringPlayer) {
-            SumDeclaringPlayer instance_ = (SumDeclaringPlayer) ((RealInstanceStruct)_instance).getInstance();
-            if (StringUtil.quickEq(fieldName_, SUM)) {
-                res_.setResult(new IntStruct(instance_.getSum()));
-                return res_;
-            }
-            if (StringUtil.quickEq(fieldName_, STATUS)) {
-                res_.setResult(new StringStruct(instance_.getStatus()));
-                return res_;
-            }
-            if (StringUtil.quickEq(fieldName_, NICKNAME)) {
-                res_.setResult(new StringStruct(instance_.getNickname()));
-                return res_;
-            }
-            if (StringUtil.quickEq(fieldName_, HANDFULS)) {
-                res_.setResult(new DefaultStruct(instance_.getHandfuls(), TYPE_MAP));
-                return res_;
-            }
-            if (StringUtil.quickEq(fieldName_, MISERES)) {
-                res_.setResult(new DefaultStruct(instance_.getMiseres(), TYPE_MAP));
-                return res_;
-            }
-        }
-        if (((RealInstanceStruct)_instance).getInstance() instanceof ScoresPlayers) {
-            ScoresPlayers instance_ = (ScoresPlayers) ((RealInstanceStruct)_instance).getInstance();
-            if (StringUtil.quickEq(fieldName_, SUM)) {
-                res_.setResult(new DefaultStruct(instance_.getRate(),TYPE_RATE));
-                return res_;
-            }
-            if (StringUtil.quickEq(fieldName_, NICKNAME)) {
-                res_.setResult(new StringStruct(instance_.getNickname()));
-                return res_;
-            }
-            if (StringUtil.quickEq(fieldName_, SCORE)) {
-                res_.setResult(new IntStruct(instance_.getScore()));
-                return res_;
-            }
-            if (StringUtil.quickEq(fieldName_, RATE)) {
-                res_.setResult(wrapStd(instance_.getRate()));
-                return res_;
-            }
-        }
-        if (((RealInstanceStruct)_instance).getInstance() instanceof RankingPlayerVariantGame) {
-            RankingPlayerVariantGame instance_ = (RankingPlayerVariantGame) ((RealInstanceStruct)_instance).getInstance();
-            if (StringUtil.quickEq(fieldName_, NICKNAME)) {
-                res_.setResult(new StringStruct(instance_.getNickname()));
-                return res_;
-            }
-            if (StringUtil.quickEq(fieldName_, POSITION_DIFF)) {
-                res_.setResult(new IntStruct(instance_.getPositionDiff()));
-                return res_;
-            }
-            if (StringUtil.quickEq(fieldName_, POSITION_OUDLERS)) {
-                res_.setResult(new IntStruct(instance_.getPositionOudlers()));
-                return res_;
-            }
-            if (StringUtil.quickEq(fieldName_, POSITION_CHARACTERS)) {
-                res_.setResult(new IntStruct(instance_.getPositionCharacters()));
-                return res_;
-            }
-            if (StringUtil.quickEq(fieldName_, POSITION_STRENGTH_CHARACTERS)) {
-                res_.setResult(new IntStruct(instance_.getPositionStrengthCharacters()));
-                return res_;
-            }
-            if (StringUtil.quickEq(fieldName_, FINAL_POSITION)) {
-                res_.setResult(new IntStruct(instance_.getFinalPosition()));
-                return res_;
-            }
-        }
-        if (((RealInstanceStruct)_instance).getInstance() instanceof PointsPlayerVariantGame) {
-            PointsPlayerVariantGame instance_ = (PointsPlayerVariantGame) ((RealInstanceStruct)_instance).getInstance();
-            if (StringUtil.quickEq(fieldName_, NICKNAME)) {
-                res_.setResult(new StringStruct(instance_.getNickname()));
-                return res_;
-            }
-            if (StringUtil.quickEq(fieldName_, RATE)) {
-                res_.setResult(new IntStruct(instance_.getRate()));
-                return res_;
-            }
-            if (StringUtil.quickEq(fieldName_, SCORE)) {
-                res_.setResult(new IntStruct(instance_.getScore()));
-                return res_;
-            }
-            if (StringUtil.quickEq(fieldName_, MINIMUM_POINTS)) {
-                res_.setResult(new IntStruct(instance_.getMinimumPoints()));
-                return res_;
-            }
-            if (StringUtil.quickEq(fieldName_, DIFFERENCE_SCORE)) {
-                res_.setResult(new DefaultStruct(instance_.getDifferenceScore(), TYPE_RATE));
-                return res_;
-            }
-            if (StringUtil.quickEq(fieldName_, POINTS_TRICKS)) {
-                res_.setResult(new DefaultStruct(instance_.getPointsTricks(), TYPE_RATE));
-                return res_;
-            }
-        }
-        if (((RealInstanceStruct)_instance).getInstance() instanceof BonusesPlayers) {
-            BonusesPlayers instance_ = (BonusesPlayers) ((RealInstanceStruct)_instance).getInstance();
-            if (StringUtil.quickEq(fieldName_, NICKNAME)) {
-                res_.setResult(new StringStruct(instance_.getNickname()));
-                return res_;
-            }
-            if (StringUtil.quickEq(fieldName_, BONUS)) {
-                res_.setResult(new IntStruct(instance_.getBonus()));
-                return res_;
-            }
-        }
+
         if (((RealInstanceStruct)_instance).getInstance() instanceof ResultsTarotBean) {
             ResultsTarotBean instance_ = (ResultsTarotBean) ((RealInstanceStruct)_instance).getInstance();
             if (StringUtil.quickEq(fieldName_, NUMBER_OUDLERS_TAKER)) {
@@ -602,26 +609,15 @@ public final class TarotStandards extends BeanNatLgNames {
                 return res_;
             }
             if (StringUtil.quickEq(fieldName_, CALLED_PLAYERS)) {
-                res_.setResult(new DefaultStruct(instance_.getCalledPlayers(), TYPE_LIST));
+                res_.setResult(getStringArray(instance_.getCalledPlayers()));
                 return res_;
             }
             if (StringUtil.quickEq(fieldName_, CALLED_CARDS_LIST)) {
-                res_.setResult(new DefaultStruct(instance_.getCalledCardsList(), TYPE_LIST));
+                res_.setResult(getStringArray(instance_.getCalledCardsList()));
                 return res_;
             }
             if (StringUtil.quickEq(fieldName_, LINES_DEAL)) {
-                res_.setResult(new DefaultStruct(instance_.getLinesDeal(), TYPE_LIST));
-                return res_;
-            }
-        }
-        if (((RealInstanceStruct)_instance).getInstance() instanceof LineDeal) {
-            LineDeal instance_ = (LineDeal) ((RealInstanceStruct)_instance).getInstance();
-            if (StringUtil.quickEq(fieldName_, NUMBER)) {
-                res_.setResult(new IntStruct(instance_.getNumber()));
-                return res_;
-            }
-            if (StringUtil.quickEq(fieldName_, SCORES)) {
-                res_.setResult(DefaultStruct.newListLong(instance_.getScores(), TYPE_LIST));
+                res_.setResult(getLineDealArray(instance_.getLinesDeal()));
                 return res_;
             }
         }
@@ -648,15 +644,15 @@ public final class TarotStandards extends BeanNatLgNames {
                 return res_;
             }
             if (StringUtil.quickEq(fieldName_, CONTRATS)) {
-                res_.setResult(new DefaultStruct(instance_.getContrats(), TYPE_LIST));
+                res_.setResult(getStringArray(instance_.getContrats()));
                 return res_;
             }
             if (StringUtil.quickEq(fieldName_, POIGNEES_AUTORISEES)) {
-                res_.setResult(new DefaultStruct(instance_.getPoigneesAutorisees(), TYPE_MAP));
+                res_.setResult(getStringIntegerTree(instance_.getPoigneesAutorisees(),_cont));
                 return res_;
             }
             if (StringUtil.quickEq(fieldName_, MISERES)) {
-                res_.setResult(new DefaultStruct(instance_.getMiseres(), TYPE_LIST));
+                res_.setResult(getStringArray(instance_.getMiseres()));
                 return res_;
             }
         }
@@ -676,11 +672,11 @@ public final class TarotStandards extends BeanNatLgNames {
                 return res_;
             }
             if (StringUtil.quickEq(_method.getConstraints().getName(), GET_NICKNAMES)) {
-                res_.setResult(new DefaultStruct(((TarotBean)((RealInstanceStruct)_instance).getInstance()).getNicknames(), TYPE_LIST));
+                res_.setResult(getStringArray(((TarotBean)((RealInstanceStruct)_instance).getInstance()).getNicknames()));
                 return res_;
             }
             if (StringUtil.quickEq(_method.getConstraints().getName(), GET_SCORES)) {
-                res_.setResult(new DefaultStruct(((TarotBean)((RealInstanceStruct)_instance).getInstance()).getScores(), TYPE_LIST));
+                res_.setResult(getLongsArray(((TarotBean)((RealInstanceStruct)_instance).getInstance()).getScores()));
                 return res_;
             }
         }
@@ -746,15 +742,91 @@ public final class TarotStandards extends BeanNatLgNames {
         return res_;
     }
 
+
+    public static ArrayStruct getSumDeclaringPlayerArray(CustList<SumDeclaringPlayer> _ls) {
+        ArrayStruct arr_ = new ArrayStruct(_ls.size(), StringExpUtil.getPrettyArrayType(TYPE_SUM_DECLARING_PLAYER));
+        int j_ = 0;
+        for (SumDeclaringPlayer s:_ls) {
+            arr_.set(j_,new SumDeclaringPlayerStruct(s, TYPE_SUM_DECLARING_PLAYER));
+            j_++;
+        }
+        return arr_;
+    }
+
+    public static ArrayStruct getScoresPlayersArray(CustList<ScoresPlayers> _ls) {
+        ArrayStruct arr_ = new ArrayStruct(_ls.size(), StringExpUtil.getPrettyArrayType(TYPE_SCORES_PLAYERS));
+        int j_ = 0;
+        for (ScoresPlayers s:_ls) {
+            arr_.set(j_,new ScoresPlayersStruct(s, TYPE_SCORES_PLAYERS));
+            j_++;
+        }
+        return arr_;
+    }
+
+    public static ArrayStruct getRankingPlayerVariantGameArray(CustList<RankingPlayerVariantGame> _ls) {
+        ArrayStruct arr_ = new ArrayStruct(_ls.size(), StringExpUtil.getPrettyArrayType(TYPE_RANKING_PLAYER_VARIANT_GAME));
+        int j_ = 0;
+        for (RankingPlayerVariantGame s:_ls) {
+            arr_.set(j_,new RankingPlayerVariantGameStruct(s, TYPE_RANKING_PLAYER_VARIANT_GAME));
+            j_++;
+        }
+        return arr_;
+    }
+
+    public static ArrayStruct getPointsPlayerVariantGameArray(CustList<PointsPlayerVariantGame> _ls) {
+        ArrayStruct arr_ = new ArrayStruct(_ls.size(), StringExpUtil.getPrettyArrayType(TYPE_POINTS_PLAYER_VARIANT_GAME));
+        int j_ = 0;
+        for (PointsPlayerVariantGame s:_ls) {
+            arr_.set(j_,new PointsPlayerVariantGameStruct(s, TYPE_POINTS_PLAYER_VARIANT_GAME));
+            j_++;
+        }
+        return arr_;
+    }
+
+    public static ArrayStruct getBonusesPlayersArray(CustList<BonusesPlayers> _ls) {
+        ArrayStruct arr_ = new ArrayStruct(_ls.size(), StringExpUtil.getPrettyArrayType(TYPE_BONUSES_PLAYERS));
+        int j_ = 0;
+        for (BonusesPlayers s:_ls) {
+            arr_.set(j_,new BonusesPlayersStruct(s, TYPE_BONUSES_PLAYERS));
+            j_++;
+        }
+        return arr_;
+    }
+
+    public static ArrayStruct getLineDealArray(CustList<LineDeal> _ls) {
+        ArrayStruct arr_ = new ArrayStruct(_ls.size(), StringExpUtil.getPrettyArrayType(TYPE_LINE_DEAL));
+        int j_ = 0;
+        for (LineDeal s:_ls) {
+            arr_.set(j_,new LineDealStruct(s, TYPE_LINE_DEAL));
+            j_++;
+        }
+        return arr_;
+    }
+    public ArrayStruct getStringShortTree(StringMap<Short> _map,ContextEl _cont) {
+        ArrayStruct arr_ = new ArrayStruct(_map.size(),StringExpUtil.getPrettyArrayType(_cont.getStandards().getCoreNames().getAliasObject()));
+        int i_ = 0;
+        for (EntryCust<String, Short> e: _map.entryList()){
+            PairStruct p_ = new PairStruct(_cont.getStandards().getCoreNames().getAliasObject(),new StringStruct(StringUtil.nullToEmpty(e.getKey())),new ShortStruct(e.getValue()));
+            arr_.set(i_,p_);
+            i_++;
+        }
+        return arr_;
+    }
+    public ArrayStruct getStringIntegerTree(StringMap<Integer> _map,ContextEl _cont) {
+        ArrayStruct arr_ = new ArrayStruct(_map.size(),StringExpUtil.getPrettyArrayType(_cont.getStandards().getCoreNames().getAliasObject()));
+        int i_ = 0;
+        for (EntryCust<String, Integer> e: _map.entryList()){
+            PairStruct p_ = new PairStruct(_cont.getStandards().getCoreNames().getAliasObject(),new StringStruct(StringUtil.nullToEmpty(e.getKey())),new IntStruct(e.getValue()));
+            arr_.set(i_,p_);
+            i_++;
+        }
+        return arr_;
+    }
+    //TreeMap<Miseres,Short>
+    //StringMap<Integer>
     private String getOtherBeanStructClassName(Object _struct) {
         if (_struct instanceof Rate) {
             return TYPE_RATE;
-        }
-        if (_struct instanceof Handfuls) {
-            return TYPE_HANDFULS;
-        }
-        if (_struct instanceof Miseres) {
-            return TYPE_MISERES;
         }
         if (_struct instanceof ScoresPlayers) {
             return TYPE_SCORES_PLAYERS;
@@ -795,43 +867,6 @@ public final class TarotStandards extends BeanNatLgNames {
         return getAliasObject();
     }
 
-    @Override
-    public Struct wrapStd(Object _element) {
-        if (_element == null) {
-            return NullStruct.NULL_VALUE;
-        }
-        if (_element instanceof Byte) {
-            return new ByteStruct((Byte) _element);
-        }
-        if (_element instanceof Short) {
-            return new ShortStruct((Short) _element);
-        }
-        if (_element instanceof Character) {
-            return new CharStruct((Character) _element);
-        }
-        if (_element instanceof Integer) {
-            return new IntStruct((Integer) _element);
-        }
-        if (_element instanceof Long) {
-            return new LongStruct((Long) _element);
-        }
-        if (_element instanceof Boolean) {
-            return BooleanStruct.of((Boolean) _element);
-        }
-        if (_element instanceof String) {
-            return new StringStruct((String) _element);
-        }
-        if (_element instanceof StringBuilder) {
-            return new StringBuilderStruct((StringBuilder) _element);
-        }
-        String className_ = getOtherBeanStructClassName(_element);
-        return DefaultStruct.newInstance(_element, className_);
-    }
-
-    @Override
-    protected Struct newId(Object _obj, String _className) {
-        return DefaultStruct.newInstance(_obj, _className);
-    }
     public ResultErrorStd getOtherName(ContextEl _cont, Struct _instance) {
         return new ResultErrorStd();
     }

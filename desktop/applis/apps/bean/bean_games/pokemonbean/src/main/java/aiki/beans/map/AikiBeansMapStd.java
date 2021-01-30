@@ -1,6 +1,5 @@
 package aiki.beans.map;
 import aiki.beans.AikiBeansStd;
-import aiki.beans.DefaultStruct;
 import aiki.beans.PokemonStandards;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ClassField;
@@ -17,7 +16,6 @@ import code.expressionlanguage.structs.IntStruct;
 import code.bean.RealInstanceStruct;
 import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.structs.Struct;
-import code.formathtml.util.BeanLgNames;
 import code.bean.nat.BeanNatLgNames;
 import code.util.CustList;
 import code.util.StringList;
@@ -168,18 +166,18 @@ public final class AikiBeansMapStd {
         _std.getStandards().addEntry(TYPE_MAP_LEVEL_BEAN, type_);
     }
     public static ResultErrorStd getResultMapBean(ContextEl _cont, ClassField _classField, Struct _instance) {
-        BeanLgNames std_ = (BeanLgNames) _cont.getStandards();
+        BeanNatLgNames std_ = (BeanNatLgNames) _cont.getStandards();
         ResultErrorStd res_ = new ResultErrorStd();
         MapBean instance_ = (MapBean) ((RealInstanceStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringUtil.quickEq(fieldName_,PLACES)) {
-            res_.setResult(new DefaultStruct(instance_.getPlaces(), BeanNatLgNames.TYPE_LIST));
+            res_.setResult(PokemonStandards.getPlInd(instance_.getPlaces()));
             return res_;
         }
         return res_;
     }
     public static ResultErrorStd getResultMapLevelBean(ContextEl _cont, ClassField _classField, Struct _instance) {
-        BeanLgNames std_ = (BeanLgNames) _cont.getStandards();
+        BeanNatLgNames std_ = (BeanNatLgNames) _cont.getStandards();
         ResultErrorStd res_ = new ResultErrorStd();
         MapLevelBean instance_ = (MapLevelBean) ((RealInstanceStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
@@ -212,7 +210,7 @@ public final class AikiBeansMapStd {
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,TILES)) {
-            res_.setResult(new DefaultStruct(instance_.getTiles(), BeanNatLgNames.TYPE_MAP));
+            res_.setResult(PokemonStandards.getPtStr(_cont,instance_.getTiles()));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,PROPONE_TILE)) {
@@ -228,13 +226,13 @@ public final class AikiBeansMapStd {
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,DIRS)) {
-            res_.setResult(new DefaultStruct(instance_.getDirs(), BeanNatLgNames.TYPE_MAP));
+            res_.setResult(PokemonStandards.getStrBool(_cont,instance_.getDirs()));
             return res_;
         }
         return res_;
     }
     public static ResultErrorStd invokeMethodMapBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Struct... _args) {
-        BeanLgNames std_ = (BeanLgNames) _cont.getStandards();
+        BeanNatLgNames std_ = (BeanNatLgNames) _cont.getStandards();
         MapBean instance_ = (MapBean) ((RealInstanceStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
@@ -243,7 +241,7 @@ public final class AikiBeansMapStd {
             return res_;
         }
         if (StringUtil.quickEq(methodName_,LAYERS)) {
-            res_.setResult(new DefaultStruct(instance_.layers(NumParsers.convertToNumber(_args[0]).intStruct()), BeanNatLgNames.TYPE_LIST));
+            res_.setResult(PokemonStandards.getLayers(_cont,instance_.layers(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,CLICK_LEVEL)) {
