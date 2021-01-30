@@ -291,6 +291,21 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
         return cp_;
     }
 
+    protected static String tryGetParamAny(Parametrable _param, int _indexChild, int _nbParentsInfer) {
+        String parametersType_ = tryGetParam(_param, _indexChild);
+        if (parametersType_ == null) {
+            return null;
+        }
+        boolean applyTwo_ = applyArrayOrElement(_param, _indexChild);
+        String cp_ = StringExpUtil.getQuickComponentType(parametersType_, _nbParentsInfer);
+        if (applyTwo_) {
+            if (cp_ == null) {
+                cp_ = StringExpUtil.getQuickComponentType(parametersType_, _nbParentsInfer -1);
+            }
+        }
+        return cp_;
+    }
+
     protected static String tryGetParam(Parametrable _param, int _indexChild) {
         String parametersType_;
         Identifiable idMethod_ = _param.getGeneFormatted();

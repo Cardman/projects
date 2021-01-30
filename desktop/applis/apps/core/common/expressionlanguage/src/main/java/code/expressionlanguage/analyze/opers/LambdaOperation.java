@@ -375,6 +375,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                     if (okList(resList_)) {
                         ClassMethodIdReturn id_ = resList_.first();
                         standardMethod = id_.getStandardMethod();
+                        trySetPoly(id_);
                         lambdaCommonContent.setReturnFieldType(id_.getOriginalReturnType());
                         lambdaCommonContent.setFileName(id_.getFileName());
                         lambdaMemberNumberContentId = id_.getMemberId();
@@ -409,6 +410,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                     resList_ = AnaTemplates.reduceMethods(resList_);
                     if (okList(resList_)) {
                         ClassMethodIdReturn id_ = resList_.first();
+                        trySetPoly(id_);
                         standardMethod = id_.getStandardMethod();
                         lambdaCommonContent.setReturnFieldType(id_.getOriginalReturnType());
                         lambdaCommonContent.setFileName(id_.getFileName());
@@ -445,6 +447,12 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         }
         tryCheck(_page);
         generalProcess(args_, _page);
+    }
+
+    private void trySetPoly(ClassMethodIdReturn _id) {
+        if (!_id.getRealId().isStaticMethod()) {
+            lambdaMethodContent.setPolymorph(true);
+        }
     }
 
     private void tryCheck(AnalyzedPageEl _page) {
