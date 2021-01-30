@@ -3,9 +3,9 @@ package code.bean;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.structs.WithoutParentIdStruct;
 
-public final class BeanStruct extends WithoutParentIdStruct implements RealInstanceStruct {
+public final class BeanStruct extends WithoutParentIdStruct {
 
-    private Bean bean;
+    private final Bean bean;
 
     public BeanStruct(Bean _bean) {
         bean = _bean;
@@ -16,8 +16,7 @@ public final class BeanStruct extends WithoutParentIdStruct implements RealInsta
         return bean.getClassName();
     }
 
-    @Override
-    public Object getInstance() {
+    public Bean getInstance() {
         return getBean();
     }
 

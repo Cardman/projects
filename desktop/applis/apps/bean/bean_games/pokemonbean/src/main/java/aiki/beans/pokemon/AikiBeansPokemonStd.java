@@ -1,5 +1,6 @@
 package aiki.beans.pokemon;
 import aiki.beans.*;
+import code.bean.BeanStruct;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.NumParsers;
@@ -14,7 +15,6 @@ import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.IntStruct;
 import code.expressionlanguage.structs.LongStruct;
 import code.expressionlanguage.structs.NullStruct;
-import code.bean.RealInstanceStruct;
 import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.util.BeanLgNames;
@@ -243,7 +243,7 @@ public final class AikiBeansPokemonStd {
     public static ResultErrorStd getResultPokedexBean(ContextEl _cont, ClassField _classField, Struct _instance) {
         BeanNatLgNames std_ = (BeanNatLgNames) _cont.getStandards();
         ResultErrorStd res_ = new ResultErrorStd();
-        PokedexBean instance_ = (PokedexBean) ((RealInstanceStruct)_instance).getInstance();
+        PokedexBean instance_ = (PokedexBean) ((BeanStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringUtil.quickEq(fieldName_,TYPED_NAME)) {
             res_.setResult(new StringStruct(instance_.getTypedName()));
@@ -286,7 +286,7 @@ public final class AikiBeansPokemonStd {
     public static ResultErrorStd getResultPokemonBean(ContextEl _cont, ClassField _classField, Struct _instance) {
         BeanNatLgNames std_ = (BeanNatLgNames) _cont.getStandards();
         ResultErrorStd res_ = new ResultErrorStd();
-        PokemonBean instance_ = (PokemonBean) ((RealInstanceStruct)_instance).getInstance();
+        PokemonBean instance_ = (PokemonBean) ((BeanStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringUtil.quickEq(fieldName_,DISPLAY_NAME)) {
             res_.setResult(new StringStruct(instance_.getDisplayName()));
@@ -388,7 +388,7 @@ public final class AikiBeansPokemonStd {
     }
     public static ResultErrorStd setResultPokedexBean(ContextEl _cont, ClassField _classField, Struct _instance, Struct _val) {
         ResultErrorStd res_ = new ResultErrorStd();
-        PokedexBean instance_ = (PokedexBean) ((RealInstanceStruct)_instance).getInstance();
+        PokedexBean instance_ = (PokedexBean) ((BeanStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringUtil.quickEq(fieldName_,TYPED_NAME)) {
             instance_.setTypedName(NumParsers.getString(_val).getInstance());
@@ -428,7 +428,7 @@ public final class AikiBeansPokemonStd {
         return res_;
     }
     public static ResultErrorStd invokeMethodPokedexBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Struct... _args) {
-        PokedexBean instance_ = (PokedexBean) ((RealInstanceStruct)_instance).getInstance();
+        PokedexBean instance_ = (PokedexBean) ((BeanStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringUtil.quickEq(methodName_,SEARCH)) {
@@ -447,7 +447,7 @@ public final class AikiBeansPokemonStd {
     }
     public static ResultErrorStd invokeMethodPokemonBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Struct... _args) {
         BeanNatLgNames std_ = (BeanNatLgNames) _cont.getStandards();
-        PokemonBean instance_ = (PokemonBean) ((RealInstanceStruct)_instance).getInstance();
+        PokemonBean instance_ = (PokemonBean) ((BeanStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringUtil.quickEq(methodName_,CLICK_POKEDEX)) {

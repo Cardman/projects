@@ -2,6 +2,7 @@ package aiki.beans.moves.effects;
 import aiki.beans.AikiBeansStd;
 import aiki.beans.PokemonStandards;
 import aiki.beans.RateStruct;
+import code.bean.BeanStruct;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.NumParsers;
@@ -16,7 +17,6 @@ import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.IntStruct;
 import code.expressionlanguage.structs.LongStruct;
 import code.expressionlanguage.structs.NullStruct;
-import code.bean.RealInstanceStruct;
 import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.structs.Struct;
 import code.bean.nat.BeanNatLgNames;
@@ -1345,7 +1345,7 @@ public final class AikiBeansMovesEffectsStd {
     }
     public static ResultErrorStd getResultEffectAllyBean(ContextEl _cont, ClassField _classField, Struct _instance) {
         ResultErrorStd res_ = new ResultErrorStd();
-        EffectAllyBean instance_ = (EffectAllyBean) ((RealInstanceStruct)_instance).getInstance();
+        EffectAllyBean instance_ = (EffectAllyBean) ((BeanStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringUtil.quickEq(fieldName_,MULT_ALLY_DAMAGE)) {
             res_.setResult(new RateStruct(instance_.getMultAllyDamage(),PokemonStandards.TYPE_RATE));
@@ -1356,7 +1356,7 @@ public final class AikiBeansMovesEffectsStd {
     public static ResultErrorStd getResultEffectBatonPassBean(ContextEl _cont, ClassField _classField, Struct _instance) {
         BeanNatLgNames std_ = (BeanNatLgNames) _cont.getStandards();
         ResultErrorStd res_ = new ResultErrorStd();
-        EffectBatonPassBean instance_ = (EffectBatonPassBean) ((RealInstanceStruct)_instance).getInstance();
+        EffectBatonPassBean instance_ = (EffectBatonPassBean) ((BeanStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringUtil.quickEq(fieldName_,MOVES)) {
             res_.setResult(std_.getStringArray(instance_.getMoves()));
@@ -1367,7 +1367,7 @@ public final class AikiBeansMovesEffectsStd {
     public static ResultErrorStd getResultEffectBean(ContextEl _cont, ClassField _classField, Struct _instance) {
         BeanNatLgNames std_ = (BeanNatLgNames) _cont.getStandards();
         ResultErrorStd res_ = new ResultErrorStd();
-        EffectBean instance_ = (EffectBean) ((RealInstanceStruct)_instance).getInstance();
+        EffectBean instance_ = (EffectBean) ((BeanStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringUtil.quickEq(fieldName_,INDEX)) {
             res_.setResult(new IntStruct(instance_.getIndex()));
@@ -1398,7 +1398,7 @@ public final class AikiBeansMovesEffectsStd {
     public static ResultErrorStd getResultEffectCloneBean(ContextEl _cont, ClassField _classField, Struct _instance) {
         BeanNatLgNames std_ = (BeanNatLgNames) _cont.getStandards();
         ResultErrorStd res_ = new ResultErrorStd();
-        EffectCloneBean instance_ = (EffectCloneBean) ((RealInstanceStruct)_instance).getInstance();
+        EffectCloneBean instance_ = (EffectCloneBean) ((BeanStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringUtil.quickEq(fieldName_,HP_RATE_CLONE)) {
             res_.setResult(new RateStruct(instance_.getHpRateClone(),PokemonStandards.TYPE_RATE));
@@ -1421,7 +1421,7 @@ public final class AikiBeansMovesEffectsStd {
     public static ResultErrorStd getResultEffectCommonStatisticsBean(ContextEl _cont, ClassField _classField, Struct _instance) {
         BeanNatLgNames std_ = (BeanNatLgNames) _cont.getStandards();
         ResultErrorStd res_ = new ResultErrorStd();
-        EffectCommonStatisticsBean instance_ = (EffectCommonStatisticsBean) ((RealInstanceStruct)_instance).getInstance();
+        EffectCommonStatisticsBean instance_ = (EffectCommonStatisticsBean) ((BeanStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringUtil.quickEq(fieldName_,COMMON_VALUE)) {
             res_.setResult(PokemonStandards.getStaStr(_cont,instance_.getCommonValue()));
@@ -1435,7 +1435,7 @@ public final class AikiBeansMovesEffectsStd {
     }
     public static ResultErrorStd getResultEffectCopyFighterBean(ContextEl _cont, ClassField _classField, Struct _instance) {
         ResultErrorStd res_ = new ResultErrorStd();
-        EffectCopyFighterBean instance_ = (EffectCopyFighterBean) ((RealInstanceStruct)_instance).getInstance();
+        EffectCopyFighterBean instance_ = (EffectCopyFighterBean) ((BeanStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringUtil.quickEq(fieldName_,PP_FOR_MOVES)) {
             res_.setResult(new IntStruct(instance_.getPpForMoves()));
@@ -1446,7 +1446,7 @@ public final class AikiBeansMovesEffectsStd {
     public static ResultErrorStd getResultEffectCopyMoveBean(ContextEl _cont, ClassField _classField, Struct _instance) {
         BeanNatLgNames std_ = (BeanNatLgNames) _cont.getStandards();
         ResultErrorStd res_ = new ResultErrorStd();
-        EffectCopyMoveBean instance_ = (EffectCopyMoveBean) ((RealInstanceStruct)_instance).getInstance();
+        EffectCopyMoveBean instance_ = (EffectCopyMoveBean) ((BeanStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringUtil.quickEq(fieldName_,DISPLAY_NAME)) {
             res_.setResult(new StringStruct(instance_.getDisplayName()));
@@ -1473,7 +1473,7 @@ public final class AikiBeansMovesEffectsStd {
     public static ResultErrorStd getResultEffectCounterAttackBean(ContextEl _cont, ClassField _classField, Struct _instance) {
         BeanNatLgNames std_ = (BeanNatLgNames) _cont.getStandards();
         ResultErrorStd res_ = new ResultErrorStd();
-        EffectCounterAttackBean instance_ = (EffectCounterAttackBean) ((RealInstanceStruct)_instance).getInstance();
+        EffectCounterAttackBean instance_ = (EffectCounterAttackBean) ((BeanStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringUtil.quickEq(fieldName_,SUFFERING_DAMAGE_TYPES)) {
             res_.setResult(PokemonStandards.getStrRate(_cont,instance_.getSufferingDamageTypes()));
@@ -1500,7 +1500,7 @@ public final class AikiBeansMovesEffectsStd {
     public static ResultErrorStd getResultEffectDamageBean(ContextEl _cont, ClassField _classField, Struct _instance) {
         BeanNatLgNames std_ = (BeanNatLgNames) _cont.getStandards();
         ResultErrorStd res_ = new ResultErrorStd();
-        EffectDamageBean instance_ = (EffectDamageBean) ((RealInstanceStruct)_instance).getInstance();
+        EffectDamageBean instance_ = (EffectDamageBean) ((BeanStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringUtil.quickEq(fieldName_,HITS_LAW)) {
             res_.setResult(PokemonStandards.getLongRate(_cont,instance_.getHitsLaw()));
@@ -1578,7 +1578,7 @@ public final class AikiBeansMovesEffectsStd {
     }
     public static ResultErrorStd getResultEffectDamageRateBean(ContextEl _cont, ClassField _classField, Struct _instance) {
         ResultErrorStd res_ = new ResultErrorStd();
-        EffectDamageRateBean instance_ = (EffectDamageRateBean) ((RealInstanceStruct)_instance).getInstance();
+        EffectDamageRateBean instance_ = (EffectDamageRateBean) ((BeanStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringUtil.quickEq(fieldName_,WIN_HP)) {
             res_.setResult(BooleanStruct.of(instance_.getWinHp()));
@@ -1593,7 +1593,7 @@ public final class AikiBeansMovesEffectsStd {
     public static ResultErrorStd getResultEffectEndRoundMoveBean(ContextEl _cont, ClassField _classField, Struct _instance) {
         BeanNatLgNames std_ = (BeanNatLgNames) _cont.getStandards();
         ResultErrorStd res_ = new ResultErrorStd();
-        EffectEndRoundMoveBean instance_ = (EffectEndRoundMoveBean) ((RealInstanceStruct)_instance).getInstance();
+        EffectEndRoundMoveBean instance_ = (EffectEndRoundMoveBean) ((BeanStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringUtil.quickEq(fieldName_,END_ROUND_RANK)) {
             res_.setResult(new IntStruct(instance_.getEndRoundRank()));
@@ -1612,7 +1612,7 @@ public final class AikiBeansMovesEffectsStd {
     public static ResultErrorStd getResultEffectFullHpRateBean(ContextEl _cont, ClassField _classField, Struct _instance) {
         BeanNatLgNames std_ = (BeanNatLgNames) _cont.getStandards();
         ResultErrorStd res_ = new ResultErrorStd();
-        EffectFullHpRateBean instance_ = (EffectFullHpRateBean) ((RealInstanceStruct)_instance).getInstance();
+        EffectFullHpRateBean instance_ = (EffectFullHpRateBean) ((BeanStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringUtil.quickEq(fieldName_,LEFT_USER_HP)) {
             res_.setResult(new RateStruct(instance_.getLeftUserHp(),PokemonStandards.TYPE_RATE));
@@ -1635,7 +1635,7 @@ public final class AikiBeansMovesEffectsStd {
     public static ResultErrorStd getResultEffectGlobalBean(ContextEl _cont, ClassField _classField, Struct _instance) {
         BeanNatLgNames std_ = (BeanNatLgNames) _cont.getStandards();
         ResultErrorStd res_ = new ResultErrorStd();
-        EffectGlobalBean instance_ = (EffectGlobalBean) ((RealInstanceStruct)_instance).getInstance();
+        EffectGlobalBean instance_ = (EffectGlobalBean) ((BeanStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringUtil.quickEq(fieldName_,WEATHER)) {
             res_.setResult(BooleanStruct.of(instance_.getWeather()));
@@ -1750,7 +1750,7 @@ public final class AikiBeansMovesEffectsStd {
     public static ResultErrorStd getResultEffectInvokeBean(ContextEl _cont, ClassField _classField, Struct _instance) {
         BeanNatLgNames std_ = (BeanNatLgNames) _cont.getStandards();
         ResultErrorStd res_ = new ResultErrorStd();
-        EffectInvokeBean instance_ = (EffectInvokeBean) ((RealInstanceStruct)_instance).getInstance();
+        EffectInvokeBean instance_ = (EffectInvokeBean) ((BeanStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringUtil.quickEq(fieldName_,INVOKING_MOVE_BUT_USER)) {
             res_.setResult(BooleanStruct.of(instance_.getInvokingMoveButUser()));
@@ -1801,7 +1801,7 @@ public final class AikiBeansMovesEffectsStd {
     public static ResultErrorStd getResultEffectMultSufferedMovePowerBean(ContextEl _cont, ClassField _classField, Struct _instance) {
         BeanNatLgNames std_ = (BeanNatLgNames) _cont.getStandards();
         ResultErrorStd res_ = new ResultErrorStd();
-        EffectMultSufferedMovePowerBean instance_ = (EffectMultSufferedMovePowerBean) ((RealInstanceStruct)_instance).getInstance();
+        EffectMultSufferedMovePowerBean instance_ = (EffectMultSufferedMovePowerBean) ((BeanStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringUtil.quickEq(fieldName_,MULT_MOVE_POWER_FCT_TYPE)) {
             res_.setResult(PokemonStandards.getStrRate(_cont,instance_.getMultMovePowerFctType()));
@@ -1812,7 +1812,7 @@ public final class AikiBeansMovesEffectsStd {
     public static ResultErrorStd getResultEffectMultUsedMovePowerBean(ContextEl _cont, ClassField _classField, Struct _instance) {
         BeanNatLgNames std_ = (BeanNatLgNames) _cont.getStandards();
         ResultErrorStd res_ = new ResultErrorStd();
-        EffectMultUsedMovePowerBean instance_ = (EffectMultUsedMovePowerBean) ((RealInstanceStruct)_instance).getInstance();
+        EffectMultUsedMovePowerBean instance_ = (EffectMultUsedMovePowerBean) ((BeanStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringUtil.quickEq(fieldName_,MULT_MOVE_POWER_FCT_TYPE)) {
             res_.setResult(PokemonStandards.getStrRate(_cont,instance_.getMultMovePowerFctType()));
@@ -1822,7 +1822,7 @@ public final class AikiBeansMovesEffectsStd {
     }
     public static ResultErrorStd getResultEffectOrderBean(ContextEl _cont, ClassField _classField, Struct _instance) {
         ResultErrorStd res_ = new ResultErrorStd();
-        EffectOrderBean instance_ = (EffectOrderBean) ((RealInstanceStruct)_instance).getInstance();
+        EffectOrderBean instance_ = (EffectOrderBean) ((BeanStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringUtil.quickEq(fieldName_,TARGET_ATTACKS_LAST)) {
             res_.setResult(BooleanStruct.of(instance_.getTargetAttacksLast()));
@@ -1833,7 +1833,7 @@ public final class AikiBeansMovesEffectsStd {
     public static ResultErrorStd getResultEffectProtectFromTypesBean(ContextEl _cont, ClassField _classField, Struct _instance) {
         BeanNatLgNames std_ = (BeanNatLgNames) _cont.getStandards();
         ResultErrorStd res_ = new ResultErrorStd();
-        EffectProtectFromTypesBean instance_ = (EffectProtectFromTypesBean) ((RealInstanceStruct)_instance).getInstance();
+        EffectProtectFromTypesBean instance_ = (EffectProtectFromTypesBean) ((BeanStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringUtil.quickEq(fieldName_,IMMU_AGAINST_TYPES)) {
             res_.setResult(std_.getStringArray(instance_.getImmuAgainstTypes()));
@@ -1843,7 +1843,7 @@ public final class AikiBeansMovesEffectsStd {
     }
     public static ResultErrorStd getResultEffectProtectionBean(ContextEl _cont, ClassField _classField, Struct _instance) {
         ResultErrorStd res_ = new ResultErrorStd();
-        EffectProtectionBean instance_ = (EffectProtectionBean) ((RealInstanceStruct)_instance).getInstance();
+        EffectProtectionBean instance_ = (EffectProtectionBean) ((BeanStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringUtil.quickEq(fieldName_,PROT_SINGLE)) {
             res_.setResult(BooleanStruct.of(instance_.getProtSingle()));
@@ -1873,7 +1873,7 @@ public final class AikiBeansMovesEffectsStd {
     }
     public static ResultErrorStd getResultEffectRemainedHpRateBean(ContextEl _cont, ClassField _classField, Struct _instance) {
         ResultErrorStd res_ = new ResultErrorStd();
-        EffectRemainedHpRateBean instance_ = (EffectRemainedHpRateBean) ((RealInstanceStruct)_instance).getInstance();
+        EffectRemainedHpRateBean instance_ = (EffectRemainedHpRateBean) ((BeanStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringUtil.quickEq(fieldName_,WIN_HP)) {
             res_.setResult(BooleanStruct.of(instance_.getWinHp()));
@@ -1887,7 +1887,7 @@ public final class AikiBeansMovesEffectsStd {
     }
     public static ResultErrorStd getResultEffectRestrictionBean(ContextEl _cont, ClassField _classField, Struct _instance) {
         ResultErrorStd res_ = new ResultErrorStd();
-        EffectRestrictionBean instance_ = (EffectRestrictionBean) ((RealInstanceStruct)_instance).getInstance();
+        EffectRestrictionBean instance_ = (EffectRestrictionBean) ((BeanStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringUtil.quickEq(fieldName_,FORBID_TARGET_USING_ITEM)) {
             res_.setResult(BooleanStruct.of(instance_.getForbidTargetUsingItem()));
@@ -1898,7 +1898,7 @@ public final class AikiBeansMovesEffectsStd {
     public static ResultErrorStd getResultEffectStatisticBean(ContextEl _cont, ClassField _classField, Struct _instance) {
         BeanNatLgNames std_ = (BeanNatLgNames) _cont.getStandards();
         ResultErrorStd res_ = new ResultErrorStd();
-        EffectStatisticBean instance_ = (EffectStatisticBean) ((RealInstanceStruct)_instance).getInstance();
+        EffectStatisticBean instance_ = (EffectStatisticBean) ((BeanStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringUtil.quickEq(fieldName_,EVT_RATE)) {
             res_.setResult(new RateStruct(instance_.getEvtRate(),PokemonStandards.TYPE_RATE));
@@ -1941,7 +1941,7 @@ public final class AikiBeansMovesEffectsStd {
     public static ResultErrorStd getResultEffectStatusBean(ContextEl _cont, ClassField _classField, Struct _instance) {
         BeanNatLgNames std_ = (BeanNatLgNames) _cont.getStandards();
         ResultErrorStd res_ = new ResultErrorStd();
-        EffectStatusBean instance_ = (EffectStatusBean) ((RealInstanceStruct)_instance).getInstance();
+        EffectStatusBean instance_ = (EffectStatusBean) ((BeanStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringUtil.quickEq(fieldName_,LAW_STATUS)) {
             res_.setResult(PokemonStandards.getStrRate(_cont,instance_.getLawStatus()));
@@ -1968,7 +1968,7 @@ public final class AikiBeansMovesEffectsStd {
     public static ResultErrorStd getResultEffectSwitchMoveTypesBean(ContextEl _cont, ClassField _classField, Struct _instance) {
         BeanNatLgNames std_ = (BeanNatLgNames) _cont.getStandards();
         ResultErrorStd res_ = new ResultErrorStd();
-        EffectSwitchMoveTypesBean instance_ = (EffectSwitchMoveTypesBean) ((RealInstanceStruct)_instance).getInstance();
+        EffectSwitchMoveTypesBean instance_ = (EffectSwitchMoveTypesBean) ((BeanStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringUtil.quickEq(fieldName_,REPLACING_TYPES)) {
             res_.setResult(std_.getStringArray(instance_.getReplacingTypes()));
@@ -1983,7 +1983,7 @@ public final class AikiBeansMovesEffectsStd {
     public static ResultErrorStd getResultEffectSwitchTypesBean(ContextEl _cont, ClassField _classField, Struct _instance) {
         BeanNatLgNames std_ = (BeanNatLgNames) _cont.getStandards();
         ResultErrorStd res_ = new ResultErrorStd();
-        EffectSwitchTypesBean instance_ = (EffectSwitchTypesBean) ((RealInstanceStruct)_instance).getInstance();
+        EffectSwitchTypesBean instance_ = (EffectSwitchTypesBean) ((BeanStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringUtil.quickEq(fieldName_,CHGT_TYPE_BY_ENV)) {
             res_.setResult(PokemonStandards.getStrStr(_cont,instance_.getChgtTypeByEnv()));
@@ -2006,7 +2006,7 @@ public final class AikiBeansMovesEffectsStd {
     public static ResultErrorStd getResultEffectTeamBean(ContextEl _cont, ClassField _classField, Struct _instance) {
         BeanNatLgNames std_ = (BeanNatLgNames) _cont.getStandards();
         ResultErrorStd res_ = new ResultErrorStd();
-        EffectTeamBean instance_ = (EffectTeamBean) ((RealInstanceStruct)_instance).getInstance();
+        EffectTeamBean instance_ = (EffectTeamBean) ((BeanStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringUtil.quickEq(fieldName_,FORBIDDING_HEALING)) {
             res_.setResult(BooleanStruct.of(instance_.getForbiddingHealing()));
@@ -2069,7 +2069,7 @@ public final class AikiBeansMovesEffectsStd {
     public static ResultErrorStd getResultEffectTeamWhileSendFoeBean(ContextEl _cont, ClassField _classField, Struct _instance) {
         BeanNatLgNames std_ = (BeanNatLgNames) _cont.getStandards();
         ResultErrorStd res_ = new ResultErrorStd();
-        EffectTeamWhileSendFoeBean instance_ = (EffectTeamWhileSendFoeBean) ((RealInstanceStruct)_instance).getInstance();
+        EffectTeamWhileSendFoeBean instance_ = (EffectTeamWhileSendFoeBean) ((BeanStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringUtil.quickEq(fieldName_,DAMAGE_RATE_AGAINST_FOE)) {
             res_.setResult(new StringStruct(instance_.getDamageRateAgainstFoe()));
@@ -2104,7 +2104,7 @@ public final class AikiBeansMovesEffectsStd {
     public static ResultErrorStd getResultEffectUnprotectFromTypesBean(ContextEl _cont, ClassField _classField, Struct _instance) {
         BeanNatLgNames std_ = (BeanNatLgNames) _cont.getStandards();
         ResultErrorStd res_ = new ResultErrorStd();
-        EffectUnprotectFromTypesBean instance_ = (EffectUnprotectFromTypesBean) ((RealInstanceStruct)_instance).getInstance();
+        EffectUnprotectFromTypesBean instance_ = (EffectUnprotectFromTypesBean) ((BeanStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringUtil.quickEq(fieldName_,TYPES)) {
             res_.setResult(PokemonStandards.getTypesDuo(instance_.getTypes()));
@@ -2126,7 +2126,7 @@ public final class AikiBeansMovesEffectsStd {
     }
     public static ResultErrorStd getResultEffectVarPPBean(ContextEl _cont, ClassField _classField, Struct _instance) {
         ResultErrorStd res_ = new ResultErrorStd();
-        EffectVarPPBean instance_ = (EffectVarPPBean) ((RealInstanceStruct)_instance).getInstance();
+        EffectVarPPBean instance_ = (EffectVarPPBean) ((BeanStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringUtil.quickEq(fieldName_,DELETE_PP)) {
             res_.setResult(new IntStruct(instance_.getDeletePp()));
@@ -2136,7 +2136,7 @@ public final class AikiBeansMovesEffectsStd {
     }
     public static ResultErrorStd getResultEffectWinMoneyBean(ContextEl _cont, ClassField _classField, Struct _instance) {
         ResultErrorStd res_ = new ResultErrorStd();
-        EffectWinMoneyBean instance_ = (EffectWinMoneyBean) ((RealInstanceStruct)_instance).getInstance();
+        EffectWinMoneyBean instance_ = (EffectWinMoneyBean) ((BeanStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringUtil.quickEq(fieldName_,WINNING_RATE_BY_SUM_TARGET_USER)) {
             res_.setResult(new RateStruct(instance_.getWinningRateBySumTargetUser(),PokemonStandards.TYPE_RATE));
@@ -2146,7 +2146,7 @@ public final class AikiBeansMovesEffectsStd {
     }
     public static ResultErrorStd setResultEffectBean(ContextEl _cont, ClassField _classField, Struct _instance, Struct _val) {
         ResultErrorStd res_ = new ResultErrorStd();
-        EffectBean instance_ = (EffectBean) ((RealInstanceStruct)_instance).getInstance();
+        EffectBean instance_ = (EffectBean) ((BeanStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringUtil.quickEq(fieldName_,INDEX)) {
             instance_.setIndex(NumParsers.convertToNumber(_val).intStruct());
@@ -2161,7 +2161,7 @@ public final class AikiBeansMovesEffectsStd {
         return res_;
     }
     public static ResultErrorStd invokeMethodEffectBatonPassBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Struct... _args) {
-        EffectBatonPassBean instance_ = (EffectBatonPassBean) ((RealInstanceStruct)_instance).getInstance();
+        EffectBatonPassBean instance_ = (EffectBatonPassBean) ((BeanStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringUtil.quickEq(methodName_,CLICK_MOVE)) {
@@ -2175,7 +2175,7 @@ public final class AikiBeansMovesEffectsStd {
         return AikiBeansMovesEffectsStd.invokeMethodEffectBean(_cont, _instance, _method, _args);
     }
     public static ResultErrorStd invokeMethodEffectBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Struct... _args) {
-        EffectBean instance_ = (EffectBean) ((RealInstanceStruct)_instance).getInstance();
+        EffectBean instance_ = (EffectBean) ((BeanStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringUtil.quickEq(methodName_,IS_ADJ_ADV)) {
@@ -2229,7 +2229,7 @@ public final class AikiBeansMovesEffectsStd {
         return res_;
     }
     public static ResultErrorStd invokeMethodEffectCloneBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Struct... _args) {
-        EffectCloneBean instance_ = (EffectCloneBean) ((RealInstanceStruct)_instance).getInstance();
+        EffectCloneBean instance_ = (EffectCloneBean) ((BeanStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringUtil.quickEq(methodName_,CLICK_MOVE_END_ROUND)) {
@@ -2259,7 +2259,7 @@ public final class AikiBeansMovesEffectsStd {
         return AikiBeansMovesEffectsStd.invokeMethodEffectBean(_cont, _instance, _method, _args);
     }
     public static ResultErrorStd invokeMethodEffectCommonStatisticsBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Struct... _args) {
-        EffectCommonStatisticsBean instance_ = (EffectCommonStatisticsBean) ((RealInstanceStruct)_instance).getInstance();
+        EffectCommonStatisticsBean instance_ = (EffectCommonStatisticsBean) ((BeanStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringUtil.quickEq(methodName_,GET_TR_STATISTIC)) {
@@ -2269,7 +2269,7 @@ public final class AikiBeansMovesEffectsStd {
         return AikiBeansMovesEffectsStd.invokeMethodEffectBean(_cont, _instance, _method, _args);
     }
     public static ResultErrorStd invokeMethodEffectCopyMoveBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Struct... _args) {
-        EffectCopyMoveBean instance_ = (EffectCopyMoveBean) ((RealInstanceStruct)_instance).getInstance();
+        EffectCopyMoveBean instance_ = (EffectCopyMoveBean) ((BeanStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringUtil.quickEq(methodName_,CLICK_DEFAULT_MOVE)) {
@@ -2304,7 +2304,7 @@ public final class AikiBeansMovesEffectsStd {
     }
     public static ResultErrorStd invokeMethodEffectCounterAttackBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Struct... _args) {
         BeanNatLgNames std_ = (BeanNatLgNames) _cont.getStandards();
-        EffectCounterAttackBean instance_ = (EffectCounterAttackBean) ((RealInstanceStruct)_instance).getInstance();
+        EffectCounterAttackBean instance_ = (EffectCounterAttackBean) ((BeanStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringUtil.quickEq(methodName_,GET_TR_SUFFERING_DAMAGE_TYPES)) {
@@ -2322,7 +2322,7 @@ public final class AikiBeansMovesEffectsStd {
         return AikiBeansMovesEffectsStd.invokeMethodEffectBean(_cont, _instance, _method, _args);
     }
     public static ResultErrorStd invokeMethodEffectDamageBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Struct... _args) {
-        EffectDamageBean instance_ = (EffectDamageBean) ((RealInstanceStruct)_instance).getInstance();
+        EffectDamageBean instance_ = (EffectDamageBean) ((BeanStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringUtil.quickEq(methodName_,HAS_LAW_FOR_DAMAGE)) {
@@ -2360,7 +2360,7 @@ public final class AikiBeansMovesEffectsStd {
         return AikiBeansMovesEffectsStd.invokeMethodEffectBean(_cont, _instance, _method, _args);
     }
     public static ResultErrorStd invokeMethodEffectGlobalBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Struct... _args) {
-        EffectGlobalBean instance_ = (EffectGlobalBean) ((RealInstanceStruct)_instance).getInstance();
+        EffectGlobalBean instance_ = (EffectGlobalBean) ((BeanStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringUtil.quickEq(methodName_,CLICK_PREVENTED_STATUS)) {
@@ -2446,7 +2446,7 @@ public final class AikiBeansMovesEffectsStd {
         return AikiBeansMovesEffectsStd.invokeMethodEffectBean(_cont, _instance, _method, _args);
     }
     public static ResultErrorStd invokeMethodEffectInvokeBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Struct... _args) {
-        EffectInvokeBean instance_ = (EffectInvokeBean) ((RealInstanceStruct)_instance).getInstance();
+        EffectInvokeBean instance_ = (EffectInvokeBean) ((BeanStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringUtil.quickEq(methodName_,GET_TR_ENV)) {
@@ -2496,7 +2496,7 @@ public final class AikiBeansMovesEffectsStd {
         return AikiBeansMovesEffectsStd.invokeMethodEffectBean(_cont, _instance, _method, _args);
     }
     public static ResultErrorStd invokeMethodEffectMultSufferedMovePowerBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Struct... _args) {
-        EffectMultSufferedMovePowerBean instance_ = (EffectMultSufferedMovePowerBean) ((RealInstanceStruct)_instance).getInstance();
+        EffectMultSufferedMovePowerBean instance_ = (EffectMultSufferedMovePowerBean) ((BeanStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringUtil.quickEq(methodName_,GET_TR_TYPE)) {
@@ -2506,7 +2506,7 @@ public final class AikiBeansMovesEffectsStd {
         return AikiBeansMovesEffectsStd.invokeMethodEffectBean(_cont, _instance, _method, _args);
     }
     public static ResultErrorStd invokeMethodEffectMultUsedMovePowerBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Struct... _args) {
-        EffectMultUsedMovePowerBean instance_ = (EffectMultUsedMovePowerBean) ((RealInstanceStruct)_instance).getInstance();
+        EffectMultUsedMovePowerBean instance_ = (EffectMultUsedMovePowerBean) ((BeanStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringUtil.quickEq(methodName_,GET_TR_TYPE)) {
@@ -2516,7 +2516,7 @@ public final class AikiBeansMovesEffectsStd {
         return AikiBeansMovesEffectsStd.invokeMethodEffectBean(_cont, _instance, _method, _args);
     }
     public static ResultErrorStd invokeMethodEffectProtectFromTypesBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Struct... _args) {
-        EffectProtectFromTypesBean instance_ = (EffectProtectFromTypesBean) ((RealInstanceStruct)_instance).getInstance();
+        EffectProtectFromTypesBean instance_ = (EffectProtectFromTypesBean) ((BeanStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringUtil.quickEq(methodName_,GET_TR_TYPE)) {
@@ -2526,7 +2526,7 @@ public final class AikiBeansMovesEffectsStd {
         return AikiBeansMovesEffectsStd.invokeMethodEffectBean(_cont, _instance, _method, _args);
     }
     public static ResultErrorStd invokeMethodEffectRestrictionBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Struct... _args) {
-        EffectRestrictionBean instance_ = (EffectRestrictionBean) ((RealInstanceStruct)_instance).getInstance();
+        EffectRestrictionBean instance_ = (EffectRestrictionBean) ((BeanStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringUtil.quickEq(methodName_,FORBID)) {
@@ -2556,7 +2556,7 @@ public final class AikiBeansMovesEffectsStd {
         return AikiBeansMovesEffectsStd.invokeMethodEffectBean(_cont, _instance, _method, _args);
     }
     public static ResultErrorStd invokeMethodEffectStatisticBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Struct... _args) {
-        EffectStatisticBean instance_ = (EffectStatisticBean) ((RealInstanceStruct)_instance).getInstance();
+        EffectStatisticBean instance_ = (EffectStatisticBean) ((BeanStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringUtil.quickEq(methodName_,RANDOM_STATIS)) {
@@ -2586,7 +2586,7 @@ public final class AikiBeansMovesEffectsStd {
         return AikiBeansMovesEffectsStd.invokeMethodEffectBean(_cont, _instance, _method, _args);
     }
     public static ResultErrorStd invokeMethodEffectStatusBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Struct... _args) {
-        EffectStatusBean instance_ = (EffectStatusBean) ((RealInstanceStruct)_instance).getInstance();
+        EffectStatusBean instance_ = (EffectStatusBean) ((BeanStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringUtil.quickEq(methodName_,IS_STATUS)) {
@@ -2616,7 +2616,7 @@ public final class AikiBeansMovesEffectsStd {
         return AikiBeansMovesEffectsStd.invokeMethodEffectBean(_cont, _instance, _method, _args);
     }
     public static ResultErrorStd invokeMethodEffectSwitchAbilitiesBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Struct... _args) {
-        EffectSwitchAbilitiesBean instance_ = (EffectSwitchAbilitiesBean) ((RealInstanceStruct)_instance).getInstance();
+        EffectSwitchAbilitiesBean instance_ = (EffectSwitchAbilitiesBean) ((BeanStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringUtil.quickEq(methodName_,GIVE_TO_TARGET)) {
@@ -2650,7 +2650,7 @@ public final class AikiBeansMovesEffectsStd {
         return AikiBeansMovesEffectsStd.invokeMethodEffectBean(_cont, _instance, _method, _args);
     }
     public static ResultErrorStd invokeMethodEffectSwitchItemsBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Struct... _args) {
-        EffectSwitchItemsBean instance_ = (EffectSwitchItemsBean) ((RealInstanceStruct)_instance).getInstance();
+        EffectSwitchItemsBean instance_ = (EffectSwitchItemsBean) ((BeanStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringUtil.quickEq(methodName_,DELETE_TARGET_BERRY)) {
@@ -2684,7 +2684,7 @@ public final class AikiBeansMovesEffectsStd {
         return AikiBeansMovesEffectsStd.invokeMethodEffectBean(_cont, _instance, _method, _args);
     }
     public static ResultErrorStd invokeMethodEffectSwitchMoveTypesBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Struct... _args) {
-        EffectSwitchMoveTypesBean instance_ = (EffectSwitchMoveTypesBean) ((RealInstanceStruct)_instance).getInstance();
+        EffectSwitchMoveTypesBean instance_ = (EffectSwitchMoveTypesBean) ((BeanStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringUtil.quickEq(methodName_,GET_TR_REPLACING_TYPES)) {
@@ -2698,7 +2698,7 @@ public final class AikiBeansMovesEffectsStd {
         return AikiBeansMovesEffectsStd.invokeMethodEffectBean(_cont, _instance, _method, _args);
     }
     public static ResultErrorStd invokeMethodEffectSwitchPointViewBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Struct... _args) {
-        EffectSwitchPointViewBean instance_ = (EffectSwitchPointViewBean) ((RealInstanceStruct)_instance).getInstance();
+        EffectSwitchPointViewBean instance_ = (EffectSwitchPointViewBean) ((BeanStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringUtil.quickEq(methodName_,THIEVE_BONUS)) {
@@ -2716,7 +2716,7 @@ public final class AikiBeansMovesEffectsStd {
         return AikiBeansMovesEffectsStd.invokeMethodEffectBean(_cont, _instance, _method, _args);
     }
     public static ResultErrorStd invokeMethodEffectSwitchTypesBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Struct... _args) {
-        EffectSwitchTypesBean instance_ = (EffectSwitchTypesBean) ((RealInstanceStruct)_instance).getInstance();
+        EffectSwitchTypesBean instance_ = (EffectSwitchTypesBean) ((BeanStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringUtil.quickEq(methodName_,IS_RES_TYPES)) {
@@ -2770,7 +2770,7 @@ public final class AikiBeansMovesEffectsStd {
         return AikiBeansMovesEffectsStd.invokeMethodEffectBean(_cont, _instance, _method, _args);
     }
     public static ResultErrorStd invokeMethodEffectTeamBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Struct... _args) {
-        EffectTeamBean instance_ = (EffectTeamBean) ((RealInstanceStruct)_instance).getInstance();
+        EffectTeamBean instance_ = (EffectTeamBean) ((BeanStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringUtil.quickEq(methodName_,CLICK_STATUS)) {
@@ -2808,7 +2808,7 @@ public final class AikiBeansMovesEffectsStd {
         return AikiBeansMovesEffectsStd.invokeMethodEffectBean(_cont, _instance, _method, _args);
     }
     public static ResultErrorStd invokeMethodEffectTeamWhileSendFoeBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Struct... _args) {
-        EffectTeamWhileSendFoeBean instance_ = (EffectTeamWhileSendFoeBean) ((RealInstanceStruct)_instance).getInstance();
+        EffectTeamWhileSendFoeBean instance_ = (EffectTeamWhileSendFoeBean) ((BeanStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringUtil.quickEq(methodName_,GET_TRANSLATED_STATISTIC)) {
@@ -2830,7 +2830,7 @@ public final class AikiBeansMovesEffectsStd {
         return AikiBeansMovesEffectsStd.invokeMethodEffectBean(_cont, _instance, _method, _args);
     }
     public static ResultErrorStd invokeMethodEffectUnprotectFromTypesBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Struct... _args) {
-        EffectUnprotectFromTypesBean instance_ = (EffectUnprotectFromTypesBean) ((RealInstanceStruct)_instance).getInstance();
+        EffectUnprotectFromTypesBean instance_ = (EffectUnprotectFromTypesBean) ((BeanStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringUtil.quickEq(methodName_,GET_TR_DAMAGE_TYPE)) {

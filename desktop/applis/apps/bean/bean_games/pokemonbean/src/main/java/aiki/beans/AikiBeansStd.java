@@ -1,4 +1,5 @@
 package aiki.beans;
+import code.bean.BeanStruct;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.MethodModifier;
@@ -7,7 +8,6 @@ import code.expressionlanguage.stds.StandardClass;
 import code.expressionlanguage.stds.StandardConstructor;
 import code.expressionlanguage.stds.StandardField;
 import code.expressionlanguage.stds.StandardMethod;
-import code.bean.RealInstanceStruct;
 import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.structs.Struct;
 import code.bean.nat.BeanNatLgNames;
@@ -81,7 +81,7 @@ public final class AikiBeansStd {
         _std.getStandards().addEntry(TYPE_WELCOME_BEAN, type_);
     }
     public static ResultErrorStd invokeMethodWelcomeBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Struct... _args) {
-        WelcomeBean instance_ = (WelcomeBean) ((RealInstanceStruct)_instance).getInstance();
+        WelcomeBean instance_ = (WelcomeBean) ((BeanStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringUtil.quickEq(methodName_,CLICK_POKEDEX)) {

@@ -1,7 +1,9 @@
 package aiki.beans.facade.simulation.dto;
+import aiki.beans.MvLineStruct;
 import aiki.beans.PokemonStandards;
 import aiki.beans.facade.dto.AikiBeansFacadeDtoStd;
 import aiki.beans.facade.dto.MoveLine;
+import code.bean.BeanStruct;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.NumParsers;
@@ -14,7 +16,6 @@ import code.expressionlanguage.stds.StandardMethod;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.IntStruct;
 import code.expressionlanguage.structs.NullStruct;
-import code.bean.RealInstanceStruct;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 import code.util.core.StringUtil;
@@ -131,7 +132,7 @@ public final class AikiBeansFacadeSimulationDtoStd {
             res_.setResult(new IntStruct(_inst.getIndex()));
             return res_;
         }
-        return AikiBeansFacadeDtoStd.getResultMoveLine(_cont, _classField, (MoveLine) ((RealInstanceStruct) _instance).getInstance());
+        return AikiBeansFacadeDtoStd.getResultMoveLine(_cont, _classField, _inst);
     }
     public static ResultErrorStd getResultSelectLineMove(ContextEl _cont, ClassField _classField, Struct _instance, SelectLineMove _inst) {
         ResultErrorStd res_ = new ResultErrorStd();
@@ -140,7 +141,7 @@ public final class AikiBeansFacadeSimulationDtoStd {
             res_.setResult(BooleanStruct.of(_inst.getSelected()));
             return res_;
         }
-        return AikiBeansFacadeDtoStd.getResultMoveLine(_cont, _classField, (MoveLine) ((RealInstanceStruct) _instance).getInstance());
+        return AikiBeansFacadeDtoStd.getResultMoveLine(_cont, _classField, _inst);
     }
     public static ResultErrorStd setResultEvLine(ContextEl _cont, ClassField _classField, Struct _val, EvLine _inst) {
         ResultErrorStd res_ = new ResultErrorStd();

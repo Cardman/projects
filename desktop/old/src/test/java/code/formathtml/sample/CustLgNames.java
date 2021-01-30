@@ -224,7 +224,7 @@ public final class CustLgNames extends BeanNatLgNames {
                                          ClassMethodId _method, Struct... _args) {
         Object instance_ = null;
         if (!_method.getConstraints().isStaticMethod()) {
-            instance_ = ((RealInstanceStruct)_instance).getInstance();
+            instance_ = ((BeanStruct)_instance).getInstance();
         }
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringUtil.quickEq(_method.getClassName(), aliasInts)) {
@@ -443,12 +443,12 @@ public final class CustLgNames extends BeanNatLgNames {
         String fieldName_ = _classField.getFieldName();
         if (StringUtil.quickEq(_classField.getClassName(), aliasComposite)) {
             if (StringUtil.quickEq(fieldName_, aliasIntegerField)) {
-                Composite cpt_ = (Composite) ((RealInstanceStruct)_instance).getInstance();
+                Composite cpt_ = (Composite) ((BeanStruct)_instance).getInstance();
                 res_.setResult(new IntStruct(cpt_.getInteger()));
                 return res_;
             }
             if (StringUtil.quickEq(fieldName_, aliasObjIntegerField)) {
-                Composite cpt_ = (Composite) ((RealInstanceStruct)_instance).getInstance();
+                Composite cpt_ = (Composite) ((BeanStruct)_instance).getInstance();
                 Integer i_ = cpt_.getObjInteger();
                 if (i_ != null) {
                     res_.setResult(new IntStruct(i_));
@@ -458,20 +458,20 @@ public final class CustLgNames extends BeanNatLgNames {
                 return res_;
             }
             if (StringUtil.quickEq(fieldName_, aliasCompositeField)) {
-                Composite cpt_ = (Composite) ((RealInstanceStruct)_instance).getInstance();
+                Composite cpt_ = (Composite) ((BeanStruct)_instance).getInstance();
                 CompositeSec i_ = cpt_.getComposite();
                 res_.setResult(StdStruct.newInstance(i_, aliasCompositeSec));
                 return res_;
             }
         }
         if (StringUtil.quickEq(_classField.getClassName(), aliasCompositeSec)) {
-            CompositeSec cpt_ = (CompositeSec) ((RealInstanceStruct)_instance).getInstance();
+            CompositeSec cpt_ = (CompositeSec) ((BeanStruct)_instance).getInstance();
             res_.setResult(new IntStruct(cpt_.getInteger()));
             return res_;
         }
         if (StringUtil.quickEq(_classField.getClassName(), aliasBeanOne)) {
             if (StringUtil.quickEq(fieldName_, aliasCompositeField)) {
-                BeanOne cpt_ = (BeanOne) ((RealInstanceStruct)_instance).getInstance();
+                BeanOne cpt_ = (BeanOne) ((BeanStruct)_instance).getInstance();
                 res_.setResult(new StdStruct(cpt_.getComposite(), aliasComposite));
                 return res_;
             }
@@ -493,13 +493,13 @@ public final class CustLgNames extends BeanNatLgNames {
         String fieldName_ = _classField.getFieldName();
         if (StringUtil.quickEq(_classField.getClassName(), aliasComposite)) {
             if (StringUtil.quickEq(fieldName_, aliasIntegerField)) {
-                Composite cpt_ = (Composite) ((RealInstanceStruct)_instance).getInstance();
+                Composite cpt_ = (Composite) ((BeanStruct)_instance).getInstance();
                 cpt_.setInteger((Integer)(Object)_val);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
             if (StringUtil.quickEq(fieldName_, aliasObjIntegerField)) {
-                Composite cpt_ = (Composite) ((RealInstanceStruct)_instance).getInstance();
+                Composite cpt_ = (Composite) ((BeanStruct)_instance).getInstance();
                 cpt_.setObjInteger((Integer)(Object)_val);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;

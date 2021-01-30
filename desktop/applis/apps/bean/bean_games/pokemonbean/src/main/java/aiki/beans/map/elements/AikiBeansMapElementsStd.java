@@ -1,5 +1,6 @@
 package aiki.beans.map.elements;
 import aiki.beans.*;
+import code.bean.BeanStruct;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.NumParsers;
@@ -10,7 +11,6 @@ import code.expressionlanguage.stds.StandardClass;
 import code.expressionlanguage.stds.StandardConstructor;
 import code.expressionlanguage.stds.StandardField;
 import code.expressionlanguage.stds.StandardMethod;
-import code.bean.RealInstanceStruct;
 import code.expressionlanguage.structs.IntStruct;
 import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.structs.Struct;
@@ -181,7 +181,7 @@ public final class AikiBeansMapElementsStd {
     }
     public static ResultErrorStd getResultAreaBean(ContextEl _cont, ClassField _classField, Struct _instance) {
         ResultErrorStd res_ = new ResultErrorStd();
-        AreaBean instance_ = (AreaBean) ((RealInstanceStruct)_instance).getInstance();
+        AreaBean instance_ = (AreaBean) ((BeanStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringUtil.quickEq(fieldName_,AREA)) {
             res_.setResult(new AreaApparitionStruct(instance_.getArea(),PokemonStandards.TYPE_AREA_APPARITION));
@@ -191,7 +191,7 @@ public final class AikiBeansMapElementsStd {
     }
     public static ResultErrorStd getResultLegendaryPokemonBean(ContextEl _cont, ClassField _classField, Struct _instance) {
         ResultErrorStd res_ = new ResultErrorStd();
-        LegendaryPokemonBean instance_ = (LegendaryPokemonBean) ((RealInstanceStruct)_instance).getInstance();
+        LegendaryPokemonBean instance_ = (LegendaryPokemonBean) ((BeanStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringUtil.quickEq(fieldName_,POKEMON)) {
             res_.setResult(new PkStruct(instance_.getPokemon(),PokemonStandards.TYPE_POKEMON));
@@ -201,7 +201,7 @@ public final class AikiBeansMapElementsStd {
     }
     public static ResultErrorStd invokeMethodAreaBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Struct... _args) {
         BeanNatLgNames std_ = (BeanNatLgNames) _cont.getStandards();
-        AreaBean instance_ = (AreaBean) ((RealInstanceStruct)_instance).getInstance();
+        AreaBean instance_ = (AreaBean) ((BeanStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringUtil.quickEq(methodName_,GET_IMAGE)) {
@@ -292,7 +292,7 @@ public final class AikiBeansMapElementsStd {
     }
     public static ResultErrorStd invokeMethodLegendaryPokemonBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Struct... _args) {
         BeanNatLgNames std_ = (BeanNatLgNames) _cont.getStandards();
-        LegendaryPokemonBean instance_ = (LegendaryPokemonBean) ((RealInstanceStruct)_instance).getInstance();
+        LegendaryPokemonBean instance_ = (LegendaryPokemonBean) ((BeanStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringUtil.quickEq(methodName_,GET_NAME)) {

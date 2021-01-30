@@ -2,16 +2,9 @@ package code.bean.nat;
 
 import code.bean.Bean;
 import code.bean.BeanStruct;
-import code.bean.RealInstanceStruct;
 import code.bean.validator.Validator;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.analyze.DefaultConstantsCalculator;
-import code.expressionlanguage.analyze.DefaultFileBuilder;
-import code.expressionlanguage.analyze.ReportedMessages;
-import code.expressionlanguage.analyze.errors.AnalysisMessages;
-import code.expressionlanguage.analyze.files.CommentDelimiters;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.analyze.opers.StandardInstancingOperation;
 import code.expressionlanguage.common.ClassField;

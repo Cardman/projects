@@ -16,7 +16,6 @@ import code.expressionlanguage.functionid.MethodModifier;
 import code.expressionlanguage.stds.*;
 import code.expressionlanguage.structs.*;
 import code.bean.BeanStruct;
-import code.bean.RealInstanceStruct;
 import code.bean.nat.BeanNatLgNames;
 import code.bean.nat.DefaultInitialization;
 import code.formathtml.structs.BeanInfo;
@@ -280,14 +279,14 @@ public final class BeloteStandards extends BeanNatLgNames {
             }
             return res_;
         }
-        if (((RealInstanceStruct)_instance).getInstance() instanceof DetailsResultsBeloteBean) {
+        if (((BeanStruct)_instance).getInstance() instanceof DetailsResultsBeloteBean) {
             if (StringUtil.quickEq(fieldName_, DECLARING)) {
-                res_.setResult(getSumDeclaringPlayerArray(((DetailsResultsBeloteBean)((RealInstanceStruct)_instance).getInstance()).getDeclaring()));
+                res_.setResult(getSumDeclaringPlayerArray(((DetailsResultsBeloteBean)((BeanStruct)_instance).getInstance()).getDeclaring()));
                 return res_;
             }
         }
-        if (((RealInstanceStruct)_instance).getInstance() instanceof ResultsBeloteBean) {
-            ResultsBeloteBean instance_ = (ResultsBeloteBean) ((RealInstanceStruct)_instance).getInstance();
+        if (((BeanStruct)_instance).getInstance() instanceof ResultsBeloteBean) {
+            ResultsBeloteBean instance_ = (ResultsBeloteBean) ((BeanStruct)_instance).getInstance();
             if (StringUtil.quickEq(fieldName_, POINTS_ATTAQUE_SANS_PRIME)) {
                 res_.setResult(new IntStruct(instance_.getPointsAttaqueSansPrime()));
                 return res_;
@@ -334,8 +333,8 @@ public final class BeloteStandards extends BeanNatLgNames {
             }
         }
 
-        if (((RealInstanceStruct)_instance).getInstance() instanceof RulesBeloteBean) {
-            RulesBeloteBean instance_ = (RulesBeloteBean) ((RealInstanceStruct)_instance).getInstance();
+        if (((BeanStruct)_instance).getInstance() instanceof RulesBeloteBean) {
+            RulesBeloteBean instance_ = (RulesBeloteBean) ((BeanStruct)_instance).getInstance();
             if (StringUtil.quickEq(fieldName_, CARTES_BATTUES)) {
                 res_.setResult(new StringStruct(instance_.getCartesBattues()));
                 return res_;
@@ -410,22 +409,22 @@ public final class BeloteStandards extends BeanNatLgNames {
     public ResultErrorStd getOtherResultBean(ContextEl _cont, Struct _instance,
             ClassMethodId _method, Struct... _args) {
         ResultErrorStd res_ = new ResultErrorStd();
-        if (((RealInstanceStruct)_instance).getInstance() instanceof BeloteBean) {
+        if (((BeanStruct)_instance).getInstance() instanceof BeloteBean) {
             if (StringUtil.quickEq(_method.getConstraints().getName(), PLAY_GAME)) {
-                res_.setResult(BooleanStruct.of(((BeloteBean)((RealInstanceStruct)_instance).getInstance()).playGame()));
+                res_.setResult(BooleanStruct.of(((BeloteBean)((BeanStruct)_instance).getInstance()).playGame()));
                 return res_;
             }
             if (StringUtil.quickEq(_method.getConstraints().getName(), GET_NICKNAMES)) {
-                res_.setResult(getStringArray(((BeloteBean)((RealInstanceStruct)_instance).getInstance()).getNicknames()));
+                res_.setResult(getStringArray(((BeloteBean)((BeanStruct)_instance).getInstance()).getNicknames()));
                 return res_;
             }
             if (StringUtil.quickEq(_method.getConstraints().getName(), GET_SCORES)) {
-                res_.setResult(getLongsArray(((BeloteBean)((RealInstanceStruct)_instance).getInstance()).getScores()));
+                res_.setResult(getLongsArray(((BeloteBean)((BeanStruct)_instance).getInstance()).getScores()));
                 return res_;
             }
         }
-        if (((RealInstanceStruct)_instance).getInstance() instanceof ResultsBeloteBean) {
-            ResultsBeloteBean instance_ = (ResultsBeloteBean) ((RealInstanceStruct)_instance).getInstance();
+        if (((BeanStruct)_instance).getInstance() instanceof ResultsBeloteBean) {
+            ResultsBeloteBean instance_ = (ResultsBeloteBean) ((BeanStruct)_instance).getInstance();
             if (StringUtil.quickEq(_method.getConstraints().getName(), WIN)) {
                 res_.setResult(BooleanStruct.of(instance_.win()));
                 return res_;

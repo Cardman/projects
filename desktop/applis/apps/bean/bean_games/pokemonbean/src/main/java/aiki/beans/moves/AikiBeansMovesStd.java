@@ -4,9 +4,11 @@ import aiki.beans.MvLineStruct;
 import aiki.beans.PokemonStandards;
 import aiki.beans.facade.dto.AikiBeansFacadeDtoStd;
 import aiki.beans.facade.dto.MoveLine;
+import code.bean.BeanStruct;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.NumParsers;
+import code.expressionlanguage.exec.opers.ExecArrayFieldOperation;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.MethodModifier;
 import code.expressionlanguage.stds.ResultErrorStd;
@@ -15,7 +17,6 @@ import code.expressionlanguage.stds.StandardConstructor;
 import code.expressionlanguage.stds.StandardField;
 import code.expressionlanguage.stds.StandardMethod;
 import code.expressionlanguage.structs.*;
-import code.bean.RealInstanceStruct;
 import code.bean.nat.BeanNatLgNames;
 import code.util.CustList;
 import code.util.StringList;
@@ -409,7 +410,7 @@ public final class AikiBeansMovesStd {
     public static ResultErrorStd getResultMoveBean(ContextEl _cont, ClassField _classField, Struct _instance) {
         BeanNatLgNames std_ = (BeanNatLgNames) _cont.getStandards();
         ResultErrorStd res_ = new ResultErrorStd();
-        MoveBean instance_ = (MoveBean) ((RealInstanceStruct)_instance).getInstance();
+        MoveBean instance_ = (MoveBean) ((BeanStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringUtil.quickEq(fieldName_,DISPLAY_NAME)) {
             res_.setResult(new StringStruct(instance_.getDisplayName()));
@@ -552,7 +553,7 @@ public final class AikiBeansMovesStd {
     public static ResultErrorStd getResultMoveLineBean(ContextEl _cont, ClassField _classField, Struct _instance) {
         BeanNatLgNames std_ = (BeanNatLgNames) _cont.getStandards();
         ResultErrorStd res_ = new ResultErrorStd();
-        MoveLineBean instance_ = (MoveLineBean) ((RealInstanceStruct)_instance).getInstance();
+        MoveLineBean instance_ = (MoveLineBean) ((BeanStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringUtil.quickEq(fieldName_,INDEX)) {
             res_.setResult(new IntStruct(instance_.getIndex()));
@@ -595,7 +596,7 @@ public final class AikiBeansMovesStd {
     public static ResultErrorStd getResultMovesBean(ContextEl _cont, ClassField _classField, Struct _instance) {
         BeanNatLgNames std_ = (BeanNatLgNames) _cont.getStandards();
         ResultErrorStd res_ = new ResultErrorStd();
-        MovesBean instance_ = (MovesBean) ((RealInstanceStruct)_instance).getInstance();
+        MovesBean instance_ = (MovesBean) ((BeanStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringUtil.quickEq(fieldName_,TYPED_NAME)) {
             res_.setResult(new StringStruct(instance_.getTypedName()));
@@ -649,7 +650,7 @@ public final class AikiBeansMovesStd {
     }
     public static ResultErrorStd setResultMoveLineBean(ContextEl _cont, ClassField _classField, Struct _instance, Struct _val) {
         ResultErrorStd res_ = new ResultErrorStd();
-        MoveLineBean instance_ = (MoveLineBean) ((RealInstanceStruct)_instance).getInstance();
+        MoveLineBean instance_ = (MoveLineBean) ((BeanStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringUtil.quickEq(fieldName_,INDEX)) {
             instance_.setIndex(NumParsers.convertToNumber(_val).intStruct());
@@ -657,12 +658,17 @@ public final class AikiBeansMovesStd {
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,MOVE_LINE)) {
-            instance_.setMoveLine((MoveLine) ((RealInstanceStruct)_val).getInstance());
+            instance_.setMoveLine(((MvLineStruct)_val).getInstance());
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,SORTED_MOVES)) {
-            instance_.setSortedMoves((StringList) ((RealInstanceStruct)_val).getInstance());
+            ArrayStruct arr_ = ExecArrayFieldOperation.getArray(_val,_cont);
+            StringList elts_ = new StringList();
+            for (Struct s: arr_.getInstance()) {
+                elts_.add(NumParsers.getStringValue(s));
+            }
+            instance_.setSortedMoves(elts_);
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }
@@ -670,7 +676,7 @@ public final class AikiBeansMovesStd {
     }
     public static ResultErrorStd setResultMovesBean(ContextEl _cont, ClassField _classField, Struct _instance, Struct _val) {
         ResultErrorStd res_ = new ResultErrorStd();
-        MovesBean instance_ = (MovesBean) ((RealInstanceStruct)_instance).getInstance();
+        MovesBean instance_ = (MovesBean) ((BeanStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringUtil.quickEq(fieldName_,TYPED_NAME)) {
             instance_.setTypedName(NumParsers.getString(_val).getInstance());
@@ -715,7 +721,7 @@ public final class AikiBeansMovesStd {
         return res_;
     }
     public static ResultErrorStd invokeMethodMoveBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Struct... _args) {
-        MoveBean instance_ = (MoveBean) ((RealInstanceStruct)_instance).getInstance();
+        MoveBean instance_ = (MoveBean) ((BeanStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringUtil.quickEq(methodName_,CLICK_MOVES)) {
@@ -945,7 +951,7 @@ public final class AikiBeansMovesStd {
         return res_;
     }
     public static ResultErrorStd invokeMethodMoveLineBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Struct... _args) {
-        MoveLineBean instance_ = (MoveLineBean) ((RealInstanceStruct)_instance).getInstance();
+        MoveLineBean instance_ = (MoveLineBean) ((BeanStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringUtil.quickEq(methodName_,CLICK_MOVE)) {
@@ -955,7 +961,7 @@ public final class AikiBeansMovesStd {
         return res_;
     }
     public static ResultErrorStd invokeMethodMovesBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Struct... _args) {
-        MovesBean instance_ = (MovesBean) ((RealInstanceStruct)_instance).getInstance();
+        MovesBean instance_ = (MovesBean) ((BeanStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringUtil.quickEq(methodName_,SEARCH)) {

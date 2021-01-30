@@ -14,7 +14,6 @@ import code.expressionlanguage.functionid.MethodModifier;
 import code.expressionlanguage.stds.*;
 import code.expressionlanguage.structs.*;
 import code.bean.BeanStruct;
-import code.bean.RealInstanceStruct;
 import code.bean.nat.BeanNatLgNames;
 import code.bean.nat.DefaultInitialization;
 import code.formathtml.structs.BeanInfo;
@@ -138,18 +137,18 @@ public final class PresidentStandards extends BeanNatLgNames {
             }
             return res_;
         }
-        if (((RealInstanceStruct)_instance).getInstance() instanceof PresidentBean) {
+        if (((BeanStruct)_instance).getInstance() instanceof PresidentBean) {
             if (StringUtil.quickEq(fieldName_, NICKNAMES)) {
-                res_.setResult(getStringArray(((PresidentBean)((RealInstanceStruct)_instance).getInstance()).getNicknames()));
+                res_.setResult(getStringArray(((PresidentBean)((BeanStruct)_instance).getInstance()).getNicknames()));
                 return res_;
             }
             if (StringUtil.quickEq(fieldName_, LINES_DEAL)) {
-                res_.setResult(getLineDealArray(((PresidentBean)((RealInstanceStruct)_instance).getInstance()).getLinesDeal()));
+                res_.setResult(getLineDealArray(((PresidentBean)((BeanStruct)_instance).getInstance()).getLinesDeal()));
                 return res_;
             }
         }
-        if (((RealInstanceStruct)_instance).getInstance() instanceof RulesPresidentBean) {
-            RulesPresidentBean rules_ = (RulesPresidentBean) ((RealInstanceStruct)_instance).getInstance();
+        if (((BeanStruct)_instance).getInstance() instanceof RulesPresidentBean) {
+            RulesPresidentBean rules_ = (RulesPresidentBean) ((BeanStruct)_instance).getInstance();
             if (StringUtil.quickEq(fieldName_, NB_PLAYERS)) {
                 res_.setResult(new IntStruct(rules_.getNbPlayers()));
                 return res_;
@@ -212,9 +211,9 @@ public final class PresidentStandards extends BeanNatLgNames {
     public ResultErrorStd getOtherResultBean(ContextEl _cont, Struct _instance,
             ClassMethodId _method, Struct... _args) {
         ResultErrorStd res_ = new ResultErrorStd();
-        if (((RealInstanceStruct)_instance).getInstance() instanceof RulesPresidentBean) {
+        if (((BeanStruct)_instance).getInstance() instanceof RulesPresidentBean) {
             if (StringUtil.quickEq(_method.getConstraints().getName(), SAME_AMOUNT)) {
-                res_.setResult(BooleanStruct.of(((RulesPresidentBean)((RealInstanceStruct)_instance).getInstance()).sameAmount()));
+                res_.setResult(BooleanStruct.of(((RulesPresidentBean)((BeanStruct)_instance).getInstance()).sameAmount()));
                 return res_;
             }
         }

@@ -1,6 +1,5 @@
 package code.bean.nat;
 
-import code.bean.RealInstanceStruct;
 import code.expressionlanguage.analyze.*;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.exec.*;
@@ -109,12 +108,6 @@ public abstract class BeanNatLgNames extends BeanNatCommonLgNames {
         Struct struct_ = _arg.getStruct();
         if (struct_ instanceof DisplayableStruct) {
             return ((DisplayableStruct)struct_).getDisplayedString(_ctx).getInstance();
-        }
-        if (struct_ instanceof RealInstanceStruct) {
-            Object inst_ = ((RealInstanceStruct) struct_).getInstance();
-            if (inst_ instanceof Displayable) {
-                return ((Displayable)inst_).display();
-            }
         }
         return struct_.getClassName(_ctx);
     }
