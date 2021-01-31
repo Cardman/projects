@@ -6,6 +6,7 @@ import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.analyze.inherits.Mapping;
 import code.expressionlanguage.analyze.opers.util.*;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
+import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.expressionlanguage.analyze.variables.AnaLoopVariable;
 import code.expressionlanguage.analyze.variables.AnaNamedLocalVariable;
@@ -98,6 +99,9 @@ public final class AnonymousLambdaOperation extends
             mapping_.setArg(foundType_);
             if (AnaTemplates.isCorrectOrNumbers(mapping_, _page)) {
                 candidates_.add(foundType_);
+            } else {
+                StringList conv_ = InvokingOperation.tryInferOrImplicitFct(type_, pattern_.toString(), new StringMap<String>(), _page, foundType_);
+                candidates_.addAllElts(conv_);
             }
         }
         boolean list_ = false;
@@ -125,15 +129,14 @@ public final class AnonymousLambdaOperation extends
                         if (InvokingOperation.isValidNameIndex(filter_,methodInfo_,name_)) {
                             newList_.add(methodInfo_);
                         }
-                        String format_ = InvokingOperation.tryParamFormat(filter_,methodInfo_, name_, nbParentsInfer_, type_, vars_, _page);
-                        if (format_ == null) {
-                            continue;
+                        StringList format_ = InvokingOperation.tryParamFormatFct(filter_,methodInfo_, name_, nbParentsInfer_, type_, pattern_.toString(), vars_, _page);
+                        for (String c: format_) {
+                            mapping_.setArg(c);
+                            if (!AnaTemplates.isCorrectOrNumbers(mapping_, _page)) {
+                                continue;
+                            }
+                            candidates_.add(c);
                         }
-                        mapping_.setArg(format_);
-                        if (!AnaTemplates.isCorrectOrNumbers(mapping_, _page)) {
-                            continue;
-                        }
-                        candidates_.add(format_);
                     }
                     methodInfos_.set(i,newList_);
                 }
@@ -152,15 +155,14 @@ public final class AnonymousLambdaOperation extends
                     if (InvokingOperation.isValidNameIndex(filter_,methodInfo_,name_)) {
                         newList_.add(methodInfo_);
                     }
-                    String format_ = InvokingOperation.tryParamFormat(filter_,methodInfo_, name_, nbParentsInfer_, type_, vars_, _page);
-                    if (format_ == null) {
-                        continue;
+                    StringList format_ = InvokingOperation.tryParamFormatFct(filter_,methodInfo_, name_, nbParentsInfer_, type_, pattern_.toString(), vars_, _page);
+                    for (String c: format_) {
+                        mapping_.setArg(c);
+                        if (!AnaTemplates.isCorrectOrNumbers(mapping_, _page)) {
+                            continue;
+                        }
+                        candidates_.add(c);
                     }
-                    mapping_.setArg(format_);
-                    if (!AnaTemplates.isCorrectOrNumbers(mapping_, _page)) {
-                        continue;
-                    }
-                    candidates_.add(format_);
                 }
                 methodInfos_.clear();
                 methodInfos_.addAllElts(newList_);
@@ -180,15 +182,14 @@ public final class AnonymousLambdaOperation extends
                 int gr_ = methodInfos_.get(i).size();
                 for (int j = 0; j < gr_; j++) {
                     MethodInfo methodInfo_ = methodInfos_.get(i).get(j);
-                    String format_ = InvokingOperation.tryFormat(methodInfo_, indexChild_, nbParentsInfer_, type_, vars_, _page);
-                    if (format_ == null) {
-                        continue;
+                    StringList format_ = InvokingOperation.tryFormatFct(methodInfo_, indexChild_, nbParentsInfer_, type_, pattern_.toString(), vars_, _page);
+                    for (String c: format_) {
+                        mapping_.setArg(c);
+                        if (!AnaTemplates.isCorrectOrNumbers(mapping_, _page)) {
+                            continue;
+                        }
+                        candidates_.add(c);
                     }
-                    mapping_.setArg(format_);
-                    if (!AnaTemplates.isCorrectOrNumbers(mapping_, _page)) {
-                        continue;
-                    }
-                    candidates_.add(format_);
                 }
             }
         }
@@ -204,15 +205,14 @@ public final class AnonymousLambdaOperation extends
             int len_ = methodInfos_.size();
             for (int i = 0; i < len_; i++) {
                 ConstructorInfo methodInfo_ = methodInfos_.get(i);
-                String format_ = InvokingOperation.tryFormat(methodInfo_, indexChild_, nbParentsInfer_, type_, vars_, _page);
-                if (format_ == null) {
-                    continue;
+                StringList format_ = InvokingOperation.tryFormatFct(methodInfo_, indexChild_, nbParentsInfer_, type_, pattern_.toString(), vars_, _page);
+                for (String c: format_) {
+                    mapping_.setArg(c);
+                    if (!AnaTemplates.isCorrectOrNumbers(mapping_, _page)) {
+                        continue;
+                    }
+                    candidates_.add(c);
                 }
-                mapping_.setArg(format_);
-                if (!AnaTemplates.isCorrectOrNumbers(mapping_, _page)) {
-                    continue;
-                }
-                candidates_.add(format_);
             }
         }
         lambdaCommonContent.setFoundClass(_page.getGlobalClass());

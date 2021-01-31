@@ -6,6 +6,7 @@ import code.expressionlanguage.analyze.blocks.AnnotationBlock;
 import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.analyze.opers.util.ConstrustorIdVarArg;
+import code.expressionlanguage.analyze.opers.util.MethodInfo;
 import code.expressionlanguage.analyze.opers.util.VarsComparer;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
@@ -825,6 +826,22 @@ public final class AnaTemplates {
         //try infer here
         return processConstraints(genericString_, all_, sizeVar_,_vars, _page);
     }
+
+    public static StringList tryGetDeclaredImplicitCastFct(String _classes, StringMap<String> _varsOwner, String _arg, AnalyzedPageEl _page, StringMap<StringList> _vars) {
+        String arg_ = StringExpUtil.getIdFromAllTypes(_arg);
+        StringList ls_ = new StringList();
+        for (MethodInfo m: tryGetImplSgn(_classes,_arg,_page,_vars)) {
+            String formPar_ = m.getFormatted().shiftFirst().first();
+            String candidate_ = tryInferParam(_classes, _varsOwner, _page, _vars, arg_, _arg, formPar_, m.getReturnType());
+            tryAdd(ls_,candidate_);
+        }
+        return ls_;
+    }
+    public static void tryAdd(StringList _ls, String _candidate) {
+        if (_candidate != null) {
+            _ls.add(_candidate);
+        }
+    }
     public static String tryGetDeclaredImplicitCast(String _classes, StringMap<String> _varsOwner, String _arg, AnalyzedPageEl _page, StringMap<StringList> _vars) {
         AnaGeneType anaGeneType_ = _page.getAnaGeneType(_arg);
         StringMap<StringList> map_ = inhNb(anaGeneType_);
@@ -835,20 +852,25 @@ public final class AnaTemplates {
             return null;
         }
         String formPar_ = res_.getId().getConstraints().shiftFirst().first();
-        if (isVar(formPar_)) {
-            AnaGeneType typePar_ = _page.getAnaGeneType(StringExpUtil.getIdFromAllTypes(formPar_));
+        return tryInferParam(_classes, _varsOwner, _page, _vars, _arg, geneNb_, formPar_, res_.getReturnType());
+    }
+
+    private static String tryInferParam(String _classes, StringMap<String> _varsOwner, AnalyzedPageEl _page, StringMap<StringList> _vars, String _arg, String _gene, String _formPar, String _retType) {
+        if (isVar(_formPar)) {
+            AnaGeneType typePar_ = _page.getAnaGeneType(StringExpUtil.getIdFromAllTypes(_formPar));
             StringMap<StringList> mapTwo_ = inhNb(typePar_);
             mapTwo_.addAllEntries(_vars);
             String geneNbTwo_ = getGeneNb(typePar_);
             CustList<TypeVar> varTypes_ = ContextUtil.getParamTypesMapValues(typePar_);
             int sizeVar_ = varTypes_.size();
-            CustList<Matching> cts_ = inf(res_.getReturnType(),_classes,mapTwo_, _page);
-            cts_.addAllElts(inf(geneNb_,formPar_,mapTwo_, _page));
+            CustList<Matching> cts_ = inf(_retType,_classes,mapTwo_, _page);
+            cts_.addAllElts(inf(_gene,_formPar,mapTwo_, _page));
             String formParam_ = processConstraints(geneNbTwo_, cts_, sizeVar_, mapTwo_, _page);
             return tryInfer(_arg,_varsOwner,formParam_,_page);
         }
-        return tryInfer(_arg,_varsOwner,formPar_,_page);
+        return tryInfer(_arg,_varsOwner,_formPar,_page);
     }
+
     private static CustList<Matching> inf(String _arg, String _par,StringMap<StringList> _inh, AnalyzedPageEl _page) {
         Mapping mapping_ = new Mapping();
         mapping_.setArg(_arg);
@@ -858,6 +880,10 @@ public final class AnaTemplates {
     }
     public static ClassMethodIdReturn tryGetDeclaredImplicitCast(String _classes, AnaClassArgumentMatching _arg, AnalyzedPageEl _page, StringMap<StringList> _vars) {
         return OperationNode.tryGetDeclaredImplicitCast(_classes, _arg, _page, _vars, new VarsComparer());
+    }
+
+    public static CustList<MethodInfo> tryGetImplSgn(String _classes, String _arg, AnalyzedPageEl _page, StringMap<StringList> _vars) {
+        return OperationNode.tryGetImplSgn(_classes, _arg, _page, _vars, new VarsComparer());
     }
 
 

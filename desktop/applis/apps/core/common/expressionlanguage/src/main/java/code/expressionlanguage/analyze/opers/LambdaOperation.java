@@ -109,6 +109,9 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                     mapping_.setArg(foundType_);
                     if (AnaTemplates.isCorrectOrNumbers(mapping_, _page)) {
                         candidates_.add(foundType_);
+                    } else {
+                        StringList conv_ = InvokingOperation.tryInferOrImplicitFctRef(pattern_.toString(), new StringMap<String>(), _page, foundType_);
+                        candidates_.addAllElts(conv_);
                     }
                 }
                 boolean list_ = false;
@@ -133,11 +136,8 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                                 if (InvokingOperation.isValidNameIndex(filter_,methodInfo_,name_)) {
                                     newList_.add(methodInfo_);
                                 }
-                                String format_ = InvokingOperation.tryParamFormat(filter_,methodInfo_, name_, nbParentsInfer_, type_, vars_, _page);
-                                if (format_ == null) {
-                                    continue;
-                                }
-                                candidates_.add(format_);
+                                StringList format_ = InvokingOperation.tryParamFormatFctRef(filter_,methodInfo_, name_, nbParentsInfer_, type_, vars_, _page);
+                                candidates_.addAllElts(format_);
                             }
                             methodInfos_.set(i,newList_);
                         }
@@ -153,11 +153,8 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                             if (InvokingOperation.isValidNameIndex(filter_,methodInfo_,name_)) {
                                 newList_.add(methodInfo_);
                             }
-                            String format_ = InvokingOperation.tryParamFormat(filter_,methodInfo_, name_, nbParentsInfer_, type_, vars_, _page);
-                            if (format_ == null) {
-                                continue;
-                            }
-                            candidates_.add(format_);
+                            StringList format_ = InvokingOperation.tryParamFormatFctRef(filter_,methodInfo_, name_, nbParentsInfer_, type_, vars_, _page);
+                            candidates_.addAllElts(format_);
                         }
                         methodInfos_.clear();
                         methodInfos_.addAllElts(newList_);
@@ -174,11 +171,8 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                         int gr_ = methodInfos_.get(i).size();
                         for (int j = 0; j < gr_; j++) {
                             MethodInfo methodInfo_ = methodInfos_.get(i).get(j);
-                            String format_ = InvokingOperation.tryFormat(methodInfo_, indexChild_, nbParentsInfer_, type_, vars_, _page);
-                            if (format_ == null) {
-                                continue;
-                            }
-                            candidates_.add(format_);
+                            StringList format_ = InvokingOperation.tryFormatFctRef(methodInfo_, indexChild_, nbParentsInfer_, type_, vars_, _page);
+                            candidates_.addAllElts(format_);
                         }
                     }
                 }
@@ -191,11 +185,8 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                     int lenMet_ = methodInfos_.size();
                     for (int i = 0; i < lenMet_; i++) {
                         ConstructorInfo methodInfo_ = methodInfos_.get(i);
-                        String format_ = InvokingOperation.tryFormat(methodInfo_, indexChild_, nbParentsInfer_, type_, vars_, _page);
-                        if (format_ == null) {
-                            continue;
-                        }
-                        candidates_.add(format_);
+                        StringList format_ = InvokingOperation.tryFormatFctRef(methodInfo_, indexChild_, nbParentsInfer_, type_, vars_, _page);
+                        candidates_.addAllElts(format_);
                     }
                 }
                 StringList bounds_ = new StringList();

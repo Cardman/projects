@@ -232,6 +232,20 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
         int ind_ = StringUtil.indexOf(_param.getParametersNames(), _name);
         return tryFormat(_param, ind_, _nbParentsInfer, _type, _vars, _page);
     }
+    protected static StringList tryParamFormatFct(NameParametersFilter _filter, Parametrable _param, String _name, int _nbParentsInfer, String _type, String _full,StringMap<String> _vars, AnalyzedPageEl _page) {
+        if (!isValidNameIndex(_filter,_param,_name)) {
+            return new StringList();
+        }
+        int ind_ = StringUtil.indexOf(_param.getParametersNames(), _name);
+        return tryFormatFct(_param, ind_, _nbParentsInfer, _type, _full, _vars, _page);
+    }
+    protected static StringList tryParamFormatFctRef(NameParametersFilter _filter, Parametrable _param, String _name, int _nbParentsInfer, String _type, StringMap<String> _vars, AnalyzedPageEl _page) {
+        if (!isValidNameIndex(_filter,_param,_name)) {
+            return new StringList();
+        }
+        int ind_ = StringUtil.indexOf(_param.getParametersNames(), _name);
+        return tryFormatFctRef(_param, ind_, _nbParentsInfer, _type, _vars, _page);
+    }
     protected static boolean isValidNameIndex(NameParametersFilter _filter, Parametrable _param, String _name) {
         int ind_ = StringUtil.indexOf(_param.getParametersNames(), _name);
         StringList formattedParams_ = _param.getFormattedParams();
@@ -261,11 +275,42 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
         if (cp_ == null) {
             return null;
         }
-        String inferred_ = AnaTemplates.tryInfer(_type, _vars, cp_, _page);
+        return tryInferOrImplicit(_type, _vars, _page, cp_);
+    }
+    protected static StringList tryFormatFct(Parametrable _param, int _indexChild, int _nbParentsInfer, String _type,String _full, StringMap<String> _vars, AnalyzedPageEl _page) {
+        String cp_ = tryGetParamDim(_param, _indexChild, _nbParentsInfer);
+        if (cp_ == null) {
+            return new StringList();
+        }
+        return tryInferOrImplicitFct(_type, _full, _vars, _page, cp_);
+    }
+
+    protected static StringList tryInferOrImplicitFct(String _type, String _full, StringMap<String> _vars, AnalyzedPageEl _page, String _cp) {
+        String inferred_ = AnaTemplates.tryInfer(_type, _vars, _cp, _page);
+        if (inferred_ != null) {
+            return new StringList(inferred_);
+        }
+        return AnaTemplates.tryGetDeclaredImplicitCastFct(_cp, _vars, _full, _page, _page.getCurrentConstraints().getCurrentConstraints());
+    }
+
+    protected static StringList tryFormatFctRef(Parametrable _param, int _indexChild, int _nbParentsInfer, String _type, StringMap<String> _vars, AnalyzedPageEl _page) {
+        String cp_ = tryGetParamDim(_param, _indexChild, _nbParentsInfer);
+        if (cp_ == null) {
+            return new StringList();
+        }
+        return tryInferOrImplicitFctRef(_type, _vars, _page, cp_);
+    }
+
+    protected static StringList tryInferOrImplicitFctRef(String _type, StringMap<String> _vars, AnalyzedPageEl _page, String _cp) {
+        return tryInferOrImplicitFct(_type, _type, _vars, _page, _cp);
+    }
+
+    protected static String tryInferOrImplicit(String _type, StringMap<String> _vars, AnalyzedPageEl _page, String _cp) {
+        String inferred_ = AnaTemplates.tryInfer(_type, _vars, _cp, _page);
         if (inferred_ != null) {
             return inferred_;
         }
-        return AnaTemplates.tryGetDeclaredImplicitCast(cp_,_vars,_type,_page,_page.getCurrentConstraints().getCurrentConstraints());
+        return AnaTemplates.tryGetDeclaredImplicitCast(_cp,_vars,_type,_page,_page.getCurrentConstraints().getCurrentConstraints());
     }
 
     protected static String tryGetParamDim(Parametrable _param, int _indexChild, int _nbParentsInfer) {

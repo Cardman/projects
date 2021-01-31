@@ -1497,6 +1497,11 @@ public abstract class OperationNode {
         return getCustCastResult(methods_, _arg, _page, _vars, _cmp);
     }
 
+    public static CustList<MethodInfo> tryGetImplSgn(String _classes, String _arg, AnalyzedPageEl _page, StringMap<StringList> _vars, AbstractComparer _cmp) {
+        CustList<MethodInfo> methods_ = getDeclaredCustImplicitCastFct(_classes, _page, _vars, _cmp);
+        return getImplSgn(methods_, _arg, _page, _vars, _cmp);
+    }
+
     static OperatorConverter getUnaryOperatorOrMethod(MethodOperation _node,
                                                       OperationNode _operand,
                                                       String _op, AnalyzedPageEl _page) {
@@ -2096,6 +2101,14 @@ public abstract class OperationNode {
         methods_ = new CustList<MethodInfo>();
         fetchTo(glClass_, methods_, _fromClass,_fromClass, _page, _vars, _cmp);
         fetchFrom(glClass_, methods_, _fromClass,_single, _page, _vars, _cmp);
+        return methods_;
+    }
+
+    private static CustList<MethodInfo> getDeclaredCustImplicitCastFct(String _fromClass, AnalyzedPageEl _page, StringMap<StringList> _vars, AbstractComparer _cmp) {
+        String glClass_ = _page.getGlobalClass();
+        CustList<MethodInfo> methods_;
+        methods_ = new CustList<MethodInfo>();
+        fetchTo(glClass_, methods_, _fromClass,_fromClass, _page, _vars, _cmp);
         return methods_;
     }
 
@@ -3570,6 +3583,17 @@ public abstract class OperationNode {
         return res_;
     }
 
+    public static CustList<MethodInfo> getImplSgn(CustList<MethodInfo> _methods, String _argsClass, AnalyzedPageEl _page, StringMap<StringList> _vars, AbstractComparer _cmp) {
+        CustList<MethodInfo> signatures_ = new CustList<MethodInfo>();
+        for (MethodInfo e: _methods) {
+            if (!isPossibleMethodFct(e, _argsClass, _page, _vars, _cmp)) {
+                continue;
+            }
+            signatures_.add(e);
+        }
+        return signatures_;
+    }
+
     private static void setIds(MethodInfo _m, ClassMethodIdReturn _res) {
         _res.setStandardMethod(_m.getStandardMethod());
         _res.setPair(_m.getPair());
@@ -3604,6 +3628,32 @@ public abstract class OperationNode {
             _id.setInvocation(InvocationMethod.STRICT);
         } else {
             _id.setInvocation(InvocationMethod.BOX_UNBOX);
+        }
+        return true;
+    }
+
+    private static boolean isPossibleMethodFct(MethodInfo _id,
+                                            String _argsClass, AnalyzedPageEl _page, StringMap<StringList> _vars, AbstractComparer _cmp) {
+        StringList params_ = _id.getFormatted().shiftFirst();
+        int nbDem_ = params_.size();
+        for (int i = IndexConstants.FIRST_INDEX; i < nbDem_; i++) {
+            String wc_ = wrap(i,params_.size(), false,params_.get(i));
+            Mapping map_ = new Mapping();
+            map_.setArg(wc_);
+            map_.getMapping().putAllMap(_vars);
+            map_.setParam(_page.getAliasFct());
+            if (!_cmp.isCorrectOrNumbers(map_, _page)) {
+                return false;
+            }
+        }
+        if (StringExpUtil.getAllTypes(_argsClass).size() == 1) {
+            return true;
+        }
+        for (int i = IndexConstants.FIRST_INDEX; i < nbDem_; i++) {
+            String wc_ = wrap(i,params_.size(), false,params_.get(i));
+            if (StringExpUtil.getAllTypes(wc_).size() != StringExpUtil.getAllTypes(_argsClass).size()) {
+                return false;
+            }
         }
         return true;
     }

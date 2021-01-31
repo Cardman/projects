@@ -495,6 +495,13 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     }
 
     @Test
+    public void tryAdd() {
+        StringList ls_ = new StringList();
+        AnaTemplates.tryAdd(ls_,null);
+        assertTrue(ls_.isEmpty());
+    }
+
+    @Test
     public void removeDup1() {
         assertNull(AnaTemplates.removeDup(null));
     }

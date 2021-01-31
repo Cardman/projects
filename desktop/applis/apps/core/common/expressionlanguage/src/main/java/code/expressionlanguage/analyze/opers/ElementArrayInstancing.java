@@ -229,7 +229,7 @@ public final class ElementArrayInstancing extends AbstractArrayInstancingOperati
         if (isNotCorrectDim(cp_)) {
             return;
         }
-        String infer_ = AnaTemplates.tryInfer(type_,vars_, cp_, _page);
+        String infer_ = tryInferOrImplicit(type_,vars_, _page, cp_);
         if (infer_ == null) {
             return;
         }
