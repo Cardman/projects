@@ -579,4 +579,115 @@ public final class ProcessMethodEvolvedInferTest extends ProcessMethodCommon {
         assertEq(0, getNumber(ret_));
     }
 
+    @Test
+    public void test18() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex<U> {\n");
+        xml_.append(" public static int exmeth(){\n");
+        xml_.append("  return staticCall(Ex<>).app((int p,int q:boolean) -> p > q,2,1)?0:1;\n");
+        xml_.append(" }\n");
+        xml_.append(" public staticCall boolean app(FctIntBool<U> f, U g){\n");
+        xml_.append("  return f.app(g);\n");
+        xml_.append(" }\n");
+        xml_.append(" public staticCall boolean app(FctTwoIntBool<U,U> f, U g, U h){\n");
+        xml_.append("  return f.app(g,h);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("public interface pkg.FctIntBool<S> {\n");
+        xml_.append(" public static FctIntBool<S> $(Fct<S,boolean> p){\n");
+        xml_.append("  return (FctIntBool<S>)p;\n");
+        xml_.append(" }\n");
+        xml_.append(" public boolean app(S p);\n");
+        xml_.append("}\n");
+        xml_.append("public interface pkg.FctTwoIntBool<S2,S3> {\n");
+        xml_.append(" public static FctTwoIntBool<S2,S3> $(Fct<S2,S3,boolean> p){\n");
+        xml_.append("  return (FctTwoIntBool<S2,S3>)p;\n");
+        xml_.append(" }\n");
+        xml_.append(" public boolean app(S2 o,S3 p);\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxLgOk("en", files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(0, getNumber(ret_));
+    }
+
+    @Test
+    public void test19() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex<U> {\n");
+        xml_.append(" public static int exmeth(){\n");
+        xml_.append("  return staticCall(Ex<int>).app((p,q) -> p > q,2,1)?0:1;\n");
+        xml_.append(" }\n");
+        xml_.append(" public staticCall boolean app(FctIntBool<U> f, U g){\n");
+        xml_.append("  return f.app(g);\n");
+        xml_.append(" }\n");
+        xml_.append(" public staticCall boolean app(FctTwoIntBool<U,U> f, U g, U h){\n");
+        xml_.append("  return f.app(g,h);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("public interface pkg.FctIntBool<S> {\n");
+        xml_.append(" public static FctIntBool<S> $(Fct<S,boolean> p){\n");
+        xml_.append("  return (FctIntBool<S>)p;\n");
+        xml_.append(" }\n");
+        xml_.append(" public boolean app(S p);\n");
+        xml_.append("}\n");
+        xml_.append("public interface pkg.FctTwoIntBool<S2,S3> {\n");
+        xml_.append(" public static FctTwoIntBool<S2,S3> $(Fct<S2,S3,boolean> p){\n");
+        xml_.append("  return (FctTwoIntBool<S2,S3>)p;\n");
+        xml_.append(" }\n");
+        xml_.append(" public boolean app(S2 o,S3 p);\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxLgOk("en", files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(0, getNumber(ret_));
+    }
+
+    @Test
+    public void test20() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex<U> {\n");
+        xml_.append(" public static int exmeth(){\n");
+        xml_.append("  return staticCall(Ex<int>).app(staticCall(Ex<>).$lambda(gt),2,1)?0:1;\n");
+        xml_.append(" }\n");
+        xml_.append(" public staticCall boolean app(FctIntBool<U> f, U g){\n");
+        xml_.append("  return f.app(g);\n");
+        xml_.append(" }\n");
+        xml_.append(" public staticCall boolean app(FctTwoIntBool<U,U> f, U g, U h){\n");
+        xml_.append("  return f.app(g,h);\n");
+        xml_.append(" }\n");
+        xml_.append(" public static boolean gt(int p,int q){\n");
+        xml_.append("  return p > q;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("public interface pkg.FctIntBool<S> {\n");
+        xml_.append(" public static FctIntBool<S> $(Fct<S,boolean> p){\n");
+        xml_.append("  return (FctIntBool<S>)p;\n");
+        xml_.append(" }\n");
+        xml_.append(" public boolean app(S p);\n");
+        xml_.append("}\n");
+        xml_.append("public interface pkg.FctTwoIntBool<S2,S3> {\n");
+        xml_.append(" public static FctTwoIntBool<S2,S3> $(Fct<S2,S3,boolean> p){\n");
+        xml_.append("  return (FctTwoIntBool<S2,S3>)p;\n");
+        xml_.append(" }\n");
+        xml_.append(" public boolean app(S2 o,S3 p);\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxLgOk("en", files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(0, getNumber(ret_));
+    }
+
 }
