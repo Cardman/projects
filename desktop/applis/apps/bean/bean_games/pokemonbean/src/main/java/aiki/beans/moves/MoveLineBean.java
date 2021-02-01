@@ -26,8 +26,8 @@ public class MoveLineBean extends CommonBean {
         power = moveLine.getPower();
     }
     public String clickMove(int _index) {
-        getForms().put(MOVE, sortedMoves.get(_index));
-        return MOVE;
+        getForms().put(CST_MOVE, sortedMoves.get(_index));
+        return CST_MOVE;
     }
 
     public int getIndex() {

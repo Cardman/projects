@@ -2,13 +2,13 @@ package code.sml;
 
 public interface Node {
 
-    MutableNode getNextSibling();
+    Node getNextSibling();
 
-    MutableNode getPreviousSibling();
+    Node getPreviousSibling();
 
-    MutableNode getFirstChild();
+    Node getFirstChild();
 
-    MutableNode getLastChild();
+    Node getLastChild();
 
     Document getOwnerDocument();
     Element getParentNode();

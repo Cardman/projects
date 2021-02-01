@@ -65,8 +65,8 @@ public class EffectCloneBean extends EffectBean {
     }
     public String clickMoveEndRound(int _index) {
         String move_ = movesEndRound.get(_index);
-        getForms().put(MOVE, move_);
-        return MOVE;
+        getForms().put(CST_MOVE, move_);
+        return CST_MOVE;
     }
     public String getTrMovesEndRound(int _index) {
         String move_ = movesEndRound.get(_index);
@@ -76,8 +76,8 @@ public class EffectCloneBean extends EffectBean {
     }
     public String clickMoveBatonPass(int _index) {
         String move_ = movesBatonPass.get(_index);
-        getForms().put(MOVE, move_);
-        return MOVE;
+        getForms().put(CST_MOVE, move_);
+        return CST_MOVE;
     }
     public String getTrMovesBatonPass(int _index) {
         String move_ = movesBatonPass.get(_index);
@@ -87,8 +87,8 @@ public class EffectCloneBean extends EffectBean {
     }
     public String clickMoveSending(int _index) {
         String move_ = movesSending.get(_index);
-        getForms().put(MOVE, move_);
-        return MOVE;
+        getForms().put(CST_MOVE, move_);
+        return CST_MOVE;
     }
     public String getTrMovesSending(int _index) {
         String move_ = movesSending.get(_index);

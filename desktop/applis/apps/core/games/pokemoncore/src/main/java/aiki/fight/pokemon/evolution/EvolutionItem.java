@@ -10,11 +10,8 @@ public final class EvolutionItem extends Evolution {
     private String item;
 
     @Override
-    public void validate(DataBase _dataBase, PokemonData _fPk) {
-        if (_dataBase.getItem(item) instanceof EvolvingItem) {
-            return;
-        }
-        _dataBase.setError(true);
+    public boolean validate(DataBase _dataBase, PokemonData _fPk) {
+        return !(_dataBase.getItem(item) instanceof EvolvingItem);
     }
 
     public String getItem() {

@@ -49,8 +49,8 @@ public class BoostBean extends ItemBean {
     }
     public String clickHappiness(int _index) {
         String item_ = happiness.getKey(_index);
-        getForms().put(ITEM, item_);
-        return BALL;
+        getForms().put(CST_ITEM, item_);
+        return CST_BALL;
     }
     public String getTrEv(int _index) {
         DataBase data_ = (DataBase) getDataBase();

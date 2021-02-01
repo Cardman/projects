@@ -7,7 +7,7 @@ import code.formathtml.exec.RendStackCall;
 import code.formathtml.util.BeanLgNames;
 import code.sml.Document;
 import code.sml.Element;
-import code.sml.MutableNode;
+import code.sml.Node;
 import code.util.EntryCust;
 import code.util.StringList;
 import code.util.StringMap;
@@ -26,7 +26,7 @@ public final class RendSubmit extends RendElement {
     }
 
     @Override
-    protected void processExecAttr(Configuration _cont, MutableNode _nextWrite, Element _read, BeanLgNames _stds, ContextEl _ctx, StackCall _stack, RendStackCall _rendStack) {
+    protected void processExecAttr(Configuration _cont, Node _nextWrite, Element _read, BeanLgNames _stds, ContextEl _ctx, StackCall _stack, RendStackCall _rendStack) {
         Element curWr_ = (Element) _nextWrite;
         Document ownerDocument_ = curWr_.getOwnerDocument();
 //        ImportingPage ip_ = _cont.getLastPage();

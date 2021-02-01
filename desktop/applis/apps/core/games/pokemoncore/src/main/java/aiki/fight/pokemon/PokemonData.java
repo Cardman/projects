@@ -167,7 +167,9 @@ public final class PokemonData {
             if (!_data.getPokedex().contains(e)) {
                 _data.setError(true);
             }
-            evolutions.getVal(e).validate(_data, this);
+            if (evolutions.getVal(e).validate(_data, this)) {
+                _data.setError(true);
+            }
         }
         if (levMoves.isEmpty()) {
             return;

@@ -19,7 +19,6 @@ import code.util.core.IndexConstants;
 public final class HandTarot implements Iterable<CardTarot> {
 
     private EnumList<CardTarot> cards=new EnumList<CardTarot>();
-    public HandTarot() {}
 
     public boolean validStack() {
         return CardTarot.equalsCards(cards, pileBase().cards);
@@ -456,7 +455,7 @@ public final class HandTarot implements Iterable<CardTarot> {
 
     }
 
-    private void sortIfNotEmpty(Suit _couleurDemandee, CustList<HandTarot> _suites) {
+    private static void sortIfNotEmpty(Suit _couleurDemandee, CustList<HandTarot> _suites) {
         if(!_suites.isEmpty()) {
             _suites.last().trierParForceEnCours(_couleurDemandee);
         }

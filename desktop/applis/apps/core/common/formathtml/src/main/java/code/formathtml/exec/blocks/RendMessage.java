@@ -94,8 +94,8 @@ public final class RendMessage extends RendParentBlock implements RendWithEl {
         ImportingPage ip_ = _rendStack.getLastPage();
         RendReadWrite rw_ = ip_.getRendReadWrite();
         Element write_ = rw_.getWrite();
-        MutableNode root_ = docLoc_.getDocumentElement();
-        MutableNode read_ = root_.getFirstChild();
+        Node root_ = docLoc_.getDocumentElement();
+        Node read_ = root_.getFirstChild();
         Document ownerDocument_ = rw_.getDocument();
         _rendStack.getFormParts().getCallsExps().addAllElts(callsExps.getVal(_cont.getCurrentLanguage()));
         while (true) {
@@ -108,7 +108,7 @@ public final class RendMessage extends RendParentBlock implements RendWithEl {
                     _rendStack.getFormParts().getAnchorsVars().add(varNames);
                 }
                 incrAncNb(_cont, created_, _rendStack);
-                MutableNode firstChild_ = read_.getFirstChild();
+                Node firstChild_ = read_.getFirstChild();
                 if (firstChild_ != null) {
                     write_ = created_;
                     read_ = firstChild_;
@@ -121,7 +121,7 @@ public final class RendMessage extends RendParentBlock implements RendWithEl {
             }
             boolean stop_ = false;
             while (true) {
-                MutableNode nextSibling_ = read_.getNextSibling();
+                Node nextSibling_ = read_.getNextSibling();
                 if (nextSibling_ != null) {
                     read_ = nextSibling_;
                     break;

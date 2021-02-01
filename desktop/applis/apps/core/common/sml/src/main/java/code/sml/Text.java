@@ -1,6 +1,6 @@
 package code.sml;
 
-public final class Text extends CharacterData {
+public final class Text extends NavigableNode {
 
     private String textContent;
 
@@ -8,7 +8,6 @@ public final class Text extends CharacterData {
         super(_ownerDocument);
     }
 
-    @Override
     public void appendData(String _arg) {
         String textContent_ = getTextContent();
         StringBuilder str_ = new StringBuilder(textContent_.length() + _arg.length());
@@ -17,7 +16,6 @@ public final class Text extends CharacterData {
         setTextContent(str_.toString());
     }
 
-    @Override
     public void deleteData(int _offset, int _count) {
         String textContent_ = getTextContent();
         String first_ = textContent_.substring(0, _offset);
@@ -28,17 +26,14 @@ public final class Text extends CharacterData {
         setTextContent(str_.toString());
     }
 
-    @Override
     public String getData() {
         return getTextContent();
     }
 
-    @Override
     public int getLength() {
         return textContent.length();
     }
 
-    @Override
     public void insertData(int _offset, String _arg) {
         String textContent_ = getTextContent();
         String first_ = textContent_.substring(0, _offset);
@@ -50,7 +45,6 @@ public final class Text extends CharacterData {
         setTextContent(str_.toString());
     }
 
-    @Override
     public void replaceData(int _offset, int _count, String _arg) {
         String textContent_ = getTextContent();
         String first_ = textContent_.substring(0, _offset);
@@ -62,12 +56,10 @@ public final class Text extends CharacterData {
         setTextContent(str_.toString());
     }
 
-    @Override
     public void setData(String _data) {
         setTextContent(_data);
     }
 
-    @Override
     public String substringData(int _offset, int _count) {
         return getTextContent().substring(_offset, _offset + _count);
     }
@@ -88,26 +80,6 @@ public final class Text extends CharacterData {
     }
 
     @Override
-    public void appendChild(MutableNode _newChild) {
-    }
-
-    @Override
-    public void removeChild(MutableNode _oldChild) {
-    }
-
-    @Override
-    public void replaceChild(MutableNode _newChild, MutableNode _oldChild) {
-    }
-
-    @Override
-    public void insertBefore(MutableNode _newChild, MutableNode _refChild) {
-    }
-
-    @Override
-    public void insertAfter(MutableNode _newChild, MutableNode _refChild) {
-    }
-
-    @Override
     public boolean hasChildNodes() {
         return false;
     }
@@ -122,7 +94,6 @@ public final class Text extends CharacterData {
         return textContent;
     }
 
-    @Override
     public void setTextContent(String _textContent) {
         textContent = _textContent;
     }

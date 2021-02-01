@@ -135,7 +135,7 @@ public class SolutionBean extends CommonBean {
         if (place_.getLevelsMap().size() == DataBase.ONE_POSSIBLE_CHOICE) {
             return name_;
         }
-        return StringUtil.concat(name_,SPACE,Long.toString(key_.getLevel()));
+        return StringUtil.concat(name_, CST_SPACE,Long.toString(key_.getLevel()));
     }
     public CustList<WildPokemonDto> getPokemonList(int _indexStep, int _indexLevelPlace) {
         StepDto step_ = steps.get(_indexStep);

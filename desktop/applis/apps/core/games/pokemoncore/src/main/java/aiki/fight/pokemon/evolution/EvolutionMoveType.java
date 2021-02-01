@@ -12,7 +12,8 @@ public final class EvolutionMoveType extends Evolution {
     private String type;
 
     @Override
-    public void validate(DataBase _dataBase, PokemonData _fPk) {
+    public boolean validate(DataBase _dataBase, PokemonData _fPk) {
+        boolean res_ = false;
         StringList types_ = new StringList();
         for (String m : _fPk.getMoveTutors()) {
             MoveData move_ = _dataBase.getMove(m);
@@ -22,8 +23,9 @@ public final class EvolutionMoveType extends Evolution {
             types_.addAllElts(move_.getTypes());
         }
         if (!StringUtil.contains(types_, type)) {
-            _dataBase.setError(true);
+            res_ = true;
         }
+        return res_;
     }
 
     public String getType() {

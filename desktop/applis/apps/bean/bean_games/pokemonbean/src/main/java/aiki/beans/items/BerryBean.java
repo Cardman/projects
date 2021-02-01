@@ -111,8 +111,8 @@ public class BerryBean extends ItemBean {
     }
     public String clickStatus(int _index) {
         String status_ = healStatus.get(_index);
-        getForms().put(STATUS, status_);
-        return STATUS;
+        getForms().put(CST_STATUS, status_);
+        return CST_STATUS;
     }
     public String getTrCategRecoil(int _index) {
         DataBase data_ = (DataBase) getDataBase();

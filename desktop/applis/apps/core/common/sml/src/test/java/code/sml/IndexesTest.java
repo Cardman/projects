@@ -47,10 +47,6 @@ public class IndexesTest {
         String html_ = "<tag><inner/><after/></tag>";
         Document doc_ = DocumentBuilder.parseNoTextDocument(html_);
         Element node_ = doc_.getDocumentElement();
-        node_.setFirstChild(node_.getFirstChild());
-        node_.setLastChild(node_.getLastChild());
-        node_.getLastChild().setPreviousSibling(node_.getFirstChild());
-        node_.getFirstChild().setNextSibling(node_.getLastChild());
         Ints indexes_ = DocumentBuilder.getIndexes(node_.getFirstChild());
         assertEq(1, indexes_.size());
         assertEq(0, indexes_.get(0));

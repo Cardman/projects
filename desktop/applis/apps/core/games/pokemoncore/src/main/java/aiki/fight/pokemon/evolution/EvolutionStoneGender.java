@@ -11,12 +11,13 @@ public final class EvolutionStoneGender extends EvolutionStone implements
     private Gender gender;
 
     @Override
-    public void validate(DataBase _dataBase, PokemonData _fPk) {
-        validateEvolutionStone(_dataBase);
+    public boolean validate(DataBase _dataBase, PokemonData _fPk) {
+        boolean ko_ = validateEvolutionStone(_dataBase);
         if (!_fPk.getGenderRep().getPossibleGenders().containsObj(gender)) {
-            _dataBase.setError(true);
+            ko_ = true;
 
         }
+        return ko_;
     }
 
     @Override

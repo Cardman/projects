@@ -8,7 +8,7 @@ import code.formathtml.exec.opers.RendDynOperationNode;
 import code.formathtml.util.BeanLgNames;
 import code.formathtml.util.InputInfo;
 import code.sml.Element;
-import code.sml.MutableNode;
+import code.sml.Node;
 import code.util.CustList;
 import code.util.StringMap;
 
@@ -23,7 +23,7 @@ public final class RendStdInput extends RendInput {
     }
 
     @Override
-    protected void processExecAttr(Configuration _cont, MutableNode _nextWrite, Element _read, BeanLgNames _stds, ContextEl _ctx, StackCall _stack, RendStackCall _rendStack) {
+    protected void processExecAttr(Configuration _cont, Node _nextWrite, Element _read, BeanLgNames _stds, ContextEl _ctx, StackCall _stack, RendStackCall _rendStack) {
         processIndexes(_cont,_read, (Element) _nextWrite, _stds, _ctx, _stack, _rendStack);
     }
 }

@@ -36,7 +36,7 @@ public class SelectPokemonBean extends CommonBean {
         for (SelectedBoolean s: translatedBooleans_.getKeys()) {
             booleans.put(s.name(), translatedBooleans_.getVal(s));
         }
-        StringList pokedex_ = (StringList) getForms().getVal(POKEMON_SET);
+        StringList pokedex_ = (StringList) getForms().getVal(CST_POKEMON_SET);
         pokedex.clear();
         StringMap<String> translationsPk_;
         translationsPk_ = data_.getTranslatedPokemon().getVal(getLanguage());
@@ -59,7 +59,7 @@ public class SelectPokemonBean extends CommonBean {
         typedType = escapedStringQuote(typedType);
     }
     public static String cancel() {
-        return POKEMON;
+        return CST_POKEMON;
     }
     public String search() {
         DataBase data_ = (DataBase) getDataBase();
@@ -107,12 +107,12 @@ public class SelectPokemonBean extends CommonBean {
             pokedex_.add(k);
         }
         pokedex_.sortElts(new ComparatorTrStrings(translationsPk_));
-        getForms().put(POKEMON_SET, pokedex_);
+        getForms().put(CST_POKEMON_SET, pokedex_);
         if (pokedex_.size() == DataBase.ONE_POSSIBLE_CHOICE) {
-            getForms().put(POKEMON_NAME_EDIT,pokedex_.first());
-            return POKEMON;
+            getForms().put(CST_POKEMON_NAME_EDIT,pokedex_.first());
+            return CST_POKEMON;
         }
-        return POKEMON_SET;
+        return CST_POKEMON_SET;
     }
     public String getMiniImage(int _number) {
         String name_ = pokedex.get(_number).getName();
@@ -122,8 +122,8 @@ public class SelectPokemonBean extends CommonBean {
         //return ConverterBufferedImage.toBaseSixtyFour(data_.getMiniPk().getVal(name_));
     }
     public String clickLink(int _number) {
-        getForms().put(POKEMON_NAME_EDIT,pokedex.get(_number).getName());
-        return POKEMON;
+        getForms().put(CST_POKEMON_NAME_EDIT,pokedex.get(_number).getName());
+        return CST_POKEMON;
     }
 
     public void setTypedName(String _typedName) {

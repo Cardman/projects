@@ -11,18 +11,19 @@ public final class EvolutionTeam extends Evolution {
     private String pokemon;
 
     @Override
-    public void validate(DataBase _dataBase, PokemonData _fPk) {
+    public boolean validate(DataBase _dataBase, PokemonData _fPk) {
         PokemonData pk_ = _dataBase.getPokemon(pokemon);
         if (pk_ == null) {
-            _dataBase.setError(true);
-            return;
+            return true;
         }
+        boolean res_ = false;
         if (!StringUtil.quickEq(pk_.getBaseEvo(),pokemon)) {
-            _dataBase.setError(true);
+            res_ = true;
         }
         if (pk_.getGenderRep() == GenderRepartition.LEGENDARY) {
-            _dataBase.setError(true);
+            res_ = true;
         }
+        return res_;
     }
 
     public String getPokemon() {

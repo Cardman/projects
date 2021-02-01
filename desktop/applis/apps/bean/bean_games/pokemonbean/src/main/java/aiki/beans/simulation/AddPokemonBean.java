@@ -55,8 +55,8 @@ public class AddPokemonBean extends CommonBean {
         for (SelectedBoolean s: translatedBooleans_.getKeys()) {
             booleans.put(s.name(), translatedBooleans_.getVal(s));
         }
-        if (getForms().contains(PK_NAME)) {
-            namePk = (String) getForms().getVal(PK_NAME);
+        if (getForms().contains(CST_PK_NAME)) {
+            namePk = (String) getForms().getVal(CST_PK_NAME);
             PokemonData pkData_ = data_.getPokemon(namePk);
             for (String a: pkData_.getAbilities()) {
                 abilities.put(a, translatedAbilities_.getVal(a));
@@ -65,7 +65,7 @@ public class AddPokemonBean extends CommonBean {
                 genders.put(g.name(), translatedGenders_.getVal(g));
             }
         }
-        StringList pokedex_ = (StringList) getForms().getVal(POKEMON_SET_SIMU);
+        StringList pokedex_ = (StringList) getForms().getVal(CST_POKEMON_SET_SIMU);
         pokedex.clear();
         StringMap<String> translationsPk_;
         translationsPk_ = data_.getTranslatedPokemon().getVal(getLanguage());
@@ -88,7 +88,7 @@ public class AddPokemonBean extends CommonBean {
         typedType = escapedStringQuote(typedType);
     }
     public String add() {
-        if (!getForms().contains(PK_NAME)) {
+        if (!getForms().contains(CST_PK_NAME)) {
             return DataBase.EMPTY_STRING;
         }
         if (!genders.contains(gender)) {
@@ -113,11 +113,11 @@ public class AddPokemonBean extends CommonBean {
         PokemonPlayerDto pkDto_ = new PokemonPlayerDto();
         pkDto_.setPokemon(pk_);
         pkDto_.setMoves(pkData_.getMovesAtLevel((short) level, data_.getNbMaxMoves()));
-        getForms().put(POKEMON_ADDED, pkDto_);
-        return SIMULATION;
+        getForms().put(CST_POKEMON_ADDED, pkDto_);
+        return CST_SIMULATION;
     }
     public static String cancel() {
-        return SIMULATION;
+        return CST_SIMULATION;
     }
     public void search() {
         DataBase data_ = (DataBase) getDataBase();
@@ -165,9 +165,9 @@ public class AddPokemonBean extends CommonBean {
             pokedex_.add(k);
         }
         pokedex_.sortElts(new ComparatorTrStrings(translationsPk_));
-        getForms().put(POKEMON_SET_SIMU, pokedex_);
+        getForms().put(CST_POKEMON_SET_SIMU, pokedex_);
         if (pokedex_.size() == DataBase.ONE_POSSIBLE_CHOICE) {
-            getForms().put(PK_NAME,pokedex_.first());
+            getForms().put(CST_PK_NAME,pokedex_.first());
         }
     }
     public String getMiniImage(int _number) {
@@ -178,7 +178,7 @@ public class AddPokemonBean extends CommonBean {
         //return ConverterBufferedImage.toBaseSixtyFour(data_.getMiniPk().getVal(name_));
     }
     public void clickLink(int _number) {
-        getForms().put(PK_NAME,pokedex.get(_number).getName());
+        getForms().put(CST_PK_NAME,pokedex.get(_number).getName());
     }
 
     public String getNamePk() {

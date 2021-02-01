@@ -57,8 +57,8 @@ public class EffectCopyMoveBean extends EffectBean {
     }
     public String clickMove(int _index) {
         String move_ = movesNotToBeCopied.get(_index);
-        getForms().put(MOVE, move_);
-        return MOVE;
+        getForms().put(CST_MOVE, move_);
+        return CST_MOVE;
     }
     public String getTrMove(int _index) {
         String move_ = movesNotToBeCopied.get(_index);
@@ -68,8 +68,8 @@ public class EffectCopyMoveBean extends EffectBean {
     }
     public String clickMoveTrans(int _index) {
         String move_ = movesTransforming.get(_index);
-        getForms().put(MOVE, move_);
-        return MOVE;
+        getForms().put(CST_MOVE, move_);
+        return CST_MOVE;
     }
     public String getTrMoveTrans(int _index) {
         String move_ = movesTransforming.get(_index);
@@ -78,8 +78,8 @@ public class EffectCopyMoveBean extends EffectBean {
         return translatedMoves_.getVal(move_);
     }
     public String clickDefaultMove() {
-        getForms().put(MOVE, defaultMove);
-        return MOVE;
+        getForms().put(CST_MOVE, defaultMove);
+        return CST_MOVE;
     }
     public String getTrDefaultMove() {
         DataBase data_ = (DataBase) getDataBase();

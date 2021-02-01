@@ -91,9 +91,9 @@ public class MapLevelBean extends CommonBean {
         gym = false;
         pokemonCenter = false;
         outside = false;
-        if (getForms().contains(INSIDE)) {
-            Point ptInside_ = (Point) getForms().getVal(INSIDE);
-            int pl_ = (Integer) getForms().getVal(PLACE_MAP_INDEX);
+        if (getForms().contains(CST_INSIDE)) {
+            Point ptInside_ = (Point) getForms().getVal(CST_INSIDE);
+            int pl_ = (Integer) getForms().getVal(CST_PLACE_MAP_INDEX);
             Place place_ = data_.getMap().getPlace(pl_);
             if (place_ instanceof City) {
                 City city_ = (City) place_;
@@ -110,8 +110,8 @@ public class MapLevelBean extends CommonBean {
             }
         } else {
             outside = true;
-            int lev_ = (Integer) getForms().getVal(LEVEL_MAP_INDEX);
-            int pl_ = (Integer) getForms().getVal(PLACE_MAP_INDEX);
+            int lev_ = (Integer) getForms().getVal(CST_LEVEL_MAP_INDEX);
+            int pl_ = (Integer) getForms().getVal(CST_PLACE_MAP_INDEX);
             if (data_.getMap().getPlace(pl_) instanceof League) {
                 possibleMultiLayer = true;
             }
@@ -127,19 +127,19 @@ public class MapLevelBean extends CommonBean {
                 tiles.put(pt_.getKey(), BaseSixtyFourUtil.getStringByImage(pt_.getValue()));
             }
         }
-        proponeLink = (Boolean)getForms().getVal(PROPONE_LINK);
-        proponeTile = (Boolean)getForms().getVal(PROPONE_TILE);
-        seeArea = (Boolean)getForms().getVal(SEE_AREA);
+        proponeLink = (Boolean)getForms().getVal(CST_PROPONE_LINK);
+        proponeTile = (Boolean)getForms().getVal(CST_PROPONE_TILE);
+        seeArea = (Boolean)getForms().getVal(CST_SEE_AREA);
         dirs = new TreeMap<String, Boolean>(new ComparatorDirection());
         for (String s: getForms().getKeys()) {
-            if (!s.startsWith(PROPONE_LINK_VAR)) {
+            if (!s.startsWith(CST_PROPONE_LINK_VAR)) {
                 continue;
             }
             boolean b_ = (Boolean) getForms().getVal(s);
             if (!b_) {
                 continue;
             }
-            String dirStr_ = s.substring(PROPONE_LINK_VAR.length());
+            String dirStr_ = s.substring(CST_PROPONE_LINK_VAR.length());
             dirs.put(dirStr_, true);
         }
     }
@@ -158,16 +158,16 @@ public class MapLevelBean extends CommonBean {
         return pt_.getx() == IndexConstants.FIRST_INDEX;
     }
     public String clickTile() {
-        Point pt_ = (Point) getForms().getVal(CURRENT_TILE);
-        int pl_ = (Integer) getForms().getVal(PLACE_MAP_INDEX);
-        int lev_ = (Integer) getForms().getVal(LEVEL_MAP_INDEX);
+        Point pt_ = (Point) getForms().getVal(CST_CURRENT_TILE);
+        int pl_ = (Integer) getForms().getVal(CST_PLACE_MAP_INDEX);
+        int lev_ = (Integer) getForms().getVal(CST_LEVEL_MAP_INDEX);
         DataBase data_ = (DataBase) getDataBase();
         Place p_ = data_.getMap().getPlace(pl_);
-        getForms().put(PROPONE_LINK, false);
-        getForms().put(PROPONE_TILE, false);
-        getForms().put(SEE_AREA, false);
+        getForms().put(CST_PROPONE_LINK, false);
+        getForms().put(CST_PROPONE_TILE, false);
+        getForms().put(CST_SEE_AREA, false);
         for (Direction d: Direction.values()) {
-            getForms().put(StringUtil.concat(PROPONE_LINK_VAR,d.name()), false);
+            getForms().put(StringUtil.concat(CST_PROPONE_LINK_VAR,d.name()), false);
         }
         //getForms().put(FROM_LIST, false);
         CustList<Place> places_ = data_.getMap().getPlaces();
@@ -188,9 +188,9 @@ public class MapLevelBean extends CommonBean {
             if (!Point.eq(pt_, access_.getLevel().getPoint())) {
                 continue;
             }
-            getForms().put(LEVEL_MAP_INDEX, (int) IndexConstants.FIRST_INDEX);
-            getForms().put(PLACE_MAP_INDEX, p);
-            return LEVEL;
+            getForms().put(CST_LEVEL_MAP_INDEX, (int) IndexConstants.FIRST_INDEX);
+            getForms().put(CST_PLACE_MAP_INDEX, p);
+            return CST_LEVEL;
         }
         if (p_ instanceof InitializedPlace) {
             Coords coords_ = new Coords();
@@ -201,9 +201,9 @@ public class MapLevelBean extends CommonBean {
             InitializedPlace i_ = (InitializedPlace) p_;
             if (i_.getLinksWithCaves().contains(pt_)) {
                 Coords c_ = i_.getLinksWithCaves().getVal(pt_).getCoords();
-                getForms().put(LEVEL_MAP_INDEX, (int) c_.getLevel().getLevelIndex());
-                getForms().put(PLACE_MAP_INDEX, (int) c_.getNumberPlace());
-                return LEVEL;
+                getForms().put(CST_LEVEL_MAP_INDEX, (int) c_.getLevel().getLevelIndex());
+                getForms().put(CST_PLACE_MAP_INDEX, (int) c_.getNumberPlace());
+                return CST_LEVEL;
             }
         }
         if (p_ instanceof Cave) {
@@ -213,53 +213,53 @@ public class MapLevelBean extends CommonBean {
             lp_.setPoint(pt_);
             if (c_.getLinksWithOtherPlaces().contains(lp_)) {
                 Coords coords_ = c_.getLinksWithOtherPlaces().getVal(lp_).getCoords();
-                getForms().put(LEVEL_MAP_INDEX, (int) coords_.getLevel().getLevelIndex());
-                getForms().put(PLACE_MAP_INDEX, (int) coords_.getNumberPlace());
-                return LEVEL;
+                getForms().put(CST_LEVEL_MAP_INDEX, (int) coords_.getLevel().getLevelIndex());
+                getForms().put(CST_PLACE_MAP_INDEX, (int) coords_.getNumberPlace());
+                return CST_LEVEL;
             }
             LevelCave level_ = (LevelCave) c_.getLevelsMap().getVal((byte) lev_);
             if (level_.getLinksOtherLevels().contains(pt_)) {
                 Coords coords_ = level_.getLinksOtherLevels().getVal(pt_).getCoords();
-                getForms().put(LEVEL_MAP_INDEX, (int) coords_.getLevel().getLevelIndex());
-                getForms().put(PLACE_MAP_INDEX, (int) coords_.getNumberPlace());
-                return LEVEL;
+                getForms().put(CST_LEVEL_MAP_INDEX, (int) coords_.getLevel().getLevelIndex());
+                getForms().put(CST_PLACE_MAP_INDEX, (int) coords_.getNumberPlace());
+                return CST_LEVEL;
             }
         }
         if (p_ instanceof League) {
             League l_ = (League) p_;
             if (Point.eq(l_.getRooms().get(lev_).getAccessPoint(), pt_)) {
                 if (lev_ < l_.getRooms().size() - 1) {
-                    getForms().put(LEVEL_MAP_INDEX, lev_ + 1);
-                    return LEVEL;
+                    getForms().put(CST_LEVEL_MAP_INDEX, lev_ + 1);
+                    return CST_LEVEL;
                 }
                 Coords coords_ = data_.getMap().getBegin();
-                getForms().put(LEVEL_MAP_INDEX, (int) coords_.getLevel().getLevelIndex());
-                getForms().put(PLACE_MAP_INDEX, (int) coords_.getNumberPlace());
-                return LEVEL;
+                getForms().put(CST_LEVEL_MAP_INDEX, (int) coords_.getLevel().getLevelIndex());
+                getForms().put(CST_PLACE_MAP_INDEX, (int) coords_.getNumberPlace());
+                return CST_LEVEL;
             }
             if (Point.eq(l_.getRooms().get(lev_).getTrainerCoords(), pt_)) {
-                getForms().put(TRAINER, l_.getRooms().get(lev_).getTrainer());
-                return TRAINER_ONE_FIGHT;
+                getForms().put(CST_TRAINER, l_.getRooms().get(lev_).getTrainer());
+                return CST_TRAINER_ONE_FIGHT;
             }
         }
         if (p_ instanceof City) {
             City c_ = (City) p_;
-            if (getForms().contains(INSIDE)) {
-                Point ptInside_ = (Point) getForms().getVal(INSIDE);
+            if (getForms().contains(CST_INSIDE)) {
+                Point ptInside_ = (Point) getForms().getVal(CST_INSIDE);
                 Building b_ = c_.getBuildings().getVal(ptInside_);
                 if (Point.eq(b_.getExitCity(), pt_)) {
-                    getForms().removeKey(INSIDE);
-                    return LEVEL;
+                    getForms().removeKey(CST_INSIDE);
+                    return CST_LEVEL;
                 }
                 if (b_ instanceof Gym) {
                     Gym g_ = (Gym) b_;
                     if (g_.getIndoor().getGymTrainers().contains(pt_)) {
-                        getForms().put(TRAINER, g_.getIndoor().getGymTrainers().getVal(pt_));
-                        return TRAINER_ONE_FIGHT;
+                        getForms().put(CST_TRAINER, g_.getIndoor().getGymTrainers().getVal(pt_));
+                        return CST_TRAINER_ONE_FIGHT;
                     }
                     if (Point.eq(g_.getIndoor().getGymLeaderCoords(), pt_)) {
-                        getForms().put(TRAINER, g_.getIndoor().getGymLeader());
-                        return TRAINER_ONE_FIGHT;
+                        getForms().put(CST_TRAINER, g_.getIndoor().getGymLeader());
+                        return CST_TRAINER_ONE_FIGHT;
                     }
                 }
                 if (b_ instanceof PokemonCenter) {
@@ -269,12 +269,12 @@ public class MapLevelBean extends CommonBean {
                         if (pers_ instanceof Seller) {
                             Seller seller_ = (Seller) pers_;
                             if (!seller_.getItems().isEmpty()) {
-                                getForms().put(SELLER, seller_);
-                                return SELLER;
+                                getForms().put(CST_SELLER, seller_);
+                                return CST_SELLER;
                             }
                             if (!seller_.getTm().isEmpty()) {
-                                getForms().put(SELLER, seller_);
-                                return SELLER;
+                                getForms().put(CST_SELLER, seller_);
+                                return CST_SELLER;
                             }
                         }
                     }
@@ -282,107 +282,107 @@ public class MapLevelBean extends CommonBean {
                 return DataBase.EMPTY_STRING;
             }
             if (c_.getBuildings().contains(pt_)) {
-                getForms().put(INSIDE, pt_);
-                return LEVEL;
+                getForms().put(CST_INSIDE, pt_);
+                return CST_LEVEL;
             }
         }
         if (p_ instanceof Campaign) {
             Campaign c_ = (Campaign) p_;
             LevelWithWildPokemon l_ = (LevelWithWildPokemon) c_.getLevelsMap().getVal((byte) lev_);
             if (l_.getDualFights().contains(pt_)) {
-                getForms().put(TRAINER, l_.getDualFights().getVal(pt_).getFoeTrainer());
-                getForms().put(ALLY, l_.getDualFights().getVal(pt_).getAlly());
-                return DUAL;
+                getForms().put(CST_TRAINER, l_.getDualFights().getVal(pt_).getFoeTrainer());
+                getForms().put(CST_ALLY, l_.getDualFights().getVal(pt_).getAlly());
+                return CST_DUAL;
             }
             if (l_.getItems().contains(pt_)) {
                 String item_ = l_.getItems().getVal(pt_);
-                getForms().put(ITEM, item_);
+                getForms().put(CST_ITEM, item_);
                 Item it_ = data_.getItem(item_);
                 if (it_ instanceof Ball) {
-                    return BALL;
+                    return CST_BALL;
                 }
                 if (it_ instanceof Berry) {
-                    return BERRY;
+                    return CST_BERRY;
                 }
                 if (it_ instanceof Boost) {
-                    return BOOST;
+                    return CST_BOOST;
                 }
                 if (it_ instanceof EvolvingItem) {
-                    return EVOLVINGITEM;
+                    return CST_EVOLVINGITEM;
                 }
                 if (it_ instanceof EvolvingStone) {
-                    return EVOLVINGSTONE;
+                    return CST_EVOLVINGSTONE;
                 }
                 if (it_ instanceof Fossil) {
-                    return FOSSIL;
+                    return CST_FOSSIL;
                 }
                 if (it_ instanceof HealingHpStatus) {
-                    return HEALINGHPSTATUS;
+                    return CST_HEALINGHPSTATUS;
                 }
                 if (it_ instanceof HealingStatus) {
-                    return HEALINGSTATUS;
+                    return CST_HEALINGSTATUS;
                 }
                 if (it_ instanceof HealingHp) {
-                    return HEALINGHP;
+                    return CST_HEALINGHP;
                 }
                 if (it_ instanceof HealingPp) {
-                    return HEALINGPP;
+                    return CST_HEALINGPP;
                 }
                 if (it_ instanceof HealingItem) {
-                    return HEALINGITEM;
+                    return CST_HEALINGITEM;
                 }
                 if (it_ instanceof ItemForBattle) {
-                    return ITEMFORBATTLE;
+                    return CST_ITEMFORBATTLE;
                 }
                 if (it_ instanceof Repel) {
-                    return REPEL;
+                    return CST_REPEL;
                 }
                 if (it_ instanceof SellingItem) {
-                    return SELLINGITEM;
+                    return CST_SELLINGITEM;
                 }
-                return ITEM;
+                return CST_ITEM;
             }
             if (l_.getTm().contains(pt_)) {
                 Short tm_ = l_.getTm().getVal(pt_);
-                getForms().put(MOVE, data_.getTm().getVal(tm_));
-                return MOVE;
+                getForms().put(CST_MOVE, data_.getTm().getVal(tm_));
+                return CST_MOVE;
             }
             if (l_.getHm().contains(pt_)) {
                 Short tm_ = l_.getHm().getVal(pt_);
-                getForms().put(MOVE, data_.getHm().getVal(tm_));
-                return MOVE;
+                getForms().put(CST_MOVE, data_.getHm().getVal(tm_));
+                return CST_MOVE;
             }
             if (l_.getCharacters().contains(pt_)) {
                 CharacterInRoadCave char_ = l_.getCharacters().getVal(pt_);
                 if (char_ instanceof TrainerMultiFights) {
-                    getForms().put(TRAINER, char_);
-                    return TRAINER_MULTI_FIGHT;
+                    getForms().put(CST_TRAINER, char_);
+                    return CST_TRAINER_MULTI_FIGHT;
                 }
                 if (char_ instanceof DealerItem) {
-                    getForms().put(DEALER, char_);
-                    return DEALER;
+                    getForms().put(CST_DEALER, char_);
+                    return CST_DEALER;
                 }
             }
             for (Point ptKey_: l_.getDualFights().getKeys()) {
                 DualFight d_ = l_.getDualFights().getVal(ptKey_);
                 if (Point.eq(d_.getPt(), pt_)) {
-                    getForms().put(TRAINER, l_.getDualFights().getVal(ptKey_).getFoeTrainer());
-                    getForms().put(ALLY, l_.getDualFights().getVal(ptKey_).getAlly());
-                    return DUAL;
+                    getForms().put(CST_TRAINER, l_.getDualFights().getVal(ptKey_).getFoeTrainer());
+                    getForms().put(CST_ALLY, l_.getDualFights().getVal(ptKey_).getAlly());
+                    return CST_DUAL;
                 }
             }
             if (l_.containsPokemon(pt_)) {
-                getForms().put(LEG_PK, l_.getPokemon(pt_));
-                return LEG_PK;
+                getForms().put(CST_LEG_PK, l_.getPokemon(pt_));
+                return CST_LEG_PK;
             }
         }
         return DataBase.EMPTY_STRING;
     }
     public String clickDirectedLink(int _index) {
-        Point pt_ = (Point) getForms().getVal(CURRENT_TILE);
+        Point pt_ = (Point) getForms().getVal(CST_CURRENT_TILE);
         Direction dir_ = Direction.getDirectionByName(dirs.getKey(_index));
-        int pl_ = (Integer) getForms().getVal(PLACE_MAP_INDEX);
-        int lev_ = (Integer) getForms().getVal(LEVEL_MAP_INDEX);
+        int pl_ = (Integer) getForms().getVal(CST_PLACE_MAP_INDEX);
+        int lev_ = (Integer) getForms().getVal(CST_LEVEL_MAP_INDEX);
         DataBase data_ = (DataBase) getDataBase();
         Place p_ = data_.getMap().getPlace(pl_);
         Coords coords_ = new Coords();
@@ -390,11 +390,11 @@ public class MapLevelBean extends CommonBean {
         coords_.setLevel(new LevelPoint());
         coords_.getLevel().setLevelIndex((byte) lev_);
         coords_.getLevel().setPoint(pt_);
-        getForms().put(PROPONE_LINK, false);
-        getForms().put(PROPONE_TILE, false);
-        getForms().put(SEE_AREA, false);
+        getForms().put(CST_PROPONE_LINK, false);
+        getForms().put(CST_PROPONE_TILE, false);
+        getForms().put(CST_SEE_AREA, false);
         for (Direction d: Direction.values()) {
-            getForms().put(StringUtil.concat(PROPONE_LINK_VAR,d.name()), false);
+            getForms().put(StringUtil.concat(CST_PROPONE_LINK_VAR,d.name()), false);
         }
         InitializedPlace i_ = (InitializedPlace) p_;
         //p_.getLevelByCoords(coords_).get
@@ -404,12 +404,12 @@ public class MapLevelBean extends CommonBean {
             }
             if (Point.eq(p.getSource(), pt_)) {
                 Coords c_ = i_.getPointsWithCitiesAndOtherRoads().getVal(p);
-                getForms().put(LEVEL_MAP_INDEX, (int) c_.getLevel().getLevelIndex());
-                getForms().put(PLACE_MAP_INDEX, (int) c_.getNumberPlace());
-                return LEVEL;
+                getForms().put(CST_LEVEL_MAP_INDEX, (int) c_.getLevel().getLevelIndex());
+                getForms().put(CST_PLACE_MAP_INDEX, (int) c_.getNumberPlace());
+                return CST_LEVEL;
             }
         }
-        return LEVEL;
+        return CST_LEVEL;
     }
 
     public boolean isUp(int _index) {
@@ -428,9 +428,9 @@ public class MapLevelBean extends CommonBean {
         return Direction.getDirectionByName(dirs.getKey(_index)) == Direction.RIGHT;
     }
     public String clickLink() {
-        Point pt_ = (Point) getForms().getVal(CURRENT_TILE);
-        int pl_ = (Integer) getForms().getVal(PLACE_MAP_INDEX);
-        int lev_ = (Integer) getForms().getVal(LEVEL_MAP_INDEX);
+        Point pt_ = (Point) getForms().getVal(CST_CURRENT_TILE);
+        int pl_ = (Integer) getForms().getVal(CST_PLACE_MAP_INDEX);
+        int lev_ = (Integer) getForms().getVal(CST_LEVEL_MAP_INDEX);
         DataBase data_ = (DataBase) getDataBase();
         Place p_ = data_.getMap().getPlace(pl_);
         Coords coords_ = new Coords();
@@ -438,33 +438,33 @@ public class MapLevelBean extends CommonBean {
         coords_.setLevel(new LevelPoint());
         coords_.getLevel().setLevelIndex((byte) lev_);
         coords_.getLevel().setPoint(pt_);
-        getForms().put(PROPONE_LINK, false);
-        getForms().put(PROPONE_TILE, false);
-        getForms().put(SEE_AREA, false);
+        getForms().put(CST_PROPONE_LINK, false);
+        getForms().put(CST_PROPONE_TILE, false);
+        getForms().put(CST_SEE_AREA, false);
         for (Direction d: Direction.values()) {
-            getForms().put(StringUtil.concat(PROPONE_LINK_VAR,d.name()), false);
+            getForms().put(StringUtil.concat(CST_PROPONE_LINK_VAR,d.name()), false);
         }
         InitializedPlace i_ = (InitializedPlace) p_;
         for (PlaceInterConnect p: i_.getPointsWithCitiesAndOtherRoads().getKeys()) {
             if (Point.eq(p.getSource(), pt_)) {
                 Coords c_ = i_.getPointsWithCitiesAndOtherRoads().getVal(p);
-                getForms().put(LEVEL_MAP_INDEX, (int) c_.getLevel().getLevelIndex());
-                getForms().put(PLACE_MAP_INDEX, (int) c_.getNumberPlace());
-                return LEVEL;
+                getForms().put(CST_LEVEL_MAP_INDEX, (int) c_.getLevel().getLevelIndex());
+                getForms().put(CST_PLACE_MAP_INDEX, (int) c_.getNumberPlace());
+                return CST_LEVEL;
             }
         }
-        return LEVEL;
+        return CST_LEVEL;
     }
     public String seeArea() {
-        Point pt_ = (Point) getForms().getVal(CURRENT_TILE);
-        int pl_ = (Integer) getForms().getVal(PLACE_MAP_INDEX);
-        int lev_ = (Integer) getForms().getVal(LEVEL_MAP_INDEX);
+        Point pt_ = (Point) getForms().getVal(CST_CURRENT_TILE);
+        int pl_ = (Integer) getForms().getVal(CST_PLACE_MAP_INDEX);
+        int lev_ = (Integer) getForms().getVal(CST_LEVEL_MAP_INDEX);
         DataBase data_ = (DataBase) getDataBase();
-        getForms().put(PROPONE_LINK, false);
-        getForms().put(PROPONE_TILE, false);
-        getForms().put(SEE_AREA, false);
+        getForms().put(CST_PROPONE_LINK, false);
+        getForms().put(CST_PROPONE_TILE, false);
+        getForms().put(CST_SEE_AREA, false);
         for (Direction d: Direction.values()) {
-            getForms().put(StringUtil.concat(PROPONE_LINK_VAR,d.name()), false);
+            getForms().put(StringUtil.concat(CST_PROPONE_LINK_VAR,d.name()), false);
         }
         Coords current_ = new Coords();
         current_.setNumberPlace((short) pl_);
@@ -473,15 +473,15 @@ public class MapLevelBean extends CommonBean {
         current_.getLevel().setPoint(pt_);
         AreaApparition app_ = data_.getMap().getAreaByCoords(current_);
         if (!app_.isVirtual()) {
-            getForms().put(AREA, app_);
+            getForms().put(CST_AREA, app_);
         }
-        return AREA;
+        return CST_AREA;
     }
     public String clickTileOnMap(int _index) {
         Point pt_ = tiles.getKey(_index);
-        getForms().put(CURRENT_TILE, pt_);
-        int pl_ = (Integer) getForms().getVal(PLACE_MAP_INDEX);
-        int lev_ = (Integer) getForms().getVal(LEVEL_MAP_INDEX);
+        getForms().put(CST_CURRENT_TILE, pt_);
+        int pl_ = (Integer) getForms().getVal(CST_PLACE_MAP_INDEX);
+        int lev_ = (Integer) getForms().getVal(CST_LEVEL_MAP_INDEX);
         DataBase data_ = (DataBase) getDataBase();
         Coords current_ = new Coords();
         current_.setNumberPlace((short) pl_);
@@ -491,12 +491,12 @@ public class MapLevelBean extends CommonBean {
         AreaApparition app_ = data_.getMap().getAreaByCoords(current_);
         boolean seeArea_ = false;
         if (!app_.isVirtual()) {
-            getForms().put(AREA, app_);
+            getForms().put(CST_AREA, app_);
             seeArea_ = true;
         }
         Place p_ = data_.getMap().getPlace(pl_);
         StringMap<Boolean> booleans_ = new StringMap<Boolean>();
-        booleans_.put(SEE_AREA,seeArea_);
+        booleans_.put(CST_SEE_AREA,seeArea_);
         Coords coords_ = new Coords();
         coords_.setNumberPlace((short) pl_);
         coords_.setLevel(new LevelPoint());
@@ -510,20 +510,20 @@ public class MapLevelBean extends CommonBean {
                     points_.add(p.getDir());
                 }
             }
-            booleans_.put(PROPONE_LINK,!points_.isEmpty());
+            booleans_.put(CST_PROPONE_LINK,!points_.isEmpty());
             if (points_.size() > DataBase.ONE_POSSIBLE_CHOICE) {
                 for (Direction d: Direction.values()) {
-                    booleans_.put(StringUtil.concat(PROPONE_LINK_VAR,d.name()), points_.containsObj(d));
+                    booleans_.put(StringUtil.concat(CST_PROPONE_LINK_VAR,d.name()), points_.containsObj(d));
                 }
             } else {
                 for (Direction d: Direction.values()) {
-                    booleans_.put(StringUtil.concat(PROPONE_LINK_VAR,d.name()), false);
+                    booleans_.put(StringUtil.concat(CST_PROPONE_LINK_VAR,d.name()), false);
                 }
             }
         } else {
-            booleans_.put(PROPONE_LINK,false);
+            booleans_.put(CST_PROPONE_LINK,false);
             for (Direction d: Direction.values()) {
-                booleans_.put(StringUtil.concat(PROPONE_LINK_VAR,d.name()), false);
+                booleans_.put(StringUtil.concat(CST_PROPONE_LINK_VAR,d.name()), false);
             }
         }
         Coords coordsLoc_ = new Coords();
@@ -531,7 +531,7 @@ public class MapLevelBean extends CommonBean {
         coordsLoc_.setLevel(new LevelPoint());
         coordsLoc_.getLevel().setLevelIndex((byte) lev_);
         coordsLoc_.getLevel().setPoint(pt_);
-        booleans_.put(PROPONE_TILE,!data_.getMap().isEmptyForAdding(coordsLoc_));
+        booleans_.put(CST_PROPONE_TILE,!data_.getMap().isEmptyForAdding(coordsLoc_));
         int nbTrue_ = IndexConstants.SIZE_EMPTY;
         for (boolean b: booleans_.values()) {
             if (b) {
@@ -542,13 +542,13 @@ public class MapLevelBean extends CommonBean {
             for (EntryCust<String, Boolean> e: booleans_.entryList()) {
                 getForms().put(e.getKey(), e.getValue());
             }
-            return LEVEL;
+            return CST_LEVEL;
         }
         String return_ = clickTile();
         if (!return_.isEmpty()) {
             return return_;
         }
-        if (p_ instanceof InitializedPlace && !getForms().contains(INSIDE)) {
+        if (p_ instanceof InitializedPlace && !getForms().contains(CST_INSIDE)) {
             coords_ = new Coords();
             coords_.setNumberPlace((short) pl_);
             coords_.setLevel(new LevelPoint());
@@ -558,16 +558,16 @@ public class MapLevelBean extends CommonBean {
             for (PlaceInterConnect p: i_.getPointsWithCitiesAndOtherRoads().getKeys()) {
                 if (Point.eq(p.getSource(), pt_)) {
                     Coords c_ = i_.getPointsWithCitiesAndOtherRoads().getVal(p);
-                    getForms().put(LEVEL_MAP_INDEX, (int) c_.getLevel().getLevelIndex());
-                    getForms().put(PLACE_MAP_INDEX, (int) c_.getNumberPlace());
-                    return LEVEL;
+                    getForms().put(CST_LEVEL_MAP_INDEX, (int) c_.getLevel().getLevelIndex());
+                    getForms().put(CST_PLACE_MAP_INDEX, (int) c_.getNumberPlace());
+                    return CST_LEVEL;
                 }
             }
         }
         if (p_ instanceof Campaign) {
             if (!app_.isVirtual()) {
-                getForms().put(AREA, app_);
-                return AREA;
+                getForms().put(CST_AREA, app_);
+                return CST_AREA;
             }
         }
         return DataBase.EMPTY_STRING;
@@ -589,8 +589,8 @@ public class MapLevelBean extends CommonBean {
     }
     public boolean isAccessibleByBeatingSomeTrainers(int _index) {
         Point pt_ = tiles.getKey(_index);
-        int pl_ = (Integer) getForms().getVal(PLACE_MAP_INDEX);
-        int lev_ = (Integer) getForms().getVal(LEVEL_MAP_INDEX);
+        int pl_ = (Integer) getForms().getVal(CST_PLACE_MAP_INDEX);
+        int lev_ = (Integer) getForms().getVal(CST_LEVEL_MAP_INDEX);
         Coords coords_ = new Coords();
         coords_.setNumberPlace((short) pl_);
         coords_.setLevel(new LevelPoint());
@@ -601,13 +601,13 @@ public class MapLevelBean extends CommonBean {
     }
     public boolean isStorage(int _index) {
         Point pt_ = tiles.getKey(_index);
-        int pl_ = (Integer) getForms().getVal(PLACE_MAP_INDEX);
+        int pl_ = (Integer) getForms().getVal(CST_PLACE_MAP_INDEX);
         DataBase data_ = (DataBase) getDataBase();
         Place p_ = data_.getMap().getPlace(pl_);
         if (p_ instanceof City) {
             City c_ = (City) p_;
-            if (getForms().contains(INSIDE)) {
-                Point ptInside_ = (Point) getForms().getVal(INSIDE);
+            if (getForms().contains(CST_INSIDE)) {
+                Point ptInside_ = (Point) getForms().getVal(CST_INSIDE);
                 Building b_ = c_.getBuildings().getVal(ptInside_);
                 if (b_ instanceof PokemonCenter) {
                     PokemonCenter pk_ = (PokemonCenter) b_;
@@ -619,13 +619,13 @@ public class MapLevelBean extends CommonBean {
     }
     public boolean isHealer(int _index) {
         Point pt_ = tiles.getKey(_index);
-        int pl_ = (Integer) getForms().getVal(PLACE_MAP_INDEX);
+        int pl_ = (Integer) getForms().getVal(CST_PLACE_MAP_INDEX);
         DataBase data_ = (DataBase) getDataBase();
         Place p_ = data_.getMap().getPlace(pl_);
         if (p_ instanceof City) {
             City c_ = (City) p_;
-            if (getForms().contains(INSIDE)) {
-                Point ptInside_ = (Point) getForms().getVal(INSIDE);
+            if (getForms().contains(CST_INSIDE)) {
+                Point ptInside_ = (Point) getForms().getVal(CST_INSIDE);
                 Building b_ = c_.getBuildings().getVal(ptInside_);
                 if (b_ instanceof PokemonCenter) {
                     PokemonCenter pk_ = (PokemonCenter) b_;
@@ -645,13 +645,13 @@ public class MapLevelBean extends CommonBean {
     }
     public boolean isHost(int _index) {
         Point pt_ = tiles.getKey(_index);
-        int pl_ = (Integer) getForms().getVal(PLACE_MAP_INDEX);
+        int pl_ = (Integer) getForms().getVal(CST_PLACE_MAP_INDEX);
         DataBase data_ = (DataBase) getDataBase();
         Place p_ = data_.getMap().getPlace(pl_);
         if (p_ instanceof City) {
             City c_ = (City) p_;
-            if (getForms().contains(INSIDE)) {
-                Point ptInside_ = (Point) getForms().getVal(INSIDE);
+            if (getForms().contains(CST_INSIDE)) {
+                Point ptInside_ = (Point) getForms().getVal(CST_INSIDE);
                 Building b_ = c_.getBuildings().getVal(ptInside_);
                 if (b_ instanceof PokemonCenter) {
                     PokemonCenter pk_ = (PokemonCenter) b_;
@@ -671,13 +671,13 @@ public class MapLevelBean extends CommonBean {
     }
     public boolean isFossile(int _index) {
         Point pt_ = tiles.getKey(_index);
-        int pl_ = (Integer) getForms().getVal(PLACE_MAP_INDEX);
+        int pl_ = (Integer) getForms().getVal(CST_PLACE_MAP_INDEX);
         DataBase data_ = (DataBase) getDataBase();
         Place p_ = data_.getMap().getPlace(pl_);
         if (p_ instanceof City) {
             City c_ = (City) p_;
-            if (getForms().contains(INSIDE)) {
-                Point ptInside_ = (Point) getForms().getVal(INSIDE);
+            if (getForms().contains(CST_INSIDE)) {
+                Point ptInside_ = (Point) getForms().getVal(CST_INSIDE);
                 Building b_ = c_.getBuildings().getVal(ptInside_);
                 if (b_ instanceof PokemonCenter) {
                     PokemonCenter pk_ = (PokemonCenter) b_;
@@ -697,13 +697,13 @@ public class MapLevelBean extends CommonBean {
     }
     public boolean isMoveTutors(int _index) {
         Point pt_ = tiles.getKey(_index);
-        int pl_ = (Integer) getForms().getVal(PLACE_MAP_INDEX);
+        int pl_ = (Integer) getForms().getVal(CST_PLACE_MAP_INDEX);
         DataBase data_ = (DataBase) getDataBase();
         Place p_ = data_.getMap().getPlace(pl_);
         if (p_ instanceof City) {
             City c_ = (City) p_;
-            if (getForms().contains(INSIDE)) {
-                Point ptInside_ = (Point) getForms().getVal(INSIDE);
+            if (getForms().contains(CST_INSIDE)) {
+                Point ptInside_ = (Point) getForms().getVal(CST_INSIDE);
                 Building b_ = c_.getBuildings().getVal(ptInside_);
                 if (b_ instanceof PokemonCenter) {
                     PokemonCenter pk_ = (PokemonCenter) b_;

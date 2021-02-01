@@ -2011,7 +2011,7 @@ public class FightHelpBean extends CommonBean {
                     continue;
                 }
                 String next_ = catchingFormulaCopy_.substring(j_).trim();
-                if (!next_.isEmpty() && next_.charAt(0) == LEFT_PAR) {
+                if (!next_.isEmpty() && next_.charAt(0) == CST_LEFT_PAR) {
                     str_.append(word_);
                     i_ = j_;
                     continue;
@@ -2123,8 +2123,8 @@ public class FightHelpBean extends CommonBean {
         return translatedAbilities_.getVal(abilitiesSentBeginWeather.get(_index));
     }
     public String clickAbilitiesSentBegin(int _index) {
-        getForms().put(ABILITY, abilitiesSentBeginWeather.get(_index));
-        return ABILITY;
+        getForms().put(CST_ABILITY, abilitiesSentBeginWeather.get(_index));
+        return CST_ABILITY;
     }
     public String getTrAbilitiesSentBeginOth(int _index) {
         DataBase data_ = (DataBase) getDataBase();
@@ -2132,8 +2132,8 @@ public class FightHelpBean extends CommonBean {
         return translatedAbilities_.getVal(abilitiesSentBeginOther.get(_index));
     }
     public String clickAbilitiesSentBeginOth(int _index) {
-        getForms().put(ABILITY, abilitiesSentBeginOther.get(_index));
-        return ABILITY;
+        getForms().put(CST_ABILITY, abilitiesSentBeginOther.get(_index));
+        return CST_ABILITY;
     }
     public String getTrItemsSentBegin(int _index) {
         DataBase data_ = (DataBase) getDataBase();
@@ -2141,8 +2141,8 @@ public class FightHelpBean extends CommonBean {
         return translatedItems_.getVal(itemsSentBeginWeather.get(_index));
     }
     public String clickItemsSentBegin(int _index) {
-        getForms().put(ITEM, itemsSentBeginWeather.get(_index));
-        return ITEMFORBATTLE;
+        getForms().put(CST_ITEM, itemsSentBeginWeather.get(_index));
+        return CST_ITEMFORBATTLE;
     }
     public String getTrItemsSentBeginOth(int _index) {
         DataBase data_ = (DataBase) getDataBase();
@@ -2150,8 +2150,8 @@ public class FightHelpBean extends CommonBean {
         return translatedItems_.getVal(itemsSentBeginOther.get(_index));
     }
     public String clickItemsSentBeginOth(int _index) {
-        getForms().put(ITEM, itemsSentBeginOther.get(_index));
-        return ITEMFORBATTLE;
+        getForms().put(CST_ITEM, itemsSentBeginOther.get(_index));
+        return CST_ITEMFORBATTLE;
     }
     public String getTrSlowItems(int _index) {
         DataBase data_ = (DataBase) getDataBase();
@@ -2159,8 +2159,8 @@ public class FightHelpBean extends CommonBean {
         return translatedItems_.getVal(slowItems.get(_index));
     }
     public String clickSlowItems(int _index) {
-        getForms().put(ITEM, slowItems.get(_index));
-        return ITEMFORBATTLE;
+        getForms().put(CST_ITEM, slowItems.get(_index));
+        return CST_ITEMFORBATTLE;
     }
     public String getTrItemSpeed(int _index) {
         DataBase data_ = (DataBase) getDataBase();
@@ -2168,8 +2168,8 @@ public class FightHelpBean extends CommonBean {
         return translatedItems_.getVal(itemSpeed.get(_index));
     }
     public String clickItemSpeed(int _index) {
-        getForms().put(ITEM, itemSpeed.get(_index));
-        return ITEMFORBATTLE;
+        getForms().put(CST_ITEM, itemSpeed.get(_index));
+        return CST_ITEMFORBATTLE;
     }
     public String getTrSpeedPreparingItems(int _index) {
         DataBase data_ = (DataBase) getDataBase();
@@ -2177,8 +2177,8 @@ public class FightHelpBean extends CommonBean {
         return translatedItems_.getVal(speedPreparingItems.get(_index));
     }
     public String clickSpeedPreparingItems(int _index) {
-        getForms().put(ITEM, speedPreparingItems.get(_index));
-        return ITEMFORBATTLE;
+        getForms().put(CST_ITEM, speedPreparingItems.get(_index));
+        return CST_ITEMFORBATTLE;
     }
     public String getTrProtectItems(int _index) {
         DataBase data_ = (DataBase) getDataBase();
@@ -2186,8 +2186,8 @@ public class FightHelpBean extends CommonBean {
         return translatedItems_.getVal(protectItems.get(_index));
     }
     public String clickProtectItems(int _index) {
-        getForms().put(ITEM, protectItems.get(_index));
-        return BERRY;
+        getForms().put(CST_ITEM, protectItems.get(_index));
+        return CST_BERRY;
     }
     public String getTrItemsFighterStatis(int _index) {
         DataBase data_ = (DataBase) getDataBase();
@@ -2195,8 +2195,8 @@ public class FightHelpBean extends CommonBean {
         return translatedItems_.getVal(itemsFighterStatis.get(_index));
     }
     public String clickItemsFighterStatis(int _index) {
-        getForms().put(ITEM, itemsFighterStatis.get(_index));
-        return ITEMFORBATTLE;
+        getForms().put(CST_ITEM, itemsFighterStatis.get(_index));
+        return CST_ITEMFORBATTLE;
     }
     public String getTrItemsFighterStatus(int _index) {
         DataBase data_ = (DataBase) getDataBase();
@@ -2204,8 +2204,8 @@ public class FightHelpBean extends CommonBean {
         return translatedItems_.getVal(itemsFighterStatus.get(_index));
     }
     public String clickItemsFighterStatus(int _index) {
-        getForms().put(ITEM, itemsFighterStatus.get(_index));
-        return ITEMFORBATTLE;
+        getForms().put(CST_ITEM, itemsFighterStatus.get(_index));
+        return CST_ITEMFORBATTLE;
     }
     public String getTrItemsProtAgainstKo(int _index) {
         DataBase data_ = (DataBase) getDataBase();
@@ -2213,8 +2213,8 @@ public class FightHelpBean extends CommonBean {
         return translatedItems_.getVal(itemsProtAgainstKo.get(_index));
     }
     public String clickItemsProtAgainstKo(int _index) {
-        getForms().put(ITEM, itemsProtAgainstKo.get(_index));
-        return ITEMFORBATTLE;
+        getForms().put(CST_ITEM, itemsProtAgainstKo.get(_index));
+        return CST_ITEMFORBATTLE;
     }
     public String getTrItemsAbs(int _index) {
         DataBase data_ = (DataBase) getDataBase();
@@ -2222,8 +2222,8 @@ public class FightHelpBean extends CommonBean {
         return translatedItems_.getVal(itemsAbs.get(_index));
     }
     public String clickItemsAbs(int _index) {
-        getForms().put(ITEM, itemsAbs.get(_index));
-        return ITEMFORBATTLE;
+        getForms().put(CST_ITEM, itemsAbs.get(_index));
+        return CST_ITEMFORBATTLE;
     }
     public String getTrRecoilItems(int _index) {
         DataBase data_ = (DataBase) getDataBase();
@@ -2232,12 +2232,12 @@ public class FightHelpBean extends CommonBean {
     }
     public String clickRecoilItems(int _index) {
         String it_ = recoilItems.get(_index);
-        getForms().put(ITEM, it_);
+        getForms().put(CST_ITEM, it_);
         DataBase data_ = (DataBase) getDataBase();
         if (data_.getItem(it_) instanceof Berry) {
-            return BERRY;
+            return CST_BERRY;
         }
-        return ITEMFORBATTLE;
+        return CST_ITEMFORBATTLE;
     }
     public String getTrBerryUser(int _index) {
         DataBase data_ = (DataBase) getDataBase();
@@ -2246,8 +2246,8 @@ public class FightHelpBean extends CommonBean {
     }
     public String clickBerryUser(int _index) {
         String it_ = berryUser.get(_index);
-        getForms().put(ITEM, it_);
-        return BERRY;
+        getForms().put(CST_ITEM, it_);
+        return CST_BERRY;
     }
     public String getTrBerryTarget(int _index) {
         DataBase data_ = (DataBase) getDataBase();
@@ -2256,8 +2256,8 @@ public class FightHelpBean extends CommonBean {
     }
     public String clickBerryTarget(int _index) {
         String it_ = berryTarget.get(_index);
-        getForms().put(ITEM, it_);
-        return BERRY;
+        getForms().put(CST_ITEM, it_);
+        return CST_BERRY;
     }
     public String getTrBerryEndRound(int _index) {
         DataBase data_ = (DataBase) getDataBase();
@@ -2266,8 +2266,8 @@ public class FightHelpBean extends CommonBean {
     }
     public String clickBerryEndRound(int _index) {
         String it_ = berryEndRound.get(_index);
-        getForms().put(ITEM, it_);
-        return BERRY;
+        getForms().put(CST_ITEM, it_);
+        return CST_BERRY;
     }
     public String getTrItemsUserPower(int _index) {
         DataBase data_ = (DataBase) getDataBase();
@@ -2276,8 +2276,8 @@ public class FightHelpBean extends CommonBean {
     }
     public String clickItemsUserPower(int _index) {
         String it_ = itemsUserPower.get(_index);
-        getForms().put(ITEM, it_);
-        return BERRY;
+        getForms().put(CST_ITEM, it_);
+        return CST_BERRY;
     }
     public String getTrItemsUserDamage(int _index) {
         DataBase data_ = (DataBase) getDataBase();
@@ -2286,8 +2286,8 @@ public class FightHelpBean extends CommonBean {
     }
     public String clickItemsUserDamage(int _index) {
         String it_ = itemsUserDamage.get(_index);
-        getForms().put(ITEM, it_);
-        return ITEMFORBATTLE;
+        getForms().put(CST_ITEM, it_);
+        return CST_ITEMFORBATTLE;
     }
     public String getTrItemsTargetDamage(int _index) {
         DataBase data_ = (DataBase) getDataBase();
@@ -2296,8 +2296,8 @@ public class FightHelpBean extends CommonBean {
     }
     public String clickItemsTargetDamage(int _index) {
         String it_ = itemsTargetDamage.get(_index);
-        getForms().put(ITEM, it_);
-        return BERRY;
+        getForms().put(CST_ITEM, it_);
+        return CST_BERRY;
     }
     public String getTrItemsCancelImmu(int _index) {
         DataBase data_ = (DataBase) getDataBase();
@@ -2306,8 +2306,8 @@ public class FightHelpBean extends CommonBean {
     }
     public String clickItemsCancelImmu(int _index) {
         String it_ = itemsCancelImmu.get(_index);
-        getForms().put(ITEM, it_);
-        return ITEMFORBATTLE;
+        getForms().put(CST_ITEM, it_);
+        return CST_ITEMFORBATTLE;
     }
     public String getTrItemsImmuTypes(int _index) {
         DataBase data_ = (DataBase) getDataBase();
@@ -2316,8 +2316,8 @@ public class FightHelpBean extends CommonBean {
     }
     public String clickItemsImmuTypes(int _index) {
         String it_ = itemsImmuTypes.get(_index);
-        getForms().put(ITEM, it_);
-        return ITEMFORBATTLE;
+        getForms().put(CST_ITEM, it_);
+        return CST_ITEMFORBATTLE;
     }
     public String getTrItemsImmu(int _index) {
         DataBase data_ = (DataBase) getDataBase();
@@ -2326,12 +2326,12 @@ public class FightHelpBean extends CommonBean {
     }
     public String clickItemsImmu(int _index) {
         String it_ = itemsImmu.get(_index);
-        getForms().put(ITEM, it_);
+        getForms().put(CST_ITEM, it_);
         DataBase data_ = (DataBase) getDataBase();
         if (data_.getItem(it_) instanceof Berry) {
-            return BERRY;
+            return CST_BERRY;
         }
-        return ITEMFORBATTLE;
+        return CST_ITEMFORBATTLE;
     }
     public boolean itemBoostNormalAny() {
         int len_;
@@ -2481,11 +2481,11 @@ public class FightHelpBean extends CommonBean {
     public String clickItemsBoostingStat(int _index) {
         String it_ = itemsBoostingStat.get(_index);
         DataBase data_ = (DataBase) getDataBase();
-        getForms().put(ITEM, it_);
+        getForms().put(CST_ITEM, it_);
         if (data_.getItem(it_) instanceof Berry) {
-            return BERRY;
+            return CST_BERRY;
         }
-        return ITEMFORBATTLE;
+        return CST_ITEMFORBATTLE;
     }
     public boolean itemMultNormalAny() {
         int len_;
@@ -2558,8 +2558,8 @@ public class FightHelpBean extends CommonBean {
     }
     public String clickItemsMultStat(int _index) {
         String it_ = itemsMultStat.get(_index);
-        getForms().put(ITEM, it_);
-        return ITEMFORBATTLE;
+        getForms().put(CST_ITEM, it_);
+        return CST_ITEMFORBATTLE;
     }
     public String getTrBerrySpeed(int _index) {
         DataBase data_ = (DataBase) getDataBase();
@@ -2567,8 +2567,8 @@ public class FightHelpBean extends CommonBean {
         return translatedItems_.getVal(berrySpeed.get(_index));
     }
     public String clickBerrySpeed(int _index) {
-        getForms().put(ITEM, berrySpeed.get(_index));
-        return BERRY;
+        getForms().put(CST_ITEM, berrySpeed.get(_index));
+        return CST_BERRY;
     }
     public String getTrChangingTypesAbilities(int _index) {
         DataBase data_ = (DataBase) getDataBase();
@@ -2576,8 +2576,8 @@ public class FightHelpBean extends CommonBean {
         return translatedAbilities_.getVal(changingTypesAbilities.get(_index));
     }
     public String clickChangingTypesAbilities(int _index) {
-        getForms().put(ABILITY, changingTypesAbilities.get(_index));
-        return ABILITY;
+        getForms().put(CST_ABILITY, changingTypesAbilities.get(_index));
+        return CST_ABILITY;
     }
     public String getTrAbilitiesSentStatis(int _index) {
         DataBase data_ = (DataBase) getDataBase();
@@ -2585,8 +2585,8 @@ public class FightHelpBean extends CommonBean {
         return translatedAbilities_.getVal(abilitiesSentStatis.get(_index));
     }
     public String clickAbilitiesSentStatis(int _index) {
-        getForms().put(ABILITY, abilitiesSentStatis.get(_index));
-        return ABILITY;
+        getForms().put(CST_ABILITY, abilitiesSentStatis.get(_index));
+        return CST_ABILITY;
     }
     public String getTrCopyAbilities(int _index) {
         DataBase data_ = (DataBase) getDataBase();
@@ -2594,8 +2594,8 @@ public class FightHelpBean extends CommonBean {
         return translatedAbilities_.getVal(copyAbilities.get(_index));
     }
     public String clickCopyAbilities(int _index) {
-        getForms().put(ABILITY, copyAbilities.get(_index));
-        return ABILITY;
+        getForms().put(CST_ABILITY, copyAbilities.get(_index));
+        return CST_ABILITY;
     }
     public String getTrAbilitiesPrio(int _index) {
         DataBase data_ = (DataBase) getDataBase();
@@ -2603,8 +2603,8 @@ public class FightHelpBean extends CommonBean {
         return translatedAbilities_.getVal(abilitiesPrio.get(_index));
     }
     public String clickAbilitiesPrio(int _index) {
-        getForms().put(ABILITY, abilitiesPrio.get(_index));
-        return ABILITY;
+        getForms().put(CST_ABILITY, abilitiesPrio.get(_index));
+        return CST_ABILITY;
     }
     public String getTrSlowAbilities(int _index) {
         DataBase data_ = (DataBase) getDataBase();
@@ -2612,8 +2612,8 @@ public class FightHelpBean extends CommonBean {
         return translatedAbilities_.getVal(slowAbilities.get(_index));
     }
     public String clickSlowAbilities(int _index) {
-        getForms().put(ABILITY, slowAbilities.get(_index));
-        return ABILITY;
+        getForms().put(CST_ABILITY, slowAbilities.get(_index));
+        return CST_ABILITY;
     }
     public String getTrAbilitiesSwitch(int _index) {
         DataBase data_ = (DataBase) getDataBase();
@@ -2621,8 +2621,8 @@ public class FightHelpBean extends CommonBean {
         return translatedAbilities_.getVal(abilitiesSwitch.get(_index));
     }
     public String clickAbilitiesSwitch(int _index) {
-        getForms().put(ABILITY, abilitiesSwitch.get(_index));
-        return ABILITY;
+        getForms().put(CST_ABILITY, abilitiesSwitch.get(_index));
+        return CST_ABILITY;
     }
     public String getTrImmuStatusAbility(int _index) {
         DataBase data_ = (DataBase) getDataBase();
@@ -2630,8 +2630,8 @@ public class FightHelpBean extends CommonBean {
         return translatedAbilities_.getVal(immuStatusAbility.get(_index));
     }
     public String clickImmuStatusAbility(int _index) {
-        getForms().put(ABILITY, immuStatusAbility.get(_index));
-        return ABILITY;
+        getForms().put(CST_ABILITY, immuStatusAbility.get(_index));
+        return CST_ABILITY;
     }
     public String getTrImmuRecharging(int _index) {
         DataBase data_ = (DataBase) getDataBase();
@@ -2639,8 +2639,8 @@ public class FightHelpBean extends CommonBean {
         return translatedAbilities_.getVal(immuRecharging.get(_index));
     }
     public String clickImmuRecharging(int _index) {
-        getForms().put(ABILITY, immuRecharging.get(_index));
-        return ABILITY;
+        getForms().put(CST_ABILITY, immuRecharging.get(_index));
+        return CST_ABILITY;
     }
     public String getTrCopyMoveTypesAb(int _index) {
         DataBase data_ = (DataBase) getDataBase();
@@ -2648,8 +2648,8 @@ public class FightHelpBean extends CommonBean {
         return translatedAbilities_.getVal(copyMoveTypesAb.get(_index));
     }
     public String clickCopyMoveTypesAb(int _index) {
-        getForms().put(ABILITY, copyMoveTypesAb.get(_index));
-        return ABILITY;
+        getForms().put(CST_ABILITY, copyMoveTypesAb.get(_index));
+        return CST_ABILITY;
     }
     public String getTrPressureAbilities(int _index) {
         DataBase data_ = (DataBase) getDataBase();
@@ -2657,8 +2657,8 @@ public class FightHelpBean extends CommonBean {
         return translatedAbilities_.getVal(pressureAbilities.get(_index));
     }
     public String clickPressureAbilities(int _index) {
-        getForms().put(ABILITY, pressureAbilities.get(_index));
-        return ABILITY;
+        getForms().put(CST_ABILITY, pressureAbilities.get(_index));
+        return CST_ABILITY;
     }
     public String getTrProtectAbilities(int _index) {
         DataBase data_ = (DataBase) getDataBase();
@@ -2666,8 +2666,8 @@ public class FightHelpBean extends CommonBean {
         return translatedAbilities_.getVal(protectAbilities.get(_index));
     }
     public String clickProtectAbilities(int _index) {
-        getForms().put(ABILITY, protectAbilities.get(_index));
-        return ABILITY;
+        getForms().put(CST_ABILITY, protectAbilities.get(_index));
+        return CST_ABILITY;
     }
     public String getTrAbilitiesPartStatis(int _index) {
         DataBase data_ = (DataBase) getDataBase();
@@ -2675,8 +2675,8 @@ public class FightHelpBean extends CommonBean {
         return translatedAbilities_.getVal(abilitiesPartStatis.get(_index));
     }
     public String clickAbilitiesPartStatis(int _index) {
-        getForms().put(ABILITY, abilitiesPartStatis.get(_index));
-        return ABILITY;
+        getForms().put(CST_ABILITY, abilitiesPartStatis.get(_index));
+        return CST_ABILITY;
     }
     public String getTrAbilitiesRateStatis(int _index) {
         DataBase data_ = (DataBase) getDataBase();
@@ -2684,8 +2684,8 @@ public class FightHelpBean extends CommonBean {
         return translatedAbilities_.getVal(abilitiesRateStatis.get(_index));
     }
     public String clickAbilitiesRateStatis(int _index) {
-        getForms().put(ABILITY, abilitiesRateStatis.get(_index));
-        return ABILITY;
+        getForms().put(CST_ABILITY, abilitiesRateStatis.get(_index));
+        return CST_ABILITY;
     }
     public String getTrAbilitiesFighterStatis(int _index) {
         DataBase data_ = (DataBase) getDataBase();
@@ -2693,8 +2693,8 @@ public class FightHelpBean extends CommonBean {
         return translatedAbilities_.getVal(abilitiesFighterStatis.get(_index));
     }
     public String clickAbilitiesFighterStatis(int _index) {
-        getForms().put(ABILITY, abilitiesFighterStatis.get(_index));
-        return ABILITY;
+        getForms().put(CST_ABILITY, abilitiesFighterStatis.get(_index));
+        return CST_ABILITY;
     }
     public String getTrAbilitiesFighterStatisVar(int _index) {
         DataBase data_ = (DataBase) getDataBase();
@@ -2702,8 +2702,8 @@ public class FightHelpBean extends CommonBean {
         return translatedAbilities_.getVal(abilitiesFighterStatisVar.get(_index));
     }
     public String clickAbilitiesFighterStatisVar(int _index) {
-        getForms().put(ABILITY, abilitiesFighterStatisVar.get(_index));
-        return ABILITY;
+        getForms().put(CST_ABILITY, abilitiesFighterStatisVar.get(_index));
+        return CST_ABILITY;
     }
     public String getTrAbilitiesPartStatus(int _index) {
         DataBase data_ = (DataBase) getDataBase();
@@ -2711,8 +2711,8 @@ public class FightHelpBean extends CommonBean {
         return translatedAbilities_.getVal(abilitiesPartStatus.get(_index));
     }
     public String clickAbilitiesPartStatus(int _index) {
-        getForms().put(ABILITY, abilitiesPartStatus.get(_index));
-        return ABILITY;
+        getForms().put(CST_ABILITY, abilitiesPartStatus.get(_index));
+        return CST_ABILITY;
     }
     public String getTrAbilitiesFighterStatus(int _index) {
         DataBase data_ = (DataBase) getDataBase();
@@ -2720,8 +2720,8 @@ public class FightHelpBean extends CommonBean {
         return translatedAbilities_.getVal(abilitiesFighterStatus.get(_index));
     }
     public String clickAbilitiesFighterStatus(int _index) {
-        getForms().put(ABILITY, abilitiesFighterStatus.get(_index));
-        return ABILITY;
+        getForms().put(CST_ABILITY, abilitiesFighterStatus.get(_index));
+        return CST_ABILITY;
     }
     public String getTrAbilitiesRevAbs(int _index) {
         DataBase data_ = (DataBase) getDataBase();
@@ -2729,8 +2729,8 @@ public class FightHelpBean extends CommonBean {
         return translatedAbilities_.getVal(abilitiesRevAbs.get(_index));
     }
     public String clickAbilitiesRevAbs(int _index) {
-        getForms().put(ABILITY, abilitiesRevAbs.get(_index));
-        return ABILITY;
+        getForms().put(CST_ABILITY, abilitiesRevAbs.get(_index));
+        return CST_ABILITY;
     }
     public String getTrAbilitiesDamageStatis(int _index) {
         DataBase data_ = (DataBase) getDataBase();
@@ -2738,8 +2738,8 @@ public class FightHelpBean extends CommonBean {
         return translatedAbilities_.getVal(abilitiesDamageStatis.get(_index));
     }
     public String clickAbilitiesDamageStatis(int _index) {
-        getForms().put(ABILITY, abilitiesDamageStatis.get(_index));
-        return ABILITY;
+        getForms().put(CST_ABILITY, abilitiesDamageStatis.get(_index));
+        return CST_ABILITY;
     }
     public String getTrAbilitiesChangingTypesDamage(int _index) {
         DataBase data_ = (DataBase) getDataBase();
@@ -2747,8 +2747,8 @@ public class FightHelpBean extends CommonBean {
         return translatedAbilities_.getVal(abilitiesChangingTypesDamage.get(_index));
     }
     public String clickAbilitiesChangingTypesDamage(int _index) {
-        getForms().put(ABILITY, abilitiesChangingTypesDamage.get(_index));
-        return ABILITY;
+        getForms().put(CST_ABILITY, abilitiesChangingTypesDamage.get(_index));
+        return CST_ABILITY;
     }
     public String getTrAbilitiesTakingItem(int _index) {
         DataBase data_ = (DataBase) getDataBase();
@@ -2756,8 +2756,8 @@ public class FightHelpBean extends CommonBean {
         return translatedAbilities_.getVal(abilitiesTakingItem.get(_index));
     }
     public String clickAbilitiesTakingItem(int _index) {
-        getForms().put(ABILITY, abilitiesTakingItem.get(_index));
-        return ABILITY;
+        getForms().put(CST_ABILITY, abilitiesTakingItem.get(_index));
+        return CST_ABILITY;
     }
     public String getTrAbilitiesStatisVarUser(int _index) {
         DataBase data_ = (DataBase) getDataBase();
@@ -2765,8 +2765,8 @@ public class FightHelpBean extends CommonBean {
         return translatedAbilities_.getVal(abilitiesStatisVarUser.get(_index));
     }
     public String clickAbilitiesStatisVarUser(int _index) {
-        getForms().put(ABILITY, abilitiesStatisVarUser.get(_index));
-        return ABILITY;
+        getForms().put(CST_ABILITY, abilitiesStatisVarUser.get(_index));
+        return CST_ABILITY;
     }
     public String getTrAbilitiesStatus(int _index) {
         DataBase data_ = (DataBase) getDataBase();
@@ -2774,8 +2774,8 @@ public class FightHelpBean extends CommonBean {
         return translatedAbilities_.getVal(abilitiesStatus.get(_index));
     }
     public String clickAbilitiesStatus(int _index) {
-        getForms().put(ABILITY, abilitiesStatus.get(_index));
-        return ABILITY;
+        getForms().put(CST_ABILITY, abilitiesStatus.get(_index));
+        return CST_ABILITY;
     }
     public String getTrAbilitiesCopyAb(int _index) {
         DataBase data_ = (DataBase) getDataBase();
@@ -2783,8 +2783,8 @@ public class FightHelpBean extends CommonBean {
         return translatedAbilities_.getVal(abilitiesCopyAb.get(_index));
     }
     public String clickAbilitiesCopyAb(int _index) {
-        getForms().put(ABILITY, abilitiesCopyAb.get(_index));
-        return ABILITY;
+        getForms().put(CST_ABILITY, abilitiesCopyAb.get(_index));
+        return CST_ABILITY;
     }
     public String getTrRecoilAbilities(int _index) {
         DataBase data_ = (DataBase) getDataBase();
@@ -2792,8 +2792,8 @@ public class FightHelpBean extends CommonBean {
         return translatedAbilities_.getVal(recoilAbilities.get(_index));
     }
     public String clickRecoilAbilities(int _index) {
-        getForms().put(ABILITY, recoilAbilities.get(_index));
-        return ABILITY;
+        getForms().put(CST_ABILITY, recoilAbilities.get(_index));
+        return CST_ABILITY;
     }
     public String getTrAbilitiesKoTarget(int _index) {
         DataBase data_ = (DataBase) getDataBase();
@@ -2801,8 +2801,8 @@ public class FightHelpBean extends CommonBean {
         return translatedAbilities_.getVal(abilitiesKoTarget.get(_index));
     }
     public String clickAbilitiesKoTarget(int _index) {
-        getForms().put(ABILITY, abilitiesKoTarget.get(_index));
-        return ABILITY;
+        getForms().put(CST_ABILITY, abilitiesKoTarget.get(_index));
+        return CST_ABILITY;
     }
     public String getTrAbilitiesEndRound(int _index) {
         DataBase data_ = (DataBase) getDataBase();
@@ -2810,8 +2810,8 @@ public class FightHelpBean extends CommonBean {
         return translatedAbilities_.getVal(abilitiesEndRound.get(_index));
     }
     public String clickAbilitiesEndRound(int _index) {
-        getForms().put(ABILITY, abilitiesEndRound.get(_index));
-        return ABILITY;
+        getForms().put(CST_ABILITY, abilitiesEndRound.get(_index));
+        return CST_ABILITY;
     }
     public String getTrAbilitiesUserPower(int _index) {
         DataBase data_ = (DataBase) getDataBase();
@@ -2819,8 +2819,8 @@ public class FightHelpBean extends CommonBean {
         return translatedAbilities_.getVal(abilitiesUserPower.get(_index));
     }
     public String clickAbilitiesUserPower(int _index) {
-        getForms().put(ABILITY, abilitiesUserPower.get(_index));
-        return ABILITY;
+        getForms().put(CST_ABILITY, abilitiesUserPower.get(_index));
+        return CST_ABILITY;
     }
     public String getTrAbilitiesTargetDamage(int _index) {
         DataBase data_ = (DataBase) getDataBase();
@@ -2828,8 +2828,8 @@ public class FightHelpBean extends CommonBean {
         return translatedAbilities_.getVal(abilitiesTargetDamage.get(_index));
     }
     public String clickAbilitiesTargetDamage(int _index) {
-        getForms().put(ABILITY, abilitiesTargetDamage.get(_index));
-        return ABILITY;
+        getForms().put(CST_ABILITY, abilitiesTargetDamage.get(_index));
+        return CST_ABILITY;
     }
     public String getTrAbilitiesGlobal(int _index) {
         DataBase data_ = (DataBase) getDataBase();
@@ -2837,8 +2837,8 @@ public class FightHelpBean extends CommonBean {
         return translatedAbilities_.getVal(abilitiesGlobal.get(_index));
     }
     public String clickAbilitiesGlobal(int _index) {
-        getForms().put(ABILITY, abilitiesGlobal.get(_index));
-        return ABILITY;
+        getForms().put(CST_ABILITY, abilitiesGlobal.get(_index));
+        return CST_ABILITY;
     }
     public String getTrAbilitiesUserDamage(int _index) {
         DataBase data_ = (DataBase) getDataBase();
@@ -2846,8 +2846,8 @@ public class FightHelpBean extends CommonBean {
         return translatedAbilities_.getVal(abilitiesUserDamage.get(_index));
     }
     public String clickAbilitiesUserDamage(int _index) {
-        getForms().put(ABILITY, abilitiesUserDamage.get(_index));
-        return ABILITY;
+        getForms().put(CST_ABILITY, abilitiesUserDamage.get(_index));
+        return CST_ABILITY;
     }
     public String getTrAbilitiesUserTargetDamage(int _index) {
         DataBase data_ = (DataBase) getDataBase();
@@ -2855,8 +2855,8 @@ public class FightHelpBean extends CommonBean {
         return translatedAbilities_.getVal(abilitiesUserTargetDamage.get(_index));
     }
     public String clickAbilitiesUserTargetDamage(int _index) {
-        getForms().put(ABILITY, abilitiesUserTargetDamage.get(_index));
-        return ABILITY;
+        getForms().put(CST_ABILITY, abilitiesUserTargetDamage.get(_index));
+        return CST_ABILITY;
     }
     public String getTrAbilitiesUserStabDamage(int _index) {
         DataBase data_ = (DataBase) getDataBase();
@@ -2864,8 +2864,8 @@ public class FightHelpBean extends CommonBean {
         return translatedAbilities_.getVal(abilitiesUserStabDamage.get(_index));
     }
     public String clickAbilitiesUserStabDamage(int _index) {
-        getForms().put(ABILITY, abilitiesUserStabDamage.get(_index));
-        return ABILITY;
+        getForms().put(CST_ABILITY, abilitiesUserStabDamage.get(_index));
+        return CST_ABILITY;
     }
     public String getTrAbilitiesUserIgnTargetTeam(int _index) {
         DataBase data_ = (DataBase) getDataBase();
@@ -2873,8 +2873,8 @@ public class FightHelpBean extends CommonBean {
         return translatedAbilities_.getVal(abilitiesUserIgnTargetTeam.get(_index));
     }
     public String clickAbilitiesUserIgnTargetTeam(int _index) {
-        getForms().put(ABILITY, abilitiesUserIgnTargetTeam.get(_index));
-        return ABILITY;
+        getForms().put(CST_ABILITY, abilitiesUserIgnTargetTeam.get(_index));
+        return CST_ABILITY;
     }
     public String getTrAbilitiesBreakable(int _index) {
         DataBase data_ = (DataBase) getDataBase();
@@ -2882,8 +2882,8 @@ public class FightHelpBean extends CommonBean {
         return translatedAbilities_.getVal(abilitiesBreakable.get(_index));
     }
     public String clickAbilitiesBreakable(int _index) {
-        getForms().put(ABILITY, abilitiesBreakable.get(_index));
-        return ABILITY;
+        getForms().put(CST_ABILITY, abilitiesBreakable.get(_index));
+        return CST_ABILITY;
     }
     public String getTrAbilitiesImmuTypes(int _index) {
         DataBase data_ = (DataBase) getDataBase();
@@ -2891,8 +2891,8 @@ public class FightHelpBean extends CommonBean {
         return translatedAbilities_.getVal(abilitiesImmuTypes.get(_index));
     }
     public String clickAbilitiesImmuTypes(int _index) {
-        getForms().put(ABILITY, abilitiesImmuTypes.get(_index));
-        return ABILITY;
+        getForms().put(CST_ABILITY, abilitiesImmuTypes.get(_index));
+        return CST_ABILITY;
     }
     public String getTrAbilitiesImmuAllies(int _index) {
         DataBase data_ = (DataBase) getDataBase();
@@ -2900,8 +2900,8 @@ public class FightHelpBean extends CommonBean {
         return translatedAbilities_.getVal(abilitiesImmuAllies.get(_index));
     }
     public String clickAbilitiesImmuAllies(int _index) {
-        getForms().put(ABILITY, abilitiesImmuAllies.get(_index));
-        return ABILITY;
+        getForms().put(CST_ABILITY, abilitiesImmuAllies.get(_index));
+        return CST_ABILITY;
     }
     public String getTrAbilitiesImmuAlliesDam(int _index) {
         DataBase data_ = (DataBase) getDataBase();
@@ -2909,8 +2909,8 @@ public class FightHelpBean extends CommonBean {
         return translatedAbilities_.getVal(abilitiesImmuAlliesDam.get(_index));
     }
     public String clickAbilitiesImmuAlliesDam(int _index) {
-        getForms().put(ABILITY, abilitiesImmuAlliesDam.get(_index));
-        return ABILITY;
+        getForms().put(CST_ABILITY, abilitiesImmuAlliesDam.get(_index));
+        return CST_ABILITY;
     }
     public String getTrAbilitiesImmu(int _index) {
         DataBase data_ = (DataBase) getDataBase();
@@ -2918,8 +2918,8 @@ public class FightHelpBean extends CommonBean {
         return translatedAbilities_.getVal(abilitiesImmu.get(_index));
     }
     public String clickAbilitiesImmu(int _index) {
-        getForms().put(ABILITY, abilitiesImmu.get(_index));
-        return ABILITY;
+        getForms().put(CST_ABILITY, abilitiesImmu.get(_index));
+        return CST_ABILITY;
     }
     public String getTrAbilitiesImmuSecEffOther(int _index) {
         DataBase data_ = (DataBase) getDataBase();
@@ -2927,8 +2927,8 @@ public class FightHelpBean extends CommonBean {
         return translatedAbilities_.getVal(abilitiesImmuSecEffOther.get(_index));
     }
     public String clickAbilitiesImmuSecEffOther(int _index) {
-        getForms().put(ABILITY, abilitiesImmuSecEffOther.get(_index));
-        return ABILITY;
+        getForms().put(CST_ABILITY, abilitiesImmuSecEffOther.get(_index));
+        return CST_ABILITY;
     }
     public String getTrAbilitiesImmuSecEffOwner(int _index) {
         DataBase data_ = (DataBase) getDataBase();
@@ -2936,8 +2936,8 @@ public class FightHelpBean extends CommonBean {
         return translatedAbilities_.getVal(abilitiesImmuSecEffOwner.get(_index));
     }
     public String clickAbilitiesImmuSecEffOwner(int _index) {
-        getForms().put(ABILITY, abilitiesImmuSecEffOwner.get(_index));
-        return ABILITY;
+        getForms().put(CST_ABILITY, abilitiesImmuSecEffOwner.get(_index));
+        return CST_ABILITY;
     }
     public String getTrAbilitiesAchieveTarget(int _index) {
         DataBase data_ = (DataBase) getDataBase();
@@ -2945,8 +2945,8 @@ public class FightHelpBean extends CommonBean {
         return translatedAbilities_.getVal(abilitiesAchieveTarget.get(_index));
     }
     public String clickAbilitiesAchieveTarget(int _index) {
-        getForms().put(ABILITY, abilitiesAchieveTarget.get(_index));
-        return ABILITY;
+        getForms().put(CST_ABILITY, abilitiesAchieveTarget.get(_index));
+        return CST_ABILITY;
     }
     public String getTrAbilitiesBreakProtectMoves(int _index) {
         DataBase data_ = (DataBase) getDataBase();
@@ -2954,8 +2954,8 @@ public class FightHelpBean extends CommonBean {
         return translatedAbilities_.getVal(abilitiesBreakProtectMoves.get(_index));
     }
     public String clickAbilitiesBreakProtectMoves(int _index) {
-        getForms().put(ABILITY, abilitiesBreakProtectMoves.get(_index));
-        return ABILITY;
+        getForms().put(CST_ABILITY, abilitiesBreakProtectMoves.get(_index));
+        return CST_ABILITY;
     }
     public boolean abilityBoostNormalAny() {
         int len_;
@@ -3043,8 +3043,8 @@ public class FightHelpBean extends CommonBean {
         return translatedAbilities_.getVal(abilitiesBoostingStat.get(_index));
     }
     public String clickAbilitiesBoostingStat(int _index) {
-        getForms().put(ABILITY, abilitiesBoostingStat.get(_index));
-        return ABILITY;
+        getForms().put(CST_ABILITY, abilitiesBoostingStat.get(_index));
+        return CST_ABILITY;
     }
     public boolean abilityMultNormalAny() {
         int len_;
@@ -3136,8 +3136,8 @@ public class FightHelpBean extends CommonBean {
         return translatedAbilities_.getVal(abilitiesMultStat.get(_index));
     }
     public String clickAbilitiesMultStat(int _index) {
-        getForms().put(ABILITY, abilitiesMultStat.get(_index));
-        return ABILITY;
+        getForms().put(CST_ABILITY, abilitiesMultStat.get(_index));
+        return CST_ABILITY;
     }
     public boolean abilityAllyMultNormalAny() {
         int len_;
@@ -3209,8 +3209,8 @@ public class FightHelpBean extends CommonBean {
         return translatedAbilities_.getVal(abilitiesAllyMultStat.get(_index));
     }
     public String clickAbilitiesAllyMultStat(int _index) {
-        getForms().put(ABILITY, abilitiesAllyMultStat.get(_index));
-        return ABILITY;
+        getForms().put(CST_ABILITY, abilitiesAllyMultStat.get(_index));
+        return CST_ABILITY;
     }
     public boolean abilityImmuMultNormalAny() {
         int len_;
@@ -3302,8 +3302,8 @@ public class FightHelpBean extends CommonBean {
         return translatedAbilities_.getVal(abilitiesImmuMultStat.get(_index));
     }
     public String clickAbilitiesImmuMultStat(int _index) {
-        getForms().put(ABILITY, abilitiesImmuMultStat.get(_index));
-        return ABILITY;
+        getForms().put(CST_ABILITY, abilitiesImmuMultStat.get(_index));
+        return CST_ABILITY;
     }
     public String getTrAbilitiesTypeDefMoves(int _index) {
         DataBase data_ = (DataBase) getDataBase();
@@ -3311,8 +3311,8 @@ public class FightHelpBean extends CommonBean {
         return translatedAbilities_.getVal(abilitiesTypeDefMoves.get(_index));
     }
     public String clickAbilitiesTypeDefMoves(int _index) {
-        getForms().put(ABILITY, abilitiesTypeDefMoves.get(_index));
-        return ABILITY;
+        getForms().put(CST_ABILITY, abilitiesTypeDefMoves.get(_index));
+        return CST_ABILITY;
     }
     public String getTrAbilitiesChangeTypeMoves(int _index) {
         DataBase data_ = (DataBase) getDataBase();
@@ -3320,8 +3320,8 @@ public class FightHelpBean extends CommonBean {
         return translatedAbilities_.getVal(abilitiesChangeTypeMoves.get(_index));
     }
     public String clickAbilitiesChangeTypeMoves(int _index) {
-        getForms().put(ABILITY, abilitiesChangeTypeMoves.get(_index));
-        return ABILITY;
+        getForms().put(CST_ABILITY, abilitiesChangeTypeMoves.get(_index));
+        return CST_ABILITY;
     }
     public String getTrAbilitiesBreakImmu(int _index) {
         DataBase data_ = (DataBase) getDataBase();
@@ -3329,8 +3329,8 @@ public class FightHelpBean extends CommonBean {
         return translatedAbilities_.getVal(abilitiesBreakImmu.get(_index));
     }
     public String clickAbilitiesBreakImmu(int _index) {
-        getForms().put(ABILITY, abilitiesBreakImmu.get(_index));
-        return ABILITY;
+        getForms().put(CST_ABILITY, abilitiesBreakImmu.get(_index));
+        return CST_ABILITY;
     }
     public String getTrAbilitiesImmuCh(int _index) {
         DataBase data_ = (DataBase) getDataBase();
@@ -3338,8 +3338,8 @@ public class FightHelpBean extends CommonBean {
         return translatedAbilities_.getVal(abilitiesImmuCh.get(_index));
     }
     public String clickAbilitiesImmuCh(int _index) {
-        getForms().put(ABILITY, abilitiesImmuCh.get(_index));
-        return ABILITY;
+        getForms().put(CST_ABILITY, abilitiesImmuCh.get(_index));
+        return CST_ABILITY;
     }
     public String getTrAbilitiesMultEvtCh(int _index) {
         DataBase data_ = (DataBase) getDataBase();
@@ -3347,8 +3347,8 @@ public class FightHelpBean extends CommonBean {
         return translatedAbilities_.getVal(abilitesMultEvtCh.get(_index));
     }
     public String clickAbilitiesMultEvtCh(int _index) {
-        getForms().put(ABILITY, abilitesMultEvtCh.get(_index));
-        return ABILITY;
+        getForms().put(CST_ABILITY, abilitesMultEvtCh.get(_index));
+        return CST_ABILITY;
     }
     public String getTrAbilitiesMultRateCh(int _index) {
         DataBase data_ = (DataBase) getDataBase();
@@ -3356,8 +3356,8 @@ public class FightHelpBean extends CommonBean {
         return translatedAbilities_.getVal(abilitesMultRateCh.get(_index));
     }
     public String clickAbilitiesMultRateCh(int _index) {
-        getForms().put(ABILITY, abilitesMultRateCh.get(_index));
-        return ABILITY;
+        getForms().put(CST_ABILITY, abilitesMultRateCh.get(_index));
+        return CST_ABILITY;
     }
     public String getTrPrivatingMoves(int _index) {
         DataBase data_ = (DataBase) getDataBase();
@@ -3365,8 +3365,8 @@ public class FightHelpBean extends CommonBean {
         return translatedMoves_.getVal(privatingMoves.get(_index));
     }
     public String clickPrivatingMoves(int _index) {
-        getForms().put(MOVE, privatingMoves.get(_index));
-        return MOVE;
+        getForms().put(CST_MOVE, privatingMoves.get(_index));
+        return CST_MOVE;
     }
     public String getTrMovesHealingSubstitute(int _index) {
         DataBase data_ = (DataBase) getDataBase();
@@ -3374,8 +3374,8 @@ public class FightHelpBean extends CommonBean {
         return translatedMoves_.getVal(movesHealingSubstitute.get(_index));
     }
     public String clickMovesHealingSubstitute(int _index) {
-        getForms().put(MOVE, movesHealingSubstitute.get(_index));
-        return MOVE;
+        getForms().put(CST_MOVE, movesHealingSubstitute.get(_index));
+        return CST_MOVE;
     }
     public String getTrSubstitutingMoves(int _index) {
         DataBase data_ = (DataBase) getDataBase();
@@ -3383,8 +3383,8 @@ public class FightHelpBean extends CommonBean {
         return translatedMoves_.getVal(substitutingMoves.get(_index));
     }
     public String clickSubstitutingMoves(int _index) {
-        getForms().put(MOVE, substitutingMoves.get(_index));
-        return MOVE;
+        getForms().put(CST_MOVE, substitutingMoves.get(_index));
+        return CST_MOVE;
     }
     public String getTrReverseSpeedMoves(int _index) {
         DataBase data_ = (DataBase) getDataBase();
@@ -3392,8 +3392,8 @@ public class FightHelpBean extends CommonBean {
         return translatedMoves_.getVal(reverseSpeedMoves.get(_index));
     }
     public String clickReverseSpeedMoves(int _index) {
-        getForms().put(MOVE, reverseSpeedMoves.get(_index));
-        return MOVE;
+        getForms().put(CST_MOVE, reverseSpeedMoves.get(_index));
+        return CST_MOVE;
     }
     public String getTrEntryHazard(int _index) {
         DataBase data_ = (DataBase) getDataBase();
@@ -3401,8 +3401,8 @@ public class FightHelpBean extends CommonBean {
         return translatedMoves_.getVal(entryHazard.get(_index));
     }
     public String clickEntryHazard(int _index) {
-        getForms().put(MOVE, entryHazard.get(_index));
-        return MOVE;
+        getForms().put(CST_MOVE, entryHazard.get(_index));
+        return CST_MOVE;
     }
     public String getTrDeleteStatusMove(int _index) {
         DataBase data_ = (DataBase) getDataBase();
@@ -3410,8 +3410,8 @@ public class FightHelpBean extends CommonBean {
         return translatedMoves_.getVal(deleteStatusMove.get(_index));
     }
     public String clickDeleteStatusMove(int _index) {
-        getForms().put(MOVE, deleteStatusMove.get(_index));
-        return MOVE;
+        getForms().put(CST_MOVE, deleteStatusMove.get(_index));
+        return CST_MOVE;
     }
     public boolean isDisappearingUser(int _index) {
         DataBase data_ = (DataBase) getDataBase();
@@ -3425,8 +3425,8 @@ public class FightHelpBean extends CommonBean {
         return translatedMoves_.getVal(prepaRoundMoves.get(_index));
     }
     public String clickPrepaRoundMoves(int _index) {
-        getForms().put(MOVE, prepaRoundMoves.get(_index));
-        return MOVE;
+        getForms().put(CST_MOVE, prepaRoundMoves.get(_index));
+        return CST_MOVE;
     }
     public String getTrRechargeMoves(int _index) {
         DataBase data_ = (DataBase) getDataBase();
@@ -3434,8 +3434,8 @@ public class FightHelpBean extends CommonBean {
         return translatedMoves_.getVal(rechargeMoves.get(_index));
     }
     public String clickRechargeMoves(int _index) {
-        getForms().put(MOVE, rechargeMoves.get(_index));
-        return MOVE;
+        getForms().put(CST_MOVE, rechargeMoves.get(_index));
+        return CST_MOVE;
     }
     public String getTrMovesInvoking(int _index) {
         DataBase data_ = (DataBase) getDataBase();
@@ -3443,8 +3443,8 @@ public class FightHelpBean extends CommonBean {
         return translatedMoves_.getVal(movesInvoking.get(_index));
     }
     public String clickMovesInvoking(int _index) {
-        getForms().put(MOVE, movesInvoking.get(_index));
-        return MOVE;
+        getForms().put(CST_MOVE, movesInvoking.get(_index));
+        return CST_MOVE;
     }
     public String getTrMovesThieving(int _index) {
         DataBase data_ = (DataBase) getDataBase();
@@ -3452,8 +3452,8 @@ public class FightHelpBean extends CommonBean {
         return translatedMoves_.getVal(movesThieving.get(_index));
     }
     public String clickMovesThieving(int _index) {
-        getForms().put(MOVE, movesThieving.get(_index));
-        return MOVE;
+        getForms().put(CST_MOVE, movesThieving.get(_index));
+        return CST_MOVE;
     }
     public String getTrMovesAttracting(int _index) {
         DataBase data_ = (DataBase) getDataBase();
@@ -3461,8 +3461,8 @@ public class FightHelpBean extends CommonBean {
         return translatedMoves_.getVal(movesAttracting.get(_index));
     }
     public String clickMovesAttracting(int _index) {
-        getForms().put(MOVE, movesAttracting.get(_index));
-        return MOVE;
+        getForms().put(CST_MOVE, movesAttracting.get(_index));
+        return CST_MOVE;
     }
     public String getTrMovesMirror(int _index) {
         DataBase data_ = (DataBase) getDataBase();
@@ -3470,8 +3470,8 @@ public class FightHelpBean extends CommonBean {
         return translatedMoves_.getVal(movesMirror.get(_index));
     }
     public String clickMovesMirror(int _index) {
-        getForms().put(MOVE, movesMirror.get(_index));
-        return MOVE;
+        getForms().put(CST_MOVE, movesMirror.get(_index));
+        return CST_MOVE;
     }
     public String getTrMovesSecEffItems(int _index) {
         DataBase data_ = (DataBase) getDataBase();
@@ -3479,8 +3479,8 @@ public class FightHelpBean extends CommonBean {
         return translatedMoves_.getVal(movesSecEffItems.get(_index));
     }
     public String clickMovesSecEffItems(int _index) {
-        getForms().put(MOVE, movesSecEffItems.get(_index));
-        return MOVE;
+        getForms().put(CST_MOVE, movesSecEffItems.get(_index));
+        return CST_MOVE;
     }
     public String getTrProtectMoves(int _index) {
         DataBase data_ = (DataBase) getDataBase();
@@ -3488,8 +3488,8 @@ public class FightHelpBean extends CommonBean {
         return translatedMoves_.getVal(protectMoves.get(_index));
     }
     public String clickProtectMoves(int _index) {
-        getForms().put(MOVE, protectMoves.get(_index));
-        return MOVE;
+        getForms().put(CST_MOVE, protectMoves.get(_index));
+        return CST_MOVE;
     }
     public String getTrEffMoves(int _index) {
         DataBase data_ = (DataBase) getDataBase();
@@ -3497,8 +3497,8 @@ public class FightHelpBean extends CommonBean {
         return translatedMoves_.getVal(effMoves.get(_index));
     }
     public String clickEffMoves(int _index) {
-        getForms().put(MOVE, effMoves.get(_index));
-        return MOVE;
+        getForms().put(CST_MOVE, effMoves.get(_index));
+        return CST_MOVE;
     }
     public boolean immuStatisTeamMoveAny() {
         int len_;
@@ -3580,8 +3580,8 @@ public class FightHelpBean extends CommonBean {
         return translatedMoves_.getVal(movesTeam.get(_index));
     }
     public String clickMovesTeam(int _index) {
-        getForms().put(MOVE, movesTeam.get(_index));
-        return MOVE;
+        getForms().put(CST_MOVE, movesTeam.get(_index));
+        return CST_MOVE;
     }
     public String getTrGlobalMovesStatus(int _index) {
         DataBase data_ = (DataBase) getDataBase();
@@ -3589,8 +3589,8 @@ public class FightHelpBean extends CommonBean {
         return translatedMoves_.getVal(globalMovesStatus.get(_index));
     }
     public String clickGlobalMovesStatus(int _index) {
-        getForms().put(MOVE, globalMovesStatus.get(_index));
-        return MOVE;
+        getForms().put(CST_MOVE, globalMovesStatus.get(_index));
+        return CST_MOVE;
     }
     public String getTrMovesProtAgainstKo(int _index) {
         DataBase data_ = (DataBase) getDataBase();
@@ -3598,8 +3598,8 @@ public class FightHelpBean extends CommonBean {
         return translatedMoves_.getVal(movesProtAgainstKo.get(_index));
     }
     public String clickMovesProtAgainstKo(int _index) {
-        getForms().put(MOVE, movesProtAgainstKo.get(_index));
-        return MOVE;
+        getForms().put(CST_MOVE, movesProtAgainstKo.get(_index));
+        return CST_MOVE;
     }
     public String getTrMovesCannotKo(int _index) {
         DataBase data_ = (DataBase) getDataBase();
@@ -3607,8 +3607,8 @@ public class FightHelpBean extends CommonBean {
         return translatedMoves_.getVal(movesCannotKo.get(_index));
     }
     public String clickMovesCannotKo(int _index) {
-        getForms().put(MOVE, movesCannotKo.get(_index));
-        return MOVE;
+        getForms().put(CST_MOVE, movesCannotKo.get(_index));
+        return CST_MOVE;
     }
     public String getTrMovesKoTarget(int _index) {
         DataBase data_ = (DataBase) getDataBase();
@@ -3616,8 +3616,8 @@ public class FightHelpBean extends CommonBean {
         return translatedMoves_.getVal(movesKoTarget.get(_index));
     }
     public String clickMovesKoTarget(int _index) {
-        getForms().put(MOVE, movesKoTarget.get(_index));
-        return MOVE;
+        getForms().put(CST_MOVE, movesKoTarget.get(_index));
+        return CST_MOVE;
     }
     public boolean attackFirst() {
         int len_;
@@ -3660,8 +3660,8 @@ public class FightHelpBean extends CommonBean {
         return translatedMoves_.getVal(movesChangingAttOrder.get(_index));
     }
     public String clickMovesChangingAttOrder(int _index) {
-        getForms().put(MOVE, movesChangingAttOrder.get(_index));
-        return MOVE;
+        getForms().put(CST_MOVE, movesChangingAttOrder.get(_index));
+        return CST_MOVE;
     }
     public boolean withConstDamageAny() {
         int len_;
@@ -3717,8 +3717,8 @@ public class FightHelpBean extends CommonBean {
         return translatedMoves_.getVal(damagingMoves.get(_index));
     }
     public String clickDamagingMoves(int _index) {
-        getForms().put(MOVE, damagingMoves.get(_index));
-        return MOVE;
+        getForms().put(CST_MOVE, damagingMoves.get(_index));
+        return CST_MOVE;
     }
     public String getTrMovesUserPower(int _index) {
         DataBase data_ = (DataBase) getDataBase();
@@ -3726,8 +3726,8 @@ public class FightHelpBean extends CommonBean {
         return translatedMoves_.getVal(movesUserPower.get(_index));
     }
     public String clickMovesUserPower(int _index) {
-        getForms().put(MOVE, movesUserPower.get(_index));
-        return MOVE;
+        getForms().put(CST_MOVE, movesUserPower.get(_index));
+        return CST_MOVE;
     }
     public String getTrMovesTargetPower(int _index) {
         DataBase data_ = (DataBase) getDataBase();
@@ -3735,8 +3735,8 @@ public class FightHelpBean extends CommonBean {
         return translatedMoves_.getVal(movesTargetPower.get(_index));
     }
     public String clickMovesTargetPower(int _index) {
-        getForms().put(MOVE, movesTargetPower.get(_index));
-        return MOVE;
+        getForms().put(CST_MOVE, movesTargetPower.get(_index));
+        return CST_MOVE;
     }
     public String getTrMovesTargetTeamDamage(int _index) {
         DataBase data_ = (DataBase) getDataBase();
@@ -3744,8 +3744,8 @@ public class FightHelpBean extends CommonBean {
         return translatedMoves_.getVal(movesTargetTeamDamage.get(_index));
     }
     public String clickMovesTargetTeamDamage(int _index) {
-        getForms().put(MOVE, movesTargetTeamDamage.get(_index));
-        return MOVE;
+        getForms().put(CST_MOVE, movesTargetTeamDamage.get(_index));
+        return CST_MOVE;
     }
     public String getTrMovesGlobal(int _index) {
         DataBase data_ = (DataBase) getDataBase();
@@ -3753,8 +3753,8 @@ public class FightHelpBean extends CommonBean {
         return translatedMoves_.getVal(movesGlobal.get(_index));
     }
     public String clickMovesGlobal(int _index) {
-        getForms().put(MOVE, movesGlobal.get(_index));
-        return MOVE;
+        getForms().put(CST_MOVE, movesGlobal.get(_index));
+        return CST_MOVE;
     }
     public String getTrMovesInvokDamage(int _index) {
         DataBase data_ = (DataBase) getDataBase();
@@ -3762,8 +3762,8 @@ public class FightHelpBean extends CommonBean {
         return translatedMoves_.getVal(movesInvokDamage.get(_index));
     }
     public String clickMovesInvokDamage(int _index) {
-        getForms().put(MOVE, movesInvokDamage.get(_index));
-        return MOVE;
+        getForms().put(CST_MOVE, movesInvokDamage.get(_index));
+        return CST_MOVE;
     }
     public String getTrMovesGlobalPrepaDamage(int _index) {
         DataBase data_ = (DataBase) getDataBase();
@@ -3771,8 +3771,8 @@ public class FightHelpBean extends CommonBean {
         return translatedMoves_.getVal(movesGlobalPrepaDamage.get(_index));
     }
     public String clickMovesGlobalPrepaDamage(int _index) {
-        getForms().put(MOVE, movesGlobalPrepaDamage.get(_index));
-        return MOVE;
+        getForms().put(CST_MOVE, movesGlobalPrepaDamage.get(_index));
+        return CST_MOVE;
     }
     public String getTrMovesUserAllyDamage(int _index) {
         DataBase data_ = (DataBase) getDataBase();
@@ -3780,8 +3780,8 @@ public class FightHelpBean extends CommonBean {
         return translatedMoves_.getVal(movesUserAllyDamage.get(_index));
     }
     public String clickMovesUserAllyaDamage(int _index) {
-        getForms().put(MOVE, movesUserAllyDamage.get(_index));
-        return MOVE;
+        getForms().put(CST_MOVE, movesUserAllyDamage.get(_index));
+        return CST_MOVE;
     }
     public String getTrMovesIgnLowAtt(int _index) {
         DataBase data_ = (DataBase) getDataBase();
@@ -3789,8 +3789,8 @@ public class FightHelpBean extends CommonBean {
         return translatedMoves_.getVal(movesIgnLowAtt.get(_index));
     }
     public String clickMovesIgnLowAtt(int _index) {
-        getForms().put(MOVE, movesIgnLowAtt.get(_index));
-        return MOVE;
+        getForms().put(CST_MOVE, movesIgnLowAtt.get(_index));
+        return CST_MOVE;
     }
     public String getTrMovesIgnIncDef(int _index) {
         DataBase data_ = (DataBase) getDataBase();
@@ -3798,8 +3798,8 @@ public class FightHelpBean extends CommonBean {
         return translatedMoves_.getVal(movesIgnIncDef.get(_index));
     }
     public String clickMovesIgnIncDef(int _index) {
-        getForms().put(MOVE, movesIgnIncDef.get(_index));
-        return MOVE;
+        getForms().put(CST_MOVE, movesIgnIncDef.get(_index));
+        return CST_MOVE;
     }
     public String getTrMovesProtectingTypes(int _index) {
         DataBase data_ = (DataBase) getDataBase();
@@ -3807,8 +3807,8 @@ public class FightHelpBean extends CommonBean {
         return translatedMoves_.getVal(movesProtectingTypes.get(_index));
     }
     public String clickMovesProtectingTypes(int _index) {
-        getForms().put(MOVE, movesProtectingTypes.get(_index));
-        return MOVE;
+        getForms().put(CST_MOVE, movesProtectingTypes.get(_index));
+        return CST_MOVE;
     }
     public String getTrMovesUnprotectingTypes(int _index) {
         DataBase data_ = (DataBase) getDataBase();
@@ -3816,8 +3816,8 @@ public class FightHelpBean extends CommonBean {
         return translatedMoves_.getVal(movesUnprotectingTypes.get(_index));
     }
     public String clickMovesUnprotectingTypes(int _index) {
-        getForms().put(MOVE, movesUnprotectingTypes.get(_index));
-        return MOVE;
+        getForms().put(CST_MOVE, movesUnprotectingTypes.get(_index));
+        return CST_MOVE;
     }
     public String getTrMovesGlobalBreakImmu(int _index) {
         DataBase data_ = (DataBase) getDataBase();
@@ -3825,8 +3825,8 @@ public class FightHelpBean extends CommonBean {
         return translatedMoves_.getVal(movesGlobalBreakImmu.get(_index));
     }
     public String clickMovesGlobalBreakImmu(int _index) {
-        getForms().put(MOVE, movesGlobalBreakImmu.get(_index));
-        return MOVE;
+        getForms().put(CST_MOVE, movesGlobalBreakImmu.get(_index));
+        return CST_MOVE;
     }
     public String getTrMovesGlobalBreakImmuAb(int _index) {
         DataBase data_ = (DataBase) getDataBase();
@@ -3834,8 +3834,8 @@ public class FightHelpBean extends CommonBean {
         return translatedMoves_.getVal(movesGlobalBreakImmuAb.get(_index));
     }
     public String clickMovesGlobalBreakImmuAb(int _index) {
-        getForms().put(MOVE, movesGlobalBreakImmuAb.get(_index));
-        return MOVE;
+        getForms().put(CST_MOVE, movesGlobalBreakImmuAb.get(_index));
+        return CST_MOVE;
     }
     public String getTrMovesProtecting(int _index) {
         DataBase data_ = (DataBase) getDataBase();
@@ -3843,8 +3843,8 @@ public class FightHelpBean extends CommonBean {
         return translatedMoves_.getVal(movesProtecting.get(_index));
     }
     public String clickMovesProtecting(int _index) {
-        getForms().put(MOVE, movesProtecting.get(_index));
-        return MOVE;
+        getForms().put(CST_MOVE, movesProtecting.get(_index));
+        return CST_MOVE;
     }
     public String getTrMovesIgnAcc(int _index) {
         DataBase data_ = (DataBase) getDataBase();
@@ -3852,8 +3852,8 @@ public class FightHelpBean extends CommonBean {
         return translatedMoves_.getVal(movesIgnAcc.get(_index));
     }
     public String clickMovesIgnAcc(int _index) {
-        getForms().put(MOVE, movesIgnAcc.get(_index));
-        return MOVE;
+        getForms().put(CST_MOVE, movesIgnAcc.get(_index));
+        return CST_MOVE;
     }
     public String getTrMovesIgnEva(int _index) {
         DataBase data_ = (DataBase) getDataBase();
@@ -3861,8 +3861,8 @@ public class FightHelpBean extends CommonBean {
         return translatedMoves_.getVal(movesIgnEva.get(_index));
     }
     public String clickMovesIgnEva(int _index) {
-        getForms().put(MOVE, movesIgnEva.get(_index));
-        return MOVE;
+        getForms().put(CST_MOVE, movesIgnEva.get(_index));
+        return CST_MOVE;
     }
     public String getTrMovesGlobalAcc(int _index) {
         DataBase data_ = (DataBase) getDataBase();
@@ -3870,8 +3870,8 @@ public class FightHelpBean extends CommonBean {
         return translatedMoves_.getVal(movesGlobalAcc.get(_index));
     }
     public String clickMovesGlobalAcc(int _index) {
-        getForms().put(MOVE, movesGlobalAcc.get(_index));
-        return MOVE;
+        getForms().put(CST_MOVE, movesGlobalAcc.get(_index));
+        return CST_MOVE;
     }
     public boolean moveGlobalMultNormalAny() {
         int len_;
@@ -3987,8 +3987,8 @@ public class FightHelpBean extends CommonBean {
         return translatedMoves_.getVal(movesGlobalMultStat.get(_index));
     }
     public String clickMovesGlobalMultStat(int _index) {
-        getForms().put(MOVE, movesGlobalMultStat.get(_index));
-        return MOVE;
+        getForms().put(CST_MOVE, movesGlobalMultStat.get(_index));
+        return CST_MOVE;
     }
     public boolean moveTeamMultNormalAny() {
         int len_ = movesTeamMultStat.size();
@@ -4092,8 +4092,8 @@ public class FightHelpBean extends CommonBean {
         return translatedMoves_.getVal(movesTeamMultStat.get(_index));
     }
     public String clickMovesTeamMultStat(int _index) {
-        getForms().put(MOVE, movesTeamMultStat.get(_index));
-        return MOVE;
+        getForms().put(CST_MOVE, movesTeamMultStat.get(_index));
+        return CST_MOVE;
     }
     public boolean moveFoeTeamMultNormalAny() {
         int len_;
@@ -4201,8 +4201,8 @@ public class FightHelpBean extends CommonBean {
         return translatedMoves_.getVal(movesFoeTeamMultStat.get(_index));
     }
     public String clickMovesFoeTeamMultStat(int _index) {
-        getForms().put(MOVE, movesFoeTeamMultStat.get(_index));
-        return MOVE;
+        getForms().put(CST_MOVE, movesFoeTeamMultStat.get(_index));
+        return CST_MOVE;
     }
     public String getTrMovesTypesDefItem(int _index) {
         DataBase data_ = (DataBase) getDataBase();
@@ -4210,8 +4210,8 @@ public class FightHelpBean extends CommonBean {
         return translatedMoves_.getVal(movesTypesDefItem.get(_index));
     }
     public String clickMovesTypesDefItem(int _index) {
-        getForms().put(MOVE, movesTypesDefItem.get(_index));
-        return MOVE;
+        getForms().put(CST_MOVE, movesTypesDefItem.get(_index));
+        return CST_MOVE;
     }
     public String getTrItemsTypesDef(int _index) {
         DataBase data_ = (DataBase) getDataBase();
@@ -4219,8 +4219,8 @@ public class FightHelpBean extends CommonBean {
         return translatedItems_.getVal(itemsTypesDef.get(_index));
     }
     public String clickItemsTypesDef(int _index) {
-        getForms().put(ITEM, itemsTypesDef.get(_index));
-        return ITEM;
+        getForms().put(CST_ITEM, itemsTypesDef.get(_index));
+        return CST_ITEM;
     }
     public String getTrMovesTypesDefWeather(int _index) {
         DataBase data_ = (DataBase) getDataBase();
@@ -4228,8 +4228,8 @@ public class FightHelpBean extends CommonBean {
         return translatedMoves_.getVal(movesTypesDefWeather.get(_index));
     }
     public String clickMovesTypesDefWeather(int _index) {
-        getForms().put(MOVE, movesTypesDefWeather.get(_index));
-        return MOVE;
+        getForms().put(CST_MOVE, movesTypesDefWeather.get(_index));
+        return CST_MOVE;
     }
     public String getTrMovesTypeDefMoves(int _index) {
         DataBase data_ = (DataBase) getDataBase();
@@ -4237,8 +4237,8 @@ public class FightHelpBean extends CommonBean {
         return translatedMoves_.getVal(movesTypeDefMoves.get(_index));
     }
     public String clickMovesTypeDefMoves(int _index) {
-        getForms().put(MOVE, movesTypeDefMoves.get(_index));
-        return MOVE;
+        getForms().put(CST_MOVE, movesTypeDefMoves.get(_index));
+        return CST_MOVE;
     }
     public String getTrMovesChangeTypeMoves(int _index) {
         DataBase data_ = (DataBase) getDataBase();
@@ -4246,8 +4246,8 @@ public class FightHelpBean extends CommonBean {
         return translatedMoves_.getVal(movesChangeTypeMoves.get(_index));
     }
     public String clickMovesChangeTypeMoves(int _index) {
-        getForms().put(MOVE, movesChangeTypeMoves.get(_index));
-        return MOVE;
+        getForms().put(CST_MOVE, movesChangeTypeMoves.get(_index));
+        return CST_MOVE;
     }
     public String getTrMovesBoostCh(int _index) {
         DataBase data_ = (DataBase) getDataBase();
@@ -4255,8 +4255,8 @@ public class FightHelpBean extends CommonBean {
         return translatedMoves_.getVal(movesBoostCh.get(_index));
     }
     public String clickMovesBoostCh(int _index) {
-        getForms().put(MOVE, movesBoostCh.get(_index));
-        return MOVE;
+        getForms().put(CST_MOVE, movesBoostCh.get(_index));
+        return CST_MOVE;
     }
     public String getTrDeletedStatusSwitch(int _index) {
         DataBase data_ = (DataBase) getDataBase();
@@ -4264,8 +4264,8 @@ public class FightHelpBean extends CommonBean {
         return translatedStatus_.getVal(deletedStatusSwitch.get(_index));
     }
     public String clickDeletedStatusSwitch(int _index) {
-        getForms().put(STATUS, deletedStatusSwitch.get(_index));
-        return STATUS;
+        getForms().put(CST_STATUS, deletedStatusSwitch.get(_index));
+        return CST_STATUS;
     }
     public boolean hasLawForAttackAny() {
         int len_;
@@ -4310,8 +4310,8 @@ public class FightHelpBean extends CommonBean {
         return translatedStatus_.getVal(beginRoundStatus.get(_index));
     }
     public String clickBeginRoundStatus(int _index) {
-        getForms().put(STATUS, beginRoundStatus.get(_index));
-        return STATUS;
+        getForms().put(CST_STATUS, beginRoundStatus.get(_index));
+        return CST_STATUS;
     }
     public String getTrAutoDamage(int _index) {
         DataBase data_ = (DataBase) getDataBase();
@@ -4319,8 +4319,8 @@ public class FightHelpBean extends CommonBean {
         return translatedStatus_.getVal(autoDamage.get(_index));
     }
     public String clickAutoDamage(int _index) {
-        getForms().put(STATUS, autoDamage.get(_index));
-        return STATUS;
+        getForms().put(CST_STATUS, autoDamage.get(_index));
+        return CST_STATUS;
     }
     public String getTrBeginRoundStatusFoe(int _index) {
         DataBase data_ = (DataBase) getDataBase();
@@ -4328,8 +4328,8 @@ public class FightHelpBean extends CommonBean {
         return translatedStatus_.getVal(beginRoundStatusFoe.get(_index));
     }
     public String clickBeginRoundStatusFoe(int _index) {
-        getForms().put(STATUS, beginRoundStatusFoe.get(_index));
-        return STATUS;
+        getForms().put(CST_STATUS, beginRoundStatusFoe.get(_index));
+        return CST_STATUS;
     }
     public String getTrSuccessfulStatus(int _index) {
         DataBase data_ = (DataBase) getDataBase();
@@ -4337,8 +4337,8 @@ public class FightHelpBean extends CommonBean {
         return translatedStatus_.getVal(successfulStatus.get(_index));
     }
     public String clickSuccessfulStatus(int _index) {
-        getForms().put(STATUS, successfulStatus.get(_index));
-        return STATUS;
+        getForms().put(CST_STATUS, successfulStatus.get(_index));
+        return CST_STATUS;
     }
     public String getTrStatusDamage(int _index) {
         DataBase data_ = (DataBase) getDataBase();
@@ -4346,8 +4346,8 @@ public class FightHelpBean extends CommonBean {
         return translatedStatus_.getVal(statusDamage.get(_index));
     }
     public String clickStatusDamage(int _index) {
-        getForms().put(STATUS, statusDamage.get(_index));
-        return STATUS;
+        getForms().put(CST_STATUS, statusDamage.get(_index));
+        return CST_STATUS;
     }
     public boolean statusMultNormalAny() {
         int len_;
@@ -4419,8 +4419,8 @@ public class FightHelpBean extends CommonBean {
         return translatedStatus_.getVal(statusMultStat.get(_index));
     }
     public String clickStatusMultStat(int _index) {
-        getForms().put(STATUS, statusMultStat.get(_index));
-        return STATUS;
+        getForms().put(CST_STATUS, statusMultStat.get(_index));
+        return CST_STATUS;
     }
     public boolean comboMultNormalAny() {
         int len_;
@@ -4529,11 +4529,11 @@ public class FightHelpBean extends CommonBean {
         for (String m: comboMultStat.get(_index)) {
             moves_.add(translatedMoves_.getVal(m));
         }
-        return StringUtil.join(moves_, SEP_DASH);
+        return StringUtil.join(moves_, CST_SEP_DASH);
     }
     public String clickComboMultStat(int _index) {
-        getForms().put(COMBO, comboMultStat.get(_index));
-        return COMBO;
+        getForms().put(CST_COMBO, comboMultStat.get(_index));
+        return CST_COMBO;
     }
     public String getTrComboEvtStat(int _index) {
         DataBase data_ = (DataBase) getDataBase();
@@ -4542,11 +4542,11 @@ public class FightHelpBean extends CommonBean {
         for (String m: comboEvtStat.get(_index)) {
             moves_.add(translatedMoves_.getVal(m));
         }
-        return StringUtil.join(moves_, SEP_DASH);
+        return StringUtil.join(moves_, CST_SEP_DASH);
     }
     public String clickComboEvtStat(int _index) {
-        getForms().put(COMBO, comboEvtStat.get(_index));
-        return COMBO;
+        getForms().put(CST_COMBO, comboEvtStat.get(_index));
+        return CST_COMBO;
     }
     public boolean nextRowAfter(int _index) {
         if (_index == IndexConstants.FIRST_INDEX) {
@@ -4569,8 +4569,8 @@ public class FightHelpBean extends CommonBean {
         return translatedMoves_.getVal(defaultMove);
     }
     public String clickDefaultMove() {
-        getForms().put(MOVE, defaultMove);
-        return MOVE;
+        getForms().put(CST_MOVE, defaultMove);
+        return CST_MOVE;
     }
 
     public int getDefaultBoostValue() {

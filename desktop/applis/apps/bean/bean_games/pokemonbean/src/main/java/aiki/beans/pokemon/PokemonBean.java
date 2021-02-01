@@ -111,7 +111,7 @@ public class PokemonBean extends CommonBean {
         }
         StringMap<String> translationsPokemon_;
         translationsPokemon_ = data_.getTranslatedPokemon().getVal(getLanguage());
-        name = (String) getForms().getVal(PK);
+        name = (String) getForms().getVal(CST_PK);
         int nbPlaces_ = places.size();
         for (short i = IndexConstants.FIRST_INDEX; i < nbPlaces_; i++) {
             if (isAppearingPlace(i)) {
@@ -254,10 +254,10 @@ public class PokemonBean extends CommonBean {
         return height.evaluate(2);
     }
     public String clickPokedex() {
-        if (!getForms().contains(POKEMON_SET)) {
-            getForms().put(POKEMON_SET, new StringList());
+        if (!getForms().contains(CST_POKEMON_SET)) {
+            getForms().put(CST_POKEMON_SET, new StringList());
         }
-        return POKEMON_SET;
+        return CST_POKEMON_SET;
     }
     public String getPage(int _index) {
         DataBase data_ = (DataBase) getDataBase();
@@ -298,14 +298,14 @@ public class PokemonBean extends CommonBean {
         return data_.translateAbility(abilities.get(_index));
     }
     public String clickAbility(int _index) {
-        getForms().put(ABILITY,abilities.get(_index));
-        return ABILITY;
+        getForms().put(CST_ABILITY,abilities.get(_index));
+        return CST_ABILITY;
     }
     public String clickBase() {
         DataBase data_ = (DataBase) getDataBase();
         PokemonData pk_ = data_.getPokemon(name);
-        getForms().put(PK,pk_.getBaseEvo());
-        return POKEMON;
+        getForms().put(CST_PK,pk_.getBaseEvo());
+        return CST_POKEMON;
     }
     public short getBase(int _index) {
         DataBase data_ = (DataBase) getDataBase();
@@ -325,20 +325,20 @@ public class PokemonBean extends CommonBean {
         DataBase data_ = (DataBase) getDataBase();
         PokemonData pk_ = data_.getPokemon(name);
         String move_ = pk_.getLevMoves().get(_index).getMove();
-        getForms().put(MOVE,move_);
-        return MOVE;
+        getForms().put(CST_MOVE,move_);
+        return CST_MOVE;
     }
     public String clickTechnicalMove(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         String move_ = data_.getTm().getVal(technicalMoves.getKey(_index));
-        getForms().put(MOVE,move_);
-        return MOVE;
+        getForms().put(CST_MOVE,move_);
+        return CST_MOVE;
     }
     public String clickHiddenMove(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         String move_ = data_.getHm().getVal(hiddenMoves.getKey(_index));
-        getForms().put(MOVE,move_);
-        return MOVE;
+        getForms().put(CST_MOVE,move_);
+        return CST_MOVE;
     }
     public String getMoveTutor(int _index) {
         DataBase data_ = (DataBase) getDataBase();
@@ -348,8 +348,8 @@ public class PokemonBean extends CommonBean {
     }
     public String clickMoveTutors(int _index) {
         String move_ = moveTutors.get(_index);
-        getForms().put(MOVE,move_);
-        return MOVE;
+        getForms().put(CST_MOVE,move_);
+        return CST_MOVE;
     }
     public String getEggPk(int _index) {
         DataBase data_ = (DataBase) getDataBase();
@@ -359,8 +359,8 @@ public class PokemonBean extends CommonBean {
     }
     public String clickEggPk(int _index) {
         String pk_ = eggGroupsPk.get(_index);
-        getForms().put(PK,pk_);
-        return POKEMON;
+        getForms().put(CST_PK,pk_);
+        return CST_POKEMON;
     }
     public boolean isAppearingAnyWhere() {
         int nbPlaces_ = places.size();
@@ -417,16 +417,16 @@ public class PokemonBean extends CommonBean {
         return false;
     }
     public String clickLevel(int _indexOne, int _indexTwo) {
-        getForms().removeKey(INSIDE);
-        getForms().put(LEVEL_MAP_INDEX, _indexTwo);
-        getForms().put(PLACE_MAP_INDEX, _indexOne);
-        getForms().put(PROPONE_LINK, false);
-        getForms().put(PROPONE_TILE, false);
-        getForms().put(SEE_AREA, false);
+        getForms().removeKey(CST_INSIDE);
+        getForms().put(CST_LEVEL_MAP_INDEX, _indexTwo);
+        getForms().put(CST_PLACE_MAP_INDEX, _indexOne);
+        getForms().put(CST_PROPONE_LINK, false);
+        getForms().put(CST_PROPONE_TILE, false);
+        getForms().put(CST_SEE_AREA, false);
         for (Direction d: Direction.values()) {
-            getForms().put(StringUtil.concat(PROPONE_LINK_VAR,d.name()), false);
+            getForms().put(StringUtil.concat(CST_PROPONE_LINK_VAR,d.name()), false);
         }
-        return LEVEL;
+        return CST_LEVEL;
     }
 
     public String getDisplayName() {

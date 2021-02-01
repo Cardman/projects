@@ -38,8 +38,8 @@ public class MovesBean extends CommonBean {
         translationsCategories_ = data_.getTranslatedCategories().getVal(getLanguage());
         categories.putAllMap(translationsCategories_);
         categories.put(DataBase.EMPTY_STRING, DataBase.EMPTY_STRING);
-        if (!getForms().contains(LEARNT)) {
-            StringList moves_ = (StringList) getForms().getVal(MOVES_SET);
+        if (!getForms().contains(CST_LEARNT)) {
+            StringList moves_ = (StringList) getForms().getVal(CST_MOVES_SET);
             for (String k: moves_) {
                 MoveData moveData_ = data_.getMoves().getVal(k);
                 MoveLine line_ = new MoveLine();
@@ -75,8 +75,8 @@ public class MovesBean extends CommonBean {
                 moves.add(line_);
             }
         } else {
-            boolean selectedLearn_ = (Boolean) getForms().getVal(LEARNT);
-            StringList learntMoves_ = (StringList) getForms().getVal(LEARNT_MOVES);
+            boolean selectedLearn_ = (Boolean) getForms().getVal(CST_LEARNT);
+            StringList learntMoves_ = (StringList) getForms().getVal(CST_LEARNT_MOVES);
             for (String k: data_.getMoves().getKeys()) {
                 if (StringUtil.contains(learntMoves_, k) && !selectedLearn_) {
                     continue;
@@ -223,16 +223,16 @@ public class MovesBean extends CommonBean {
             moves_.add(k);
         }
         moves_.sortElts(new ComparatorTrStrings(translationsMoves_));
-        getForms().put(MOVES_SET, moves_);
+        getForms().put(CST_MOVES_SET, moves_);
         if (moves_.size() == DataBase.ONE_POSSIBLE_CHOICE) {
-            getForms().put(MOVE, moves_.first());
-            return MOVE;
+            getForms().put(CST_MOVE, moves_.first());
+            return CST_MOVE;
         }
-        return MOVES;
+        return CST_MOVES;
     }
     public String clickLink(int _number) {
-        getForms().put(MOVE,moves.get(_number).getName());
-        return MOVE;
+        getForms().put(CST_MOVE,moves.get(_number).getName());
+        return CST_MOVE;
     }
 
     public void setTypedName(String _typedName) {

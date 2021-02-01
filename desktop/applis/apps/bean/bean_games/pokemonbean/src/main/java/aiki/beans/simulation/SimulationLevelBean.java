@@ -41,7 +41,7 @@ public class SimulationLevelBean extends CommonBean {
     public void beforeDisplaying() {
         levelIndex = IndexConstants.INDEX_NOT_FOUND_ELT;
         tiles = new TreeMap<Point, String>(new ComparatorPoint());
-        noFight = (Integer) getForms().getVal(NO_FIGHT);
+        noFight = (Integer) getForms().getVal(CST_NO_FIGHT);
         CustList<PlaceIndex> places_ = new CustList<PlaceIndex>();
         DataBase data_ = (DataBase) getDataBase();
         short i_ = 0;
@@ -58,9 +58,9 @@ public class SimulationLevelBean extends CommonBean {
         gym = false;
         pokemonCenter = false;
         outside = false;
-        if (getForms().contains(INSIDE)) {
-            Point ptInside_ = (Point) getForms().getVal(INSIDE);
-            int pl_ = (Integer) getForms().getVal(PLACE_MAP_INDEX);
+        if (getForms().contains(CST_INSIDE)) {
+            Point ptInside_ = (Point) getForms().getVal(CST_INSIDE);
+            int pl_ = (Integer) getForms().getVal(CST_PLACE_MAP_INDEX);
             Place place_ = data_.getMap().getPlace(pl_);
             if (place_ instanceof City) {
                 City city_ = (City) place_;
@@ -77,8 +77,8 @@ public class SimulationLevelBean extends CommonBean {
             }
         } else {
             outside = true;
-            int lev_ = (Integer) getForms().getVal(LEVEL_MAP_INDEX);
-            int pl_ = (Integer) getForms().getVal(PLACE_MAP_INDEX);
+            int lev_ = (Integer) getForms().getVal(CST_LEVEL_MAP_INDEX);
+            int pl_ = (Integer) getForms().getVal(CST_PLACE_MAP_INDEX);
             if (data_.getMap().getPlace(pl_) instanceof League) {
                 possibleMultiLayer = true;
             }
@@ -110,7 +110,7 @@ public class SimulationLevelBean extends CommonBean {
         return pt_.getx() == IndexConstants.FIRST_INDEX;
     }
     public static String cancel() {
-        return SIMULATION;
+        return CST_SIMULATION;
     }
     public String clickTile(int _index) {
         if (noFight < 0) {
@@ -118,14 +118,14 @@ public class SimulationLevelBean extends CommonBean {
         }
         Point pt_ = tiles.getKey(_index);
         //Level level_ = (Level) getForms().getVal(LEVEL_MAP);
-        int pl_ = (Integer) getForms().getVal(PLACE_MAP_INDEX);
-        int lev_ = (Integer) getForms().getVal(LEVEL_MAP_INDEX);
+        int pl_ = (Integer) getForms().getVal(CST_PLACE_MAP_INDEX);
+        int lev_ = (Integer) getForms().getVal(CST_LEVEL_MAP_INDEX);
         DataBase data_ = (DataBase) getDataBase();
         Place p_ = data_.getMap().getPlace(pl_);
         //getForms().put(FROM_LIST, false);
         if (p_ instanceof City) {
             City c_ = (City) p_;
-            Point ptInside_ = (Point) getForms().getVal(INSIDE);
+            Point ptInside_ = (Point) getForms().getVal(CST_INSIDE);
             Building b_ = c_.getBuildings().getVal(ptInside_);
             Gym g_ = (Gym) b_;
             if (g_.getIndoor().getGymTrainers().contains(pt_)) {
@@ -134,9 +134,9 @@ public class SimulationLevelBean extends CommonBean {
                 coords_.setLevel(new LevelPoint());
                 coords_.setInsideBuilding(new Point(ptInside_));
                 coords_.getLevel().setPoint(new Point(pt_));
-                getForms().put(COORDS, coords_);
-                getForms().put(NO_FIGHT, noFight);
-                return SIMULATION;
+                getForms().put(CST_COORDS, coords_);
+                getForms().put(CST_NO_FIGHT, noFight);
+                return CST_SIMULATION;
             }
             if (Point.eq(g_.getIndoor().getGymLeaderCoords(), pt_)) {
                 Coords coords_ = new Coords();
@@ -144,9 +144,9 @@ public class SimulationLevelBean extends CommonBean {
                 coords_.setLevel(new LevelPoint());
                 coords_.setInsideBuilding(new Point(ptInside_));
                 coords_.getLevel().setPoint(new Point(pt_));
-                getForms().put(COORDS, coords_);
-                getForms().put(NO_FIGHT, noFight);
-                return SIMULATION;
+                getForms().put(CST_COORDS, coords_);
+                getForms().put(CST_NO_FIGHT, noFight);
+                return CST_SIMULATION;
             }
             return DataBase.EMPTY_STRING;
         }
@@ -159,9 +159,9 @@ public class SimulationLevelBean extends CommonBean {
                 coords_.setLevel(new LevelPoint());
                 coords_.getLevel().setLevelIndex((byte) lev_);
                 coords_.getLevel().setPoint(new Point(pt_));
-                getForms().put(COORDS, coords_);
-                getForms().put(NO_FIGHT, noFight);
-                return SIMULATION;
+                getForms().put(CST_COORDS, coords_);
+                getForms().put(CST_NO_FIGHT, noFight);
+                return CST_SIMULATION;
             }
             if (l_.getCharacters().contains(pt_)) {
                 CharacterInRoadCave char_ = l_.getCharacters().getVal(pt_);
@@ -171,15 +171,15 @@ public class SimulationLevelBean extends CommonBean {
                         noFight = tr_.getTeamsRewards().size();
                         noFight--;
                     }
-                    getForms().put(NO_FIGHT, noFight);
+                    getForms().put(CST_NO_FIGHT, noFight);
                     Coords coords_ = new Coords();
                     coords_.setNumberPlace((short) pl_);
                     coords_.setLevel(new LevelPoint());
                     coords_.getLevel().setLevelIndex((byte) lev_);
                     coords_.getLevel().setPoint(new Point(pt_));
-                    getForms().put(COORDS, coords_);
+                    getForms().put(CST_COORDS, coords_);
                     //noFight
-                    return SIMULATION;
+                    return CST_SIMULATION;
                 }
             }
             for (Point ptKey_: l_.getDualFights().getKeys()) {
@@ -190,9 +190,9 @@ public class SimulationLevelBean extends CommonBean {
                     coords_.setLevel(new LevelPoint());
                     coords_.getLevel().setLevelIndex((byte) lev_);
                     coords_.getLevel().setPoint(new Point(ptKey_));
-                    getForms().put(NO_FIGHT, noFight);
-                    getForms().put(COORDS, coords_);
-                    return SIMULATION;
+                    getForms().put(CST_NO_FIGHT, noFight);
+                    getForms().put(CST_COORDS, coords_);
+                    return CST_SIMULATION;
                 }
             }
         }

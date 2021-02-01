@@ -48,8 +48,8 @@ public class EffectEndRoundIndividualBean extends EffectEndRoundBean {
     }
     public String clickUserStatus(int _index) {
         EffectEndRoundIndividual effect_ = (EffectEndRoundIndividual) getEffect(_index);
-        getForms().put(STATUS, effect_.getUserStatusEndRound());
-        return STATUS;
+        getForms().put(CST_STATUS, effect_.getUserStatusEndRound());
+        return CST_STATUS;
     }
     public String getTrDamageStatus(int _index) {
         DataBase data_ = (DataBase) getDataBase();
@@ -67,8 +67,8 @@ public class EffectEndRoundIndividualBean extends EffectEndRoundBean {
         for (String s: effect_.getMultDamageStatus().getKeys()) {
             multDamageStatus_.put(s, effect_.getMultDamageStatus().getVal(s));
         }
-        getForms().put(STATUS, multDamageStatus_.getKey(_indexTwo));
-        return STATUS;
+        getForms().put(CST_STATUS, multDamageStatus_.getKey(_indexTwo));
+        return CST_STATUS;
     }
     public boolean isType(int _index) {
         return !healHpByOwnerTypes.getKey(_index).isEmpty();

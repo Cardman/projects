@@ -69,6 +69,6 @@ public abstract class RendElement extends RendParentBlock implements RendWithEl 
         rw_.setWrite(created_);
     }
 
-    protected abstract void processExecAttr(Configuration _cont, MutableNode _nextWrite, Element _read, BeanLgNames _stds, ContextEl _ctx, StackCall _stack, RendStackCall _rendStack);
+    protected abstract void processExecAttr(Configuration _cont, Node _nextWrite, Element _read, BeanLgNames _stds, ContextEl _ctx, StackCall _stack, RendStackCall _rendStack);
 
 }

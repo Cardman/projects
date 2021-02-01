@@ -6,7 +6,7 @@ import aiki.fight.pokemon.PokemonData;
 public final class EvolutionLevelSimple extends EvolutionLevel {
 
     @Override
-    public void validate(DataBase _dataBase, PokemonData _fPk) {
-        validateEvolutionLevel(_dataBase);
+    public boolean validate(DataBase _dataBase, PokemonData _fPk) {
+        return validateEvolutionLevel(_dataBase);
     }
 }

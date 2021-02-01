@@ -6,7 +6,7 @@ import code.formathtml.Configuration;
 import code.formathtml.exec.RendStackCall;
 import code.formathtml.util.BeanLgNames;
 import code.sml.Element;
-import code.sml.MutableNode;
+import code.sml.Node;
 import code.util.StringMap;
 
 public final class RendImg extends RendElement {
@@ -19,7 +19,7 @@ public final class RendImg extends RendElement {
     }
 
     @Override
-    protected void processExecAttr(Configuration _cont, MutableNode _nextWrite, Element _read, BeanLgNames _stds, ContextEl _ctx, StackCall _stack, RendStackCall _rendStack) {
+    protected void processExecAttr(Configuration _cont, Node _nextWrite, Element _read, BeanLgNames _stds, ContextEl _ctx, StackCall _stack, RendStackCall _rendStack) {
         String pageName_ = RenderingText.render(textPart,_cont, _stds, _ctx, _stack, _rendStack);
         if (_ctx.callsOrException(_stack)) {
             return;

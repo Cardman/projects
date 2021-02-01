@@ -29,7 +29,7 @@ public class LegendaryPokemonBean extends CommonBean {
 
     @Override
     public void beforeDisplaying() {
-        pokemon = (Pokemon) getForms().getVal(LEG_PK);
+        pokemon = (Pokemon) getForms().getVal(CST_LEG_PK);
     }
     public String getImage() {
         DataBase data_ = (DataBase) getDataBase();
@@ -46,8 +46,8 @@ public class LegendaryPokemonBean extends CommonBean {
     }
     public String clickName() {
         String name_ = pokemon.getName();
-        getForms().put(PK, name_);
-        return POKEMON;
+        getForms().put(CST_PK, name_);
+        return CST_POKEMON;
     }
     public short getLevel() {
         return pokemon.getLevel();
@@ -68,8 +68,8 @@ public class LegendaryPokemonBean extends CommonBean {
     }
     public String clickAbility() {
         String ability_ = pokemon.getAbility();
-        getForms().put(ABILITY, ability_);
-        return ABILITY;
+        getForms().put(CST_ABILITY, ability_);
+        return CST_ABILITY;
     }
     public String getItem() {
         DataBase data_ = (DataBase) getDataBase();
@@ -81,51 +81,51 @@ public class LegendaryPokemonBean extends CommonBean {
     public String clickItem() {
         DataBase data_ = (DataBase) getDataBase();
         String item_ = pokemon.getItem();
-        getForms().put(ITEM, item_);
+        getForms().put(CST_ITEM, item_);
         Item it_ = data_.getItem(item_);
         if (it_ instanceof Ball) {
-            return BALL;
+            return CST_BALL;
         }
         if (it_ instanceof Berry) {
-            return BERRY;
+            return CST_BERRY;
         }
         if (it_ instanceof Boost) {
-            return BOOST;
+            return CST_BOOST;
         }
         if (it_ instanceof EvolvingItem) {
-            return EVOLVINGITEM;
+            return CST_EVOLVINGITEM;
         }
         if (it_ instanceof EvolvingStone) {
-            return EVOLVINGSTONE;
+            return CST_EVOLVINGSTONE;
         }
         if (it_ instanceof Fossil) {
-            return FOSSIL;
+            return CST_FOSSIL;
         }
         if (it_ instanceof HealingHpStatus) {
-            return HEALINGHPSTATUS;
+            return CST_HEALINGHPSTATUS;
         }
         if (it_ instanceof HealingStatus) {
-            return HEALINGSTATUS;
+            return CST_HEALINGSTATUS;
         }
         if (it_ instanceof HealingHp) {
-            return HEALINGHP;
+            return CST_HEALINGHP;
         }
         if (it_ instanceof HealingPp) {
-            return HEALINGPP;
+            return CST_HEALINGPP;
         }
         if (it_ instanceof HealingItem) {
-            return HEALINGITEM;
+            return CST_HEALINGITEM;
         }
         if (it_ instanceof ItemForBattle) {
-            return ITEMFORBATTLE;
+            return CST_ITEMFORBATTLE;
         }
         if (it_ instanceof Repel) {
-            return REPEL;
+            return CST_REPEL;
         }
         if (it_ instanceof SellingItem) {
-            return SELLINGITEM;
+            return CST_SELLINGITEM;
         }
-        return ITEM;
+        return CST_ITEM;
     }
     public String getMove(int _moveIndex) {
         DataBase data_ = (DataBase) getDataBase();
@@ -136,8 +136,8 @@ public class LegendaryPokemonBean extends CommonBean {
     }
     public String clickMove(int _moveIndex) {
         String move_ = getMovesAtLevel().get(_moveIndex);
-        getForms().put(MOVE, move_);
-        return MOVE;
+        getForms().put(CST_MOVE, move_);
+        return CST_MOVE;
     }
     public StringList getMovesAtLevel() {
         DataBase data_ = (DataBase) getDataBase();

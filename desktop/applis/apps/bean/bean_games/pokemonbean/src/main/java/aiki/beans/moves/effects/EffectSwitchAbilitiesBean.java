@@ -40,7 +40,7 @@ public class EffectSwitchAbilitiesBean extends EffectBean {
     }
     public String clickAbility(int _index) {
         EffectSwitchAbilities effect_ = (EffectSwitchAbilities) getEffect(_index);
-        getForms().put(ABILITY, effect_.getConstAbility());
-        return ABILITY;
+        getForms().put(CST_ABILITY, effect_.getConstAbility());
+        return CST_ABILITY;
     }
 }

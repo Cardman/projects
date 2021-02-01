@@ -140,7 +140,7 @@ public class SimulationBean extends CommonBean {
 
     @Override
     public void beforeDisplaying() {
-        SimulationSteps simu_ = (SimulationSteps) getForms().getVal(SIMULATION_STATE);
+        SimulationSteps simu_ = (SimulationSteps) getForms().getVal(CST_SIMULATION_STATE);
         DataBase data_ = (DataBase) getDataBase();
         if (simu_ == SimulationSteps.DIFF) {
 
@@ -189,25 +189,25 @@ public class SimulationBean extends CommonBean {
                 if (!foeTeam.isEmpty()) {
                     ok = true;
                 }
-                boolean remove_ = getForms().getVal(ADDING_TRAINER_PK) == TeamCrud.REMOVE;
+                boolean remove_ = getForms().getVal(CST_ADDING_TRAINER_PK) == TeamCrud.REMOVE;
                 if (remove_) {
                     return;
                 }
-                boolean nothing_ = getForms().getVal(ADDING_TRAINER_PK) == TeamCrud.NOTHING;
+                boolean nothing_ = getForms().getVal(CST_ADDING_TRAINER_PK) == TeamCrud.NOTHING;
                 if (nothing_) {
                     return;
                 }
-                boolean add_ = getForms().getVal(ADDING_TRAINER_PK) == TeamCrud.ADD;
+                boolean add_ = getForms().getVal(CST_ADDING_TRAINER_PK) == TeamCrud.ADD;
                 if (add_) {
-                    boolean foe_ = (Boolean) getForms().getVal(POKEMON_FOE);
+                    boolean foe_ = (Boolean) getForms().getVal(CST_POKEMON_FOE);
                     PokemonTrainerDto pk_;
                     pk_ = new PokemonTrainerDto();
-                    pk_.getMoves().addAllElts((StringList) getForms().getVal(POKEMON_MOVES_EDIT));
-                    pk_.setAbility((String) getForms().getVal(POKEMON_ABILITY_EDIT));
-                    pk_.setName((String) getForms().getVal(POKEMON_NAME_EDIT));
-                    pk_.setGender((Gender) getForms().getVal(POKEMON_GENDER_EDIT));
-                    pk_.setItem((String) getForms().getVal(ITEM_EDIT));
-                    pk_.setLevel((Integer) getForms().getVal(POKEMON_LEVEL_EDIT));
+                    pk_.getMoves().addAllElts((StringList) getForms().getVal(CST_POKEMON_MOVES_EDIT));
+                    pk_.setAbility((String) getForms().getVal(CST_POKEMON_ABILITY_EDIT));
+                    pk_.setName((String) getForms().getVal(CST_POKEMON_NAME_EDIT));
+                    pk_.setGender((Gender) getForms().getVal(CST_POKEMON_GENDER_EDIT));
+                    pk_.setItem((String) getForms().getVal(CST_ITEM_EDIT));
+                    pk_.setLevel((Integer) getForms().getVal(CST_POKEMON_LEVEL_EDIT));
                     if (foe_) {
                         pk_.setIndex(foeTeam.size());
                         foeTeam.add(pk_);
@@ -216,7 +216,7 @@ public class SimulationBean extends CommonBean {
                         allyTeam.add(pk_);
                     }
                 } else {
-                    boolean foe_ = (Boolean) getForms().getVal(POKEMON_FOE);
+                    boolean foe_ = (Boolean) getForms().getVal(CST_POKEMON_FOE);
                     PokemonTrainerDto pk_;
                     if (foe_) {
                         pk_ = foeTeam.get(selectedFoePk);
@@ -224,19 +224,19 @@ public class SimulationBean extends CommonBean {
                         pk_ = allyTeam.get(selectedAllyPk);
                     }
                     pk_.getMoves().clear();
-                    pk_.getMoves().addAllElts((StringList) getForms().getVal(POKEMON_MOVES_EDIT));
-                    pk_.setAbility((String) getForms().getVal(POKEMON_ABILITY_EDIT));
-                    pk_.setName((String) getForms().getVal(POKEMON_NAME_EDIT));
-                    pk_.setGender((Gender) getForms().getVal(POKEMON_GENDER_EDIT));
-                    pk_.setItem((String) getForms().getVal(ITEM_EDIT));
-                    pk_.setLevel((Integer) getForms().getVal(POKEMON_LEVEL_EDIT));
+                    pk_.getMoves().addAllElts((StringList) getForms().getVal(CST_POKEMON_MOVES_EDIT));
+                    pk_.setAbility((String) getForms().getVal(CST_POKEMON_ABILITY_EDIT));
+                    pk_.setName((String) getForms().getVal(CST_POKEMON_NAME_EDIT));
+                    pk_.setGender((Gender) getForms().getVal(CST_POKEMON_GENDER_EDIT));
+                    pk_.setItem((String) getForms().getVal(CST_ITEM_EDIT));
+                    pk_.setLevel((Integer) getForms().getVal(CST_POKEMON_LEVEL_EDIT));
                 }
             } else {
-                if (!getForms().contains(NO_FIGHT)) {
-                    getForms().put(NO_FIGHT, (int) IndexConstants.FIRST_INDEX);
+                if (!getForms().contains(CST_NO_FIGHT)) {
+                    getForms().put(CST_NO_FIGHT, (int) IndexConstants.FIRST_INDEX);
                 }
-                noFight = (Integer) getForms().getVal(NO_FIGHT);
-                coords = (Coords) getForms().getVal(COORDS);
+                noFight = (Integer) getForms().getVal(CST_NO_FIGHT);
+                coords = (Coords) getForms().getVal(CST_COORDS);
                 if (coords != null) {
                     ok = true;
                 }
@@ -255,36 +255,36 @@ public class SimulationBean extends CommonBean {
             if (!simulation.getTeam().isEmpty()) {
                 ok = true;
             }
-            if (getForms().contains(POKEMON_ADDED)) {
-                PokemonPlayerDto pk_ = (PokemonPlayerDto) getForms().getVal(POKEMON_ADDED);
-                getForms().removeKey(POKEMON_ADDED);
+            if (getForms().contains(CST_POKEMON_ADDED)) {
+                PokemonPlayerDto pk_ = (PokemonPlayerDto) getForms().getVal(CST_POKEMON_ADDED);
+                getForms().removeKey(CST_POKEMON_ADDED);
                 pk_.setIndex(team.size());
                 team.add(pk_);
                 simulation.addPokemonPlayer(pk_.getPokemon(), pk_.getMoves(), (byte) 0, Rate.zero(), data_);
-            } else if(getForms().contains(POKEMON_INDEX_EDIT)) {
-                int index_ = (Integer) getForms().getVal(POKEMON_INDEX_EDIT);
-                getForms().removeKey(POKEMON_INDEX_EDIT);
-                team.get(index_).setMoves((StringList) getForms().getVal(POKEMON_MOVES_EDIT));
-                getForms().removeKey(POKEMON_MOVES_EDIT);
-                team.get(index_).getPokemon().setItem((String) getForms().getVal(ITEM_EDIT));
-                getForms().removeKey(ITEM_EDIT);
+            } else if(getForms().contains(CST_POKEMON_INDEX_EDIT)) {
+                int index_ = (Integer) getForms().getVal(CST_POKEMON_INDEX_EDIT);
+                getForms().removeKey(CST_POKEMON_INDEX_EDIT);
+                team.get(index_).setMoves((StringList) getForms().getVal(CST_POKEMON_MOVES_EDIT));
+                getForms().removeKey(CST_POKEMON_MOVES_EDIT);
+                team.get(index_).getPokemon().setItem((String) getForms().getVal(CST_ITEM_EDIT));
+                getForms().removeKey(CST_ITEM_EDIT);
                 simulation.setPokemonPlayerObject(index_, team.get(index_).getPokemon().getItem());
-                Rate exp_ = (Rate) getForms().getVal(POKEMON_EXPERIENCE);
-                getForms().removeKey(POKEMON_EXPERIENCE);
+                Rate exp_ = (Rate) getForms().getVal(CST_POKEMON_EXPERIENCE);
+                getForms().removeKey(CST_POKEMON_EXPERIENCE);
                 PokemonPlayer pkPlayer_ = simulation.getTeam().get(index_);
                 pkPlayer_.setWonExpSinceLastLevel(exp_);
-                String ball_ = (String) getForms().getVal(CATCHING_BALL);
-                getForms().removeKey(CATCHING_BALL);
+                String ball_ = (String) getForms().getVal(CST_CATCHING_BALL);
+                getForms().removeKey(CST_CATCHING_BALL);
                 pkPlayer_.setUsedBallCatching(ball_);
-                int happy_ = (Integer) getForms().getVal(POKEMON_HAPPINESS);
-                getForms().removeKey(POKEMON_HAPPINESS);
-                Rate hp_ = (Rate) getForms().getVal(POKEMON_HP);
-                getForms().removeKey(POKEMON_HP);
-                boolean heal_ = (Boolean) getForms().getVal(HEAL_EDIT_PK);
-                getForms().removeKey(HEAL_EDIT_PK);
+                int happy_ = (Integer) getForms().getVal(CST_POKEMON_HAPPINESS);
+                getForms().removeKey(CST_POKEMON_HAPPINESS);
+                Rate hp_ = (Rate) getForms().getVal(CST_POKEMON_HP);
+                getForms().removeKey(CST_POKEMON_HP);
+                boolean heal_ = (Boolean) getForms().getVal(CST_HEAL_EDIT_PK);
+                getForms().removeKey(CST_HEAL_EDIT_PK);
                 for (Statistic s:Statistic.getStatisticsWithBase()) {
-                    int ev_ = (Integer) getForms().getVal(StringUtil.concat(POKEMON_EV_VAR, s.name()));
-                    getForms().removeKey(StringUtil.concat(POKEMON_EV_VAR,s.name()));
+                    int ev_ = (Integer) getForms().getVal(StringUtil.concat(CST_POKEMON_EV_VAR, s.name()));
+                    getForms().removeKey(StringUtil.concat(CST_POKEMON_EV_VAR,s.name()));
                     if (ev_ > data_.getMaxEv()) {
                         ev_ = (short) data_.getMaxEv();
                     }
@@ -297,9 +297,9 @@ public class SimulationBean extends CommonBean {
                 }
                 pkPlayer_.setHappiness((short) happy_);
                 simulation.setInitialMoves(index_, team.get(index_).getMoves(), data_);
-                getForms().removeKey(ITEMS_SET_EDIT);
-                getForms().removeKey(POKEMON_NAME_EDIT);
-                getForms().removeKey(POKEMON_LEVEL_EDIT);
+                getForms().removeKey(CST_ITEMS_SET_EDIT);
+                getForms().removeKey(CST_POKEMON_NAME_EDIT);
+                getForms().removeKey(CST_POKEMON_LEVEL_EDIT);
             }
         } else if (simu_ == SimulationSteps.FRONT) {
             round = new IntTreeMap< Integer>();
@@ -455,39 +455,39 @@ public class SimulationBean extends CommonBean {
         }
     }
     public boolean isDiffState() {
-        SimulationSteps simu_ = (SimulationSteps) getForms().getVal(SIMULATION_STATE);
+        SimulationSteps simu_ = (SimulationSteps) getForms().getVal(CST_SIMULATION_STATE);
         return simu_ == SimulationSteps.DIFF;
     }
     public boolean isFoeState() {
-        SimulationSteps simu_ = (SimulationSteps) getForms().getVal(SIMULATION_STATE);
+        SimulationSteps simu_ = (SimulationSteps) getForms().getVal(CST_SIMULATION_STATE);
         return simu_ == SimulationSteps.FOE;
     }
     public boolean isTeamState() {
-        SimulationSteps simu_ = (SimulationSteps) getForms().getVal(SIMULATION_STATE);
+        SimulationSteps simu_ = (SimulationSteps) getForms().getVal(CST_SIMULATION_STATE);
         return simu_ == SimulationSteps.TEAM;
     }
     public boolean isEvolutionsState() {
-        SimulationSteps simu_ = (SimulationSteps) getForms().getVal(SIMULATION_STATE);
+        SimulationSteps simu_ = (SimulationSteps) getForms().getVal(CST_SIMULATION_STATE);
         return simu_ == SimulationSteps.EVOLUTIONS;
     }
     public boolean isFrontState() {
-        SimulationSteps simu_ = (SimulationSteps) getForms().getVal(SIMULATION_STATE);
+        SimulationSteps simu_ = (SimulationSteps) getForms().getVal(CST_SIMULATION_STATE);
         return simu_ == SimulationSteps.FRONT;
     }
     public boolean isMovesState() {
-        SimulationSteps simu_ = (SimulationSteps) getForms().getVal(SIMULATION_STATE);
+        SimulationSteps simu_ = (SimulationSteps) getForms().getVal(CST_SIMULATION_STATE);
         return simu_ == SimulationSteps.MOVES;
     }
     public boolean isMovesFightState() {
-        SimulationSteps simu_ = (SimulationSteps) getForms().getVal(SIMULATION_STATE);
+        SimulationSteps simu_ = (SimulationSteps) getForms().getVal(CST_SIMULATION_STATE);
         return simu_ == SimulationSteps.MOVES_FIGHT;
     }
     public boolean isSimulationState() {
-        SimulationSteps simu_ = (SimulationSteps) getForms().getVal(SIMULATION_STATE);
+        SimulationSteps simu_ = (SimulationSteps) getForms().getVal(CST_SIMULATION_STATE);
         return simu_ == SimulationSteps.SIMULATION;
     }
     public boolean isEvolutionAfterFightState() {
-        SimulationSteps simu_ = (SimulationSteps) getForms().getVal(SIMULATION_STATE);
+        SimulationSteps simu_ = (SimulationSteps) getForms().getVal(CST_SIMULATION_STATE);
         return simu_ == SimulationSteps.EVO_AFTER_FIGHT;
     }
     public boolean isMultiLayer(int _index) {
@@ -505,13 +505,13 @@ public class SimulationBean extends CommonBean {
         DataBase data_ = (DataBase) getDataBase();
         Place pl_ = data_.getMap().getPlace(coords.getNumberPlace());
         placeName_.append(pl_.getName());
-        placeName_.append(SPACE);
+        placeName_.append(CST_SPACE);
         if (pl_ instanceof Cave) {
             placeName_.append(coords.getLevel().getLevelIndex());
-            placeName_.append(SPACE);
+            placeName_.append(CST_SPACE);
         }
         placeName_.append(getTrainerName(coords));
-        placeName_.append(SPACE);
+        placeName_.append(CST_SPACE);
         placeName_.append(noFight);
         return placeName_.toString();
     }
@@ -534,7 +534,7 @@ public class SimulationBean extends CommonBean {
         if (level_ instanceof LevelWithWildPokemon) {
             LevelWithWildPokemon w_ = (LevelWithWildPokemon) level_;
             if (w_.getDualFights().contains(_coords.getLevel().getPoint())) {
-                return StringUtil.join(w_.getDualFights().getVal(_coords.getLevel().getPoint()).getNames(), SPACE);
+                return StringUtil.join(w_.getDualFights().getVal(_coords.getLevel().getPoint()).getNames(), CST_SPACE);
             }
         }
         return DataBase.EMPTY_STRING;
@@ -550,7 +550,7 @@ public class SimulationBean extends CommonBean {
             coords.setLevel(new LevelPoint());
             coords.getLevel().setLevelIndex((byte)_indexTwo);
             coords.getLevel().setPoint(new Point(((LevelLeague)l_.getLevelsList().first()).getTrainerCoords()));
-            getForms().put(COORDS, coords);
+            getForms().put(CST_COORDS, coords);
             noFight = IndexConstants.FIRST_INDEX;
             return DataBase.EMPTY_STRING;
         }
@@ -559,17 +559,17 @@ public class SimulationBean extends CommonBean {
             for (Point p: c_.getBuildings().getKeys()) {
                 Building b_ = c_.getBuildings().getVal(p);
                 if (b_ instanceof Gym) {
-                    getForms().put(LEVEL_MAP_INDEX, _indexTwo);
-                    getForms().put(PLACE_MAP_INDEX, _indexOne);
-                    getForms().put(INSIDE, new Point(p));
-                    return LEVEL;
+                    getForms().put(CST_LEVEL_MAP_INDEX, _indexTwo);
+                    getForms().put(CST_PLACE_MAP_INDEX, _indexOne);
+                    getForms().put(CST_INSIDE, new Point(p));
+                    return CST_LEVEL;
                 }
             }
         }
-        getForms().removeKey(INSIDE);
-        getForms().put(LEVEL_MAP_INDEX, _indexTwo);
-        getForms().put(PLACE_MAP_INDEX, _indexOne);
-        return LEVEL;
+        getForms().removeKey(CST_INSIDE);
+        getForms().put(CST_LEVEL_MAP_INDEX, _indexTwo);
+        getForms().put(CST_PLACE_MAP_INDEX, _indexOne);
+        return CST_LEVEL;
     }
     public void validateDiffChoice() {
         ok = true;
@@ -593,7 +593,7 @@ public class SimulationBean extends CommonBean {
         difficulty.setDamageRatePlayer(PokemonStandards.getModelByName(damageRatePlayer));
         difficulty.validate(data_);
         simulation = new FightSimulation(difficulty, data_);
-        getForms().put(SIMULATION_STATE, SimulationSteps.FOE);
+        getForms().put(CST_SIMULATION_STATE, SimulationSteps.FOE);
         stepNumber++;
         StringMap<String> translated_ = new StringMap<String>();
         EnumMap<EnvironmentType, String> tr_;
@@ -602,7 +602,7 @@ public class SimulationBean extends CommonBean {
             translated_.addEntry(s.getKey().name(),s.getValue());
         }
         if (freeTeams) {
-            getForms().put(ADDING_TRAINER_PK, TeamCrud.NOTHING);
+            getForms().put(CST_ADDING_TRAINER_PK, TeamCrud.NOTHING);
             environments = new TreeMap<String, String>(new ComparatorTrString(translated_));
             environments.putAllMap(translated_);
             selectedFoePk = IndexConstants.INDEX_NOT_FOUND_ELT;
@@ -616,7 +616,7 @@ public class SimulationBean extends CommonBean {
         foeTeam.clear();
         allyTeam.clear();
         simulation = null;
-        getForms().put(SIMULATION_STATE, SimulationSteps.DIFF);
+        getForms().put(CST_SIMULATION_STATE, SimulationSteps.DIFF);
         stepNumber--;
     }
     public void validateFoeChoice() {
@@ -637,7 +637,7 @@ public class SimulationBean extends CommonBean {
         }
         selectedPk = IndexConstants.INDEX_NOT_FOUND_ELT;
         selectedAction = TeamCrud.NOTHING.name();
-        getForms().put(SIMULATION_STATE, SimulationSteps.TEAM);
+        getForms().put(CST_SIMULATION_STATE, SimulationSteps.TEAM);
         stepNumber++;
     }
     public String getImageFoe(int _index) {
@@ -690,17 +690,17 @@ public class SimulationBean extends CommonBean {
             return DataBase.EMPTY_STRING;
         }
         if (TeamCrud.getTeamCrudByName(selectedFoeAction) == TeamCrud.EDIT) {
-            getForms().put(POKEMON_FOE, true);
-            getForms().put(ITEMS_SET_EDIT, new StringList());
-            getForms().put(POKEMON_INDEX_EDIT, selectedFoePk);
-            getForms().put(POKEMON_NAME_EDIT, foeTeam.get(selectedFoePk).getName());
-            getForms().put(POKEMON_LEVEL_EDIT, foeTeam.get(selectedFoePk).getLevel());
-            getForms().put(ITEM_EDIT, foeTeam.get(selectedFoePk).getItem());
-            getForms().put(POKEMON_GENDER_EDIT, foeTeam.get(selectedFoePk).getGender());
-            getForms().put(POKEMON_MOVES_EDIT, foeTeam.get(selectedFoePk).getMoves());
-            getForms().put(POKEMON_ABILITY_EDIT, foeTeam.get(selectedFoePk).getAbility());
-            getForms().put(ADDING_TRAINER_PK, TeamCrud.EDIT);
-            return POKEMON_EDIT;
+            getForms().put(CST_POKEMON_FOE, true);
+            getForms().put(CST_ITEMS_SET_EDIT, new StringList());
+            getForms().put(CST_POKEMON_INDEX_EDIT, selectedFoePk);
+            getForms().put(CST_POKEMON_NAME_EDIT, foeTeam.get(selectedFoePk).getName());
+            getForms().put(CST_POKEMON_LEVEL_EDIT, foeTeam.get(selectedFoePk).getLevel());
+            getForms().put(CST_ITEM_EDIT, foeTeam.get(selectedFoePk).getItem());
+            getForms().put(CST_POKEMON_GENDER_EDIT, foeTeam.get(selectedFoePk).getGender());
+            getForms().put(CST_POKEMON_MOVES_EDIT, foeTeam.get(selectedFoePk).getMoves());
+            getForms().put(CST_POKEMON_ABILITY_EDIT, foeTeam.get(selectedFoePk).getAbility());
+            getForms().put(CST_ADDING_TRAINER_PK, TeamCrud.EDIT);
+            return CST_POKEMON_EDIT;
         }
         if (TeamCrud.getTeamCrudByName(selectedFoeAction) == TeamCrud.REMOVE) {
             int index_ = selectedFoePk;
@@ -709,7 +709,7 @@ public class SimulationBean extends CommonBean {
             for (int i = index_; i < size_;i++) {
                 foeTeam.get(i).setIndex(i);
             }
-            getForms().put(ADDING_TRAINER_PK, TeamCrud.REMOVE);
+            getForms().put(CST_ADDING_TRAINER_PK, TeamCrud.REMOVE);
         }
         return DataBase.EMPTY_STRING;
     }
@@ -763,17 +763,17 @@ public class SimulationBean extends CommonBean {
             return DataBase.EMPTY_STRING;
         }
         if (TeamCrud.getTeamCrudByName(selectedAllyAction) == TeamCrud.EDIT) {
-            getForms().put(POKEMON_FOE, false);
-            getForms().put(ITEMS_SET_EDIT, new StringList());
-            getForms().put(POKEMON_INDEX_EDIT, selectedAllyPk);
-            getForms().put(POKEMON_NAME_EDIT, allyTeam.get(selectedAllyPk).getName());
-            getForms().put(POKEMON_LEVEL_EDIT, allyTeam.get(selectedAllyPk).getLevel());
-            getForms().put(ITEM_EDIT, allyTeam.get(selectedAllyPk).getItem());
-            getForms().put(POKEMON_GENDER_EDIT, allyTeam.get(selectedAllyPk).getGender());
-            getForms().put(POKEMON_MOVES_EDIT, allyTeam.get(selectedAllyPk).getMoves());
-            getForms().put(POKEMON_ABILITY_EDIT, allyTeam.get(selectedAllyPk).getAbility());
-            getForms().put(ADDING_TRAINER_PK, TeamCrud.EDIT);
-            return POKEMON_EDIT;
+            getForms().put(CST_POKEMON_FOE, false);
+            getForms().put(CST_ITEMS_SET_EDIT, new StringList());
+            getForms().put(CST_POKEMON_INDEX_EDIT, selectedAllyPk);
+            getForms().put(CST_POKEMON_NAME_EDIT, allyTeam.get(selectedAllyPk).getName());
+            getForms().put(CST_POKEMON_LEVEL_EDIT, allyTeam.get(selectedAllyPk).getLevel());
+            getForms().put(CST_ITEM_EDIT, allyTeam.get(selectedAllyPk).getItem());
+            getForms().put(CST_POKEMON_GENDER_EDIT, allyTeam.get(selectedAllyPk).getGender());
+            getForms().put(CST_POKEMON_MOVES_EDIT, allyTeam.get(selectedAllyPk).getMoves());
+            getForms().put(CST_POKEMON_ABILITY_EDIT, allyTeam.get(selectedAllyPk).getAbility());
+            getForms().put(CST_ADDING_TRAINER_PK, TeamCrud.EDIT);
+            return CST_POKEMON_EDIT;
         }
         if (TeamCrud.getTeamCrudByName(selectedAllyAction) == TeamCrud.REMOVE) {
             int index_ = selectedAllyPk;
@@ -782,7 +782,7 @@ public class SimulationBean extends CommonBean {
             for (int i = index_; i < size_;i++) {
                 allyTeam.get(i).setIndex(i);
             }
-            getForms().put(ADDING_TRAINER_PK, TeamCrud.REMOVE);
+            getForms().put(CST_ADDING_TRAINER_PK, TeamCrud.REMOVE);
         }
         return DataBase.EMPTY_STRING;
     }
@@ -790,15 +790,15 @@ public class SimulationBean extends CommonBean {
         DataBase data_ = (DataBase) getDataBase();
         Pokemon pk_ = data_.getMap().getFirstPokemon();
         StringList moves_ = data_.getPokemon(pk_.getName()).getMovesBeforeLevel(pk_.getLevel());
-        getForms().put(POKEMON_NAME_EDIT, pk_.getName());
-        getForms().put(POKEMON_LEVEL_EDIT,(int) pk_.getLevel());
-        getForms().put(ITEM_EDIT, pk_.getItem());
-        getForms().put(POKEMON_GENDER_EDIT, Gender.NO_GENDER);
-        getForms().put(POKEMON_MOVES_EDIT, moves_);
-        getForms().put(POKEMON_ABILITY_EDIT, pk_.getAbility());
-        getForms().put(ADDING_TRAINER_PK, TeamCrud.ADD);
-        getForms().put(ITEMS_SET_EDIT, new StringList());
-        return POKEMON_EDIT;
+        getForms().put(CST_POKEMON_NAME_EDIT, pk_.getName());
+        getForms().put(CST_POKEMON_LEVEL_EDIT,(int) pk_.getLevel());
+        getForms().put(CST_ITEM_EDIT, pk_.getItem());
+        getForms().put(CST_POKEMON_GENDER_EDIT, Gender.NO_GENDER);
+        getForms().put(CST_POKEMON_MOVES_EDIT, moves_);
+        getForms().put(CST_POKEMON_ABILITY_EDIT, pk_.getAbility());
+        getForms().put(CST_ADDING_TRAINER_PK, TeamCrud.ADD);
+        getForms().put(CST_ITEMS_SET_EDIT, new StringList());
+        return CST_POKEMON_EDIT;
     }
     public void validateFoeChoiceFree() {
         ok = true;
@@ -832,9 +832,9 @@ public class SimulationBean extends CommonBean {
         simulation.setTeams(ally_, foe_, multiplicity, nbMaxActions, PokemonStandards.getEnvByName(environment), coords);
         selectedPk = IndexConstants.INDEX_NOT_FOUND_ELT;
         selectedAction = TeamCrud.NOTHING.name();
-        getForms().removeKey(POKEMON_INDEX_EDIT);
-        getForms().removeKey(POKEMON_ADDED);
-        getForms().put(SIMULATION_STATE, SimulationSteps.TEAM);
+        getForms().removeKey(CST_POKEMON_INDEX_EDIT);
+        getForms().removeKey(CST_POKEMON_ADDED);
+        getForms().put(CST_SIMULATION_STATE, SimulationSteps.TEAM);
         stepNumber++;
     }
     public String selectPk() {
@@ -845,21 +845,21 @@ public class SimulationBean extends CommonBean {
             return DataBase.EMPTY_STRING;
         }
         if (TeamCrud.getTeamCrudByName(selectedAction) == TeamCrud.EDIT) {
-            getForms().put(ITEMS_SET_EDIT, new StringList());
-            getForms().put(POKEMON_INDEX_EDIT, selectedPk);
-            getForms().put(POKEMON_NAME_EDIT, team.get(selectedPk).getPokemon().getName());
-            getForms().put(POKEMON_LEVEL_EDIT, (int)team.get(selectedPk).getPokemon().getLevel());
-            getForms().put(ITEM_EDIT, team.get(selectedPk).getPokemon().getItem());
-            getForms().put(POKEMON_MOVES_EDIT, team.get(selectedPk).getMoves());
-            getForms().put(POKEMON_EXPERIENCE, simulation.getTeam().get(selectedPk).getWonExpSinceLastLevel());
-            getForms().put(POKEMON_HAPPINESS, (int)simulation.getTeam().get(selectedPk).getHappiness());
-            getForms().put(HEAL_EDIT_PK, false);
-            getForms().put(POKEMON_HP, simulation.getTeam().get(selectedPk).getRemainingHp());
-            getForms().put(CATCHING_BALL, simulation.getTeam().get(selectedPk).getUsedBallCatching());
+            getForms().put(CST_ITEMS_SET_EDIT, new StringList());
+            getForms().put(CST_POKEMON_INDEX_EDIT, selectedPk);
+            getForms().put(CST_POKEMON_NAME_EDIT, team.get(selectedPk).getPokemon().getName());
+            getForms().put(CST_POKEMON_LEVEL_EDIT, (int)team.get(selectedPk).getPokemon().getLevel());
+            getForms().put(CST_ITEM_EDIT, team.get(selectedPk).getPokemon().getItem());
+            getForms().put(CST_POKEMON_MOVES_EDIT, team.get(selectedPk).getMoves());
+            getForms().put(CST_POKEMON_EXPERIENCE, simulation.getTeam().get(selectedPk).getWonExpSinceLastLevel());
+            getForms().put(CST_POKEMON_HAPPINESS, (int)simulation.getTeam().get(selectedPk).getHappiness());
+            getForms().put(CST_HEAL_EDIT_PK, false);
+            getForms().put(CST_POKEMON_HP, simulation.getTeam().get(selectedPk).getRemainingHp());
+            getForms().put(CST_CATCHING_BALL, simulation.getTeam().get(selectedPk).getUsedBallCatching());
             for (Statistic s: Statistic.getStatisticsWithBase()) {
-                getForms().put(StringUtil.concat(POKEMON_EV_VAR,s.name()), (int)simulation.getTeam().get(selectedPk).getEv().getVal(s));
+                getForms().put(StringUtil.concat(CST_POKEMON_EV_VAR,s.name()), (int)simulation.getTeam().get(selectedPk).getEv().getVal(s));
             }
-            return EDIT_POKEMON_PLAYER;
+            return CST_EDIT_POKEMON_PLAYER;
         }
         if (TeamCrud.getTeamCrudByName(selectedAction) == TeamCrud.REMOVE) {
             int index_ = selectedPk;
@@ -873,8 +873,8 @@ public class SimulationBean extends CommonBean {
         return DataBase.EMPTY_STRING;
     }
     public String add() {
-        getForms().put(POKEMON_SET_SIMU, new StringList());
-        return ADD_POKEMON_PLAYER;
+        getForms().put(CST_POKEMON_SET_SIMU, new StringList());
+        return CST_ADD_POKEMON_PLAYER;
     }
     public String getImage(int _index) {
         DataBase data_ = (DataBase) getDataBase();
@@ -938,7 +938,7 @@ public class SimulationBean extends CommonBean {
 //            stepNumber++;
 //            return;
 //        }
-        getForms().put(SIMULATION_STATE, SimulationSteps.EVOLUTIONS);
+        getForms().put(CST_SIMULATION_STATE, SimulationSteps.EVOLUTIONS);
         stepNumber++;
     }
     public void validateFoeChoiceSkipEvolutions() {
@@ -960,7 +960,7 @@ public class SimulationBean extends CommonBean {
         //selectedPk = CustList.FIRST_INDEX;
         selectedPk = IndexConstants.INDEX_NOT_FOUND_ELT;
         simulation.initializeFrontFighters();
-        getForms().put(SIMULATION_STATE, SimulationSteps.FRONT);
+        getForms().put(CST_SIMULATION_STATE, SimulationSteps.FRONT);
         stepNumber++;
         stepNumber++;
     }
@@ -968,28 +968,28 @@ public class SimulationBean extends CommonBean {
         ok = true;
         team.clear();
         selectedPk = IndexConstants.INDEX_NOT_FOUND_ELT;
-        getForms().put(SIMULATION_STATE, SimulationSteps.FOE);
+        getForms().put(CST_SIMULATION_STATE, SimulationSteps.FOE);
         stepNumber--;
     }
     public void cancelEvolutions() {
         ok = true;
         simulation.cancelEvolutions();
-        getForms().removeKey(POKEMON_INDEX_EDIT);
+        getForms().removeKey(CST_POKEMON_INDEX_EDIT);
         selectedPk = IndexConstants.INDEX_NOT_FOUND_ELT;
         selectedAction = TeamCrud.NOTHING.name();
-        getForms().put(SIMULATION_STATE, SimulationSteps.TEAM);
+        getForms().put(CST_SIMULATION_STATE, SimulationSteps.TEAM);
         stepNumber--;
     }
     public void validateEvolutions() {
         ok = true;
         simulation.initializeFrontFighters();
         selectedPk = IndexConstants.INDEX_NOT_FOUND_ELT;
-        getForms().removeKey(POKEMON_INDEX_EDIT);
-        getForms().put(SIMULATION_STATE, SimulationSteps.FRONT);
+        getForms().removeKey(CST_POKEMON_INDEX_EDIT);
+        getForms().put(CST_SIMULATION_STATE, SimulationSteps.FRONT);
         stepNumber++;
     }
     public boolean selectedIndex() {
-        return getForms().contains(POKEMON_INDEX_EDIT);
+        return getForms().contains(CST_POKEMON_INDEX_EDIT);
     }
     public void displayEvolutions() {
         if (selectedPk == IndexConstants.INDEX_NOT_FOUND_ELT) {
@@ -998,7 +998,7 @@ public class SimulationBean extends CommonBean {
             }
             return;
         }
-        getForms().put(POKEMON_INDEX_EDIT, selectedPk);
+        getForms().put(CST_POKEMON_INDEX_EDIT, selectedPk);
         StringMap<Short> evos_ = simulation.getAvailableEvolutions().get(selectedPk);
         DataBase data_ = (DataBase) getDataBase();
         availableEvosLevel = new StringMap<Short>(evos_);
@@ -1013,7 +1013,7 @@ public class SimulationBean extends CommonBean {
 //            return;
 //        }
         DataBase data_ = (DataBase) getDataBase();
-        int index_ = (Integer) getForms().getVal(POKEMON_INDEX_EDIT);
+        int index_ = (Integer) getForms().getVal(CST_POKEMON_INDEX_EDIT);
         levelEvo = (short) Math.max(levelEvo, availableEvosLevel.getVal(chosenEvo));
         simulation.setNextEvolutions(index_, chosenEvo, (short) levelEvo, data_);
         StringMap<Short> evos_ = simulation.getAvailableEvolutions().get(index_);
@@ -1029,7 +1029,7 @@ public class SimulationBean extends CommonBean {
 //            return;
 //        }
         DataBase data_ = (DataBase) getDataBase();
-        int index_ = (Integer) getForms().getVal(POKEMON_INDEX_EDIT);
+        int index_ = (Integer) getForms().getVal(CST_POKEMON_INDEX_EDIT);
         simulation.cancelEvolutions(index_, data_);
         StringMap<Short> evos_ = simulation.getAvailableEvolutions().get(index_);
         availableEvosLevel = new StringMap<Short>(evos_);
@@ -1052,13 +1052,13 @@ public class SimulationBean extends CommonBean {
         selectedPk = IndexConstants.INDEX_NOT_FOUND_ELT;
         if (!enableEvolutions) {
             simulation.cancelEvolutions();
-            getForms().put(SIMULATION_STATE, SimulationSteps.TEAM);
+            getForms().put(CST_SIMULATION_STATE, SimulationSteps.TEAM);
             stepNumber--;
             stepNumber--;
             return;
         }
         selectedAction = TeamCrud.NOTHING.name();
-        getForms().put(SIMULATION_STATE, SimulationSteps.EVOLUTIONS);
+        getForms().put(CST_SIMULATION_STATE, SimulationSteps.EVOLUTIONS);
         stepNumber--;
     }
     public void validateFrontFighters() {
@@ -1073,12 +1073,12 @@ public class SimulationBean extends CommonBean {
         selectedPk = IndexConstants.INDEX_NOT_FOUND_ELT;
         if (!enableEvolutions) {
             simulation.initializeAllMoves(data_);
-            getForms().put(SIMULATION_STATE, SimulationSteps.MOVES_FIGHT);
+            getForms().put(CST_SIMULATION_STATE, SimulationSteps.MOVES_FIGHT);
             stepNumber++;
             stepNumber++;
             return;
         }
-        getForms().put(SIMULATION_STATE, SimulationSteps.MOVES);
+        getForms().put(CST_SIMULATION_STATE, SimulationSteps.MOVES);
         stepNumber++;
     }
     public boolean selectedIndexForMoves() {
@@ -1122,7 +1122,7 @@ public class SimulationBean extends CommonBean {
         displayIfError = false;
         ok = true;
         selectedPk = IndexConstants.INDEX_NOT_FOUND_ELT;
-        getForms().put(SIMULATION_STATE, SimulationSteps.FRONT);
+        getForms().put(CST_SIMULATION_STATE, SimulationSteps.FRONT);
         stepNumber--;
     }
     public void validateMovesSets() {
@@ -1135,7 +1135,7 @@ public class SimulationBean extends CommonBean {
             return;
         }
         selectedPk = IndexConstants.INDEX_NOT_FOUND_ELT;
-        getForms().put(SIMULATION_STATE, SimulationSteps.MOVES_FIGHT);
+        getForms().put(CST_SIMULATION_STATE, SimulationSteps.MOVES_FIGHT);
         stepNumber++;
     }
     public void validateMovesChoice() {
@@ -1153,12 +1153,12 @@ public class SimulationBean extends CommonBean {
         selectedMove = IndexConstants.INDEX_NOT_FOUND_ELT;
         ok = true;
         if (!enableEvolutions) {
-            getForms().put(SIMULATION_STATE, SimulationSteps.FRONT);
+            getForms().put(CST_SIMULATION_STATE, SimulationSteps.FRONT);
             stepNumber--;
             stepNumber--;
             return;
         }
-        getForms().put(SIMULATION_STATE, SimulationSteps.MOVES);
+        getForms().put(CST_SIMULATION_STATE, SimulationSteps.MOVES);
         stepNumber--;
     }
     public void displayComments() {
@@ -1175,7 +1175,7 @@ public class SimulationBean extends CommonBean {
         DataBase data_ = (DataBase) getDataBase();
         simulation.validateTeam(data_);
         teamAfterFight.clear();
-        getForms().put(SIMULATION_STATE, SimulationSteps.MOVES_FIGHT);
+        getForms().put(CST_SIMULATION_STATE, SimulationSteps.MOVES_FIGHT);
         stepNumber--;
     }
     public void changeFightWhileEnd() {
@@ -1183,7 +1183,7 @@ public class SimulationBean extends CommonBean {
         keptMovesAfterFight.clear();
         keptMovesAbilitiesDto.clear();
         selectedPk = IndexConstants.INDEX_NOT_FOUND_ELT;
-        getForms().put(SIMULATION_STATE, SimulationSteps.SIMULATION);
+        getForms().put(CST_SIMULATION_STATE, SimulationSteps.SIMULATION);
         stepNumber--;
     }
     public void simulateFight() {
@@ -1195,7 +1195,7 @@ public class SimulationBean extends CommonBean {
             ok = false;
             return;
         }
-        getForms().put(SIMULATION_STATE, SimulationSteps.SIMULATION);
+        getForms().put(CST_SIMULATION_STATE, SimulationSteps.SIMULATION);
         stepNumber++;
     }
     public void nextFight() {
@@ -1210,7 +1210,7 @@ public class SimulationBean extends CommonBean {
             keptMovesAbilitiesDto.add(k_);
         }
         selectedPk = IndexConstants.INDEX_NOT_FOUND_ELT;
-        getForms().put(SIMULATION_STATE, SimulationSteps.EVO_AFTER_FIGHT);
+        getForms().put(CST_SIMULATION_STATE, SimulationSteps.EVO_AFTER_FIGHT);
         stepNumber++;
     }
     public boolean isFightAfter() {
@@ -1475,7 +1475,7 @@ public class SimulationBean extends CommonBean {
         simulation.getTeam().clear();
         simulation.getTeam().addAllElts(teamAfterFight);
         simulation.nextFight(data_);
-        getForms().put(SIMULATION_STATE, SimulationSteps.TEAM);
+        getForms().put(CST_SIMULATION_STATE, SimulationSteps.TEAM);
         stepNumber = 2;
     }
     public boolean isIssue() {
@@ -1546,14 +1546,14 @@ public class SimulationBean extends CommonBean {
         simulation = null;
         team.clear();
         teamAfterFight.clear();
-        getForms().removeKey(SIMULATION_STATE);
-        getForms().removeKey(COORDS);
-        getForms().removeKey(INSIDE);
-        getForms().removeKey(LEVEL_MAP_INDEX);
-        getForms().removeKey(PLACE_MAP_INDEX);
+        getForms().removeKey(CST_SIMULATION_STATE);
+        getForms().removeKey(CST_COORDS);
+        getForms().removeKey(CST_INSIDE);
+        getForms().removeKey(CST_LEVEL_MAP_INDEX);
+        getForms().removeKey(CST_PLACE_MAP_INDEX);
         stepNumber = 0;
         ok = true;
-        return LEVEL;
+        return CST_LEVEL;
     }
 
     public TreeMap<String,String> getWinPointsFight() {

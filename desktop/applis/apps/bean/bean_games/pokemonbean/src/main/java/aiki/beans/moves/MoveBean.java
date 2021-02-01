@@ -149,7 +149,7 @@ public class MoveBean extends CommonBean {
 
     @Override
     public void beforeDisplaying() {
-        String name_ = (String) getForms().getVal(MOVE);
+        String name_ = (String) getForms().getVal(CST_MOVE);
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedAbilities_ = data_.getTranslatedAbilities().getVal(getLanguage());
         StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
@@ -437,8 +437,8 @@ public class MoveBean extends CommonBean {
         movesMtLearntByPokemon = movesMtLearntByPokemon_;
     }
     public String clickMoves() {
-        getForms().put(MOVES_SET, new StringList());
-        return MOVES;
+        getForms().put(CST_MOVES_SET, new StringList());
+        return CST_MOVES;
     }
 
     private StringList getMovesThieve() {
@@ -483,7 +483,7 @@ public class MoveBean extends CommonBean {
         return moves_;
     }
     public boolean typesDependOnWeatherAndItem() {
-        String name_ = (String) getForms().getVal(MOVE);
+        String name_ = (String) getForms().getVal(CST_MOVE);
         DataBase data_ = (DataBase) getDataBase();
         MoveData moveData_ = data_.getMove(name_);
         if (!moveData_.getTypesByOwnedItem().isEmpty()) {
@@ -492,7 +492,7 @@ public class MoveBean extends CommonBean {
         return false;
     }
     public boolean typesDependOnlyOnItem() {
-        String name_ = (String) getForms().getVal(MOVE);
+        String name_ = (String) getForms().getVal(CST_MOVE);
         DataBase data_ = (DataBase) getDataBase();
         MoveData moveData_ = data_.getMove(name_);
         if (!moveData_.getTypesByOwnedItem().isEmpty()) {
@@ -501,7 +501,7 @@ public class MoveBean extends CommonBean {
         return false;
     }
     public boolean typesDependOnlyOnWeather() {
-        String name_ = (String) getForms().getVal(MOVE);
+        String name_ = (String) getForms().getVal(CST_MOVE);
         DataBase data_ = (DataBase) getDataBase();
         MoveData moveData_ = data_.getMove(name_);
         if (moveData_.getTypesByOwnedItem().isEmpty()) {
@@ -510,13 +510,13 @@ public class MoveBean extends CommonBean {
         return false;
     }
     public boolean isDamagingMove() {
-        String name_ = (String) getForms().getVal(MOVE);
+        String name_ = (String) getForms().getVal(CST_MOVE);
         DataBase data_ = (DataBase) getDataBase();
         MoveData moveData_ = data_.getMove(name_);
         return moveData_ instanceof DamagingMoveData;
     }
     public boolean isDamagingDirectMove() {
-        String name_ = (String) getForms().getVal(MOVE);
+        String name_ = (String) getForms().getVal(CST_MOVE);
         DataBase data_ = (DataBase) getDataBase();
         MoveData moveData_ = data_.getMove(name_);
         DamagingMoveData damaging_ = (DamagingMoveData) moveData_;
@@ -532,25 +532,25 @@ public class MoveBean extends CommonBean {
         return nbPrepaRound == 0;
     }
     public boolean isBeforePrimaryEffect(int _long) {
-        String name_ = (String) getForms().getVal(MOVE);
+        String name_ = (String) getForms().getVal(CST_MOVE);
         DataBase data_ = (DataBase) getDataBase();
         MoveData moveData_ = data_.getMove(name_);
         return _long < moveData_.indexOfPrimaryEffect();
     }
     public boolean isPrimaryEffect(int _long) {
-        String name_ = (String) getForms().getVal(MOVE);
+        String name_ = (String) getForms().getVal(CST_MOVE);
         DataBase data_ = (DataBase) getDataBase();
         MoveData moveData_ = data_.getMove(name_);
         return _long == moveData_.indexOfPrimaryEffect();
     }
     public boolean isAfterPrimaryEffect(int _long) {
-        String name_ = (String) getForms().getVal(MOVE);
+        String name_ = (String) getForms().getVal(CST_MOVE);
         DataBase data_ = (DataBase) getDataBase();
         MoveData moveData_ = data_.getMove(name_);
         return _long > moveData_.indexOfPrimaryEffect();
     }
     public boolean isEndRoundEffect(int _long) {
-        String name_ = (String) getForms().getVal(MOVE);
+        String name_ = (String) getForms().getVal(CST_MOVE);
         DataBase data_ = (DataBase) getDataBase();
         MoveData moveData_ = data_.getMove(name_);
         return moveData_.getEffet(_long) instanceof EffectEndRound;
@@ -569,8 +569,8 @@ public class MoveBean extends CommonBean {
     }
     public String clickRequiredStatus(int _index) {
         String key_ = getRequiredStatusKey(_index);
-        getForms().put(STATUS, key_);
-        return STATUS;
+        getForms().put(CST_STATUS, key_);
+        return CST_STATUS;
     }
     public String getRequiredStatus(int _index) {
         DataBase data_ = (DataBase) getDataBase();
@@ -584,8 +584,8 @@ public class MoveBean extends CommonBean {
     }
     public String clickDeletedStatus(int _index) {
         String key_ = getDeletedStatusKey(_index);
-        getForms().put(STATUS, key_);
-        return STATUS;
+        getForms().put(CST_STATUS, key_);
+        return CST_STATUS;
     }
     public String getDeletedStatus(int _index) {
         DataBase data_ = (DataBase) getDataBase();
@@ -603,51 +603,51 @@ public class MoveBean extends CommonBean {
     public String clickTypesByOwnedItems(int _index) {
         String item_ = typesByOwnedItems.getKey(_index);
         DataBase data_ = (DataBase) getDataBase();
-        getForms().put(ITEM, item_);
+        getForms().put(CST_ITEM, item_);
         Item it_ = data_.getItem(item_);
         if (it_ instanceof Ball) {
-            return BALL;
+            return CST_BALL;
         }
         if (it_ instanceof Berry) {
-            return BERRY;
+            return CST_BERRY;
         }
         if (it_ instanceof Boost) {
-            return BOOST;
+            return CST_BOOST;
         }
         if (it_ instanceof EvolvingItem) {
-            return EVOLVINGITEM;
+            return CST_EVOLVINGITEM;
         }
         if (it_ instanceof EvolvingStone) {
-            return EVOLVINGSTONE;
+            return CST_EVOLVINGSTONE;
         }
         if (it_ instanceof Fossil) {
-            return FOSSIL;
+            return CST_FOSSIL;
         }
         if (it_ instanceof HealingHpStatus) {
-            return HEALINGHPSTATUS;
+            return CST_HEALINGHPSTATUS;
         }
         if (it_ instanceof HealingStatus) {
-            return HEALINGSTATUS;
+            return CST_HEALINGSTATUS;
         }
         if (it_ instanceof HealingHp) {
-            return HEALINGHP;
+            return CST_HEALINGHP;
         }
         if (it_ instanceof HealingPp) {
-            return HEALINGPP;
+            return CST_HEALINGPP;
         }
         if (it_ instanceof HealingItem) {
-            return HEALINGITEM;
+            return CST_HEALINGITEM;
         }
         if (it_ instanceof ItemForBattle) {
-            return ITEMFORBATTLE;
+            return CST_ITEMFORBATTLE;
         }
         if (it_ instanceof Repel) {
-            return REPEL;
+            return CST_REPEL;
         }
         if (it_ instanceof SellingItem) {
-            return SELLINGITEM;
+            return CST_SELLINGITEM;
         }
-        return ITEM;
+        return CST_ITEM;
     }
     public String getTrTypesByOwnedItems(int _index) {
         String item_ = typesByOwnedItems.getKey(_index);
@@ -660,8 +660,8 @@ public class MoveBean extends CommonBean {
     }
     public String clickTypesByWeathers(int _index) {
         String item_ = typesByWeathers.getKey(_index);
-        getForms().put(MOVE, item_);
-        return MOVE;
+        getForms().put(CST_MOVE, item_);
+        return CST_MOVE;
     }
     public String getTrTypesByWeathers(int _index) {
         String item_ = typesByWeathers.getKey(_index);
@@ -672,51 +672,51 @@ public class MoveBean extends CommonBean {
     public String clickItemSecEffect(int _index) {
         String item_ = getItemSecEffect(_index);
         DataBase data_ = (DataBase) getDataBase();
-        getForms().put(ITEM, item_);
+        getForms().put(CST_ITEM, item_);
         Item it_ = data_.getItem(item_);
         if (it_ instanceof Ball) {
-            return BALL;
+            return CST_BALL;
         }
         if (it_ instanceof Berry) {
-            return BERRY;
+            return CST_BERRY;
         }
         if (it_ instanceof Boost) {
-            return BOOST;
+            return CST_BOOST;
         }
         if (it_ instanceof EvolvingItem) {
-            return EVOLVINGITEM;
+            return CST_EVOLVINGITEM;
         }
         if (it_ instanceof EvolvingStone) {
-            return EVOLVINGSTONE;
+            return CST_EVOLVINGSTONE;
         }
         if (it_ instanceof Fossil) {
-            return FOSSIL;
+            return CST_FOSSIL;
         }
         if (it_ instanceof HealingHpStatus) {
-            return HEALINGHPSTATUS;
+            return CST_HEALINGHPSTATUS;
         }
         if (it_ instanceof HealingStatus) {
-            return HEALINGSTATUS;
+            return CST_HEALINGSTATUS;
         }
         if (it_ instanceof HealingHp) {
-            return HEALINGHP;
+            return CST_HEALINGHP;
         }
         if (it_ instanceof HealingPp) {
-            return HEALINGPP;
+            return CST_HEALINGPP;
         }
         if (it_ instanceof HealingItem) {
-            return HEALINGITEM;
+            return CST_HEALINGITEM;
         }
         if (it_ instanceof ItemForBattle) {
-            return ITEMFORBATTLE;
+            return CST_ITEMFORBATTLE;
         }
         if (it_ instanceof Repel) {
-            return REPEL;
+            return CST_REPEL;
         }
         if (it_ instanceof SellingItem) {
-            return SELLINGITEM;
+            return CST_SELLINGITEM;
         }
-        return ITEM;
+        return CST_ITEM;
     }
     public String translateItemSecEffect(int _index) {
         String it_ = getItemSecEffect(_index);
@@ -731,8 +731,8 @@ public class MoveBean extends CommonBean {
     }
     public String clickAbility(int _index) {
         String key_ = abilities.get(_index);
-        getForms().put(ABILITY, key_);
-        return ABILITY;
+        getForms().put(CST_ABILITY, key_);
+        return CST_ABILITY;
     }
     public String getTrAbility(int _index) {
         String ab_ = abilities.get(_index);
@@ -743,51 +743,51 @@ public class MoveBean extends CommonBean {
     public String clickItem(int _index) {
         String key_ = items.get(_index);
         DataBase data_ = (DataBase) getDataBase();
-        getForms().put(ITEM, key_);
+        getForms().put(CST_ITEM, key_);
         Item it_ = data_.getItem(key_);
         if (it_ instanceof Ball) {
-            return BALL;
+            return CST_BALL;
         }
         if (it_ instanceof Berry) {
-            return BERRY;
+            return CST_BERRY;
         }
         if (it_ instanceof Boost) {
-            return BOOST;
+            return CST_BOOST;
         }
         if (it_ instanceof EvolvingItem) {
-            return EVOLVINGITEM;
+            return CST_EVOLVINGITEM;
         }
         if (it_ instanceof EvolvingStone) {
-            return EVOLVINGSTONE;
+            return CST_EVOLVINGSTONE;
         }
         if (it_ instanceof Fossil) {
-            return FOSSIL;
+            return CST_FOSSIL;
         }
         if (it_ instanceof HealingHpStatus) {
-            return HEALINGHPSTATUS;
+            return CST_HEALINGHPSTATUS;
         }
         if (it_ instanceof HealingStatus) {
-            return HEALINGSTATUS;
+            return CST_HEALINGSTATUS;
         }
         if (it_ instanceof HealingHp) {
-            return HEALINGHP;
+            return CST_HEALINGHP;
         }
         if (it_ instanceof HealingPp) {
-            return HEALINGPP;
+            return CST_HEALINGPP;
         }
         if (it_ instanceof HealingItem) {
-            return HEALINGITEM;
+            return CST_HEALINGITEM;
         }
         if (it_ instanceof ItemForBattle) {
-            return ITEMFORBATTLE;
+            return CST_ITEMFORBATTLE;
         }
         if (it_ instanceof Repel) {
-            return REPEL;
+            return CST_REPEL;
         }
         if (it_ instanceof SellingItem) {
-            return SELLINGITEM;
+            return CST_SELLINGITEM;
         }
-        return ITEM;
+        return CST_ITEM;
     }
     public String getTrItem(int _index) {
         String ab_ = items.get(_index);
@@ -797,8 +797,8 @@ public class MoveBean extends CommonBean {
     }
     public String clickMove(int _index) {
         String key_ = affectedByMoves.get(_index);
-        getForms().put(MOVE, key_);
-        return MOVE;
+        getForms().put(CST_MOVE, key_);
+        return CST_MOVE;
     }
     public String getTrMove(int _index) {
         String ab_ = affectedByMoves.get(_index);
@@ -809,8 +809,8 @@ public class MoveBean extends CommonBean {
     public String clickPokemon(int _indexLevel, int _indexPk) {
         StringList pks_ = movesLevelLearntByPokemon.getValue(_indexLevel);
         String pk_ = pks_.get(_indexPk);
-        getForms().put(PK, pk_);
-        return POKEMON;
+        getForms().put(CST_PK, pk_);
+        return CST_POKEMON;
     }
     public String getTrPokemon(int _indexLevel, int _indexPk) {
         StringList pks_ = movesLevelLearntByPokemon.getValue(_indexLevel);
@@ -821,8 +821,8 @@ public class MoveBean extends CommonBean {
     }
     public String clickPokemonTm(int _indexPk) {
         String pk_ = movesTmLearntByPokemon.get(_indexPk);
-        getForms().put(PK, pk_);
-        return POKEMON;
+        getForms().put(CST_PK, pk_);
+        return CST_POKEMON;
     }
     public String getTrPokemonTm(int _indexPk) {
         DataBase data_ = (DataBase) getDataBase();
@@ -832,8 +832,8 @@ public class MoveBean extends CommonBean {
     }
     public String clickPokemonHm(int _indexPk) {
         String pk_ = movesHmLearntByPokemon.get(_indexPk);
-        getForms().put(PK, pk_);
-        return POKEMON;
+        getForms().put(CST_PK, pk_);
+        return CST_POKEMON;
     }
     public String getTrPokemonHm(int _indexPk) {
         DataBase data_ = (DataBase) getDataBase();
@@ -843,8 +843,8 @@ public class MoveBean extends CommonBean {
     }
     public String clickPokemonMt(int _indexPk) {
         String pk_ = movesMtLearntByPokemon.get(_indexPk);
-        getForms().put(PK, pk_);
-        return POKEMON;
+        getForms().put(CST_PK, pk_);
+        return CST_POKEMON;
     }
     public String getTrPokemonMt(int _indexPk) {
         DataBase data_ = (DataBase) getDataBase();
@@ -904,7 +904,7 @@ public class MoveBean extends CommonBean {
         return targetChoice == TargetChoice.NOTHING;
     }
     public String getPage(int _long) {
-        String name_ = (String) getForms().getVal(MOVE);
+        String name_ = (String) getForms().getVal(CST_MOVE);
         DataBase data_ = (DataBase) getDataBase();
         MoveData moveData_ = data_.getMove(name_);
         Effect eff_ = moveData_.getEffet(_long);

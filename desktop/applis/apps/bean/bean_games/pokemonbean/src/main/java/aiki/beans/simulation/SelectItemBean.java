@@ -24,11 +24,11 @@ public class SelectItemBean extends CommonBean {
 
     @Override
     public void beforeDisplaying() {
-        player = (Boolean) getForms().getVal(IS_POKEMON_PLAYER_MOVES);
+        player = (Boolean) getForms().getVal(CST_IS_POKEMON_PLAYER_MOVES);
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translationsItems_;
         translationsItems_ = data_.getTranslatedItems().getVal(getLanguage());
-        sortedItems = (StringList) getForms().getVal(ITEMS_SET_EDIT);
+        sortedItems = (StringList) getForms().getVal(CST_ITEMS_SET_EDIT);
         items.clear();
         StringMap<String> translationsClasses_;
         translationsClasses_ = data_.getTranslatedClassesDescriptions().getVal(getLanguage());
@@ -50,16 +50,16 @@ public class SelectItemBean extends CommonBean {
     }
     public String cancel() {
         if (player) {
-            return EDIT_POKEMON_PLAYER;
+            return CST_EDIT_POKEMON_PLAYER;
         }
-        return POKEMON_EDIT;
+        return CST_POKEMON_EDIT;
     }
     public String cancelItem() {
-        getForms().put(ITEM_EDIT, DataBase.EMPTY_STRING);
+        getForms().put(CST_ITEM_EDIT, DataBase.EMPTY_STRING);
         if (player) {
-            return EDIT_POKEMON_PLAYER;
+            return CST_EDIT_POKEMON_PLAYER;
         }
-        return POKEMON_EDIT;
+        return CST_POKEMON_EDIT;
     }
     public String search() {
         if (!typedPrice.isEmpty()) {
@@ -107,24 +107,24 @@ public class SelectItemBean extends CommonBean {
             }
         }
         sortedItems_.sortElts(new ComparatorTrStrings(translationsItems_));
-        getForms().put(ITEMS_SET_EDIT, sortedItems_);
+        getForms().put(CST_ITEMS_SET_EDIT, sortedItems_);
         if (sortedItems_.size() == DataBase.ONE_POSSIBLE_CHOICE) {
             item = sortedItems_.first();
-            getForms().put(ITEM_EDIT, item);
+            getForms().put(CST_ITEM_EDIT, item);
             if (player) {
-                return EDIT_POKEMON_PLAYER;
+                return CST_EDIT_POKEMON_PLAYER;
             }
-            return POKEMON_EDIT;
+            return CST_POKEMON_EDIT;
         }
         return DataBase.EMPTY_STRING;
     }
     public String clickLink(int _index) {
         item = items.get(_index).getName();
-        getForms().put(ITEM_EDIT, item);
+        getForms().put(CST_ITEM_EDIT, item);
         if (player) {
-            return EDIT_POKEMON_PLAYER;
+            return CST_EDIT_POKEMON_PLAYER;
         }
-        return POKEMON_EDIT;
+        return CST_POKEMON_EDIT;
     }
     public String getMiniImage(int _number) {
         String item_ = items.get(_number).getName();

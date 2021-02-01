@@ -36,8 +36,8 @@ public class HealingItemBean extends ItemBean {
     }
     public String clickHappiness(int _index) {
         String item_ = happiness.getKey(_index);
-        getForms().put(ITEM, item_);
-        return BALL;
+        getForms().put(CST_ITEM, item_);
+        return CST_BALL;
     }
 
     public boolean getHealingTeam() {

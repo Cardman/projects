@@ -53,7 +53,7 @@ public class StatusBean extends CommonBean {
 
     @Override
     public void beforeDisplaying() {
-        name = (String) getForms().getVal(STATUS);
+        name = (String) getForms().getVal(CST_STATUS);
         DataBase data_ = (DataBase) getDataBase();
         animStatus = BaseSixtyFourUtil.getStringByImage(data_.getAnimStatus().getVal(name));
         StringMap<String> translatedStatus_;
@@ -157,10 +157,10 @@ public class StatusBean extends CommonBean {
         return statusType == StatusType.INDIVIDUEL;
     }
     public String clickIndex() {
-        if (!getForms().contains(STATUS_SET)) {
-            getForms().put(STATUS_SET, new StringList());
+        if (!getForms().contains(CST_STATUS_SET)) {
+            getForms().put(CST_STATUS_SET, new StringList());
         }
-        return STATUS_SET;
+        return CST_STATUS_SET;
     }
     public boolean incrementEndRoundInt() {
         return incrementEndRound > 0;

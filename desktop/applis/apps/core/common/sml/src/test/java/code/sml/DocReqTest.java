@@ -213,11 +213,6 @@ public class DocReqTest {
         FullElement elt_ = (FullElement) doc_.getDocumentElement();
         elt_.appendChild(doc_.createTextNode("Text"));
         Text t_ = (Text) elt_.getFirstChild();
-        t_.appendChild(doc_.createTextNode("Sec"));
-        t_.removeChild(t_.getFirstChild());
-        t_.replaceChild(t_.getFirstChild(),t_.getFirstChild());
-        t_.insertAfter(t_.getFirstChild(),t_.getFirstChild());
-        t_.insertBefore(t_.getFirstChild(),t_.getFirstChild());
         assertTrue(!t_.hasChildNodes());
         assertTrue(!t_.hasAttributes());
         assertEq(0,t_.getChildElements().size());

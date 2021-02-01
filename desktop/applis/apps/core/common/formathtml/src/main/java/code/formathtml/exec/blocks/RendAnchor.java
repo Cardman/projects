@@ -7,7 +7,7 @@ import code.formathtml.exec.RendStackCall;
 import code.formathtml.exec.opers.RendDynOperationNode;
 import code.formathtml.util.BeanLgNames;
 import code.sml.Element;
-import code.sml.MutableNode;
+import code.sml.Node;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
@@ -29,7 +29,7 @@ public final class RendAnchor extends RendElement {
 
 
     @Override
-    protected void processExecAttr(Configuration _cont, MutableNode _nextWrite, Element _read, BeanLgNames _stds, ContextEl _ctx, StackCall _stack, RendStackCall _rendStack) {
+    protected void processExecAttr(Configuration _cont, Node _nextWrite, Element _read, BeanLgNames _stds, ContextEl _ctx, StackCall _stack, RendStackCall _rendStack) {
         processLink(_cont, (Element) _nextWrite, _read, varNames, textPart,opExpAnch, _stds, _ctx, _stack, _rendStack);
     }
 

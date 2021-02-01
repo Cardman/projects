@@ -21,7 +21,7 @@ public abstract class ItemBean extends CommonBean {
         translationsClasses_ = data_.getTranslatedClassesDescriptions().getVal(getLanguage());
         StringMap<String> translationsItems_;
         translationsItems_ = data_.getTranslatedItems().getVal(getLanguage());
-        String name_ = (String) getForms().getVal(ITEM);
+        String name_ = (String) getForms().getVal(CST_ITEM);
         if (name_ != null) {
             name = name_;
         }
@@ -33,15 +33,15 @@ public abstract class ItemBean extends CommonBean {
     }
 
     public String clickItems() {
-        if (!getForms().contains(ITEMS_SET)) {
-            getForms().put(ITEMS_SET, new StringList());
+        if (!getForms().contains(CST_ITEMS_SET)) {
+            getForms().put(CST_ITEMS_SET, new StringList());
         }
-        return ITEMS;
+        return CST_ITEMS;
     }
 
     protected Item getItem() {
         DataBase data_ = (DataBase) getDataBase();
-        String name_ = (String) getForms().getVal(ITEM);
+        String name_ = (String) getForms().getVal(CST_ITEM);
         if (name_ != null) {
             return data_.getItem(name_);
         }

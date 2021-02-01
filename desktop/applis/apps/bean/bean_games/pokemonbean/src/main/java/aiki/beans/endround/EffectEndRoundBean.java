@@ -127,8 +127,8 @@ public class EffectEndRoundBean extends CommonBean {
         StringMap<String> translatedMoves_;
         translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
         moves_.sortElts(new ComparatorTrStrings(translatedMoves_));
-        getForms().put(MOVE, moves_.get(_indexTwo));
-        return MOVE;
+        getForms().put(CST_MOVE, moves_.get(_indexTwo));
+        return CST_MOVE;
     }
     public String getTrMoves(int _indexTwo) {
         DataBase data_ = (DataBase) getDataBase();
@@ -142,26 +142,26 @@ public class EffectEndRoundBean extends CommonBean {
     public String clickMove(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         EndRoundMainElements element_ = data_.getEvtEndRound().get(_index);
-        getForms().put(MOVE, element_.getElement());
-        return MOVE;
+        getForms().put(CST_MOVE, element_.getElement());
+        return CST_MOVE;
     }
     public String clickAbility(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         EndRoundMainElements element_ = data_.getEvtEndRound().get(_index);
-        getForms().put(ABILITY, element_.getElement());
-        return ABILITY;
+        getForms().put(CST_ABILITY, element_.getElement());
+        return CST_ABILITY;
     }
     public String clickItem(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         EndRoundMainElements element_ = data_.getEvtEndRound().get(_index);
-        getForms().put(ITEM, element_.getElement());
-        return ITEM;
+        getForms().put(CST_ITEM, element_.getElement());
+        return CST_ITEM;
     }
     public String clickStatus(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         EndRoundMainElements element_ = data_.getEvtEndRound().get(_index);
-        getForms().put(STATUS, element_.getElement());
-        return STATUS;
+        getForms().put(CST_STATUS, element_.getElement());
+        return CST_STATUS;
     }
 
     public String getMove() {

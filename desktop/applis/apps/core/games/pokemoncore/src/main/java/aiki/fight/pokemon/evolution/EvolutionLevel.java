@@ -1,20 +1,21 @@
 package aiki.fight.pokemon.evolution;
 
 import aiki.db.DataBase;
-import aiki.fight.pokemon.PokemonData;
 
 
 public abstract class EvolutionLevel extends Evolution {
 
     private short level;
 
-    protected final void validateEvolutionLevel(DataBase _dataBase) {
+    protected final boolean validateEvolutionLevel(DataBase _dataBase) {
+        boolean res_ = false;
         if (level <= 0) {
-            _dataBase.setError(true);
+            res_ = true;
         }
         if (level > _dataBase.getMaxLevel()) {
-            _dataBase.setError(true);
+            res_ = true;
         }
+        return res_;
     }
 
     public short getLevel() {

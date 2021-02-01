@@ -7,7 +7,7 @@ import code.util.StringList;
 
 public class WelcomeBean extends CommonBean {
 
-    private StringList moves = new StringList();
+    private final StringList moves = new StringList();
 
     @Override
     public void beforeDisplaying() {
@@ -31,43 +31,43 @@ public class WelcomeBean extends CommonBean {
                 }
             }
             learntMoves_.removeDuplicates();
-            getForms().put(LEARNT_MOVES, learntMoves_);
+            getForms().put(CST_LEARNT_MOVES, learntMoves_);
             moves.addAllElts(data_.getMoves().getKeys());
         }
     }
     public String seeAllMoves() {
-        getForms().put(MOVES_SET, new StringList());
-        getForms().removeKey(LEARNT);
-        return MOVES;
+        getForms().put(CST_MOVES_SET, new StringList());
+        getForms().removeKey(CST_LEARNT);
+        return CST_MOVES;
     }
     public String seeLearntMoves() {
-        getForms().put(MOVES_SET, new StringList());
-        getForms().put(LEARNT, true);
-        return MOVES;
+        getForms().put(CST_MOVES_SET, new StringList());
+        getForms().put(CST_LEARNT, true);
+        return CST_MOVES;
     }
     public String seeNotLearntMoves() {
-        getForms().put(MOVES_SET, new StringList());
-        getForms().put(LEARNT, false);
-        return MOVES;
+        getForms().put(CST_MOVES_SET, new StringList());
+        getForms().put(CST_LEARNT, false);
+        return CST_MOVES;
     }
     public String clickAbilities() {
-        getForms().put(ABILITIES_SET, new StringList());
-        return ABILITIES;
+        getForms().put(CST_ABILITIES_SET, new StringList());
+        return CST_ABILITIES;
     }
     public String clickStatus() {
-        getForms().put(STATUS_SET, new StringList());
-        return STATUS_SET;
+        getForms().put(CST_STATUS_SET, new StringList());
+        return CST_STATUS_SET;
     }
     public String clickItems() {
-        getForms().put(ITEMS_SET, new StringList());
-        return ITEMS;
+        getForms().put(CST_ITEMS_SET, new StringList());
+        return CST_ITEMS;
     }
     public String clickPokedex() {
-        getForms().put(POKEMON_SET, new StringList());
-        return POKEMON_SET;
+        getForms().put(CST_POKEMON_SET, new StringList());
+        return CST_POKEMON_SET;
     }
     public String clickSimulation() {
-        getForms().put(SIMULATION_STATE, SimulationSteps.DIFF);
-        return SIMULATION;
+        getForms().put(CST_SIMULATION_STATE, SimulationSteps.DIFF);
+        return CST_SIMULATION;
     }
 }

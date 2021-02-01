@@ -39,8 +39,8 @@ public class EffectEndRoundMultiRelationBean extends EffectEndRoundBean {
         for (String s: effect_.getDamageByStatus().getKeys()) {
             multDamageStatus_.put(s, effect_.getDamageByStatus().getVal(s));
         }
-        getForms().put(STATUS, multDamageStatus_.getKey(_indexTwo));
-        return STATUS;
+        getForms().put(CST_STATUS, multDamageStatus_.getKey(_indexTwo));
+        return CST_STATUS;
     }
 
     public TreeMap<String,Rate> getDamageByStatus() {

@@ -1,6 +1,6 @@
 package code.sml;
 
-public class AttributePart {
+public final class AttributePart {
 
     private int begin;
 

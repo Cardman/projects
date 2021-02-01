@@ -21,8 +21,8 @@ public class DescendantModifTest {
     public void replaceChild2Test() {
         Document doc_ = DocumentBuilder.parseSax("<tag><first/><second/></tag>");
         Element elt_ = doc_.getDocumentElement();
-        MutableNode f_ = elt_.getFirstChild();
-        MutableNode next_ = f_.getNextSibling();
+        Node f_ = elt_.getFirstChild();
+        Node next_ = f_.getNextSibling();
         Element new_ = doc_.createElement("child");
         elt_.replaceChild(new_,f_);
         Node ch_ = elt_.getFirstChild();
@@ -34,8 +34,8 @@ public class DescendantModifTest {
     public void replaceChild3Test() {
         Document doc_ = DocumentBuilder.parseSax("<tag><first/><second/></tag>");
         Element elt_ = doc_.getDocumentElement();
-        MutableNode l_ = elt_.getLastChild();
-        MutableNode prev_ = l_.getPreviousSibling();
+        Node l_ = elt_.getLastChild();
+        Node prev_ = l_.getPreviousSibling();
         Element new_ = doc_.createElement("child");
         elt_.replaceChild(new_,l_);
         Node ch_ = elt_.getLastChild();
@@ -47,9 +47,9 @@ public class DescendantModifTest {
     public void replaceChild4Test() {
         Document doc_ = DocumentBuilder.parseSax("<tag><first/><second/><three/></tag>");
         Element elt_ = doc_.getDocumentElement();
-        MutableNode rem_ = elt_.getFirstChild().getNextSibling();
-        MutableNode prev_ = rem_.getPreviousSibling();
-        MutableNode next_ = rem_.getNextSibling();
+        Node rem_ = elt_.getFirstChild().getNextSibling();
+        Node prev_ = rem_.getPreviousSibling();
+        Node next_ = rem_.getNextSibling();
         Element new_ = doc_.createElement("child");
         elt_.replaceChild(new_,rem_);
         Node ch_ = elt_.getFirstChild().getNextSibling();
@@ -62,9 +62,9 @@ public class DescendantModifTest {
     public void replaceChild5Test() {
         Document doc_ = DocumentBuilder.parseSax("<tag><first/><second/><three/></tag>");
         Element elt_ = doc_.getDocumentElement();
-        MutableNode rem_ = elt_.getFirstChild().getNextSibling();
-        MutableNode prev_ = rem_.getPreviousSibling();
-        MutableNode next_ = rem_.getNextSibling();
+        Node rem_ = elt_.getFirstChild().getNextSibling();
+        Node prev_ = rem_.getPreviousSibling();
+        Node next_ = rem_.getNextSibling();
         Element new_ = doc_.createElement("child");
         elt_.replaceChild(new_,elt_);
         Node ch_ = elt_.getFirstChild().getNextSibling();
@@ -85,8 +85,8 @@ public class DescendantModifTest {
     public void replaceChildNo2Test() {
         Document doc_ = DocumentBuilder.parseNoTextDocument("<tag><first/><second/></tag>");
         Element elt_ = doc_.getDocumentElement();
-        MutableNode f_ = elt_.getFirstChild();
-        MutableNode next_ = f_.getNextSibling();
+        Node f_ = elt_.getFirstChild();
+        Node next_ = f_.getNextSibling();
         Element new_ = doc_.createElement("child");
         elt_.replaceChild(new_,f_);
         Node ch_ = elt_.getFirstChild();
@@ -98,8 +98,8 @@ public class DescendantModifTest {
     public void replaceChildNo3Test() {
         Document doc_ = DocumentBuilder.parseNoTextDocument("<tag><first/><second/></tag>");
         Element elt_ = doc_.getDocumentElement();
-        MutableNode l_ = elt_.getLastChild();
-        MutableNode prev_ = l_.getPreviousSibling();
+        Node l_ = elt_.getLastChild();
+        Node prev_ = l_.getPreviousSibling();
         Element new_ = doc_.createElement("child");
         elt_.replaceChild(new_,l_);
         Node ch_ = elt_.getLastChild();
@@ -111,9 +111,9 @@ public class DescendantModifTest {
     public void replaceChildNo4Test() {
         Document doc_ = DocumentBuilder.parseNoTextDocument("<tag><first/><second/><three/></tag>");
         Element elt_ = doc_.getDocumentElement();
-        MutableNode rem_ = elt_.getFirstChild().getNextSibling();
-        MutableNode prev_ = rem_.getPreviousSibling();
-        MutableNode next_ = rem_.getNextSibling();
+        Node rem_ = elt_.getFirstChild().getNextSibling();
+        Node prev_ = rem_.getPreviousSibling();
+        Node next_ = rem_.getNextSibling();
         Element new_ = doc_.createElement("child");
         elt_.replaceChild(new_,rem_);
         Node ch_ = elt_.getFirstChild().getNextSibling();
@@ -126,9 +126,9 @@ public class DescendantModifTest {
     public void replaceChildNo5Test() {
         Document doc_ = DocumentBuilder.parseNoTextDocument("<tag><first/><second/><three/></tag>");
         Element elt_ = doc_.getDocumentElement();
-        MutableNode rem_ = elt_.getFirstChild().getNextSibling();
-        MutableNode prev_ = rem_.getPreviousSibling();
-        MutableNode next_ = rem_.getNextSibling();
+        Node rem_ = elt_.getFirstChild().getNextSibling();
+        Node prev_ = rem_.getPreviousSibling();
+        Node next_ = rem_.getNextSibling();
         Element new_ = doc_.createElement("child");
         elt_.replaceChild(new_,elt_);
         Node ch_ = elt_.getFirstChild().getNextSibling();
@@ -150,8 +150,8 @@ public class DescendantModifTest {
     public void removeChild2Test() {
         Document doc_ = DocumentBuilder.parseSax("<tag><first/><second/></tag>");
         Element elt_ = doc_.getDocumentElement();
-        MutableNode f_ = elt_.getFirstChild();
-        MutableNode next_ = f_.getNextSibling();
+        Node f_ = elt_.getFirstChild();
+        Node next_ = f_.getNextSibling();
         elt_.removeChild(f_);
         assertNull(next_.getPreviousSibling());
     }
@@ -160,8 +160,8 @@ public class DescendantModifTest {
     public void removeChild3Test() {
         Document doc_ = DocumentBuilder.parseSax("<tag><first/><second/></tag>");
         Element elt_ = doc_.getDocumentElement();
-        MutableNode l_ = elt_.getLastChild();
-        MutableNode prev_ = l_.getPreviousSibling();
+        Node l_ = elt_.getLastChild();
+        Node prev_ = l_.getPreviousSibling();
         elt_.removeChild(l_);
         assertNull(prev_.getNextSibling());
     }
@@ -170,9 +170,9 @@ public class DescendantModifTest {
     public void removeChild4Test() {
         Document doc_ = DocumentBuilder.parseSax("<tag><first/><second/><three/></tag>");
         Element elt_ = doc_.getDocumentElement();
-        MutableNode rem_ = elt_.getFirstChild().getNextSibling();
-        MutableNode prev_ = rem_.getPreviousSibling();
-        MutableNode next_ = rem_.getNextSibling();
+        Node rem_ = elt_.getFirstChild().getNextSibling();
+        Node prev_ = rem_.getPreviousSibling();
+        Node next_ = rem_.getNextSibling();
         elt_.removeChild(rem_);
         assertSame(next_, prev_.getNextSibling());
         assertSame(prev_, next_.getPreviousSibling());
@@ -182,9 +182,9 @@ public class DescendantModifTest {
     public void removeChild5Test() {
         Document doc_ = DocumentBuilder.parseSax("<tag><first/><second/><three/></tag>");
         Element elt_ = doc_.getDocumentElement();
-        MutableNode rem_ = elt_.getFirstChild().getNextSibling();
-        MutableNode prev_ = rem_.getPreviousSibling();
-        MutableNode next_ = rem_.getNextSibling();
+        Node rem_ = elt_.getFirstChild().getNextSibling();
+        Node prev_ = rem_.getPreviousSibling();
+        Node next_ = rem_.getNextSibling();
         elt_.removeChild(elt_);
         Node ch_ = elt_.getFirstChild().getNextSibling();
         assertEq("second",((Element)ch_).getTagName());
@@ -204,8 +204,8 @@ public class DescendantModifTest {
     public void removeChildNo2Test() {
         Document doc_ = DocumentBuilder.parseNoTextDocument("<tag><first/><second/></tag>");
         Element elt_ = doc_.getDocumentElement();
-        MutableNode f_ = elt_.getFirstChild();
-        MutableNode next_ = f_.getNextSibling();
+        Node f_ = elt_.getFirstChild();
+        Node next_ = f_.getNextSibling();
         elt_.removeChild(f_);
         assertNull(next_.getPreviousSibling());
     }
@@ -214,8 +214,8 @@ public class DescendantModifTest {
     public void removeChildNo3Test() {
         Document doc_ = DocumentBuilder.parseNoTextDocument("<tag><first/><second/></tag>");
         Element elt_ = doc_.getDocumentElement();
-        MutableNode l_ = elt_.getLastChild();
-        MutableNode prev_ = l_.getPreviousSibling();
+        Node l_ = elt_.getLastChild();
+        Node prev_ = l_.getPreviousSibling();
         elt_.removeChild(l_);
         assertNull(prev_.getNextSibling());
     }
@@ -224,9 +224,9 @@ public class DescendantModifTest {
     public void removeChildNo4Test() {
         Document doc_ = DocumentBuilder.parseNoTextDocument("<tag><first/><second/><three/></tag>");
         Element elt_ = doc_.getDocumentElement();
-        MutableNode rem_ = elt_.getFirstChild().getNextSibling();
-        MutableNode prev_ = rem_.getPreviousSibling();
-        MutableNode next_ = rem_.getNextSibling();
+        Node rem_ = elt_.getFirstChild().getNextSibling();
+        Node prev_ = rem_.getPreviousSibling();
+        Node next_ = rem_.getNextSibling();
         elt_.removeChild(rem_);
         assertSame(next_, prev_.getNextSibling());
         assertSame(prev_, next_.getPreviousSibling());
@@ -236,9 +236,9 @@ public class DescendantModifTest {
     public void removeChildNo5Test() {
         Document doc_ = DocumentBuilder.parseNoTextDocument("<tag><first/><second/><three/></tag>");
         Element elt_ = doc_.getDocumentElement();
-        MutableNode rem_ = elt_.getFirstChild().getNextSibling();
-        MutableNode prev_ = rem_.getPreviousSibling();
-        MutableNode next_ = rem_.getNextSibling();
+        Node rem_ = elt_.getFirstChild().getNextSibling();
+        Node prev_ = rem_.getPreviousSibling();
+        Node next_ = rem_.getNextSibling();
         elt_.removeChild(elt_);
         Node ch_ = elt_.getFirstChild().getNextSibling();
         assertEq("second",((Element)ch_).getTagName());
@@ -251,7 +251,7 @@ public class DescendantModifTest {
         Document doc_ = DocumentBuilder.parseSax("<tag><first/></tag>");
         Element elt_ = doc_.getDocumentElement();
         Element new_ = doc_.createElement("child");
-        MutableNode first_ = elt_.getFirstChild();
+        Node first_ = elt_.getFirstChild();
         elt_.insertBefore(new_,first_);
         assertSame(first_,new_.getNextSibling());
         assertSame(new_,first_.getPreviousSibling());
@@ -262,8 +262,8 @@ public class DescendantModifTest {
         Document doc_ = DocumentBuilder.parseSax("<tag><first/><second/></tag>");
         Element elt_ = doc_.getDocumentElement();
         Element new_ = doc_.createElement("child");
-        MutableNode first_ = elt_.getFirstChild();
-        MutableNode last_ = elt_.getLastChild();
+        Node first_ = elt_.getFirstChild();
+        Node last_ = elt_.getLastChild();
         elt_.insertBefore(new_,last_);
         assertSame(last_,new_.getNextSibling());
         assertSame(new_,last_.getPreviousSibling());
@@ -285,7 +285,7 @@ public class DescendantModifTest {
         Document doc_ = DocumentBuilder.parseNoTextDocument("<tag><first/></tag>");
         Element elt_ = doc_.getDocumentElement();
         Element new_ = doc_.createElement("child");
-        MutableNode first_ = elt_.getFirstChild();
+        Node first_ = elt_.getFirstChild();
         elt_.insertBefore(new_,first_);
         assertSame(first_,new_.getNextSibling());
         assertSame(new_,first_.getPreviousSibling());
@@ -296,8 +296,8 @@ public class DescendantModifTest {
         Document doc_ = DocumentBuilder.parseNoTextDocument("<tag><first/><second/></tag>");
         Element elt_ = doc_.getDocumentElement();
         Element new_ = doc_.createElement("child");
-        MutableNode first_ = elt_.getFirstChild();
-        MutableNode last_ = elt_.getLastChild();
+        Node first_ = elt_.getFirstChild();
+        Node last_ = elt_.getLastChild();
         elt_.insertBefore(new_,last_);
         assertSame(last_,new_.getNextSibling());
         assertSame(new_,last_.getPreviousSibling());
@@ -319,7 +319,7 @@ public class DescendantModifTest {
         Document doc_ = DocumentBuilder.parseSax("<tag><first/></tag>");
         Element elt_ = doc_.getDocumentElement();
         Element new_ = doc_.createElement("child");
-        MutableNode first_ = elt_.getFirstChild();
+        Node first_ = elt_.getFirstChild();
         elt_.insertAfter(new_,first_);
         assertSame(first_,new_.getPreviousSibling());
         assertSame(new_,first_.getNextSibling());
@@ -330,8 +330,8 @@ public class DescendantModifTest {
         Document doc_ = DocumentBuilder.parseSax("<tag><first/><second/></tag>");
         Element elt_ = doc_.getDocumentElement();
         Element new_ = doc_.createElement("child");
-        MutableNode first_ = elt_.getFirstChild();
-        MutableNode last_ = elt_.getLastChild();
+        Node first_ = elt_.getFirstChild();
+        Node last_ = elt_.getLastChild();
         elt_.insertAfter(new_,first_);
         assertSame(last_,new_.getNextSibling());
         assertSame(new_,last_.getPreviousSibling());
@@ -353,7 +353,7 @@ public class DescendantModifTest {
         Document doc_ = DocumentBuilder.parseNoTextDocument("<tag><first/></tag>");
         Element elt_ = doc_.getDocumentElement();
         Element new_ = doc_.createElement("child");
-        MutableNode first_ = elt_.getFirstChild();
+        Node first_ = elt_.getFirstChild();
         elt_.insertAfter(new_,first_);
         assertSame(first_,new_.getPreviousSibling());
         assertSame(new_,first_.getNextSibling());
@@ -364,8 +364,8 @@ public class DescendantModifTest {
         Document doc_ = DocumentBuilder.parseNoTextDocument("<tag><first/><second/></tag>");
         Element elt_ = doc_.getDocumentElement();
         Element new_ = doc_.createElement("child");
-        MutableNode first_ = elt_.getFirstChild();
-        MutableNode last_ = elt_.getLastChild();
+        Node first_ = elt_.getFirstChild();
+        Node last_ = elt_.getLastChild();
         elt_.insertAfter(new_,first_);
         assertSame(last_,new_.getNextSibling());
         assertSame(new_,last_.getPreviousSibling());

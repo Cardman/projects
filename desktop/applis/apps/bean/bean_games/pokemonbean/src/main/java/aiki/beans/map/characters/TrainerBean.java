@@ -19,7 +19,7 @@ public class TrainerBean extends CommonBean {
 
     @Override
     public void beforeDisplaying() {
-        trainer = (Trainer) getForms().getVal(TRAINER);
+        trainer = (Trainer) getForms().getVal(CST_TRAINER);
         DataBase data_ = (DataBase) getDataBase();
         if (trainer instanceof GymLeader) {
             GymLeader gym_ = (GymLeader) trainer;
@@ -44,8 +44,8 @@ public class TrainerBean extends CommonBean {
         return translationsMoves_.getVal(move);
     }
     public String clickMove() {
-        getForms().put(MOVE, move);
-        return MOVE;
+        getForms().put(CST_MOVE, move);
+        return CST_MOVE;
     }
     public CustList<PokemonTeam> getTeamsRewards() {
         if (trainer instanceof TrainerMultiFights) {

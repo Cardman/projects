@@ -6,7 +6,7 @@ import aiki.fight.pokemon.PokemonData;
 public final class EvolutionStoneSimple extends EvolutionStone {
 
     @Override
-    public void validate(DataBase _dataBase, PokemonData _fPk) {
-        validateEvolutionStone(_dataBase);
+    public boolean validate(DataBase _dataBase, PokemonData _fPk) {
+        return validateEvolutionStone(_dataBase);
     }
 }

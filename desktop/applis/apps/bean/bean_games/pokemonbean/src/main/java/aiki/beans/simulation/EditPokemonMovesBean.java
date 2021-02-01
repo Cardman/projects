@@ -24,7 +24,7 @@ public class EditPokemonMovesBean extends CommonBean {
 
     @Override
     public void beforeDisplaying() {
-        player = (Boolean) getForms().getVal(IS_POKEMON_PLAYER_MOVES);
+        player = (Boolean) getForms().getVal(CST_IS_POKEMON_PLAYER_MOVES);
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translationsMoves_;
         translationsMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
@@ -35,7 +35,7 @@ public class EditPokemonMovesBean extends CommonBean {
         categories.putAllMap(translationsCategories_);
         categories.put(DataBase.EMPTY_STRING, DataBase.EMPTY_STRING);
         moves.clear();
-        for (String k: (StringList) getForms().getVal(MOVES_SET)) {
+        for (String k: (StringList) getForms().getVal(CST_MOVES_SET)) {
             MoveData moveData_ = data_.getMoves().getVal(k);
             SelectLineMove line_ = new SelectLineMove();
             line_.setName(k);
@@ -59,14 +59,14 @@ public class EditPokemonMovesBean extends CommonBean {
         moves.sortElts(new ComparatorMoves());
     }
     public String cancel() {
-        getForms().put(MOVES_SET, new StringList());
+        getForms().put(CST_MOVES_SET, new StringList());
         if (player) {
-            return EDIT_POKEMON_PLAYER;
+            return CST_EDIT_POKEMON_PLAYER;
         }
-        return POKEMON_EDIT;
+        return CST_POKEMON_EDIT;
     }
     public String addMoves() {
-        StringList currentMoves_ = (StringList) getForms().getVal(POKEMON_MOVES_EDIT);
+        StringList currentMoves_ = (StringList) getForms().getVal(CST_POKEMON_MOVES_EDIT);
         StringList keptMoves_ = new StringList();
         for (SelectLineMove s: moves) {
             if (s.isSelected()) {
@@ -75,11 +75,11 @@ public class EditPokemonMovesBean extends CommonBean {
         }
         currentMoves_.addAllElts(keptMoves_);
         currentMoves_.removeDuplicates();
-        getForms().put(POKEMON_MOVES_EDIT, currentMoves_);
+        getForms().put(CST_POKEMON_MOVES_EDIT, currentMoves_);
         if (player) {
-            return EDIT_POKEMON_PLAYER;
+            return CST_EDIT_POKEMON_PLAYER;
         }
-        return POKEMON_EDIT;
+        return CST_POKEMON_EDIT;
     }
     public void search() {
         DataBase data_ = (DataBase) getDataBase();
@@ -92,8 +92,8 @@ public class EditPokemonMovesBean extends CommonBean {
         StringList set_ = new StringList();
         if (player) {
             if (availableMovesOnly) {
-                String namePk_ = (String) getForms().getVal(POKEMON_NAME_EDIT);
-                int level_ = (Integer) getForms().getVal(POKEMON_LEVEL_EDIT);
+                String namePk_ = (String) getForms().getVal(CST_POKEMON_NAME_EDIT);
+                int level_ = (Integer) getForms().getVal(CST_POKEMON_LEVEL_EDIT);
                 set_.addAllElts(FightSimulation.possiblesInitialMoves(namePk_, (short) level_, data_));
             } else {
                 set_.addAllElts(data_.getMoves().getKeys());
@@ -136,7 +136,7 @@ public class EditPokemonMovesBean extends CommonBean {
             moves_.add(k);
         }
         moves_.sortElts(new ComparatorTrStrings(translationsMoves_));
-        getForms().put(MOVES_SET, moves_);
+        getForms().put(CST_MOVES_SET, moves_);
     }
 
     public void setTypedName(String _typedName) {

@@ -1310,7 +1310,7 @@ public final class DocumentBuilder {
         StringBuilder tagName_ = new StringBuilder();
         StringList stack_ = new StringList();
 //        StringBuilder currentText_ = new StringBuilder();
-        Element currentElement_ = doc_.createElement(tagName_.toString());
+        NotTextElement currentElement_ = (NotTextElement)doc_.createElement(tagName_.toString());
         boolean finished_ = false;
 //        StringBuilder currentComment_ = new StringBuilder();
         StringBuilder attributeValue_ = new StringBuilder();
@@ -1348,7 +1348,7 @@ public final class DocumentBuilder {
                     continue;
                 }
                 if (curChar_ == GT_CHAR) {
-                    Element element_ = doc_.createElement(tagName_.toString());
+                    NotTextElement element_ = (NotTextElement) doc_.createElement(tagName_.toString());
                     element_.setAttributes(new NamedNodeMap(attrs_));
                     attrs_ = new CustList<Attr>();
                     if (doc_.getDocumentElement() == null) {
@@ -1547,7 +1547,7 @@ public final class DocumentBuilder {
                     endHead_ = true;
                 }
                 if (endHead_) {
-                    Element element_ = doc_.createElement(tagName_.toString());
+                    NotTextElement element_ = (NotTextElement) doc_.createElement(tagName_.toString());
                     element_.setAttributes(new NamedNodeMap(attrs_));
                     attrs_ = new CustList<Attr>();
                     if (doc_.getDocumentElement() == null) {
@@ -1630,8 +1630,8 @@ public final class DocumentBuilder {
                 //end tag
                 stack_.removeQuicklyLast();
                 Element parent_ = currentElement_.getParentNode();
-                if (parent_ != null) {
-                    currentElement_ = parent_;
+                if (parent_ instanceof NotTextElement) {
+                    currentElement_ = (NotTextElement) parent_;
                 }
                 if (stack_.isEmpty()) {
                     finished_ = true;
@@ -1714,7 +1714,7 @@ public final class DocumentBuilder {
         StringBuilder tagName_ = new StringBuilder();
         StringList stack_ = new StringList();
         StringBuilder currentText_ = new StringBuilder();
-        Element currentElement_ = doc_.createElement(tagName_.toString());
+        FullElement currentElement_ = (FullElement) doc_.createElement(tagName_.toString());
         boolean finished_ = false;
 //        StringBuilder currentComment_ = new StringBuilder();
         StringBuilder attributeValue_ = new StringBuilder();
@@ -1752,7 +1752,7 @@ public final class DocumentBuilder {
                     continue;
                 }
                 if (curChar_ == GT_CHAR) {
-                    Element element_ = doc_.createElement(tagName_.toString());
+                    FullElement element_ = (FullElement) doc_.createElement(tagName_.toString());
                     element_.setAttributes(new NamedNodeMap(attrs_));
                     attrs_ = new CustList<Attr>();
                     if (doc_.getDocumentElement() == null) {
@@ -1951,7 +1951,7 @@ public final class DocumentBuilder {
                     endHead_ = true;
                 }
                 if (endHead_) {
-                    Element element_ = doc_.createElement(tagName_.toString());
+                    FullElement element_ = (FullElement) doc_.createElement(tagName_.toString());
                     element_.setAttributes(new NamedNodeMap(attrs_));
                     attrs_ = new CustList<Attr>();
                     if (doc_.getDocumentElement() == null) {
@@ -2034,8 +2034,8 @@ public final class DocumentBuilder {
                 //end tag
                 stack_.removeQuicklyLast();
                 Element parent_ = currentElement_.getParentNode();
-                if (parent_ != null) {
-                    currentElement_ = parent_;
+                if (parent_ instanceof FullElement) {
+                    currentElement_ = (FullElement) parent_;
                 }
                 if (stack_.isEmpty()) {
                     finished_ = true;

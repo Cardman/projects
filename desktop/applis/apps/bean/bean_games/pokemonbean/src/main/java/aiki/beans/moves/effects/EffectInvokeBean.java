@@ -83,8 +83,8 @@ public class EffectInvokeBean extends EffectBean {
     }
     public String clickMoveFctEnv(int _index) {
         String st_ = moveFctEnv.getValue(_index);
-        getForms().put(MOVE, st_);
-        return MOVE;
+        getForms().put(CST_MOVE, st_);
+        return CST_MOVE;
     }
     public String getTrEnv(int _index) {
         DataBase data_ = (DataBase) getDataBase();
@@ -106,13 +106,13 @@ public class EffectInvokeBean extends EffectBean {
     }
     public String clickGlobalMoveFctEnv(int _index) {
         String st_ = globalMoves.get(_index);
-        getForms().put(MOVE, st_);
-        return MOVE;
+        getForms().put(CST_MOVE, st_);
+        return CST_MOVE;
     }
     public String clickMoveNotInvok(int _index) {
         String st_ = movesNotToBeInvoked.get(_index);
-        getForms().put(MOVE, st_);
-        return MOVE;
+        getForms().put(CST_MOVE, st_);
+        return CST_MOVE;
     }
     public String getTrMoveNotInvok(int _index) {
         DataBase data_ = (DataBase) getDataBase();
@@ -122,8 +122,8 @@ public class EffectInvokeBean extends EffectBean {
     }
     public String clickMoveUserTypes(int _index) {
         String st_ = invokingMoveByUserTypes.getValue(_index);
-        getForms().put(MOVE, st_);
-        return MOVE;
+        getForms().put(CST_MOVE, st_);
+        return CST_MOVE;
     }
     public boolean isType(int _index) {
         String st_ = invokingMoveByUserTypes.getKey(_index);

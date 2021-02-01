@@ -10,13 +10,15 @@ public final class EvolutionMove extends Evolution {
     private String move;
 
     @Override
-    public void validate(DataBase _dataBase, PokemonData _fPk) {
+    public boolean validate(DataBase _dataBase, PokemonData _fPk) {
+        boolean res_ = false;
         if (StringUtil.quickEq(move, _dataBase.getDefaultMove())) {
-            _dataBase.setError(true);
+            res_ = true;
         }
         if (!StringUtil.contains(_fPk.getMoveTutors(), move)) {
-            _dataBase.setError(true);
+            res_ = true;
         }
+        return res_;
     }
 
     public String getMove() {

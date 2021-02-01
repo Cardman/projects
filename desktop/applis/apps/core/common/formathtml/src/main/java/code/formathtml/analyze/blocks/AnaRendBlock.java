@@ -62,13 +62,13 @@ public abstract class AnaRendBlock {
 
     public static AnaRendDocumentBlock newRendDocumentBlock(String _prefix, Document _doc, String _docText, PrimitiveTypes _primTypes, String _currentUrl, RendKeyWords _rendKeyWords) {
         Element documentElement_ = _doc.getDocumentElement();
-        MutableNode curNode_ = documentElement_;
+        Node curNode_ = documentElement_;
         int indexGlobal_ = _docText.indexOf(LT_BEGIN_TAG)+1;
         AnaRendDocumentBlock out_ = new AnaRendDocumentBlock(documentElement_,_docText,new OffsetsBlock(), _currentUrl);
         AnaRendBlock curWrite_ = newRendBlockEsc(indexGlobal_,out_, _prefix, curNode_,_docText, _primTypes, _rendKeyWords);
         out_.appendChild(curWrite_);
         while (curWrite_ != null) {
-            MutableNode firstChild_ = curNode_.getFirstChild();
+            Node firstChild_ = curNode_.getFirstChild();
             if (firstChild_ != null) {
                 indexGlobal_ = indexOfBeginNode(firstChild_, _docText, indexGlobal_);
                 AnaRendBlock rendBlock_ = newRendBlockEsc(indexGlobal_,(AnaRendParentBlock) curWrite_, _prefix, firstChild_,_docText, _primTypes, _rendKeyWords);
@@ -78,7 +78,7 @@ public abstract class AnaRendBlock {
                 continue;
             }
             while (true) {
-                MutableNode nextSibling_ = curNode_.getNextSibling();
+                Node nextSibling_ = curNode_.getNextSibling();
                 AnaRendParentBlock par_ = curWrite_.getParent();
                 if (nextSibling_ != null) {
                     indexGlobal_ = indexOfBeginNode(nextSibling_, _docText, indexGlobal_);
@@ -104,7 +104,7 @@ public abstract class AnaRendBlock {
         return out_;
     }
 
-    private static AnaRendBlock newRendBlockEsc(int _begin, AnaRendParentBlock _curParent, String _prefix, MutableNode _elt, String _docText, PrimitiveTypes _primTypes, RendKeyWords _rendKeyWords) {
+    private static AnaRendBlock newRendBlockEsc(int _begin, AnaRendParentBlock _curParent, String _prefix, Node _elt, String _docText, PrimitiveTypes _primTypes, RendKeyWords _rendKeyWords) {
         AnaRendBlock bl_ = newRendBlock(_begin, _curParent, _prefix, _elt, _docText, _primTypes, _rendKeyWords);
         if (_elt instanceof Text) {
             int endHeader_ = _docText.indexOf(LT_BEGIN_TAG, _begin);
@@ -131,7 +131,7 @@ public abstract class AnaRendBlock {
         }
         return bl_;
     }
-    private static AnaRendBlock newRendBlock(int _begin, AnaRendParentBlock _curParent, String _prefix, MutableNode _elt, String _docText, PrimitiveTypes _primTypes, RendKeyWords _rendKeyWords) {
+    private static AnaRendBlock newRendBlock(int _begin, AnaRendParentBlock _curParent, String _prefix, Node _elt, String _docText, PrimitiveTypes _primTypes, RendKeyWords _rendKeyWords) {
         if (_elt instanceof Text) {
             Text t_ = (Text) _elt;
             if (t_.getTextContent().trim().isEmpty()) {
@@ -193,7 +193,7 @@ public abstract class AnaRendBlock {
                     new OffsetsBlock(_begin,_begin), _primTypes);
         }
         if (StringUtil.quickEq(tagName_, StringUtil.concat(_prefix, _rendKeyWords.getKeyWordWhile()))) {
-            MutableNode previousSibling_ = elt_.getPreviousSibling();
+            Node previousSibling_ = elt_.getPreviousSibling();
             if (previousSibling_ instanceof Text && previousSibling_.getTextContent().trim().isEmpty()) {
                 previousSibling_ = previousSibling_.getPreviousSibling();
             }

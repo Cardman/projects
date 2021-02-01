@@ -24,13 +24,13 @@ public class EditTrainerPokemonBean extends CommonBean {
 
     @Override
     public void beforeDisplaying() {
-        add = getForms().getVal(ADDING_TRAINER_PK) == TeamCrud.ADD;
+        add = getForms().getVal(CST_ADDING_TRAINER_PK) == TeamCrud.ADD;
 
-        namePk = (String) getForms().getVal(POKEMON_NAME_EDIT);
-        item = (String) getForms().getVal(ITEM_EDIT);
-        ability = (String) getForms().getVal(POKEMON_ABILITY_EDIT);
-        gender = ((Gender) getForms().getVal(POKEMON_GENDER_EDIT)).name();
-        level = (Integer) getForms().getVal(POKEMON_LEVEL_EDIT);
+        namePk = (String) getForms().getVal(CST_POKEMON_NAME_EDIT);
+        item = (String) getForms().getVal(CST_ITEM_EDIT);
+        ability = (String) getForms().getVal(CST_POKEMON_ABILITY_EDIT);
+        gender = ((Gender) getForms().getVal(CST_POKEMON_GENDER_EDIT)).name();
+        level = (Integer) getForms().getVal(CST_POKEMON_LEVEL_EDIT);
 
         moves.clear();
         DataBase data_ = (DataBase) getDataBase();
@@ -40,7 +40,7 @@ public class EditTrainerPokemonBean extends CommonBean {
         translationsTypes_ = data_.getTranslatedTypes().getVal(getLanguage());
         StringMap<String> translationsCategories_;
         translationsCategories_ = data_.getTranslatedCategories().getVal(getLanguage());
-        for (String k: (StringList) getForms().getVal(POKEMON_MOVES_EDIT)) {
+        for (String k: (StringList) getForms().getVal(CST_POKEMON_MOVES_EDIT)) {
             MoveData moveData_ = data_.getMoves().getVal(k);
             SelectLineMove line_ = new SelectLineMove();
             line_.setName(k);
@@ -80,26 +80,26 @@ public class EditTrainerPokemonBean extends CommonBean {
         genders.putAllMap(translated_);
     }
     public String cancel() {
-        getForms().put(ADDING_TRAINER_PK, TeamCrud.NOTHING);
-        return SIMULATION;
+        getForms().put(CST_ADDING_TRAINER_PK, TeamCrud.NOTHING);
+        return CST_SIMULATION;
     }
     public String chooseAbility() {
-        getForms().put(ABILITIES_SET, new StringList());
-        return POKEMON_EDIT;
+        getForms().put(CST_ABILITIES_SET, new StringList());
+        return CST_POKEMON_EDIT;
     }
     public String chooseItem() {
-        getForms().put(IS_POKEMON_PLAYER_MOVES, false);
-        getForms().put(ITEMS_SET_EDIT, new StringList());
-        return POKEMON_EDIT;
+        getForms().put(CST_IS_POKEMON_PLAYER_MOVES, false);
+        getForms().put(CST_ITEMS_SET_EDIT, new StringList());
+        return CST_POKEMON_EDIT;
     }
     public String chooseName() {
-        getForms().put(POKEMON_SET, new StringList());
-        return POKEMON_EDIT;
+        getForms().put(CST_POKEMON_SET, new StringList());
+        return CST_POKEMON_EDIT;
     }
     public String addMoves() {
-        getForms().put(IS_POKEMON_PLAYER_MOVES, false);
-        getForms().put(MOVES_SET, new StringList());
-        return POKEMON_EDIT;
+        getForms().put(CST_IS_POKEMON_PLAYER_MOVES, false);
+        getForms().put(CST_MOVES_SET, new StringList());
+        return CST_POKEMON_EDIT;
     }
     public void deleteMoves() {
         StringList keptMoves_ = new StringList();
@@ -108,7 +108,7 @@ public class EditTrainerPokemonBean extends CommonBean {
                 keptMoves_.add(s.getName());
             }
         }
-        getForms().put(POKEMON_MOVES_EDIT, keptMoves_);
+        getForms().put(CST_POKEMON_MOVES_EDIT, keptMoves_);
     }
     public String validateTrainerPk() {
         DataBase data_ = (DataBase) getDataBase();
@@ -132,15 +132,15 @@ public class EditTrainerPokemonBean extends CommonBean {
             selected_ = data_.getPokemon(namePk).getMovesBeforeLevel((short) level);
         }
         if (add) {
-            getForms().put(POKEMON_FOE, !allyPk);
+            getForms().put(CST_POKEMON_FOE, !allyPk);
         }
-        getForms().put(POKEMON_NAME_EDIT, namePk);
-        getForms().put(POKEMON_LEVEL_EDIT, level);
-        getForms().put(ITEM_EDIT, item);
-        getForms().put(POKEMON_GENDER_EDIT, PokemonStandards.getGenderByName(gender));
-        getForms().put(POKEMON_MOVES_EDIT, selected_);
-        getForms().put(POKEMON_ABILITY_EDIT, ability);
-        return VALIDATE_TRAINER_PK;
+        getForms().put(CST_POKEMON_NAME_EDIT, namePk);
+        getForms().put(CST_POKEMON_LEVEL_EDIT, level);
+        getForms().put(CST_ITEM_EDIT, item);
+        getForms().put(CST_POKEMON_GENDER_EDIT, PokemonStandards.getGenderByName(gender));
+        getForms().put(CST_POKEMON_MOVES_EDIT, selected_);
+        getForms().put(CST_POKEMON_ABILITY_EDIT, ability);
+        return CST_VALIDATE_TRAINER_PK;
     }
     public String getTranslatedName() {
         if (namePk.isEmpty()) {

@@ -26,8 +26,8 @@ public class EvolutionItemBean extends EvolutionBean {
         translationsPokemon_ = data_.getTranslatedPokemon().getVal(getLanguage());
         evolutions_.sortElts(new ComparatorTrStrings(translationsPokemon_));
         EvolutionItem evo_ = (EvolutionItem) pk_.getEvolutions().getVal(evolutions_.get(_index));
-        getForms().put(ITEM,evo_.getItem());
-        return EVO_ITEM;
+        getForms().put(CST_ITEM,evo_.getItem());
+        return CST_EVO_ITEM;
     }
 
     public String getItem() {

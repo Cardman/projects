@@ -5,7 +5,8 @@ import aiki.fight.pokemon.PokemonData;
 public final class EvolutionHappiness extends Evolution {
 
     @Override
-    public void validate(DataBase _dataBase,PokemonData _fPk) {
+    public boolean validate(DataBase _dataBase,PokemonData _fPk) {
+        return false;
     }
 
 }

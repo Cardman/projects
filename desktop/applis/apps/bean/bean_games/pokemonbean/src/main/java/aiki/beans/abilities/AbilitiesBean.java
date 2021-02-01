@@ -12,7 +12,7 @@ public class AbilitiesBean extends CommonBean {
 
     @Override
     public void beforeDisplaying() {
-        sortedAbilities = (StringList) getForms().getVal(ABILITIES_SET);
+        sortedAbilities = (StringList) getForms().getVal(CST_ABILITIES_SET);
 //        typedAbility = StringList.replace(typedAbility, QUOTE, ESCAPED_QUOTE);
         typedAbility = escapedStringQuote(typedAbility);
     }
@@ -30,16 +30,16 @@ public class AbilitiesBean extends CommonBean {
             sortedAbilities_.add(i);
         }
         if (sortedAbilities_.size() == DataBase.ONE_POSSIBLE_CHOICE) {
-            getForms().put(ABILITY, sortedAbilities_.first());
-            return ABILITY;
+            getForms().put(CST_ABILITY, sortedAbilities_.first());
+            return CST_ABILITY;
         }
         sortedAbilities_.sortElts(new ComparatorTrStrings(translationsAbilities_));
-        getForms().put(ABILITIES_SET, sortedAbilities_);
-        return ABILITIES;
+        getForms().put(CST_ABILITIES_SET, sortedAbilities_);
+        return CST_ABILITIES;
     }
     public String clickAbility(int _index) {
-        getForms().put(ABILITY, sortedAbilities.get(_index));
-        return ABILITY;
+        getForms().put(CST_ABILITY, sortedAbilities.get(_index));
+        return CST_ABILITY;
     }
     public String getTrAbility(int _index) {
         String ability_ = sortedAbilities.get(_index);

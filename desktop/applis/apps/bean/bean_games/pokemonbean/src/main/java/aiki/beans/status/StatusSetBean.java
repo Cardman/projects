@@ -12,7 +12,7 @@ public class StatusSetBean extends CommonBean {
 
     @Override
     public void beforeDisplaying() {
-        sortedStatus = (StringList) getForms().getVal(STATUS_SET);
+        sortedStatus = (StringList) getForms().getVal(CST_STATUS_SET);
         typedStatus = escapedStringQuote(typedStatus);
     }
     public String search() {
@@ -29,16 +29,16 @@ public class StatusSetBean extends CommonBean {
             sortedAbilities_.add(i);
         }
         if (sortedAbilities_.size() == DataBase.ONE_POSSIBLE_CHOICE) {
-            getForms().put(STATUS, sortedAbilities_.first());
-            return STATUS;
+            getForms().put(CST_STATUS, sortedAbilities_.first());
+            return CST_STATUS;
         }
         sortedAbilities_.sortElts(new ComparatorTrStrings(translationsStatus_));
-        getForms().put(STATUS_SET, sortedAbilities_);
-        return STATUS_SET;
+        getForms().put(CST_STATUS_SET, sortedAbilities_);
+        return CST_STATUS_SET;
     }
     public String clickStatus(int _index) {
-        getForms().put(STATUS, sortedStatus.get(_index));
-        return STATUS;
+        getForms().put(CST_STATUS, sortedStatus.get(_index));
+        return CST_STATUS;
     }
     public String getTrStatus(int _index) {
         String ability_ = sortedStatus.get(_index);

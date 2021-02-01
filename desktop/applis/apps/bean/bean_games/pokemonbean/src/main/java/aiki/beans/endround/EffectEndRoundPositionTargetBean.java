@@ -59,7 +59,7 @@ public class EffectEndRoundPositionTargetBean extends EffectEndRoundBean {
         }
         moves_.removeDuplicates();
         moves_.sortElts(new ComparatorTrStrings(translatedMoves_));
-        getForms().put(MOVE, moves_.get(_index));
-        return MOVE;
+        getForms().put(CST_MOVE, moves_.get(_index));
+        return CST_MOVE;
     }
 }

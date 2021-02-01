@@ -46,8 +46,8 @@ public class EvolvingStoneBean extends ItemBean {
     }
     public String clickPokemon(int _index) {
         String type_ = pokemon.get(_index);
-        getForms().put(PK, type_);
-        return POKEMON;
+        getForms().put(CST_PK, type_);
+        return CST_POKEMON;
     }
 
     public StringList getPokemon() {

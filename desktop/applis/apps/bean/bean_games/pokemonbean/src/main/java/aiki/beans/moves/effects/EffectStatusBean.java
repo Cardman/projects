@@ -59,8 +59,8 @@ public class EffectStatusBean extends EffectBean {
     public String clickLink(int _indexEffect, int _index) {
         TreeMap<String, Rate> lawStatus_ = getLawStatus(_indexEffect);
         String status_ = lawStatus_.getKey(_index);
-        getForms().put(STATUS, status_);
-        return STATUS;
+        getForms().put(CST_STATUS, status_);
+        return CST_STATUS;
     }
     public String getTrLink(int _index) {
         String status_ = lawStatus.getKey(_index);
@@ -83,8 +83,8 @@ public class EffectStatusBean extends EffectBean {
     public String clickLinkDeleted(int _indexEffect, int _index) {
         StringList deletedStatus_ = getDeletedStatus(_indexEffect);
         String status_ = deletedStatus_.get(_index);
-        getForms().put(STATUS, status_);
-        return STATUS;
+        getForms().put(CST_STATUS, status_);
+        return CST_STATUS;
     }
     public String getTrLinkDeleted(int _index) {
         String status_ = deletedStatus.get(_index);

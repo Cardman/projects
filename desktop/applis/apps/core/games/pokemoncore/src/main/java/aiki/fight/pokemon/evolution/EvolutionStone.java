@@ -9,11 +9,8 @@ public abstract class EvolutionStone extends Evolution {
 
     private String stone;
 
-    protected final void validateEvolutionStone(DataBase _dataBase) {
-        if (_dataBase.getItem(stone) instanceof EvolvingStone) {
-            return;
-        }
-        _dataBase.setError(true);
+    protected final boolean validateEvolutionStone(DataBase _dataBase) {
+        return !(_dataBase.getItem(stone) instanceof EvolvingStone);
 
     }
 

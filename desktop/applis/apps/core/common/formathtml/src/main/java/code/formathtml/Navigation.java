@@ -295,7 +295,7 @@ public final class Navigation {
             NodeList children_ = elt_.getChildNodes();
             int ch_ = children_.getLength();
             for (int i = IndexConstants.FIRST_INDEX; i < ch_; i++) {
-                elt_.removeChild((MutableNode) children_.item(i));
+                elt_.removeChild(children_.item(i));
             }
             Text text_ = doc_.createTextNode(RendBlock.SPACE);
             elt_.appendChild(text_);
@@ -359,7 +359,7 @@ public final class Navigation {
                 NodeList children_ = elt_.getChildNodes();
                 int ch_ = children_.getLength();
                 for (int k = IndexConstants.FIRST_INDEX; k < ch_; k++) {
-                    elt_.removeChild((MutableNode) children_.item(k));
+                    elt_.removeChild(children_.item(k));
                 }
                 String error_ = _errors.getVal(i);
                 String message_ = idFormats_.get(count_);
@@ -429,7 +429,7 @@ public final class Navigation {
             NodeList children_ = elt_.getChildNodes();
             int ch_ = children_.getLength();
             for (int j = IndexConstants.FIRST_INDEX; j < ch_; j++) {
-                elt_.removeChild((MutableNode) children_.item(j));
+                elt_.removeChild(children_.item(j));
             }
             Text text_ = _doc.createTextNode(nCont_.getNodeInformation().getValue().first());
             elt_.appendChild(text_);

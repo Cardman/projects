@@ -1120,8 +1120,9 @@ public final class StringExpUtil {
                 p_ = p_ * 2;
             }
             if (p_ == radix_) {
-                int r_ = 63 % q_;
-                int m_ = 63 / q_;
+                int qm_ = Math.max(1,q_);
+                int r_ = 63 % qm_;
+                int m_ = 63 / qm_;
                 int ch_ = 1;
                 for (int i = 0; i < r_; i++) {
                     ch_ *= 2;

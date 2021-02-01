@@ -4,7 +4,7 @@ package code.sml;
 public abstract class CoreDocument implements Node,Document {
     private Element documentElement;
 
-    private int tabWidth;
+    private final int tabWidth;
 
     protected CoreDocument(int _tabWidth) {
         tabWidth = _tabWidth;
@@ -38,12 +38,12 @@ public abstract class CoreDocument implements Node,Document {
     }
 
     @Override
-    public MutableNode getNextSibling() {
+    public Node getNextSibling() {
         return null;
     }
 
     @Override
-    public MutableNode getPreviousSibling() {
+    public Node getPreviousSibling() {
         return null;
     }
 
@@ -53,12 +53,12 @@ public abstract class CoreDocument implements Node,Document {
     }
 
     @Override
-    public MutableNode getFirstChild() {
+    public Node getFirstChild() {
         return documentElement;
     }
 
     @Override
-    public MutableNode getLastChild() {
+    public Node getLastChild() {
         return documentElement;
     }
     @Override

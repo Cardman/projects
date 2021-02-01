@@ -8,7 +8,7 @@ import code.formathtml.exec.opers.RendDynOperationNode;
 import code.formathtml.util.BeanLgNames;
 import code.formathtml.util.NodeContainer;
 import code.sml.Element;
-import code.sml.MutableNode;
+import code.sml.Node;
 import code.util.*;
 import code.util.core.StringUtil;
 
@@ -26,7 +26,7 @@ public final class RendForm extends RendElement {
     }
 
     @Override
-    protected void processExecAttr(Configuration _cont, MutableNode _nextWrite, Element _read, BeanLgNames _stds, ContextEl _ctx, StackCall _stack, RendStackCall _rendStack) {
+    protected void processExecAttr(Configuration _cont, Node _nextWrite, Element _read, BeanLgNames _stds, ContextEl _ctx, StackCall _stack, RendStackCall _rendStack) {
         long currentForm_ = _rendStack.getFormParts().getCurrentForm();
         _rendStack.getFormParts().getContainersMapStack().add(new LongTreeMap< NodeContainer>());
         _rendStack.getFormParts().getFormatIdMapStack().add(new StringList());

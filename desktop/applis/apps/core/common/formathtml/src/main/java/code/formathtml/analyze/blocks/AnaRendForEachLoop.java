@@ -273,7 +273,7 @@ public final class AnaRendForEachLoop extends AnaRendParentBlock implements AnaR
         return root;
     }
 
-    public boolean isRefVariable() {
+    public boolean isRefVar() {
         return refVar;
     }
 }

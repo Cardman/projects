@@ -3,7 +3,7 @@ package code.sml;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 
-public final class NotTextElement implements Element {
+public final class NotTextElement extends FullNode implements Element {
 
     private static final String BEGIN_TAG = "<";
 
@@ -18,29 +18,11 @@ public final class NotTextElement implements Element {
     private String tagName;
 
     private NamedNodeMap attributes = new NamedNodeMap();
-
-    private Document ownerDocument;
-
-    private Element parentNode;
-
-    private ElementList childElements = new ElementList();
-
+    private final ElementList childElements = new ElementList();
     protected NotTextElement(Document _ownerDocument) {
-        ownerDocument = _ownerDocument;
+        super(_ownerDocument);
     }
 
-    @Override
-    public Element getParentNode() {
-        return parentNode;
-    }
-    @Override
-    public void setParentNode(Element _parentNode) {
-        parentNode = _parentNode;
-    }
-    @Override
-    public Document getOwnerDocument() {
-        return ownerDocument;
-    }
     @Override
     public String getTagName() {
         return tagName;
@@ -128,13 +110,13 @@ public final class NotTextElement implements Element {
     }
 
     @Override
-    public void appendChild(MutableNode _newChild) {
-        _newChild.setParentNode(this);
+    public void appendChild(Node _newChild) {
+        ((Element)_newChild).setParentNode(this);
         childElements.add((Element) _newChild);
     }
 
     @Override
-    public void removeChild(MutableNode _oldChild) {
+    public void removeChild(Node _oldChild) {
         int len_ = childElements.size();
         for (int i = 0; i < len_; i++) {
             Element e_ = childElements.get(i);
@@ -148,7 +130,7 @@ public final class NotTextElement implements Element {
     }
 
     @Override
-    public void replaceChild(MutableNode _newChild, MutableNode _oldChild) {
+    public void replaceChild(Node _newChild, Node _oldChild) {
         int len_ = childElements.size();
         for (int i = 0; i < len_; i++) {
             Element e_ = childElements.get(i);
@@ -156,35 +138,35 @@ public final class NotTextElement implements Element {
                 continue;
             }
             e_.setParentNode(null);
-            _newChild.setParentNode(this);
+            ((MutableNode)_newChild).setParentNode(this);
             childElements.set(i, (Element) _newChild);
             return;
         }
     }
 
     @Override
-    public void insertBefore(MutableNode _newChild, MutableNode _refChild) {
+    public void insertBefore(Node _newChild, Node _refChild) {
         int len_ = childElements.size();
         for (int i = 0; i < len_; i++) {
             Element e_ = childElements.get(i);
             if (e_ != _refChild) {
                 continue;
             }
-            _newChild.setParentNode(this);
+            ((MutableNode)_newChild).setParentNode(this);
             childElements.add(i, (Element) _newChild);
             return;
         }
     }
 
     @Override
-    public void insertAfter(MutableNode _newChild, MutableNode _refChild) {
+    public void insertAfter(Node _newChild, Node _refChild) {
         int len_ = childElements.size();
         for (int i = 0; i < len_; i++) {
             Element e_ = childElements.get(i);
             if (e_ != _refChild) {
                 continue;
             }
-            _newChild.setParentNode(this);
+            ((MutableNode)_newChild).setParentNode(this);
             childElements.add(i + 1, (Element) _newChild);
             return;
         }
@@ -337,48 +319,45 @@ public final class NotTextElement implements Element {
     }
 
     @Override
-    public MutableNode getNextSibling() {
-        if (parentNode == null) {
+    public Node getNextSibling() {
+        Element parentNode_ = getParentNode();
+        if (!(parentNode_ instanceof NotTextElement)) {
             return null;
         }
-        ElementList ch_ = parentNode.getChildElements();
-        int i_ = 0;
-        int len_ = ch_.getLength();
-        while (true) {
-            Element e_ = ch_.item(i_);
-            if (e_ == this) {
-                break;
+        int index_ = -1;
+        int size_ = ((NotTextElement) parentNode_).childElements.getLength();
+        for (int i = 0; i < size_; i++) {
+            if (((NotTextElement) parentNode_).childElements.item(i) == this && i + 1 < size_) {
+                index_ = i + 1;
             }
-            i_++;
         }
-        if (i_ + 1 < len_) {
-            return ch_.item(i_ + 1);
+        if (!((NotTextElement) parentNode_).childElements.isValidIndex(index_)) {
+            return null;
         }
-        return null;
+        return ((NotTextElement) parentNode_).childElements.item(index_);
     }
 
     @Override
-    public MutableNode getPreviousSibling() {
-        if (parentNode == null) {
+    public Node getPreviousSibling() {
+        Element parentNode_ = getParentNode();
+        if (!(parentNode_ instanceof NotTextElement)) {
             return null;
         }
-        ElementList ch_ = parentNode.getChildElements();
-        int i_ = 0;
-        while (true) {
-            Element e_ = ch_.item(i_);
-            if (e_ == this) {
-                break;
+        int index_ = -1;
+        int size_ = ((NotTextElement) parentNode_).childElements.getLength();
+        for (int i = 0; i < size_; i++) {
+            if (((NotTextElement) parentNode_).childElements.item(i) == this && i > 0) {
+                index_ = i - 1;
             }
-            i_++;
         }
-        if (i_ > 0) {
-            return ch_.item(i_ - 1);
+        if (!((NotTextElement) parentNode_).childElements.isValidIndex(index_)) {
+            return null;
         }
-        return null;
+        return ((NotTextElement) parentNode_).childElements.item(index_);
     }
 
     @Override
-    public MutableNode getFirstChild() {
+    public Node getFirstChild() {
         if (childElements.isEmpty()) {
             return null;
         }
@@ -386,26 +365,11 @@ public final class NotTextElement implements Element {
     }
 
     @Override
-    public MutableNode getLastChild() {
+    public Node getLastChild() {
         if (childElements.isEmpty()) {
             return null;
         }
         return childElements.last();
     }
 
-    @Override
-    public void setNextSibling(MutableNode _node) {
-    }
-
-    @Override
-    public void setPreviousSibling(MutableNode _node) {
-    }
-
-    @Override
-    public void setFirstChild(MutableNode _node) {
-    }
-
-    @Override
-    public void setLastChild(MutableNode _node) {
-    }
 }

@@ -19,7 +19,7 @@ public class MapBean extends CommonBean {
 
     @Override
     public void beforeDisplaying() {
-        getForms().removeKey(INSIDE);
+        getForms().removeKey(CST_INSIDE);
         places = new CustList<PlaceIndex>();
         DataBase data_ = (DataBase) getDataBase();
         short i_ = 0;
@@ -57,16 +57,16 @@ public class MapBean extends CommonBean {
         return places.get(_index).getPlace() instanceof City;
     }
     public String clickLevel(int _indexOne, int _indexTwo) {
-        getForms().removeKey(INSIDE);
-        getForms().put(LEVEL_MAP_INDEX, _indexTwo);
-        getForms().put(PLACE_MAP_INDEX, _indexOne);
-        getForms().put(PROPONE_LINK, false);
-        getForms().put(PROPONE_TILE, false);
-        getForms().put(SEE_AREA, false);
+        getForms().removeKey(CST_INSIDE);
+        getForms().put(CST_LEVEL_MAP_INDEX, _indexTwo);
+        getForms().put(CST_PLACE_MAP_INDEX, _indexOne);
+        getForms().put(CST_PROPONE_LINK, false);
+        getForms().put(CST_PROPONE_TILE, false);
+        getForms().put(CST_SEE_AREA, false);
         for (Direction d: Direction.values()) {
-            getForms().put(StringUtil.concat(PROPONE_LINK_VAR,d.name()), false);
+            getForms().put(StringUtil.concat(CST_PROPONE_LINK_VAR,d.name()), false);
         }
-        return LEVEL;
+        return CST_LEVEL;
     }
 
     public CustList<PlaceIndex> getPlaces() {

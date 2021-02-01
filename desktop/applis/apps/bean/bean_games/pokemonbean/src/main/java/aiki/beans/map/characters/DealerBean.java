@@ -27,7 +27,7 @@ public class DealerBean extends CommonBean {
 
     @Override
     public void beforeDisplaying() {
-        dealer = (DealerItem) getForms().getVal(DEALER);
+        dealer = (DealerItem) getForms().getVal(CST_DEALER);
     }
     public String getItem(int _index) {
         DataBase data_ = (DataBase) getDataBase();
@@ -47,51 +47,51 @@ public class DealerBean extends CommonBean {
     public String clickItem(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         String item_ = getItems().get(_index);
-        getForms().put(ITEM, item_);
+        getForms().put(CST_ITEM, item_);
         Item it_ = data_.getItem(item_);
         if (it_ instanceof Ball) {
-            return BALL;
+            return CST_BALL;
         }
         if (it_ instanceof Berry) {
-            return BERRY;
+            return CST_BERRY;
         }
         if (it_ instanceof Boost) {
-            return BOOST;
+            return CST_BOOST;
         }
         if (it_ instanceof EvolvingItem) {
-            return EVOLVINGITEM;
+            return CST_EVOLVINGITEM;
         }
         if (it_ instanceof EvolvingStone) {
-            return EVOLVINGSTONE;
+            return CST_EVOLVINGSTONE;
         }
         if (it_ instanceof Fossil) {
-            return FOSSIL;
+            return CST_FOSSIL;
         }
         if (it_ instanceof HealingHpStatus) {
-            return HEALINGHPSTATUS;
+            return CST_HEALINGHPSTATUS;
         }
         if (it_ instanceof HealingStatus) {
-            return HEALINGSTATUS;
+            return CST_HEALINGSTATUS;
         }
         if (it_ instanceof HealingHp) {
-            return HEALINGHP;
+            return CST_HEALINGHP;
         }
         if (it_ instanceof HealingPp) {
-            return HEALINGPP;
+            return CST_HEALINGPP;
         }
         if (it_ instanceof HealingItem) {
-            return HEALINGITEM;
+            return CST_HEALINGITEM;
         }
         if (it_ instanceof ItemForBattle) {
-            return ITEMFORBATTLE;
+            return CST_ITEMFORBATTLE;
         }
         if (it_ instanceof Repel) {
-            return REPEL;
+            return CST_REPEL;
         }
         if (it_ instanceof SellingItem) {
-            return SELLINGITEM;
+            return CST_SELLINGITEM;
         }
-        return ITEM;
+        return CST_ITEM;
     }
     public String getTm(int _index) {
         DataBase data_ = (DataBase) getDataBase();
@@ -113,7 +113,7 @@ public class DealerBean extends CommonBean {
     }
     public String clickTm(int _index) {
         String move_ = getAllTm().get(_index);
-        getForms().put(MOVE, move_);
-        return MOVE;
+        getForms().put(CST_MOVE, move_);
+        return CST_MOVE;
     }
 }

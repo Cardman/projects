@@ -121,7 +121,7 @@ public class AbilityBean extends CommonBean {
 
     @Override
     public void beforeDisplaying() {
-        name = (String) getForms().getVal(ABILITY);
+        name = (String) getForms().getVal(CST_ABILITY);
         pokemon.clear();
         DataBase data_ = (DataBase) getDataBase();
         for (String p: data_.getPokedex().getKeys()) {
@@ -568,15 +568,15 @@ public class AbilityBean extends CommonBean {
         return translatedMoves_.getVal(type_);
     }
     public String clickIndex() {
-        if (!getForms().contains(ABILITIES_SET)) {
-            getForms().put(ABILITIES_SET, new StringList());
+        if (!getForms().contains(CST_ABILITIES_SET)) {
+            getForms().put(CST_ABILITIES_SET, new StringList());
         }
-        return ABILITIES;
+        return CST_ABILITIES;
     }
     public String clickImmuMove(int _index) {
         String type_ = immuMove.get(_index);
-        getForms().put(MOVE, type_);
-        return MOVE;
+        getForms().put(CST_MOVE, type_);
+        return CST_MOVE;
     }
     public String getTrImmuAllyFromMoves(int _index) {
         String type_ = immuAllyFromMoves.get(_index);
@@ -586,8 +586,8 @@ public class AbilityBean extends CommonBean {
     }
     public String clickImmuAllyFromMoves(int _index) {
         String type_ = immuAllyFromMoves.get(_index);
-        getForms().put(MOVE, type_);
-        return MOVE;
+        getForms().put(CST_MOVE, type_);
+        return CST_MOVE;
     }
     public String getTrWeather(int _index) {
         String type_ = immuWeather.get(_index);
@@ -597,8 +597,8 @@ public class AbilityBean extends CommonBean {
     }
     public String clickWeather(int _index) {
         String type_ = immuWeather.get(_index);
-        getForms().put(MOVE, type_);
-        return MOVE;
+        getForms().put(CST_MOVE, type_);
+        return CST_MOVE;
     }
     public String getTrIgnAbility(int _index) {
         String type_ = ignAbility.get(_index);
@@ -608,8 +608,8 @@ public class AbilityBean extends CommonBean {
     }
     public String clickIgnAbility(int _index) {
         String type_ = ignAbility.get(_index);
-        getForms().put(ABILITY, type_);
-        return ABILITY;
+        getForms().put(CST_ABILITY, type_);
+        return CST_ABILITY;
     }
     public String getTrIgnFoeTeamMove(int _index) {
         String type_ = ignFoeTeamMove.get(_index);
@@ -619,8 +619,8 @@ public class AbilityBean extends CommonBean {
     }
     public String clickIgnFoeTeamMove(int _index) {
         String type_ = ignFoeTeamMove.get(_index);
-        getForms().put(MOVE, type_);
-        return MOVE;
+        getForms().put(CST_MOVE, type_);
+        return CST_MOVE;
     }
     public String getTrImmuAbility(int _index) {
         String type_ = immuAbility.get(_index);
@@ -630,8 +630,8 @@ public class AbilityBean extends CommonBean {
     }
     public String clickImmuAbility(int _index) {
         String type_ = immuAbility.get(_index);
-        getForms().put(ABILITY, type_);
-        return ABILITY;
+        getForms().put(CST_ABILITY, type_);
+        return CST_ABILITY;
     }
     public String getTrImmuStatusBeginRound(int _index) {
         String type_ = immuStatusBeginRound.get(_index);
@@ -641,8 +641,8 @@ public class AbilityBean extends CommonBean {
     }
     public String clickImmuStatusBeginRound(int _index) {
         String type_ = immuStatusBeginRound.get(_index);
-        getForms().put(STATUS, type_);
-        return STATUS;
+        getForms().put(CST_STATUS, type_);
+        return CST_STATUS;
     }
     public boolean isStatus(int _index) {
         return !singleStatus.getKey(_index).isEmpty();
@@ -655,8 +655,8 @@ public class AbilityBean extends CommonBean {
     }
     public String clickSingleStatus(int _index) {
         String type_ = singleStatus.getKey(_index);
-        getForms().put(STATUS, type_);
-        return STATUS;
+        getForms().put(CST_STATUS, type_);
+        return CST_STATUS;
     }
     public AbilityData getAbility() {
         DataBase data_ = (DataBase) getDataBase();
@@ -671,8 +671,8 @@ public class AbilityBean extends CommonBean {
     }
     public String clickBreakProtectionMoves(int _index) {
         String move_ = breakProtectionMoves.get(_index);
-        getForms().put(MOVE, move_);
-        return MOVE;
+        getForms().put(CST_MOVE, move_);
+        return CST_MOVE;
     }
     public String getTrImmuRechargeRoundMoves(int _index) {
         String move_ = immuRechargeRoundMoves.get(_index);
@@ -683,8 +683,8 @@ public class AbilityBean extends CommonBean {
     }
     public String clickImmuRechargeRoundMoves(int _index) {
         String move_ = immuRechargeRoundMoves.get(_index);
-        getForms().put(MOVE, move_);
-        return MOVE;
+        getForms().put(CST_MOVE, move_);
+        return CST_MOVE;
     }
     public String getTrReversePowerTypesAbilities(int _index) {
         String move_ = reverseEffectsPowerMovesTypesGlobalAbilities.get(_index);
@@ -695,8 +695,8 @@ public class AbilityBean extends CommonBean {
     }
     public String clickReversePowerTypesAbilities(int _index) {
         String move_ = reverseEffectsPowerMovesTypesGlobalAbilities.get(_index);
-        getForms().put(ABILITY, move_);
-        return ABILITY;
+        getForms().put(CST_ABILITY, move_);
+        return CST_ABILITY;
     }
     public String getTrMultStat(int _index) {
         Statistic type_ = multStat.getKey(_index);
@@ -728,8 +728,8 @@ public class AbilityBean extends CommonBean {
     }
     public String clickImmuMoveByWeather(int _index) {
         String move_ = immuMoveTypesByWeather.getKey(_index);
-        getForms().put(MOVE, move_);
-        return MOVE;
+        getForms().put(CST_MOVE, move_);
+        return CST_MOVE;
     }
     public String getTrImmuTypeByWeather(int _indexOne, int _indexTwo) {
         String move_ = immuMoveTypesByWeather.getValue(_indexOne).get(_indexTwo);
@@ -750,8 +750,8 @@ public class AbilityBean extends CommonBean {
     }
     public String clickImmuStatusWeather(int _index) {
         String move_ = immuStatus.getKey(_index);
-        getForms().put(MOVE, move_);
-        return MOVE;
+        getForms().put(CST_MOVE, move_);
+        return CST_MOVE;
     }
     public String getTrImmuStatus(int _indexOne, int _indexTwo) {
         String move_ = immuStatus.getValue(_indexOne).get(_indexTwo);
@@ -762,8 +762,8 @@ public class AbilityBean extends CommonBean {
     }
     public String clickImmuStatus(int _indexOne, int _indexTwo) {
         String move_ = immuStatus.getValue(_indexOne).get(_indexTwo);
-        getForms().put(STATUS, move_);
-        return STATUS;
+        getForms().put(CST_STATUS, move_);
+        return CST_STATUS;
     }
     public String getTrImmuStatusTypes(int _index) {
         String move_ = immuStatusTypes.getKey(_index);
@@ -781,8 +781,8 @@ public class AbilityBean extends CommonBean {
     }
     public String clickImmuStatusTypes(int _indexOne, int _indexTwo) {
         String move_ = immuStatusTypes.getValue(_indexOne).get(_indexTwo);
-        getForms().put(STATUS, move_);
-        return STATUS;
+        getForms().put(CST_STATUS, move_);
+        return CST_STATUS;
     }
     public String getTrForwardStatusKey(int _index) {
         String status_ = forwardStatus.getKey(_index);
@@ -793,8 +793,8 @@ public class AbilityBean extends CommonBean {
     }
     public String clickForwardStatusKey(int _index) {
         String status_ = forwardStatus.getKey(_index);
-        getForms().put(STATUS, status_);
-        return STATUS;
+        getForms().put(CST_STATUS, status_);
+        return CST_STATUS;
     }
     public String getTrForwardStatusValue(int _index) {
         String status_ = forwardStatus.getValue(_index);
@@ -805,8 +805,8 @@ public class AbilityBean extends CommonBean {
     }
     public String clickForwardStatusValue(int _index) {
         String status_ = forwardStatus.getValue(_index);
-        getForms().put(STATUS, status_);
-        return STATUS;
+        getForms().put(CST_STATUS, status_);
+        return CST_STATUS;
     }
     public String getTrFailStatus(int _index) {
         String status_ = failStatus.getKey(_index);
@@ -817,8 +817,8 @@ public class AbilityBean extends CommonBean {
     }
     public String clickFailStatus(int _index) {
         String status_ = failStatus.getKey(_index);
-        getForms().put(STATUS, status_);
-        return STATUS;
+        getForms().put(CST_STATUS, status_);
+        return CST_STATUS;
     }
     public String getTrImmuLowStatIfStatusKey(int _index) {
         String status_ = immuLowStatIfStatus.get(_index).getStatus();
@@ -829,8 +829,8 @@ public class AbilityBean extends CommonBean {
     }
     public String clickImmuLowStatIfStatusKey(int _index) {
         String status_ = immuLowStatIfStatus.get(_index).getStatus();
-        getForms().put(STATUS, status_);
-        return STATUS;
+        getForms().put(CST_STATUS, status_);
+        return CST_STATUS;
     }
     public String getTrImmuLowStatIfStatusValue(int _index) {
         Statistic status_ = immuLowStatIfStatus.get(_index).getStatistic();
@@ -851,8 +851,8 @@ public class AbilityBean extends CommonBean {
     }
     public String clickChgtTypeByWeatherKey(int _index) {
         String status_ = chgtTypeByWeather.getKey(_index);
-        getForms().put(MOVE, status_);
-        return MOVE;
+        getForms().put(CST_MOVE, status_);
+        return CST_MOVE;
     }
     public String getTrChgtTypeByWeatherValue(int _index) {
         String status_ = chgtTypeByWeather.getValue(_index);
@@ -870,8 +870,8 @@ public class AbilityBean extends CommonBean {
     }
     public String clickDivideStatusRoundKey(int _index) {
         String status_ = divideStatusRound.getKey(_index);
-        getForms().put(STATUS, status_);
-        return STATUS;
+        getForms().put(CST_STATUS, status_);
+        return CST_STATUS;
     }
     public boolean isHealHpByWeather(int _index) {
         return !healHpByWeather.getKey(_index).isEmpty();
@@ -885,8 +885,8 @@ public class AbilityBean extends CommonBean {
     }
     public String clickHealHpByWeatherKey(int _index) {
         String status_ = healHpByWeather.getKey(_index);
-        getForms().put(MOVE, status_);
-        return MOVE;
+        getForms().put(CST_MOVE, status_);
+        return CST_MOVE;
     }
     public boolean isHealHpByTypeIfWeather(int _index) {
         return !healHpByTypeIfWeather.getKey(_index).getWeather().isEmpty();
@@ -900,8 +900,8 @@ public class AbilityBean extends CommonBean {
     }
     public String clickHealHpByTypeIfWeatherKey(int _index) {
         String status_ = healHpByTypeIfWeather.getKey(_index).getWeather();
-        getForms().put(MOVE, status_);
-        return MOVE;
+        getForms().put(CST_MOVE, status_);
+        return CST_MOVE;
     }
     public String getTrHealHpByTypeIfWeatherKeySec(int _index) {
         String status_ = healHpByTypeIfWeather.getKey(_index).getType();
@@ -968,8 +968,8 @@ public class AbilityBean extends CommonBean {
     }
     public String clickMultStatIfStatutRankSec(int _index) {
         String status_ = multStatIfStatutRank.getKey(_index).getStatus();
-        getForms().put(STATUS, status_);
-        return STATUS;
+        getForms().put(CST_STATUS, status_);
+        return CST_STATUS;
     }
     public String getTrMultPowerMovesTypesGlobalKey(int _index) {
         String status_ = multPowerMovesTypesGlobal.getKey(_index);
@@ -980,8 +980,8 @@ public class AbilityBean extends CommonBean {
     }
     public String clickMultPowerMovesTypesGlobalKey(int _index) {
         String status_ = multPowerMovesTypesGlobal.getKey(_index);
-        getForms().put(MOVE, status_);
-        return MOVE;
+        getForms().put(CST_MOVE, status_);
+        return CST_MOVE;
     }
     public String getTrImmuLowStatisTypes(int _index) {
         String move_ = immuLowStatisTypes.getKey(_index);
@@ -1104,8 +1104,8 @@ public class AbilityBean extends CommonBean {
     }
     public String clickPokemon(int _index) {
         String pk_ = pokemon.get(_index);
-        getForms().put(PK, pk_);
-        return POKEMON;
+        getForms().put(CST_PK, pk_);
+        return CST_POKEMON;
     }
 
     public String getDisplayName() {

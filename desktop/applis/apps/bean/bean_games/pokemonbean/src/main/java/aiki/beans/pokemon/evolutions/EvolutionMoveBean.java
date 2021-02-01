@@ -26,8 +26,8 @@ public class EvolutionMoveBean extends EvolutionBean {
         translationsPokemon_ = data_.getTranslatedPokemon().getVal(getLanguage());
         evolutions_.sortElts(new ComparatorTrStrings(translationsPokemon_));
         EvolutionMove evo_ = (EvolutionMove) pk_.getEvolutions().getVal(evolutions_.get(_index));
-        getForms().put(MOVE,evo_.getMove());
-        return MOVE;
+        getForms().put(CST_MOVE,evo_.getMove());
+        return CST_MOVE;
     }
 
     public String getMove() {

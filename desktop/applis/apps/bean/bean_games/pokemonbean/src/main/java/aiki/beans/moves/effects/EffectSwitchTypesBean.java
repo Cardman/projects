@@ -100,8 +100,8 @@ public class EffectSwitchTypesBean extends EffectBean {
     }
     public String clickGlobalMoveFctEnv(int _index) {
         String st_ = globalMoves.get(_index);
-        getForms().put(MOVE, st_);
-        return MOVE;
+        getForms().put(CST_MOVE, st_);
+        return CST_MOVE;
     }
     public boolean giveToTarget() {
         return exchangeTypes == ExchangeType.GIVE_TO_TARGET;

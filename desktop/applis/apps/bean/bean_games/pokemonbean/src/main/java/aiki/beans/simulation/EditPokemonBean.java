@@ -36,7 +36,7 @@ public class EditPokemonBean extends CommonBean {
         ev = new TreeMap<Statistic, EvLine>(new ComparatorStatistic());
         DataBase data_ = (DataBase) getDataBase();
         heal = false;
-        ball = (String) getForms().getVal(CATCHING_BALL);
+        ball = (String) getForms().getVal(CST_CATCHING_BALL);
         StringMap<String> translationsItems_;
         translationsItems_ = data_.getTranslatedItems().getVal(getLanguage());
         balls = new TreeMap<String, String>(new ComparatorTrStrings(translationsItems_));
@@ -45,18 +45,18 @@ public class EditPokemonBean extends CommonBean {
                 balls.put(b, translationsItems_.getVal(b));
             }
         }
-        namePk = (String) getForms().getVal(POKEMON_NAME_EDIT);
-        level = (Integer) getForms().getVal(POKEMON_LEVEL_EDIT);
-        experience = (Rate) getForms().getVal(POKEMON_EXPERIENCE);
-        happiness = (Integer) getForms().getVal(POKEMON_HAPPINESS);
-        item = (String) getForms().getVal(ITEM_EDIT);
+        namePk = (String) getForms().getVal(CST_POKEMON_NAME_EDIT);
+        level = (Integer) getForms().getVal(CST_POKEMON_LEVEL_EDIT);
+        experience = (Rate) getForms().getVal(CST_POKEMON_EXPERIENCE);
+        happiness = (Integer) getForms().getVal(CST_POKEMON_HAPPINESS);
+        item = (String) getForms().getVal(CST_ITEM_EDIT);
         for (Statistic s: Statistic.getStatisticsWithBase()) {
             EvLine ev_ = new EvLine();
-            ev_.setEv((Integer) getForms().getVal(StringUtil.concat(POKEMON_EV_VAR, s.name())));
+            ev_.setEv((Integer) getForms().getVal(StringUtil.concat(CST_POKEMON_EV_VAR, s.name())));
             ev.put(s, ev_);
         }
-        remainingHp = (Rate) getForms().getVal(POKEMON_HP);
-        StringList currentMoves_ = (StringList) getForms().getVal(POKEMON_MOVES_EDIT);
+        remainingHp = (Rate) getForms().getVal(CST_POKEMON_HP);
+        StringList currentMoves_ = (StringList) getForms().getVal(CST_POKEMON_MOVES_EDIT);
         moves.clear();
         StringMap<String> translationsMoves_;
         translationsMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
@@ -88,9 +88,9 @@ public class EditPokemonBean extends CommonBean {
         moves.sortElts(new ComparatorMoves());
     }
     public String chooseItem() {
-        getForms().put(IS_POKEMON_PLAYER_MOVES, true);
-        getForms().put(ITEMS_SET_EDIT, new StringList());
-        return POKEMON_EDIT;
+        getForms().put(CST_IS_POKEMON_PLAYER_MOVES, true);
+        getForms().put(CST_ITEMS_SET_EDIT, new StringList());
+        return CST_POKEMON_EDIT;
     }
     public String translateName() {
         if (namePk.isEmpty()) {
@@ -111,9 +111,9 @@ public class EditPokemonBean extends CommonBean {
         return translationsItems_.getVal(item);
     }
     public String addMoves() {
-        getForms().put(IS_POKEMON_PLAYER_MOVES, true);
-        getForms().put(MOVES_SET, new StringList());
-        return POKEMON_EDIT;
+        getForms().put(CST_IS_POKEMON_PLAYER_MOVES, true);
+        getForms().put(CST_MOVES_SET, new StringList());
+        return CST_POKEMON_EDIT;
     }
     public String getTranslatedStatistic(int _index) {
         Statistic st_ = ev.getKey(_index);
@@ -122,7 +122,7 @@ public class EditPokemonBean extends CommonBean {
         return tr_.getVal(st_);
     }
     public static String cancel() {
-        return SIMULATION;
+        return CST_SIMULATION;
     }
     public void deleteMoves() {
         StringList keptMoves_ = new StringList();
@@ -131,18 +131,18 @@ public class EditPokemonBean extends CommonBean {
                 keptMoves_.add(s.getName());
             }
         }
-        getForms().put(POKEMON_MOVES_EDIT, keptMoves_);
+        getForms().put(CST_POKEMON_MOVES_EDIT, keptMoves_);
     }
     public String edit() {
-        getForms().put(ITEM_EDIT, item);
-        getForms().put(POKEMON_EXPERIENCE, experience);
-        getForms().put(POKEMON_HAPPINESS, happiness);
-        getForms().put(POKEMON_HP, remainingHp);
+        getForms().put(CST_ITEM_EDIT, item);
+        getForms().put(CST_POKEMON_EXPERIENCE, experience);
+        getForms().put(CST_POKEMON_HAPPINESS, happiness);
+        getForms().put(CST_POKEMON_HP, remainingHp);
         for (Statistic s: Statistic.getStatisticsWithBase()) {
-            getForms().put(StringUtil.concat(POKEMON_EV_VAR,s.name()), ev.getVal(s).getEv());
+            getForms().put(StringUtil.concat(CST_POKEMON_EV_VAR,s.name()), ev.getVal(s).getEv());
         }
-        getForms().put(HEAL_EDIT_PK, heal);
-        getForms().put(CATCHING_BALL, ball);
+        getForms().put(CST_HEAL_EDIT_PK, heal);
+        getForms().put(CST_CATCHING_BALL, ball);
         StringList selected_ = new StringList();
         for (SelectLineMove s: moves) {
 //            if (s.isSelected()) {
@@ -157,8 +157,8 @@ public class EditPokemonBean extends CommonBean {
         if (selected_.size() > data_.getNbMaxMoves()) {
             return DataBase.EMPTY_STRING;
         }
-        getForms().put(POKEMON_MOVES_EDIT, selected_);
-        return SIMULATION;
+        getForms().put(CST_POKEMON_MOVES_EDIT, selected_);
+        return CST_SIMULATION;
     }
 
     public int getLevel() {

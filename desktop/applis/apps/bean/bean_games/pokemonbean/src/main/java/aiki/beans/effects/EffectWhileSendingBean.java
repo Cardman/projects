@@ -67,7 +67,7 @@ public class EffectWhileSendingBean extends CommonBean {
                 DataBase data_ = (DataBase) getDataBase();
                 EnumMap<Statistic,String> translatedStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
                 evtRate = effect_.getEvtRate();
-                evtRatePerCent = Rate.multiply(evtRate, new Rate(CENT)).evaluate(2);
+                evtRatePerCent = Rate.multiply(evtRate, new Rate(CST_CENT)).evaluate(2);
                 NatStringTreeMap< Byte> statisVarRank_;
                 statisVarRank_ = new NatStringTreeMap< Byte>();
                 for (Statistic s: effect_.getStatisVarRank().getKeys()) {
@@ -164,8 +164,8 @@ public class EffectWhileSendingBean extends CommonBean {
         return translatedMoves_.getVal(enabledWeather);
     }
     public String clickWeather() {
-        getForms().put(MOVE, enabledWeather);
-        return MOVE;
+        getForms().put(CST_MOVE, enabledWeather);
+        return CST_MOVE;
     }
     public boolean notEmptyVarBoost() {
         return !statisVarRank.isEmpty();

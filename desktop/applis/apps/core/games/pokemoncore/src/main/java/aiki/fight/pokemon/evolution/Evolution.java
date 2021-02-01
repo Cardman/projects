@@ -4,5 +4,5 @@ import aiki.fight.pokemon.PokemonData;
 
 public abstract class Evolution {
 
-    public abstract void validate(DataBase _dataBase,PokemonData _fPk);
+    public abstract boolean validate(DataBase _dataBase,PokemonData _fPk);
 }

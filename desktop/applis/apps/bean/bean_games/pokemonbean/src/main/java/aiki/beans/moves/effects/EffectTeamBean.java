@@ -113,8 +113,8 @@ public class EffectTeamBean extends EffectBean {
     public String clickStatus(int _indexEffect, int _index) {
         EffectTeam effect_ = (EffectTeam) getEffect(_indexEffect);
         String st_ = getProtectAgainstStatus(effect_).get(_index);
-        getForms().put(STATUS, st_);
-        return STATUS;
+        getForms().put(CST_STATUS, st_);
+        return CST_STATUS;
     }
 
     private StringList getProtectAgainstStatus(EffectTeam _effect) {
@@ -145,8 +145,8 @@ public class EffectTeamBean extends EffectBean {
         }
         unusableMoves_.sortElts(new ComparatorTrStrings(translatedMoves_));
         String st_ = unusableMoves_.get(_index);
-        getForms().put(MOVE, st_);
-        return MOVE;
+        getForms().put(CST_MOVE, st_);
+        return CST_MOVE;
     }
     public String getTrUnusableMove(int _index) {
         DataBase data_ = (DataBase) getDataBase();
@@ -165,8 +165,8 @@ public class EffectTeamBean extends EffectBean {
         }
         disableFoeTeamEffects_.sortElts(new ComparatorTrStrings(translatedMoves_));
         String st_ = disableFoeTeamEffects_.get(_index);
-        getForms().put(MOVE, st_);
-        return MOVE;
+        getForms().put(CST_MOVE, st_);
+        return CST_MOVE;
     }
     public String getTrDisableFoeTeamEffects(int _index) {
         DataBase data_ = (DataBase) getDataBase();
@@ -185,8 +185,8 @@ public class EffectTeamBean extends EffectBean {
         }
         disableFoeTeamStatus_.sortElts(new ComparatorTrStrings(translatedStatus_));
         String st_ = disableFoeTeamStatus_.get(_index);
-        getForms().put(STATUS, st_);
-        return STATUS;
+        getForms().put(CST_STATUS, st_);
+        return CST_STATUS;
     }
     public String getTrDisableFoeTeamStatus(int _index) {
         DataBase data_ = (DataBase) getDataBase();

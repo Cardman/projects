@@ -31,7 +31,7 @@ public class EffectStatisticBean extends EffectBean {
         DataBase data_ = (DataBase) getDataBase();
         EnumMap<Statistic,String> translatedStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
         evtRate = effect_.getEvtRate();
-        evtRatePerCent = Rate.multiply(evtRate, new Rate(CENT)).evaluate(2);
+        evtRatePerCent = Rate.multiply(evtRate, new Rate(CST_CENT)).evaluate(2);
         NatStringTreeMap< Byte> statisVarRank_;
         statisVarRank_ = new NatStringTreeMap< Byte>();
         for (Statistic s: effect_.getStatisVarRank().getKeys()) {

@@ -36,8 +36,8 @@ public class EvolutionBean extends CommonBean {
         StringMap<String> translationsPokemon_;
         translationsPokemon_ = data_.getTranslatedPokemon().getVal(getLanguage());
         evolutions_.sortElts(new ComparatorTrStrings(translationsPokemon_));
-        getForms().put(PK,evolutions_.get(_index));
-        return POKEMON;
+        getForms().put(CST_PK,evolutions_.get(_index));
+        return CST_POKEMON;
     }
 
     protected String getBase() {

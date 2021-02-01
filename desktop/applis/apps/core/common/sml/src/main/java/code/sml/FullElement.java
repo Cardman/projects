@@ -4,7 +4,7 @@ import code.util.NatStringTreeMap;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 
-public final class FullElement extends FullNode implements Element {
+public final class FullElement extends NavigableNode implements Element {
 
     private static final String BEGIN_TAG = "<";
 
@@ -119,26 +119,26 @@ public final class FullElement extends FullNode implements Element {
     }
 
     @Override
-    public void appendChild(MutableNode _newChild) {
-        _newChild.setParentNode(this);
+    public void appendChild(Node _newChild) {
+        ((NavigableNode)_newChild).setParentNode(this);
         if (getFirstChild() == null) {
-            setFirstChild(_newChild);
-            setLastChild(_newChild);
+            setFirstChild((NavigableNode)_newChild);
+            setLastChild((NavigableNode)_newChild);
             return;
         }
-        getLastChild().setNextSibling(_newChild);
-        _newChild.setPreviousSibling(getLastChild());
-        setLastChild(_newChild);
+        ((NavigableNode)getLastChild()).setNextSibling((NavigableNode)_newChild);
+        ((NavigableNode)_newChild).setPreviousSibling((NavigableNode)getLastChild());
+        setLastChild((NavigableNode)_newChild);
     }
 
     @Override
-    public void removeChild(MutableNode _oldChild) {
-        MutableNode child_ = getFirstChild();
+    public void removeChild(Node _oldChild) {
+        Node child_ = getFirstChild();
         while (child_ != null) {
             if (child_ == _oldChild) {
-                MutableNode previous_ = child_.getPreviousSibling();
-                MutableNode next_ = child_.getNextSibling();
-                _oldChild.setParentNode(null);
+                Node previous_ = child_.getPreviousSibling();
+                Node next_ = child_.getNextSibling();
+                ((FullNode)_oldChild).setParentNode(null);
                 if (previous_ == null && next_ == null) {
                     setFirstChild(null);
                     setLastChild(null);
@@ -146,19 +146,19 @@ public final class FullElement extends FullNode implements Element {
                 }
                 if (next_ == null) {
                     //previous_ != null
-                    previous_.setNextSibling(null);
-                    setLastChild(previous_);
+                    ((NavigableNode)previous_).setNextSibling(null);
+                    setLastChild((NavigableNode)previous_);
                     return;
                 }
                 if (previous_ == null) {
                     //next_ != null
-                    next_.setPreviousSibling(null);
-                    setFirstChild(next_);
+                    ((NavigableNode)next_).setPreviousSibling(null);
+                    setFirstChild((NavigableNode)next_);
                     return;
                 }
                 //previous_ != null && next_ != null
-                previous_.setNextSibling(next_);
-                next_.setPreviousSibling(previous_);
+                ((NavigableNode)previous_).setNextSibling((NavigableNode)next_);
+                ((NavigableNode)next_).setPreviousSibling((NavigableNode)previous_);
                 return;
             }
             child_ = child_.getNextSibling();
@@ -166,38 +166,38 @@ public final class FullElement extends FullNode implements Element {
     }
 
     @Override
-    public void replaceChild(MutableNode _newChild, MutableNode _oldChild) {
-        MutableNode child_ = getFirstChild();
+    public void replaceChild(Node _newChild, Node _oldChild) {
+        Node child_ = getFirstChild();
         while (child_ != null) {
             if (child_ == _oldChild) {
-                MutableNode previous_ = child_.getPreviousSibling();
-                MutableNode next_ = child_.getNextSibling();
-                _oldChild.setParentNode(null);
-                _newChild.setParentNode(this);
+                Node previous_ = child_.getPreviousSibling();
+                Node next_ = child_.getNextSibling();
+                ((FullNode)_oldChild).setParentNode(null);
+                ((FullNode)_newChild).setParentNode(this);
                 if (previous_ == null && next_ == null) {
-                    setFirstChild(_newChild);
-                    setLastChild(_newChild);
+                    setFirstChild((NavigableNode)_newChild);
+                    setLastChild((NavigableNode)_newChild);
                     return;
                 }
                 if (next_ == null) {
                     //previous_ != null
-                    previous_.setNextSibling(_newChild);
-                    _newChild.setPreviousSibling(previous_);
-                    setLastChild(_newChild);
+                    ((NavigableNode)previous_).setNextSibling((NavigableNode)_newChild);
+                    ((NavigableNode)_newChild).setPreviousSibling((NavigableNode)previous_);
+                    setLastChild((NavigableNode)_newChild);
                     return;
                 }
                 if (previous_ == null) {
                     //next_ != null
-                    next_.setPreviousSibling(_newChild);
-                    _newChild.setNextSibling(next_);
-                    setFirstChild(_newChild);
+                    ((NavigableNode)next_).setPreviousSibling((NavigableNode)_newChild);
+                    ((NavigableNode)_newChild).setNextSibling((NavigableNode)next_);
+                    setFirstChild((NavigableNode)_newChild);
                     return;
                 }
                 //previous_ != null && next_ != null
-                previous_.setNextSibling(_newChild);
-                next_.setPreviousSibling(_newChild);
-                _newChild.setNextSibling(next_);
-                _newChild.setPreviousSibling(previous_);
+                ((NavigableNode)previous_).setNextSibling((NavigableNode)_newChild);
+                ((NavigableNode)next_).setPreviousSibling((NavigableNode)_newChild);
+                ((NavigableNode)_newChild).setNextSibling((NavigableNode)next_);
+                ((NavigableNode)_newChild).setPreviousSibling((NavigableNode)previous_);
                 return;
             }
             child_ = child_.getNextSibling();
@@ -205,22 +205,22 @@ public final class FullElement extends FullNode implements Element {
     }
 
     @Override
-    public void insertBefore(MutableNode _newChild, MutableNode _refChild) {
-        MutableNode child_ = getFirstChild();
+    public void insertBefore(Node _newChild, Node _refChild) {
+        Node child_ = getFirstChild();
         while (child_ != null) {
             if (child_ == _refChild) {
-                MutableNode previous_ = _refChild.getPreviousSibling();
-                _newChild.setParentNode(this);
+                Node previous_ = _refChild.getPreviousSibling();
+                ((FullNode)_newChild).setParentNode(this);
                 if (previous_ == null) {
-                    setFirstChild(_newChild);
-                    _newChild.setNextSibling(_refChild);
-                    _refChild.setPreviousSibling(_newChild);
+                    setFirstChild((NavigableNode)_newChild);
+                    ((NavigableNode)_newChild).setNextSibling((NavigableNode)_refChild);
+                    ((NavigableNode)_refChild).setPreviousSibling((NavigableNode)_newChild);
                     return;
                 }
-                _refChild.setPreviousSibling(_newChild);
-                previous_.setNextSibling(_newChild);
-                _newChild.setNextSibling(_refChild);
-                _newChild.setPreviousSibling(previous_);
+                ((NavigableNode)_refChild).setPreviousSibling((NavigableNode)_newChild);
+                ((NavigableNode)previous_).setNextSibling((NavigableNode)_newChild);
+                ((NavigableNode)_newChild).setNextSibling((NavigableNode)_refChild);
+                ((NavigableNode)_newChild).setPreviousSibling((NavigableNode)previous_);
                 return;
             }
             child_ = child_.getNextSibling();
@@ -228,22 +228,22 @@ public final class FullElement extends FullNode implements Element {
     }
 
     @Override
-    public void insertAfter(MutableNode _newChild, MutableNode _refChild) {
-        MutableNode child_ = getFirstChild();
+    public void insertAfter(Node _newChild, Node _refChild) {
+        Node child_ = getFirstChild();
         while (child_ != null) {
             if (child_ == _refChild) {
-                MutableNode next_ = _refChild.getNextSibling();
-                _newChild.setParentNode(this);
+                Node next_ = _refChild.getNextSibling();
+                ((FullNode)_newChild).setParentNode(this);
                 if (next_ == null) {
-                    setLastChild(_newChild);
-                    _newChild.setPreviousSibling(_refChild);
-                    _refChild.setNextSibling(_newChild);
+                    setLastChild((NavigableNode) _newChild);
+                    ((NavigableNode)_newChild).setPreviousSibling((NavigableNode)_refChild);
+                    ((NavigableNode)_refChild).setNextSibling((NavigableNode)_newChild);
                     return;
                 }
-                _refChild.setNextSibling(_newChild);
-                next_.setPreviousSibling(_newChild);
-                _newChild.setPreviousSibling(_refChild);
-                _newChild.setNextSibling(next_);
+                ((NavigableNode)_refChild).setNextSibling((NavigableNode)_newChild);
+                ((NavigableNode)next_).setPreviousSibling((NavigableNode)_newChild);
+                ((NavigableNode)_newChild).setPreviousSibling((NavigableNode)_refChild);
+                ((NavigableNode)_newChild).setNextSibling((NavigableNode)next_);
                 return;
             }
             child_ = child_.getNextSibling();

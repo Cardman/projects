@@ -11,11 +11,12 @@ public final class EvolutionLevelGender extends EvolutionLevel implements
     private Gender gender;
 
     @Override
-    public void validate(DataBase _dataBase, PokemonData _fPk) {
-        validateEvolutionLevel(_dataBase);
+    public boolean validate(DataBase _dataBase, PokemonData _fPk) {
+        boolean ko_ = validateEvolutionLevel(_dataBase);
         if (!_fPk.getGenderRep().getPossibleGenders().containsObj(gender)) {
-            _dataBase.setError(true);
+            ko_ = true;
         }
+        return ko_;
     }
 
     @Override
