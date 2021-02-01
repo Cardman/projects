@@ -35,19 +35,19 @@
 				<artifactId>maven-checkstyle-plugin</artifactId>
 				<version>2.15</version>
 				<executions>
-					<execution>
-						<id>src</id>
-						<phase>validate</phase>
-						<configuration>
-							<configLocation>checkstyle_src.xml</configLocation>
-							<encoding>UTF-8</encoding>
-							<consoleOutput>true</consoleOutput>
-							<failsOnError>false</failsOnError>
-						</configuration>
-						<goals>
-							<goal>check</goal>
-						</goals>
-					</execution>
+<!--					<execution>-->
+<!--						<id>src</id>-->
+<!--						<phase>validate</phase>-->
+<!--						<configuration>-->
+<!--							<configLocation>checkstyle_src.xml</configLocation>-->
+<!--							<encoding>UTF-8</encoding>-->
+<!--							<consoleOutput>true</consoleOutput>-->
+<!--							<failsOnError>false</failsOnError>-->
+<!--						</configuration>-->
+<!--						<goals>-->
+<!--							<goal>check</goal>-->
+<!--						</goals>-->
+<!--					</execution>-->
 					<execution>
 						<id>test</id>
 						<phase>validate</phase>
