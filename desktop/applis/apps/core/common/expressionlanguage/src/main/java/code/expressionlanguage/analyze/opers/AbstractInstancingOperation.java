@@ -52,7 +52,7 @@ public abstract class AbstractInstancingOperation extends InvokingOperation {
         int offDelta_ = StringUtil.getFirstPrintableCharIndex(instancingCommonContent.getMethodName());
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+offDelta_, _page);
         if (afterNew_.trim().startsWith("{")) {
-            j_ =  afterNew_.indexOf("}",afterNew_.indexOf('{'));
+            j_ =  afterNew_.indexOf('}',afterNew_.indexOf('{'));
         }
         if (j_ > -1) {
             afterNew_ = afterNew_.substring(j_+1);

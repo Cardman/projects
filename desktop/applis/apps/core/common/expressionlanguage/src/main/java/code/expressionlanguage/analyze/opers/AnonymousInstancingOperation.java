@@ -45,7 +45,7 @@ public final class AnonymousInstancingOperation extends
         int j_ = -1;
         if (afterNew_.trim().startsWith("{")) {
             setNewBefore(false);
-            j_ =  afterNew_.indexOf("}",afterNew_.indexOf('{'));
+            j_ =  afterNew_.indexOf('}',afterNew_.indexOf('{'));
         }
         tryAnalyze(_page);
         index = _page.getLocalizer().getCurrentLocationIndex();

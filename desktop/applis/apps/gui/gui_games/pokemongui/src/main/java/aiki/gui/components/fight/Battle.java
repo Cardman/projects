@@ -67,7 +67,7 @@ public class Battle extends ChildFrame {
 
     private static final String BACK_TEAM = "backTeam";
 
-    private static final String TEAM = "team";
+    private static final String TEAM_CST = "team";
 
     private static final String EVOS = "evos";
 
@@ -85,7 +85,7 @@ public class Battle extends ChildFrame {
 
     private static final String VALIDATE_SWITCH = "validateSwitch";
 
-    private static final String NICKNAME = "nickname";
+    private static final String NICKNAME_CST = "nickname";
 
     private static final String CANCEL_CATCH = "cancelCatch";
 
@@ -274,7 +274,7 @@ public class Battle extends ChildFrame {
             fighterBackPanel.setPanelTitle(messages.getVal(BACK_TEAM));
         }
         if (fighterPanel !=null) {
-            fighterPanel.setPanelTitle(messages.getVal(TEAM));
+            fighterPanel.setPanelTitle(messages.getVal(TEAM_CST));
         }
         if (pokemonPanel !=null) {
             pokemonPanel.setPanelTitle(messages.getVal(EVOS));
@@ -316,7 +316,7 @@ public class Battle extends ChildFrame {
             }
         }
         if (nicknameLabel != null) {
-            nicknameLabel.setTextAndSize(messages.getVal(NICKNAME));
+            nicknameLabel.setTextAndSize(messages.getVal(NICKNAME_CST));
         }
         if (cancelCatch != null) {
             cancelCatch.setTextAndSize(messages.getVal(CANCEL_CATCH));
@@ -951,7 +951,7 @@ public class Battle extends ChildFrame {
             return;
         }
 //        ConfirmDialog dial_ = new ConfirmDialog(window, typedNickname, _messages_.getVal(NICKNAME), _messages_.getVal(NICKNAME), Constants.getLanguage());
-        ConfirmDialog.showTextField(window, typedNickname, messages.getVal(NICKNAME), messages.getVal(NICKNAME), window.getLanguageKey());
+        ConfirmDialog.showTextField(window, typedNickname, messages.getVal(NICKNAME_CST), messages.getVal(NICKNAME_CST), window.getLanguageKey());
         if (ConfirmDialog.getStaticAnswer(window.getConfirmDialog()) != JOptionPane.YES_OPTION) {
             return;
         }

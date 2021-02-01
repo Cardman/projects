@@ -4,5 +4,5 @@ import code.expressionlanguage.ContextEl;
 
 public interface AbstractContextCreator {
     ContextEl newContext(ContextEl _context);
-    void removeContext(ContextEl _context);
+    ContextEl removeContext(ContextEl _context);
 }

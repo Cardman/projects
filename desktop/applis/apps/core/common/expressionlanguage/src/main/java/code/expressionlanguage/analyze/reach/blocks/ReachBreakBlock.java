@@ -7,7 +7,7 @@ import code.util.IdMap;
 import code.util.core.StringUtil;
 
 public final class ReachBreakBlock extends ReachAbruptBlock {
-    private String label;
+    private final String label;
     protected ReachBreakBlock(BreakBlock _info) {
         super(_info);
         label = _info.getLabel();
@@ -15,6 +15,7 @@ public final class ReachBreakBlock extends ReachAbruptBlock {
 
     @Override
     public void buildExpressionLanguageReadOnly(AnalyzedPageEl _page) {
+        //
     }
     @Override
     public void abrupt(AnalyzingEl _anEl) {

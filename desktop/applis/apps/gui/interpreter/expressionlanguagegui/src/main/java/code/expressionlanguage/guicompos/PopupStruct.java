@@ -9,9 +9,9 @@ import code.gui.PopupMenu;
 import code.util.CustList;
 
 public final class PopupStruct extends CustComponentStruct {
-    private PopupMenu popupMenu = new PopupMenu();
-    private CustList<CustComponentStruct> compo = new CustList<CustComponentStruct>();
-    private CustList<AbsMenuStruct> menus = new CustList<AbsMenuStruct>();
+    private final PopupMenu popupMenu = new PopupMenu();
+    private final CustList<CustComponentStruct> compo = new CustList<CustComponentStruct>();
+    private final CustList<AbsMenuStruct> menus = new CustList<AbsMenuStruct>();
     protected PopupStruct(String _className) {
         super(_className);
     }
@@ -28,7 +28,7 @@ public final class PopupStruct extends CustComponentStruct {
 
     public void add(Struct _global) {
         if (_global instanceof CustComponentStruct) {
-            if ((((CustComponentStruct) _global)).getParentComponent() != NullStruct.NULL_VALUE) {
+            if (((CustComponentStruct) _global).getParentComponent() != NullStruct.NULL_VALUE) {
                 return;
             }
             for (CustComponentStruct a: compo) {
@@ -36,7 +36,7 @@ public final class PopupStruct extends CustComponentStruct {
                     return;
                 }
             }
-            (((CustComponentStruct) _global)).setParentComponent(this);
+            ((CustComponentStruct) _global).setParentComponent(this);
             compo.add((CustComponentStruct) _global);
             popupMenu.add(((CustComponentStruct)_global).getComponent());
         }
@@ -72,7 +72,7 @@ public final class PopupStruct extends CustComponentStruct {
     }
     public void addMenu(Struct _global) {
         if (_global instanceof AbsMenuStruct) {
-            if ((((AbsMenuStruct) _global)).getParentMenu() != NullStruct.NULL_VALUE) {
+            if (((AbsMenuStruct) _global).getParentMenu() != NullStruct.NULL_VALUE) {
                 return;
             }
             for (AbsMenuStruct a: menus) {

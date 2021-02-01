@@ -308,6 +308,7 @@ public final class LgNamesContent {
     private static final String GET_DECLARED_CLASSES = "GetDeclaredClasses";
     private static final String GET_SUPER_CLASS = "GetSuperClass";
     private static final String GET_PARENT = "GetParent";
+    private static final String GET_FCT = "GetFct";
     private static final String GET_COMPONENT_TYPE = "GetComponentType";
     private static final String GET_FILE_NAME = "GetFileName";
     private static final String GET_GENERIC_SUPER_CLASS = "GetGenericSuperClass";
@@ -658,6 +659,7 @@ public final class LgNamesContent {
         getReflect().setAliasGetDeclaredClasses(get(_util,_cust, GET_DECLARED_CLASSES));
         getReflect().setAliasGetSuperClass(get(_util,_cust, GET_SUPER_CLASS));
         getCoreNames().setAliasGetParent(get(_util,_cust, GET_PARENT));
+        getCoreNames().setAliasGetFct(get(_util,_cust, GET_FCT));
         getReflect().setAliasGetComponentType(get(_util,_cust, GET_COMPONENT_TYPE));
         getReflect().setAliasGetFileName(get(_util,_cust, GET_FILE_NAME));
         getReflect().setAliasGetGenericSuperClass(get(_util,_cust, GET_GENERIC_SUPER_CLASS));
@@ -849,6 +851,7 @@ public final class LgNamesContent {
         getCoreNames().getParams().setAliasObjectsUtil0GetParent0(get(_util,_cust, AliasParamCore.OBJECTS_UTIL_0_GET_PARENT_0));
         getCoreNames().getParams().setAliasObjectsUtil0SetParent0(get(_util,_cust, AliasParamCore.OBJECTS_UTIL_0_SET_PARENT_0));
         getCoreNames().getParams().setAliasObjectsUtil0SetParent1(get(_util,_cust, AliasParamCore.OBJECTS_UTIL_0_SET_PARENT_1));
+        getCoreNames().getParams().setAliasObjectsUtil0GetFct0(get(_util,_cust, AliasParamCore.OBJECTS_UTIL_0_GET_FCT_0));
         getCoreNames().getParams().setAliasStringUtil0ValueOfMethod0(get(_util,_cust, AliasParamCore.STRING_UTIL_0_VALUE_OF_METHOD_0));
         getCoreNames().getParams().setAliasResources0ReadResources0(get(_util,_cust, AliasParamCore.RESOURCES_0_READ_RESOURCES_0));
         getCoreNames().getParams().setAliasResources0ReadResourcesIndex0(get(_util,_cust, AliasParamCore.RESOURCES_0_READ_RESOURCES_INDEX_0));
@@ -1494,7 +1497,8 @@ public final class LgNamesContent {
         map_.addEntry(getCoreNames().getAliasObjectsUtil(), new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(SAME_REF, getCoreNames().getAliasSameRef()),
                 new KeyValueMemberName(GET_PARENT, getCoreNames().getAliasGetParent()),
-                new KeyValueMemberName(SET_PARENT, getCoreNames().getAliasSetParent())));
+                new KeyValueMemberName(SET_PARENT, getCoreNames().getAliasSetParent()),
+                new KeyValueMemberName(GET_FCT, getCoreNames().getAliasGetFct())));
         map_.addEntry(getCoreNames().getAliasStringUtil(), new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(STRING_UTIL_VALUE_OF, getCoreNames().getAliasStringUtilValueOf())));
         map_.addEntry(getCoreNames().getAliasResources(), new CustList<KeyValueMemberName>(
@@ -1904,6 +1908,7 @@ public final class LgNamesContent {
         map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCore.OBJECTS_UTIL_0_SAME_REF_0, getCoreNames().getParams().getAliasObjectsUtil0SameRef0()),new KeyValueMemberName(AliasParamCore.OBJECTS_UTIL_0_SAME_REF_1, getCoreNames().getParams().getAliasObjectsUtil0SameRef1())));
         map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCore.OBJECTS_UTIL_0_GET_PARENT_0, getCoreNames().getParams().getAliasObjectsUtil0GetParent0())));
         map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCore.OBJECTS_UTIL_0_SET_PARENT_0, getCoreNames().getParams().getAliasObjectsUtil0SetParent0()),new KeyValueMemberName(AliasParamCore.OBJECTS_UTIL_0_SET_PARENT_1, getCoreNames().getParams().getAliasObjectsUtil0SetParent1())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCore.OBJECTS_UTIL_0_GET_FCT_0, getCoreNames().getParams().getAliasObjectsUtil0GetFct0())));
         map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCore.STRING_UTIL_0_VALUE_OF_METHOD_0, getCoreNames().getParams().getAliasStringUtil0ValueOfMethod0())));
         map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCore.RESOURCES_0_READ_RESOURCES_0, getCoreNames().getParams().getAliasResources0ReadResources0())));
         map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCore.RESOURCES_0_READ_RESOURCES_INDEX_0, getCoreNames().getParams().getAliasResources0ReadResourcesIndex0())));

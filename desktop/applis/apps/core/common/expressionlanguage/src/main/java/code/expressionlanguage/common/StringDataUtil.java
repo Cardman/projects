@@ -14,7 +14,7 @@ public final class StringDataUtil {
     public static final int LETTER_INSENS_NO_CASE_DEF_DIR = 7;
     public static final int LETTER_INSENS_NO_CASE_DIR_OTHER_NEUTRALS = 8;
     public static final int LETTER_INSENS_NO_CASE_RIGHT_TO_LEFT = 9;
-    public static final int DIGIT = 10;
+    public static final int DIGIT_BASE = 10;
     public static final int DIGIT_OTHER = 11;
     public static final int ID_SEP= 12;
     public static final int CURRENCY= 13;
@@ -1370,7 +1370,7 @@ public final class StringDataUtil {
             return LETTER_INSENS_NO_CASE_DEF_DIR;
         }
         if (MathExpUtil.isDigit(_ch)) {
-            return DIGIT;
+            return DIGIT_BASE;
         }
         if (isOtherDigit(_ch)) {
             return DIGIT_OTHER;
@@ -1498,7 +1498,7 @@ public final class StringDataUtil {
             }
             return 2;
         }
-        if (_type == DIGIT) {
+        if (_type == DIGIT_BASE) {
             return 3;
         }
         if (_type == DIGIT_OTHER) {
@@ -4393,7 +4393,7 @@ public final class StringDataUtil {
         if (_type == LETTER_INSENS_NO_CASE_RIGHT_TO_LEFT) {
             return processOtherLetterTwo(_ch);
         }
-        if (_type == DIGIT) {
+        if (_type == DIGIT_BASE) {
             return 9;
         }
         if (_type == DIGIT_OTHER) {

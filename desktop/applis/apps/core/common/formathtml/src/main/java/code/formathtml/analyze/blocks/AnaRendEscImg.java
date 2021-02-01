@@ -15,6 +15,6 @@ public final class AnaRendEscImg extends AnaRendElement {
 
     @Override
     protected void processAttributes(AnaRendDocumentBlock _doc, Element _read, StringList _list, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
-
+        //
     }
 }

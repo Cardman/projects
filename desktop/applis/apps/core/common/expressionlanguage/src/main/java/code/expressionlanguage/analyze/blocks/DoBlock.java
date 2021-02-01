@@ -8,8 +8,8 @@ import code.util.core.StringUtil;
 
 public final class DoBlock extends BracedBlock implements Loop {
 
-    private String label;
-    private int labelOffset;
+    private final String label;
+    private final int labelOffset;
 
     public DoBlock(OffsetStringInfo _label, OffsetsBlock _offset) {
         super(_offset);
@@ -73,6 +73,7 @@ public final class DoBlock extends BracedBlock implements Loop {
 
     @Override
     public void buildExpressionLanguageReadOnly(AnalyzedPageEl _page) {
+        //
     }
 
 }

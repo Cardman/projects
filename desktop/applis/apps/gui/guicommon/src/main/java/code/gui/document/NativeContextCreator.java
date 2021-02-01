@@ -10,7 +10,7 @@ public final class NativeContextCreator implements AbstractContextCreator {
     }
 
     @Override
-    public void removeContext(ContextEl _context) {
-
+    public ContextEl removeContext(ContextEl _context) {
+        return _context;
     }
 }

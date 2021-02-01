@@ -553,6 +553,47 @@ public final class ProcessMethodFunctionalInterfaceTest extends ProcessMethodCom
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
         assertEq("simple 0", getString(ret_));
     }
+
+    @Test
+    public void calculate15Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Apply {\n");
+        xml_.append(" $public $static String test(){\n");
+        xml_.append("  $var v = (Interface) $static().$lambda($math,plus,$int,$int);\n");
+        xml_.append("  $return $Class.getClass($ObjectsUtil.getFct(v)).getName();\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $interface pkg.Interface {\n");
+        xml_.append(" $int opTwo($int a,$int b);\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxReadOnlyOk(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("test");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
+        assertEq("java.lang.$Fct<$int,$int,$int>",getString(ret_));
+    }
+
+    @Test
+    public void calculate16Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Apply {\n");
+        xml_.append(" $public $static Object test(){\n");
+        xml_.append("  $return $Class.getClass($ObjectsUtil.getFct($null));\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxReadOnlyOk(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("test");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
+        assertSame(NullStruct.NULL_VALUE,ret_.getStruct());
+    }
+
     @Test
     public void calculate1ExTest() {
         StringMap<String> files_ = new StringMap<String>();

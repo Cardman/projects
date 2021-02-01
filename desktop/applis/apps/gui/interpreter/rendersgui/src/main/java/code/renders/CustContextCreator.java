@@ -15,7 +15,8 @@ public final class CustContextCreator implements AbstractContextCreator {
     }
 
     @Override
-    public void removeContext(ContextEl _context) {
+    public ContextEl removeContext(ContextEl _context) {
         ((RunnableContextEl)_context).getCustInit().removeThreadFromList(((RunnableContextEl)_context));
+        return _context;
     }
 }

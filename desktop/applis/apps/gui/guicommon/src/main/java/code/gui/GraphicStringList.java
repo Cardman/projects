@@ -9,7 +9,7 @@ import code.util.StringList;
 public final class GraphicStringList extends GraphicList<String> implements Input {
 
     private DefaultCellRender cellRender;
-    private StringList elements;
+    private final StringList elements;
     private int height = 1;
     public GraphicStringList(StringList _objects) {
         this(true, _objects, new Ints());
@@ -83,6 +83,7 @@ public final class GraphicStringList extends GraphicList<String> implements Inpu
         }
         return width_;
     }
+    @Override
     protected void resetDimensions(){
         int width_ = getMaxWidth();
         int c_ = getListComponents().size();

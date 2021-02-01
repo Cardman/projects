@@ -71,7 +71,7 @@ public final class StandardInstancingOperation extends
         String realClassName_ = getMethodName().trim().substring(newKeyWord_.length());
         int j_ = -1;
         if (realClassName_.trim().startsWith("{")) {
-            j_ =  realClassName_.indexOf("}",realClassName_.indexOf('{'));
+            j_ =  realClassName_.indexOf('}',realClassName_.indexOf('{'));
         }
         if (j_ > -1) {
             realClassName_ = realClassName_.substring(j_+1);

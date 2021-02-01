@@ -9,8 +9,8 @@ import code.util.core.StringUtil;
 public final class TryEval extends BracedBlock implements Eval {
 
 
-    private String label;
-    private int labelOffset;
+    private final String label;
+    private final int labelOffset;
 
     public TryEval(OffsetStringInfo _label, OffsetsBlock _offset) {
         super(_offset);
@@ -38,6 +38,7 @@ public final class TryEval extends BracedBlock implements Eval {
 
     @Override
     public void buildExpressionLanguageReadOnly(AnalyzedPageEl _page) {
+        //
     }
 
     @Override

@@ -317,6 +317,7 @@ public final class InitializationLgNames {
         _lgNames.getContent().getCoreNames().setAliasSameRef("eq");
         _lgNames.getContent().getCoreNames().setAliasGetParent("getParent");
         _lgNames.getContent().getCoreNames().setAliasSetParent("setParent");
+        _lgNames.getContent().getCoreNames().setAliasGetFct("getFct");
         _lgNames.getContent().getPredefTypes().setAliasNext("next");
         _lgNames.getContent().getPredefTypes().setAliasHasNext("hasNext");
         _lgNames.getContent().getPredefTypes().setAliasIterableTable("java.lang.$iterableTable");

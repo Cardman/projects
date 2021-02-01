@@ -10,6 +10,7 @@ public final class AliasParamCore {
     public static final String OBJECTS_UTIL_0_GET_PARENT_0="ObjectsUtil0GetParent0";
     public static final String OBJECTS_UTIL_0_SET_PARENT_0="ObjectsUtil0SetParent0";
     public static final String OBJECTS_UTIL_0_SET_PARENT_1="ObjectsUtil0SetParent1";
+    public static final String OBJECTS_UTIL_0_GET_FCT_0="ObjectsUtil0GetFct0";
     public static final String STRING_UTIL_0_VALUE_OF_METHOD_0="StringUtil0ValueOfMethod0";
     public static final String RESOURCES_0_READ_RESOURCES_0="Resources0ReadResources0";
     public static final String RESOURCES_0_READ_RESOURCES_INDEX_0="Resources0ReadResourcesIndex0";
@@ -22,6 +23,7 @@ public final class AliasParamCore {
     private String aliasObjectsUtil0GetParent0="a";
     private String aliasObjectsUtil0SetParent0="a";
     private String aliasObjectsUtil0SetParent1="b";
+    private String aliasObjectsUtil0GetFct0="a";
     private String aliasStringUtil0ValueOfMethod0="a";
     private String aliasResources0ReadResources0="a";
     private String aliasResources0ReadResourcesIndex0="a";
@@ -96,6 +98,14 @@ public final class AliasParamCore {
 
     public void setAliasObjectsUtil0SetParent1(String _v) {
         this.aliasObjectsUtil0SetParent1 =_v;
+    }
+
+    public String getAliasObjectsUtil0GetFct0() {
+        return aliasObjectsUtil0GetFct0;
+    }
+
+    public void setAliasObjectsUtil0GetFct0(String _v) {
+        this.aliasObjectsUtil0GetFct0 = _v;
     }
 
     public String getAliasStringUtil0ValueOfMethod0() {

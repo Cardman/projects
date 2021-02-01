@@ -44,6 +44,7 @@ public final class AliasCore {
     private String aliasSameRef;
     private String aliasGetParent;
     private String aliasSetParent;
+    private String aliasGetFct;
     private String aliasReadResourcesNames;
     private String aliasReadResources;
     private String aliasReadResourcesNamesLength;
@@ -52,7 +53,7 @@ public final class AliasCore {
     private String aliasStringUtil;
     private String aliasStringUtilValueOf;
     private String aliasArrayLength;
-    private AliasParamCore params = new AliasParamCore();
+    private final AliasParamCore params = new AliasParamCore();
 
     public void build(LgNames _lgNames) {
         StringMap<StandardType> standards_ = _lgNames.getStandards();
@@ -208,6 +209,9 @@ public final class AliasCore {
         methods_.add( method_);
         params_ = new StringList(aliasObject,aliasObject);
         method_ = new StandardMethod(aliasSetParent, params_, aliasVoid, false, MethodModifier.STATIC,new StringList(params.getAliasObjectsUtil0SetParent0(),params.getAliasObjectsUtil0SetParent1()));
+        methods_.add( method_);
+        params_ = new StringList(aliasObject);
+        method_ = new StandardMethod(aliasGetFct, params_, _lgNames.getReflect().getAliasFct(), false, MethodModifier.STATIC,new StringList(params.getAliasObjectsUtil0GetFct0()));
         methods_.add( method_);
         standards_.addEntry(aliasObjectsUtil, stdcl_);
         methods_ = new CustList<StandardMethod>();
@@ -475,6 +479,14 @@ public final class AliasCore {
 
     public void setAliasSetParent(String _aliasSetParent) {
         aliasSetParent = _aliasSetParent;
+    }
+
+    public String getAliasGetFct() {
+        return aliasGetFct;
+    }
+
+    public void setAliasGetFct(String _aliasGetFct) {
+        this.aliasGetFct = _aliasGetFct;
     }
 
     public String getAliasVoid() {

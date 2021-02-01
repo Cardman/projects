@@ -1868,6 +1868,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         lgName_.getCoreNames().getParams().setAliasObjectsUtil0SameRef0("");
         lgName_.getCoreNames().getParams().setAliasObjectsUtil0SameRef1("");
         lgName_.getCoreNames().getParams().setAliasObjectsUtil0GetParent0("");
+        lgName_.getCoreNames().getParams().setAliasObjectsUtil0GetFct0("");
         lgName_.getCoreNames().getParams().setAliasObjectsUtil0SetParent0("");
         lgName_.getCoreNames().getParams().setAliasObjectsUtil0SetParent1("");
         lgName_.getCoreNames().getParams().setAliasStringUtil0ValueOfMethod0("");

@@ -33,8 +33,8 @@ public abstract class AbstractThreadActions implements Runnable {
             finish();
             return;
         }
-        page.getContextCreator().removeContext(_ctx);
-        afterActionWithoutRemove(_ctx, _stackCall);
+        ContextEl ctx_ = page.getContextCreator().removeContext(_ctx);
+        afterActionWithoutRemove(ctx_, _stackCall);
     }
 
     protected void afterActionWithoutRemove(ContextEl _ctx, StackCall _stackCall) {

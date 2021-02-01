@@ -266,6 +266,17 @@ public final class ApplyCoreMethodUtil {
             result_.setResult(par_);
             return result_;
         }
+        if (StringUtil.quickEq(name_, lgNames_.getContent().getCoreNames().getAliasGetFct())) {
+            Struct arg_ = _args[0];
+            if (arg_ instanceof AbstractFunctionalInstance) {
+                Struct par_ = Argument.getNull(((AbstractFunctionalInstance)arg_).getFunctional());
+                _stackCall.getInitializingTypeInfos().addSensibleField(arg_, par_);
+                result_.setResult(par_);
+                return result_;
+            }
+            result_.setResult(NullStruct.NULL_VALUE);
+            return result_;
+        }
         Struct inst_ = _args[0];
         if (!(inst_ instanceof WithParentStruct)) {
             result_.setResult(NullStruct.NULL_VALUE);

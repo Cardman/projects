@@ -10139,7 +10139,7 @@ public final class StringExpUtilTwoTest extends ProcessMethodCommon {
     }
     @Test
     public void getType17(){
-        assertEq(StringDataUtil.DIGIT, StringDataUtil.getCustomType((char) 48));
+        assertEq(StringDataUtil.DIGIT_BASE, StringDataUtil.getCustomType((char) 48));
     }
     @Test
     public void getType18(){

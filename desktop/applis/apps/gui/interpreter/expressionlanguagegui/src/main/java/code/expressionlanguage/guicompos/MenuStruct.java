@@ -10,8 +10,8 @@ import code.gui.Menu;
 import code.util.CustList;
 
 public final class MenuStruct extends AbsMenuStruct {
-    private Menu menu;
-    private CustList<AbsMenuStruct> menus = new CustList<AbsMenuStruct>();
+    private final Menu menu;
+    private final CustList<AbsMenuStruct> menus = new CustList<AbsMenuStruct>();
     MenuStruct() {
         menu = new Menu();
     }
@@ -21,10 +21,10 @@ public final class MenuStruct extends AbsMenuStruct {
 
     public void add(Struct _c) {
         if (_c instanceof AbsMenuStruct) {
-            if ((((AbsMenuStruct) _c)).getParentMenu() != NullStruct.NULL_VALUE) {
+            if (((AbsMenuStruct) _c).getParentMenu() != NullStruct.NULL_VALUE) {
                 return;
             }
-            (((AbsMenuStruct) _c)).setParentMenu(this);
+            ((AbsMenuStruct) _c).setParentMenu(this);
             if (_c instanceof MenuStruct) {
                 menu.addMenuItem(((MenuStruct)_c).getComponent());
                 menus.add((AbsMenuStruct) _c);
@@ -52,7 +52,7 @@ public final class MenuStruct extends AbsMenuStruct {
             if (index_ < 0) {
                 return;
             }
-            (((AbsMenuStruct) _c)).setParentMenu(NullStruct.NULL_VALUE);
+            ((AbsMenuStruct) _c).setParentMenu(NullStruct.NULL_VALUE);
             if (_c instanceof MenuStruct) {
                 menu.removeMenuItem(((MenuStruct)_c).getComponent());
                 menus.remove(index_);

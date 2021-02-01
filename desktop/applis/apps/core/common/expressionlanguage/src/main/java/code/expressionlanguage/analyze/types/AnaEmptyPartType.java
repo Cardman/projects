@@ -10,6 +10,7 @@ final class AnaEmptyPartType extends AnaLeafPartType {
 
     @Override
     void analyze(String _globalType, AccessedBlock _local, AccessedBlock _rooted, AnalyzedPageEl _page) {
+        //
     }
 
     @Override

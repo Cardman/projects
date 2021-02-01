@@ -31,6 +31,7 @@ public final class GraphicStringListMult extends GraphicList<String> implements 
         }
         return width_;
     }
+    @Override
     protected void resetDimensions(){
         Panel panel_ = getPanel();
         Font font_ = panel_.getFont();

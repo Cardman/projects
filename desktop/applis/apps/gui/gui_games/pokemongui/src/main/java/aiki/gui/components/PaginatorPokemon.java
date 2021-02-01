@@ -24,82 +24,82 @@ import code.util.core.StringUtil;
 
 public final class PaginatorPokemon extends Paginator {
 
-    private static final String NAME = "name";
+    private static final String CST_NAME = "name";
 
-    private static final String LEVEL = "level";
+    private static final String CST_LEVEL = "level";
 
-    private static final String ITEM = "item";
+    private static final String CST_ITEM = "item";
 
-    private static final String WITH_ITEM = "withitem";
+    private static final String CST_WITH_ITEM = "withitem";
 
-    private static final String ABILITY = "ability";
+    private static final String CST_ABILITY = "ability";
 
-    private static final String GENDER = "gender";
+    private static final String CST_GENDER = "gender";
 
-    private static final String MOVES = "moves";
+    private static final String CST_MOVES = "moves";
 
-    private static final String EVOLUTIONS = "evolutions";
+    private static final String CST_EVOLUTIONS = "evolutions";
 
-    private TextField name;
-    private AutoCompleteDocument nameAuto;
+    private final TextField name;
+    private final AutoCompleteDocument nameAuto;
 
-    private TextField ability;
-    private AutoCompleteDocument abilityAuto;
+    private final TextField ability;
+    private final AutoCompleteDocument abilityAuto;
 
-    private TextField item;
-    private AutoCompleteDocument itemAuto;
+    private final TextField item;
+    private final AutoCompleteDocument itemAuto;
 
-    private ComboBox<SelectedBoolean> withItem;
+    private final ComboBox<SelectedBoolean> withItem;
 
-    private TextField moves;
-    private AutoCompleteDocument movesAuto;
+    private final TextField moves;
+    private final AutoCompleteDocument movesAuto;
 
-    private EnumList<SearchingMode> order = new EnumList<SearchingMode>();
+    private final EnumList<SearchingMode> order = new EnumList<SearchingMode>();
 
     //private JComboBoxSearchingMode modeFirstName = new JComboBoxSearchingMode();
-    private ComboBox<SearchingMode> modeName;
+    private final ComboBox<SearchingMode> modeName;
 
-    private ComboBox<SearchingMode> modeAbility;
+    private final ComboBox<SearchingMode> modeAbility;
 
-    private ComboBox<SearchingMode> modeItem;
+    private final ComboBox<SearchingMode> modeItem;
 
-    private ComboBox<SearchingMode> modeMoves;
+    private final ComboBox<SearchingMode> modeMoves;
 
-    private TextField minLevel = new TextField(16);
+    private final TextField minLevel = new TextField(16);
 
-    private TextField maxLevel = new TextField(16);
+    private final TextField maxLevel = new TextField(16);
 
-    private ComboBox<Gender> gender;
+    private final ComboBox<Gender> gender;
 
-    private TextField minPossEvos = new TextField(16);
+    private final TextField minPossEvos = new TextField(16);
 
-    private TextField maxPossEvos = new TextField(16);
+    private final TextField maxPossEvos = new TextField(16);
 
-    private Panel results = Panel.newGrid(0,1);
+    private final Panel results = Panel.newGrid(0,1);
 
-    private ComboBox<SelectedBoolean> cmpNameSorting;
+    private final ComboBox<SelectedBoolean> cmpNameSorting;
 
-    private NumComboBox cmpNamePrio = new NumComboBox();
+    private final NumComboBox cmpNamePrio = new NumComboBox();
 
-    private ComboBox<SelectedBoolean> cmpAbilitySorting;
+    private final ComboBox<SelectedBoolean> cmpAbilitySorting;
 
-    private NumComboBox cmpAbilityPrio = new NumComboBox();
+    private final NumComboBox cmpAbilityPrio = new NumComboBox();
 
-    private ComboBox<SelectedBoolean> cmpItemSorting;
+    private final ComboBox<SelectedBoolean> cmpItemSorting;
 
-    private NumComboBox cmpItemPrio = new NumComboBox();
+    private final NumComboBox cmpItemPrio = new NumComboBox();
 
-    private ComboBox<SelectedBoolean> cmpLevelSorting;
+    private final ComboBox<SelectedBoolean> cmpLevelSorting;
 
-    private NumComboBox cmpLevelPrio = new NumComboBox();
+    private final NumComboBox cmpLevelPrio = new NumComboBox();
 
-    private ComboBox<SelectedBoolean> cmpGenderSorting;
+    private final ComboBox<SelectedBoolean> cmpGenderSorting;
 
-    private NumComboBox cmpGenderPrio = new NumComboBox();
+    private final NumComboBox cmpGenderPrio = new NumComboBox();
 
-    private ComboBox<SelectedBoolean> cmpPossEvosSorting;
+    private final ComboBox<SelectedBoolean> cmpPossEvosSorting;
 
-    private NumComboBox cmpPossEvosPrio = new NumComboBox();
+    private final NumComboBox cmpPossEvosPrio = new NumComboBox();
 
     public PaginatorPokemon(MainWindow _window, Panel _p,ChangeableTitle _w, FacadeGame _d) {
         super(_window, ACCESS_POKEMON,_p);
@@ -340,49 +340,49 @@ public final class PaginatorPokemon extends Paginator {
 //        });
         Panel search_;
         search_ = Panel.newGrid(0,3);
-        search_.add(new TextLabel(getMessages().getVal(NAME)));
+        search_.add(new TextLabel(getMessages().getVal(CST_NAME)));
         search_.add(name);
         search_.add(modeName);
-        search_.add(new TextLabel(getMessages().getVal(LEVEL)));
+        search_.add(new TextLabel(getMessages().getVal(CST_LEVEL)));
         search_.add(minLevel);
         search_.add(maxLevel);
-        search_.add(new TextLabel(getMessages().getVal(GENDER)));
+        search_.add(new TextLabel(getMessages().getVal(CST_GENDER)));
         search_.add(gender);
         search_.add(new TextLabel(DataBase.EMPTY_STRING));
-        search_.add(new TextLabel(getMessages().getVal(ABILITY)));
+        search_.add(new TextLabel(getMessages().getVal(CST_ABILITY)));
         search_.add(ability);
         search_.add(modeAbility);
-        search_.add(new TextLabel(getMessages().getVal(ITEM)));
+        search_.add(new TextLabel(getMessages().getVal(CST_ITEM)));
         search_.add(item);
         search_.add(modeItem);
-        search_.add(new TextLabel(getMessages().getVal(WITH_ITEM)));
+        search_.add(new TextLabel(getMessages().getVal(CST_WITH_ITEM)));
         search_.add(withItem);
         search_.add(new TextLabel(DataBase.EMPTY_STRING));
-        search_.add(new TextLabel(getMessages().getVal(MOVES)));
+        search_.add(new TextLabel(getMessages().getVal(CST_MOVES)));
         search_.add(moves);
         search_.add(modeMoves);
-        search_.add(new TextLabel(getMessages().getVal(EVOLUTIONS)));
+        search_.add(new TextLabel(getMessages().getVal(CST_EVOLUTIONS)));
         search_.add(minPossEvos);
         search_.add(maxPossEvos);
         _p.add(search_);
         Panel sorting_;
         sorting_ = Panel.newGrid(0,3);
-        sorting_.add(new TextLabel(getMessages().getVal(NAME)));
+        sorting_.add(new TextLabel(getMessages().getVal(CST_NAME)));
         sorting_.add(cmpNameSorting);
         sorting_.add(cmpNamePrio);
-        sorting_.add(new TextLabel(getMessages().getVal(LEVEL)));
+        sorting_.add(new TextLabel(getMessages().getVal(CST_LEVEL)));
         sorting_.add(cmpLevelSorting);
         sorting_.add(cmpLevelPrio);
-        sorting_.add(new TextLabel(getMessages().getVal(GENDER)));
+        sorting_.add(new TextLabel(getMessages().getVal(CST_GENDER)));
         sorting_.add(cmpGenderSorting);
         sorting_.add(cmpGenderPrio);
-        sorting_.add(new TextLabel(getMessages().getVal(ABILITY)));
+        sorting_.add(new TextLabel(getMessages().getVal(CST_ABILITY)));
         sorting_.add(cmpAbilitySorting);
         sorting_.add(cmpAbilityPrio);
-        sorting_.add(new TextLabel(getMessages().getVal(ITEM)));
+        sorting_.add(new TextLabel(getMessages().getVal(CST_ITEM)));
         sorting_.add(cmpItemSorting);
         sorting_.add(cmpItemPrio);
-        sorting_.add(new TextLabel(getMessages().getVal(EVOLUTIONS)));
+        sorting_.add(new TextLabel(getMessages().getVal(CST_EVOLUTIONS)));
         sorting_.add(cmpPossEvosSorting);
         sorting_.add(cmpPossEvosPrio);
         _p.add(sorting_);
@@ -397,30 +397,30 @@ public final class PaginatorPokemon extends Paginator {
         top_.add(button_);
         _p.add(top_);
 //        results.setLayout(new BoxLayout(results, BoxLayout.PAGE_AXIS));
-        String h_ = StringUtil.concat(getMessages().getVal(NAME),SPACE);
+        String h_ = StringUtil.concat(getMessages().getVal(CST_NAME),SPACE);
         int side_ = getFacade().getMap().getSideLength();
 //        h_ += getMessages().getVal(STEPS)+SPACE;
 //        h_ += getMessages().getVal(REMAIN_STEPS);
         //getHeader().addString(h_, FIRST_PIXEL);
         getHeader().addString(h_, side_);
-        h_ = StringUtil.concat(getMessages().getVal(ABILITY),SPACE);
+        h_ = StringUtil.concat(getMessages().getVal(CST_ABILITY),SPACE);
         getHeader().addString(h_, side_, Paginator.HEIGTH_CHARS);
-        int secondCol_ = getHeader().width(getMessages().getVal(NAME));
-        if (secondCol_ < getHeader().width(getMessages().getVal(ABILITY))) {
-            secondCol_ = getHeader().width(getMessages().getVal(ABILITY));
+        int secondCol_ = getHeader().width(getMessages().getVal(CST_NAME));
+        if (secondCol_ < getHeader().width(getMessages().getVal(CST_ABILITY))) {
+            secondCol_ = getHeader().width(getMessages().getVal(CST_ABILITY));
         }
         secondCol_ += side_;
-        h_ = StringUtil.concat(getMessages().getVal(LEVEL),SPACE);
+        h_ = StringUtil.concat(getMessages().getVal(CST_LEVEL),SPACE);
         getHeader().addString(h_, secondCol_);
-        h_ = StringUtil.concat(getMessages().getVal(GENDER),SPACE);
+        h_ = StringUtil.concat(getMessages().getVal(CST_GENDER),SPACE);
         getHeader().addString(h_, secondCol_, Paginator.HEIGTH_CHARS);
-        int thirdCol_ = getHeader().width(getMessages().getVal(LEVEL));
-        if (thirdCol_ < getHeader().width(getMessages().getVal(GENDER))) {
-            thirdCol_ = getHeader().width(getMessages().getVal(GENDER));
+        int thirdCol_ = getHeader().width(getMessages().getVal(CST_LEVEL));
+        if (thirdCol_ < getHeader().width(getMessages().getVal(CST_GENDER))) {
+            thirdCol_ = getHeader().width(getMessages().getVal(CST_GENDER));
         }
-        h_ = getMessages().getVal(ITEM);
+        h_ = getMessages().getVal(CST_ITEM);
         getHeader().addString(h_, secondCol_+thirdCol_);
-        int w_ = getHeader().width(getMessages().getVal(ITEM));
+        int w_ = getHeader().width(getMessages().getVal(CST_ITEM));
         getHeader().setPreferredSize(new Dimension(w_+secondCol_+thirdCol_, HEIGTH_CHARS+HEIGTH_CHARS));
         results.add(getHeader());
         _p.add(new ScrollPane(results));
@@ -598,16 +598,16 @@ public final class PaginatorPokemon extends Paginator {
             //l_.setPreferredSize(new Dimension(100,10));
             list_.add(l_);
         }
-        String h_ = getMessages().getVal(NAME);
+        String h_ = getMessages().getVal(CST_NAME);
         int side_ = getFacade().getMap().getSideLength();
 //        h_ += getMessages().getVal(STEPS)+SPACE;
 //        h_ += getMessages().getVal(REMAIN_STEPS);
         //getHeader().addString(h_, FIRST_PIXEL);
         getHeader().addString(StringUtil.concat(h_,SPACE), side_);
-        h_ = getMessages().getVal(ABILITY);
+        h_ = getMessages().getVal(CST_ABILITY);
         getHeader().addString(StringUtil.concat(h_,SPACE), side_, Paginator.HEIGTH_CHARS);
         //int maxPixName_ = header_.getFontMetrics(header_.getFont()).stringWidth(getMessages().getVal(NAME));
-        int maxPixName_ = getHeader().width(StringUtil.concat(getMessages().getVal(NAME),SPACE));
+        int maxPixName_ = getHeader().width(StringUtil.concat(getMessages().getVal(CST_NAME),SPACE));
         for (PokemonLabel l: list_) {
             int value_ = l.getFontMetrics(l.getFont()).stringWidth(StringUtil.concat(l.getPokemon().getName(),SPACE));
             if (value_ > maxPixName_) {
@@ -617,7 +617,7 @@ public final class PaginatorPokemon extends Paginator {
         //setNameCoord
         //header_.addString(getMessages().getVal(NAME), 0);
 //        int maxPixAbility_ = header_.getFontMetrics(header_.getFont()).stringWidth(getMessages().getVal(ABILITY));
-        int maxPixAbility_ = getHeader().width(StringUtil.concat(getMessages().getVal(ABILITY),SPACE));
+        int maxPixAbility_ = getHeader().width(StringUtil.concat(getMessages().getVal(CST_ABILITY),SPACE));
         for (PokemonLabel l: list_) {
             int value_ = l.getFontMetrics(l.getFont()).stringWidth(StringUtil.concat(l.getPokemon().getAbility(),SPACE));
             if (value_ > maxPixAbility_) {
@@ -632,15 +632,15 @@ public final class PaginatorPokemon extends Paginator {
             }
         }
         int secondCol_ = Math.max(maxPixAbility_, maxPixName_);
-        h_ = getMessages().getVal(LEVEL);
+        h_ = getMessages().getVal(CST_LEVEL);
         getHeader().addString(StringUtil.concat(h_,SPACE), secondCol_ + side_);
-        h_ = getMessages().getVal(GENDER);
+        h_ = getMessages().getVal(CST_GENDER);
         getHeader().addString(StringUtil.concat(h_,SPACE), secondCol_ + side_, Paginator.HEIGTH_CHARS);
-        int thirdCol_ = getHeader().width(StringUtil.concat(getMessages().getVal(LEVEL),SPACE));
-        if (thirdCol_ < getHeader().width(StringUtil.concat(getMessages().getVal(GENDER),SPACE))) {
-            thirdCol_ = getHeader().width(StringUtil.concat(getMessages().getVal(GENDER),SPACE));
+        int thirdCol_ = getHeader().width(StringUtil.concat(getMessages().getVal(CST_LEVEL),SPACE));
+        if (thirdCol_ < getHeader().width(StringUtil.concat(getMessages().getVal(CST_GENDER),SPACE))) {
+            thirdCol_ = getHeader().width(StringUtil.concat(getMessages().getVal(CST_GENDER),SPACE));
         }
-        h_ = getMessages().getVal(ITEM);
+        h_ = getMessages().getVal(CST_ITEM);
         getHeader().addString(h_, thirdCol_+secondCol_ + side_);
         for (PokemonLabel l: list_) {
             l.setNameCoord(secondCol_, thirdColumn_);

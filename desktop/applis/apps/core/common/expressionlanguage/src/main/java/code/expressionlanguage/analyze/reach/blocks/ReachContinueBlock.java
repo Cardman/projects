@@ -8,7 +8,7 @@ import code.util.core.StringUtil;
 
 public final class ReachContinueBlock extends ReachAbruptBlock {
 
-    private String label;
+    private final String label;
     protected ReachContinueBlock(ContinueBlock _info) {
         super(_info);
         label = _info.getLabel();
@@ -16,6 +16,7 @@ public final class ReachContinueBlock extends ReachAbruptBlock {
 
     @Override
     public void buildExpressionLanguageReadOnly(AnalyzedPageEl _page) {
+        //
     }
 
     @Override

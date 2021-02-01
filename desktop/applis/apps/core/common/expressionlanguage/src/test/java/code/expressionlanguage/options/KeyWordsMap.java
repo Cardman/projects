@@ -406,6 +406,7 @@ public final class KeyWordsMap {
         _lgNames.getContent().getCoreNames().setAliasSameRef("eq");
         _lgNames.getContent().getCoreNames().setAliasGetParent("getParent");
         _lgNames.getContent().getCoreNames().setAliasSetParent("setParent");
+        _lgNames.getContent().getCoreNames().setAliasGetFct("getFct");
         _lgNames.getContent().getPredefTypes().setAliasNext("next");
         _lgNames.getContent().getPredefTypes().setAliasHasNext("hasNext");
         _lgNames.getContent().getPredefTypes().setAliasIterableTable("$core.IterableTable");
@@ -746,6 +747,7 @@ public final class KeyWordsMap {
         _lgNames.getContent().getCoreNames().setAliasSameRef("eq");
         _lgNames.getContent().getCoreNames().setAliasGetParent("valParent");
         _lgNames.getContent().getCoreNames().setAliasSetParent("majParent");
+        _lgNames.getContent().getCoreNames().setAliasGetFct("valFct");
         _lgNames.getContent().getPredefTypes().setAliasNext("suivant");
         _lgNames.getContent().getPredefTypes().setAliasHasNext("aSuivant");
         _lgNames.getContent().getPredefTypes().setAliasIterableTable("$coeur.IterableTable");

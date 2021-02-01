@@ -4,7 +4,7 @@ import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.TryEval;
 
 public final class ReachTryEval extends ReachBracedBlock implements ReachEval {
-    private String label;
+    private final String label;
     protected ReachTryEval(TryEval _info) {
         super(_info);
         label = _info.getLabel();
@@ -17,5 +17,6 @@ public final class ReachTryEval extends ReachBracedBlock implements ReachEval {
 
     @Override
     public void buildExpressionLanguageReadOnly(AnalyzedPageEl _page) {
+        //
     }
 }

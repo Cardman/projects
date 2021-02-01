@@ -7,7 +7,7 @@ import code.util.EntryCust;
 import code.util.IdMap;
 
 public final class ReachFinallyEval extends ReachBracedBlock implements ReachEval {
-    private String label;
+    private final String label;
     protected ReachFinallyEval(FinallyEval _info) {
         super(_info);
         label = _info.getRealLabel();
@@ -20,6 +20,7 @@ public final class ReachFinallyEval extends ReachBracedBlock implements ReachEva
 
     @Override
     public void buildExpressionLanguageReadOnly(AnalyzedPageEl _page) {
+        //
     }
 
     @Override

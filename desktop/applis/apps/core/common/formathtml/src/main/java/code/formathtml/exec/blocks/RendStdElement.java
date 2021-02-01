@@ -17,6 +17,6 @@ public final class RendStdElement extends RendElement {
 
     @Override
     protected void processExecAttr(Configuration _cont, Node _nextWrite, Element _read, BeanLgNames _stds, ContextEl _ctx, StackCall _stack, RendStackCall _rendStack) {
-
+        //
     }
 }

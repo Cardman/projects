@@ -6,7 +6,7 @@ import code.expressionlanguage.analyze.blocks.CatchEval;
 import code.util.StringList;
 
 public final class ReachCatchEval extends ReachAbstractCatchEval {
-    private CatchEval meta;
+    private final CatchEval meta;
     protected ReachCatchEval(CatchEval _info) {
         super(_info);
         meta = _info;
@@ -14,6 +14,7 @@ public final class ReachCatchEval extends ReachAbstractCatchEval {
 
     @Override
     public void buildExpressionLanguageReadOnly(AnalyzedPageEl _page) {
+        //
     }
 
     @Override
