@@ -11,19 +11,19 @@ import code.util.core.NumberUtil;
 /**
     */
 
-public class SuitCellRenderer extends CustCellRender {
+public class SuitCellRenderer extends CustCellRender<Suit> {
     private Suit couleur;
     private boolean selectionne;
-    private MainWindow window;
+    private final MainWindow window;
     public SuitCellRenderer(MainWindow _window) {
         window = _window;
     }
     /**Donne la facon de presenter une couleur dans une liste avec un symbole et un nom*/
     @Override
-    public PreparedLabel getListCellRendererComponent(GraphicListable _list, Object _value,
+    public PreparedLabel getListCellRendererComponent(GraphicList<Suit> _list, Suit _value,
                                                       int _index, boolean _isSelected, boolean _cellHasFocus) {
         PreparedLabel label_ = _list.getListComponents().get(_index);
-        couleur=(Suit)_value;
+        couleur= _value;
         selectionne=_isSelected;
         label_.setPreferredSize(new Dimension(100,10));
         return label_;

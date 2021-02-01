@@ -365,19 +365,10 @@ public class ListTest {
         integers_.clear();
         assertTrue(integers_.isEmpty());
         assertNotNull(integers_.getList());
-        assertEq(0,integers_.toArray().length);
+        assertEq(0,integers_.list().toArray().length);
     }
     @Test
     public void simpleIterator1Test() {
-        CustList<Integer> integers_ = new CustList<Integer>();
-        integers_.add(5);
-        integers_.add(1);
-        SimpleItr itr_ = integers_.simpleIterator();
-        assertTrue(itr_.hasNext());
-        assertEq(5, (Integer)itr_.next());
-        assertTrue(itr_.hasNext());
-        assertEq(1, (Integer)itr_.next());
-        assertTrue(!itr_.hasNext());
         assertTrue(new CharList().isEmpty());
         assertEq(0,CharList.wrapCharArray().length);
     }

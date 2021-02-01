@@ -106,7 +106,7 @@ public final class DefaultBeanAliases {
     private String aliasSetDataBase= "setDataBase";
     private String aliasGetDataBase= "getDataBase";
     private String aliasBeforeDisplaying= "beforeDisplaying";
-    private String aliasStringMapObject="code.util.StringMapObject";
+    private String aliasStringMapObject="code.bean.nat.StringMapObject";
     private String aliasMessage="code.bean.Message";
     private String aliasNewMessage="newStandardMessage";
     private String aliasMessageFormat="format";

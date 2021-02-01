@@ -2,6 +2,7 @@ package cards.belote.beans;
 import cards.belote.BidBeloteSuit;
 import cards.belote.GameBelote;
 import cards.belote.ResultsBelote;
+import cards.belote.RulesBelote;
 import cards.belote.enumerations.*;
 import cards.consts.CoreResourcesAccess;
 import cards.consts.MixCardsChoice;
@@ -25,6 +26,18 @@ abstract class BeloteBean extends Bean {
     private byte user;
 
     private String loc;
+
+    private ResultsBelote dataBase;
+    private RulesBelote dataBaseRules;
+    public RulesBelote db() {
+        return dataBaseRules;
+    }
+
+    public void setDataBase(ResultsBelote _dataBase, RulesBelote _dataBaseRules) {
+        dataBase = _dataBase;
+        dataBaseRules = _dataBaseRules;
+    }
+
     protected static String toString(DeclaresBelote _b, String _file){
         return Format.getConstanteLangue(_file,BeloteResoucesAccess.BELOTE_DECLARES, _b.name());
     }
@@ -110,7 +123,7 @@ abstract class BeloteBean extends Bean {
     }
 
     protected final ResultsBelote getResults() {
-        return (ResultsBelote) getDataBase();
+        return dataBase;
     }
 
     protected final BidBeloteSuit getBid() {

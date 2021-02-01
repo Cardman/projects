@@ -1,5 +1,6 @@
 package aiki.beans;
 import aiki.db.DataBase;
+import aiki.facade.FacadeGame;
 import code.bean.Bean;
 import code.util.NatStringTreeMap;
 import code.util.StringList;
@@ -7,7 +8,7 @@ import code.util.StringMap;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 
-public abstract class CommonBean extends Bean {
+public abstract class CommonBean extends Bean implements WithFacade {
     protected static final String CST_ABILITIES = "abilities";
     protected static final String CST_ABILITIES_SET = "abilities_set";
     protected static final String CST_ABILITY = "ability";
@@ -106,6 +107,22 @@ public abstract class CommonBean extends Bean {
     protected static final char CST_LEFT_PAR = '(';
     protected static final char CST_RIGHT_PAR = ')';
     protected static final char CST_PIPE_CHAR = '|';
+
+    private FacadeGame dataBase;
+
+    public DataBase getDataBase() {
+        return db().getData();
+    }
+
+    @Override
+    public FacadeGame db() {
+        return dataBase;
+    }
+
+    @Override
+    public void setDataBase(FacadeGame _dataBase) {
+        dataBase = _dataBase;
+    }
 
     protected static String escapedStringQuote(String _string) {
         StringMap<String> map_ = new StringMap<String>();

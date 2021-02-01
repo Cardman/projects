@@ -11,18 +11,18 @@ import code.util.core.NumberUtil;
 
 /**
  */
-public class CardPresidentCellRenderer extends CustCellRender {
+public class CardPresidentCellRenderer extends CustCellRender<CardPresident> {
     private CardPresident card;
     private boolean selectionne;
-    private MainWindow window;
+    private final MainWindow window;
     public CardPresidentCellRenderer(MainWindow _window) {
         window = _window;
     }
     @Override
-    public PreparedLabel getListCellRendererComponent(GraphicListable _list, Object _value,
+    public PreparedLabel getListCellRendererComponent(GraphicList<CardPresident> _list, CardPresident _value,
                                                       int _index, boolean _isSelected, boolean _cellHasFocus) {
         PreparedLabel label_ = _list.getListComponents().get(_index);
-        card=(CardPresident)_value;
+        card= _value;
         selectionne=_isSelected;
         label_.setPreferredSize(new Dimension(50,10));
         return label_;

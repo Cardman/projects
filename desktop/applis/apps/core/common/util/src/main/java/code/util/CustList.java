@@ -94,16 +94,15 @@ public class CustList<T> implements Listable<T> {
 
     @Override
     public final Iterable<T> getList() {
+        return list();
+    }
+    public final ArrayList<T> list() {
         return list;
     }
 
     @Override
     public final Iterator<T> iterator() {
         return list.iterator();
-    }
-
-    public final Object[] toArray() {
-        return list.toArray();
     }
 
     @Override
@@ -261,11 +260,6 @@ public class CustList<T> implements Listable<T> {
             l_.add(get(i));
         }
         return l_;
-    }
-
-    @Override
-    public final SimpleItr simpleIterator() {
-        return new SimpleItr(list.toArray());
     }
 
 }

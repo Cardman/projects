@@ -2,6 +2,7 @@ package code.formathtml.nat;
 
 import code.bean.Bean;
 import code.bean.BeanStruct;
+import code.bean.nat.StringMapObject;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ClassField;
@@ -20,7 +21,6 @@ import code.expressionlanguage.structs.Struct;
 import code.formathtml.structs.BeanInfo;
 import code.util.CustList;
 import code.util.StringList;
-import code.util.StringMapObject;
 import code.util.core.StringUtil;
 
 public final class BeanTestNatLgNamesImpl extends BeanTestNatLgNames {
@@ -31,7 +31,6 @@ public final class BeanTestNatLgNamesImpl extends BeanTestNatLgNames {
     private static final String TYPED_STRINGS = "typedStrings";
     private static final String TYPE_BEAN_ONE = "simple.BeanOne";
     private static final String TYPE_INPUT = "simple.Input";
-    private Object dataBase;
 
     @Override
     public ResultErrorStd getOtherName(ContextEl _cont, Struct _instance) {
@@ -162,14 +161,10 @@ public final class BeanTestNatLgNamesImpl extends BeanTestNatLgNames {
         ConstructorId id_ = new ConstructorId(_bean.getResolvedClassName(), new StringList(), false);
         BeanStruct res_ = getOtherResultBean(_ctx, id_);
         Bean bean_ = res_.getBean();
-        bean_.setDataBase(dataBase);
         bean_.setForms(new StringMapObject());
         bean_.setLanguage(_language);
         bean_.setScope(_bean.getScope());
         return res_;
     }
 
-    public void setDataBase(Object _dataBase){
-        dataBase = _dataBase;
-    }
 }

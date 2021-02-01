@@ -1,6 +1,46 @@
+package code.util.ints;
+
+import code.util.SimpleItr;
+
+public interface SimpleIterable {
+
+    SimpleItr simpleIterator();
+
+}
+package code.util.ints;
+import code.util.CustList;
+
+public interface Listable<T> extends Iterable<T>,SimpleIterable , Countable {
+
+    Iterable<T> getList();
+    CustList<T> getReverse();
+
+    void add(T _e);
+
+    void addAllElts(Listable<T> _c);
+
+    void clear();
+
+    boolean isValidIndex(int _index);
+
+    void set(int _index, T _element);
+
+    void add(int _index, T _element);
+
+    void remove(int _index);
+
+    T first();
+
+    T last();
+
+    CustList<T> sub(int _from, int _to);
+
+    void swapIndexes(int _i, int _j);
+}
 package code.util;
 import code.util.core.IndexConstants;
 import code.util.ints.ListableEntries;
+import code.util.ints.SimpleIterable;
 
 
 
@@ -14,6 +54,11 @@ public abstract class AbsMap<K, V> implements ListableEntries<K, V> {
     }
     protected AbsMap(CollCapacity _capacity) {
         list = new CustList<EntryCust<K,V>>(_capacity);
+    }
+
+    @Override
+    public final SimpleIterable entries() {
+        return new CustList<EntryCust<K,V>>(getList());
     }
 
     @Override
@@ -183,5 +228,88 @@ public abstract class AbsMap<K, V> implements ListableEntries<K, V> {
 
     public void addEntry(K _k, V _v) {
         list.add(new EntryCust<K, V>(_k, _v));
+    }
+}
+
+
+package code.util.ints;
+
+public interface SimpleEntries {
+
+    SimpleIterable entries();
+
+}
+
+
+package code.util;
+
+
+public final class SimpleItr {
+
+    private Object[] list;
+    private int index;
+    private int length;
+
+    public SimpleItr(Object[] _list) {
+        list = _list;
+        length = _list.length;
+    }
+
+    public boolean hasNext() {
+        return index < length;
+    }
+
+    public Object next() {
+        Object element_ = list[index];
+        index++;
+        return element_;
+    }
+
+
+}
+package code.util.ints;
+
+public interface SimpleEntry {
+
+    Object getSimpleKey();
+    Object getSimpleValue();
+}
+
+package code.util;
+
+import code.util.ints.SimpleEntry;
+
+
+public final class EntryCust<K, V> implements SimpleEntry {
+
+    private K key;
+
+    private V value;
+
+    EntryCust(K _k, V _v) {
+        key = _k;
+        value = _v;
+    }
+
+    public K getKey() {
+        return key;
+    }
+
+    public V getValue() {
+        return value;
+    }
+
+    public void setValue(V _v) {
+        value = _v;
+    }
+
+    @Override
+    public Object getSimpleKey() {
+        return getKey();
+    }
+
+    @Override
+    public Object getSimpleValue() {
+        return getValue();
     }
 }

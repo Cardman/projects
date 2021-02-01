@@ -1,13 +1,13 @@
 package code.gui;
 
 
-public final class SelectionEvent implements Runnable {
-    private int firstIndex;
-    private int lastIndex;
-    private GraphicListable grList;
+public final class SelectionEvent<T> implements Runnable {
+    private final int firstIndex;
+    private final int lastIndex;
+    private final GraphicList<T> grList;
 
     public SelectionEvent(int _firstIndex, int _lastIndex,
-            GraphicListable _grList) {
+                          GraphicList<T> _grList) {
         firstIndex = _firstIndex;
         lastIndex = _lastIndex;
         grList = _grList;
@@ -15,6 +15,6 @@ public final class SelectionEvent implements Runnable {
 
     @Override
     public void run() {
-        SelectionUtil.selectEvent(firstIndex, lastIndex, grList, true);
+        grList.selectEvent(firstIndex, lastIndex, true);
     }
 }

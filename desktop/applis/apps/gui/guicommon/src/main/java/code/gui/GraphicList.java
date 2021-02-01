@@ -7,26 +7,26 @@ import javax.swing.*;
 import code.util.CustList;
 import code.util.Ints;
 
-public class GraphicList<T> extends CustComponent implements GraphicListable {
+public class GraphicList<T> extends CustComponent {
 
     private CustList<T> list;
-    private CustList<PreparedLabel> listComponents = new CustList<PreparedLabel>();
-    private CustList<IndexableListener> indexableMouse = new CustList<IndexableListener>();
-    private CustList<IndexableListener> indexableKey = new CustList<IndexableListener>();
+    private final CustList<PreparedLabel> listComponents = new CustList<PreparedLabel>();
+    private final CustList<IndexableListener> indexableMouse = new CustList<IndexableListener>();
+    private final CustList<IndexableListener> indexableKey = new CustList<IndexableListener>();
     private Ints selectedIndexes = new Ints();
 
-    private CustCellRender render;
+    private CustCellRender<T> render;
 
     private ListSelection listener;
 
-    private Panel panel;
-    private ScrollPane scroll;
+    private final Panel panel;
+    private final ScrollPane scroll;
 
     private int firstIndex = -1;
 
     private int lastIndex = -1;
 
-    private boolean simple;
+    private final boolean simple;
 
     private int visibleRowCount = 8;
 
@@ -61,7 +61,16 @@ public class GraphicList<T> extends CustComponent implements GraphicListable {
     protected void setList(CustList<T> _list) {
         list = _list;
     }
-
+    public void selectEvent(int _firstIndex, int _lastIndex, boolean _methodAction) {
+        ListSelection listener_ = getListener();
+        if (listener_ == null) {
+            return;
+        }
+        int min_ = Math.min(_firstIndex, _lastIndex);
+        int max_ = Math.max(_firstIndex, _lastIndex);
+        SelectionInfo ev_ = new SelectionInfo(min_, max_, _methodAction);
+        listener_.valueChanged(ev_);
+    }
     public void add(T _elt) {
         add(list.size(),_elt);
     }
@@ -74,10 +83,10 @@ public class GraphicList<T> extends CustComponent implements GraphicListable {
         repaintAdded(_index);
         resetDimensions();
         if (!simple) {
-            MultSelectKeyEltList i_ = new MultSelectKeyEltList(this, _index);
+            MultSelectKeyEltList<T> i_ = new MultSelectKeyEltList<T>(this, _index);
             lab_.addKeyListener(i_);
             indexableKey.add(i_);
-            MultSelectEltList j_ = new MultSelectEltList(this, _index);
+            MultSelectEltList<T> j_ = new MultSelectEltList<T>(this, _index);
             lab_.addMouseListener(j_);
             indexableMouse.add(j_);
             reindex(indexableMouse);
@@ -90,7 +99,7 @@ public class GraphicList<T> extends CustComponent implements GraphicListable {
     }
 
     protected void repaintAdded(int _index) {
-        CustCellRender r_ = getRender();
+        CustCellRender<T> r_ = getRender();
         if (r_ != null) {
             T elt_ = list.get(_index);
             PreparedLabel c_ = r_.getListCellRendererComponent(this, elt_, _index, false, false);
@@ -98,7 +107,7 @@ public class GraphicList<T> extends CustComponent implements GraphicListable {
         }
     }
     protected IndexableListener buildSingleSelect(PreparedLabel _lab,int _index) {
-        SimpleSelectEltList i_ = new SimpleSelectEltList(this, _index);
+        SimpleSelectEltList<T> i_ = new SimpleSelectEltList<T>(this, _index);
         _lab.addMouseListener(i_);
         return i_;
     }
@@ -134,7 +143,7 @@ public class GraphicList<T> extends CustComponent implements GraphicListable {
         }
     }
     public void rebuild() {
-        CustCellRender r_ = getRender();
+        CustCellRender<T> r_ = getRender();
         if (r_ == null) {
             return;
         }
@@ -153,10 +162,10 @@ public class GraphicList<T> extends CustComponent implements GraphicListable {
         } else {
             int index_ = 0;
             for (PreparedLabel c: listComponents) {
-                MultSelectKeyEltList i_ = new MultSelectKeyEltList(this, index_);
+                MultSelectKeyEltList<T> i_ = new MultSelectKeyEltList<T>(this, index_);
                 indexableKey.add(i_);
                 c.addKeyListener(i_);
-                MultSelectEltList j_ = new MultSelectEltList(this, index_);
+                MultSelectEltList<T> j_ = new MultSelectEltList<T>(this, index_);
                 indexableMouse.add(j_);
                 c.addMouseListener(j_);
                 index_++;
@@ -165,10 +174,10 @@ public class GraphicList<T> extends CustComponent implements GraphicListable {
         resetDimensions();
     }
     protected void repaintAll() {
-        CustCellRender r_ = getRender();
+        CustCellRender<T> r_ = getRender();
         int index_ = 0;
         Panel panel_ = getPanel();
-        for (Object o: list) {
+        for (T o: list) {
             PreparedLabel lab_ = new PreparedLabel();
             listComponents.add(lab_);
             panel_.add(lab_);
@@ -187,7 +196,7 @@ public class GraphicList<T> extends CustComponent implements GraphicListable {
         }
         resetDimensions();
     }
-    @Override
+
     public void addRange() {
         int min_ = Math.min(firstIndex, lastIndex);
         int max_ = Math.max(firstIndex, lastIndex);
@@ -195,11 +204,11 @@ public class GraphicList<T> extends CustComponent implements GraphicListable {
             selectedIndexes.add(i);
         }
     }
-    @Override
+
     public void clearAllRange() {
         selectedIndexes.clear();
     }
-    @Override
+
     public void clearRange() {
         int min_ = Math.min(firstIndex, lastIndex);
         int max_ = Math.max(firstIndex, lastIndex);
@@ -217,7 +226,7 @@ public class GraphicList<T> extends CustComponent implements GraphicListable {
             selectedIndexes.add(i);
         }
         selectedIndexes.removeDuplicates();
-        CustCellRender r_ = getRender();
+        CustCellRender<T> r_ = getRender();
         int index_ = 0;
         for (T v: list) {
             PreparedLabel c_;
@@ -229,7 +238,7 @@ public class GraphicList<T> extends CustComponent implements GraphicListable {
     public void setSelectedIndice(int _min) {
         selectedIndexes.add(_min);
         selectedIndexes.removeDuplicates();
-        CustCellRender r_ = getRender();
+        CustCellRender<T> r_ = getRender();
         int index_ = 0;
         for (T v: new CustList<T>(list)) {
             PreparedLabel c_;
@@ -239,7 +248,7 @@ public class GraphicList<T> extends CustComponent implements GraphicListable {
         }
     }
     public void clearSelection() {
-        CustCellRender r_ = getRender();
+        CustCellRender<T> r_ = getRender();
         int index_ = 0;
         CustList<T> copy_ = new CustList<T>(list);
         for (T v: copy_) {
@@ -254,11 +263,11 @@ public class GraphicList<T> extends CustComponent implements GraphicListable {
         setFirstIndex(-1);
         setLastIndex(-1);
     }
-    @Override
+
     public Ints getSelectedIndexes() {
         return selectedIndexes;
     }
-    @Override
+
     public int getMaxWidth() {
         return 0;
     }
@@ -285,22 +294,19 @@ public class GraphicList<T> extends CustComponent implements GraphicListable {
         }
     }
 
-    @Override
     public ListSelection getListener() {
         return listener;
     }
 
-    @Override
     public void setListener(ListSelection _listener) {
         listener = _listener;
     }
 
-    @Override
-    public CustCellRender getRender() {
+    public CustCellRender<T> getRender() {
         return render;
     }
-    @Override
-    public void setRender(CustCellRender _render) {
+
+    public void setRender(CustCellRender<T> _render) {
         render = _render;
     }
 
@@ -308,42 +314,30 @@ public class GraphicList<T> extends CustComponent implements GraphicListable {
         return list;
     }
 
-    @Override
-    public Object[] toArray() {
-        return list.toArray();
-    }
-
-    @Override
     public int getFirstIndex() {
         return firstIndex;
     }
 
-    @Override
     public void setFirstIndex(int _firstIndex) {
         firstIndex = _firstIndex;
     }
 
-    @Override
     public int getLastIndex() {
         return lastIndex;
     }
 
-    @Override
     public void setLastIndex(int _lastIndex) {
         lastIndex = _lastIndex;
     }
 
-    @Override
     public Panel getPanel() {
         return panel;
     }
 
-    @Override
     public ScrollPane getScroll() {
         return scroll;
     }
 
-    @Override
     public CustList<PreparedLabel> getListComponents() {
         return listComponents;
     }

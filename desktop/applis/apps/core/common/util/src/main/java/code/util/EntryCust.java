@@ -1,11 +1,8 @@
 package code.util;
 
-import code.util.ints.SimpleEntry;
+public final class EntryCust<K, V> {
 
-
-public final class EntryCust<K, V> implements SimpleEntry {
-
-    private K key;
+    private final K key;
 
     private V value;
 
@@ -26,13 +23,4 @@ public final class EntryCust<K, V> implements SimpleEntry {
         value = _v;
     }
 
-    @Override
-    public Object getSimpleKey() {
-        return getKey();
-    }
-
-    @Override
-    public Object getSimpleValue() {
-        return getValue();
-    }
 }

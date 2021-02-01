@@ -7,9 +7,9 @@ import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.*;
 
 public final class TreeGui extends CustComponent {
-    private JTree tree;
-    private DefaultTreeModel model;
-    private DefaultTreeSelectionModel selectionModel;
+    private final JTree tree;
+    private final DefaultTreeModel model;
+    private final DefaultTreeSelectionModel selectionModel;
 
     public TreeGui(DefaultMutableTreeNode _t) {
         model = new DefaultTreeModel(_t);
@@ -39,7 +39,7 @@ public final class TreeGui extends CustComponent {
             nodes_.add(0, treeNode_);
             treeNode_ = treeNode_.getParent();
         }
-        tree.setSelectionPath(new TreePath(nodes_.toArray()));
+        tree.setSelectionPath(new TreePath(nodes_.list().toArray()));
     }
     public void addTreeSelectionListener(TreeSelectionListener _tsl) {
         tree.addTreeSelectionListener(_tsl);

@@ -16,12 +16,10 @@ import code.expressionlanguage.structs.*;
 import code.bean.BeanStruct;
 import code.bean.nat.BeanNatLgNames;
 import code.bean.nat.DefaultInitialization;
+import code.bean.nat.StringMapObject;
 import code.formathtml.structs.BeanInfo;
 import code.util.*;
 import code.util.core.StringUtil;
-import code.util.ints.SimpleEntries;
-import code.util.ints.SimpleEntry;
-import code.util.ints.SimpleIterable;
 
 public final class PresidentStandards extends BeanNatLgNames {
 
@@ -46,7 +44,8 @@ public final class PresidentStandards extends BeanNatLgNames {
     private static final String TYPE_RULES_PRESIDENT_BEAN = "cards.president.beans.RulesPresidentBean";
     private static final String TYPE_LINE_DEAL = "cards.president.beans.LineDeal";
     private static final String TYPE_PRESIDENT_BEAN = "cards.president.beans.PresidentBean";
-    private Object dataBase;
+    private RulesPresident dataBaseRules;
+    private ResultsPresident dataBase;
     public PresidentStandards() {
         DefaultInitialization.basicStandards(this);
     }
@@ -220,28 +219,6 @@ public final class PresidentStandards extends BeanNatLgNames {
         return res_;
     }
 
-    private String getOtherBeanStructClassName(Object _struct) {
-        if (_struct instanceof LineDeal) {
-            return TYPE_LINE_DEAL;
-        }
-        if (_struct instanceof Bean) {
-            return ((Bean)_struct).getClassName();
-        }
-        if (_struct instanceof SimpleIterable) {
-            return TYPE_LIST;
-        }
-        if (_struct instanceof SimpleEntries) {
-            return TYPE_MAP;
-        }
-        if (_struct instanceof SimpleEntry) {
-            return TYPE_ENTRY;
-        }
-        if (_struct instanceof SimpleItr) {
-            return TYPE_ITERATOR;
-        }
-        return getAliasObject();
-    }
-
     public ResultErrorStd getOtherName(ContextEl _cont, Struct _instance) {
         return new ResultErrorStd();
     }
@@ -258,7 +235,12 @@ public final class PresidentStandards extends BeanNatLgNames {
         Struct strBean_ = res_.getResult();
         BeanStruct str_ = (BeanStruct) strBean_;
         Bean bean_ = str_.getBean();
-        bean_.setDataBase(dataBase);
+        if (bean_ instanceof PresidentBean) {
+            ((PresidentBean)bean_).setDataBase(dataBase);
+        }
+        if (bean_ instanceof RulesPresidentBean) {
+            ((RulesPresidentBean)bean_).setDataBase(dataBaseRules);
+        }
         bean_.setForms(new StringMapObject());
         bean_.setLanguage(_language);
         bean_.setScope(_bean.getScope());
@@ -268,7 +250,7 @@ public final class PresidentStandards extends BeanNatLgNames {
         dataBase = _dataBase;
     }
 
-    public void setDataBase(RulesPresident _dataBase){
-        dataBase = _dataBase;
+    public void setDataBaseRules(RulesPresident _dataBase){
+        dataBaseRules = _dataBase;
     }
 }

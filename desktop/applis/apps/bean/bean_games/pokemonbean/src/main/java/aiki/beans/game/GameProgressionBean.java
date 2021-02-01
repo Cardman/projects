@@ -1,4 +1,5 @@
 package aiki.beans.game;
+import aiki.beans.WithFacade;
 import aiki.beans.facade.comparators.ComparatorPlaceNumber;
 import aiki.comparators.ComparatorTrainerPlaceNames;
 import aiki.comparators.ComparatorTrStrings;
@@ -11,7 +12,7 @@ import code.images.BaseSixtyFourUtil;
 import code.maths.LgInt;
 import code.util.*;
 
-public class GameProgressionBean extends Bean {
+public class GameProgressionBean extends Bean implements WithFacade {
     private String heroImage;
     private String heroImageOppositeSex;
     private String nickname;
@@ -32,9 +33,25 @@ public class GameProgressionBean extends Bean {
     private int nbRemainingNotMaxLevel;
     private int nbRemainingNotMaxHappiness;
 
+    private FacadeGame dataBase;
+
+    public FacadeGame getDataBase() {
+        return db();
+    }
+
+    @Override
+    public FacadeGame db() {
+        return dataBase;
+    }
+
+    @Override
+    public void setDataBase(FacadeGame _dataBase) {
+        dataBase = _dataBase;
+    }
+
     @Override
     public void beforeDisplaying() {
-        FacadeGame facade_ = (FacadeGame) getDataBase();
+        FacadeGame facade_ = getDataBase();
         StringMap<String> tr_ = facade_.getData().getTranslatedPokemon().getVal(getLanguage());
         heroImage = facade_.getFrontChosenHeros();
         heroImageOppositeSex = facade_.getFrontChosenHerosOppositeSex();
@@ -111,41 +128,41 @@ public class GameProgressionBean extends Bean {
         nbRemainingNotMaxLevel = progression_.getNbRemainingNotMaxLevel();
     }
     public String getRemainingOtherTrainersPlaceName(int _index) {
-        FacadeGame facade_ = (FacadeGame) getDataBase();
+        FacadeGame facade_ = getDataBase();
         short key_ = remainingOtherTrainerPlaces.getKey(_index);
         DataMap dataMap_ = facade_.getMap();
         return dataMap_.getPlace(key_).getName();
     }
     public String getTrPokemonNotAll(int _key, int _indexList, int _indexElt) {
-        FacadeGame facade_ = (FacadeGame) getDataBase();
+        FacadeGame facade_ = getDataBase();
         return getTrPokemon(facade_, notAtAllFamiliesBase, _key, _indexList, _indexElt);
     }
     public String getImagePokemonNotAll(int _key, int _indexList, int _indexElt) {
-        FacadeGame facade_ = (FacadeGame) getDataBase();
+        FacadeGame facade_ = getDataBase();
         return getImagePokemon(facade_, notAtAllFamiliesBase, _key, _indexList, _indexElt);
     }
     public String getTrPokemonPartialNot(int _key, int _indexList, int _indexElt) {
-        FacadeGame facade_ = (FacadeGame) getDataBase();
+        FacadeGame facade_ = getDataBase();
         return getTrPokemon(facade_, partialFamiliesBaseNotCaught, _key, _indexList, _indexElt);
     }
     public String getImagePokemonPartialNot(int _key, int _indexList, int _indexElt) {
-        FacadeGame facade_ = (FacadeGame) getDataBase();
+        FacadeGame facade_ = getDataBase();
         return getImagePokemon(facade_, partialFamiliesBaseNotCaught, _key, _indexList, _indexElt);
     }
     public String getTrPokemonPartial(int _key, int _indexList, int _indexElt) {
-        FacadeGame facade_ = (FacadeGame) getDataBase();
+        FacadeGame facade_ = getDataBase();
         return getTrPokemon(facade_, partialFamiliesBaseCaught, _key, _indexList, _indexElt);
     }
     public String getImagePokemonPartial(int _key, int _indexList, int _indexElt) {
-        FacadeGame facade_ = (FacadeGame) getDataBase();
+        FacadeGame facade_ = getDataBase();
         return getImagePokemon(facade_, partialFamiliesBaseCaught, _key, _indexList, _indexElt);
     }
     public String getTrPokemonFull(int _key, int _indexList, int _indexElt) {
-        FacadeGame facade_ = (FacadeGame) getDataBase();
+        FacadeGame facade_ = getDataBase();
         return getTrPokemon(facade_, fullFamiliesBase, _key, _indexList, _indexElt);
     }
     public String getImagePokemonFull(int _key, int _indexList, int _indexElt) {
-        FacadeGame facade_ = (FacadeGame) getDataBase();
+        FacadeGame facade_ = getDataBase();
         return getImagePokemon(facade_, fullFamiliesBase, _key, _indexList, _indexElt);
     }
     public StringList getKeyPokemon(int _key, int _indexList) {

@@ -3,7 +3,7 @@ import code.util.CustList;
 import code.util.EntryCust;
 
 
-public interface ListableEntries<K,V> extends Countable, SimpleEntries {
+public interface ListableEntries<K,V> extends Countable {
 
     void move(K _oldKey, K _newKey);
 

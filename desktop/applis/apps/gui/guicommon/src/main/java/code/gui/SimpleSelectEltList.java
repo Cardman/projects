@@ -1,17 +1,19 @@
 package code.gui;
 
+import code.util.CustList;
+
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 import javax.swing.*;
 
-public final class SimpleSelectEltList extends MouseAdapter implements IndexableListener {
+public final class SimpleSelectEltList<T> extends MouseAdapter implements IndexableListener {
 
-    private GraphicListable grList;
+    private final GraphicList<T> grList;
 
     private int index;
 
-    public SimpleSelectEltList(GraphicListable _grList, int _index) {
+    public SimpleSelectEltList(GraphicList<T> _grList, int _index) {
         grList = _grList;
         index = _index;
     }
@@ -20,18 +22,18 @@ public final class SimpleSelectEltList extends MouseAdapter implements Indexable
     public void mouseReleased(MouseEvent _e) {
         grList.setFirstIndex(index);
         grList.setLastIndex(index);
-        CustCellRender r_ = grList.getRender();
-        Object[] array_ = grList.toArray();
+        CustCellRender<T> r_ = grList.getRender();
+        CustList<T> array_ = grList.getList();
         boolean sel_ = SwingUtilities.isLeftMouseButton(_e);
         if (!sel_) {
-            Object v_ = array_[index];
+            T v_ = array_.get(index);
             PreparedLabel c_;
             c_ = r_.getListCellRendererComponent(grList, v_, index, false, false);
             r_.paintComponent(c_);
         } else {
             int len_ = grList.getListComponents().size();
             for (int i = 0; i < len_; i++) {
-                Object v_ = array_[i];
+                T v_ = array_.get(i);
                 PreparedLabel c_;
                 c_ = r_.getListCellRendererComponent(grList, v_, i, index == i, false);
                 r_.paintComponent(c_);
@@ -41,7 +43,7 @@ public final class SimpleSelectEltList extends MouseAdapter implements Indexable
         if (sel_) {
             grList.addRange();
         }
-        SelectionUtil.selectEvent(index, index, grList, false);
+        grList.selectEvent(index, index, false);
     }
 
     @Override

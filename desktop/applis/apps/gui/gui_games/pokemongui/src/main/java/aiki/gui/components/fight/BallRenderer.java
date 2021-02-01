@@ -12,11 +12,11 @@ import code.maths.Rate;
 import code.util.NatStringTreeMap;
 import code.util.core.StringUtil;
 
-public class BallRenderer extends CustCellRender {
+public class BallRenderer extends CustCellRender<BallNumberRate> {
 
     private static final String PERCENT = " %";
 
-    private FacadeGame facade;
+    private final FacadeGame facade;
 
     private boolean selected;
 
@@ -58,11 +58,11 @@ public class BallRenderer extends CustCellRender {
     }
 
     @Override
-    public PreparedLabel getListCellRendererComponent(GraphicListable _list, Object _value, int _index,
+    public PreparedLabel getListCellRendererComponent(GraphicList<BallNumberRate> _list, BallNumberRate _value, int _index,
                                                        boolean _isSelected, boolean _cellHasFocus) {
         PreparedLabel label_ = _list.getListComponents().get(_index);
         selected = _isSelected;
-        ball = (BallNumberRate)_value;
+        ball = _value;
         int[][] img_ = facade.getData().getMiniItems().getVal(ball.getName());
         ballImage = ConverterGraphicBufferedImage.decodeToImage(img_);
         label_.setPreferredSize(new Dimension(100, ballImage.getHeight()));

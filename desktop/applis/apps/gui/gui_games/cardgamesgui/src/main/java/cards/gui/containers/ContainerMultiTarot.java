@@ -246,7 +246,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         rulesTarotMulti.setGeneral(readCoreResource());
         rulesTarotMulti.setSpecific(readResource());
         PreparedAnalyzed stds_ = retrieve(FileConst.RESOURCES_HTML_FILES_RULES_TAROT);
-        ((TarotStandards)stds_.getBeanNatLgNames()).setDataBase(rulesTarotMulti);
+        ((TarotStandards)stds_.getBeanNatLgNames()).setDataBaseRules(rulesTarotMulti);
         editor.initialize(stds_);
 
         scroll_.setPreferredSize(new Dimension(300,400));
@@ -309,7 +309,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         rulesTarotMulti.setGeneral(readCoreResource());
         rulesTarotMulti.setSpecific(readResource());
         PreparedAnalyzed stds_ = retrieve(FileConst.RESOURCES_HTML_FILES_RULES_TAROT);
-        ((TarotStandards)stds_.getBeanNatLgNames()).setDataBase(rulesTarotMulti);
+        ((TarotStandards)stds_.getBeanNatLgNames()).setDataBaseRules(rulesTarotMulti);
         editor.initialize(stds_);
     }
     public void updateForBeginningGame(DealtHandTarot _hand) {

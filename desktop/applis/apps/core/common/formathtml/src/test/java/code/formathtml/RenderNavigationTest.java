@@ -2769,7 +2769,7 @@ public final class RenderNavigationTest extends CommonRender {
         file_.append(" $public $void validate(){");
         file_.append("  getForms().put(\"choice\",choice);");
         file_.append(" }");
-        file_.append(" $public code.util.StringMapObject getForms(){");
+        file_.append(" $public code.bean.nat.StringMapObject getForms(){");
         file_.append("  $var forms = $super.getForms();");
         file_.append("  $if (forms == $null || forms.isEmpty()){");
         file_.append("   $return forms;");
@@ -2826,7 +2826,7 @@ public final class RenderNavigationTest extends CommonRender {
         file_.append(" $public $void validate(){");
         file_.append("  getForms().put(\"choice\",choice);");
         file_.append(" }");
-        file_.append(" $public $void setForms(code.util.StringMapObject p){");
+        file_.append(" $public $void setForms(code.bean.nat.StringMapObject p){");
         file_.append("  $var forms = $super.getForms();");
         file_.append("  $if (forms == $null || forms.isEmpty()){");
         file_.append("   $super.setForms(p);");
@@ -2934,7 +2934,7 @@ public final class RenderNavigationTest extends CommonRender {
         file_.append(" $public $void validate(){");
         file_.append("  getForms().put(\"choice\",choice);");
         file_.append(" }");
-        file_.append(" $public $void setForms(code.util.StringMapObject p){");
+        file_.append(" $public $void setForms(code.bean.nat.StringMapObject p){");
         file_.append("  $if (p == $null || p.size() != 1){");
         file_.append("   $super.setForms(p);");
         file_.append("   $return;");

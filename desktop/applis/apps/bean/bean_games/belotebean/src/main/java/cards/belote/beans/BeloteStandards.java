@@ -2,8 +2,6 @@ package cards.belote.beans;
 
 import cards.belote.ResultsBelote;
 import cards.belote.RulesBelote;
-import cards.belote.enumerations.BidBelote;
-import cards.belote.enumerations.DeclaresBelote;
 import code.bean.Bean;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
@@ -18,12 +16,10 @@ import code.expressionlanguage.structs.*;
 import code.bean.BeanStruct;
 import code.bean.nat.BeanNatLgNames;
 import code.bean.nat.DefaultInitialization;
+import code.bean.nat.StringMapObject;
 import code.formathtml.structs.BeanInfo;
 import code.util.*;
 import code.util.core.StringUtil;
-import code.util.ints.SimpleEntries;
-import code.util.ints.SimpleEntry;
-import code.util.ints.SimpleIterable;
 
 public final class BeloteStandards extends BeanNatLgNames {
 
@@ -75,7 +71,8 @@ public final class BeloteStandards extends BeanNatLgNames {
     private static final String TYPE_SUM_DECLARING_PLAYER = "cards.belote.beans.SumDeclaringPlayer";
     private static final String TYPE_DETAILS_RESULTS_BELOTE_BEAN = "cards.belote.beans.DetailsResultsBeloteBean";
     private static final String TYPE_BELOTE_BEAN = "cards.belote.beans.BeloteBean";
-    private Object dataBase;
+    private ResultsBelote dataBase;
+    private RulesBelote dataBaseRules;
     public BeloteStandards() {
         DefaultInitialization.basicStandards(this);
     }
@@ -371,40 +368,6 @@ public final class BeloteStandards extends BeanNatLgNames {
         return res_;
     }
 
-    private String getOtherBeanStructClassName(Object _struct) {
-        if (_struct instanceof DeclaringPlayerValue) {
-            return TYPE_DECLARING_PLAYER_VALUE;
-        }
-        if (_struct instanceof SumDeclaringPlayer) {
-            return TYPE_SUM_DECLARING_PLAYER;
-        }
-        if (_struct instanceof LineDeal) {
-            return TYPE_LINE_DEAL;
-        }
-        if (_struct instanceof DeclaresBelote) {
-            return TYPE_DECLARES_BELOTE;
-        }
-        if (_struct instanceof BidBelote) {
-            return TYPE_BID_BELOTE;
-        }
-        if (_struct instanceof Bean) {
-            return ((Bean)_struct).getClassName();
-        }
-        if (_struct instanceof SimpleIterable) {
-            return TYPE_LIST;
-        }
-        if (_struct instanceof SimpleEntries) {
-            return TYPE_MAP;
-        }
-        if (_struct instanceof SimpleEntry) {
-            return TYPE_ENTRY;
-        }
-        if (_struct instanceof SimpleItr) {
-            return TYPE_ITERATOR;
-        }
-        return getAliasObject();
-    }
-
     @Override
     public ResultErrorStd getOtherResultBean(ContextEl _cont, Struct _instance,
             ClassMethodId _method, Struct... _args) {
@@ -476,7 +439,7 @@ public final class BeloteStandards extends BeanNatLgNames {
         Struct strBean_ = res_.getResult();
         BeanStruct str_ = (BeanStruct) strBean_;
         Bean bean_ = str_.getBean();
-        bean_.setDataBase(dataBase);
+        ((BeloteBean) bean_).setDataBase(dataBase,dataBaseRules);
         bean_.setForms(new StringMapObject());
         bean_.setLanguage(_language);
         bean_.setScope(_bean.getScope());
@@ -516,6 +479,6 @@ public final class BeloteStandards extends BeanNatLgNames {
     }
 
     public void setDataBase(RulesBelote _dataBase){
-        dataBase = _dataBase;
+        dataBaseRules = _dataBase;
     }
 }

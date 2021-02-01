@@ -31,13 +31,13 @@ public class BeanSeven extends Bean {
 
     private String selectedString = "ONE";
 
-    private CustList<Composite> composites = new CustList<Composite>();
+    private final CustList<Composite> composites = new CustList<Composite>();
 
     private String commonClass = "abba";
 
     private StringList strings = new StringList();
 
-    private Ints arrayInt;
+    private final Ints arrayInt;
 
     public BeanSeven() {
         composite.setStrings(new StringList());
@@ -68,7 +68,7 @@ public class BeanSeven extends Bean {
 
     public void validateIntsSave() {
         Ints nbs_ = new Ints();
-        for (Object i: arrayInt.toArray()) {
+        for (Object i: arrayInt.list().toArray()) {
             nbs_.add((Integer) i);
         }
         getForms().put("numbers", nbs_);

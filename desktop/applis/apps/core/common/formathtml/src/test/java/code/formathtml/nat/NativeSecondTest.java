@@ -3,6 +3,7 @@ package code.formathtml.nat;
 import code.bean.Bean;
 import code.bean.BeanStruct;
 import code.bean.nat.DefaultInitialization;
+import code.bean.nat.StringMapObject;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.DefaultFileBuilder;
@@ -318,7 +319,7 @@ public final class NativeSecondTest {
     private static void setupBeansAfter(NativeOtherAnalyzedTestConfiguration _conf) {
         cleanBeans(_conf);
         for (EntryCust<String, Struct> e: _conf.getConfiguration().getBuiltBeans().entryList()) {
-            putBean((Bean) ((BeanStruct) e.getValue()).getInstance(), _conf, e.getKey());
+            putBean(((BeanStruct) e.getValue()).getInstance(), _conf, e.getKey());
         }
     }
 

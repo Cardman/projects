@@ -2,8 +2,8 @@ package code.gui;
 
 import java.awt.image.BufferedImage;
 
-public abstract class CustCellRender {
-    public abstract PreparedLabel getListCellRendererComponent(GraphicListable _list, Object _value,
+public abstract class CustCellRender<T> {
+    public abstract PreparedLabel getListCellRendererComponent(GraphicList<T> _list, T _value,
             int _index, boolean _isSelected, boolean _cellHasFocus);
     public abstract int getHeight();
     public abstract int getWidth();

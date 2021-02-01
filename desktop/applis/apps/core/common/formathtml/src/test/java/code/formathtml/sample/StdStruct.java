@@ -1,16 +1,13 @@
 package code.formathtml.sample;
 
-import code.formathtml.nat.RealInstanceStruct;
 import code.bean.nat.CommNatStruct;
 import code.maths.LgInt;
 import code.maths.Rate;
 import code.util.*;
 import code.util.StringList;
 import code.util.ints.Displayable;
-import code.util.ints.SimpleEntries;
-import code.util.ints.SimpleIterable;
 
-public final class StdStruct extends CommNatStruct implements RealInstanceStruct {
+public final class StdStruct extends CommNatStruct {
 
     private final Object instance;
     
@@ -38,30 +35,19 @@ public final class StdStruct extends CommNatStruct implements RealInstanceStruct
         instance = _instance;
     }
 
-    public StdStruct(SimpleIterable _instance, String _className) {
-        super(_className);
-        instance = _instance;
-    }
-
-    public StdStruct(SimpleEntries _instance, String _className) {
-        super(_className);
-        instance = _instance;
-    }
-
     public static StdStruct newInstance(Object _instance, String _className) {
         return new StdStruct(_instance, _className);
     }
     public static StdStruct newListLong(Longs _instance, String _className) {
-        return new StdStruct((Object)_instance, _className);
+        return new StdStruct(_instance, _className);
     }
     public static StdStruct newListInt(Ints _instance, String _className) {
-        return new StdStruct((Object)_instance, _className);
+        return new StdStruct(_instance, _className);
     }
     public static StdStruct newListByte(Bytes _instance, String _className) {
-        return new StdStruct((Object)_instance, _className);
+        return new StdStruct(_instance, _className);
     }
 
-    @Override
     public Object getInstance() {
         return instance;
     }

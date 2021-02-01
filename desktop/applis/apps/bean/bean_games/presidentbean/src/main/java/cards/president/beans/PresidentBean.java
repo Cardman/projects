@@ -1,6 +1,7 @@
 package cards.president.beans;
 import cards.president.GamePresident;
 import cards.president.ResultsPresident;
+import cards.president.RulesPresident;
 import code.bean.Bean;
 import code.util.CustList;
 import code.util.Longs;
@@ -20,6 +21,15 @@ final class PresidentBean extends Bean {
     private String loc;
 
     private CustList<LineDeal> linesDeal;
+
+    private ResultsPresident dataBase;
+    public ResultsPresident db() {
+        return dataBase;
+    }
+
+    public void setDataBase(ResultsPresident _dataBase) {
+        dataBase = _dataBase;
+    }
 
     @Override
     public void beforeDisplaying() {
@@ -89,6 +99,6 @@ final class PresidentBean extends Bean {
     }
 
     ResultsPresident getResults() {
-        return (ResultsPresident) getDataBase();
+        return db();
     }
 }

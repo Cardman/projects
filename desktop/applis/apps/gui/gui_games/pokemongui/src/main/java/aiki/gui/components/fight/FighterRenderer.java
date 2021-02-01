@@ -12,14 +12,14 @@ import code.maths.Rate;
 import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
 
-public class FighterRenderer extends CustCellRender {
+public class FighterRenderer extends CustCellRender<Fighter> {
 
     private static final String KO = "KO";
     private static final String PER_CENT = " %";
 
-    private int sideLength;
+    private final int sideLength;
 
-    private FacadeGame facade;
+    private final FacadeGame facade;
 
     private Fighter fighter;
 
@@ -39,10 +39,10 @@ public class FighterRenderer extends CustCellRender {
     }
 
     @Override
-    public PreparedLabel getListCellRendererComponent(GraphicListable _list, Object _value, int _index,
+    public PreparedLabel getListCellRendererComponent(GraphicList<Fighter> _list, Fighter _value, int _index,
                                                       boolean _isSelected, boolean _cellHasFocus) {
         PreparedLabel label_ = _list.getListComponents().get(_index);
-        fighter = (Fighter) _value;
+        fighter = _value;
         ko = fighter.estKo();
         intRate = fighter.rateRemainHp();
         selected = _isSelected;

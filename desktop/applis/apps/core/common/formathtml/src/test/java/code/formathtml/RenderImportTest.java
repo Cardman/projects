@@ -419,7 +419,7 @@ public final class RenderImportTest extends CommonRender {
         file_.append("$public $class pkg.BeanOne:code.bean.Bean{");
         file_.append(" $public $int[] array;");
         file_.append(" {");
-        file_.append("  setForms($new code.util.StringMapObject());");
+        file_.append("  setForms($new code.bean.nat.StringMapObject());");
         file_.append(" }");
         file_.append(" $public $void beforeDisplaying(){");
         file_.append("  array={1,2};");
@@ -429,7 +429,7 @@ public final class RenderImportTest extends CommonRender {
         file_.append("$public $class pkg.BeanTwo:code.bean.Bean{");
         file_.append(" $public $int[] arrayBis;");
         file_.append(" {");
-        file_.append("  setForms($new code.util.StringMapObject());");
+        file_.append("  setForms($new code.bean.nat.StringMapObject());");
         file_.append(" }");
         file_.append(" $public $void beforeDisplaying(){");
         file_.append("  arrayBis=($int[])getForms().getVal(\"array\");");
@@ -454,7 +454,7 @@ public final class RenderImportTest extends CommonRender {
         file_.append("$public $class pkg.BeanOne:code.bean.Bean{");
         file_.append(" $public $int[] array;");
         file_.append(" {");
-        file_.append("  setForms($new code.util.StringMapObject());");
+        file_.append("  setForms($new code.bean.nat.StringMapObject());");
         file_.append(" }");
         file_.append(" $public $void beforeDisplaying(){");
         file_.append("  array={1,2};");
@@ -464,7 +464,7 @@ public final class RenderImportTest extends CommonRender {
         file_.append("$public $class pkg.BeanTwo:code.bean.Bean{");
         file_.append(" $public $int[] arrayBis;");
         file_.append(" {");
-        file_.append("  setForms($new code.util.StringMapObject());");
+        file_.append("  setForms($new code.bean.nat.StringMapObject());");
         file_.append(" }");
         file_.append(" $public $void beforeDisplaying(){");
         file_.append("  arrayBis=($int[])getForms().getVal(\"array\");");
@@ -492,7 +492,7 @@ public final class RenderImportTest extends CommonRender {
         file_.append("$public $class pkg.BeanOne:code.bean.Bean{");
         file_.append(" $public $int[] array;");
         file_.append(" {");
-        file_.append("  setForms($new code.util.StringMapObject());");
+        file_.append("  setForms($new code.bean.nat.StringMapObject());");
         file_.append(" }");
         file_.append(" $public $void beforeDisplaying(){");
         file_.append("  array={1,2};");
@@ -502,7 +502,7 @@ public final class RenderImportTest extends CommonRender {
         file_.append("$public $class pkg.BeanTwo:code.bean.Bean{");
         file_.append(" $public $int[] arrayBis;");
         file_.append(" {");
-        file_.append("  setForms($new code.util.StringMapObject());");
+        file_.append("  setForms($new code.bean.nat.StringMapObject());");
         file_.append(" }");
         file_.append(" $public $void beforeDisplaying(){");
         file_.append("  arrayBis=($int[])getForms().getVal(\"array\");");
@@ -530,7 +530,7 @@ public final class RenderImportTest extends CommonRender {
         file_.append("$public $class pkg.BeanOne:code.bean.Bean{");
         file_.append(" $public $int[] array;");
         file_.append(" {");
-        file_.append("  setForms($new code.util.StringMapObject());");
+        file_.append("  setForms($new code.bean.nat.StringMapObject());");
         file_.append(" }");
         file_.append(" $public $void beforeDisplaying(){");
         file_.append("  array={1,2};");
@@ -541,7 +541,7 @@ public final class RenderImportTest extends CommonRender {
         file_.append(" $public $int[] array;");
         file_.append(" $public $int[] arrayBis;");
         file_.append(" {");
-        file_.append("  setForms($new code.util.StringMapObject());");
+        file_.append("  setForms($new code.bean.nat.StringMapObject());");
         file_.append(" }");
         file_.append(" $public $void beforeDisplaying(){");
         file_.append("  arrayBis=($int[])getForms().getVal(\"array\");");
@@ -566,7 +566,7 @@ public final class RenderImportTest extends CommonRender {
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         StringMap<String> filesSec_ = new StringMap<String>();
         StringBuilder file_ = new StringBuilder();
-        file_.append("$public $class pkg.BadMap:code.util.StringMapObject{");
+        file_.append("$public $class pkg.BadMap:code.bean.nat.StringMapObject{");
         file_.append(" $public Object getVal(String s){");
         file_.append("  $return values()[1];");
         file_.append(" }");
@@ -585,7 +585,7 @@ public final class RenderImportTest extends CommonRender {
         file_.append(" $public $int[] array;");
         file_.append(" $public $int[] arrayBis;");
         file_.append(" {");
-        file_.append("  setForms($new code.util.StringMapObject());");
+        file_.append("  setForms($new code.bean.nat.StringMapObject());");
         file_.append(" }");
         file_.append(" $public $void beforeDisplaying(){");
         file_.append("  arrayBis=($int[])getForms().getVal(\"array\");");
@@ -613,7 +613,7 @@ public final class RenderImportTest extends CommonRender {
         file_.append("$public $class pkg.BeanOne:code.bean.Bean{");
         file_.append(" $public $int[] array;");
         file_.append(" {");
-        file_.append("  setForms($new code.util.StringMapObject());");
+        file_.append("  setForms($new code.bean.nat.StringMapObject());");
         file_.append(" }");
         file_.append(" $public $void beforeDisplaying(){");
         file_.append("  array={1,2};");
@@ -624,7 +624,7 @@ public final class RenderImportTest extends CommonRender {
         file_.append(" $public $int[] array;");
         file_.append(" $public $int[] arrayBis;");
         file_.append(" {");
-        file_.append("  setForms($new code.util.StringMapObject());");
+        file_.append("  setForms($new code.bean.nat.StringMapObject());");
         file_.append(" }");
         file_.append(" $public $void beforeDisplaying(){");
         file_.append("  arrayBis=($int[])getForms().getVal(\"array\");");
@@ -632,7 +632,7 @@ public final class RenderImportTest extends CommonRender {
         file_.append("   arrayBis=array;");
         file_.append("  }");
         file_.append(" }");
-        file_.append(" $public code.util.StringMapObject getForms(){");
+        file_.append(" $public code.bean.nat.StringMapObject getForms(){");
         file_.append("  $int i = 1/0;");
         file_.append("  $return $super.getForms();");
         file_.append(" }");
@@ -656,13 +656,13 @@ public final class RenderImportTest extends CommonRender {
         file_.append("$public $class pkg.BeanOne:code.bean.Bean{");
         file_.append(" $public $int[] array;");
         file_.append(" {");
-        file_.append("  setForms($new code.util.StringMapObject());");
+        file_.append("  setForms($new code.bean.nat.StringMapObject());");
         file_.append(" }");
         file_.append(" $public $void beforeDisplaying(){");
         file_.append("  array={1,2};");
         file_.append("  getForms().put(\"array\",$new $int[]{3,4});");
         file_.append(" }");
-        file_.append(" $public code.util.StringMapObject getForms(){");
+        file_.append(" $public code.bean.nat.StringMapObject getForms(){");
         file_.append("  $var res=$super.getForms();");
         file_.append("  $if (res.isEmpty()){");
         file_.append("   $return res;");
@@ -675,7 +675,7 @@ public final class RenderImportTest extends CommonRender {
         file_.append(" $public $int[] array;");
         file_.append(" $public $int[] arrayBis;");
         file_.append(" {");
-        file_.append("  setForms($new code.util.StringMapObject());");
+        file_.append("  setForms($new code.bean.nat.StringMapObject());");
         file_.append(" }");
         file_.append(" $public $void beforeDisplaying(){");
         file_.append("  arrayBis=($int[])getForms().getVal(\"array\");");
@@ -703,13 +703,13 @@ public final class RenderImportTest extends CommonRender {
         file_.append("$public $class pkg.BeanOne:code.bean.Bean{");
         file_.append(" $public $int[] array;");
         file_.append(" {");
-        file_.append("  setForms($new code.util.StringMapObject());");
+        file_.append("  setForms($new code.bean.nat.StringMapObject());");
         file_.append(" }");
         file_.append(" $public $void beforeDisplaying(){");
         file_.append("  array={1,2};");
         file_.append("  getForms().put(\"array\",$new $int[]{3,4});");
         file_.append(" }");
-        file_.append(" $public code.util.StringMapObject getForms(){");
+        file_.append(" $public code.bean.nat.StringMapObject getForms(){");
         file_.append("  $var res=$super.getForms();");
         file_.append("  $int i = 1/0;");
         file_.append("  $return res;");
@@ -719,7 +719,7 @@ public final class RenderImportTest extends CommonRender {
         file_.append(" $public $int[] array;");
         file_.append(" $public $int[] arrayBis;");
         file_.append(" {");
-        file_.append("  setForms($new code.util.StringMapObject());");
+        file_.append("  setForms($new code.bean.nat.StringMapObject());");
         file_.append(" }");
         file_.append(" $public $void beforeDisplaying(){");
         file_.append("  arrayBis=($int[])getForms().getVal(\"array\");");
@@ -747,7 +747,7 @@ public final class RenderImportTest extends CommonRender {
         file_.append("$public $class pkg.BeanOne:code.bean.Bean{");
         file_.append(" $public $int[] array;");
         file_.append(" {");
-        file_.append("  setForms($new code.util.StringMapObject());");
+        file_.append("  setForms($new code.bean.nat.StringMapObject());");
         file_.append(" }");
         file_.append(" $public $void beforeDisplaying(){");
         file_.append("  array={1,2};");

@@ -2,7 +2,6 @@ package cards.tarot.beans;
 
 import cards.tarot.ResultsTarot;
 import cards.tarot.RulesTarot;
-import cards.tarot.enumerations.BidTarot;
 import code.bean.Bean;
 import code.bean.nat.PairStruct;
 import code.expressionlanguage.Argument;
@@ -18,13 +17,10 @@ import code.expressionlanguage.structs.*;
 import code.bean.BeanStruct;
 import code.bean.nat.BeanNatLgNames;
 import code.bean.nat.DefaultInitialization;
+import code.bean.nat.StringMapObject;
 import code.formathtml.structs.BeanInfo;
-import code.maths.Rate;
 import code.util.*;
 import code.util.core.StringUtil;
-import code.util.ints.SimpleEntries;
-import code.util.ints.SimpleEntry;
-import code.util.ints.SimpleIterable;
 
 public final class TarotStandards extends BeanNatLgNames {
     private static final String DISCARD_AFTER_CALL = "discardAfterCall";
@@ -109,11 +105,11 @@ public final class TarotStandards extends BeanNatLgNames {
     private static final String TYPE_SCORES_PLAYERS = "cards.tarot.beans.ScoresPlayers";
     private static final String TYPE_SUM_DECLARING_PLAYER = "cards.tarot.beans.SumDeclaringPlayer";
     private static final String TYPE_DETAILS_RESULTS_TAROT_BEAN = "cards.tarot.beans.DetailsResultsTarotBean";
-    private static final String TYPE_HANDFULS = "$Handfuls";
     private static final String TYPE_BID_TAROT = "$BidTarot";
     private static final String TYPE_RATE = "$Rate";
     private static final String TYPE_TAROT_BEAN = "cards.tarot.beans.TarotBean";
-    private Object dataBase;
+    private ResultsTarot dataBase;
+    private RulesTarot dataBaseRules;
     public TarotStandards() {
         DefaultInitialization.basicStandards(this);
     }
@@ -801,7 +797,7 @@ public final class TarotStandards extends BeanNatLgNames {
         }
         return arr_;
     }
-    public ArrayStruct getStringShortTree(StringMap<Short> _map,ContextEl _cont) {
+    public static ArrayStruct getStringShortTree(StringMap<Short> _map, ContextEl _cont) {
         ArrayStruct arr_ = new ArrayStruct(_map.size(),StringExpUtil.getPrettyArrayType(_cont.getStandards().getCoreNames().getAliasObject()));
         int i_ = 0;
         for (EntryCust<String, Short> e: _map.entryList()){
@@ -811,7 +807,7 @@ public final class TarotStandards extends BeanNatLgNames {
         }
         return arr_;
     }
-    public ArrayStruct getStringIntegerTree(StringMap<Integer> _map,ContextEl _cont) {
+    public static ArrayStruct getStringIntegerTree(StringMap<Integer> _map, ContextEl _cont) {
         ArrayStruct arr_ = new ArrayStruct(_map.size(),StringExpUtil.getPrettyArrayType(_cont.getStandards().getCoreNames().getAliasObject()));
         int i_ = 0;
         for (EntryCust<String, Integer> e: _map.entryList()){
@@ -820,50 +816,6 @@ public final class TarotStandards extends BeanNatLgNames {
             i_++;
         }
         return arr_;
-    }
-    //TreeMap<Miseres,Short>
-    //StringMap<Integer>
-    private String getOtherBeanStructClassName(Object _struct) {
-        if (_struct instanceof Rate) {
-            return TYPE_RATE;
-        }
-        if (_struct instanceof ScoresPlayers) {
-            return TYPE_SCORES_PLAYERS;
-        }
-        if (_struct instanceof BonusesPlayers) {
-            return TYPE_BONUSES_PLAYERS;
-        }
-        if (_struct instanceof PointsPlayerVariantGame) {
-            return TYPE_POINTS_PLAYER_VARIANT_GAME;
-        }
-        if (_struct instanceof RankingPlayerVariantGame) {
-            return TYPE_RANKING_PLAYER_VARIANT_GAME;
-        }
-        if (_struct instanceof SumDeclaringPlayer) {
-            return TYPE_SUM_DECLARING_PLAYER;
-        }
-        if (_struct instanceof LineDeal) {
-            return TYPE_LINE_DEAL;
-        }
-        if (_struct instanceof BidTarot) {
-            return TYPE_BID_TAROT;
-        }
-        if (_struct instanceof Bean) {
-            return ((Bean)_struct).getClassName();
-        }
-        if (_struct instanceof SimpleIterable) {
-            return TYPE_LIST;
-        }
-        if (_struct instanceof SimpleEntries) {
-            return TYPE_MAP;
-        }
-        if (_struct instanceof SimpleEntry) {
-            return TYPE_ENTRY;
-        }
-        if (_struct instanceof SimpleItr) {
-            return TYPE_ITERATOR;
-        }
-        return getAliasObject();
     }
 
     public ResultErrorStd getOtherName(ContextEl _cont, Struct _instance) {
@@ -882,7 +834,7 @@ public final class TarotStandards extends BeanNatLgNames {
         Struct strBean_ = res_.getResult();
         BeanStruct str_ = (BeanStruct) strBean_;
         Bean bean_ = str_.getBean();
-        bean_.setDataBase(dataBase);
+        ((TarotBean)bean_).setDataBase(dataBase,dataBaseRules);
         bean_.setForms(new StringMapObject());
         bean_.setLanguage(_language);
         bean_.setScope(_bean.getScope());
@@ -892,7 +844,7 @@ public final class TarotStandards extends BeanNatLgNames {
         dataBase = _dataBase;
     }
 
-    public void setDataBase(RulesTarot _dataBase){
-        dataBase = _dataBase;
+    public void setDataBaseRules(RulesTarot _dataBase){
+        dataBaseRules = _dataBase;
     }
 }

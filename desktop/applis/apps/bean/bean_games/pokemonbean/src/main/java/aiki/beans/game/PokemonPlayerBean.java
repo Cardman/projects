@@ -1,4 +1,5 @@
 package aiki.beans.game;
+import aiki.beans.WithFacade;
 import aiki.beans.facade.comparators.ComparatorStatisticInfoPkPlayer;
 import aiki.beans.facade.game.dto.StatisticInfoPkPlayer;
 import aiki.comparators.ComparatorTrStrings;
@@ -21,7 +22,7 @@ import code.util.StringMap;
 import code.util.TreeMap;
 import code.util.core.StringUtil;
 
-public class PokemonPlayerBean extends Bean {
+public class PokemonPlayerBean extends Bean implements WithFacade {
     private String name;
     private String image;
     private short level;
@@ -43,9 +44,25 @@ public class PokemonPlayerBean extends Bean {
     private short nbStepsTeamLead;
     private TreeMap<String,String> evolutions;
 
+    private FacadeGame dataBase;
+
+    public FacadeGame getDataBase() {
+        return db();
+    }
+
+    @Override
+    public FacadeGame db() {
+        return dataBase;
+    }
+
+    @Override
+    public void setDataBase(FacadeGame _dataBase) {
+        dataBase = _dataBase;
+    }
+
     @Override
     public void beforeDisplaying() {
-        FacadeGame facadeGame_ = (FacadeGame) getDataBase();
+        FacadeGame facadeGame_ = getDataBase();
         DataBase data_ = facadeGame_.getData();
         StringMap<String> translatedItems_ = data_.getTranslatedItems().getVal(getLanguage());
         StringMap<String> translatedAbilities_ = data_.getTranslatedAbilities().getVal(getLanguage());
@@ -131,14 +148,14 @@ public class PokemonPlayerBean extends Bean {
     }
     public String getEvo(int _index) {
         String evo_ = evolutions.getKey(_index);
-        FacadeGame facadeGame_ = (FacadeGame) getDataBase();
+        FacadeGame facadeGame_ = getDataBase();
         DataBase data_ = facadeGame_.getData();
         StringMap<String> translatedPokemon_ = data_.getTranslatedPokemon().getVal(getLanguage());
         return translatedPokemon_.getVal(evo_);
     }
 
     Rate numberNecessaryPointsForGrowingLevel(String _name){
-        FacadeGame facadeGame_ = (FacadeGame) getDataBase();
+        FacadeGame facadeGame_ = getDataBase();
         DataBase data_ = facadeGame_.getData();
         PokemonData fPk_=data_.getPokemon(_name);
         String expLitt_=data_.getExpGrowth().getVal(fPk_.getExpEvo());

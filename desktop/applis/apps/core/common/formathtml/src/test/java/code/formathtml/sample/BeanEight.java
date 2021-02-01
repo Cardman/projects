@@ -47,8 +47,8 @@ public class BeanEight extends Bean {
 
     @Override
     public void beforeDisplaying() {
-        if (getDataBase() != null) {
-            ((SimpleDataBase)getDataBase()).setValue(8);
+        if (db() != null) {
+            ((SimpleDataBase)db()).setValue(8);
         }
     }
 
@@ -162,5 +162,9 @@ public class BeanEight extends Bean {
 
     public int getValue() {
         return value;
+    }
+
+    public Object db() {
+        return null;
     }
 }

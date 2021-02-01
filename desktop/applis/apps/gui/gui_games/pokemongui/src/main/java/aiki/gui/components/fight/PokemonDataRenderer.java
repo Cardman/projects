@@ -8,12 +8,12 @@ import aiki.facade.FacadeGame;
 import code.gui.*;
 import code.gui.images.ConverterGraphicBufferedImage;
 
-public class PokemonDataRenderer extends CustCellRender {
+public class PokemonDataRenderer extends CustCellRender<String> {
 
-    private int sideLength;
+    private final int sideLength;
     private int height;
 
-    private FacadeGame facade;
+    private final FacadeGame facade;
 
     private String noEvo;
 
@@ -34,12 +34,12 @@ public class PokemonDataRenderer extends CustCellRender {
     }
 
     @Override
-    public PreparedLabel getListCellRendererComponent(GraphicListable _list, Object _value,
+    public PreparedLabel getListCellRendererComponent(GraphicList<String> _list, String _value,
                                                        int _index,
                                                        boolean _isSelected, boolean _cellHasFocus) {
         PreparedLabel label_ = _list.getListComponents().get(_index);
         selected = _isSelected;
-        String key_ = (String) _value;
+        String key_ = _value;
         if (!key_.isEmpty()) {
             name = facade.translatePokemon(key_);
             int[][] img_ = facade.getData().getMiniPk().getVal(key_);

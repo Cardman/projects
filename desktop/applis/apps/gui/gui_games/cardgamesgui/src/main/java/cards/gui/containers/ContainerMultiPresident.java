@@ -135,7 +135,7 @@ public class ContainerMultiPresident extends ContainerPresident implements
         rulesPresidentMulti.setGeneral(readCoreResource());
         rulesPresidentMulti.setSpecific(readResource());
         PreparedAnalyzed stds_ = retrieve(FileConst.RESOURCES_HTML_FILES_RULES_PRESIDENT);
-        ((PresidentStandards)stds_.getBeanNatLgNames()).setDataBase(rulesPresidentMulti);
+        ((PresidentStandards)stds_.getBeanNatLgNames()).setDataBaseRules(rulesPresidentMulti);
         editor.initialize(stds_);
 
         scroll_.setPreferredSize(new Dimension(300,400));
@@ -213,7 +213,7 @@ public class ContainerMultiPresident extends ContainerPresident implements
     public void updateRules(RulesPresident _rules) {
         rulesPresidentMulti = _rules;
         PreparedAnalyzed stds_ = retrieve(FileConst.RESOURCES_HTML_FILES_RULES_PRESIDENT);
-        ((PresidentStandards)stds_.getBeanNatLgNames()).setDataBase(rulesPresidentMulti);
+        ((PresidentStandards)stds_.getBeanNatLgNames()).setDataBaseRules(rulesPresidentMulti);
         editor.initialize(stds_);
     }
 

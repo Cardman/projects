@@ -32,9 +32,18 @@ final class RulesPresidentBean extends Bean {
 
     private byte nbCardsPerPlayerMax;
 
+    private RulesPresident dataBase;
+    public RulesPresident db() {
+        return dataBase;
+    }
+
+    public void setDataBase(RulesPresident _dataBase) {
+        dataBase = _dataBase;
+    }
+
     @Override
     public void beforeDisplaying() {
-        RulesPresident rules_ = (RulesPresident) getDataBase();
+        RulesPresident rules_ = db();
         cartesBattues=toString(rules_.getMixedCards(), rules_.getGeneral());
         nbPlayers = rules_.getNbPlayers();
         nbStacks = rules_.getNbStacks();

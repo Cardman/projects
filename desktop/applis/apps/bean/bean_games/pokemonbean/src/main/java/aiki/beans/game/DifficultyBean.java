@@ -1,5 +1,6 @@
 package aiki.beans.game;
 import aiki.beans.PokemonStandards;
+import aiki.beans.WithFacade;
 import aiki.beans.facade.comparators.ComparatorDifficultyModelLaw;
 import aiki.beans.facade.comparators.ComparatorDifficultyWinPointsFight;
 import aiki.db.DataBase;
@@ -14,7 +15,7 @@ import code.util.EnumMap;
 import code.util.NatCmpTreeMap;
 import code.util.TreeMap;
 
-public class DifficultyBean extends Bean {
+public class DifficultyBean extends Bean implements WithFacade {
     private boolean allowCatchingKo;
     private boolean allowedSwitchPlacesEndRound;
     private String diffWinningExpPtsFight;
@@ -37,9 +38,25 @@ public class DifficultyBean extends Bean {
     private boolean randomWildFight;
     private boolean skipLearningMovesWhileNotGrowingLevel;
 
+    private FacadeGame dataBase;
+
+    public FacadeGame getDataBase() {
+        return db();
+    }
+
+    @Override
+    public FacadeGame db() {
+        return dataBase;
+    }
+
+    @Override
+    public void setDataBase(FacadeGame _dataBase) {
+        dataBase = _dataBase;
+    }
+
     @Override
     public void beforeDisplaying() {
-        FacadeGame facadeGame_ = (FacadeGame) getDataBase();
+        FacadeGame facadeGame_ = getDataBase();
         DataBase data_ = facadeGame_.getData();
         Difficulty diff_ = facadeGame_.getGame().getDifficulty();
         damageRates = new TreeMap<String, String>(new ComparatorDifficultyModelLaw());
@@ -90,7 +107,7 @@ public class DifficultyBean extends Bean {
         }
     }
     public void change() {
-        FacadeGame facadeGame_ = (FacadeGame) getDataBase();
+        FacadeGame facadeGame_ = getDataBase();
         Difficulty diff_ = facadeGame_.getGame().getDifficulty();
         diff_.setDiffWinningExpPtsFight(PokemonStandards.getDiffWonPtsByName(diffWinningExpPtsFight));
         diff_.setAllowCatchingKo(allowCatchingKo);

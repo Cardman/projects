@@ -8,11 +8,11 @@ import aiki.facade.FacadeGame;
 import code.gui.*;
 import code.maths.LgInt;
 
-public class TmRenderer extends CustCellRender {
+public class TmRenderer extends CustCellRender<String> {
 
-    private int sideLength;
+    private final int sideLength;
 
-    private FacadeGame facade;
+    private final FacadeGame facade;
 
     private boolean selected;
 
@@ -27,11 +27,11 @@ public class TmRenderer extends CustCellRender {
 
     @Override
     public PreparedLabel getListCellRendererComponent(
-            GraphicListable _list, Object _item, int _arg2,
+            GraphicList<String> _list, String _item, int _arg2,
             boolean _selected, boolean _arg4) {
         PreparedLabel label_ = _list.getListComponents().get(_arg2);
         selected = _selected;
-        name = (String) _item;
+        name = _item;
 //        short tm_ = facade.getData().getTm().getKeys(name).first();
         short tm_ = facade.getData().getTmByMove(name).first();
         price = facade.getData().getTmPrice().getVal(tm_);

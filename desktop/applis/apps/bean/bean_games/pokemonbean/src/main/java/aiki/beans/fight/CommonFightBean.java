@@ -1,4 +1,5 @@
 package aiki.beans.fight;
+import aiki.beans.WithFacade;
 import aiki.db.DataBase;
 import aiki.facade.FacadeGame;
 import aiki.game.fight.Fighter;
@@ -9,7 +10,7 @@ import code.util.*;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 
-public abstract class CommonFightBean extends Bean {
+public abstract class CommonFightBean extends Bean implements WithFacade {
 
     protected static final String FIGHTER = "fighter";
     protected static final String NO_FIGHTER = "no_fighter";
@@ -18,6 +19,22 @@ public abstract class CommonFightBean extends Bean {
 
     protected static final String MOVES_SEPARATOR = ";";
     protected static final String SPACE = " ";
+
+    private FacadeGame dataBase;
+
+    public FacadeGame getDataBase() {
+        return db();
+    }
+
+    @Override
+    public FacadeGame db() {
+        return dataBase;
+    }
+
+    @Override
+    public void setDataBase(FacadeGame _dataBase) {
+        dataBase = _dataBase;
+    }
 
     protected static String getFighterAtPosition(FacadeGame _facade, TeamPosition _teamPosition) {
         DataBase data_ = _facade.getData();

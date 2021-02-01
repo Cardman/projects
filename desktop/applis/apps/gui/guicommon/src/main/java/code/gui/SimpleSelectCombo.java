@@ -5,7 +5,7 @@ import java.awt.event.MouseEvent;
 
 public final class SimpleSelectCombo extends MouseAdapter implements IndexableListener {
 
-    private GraphicStringList grList;
+    private final GraphicStringList grList;
 
     private int index;
 
@@ -30,7 +30,7 @@ public final class SimpleSelectCombo extends MouseAdapter implements IndexableLi
         grList.setLastIndex(index);
         grList.clearAllRange();
         grList.addRange();
-        SelectionUtil.selectEvent(index, index, grList, false);
+        grList.selectEvent(index, index, false);
     }
 
     @Override

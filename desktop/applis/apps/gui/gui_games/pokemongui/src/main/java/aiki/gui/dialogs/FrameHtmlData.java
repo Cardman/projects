@@ -74,12 +74,6 @@ public final class FrameHtmlData extends ChildFrame {
         session.initializeOnlyConf(_pre, _lg);
     }
 
-    public void initSessionLg(DataBase _dataBase, PreparedRenderedPages _pre, String _lg) {
-        setVisible(true);
-        ((PokemonStandards)_pre.getBeanNatLgNames()).setDataBase(_dataBase);
-        session.initializeOnlyConf(_pre, _lg);
-    }
-
     public ProgressingWebDialog getDialog() {
         return dialog;
     }

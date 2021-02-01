@@ -15,7 +15,6 @@ import code.expressionlanguage.options.ContextFactory;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.ValidatorStandard;
 import code.expressionlanguage.stds.LgNames;
-import code.expressionlanguage.structs.IntStruct;
 import code.formathtml.*;
 import code.formathtml.analyze.blocks.AnaRendDocumentBlock;
 import code.formathtml.exec.RendStackCall;
@@ -78,7 +77,7 @@ public final class NativeTest {
         bean_.getComposite().getStrings().add("SECOND");
         bean_.getComposite().setInteger(5);
         assertTrue(hasNatErr(folder_, relative_, html_, bean_));
-        assertNull(bean_.getDataBase());
+//        assertNull(bean_.db());
     }
 
     @Test
@@ -408,7 +407,7 @@ public final class NativeTest {
         assertNull(getException(conf_));
         assertEq(1, beanTwo_.getForms().size());
         assertEq("key", beanTwo_.getForms().getKeys().first());
-        assertEq("sample_value", (String)beanTwo_.getForms().values().first());
+        assertEq("sample_value", (String)beanTwo_.getForms().getVal("key"));
     }
 
     @Test
@@ -445,7 +444,7 @@ public final class NativeTest {
         assertEq("<html><body><a href=\"\" c:command=\"go\" n-a=\"0\">Test {0}2</a>Description <a c:command=\"$bean_two.go\" href=\"\" n-a=\"1\">two</a></body></html>", render_);
         assertEq(1, beanTwo_.getForms().size());
         assertEq("key", beanTwo_.getForms().getKeys().first());
-        assertEq("sample_value", (String)beanTwo_.getForms().values().first());
+        assertEq("sample_value", (String)beanTwo_.getForms().getVal("key"));
     }
 
     @Test

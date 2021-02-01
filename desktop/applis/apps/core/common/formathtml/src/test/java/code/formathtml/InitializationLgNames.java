@@ -70,7 +70,7 @@ public final class InitializationLgNames {
         _lgNames.getBeanAliases().setAliasValidator("code.bean.Validator");
         _lgNames.getBeanAliases().setAliasValidate("validate");
         _lgNames.getBeanAliases().setAliasBean("code.bean.Bean");
-        _lgNames.getBeanAliases().setAliasStringMapObject("code.util.StringMapObject");
+        _lgNames.getBeanAliases().setAliasStringMapObject("code.bean.nat.StringMapObject");
         _lgNames.getBeanAliases().setAliasForms("forms");
         _lgNames.getBeanAliases().setAliasGetForms("getForms");
         _lgNames.getBeanAliases().setAliasSetForms("setForms");

@@ -17,7 +17,7 @@ import code.formathtml.Configuration;
 import code.bean.nat.BeanNatLgNames;
 import code.bean.nat.DefaultInitialization;
 import code.bean.BeanStruct;
-import code.formathtml.nat.RealInstanceStruct;
+import code.bean.nat.StringMapObject;
 import code.formathtml.structs.BeanInfo;
 import code.util.*;
 import code.util.core.StringUtil;
@@ -839,10 +839,10 @@ public final class CustBeanLgNames extends BeanNatLgNames {
                 res_.setResult(new IntStruct(i_.getInteger()));
                 return res_;
             }
-            if (StringUtil.quickEq(fieldName_,MAP)) {
-                res_.setResult(new StdStruct(i_.getMap(),ALIAS_LSE));
-                return res_;
-            }
+//            if (StringUtil.quickEq(fieldName_,MAP)) {
+//                res_.setResult(new StdStruct(i_.getMap(),ALIAS_LSE));
+//                return res_;
+//            }
             if (StringUtil.quickEq(fieldName_,MY_CHAR)) {
                 res_.setResult(new CharStruct(i_.getMyChar()));
                 return res_;
@@ -875,14 +875,14 @@ public final class CustBeanLgNames extends BeanNatLgNames {
                 res_.setResult(StdStruct.newInstance(i_.getChosenNumber(),TYPE_ENUM_NUMBER));
                 return res_;
             }
-            if (StringUtil.quickEq(fieldName_,CHOSEN_NUMBERS)) {
-                res_.setResult(new StdStruct(i_.getChosenNumbers(),TYPE_ENUM_NUMBERS));
-                return res_;
-            }
-            if (StringUtil.quickEq(fieldName_,COMBOBOX)) {
-                res_.setResult(new StdStruct(i_.getCombobox(),TYPE_ENUM_NUMBERS));
-                return res_;
-            }
+//            if (StringUtil.quickEq(fieldName_,CHOSEN_NUMBERS)) {
+//                res_.setResult(new StdStruct(i_.getChosenNumbers(),TYPE_ENUM_NUMBERS));
+//                return res_;
+//            }
+//            if (StringUtil.quickEq(fieldName_,COMBOBOX)) {
+//                res_.setResult(new StdStruct(i_.getCombobox(),TYPE_ENUM_NUMBERS));
+//                return res_;
+//            }
             if (StringUtil.quickEq(fieldName_,COMMON_CLASS)) {
                 res_.setResult(new StringStruct(i_.getCommonClass()));
                 return res_;
@@ -899,10 +899,10 @@ public final class CustBeanLgNames extends BeanNatLgNames {
                 res_.setResult(new StringStruct(i_.getMessage()));
                 return res_;
             }
-            if (StringUtil.quickEq(fieldName_,NUMBERS)) {
-                res_.setResult(new StdStruct(i_.getNumbers(),ALIAS_LSE));
-                return res_;
-            }
+//            if (StringUtil.quickEq(fieldName_,NUMBERS)) {
+//                res_.setResult(new StdStruct(i_.getNumbers(),ALIAS_LSE));
+//                return res_;
+//            }
             if (StringUtil.quickEq(fieldName_,SELECTED_STRING)) {
                 if (i_.getSelectedString() == null) {
                     res_.setResult(NullStruct.NULL_VALUE);
@@ -911,10 +911,10 @@ public final class CustBeanLgNames extends BeanNatLgNames {
                 res_.setResult(new StringStruct(i_.getSelectedString()));
                 return res_;
             }
-            if (StringUtil.quickEq(fieldName_,TRANSLATIONS)) {
-                res_.setResult(new StdStruct(i_.getTranslations(),ALIAS_LSE));
-                return res_;
-            }
+//            if (StringUtil.quickEq(fieldName_,TRANSLATIONS)) {
+//                res_.setResult(new StdStruct(i_.getTranslations(),ALIAS_LSE));
+//                return res_;
+//            }
             if (StringUtil.quickEq(fieldName_,TREE)) {
                 if (i_.getTree() == null) {
                     res_.setResult(NullStruct.NULL_VALUE);
@@ -1016,15 +1016,15 @@ public final class CustBeanLgNames extends BeanNatLgNames {
         }
         if (StringUtil.quickEq(className_,TYPE_BEAN_FIVE)) {
             BeanFive i_ = (BeanFive)instance_;
-            if (StringUtil.quickEq(fieldName_,CHOSEN_NUMBERS)) {
-                EnumNumbers nbs_ = i_.getChosenNumbers();
-                if (nbs_ == null) {
-                    res_.setResult(NullStruct.NULL_VALUE);
-                    return res_;
-                }
-                res_.setResult(new StdStruct(nbs_,TYPE_ENUM_NUMBERS));
-                return res_;
-            }
+//            if (StringUtil.quickEq(fieldName_,CHOSEN_NUMBERS)) {
+//                EnumNumbers nbs_ = i_.getChosenNumbers();
+//                if (nbs_ == null) {
+//                    res_.setResult(NullStruct.NULL_VALUE);
+//                    return res_;
+//                }
+//                res_.setResult(new StdStruct(nbs_,TYPE_ENUM_NUMBERS));
+//                return res_;
+//            }
             if (StringUtil.quickEq(fieldName_,CHOSEN_NUMBERS_NULL)) {
                 StringList nbs_ = i_.getChosenNumbersNull();
                 if (nbs_ == null) {
@@ -1034,27 +1034,27 @@ public final class CustBeanLgNames extends BeanNatLgNames {
                 res_.setResult(new StdStruct(nbs_,TYPE_STRING_LIST));
                 return res_;
             }
-            if (StringUtil.quickEq(fieldName_,COMBOBOX)) {
-                EnumNumbers nbs_ = i_.getCombobox();
-                if (nbs_ == null) {
-                    res_.setResult(NullStruct.NULL_VALUE);
-                    return res_;
-                }
-                res_.setResult(new StdStruct(nbs_,TYPE_ENUM_NUMBERS));
-                return res_;
-            }
+//            if (StringUtil.quickEq(fieldName_,COMBOBOX)) {
+//                EnumNumbers nbs_ = i_.getCombobox();
+//                if (nbs_ == null) {
+//                    res_.setResult(NullStruct.NULL_VALUE);
+//                    return res_;
+//                }
+//                res_.setResult(new StdStruct(nbs_,TYPE_ENUM_NUMBERS));
+//                return res_;
+//            }
             if (StringUtil.quickEq(fieldName_,SELECTED_STRINGS)) {
                 res_.setResult(new StdStruct(i_.getSelectedStrings(),TYPE_STRING_LIST));
                 return res_;
             }
-            if (StringUtil.quickEq(fieldName_,TRANSLATIONS)) {
-                res_.setResult(new StdStruct(i_.getTranslations(),ALIAS_LSE));
-                return res_;
-            }
-            if (StringUtil.quickEq(fieldName_,TREE)) {
-                res_.setResult(new StdStruct(i_.getTree(),ALIAS_LSE));
-                return res_;
-            }
+//            if (StringUtil.quickEq(fieldName_,TRANSLATIONS)) {
+//                res_.setResult(new StdStruct(i_.getTranslations(),ALIAS_LSE));
+//                return res_;
+//            }
+//            if (StringUtil.quickEq(fieldName_,TREE)) {
+//                res_.setResult(new StdStruct(i_.getTree(),ALIAS_LSE));
+//                return res_;
+//            }
         }
         if (StringUtil.quickEq(className_,TYPE_BEAN_SIX)) {
             BeanSix i_ = (BeanSix)instance_;
@@ -1369,10 +1369,10 @@ public final class CustBeanLgNames extends BeanNatLgNames {
                 res_.setResult(StdStruct.newInstance(i_.getDefaultChoice(),TYPE_ENUM_NUMBER));
                 return res_;
             }
-            if (StringUtil.quickEq(methodName_,GET_COMPOSITES)) {
-                res_.setResult(new StdStruct(i_.getComposites(),ALIAS_LS));
-                return res_;
-            }
+//            if (StringUtil.quickEq(methodName_,GET_COMPOSITES)) {
+//                res_.setResult(new StdStruct(i_.getComposites(),ALIAS_LS));
+//                return res_;
+//            }
             if (StringUtil.quickEq(methodName_,GET_SPAN_CLASS)) {
                 res_.setResult(new StringStruct(i_.getSpanClass(NumParsers.convertToNumber(_args[0]).longStruct())));
                 return res_;
@@ -1412,10 +1412,10 @@ public final class CustBeanLgNames extends BeanNatLgNames {
                     return res_;
                 }
             }
-            if (StringUtil.quickEq(methodName_,GET_CHOSEN_NUMBERS)) {
-                res_.setResult(new StdStruct(i_.getChosenNumbers(),ALIAS_LS));
-                return res_;
-            }
+//            if (StringUtil.quickEq(methodName_,GET_CHOSEN_NUMBERS)) {
+//                res_.setResult(new StdStruct(i_.getChosenNumbers(),ALIAS_LS));
+//                return res_;
+//            }
             if (StringUtil.quickEq(methodName_,GO_TEXT_AREA)) {
                 res_.setResult(new StringStruct(i_.goTextArea()));
                 return res_;
@@ -1458,17 +1458,17 @@ public final class CustBeanLgNames extends BeanNatLgNames {
                 res_.setResult(new StringStruct(i_.go()));
                 return res_;
             }
-            if (StringUtil.quickEq(methodName_,GET_DEFAULT_CHOICES)) {
-                res_.setResult(new StdStruct(i_.getDefaultChoices(),ALIAS_LS));
-                return res_;
-            }
+//            if (StringUtil.quickEq(methodName_,GET_DEFAULT_CHOICES)) {
+//                res_.setResult(new StdStruct(i_.getDefaultChoices(),ALIAS_LS));
+//                return res_;
+//            }
         }
         if (StringUtil.quickEq(className_,TYPE_BEAN_SEVEN)) {
             BeanSeven i_ = (BeanSeven)instance_;
-            if (StringUtil.quickEq(methodName_,GET_TREE)) {
-                res_.setResult(new StdStruct(i_.getTree(),TYPE_NAT_TREE_MAP_STRING_INTEGER));
-                return res_;
-            }
+//            if (StringUtil.quickEq(methodName_,GET_TREE)) {
+//                res_.setResult(new StdStruct(i_.getTree(),TYPE_NAT_TREE_MAP_STRING_INTEGER));
+//                return res_;
+//            }
             if (StringUtil.quickEq(methodName_,GET_STRINGS)) {
                 res_.setResult(new StdStruct(i_.getStrings(),TYPE_STRING_LIST));
                 return res_;
@@ -1503,7 +1503,7 @@ public final class CustBeanLgNames extends BeanNatLgNames {
         if (StringUtil.quickEq(className_,TYPE_BEAN_EIGHT)) {
             BeanEight i_ = (BeanEight)instance_;
             if (StringUtil.quickEq(methodName_,GET_DATA_BASE)) {
-                res_.setResult(StdStruct.newInstance(i_.getDataBase(),TYPE_SIMPLE_DATA_BASE));
+                res_.setResult(StdStruct.newInstance(i_.db(),TYPE_SIMPLE_DATA_BASE));
                 return res_;
             }
             if (StringUtil.quickEq(methodName_,IS_CHECK_BOX)) {
@@ -1518,22 +1518,22 @@ public final class CustBeanLgNames extends BeanNatLgNames {
                 res_.setResult(StdStruct.newInstance(i_.getComboNumberTwo(),TYPE_ENUM_NUMBER));
                 return res_;
             }
-            if (StringUtil.quickEq(methodName_,GET_COMBO_NUMBERS)) {
-                res_.setResult(new StdStruct(i_.getComboNumbers(),TYPE_ENUM_NUMBERS));
-                return res_;
-            }
-            if (StringUtil.quickEq(methodName_,GET_COMBOBOX)) {
-                res_.setResult(new StdStruct(i_.getCombobox(),ALIAS_LS));
-                return res_;
-            }
-            if (StringUtil.quickEq(methodName_,GET_COMPOSITES)) {
-                res_.setResult(new StdStruct(i_.getComposites(),ALIAS_LS));
-                return res_;
-            }
-            if (StringUtil.quickEq(methodName_,GET_COMBOBOX_MAP)) {
-                res_.setResult(new StdStruct(i_.getComboboxMap(),ALIAS_LSE));
-                return res_;
-            }
+//            if (StringUtil.quickEq(methodName_,GET_COMBO_NUMBERS)) {
+//                res_.setResult(new StdStruct(i_.getComboNumbers(),TYPE_ENUM_NUMBERS));
+//                return res_;
+//            }
+//            if (StringUtil.quickEq(methodName_,GET_COMBOBOX)) {
+//                res_.setResult(new StdStruct(i_.getCombobox(),ALIAS_LS));
+//                return res_;
+//            }
+//            if (StringUtil.quickEq(methodName_,GET_COMPOSITES)) {
+//                res_.setResult(new StdStruct(i_.getComposites(),ALIAS_LS));
+//                return res_;
+//            }
+//            if (StringUtil.quickEq(methodName_,GET_COMBOBOX_MAP)) {
+//                res_.setResult(new StdStruct(i_.getComboboxMap(),ALIAS_LSE));
+//                return res_;
+//            }
             if (StringUtil.quickEq(methodName_,GET_TYPED_STRING)) {
                 res_.setResult(new StringStruct(i_.getTypedString()));
                 return res_;
@@ -1785,20 +1785,20 @@ public final class CustBeanLgNames extends BeanNatLgNames {
                 return res_;
             }
         }
-        if (StringUtil.quickEq(className_,TYPE_GENE_OBJS)) {
-            if (_method.getParametersTypes().isEmpty()) {
-                res_.setResult(new StdStruct(new GeneObjs(),TYPE_GENE_OBJS));
-                return res_;
-            }
-            if (StringUtil.quickEq(_method.getParametersTypes().first(), getAliasObject())) {
-                if (_args[0] instanceof Object) {
-                    res_.setResult(new StdStruct(new GeneObjs((Object[])(Object)_args[0]),TYPE_GENE_OBJS));
-                    return res_;
-                }
-                res_.setResult(new StdStruct(new GeneObjs(_args[0]),TYPE_GENE_OBJS));
-                return res_;
-            }
-        }
+//        if (StringUtil.quickEq(className_,TYPE_GENE_OBJS)) {
+//            if (_method.getParametersTypes().isEmpty()) {
+//                res_.setResult(new StdStruct(new GeneObjs(),TYPE_GENE_OBJS));
+//                return res_;
+//            }
+//            if (StringUtil.quickEq(_method.getParametersTypes().first(), getAliasObject())) {
+//                if (_args[0] instanceof Object) {
+//                    res_.setResult(new StdStruct(new GeneObjs((Object[])(Object)_args[0]),TYPE_GENE_OBJS));
+//                    return res_;
+//                }
+//                res_.setResult(new StdStruct(new GeneObjs(_args[0]),TYPE_GENE_OBJS));
+//                return res_;
+//            }
+//        }
         if (StringUtil.quickEq(className_,TYPE_STRING_LIST)) {
             res_.setResult(new StdStruct(new StringList(),TYPE_STRING_LIST));
             return res_;
@@ -1835,18 +1835,18 @@ public final class CustBeanLgNames extends BeanNatLgNames {
             res_.setResult(new BeanStruct(new BeanEight()));
             return res_;
         }
-        if (StringUtil.quickEq(className_,TYPE_ENUM_NUMBERS)) {
-            res_.setResult(new StdStruct(new EnumNumbers(),TYPE_ENUM_NUMBERS));
-            return res_;
-        }
+//        if (StringUtil.quickEq(className_,TYPE_ENUM_NUMBERS)) {
+//            res_.setResult(new StdStruct(new EnumNumbers(),TYPE_ENUM_NUMBERS));
+//            return res_;
+//        }
         if (StringUtil.quickEq(className_,TYPE_ENCAPS_FIELDS)) {
             res_.setResult(StdStruct.newInstance(new EncapsFields(),TYPE_ENCAPS_FIELDS));
             return res_;
         }
-        if (StringUtil.quickEq(className_,TYPE_GENE_OBJECTS)) {
-            res_.setResult(new StdStruct(new GeneObjects(),TYPE_GENE_OBJECTS));
-            return res_;
-        }
+//        if (StringUtil.quickEq(className_,TYPE_GENE_OBJECTS)) {
+//            res_.setResult(new StdStruct(new GeneObjects(),TYPE_GENE_OBJECTS));
+//            return res_;
+//        }
         if (StringUtil.quickEq(className_,TYPE_PICKABLE_LIST)) {
             res_.setResult(StdStruct.newInstance(new PickableList(),TYPE_PICKABLE_LIST));
             return res_;
@@ -1855,10 +1855,10 @@ public final class CustBeanLgNames extends BeanNatLgNames {
             res_.setResult(StdStruct.newInstance(new SimpleDataBase(),TYPE_SIMPLE_DATA_BASE));
             return res_;
         }
-        if (StringUtil.quickEq(className_,TYPE_NAT_TREE_MAP_STRING_INTEGER)) {
-            res_.setResult(new StdStruct(new NatTreeMapStringInteger(),TYPE_NAT_TREE_MAP_STRING_INTEGER));
-            return res_;
-        }
+//        if (StringUtil.quickEq(className_,TYPE_NAT_TREE_MAP_STRING_INTEGER)) {
+//            res_.setResult(new StdStruct(new NatTreeMapStringInteger(),TYPE_NAT_TREE_MAP_STRING_INTEGER));
+//            return res_;
+//        }
         return res_;
     }
 
@@ -1965,29 +1965,32 @@ public final class CustBeanLgNames extends BeanNatLgNames {
             }
             return res_;
         }
-        if (StringUtil.quickEq(_className, TYPE_ENUM_NUMBERS)) {
-            EnumNumbers list_ = new EnumNumbers();
-            for (String s: _values) {
-                list_.add(EnumNumber.getByName(s));
-            }
-            res_.setResult(new StdStruct(list_, _className));
-            return res_;
-        }
+//        if (StringUtil.quickEq(_className, TYPE_ENUM_NUMBERS)) {
+//            EnumNumbers list_ = new EnumNumbers();
+//            for (String s: _values) {
+//                list_.add(EnumNumber.getByName(s));
+//            }
+//            res_.setResult(new StdStruct(list_, _className));
+//            return res_;
+//        }
         return super.getStructToBeValidated(_values,_className,_context, _ctx, _stack);
     }
     @Override
     public ResultErrorStd getOtherName(ContextEl _cont, Struct _instance) {
         ResultErrorStd res_ = new ResultErrorStd();
-        if (!(_instance instanceof RealInstanceStruct)) {
-            Struct arg_ = Argument.getNull(_instance);
-            res_.setResult(arg_);
-            return res_;
-        }
-//        if (((BeanStruct)_instance).getInstance() instanceof EnumNumber) {
-//            res_.setResult(new StringStruct(((EnumNumber)((BeanStruct)_instance).getInstance()).name()));
+        Struct arg_ = Argument.getNull(_instance);
+        res_.setResult(arg_);
+        return res_;
+//        if (!(_instance instanceof RealInstanceStruct)) {
+//            Struct arg_ = Argument.getNull(_instance);
+//            res_.setResult(arg_);
 //            return res_;
 //        }
-        return res_;
+////        if (((BeanStruct)_instance).getInstance() instanceof EnumNumber) {
+////            res_.setResult(new StringStruct(((EnumNumber)((BeanStruct)_instance).getInstance()).name()));
+////            return res_;
+////        }
+//        return res_;
     }
     protected Struct newSimpleBean(String _language, BeanInfo _bean, ContextEl _ctx, StackCall _stackCall) {
         ConstructorId id_ = new ConstructorId(_bean.getResolvedClassName(), new StringList(), false);
@@ -1995,7 +1998,7 @@ public final class CustBeanLgNames extends BeanNatLgNames {
         Struct strBean_ = res_.getResult();
         BeanStruct str_ = (BeanStruct) strBean_;
         Bean bean_ = str_.getBean();
-        bean_.setDataBase(dataBase);
+//        bean_.setDataBase(dataBase);
         bean_.setForms(new StringMapObject());
         bean_.setLanguage(_language);
         bean_.setScope(_bean.getScope());

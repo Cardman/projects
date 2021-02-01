@@ -1011,7 +1011,7 @@ public final class MainWindow extends NetGroupFrame {
         session_.setProcess(videoLoading.getVideo(getGenerator()));
         FrameHtmlData dialog_ = new FrameHtmlData(this, messages.getVal(TITLE_WEB), session_);
 //        dialog_.initSession(facade.getData().getWebFiles(), successfulCompile, Resources.CONFIG_DATA, Resources.ACCESS_TO_DEFAULT_DATA);
-        dialog_.initSessionLg(facade.getData(),preparedDataWebTask,facade.getLanguage());
+        dialog_.initSessionLg(facade,preparedDataWebTask,facade.getLanguage());
         htmlDialogs.add(dialog_);
     }
 
@@ -1031,7 +1031,7 @@ public final class MainWindow extends NetGroupFrame {
 //        htmlDialogs.first().getSession().setFiles(Resources.ACCESS_TO_DEFAULT_FILES);
 //        htmlDialogs.first().getSession().setDataBase(facade.getData());
 //        htmlDialogs.first().getSession().initializeOnlyConf(Resources.ACCESS_TO_DEFAULT_DATA, new PokemonStandards());
-        htmlDialogs.first().initSessionLg(facade.getData(),preparedDataWebTask,facade.getLanguage());
+        htmlDialogs.first().initSessionLg(facade,preparedDataWebTask,facade.getLanguage());
         htmlDialogs.first().pack();
     }
 

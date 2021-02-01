@@ -27,7 +27,7 @@ public final class RulesTarotBean extends TarotBean {
 
     @Override
     public void beforeDisplaying() {
-        RulesTarot rules_ = (RulesTarot) getDataBase();
+        RulesTarot rules_ = db();
         String lg_ = getLanguage();
         cartesBattues=toString(rules_.getCartesBattues(), rules_.getGeneral());
         miseres=new StringList();

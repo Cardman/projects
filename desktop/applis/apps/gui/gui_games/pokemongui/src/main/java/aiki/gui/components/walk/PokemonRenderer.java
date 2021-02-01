@@ -14,15 +14,15 @@ import code.maths.Rate;
 import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
 
-public class PokemonRenderer extends CustCellRender {
+public class PokemonRenderer extends CustCellRender<UsablePokemon> {
 
     private static final String PER_CENT = " %";
 
     private static final String KO = "KO";
 
-    private int sideLength;
+    private final int sideLength;
 
-    private FacadeGame facade;
+    private final FacadeGame facade;
 
     private int coords;
 
@@ -44,7 +44,7 @@ public class PokemonRenderer extends CustCellRender {
 
     private boolean oldSelected;
 
-    private boolean single;
+    private final boolean single;
 
     private LgInt intRate;
 
@@ -64,10 +64,10 @@ public class PokemonRenderer extends CustCellRender {
 
     @Override
     public PreparedLabel getListCellRendererComponent(
-            GraphicListable _list, Object _arg1,
+            GraphicList<UsablePokemon> _list, UsablePokemon _arg1,
             int _index, boolean _selected, boolean _arg4) {
         PreparedLabel label_ = _list.getListComponents().get(_index);
-        pokemon = (UsablePokemon) _arg1;
+        pokemon = _arg1;
         selected = _selected;
         if (pokemon instanceof PokemonPlayer) {
             PokemonPlayer pk_ = (PokemonPlayer) pokemon;

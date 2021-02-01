@@ -4,6 +4,7 @@ import cards.consts.MixCardsChoice;
 import cards.consts.Status;
 import cards.tarot.GameTarot;
 import cards.tarot.ResultsTarot;
+import cards.tarot.RulesTarot;
 import cards.tarot.enumerations.*;
 import code.bean.Bean;
 import code.format.Format;
@@ -11,7 +12,6 @@ import code.util.*;
 import code.util.StringList;
 
 abstract class TarotBean extends Bean {
-
     private BidTarot bid;
 
     private GameTarot game;
@@ -23,6 +23,17 @@ abstract class TarotBean extends Bean {
     private int user;
 
     private String loc;
+
+    private ResultsTarot dataBase;
+    private RulesTarot dataBaseRules;
+    public RulesTarot db() {
+        return dataBaseRules;
+    }
+
+    public void setDataBase(ResultsTarot _dataBase, RulesTarot _dataBaseRules) {
+        dataBase = _dataBase;
+        dataBaseRules = _dataBaseRules;
+    }
     protected static String toString(ModeTarot _b, String _file){
         return Format.getConstanteLangue(_file, TarotResoucesAccess.TAROT_MODE, _b.name());
     }
@@ -100,7 +111,7 @@ abstract class TarotBean extends Bean {
     }
 
     protected final ResultsTarot getResults() {
-        return (ResultsTarot)getDataBase();
+        return dataBase;
     }
 
     protected final BidTarot getBid() {

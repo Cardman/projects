@@ -7,11 +7,11 @@ import aiki.facade.FacadeGame;
 import code.gui.*;
 import code.gui.images.ConverterGraphicBufferedImage;
 
-public class ItemRenderer extends CustCellRender {
+public class ItemRenderer extends CustCellRender<String> {
 
-    private int sideLength;
+    private final int sideLength;
 
-    private FacadeGame facade;
+    private final FacadeGame facade;
 
     private boolean selected;
 
@@ -32,11 +32,11 @@ public class ItemRenderer extends CustCellRender {
 
     @Override
     public PreparedLabel getListCellRendererComponent(
-            GraphicListable _list, Object _item, int _arg2,
+            GraphicList<String> _list, String _item, int _arg2,
             boolean _selected, boolean _arg4) {
         PreparedLabel label_ = _list.getListComponents().get(_arg2);
         selected = _selected;
-        name = (String) _item;
+        name = _item;
         displayName = facade.translateItem(name);
         price = facade.getData().getItem(name).getPrice();
         int[][] img_ = facade.getData().getMiniItems().getVal(name);

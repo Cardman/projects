@@ -1,9 +1,7 @@
 package code.bean;
-import code.util.StringMapObject;
+import code.bean.nat.StringMapObject;
 
 public abstract class Bean {
-
-    private Object dataBase;
 
     private StringMapObject forms;
 
@@ -14,14 +12,6 @@ public abstract class Bean {
     private String language;
 
     public abstract void beforeDisplaying();
-
-    public Object getDataBase() {
-        return dataBase;
-    }
-
-    public void setDataBase(Object _dataBase) {
-        dataBase = _dataBase;
-    }
 
     public StringMapObject getForms() {
         return forms;
