@@ -3,6 +3,7 @@ package code.expressionlanguage.stds;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.NumParsers;
+import code.expressionlanguage.common.StringDataUtil;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
@@ -167,10 +168,10 @@ public final class AliasCharSequence {
             return;
         }
         if (StringUtil.quickEq(name_, lgNames_.getContent().getCharSeq().getAliasToLowerCase())) {
-            _res.setResult(new StringStruct(StringExpUtil.toLowerCase(one_)));
+            _res.setResult(new StringStruct(StringDataUtil.toLowerCase(one_)));
             return;
         }
-        _res.setResult(new StringStruct(StringExpUtil.toUpperCase(one_)));
+        _res.setResult(new StringStruct(StringDataUtil.toUpperCase(one_)));
     }
 
     private static void compareToString(StringStruct _str, Struct _anotherString, ResultErrorStd _res, ContextEl _context, StackCall _stackCall) {

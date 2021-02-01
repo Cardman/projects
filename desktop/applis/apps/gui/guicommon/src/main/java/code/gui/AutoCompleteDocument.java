@@ -47,6 +47,7 @@ public final class AutoCompleteDocument implements FocusListener, DocumentListen
         if (results.isEmpty()) {
             return;
         }
+        int height_ = textField.getHeight();
         CustComponent par_ = textField;
         int x_ = changeableTitle.getLocationOnScreen().x;
         int y_ = changeableTitle.getLocationOnScreen().y+30;
@@ -55,7 +56,7 @@ public final class AutoCompleteDocument implements FocusListener, DocumentListen
             y_ += par_.getYcoords();
             par_ = par_.getParent();
         }
-        popup.show(x_, y_ + textField.getHeight());
+        popup.show(x_, y_ + height_);
     }
 
     @Override
@@ -89,7 +90,7 @@ public final class AutoCompleteDocument implements FocusListener, DocumentListen
         int keyCode_ = _e.getKeyCode();
         if (keyCode_ == KeyEvent.VK_UP) {
             int index_ = list.getSelectedIndex();
-            if (index_ != -1 && index_ > 0) {
+            if (index_ > 0) {
                 list.clearAllRange();
                 list.setSelectedIndice(index_ - 1);
             }

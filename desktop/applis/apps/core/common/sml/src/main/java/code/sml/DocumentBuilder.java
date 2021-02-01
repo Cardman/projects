@@ -1310,7 +1310,7 @@ public final class DocumentBuilder {
         StringBuilder tagName_ = new StringBuilder();
         StringList stack_ = new StringList();
 //        StringBuilder currentText_ = new StringBuilder();
-        Element currentElement_ = null;
+        Element currentElement_ = doc_.createElement(tagName_.toString());
         boolean finished_ = false;
 //        StringBuilder currentComment_ = new StringBuilder();
         StringBuilder attributeValue_ = new StringBuilder();
@@ -1496,8 +1496,7 @@ public final class DocumentBuilder {
                 if (!ok_) {
                     break;
                 }
-                char del_ = input_.charAt(i_);
-                delimiterAttr_ = del_;
+                delimiterAttr_ = input_.charAt(i_);
                 state_ = ReadingState.ATTR_VALUE;
                 i_++;
                 continue;
@@ -1630,9 +1629,9 @@ public final class DocumentBuilder {
             if (input_.charAt(i_) == GT_CHAR) {
                 //end tag
                 stack_.removeQuicklyLast();
-                Node parent_ = currentElement_.getParentNode();
-                if (parent_ instanceof Element) {
-                    currentElement_ = (Element) parent_;
+                Element parent_ = currentElement_.getParentNode();
+                if (parent_ != null) {
+                    currentElement_ = parent_;
                 }
                 if (stack_.isEmpty()) {
                     finished_ = true;
@@ -1715,7 +1714,7 @@ public final class DocumentBuilder {
         StringBuilder tagName_ = new StringBuilder();
         StringList stack_ = new StringList();
         StringBuilder currentText_ = new StringBuilder();
-        Element currentElement_ = null;
+        Element currentElement_ = doc_.createElement(tagName_.toString());
         boolean finished_ = false;
 //        StringBuilder currentComment_ = new StringBuilder();
         StringBuilder attributeValue_ = new StringBuilder();
@@ -1901,8 +1900,7 @@ public final class DocumentBuilder {
                 if (!ok_) {
                     break;
                 }
-                char del_ = input_.charAt(i_);
-                delimiterAttr_ = del_;
+                delimiterAttr_ = input_.charAt(i_);
                 state_ = ReadingState.ATTR_VALUE;
                 i_++;
                 continue;
@@ -2035,9 +2033,9 @@ public final class DocumentBuilder {
             if (input_.charAt(i_) == GT_CHAR) {
                 //end tag
                 stack_.removeQuicklyLast();
-                Node parent_ = currentElement_.getParentNode();
-                if (parent_ instanceof Element) {
-                    currentElement_ = (Element) parent_;
+                Element parent_ = currentElement_.getParentNode();
+                if (parent_ != null) {
+                    currentElement_ = parent_;
                 }
                 if (stack_.isEmpty()) {
                     finished_ = true;
@@ -2107,10 +2105,7 @@ public final class DocumentBuilder {
         int index_ = IndexConstants.FIRST_INDEX;
         int indentation_ = IndexConstants.SIZE_EMPTY;
         StringBuilder indented_ = new StringBuilder();
-        while (true) {
-            if (index_ >= _xml.length()) {
-                break;
-            }
+        while (index_ < _xml.length()) {
             int i_ = index_;
             boolean change_ = true;
             if (_xml.charAt(i_) != LT) {
@@ -2154,10 +2149,7 @@ public final class DocumentBuilder {
         int index_ = IndexConstants.FIRST_INDEX;
         int indentation_ = IndexConstants.SIZE_EMPTY;
         StringBuilder indented_ = new StringBuilder();
-        while (true) {
-            if (index_ >= _xml.length()) {
-                break;
-            }
+        while (index_ < _xml.length()) {
             int i_ = index_;
             while (_xml.charAt(i_) != GT) {
                 i_++;
@@ -2193,8 +2185,7 @@ public final class DocumentBuilder {
 
     public static DocumentResult parseSaxNotNullRowCol(String _xml) {
         DocumentBuilder builder_ = newXmlDocumentBuilder();
-        DocumentResult result_ = builder_.parse(_xml);
-        return result_;
+        return builder_.parse(_xml);
     }
     
     public static Document parseSax(String _xml) {
@@ -2628,10 +2619,7 @@ public final class DocumentBuilder {
         int count_ = 0;
         int nb_ = nbSameNamedNodes_ + 1;
         boolean inside_ = false;
-        while (true) {
-            if (count_ >= nb_) {
-                break;
-            }
+        while (count_ < nb_) {
             char cur_ = _xml.charAt(i_);
             if (cur_ == GT) {
                 inside_ = true;
@@ -2647,7 +2635,7 @@ public final class DocumentBuilder {
                     if (curCharArg_ != ENCODED) {
                         formatted_.append(curCharArg_);
                     } else {
-                        if (arg_.charAt(j_+1) == NUMBERED_CHAR) {
+                        if (arg_.charAt(j_ + 1) == NUMBERED_CHAR) {
                             j_++;
                             j_++;
                             StringBuilder nbArg_ = new StringBuilder();
@@ -2658,7 +2646,7 @@ public final class DocumentBuilder {
                                 charArg_ = arg_.charAt(j_);
                             }
                             int intArg_ = NumberUtil.parseInt(nbArg_.toString());
-                            formatted_.append((char)intArg_);
+                            formatted_.append((char) intArg_);
                             j_++;
                             continue;
                         }
@@ -2672,7 +2660,7 @@ public final class DocumentBuilder {
                         String convered_ = DocumentBuilder.encodeHtml(strArg_.append(END_ESCAPED).toString());
                         convered_ = convered_.substring(IndexConstants.SECOND_INDEX + 1, convered_.length() - 1);
                         int intArg_ = NumberUtil.parseInt(convered_);
-                        formatted_.append((char)intArg_);
+                        formatted_.append((char) intArg_);
                         j_++;
                         continue;
                     }

@@ -1,6 +1,6 @@
 package code.expressionlanguage.filenames;
 
-import code.expressionlanguage.common.StringExpUtil;
+import code.expressionlanguage.common.StringDataUtil;
 import code.util.StringList;
 import code.util.core.StringUtil;
 
@@ -30,7 +30,7 @@ public final class DefaultNameValidating implements AbstractNameValidating {
         boolean contained_ = false;
         boolean endedById_ = false;
         for (char c : _input.toCharArray()) {
-            if (StringExpUtil.isLetterOrDigit(c) || c == '_' || c == '-') {
+            if (StringDataUtil.isLetterOrDigit(c) || c == '_' || c == '-') {
                 contained_ = true;
                 containedPrint_ = true;
                 endedById_ = true;

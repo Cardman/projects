@@ -725,7 +725,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
                     }
                 }
                 Struct ind_ = arguments_.get(lastIndex_).getStruct();
-                ExecTemplates.setElement(arr_,ind_, _right.getStruct(),_conf, _stackCall);
+                ExecTemplates.setElement(arr_,ind_, Argument.getNullableValue(_right).getStruct(),_conf, _stackCall);
                 if (_conf.callsOrException(_stackCall)) {
                     return new Argument();
                 }

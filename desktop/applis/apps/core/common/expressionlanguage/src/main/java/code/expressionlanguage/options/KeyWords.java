@@ -1,6 +1,7 @@
 package code.expressionlanguage.options;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.common.StringDataUtil;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.analyze.errors.AnalysisMessages;
 import code.expressionlanguage.analyze.errors.stds.ErrorCat;
@@ -337,7 +338,7 @@ public final class KeyWords {
                     _page.addStdError(err_);
                 }
             }
-            if (!StringExpUtil.isLetter(keyWordValue_.charAt(0))) {
+            if (!StringDataUtil.isLetter(keyWordValue_.charAt(0))) {
                 StdWordError err_ = new StdWordError();
                 err_.setMessage(StringUtil.simpleStringsFormat(a_.getDigitFirst(),keyWordValue_,Character.toString(keyWordValue_.charAt(0))));
                 err_.setErrCat(ErrorCat.WRITE_NB_WORD);
@@ -411,7 +412,7 @@ public final class KeyWords {
             }
         }
         char firstChar_ = keyWordNbHexEnd.charAt(0);
-        if (!StringExpUtil.isLetter(firstChar_)) {
+        if (!StringDataUtil.isLetter(firstChar_)) {
             StdWordError err_ = new StdWordError();
             err_.setMessage(StringUtil.simpleStringsFormat(a_.getIllegalFirstChar(),keyWordNbHex,Character.toString(firstChar_)));
             err_.setErrCat(ErrorCat.WRITE_NB_WORD);
@@ -459,7 +460,7 @@ public final class KeyWords {
                 _page.addStdError(err_);
             }
         }
-        if (!StringExpUtil.isLetter(_sep.charAt(0))) {
+        if (!StringDataUtil.isLetter(_sep.charAt(0))) {
             StdWordError err_ = new StdWordError();
             err_.setMessage(StringUtil.simpleStringsFormat(a_.getIllegalFirstChar(),_sep,Character.toString(_sep.charAt(0))));
             err_.setErrCat(ErrorCat.WRITE_NB_WORD);
@@ -496,7 +497,7 @@ public final class KeyWords {
             }
         }
         char firstExpBin_ = keyWordNbExpBin.charAt(0);
-        if (!StringExpUtil.isLetter(firstExpBin_)) {
+        if (!StringDataUtil.isLetter(firstExpBin_)) {
             StdWordError err_ = new StdWordError();
             err_.setMessage(StringUtil.simpleStringsFormat(a_.getIllegalFirstChar(),keyWordNbExpBin,Character.toString(firstExpBin_)));
             err_.setErrCat(ErrorCat.WRITE_NB_WORD);

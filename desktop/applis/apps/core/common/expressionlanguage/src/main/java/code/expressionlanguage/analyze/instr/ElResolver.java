@@ -3886,7 +3886,7 @@ public final class ElResolver {
             _output.setNextIndex(n_);
             return;
         }
-        if (j_ < _max && StringExpUtil.isLetter(_string.charAt(j_))) {
+        if (j_ < _max && StringDataUtil.isLetter(_string.charAt(j_))) {
             String keyWord_ = _key.getNbKeyWord(_string, j_);
             if (keyWord_ != null) {
                 char suf_ = _key.getSuffixes().getVal(keyWord_);

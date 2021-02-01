@@ -2041,8 +2041,8 @@ public final class NumParsers {
         for (int i = 0; i < min_; i++) {
             char cFirst_ = _instance.charAt(i);
             char cSecond_ = _other.charAt(i);
-            cFirst_ = StringExpUtil.toLowerCase(cFirst_);
-            cSecond_ = StringExpUtil.toLowerCase(cSecond_);
+            cFirst_ = StringDataUtil.toLowerCase(cFirst_);
+            cSecond_ = StringDataUtil.toLowerCase(cSecond_);
             if (cFirst_ != cSecond_) {
                 return NumberUtil.compareLg(cFirst_, cSecond_);
             }
@@ -2086,7 +2086,7 @@ public final class NumParsers {
             return false;
         }
         while (len_ > 0) {
-            if (StringExpUtil.toLowerCase(_instance.charAt(to_)) != StringExpUtil.toLowerCase(_other.charAt(po_))) {
+            if (StringDataUtil.toLowerCase(_instance.charAt(to_)) != StringDataUtil.toLowerCase(_other.charAt(po_))) {
                 return false;
             }
             len_--;

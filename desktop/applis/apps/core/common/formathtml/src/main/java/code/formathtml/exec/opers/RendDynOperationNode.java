@@ -223,7 +223,7 @@ public abstract class RendDynOperationNode {
             }
             if (index_ == 0) {
                 if (BooleanStruct.isFalse(_value)) {
-                    return _operation.getNextSibling().getOrder() + 1;
+                    return getOrder(_operation.getNextSibling()) + 1;
                 }
             }
         }
@@ -233,7 +233,7 @@ public abstract class RendDynOperationNode {
             }
             if (index_ == 0) {
                 if (BooleanStruct.isFalse(_value)) {
-                    return _operation.getNextSibling().getOrder() + 1;
+                    return getOrder(_operation.getNextSibling()) + 1;
                 }
             }
         }
