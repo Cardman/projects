@@ -24,8 +24,7 @@ public final class UnaryBooleanOperation extends PrimitiveBoolOperation {
     void calculate(StringMap<String> _conf, ErrorStatus _error) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         Argument arg_ = chidren_.first().getArgument();
-        Object o_ = arg_.getObject();
-        Boolean b_ = (Boolean) o_;
+        boolean b_ = arg_.isBoolVal();
         b_ = !b_;
         Argument a_ = new Argument();
         a_.setArgClass(MathType.BOOLEAN);

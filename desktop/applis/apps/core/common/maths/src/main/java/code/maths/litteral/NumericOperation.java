@@ -16,25 +16,25 @@ public abstract class NumericOperation extends MethodOperation {
     static Argument calculateSum(Argument _a, Argument _b) {
         Argument a_ = new Argument();
         a_.setArgClass(MathType.RATE);
-        a_.setObject(Rate.plus((Rate) _a.getObject(), (Rate) _b.getObject()));
+        a_.setObject(Rate.plus(_a.getRateVal(), _b.getRateVal()));
         return a_;
     }
     static Argument calculateDiff(Argument _a, Argument _b) {
         Argument a_ = new Argument();
         a_.setArgClass(MathType.RATE);
-        a_.setObject(Rate.minus((Rate) _a.getObject(), (Rate) _b.getObject()));
+        a_.setObject(Rate.minus(_a.getRateVal(), _b.getRateVal()));
         return a_;
     }
     static Argument calculateMult(Argument _a, Argument _b) {
         Argument a_ = new Argument();
         a_.setArgClass(MathType.RATE);
-        a_.setObject(Rate.multiply((Rate) _a.getObject(), (Rate) _b.getObject()));
+        a_.setObject(Rate.multiply(_a.getRateVal(), _b.getRateVal()));
         return a_;
     }
     static Argument calculateDiv(Argument _a, Argument _b, int _offset, ErrorStatus _error) {
         Argument a_ = new Argument();
         a_.setArgClass(MathType.RATE);
-        Rate den_ = (Rate)_b.getObject();
+        Rate den_ = _b.getRateVal();
         if (den_.isZero()) {
             _error.setError(true);
             _error.setIndex(_offset);
@@ -42,7 +42,7 @@ public abstract class NumericOperation extends MethodOperation {
             a_.setObject(_error);
             return a_;
         }
-        a_.setObject(Rate.divide((Rate) _a.getObject(), den_));
+        a_.setObject(Rate.divide(_a.getRateVal(), den_));
         return a_;
     }
 

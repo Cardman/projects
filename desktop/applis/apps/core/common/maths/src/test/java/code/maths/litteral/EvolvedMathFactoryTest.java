@@ -22,7 +22,7 @@ public class EvolvedMathFactoryTest {
     @Test
     public void evaluateDirectlyRateTest() {
         EvolvedMathFactory e_ = new EvolvedMathFactory();
-        assertEq(new Rate("0"),(Rate)e_.evaluateDirectlyRate("0"));
+        assertEq(new Rate("0"), e_.evaluateDirectlyRate("0"));
     }
     @Test
     public void evaluateExpRate1Test() {

@@ -28,11 +28,11 @@ public final class UnaryOperation extends PrimitiveBoolOperation {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         Argument arg_ = chidren_.first().getArgument();
         Argument a_ = new Argument();
-        Object o_ = arg_.getObject();
+        Rate o_ = arg_.getRateVal();
         a_.setArgClass(MathType.RATE);
         int key_ = getOperations().getOperators().firstKey();
         if (StringUtil.quickEq(getOperations().getOperators().getVal(key_).trim(), UNARY_MINUS)) {
-            a_.setObject(((Rate)o_).opposNb());
+            a_.setObject(o_.opposNb());
         } else {
             a_.setObject(o_);
         }

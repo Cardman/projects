@@ -3,9 +3,8 @@ import code.maths.LgInt;
 import code.maths.Rate;
 import code.util.StringList;
 import code.util.StringMap;
-import code.util.ints.MathFactory;
 
-public final class EvolvedMathFactory implements MathFactory {
+public final class EvolvedMathFactory {
 
     private final LgInt maxRd = LgInt.getMaxLongPlusOne();
 
@@ -44,14 +43,12 @@ public final class EvolvedMathFactory implements MathFactory {
         list_.add(OperationNode.DIV_FCT);
         return list_;
     }
-    @Override
-    public Object evaluateDirectlyRate(String _numExp) {
-        return MathUtil.processEl(_numExp, false, new StringMap<String>()).getObject();
+    public Rate evaluateDirectlyRate(String _numExp) {
+        return MathUtil.processEl(_numExp, false, new StringMap<String>()).getRateVal();
     }
 
-    @Override
     public Boolean evaluateDirectlyBoolean(String _booleanExp) {
-        return (Boolean) MathUtil.processEl(_booleanExp, false, new StringMap<String>()).getObject();
+        return MathUtil.processEl(_booleanExp, false, new StringMap<String>()).isBoolVal();
     }
 
     public EvolvedNumString createNumericableString(String _chaineNumerique,
@@ -78,20 +75,21 @@ public final class EvolvedMathFactory implements MathFactory {
 
     public Rate evaluateNumericable(String _numericString, StringMap<String> _variables,
             Rate _default) {
-        Object obj_ = MathUtil.processEl(_numericString, false, _variables).getObject();
-        if (obj_ instanceof Rate) {
-            return (Rate) obj_;
+        Argument argument_ = MathUtil.processEl(_numericString, false, _variables);
+        Rate obj_ = argument_.getRateVal();
+        if (argument_.getArgClass() == MathType.RATE) {
+            return obj_;
         }
         return new Rate(_default);
     }
 
     public Rate evaluatePositiveOrZeroExp(String _numericString,
             StringMap<String> _variables, Rate _default) {
-        Object obj_ = MathUtil.processEl(_numericString, false, _variables).getObject();
-        if (!(obj_ instanceof Rate)) {
+        Argument argument_ = MathUtil.processEl(_numericString, false, _variables);
+        if (argument_.getArgClass() != MathType.RATE) {
             return _default.absNb();
         }
-        Rate r_ = (Rate) obj_;
+        Rate r_ = argument_.getRateVal();
         if (!r_.isZeroOrGt()) {
             return _default.absNb();
         }
@@ -100,11 +98,11 @@ public final class EvolvedMathFactory implements MathFactory {
 
     public Rate evaluatePositiveExp(String _numericString,
             StringMap<String> _variables, Rate _default) {
-        Object obj_ = MathUtil.processEl(_numericString, false, _variables).getObject();
-        if (!(obj_ instanceof Rate)) {
+        Argument argument_ = MathUtil.processEl(_numericString, false, _variables);
+        if (argument_.getArgClass() != MathType.RATE) {
             return _default.absNb();
         }
-        Rate r_ = (Rate) obj_;
+        Rate r_ = argument_.getRateVal();
         if (r_.isZero()) {
             return _default.absNb();
         }
@@ -116,11 +114,11 @@ public final class EvolvedMathFactory implements MathFactory {
 
     public Boolean evaluateBoolean(String _booleanString,
             StringMap<String> _variables, Boolean _default) {
-        Object obj_ = MathUtil.processEl(_booleanString, false, _variables).getObject();
-        if (!(obj_ instanceof Boolean)) {
+        Argument argument_ = MathUtil.processEl(_booleanString, false, _variables);
+        if (argument_.getArgClass() != MathType.BOOLEAN) {
             return _default;
         }
-        return (Boolean)obj_;
+        return argument_.isBoolVal();
     }
     public LgInt getMaxRandomNb() {
         return maxRd;

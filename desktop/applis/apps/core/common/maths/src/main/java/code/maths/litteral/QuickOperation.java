@@ -28,8 +28,8 @@ public abstract class QuickOperation extends PrimitiveBoolOperation implements R
         CustList<OperationNode> chidren_ = getChildrenNodes();
         OperationNode first_ = chidren_.first();
         Argument f_ = first_.getArgument();
-        Object abs_ = f_.getObject();
-        if (abs_ == (Boolean)absorbingStruct()) {
+        boolean abs_ = f_.isBoolVal();
+        if (abs_ == absorbingStruct()) {
             setArgument(f_);
             return;
         }
@@ -48,8 +48,8 @@ public abstract class QuickOperation extends PrimitiveBoolOperation implements R
         if (f_ == null) {
             return;
         }
-        Object v_ = f_.getObject();
-        if (v_ == (Boolean)absorbingStruct()) {
+        boolean v_ = f_.isBoolVal();
+        if (v_ == absorbingStruct()) {
             setArgument(f_);
             return;
         }

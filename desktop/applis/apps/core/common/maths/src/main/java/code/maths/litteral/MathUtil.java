@@ -174,7 +174,7 @@ final class MathUtil {
                 return;
             }
             Argument res_ = o.getArgument();
-            Object st_ = res_.getObject();
+            boolean st_ = res_.isBoolVal();
             fr_ = OperationNode.getNextIndex(o, st_);
         }
     }

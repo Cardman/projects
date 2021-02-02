@@ -3,7 +3,7 @@ import code.util.StringMap;
 
 public final class EvolvedBooleanString {
 
-    private StringBuilder numericString;
+    private final StringBuilder numericString;
     private Argument arg;
 
     EvolvedBooleanString(String _chaineNumerique, StringMap<String> _vars) {
@@ -19,8 +19,8 @@ public final class EvolvedBooleanString {
     }
 
 
-    public Boolean getResult() {
-        return (Boolean) arg.getObject();
+    public boolean getResult() {
+        return arg.isBoolVal();
     }
 
     public String beforeEvaluated() {

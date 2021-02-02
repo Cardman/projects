@@ -15,14 +15,14 @@ public final class CmpOperation extends PrimitiveBoolOperation {
     static Argument calculateLower(Argument _a, Argument _b) {
         Argument a_ = new Argument();
         a_.setArgClass(MathType.BOOLEAN);
-        a_.setObject(Rate.strLower((Rate)_a.getObject(),(Rate) _b.getObject()));
+        a_.setObject(Rate.strLower(_a.getRateVal(), _b.getRateVal()));
         return a_;
     }
 
     static Argument calculateGreater(Argument _a, Argument _b) {
         Argument a_ = new Argument();
         a_.setArgClass(MathType.BOOLEAN);
-        a_.setObject(Rate.strGreater((Rate)_a.getObject(),(Rate) _b.getObject()));
+        a_.setObject(Rate.strGreater(_a.getRateVal(), _b.getRateVal()));
         return a_;
     }
     @Override
@@ -65,7 +65,7 @@ public final class CmpOperation extends PrimitiveBoolOperation {
         } else {
             arg_ = calculateGreater(first_, second_);
         }
-        Boolean b_ = (Boolean) arg_.getObject();
+        boolean b_ = arg_.isBoolVal();
         if (complement_) {
             b_ = !b_;
             arg_.setObject(b_);

@@ -1,6 +1,4 @@
 package code.maths.litteral;
-import code.maths.MathList;
-import code.maths.Rate;
 import code.util.CustList;
 import code.util.*;
 import code.util.StringMap;
@@ -16,15 +14,13 @@ public final class EqOperation extends PrimitiveBoolOperation {
     static Argument calculateEq(Argument _a, Argument _b) {
         Argument a_ = new Argument();
         a_.setArgClass(MathType.BOOLEAN);
-        Object first_ = _a.getObject();
-        Object second_ = _b.getObject();
-        if (first_ instanceof Rate) {
-            a_.setObject(((Rate)first_).eq((Rate)second_));
-        } else if (first_ instanceof MathList) {
-            a_.setObject(((MathList)first_).eq((MathList)second_));
+        if (_a.getArgClass() == MathType.RATE) {
+            a_.setObject(_a.getRateVal().eq(_b.getRateVal()));
+        } else if (_a.getArgClass() == MathType.SET) {
+            a_.setObject(_a.getListVal().eq(_b.getListVal()));
         } else {
             //first_ instanceof Boolean
-            a_.setObject(((Boolean)first_).booleanValue() == ((Boolean)second_).booleanValue());
+            a_.setObject(_a.isBoolVal() == _b.isBoolVal());
         }
         return a_;
     }
@@ -59,7 +55,7 @@ public final class EqOperation extends PrimitiveBoolOperation {
         }
         Argument arg_ = calculateEq(first_, second_);
         if (complement_) {
-            Boolean b_ = (Boolean) arg_.getObject();
+            boolean b_ = arg_.isBoolVal();
             b_ = !b_;
             arg_.setObject(b_);
         }

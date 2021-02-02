@@ -1,7 +1,7 @@
 package code.formathtml.sample;
 import code.util.StringList;
 import code.util.core.StringUtil;
-import code.util.ints.MathFactory;
+import code.formathtml.nat.MathFactory;
 
 public class SimpleMathFactory implements MathFactory {
 

@@ -1,4 +1,4 @@
-package code.util.ints;
+package code.formathtml.nat;
 
 
 public interface MathFactory {

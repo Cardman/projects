@@ -4,7 +4,7 @@ import code.util.StringMap;
 
 public final class EvolvedNumString {
 
-    private StringBuilder numericString;
+    private final StringBuilder numericString;
     private Argument arg;
 
     EvolvedNumString(String _chaineNumerique, StringMap<String> _vars) {
@@ -20,7 +20,7 @@ public final class EvolvedNumString {
     }
 
     public Rate getResult() {
-        return (Rate) arg.getObject();
+        return arg.getRateVal();
     }
 
     public String beforeEvaluated() {

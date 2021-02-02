@@ -100,15 +100,15 @@ abstract class OperationNode {
 
     protected static final String DIV_FCT = "div";
 
-    private MethodOperation parent;
+    private final MethodOperation parent;
 
     private OperationNode nextSibling;
 
     private Argument argument;
 
-    private OperationsSequence operations;
+    private final OperationsSequence operations;
 
-    private int indexInEl;
+    private final int indexInEl;
 
     private int order = IndexConstants.INDEX_NOT_FOUND_ELT;
 
@@ -173,11 +173,11 @@ abstract class OperationNode {
         nextSibling = _nextSibling;
     }
 
-    static int getNextIndex(OperationNode _operation, Object _value) {
+    static int getNextIndex(OperationNode _operation, boolean _value) {
         MethodOperation par_ = _operation.getParent();
         if (par_ instanceof QuickOperation) {
             QuickOperation q_ = (QuickOperation) par_;
-            Boolean bs_ = q_.absorbingStruct();
+            boolean bs_ = q_.absorbingStruct();
             if (bs_ == _value) {
                 return par_.getOrder();
             }

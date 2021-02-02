@@ -11,7 +11,7 @@ import code.util.core.StringUtil;
 public final class FctOperation extends InvokingOperation {
 
     private static final int THREE_ARGUMENTS = 3;
-    private String methodName;
+    private final String methodName;
 
     public FctOperation(String _el, int _index, StringMap<String> _importingPage,
             int _indexChild, MethodOperation _m, OperationsSequence _op) {
@@ -586,8 +586,8 @@ public final class FctOperation extends InvokingOperation {
     void calculate(StringMap<String> _conf, ErrorStatus _error) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         if (StringUtil.quickEq(methodName,PUIS)) {
-            Rate base_=(Rate) chidren_.first().getArgument().getObject();
-            Rate exposant_=(Rate) chidren_.last().getArgument().getObject();
+            Rate base_= chidren_.first().getArgument().getRateVal();
+            Rate exposant_= chidren_.last().getArgument().getRateVal();
             if (base_.isZero() && !exposant_.isZeroOrGt()) {
                 _error.setIndex(getIndexInEl());
                 _error.setError(true);
@@ -600,8 +600,8 @@ public final class FctOperation extends InvokingOperation {
             return;
         }
         if (StringUtil.quickEq(methodName,QUOT)) {
-            Rate base_=(Rate) chidren_.first().getArgument().getObject();
-            Rate exposant_=(Rate) chidren_.last().getArgument().getObject();
+            Rate base_= chidren_.first().getArgument().getRateVal();
+            Rate exposant_= chidren_.last().getArgument().getRateVal();
             if (exposant_.isZero()) {
                 _error.setIndex(getIndexInEl());
                 _error.setError(true);
@@ -614,8 +614,8 @@ public final class FctOperation extends InvokingOperation {
             return;
         }
         if (StringUtil.quickEq(methodName,MOD)) {
-            Rate base_=(Rate) chidren_.first().getArgument().getObject();
-            Rate exposant_=(Rate) chidren_.last().getArgument().getObject();
+            Rate base_= chidren_.first().getArgument().getRateVal();
+            Rate exposant_= chidren_.last().getArgument().getRateVal();
             LgInt divisor_ = exposant_.intPart();
             if (divisor_.isZero()) {
                 _error.setIndex(getIndexInEl());
@@ -629,8 +629,8 @@ public final class FctOperation extends InvokingOperation {
             return;
         }
         if (StringUtil.quickEq(methodName,MODTAUX)) {
-            Rate rateOne_ = (Rate) chidren_.first().getArgument().getObject();
-            Rate rateTwo_ = (Rate) chidren_.last().getArgument().getObject();
+            Rate rateOne_ = chidren_.first().getArgument().getRateVal();
+            Rate rateTwo_ = chidren_.last().getArgument().getRateVal();
             if (rateTwo_.isZero()) {
                 _error.setIndex(getIndexInEl());
                 _error.setError(true);
@@ -644,8 +644,8 @@ public final class FctOperation extends InvokingOperation {
             return;
         }
         if (StringUtil.quickEq(methodName,DIV_FCT)){
-            Rate rateOne_ = (Rate) chidren_.first().getArgument().getObject();
-            Rate rateTwo_ = (Rate) chidren_.last().getArgument().getObject();
+            Rate rateOne_ = chidren_.first().getArgument().getRateVal();
+            Rate rateTwo_ = chidren_.last().getArgument().getRateVal();
             if (rateTwo_.isZero()) {
                 _error.setIndex(getIndexInEl());
                 _error.setError(true);
@@ -660,7 +660,7 @@ public final class FctOperation extends InvokingOperation {
         }
         //valeur absolue
         if (StringUtil.quickEq(methodName,ABS)){
-            Rate texteArg_=(Rate) chidren_.first().getArgument().getObject();
+            Rate texteArg_= chidren_.first().getArgument().getRateVal();
             Argument arg_ = new Argument();
             arg_.setArgClass(MathType.RATE);
             arg_.setObject(texteArg_.absNb());
@@ -669,7 +669,7 @@ public final class FctOperation extends InvokingOperation {
         }
         //partie entiere
         if (StringUtil.quickEq(methodName,ENT)){
-            Rate texteArg_=(Rate) chidren_.first().getArgument().getObject();
+            Rate texteArg_= chidren_.first().getArgument().getRateVal();
             Argument arg_ = new Argument();
             arg_.setArgClass(MathType.RATE);
             arg_.setObject(new Rate(texteArg_.intPart()));
@@ -681,7 +681,7 @@ public final class FctOperation extends InvokingOperation {
         //troncature(32/10)=3,troncature(35/10)=3,troncature(37/10)=3,troncature(4)=4
         //troncature(-2)=-2,troncature(-21/10)=-2,troncature(-25/10)=-2,troncature(-26/10)=-2
         if (StringUtil.quickEq(methodName,TRONC)){
-            Rate texteArg_=(Rate) chidren_.first().getArgument().getObject();
+            Rate texteArg_= chidren_.first().getArgument().getRateVal();
             Argument arg_ = new Argument();
             arg_.setArgClass(MathType.RATE);
             arg_.setObject(new Rate(texteArg_.toLgInt()));
@@ -690,7 +690,7 @@ public final class FctOperation extends InvokingOperation {
         }
         //numerateur
         if (StringUtil.quickEq(methodName,NUM)){
-            Rate texteArg_=(Rate) chidren_.first().getArgument().getObject();
+            Rate texteArg_= chidren_.first().getArgument().getRateVal();
             Argument arg_ = new Argument();
             arg_.setArgClass(MathType.RATE);
             arg_.setObject(new Rate(texteArg_.getNumeratorCopy()));
@@ -699,7 +699,7 @@ public final class FctOperation extends InvokingOperation {
         }
         //denominateur
         if (StringUtil.quickEq(methodName,DEN)){
-            Rate texteArg_=(Rate) chidren_.first().getArgument().getObject();
+            Rate texteArg_= chidren_.first().getArgument().getRateVal();
             Argument arg_ = new Argument();
             arg_.setArgClass(MathType.RATE);
             arg_.setObject(new Rate(texteArg_.getDenominatorCopy()));
@@ -707,7 +707,7 @@ public final class FctOperation extends InvokingOperation {
             return;
         }
         if (StringUtil.quickEq(methodName,SGN)){
-            Rate texteArg_=(Rate) chidren_.first().getArgument().getObject();
+            Rate texteArg_= chidren_.first().getArgument().getRateVal();
             Argument arg_ = new Argument();
             arg_.setArgClass(MathType.RATE);
             arg_.setObject(texteArg_.signum());
@@ -715,9 +715,9 @@ public final class FctOperation extends InvokingOperation {
             return;
         }
         if (StringUtil.quickEq(methodName,MIN)){
-            Rate min_=(Rate) chidren_.first().getArgument().getObject();
+            Rate min_= chidren_.first().getArgument().getRateVal();
             for(OperationNode a:chidren_.mid(IndexConstants.SECOND_INDEX)){
-                Rate arg_= (Rate) a.getArgument().getObject();
+                Rate arg_= a.getArgument().getRateVal();
                 if(Rate.strGreater(min_, arg_)){
                     min_=arg_;
                 }
@@ -730,9 +730,9 @@ public final class FctOperation extends InvokingOperation {
         }
         //maximum
         if (StringUtil.quickEq(methodName,MAX)){
-            Rate min_=(Rate) chidren_.first().getArgument().getObject();
+            Rate min_= chidren_.first().getArgument().getRateVal();
             for(OperationNode a:chidren_.mid(IndexConstants.SECOND_INDEX)){
-                Rate arg_= (Rate) a.getArgument().getObject();
+                Rate arg_= a.getArgument().getRateVal();
                 if(Rate.strLower(min_, arg_)){
                     min_=arg_;
                 }
@@ -747,7 +747,7 @@ public final class FctOperation extends InvokingOperation {
         if (StringUtil.quickEq(methodName,MOY)){
             Rate moy_=Rate.zero();
             for(OperationNode a:chidren_){
-                moy_.addNb((Rate) a.getArgument().getObject());
+                moy_.addNb(a.getArgument().getRateVal());
             }
             moy_.divideBy(new Rate(chidren_.size()));
             Argument arg_ = new Argument();
@@ -761,7 +761,7 @@ public final class FctOperation extends InvokingOperation {
             Rate var_=Rate.zero();
             Rate moy_=Rate.zero();
             for(OperationNode a:chidren_){
-                Rate a_ = (Rate) a.getArgument().getObject();
+                Rate a_ = a.getArgument().getRateVal();
                 moy_.addNb(a_);
                 var_.addNb(Rate.multiply(a_, a_));
             }
@@ -777,9 +777,9 @@ public final class FctOperation extends InvokingOperation {
         //segment
         if (StringUtil.quickEq(methodName,CARAC_FERME)){
             Rate res_=Rate.zero();
-            Rate rateOne_ = (Rate) chidren_.first().getArgument().getObject();
-            Rate rateTwo_ = (Rate) chidren_.get(IndexConstants.SECOND_INDEX).getArgument().getObject();
-            Rate rateThree_ = (Rate) chidren_.last().getArgument().getObject();
+            Rate rateOne_ = chidren_.first().getArgument().getRateVal();
+            Rate rateTwo_ = chidren_.get(IndexConstants.SECOND_INDEX).getArgument().getRateVal();
+            Rate rateThree_ = chidren_.last().getArgument().getRateVal();
             if(Rate.greaterEq(rateOne_,rateTwo_)&&Rate.lowerEq(rateOne_,rateThree_)){
                 res_=Rate.one();
             }
@@ -792,9 +792,9 @@ public final class FctOperation extends InvokingOperation {
         //ouvert borne
         if (StringUtil.quickEq(methodName,CARAC_OUVERT)){
             Rate res_=Rate.zero();
-            Rate rateOne_ = (Rate) chidren_.first().getArgument().getObject();
-            Rate rateTwo_ = (Rate) chidren_.get(IndexConstants.SECOND_INDEX).getArgument().getObject();
-            Rate rateThree_ = (Rate) chidren_.last().getArgument().getObject();
+            Rate rateOne_ = chidren_.first().getArgument().getRateVal();
+            Rate rateTwo_ = chidren_.get(IndexConstants.SECOND_INDEX).getArgument().getRateVal();
+            Rate rateThree_ = chidren_.last().getArgument().getRateVal();
             if(Rate.strGreater(rateOne_,rateTwo_)&&Rate.strLower(rateOne_,rateThree_)){
                 res_=Rate.one();
             }
@@ -807,9 +807,9 @@ public final class FctOperation extends InvokingOperation {
         //semi ouvert gauche borne
         if (StringUtil.quickEq(methodName,CARAC_SEMI_OUVERT_G)){
             Rate res_=Rate.zero();
-            Rate rateOne_ = (Rate) chidren_.first().getArgument().getObject();
-            Rate rateTwo_ = (Rate) chidren_.get(IndexConstants.SECOND_INDEX).getArgument().getObject();
-            Rate rateThree_ = (Rate) chidren_.last().getArgument().getObject();
+            Rate rateOne_ = chidren_.first().getArgument().getRateVal();
+            Rate rateTwo_ = chidren_.get(IndexConstants.SECOND_INDEX).getArgument().getRateVal();
+            Rate rateThree_ = chidren_.last().getArgument().getRateVal();
             if(Rate.strGreater(rateOne_,rateTwo_)&&Rate.lowerEq(rateOne_, rateThree_)){
                 res_=Rate.one();
             }
@@ -822,9 +822,9 @@ public final class FctOperation extends InvokingOperation {
         //semi ouvert droite borne
         if (StringUtil.quickEq(methodName,CARAC_SEMI_OUVERT_D)){
             Rate res_=Rate.zero();
-            Rate rateOne_ = (Rate) chidren_.first().getArgument().getObject();
-            Rate rateTwo_ = (Rate) chidren_.get(IndexConstants.SECOND_INDEX).getArgument().getObject();
-            Rate rateThree_ = (Rate) chidren_.last().getArgument().getObject();
+            Rate rateOne_ = chidren_.first().getArgument().getRateVal();
+            Rate rateTwo_ = chidren_.get(IndexConstants.SECOND_INDEX).getArgument().getRateVal();
+            Rate rateThree_ = chidren_.last().getArgument().getRateVal();
             if(Rate.greaterEq(rateOne_,rateTwo_)&&Rate.strLower(rateOne_,rateThree_)){
                 res_=Rate.one();
             }
@@ -837,8 +837,8 @@ public final class FctOperation extends InvokingOperation {
         //ouvert droite minore
         if (StringUtil.quickEq(methodName,CARAC_DROITE_OUVERT)){
             Rate res_=Rate.zero();
-            Rate rateOne_ = (Rate) chidren_.first().getArgument().getObject();
-            Rate rateTwo_ = (Rate) chidren_.last().getArgument().getObject();
+            Rate rateOne_ = chidren_.first().getArgument().getRateVal();
+            Rate rateTwo_ = chidren_.last().getArgument().getRateVal();
             if(Rate.strGreater(rateOne_,rateTwo_)){
                 res_=Rate.one();
             }
@@ -851,8 +851,8 @@ public final class FctOperation extends InvokingOperation {
         //ferme droite minore
         if (StringUtil.quickEq(methodName,CARAC_DROITE_FERME)){
             Rate res_=Rate.zero();
-            Rate rateOne_ = (Rate) chidren_.first().getArgument().getObject();
-            Rate rateTwo_ = (Rate) chidren_.last().getArgument().getObject();
+            Rate rateOne_ = chidren_.first().getArgument().getRateVal();
+            Rate rateTwo_ = chidren_.last().getArgument().getRateVal();
             if(Rate.greaterEq(rateOne_,rateTwo_)){
                 res_=Rate.one();
             }
@@ -865,8 +865,8 @@ public final class FctOperation extends InvokingOperation {
         //ouvert droite majore
         if (StringUtil.quickEq(methodName,CARAC_GAUCHE_OUVERT)){
             Rate res_=Rate.zero();
-            Rate rateOne_ = (Rate) chidren_.first().getArgument().getObject();
-            Rate rateTwo_ = (Rate) chidren_.last().getArgument().getObject();
+            Rate rateOne_ = chidren_.first().getArgument().getRateVal();
+            Rate rateTwo_ = chidren_.last().getArgument().getRateVal();
             if(Rate.strLower(rateOne_,rateTwo_)){
                 res_=Rate.one();
             }
@@ -879,8 +879,8 @@ public final class FctOperation extends InvokingOperation {
         //ferme gauche majore
         if (StringUtil.quickEq(methodName,CARAC_GAUCHE_FERME)){
             Rate res_=Rate.zero();
-            Rate rateOne_ = (Rate) chidren_.first().getArgument().getObject();
-            Rate rateTwo_ = (Rate) chidren_.last().getArgument().getObject();
+            Rate rateOne_ = chidren_.first().getArgument().getRateVal();
+            Rate rateTwo_ = chidren_.last().getArgument().getRateVal();
             if(Rate.lowerEq(rateOne_,rateTwo_)){
                 res_=Rate.one();
             }
@@ -891,7 +891,7 @@ public final class FctOperation extends InvokingOperation {
             return;
         }
         if (StringUtil.quickEq(methodName,CARD)){
-            MathList texteArg_=(MathList) chidren_.first().getArgument().getObject();
+            MathList texteArg_= chidren_.first().getArgument().getListVal();
             MathList set_ = new MathList(texteArg_);
             set_.removeDuplicates();
             Argument arg_ = new Argument();
@@ -901,8 +901,8 @@ public final class FctOperation extends InvokingOperation {
             return;
         }
         if (StringUtil.quickEq(methodName,INTER)){
-            MathList textArgOne_=(MathList) chidren_.first().getArgument().getObject();
-            MathList textArgTwo_=(MathList) chidren_.last().getArgument().getObject();
+            MathList textArgOne_= chidren_.first().getArgument().getListVal();
+            MathList textArgTwo_= chidren_.last().getArgument().getListVal();
             MathList inter_ = new MathList(textArgOne_.intersectStr(textArgTwo_));
             inter_.sort();
             Argument arg_ = new Argument();
@@ -912,8 +912,8 @@ public final class FctOperation extends InvokingOperation {
             return;
         }
         if (StringUtil.quickEq(methodName,UNION)){
-            MathList textArgOne_=(MathList) chidren_.first().getArgument().getObject();
-            MathList textArgTwo_=(MathList) chidren_.last().getArgument().getObject();
+            MathList textArgOne_= chidren_.first().getArgument().getListVal();
+            MathList textArgTwo_= chidren_.last().getArgument().getListVal();
             MathList union_ = new MathList(textArgOne_);
             union_.addAllElts(textArgTwo_);
             union_.sort();
@@ -925,8 +925,8 @@ public final class FctOperation extends InvokingOperation {
             return;
         }
         if (StringUtil.quickEq(methodName,COMPL)){
-            MathList textArgOne_=(MathList) chidren_.first().getArgument().getObject();
-            MathList textArgTwo_=(MathList) chidren_.last().getArgument().getObject();
+            MathList textArgOne_= chidren_.first().getArgument().getListVal();
+            MathList textArgTwo_= chidren_.last().getArgument().getListVal();
             MathList res_ = new MathList(textArgTwo_);
             res_.removeAllElements(textArgOne_);
             res_.sort();
@@ -937,8 +937,8 @@ public final class FctOperation extends InvokingOperation {
             return;
         }
         if (StringUtil.quickEq(methodName,INCL)){
-            MathList textArgOne_=(MathList) chidren_.first().getArgument().getObject();
-            MathList textArgTwo_=(MathList) chidren_.last().getArgument().getObject();
+            MathList textArgOne_= chidren_.first().getArgument().getListVal();
+            MathList textArgTwo_= chidren_.last().getArgument().getListVal();
             if (textArgTwo_.containsAllObj(textArgOne_)) {
                 Argument arg_ = new Argument();
                 arg_.setArgClass(MathType.RATE);
@@ -953,8 +953,8 @@ public final class FctOperation extends InvokingOperation {
             return;
         }
         if (StringUtil.quickEq(methodName,NON_INCL)){
-            MathList textArgOne_=(MathList) chidren_.first().getArgument().getObject();
-            MathList textArgTwo_=(MathList) chidren_.last().getArgument().getObject();
+            MathList textArgOne_= chidren_.first().getArgument().getListVal();
+            MathList textArgTwo_= chidren_.last().getArgument().getListVal();
             if (!textArgTwo_.containsAllObj(textArgOne_)) {
                 Argument arg_ = new Argument();
                 arg_.setArgClass(MathType.RATE);
@@ -969,8 +969,8 @@ public final class FctOperation extends InvokingOperation {
             return;
         }
         if (StringUtil.quickEq(methodName,EQ_NUM)){
-            MathList textArgOne_=(MathList) chidren_.first().getArgument().getObject();
-            MathList textArgTwo_=(MathList) chidren_.last().getArgument().getObject();
+            MathList textArgOne_= chidren_.first().getArgument().getListVal();
+            MathList textArgTwo_= chidren_.last().getArgument().getListVal();
             if (textArgOne_.eq(textArgTwo_)) {
                 Argument arg_ = new Argument();
                 arg_.setArgClass(MathType.RATE);
@@ -984,8 +984,8 @@ public final class FctOperation extends InvokingOperation {
             setArgument(arg_);
             return;
         }
-        MathList textArgOne_=(MathList) chidren_.first().getArgument().getObject();
-        MathList textArgTwo_=(MathList) chidren_.last().getArgument().getObject();
+        MathList textArgOne_= chidren_.first().getArgument().getListVal();
+        MathList textArgTwo_= chidren_.last().getArgument().getListVal();
         if (!textArgOne_.eq(textArgTwo_)) {
             Argument arg_ = new Argument();
             arg_.setArgClass(MathType.RATE);
