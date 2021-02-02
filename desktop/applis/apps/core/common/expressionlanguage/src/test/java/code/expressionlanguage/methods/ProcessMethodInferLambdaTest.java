@@ -2279,6 +2279,74 @@ public final class ProcessMethodInferLambdaTest extends ProcessMethodCommon {
     }
 
     @Test
+    public void test77() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExSub:Ex {\n");
+        xml_.append(" $public ExSub($int p){\n");
+        xml_.append("  $super(p);\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $int exmethtwo(){\n");
+        xml_.append("  $return 10+$super.exmethtwo();\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $int f;\n");
+        xml_.append(" $public Ex($int p){\n");
+        xml_.append("  f = p;\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  $Fct<Ex,$int> f = $staticCall().$lambda($that.exmethtwo);\n");
+        xml_.append("  $return f.call($new ExSub(14));\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $int exmethtwo(){\n");
+        xml_.append("  $return f;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxOkRead(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(14, getNumber(ret_));
+    }
+
+    @Test
+    public void test78() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExSub:Ex {\n");
+        xml_.append(" $public ExSub($int p){\n");
+        xml_.append("  $super(p);\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $int exmethtwo(){\n");
+        xml_.append("  $return 10+$super.exmethtwo();\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $int f;\n");
+        xml_.append(" $public Ex($int p){\n");
+        xml_.append("  f = p;\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  Ex s = $new ExSub(14);\n");
+        xml_.append("  $Fct<$int> f = s.$lambda($that.exmethtwo);\n");
+        xml_.append("  $return f.call();\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $int exmethtwo(){\n");
+        xml_.append("  $return f;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxOkRead(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(14, getNumber(ret_));
+    }
+    @Test
     public void fail1() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {\n");
@@ -2470,6 +2538,7 @@ public final class ProcessMethodInferLambdaTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex {\n");
         xml_.append(" $public $int f;\n");
         xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  $Fct<ExAbs,$void> g = $staticCall(ExAbs).$lambda($that.m);\n");
         xml_.append("  $staticCall(<>).$lambda($new);\n");
         xml_.append("  $staticCall().$lambda($new);\n");
         xml_.append("  $static().$lambda($new);\n");
@@ -2481,6 +2550,9 @@ public final class ProcessMethodInferLambdaTest extends ProcessMethodCommon {
         xml_.append(" $public $int exmethtwo(){\n");
         xml_.append("  $return f;\n");
         xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $abstract $class pkg.ExAbs {\n");
+        xml_.append(" $public $abstract $void m();\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());

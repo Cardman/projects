@@ -392,17 +392,28 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                         setResultClass(new AnaClassArgumentMatching(fct_.toString()));
                         return;
                     }
+                    String pref_ = "";
+                    String name_ = args_.first();
+                    int indexDot_ = name_.indexOf('.');
+                    if (indexDot_ > -1) {
+                        pref_ = name_.substring(0,indexDot_).trim();
+                    }
+                    boolean polymorph_ = true;
+                    if (StringUtil.quickEq(pref_,keyWords_.getKeyWordThat())) {
+                        name_ = name_.substring(indexDot_+1).trim();
+                        polymorph_ = false;
+                    }
                     CustList<ClassMethodIdReturn> resList_ = new CustList<ClassMethodIdReturn>();
                     //use types of previous operation
                     for (String s: candidates_) {
                         StringList allTypes_ = StringExpUtil.getAllTypes(s);
                         if (allTypes_.size() == 1) {
-                            tryAddMeth(_page, args_, bounds_, resList_, null, "", MethodAccessKind.INSTANCE, stCall_.getStCall());
+                            tryAddMeth(_page, name_, bounds_, resList_, null, "", MethodAccessKind.INSTANCE, stCall_.getStCall());
                             continue;
                         }
                         StringList argsTypes_ = new StringList(allTypes_.mid(1,allTypes_.size()-2));
                         String ret_ = allTypes_.last();
-                        tryAddMeth(_page, args_, bounds_, resList_, argsTypes_, ret_, MethodAccessKind.STATIC_CALL, stCall_.getStCall());
+                        tryAddMeth(_page, name_, bounds_, resList_, argsTypes_, ret_, MethodAccessKind.STATIC_CALL, stCall_.getStCall());
                         if (!argsTypes_.isEmpty()&&!argsTypes_.first().startsWith("~")) {
                             Mapping mapp_ = new Mapping();
                             mapp_.setArg(argsTypes_.first());
@@ -410,15 +421,15 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                             mapp_.setMapping(_page.getCurrentConstraints().getCurrentConstraints());
                             if (AnaTemplates.isCorrectOrNumbers(mapp_,_page)) {
                                 argsTypes_.remove(0);
-                                tryAddMeth(_page, args_, bounds_, resList_, argsTypes_, ret_, MethodAccessKind.INSTANCE, stCall_.getStCall());
+                                tryAddMeth(_page, name_, bounds_, resList_, argsTypes_, ret_, MethodAccessKind.INSTANCE, stCall_.getStCall());
                             }
                         }
                     }
                     resList_ = AnaTemplates.reduceMethods(resList_);
-                    if (okList(resList_)) {
+                    if (okList(resList_,!polymorph_)) {
                         ClassMethodIdReturn id_ = resList_.first();
                         standardMethod = id_.getStandardMethod();
-                        trySetPoly(id_);
+                        trySetPoly(id_,polymorph_);
                         lambdaCommonContent.setReturnFieldType(id_.getOriginalReturnType());
                         lambdaCommonContent.setFileName(id_.getFileName());
                         lambdaMemberNumberContentId = id_.getMemberId();
@@ -472,21 +483,32 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                         setResultClass(new AnaClassArgumentMatching(fct_.toString()));
                         return;
                     }
+                    String pref_ = "";
+                    String name_ = args_.first();
+                    int indexDot_ = name_.indexOf('.');
+                    if (indexDot_ > -1) {
+                        pref_ = name_.substring(0,indexDot_).trim();
+                    }
+                    boolean polymorph_ = true;
+                    if (StringUtil.quickEq(pref_,keyWords_.getKeyWordThat())) {
+                        name_ = name_.substring(indexDot_+1).trim();
+                        polymorph_ = false;
+                    }
                     CustList<ClassMethodIdReturn> resList_ = new CustList<ClassMethodIdReturn>();
                     for (String s: candidates_) {
                         StringList allTypes_ = StringExpUtil.getAllTypes(s);
                         if (allTypes_.size() == 1) {
-                            tryAddMeth(_page, args_, bounds_, resList_, null, "", MethodAccessKind.INSTANCE, "");
+                            tryAddMeth(_page, name_, bounds_, resList_, null, "", MethodAccessKind.INSTANCE, "");
                             continue;
                         }
                         StringList argsTypes_ = new StringList(allTypes_.mid(1,allTypes_.size()-2));
                         String ret_ = allTypes_.last();
-                        tryAddMeth(_page, args_, bounds_, resList_, argsTypes_, ret_, MethodAccessKind.INSTANCE, "");
+                        tryAddMeth(_page, name_, bounds_, resList_, argsTypes_, ret_, MethodAccessKind.INSTANCE, "");
                     }
                     resList_ = AnaTemplates.reduceMethods(resList_);
-                    if (okList(resList_)) {
+                    if (okList(resList_,!polymorph_)) {
                         ClassMethodIdReturn id_ = resList_.first();
-                        trySetPoly(id_);
+                        trySetPoly(id_,polymorph_);
                         standardMethod = id_.getStandardMethod();
                         lambdaCommonContent.setReturnFieldType(id_.getOriginalReturnType());
                         lambdaCommonContent.setFileName(id_.getFileName());
@@ -525,8 +547,8 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         generalProcess(args_, _page);
     }
 
-    private void trySetPoly(ClassMethodIdReturn _id) {
-        if (!_id.getRealId().isStaticMethod()) {
+    private void trySetPoly(ClassMethodIdReturn _id, boolean _poly) {
+        if (!_id.getRealId().isStaticMethod()&&_poly) {
             lambdaMethodContent.setPolymorph(true);
         }
     }
@@ -553,9 +575,9 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         return real_;
     }
 
-    private static void tryAddMeth(AnalyzedPageEl _page, StringList _args, StringList _bounds, CustList<ClassMethodIdReturn> _resList, StringList _argsTypes, String _ret, MethodAccessKind _instance, String _stCall) {
+    private static void tryAddMeth(AnalyzedPageEl _page, String _name, StringList _bounds, CustList<ClassMethodIdReturn> _resList, StringList _argsTypes, String _ret, MethodAccessKind _instance, String _stCall) {
         ClassMethodIdReturn resultOther_ = tryGetDeclaredCustMethodLambdaInfer(_instance, _bounds,
-                _args.first(), true, false, false, null,
+                _name, true, false, false, null,
                 _stCall, _argsTypes, _page, _ret);
         if (resultOther_.isFoundMethod()) {
             _resList.add(resultOther_);
@@ -569,8 +591,8 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         }
     }
 
-    private static boolean okList(CustList<ClassMethodIdReturn> _resList) {
-        return _resList.size() == 1 && !errOwner(_resList.first().getRealClass(), _resList.first().getRealId());
+    private static boolean okList(CustList<ClassMethodIdReturn> _resList, boolean _staticChoice) {
+        return _resList.size() == 1 && !errOwner(_resList.first().getRealClass(), _resList.first().getRealId()) && !isAbstract(_staticChoice,_resList.first());
     }
 
     private static void appendArgsCtor(ConstructorId _fid, StringList _parts) {
@@ -1384,20 +1406,22 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
     }
 
     private void processAbstract(boolean _staticChoiceMethod, ClassMethodIdReturn _id, AnalyzedPageEl _page) {
-        if (_staticChoiceMethod) {
-            if (_id.isAbstractMethod()) {
-                FoundErrorInterpret abs_ = new FoundErrorInterpret();
-                abs_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
-                abs_.setFileName(_page.getLocalizer().getCurrentFileName());
-                //method name len
-                abs_.buildError(
-                        _page.getAnalysisMessages().getAbstractMethodRef(),
-                        _id.getRealClass(),
-                        _id.getRealId().getSignature(_page));
-                _page.getLocalizer().addError(abs_);
-                addErr(abs_.getBuiltError());
-            }
+        if (isAbstract(_staticChoiceMethod, _id)) {
+            FoundErrorInterpret abs_ = new FoundErrorInterpret();
+            abs_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+            abs_.setFileName(_page.getLocalizer().getCurrentFileName());
+            //method name len
+            abs_.buildError(
+                    _page.getAnalysisMessages().getAbstractMethodRef(),
+                    _id.getRealClass(),
+                    _id.getRealId().getSignature(_page));
+            _page.getLocalizer().addError(abs_);
+            addErr(abs_.getBuiltError());
         }
+    }
+
+    private static boolean isAbstract(boolean _staticChoiceMethod, ClassMethodIdReturn _id) {
+        return _staticChoiceMethod && _id.isAbstractMethod();
     }
 
     private void processInstance(StringList _args, int _len, String _fromType, AnalyzedPageEl _page) {
