@@ -53,7 +53,7 @@ public final class ElUtil {
                 }
                 String name_ = getFieldName(trimmed_);
                 String afterName_ = trimmed_.substring(name_.length()).trim();
-                if (ElResolver.isPureAffectation(afterName_,afterName_.length())) {
+                if (isPureAffectation(afterName_,afterName_.length())) {
                     addFieldName(names_, var_, offset_, true, name_);
                 }
             }
@@ -535,4 +535,12 @@ public final class ElUtil {
         return checkFinal_;
     }
 
+    static boolean isPureAffectation(String _string, int _len) {
+        int index_ = StringExpUtil.nextPrintCharIs(0, _len, _string, '=');
+        return hasCharOtherThanEq(_string, _len, index_);
+    }
+
+    private static boolean hasCharOtherThanEq(String _string, int _len, int _index) {
+        return _index > -1 && !StringExpUtil.nextCharIs(_string, _index + 1, _len, '=');
+    }
 }

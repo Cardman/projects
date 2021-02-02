@@ -3,11 +3,8 @@ package code.expressionlanguage.analyze.instr;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.AnonymousResult;
 import code.expressionlanguage.analyze.blocks.*;
-import code.expressionlanguage.analyze.syntax.ResultExpression;
-import code.expressionlanguage.analyze.types.AnaPartTypeUtil;
 import code.expressionlanguage.analyze.types.ResolvingTypes;
 import code.expressionlanguage.common.*;
-import code.expressionlanguage.analyze.files.*;
 import code.expressionlanguage.options.KeyWords;
 import code.util.*;
 import code.util.core.IndexConstants;
@@ -35,68 +32,68 @@ public final class ElResolver {
     public static final int UNARY_PRIO = 16;
     public static final int POST_INCR_PRIO = 17;
     public static final int FCT_OPER_PRIO = 18;
-    private static final byte UNICODE_SIZE = 4;
+    static final byte UNICODE_SIZE = 4;
 
-    private static final String EMPTY_STRING = "";
-    private static final char LINE_RETURN = '\n';
-    private static final char FORM_FEED = '\f';
-    private static final char BOUND = '\b';
-    private static final char LINE_FEED = '\r';
-    private static final char SPACE = ' ';
-    private static final char TAB = '\t';
-    private static final char ESCAPE_META_CHAR = '\\';
-    private static final char DELIMITER_CHAR = 39;
-    private static final char DELIMITER_STRING = 34;
-    private static final char ARR_LEFT = '[';
-    private static final char ARR_RIGHT = ']';
-    private static final char ANN_ARR_LEFT = '{';
-    private static final char ANN_ARR_RIGHT = '}';
-    private static final char PAR_LEFT = '(';
-    private static final char PAR_RIGHT = ')';
-    private static final char SEP_ARG = ',';
-    private static final char DOT_VAR = '.';
-    private static final char DOUBLE = 'd';
+    static final String EMPTY_STRING = "";
+    static final char LINE_RETURN = '\n';
+    static final char FORM_FEED = '\f';
+    static final char BOUND = '\b';
+    static final char LINE_FEED = '\r';
+    static final char SPACE = ' ';
+    static final char TAB = '\t';
+    static final char ESCAPE_META_CHAR = '\\';
+    static final char DELIMITER_CHAR = 39;
+    static final char DELIMITER_STRING = 34;
+    static final char ARR_LEFT = '[';
+    static final char ARR_RIGHT = ']';
+    static final char ANN_ARR_LEFT = '{';
+    static final char ANN_ARR_RIGHT = '}';
+    static final char PAR_LEFT = '(';
+    static final char PAR_RIGHT = ')';
+    static final char SEP_ARG = ',';
+    static final char DOT_VAR = '.';
+    static final char DOUBLE = 'd';
 
-    private static final char INTEGER = 'i';
-    private static final char NB_INTERN_SP = '_';
+    static final char INTEGER = 'i';
+    static final char NB_INTERN_SP = '_';
 
-    private static final char ANNOT = '@';
+    static final char ANNOT = '@';
 
-    private static final char MIN_ENCODE_DIGIT = '0';
-    private static final char MIN_ENCODE_LOW_LETTER = 'a';
-    private static final char MAX_ENCODE_LOW_LETTER = 'f';
-    private static final char MIN_ENCODE_UPP_LETTER = 'A';
-    private static final char MAX_ENCODE_UPP_LETTER = 'F';
+    static final char MIN_ENCODE_DIGIT = '0';
+    static final char MIN_ENCODE_LOW_LETTER = 'a';
+    static final char MAX_ENCODE_LOW_LETTER = 'f';
+    static final char MIN_ENCODE_UPP_LETTER = 'A';
+    static final char MAX_ENCODE_UPP_LETTER = 'F';
 
-    private static final String ARR = "[";
-    private static final String ARR_END = "]";
+    static final String ARR = "[";
+    static final String ARR_END = "]";
 
-    private static final char NEG_BOOL_CHAR = '!';
+    static final char NEG_BOOL_CHAR = '!';
 
-    private static final char MULT_CHAR = '*';
+    static final char MULT_CHAR = '*';
 
-    private static final char DIV_CHAR = '/';
+    static final char DIV_CHAR = '/';
 
-    private static final char MOD_CHAR = '%';
+    static final char MOD_CHAR = '%';
 
-    private static final char PLUS_CHAR = '+';
+    static final char PLUS_CHAR = '+';
 
-    private static final char MINUS_CHAR = '-';
+    static final char MINUS_CHAR = '-';
 
-    private static final char LOWER_CHAR = '<';
+    static final char LOWER_CHAR = '<';
 
-    private static final char GREATER_CHAR = '>';
+    static final char GREATER_CHAR = '>';
 
-    private static final char EQ_CHAR = '=';
+    static final char EQ_CHAR = '=';
 
-    private static final char AND_CHAR = '&';
+    static final char AND_CHAR = '&';
 
-    private static final char OR_CHAR = '|';
-    private static final char XOR_CHAR = '^';
-    private static final char NEG_BOOL = '~';
-    private static final char BEGIN_TERNARY = '?';
-    private static final char DELIMITER_TEXT = '`';
-    private static final char END_TERNARY = ':';
+    static final char OR_CHAR = '|';
+    static final char XOR_CHAR = '^';
+    static final char NEG_BOOL = '~';
+    static final char BEGIN_TERNARY = '?';
+    static final char DELIMITER_TEXT = '`';
+    static final char END_TERNARY = ':';
 
     private ElResolver() {
     }
@@ -295,7 +292,7 @@ public final class ElResolver {
                 int bk_ = StringExpUtil.getBackPrintChar(_string, i_);
                 if (bk_ < 0 || StringExpUtil.nextCharIs(_string, bk_, len_, ',')) {
                     int beginWord_ = i_;
-                    int j_ = getWord(_string, len_, i_);
+                    int j_ = ElResolverCommon.getWord(_string, len_, i_);
                     int n_ = StringExpUtil.nextPrintChar(j_, len_, _string);
                     if (n_ < 0
                             || StringExpUtil.nextCharIs(_string, n_, len_, '=') && !StringExpUtil.nextCharIs(_string, n_ + 1, len_, '=')
@@ -396,1391 +393,6 @@ public final class ElResolver {
         }
         _d.setBadOffset(i_);
         return _d;
-    }
-    public static void commonCheckQuick(String _string, int _minIndex, AnalyzedPageEl _page,ResultExpression _res) {
-        _page.getAnonymousResults().clear();
-        String currentPkg_ = _page.getCurrentPkg();
-        FileBlock currentFile_ = _page.getCurrentFile();
-        stackBegin(_string,_minIndex, currentFile_,currentPkg_,_page);
-        _res.setAnonymousResults(new CustList<AnonymousResult>(_page.getAnonymousResults()));
-    }
-
-    private static void stackBegin(String _string, int _from, FileBlock _file, String _pkg, AnalyzedPageEl _page) {
-        boolean constTextString_ = false;
-        boolean constTextChar_ = false;
-        boolean constString_ = false;
-        boolean constChar_ = false;
-        boolean constText_ = false;
-        StackDelimiters stack_ = new StackDelimiters();
-        IntTreeMap<Character> parsBrackets_ = new IntTreeMap<Character>();
-        char prevOp_ = SPACE;
-        int from_ = _from;
-        int len_ = _string.length();
-        while (from_ < len_) {
-            char curChar_ = _string.charAt(from_);
-            if (constTextString_) {
-                if (curChar_ == ESCAPE_META_CHAR) {
-                    from_++;
-                    from_++;
-                    continue;
-                }
-                if (curChar_ == DELIMITER_STRING
-                        &&StringExpUtil.nextCharIs(_string,from_+1,len_,DELIMITER_STRING)
-                        &&StringExpUtil.nextCharIs(_string,from_+2,len_,DELIMITER_STRING)) {
-                    constTextString_ = false;
-                    from_ += 3;
-                    continue;
-                }
-                from_++;
-                continue;
-            }
-            if (constString_) {
-                if (curChar_ == ESCAPE_META_CHAR) {
-                    from_++;
-                    from_++;
-                    continue;
-                }
-                if (curChar_ == DELIMITER_STRING) {
-                    constString_ = false;
-                }
-                from_++;
-                continue;
-            }
-            if (constTextChar_) {
-                if (curChar_ == ESCAPE_META_CHAR) {
-                    from_++;
-                    from_++;
-                    continue;
-                }
-                if (curChar_ == DELIMITER_CHAR
-                        &&StringExpUtil.nextCharIs(_string,from_+1,len_,DELIMITER_CHAR)
-                        &&StringExpUtil.nextCharIs(_string,from_+2,len_,DELIMITER_CHAR)) {
-                    constTextChar_ = false;
-                    from_ += 3;
-                    continue;
-                }
-                from_++;
-                continue;
-            }
-            if (constChar_) {
-                if (curChar_ == ESCAPE_META_CHAR) {
-                    from_++;
-                    from_++;
-                    continue;
-                }
-                if (curChar_ == DELIMITER_CHAR) {
-                    constChar_ = false;
-                }
-                from_++;
-                continue;
-            }
-            if (constText_) {
-                if (curChar_ == DELIMITER_TEXT) {
-                    if (from_ + 1 >= len_ ||_string.charAt(from_ + 1) != DELIMITER_TEXT) {
-                        constText_ = false;
-                        from_++;
-                        continue;
-                    }
-                    from_++;
-                }
-                from_++;
-                continue;
-            }
-            if (curChar_ == DELIMITER_STRING) {
-                if (are(_string, from_, len_, DELIMITER_STRING)) {
-                    constTextString_ = true;
-                    from_+=3;
-                    continue;
-                }
-                constString_ = true;
-                from_++;
-                continue;
-            }
-            if (curChar_ == DELIMITER_CHAR) {
-                if (are(_string, from_, len_, DELIMITER_CHAR)) {
-                    constTextChar_ = true;
-                    from_+=3;
-                    continue;
-                }
-                constChar_ = true;
-                from_++;
-                continue;
-            }
-            if (curChar_ == DELIMITER_TEXT) {
-                constText_ = true;
-                from_++;
-                continue;
-            }
-            if (_page.getCurrentBlock() instanceof FieldBlock
-                    && parsBrackets_.isEmpty()
-                    && StringExpUtil.isTypeLeafChar(curChar_)) {
-                int bk_ = StringExpUtil.getBackPrintChar(_string, from_);
-                if (bk_ < 0 || StringExpUtil.nextCharIs(_string, bk_, len_, ',')) {
-                    int j_ = getWord(_string, len_, from_);
-                    int n_ = StringExpUtil.nextPrintChar(j_, len_, _string);
-                    if (n_ < 0
-                            || StringExpUtil.nextCharIs(_string, n_, len_, '=') && !StringExpUtil.nextCharIs(_string, n_ + 1, len_, '=')
-                            || StringExpUtil.nextCharIs(_string, n_, len_, ',')) {
-                        from_ = j_;
-                        continue;
-                    }
-                }
-            }
-            int next_ = processAfterInstuctionKeyWordQuick(_string, from_,stack_, _page);
-            if (next_ > from_) {
-                from_ = next_;
-                continue;
-            }
-            if (StringExpUtil.isTypeLeafChar(curChar_)) {
-                next_ = processWordsQuickBegin(_string,from_,prevOp_,curChar_,stack_, _page, _pkg, _file);
-                if (next_ < 0) {
-                    break;
-                }
-                from_ = next_;
-                continue;
-            }
-            if (prevOp_ != '.' && curChar_ == DOT_VAR) {
-                int n_ = StringExpUtil.nextPrintChar(from_ + 1, len_, _string);
-                if (!StringExpUtil.nextCharIs(_string,n_,len_,DOT_VAR)) {
-                    if (isDigitOrDot(_string,n_)) {
-                        KeyWords keyWords_ = _page.getKeyWords();
-                        NumberInfosOutput res_ = processNb(keyWords_, from_ + 1, len_, _string, true);
-                        from_ = res_.getNextIndex();
-                        continue;
-                    }
-                }
-            }
-            next_ = processOperatorsQuickBegin(parsBrackets_,stack_,from_,curChar_, _string, _page, _pkg, _file);
-            if (next_ < 0) {
-                break;
-            }
-            if (!StringUtil.isWhitespace(curChar_)) {
-                prevOp_ = curChar_;
-            }
-            from_ = next_;
-        }
-    }
-    private static int stack(String _string, int _from, AnalyzedPageEl _page, String _packageName, FileBlock _file) {
-        boolean constTextString_ = false;
-        boolean constTextChar_ = false;
-        boolean constString_ = false;
-        boolean constChar_ = false;
-        boolean constText_ = false;
-        StackDelimiters stack_ = new StackDelimiters();
-        IntTreeMap<Character> parsBrackets_ = new IntTreeMap<Character>();
-        char prevOp_ = SPACE;
-        int from_ = _from;
-        int len_ = _string.length();
-        while (from_ < len_) {
-            char curChar_ = _string.charAt(from_);
-            if (constTextString_) {
-                if (curChar_ == ESCAPE_META_CHAR) {
-                    from_++;
-                    from_++;
-                    continue;
-                }
-                if (curChar_ == DELIMITER_STRING
-                        &&StringExpUtil.nextCharIs(_string,from_+1,len_,DELIMITER_STRING)
-                        &&StringExpUtil.nextCharIs(_string,from_+2,len_,DELIMITER_STRING)) {
-                    constTextString_ = false;
-                    from_ += 3;
-                    continue;
-                }
-                from_++;
-                continue;
-            }
-            if (constString_) {
-                if (curChar_ == ESCAPE_META_CHAR) {
-                    from_++;
-                    from_++;
-                    continue;
-                }
-                if (curChar_ == DELIMITER_STRING) {
-                    constString_ = false;
-                }
-                from_++;
-                continue;
-            }
-            if (constTextChar_) {
-                if (curChar_ == ESCAPE_META_CHAR) {
-                    from_++;
-                    from_++;
-                    continue;
-                }
-                if (curChar_ == DELIMITER_CHAR
-                        &&StringExpUtil.nextCharIs(_string,from_+1,len_,DELIMITER_CHAR)
-                        &&StringExpUtil.nextCharIs(_string,from_+2,len_,DELIMITER_CHAR)) {
-                    constTextChar_ = false;
-                    from_ += 3;
-                    continue;
-                }
-                from_++;
-                continue;
-            }
-            if (constChar_) {
-                if (curChar_ == ESCAPE_META_CHAR) {
-                    from_++;
-                    from_++;
-                    continue;
-                }
-                if (curChar_ == DELIMITER_CHAR) {
-                    constChar_ = false;
-                }
-                from_++;
-                continue;
-            }
-            if (constText_) {
-                if (curChar_ == DELIMITER_TEXT) {
-                    if (from_ + 1 >= len_ ||_string.charAt(from_ + 1) != DELIMITER_TEXT) {
-                        constText_ = false;
-                        from_++;
-                        continue;
-                    }
-                    from_++;
-                }
-                from_++;
-                continue;
-            }
-            if (curChar_ == DELIMITER_STRING) {
-                if (are(_string, from_, len_, DELIMITER_STRING)) {
-                    constTextString_ = true;
-                    from_+=3;
-                    continue;
-                }
-                constString_ = true;
-                from_++;
-                continue;
-            }
-            if (curChar_ == DELIMITER_CHAR) {
-                if (are(_string, from_, len_, DELIMITER_CHAR)) {
-                    constTextChar_ = true;
-                    from_+=3;
-                    continue;
-                }
-                constChar_ = true;
-                from_++;
-                continue;
-            }
-            if (curChar_ == DELIMITER_TEXT) {
-                constText_ = true;
-                from_++;
-                continue;
-            }
-            int next_ = processAfterInstuctionKeyWordQuick(_string, from_,stack_, _page);
-            if (next_ > from_) {
-                from_ = next_;
-                continue;
-            }
-            if (StringExpUtil.isTypeLeafChar(curChar_)) {
-                next_ = processWordsQuick(_string,from_,prevOp_,curChar_,stack_, _page, _packageName, _file);
-                from_ = next_;
-                continue;
-            }
-            if (prevOp_ != '.' && curChar_ == DOT_VAR) {
-                int n_ = StringExpUtil.nextPrintChar(from_ + 1, len_, _string);
-                if (!StringExpUtil.nextCharIs(_string,n_,len_,DOT_VAR)) {
-                    if (isDigitOrDot(_string,n_)) {
-                        KeyWords keyWords_ = _page.getKeyWords();
-                        NumberInfosOutput res_ = processNb(keyWords_, from_ + 1, len_, _string, true);
-                        from_ = res_.getNextIndex();
-                        continue;
-                    }
-                }
-            }
-            next_ = processOperatorsQuick(parsBrackets_,stack_,from_,curChar_, _string, _page, _packageName, _file);
-            if (next_ < 0) {
-                break;
-            }
-            if (!StringUtil.isWhitespace(curChar_)) {
-                prevOp_ = curChar_;
-            }
-            from_ = next_;
-        }
-        return from_;
-    }
-
-    private static boolean are(String _string, int _from, int _len, char _delimiter) {
-        return StringExpUtil.nextCharIs(_string, _from + 1, _len, _delimiter)
-                && StringExpUtil.nextCharIs(_string, _from + 2, _len, _delimiter);
-    }
-
-    private static int processAfterInstuctionKeyWordQuick(String _string, int _i, StackDelimiters _stack, AnalyzedPageEl _page) {
-        int len_ = _string.length();
-        int i_ = _i;
-        KeyWords keyWords_ = _page.getKeyWords();
-        String keyWordBool_ = keyWords_.getKeyWordBool();
-        String keyWordCast_ = keyWords_.getKeyWordCast();
-        String keyWordExplicit_ = keyWords_.getKeyWordExplicit();
-        String keyWordClass_ = keyWords_.getKeyWordClass();
-        String keyWordClasschoice_ = keyWords_.getKeyWordClasschoice();
-        String keyWordFalse_ = keyWords_.getKeyWordFalse();
-        String keyWordFirstopt_ = keyWords_.getKeyWordFirstopt();
-        String keyWordId_ = keyWords_.getKeyWordId();
-        String keyWordInstanceof_ = keyWords_.getKeyWordInstanceof();
-        String keyWordInterfaces_ = keyWords_.getKeyWordInterfaces();
-        String keyWordLambda_ = keyWords_.getKeyWordLambda();
-        String keyWordNew_ = keyWords_.getKeyWordNew();
-        String keyWordSwitch_ = keyWords_.getKeyWordSwitch();
-        String keyWordStatic_ = keyWords_.getKeyWordStatic();
-        String keyWordStaticCall_ = keyWords_.getKeyWordStaticCall();
-        String keyWordSuper_ = keyWords_.getKeyWordSuper();
-        String keyWordSuperaccess_ = keyWords_.getKeyWordSuperaccess();
-        String keyWordThat_ = keyWords_.getKeyWordThat();
-        String keyWordThis_ = keyWords_.getKeyWordThis();
-        String keyWordThisaccess_ = keyWords_.getKeyWordThisaccess();
-        String keyWordTrue_ = keyWords_.getKeyWordTrue();
-        String keyWordValueOf_ = keyWords_.getKeyWordValueOf();
-        String keyWordValues_ = keyWords_.getKeyWordValues();
-        String keyWordVararg_ = keyWords_.getKeyWordVararg();
-        String keyWordDefault_ = keyWords_.getKeyWordDefaultValue();
-        String keyWordDefaultValue_ = keyWords_.getKeyWordDefaultValue();
-        String keyWordOperator_ = keyWords_.getKeyWordOperator();
-        //
-        if (StringExpUtil.startsWithKeyWord(_string,i_, keyWordInstanceof_)) {
-            int next_ = i_ + keyWordInstanceof_.length();
-            next_ = incrInstanceOf(_string, len_, next_);
-            i_ = next_;
-            return i_;
-        }
-        if (StringExpUtil.startsWithKeyWord(_string,i_, keyWordSwitch_)) {
-            int j_ = i_+keyWordSwitch_.length();
-            String afterSwitch_ = _string.substring(j_);
-            Ints annotationsIndexes_ = new Ints();
-            StringList annotations_ = new StringList();
-            Ints annotationsIndexesParam_ = new Ints();
-            StringList annotationsParam_ = new StringList();
-            if (afterSwitch_.trim().startsWith("[")) {
-                int k_ = afterSwitch_.indexOf('[') + 1;
-                int count_ = 1;
-                int lenSw_ = afterSwitch_.length();
-                while (k_ < lenSw_) {
-                    char ch_ = afterSwitch_.charAt(k_);
-                    if (ch_ == '[') {
-                        count_++;
-                    }
-                    if (count_ == 1 && ch_ == ':') {
-                        int l_ = DefaultProcessKeyWord.skipWhiteSpace(afterSwitch_,k_+1);
-                        int gl_ = _page.getLocalizer().getCurrentLocationIndex();
-                        if (afterSwitch_.startsWith("@",l_)) {
-                            ParsedAnnotations parse_ = new ParsedAnnotations(afterSwitch_.substring(l_),j_+l_+ gl_);
-                            parse_.parse();
-                            annotationsIndexes_ = parse_.getAnnotationsIndexes();
-                            annotations_ = parse_.getAnnotations();
-                            l_ = parse_.getIndex() - j_ - gl_;
-                            l_ = DefaultProcessKeyWord.skipWhiteSpace(afterSwitch_,l_);
-                        }
-                        if (afterSwitch_.startsWith(":",l_)) {
-                            int m_ = DefaultProcessKeyWord.skipWhiteSpace(afterSwitch_,l_+1);
-                            if (afterSwitch_.startsWith("@",m_)) {
-                                ParsedAnnotations parse_ = new ParsedAnnotations(afterSwitch_.substring(m_),j_+m_+ gl_);
-                                parse_.parse();
-                                annotationsIndexesParam_ = parse_.getAnnotationsIndexes();
-                                annotationsParam_ = parse_.getAnnotations();
-                                m_ = parse_.getIndex() - j_ - gl_;
-                                m_ = DefaultProcessKeyWord.skipWhiteSpace(afterSwitch_,m_);
-                            }
-                            l_ = m_;
-                        }
-                        if (afterSwitch_.startsWith("]",l_)) {
-                            k_ = l_;
-                            break;
-                        }
-                    }
-                    if (ch_ == ']') {
-                        count_--;
-                        if (count_ == 0) {
-                            break;
-                        }
-                    }
-                    k_++;
-                }
-                int next_ = DefaultProcessKeyWord.skipWhiteSpace(_string,j_+k_+1);
-                if (_string.startsWith("(",next_)) {
-                    _stack.getStringsSwitch().add("");
-                    _stack.getIndexesSwitch().add(next_);
-                    _stack.getCallings().add(next_);
-                    _stack.getAnnotationsIndexesSw().add(annotationsIndexes_);
-                    _stack.getAnnotationsSw().add(annotations_);
-                    _stack.getAnnotationsIndexesSwPar().add(annotationsIndexesParam_);
-                    _stack.getAnnotationsSwPar().add(annotationsParam_);
-                    return next_;
-                }
-                return j_+k_;
-            }
-            int next_ = DefaultProcessKeyWord.skipWhiteSpace(_string,j_);
-            if (_string.startsWith("(",next_)) {
-                _stack.getStringsSwitch().add("");
-                _stack.getIndexesSwitch().add(next_);
-                _stack.getAnnotationsIndexesSw().add(annotationsIndexes_);
-                _stack.getAnnotationsSw().add(annotations_);
-                _stack.getAnnotationsIndexesSwPar().add(annotationsIndexesParam_);
-                _stack.getAnnotationsSwPar().add(annotationsParam_);
-                _stack.getCallings().add(next_);
-                return next_;
-            }
-            return j_;
-        }
-        if (StringExpUtil.startsWithKeyWord(_string,i_, keyWordNew_)) {
-            int j_ = i_+keyWordNew_.length();
-            boolean foundLeftPar_ = false;
-            boolean foundLeft_ = false;
-            while (j_ < len_) {
-                char curLoc_ = _string.charAt(j_);
-                if (!StringUtil.isWhitespace(curLoc_)) {
-                    if (curLoc_ == ANN_ARR_LEFT) {
-                        foundLeft_ = true;
-                        j_++;
-                    }
-                    if (curLoc_ == PAR_LEFT || curLoc_ == ARR_LEFT) {
-                        foundLeftPar_ = true;
-                        if (curLoc_ == PAR_LEFT ) {
-                            _stack.getCallings().add(j_);
-                        }
-                        j_++;
-                    }
-                    break;
-                }
-                j_++;
-            }
-            if (foundLeftPar_) {
-                i_ = j_-1;
-                _stack.getAnnotationsIndexes().add(new Ints());
-                _stack.getAnnotations().add(new StringList());
-                _stack.getStringsNew().add("");
-                _stack.getIndexesNew().add(i_);
-                return i_;
-            }
-            boolean found_ = false;
-            while (j_ < len_) {
-                char curLoc_ = _string.charAt(j_);
-                if (!StringUtil.isWhitespace(curLoc_)) {
-                    if (curLoc_ == ANN_ARR_RIGHT) {
-                        j_++;
-                        found_ = true;
-                    }
-                    break;
-                }
-                j_++;
-            }
-            if (foundLeft_ && !found_) {
-                return j_;
-            }
-            j_ = DefaultProcessKeyWord.skipWhiteSpace(_string,j_);
-            Ints annotationsIndexes_ = new Ints();
-            StringList annotations_ = new StringList();
-            if (_string.startsWith("@",j_)) {
-                int gl_ = _page.getLocalizer().getCurrentLocationIndex();
-                ParsedAnnotations parse_ = new ParsedAnnotations(_string.substring(j_),j_+ gl_);
-                parse_.parse();
-                annotationsIndexes_ = parse_.getAnnotationsIndexes();
-                annotations_ = parse_.getAnnotations();
-                j_ = parse_.getIndex()-gl_;
-                j_ = DefaultProcessKeyWord.skipWhiteSpace(_string,j_);
-            }
-            if (StringExpUtil.startsWithKeyWord(_string,j_, keyWordInterfaces_)) {
-                int k_ = _string.indexOf(PAR_LEFT, j_);
-                if (k_ < 0) {
-                    return j_;
-                }
-                k_ = _string.indexOf(PAR_RIGHT, k_);
-                if (k_ < 0) {
-                    return j_;
-                }
-                j_ = k_+1;
-            }
-            int from_ = j_;
-            j_ = DefaultProcessKeyWord.extractType(_string,_stack,j_);
-            _stack.getAnnotationsIndexes().add(annotationsIndexes_);
-            _stack.getAnnotations().add(annotations_);
-            _stack.getStringsNew().add(_string.substring(from_,j_));
-            _stack.getIndexesNew().add(j_);
-            return j_;
-        }
-        for (String s: StringUtil.wrapStringArray(
-                keyWordClasschoice_,
-                keyWordSuperaccess_,keyWordThisaccess_,keyWordInterfaces_,keyWordOperator_)) {
-            if (StringExpUtil.startsWithKeyWord(_string,i_, s)) {
-                int pr_ = StringExpUtil.nextPrintChar(i_+s.length(), len_, _string);
-                if (!StringExpUtil.nextCharIs(_string,pr_,len_,PAR_LEFT)) {
-                    return i_+s.length();
-                }
-                _stack.getCallings().add(pr_);
-                int indexParRight_ = _string.indexOf(PAR_RIGHT,pr_+1);
-                if (indexParRight_ < 0) {
-                    return i_+s.length();
-                }
-                int indexSecParLeft_ = _string.indexOf(PAR_LEFT,indexParRight_+1);
-                if (indexSecParLeft_ < 0) {
-                    return indexParRight_+1;
-                }
-                _stack.getCallings().add(indexSecParLeft_);
-                return indexSecParLeft_;
-            }
-        }
-        for (String s: StringUtil.wrapStringArray(keyWordCast_,keyWordExplicit_,
-                keyWordVararg_,keyWordDefaultValue_,keyWordClass_,keyWordLambda_,
-                keyWordId_,keyWordStatic_,keyWordStaticCall_,
-                keyWordValues_)) {
-            if (StringExpUtil.startsWithKeyWord(_string,i_, s)) {
-                int pr_ = StringExpUtil.nextPrintChar(i_+s.length(), len_, _string);
-                if (!StringExpUtil.nextCharIs(_string,pr_,len_,PAR_LEFT)) {
-                    return i_+s.length();
-                }
-                _stack.getCallings().add(pr_);
-                int indexParRight_ = _string.indexOf(PAR_RIGHT,pr_+1);
-                if (indexParRight_ < 0) {
-                    return i_;
-                }
-                return indexParRight_+1;
-            }
-        }
-        for (String s: StringUtil.wrapStringArray(keyWordBool_,keyWordFalse_,keyWordFirstopt_,
-                keyWordSuper_,keyWordThis_,keyWordValueOf_,keyWordThat_,keyWordTrue_,keyWordDefault_)) {
-            if (StringExpUtil.startsWithKeyWord(_string,i_, s)) {
-                int pr_ = StringExpUtil.nextPrintChar(i_+s.length(), len_, _string);
-                if (!StringExpUtil.nextCharIs(_string,pr_,len_,PAR_LEFT)) {
-                    return i_+s.length();
-                }
-                _stack.getCallings().add(pr_);
-                i_ = pr_;
-                break;
-            }
-        }
-        return i_;
-    }
-
-    private static int incrInstanceOf(String _string, int _len, int _next) {
-        int next_ = incrType(_next,_string);
-        if (next_ < _len && _string.charAt(next_) == LOWER_CHAR) {
-            int nbOpened_ = 1;
-            next_++;
-            while (next_ < _len) {
-                char curLoc_ = _string.charAt(next_);
-                if (curLoc_ == LOWER_CHAR) {
-                    nbOpened_++;
-                    next_++;
-                    continue;
-                }
-                if (nbOpened_ == 0 && !StringUtil.isWhitespace(curLoc_)) {
-                    break;
-                }
-                if (curLoc_ == GREATER_CHAR) {
-                    nbOpened_--;
-                    next_++;
-                    if (nbOpened_ == 0) {
-                        String substring_ = _string.substring(next_);
-                        if (substring_.trim().startsWith(".")) {
-                            next_ = incrType(next_,_string);
-                        }
-                    }
-                    continue;
-                }
-                next_++;
-            }
-        }
-        if (next_ < _len) {
-            char curLoc_ = _string.charAt(next_);
-            if (curLoc_ == ARR_LEFT) {
-                while (next_ < _len) {
-                    curLoc_ = _string.charAt(next_);
-                    if (StringUtil.isWhitespace(curLoc_)) {
-                        next_++;
-                        continue;
-                    }
-                    if (curLoc_ == ARR_LEFT) {
-                        next_++;
-                        continue;
-                    }
-                    if (curLoc_ == ARR_RIGHT) {
-                        next_++;
-                        continue;
-                    }
-                    break;
-                }
-            }
-        }
-        return next_;
-    }
-
-    private static int indexAfterPossibleCastQuick(String _string, int _from, Ints _callings) {
-        int indexParRight_ = _string.indexOf(PAR_RIGHT, _from +1);
-        if (indexParRight_ < 0) {
-            return _from;
-        }
-        if (indexParRight_ + 1 >= _string.length()) {
-            return _from;
-        }
-        if (_callings.containsObj(_from)) {
-            return _from;
-        }
-
-        String sub_ = _string.substring(_from + 1, indexParRight_);
-        String subTrim_ = sub_.trim();
-        int next_ = StringExpUtil.nextPrintChar(indexParRight_+1,_string.length(),_string);
-        for (String s: StringUtil.wrapStringArray("+=","-=",
-                "*=","/=","%=",
-                "^=","&=","|=",
-                "||","&&","?",":",
-                "<",">",",","->",
-                "!=","=",")","]","}")) {
-            if (_string.startsWith(s,next_)) {
-                return _from;
-            }
-        }
-        if (_string.startsWith(".",next_)) {
-            int n_ = StringExpUtil.nextPrintChar(next_ + 1, _string.length(), _string);
-            if (!isDigitOrDot(_string,n_)) {
-                return _from;
-            }
-        }
-        if (AnaPartTypeUtil.isCorrectType(subTrim_,new StringList())) {
-            return indexParRight_ + 1;
-        }
-        return _from;
-    }
-    private static int processWordsQuick(String _string, int _i, char _prevOp, char _curChar, StackDelimiters _stack, AnalyzedPageEl _page, String _packageName, FileBlock _file) {
-        int len_ = _string.length();
-        int i_ = _i;
-        KeyWords keyWords_ = _page.getKeyWords();
-        if (_prevOp != '.' && StringExpUtil.isDigit(_curChar)) {
-            NumberInfosOutput res_ = processNb(keyWords_, i_, len_, _string, false);
-            return res_.getNextIndex();
-        }
-        int beginWord_ = i_;
-        while (i_ < len_) {
-            char locChar_ = _string.charAt(i_);
-            if (!StringExpUtil.isTypeLeafChar(locChar_)) {
-                break;
-            }
-            i_++;
-        }
-        String word_ = _string.substring(beginWord_, i_);
-        int nextPar_ = StringExpUtil.nextPrintCharIs(i_, len_, _string, PAR_LEFT);
-        if (nextPar_ > -1) {
-            _stack.getCallings().add(nextPar_);
-            return i_;
-        }
-        int bk_ = StringExpUtil.getBackPrintChar(_string, beginWord_);
-        if (StringExpUtil.nextCharIs(_string,bk_,len_,'.')) {
-            return i_;
-        }
-        int dash_ = StringExpUtil.nextPrintCharIs(i_, len_, _string, '-');
-        if (dash_ > -1 && StringExpUtil.nextCharIs(_string,dash_+1, len_,'>')) {
-            String afterArrow_ = _string.substring(dash_+"->".length());
-            String after_ = afterArrow_.trim();
-            int off_ = 0;
-            int deltaArr_ = off_;
-            off_ += StringUtil.getFirstPrintableCharIndex(afterArrow_);
-            if (after_.startsWith("{")) {
-                int instrLoc_ = _page.getLocalizer().getCurrentLocationIndex();
-                int j_ = beginWord_+word_.length()+(dash_-i_) + off_+2;
-                int jBef_ = beginWord_+word_.length()+(dash_-i_) + deltaArr_;
-                InputTypeCreation input_ = new InputTypeCreation();
-                input_.setType(OuterBlockEnum.ANON_FCT);
-                input_.setFile(_file);
-                input_.setNextIndex(j_);
-                input_.setNextIndexBef(jBef_);
-                ResultCreation res_ = FileResolver.processOuterTypeBody(input_, _packageName, instrLoc_, _string, _page);
-                int k_ = res_.getNextIndex() - 1;
-                return k_+1;
-            }
-        }
-        return i_;
-    }
-    private static int processWordsQuickBegin(String _string, int _i, char _prevOp, char _curChar, StackDelimiters _stack, AnalyzedPageEl _page, String _packageName, FileBlock _file) {
-        int len_ = _string.length();
-        int i_ = _i;
-        KeyWords keyWords_ = _page.getKeyWords();
-        if (_prevOp != '.' && StringExpUtil.isDigit(_curChar)) {
-            NumberInfosOutput res_ = processNb(keyWords_, i_, len_, _string, false);
-            return res_.getNextIndex();
-        }
-        int beginWord_ = i_;
-        while (i_ < len_) {
-            char locChar_ = _string.charAt(i_);
-            if (!StringExpUtil.isTypeLeafChar(locChar_)) {
-                break;
-            }
-            i_++;
-        }
-        String word_ = _string.substring(beginWord_, i_);
-        int nextPar_ = StringExpUtil.nextPrintCharIs(i_, len_, _string, PAR_LEFT);
-        if (nextPar_ > -1) {
-            _stack.getCallings().add(nextPar_);
-            return i_;
-        }
-        int bk_ = StringExpUtil.getBackPrintChar(_string, beginWord_);
-        if (StringExpUtil.nextCharIs(_string,bk_,len_,'.')) {
-            return i_;
-        }
-        int dash_ = StringExpUtil.nextPrintCharIs(i_, len_, _string, '-');
-        if (dash_ > -1 && StringExpUtil.nextCharIs(_string,dash_+1, len_,'>')) {
-            String afterArrow_ = _string.substring(dash_+"->".length());
-            String after_ = afterArrow_.trim();
-            int off_ = StringUtil.getFirstPrintableCharIndex(afterArrow_);
-            int indAfterArrow_ = dash_ + off_ + 2;
-            if (after_.startsWith("{")) {
-                int instrLoc_ = _page.getLocalizer().getCurrentLocationIndex();
-                ParsedFctHeader parse_ = new ParsedFctHeader();
-                parse_.getOffestsParams().add(beginWord_+instrLoc_);
-                parse_.getOffestsTypes().add(beginWord_+instrLoc_);
-                parse_.getParametersName().add(word_);
-                parse_.getParametersType().add("");
-                parse_.getParametersRef().add(false);
-                parse_.getAnnotationsParams().add(new StringList());
-                parse_.getAnnotationsIndexesParams().add(new Ints());
-                InputTypeCreation input_ = new InputTypeCreation();
-                input_.setType(OuterBlockEnum.ANON_FCT);
-                input_.setFile(_file);
-                input_.setNextIndex(indAfterArrow_);
-                input_.setNextIndexBef(dash_);
-                input_.setAnnotations(parse_.getAnnotations());
-                input_.setAnnotationsIndexes(parse_.getAnnotationsIndexes());
-                input_.setAnnotationsParams(parse_.getAnnotationsParams());
-                input_.setAnnotationsIndexesParams(parse_.getAnnotationsIndexesParams());
-                ResultCreation res_ = FileResolver.processOuterTypeBody(input_, _packageName, instrLoc_, _string, _page);
-                if (res_.isOkType()) {
-                    int k_ = res_.getNextIndex() - 1;
-                    AnonymousResult anonymous_ = new AnonymousResult();
-                    anonymous_.setResults(parse_);
-                    anonymous_.setIndex(beginWord_);
-                    anonymous_.setUntil(k_);
-                    anonymous_.setLength(k_- dash_ +1);
-                    anonymous_.setType(res_.getBlock());
-                    anonymous_.setNext(k_ + 1);
-                    _page.getAnonymousResults().add(anonymous_);
-                    return k_ + 1;
-                }
-                return -1;
-            }
-            ParsedFctHeader parse_ = new ParsedFctHeader();
-            int instrLoc_ = _page.getLocalizer().getCurrentLocationIndex();
-            parse_.getOffestsParams().add(beginWord_+instrLoc_);
-            parse_.getOffestsTypes().add(beginWord_+instrLoc_);
-            parse_.getParametersName().add(word_);
-            parse_.getParametersType().add("");
-            parse_.getParametersRef().add(false);
-            parse_.getAnnotationsParams().add(new StringList());
-            parse_.getAnnotationsIndexesParams().add(new Ints());
-            int k_ = stack(_string, indAfterArrow_, _page, _packageName, _file);
-            String part_ = _string.substring(indAfterArrow_,k_);
-            int begAnon_ = dash_ + instrLoc_;
-            int begImplRet_ = indAfterArrow_ + instrLoc_;
-            AnonymousFunctionBlock block_ = new AnonymousFunctionBlock(begAnon_,new OffsetsBlock(begImplRet_, begImplRet_), _page);
-            block_.getAnnotations().addAllElts(parse_.getAnnotations());
-            block_.getAnnotationsIndexes().addAllElts(parse_.getAnnotationsIndexes());
-            block_.getAnnotationsParams().addAllElts(parse_.getAnnotationsParams());
-            block_.getAnnotationsIndexesParams().addAllElts(parse_.getAnnotationsIndexesParams());
-            block_.setBegin(begImplRet_);
-            block_.setLengthHeader(1);
-            block_.setFile(_file);
-            String tr_ = part_.trim();
-            ReturnMethod ret_ = new ReturnMethod(new OffsetStringInfo(begImplRet_, tr_),new OffsetsBlock(begImplRet_, begImplRet_));
-            ret_.setImplicit(true);
-            ret_.setBegin(begAnon_);
-            ret_.setLengthHeader(2);
-            block_.appendChild(ret_);
-            AnonymousResult anonymous_ = new AnonymousResult();
-            anonymous_.setResults(parse_);
-            anonymous_.setIndex(beginWord_);
-            int withoutWhiteBoundsCount_ = part_.length() - tr_.length();
-            anonymous_.setUntil(k_- withoutWhiteBoundsCount_ -1);
-            anonymous_.setLength(k_- withoutWhiteBoundsCount_ - dash_);
-            anonymous_.setType(block_);
-            anonymous_.setNext(k_);
-            _page.getAnonymousResults().add(anonymous_);
-            return k_;
-        }
-        return i_;
-    }
-    private static int processOperatorsQuick(IntTreeMap<Character> _parsBrackets, StackDelimiters _stack, int _i, char _curChar, String _string,
-                                             AnalyzedPageEl _page, String _packageName, FileBlock _file) {
-        IntTreeMap<Character> parsBrackets_;
-        parsBrackets_ = _parsBrackets;
-
-        int len_ = _string.length();
-        int i_ = _i;
-        KeyWords keyWords_ = _page.getKeyWords();
-        if (_curChar == PAR_LEFT) {
-            if (!_stack.getCallings().containsObj(i_)) {
-                ParsedFctHeader parse_ = new ParsedFctHeader();
-                int instrLoc_ = _page.getLocalizer().getCurrentLocationIndex();
-                parse_.parseAnonymous(i_,_string,instrLoc_,keyWords_.getKeyWordThat());
-                int rightPar_ = parse_.getNextIndex();
-                if (rightPar_ > i_) {
-                    String substring_ = _string.substring(i_+1,rightPar_+1);
-                    String info_ = _string.substring(rightPar_+1);
-                    int off_ = StringUtil.getFirstPrintableCharIndex(info_);
-                    String afterArrow_ = parse_.getAfterArrow();
-                    String after_ = afterArrow_.trim();
-                    int deltaArr_ = off_;
-                    off_ += StringUtil.getFirstPrintableCharIndex(afterArrow_);
-                    if (after_.startsWith("{")) {
-                        int j_ = i_+1 + substring_.length()+off_+2;
-                        int jBef_ = i_+1 + substring_.length()+deltaArr_;
-                        InputTypeCreation input_ = new InputTypeCreation();
-                        input_.setType(OuterBlockEnum.ANON_FCT);
-                        input_.setFile(_file);
-                        input_.setNextIndex(j_);
-                        input_.setNextIndexBef(jBef_);
-                        input_.setAnnotations(parse_.getAnnotations());
-                        input_.setAnnotationsIndexes(parse_.getAnnotationsIndexes());
-                        input_.setAnnotationsParams(parse_.getAnnotationsParams());
-                        input_.setAnnotationsIndexesParams(parse_.getAnnotationsIndexesParams());
-                        ResultCreation res_ = FileResolver.processOuterTypeBody(input_, _packageName, instrLoc_, _string, _page);
-                        int k_ = res_.getNextIndex() - 1;
-                        return k_+1;
-                    }
-                    return rightPar_+1;
-                }
-            }
-
-            int j_ = indexAfterPossibleCastQuick(_string,i_, _stack.getCallings());
-            if (j_ > i_) {
-                return j_;
-            }
-            _stack.getCallings().add(i_);
-            parsBrackets_.put(i_, _curChar);
-        }
-        if (_curChar == PAR_RIGHT) {
-            if (parsBrackets_.isEmpty()) {
-                return -1;
-            }
-            tryAddStringParts(parsBrackets_, i_, _stack);
-            tryAddAnnotationsParts(parsBrackets_, _stack);
-            parsBrackets_.removeKey(parsBrackets_.lastKey());
-        }
-        if (_curChar == ANN_ARR_LEFT) {
-            int bk_ = StringExpUtil.getBackPrintChar(_string, i_);
-            if (StringExpUtil.nextCharIs(_string,bk_,len_,PAR_RIGHT)) {
-                int indexLast_ = _stack.getIndexesNewEnd().indexOf(bk_);
-                if (indexLast_ > -1) {
-                    String beforeCall_ = _stack.getStringsNewEnd().get(indexLast_);
-                    int instrLoc_ = _page.getLocalizer().getCurrentLocationIndex();
-                    InputTypeCreation input_ = new InputTypeCreation();
-                    input_.setType(OuterBlockEnum.ANON_TYPE);
-                    input_.setFile(_file);
-                    input_.setNextIndex(i_);
-                    input_.setAnnotations(_stack.getAnnotationsEnd().get(indexLast_));
-                    input_.setAnnotationsIndexes(_stack.getAnnotationsIndexesEnd().get(indexLast_));
-                    input_.generatedId(beforeCall_, keyWords_.getKeyWordId());
-                    ResultCreation res_ = FileResolver.processOuterTypeBody(input_, _packageName, instrLoc_, _string, _page);
-                    int j_ = res_.getNextIndex() - 1;
-                    return j_+1;
-                }
-                int indexLastSw_ = _stack.getIndexesSwitchEnd().indexOf(bk_);
-                if (indexLastSw_ > -1) {
-                    String beforeCall_ = _stack.getStringsSwitchEnd().get(indexLastSw_);
-                    int instrLoc_ = _page.getLocalizer().getCurrentLocationIndex();
-                    InputTypeCreation input_ = new InputTypeCreation();
-                    input_.setType(OuterBlockEnum.SWITCH_METHOD);
-                    input_.setFile(_file);
-                    input_.setNextIndex(i_);
-                    input_.generatedId(beforeCall_, keyWords_.getKeyWordId());
-                    input_.setAnnotations(_stack.getAnnotationsEndSw().get(indexLastSw_));
-                    input_.setAnnotationsIndexes(_stack.getAnnotationsIndexesEndSw().get(indexLastSw_));
-                    input_.setAnnotationsParams(new CustList<StringList>(_stack.getAnnotationsEndSwPar().get(indexLastSw_)));
-                    input_.setAnnotationsIndexesParams(new CustList<Ints>(_stack.getAnnotationsIndexesEndSwPar().get(indexLastSw_)));
-                    ResultCreation res_ = FileResolver.processOuterTypeBody(input_, _packageName, instrLoc_, _string, _page);
-                    int j_ = res_.getNextIndex() - 1;
-                    return j_+1;
-                }
-            }
-            parsBrackets_.put(i_, _curChar);
-        }
-        if (_curChar == ANN_ARR_RIGHT) {
-            if (parsBrackets_.isEmpty()) {
-                return -1;
-            }
-            parsBrackets_.removeKey(parsBrackets_.lastKey());
-        }
-        if (_curChar == ARR_LEFT) {
-            int j_ = i_ + 1;
-            SkipArPart s_ = new SkipArPart();
-            s_.skip(j_,_string);
-            j_ = s_.getIndex();
-            boolean skip_ = s_.isSkip();
-            if (skip_) {
-                return j_ + 1;
-            }
-            parsBrackets_.put(i_, _curChar);
-        }
-        if (_curChar == ARR_RIGHT) {
-            if (parsBrackets_.isEmpty()) {
-                return -1;
-            }
-            parsBrackets_.removeKey(parsBrackets_.lastKey());
-        }
-        if (_curChar == BEGIN_TERNARY) {
-            boolean ternary_ = false;
-            if (StringExpUtil.nextCharIs(_string, i_ + 1, len_, DOT_VAR)) {
-                int n_ = StringExpUtil.nextPrintChar(i_ + 2, len_, _string);
-                if (isDigitOrDot(_string,n_)) {
-                    ternary_ = true;
-                }
-            } else {
-                if (!StringExpUtil.nextCharIs(_string, i_ + 1, len_, BEGIN_TERNARY)
-                        &&!StringExpUtil.nextCharIs(_string, i_ + 1, len_, ARR_LEFT)) {
-                    ternary_ = true;
-                }
-            }
-            if (ternary_) {
-                parsBrackets_.put(i_, _curChar);
-            }
-        }
-        if (_curChar == END_TERNARY) {
-            if (parsBrackets_.isEmpty()) {
-                return -1;
-            }
-            if (parsBrackets_.lastValue() == BEGIN_TERNARY) {
-                parsBrackets_.removeKey(parsBrackets_.lastKey());
-            }
-        }
-        if (_curChar == SEP_ARG && parsBrackets_.isEmpty()) {
-            return -1;
-        }
-        boolean escapeOpers_ = false;
-        boolean andOr_ = false;
-        boolean nullSafe_ = false;
-        boolean ltGt_ = false;
-        if (_curChar == MULT_CHAR) {
-            escapeOpers_ = true;
-        }
-        if (_curChar == MOD_CHAR) {
-            escapeOpers_ = true;
-        }
-        if (_curChar == DIV_CHAR) {
-            escapeOpers_ = true;
-        }
-        if (_curChar == PLUS_CHAR){
-            if (i_ + 1 >= len_ || _string.charAt(i_ + 1) != PLUS_CHAR) {
-                escapeOpers_ = true;
-            }
-        }
-        if (_curChar == MINUS_CHAR){
-            if (i_ + 1 >= len_ || _string.charAt(i_ + 1) != MINUS_CHAR) {
-                escapeOpers_ = true;
-            }
-        }
-        if (_curChar == AND_CHAR) {
-            andOr_ = true;
-            escapeOpers_ = true;
-        }
-        if (_curChar == OR_CHAR) {
-            andOr_ = true;
-            escapeOpers_ = true;
-        }
-        if (_curChar == LOWER_CHAR) {
-            escapeOpers_ = true;
-            ltGt_ = true;
-        }
-        if (_curChar == XOR_CHAR) {
-            escapeOpers_ = true;
-        }
-        if (_curChar == BEGIN_TERNARY) {
-            escapeOpers_ = true;
-            nullSafe_ = true;
-        }
-        if (_curChar == END_TERNARY) {
-            escapeOpers_ = true;
-        }
-        if (_curChar == GREATER_CHAR) {
-            escapeOpers_ = true;
-            ltGt_ = true;
-        }
-        if (_curChar == EQ_CHAR) {
-            escapeOpers_ = true;
-        }
-        if (_curChar == NEG_BOOL_CHAR) {
-            escapeOpers_ = true;
-        }
-        if (_curChar == ANN_ARR_LEFT) {
-            escapeOpers_ = true;
-        }
-        if (_curChar == ARR_LEFT) {
-            escapeOpers_ = true;
-        }
-        if (_curChar == PAR_LEFT) {
-            escapeOpers_ = true;
-        }
-        if (_curChar == SEP_ARG) {
-            escapeOpers_ = true;
-        }
-        if (escapeOpers_) {
-            int j_ = i_ + 1;
-            if (ltGt_ && j_ < len_ && _string.charAt(j_) == _curChar) {
-                j_++;
-            }
-            if (ltGt_ && j_ < len_ && _string.charAt(j_) == _curChar) {
-                j_++;
-            }
-            if (ltGt_ && j_ < len_ && _string.charAt(j_) == _curChar) {
-                j_++;
-            }
-            if (andOr_ && j_ < len_ && _string.charAt(j_) == _curChar) {
-                j_++;
-            }
-            if (andOr_ && j_ < len_ && _string.charAt(j_) == _curChar) {
-                if (j_+1 < len_ && _string.charAt(j_+1) == EQ_CHAR) {
-                    j_++;
-                }
-            }
-            if (nullSafe_ && StringExpUtil.nextCharIs(_string, j_, len_, DOT_VAR)) {
-                int n_ = StringExpUtil.nextPrintChar(j_ + 1, len_, _string);
-                if (!isDigitOrDot(_string,n_)) {
-                    j_++;
-                }
-            }
-            if (nullSafe_ && j_ < len_ && _string.charAt(j_) == _curChar) {
-                j_++;
-            }
-            if (nullSafe_ && j_ < len_ && _string.charAt(j_) == _curChar) {
-                if (j_+1 < len_ && _string.charAt(j_+1) == EQ_CHAR) {
-                    j_++;
-                }
-            }
-            if (j_ < len_ && _string.charAt(j_) == EQ_CHAR) {
-                j_++;
-            }
-            return j_;
-        }
-        if (_curChar == PLUS_CHAR){
-            i_++;
-            i_++;
-            return i_;
-        }
-        if (_curChar == MINUS_CHAR){
-            i_++;
-            i_++;
-            return i_;
-        }
-        i_++;
-        return i_;
-    }
-    private static int processOperatorsQuickBegin(IntTreeMap<Character> _parsBrackets, StackDelimiters _stack, int _i, char _curChar, String _string,
-                                                  AnalyzedPageEl _page, String _packageName, FileBlock _file) {
-        IntTreeMap<Character> parsBrackets_;
-        parsBrackets_ = _parsBrackets;
-        KeyWords keyWords_ = _page.getKeyWords();
-
-        int len_ = _string.length();
-        int i_ = _i;
-        if (_curChar == PAR_LEFT) {
-            if (!_stack.getCallings().containsObj(i_)) {
-                ParsedFctHeader parse_ = new ParsedFctHeader();
-                int instrLoc_ = _page.getLocalizer().getCurrentLocationIndex();
-                parse_.parseAnonymous(i_,_string,instrLoc_,keyWords_.getKeyWordThat());
-                int rightPar_ = parse_.getNextIndex();
-                if (rightPar_ > i_) {
-                    String info_ = _string.substring(rightPar_+1);
-                    int off_ = StringUtil.getFirstPrintableCharIndex(info_);
-                    String afterArrow_ = parse_.getAfterArrow();
-                    String after_ = afterArrow_.trim();
-                    int deltaArr_ = off_;
-                    off_ += StringUtil.getFirstPrintableCharIndex(afterArrow_);
-                    int indAfterArrow_ = rightPar_+1 + off_ + 2;
-                    int indBeforeArrow_ = rightPar_+1+ deltaArr_;
-                    if (after_.startsWith("{")) {
-                        InputTypeCreation input_ = new InputTypeCreation();
-                        input_.setType(OuterBlockEnum.ANON_FCT);
-                        input_.setFile(_file);
-                        input_.setNextIndex(indAfterArrow_);
-                        input_.setNextIndexBef(indBeforeArrow_);
-                        input_.setAnnotations(parse_.getAnnotations());
-                        input_.setAnnotationsIndexes(parse_.getAnnotationsIndexes());
-                        input_.setAnnotationsParams(parse_.getAnnotationsParams());
-                        input_.setAnnotationsIndexesParams(parse_.getAnnotationsIndexesParams());
-                        ResultCreation res_ = FileResolver.processOuterTypeBody(input_, _packageName, instrLoc_, _string, _page);
-                        if (res_.isOkType()) {
-                            int k_ = res_.getNextIndex() - 1;
-                            AnonymousResult anonymous_ = new AnonymousResult();
-                            anonymous_.setResults(parse_);
-                            anonymous_.setIndex(i_);
-                            anonymous_.setUntil(k_);
-                            anonymous_.setLength(k_- indBeforeArrow_ +1);
-                            anonymous_.setType(res_.getBlock());
-                            anonymous_.setNext(k_ + 1);
-                            _page.getAnonymousResults().add(anonymous_);
-                            return k_ + 1;
-                        }
-                        return -1;
-                    }
-                    int k_ = stack(_string, indAfterArrow_, _page, _packageName, _file);
-                    String part_ = _string.substring(indAfterArrow_,k_);
-                    AnonymousFunctionBlock block_ = new AnonymousFunctionBlock(indBeforeArrow_ +instrLoc_,new OffsetsBlock(indAfterArrow_ +instrLoc_, indAfterArrow_ +instrLoc_), _page);
-                    block_.getAnnotations().addAllElts(parse_.getAnnotations());
-                    block_.getAnnotationsIndexes().addAllElts(parse_.getAnnotationsIndexes());
-                    block_.getAnnotationsParams().addAllElts(parse_.getAnnotationsParams());
-                    block_.getAnnotationsIndexesParams().addAllElts(parse_.getAnnotationsIndexesParams());
-                    block_.setBegin(indAfterArrow_ +instrLoc_);
-                    block_.setLengthHeader(1);
-                    block_.setFile(_file);
-                    String trim_ = part_.trim();
-                    ReturnMethod ret_ = new ReturnMethod(new OffsetStringInfo(indAfterArrow_ +instrLoc_, trim_),new OffsetsBlock(indAfterArrow_ +instrLoc_, indAfterArrow_ +instrLoc_));
-                    ret_.setImplicit(true);
-                    ret_.setBegin(indBeforeArrow_ +instrLoc_);
-                    ret_.setLengthHeader(2);
-                    block_.appendChild(ret_);
-                    AnonymousResult anonymous_ = new AnonymousResult();
-                    anonymous_.setResults(parse_);
-                    anonymous_.setIndex(i_);
-                    int withoutWhiteBoundsCount_ = part_.length() - trim_.length();
-                    anonymous_.setUntil(k_- withoutWhiteBoundsCount_ -1);
-                    anonymous_.setLength(k_- withoutWhiteBoundsCount_ - indBeforeArrow_);
-                    anonymous_.setType(block_);
-                    anonymous_.setNext(k_);
-                    _page.getAnonymousResults().add(anonymous_);
-                    return k_;
-                }
-            }
-
-            int j_ = indexAfterPossibleCastQuick(_string,i_, _stack.getCallings());
-            if (j_ > i_) {
-                return j_;
-            }
-            _stack.getCallings().add(i_);
-            parsBrackets_.put(i_, _curChar);
-        }
-        if (_curChar == PAR_RIGHT) {
-            if (parsBrackets_.isEmpty()) {
-                return -1;
-            }
-            tryAddStringParts(parsBrackets_, i_, _stack);
-            tryAddAnnotationsParts(parsBrackets_, _stack);
-            parsBrackets_.removeKey(parsBrackets_.lastKey());
-        }
-        if (_curChar == ANN_ARR_LEFT) {
-            int bk_ = StringExpUtil.getBackPrintChar(_string, i_);
-            if (StringExpUtil.nextCharIs(_string,bk_,len_,PAR_RIGHT)) {
-                int indexLast_ = _stack.getIndexesNewEnd().indexOf(bk_);
-                if (indexLast_ > -1) {
-                    String beforeCall_ = _stack.getStringsNewEnd().get(indexLast_);
-                    int instrLoc_ = _page.getLocalizer().getCurrentLocationIndex();
-                    InputTypeCreation input_ = new InputTypeCreation();
-                    input_.setType(OuterBlockEnum.ANON_TYPE);
-                    input_.setFile(_file);
-                    input_.setNextIndex(i_);
-                    input_.generatedId(beforeCall_, keyWords_.getKeyWordId());
-                    input_.setAnnotations(_stack.getAnnotationsEnd().get(indexLast_));
-                    input_.setAnnotationsIndexes(_stack.getAnnotationsIndexesEnd().get(indexLast_));
-                    ResultCreation res_ = FileResolver.processOuterTypeBody(input_, _packageName, instrLoc_, _string, _page);
-                    if (res_.isOkType()) {
-                        int j_ = res_.getNextIndex() - 1;
-                        AnonymousResult anonymous_ = new AnonymousResult();
-                        anonymous_.setIndex(i_);
-                        anonymous_.setUntil(j_);
-                        anonymous_.setLength(j_-i_+1);
-                        anonymous_.setType(res_.getBlock());
-                        anonymous_.setNext(j_ + 1);
-                        _page.getAnonymousResults().add(anonymous_);
-                        return j_ + 1;
-                    }
-                }
-                int indexLastSw_ = _stack.getIndexesSwitchEnd().indexOf(bk_);
-                if (indexLastSw_ > -1) {
-                    String beforeCall_ = _stack.getStringsSwitchEnd().get(indexLastSw_);
-                    int instrLoc_ = _page.getLocalizer().getCurrentLocationIndex();
-                    InputTypeCreation input_ = new InputTypeCreation();
-                    input_.setType(OuterBlockEnum.SWITCH_METHOD);
-                    input_.setFile(_file);
-                    input_.setNextIndex(i_);
-                    input_.generatedId(beforeCall_, keyWords_.getKeyWordId());
-                    input_.setAnnotations(_stack.getAnnotationsEndSw().get(indexLastSw_));
-                    input_.setAnnotationsIndexes(_stack.getAnnotationsIndexesEndSw().get(indexLastSw_));
-                    input_.setAnnotationsParams(new CustList<StringList>(_stack.getAnnotationsEndSwPar().get(indexLastSw_)));
-                    input_.setAnnotationsIndexesParams(new CustList<Ints>(_stack.getAnnotationsIndexesEndSwPar().get(indexLastSw_)));
-                    ResultCreation res_ = FileResolver.processOuterTypeBody(input_, _packageName, instrLoc_, _string, _page);
-                    if (res_.isOkType()) {
-                        int j_ = res_.getNextIndex() - 1;
-                        AnonymousResult anonymous_ = new AnonymousResult();
-                        anonymous_.setIndex(i_);
-                        anonymous_.setUntil(j_);
-                        anonymous_.setLength(j_-i_+1);
-                        anonymous_.setType(res_.getBlock());
-                        anonymous_.setNext(j_ + 1);
-                        _page.getAnonymousResults().add(anonymous_);
-                        return j_ + 1;
-                    }
-                }
-            }
-            parsBrackets_.put(i_, _curChar);
-        }
-        if (_curChar == ANN_ARR_RIGHT) {
-            if (parsBrackets_.isEmpty()) {
-                return -1;
-            }
-            parsBrackets_.removeKey(parsBrackets_.lastKey());
-        }
-        if (_curChar == ARR_LEFT) {
-            int j_ = i_ + 1;
-            SkipArPart s_ = new SkipArPart();
-            s_.skip(j_,_string);
-            j_ = s_.getIndex();
-            boolean skip_ = s_.isSkip();
-            if (skip_) {
-                return j_ + 1;
-            }
-            parsBrackets_.put(i_, _curChar);
-        }
-        if (_curChar == ARR_RIGHT) {
-            if (parsBrackets_.isEmpty()) {
-                return -1;
-            }
-            parsBrackets_.removeKey(parsBrackets_.lastKey());
-        }
-        if (_curChar == BEGIN_TERNARY) {
-            boolean ternary_ = false;
-            if (StringExpUtil.nextCharIs(_string, i_ + 1, len_, DOT_VAR)) {
-                int n_ = StringExpUtil.nextPrintChar(i_ + 2, len_, _string);
-                if (isDigitOrDot(_string,n_)) {
-                    ternary_ = true;
-                }
-            } else {
-                if (!StringExpUtil.nextCharIs(_string, i_ + 1, len_, BEGIN_TERNARY)
-                        &&!StringExpUtil.nextCharIs(_string, i_ + 1, len_, ARR_LEFT)) {
-                    ternary_ = true;
-                }
-            }
-            if (ternary_) {
-                parsBrackets_.put(i_, _curChar);
-            }
-        }
-        if (_curChar == END_TERNARY) {
-            if (parsBrackets_.isEmpty()) {
-                return -1;
-            }
-            if (parsBrackets_.lastValue() == BEGIN_TERNARY) {
-                parsBrackets_.removeKey(parsBrackets_.lastKey());
-            }
-        }
-        boolean escapeOpers_ = false;
-        boolean andOr_ = false;
-        boolean nullSafe_ = false;
-        boolean ltGt_ = false;
-        if (_curChar == MULT_CHAR) {
-            escapeOpers_ = true;
-        }
-        if (_curChar == MOD_CHAR) {
-            escapeOpers_ = true;
-        }
-        if (_curChar == DIV_CHAR) {
-            escapeOpers_ = true;
-        }
-        if (_curChar == PLUS_CHAR){
-            if (i_ + 1 >= len_ || _string.charAt(i_ + 1) != PLUS_CHAR) {
-                escapeOpers_ = true;
-            }
-        }
-        if (_curChar == MINUS_CHAR){
-            if (i_ + 1 >= len_ || _string.charAt(i_ + 1) != MINUS_CHAR) {
-                escapeOpers_ = true;
-            }
-        }
-        if (_curChar == AND_CHAR) {
-            andOr_ = true;
-            escapeOpers_ = true;
-        }
-        if (_curChar == OR_CHAR) {
-            andOr_ = true;
-            escapeOpers_ = true;
-        }
-        if (_curChar == LOWER_CHAR) {
-            escapeOpers_ = true;
-            ltGt_ = true;
-        }
-        if (_curChar == XOR_CHAR) {
-            escapeOpers_ = true;
-        }
-        if (_curChar == BEGIN_TERNARY) {
-            escapeOpers_ = true;
-            nullSafe_ = true;
-        }
-        if (_curChar == END_TERNARY) {
-            escapeOpers_ = true;
-        }
-        if (_curChar == GREATER_CHAR) {
-            escapeOpers_ = true;
-            ltGt_ = true;
-        }
-        if (_curChar == EQ_CHAR) {
-            escapeOpers_ = true;
-        }
-        if (_curChar == NEG_BOOL_CHAR) {
-            escapeOpers_ = true;
-        }
-        if (_curChar == ANN_ARR_LEFT) {
-            escapeOpers_ = true;
-        }
-        if (_curChar == ARR_LEFT) {
-            escapeOpers_ = true;
-        }
-        if (_curChar == PAR_LEFT) {
-            escapeOpers_ = true;
-        }
-        if (_curChar == SEP_ARG) {
-            escapeOpers_ = true;
-        }
-        if (escapeOpers_) {
-            int j_ = i_ + 1;
-            if (ltGt_ && j_ < len_ && _string.charAt(j_) == _curChar) {
-                j_++;
-            }
-            if (ltGt_ && j_ < len_ && _string.charAt(j_) == _curChar) {
-                j_++;
-            }
-            if (ltGt_ && j_ < len_ && _string.charAt(j_) == _curChar) {
-                j_++;
-            }
-            if (andOr_ && j_ < len_ && _string.charAt(j_) == _curChar) {
-                j_++;
-            }
-            if (andOr_ && j_ < len_ && _string.charAt(j_) == _curChar) {
-                if (j_+1 < len_ && _string.charAt(j_+1) == EQ_CHAR) {
-                    j_++;
-                }
-            }
-            if (nullSafe_ && StringExpUtil.nextCharIs(_string, j_, len_, DOT_VAR)) {
-                int n_ = StringExpUtil.nextPrintChar(j_ + 1, len_, _string);
-                if (!isDigitOrDot(_string,n_)) {
-                    j_++;
-                }
-            }
-            if (nullSafe_ && j_ < len_ && _string.charAt(j_) == _curChar) {
-                j_++;
-            }
-            if (nullSafe_ && j_ < len_ && _string.charAt(j_) == _curChar) {
-                if (j_+1 < len_ && _string.charAt(j_+1) == EQ_CHAR) {
-                    j_++;
-                }
-            }
-            if (j_ < len_ && _string.charAt(j_) == EQ_CHAR) {
-                j_++;
-            }
-            return j_;
-        }
-        if (_curChar == PLUS_CHAR){
-            i_++;
-            i_++;
-            return i_;
-        }
-        if (_curChar == MINUS_CHAR){
-            i_++;
-            i_++;
-            return i_;
-        }
-        i_++;
-        return i_;
-    }
-    private static int getWord(String _string, int _len, int _i) {
-        int j_ = _i;
-        while (j_ < _len) {
-            char locChar_ = _string.charAt(j_);
-            if (!StringExpUtil.isTypeLeafChar(locChar_)) {
-                break;
-            }
-            j_++;
-        }
-        return j_;
     }
 
     private static void processAfterInstuctionKeyWord(int _beginIndex, String _string, Delimiters _d, ResultAfterInstKeyWord _out, ResultAfterOperators _opers, AnalyzedPageEl _page) {
@@ -1908,7 +520,7 @@ public final class ElResolver {
         }
         if (StringExpUtil.startsWithKeyWord(_string,i_, keyWordInstanceof_)) {
             int next_ = i_ + keyWordInstanceof_.length();
-            next_ = incrInstanceOf(_string, len_, next_);
+            next_ = ElResolverCommon.incrInstanceOf(_string, len_, next_);
             _d.getAllowedOperatorsIndexes().add(i_);
             _d.getDelInstanceof().add(i_);
             _d.getDelInstanceof().add(next_);
@@ -2517,7 +1129,7 @@ public final class ElResolver {
         }
         for (String s: StringUtil.wrapStringArray(keyWordFirstopt_,keyWordBool_,keyWordDefault_)) {
             if (StringExpUtil.startsWithKeyWord(_string,i_, s)) {
-                int index_ = processPredefinedMethod(_string, i_, s);
+                int index_ = ElResolverCommon.processPredefinedMethod(_string, i_, s);
                 if (index_ < 0) {
                     _d.setBadOffset(-index_);
                     return;
@@ -2535,27 +1147,6 @@ public final class ElResolver {
         _page.getProcessKeyWord().processInternKeyWord(_string, i_, _d, _out);
     }
 
-    private static int incrType(int _i, String _string) {
-        int next_ = _i;
-        int len_ = _string.length();
-        while (next_ < len_) {
-            char curLoc_ = _string.charAt(next_);
-            if (StringExpUtil.isTypeLeafChar(curLoc_)) {
-                next_++;
-                continue;
-            }
-            if (curLoc_ == DOT_VAR) {
-                next_++;
-                continue;
-            }
-            if (StringUtil.isWhitespace(curLoc_)) {
-                next_++;
-                continue;
-            }
-            break;
-        }
-        return next_;
-    }
     private static boolean followedByParLeft(String _string, int _len, int _afterSuper) {
         return _afterSuper < _len && _string.charAt(_afterSuper) == PAR_LEFT;
     }
@@ -2579,7 +1170,7 @@ public final class ElResolver {
         ResultAfterInstKeyWord resTmp_ = new ResultAfterInstKeyWord();
         resTmp_.setNextIndex(i_);
         if (isPossibleDigit(_string,_d) && StringExpUtil.isDigit(_curChar)) {
-            NumberInfosOutput res_ = processNb(keyWords_, i_, len_, _string, false);
+            NumberInfosOutput res_ = ElResolverCommon.processNb(keyWords_, i_, len_, _string, false);
             int nextIndex_ = res_.getNextIndex();
             _d.getNbInfos().add(res_.getInfos());
             _d.getDelNumbers().add(i_);
@@ -2624,15 +1215,6 @@ public final class ElResolver {
         }
         i_ = _ret.processFieldsStaticAccess(ctorCall_,beginWord_,word_,i_);
         _out.setNextIndex(i_);
-    }
-
-    static boolean isPureAffectation(String _string, int _len) {
-        int index_ = StringExpUtil.nextPrintCharIs(0, _len, _string, '=');
-        return hasCharOtherThanEq(_string, _len, index_);
-    }
-
-    private static boolean hasCharOtherThanEq(String _string, int _len, int _index) {
-        return _index > -1 && !StringExpUtil.nextCharIs(_string, _index + 1, _len, '=');
     }
 
     private static void processOperators(int _beginIndex, int _minIndex, String _string, boolean _delimiters,
@@ -2682,8 +1264,8 @@ public final class ElResolver {
         }
         if (isPossibleDigit(_string, _dout) && curChar_ == DOT_VAR) {
             int n_ = StringExpUtil.nextPrintChar(i_ + 1, len_, _string);
-            if (isDigitOrDot(_string,n_)) {
-                NumberInfosOutput res_ = processNb(keyWords_, i_ + 1, len_, _string, true);
+            if (ElResolverCommon.isDigitOrDot(_string,n_)) {
+                NumberInfosOutput res_ = ElResolverCommon.processNb(keyWords_, i_ + 1, len_, _string, true);
                 int nextIndex_ = res_.getNextIndex();
                 _dout.getNbInfos().add(res_.getInfos());
                 _dout.getDelNumbers().add(i_);
@@ -2694,7 +1276,7 @@ public final class ElResolver {
             }
         }
         if (curChar_ == DELIMITER_CHAR) {
-            if (are(_string, i_, _string.length(), DELIMITER_CHAR)) {
+            if (ElResolverCommon.isRepeated(_string, i_, _string.length(), DELIMITER_CHAR)) {
                 _out.setConstTextChar(true);
                 _dout.getDelTextBlocks().add(i_);
                 i_+=3;
@@ -2710,7 +1292,7 @@ public final class ElResolver {
             return;
         }
         if (curChar_ == DELIMITER_STRING) {
-            if (are(_string, i_, _string.length(), DELIMITER_STRING)) {
+            if (ElResolverCommon.isRepeated(_string, i_, _string.length(), DELIMITER_STRING)) {
                 _out.setConstTextString(true);
                 _dout.getDelTextBlocks().add(i_);
                 i_+=3;
@@ -2731,18 +1313,18 @@ public final class ElResolver {
             return;
         }
         if (curChar_ == PAR_LEFT) {
+            int j_ = indexAfterPossibleCast(_string, i_, _dout, _page);
+            if (j_ > i_) {
+                i_ = j_;
+                doubleDotted_.setNextIndex(i_);
+                return;
+            }
             for (AnonymousResult r:_page.getCurrentAnonymousResults()) {
                 if (r.getIndex() == i_) {
                     _page.getAnonymousResults().add(r);
                     doubleDotted_.setNextIndex(r.getNext());
                     return;
                 }
-            }
-            int j_ = indexAfterPossibleCast(_string, i_, _dout, _page);
-            if (j_ > i_) {
-                i_ = j_;
-                doubleDotted_.setNextIndex(i_);
-                return;
             }
             stack_.getCallings().add(i_);
             parsBrackets_.put(i_, curChar_);
@@ -2756,7 +1338,7 @@ public final class ElResolver {
                 _dout.setBadOffset(i_);
                 return;
             }
-            tryAddStringParts(parsBrackets_, i_, stack_);
+            ElResolverCommon.tryAddStringParts(parsBrackets_, i_, stack_);
             parsBrackets_.removeKey(parsBrackets_.lastKey());
         }
         if (curChar_ == ANN_ARR_LEFT) {
@@ -2817,7 +1399,7 @@ public final class ElResolver {
             boolean ternary_ = false;
             if (StringExpUtil.nextCharIs(_string, i_ + 1, len_, DOT_VAR)) {
                 int n_ = StringExpUtil.nextPrintChar(i_ + 2, len_, _string);
-                if (isDigitOrDot(_string,n_)) {
+                if (ElResolverCommon.isDigitOrDot(_string,n_)) {
                     ternary_ = true;
                 }
             } else {
@@ -2943,7 +1525,7 @@ public final class ElResolver {
             }
             if (nullSafe_ && StringExpUtil.nextCharIs(_string, j_, len_, DOT_VAR)) {
                 int n_ = StringExpUtil.nextPrintChar(j_ + 1, len_, _string);
-                if (!isDigitOrDot(_string,n_)) {
+                if (!ElResolverCommon.isDigitOrDot(_string,n_)) {
                     j_++;
                 }
             }
@@ -3089,34 +1671,6 @@ public final class ElResolver {
         doubleDotted_.setNextIndex(i_);
     }
 
-    private static void tryAddStringParts(IntTreeMap<Character> _parsBrackets, int _i, StackDelimiters _stack) {
-        int indexLast_ = _stack.getIndexesNew().indexOf(_parsBrackets.lastKey());
-        if (indexLast_ > -1) {
-            _stack.getIndexesNewEnd().add(_i);
-            _stack.getStringsNewEnd().add(_stack.getStringsNew().get(indexLast_));
-        }
-        int indexLastSwitch_ = _stack.getIndexesSwitch().indexOf(_parsBrackets.lastKey());
-        if (indexLastSwitch_ > -1) {
-            _stack.getIndexesSwitchEnd().add(_i);
-            _stack.getStringsSwitchEnd().add(_stack.getStringsSwitch().get(indexLastSwitch_));
-        }
-    }
-
-    private static void tryAddAnnotationsParts(IntTreeMap<Character> _parsBrackets, StackDelimiters _stack) {
-        int indexLast_ = _stack.getIndexesNew().indexOf(_parsBrackets.lastKey());
-        if (indexLast_ > -1) {
-            _stack.getAnnotationsEnd().add(_stack.getAnnotations().get(indexLast_));
-            _stack.getAnnotationsIndexesEnd().add(_stack.getAnnotationsIndexes().get(indexLast_));
-        }
-        int indexLastSw_ = _stack.getIndexesSwitch().indexOf(_parsBrackets.lastKey());
-        if (indexLastSw_ > -1) {
-            _stack.getAnnotationsEndSw().add(_stack.getAnnotationsSw().get(indexLastSw_));
-            _stack.getAnnotationsIndexesEndSw().add(_stack.getAnnotationsIndexesSw().get(indexLastSw_));
-            _stack.getAnnotationsEndSwPar().add(_stack.getAnnotationsSwPar().get(indexLastSw_));
-            _stack.getAnnotationsIndexesEndSwPar().add(_stack.getAnnotationsIndexesSwPar().get(indexLastSw_));
-        }
-    }
-
     private static boolean noWideInternDelimiter(String _substring) {
         return noDelSt(_substring) && StringExpUtil.noDel(_substring);
     }
@@ -3140,10 +1694,6 @@ public final class ElResolver {
 
     private static boolean isAcceptCommaInstr(AnalyzedPageEl _page) {
         return !_page.isAcceptCommaInstr() && !(_page.getCurrentBlock() instanceof FieldBlock);
-    }
-
-    static boolean isDigitOrDot(String _string, int _n) {
-        return _n > -1 && (StringExpUtil.isDigit(_string.charAt(_n)) || _string.charAt(_n) == DOT_VAR);
     }
 
     private static IndexUnicodeEscape processStrings(KeyWords _key, String _string, int _max, StringInfo _si, IndexUnicodeEscape _infos, char _delimiter) {
@@ -3503,448 +2053,7 @@ public final class ElResolver {
         infos_.setIndex(i_);
         return infos_;
     }
-    private static int processPredefinedMethod(String _string, int _i, String _name) {
-        int afterSuper_ = _i + _name.length();
-        int index_ = _string.indexOf(PAR_LEFT,afterSuper_);
-        if (index_ < 0) {
-            return -afterSuper_;
-        }
-        if (!_string.substring(afterSuper_, index_).trim().isEmpty()) {
-            return -afterSuper_;
-        }
-        return index_;
-    }
 
-    private static NumberInfosOutput processNb(KeyWords _key, int _start, int _max, String _string, boolean _seenDot) {
-        //_string.charAt(_start) is digit
-        NumberInfosOutput output_ = new NumberInfosOutput();
-        NumberInfos nbInfos_ = new NumberInfos();
-        output_.setInfos(nbInfos_);
-        StringBuilder intPart_ = new StringBuilder();
-        StringBuilder decPart_ = new StringBuilder();
-        StringBuilder expPart_ = new StringBuilder();
-        nbInfos_.setIntPart(intPart_);
-        nbInfos_.setDecimalPart(decPart_);
-        nbInfos_.setExponentialPart(expPart_);
-        int start_ = _start;
-        char startChar_ = _string.charAt(start_);
-        int base_ = 10;
-        String hexPre_ = _key.getKeyWordNbHex();
-        String hexEnd_ = _key.getKeyWordNbHexEnd();
-        String binPre_ = _key.getKeyWordNbBin();
-        String decExp_ = _key.getKeyWordNbExpDec();
-        String binExp_ = _key.getKeyWordNbExpBin();
-        if (_seenDot) {
-            nbInfos_.setSuffix(DOUBLE);
-            decPart_.append(startChar_);
-            if (startChar_ == '.') {
-                nbInfos_.setError(true);
-            }
-            if (StringUtil.isWhitespace(startChar_)) {
-                nbInfos_.setError(true);
-            }
-        } else {
-            nbInfos_.setSuffix(INTEGER);
-            if (startChar_ == '0') {
-                String sub_ = _string.substring(start_ + 1);
-                if (start_ + 1 < _max) {
-                    String suff_ = _key.getNbKeyWord(sub_, 0);
-                    if (suff_ != null) {
-                        char ch_ = _key.getSuffixes().getVal(suff_);
-                        nbInfos_.setSuffix(ch_);
-                        intPart_.append(startChar_);
-                        output_.setNextIndex(start_ + 1 + suff_.length());
-                        return output_;
-                    }
-                    if (sub_.startsWith(hexPre_)) {
-                        base_ = 16;
-                        start_+=hexPre_.length();
-                        start_++;
-                        if (start_ >= _max) {
-                            output_.setNextIndex(_max);
-                            nbInfos_.setError(true);
-                            return output_;
-                        }
-                        startChar_ = _string.charAt(start_);
-                    } else {
-                        if (sub_.startsWith(binPre_)) {
-                            base_ = 2;
-                            start_+=binPre_.length();
-                            start_++;
-                            if (start_ >= _max) {
-                                output_.setNextIndex(_max);
-                                nbInfos_.setError(true);
-                                return output_;
-                            }
-                            startChar_ = _string.charAt(start_);
-                        } else {
-                            if (StringExpUtil.isDigit(_string.charAt(start_ + 1))){
-                                base_ = 8;
-                                start_++;
-                                startChar_ = _string.charAt(start_);
-                            }
-                        }
-                    }
-                }
-            }
-            intPart_.append(startChar_);
-        }
-        nbInfos_.setBase(base_);
-        int j_ = start_ + 1;
-        boolean dot_ = false;
-        boolean exp_ = false;
-        int iExp_ = j_;
-        while (j_ < _max) {
-            char current_ = _string.charAt(j_);
-            if (!StringExpUtil.isTypeLeafChar(current_)) {
-                int n_ = StringExpUtil.nextPrintChar(j_ + 1, _max, _string);
-                if (current_ == DOT_VAR) {
-                    if (_seenDot) {
-                        nbInfos_.setError(true);
-                        decPart_.append(current_);
-                        j_++;
-                        continue;
-                    }
-                    if (nbInfos_.isError()) {
-                        intPart_.append(current_);
-                        j_++;
-                        continue;
-                    }
-                    if (n_ == -1) {
-                        if (base_ == 10) {
-                            nbInfos_.setSuffix(DOUBLE);
-                            output_.setNextIndex(j_ + 1);
-                            return output_;
-                        }
-                        nbInfos_.setError(true);
-                        intPart_.append(current_);
-                        j_++;
-                        continue;
-                    }
-                    if (isWhite(j_ + 1, _max, _string) && isDigitOrDot(_string, n_)) {
-                        nbInfos_.setError(true);
-                        intPart_.append(current_);
-                        j_++;
-                        continue;
-                    }
-                    if (_string.charAt(n_) == DOT_VAR) {
-                        nbInfos_.setError(true);
-                        intPart_.append(current_);
-                        j_++;
-                        continue;
-                    }
-                    dot_ = true;
-                }
-                if (isWhite(j_, _max, _string)) {
-                    if (nbInfos_.isError()) {
-                        append(_seenDot, intPart_, decPart_, current_);
-                        j_++;
-                        continue;
-                    }
-                    if (isDigitOrDot(_string,n_)) {
-                        nbInfos_.setError(true);
-                        intPart_.append(current_);
-                        j_++;
-                        continue;
-                    }
-                }
-                break;
-            }
-            String sub_ = _string.substring(j_);
-            int off_ = getExpLength(base_, decExp_, binExp_);
-            if (isExp(base_, decExp_, binExp_, sub_)) {
-                if (nbInfos_.isError()) {
-                    append(_seenDot, intPart_, decPart_, current_);
-                    j_++;
-                    continue;
-                }
-                if (isWhite(j_ + off_,_max,_string)) {
-                    nbInfos_.setError(true);
-                    append(_seenDot, intPart_, decPart_, current_);
-                    j_++;
-                    continue;
-                }
-                nbInfos_.setSuffix(DOUBLE);
-                iExp_ = j_ + off_ - 1;
-                j_ += off_ - 1;
-                exp_ = true;
-                break;
-            }
-            if (isNonNbPart(current_, base_)) {
-                j_ = incrSep(j_,base_,sub_,hexEnd_);
-                boolean ok_ = processSuffix(_key, _string, output_, nbInfos_, j_);
-                if (ok_) {
-                    return output_;
-                }
-                nbInfos_.setError(true);
-                append(_seenDot, intPart_, decPart_, current_);
-                j_++;
-                continue;
-            }
-            //current_ is digit or expected letter
-            append(_seenDot, intPart_, decPart_, current_);
-            j_++;
-        }
-        if (dot_) {
-            nbInfos_.setSuffix(DOUBLE);
-            String sub_ = _string.substring(j_ + 1);
-            int off_ = getExpLength(base_, decExp_, binExp_);
-            if (isExp(base_, decExp_, binExp_, sub_)) {
-                j_+=off_;
-                //_string.charAt(j_) == EXP
-                processExp(_key, j_, _max, _string, output_);
-                return output_;
-            }
-            j_++;
-            boolean added_ = false;
-            while (j_ < _max) {
-                char curChar_ = _string.charAt(j_);
-                if (isNonNbPart(curChar_, base_)) {
-                    break;
-                }
-                decPart_.append(curChar_);
-                added_ = true;
-                j_++;
-            }
-            if (!added_) {
-                processDotSuffix(_key,base_,sub_,hexEnd_, _string, output_, nbInfos_,j_, _max);
-                return output_;
-            }
-            if (j_ >= _max) {
-                output_.setNextIndex(j_);
-                return output_;
-            }
-            sub_ = _string.substring(j_);
-            if (isExp(base_, decExp_, binExp_, sub_)) {
-                j_+=off_-1;
-                processExp(_key, j_, _max, _string, output_);
-                return output_;
-            }
-            processDotSuffix(_key,base_,sub_,hexEnd_, _string, output_, nbInfos_, j_, _max);
-            return output_;
-        }
-        if (exp_) {
-            //_string.charAt(iExp_) == EXP
-            processExp(_key, iExp_, _max, _string, output_);
-            return output_;
-        }
-        output_.setNextIndex(j_);
-        return output_;
-    }
-    private static int incrSep(int _j, int _base, String _sub, String _hexPre) {
-        int j_ = _j;
-        if (_base != 10 && _sub.startsWith(_hexPre)) {
-            j_ += _hexPre.length();
-        }
-        return j_;
-    }
-
-    private static boolean isWhite(int _current, int _max, String _str) {
-        return _current < _max && StringUtil.isWhitespace(_str.charAt(_current));
-    }
-
-    private static void append(boolean _seenDot, StringBuilder _intPart, StringBuilder _decPart, char _current) {
-        if (_seenDot) {
-            _decPart.append(_current);
-        } else {
-            _intPart.append(_current);
-        }
-    }
-
-    private static boolean isExp(int _base, String _decExp, String _binExp, String _sub) {
-        boolean exp_;
-        if (_base == 10) {
-            exp_ = _sub.startsWith(_decExp);
-        } else {
-            exp_ = _sub.startsWith(_binExp);
-        }
-        return exp_;
-    }
-
-    private static int getExpLength(int _base, String _decExp, String _binExp) {
-        int off_;
-        if (_base == 10) {
-            off_ = _decExp.length();
-        } else {
-            off_ = _binExp.length();
-        }
-        return off_;
-    }
-
-    private static void processDotSuffix(KeyWords _key, int _base, String _sub, String _hexPre, String _string,
-                                         NumberInfosOutput _output, NumberInfos _nbInfos, int _j, int _max) {
-        int j_ = incrSep(_j,_base,_sub,_hexPre);
-        String suff_ = _key.getNbKeyWord(_string, j_);
-        if (suff_ != null) {
-            j_ +=suff_.length();
-            char su_ = _key.getSuffixes().getVal(suff_);
-            _nbInfos.setSuffix(su_);
-        }
-        j_ = nextIndex(_key,j_, _max, _string, _output, _nbInfos.getDecimalPart());
-        _output.setNextIndex(j_);
-    }
-
-    private static boolean processSuffix(KeyWords _key, String _string, NumberInfosOutput _output, NumberInfos _nbInfos, int _j) {
-        String suff_ = _key.getNbKeyWord(_string, _j);
-        if (suff_ == null) {
-            return false;
-        }
-        char ch_ = _key.getSuffixes().getVal(suff_);
-        _nbInfos.setSuffix(ch_);
-        int n_ = _j + suff_.length();
-        boolean ok_ = processedCorrectOrContinue(_string, n_);
-        if (ok_) {
-            _output.setNextIndex(n_);
-        }
-        return ok_;
-    }
-
-    private static boolean isNonNbPart(char _char, int _base) {
-        return isNonDigit(_char,_base) && _char != NB_INTERN_SP;
-    }
-    private static boolean isNonDigit(char _char, int _base) {
-        boolean ok_ = false;
-        if (_base == 10) {
-            ok_ = StringExpUtil.isDigit(_char);
-        } else if (_base == 16) {
-            if (StringExpUtil.isDigit(_char)) {
-                ok_ = true;
-            }
-            if (_char >= MIN_ENCODE_LOW_LETTER && _char <= MAX_ENCODE_LOW_LETTER) {
-                ok_ = true;
-            }
-            if (_char >= MIN_ENCODE_UPP_LETTER && _char <= MAX_ENCODE_UPP_LETTER) {
-                ok_ = true;
-            }
-        } else if (_base == 2) {
-            if (_char == '0' || _char == '1') {
-                ok_ = true;
-            }
-        } else {
-            if (_char >= MIN_ENCODE_DIGIT && _char <= '7') {
-                ok_ = true;
-            }
-        }
-        return !ok_;
-    }
-    private static void processExp(KeyWords _key, int _start, int _max, String _string, NumberInfosOutput _output) {
-        if (_start + 1 >= _max) {
-            _output.getInfos().setError(true);
-            _output.setNextIndex(_max);
-            return;
-        }
-        StringBuilder exp_ = _output.getInfos().getExponentialPart();
-        int j_ = _start;
-        j_++;
-        if (_string.charAt(j_) == MINUS_CHAR || _string.charAt(j_) == PLUS_CHAR) {
-            if (j_ + 1 >= _max) {
-                _output.getInfos().setError(true);
-                _output.setNextIndex(j_);
-                return;
-            }
-            if (!StringExpUtil.isDigit(_string.charAt(j_+1))) {
-                _output.getInfos().setError(true);
-                _output.setNextIndex(j_);
-                return;
-            }
-            exp_.append(_string.charAt(j_));
-            j_++;
-        } else {
-            if (!StringExpUtil.isDigit(_string.charAt(j_))) {
-                _output.getInfos().setError(true);
-                if (!StringExpUtil.isTypeLeafChar(_string.charAt(j_))) {
-                    int n_ = StringExpUtil.nextPrintChar(j_+1, _max, _string);
-                    if (n_ < 0) {
-                        _output.setNextIndex(j_);
-                        return;
-                    }
-                    if (!StringExpUtil.isTypeLeafChar(_string.charAt(n_))) {
-                        _output.setNextIndex(j_);
-                        return;
-                    }
-                    if (!StringUtil.isWhitespace(_string.charAt(j_))) {
-                        _output.setNextIndex(j_);
-                        return;
-                    }
-                    while (j_ < n_) {
-                        exp_.append(_string.charAt(j_));
-                        j_++;
-                    }
-                }
-            }
-        }
-        while (j_ < _max) {
-            if (isNonNbPart(_string.charAt(j_),10)) {
-                break;
-            }
-            exp_.append(_string.charAt(j_));
-            j_++;
-        }
-        int n_ = StringExpUtil.nextPrintChar(j_, _max, _string);
-        if (n_ > -1 && _string.charAt(n_) == DOT_VAR) {
-            _output.getInfos().setError(true);
-            _output.setNextIndex(n_);
-            return;
-        }
-        if (j_ < _max && StringDataUtil.isLetter(_string.charAt(j_))) {
-            String keyWord_ = _key.getNbKeyWord(_string, j_);
-            if (keyWord_ != null) {
-                char suf_ = _key.getSuffixes().getVal(keyWord_);
-                _output.getInfos().setSuffix(suf_);
-                j_+=keyWord_.length();
-            }
-        }
-        j_ = nextIndex(_key,j_, _max, _string, _output, exp_);
-        _output.setNextIndex(j_);
-    }
-    private static int nextIndex(KeyWords _key,int _j, int _max, String _string, NumberInfosOutput _output, StringBuilder _str) {
-        int j_ = _j;
-        if (j_ < _max) {
-            if (unexpectedWordChars(_key, _max, _string, j_)) {
-                _output.getInfos().setError(true);
-                _str.append(_string.charAt(j_));
-                j_++;
-                while (j_ < _max) {
-                    if (!unexpectedWordChars(_key, _max, _string, j_)) {
-                        break;
-                    }
-                    _str.append(_string.charAt(j_));
-                    j_++;
-                }
-            }
-        }
-        return j_;
-    }
-
-    private static boolean unexpectedWordChars(KeyWords _key, int _max, String _string, int _j) {
-        return hasSpaceByWordChar(_key,_max, _string, _j)|| StringExpUtil.isDollarWordChar(_string.charAt(_j));
-    }
-
-    private static boolean hasSpaceByWordChar(KeyWords _key, int _max, String _string, int _j) {
-        boolean space_ = false;
-        if (StringUtil.isWhitespace(_string.charAt(_j)) ) {
-            int n_ = StringExpUtil.nextPrintChar(_j, _max, _string);
-            if (n_ > -1 && StringExpUtil.isDollarWordChar(_string.charAt(n_))) {
-                if (!StringExpUtil.startsWithKeyWord(_string,n_,_key.getKeyWordInstanceof())) {
-                    space_ = true;
-                }
-            }
-        }
-        return space_;
-    }
-
-    private static boolean processedCorrectOrContinue(String _string, int _j) {
-        String nextPartAf_ = _string.substring(_j).trim();
-        return !isNotCorrectNbEnd(nextPartAf_);
-    }
-
-    private static boolean isNotCorrectNbEnd(String _next) {
-        if (_next.isEmpty()) {
-            return false;
-        }
-        char n_ = _next.charAt(0);
-        return n_ == DOT_VAR;
-    }
     public static OperationsSequence getOperationsSequence(int _offset, String _string,
                                                            Delimiters _d, AnalyzedPageEl _page) {
         OperationsSequence seq_ = tryGetSequence(_offset, _string, _d, _page);
@@ -4329,6 +2438,11 @@ public final class ElResolver {
         if (indexParRight_ < 0) {
             return _from;
         }
+        for (AnonymousResult r:_page.getCurrentAnonymousResults()) {
+            if (r.getIndex() == _from) {
+                return _from;
+            }
+        }
         if (_d.getStack().getCallings().containsObj(_from)) {
             return _from;
         }
@@ -4360,7 +2474,7 @@ public final class ElResolver {
         }
         if (_string.startsWith(".",next_)) {
             int n_ = StringExpUtil.nextPrintChar(next_ + 1, _string.length(), _string);
-            if (!isDigitOrDot(_string,n_)) {
+            if (!ElResolverCommon.isDigitOrDot(_string,n_)) {
                 return _from;
             }
         }

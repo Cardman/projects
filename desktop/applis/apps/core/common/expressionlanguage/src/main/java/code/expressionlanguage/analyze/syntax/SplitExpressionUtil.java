@@ -4,7 +4,7 @@ import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.AnonymousResult;
 import code.expressionlanguage.analyze.blocks.*;
 import code.expressionlanguage.analyze.files.ParsedType;
-import code.expressionlanguage.analyze.instr.ElResolver;
+import code.expressionlanguage.analyze.instr.ElRetrieverAnonymous;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
@@ -194,7 +194,7 @@ public final class SplitExpressionUtil {
                 String value_ = ((AnnotationMethodBlock) b).getDefaultValue();
                 ResultExpression resultExpression_ = ((AnnotationMethodBlock) b).getRes();
                 _page.setAccessStaticContext(MethodAccessKind.STATIC);
-                ElResolver.commonCheckQuick(value_, 0, _page,resultExpression_);
+                ElRetrieverAnonymous.commonCheckQuick(value_, 0, _page,resultExpression_);
                 feedResult(null, resultExpression_, _int, _type);
             }
             if (b instanceof FieldBlock) {
@@ -204,7 +204,7 @@ public final class SplitExpressionUtil {
                 String value_ = ((FieldBlock) b).getValue();
                 ResultExpression resultExpression_ = ((FieldBlock) b).getRes();
                 _page.setAccessStaticContext(MethodId.getKind(((FieldBlock) b).isStaticField()));
-                ElResolver.commonCheckQuick(value_, 0, _page,resultExpression_);
+                ElRetrieverAnonymous.commonCheckQuick(value_, 0, _page,resultExpression_);
                 feedResult(null, resultExpression_, _int, _type);
             }
             if (b instanceof ElementBlock) {
@@ -216,7 +216,7 @@ public final class SplitExpressionUtil {
                 String value_ = ((ElementBlock) b).buildVirtualCreate(keyWordNew_);
                 ResultExpression resultExpression_ = ((ElementBlock) b).getRes();
                 _page.setAccessStaticContext(MethodAccessKind.STATIC);
-                ElResolver.commonCheckQuick(value_, 0, _page,resultExpression_);
+                ElRetrieverAnonymous.commonCheckQuick(value_, 0, _page,resultExpression_);
                 feedResult(null, resultExpression_, _int, _type);
                 _page.setTranslatedOffset(0);
             }
@@ -229,7 +229,7 @@ public final class SplitExpressionUtil {
                 String value_ = ((InnerElementBlock) b).buildVirtualCreate(keyWordNew_);
                 ResultExpression resultExpression_ = ((InnerElementBlock) b).getRes();
                 _page.setAccessStaticContext(MethodAccessKind.STATIC);
-                ElResolver.commonCheckQuick(value_, 0, _page,resultExpression_);
+                ElRetrieverAnonymous.commonCheckQuick(value_, 0, _page,resultExpression_);
                 feedResult(null, resultExpression_, _int, _type);
                 _page.setTranslatedOffset(0);
             }
@@ -247,7 +247,7 @@ public final class SplitExpressionUtil {
                     _page.setOffset(0);
                     ResultExpression res_ = new ResultExpression();
                     _page.setAccessStaticContext(MethodAccessKind.STATIC);
-                    ElResolver.commonCheckQuick(((FieldBlock) b).getAnnotations().get(i).trim(),0,_page,res_);
+                    ElRetrieverAnonymous.commonCheckQuick(((FieldBlock) b).getAnnotations().get(i).trim(),0,_page,res_);
                     feedResult(null, res_, _int, _type);
                     ((FieldBlock) b).getResList().add(res_);
                 }
@@ -261,7 +261,7 @@ public final class SplitExpressionUtil {
                     _page.setOffset(0);
                     ResultExpression res_ = new ResultExpression();
                     _page.setAccessStaticContext(MethodAccessKind.STATIC);
-                    ElResolver.commonCheckQuick(((ElementBlock) b).getAnnotations().get(i).trim(),0,_page,res_);
+                    ElRetrieverAnonymous.commonCheckQuick(((ElementBlock) b).getAnnotations().get(i).trim(),0,_page,res_);
                     feedResult(null, res_, _int, _type);
                     ((ElementBlock) b).getResList().add(res_);
                 }
@@ -275,7 +275,7 @@ public final class SplitExpressionUtil {
                     _page.setOffset(0);
                     ResultExpression res_ = new ResultExpression();
                     _page.setAccessStaticContext(MethodAccessKind.STATIC);
-                    ElResolver.commonCheckQuick(((InnerElementBlock) b).getAnnotations().get(i).trim(),0,_page,res_);
+                    ElRetrieverAnonymous.commonCheckQuick(((InnerElementBlock) b).getAnnotations().get(i).trim(),0,_page,res_);
                     feedResult(null, res_, _int, _type);
                     ((InnerElementBlock) b).getResList().add(res_);
                 }
@@ -293,7 +293,7 @@ public final class SplitExpressionUtil {
                 _page.setOffset(0);
                 ResultExpression res_ = new ResultExpression();
                 _page.setAccessStaticContext(MethodAccessKind.STATIC);
-                ElResolver.commonCheckQuick(_type.getAnnotations().get(i).trim(),0,_page,res_);
+                ElRetrieverAnonymous.commonCheckQuick(_type.getAnnotations().get(i).trim(),0,_page,res_);
                 feedResult(null, res_, _int, _type);
                 _type.getResList().add(res_);
             }
@@ -309,7 +309,7 @@ public final class SplitExpressionUtil {
             _page.setOffset(0);
             ResultExpression res_ = new ResultExpression();
             _page.setAccessStaticContext(MethodAccessKind.STATIC);
-            ElResolver.commonCheckQuick(((NamedFunctionBlock) _fct).getAnnotations().get(i).trim(),0,_page,res_);
+            ElRetrieverAnonymous.commonCheckQuick(((NamedFunctionBlock) _fct).getAnnotations().get(i).trim(),0,_page,res_);
             feedResult((NamedFunctionBlock) _fct, res_, _int, _type);
             ((NamedFunctionBlock) _fct).getResList().add(res_);
         }
@@ -324,7 +324,7 @@ public final class SplitExpressionUtil {
                 _page.setOffset(0);
                 ResultExpression res_ = new ResultExpression();
                 _page.setAccessStaticContext(MethodAccessKind.STATIC);
-                ElResolver.commonCheckQuick(list_.get(i).trim(),0,_page,res_);
+                ElRetrieverAnonymous.commonCheckQuick(list_.get(i).trim(),0,_page,res_);
                 feedResult((NamedFunctionBlock) _fct, res_, _int, _type);
                 resList_.add(res_);
             }
@@ -342,7 +342,7 @@ public final class SplitExpressionUtil {
             _page.setOffset(0);
             ResultExpression res_ = new ResultExpression();
             _page.setAccessStaticContext(MethodAccessKind.STATIC);
-            ElResolver.commonCheckQuick(_fct.getAnnotations().get(i).trim(),0,_page,res_);
+            ElRetrieverAnonymous.commonCheckQuick(_fct.getAnnotations().get(i).trim(),0,_page,res_);
             feedResult(_fct, res_, _int, _type);
             _fct.getResList().add(res_);
         }
@@ -357,7 +357,7 @@ public final class SplitExpressionUtil {
                 _page.setOffset(0);
                 ResultExpression res_ = new ResultExpression();
                 _page.setAccessStaticContext(MethodAccessKind.STATIC);
-                ElResolver.commonCheckQuick(list_.get(i).trim(),0,_page,res_);
+                ElRetrieverAnonymous.commonCheckQuick(list_.get(i).trim(),0,_page,res_);
                 feedResult(_fct, res_, _int, _type);
                 resList_.add(res_);
             }
@@ -381,7 +381,7 @@ public final class SplitExpressionUtil {
                 _page.setOffset(0);
                 String value_ = ((Line) current_).getExpression();
                 ResultExpression resultExpression_ = ((Line) current_).getRes();
-                ElResolver.commonCheckQuick(value_, 0, _page,resultExpression_);
+                ElRetrieverAnonymous.commonCheckQuick(value_, 0, _page,resultExpression_);
                 feedResult(_method, resultExpression_, _int, _type);
             }
             if (current_ instanceof CaseCondition) {
@@ -397,7 +397,7 @@ public final class SplitExpressionUtil {
                     _page.setGlobalOffset(((CaseCondition) current_).getValueOffset());
                     _page.setOffset(0);
                     ResultExpression resultExpression_ = ((CaseCondition) current_).getRes();
-                    ElResolver.commonCheckQuick(value_, 0, _page,resultExpression_);
+                    ElRetrieverAnonymous.commonCheckQuick(value_, 0, _page,resultExpression_);
                     feedResult(_method, resultExpression_, _int, _type);
                 }
             }
@@ -406,7 +406,7 @@ public final class SplitExpressionUtil {
                 _page.setGlobalOffset(((SwitchBlock) current_).getValueOffset());
                 _page.setOffset(0);
                 ResultExpression resultExpression_ = ((SwitchBlock) current_).getRes();
-                ElResolver.commonCheckQuick(value_, 0, _page,resultExpression_);
+                ElRetrieverAnonymous.commonCheckQuick(value_, 0, _page,resultExpression_);
                 feedResult(_method, resultExpression_, _int, _type);
             }
             if (current_ instanceof Condition) {
@@ -414,7 +414,7 @@ public final class SplitExpressionUtil {
                 _page.setGlobalOffset(((Condition) current_).getConditionOffset());
                 _page.setOffset(0);
                 ResultExpression resultExpression_ = ((Condition) current_).getRes();
-                ElResolver.commonCheckQuick(value_, 0, _page,resultExpression_);
+                ElRetrieverAnonymous.commonCheckQuick(value_, 0, _page,resultExpression_);
                 feedResult(_method, resultExpression_, _int, _type);
             }
             if (current_ instanceof ForEachLoop) {
@@ -422,7 +422,7 @@ public final class SplitExpressionUtil {
                 _page.setGlobalOffset(((ForEachLoop) current_).getExpressionOffset());
                 _page.setOffset(0);
                 ResultExpression resultExpression_ = ((ForEachLoop) current_).getRes();
-                ElResolver.commonCheckQuick(value_, 0, _page,resultExpression_);
+                ElRetrieverAnonymous.commonCheckQuick(value_, 0, _page,resultExpression_);
                 feedResult(_method, resultExpression_, _int, _type);
             }
             if (current_ instanceof ForEachTable) {
@@ -430,41 +430,41 @@ public final class SplitExpressionUtil {
                 _page.setGlobalOffset(((ForEachTable) current_).getExpressionOffset());
                 _page.setOffset(0);
                 ResultExpression resultExpression_ = ((ForEachTable) current_).getRes();
-                ElResolver.commonCheckQuick(value_, 0, _page,resultExpression_);
+                ElRetrieverAnonymous.commonCheckQuick(value_, 0, _page,resultExpression_);
                 feedResult(_method, resultExpression_, _int, _type);
             }
             if (current_ instanceof ForIterativeLoop) {
                 _page.setGlobalOffset(((ForIterativeLoop) current_).getInitOffset());
                 _page.setOffset(0);
                 ResultExpression resultInit_ = ((ForIterativeLoop) current_).getResInit();
-                ElResolver.commonCheckQuick(((ForIterativeLoop) current_).getInit(), 0, _page,resultInit_);
+                ElRetrieverAnonymous.commonCheckQuick(((ForIterativeLoop) current_).getInit(), 0, _page,resultInit_);
                 feedResult(_method, resultInit_, _int, _type);
                 _page.setGlobalOffset(((ForIterativeLoop) current_).getExpressionOffset());
                 _page.setOffset(0);
                 ResultExpression resultExp_ = ((ForIterativeLoop) current_).getResExp();
-                ElResolver.commonCheckQuick(((ForIterativeLoop) current_).getExpression(), 0, _page,resultExp_);
+                ElRetrieverAnonymous.commonCheckQuick(((ForIterativeLoop) current_).getExpression(), 0, _page,resultExp_);
                 feedResult(_method, resultExp_, _int, _type);
                 _page.setGlobalOffset(((ForIterativeLoop) current_).getStepOffset());
                 _page.setOffset(0);
                 ResultExpression resultStep_ = ((ForIterativeLoop) current_).getResStep();
-                ElResolver.commonCheckQuick(((ForIterativeLoop) current_).getStep(), 0, _page,resultStep_);
+                ElRetrieverAnonymous.commonCheckQuick(((ForIterativeLoop) current_).getStep(), 0, _page,resultStep_);
                 feedResult(_method, resultStep_, _int, _type);
             }
             if (current_ instanceof ForMutableIterativeLoop) {
                 _page.setGlobalOffset(((ForMutableIterativeLoop) current_).getInitOffset());
                 _page.setOffset(0);
                 ResultExpression resultInit_ = ((ForMutableIterativeLoop) current_).getResInit();
-                ElResolver.commonCheckQuick(((ForMutableIterativeLoop) current_).getInit(), 0, _page,resultInit_);
+                ElRetrieverAnonymous.commonCheckQuick(((ForMutableIterativeLoop) current_).getInit(), 0, _page,resultInit_);
                 feedResult(_method, resultInit_, _int, _type);
                 _page.setGlobalOffset(((ForMutableIterativeLoop) current_).getExpressionOffset());
                 _page.setOffset(0);
                 ResultExpression resultExp_ = ((ForMutableIterativeLoop) current_).getResExp();
-                ElResolver.commonCheckQuick(((ForMutableIterativeLoop) current_).getExpression(), 0, _page,resultExp_);
+                ElRetrieverAnonymous.commonCheckQuick(((ForMutableIterativeLoop) current_).getExpression(), 0, _page,resultExp_);
                 feedResult(_method, resultExp_, _int, _type);
                 _page.setGlobalOffset(((ForMutableIterativeLoop) current_).getStepOffset());
                 _page.setOffset(0);
                 ResultExpression resultStep_ = ((ForMutableIterativeLoop) current_).getResStep();
-                ElResolver.commonCheckQuick(((ForMutableIterativeLoop) current_).getStep(), 0, _page,resultStep_);
+                ElRetrieverAnonymous.commonCheckQuick(((ForMutableIterativeLoop) current_).getStep(), 0, _page,resultStep_);
                 feedResult(_method, resultStep_, _int, _type);
             }
             if (current_ instanceof ReturnMethod) {
@@ -472,7 +472,7 @@ public final class SplitExpressionUtil {
                 _page.setOffset(0);
                 String value_ = ((ReturnMethod) current_).getExpression();
                 ResultExpression resultExpression_ = ((ReturnMethod) current_).getRes();
-                ElResolver.commonCheckQuick(value_, 0, _page,resultExpression_);
+                ElRetrieverAnonymous.commonCheckQuick(value_, 0, _page,resultExpression_);
                 feedResult(_method, resultExpression_, _int, _type);
             }
             if (current_ instanceof Throwing) {
@@ -480,7 +480,7 @@ public final class SplitExpressionUtil {
                 _page.setOffset(0);
                 String value_ = ((Throwing) current_).getExpression();
                 ResultExpression resultExpression_ = ((Throwing) current_).getRes();
-                ElResolver.commonCheckQuick(value_, 0, _page,resultExpression_);
+                ElRetrieverAnonymous.commonCheckQuick(value_, 0, _page,resultExpression_);
                 feedResult(_method, resultExpression_, _int, _type);
             }
             if (current_ instanceof BuildableElMethod || current_ instanceof UnclassedBracedBlock) {
