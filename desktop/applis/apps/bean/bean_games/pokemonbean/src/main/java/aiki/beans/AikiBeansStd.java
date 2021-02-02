@@ -1,5 +1,4 @@
 package aiki.beans;
-import code.bean.BeanStruct;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.MethodModifier;
@@ -81,7 +80,7 @@ public final class AikiBeansStd {
         _std.getStandards().addEntry(TYPE_WELCOME_BEAN, type_);
     }
     public static ResultErrorStd invokeMethodWelcomeBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Struct... _args) {
-        WelcomeBean instance_ = (WelcomeBean) ((BeanStruct)_instance).getInstance();
+        WelcomeBean instance_ = (WelcomeBean) ((PokemonBeanStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringUtil.quickEq(methodName_,CLICK_POKEDEX)) {

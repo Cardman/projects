@@ -1,9 +1,8 @@
 package aiki.beans.map.pokemon;
-import aiki.beans.AikiBeansStd;
+import aiki.beans.*;
 import aiki.beans.PersonStruct;
 import aiki.beans.PokemonStandards;
 import aiki.map.characters.Trainer;
-import code.bean.BeanStruct;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.NumParsers;
@@ -92,7 +91,7 @@ public final class AikiBeansMapPokemonStd {
     public static ResultErrorStd getResultPokemonTeamBean(ContextEl _cont, ClassField _classField, Struct _instance) {
         BeanNatLgNames std_ = (BeanNatLgNames) _cont.getStandards();
         ResultErrorStd res_ = new ResultErrorStd();
-        PokemonTeamBean instance_ = (PokemonTeamBean) ((BeanStruct)_instance).getInstance();
+        PokemonTeamBean instance_ = (PokemonTeamBean) ((PokemonBeanStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringUtil.quickEq(fieldName_,REWARD)) {
             res_.setResult(new IntStruct(instance_.getReward()));
@@ -114,7 +113,7 @@ public final class AikiBeansMapPokemonStd {
     }
     public static ResultErrorStd setResultPokemonTeamBean(ContextEl _cont, ClassField _classField, Struct _instance, Struct _val) {
         ResultErrorStd res_ = new ResultErrorStd();
-        PokemonTeamBean instance_ = (PokemonTeamBean) ((BeanStruct)_instance).getInstance();
+        PokemonTeamBean instance_ = (PokemonTeamBean) ((PokemonBeanStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringUtil.quickEq(fieldName_,TRAINER)) {
             instance_.setTrainer((Trainer) ((PersonStruct)_val).getInstance());
@@ -129,7 +128,7 @@ public final class AikiBeansMapPokemonStd {
         return res_;
     }
     public static ResultErrorStd invokeMethodPokemonTeamBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Struct... _args) {
-        PokemonTeamBean instance_ = (PokemonTeamBean) ((BeanStruct)_instance).getInstance();
+        PokemonTeamBean instance_ = (PokemonTeamBean) ((PokemonBeanStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringUtil.quickEq(methodName_,GET_IMAGE)) {

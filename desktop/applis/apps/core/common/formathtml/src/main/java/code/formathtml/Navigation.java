@@ -44,11 +44,11 @@ public final class Navigation {
 
     private Configuration session;
 
-    private String currentBeanName;
+    private String currentBeanName = "";
 
-    private String htmlText;
+    private String htmlText = "";
 
-    private String referenceScroll;
+    private String referenceScroll = "";
 
     private String currentUrl = "";
 
@@ -63,9 +63,6 @@ public final class Navigation {
     private Document document;
     private HtmlPage htmlPage;
 
-    public Navigation(){
-        //instance
-    }
     public DualAnalyzedContext loadConfiguration(String _cont, String _lgCode, BeanLgNames _lgNames, AbstractFileBuilder _fileBuilder, AbstractConfigurationLoader _confLoad) {
         DocumentResult res_ = DocumentBuilder.parseSaxHtmlRowCol(_cont);
         Document doc_ = res_.getDocument();
@@ -115,14 +112,9 @@ public final class Navigation {
         }
         String currentUrl_ = session.getFirstUrl();
         rendStackCall_.setCurrentUrl(currentUrl_);
-        htmlText = RendBlock.getRes(_doc,session, _stds, _ctx, _stackCall, rendStackCall_);
-        if (htmlText.isEmpty()) {
-            return;
-        }
-        //For title
-        currentBeanName = rendStackCall_.getBeanName();
-        currentUrl = currentUrl_;
-        setupText(htmlText, rendStackCall_);
+        Struct bean_ = getBeanOrNull(currentBeanName);
+        rendStackCall_.clearPages();
+        processAfterInvoke(currentUrl_,currentBeanName,bean_, _stds, _ctx, _stackCall, rendStackCall_);
     }
 
     public StringMap<AnaRendDocumentBlock> analyzedRenders(AnalyzedPageEl _page, BeanLgNames _stds, AnalyzingDoc _analyzingDoc, DualConfigurationContext _dual) {

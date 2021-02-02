@@ -1,6 +1,5 @@
 package code.formathtml.nat;
 
-import code.bean.nat.StringMapObject;
 import code.util.CustList;
 import org.junit.Test;
 

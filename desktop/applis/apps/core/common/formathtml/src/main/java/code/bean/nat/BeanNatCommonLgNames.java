@@ -1,7 +1,6 @@
 package code.bean.nat;
 
 import code.bean.Bean;
-import code.bean.BeanStruct;
 import code.bean.validator.Validator;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
@@ -21,12 +20,9 @@ import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.stds.*;
 import code.expressionlanguage.structs.*;
 import code.formathtml.Configuration;
-import code.formathtml.ImportingPage;
 import code.formathtml.Navigation;
 import code.formathtml.analyze.AnalyzingDoc;
 import code.formathtml.exec.RendStackCall;
-import code.formathtml.exec.blocks.RendBlock;
-import code.formathtml.exec.blocks.RendDocumentBlock;
 import code.formathtml.exec.blocks.RendImport;
 import code.formathtml.exec.opers.RendDynOperationNode;
 import code.formathtml.exec.opers.RendSettableFieldOperation;
@@ -78,21 +74,9 @@ public abstract class BeanNatCommonLgNames extends BeanLgNames {
 
     protected abstract Struct newSimpleBean(String _language, BeanInfo _bean, ContextEl _ctx, StackCall _stackCall);
 
-    private StringMapObject storeForms(Struct _bean) {
-        return ((BeanStruct)_bean).getBean().getForms();
-    }
-
-
-    private void setStoredForms(Struct _bean, StringMapObject _storedForms) {
-        ((BeanStruct)_bean).getBean().setForms(_storedForms);
-    }
-
-    @Override
-    protected void gearFw(Configuration _conf, Struct _mainBean, RendImport _node, boolean _keepField, Struct _bean, ContextEl _ctx, StackCall _stack, RendStackCall _rendStack) {
-
-        StringMapObject forms_ = ((BeanStruct)_bean).getBean().getForms();
-        StringMapObject formsMap_ = ((BeanStruct)_mainBean).getBean().getForms();
-        forms_.putAllMap(formsMap_);
+    public boolean setBeanForms(Configuration _conf, Struct _mainBean,
+                             RendImport _node, boolean _keepField, String _beanName, ContextEl _ctx, StackCall _stack, RendStackCall _rendStack) {
+        return true;
     }
 
     @Override
@@ -127,21 +111,8 @@ public abstract class BeanNatCommonLgNames extends BeanLgNames {
         }
         return validators_;
     }
-    public String processAfterInvoke(Configuration _conf, String _dest, String _beanName, Struct _bean, String _currentUrl, String _language, ContextEl _ctx, StackCall _stack, RendStackCall _rendStack) {
-        ImportingPage ip_ = new ImportingPage();
-        _rendStack.addPage(ip_);
-        StringMapObject stringMapObject_ = storeForms(_bean);
-        _rendStack.setCurrentUrl(_dest);
-        String currentBeanName_;
-        RendDocumentBlock rendDocumentBlock_ = _conf.getRenders().getVal(_dest);
-        currentBeanName_ = rendDocumentBlock_.getBeanName();
-        Struct bean_ = getBeanOrNull(_conf,currentBeanName_);
-        setStoredForms(bean_, stringMapObject_);
-        _rendStack.clearPages();
-        return RendBlock.getRes(rendDocumentBlock_,_conf, this, _ctx, _stack, _rendStack);
-    }
 
-    private Struct getBeanOrNull(Configuration _conf,String _currentBeanName) {
+    protected Struct getBeanOrNull(Configuration _conf,String _currentBeanName) {
         return getBean(_conf,_currentBeanName);
     }
 
@@ -227,10 +198,10 @@ public abstract class BeanNatCommonLgNames extends BeanLgNames {
         return getOtherName(_cont, _instance);
     }
     public abstract ResultErrorStd getOtherName(ContextEl _cont, Struct _instance);
-    @Override
-    public void beforeDisplaying(Struct _arg, Configuration _cont, ContextEl _ctx, StackCall _stack, RendStackCall _rendStack) {
-        ((BeanStruct)_arg).getBean().beforeDisplaying();
-    }
+//    @Override
+//    public void beforeDisplaying(Struct _arg, Configuration _cont, ContextEl _ctx, StackCall _stack, RendStackCall _rendStack) {
+//        ((BeanStruct)_arg).getBean().beforeDisplaying();
+//    }
 
 
     public ArrayStruct getStringArray(StringList _ls) {

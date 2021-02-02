@@ -2,7 +2,6 @@ package cards.belote.beans;
 
 import cards.belote.ResultsBelote;
 import cards.belote.RulesBelote;
-import code.bean.Bean;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ClassField;
@@ -13,10 +12,13 @@ import code.expressionlanguage.functionid.ConstructorId;
 import code.expressionlanguage.functionid.MethodModifier;
 import code.expressionlanguage.stds.*;
 import code.expressionlanguage.structs.*;
-import code.bean.BeanStruct;
 import code.bean.nat.BeanNatLgNames;
 import code.bean.nat.DefaultInitialization;
-import code.bean.nat.StringMapObject;
+import code.formathtml.Configuration;
+import code.formathtml.ImportingPage;
+import code.formathtml.exec.RendStackCall;
+import code.formathtml.exec.blocks.RendBlock;
+import code.formathtml.exec.blocks.RendDocumentBlock;
 import code.formathtml.structs.BeanInfo;
 import code.util.*;
 import code.util.core.StringUtil;
@@ -205,25 +207,39 @@ public final class BeloteStandards extends BeanNatLgNames {
         getStandards().addEntry(TYPE_RULES_BELOTE, std_);
     }
     @Override
+    public void beforeDisplaying(Struct _arg, Configuration _cont, ContextEl _ctx, StackCall _stack, RendStackCall _rendStack) {
+        ((BeloteBeanStruct)_arg).getBean().beforeDisplaying();
+    }
+
+    public String processAfterInvoke(Configuration _conf, String _dest, String _beanName, Struct _bean, String _currentUrl, String _language, ContextEl _ctx, StackCall _stack, RendStackCall _rendStack) {
+        ImportingPage ip_ = new ImportingPage();
+        _rendStack.addPage(ip_);
+        _rendStack.setCurrentUrl(_dest);
+        RendDocumentBlock rendDocumentBlock_ = _conf.getRenders().getVal(_dest);
+        _rendStack.clearPages();
+        return RendBlock.getRes(rendDocumentBlock_,_conf, this, _ctx, _stack, _rendStack);
+    }
+
+    @Override
     public ResultErrorStd getOtherResultBean(ContextEl _cont,
                                              ConstructorId _method, Struct... _args) {
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringUtil.quickEq(_method.getName(), TYPE_DETAILS_RESULTS_BELOTE_BEAN)) {
             DetailsResultsBeloteBean details_ = new DetailsResultsBeloteBean();
             details_.setClassName(TYPE_DETAILS_RESULTS_BELOTE_BEAN);
-            res_.setResult(new BeanStruct(details_));
+            res_.setResult(new BeloteBeanStruct(details_));
             return res_;
         }
         if (StringUtil.quickEq(_method.getName(), TYPE_RESULTS_BELOTE_BEAN)) {
             ResultsBeloteBean details_ = new ResultsBeloteBean();
             details_.setClassName(TYPE_RESULTS_BELOTE_BEAN);
-            res_.setResult(new BeanStruct(details_));
+            res_.setResult(new BeloteBeanStruct(details_));
             return res_;
         }
         if (StringUtil.quickEq(_method.getName(), TYPE_RULES_BELOTE_BEAN)) {
             RulesBeloteBean details_ = new RulesBeloteBean();
             details_.setClassName(TYPE_RULES_BELOTE_BEAN);
-            res_.setResult(new BeanStruct(details_));
+            res_.setResult(new BeloteBeanStruct(details_));
             return res_;
         }
         return res_;
@@ -276,14 +292,14 @@ public final class BeloteStandards extends BeanNatLgNames {
             }
             return res_;
         }
-        if (((BeanStruct)_instance).getInstance() instanceof DetailsResultsBeloteBean) {
+        if (((BeloteBeanStruct)_instance).getInstance() instanceof DetailsResultsBeloteBean) {
             if (StringUtil.quickEq(fieldName_, DECLARING)) {
-                res_.setResult(getSumDeclaringPlayerArray(((DetailsResultsBeloteBean)((BeanStruct)_instance).getInstance()).getDeclaring()));
+                res_.setResult(getSumDeclaringPlayerArray(((DetailsResultsBeloteBean)((BeloteBeanStruct)_instance).getInstance()).getDeclaring()));
                 return res_;
             }
         }
-        if (((BeanStruct)_instance).getInstance() instanceof ResultsBeloteBean) {
-            ResultsBeloteBean instance_ = (ResultsBeloteBean) ((BeanStruct)_instance).getInstance();
+        if (((BeloteBeanStruct)_instance).getInstance() instanceof ResultsBeloteBean) {
+            ResultsBeloteBean instance_ = (ResultsBeloteBean) ((BeloteBeanStruct)_instance).getInstance();
             if (StringUtil.quickEq(fieldName_, POINTS_ATTAQUE_SANS_PRIME)) {
                 res_.setResult(new IntStruct(instance_.getPointsAttaqueSansPrime()));
                 return res_;
@@ -330,8 +346,8 @@ public final class BeloteStandards extends BeanNatLgNames {
             }
         }
 
-        if (((BeanStruct)_instance).getInstance() instanceof RulesBeloteBean) {
-            RulesBeloteBean instance_ = (RulesBeloteBean) ((BeanStruct)_instance).getInstance();
+        if (((BeloteBeanStruct)_instance).getInstance() instanceof RulesBeloteBean) {
+            RulesBeloteBean instance_ = (RulesBeloteBean) ((BeloteBeanStruct)_instance).getInstance();
             if (StringUtil.quickEq(fieldName_, CARTES_BATTUES)) {
                 res_.setResult(new StringStruct(instance_.getCartesBattues()));
                 return res_;
@@ -372,22 +388,22 @@ public final class BeloteStandards extends BeanNatLgNames {
     public ResultErrorStd getOtherResultBean(ContextEl _cont, Struct _instance,
             ClassMethodId _method, Struct... _args) {
         ResultErrorStd res_ = new ResultErrorStd();
-        if (((BeanStruct)_instance).getInstance() instanceof BeloteBean) {
+        if (((BeloteBeanStruct)_instance).getInstance() instanceof BeloteBean) {
             if (StringUtil.quickEq(_method.getConstraints().getName(), PLAY_GAME)) {
-                res_.setResult(BooleanStruct.of(((BeloteBean)((BeanStruct)_instance).getInstance()).playGame()));
+                res_.setResult(BooleanStruct.of(((BeloteBeanStruct)_instance).getInstance().playGame()));
                 return res_;
             }
             if (StringUtil.quickEq(_method.getConstraints().getName(), GET_NICKNAMES)) {
-                res_.setResult(getStringArray(((BeloteBean)((BeanStruct)_instance).getInstance()).getNicknames()));
+                res_.setResult(getStringArray(((BeloteBeanStruct)_instance).getInstance().getNicknames()));
                 return res_;
             }
             if (StringUtil.quickEq(_method.getConstraints().getName(), GET_SCORES)) {
-                res_.setResult(getLongsArray(((BeloteBean)((BeanStruct)_instance).getInstance()).getScores()));
+                res_.setResult(getLongsArray(((BeloteBeanStruct)_instance).getInstance().getScores()));
                 return res_;
             }
         }
-        if (((BeanStruct)_instance).getInstance() instanceof ResultsBeloteBean) {
-            ResultsBeloteBean instance_ = (ResultsBeloteBean) ((BeanStruct)_instance).getInstance();
+        if (((BeloteBeanStruct)_instance).getInstance() instanceof ResultsBeloteBean) {
+            ResultsBeloteBean instance_ = (ResultsBeloteBean) ((BeloteBeanStruct)_instance).getInstance();
             if (StringUtil.quickEq(_method.getConstraints().getName(), WIN)) {
                 res_.setResult(BooleanStruct.of(instance_.win()));
                 return res_;
@@ -437,10 +453,9 @@ public final class BeloteStandards extends BeanNatLgNames {
         ConstructorId id_ = new ConstructorId(_bean.getResolvedClassName(), new StringList(), false);
         ResultErrorStd res_ = ApplyCoreMethodUtil.newInstance(_ctx, id_, _stackCall, Argument.toArgArray(new CustList<Argument>()));
         Struct strBean_ = res_.getResult();
-        BeanStruct str_ = (BeanStruct) strBean_;
-        Bean bean_ = str_.getBean();
-        ((BeloteBean) bean_).setDataBase(dataBase,dataBaseRules);
-        bean_.setForms(new StringMapObject());
+        BeloteBeanStruct str_ = (BeloteBeanStruct) strBean_;
+        BeloteBean bean_ = str_.getBean();
+        bean_.setDataBase(dataBase,dataBaseRules);
         bean_.setLanguage(_language);
         bean_.setScope(_bean.getScope());
         return strBean_;

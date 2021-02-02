@@ -1,8 +1,6 @@
 package code.formathtml.nat;
 
 import code.bean.Bean;
-import code.bean.BeanStruct;
-import code.bean.nat.StringMapObject;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ClassField;
@@ -18,6 +16,8 @@ import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.structs.Struct;
+import code.formathtml.Configuration;
+import code.formathtml.exec.RendStackCall;
 import code.formathtml.structs.BeanInfo;
 import code.util.CustList;
 import code.util.StringList;
@@ -105,6 +105,10 @@ public final class BeanTestNatLgNamesImpl extends BeanTestNatLgNames {
         res_.setResult(BooleanStruct.of(ExecArrayFieldOperation.getArray(_instance,_cont).getLength()==0));
         return res_;
     }
+    @Override
+    public void beforeDisplaying(Struct _arg, Configuration _cont, ContextEl _ctx, StackCall _stack, RendStackCall _rendStack) {
+        ((BeanStruct)_arg).getBean().beforeDisplaying();
+    }
 
     @Override
     public ResultErrorStd getOtherResult(ContextEl _cont, ClassField _classField, Struct _instance) {
@@ -161,7 +165,7 @@ public final class BeanTestNatLgNamesImpl extends BeanTestNatLgNames {
         ConstructorId id_ = new ConstructorId(_bean.getResolvedClassName(), new StringList(), false);
         BeanStruct res_ = getOtherResultBean(_ctx, id_);
         Bean bean_ = res_.getBean();
-        bean_.setForms(new StringMapObject());
+        res_.setForms(new StringMapObject());
         bean_.setLanguage(_language);
         bean_.setScope(_bean.getScope());
         return res_;

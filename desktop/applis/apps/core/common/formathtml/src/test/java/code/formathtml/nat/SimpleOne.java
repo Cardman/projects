@@ -20,7 +20,15 @@ public class SimpleOne extends Bean {
 
     private String typedString = "";
     private final CustList<SampleInput> typedStrings = new CustList<SampleInput>();
+    private StringMapObject forms = new StringMapObject();
 
+    public StringMapObject getForms() {
+        return forms;
+    }
+
+    public void setForms(StringMapObject _forms) {
+        forms = _forms;
+    }
     @Override
     public void beforeDisplaying() {
         list.add("FIRST");

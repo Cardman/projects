@@ -1,7 +1,7 @@
 package aiki.beans.map;
 import aiki.beans.AikiBeansStd;
+import aiki.beans.PokemonBeanStruct;
 import aiki.beans.PokemonStandards;
-import code.bean.BeanStruct;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.NumParsers;
@@ -168,7 +168,7 @@ public final class AikiBeansMapStd {
     public static ResultErrorStd getResultMapBean(ContextEl _cont, ClassField _classField, Struct _instance) {
         BeanNatLgNames std_ = (BeanNatLgNames) _cont.getStandards();
         ResultErrorStd res_ = new ResultErrorStd();
-        MapBean instance_ = (MapBean) ((BeanStruct)_instance).getInstance();
+        MapBean instance_ = (MapBean) ((PokemonBeanStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringUtil.quickEq(fieldName_,PLACES)) {
             res_.setResult(PokemonStandards.getPlInd(instance_.getPlaces()));
@@ -179,7 +179,7 @@ public final class AikiBeansMapStd {
     public static ResultErrorStd getResultMapLevelBean(ContextEl _cont, ClassField _classField, Struct _instance) {
         BeanNatLgNames std_ = (BeanNatLgNames) _cont.getStandards();
         ResultErrorStd res_ = new ResultErrorStd();
-        MapLevelBean instance_ = (MapLevelBean) ((BeanStruct)_instance).getInstance();
+        MapLevelBean instance_ = (MapLevelBean) ((PokemonBeanStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringUtil.quickEq(fieldName_,POSSIBLE_MULTI_LAYER)) {
             res_.setResult(BooleanStruct.of(instance_.getPossibleMultiLayer()));
@@ -233,7 +233,7 @@ public final class AikiBeansMapStd {
     }
     public static ResultErrorStd invokeMethodMapBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Struct... _args) {
         BeanNatLgNames std_ = (BeanNatLgNames) _cont.getStandards();
-        MapBean instance_ = (MapBean) ((BeanStruct)_instance).getInstance();
+        MapBean instance_ = (MapBean) ((PokemonBeanStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringUtil.quickEq(methodName_,IS_MULTI_LAYER)) {
@@ -251,7 +251,7 @@ public final class AikiBeansMapStd {
         return res_;
     }
     public static ResultErrorStd invokeMethodMapLevelBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Struct... _args) {
-        MapLevelBean instance_ = (MapLevelBean) ((BeanStruct)_instance).getInstance();
+        MapLevelBean instance_ = (MapLevelBean) ((PokemonBeanStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringUtil.quickEq(methodName_,GET_MAP_WIDTH)) {

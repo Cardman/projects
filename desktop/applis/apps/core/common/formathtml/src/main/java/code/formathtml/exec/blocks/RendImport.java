@@ -58,9 +58,8 @@ public final class RendImport extends RendParentBlock implements RendWithEl {
         Struct newBean_ = _cont.getBuiltBeans().getVal(beanName_);
         boolean keepField_ = elt.hasAttribute(_cont.getRendKeyWords().getAttrKeepFields());
         Struct mainBean_ = _rendStack.getMainBean();
-        _stds.setBeanForms(_cont, mainBean_, this, keepField_,
-                beanName_, _ctx, _stack, _rendStack);
-        if (_ctx.callsOrException(_stack)) {
+        if (!_stds.setBeanForms(_cont, mainBean_, this, keepField_,
+                beanName_, _ctx, _stack, _rendStack)) {
             return;
         }
         if (newBean_ != null) {

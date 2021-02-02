@@ -13,10 +13,13 @@ import code.expressionlanguage.functionid.ConstructorId;
 import code.expressionlanguage.functionid.MethodModifier;
 import code.expressionlanguage.stds.*;
 import code.expressionlanguage.structs.*;
-import code.bean.BeanStruct;
 import code.bean.nat.BeanNatLgNames;
 import code.bean.nat.DefaultInitialization;
-import code.bean.nat.StringMapObject;
+import code.formathtml.Configuration;
+import code.formathtml.ImportingPage;
+import code.formathtml.exec.RendStackCall;
+import code.formathtml.exec.blocks.RendBlock;
+import code.formathtml.exec.blocks.RendDocumentBlock;
 import code.formathtml.structs.BeanInfo;
 import code.util.*;
 import code.util.core.StringUtil;
@@ -102,6 +105,21 @@ public final class PresidentStandards extends BeanNatLgNames {
         std_ = new StandardClass(TYPE_RULES_PRESIDENT, fields_, constructors_, methods_, getAliasObject(), MethodModifier.NORMAL);
         getStandards().addEntry(TYPE_RULES_PRESIDENT, std_);
     }
+
+    @Override
+    public void beforeDisplaying(Struct _arg, Configuration _cont, ContextEl _ctx, StackCall _stack, RendStackCall _rendStack) {
+        ((PresidentBeanStruct)_arg).getBean().beforeDisplaying();
+    }
+
+    public String processAfterInvoke(Configuration _conf, String _dest, String _beanName, Struct _bean, String _currentUrl, String _language, ContextEl _ctx, StackCall _stack, RendStackCall _rendStack) {
+        ImportingPage ip_ = new ImportingPage();
+        _rendStack.addPage(ip_);
+        _rendStack.setCurrentUrl(_dest);
+        RendDocumentBlock rendDocumentBlock_ = _conf.getRenders().getVal(_dest);
+        _rendStack.clearPages();
+        return RendBlock.getRes(rendDocumentBlock_,_conf, this, _ctx, _stack, _rendStack);
+    }
+
     @Override
     public ResultErrorStd getOtherResultBean(ContextEl _cont,
                                              ConstructorId _method, Struct... _args) {
@@ -109,13 +127,13 @@ public final class PresidentStandards extends BeanNatLgNames {
         if (StringUtil.quickEq(_method.getName(), TYPE_PRESIDENT_BEAN)) {
             PresidentBean details_ = new PresidentBean();
             details_.setClassName(TYPE_PRESIDENT_BEAN);
-            res_.setResult(new BeanStruct(details_));
+            res_.setResult(new PresidentBeanStruct(details_));
             return res_;
         }
         if (StringUtil.quickEq(_method.getName(), TYPE_RULES_PRESIDENT_BEAN)) {
             RulesPresidentBean details_ = new RulesPresidentBean();
             details_.setClassName(TYPE_RULES_PRESIDENT_BEAN);
-            res_.setResult(new BeanStruct(details_));
+            res_.setResult(new PresidentBeanStruct(details_));
             return res_;
         }
         return res_;
@@ -136,18 +154,18 @@ public final class PresidentStandards extends BeanNatLgNames {
             }
             return res_;
         }
-        if (((BeanStruct)_instance).getInstance() instanceof PresidentBean) {
+        if (((PresidentBeanStruct)_instance).getInstance() instanceof PresidentBean) {
             if (StringUtil.quickEq(fieldName_, NICKNAMES)) {
-                res_.setResult(getStringArray(((PresidentBean)((BeanStruct)_instance).getInstance()).getNicknames()));
+                res_.setResult(getStringArray(((PresidentBean)((PresidentBeanStruct)_instance).getInstance()).getNicknames()));
                 return res_;
             }
             if (StringUtil.quickEq(fieldName_, LINES_DEAL)) {
-                res_.setResult(getLineDealArray(((PresidentBean)((BeanStruct)_instance).getInstance()).getLinesDeal()));
+                res_.setResult(getLineDealArray(((PresidentBean)((PresidentBeanStruct)_instance).getInstance()).getLinesDeal()));
                 return res_;
             }
         }
-        if (((BeanStruct)_instance).getInstance() instanceof RulesPresidentBean) {
-            RulesPresidentBean rules_ = (RulesPresidentBean) ((BeanStruct)_instance).getInstance();
+        if (((PresidentBeanStruct)_instance).getInstance() instanceof RulesPresidentBean) {
+            RulesPresidentBean rules_ = (RulesPresidentBean) ((PresidentBeanStruct)_instance).getInstance();
             if (StringUtil.quickEq(fieldName_, NB_PLAYERS)) {
                 res_.setResult(new IntStruct(rules_.getNbPlayers()));
                 return res_;
@@ -210,9 +228,9 @@ public final class PresidentStandards extends BeanNatLgNames {
     public ResultErrorStd getOtherResultBean(ContextEl _cont, Struct _instance,
             ClassMethodId _method, Struct... _args) {
         ResultErrorStd res_ = new ResultErrorStd();
-        if (((BeanStruct)_instance).getInstance() instanceof RulesPresidentBean) {
+        if (((PresidentBeanStruct)_instance).getInstance() instanceof RulesPresidentBean) {
             if (StringUtil.quickEq(_method.getConstraints().getName(), SAME_AMOUNT)) {
-                res_.setResult(BooleanStruct.of(((RulesPresidentBean)((BeanStruct)_instance).getInstance()).sameAmount()));
+                res_.setResult(BooleanStruct.of(((RulesPresidentBean)((PresidentBeanStruct)_instance).getInstance()).sameAmount()));
                 return res_;
             }
         }
@@ -233,7 +251,7 @@ public final class PresidentStandards extends BeanNatLgNames {
         ConstructorId id_ = new ConstructorId(_bean.getResolvedClassName(), new StringList(), false);
         ResultErrorStd res_ = ApplyCoreMethodUtil.newInstance(_ctx, id_, _stackCall, Argument.toArgArray(new CustList<Argument>()));
         Struct strBean_ = res_.getResult();
-        BeanStruct str_ = (BeanStruct) strBean_;
+        PresidentBeanStruct str_ = (PresidentBeanStruct) strBean_;
         Bean bean_ = str_.getBean();
         if (bean_ instanceof PresidentBean) {
             ((PresidentBean)bean_).setDataBase(dataBase);
@@ -241,7 +259,6 @@ public final class PresidentStandards extends BeanNatLgNames {
         if (bean_ instanceof RulesPresidentBean) {
             ((RulesPresidentBean)bean_).setDataBase(dataBaseRules);
         }
-        bean_.setForms(new StringMapObject());
         bean_.setLanguage(_language);
         bean_.setScope(_bean.getScope());
         return strBean_;

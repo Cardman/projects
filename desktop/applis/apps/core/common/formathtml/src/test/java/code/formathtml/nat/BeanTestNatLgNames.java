@@ -1,6 +1,5 @@
 package code.formathtml.nat;
 
-import code.bean.BeanStruct;
 import code.bean.nat.*;
 import code.bean.validator.Validator;
 import code.expressionlanguage.Argument;
@@ -33,7 +32,6 @@ import code.formathtml.analyze.blocks.AnaRendDocumentBlock;
 import code.formathtml.exec.RendStackCall;
 import code.formathtml.exec.blocks.RendBlock;
 import code.formathtml.exec.blocks.RendDocumentBlock;
-import code.formathtml.exec.blocks.RendImport;
 import code.formathtml.exec.opers.RendSettableFieldOperation;
 import code.formathtml.fwd.RendForwardInfos;
 import code.formathtml.structs.BeanInfo;
@@ -144,31 +142,12 @@ public abstract class BeanTestNatLgNames extends BeanNatCommonLgNames {
             _anaDoc.getBeansInfos().addEntry(root_,info_);
         }
     }
-    public void setBeanForms(Configuration _conf, Struct _mainBean,
-                             RendImport _node, boolean _keepField, String _beanName, ContextEl _ctx, StackCall _stack, RendStackCall _rendStack) {
-        if (!(_mainBean instanceof BeanStruct)) {
-            return;
-        }
-        BeanStruct bean_ = beansStructs.getVal(_beanName);
-        if (bean_ == null) {
-            return;
-        }
-        StringMapObject forms_ = bean_.getBean().getForms();
-        StringMapObject formsMap_ = ((BeanStruct)_mainBean).getBean().getForms();
-        forms_.putAllMap(formsMap_);
-        gearFw(_conf, _mainBean, _node, _keepField, bean_, _ctx, _stack, _rendStack);
-    }
-
-    @Override
-    protected void gearFw(Configuration _conf, Struct _mainBean, RendImport _node, boolean _keepField, Struct _bean, ContextEl _ctx, StackCall _stack, RendStackCall _rendStack) {
-        //
-    }
 
     protected abstract BeanStruct newSimpleBean(String _language, BeanInfo _bean, ContextEl _ctx);
 
 
     private static void setStoredForms(BeanStruct _bean, StringMapObject _storedForms) {
-        _bean.getBean().setForms(_storedForms);
+        _bean.setForms(_storedForms);
     }
 
     @Override
@@ -215,7 +194,8 @@ public abstract class BeanTestNatLgNames extends BeanNatCommonLgNames {
     public String processAfterInvoke(Configuration _conf, String _dest, String _beanName, Struct _bean, String _currentUrl, String _language, ContextEl _ctx, StackCall _stack, RendStackCall _rendStack) {
         ImportingPage ip_ = new ImportingPage();
         _rendStack.addPage(ip_);
-        StringMapObject stringMapObject_ = beansStructs.getVal(_beanName).getBean().getForms();
+        BeanStruct val_ = beansStructs.getVal(_beanName);
+        StringMapObject stringMapObject_ = new StringMapObject();
         _rendStack.setCurrentUrl(_dest);
         RendDocumentBlock rendDocumentBlock_ = _conf.getRenders().getVal(_dest);
         String currentBeanName_ = rendDocumentBlock_.getBeanName();

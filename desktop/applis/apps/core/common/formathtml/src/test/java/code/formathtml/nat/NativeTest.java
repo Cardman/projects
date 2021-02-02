@@ -31,7 +31,6 @@ import code.formathtml.structs.BeanInfo;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.structs.Struct;
-import code.bean.BeanStruct;
 import code.formathtml.analyze.AnalyzingDoc;
 import code.formathtml.util.*;
 import code.sml.Document;
@@ -364,7 +363,7 @@ public final class NativeTest {
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body>HEAD<a c:command=\"$bean_one.goToNullPage\" href=\"\" n-a=\"0\"/></body></html>", nav_.getHtmlText());
-        assertSame(getBean(conf_, "bean_one").getForms(), getBean(conf_, "bean_two").getForms());
+        assertSame(getBean(conf_, "bean_one").getForms(), getBeanFive(conf_, "bean_two").getForms());
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
 
@@ -389,10 +388,8 @@ public final class NativeTest {
         bean_.getComposite().setInteger(5);
         bean_.getTree().put("ONE", 1);
         bean_.getTree().put("TWO", 2);
-        bean_.setForms(new StringMapObject());
         BeanTwo beanTwo_ = new BeanTwo();
         beanTwo_.setTypedString("TITLE");
-        beanTwo_.setForms(new StringMapObject());
         NativeAnalyzedTestConfiguration conf_ = contextElSec();
         
         conf_.getConfiguration().setFirstUrl("page1.html");
@@ -428,11 +425,9 @@ public final class NativeTest {
         bean_.getComposite().setInteger(5);
         bean_.getTree().put("ONE", 1);
         bean_.getTree().put("TWO", 2);
-        bean_.setForms(new StringMapObject());
         bean_.getForms().put("key", "sample_value");
         BeanTwo beanTwo_ = new BeanTwo();
         beanTwo_.setTypedString("TITLE");
-        beanTwo_.setForms(new StringMapObject());
         NativeAnalyzedTestConfiguration conf_ = contextElSec();
         setupNative(folder_, relative_, conf_);
         preinit(conf_);
@@ -492,7 +487,7 @@ public final class NativeTest {
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_two", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_two.goToPage\" action=\"\" n-f=\"0\"><input id=\"txt\" type=\"text\" name=\"bean_two.selectedString\" c:validator=\"rate_val\" n-i=\"0\" value=\"ONE_TWO\"/><span c:for=\"txt\">ONE_TWO is not a no zero rate</span></form></body></html>", nav_.getHtmlText());
-        beanTwo_ = (BeanOne) getBean(conf_, "bean_two");
+        beanTwo_ = getBean(conf_, "bean_two");
         StringMapObject map_ = beanTwo_.getForms();
         assertEq(0, map_.size());
         assertEq(0, getBean(conf_, "bean_two").getForms().size());
@@ -546,10 +541,10 @@ public final class NativeTest {
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_two", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_two.go\" action=\"\" n-f=\"0\"><input id=\"txt\" type=\"number\" name=\"bean_two.typedInt\" c:validator=\"rate_val\" n-i=\"0\" value=\"0\"/><span c:for=\"txt\"/></form></body></html>", nav_.getHtmlText());
-        beanTwo_ = (BeanTwo) getBean(conf_, "bean_two");
+        beanTwo_ = getBeanTwo(conf_, "bean_two");
         StringMapObject map_ = beanTwo_.getForms();
         assertEq(0, map_.size());
-        assertEq(0, getBean(conf_, "bean_two").getForms().size());
+        assertEq(0, getBeanTwo(conf_, "bean_two").getForms().size());
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
 
@@ -606,10 +601,10 @@ public final class NativeTest {
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_two", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_two.go\" action=\"\" n-f=\"0\"><input id=\"txt\" type=\"number\" name=\"bean_two.typedInt\" c:validator=\"rate_val\" n-i=\"0\" value=\"0\"/><span c:for=\"txt\"/><input id=\"txt2\" type=\"text\" name=\"bean_two.typedString\" n-i=\"1\" value=\"TYPED_STRING\"/></form></body></html>", nav_.getHtmlText());
-        beanTwo_ = (BeanTwo) getBean(conf_, "bean_two");
+        beanTwo_ = getBeanTwo(conf_, "bean_two");
         StringMapObject map_ = beanTwo_.getForms();
         assertEq(0, map_.size());
-        assertEq(0, getBean(conf_, "bean_two").getForms().size());
+        assertEq(0, getBeanTwo(conf_, "bean_two").getForms().size());
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
 
@@ -672,10 +667,10 @@ public final class NativeTest {
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_two", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_two.go\" action=\"\" n-f=\"0\"><input id=\"txt\" type=\"number\" name=\"bean_two.typedInt\" c:validator=\"rate_val\" n-i=\"0\" value=\"0\"/><span c:for=\"txt\"/><input id=\"txt2\" type=\"text\" name=\"bean_one.selectedString\" n-i=\"1\" value=\"ONE\"/></form></body></html>", nav_.getHtmlText());
-        beanTwo_ = (BeanTwo) getBean(conf_, "bean_two");
+        beanTwo_ = getBeanTwo(conf_, "bean_two");
         StringMapObject map_ = beanTwo_.getForms();
         assertEq(0, map_.size());
-        assertEq(0, getBean(conf_, "bean_two").getForms().size());
+        assertEq(0, getBeanTwo(conf_, "bean_two").getForms().size());
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
 
@@ -854,10 +849,10 @@ public final class NativeTest {
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_two", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_two.go\" action=\"\" n-f=\"0\"><input type=\"number\" name=\"bean_two.nullableInt\" n-i=\"0\" value=\"10\"/></form></body></html>", nav_.getHtmlText());
-        beanTwo_ = (BeanTwo) getBean(conf_, "bean_two");
+        beanTwo_ = getBeanTwo(conf_, "bean_two");
         StringMapObject map_ = beanTwo_.getForms();
         assertEq(8, map_.size());
-        assertEq(8, getBean(conf_, "bean_two").getForms().size());
+        assertEq(8, getBeanTwo(conf_, "bean_two").getForms().size());
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
 
@@ -908,10 +903,10 @@ public final class NativeTest {
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_two", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_two.go\" action=\"\" n-f=\"0\"><input type=\"number\" name=\"bean_two.nullableInt\" n-i=\"0\" value=\"\"/></form></body></html>", nav_.getHtmlText());
-        beanTwo_ = (BeanTwo) getBean(conf_, "bean_two");
+        beanTwo_ = getBeanTwo(conf_, "bean_two");
         StringMapObject map_ = beanTwo_.getForms();
         assertEq(8, map_.size());
-        assertEq(8, getBean(conf_, "bean_two").getForms().size());
+        assertEq(8, getBeanTwo(conf_, "bean_two").getForms().size());
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
 
@@ -962,10 +957,10 @@ public final class NativeTest {
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_two", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_two.go\" action=\"\" n-f=\"0\"><input type=\"checkbox\" name=\"bean_two.checked\" n-i=\"0\" checked=\"checked\"/></form></body></html>", nav_.getHtmlText());
-        beanTwo_ = (BeanTwo) getBean(conf_, "bean_two");
+        beanTwo_ = getBeanTwo(conf_, "bean_two");
         StringMapObject map_ = beanTwo_.getForms();
         assertEq(8, map_.size());
-        assertEq(8, getBean(conf_, "bean_two").getForms().size());
+        assertEq(8, getBeanTwo(conf_, "bean_two").getForms().size());
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
 
@@ -1016,7 +1011,7 @@ public final class NativeTest {
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_two", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_two.go\" action=\"\" n-f=\"0\"><input c:className=\"code.formathtml.classes.Rate\" type=\"text\" name=\"bean_two.rate\" n-i=\"0\" value=\"1/2\"/></form></body></html>", nav_.getHtmlText());
-        beanTwo_ = (BeanTwo) getBean(conf_, "bean_two");
+        beanTwo_ = getBeanTwo(conf_, "bean_two");
         StringMapObject map_ = beanTwo_.getForms();
         assertEq(8, map_.size());
         assertEq(8, getBean(conf_, "bean_two").getForms().size());
@@ -1070,10 +1065,10 @@ public final class NativeTest {
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_two", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_two.go\" action=\"\" n-f=\"0\"><input c:className=\"$short\" type=\"number\" name=\"bean_two.typedShort\" n-i=\"0\" value=\"12\"/></form></body></html>", nav_.getHtmlText());
-        beanTwo_ = (BeanTwo) getBean(conf_, "bean_two");
+        beanTwo_ = getBeanTwo(conf_, "bean_two");
         StringMapObject map_ = beanTwo_.getForms();
         assertEq(8, map_.size());
-        assertEq(8, getBean(conf_, "bean_two").getForms().size());
+        assertEq(8, getBeanTwo(conf_, "bean_two").getForms().size());
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
 
@@ -1184,7 +1179,7 @@ public final class NativeTest {
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body>HEAD<a c:command=\"$bean_one.goToNullPage\" href=\"\" n-a=\"0\"/></body></html>", nav_.getHtmlText());
-        assertSame(getBean(conf_, "bean_one").getForms(), getBean(conf_, "bean_two").getForms());
+        assertSame(getBean(conf_, "bean_one").getForms(), getBeanFive(conf_, "bean_two").getForms());
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
 
@@ -1232,7 +1227,7 @@ public final class NativeTest {
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body>HEAD<a c:command=\"$bean_one.goToNullPage\" href=\"\" n-a=\"0\"/></body></html>", nav_.getHtmlText());
-        assertSame(getBean(conf_, "bean_one").getForms(), getBean(conf_, "bean_two").getForms());
+        assertSame(getBean(conf_, "bean_one").getForms(), getBeanFive(conf_, "bean_two").getForms());
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
 
@@ -1413,8 +1408,15 @@ public final class NativeTest {
         _nav.setSession(_conf.getConfiguration());
     }
 
-    private static Bean getBean(NativeAnalyzedTestConfiguration _conf, String _key) {
-        return _conf.getAdv().getBeans().getVal(_key);
+    private static BeanOne getBean(NativeAnalyzedTestConfiguration _conf, String _key) {
+        return (BeanOne)_conf.getAdv().getBeans().getVal(_key);
+    }
+    private static BeanFive getBeanFive(NativeAnalyzedTestConfiguration _conf, String _key) {
+        return (BeanFive)_conf.getAdv().getBeans().getVal(_key);
+    }
+
+    private static BeanTwo getBeanTwo(NativeAnalyzedTestConfiguration _conf, String _key) {
+        return (BeanTwo)_conf.getAdv().getBeans().getVal(_key);
     }
 
     private static void putBean(Bean _beanTwo, NativeAnalyzedTestConfiguration _conf, String _key) {

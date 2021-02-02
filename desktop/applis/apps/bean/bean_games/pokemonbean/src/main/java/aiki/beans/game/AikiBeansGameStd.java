@@ -1,8 +1,8 @@
 package aiki.beans.game;
 import aiki.beans.LgIntStruct;
+import aiki.beans.PokemonBeanStruct;
 import aiki.beans.PokemonStandards;
 import aiki.beans.RateStruct;
-import code.bean.BeanStruct;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.NumParsers;
@@ -242,7 +242,7 @@ public final class AikiBeansGameStd {
     public static ResultErrorStd getResultDifficultyBean(ContextEl _cont, ClassField _classField, Struct _instance) {
         BeanNatLgNames std_ = (BeanNatLgNames) _cont.getStandards();
         ResultErrorStd res_ = new ResultErrorStd();
-        DifficultyBean instance_ = (DifficultyBean) ((BeanStruct)_instance).getInstance();
+        DifficultyBean instance_ = (DifficultyBean) ((PokemonBeanStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringUtil.quickEq(fieldName_,WIN_POINTS_FIGHT)) {
             res_.setResult(PokemonStandards.getStrStr(_cont,instance_.getWinPointsFight()));
@@ -333,7 +333,7 @@ public final class AikiBeansGameStd {
     public static ResultErrorStd getResultGameProgressionBean(ContextEl _cont, ClassField _classField, Struct _instance) {
         BeanNatLgNames std_ = (BeanNatLgNames) _cont.getStandards();
         ResultErrorStd res_ = new ResultErrorStd();
-        GameProgressionBean instance_ = (GameProgressionBean) ((BeanStruct)_instance).getInstance();
+        GameProgressionBean instance_ = (GameProgressionBean) ((PokemonBeanStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringUtil.quickEq(fieldName_,FINISHED_GAME)) {
             res_.setResult(BooleanStruct.of(instance_.getFinishedGame()));
@@ -412,7 +412,7 @@ public final class AikiBeansGameStd {
     public static ResultErrorStd getResultPokemonPlayerBean(ContextEl _cont, ClassField _classField, Struct _instance) {
         BeanNatLgNames std_ = (BeanNatLgNames) _cont.getStandards();
         ResultErrorStd res_ = new ResultErrorStd();
-        PokemonPlayerBean instance_ = (PokemonPlayerBean) ((BeanStruct)_instance).getInstance();
+        PokemonPlayerBean instance_ = (PokemonPlayerBean) ((PokemonBeanStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringUtil.quickEq(fieldName_,NAME)) {
             res_.setResult(new StringStruct(instance_.getName()));
@@ -498,7 +498,7 @@ public final class AikiBeansGameStd {
     }
     public static ResultErrorStd setResultDifficultyBean(ContextEl _cont, ClassField _classField, Struct _instance, Struct _val) {
         ResultErrorStd res_ = new ResultErrorStd();
-        DifficultyBean instance_ = (DifficultyBean) ((BeanStruct)_instance).getInstance();
+        DifficultyBean instance_ = (DifficultyBean) ((PokemonBeanStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringUtil.quickEq(fieldName_,DIFF_WINNING_EXP_PTS_FIGHT)) {
             instance_.setDiffWinningExpPtsFight(NumParsers.getString(_val).getInstance());
@@ -588,7 +588,7 @@ public final class AikiBeansGameStd {
         return res_;
     }
     public static ResultErrorStd invokeMethodDifficultyBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Struct... _args) {
-        DifficultyBean instance_ = (DifficultyBean) ((BeanStruct)_instance).getInstance();
+        DifficultyBean instance_ = (DifficultyBean) ((PokemonBeanStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringUtil.quickEq(methodName_,CHANGE)) {
@@ -600,7 +600,7 @@ public final class AikiBeansGameStd {
     }
     public static ResultErrorStd invokeMethodGameProgressionBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Struct... _args) {
         BeanNatLgNames std_ = (BeanNatLgNames) _cont.getStandards();
-        GameProgressionBean instance_ = (GameProgressionBean) ((BeanStruct)_instance).getInstance();
+        GameProgressionBean instance_ = (GameProgressionBean) ((PokemonBeanStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringUtil.quickEq(methodName_,GET_REMAINING_OTHER_TRAINERS_PLACE_NAME)) {
@@ -646,7 +646,7 @@ public final class AikiBeansGameStd {
         return res_;
     }
     public static ResultErrorStd invokeMethodPokemonPlayerBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Struct... _args) {
-        PokemonPlayerBean instance_ = (PokemonPlayerBean) ((BeanStruct)_instance).getInstance();
+        PokemonPlayerBean instance_ = (PokemonPlayerBean) ((PokemonBeanStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringUtil.quickEq(methodName_,GET_EVO)) {

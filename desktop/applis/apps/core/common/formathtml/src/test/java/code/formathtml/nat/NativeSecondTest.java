@@ -1,9 +1,7 @@
 package code.formathtml.nat;
 
 import code.bean.Bean;
-import code.bean.BeanStruct;
 import code.bean.nat.DefaultInitialization;
-import code.bean.nat.StringMapObject;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.DefaultFileBuilder;

@@ -1,6 +1,5 @@
 package aiki.beans.abilities;
 import aiki.beans.*;
-import code.bean.BeanStruct;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.NumParsers;
@@ -627,7 +626,7 @@ public final class AikiBeansAbilitiesStd {
     public static ResultErrorStd getResultAbilitiesBean(ContextEl _cont, ClassField _classField, Struct _instance) {
         BeanNatLgNames std_ = (BeanNatLgNames) _cont.getStandards();
         ResultErrorStd res_ = new ResultErrorStd();
-        AbilitiesBean instance_ = (AbilitiesBean) ((BeanStruct)_instance).getInstance();
+        AbilitiesBean instance_ = (AbilitiesBean) ((PokemonBeanStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringUtil.quickEq(fieldName_,TYPED_ABILITY)) {
             res_.setResult(new StringStruct(instance_.getTypedAbility()));
@@ -642,7 +641,7 @@ public final class AikiBeansAbilitiesStd {
     public static ResultErrorStd getResultAbilityBean(ContextEl _cont, ClassField _classField, Struct _instance) {
         BeanNatLgNames std_ = (BeanNatLgNames) _cont.getStandards();
         ResultErrorStd res_ = new ResultErrorStd();
-        AbilityBean instance_ = (AbilityBean) ((BeanStruct)_instance).getInstance();
+        AbilityBean instance_ = (AbilityBean) ((PokemonBeanStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringUtil.quickEq(fieldName_,DISPLAY_NAME)) {
             res_.setResult(new StringStruct(instance_.getDisplayName()));
@@ -1016,7 +1015,7 @@ public final class AikiBeansAbilitiesStd {
     }
     public static ResultErrorStd setResultAbilitiesBean(ContextEl _cont, ClassField _classField, Struct _instance, Struct _val) {
         ResultErrorStd res_ = new ResultErrorStd();
-        AbilitiesBean instance_ = (AbilitiesBean) ((BeanStruct)_instance).getInstance();
+        AbilitiesBean instance_ = (AbilitiesBean) ((PokemonBeanStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringUtil.quickEq(fieldName_,TYPED_ABILITY)) {
             instance_.setTypedAbility(NumParsers.getString(_val).getInstance());
@@ -1026,7 +1025,7 @@ public final class AikiBeansAbilitiesStd {
         return res_;
     }
     public static ResultErrorStd invokeMethodAbilitiesBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Struct... _args) {
-        AbilitiesBean instance_ = (AbilitiesBean) ((BeanStruct)_instance).getInstance();
+        AbilitiesBean instance_ = (AbilitiesBean) ((PokemonBeanStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringUtil.quickEq(methodName_,SEARCH)) {
@@ -1044,7 +1043,7 @@ public final class AikiBeansAbilitiesStd {
         return res_;
     }
     public static ResultErrorStd invokeMethodAbilityBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Struct... _args) {
-        AbilityBean instance_ = (AbilityBean) ((BeanStruct)_instance).getInstance();
+        AbilityBean instance_ = (AbilityBean) ((PokemonBeanStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringUtil.quickEq(methodName_,CLICK_INDEX)) {

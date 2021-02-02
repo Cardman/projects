@@ -1,5 +1,6 @@
 package code.formathtml.sample;
 import code.bean.Bean;
+import code.formathtml.nat.StringMapObject;
 import code.util.CustList;
 import code.util.NatStringTreeMap;
 import code.util.Ints;
@@ -38,6 +39,7 @@ public class BeanSeven extends Bean {
     private StringList strings = new StringList();
 
     private final Ints arrayInt;
+    private StringMapObject forms;
 
     public BeanSeven() {
         composite.setStrings(new StringList());
@@ -60,6 +62,14 @@ public class BeanSeven extends Bean {
         arrayInt.add(1);
         arrayInt.add(3);
         setClassName("code.formathtml.classes.BeanSeven");
+    }
+
+    public StringMapObject getForms() {
+        return forms;
+    }
+
+    public void setForms(StringMapObject _forms) {
+        forms = _forms;
     }
 
     public void validateStringsSave() {

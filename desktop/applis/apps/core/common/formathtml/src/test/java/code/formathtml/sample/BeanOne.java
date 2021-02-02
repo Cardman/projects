@@ -1,5 +1,6 @@
 package code.formathtml.sample;
 import code.bean.Bean;
+import code.formathtml.nat.StringMapObject;
 import code.util.CustList;
 import code.util.NatStringTreeMap;
 import code.util.Ints;
@@ -36,6 +37,7 @@ public class BeanOne extends Bean {
     private String commonClass = "abba";
 
     private StringList strings = new StringList();
+    private StringMapObject forms = new StringMapObject();
 
     public BeanOne() {
         getMap().put("ONE",1);
@@ -55,6 +57,13 @@ public class BeanOne extends Bean {
         setClassName("code.formathtml.classes.BeanOne");
     }
 
+    public StringMapObject getForms() {
+        return forms;
+    }
+
+    public void setForms(StringMapObject _forms) {
+        forms = _forms;
+    }
     public void validateStrings() {
         strings.clear();
         for (Composite c: composites) {

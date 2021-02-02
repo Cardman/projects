@@ -187,7 +187,7 @@ import aiki.map.util.MiniMapCoords;
 import aiki.map.util.PlaceLevel;
 import aiki.util.Point;
 import code.bean.Bean;
-import code.bean.nat.PairStruct;
+import code.bean.nat.*;
 import code.bean.validator.Validator;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
@@ -201,11 +201,12 @@ import code.expressionlanguage.functionid.MethodModifier;
 import code.expressionlanguage.stds.*;
 import code.expressionlanguage.structs.*;
 import code.formathtml.Configuration;
-import code.bean.BeanStruct;
-import code.bean.nat.StringMapObject;
+import code.formathtml.ImportingPage;
+import code.formathtml.exec.RendStackCall;
+import code.formathtml.exec.blocks.RendBlock;
+import code.formathtml.exec.blocks.RendDocumentBlock;
+import code.formathtml.exec.blocks.RendImport;
 import code.formathtml.structs.BeanInfo;
-import code.bean.nat.BeanNatLgNames;
-import code.bean.nat.DefaultInitialization;
 import code.maths.LgInt;
 import code.maths.Rate;
 import code.sml.Element;
@@ -975,6 +976,49 @@ public final class PokemonStandards extends BeanNatLgNames {
     }
 
     @Override
+    public void beforeDisplaying(Struct _arg, Configuration _cont, ContextEl _ctx, StackCall _stack, RendStackCall _rendStack) {
+        ((PokemonBeanStruct) _arg).getBean().beforeDisplaying();
+    }
+
+    public String processAfterInvoke(Configuration _conf, String _dest, String _beanName, Struct _bean, String _currentUrl, String _language, ContextEl _ctx, StackCall _stack, RendStackCall _rendStack) {
+        ImportingPage ip_ = new ImportingPage();
+        _rendStack.addPage(ip_);
+        StringMapObject stringMapObject_ = new StringMapObject();
+        if (((PokemonBeanStruct) _bean).getBean() instanceof WithForms) {
+            stringMapObject_ = ((WithForms)((PokemonBeanStruct) _bean).getBean()).getForms();
+        }
+        _rendStack.setCurrentUrl(_dest);
+        String currentBeanName_;
+        RendDocumentBlock rendDocumentBlock_ = _conf.getRenders().getVal(_dest);
+        currentBeanName_ = rendDocumentBlock_.getBeanName();
+        PokemonBeanStruct bean_ = (PokemonBeanStruct) getBeanOrNull(_conf,currentBeanName_);
+        if (bean_.getBean() instanceof WithForms) {
+            ((WithForms) bean_.getBean()).setForms(stringMapObject_);
+        }
+        _rendStack.clearPages();
+        return RendBlock.getRes(rendDocumentBlock_,_conf, this, _ctx, _stack, _rendStack);
+    }
+
+    public boolean setBeanForms(Configuration _conf, Struct _mainBean,
+                                RendImport _node, boolean _keepField, String _beanName, ContextEl _ctx, StackCall _stack, RendStackCall _rendStack) {
+        if (_mainBean == null) {
+            return true;
+        }
+        Struct bean_ = _conf.getBuiltBeans().getVal(_beanName);
+        if (bean_ == null) {
+            return true;
+        }
+        gearFw(_conf, _mainBean, _node, _keepField, bean_, _ctx, _stack, _rendStack);
+        return true;
+    }
+
+    protected void gearFw(Configuration _conf, Struct _mainBean, RendImport _node, boolean _keepField, Struct _bean, ContextEl _ctx, StackCall _stack, RendStackCall _rendStack) {
+        StringMapObject forms_ = ((WithForms) ((PokemonBeanStruct)_bean).getBean()).getForms();
+        StringMapObject formsMap_ = ((WithForms) ((PokemonBeanStruct)_mainBean).getBean()).getForms();
+        forms_.putAllMap(formsMap_);
+    }
+
+    @Override
     public Validator buildValidator(Element _element) {
         String clName_ = _element.getTagName();
         if (StringUtil.quickEq(clName_, TYPE_FULL_RATE_VALIDATOR)){
@@ -1029,7 +1073,7 @@ public final class PokemonStandards extends BeanNatLgNames {
         if (_instance instanceof WildPokemonDtoStruct) {
             return AikiBeansFacadeSolutionDtoStd.getResultWildPokemonDto(_cont, _classField, ((WildPokemonDtoStruct) _instance).getInstance());
         }
-        Bean instance_ = ((BeanStruct)_instance).getBean();
+        Bean instance_ = ((PokemonBeanStruct)_instance).getBean();
         if (instance_ instanceof AbilitiesBean) {
             return AikiBeansAbilitiesStd.getResultAbilitiesBean(_cont, _classField, _instance);
         }
@@ -1353,7 +1397,7 @@ public final class PokemonStandards extends BeanNatLgNames {
         if (_instance instanceof EvLineStruct) {
             return AikiBeansFacadeSimulationDtoStd.setResultEvLine(_cont, _classField, _val, ((EvLineStruct) _instance).getEvLine());
         }
-        Bean instance_ = ((BeanStruct)_instance).getBean();
+        Bean instance_ = ((PokemonBeanStruct)_instance).getBean();
         if (instance_ instanceof AbilitiesBean) {
             return AikiBeansAbilitiesStd.setResultAbilitiesBean(_cont, _classField, _instance, _val);
         }
@@ -1526,7 +1570,7 @@ public final class PokemonStandards extends BeanNatLgNames {
         if (_instance instanceof CategoryMultStruct) {
             return PokemonStandards.invokeMethodCategoryMult(_cont, _method, ((CategoryMultStruct) _instance).getInstance(), _args);
         }
-        Bean instance_ = ((BeanStruct)_instance).getBean();
+        Bean instance_ = ((PokemonBeanStruct)_instance).getBean();
         if (instance_ instanceof AbilitiesBean) {
             return AikiBeansAbilitiesStd.invokeMethodAbilitiesBean(_cont, _instance, _method, _args);
         }
@@ -1795,703 +1839,703 @@ public final class PokemonStandards extends BeanNatLgNames {
         if (StringUtil.quickEq(name_,AikiBeansAbilitiesStd.TYPE_ABILITIES_BEAN)) {
             AbilitiesBean bean_ = new AbilitiesBean();
             bean_.setClassName(AikiBeansAbilitiesStd.TYPE_ABILITIES_BEAN);
-            res_.setResult(new BeanStruct(bean_));
+            res_.setResult(new PokemonBeanStruct(bean_));
             return res_;
         }
         if (StringUtil.quickEq(name_,AikiBeansAbilitiesStd.TYPE_ABILITY_BEAN)) {
             AbilityBean bean_ = new AbilityBean();
             bean_.setClassName(AikiBeansAbilitiesStd.TYPE_ABILITY_BEAN);
-            res_.setResult(new BeanStruct(bean_));
+            res_.setResult(new PokemonBeanStruct(bean_));
             return res_;
         }
         if (StringUtil.quickEq(name_,AikiBeansEffectsStd.TYPE_COMBOS_BEAN)) {
             CombosBean bean_ = new CombosBean();
             bean_.setClassName(AikiBeansEffectsStd.TYPE_COMBOS_BEAN);
-            res_.setResult(new BeanStruct(bean_));
+            res_.setResult(new PokemonBeanStruct(bean_));
             return res_;
         }
         if (StringUtil.quickEq(name_,AikiBeansEffectsStd.TYPE_EFFECT_COMBO_BEAN)) {
             EffectComboBean bean_ = new EffectComboBean();
             bean_.setClassName(AikiBeansEffectsStd.TYPE_EFFECT_COMBO_BEAN);
-            res_.setResult(new BeanStruct(bean_));
+            res_.setResult(new PokemonBeanStruct(bean_));
             return res_;
         }
         if (StringUtil.quickEq(name_,AikiBeansEffectsStd.TYPE_EFFECT_WHILE_SENDING_BEAN)) {
             EffectWhileSendingBean bean_ = new EffectWhileSendingBean();
             bean_.setClassName(AikiBeansEffectsStd.TYPE_EFFECT_WHILE_SENDING_BEAN);
-            res_.setResult(new BeanStruct(bean_));
+            res_.setResult(new PokemonBeanStruct(bean_));
             return res_;
         }
         if (StringUtil.quickEq(name_,AikiBeansEndroundStd.TYPE_EFFECT_END_ROUND_BEAN)) {
             EffectEndRoundBean bean_ = new EffectEndRoundBean();
             bean_.setClassName(AikiBeansEndroundStd.TYPE_EFFECT_END_ROUND_BEAN);
-            res_.setResult(new BeanStruct(bean_));
+            res_.setResult(new PokemonBeanStruct(bean_));
             return res_;
         }
         if (StringUtil.quickEq(name_,AikiBeansEndroundStd.TYPE_EFFECT_END_ROUND_FOE_BEAN)) {
             EffectEndRoundFoeBean bean_ = new EffectEndRoundFoeBean();
             bean_.setClassName(AikiBeansEndroundStd.TYPE_EFFECT_END_ROUND_FOE_BEAN);
-            res_.setResult(new BeanStruct(bean_));
+            res_.setResult(new PokemonBeanStruct(bean_));
             return res_;
         }
         if (StringUtil.quickEq(name_,AikiBeansEndroundStd.TYPE_EFFECT_END_ROUND_GLOBAL_BEAN)) {
             EffectEndRoundGlobalBean bean_ = new EffectEndRoundGlobalBean();
             bean_.setClassName(AikiBeansEndroundStd.TYPE_EFFECT_END_ROUND_GLOBAL_BEAN);
-            res_.setResult(new BeanStruct(bean_));
+            res_.setResult(new PokemonBeanStruct(bean_));
             return res_;
         }
         if (StringUtil.quickEq(name_,AikiBeansEndroundStd.TYPE_EFFECT_END_ROUND_INDIVIDUAL_BEAN)) {
             EffectEndRoundIndividualBean bean_ = new EffectEndRoundIndividualBean();
             bean_.setClassName(AikiBeansEndroundStd.TYPE_EFFECT_END_ROUND_INDIVIDUAL_BEAN);
-            res_.setResult(new BeanStruct(bean_));
+            res_.setResult(new PokemonBeanStruct(bean_));
             return res_;
         }
         if (StringUtil.quickEq(name_,AikiBeansEndroundStd.TYPE_EFFECT_END_ROUND_MULTI_RELATION_BEAN)) {
             EffectEndRoundMultiRelationBean bean_ = new EffectEndRoundMultiRelationBean();
             bean_.setClassName(AikiBeansEndroundStd.TYPE_EFFECT_END_ROUND_MULTI_RELATION_BEAN);
-            res_.setResult(new BeanStruct(bean_));
+            res_.setResult(new PokemonBeanStruct(bean_));
             return res_;
         }
         if (StringUtil.quickEq(name_,AikiBeansEndroundStd.TYPE_EFFECT_END_ROUND_POSITION_RELATION_BEAN)) {
             EffectEndRoundPositionRelationBean bean_ = new EffectEndRoundPositionRelationBean();
             bean_.setClassName(AikiBeansEndroundStd.TYPE_EFFECT_END_ROUND_POSITION_RELATION_BEAN);
-            res_.setResult(new BeanStruct(bean_));
+            res_.setResult(new PokemonBeanStruct(bean_));
             return res_;
         }
         if (StringUtil.quickEq(name_,AikiBeansEndroundStd.TYPE_EFFECT_END_ROUND_POSITION_TARGET_BEAN)) {
             EffectEndRoundPositionTargetBean bean_ = new EffectEndRoundPositionTargetBean();
             bean_.setClassName(AikiBeansEndroundStd.TYPE_EFFECT_END_ROUND_POSITION_TARGET_BEAN);
-            res_.setResult(new BeanStruct(bean_));
+            res_.setResult(new PokemonBeanStruct(bean_));
             return res_;
         }
         if (StringUtil.quickEq(name_,AikiBeansEndroundStd.TYPE_EFFECT_END_ROUND_SINGLE_RELATION_BEAN)) {
             EffectEndRoundSingleRelationBean bean_ = new EffectEndRoundSingleRelationBean();
             bean_.setClassName(AikiBeansEndroundStd.TYPE_EFFECT_END_ROUND_SINGLE_RELATION_BEAN);
-            res_.setResult(new BeanStruct(bean_));
+            res_.setResult(new PokemonBeanStruct(bean_));
             return res_;
         }
         if (StringUtil.quickEq(name_,AikiBeansEndroundStd.TYPE_EFFECT_END_ROUND_SINGLE_STATUS_BEAN)) {
             EffectEndRoundSingleStatusBean bean_ = new EffectEndRoundSingleStatusBean();
             bean_.setClassName(AikiBeansEndroundStd.TYPE_EFFECT_END_ROUND_SINGLE_STATUS_BEAN);
-            res_.setResult(new BeanStruct(bean_));
+            res_.setResult(new PokemonBeanStruct(bean_));
             return res_;
         }
         if (StringUtil.quickEq(name_,AikiBeansEndroundStd.TYPE_EFFECT_END_ROUND_STATUS_BEAN)) {
             EffectEndRoundStatusBean bean_ = new EffectEndRoundStatusBean();
             bean_.setClassName(AikiBeansEndroundStd.TYPE_EFFECT_END_ROUND_STATUS_BEAN);
-            res_.setResult(new BeanStruct(bean_));
+            res_.setResult(new PokemonBeanStruct(bean_));
             return res_;
         }
         if (StringUtil.quickEq(name_,AikiBeansEndroundStd.TYPE_EFFECT_END_ROUND_STATUS_RELATION_BEAN)) {
             EffectEndRoundStatusRelationBean bean_ = new EffectEndRoundStatusRelationBean();
             bean_.setClassName(AikiBeansEndroundStd.TYPE_EFFECT_END_ROUND_STATUS_RELATION_BEAN);
-            res_.setResult(new BeanStruct(bean_));
+            res_.setResult(new PokemonBeanStruct(bean_));
             return res_;
         }
         if (StringUtil.quickEq(name_,AikiBeansEndroundStd.TYPE_EFFECT_END_ROUND_TEAM_BEAN)) {
             EffectEndRoundTeamBean bean_ = new EffectEndRoundTeamBean();
             bean_.setClassName(AikiBeansEndroundStd.TYPE_EFFECT_END_ROUND_TEAM_BEAN);
-            res_.setResult(new BeanStruct(bean_));
+            res_.setResult(new PokemonBeanStruct(bean_));
             return res_;
         }
         if (StringUtil.quickEq(name_,AikiBeansEndroundStd.TYPE_END_ROUND_BEAN)) {
             EndRoundBean bean_ = new EndRoundBean();
             bean_.setClassName(AikiBeansEndroundStd.TYPE_END_ROUND_BEAN);
-            res_.setResult(new BeanStruct(bean_));
+            res_.setResult(new PokemonBeanStruct(bean_));
             return res_;
         }
         if (StringUtil.quickEq(name_,AikiBeansFightStd.TYPE_FIGHT_BEAN)) {
             FightBean bean_ = new FightBean();
             bean_.setClassName(AikiBeansFightStd.TYPE_FIGHT_BEAN);
-            res_.setResult(new BeanStruct(bean_));
+            res_.setResult(new PokemonBeanStruct(bean_));
             return res_;
         }
         if (StringUtil.quickEq(name_,AikiBeansFightStd.TYPE_FIGHT_CALCULATION_BEAN)) {
             FightCalculationBean bean_ = new FightCalculationBean();
             bean_.setClassName(AikiBeansFightStd.TYPE_FIGHT_CALCULATION_BEAN);
-            res_.setResult(new BeanStruct(bean_));
+            res_.setResult(new PokemonBeanStruct(bean_));
             return res_;
         }
         if (StringUtil.quickEq(name_,AikiBeansFightStd.TYPE_FIGHTER_BEAN)) {
             FighterBean bean_ = new FighterBean();
             bean_.setClassName(AikiBeansFightStd.TYPE_FIGHTER_BEAN);
-            res_.setResult(new BeanStruct(bean_));
+            res_.setResult(new PokemonBeanStruct(bean_));
             return res_;
         }
         if (StringUtil.quickEq(name_,AikiBeansFightStd.TYPE_TEAM_BEAN)) {
             TeamBean bean_ = new TeamBean();
             bean_.setClassName(AikiBeansFightStd.TYPE_TEAM_BEAN);
-            res_.setResult(new BeanStruct(bean_));
+            res_.setResult(new PokemonBeanStruct(bean_));
             return res_;
         }
         if (StringUtil.quickEq(name_,AikiBeansGameStd.TYPE_DIFFICULTY_BEAN)) {
             DifficultyBean bean_ = new DifficultyBean();
             bean_.setClassName(AikiBeansGameStd.TYPE_DIFFICULTY_BEAN);
-            res_.setResult(new BeanStruct(bean_));
+            res_.setResult(new PokemonBeanStruct(bean_));
             return res_;
         }
         if (StringUtil.quickEq(name_,AikiBeansGameStd.TYPE_GAME_PROGRESSION_BEAN)) {
             GameProgressionBean bean_ = new GameProgressionBean();
             bean_.setClassName(AikiBeansGameStd.TYPE_GAME_PROGRESSION_BEAN);
-            res_.setResult(new BeanStruct(bean_));
+            res_.setResult(new PokemonBeanStruct(bean_));
             return res_;
         }
         if (StringUtil.quickEq(name_,AikiBeansGameStd.TYPE_POKEMON_PLAYER_BEAN)) {
             PokemonPlayerBean bean_ = new PokemonPlayerBean();
             bean_.setClassName(AikiBeansGameStd.TYPE_POKEMON_PLAYER_BEAN);
-            res_.setResult(new BeanStruct(bean_));
+            res_.setResult(new PokemonBeanStruct(bean_));
             return res_;
         }
         if (StringUtil.quickEq(name_,AikiBeansHelpStd.TYPE_FIGHT_HELP_BEAN)) {
             FightHelpBean bean_ = new FightHelpBean();
             bean_.setClassName(AikiBeansHelpStd.TYPE_FIGHT_HELP_BEAN);
-            res_.setResult(new BeanStruct(bean_));
+            res_.setResult(new PokemonBeanStruct(bean_));
             return res_;
         }
         if (StringUtil.quickEq(name_,AikiBeansHelpStd.TYPE_GENERAL_HELP_BEAN)) {
             GeneralHelpBean bean_ = new GeneralHelpBean();
             bean_.setClassName(AikiBeansHelpStd.TYPE_GENERAL_HELP_BEAN);
-            res_.setResult(new BeanStruct(bean_));
+            res_.setResult(new PokemonBeanStruct(bean_));
             return res_;
         }
         if (StringUtil.quickEq(name_,AikiBeansHelpStd.TYPE_LANGS_BEAN)) {
             LangsBean bean_ = new LangsBean();
             bean_.setClassName(AikiBeansHelpStd.TYPE_LANGS_BEAN);
-            res_.setResult(new BeanStruct(bean_));
+            res_.setResult(new PokemonBeanStruct(bean_));
             return res_;
         }
         if (StringUtil.quickEq(name_,AikiBeansItemsStd.TYPE_BALL_BEAN)) {
             BallBean bean_ = new BallBean();
             bean_.setClassName(AikiBeansItemsStd.TYPE_BALL_BEAN);
-            res_.setResult(new BeanStruct(bean_));
+            res_.setResult(new PokemonBeanStruct(bean_));
             return res_;
         }
         if (StringUtil.quickEq(name_,AikiBeansItemsStd.TYPE_BERRY_BEAN)) {
             BerryBean bean_ = new BerryBean();
             bean_.setClassName(AikiBeansItemsStd.TYPE_BERRY_BEAN);
-            res_.setResult(new BeanStruct(bean_));
+            res_.setResult(new PokemonBeanStruct(bean_));
             return res_;
         }
         if (StringUtil.quickEq(name_,AikiBeansItemsStd.TYPE_BOOST_BEAN)) {
             BoostBean bean_ = new BoostBean();
             bean_.setClassName(AikiBeansItemsStd.TYPE_BOOST_BEAN);
-            res_.setResult(new BeanStruct(bean_));
+            res_.setResult(new PokemonBeanStruct(bean_));
             return res_;
         }
         if (StringUtil.quickEq(name_,AikiBeansItemsEffectsStd.TYPE_EFFECT_END_ROUND_ITEM_BEAN)) {
             EffectEndRoundItemBean bean_ = new EffectEndRoundItemBean();
             bean_.setClassName(AikiBeansItemsEffectsStd.TYPE_EFFECT_END_ROUND_ITEM_BEAN);
-            res_.setResult(new BeanStruct(bean_));
+            res_.setResult(new PokemonBeanStruct(bean_));
             return res_;
         }
         if (StringUtil.quickEq(name_,AikiBeansItemsStd.TYPE_EVOLVING_ITEM_BEAN)) {
             EvolvingItemBean bean_ = new EvolvingItemBean();
             bean_.setClassName(AikiBeansItemsStd.TYPE_EVOLVING_ITEM_BEAN);
-            res_.setResult(new BeanStruct(bean_));
+            res_.setResult(new PokemonBeanStruct(bean_));
             return res_;
         }
         if (StringUtil.quickEq(name_,AikiBeansItemsStd.TYPE_EVOLVING_STONE_BEAN)) {
             EvolvingStoneBean bean_ = new EvolvingStoneBean();
             bean_.setClassName(AikiBeansItemsStd.TYPE_EVOLVING_STONE_BEAN);
-            res_.setResult(new BeanStruct(bean_));
+            res_.setResult(new PokemonBeanStruct(bean_));
             return res_;
         }
         if (StringUtil.quickEq(name_,AikiBeansItemsStd.TYPE_FOSSIL_BEAN)) {
             FossilBean bean_ = new FossilBean();
             bean_.setClassName(AikiBeansItemsStd.TYPE_FOSSIL_BEAN);
-            res_.setResult(new BeanStruct(bean_));
+            res_.setResult(new PokemonBeanStruct(bean_));
             return res_;
         }
         if (StringUtil.quickEq(name_,AikiBeansItemsStd.TYPE_HEALING_HP_BEAN)) {
             HealingHpBean bean_ = new HealingHpBean();
             bean_.setClassName(AikiBeansItemsStd.TYPE_HEALING_HP_BEAN);
-            res_.setResult(new BeanStruct(bean_));
+            res_.setResult(new PokemonBeanStruct(bean_));
             return res_;
         }
         if (StringUtil.quickEq(name_,AikiBeansItemsStd.TYPE_HEALING_HP_STATUS_BEAN)) {
             HealingStatusBean bean_ = new HealingStatusBean();
             bean_.setClassName(AikiBeansItemsStd.TYPE_HEALING_STATUS_BEAN);
-            res_.setResult(new BeanStruct(bean_));
+            res_.setResult(new PokemonBeanStruct(bean_));
             return res_;
         }
         if (StringUtil.quickEq(name_,AikiBeansItemsStd.TYPE_HEALING_ITEM_BEAN)) {
             HealingItemBean bean_ = new HealingItemBean();
             bean_.setClassName(AikiBeansItemsStd.TYPE_HEALING_ITEM_BEAN);
-            res_.setResult(new BeanStruct(bean_));
+            res_.setResult(new PokemonBeanStruct(bean_));
             return res_;
         }
         if (StringUtil.quickEq(name_,AikiBeansItemsStd.TYPE_HEALING_PP_BEAN)) {
             HealingPpBean bean_ = new HealingPpBean();
             bean_.setClassName(AikiBeansItemsStd.TYPE_HEALING_PP_BEAN);
-            res_.setResult(new BeanStruct(bean_));
+            res_.setResult(new PokemonBeanStruct(bean_));
             return res_;
         }
         if (StringUtil.quickEq(name_,AikiBeansItemsStd.TYPE_HEALING_STATUS_BEAN)) {
             HealingStatusBean bean_ = new HealingStatusBean();
             bean_.setClassName(AikiBeansItemsStd.TYPE_HEALING_STATUS_BEAN);
-            res_.setResult(new BeanStruct(bean_));
+            res_.setResult(new PokemonBeanStruct(bean_));
             return res_;
         }
         if (StringUtil.quickEq(name_,AikiBeansItemsStd.TYPE_ITEM_BEAN)) {
             ItemBean bean_ = new SellingItemBean();
             bean_.setClassName(AikiBeansItemsStd.TYPE_ITEM_BEAN);
-            res_.setResult(new BeanStruct(bean_));
+            res_.setResult(new PokemonBeanStruct(bean_));
             return res_;
         }
         if (StringUtil.quickEq(name_,AikiBeansItemsStd.TYPE_ITEM_FOR_BATTLE_BEAN)) {
             ItemForBattleBean bean_ = new ItemForBattleBean();
             bean_.setClassName(AikiBeansItemsStd.TYPE_ITEM_FOR_BATTLE_BEAN);
-            res_.setResult(new BeanStruct(bean_));
+            res_.setResult(new PokemonBeanStruct(bean_));
             return res_;
         }
         if (StringUtil.quickEq(name_,AikiBeansItemsStd.TYPE_ITEMS_BEAN)) {
             ItemsBean bean_ = new ItemsBean();
             bean_.setClassName(AikiBeansItemsStd.TYPE_ITEMS_BEAN);
-            res_.setResult(new BeanStruct(bean_));
+            res_.setResult(new PokemonBeanStruct(bean_));
             return res_;
         }
         if (StringUtil.quickEq(name_,AikiBeansItemsStd.TYPE_REPEL_BEAN)) {
             RepelBean bean_ = new RepelBean();
             bean_.setClassName(AikiBeansItemsStd.TYPE_REPEL_BEAN);
-            res_.setResult(new BeanStruct(bean_));
+            res_.setResult(new PokemonBeanStruct(bean_));
             return res_;
         }
         if (StringUtil.quickEq(name_,AikiBeansItemsStd.TYPE_SELLING_ITEM_BEAN)) {
             SellingItemBean bean_ = new SellingItemBean();
             bean_.setClassName(AikiBeansItemsStd.TYPE_SELLING_ITEM_BEAN);
-            res_.setResult(new BeanStruct(bean_));
+            res_.setResult(new PokemonBeanStruct(bean_));
             return res_;
         }
         if (StringUtil.quickEq(name_,AikiBeansMapCharactersStd.TYPE_ALLY_BEAN)) {
             AllyBean bean_ = new AllyBean();
             bean_.setClassName(AikiBeansMapCharactersStd.TYPE_ALLY_BEAN);
-            res_.setResult(new BeanStruct(bean_));
+            res_.setResult(new PokemonBeanStruct(bean_));
             return res_;
         }
         if (StringUtil.quickEq(name_,AikiBeansMapCharactersStd.TYPE_DEALER_BEAN)) {
             DealerBean bean_ = new DealerBean();
             bean_.setClassName(AikiBeansMapCharactersStd.TYPE_DEALER_BEAN);
-            res_.setResult(new BeanStruct(bean_));
+            res_.setResult(new PokemonBeanStruct(bean_));
             return res_;
         }
         if (StringUtil.quickEq(name_,AikiBeansMapCharactersStd.TYPE_DUAL_FIGHT_BEAN)) {
             DualFightBean bean_ = new DualFightBean();
             bean_.setClassName(AikiBeansMapCharactersStd.TYPE_DUAL_FIGHT_BEAN);
-            res_.setResult(new BeanStruct(bean_));
+            res_.setResult(new PokemonBeanStruct(bean_));
             return res_;
         }
         if (StringUtil.quickEq(name_,AikiBeansMapCharactersStd.TYPE_SELLER_BEAN)) {
             SellerBean bean_ = new SellerBean();
             bean_.setClassName(AikiBeansMapCharactersStd.TYPE_SELLER_BEAN);
-            res_.setResult(new BeanStruct(bean_));
+            res_.setResult(new PokemonBeanStruct(bean_));
             return res_;
         }
         if (StringUtil.quickEq(name_,AikiBeansMapCharactersStd.TYPE_TRAINER_BEAN)) {
             TrainerBean bean_ = new TrainerBean();
             bean_.setClassName(AikiBeansMapCharactersStd.TYPE_TRAINER_BEAN);
-            res_.setResult(new BeanStruct(bean_));
+            res_.setResult(new PokemonBeanStruct(bean_));
             return res_;
         }
         if (StringUtil.quickEq(name_,AikiBeansMapCharactersStd.TYPE_TRAINER_ONE_FIGHT_BEAN)) {
             TrainerOneFightBean bean_ = new TrainerOneFightBean();
             bean_.setClassName(AikiBeansMapCharactersStd.TYPE_TRAINER_ONE_FIGHT_BEAN);
-            res_.setResult(new BeanStruct(bean_));
+            res_.setResult(new PokemonBeanStruct(bean_));
             return res_;
         }
         if (StringUtil.quickEq(name_,AikiBeansMapElementsStd.TYPE_AREA_BEAN)) {
             AreaBean bean_ = new AreaBean();
             bean_.setClassName(AikiBeansMapElementsStd.TYPE_AREA_BEAN);
-            res_.setResult(new BeanStruct(bean_));
+            res_.setResult(new PokemonBeanStruct(bean_));
             return res_;
         }
         if (StringUtil.quickEq(name_,AikiBeansMapElementsStd.TYPE_LEGENDARY_POKEMON_BEAN)) {
             LegendaryPokemonBean bean_ = new LegendaryPokemonBean();
             bean_.setClassName(AikiBeansMapElementsStd.TYPE_LEGENDARY_POKEMON_BEAN);
-            res_.setResult(new BeanStruct(bean_));
+            res_.setResult(new PokemonBeanStruct(bean_));
             return res_;
         }
         if (StringUtil.quickEq(name_,AikiBeansMapStd.TYPE_MAP_BEAN)) {
             MapBean bean_ = new MapBean();
             bean_.setClassName(AikiBeansMapStd.TYPE_MAP_BEAN);
-            res_.setResult(new BeanStruct(bean_));
+            res_.setResult(new PokemonBeanStruct(bean_));
             return res_;
         }
         if (StringUtil.quickEq(name_,AikiBeansMapStd.TYPE_MAP_LEVEL_BEAN)) {
             MapLevelBean bean_ = new MapLevelBean();
             bean_.setClassName(AikiBeansMapStd.TYPE_MAP_LEVEL_BEAN);
-            res_.setResult(new BeanStruct(bean_));
+            res_.setResult(new PokemonBeanStruct(bean_));
             return res_;
         }
         if (StringUtil.quickEq(name_,AikiBeansMapPokemonStd.TYPE_POKEMON_TEAM_BEAN)) {
             PokemonTeamBean bean_ = new PokemonTeamBean();
             bean_.setClassName(AikiBeansMapPokemonStd.TYPE_POKEMON_TEAM_BEAN);
-            res_.setResult(new BeanStruct(bean_));
+            res_.setResult(new PokemonBeanStruct(bean_));
             return res_;
         }
         if (StringUtil.quickEq(name_,AikiBeansMovesEffectsStd.TYPE_EFFECT_ALLY_BEAN)) {
             EffectAllyBean bean_ = new EffectAllyBean();
             bean_.setClassName(AikiBeansMovesEffectsStd.TYPE_EFFECT_ALLY_BEAN);
-            res_.setResult(new BeanStruct(bean_));
+            res_.setResult(new PokemonBeanStruct(bean_));
             return res_;
         }
         if (StringUtil.quickEq(name_,AikiBeansMovesEffectsStd.TYPE_EFFECT_BATON_PASS_BEAN)) {
             EffectBatonPassBean bean_ = new EffectBatonPassBean();
             bean_.setClassName(AikiBeansMovesEffectsStd.TYPE_EFFECT_BATON_PASS_BEAN);
-            res_.setResult(new BeanStruct(bean_));
+            res_.setResult(new PokemonBeanStruct(bean_));
             return res_;
         }
         if (StringUtil.quickEq(name_,AikiBeansMovesEffectsStd.TYPE_EFFECT_BEAN)) {
             EffectBean bean_ = new EffectBean();
             bean_.setClassName(AikiBeansMovesEffectsStd.TYPE_EFFECT_BEAN);
-            res_.setResult(new BeanStruct(bean_));
+            res_.setResult(new PokemonBeanStruct(bean_));
             return res_;
         }
         if (StringUtil.quickEq(name_,AikiBeansMovesEffectsStd.TYPE_EFFECT_CLONE_BEAN)) {
             EffectCloneBean bean_ = new EffectCloneBean();
             bean_.setClassName(AikiBeansMovesEffectsStd.TYPE_EFFECT_CLONE_BEAN);
-            res_.setResult(new BeanStruct(bean_));
+            res_.setResult(new PokemonBeanStruct(bean_));
             return res_;
         }
         if (StringUtil.quickEq(name_,AikiBeansMovesEffectsStd.TYPE_EFFECT_COMMON_STATISTICS_BEAN)) {
             EffectCommonStatisticsBean bean_ = new EffectCommonStatisticsBean();
             bean_.setClassName(AikiBeansMovesEffectsStd.TYPE_EFFECT_COMMON_STATISTICS_BEAN);
-            res_.setResult(new BeanStruct(bean_));
+            res_.setResult(new PokemonBeanStruct(bean_));
             return res_;
         }
         if (StringUtil.quickEq(name_,AikiBeansMovesEffectsStd.TYPE_EFFECT_COPY_FIGHTER_BEAN)) {
             EffectCopyFighterBean bean_ = new EffectCopyFighterBean();
             bean_.setClassName(AikiBeansMovesEffectsStd.TYPE_EFFECT_COPY_FIGHTER_BEAN);
-            res_.setResult(new BeanStruct(bean_));
+            res_.setResult(new PokemonBeanStruct(bean_));
             return res_;
         }
         if (StringUtil.quickEq(name_,AikiBeansMovesEffectsStd.TYPE_EFFECT_COPY_MOVE_BEAN)) {
             EffectCopyMoveBean bean_ = new EffectCopyMoveBean();
             bean_.setClassName(AikiBeansMovesEffectsStd.TYPE_EFFECT_COPY_MOVE_BEAN);
-            res_.setResult(new BeanStruct(bean_));
+            res_.setResult(new PokemonBeanStruct(bean_));
             return res_;
         }
         if (StringUtil.quickEq(name_,AikiBeansMovesEffectsStd.TYPE_EFFECT_COUNTER_ATTACK_BEAN)) {
             EffectCounterAttackBean bean_ = new EffectCounterAttackBean();
             bean_.setClassName(AikiBeansMovesEffectsStd.TYPE_EFFECT_COUNTER_ATTACK_BEAN);
-            res_.setResult(new BeanStruct(bean_));
+            res_.setResult(new PokemonBeanStruct(bean_));
             return res_;
         }
         if (StringUtil.quickEq(name_,AikiBeansMovesEffectsStd.TYPE_EFFECT_DAMAGE_BEAN)) {
             EffectDamageBean bean_ = new EffectDamageBean();
             bean_.setClassName(AikiBeansMovesEffectsStd.TYPE_EFFECT_DAMAGE_BEAN);
-            res_.setResult(new BeanStruct(bean_));
+            res_.setResult(new PokemonBeanStruct(bean_));
             return res_;
         }
         if (StringUtil.quickEq(name_,AikiBeansMovesEffectsStd.TYPE_EFFECT_DAMAGE_RATE_BEAN)) {
             EffectDamageRateBean bean_ = new EffectDamageRateBean();
             bean_.setClassName(AikiBeansMovesEffectsStd.TYPE_EFFECT_DAMAGE_RATE_BEAN);
-            res_.setResult(new BeanStruct(bean_));
+            res_.setResult(new PokemonBeanStruct(bean_));
             return res_;
         }
         if (StringUtil.quickEq(name_,AikiBeansMovesEffectsStd.TYPE_EFFECT_END_ROUND_MOVE_BEAN)) {
             EffectEndRoundMoveBean bean_ = new EffectEndRoundMoveBean();
             bean_.setClassName(AikiBeansMovesEffectsStd.TYPE_EFFECT_END_ROUND_MOVE_BEAN);
-            res_.setResult(new BeanStruct(bean_));
+            res_.setResult(new PokemonBeanStruct(bean_));
             return res_;
         }
         if (StringUtil.quickEq(name_,AikiBeansMovesEffectsStd.TYPE_EFFECT_FULL_HP_RATE_BEAN)) {
             EffectFullHpRateBean bean_ = new EffectFullHpRateBean();
             bean_.setClassName(AikiBeansMovesEffectsStd.TYPE_EFFECT_FULL_HP_RATE_BEAN);
-            res_.setResult(new BeanStruct(bean_));
+            res_.setResult(new PokemonBeanStruct(bean_));
             return res_;
         }
         if (StringUtil.quickEq(name_,AikiBeansMovesEffectsStd.TYPE_EFFECT_GLOBAL_BEAN)) {
             EffectGlobalBean bean_ = new EffectGlobalBean();
             bean_.setClassName(AikiBeansMovesEffectsStd.TYPE_EFFECT_GLOBAL_BEAN);
-            res_.setResult(new BeanStruct(bean_));
+            res_.setResult(new PokemonBeanStruct(bean_));
             return res_;
         }
         if (StringUtil.quickEq(name_,AikiBeansMovesEffectsStd.TYPE_EFFECT_INVOKE_BEAN)) {
             EffectInvokeBean bean_ = new EffectInvokeBean();
             bean_.setClassName(AikiBeansMovesEffectsStd.TYPE_EFFECT_INVOKE_BEAN);
-            res_.setResult(new BeanStruct(bean_));
+            res_.setResult(new PokemonBeanStruct(bean_));
             return res_;
         }
         if (StringUtil.quickEq(name_,AikiBeansMovesEffectsStd.TYPE_EFFECT_MULT_SUFFERED_MOVE_POWER_BEAN)) {
             EffectMultSufferedMovePowerBean bean_ = new EffectMultSufferedMovePowerBean();
             bean_.setClassName(AikiBeansMovesEffectsStd.TYPE_EFFECT_MULT_SUFFERED_MOVE_POWER_BEAN);
-            res_.setResult(new BeanStruct(bean_));
+            res_.setResult(new PokemonBeanStruct(bean_));
             return res_;
         }
         if (StringUtil.quickEq(name_,AikiBeansMovesEffectsStd.TYPE_EFFECT_MULT_USED_MOVE_POWER_BEAN)) {
             EffectMultUsedMovePowerBean bean_ = new EffectMultUsedMovePowerBean();
             bean_.setClassName(AikiBeansMovesEffectsStd.TYPE_EFFECT_MULT_USED_MOVE_POWER_BEAN);
-            res_.setResult(new BeanStruct(bean_));
+            res_.setResult(new PokemonBeanStruct(bean_));
             return res_;
         }
         if (StringUtil.quickEq(name_,AikiBeansMovesEffectsStd.TYPE_EFFECT_ORDER_BEAN)) {
             EffectOrderBean bean_ = new EffectOrderBean();
             bean_.setClassName(AikiBeansMovesEffectsStd.TYPE_EFFECT_ORDER_BEAN);
-            res_.setResult(new BeanStruct(bean_));
+            res_.setResult(new PokemonBeanStruct(bean_));
             return res_;
         }
         if (StringUtil.quickEq(name_,AikiBeansMovesEffectsStd.TYPE_EFFECT_PROTECT_FROM_TYPES_BEAN)) {
             EffectProtectFromTypesBean bean_ = new EffectProtectFromTypesBean();
             bean_.setClassName(AikiBeansMovesEffectsStd.TYPE_EFFECT_PROTECT_FROM_TYPES_BEAN);
-            res_.setResult(new BeanStruct(bean_));
+            res_.setResult(new PokemonBeanStruct(bean_));
             return res_;
         }
         if (StringUtil.quickEq(name_,AikiBeansMovesEffectsStd.TYPE_EFFECT_PROTECTION_BEAN)) {
             EffectProtectionBean bean_ = new EffectProtectionBean();
             bean_.setClassName(AikiBeansMovesEffectsStd.TYPE_EFFECT_PROTECTION_BEAN);
-            res_.setResult(new BeanStruct(bean_));
+            res_.setResult(new PokemonBeanStruct(bean_));
             return res_;
         }
         if (StringUtil.quickEq(name_,AikiBeansMovesEffectsStd.TYPE_EFFECT_REMAINED_HP_RATE_BEAN)) {
             EffectRemainedHpRateBean bean_ = new EffectRemainedHpRateBean();
             bean_.setClassName(AikiBeansMovesEffectsStd.TYPE_EFFECT_REMAINED_HP_RATE_BEAN);
-            res_.setResult(new BeanStruct(bean_));
+            res_.setResult(new PokemonBeanStruct(bean_));
             return res_;
         }
         if (StringUtil.quickEq(name_,AikiBeansMovesEffectsStd.TYPE_EFFECT_RESTRICTION_BEAN)) {
             EffectRestrictionBean bean_ = new EffectRestrictionBean();
             bean_.setClassName(AikiBeansMovesEffectsStd.TYPE_EFFECT_RESTRICTION_BEAN);
-            res_.setResult(new BeanStruct(bean_));
+            res_.setResult(new PokemonBeanStruct(bean_));
             return res_;
         }
         if (StringUtil.quickEq(name_,AikiBeansMovesEffectsStd.TYPE_EFFECT_STATISTIC_BEAN)) {
             EffectStatisticBean bean_ = new EffectStatisticBean();
             bean_.setClassName(AikiBeansMovesEffectsStd.TYPE_EFFECT_STATISTIC_BEAN);
-            res_.setResult(new BeanStruct(bean_));
+            res_.setResult(new PokemonBeanStruct(bean_));
             return res_;
         }
         if (StringUtil.quickEq(name_,AikiBeansMovesEffectsStd.TYPE_EFFECT_STATUS_BEAN)) {
             EffectStatusBean bean_ = new EffectStatusBean();
             bean_.setClassName(AikiBeansMovesEffectsStd.TYPE_EFFECT_STATUS_BEAN);
-            res_.setResult(new BeanStruct(bean_));
+            res_.setResult(new PokemonBeanStruct(bean_));
             return res_;
         }
         if (StringUtil.quickEq(name_,AikiBeansMovesEffectsStd.TYPE_EFFECT_SWITCH_ABILITIES_BEAN)) {
             EffectSwitchAbilitiesBean bean_ = new EffectSwitchAbilitiesBean();
             bean_.setClassName(AikiBeansMovesEffectsStd.TYPE_EFFECT_SWITCH_ABILITIES_BEAN);
-            res_.setResult(new BeanStruct(bean_));
+            res_.setResult(new PokemonBeanStruct(bean_));
             return res_;
         }
         if (StringUtil.quickEq(name_,AikiBeansMovesEffectsStd.TYPE_EFFECT_SWITCH_ITEMS_BEAN)) {
             EffectSwitchItemsBean bean_ = new EffectSwitchItemsBean();
             bean_.setClassName(AikiBeansMovesEffectsStd.TYPE_EFFECT_SWITCH_ITEMS_BEAN);
-            res_.setResult(new BeanStruct(bean_));
+            res_.setResult(new PokemonBeanStruct(bean_));
             return res_;
         }
         if (StringUtil.quickEq(name_,AikiBeansMovesEffectsStd.TYPE_EFFECT_SWITCH_MOVE_TYPES_BEAN)) {
             EffectSwitchMoveTypesBean bean_ = new EffectSwitchMoveTypesBean();
             bean_.setClassName(AikiBeansMovesEffectsStd.TYPE_EFFECT_SWITCH_MOVE_TYPES_BEAN);
-            res_.setResult(new BeanStruct(bean_));
+            res_.setResult(new PokemonBeanStruct(bean_));
             return res_;
         }
         if (StringUtil.quickEq(name_,AikiBeansMovesEffectsStd.TYPE_EFFECT_SWITCH_POINT_VIEW_BEAN)) {
             EffectSwitchPointViewBean bean_ = new EffectSwitchPointViewBean();
             bean_.setClassName(AikiBeansMovesEffectsStd.TYPE_EFFECT_SWITCH_POINT_VIEW_BEAN);
-            res_.setResult(new BeanStruct(bean_));
+            res_.setResult(new PokemonBeanStruct(bean_));
             return res_;
         }
         if (StringUtil.quickEq(name_,AikiBeansMovesEffectsStd.TYPE_EFFECT_SWITCH_TYPES_BEAN)) {
             EffectSwitchTypesBean bean_ = new EffectSwitchTypesBean();
             bean_.setClassName(AikiBeansMovesEffectsStd.TYPE_EFFECT_SWITCH_TYPES_BEAN);
-            res_.setResult(new BeanStruct(bean_));
+            res_.setResult(new PokemonBeanStruct(bean_));
             return res_;
         }
         if (StringUtil.quickEq(name_,AikiBeansMovesEffectsStd.TYPE_EFFECT_TEAM_BEAN)) {
             EffectTeamBean bean_ = new EffectTeamBean();
             bean_.setClassName(AikiBeansMovesEffectsStd.TYPE_EFFECT_TEAM_BEAN);
-            res_.setResult(new BeanStruct(bean_));
+            res_.setResult(new PokemonBeanStruct(bean_));
             return res_;
         }
         if (StringUtil.quickEq(name_,AikiBeansMovesEffectsStd.TYPE_EFFECT_TEAM_WHILE_SEND_FOE_BEAN)) {
             EffectTeamWhileSendFoeBean bean_ = new EffectTeamWhileSendFoeBean();
             bean_.setClassName(AikiBeansMovesEffectsStd.TYPE_EFFECT_TEAM_WHILE_SEND_FOE_BEAN);
-            res_.setResult(new BeanStruct(bean_));
+            res_.setResult(new PokemonBeanStruct(bean_));
             return res_;
         }
         if (StringUtil.quickEq(name_,AikiBeansMovesEffectsStd.TYPE_EFFECT_UNPROTECT_FROM_TYPES_BEAN)) {
             EffectUnprotectFromTypesBean bean_ = new EffectUnprotectFromTypesBean();
             bean_.setClassName(AikiBeansMovesEffectsStd.TYPE_EFFECT_UNPROTECT_FROM_TYPES_BEAN);
-            res_.setResult(new BeanStruct(bean_));
+            res_.setResult(new PokemonBeanStruct(bean_));
             return res_;
         }
         if (StringUtil.quickEq(name_,AikiBeansMovesEffectsStd.TYPE_EFFECT_VAR_P_P_BEAN)) {
             EffectVarPPBean bean_ = new EffectVarPPBean();
             bean_.setClassName(AikiBeansMovesEffectsStd.TYPE_EFFECT_VAR_P_P_BEAN);
-            res_.setResult(new BeanStruct(bean_));
+            res_.setResult(new PokemonBeanStruct(bean_));
             return res_;
         }
         if (StringUtil.quickEq(name_,AikiBeansMovesEffectsStd.TYPE_EFFECT_WIN_MONEY_BEAN)) {
             EffectWinMoneyBean bean_ = new EffectWinMoneyBean();
             bean_.setClassName(AikiBeansMovesEffectsStd.TYPE_EFFECT_WIN_MONEY_BEAN);
-            res_.setResult(new BeanStruct(bean_));
+            res_.setResult(new PokemonBeanStruct(bean_));
             return res_;
         }
         if (StringUtil.quickEq(name_,AikiBeansMovesStd.TYPE_MOVE_BEAN)) {
             MoveBean bean_ = new MoveBean();
             bean_.setClassName(AikiBeansMovesStd.TYPE_MOVE_BEAN);
-            res_.setResult(new BeanStruct(bean_));
+            res_.setResult(new PokemonBeanStruct(bean_));
             return res_;
         }
         if (StringUtil.quickEq(name_,AikiBeansMovesStd.TYPE_MOVE_LINE_BEAN)) {
             MoveLineBean bean_ = new MoveLineBean();
             bean_.setClassName(AikiBeansMovesStd.TYPE_MOVE_LINE_BEAN);
-            res_.setResult(new BeanStruct(bean_));
+            res_.setResult(new PokemonBeanStruct(bean_));
             return res_;
         }
         if (StringUtil.quickEq(name_,AikiBeansMovesStd.TYPE_MOVES_BEAN)) {
             MovesBean bean_ = new MovesBean();
             bean_.setClassName(AikiBeansMovesStd.TYPE_MOVES_BEAN);
-            res_.setResult(new BeanStruct(bean_));
+            res_.setResult(new PokemonBeanStruct(bean_));
             return res_;
         }
         if (StringUtil.quickEq(name_,AikiBeansPokemonEvolutionsStd.TYPE_EVOLUTION_BEAN)) {
             EvolutionBean bean_ = new EvolutionBean();
             bean_.setClassName(AikiBeansPokemonEvolutionsStd.TYPE_EVOLUTION_BEAN);
-            res_.setResult(new BeanStruct(bean_));
+            res_.setResult(new PokemonBeanStruct(bean_));
             return res_;
         }
         if (StringUtil.quickEq(name_,AikiBeansPokemonEvolutionsStd.TYPE_EVOLUTION_HAPPINESS_BEAN)) {
             EvolutionHappinessBean bean_ = new EvolutionHappinessBean();
             bean_.setClassName(AikiBeansPokemonEvolutionsStd.TYPE_EVOLUTION_HAPPINESS_BEAN);
-            res_.setResult(new BeanStruct(bean_));
+            res_.setResult(new PokemonBeanStruct(bean_));
             return res_;
         }
         if (StringUtil.quickEq(name_,AikiBeansPokemonEvolutionsStd.TYPE_EVOLUTION_ITEM_BEAN)) {
             EvolutionItemBean bean_ = new EvolutionItemBean();
             bean_.setClassName(AikiBeansPokemonEvolutionsStd.TYPE_EVOLUTION_ITEM_BEAN);
-            res_.setResult(new BeanStruct(bean_));
+            res_.setResult(new PokemonBeanStruct(bean_));
             return res_;
         }
         if (StringUtil.quickEq(name_,AikiBeansPokemonEvolutionsStd.TYPE_EVOLUTION_LEVEL_BEAN)) {
             EvolutionLevelBean bean_ = new EvolutionLevelBean();
             bean_.setClassName(AikiBeansPokemonEvolutionsStd.TYPE_EVOLUTION_LEVEL_BEAN);
-            res_.setResult(new BeanStruct(bean_));
+            res_.setResult(new PokemonBeanStruct(bean_));
             return res_;
         }
         if (StringUtil.quickEq(name_,AikiBeansPokemonEvolutionsStd.TYPE_EVOLUTION_LEVEL_GENDER_BEAN)) {
             EvolutionLevelGenderBean bean_ = new EvolutionLevelGenderBean();
             bean_.setClassName(AikiBeansPokemonEvolutionsStd.TYPE_EVOLUTION_LEVEL_GENDER_BEAN);
-            res_.setResult(new BeanStruct(bean_));
+            res_.setResult(new PokemonBeanStruct(bean_));
             return res_;
         }
         if (StringUtil.quickEq(name_,AikiBeansPokemonEvolutionsStd.TYPE_EVOLUTION_MOVE_BEAN)) {
             EvolutionMoveBean bean_ = new EvolutionMoveBean();
             bean_.setClassName(AikiBeansPokemonEvolutionsStd.TYPE_EVOLUTION_MOVE_BEAN);
-            res_.setResult(new BeanStruct(bean_));
+            res_.setResult(new PokemonBeanStruct(bean_));
             return res_;
         }
         if (StringUtil.quickEq(name_,AikiBeansPokemonEvolutionsStd.TYPE_EVOLUTION_MOVE_TYPE_BEAN)) {
             EvolutionMoveTypeBean bean_ = new EvolutionMoveTypeBean();
             bean_.setClassName(AikiBeansPokemonEvolutionsStd.TYPE_EVOLUTION_MOVE_TYPE_BEAN);
-            res_.setResult(new BeanStruct(bean_));
+            res_.setResult(new PokemonBeanStruct(bean_));
             return res_;
         }
         if (StringUtil.quickEq(name_,AikiBeansPokemonEvolutionsStd.TYPE_EVOLUTION_STONE_BEAN)) {
             EvolutionStoneBean bean_ = new EvolutionStoneBean();
             bean_.setClassName(AikiBeansPokemonEvolutionsStd.TYPE_EVOLUTION_STONE_BEAN);
-            res_.setResult(new BeanStruct(bean_));
+            res_.setResult(new PokemonBeanStruct(bean_));
             return res_;
         }
         if (StringUtil.quickEq(name_,AikiBeansPokemonEvolutionsStd.TYPE_EVOLUTION_STONE_GENDER_BEAN)) {
             EvolutionStoneGenderBean bean_ = new EvolutionStoneGenderBean();
             bean_.setClassName(AikiBeansPokemonEvolutionsStd.TYPE_EVOLUTION_STONE_GENDER_BEAN);
-            res_.setResult(new BeanStruct(bean_));
+            res_.setResult(new PokemonBeanStruct(bean_));
             return res_;
         }
         if (StringUtil.quickEq(name_,AikiBeansPokemonEvolutionsStd.TYPE_EVOLUTION_TEAM_BEAN)) {
             EvolutionTeamBean bean_ = new EvolutionTeamBean();
             bean_.setClassName(AikiBeansPokemonEvolutionsStd.TYPE_EVOLUTION_TEAM_BEAN);
-            res_.setResult(new BeanStruct(bean_));
+            res_.setResult(new PokemonBeanStruct(bean_));
             return res_;
         }
         if (StringUtil.quickEq(name_,AikiBeansPokemonStd.TYPE_POKEDEX_BEAN)) {
             PokedexBean bean_ = new PokedexBean();
             bean_.setClassName(AikiBeansPokemonStd.TYPE_POKEDEX_BEAN);
-            res_.setResult(new BeanStruct(bean_));
+            res_.setResult(new PokemonBeanStruct(bean_));
             return res_;
         }
         if (StringUtil.quickEq(name_,AikiBeansPokemonStd.TYPE_POKEMON_BEAN)) {
             PokemonBean bean_ = new PokemonBean();
             bean_.setClassName(AikiBeansPokemonStd.TYPE_POKEMON_BEAN);
-            res_.setResult(new BeanStruct(bean_));
+            res_.setResult(new PokemonBeanStruct(bean_));
             return res_;
         }
         if (StringUtil.quickEq(name_,AikiBeansSimulationStd.TYPE_ADD_POKEMON_BEAN)) {
             AddPokemonBean bean_ = new AddPokemonBean();
             bean_.setClassName(AikiBeansSimulationStd.TYPE_ADD_POKEMON_BEAN);
-            res_.setResult(new BeanStruct(bean_));
+            res_.setResult(new PokemonBeanStruct(bean_));
             return res_;
         }
         if (StringUtil.quickEq(name_,AikiBeansSimulationStd.TYPE_EDIT_POKEMON_BEAN)) {
             EditPokemonBean bean_ = new EditPokemonBean();
             bean_.setClassName(AikiBeansSimulationStd.TYPE_EDIT_POKEMON_BEAN);
-            res_.setResult(new BeanStruct(bean_));
+            res_.setResult(new PokemonBeanStruct(bean_));
             return res_;
         }
         if (StringUtil.quickEq(name_,AikiBeansSimulationStd.TYPE_EDIT_POKEMON_MOVES_BEAN)) {
             EditPokemonMovesBean bean_ = new EditPokemonMovesBean();
             bean_.setClassName(AikiBeansSimulationStd.TYPE_EDIT_POKEMON_MOVES_BEAN);
-            res_.setResult(new BeanStruct(bean_));
+            res_.setResult(new PokemonBeanStruct(bean_));
             return res_;
         }
         if (StringUtil.quickEq(name_,AikiBeansSimulationStd.TYPE_EDIT_TRAINER_POKEMON_BEAN)) {
             EditTrainerPokemonBean bean_ = new EditTrainerPokemonBean();
             bean_.setClassName(AikiBeansSimulationStd.TYPE_EDIT_TRAINER_POKEMON_BEAN);
-            res_.setResult(new BeanStruct(bean_));
+            res_.setResult(new PokemonBeanStruct(bean_));
             return res_;
         }
         if (StringUtil.quickEq(name_,AikiBeansSimulationStd.TYPE_SELECT_ABILITY_BEAN)) {
             SelectAbilityBean bean_ = new SelectAbilityBean();
             bean_.setClassName(AikiBeansSimulationStd.TYPE_SELECT_ABILITY_BEAN);
-            res_.setResult(new BeanStruct(bean_));
+            res_.setResult(new PokemonBeanStruct(bean_));
             return res_;
         }
         if (StringUtil.quickEq(name_,AikiBeansSimulationStd.TYPE_SELECT_ITEM_BEAN)) {
             SelectItemBean bean_ = new SelectItemBean();
             bean_.setClassName(AikiBeansSimulationStd.TYPE_SELECT_ITEM_BEAN);
-            res_.setResult(new BeanStruct(bean_));
+            res_.setResult(new PokemonBeanStruct(bean_));
             return res_;
         }
         if (StringUtil.quickEq(name_,AikiBeansSimulationStd.TYPE_SELECT_POKEMON_BEAN)) {
             SelectPokemonBean bean_ = new SelectPokemonBean();
             bean_.setClassName(AikiBeansSimulationStd.TYPE_SELECT_POKEMON_BEAN);
-            res_.setResult(new BeanStruct(bean_));
+            res_.setResult(new PokemonBeanStruct(bean_));
             return res_;
         }
         if (StringUtil.quickEq(name_,AikiBeansSimulationStd.TYPE_SIMULATION_BEAN)) {
             SimulationBean bean_ = new SimulationBean();
             bean_.setClassName(AikiBeansSimulationStd.TYPE_SIMULATION_BEAN);
-            res_.setResult(new BeanStruct(bean_));
+            res_.setResult(new PokemonBeanStruct(bean_));
             return res_;
         }
         if (StringUtil.quickEq(name_,AikiBeansSimulationStd.TYPE_SIMULATION_LEVEL_BEAN)) {
             SimulationLevelBean bean_ = new SimulationLevelBean();
             bean_.setClassName(AikiBeansSimulationStd.TYPE_SIMULATION_LEVEL_BEAN);
-            res_.setResult(new BeanStruct(bean_));
+            res_.setResult(new PokemonBeanStruct(bean_));
             return res_;
         }
         if (StringUtil.quickEq(name_,AikiBeansSolutionStd.TYPE_SOLUTION_BEAN)) {
             SolutionBean bean_ = new SolutionBean();
             bean_.setClassName(AikiBeansSolutionStd.TYPE_SOLUTION_BEAN);
-            res_.setResult(new BeanStruct(bean_));
+            res_.setResult(new PokemonBeanStruct(bean_));
             return res_;
         }
         if (StringUtil.quickEq(name_,AikiBeansStatusStd.TYPE_STATUS_BEAN)) {
             StatusBean bean_ = new StatusBean();
             bean_.setClassName(AikiBeansStatusStd.TYPE_STATUS_BEAN);
-            res_.setResult(new BeanStruct(bean_));
+            res_.setResult(new PokemonBeanStruct(bean_));
             return res_;
         }
         if (StringUtil.quickEq(name_,AikiBeansStatusStd.TYPE_STATUS_SET_BEAN)) {
             StatusSetBean bean_ = new StatusSetBean();
             bean_.setClassName(AikiBeansStatusStd.TYPE_STATUS_SET_BEAN);
-            res_.setResult(new BeanStruct(bean_));
+            res_.setResult(new PokemonBeanStruct(bean_));
             return res_;
         }
         if (StringUtil.quickEq(name_,AikiBeansStd.TYPE_WELCOME_BEAN)) {
             WelcomeBean bean_ = new WelcomeBean();
             bean_.setClassName(AikiBeansStd.TYPE_WELCOME_BEAN);
-            res_.setResult(new BeanStruct(bean_));
+            res_.setResult(new PokemonBeanStruct(bean_));
             return res_;
         }
         return res_;
@@ -3797,10 +3841,12 @@ public final class PokemonStandards extends BeanNatLgNames {
         ConstructorId id_ = new ConstructorId(_bean.getResolvedClassName(), new StringList(), false);
         ResultErrorStd res_ = ApplyCoreMethodUtil.newInstance(_ctx, id_, _stackCall, Argument.toArgArray(new CustList<Argument>()));
         Struct strBean_ = res_.getResult();
-        BeanStruct str_ = (BeanStruct) strBean_;
+        PokemonBeanStruct str_ = (PokemonBeanStruct) strBean_;
         Bean bean_ = str_.getBean();
         ((WithFacade)bean_).setDataBase(dataBase);
-        bean_.setForms(new StringMapObject());
+        if (bean_ instanceof WithForms) {
+            ((WithForms)bean_).setForms(new StringMapObject());
+        }
         bean_.setLanguage(_language);
         bean_.setScope(_bean.getScope());
         return strBean_;

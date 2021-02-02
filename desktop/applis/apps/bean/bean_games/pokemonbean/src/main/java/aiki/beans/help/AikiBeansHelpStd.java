@@ -1,8 +1,8 @@
 package aiki.beans.help;
 import aiki.beans.AikiBeansStd;
+import aiki.beans.PokemonBeanStruct;
 import aiki.beans.PokemonStandards;
 import aiki.beans.RateStruct;
-import code.bean.BeanStruct;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.NumParsers;
@@ -2229,7 +2229,7 @@ public final class AikiBeansHelpStd {
     public static ResultErrorStd getResultFightHelpBean(ContextEl _cont, ClassField _classField, Struct _instance) {
         BeanNatLgNames std_ = (BeanNatLgNames) _cont.getStandards();
         ResultErrorStd res_ = new ResultErrorStd();
-        FightHelpBean instance_ = (FightHelpBean) ((BeanStruct)_instance).getInstance();
+        FightHelpBean instance_ = (FightHelpBean) ((PokemonBeanStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringUtil.quickEq(fieldName_,DEFAULT_BOOST_VALUE)) {
             res_.setResult(new IntStruct(instance_.getDefaultBoostValue()));
@@ -2860,7 +2860,7 @@ public final class AikiBeansHelpStd {
     public static ResultErrorStd getResultGeneralHelpBean(ContextEl _cont, ClassField _classField, Struct _instance) {
         BeanNatLgNames std_ = (BeanNatLgNames) _cont.getStandards();
         ResultErrorStd res_ = new ResultErrorStd();
-        GeneralHelpBean instance_ = (GeneralHelpBean) ((BeanStruct)_instance).getInstance();
+        GeneralHelpBean instance_ = (GeneralHelpBean) ((PokemonBeanStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringUtil.quickEq(fieldName_,MAX_LEVEL)) {
             res_.setResult(new IntStruct(instance_.getMaxLevel()));
@@ -2943,7 +2943,7 @@ public final class AikiBeansHelpStd {
     public static ResultErrorStd getResultLangsBean(ContextEl _cont, ClassField _classField, Struct _instance) {
         BeanNatLgNames std_ = (BeanNatLgNames) _cont.getStandards();
         ResultErrorStd res_ = new ResultErrorStd();
-        LangsBean instance_ = (LangsBean) ((BeanStruct)_instance).getInstance();
+        LangsBean instance_ = (LangsBean) ((PokemonBeanStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringUtil.quickEq(fieldName_,LANGUAGES)) {
             res_.setResult(std_.getStringArray(instance_.getLanguages()));
@@ -2952,7 +2952,7 @@ public final class AikiBeansHelpStd {
         return res_;
     }
     public static ResultErrorStd invokeMethodFightHelpBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Struct... _args) {
-        FightHelpBean instance_ = (FightHelpBean) ((BeanStruct)_instance).getInstance();
+        FightHelpBean instance_ = (FightHelpBean) ((PokemonBeanStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringUtil.quickEq(methodName_,CLICK_PRIVATING_MOVES)) {
@@ -4511,7 +4511,7 @@ public final class AikiBeansHelpStd {
     }
     public static ResultErrorStd invokeMethodGeneralHelpBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Struct... _args) {
         BeanNatLgNames std_ = (BeanNatLgNames) _cont.getStandards();
-        GeneralHelpBean instance_ = (GeneralHelpBean) ((BeanStruct)_instance).getInstance();
+        GeneralHelpBean instance_ = (GeneralHelpBean) ((PokemonBeanStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringUtil.quickEq(methodName_,GET_MAP_WIDTH)) {
@@ -4626,7 +4626,7 @@ public final class AikiBeansHelpStd {
     }
     public static ResultErrorStd invokeMethodLangsBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Struct... _args) {
         BeanNatLgNames std_ = (BeanNatLgNames) _cont.getStandards();
-        LangsBean instance_ = (LangsBean) ((BeanStruct)_instance).getInstance();
+        LangsBean instance_ = (LangsBean) ((PokemonBeanStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringUtil.quickEq(methodName_,GET_TR_LANG)) {

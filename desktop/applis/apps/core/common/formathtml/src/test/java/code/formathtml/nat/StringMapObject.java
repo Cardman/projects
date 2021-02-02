@@ -1,4 +1,4 @@
-package code.bean.nat;
+package code.formathtml.nat;
 
 import code.util.CustList;
 import code.util.EntryCust;

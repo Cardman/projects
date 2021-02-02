@@ -16,8 +16,13 @@ import code.expressionlanguage.structs.*;
 import code.formathtml.Configuration;
 import code.bean.nat.BeanNatLgNames;
 import code.bean.nat.DefaultInitialization;
-import code.bean.BeanStruct;
-import code.bean.nat.StringMapObject;
+import code.formathtml.nat.BeanStruct;
+import code.formathtml.nat.StringMapObject;
+import code.formathtml.ImportingPage;
+import code.formathtml.exec.RendStackCall;
+import code.formathtml.exec.blocks.RendBlock;
+import code.formathtml.exec.blocks.RendDocumentBlock;
+import code.formathtml.exec.blocks.RendImport;
 import code.formathtml.structs.BeanInfo;
 import code.util.*;
 import code.util.core.StringUtil;
@@ -824,6 +829,72 @@ public final class CustBeanLgNames extends BeanNatLgNames {
         methods_.add( method_);
         getStandards().addEntry(TYPE_SIMPLE_DATA_BASE, cl_);
     }
+    @Override
+    public void beforeDisplaying(Struct _arg, Configuration _cont, ContextEl _ctx, StackCall _stack, RendStackCall _rendStack) {
+        ((BeanStruct)_arg).getBean().beforeDisplaying();
+    }
+    public String processAfterInvoke(Configuration _conf, String _dest, String _beanName, Struct _bean, String _currentUrl, String _language, ContextEl _ctx, StackCall _stack, RendStackCall _rendStack) {
+        ImportingPage ip_ = new ImportingPage();
+        _rendStack.addPage(ip_);
+        StringMapObject forms_ = new StringMapObject();
+        if (_bean instanceof BeanStruct) {
+            if (((BeanStruct)_bean).getBean() instanceof BeanOne) {
+                forms_ = ((BeanOne) ((BeanStruct) _bean).getBean()).getForms();
+            }
+            if (((BeanStruct)_bean).getBean() instanceof BeanTwo) {
+                forms_ = ((BeanTwo) ((BeanStruct) _bean).getBean()).getForms();
+            }
+            if (((BeanStruct)_bean).getBean() instanceof BeanFive) {
+                forms_ = ((BeanFive) ((BeanStruct) _bean).getBean()).getForms();
+            }
+        }
+        _rendStack.setCurrentUrl(_dest);
+        String currentBeanName_;
+        RendDocumentBlock rendDocumentBlock_ = _conf.getRenders().getVal(_dest);
+        currentBeanName_ = rendDocumentBlock_.getBeanName();
+        Struct bean_ = getBeanOrNull(_conf,currentBeanName_);
+        if (bean_ instanceof BeanStruct) {
+            if (((BeanStruct)bean_).getBean() instanceof BeanOne) {
+                ((BeanOne) ((BeanStruct) bean_).getBean()).setForms(forms_);
+            }
+            if (((BeanStruct)bean_).getBean() instanceof BeanTwo) {
+                ((BeanTwo) ((BeanStruct) bean_).getBean()).setForms(forms_);
+            }
+            if (((BeanStruct)bean_).getBean() instanceof BeanFive) {
+                ((BeanFive) ((BeanStruct) bean_).getBean()).setForms(forms_);
+            }
+        }
+        _rendStack.clearPages();
+        return RendBlock.getRes(rendDocumentBlock_,_conf, this, _ctx, _stack, _rendStack);
+    }
+
+    @Override
+    public boolean setBeanForms(Configuration _conf, Struct _mainBean, RendImport _node, boolean _keepField, String _beanName, ContextEl _ctx, StackCall _stack, RendStackCall _rendStack) {
+        Struct bean_ = _conf.getBuiltBeans().getVal(_beanName);
+        StringMapObject forms_ = new StringMapObject();
+        StringMapObject formsMap_ = new StringMapObject();
+        if (((BeanStruct)bean_).getBean() instanceof BeanOne) {
+            forms_ = ((BeanOne) ((BeanStruct) bean_).getBean()).getForms();
+        }
+        if (((BeanStruct)bean_).getBean() instanceof BeanFive) {
+            forms_ = ((BeanFive) ((BeanStruct) bean_).getBean()).getForms();
+        }
+        if (((BeanStruct)bean_).getBean() instanceof BeanTwo) {
+            forms_ = ((BeanTwo) ((BeanStruct) bean_).getBean()).getForms();
+        }
+        if (((BeanStruct)_mainBean).getBean() instanceof BeanOne) {
+            formsMap_ = ((BeanOne) ((BeanStruct) _mainBean).getBean()).getForms();
+        }
+        if (((BeanStruct)_mainBean).getBean() instanceof BeanTwo) {
+            formsMap_ = ((BeanTwo) ((BeanStruct) _mainBean).getBean()).getForms();
+        }
+        if (((BeanStruct)_mainBean).getBean() instanceof BeanFive) {
+            formsMap_ = ((BeanFive) ((BeanStruct) _mainBean).getBean()).getForms();
+        }
+        forms_.putAllMap(formsMap_);
+        return super.setBeanForms(_conf, _mainBean, _node, _keepField, _beanName, _ctx, _stack, _rendStack);
+    }
+
     @Override
     public ResultErrorStd getOtherResult(ContextEl _cont, ClassField _classField, Struct _instance) {
         ResultErrorStd res_ = new ResultErrorStd();
@@ -1999,7 +2070,12 @@ public final class CustBeanLgNames extends BeanNatLgNames {
         BeanStruct str_ = (BeanStruct) strBean_;
         Bean bean_ = str_.getBean();
 //        bean_.setDataBase(dataBase);
-        bean_.setForms(new StringMapObject());
+        if (bean_ instanceof BeanOne) {
+            ((BeanOne) bean_).setForms(new StringMapObject());
+        }
+        if (bean_ instanceof BeanTwo) {
+            ((BeanTwo) bean_).setForms(new StringMapObject());
+        }
         bean_.setLanguage(_language);
         bean_.setScope(_bean.getScope());
         return strBean_;

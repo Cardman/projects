@@ -1,9 +1,6 @@
 package code.bean;
-import code.bean.nat.StringMapObject;
 
 public abstract class Bean {
-
-    private StringMapObject forms;
 
     private String scope;
 
@@ -12,14 +9,6 @@ public abstract class Bean {
     private String language;
 
     public abstract void beforeDisplaying();
-
-    public StringMapObject getForms() {
-        return forms;
-    }
-
-    public void setForms(StringMapObject _forms) {
-        forms = _forms;
-    }
 
     public String getScope() {
         return scope;

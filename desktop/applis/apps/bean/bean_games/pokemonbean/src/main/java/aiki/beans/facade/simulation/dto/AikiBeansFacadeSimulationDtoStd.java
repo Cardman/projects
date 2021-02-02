@@ -1,9 +1,6 @@
 package aiki.beans.facade.simulation.dto;
-import aiki.beans.MvLineStruct;
 import aiki.beans.PokemonStandards;
 import aiki.beans.facade.dto.AikiBeansFacadeDtoStd;
-import aiki.beans.facade.dto.MoveLine;
-import code.bean.BeanStruct;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.NumParsers;

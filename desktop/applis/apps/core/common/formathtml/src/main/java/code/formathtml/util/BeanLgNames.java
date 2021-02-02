@@ -172,25 +172,13 @@ public abstract class BeanLgNames extends LgNames {
 
     public abstract ReportedMessages setupAll(Navigation _nav, Configuration _conf, StringMap<String> _files, DualAnalyzedContext _dual);
 
-    public void setBeanForms(Configuration _conf, Struct _mainBean,
-                             RendImport _node, boolean _keepField, String _beanName, ContextEl _ctx, StackCall _stack, RendStackCall _rendStack) {
-        if (_mainBean == null) {
-            return;
-        }
-        Struct bean_ = _conf.getBuiltBeans().getVal(_beanName);
-        if (bean_ == null) {
-            return;
-        }
-        gearFw(_conf, _mainBean, _node, _keepField, bean_, _ctx, _stack, _rendStack);
-    }
-
+    public abstract boolean setBeanForms(Configuration _conf, Struct _mainBean,
+                             RendImport _node, boolean _keepField, String _beanName, ContextEl _ctx, StackCall _stack, RendStackCall _rendStack);
 
     public abstract Argument getCommonArgument(RendSettableFieldOperation _rend, Argument _previous, Configuration _conf, ContextEl _context, StackCall _stack, RendStackCall _rendStack);
     public abstract Argument getCommonSetting(RendSettableFieldOperation _rend, Argument _previous, Configuration _conf, Argument _right, ContextEl _context, StackCall _stack, RendStackCall _rendStack);
     public abstract Argument getCommonFctArgument(RendStdFctOperation _rend, Argument _previous, IdMap<RendDynOperationNode, ArgumentsPair> _all, Configuration _conf, ContextEl _context, StackCall _stack, RendStackCall _rendStack);
 
-
-    protected abstract void gearFw(Configuration _conf, Struct _mainBean, RendImport _node, boolean _keepField, Struct _bean, ContextEl _ctx, StackCall _stack, RendStackCall _rendStack);
 
     public abstract String processAfterInvoke(Configuration _conf, String _dest, String _beanName, Struct _bean, String _currentUrl, String _language, ContextEl _ctx, StackCall _stack, RendStackCall _rendStack);
 

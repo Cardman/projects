@@ -1,6 +1,5 @@
 package aiki.beans.items;
 import aiki.beans.*;
-import code.bean.BeanStruct;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.NumParsers;
@@ -658,7 +657,7 @@ public final class AikiBeansItemsStd {
     public static ResultErrorStd getResultBallBean(ContextEl _cont, ClassField _classField, Struct _instance) {
         BeanNatLgNames std_ = (BeanNatLgNames) _cont.getStandards();
         ResultErrorStd res_ = new ResultErrorStd();
-        BallBean instance_ = (BallBean) ((BeanStruct)_instance).getInstance();
+        BallBean instance_ = (BallBean) ((PokemonBeanStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringUtil.quickEq(fieldName_,CATCHING_RATE)) {
             res_.setResult(new StringStruct(instance_.getCatchingRate()));
@@ -673,7 +672,7 @@ public final class AikiBeansItemsStd {
     public static ResultErrorStd getResultBerryBean(ContextEl _cont, ClassField _classField, Struct _instance) {
         BeanNatLgNames std_ = (BeanNatLgNames) _cont.getStandards();
         ResultErrorStd res_ = new ResultErrorStd();
-        BerryBean instance_ = (BerryBean) ((BeanStruct)_instance).getInstance();
+        BerryBean instance_ = (BerryBean) ((PokemonBeanStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringUtil.quickEq(fieldName_,HEAL_HP_BY_SUPER_EFF_MOVE)) {
             res_.setResult(new RateStruct(instance_.getHealHpBySuperEffMove(),PokemonStandards.TYPE_RATE));
@@ -736,7 +735,7 @@ public final class AikiBeansItemsStd {
     public static ResultErrorStd getResultBoostBean(ContextEl _cont, ClassField _classField, Struct _instance) {
         BeanNatLgNames std_ = (BeanNatLgNames) _cont.getStandards();
         ResultErrorStd res_ = new ResultErrorStd();
-        BoostBean instance_ = (BoostBean) ((BeanStruct)_instance).getInstance();
+        BoostBean instance_ = (BoostBean) ((PokemonBeanStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringUtil.quickEq(fieldName_,WIN_PP)) {
             res_.setResult(new RateStruct(instance_.getWinPp(),PokemonStandards.TYPE_RATE));
@@ -759,7 +758,7 @@ public final class AikiBeansItemsStd {
     public static ResultErrorStd getResultEvolvingItemBean(ContextEl _cont, ClassField _classField, Struct _instance) {
         BeanNatLgNames std_ = (BeanNatLgNames) _cont.getStandards();
         ResultErrorStd res_ = new ResultErrorStd();
-        EvolvingItemBean instance_ = (EvolvingItemBean) ((BeanStruct)_instance).getInstance();
+        EvolvingItemBean instance_ = (EvolvingItemBean) ((PokemonBeanStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringUtil.quickEq(fieldName_,POKEMON)) {
             res_.setResult(std_.getStringArray(instance_.getPokemon()));
@@ -770,7 +769,7 @@ public final class AikiBeansItemsStd {
     public static ResultErrorStd getResultEvolvingStoneBean(ContextEl _cont, ClassField _classField, Struct _instance) {
         BeanNatLgNames std_ = (BeanNatLgNames) _cont.getStandards();
         ResultErrorStd res_ = new ResultErrorStd();
-        EvolvingStoneBean instance_ = (EvolvingStoneBean) ((BeanStruct)_instance).getInstance();
+        EvolvingStoneBean instance_ = (EvolvingStoneBean) ((PokemonBeanStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringUtil.quickEq(fieldName_,POKEMON)) {
             res_.setResult(std_.getStringArray(instance_.getPokemon()));
@@ -780,7 +779,7 @@ public final class AikiBeansItemsStd {
     }
     public static ResultErrorStd getResultFossilBean(ContextEl _cont, ClassField _classField, Struct _instance) {
         ResultErrorStd res_ = new ResultErrorStd();
-        FossilBean instance_ = (FossilBean) ((BeanStruct)_instance).getInstance();
+        FossilBean instance_ = (FossilBean) ((PokemonBeanStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringUtil.quickEq(fieldName_,LEVEL)) {
             res_.setResult(new IntStruct(instance_.getLevel()));
@@ -790,7 +789,7 @@ public final class AikiBeansItemsStd {
     }
     public static ResultErrorStd getResultHealingHpBean(ContextEl _cont, ClassField _classField, Struct _instance) {
         ResultErrorStd res_ = new ResultErrorStd();
-        HealingHpBean instance_ = (HealingHpBean) ((BeanStruct)_instance).getInstance();
+        HealingHpBean instance_ = (HealingHpBean) ((PokemonBeanStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringUtil.quickEq(fieldName_,HP)) {
             res_.setResult(new RateStruct(instance_.getHp(),PokemonStandards.TYPE_RATE));
@@ -801,7 +800,7 @@ public final class AikiBeansItemsStd {
     public static ResultErrorStd getResultHealingItemBean(ContextEl _cont, ClassField _classField, Struct _instance) {
         BeanNatLgNames std_ = (BeanNatLgNames) _cont.getStandards();
         ResultErrorStd res_ = new ResultErrorStd();
-        HealingItemBean instance_ = (HealingItemBean) ((BeanStruct)_instance).getInstance();
+        HealingItemBean instance_ = (HealingItemBean) ((PokemonBeanStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringUtil.quickEq(fieldName_,HEALING_ITEM_BEAN)) {
             res_.setResult(new StringStruct(HealingItemBean.HEALING_ITEM_BEAN));
@@ -819,7 +818,7 @@ public final class AikiBeansItemsStd {
     }
     public static ResultErrorStd getResultHealingPpBean(ContextEl _cont, ClassField _classField, Struct _instance) {
         ResultErrorStd res_ = new ResultErrorStd();
-        HealingPpBean instance_ = (HealingPpBean) ((BeanStruct)_instance).getInstance();
+        HealingPpBean instance_ = (HealingPpBean) ((PokemonBeanStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringUtil.quickEq(fieldName_,HEALING_ALL_MOVES_PP)) {
             res_.setResult(BooleanStruct.of(instance_.getHealingAllMovesPp()));
@@ -842,7 +841,7 @@ public final class AikiBeansItemsStd {
     public static ResultErrorStd getResultHealingStatusBean(ContextEl _cont, ClassField _classField, Struct _instance) {
         BeanNatLgNames std_ = (BeanNatLgNames) _cont.getStandards();
         ResultErrorStd res_ = new ResultErrorStd();
-        HealingStatusBean instance_ = (HealingStatusBean) ((BeanStruct)_instance).getInstance();
+        HealingStatusBean instance_ = (HealingStatusBean) ((PokemonBeanStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringUtil.quickEq(fieldName_,HEALED_HP_RATE)) {
             res_.setResult(new RateStruct(instance_.getHealedHpRate(),PokemonStandards.TYPE_RATE));
@@ -864,7 +863,7 @@ public final class AikiBeansItemsStd {
     }
     public static ResultErrorStd getResultItemBean(ContextEl _cont, ClassField _classField, Struct _instance) {
         ResultErrorStd res_ = new ResultErrorStd();
-        ItemBean instance_ = (ItemBean) ((BeanStruct)_instance).getInstance();
+        ItemBean instance_ = (ItemBean) ((PokemonBeanStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringUtil.quickEq(fieldName_,DISPLAY_NAME)) {
             res_.setResult(new StringStruct(instance_.getDisplayName()));
@@ -895,7 +894,7 @@ public final class AikiBeansItemsStd {
     public static ResultErrorStd getResultItemForBattleBean(ContextEl _cont, ClassField _classField, Struct _instance) {
         BeanNatLgNames std_ = (BeanNatLgNames) _cont.getStandards();
         ResultErrorStd res_ = new ResultErrorStd();
-        ItemForBattleBean instance_ = (ItemForBattleBean) ((BeanStruct)_instance).getInstance();
+        ItemForBattleBean instance_ = (ItemForBattleBean) ((PokemonBeanStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringUtil.quickEq(fieldName_,END_ROUND)) {
             res_.setResult(BooleanStruct.of(instance_.getEndRound()));
@@ -1074,7 +1073,7 @@ public final class AikiBeansItemsStd {
     public static ResultErrorStd getResultItemsBean(ContextEl _cont, ClassField _classField, Struct _instance) {
         BeanNatLgNames std_ = (BeanNatLgNames) _cont.getStandards();
         ResultErrorStd res_ = new ResultErrorStd();
-        ItemsBean instance_ = (ItemsBean) ((BeanStruct)_instance).getInstance();
+        ItemsBean instance_ = (ItemsBean) ((PokemonBeanStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringUtil.quickEq(fieldName_,TYPED_NAME)) {
             res_.setResult(new StringStruct(instance_.getTypedName()));
@@ -1096,7 +1095,7 @@ public final class AikiBeansItemsStd {
     }
     public static ResultErrorStd getResultRepelBean(ContextEl _cont, ClassField _classField, Struct _instance) {
         ResultErrorStd res_ = new ResultErrorStd();
-        RepelBean instance_ = (RepelBean) ((BeanStruct)_instance).getInstance();
+        RepelBean instance_ = (RepelBean) ((PokemonBeanStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringUtil.quickEq(fieldName_,STEPS)) {
             res_.setResult(new LongStruct(instance_.getSteps()));
@@ -1106,7 +1105,7 @@ public final class AikiBeansItemsStd {
     }
     public static ResultErrorStd setResultItemBean(ContextEl _cont, ClassField _classField, Struct _instance, Struct _val) {
         ResultErrorStd res_ = new ResultErrorStd();
-        ItemBean instance_ = (ItemBean) ((BeanStruct)_instance).getInstance();
+        ItemBean instance_ = (ItemBean) ((PokemonBeanStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringUtil.quickEq(fieldName_,NAME)) {
             instance_.setName(NumParsers.getString(_val).getInstance());
@@ -1117,7 +1116,7 @@ public final class AikiBeansItemsStd {
     }
     public static ResultErrorStd setResultItemsBean(ContextEl _cont, ClassField _classField, Struct _instance, Struct _val) {
         ResultErrorStd res_ = new ResultErrorStd();
-        ItemsBean instance_ = (ItemsBean) ((BeanStruct)_instance).getInstance();
+        ItemsBean instance_ = (ItemsBean) ((PokemonBeanStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringUtil.quickEq(fieldName_,TYPED_NAME)) {
             instance_.setTypedName(NumParsers.getString(_val).getInstance());
@@ -1137,7 +1136,7 @@ public final class AikiBeansItemsStd {
         return res_;
     }
     public static ResultErrorStd invokeMethodBerryBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Struct... _args) {
-        BerryBean instance_ = (BerryBean) ((BeanStruct)_instance).getInstance();
+        BerryBean instance_ = (BerryBean) ((PokemonBeanStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringUtil.quickEq(methodName_,IS_HEALING_PP)) {
@@ -1171,7 +1170,7 @@ public final class AikiBeansItemsStd {
         return AikiBeansItemsStd.invokeMethodItemBean(_cont, _instance, _method, _args);
     }
     public static ResultErrorStd invokeMethodBoostBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Struct... _args) {
-        BoostBean instance_ = (BoostBean) ((BeanStruct)_instance).getInstance();
+        BoostBean instance_ = (BoostBean) ((PokemonBeanStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringUtil.quickEq(methodName_,IS_BALL)) {
@@ -1193,7 +1192,7 @@ public final class AikiBeansItemsStd {
         return AikiBeansItemsStd.invokeMethodItemBean(_cont, _instance, _method, _args);
     }
     public static ResultErrorStd invokeMethodEvolvingItemBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Struct... _args) {
-        EvolvingItemBean instance_ = (EvolvingItemBean) ((BeanStruct)_instance).getInstance();
+        EvolvingItemBean instance_ = (EvolvingItemBean) ((PokemonBeanStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringUtil.quickEq(methodName_,CLICK_POKEMON)) {
@@ -1207,7 +1206,7 @@ public final class AikiBeansItemsStd {
         return AikiBeansItemsStd.invokeMethodItemBean(_cont, _instance, _method, _args);
     }
     public static ResultErrorStd invokeMethodEvolvingStoneBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Struct... _args) {
-        EvolvingStoneBean instance_ = (EvolvingStoneBean) ((BeanStruct)_instance).getInstance();
+        EvolvingStoneBean instance_ = (EvolvingStoneBean) ((PokemonBeanStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringUtil.quickEq(methodName_,CLICK_POKEMON)) {
@@ -1221,7 +1220,7 @@ public final class AikiBeansItemsStd {
         return AikiBeansItemsStd.invokeMethodItemBean(_cont, _instance, _method, _args);
     }
     public static ResultErrorStd invokeMethodFossilBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Struct... _args) {
-        FossilBean instance_ = (FossilBean) ((BeanStruct)_instance).getInstance();
+        FossilBean instance_ = (FossilBean) ((PokemonBeanStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringUtil.quickEq(methodName_,CLICK_POKEMON)) {
@@ -1235,7 +1234,7 @@ public final class AikiBeansItemsStd {
         return AikiBeansItemsStd.invokeMethodItemBean(_cont, _instance, _method, _args);
     }
     public static ResultErrorStd invokeMethodHealingItemBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Struct... _args) {
-        HealingItemBean instance_ = (HealingItemBean) ((BeanStruct)_instance).getInstance();
+        HealingItemBean instance_ = (HealingItemBean) ((PokemonBeanStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringUtil.quickEq(methodName_,IS_BALL)) {
@@ -1253,7 +1252,7 @@ public final class AikiBeansItemsStd {
         return AikiBeansItemsStd.invokeMethodItemBean(_cont, _instance, _method, _args);
     }
     public static ResultErrorStd invokeMethodHealingPpBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Struct... _args) {
-        HealingPpBean instance_ = (HealingPpBean) ((BeanStruct)_instance).getInstance();
+        HealingPpBean instance_ = (HealingPpBean) ((PokemonBeanStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringUtil.quickEq(methodName_,LIMITED_PP_MOVE)) {
@@ -1267,7 +1266,7 @@ public final class AikiBeansItemsStd {
         return AikiBeansItemsStd.invokeMethodHealingItemBean(_cont, _instance, _method, _args);
     }
     public static ResultErrorStd invokeMethodHealingStatusBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Struct... _args) {
-        HealingStatusBean instance_ = (HealingStatusBean) ((BeanStruct)_instance).getInstance();
+        HealingStatusBean instance_ = (HealingStatusBean) ((PokemonBeanStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringUtil.quickEq(methodName_,CLICK_STATUS)) {
@@ -1281,7 +1280,7 @@ public final class AikiBeansItemsStd {
         return AikiBeansItemsStd.invokeMethodHealingItemBean(_cont, _instance, _method, _args);
     }
     public static ResultErrorStd invokeMethodItemBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Struct... _args) {
-        ItemBean instance_ = (ItemBean) ((BeanStruct)_instance).getInstance();
+        ItemBean instance_ = (ItemBean) ((PokemonBeanStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringUtil.quickEq(methodName_,CLICK_ITEMS)) {
@@ -1291,7 +1290,7 @@ public final class AikiBeansItemsStd {
         return res_;
     }
     public static ResultErrorStd invokeMethodItemForBattleBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Struct... _args) {
-        ItemForBattleBean instance_ = (ItemForBattleBean) ((BeanStruct)_instance).getInstance();
+        ItemForBattleBean instance_ = (ItemForBattleBean) ((PokemonBeanStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringUtil.quickEq(methodName_,GET_EFFECT_SENDING)) {
@@ -1425,7 +1424,7 @@ public final class AikiBeansItemsStd {
         return AikiBeansItemsStd.invokeMethodItemBean(_cont, _instance, _method, _args);
     }
     public static ResultErrorStd invokeMethodItemsBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Struct... _args) {
-        ItemsBean instance_ = (ItemsBean) ((BeanStruct)_instance).getInstance();
+        ItemsBean instance_ = (ItemsBean) ((PokemonBeanStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringUtil.quickEq(methodName_,SEARCH)) {

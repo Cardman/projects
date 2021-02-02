@@ -1,13 +1,13 @@
-package code.bean;
+package cards.tarot.beans;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.structs.WithoutParentIdStruct;
 
-public final class BeanStruct extends WithoutParentIdStruct {
+public final class TarotBeanStruct extends WithoutParentIdStruct {
 
-    private final Bean bean;
+    private final TarotBean bean;
 
-    public BeanStruct(Bean _bean) {
+    public TarotBeanStruct(TarotBean _bean) {
         bean = _bean;
     }
 
@@ -16,11 +16,12 @@ public final class BeanStruct extends WithoutParentIdStruct {
         return bean.getClassName();
     }
 
-    public Bean getInstance() {
+    public TarotBean getInstance() {
         return getBean();
     }
 
-    public Bean getBean() {
+    public TarotBean getBean() {
         return bean;
     }
+
 }

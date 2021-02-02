@@ -686,17 +686,32 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         _rendStackCall.getLastPage().setEnabledOp(true);
     }
 
-    @Override
-    protected void gearFw(Configuration _conf, Struct _mainBean, RendImport _node, boolean _keepField, Struct _bean, ContextEl _ctx, StackCall _stack, RendStackCall _rendStack) {
+    public boolean setBeanForms(Configuration _conf, Struct _mainBean,
+                             RendImport _node, boolean _keepField, String _beanName, ContextEl _ctx, StackCall _stack, RendStackCall _rendStack) {
+        if (_mainBean == null) {
+            return true;
+        }
+        Struct bean_ = _conf.getBuiltBeans().getVal(_beanName);
+        if (bean_ == null) {
+            return true;
+        }
+        boolean ok_ = gearFw(_conf, _mainBean, _node, _keepField, bean_, _ctx, _stack, _rendStack);
+        if (_ctx.callsOrException(_stack)) {
+            ok_ = false;
+        }
+        return ok_;
+    }
+
+    protected boolean gearFw(Configuration _conf, Struct _mainBean, RendImport _node, boolean _keepField, Struct _bean, ContextEl _ctx, StackCall _stack, RendStackCall _rendStack) {
         Argument forms_ = getForms(_bean, _conf, _ctx, _stack, _rendStack);
         if (_ctx.callsOrException(_stack)) {
             _rendStack.getLastPage().setEnabledOp(true);
-            return;
+            return false;
         }
         Argument formsMap_ = getForms(_mainBean,_conf, _ctx, _stack, _rendStack);
         if (_ctx.callsOrException(_stack)) {
             _rendStack.getLastPage().setEnabledOp(true);
-            return;
+            return false;
         }
         if (_keepField) {
             for (RendBlock f_: RendBlock.getDirectChildren(_node)) {
@@ -707,7 +722,7 @@ public abstract class BeanCustLgNames extends BeanLgNames {
                 forwardMap(formsMap_.getStruct(),forms_.getStruct(),new StringStruct(name_),_conf, _ctx, _stack, _rendStack);
                 if (_ctx.callsOrException(_stack)) {
                     _rendStack.getLastPage().setEnabledOp(true);
-                    return;
+                    return false;
                 }
             }
         } else {
@@ -715,6 +730,7 @@ public abstract class BeanCustLgNames extends BeanLgNames {
             putAllMap(forms_.getStruct(),formsMap_.getStruct(),_conf, _ctx, _stack, _rendStack);
         }
         _rendStack.getLastPage().setEnabledOp(true);
+        return true;
     }
 
     public DefaultBeanAliases getBeanAliases() {

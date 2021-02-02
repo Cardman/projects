@@ -1,7 +1,5 @@
 package aiki.beans.effects;
 import aiki.beans.*;
-import aiki.fight.effects.EffectWhileSendingWithStatistic;
-import code.bean.BeanStruct;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.NumParsers;
@@ -192,7 +190,7 @@ public final class AikiBeansEffectsStd {
     }
     public static ResultErrorStd getResultCombosBean(ContextEl _cont, ClassField _classField, Struct _instance) {
         ResultErrorStd res_ = new ResultErrorStd();
-        CombosBean instance_ = (CombosBean) ((BeanStruct)_instance).getInstance();
+        CombosBean instance_ = (CombosBean) ((PokemonBeanStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringUtil.quickEq(fieldName_,COMBO)) {
             res_.setResult(new StringStruct(CombosBean.COMBO));
@@ -207,7 +205,7 @@ public final class AikiBeansEffectsStd {
     public static ResultErrorStd getResultEffectComboBean(ContextEl _cont, ClassField _classField, Struct _instance) {
         BeanNatLgNames std_ = (BeanNatLgNames) _cont.getStandards();
         ResultErrorStd res_ = new ResultErrorStd();
-        EffectComboBean instance_ = (EffectComboBean) ((BeanStruct)_instance).getInstance();
+        EffectComboBean instance_ = (EffectComboBean) ((PokemonBeanStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringUtil.quickEq(fieldName_,MOVES)) {
             res_.setResult(std_.getStringArray(instance_.getMoves()));
@@ -254,7 +252,7 @@ public final class AikiBeansEffectsStd {
     public static ResultErrorStd getResultEffectWhileSendingBean(ContextEl _cont, ClassField _classField, Struct _instance) {
         BeanNatLgNames std_ = (BeanNatLgNames) _cont.getStandards();
         ResultErrorStd res_ = new ResultErrorStd();
-        EffectWhileSendingBean instance_ = (EffectWhileSendingBean) ((BeanStruct)_instance).getInstance();
+        EffectWhileSendingBean instance_ = (EffectWhileSendingBean) ((PokemonBeanStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringUtil.quickEq(fieldName_,DISABLE_WEATHER)) {
             res_.setResult(BooleanStruct.of(instance_.getDisableWeather()));
@@ -328,7 +326,7 @@ public final class AikiBeansEffectsStd {
     }
     public static ResultErrorStd setResultEffectComboBean(ContextEl _cont, ClassField _classField, Struct _instance, Struct _val) {
         ResultErrorStd res_ = new ResultErrorStd();
-        EffectComboBean instance_ = (EffectComboBean) ((BeanStruct)_instance).getInstance();
+        EffectComboBean instance_ = (EffectComboBean) ((PokemonBeanStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringUtil.quickEq(fieldName_,INDEX)) {
             instance_.setIndex(NumParsers.convertToNumber(_val).intStruct());
@@ -344,7 +342,7 @@ public final class AikiBeansEffectsStd {
     }
     public static ResultErrorStd setResultEffectWhileSendingBean(ContextEl _cont, ClassField _classField, Struct _instance, Struct _val) {
         ResultErrorStd res_ = new ResultErrorStd();
-        EffectWhileSendingBean instance_ = (EffectWhileSendingBean) ((BeanStruct)_instance).getInstance();
+        EffectWhileSendingBean instance_ = (EffectWhileSendingBean) ((PokemonBeanStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringUtil.quickEq(fieldName_,EFFECT)) {
             instance_.setEffect(((EffectWhileSendingWithStatisticStruct)_val).getEffectPartnerStatus());
@@ -355,7 +353,7 @@ public final class AikiBeansEffectsStd {
     }
     public static ResultErrorStd invokeMethodCombosBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Struct... _args) {
         BeanNatLgNames std_ = (BeanNatLgNames) _cont.getStandards();
-        CombosBean instance_ = (CombosBean) ((BeanStruct)_instance).getInstance();
+        CombosBean instance_ = (CombosBean) ((PokemonBeanStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringUtil.quickEq(methodName_,GET_COMBOS_KEY)) {
@@ -365,7 +363,7 @@ public final class AikiBeansEffectsStd {
         return res_;
     }
     public static ResultErrorStd invokeMethodEffectComboBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Struct... _args) {
-        EffectComboBean instance_ = (EffectComboBean) ((BeanStruct)_instance).getInstance();
+        EffectComboBean instance_ = (EffectComboBean) ((PokemonBeanStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringUtil.quickEq(methodName_,CLICK_MOVE)) {
@@ -379,7 +377,7 @@ public final class AikiBeansEffectsStd {
         return res_;
     }
     public static ResultErrorStd invokeMethodEffectWhileSendingBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Struct... _args) {
-        EffectWhileSendingBean instance_ = (EffectWhileSendingBean) ((BeanStruct)_instance).getInstance();
+        EffectWhileSendingBean instance_ = (EffectWhileSendingBean) ((PokemonBeanStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringUtil.quickEq(methodName_,CLICK_WEATHER)) {

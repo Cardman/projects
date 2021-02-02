@@ -1,5 +1,6 @@
 package code.formathtml.sample;
 import code.bean.Bean;
+import code.formathtml.nat.StringMapObject;
 import code.util.CustList;
 import code.util.core.StringUtil;
 
@@ -26,11 +27,19 @@ public class BeanTwo extends Bean {
     private String field;
 
     private String choose;
+    private StringMapObject forms = new StringMapObject();
 
     public BeanTwo() {
         setClassName("code.formathtml.classes.BeanTwo");
     }
 
+    public StringMapObject getForms() {
+        return forms;
+    }
+
+    public void setForms(StringMapObject _forms) {
+        forms = _forms;
+    }
     @Override
     public void beforeDisplaying() {
         chosenNumber = EnumNumber.TWO;

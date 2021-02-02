@@ -1,7 +1,6 @@
 package aiki.beans.solution;
-import aiki.beans.AikiBeansStd;
+import aiki.beans.*;
 import aiki.beans.PokemonStandards;
-import code.bean.BeanStruct;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.NumParsers;
@@ -48,7 +47,7 @@ public final class AikiBeansSolutionStd {
     public static ResultErrorStd getResultSolutionBean(ContextEl _cont, ClassField _classField, Struct _instance) {
         BeanNatLgNames std_ = (BeanNatLgNames) _cont.getStandards();
         ResultErrorStd res_ = new ResultErrorStd();
-        SolutionBean instance_ = (SolutionBean) ((BeanStruct)_instance).getInstance();
+        SolutionBean instance_ = (SolutionBean) ((PokemonBeanStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringUtil.quickEq(fieldName_,STEPS)) {
             res_.setResult(PokemonStandards.getSteDto(instance_.getSteps()));
@@ -57,7 +56,7 @@ public final class AikiBeansSolutionStd {
         return res_;
     }
     public static ResultErrorStd invokeMethodSolutionBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Struct... _args) {
-        SolutionBean instance_ = (SolutionBean) ((BeanStruct)_instance).getInstance();
+        SolutionBean instance_ = (SolutionBean) ((PokemonBeanStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringUtil.quickEq(methodName_,GET_PLACE)) {
