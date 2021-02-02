@@ -12,14 +12,14 @@ public class AbilitiesBean extends CommonBean {
 
     @Override
     public void beforeDisplaying() {
-        sortedAbilities = (StringList) getForms().getVal(CST_ABILITIES_SET);
+        sortedAbilities = getForms().getValList(CST_ABILITIES_SET);
 //        typedAbility = StringList.replace(typedAbility, QUOTE, ESCAPED_QUOTE);
         typedAbility = escapedStringQuote(typedAbility);
     }
     public String search() {
         StringList sortedAbilities_;
         sortedAbilities_ = new StringList();
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         StringMap<String> translationsAbilities_;
         translationsAbilities_ = data_.getTranslatedAbilities().getVal(getLanguage());
         for (String i: data_.getAbilities().getKeys()) {
@@ -43,7 +43,7 @@ public class AbilitiesBean extends CommonBean {
     }
     public String getTrAbility(int _index) {
         String ability_ = sortedAbilities.get(_index);
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         StringMap<String> translationsAbilities_;
         translationsAbilities_ = data_.getTranslatedAbilities().getVal(getLanguage());
         return translationsAbilities_.getVal(ability_);

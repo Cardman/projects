@@ -53,8 +53,8 @@ public class StatusBean extends CommonBean {
 
     @Override
     public void beforeDisplaying() {
-        name = (String) getForms().getVal(CST_STATUS);
-        DataBase data_ = (DataBase) getDataBase();
+        name = getForms().getValStr(CST_STATUS);
+        DataBase data_ = getDataBase();
         animStatus = BaseSixtyFourUtil.getStringByImage(data_.getAnimStatus().getVal(name));
         StringMap<String> translatedStatus_;
         translatedStatus_ = data_.getTranslatedStatus().getVal(getLanguage());
@@ -167,7 +167,7 @@ public class StatusBean extends CommonBean {
     }
     public String getTrMultStat(int _index) {
         Statistic type_ = multStat.getKey(_index);
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         EnumMap<Statistic,String> translatedStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
         return translatedStatistics_.getVal(type_);
     }

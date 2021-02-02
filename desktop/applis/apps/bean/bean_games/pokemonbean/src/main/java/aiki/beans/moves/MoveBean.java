@@ -149,8 +149,8 @@ public class MoveBean extends CommonBean {
 
     @Override
     public void beforeDisplaying() {
-        String name_ = (String) getForms().getVal(CST_MOVE);
-        DataBase data_ = (DataBase) getDataBase();
+        String name_ = getForms().getValStr(CST_MOVE);
+        DataBase data_ = getDataBase();
         StringMap<String> translatedAbilities_ = data_.getTranslatedAbilities().getVal(getLanguage());
         StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
         StringMap<String> translatedStatus_ = data_.getTranslatedStatus().getVal(getLanguage());
@@ -442,7 +442,7 @@ public class MoveBean extends CommonBean {
     }
 
     private StringList getMovesThieve() {
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         StringList moves_ = new StringList();
         for (String m: data_.getMoves().getKeys()) {
             MoveData fAttCible_ = data_.getMove(m);
@@ -463,7 +463,7 @@ public class MoveBean extends CommonBean {
     }
 
     private StringList getMovesCounter() {
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         StringList moves_ = new StringList();
         for (String m: data_.getMoves().getKeys()) {
             MoveData fAttCible_ = data_.getMove(m);
@@ -483,8 +483,8 @@ public class MoveBean extends CommonBean {
         return moves_;
     }
     public boolean typesDependOnWeatherAndItem() {
-        String name_ = (String) getForms().getVal(CST_MOVE);
-        DataBase data_ = (DataBase) getDataBase();
+        String name_ = getForms().getValStr(CST_MOVE);
+        DataBase data_ = getDataBase();
         MoveData moveData_ = data_.getMove(name_);
         if (!moveData_.getTypesByOwnedItem().isEmpty()) {
             return !moveData_.getTypesByWeather().isEmpty();
@@ -492,8 +492,8 @@ public class MoveBean extends CommonBean {
         return false;
     }
     public boolean typesDependOnlyOnItem() {
-        String name_ = (String) getForms().getVal(CST_MOVE);
-        DataBase data_ = (DataBase) getDataBase();
+        String name_ = getForms().getValStr(CST_MOVE);
+        DataBase data_ = getDataBase();
         MoveData moveData_ = data_.getMove(name_);
         if (!moveData_.getTypesByOwnedItem().isEmpty()) {
             return moveData_.getTypesByWeather().isEmpty();
@@ -501,8 +501,8 @@ public class MoveBean extends CommonBean {
         return false;
     }
     public boolean typesDependOnlyOnWeather() {
-        String name_ = (String) getForms().getVal(CST_MOVE);
-        DataBase data_ = (DataBase) getDataBase();
+        String name_ = getForms().getValStr(CST_MOVE);
+        DataBase data_ = getDataBase();
         MoveData moveData_ = data_.getMove(name_);
         if (moveData_.getTypesByOwnedItem().isEmpty()) {
             return !moveData_.getTypesByWeather().isEmpty();
@@ -510,14 +510,14 @@ public class MoveBean extends CommonBean {
         return false;
     }
     public boolean isDamagingMove() {
-        String name_ = (String) getForms().getVal(CST_MOVE);
-        DataBase data_ = (DataBase) getDataBase();
+        String name_ = getForms().getValStr(CST_MOVE);
+        DataBase data_ = getDataBase();
         MoveData moveData_ = data_.getMove(name_);
         return moveData_ instanceof DamagingMoveData;
     }
     public boolean isDamagingDirectMove() {
-        String name_ = (String) getForms().getVal(CST_MOVE);
-        DataBase data_ = (DataBase) getDataBase();
+        String name_ = getForms().getValStr(CST_MOVE);
+        DataBase data_ = getDataBase();
         MoveData moveData_ = data_.getMove(name_);
         DamagingMoveData damaging_ = (DamagingMoveData) moveData_;
         return damaging_.isDirect();
@@ -532,26 +532,26 @@ public class MoveBean extends CommonBean {
         return nbPrepaRound == 0;
     }
     public boolean isBeforePrimaryEffect(int _long) {
-        String name_ = (String) getForms().getVal(CST_MOVE);
-        DataBase data_ = (DataBase) getDataBase();
+        String name_ = getForms().getValStr(CST_MOVE);
+        DataBase data_ = getDataBase();
         MoveData moveData_ = data_.getMove(name_);
         return _long < moveData_.indexOfPrimaryEffect();
     }
     public boolean isPrimaryEffect(int _long) {
-        String name_ = (String) getForms().getVal(CST_MOVE);
-        DataBase data_ = (DataBase) getDataBase();
+        String name_ = getForms().getValStr(CST_MOVE);
+        DataBase data_ = getDataBase();
         MoveData moveData_ = data_.getMove(name_);
         return _long == moveData_.indexOfPrimaryEffect();
     }
     public boolean isAfterPrimaryEffect(int _long) {
-        String name_ = (String) getForms().getVal(CST_MOVE);
-        DataBase data_ = (DataBase) getDataBase();
+        String name_ = getForms().getValStr(CST_MOVE);
+        DataBase data_ = getDataBase();
         MoveData moveData_ = data_.getMove(name_);
         return _long > moveData_.indexOfPrimaryEffect();
     }
     public boolean isEndRoundEffect(int _long) {
-        String name_ = (String) getForms().getVal(CST_MOVE);
-        DataBase data_ = (DataBase) getDataBase();
+        String name_ = getForms().getValStr(CST_MOVE);
+        DataBase data_ = getDataBase();
         MoveData moveData_ = data_.getMove(name_);
         return moveData_.getEffet(_long) instanceof EffectEndRound;
     }
@@ -563,7 +563,7 @@ public class MoveBean extends CommonBean {
     }
     public String getTrAchieveDisappearedPkUsingMove(int _index) {
         String move_ = achieveDisappearedPkUsingMove.get(_index);
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
         return translatedMoves_.getVal(move_);
     }
@@ -573,7 +573,7 @@ public class MoveBean extends CommonBean {
         return CST_STATUS;
     }
     public String getRequiredStatus(int _index) {
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         StringMap<String> translatedStatus_ = data_.getTranslatedStatus().getVal(getLanguage());
         String key_ = getRequiredStatusKey(_index);
         return translatedStatus_.getVal(key_);
@@ -588,7 +588,7 @@ public class MoveBean extends CommonBean {
         return CST_STATUS;
     }
     public String getDeletedStatus(int _index) {
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         StringMap<String> translatedStatus_ = data_.getTranslatedStatus().getVal(getLanguage());
         String key_ = getDeletedStatusKey(_index);
         return translatedStatus_.getVal(key_);
@@ -602,7 +602,7 @@ public class MoveBean extends CommonBean {
     }
     public String clickTypesByOwnedItems(int _index) {
         String item_ = typesByOwnedItems.getKey(_index);
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         getForms().put(CST_ITEM, item_);
         Item it_ = data_.getItem(item_);
         if (it_ instanceof Ball) {
@@ -651,7 +651,7 @@ public class MoveBean extends CommonBean {
     }
     public String getTrTypesByOwnedItems(int _index) {
         String item_ = typesByOwnedItems.getKey(_index);
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         StringMap<String> translatedItems_ = data_.getTranslatedItems().getVal(getLanguage());
         return translatedItems_.getVal(item_);
     }
@@ -665,13 +665,13 @@ public class MoveBean extends CommonBean {
     }
     public String getTrTypesByWeathers(int _index) {
         String item_ = typesByWeathers.getKey(_index);
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
         return translatedMoves_.getVal(item_);
     }
     public String clickItemSecEffect(int _index) {
         String item_ = getItemSecEffect(_index);
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         getForms().put(CST_ITEM, item_);
         Item it_ = data_.getItem(item_);
         if (it_ instanceof Ball) {
@@ -720,7 +720,7 @@ public class MoveBean extends CommonBean {
     }
     public String translateItemSecEffect(int _index) {
         String it_ = getItemSecEffect(_index);
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         StringMap<String> translatedItems_ = data_.getTranslatedItems().getVal(getLanguage());
         return translatedItems_.getVal(it_);
     }
@@ -736,13 +736,13 @@ public class MoveBean extends CommonBean {
     }
     public String getTrAbility(int _index) {
         String ab_ = abilities.get(_index);
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         StringMap<String> translatedAbilities_ = data_.getTranslatedAbilities().getVal(getLanguage());
         return translatedAbilities_.getVal(ab_);
     }
     public String clickItem(int _index) {
         String key_ = items.get(_index);
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         getForms().put(CST_ITEM, key_);
         Item it_ = data_.getItem(key_);
         if (it_ instanceof Ball) {
@@ -791,7 +791,7 @@ public class MoveBean extends CommonBean {
     }
     public String getTrItem(int _index) {
         String ab_ = items.get(_index);
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         StringMap<String> translatedAbilities_ = data_.getTranslatedItems().getVal(getLanguage());
         return translatedAbilities_.getVal(ab_);
     }
@@ -802,7 +802,7 @@ public class MoveBean extends CommonBean {
     }
     public String getTrMove(int _index) {
         String ab_ = affectedByMoves.get(_index);
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         StringMap<String> translatedAbilities_ = data_.getTranslatedMoves().getVal(getLanguage());
         return translatedAbilities_.getVal(ab_);
     }
@@ -814,7 +814,7 @@ public class MoveBean extends CommonBean {
     }
     public String getTrPokemon(int _indexLevel, int _indexPk) {
         StringList pks_ = movesLevelLearntByPokemon.getValue(_indexLevel);
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         StringMap<String> translatedPokemon_ = data_.getTranslatedPokemon().getVal(getLanguage());
         String pk_ = pks_.get(_indexPk);
         return translatedPokemon_.getVal(pk_);
@@ -825,7 +825,7 @@ public class MoveBean extends CommonBean {
         return CST_POKEMON;
     }
     public String getTrPokemonTm(int _indexPk) {
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         StringMap<String> translatedPokemon_ = data_.getTranslatedPokemon().getVal(getLanguage());
         String pk_ = movesTmLearntByPokemon.get(_indexPk);
         return translatedPokemon_.getVal(pk_);
@@ -836,7 +836,7 @@ public class MoveBean extends CommonBean {
         return CST_POKEMON;
     }
     public String getTrPokemonHm(int _indexPk) {
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         StringMap<String> translatedPokemon_ = data_.getTranslatedPokemon().getVal(getLanguage());
         String pk_ = movesHmLearntByPokemon.get(_indexPk);
         return translatedPokemon_.getVal(pk_);
@@ -847,7 +847,7 @@ public class MoveBean extends CommonBean {
         return CST_POKEMON;
     }
     public String getTrPokemonMt(int _indexPk) {
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         StringMap<String> translatedPokemon_ = data_.getTranslatedPokemon().getVal(getLanguage());
         String pk_ = movesMtLearntByPokemon.get(_indexPk);
         return translatedPokemon_.getVal(pk_);
@@ -904,8 +904,8 @@ public class MoveBean extends CommonBean {
         return targetChoice == TargetChoice.NOTHING;
     }
     public String getPage(int _long) {
-        String name_ = (String) getForms().getVal(CST_MOVE);
-        DataBase data_ = (DataBase) getDataBase();
+        String name_ = getForms().getValStr(CST_MOVE);
+        DataBase data_ = getDataBase();
         MoveData moveData_ = data_.getMove(name_);
         Effect eff_ = moveData_.getEffet(_long);
         if (eff_ instanceof EffectDamage) {

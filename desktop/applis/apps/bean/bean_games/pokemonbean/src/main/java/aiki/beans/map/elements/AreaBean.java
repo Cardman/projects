@@ -30,10 +30,10 @@ public class AreaBean extends CommonBean {
 
     @Override
     public void beforeDisplaying() {
-        area = (AreaApparition) getForms().getVal(CST_AREA);
+        area = getForms().getValArea(CST_AREA);
     }
     public String getImage(int _index) {
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         Pokemon pk_;
         pk_ = area.getWildPokemon(_index);
         String name_ = pk_.getName();
@@ -41,7 +41,7 @@ public class AreaBean extends CommonBean {
         //return ConverterBufferedImage.toBaseSixtyFour(data_.getMaxiPkFront().getVal(name_));
     }
     public String getName(int _index) {
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         StringMap<String> translationsPokemon_;
         translationsPokemon_ = data_.getTranslatedPokemon().getVal(getLanguage());
         Pokemon pk_;
@@ -57,7 +57,7 @@ public class AreaBean extends CommonBean {
         return CST_POKEMON;
     }
     public String getGender(int _index) {
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         EnumMap<Gender,String> translationsGenders_;
         translationsGenders_ = data_.getTranslatedGenders().getVal(getLanguage());
         Pokemon pk_;
@@ -66,7 +66,7 @@ public class AreaBean extends CommonBean {
         return translationsGenders_.getVal(gender_);
     }
     public String getAbility(int _index) {
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         StringMap<String> translationsAbilities_;
         translationsAbilities_ = data_.getTranslatedAbilities().getVal(getLanguage());
         Pokemon pk_;
@@ -82,7 +82,7 @@ public class AreaBean extends CommonBean {
         return CST_ABILITY;
     }
     public String getItem(int _index) {
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         StringMap<String> translationsItems_;
         translationsItems_ = data_.getTranslatedItems().getVal(getLanguage());
         Pokemon pk_;
@@ -91,7 +91,7 @@ public class AreaBean extends CommonBean {
         return translationsItems_.getVal(item_);
     }
     public String clickItem(int _index) {
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         Pokemon pk_;
         pk_ = area.getWildPokemon(_index);
         String item_ = pk_.getItem();
@@ -142,7 +142,7 @@ public class AreaBean extends CommonBean {
         return CST_ITEM;
     }
     public String getMove(int _index, int _moveIndex) {
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         StringMap<String> translationsMoves_;
         translationsMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
         String move_ = getMovesAtLevel(_index).get(_moveIndex);
@@ -154,7 +154,7 @@ public class AreaBean extends CommonBean {
         return CST_MOVE;
     }
     public StringList getMovesAtLevel(int _index) {
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         StringMap<String> translationsMoves_;
         translationsMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
         Pokemon pk_;
@@ -164,7 +164,7 @@ public class AreaBean extends CommonBean {
         return moves_;
     }
     public String getImageFishing(int _index) {
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         Pokemon pk_;
         pk_ = area.getPokemonFishing(_index);
         String name_ = pk_.getName();
@@ -172,7 +172,7 @@ public class AreaBean extends CommonBean {
         //return ConverterBufferedImage.toBaseSixtyFour(data_.getMaxiPkFront().getVal(name_));
     }
     public String getNameFishing(int _index) {
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         StringMap<String> translationsPokemon_;
         translationsPokemon_ = data_.getTranslatedPokemon().getVal(getLanguage());
         Pokemon pk_;
@@ -188,7 +188,7 @@ public class AreaBean extends CommonBean {
         return CST_POKEMON;
     }
     public String getGenderFishing(int _index) {
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         EnumMap<Gender,String> translationsGenders_;
         translationsGenders_ = data_.getTranslatedGenders().getVal(getLanguage());
         Pokemon pk_;
@@ -197,7 +197,7 @@ public class AreaBean extends CommonBean {
         return translationsGenders_.getVal(gender_);
     }
     public String getAbilityFishing(int _index) {
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         StringMap<String> translationsAbilities_;
         translationsAbilities_ = data_.getTranslatedAbilities().getVal(getLanguage());
         Pokemon pk_;
@@ -213,7 +213,7 @@ public class AreaBean extends CommonBean {
         return CST_ABILITY;
     }
     public String getItemFishing(int _index) {
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         StringMap<String> translationsItems_;
         translationsItems_ = data_.getTranslatedItems().getVal(getLanguage());
         Pokemon pk_;
@@ -222,7 +222,7 @@ public class AreaBean extends CommonBean {
         return translationsItems_.getVal(item_);
     }
     public String clickItemFishing(int _index) {
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         Pokemon pk_;
         pk_ = area.getPokemonFishing(_index);
         String item_ = pk_.getItem();
@@ -273,7 +273,7 @@ public class AreaBean extends CommonBean {
         return CST_ITEM;
     }
     public String getMoveFishing(int _index, int _moveIndex) {
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         StringMap<String> translationsMoves_;
         translationsMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
         String move_ = getMovesAtLevelFishing(_index).get(_moveIndex);
@@ -285,7 +285,7 @@ public class AreaBean extends CommonBean {
         return CST_MOVE;
     }
     public StringList getMovesAtLevelFishing(int _index) {
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         StringMap<String> translationsMoves_;
         translationsMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
         Pokemon pk_;

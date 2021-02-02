@@ -41,9 +41,9 @@ public class SimulationLevelBean extends CommonBean {
     public void beforeDisplaying() {
         levelIndex = IndexConstants.INDEX_NOT_FOUND_ELT;
         tiles = new TreeMap<Point, String>(new ComparatorPoint());
-        noFight = (Integer) getForms().getVal(CST_NO_FIGHT);
+        noFight = getForms().getValInt(CST_NO_FIGHT);
         CustList<PlaceIndex> places_ = new CustList<PlaceIndex>();
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         short i_ = 0;
         for (Place p: data_.getMap().getPlaces()) {
             PlaceIndex pl_ = new PlaceIndex();
@@ -59,8 +59,8 @@ public class SimulationLevelBean extends CommonBean {
         pokemonCenter = false;
         outside = false;
         if (getForms().contains(CST_INSIDE)) {
-            Point ptInside_ = (Point) getForms().getVal(CST_INSIDE);
-            int pl_ = (Integer) getForms().getVal(CST_PLACE_MAP_INDEX);
+            Point ptInside_ = getForms().getValPt(CST_INSIDE);
+            int pl_ = getForms().getValInt(CST_PLACE_MAP_INDEX);
             Place place_ = data_.getMap().getPlace(pl_);
             if (place_ instanceof City) {
                 City city_ = (City) place_;
@@ -77,8 +77,8 @@ public class SimulationLevelBean extends CommonBean {
             }
         } else {
             outside = true;
-            int lev_ = (Integer) getForms().getVal(CST_LEVEL_MAP_INDEX);
-            int pl_ = (Integer) getForms().getVal(CST_PLACE_MAP_INDEX);
+            int lev_ = getForms().getValInt(CST_LEVEL_MAP_INDEX);
+            int pl_ = getForms().getValInt(CST_PLACE_MAP_INDEX);
             if (data_.getMap().getPlace(pl_) instanceof League) {
                 possibleMultiLayer = true;
             }
@@ -118,14 +118,14 @@ public class SimulationLevelBean extends CommonBean {
         }
         Point pt_ = tiles.getKey(_index);
         //Level level_ = (Level) getForms().getVal(LEVEL_MAP);
-        int pl_ = (Integer) getForms().getVal(CST_PLACE_MAP_INDEX);
-        int lev_ = (Integer) getForms().getVal(CST_LEVEL_MAP_INDEX);
-        DataBase data_ = (DataBase) getDataBase();
+        int pl_ = getForms().getValInt(CST_PLACE_MAP_INDEX);
+        int lev_ = getForms().getValInt(CST_LEVEL_MAP_INDEX);
+        DataBase data_ = getDataBase();
         Place p_ = data_.getMap().getPlace(pl_);
         //getForms().put(FROM_LIST, false);
         if (p_ instanceof City) {
             City c_ = (City) p_;
-            Point ptInside_ = (Point) getForms().getVal(CST_INSIDE);
+            Point ptInside_ = getForms().getValPt(CST_INSIDE);
             Building b_ = c_.getBuildings().getVal(ptInside_);
             Gym g_ = (Gym) b_;
             if (g_.getIndoor().getGymTrainers().contains(pt_)) {

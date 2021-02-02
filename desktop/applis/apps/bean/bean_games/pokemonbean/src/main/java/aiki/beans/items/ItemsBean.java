@@ -36,8 +36,8 @@ public class ItemsBean extends CommonBean {
 
     @Override
     public void beforeDisplaying() {
-        sortedItems = (StringList) getForms().getVal(CST_ITEMS_SET);
-        DataBase data_ = (DataBase) getDataBase();
+        sortedItems = getForms().getValList(CST_ITEMS_SET);
+        DataBase data_ = getDataBase();
         items.clear();
         StringMap<String> translationsItems_;
         translationsItems_ = data_.getTranslatedItems().getVal(getLanguage());
@@ -66,7 +66,7 @@ public class ItemsBean extends CommonBean {
             price = null;
         }
         StringList sortedItems_ = new StringList();
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         StringMap<String> translationsItems_;
         translationsItems_ = data_.getTranslatedItems().getVal(getLanguage());
         StringMap<String> translationsClasses_;
@@ -156,7 +156,7 @@ public class ItemsBean extends CommonBean {
         return CST_ITEMS;
     }
     public String clickLink(int _index) {
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         String item_ = items.get(_index).getName();
         getForms().put(CST_ITEM, item_);
         Item it_ = data_.getItem(item_);
@@ -206,7 +206,7 @@ public class ItemsBean extends CommonBean {
     }
     public String getMiniImage(int _number) {
         String item_ = items.get(_number).getName();
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         return BaseSixtyFourUtil.getStringByImage(data_.getMiniItems().getVal(item_));
     }
 

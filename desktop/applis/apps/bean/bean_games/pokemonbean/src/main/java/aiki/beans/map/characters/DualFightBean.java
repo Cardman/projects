@@ -16,9 +16,9 @@ public class DualFightBean extends CommonBean {
 
     @Override
     public void beforeDisplaying() {
-        trainer = (TempTrainer) getForms().getVal(CST_TRAINER);
-        ally = (Ally) getForms().getVal(CST_ALLY);
-        DataBase data_ = (DataBase) getDataBase();
+        trainer = (TempTrainer) getForms().getValPers(CST_TRAINER);
+        ally = getForms().getValAlly(CST_ALLY);
+        DataBase data_ = getDataBase();
         image = BaseSixtyFourUtil.getStringByImage(data_.getTrainer(trainer.getImageMaxiFileName()));
         imageMini = BaseSixtyFourUtil.getStringByImage(data_.getPerson(trainer.getImageMiniFileName()));
         imageMiniSecond = BaseSixtyFourUtil.getStringByImage(data_.getPerson(trainer.getImageMiniSecondTrainerFileName()));

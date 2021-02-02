@@ -16,12 +16,12 @@ public abstract class ItemBean extends CommonBean {
     private String itemImage;
 
     protected void beforeDisplayingItem() {
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         StringMap<String> translationsClasses_;
         translationsClasses_ = data_.getTranslatedClassesDescriptions().getVal(getLanguage());
         StringMap<String> translationsItems_;
         translationsItems_ = data_.getTranslatedItems().getVal(getLanguage());
-        String name_ = (String) getForms().getVal(CST_ITEM);
+        String name_ = getForms().getValStr(CST_ITEM);
         if (name_ != null) {
             name = name_;
         }
@@ -40,8 +40,8 @@ public abstract class ItemBean extends CommonBean {
     }
 
     protected Item getItem() {
-        DataBase data_ = (DataBase) getDataBase();
-        String name_ = (String) getForms().getVal(CST_ITEM);
+        DataBase data_ = getDataBase();
+        String name_ = getForms().getValStr(CST_ITEM);
         if (name_ != null) {
             return data_.getItem(name_);
         }

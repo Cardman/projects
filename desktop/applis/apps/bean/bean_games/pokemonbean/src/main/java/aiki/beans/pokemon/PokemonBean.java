@@ -86,7 +86,7 @@ public class PokemonBean extends CommonBean {
 
     @Override
     public void beforeDisplaying() {
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         places = new CustList<PlaceIndex>();
         short i_ = 0;
         for (Place p: data_.getMap().getPlaces()) {
@@ -111,7 +111,7 @@ public class PokemonBean extends CommonBean {
         }
         StringMap<String> translationsPokemon_;
         translationsPokemon_ = data_.getTranslatedPokemon().getVal(getLanguage());
-        name = (String) getForms().getVal(CST_PK);
+        name = getForms().getValStr(CST_PK);
         int nbPlaces_ = places.size();
         for (short i = IndexConstants.FIRST_INDEX; i < nbPlaces_; i++) {
             if (isAppearingPlace(i)) {
@@ -214,7 +214,7 @@ public class PokemonBean extends CommonBean {
     public String getMiniMapImage(int _index) {
         int[][] image_ = images.getValue(_index);
         MiniMapCoords key_ = images.getKey(_index);
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         short pl_ = data_.getMap().getMiniMap().getVal(key_).getPlace();
         boolean appear_ = false;
         for (short p: placesAppears) {
@@ -260,7 +260,7 @@ public class PokemonBean extends CommonBean {
         return CST_POKEMON_SET;
     }
     public String getPage(int _index) {
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         PokemonData pk_ = data_.getPokemon(name);
         Evolution evo_ = pk_.getEvolutions().getVal(getEvo(_index));
         if (evo_ instanceof EvolutionLevelGender) {
@@ -294,7 +294,7 @@ public class PokemonBean extends CommonBean {
         return evolutions.get(_index);
     }
     public String getTrAbility(int _index) {
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         return data_.translateAbility(abilities.get(_index));
     }
     public String clickAbility(int _index) {
@@ -302,46 +302,46 @@ public class PokemonBean extends CommonBean {
         return CST_ABILITY;
     }
     public String clickBase() {
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         PokemonData pk_ = data_.getPokemon(name);
         getForms().put(CST_PK,pk_.getBaseEvo());
         return CST_POKEMON;
     }
     public short getBase(int _index) {
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         PokemonData pk_ = data_.getPokemon(name);
         Statistic stat_ = statisticsEnum.get(_index);
         StatBaseEv statEv_ = pk_.getStatistics().getVal(stat_);
         return statEv_.getBase();
     }
     public short getEv(int _index) {
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         PokemonData pk_ = data_.getPokemon(name);
         Statistic stat_ = statisticsEnum.get(_index);
         StatBaseEv statEv_ = pk_.getStatistics().getVal(stat_);
         return statEv_.getEv();
     }
     public String clickMove(int _index) {
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         PokemonData pk_ = data_.getPokemon(name);
         String move_ = pk_.getLevMoves().get(_index).getMove();
         getForms().put(CST_MOVE,move_);
         return CST_MOVE;
     }
     public String clickTechnicalMove(int _index) {
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         String move_ = data_.getTm().getVal(technicalMoves.getKey(_index));
         getForms().put(CST_MOVE,move_);
         return CST_MOVE;
     }
     public String clickHiddenMove(int _index) {
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         String move_ = data_.getHm().getVal(hiddenMoves.getKey(_index));
         getForms().put(CST_MOVE,move_);
         return CST_MOVE;
     }
     public String getMoveTutor(int _index) {
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         StringMap<String> translationsMoves_;
         translationsMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
         return translationsMoves_.getVal(moveTutors.get(_index));
@@ -352,7 +352,7 @@ public class PokemonBean extends CommonBean {
         return CST_MOVE;
     }
     public String getEggPk(int _index) {
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         StringMap<String> translationsPokemon_;
         translationsPokemon_ = data_.getTranslatedPokemon().getVal(getLanguage());
         return translationsPokemon_.getVal(eggGroupsPk.get(_index));
@@ -522,7 +522,7 @@ public class PokemonBean extends CommonBean {
     }
 
     public TreeMap<MiniMapCoords,String> getImages() {
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         TreeMap<MiniMapCoords, String> map_ = new TreeMap<MiniMapCoords, String>(new ComparatorMiniMapCoords());
         for (EntryCust<MiniMapCoords,TileMiniMap> m_: data_.getMap().getMiniMap().entryList()) {
             int[][] image_ = data_.getMiniMap(m_.getValue().getFile());

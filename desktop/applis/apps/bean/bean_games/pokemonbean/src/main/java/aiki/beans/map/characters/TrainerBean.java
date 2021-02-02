@@ -19,8 +19,8 @@ public class TrainerBean extends CommonBean {
 
     @Override
     public void beforeDisplaying() {
-        trainer = (Trainer) getForms().getVal(CST_TRAINER);
-        DataBase data_ = (DataBase) getDataBase();
+        trainer = (Trainer) getForms().getValPers(CST_TRAINER);
+        DataBase data_ = getDataBase();
         if (trainer instanceof GymLeader) {
             GymLeader gym_ = (GymLeader) trainer;
             move = data_.getTm().getVal(gym_.getTm());
@@ -38,7 +38,7 @@ public class TrainerBean extends CommonBean {
         return DataBase.EMPTY_STRING;
     }
     public String getTrMove() {
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         StringMap<String> translationsMoves_;
         translationsMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
         return translationsMoves_.getVal(move);

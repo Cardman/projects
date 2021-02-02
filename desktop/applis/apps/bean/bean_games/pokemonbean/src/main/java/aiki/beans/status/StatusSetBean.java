@@ -12,13 +12,13 @@ public class StatusSetBean extends CommonBean {
 
     @Override
     public void beforeDisplaying() {
-        sortedStatus = (StringList) getForms().getVal(CST_STATUS_SET);
+        sortedStatus = getForms().getValList(CST_STATUS_SET);
         typedStatus = escapedStringQuote(typedStatus);
     }
     public String search() {
         StringList sortedAbilities_;
         sortedAbilities_ = new StringList();
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         StringMap<String> translationsStatus_;
         translationsStatus_ = data_.getTranslatedStatus().getVal(getLanguage());
         for (String i: data_.getStatus().getKeys()) {
@@ -42,7 +42,7 @@ public class StatusSetBean extends CommonBean {
     }
     public String getTrStatus(int _index) {
         String ability_ = sortedStatus.get(_index);
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         StringMap<String> translationsStatus_;
         translationsStatus_ = data_.getTranslatedStatus().getVal(getLanguage());
         return translationsStatus_.getVal(ability_);

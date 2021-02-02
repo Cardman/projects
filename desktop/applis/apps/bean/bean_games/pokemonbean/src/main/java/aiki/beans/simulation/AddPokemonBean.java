@@ -34,7 +34,7 @@ public class AddPokemonBean extends CommonBean {
 
     @Override
     public void beforeDisplaying() {
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         EnumMap<SelectedBoolean,String> translatedBooleans_;
         translatedBooleans_ = data_.getTranslatedBooleans().getVal(getLanguage());
         StringMap<String> translated_ = new StringMap<String>();
@@ -56,7 +56,7 @@ public class AddPokemonBean extends CommonBean {
             booleans.put(s.name(), translatedBooleans_.getVal(s));
         }
         if (getForms().contains(CST_PK_NAME)) {
-            namePk = (String) getForms().getVal(CST_PK_NAME);
+            namePk = getForms().getValStr(CST_PK_NAME);
             PokemonData pkData_ = data_.getPokemon(namePk);
             for (String a: pkData_.getAbilities()) {
                 abilities.put(a, translatedAbilities_.getVal(a));
@@ -65,7 +65,7 @@ public class AddPokemonBean extends CommonBean {
                 genders.put(g.name(), translatedGenders_.getVal(g));
             }
         }
-        StringList pokedex_ = (StringList) getForms().getVal(CST_POKEMON_SET_SIMU);
+        StringList pokedex_ = getForms().getValList(CST_POKEMON_SET_SIMU);
         pokedex.clear();
         StringMap<String> translationsPk_;
         translationsPk_ = data_.getTranslatedPokemon().getVal(getLanguage());
@@ -97,7 +97,7 @@ public class AddPokemonBean extends CommonBean {
         if (!abilities.contains(ability)) {
             return DataBase.EMPTY_STRING;
         }
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         if (level < data_.getMinLevel()) {
             level = (short) data_.getMinLevel();
         }
@@ -120,7 +120,7 @@ public class AddPokemonBean extends CommonBean {
         return CST_SIMULATION;
     }
     public void search() {
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         StringMap<String> translationsPk_;
         translationsPk_ = data_.getTranslatedPokemon().getVal(getLanguage());
         StringMap<String> translationsTypes_;
@@ -172,7 +172,7 @@ public class AddPokemonBean extends CommonBean {
     }
     public String getMiniImage(int _number) {
         String name_ = pokedex.get(_number).getName();
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
 //        return ConverterBufferedImage.toBaseSixtyFour(data_.getMiniPk().getVal(name_));
         return BaseSixtyFourUtil.getStringByImage(data_.getMiniPk().getVal(name_));
         //return ConverterBufferedImage.toBaseSixtyFour(data_.getMiniPk().getVal(name_));

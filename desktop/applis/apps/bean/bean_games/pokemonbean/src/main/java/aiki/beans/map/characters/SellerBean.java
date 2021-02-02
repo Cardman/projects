@@ -27,17 +27,17 @@ public class SellerBean extends CommonBean {
 
     @Override
     public void beforeDisplaying() {
-        seller = (Seller) getForms().getVal(CST_SELLER);
+        seller = (Seller) getForms().getValPers(CST_SELLER);
     }
     public String getItem(int _index) {
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         StringMap<String> translationsItems_;
         translationsItems_ = data_.getTranslatedItems().getVal(getLanguage());
         String item_ = getItems().get(_index);
         return translationsItems_.getVal(item_);
     }
     public StringList getItems() {
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         StringMap<String> translationsItems_;
         translationsItems_ = data_.getTranslatedItems().getVal(getLanguage());
         StringList items_ = new StringList(seller.getItems());
@@ -45,7 +45,7 @@ public class SellerBean extends CommonBean {
         return items_;
     }
     public String clickItem(int _index) {
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         String item_ = getItems().get(_index);
         getForms().put(CST_ITEM, item_);
         Item it_ = data_.getItem(item_);
@@ -94,14 +94,14 @@ public class SellerBean extends CommonBean {
         return CST_ITEM;
     }
     public String getTm(int _index) {
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         StringMap<String> translationsMoves_;
         translationsMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
         String move_ = getAllTm().get(_index);
         return translationsMoves_.getVal(move_);
     }
     public StringList getAllTm() {
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         StringMap<String> translationsMoves_;
         translationsMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
         StringList moves_ = new StringList();

@@ -29,16 +29,16 @@ public class LegendaryPokemonBean extends CommonBean {
 
     @Override
     public void beforeDisplaying() {
-        pokemon = (Pokemon) getForms().getVal(CST_LEG_PK);
+        pokemon = getForms().getValPk(CST_LEG_PK);
     }
     public String getImage() {
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         String name_ = pokemon.getName();
         return BaseSixtyFourUtil.getStringByImage(data_.getMaxiPkFront().getVal(name_));
         //return ConverterBufferedImage.toBaseSixtyFour(data_.getMaxiPkFront().getVal(name_));
     }
     public String getName() {
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         StringMap<String> translationsPokemon_;
         translationsPokemon_ = data_.getTranslatedPokemon().getVal(getLanguage());
         String name_ = pokemon.getName();
@@ -53,14 +53,14 @@ public class LegendaryPokemonBean extends CommonBean {
         return pokemon.getLevel();
     }
     public String getGender() {
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         EnumMap<Gender,String> translationsGenders_;
         translationsGenders_ = data_.getTranslatedGenders().getVal(getLanguage());
         Gender gender_ = pokemon.getGender();
         return translationsGenders_.getVal(gender_);
     }
     public String getAbility() {
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         StringMap<String> translationsAbilities_;
         translationsAbilities_ = data_.getTranslatedAbilities().getVal(getLanguage());
         String ability_ = pokemon.getAbility();
@@ -72,14 +72,14 @@ public class LegendaryPokemonBean extends CommonBean {
         return CST_ABILITY;
     }
     public String getItem() {
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         StringMap<String> translationsItems_;
         translationsItems_ = data_.getTranslatedItems().getVal(getLanguage());
         String item_ = pokemon.getItem();
         return translationsItems_.getVal(item_);
     }
     public String clickItem() {
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         String item_ = pokemon.getItem();
         getForms().put(CST_ITEM, item_);
         Item it_ = data_.getItem(item_);
@@ -128,7 +128,7 @@ public class LegendaryPokemonBean extends CommonBean {
         return CST_ITEM;
     }
     public String getMove(int _moveIndex) {
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         StringMap<String> translationsMoves_;
         translationsMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
         String move_ = getMovesAtLevel().get(_moveIndex);
@@ -140,7 +140,7 @@ public class LegendaryPokemonBean extends CommonBean {
         return CST_MOVE;
     }
     public StringList getMovesAtLevel() {
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         StringMap<String> translationsMoves_;
         translationsMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
         StringList moves_ = data_.getPokemon(pokemon.getName()).getMovesAtLevel(pokemon.getLevel(), data_.getNbMaxMoves());

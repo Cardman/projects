@@ -28,7 +28,7 @@ public class MovesBean extends CommonBean {
 
     @Override
     public void beforeDisplaying() {
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         moves.clear();
         StringMap<String> translationsMoves_;
         translationsMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
@@ -39,7 +39,7 @@ public class MovesBean extends CommonBean {
         categories.putAllMap(translationsCategories_);
         categories.put(DataBase.EMPTY_STRING, DataBase.EMPTY_STRING);
         if (!getForms().contains(CST_LEARNT)) {
-            StringList moves_ = (StringList) getForms().getVal(CST_MOVES_SET);
+            StringList moves_ = getForms().getValList(CST_MOVES_SET);
             for (String k: moves_) {
                 MoveData moveData_ = data_.getMoves().getVal(k);
                 MoveLine line_ = new MoveLine();
@@ -75,8 +75,8 @@ public class MovesBean extends CommonBean {
                 moves.add(line_);
             }
         } else {
-            boolean selectedLearn_ = (Boolean) getForms().getVal(CST_LEARNT);
-            StringList learntMoves_ = (StringList) getForms().getVal(CST_LEARNT_MOVES);
+            boolean selectedLearn_ = getForms().getValBool(CST_LEARNT);
+            StringList learntMoves_ = getForms().getValList(CST_LEARNT_MOVES);
             for (String k: data_.getMoves().getKeys()) {
                 if (StringUtil.contains(learntMoves_, k) && !selectedLearn_) {
                     continue;
@@ -130,7 +130,7 @@ public class MovesBean extends CommonBean {
         maxAccuracy = escapedStringQuote(maxAccuracy);
     }
     public String search() {
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         StringMap<String> translationsMoves_;
         translationsMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
         StringList moves_;

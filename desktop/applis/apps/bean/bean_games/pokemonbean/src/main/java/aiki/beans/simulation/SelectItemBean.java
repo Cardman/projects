@@ -24,11 +24,11 @@ public class SelectItemBean extends CommonBean {
 
     @Override
     public void beforeDisplaying() {
-        player = (Boolean) getForms().getVal(CST_IS_POKEMON_PLAYER_MOVES);
-        DataBase data_ = (DataBase) getDataBase();
+        player = getForms().getValBool(CST_IS_POKEMON_PLAYER_MOVES);
+        DataBase data_ = getDataBase();
         StringMap<String> translationsItems_;
         translationsItems_ = data_.getTranslatedItems().getVal(getLanguage());
-        sortedItems = (StringList) getForms().getVal(CST_ITEMS_SET_EDIT);
+        sortedItems = getForms().getValList(CST_ITEMS_SET_EDIT);
         items.clear();
         StringMap<String> translationsClasses_;
         translationsClasses_ = data_.getTranslatedClassesDescriptions().getVal(getLanguage());
@@ -68,7 +68,7 @@ public class SelectItemBean extends CommonBean {
             price = null;
         }
         StringList sortedItems_ = new StringList();
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         StringMap<String> translationsItems_;
         translationsItems_ = data_.getTranslatedItems().getVal(getLanguage());
         StringMap<String> translationsClasses_;
@@ -128,7 +128,7 @@ public class SelectItemBean extends CommonBean {
     }
     public String getMiniImage(int _number) {
         String item_ = items.get(_number).getName();
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         return BaseSixtyFourUtil.getStringByImage(data_.getMiniItems().getVal(item_));
     }
 

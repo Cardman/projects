@@ -91,10 +91,10 @@ public class FighterBean extends CommonFightBean {
 
     @Override
     public void beforeDisplaying() {
-        FacadeGame dataBaseFight_ = (FacadeGame) getDataBase();
+        FacadeGame dataBaseFight_ = getDataBase();
         DataBase data_ = dataBaseFight_.getData();
-        int noTeam_ = (Integer) getForms().getVal(NO_TEAM);
-        int noFighter_ = (Integer) getForms().getVal(NO_FIGHTER);
+        int noTeam_ = getForms().getValInt(NO_TEAM);
+        int noFighter_ = getForms().getValInt(NO_FIGHTER);
         Fighter fighter_ = dataBaseFight_.getGame().getFight().getTeams().getVal((byte) noTeam_).getMembers().getVal((byte) noFighter_);
         StringMap<String> translationsPokemon_;
         translationsPokemon_ = data_.getTranslatedPokemon().getVal(getLanguage());
@@ -449,7 +449,7 @@ public class FighterBean extends CommonFightBean {
     }
 
     Rate numberNecessaryPointsForGrowingLevel(){
-        FacadeGame facadeGame_ = (FacadeGame) getDataBase();
+        FacadeGame facadeGame_ = getDataBase();
         DataBase data_ = facadeGame_.getData();
         PokemonData fPk_=data_.getPokemon(keyName);
         String expLitt_=data_.getExpGrowth().getVal(fPk_.getExpEvo());
@@ -466,16 +466,16 @@ public class FighterBean extends CommonFightBean {
         return diff_;
     }
     public boolean isBack() {
-        FacadeGame dataBaseFight_ = (FacadeGame) getDataBase();
-        int noTeam_ = (Integer) getForms().getVal(NO_TEAM);
-        int noFighter_ = (Integer) getForms().getVal(NO_FIGHTER);
+        FacadeGame dataBaseFight_ = getDataBase();
+        int noTeam_ = getForms().getValInt(NO_TEAM);
+        int noFighter_ = getForms().getValInt(NO_FIGHTER);
         Fighter fighter_ = dataBaseFight_.getGame().getFight().getTeams().getVal((byte) noTeam_).getMembers().getVal((byte) noFighter_);
         return fighter_.estArriere();
     }
     public boolean isBackSubst() {
-        FacadeGame dataBaseFight_ = (FacadeGame) getDataBase();
-        int noTeam_ = (Integer) getForms().getVal(NO_TEAM);
-        int noFighter_ = (Integer) getForms().getVal(NO_FIGHTER);
+        FacadeGame dataBaseFight_ = getDataBase();
+        int noTeam_ = getForms().getValInt(NO_TEAM);
+        int noFighter_ = getForms().getValInt(NO_FIGHTER);
         Fighter fighter_ = dataBaseFight_.getGame().getFight().getTeams().getVal((byte) noTeam_).getMembers().getVal((byte) noFighter_);
         return fighter_.getGroundPlaceSubst() == Fighter.BACK;
     }
@@ -484,7 +484,7 @@ public class FighterBean extends CommonFightBean {
         return mt_.getTeamPosition().getTeam() == Fight.FOE;
     }
     public String getStatusRelatTeam(int _index) {
-        FacadeGame dataBaseFight_ = (FacadeGame) getDataBase();
+        FacadeGame dataBaseFight_ = getDataBase();
         MoveTeamPosition mt_ = statusRelat.getKey(_index);
         return getFighterAtPosition(dataBaseFight_, mt_.getTeamPosition());
     }
@@ -496,7 +496,7 @@ public class FighterBean extends CommonFightBean {
         return mt_.getTeamPosition().getTeam() == Fight.FOE;
     }
     public String getIncrPrivateMovesTeam(int _index) {
-        FacadeGame dataBaseFight_ = (FacadeGame) getDataBase();
+        FacadeGame dataBaseFight_ = getDataBase();
         MoveTeamPosition mt_ = privateMoves.getKey(_index);
         return getFighterAtPosition(dataBaseFight_, mt_.getTeamPosition());
     }
@@ -505,7 +505,7 @@ public class FighterBean extends CommonFightBean {
         return mt_.getTeamPosition().getTeam() == Fight.FOE;
     }
     public String getIncrTrappingMovesTeam(int _index) {
-        FacadeGame dataBaseFight_ = (FacadeGame) getDataBase();
+        FacadeGame dataBaseFight_ = getDataBase();
         MoveTeamPosition mt_ = trappingMoves.getKey(_index);
         return getFighterAtPosition(dataBaseFight_, mt_.getTeamPosition());
     }
@@ -514,7 +514,7 @@ public class FighterBean extends CommonFightBean {
         return mt_.getTeamPosition().getTeam() == Fight.FOE;
     }
     public String getIncrTrackingMovesTeam(int _index) {
-        FacadeGame dataBaseFight_ = (FacadeGame) getDataBase();
+        FacadeGame dataBaseFight_ = getDataBase();
         MoveTeamPosition mt_ = trackingMoves.getKey(_index);
         return getFighterAtPosition(dataBaseFight_, mt_.getTeamPosition());
     }
@@ -523,7 +523,7 @@ public class FighterBean extends CommonFightBean {
         return mt_.getTeamPosition().getTeam() == Fight.FOE;
     }
     public String getIncrUserAccuracyTeam(int _index) {
-        FacadeGame dataBaseFight_ = (FacadeGame) getDataBase();
+        FacadeGame dataBaseFight_ = getDataBase();
         MoveTeamPosition mt_ = incrUserAccuracy.getKey(_index);
         return getFighterAtPosition(dataBaseFight_, mt_.getTeamPosition());
     }

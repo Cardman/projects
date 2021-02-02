@@ -33,7 +33,7 @@ public class PokedexBean extends CommonBean {
 
     @Override
     public void beforeDisplaying() {
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         EnumMap<SelectedBoolean,String> translatedBooleans_;
         translatedBooleans_ = data_.getTranslatedBooleans().getVal(getLanguage());
         StringMap<String> translated_ = new StringMap<String>();
@@ -44,7 +44,7 @@ public class PokedexBean extends CommonBean {
         for (SelectedBoolean s: translatedBooleans_.getKeys()) {
             booleans.put(s.name(), translatedBooleans_.getVal(s));
         }
-        StringList pokedex_ = (StringList) getForms().getVal(CST_POKEMON_SET);
+        StringList pokedex_ = getForms().getValList(CST_POKEMON_SET);
         pokedex.clear();
         StringMap<String> translationsPk_;
         translationsPk_ = data_.getTranslatedPokemon().getVal(getLanguage());
@@ -69,7 +69,7 @@ public class PokedexBean extends CommonBean {
         typedMaxNbPossEvos = escapedStringQuote(typedMaxNbPossEvos);
     }
     public String search() {
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         StringMap<String> translationsPk_;
         translationsPk_ = data_.getTranslatedPokemon().getVal(getLanguage());
         StringMap<String> translationsTypes_;
@@ -135,7 +135,7 @@ public class PokedexBean extends CommonBean {
     }
     public String getMiniImage(int _number) {
         String name_ = pokedex.get(_number).getName();
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
 //        return ConverterBufferedImage.toBaseSixtyFour(data_.getMiniPk().getVal(name_));
         return BaseSixtyFourUtil.getStringByImage(data_.getMiniPk().getVal(name_));
         //return ConverterBufferedImage.toBaseSixtyFour(data_.getMiniPk().getVal(name_));

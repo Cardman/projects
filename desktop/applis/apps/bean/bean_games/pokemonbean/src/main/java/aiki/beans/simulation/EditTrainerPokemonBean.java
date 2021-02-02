@@ -24,23 +24,23 @@ public class EditTrainerPokemonBean extends CommonBean {
 
     @Override
     public void beforeDisplaying() {
-        add = getForms().getVal(CST_ADDING_TRAINER_PK) == TeamCrud.ADD;
+        add = getForms().getValTeamCrud(CST_ADDING_TRAINER_PK) == TeamCrud.ADD;
 
-        namePk = (String) getForms().getVal(CST_POKEMON_NAME_EDIT);
-        item = (String) getForms().getVal(CST_ITEM_EDIT);
-        ability = (String) getForms().getVal(CST_POKEMON_ABILITY_EDIT);
-        gender = ((Gender) getForms().getVal(CST_POKEMON_GENDER_EDIT)).name();
-        level = (Integer) getForms().getVal(CST_POKEMON_LEVEL_EDIT);
+        namePk = getForms().getValStr(CST_POKEMON_NAME_EDIT);
+        item = getForms().getValStr(CST_ITEM_EDIT);
+        ability = getForms().getValStr(CST_POKEMON_ABILITY_EDIT);
+        gender = getForms().getValGen(CST_POKEMON_GENDER_EDIT).name();
+        level = getForms().getValInt(CST_POKEMON_LEVEL_EDIT);
 
         moves.clear();
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         StringMap<String> translationsMoves_;
         translationsMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
         StringMap<String> translationsTypes_;
         translationsTypes_ = data_.getTranslatedTypes().getVal(getLanguage());
         StringMap<String> translationsCategories_;
         translationsCategories_ = data_.getTranslatedCategories().getVal(getLanguage());
-        for (String k: (StringList) getForms().getVal(CST_POKEMON_MOVES_EDIT)) {
+        for (String k: getForms().getValList(CST_POKEMON_MOVES_EDIT)) {
             MoveData moveData_ = data_.getMoves().getVal(k);
             SelectLineMove line_ = new SelectLineMove();
             line_.setName(k);
@@ -111,7 +111,7 @@ public class EditTrainerPokemonBean extends CommonBean {
         getForms().put(CST_POKEMON_MOVES_EDIT, keptMoves_);
     }
     public String validateTrainerPk() {
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         if (level <= data_.getMinLevel()) {
             level = (short) data_.getMinLevel();
         }
@@ -146,21 +146,21 @@ public class EditTrainerPokemonBean extends CommonBean {
         if (namePk.isEmpty()) {
             return DataBase.EMPTY_STRING;
         }
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         return data_.translatePokemon(namePk);
     }
     public String getTranslatedAbility() {
         if (ability.isEmpty()) {
             return DataBase.EMPTY_STRING;
         }
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         return data_.translateAbility(ability);
     }
     public String getTranslatedItem() {
         if (item.isEmpty()) {
             return DataBase.EMPTY_STRING;
         }
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         return data_.translateItem(item);
     }
 

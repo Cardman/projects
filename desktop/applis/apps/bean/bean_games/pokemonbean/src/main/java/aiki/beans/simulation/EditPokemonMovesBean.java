@@ -24,8 +24,8 @@ public class EditPokemonMovesBean extends CommonBean {
 
     @Override
     public void beforeDisplaying() {
-        player = (Boolean) getForms().getVal(CST_IS_POKEMON_PLAYER_MOVES);
-        DataBase data_ = (DataBase) getDataBase();
+        player = getForms().getValBool(CST_IS_POKEMON_PLAYER_MOVES);
+        DataBase data_ = getDataBase();
         StringMap<String> translationsMoves_;
         translationsMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
         StringMap<String> translationsTypes_;
@@ -35,7 +35,7 @@ public class EditPokemonMovesBean extends CommonBean {
         categories.putAllMap(translationsCategories_);
         categories.put(DataBase.EMPTY_STRING, DataBase.EMPTY_STRING);
         moves.clear();
-        for (String k: (StringList) getForms().getVal(CST_MOVES_SET)) {
+        for (String k: getForms().getValList(CST_MOVES_SET)) {
             MoveData moveData_ = data_.getMoves().getVal(k);
             SelectLineMove line_ = new SelectLineMove();
             line_.setName(k);
@@ -66,7 +66,7 @@ public class EditPokemonMovesBean extends CommonBean {
         return CST_POKEMON_EDIT;
     }
     public String addMoves() {
-        StringList currentMoves_ = (StringList) getForms().getVal(CST_POKEMON_MOVES_EDIT);
+        StringList currentMoves_ = getForms().getValList(CST_POKEMON_MOVES_EDIT);
         StringList keptMoves_ = new StringList();
         for (SelectLineMove s: moves) {
             if (s.isSelected()) {
@@ -82,7 +82,7 @@ public class EditPokemonMovesBean extends CommonBean {
         return CST_POKEMON_EDIT;
     }
     public void search() {
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         StringMap<String> translationsMoves_;
         translationsMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
         StringList moves_;
@@ -92,8 +92,8 @@ public class EditPokemonMovesBean extends CommonBean {
         StringList set_ = new StringList();
         if (player) {
             if (availableMovesOnly) {
-                String namePk_ = (String) getForms().getVal(CST_POKEMON_NAME_EDIT);
-                int level_ = (Integer) getForms().getVal(CST_POKEMON_LEVEL_EDIT);
+                String namePk_ = getForms().getValStr(CST_POKEMON_NAME_EDIT);
+                int level_ = getForms().getValInt(CST_POKEMON_LEVEL_EDIT);
                 set_.addAllElts(FightSimulation.possiblesInitialMoves(namePk_, (short) level_, data_));
             } else {
                 set_.addAllElts(data_.getMoves().getKeys());
