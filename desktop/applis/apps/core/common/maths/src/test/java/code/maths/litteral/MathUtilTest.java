@@ -1,14 +1,13 @@
 package code.maths.litteral;
-import static code.maths.EquallableMathUtil.assertEq;
-import static org.junit.Assert.assertTrue;
 
+import code.maths.EquallableMathUtil;
 import org.junit.Test;
 
 import code.maths.Rate;
 import code.util.StringMap;
 
 
-public class MathUtilTest {
+public class MathUtilTest extends EquallableMathUtil {
     @Test
     public void evaluateExp1Test(){
         Argument a_ = MathUtil.processEl("1", false, new StringMap<String>());

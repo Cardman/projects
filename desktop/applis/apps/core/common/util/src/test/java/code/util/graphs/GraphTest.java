@@ -1,13 +1,12 @@
 package code.util.graphs;
-import static code.util.EquallableExUtil.assertEq;
-import static org.junit.Assert.assertTrue;
 
+import code.util.EquallableExUtil;
 import org.junit.Test;
 
 import code.util.EqList;
 
 
-public final class GraphTest {
+public final class GraphTest extends EquallableExUtil {
 
     @Test
     public void isDirectTrees1Test() {

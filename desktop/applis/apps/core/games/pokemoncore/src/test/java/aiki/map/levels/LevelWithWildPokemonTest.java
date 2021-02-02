@@ -1,7 +1,6 @@
 package aiki.map.levels;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
 
+import aiki.db.EquallablePkUtil;
 import org.junit.Test;
 
 import aiki.map.levels.enums.EnvironmentType;
@@ -13,7 +12,7 @@ import code.util.EqList;
 import code.util.ObjectMap;
 
 
-public class LevelWithWildPokemonTest {
+public class LevelWithWildPokemonTest extends EquallablePkUtil {
 
     @Test
     public void getAreaByPoint1FailTest() {

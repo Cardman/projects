@@ -9,11 +9,7 @@ import code.util.EnumList;
 import code.util.EnumMap;
 import org.junit.Test;
 
-import static cards.tarot.EquallableTarotUtil.assertEq;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
-
-public final class GameTarotBidTest {
+public final class GameTarotBidTest extends EquallableTarotUtil {
     @Test
     public void nbCartesMaitresses1Test() {
         EnumMap<Suit,HandTarot> played_ = new EnumMap<Suit, HandTarot>();

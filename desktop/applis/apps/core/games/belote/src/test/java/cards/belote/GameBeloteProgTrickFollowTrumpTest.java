@@ -5,10 +5,7 @@ import cards.belote.enumerations.CardBelote;
 import cards.consts.PossibleTrickWinner;
 import cards.consts.Suit;
 import code.util.CustList;
-import code.util.EqList;
 import org.junit.Test;
-
-import static org.junit.Assert.assertSame;
 
 public final class GameBeloteProgTrickFollowTrumpTest extends CommonGameBelote {
     @Test

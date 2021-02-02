@@ -9,10 +9,6 @@ import code.util.CustList;
 import code.util.EnumList;
 import org.junit.Test;
 
-import static cards.belote.EquallableBeloteUtil.assertEq;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
-
 public final class TricksHandsBeloteTest extends CommonGameBelote {
     @Test
     public void sortHands0Test() {

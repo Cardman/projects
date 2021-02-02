@@ -1,13 +1,10 @@
 package aiki.game.fight.util;
 
+import aiki.db.EquallablePkUtil;
 import aiki.game.fight.ActivityOfMove;
 import org.junit.Test;
 
-import static aiki.db.EquallablePkUtil.assertEq;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-
-public class ActivityOfMoveTest {
+public class ActivityOfMoveTest extends EquallablePkUtil {
     @Test
     public void new_ActivityOfMove_1_test() {
         ActivityOfMove a_ = new ActivityOfMove();

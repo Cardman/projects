@@ -1,15 +1,13 @@
 package code.maths.matrix;
-import static code.maths.EquallableMathUtil.assertEq;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
 
+import code.maths.EquallableMathUtil;
 import code.maths.LgInt;
 import org.junit.Test;
 
 import code.maths.Rate;
 
 
-public class MatrixTest {
+public class MatrixTest extends EquallableMathUtil {
 
     @Test
     public void nbCols1Test() {

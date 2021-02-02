@@ -1,6 +1,6 @@
 package cards.tarot.comparators;
-import static cards.tarot.EquallableTarotUtil.assertEq;
 
+import cards.tarot.EquallableTarotUtil;
 import code.util.CustList;
 import org.junit.Test;
 
@@ -8,10 +8,9 @@ import cards.consts.Suit;
 import cards.tarot.HandTarot;
 import cards.tarot.enumerations.CardTarot;
 import code.util.EnumList;
-import code.util.EqList;
 
 
-public class ComparatorTarotTest {
+public class ComparatorTarotTest extends EquallableTarotUtil {
 
     @Test
     public void compare_GameStrengthLowLastHandTarot1Test() {

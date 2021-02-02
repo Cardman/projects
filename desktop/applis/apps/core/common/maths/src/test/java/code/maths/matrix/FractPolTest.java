@@ -1,13 +1,11 @@
 package code.maths.matrix;
 
+import code.maths.EquallableMathUtil;
 import code.maths.LgInt;
 import code.maths.Rate;
 import org.junit.Test;
 
-import static code.maths.EquallableMathUtil.assertEq;
-import static org.junit.Assert.assertTrue;
-
-public class FractPolTest {
+public class FractPolTest extends EquallableMathUtil {
     @Test
     public void zeroTest() {
         assertTrue(Polynom.zero().eq(FractPol.zero().getNumerator()));

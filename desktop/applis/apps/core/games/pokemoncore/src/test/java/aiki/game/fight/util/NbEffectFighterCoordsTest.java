@@ -1,10 +1,9 @@
 package aiki.game.fight.util;
 
+import aiki.db.EquallablePkUtil;
 import org.junit.Test;
 
-import static org.junit.Assert.assertNotNull;
-
-public class NbEffectFighterCoordsTest {
+public class NbEffectFighterCoordsTest extends EquallablePkUtil {
     @Test
     public void new_NbEffectFighterCoords_1_test() {
         NbEffectFighterCoords n_ = new NbEffectFighterCoords(",");

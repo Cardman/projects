@@ -12,9 +12,6 @@ import code.util.EnumMap;
 import code.util.EqList;
 import org.junit.Test;
 
-import static cards.belote.EquallableBeloteUtil.assertEq;
-import static org.junit.Assert.assertTrue;
-
 public final class GameBeloteTrickInfoTest extends CommonGameBelote {
     @Test
     public void neFournitPas1Test() {

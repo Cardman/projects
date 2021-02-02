@@ -7,9 +7,6 @@ import code.util.StringList;
 import code.util.StringMap;
 import org.junit.Test;
 
-import static code.expressionlanguage.EquallableElUtil.assertEq;
-import static org.junit.Assert.assertTrue;
-
 public final class ParserTypeTest extends ProcessMethodCommon {
     @Test
     public void getIndexes1_Test(){
@@ -879,7 +876,7 @@ public final class ParserTypeTest extends ProcessMethodCommon {
         return ParserType.getIndexes(_s, _cont.getAnalyzing());
     }
 
-    private AnalyzedTestContext unfullValidateInheritingClassesDeps(StringMap<String> _files) {
+    private static AnalyzedTestContext unfullValidateInheritingClassesDeps(StringMap<String> _files) {
         AnalyzedTestContext cont_ = ctxLgAna("en");
         parseCustomFiles(_files, cont_);
         assertTrue( isEmptyErrors(cont_));

@@ -1,10 +1,10 @@
 package aiki.map.levels;
-import static org.junit.Assert.assertTrue;
 
+import aiki.db.EquallablePkUtil;
 import org.junit.Test;
 
 
-public class BlockBoundsTest {
+public class BlockBoundsTest extends EquallablePkUtil {
 
     @Test
     public void invalidate1Test() {

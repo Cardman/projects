@@ -1,6 +1,4 @@
 package cards.tarot;
-import static cards.tarot.EquallableTarotUtil.assertEq;
-import static org.junit.Assert.assertTrue;
 
 import cards.tarot.enumerations.ChoiceTarot;
 import code.maths.LgInt;
@@ -13,7 +11,7 @@ import cards.tarot.enumerations.CardTarot;
 import cards.tarot.enumerations.DealingTarot;
 
 
-public class DealTarotTest {
+public class DealTarotTest extends EquallableTarotUtil {
 
     private HandTarot initPileTarot() {
         HandTarot main_ = new HandTarot();

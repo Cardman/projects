@@ -12,10 +12,6 @@ import aiki.map.pokemon.PokemonPlayer;
 import org.junit.Before;
 import org.junit.Test;
 
-import static aiki.db.EquallablePkUtil.assertEq;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-
 public final class FacadeGameEggTest extends InitializationDataBase {
 
     private DataBase data;

@@ -7,10 +7,6 @@ import cards.consts.Suit;
 import code.util.*;
 import org.junit.Test;
 
-import static cards.belote.EquallableBeloteUtil.assertEq;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
-
 public final class GameBeloteProgTrickUtilTest extends CommonGameBelote {
     @Test
     public void cartePlusPetitePoints1Test() {

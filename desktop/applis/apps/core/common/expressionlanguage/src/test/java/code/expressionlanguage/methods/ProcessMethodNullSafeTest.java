@@ -8,10 +8,6 @@ import code.util.CustList;
 import code.util.StringMap;
 import org.junit.Test;
 
-import static code.expressionlanguage.EquallableElUtil.assertEq;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-
 public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
     private static final String CUST_ITER_PATH = "pkg/CustIter";
     private static final String CUST_LIST_PATH = "pkg/CustList";

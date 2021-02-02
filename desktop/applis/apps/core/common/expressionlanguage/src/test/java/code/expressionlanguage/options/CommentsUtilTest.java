@@ -1,13 +1,12 @@
 package code.expressionlanguage.options;
 
+import code.expressionlanguage.EquallableElUtil;
 import code.expressionlanguage.analyze.files.CommentDelimiters;
 import code.util.CustList;
 import code.util.StringList;
 import org.junit.Test;
 
-import static code.expressionlanguage.EquallableElUtil.assertEq;
-
-public final class CommentsUtilTest {
+public final class CommentsUtilTest extends EquallableElUtil {
     @Test
     public void test1() {
         CustList<CommentDelimiters> user_ = new CustList<CommentDelimiters>();

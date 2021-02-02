@@ -1,7 +1,7 @@
 package aiki.game.fight;
-import static org.junit.Assert.assertTrue;
 
 import aiki.db.DataBase;
+import aiki.db.EquallablePkUtil;
 import aiki.db.PerCent;
 import aiki.db.PerCentImpl;
 import aiki.facade.enums.SelectedBoolean;
@@ -42,7 +42,7 @@ import code.util.ObjectMap;
 import code.util.StringMap;
 import code.util.core.StringUtil;
 
-public class InitializationDataBase {
+public class InitializationDataBase extends EquallablePkUtil {
 
 
     protected static final String LANGUAGE = "en";

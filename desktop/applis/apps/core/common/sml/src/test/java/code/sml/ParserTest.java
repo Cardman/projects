@@ -2,11 +2,7 @@ package code.sml;
 
 import org.junit.Test;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-
-
-public class ParserTest {
+public class ParserTest extends EquallableRowColUtil {
 
     @Test
     public void parseSaxHtmlRowCol1Test() {

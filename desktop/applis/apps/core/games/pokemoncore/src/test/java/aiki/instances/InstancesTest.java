@@ -1,10 +1,9 @@
 package aiki.instances;
 
+import aiki.db.EquallablePkUtil;
 import org.junit.Test;
 
-import static org.junit.Assert.assertNotNull;
-
-public class InstancesTest {
+public class InstancesTest extends EquallablePkUtil {
     @Test
     public void test() {
         assertNotNull(Instances.newFight());

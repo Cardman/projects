@@ -1,7 +1,7 @@
 package code.util.opers;
-import static code.util.EquallableExUtil.assertEq;
 
 import code.util.CustList;
+import code.util.EquallableExUtil;
 import code.util.core.StringUtil;
 import org.junit.Test;
 
@@ -9,7 +9,7 @@ import code.util.StringList;
 
 
 
-public class StringListUtilTest {
+public class StringListUtilTest extends EquallableExUtil {
     @Test
     public void firstCommonSubstring1Test(){
         assertEq("", StringListUtil.firstCommonSubstring("", ""));

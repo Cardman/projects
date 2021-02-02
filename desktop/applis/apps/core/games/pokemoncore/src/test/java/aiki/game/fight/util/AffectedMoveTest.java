@@ -1,11 +1,9 @@
 package aiki.game.fight.util;
 
+import aiki.db.EquallablePkUtil;
 import org.junit.Test;
 
-import static aiki.db.EquallablePkUtil.assertEq;
-import static org.junit.Assert.assertNotNull;
-
-public class AffectedMoveTest {
+public class AffectedMoveTest extends EquallablePkUtil {
     @Test
     public void new_AffectedMove_1_test() {
         AffectedMove a_ = new AffectedMove("/");

@@ -29,10 +29,6 @@ import code.util.StringList;
 import org.junit.Before;
 import org.junit.Test;
 
-import static aiki.db.EquallablePkUtil.assertEq;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-
 public final class FacadeGameFightSpecTest extends InitializationDataBase {
 
     private DataBase data;

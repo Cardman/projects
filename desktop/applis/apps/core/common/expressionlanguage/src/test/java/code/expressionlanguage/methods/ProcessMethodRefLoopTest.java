@@ -2,16 +2,12 @@ package code.expressionlanguage.methods;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.ForMutableIterativeLoop;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.util.CustList;
 import code.util.StringMap;
 import org.junit.Test;
-
-import static code.expressionlanguage.EquallableElUtil.assertEq;
-import static org.junit.Assert.assertTrue;
 
 public final class ProcessMethodRefLoopTest extends ProcessMethodCommon {
     @Test

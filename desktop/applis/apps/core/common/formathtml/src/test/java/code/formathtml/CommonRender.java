@@ -46,11 +46,7 @@ import code.util.StringList;
 import code.util.StringMap;
 import code.util.core.IndexConstants;
 
-import static code.formathtml.EquallableExUtil.assertEq;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-
-public abstract class CommonRender {
+public abstract class CommonRender extends EquallableExUtil {
 
     protected static void addImportingPage(AnalyzedTestConfiguration _conf) {
         addInnerPage(_conf);

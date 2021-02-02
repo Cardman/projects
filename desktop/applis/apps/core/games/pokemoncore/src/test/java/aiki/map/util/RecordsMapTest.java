@@ -1,12 +1,10 @@
 package aiki.map.util;
 
+import aiki.db.EquallablePkUtil;
 import aiki.map.enums.Direction;
 import org.junit.Test;
 
-import static aiki.db.EquallablePkUtil.assertEq;
-import static org.junit.Assert.assertTrue;
-
-public final class RecordsMapTest {
+public final class RecordsMapTest extends EquallablePkUtil {
     @Test
     public void test1() {
         MiniMapCoords m_ = MiniMapCoords.newMiniMapCoords("0 0");

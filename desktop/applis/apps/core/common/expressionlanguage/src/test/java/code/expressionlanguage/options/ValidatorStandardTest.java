@@ -1,11 +1,10 @@
 package code.expressionlanguage.options;
 
+import code.expressionlanguage.EquallableElUtil;
 import code.util.StringList;
 import org.junit.Test;
 
-import static code.expressionlanguage.EquallableElUtil.assertEq;
-
-public final class ValidatorStandardTest {
+public final class ValidatorStandardTest extends EquallableElUtil {
     @Test
     public void tr1(){
         StringList list_ = new StringList();

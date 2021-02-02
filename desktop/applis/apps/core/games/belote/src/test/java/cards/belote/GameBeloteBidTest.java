@@ -6,10 +6,7 @@ import cards.belote.enumerations.DealingBelote;
 import cards.consts.Suit;
 import org.junit.Test;
 
-import static cards.belote.EquallableBeloteUtil.assertEq;
-import static org.junit.Assert.assertSame;
-
-public final class GameBeloteBidTest {
+public final class GameBeloteBidTest extends EquallableBeloteUtil {
 
     @Test
     public void contrat1Test() {

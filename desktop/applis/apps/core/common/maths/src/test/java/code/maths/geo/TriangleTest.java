@@ -1,13 +1,12 @@
 package code.maths.geo;
-import static code.maths.EquallableMathUtil.assertEq;
-import static org.junit.Assert.assertTrue;
 
+import code.maths.EquallableMathUtil;
 import org.junit.Test;
 
 import code.maths.Rate;
 
 
-public class TriangleTest {
+public class TriangleTest extends EquallableMathUtil {
 
     @Test
     public void getCircumCenter1Test() {

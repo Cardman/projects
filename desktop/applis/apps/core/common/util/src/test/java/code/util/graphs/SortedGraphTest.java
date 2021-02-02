@@ -1,13 +1,10 @@
 package code.util.graphs;
 
 import code.util.EqList;
+import code.util.EquallableExUtil;
 import org.junit.Test;
 
-import static code.util.EquallableExUtil.assertEq;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-
-public final class SortedGraphTest {
+public final class SortedGraphTest extends EquallableExUtil {
     @Test
     public void process1Test() {
         SortedGraph<SortedNumberedNode> g_ = new SortedGraph<SortedNumberedNode>();

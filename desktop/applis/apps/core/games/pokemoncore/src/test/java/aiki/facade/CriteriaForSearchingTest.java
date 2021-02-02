@@ -1,6 +1,6 @@
 package aiki.facade;
-import static org.junit.Assert.assertTrue;
 
+import aiki.db.EquallablePkUtil;
 import org.junit.Test;
 
 import code.util.StringList;
@@ -8,7 +8,7 @@ import aiki.facade.enums.SearchingMode;
 import aiki.facade.enums.SelectedBoolean;
 
 
-public class CriteriaForSearchingTest {
+public class CriteriaForSearchingTest extends EquallablePkUtil {
 
     @Test
     public void matchString1Test() {
@@ -193,7 +193,7 @@ public class CriteriaForSearchingTest {
 
     @Test
     public void matchStringList6Test() {
-        assertTrue(!CriteriaForSearching.match(SearchingMode.WHOLE_STRING, "SUBSTRING", new StringList((String)null,(String)null)));
+        assertTrue(!CriteriaForSearching.match(SearchingMode.WHOLE_STRING, "SUBSTRING", new StringList(null, null)));
     }
 
     @Test
@@ -208,7 +208,7 @@ public class CriteriaForSearchingTest {
 
     @Test
     public void matchStringList9Test() {
-        assertTrue(!CriteriaForSearching.match(SearchingMode.SUBSTRING, "STRING", new StringList((String)null,(String)null)));
+        assertTrue(!CriteriaForSearching.match(SearchingMode.SUBSTRING, "STRING", new StringList(null, null)));
     }
 
     @Test
@@ -253,7 +253,7 @@ public class CriteriaForSearchingTest {
 
     @Test
     public void matchStringList18Test() {
-        assertTrue(!CriteriaForSearching.match(SearchingMode.END, "STRING", new StringList((String)null,(String)null)));
+        assertTrue(!CriteriaForSearching.match(SearchingMode.END, "STRING", new StringList(null, null)));
     }
 
     @Test
@@ -268,7 +268,7 @@ public class CriteriaForSearchingTest {
 
     @Test
     public void matchStringList21Test() {
-        assertTrue(!CriteriaForSearching.match(SearchingMode.BEGIN, "STRING", new StringList((String)null,(String)null)));
+        assertTrue(!CriteriaForSearching.match(SearchingMode.BEGIN, "STRING", new StringList(null, null)));
     }
 
     @Test

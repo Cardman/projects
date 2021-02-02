@@ -1,6 +1,4 @@
 package cards.tarot;
-import static cards.tarot.EquallableTarotUtil.assertEq;
-import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
@@ -8,7 +6,7 @@ import cards.tarot.enumerations.BidTarot;
 import code.util.EnumList;
 
 
-public class BidTarotTest {
+public class BidTarotTest extends EquallableTarotUtil {
 
     @Test
     public void getValidBids_allValidBids1Test() {

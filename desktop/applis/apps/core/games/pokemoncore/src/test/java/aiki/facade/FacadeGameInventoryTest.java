@@ -15,10 +15,6 @@ import code.maths.Rate;
 import org.junit.Before;
 import org.junit.Test;
 
-import static aiki.db.EquallablePkUtil.assertEq;
-import static org.junit.Assert.*;
-import static org.junit.Assert.assertTrue;
-
 public final class FacadeGameInventoryTest extends InitializationDataBase {
 
     private DataBase data;

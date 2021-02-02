@@ -1,7 +1,6 @@
 package aiki.map.levels;
-import static aiki.db.EquallablePkUtil.assertEq;
-import static org.junit.Assert.assertTrue;
 
+import aiki.db.EquallablePkUtil;
 import org.junit.Test;
 
 import aiki.map.pokemon.WildPk;
@@ -11,7 +10,7 @@ import code.maths.montecarlo.MonteCarloEq;
 import code.util.EqList;
 
 
-public class AreaApparitionTest {
+public class AreaApparitionTest extends EquallablePkUtil {
 
     @Test
     public void random1Test() {

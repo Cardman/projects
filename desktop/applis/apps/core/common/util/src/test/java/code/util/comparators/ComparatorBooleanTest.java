@@ -1,12 +1,10 @@
 package code.util.comparators;
 
+import code.util.EquallableExUtil;
 import code.util.core.SortConstants;
 import org.junit.Test;
 
-import static code.util.EquallableExUtil.assertEq;
-import static org.junit.Assert.assertTrue;
-
-public final class ComparatorBooleanTest {
+public final class ComparatorBooleanTest extends EquallableExUtil {
     @Test
     public void diff1Test() {
         assertTrue(ComparatorBoolean.diff(true,false));

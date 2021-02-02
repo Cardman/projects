@@ -1,15 +1,13 @@
 package aiki.map.levels;
-import static aiki.db.EquallablePkUtil.assertEq;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
 
+import aiki.db.EquallablePkUtil;
 import org.junit.Test;
 
 import aiki.util.Point;
 import code.util.ObjectMap;
 
 
-public class LevelTest {
+public class LevelTest extends EquallablePkUtil {
 
     @Test
     public void translateLineData1Test() {

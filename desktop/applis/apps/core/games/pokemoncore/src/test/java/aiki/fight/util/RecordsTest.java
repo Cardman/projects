@@ -1,5 +1,6 @@
 package aiki.fight.util;
 
+import aiki.db.EquallablePkUtil;
 import aiki.fight.enums.Statistic;
 import aiki.instances.Instances;
 import aiki.map.tree.util.Dims;
@@ -8,9 +9,7 @@ import code.maths.Rate;
 import code.util.StringList;
 import org.junit.Test;
 
-import static aiki.db.EquallablePkUtil.assertEq;
-
-public final class RecordsTest {
+public final class RecordsTest extends EquallablePkUtil {
     @Test
     public void test1() {
         CategoryMult c_ = CategoryMult.newCategoryMult("");

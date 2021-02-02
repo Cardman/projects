@@ -10,11 +10,6 @@ import code.util.*;
 import code.util.core.IndexConstants;
 import org.junit.Test;
 
-import static cards.tarot.EquallableTarotUtil.assertEq;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
-
 public final class EndTarotGameTest extends CommonGameTarot {
     @Test
     public void getMiseresPointsForTaker1Test() {

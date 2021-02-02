@@ -1,12 +1,10 @@
 package code.formathtml.nat;
 
+import code.formathtml.EquallableExUtil;
 import code.util.CustList;
 import org.junit.Test;
 
-import static code.formathtml.EquallableExUtil.assertEq;
-import static org.junit.Assert.assertTrue;
-
-public final class MapTest {
+public final class MapTest extends EquallableExUtil {
 
     @Test
     public void putAllMap13Test() {

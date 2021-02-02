@@ -1,8 +1,6 @@
 package code.formathtml.render;
 
-import static code.formathtml.EquallableExUtil.assertEq;
-import static org.junit.Assert.*;
-
+import code.formathtml.EquallableExUtil;
 import code.formathtml.errors.RendKeyWords;
 import code.util.CustList;
 import org.junit.Test;
@@ -11,7 +9,7 @@ import code.sml.DocumentBuilder;
 import code.sml.DocumentResult;
 
 
-public final class MetaDocumentTest {
+public final class MetaDocumentTest extends EquallableExUtil {
 
     @Test
     public void newInstance0Test() {

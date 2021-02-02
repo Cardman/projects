@@ -9,9 +9,6 @@ import code.util.CustList;
 import code.util.StringMap;
 import org.junit.Test;
 
-import static code.expressionlanguage.EquallableElUtil.assertEq;
-import static org.junit.Assert.*;
-
 public final class ProcessMethodWildCardBisTest extends ProcessMethodCommon {
     @Test
     public void instanceArgument126Test() {

@@ -6,11 +6,7 @@ import code.maths.Rate;
 import code.util.*;
 import org.junit.Test;
 
-import static cards.president.EquallablePresidentUtil.assertEq;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
-
-public final class ResultsPresidentTest {
+public final class ResultsPresidentTest extends EquallablePresidentUtil {
     @Test
     public void hasToCalculateScores1Test() {
         assertTrue(ResultsPresident.hasToCalculateScores(GameType.EDIT,0,0));

@@ -1,16 +1,12 @@
 package code.util;
-import static code.util.EquallableExUtil.assertEq;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
 import code.util.classestest.MyStringComparator;
 import code.util.comparators.NaturalComparator;
-import code.util.ints.Listable;
 
 
-public class TreeMapTest {
+public class TreeMapTest extends EquallableExUtil {
 
     @Test
     public void put1Test() {

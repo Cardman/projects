@@ -1,11 +1,10 @@
 package code.maths.geo;
-import static code.maths.EquallableMathUtil.assertEq;
-import static org.junit.Assert.assertTrue;
 
+import code.maths.EquallableMathUtil;
 import org.junit.Test;
 
 
-public class EdgeTest {
+public class EdgeTest extends EquallableMathUtil {
 
     @Test
     public void intersect1Test() {

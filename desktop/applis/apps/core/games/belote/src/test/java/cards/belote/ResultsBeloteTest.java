@@ -9,10 +9,6 @@ import code.maths.Rate;
 import code.util.*;
 import org.junit.Test;
 
-import static cards.belote.EquallableBeloteUtil.assertEq;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
-
 public final class ResultsBeloteTest extends CommonGameBelote {
     @Test
     public void hasToCalculateScores1Test() {

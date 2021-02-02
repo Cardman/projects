@@ -7,8 +7,6 @@ import code.util.CustList;
 import code.util.StringMap;
 import org.junit.Test;
 
-import static code.expressionlanguage.EquallableElUtil.assertEq;
-
 public final class ProcessMethodToStringBisTest extends ProcessMethodCommon {
     @Test
     public void calculate30Test() {

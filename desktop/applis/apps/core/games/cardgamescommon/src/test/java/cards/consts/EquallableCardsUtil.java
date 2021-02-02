@@ -3,12 +3,21 @@ package cards.consts;
 import code.util.core.StringUtil;
 import org.junit.Assert;
 
-public final class EquallableCardsUtil {
+public abstract class EquallableCardsUtil {
 
     private static final String DIFF = " != ";
 
-    private EquallableCardsUtil() {
+    public static void assertNotNull(Object _value) {
+        Assert.assertNotNull(_value);
     }
+
+    public static void assertTrue(boolean _value) {
+        Assert.assertTrue(_value);
+    }
+    public static void assertTrue(String _mess,boolean _value) {
+        Assert.assertTrue(_mess,_value);
+    }
+
     public static void assertEq(long _expected, long _result) {
         Assert.assertTrue(StringUtil.concat(Long.toString(_expected),DIFF,Long.toString(_result)), sameValue(_expected, _result));
     }

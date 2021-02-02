@@ -1,5 +1,4 @@
 package aiki.game.player;
-import static org.junit.Assert.assertTrue;
 
 import code.util.core.StringUtil;
 import org.junit.Before;

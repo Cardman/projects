@@ -4,9 +4,7 @@ import cards.consts.MixCardsChoice;
 import code.maths.montecarlo.DefaultGenerator;
 import org.junit.Test;
 
-import static cards.president.EquallablePresidentUtil.assertEq;
-
-public final class DealPresidentTest {
+public final class DealPresidentTest extends EquallablePresidentUtil {
     @Test
     public void initDonne1Test() {
         RulesPresident rules_ = new RulesPresident();

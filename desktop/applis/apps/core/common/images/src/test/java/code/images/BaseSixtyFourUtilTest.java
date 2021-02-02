@@ -1,9 +1,8 @@
 package code.images;
-import static code.images.EquallableImageUtil.assertEq;
 
 import org.junit.Test;
 
-public final class BaseSixtyFourUtilTest {
+public final class BaseSixtyFourUtilTest extends EquallableImageUtil {
 
     @Test
     public void parseFourChars1Test() {

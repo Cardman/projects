@@ -1,5 +1,4 @@
 package aiki.game.fight;
-import static org.junit.Assert.assertTrue;
 
 import aiki.db.DataBase;
 import code.util.core.IndexConstants;

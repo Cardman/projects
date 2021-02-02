@@ -11,10 +11,7 @@ import code.util.CustList;
 import code.util.Shorts;
 import org.junit.Test;
 
-import static cards.belote.EquallableBeloteUtil.assertEq;
-import static org.junit.Assert.assertSame;
-
-public final class EndBeloteGameTest {
+public final class EndBeloteGameTest extends EquallableBeloteUtil {
 
     @Test
     public void getTeamTrickTest() {

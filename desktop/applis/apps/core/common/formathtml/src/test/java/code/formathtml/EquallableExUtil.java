@@ -5,9 +5,28 @@ import org.junit.Assert;
 
 import code.util.StringList;
 
-public final class EquallableExUtil {
+public abstract class EquallableExUtil {
 
-    private EquallableExUtil() {
+    public static void assertNotNull(Object _value) {
+        Assert.assertNotNull(_value);
+    }
+    public static void assertNull(Object _value) {
+        Assert.assertNull(_value);
+    }
+    public static void assertTrue(boolean _value) {
+        Assert.assertTrue(_value);
+    }
+    public static void assertTrue(String _mess,boolean _value) {
+        Assert.assertTrue(_mess,_value);
+    }
+    public static void assertFalse(boolean _value) {
+        Assert.assertFalse(_value);
+    }
+    public static void assertSame(Object _expected, Object _result) {
+        Assert.assertSame(_expected, _result);
+    }
+    public static void assertNotSame(Object _expected, Object _result) {
+        Assert.assertNotSame(_expected, _result);
     }
 
     public static Configuration newConfiguration() {

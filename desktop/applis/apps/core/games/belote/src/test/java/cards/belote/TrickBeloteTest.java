@@ -1,6 +1,4 @@
 package cards.belote;
-import static cards.belote.EquallableBeloteUtil.assertEq;
-import static org.junit.Assert.assertTrue;
 
 import cards.belote.enumerations.DealingBelote;
 import org.junit.Test;
@@ -11,7 +9,7 @@ import cards.consts.Suit;
 import code.util.*;
 
 
-public class TrickBeloteTest {
+public class TrickBeloteTest extends EquallableBeloteUtil {
     @Test
     public void new_PliBelote_byte_0Test(){
         TrickBelote pli_ = new TrickBelote();

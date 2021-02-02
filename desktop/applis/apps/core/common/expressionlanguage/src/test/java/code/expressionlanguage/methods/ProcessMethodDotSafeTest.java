@@ -8,10 +8,6 @@ import code.util.CustList;
 import code.util.StringMap;
 import org.junit.Test;
 
-import static code.expressionlanguage.EquallableElUtil.assertEq;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertSame;
-
 public final class ProcessMethodDotSafeTest extends ProcessMethodCommon {
     @Test
     public void calculateArgument1Test() {

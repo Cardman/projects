@@ -1,11 +1,10 @@
 package code.expressionlanguage.filenames;
 
+import code.expressionlanguage.EquallableElUtil;
 import code.util.StringList;
 import org.junit.Test;
 
-import static org.junit.Assert.assertTrue;
-
-public final class DefaultNameValidatingTest {
+public final class DefaultNameValidatingTest extends EquallableElUtil {
     @Test
     public void ok1() {
         assertTrue(!new DefaultNameValidating(new StringList()).ok(""));

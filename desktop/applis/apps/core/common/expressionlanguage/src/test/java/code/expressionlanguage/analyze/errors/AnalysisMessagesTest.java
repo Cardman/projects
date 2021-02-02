@@ -1,6 +1,7 @@
 package code.expressionlanguage.analyze.errors;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.EquallableElUtil;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.InitializationLgNames;
 import code.expressionlanguage.sample.CustLgNames;
@@ -9,9 +10,7 @@ import code.expressionlanguage.options.Options;
 import code.expressionlanguage.stds.LgNames;
 import org.junit.Test;
 
-import static org.junit.Assert.assertTrue;
-
-public final class AnalysisMessagesTest {
+public final class AnalysisMessagesTest extends EquallableElUtil {
     @Test
     public void fail() {
         AnalysisMessages def_ = new AnalysisMessages();

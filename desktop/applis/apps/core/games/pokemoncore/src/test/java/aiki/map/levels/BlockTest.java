@@ -1,7 +1,6 @@
 package aiki.map.levels;
-import static aiki.db.EquallablePkUtil.assertEq;
-import static org.junit.Assert.assertTrue;
 
+import aiki.db.EquallablePkUtil;
 import aiki.game.fight.Image;
 import code.maths.montecarlo.DefaultGenerator;
 import code.util.core.StringUtil;
@@ -14,7 +13,7 @@ import code.util.*;
 import code.util.StringList;
 
 
-public class BlockTest {
+public class BlockTest extends EquallablePkUtil {
 
 
     @Test

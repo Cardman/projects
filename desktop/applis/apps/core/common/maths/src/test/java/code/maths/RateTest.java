@@ -1,7 +1,4 @@
 package code.maths;
-import static code.maths.EquallableMathUtil.assertEq;
-import static org.junit.Assert.assertNotSame;
-import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
@@ -9,7 +6,7 @@ import code.util.CustList;
 import code.util.EqList;
 
 
-public class RateTest {
+public class RateTest extends EquallableMathUtil {
     @Test
     public void new_Rate_1(){
         Rate rate_ = Rate.zero();

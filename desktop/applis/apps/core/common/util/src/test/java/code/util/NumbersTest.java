@@ -1,14 +1,10 @@
 package code.util;
-import static code.util.EquallableExUtil.assertEq;
-import static org.junit.Assert.assertTrue;
 
 import code.util.core.NumberUtil;
 import org.junit.Test;
 
-import java.math.BigInteger;
 
-
-public class NumbersTest {
+public class NumbersTest extends EquallableExUtil {
     @Test
     public void getReverseTest() {
         Ints list_ = new Ints();

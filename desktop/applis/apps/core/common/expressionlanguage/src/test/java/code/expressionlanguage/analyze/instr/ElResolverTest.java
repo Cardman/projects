@@ -5,18 +5,12 @@ import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.accessing.TypeAccessor;
 import code.expressionlanguage.analyze.blocks.*;
 
-import code.expressionlanguage.analyze.opers.MethodOperation;
-import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.common.*;
 
 import code.expressionlanguage.methods.ProcessMethodCommon;
 import code.util.*;
-import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 import org.junit.Test;
-
-import static code.expressionlanguage.EquallableElUtil.assertEq;
-import static org.junit.Assert.*;
 
 
 public final class ElResolverTest extends ProcessMethodCommon {
@@ -5470,7 +5464,7 @@ public final class ElResolverTest extends ProcessMethodCommon {
         assertEq(5, checkSyntax(conf_, el_).getBadOffset());
     }
 
-    private AnalyzedTestContext prepare(StringMap<String> _files) {
+    private static AnalyzedTestContext prepare(StringMap<String> _files) {
         AnalyzedTestContext conf_ = contextEl();
         parseCustomFiles(_files, conf_);
         validateInheritingClasses(conf_);
@@ -5482,7 +5476,7 @@ public final class ElResolverTest extends ProcessMethodCommon {
     private static OperationsSequence getOperationsSequence(AnalyzedTestContext _conf, String _el, Delimiters _d, int _offset) {
         return ElResolver.getOperationsSequence(_offset, _el, _d, _conf.getAnalyzing());
     }
-    private AnalyzedTestContext contextEl() {
+    private static AnalyzedTestContext contextEl() {
         return ctxAna();
     }
 

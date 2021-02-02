@@ -2,9 +2,19 @@ package code.sml;
 
 import org.junit.Assert;
 
-public final class EquallableRowColUtil {
+public abstract class EquallableRowColUtil {
 
-    private EquallableRowColUtil() {
+    public static void assertNotNull(Object _value) {
+        Assert.assertNotNull(_value);
+    }
+    public static void assertNull(Object _value) {
+        Assert.assertNull(_value);
+    }
+    public static void assertTrue(boolean _value) {
+        Assert.assertTrue(_value);
+    }
+    public static void assertSame(Object _expected, Object _result) {
+        Assert.assertSame(_expected, _result);
     }
 
     public static void assertEq(String _expected, String _result) {

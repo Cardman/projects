@@ -1,6 +1,4 @@
 package code.util;
-import static code.util.EquallableExUtil.assertEq;
-import static org.junit.Assert.assertTrue;
 
 import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
@@ -10,7 +8,7 @@ import code.util.classestest.KeyExample;
 import code.util.ints.Listable;
 
 
-public class IdMapTest {
+public class IdMapTest extends EquallableExUtil {
 
 
     @Test

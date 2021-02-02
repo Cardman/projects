@@ -2,12 +2,7 @@ package code.sml;
 
 import org.junit.Test;
 
-import static code.sml.EquallableRowColUtil.assertEq;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
-
-public class ExportTest {
+public class ExportTest extends EquallableRowColUtil {
 
     @Test
     public void exportSorted1Test() {

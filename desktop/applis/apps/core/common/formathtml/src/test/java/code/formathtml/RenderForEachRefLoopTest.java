@@ -4,10 +4,6 @@ import code.expressionlanguage.structs.Struct;
 import code.util.StringMap;
 import org.junit.Test;
 
-import static code.formathtml.EquallableExUtil.assertEq;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-
 public final class RenderForEachRefLoopTest extends CommonRender {
 
     @Test

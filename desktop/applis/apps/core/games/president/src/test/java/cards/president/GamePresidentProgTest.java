@@ -4,13 +4,8 @@ import cards.president.comparators.GameStrengthCardPresidentComparator;
 import cards.president.enumerations.CardPresident;
 import cards.president.enumerations.Playing;
 import code.util.CustList;
-import code.util.EqList;
 import code.util.TreeMap;
 import org.junit.Test;
-
-
-import static cards.president.EquallablePresidentUtil.assertEq;
-import static org.junit.Assert.*;
 
 public final class GamePresidentProgTest extends CommonGamePresident {
 

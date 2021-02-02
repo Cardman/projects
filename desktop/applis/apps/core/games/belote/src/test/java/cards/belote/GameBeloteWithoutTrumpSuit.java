@@ -1,9 +1,7 @@
 package cards.belote;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 import cards.belote.enumerations.BidBelote;
 
-public class GameBeloteWithoutTrumpSuit {
+public class GameBeloteWithoutTrumpSuit extends EquallableBeloteUtil {
 
     void bidding(GameBelote _game,BidBelote _bid) {
         if (_bid.getCouleurDominante()) {

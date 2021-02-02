@@ -1,8 +1,4 @@
 package cards.tarot;
-import static cards.tarot.EquallableTarotUtil.assertEq;
-import static org.junit.Assert.*;
-import static org.junit.Assert.assertTrue;
-
 import code.util.CustList;
 import org.junit.Test;
 
@@ -12,10 +8,9 @@ import cards.tarot.enumerations.DealingTarot;
 import cards.tarot.enumerations.Handfuls;
 import code.util.EnumList;
 import code.util.EnumMap;
-import code.util.EqList;
 
 
-public class HandTarotTest {
+public class HandTarotTest extends EquallableTarotUtil {
     @Test
     public void pileBase1(){
         HandTarot main_ = HandTarot.pileBase();

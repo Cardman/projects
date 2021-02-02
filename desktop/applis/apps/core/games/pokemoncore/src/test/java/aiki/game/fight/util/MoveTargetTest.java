@@ -1,11 +1,9 @@
 package aiki.game.fight.util;
 
+import aiki.db.EquallablePkUtil;
 import org.junit.Test;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-
-public class MoveTargetTest {
+public class MoveTargetTest extends EquallablePkUtil {
     @Test
     public void new_MoveTarget_1_test() {
         MoveTarget mt_ = new MoveTarget();

@@ -15,9 +15,6 @@ import code.util.StringList;
 import code.util.StringMap;
 import org.junit.Test;
 
-import static code.expressionlanguage.EquallableElUtil.assertEq;
-import static org.junit.Assert.*;
-
 public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
     @Test
     public void processEl0Test() {

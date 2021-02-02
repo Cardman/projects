@@ -6,15 +6,13 @@ import code.expressionlanguage.exec.coverage.Coverage;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.stds.LgNames;
 import code.formathtml.BeanCustLgNamesImpl;
+import code.formathtml.EquallableExUtil;
 import code.formathtml.InitializationLgNames;
 import code.formathtml.util.BeanLgNames;
 import code.util.StringMap;
 import org.junit.Test;
 
-import static code.formathtml.EquallableExUtil.assertEq;
-import static org.junit.Assert.assertTrue;
-
-public final class RendAnalysisMessagesTest {
+public final class RendAnalysisMessagesTest extends EquallableExUtil {
     @Test
     public void fail() {
         RendAnalysisMessages def_ = new RendAnalysisMessages();

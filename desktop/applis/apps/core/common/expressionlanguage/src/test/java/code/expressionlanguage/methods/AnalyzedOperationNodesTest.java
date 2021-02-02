@@ -12,11 +12,6 @@ import code.util.StringMap;
 import code.util.core.StringUtil;
 import org.junit.Test;
 
-import static code.expressionlanguage.EquallableElUtil.assertEq;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-
 public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
     private static final String COMPOSITE = "code.formathtml.classes.Composite";
     private static final String MY_CLASS = "myimpl.MyClass";

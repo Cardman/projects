@@ -8,11 +8,7 @@ import code.util.CustList;
 import code.util.EnumList;
 import org.junit.Test;
 
-import static cards.president.EquallablePresidentUtil.assertEq;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
-
-public final class TricksHandsPresidentTest {
+public final class TricksHandsPresidentTest extends EquallablePresidentUtil {
     @Test
     public void sortHands0Test() {
         GamePresident game_ = getSimpleDeal();

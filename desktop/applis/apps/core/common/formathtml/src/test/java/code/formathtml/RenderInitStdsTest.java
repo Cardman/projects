@@ -28,10 +28,6 @@ import code.util.Ints;
 import code.util.StringMap;
 import org.junit.Test;
 
-import static code.formathtml.EquallableExUtil.assertEq;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-
 public final class RenderInitStdsTest extends CommonRender {
     @Test
     public void process1Test() {

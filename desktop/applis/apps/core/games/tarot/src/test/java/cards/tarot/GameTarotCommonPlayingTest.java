@@ -9,10 +9,6 @@ import code.maths.Rate;
 import code.util.*;
 import org.junit.Test;
 
-import static cards.tarot.EquallableTarotUtil.assertEq;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
-
 public final class GameTarotCommonPlayingTest extends CommonGameTarot {
     @Test
     public void appeleConnuDefenseur1Test() {

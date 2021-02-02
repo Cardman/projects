@@ -1,6 +1,4 @@
 package code.util;
-import static code.util.EquallableExUtil.assertEq;
-import static org.junit.Assert.assertTrue;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -9,7 +7,7 @@ import java.math.MathContext;
 import org.junit.Test;
 
 
-public class GenericNumbersTest {
+public class GenericNumbersTest extends EquallableExUtil {
 
     @Test
     public void sort1Test() {

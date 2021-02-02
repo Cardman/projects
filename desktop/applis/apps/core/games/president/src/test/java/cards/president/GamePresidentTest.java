@@ -1,6 +1,4 @@
 package cards.president;
-import static cards.president.EquallablePresidentUtil.assertEq;
-import static org.junit.Assert.*;
 
 import org.junit.Test;
 
@@ -11,7 +9,7 @@ import cards.president.enumerations.Playing;
 import code.util.*;
 
 
-public class GamePresidentTest {
+public class GamePresidentTest extends EquallablePresidentUtil {
 
     @Test
     public void getWinners1Test() {

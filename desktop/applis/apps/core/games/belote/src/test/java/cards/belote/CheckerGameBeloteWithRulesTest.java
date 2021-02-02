@@ -1,6 +1,4 @@
 package cards.belote;
-import static cards.belote.EquallableBeloteUtil.assertEq;
-import static org.junit.Assert.assertTrue;
 
 import code.maths.montecarlo.DefaultGenerator;
 import code.util.CustList;
@@ -14,7 +12,7 @@ import cards.consts.GameType;
 import cards.consts.Suit;
 
 
-public class CheckerGameBeloteWithRulesTest {
+public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
 
     @Test
     public void check1Test() {

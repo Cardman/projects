@@ -1,10 +1,9 @@
 package code.expressionlanguage.filenames;
 
+import code.expressionlanguage.EquallableElUtil;
 import org.junit.Test;
 
-import static code.expressionlanguage.EquallableElUtil.assertEq;
-
-public final class PathUtilTest {
+public final class PathUtilTest extends EquallableElUtil {
     @Test
     public void transform1() {
         assertEq("/folder",PathUtil.transform("/","folder"));

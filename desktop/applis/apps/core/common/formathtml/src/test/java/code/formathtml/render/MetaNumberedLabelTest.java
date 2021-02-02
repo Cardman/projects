@@ -1,10 +1,9 @@
 package code.formathtml.render;
 
+import code.formathtml.EquallableExUtil;
 import org.junit.Test;
 
-import static code.formathtml.EquallableExUtil.assertEq;
-
-public final class MetaNumberedLabelTest {
+public final class MetaNumberedLabelTest extends EquallableExUtil {
     @Test
     public void convert1Test() {
         assertEq("1",MetaNumberedLabel.convert(1,MetaNumberBase.NUMBER));

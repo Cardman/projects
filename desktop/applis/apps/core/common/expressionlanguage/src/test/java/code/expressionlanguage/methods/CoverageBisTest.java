@@ -2,21 +2,14 @@ package code.expressionlanguage.methods;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.analyze.blocks.Block;
-import code.expressionlanguage.analyze.blocks.NamedFunctionBlock;
-import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.expressionlanguage.exec.blocks.ExecBlock;
 import code.expressionlanguage.exec.coverage.*;
 import code.expressionlanguage.functionid.MethodId;
 import code.util.CustList;
-import code.util.EntryCust;
 import code.util.IdMap;
 import code.util.StringMap;
 import code.util.core.BoolVal;
 import org.junit.Test;
-
-import static code.expressionlanguage.EquallableElUtil.assertEq;
-import static org.junit.Assert.*;
 
 public final class CoverageBisTest extends ProcessMethodCommon {
     @Test

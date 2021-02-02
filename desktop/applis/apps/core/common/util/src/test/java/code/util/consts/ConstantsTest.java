@@ -1,11 +1,9 @@
 package code.util.consts;
 
+import code.util.EquallableExUtil;
 import org.junit.Test;
 
-import static code.util.EquallableExUtil.assertEq;
-import static org.junit.Assert.assertNotNull;
-
-public final class ConstantsTest {
+public final class ConstantsTest extends EquallableExUtil {
     @Test
     public void test() {
         assertEq(2, Constants.getAvailableLanguages().size());

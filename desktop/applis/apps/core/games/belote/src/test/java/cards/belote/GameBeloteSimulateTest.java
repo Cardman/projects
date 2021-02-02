@@ -9,10 +9,7 @@ import code.maths.montecarlo.DefaultGenerator;
 import code.util.Bytes;
 import org.junit.Test;
 
-import static cards.belote.EquallableBeloteUtil.assertEq;
-import static org.junit.Assert.assertTrue;
-
-public final class GameBeloteSimulateTest {
+public final class GameBeloteSimulateTest extends EquallableBeloteUtil {
     @Test
     public void bidSimulate1Test() {
         RulesBelote rules_ = new RulesBelote();

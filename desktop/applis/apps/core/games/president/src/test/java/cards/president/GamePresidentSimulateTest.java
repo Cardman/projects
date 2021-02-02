@@ -7,9 +7,7 @@ import code.util.Bytes;
 import code.util.CustList;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
-
-public final class GamePresidentSimulateTest {
+public final class GamePresidentSimulateTest extends EquallablePresidentUtil {
     @Test
     public void simuler1Test() {
         RulesPresident r_ = new RulesPresident(4);

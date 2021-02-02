@@ -2,11 +2,7 @@ package code.sml;
 
 import org.junit.Test;
 
-import static code.sml.EquallableRowColUtil.assertEq;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-
-public class DescendantTest {
+public class DescendantTest extends EquallableRowColUtil {
 
     @Test
     public void getEmptyDocChildrenWithTextTest() {

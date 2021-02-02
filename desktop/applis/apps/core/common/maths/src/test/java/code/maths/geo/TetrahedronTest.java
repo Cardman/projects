@@ -1,12 +1,9 @@
 package code.maths.geo;
 
+import code.maths.EquallableMathUtil;
 import org.junit.Test;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-
-public class TetrahedronTest {
+public class TetrahedronTest extends EquallableMathUtil {
     @Test
     public void getCircumCenter1Test() {
         CustPointThreeDims one_ = new CustPointThreeDims();

@@ -1,13 +1,12 @@
 package code.expressionlanguage.analyze.files;
 
+import code.expressionlanguage.EquallableElUtil;
 import code.util.CustList;
 import code.util.Ints;
 import code.util.StringList;
 import org.junit.Test;
 
-import static code.expressionlanguage.EquallableElUtil.assertEq;
-
-public final class ParsedTemplatedTypeTest {
+public final class ParsedTemplatedTypeTest extends EquallableElUtil {
 
     @Test
     public void parse1Test() {

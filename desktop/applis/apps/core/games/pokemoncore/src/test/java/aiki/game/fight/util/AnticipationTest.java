@@ -1,13 +1,12 @@
 package aiki.game.fight.util;
 
+import aiki.db.EquallablePkUtil;
 import aiki.game.fight.Anticipation;
 import aiki.game.fight.Fighter;
 import code.util.core.StringUtil;
 import org.junit.Test;
 
-import static org.junit.Assert.assertNotNull;
-
-public class AnticipationTest {
+public class AnticipationTest extends EquallablePkUtil {
     @Test
     public void new_Anticipation_1_test() {
         Anticipation a_ = new Anticipation(",");

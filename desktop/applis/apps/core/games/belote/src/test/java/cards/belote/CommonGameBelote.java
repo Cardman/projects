@@ -9,9 +9,7 @@ import code.util.*;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 
-import static org.junit.Assert.fail;
-
-public abstract class CommonGameBelote {
+public abstract class CommonGameBelote extends EquallableBeloteUtil {
     protected static GameBelote newGameBeloteWithourDecl(HandBelote _currentHand, RulesBelote _r, CustList<TrickBelote> _trs, TrickBelote _prog,
                                                          int _dealer,
                                                          CustList<BidBeloteSuit> _bids, HandBelote _lastHand) {

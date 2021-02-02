@@ -1,12 +1,10 @@
 package code.maths.geo;
 
+import code.maths.EquallableMathUtil;
 import code.maths.Rate;
 import org.junit.Test;
 
-import static code.maths.EquallableMathUtil.assertEq;
-import static org.junit.Assert.assertTrue;
-
-public class CustPointThreeDimsTest {
+public class CustPointThreeDimsTest extends EquallableMathUtil {
     @Test
     public void new_CustPointThreeDims_test() {
         CustPointThreeDims c_ = CustPointThreeDims.newCustPointThreeDims("1,2,3");

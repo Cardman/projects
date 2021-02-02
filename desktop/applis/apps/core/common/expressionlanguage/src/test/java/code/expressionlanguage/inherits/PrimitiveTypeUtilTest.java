@@ -7,9 +7,6 @@ import code.util.StringList;
 import code.util.core.SortConstants;
 import org.junit.Test;
 
-import static code.expressionlanguage.EquallableElUtil.assertEq;
-import static org.junit.Assert.*;
-
 
 public final class PrimitiveTypeUtilTest extends ProcessMethodCommon {
 
@@ -80,7 +77,7 @@ public final class PrimitiveTypeUtilTest extends ProcessMethodCommon {
         return AnaTypeUtil.getSubclasses(_classes, _context.getAnalyzing());
     }
 
-    private AnalyzedTestContext simpleContextEl() {
+    private static AnalyzedTestContext simpleContextEl() {
         return ctxAna();
     }
 }

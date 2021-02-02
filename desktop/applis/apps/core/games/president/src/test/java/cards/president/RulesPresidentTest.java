@@ -1,12 +1,9 @@
 package cards.president;
-import static cards.president.EquallablePresidentUtil.assertEq;
-import static org.junit.Assert.assertNotSame;
-import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
 
-public class RulesPresidentTest {
+public class RulesPresidentTest extends EquallablePresidentUtil {
     @Test
     public void isValidRules_defaultRules1Test(){
         RulesPresident rules_ = new RulesPresident(3);

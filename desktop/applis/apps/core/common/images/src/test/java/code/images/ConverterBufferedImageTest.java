@@ -4,9 +4,7 @@ import code.util.CustList;
 import code.util.EqList;
 import org.junit.Test;
 
-import static code.images.EquallableImageUtil.assertEq;
-
-public class ConverterBufferedImageTest {
+public class ConverterBufferedImageTest extends EquallableImageUtil {
     @Test
     public void stackImages1Test() {
         int[][] fr_ = new int[2][2];

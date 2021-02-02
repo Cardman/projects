@@ -20,9 +20,6 @@ import code.util.StringMap;
 import code.util.core.IndexConstants;
 import org.junit.Test;
 
-import static code.formathtml.EquallableExUtil.assertEq;
-import static org.junit.Assert.*;
-
 public final class RenderInitNavTest extends CommonRender {
     @Test
     public void process1Test() {

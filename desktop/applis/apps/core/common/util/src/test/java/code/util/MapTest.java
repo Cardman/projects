@@ -1,9 +1,4 @@
 package code.util;
-import static code.util.EquallableExUtil.assertEq;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertSame;
 
 import code.util.classestest.MyEnum;
 import code.util.core.NumberUtil;
@@ -14,7 +9,7 @@ import code.util.classestest.KeyExample;
 import code.util.ints.Listable;
 
 
-public class MapTest {
+public class MapTest extends EquallableExUtil {
 
     @Test
     public void put1Test() {

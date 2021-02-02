@@ -7,8 +7,6 @@ import code.util.CustList;
 import code.util.EnumList;
 import org.junit.Test;
 
-import static org.junit.Assert.assertSame;
-
 public final class GameTarotProgTrickClassicTest extends CommonGameTarot {
     @Test
     public void tryPlayExcuseOrLead1Test() {

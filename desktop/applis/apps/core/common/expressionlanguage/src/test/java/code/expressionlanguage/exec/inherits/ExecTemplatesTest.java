@@ -28,11 +28,6 @@ import code.expressionlanguage.structs.*;
 import code.util.*;
 import org.junit.Test;
 
-import static code.expressionlanguage.EquallableElUtil.assertEq;
-import static org.junit.Assert.*;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-
 public final class ExecTemplatesTest extends ProcessMethodCommon {
 
     private static final String CUST_CLASS = "pkg.CustClass";

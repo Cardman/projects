@@ -1,6 +1,4 @@
 package aiki.game;
-import static aiki.db.EquallablePkUtil.assertEq;
-import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
 import org.junit.Test;

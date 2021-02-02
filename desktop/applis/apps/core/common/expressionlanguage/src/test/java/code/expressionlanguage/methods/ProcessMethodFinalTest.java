@@ -3,8 +3,6 @@ package code.expressionlanguage.methods;
 import code.util.StringMap;
 import org.junit.Test;
 
-import static org.junit.Assert.assertTrue;
-
 public final class ProcessMethodFinalTest extends ProcessMethodCommon {
 
     @Test

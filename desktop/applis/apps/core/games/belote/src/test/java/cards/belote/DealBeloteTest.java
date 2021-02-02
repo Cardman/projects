@@ -1,6 +1,4 @@
 package cards.belote;
-import static cards.belote.EquallableBeloteUtil.assertEq;
-import static org.junit.Assert.assertTrue;
 
 import code.maths.montecarlo.DefaultGenerator;
 import org.junit.Test;
@@ -10,7 +8,7 @@ import cards.consts.MixCardsChoice;
 import cards.consts.Order;
 
 
-public class DealBeloteTest {
+public class DealBeloteTest extends EquallableBeloteUtil {
 
     @Test
     public void initDonne1Test(){

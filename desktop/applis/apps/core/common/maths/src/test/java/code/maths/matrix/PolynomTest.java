@@ -1,15 +1,12 @@
 package code.maths.matrix;
 
+import code.maths.EquallableMathUtil;
 import code.maths.LgInt;
 import code.maths.Rate;
 import code.util.CustList;
 import org.junit.Test;
 
-import static code.maths.EquallableMathUtil.assertEq;
-import static org.junit.Assert.assertNotSame;
-import static org.junit.Assert.assertTrue;
-
-public class PolynomTest {
+public class PolynomTest extends EquallableMathUtil {
     @Test
     public void new_Polynom_test() {
         Polynom p_ = new Polynom();

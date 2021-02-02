@@ -8,9 +8,6 @@ import code.util.CustList;
 import code.util.StringMap;
 import org.junit.Test;
 
-import static code.expressionlanguage.EquallableElUtil.assertEq;
-import static org.junit.Assert.assertTrue;
-
 public final class CoverageReportTest extends ProcessMethodCommon {
     private static final String CUST_ITER_PATH = "src/pkg/CustIter";
     private static final String CUST_LIST_PATH = "src/pkg/CustList";

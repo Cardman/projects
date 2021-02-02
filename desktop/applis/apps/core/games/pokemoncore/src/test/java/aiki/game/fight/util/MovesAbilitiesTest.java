@@ -1,11 +1,10 @@
 package aiki.game.fight.util;
 
+import aiki.db.EquallablePkUtil;
 import code.util.StringList;
 import org.junit.Test;
 
-import static org.junit.Assert.assertNotNull;
-
-public class MovesAbilitiesTest {
+public class MovesAbilitiesTest extends EquallablePkUtil {
     @Test
     public void new_MovesAbilities_test() {
         MovesAbilities m_ = new MovesAbilities();

@@ -1,7 +1,6 @@
 package code.maths.montecarlo;
-import static code.maths.EquallableMathUtil.assertEq;
-import static org.junit.Assert.assertTrue;
 
+import code.maths.EquallableMathUtil;
 import code.util.CollCapacity;
 import org.junit.Test;
 
@@ -9,7 +8,7 @@ import code.maths.LgInt;
 import code.maths.Rate;
 
 
-public class MonteCarloNumberTest {
+public class MonteCarloNumberTest extends EquallableMathUtil {
 
     @Test
     public void valid1Test() {

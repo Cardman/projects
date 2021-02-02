@@ -2,10 +2,7 @@ package code.sml;
 
 import org.junit.Test;
 
-import static code.sml.EquallableRowColUtil.assertEq;
-import static org.junit.Assert.assertTrue;
-
-public class AttrTest {
+public class AttrTest extends EquallableRowColUtil {
     @Test
     public void hasAttribute1Test() {
         FullElement elt_ = (FullElement) DocumentBuilder.parseSax("<tag/>").getDocumentElement();

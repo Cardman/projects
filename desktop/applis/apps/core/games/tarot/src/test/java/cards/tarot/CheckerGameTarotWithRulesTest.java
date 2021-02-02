@@ -1,6 +1,4 @@
 package cards.tarot;
-import static cards.tarot.EquallableTarotUtil.assertEq;
-import static org.junit.Assert.assertTrue;
 
 import code.maths.montecarlo.DefaultGenerator;
 import code.util.CustList;
@@ -16,7 +14,7 @@ import cards.tarot.enumerations.ModeTarot;
 import code.util.EnumList;
 
 
-public class CheckerGameTarotWithRulesTest {
+public class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
 
     @Test
     public void check1Test() {

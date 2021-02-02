@@ -1,12 +1,11 @@
 package code.util.comparators;
 
+import code.util.EquallableExUtil;
 import code.util.StringList;
 import code.util.StringMap;
 import org.junit.Test;
 
-import static code.util.EquallableExUtil.assertEq;
-
-public final class ComparatorMapValueTest {
+public final class ComparatorMapValueTest extends EquallableExUtil {
     @Test
     public void sortTest() {
         StringMap<String> map_ = new StringMap<String>();

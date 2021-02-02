@@ -15,8 +15,6 @@ import aiki.util.Point;
 import org.junit.Before;
 import org.junit.Test;
 
-import static aiki.db.EquallablePkUtil.assertEq;
-
 public final class FacadeGameMovingTest extends InitializationDataBase {
 
     private DataBase data;

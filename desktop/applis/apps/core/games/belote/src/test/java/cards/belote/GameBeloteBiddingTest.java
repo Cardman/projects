@@ -1,7 +1,4 @@
 package cards.belote;
-import static cards.belote.EquallableBeloteUtil.assertEq;
-import static cards.belote.EquallableBeloteUtil.assertEqSet;
-import static org.junit.Assert.assertTrue;
 
 import code.util.core.IndexConstants;
 import org.junit.Test;

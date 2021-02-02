@@ -2,9 +2,7 @@ package code.sml;
 
 import org.junit.Test;
 
-import static code.sml.EquallableRowColUtil.assertEq;
-
-public class IndentTest {
+public class IndentTest extends EquallableRowColUtil {
 
     @Test
     public void indentWithoutTextNode1Test() {

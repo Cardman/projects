@@ -1,13 +1,9 @@
 package code.util;
-import static code.util.EquallableExUtil.assertEq;
-import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import code.util.ints.Listable;
 
-
-public final class NatTreeMapTest {
+public final class NatTreeMapTest extends EquallableExUtil {
 
     @Test
     public void put1Test() {

@@ -1,6 +1,6 @@
 package cards.belote.comparators;
-import static cards.belote.EquallableBeloteUtil.assertEq;
 
+import cards.belote.EquallableBeloteUtil;
 import org.junit.Test;
 
 import cards.belote.BidBeloteSuit;
@@ -12,7 +12,7 @@ import code.util.EnumList;
 import code.util.EnumMap;
 
 
-public class ComparatorBeloteTest {
+public class ComparatorBeloteTest extends EquallableBeloteUtil {
 
     @Test
     public void compare_GameStrengthLowHandBelote1Test() {

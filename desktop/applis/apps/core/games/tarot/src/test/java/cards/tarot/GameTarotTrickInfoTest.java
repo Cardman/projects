@@ -12,9 +12,6 @@ import code.util.EnumMap;
 import code.util.EqList;
 import org.junit.Test;
 
-import static cards.tarot.EquallableTarotUtil.assertEq;
-import static org.junit.Assert.assertTrue;
-
 public final class GameTarotTrickInfoTest extends CommonGameTarot {
     @Test
     public void coupeTarot1Test() {

@@ -6,11 +6,7 @@ import code.util.classestest.MyEquallable;
 import code.util.classestest.ComparatorEnum;
 import org.junit.Test;
 
-import static code.util.EquallableExUtil.assertEq;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
-
-public class AbEqListTest {
+public class AbEqListTest extends EquallableExUtil {
     @Test
     public void index1Test() {
         EnumList<MyEnum> e_ = new EnumList<MyEnum>(new EnumList<MyEnum>());

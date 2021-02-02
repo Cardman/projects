@@ -6,10 +6,6 @@ import cards.tarot.enumerations.*;
 import code.util.*;
 import org.junit.Test;
 
-import static cards.tarot.EquallableTarotUtil.assertEq;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
-
 public final class TricksHandsTarotTest extends CommonGameTarot {
     @Test
     public void sortHands0Test() {

@@ -1,15 +1,13 @@
 package cards.president;
-import static cards.president.EquallablePresidentUtil.assertEq;
 
 import code.util.CustList;
 import org.junit.Test;
 
 import cards.president.enumerations.CardPresident;
-import code.util.EqList;
 import code.util.Ints;
 
 
-public class TrickPresidentTest {
+public class TrickPresidentTest extends EquallablePresidentUtil {
 
     @Test
     public void getPlayer1Test() {

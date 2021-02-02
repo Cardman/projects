@@ -9,8 +9,6 @@ import code.util.EnumList;
 import code.util.EnumMap;
 import org.junit.Test;
 
-import static org.junit.Assert.assertTrue;
-
 public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
     @Test
     public void hypothesesRepartitionsJoueurs1Test() {

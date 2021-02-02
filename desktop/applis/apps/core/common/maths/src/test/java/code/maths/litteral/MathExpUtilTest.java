@@ -1,13 +1,11 @@
 package code.maths.litteral;
 
+import code.maths.EquallableMathUtil;
 import code.util.StringList;
 import code.util.StringMap;
 import org.junit.Test;
 
-import static code.maths.EquallableMathUtil.assertEq;
-import static org.junit.Assert.assertTrue;
-
-public class MathExpUtilTest {
+public class MathExpUtilTest extends EquallableMathUtil {
     @Test
     public void getWordsSeparators1Test(){
         String string_ = ";./:";

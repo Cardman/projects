@@ -39,11 +39,7 @@ import code.util.*;
 import code.util.core.IndexConstants;
 import org.junit.Test;
 
-import static code.formathtml.EquallableExUtil.assertEq;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-
-public final class NativeSecondTest {
+public final class NativeSecondTest extends EquallableExUtil {
     @Test
     public void process1Test() {
         String locale_ = "en";

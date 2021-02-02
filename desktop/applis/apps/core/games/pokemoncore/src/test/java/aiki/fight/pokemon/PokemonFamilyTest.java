@@ -1,7 +1,6 @@
 package aiki.fight.pokemon;
-import static aiki.db.EquallablePkUtil.assertEq;
-import static org.junit.Assert.assertTrue;
 
+import aiki.db.EquallablePkUtil;
 import code.maths.montecarlo.DefaultGenerator;
 import code.util.*;
 import code.util.core.StringUtil;
@@ -19,7 +18,7 @@ import code.maths.LgInt;
 import code.maths.Rate;
 
 
-public class PokemonFamilyTest {
+public class PokemonFamilyTest extends EquallablePkUtil {
 
 //    @BeforeClass
 //    public static void initDataBase() {

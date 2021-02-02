@@ -1,6 +1,4 @@
 package cards.president;
-import static cards.president.EquallablePresidentUtil.assertEq;
-import static org.junit.Assert.assertTrue;
 
 import code.maths.montecarlo.DefaultGenerator;
 import org.junit.Test;
@@ -12,7 +10,7 @@ import cards.president.enumerations.Playing;
 import code.util.*;
 
 
-public class CheckerGamePresidentWithRulesTest {
+public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
 
     @Test
     public void check1Test() {

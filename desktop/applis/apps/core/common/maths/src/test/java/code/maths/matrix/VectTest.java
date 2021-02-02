@@ -1,12 +1,10 @@
 package code.maths.matrix;
 
+import code.maths.EquallableMathUtil;
 import code.maths.Rate;
 import org.junit.Test;
 
-import static code.maths.EquallableMathUtil.assertEq;
-import static org.junit.Assert.assertTrue;
-
-public class VectTest {
+public class VectTest extends EquallableMathUtil {
     @Test
     public void scaleTest() {
         Vect v_ = new Vect();

@@ -4,10 +4,7 @@ import code.maths.Rate;
 import code.util.*;
 import org.junit.Test;
 
-import static cards.consts.EquallableCardsUtil.assertEq;
-import static org.junit.Assert.*;
-
-public class CardsTest {
+public class CardsTest extends EquallableCardsUtil {
     @Test
     public void test() {
         ResultsGame r_ = new ResultsGame();

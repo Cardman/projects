@@ -4,11 +4,6 @@ import code.util.StringMap;
 import code.util.core.StringUtil;
 import org.junit.Test;
 
-import static code.formathtml.EquallableExUtil.assertEq;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-
 public final class RenderSubmitTest extends CommonRender {
 
     @Test

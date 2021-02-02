@@ -2,12 +2,7 @@ package code.sml;
 
 import org.junit.Test;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static code.sml.EquallableRowColUtil.assertEq;
-
-
-public class ReaderTest {
+public class ReaderTest extends EquallableRowColUtil {
 
     @Test
     public void parse1Test() {

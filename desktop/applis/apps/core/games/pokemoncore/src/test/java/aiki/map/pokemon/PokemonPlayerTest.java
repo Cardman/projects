@@ -1,6 +1,4 @@
 package aiki.map.pokemon;
-import static aiki.db.EquallablePkUtil.assertEq;
-import static org.junit.Assert.assertTrue;
 
 import code.maths.LgInt;
 import code.util.core.IndexConstants;

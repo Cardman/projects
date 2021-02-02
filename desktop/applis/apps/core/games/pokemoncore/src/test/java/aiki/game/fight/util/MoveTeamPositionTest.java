@@ -1,11 +1,10 @@
 package aiki.game.fight.util;
 
+import aiki.db.EquallablePkUtil;
 import aiki.game.fight.MoveTeamPosition;
 import org.junit.Test;
 
-import static org.junit.Assert.assertNotNull;
-
-public class MoveTeamPositionTest {
+public class MoveTeamPositionTest extends EquallablePkUtil {
     @Test
     public void new_MoveTeamPosition_1_Test() {
         MoveTeamPosition m_ = new MoveTeamPosition("");

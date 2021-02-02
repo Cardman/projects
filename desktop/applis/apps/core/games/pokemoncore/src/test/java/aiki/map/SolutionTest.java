@@ -1,7 +1,6 @@
 package aiki.map;
-import static aiki.db.EquallablePkUtil.assertEq;
-import static org.junit.Assert.assertTrue;
 
+import aiki.db.EquallablePkUtil;
 import code.util.core.StringUtil;
 import org.junit.Test;
 
@@ -38,7 +37,7 @@ import code.util.ObjectMap;
 import code.util.StringList;
 
 
-public class SolutionTest {
+public class SolutionTest extends EquallablePkUtil {
 
     private static final String VOIE = "voie";
 

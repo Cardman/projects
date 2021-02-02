@@ -8,12 +8,7 @@ import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.NullStruct;
 import code.util.CustList;
 import code.util.StringMap;
-import code.util.core.StringUtil;
 import org.junit.Test;
-
-import static code.expressionlanguage.EquallableElUtil.assertEq;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertSame;
 
 public final class ExpressionLanguageBisTest extends ProcessMethodCommon {
     @Test

@@ -28,9 +28,6 @@ import code.util.*;
 import code.util.core.StringUtil;
 import org.junit.Test;
 
-import static code.expressionlanguage.EquallableElUtil.assertEq;
-import static org.junit.Assert.*;
-
 
 public final class ClassesTest extends ProcessMethodCommon {
     @Test

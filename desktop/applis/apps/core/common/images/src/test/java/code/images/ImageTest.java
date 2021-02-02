@@ -1,6 +1,4 @@
 package code.images;
-import static code.images.EquallableImageUtil.assertEq;
-import static org.junit.Assert.assertTrue;
 
 import code.util.core.StringUtil;
 import org.junit.Test;
@@ -8,7 +6,7 @@ import org.junit.Test;
 import code.util.StringList;
 
 
-public class ImageTest {
+public class ImageTest extends EquallableImageUtil {
 
     @Test
     public void newImage1Test() {

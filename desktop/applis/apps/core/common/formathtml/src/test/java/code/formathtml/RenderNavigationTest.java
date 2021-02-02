@@ -8,9 +8,6 @@ import code.formathtml.util.*;
 import code.util.*;
 import org.junit.Test;
 
-import static code.formathtml.EquallableExUtil.assertEq;
-import static org.junit.Assert.*;
-
 public final class RenderNavigationTest extends CommonRender {
     private static final String CUST_ITER_PATH = "pkg/CustIter";
     private static final String CUST_ITER_TABLE_PATH = "pkg/CustIterTable";

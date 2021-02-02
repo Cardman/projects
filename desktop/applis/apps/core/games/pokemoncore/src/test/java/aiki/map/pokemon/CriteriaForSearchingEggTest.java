@@ -1,5 +1,4 @@
 package aiki.map.pokemon;
-import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 

@@ -1,14 +1,11 @@
 package code.util;
-import static code.util.EquallableExUtil.assertEq;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
 
 import code.util.core.*;
 import org.junit.Test;
 
 
 
-public class StringListTest {
+public class StringListTest extends EquallableExUtil {
     @Test
     public void sub1Test(){
         StringList s_ = new StringList(new CollCapacity(0));

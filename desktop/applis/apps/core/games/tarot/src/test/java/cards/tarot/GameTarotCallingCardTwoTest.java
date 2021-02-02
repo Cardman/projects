@@ -1,7 +1,4 @@
 package cards.tarot;
-import static cards.tarot.EquallableTarotUtil.assertEq;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
 
 import code.util.CustList;
 import org.junit.Test;
@@ -12,7 +9,6 @@ import cards.tarot.enumerations.BidTarot;
 import cards.tarot.enumerations.CardTarot;
 import cards.tarot.enumerations.DealingTarot;
 import code.util.EnumMap;
-import code.util.EqList;
 
 public class GameTarotCallingCardTwoTest extends CommonTarotGame {
     private GameTarot game;

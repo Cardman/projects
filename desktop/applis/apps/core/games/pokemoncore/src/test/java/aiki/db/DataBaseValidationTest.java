@@ -32,9 +32,6 @@ import code.util.*;
 import code.util.core.StringUtil;
 import org.junit.Test;
 
-import static aiki.db.EquallablePkUtil.assertEq;
-import static org.junit.Assert.assertTrue;
-
 public final class DataBaseValidationTest extends DataBaseValidationCommon {
     private static final String TAB = "\t";
     private static final String MOVE_FORMULA = "move";

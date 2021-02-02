@@ -1,7 +1,6 @@
 package aiki.map;
-import static aiki.db.EquallablePkUtil.assertEq;
-import static org.junit.Assert.assertTrue;
 
+import aiki.db.EquallablePkUtil;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -26,7 +25,7 @@ import code.util.CustList;
 import code.util.*;
 import code.util.ObjectMap;
 
-public class DataMapJoiningTest {
+public class DataMapJoiningTest extends EquallablePkUtil {
 
     private static final String VOIE = "voie";
     private DataMap dataMap;

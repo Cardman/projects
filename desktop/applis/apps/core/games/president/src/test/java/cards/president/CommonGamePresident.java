@@ -4,9 +4,7 @@ import cards.consts.GameType;
 import cards.president.enumerations.CardPresident;
 import code.util.*;
 
-import static org.junit.Assert.fail;
-
-public abstract class CommonGamePresident {
+public abstract class CommonGamePresident extends EquallablePresidentUtil {
     protected static GamePresidentBegin newGamePresidentBegin(GamePresident _g) {
         HandPresident playable_ = _g.cartesJouables(_g.getProgressingTrick().getEntameur());
         return new GamePresidentBegin(_g.getProgressingTrick(),_g.getTricks(),_g.isReversed(),_g.getRules(),playable_);

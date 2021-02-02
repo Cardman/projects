@@ -12,9 +12,6 @@ import code.util.*;
 import code.util.core.StringUtil;
 import org.junit.Test;
 
-import static code.expressionlanguage.EquallableElUtil.assertEq;
-import static org.junit.Assert.*;
-
 
 public final class FileResolverTest extends ProcessMethodCommon {
     @Test
@@ -4972,10 +4969,6 @@ public final class FileResolverTest extends ProcessMethodCommon {
         Block child_ = cl_.getFirstChild();
         assertTrue(child_ instanceof AnnotationMethodBlock);
         AnnotationMethodBlock method_ = (AnnotationMethodBlock) child_;
-        assertTrue(!false);
-        assertTrue(!false);
-        assertTrue(true);
-        assertTrue(!false);
         assertEq(0, method_.getAnnotations().size());
         assertEq(0, method_.getAnnotationsIndexes().size());
         assertSame(AccessEnum.PUBLIC, method_.getAccess());
@@ -5013,10 +5006,6 @@ public final class FileResolverTest extends ProcessMethodCommon {
         Block child_ = cl_.getFirstChild();
         assertTrue(child_ instanceof AnnotationMethodBlock);
         AnnotationMethodBlock method_ = (AnnotationMethodBlock) child_;
-        assertTrue(!false);
-        assertTrue(!false);
-        assertTrue(true);
-        assertTrue(!false);
         assertEq(0, method_.getAnnotations().size());
         assertEq(0, method_.getAnnotationsIndexes().size());
         assertSame(AccessEnum.PUBLIC, method_.getAccess());
@@ -5056,10 +5045,6 @@ public final class FileResolverTest extends ProcessMethodCommon {
         Block child_ = cl_.getFirstChild();
         assertTrue(child_ instanceof AnnotationMethodBlock);
         AnnotationMethodBlock method_ = (AnnotationMethodBlock) child_;
-        assertTrue(!false);
-        assertTrue(!false);
-        assertTrue(true);
-        assertTrue(!false);
         assertSame(AccessEnum.PUBLIC, method_.getAccess());
         assertEq("exmethod", method_.getName());
         assertEq(95, method_.getNameOffset());
@@ -5099,10 +5084,6 @@ public final class FileResolverTest extends ProcessMethodCommon {
         Block child_ = cl_.getFirstChild();
         assertTrue(child_ instanceof AnnotationMethodBlock);
         AnnotationMethodBlock method_ = (AnnotationMethodBlock) child_;
-        assertTrue(!false);
-        assertTrue(!false);
-        assertTrue(true);
-        assertTrue(!false);
         assertEq(0, method_.getAnnotations().size());
         assertEq(0, method_.getAnnotationsIndexes().size());
         assertSame(AccessEnum.PUBLIC, method_.getAccess());
@@ -5142,10 +5123,6 @@ public final class FileResolverTest extends ProcessMethodCommon {
         Block child_ = cl_.getFirstChild();
         assertTrue(child_ instanceof AnnotationMethodBlock);
         AnnotationMethodBlock method_ = (AnnotationMethodBlock) child_;
-        assertTrue(!false);
-        assertTrue(!false);
-        assertTrue(true);
-        assertTrue(!false);
         assertEq(0, method_.getAnnotations().size());
         assertEq(0, method_.getAnnotationsIndexes().size());
         assertSame(AccessEnum.PUBLIC, method_.getAccess());
@@ -9916,7 +9893,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         }
         return cont_;
     }
-    private CustList<OperatorBlock> getOperators(AnalyzedTestContext _context) {
+    private static CustList<OperatorBlock> getOperators(AnalyzedTestContext _context) {
         return _context.getAnalyzing().getAllOperators();
     }
 

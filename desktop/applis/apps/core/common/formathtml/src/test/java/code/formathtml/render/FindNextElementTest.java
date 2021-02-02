@@ -1,20 +1,17 @@
 package code.formathtml.render;
 
-import static code.formathtml.EquallableExUtil.assertEq;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
 
+import code.formathtml.EquallableExUtil;
 import code.formathtml.errors.RendKeyWords;
 import code.util.CustList;
 import org.junit.Test;
 
 import code.sml.DocumentBuilder;
 import code.sml.DocumentResult;
-import code.util.EqList;
 import code.util.IdMap;
 
 
-public final class FindNextElementTest {
+public final class FindNextElementTest extends EquallableExUtil {
 
     @Test
     public void next1Test() {

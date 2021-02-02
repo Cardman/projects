@@ -1,13 +1,11 @@
 package code.maths.litteral;
 
+import code.maths.EquallableMathUtil;
 import code.maths.Rate;
 import code.util.StringMap;
 import org.junit.Test;
 
-import static code.maths.EquallableMathUtil.assertEq;
-import static org.junit.Assert.assertTrue;
-
-public class EvolvedMathFactoryTest {
+public class EvolvedMathFactoryTest extends EquallableMathUtil {
 
     @Test
     public void getFunctionsTest() {

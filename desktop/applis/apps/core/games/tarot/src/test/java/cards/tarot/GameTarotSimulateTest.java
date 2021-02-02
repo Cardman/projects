@@ -10,10 +10,7 @@ import code.maths.montecarlo.DefaultGenerator;
 import code.util.CustList;
 import org.junit.Test;
 
-import static cards.tarot.EquallableTarotUtil.assertEq;
-import static org.junit.Assert.*;
-
-public final class GameTarotSimulateTest {
+public final class GameTarotSimulateTest extends EquallableTarotUtil {
     @Test
     public void bidSimulate1Test() {
         RulesTarot rules_ = new RulesTarot();

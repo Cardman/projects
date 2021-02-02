@@ -6,8 +6,6 @@ import code.util.*;
 import code.util.core.IndexConstants;
 import org.junit.Test;
 
-import static cards.tarot.EquallableTarotUtil.assertEq;
-
 public final class EndTarotGameOtherTest extends CommonGameTarot {
 
     @Test

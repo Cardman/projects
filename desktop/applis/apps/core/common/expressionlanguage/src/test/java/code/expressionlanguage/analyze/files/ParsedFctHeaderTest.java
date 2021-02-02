@@ -1,11 +1,9 @@
 package code.expressionlanguage.analyze.files;
 
+import code.expressionlanguage.EquallableElUtil;
 import org.junit.Test;
 
-import static code.expressionlanguage.EquallableElUtil.assertEq;
-import static org.junit.Assert.assertTrue;
-
-public final class ParsedFctHeaderTest {
+public final class ParsedFctHeaderTest extends EquallableElUtil {
     @Test
     public void test() {
         ParsedFctHeader p_ = new ParsedFctHeader();

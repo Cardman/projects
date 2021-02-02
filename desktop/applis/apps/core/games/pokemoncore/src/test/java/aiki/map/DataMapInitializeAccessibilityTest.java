@@ -1,7 +1,6 @@
 package aiki.map;
-import static aiki.db.EquallablePkUtil.assertEq;
-import static org.junit.Assert.assertTrue;
 
+import aiki.db.EquallablePkUtil;
 import aiki.game.fight.InitializationDataBase;
 import org.junit.Test;
 
@@ -39,7 +38,7 @@ import code.util.*;
 import code.util.ObjectMap;
 import code.util.StringList;
 
-public class DataMapInitializeAccessibilityTest {
+public class DataMapInitializeAccessibilityTest extends EquallablePkUtil {
 
     private static final String LINK = "link";
     private static final String VOIE = "voie";

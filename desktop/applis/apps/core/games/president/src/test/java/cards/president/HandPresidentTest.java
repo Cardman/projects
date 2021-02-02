@@ -1,7 +1,4 @@
 package cards.president;
-import static cards.president.EquallablePresidentUtil.assertEq;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertSame;
 
 import cards.consts.CardChar;
 import cards.consts.Suit;
@@ -11,7 +8,7 @@ import org.junit.Test;
 import cards.president.enumerations.CardPresident;
 
 
-public class HandPresidentTest {
+public class HandPresidentTest extends EquallablePresidentUtil {
 
     @Test
     public void sortCards1Test() {

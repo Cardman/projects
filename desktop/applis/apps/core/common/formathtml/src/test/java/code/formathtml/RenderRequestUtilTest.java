@@ -11,9 +11,6 @@ import code.formathtml.util.NodeContainer;
 import code.util.StringMap;
 import org.junit.Test;
 
-import static code.formathtml.EquallableExUtil.assertEq;
-import static org.junit.Assert.assertNotNull;
-
 public final class RenderRequestUtilTest extends CommonRender {
 
     @Test

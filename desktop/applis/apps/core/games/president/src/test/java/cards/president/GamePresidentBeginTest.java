@@ -3,13 +3,8 @@ package cards.president;
 import cards.president.enumerations.CardPresident;
 import code.util.ByteTreeMap;
 import code.util.CustList;
-import code.util.EqList;
 import code.util.TreeMap;
 import org.junit.Test;
-
-import static cards.president.EquallablePresidentUtil.assertEq;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
 
 public final class GamePresidentBeginTest extends CommonGamePresident {
     @Test

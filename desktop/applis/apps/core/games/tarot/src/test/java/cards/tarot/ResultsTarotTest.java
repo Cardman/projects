@@ -7,10 +7,6 @@ import code.maths.Rate;
 import code.util.*;
 import org.junit.Test;
 
-import static cards.tarot.EquallableTarotUtil.assertEq;
-import static org.junit.Assert.*;
-import static org.junit.Assert.fail;
-
 public final class ResultsTarotTest extends CommonGameTarot {
     @Test
     public void hasToCalculateScores1Test() {

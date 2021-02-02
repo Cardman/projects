@@ -19,10 +19,6 @@ import aiki.util.Point;
 import org.junit.Before;
 import org.junit.Test;
 
-import static aiki.db.EquallablePkUtil.assertEq;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-
 public final class FacadeGameFightKoTwoTest extends InitializationDataBase {
 
     private DataBase data;

@@ -14,9 +14,6 @@ import code.expressionlanguage.exec.variables.LocalVariable;
 import code.util.StringMap;
 import org.junit.Test;
 
-import static code.expressionlanguage.EquallableElUtil.assertEq;
-import static org.junit.Assert.*;
-
 public final class ExpressionLanguageTest extends ProcessMethodCommon {
 
     private static final String ARR_INT = "[$int";

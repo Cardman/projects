@@ -4,9 +4,6 @@ import code.expressionlanguage.methods.ProcessMethodCommon;
 import code.util.StringList;
 import org.junit.Test;
 
-import static code.expressionlanguage.EquallableElUtil.assertEq;
-import static org.junit.Assert.assertTrue;
-
 public final class StringExpUtilTwoTest extends ProcessMethodCommon {
     @Test
     public void toLower1() {

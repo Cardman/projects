@@ -1,11 +1,8 @@
 package code.maths;
-import static code.maths.EquallableMathUtil.assertEq;
-import static org.junit.Assert.assertNotSame;
-import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-public class ComplexTest {
+public class ComplexTest extends EquallableMathUtil {
     @Test
     public void new_Complex_1test() {
         Complex c_ = new Complex();

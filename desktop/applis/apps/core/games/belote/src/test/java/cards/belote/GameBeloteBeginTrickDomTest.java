@@ -6,11 +6,7 @@ import cards.belote.enumerations.DealingBelote;
 import cards.consts.Status;
 import cards.consts.Suit;
 import code.util.CustList;
-import code.util.EqList;
 import org.junit.Test;
-
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
 
 public final class GameBeloteBeginTrickDomTest extends CommonGameBelote {
     @Test

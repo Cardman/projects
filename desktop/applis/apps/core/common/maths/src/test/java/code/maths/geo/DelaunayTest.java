@@ -1,7 +1,6 @@
 package code.maths.geo;
-import static code.maths.EquallableMathUtil.assertEq;
-import static org.junit.Assert.assertSame;
 
+import code.maths.EquallableMathUtil;
 import org.junit.Test;
 
 import code.util.EqList;
@@ -9,7 +8,7 @@ import code.util.IdList;
 import code.util.IdMap;
 
 
-public class DelaunayTest {
+public class DelaunayTest extends EquallableMathUtil {
 
     @Test
     public void addTest() {

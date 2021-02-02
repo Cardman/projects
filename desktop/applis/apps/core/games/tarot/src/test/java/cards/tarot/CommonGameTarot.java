@@ -8,9 +8,7 @@ import code.util.*;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 
-import static org.junit.Assert.fail;
-
-public abstract class CommonGameTarot {
+public abstract class CommonGameTarot extends EquallableTarotUtil {
     protected static GameTarot newGameTarotWithourDecl(HandTarot _currentHand,RulesTarot _r, CustList<TrickTarot> _trs, TrickTarot _prog,
                                                        int _dealer,
                                                        EnumList<BidTarot> _bids, HandTarot _calledCards, int _call, HandTarot _lastHand) {

@@ -2,9 +2,7 @@ package code.sml;
 
 import org.junit.Test;
 
-import static code.sml.EquallableRowColUtil.assertEq;
-
-public class ExportTextTest {
+public class ExportTextTest extends EquallableRowColUtil {
 
     @Test
     public void getTextContent1Test() {

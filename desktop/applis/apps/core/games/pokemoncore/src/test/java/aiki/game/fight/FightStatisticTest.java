@@ -1,5 +1,4 @@
 package aiki.game.fight;
-import static aiki.db.EquallablePkUtil.assertEq;
 
 import aiki.db.DataBase;
 import org.junit.Before;

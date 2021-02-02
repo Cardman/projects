@@ -1,7 +1,7 @@
 package cards.tarot;
 import cards.tarot.enumerations.BidTarot;
 
-public class CommonTarotGame {
+public class CommonTarotGame extends EquallableTarotUtil {
 
     static void bidding(BidTarot _bid, byte _taker, GameTarot _game) {
         byte player_ = _game.playerAfter(_game.getDistribution().getDealer());

@@ -14,9 +14,6 @@ import aiki.map.pokemon.enums.Gender;
 import org.junit.Before;
 import org.junit.Test;
 
-import static aiki.db.EquallablePkUtil.assertEq;
-import static org.junit.Assert.assertTrue;
-
 public final class FacadeGamePokemonPlayerTest extends InitializationDataBase {
 
     private DataBase data;

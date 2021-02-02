@@ -1,7 +1,4 @@
 package code.maths;
-import static code.maths.EquallableMathUtil.assertEq;
-import static org.junit.Assert.assertNotSame;
-import static org.junit.Assert.assertTrue;
 
 import code.util.EqList;
 import code.util.*;
@@ -10,7 +7,7 @@ import code.util.TreeMap;
 import org.junit.Test;
 
 
-public class LgIntTest {
+public class LgIntTest extends EquallableMathUtil {
     @Test
     public void base1(){
         assertEq(1000000000, LgInt.base());

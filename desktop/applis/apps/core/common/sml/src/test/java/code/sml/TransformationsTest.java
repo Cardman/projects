@@ -3,10 +3,9 @@ package code.sml;
 import code.sml.util.ResourcesMessagesUtil;
 import code.util.CharList;
 import org.junit.Test;
-import static code.sml.EquallableRowColUtil.assertEq;
 
 
-public class TransformationsTest {
+public class TransformationsTest extends EquallableRowColUtil {
 
     @Test
     public void encodeHtml1Test() {

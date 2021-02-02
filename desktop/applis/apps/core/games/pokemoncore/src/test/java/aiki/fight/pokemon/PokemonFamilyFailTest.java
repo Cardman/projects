@@ -1,6 +1,6 @@
 package aiki.fight.pokemon;
-import static org.junit.Assert.assertTrue;
 
+import aiki.db.EquallablePkUtil;
 import code.maths.montecarlo.DefaultGenerator;
 import org.junit.Test;
 
@@ -20,7 +20,7 @@ import code.util.StringList;
 import code.util.StringMap;
 
 
-public class PokemonFamilyFailTest {
+public class PokemonFamilyFailTest extends EquallablePkUtil {
 
     public static PokemonData dataBase1(String _base) {
         PokemonData pk_ = new PokemonData();

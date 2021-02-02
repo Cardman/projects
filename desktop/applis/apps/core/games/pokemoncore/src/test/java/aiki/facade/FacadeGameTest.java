@@ -1,5 +1,4 @@
 package aiki.facade;
-import static aiki.db.EquallablePkUtil.assertEq;
 
 import code.util.core.IndexConstants;
 import org.junit.Test;

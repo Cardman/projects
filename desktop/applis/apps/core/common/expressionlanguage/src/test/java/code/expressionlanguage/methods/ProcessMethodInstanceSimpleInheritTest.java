@@ -10,9 +10,6 @@ import code.util.CustList;
 import code.util.StringMap;
 import org.junit.Test;
 
-import static code.expressionlanguage.EquallableElUtil.assertEq;
-import static org.junit.Assert.assertTrue;
-
 
 public final class ProcessMethodInstanceSimpleInheritTest extends ProcessMethodCommon {
     @Test

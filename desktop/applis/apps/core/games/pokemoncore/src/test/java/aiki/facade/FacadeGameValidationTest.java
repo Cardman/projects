@@ -12,8 +12,6 @@ import aiki.util.Point;
 import org.junit.Before;
 import org.junit.Test;
 
-import static aiki.db.EquallablePkUtil.assertEq;
-import static org.junit.Assert.*;
 public final class FacadeGameValidationTest extends InitializationDataBase {
 
     private DataBase data;

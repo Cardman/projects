@@ -3,10 +3,7 @@ package code.sml;
 import code.util.StringMap;
 import org.junit.Test;
 
-import static code.sml.EquallableRowColUtil.assertEq;
-import static org.junit.Assert.assertTrue;
-
-public final class MessagesFomContentTest {
+public final class MessagesFomContentTest extends EquallableRowColUtil {
     @Test
     public void getMessagesFromContent1Test() {
         StringMap<String> map_ = DocumentBuilder.getMessagesFromContent("");

@@ -1,12 +1,10 @@
 package code.maths.geo;
 
+import code.maths.EquallableMathUtil;
 import code.maths.Rate;
 import org.junit.Test;
 
-import static code.maths.EquallableMathUtil.assertEq;
-import static org.junit.Assert.assertTrue;
-
-public class VectThreeDimsTest {
+public class VectThreeDimsTest extends EquallableMathUtil {
     @Test
     public void eq1Test() {
         VectThreeDims vOne_ =new VectThreeDims();

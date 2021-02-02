@@ -1,6 +1,4 @@
 package code.maths;
-import static code.maths.EquallableMathUtil.assertEq;
-import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
@@ -9,7 +7,7 @@ import java.math.MathContext;
 import java.math.RoundingMode;
 
 
-public class BigDecTest {
+public class BigDecTest extends EquallableMathUtil {
 
     @Test
     public void new_BigDec_1Test() {

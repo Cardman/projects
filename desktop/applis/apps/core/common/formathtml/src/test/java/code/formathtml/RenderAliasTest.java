@@ -3,10 +3,6 @@ package code.formathtml;
 import code.util.StringMap;
 import org.junit.Test;
 
-import static code.formathtml.EquallableExUtil.assertEq;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-
 public final class RenderAliasTest extends CommonRender {
     @Test
     public void process1Test() {

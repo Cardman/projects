@@ -11,9 +11,6 @@ import code.util.EnumList;
 import code.util.core.IndexConstants;
 import org.junit.Test;
 
-import static cards.tarot.EquallableTarotUtil.assertEq;
-import static org.junit.Assert.assertTrue;
-
 public final class GameTarotTeamsRelationTest extends CommonGameTarot {
     @Test
     public void teams1Test() {

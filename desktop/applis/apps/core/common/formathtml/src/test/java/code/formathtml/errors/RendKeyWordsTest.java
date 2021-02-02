@@ -14,10 +14,7 @@ import code.util.StringMap;
 import org.junit.Test;
 
 
-import static code.formathtml.EquallableExUtil.assertEq;
-import static org.junit.Assert.assertTrue;
-
-public final class RendKeyWordsTest {
+public final class RendKeyWordsTest extends EquallableExUtil {
 
     @Test
     public void fail1() {

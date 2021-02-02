@@ -1,8 +1,6 @@
 package aiki.map.levels;
-import static aiki.db.EquallablePkUtil.assertEq;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
 
+import aiki.db.EquallablePkUtil;
 import org.junit.Test;
 
 import aiki.map.characters.GymTrainer;
@@ -13,7 +11,7 @@ import aiki.util.Point;
 import code.util.ObjectMap;
 
 
-public class LevelIndoorGymTest {
+public class LevelIndoorGymTest extends EquallablePkUtil {
 
     @Test
     public void limits1Test() {

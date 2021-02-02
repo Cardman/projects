@@ -1,13 +1,13 @@
 package code.maths.geo;
-import static code.maths.EquallableMathUtil.assertEq;
 
+import code.maths.EquallableMathUtil;
 import org.junit.Test;
 
 import code.util.EqList;
 import code.util.IdList;
 
 
-public class DelaunayThreeDimsTest {
+public class DelaunayThreeDimsTest extends EquallableMathUtil {
 
     @Test
     public void compute0Test() {

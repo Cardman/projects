@@ -4,13 +4,8 @@ import code.util.classestest.MyEnum;
 import code.util.core.BoolVal;
 import org.junit.Test;
 
-import static code.util.EquallableExUtil.assertEq;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
 
-
-public class ListTest {
+public class ListTest extends EquallableExUtil {
 
     @Test
     public void getGroupsSameCompare1Test() {

@@ -1,5 +1,4 @@
 package cards.belote;
-import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
@@ -7,7 +6,7 @@ import cards.belote.enumerations.BidBelote;
 import code.util.EnumList;
 
 
-public class BidBeloteTest {
+public class BidBeloteTest extends EquallableBeloteUtil {
 
     @Test
     public void getAlwaysUsableBids_alwaysUsableBids1Test() {

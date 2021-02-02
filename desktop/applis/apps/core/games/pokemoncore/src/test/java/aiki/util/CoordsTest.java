@@ -1,13 +1,11 @@
 package aiki.util;
-import static aiki.db.EquallablePkUtil.assertEq;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
 
+import aiki.db.EquallablePkUtil;
 import code.util.core.StringUtil;
 import org.junit.Test;
 
 
-public class CoordsTest {
+public class CoordsTest extends EquallablePkUtil {
 
     @Test
     public void isValid1Test() {

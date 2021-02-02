@@ -3,13 +3,7 @@ package code.sml;
 import code.util.core.SortConstants;
 import org.junit.Test;
 
-import static code.sml.EquallableRowColUtil.assertEq;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertSame;
-
-public class DocReqTest {
+public class DocReqTest extends EquallableRowColUtil {
 
     @Test
     public void getElementById1Test() {

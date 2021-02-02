@@ -1,14 +1,12 @@
 package aiki.util;
 
 import aiki.comments.Comment;
+import aiki.db.EquallablePkUtil;
 import aiki.game.fight.enums.IssueSimulation;
 import code.maths.montecarlo.MonteCarloNumber;
 import org.junit.Test;
 
-import static aiki.db.EquallablePkUtil.assertEq;
-import static org.junit.Assert.assertTrue;
-
-public class LawNumberTest {
+public class LawNumberTest extends EquallablePkUtil {
     @Test
     public void test() {
         assertEq("",new Comment().join());

@@ -4,11 +4,6 @@ import code.expressionlanguage.structs.Struct;
 import code.util.StringMap;
 import org.junit.Test;
 
-import static code.formathtml.EquallableExUtil.assertEq;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-
 public final class RenderForEachLoopTest extends CommonRender {
     private static final String CUST_ITER_PATH = "pkg/CustIter";
     private static final String CUST_LIST_PATH = "pkg/CustList";

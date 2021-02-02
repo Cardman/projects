@@ -15,9 +15,6 @@ import code.util.StringList;
 import code.util.StringMap;
 import org.junit.Test;
 
-import static code.formathtml.EquallableExUtil.assertEq;
-import static org.junit.Assert.*;
-
 public final class SubmitFormTest extends CommonRender {
     private static final String CUST_ITER_PATH = "pkg/CustIter";
     private static final String CUST_ITER_TABLE_PATH = "pkg/CustIterTable";

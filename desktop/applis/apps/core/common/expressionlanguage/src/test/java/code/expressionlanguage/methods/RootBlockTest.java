@@ -16,9 +16,6 @@ import code.util.*;
 import code.util.core.StringUtil;
 import org.junit.Test;
 
-import static code.expressionlanguage.EquallableElUtil.assertEq;
-import static org.junit.Assert.assertTrue;
-
 
 public final class RootBlockTest extends ProcessMethodCommon {
 
@@ -102,7 +99,7 @@ public final class RootBlockTest extends ProcessMethodCommon {
         assertEq("pkg.Ex<java.lang.String>", superTypes_.last());
     }
 
-    public StringList getAllGenericSuperTypes(AnalyzedTestContext _cont, String _className) {
+    public static StringList getAllGenericSuperTypes(AnalyzedTestContext _cont, String _className) {
         CustList<AnaFormattedRootBlock> allGenericSuperTypes_ = getClassBody(_cont, _className).fetchAllGenericSuperTypes();
         StringList l_ = new StringList();
         for (AnaFormattedRootBlock a: allGenericSuperTypes_) {
@@ -1750,7 +1747,7 @@ public final class RootBlockTest extends ProcessMethodCommon {
         assertTrue( isEmptyErrors(_cont));
     }
 
-    private boolean failOverridesValue(StringMap<String> _files) {
+    private static boolean failOverridesValue(StringMap<String> _files) {
         return checkErrorsValue(_files);
     }
 

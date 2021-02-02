@@ -1,13 +1,11 @@
 package code.util.comparators;
 
+import code.util.EquallableExUtil;
 import code.util.IdList;
 import code.util.classestest.MyEnum;
 import org.junit.Test;
 
-import static code.util.EquallableExUtil.assertEq;
-import static org.junit.Assert.assertSame;
-
-public final class ComparatorIndexesTest {
+public final class ComparatorIndexesTest extends EquallableExUtil {
     @Test
     public void sort() {
         IdList<MyEnum> id_ = new IdList<MyEnum>();

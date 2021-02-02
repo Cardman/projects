@@ -1,11 +1,11 @@
 package aiki.util;
-import static aiki.db.EquallablePkUtil.assertEq;
 
+import aiki.db.EquallablePkUtil;
 import code.util.core.StringUtil;
 import org.junit.Test;
 
 
-public class LevelPointTest {
+public class LevelPointTest extends EquallablePkUtil {
 
     @Test
     public void new_LevelPoint_String_1Test() {

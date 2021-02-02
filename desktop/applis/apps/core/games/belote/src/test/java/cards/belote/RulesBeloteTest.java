@@ -1,7 +1,4 @@
 package cards.belote;
-import static cards.belote.EquallableBeloteUtil.assertEq;
-import static org.junit.Assert.assertNotSame;
-import static org.junit.Assert.assertTrue;
 
 import cards.belote.enumerations.BidBelote;
 import cards.belote.enumerations.DeclaresBelote;
@@ -11,7 +8,7 @@ import org.junit.Test;
 import cards.belote.enumerations.DealingBelote;
 
 
-public class RulesBeloteTest {
+public class RulesBeloteTest extends EquallableBeloteUtil {
 
     @Test
     public void isValidRules_defaultRules1Test() {

@@ -6,9 +6,6 @@ import code.expressionlanguage.structs.NumberStruct;
 import code.util.StringMap;
 import org.junit.Test;
 
-import static code.expressionlanguage.EquallableElUtil.assertEq;
-import static org.junit.Assert.assertTrue;
-
 public final class ClassesBisTest extends ProcessMethodCommon {
     @Test
     public void calculate0FailTest() {

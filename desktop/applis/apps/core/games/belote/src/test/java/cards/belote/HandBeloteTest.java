@@ -1,8 +1,4 @@
 package cards.belote;
-import static cards.belote.EquallableBeloteUtil.assertEq;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNotSame;
-import static org.junit.Assert.assertTrue;
 
 import code.util.core.IndexConstants;
 import org.junit.Test;
@@ -18,7 +14,7 @@ import code.util.EnumList;
 import code.util.EnumMap;
 
 
-public class HandBeloteTest {
+public class HandBeloteTest extends EquallableBeloteUtil {
     @Test
     public void pileBase1(){
         HandBelote main_ = HandBelote.pileBase();

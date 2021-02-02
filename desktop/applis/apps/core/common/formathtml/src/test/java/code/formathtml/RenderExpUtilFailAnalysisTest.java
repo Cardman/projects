@@ -9,8 +9,6 @@ import code.formathtml.analyze.AnalyzingDoc;
 import code.util.StringMap;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
-
 public final class RenderExpUtilFailAnalysisTest extends CommonRender {
     private static final String ARR_INT = "[$int";
     @Test

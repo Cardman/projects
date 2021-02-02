@@ -2,14 +2,10 @@ package code.sml;
 
 import code.util.Ints;
 import code.util.*;
-import code.util.*;
 import code.util.StringMap;
 import org.junit.Test;
 
-import static code.sml.EquallableRowColUtil.assertEq;
-
-
-public class IndexesTest {
+public class IndexesTest extends EquallableRowColUtil {
 
 
     @Test

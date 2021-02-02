@@ -5,10 +5,7 @@ import cards.tarot.enumerations.CardTarot;
 import code.util.EnumMap;
 import org.junit.Test;
 
-import static cards.tarot.EquallableTarotUtil.assertEq;
-import static org.junit.Assert.assertTrue;
-
-public final class GameTarotCommonTest {
+public final class GameTarotCommonTest extends EquallableTarotUtil {
     @Test
     public void cartesMaitresses1Test() {
         HandTarot handSuit_ = new HandTarot();

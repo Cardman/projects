@@ -1,10 +1,9 @@
 package code.maths.geo;
 
+import code.maths.EquallableMathUtil;
 import org.junit.Test;
 
-import static org.junit.Assert.assertNotNull;
-
-public class TriangleThreeDimsTest {
+public class TriangleThreeDimsTest extends EquallableMathUtil {
     @Test
     public void getCircumCenter1Test() {
         CustPointThreeDims one_ = new CustPointThreeDims();

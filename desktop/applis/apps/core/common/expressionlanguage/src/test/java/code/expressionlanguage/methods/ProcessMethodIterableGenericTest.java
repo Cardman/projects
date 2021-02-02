@@ -10,9 +10,6 @@ import code.util.CustList;
 import code.util.StringMap;
 import org.junit.Test;
 
-import static code.expressionlanguage.EquallableElUtil.assertEq;
-import static org.junit.Assert.*;
-
 
 public final class ProcessMethodIterableGenericTest extends ProcessMethodCommon {
     private static final String CUST_ITER_PATH = "pkg/CustIter";

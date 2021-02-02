@@ -8,10 +8,6 @@ import code.util.CustList;
 import code.util.EnumList;
 import org.junit.Test;
 
-import static org.junit.Assert.assertTrue;
-
-import static cards.tarot.EquallableTarotUtil.assertEq;
-
 public final class GameTarotDeclaringTest extends CommonGameTarot {
     @Test
     public void strategieAnnoncesMiseres1Test() {

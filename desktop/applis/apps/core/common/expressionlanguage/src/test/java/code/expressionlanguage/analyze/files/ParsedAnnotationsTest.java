@@ -1,10 +1,9 @@
 package code.expressionlanguage.analyze.files;
 
+import code.expressionlanguage.EquallableElUtil;
 import org.junit.Test;
 
-import static code.expressionlanguage.EquallableElUtil.assertEq;
-
-public final class ParsedAnnotationsTest {
+public final class ParsedAnnotationsTest extends EquallableElUtil {
 
     @Test
     public void parse1Test() {

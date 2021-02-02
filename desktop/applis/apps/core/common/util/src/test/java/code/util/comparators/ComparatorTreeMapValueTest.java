@@ -1,13 +1,11 @@
 package code.util.comparators;
 
+import code.util.EquallableExUtil;
 import code.util.StringList;
-import code.util.StringMap;
 import code.util.TreeMap;
 import org.junit.Test;
 
-import static code.util.EquallableExUtil.assertEq;
-
-public final class ComparatorTreeMapValueTest {
+public final class ComparatorTreeMapValueTest  extends EquallableExUtil {
     @Test
     public void sortTest() {
         TreeMap<String,Integer> map_ = new TreeMap<String,Integer>(new NaturalComparator());

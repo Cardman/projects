@@ -11,7 +11,7 @@ import code.maths.LgInt;
 import code.maths.Rate;
 import code.maths.montecarlo.MonteCarloNumber;
 
-public abstract class DataBaseValidationCommon {
+public abstract class DataBaseValidationCommon extends EquallablePkUtil {
     protected static final String LANGUAGE = "en";
     protected static final String NULL_REF = DataBase.EMPTY_STRING;
     protected static final String PIKACHU = "PIKACHU";

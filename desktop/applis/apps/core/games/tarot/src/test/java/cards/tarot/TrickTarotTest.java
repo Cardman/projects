@@ -1,6 +1,4 @@
 package cards.tarot;
-import static cards.tarot.EquallableTarotUtil.assertEq;
-import static org.junit.Assert.assertTrue;
 
 import cards.tarot.enumerations.DealingTarot;
 import org.junit.Test;
@@ -10,7 +8,7 @@ import cards.tarot.enumerations.CardTarot;
 import code.util.*;
 
 
-public class TrickTarotTest {
+public class TrickTarotTest extends EquallableTarotUtil {
     @Test
     public void new_PliTarot_Test(){
         TrickTarot pli_ = new TrickTarot();

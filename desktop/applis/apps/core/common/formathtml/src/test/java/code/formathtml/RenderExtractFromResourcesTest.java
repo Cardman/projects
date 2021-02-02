@@ -4,9 +4,7 @@ import code.formathtml.analyze.blocks.AnaRendBlock;
 import code.util.StringMap;
 import org.junit.Test;
 
-import static code.formathtml.EquallableExUtil.assertEq;
-
-public final class RenderExtractFromResourcesTest {
+public final class RenderExtractFromResourcesTest extends EquallableExUtil {
     @Test
     public void indexCorrectMessages1Test() {
         assertEq(-1,AnaRendBlock.indexCorrectMessages("first=k\nsecond=v"));

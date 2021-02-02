@@ -1,6 +1,4 @@
 package cards.tarot;
-import static cards.tarot.EquallableTarotUtil.assertEq;
-import static org.junit.Assert.*;
 
 import cards.tarot.enumerations.ModeTarot;
 import code.util.CustList;

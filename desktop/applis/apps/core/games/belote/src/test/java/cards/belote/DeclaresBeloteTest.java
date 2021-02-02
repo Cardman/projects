@@ -3,9 +3,7 @@ package cards.belote;
 import cards.belote.enumerations.DeclaresBelote;
 import org.junit.Test;
 
-import static cards.belote.EquallableBeloteUtil.assertEq;
-
-public final class DeclaresBeloteTest {
+public final class DeclaresBeloteTest extends EquallableBeloteUtil {
     @Test
     public void nombreCartes1Test() {
         assertEq(3,DeclaresBelote.THIRTY.nombreCartes());

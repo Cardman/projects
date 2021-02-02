@@ -1,12 +1,11 @@
 package aiki.game.fight.util;
 
+import aiki.db.EquallablePkUtil;
 import aiki.game.fight.ActivityOfMove;
 import code.util.StringList;
 import org.junit.Test;
 
-import static aiki.db.EquallablePkUtil.assertEq;
-
-public class ListActivityOfMovesTest {
+public class ListActivityOfMovesTest extends EquallablePkUtil {
     @Test
     public void getVal1() {
         ListActivityOfMoves l_ = new ListActivityOfMoves();

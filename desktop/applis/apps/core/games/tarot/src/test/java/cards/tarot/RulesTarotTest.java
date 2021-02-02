@@ -1,7 +1,4 @@
 package cards.tarot;
-import static cards.tarot.EquallableTarotUtil.assertEq;
-import static org.junit.Assert.assertNotSame;
-import static org.junit.Assert.assertTrue;
 
 import cards.tarot.enumerations.*;
 import code.util.EnumList;
@@ -9,7 +6,7 @@ import code.util.EnumMap;
 import org.junit.Test;
 
 
-public class RulesTarotTest {
+public class RulesTarotTest extends EquallableTarotUtil {
     @Test
     public void isValidRules_defaultRules1Test(){
         RulesTarot rules_ = new RulesTarot(DealingTarot.DEAL_1_VS_2);

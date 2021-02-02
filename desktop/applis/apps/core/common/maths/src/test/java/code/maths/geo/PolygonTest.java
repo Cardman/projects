@@ -1,14 +1,13 @@
 package code.maths.geo;
-import static code.maths.EquallableMathUtil.assertEq;
-import static org.junit.Assert.assertTrue;
 
+import code.maths.EquallableMathUtil;
 import code.util.EqList;
 import org.junit.Test;
 
 import code.util.CustList;
 
 
-public class PolygonTest {
+public class PolygonTest extends EquallableMathUtil {
 
     @Test
     public void new_Polygon_Rect_test() {

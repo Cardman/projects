@@ -1,9 +1,6 @@
 package code.expressionlanguage.methods;
 
-import code.expressionlanguage.AnalyzedTestContext;
-import code.expressionlanguage.Argument;
-import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.InitializationLgNames;
+import code.expressionlanguage.*;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.ReportedMessages;
 import code.expressionlanguage.analyze.blocks.*;
@@ -28,11 +25,7 @@ import code.expressionlanguage.structs.*;
 import code.util.*;
 import code.util.core.IndexConstants;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-
-public abstract class ProcessMethodCommon {
+public abstract class ProcessMethodCommon extends EquallableElUtil {
 
     protected static final String ARR_NUMBER = "[java.lang.Number";
     protected static final String ARR_INTEGER = "[java.lang.Integer";

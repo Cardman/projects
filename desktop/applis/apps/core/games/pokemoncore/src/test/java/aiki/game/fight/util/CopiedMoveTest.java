@@ -1,11 +1,9 @@
 package aiki.game.fight.util;
 
+import aiki.db.EquallablePkUtil;
 import org.junit.Test;
 
-import static aiki.db.EquallablePkUtil.assertEq;
-import static org.junit.Assert.assertNotNull;
-
-public class CopiedMoveTest {
+public class CopiedMoveTest extends EquallablePkUtil {
     @Test
     public void new_CopiedMove_1_Test() {
         CopiedMove c_ = new CopiedMove();

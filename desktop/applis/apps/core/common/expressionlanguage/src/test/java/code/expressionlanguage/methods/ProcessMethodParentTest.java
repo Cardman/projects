@@ -2,15 +2,10 @@ package code.expressionlanguage.methods;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ClassField;
-import code.expressionlanguage.exec.InitClassState;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
 import code.util.StringMap;
 import org.junit.Test;
-
-import static code.expressionlanguage.EquallableElUtil.assertEq;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertSame;
 
 public final class ProcessMethodParentTest extends ProcessMethodCommon {
     @Test

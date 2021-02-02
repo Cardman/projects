@@ -1,11 +1,10 @@
 package code.maths.geo;
-import static code.maths.EquallableMathUtil.assertEq;
-import static org.junit.Assert.assertSame;
 
+import code.maths.EquallableMathUtil;
 import org.junit.Test;
 
 
-public class SitePointThreeDimsTest {
+public class SitePointThreeDimsTest extends EquallableMathUtil {
 
     @Test
     public void new_SitePointThreeDims_1Test() {

@@ -2,13 +2,9 @@ package cards.belote;
 
 import cards.belote.enumerations.BidBelote;
 import cards.belote.enumerations.CardBelote;
-import cards.consts.PossibleTrickWinner;
 import cards.consts.Suit;
 import code.util.CustList;
-import code.util.EqList;
 import org.junit.Test;
-
-import static org.junit.Assert.assertSame;
 
 public final class GameBeloteProgTrickTest extends CommonGameBelote {
     @Test

@@ -7,10 +7,7 @@ import code.util.CustList;
 import code.util.EnumList;
 import org.junit.Test;
 
-import static cards.tarot.EquallableTarotUtil.assertEq;
-import static org.junit.Assert.*;
-
-public final class GameTarotTest {
+public final class GameTarotTest extends EquallableTarotUtil {
     @Test
     public void test() {
         GameTarot g_ = new GameTarot();

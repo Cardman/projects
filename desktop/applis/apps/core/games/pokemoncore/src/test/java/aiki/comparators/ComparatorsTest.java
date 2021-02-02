@@ -1,6 +1,7 @@
 package aiki.comparators;
 
 import aiki.db.DataBase;
+import aiki.db.EquallablePkUtil;
 import aiki.fight.pokemon.TrainerPlaceNames;
 import aiki.game.fight.InitializationDataBase;
 import aiki.map.util.PlaceLevel;
@@ -12,9 +13,7 @@ import code.util.CustList;
 import org.junit.Before;
 import org.junit.Test;
 
-import static aiki.db.EquallablePkUtil.assertEq;
-
-public final class ComparatorsTest {
+public final class ComparatorsTest extends EquallablePkUtil {
     private DataBase data;
     @Before
     public void initDb() {

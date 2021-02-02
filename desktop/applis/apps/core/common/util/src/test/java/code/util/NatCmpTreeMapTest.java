@@ -1,13 +1,9 @@
 package code.util;
 
 import code.util.classestest.MyCmp;
-import code.util.ints.Listable;
 import org.junit.Test;
 
-import static code.util.EquallableExUtil.assertEq;
-import static org.junit.Assert.assertTrue;
-
-public final class NatCmpTreeMapTest {
+public final class NatCmpTreeMapTest extends EquallableExUtil {
 
     @Test
     public void put1Test() {

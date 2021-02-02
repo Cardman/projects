@@ -1,7 +1,4 @@
 package aiki.db;
-import static aiki.db.EquallablePkUtil.assertEq;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
 
 import aiki.fight.Combos;
 import aiki.fight.pokemon.PokemonData;
@@ -74,7 +71,7 @@ import code.util.StringList;
 import code.util.StringMap;
 
 
-public class DataBaseTest {
+public class DataBaseTest extends EquallablePkUtil {
 
     @Test
     public void test() {

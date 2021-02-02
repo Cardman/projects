@@ -9,9 +9,6 @@ import code.util.CustList;
 import code.util.EnumList;
 import org.junit.Test;
 
-import static cards.belote.EquallableBeloteUtil.assertEq;
-import static org.junit.Assert.assertTrue;
-
 public final class GameBeloteTest extends CommonGameBelote {
     @Test
     public void test() {

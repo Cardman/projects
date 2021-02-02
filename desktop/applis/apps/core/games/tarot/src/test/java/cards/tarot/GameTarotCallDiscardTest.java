@@ -8,11 +8,7 @@ import code.util.EnumList;
 import code.util.EnumMap;
 import org.junit.Test;
 
-import static cards.tarot.EquallableTarotUtil.assertEq;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
-
-public class GameTarotCallDiscardTest {
+public class GameTarotCallDiscardTest extends EquallableTarotUtil {
     @Test
     public void cartesNonMaitressesDebut1Test() {
         HandTarot handSuit_ = new HandTarot();

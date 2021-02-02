@@ -9,11 +9,7 @@ import code.util.EntryCust;
 import code.util.TreeMap;
 import org.junit.Test;
 
-import static cards.president.EquallablePresidentUtil.assertEq;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
-
-public final class GamePresidentCommonTest {
+public final class GamePresidentCommonTest extends EquallablePresidentUtil {
     @Test
     public void getCardsSortedByLengthSortedByStrengthReduceTest() {
         RulesPresident r_ = new RulesPresident();

@@ -1,7 +1,6 @@
 package aiki.map;
-import static aiki.db.EquallablePkUtil.assertEq;
-import static org.junit.Assert.assertTrue;
 
+import aiki.db.EquallablePkUtil;
 import aiki.game.fight.Image;
 import code.maths.montecarlo.DefaultGenerator;
 import code.util.core.StringUtil;
@@ -30,7 +29,7 @@ import code.util.ObjectMap;
 import code.util.StringList;
 import code.util.StringMap;
 
-public class DataMapScreenTest {
+public class DataMapScreenTest extends EquallablePkUtil {
 
     private static final String VOIE3 = "voie3";
     private static final String VOIE2 = "voie2";
