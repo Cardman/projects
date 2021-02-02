@@ -984,16 +984,16 @@ public final class PokemonStandards extends BeanNatLgNames {
         ImportingPage ip_ = new ImportingPage();
         _rendStack.addPage(ip_);
         StringMapObject stringMapObject_ = new StringMapObject();
-        if (((PokemonBeanStruct) _bean).getBean() instanceof WithForms) {
+        if (_bean instanceof PokemonBeanStruct&&((PokemonBeanStruct) _bean).getBean() instanceof WithForms) {
             stringMapObject_ = ((WithForms)((PokemonBeanStruct) _bean).getBean()).getForms();
         }
         _rendStack.setCurrentUrl(_dest);
         String currentBeanName_;
         RendDocumentBlock rendDocumentBlock_ = _conf.getRenders().getVal(_dest);
         currentBeanName_ = rendDocumentBlock_.getBeanName();
-        PokemonBeanStruct bean_ = (PokemonBeanStruct) getBeanOrNull(_conf,currentBeanName_);
-        if (bean_.getBean() instanceof WithForms) {
-            ((WithForms) bean_.getBean()).setForms(stringMapObject_);
+        Struct bean_ = getBeanOrNull(_conf,currentBeanName_);
+        if (bean_ instanceof PokemonBeanStruct&& ((PokemonBeanStruct) bean_).getBean() instanceof WithForms) {
+            ((WithForms) ((PokemonBeanStruct) bean_).getBean()).setForms(stringMapObject_);
         }
         _rendStack.clearPages();
         return RendBlock.getRes(rendDocumentBlock_,_conf, this, _ctx, _stack, _rendStack);
