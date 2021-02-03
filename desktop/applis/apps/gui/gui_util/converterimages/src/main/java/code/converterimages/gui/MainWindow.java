@@ -37,11 +37,11 @@ public final class MainWindow extends GroupFrame {
 
     private static final String CONVERT_IMAGE = "convert image";
 
-    private CustCheckBox readImages;
+    private final CustCheckBox readImages;
 
-    private TextField path;
+    private final TextField path;
 
-    private TextField pathExport;
+    private final TextField pathExport;
 
     public MainWindow(String _lg, AbstractProgramInfos _list) {
         super(_lg, _list);
@@ -175,6 +175,7 @@ public final class MainWindow extends GroupFrame {
 
     @Override
     public void changeLanguage(String _language) {
+        //
     }
 
     @Override

@@ -22,12 +22,11 @@ public class CarpetBelote {
 
     private Panel centerDeck;
 
-    private IntMap<GraphicBeloteCard> cards = new IntMap<GraphicBeloteCard>();
+    private final IntMap<GraphicBeloteCard> cards = new IntMap<GraphicBeloteCard>();
 
     /**sens de distribution des cartes*/
     private boolean horaire;
     private Panel container;
-    public CarpetBelote() {}
 
     public static CarpetBelote initTapisBelote(String _lg, int _nombreDeJoueurs,boolean _horaire,StringList _pseudos,int _nombre) {
         Panel container_ = Panel.newGrid(0,3);

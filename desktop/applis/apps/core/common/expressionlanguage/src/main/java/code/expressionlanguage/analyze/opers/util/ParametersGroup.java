@@ -4,9 +4,6 @@ public final class ParametersGroup {
 
     private boolean error;
 
-    public ParametersGroup() {
-    }
-
     public boolean isError() {
         return error;
     }

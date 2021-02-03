@@ -109,10 +109,13 @@ public class ContainerTarot extends ContainerGame{
         return getTapis().getTapisTarot();
     }
     public void annonceTarotChelem() {
+        //
     }
     public void prendreCartesChien() {
+        //
     }
     public void validateDog() {
+        //
     }
     public Panel getPanelDiscardedTrumps() {
         return panelDiscardedTrumps;

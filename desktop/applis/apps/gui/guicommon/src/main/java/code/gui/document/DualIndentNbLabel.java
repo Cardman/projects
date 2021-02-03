@@ -19,5 +19,6 @@ public final class DualIndentNbLabel extends DualLabel {
 
     @Override
     public void paint() {
+        //
     }
 }

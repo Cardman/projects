@@ -257,18 +257,22 @@ public class Scene extends PaintableLabel implements MouseListener {
 
     @Override
     public void mouseClicked(MouseEvent _e) {
+        //
     }
 
     @Override
     public void mouseEntered(MouseEvent _e) {
+        //
     }
 
     @Override
     public void mouseExited(MouseEvent _e) {
+        //
     }
 
     @Override
     public void mousePressed(MouseEvent _e) {
+        //
     }
 
     @Override

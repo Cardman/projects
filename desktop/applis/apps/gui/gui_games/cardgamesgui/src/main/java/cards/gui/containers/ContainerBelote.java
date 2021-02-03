@@ -110,12 +110,16 @@ public class ContainerBelote extends ContainerGame {
     }
 
     public void bid() {
+        //
     }
     public void fold() {
+        //
     }
     public void invertBeloteRebelote() {
+        //
     }
     public void invertBeloteDeclare() {
+        //
     }
     protected CustList<LabelPoints> getPointsButtons() {
         return pointsButtons;

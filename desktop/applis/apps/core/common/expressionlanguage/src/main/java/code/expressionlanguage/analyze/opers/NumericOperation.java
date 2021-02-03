@@ -15,8 +15,8 @@ import code.util.*;
 
 public abstract class NumericOperation extends MethodOperation implements MiddleSymbolOperation {
     private String className="";
-    private String op;
-    private int opOffset;
+    private final String op;
+    private final int opOffset;
     private boolean okNum;
     private MemberId memberId = new MemberId();
     private AnaTypeFct function;
@@ -76,7 +76,6 @@ public abstract class NumericOperation extends MethodOperation implements Middle
             return;
         }
         ResultOperand res_ = analyzeOper(a_, ops_.firstValue(), c_, _page);
-        setCatenize(res_);
         okNum = _page.isOkNumOp();
         a_ = res_.getResult();
         setResultClass(AnaClassArgumentMatching.copy(a_, _page.getPrimitiveTypes()));
@@ -89,7 +88,6 @@ public abstract class NumericOperation extends MethodOperation implements Middle
         IntTreeMap< String> vs_ = getOperations().getValues();
         getChildren().putAllMap(vs_);
     }
-    abstract void setCatenize(ResultOperand _res);
 
     public AnaTypeFct getFunction() {
         return function;

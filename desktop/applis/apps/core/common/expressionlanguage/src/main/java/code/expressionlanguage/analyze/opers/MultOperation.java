@@ -59,8 +59,4 @@ public final class MultOperation extends NumericOperation {
         return res_;
     }
 
-    @Override
-    void setCatenize(ResultOperand _res) {
-    }
-
 }

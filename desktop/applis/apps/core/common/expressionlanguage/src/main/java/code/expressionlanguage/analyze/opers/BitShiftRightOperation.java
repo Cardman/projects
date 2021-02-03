@@ -54,8 +54,4 @@ public final class BitShiftRightOperation extends NumericOperation {
     }
 
 
-    @Override
-    void setCatenize(ResultOperand _res) {
-    }
-
 }

@@ -52,7 +52,7 @@ public final class AddOperation extends NumericOperation {
                 _a.setConvertToString(true);
                 _b.setConvertToString(true);
                 res_.setResult(new AnaClassArgumentMatching(stringType_));
-                res_.setCatString(true);
+                catString = true;
                 return res_;
             }
             _page.setOkNumOp(false);
@@ -112,11 +112,6 @@ public final class AddOperation extends NumericOperation {
         AnaClassArgumentMatching arg_ = new AnaClassArgumentMatching(exp_);
         res_.setResult(arg_);
         return res_;
-    }
-
-    @Override
-    void setCatenize(ResultOperand _res) {
-        catString = _res.isCatString();
     }
 
     public boolean isCatString() {

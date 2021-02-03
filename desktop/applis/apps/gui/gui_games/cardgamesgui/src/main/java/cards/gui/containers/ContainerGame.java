@@ -164,7 +164,7 @@ public class ContainerGame implements Containable {
     }
 
     public void conseil() {
-
+        //
     }
     protected static long chargerNombreDeParties(GameEnum _jeu, AbstractProgramInfos _tmpUserFolderSl) {
         String fileName_ = StringUtil.concat(LaunchingCards.getTempFolderSl(_tmpUserFolderSl),FileConst.DECK_FOLDER,StreamTextFile.SEPARATEUR,FileConst.DECK_FILE);
@@ -176,9 +176,15 @@ public class ContainerGame implements Containable {
         lines_.removeAllString(EMPTY_STRING);
         return NumberUtil.parseLongZero(lines_.get(_jeu.ordinal()));
     }
-    public void aideAuJeu() {}
-    public void showTricksHands() {}
-    public void showTeams() {}
+    public void aideAuJeu() {
+        //
+    }
+    public void showTricksHands() {
+        //
+    }
+    public void showTeams() {
+        //
+    }
     public void setNicknames(Nicknames _pseudosJoueurs) {
         setPseudosJoueurs(_pseudosJoueurs);
     }
@@ -204,10 +210,10 @@ public class ContainerGame implements Containable {
         setReglesTarot(_reglesTarot);
     }
     public void load() {
-
+        //
     }
     public void modify() {
-
+        //
     }
     public void finirParties() {
         getPar().finirParties();

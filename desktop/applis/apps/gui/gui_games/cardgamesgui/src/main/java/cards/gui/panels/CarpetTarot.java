@@ -16,11 +16,8 @@ public class CarpetTarot {
     private boolean horaire;
     private Panel centerDeck;
 
-    private IntMap<GraphicTarotCard> cards = new IntMap<GraphicTarotCard>();
+    private final IntMap<GraphicTarotCard> cards = new IntMap<GraphicTarotCard>();
     private Panel container;
-
-    public CarpetTarot() {
-    }
 
     public static CarpetTarot initTapisTarot(String _lg, int _nombreDeJoueurs, boolean _horaire, int _nombre) {
         CarpetTarot c_ = new CarpetTarot();

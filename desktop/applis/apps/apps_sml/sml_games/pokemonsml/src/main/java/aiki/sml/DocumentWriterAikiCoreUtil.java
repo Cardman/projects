@@ -171,7 +171,6 @@ import aiki.map.places.Place;
 import aiki.map.places.Road;
 import aiki.map.pokemon.Egg;
 import aiki.map.pokemon.PkTrainer;
-import aiki.map.pokemon.Pokemon;
 import aiki.map.pokemon.PokemonPlayer;
 import aiki.map.pokemon.PokemonTeam;
 import aiki.map.pokemon.UsablePokemon;
@@ -1063,7 +1062,10 @@ public final class DocumentWriterAikiCoreUtil {
     private static final String TYPE_MONTE_CARLO = "c";
 
 
-    public StringMap<String> getTextFiles(DataBase _d) {
+    private DocumentWriterAikiCoreUtil() {
+    }
+
+    public static StringMap<String> getTextFiles(DataBase _d) {
         StringMap<String> files_ = new StringMap<String>();
         for (String n : _d.getPokedex().getKeys()) {
             String file_ = DocumentWriterAikiCoreUtil.setPokemonData(_d.getPokedex()
@@ -2788,7 +2790,6 @@ public final class DocumentWriterAikiCoreUtil {
         if (_object instanceof EvolutionHappiness) {
             Element element_ = _document.createElement(TYPE_EVOLUTION_HAPPINESS);
             DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
-            setEvolution(_object,element_,_document);
             return element_;
         }
         if (_object instanceof EvolutionItem) {
@@ -2840,9 +2841,6 @@ public final class DocumentWriterAikiCoreUtil {
             return element_;
         }
         return _document.createElement(TYPE_EVOLUTION);
-    }
-
-    private static void setEvolution(Evolution _object, Element _element, Document _document) {
     }
 
     private static void setEvolutionItem(EvolutionItem _object, Element _element, Document _document) {
@@ -3288,7 +3286,6 @@ public final class DocumentWriterAikiCoreUtil {
         if (_object == null) {
             Element element_ = _document.createElement(TYPE_ACTION);
             DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
-            setAbstractAction(_object,element_,_document);
             return element_;
         }
         if (_object instanceof ActionHealMove) {
@@ -3316,9 +3313,6 @@ public final class DocumentWriterAikiCoreUtil {
             return element_;
         }
         return _document.createElement(TYPE_ABSTRACT_ACTION);
-    }
-
-    private static void setAbstractAction(AbstractAction _object, Element _element, Document _document) {
     }
 
     private static void setActionHeal(ActionHeal _object, Element _element, Document _document) {
@@ -3971,10 +3965,6 @@ public final class DocumentWriterAikiCoreUtil {
         _element.appendChild(DocumentWriterCoreUtil.setString(_object.getAbility(),FIELD_ABILITY,_document));
         _element.appendChild(DocumentWriterCoreUtil.setString(_object.getItem(),FIELD_ITEM,_document));
         _element.appendChild(DocumentWriterCoreUtil.setStringList(_object.getMoves(),FIELD_MOVES,_document));
-        setPokemon(_object, _element, _document);
-    }
-
-    private static void setPokemon(Pokemon _object, Element _element, Document _document) {
     }
 
     public static Element setPokemonPlayer(PokemonPlayer _object, String _fieldName, Document _document) {
@@ -3999,7 +3989,6 @@ public final class DocumentWriterAikiCoreUtil {
         _element.appendChild(DocumentWriterCoreUtil.setShort(_object.getHappiness(),FIELD_HAPPINESS,_document));
         _element.appendChild(DocumentWriterCoreUtil.setString(_object.getUsedBallCatching(),FIELD_USED_BALL_CATCHING,_document));
         _element.appendChild(DocumentWriterCoreUtil.setShort(_object.getNbStepsTeamLead(),FIELD_NB_STEPS_TEAM_LEAD,_document));
-        setPokemon(_object, _element, _document);
     }
 
     private static Element setPokemonTeam(PokemonTeam _object, String _fieldName, Document _document) {
@@ -4040,7 +4029,6 @@ public final class DocumentWriterAikiCoreUtil {
         _element.appendChild(setGender(_object.getGender(),FIELD_GENDER,_document));
         _element.appendChild(DocumentWriterCoreUtil.setString(_object.getAbility(),FIELD_ABILITY,_document));
         _element.appendChild(DocumentWriterCoreUtil.setString(_object.getItem(),FIELD_ITEM,_document));
-        setPokemon(_object, _element, _document);
     }
 
     private static Element setGender(Gender _object, String _fieldName, Document _document) {

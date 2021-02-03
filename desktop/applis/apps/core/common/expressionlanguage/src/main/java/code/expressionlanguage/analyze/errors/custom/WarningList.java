@@ -8,9 +8,6 @@ public class WarningList extends CustList<FoundWarningInterpret> {
 
     private static final String SEP_INFO = "\n\n";
 
-    public WarningList() {
-    }
-
     public String display() {
         StringList l_ = new StringList();
         for (FoundWarningInterpret f: this) {

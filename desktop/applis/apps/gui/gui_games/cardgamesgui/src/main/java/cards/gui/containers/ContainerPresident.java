@@ -141,9 +141,11 @@ public class ContainerPresident extends ContainerGame {
     }
 
     public void discard() {
+        //
     }
 
     public void noPlay() {
+        //
     }
     public String pseudo() {
         return getPseudosJoueurs().getPseudo();

@@ -175,7 +175,7 @@ public final class MainWindow extends GroupFrame implements TestableFrame {
 
     @Override
     public void changeLanguage(String _language) {
-
+        //
     }
 
     public void process(TestableFrame _mainWindow) {

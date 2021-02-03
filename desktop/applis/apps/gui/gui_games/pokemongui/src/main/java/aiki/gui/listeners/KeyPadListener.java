@@ -11,9 +11,9 @@ import code.gui.CustComponent;
 
 public class KeyPadListener implements KeyListener {
 
-    private MainWindow window;
+    private final MainWindow window;
 
-    private FacadeGame facade;
+    private final FacadeGame facade;
 
     private Scene scene;
 
@@ -75,9 +75,11 @@ public class KeyPadListener implements KeyListener {
 
     @Override
     public void keyReleased(KeyEvent _e) {
+        //
     }
 
     @Override
     public void keyTyped(KeyEvent _e) {
+        //
     }
 }

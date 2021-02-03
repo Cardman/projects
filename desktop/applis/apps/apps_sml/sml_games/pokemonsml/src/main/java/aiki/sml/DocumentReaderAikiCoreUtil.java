@@ -172,7 +172,6 @@ import aiki.map.levels.enums.EnvironmentType;
 import aiki.map.places.*;
 import aiki.map.pokemon.Egg;
 import aiki.map.pokemon.PkTrainer;
-import aiki.map.pokemon.Pokemon;
 import aiki.map.pokemon.PokemonPlayer;
 import aiki.map.pokemon.PokemonTeam;
 import aiki.map.pokemon.UsablePokemon;
@@ -969,6 +968,8 @@ public final class DocumentReaderAikiCoreUtil {
     private static final String TYPE_TRAINER_LEAGUE = "TrainerLeague";
     private static final String TYPE_TRAINER_MULTI_FIGHTS = "TrainerMultiFights";
 
+    private DocumentReaderAikiCoreUtil() {
+    }
     // Load rom option
     public static void loadRomAndCheck(AbstractGenerator _gene, FacadeGame _f, String _fileName,
                                        StringMap<String> _files, PerCent _p, LoadFlag _l) {
@@ -2928,7 +2929,6 @@ public final class DocumentReaderAikiCoreUtil {
     private static void getCombos(Combos _object, String _fieldName, Element _element) {
         if (StringUtil.quickEq(_fieldName, FIELD_EFFECTS)) {
             _object.setEffects(getMapStringListEffectCombo(_element));
-            return;
         }
     }
 
@@ -3268,7 +3268,6 @@ public final class DocumentReaderAikiCoreUtil {
         }
         if (StringUtil.quickEq(_fieldName, FIELD_GIVE_ITEM_TO_ALLY_HAVING_USED)) {
             _object.setGiveItemToAllyHavingUsed(DocumentReaderCoreUtil.getBoolean(_element));
-            return;
         }
     }
 
@@ -3308,7 +3307,6 @@ public final class DocumentReaderAikiCoreUtil {
         }
         if (StringUtil.quickEq(_fieldName, FIELD_MULT_WEIGHT)) {
             _object.setMultWeight(DocumentReaderMathUtil.getRate(_element));
-            return;
         }
     }
 
@@ -3915,7 +3913,6 @@ public final class DocumentReaderAikiCoreUtil {
         }
         if (StringUtil.quickEq(_fieldName, FIELD_REQUIRED_STATUS)) {
             _object.setRequiredStatus(DocumentReaderCoreUtil.getStringList(_element));
-            return;
         }
     }
 
@@ -4250,7 +4247,6 @@ public final class DocumentReaderAikiCoreUtil {
         }
         if (StringUtil.quickEq(_fieldName, FIELD_REQUIRED_SUCCESSFUL_EFFECTS)) {
             _object.setRequiredSuccessfulEffects(DocumentReaderCoreUtil.getListInteger(_element));
-            return;
         }
     }
 
@@ -4298,7 +4294,6 @@ public final class DocumentReaderAikiCoreUtil {
         }
         if (StringUtil.quickEq(_fieldName, FIELD_TEAM_MOVE)) {
             _object.setTeamMove(getListEffectTeam(_element));
-            return;
         }
     }
 
@@ -5314,7 +5309,6 @@ public final class DocumentReaderAikiCoreUtil {
         }
         if (StringUtil.quickEq(_fieldName, FIELD_HAPPINESS_HATCH)) {
             _object.setHappinessHatch(DocumentReaderCoreUtil.getShort(_element));
-            return;
         }
     }
 
@@ -5343,7 +5337,7 @@ public final class DocumentReaderAikiCoreUtil {
         if (StringUtil.quickEq(tagName_,TYPE_EVOLUTION_HAPPINESS)) {
             EvolutionHappiness object_ = Instances.newEvolutionHappiness();
             for (Element c: childElements_) {
-                getEvolution(object_,c.getAttribute(ATTR_FIELD),c);
+                c.getAttribute(ATTR_FIELD);
             }
             return object_;
         }
@@ -5406,20 +5400,15 @@ public final class DocumentReaderAikiCoreUtil {
         return Instances.newEvolutionHappiness();
     }
 
-    private static void getEvolution(Evolution _object, String _fieldName, Element _element) {
-    }
-
     private static void getEvolutionItem(EvolutionItem _object, String _fieldName, Element _element) {
         if (StringUtil.quickEq(_fieldName, FIELD_ITEM)) {
             _object.setItem(DocumentReaderCoreUtil.getString(_element));
-            return;
         }
     }
 
     private static void getEvolutionLevel(EvolutionLevel _object, String _fieldName, Element _element) {
         if (StringUtil.quickEq(_fieldName, FIELD_LEVEL)) {
             _object.setLevel(DocumentReaderCoreUtil.getShort(_element));
-            return;
         }
     }
 
@@ -5434,21 +5423,18 @@ public final class DocumentReaderAikiCoreUtil {
     private static void getEvolutionMove(EvolutionMove _object, String _fieldName, Element _element) {
         if (StringUtil.quickEq(_fieldName, FIELD_MOVE)) {
             _object.setMove(DocumentReaderCoreUtil.getString(_element));
-            return;
         }
     }
 
     private static void getEvolutionMoveType(EvolutionMoveType _object, String _fieldName, Element _element) {
         if (StringUtil.quickEq(_fieldName, FIELD_TYPE)) {
             _object.setType(DocumentReaderCoreUtil.getString(_element));
-            return;
         }
     }
 
     private static void getEvolutionStone(EvolutionStone _object, String _fieldName, Element _element) {
         if (StringUtil.quickEq(_fieldName, FIELD_STONE)) {
             _object.setStone(DocumentReaderCoreUtil.getString(_element));
-            return;
         }
     }
 
@@ -5463,7 +5449,6 @@ public final class DocumentReaderAikiCoreUtil {
     private static void getEvolutionTeam(EvolutionTeam _object, String _fieldName, Element _element) {
         if (StringUtil.quickEq(_fieldName, FIELD_POKEMON)) {
             _object.setPokemon(DocumentReaderCoreUtil.getString(_element));
-            return;
         }
     }
 
@@ -5538,7 +5523,6 @@ public final class DocumentReaderAikiCoreUtil {
         }
         if (StringUtil.quickEq(_fieldName, FIELD_FAIL)) {
             _object.setFail(DocumentReaderCoreUtil.getString(_element));
-            return;
         }
     }
 
@@ -5607,7 +5591,6 @@ public final class DocumentReaderAikiCoreUtil {
         }
         if (StringUtil.quickEq(_fieldName, FIELD_RESTORED_HP_RATE_LOVED_ALLY)) {
             _object.setRestoredHpRateLovedAlly(DocumentReaderMathUtil.getRate(_element));
-            return;
         }
     }
 
@@ -5759,7 +5742,6 @@ public final class DocumentReaderAikiCoreUtil {
         }
         if (StringUtil.quickEq(_fieldName, FIELD_VISITED_PLACES)) {
             _object.setVisitedPlaces(getMapCoordsBoolean(_element));
-            return;
         }
     }
 
@@ -5783,7 +5765,6 @@ public final class DocumentReaderAikiCoreUtil {
         }
         if (StringUtil.quickEq(_fieldName, FIELD_NB_STEPS)) {
             _object.setNbSteps(DocumentReaderCoreUtil.getInteger(_element));
-            return;
         }
     }
 
@@ -5823,7 +5804,6 @@ public final class DocumentReaderAikiCoreUtil {
         }
         if (StringUtil.quickEq(_fieldName, FIELD_ABILITY)) {
             _object.setAbility(DocumentReaderCoreUtil.getString(_element));
-            return;
         }
     }
 
@@ -5915,7 +5895,6 @@ public final class DocumentReaderAikiCoreUtil {
         }
         if (StringUtil.quickEq(_fieldName, FIELD_CAUGHT_EVOLUTIONS)) {
             _object.setCaughtEvolutions(DocumentReaderCoreUtil.getStringList(_element));
-            return;
         }
     }
 
@@ -6195,7 +6174,6 @@ public final class DocumentReaderAikiCoreUtil {
         }
         if (StringUtil.quickEq(_fieldName, FIELD_MOVES_ABILITIES_EVOS)) {
             _object.setMovesAbilitiesEvos(getStringMapMovesAbilities(_element));
-            return;
         }
     }
 
@@ -6271,7 +6249,6 @@ public final class DocumentReaderAikiCoreUtil {
         }
         if (StringUtil.quickEq(_fieldName, FIELD_SUCCESSFUL_MOVES_ROUND)) {
             _object.setSuccessfulMovesRound(DocumentReaderCoreUtil.getStringList(_element));
-            return;
         }
     }
 
@@ -6317,9 +6294,6 @@ public final class DocumentReaderAikiCoreUtil {
         return null;
     }
 
-    private static void getAbstractAction(AbstractAction _object, String _fieldName, Element _element) {
-    }
-
     private static void getActionHeal(ActionHeal _object, String _fieldName, Element _element) {
         if (StringUtil.quickEq(_fieldName, FIELD_CHOSEN_HEALING_ITEM)) {
             _object.setChosenHealingItem(DocumentReaderCoreUtil.getString(_element));
@@ -6327,7 +6301,6 @@ public final class DocumentReaderAikiCoreUtil {
         }
         if (StringUtil.quickEq(_fieldName, FIELD_TEAM)) {
             _object.setTeam(DocumentReaderCoreUtil.getBoolean(_element));
-            return;
         }
     }
 
@@ -6354,7 +6327,6 @@ public final class DocumentReaderAikiCoreUtil {
         }
         if (StringUtil.quickEq(_fieldName, FIELD_SUBSTITUTE)) {
             _object.setSubstitute(DocumentReaderCoreUtil.getByte(_element));
-            return;
         }
     }
 
@@ -6365,7 +6337,6 @@ public final class DocumentReaderAikiCoreUtil {
     private static void getActionSwitch(ActionSwitch _object, String _fieldName, Element _element) {
         if (StringUtil.quickEq(_fieldName, FIELD_SUBSTITUTE)) {
             _object.setSubstitute(DocumentReaderCoreUtil.getByte(_element));
-            return;
         }
     }
 
@@ -6415,7 +6386,6 @@ public final class DocumentReaderAikiCoreUtil {
         }
         if (StringUtil.quickEq(_fieldName, FIELD_ABILITIES)) {
             _object.setAbilities(DocumentReaderCoreUtil.getStringList(_element));
-            return;
         }
     }
 
@@ -6495,7 +6465,6 @@ public final class DocumentReaderAikiCoreUtil {
         }
         if (StringUtil.quickEq(_fieldName, FIELD_SKIP_LEARNING_MOVES_WHILE_NOT_GROWING_LEVEL)) {
             _object.setSkipLearningMovesWhileNotGrowingLevel(DocumentReaderCoreUtil.getBoolean(_element));
-            return;
         }
     }
 
@@ -6570,7 +6539,6 @@ public final class DocumentReaderAikiCoreUtil {
         }
         if (StringUtil.quickEq(_fieldName, FIELD_ENABLED_KEY_PAD)) {
             _object.setEnabledKeyPad(DocumentReaderCoreUtil.getBoolean(_element));
-            return;
         }
     }
 
@@ -6612,7 +6580,6 @@ public final class DocumentReaderAikiCoreUtil {
         }
         if (StringUtil.quickEq(_fieldName, FIELD_HM)) {
             _object.setHm(DocumentReaderCoreUtil.getMapShortBoolean(_element));
-            return;
         }
     }
 
@@ -6656,7 +6623,6 @@ public final class DocumentReaderAikiCoreUtil {
         }
         if (StringUtil.quickEq(_fieldName, FIELD_REMAINING_REPEL_STEPS)) {
             _object.setRemainingRepelSteps(DocumentReaderCoreUtil.getInteger(_element));
-            return;
         }
     }
 
@@ -6727,7 +6693,6 @@ public final class DocumentReaderAikiCoreUtil {
         }
         if (StringUtil.quickEq(_fieldName, FIELD_SIDE_LENGTH)) {
             _object.setSideLength(DocumentReaderCoreUtil.getInteger(_element));
-            return;
         }
     }
 
@@ -6759,7 +6724,6 @@ public final class DocumentReaderAikiCoreUtil {
         }
         if (StringUtil.quickEq(_fieldName, FIELD_EXIT_CITY)) {
             _object.setExitCity(getPoint(_element));
-            return;
         }
     }
 
@@ -6791,7 +6755,6 @@ public final class DocumentReaderAikiCoreUtil {
     private static void getAlly(Ally _object, String _fieldName, Element _element) {
         if (StringUtil.quickEq(_fieldName, FIELD_TEAM)) {
             _object.setTeam(getListPkTrainer(_element));
-            return;
         }
     }
 
@@ -6852,7 +6815,6 @@ public final class DocumentReaderAikiCoreUtil {
         }
         if (StringUtil.quickEq(_fieldName, FIELD_PT)) {
             _object.setPt(getPoint(_element));
-            return;
         }
     }
 
@@ -6964,7 +6926,6 @@ public final class DocumentReaderAikiCoreUtil {
     private static void getPerson(Person _object, String _fieldName, Element _element) {
         if (StringUtil.quickEq(_fieldName, FIELD_IMAGE_MINI_FILE_NAME)) {
             _object.setImageMiniFileName(DocumentReaderCoreUtil.getString(_element));
-            return;
         }
     }
 
@@ -7101,7 +7062,6 @@ public final class DocumentReaderAikiCoreUtil {
         }
         if (StringUtil.quickEq(_fieldName, FIELD_WILD_POKEMON_FISHING)) {
             _object.setWildPokemonFishing(getListWildPk(_element));
-            return;
         }
     }
 
@@ -7133,14 +7093,12 @@ public final class DocumentReaderAikiCoreUtil {
         }
         if (StringUtil.quickEq(_fieldName, FIELD_TYPE)) {
             _object.setType(getEnvironmentType(_element));
-            return;
         }
     }
 
     private static void getLevel(Level _object, String _fieldName, Element _element) {
         if (StringUtil.quickEq(_fieldName, FIELD_BLOCKS)) {
             _object.setBlocks(getMapPointBlock(_element));
-            return;
         }
     }
 
@@ -7322,7 +7280,6 @@ public final class DocumentReaderAikiCoreUtil {
         }
         if (StringUtil.quickEq(_fieldName, FIELD_LINKS_WITH_OTHER_PLACES)) {
             _object.setLinksWithOtherPlaces(getMapLevelPointLink(_element));
-            return;
         }
     }
 
@@ -7345,7 +7302,6 @@ public final class DocumentReaderAikiCoreUtil {
         }
         if (StringUtil.quickEq(_fieldName, FIELD_LINKS_WITH_CAVES)) {
             _object.setLinksWithCaves(getMapPointLink(_element));
-            return;
         }
     }
 
@@ -7368,7 +7324,6 @@ public final class DocumentReaderAikiCoreUtil {
         }
         if (StringUtil.quickEq(_fieldName, FIELD_BEGIN)) {
             _object.setBegin(getPoint(_element));
-            return;
         }
     }
 
@@ -7422,7 +7377,6 @@ public final class DocumentReaderAikiCoreUtil {
         }
         if (StringUtil.quickEq(_fieldName, FIELD_SAVEDLINKS)) {
             _object.setSavedlinks(getMapPlaceInterConnectCoords(_element));
-            return;
         }
     }
 
@@ -7462,12 +7416,7 @@ public final class DocumentReaderAikiCoreUtil {
         }
         if (StringUtil.quickEq(_fieldName, FIELD_MOVES)) {
             _object.setMoves(DocumentReaderCoreUtil.getStringList(_element));
-            return;
         }
-        getPokemon(_object, _fieldName, _element);
-    }
-
-    private static void getPokemon(Pokemon _object, String _fieldName, Element _element) {
     }
 
     public static PokemonPlayer getPokemonPlayer(Element _element) {
@@ -7534,9 +7483,7 @@ public final class DocumentReaderAikiCoreUtil {
         }
         if (StringUtil.quickEq(_fieldName, FIELD_NB_STEPS_TEAM_LEAD)) {
             _object.setNbStepsTeamLead(DocumentReaderCoreUtil.getShort(_element));
-            return;
         }
-        getPokemon(_object, _fieldName, _element);
     }
 
     private static PokemonTeam getPokemonTeam(Element _element) {
@@ -7555,7 +7502,6 @@ public final class DocumentReaderAikiCoreUtil {
         }
         if (StringUtil.quickEq(_fieldName, FIELD_REWARD)) {
             _object.setReward(DocumentReaderCoreUtil.getShort(_element));
-            return;
         }
     }
 
@@ -7564,8 +7510,7 @@ public final class DocumentReaderAikiCoreUtil {
         String tagName_ = _element.getTagName();
         tagName_ = tagName_.substring(tagName_.lastIndexOf(DOT)+1);
         if (StringUtil.quickEq(tagName_,TYPE_EGG)) {
-            Egg object_ = getEgg(_element);
-            return object_;
+            return getEgg(_element);
         }
         if (StringUtil.quickEq(tagName_,TYPE_POKEMON_PLAYER)) {
             PokemonPlayer object_ = Instances.newPokemonPlayer();
@@ -7605,9 +7550,7 @@ public final class DocumentReaderAikiCoreUtil {
         }
         if (StringUtil.quickEq(_fieldName, FIELD_ITEM)) {
             _object.setItem(DocumentReaderCoreUtil.getString(_element));
-            return;
         }
-        getPokemon(_object, _fieldName, _element);
     }
 
     private static Gender getGender(Element _elt) {
@@ -7647,7 +7590,6 @@ public final class DocumentReaderAikiCoreUtil {
         }
         if (StringUtil.quickEq(_fieldName, FIELD_HEROS)) {
             _object.setHeros(DocumentReaderCoreUtil.getBoolean(_element));
-            return;
         }
     }
 

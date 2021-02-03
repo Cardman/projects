@@ -8,9 +8,6 @@ public class ErrorList extends CustList<FoundErrorInterpret> {
 
     private static final String SEP_INFO = "\n\n";
 
-    public ErrorList() {
-    }
-
     public String display() {
         StringList str_ = new StringList();
         for (FoundErrorInterpret e: this) {

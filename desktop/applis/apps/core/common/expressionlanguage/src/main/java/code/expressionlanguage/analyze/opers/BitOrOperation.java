@@ -61,8 +61,4 @@ public final class BitOrOperation extends NumericOperation {
         return res_;
     }
 
-    @Override
-    void setCatenize(ResultOperand _res) {
-    }
-
 }

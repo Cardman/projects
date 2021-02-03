@@ -18,16 +18,16 @@ import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 
 public final class MainWindow extends GroupFrame {
-    private Menu menu;
-    private MenuItem open;
+    private final Menu menu;
+    private final MenuItem open;
 
-    private Panel contentPane;
-    private Panel form;
-    private PlainLabel content;
-    private TextArea conf;
-    private PlainButton launch;
+    private final Panel contentPane;
+    private final Panel form;
+    private final PlainLabel content;
+    private final TextArea conf;
+    private final PlainButton launch;
 
-    private StringMap<String> messages;
+    private final StringMap<String> messages;
     private GuiProcess current;
     protected MainWindow(String _lg, AbstractProgramInfos _list) {
         super(_lg, _list);
@@ -131,6 +131,6 @@ public final class MainWindow extends GroupFrame {
 
     @Override
     public void changeLanguage(String _language) {
-
+        //
     }
 }

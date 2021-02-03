@@ -53,8 +53,4 @@ public final class RotateLeftOperation extends NumericOperation {
         return res_;
     }
 
-    @Override
-    void setCatenize(ResultOperand _res) {
-    }
-
 }

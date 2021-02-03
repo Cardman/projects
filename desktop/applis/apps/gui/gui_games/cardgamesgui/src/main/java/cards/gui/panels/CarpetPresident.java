@@ -23,10 +23,10 @@ public class CarpetPresident {
 //    private static final char RETURN_LINE_CHAR='\n';
 
     private Panel playersPanel;
-    private CustList<TextLabel> labels = new CustList<TextLabel>();
+    private final CustList<TextLabel> labels = new CustList<TextLabel>();
 
     private Panel centerDeck;
-    private CustList<GraphicPresidentCard> listCards = new CustList<GraphicPresidentCard>();
+    private final CustList<GraphicPresidentCard> listCards = new CustList<GraphicPresidentCard>();
 
     private ByteMap<Playing> cards = new ByteMap<Playing>();
     private StringList pseudos = new StringList();
@@ -38,7 +38,6 @@ public class CarpetPresident {
     /**max number of cards*/
     private int number;
     private Panel container;
-    public CarpetPresident() {}
 
     public void initTapisPresident(String _lg, StringList _pseudos, ByteMap<Playing> _status,int _nombre) {
         container = Panel.newBorder();
