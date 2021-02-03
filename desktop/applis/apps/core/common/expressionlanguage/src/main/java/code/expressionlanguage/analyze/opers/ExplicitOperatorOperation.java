@@ -77,7 +77,7 @@ public final class ExplicitOperatorOperation extends InvokingOperation implement
         if (curPar_ == null){
             apply_ = true;
         }
-        filterByReturnType(apply_,methodInfos, _page, getParentMatching(this));
+        filterByReturnType("",apply_,methodInfos, _page, getParentMatching(this));
     }
 
     @Override

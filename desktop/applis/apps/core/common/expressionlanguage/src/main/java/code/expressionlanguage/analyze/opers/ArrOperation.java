@@ -89,7 +89,7 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
                 apply_ = true;
             }
         }
-        filterByReturnType(apply_,methodInfos, _page, getParentMatching(this));
+        filterByReturnType("",apply_,methodInfos, _page, getParentMatching(this));
     }
 
     @Override

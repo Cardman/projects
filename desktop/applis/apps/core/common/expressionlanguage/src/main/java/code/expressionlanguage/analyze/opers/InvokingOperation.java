@@ -593,7 +593,8 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
 
     protected void filterByNameReturnType(AnalyzedPageEl _page, String _trimMeth, CustList<CustList<MethodInfo>> _methodInfos) {
         boolean apply_ = applyMatching(this);
-        filterByNameReturnType(_trimMeth, apply_, _methodInfos, _page, getParentMatching(this));
+        String stCall_ = getStCall(this);
+        filterByNameReturnType(_trimMeth, apply_, _methodInfos, _page, stCall_, getParentMatching(this));
     }
 
     private static boolean applyMatching(OperationNode _op) {
@@ -653,7 +654,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
         }
         return null;
     }
-    private static void filterByNameReturnType(String _trimMeth, boolean _apply, CustList<CustList<MethodInfo>> _methodInfos, AnalyzedPageEl _page, OperationNode _parentMatching) {
+    private static void filterByNameReturnType(String _trimMeth, boolean _apply, CustList<CustList<MethodInfo>> _methodInfos, AnalyzedPageEl _page, String _stCall,OperationNode _parentMatching) {
         int len_ = _methodInfos.size();
         for (int i = 0; i < len_; i++) {
             int gr_ = _methodInfos.get(i).size();
@@ -667,10 +668,10 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
             }
             _methodInfos.set(i, newList_);
         }
-        filterByReturnType(_apply, _methodInfos, _page, _parentMatching);
+        filterByReturnType(_stCall,_apply, _methodInfos, _page, _parentMatching);
     }
 
-    protected static void filterByReturnType(boolean _apply, CustList<CustList<MethodInfo>> _methodInfos, AnalyzedPageEl _page, OperationNode _parentMatching) {
+    protected static void filterByReturnType(String _stCall,boolean _apply, CustList<CustList<MethodInfo>> _methodInfos, AnalyzedPageEl _page, OperationNode _parentMatching) {
         String typeAff_ = EMPTY_STRING;
         Block cur_ = _page.getCurrentBlock();
         if (_apply) {
@@ -680,10 +681,10 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
                 typeAff_ = tryGetTypeAff(_parentMatching, 1);
             }
         }
-        filterByReturnType(typeAff_, _methodInfos, _page);
+        filterByReturnType(_stCall,typeAff_, _methodInfos, _page);
     }
 
-    private static void filterByReturnType(String _typeAff, CustList<CustList<MethodInfo>> _methodInfos, AnalyzedPageEl _page) {
+    private static void filterByReturnType(String _stCall,String _typeAff, CustList<CustList<MethodInfo>> _methodInfos, AnalyzedPageEl _page) {
         KeyWords keyWords_ = _page.getKeyWords();
         String keyWordVar_ = keyWords_.getKeyWordVar();
         if (isUndefined(_typeAff, keyWordVar_)) {
@@ -699,6 +700,17 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
             CustList<MethodInfo> newList_ = new CustList<MethodInfo>();
             for (int j = 0; j < gr_; j++) {
                 MethodInfo methodInfo_ = _methodInfos.get(i).get(j);
+                if (methodInfo_.getConstraints().getKind() == MethodAccessKind.STATIC_CALL) {
+                    CustList<Matching> cts_ = AnaTemplates.tryInferMethodByOneArgList(methodInfo_.getClassName(), -1, methodInfo_.getConstraints(),
+                            _stCall,
+                            _page.getCurrentConstraints().getCurrentConstraints(),
+                            new AnaClassArgumentMatching(""), methodInfo_.getOriginalReturnType(), _typeAff, _page);
+                    String infer_ = AnaTemplates.tryInferMethodByOneArg(cts_,
+                            _stCall,
+                            _page.getCurrentConstraints().getCurrentConstraints(),
+                            _page);
+                    tryReformat(_page, methodInfo_, infer_);
+                }
                 String returnType_ = methodInfo_.getReturnType();
                 mapping_.setArg(returnType_);
                 if (methodInfo_.getConstraints().isRetRef()) {

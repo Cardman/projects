@@ -718,4 +718,29 @@ public final class ProcessMethodIncrInferTest extends ProcessMethodCommon {
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
         assertEq(2, getNumber(ret_));
     }
+
+    @Test
+    public void test25() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static int exmeth(){\n");
+        xml_.append("  ExParam<int> res = staticCall(ExParam<>).inst();\n");
+        xml_.append("  return res.f;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.ExParam<T> {\n");
+        xml_.append(" public T f = (T)2;\n");
+        xml_.append(" public staticCall ExParam<T> inst(){\n");
+        xml_.append("  return new();\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxLgOk("en", files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(2, getNumber(ret_));
+    }
 }
