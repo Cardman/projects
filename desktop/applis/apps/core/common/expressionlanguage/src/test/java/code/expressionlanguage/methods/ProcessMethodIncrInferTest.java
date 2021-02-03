@@ -743,4 +743,37 @@ public final class ProcessMethodIncrInferTest extends ProcessMethodCommon {
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
         assertEq(2, getNumber(ret_));
     }
+
+    @Test
+    public void test26() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static int exmeth(){\n");
+        xml_.append("  ExParam<int> res = staticCall(ExParamTwo<>).inst(2,x->3*x);\n");
+        xml_.append("  return res.f;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.ExParam<T> {\n");
+        xml_.append(" public T f;\n");
+        xml_.append(" public ExParam(T p){\n");
+        xml_.append("  f = p;\n");
+        xml_.append(" }\n");
+        xml_.append(" public staticCall ExParam<T> inst(T p){\n");
+        xml_.append("  return new(p);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.ExParamTwo<T,S> {\n");
+        xml_.append(" public staticCall ExParam<S> inst(T p,Fct<T,S> f){\n");
+        xml_.append("  return new(f.call(p));\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxLgOk("en", files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(6, getNumber(ret_));
+    }
 }

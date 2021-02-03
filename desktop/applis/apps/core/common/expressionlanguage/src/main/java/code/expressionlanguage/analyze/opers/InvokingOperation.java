@@ -700,6 +700,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
             CustList<MethodInfo> newList_ = new CustList<MethodInfo>();
             for (int j = 0; j < gr_; j++) {
                 MethodInfo methodInfo_ = _methodInfos.get(i).get(j);
+                boolean filter_ = true;
                 if (methodInfo_.getConstraints().getKind() == MethodAccessKind.STATIC_CALL) {
                     CustList<Matching> cts_ = AnaTemplates.tryInferMethodByOneArgList(methodInfo_.getClassName(), -1, methodInfo_.getConstraints(),
                             _stCall,
@@ -710,18 +711,23 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
                             _page.getCurrentConstraints().getCurrentConstraints(),
                             _page);
                     tryReformat(_page, methodInfo_, infer_);
+                    filter_ = _stCall.isEmpty()
+                            ||
+                            !infer_.isEmpty();
                 }
-                String returnType_ = methodInfo_.getReturnType();
-                mapping_.setArg(returnType_);
-                if (methodInfo_.getConstraints().isRetRef()) {
-                    if (!StringUtil.quickEq(returnType_,_typeAff)) {
-                        continue;
-                    }
-                } else {
-                    if (!AnaTemplates.isCorrectOrNumbers(mapping_, _page)) {
-                        ClassMethodIdReturn res_ = tryGetDeclaredImplicitCast(_typeAff, new AnaClassArgumentMatching(returnType_), _page);
-                        if (!res_.isFoundMethod()) {
+                if (filter_) {
+                    String returnType_ = methodInfo_.getReturnType();
+                    mapping_.setArg(returnType_);
+                    if (methodInfo_.getConstraints().isRetRef()) {
+                        if (!StringUtil.quickEq(returnType_,_typeAff)) {
                             continue;
+                        }
+                    } else {
+                        if (!AnaTemplates.isCorrectOrNumbers(mapping_, _page)) {
+                            ClassMethodIdReturn res_ = tryGetDeclaredImplicitCast(_typeAff, new AnaClassArgumentMatching(returnType_), _page);
+                            if (!res_.isFoundMethod()) {
+                                continue;
+                            }
                         }
                     }
                 }
