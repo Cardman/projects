@@ -269,17 +269,12 @@ public class GraphicList<T> extends CustComponent {
     }
 
     public int getMaxWidth() {
-        int width_ = 0;
-        for (PreparedLabel c: getListComponents()) {
-            width_ = Math.max(width_, c.getPreferredSize().width);
-        }
-        return width_;
+        return getBasicMaxWidth(0);
     }
+
     protected void resetDimensions(){
         int width_ = getMaxWidth();
-        for (PreparedLabel c: getListComponents()) {
-            width_ = Math.max(width_, c.getPreferredSize().width);
-        }
+        width_ = getBasicMaxWidth(width_);
         int h_ = 0;
         int c_ = 0;
         for (PreparedLabel c: getListComponents()) {
@@ -290,6 +285,15 @@ public class GraphicList<T> extends CustComponent {
         scroll.setPreferredSize(new Dimension(width_ + 24, (h_ + 2)* Math.min(c_, visibleRowCount)));
         scroll.revalidate();
     }
+
+    private int getBasicMaxWidth(int _width) {
+        int width_ = _width;
+        for (PreparedLabel c: getListComponents()) {
+            width_ = Math.max(width_, c.getPreferredSize().width);
+        }
+        return width_;
+    }
+
     protected static void reindex(CustList<IndexableListener> _list) {
         int index_ = 0;
         for (IndexableListener c: _list) {
