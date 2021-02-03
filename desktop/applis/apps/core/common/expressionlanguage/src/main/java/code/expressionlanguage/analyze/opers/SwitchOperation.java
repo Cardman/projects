@@ -83,7 +83,7 @@ public final class SwitchOperation extends AbstractUnaryOperation implements Pre
                 MethodOperation call_ = n_.getParent();
                 if (call_ instanceof RetrieveMethod) {
                     RetrieveMethod f_ = (RetrieveMethod) call_;
-                    NameParametersFilter filter_ = InvokingOperation.buildQuickFilter(call_);
+                    NameParametersFilter filter_ = InvokingOperation.buildQuickFilter(_page,call_);
                     CustList<CustList<MethodInfo>> methodInfos_ = f_.getMethodInfos();
                     int len_ = methodInfos_.size();
                     StringList candidates_ = new StringList();
@@ -107,7 +107,7 @@ public final class SwitchOperation extends AbstractUnaryOperation implements Pre
                 }
                 if (call_ instanceof RetrieveConstructor) {
                     RetrieveConstructor f_ = (RetrieveConstructor) call_;
-                    NameParametersFilter filter_ = InvokingOperation.buildQuickFilter(call_);
+                    NameParametersFilter filter_ = InvokingOperation.buildQuickFilter(_page,call_);
                     CustList<ConstructorInfo> methodInfos_ = f_.getCtors();
                     int len_ = methodInfos_.size();
                     StringList candidates_ = new StringList();

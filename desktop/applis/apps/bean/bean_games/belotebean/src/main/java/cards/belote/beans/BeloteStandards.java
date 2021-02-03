@@ -493,7 +493,7 @@ public final class BeloteStandards extends BeanNatLgNames {
         dataBase = _dataBase;
     }
 
-    public void setDataBase(RulesBelote _dataBase){
+    public void setDataBaseRules(RulesBelote _dataBase){
         dataBaseRules = _dataBase;
     }
 }

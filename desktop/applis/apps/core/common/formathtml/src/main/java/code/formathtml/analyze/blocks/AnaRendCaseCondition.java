@@ -12,6 +12,7 @@ import code.expressionlanguage.analyze.files.OffsetsBlock;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.analyze.inherits.Mapping;
 import code.expressionlanguage.analyze.instr.ElResolver;
+import code.expressionlanguage.analyze.instr.ElUtil;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
@@ -35,7 +36,7 @@ public final class AnaRendCaseCondition extends AnaRendSwitchPartCondition {
     private final int classNameOffset;
     private final String className;
     private final int variableOffset;
-    private int valueOffset;
+    private final int valueOffset;
     private Argument argument;
     AnaRendCaseCondition(OffsetStringInfo _className, OffsetStringInfo _variable, OffsetStringInfo _value, OffsetsBlock _offset) {
         super(_offset);
@@ -110,7 +111,7 @@ public final class AnaRendCaseCondition extends AnaRendSwitchPartCondition {
                     Delimiters d_ = ElResolver.checkSyntax(value, IndexConstants.FIRST_INDEX, _page);
                     OperationsSequence opTwo_ = ElResolver.getOperationsSequence(IndexConstants.FIRST_INDEX, value, d_, _page);
                     OperationNode op_ = OperationNode.createOperationNode(IndexConstants.FIRST_INDEX, IndexConstants.FIRST_INDEX, null, opTwo_, _page);
-                    op_.analyze(_page);
+                    ElUtil.analyzeInfer(op_,_page);
                     _page.setLookLocalClass(EMPTY_STRING);
                     op_.setOrder(0);
                     root = op_;

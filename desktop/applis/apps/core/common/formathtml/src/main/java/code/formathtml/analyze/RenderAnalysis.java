@@ -146,7 +146,7 @@ public final class RenderAnalysis {
 
     private static void processAnalyze(OperationNode _current, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
         if (_current instanceof InterfaceFctConstructor) {
-            _current.analyze(_page);
+            ElUtil.analyzeInfer(_current, _page);
             return;
         }
         if (!(_current instanceof AbstractInvokingConstructor)) {
@@ -160,7 +160,7 @@ public final class RenderAnalysis {
                     return;
                 }
             }
-            _current.analyze(_page);
+            ElUtil.analyzeInfer(_current, _page);
             if (_current instanceof AffectationOperation) {
                 OperationNode settable_ = ((AffectationOperation) _current).getSettableOp();
                 if (settable_ instanceof SettableAbstractFieldOperation) {

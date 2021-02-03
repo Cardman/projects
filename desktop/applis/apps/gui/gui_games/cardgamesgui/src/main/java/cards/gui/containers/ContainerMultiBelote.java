@@ -271,7 +271,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
         rulesBeloteMulti.setGeneral(readCoreResource());
         rulesBeloteMulti.setSpecific(readResource());
         PreparedAnalyzed stds_ = retrieve(FileConst.RESOURCES_HTML_FILES_RULES_BELOTE);
-        ((BeloteStandards)stds_.getBeanNatLgNames()).setDataBase(rulesBeloteMulti);
+        ((BeloteStandards)stds_.getBeanNatLgNames()).setDataBaseRules(rulesBeloteMulti);
         editor.initialize(stds_);
 
         scroll_.setPreferredSize(new Dimension(300,400));
@@ -349,7 +349,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
         rulesBeloteMulti.setGeneral(readCoreResource());
         rulesBeloteMulti.setSpecific(readResource());
         PreparedAnalyzed stds_ = retrieve(FileConst.RESOURCES_HTML_FILES_RULES_BELOTE);
-        ((BeloteStandards)stds_.getBeanNatLgNames()).setDataBase(rulesBeloteMulti);
+        ((BeloteStandards)stds_.getBeanNatLgNames()).setDataBaseRules(rulesBeloteMulti);
         editor.initialize(stds_);
     }
 

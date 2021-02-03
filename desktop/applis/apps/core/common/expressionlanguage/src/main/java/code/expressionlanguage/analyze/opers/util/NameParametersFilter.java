@@ -12,8 +12,7 @@ public final class NameParametersFilter {
     private final CustList<NamedArgumentOperation> parameterFilterErr = new CustList<NamedArgumentOperation>();
     private final CustList<OperationNode> positional = new CustList<OperationNode>();
     private StaticCallAccessOperation staticCallOp;
-    private String staticCall = "";
-    private String returnType = "";
+    private FormattedFilter formattedFilter = new FormattedFilter();
 
     public int getIndex() {
         return index;
@@ -82,20 +81,21 @@ public final class NameParametersFilter {
         this.staticCallOp = _staticCallOp;
     }
 
-    public String getStaticCall() {
-        return staticCall;
+    public FormattedFilter getFormattedFilter() {
+        return formattedFilter;
     }
 
-    public void setStaticCall(String _staticCall) {
-        staticCall = _staticCall;
+    public void setFormattedFilter(FormattedFilter _formattedFilter) {
+        this.formattedFilter = _formattedFilter;
+    }
+
+    public String getStaticCall() {
+        return formattedFilter.getStCall();
     }
 
     public String getReturnType() {
-        return returnType;
+        return formattedFilter.getReturnType();
     }
 
-    public void setReturnType(String _returnType) {
-        returnType = _returnType;
-    }
 }
 

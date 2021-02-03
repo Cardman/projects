@@ -2,6 +2,7 @@ package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
+import code.expressionlanguage.analyze.opers.util.FormattedFilter;
 import code.expressionlanguage.analyze.opers.util.MethodInfo;
 import code.expressionlanguage.analyze.opers.util.ParametersGroup;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
@@ -103,7 +104,7 @@ public final class CallDynMethodOperation extends InvokingOperation implements P
                 m_.format(new MethodId(refRet_, MethodAccessKind.INSTANCE,
                         name_,cls_,refs_,false));
             } else {
-                m_ = OperationNode.getMethodInfo(e,false,0,fct_,_page,id_,e.getImportedReturnType(),e.getImportedReturnType(), getStCall());
+                m_ = OperationNode.getMethodInfo(e,false,0,fct_,_page,id_,e.getImportedReturnType(),e.getImportedReturnType(), new FormattedFilter());
             }
             methodInfos_.add(m_);
         }

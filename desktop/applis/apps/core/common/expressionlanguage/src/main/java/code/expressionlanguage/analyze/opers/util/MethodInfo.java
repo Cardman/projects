@@ -41,7 +41,7 @@ public final class MethodInfo implements Parametrable {
     private StringList parametersNames = new StringList();
     private final Ints nameParametersFilterIndexes = new Ints();
     private final CustList<OperationNode> allOps = new CustList<OperationNode>();
-    private String stCall = "";
+    private final FormattedFilter formattedFilter = new FormattedFilter();
 
     public MethodId getConstraints() {
         return constraints;
@@ -149,7 +149,7 @@ public final class MethodInfo implements Parametrable {
     }
 
     public void format(boolean _keepParams, AnalyzedPageEl _page) {
-        if (!stCall.isEmpty()) {
+        if (!formattedFilter.getStCall().isEmpty()) {
             StringList params_ = new StringList();
             for (String p: constraints.getParametersTypes()) {
                 if (p.contains("#")) {
@@ -279,7 +279,9 @@ public final class MethodInfo implements Parametrable {
         return allOps;
     }
 
-    public void setStCall(String _stCall) {
-        this.stCall = _stCall;
+    public void setFormattedFilter(FormattedFilter _formattedFilter) {
+        formattedFilter.setStCall(_formattedFilter.getStCall());
+        formattedFilter.setReturnType(_formattedFilter.getReturnType());
     }
+
 }

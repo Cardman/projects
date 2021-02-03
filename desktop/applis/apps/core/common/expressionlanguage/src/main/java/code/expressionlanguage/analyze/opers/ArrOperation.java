@@ -68,7 +68,7 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
             bounds_.addAllElts(getBounds(c, _page));
         }
         methodFound = trimMeth_;
-        methodInfos = getDeclaredCustMethodByType(isStaticAccess(), bounds_, trimMeth_, false, _page, new ScopeFilter(null, accessFromSuper_, accessSuperTypes_, false, _page.getGlobalClass()), getStCall());
+        methodInfos = getDeclaredCustMethodByType(isStaticAccess(), bounds_, trimMeth_, false, _page, new ScopeFilter(null, accessFromSuper_, accessSuperTypes_, false, _page.getGlobalClass()), getFormattedFilter(_page, this));
         int len_ = methodInfos.size();
         for (int i = 0; i < len_; i++) {
             int gr_ = methodInfos.get(i).size();
@@ -89,7 +89,7 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
                 apply_ = true;
             }
         }
-        filterByReturnType(apply_,methodInfos, _page, getParentMatching());
+        filterByReturnType(apply_,methodInfos, _page, getParentMatching(this));
     }
 
     @Override

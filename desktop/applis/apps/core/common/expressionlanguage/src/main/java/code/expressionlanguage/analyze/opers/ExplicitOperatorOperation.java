@@ -57,7 +57,7 @@ public final class ExplicitOperatorOperation extends InvokingOperation implement
             methodInfos.add(ops_);
         } else {
             methodFound = op_;
-            methodInfos = getDeclaredCustMethodByType(MethodAccessKind.STATIC_CALL, new StringList(from), op_, false, _page, new ScopeFilter(null, false, false, isLvalue(), _page.getGlobalClass()), getStCall());
+            methodInfos = getDeclaredCustMethodByType(MethodAccessKind.STATIC_CALL, new StringList(from), op_, false, _page, new ScopeFilter(null, false, false, isLvalue(), _page.getGlobalClass()), getFormattedFilter(_page, this));
         }
         int len_ = methodInfos.size();
         for (int i = 0; i < len_; i++) {
@@ -77,7 +77,7 @@ public final class ExplicitOperatorOperation extends InvokingOperation implement
         if (curPar_ == null){
             apply_ = true;
         }
-        filterByReturnType(apply_,methodInfos, _page, getParentMatching());
+        filterByReturnType(apply_,methodInfos, _page, getParentMatching(this));
     }
 
     @Override

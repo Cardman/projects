@@ -4456,6 +4456,329 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
 
 
     @Test
+    public void tryInferMethodByOneArg1() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex{}\n");
+        xml_.append("$public $class pkg.ExParam<T>{}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        String inf_ = AnaTemplates.tryInferMethodByOneArg("pkg.ExParam",0,
+                new MethodId(false, MethodAccessKind.STATIC_CALL, "",
+                        new StringList("pkg.ExParam<#T>"), new BooleanList(false),
+                        false),
+                "pkg.ExParam",
+                new StringMap<StringList>(),
+                new AnaClassArgumentMatching("pkg.ExParam<pkg.Ex>"),
+                "", "", cont_.getAnalyzing());
+        assertEq("pkg.ExParam<pkg.Ex>",inf_);
+    }
+    @Test
+    public void tryInferMethodByOneArg2() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex{}\n");
+        xml_.append("$public $class pkg.ExParam<T>{}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        String inf_ = AnaTemplates.tryInferMethodByOneArg("pkg.ExParam",-1,
+                new MethodId(false, MethodAccessKind.STATIC_CALL, "",
+                        new StringList("$int"), new BooleanList(false),
+                        false),
+                "pkg.ExParam",
+                new StringMap<StringList>(),
+                new AnaClassArgumentMatching("$int"),
+                "pkg.ExParam<#T>", "pkg.ExParam<pkg.Ex>", cont_.getAnalyzing());
+        assertEq("pkg.ExParam<pkg.Ex>",inf_);
+    }
+    @Test
+    public void tryInferMethodByOneArg3() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex{}\n");
+        xml_.append("$public $class pkg.ExParam<T>{}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        String inf_ = AnaTemplates.tryInferMethodByOneArg("pkg.ExParam",1,
+                new MethodId(false, MethodAccessKind.STATIC_CALL, "",
+                        new StringList("$int"), new BooleanList(false),
+                        false),
+                "pkg.ExParam",
+                new StringMap<StringList>(),
+                new AnaClassArgumentMatching("$int"),
+                "pkg.ExParam<#T>", "pkg.ExParam<pkg.Ex>", cont_.getAnalyzing());
+        assertEq("pkg.ExParam<pkg.Ex>",inf_);
+    }
+    @Test
+    public void tryInferMethodByOneArg4() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex{}\n");
+        xml_.append("$public $class pkg.ExParam<T>{}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        String inf_ = AnaTemplates.tryInferMethodByOneArg("pkg.ExParam",0,
+                new MethodId(false, MethodAccessKind.STATIC_CALL, "",
+                        new StringList("pkg.ExParam<#T>"), new BooleanList(true),
+                        false),
+                "pkg.ExParam",
+                new StringMap<StringList>(),
+                new AnaClassArgumentMatching("pkg.ExParam<pkg.Ex>"),
+                "", "", cont_.getAnalyzing());
+        assertEq("pkg.ExParam<pkg.Ex>",inf_);
+    }
+    @Test
+    public void tryInferMethodByOneArg5() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex{}\n");
+        xml_.append("$public $class pkg.ExParam<T>{}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        String inf_ = AnaTemplates.tryInferMethodByOneArg("pkg.ExParam",0,
+                new MethodId(false, MethodAccessKind.STATIC_CALL, "",
+                        new StringList("pkg.Ex"), new BooleanList(false),
+                        false),
+                "pkg.ExParam",
+                new StringMap<StringList>(),
+                new AnaClassArgumentMatching(""),
+                "pkg.ExParam<#T>", "pkg.ExParam<pkg.Ex>", cont_.getAnalyzing());
+        assertEq("pkg.ExParam<pkg.Ex>",inf_);
+    }
+    @Test
+    public void tryInferMethodByOneArg6() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex{}\n");
+        xml_.append("$public $class pkg.ExParam<T>{}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        String inf_ = AnaTemplates.tryInferMethodByOneArg("pkg.ExParam",0,
+                new MethodId(true, MethodAccessKind.STATIC_CALL, "",
+                        new StringList("pkg.Ex"), new BooleanList(false),
+                        false),
+                "pkg.ExParam",
+                new StringMap<StringList>(),
+                new AnaClassArgumentMatching(""),
+                "pkg.ExParam<#T>", "pkg.ExParam<pkg.Ex>", cont_.getAnalyzing());
+        assertEq("pkg.ExParam<pkg.Ex>",inf_);
+    }
+    @Test
+    public void tryInferMethodByOneArg7() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex{}\n");
+        xml_.append("$public $class pkg.ExParam<T>{}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        String inf_ = AnaTemplates.tryInferMethodByOneArg("pkg.ExParam",0,
+                new MethodId(false, MethodAccessKind.STATIC_CALL, "",
+                        new StringList("pkg.ExParam<#T>"), new BooleanList(true),
+                        false),
+                "pkg.ExParam",
+                new StringMap<StringList>(),
+                new AnaClassArgumentMatching("pkg.ExParam<pkg.Ex>"),
+                "pkg.ExParam<#T>", "", cont_.getAnalyzing());
+        assertEq("pkg.ExParam<pkg.Ex>",inf_);
+    }
+    @Test
+    public void tryInferMethodByOneArg8() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex{}\n");
+        xml_.append("$public $class pkg.ExParam<T>{}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        String inf_ = AnaTemplates.tryInferMethodByOneArg("pkg.ExParam",0,
+                new MethodId(false, MethodAccessKind.STATIC_CALL, "",
+                        new StringList("pkg.ExParam<#T>"), new BooleanList(false),
+                        true),
+                "pkg.ExParam",
+                new StringMap<StringList>(),
+                new AnaClassArgumentMatching("pkg.ExParam<pkg.Ex>"),
+                "", "", cont_.getAnalyzing());
+        assertEq("pkg.ExParam<pkg.Ex>",inf_);
+    }
+    @Test
+    public void tryInferMethodByOneArg9() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex{}\n");
+        xml_.append("$public $class pkg.ExParam<T>{}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        String inf_ = AnaTemplates.tryInferMethodByOneArg("pkg.ExParam",0,
+                new MethodId(false, MethodAccessKind.STATIC_CALL, "",
+                        new StringList("pkg.ExParam<#T>"), new BooleanList(false),
+                        true),
+                "pkg.ExParam",
+                new StringMap<StringList>(),
+                new AnaClassArgumentMatching("[pkg.ExParam<pkg.Ex>"),
+                "", "", cont_.getAnalyzing());
+        assertEq("pkg.ExParam<pkg.Ex>",inf_);
+    }
+    @Test
+    public void tryInferMethodByOneArg10() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex{}\n");
+        xml_.append("$public $class pkg.ExParam<T>{}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        String inf_ = AnaTemplates.tryInferMethodByOneArg("pkg.ExParam",0,
+                new MethodId(false, MethodAccessKind.STATIC_CALL, "",
+                        new StringList("pkg.ExParam<#T>"), new BooleanList(true),
+                        true),
+                "pkg.ExParam",
+                new StringMap<StringList>(),
+                new AnaClassArgumentMatching("[pkg.ExParam<pkg.Ex>"),
+                "", "", cont_.getAnalyzing());
+        assertEq("pkg.ExParam<pkg.Ex>",inf_);
+    }
+    @Test
+    public void tryInferMethodByOneArg11() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex{}\n");
+        xml_.append("$public $class pkg.ExParam<T>{}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        String inf_ = AnaTemplates.tryInferMethodByOneArg("pkg.ExParam",1,
+                new MethodId(false, MethodAccessKind.STATIC_CALL, "",
+                        new StringList("pkg.ExParam<#T>"), new BooleanList(false),
+                        true),
+                "pkg.ExParam",
+                new StringMap<StringList>(),
+                new AnaClassArgumentMatching("pkg.ExParam<pkg.Ex>"),
+                "", "", cont_.getAnalyzing());
+        assertEq("pkg.ExParam<pkg.Ex>",inf_);
+    }
+    @Test
+    public void tryInferMethodByOneArg12() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex{}\n");
+        xml_.append("$public $class pkg.ExParam<T>{}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        String inf_ = AnaTemplates.tryInferMethodByOneArg("pkg.ExParam",0,
+                new MethodId(false, MethodAccessKind.STATIC_CALL, "",
+                        new StringList("pkg.ExParam<#T>","$int"), new BooleanList(false,false),
+                        true),
+                "pkg.ExParam",
+                new StringMap<StringList>(),
+                new AnaClassArgumentMatching("pkg.ExParam<pkg.Ex>"),
+                "", "", cont_.getAnalyzing());
+        assertEq("pkg.ExParam<pkg.Ex>",inf_);
+    }
+    @Test
+    public void tryInferMethodByOneArg13() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex{}\n");
+        xml_.append("$public $class pkg.ExParam<T>{}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        String inf_ = AnaTemplates.tryInferMethodByOneArg("pkg.ExParam",0,
+                new MethodId(false, MethodAccessKind.STATIC_CALL, "",
+                        new StringList("pkg.ExParam<#T>","$int"), new BooleanList(true,false),
+                        true),
+                "pkg.ExParam",
+                new StringMap<StringList>(),
+                new AnaClassArgumentMatching("pkg.ExParam<pkg.Ex>"),
+                "", "", cont_.getAnalyzing());
+        assertEq("pkg.ExParam<pkg.Ex>",inf_);
+    }
+    @Test
+    public void tryInferMethodByOneArg14() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex{}\n");
+        xml_.append("$public $class pkg.ExParam<T>{}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        String inf_ = AnaTemplates.tryInferMethodByOneArg("pkg.ExParam",0,
+                new MethodId(false, MethodAccessKind.STATIC_CALL, "",
+                        new StringList("pkg.ExParam<#T>","$int"), new BooleanList(false,false),
+                        true),
+                "pkg.ExParam",
+                new StringMap<StringList>(),
+                new AnaClassArgumentMatching(""),
+                "pkg.ExParam<#T>", "pkg.ExParam<pkg.Ex>", cont_.getAnalyzing());
+        assertEq("pkg.ExParam<pkg.Ex>",inf_);
+    }
+    @Test
+    public void tryInferMethodByOneArg15() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex{}\n");
+        xml_.append("$public $class pkg.ExParam<T>{}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        String inf_ = AnaTemplates.tryInferMethodByOneArg("pkg.ExParam",-1,
+                new MethodId(false, MethodAccessKind.STATIC_CALL, "",
+                        new StringList("pkg.ExParam<#T>","$int"), new BooleanList(false,false),
+                        true),
+                "pkg.ExParam",
+                new StringMap<StringList>(),
+                new AnaClassArgumentMatching(""),
+                "pkg.ExParam<#T>", "pkg.ExParam<pkg.Ex>", cont_.getAnalyzing());
+        assertEq("pkg.ExParam<pkg.Ex>",inf_);
+    }
+    @Test
+    public void tryInferMethodByOneArg16() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex{}\n");
+        xml_.append("$public $class pkg.ExParam<T>{}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        String inf_ = AnaTemplates.tryInferMethodByOneArg("",-1,
+                new MethodId(false, MethodAccessKind.STATIC_CALL, "",
+                        new StringList("pkg.ExParam<#T>","$int"), new BooleanList(false,false),
+                        true),
+                "pkg.ExParam",
+                new StringMap<StringList>(),
+                new AnaClassArgumentMatching(""),
+                "pkg.ExParam<#T>", "pkg.ExParam<pkg.Ex>", cont_.getAnalyzing());
+        assertEq("",inf_);
+    }
+    @Test
+    public void tryInferMethodByOneArg17() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex{}\n");
+        xml_.append("$public $class pkg.ExParam<T>{}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        String inf_ = AnaTemplates.tryInferMethodByOneArg("pkg.ExParam",-1,
+                new MethodId(false, MethodAccessKind.STATIC_CALL, "",
+                        new StringList("pkg.ExParam<#T>","$int"), new BooleanList(false,false),
+                        true),
+                "",
+                new StringMap<StringList>(),
+                new AnaClassArgumentMatching(""),
+                "pkg.ExParam<#T>", "pkg.ExParam<pkg.Ex>", cont_.getAnalyzing());
+        assertEq("",inf_);
+    }
+    @Test
     public void getVarTypes() {
         StringMap<String> files_ = new StringMap<String>();
         unfullValidateOverridingMethods(files_);

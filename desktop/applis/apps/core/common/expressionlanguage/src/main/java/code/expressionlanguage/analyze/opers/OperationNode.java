@@ -684,7 +684,7 @@ public abstract class OperationNode {
                 String f_ = t.getType();
                 AnaGeneType root_ = t.getRoot();
                 fetchFieldsType(ancestors_, _page,
-                        new ScopeFilterType(_scope, MethodId.getKind(t.getScope() == MethodAccessKind.STATIC), t.getAncestor(), baseTypes_, superTypesBaseAncBis_, f_, t.getTypeId(),""),
+                        new ScopeFilterType(_scope, MethodId.getKind(t.getScope() == MethodAccessKind.STATIC), t.getAncestor(), baseTypes_, superTypesBaseAncBis_, f_, t.getTypeId(), new FormattedFilter()),
                         new ScopeFilterField(_aff, _name, root_, t.getTypeId()));
                 maxAnc_ = Math.max(maxAnc_, t.getAncestor());
             }
@@ -1280,7 +1280,7 @@ public abstract class OperationNode {
                                                                   StringList _classes, String _name,
                                                                   boolean _import,
                                                                   String _param, NameParametersFilter _filter, AnalyzedPageEl _page, ScopeFilter _sc) {
-        CustList<CustList<MethodInfo>> methods_ = getDeclaredCustMethodByType(_staticContext, _classes, _name, _import, _page, _sc, _filter.getStaticCall());
+        CustList<CustList<MethodInfo>> methods_ = getDeclaredCustMethodByType(_staticContext, _classes, _name, _import, _page, _sc, _filter.getFormattedFilter());
         boolean uniq_ = uniq(_sc.getId(),_varargOnly);
         int varargOnly_ = fetchVarargOnly(_varargOnly, _sc.getId());
         return getCustResult(uniq_, false, varargOnly_, methods_, _name, _param,_filter, _page);
@@ -1293,7 +1293,7 @@ public abstract class OperationNode {
                                                                   boolean _import, ClassMethodIdAncestor _uniqueId,
                                                                   String _param, CustList<OperationNode> _argsClass, AnalyzedPageEl _page) {
         CustList<CustList<MethodInfo>> methods_;
-        methods_ = getDeclaredCustMethodByType(_staticContext, _classes, _name, _import, _page, new ScopeFilter(_uniqueId, _accessFromSuper, _superClass, false, _page.getGlobalClass()), "");
+        methods_ = getDeclaredCustMethodByType(_staticContext, _classes, _name, _import, _page, new ScopeFilter(_uniqueId, _accessFromSuper, _superClass, false, _page.getGlobalClass()), new FormattedFilter());
         boolean uniq_ = uniq(_uniqueId,_varargOnly);
         int varargOnly_ = fetchVarargOnly(_varargOnly, _uniqueId);
         return getCustResult(uniq_, varargOnly_, methods_, _name, _param,_argsClass, _page);
@@ -1331,7 +1331,7 @@ public abstract class OperationNode {
     protected static ClassMethodIdReturn tryGetDeclaredCustIncrDecrMethod(StringList _classes, String _name,
                                                                           AnaClassArgumentMatching _argsClass, AnalyzedPageEl _page) {
         CustList<CustList<MethodInfo>> methods_;
-        methods_ = getDeclaredCustMethodByType(MethodAccessKind.STATIC, _classes, _name, false, _page, new ScopeFilter(null, false, false, false, _page.getGlobalClass()), "");
+        methods_ = getDeclaredCustMethodByType(MethodAccessKind.STATIC, _classes, _name, false, _page, new ScopeFilter(null, false, false, false, _page.getGlobalClass()), new FormattedFilter());
         return getCustIncrDecrResult(methods_, _name, _argsClass, _page);
     }
     protected static ReversibleConversion tryGetPair(AnaClassArgumentMatching _argsClass, AnalyzedPageEl _page) {
@@ -1365,7 +1365,7 @@ public abstract class OperationNode {
                                                                         boolean _import, ClassMethodIdAncestor _uniqueId,
                                                                         StringList _argsClass, AnalyzedPageEl _page) {
         CustList<CustList<MethodInfo>> methods_;
-        methods_ = getDeclaredCustMethodByType(_staticContext, _classes, _name, _import, _page, new ScopeFilter(_uniqueId, _accessFromSuper, _superClass, false, _page.getGlobalClass()), "");
+        methods_ = getDeclaredCustMethodByType(_staticContext, _classes, _name, _import, _page, new ScopeFilter(_uniqueId, _accessFromSuper, _superClass, false, _page.getGlobalClass()), new FormattedFilter());
         int varargOnly_ = fetchVarargOnly(_varargOnly, _uniqueId);
         return getCustResultLambda(varargOnly_, methods_, _name, _page, _argsClass);
     }
@@ -1375,7 +1375,7 @@ public abstract class OperationNode {
                                                                              boolean _import, ClassMethodIdAncestor _uniqueId,
                                                                              String _stCall, StringList _argsClass, AnalyzedPageEl _page, String _retType) {
         CustList<CustList<MethodInfo>> methods_;
-        methods_ = getDeclaredCustMethodByType(_staticContext, _classes, _name, _import, _page, new ScopeFilter(_uniqueId, _accessFromSuper, _superClass, false, _page.getGlobalClass()), "");
+        methods_ = getDeclaredCustMethodByType(_staticContext, _classes, _name, _import, _page, new ScopeFilter(_uniqueId, _accessFromSuper, _superClass, false, _page.getGlobalClass()), new FormattedFilter());
         return getCustResultLambdaInfer(methods_, _name, _page, _stCall,_argsClass, _retType);
     }
 
@@ -2260,10 +2260,10 @@ public abstract class OperationNode {
     }
     protected static CustList<CustList<MethodInfo>>
     getDeclaredCustMethodByType(MethodAccessKind _staticContext,
-                                StringList _fromClasses, String _name, boolean _import, AnalyzedPageEl _page, ScopeFilter _sc, String _stCall) {
+                                StringList _fromClasses, String _name, boolean _import, AnalyzedPageEl _page, ScopeFilter _sc, FormattedFilter _formattedFilter) {
         CustList<CustList<MethodInfo>> methods_;
         methods_ = new CustList<CustList<MethodInfo>>();
-        fetchParamClassAncMethods(_fromClasses,_staticContext, methods_, _page, _sc,_stCall);
+        fetchParamClassAncMethods(_fromClasses,_staticContext, methods_, _page, _sc, _formattedFilter);
         if (_import) {
             for (CustList<ImportedMethod> l: ResolvingImportTypes.lookupImportStaticMethods(_page.getGlobalClass(), _name, _page)) {
                 CustList<MethodInfo> m_ = new CustList<MethodInfo>();
@@ -2284,6 +2284,7 @@ public abstract class OperationNode {
                     mloc_.setOriginalReturnType(e.getReturnType());
                     mloc_.setFileName(e.getFileName());
                     mloc_.setMemberId(e.getMemberId());
+                    trySetParamNames(mloc_, e.getCustMethod());
                     mloc_.setStandardMethod(e.getStandardMethod());
                     mloc_.setCustMethod(e.getCustMethod());
                     mloc_.pair(e.getType(),e.getCustMethod());
@@ -2292,7 +2293,8 @@ public abstract class OperationNode {
                 methods_.add(m_);
             }
         }
-        if (StringUtil.quickEq(_stCall,"<>")) {
+        String stCall_ = _formattedFilter.getStCall();
+        if (StringUtil.quickEq(stCall_,"<>")) {
             for (CustList<ImportedMethod> l: ResolvingImportTypes.lookupImportStaticCallMethods(_page.getGlobalClass(), _name, _page)) {
                 CustList<MethodInfo> m_ = new CustList<MethodInfo>();
                 for (ImportedMethod e:l) {
@@ -2307,13 +2309,14 @@ public abstract class OperationNode {
                     mloc_.setClassName(clName_);
                     mloc_.setConstraints(id_);
                     mloc_.setParameters(p_);
-                    mloc_.setStCall(_stCall);
+                    mloc_.setFormattedFilter(_formattedFilter);
                     mloc_.format(id_.getKind() == MethodAccessKind.STATIC, _page);
                     mloc_.setReturnType(e.getReturnType());
                     mloc_.setOriginalReturnType(e.getReturnType());
                     mloc_.setFileName(e.getFileName());
                     mloc_.setMemberId(e.getMemberId());
                     mloc_.setStandardMethod(e.getStandardMethod());
+                    trySetParamNames(mloc_, e.getCustMethod());
                     mloc_.setCustMethod(e.getCustMethod());
                     mloc_.pair(e.getType(),e.getCustMethod());
                     m_.add(mloc_);
@@ -2322,6 +2325,12 @@ public abstract class OperationNode {
             }
         }
         return methods_;
+    }
+
+    private static void trySetParamNames(MethodInfo _mloc, NamedFunctionBlock _custMethod) {
+        if (_custMethod != null) {
+            _mloc.setParametersNames(_custMethod.getParametersNames());
+        }
     }
 
     protected static boolean isCandidateMethod(ClassMethodIdAncestor _uniqueId, int _ancestor,String _clName, MethodId _id) {
@@ -2341,10 +2350,10 @@ public abstract class OperationNode {
 
 
     public static void fetchParamClassAncMethods(StringList _fromClasses, CustList<CustList<MethodInfo>> _methods, AnalyzedPageEl _page) {
-        fetchParamClassAncMethods(_fromClasses,MethodAccessKind.INSTANCE, _methods, _page, new ScopeFilter(null, false, true, false, _page.getGlobalClass()),"");
+        fetchParamClassAncMethods(_fromClasses,MethodAccessKind.INSTANCE, _methods, _page, new ScopeFilter(null, false, true, false, _page.getGlobalClass()), new FormattedFilter());
     }
     private static void fetchParamClassAncMethods(StringList _fromClasses, MethodAccessKind _staticContext,
-                                                  CustList<CustList<MethodInfo>> _methods, AnalyzedPageEl _page, ScopeFilter _sc, String _stCall) {
+                                                  CustList<CustList<MethodInfo>> _methods, AnalyzedPageEl _page, ScopeFilter _sc, FormattedFilter _formattedFilter) {
         CustList<CustList<TypeInfo>> typeInfosGroups_ = typeLists(_fromClasses,_staticContext, _page);
         for (CustList<TypeInfo> g: typeInfosGroups_) {
             StringList baseTypes_ = new StringList();
@@ -2355,7 +2364,7 @@ public abstract class OperationNode {
                 String f_ = t.getType();
                 String cl_ =t.getTypeId();
                 AnaGeneType root_ = t.getRoot();
-                ScopeFilterType scType_ = new ScopeFilterType(_sc,t.getScope(),t.getAncestor(),baseTypes_,superTypesBaseAncBis_,f_,cl_,_stCall);
+                ScopeFilterType scType_ = new ScopeFilterType(_sc,t.getScope(),t.getAncestor(),baseTypes_,superTypesBaseAncBis_,f_,cl_, _formattedFilter);
                 _page.getFieldFilter().fetchParamClassMethods(scType_, methods_, root_, _page);
             }
             _methods.add(methods_);
@@ -2577,7 +2586,7 @@ public abstract class OperationNode {
             return null;
         }
         String formattedClass_ = getFormattedClass(_s, _f, _page, base_, _id);
-        return buildMethodInfo(_m, _keepParams, _anc, formattedClass_, _page, _id, _importedReturnType, _scType.getStCall());
+        return buildMethodInfo(_m, _keepParams, _anc, formattedClass_, _page, _id, _importedReturnType, _scType.getFormattedFilter());
     }
 
     private static MethodInfo fetchedParamMethodCust(RootBlock _r, NamedFunctionBlock _m, ScopeFilterType _scType, String _s, boolean _keepParams,
@@ -2594,7 +2603,7 @@ public abstract class OperationNode {
                 return null;
             }
         }
-        return buildMethodInfoCust(_r,_m, _keepParams, _anc, formattedClass_, _page, _id, _importedReturnType,_scType.getStCall());
+        return buildMethodInfoCust(_r,_m, _keepParams, _anc, formattedClass_, _page, _id, _importedReturnType, _scType.getFormattedFilter());
     }
 
     private static String getFormattedClass(String _s, String _f, AnalyzedPageEl _page, String _base, MethodId _id) {
@@ -2636,7 +2645,7 @@ public abstract class OperationNode {
         return !ContextUtil.canAccess(_glClass,_acc, _page);
     }
 
-    private static MethodInfo buildMethodInfoCust(RootBlock _r, NamedFunctionBlock _m, boolean _keepParams, int _anc, String _formattedClass, AnalyzedPageEl _page, MethodId _id, String _importedReturnType, String _scCall) {
+    private static MethodInfo buildMethodInfoCust(RootBlock _r, NamedFunctionBlock _m, boolean _keepParams, int _anc, String _formattedClass, AnalyzedPageEl _page, MethodId _id, String _importedReturnType, FormattedFilter _formatted) {
         String ret_ = _importedReturnType;
         ret_ = AnaTemplates.wildCardFormatReturn(_formattedClass, ret_, _page);
         ParametersGroup p_ = new ParametersGroup();
@@ -2658,18 +2667,18 @@ public abstract class OperationNode {
         mloc_.setParameters(p_);
         mloc_.setReturnType(ret_);
         mloc_.setAncestor(_anc);
-        mloc_.setStCall(_scCall);
+        mloc_.setFormattedFilter(_formatted);
         mloc_.format(_keepParams, _page);
         return mloc_;
     }
 
-    private static MethodInfo buildMethodInfo(StandardMethod _m, boolean _keepParams, int _anc, String _formattedClass, AnalyzedPageEl _page, MethodId _id, String _importedReturnType, String _stCall) {
+    private static MethodInfo buildMethodInfo(StandardMethod _m, boolean _keepParams, int _anc, String _formattedClass, AnalyzedPageEl _page, MethodId _id, String _importedReturnType, FormattedFilter _formatted) {
         String ret_ = _importedReturnType;
         ret_ = AnaTemplates.wildCardFormatReturn(_formattedClass, ret_, _page);
-        return getMethodInfo(_m, _keepParams, _anc, _formattedClass, _page, _id, _importedReturnType, ret_, _stCall);
+        return getMethodInfo(_m, _keepParams, _anc, _formattedClass, _page, _id, _importedReturnType, ret_, _formatted);
     }
 
-    public static MethodInfo getMethodInfo(StandardMethod _m, boolean _keepParams, int _anc, String _formattedClass, AnalyzedPageEl _page, MethodId _id, String _importedReturnType, String _ret, String _stCall) {
+    public static MethodInfo getMethodInfo(StandardMethod _m, boolean _keepParams, int _anc, String _formattedClass, AnalyzedPageEl _page, MethodId _id, String _importedReturnType, String _ret, FormattedFilter _formatted) {
         ParametersGroup p_ = new ParametersGroup();
         MethodInfo mloc_ = new MethodInfo();
         mloc_.setOriginalReturnType(_importedReturnType);
@@ -2680,7 +2689,7 @@ public abstract class OperationNode {
         mloc_.setParameters(p_);
         mloc_.setReturnType(_ret);
         mloc_.setAncestor(_anc);
-        mloc_.setStCall(_stCall);
+        mloc_.setFormattedFilter(_formatted);
         mloc_.format(_keepParams, _page);
         return mloc_;
     }

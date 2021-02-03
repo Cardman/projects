@@ -118,7 +118,7 @@ public final class AnonymousLambdaOperation extends
                 Mapping mapping_ = new Mapping();
                 mapping_.setMapping(_page.getCurrentConstraints().getCurrentConstraints());
                 mapping_.setParam(pattern_.toString());
-                NameParametersFilter filter_ = InvokingOperation.buildQuickFilter(call_);
+                NameParametersFilter filter_ = InvokingOperation.buildQuickFilter(_page,call_);
                 CustList<CustList<MethodInfo>> methodInfos_ = f_.getMethodInfos();
                 int len_ = methodInfos_.size();
                 for (int i = 0; i < len_; i++) {
@@ -146,7 +146,7 @@ public final class AnonymousLambdaOperation extends
                 Mapping mapping_ = new Mapping();
                 mapping_.setMapping(_page.getCurrentConstraints().getCurrentConstraints());
                 mapping_.setParam(pattern_.toString());
-                NameParametersFilter filter_ = InvokingOperation.buildQuickFilter(call_);
+                NameParametersFilter filter_ = InvokingOperation.buildQuickFilter(_page,call_);
                 CustList<ConstructorInfo> methodInfos_ = f_.getCtors();
                 int len_ = methodInfos_.size();
                 CustList<ConstructorInfo> newList_ = new CustList<ConstructorInfo>();

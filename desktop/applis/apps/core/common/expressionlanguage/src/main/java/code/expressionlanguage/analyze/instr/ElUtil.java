@@ -288,7 +288,7 @@ public final class ElUtil {
     }
 
     public static void retrieveErrorsAnalyze(OperationNode _current, AnalyzedPageEl _page) {
-        _current.analyze(_page);
+        analyzeInfer(_current, _page);
         Block currentBlock_ = _page.getCurrentBlock();
         if (currentBlock_ instanceof FieldBlock) {
             MethodOperation parent_ = _current.getParent();
@@ -325,6 +325,11 @@ public final class ElUtil {
                 }
             }
         }
+    }
+
+    public static void analyzeInfer(OperationNode _current, AnalyzedPageEl _page) {
+        _current.analyze(_page);
+        InvokingOperation.tryInfer(_current, _page);
     }
 
     private static OperationNode processNext(OperationNode _current, String _fieldName, boolean _hasFieldName, AnalyzedPageEl _page) {

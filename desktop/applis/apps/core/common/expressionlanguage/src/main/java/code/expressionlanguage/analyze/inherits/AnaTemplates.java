@@ -681,6 +681,169 @@ public final class AnaTemplates {
         }
         return _ana.getBoundAll();
     }
+    public static String tryInferMethodByOneArg(String _owner,
+                                                int _index, MethodId _candidate, String _staticCall, StringMap<StringList> _vars,
+                                                AnaClassArgumentMatching _arg,
+                                                String _returnCandidate, String _returnType,
+                                                AnalyzedPageEl _page) {
+        AnaGeneType sub_ = _page.getAnaGeneType(_staticCall);
+        CustList<TypeVar> varTypes_ = ContextUtil.getParamTypesMapValues(sub_);
+        int sizeVar_ = varTypes_.size();
+        String genericString_ = getGeneNb(sub_);
+        CustList<Matching> all_ = tryInferMethodByOneArgList(_owner, _index, _candidate, _staticCall, _vars, _arg, _returnCandidate, _returnType, _page);
+        return processConstraints(genericString_,all_, sizeVar_,_vars,_page);
+    }
+
+    public static CustList<Matching> tryInferMethodByOneArgList(String _owner,
+                                                                int _index, MethodId _candidate, String _staticCall, StringMap<StringList> _vars,
+                                                                AnaClassArgumentMatching _arg,
+                                                                String _returnCandidate, String _returnType,
+                                                                AnalyzedPageEl _page) {
+        AnaGeneType sub_ = _page.getAnaGeneType(_staticCall);
+        if (sub_ == null) {
+            return new CustList<Matching>();
+        }
+        CustList<TypeVar> varTypes_ = ContextUtil.getParamTypesMapValues(sub_);
+        int sizeVar_ = varTypes_.size();
+        StringMap<StringList> inh_ = inhNb(sub_);
+        String genericString_ = getGeneNb(sub_);
+        String idOwner_ = StringExpUtil.getIdFromAllTypes(_owner);
+        AnaGeneType cType_ = _page.getAnaGeneType(idOwner_);
+        if (cType_ == null) {
+            return new CustList<Matching>();
+        }
+        String candidate_ = getFullTypeByBases(sub_, genericString_, idOwner_, _page);
+        CustList<Matching> all_ = new CustList<Matching>();
+        String resRet_ = _returnCandidate;
+        if (_returnCandidate.isEmpty()) {
+            resRet_ = _page.getAliasVoid();
+        }
+        if (!StringUtil.quickEq(_page.getAliasVoid(),resRet_)&&!_returnType.isEmpty()) {
+            Mapping mapRet_ = new Mapping();
+            mapRet_.getMapping().putAllMap(inh_);
+            mapRet_.getMapping().putAllMap(_vars);
+            String arg_ = quickFormat(cType_, candidate_, _returnCandidate);
+            mapRet_.setArg(arg_);
+            mapRet_.setParam(_returnType);
+            if (_candidate.isRetRef()) {
+                all_.addAllElts(inferOrImplicit(new AnaClassArgumentMatching(arg_),_returnType,MatchingEnum.EQ,mapRet_.getMapping(), _page));
+            } else {
+                all_.addAllElts(inferOrImplicit(new AnaClassArgumentMatching(arg_),_returnType,MatchingEnum.SUB,mapRet_.getMapping(), _page));
+            }
+        }
+        int len_ = _candidate.getParametersTypesLength();
+        if (_candidate.isVararg()) {
+            if (_index > -1) {
+                if (_index < len_ -1) {
+                    String wc_ = _candidate.getParametersType(_index);
+                    wc_ = quickFormat(cType_,candidate_,wc_);
+                    if (_candidate.getParametersRef(_index)) {
+                        Mapping map_ = new Mapping();
+                        map_.setArg(_arg);
+                        map_.getMapping().putAllMap(inh_);
+                        map_.getMapping().putAllMap(_vars);
+                        map_.setParam(wc_);
+                        CustList<Matching> cts_ = inferOrImplicit(_arg,wc_,MatchingEnum.EQ,map_.getMapping(), _page);
+                        //compare base of arg - param by eq and return eq constraints
+                        all_.addAllElts(cts_);
+                    } else {
+                        if (!_arg.isVariable()) {
+                            Mapping map_ = new Mapping();
+                            map_.setArg(_arg);
+                            map_.getMapping().putAllMap(inh_);
+                            map_.getMapping().putAllMap(_vars);
+                            map_.setParam(wc_);
+                            CustList<Matching> cts_ = inferOrImplicit(_arg,wc_,MatchingEnum.SUB,map_.getMapping(), _page);
+                            //compare base of arg - param by sub and return eq constraints
+                            all_.addAllElts(cts_);
+                        }
+                    }
+                    return all_;
+                }
+                if (_index < len_) {
+                    int last_ = len_ - 1;
+                    Mapping map_ = new Mapping();
+                    String wc_ = _candidate.getParametersType(last_);
+                    wc_ = quickFormat(cType_,candidate_,wc_);
+                    if (_candidate.getParametersRef(last_)) {
+                        map_.setArg(_arg);
+                        map_.getMapping().putAllMap(inh_);
+                        map_.getMapping().putAllMap(_vars);
+                        map_.setParam(StringExpUtil.getPrettyArrayType(wc_));
+                        CustList<Matching> cts_ = inferOrImplicit(_arg,StringExpUtil.getPrettyArrayType(wc_),MatchingEnum.EQ,map_.getMapping(), _page);
+                        all_.addAllElts(cts_);
+                        return all_;
+                    }
+                    map_.setArg(_arg);
+                    map_.getMapping().putAllMap(inh_);
+                    map_.getMapping().putAllMap(_vars);
+                    String arr_ = StringExpUtil.getPrettyArrayType(wc_);
+                    map_.setParam(arr_);
+                    CustList<Matching> cts_ = inferOrImplicit(_arg,arr_,MatchingEnum.SUB,map_.getMapping(), _page);
+                    //compare base of arg - param by sub and return eq constraints
+                    CustList<Matching> attempt_ = new CustList<Matching>(all_);
+                    attempt_.addAllElts(cts_);
+                    //try infer here
+                    String tried_ = processConstraints(genericString_, attempt_, sizeVar_,_vars, _page);
+                    if (!tried_.isEmpty()) {
+                        return attempt_;
+                    }
+                    map_.setParam(wc_);
+                    CustList<Matching> cts2_ = inferOrImplicit(_arg,wc_,MatchingEnum.SUB,map_.getMapping(), _page);
+                    //else compare base of arg - param by sub and return eq constraints and roll back previous
+                    all_.addAllElts(cts2_);
+                    return all_;
+                }
+                int last_ = len_ - 1;
+                Mapping map_ = new Mapping();
+                map_.getMapping().putAllMap(inh_);
+                map_.getMapping().putAllMap(_vars);
+                String wc_ = _candidate.getParametersType(last_);
+                wc_ = quickFormat(cType_,candidate_,wc_);
+                map_.setParam(wc_);
+                map_.setArg(_arg);
+                CustList<Matching> cts_ = inferOrImplicit(_arg,wc_,MatchingEnum.SUB,map_.getMapping(), _page);
+                //compare base of arg - param by sub and return eq constraints
+                all_.addAllElts(cts_);
+                return all_;
+            }
+        }
+        if (_index > -1 && _index < len_) {
+            String wc_ = _candidate.getParametersType(_index);
+            wc_ = quickFormat(cType_,candidate_,wc_);
+            if (_candidate.getParametersRef(_index)) {
+                Mapping map_ = new Mapping();
+                map_.setArg(_arg);
+                map_.getMapping().putAllMap(inh_);
+                map_.getMapping().putAllMap(_vars);
+                map_.setParam(wc_);
+                CustList<Matching> cts_ = inferOrImplicit(_arg,wc_,MatchingEnum.EQ,map_.getMapping(), _page);
+                //compare base of arg - param by eq and return eq constraints
+                all_.addAllElts(cts_);
+            } else {
+                if (!_arg.isVariable()) {
+                    Mapping map_ = new Mapping();
+                    map_.setArg(_arg);
+                    map_.getMapping().putAllMap(inh_);
+                    map_.getMapping().putAllMap(_vars);
+                    map_.setParam(wc_);
+                    CustList<Matching> cts_ = inferOrImplicit(_arg,wc_,MatchingEnum.SUB,map_.getMapping(), _page);
+                    //compare base of arg - param by sub and return eq constraints
+                    all_.addAllElts(cts_);
+                }
+            }
+        }
+        return all_;
+    }
+    public static String tryInferMethodByOneArg(CustList<Matching> _all,
+                                                String _staticCall, StringMap<StringList> _vars,
+                                                AnalyzedPageEl _page) {
+        AnaGeneType sub_ = _page.getAnaGeneType(_staticCall);
+        CustList<TypeVar> varTypes_ = ContextUtil.getParamTypesMapValues(sub_);
+        int sizeVar_ = varTypes_.size();
+        String genericString_ = getGeneNb(sub_);
+        return processConstraints(genericString_,_all, sizeVar_,_vars,_page);
+    }
     public static String tryInferMethod(int _varargOnly, String _owner,
                                         MethodId _candidate, String _staticCall, StringMap<StringList> _vars,
                                         CustList<AnaClassArgumentMatching> _args,

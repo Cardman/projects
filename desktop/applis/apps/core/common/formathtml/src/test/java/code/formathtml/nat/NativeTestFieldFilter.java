@@ -3,10 +3,7 @@ package code.formathtml.nat;
 import code.expressionlanguage.analyze.AbstractFieldFilter;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.opers.OperationNode;
-import code.expressionlanguage.analyze.opers.util.FieldResult;
-import code.expressionlanguage.analyze.opers.util.MethodInfo;
-import code.expressionlanguage.analyze.opers.util.ScopeFilterField;
-import code.expressionlanguage.analyze.opers.util.ScopeFilterType;
+import code.expressionlanguage.analyze.opers.util.*;
 import code.expressionlanguage.common.AnaGeneType;
 import code.expressionlanguage.stds.StandardMethod;
 import code.expressionlanguage.stds.StandardType;
@@ -22,7 +19,7 @@ public final class NativeTestFieldFilter implements AbstractFieldFilter {
     @Override
     public void fetchParamClassMethods(ScopeFilterType _retRef, CustList<MethodInfo> _methods, AnaGeneType _g, AnalyzedPageEl _page) {
         for (StandardMethod e: ((StandardType) _g).getMethods()) {
-            _methods.add(OperationNode.getMethodInfo(e,false,0, _retRef.getFormatted(), _page, e.getId(), e.getImportedReturnType(), e.getImportedReturnType(), ""));
+            _methods.add(OperationNode.getMethodInfo(e,false,0, _retRef.getFormatted(), _page, e.getId(), e.getImportedReturnType(), e.getImportedReturnType(), new FormattedFilter()));
         }
     }
 

@@ -17,9 +17,9 @@ public final class ScopeFilterType {
     private final String formatted;
     private final String fullName;
     private final String glClass;
-    private final String stCall;
+    private final FormattedFilter formattedFilter;
 
-    public ScopeFilterType(ScopeFilter _scope,MethodAccessKind _kind, int _anc, StringList _superTypesBase, StringMap<String> _superTypesBaseAncBis, String _formatted, String _fullName, String _stCall) {
+    public ScopeFilterType(ScopeFilter _scope, MethodAccessKind _kind, int _anc, StringList _superTypesBase, StringMap<String> _superTypesBaseAncBis, String _formatted, String _fullName, FormattedFilter _formattedFilter) {
         accessFromSuper = _scope.isAccessFromSuper();
         superClass = _scope.isSuperClass();
         retRef = _scope.isRetRef();
@@ -31,7 +31,7 @@ public final class ScopeFilterType {
         superTypesBaseAncBis = _superTypesBaseAncBis;
         formatted = _formatted;
         fullName = _fullName;
-        stCall = _stCall;
+        formattedFilter = _formattedFilter;
     }
 
     public ClassMethodIdAncestor getId() {
@@ -74,8 +74,8 @@ public final class ScopeFilterType {
         return fullName;
     }
 
-    public String getStCall() {
-        return stCall;
+    public FormattedFilter getFormattedFilter() {
+        return formattedFilter;
     }
 
     public MethodAccessKind getKind() {
