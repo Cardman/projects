@@ -269,7 +269,11 @@ public class GraphicList<T> extends CustComponent {
     }
 
     public int getMaxWidth() {
-        return 0;
+        int width_ = 0;
+        for (PreparedLabel c: getListComponents()) {
+            width_ = Math.max(width_, c.getPreferredSize().width);
+        }
+        return width_;
     }
     protected void resetDimensions(){
         int width_ = getMaxWidth();

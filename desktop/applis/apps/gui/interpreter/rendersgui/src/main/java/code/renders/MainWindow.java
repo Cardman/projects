@@ -247,6 +247,6 @@ public final class MainWindow extends GroupFrame {
 
     @Override
     public void changeLanguage(String _language) {
-
+        //
     }
 }
