@@ -217,8 +217,10 @@ public abstract class OperationNode {
         if (_op.getPriority() == ElResolver.NAME_PRIO) {
             return new NamedArgumentOperation(_index, _indexChild, _m, _op);
         }
-        if (_op.getPriority() == ElResolver.DECL_PRIO) {
-            return new DeclaringOperation(_index, _indexChild, _m, _op);
+        if (_m == null) {
+            if (_op.getPriority() == ElResolver.DECL_PRIO) {
+                return new DeclaringOperation(_index, _indexChild, null, _op);
+            }
         }
         if (_op.getPriority() == ElResolver.FCT_OPER_PRIO) {
             if (_page.getAnnotationAnalysis().isAnnotAnalysis(_m,_op)) {
