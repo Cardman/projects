@@ -163,8 +163,9 @@ public final class GraphicCombo extends CustComponent implements GraphicComboGrI
 
     @Override
     public void selectItem(int _index) {
+        int old_ = selectedIndex;
         simpleSelectItem(_index);
-        CustComponent.invokeLater(new SelectionComboEvent(_index, _index, this));
+        CustComponent.invokeLater(new SelectionComboEvent(_index, _index, this, getListener(), old_));
     }
     public void simpleSelectItem(int _index) {
         if (_index < 0) {
