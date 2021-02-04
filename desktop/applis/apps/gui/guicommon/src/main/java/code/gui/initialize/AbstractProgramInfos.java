@@ -15,4 +15,6 @@ public interface AbstractProgramInfos {
     StringMap<AtomicInteger> getCounts();
     AbstractGenerator getGenerator();
     AbstractNameValidating getValidator();
+    AbstractGraphicStringListGenerator getGeneGraphicList();
+    AbstractGraphicComboBoxGenerator getGeneComboBox();
 }

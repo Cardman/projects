@@ -1,10 +1,4 @@
 package cards.gui.dialogs;
-import java.awt.GridLayout;
-
-import javax.swing.BoxLayout;
-import javax.swing.JCheckBox;
-import javax.swing.JLabel;
-import javax.swing.JSpinner;
 
 import cards.belote.RulesBelote;
 import cards.belote.enumerations.BeloteTrumpPartner;
@@ -16,10 +10,7 @@ import cards.facade.Games;
 import cards.gui.MainWindow;
 import cards.gui.comboboxes.ComboBoxEnumCards;
 import code.gui.*;
-import code.util.CustList;
-import code.util.EnumList;
-import code.util.EnumMap;
-import code.util.StringMap;
+import code.util.*;
 import code.util.ints.Listable;
 
 public abstract class DialogBelote extends DialogCards {
@@ -41,14 +32,14 @@ public abstract class DialogBelote extends DialogCards {
     private RulesBelote reglesBelote=new RulesBelote();
     private Spinner nbGames;
     private StringMap<String> messages = new StringMap<String>();
-    private EnumMap<DeclaresBelote,Integer> indicesAnnoncesValides = new EnumMap<DeclaresBelote,Integer>();
+    private final EnumMap<DeclaresBelote,Integer> indicesAnnoncesValides = new EnumMap<DeclaresBelote,Integer>();
     private ComboBox<MixCardsChoice> listeChoix;
     private CustCheckBox dealAll;
 
     private Panel bidding;
-    private CustList<CustCheckBox> bids = new CustList<CustCheckBox>();
+    private final CustList<CustCheckBox> bids = new CustList<CustCheckBox>();
     private Panel declaresFirstRound;
-    private CustList<CustCheckBox> declares = new CustList<CustCheckBox>();
+    private final CustList<CustCheckBox> declares = new CustList<CustCheckBox>();
     private CustCheckBox underTrumpingFoe;
     private ComboBoxEnumCards<BeloteTrumpPartner> listChoiceTwo;
     private CustCheckBox classic;
@@ -61,12 +52,12 @@ public abstract class DialogBelote extends DialogCards {
 //        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 //    }
 
-    protected void initJt(Spinner _nbGames, String _lg) {
+    protected void initJt(MainWindow _window,Spinner _nbGames, String _lg) {
         setNbGames(_nbGames);
         Panel dealing_=Panel.newGrid(0,2);
         //Sous - panneau Battre les cartes
         dealing_.add(new TextLabel(getMessages().getVal(MIX_CARDS)));
-        listeChoix=new ComboBox<MixCardsChoice>();
+        listeChoix=new ComboBox<MixCardsChoice>(_window.getFrames().getGeneComboBox().createCombo(new StringList(), -1));
         Listable<MixCardsChoice> mix_;
         mix_ = new EnumList<MixCardsChoice>(MixCardsChoice.values());
         EnumMap<MixCardsChoice, String> trMix_;
@@ -79,7 +70,7 @@ public abstract class DialogBelote extends DialogCards {
 //            listeChoix.addItem(choix_);
 //        }
         listeChoix.setSelectedItem(getReglesBelote().getCartesBattues());
-        dealing_.add(listeChoix);
+        dealing_.add(listeChoix.self());
         dealAll = new CustCheckBox(getMessages().getVal(DEALING_MODE));
         dealAll.setSelected(getReglesBelote().dealAll());
         dealing_.add(dealAll);
@@ -128,7 +119,7 @@ public abstract class DialogBelote extends DialogCards {
         TextLabel trumpingLabel_ = new TextLabel(getMessages().getVal(TRUMPING));
         trumpingLabel_.setToolTipText(getMessages().getVal(TRUMPING_DESCRIPTION));
         sousPanneau_.add(trumpingLabel_);
-        listChoiceTwo=new ComboBoxEnumCards<BeloteTrumpPartner>();
+        listChoiceTwo=new ComboBoxEnumCards<BeloteTrumpPartner>(_window.getFrames().getGeneComboBox().createCombo(new StringList(new IntTreeMap<String>().values()), 0));
         BeloteTrumpPartner curOne_ = getReglesBelote().getGestionCoupePartenaire();
         int index_ = 0;
         int i_ = -1;
@@ -142,7 +133,7 @@ public abstract class DialogBelote extends DialogCards {
         if (i_ > -1) {
             listChoiceTwo.selectItem(i_);
         }
-        sousPanneau_.add(listChoiceTwo);
+        sousPanneau_.add(listChoiceTwo.self());
         underTrumpingFoe=new CustCheckBox(getMessages().getVal(UNDER_TRUMPING_FOE));
         underTrumpingFoe.setSelected(getReglesBelote().getSousCoupeAdv());
         sousPanneau_.add(underTrumpingFoe);

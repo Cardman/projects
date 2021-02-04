@@ -34,12 +34,11 @@ public class PokemonDataRenderer extends CustCellRender<String> {
     }
 
     @Override
-    public PreparedLabel getListCellRendererComponent(GraphicList<String> _list, String _value,
-                                                       int _index,
-                                                       boolean _isSelected, boolean _cellHasFocus) {
-        PreparedLabel label_ = _list.getListComponents().get(_index);
+    public void getListCellRendererComponent(PreparedLabel _currentLab,
+                                             int _index,
+                                             boolean _isSelected, boolean _cellHasFocus) {
         selected = _isSelected;
-        String key_ = _value;
+        String key_ = getList().get(_index);
         if (!key_.isEmpty()) {
             name = facade.translatePokemon(key_);
             int[][] img_ = facade.getData().getMiniPk().getVal(key_);
@@ -50,8 +49,7 @@ public class PokemonDataRenderer extends CustCellRender<String> {
             pkImage = null;
             height = sideLength;
         }
-        label_.setPreferredSize(new Dimension(100, height));
-        return label_;
+        _currentLab.setPreferredSize(new Dimension(100, height));
     }
 
     @Override

@@ -7,38 +7,25 @@ import javax.swing.JComponent;
 
 import code.util.*;
 import code.util.Ints;
-import code.util.StringList;
 import code.util.core.NumberUtil;
 
-public class GraphicCombo extends CustComponent implements WithPopup,GraphicComboInt, Input  {
+public final class GraphicCombo extends CustComponent implements GraphicComboGrInt  {
 
-    private GraphicStringList grList;
+    private final GraphicStringList grList;
 
     private ListSelection listener;
 
-    private Panel panel = Panel.newLineBox();
+    private final Panel panel = Panel.newLineBox();
 
-    private PreparedLabel currentSelected = new PreparedLabel();
+    private final PreparedLabel currentSelected = new PreparedLabel();
 
-    private PreparedLabel pseudoButton = new PreparedLabel();
+    private final PreparedLabel pseudoButton = new PreparedLabel();
 
-    private PopupMenu menu = new PopupMenu();
+    private final PopupMenu menu = new PopupMenu();
 
     private int selectedIndex = -1;
 
     private boolean enabled = true;
-
-    public GraphicCombo() {
-        this(new StringList());
-    }
-
-    public GraphicCombo(StringList _list) {
-        this(_list,0);
-    }
-
-    public GraphicCombo(StringList _list, int _selectedIndex) {
-        this(new GraphicStringList(_list),_selectedIndex);
-    }
 
     public GraphicCombo(GraphicStringList _grList, int _selectedIndex) {
         grList = _grList;
@@ -105,6 +92,13 @@ public class GraphicCombo extends CustComponent implements WithPopup,GraphicComb
     }
 
     @Override
+    public void simpleRemoveAllItems() {
+        getGrList().clearRevalidate();
+        setSelectedIndex(-1);
+        setNoSelected();
+    }
+
+    @Override
     public void removeAllItems() {
         int len_ = grList.getList().size();
         for (int i = len_ - 1; i > -1; i--) {
@@ -122,12 +116,6 @@ public class GraphicCombo extends CustComponent implements WithPopup,GraphicComb
         listener = _listener;
     }
 
-    @Override
-    public int getMaxWidth() {
-        return grList.getMaxWidth();
-    }
-
-    @Override
     public Panel getPanel() {
         return panel;
     }
@@ -143,9 +131,15 @@ public class GraphicCombo extends CustComponent implements WithPopup,GraphicComb
         }
         menu.show(panel, 0, pseudoButton.getHeight());
     }
-
+    @Override
+    public void simpleRemoveItem(int _index) {
+        removeItem(_index);
+    }
     @Override
     public void removeItem(int _index) {
+        if (!getGrList().getList().isValidIndex(_index)) {
+            return;
+        }
         int oldIndex_ = getSelectedIndex();
         grList.remove(_index);
         if (oldIndex_ == _index) {
@@ -169,11 +163,17 @@ public class GraphicCombo extends CustComponent implements WithPopup,GraphicComb
 
     @Override
     public void selectItem(int _index) {
+        simpleSelectItem(_index);
+        CustComponent.invokeLater(new SelectionComboEvent(_index, _index, this));
+    }
+    public void simpleSelectItem(int _index) {
+        if (_index < 0) {
+            return;
+        }
         selectedIndex = _index;
         grList.setFirstIndex(_index);
         grList.setLastIndex(_index);
         grList.addRange();
-        CustComponent.invokeLater(new SelectionComboEvent(_index, _index, this));
     }
 
     public void update() {
@@ -208,7 +208,7 @@ public class GraphicCombo extends CustComponent implements WithPopup,GraphicComb
         currentSelected.setIcon(img_);
     }
 
-    public PreparedLabel getCurrentSelected() {
+    public CustComponent getCurrentSelected() {
         return currentSelected;
     }
 
@@ -238,4 +238,8 @@ public class GraphicCombo extends CustComponent implements WithPopup,GraphicComb
         return getPanel().getComponent();
     }
 
+    @Override
+    public CustComponent self() {
+        return this;
+    }
 }

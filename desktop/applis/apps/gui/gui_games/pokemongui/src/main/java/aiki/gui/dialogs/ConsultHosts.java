@@ -110,7 +110,7 @@ public final class ConsultHosts extends Dialog {
         }
         facade.setHostedPokemon(_first, _coords);
         RenderedPage session_;
-        session_ = new RenderedPage(new ScrollPane());
+        session_ = new RenderedPage(new ScrollPane(), window.getFrames());
         showHtmlDialog(session_,facade,task_,facade.getLanguage());
     }
 

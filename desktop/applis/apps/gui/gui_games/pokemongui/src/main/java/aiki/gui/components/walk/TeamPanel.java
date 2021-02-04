@@ -15,7 +15,7 @@ import aiki.gui.listeners.PokemonSelectionTm;
 import aiki.gui.listeners.PokemonSelectionTrading;
 import aiki.map.pokemon.PokemonPlayer;
 import aiki.map.pokemon.UsablePokemon;
-import code.gui.GraphicList;
+import code.gui.AbsGraphicList;
 import code.gui.Panel;
 import code.gui.TextLabel;
 import code.util.*;
@@ -32,20 +32,20 @@ public class TeamPanel {
 
     private static final String ROOMS = "rooms";
 
-    private PokemonRenderer renderer;
+    private final PokemonRenderer renderer;
 
-    private GraphicList<UsablePokemon> liste;
+    private final AbsGraphicList<UsablePokemon> liste;
 
-    private Bytes indexes = new Bytes();
+    private final Bytes indexes = new Bytes();
 
-    private FacadeGame facade;
+    private final FacadeGame facade;
 
-    private TextLabel nbRemainPlaces;
+    private final TextLabel nbRemainPlaces;
 
-    private Panel container;
-    public TeamPanel(int _nb, String _titre, FacadeGame _facade, ByteTreeMap<UsablePokemon> _team, boolean _single, StringMap<String> _mess) {
+    private final Panel container;
+    public TeamPanel(int _nb, String _titre, FacadeGame _facade, ByteTreeMap<UsablePokemon> _team, boolean _single, StringMap<String> _mess, AbsGraphicList<UsablePokemon> _liste) {
         facade = _facade;
-        liste = new GraphicList<UsablePokemon>(true);
+        liste = _liste;
         container = Panel.newBorder();
         container.setLoweredBorder();
         TextLabel titrePanneau_ = new TextLabel(_titre, SwingConstants.CENTER);
@@ -57,7 +57,7 @@ public class TeamPanel {
         liste.setRender(renderer);
         initFighters(_team,_mess);
         int side_ = facade.getMap().getSideLength();
-        container.add(liste,BorderLayout.CENTER);
+        container.add(liste.self(),BorderLayout.CENTER);
         nbRemainPlaces = new TextLabel("");
         translate(_mess);
         container.add(nbRemainPlaces,BorderLayout.SOUTH);

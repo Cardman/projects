@@ -125,7 +125,7 @@ public final class FrameGeneralHelp extends ChildFrame {
                     elementLoc_.nom()));
         }
         if (wasNull_) {
-            editor = new RenderedPage(new ScrollPane());
+            editor = new RenderedPage(new ScrollPane(), _w.getFrames());
         }
         TreeGui arbre_ = new TreeGui(root_);
         arbre_.setRootVisible(false);

@@ -10,6 +10,7 @@ import cards.gui.dialogs.events.ListenerParameters;
 import code.gui.*;
 import code.util.EnumList;
 import code.util.EnumMap;
+import code.util.StringList;
 import code.util.StringMap;
 import code.util.core.StringUtil;
 
@@ -67,7 +68,7 @@ public final class DialogSoft extends DialogCards {
         if(StringUtil.quickEq(menu,MainWindow.LAUNCHING)) {
             //Lancement du logiciel
             Panel panneau_=Panel.newPageBox();
-            list = new ComboBox<GameEnum>();
+            list = new ComboBox<GameEnum>(_fenetre.getFrames().getGeneComboBox().createCombo(new StringList(), -1));
             EnumMap<GameEnum,String> mess_;
             EnumList<GameEnum> order_;
             mess_ = new EnumMap<GameEnum,String>();
@@ -81,7 +82,7 @@ public final class DialogSoft extends DialogCards {
             list.refresh(order_, mess_);
 //            liste=new JComboBox<>(new Object[]{messages.getVal(LAUNCHING),GameEnum.BELOTE,GameEnum.PRESIDENT,GameEnum.TAROT});
 //            panneau_.add(liste);
-            panneau_.add(list);
+            panneau_.add(list.self());
             saveHomeFolder = new CustCheckBox(messages.getVal(SELECT_HOME_PATH));
             panneau_.add(saveHomeFolder);
             container_.add(panneau_,BorderLayout.CENTER);

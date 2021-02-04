@@ -3,7 +3,7 @@ import code.util.*;
 import code.util.TreeMap;
 import code.util.comparators.ComparatorMapValue;
 
-public final class IntTreeComboBox extends GraphicCombo {
+public final class IntTreeComboBox extends AbsComboBox implements GraphicComboGrInt {
 //implements TranslatableComponent
 
     private static final String EMPTY_STRING = "";
@@ -17,24 +17,27 @@ public final class IntTreeComboBox extends GraphicCombo {
     private TreeMap<Integer,String> elements;
 
     private boolean withDefaultValue;
-    public IntTreeComboBox(){
-    }
 
-    public IntTreeComboBox(Integer... _elements){
+    public IntTreeComboBox(GraphicComboGrInt _combo, Integer... _elements){
+        super(_combo);
         for (Integer e: _elements) {
             addItem(e.toString());
         }
     }
-    public IntTreeComboBox(TreeMap<Integer,String> _tr){
-        elements = _tr;
-    }
 
+    private static StringList str(Integer... _elements) {
+        StringList ls_ = new StringList();
+        for (Integer i: _elements) {
+            ls_.add(Integer.toString(i));
+        }
+        return ls_;
+    }
     protected TreeMap<Integer, String> getElements() {
         return elements;
     }
 
     public void refresh(AbsMap<Integer,String> _tr) {
-        super.removeAllItems();
+        getCombo().removeAllItems();
         IntMap<String> m_ = createMap(_tr);
         elements = new TreeMap<Integer,String>(new ComparatorMapValue<Integer>(m_));
         elements.putAllMap(m_);
@@ -57,7 +60,7 @@ public final class IntTreeComboBox extends GraphicCombo {
         tr_ = getElements();
         Integer e_ = tr_.getKey(_anIndex);
         tr_.removeKey(e_);
-        super.removeItem(_anIndex);
+        getCombo().removeItem(_anIndex);
     }
 
     public void setItems(Integer... _numerosPlis) {
@@ -78,7 +81,7 @@ public final class IntTreeComboBox extends GraphicCombo {
     @Override
     public void removeAllItems() {
         getElements().clear();
-        super.removeAllItems();
+        getCombo().removeAllItems();
     }
     public Integer getCurrent() {
         int index_ = getSelectedIndex();

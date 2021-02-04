@@ -5,6 +5,7 @@ import java.awt.Font;
 
 import javax.swing.SwingConstants;
 
+import cards.gui.MainWindow;
 import cards.gui.containers.ContainerTarot;
 import cards.gui.dialogs.FileConst;
 import cards.gui.labels.GraphicTarotCard;
@@ -30,24 +31,24 @@ public class PanelTricksHandsTarot implements ViewablePanelTricksHands {
     private static final String TRICK ="trick";
     private static final String CARD ="card";
     private StringMap<String> messages = new StringMap<String>();
-    private Panel cards;
+    private final Panel cards;
     private Panel tricks;
-    private Panel selectedTrick;
-    private Panel hands;
-    private NumComboBox trickNumber;
-    private NumComboBox cardNumberTrick;
-    private TricksHandsTarot tricksHands;
-    private ChangeableTitle parent;
+    private final Panel selectedTrick;
+    private final Panel hands;
+    private final NumComboBox trickNumber;
+    private final NumComboBox cardNumberTrick;
+    private final TricksHandsTarot tricksHands;
+    private final ChangeableTitle parent;
 
-    private byte numberPlayers;
-    private DisplayingTarot displayingTarot;
-    private CommonFrame window;
-    private Panel container;
+    private final byte numberPlayers;
+    private final DisplayingTarot displayingTarot;
+    private final MainWindow window;
+    private final Panel container;
     public PanelTricksHandsTarot(ChangeableTitle _parent,
             TricksHandsTarot _tricksHands,
             byte _numberPlayers,
             StringList _pseudos,
-            DisplayingTarot _displayingTarot, CommonFrame _window) {
+            DisplayingTarot _displayingTarot, MainWindow _window) {
         window = _window;
         String lg_ = window.getLanguageKey();
         numberPlayers = _numberPlayers;
@@ -133,17 +134,17 @@ public class PanelTricksHandsTarot implements ViewablePanelTricksHands {
         for(byte indicePli_ = IndexConstants.FIRST_INDEX; indicePli_<nbTricksNumbers_; indicePli_++) {
             numerosPlis_[indicePli_]=indicePli_-1;
         }
-        trickNumber=new NumComboBox(numerosPlis_);
+        trickNumber=new NumComboBox(window.getFrames().getGeneComboBox(), numerosPlis_);
         trickNumber.setListener(new ListenerTricks(this));
-        selectionGameState_.add(trickNumber);
+        selectionGameState_.add(trickNumber.self());
         selectionGameState_.add(new TextLabel(messages.getVal(CARD)));
         Integer[] numerosJoueurs_=new Integer[_numberPlayers];
         for(byte indiceJoueur_ = IndexConstants.FIRST_INDEX; indiceJoueur_<_numberPlayers; indiceJoueur_++) {
             numerosJoueurs_[indiceJoueur_]=indiceJoueur_+1;
         }
-        cardNumberTrick=new NumComboBox(numerosJoueurs_);
+        cardNumberTrick=new NumComboBox(window.getFrames().getGeneComboBox(), numerosJoueurs_);
         cardNumberTrick.setListener(new ListenerCards(this));
-        selectionGameState_.add(cardNumberTrick);
+        selectionGameState_.add(cardNumberTrick.self());
         container.add(selectionGameState_,BorderLayout.SOUTH);
     }
 

@@ -6,14 +6,14 @@ import code.util.StringList;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-public final class GraphicStringListMult extends GraphicList<String> implements Input {
+public final class GraphicStringListMult extends GraphicList<String> implements AbsInputGraphicList<String> {
 
     public GraphicStringListMult(StringList _objects, Ints _selectedIndexes, int _visibleRows) {
         super(false, _selectedIndexes, _objects,_visibleRows);
+        buildList();
         rebuild();
     }
 
-    @Override
     protected void buildList() {
         DefaultCellRender cellRender_ = new DefaultCellRender();
         cellRender_.setMaxWidth(getMaxWidth());

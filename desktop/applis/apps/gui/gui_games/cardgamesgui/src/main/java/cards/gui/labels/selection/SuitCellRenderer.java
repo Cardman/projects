@@ -20,13 +20,11 @@ public class SuitCellRenderer extends CustCellRender<Suit> {
     }
     /**Donne la facon de presenter une couleur dans une liste avec un symbole et un nom*/
     @Override
-    public PreparedLabel getListCellRendererComponent(GraphicList<Suit> _list, Suit _value,
-                                                      int _index, boolean _isSelected, boolean _cellHasFocus) {
-        PreparedLabel label_ = _list.getListComponents().get(_index);
-        couleur= _value;
+    public void getListCellRendererComponent(PreparedLabel _currentLab,
+                                             int _index, boolean _isSelected, boolean _cellHasFocus) {
+        couleur= getList().get(_index);
         selectionne=_isSelected;
-        label_.setPreferredSize(new Dimension(100,10));
-        return label_;
+        _currentLab.setPreferredSize(new Dimension(100,10));
     }
     @Override
     public void paintComponent(CustGraphics _g) {

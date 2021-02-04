@@ -572,7 +572,7 @@ public class ContainerSinglePresident extends ContainerPresident implements
         setScores(res_.getScores());
 
         ScrollPane scroll_=new ScrollPane();
-        RenderedPage editor_ = new RenderedPage(scroll_);
+        RenderedPage editor_ = new RenderedPage(scroll_, getOwner().getFrames());
         PreparedAnalyzed stds_ = retrieve(FileConst.RESOURCES_HTML_FILES_RESULTS_PRESIDENT);
         ((PresidentStandards)stds_.getBeanNatLgNames()).setDataBase(res_);
         editor_.initialize(stds_);

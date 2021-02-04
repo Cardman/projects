@@ -6,6 +6,7 @@ import javax.swing.SwingConstants;
 
 import aiki.facade.FacadeGame;
 import aiki.gui.listeners.PokemonSelection;
+import code.gui.AbsGraphicList;
 import code.gui.GraphicList;
 import code.gui.Panel;
 import code.gui.TextLabel;
@@ -14,19 +15,19 @@ import code.util.core.IndexConstants;
 
 public class PokemonPanel {
 
-    private TextLabel title;
+    private final TextLabel title;
 
-    private PokemonDataRenderer renderer;
+    private final PokemonDataRenderer renderer;
 
-    private GraphicList<String> liste;
+    private final AbsGraphicList<String> liste;
 
-    private FacadeGame facade;
+    private final FacadeGame facade;
 
-    private String noEvo;
+    private final String noEvo;
 
-    private Panel container;
-    public PokemonPanel(int _nb, String _titre, FacadeGame _facade, String _noEvo) {
-        liste = new GraphicList<String>(true);
+    private final Panel container;
+    public PokemonPanel(int _nb, String _titre, FacadeGame _facade, String _noEvo, AbsGraphicList<String> _liste) {
+        liste = _liste;
         facade = _facade;
         container = Panel.newBorder();
         container.setLoweredBorder();
@@ -39,7 +40,7 @@ public class PokemonPanel {
         renderer = new PokemonDataRenderer(facade, noEvo);
         liste.setRender(renderer);
         initEvos();
-        container.add(liste,BorderLayout.CENTER);
+        container.add(liste.self(),BorderLayout.CENTER);
         container.setPreferredSize(new Dimension(100,32*(_nb+1)));
     }
 

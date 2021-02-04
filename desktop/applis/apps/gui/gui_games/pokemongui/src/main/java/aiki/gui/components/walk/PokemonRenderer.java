@@ -63,11 +63,10 @@ public class PokemonRenderer extends CustCellRender<UsablePokemon> {
     }
 
     @Override
-    public PreparedLabel getListCellRendererComponent(
-            GraphicList<UsablePokemon> _list, UsablePokemon _arg1,
+    public void getListCellRendererComponent(
+            PreparedLabel _currentLab,
             int _index, boolean _selected, boolean _arg4) {
-        PreparedLabel label_ = _list.getListComponents().get(_index);
-        pokemon = _arg1;
+        pokemon = getList().get(_index);
         selected = _selected;
         if (pokemon instanceof PokemonPlayer) {
             PokemonPlayer pk_ = (PokemonPlayer) pokemon;
@@ -98,8 +97,7 @@ public class PokemonRenderer extends CustCellRender<UsablePokemon> {
             miniImagePk = ConverterGraphicBufferedImage.decodeToImage(img_);
             remainSteps = (int) (facade.getData().getPokemon(egg_.getName()).getHatchingSteps().ll() - egg_.getSteps());
         }
-        label_.setPreferredSize(new Dimension(coords * 2 + sideLength * 2, sideLength));
-        return label_;
+        _currentLab.setPreferredSize(new Dimension(coords * 2 + sideLength * 2, sideLength));
     }
 
     @Override

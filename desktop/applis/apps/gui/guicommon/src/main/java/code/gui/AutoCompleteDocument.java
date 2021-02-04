@@ -1,5 +1,6 @@
 package code.gui;
 
+import code.gui.initialize.AbstractGraphicStringListGenerator;
 import code.util.StringList;
 import code.util.core.StringUtil;
 
@@ -20,18 +21,19 @@ public final class AutoCompleteDocument implements FocusListener, DocumentListen
 
     private final PopupMenu popup;
 
-    private final GraphicStringList list;
+    private final AbsGraphicList<String> list;
 
     private final TextField textField;
     private final ChangeableTitle changeableTitle;
 
-    public AutoCompleteDocument(TextField _field, StringList _aDictionary, ChangeableTitle _changeableTitle) {
+    public AutoCompleteDocument(TextField _field, StringList _aDictionary, ChangeableTitle _changeableTitle, AbstractGraphicStringListGenerator _abs) {
         textField = _field;
         changeableTitle = _changeableTitle;
         dictionary.addAllElts(_aDictionary);
         popup = new PopupMenu();
-        list = new GraphicStringList(results);
-        popup.add(new ScrollPane(list));
+        AbsGraphicList<String> comp_ = _abs.createStrList(results);
+        list = comp_;
+        popup.add(new ScrollPane(comp_.self()));
         textField.addFocusListener(this);
         textField.getDocument().addDocumentListener(this);
         textField.addKeyListener(this);

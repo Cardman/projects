@@ -2,11 +2,11 @@ package code.gui;
 
 public final class ComboSelection implements ListSelection {
 
-    private PopupMenu popup;
+    private final PopupMenu popup;
 
-    private GraphicCombo grList;
+    private final GraphicComboGrInt grList;
 
-    public ComboSelection(PopupMenu _popup, GraphicCombo _grList) {
+    public ComboSelection(PopupMenu _popup, GraphicComboGrInt _grList) {
         popup = _popup;
         grList = _grList;
     }

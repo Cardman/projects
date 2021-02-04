@@ -2,12 +2,12 @@ package code.gui;
 
 
 public final class SelectionComboEvent implements Runnable {
-    private int firstIndex;
-    private int lastIndex;
-    private GraphicCombo grList;
+    private final int firstIndex;
+    private final int lastIndex;
+    private final GraphicComboGrInt grList;
 
     public SelectionComboEvent(int _firstIndex, int _lastIndex,
-            GraphicCombo _grList) {
+                               GraphicComboGrInt _grList) {
         firstIndex = _firstIndex;
         lastIndex = _lastIndex;
         grList = _grList;

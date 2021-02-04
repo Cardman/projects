@@ -79,30 +79,36 @@ public final class PaginatorPokemon extends Paginator {
 
     private final ComboBox<SelectedBoolean> cmpNameSorting;
 
-    private final NumComboBox cmpNamePrio = new NumComboBox();
+    private final NumComboBox cmpNamePrio;
 
     private final ComboBox<SelectedBoolean> cmpAbilitySorting;
 
-    private final NumComboBox cmpAbilityPrio = new NumComboBox();
+    private final NumComboBox cmpAbilityPrio;
 
     private final ComboBox<SelectedBoolean> cmpItemSorting;
 
-    private final NumComboBox cmpItemPrio = new NumComboBox();
+    private final NumComboBox cmpItemPrio;
 
     private final ComboBox<SelectedBoolean> cmpLevelSorting;
 
-    private final NumComboBox cmpLevelPrio = new NumComboBox();
+    private final NumComboBox cmpLevelPrio;
 
     private final ComboBox<SelectedBoolean> cmpGenderSorting;
 
-    private final NumComboBox cmpGenderPrio = new NumComboBox();
+    private final NumComboBox cmpGenderPrio;
 
     private final ComboBox<SelectedBoolean> cmpPossEvosSorting;
 
-    private final NumComboBox cmpPossEvosPrio = new NumComboBox();
+    private final NumComboBox cmpPossEvosPrio;
 
     public PaginatorPokemon(MainWindow _window, Panel _p,ChangeableTitle _w, FacadeGame _d) {
         super(_window, ACCESS_POKEMON,_p);
+        cmpNamePrio = new NumComboBox(_window.getFrames().getGeneComboBox());
+        cmpAbilityPrio = new NumComboBox(_window.getFrames().getGeneComboBox());
+        cmpItemPrio = new NumComboBox(_window.getFrames().getGeneComboBox());
+        cmpLevelPrio = new NumComboBox(_window.getFrames().getGeneComboBox());
+        cmpGenderPrio = new NumComboBox(_window.getFrames().getGeneComboBox());
+        cmpPossEvosPrio = new NumComboBox(_window.getFrames().getGeneComboBox());
         setWindow(_w);
         setFacade(_d);
         order.add(SearchingMode.WHOLE_STRING);
@@ -111,40 +117,40 @@ public final class PaginatorPokemon extends Paginator {
         order.add(SearchingMode.BEGIN);
         order.add(SearchingMode.END);
         order.add(SearchingMode.MATCH_SPACE);
-        modeName = new ComboBox<SearchingMode>();
+        modeName = new ComboBox<SearchingMode>(_window.getFrames().getGeneComboBox().createCombo(new StringList(), -1));
         modeName.setWithDefaultValue(false);
         modeName.refresh(order, getMessagesSearchMode());
-        modeAbility = new ComboBox<SearchingMode>();
+        modeAbility = new ComboBox<SearchingMode>(_window.getFrames().getGeneComboBox().createCombo(new StringList(), -1));
         modeAbility.setWithDefaultValue(false);
         modeAbility.refresh(order, getMessagesSearchMode());
-        modeItem = new ComboBox<SearchingMode>();
+        modeItem = new ComboBox<SearchingMode>(_window.getFrames().getGeneComboBox().createCombo(new StringList(), -1));
         modeItem.setWithDefaultValue(false);
         modeItem.refresh(order, getMessagesSearchMode());
-        withItem = new ComboBox<SelectedBoolean>();
+        withItem = new ComboBox<SelectedBoolean>(_window.getFrames().getGeneComboBox().createCombo(new StringList(), -1));
         withItem.setWithDefaultValue(false);
         withItem.refresh(getFacade().getTranslatedBooleansCurLanguage());
-        modeMoves = new ComboBox<SearchingMode>();
+        modeMoves = new ComboBox<SearchingMode>(_window.getFrames().getGeneComboBox().createCombo(new StringList(), -1));
         modeMoves.setWithDefaultValue(false);
         modeMoves.refresh(order, getMessagesSearchMode());
-        gender = new ComboBox<Gender>();
+        gender = new ComboBox<Gender>(_window.getFrames().getGeneComboBox().createCombo(new StringList(), -1));
         gender.setWithDefaultValue(true);
         gender.refresh(getFacade().getTranslatedGendersCurLanguage());
-        cmpNameSorting = new ComboBox<SelectedBoolean>();
+        cmpNameSorting = new ComboBox<SelectedBoolean>(_window.getFrames().getGeneComboBox().createCombo(new StringList(), -1));
         cmpNameSorting.setWithDefaultValue(false);
         cmpNameSorting.refresh(getFacade().getTranslatedBooleansCurLanguage());
-        cmpAbilitySorting = new ComboBox<SelectedBoolean>();
+        cmpAbilitySorting = new ComboBox<SelectedBoolean>(_window.getFrames().getGeneComboBox().createCombo(new StringList(), -1));
         cmpAbilitySorting.setWithDefaultValue(false);
         cmpAbilitySorting.refresh(getFacade().getTranslatedBooleansCurLanguage());
-        cmpItemSorting = new ComboBox<SelectedBoolean>();
+        cmpItemSorting = new ComboBox<SelectedBoolean>(_window.getFrames().getGeneComboBox().createCombo(new StringList(), -1));
         cmpItemSorting.setWithDefaultValue(false);
         cmpItemSorting.refresh(getFacade().getTranslatedBooleansCurLanguage());
-        cmpLevelSorting = new ComboBox<SelectedBoolean>();
+        cmpLevelSorting = new ComboBox<SelectedBoolean>(_window.getFrames().getGeneComboBox().createCombo(new StringList(), -1));
         cmpLevelSorting.setWithDefaultValue(false);
         cmpLevelSorting.refresh(getFacade().getTranslatedBooleansCurLanguage());
-        cmpGenderSorting = new ComboBox<SelectedBoolean>();
+        cmpGenderSorting = new ComboBox<SelectedBoolean>(_window.getFrames().getGeneComboBox().createCombo(new StringList(), -1));
         cmpGenderSorting.setWithDefaultValue(false);
         cmpGenderSorting.refresh(getFacade().getTranslatedBooleansCurLanguage());
-        cmpPossEvosSorting = new ComboBox<SelectedBoolean>();
+        cmpPossEvosSorting = new ComboBox<SelectedBoolean>(_window.getFrames().getGeneComboBox().createCombo(new StringList(), -1));
         cmpPossEvosSorting.setWithDefaultValue(false);
         cmpPossEvosSorting.refresh(getFacade().getTranslatedBooleansCurLanguage());
         int nb_ = PaginationPokemonPlayer.NB_COMPARATORS;
@@ -166,7 +172,7 @@ public final class PaginatorPokemon extends Paginator {
             pk_.add(pkTr_);
         }
         name = new TextField(16);
-        nameAuto = new AutoCompleteDocument(name,pk_, getWindow());
+        nameAuto = new AutoCompleteDocument(name,pk_, getWindow(),_window.getFrames().getGeneGraphicList());
 //        name.getDocument().addDocumentListener(new DocumentAdaptater() {
 //
 //            public void updateText() {
@@ -187,7 +193,7 @@ public final class PaginatorPokemon extends Paginator {
             ab_.add(abTr_);
         }
         ability = new TextField(16);
-        abilityAuto = new AutoCompleteDocument(ability,ab_, getWindow());
+        abilityAuto = new AutoCompleteDocument(ability,ab_, getWindow(),_window.getFrames().getGeneGraphicList());
 //        ability.getDocument().addDocumentListener(new DocumentAdaptater() {
 //
 //            public void updateText() {
@@ -208,7 +214,7 @@ public final class PaginatorPokemon extends Paginator {
             it_.add(abTr_);
         }
         item = new TextField(16);
-        itemAuto = new AutoCompleteDocument(item,it_, getWindow());
+        itemAuto = new AutoCompleteDocument(item,it_, getWindow(),_window.getFrames().getGeneGraphicList());
 //        item.getDocument().addDocumentListener(new DocumentAdaptater() {
 //
 //            public void updateText() {
@@ -234,7 +240,7 @@ public final class PaginatorPokemon extends Paginator {
             mv_.add(mvTr_);
         }
         moves = new TextField(16);
-        movesAuto = new AutoCompleteDocument(moves,mv_, getWindow());
+        movesAuto = new AutoCompleteDocument(moves,mv_, getWindow(),_window.getFrames().getGeneGraphicList());
 //        moves.getDocument().addDocumentListener(new DocumentAdaptater() {
 //
 //            public void updateText() {
@@ -342,25 +348,25 @@ public final class PaginatorPokemon extends Paginator {
         search_ = Panel.newGrid(0,3);
         search_.add(new TextLabel(getMessages().getVal(CST_NAME)));
         search_.add(name);
-        search_.add(modeName);
+        search_.add(modeName.self());
         search_.add(new TextLabel(getMessages().getVal(CST_LEVEL)));
         search_.add(minLevel);
         search_.add(maxLevel);
         search_.add(new TextLabel(getMessages().getVal(CST_GENDER)));
-        search_.add(gender);
+        search_.add(gender.self());
         search_.add(new TextLabel(DataBase.EMPTY_STRING));
         search_.add(new TextLabel(getMessages().getVal(CST_ABILITY)));
         search_.add(ability);
-        search_.add(modeAbility);
+        search_.add(modeAbility.self());
         search_.add(new TextLabel(getMessages().getVal(CST_ITEM)));
         search_.add(item);
-        search_.add(modeItem);
+        search_.add(modeItem.self());
         search_.add(new TextLabel(getMessages().getVal(CST_WITH_ITEM)));
-        search_.add(withItem);
+        search_.add(withItem.self());
         search_.add(new TextLabel(DataBase.EMPTY_STRING));
         search_.add(new TextLabel(getMessages().getVal(CST_MOVES)));
         search_.add(moves);
-        search_.add(modeMoves);
+        search_.add(modeMoves.self());
         search_.add(new TextLabel(getMessages().getVal(CST_EVOLUTIONS)));
         search_.add(minPossEvos);
         search_.add(maxPossEvos);
@@ -368,23 +374,23 @@ public final class PaginatorPokemon extends Paginator {
         Panel sorting_;
         sorting_ = Panel.newGrid(0,3);
         sorting_.add(new TextLabel(getMessages().getVal(CST_NAME)));
-        sorting_.add(cmpNameSorting);
-        sorting_.add(cmpNamePrio);
+        sorting_.add(cmpNameSorting.self());
+        sorting_.add(cmpNamePrio.self());
         sorting_.add(new TextLabel(getMessages().getVal(CST_LEVEL)));
-        sorting_.add(cmpLevelSorting);
-        sorting_.add(cmpLevelPrio);
+        sorting_.add(cmpLevelSorting.self());
+        sorting_.add(cmpLevelPrio.self());
         sorting_.add(new TextLabel(getMessages().getVal(CST_GENDER)));
-        sorting_.add(cmpGenderSorting);
-        sorting_.add(cmpGenderPrio);
+        sorting_.add(cmpGenderSorting.self());
+        sorting_.add(cmpGenderPrio.self());
         sorting_.add(new TextLabel(getMessages().getVal(CST_ABILITY)));
-        sorting_.add(cmpAbilitySorting);
-        sorting_.add(cmpAbilityPrio);
+        sorting_.add(cmpAbilitySorting.self());
+        sorting_.add(cmpAbilityPrio.self());
         sorting_.add(new TextLabel(getMessages().getVal(CST_ITEM)));
-        sorting_.add(cmpItemSorting);
-        sorting_.add(cmpItemPrio);
+        sorting_.add(cmpItemSorting.self());
+        sorting_.add(cmpItemPrio.self());
         sorting_.add(new TextLabel(getMessages().getVal(CST_EVOLUTIONS)));
-        sorting_.add(cmpPossEvosSorting);
-        sorting_.add(cmpPossEvosPrio);
+        sorting_.add(cmpPossEvosSorting.self());
+        sorting_.add(cmpPossEvosPrio.self());
         _p.add(sorting_);
         Panel top_;
         top_ = Panel.newLineBox();
@@ -432,7 +438,7 @@ public final class PaginatorPokemon extends Paginator {
         bottom_.add(getBegin());
         bottom_.add(getPreviousDelta());
         bottom_.add(getPrevious());
-        bottom_.add(getPages());
+        bottom_.add(getPages().self());
         bottom_.add(getNext());
         bottom_.add(getNextDelta());
         bottom_.add(getEnd());

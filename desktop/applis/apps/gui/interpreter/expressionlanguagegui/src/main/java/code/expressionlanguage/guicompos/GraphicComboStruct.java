@@ -9,37 +9,15 @@ import code.util.StringList;
 
 
 public final class GraphicComboStruct extends InputStruct {
-    private GraphicCombo graphicCombo;
+    private GraphicComboGrInt graphicCombo;
 
     GraphicComboStruct(String _className) {
         super(_className);
     }
 
-    GraphicComboStruct(String _className,Struct _list) {
-        this(_className,0,_list);
-    }
-
-    GraphicComboStruct(String _className, int _selectedIndex,Struct _list) {
-        this(_className,new GraphicStringList(newList(_list)),_selectedIndex);
-    }
-
-    private GraphicComboStruct(String _className, GraphicStringList _grList, int _selectedIndex) {
+    GraphicComboStruct(String _className, GraphicComboGrInt _graphicCombo) {
         super(_className);
-        graphicCombo = new GraphicCombo(_grList,_selectedIndex);
-    }
-
-    private static StringList newList(Struct _s) {
-        if (!(_s instanceof ArrayStruct)) {
-            return new StringList();
-        }
-        StringList l_ = new StringList();
-        for (Struct s: ((ArrayStruct)_s).list()) {
-            if (!(s instanceof StringStruct)) {
-                continue;
-            }
-            l_.add(((StringStruct)s).getInstance());
-        }
-        return l_;
+        graphicCombo = _graphicCombo;
     }
 
     @Override
@@ -73,10 +51,7 @@ public final class GraphicComboStruct extends InputStruct {
 
     public void selectItem(RunnableContextEl _run, NumberStruct _index) {
         int index_ = _index.intStruct();
-        graphicCombo.setSelectedIndex(index_);
-        graphicCombo.getGrList().setFirstIndex(index_);
-        graphicCombo.getGrList().setLastIndex(index_);
-        graphicCombo.getGrList().addRange();
+        graphicCombo.simpleSelectItem(index_);
         invokeRunnable(_run,new SelectionComboEventStruct(index_, index_, this));
     }
     public void setListener(Struct _arg) {
@@ -113,15 +88,11 @@ public final class GraphicComboStruct extends InputStruct {
         return new IntStruct(selectedIndex_);
     }
     public void removeAllItems() {
-        graphicCombo.getGrList().clearRevalidate();
-        graphicCombo.setSelectedIndex(-1);
-        graphicCombo.setNoSelected();
+        graphicCombo.simpleRemoveAllItems();
     }
     public void removeItem(Struct _index) {
         int index_ = ((NumberStruct)_index).intStruct();
-        if (graphicCombo.getGrList().getList().isValidIndex(index_)) {
-            graphicCombo.removeItem(index_);
-        }
+        graphicCombo.simpleRemoveItem(index_);
     }
 
     @Override
@@ -131,6 +102,6 @@ public final class GraphicComboStruct extends InputStruct {
 
     @Override
     protected CustComponent getComponent() {
-        return graphicCombo.getPanel();
+        return graphicCombo.getGlobal();
     }
 }

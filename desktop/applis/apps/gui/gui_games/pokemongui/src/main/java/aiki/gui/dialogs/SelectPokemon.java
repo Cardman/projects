@@ -87,7 +87,7 @@ public final class SelectPokemon extends SelectDialog {
             return;
         }
         RenderedPage session_;
-        session_ = new RenderedPage(new ScrollPane());
+        session_ = new RenderedPage(new ScrollPane(), window.getFrames());
         showHtmlDialog(session_,facade,task_,facade.getLanguage());
     }
 

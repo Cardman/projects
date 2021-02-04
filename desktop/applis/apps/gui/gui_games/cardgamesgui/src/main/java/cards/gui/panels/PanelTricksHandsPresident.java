@@ -5,6 +5,7 @@ import java.awt.Font;
 
 import javax.swing.SwingConstants;
 
+import cards.gui.MainWindow;
 import cards.gui.containers.ContainerPresident;
 import cards.gui.dialogs.FileConst;
 import cards.gui.labels.GraphicPresidentCard;
@@ -44,14 +45,14 @@ public class PanelTricksHandsPresident implements ViewablePanelTricksHands {
     private final ChangeableTitle parent;
     private final byte numberPlayers;
     private final DisplayingPresident displayingPresident;
-    private final CommonFrame window;
+    private final MainWindow window;
     private final Panel container;
 
     public PanelTricksHandsPresident(ChangeableTitle _parent,
             TricksHandsPresident _tricksHands,
             byte _numberPlayers,
             StringList _pseudos,
-            DisplayingPresident _displayingPresident, CommonFrame _window) {
+            DisplayingPresident _displayingPresident, MainWindow _window) {
         window = _window;
         String lg_ = window.getLanguageKey();
         numberPlayers = _numberPlayers;
@@ -132,11 +133,11 @@ public class PanelTricksHandsPresident implements ViewablePanelTricksHands {
 //        list_.add(null);
 //        numerosPlis_[nbNumbers_ - 1] = CURRENT_TRICK;
 //        trickNumber=new NumComboBox(numerosPlis_);
-        trickNumber=new IntTreeComboBox();
+        trickNumber=new IntTreeComboBox(window.getFrames().getGeneComboBox().createCombo(new StringList(),-1));
         trickNumber.setWithDefaultValue(true);
         trickNumber.refresh(map_);
         trickNumber.setListener(new ListenerTricks(this));
-        selectionGameState_.add(trickNumber);
+        selectionGameState_.add(trickNumber.self());
         selectionGameState_.add(new TextLabel(messages.getVal(CARD)));
 //        if (nbTricks_ == CustList.SIZE_EMPTY) {
 //            int nbCards_ = game.getProgressingTrick().total();
@@ -151,7 +152,7 @@ public class PanelTricksHandsPresident implements ViewablePanelTricksHands {
 //        } else {
 //            cardNumberTrick=new JComboBox<>();
 //        }
-        cardNumberTrick=new IntTreeComboBox();
+        cardNumberTrick=new IntTreeComboBox(window.getFrames().getGeneComboBox().createCombo(new StringList(),-1));
 //        Integer[] numerosJoueurs_=new Integer[_numberPlayers];
 //        for(byte indiceJoueur_=CustList.FIRST_INDEX;indiceJoueur_<_numberPlayers;indiceJoueur_++) {
 //            numerosJoueurs_[indiceJoueur_]=indiceJoueur_+1;
@@ -159,7 +160,7 @@ public class PanelTricksHandsPresident implements ViewablePanelTricksHands {
 //        cardNumberTrick=new JComboBox<>(numerosJoueurs_);
 //        cardNumberTrick.setModel(new DefaultComboBoxModel<Integer>(numerosJoueurs_));
         cardNumberTrick.setListener(new ListenerCards(this));
-        selectionGameState_.add(cardNumberTrick);
+        selectionGameState_.add(cardNumberTrick.self());
         container.add(selectionGameState_,BorderLayout.SOUTH);
     }
 

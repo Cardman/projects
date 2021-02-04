@@ -60,6 +60,7 @@ import cards.gui.menus.QuitEvent;
 import cards.gui.menus.QuitMultiEvent;
 import cards.gui.menus.SaveGameEvent;
 import cards.gui.menus.SimulationEvent;
+import cards.main.CardFactories;
 import cards.main.LaunchingCards;
 import cards.network.belote.actions.BiddingBelote;
 import cards.network.belote.actions.PlayingCardBelote;
@@ -543,12 +544,15 @@ public final class MainWindow extends NetGroupFrame {
     private final DialogNicknames dialogNicknames = new DialogNicknames();
     private final DialogSoft dialogSoft = new DialogSoft();
     private final DialogServer dialogServer = new DialogServer();
+    private final CardFactories cardFactories;
 
     public MainWindow(String _lg, AbstractProgramInfos _list,
                       StringMap<StringMap<PreparedPagesCards>> _belote,
                       StringMap<StringMap<PreparedPagesCards>> _president,
-                      StringMap<StringMap<PreparedPagesCards>> _tarot) {
+                      StringMap<StringMap<PreparedPagesCards>> _tarot,
+                      CardFactories _cardFactories) {
         super(_lg, _list);
+        cardFactories = _cardFactories;
         preparedBelote = _belote;
         preparedPresident = _president;
         preparedTarot = _tarot;
@@ -2268,5 +2272,9 @@ public final class MainWindow extends NetGroupFrame {
 
     public DialogServer getDialogServer() {
         return dialogServer;
+    }
+
+    public CardFactories getCardFactories() {
+        return cardFactories;
     }
 }

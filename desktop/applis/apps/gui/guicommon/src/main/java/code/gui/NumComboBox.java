@@ -1,15 +1,16 @@
 package code.gui;
+import code.gui.initialize.AbstractGraphicComboBoxGenerator;
 import code.util.*;
 import code.util.core.NumberUtil;
 
 
 public class NumComboBox extends TreeComboBox<Integer> {
 
-    public NumComboBox() {
-        super(new IntTreeMap< String>());
+    public NumComboBox(AbstractGraphicComboBoxGenerator _gene) {
+        super(new IntTreeMap<String>(), _gene.createCombo(new StringList(new IntTreeMap<String>().values()), 0));
     }
-    public NumComboBox(Integer... _numerosPlis) {
-        super(getTree(_numerosPlis));
+    public NumComboBox(AbstractGraphicComboBoxGenerator _gene, Integer... _numerosPlis) {
+        super(getTree(_numerosPlis), _gene.createCombo(new StringList(getTree(_numerosPlis).values()), 0));
     }
 
     public void addItem(Integer _item) {

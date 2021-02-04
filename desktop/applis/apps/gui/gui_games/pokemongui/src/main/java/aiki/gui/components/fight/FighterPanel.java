@@ -2,15 +2,14 @@ package aiki.gui.components.fight;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 
-import javax.swing.BorderFactory;
 import javax.swing.SwingConstants;
-import javax.swing.border.BevelBorder;
 
 import aiki.facade.FacadeGame;
 import aiki.game.fight.Fighter;
 import aiki.gui.listeners.BackFighterSelection;
 import aiki.gui.listeners.FighterSelection;
 import aiki.gui.listeners.FrontFighterSelection;
+import code.gui.AbsGraphicList;
 import code.gui.GraphicList;
 import code.gui.Panel;
 import code.gui.TextLabel;
@@ -18,16 +17,16 @@ import code.util.*;
 
 public class FighterPanel {
 
-    private TextLabel title;
+    private final TextLabel title;
 
-    private GraphicList<Fighter> liste;
+    private final AbsGraphicList<Fighter> liste;
 
-    private FacadeGame facade;
+    private final FacadeGame facade;
 
-    private Panel container;
+    private final Panel container;
 
-    public FighterPanel(int _nb, String _titre, FacadeGame _facade, ByteTreeMap<Fighter> _fighters) {
-        liste = new GraphicList<Fighter>(true);
+    public FighterPanel(int _nb, String _titre, FacadeGame _facade, ByteTreeMap<Fighter> _fighters, AbsGraphicList<Fighter> _liste) {
+        liste = _liste;
         facade = _facade;
         container = Panel.newBorder();
         container.setLoweredBorder();
@@ -38,7 +37,7 @@ public class FighterPanel {
         liste.setVisibleRowCount(_nb+1);
         liste.setRender(new FighterRenderer(facade));
         initFighters(_fighters);
-        container.add(liste, BorderLayout.CENTER);
+        container.add(liste.self(), BorderLayout.CENTER);
         container.setPreferredSize(new Dimension(150,64*_nb));
     }
 

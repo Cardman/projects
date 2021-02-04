@@ -7,13 +7,13 @@ import javax.swing.*;
 import code.util.CustList;
 import code.util.Ints;
 
-public class GraphicList<T> extends CustComponent {
+public class GraphicList<T> extends CustComponent implements AbsGraphicList<T> {
 
     private CustList<T> list;
     private final CustList<PreparedLabel> listComponents = new CustList<PreparedLabel>();
     private final CustList<IndexableListener> indexableMouse = new CustList<IndexableListener>();
     private final CustList<IndexableListener> indexableKey = new CustList<IndexableListener>();
-    private Ints selectedIndexes = new Ints();
+    private final Ints selectedIndexes;
 
     private CustCellRender<T> render;
 
@@ -32,6 +32,7 @@ public class GraphicList<T> extends CustComponent {
 
     public GraphicList(boolean _simple) {
         this(_simple, new Ints(), new CustList<T>());
+        rebuild();
     }
 
     protected GraphicList(boolean _simple, Ints _selectedIndexes, CustList<T> _objects) {
@@ -41,7 +42,6 @@ public class GraphicList<T> extends CustComponent {
         panel = Panel.newPageBox();
         panel.setAutoscrolls(true);
         scroll = new ScrollPane(panel);
-        buildList();
     }
 
     protected GraphicList(boolean _simple, Ints _selectedIndexes, CustList<T> _objects, int _visible) {
@@ -52,10 +52,6 @@ public class GraphicList<T> extends CustComponent {
         panel = Panel.newPageBox();
         panel.setAutoscrolls(true);
         scroll = new ScrollPane(panel);
-        buildList();
-    }
-    protected void buildList() {
-        rebuild();
     }
 
     protected void setList(CustList<T> _list) {
@@ -101,8 +97,9 @@ public class GraphicList<T> extends CustComponent {
     protected void repaintAdded(int _index) {
         CustCellRender<T> r_ = getRender();
         if (r_ != null) {
-            T elt_ = list.get(_index);
-            PreparedLabel c_ = r_.getListCellRendererComponent(this, elt_, _index, false, false);
+            r_.setList(list);
+            PreparedLabel c_ = listComponents.get(_index);
+            r_.getListCellRendererComponent(c_, _index, false, false);
             r_.paintComponent(c_);
         }
     }
@@ -142,7 +139,7 @@ public class GraphicList<T> extends CustComponent {
             reindex(indexableMouse);
         }
     }
-    public void rebuild() {
+    public final void rebuild() {
         CustCellRender<T> r_ = getRender();
         if (r_ == null) {
             return;
@@ -177,11 +174,14 @@ public class GraphicList<T> extends CustComponent {
         CustCellRender<T> r_ = getRender();
         int index_ = 0;
         Panel panel_ = getPanel();
-        for (T o: list) {
+        r_.setList(list);
+        int len_ = list.size();
+        for (int i = 0; i < len_; i++) {
             PreparedLabel lab_ = new PreparedLabel();
             listComponents.add(lab_);
             panel_.add(lab_);
-            PreparedLabel c_ = r_.getListCellRendererComponent(this, o, index_, selectedIndexes.containsObj(index_), false);
+            PreparedLabel c_ = listComponents.get(index_);
+            r_.getListCellRendererComponent(c_, index_, selectedIndexes.containsObj(index_), false);
             r_.paintComponent(c_);
             index_++;
         }
@@ -228,9 +228,11 @@ public class GraphicList<T> extends CustComponent {
         selectedIndexes.removeDuplicates();
         CustCellRender<T> r_ = getRender();
         int index_ = 0;
-        for (T v: list) {
-            PreparedLabel c_;
-            c_ = r_.getListCellRendererComponent(this, v, index_, selectedIndexes.containsObj(index_), false);
+        r_.setList(list);
+        int len_ = list.size();
+        for (int i = 0; i < len_; i++) {
+            PreparedLabel c_ = listComponents.get(index_);
+            r_.getListCellRendererComponent(c_, index_, selectedIndexes.containsObj(index_), false);
             r_.paintComponent(c_);
             index_++;
         }
@@ -239,10 +241,12 @@ public class GraphicList<T> extends CustComponent {
         selectedIndexes.add(_min);
         selectedIndexes.removeDuplicates();
         CustCellRender<T> r_ = getRender();
+        r_.setList(list);
         int index_ = 0;
-        for (T v: new CustList<T>(list)) {
-            PreparedLabel c_;
-            c_ = r_.getListCellRendererComponent(this, v, index_, selectedIndexes.containsObj(index_), false);
+        int len_ = list.size();
+        for (int i = 0; i < len_; i++) {
+            PreparedLabel c_ = listComponents.get(index_);
+            r_.getListCellRendererComponent(c_, index_, selectedIndexes.containsObj(index_), false);
             r_.paintComponent(c_);
             index_++;
         }
@@ -251,9 +255,11 @@ public class GraphicList<T> extends CustComponent {
         CustCellRender<T> r_ = getRender();
         int index_ = 0;
         CustList<T> copy_ = new CustList<T>(list);
-        for (T v: copy_) {
-            PreparedLabel c_;
-            c_ = r_.getListCellRendererComponent(this, v, index_, false, false);
+        r_.setList(list);
+        int len_ = list.size();
+        for (int i = 0; i < len_; i++) {
+            PreparedLabel c_ = listComponents.get(index_);
+            r_.getListCellRendererComponent(c_, index_, false, false);
             r_.paintComponent(c_);
             index_++;
         }
@@ -394,5 +400,10 @@ public class GraphicList<T> extends CustComponent {
     @Override
     protected JComponent getComponent() {
         return scroll.getComponent();
+    }
+
+    @Override
+    public CustComponent self() {
+        return this;
     }
 }

@@ -25,6 +25,8 @@ import code.gui.*;
 import code.maths.montecarlo.MonteCarloUtil;
 import code.stream.StreamTextFile;
 import code.util.CustList;
+import code.util.IntTreeMap;
+import code.util.StringList;
 import code.util.core.StringUtil;
 
 public final class EditorBelote extends DialogBelote implements SetterSelectedCardList{
@@ -57,7 +59,7 @@ public final class EditorBelote extends DialogBelote implements SetterSelectedCa
     private int nombreCartesSelectionnees;
     private Panel panelsCards;
     private BeloteCardsScrollableList stack;
-    private CustList<BeloteCardsScrollableList> hands = new CustList<BeloteCardsScrollableList>();
+    private final CustList<BeloteCardsScrollableList> hands = new CustList<BeloteCardsScrollableList>();
     private BeloteCardsScrollableList remaining;
     private TextLabel labelSelectCards;
     private int nombreCartesSelectionneesPrecedent;
@@ -123,7 +125,7 @@ public final class EditorBelote extends DialogBelote implements SetterSelectedCa
         initMessageName(_parent);
         //Panneau Distribution
         String lg_ = _parent.getLanguageKey();
-        initJt(new Spinner(FileConst.MIN_DEALS,FileConst.MIN_DEALS,FileConst.MAX_DEALS,1),lg_);
+        initJt(_parent,new Spinner(FileConst.MIN_DEALS,FileConst.MIN_DEALS,FileConst.MAX_DEALS,1),lg_);
         container_.add(getJt(),BorderLayout.CENTER);
         Panel panneau_=Panel.newLineBox();
         LabelButton bouton_=new LabelButton(getMessages().getVal(NEXT));
@@ -165,7 +167,7 @@ public final class EditorBelote extends DialogBelote implements SetterSelectedCa
         Panel c=Panel.newBorder();
         Panel panneau_=Panel.newLineBox();
         panneau_.add(new TextLabel(getMessages().getVal(DEALER)));
-        liste=new StringComboBox();
+        liste=new StringComboBox(_parent.getFrames().getGeneComboBox().createCombo(new StringList(new IntTreeMap<String>().values()), 0));
         liste.addItem(nickNames.getPseudo());
         int nbPlayers_ = getReglesBelote().getRepartition().getNombreJoueurs();
         for(String n: nickNames.getPseudosBelote()) {
@@ -175,13 +177,13 @@ public final class EditorBelote extends DialogBelote implements SetterSelectedCa
             liste.addItem(n);
         }
         liste.addItem(getMessages().getVal(RANDOM));
-        panneau_.add(liste);
+        panneau_.add(liste.self());
         c.add(panneau_,BorderLayout.NORTH);
         panneau_=Panel.newBorder();
         panelsCards=Panel.newLineBox();
         HandBelote pile_=HandBelote.pileBase();
         pile_.trier(displayingBelote.getSuits(), displayingBelote.isDecreasing(), displayingBelote.getOrderBeforeBids());
-        BeloteCardsScrollableList plc_=new BeloteCardsScrollableList(12,pile_.total(),getMessages().getVal(DEALING_STACK));
+        BeloteCardsScrollableList plc_=new BeloteCardsScrollableList(12,pile_.total(),getMessages().getVal(DEALING_STACK), _parent.getCardFactories().getGeneBelote().create(false));
         plc_.initSelectionCarteBelote(_parent);
         plc_.setTriBelote(displayingBelote.getSuits(), displayingBelote.getOrderBeforeBids(), displayingBelote.isDecreasing());
         plc_.iniPileBelote(pile_);
@@ -191,7 +193,7 @@ public final class EditorBelote extends DialogBelote implements SetterSelectedCa
 //        hands.add(plc_);
         int firstCards_ = getReglesBelote().getRepartition().getFirstCards();
         int lastCards_ = getReglesBelote().getRepartition().getRemainingCards();
-        plc_=new BeloteCardsScrollableList(firstCards_,firstCards_,getMessages().getVal(USER_HAND));
+        plc_=new BeloteCardsScrollableList(firstCards_,firstCards_,getMessages().getVal(USER_HAND), _parent.getCardFactories().getGeneBelote().create(false));
         plc_.initSelectionCarteBelote(_parent);
         plc_.getListe().setListener(new ListenerClickCardsList(getMessages().getVal(SELECTED_CARDS), this));
         plc_.setTriBelote(displayingBelote.getSuits(), displayingBelote.getOrderBeforeBids(), displayingBelote.isDecreasing());
@@ -209,7 +211,7 @@ public final class EditorBelote extends DialogBelote implements SetterSelectedCa
 //            }
             String message_ = getMessages().getVal(PLAYER_HAND);
             message_ = StringUtil.simpleStringsFormat(message_, n);
-            plc_=new BeloteCardsScrollableList(firstCards_,firstCards_,message_);
+            plc_=new BeloteCardsScrollableList(firstCards_,firstCards_,message_, _parent.getCardFactories().getGeneBelote().create(false));
             plc_.initSelectionCarteBelote(_parent);
             plc_.getListe().setListener(new ListenerClickCardsList(getMessages().getVal(SELECTED_CARDS), this));
             plc_.setTriBelote(displayingBelote.getSuits(), displayingBelote.getOrderBeforeBids(), displayingBelote.isDecreasing());
@@ -217,7 +219,7 @@ public final class EditorBelote extends DialogBelote implements SetterSelectedCa
             hands.add(plc_);
 //            i_++;
         }
-        plc_=new BeloteCardsScrollableList(lastCards_,lastCards_,getMessages().getVal(REMAINING));
+        plc_=new BeloteCardsScrollableList(lastCards_,lastCards_,getMessages().getVal(REMAINING), _parent.getCardFactories().getGeneBelote().create(false));
         plc_.initSelectionCarteBelote(_parent);
         plc_.getListe().setListener(new ListenerClickCardsList(getMessages().getVal(SELECTED_CARDS), this));
         panelsCards.add(plc_.getContainer());
@@ -227,7 +229,7 @@ public final class EditorBelote extends DialogBelote implements SetterSelectedCa
         LabelButton bouton_=new LabelButton(getMessages().getVal(MOVE_CARDS));
         bouton_.addMouseListener(new MoveCardsEvent(this));
         sousPanneau_.add(bouton_);
-        listeTwo=new StringComboBox();
+        listeTwo=new StringComboBox(_parent.getFrames().getGeneComboBox().createCombo(new StringList(new IntTreeMap<String>().values()), 0));
         listeTwo.addItem(getMessages().getVal(DEALING_STACK));
         listeTwo.addItem(getMessages().getVal(USER_HAND));
         for(String n: nickNames.getPseudosBelote()) {
@@ -239,7 +241,7 @@ public final class EditorBelote extends DialogBelote implements SetterSelectedCa
             listeTwo.addItem(message_);
         }
         listeTwo.addItem(getMessages().getVal(REMAINING));
-        sousPanneau_.add(listeTwo);
+        sousPanneau_.add(listeTwo.self());
         labelSelectCards = new TextLabel(StringUtil.simpleNumberFormat(getMessages().getVal(SELECTED_CARDS),nombreCartesSelectionnees));
         sousPanneau_.add(labelSelectCards);
         panneau_.add(sousPanneau_,BorderLayout.SOUTH);

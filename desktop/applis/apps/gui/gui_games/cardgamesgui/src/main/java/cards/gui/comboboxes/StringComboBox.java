@@ -1,4 +1,5 @@
 package cards.gui.comboboxes;
+import code.gui.GraphicComboGrInt;
 import code.gui.TreeComboBox;
 import code.util.AbsMap;
 import code.util.*;
@@ -6,8 +7,8 @@ import code.util.*;
 
 public class StringComboBox extends TreeComboBox<Integer> {
 
-    public StringComboBox() {
-        super(new IntTreeMap<String>());
+    public StringComboBox(GraphicComboGrInt _combo) {
+        super(new IntTreeMap<String>(), _combo);
     }
 
     @Override

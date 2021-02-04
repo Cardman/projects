@@ -54,99 +54,109 @@ public final class PaginatorHealingItem extends Paginator {
 
     private static final String NUMBER = "number";
 
-    private TextField name;
-    private AutoCompleteDocument nameAuto;
+    private final TextField name;
+    private final AutoCompleteDocument nameAuto;
 
-    private TextField description = new TextField(16);
+    private final TextField description = new TextField(16);
 
-    private TextField status;
-    private AutoCompleteDocument statusAuto;
+    private final TextField status;
+    private final AutoCompleteDocument statusAuto;
 
-    private CustCheckBox relativeHpCheck;
+    private final CustCheckBox relativeHpCheck;
 
 //    private ComboBox<SelectedBoolean> relativeHp;
 
-    private TextField minHp = new TextField(16);
+    private final TextField minHp = new TextField(16);
 
-    private TextField maxHp = new TextField(16);
+    private final TextField maxHp = new TextField(16);
 
-    private TextField minHpRate = new TextField(16);
+    private final TextField minHpRate = new TextField(16);
 
-    private TextField maxHpRate = new TextField(16);
+    private final TextField maxHpRate = new TextField(16);
 
-    private ComboBox<SelectedBoolean> relativePp;
+    private final ComboBox<SelectedBoolean> relativePp;
 
-    private TextField minPp = new TextField(16);
+    private final TextField minPp = new TextField(16);
 
-    private TextField maxPp = new TextField(16);
+    private final TextField maxPp = new TextField(16);
 
-    private ComboBox<SelectedBoolean> healMove;
+    private final ComboBox<SelectedBoolean> healMove;
 
-    private ComboBox<Statistic> statis;
+    private final ComboBox<Statistic> statis;
 
-    private ComboBox<SelectedBoolean> healFromKo;
+    private final ComboBox<SelectedBoolean> healFromKo;
 
-    private TextField minPrice = new TextField(16);
+    private final TextField minPrice = new TextField(16);
 
-    private TextField maxPrice = new TextField(16);
+    private final TextField maxPrice = new TextField(16);
 
-    private TextField minNumber = new TextField(16);
+    private final TextField minNumber = new TextField(16);
 
-    private TextField maxNumber = new TextField(16);
+    private final TextField maxNumber = new TextField(16);
 
-    private EnumList<SearchingMode> order = new EnumList<SearchingMode>();
+    private final EnumList<SearchingMode> order = new EnumList<SearchingMode>();
 
     //private JComboBoxSearchingMode modeFirstName = new JComboBoxSearchingMode();
-    private ComboBox<SearchingMode> modeName;
+    private final ComboBox<SearchingMode> modeName;
 
-    private ComboBox<SearchingMode> modeDescription;
+    private final ComboBox<SearchingMode> modeDescription;
 
-    private ComboBox<SearchingMode> modeStatus;
+    private final ComboBox<SearchingMode> modeStatus;
 
-    private Panel results = Panel.newGrid(0,1);
+    private final Panel results = Panel.newGrid(0,1);
 
-    private ComboBox<SelectedBoolean> cmpNameSorting;
+    private final ComboBox<SelectedBoolean> cmpNameSorting;
 
-    private NumComboBox cmpNamePrio = new NumComboBox();
+    private final NumComboBox cmpNamePrio;
 
-    private ComboBox<SelectedBoolean> cmpDescriptionSorting;
+    private final ComboBox<SelectedBoolean> cmpDescriptionSorting;
 
-    private NumComboBox cmpDescriptionPrio = new NumComboBox();
+    private final NumComboBox cmpDescriptionPrio;
 
-    private ComboBox<SelectedBoolean> cmpPriceSorting;
+    private final ComboBox<SelectedBoolean> cmpPriceSorting;
 
-    private NumComboBox cmpPricePrio = new NumComboBox();
+    private final NumComboBox cmpPricePrio;
 
-    private ComboBox<SelectedBoolean> cmpNumberSorting;
+    private final ComboBox<SelectedBoolean> cmpNumberSorting;
 
-    private NumComboBox cmpNumberPrio = new NumComboBox();
+    private final NumComboBox cmpNumberPrio;
 
-    private ComboBox<SelectedBoolean> cmpPpSorting;
+    private final ComboBox<SelectedBoolean> cmpPpSorting;
 
-    private NumComboBox cmpPpPrio = new NumComboBox();
+    private final NumComboBox cmpPpPrio;
 
-    private ComboBox<SelectedBoolean> cmpRelativePpSorting;
+    private final ComboBox<SelectedBoolean> cmpRelativePpSorting;
 
-    private NumComboBox cmpRelativePpPrio = new NumComboBox();
+    private final NumComboBox cmpRelativePpPrio;
 
-    private ComboBox<SelectedBoolean> cmpHpSorting;
+    private final ComboBox<SelectedBoolean> cmpHpSorting;
 
-    private NumComboBox cmpHpPrio = new NumComboBox();
+    private final NumComboBox cmpHpPrio;
 
-    private ComboBox<SelectedBoolean> cmpRelativeHpSorting;
+    private final ComboBox<SelectedBoolean> cmpRelativeHpSorting;
 
-    private NumComboBox cmpRelativeHpPrio = new NumComboBox();
+    private final NumComboBox cmpRelativeHpPrio;
 
-    private ComboBox<SelectedBoolean> cmpNbStatisticsSorting;
+    private final ComboBox<SelectedBoolean> cmpNbStatisticsSorting;
 
-    private NumComboBox cmpNbStatisticsPrio = new NumComboBox();
+    private final NumComboBox cmpNbStatisticsPrio;
 
-    private ComboBox<SelectedBoolean> cmpNbStatusSorting;
+    private final ComboBox<SelectedBoolean> cmpNbStatusSorting;
 
-    private NumComboBox cmpNbStatusPrio = new NumComboBox();
+    private final NumComboBox cmpNbStatusPrio;
 
     public PaginatorHealingItem(MainWindow _window, Panel _p,ChangeableTitle _w, FacadeGame _d) {
         super(_window, ACCESS_HEALING_ITEM,_p);
+        cmpNamePrio = new NumComboBox(_window.getFrames().getGeneComboBox());
+        cmpDescriptionPrio = new NumComboBox(_window.getFrames().getGeneComboBox());
+        cmpHpPrio = new NumComboBox(_window.getFrames().getGeneComboBox());
+        cmpNbStatisticsPrio = new NumComboBox(_window.getFrames().getGeneComboBox());
+        cmpNbStatusPrio = new NumComboBox(_window.getFrames().getGeneComboBox());
+        cmpNumberPrio = new NumComboBox(_window.getFrames().getGeneComboBox());
+        cmpPricePrio = new NumComboBox(_window.getFrames().getGeneComboBox());
+        cmpPpPrio = new NumComboBox(_window.getFrames().getGeneComboBox());
+        cmpRelativeHpPrio = new NumComboBox(_window.getFrames().getGeneComboBox());
+        cmpRelativePpPrio = new NumComboBox(_window.getFrames().getGeneComboBox());
         setWindow(_w);
         setFacade(_d);
         order.add(SearchingMode.WHOLE_STRING);
@@ -155,13 +165,13 @@ public final class PaginatorHealingItem extends Paginator {
         order.add(SearchingMode.BEGIN);
         order.add(SearchingMode.END);
         order.add(SearchingMode.MATCH_SPACE);
-        modeName = new ComboBox<SearchingMode>();
+        modeName = new ComboBox<SearchingMode>(_window.getFrames().getGeneComboBox().createCombo(new StringList(), -1));
         modeName.setWithDefaultValue(false);
         modeName.refresh(order, getMessagesSearchMode());
-        modeDescription = new ComboBox<SearchingMode>();
+        modeDescription = new ComboBox<SearchingMode>(_window.getFrames().getGeneComboBox().createCombo(new StringList(), -1));
         modeDescription.setWithDefaultValue(false);
         modeDescription.refresh(order, getMessagesSearchMode());
-        modeStatus = new ComboBox<SearchingMode>();
+        modeStatus = new ComboBox<SearchingMode>(_window.getFrames().getGeneComboBox().createCombo(new StringList(), -1));
         modeStatus.setWithDefaultValue(false);
         modeStatus.refresh(order, getMessagesSearchMode());
         relativeHpCheck = new CustCheckBox();
@@ -169,47 +179,47 @@ public final class PaginatorHealingItem extends Paginator {
 //        relativeHp = new ComboBox<SelectedBoolean>();
 //        relativeHp.setWithDefaultValue(false);
 //        relativeHp.refresh(getFacade().getData().getTranslatedBooleans().getVal(Constants.getLanguage()));
-        relativePp = new ComboBox<SelectedBoolean>();
+        relativePp = new ComboBox<SelectedBoolean>(_window.getFrames().getGeneComboBox().createCombo(new StringList(), -1));
         relativePp.setWithDefaultValue(false);
         relativePp.refresh(getFacade().getTranslatedBooleansCurLanguage());
-        healMove = new ComboBox<SelectedBoolean>();
+        healMove = new ComboBox<SelectedBoolean>(_window.getFrames().getGeneComboBox().createCombo(new StringList(), -1));
         healMove.setWithDefaultValue(false);
         healMove.refresh(getFacade().getTranslatedBooleansCurLanguage());
-        healFromKo = new ComboBox<SelectedBoolean>();
+        healFromKo = new ComboBox<SelectedBoolean>(_window.getFrames().getGeneComboBox().createCombo(new StringList(), -1));
         healFromKo.setWithDefaultValue(false);
         healFromKo.refresh(getFacade().getTranslatedBooleansCurLanguage());
-        statis = new ComboBox<Statistic>();
+        statis = new ComboBox<Statistic>(_window.getFrames().getGeneComboBox().createCombo(new StringList(), -1));
         statis.setWithDefaultValue(true);
         String lg_ = getMain().getLanguageKey();
         statis.refresh(getFacade().getData().getTranslatedStatistics().getVal(lg_));
-        cmpNameSorting = new ComboBox<SelectedBoolean>();
+        cmpNameSorting = new ComboBox<SelectedBoolean>(_window.getFrames().getGeneComboBox().createCombo(new StringList(), -1));
         cmpNameSorting.setWithDefaultValue(false);
         cmpNameSorting.refresh(getFacade().getTranslatedBooleansCurLanguage());
-        cmpDescriptionSorting = new ComboBox<SelectedBoolean>();
+        cmpDescriptionSorting = new ComboBox<SelectedBoolean>(_window.getFrames().getGeneComboBox().createCombo(new StringList(), -1));
         cmpDescriptionSorting.setWithDefaultValue(false);
         cmpDescriptionSorting.refresh(getFacade().getTranslatedBooleansCurLanguage());
-        cmpPriceSorting = new ComboBox<SelectedBoolean>();
+        cmpPriceSorting = new ComboBox<SelectedBoolean>(_window.getFrames().getGeneComboBox().createCombo(new StringList(), -1));
         cmpPriceSorting.setWithDefaultValue(false);
         cmpPriceSorting.refresh(getFacade().getTranslatedBooleansCurLanguage());
-        cmpNumberSorting = new ComboBox<SelectedBoolean>();
+        cmpNumberSorting = new ComboBox<SelectedBoolean>(_window.getFrames().getGeneComboBox().createCombo(new StringList(), -1));
         cmpNumberSorting.setWithDefaultValue(false);
         cmpNumberSorting.refresh(getFacade().getTranslatedBooleansCurLanguage());
-        cmpPpSorting = new ComboBox<SelectedBoolean>();
+        cmpPpSorting = new ComboBox<SelectedBoolean>(_window.getFrames().getGeneComboBox().createCombo(new StringList(), -1));
         cmpPpSorting.setWithDefaultValue(false);
         cmpPpSorting.refresh(getFacade().getTranslatedBooleansCurLanguage());
-        cmpRelativePpSorting = new ComboBox<SelectedBoolean>();
+        cmpRelativePpSorting = new ComboBox<SelectedBoolean>(_window.getFrames().getGeneComboBox().createCombo(new StringList(), -1));
         cmpRelativePpSorting.setWithDefaultValue(false);
         cmpRelativePpSorting.refresh(getFacade().getTranslatedBooleansCurLanguage());
-        cmpHpSorting = new ComboBox<SelectedBoolean>();
+        cmpHpSorting = new ComboBox<SelectedBoolean>(_window.getFrames().getGeneComboBox().createCombo(new StringList(), -1));
         cmpHpSorting.setWithDefaultValue(false);
         cmpHpSorting.refresh(getFacade().getTranslatedBooleansCurLanguage());
-        cmpRelativeHpSorting = new ComboBox<SelectedBoolean>();
+        cmpRelativeHpSorting = new ComboBox<SelectedBoolean>(_window.getFrames().getGeneComboBox().createCombo(new StringList(), -1));
         cmpRelativeHpSorting.setWithDefaultValue(false);
         cmpRelativeHpSorting.refresh(getFacade().getTranslatedBooleansCurLanguage());
-        cmpNbStatisticsSorting = new ComboBox<SelectedBoolean>();
+        cmpNbStatisticsSorting = new ComboBox<SelectedBoolean>(_window.getFrames().getGeneComboBox().createCombo(new StringList(), -1));
         cmpNbStatisticsSorting.setWithDefaultValue(false);
         cmpNbStatisticsSorting.refresh(getFacade().getTranslatedBooleansCurLanguage());
-        cmpNbStatusSorting = new ComboBox<SelectedBoolean>();
+        cmpNbStatusSorting = new ComboBox<SelectedBoolean>(_window.getFrames().getGeneComboBox().createCombo(new StringList(), -1));
         cmpNbStatusSorting.setWithDefaultValue(false);
         cmpNbStatusSorting.refresh(getFacade().getTranslatedBooleansCurLanguage());
         int nb_ = PaginationHealingItem.NB_COMPARATORS;
@@ -234,7 +244,7 @@ public final class PaginatorHealingItem extends Paginator {
             it_.add(abTr_);
         }
         name = new TextField(16);
-        nameAuto = new AutoCompleteDocument(name,it_, getWindow());
+        nameAuto = new AutoCompleteDocument(name,it_, getWindow(),_window.getFrames().getGeneGraphicList());
 //        name.getDocument().addDocumentListener(new DocumentAdaptater() {
 //
 //            public void updateText() {
@@ -253,7 +263,7 @@ public final class PaginatorHealingItem extends Paginator {
             st_.add(stTr_);
         }
         status = new TextField(16);
-        statusAuto = new AutoCompleteDocument(status,st_, getWindow());
+        statusAuto = new AutoCompleteDocument(status,st_, getWindow(),_window.getFrames().getGeneGraphicList());
 //        status.getDocument().addDocumentListener(new DocumentAdaptater() {
 //
 //            public void updateText() {
@@ -484,13 +494,13 @@ public final class PaginatorHealingItem extends Paginator {
         search_ = Panel.newGrid(0,3);
         search_.add(new TextLabel(getMessages().getVal(NAME)));
         search_.add(name);
-        search_.add(modeName);
+        search_.add(modeName.self());
         search_.add(new TextLabel(getMessages().getVal(DESCRIPTION)));
         search_.add(description);
-        search_.add(modeDescription);
+        search_.add(modeDescription.self());
         search_.add(new TextLabel(getMessages().getVal(STATUS)));
         search_.add(status);
-        search_.add(modeStatus);
+        search_.add(modeStatus.self());
         search_.add(new TextLabel(getMessages().getVal(HP)));
         search_.add(minHp);
         search_.add(maxHp);
@@ -512,50 +522,50 @@ public final class PaginatorHealingItem extends Paginator {
         search_.add(new TextLabel(DataBase.EMPTY_STRING));
         search_.add(new TextLabel(DataBase.EMPTY_STRING));
         search_.add(new TextLabel(getMessages().getVal(RELATIVE_PP)));
-        search_.add(relativePp);
+        search_.add(relativePp.self());
         search_.add(new TextLabel(DataBase.EMPTY_STRING));
         search_.add(new TextLabel(getMessages().getVal(HEAL_MOVE)));
-        search_.add(healMove);
+        search_.add(healMove.self());
         search_.add(new TextLabel(DataBase.EMPTY_STRING));
         search_.add(new TextLabel(getMessages().getVal(HEAL_KO)));
-        search_.add(healFromKo);
+        search_.add(healFromKo.self());
         search_.add(new TextLabel(DataBase.EMPTY_STRING));
         search_.add(new TextLabel(getMessages().getVal(STATISTIC)));
-        search_.add(statis);
+        search_.add(statis.self());
         search_.add(new TextLabel(DataBase.EMPTY_STRING));
         _p.add(search_);
         Panel sorting_;
         sorting_ = Panel.newGrid(0,3);
         sorting_.add(new TextLabel(getMessages().getVal(NAME)));
-        sorting_.add(cmpNameSorting);
-        sorting_.add(cmpNamePrio);
+        sorting_.add(cmpNameSorting.self());
+        sorting_.add(cmpNamePrio.self());
         sorting_.add(new TextLabel(getMessages().getVal(DESCRIPTION)));
-        sorting_.add(cmpDescriptionSorting);
-        sorting_.add(cmpDescriptionPrio);
+        sorting_.add(cmpDescriptionSorting.self());
+        sorting_.add(cmpDescriptionPrio.self());
         sorting_.add(new TextLabel(getMessages().getVal(PRICE)));
-        sorting_.add(cmpPriceSorting);
-        sorting_.add(cmpPricePrio);
+        sorting_.add(cmpPriceSorting.self());
+        sorting_.add(cmpPricePrio.self());
         sorting_.add(new TextLabel(getMessages().getVal(NUMBER)));
-        sorting_.add(cmpNumberSorting);
-        sorting_.add(cmpNumberPrio);
+        sorting_.add(cmpNumberSorting.self());
+        sorting_.add(cmpNumberPrio.self());
         sorting_.add(new TextLabel(getMessages().getVal(PP)));
-        sorting_.add(cmpPpSorting);
-        sorting_.add(cmpPpPrio);
+        sorting_.add(cmpPpSorting.self());
+        sorting_.add(cmpPpPrio.self());
         sorting_.add(new TextLabel(getMessages().getVal(RELATIVE_PP)));
-        sorting_.add(cmpRelativePpSorting);
-        sorting_.add(cmpRelativePpPrio);
+        sorting_.add(cmpRelativePpSorting.self());
+        sorting_.add(cmpRelativePpPrio.self());
         sorting_.add(new TextLabel(getMessages().getVal(HP)));
-        sorting_.add(cmpHpSorting);
-        sorting_.add(cmpHpPrio);
+        sorting_.add(cmpHpSorting.self());
+        sorting_.add(cmpHpPrio.self());
         sorting_.add(new TextLabel(getMessages().getVal(RELATIVE_HP)));
-        sorting_.add(cmpRelativeHpSorting);
-        sorting_.add(cmpRelativeHpPrio);
+        sorting_.add(cmpRelativeHpSorting.self());
+        sorting_.add(cmpRelativeHpPrio.self());
         sorting_.add(new TextLabel(getMessages().getVal(STATISTIC)));
-        sorting_.add(cmpNbStatisticsSorting);
-        sorting_.add(cmpNbStatisticsPrio);
+        sorting_.add(cmpNbStatisticsSorting.self());
+        sorting_.add(cmpNbStatisticsPrio.self());
         sorting_.add(new TextLabel(getMessages().getVal(STATUS)));
-        sorting_.add(cmpNbStatusSorting);
-        sorting_.add(cmpNbStatusPrio);
+        sorting_.add(cmpNbStatusSorting.self());
+        sorting_.add(cmpNbStatusPrio.self());
         _p.add(sorting_);
         Panel top_;
         top_ = Panel.newLineBox();
@@ -591,7 +601,7 @@ public final class PaginatorHealingItem extends Paginator {
         bottom_.add(getBegin());
         bottom_.add(getPreviousDelta());
         bottom_.add(getPrevious());
-        bottom_.add(getPages());
+        bottom_.add(getPages().self());
         bottom_.add(getNext());
         bottom_.add(getNextDelta());
         bottom_.add(getEnd());

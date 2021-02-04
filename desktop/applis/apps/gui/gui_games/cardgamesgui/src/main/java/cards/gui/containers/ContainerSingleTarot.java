@@ -950,14 +950,14 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         res_.getRes().setSpecific(readResource());
 
         ScrollPane scroll_=new ScrollPane();
-        RenderedPage editor_ = new RenderedPage(scroll_);
+        RenderedPage editor_ = new RenderedPage(scroll_, getOwner().getFrames());
         PreparedAnalyzed sOne_ = retrieve(FileConst.RESOURCES_HTML_FILES_RESULTS_TAROT);
         ((TarotStandards)sOne_.getBeanNatLgNames()).setDataBase(res_);
         editor_.initialize(sOne_);
         scroll_.setPreferredSize(new Dimension(300,300));
         onglets_.add(getMessages().getVal(MainWindow.RESULTS_PAGE),scroll_);
         ascenseur_=new ScrollPane();
-        editor_ = new RenderedPage(ascenseur_);
+        editor_ = new RenderedPage(ascenseur_, getOwner().getFrames());
         PreparedAnalyzed sTwo_ = retrieve(FileConst.RESOURCES_HTML_FILES_DETAILS_RESULTS_TAROT);
         ((TarotStandards)sTwo_.getBeanNatLgNames()).setDataBase(res_);
         editor_.initialize(sTwo_);

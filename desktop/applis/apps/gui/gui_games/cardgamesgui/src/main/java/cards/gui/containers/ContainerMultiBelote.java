@@ -236,7 +236,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
         Panel container_ = Panel.newPageBox();
         Panel panel_ = Panel.newGrid(0, 2);
         panel_.add(new TextLabel(getMessages().getVal(MainWindow.PLACE)));
-        choiceOfPlaceForPlayingGame = new NumComboBox();
+        choiceOfPlaceForPlayingGame = new NumComboBox(getOwner().getFrames().getGeneComboBox());
         for (int i = IndexConstants.FIRST_INDEX; i < nbChoosenPlayers; i++) {
             choiceOfPlaceForPlayingGame.addItem(i);
         }
@@ -245,7 +245,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
         indexInGame = choiceOfPlaceForPlayingGame
                 .getCurrent().byteValue();
         choiceOfPlaceForPlayingGame.setListener(new ChangePlaceEvent(this));
-        panel_.add(choiceOfPlaceForPlayingGame);
+        panel_.add(choiceOfPlaceForPlayingGame.self());
         ready = new CustCheckBox(getMessages().getVal(MainWindow.READY));
         ready.addActionListener(new ReadyEvent(this));
         panel_.add(ready);
@@ -267,7 +267,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
         container_.add(panel_);
 
         ScrollPane scroll_ = new ScrollPane();
-        editor = new RenderedPage(scroll_);
+        editor = new RenderedPage(scroll_, getOwner().getFrames());
         rulesBeloteMulti.setGeneral(readCoreResource());
         rulesBeloteMulti.setSpecific(readResource());
         PreparedAnalyzed stds_ = retrieve(FileConst.RESOURCES_HTML_FILES_RULES_BELOTE);
@@ -833,14 +833,14 @@ public class ContainerMultiBelote extends ContainerBelote implements
         String lg_ = getOwner().getLanguageKey();
 
         ScrollPane scroll_=new ScrollPane();
-        RenderedPage editor_ = new RenderedPage(scroll_);
+        RenderedPage editor_ = new RenderedPage(scroll_, getOwner().getFrames());
         PreparedAnalyzed sOne_ = retrieve(FileConst.RESOURCES_HTML_FILES_RESULTS_BELOTE);
         ((BeloteStandards)sOne_.getBeanNatLgNames()).setDataBase(_res);
         editor_.initialize(sOne_);
         scroll_.setPreferredSize(new Dimension(300,300));
         onglets_.add(getMessages().getVal(MainWindow.RESULTS_PAGE),scroll_);
         ScrollPane ascenseur_=new ScrollPane();
-        editor_ = new RenderedPage(ascenseur_);
+        editor_ = new RenderedPage(ascenseur_, getOwner().getFrames());
         PreparedAnalyzed sTwo_ = retrieve(FileConst.RESOURCES_HTML_FILES_DETAILS_RESULTS_BELOTE);
         ((BeloteStandards)sTwo_.getBeanNatLgNames()).setDataBase(_res);
         editor_.initialize(sTwo_);

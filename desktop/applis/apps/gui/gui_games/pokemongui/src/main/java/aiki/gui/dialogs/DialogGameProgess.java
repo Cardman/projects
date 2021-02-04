@@ -9,7 +9,6 @@ import aiki.sml.Resources;
 import aiki.facade.FacadeGame;
 import aiki.gui.MainWindow;
 import code.gui.*;
-import code.gui.document.PreparedAnalyzed;
 import code.gui.document.RenderedPage;
 import code.util.StringMap;
 
@@ -40,7 +39,7 @@ public final class DialogGameProgess extends Dialog {
         setTitle(_title);
         setLocationRelativeTo(_window);
         ScrollPane scrollSession_ = new ScrollPane();
-        session = new RenderedPage(scrollSession_);
+        session = new RenderedPage(scrollSession_, _window.getFrames());
         session.setFrame(this);
         ((PokemonStandards)_pre.getBeanNatLgNames()).setDataBase(_facade);
         session.initializeOnlyConf(_pre, _facade.getLanguage());

@@ -101,7 +101,7 @@ public class ContainerMultiPresident extends ContainerPresident implements
         Panel container_ = Panel.newPageBox();
         Panel panel_ = Panel.newGrid(0, 2);
         panel_.add(new TextLabel(getMessages().getVal(MainWindow.PLACE)));
-        choiceOfPlaceForPlayingGame = new NumComboBox();
+        choiceOfPlaceForPlayingGame = new NumComboBox(getOwner().getFrames().getGeneComboBox());
         for (int i = IndexConstants.FIRST_INDEX; i < nbChoosenPlayers; i++) {
             choiceOfPlaceForPlayingGame.addItem(i);
         }
@@ -109,7 +109,7 @@ public class ContainerMultiPresident extends ContainerPresident implements
                 .size() - 1);
         indexInGame = choiceOfPlaceForPlayingGame.getCurrent().byteValue();
         choiceOfPlaceForPlayingGame.setListener(new ChangePlaceEvent(this));
-        panel_.add(choiceOfPlaceForPlayingGame);
+        panel_.add(choiceOfPlaceForPlayingGame.self());
         ready = new CustCheckBox(getMessages().getVal(MainWindow.READY));
         ready.addActionListener(new ReadyEvent(this));
         panel_.add(ready);
@@ -131,7 +131,7 @@ public class ContainerMultiPresident extends ContainerPresident implements
         container_.add(panel_);
 
         ScrollPane scroll_ = new ScrollPane();
-        editor = new RenderedPage(scroll_);
+        editor = new RenderedPage(scroll_, getOwner().getFrames());
         rulesPresidentMulti.setGeneral(readCoreResource());
         rulesPresidentMulti.setSpecific(readResource());
         PreparedAnalyzed stds_ = retrieve(FileConst.RESOURCES_HTML_FILES_RULES_PRESIDENT);
@@ -641,7 +641,7 @@ public class ContainerMultiPresident extends ContainerPresident implements
         setScores(_res.getScores());
 
         ScrollPane scroll_=new ScrollPane();
-        RenderedPage editor_ = new RenderedPage(scroll_);
+        RenderedPage editor_ = new RenderedPage(scroll_, getOwner().getFrames());
         PreparedAnalyzed stds_ = retrieve(FileConst.RESOURCES_HTML_FILES_RESULTS_PRESIDENT);
         ((PresidentStandards)stds_.getBeanNatLgNames()).setDataBase(_res);
         editor_.initialize(stds_);

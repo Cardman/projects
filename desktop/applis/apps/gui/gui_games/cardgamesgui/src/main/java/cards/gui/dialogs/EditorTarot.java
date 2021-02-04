@@ -25,6 +25,8 @@ import code.gui.*;
 import code.maths.montecarlo.MonteCarloUtil;
 import code.stream.StreamTextFile;
 import code.util.CustList;
+import code.util.IntTreeMap;
+import code.util.StringList;
 import code.util.core.StringUtil;
 
 public final class EditorTarot extends DialogTarot implements SetterSelectedCardList {
@@ -56,7 +58,7 @@ public final class EditorTarot extends DialogTarot implements SetterSelectedCard
     private GameTarot partie;
     private Panel panelsCards;
     private TarotCardsScrollableList stack;
-    private CustList<TarotCardsScrollableList> hands = new CustList<TarotCardsScrollableList>();
+    private final CustList<TarotCardsScrollableList> hands = new CustList<TarotCardsScrollableList>();
     private TarotCardsScrollableList dog;
     private TextLabel labelSelectCards;
     private int nombreCartesSelectionnees;
@@ -151,7 +153,7 @@ public final class EditorTarot extends DialogTarot implements SetterSelectedCard
         HandTarot pile_=HandTarot.pileBase();
         panneau_=Panel.newLineBox();
         panneau_.add(new TextLabel(getMessages().getVal(DEALER)));
-        liste=new StringComboBox();
+        liste=new StringComboBox(_parent.getFrames().getGeneComboBox().createCombo(new StringList(new IntTreeMap<String>().values()), 0));
         liste.addItem(nickNames.getPseudo());
         int nbPlayers_ = getReglesTarot().getRepartition().getNombreJoueurs();
         for(String n: nickNames.getPseudosTarot()) {
@@ -161,18 +163,18 @@ public final class EditorTarot extends DialogTarot implements SetterSelectedCard
             liste.addItem(n);
         }
         liste.addItem(getMessages().getVal(RANDOM));
-        panneau_.add(liste);
+        panneau_.add(liste.self());
         c.add(panneau_,BorderLayout.NORTH);
         pile_.trier(displayingTarot.getSuits(), displayingTarot.isDecreasing());
-        TarotCardsScrollableList plc_=new TarotCardsScrollableList(nbCartesPJ_,pile_.total(),getMessages().getVal(DEALING_STACK));
+        TarotCardsScrollableList plc_=new TarotCardsScrollableList(nbCartesPJ_,pile_.total(),getMessages().getVal(DEALING_STACK), _parent.getCardFactories().getGeneTarot().create(false));
+        plc_.initSelectionCarteTarot(_parent);
         plc_.setTriTarot(displayingTarot.getSuits(), displayingTarot.isDecreasing());
         plc_.iniPileTarot(pile_);
-        plc_.initSelectionCarteTarot(_parent);
         plc_.getListe().setListener(new ListenerClickCardsList(getMessages().getVal(SELECTED_CARDS), this));
         panelsCards=Panel.newLineBox();
         stack = plc_;
         panelsCards.add(plc_.getContainer());
-        plc_=new TarotCardsScrollableList(nbCartesPJ_,nbCartesPJ_,getMessages().getVal(USER_HAND));
+        plc_=new TarotCardsScrollableList(nbCartesPJ_,nbCartesPJ_,getMessages().getVal(USER_HAND), _parent.getCardFactories().getGeneTarot().create(false));
         plc_.initSelectionCarteTarot(_parent);
         plc_.getListe().setListener(new ListenerClickCardsList(getMessages().getVal(SELECTED_CARDS), this));
         plc_.setTriTarot(displayingTarot.getSuits(), displayingTarot.isDecreasing());
@@ -189,7 +191,7 @@ public final class EditorTarot extends DialogTarot implements SetterSelectedCard
 //            }
             String message_ = getMessages().getVal(PLAYER_HAND);
             message_ = StringUtil.simpleStringsFormat(message_, n);
-            plc_=new TarotCardsScrollableList(nbCartesPJ_,nbCartesPJ_,message_);
+            plc_=new TarotCardsScrollableList(nbCartesPJ_,nbCartesPJ_,message_, _parent.getCardFactories().getGeneTarot().create(false));
             plc_.initSelectionCarteTarot(_parent);
             plc_.getListe().setListener(new ListenerClickCardsList(getMessages().getVal(SELECTED_CARDS), this));
             plc_.setTriTarot(displayingTarot.getSuits(), displayingTarot.isDecreasing());
@@ -197,7 +199,7 @@ public final class EditorTarot extends DialogTarot implements SetterSelectedCard
             hands.add(plc_);
 //            i_++;
         }
-        plc_=new TarotCardsScrollableList(nbCartesC_,nbCartesC_,getMessages().getVal(REMAINING));
+        plc_=new TarotCardsScrollableList(nbCartesC_,nbCartesC_,getMessages().getVal(REMAINING), _parent.getCardFactories().getGeneTarot().create(false));
         plc_.initSelectionCarteTarot(_parent);
         plc_.getListe().setListener(new ListenerClickCardsList(getMessages().getVal(SELECTED_CARDS), this));
         plc_.setTriTarot(displayingTarot.getSuits(), displayingTarot.isDecreasing());
@@ -209,7 +211,7 @@ public final class EditorTarot extends DialogTarot implements SetterSelectedCard
         LabelButton bouton_=new LabelButton(getMessages().getVal(MOVE_CARDS));
         bouton_.addMouseListener(new MoveCardsEvent(this));
         sousPanneau_.add(bouton_);
-        listeTwo=new StringComboBox();
+        listeTwo=new StringComboBox(_parent.getFrames().getGeneComboBox().createCombo(new StringList(new IntTreeMap<String>().values()), 0));
         listeTwo.addItem(getMessages().getVal(DEALING_STACK));
         listeTwo.addItem(getMessages().getVal(USER_HAND));
         for(String n: nickNames.getPseudosTarot()) {
@@ -221,7 +223,7 @@ public final class EditorTarot extends DialogTarot implements SetterSelectedCard
             listeTwo.addItem(message_);
         }
         listeTwo.addItem(getMessages().getVal(REMAINING));
-        sousPanneau_.add(listeTwo);
+        sousPanneau_.add(listeTwo.self());
         labelSelectCards = new TextLabel(StringUtil.simpleNumberFormat(getMessages().getVal(SELECTED_CARDS),nombreCartesSelectionnees));
         sousPanneau_.add(labelSelectCards);
         panneau_.add(sousPanneau_,BorderLayout.SOUTH);

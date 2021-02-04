@@ -77,7 +77,6 @@ import aiki.map.pokemon.UsablePokemon;
 import aiki.network.Net;
 import aiki.network.stream.SentPokemon;
 import code.gui.*;
-import code.gui.document.PreparedAnalyzed;
 import code.gui.document.RenderedPage;
 import code.maths.LgInt;
 import code.network.NetCreate;
@@ -589,7 +588,7 @@ public class ScenePanel {
         }
 
         Panel set_ = Panel.newLineBox();
-        teamPan = new TeamPanel(2, messages.getVal(POKEMON_SELECT), facade, pks_, true, messagesTeamPanel);
+        teamPan = new TeamPanel(2, messages.getVal(POKEMON_SELECT), facade, pks_, true, messagesTeamPanel, window.getAikiFactory().getGeneUsPkPanel().create(true));
         teamPan.addListener(this);
         set_.add(teamPan.getContainer());
         movesLearnt = Panel.newGrid(0,1);
@@ -635,7 +634,7 @@ public class ScenePanel {
         }
 
         Panel set_ = Panel.newLineBox();
-        teamPan = new TeamPanel(2, messages.getVal(POKEMON_SELECT), facade, pks_, true, messagesTeamPanel);
+        teamPan = new TeamPanel(2, messages.getVal(POKEMON_SELECT), facade, pks_, true, messagesTeamPanel, window.getAikiFactory().getGeneUsPkPanel().create(true));
         teamPan.addListenerTm(this);
         set_.add(teamPan.getContainer());
         movesLearnt = Panel.newGrid(0,1);
@@ -765,13 +764,13 @@ public class ScenePanel {
         for (EntryCust<Byte, PokemonPlayer> e: _team.entryList()) {
             teamPks_.put(e.getKey(), e.getValue());
         }
-        teamPan = new TeamPanel(2, messages.getVal(POKEMON_SELECT), facade, teamPks_, true,messagesTeamPanel);
+        teamPan = new TeamPanel(2, messages.getVal(POKEMON_SELECT), facade, teamPks_, true,messagesTeamPanel, window.getAikiFactory().getGeneUsPkPanel().create(true));
         teamPan.addListenerTrading(this);
         panelNetWork.add(teamPan.getContainer());
         Panel group_ = Panel.newBorder();
         group_.add(new TextLabel(messages.getVal(RECEIVED_POKEMON)), BorderLayout.NORTH);
         ScrollPane scrollSession_ = new ScrollPane();
-        receivedPk = new RenderedPage(scrollSession_);
+        receivedPk = new RenderedPage(scrollSession_, window.getFrames());
 //        receivedPk.setFiles(facade.getData().getWebPk(), Resources.ACCESS_TO_DEFAULT_FILES);
         receivedPk.setFrame(window);
 //        receivedPk.prepare();
@@ -925,7 +924,7 @@ public class ScenePanel {
             panelMenu.setVisible(false);
             disableFishing();
         } else if (facade.getInterfaceType() == InterfaceType.ACHATS_CT) {
-            tmPanel = new TmPanel(5, messages.getVal(TM_TITLE), facade);
+            tmPanel = new TmPanel(5, messages.getVal(TM_TITLE), facade, window.getAikiFactory().getGeneTmPanel().create(true));
             Panel set_ = Panel.newPageBox();
             LabelButton selectItem_ = new LabelButton(messages.getVal(TM_SELECT));
             selectItem_.addMouseListener(new AddTmEvent(this));
@@ -946,7 +945,7 @@ public class ScenePanel {
             buy.setSelected(true);
             buy.addActionListener(new BuyOrSellEvent(this));
             set_.add(buy);
-            itemsPan = new ItemsPanel(2, messages.getVal(ITEM_TITLE), facade);
+            itemsPan = new ItemsPanel(2, messages.getVal(ITEM_TITLE), facade, window.getAikiFactory().getGeneItPanel().create(true));
             LabelButton selectItem_ = new LabelButton(messages.getVal(ITEM_SELECT));
             selectItem_.addMouseListener(new SelectItemForListEvent(this));
             set_.add(selectItem_);
@@ -970,7 +969,7 @@ public class ScenePanel {
             for (EntryCust<Byte, PokemonPlayer> e: team_.entryList()) {
                 teamPks_.put(e.getKey(), e.getValue());
             }
-            teamPan = new TeamPanel(2, messages.getVal(POKEMON_SELECT_TWO), facade, teamPks_, false,messagesTeamPanel);
+            teamPan = new TeamPanel(2, messages.getVal(POKEMON_SELECT_TWO), facade, teamPks_, false,messagesTeamPanel, window.getAikiFactory().getGeneUsPkPanel().create(true));
             teamPan.addListenerHost(this);
             set_.add(teamPan.getContainer());
             Panel form_ = Panel.newPageBox();
@@ -1199,7 +1198,7 @@ public class ScenePanel {
         for (EntryCust<Byte, PokemonPlayer> e: team_.entryList()) {
             pks_.put(e.getKey(), e.getValue());
         }
-        teamPan = new TeamPanel(2, messages.getVal(POKEMON_SELECT), facade, pks_, true,messagesTeamPanel);
+        teamPan = new TeamPanel(2, messages.getVal(POKEMON_SELECT), facade, pks_, true,messagesTeamPanel, window.getAikiFactory().getGeneUsPkPanel().create(true));
         teamPan.addListenerMoveTutor(this);
     }
 
@@ -1221,7 +1220,7 @@ public class ScenePanel {
             pks_.put(i_, p);
             i_++;
         }
-        teamPan = new TeamPanel(2, messages.getVal(POKEMON_SELECT), facade, pks_, true,messagesTeamPanel);
+        teamPan = new TeamPanel(2, messages.getVal(POKEMON_SELECT), facade, pks_, true,messagesTeamPanel, window.getAikiFactory().getGeneUsPkPanel().create(true));
     }
 
     private void refreshTeam() {
@@ -1293,7 +1292,7 @@ public class ScenePanel {
             return;
         }
         RenderedPage session_;
-        session_ = new RenderedPage(new ScrollPane());
+        session_ = new RenderedPage(new ScrollPane(), window.getFrames());
         showHtmlDialog(window, session_,facade,task_,facade.getLanguage());
     }
 

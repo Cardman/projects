@@ -209,7 +209,7 @@ public final class SimulatingBeloteImpl implements SimulatingBelote {
         res_.initialize(new StringList(nicknames_), container.getScores());
         DocumentReaderCardsResultsUtil.setMessages(res_,lg_);
         ScrollPane scroll_=new ScrollPane();
-        RenderedPage editor_ = new RenderedPage(scroll_);
+        RenderedPage editor_ = new RenderedPage(scroll_, container.getWindow().getFrames());
         res_.getRes().setGeneral(container.readCoreResource());
         res_.getRes().setSpecific(container.readResource());
         PreparedAnalyzed stds_ = container.retrieve(FileConst.RESOURCES_HTML_FILES_RESULTS_BELOTE);

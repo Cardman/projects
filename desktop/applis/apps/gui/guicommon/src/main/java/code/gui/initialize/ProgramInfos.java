@@ -36,6 +36,8 @@ public final class ProgramInfos implements AbstractProgramInfos {
     private final String tmpUserFolder;
     private final String homePath;
     private final DefaultNameValidating validator;
+    private final AbstractGraphicStringListGenerator graphicStringListGenerator = new GraphicStringListGenerator();
+    private final AbstractGraphicComboBoxGenerator graphicComboBoxGenerator = new GraphicComboBoxGenerator();
 
     public ProgramInfos() {
         homePath = StringUtil.replaceBackSlashDot(System.getProperty(USER_HOME));
@@ -155,5 +157,15 @@ public final class ProgramInfos implements AbstractProgramInfos {
     @Override
     public AbstractNameValidating getValidator() {
         return validator;
+    }
+
+    @Override
+    public AbstractGraphicStringListGenerator getGeneGraphicList() {
+        return graphicStringListGenerator;
+    }
+
+    @Override
+    public AbstractGraphicComboBoxGenerator getGeneComboBox() {
+        return graphicComboBoxGenerator;
     }
 }

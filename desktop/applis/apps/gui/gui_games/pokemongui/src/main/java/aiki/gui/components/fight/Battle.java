@@ -873,19 +873,19 @@ public class Battle extends ChildFrame {
             targets = new TargetsPanel();
         }
         if (fighterFrontPanel == null) {
-            fighterFrontPanel = new FighterPanel(facade.getFight().getMult(), DataBase.EMPTY_STRING, facade, facade.getPlayerFrontTeam());
+            fighterFrontPanel = new FighterPanel(facade.getFight().getMult(), DataBase.EMPTY_STRING, facade, facade.getPlayerFrontTeam(), window.getAikiFactory().getGeneFighter().create(true));
             fighterFrontPanel.addListener(this, true);
         }
         if (fighterBackPanel == null) {
-            fighterBackPanel = new FighterPanel(2, DataBase.EMPTY_STRING, facade, facade.getPlayerBackTeam());
+            fighterBackPanel = new FighterPanel(2, DataBase.EMPTY_STRING, facade, facade.getPlayerBackTeam(), window.getAikiFactory().getGeneFighter().create(true));
             fighterBackPanel.addListener(this, false);
         }
         if (fighterPanel == null) {
-            fighterPanel = new FighterPanel(2, DataBase.EMPTY_STRING, facade, facade.getPlayerTeam());
+            fighterPanel = new FighterPanel(2, DataBase.EMPTY_STRING, facade, facade.getPlayerTeam(), window.getAikiFactory().getGeneFighter().create(true));
             fighterPanel.addListener(this);
         }
         if (pokemonPanel == null) {
-            pokemonPanel = new PokemonPanel(2, DataBase.EMPTY_STRING, facade, messages.getVal(NO_EVO));
+            pokemonPanel = new PokemonPanel(2, DataBase.EMPTY_STRING, facade, messages.getVal(NO_EVO), window.getAikiFactory().getGenePkPanel().create(true));
             pokemonPanel.addListener(this);
         }
         if (movesLearnPanel == null) {
@@ -897,7 +897,7 @@ public class Battle extends ChildFrame {
             abilitiesLearnPanel = Panel.newPageBox();
         }
         if (ballPanel == null) {
-            ballPanel = new BallPanel(5, DataBase.EMPTY_STRING, facade);
+            ballPanel = new BallPanel(5, DataBase.EMPTY_STRING, facade, window.getAikiFactory().getGeneBallNumberRate().create(true));
         }
         if (catchBall == null) {
             catchBall = new LabelButton();
@@ -1020,7 +1020,7 @@ public class Battle extends ChildFrame {
             return;
         }
         RenderedPage session_;
-        session_ = new RenderedPage(new ScrollPane());
+        session_ = new RenderedPage(new ScrollPane(), window.getFrames());
         session_.setProcess(window.getVideoLoading().getVideo(window.getGenerator()));
         FrameHtmlData dialog_ = new FrameHtmlData(window, messages.getVal(TITLE), session_);
         dialog_.initSessionLg(facade,fightTask_,facade.getLanguage());
@@ -1150,7 +1150,7 @@ public class Battle extends ChildFrame {
     private void initEvos() {
         enableClick = false;
 //        pokemonPanel.initEvos();
-        pokemonPanel = new PokemonPanel(2, DataBase.EMPTY_STRING, facade, messages.getVal(NO_EVO));
+        pokemonPanel = new PokemonPanel(2, DataBase.EMPTY_STRING, facade, messages.getVal(NO_EVO), window.getAikiFactory().getGenePkPanel().create(true));
         pokemonPanel.addListener(this);
         enableClick = true;
     }

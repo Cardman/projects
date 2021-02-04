@@ -39,10 +39,9 @@ public class FighterRenderer extends CustCellRender<Fighter> {
     }
 
     @Override
-    public PreparedLabel getListCellRendererComponent(GraphicList<Fighter> _list, Fighter _value, int _index,
-                                                      boolean _isSelected, boolean _cellHasFocus) {
-        PreparedLabel label_ = _list.getListComponents().get(_index);
-        fighter = _value;
+    public void getListCellRendererComponent(PreparedLabel _currentLab, int _index,
+                                             boolean _isSelected, boolean _cellHasFocus) {
+        fighter = getList().get(_index);
         ko = fighter.estKo();
         intRate = fighter.rateRemainHp();
         selected = _isSelected;
@@ -54,8 +53,7 @@ public class FighterRenderer extends CustCellRender<Fighter> {
         } else {
             enabled = facade.isChosableForLearningAndEvolving((byte) _index);
         }
-        label_.setPreferredSize(new Dimension(150, sideLength));
-        return label_;
+        _currentLab.setPreferredSize(new Dimension(150, sideLength));
     }
 
     @Override

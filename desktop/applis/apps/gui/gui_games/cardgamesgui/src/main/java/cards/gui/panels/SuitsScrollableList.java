@@ -7,6 +7,7 @@ import cards.consts.Suit;
 import cards.gui.MainWindow;
 import cards.gui.dialogs.FileConst;
 import cards.gui.labels.selection.SuitCellRenderer;
+import code.gui.AbsGraphicList;
 import code.gui.GraphicList;
 import code.gui.TextLabel;
 import code.sml.stream.ExtractFromFiles;
@@ -21,14 +22,14 @@ public class SuitsScrollableList extends ScrollableList {
     private static final String SUITS = "suits";
     private StringMap<String> messages = new StringMap<String>();
 //    private EnumList<Suit> suits;
-    private GraphicList<Suit> liste;
-    public SuitsScrollableList(EnumList<Suit> _couleurs,int _nb, MainWindow _window) {
+    private final AbsGraphicList<Suit> liste;
+    public SuitsScrollableList(EnumList<Suit> _couleurs, int _nb, MainWindow _window, AbsGraphicList<Suit> _liste) {
         String lg_ = _window.getLanguageKey();
         messages = ExtractFromFiles.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, lg_, ACCESS);
         TextLabel titrePanneau_ = new TextLabel(messages.getVal(SUITS), SwingConstants.CENTER);
         getContainer().add(titrePanneau_, BorderLayout.NORTH);
 //        suits = _couleurs;
-        liste=new GraphicList<Suit>(false);
+        liste= _liste;
         liste.setRender(new SuitCellRenderer(_window));
         for (Suit couleur_ : _couleurs) {
             liste.add(couleur_);
@@ -36,7 +37,7 @@ public class SuitsScrollableList extends ScrollableList {
         //On peut selectionner plusieurs elements dans la liste listeCouleurs en
         //utilisant "ctrl + A", "ctrl", "maj+clic", comme dans explorer
         liste.setVisibleRowCount(_nb);
-        getContainer().add(liste,BorderLayout.CENTER);
+        getContainer().add(liste.self(),BorderLayout.CENTER);
     }
     public EnumList<Suit> getCouleurs() {
         int s_ = liste.size();

@@ -17,13 +17,13 @@ public final class GraphicStringList extends GraphicList<String> implements Inpu
 
     private GraphicStringList(boolean _simple, StringList _objects, Ints _selectedIndexes) {
         super(_simple, _selectedIndexes, _objects);
+        buildList();
         elements = _objects;
         setList(elements);
         rebuild();
     }
 
-    @Override
-    protected void buildList() {
+    private void buildList() {
         cellRender = new DefaultCellRender();
         cellRender.setMaxWidth(getMaxWidth());
         setRender(cellRender);

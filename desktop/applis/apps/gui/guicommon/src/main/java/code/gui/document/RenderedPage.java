@@ -15,6 +15,8 @@ import code.formathtml.util.BeanCustLgNames;
 import code.formathtml.util.BeanLgNames;
 import code.bean.nat.BeanNatLgNames;
 import code.gui.*;
+import code.gui.initialize.AbstractGraphicStringListGenerator;
+import code.gui.initialize.AbstractProgramInfos;
 import code.sml.Document;
 import code.util.CustList;
 import code.util.IdMap;
@@ -51,9 +53,11 @@ public final class RenderedPage implements ProcessingSession {
 
     private LabelButton find;
     private TextField field;
+    private final AbstractProgramInfos gene;
 
-    public RenderedPage(ScrollPane _frame) {
+    public RenderedPage(ScrollPane _frame, AbstractProgramInfos _gene) {
         scroll = _frame;
+        gene = _gene;
     }
 
     public void initNav() {
@@ -257,5 +261,9 @@ public final class RenderedPage implements ProcessingSession {
 
     public AbstractContextCreator getContextCreator() {
         return contextCreator;
+    }
+
+    public AbstractProgramInfos getGene() {
+        return gene;
     }
 }

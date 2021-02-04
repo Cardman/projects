@@ -76,7 +76,7 @@ public final class PaginatorMove extends Paginator {
 
     private final ComboBox<SelectedBoolean> cmpNameSorting;
 
-    private final NumComboBox cmpNamePrio = new NumComboBox();
+    private final NumComboBox cmpNamePrio;
 
 //    private ComboBox<SelectedBoolean> cmpTypesSorting;
 //
@@ -84,28 +84,34 @@ public final class PaginatorMove extends Paginator {
 
     private final ComboBox<SelectedBoolean> cmpDamagingSorting;
 
-    private final NumComboBox cmpDamagingPrio = new NumComboBox();
+    private final NumComboBox cmpDamagingPrio;
 
     private final ComboBox<SelectedBoolean> cmpPpSorting;
 
-    private final NumComboBox cmpPpPrio = new NumComboBox();
+    private final NumComboBox cmpPpPrio;
 
     private final ComboBox<SelectedBoolean> cmpPriceSorting;
 
-    private final NumComboBox cmpPricePrio = new NumComboBox();
+    private final NumComboBox cmpPricePrio;
 
     private final ComboBox<SelectedBoolean> cmpPrioSorting;
 
-    private final NumComboBox cmpPrioPrio = new NumComboBox();
+    private final NumComboBox cmpPrioPrio;
 
     private final ComboBox<SelectedBoolean> cmpTargetsSorting;
 
-    private final NumComboBox cmpTargetsPrio = new NumComboBox();
+    private final NumComboBox cmpTargetsPrio;
 
     private final boolean buy;
 
     public PaginatorMove(MainWindow _window, Panel _p,ChangeableTitle _w, FacadeGame _d, boolean _buy) {
         super(_window, ACCESS_MOVE,_p);
+        cmpNamePrio = new NumComboBox(_window.getFrames().getGeneComboBox());
+        cmpDamagingPrio = new NumComboBox(_window.getFrames().getGeneComboBox());
+        cmpTargetsPrio = new NumComboBox(_window.getFrames().getGeneComboBox());
+        cmpPpPrio = new NumComboBox(_window.getFrames().getGeneComboBox());
+        cmpPricePrio = new NumComboBox(_window.getFrames().getGeneComboBox());
+        cmpPrioPrio = new NumComboBox(_window.getFrames().getGeneComboBox());
         setWindow(_w);
         setFacade(_d);
         buy = _buy;
@@ -115,38 +121,38 @@ public final class PaginatorMove extends Paginator {
         order.add(SearchingMode.BEGIN);
         order.add(SearchingMode.END);
         order.add(SearchingMode.MATCH_SPACE);
-        modeName = new ComboBox<SearchingMode>();
+        modeName = new ComboBox<SearchingMode>(_window.getFrames().getGeneComboBox().createCombo(new StringList(), -1));
         modeName.setWithDefaultValue(false);
         modeName.refresh(order, getMessagesSearchMode());
-        modeTypes = new ComboBox<SearchingMode>();
+        modeTypes = new ComboBox<SearchingMode>(_window.getFrames().getGeneComboBox().createCombo(new StringList(), -1));
         modeTypes.setWithDefaultValue(false);
         modeTypes.refresh(order, getMessagesSearchMode());
-        damaging = new ComboBox<SelectedBoolean>();
+        damaging = new ComboBox<SelectedBoolean>(_window.getFrames().getGeneComboBox().createCombo(new StringList(), -1));
         damaging.setWithDefaultValue(false);
         damaging.refresh(getFacade().getTranslatedBooleansCurLanguage());
-        targets = new ComboBox<TargetChoice>();
+        targets = new ComboBox<TargetChoice>(_window.getFrames().getGeneComboBox().createCombo(new StringList(), -1));
         targets.setWithDefaultValue(true);
         String lg_ = getMain().getLanguageKey();
         targets.refresh(getFacade().getData().getTranslatedTargets().getVal(lg_));
-        cmpNameSorting = new ComboBox<SelectedBoolean>();
+        cmpNameSorting = new ComboBox<SelectedBoolean>(_window.getFrames().getGeneComboBox().createCombo(new StringList(), -1));
         cmpNameSorting.setWithDefaultValue(false);
         cmpNameSorting.refresh(getFacade().getTranslatedBooleansCurLanguage());
-        cmpTargetsSorting = new ComboBox<SelectedBoolean>();
+        cmpTargetsSorting = new ComboBox<SelectedBoolean>(_window.getFrames().getGeneComboBox().createCombo(new StringList(), -1));
         cmpTargetsSorting.setWithDefaultValue(false);
         cmpTargetsSorting.refresh(getFacade().getTranslatedBooleansCurLanguage());
 //        cmpTypesSorting = new ComboBox<SelectedBoolean>();
 //        cmpTypesSorting.setWithDefaultValue(false);
 //        cmpTypesSorting.refresh(getFacade().getData().getTranslatedBooleans().getVal(Constants.getLanguage()));
-        cmpDamagingSorting = new ComboBox<SelectedBoolean>();
+        cmpDamagingSorting = new ComboBox<SelectedBoolean>(_window.getFrames().getGeneComboBox().createCombo(new StringList(), -1));
         cmpDamagingSorting.setWithDefaultValue(false);
         cmpDamagingSorting.refresh(getFacade().getTranslatedBooleansCurLanguage());
-        cmpPrioSorting = new ComboBox<SelectedBoolean>();
+        cmpPrioSorting = new ComboBox<SelectedBoolean>(_window.getFrames().getGeneComboBox().createCombo(new StringList(), -1));
         cmpPrioSorting.setWithDefaultValue(false);
         cmpPrioSorting.refresh(getFacade().getTranslatedBooleansCurLanguage());
-        cmpPpSorting = new ComboBox<SelectedBoolean>();
+        cmpPpSorting = new ComboBox<SelectedBoolean>(_window.getFrames().getGeneComboBox().createCombo(new StringList(), -1));
         cmpPpSorting.setWithDefaultValue(false);
         cmpPpSorting.refresh(getFacade().getTranslatedBooleansCurLanguage());
-        cmpPriceSorting = new ComboBox<SelectedBoolean>();
+        cmpPriceSorting = new ComboBox<SelectedBoolean>(_window.getFrames().getGeneComboBox().createCombo(new StringList(), -1));
         cmpPriceSorting.setWithDefaultValue(false);
         cmpPriceSorting.refresh(getFacade().getTranslatedBooleansCurLanguage());
         int nb_ = PaginationMove.NB_CMPARATORS;
@@ -165,7 +171,7 @@ public final class PaginatorMove extends Paginator {
             mvs_.add(mv_);
         }
         name = new TextField(16);
-        nameAuto = new AutoCompleteDocument(name,mvs_, getWindow());
+        nameAuto = new AutoCompleteDocument(name,mvs_, getWindow(),_window.getFrames().getGeneGraphicList());
         modeName.setListener(new ChangedModeEvent(modeName, nameAuto));
 
         StringList ts_ = new StringList();
@@ -174,7 +180,7 @@ public final class PaginatorMove extends Paginator {
             ts_.add(mv_);
         }
         types = new TextField(16);
-        typesAuto = new AutoCompleteDocument(types,ts_, getWindow());
+        typesAuto = new AutoCompleteDocument(types,ts_, getWindow(),_window.getFrames().getGeneGraphicList());
         modeTypes.setListener(new ChangedModeEvent(modeTypes, typesAuto));
 //        name.getDocument().addDocumentListener(new DocumentAdaptater() {
 //
@@ -316,10 +322,10 @@ public final class PaginatorMove extends Paginator {
         search_ = Panel.newGrid(0,3);
         search_.add(new TextLabel(getMessages().getVal(CST_NAME)));
         search_.add(name);
-        search_.add(modeName);
+        search_.add(modeName.self());
         search_.add(new TextLabel(getMessages().getVal(CST_TYPES)));
         search_.add(types);
-        search_.add(modeTypes);
+        search_.add(modeTypes.self());
         search_.add(new TextLabel(getMessages().getVal(CST_PRIORITY)));
         search_.add(minPriority);
         search_.add(maxPriority);
@@ -330,32 +336,32 @@ public final class PaginatorMove extends Paginator {
         search_.add(minPrice);
         search_.add(maxPrice);
         search_.add(new TextLabel(getMessages().getVal(CST_DAMAGING)));
-        search_.add(damaging);
+        search_.add(damaging.self());
         search_.add(new TextLabel(DataBase.EMPTY_STRING));
         search_.add(new TextLabel(getMessages().getVal(CST_TARGETS)));
-        search_.add(targets);
+        search_.add(targets.self());
         search_.add(new TextLabel(DataBase.EMPTY_STRING));
         _p.add(search_);
         Panel sorting_;
         sorting_ = Panel.newGrid(0,3);
         sorting_.add(new TextLabel(getMessages().getVal(CST_NAME)));
-        sorting_.add(cmpNameSorting);
-        sorting_.add(cmpNamePrio);
+        sorting_.add(cmpNameSorting.self());
+        sorting_.add(cmpNamePrio.self());
         sorting_.add(new TextLabel(getMessages().getVal(CST_PRICE)));
-        sorting_.add(cmpPriceSorting);
-        sorting_.add(cmpPricePrio);
+        sorting_.add(cmpPriceSorting.self());
+        sorting_.add(cmpPricePrio.self());
         sorting_.add(new TextLabel(getMessages().getVal(CST_PRIORITY)));
-        sorting_.add(cmpPrioSorting);
-        sorting_.add(cmpPrioPrio);
+        sorting_.add(cmpPrioSorting.self());
+        sorting_.add(cmpPrioPrio.self());
         sorting_.add(new TextLabel(getMessages().getVal(CST_PP)));
-        sorting_.add(cmpPpSorting);
-        sorting_.add(cmpPpPrio);
+        sorting_.add(cmpPpSorting.self());
+        sorting_.add(cmpPpPrio.self());
         sorting_.add(new TextLabel(getMessages().getVal(CST_DAMAGING)));
-        sorting_.add(cmpDamagingSorting);
-        sorting_.add(cmpDamagingPrio);
+        sorting_.add(cmpDamagingSorting.self());
+        sorting_.add(cmpDamagingPrio.self());
         sorting_.add(new TextLabel(getMessages().getVal(CST_TARGETS)));
-        sorting_.add(cmpTargetsSorting);
-        sorting_.add(cmpTargetsPrio);
+        sorting_.add(cmpTargetsSorting.self());
+        sorting_.add(cmpTargetsPrio.self());
         _p.add(sorting_);
         Panel top_;
         top_ = Panel.newLineBox();
@@ -409,7 +415,7 @@ public final class PaginatorMove extends Paginator {
         bottom_.add(getBegin());
         bottom_.add(getPreviousDelta());
         bottom_.add(getPrevious());
-        bottom_.add(getPages());
+        bottom_.add(getPages().self());
         bottom_.add(getNext());
         bottom_.add(getNextDelta());
         bottom_.add(getEnd());

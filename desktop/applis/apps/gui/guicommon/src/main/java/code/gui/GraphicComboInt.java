@@ -14,7 +14,5 @@ public interface GraphicComboInt {
     ListSelection getListener();
     void addItem(String _object);
     void setListener(ListSelection _listener);
-    int getMaxWidth();
-    Panel getPanel();
 
 }

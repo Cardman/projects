@@ -31,49 +31,53 @@ public final class PaginatorItem extends Paginator {
 
     private static final String NUMBER = "number";
 
-    private TextField name;
-    private AutoCompleteDocument nameAuto;
+    private final TextField name;
+    private final AutoCompleteDocument nameAuto;
 
-    private TextField description = new TextField(16);
+    private final TextField description = new TextField(16);
 
-    private TextField minPrice = new TextField(16);
+    private final TextField minPrice = new TextField(16);
 
-    private TextField maxPrice = new TextField(16);
+    private final TextField maxPrice = new TextField(16);
 
-    private TextField minNumber = new TextField(16);
+    private final TextField minNumber = new TextField(16);
 
-    private TextField maxNumber = new TextField(16);
+    private final TextField maxNumber = new TextField(16);
 
 
-    private EnumList<SearchingMode> order = new EnumList<SearchingMode>();
+    private final EnumList<SearchingMode> order = new EnumList<SearchingMode>();
 
     //private JComboBoxSearchingMode modeFirstName = new JComboBoxSearchingMode();
-    private ComboBox<SearchingMode> modeName;
+    private final ComboBox<SearchingMode> modeName;
 
-    private ComboBox<SearchingMode> modeDescription;
+    private final ComboBox<SearchingMode> modeDescription;
 
-    private Panel results = Panel.newGrid(0,1);
+    private final Panel results = Panel.newGrid(0,1);
 
-    private ComboBox<SelectedBoolean> cmpNameSorting;
+    private final ComboBox<SelectedBoolean> cmpNameSorting;
 
-    private NumComboBox cmpNamePrio = new NumComboBox();
+    private final NumComboBox cmpNamePrio;
 
-    private ComboBox<SelectedBoolean> cmpDescriptionSorting;
+    private final ComboBox<SelectedBoolean> cmpDescriptionSorting;
 
-    private NumComboBox cmpDescriptionPrio = new NumComboBox();
+    private final NumComboBox cmpDescriptionPrio;
 
-    private ComboBox<SelectedBoolean> cmpPriceSorting;
+    private final ComboBox<SelectedBoolean> cmpPriceSorting;
 
-    private NumComboBox cmpPricePrio = new NumComboBox();
+    private final NumComboBox cmpPricePrio;
 
-    private ComboBox<SelectedBoolean> cmpNumberSorting;
+    private final ComboBox<SelectedBoolean> cmpNumberSorting;
 
-    private NumComboBox cmpNumberPrio = new NumComboBox();
+    private final NumComboBox cmpNumberPrio;
 
-    private boolean buy;
+    private final boolean buy;
 
     public PaginatorItem(MainWindow _window, Panel _p,ChangeableTitle _w, FacadeGame _d, boolean _buy) {
         super(_window, ACCESS_ITEM,_p);
+        cmpNamePrio = new NumComboBox(_window.getFrames().getGeneComboBox());
+        cmpNumberPrio = new NumComboBox(_window.getFrames().getGeneComboBox());
+        cmpPricePrio = new NumComboBox(_window.getFrames().getGeneComboBox());
+        cmpDescriptionPrio = new NumComboBox(_window.getFrames().getGeneComboBox());
         setWindow(_w);
         setFacade(_d);
         buy = _buy;
@@ -83,22 +87,22 @@ public final class PaginatorItem extends Paginator {
         order.add(SearchingMode.BEGIN);
         order.add(SearchingMode.END);
         order.add(SearchingMode.MATCH_SPACE);
-        modeName = new ComboBox<SearchingMode>();
+        modeName = new ComboBox<SearchingMode>(_window.getFrames().getGeneComboBox().createCombo(new StringList(), -1));
         modeName.setWithDefaultValue(false);
         modeName.refresh(order, getMessagesSearchMode());
-        modeDescription = new ComboBox<SearchingMode>();
+        modeDescription = new ComboBox<SearchingMode>(_window.getFrames().getGeneComboBox().createCombo(new StringList(), -1));
         modeDescription.setWithDefaultValue(false);
         modeDescription.refresh(order, getMessagesSearchMode());
-        cmpNameSorting = new ComboBox<SelectedBoolean>();
+        cmpNameSorting = new ComboBox<SelectedBoolean>(_window.getFrames().getGeneComboBox().createCombo(new StringList(), -1));
         cmpNameSorting.setWithDefaultValue(false);
         cmpNameSorting.refresh(getFacade().getTranslatedBooleansCurLanguage());
-        cmpDescriptionSorting = new ComboBox<SelectedBoolean>();
+        cmpDescriptionSorting = new ComboBox<SelectedBoolean>(_window.getFrames().getGeneComboBox().createCombo(new StringList(), -1));
         cmpDescriptionSorting.setWithDefaultValue(false);
         cmpDescriptionSorting.refresh(getFacade().getTranslatedBooleansCurLanguage());
-        cmpPriceSorting = new ComboBox<SelectedBoolean>();
+        cmpPriceSorting = new ComboBox<SelectedBoolean>(_window.getFrames().getGeneComboBox().createCombo(new StringList(), -1));
         cmpPriceSorting.setWithDefaultValue(false);
         cmpPriceSorting.refresh(getFacade().getTranslatedBooleansCurLanguage());
-        cmpNumberSorting = new ComboBox<SelectedBoolean>();
+        cmpNumberSorting = new ComboBox<SelectedBoolean>(_window.getFrames().getGeneComboBox().createCombo(new StringList(), -1));
         cmpNumberSorting.setWithDefaultValue(false);
         cmpNumberSorting.refresh(getFacade().getTranslatedBooleansCurLanguage());
         int nb_ = PaginationItem.NB_CMPARATORS;
@@ -116,7 +120,7 @@ public final class PaginatorItem extends Paginator {
             it_.add(abTr_);
         }
         name = new TextField(16);
-        nameAuto = new AutoCompleteDocument(name,it_, getWindow());
+        nameAuto = new AutoCompleteDocument(name,it_, getWindow(),_window.getFrames().getGeneGraphicList());
 //        name.getDocument().addDocumentListener(new DocumentAdaptater() {
 //
 //            public void updateText() {
@@ -211,10 +215,10 @@ public final class PaginatorItem extends Paginator {
         search_ = Panel.newGrid(0,3);
         search_.add(new TextLabel(getMessages().getVal(NAME)));
         search_.add(name);
-        search_.add(modeName);
+        search_.add(modeName.self());
         search_.add(new TextLabel(getMessages().getVal(DESCRIPTION)));
         search_.add(description);
-        search_.add(modeDescription);
+        search_.add(modeDescription.self());
         search_.add(new TextLabel(getMessages().getVal(PRICE)));
         search_.add(minPrice);
         search_.add(maxPrice);
@@ -225,17 +229,17 @@ public final class PaginatorItem extends Paginator {
         Panel sorting_;
         sorting_ = Panel.newGrid(0,3);
         sorting_.add(new TextLabel(getMessages().getVal(NAME)));
-        sorting_.add(cmpNameSorting);
-        sorting_.add(cmpNamePrio);
+        sorting_.add(cmpNameSorting.self());
+        sorting_.add(cmpNamePrio.self());
         sorting_.add(new TextLabel(getMessages().getVal(DESCRIPTION)));
-        sorting_.add(cmpDescriptionSorting);
-        sorting_.add(cmpDescriptionPrio);
+        sorting_.add(cmpDescriptionSorting.self());
+        sorting_.add(cmpDescriptionPrio.self());
         sorting_.add(new TextLabel(getMessages().getVal(PRICE)));
-        sorting_.add(cmpPriceSorting);
-        sorting_.add(cmpPricePrio);
+        sorting_.add(cmpPriceSorting.self());
+        sorting_.add(cmpPricePrio.self());
         sorting_.add(new TextLabel(getMessages().getVal(NUMBER)));
-        sorting_.add(cmpNumberSorting);
-        sorting_.add(cmpNumberPrio);
+        sorting_.add(cmpNumberSorting.self());
+        sorting_.add(cmpNumberPrio.self());
         _p.add(sorting_);
         Panel top_;
         top_ = Panel.newLineBox();
@@ -278,7 +282,7 @@ public final class PaginatorItem extends Paginator {
         bottom_.add(getBegin());
         bottom_.add(getPreviousDelta());
         bottom_.add(getPrevious());
-        bottom_.add(getPages());
+        bottom_.add(getPages().self());
         bottom_.add(getNext());
         bottom_.add(getNextDelta());
         bottom_.add(getEnd());

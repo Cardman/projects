@@ -2,12 +2,11 @@ package aiki.gui.components.fight;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 
-import javax.swing.BorderFactory;
 import javax.swing.SwingConstants;
-import javax.swing.border.BevelBorder;
 
 import aiki.facade.FacadeGame;
 import aiki.game.fight.BallNumberRate;
+import code.gui.AbsGraphicList;
 import code.gui.GraphicList;
 import code.gui.Panel;
 import code.gui.TextLabel;
@@ -15,18 +14,18 @@ import code.util.NatStringTreeMap;
 
 public class BallPanel {
 
-    private TextLabel title;
+    private final TextLabel title;
 
-    private GraphicList<BallNumberRate> liste;
+    private final AbsGraphicList<BallNumberRate> liste;
 
-    private FacadeGame facade;
+    private final FacadeGame facade;
 
-    private BallRenderer renderer;
+    private final BallRenderer renderer;
 
-    private Panel container;
+    private final Panel container;
 
-    public BallPanel(int _nb, String _titre, FacadeGame _facade) {
-        liste = new GraphicList<BallNumberRate>(true);
+    public BallPanel(int _nb, String _titre, FacadeGame _facade, AbsGraphicList<BallNumberRate> _liste) {
+        liste = _liste;
         facade = _facade;
         container = Panel.newBorder();
         container.setLoweredBorder();
@@ -38,7 +37,7 @@ public class BallPanel {
         renderer = new BallRenderer(facade);
         liste.setRender(renderer);
         initBalls();
-        container.add(liste,BorderLayout.CENTER);
+        container.add(liste.self(),BorderLayout.CENTER);
         container.setPreferredSize(new Dimension(100,32*_nb));
     }
 

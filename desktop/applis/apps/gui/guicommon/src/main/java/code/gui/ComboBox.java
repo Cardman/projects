@@ -4,16 +4,19 @@ import code.util.comparators.ComparatorIndexes;
 import code.util.comparators.ComparatorMapValue;
 import code.util.ints.Listable;
 
-public final class ComboBox<T> extends GraphicCombo {
+public final class ComboBox<T> extends AbsComboBox implements GraphicComboGrInt {
 
     private static final String EMPTY_STRING = "";
 
-    private EnumList<T> order = new EnumList<T>();
+    private final EnumList<T> order = new EnumList<T>();
 
     private TreeMap<T,String> elements;
 
     private boolean withDefaultValue;
 
+    public ComboBox(GraphicComboGrInt _combo) {
+        super(_combo);
+    }
     public TreeMap<T, String> getElements() {
         return elements;
     }
@@ -21,7 +24,7 @@ public final class ComboBox<T> extends GraphicCombo {
     public void refresh(Listable<T> _order,AbsMap<T,String> _tr) {
         order.clear();
         order.addAllElts(_order);
-        super.removeAllItems();
+        getCombo().removeAllItems();
         elements = new TreeMap<T,String>(new ComparatorIndexes<T>(order));
         EnumMap<T,String> m_ = createMap(_tr);
         elements.putAllMap(m_);
@@ -31,7 +34,7 @@ public final class ComboBox<T> extends GraphicCombo {
     }
 
     public void refresh(AbsMap<T,String> _tr) {
-        super.removeAllItems();
+        getCombo().removeAllItems();
         EnumMap<T,String> m_ = createMap(_tr);
         elements = new TreeMap<T,String>(new ComparatorMapValue<T>(m_));
         elements.putAllMap(m_);
@@ -54,7 +57,7 @@ public final class ComboBox<T> extends GraphicCombo {
         tr_ = getElements();
         T e_ = tr_.getKey(_anIndex);
         tr_.removeKey(e_);
-        super.removeItem(_anIndex);
+        getCombo().removeItem(_anIndex);
     }
 
     public void addItem(T _t, String _dis) {
@@ -76,7 +79,7 @@ public final class ComboBox<T> extends GraphicCombo {
     @Override
     public void removeAllItems() {
         getElements().clear();
-        super.removeAllItems();
+        getCombo().removeAllItems();
     }
     public T getCurrent() {
         int index_ = getSelectedIndex();

@@ -15,6 +15,7 @@ import cards.tarot.DisplayingTarot;
 import code.gui.*;
 import code.util.EnumList;
 import code.util.EnumMap;
+import code.util.StringList;
 import code.util.StringMap;
 import code.util.ints.Listable;
 
@@ -77,7 +78,7 @@ public final class DialogDisplayingTarot extends DialogCards implements DialogDi
         getJt().add(messages.getVal(DEALING),panneau_);
         //Panneau Tri
         Panel sousPanneau_=Panel.newGrid(0,3);
-        listeChoix=new ComboBox<Suit>();
+        listeChoix=new ComboBox<Suit>(_window.getFrames().getGeneComboBox().createCombo(new StringList(), -1));
         EnumMap<Suit,String> trSuit_;
         trSuit_ = new EnumMap<Suit,String>();
         Listable<Suit> ls_ = new EnumList<Suit>(Suit.values());
@@ -95,7 +96,7 @@ public final class DialogDisplayingTarot extends DialogCards implements DialogDi
 //            }
 //            listeChoix.addItem(couleur_);
 //        }
-        sousPanneau_.add(listeChoix);
+        sousPanneau_.add(listeChoix.self());
         Panel sousPanneauTwo_=Panel.newGrid(0,1);
         LabelButton bouton_=new LabelButton(messages.getVal(ADD_SUIT));
         bouton_.addMouseListener(new AddSuitEvent(this));
@@ -110,7 +111,7 @@ public final class DialogDisplayingTarot extends DialogCards implements DialogDi
         for (Suit chaine_:displayingTarot.getSuits()) {
             liste_.add(chaine_);
         }
-        orderedSuits=new SuitsScrollableList(liste_,5, _window);
+        orderedSuits=new SuitsScrollableList(liste_,5, _window, _window.getCardFactories().getGeneSuit().create(false));
         liste_.clear();
         sousPanneau_.add(orderedSuits.getContainer());
         getJt().add(messages.getVal(SORTING),sousPanneau_);

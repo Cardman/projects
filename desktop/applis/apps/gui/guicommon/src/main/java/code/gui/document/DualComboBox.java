@@ -2,7 +2,6 @@ package code.gui.document;
 
 import code.formathtml.render.IntComboBox;
 import code.formathtml.render.MetaComboBox;
-import code.gui.GraphicCombo;
 import code.util.Ints;
 import code.util.StringList;
 
@@ -12,7 +11,7 @@ public final class DualComboBox extends DualInput implements IntComboBox {
 
     public DualComboBox(DualContainer _container, MetaComboBox _component,
                         RenderedPage _page) {
-        super(_container, _component, new GraphicCombo(new StringList(_component.getChoicesStrings()), _component.getSelected()), _page);
+        super(_container, _component, _page.getGene().getGeneComboBox().createCombo(new StringList(_component.getChoicesStrings()), _component.getSelected()), _page);
         choicesValues = _component.getChoicesValues();
         updateGraphics(getSelect().getGlobal(),_component);
     }

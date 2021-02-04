@@ -31,12 +31,11 @@ public class ItemRenderer extends CustCellRender<String> {
     }
 
     @Override
-    public PreparedLabel getListCellRendererComponent(
-            GraphicList<String> _list, String _item, int _arg2,
+    public void getListCellRendererComponent(
+            PreparedLabel _currentLab, int _arg2,
             boolean _selected, boolean _arg4) {
-        PreparedLabel label_ = _list.getListComponents().get(_arg2);
         selected = _selected;
-        name = _item;
+        name = getList().get(_arg2);
         displayName = facade.translateItem(name);
         price = facade.getData().getItem(name).getPrice();
         int[][] img_ = facade.getData().getMiniItems().getVal(name);
@@ -44,13 +43,12 @@ public class ItemRenderer extends CustCellRender<String> {
         maxWordWidth = 0;
         for (String i: facade.getChosenItemsForBuyOrSell().getKeys()) {
             String disp_ = facade.translateItem(i);
-            int w_ = label_.getFontMetrics(label_.getFont()).stringWidth(disp_);
+            int w_ = _currentLab.getFontMetrics(_currentLab.getFont()).stringWidth(disp_);
             if (w_ > maxWordWidth) {
                 maxWordWidth = w_;
             }
         }
-        label_.setPreferredSize(new Dimension(maxWordWidth+sideLength *2,sideLength));
-        return label_;
+        _currentLab.setPreferredSize(new Dimension(maxWordWidth+sideLength *2,sideLength));
     }
 
     @Override

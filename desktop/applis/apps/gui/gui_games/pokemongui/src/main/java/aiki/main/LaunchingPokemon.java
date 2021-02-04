@@ -3,6 +3,9 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 
 import aiki.db.DataBase;
+import aiki.game.fight.BallNumberRate;
+import aiki.game.fight.Fighter;
+import aiki.map.pokemon.UsablePokemon;
 import aiki.sml.Resources;
 import aiki.game.Game;
 import aiki.sml.LoadingGame;
@@ -10,6 +13,7 @@ import aiki.sml.DocumentReaderAikiCoreUtil;
 import code.expressionlanguage.filenames.AbstractNameValidating;
 import code.gui.*;
 import code.gui.initialize.AbstractProgramInfos;
+import code.gui.initialize.GraphicListGenerator;
 import code.gui.initialize.LoadLanguageUtil;
 import code.gui.initialize.ProgramInfos;
 import code.stream.StreamFolderFile;
@@ -21,12 +25,14 @@ public class LaunchingPokemon extends AdvSoftApplicationCore {
 
     private static final String TEMP_FOLDER = "pokemon";
 
+    private final AikiFactory aikiFactory;
     public LaunchingPokemon() {
-        this(new ProgramInfos());
+        this(new ProgramInfos(), new AikiFactory(new GraphicListGenerator<BallNumberRate>(), new GraphicListGenerator<Fighter>(), new GraphicListGenerator<String>(), new GraphicListGenerator<String>(), new GraphicListGenerator<String>(), new GraphicListGenerator<UsablePokemon>()));
     }
 
-    public LaunchingPokemon(AbstractProgramInfos _frames) {
+    public LaunchingPokemon(AbstractProgramInfos _frames, AikiFactory _aikiFactory) {
         super(_frames);
+        aikiFactory = _aikiFactory;
     }
 
     protected static void loadLaungage(String[] _args) {
@@ -93,7 +99,7 @@ public class LaunchingPokemon extends AdvSoftApplicationCore {
 //        path_ = Constants.getInitFolder();
 //        CreateMainWindow create_ = new CreateMainWindow(param_, false, path_, topLeft_);
 //        create_.start();
-        ThreadInvoker.invokeNow(new CreateMainWindow(param_, _args, path_, topLeft_, _language, getFrames()));
+        ThreadInvoker.invokeNow(new CreateMainWindow(param_, _args, path_, topLeft_, _language, getFrames(), aikiFactory));
     }
 
     public static BufferedImage getIcon() {

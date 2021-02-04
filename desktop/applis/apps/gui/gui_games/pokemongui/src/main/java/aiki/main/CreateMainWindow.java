@@ -14,24 +14,26 @@ Thread safe class*/
 public final class CreateMainWindow implements Runnable {
 
     private final AbstractProgramInfos list;
-    private LoadingGame load;
+    private final LoadingGame load;
 
-    private StringMap<Object> withParam;
+    private final StringMap<Object> withParam;
 
-    private String path;
+    private final String path;
 
-    private TopLeftFrame topLeft;
+    private final TopLeftFrame topLeft;
 
-    private String lg;
+    private final String lg;
 
+    private final AikiFactory aikiFactory;
     /**This class thread is used by EDT (invokeLater of SwingUtilities)*/
-    public CreateMainWindow(LoadingGame _load, StringMap<Object> _withParam, String _path, TopLeftFrame _topLeft, String _lg, AbstractProgramInfos _list) {
+    public CreateMainWindow(LoadingGame _load, StringMap<Object> _withParam, String _path, TopLeftFrame _topLeft, String _lg, AbstractProgramInfos _list, AikiFactory _aikiFactory) {
         load = _load;
         withParam = _withParam;
         path = _path;
         topLeft = _topLeft;
         lg = _lg;
         list = _list;
+        aikiFactory = _aikiFactory;
     }
 
     @Override
@@ -42,7 +44,7 @@ public final class CreateMainWindow implements Runnable {
         PreparedRenderedPages pkNet_ = new PreparedRenderedPages(Resources.ACCESS_TO_DEFAULT_FILES,Resources.ACCESS_TO_DEFAULT_PK);
         PreparedRenderedPages diff_ = new PreparedRenderedPages(Resources.ACCESS_TO_DEFAULT_FILES,Resources.ACCESS_TO_DEFAULT_DIFF);
         PreparedRenderedPages prog_ = new PreparedRenderedPages(Resources.ACCESS_TO_DEFAULT_FILES,Resources.ACCESS_TO_DEFAULT_PROG);
-        MainWindow window_ = new MainWindow(lg, list);
+        MainWindow window_ = new MainWindow(lg, list,aikiFactory);
         Thread dataWebThread_ = CustComponent.newThread(dataWeb_);
         dataWebThread_.start();
         Thread fightThread_ = CustComponent.newThread(fight_);

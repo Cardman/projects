@@ -19,13 +19,11 @@ public class CardBeloteCellRenderer extends CustCellRender<CardBelote>{
         window = _window;
     }
     @Override
-    public PreparedLabel getListCellRendererComponent(GraphicList<CardBelote> _list, CardBelote _value,
-                                                      int _index, boolean _isSelected, boolean _cellHasFocus) {
-        PreparedLabel label_ = _list.getListComponents().get(_index);
-        card= _value;
+    public void getListCellRendererComponent(PreparedLabel _currentLab,
+                                             int _index, boolean _isSelected, boolean _cellHasFocus) {
+        card= getList().get(_index);
         selectionne=_isSelected;
-        label_.setPreferredSize(new Dimension(50,10));
-        return label_;
+        _currentLab.setPreferredSize(new Dimension(50,10));
     }
     @Override
     public void paintComponent(CustGraphics _g) {

@@ -14,6 +14,7 @@ import cards.president.DisplayingPresident;
 import code.gui.*;
 import code.util.EnumList;
 import code.util.EnumMap;
+import code.util.StringList;
 import code.util.StringMap;
 import code.util.ints.Listable;
 
@@ -82,7 +83,7 @@ public final class DialogDisplayingPresident extends DialogCards implements Dial
 //        for (Suit couleur_:Suit.couleursOrdinaires()) {
 //            listeChoix.addItem(couleur_);
 //        }
-        listeChoix=new ComboBox<Suit>();
+        listeChoix=new ComboBox<Suit>(_window.getFrames().getGeneComboBox().createCombo(new StringList(), -1));
         EnumMap<Suit,String> trSuit_;
         trSuit_ = new EnumMap<Suit,String>();
         Listable<Suit> ls_ = Suit.couleursOrdinaires();
@@ -91,7 +92,7 @@ public final class DialogDisplayingPresident extends DialogCards implements Dial
             trSuit_.addEntry(couleur_, Games.toString(couleur_,lg_));
         }
         listeChoix.refresh(ls_, trSuit_);
-        panneau_.add(listeChoix);
+        panneau_.add(listeChoix.self());
         Panel sousPanneauTwo_=Panel.newGrid(0,1);
         LabelButton bouton_=new LabelButton(messages.getVal(ADD_SUIT));
         bouton_.addMouseListener(new AddSuitEvent(this));
@@ -106,7 +107,7 @@ public final class DialogDisplayingPresident extends DialogCards implements Dial
         for (Suit chaine_:displayingPresident.getSuits()) {
             liste_.add(chaine_);
         }
-        orderedSuits=new SuitsScrollableList(liste_,4, _window);
+        orderedSuits=new SuitsScrollableList(liste_,4, _window, _window.getCardFactories().getGeneSuit().create(false));
         liste_.clear();
         panneau_.add(orderedSuits.getContainer());
         //Panneau Tri avant enchere (Atout)

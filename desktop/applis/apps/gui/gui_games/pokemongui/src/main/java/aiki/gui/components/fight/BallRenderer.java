@@ -58,15 +58,13 @@ public class BallRenderer extends CustCellRender<BallNumberRate> {
     }
 
     @Override
-    public PreparedLabel getListCellRendererComponent(GraphicList<BallNumberRate> _list, BallNumberRate _value, int _index,
-                                                       boolean _isSelected, boolean _cellHasFocus) {
-        PreparedLabel label_ = _list.getListComponents().get(_index);
+    public void getListCellRendererComponent(PreparedLabel _currentLab, int _index,
+                                             boolean _isSelected, boolean _cellHasFocus) {
         selected = _isSelected;
-        ball = _value;
+        ball = getList().get(_index);
         int[][] img_ = facade.getData().getMiniItems().getVal(ball.getName());
         ballImage = ConverterGraphicBufferedImage.decodeToImage(img_);
-        label_.setPreferredSize(new Dimension(100, ballImage.getHeight()));
-        return label_;
+        _currentLab.setPreferredSize(new Dimension(100, ballImage.getHeight()));
     }
 
     @Override

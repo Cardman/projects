@@ -11,9 +11,7 @@ import cards.gui.dialogs.events.ListenerStacks;
 import cards.president.RulesPresident;
 import cards.president.enumerations.EqualtyPlaying;
 import code.gui.*;
-import code.util.EnumList;
-import code.util.EnumMap;
-import code.util.StringMap;
+import code.util.*;
 import code.util.core.StringUtil;
 import code.util.ints.Listable;
 
@@ -71,7 +69,7 @@ public abstract class DialogPresident extends DialogCards implements DialogVaryi
         Panel dealing_=Panel.newGrid(0,2);
         //Sous - panneau Battre les cartes
         dealing_.add(new TextLabel(getMessages().getVal(MIX_CARDS)));
-        listeChoix=new ComboBox<MixCardsChoice>();
+        listeChoix=new ComboBox<MixCardsChoice>(_window.getFrames().getGeneComboBox().createCombo(new StringList(), -1));
         Listable<MixCardsChoice> mix_;
         mix_ = new EnumList<MixCardsChoice>(MixCardsChoice.values());
         EnumMap<MixCardsChoice, String> trMix_;
@@ -84,7 +82,7 @@ public abstract class DialogPresident extends DialogCards implements DialogVaryi
 //            listeChoix.addItem(choix_);
 //        }
         listeChoix.setSelectedItem(getReglesPresident().getMixedCards());
-        dealing_.add(listeChoix);
+        dealing_.add(listeChoix.self());
         if (getNbGames() != null) {
             dealing_.add(new TextLabel(getMessages().getVal(NUMBER_DEALS)));
             dealing_.add(getNbGames());
@@ -95,7 +93,7 @@ public abstract class DialogPresident extends DialogCards implements DialogVaryi
 
         Panel rules_=Panel.newGrid(0,2);
         rules_.add(new TextLabel(getMessages().getVal(EQUALITY)));
-        equality = new ComboBoxEnumCards<EqualtyPlaying>();
+        equality = new ComboBoxEnumCards<EqualtyPlaying>(_window.getFrames().getGeneComboBox().createCombo(new StringList(new IntTreeMap<String>().values()), 0));
         EqualtyPlaying curThree_ = getReglesPresident().getEqualty();
         int index_ = 0;
         int i_ = -1;
@@ -110,7 +108,7 @@ public abstract class DialogPresident extends DialogCards implements DialogVaryi
             equality.selectItem(i_);
         }
         equality.setListener(new ListenerEqualityPlaying(this));
-        rules_.add(equality);
+        rules_.add(equality.self());
         rules_.add(new TextLabel(""));
         stopAllPlayedCards = new TextLabel("");
         if (getReglesPresident().getEqualty() == EqualtyPlaying.SKIP_DIFF_NEXT_STOP) {

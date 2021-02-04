@@ -32,7 +32,7 @@ public final class DialogRulesBelote extends DialogBelote implements DialogRules
         Panel container_=Panel.newBorder();
         initMessageName(_parent);
         String lg_ = _parent.getLanguageKey();
-        initJt(null,lg_);
+        initJt(_parent,null,lg_);
 
         container_.add(getJt(),BorderLayout.CENTER);
         LabelButton bouton_=new LabelButton(getMessages().getVal(VALIDATE));

@@ -2,8 +2,6 @@ package aiki.gui.components.walk;
 import java.awt.Color;
 import java.awt.Dimension;
 
-import javax.swing.JLabel;
-
 import aiki.facade.FacadeGame;
 import code.gui.*;
 import code.maths.LgInt;
@@ -26,17 +24,15 @@ public class TmRenderer extends CustCellRender<String> {
     }
 
     @Override
-    public PreparedLabel getListCellRendererComponent(
-            GraphicList<String> _list, String _item, int _arg2,
+    public void getListCellRendererComponent(
+            PreparedLabel _currentLab, int _arg2,
             boolean _selected, boolean _arg4) {
-        PreparedLabel label_ = _list.getListComponents().get(_arg2);
         selected = _selected;
-        name = _item;
+        name = getList().get(_arg2);
 //        short tm_ = facade.getData().getTm().getKeys(name).first();
         short tm_ = facade.getData().getTmByMove(name).first();
         price = facade.getData().getTmPrice().getVal(tm_);
-        label_.setPreferredSize(new Dimension(150,sideLength));
-        return label_;
+        _currentLab.setPreferredSize(new Dimension(150,sideLength));
     }
 
     @Override

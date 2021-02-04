@@ -23,13 +23,9 @@ public final class MultSelectEltList<T> extends MouseAdapter implements Indexabl
             grList.setFirstIndex(index);
             grList.setLastIndex(index);
             CustCellRender<T> r_ = grList.getRender();
-            T v_ = grList.getList().get(index);
-            PreparedLabel c_;
-            if (!sel_) {
-                c_ = r_.getListCellRendererComponent(grList, v_, index, false, false);
-            } else {
-                c_ = r_.getListCellRendererComponent(grList, v_, index, true, false);
-            }
+            PreparedLabel c_ = grList.getListComponents().get(index);
+            r_.setList(grList.getList());
+            r_.getListCellRendererComponent(c_, index, sel_, false);
             c_.requestFocus();
             r_.paintComponent(c_);
             if (sel_) {
@@ -44,10 +40,10 @@ public final class MultSelectEltList<T> extends MouseAdapter implements Indexabl
         int min_ = Math.min(grList.getFirstIndex(), grList.getLastIndex());
         int max_ = Math.max(grList.getFirstIndex(), grList.getLastIndex());
         CustCellRender<T> r_ = grList.getRender();
+        r_.setList(grList.getList());
         for (int i = min_; i <= max_; i++) {
-            T v_ = grList.getList().get(i);
-            PreparedLabel c_;
-            c_ = r_.getListCellRendererComponent(grList, v_, i, sel_, false);
+            PreparedLabel c_ = grList.getListComponents().get(i);
+            r_.getListCellRendererComponent(c_, i, sel_, false);
             r_.paintComponent(c_);
         }
         if (sel_) {

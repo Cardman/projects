@@ -9,6 +9,7 @@ import cards.gui.MainWindow;
 import cards.gui.labels.selection.CardPresidentCellRenderer;
 import cards.president.HandPresident;
 import cards.president.enumerations.CardPresident;
+import code.gui.AbsGraphicList;
 import code.gui.GraphicList;
 import code.gui.TextLabel;
 import code.util.EnumList;
@@ -19,11 +20,11 @@ public class PresidentCardsScrollableList extends CardsScrollableList {
 
     private EnumList<Suit> couleurs;
     private boolean decroissant;
-    private GraphicList<CardPresident> liste;
-    private TextLabel remCards;
+    private final AbsGraphicList<CardPresident> liste;
+    private final TextLabel remCards;
 
-    public PresidentCardsScrollableList(int _nb, int _pmax, String _titre) {
-        liste = new GraphicList<CardPresident>(false);
+    public PresidentCardsScrollableList(int _nb, int _pmax, String _titre, AbsGraphicList<CardPresident> _liste) {
+        liste = _liste;
         setMax(_pmax);
         TextLabel titrePanneau_ = new TextLabel(_titre, SwingConstants.CENTER);
         getContainer().add(titrePanneau_, BorderLayout.NORTH);
@@ -31,7 +32,7 @@ public class PresidentCardsScrollableList extends CardsScrollableList {
         //utilisant "ctrl + A", "ctrl", "maj+clic", comme dans explorer
         liste.setVisibleRowCount(_nb);
         setNbCartesRestantes(_pmax);
-        getContainer().add(liste,BorderLayout.CENTER);
+        getContainer().add(liste.self(),BorderLayout.CENTER);
         remCards = new TextLabel(StringUtil.concatNbs(PLS,getNbCartesRestantes()), SwingConstants.CENTER);
         getContainer().add(remCards, BorderLayout.SOUTH);
         getContainer().setPreferredSize(new Dimension(100,10*(_nb+4)));
@@ -122,7 +123,7 @@ public class PresidentCardsScrollableList extends CardsScrollableList {
     public int nombreCartesSelectionnees() {
         return liste.getSelectedValuesLs().size();
     }
-    public GraphicList<CardPresident> getListe() {
+    public AbsGraphicList<CardPresident> getListe() {
         return liste;
     }
     @Override

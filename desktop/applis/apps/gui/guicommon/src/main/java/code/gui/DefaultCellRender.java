@@ -4,8 +4,6 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontMetrics;
 
-import javax.swing.JLabel;
-
 public final class DefaultCellRender extends CustCellRender<String> {
 
     private int maxWidth;
@@ -15,16 +13,14 @@ public final class DefaultCellRender extends CustCellRender<String> {
     private boolean selected;
 
     @Override
-    public PreparedLabel getListCellRendererComponent(GraphicList<String> _list, String _value,
-            int _index, boolean _isSelected, boolean _cellHasFocus) {
-        text = _value;
-        PreparedLabel label_ = _list.getListComponents().get(_index);
-        label = label_;
+    public void getListCellRendererComponent(PreparedLabel _currentLab,
+                                             int _index, boolean _isSelected, boolean _cellHasFocus) {
+        text = getList().get(_index);
+        label = _currentLab;
         Font font_ = label.getFont();
         FontMetrics fontMetrics_ = label.getFontMetrics(font_);
         maxWidth = Math.max(maxWidth,fontMetrics_.stringWidth(text));
         selected = _isSelected;
-        return label_;
     }
     public int getMaxWidth() {
         return maxWidth;

@@ -1,7 +1,9 @@
 package applications.gui;
 
+import aiki.main.AikiFactory;
 import aiki.main.LaunchingPokemon;
 import applications.main.LaunchingApplications;
+import cards.main.CardFactories;
 import cards.main.LaunchingCards;
 import code.converterimages.main.LaunchingConverter;
 import code.expressionlanguage.gui.unit.LaunchingAppUnitTests;
@@ -26,21 +28,21 @@ public final class MainWindow extends GroupFrame {
 
     private static final String APPLICATIONS = "Applications";
 
-    private LabelButton buttonPokemon;
+    private final LabelButton buttonPokemon;
 
-    private LabelButton buttonCards;
-    private LabelButton buttonApps;
-    private LabelButton buttonTests;
-    private LabelButton buttonRenders;
-    private LabelButton buttonDemo;
-    private LabelButton buttonPlayer;
-    private LabelButton buttonConverter;
+    private final LabelButton buttonCards;
+    private final LabelButton buttonApps;
+    private final LabelButton buttonTests;
+    private final LabelButton buttonRenders;
+    private final LabelButton buttonDemo;
+    private final LabelButton buttonPlayer;
+    private final LabelButton buttonConverter;
 
-    private CustButtonGroup group = new CustButtonGroup();
+    private final CustButtonGroup group = new CustButtonGroup();
 
-    private CustList<RadioButton> radios = new CustList<RadioButton>();
+    private final CustList<RadioButton> radios = new CustList<RadioButton>();
 
-    public MainWindow(String _lg, AbstractProgramInfos _list) {
+    public MainWindow(String _lg, AbstractProgramInfos _list, CardFactories _cardFactories, AikiFactory _aikiFactory) {
         super(_lg, _list);
         setFocusableWindowState(true);
         setTitle(APPLICATIONS);
@@ -49,14 +51,14 @@ public final class MainWindow extends GroupFrame {
         buttonPokemon = new LabelButton(LaunchingPokemon.getIcon());
         AtomicInteger at_ = new AtomicInteger(0);
         _list.getCounts().addEntry(LaunchingPokemon.getMainWindowClass(), at_);
-        buttonPokemon.addMouseListener(new PokemonEvent(this,at_));
+        buttonPokemon.addMouseListener(new PokemonEvent(this,at_, _aikiFactory));
         linePokemon_.add(buttonPokemon);
         panel_.add(linePokemon_);
         Panel lineCards_ = Panel.newLineBox();
         buttonCards = new LabelButton(LaunchingCards.getIcon());
         at_ = new AtomicInteger(0);
         _list.getCounts().addEntry(LaunchingCards.getMainWindowClass(),at_);
-        buttonCards.addMouseListener(new CardsEvent(this,at_));
+        buttonCards.addMouseListener(new CardsEvent(this,at_,_cardFactories));
         lineCards_.add(buttonCards);
         panel_.add(lineCards_);
         Panel lineTests_ = Panel.newLineBox();
@@ -155,11 +157,7 @@ public final class MainWindow extends GroupFrame {
             r.setSelected(false);
         }
         for (RadioButton r: radios) {
-            if (StringUtil.quickEq(r.getText(),Constants.getDisplayLanguage(_language))) {
-                r.setSelected(true);
-            } else {
-                r.setSelected(false);
-            }
+            r.setSelected(StringUtil.quickEq(r.getText(), Constants.getDisplayLanguage(_language)));
         }
         pack();
     }

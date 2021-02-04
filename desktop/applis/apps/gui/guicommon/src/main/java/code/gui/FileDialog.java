@@ -10,6 +10,7 @@ import javax.swing.tree.TreeNode;
 import code.gui.events.ClickHeaderEvent;
 import code.gui.events.ClickRowEvent;
 import code.gui.events.DeployTreeEvent;
+import code.gui.initialize.AbstractGraphicStringListGenerator;
 import code.sml.stream.ExtractFromFiles;
 import code.stream.StreamFolderFile;
 import code.stream.StreamTextFile;
@@ -30,7 +31,7 @@ public abstract class FileDialog extends Dialog {
     private static final String FILES = "files";
 
     private static final int NB_COLS = 32;
-    private Panel contentPane = Panel.newBorder();
+    private final Panel contentPane = Panel.newBorder();
     private Panel buttons = Panel.newLineBox();
     private TextField fileName = new TextField(NB_COLS);
     private AutoCompleteDocument auto;
@@ -48,7 +49,7 @@ public abstract class FileDialog extends Dialog {
     private String folder = EMPTY_STRING;
     private StringList excludedFolders = new StringList();
 
-    private CommonFrame superFrame;
+    private GroupFrame superFrame;
     private StringMap<String> messages;
 
     protected FileDialog(){
@@ -69,11 +70,11 @@ public abstract class FileDialog extends Dialog {
         initDialog(_language, _currentFolderRoot, _excludedFolders);
     }
 
-    protected void setFileDialog(CommonFrame _c,Dialog _w,String _language, boolean _currentFolderRoot, String _extension, String _folder, String... _excludedFolders) {
+    protected void setFileDialog(GroupFrame _c,Dialog _w,String _language, boolean _currentFolderRoot, String _extension, String _folder, String... _excludedFolders) {
         initByDialog(_c, _w,_language,_currentFolderRoot, true, _extension, _folder, _excludedFolders);
     }
 
-    protected void initByDialog(CommonFrame _c,Dialog _w,String _language, boolean _currentFolderRoot, boolean _addTypingFileName, String _extension, String _folder, String... _excludedFolders) {
+    protected void initByDialog(GroupFrame _c,Dialog _w,String _language, boolean _currentFolderRoot, boolean _addTypingFileName, String _extension, String _folder, String... _excludedFolders) {
         //super(_w,true);
         setDialogIcon(_w);
         setModal(true);
@@ -115,7 +116,8 @@ public abstract class FileDialog extends Dialog {
         fileTable.addListSelectionListener(new ClickRowEvent(this));
         Panel openSaveFile_ = Panel.newPageBox();
         fileName = new TextField(NB_COLS);
-        auto = new AutoCompleteDocument(fileName,new StringList(), this);
+        AbstractGraphicStringListGenerator gene_ = superFrame.getFrames().getGeneGraphicList();
+        auto = new AutoCompleteDocument(fileName,new StringList(), this,gene_);
         if (addTypingFileName) {
             Panel fieldFile_ = Panel.newLineBox();
             fieldFile_.add(new TextLabel(messages.getVal(NAME)));

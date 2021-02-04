@@ -691,7 +691,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         DocumentReaderCardsResultsUtil.setMessages(res_,lg_);
         setScores(res_.getScores());
         ScrollPane scroll_=new ScrollPane();
-        RenderedPage editor_ = new RenderedPage(scroll_);
+        RenderedPage editor_ = new RenderedPage(scroll_, getOwner().getFrames());
         PreparedAnalyzed sOne_ = retrieve(FileConst.RESOURCES_HTML_FILES_RESULTS_BELOTE);
         ((BeloteStandards)sOne_.getBeanNatLgNames()).setDataBase(res_);
         editor_.initialize(sOne_);
@@ -699,7 +699,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         onglets_.add(getMessages().getVal(MainWindow.RESULTS_PAGE),scroll_);
         if(partie_.getContrat().jouerDonne()) {
             scroll_=new ScrollPane();
-            editor_ = new RenderedPage(scroll_);
+            editor_ = new RenderedPage(scroll_, getOwner().getFrames());
             PreparedAnalyzed sTwo_ = retrieve(FileConst.RESOURCES_HTML_FILES_DETAILS_RESULTS_BELOTE);
             ((BeloteStandards)sTwo_.getBeanNatLgNames()).setDataBase(res_);
             editor_.initialize(sTwo_);

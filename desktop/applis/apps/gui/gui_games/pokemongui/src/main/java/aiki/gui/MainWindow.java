@@ -16,6 +16,7 @@ import aiki.db.LoadFlag;
 import aiki.db.PerCent;
 import aiki.gui.dialogs.*;
 import aiki.gui.threads.*;
+import aiki.main.*;
 import aiki.sml.*;
 import aiki.facade.FacadeGame;
 import aiki.game.Game;
@@ -36,11 +37,6 @@ import aiki.gui.events.SaveGameEvent;
 import aiki.gui.events.ShowDataFightEvent;
 import aiki.gui.events.ShowDataWebEvent;
 import aiki.gui.listeners.HeroSelect;
-import aiki.main.AfterLoadGame;
-import aiki.main.AfterLoadZip;
-import aiki.main.LaunchingPokemon;
-import aiki.main.LoadGame;
-import aiki.main.VideoLoading;
 import aiki.map.levels.enums.EnvironmentType;
 import aiki.map.pokemon.PokemonPlayer;
 import aiki.network.Net;
@@ -257,9 +253,11 @@ public final class MainWindow extends NetGroupFrame {
     private final DialogHtmlData dialogHtmlData = new DialogHtmlData();
     private final SoftParams softParams = new SoftParams();
     private final DialogServer dialogServer = new DialogServer();
+    private final AikiFactory aikiFactory;
 
-    public MainWindow(String _lg, AbstractProgramInfos _list) {
+    public MainWindow(String _lg, AbstractProgramInfos _list, AikiFactory _aikiFactory) {
         super(_lg, _list);
+        aikiFactory = _aikiFactory;
         setAccessFile(DIALOG_ACCESS);
         setFocusable(true);
         setFocusableWindowState(true);
@@ -1007,7 +1005,7 @@ public final class MainWindow extends NetGroupFrame {
 
         //JTextArea area_ = new JTextArea();
         RenderedPage session_;
-        session_ = new RenderedPage(new ScrollPane());
+        session_ = new RenderedPage(new ScrollPane(), getFrames());
         session_.setProcess(videoLoading.getVideo(getGenerator()));
         FrameHtmlData dialog_ = new FrameHtmlData(this, messages.getVal(TITLE_WEB), session_);
 //        dialog_.initSession(facade.getData().getWebFiles(), successfulCompile, Resources.CONFIG_DATA, Resources.ACCESS_TO_DEFAULT_DATA);
@@ -1704,5 +1702,9 @@ public final class MainWindow extends NetGroupFrame {
 
     public DialogServer getDialogServer() {
         return dialogServer;
+    }
+
+    public AikiFactory getAikiFactory() {
+        return aikiFactory;
     }
 }

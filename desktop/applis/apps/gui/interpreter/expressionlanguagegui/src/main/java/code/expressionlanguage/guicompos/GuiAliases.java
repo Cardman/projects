@@ -20,9 +20,8 @@ import code.expressionlanguage.structs.*;
 import code.expressionlanguage.utilcompo.CustAliases;
 import code.expressionlanguage.utilcompo.ExecutingBlocks;
 import code.expressionlanguage.utilcompo.RunnableContextEl;
-import code.gui.OtherConfirmDialog;
-import code.gui.OtherDialog;
-import code.gui.OtherFrame;
+import code.gui.*;
+import code.gui.initialize.AbstractGraphicComboBoxGenerator;
 import code.resources.ResourceFiles;
 import code.util.CustList;
 import code.util.StringList;
@@ -820,6 +819,20 @@ public final class GuiAliases {
     private String aliasMenuItemCheckIsSelected;
     private String aliasMenuItemCheckSetSelected;
     private final GuiAliasParameters guiAliasParameters = new GuiAliasParameters();
+
+    private static StringList newList(Struct _s) {
+        if (!(_s instanceof ArrayStruct)) {
+            return new StringList();
+        }
+        StringList l_ = new StringList();
+        for (Struct s: ((ArrayStruct)_s).list()) {
+            if (!(s instanceof StringStruct)) {
+                continue;
+            }
+            l_.add(((StringStruct)s).getInstance());
+        }
+        return l_;
+    }
 
     public StringMap<String> buildFiles(KeyWords _keyWords, LgNamesContent _content, StringList _predefinedClasses, StringList _predefinedInterfacesInitOrder) {
         StringMap<String> stds_ = new StringMap<String>();
@@ -2771,7 +2784,7 @@ public final class GuiAliases {
         return arg_;
     }
     public ResultErrorStd getOtherResult(CustAliases _custAliases, ContextEl _cont,
-                                         ConstructorId _method, StackCall _stackCall, Struct... _args) {
+                                         ConstructorId _method, GuiExecutingBlocks _guiEx, StackCall _stackCall, Struct... _args) {
         String name_ = _method.getName();
         ResultErrorStd r_ = new ResultErrorStd();
         if (StringUtil.quickEq(name_,aliasActionEvent)) {
@@ -3095,15 +3108,16 @@ public final class GuiAliases {
                 r_.setResult(NullStruct.NULL_VALUE);
                 return r_;
             }
+            AbstractGraphicComboBoxGenerator geneComboBox_ = _guiEx.getWindow().getFrames().getGeneComboBox();
             if (_method.getParametersTypes().size() == 0) {
-                r_.setResult(new GraphicComboStruct(aliasCombo));
+                r_.setResult(new GraphicComboStruct(aliasCombo, geneComboBox_.createCombo(new StringList(),-1)));
                 return r_;
             }
             if (_method.getParametersTypes().size() == 1) {
-                r_.setResult(new GraphicComboStruct(aliasCombo,_args[0]));
+                r_.setResult(new GraphicComboStruct(aliasCombo, geneComboBox_.createCombo(newList(_args[0]), 0)));
                 return r_;
             }
-            r_.setResult(new GraphicComboStruct(aliasCombo,((NumberStruct)_args[0]).intStruct(),_args[1]));
+            r_.setResult(new GraphicComboStruct(aliasCombo, geneComboBox_.createCombo(newList(_args[1]), ((NumberStruct)_args[0]).intStruct())));
             return r_;
         }
         if (StringUtil.quickEq(name_, aliasButtonGroup)) {

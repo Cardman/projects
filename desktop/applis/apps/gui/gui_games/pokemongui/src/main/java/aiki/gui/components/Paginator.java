@@ -20,7 +20,6 @@ import code.util.*;
 import aiki.facade.enums.SearchingMode;
 import code.util.core.IndexConstants;
 import code.util.core.NumberUtil;
-import code.util.core.StringUtil;
 
 public abstract class Paginator {
 
@@ -57,7 +56,7 @@ public abstract class Paginator {
 
     private ChangeableTitle window;
 
-    private Panel container;
+    private final Panel container;
 
     private FacadeGame facade;
 
@@ -65,34 +64,35 @@ public abstract class Paginator {
 
     private StringMap<String> messages = new StringMap<String>();
 
-    private EnumMap<SearchingMode,String> messagesSearchMode = new EnumMap<SearchingMode,String>();
+    private final EnumMap<SearchingMode,String> messagesSearchMode = new EnumMap<SearchingMode,String>();
 
-    private Header header;
+    private final Header header;
 
-    private TextField delta = new TextField(4);
+    private final TextField delta = new TextField(4);
 
-    private Spinner nbResults = new Spinner(0,Integer.MIN_VALUE,Integer.MAX_VALUE,1);
+    private final Spinner nbResults = new Spinner(0,Integer.MIN_VALUE,Integer.MAX_VALUE,1);
 
-    private NumComboBox pages = new NumComboBox();
+    private final NumComboBox pages;
 
-    private CustList<SelectableLabel> resultsLabels = new CustList<SelectableLabel>();
+    private final CustList<SelectableLabel> resultsLabels = new CustList<SelectableLabel>();
 
-    private LabelButton begin;
+    private final LabelButton begin;
 
-    private LabelButton previousDelta;
+    private final LabelButton previousDelta;
 
-    private LabelButton previous;
+    private final LabelButton previous;
 
-    private LabelButton next;
+    private final LabelButton next;
 
-    private LabelButton nextDelta;
+    private final LabelButton nextDelta;
 
-    private LabelButton end;
+    private final LabelButton end;
 
-    private MainWindow main;
+    private final MainWindow main;
 
     public Paginator(MainWindow _window, String _access, Panel _dest) {
         main = _window;
+        pages = new NumComboBox(_window.getFrames().getGeneComboBox());
         container = _dest;
         initMessages(_access);
         header = new Header();

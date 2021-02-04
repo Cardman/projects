@@ -242,7 +242,7 @@ public final class SimulatingPresidentImpl implements SimulatingPresident {
         res_.setUser(DealPresident.NUMERO_UTILISATEUR);
         DocumentReaderCardsResultsUtil.setMessages(res_,lg_);
         ScrollPane scroll_=new ScrollPane();
-        RenderedPage editor_ = new RenderedPage(scroll_);
+        RenderedPage editor_ = new RenderedPage(scroll_, container.getWindow().getFrames());
         PreparedAnalyzed stds_ = container.retrieve(FileConst.RESOURCES_HTML_FILES_RESULTS_PRESIDENT);
         ((PresidentStandards)stds_.getBeanNatLgNames()).setDataBase(res_);
         editor_.initialize(stds_);

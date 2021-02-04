@@ -11,6 +11,7 @@ import code.gui.events.JoinServerEvent;
 import code.network.enums.IpType;
 import code.util.EnumList;
 import code.util.EnumMap;
+import code.util.StringList;
 import code.util.StringMap;
 
 public final class DialogServer extends Dialog implements AbstractDialogServer{
@@ -63,11 +64,11 @@ public final class DialogServer extends Dialog implements AbstractDialogServer{
         panel_.add(ipServer_);
         panel_.add(ipOrHostName);
         EnumList<IpType> list_ = new EnumList<IpType>(IpType.values());
-        ipType = new ComboBox<IpType>();
+        ipType = new ComboBox<IpType>(_fenetre.getFrames().getGeneComboBox().createCombo(new StringList(), -1));
         ipType.setWithDefaultValue(false);
         ipType.refresh(list_, messagesIpEnum);
         ipType.setSelectedItem(IpType.HOST_NAME);
-        panel_.add(ipType);
+        panel_.add(ipType.self());
         pane_.add(panel_);
         panel_ = Panel.newLineBox();
         LabelButton button_ = new LabelButton(messages.getVal(CREATE_SERVER));

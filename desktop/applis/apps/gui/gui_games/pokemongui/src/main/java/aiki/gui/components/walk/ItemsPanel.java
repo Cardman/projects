@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import javax.swing.SwingConstants;
 
 import aiki.facade.FacadeGame;
+import code.gui.AbsGraphicList;
 import code.gui.GraphicList;
 import code.gui.Panel;
 import code.gui.TextLabel;
@@ -16,18 +17,18 @@ public class ItemsPanel {
 
     private static final String SPACE = " ";
 
-    private GraphicList<String> liste;
+    private final AbsGraphicList<String> liste;
 
-    private StringList items = new StringList();
+    private final StringList items = new StringList();
 
-    private TextLabel amount = new TextLabel("");
+    private final TextLabel amount = new TextLabel("");
 
-    private FacadeGame facade;
+    private final FacadeGame facade;
 
-    private Panel container;
+    private final Panel container;
 
-    public ItemsPanel(int _nb, String _titre, FacadeGame _facade) {
-        liste = new GraphicList<String>(true);
+    public ItemsPanel(int _nb, String _titre, FacadeGame _facade, AbsGraphicList<String> _liste) {
+        liste = _liste;
         facade = _facade;
         container = Panel.newBorder();
         container.setLoweredBorder();
@@ -39,7 +40,7 @@ public class ItemsPanel {
         liste.setRender(new ItemRenderer(facade));
         initItems();
         int side_ = facade.getMap().getSideLength();
-        container.add(liste,BorderLayout.CENTER);
+        container.add(liste.self(),BorderLayout.CENTER);
         container.add(amount, BorderLayout.SOUTH);
         container.setPreferredSize(new Dimension(100,2*side_*_nb));
     }

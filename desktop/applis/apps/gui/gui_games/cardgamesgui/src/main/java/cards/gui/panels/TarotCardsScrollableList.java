@@ -9,6 +9,7 @@ import cards.gui.MainWindow;
 import cards.gui.labels.selection.CardTarotCellRenderer;
 import cards.tarot.HandTarot;
 import cards.tarot.enumerations.CardTarot;
+import code.gui.AbsGraphicList;
 import code.gui.GraphicList;
 import code.gui.TextLabel;
 import code.util.EnumList;
@@ -19,11 +20,11 @@ public class TarotCardsScrollableList extends CardsScrollableList {
 
     private EnumList<Suit> couleurs;
     private boolean decroissant;
-    private GraphicList<CardTarot> liste;
-    private TextLabel remCards;
+    private final AbsGraphicList<CardTarot> liste;
+    private final TextLabel remCards;
 
-    public TarotCardsScrollableList(int _nb, int _pmax, String _titre) {
-        liste = new GraphicList<CardTarot>(false);
+    public TarotCardsScrollableList(int _nb, int _pmax, String _titre, AbsGraphicList<CardTarot> _liste) {
+        liste = _liste;
         setMax(_pmax);
         TextLabel titrePanneau_ = new TextLabel(_titre, SwingConstants.CENTER);
         getContainer().add(titrePanneau_, BorderLayout.NORTH);
@@ -31,7 +32,7 @@ public class TarotCardsScrollableList extends CardsScrollableList {
         //utilisant "ctrl + A", "ctrl", "maj+clic", comme dans explorer
         liste.setVisibleRowCount(_nb);
         setNbCartesRestantes(_pmax);
-        getContainer().add(liste,BorderLayout.CENTER);
+        getContainer().add(liste.self(),BorderLayout.CENTER);
         remCards = new TextLabel(StringUtil.concatNbs(PLS,getNbCartesRestantes()), SwingConstants.CENTER);
         getContainer().add(remCards, BorderLayout.SOUTH);
         getContainer().setPreferredSize(new Dimension(100,10*(_nb+4)));
@@ -121,7 +122,7 @@ public class TarotCardsScrollableList extends CardsScrollableList {
     public int nombreCartesSelectionnees() {
         return liste.getSelectedValuesLs().size();
     }
-    public GraphicList<CardTarot> getListe() {
+    public AbsGraphicList<CardTarot> getListe() {
         return liste;
     }
     @Override

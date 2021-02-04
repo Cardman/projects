@@ -10,6 +10,7 @@ import cards.belote.DisplayingBelote;
 import cards.belote.TrickBelote;
 import cards.belote.TricksHandsBelote;
 import cards.belote.enumerations.CardBelote;
+import cards.gui.MainWindow;
 import cards.gui.containers.ContainerBelote;
 import cards.gui.dialogs.FileConst;
 import cards.gui.labels.GraphicBeloteCard;
@@ -29,26 +30,26 @@ public class PanelTricksHandsBelote implements ViewablePanelTricksHands {
     private static final String DEFAULT ="Default";
     private static final String TRICK ="trick";
     private static final String CARD ="card";
-    private StringMap<String> messages;
-    private Panel cards;
+    private final StringMap<String> messages;
+    private final Panel cards;
     private Panel tricks;
-    private Panel selectedTrick;
-    private Panel hands;
-    private NumComboBox trickNumber;
-    private NumComboBox cardNumberTrick;
-    private TricksHandsBelote tricksHands;
-    private ChangeableTitle parent;
-    private byte numberPlayers;
-    private DisplayingBelote displayingBelote;
-    private CommonFrame window;
-    private Panel container;
+    private final Panel selectedTrick;
+    private final Panel hands;
+    private final NumComboBox trickNumber;
+    private final NumComboBox cardNumberTrick;
+    private final TricksHandsBelote tricksHands;
+    private final ChangeableTitle parent;
+    private final byte numberPlayers;
+    private final DisplayingBelote displayingBelote;
+    private final MainWindow window;
+    private final Panel container;
 
     public PanelTricksHandsBelote(ChangeableTitle _parent,
             TricksHandsBelote _tricksHands,
             byte _numberPlayers,
             StringList _pseudos,
             DisplayingBelote _displayingBelote,
-                                  CommonFrame _window) {
+                                  MainWindow _window) {
         window= _window;
         numberPlayers = _numberPlayers;
         displayingBelote = _displayingBelote;
@@ -118,17 +119,17 @@ public class PanelTricksHandsBelote implements ViewablePanelTricksHands {
         for(byte indicePli_ = IndexConstants.FIRST_INDEX; indicePli_<nbTricksNumbers_; indicePli_++) {
             numerosPlis_[indicePli_]=indicePli_-1;
         }
-        trickNumber=new NumComboBox(numerosPlis_);
+        trickNumber=new NumComboBox(window.getFrames().getGeneComboBox(), numerosPlis_);
         trickNumber.setListener(new ListenerTricks(this));
-        selectionGameState_.add(trickNumber);
+        selectionGameState_.add(trickNumber.self());
         selectionGameState_.add(new TextLabel(messages.getVal(CARD)));
         Integer[] numerosJoueurs_=new Integer[_numberPlayers];
         for(byte indiceJoueur_ = IndexConstants.FIRST_INDEX; indiceJoueur_<_numberPlayers; indiceJoueur_++) {
             numerosJoueurs_[indiceJoueur_]=indiceJoueur_+1;
         }
-        cardNumberTrick=new NumComboBox(numerosJoueurs_);
+        cardNumberTrick=new NumComboBox(window.getFrames().getGeneComboBox(), numerosJoueurs_);
         cardNumberTrick.setListener(new ListenerCards(this));
-        selectionGameState_.add(cardNumberTrick);
+        selectionGameState_.add(cardNumberTrick.self());
         container.add(selectionGameState_,BorderLayout.SOUTH);
     }
 

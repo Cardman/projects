@@ -59,7 +59,7 @@ public final class EditorPresident extends DialogPresident implements SetterSele
     private int nombreCartesSelectionnees;
     private Panel panelsCards;
     private PresidentCardsScrollableList stack;
-    private CustList<PresidentCardsScrollableList> hands = new CustList<PresidentCardsScrollableList>();
+    private final CustList<PresidentCardsScrollableList> hands = new CustList<PresidentCardsScrollableList>();
     private TextLabel labelSelectCards;
     private int nombreCartesSelectionneesPrecedent;
     private StringComboBox liste;
@@ -159,7 +159,7 @@ public final class EditorPresident extends DialogPresident implements SetterSele
 //            pile_.ajouterCartes(HandPresident.pileBase());
 //        }
         panneau_.add(new TextLabel(getMessages().getVal(DEALER)));
-        liste=new StringComboBox();
+        liste=new StringComboBox(_parent.getFrames().getGeneComboBox().createCombo(new StringList(new IntTreeMap<String>().values()), 0));
         liste.addItem(nickNames.getPseudo());
         for(String n: nickNames.getPseudosPresident()) {
             if (liste.getItemCount() == nbPlayers_) {
@@ -168,18 +168,18 @@ public final class EditorPresident extends DialogPresident implements SetterSele
             liste.addItem(n);
         }
         liste.addItem(getMessages().getVal(RANDOM));
-        panneau_.add(liste);
+        panneau_.add(liste.self());
         c.add(panneau_,BorderLayout.NORTH);
         pile_.sortCards(displayingPresident.isDecreasing(), false);
-        PresidentCardsScrollableList plc_=new PresidentCardsScrollableList(nbCartesPJ_,pile_.total(),getMessages().getVal(DEALING_STACK));
+        PresidentCardsScrollableList plc_=new PresidentCardsScrollableList(nbCartesPJ_,pile_.total(),getMessages().getVal(DEALING_STACK), _parent.getCardFactories().getGenePresident().create(false));
+        plc_.initSelectionCartePresident(_parent);
         plc_.setTriPresident(displayingPresident.getSuits(), displayingPresident.isDecreasing());
         plc_.iniPilePresident(pile_);
-        plc_.initSelectionCartePresident(_parent);
         plc_.getListe().setListener(new ListenerClickCardsList(getMessages().getVal(SELECTED_CARDS), this));
         panelsCards=Panel.newLineBox();
         stack = plc_;
         panelsCards.add(plc_.getContainer());
-        plc_=new PresidentCardsScrollableList(nbCartesPJ_,nbCartesPJ_,getMessages().getVal(USER_HAND));
+        plc_=new PresidentCardsScrollableList(nbCartesPJ_,nbCartesPJ_,getMessages().getVal(USER_HAND), _parent.getCardFactories().getGenePresident().create(false));
         plc_.initSelectionCartePresident(_parent);
         plc_.getListe().setListener(new ListenerClickCardsList(getMessages().getVal(SELECTED_CARDS), this));
         plc_.setTriPresident(displayingPresident.getSuits(), displayingPresident.isDecreasing());
@@ -197,7 +197,7 @@ public final class EditorPresident extends DialogPresident implements SetterSele
 //            }
             String message_ = getMessages().getVal(PLAYER_HAND);
             message_ = StringUtil.simpleStringsFormat(message_, n);
-            plc_=new PresidentCardsScrollableList(nbCartesPJ_,nbCartesPJ_,message_);
+            plc_=new PresidentCardsScrollableList(nbCartesPJ_,nbCartesPJ_,message_, _parent.getCardFactories().getGenePresident().create(false));
             plc_.initSelectionCartePresident(_parent);
             plc_.getListe().setListener(new ListenerClickCardsList(getMessages().getVal(SELECTED_CARDS), this));
             plc_.setTriPresident(displayingPresident.getSuits(), displayingPresident.isDecreasing());
@@ -213,7 +213,7 @@ public final class EditorPresident extends DialogPresident implements SetterSele
         LabelButton bouton_=new LabelButton(getMessages().getVal(MOVE_CARDS));
         bouton_.addMouseListener(new MoveCardsEvent(this));
         sousPanneau_.add(bouton_);
-        listeTwo=new StringComboBox();
+        listeTwo=new StringComboBox(_parent.getFrames().getGeneComboBox().createCombo(new StringList(new IntTreeMap<String>().values()), 0));
         listeTwo.addItem(getMessages().getVal(DEALING_STACK));
         listeTwo.addItem(getMessages().getVal(USER_HAND));
         for(String n: nickNames.getPseudosPresident()) {
@@ -224,7 +224,7 @@ public final class EditorPresident extends DialogPresident implements SetterSele
             message_ = StringUtil.simpleStringsFormat(message_, n);
             listeTwo.addItem(message_);
         }
-        sousPanneau_.add(listeTwo);
+        sousPanneau_.add(listeTwo.self());
         labelSelectCards = new TextLabel(StringUtil.simpleNumberFormat(getMessages().getVal(SELECTED_CARDS),nombreCartesSelectionnees));
         sousPanneau_.add(labelSelectCards);
         panneau_.add(sousPanneau_,BorderLayout.SOUTH);

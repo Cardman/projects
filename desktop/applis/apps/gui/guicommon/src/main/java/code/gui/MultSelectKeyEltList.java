@@ -25,12 +25,14 @@ public final class MultSelectKeyEltList<T> extends KeyAdapter implements Indexab
             return;
         }
         CustCellRender<T> r_ = grList.getRender();
+        r_.setList(grList.getList());
         boolean sel_ = !_e.isShiftDown();
         int index_ = 0;
         CustList<T> array_ = grList.getList();
-        for (T v: array_) {
-            PreparedLabel c_;
-            c_ = r_.getListCellRendererComponent(grList, v, index_, sel_, false);
+        int len_ = array_.size();
+        for (int i = 0; i < len_; i++) {
+            PreparedLabel c_ = grList.getListComponents().get(index_);
+            r_.getListCellRendererComponent(c_, index_, sel_, false);
             r_.paintComponent(c_);
             index_++;
         }
@@ -42,7 +44,7 @@ public final class MultSelectKeyEltList<T> extends KeyAdapter implements Indexab
             grList.setLastIndex(-1);
         } else {
             grList.setFirstIndex(0);
-            grList.setLastIndex(array_.size());
+            grList.setLastIndex(array_.size()-1);
             grList.addRange();
         }
         grList.selectEvent(0, array_.size(), false);
