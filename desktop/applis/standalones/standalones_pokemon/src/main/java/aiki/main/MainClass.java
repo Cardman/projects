@@ -1,10 +1,10 @@
 package aiki.main;
 
-import aiki.main.LaunchingPokemon;
+import code.sys.LaunchingPokemonSys;
 
-public final class MainClass extends LaunchingPokemon {
+public final class MainClass extends LaunchingPokemonSys {
 
     public static void main(String[] _args) {
-        loadLaungage(_args);
+        loadLaungage(_args, new LaunchingPokemonSys());
     }
 }

@@ -18,6 +18,7 @@
 		<module>apps_sml</module>
 		<module>files</module>
 		<module>gui</module>
+		<module>sys_apps</module>
 		<module>main</module>
 	</modules>
 </project>

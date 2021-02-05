@@ -78,8 +78,8 @@
 	</build>
 	<dependencies>
 		<dependency>
-			<groupId>applications</groupId>
-			<artifactId>applications</artifactId>
+			<groupId>def</groupId>
+			<artifactId>def</artifactId>
 			<version>1.0-SNAPSHOT</version>
 		</dependency>
 	</dependencies>

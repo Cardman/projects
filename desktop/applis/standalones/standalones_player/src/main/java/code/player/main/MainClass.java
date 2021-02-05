@@ -1,7 +1,10 @@
 package code.player.main;
 
-public final class MainClass extends LaunchingPlayer {
+import code.sys.LaunchingPlayerSys;
+
+public final class MainClass extends LaunchingPlayerSys {
+
     public static void main(String[] _args) {
-        loadLaungage(_args);
+        loadLaungage(_args, new LaunchingPlayerSys());
     }
 }

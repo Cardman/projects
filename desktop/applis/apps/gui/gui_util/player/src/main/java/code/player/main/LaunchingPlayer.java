@@ -4,7 +4,6 @@ package code.player.main;
 import code.gui.*;
 import code.gui.initialize.AbstractProgramInfos;
 import code.gui.initialize.LoadLanguageUtil;
-import code.gui.initialize.ProgramInfos;
 import code.player.gui.CreateMainWindow;
 import code.util.StringMap;
 
@@ -16,16 +15,12 @@ public class LaunchingPlayer extends AdvSoftApplicationCore {
     private static final String ICON = "player.txt";
     private static final String TEMP_FOLDER = "playersongs";
 
-    public LaunchingPlayer() {
-        this(new ProgramInfos());
-    }
-
     public LaunchingPlayer(AbstractProgramInfos _frames) {
         super(_frames);
     }
 
-    protected static void loadLaungage(String[] _args) {
-        LoadLanguageUtil.loadLaungage(new LaunchingPlayer(), TEMP_FOLDER, _args);
+    protected static void loadLaungage(String[] _args, LaunchingPlayer _soft) {
+        LoadLanguageUtil.loadLaungage(_soft, TEMP_FOLDER, _args);
     }
 
     @Override

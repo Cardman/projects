@@ -1,7 +1,10 @@
 package code.converterimages.main;
 
-public class MainClass extends LaunchingConverter {
+import code.sys.LaunchingConverterSys;
+
+public class MainClass extends LaunchingConverterSys {
+
     public static void main(String[] _args) {
-        loadLaungage(_args);
+        loadLaungage(_args, new LaunchingConverterSys());
     }
 }

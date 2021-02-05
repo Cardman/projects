@@ -1,9 +1,10 @@
-package code.gui.initialize;
+package code.sys.impl;
 
 import code.gui.AbsGraphicList;
 import code.gui.AbsInputGraphicList;
 import code.gui.GraphicStringList;
 import code.gui.GraphicStringListMult;
+import code.gui.initialize.AbstractGraphicStringListGenerator;
 import code.util.Ints;
 import code.util.StringList;
 

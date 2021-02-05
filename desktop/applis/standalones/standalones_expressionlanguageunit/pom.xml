@@ -19,6 +19,19 @@
 		<finalName>UG</finalName>
 		<plugins>
 			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-shade-plugin</artifactId>
+				<version>1.6</version>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>shade</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
 				<artifactId>maven-jar-plugin</artifactId>
 				<version>2.2</version>
 				<configuration>
@@ -66,8 +79,8 @@
 	</build>
 	<dependencies>
 		<dependency>
-            <groupId>expressionlanguageunit</groupId>
-            <artifactId>expressionlanguageunit</artifactId>
+            <groupId>def_standalones_expressionlanguageunit</groupId>
+            <artifactId>def_standalones_expressionlanguageunit</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
 	</dependencies>

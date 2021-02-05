@@ -3,24 +3,18 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 
 import cards.belote.HandBelote;
-import cards.belote.enumerations.CardBelote;
 import cards.belote.sml.DocumentWriterBeloteUtil;
-import cards.consts.Suit;
 import cards.facade.enumerations.GameEnum;
 import cards.facade.sml.DocumentReaderCardsUnionUtil;
 import cards.gui.dialogs.FileConst;
 import cards.president.HandPresident;
 import cards.president.RulesPresident;
-import cards.president.enumerations.CardPresident;
 import cards.president.sml.DocumentWriterPresidentUtil;
 import cards.tarot.HandTarot;
-import cards.tarot.enumerations.CardTarot;
 import cards.tarot.sml.DocumentWriterTarotUtil;
 import code.gui.*;
 import code.gui.initialize.AbstractProgramInfos;
-import code.gui.initialize.GraphicListGenerator;
 import code.gui.initialize.LoadLanguageUtil;
-import code.gui.initialize.ProgramInfos;
 import code.stream.StreamFolderFile;
 import code.stream.StreamTextFile;
 import code.util.StringList;
@@ -37,10 +31,6 @@ public class LaunchingCards extends AdvSoftApplicationCore {
 
     //private static final Image ICON = getImage(FileConst.RESOURCES_IMAGES, FileConst.SUITS_TXT, FileConst.SUITS_PNG);
     private final CardFactories factories;
-
-    public LaunchingCards() {
-        this(new ProgramInfos(),new CardFactories(new GraphicListGenerator<CardBelote>(), new GraphicListGenerator<CardPresident>(), new GraphicListGenerator<CardTarot>(), new GraphicListGenerator<Suit>()));
-    }
 
     public LaunchingCards(AbstractProgramInfos _frames, CardFactories _factories) {
         super(_frames);
@@ -81,10 +71,10 @@ public class LaunchingCards extends AdvSoftApplicationCore {
         CustComponent.invokeLater(new LaunchingGame(_args, _language,coordonnees_, getFrames(),factories));
     }
 
-    protected static void loadLaungage(String[] _args) {
+    protected static void loadLaungage(String[] _args, LaunchingCards _soft) {
         //loadLaungage(_args, _icon_);
 //        ThreadInvoker.invokeNow(new LoadLanguage(getTempFolder(), this, _args, getIcon()));
-        LoadLanguageUtil.loadLaungage(new LaunchingCards(), TEMP_FOLDER, _args);
+        LoadLanguageUtil.loadLaungage(_soft, TEMP_FOLDER, _args);
     }
 
     public static BufferedImage getIcon() {

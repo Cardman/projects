@@ -1,4 +1,6 @@
-package code.gui.initialize;
+package code.sys.impl;
+
+import code.gui.initialize.UpdateStyle;
 
 import javax.swing.UIManager;
 

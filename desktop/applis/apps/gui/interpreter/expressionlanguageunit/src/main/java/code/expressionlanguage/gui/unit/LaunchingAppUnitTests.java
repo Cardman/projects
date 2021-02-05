@@ -3,7 +3,6 @@ package code.expressionlanguage.gui.unit;
 import code.gui.*;
 import code.gui.initialize.AbstractProgramInfos;
 import code.gui.initialize.LoadLanguageUtil;
-import code.gui.initialize.ProgramInfos;
 import code.stream.StreamTextFile;
 import code.util.StringMap;
 
@@ -13,16 +12,12 @@ public class LaunchingAppUnitTests extends AdvSoftApplicationCore {
 
     private static final String TEMP_FOLDER = "UG";
 
-    public LaunchingAppUnitTests() {
-        this(new ProgramInfos());
-    }
-
     public LaunchingAppUnitTests(AbstractProgramInfos _frames) {
         super(_frames);
     }
 
-    protected static void loadLaungage(String[] _args) {
-        LoadLanguageUtil.loadLaungage(new LaunchingAppUnitTests(), TEMP_FOLDER, _args);
+    protected static void loadLaungage(String[] _args, LaunchingAppUnitTests _soft) {
+        LoadLanguageUtil.loadLaungage(_soft, TEMP_FOLDER, _args);
     }
     @Override
     public Object getObject(String _fileName) {

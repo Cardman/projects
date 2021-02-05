@@ -1,34 +1,24 @@
 package applications.main;
 
 import aiki.game.Game;
-import aiki.game.fight.BallNumberRate;
-import aiki.game.fight.Fighter;
 import aiki.main.AikiFactory;
 import aiki.main.LaunchingPokemon;
-import aiki.map.pokemon.UsablePokemon;
 import aiki.sml.DocumentReaderAikiCoreUtil;
 import aiki.sml.LoadingGame;
 import applications.gui.MainWindow;
 import cards.belote.GameBelote;
-import cards.belote.enumerations.CardBelote;
-import cards.consts.Suit;
 import cards.facade.sml.DocumentReaderCardsUnionUtil;
 import cards.main.CardFactories;
 import cards.main.LaunchingCards;
 import cards.president.GamePresident;
-import cards.president.enumerations.CardPresident;
 import cards.tarot.GameTarot;
-import cards.tarot.enumerations.CardTarot;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.gui.unit.LaunchingAppUnitTests;
 import code.expressionlanguage.guicompos.GuiFactroy;
 import code.expressionlanguage.guicompos.LaunchingFull;
-import code.expressionlanguage.structs.Struct;
 import code.gui.*;
 import code.gui.initialize.AbstractProgramInfos;
-import code.gui.initialize.GraphicListGenerator;
 import code.gui.initialize.LoadLanguageUtil;
-import code.gui.initialize.ProgramInfos;
 import code.images.BaseSixtyFourUtil;
 import code.minirts.LaunchingDemo;
 import code.player.SongList;
@@ -56,10 +46,6 @@ public class LaunchingApplications extends SoftApplicationCore {
     private final AikiFactory aikiFactory;
     private final GuiFactroy guiFactory;
 
-    public LaunchingApplications() {
-        this(new ProgramInfos(), new CardFactories(new GraphicListGenerator<CardBelote>(), new GraphicListGenerator<CardPresident>(), new GraphicListGenerator<CardTarot>(), new GraphicListGenerator<Suit>()), new AikiFactory(new GraphicListGenerator<BallNumberRate>(), new GraphicListGenerator<Fighter>(), new GraphicListGenerator<String>(), new GraphicListGenerator<String>(), new GraphicListGenerator<String>(), new GraphicListGenerator<UsablePokemon>()), new GuiFactroy(new GraphicListGenerator<Struct>()));
-    }
-
     public LaunchingApplications(AbstractProgramInfos _frames, CardFactories _cardFactories, AikiFactory _aikiFactory, GuiFactroy _guiFactory) {
         super(_frames);
         cardFactories = _cardFactories;
@@ -67,8 +53,8 @@ public class LaunchingApplications extends SoftApplicationCore {
         guiFactory = _guiFactory;
     }
 
-    protected static void loadLaungage(String[] _args) {
-        LoadLanguageUtil.loadLaungage(new LaunchingApplications(), TEMP_FOLDER, _args);
+    protected static void loadLaungage(String[] _args, LaunchingApplications _soft) {
+        LoadLanguageUtil.loadLaungage(_soft, TEMP_FOLDER, _args);
     }
 
     private static MainWindow getWindow(String _lg, AbstractProgramInfos _list, CardFactories _cardFactories, AikiFactory _aikiFactory, GuiFactroy _guiFact) {
