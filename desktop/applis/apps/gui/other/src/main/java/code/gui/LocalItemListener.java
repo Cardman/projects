@@ -1,14 +1,13 @@
 package code.gui;
-import code.gui.initialize.ProgramInfos;
 
 import java.awt.event.ItemListener;
 import java.awt.event.ItemEvent;
 import javax.swing.JComboBox;
 
 public class LocalItemListener implements ItemListener {
-	private final JComboBox combo;
+	private final JComboBox<String> combo;
 	private final ListSelection listener;
-	LocalItemListener(JComboBox _combo,ListSelection _listener){
+	LocalItemListener(JComboBox<String> _combo,ListSelection _listener){
 		combo = _combo;
 		listener = _listener;
 	}

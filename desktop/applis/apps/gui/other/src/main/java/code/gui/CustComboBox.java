@@ -5,7 +5,7 @@ import code.util.StringList;
 import code.util.Ints;
 public final class CustComboBox extends CustComponent implements GraphicComboGrInt {
 
-    private final JComboBox combo = new JComboBox();
+    private final JComboBox<String> combo = new JComboBox<>();
 
     private ListSelection listener;
 

@@ -37,10 +37,12 @@ public final class ProgramInfos implements AbstractProgramInfos {
     private final String tmpUserFolder;
     private final String homePath;
     private final DefaultNameValidating validator;
-    private final AbstractGraphicStringListGenerator graphicStringListGenerator = new GraphicStringListGenerator();
-    private final AbstractGraphicComboBoxGenerator graphicComboBoxGenerator = new GraphicComboBoxGenerator();
+    private final AbstractGraphicStringListGenerator graphicStringListGenerator;
+    private final AbstractGraphicComboBoxGenerator graphicComboBoxGenerator;
 
-    public ProgramInfos() {
+    public ProgramInfos(AbstractGraphicStringListGenerator _graphicStringListGenerator, AbstractGraphicComboBoxGenerator _graphicComboBoxGenerator) {
+        graphicStringListGenerator = _graphicStringListGenerator;
+        graphicComboBoxGenerator = _graphicComboBoxGenerator;
         homePath = StringUtil.replaceBackSlashDot(System.getProperty(USER_HOME));
         tmpUserFolder = StringUtil.concat(initialize(homePath),SEPARATEUR);
         generator = new AdvancedGenerator();

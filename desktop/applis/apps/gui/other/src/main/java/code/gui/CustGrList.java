@@ -5,11 +5,11 @@ import javax.swing.*;
 
 public final class CustGrList<T> extends CustComponent implements AbsGraphicList<T> {
 
-	private final DefaultListModel model = new DefaultListModel();
-	private final JList list = new JList(model);
+	private final DefaultListModel<T> model = new DefaultListModel<>();
+	private final JList<T> list = new JList<>(model);
 	private final JScrollPane scroll = new JScrollPane(list);
 	private final ScrollPane custScroll = new ScrollPane(scroll);
-	private final CustList<T> elts = new CustList<T>();
+	private final CustList<T> elts = new CustList<>();
 	private CustCellRender<T> inner;
 
     private ListSelection listener;
@@ -34,7 +34,7 @@ public final class CustGrList<T> extends CustComponent implements AbsGraphicList
 
     public CustCellRender<T> getRender() {return inner;}
     public void setRender(CustCellRender<T> _render) {
-		CustSelList<T> r_ = new CustSelList<T>();
+		CustSelList<T> r_ = new CustSelList<>();
 		r_.setRender(_render);
 		r_.setList(elts);
 		inner = _render;
@@ -144,7 +144,7 @@ public final class CustGrList<T> extends CustComponent implements AbsGraphicList
 
     @Override
     public CustList<PreparedLabel> getListComponents() {
-        return new CustList<PreparedLabel>();
+        return new CustList<>();
     }
 
     @Override
@@ -177,7 +177,7 @@ public final class CustGrList<T> extends CustComponent implements AbsGraphicList
     }
 
     public CustList<T> getSelectedValuesLs() {
-        CustList<T> list_ = new CustList<T>();
+        CustList<T> list_ = new CustList<>();
         for (int i: getSelectedIndexes()) {
             list_.add(get(i));
         }

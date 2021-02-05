@@ -22,6 +22,11 @@
 	</modules>
 	<dependencies>
 		<dependency>
+			<groupId>def_fact</groupId>
+			<artifactId>def_fact</artifactId>
+			<version>1.0-SNAPSHOT</version>
+		</dependency>
+		<dependency>
 			<groupId>infos</groupId>
 			<artifactId>infos</artifactId>
 			<version>1.0-SNAPSHOT</version>

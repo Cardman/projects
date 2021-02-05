@@ -4,10 +4,10 @@ import code.util.CustList;
 import javax.swing.*;
 import java.awt.Component;
 
-public class CustSelList<T> implements ListCellRenderer {
+public class CustSelList<T> implements ListCellRenderer<T> {
 
 	private CustCellRender<T> render;
-	private CustList<T> list = new CustList<T>();
+	private CustList<T> list = new CustList<>();
 	private final PreparedLabel label = new PreparedLabel();
 
     public CustCellRender<T> getRender() {
@@ -28,8 +28,8 @@ public class CustSelList<T> implements ListCellRenderer {
     }
 
 	public Component getListCellRendererComponent(
-       JList _ls,           
-       Object _value,           
+       JList<? extends T> _ls,
+       T _value,
        int _index,               
        boolean _isSelected,     
        boolean _cellHasFocus)   

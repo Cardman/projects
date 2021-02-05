@@ -13,6 +13,8 @@
 	<packaging>pom</packaging>
 	<modules>
 		<module>infos</module>
+		<module>def_fact</module>
+		<module>other_fact</module>
 		<module>def</module>
 		<module>def_standalones</module>
 	</modules>
