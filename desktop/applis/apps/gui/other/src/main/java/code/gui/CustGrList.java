@@ -1,22 +1,25 @@
 package code.gui;
-import javax.swing.ListCellRenderer;
 import code.util.CustList;
 import code.util.Ints;
 import javax.swing.*;
-import javax.swing.event.*;
-import java.awt.Dimension;
 
-public class CustGrList<T> extends CustComponent implements AbsGraphicList<T> {
+public final class CustGrList<T> extends CustComponent implements AbsGraphicList<T> {
 
-	private DefaultListModel model = new DefaultListModel();
-	private JList list = new JList(model);
+	private final DefaultListModel model = new DefaultListModel();
+	private final JList list = new JList(model);
 	private final JScrollPane scroll = new JScrollPane(list);
-	private CustList<T> elts = new CustList<T>();
+	private final CustList<T> elts = new CustList<T>();
 	private CustCellRender<T> inner;
-	private CustSelList<T> innerTwo;
 
     private ListSelection listener;
 
+    public CustGrList(boolean _simple) {
+        if (_simple) {
+            list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        } else {
+            list.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+        }
+    }
     public ListSelection getListener() {
         return listener;
     }
@@ -31,7 +34,6 @@ public class CustGrList<T> extends CustComponent implements AbsGraphicList<T> {
 		CustSelList<T> r_ = new CustSelList<T>();
 		r_.setRender(_render);
 		r_.setList(elts);
-		innerTwo = r_;
 		inner = _render;
 		list.setCellRenderer(r_);
     }
@@ -66,15 +68,6 @@ public class CustGrList<T> extends CustComponent implements AbsGraphicList<T> {
             visibleRowCount_ = 1;
         }
 		list.setVisibleRowCount(visibleRowCount_);
-    }
-	protected void resetDimensions(){
-		if (inner == null){
-			return;
-		}
-        int h_ = inner.getHeight();
-        int width_ = inner.getWidth();
-        scroll.setPreferredSize(new Dimension(width_ + 24, (h_ + 2)* Math.min(size(),list.getVisibleRowCount())));
-        scroll.revalidate();
     }
 
     public void clearAllRange() {

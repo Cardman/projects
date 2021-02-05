@@ -9,26 +9,26 @@ import code.util.Ints;
 
 import java.awt.*;
 
-public class GraphicListStruct extends InputStruct {
+public final class GraphicListStruct extends InputStruct {
 
-    private CustList<Struct> list;
-    private CustList<PreparedLabelStruct> listComponents = new CustList<PreparedLabelStruct>();
-    private CustList<IndexableListener> indexableMouse = new CustList<IndexableListener>();
-    private CustList<IndexableListener> indexableKey = new CustList<IndexableListener>();
-    private Ints selectedIndexes = new Ints();
+    private final CustList<Struct> list;
+    private final CustList<PreparedLabelStruct> listComponents = new CustList<PreparedLabelStruct>();
+    private final CustList<IndexableListener> indexableMouse = new CustList<IndexableListener>();
+    private final CustList<IndexableListener> indexableKey = new CustList<IndexableListener>();
+    private Ints selectedIndexes;
 
     private Struct render = NullStruct.NULL_VALUE;
 
     private Struct listener = NullStruct.NULL_VALUE;
 
-    private PanelStruct panel;
-    private ScrollPaneStruct scroll;
+    private final PanelStruct panel;
+    private final ScrollPaneStruct scroll;
 
     private int firstIndex = -1;
 
     private int lastIndex = -1;
 
-    private boolean simple;
+    private final boolean simple;
 
     private int visibleRowCount = 8;
 
@@ -185,9 +185,8 @@ public class GraphicListStruct extends InputStruct {
     }
     public void clear() {
         list.clear();
-        PanelStruct panel_ = getPanel();
         listComponents.clear();
-        panel_.removeAll();
+        panel.removeAll();
         selectedIndexes.clear();
         indexableKey.clear();
         indexableMouse.clear();
@@ -197,9 +196,8 @@ public class GraphicListStruct extends InputStruct {
             return;
         }
         list.remove(_index);
-        PanelStruct panel_ = getPanel();
         listComponents.remove(_index);
-        panel_.remove(_index);
+        panel.remove(_index);
         selectedIndexes.removeObj(_index);
 
         if (!simple) {
@@ -258,10 +256,6 @@ public class GraphicListStruct extends InputStruct {
 
     public CustList<PreparedLabelStruct> getListComponents() {
         return listComponents;
-    }
-
-    public PanelStruct getPanel() {
-        return panel;
     }
 
     public Struct getRender() {

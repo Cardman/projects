@@ -1,20 +1,11 @@
 package code.gui;
-import code.gui.initialize.ProgramInfos;
-import java.awt.Dimension;
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.FontMetrics;
-import java.awt.event.ItemListener;
-import java.awt.event.ItemEvent;
-import javax.swing.WindowConstants;
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
-import code.gui.events.QuittingEvent;
 import code.util.StringList;
 import code.util.Ints;
-public class CustComboBox extends CustComponent implements GraphicComboGrInt {
+public final class CustComboBox extends CustComponent implements GraphicComboGrInt {
 
-    private JComboBox combo = new JComboBox();
+    private final JComboBox combo = new JComboBox();
 
     private ListSelection listener;
 
@@ -28,8 +19,6 @@ public class CustComboBox extends CustComponent implements GraphicComboGrInt {
 		}
         if (!_list.isEmpty()) {
             selectItem(_selectedIndex);
-        } else {
-            setNoSelected();
         }
     }
 
@@ -115,10 +104,6 @@ public class CustComboBox extends CustComponent implements GraphicComboGrInt {
     }
 
     public void update() {
-        
-    }
-
-    public void setNoSelected() {
         
     }
 
