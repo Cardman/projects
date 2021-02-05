@@ -8,7 +8,7 @@ import javax.swing.*;
 
 public final class Panel extends CustComponent {
 
-    private JPanel panel;
+    private final JPanel panel;
 
     private Panel() {
         this(new JPanel());
@@ -142,7 +142,7 @@ public final class Panel extends CustComponent {
                         ((PaintableLabel)d).repaintLabel();
                     }
                 }
-                ((Panel) c).validate();
+                c.validate();
             }
         }
         validate();
@@ -158,10 +158,6 @@ public final class Panel extends CustComponent {
 
     public void invalidate() {
         panel.invalidate();
-    }
-
-    public void validate() {
-        panel.validate();
     }
 
     public FontMetrics getFontMetrics(Font _font) {

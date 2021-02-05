@@ -1,9 +1,12 @@
 package code.expressionlanguage.guicompos;
 
+import code.gui.GraphicList;
+import code.gui.ListSelection;
+
 public final class SelectionEventLater implements Runnable {
-    private int firstIndex;
-    private int lastIndex;
-    private GraphicListStruct grList;
+    private final int firstIndex;
+    private final int lastIndex;
+    private final GraphicListStruct grList;
 
     public SelectionEventLater(int _firstIndex, int _lastIndex,
                           GraphicListStruct _grList) {
@@ -13,6 +16,6 @@ public final class SelectionEventLater implements Runnable {
     }
     @Override
     public void run() {
-        SelectionStructUtil.selectEvent(firstIndex,lastIndex,grList,true);
+        GraphicList.selectEvent(firstIndex,lastIndex, true, (ListSelection) grList.getListener());
     }
 }

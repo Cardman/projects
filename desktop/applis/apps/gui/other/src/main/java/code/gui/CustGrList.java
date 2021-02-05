@@ -8,10 +8,13 @@ public final class CustGrList<T> extends CustComponent implements AbsGraphicList
 	private final DefaultListModel model = new DefaultListModel();
 	private final JList list = new JList(model);
 	private final JScrollPane scroll = new JScrollPane(list);
+	private final ScrollPane custScroll = new ScrollPane(scroll);
 	private final CustList<T> elts = new CustList<T>();
 	private CustCellRender<T> inner;
 
     private ListSelection listener;
+
+    private int firstIndex = -1;
 
     public CustGrList(boolean _simple) {
         if (_simple) {
@@ -24,9 +27,9 @@ public final class CustGrList<T> extends CustComponent implements AbsGraphicList
         return listener;
     }
 
-    public void setListener(final ListSelection _listener) {
+    public void setListener(ListSelection _listener) {
         listener = _listener;
-		list.addListSelectionListener(new LocalListSelectionListener(_listener));
+		list.addListSelectionListener(new LocalListSelectionListener(this,_listener));
     }
 
     public CustCellRender<T> getRender() {return inner;}
@@ -46,13 +49,55 @@ public final class CustGrList<T> extends CustComponent implements AbsGraphicList
 		model.add(_index, _elt);
     }
 
+    @Override
+    public void addLab(int _index, PreparedLabel _lab) {
+        //
+    }
+
+    @Override
+    public void set(int _index, PreparedLabel _lab, T _elt) {
+        elts.set(_index, _elt);
+        model.set(_index, _elt);
+    }
+
+    @Override
+    public boolean selectOneAmongIntervalPaint(boolean _sel, int _index) {
+        return false;
+    }
+
+    @Override
+    public Interval selectIntervalKeyPaint(boolean _sel, int _index) {
+        return null;
+    }
+
+    @Override
+    public Interval selectIntervalPaint(boolean _sel, int _index) {
+        return null;
+    }
+
     public void clear() {
         elts.clear();
         model.clear();
     }
+
+    @Override
+    public void simpleAddLab(int _index, PreparedLabel _lab) {
+        //
+    }
+
+    @Override
+    public void addListeners(int _index, PreparedLabel _lab) {
+        //
+    }
+
+    @Override
+    public void updateGraphics() {
+        //
+    }
+
     public void clearRevalidate() {
         clear();
-        scroll.revalidate();
+        custScroll.revalidate();
     }
     public void remove(int _index) {
         model.remove(_index);
@@ -95,6 +140,21 @@ public final class CustGrList<T> extends CustComponent implements AbsGraphicList
 			out_.add(i);
 		}
 		return out_;
+    }
+
+    @Override
+    public CustList<PreparedLabel> getListComponents() {
+        return new CustList<PreparedLabel>();
+    }
+
+    @Override
+    public void setSelectedIndexes(Ints _values) {
+        int len_ = _values.size();
+        int[] inds_ = new int[len_];
+        for (int i = 0; i < len_; i++) {
+            inds_[i] = _values.get(i);
+        }
+        list.setSelectedIndices(inds_);
     }
 
 
@@ -144,11 +204,46 @@ public final class CustGrList<T> extends CustComponent implements AbsGraphicList
     }
 
     @Override
+    public boolean isEnabled() {
+        return list.isEnabled();
+    }
+
+    @Override
+    public void setEnabled(boolean _enabled) {
+        list.setEnabled(_enabled);
+    }
+
+    @Override
     protected JComponent getComponent() {
-        return scroll;
+        return custScroll.getComponent();
     }
 
     public CustComponent self() {
         return this;
+    }
+
+    @Override
+    public CustComponent scroll() {
+        return custScroll;
+    }
+
+    @Override
+    public CustComponent visible() {
+        return this;
+    }
+
+    @Override
+    public AbsGraphicListPainter getGraphicListPainter() {
+        return null;
+    }
+
+    @Override
+    public int getFirstIndex() {
+        return firstIndex;
+    }
+
+    @Override
+    public void setFirstIndex(int _firstIndex) {
+        this.firstIndex = _firstIndex;
     }
 }

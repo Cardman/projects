@@ -16,7 +16,7 @@ public final class GraphicStringList extends GraphicList<String> implements Inpu
     }
 
     private GraphicStringList(boolean _simple, StringList _objects, Ints _selectedIndexes) {
-        super(_simple, _selectedIndexes, _objects);
+        super(_simple, _selectedIndexes, _objects, new DefaultGraphicListPainter());
         buildList();
         elements = _objects;
         setList(elements);

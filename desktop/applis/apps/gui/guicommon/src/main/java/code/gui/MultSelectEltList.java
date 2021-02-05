@@ -5,53 +5,38 @@ import java.awt.event.MouseEvent;
 
 import javax.swing.*;
 
-public final class MultSelectEltList<T> extends MouseAdapter implements IndexableListener {
+public final class MultSelectEltList extends MouseAdapter implements IndexableListener {
 
-    private final GraphicList<T> grList;
+    private final AbsBasicGraphicList grList;
 
     private int index;
 
-    public MultSelectEltList(GraphicList<T> _grList, int _index) {
+    private ListSelection selection;
+
+    private final AbsGraphicListPainter painter;
+    public MultSelectEltList(AbsBasicGraphicList _grList, int _index, AbsGraphicListPainter _painter) {
         grList = _grList;
         index = _index;
+        painter = _painter;
     }
 
     @Override
     public void mouseReleased(MouseEvent _e) {
         boolean sel_ = SwingUtilities.isLeftMouseButton(_e);
         if (!_e.isShiftDown()) {
-            grList.setFirstIndex(index);
-            grList.setLastIndex(index);
-            CustCellRender<T> r_ = grList.getRender();
-            PreparedLabel c_ = grList.getListComponents().get(index);
-            r_.setList(grList.getList());
-            r_.getListCellRendererComponent(c_, index, sel_, false);
-            c_.requestFocus();
-            r_.paintComponent(c_);
-            if (sel_) {
-                grList.addRange();
-            } else {
-                grList.clearRange();
+            boolean selected_ = painter.selectOneAmongIntervalPaint(grList, sel_, index);
+            if (!selected_) {
+                return;
             }
-            grList.selectEvent(index, index, false);
+            GraphicList.selectEvent(index, index, false,selection);
+            painter.afterSelectOneAmongIntervalPaint(grList,sel_,index);
             return;
         }
-        grList.setLastIndex(index);
-        int min_ = Math.min(grList.getFirstIndex(), grList.getLastIndex());
-        int max_ = Math.max(grList.getFirstIndex(), grList.getLastIndex());
-        CustCellRender<T> r_ = grList.getRender();
-        r_.setList(grList.getList());
-        for (int i = min_; i <= max_; i++) {
-            PreparedLabel c_ = grList.getListComponents().get(i);
-            r_.getListCellRendererComponent(c_, i, sel_, false);
-            r_.paintComponent(c_);
+        Interval interval_ = painter.selectIntervalPaint(grList, sel_, index);
+        if (interval_ == null) {
+            return;
         }
-        if (sel_) {
-            grList.addRange();
-        } else {
-            grList.clearRange();
-        }
-        grList.selectEvent(min_, max_, false);
+        GraphicList.selectEvent(interval_.getMin(), interval_.getMax(), false,selection);
     }
 
     @Override
@@ -63,4 +48,15 @@ public final class MultSelectEltList<T> extends MouseAdapter implements Indexabl
     public void setIndex(int _index) {
         index = _index;
     }
+
+    @Override
+    public ListSelection getSelection() {
+        return selection;
+    }
+
+    @Override
+    public void setSelection(ListSelection _selection) {
+        this.selection = _selection;
+    }
+
 }

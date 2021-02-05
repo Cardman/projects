@@ -9,6 +9,7 @@ import code.util.Ints;
 
 public class GraphicList<T> extends CustComponent implements AbsGraphicList<T> {
 
+    private final AbsGraphicListPainter graphicListPainter;
     private CustList<T> list;
     private final CustList<PreparedLabel> listComponents = new CustList<PreparedLabel>();
     private final CustList<IndexableListener> indexableMouse = new CustList<IndexableListener>();
@@ -30,18 +31,21 @@ public class GraphicList<T> extends CustComponent implements AbsGraphicList<T> {
 
     private int visibleRowCount = 8;
 
-    public GraphicList(boolean _simple) {
-        this(_simple, new Ints(), new CustList<T>());
+    private boolean enabled = true;
+
+    public GraphicList(boolean _simple, AbsGraphicListPainter _graphicListPainter) {
+        this(_simple, new Ints(), new CustList<T>(), _graphicListPainter);
         rebuild();
     }
 
-    protected GraphicList(boolean _simple, Ints _selectedIndexes, CustList<T> _objects) {
+    protected GraphicList(boolean _simple, Ints _selectedIndexes, CustList<T> _objects, AbsGraphicListPainter _graphicListPainter) {
         selectedIndexes = new Ints(_selectedIndexes);
         list = new CustList<T>(_objects);
         simple = _simple;
         panel = Panel.newPageBox();
         panel.setAutoscrolls(true);
         scroll = new ScrollPane(panel);
+        graphicListPainter = _graphicListPainter;
     }
 
     protected GraphicList(boolean _simple, Ints _selectedIndexes, CustList<T> _objects, int _visible) {
@@ -52,6 +56,7 @@ public class GraphicList<T> extends CustComponent implements AbsGraphicList<T> {
         panel = Panel.newPageBox();
         panel.setAutoscrolls(true);
         scroll = new ScrollPane(panel);
+        graphicListPainter = new DefaultGraphicListPainter();
     }
 
     protected void setList(CustList<T> _list) {
@@ -59,41 +64,85 @@ public class GraphicList<T> extends CustComponent implements AbsGraphicList<T> {
     }
     public void selectEvent(int _firstIndex, int _lastIndex, boolean _methodAction) {
         ListSelection listener_ = getListener();
-        if (listener_ == null) {
+        selectEvent(_firstIndex, _lastIndex, _methodAction, listener_);
+    }
+
+    public static void selectEvent(int _firstIndex, int _lastIndex, boolean _methodAction, ListSelection _listener) {
+        if (_listener == null) {
             return;
         }
         int min_ = Math.min(_firstIndex, _lastIndex);
         int max_ = Math.max(_firstIndex, _lastIndex);
         SelectionInfo ev_ = new SelectionInfo(min_, max_, _methodAction);
-        listener_.valueChanged(ev_);
+        _listener.valueChanged(ev_);
     }
+
     public void add(T _elt) {
         add(list.size(),_elt);
     }
     public void add(int _index, T _elt) {
         list.add(_index, _elt);
-        Panel panel_ = getPanel();
         PreparedLabel lab_ = new PreparedLabel();
-        listComponents.add(_index, lab_);
-        panel_.add(lab_, _index);
+        addLab(_index, lab_);
+    }
+
+    public void addLab(int _index, PreparedLabel _lab) {
+        simpleAddLab(_index, _lab);
         repaintAdded(_index);
         resetDimensions();
+        addListeners(_index, _lab);
+    }
+
+    public void addListeners(int _index, PreparedLabel _lab) {
         if (!simple) {
-            MultSelectKeyEltList<T> i_ = new MultSelectKeyEltList<T>(this, _index);
-            lab_.addKeyListener(i_);
+            MultSelectKeyEltList i_ = new MultSelectKeyEltList(this, _index, graphicListPainter);
+            i_.setSelection(listener);
+            _lab.addKeyListener(i_);
             indexableKey.add(i_);
-            MultSelectEltList<T> j_ = new MultSelectEltList<T>(this, _index);
-            lab_.addMouseListener(j_);
+            MultSelectEltList j_ = new MultSelectEltList(this, _index, graphicListPainter);
+            j_.setSelection(listener);
+            _lab.addMouseListener(j_);
             indexableMouse.add(j_);
             reindex(indexableMouse);
             reindex(indexableKey);
         } else {
-            IndexableListener i_ = buildSingleSelect(lab_,_index);
+            IndexableListener i_ = buildSingleSelect(_lab, _index);
             indexableMouse.add(i_);
             reindex(indexableMouse);
         }
     }
 
+    public void simpleAddLab(int _index, PreparedLabel _lab) {
+        Panel panel_ = getPanel();
+        listComponents.add(_index, _lab);
+        panel_.add(_lab, _index);
+    }
+
+    public void set(int _index, PreparedLabel _lab, T _elt) {
+        if (!list.isValidIndex(_index)) {
+            return;
+        }
+        panel.remove(_index);
+        panel.add(_lab,_index);
+        list.set(_index, _elt);
+        listComponents.set(_index, _lab);
+        if (!simple) {
+            MultSelectKeyEltList i_ = new MultSelectKeyEltList(this, _index, graphicListPainter);
+            i_.setSelection(listener);
+            _lab.addKeyListener(i_);
+            indexableKey.set(_index,i_);
+            MultSelectEltList j_ = new MultSelectEltList(this, _index, graphicListPainter);
+            j_.setSelection(listener);
+            _lab.addMouseListener(j_);
+            indexableMouse.set(_index,j_);
+            reindex(indexableMouse);
+            reindex(indexableKey);
+        } else {
+            IndexableListener i_ = buildSingleSelect(_lab, _index);
+            indexableMouse.set(_index,i_);
+            reindex(indexableMouse);
+        }
+    }
     protected void repaintAdded(int _index) {
         CustCellRender<T> r_ = getRender();
         if (r_ != null) {
@@ -104,7 +153,8 @@ public class GraphicList<T> extends CustComponent implements AbsGraphicList<T> {
         }
     }
     protected IndexableListener buildSingleSelect(PreparedLabel _lab,int _index) {
-        SimpleSelectEltList<T> i_ = new SimpleSelectEltList<T>(this, _index);
+        SimpleSelectEltList i_ = new SimpleSelectEltList(this, _index, graphicListPainter);
+        i_.setSelection(listener);
         _lab.addMouseListener(i_);
         return i_;
     }
@@ -159,10 +209,12 @@ public class GraphicList<T> extends CustComponent implements AbsGraphicList<T> {
         } else {
             int index_ = 0;
             for (PreparedLabel c: listComponents) {
-                MultSelectKeyEltList<T> i_ = new MultSelectKeyEltList<T>(this, index_);
+                MultSelectKeyEltList i_ = new MultSelectKeyEltList(this, index_, graphicListPainter);
+                i_.setSelection(listener);
                 indexableKey.add(i_);
                 c.addKeyListener(i_);
-                MultSelectEltList<T> j_ = new MultSelectEltList<T>(this, index_);
+                MultSelectEltList j_ = new MultSelectEltList(this, index_, graphicListPainter);
+                j_.setSelection(listener);
                 indexableMouse.add(j_);
                 c.addMouseListener(j_);
                 index_++;
@@ -203,6 +255,23 @@ public class GraphicList<T> extends CustComponent implements AbsGraphicList<T> {
         for (int i = min_; i <= max_; i++) {
             selectedIndexes.add(i);
         }
+        selectedIndexes.removeDuplicates();
+    }
+
+    @Override
+    public void updateGraphics() {
+        int width_ = 0;
+        for (PreparedLabel c: listComponents) {
+            width_ = Math.max(width_, c.getWidth());
+        }
+        int h_ = 0;
+        int c_ = 0;
+        for (PreparedLabel c: listComponents) {
+            h_ = Math.max(h_,c.getHeight());
+            c_++;
+        }
+        scroll.setPreferredSize(new Dimension(width_ + 24, (h_ + 2)* Math.min(c_, visibleRowCount)));
+        scroll.revalidate();
     }
 
     public void clearAllRange() {
@@ -238,7 +307,10 @@ public class GraphicList<T> extends CustComponent implements AbsGraphicList<T> {
         }
     }
     public void setSelectedIndice(int _min) {
-        selectedIndexes.add(_min);
+        selectedIndexes.clear();
+        if (_min > -1) {
+            selectedIndexes.add(_min);
+        }
         selectedIndexes.removeDuplicates();
         CustCellRender<T> r_ = getRender();
         r_.setList(list);
@@ -251,6 +323,95 @@ public class GraphicList<T> extends CustComponent implements AbsGraphicList<T> {
             index_++;
         }
     }
+
+    @Override
+    public void setSelectedIndexes(Ints _values) {
+        selectedIndexes.clear();
+        selectedIndexes.addAllElts(_values);
+        selectedIndexes.removeDuplicates();
+        CustCellRender<T> r_ = getRender();
+        r_.setList(list);
+        int index_ = 0;
+        int len_ = list.size();
+        for (int i = 0; i < len_; i++) {
+            PreparedLabel c_ = listComponents.get(index_);
+            r_.getListCellRendererComponent(c_, index_, selectedIndexes.containsObj(index_), false);
+            r_.paintComponent(c_);
+            index_++;
+        }
+    }
+
+    @Override
+    public boolean selectOneAmongIntervalPaint(boolean _sel, int _index) {
+        if (!enabled) {
+            return false;
+        }
+        setFirstIndex(_index);
+        setLastIndex(_index);
+        CustCellRender<T> r_ = getRender();
+        PreparedLabel c_ = getListComponents().get(_index);
+        r_.setList(getList());
+        r_.getListCellRendererComponent(c_, _index, _sel, false);
+        c_.requestFocus();
+        r_.paintComponent(c_);
+        if (_sel) {
+            addRange();
+        } else {
+            clearRange();
+        }
+        return true;
+    }
+
+    @Override
+    public Interval selectIntervalKeyPaint(boolean _sel, int _index) {
+        if (!enabled) {
+            return null;
+        }
+        CustCellRender<T> r_ = getRender();
+        r_.setList(getList());
+        int index_ = 0;
+        CustList<T> array_ = getList();
+        int len_ = array_.size();
+        for (int i = 0; i < len_; i++) {
+            PreparedLabel c_ = getListComponents().get(index_);
+            r_.getListCellRendererComponent(c_, index_, _sel, false);
+            r_.paintComponent(c_);
+            index_++;
+        }
+        if (!_sel) {
+            setFirstIndex(0);
+            setLastIndex(array_.size());
+            clearRange();
+            setFirstIndex(-1);
+            setLastIndex(-1);
+        } else {
+            setFirstIndex(0);
+            setLastIndex(array_.size()-1);
+            addRange();
+        }
+        return new Interval(0,array_.size());
+    }
+
+    @Override
+    public Interval selectIntervalPaint(boolean _sel, int _index) {
+        setLastIndex(_index);
+        int min_ = Math.min(getFirstIndex(), getLastIndex());
+        int max_ = Math.max(getFirstIndex(), getLastIndex());
+        CustCellRender<T> r_ = getRender();
+        r_.setList(getList());
+        for (int i = min_; i <= max_; i++) {
+            PreparedLabel c_ = getListComponents().get(i);
+            r_.getListCellRendererComponent(c_, i, _sel, false);
+            r_.paintComponent(c_);
+        }
+        if (_sel) {
+            addRange();
+        } else {
+            clearRange();
+        }
+        return new Interval(min_,max_);
+    }
+
     public void clearSelection() {
         CustCellRender<T> r_ = getRender();
         int index_ = 0;
@@ -300,7 +461,7 @@ public class GraphicList<T> extends CustComponent implements AbsGraphicList<T> {
         return width_;
     }
 
-    protected static void reindex(CustList<IndexableListener> _list) {
+    protected void reindex(CustList<IndexableListener> _list) {
         int index_ = 0;
         for (IndexableListener c: _list) {
             c.setIndex(index_);
@@ -313,6 +474,16 @@ public class GraphicList<T> extends CustComponent implements AbsGraphicList<T> {
     }
 
     public void setListener(ListSelection _listener) {
+        for (IndexableListener i: indexableKey) {
+            i.setSelection(_listener);
+        }
+        for (IndexableListener i: indexableMouse) {
+            i.setSelection(_listener);
+        }
+        simpleSetListener(_listener);
+    }
+
+    public void simpleSetListener(ListSelection _listener) {
         listener = _listener;
     }
 
@@ -377,6 +548,15 @@ public class GraphicList<T> extends CustComponent implements AbsGraphicList<T> {
         }
         return list_;
     }
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean _enabled) {
+        enabled = _enabled;
+    }
+
     public T get(int _i) {
         return list.get(_i);
     }
@@ -405,5 +585,19 @@ public class GraphicList<T> extends CustComponent implements AbsGraphicList<T> {
     @Override
     public CustComponent self() {
         return this;
+    }
+
+    @Override
+    public CustComponent scroll() {
+        return scroll;
+    }
+
+    @Override
+    public CustComponent visible() {
+        return panel;
+    }
+
+    public AbsGraphicListPainter getGraphicListPainter() {
+        return graphicListPainter;
     }
 }

@@ -5,41 +5,26 @@ import java.awt.event.MouseEvent;
 
 import javax.swing.*;
 
-public final class SimpleSelectEltList<T> extends MouseAdapter implements IndexableListener {
+public final class SimpleSelectEltList extends MouseAdapter implements IndexableListener {
 
-    private final GraphicList<T> grList;
+    private final AbsBasicGraphicList grList;
 
     private int index;
+    private final AbsGraphicListPainter graphicListPainter;
 
-    public SimpleSelectEltList(GraphicList<T> _grList, int _index) {
+    private ListSelection selection;
+
+    public SimpleSelectEltList(AbsBasicGraphicList _grList, int _index, AbsGraphicListPainter _graphicListPainter) {
         grList = _grList;
         index = _index;
+        graphicListPainter = _graphicListPainter;
     }
 
     @Override
     public void mouseReleased(MouseEvent _e) {
-        grList.setFirstIndex(index);
-        grList.setLastIndex(index);
-        CustCellRender<T> r_ = grList.getRender();
-        r_.setList(grList.getList());
         boolean sel_ = SwingUtilities.isLeftMouseButton(_e);
-        if (!sel_) {
-            PreparedLabel c_ = grList.getListComponents().get(index);
-            r_.getListCellRendererComponent(c_, index, false, false);
-            r_.paintComponent(c_);
-        } else {
-            int len_ = grList.getListComponents().size();
-            for (int i = 0; i < len_; i++) {
-                PreparedLabel c_ = grList.getListComponents().get(i);
-                r_.getListCellRendererComponent(c_, i, index == i, false);
-                r_.paintComponent(c_);
-            }
-        }
-        grList.clearAllRange();
-        if (sel_) {
-            grList.addRange();
-        }
-        grList.selectEvent(index, index, false);
+        graphicListPainter.selectPaint(grList,sel_,index);
+        GraphicList.selectEvent(index, index, false, selection);
     }
 
     @Override
@@ -50,5 +35,15 @@ public final class SimpleSelectEltList<T> extends MouseAdapter implements Indexa
     @Override
     public void setIndex(int _index) {
         index = _index;
+    }
+
+    @Override
+    public ListSelection getSelection() {
+        return selection;
+    }
+
+    @Override
+    public void setSelection(ListSelection _selection) {
+        this.selection = _selection;
     }
 }

@@ -4,14 +4,16 @@ import javax.swing.*;
 
 public final class ScrollPane extends CustComponent {
 
-    private JScrollPane component;
+    private final JScrollPane component;
 
     public ScrollPane(CustComponent _center) {
         component = new JScrollPane(_center.getComponent());
         _center.setParent(this);
         getChildren().add(_center);
     }
-
+    ScrollPane(JScrollPane _scroll) {
+        component = _scroll;
+    }
     public ScrollPane() {
         component = new JScrollPane();
     }
@@ -49,12 +51,5 @@ public final class ScrollPane extends CustComponent {
     }
     public void setVerticalValue(int _value) {
         component.getVerticalScrollBar().setValue(_value);
-    }
-    public void validate() {
-        component.validate();
-    }
-
-    public void revalidate() {
-        component.revalidate();
     }
 }

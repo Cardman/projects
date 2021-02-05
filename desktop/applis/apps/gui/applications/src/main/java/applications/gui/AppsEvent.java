@@ -1,5 +1,6 @@
 package applications.gui;
 
+import code.expressionlanguage.guicompos.GuiFactroy;
 import code.expressionlanguage.guicompos.LaunchingFull;
 import code.gui.GroupFrame;
 import code.gui.initialize.AbstractProgramInfos;
@@ -8,8 +9,11 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public final class AppsEvent extends AbstractEvent {
 
-    AppsEvent(MainWindow _window, AtomicInteger _at) {
+    private final GuiFactroy fact;
+
+    AppsEvent(MainWindow _window, AtomicInteger _at, GuiFactroy _fact) {
         super(_window,_at);
+        fact = _fact;
     }
 
     @Override
@@ -21,7 +25,7 @@ public final class AppsEvent extends AbstractEvent {
     protected void launch(MainWindow _window) {
         String lg_ = _window.getLanguageKey();
         LaunchingFull l_;
-        l_ = new LaunchingFull(_window.getFrames());
+        l_ = new LaunchingFull(_window.getFrames(), fact);
         l_.launch(lg_);
     }
 }

@@ -10,7 +10,7 @@ import javax.swing.*;
 
 public abstract class PaintableLabel extends CustComponent {
 
-    private JLabel label = new JLabel();
+    private final JLabel label = new JLabel();
 
     public void repaintLabel() {
         int w_ = getWidth();
@@ -26,10 +26,6 @@ public abstract class PaintableLabel extends CustComponent {
         setIcon(img_);
     }
     public abstract void paintComponent(CustGraphics _g);
-
-    public void validate() {
-        label.validate();
-    }
 
     public void removeMouseListener(MouseListener _l) {
         label.removeMouseListener(_l);

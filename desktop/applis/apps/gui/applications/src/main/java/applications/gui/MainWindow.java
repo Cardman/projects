@@ -7,6 +7,7 @@ import cards.main.CardFactories;
 import cards.main.LaunchingCards;
 import code.converterimages.main.LaunchingConverter;
 import code.expressionlanguage.gui.unit.LaunchingAppUnitTests;
+import code.expressionlanguage.guicompos.GuiFactroy;
 import code.expressionlanguage.guicompos.LaunchingFull;
 import code.gui.*;
 import code.gui.Panel;
@@ -42,7 +43,7 @@ public final class MainWindow extends GroupFrame {
 
     private final CustList<RadioButton> radios = new CustList<RadioButton>();
 
-    public MainWindow(String _lg, AbstractProgramInfos _list, CardFactories _cardFactories, AikiFactory _aikiFactory) {
+    public MainWindow(String _lg, AbstractProgramInfos _list, CardFactories _cardFactories, AikiFactory _aikiFactory, GuiFactroy _guiFact) {
         super(_lg, _list);
         setFocusableWindowState(true);
         setTitle(APPLICATIONS);
@@ -100,7 +101,7 @@ public final class MainWindow extends GroupFrame {
         buttonApps = new LabelButton("8");
         at_ = new AtomicInteger(0);
         _list.getCounts().addEntry(LaunchingFull.getMainWindowClass(),at_);
-        buttonApps.addMouseListener(new AppsEvent(this,at_));
+        buttonApps.addMouseListener(new AppsEvent(this,at_, _guiFact));
         lineApp_.add(buttonApps);
         panel_.add(lineApp_);
         panel_.add(new Clock());

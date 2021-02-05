@@ -4559,12 +4559,12 @@ public final class GuiAliases {
                 return res_;
             }
             if (StringUtil.quickEq(name_, aliasGrListSet)) {
-                inst_.set(_cont,((NumberStruct)_args[0]).intStruct(),_args[1],_args[2]);
+                inst_.set(((NumberStruct)_args[0]).intStruct(),_args[1],_args[2]);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
             if (_method.getConstraints().getParametersTypes().size() == 3) {
-                inst_.add(_cont,((NumberStruct)_args[0]).intStruct(),_args[1],_args[2]);
+                inst_.add(((NumberStruct)_args[0]).intStruct(),_args[1],_args[2]);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }

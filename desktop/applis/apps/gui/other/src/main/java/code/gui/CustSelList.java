@@ -8,7 +8,7 @@ public class CustSelList<T> implements ListCellRenderer {
 
 	private CustCellRender<T> render;
 	private CustList<T> list = new CustList<T>();
-	private PreparedLabel label = new PreparedLabel();
+	private final PreparedLabel label = new PreparedLabel();
 
     public CustCellRender<T> getRender() {
         return render;

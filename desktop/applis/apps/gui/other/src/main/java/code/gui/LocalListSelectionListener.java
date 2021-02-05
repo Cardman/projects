@@ -1,26 +1,18 @@
 package code.gui;
-import code.gui.initialize.ProgramInfos;
-import java.awt.Dimension;
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.FontMetrics;
-import java.awt.event.ItemListener;
-import java.awt.event.ItemEvent;
 import javax.swing.event.*;
-import javax.swing.WindowConstants;
-import javax.swing.JComboBox;
-import javax.swing.JComponent;
-import code.gui.events.QuittingEvent;
-import code.util.StringList;
-import code.util.Ints;
 public class LocalListSelectionListener implements ListSelectionListener {
-	private ListSelection listener;
-	public LocalListSelectionListener(ListSelection _listener){
+	private final ListSelection listener;
+	private final AbsBasicGraphicList comp;
+	public LocalListSelectionListener(AbsBasicGraphicList _comp,ListSelection _listener){
 		listener = _listener;
+		comp = _comp;
 	}
 	public void valueChanged(ListSelectionEvent _e){
 		if (_e.getValueIsAdjusting()){
 			return;
+		}
+		if (_e.getFirstIndex() == _e.getLastIndex()) {
+			comp.setFirstIndex(_e.getFirstIndex());
 		}
 		listener.valueChanged(new SelectionInfo(_e.getFirstIndex(),_e.getLastIndex(),false));
 	}

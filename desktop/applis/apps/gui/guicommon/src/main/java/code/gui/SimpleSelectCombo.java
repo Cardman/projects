@@ -42,4 +42,14 @@ public final class SimpleSelectCombo extends MouseAdapter implements IndexableLi
     public void setIndex(int _index) {
         index = _index;
     }
+
+    @Override
+    public ListSelection getSelection() {
+        return grList.getListener();
+    }
+
+    @Override
+    public void setSelection(ListSelection _sel) {
+        grList.simpleSetListener(_sel);
+    }
 }

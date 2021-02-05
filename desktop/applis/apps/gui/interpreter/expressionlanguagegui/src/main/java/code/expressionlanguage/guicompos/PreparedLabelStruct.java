@@ -4,40 +4,45 @@ import code.expressionlanguage.structs.Struct;
 import code.gui.CustComponent;
 import code.gui.PreparedLabel;
 
+import javax.swing.*;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 
 public final class PreparedLabelStruct extends CustComponentStruct {
-    private PreparedLabel textLabel;
-    private int width;
-    private int height;
+    private final PreparedLabel textLabel;
     protected PreparedLabelStruct(String _className) {
         super(_className);
         textLabel = new PreparedLabel();
     }
     protected PreparedLabelStruct(Struct _img,String _className) {
         super(_className);
-        textLabel = new PreparedLabel();
-        setImage(_img);
+        textLabel = new PreparedLabel(builImage(_img));
     }
     public void setImage(Struct _text) {
         if (!(_text instanceof ImageStruct)) {
             textLabel.setEmptyIcon();
-            width = 0;
-            height = 0;
         } else {
             BufferedImage img_ = ((ImageStruct) _text).getImage();
             textLabel.setIcon(img_);
-            width = img_.getWidth();
-            height = img_.getHeight();
         }
+    }
+    public static ImageIcon builImage(Struct _text) {
+        BufferedImage img_ = null;
+        if (_text instanceof ImageStruct) {
+            img_ = ((ImageStruct) _text).getImage();
+        }
+        return PreparedLabel.buildIcon(img_);
     }
 
     public void addMouseListener(MouseListener _mouseListener) {
         if (_mouseListener != null) {
             textLabel.addMouseListener(_mouseListener);
         }
+    }
+
+    public PreparedLabel getTextLabel() {
+        return textLabel;
     }
 
     @Override
@@ -47,12 +52,12 @@ public final class PreparedLabelStruct extends CustComponentStruct {
 
     @Override
     public int getWidth() {
-        return width;
+        return textLabel.getWidth();
     }
 
     @Override
     public int getHeight() {
-        return height;
+        return textLabel.getHeight();
     }
 
     public void addKeyListener(KeyListener _i) {

@@ -5,7 +5,7 @@ import javax.swing.JSplitPane;
 
 public final class SplitPane extends CustComponent {
 
-    private JSplitPane component;
+    private final JSplitPane component;
 
     public SplitPane(int _orientation, CustComponent _left, CustComponent _right) {
         if (getOrient(_orientation) == JSplitPane.VERTICAL_SPLIT) {
@@ -80,7 +80,4 @@ public final class SplitPane extends CustComponent {
         component.setDividerSize(_i);
     }
 
-    public void revalidate() {
-        component.revalidate();
-    }
 }

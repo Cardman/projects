@@ -11,7 +11,7 @@ import code.util.CustList;
 public abstract class CustComponent {
 
     private CustComponent parent;
-    private CustList<CustComponent> children = new CustList<CustComponent>();
+    private final CustList<CustComponent> children = new CustList<CustComponent>();
     protected abstract JComponent getComponent();
     public static void invokeLater(Runnable _r) {
         SwingUtilities.invokeLater(_r);
@@ -175,4 +175,12 @@ public abstract class CustComponent {
     public void addComponentListener(ComponentListener _compo) {
         getComponent().addComponentListener(_compo);
     }
+    public void validate() {
+        getComponent().validate();
+    }
+
+    public void revalidate() {
+        getComponent().revalidate();
+    }
+
 }
