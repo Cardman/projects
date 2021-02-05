@@ -7,8 +7,6 @@ import code.gui.*;
 import code.util.CustList;
 import code.util.Ints;
 
-import java.awt.*;
-
 public final class GraphicListStruct extends InputStruct {
 
     private Struct render = NullStruct.NULL_VALUE;
@@ -41,19 +39,7 @@ public final class GraphicListStruct extends InputStruct {
         updateGraphics();
     }
     void updateGraphics() {
-        int width_ = 0;
-        for (PreparedLabel c: getListComponents()) {
-            width_ = Math.max(width_, c.getWidth());
-        }
-        int h_ = 0;
-        int c_ = 0;
-        for (PreparedLabel c: getListComponents()) {
-            h_ = Math.max(h_,c.getHeight());
-            c_++;
-        }
-
-        grList.scroll().setPreferredSize(new Dimension(width_ + 24, (h_ + 2)* Math.min(c_, grList.getVisibleRowCount())));
-        grList.scroll().revalidate();
+        grList.updateGraphics();
     }
     public void set(int _index, Struct _img, Struct _elt) {
         if (!(_img instanceof PreparedLabelStruct)) {
