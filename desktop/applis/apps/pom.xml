@@ -20,5 +20,6 @@
 		<module>gui</module>
 		<module>sys_apps</module>
 		<module>main</module>
+		<module>other_main</module>
 	</modules>
 </project>
