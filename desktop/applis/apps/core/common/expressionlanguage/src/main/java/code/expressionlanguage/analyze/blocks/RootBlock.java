@@ -147,8 +147,6 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
         return accessOffset;
     }
 
-    public abstract boolean isStaticType();
-
     public final StringList getAllGenericSuperTypes() {
         return allGenericSuperTypes;
     }

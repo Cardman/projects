@@ -9,7 +9,7 @@ import code.util.ObjectMap;
 
 public final class Game {
 
-    private ObjectMap<UnitMapKey,Soldier> soldiers = new ObjectMap<UnitMapKey,Soldier>();
+    private final ObjectMap<UnitMapKey,Soldier> soldiers = new ObjectMap<UnitMapKey,Soldier>();
 
     private int xTopLeftSelect;
     private int yTopLeftSelect;
@@ -123,12 +123,11 @@ public final class Game {
 //        int[] yThis_ = new int[]{yThisLeftTop_, yThisLeftTop_, yThisRightBottom_, yThisRightBottom_};
 //        Polygon pThis_ = new Polygon(xThis_, yThis_, 4);
         Rect pThis_ = new Rect(xThisLeftTop_, yThisLeftTop_, s_.getWidth(), s_.getHeight());
-        Delta d_ = _d;
         for (EntryCust<UnitMapKey,Soldier> u: soldiers.entryList()) {
             if (u.getKey().eq(_this)) {
                 continue;
             }
-            if (!isOutside(pThis_, u.getValue(), _x, _y, d_, _data)) {
+            if (!isOutside(pThis_, u.getValue(), _x, _y, _d, _data)) {
                 return false;
             }
         }
@@ -136,15 +135,13 @@ public final class Game {
     }
 
     public boolean isEmpty(int _x, int _y, DataBase _data) {
-        int xThisLeftTop_ = _x;
-        int yThisLeftTop_ = _y;
         SoldierPattern s_ = _data.getSoldierPattern();
 //        int xThisRightBottom_ = _x + s_.getWidth();
 //        int yThisRightBottom_ = _y + s_.getHeight();
 //        int[] xThis_ = new int[]{xThisLeftTop_, xThisRightBottom_, xThisRightBottom_, xThisLeftTop_};
 //        int[] yThis_ = new int[]{yThisLeftTop_, yThisLeftTop_, yThisRightBottom_, yThisRightBottom_};
 //        Polygon pThis_ = new Polygon(xThis_, yThis_, 4);
-        Rect pThis_ = new Rect(xThisLeftTop_, yThisLeftTop_, s_.getWidth(), s_.getHeight());
+        Rect pThis_ = new Rect(_x, _y, s_.getWidth(), s_.getHeight());
         Delta d_ = new Delta();
         for (EntryCust<UnitMapKey,Soldier> u: soldiers.entryList()) {
             if (!isOutside(pThis_, u.getValue(), _x, _y, d_, _data)) {
@@ -232,11 +229,7 @@ public final class Game {
 //            int[] yThis_ = new int[]{yThisLeftTop_, yThisLeftTop_, yThisRightBottom_, yThisRightBottom_};
 //            Polygon pThis_ = new Polygon(xThis_, yThis_, 4);
             Rect pThis_ = new Rect(xThisLeftTop_, yThisLeftTop_, s_.getWidth(), s_.getHeight());
-            if (pThis_.intersects(rect_)) {
-                u_.setSelected(true);
-            } else {
-                u_.setSelected(false);
-            }
+            u_.setSelected(pThis_.intersects(rect_));
         }
     }
 
@@ -332,17 +325,11 @@ public final class Game {
             }
             deltax_ = 10;
         } else if (_y < yTopLeftScreen) {
-            if (_x < xTopLeftScreen) {
-                return;
-            }
             if (_x > xTopLeftScreen + _xBound) {
                 return;
             }
             deltay_ = -10;
         } else if (_y > yTopLeftScreen + _yBound) {
-            if (_x < xTopLeftScreen) {
-                return;
-            }
             if (_x > xTopLeftScreen + _xBound) {
                 return;
             }

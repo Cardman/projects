@@ -25,7 +25,7 @@ public abstract class NetGroupFrame extends GroupFrame implements NetWindow {
     private String ipHost;
 
     private int port;
-    private AbstractLock lock = LockFactory.newLock();
+    private final AbstractLock lock = LockFactory.newLock();
 
     protected NetGroupFrame(String _lg, AbstractProgramInfos _list) {
         super(_lg, _list);
@@ -39,11 +39,15 @@ public abstract class NetGroupFrame extends GroupFrame implements NetWindow {
     public void createServer(String _ipHost, IpType _ipType, int _port) {
         String ip_ = NetCreate.getHostAddress(_ipType, _ipHost);
         ServerSocket serverSocket_ = NetCreate.createServerSocket(ip_, _port);
-        if (serverSocket_ == null) {
+        tryCreateServer(_port, ip_, serverSocket_);
+    }
+
+    private void tryCreateServer(int _port, String _ip, ServerSocket _serverSocket) {
+        if (_serverSocket == null) {
             return;
         }
-        ipHost = ip_;
-        connection=new ConnectionToServer(serverSocket_,this,ip_, _port);
+        ipHost = _ip;
+        connection=new ConnectionToServer(_serverSocket,this, _ip, _port);
         connectionTh = CustComponent.newThread(connection);
         connectionTh.start();
     }
