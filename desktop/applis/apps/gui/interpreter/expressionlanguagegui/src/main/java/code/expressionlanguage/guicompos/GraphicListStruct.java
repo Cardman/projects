@@ -94,6 +94,10 @@ public final class GraphicListStruct extends InputStruct {
     }
 
     public void clearSelection() {
+        if (isCust()) {
+            grList.clearSelection();
+            return;
+        }
         grList.getSelectedIndexes().clear();
     }
 

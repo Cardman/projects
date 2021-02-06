@@ -4581,7 +4581,7 @@ public final class GuiAliases {
             }
             if (StringUtil.quickEq(name_, aliasGrListSetSelectedIndexes)) {
                 inst_.setSelectedIndexes(_args[0]);
-                if (_args[0] instanceof ArrayStruct) {
+                if (!inst_.isCust()&&_args[0] instanceof ArrayStruct) {
                     Argument arg_ = new Argument(inst_);
                     CustList<Argument> args_ = new CustList<Argument>(arg_);
                     wrapAndCall(_cont, args_, _guiEx.getPairPaintRefresh(), _stackCall);
@@ -4591,9 +4591,11 @@ public final class GuiAliases {
             }
             if (StringUtil.quickEq(name_, aliasGrListClearSelection)) {
                 inst_.clearSelection();
-                Argument arg_ = new Argument(inst_);
-                CustList<Argument> args_ = new CustList<Argument>(arg_);
-                wrapAndCall(_cont, args_, _guiEx.getPairPaintRefresh(), _stackCall);
+                if (!inst_.isCust()) {
+                    Argument arg_ = new Argument(inst_);
+                    CustList<Argument> args_ = new CustList<Argument>(arg_);
+                    wrapAndCall(_cont, args_, _guiEx.getPairPaintRefresh(), _stackCall);
+                }
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
