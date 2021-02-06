@@ -1,5 +1,7 @@
 package code.gui;
 
+import code.expressionlanguage.structs.Struct;
+
 public final class DefaultGraphicListPainter implements AbsGraphicListPainter {
     @Override
     public void selectPaint(AbsBasicGraphicList _list, boolean _sel, int _index) {
@@ -35,5 +37,10 @@ public final class DefaultGraphicListPainter implements AbsGraphicListPainter {
     @Override
     public Interval selectIntervalKeyPaint(AbsBasicGraphicList _list, boolean _sel, int _index) {
         return _list.selectIntervalKeyPaint(_sel, _index);
+    }
+
+    @Override
+    public void setValue(Struct _value) {
+
     }
 }

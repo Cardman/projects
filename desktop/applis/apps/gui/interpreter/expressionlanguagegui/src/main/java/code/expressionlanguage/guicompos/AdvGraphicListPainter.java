@@ -47,13 +47,7 @@ public final class AdvGraphicListPainter extends AbsAdvGraphicListPainter {
         if (!grList_.isEnabledList()) {
             return false;
         }
-        grList_.setFirstIndex(_index);
-        if (!_sel) {
-            grList_.getSelectedIndexes().removeObj(_index);
-        } else {
-            grList_.getSelectedIndexes().add(_index);
-            grList_.getSelectedIndexes().removeDuplicates();
-        }
+        _list.selectOneAmongIntervalPaintBase(_sel, _index);
         GuiContextEl ctx_ = newCtx();
         CustList<Argument> args_ = new CustList<Argument>();
         args_.add(new Argument(value_));
@@ -86,24 +80,12 @@ public final class AdvGraphicListPainter extends AbsAdvGraphicListPainter {
         if (!grList_.isEnabledList()) {
             return null;
         }
-        int firstIndex_ = grList_.getFirstIndex();
-        int min_ = Math.min(firstIndex_, _index);
-        int max_ = Math.max(firstIndex_, _index);
-        if (!_sel) {
-            for (int i = min_; i <= max_; i++) {
-                grList_.getSelectedIndexes().removeObj(i);
-            }
-        } else {
-            for (int i = min_; i <= max_; i++) {
-                grList_.getSelectedIndexes().add(i);
-            }
-            grList_.getSelectedIndexes().removeDuplicates();
-        }
+        Interval interval_ = _list.selectIntervalPaintBase(_sel, _index);
         GuiContextEl ctx_ = newCtx();
         CustList<Argument> args_ = new CustList<Argument>();
         args_.add(new Argument(value_));
         invokePaint(ctx_,args_);
-        return new Interval(min_,max_);
+        return interval_;
     }
 
     @Override

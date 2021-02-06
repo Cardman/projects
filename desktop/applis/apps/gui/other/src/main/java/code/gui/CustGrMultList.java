@@ -62,6 +62,16 @@ public final class CustGrMultList extends CustComponent implements AbsInputGraph
         return null;
     }
 
+    @Override
+    public Interval selectIntervalPaintBase(boolean _sel, int _index) {
+        return null;
+    }
+
+    @Override
+    public void selectOneAmongIntervalPaintBase(boolean _sel, int _index) {
+        //
+    }
+
     public void clear() {
         compo.clear();
     }
@@ -190,18 +200,4 @@ public final class CustGrMultList extends CustComponent implements AbsInputGraph
         return compo.visible();
     }
 
-    @Override
-    public AbsGraphicListPainter getGraphicListPainter() {
-        return compo.getGraphicListPainter();
-    }
-
-    @Override
-    public int getFirstIndex() {
-        return compo.getFirstIndex();
-    }
-
-    @Override
-    public void setFirstIndex(int _firstIndex) {
-        compo.setFirstIndex(_firstIndex);
-    }
 }

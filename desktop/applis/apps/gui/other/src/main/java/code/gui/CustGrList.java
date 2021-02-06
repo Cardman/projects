@@ -14,8 +14,6 @@ public class CustGrList<T> extends CustComponent implements AbsGraphicList<T> {
 
     private ListSelection listener;
 
-    private int firstIndex = -1;
-
     public CustGrList(boolean _simple) {
         if (_simple) {
             list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -82,6 +80,16 @@ public class CustGrList<T> extends CustComponent implements AbsGraphicList<T> {
     @Override
     public Interval selectIntervalPaint(boolean _sel, int _index) {
         return null;
+    }
+
+    @Override
+    public Interval selectIntervalPaintBase(boolean _sel, int _index) {
+        return null;
+    }
+
+    @Override
+    public void selectOneAmongIntervalPaintBase(boolean _sel, int _index) {
+        //
     }
 
     public void clear() {
@@ -241,18 +249,4 @@ public class CustGrList<T> extends CustComponent implements AbsGraphicList<T> {
         return this;
     }
 
-    @Override
-    public AbsGraphicListPainter getGraphicListPainter() {
-        return null;
-    }
-
-    @Override
-    public int getFirstIndex() {
-        return firstIndex;
-    }
-
-    @Override
-    public void setFirstIndex(int _firstIndex) {
-        this.firstIndex = _firstIndex;
-    }
 }

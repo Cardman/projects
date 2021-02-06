@@ -20,11 +20,7 @@ public final class GraphicListStruct extends InputStruct {
     public GraphicListStruct(GuiContextEl _ctx,String _className,boolean _simple) {
         super(_className);
         grList = ((LgNamesGui)_ctx.getStandards()).getGuiExecutingBlocks().getWindow().getFact().getGraphicListGenerator().create(_simple, new AdvGraphicListPainter(_ctx.getExecutionInfos()));
-        grList.setCell(_ctx,null,null,new DefSpecSelectionCtx(_ctx.getExecutionInfos()),null, null, null);
-        AbsGraphicListPainter val_ = grList.getGraphicListPainter();
-        if (val_ instanceof AbsAdvGraphicListPainter) {
-            ((AbsAdvGraphicListPainter)val_).setValue(this);
-        }
+        grList.setCell(this, _ctx,null,null,new DefSpecSelectionCtx(_ctx.getExecutionInfos()),null, null, null);
     }
 
     public boolean isCust() {
@@ -79,14 +75,6 @@ public final class GraphicListStruct extends InputStruct {
 
     public Ints getSelectedIndexes() {
         return grList.getSelectedIndexes();
-    }
-
-    public int getFirstIndex() {
-        return grList.getFirstIndex();
-    }
-
-    public void setFirstIndex(int _firstIndex) {
-        grList.setFirstIndex(_firstIndex);
     }
 
     public void setSelectedIndexes(Struct _selectedIndexes) {
@@ -198,15 +186,15 @@ public final class GraphicListStruct extends InputStruct {
                 ExecNamedFunctionBlock wiMeth_ = guiExecutingBlocks_.getWidthEvent();
                 ExecRootBlock typeHe_ = guiExecutingBlocks_.getListHeightSelection();
                 ExecNamedFunctionBlock heMeth_ = guiExecutingBlocks_.getHeightEvent();
-                grList.setCell(_ctx,lab_,im_,new DefSpecSelectionCtx(_ctx.getExecutionInfos()),
+                grList.setCell(this, _ctx,lab_,im_,new DefSpecSelectionCtx(_ctx.getExecutionInfos()),
                         new DefSpecSelectionStruct(_ctx,typePaint_.getFullName(),this, p_,paintMeth_),
                         new DefSpecSelectionDimStruct(_ctx,typeWi_.getFullName(),wl_,wiMeth_),
                         new DefSpecSelectionDimStruct(_ctx,typeHe_.getFullName(),hl_,heMeth_));
             } else {
-                grList.setCell(_ctx,null,null,new DefSpecSelectionCtx(_ctx.getExecutionInfos()),null, null, null);
+                grList.setCell(this, _ctx,null,null,new DefSpecSelectionCtx(_ctx.getExecutionInfos()),null, null, null);
             }
         } else {
-            grList.setCell(_ctx,null,null,new DefSpecSelectionCtx(_ctx.getExecutionInfos()),null, null, null);
+            grList.setCell(this, _ctx,null,null,new DefSpecSelectionCtx(_ctx.getExecutionInfos()),null, null, null);
         }
         this.render = _render;
     }

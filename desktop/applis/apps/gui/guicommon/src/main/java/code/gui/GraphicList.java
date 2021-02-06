@@ -415,6 +415,35 @@ public class GraphicList<T> extends CustComponent implements AbsGraphicList<T> {
         return new Interval(min_,max_);
     }
 
+    @Override
+    public Interval selectIntervalPaintBase(boolean _sel, int _index) {
+        int firstIndex_ = getFirstIndex();
+        int min_ = Math.min(firstIndex_, _index);
+        int max_ = Math.max(firstIndex_, _index);
+        if (!_sel) {
+            for (int i = min_; i <= max_; i++) {
+                getSelectedIndexes().removeObj(i);
+            }
+        } else {
+            for (int i = min_; i <= max_; i++) {
+                getSelectedIndexes().add(i);
+            }
+            getSelectedIndexes().removeDuplicates();
+        }
+        return new Interval(min_,max_);
+    }
+
+    @Override
+    public void selectOneAmongIntervalPaintBase(boolean _sel, int _index) {
+        setFirstIndex(_index);
+        if (!_sel) {
+            getSelectedIndexes().removeObj(_index);
+        } else {
+            getSelectedIndexes().add(_index);
+            getSelectedIndexes().removeDuplicates();
+        }
+    }
+
     public void clearSelection() {
         CustCellRender<T> r_ = getRender();
         int index_ = 0;

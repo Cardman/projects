@@ -9,4 +9,9 @@ public final class GraphicListGeneratorStr implements AbstractAdvGraphicListGene
     public AbsGraphicListStr create(boolean _simple, AbsGraphicListPainter _abs) {
         return new GraphicListStr(_simple, _abs);
     }
+
+    @Override
+    public boolean isCust() {
+        return false;
+    }
 }

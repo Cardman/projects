@@ -10,4 +10,9 @@ public final class AdvGraphicListGeneratorStr  implements AbstractAdvGraphicList
     public AbsGraphicListStr create(boolean _simple, AbsGraphicListPainter _abs) {
         return new CustGrListStr(_simple);
     }
+
+    @Override
+    public boolean isCust() {
+        return true;
+    }
 }

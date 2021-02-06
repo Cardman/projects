@@ -11,9 +11,6 @@ public class LocalListSelectionListener implements ListSelectionListener {
 		if (_e.getValueIsAdjusting()){
 			return;
 		}
-		if (_e.getFirstIndex() == _e.getLastIndex()) {
-			comp.setFirstIndex(_e.getFirstIndex());
-		}
 		listener.valueChanged(new SelectionInfo(_e.getFirstIndex(),_e.getLastIndex(),false));
 	}
 }

@@ -30,5 +30,4 @@ public interface AbsGraphicList<T> extends AbsBasicGraphicList {
     CustComponent self();
     CustComponent scroll();
     CustComponent visible();
-    AbsGraphicListPainter getGraphicListPainter();
 }

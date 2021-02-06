@@ -34,20 +34,17 @@ public final class CustSelListStr implements ListCellRenderer<Struct> {
             int _index,
             boolean _isSelected,
             boolean _cellHasFocus) {
-        int width_ = 0;
+        int defWidth_ = Math.max(_list.getWidth(), _list.getFixedCellWidth());
+        int width_ = defWidth_;
         if (width != null) {
-            int size_ = _list.getModel().getSize();
-            Struct str_ = new IntStruct(width_);
-            for (int i = 0; i < size_; i++) {
-                Argument argumentWidth_ = new Argument(str_);
-                Argument res_ = width.execute(new CustList<>(
-                        new Argument(_value),
-                        argumentWidth_), null);
-                str_ = res_.getStruct();
-                width_ = NumParsers.convertToNumber(str_).intStruct();
-            }
+            Struct str_ = new IntStruct(defWidth_);
+            Argument argumentWidth_ = new Argument(str_);
+            Argument res_ = width.execute(new CustList<>(
+                    new Argument(_value),
+                    argumentWidth_), null);
+            width_ = NumParsers.convertToNumber(res_.getStruct()).intStruct();
         }
-        int height_ = 0;
+        int height_ = Math.max(_list.getFixedCellHeight(),0);
         if (height != null) {
             Argument h_ = height.execute(new CustList<>(
                     new Argument(_value)), null);
