@@ -64,6 +64,30 @@
           ({img}).{dispose}();
           {refresh}({addPar00});
       '}'
+      {public} {static} {void} {set}({GrList} {setPar0}, {int} {setPar1},{Object} {setPar2})'{'
+          {var} {r} = ({setPar0}).{getRender}();
+          {if} ({r} == {null})'{'
+              {return};
+          '}'
+          {var} {hf} = ({r}).{getHeight}();
+          {var} {lf} = ({r}).{getWidth}();
+          {var} {pf} = ({r}).{getPaint}();
+          {if} ({hf} == {null} || {lf} == {null} || {pf} == {null})'{'
+              {return};
+          '}'
+          {var} {h} = ({hf}).{call}({setPar2});
+          {var} {la} = 0;
+          {for} ({var} {o}: ({setPar0}).{getView}())'{'
+              {la} = ({lf}).{call}({o},{la});
+           '}'
+          {la} = ({lf}).{call}({setPar2},{la});
+
+          {var} {img} = {new} {Image}({la},{h},{true});
+          ({pf}).{call}({setPar0},{setPar2},{setPar1},{false},{img});
+          ({setPar0}).{setCompo}({setPar1},{new} {ImageLabel}({img}),{setPar2});
+          ({img}).{dispose}();
+          {refresh}({setPar0});
+      '}'
 
       {public} {static} {void} {add}({GrList} {addPar10},{Object}[] {addPar11})'{'
           {var} {r} = ({addPar10}).{getRender}();

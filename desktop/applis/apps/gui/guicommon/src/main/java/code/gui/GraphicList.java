@@ -117,7 +117,10 @@ public class GraphicList<T> extends CustComponent implements AbsGraphicList<T> {
         listComponents.add(_index, _lab);
         panel_.add(_lab, _index);
     }
-
+    public void set(int _index, T _elt) {
+        PreparedLabel lab_ = new PreparedLabel();
+        set(_index,lab_,_elt);
+    }
     public void set(int _index, PreparedLabel _lab, T _elt) {
         if (!list.isValidIndex(_index)) {
             return;

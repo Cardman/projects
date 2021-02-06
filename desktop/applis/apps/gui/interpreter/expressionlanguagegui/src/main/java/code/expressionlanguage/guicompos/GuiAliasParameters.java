@@ -39,6 +39,9 @@ public final class GuiAliasParameters {
     private static final String LIST_PAINT_0_WIDTH_EVENT_1="ListPaint0WidthEvent1";
     private static final String LIST_PAINT_0_HEIGHT_EVENT_0="ListPaint0HeightEvent0";
     private static final String PAINT_0_PAINT_METHOD_0="Paint0PaintMethod0";
+    private static final String PAINT_0_TABBED_PANE_SET_0="Paint0TabbedPaneSet0";
+    private static final String PAINT_0_TABBED_PANE_SET_1="Paint0TabbedPaneSet1";
+    private static final String PAINT_0_TABBED_PANE_SET_2="Paint0TabbedPaneSet2";
     private static final String PAINT_0_TABBED_PANE_ADD_0="Paint0TabbedPaneAdd0";
     private static final String PAINT_0_TABBED_PANE_ADD_1="Paint0TabbedPaneAdd1";
     private static final String PAINT_0_TABBED_PANE_ADD_2="Paint0TabbedPaneAdd2";
@@ -313,6 +316,8 @@ public final class GuiAliasParameters {
     private static final String GR_LIST_0_TREE_NODE_SET_USER_OBJECT_0="GrList0TreeNodeSetUserObject0";
     private static final String GR_LIST_0_TREE_NODE_SET_USER_OBJECT_1="GrList0TreeNodeSetUserObject1";
     private static final String GR_LIST_0_TREE_NODE_SET_USER_OBJECT_2="GrList0TreeNodeSetUserObject2";
+    private static final String GR_LIST_1_TREE_NODE_SET_USER_OBJECT_0="GrList1TreeNodeSetUserObject0";
+    private static final String GR_LIST_1_TREE_NODE_SET_USER_OBJECT_1="GrList1TreeNodeSetUserObject1";
     private static final String GR_LIST_0_GR_LIST_SET_SELECTED_INDEXES_0="GrList0GrListSetSelectedIndexes0";
     private static final String GR_LIST_0_REMOVE_COMPO_0="GrList0RemoveCompo0";
     private static final String GR_LIST_0_GR_LIST_0="GrList0GrList0";
@@ -446,6 +451,9 @@ public final class GuiAliasParameters {
     private String aliasListSelection0ValueChanged0;
     private String aliasListSelection0ValueChanged1;
     private String aliasPaint0PaintMethod0;
+    private String aliasPaint0TabbedPaneSet0;
+    private String aliasPaint0TabbedPaneSet1;
+    private String aliasPaint0TabbedPaneSet2;
     private String aliasPaint0TabbedPaneAdd0;
     private String aliasPaint0TabbedPaneAdd1;
     private String aliasPaint0TabbedPaneAdd2;
@@ -720,6 +728,8 @@ public final class GuiAliasParameters {
     private String aliasGrList0TreeNodeSetUserObject0;
     private String aliasGrList0TreeNodeSetUserObject1;
     private String aliasGrList0TreeNodeSetUserObject2;
+    private String aliasGrList1TreeNodeSetUserObject0;
+    private String aliasGrList1TreeNodeSetUserObject1;
     private String aliasGrList0GrListSetSelectedIndexes0;
     private String aliasGrList0RemoveCompo0;
     private String aliasGrList0GrList0;
@@ -853,6 +863,9 @@ public final class GuiAliasParameters {
         aliasListSelection0ValueChanged0=LgNamesContent.get(_util,_cust, LIST_SELECTION_0_VALUE_CHANGED_0);
         aliasListSelection0ValueChanged1=LgNamesContent.get(_util,_cust, LIST_SELECTION_0_VALUE_CHANGED_1);
         aliasPaint0PaintMethod0=LgNamesContent.get(_util,_cust, PAINT_0_PAINT_METHOD_0);
+        aliasPaint0TabbedPaneSet0=LgNamesContent.get(_util,_cust, PAINT_0_TABBED_PANE_SET_0);
+        aliasPaint0TabbedPaneSet1=LgNamesContent.get(_util,_cust, PAINT_0_TABBED_PANE_SET_1);
+        aliasPaint0TabbedPaneSet2=LgNamesContent.get(_util,_cust, PAINT_0_TABBED_PANE_SET_2);
         aliasPaint0TabbedPaneAdd0=LgNamesContent.get(_util,_cust, PAINT_0_TABBED_PANE_ADD_0);
         aliasPaint0TabbedPaneAdd1=LgNamesContent.get(_util,_cust, PAINT_0_TABBED_PANE_ADD_1);
         aliasPaint0TabbedPaneAdd2=LgNamesContent.get(_util,_cust, PAINT_0_TABBED_PANE_ADD_2);
@@ -1126,6 +1139,8 @@ public final class GuiAliasParameters {
         aliasGrList0TreeNodeSetUserObject0=LgNamesContent.get(_util,_cust, GR_LIST_0_TREE_NODE_SET_USER_OBJECT_0);
         aliasGrList0TreeNodeSetUserObject1=LgNamesContent.get(_util,_cust, GR_LIST_0_TREE_NODE_SET_USER_OBJECT_1);
         aliasGrList0TreeNodeSetUserObject2=LgNamesContent.get(_util,_cust, GR_LIST_0_TREE_NODE_SET_USER_OBJECT_2);
+        aliasGrList1TreeNodeSetUserObject0=LgNamesContent.get(_util,_cust, GR_LIST_1_TREE_NODE_SET_USER_OBJECT_0);
+        aliasGrList1TreeNodeSetUserObject1=LgNamesContent.get(_util,_cust, GR_LIST_1_TREE_NODE_SET_USER_OBJECT_1);
         aliasGrList0GrListSetSelectedIndexes0=LgNamesContent.get(_util,_cust, GR_LIST_0_GR_LIST_SET_SELECTED_INDEXES_0);
         aliasGrList0RemoveCompo0=LgNamesContent.get(_util,_cust, GR_LIST_0_REMOVE_COMPO_0);
         aliasGrList0GrList0=LgNamesContent.get(_util,_cust, GR_LIST_0_GR_LIST_0);
@@ -1254,6 +1269,7 @@ public final class GuiAliasParameters {
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(LIST_PAINT_0_PAINT_EVENT_0,aliasListPaint0PaintEvent0),new KeyValueMemberName(LIST_PAINT_0_PAINT_EVENT_1,aliasListPaint0PaintEvent1),new KeyValueMemberName(LIST_PAINT_0_PAINT_EVENT_2,aliasListPaint0PaintEvent2),new KeyValueMemberName(LIST_PAINT_0_PAINT_EVENT_3,aliasListPaint0PaintEvent3),new KeyValueMemberName(LIST_PAINT_0_PAINT_EVENT_4,aliasListPaint0PaintEvent4)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(LIST_SELECTION_0_VALUE_CHANGED_0,aliasListSelection0ValueChanged0),new KeyValueMemberName(LIST_SELECTION_0_VALUE_CHANGED_1,aliasListSelection0ValueChanged1)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(PAINT_0_PAINT_METHOD_0,aliasPaint0PaintMethod0)));
+        m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(PAINT_0_TABBED_PANE_SET_0,aliasPaint0TabbedPaneSet0),new KeyValueMemberName(PAINT_0_TABBED_PANE_SET_1,aliasPaint0TabbedPaneSet1),new KeyValueMemberName(PAINT_0_TABBED_PANE_SET_2,aliasPaint0TabbedPaneSet2)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(PAINT_0_TABBED_PANE_ADD_0,aliasPaint0TabbedPaneAdd0),new KeyValueMemberName(PAINT_0_TABBED_PANE_ADD_1,aliasPaint0TabbedPaneAdd1),new KeyValueMemberName(PAINT_0_TABBED_PANE_ADD_2,aliasPaint0TabbedPaneAdd2)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(PAINT_1_TABBED_PANE_ADD_0,aliasPaint1TabbedPaneAdd0),new KeyValueMemberName(PAINT_1_TABBED_PANE_ADD_1,aliasPaint1TabbedPaneAdd1)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(PAINT_0_PAINT_REFRESH_0,aliasPaint0PaintRefresh0)));
@@ -1396,6 +1412,7 @@ public final class GuiAliasParameters {
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(GR_LIST_0_TABBED_PANE_ADD_0,aliasGrList0TabbedPaneAdd0),new KeyValueMemberName(GR_LIST_0_TABBED_PANE_ADD_1,aliasGrList0TabbedPaneAdd1)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(GR_LIST_1_TABBED_PANE_ADD_0,aliasGrList1TabbedPaneAdd0),new KeyValueMemberName(GR_LIST_1_TABBED_PANE_ADD_1,aliasGrList1TabbedPaneAdd1),new KeyValueMemberName(GR_LIST_1_TABBED_PANE_ADD_2,aliasGrList1TabbedPaneAdd2)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(GR_LIST_0_TREE_NODE_SET_USER_OBJECT_0,aliasGrList0TreeNodeSetUserObject0),new KeyValueMemberName(GR_LIST_0_TREE_NODE_SET_USER_OBJECT_1,aliasGrList0TreeNodeSetUserObject1),new KeyValueMemberName(GR_LIST_0_TREE_NODE_SET_USER_OBJECT_2,aliasGrList0TreeNodeSetUserObject2)));
+        m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(GR_LIST_1_TREE_NODE_SET_USER_OBJECT_0,aliasGrList1TreeNodeSetUserObject0),new KeyValueMemberName(GR_LIST_1_TREE_NODE_SET_USER_OBJECT_1,aliasGrList1TreeNodeSetUserObject1)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(GR_LIST_0_GR_LIST_SET_SELECTED_INDEXES_0,aliasGrList0GrListSetSelectedIndexes0)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(GR_LIST_0_REMOVE_COMPO_0,aliasGrList0RemoveCompo0)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(GR_LIST_0_GR_LIST_0,aliasGrList0GrList0)));
@@ -1603,6 +1620,18 @@ public final class GuiAliasParameters {
 
     public String getAliasPaint0PaintMethod0() {
         return aliasPaint0PaintMethod0;
+    }
+
+    public String getAliasPaint0TabbedPaneSet0() {
+        return aliasPaint0TabbedPaneSet0;
+    }
+
+    public String getAliasPaint0TabbedPaneSet1() {
+        return aliasPaint0TabbedPaneSet1;
+    }
+
+    public String getAliasPaint0TabbedPaneSet2() {
+        return aliasPaint0TabbedPaneSet2;
     }
 
     public String getAliasPaint0TabbedPaneAdd0() {
@@ -2695,6 +2724,14 @@ public final class GuiAliasParameters {
 
     public String getAliasGrList0TreeNodeSetUserObject2() {
         return aliasGrList0TreeNodeSetUserObject2;
+    }
+
+    public String getAliasGrList1TreeNodeSetUserObject0() {
+        return aliasGrList1TreeNodeSetUserObject0;
+    }
+
+    public String getAliasGrList1TreeNodeSetUserObject1() {
+        return aliasGrList1TreeNodeSetUserObject1;
     }
 
     public String getAliasGrList0GrListSetSelectedIndexes0() {

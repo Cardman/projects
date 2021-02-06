@@ -68,6 +68,7 @@ public final class GuiExecutingBlocks {
     private ExecTypeFunction pairPaintRefresh;
     private ExecTypeFunction pairPaintMethod;
     private ExecTypeFunction pairPaintAdd;
+    private ExecTypeFunction pairPaintSet;
     private DefaultClosingMainWindow eventClose;
 
     public void initApplicationParts(GuiInitializer _guiInit,StringList _mainArgs, MainWindow _window) {
@@ -217,6 +218,10 @@ public final class GuiExecutingBlocks {
                 _guiAliases.getAliasPaintAdd(),new StringList(_guiAliases.getAliasGrList(),_content.getPrimTypes().getAliasPrimInteger(),_content.getCoreNames().getAliasObject()));
         ExecNamedFunctionBlock paintAdd_ = ExecClassesUtil.getMethodBodiesById(paint_,fct_).first();
         pairPaintAdd = new ExecTypeFunction(paint_, paintAdd_);
+        fct_ = new MethodId(MethodAccessKind.STATIC,
+                _guiAliases.getAliasPaintSet(),new StringList(_guiAliases.getAliasGrList(),_content.getPrimTypes().getAliasPrimInteger(),_content.getCoreNames().getAliasObject()));
+        ExecNamedFunctionBlock paintSet_ = ExecClassesUtil.getMethodBodiesById(paint_,fct_).first();
+        pairPaintSet = new ExecTypeFunction(paint_, paintSet_);
     }
 
     public ExecRootBlock getActionListener() {
@@ -383,7 +388,11 @@ public final class GuiExecutingBlocks {
         return pairPaintAdd;
     }
 
-    public Struct showTextField(Struct _img,Struct _frame, Struct _value, Struct _message, Struct _title, Struct _ok, Struct _cancel) {
+    public ExecTypeFunction getPairPaintSet() {
+        return pairPaintSet;
+    }
+
+    public Struct showTextField(Struct _img, Struct _frame, Struct _value, Struct _message, Struct _title, Struct _ok, Struct _cancel) {
         if (_img instanceof ImageStruct) {
             ImageStruct img_ = (ImageStruct) _img;
             if (_frame instanceof WindowStruct) {

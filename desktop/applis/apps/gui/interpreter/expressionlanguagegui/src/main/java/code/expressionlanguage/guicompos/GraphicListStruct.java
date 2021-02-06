@@ -60,6 +60,12 @@ public final class GraphicListStruct extends InputStruct {
         PreparedLabel textLabel_ = img_.getTextLabel();
         grList.set(_index, textLabel_,_elt);
     }
+    public void set(int _index, Struct _elt) {
+        if (!grList.getList().isValidIndex(_index)) {
+            return;
+        }
+        grList.set(_index,_elt);
+    }
     public ArrayStruct getListView(ContextEl _ctx) {
         CustList<Struct> list_ = grList.getList();
         int len_ = list_.size();

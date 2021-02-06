@@ -43,6 +43,11 @@ public final class CustGrMultList extends CustComponent implements AbsInputGraph
     }
 
     @Override
+    public void set(int _index, String _elt) {
+        compo.set(_index, _elt);
+    }
+
+    @Override
     public boolean selectOneAmongIntervalPaint(boolean _sel, int _index) {
         return compo.selectOneAmongIntervalPaint(_sel, _index);
     }
