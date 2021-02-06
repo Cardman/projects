@@ -172,26 +172,34 @@ public final class GraphicListStruct extends InputStruct {
             Struct paint_ = rend_.getPaint();
             Struct hei_ = rend_.getHeight();
             Struct wid_ = rend_.getWidth();
-            if (paint_ instanceof LambdaStruct&& hei_ instanceof LambdaStruct&& wid_ instanceof LambdaStruct) {
+            if (paint_ instanceof LambdaStruct) {
                 LambdaStruct p_ = (LambdaStruct) paint_;
-                LambdaStruct hl_ = (LambdaStruct) hei_;
-                LambdaStruct wl_ = (LambdaStruct) wid_;
+                DefSpecSelectionDimStruct widthStr_ = null;
+                DefSpecSelectionDimStruct heightStr_ = null;
                 String aliasImageLabel_ = ((LgNamesGui) _ctx.getStandards()).getGuiAliases().getAliasImageLabel();
                 PreparedLabelStruct im_ = new PreparedLabelStruct(aliasImageLabel_);
                 PreparedLabel lab_ = im_.getTextLabel();
                 GuiExecutingBlocks guiExecutingBlocks_ = ((LgNamesGui) _ctx.getStandards()).getGuiExecutingBlocks();
                 ExecRootBlock typePaint_ = guiExecutingBlocks_.getListPaintSelection();
                 ExecNamedFunctionBlock paintMeth_ = guiExecutingBlocks_.getPaintEvent();
-                ExecRootBlock typeWi_ = guiExecutingBlocks_.getListWidthSelection();
-                ExecNamedFunctionBlock wiMeth_ = guiExecutingBlocks_.getWidthEvent();
-                ExecRootBlock typeHe_ = guiExecutingBlocks_.getListHeightSelection();
-                ExecNamedFunctionBlock heMeth_ = guiExecutingBlocks_.getHeightEvent();
-                grList.setCell(this, _ctx,lab_,im_,new DefSpecSelectionCtx(_ctx.getExecutionInfos()),
-                        new DefSpecSelectionStruct(_ctx,typePaint_.getFullName(),this, p_,paintMeth_),
-                        new DefSpecSelectionDimStruct(_ctx,typeWi_.getFullName(),wl_,wiMeth_),
-                        new DefSpecSelectionDimStruct(_ctx,typeHe_.getFullName(),hl_,heMeth_));
+                if (hei_ instanceof LambdaStruct) {
+                    LambdaStruct hl_ = (LambdaStruct) hei_;
+                    ExecRootBlock typeHe_ = guiExecutingBlocks_.getListHeightSelection();
+                    ExecNamedFunctionBlock heMeth_ = guiExecutingBlocks_.getHeightEvent();
+                    heightStr_ = new DefSpecSelectionDimStruct(_ctx, typeHe_.getFullName(), hl_, heMeth_);
+                }
+                if (wid_ instanceof LambdaStruct) {
+                    LambdaStruct wl_ = (LambdaStruct) wid_;
+                    ExecRootBlock typeWi_ = guiExecutingBlocks_.getListWidthSelection();
+                    ExecNamedFunctionBlock wiMeth_ = guiExecutingBlocks_.getWidthEvent();
+                    widthStr_ = new DefSpecSelectionDimStruct(_ctx, typeWi_.getFullName(), wl_, wiMeth_);
+                }
+                grList.setCell(this, _ctx, lab_, im_, new DefSpecSelectionCtx(_ctx.getExecutionInfos()),
+                        new DefSpecSelectionStruct(_ctx, typePaint_.getFullName(), this, p_, paintMeth_),
+                        widthStr_,
+                        heightStr_);
             } else {
-                grList.setCell(this, _ctx,null,null,new DefSpecSelectionCtx(_ctx.getExecutionInfos()),null, null, null);
+                grList.setCell(this, _ctx, null, null, new DefSpecSelectionCtx(_ctx.getExecutionInfos()), null, null, null);
             }
         } else {
             grList.setCell(this, _ctx,null,null,new DefSpecSelectionCtx(_ctx.getExecutionInfos()),null, null, null);

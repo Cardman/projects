@@ -17,7 +17,7 @@ public final class CustGrListStr extends CustGrList<Struct> implements AbsCustGr
             getListView().setCellRenderer(cell_);
         } else {
             DefSelListStr cell_ = new DefSelListStr(_create,new DefaultListCellRenderer());
-            getListView().setCellRenderer(cell_);
+            getListView().setCellRenderer(cell_::getListCellRendererComponent);
         }
     }
 }
