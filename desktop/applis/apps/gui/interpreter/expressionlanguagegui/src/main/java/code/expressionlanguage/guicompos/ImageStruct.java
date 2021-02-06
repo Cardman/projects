@@ -10,9 +10,9 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
 public final class ImageStruct extends WithoutParentIdStruct implements Struct {
-    private BufferedImage image;
-    private boolean withAlpha;
-    private Graphics graphics;
+    private final BufferedImage image;
+    private final boolean withAlpha;
+    private final Graphics graphics;
     public ImageStruct(int _w, int _h, boolean _rgba) {
         int w_ = Math.max(1,_w);
         int h_ = Math.max(1,_h);
@@ -22,6 +22,11 @@ public final class ImageStruct extends WithoutParentIdStruct implements Struct {
         } else {
             image = new BufferedImage(w_,h_,BufferedImage.TYPE_INT_RGB);
         }
+        graphics = image.getGraphics();
+    }
+    public ImageStruct(BufferedImage _buff) {
+        withAlpha = _buff.getType() == BufferedImage.TYPE_INT_ARGB;
+        image = _buff;
         graphics = image.getGraphics();
     }
     public IntStruct getWidth() {

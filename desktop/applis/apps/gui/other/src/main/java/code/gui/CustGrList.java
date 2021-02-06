@@ -3,7 +3,7 @@ import code.util.CustList;
 import code.util.Ints;
 import javax.swing.*;
 
-public final class CustGrList<T> extends CustComponent implements AbsGraphicList<T> {
+public class CustGrList<T> extends CustComponent implements AbsGraphicList<T> {
 
 	private final DefaultListModel<T> model = new DefaultListModel<>();
 	private final JList<T> list = new JList<>(model);
@@ -41,6 +41,9 @@ public final class CustGrList<T> extends CustComponent implements AbsGraphicList
 		list.setCellRenderer(r_);
     }
 
+    public JList<T> getListView() {
+        return list;
+    }
     public void add(T _elt) {
         add(elts.size(),_elt);
     }

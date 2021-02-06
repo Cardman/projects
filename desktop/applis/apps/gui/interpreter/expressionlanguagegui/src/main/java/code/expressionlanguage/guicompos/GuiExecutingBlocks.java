@@ -49,6 +49,12 @@ public final class GuiExecutingBlocks {
     private ExecNamedFunctionBlock windowDeactivated;
     private ExecRootBlock listSelection;
     private ExecNamedFunctionBlock valueChanged;
+    private ExecRootBlock listPaintSelection;
+    private ExecNamedFunctionBlock paintEvent;
+    private ExecRootBlock listWidthSelection;
+    private ExecNamedFunctionBlock widthEvent;
+    private ExecRootBlock listHeightSelection;
+    private ExecNamedFunctionBlock heightEvent;
     private ExecRootBlock changeListener;
     private ExecNamedFunctionBlock stateChanged;
     private ExecRootBlock treeListener;
@@ -147,6 +153,29 @@ public final class GuiExecutingBlocks {
         fct_ = new MethodId(MethodAccessKind.INSTANCE,
                 _guiAliases.getAliasValueChanged(),new StringList(ind_,ind_));
         valueChanged = ExecClassesUtil.getMethodBodiesById(listSelection,fct_).first();
+        String aliasListPaint_ = _guiAliases.getAliasListPaint();
+        listPaintSelection = _classes.getClassBody(aliasListPaint_);
+        String indPaintSelOne_ = _guiAliases.getAliasGrList();
+        String indPaintSelTwo_ = _content.getCoreNames().getAliasObject();
+        String indPaintSelThree_ = _content.getPrimTypes().getAliasPrimInteger();
+        String indPaintSelFour_ = _content.getPrimTypes().getAliasPrimBoolean();
+        String indPaintSelFive_ = _guiAliases.getAliasImage();
+        fct_ = new MethodId(MethodAccessKind.INSTANCE,
+                _guiAliases.getAliasListPaintPaintEvent(),new StringList(indPaintSelOne_,indPaintSelTwo_,indPaintSelThree_,indPaintSelFour_,indPaintSelFive_));
+        paintEvent = ExecClassesUtil.getMethodBodiesById(listPaintSelection,fct_).first();
+        String aliasListHeight_ = _guiAliases.getAliasListHeight();
+        listHeightSelection = _classes.getClassBody(aliasListHeight_);
+        String indPaintHeightOne_ = _content.getCoreNames().getAliasObject();
+        fct_ = new MethodId(MethodAccessKind.INSTANCE,
+                _guiAliases.getAliasListHeightPaintEvent(),new StringList(indPaintHeightOne_));
+        heightEvent = ExecClassesUtil.getMethodBodiesById(listHeightSelection,fct_).first();
+        String aliasListWidth_ = _guiAliases.getAliasListWidth();
+        listWidthSelection = _classes.getClassBody(aliasListWidth_);
+        String indPaintWidthOne_ = _content.getCoreNames().getAliasObject();
+        String indPaintWidthTwo_ = _content.getPrimTypes().getAliasPrimInteger();
+        fct_ = new MethodId(MethodAccessKind.INSTANCE,
+                _guiAliases.getAliasListWidthPaintEvent(),new StringList(indPaintWidthOne_,indPaintWidthTwo_));
+        widthEvent = ExecClassesUtil.getMethodBodiesById(listWidthSelection,fct_).first();
         String aliasChangeListener_ = _guiAliases.getAliasChangeListener();
         changeListener = _classes.getClassBody(aliasChangeListener_);
         fct_ = new MethodId(MethodAccessKind.INSTANCE,
@@ -276,6 +305,30 @@ public final class GuiExecutingBlocks {
 
     public ExecNamedFunctionBlock getValueChanged() {
         return valueChanged;
+    }
+
+    public ExecRootBlock getListWidthSelection() {
+        return listWidthSelection;
+    }
+
+    public ExecNamedFunctionBlock getWidthEvent() {
+        return widthEvent;
+    }
+
+    public ExecRootBlock getListHeightSelection() {
+        return listHeightSelection;
+    }
+
+    public ExecNamedFunctionBlock getHeightEvent() {
+        return heightEvent;
+    }
+
+    public ExecRootBlock getListPaintSelection() {
+        return listPaintSelection;
+    }
+
+    public ExecNamedFunctionBlock getPaintEvent() {
+        return paintEvent;
     }
 
     public ExecRootBlock getChangeListener() {

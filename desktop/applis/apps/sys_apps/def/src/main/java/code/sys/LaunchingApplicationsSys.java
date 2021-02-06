@@ -12,14 +12,11 @@ import cards.president.enumerations.CardPresident;
 import cards.tarot.enumerations.CardTarot;
 import code.expressionlanguage.guicompos.GuiFactroy;
 import code.expressionlanguage.structs.Struct;
-import code.sys.impl.GraphicComboBoxGenerator;
-import code.sys.impl.GraphicListGenerator;
-import code.sys.impl.GraphicStringListGenerator;
-import code.sys.impl.ProgramInfos;
+import code.sys.impl.*;
 
 public class LaunchingApplicationsSys extends LaunchingApplications {
 
     public LaunchingApplicationsSys() {
-        super(new ProgramInfos(new GraphicStringListGenerator(), new GraphicComboBoxGenerator()), new CardFactories(new GraphicListGenerator<CardBelote>(), new GraphicListGenerator<CardPresident>(), new GraphicListGenerator<CardTarot>(), new GraphicListGenerator<Suit>()), new AikiFactory(new GraphicListGenerator<BallNumberRate>(), new GraphicListGenerator<Fighter>(), new GraphicListGenerator<String>(), new GraphicListGenerator<String>(), new GraphicListGenerator<String>(), new GraphicListGenerator<UsablePokemon>()), new GuiFactroy(new GraphicListGenerator<Struct>()));
+        super(new ProgramInfos(new GraphicStringListGenerator(), new GraphicComboBoxGenerator()), new CardFactories(new GraphicListGenerator<CardBelote>(), new GraphicListGenerator<CardPresident>(), new GraphicListGenerator<CardTarot>(), new GraphicListGenerator<Suit>()), new AikiFactory(new GraphicListGenerator<BallNumberRate>(), new GraphicListGenerator<Fighter>(), new GraphicListGenerator<String>(), new GraphicListGenerator<String>(), new GraphicListGenerator<String>(), new GraphicListGenerator<UsablePokemon>()), new GuiFactroy(new GraphicListGeneratorStr()));
     }
 }

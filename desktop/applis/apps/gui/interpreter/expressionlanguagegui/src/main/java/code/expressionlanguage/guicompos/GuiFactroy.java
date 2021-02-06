@@ -1,16 +1,15 @@
 package code.expressionlanguage.guicompos;
 
-import code.expressionlanguage.structs.Struct;
-import code.gui.initialize.AbstractGraphicListGenerator;
+import code.gui.initialize.AbstractAdvGraphicListGenerator;
 
 public final class GuiFactroy {
-    private final AbstractGraphicListGenerator<Struct> graphicListGenerator;
+    private final AbstractAdvGraphicListGenerator graphicListGenerator;
 
-    public GuiFactroy(AbstractGraphicListGenerator<Struct> _graphicListGenerator) {
+    public GuiFactroy(AbstractAdvGraphicListGenerator _graphicListGenerator) {
         graphicListGenerator = _graphicListGenerator;
     }
 
-    public AbstractGraphicListGenerator<Struct> getGraphicListGenerator() {
+    public AbstractAdvGraphicListGenerator getGraphicListGenerator() {
         return graphicListGenerator;
     }
 }

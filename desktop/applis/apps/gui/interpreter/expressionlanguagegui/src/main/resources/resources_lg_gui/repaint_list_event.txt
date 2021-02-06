@@ -1,0 +1,9 @@
+{public} {interface} {ListPaintSelection} '{'
+ {public} {void} {paintEvent}({GrList} {g}, {Object} {o}, {int} {f}, {boolean} {s}, {ImageLab} {i});
+'}'
+{public} {interface} {ListWidthSelection} '{'
+ {public} {int} {width}({Object} {p}, {int} {l});
+'}'
+{public} {interface} {ListHeightSelection} '{'
+ {public} {int} {height}({Object} {q});
+'}'

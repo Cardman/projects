@@ -1,7 +1,6 @@
 package code.sys.impl;
 
 import code.gui.AbsGraphicList;
-import code.gui.AbsGraphicListPainter;
 import code.gui.DefaultGraphicListPainter;
 import code.gui.GraphicList;
 import code.gui.initialize.AbstractGraphicListGenerator;
@@ -10,10 +9,6 @@ public final class GraphicListGenerator<T> implements AbstractGraphicListGenerat
     @Override
     public AbsGraphicList<T> create(boolean _simple) {
         return new GraphicList<T>(_simple, new DefaultGraphicListPainter());
-    }
-    @Override
-    public AbsGraphicList<T> create(boolean _simple, AbsGraphicListPainter _abs) {
-        return new GraphicList<T>(_simple, _abs);
     }
 
 }
