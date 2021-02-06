@@ -104,7 +104,7 @@ public final class CustComboBox extends CustComponent implements GraphicComboGrI
     }
 
     public void update() {
-        
+        //
     }
 
     public CustComponent getCurrentSelected() {
