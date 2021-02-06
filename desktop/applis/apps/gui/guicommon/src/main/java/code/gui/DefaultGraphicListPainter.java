@@ -41,6 +41,6 @@ public final class DefaultGraphicListPainter implements AbsGraphicListPainter {
 
     @Override
     public void setValue(Struct _value) {
-
+        //
     }
 }
