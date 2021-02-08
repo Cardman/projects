@@ -2189,7 +2189,117 @@ public final class ProcessMethodAnonymousTypesTest extends ProcessMethodCommon {
         ret_ = calculateNormal("pkg.Ext", id_, args_, cont_);
         assertEq(0, getNumber(ret_));
     }
-
+    @Test
+    public void calculate59() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("interface pkg.Int<T> {\n");
+        xml_.append(" T field();\n");
+        xml_.append("}\n");
+        xml_.append("class pkg.Ext<U> {\n");
+        xml_.append(" static int extField;\n");
+        xml_.append(" static int m(){\n");
+        xml_.append("  return staticCall(Ext<int>).m(2);\n");
+        xml_.append(" }\n");
+        xml_.append(" staticCall U m(U p){\n");
+        xml_.append("  Int<U> l = new Int<U>(p){\n");
+        xml_.append("   public T field;\n");
+        xml_.append("   public Int(T p){\n");
+        xml_.append("    field = p;\n");
+        xml_.append("   }\n");
+        xml_.append("   public T field(){\n");
+        xml_.append("    return field;\n");
+        xml_.append("   }\n");
+        xml_.append("  };\n");
+        xml_.append("  return l.field();\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxLgOk("en", files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("m");
+        Argument ret_ = new Argument();
+        ret_ = calculateNormal("pkg.Ext", id_, args_, cont_);
+        assertEq(2, getNumber(ret_));
+    }
+    @Test
+    public void calculate60() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("interface pkg.Int<T> {\n");
+        xml_.append(" T field();\n");
+        xml_.append("}\n");
+        xml_.append("class pkg.Ext<U> {\n");
+        xml_.append(" static int extField;\n");
+        xml_.append(" static int m(){\n");
+        xml_.append("  return Class.forName(\"pkg.Ext..Int*1<int>\",false).getDeclaredMethods().length;\n");
+        xml_.append(" }\n");
+        xml_.append(" staticCall U m(U p){\n");
+        xml_.append("  Int<U> l = new Int<U>(p){\n");
+        xml_.append("   public T field;\n");
+        xml_.append("   public Int(T p){\n");
+        xml_.append("    field = p;\n");
+        xml_.append("   }\n");
+        xml_.append("   public T field(){\n");
+        xml_.append("    return field;\n");
+        xml_.append("   }\n");
+        xml_.append("  };\n");
+        xml_.append("  return l.field();\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxLgOk("en", files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("m");
+        Argument ret_ = new Argument();
+        ret_ = calculateNormal("pkg.Ext", id_, args_, cont_);
+        assertEq(1, getNumber(ret_));
+    }
+    @Test
+    public void calculate61() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("interface pkg.Int<T,W:V,V:Int2<V>> {\n");
+        xml_.append(" T field();\n");
+        xml_.append("}\n");
+        xml_.append("class pkg.ExSimple:Int2<ExSimple> {\n");
+        xml_.append(" int sample(){\n");
+        xml_.append("  return 5;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("interface pkg.Int2<A:Int2<A>> {\n");
+        xml_.append("}\n");
+        xml_.append("class pkg.Ext<U,B:ExSimple> {\n");
+        xml_.append(" static int extField;\n");
+        xml_.append(" static int m(){\n");
+        xml_.append("  return staticCall(Ext<int,ExSimple>).m(2,new ExSimple());\n");
+        xml_.append(" }\n");
+        xml_.append(" staticCall U m(U p,B q){\n");
+        xml_.append("  Int<U,B,ExSimple> l = new Int<U,B,ExSimple>(p,q){\n");
+        xml_.append("   public T field;\n");
+        xml_.append("   public W field2;\n");
+        xml_.append("   public Int(T p,W q){\n");
+        xml_.append("    field = p;\n");
+        xml_.append("    field2 = q;\n");
+        xml_.append("   }\n");
+        xml_.append("   public T field(){\n");
+        xml_.append("    return (T)((int)field+field2.sample());\n");
+        xml_.append("   }\n");
+        xml_.append("  };\n");
+        xml_.append("  return l.field();\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxLgOk("en", files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("m");
+        Argument ret_ = new Argument();
+        ret_ = calculateNormal("pkg.Ext", id_, args_, cont_);
+        assertEq(7, getNumber(ret_));
+    }
     @Test
     public void fail1() {
         StringMap<String> files_ = new StringMap<String>();

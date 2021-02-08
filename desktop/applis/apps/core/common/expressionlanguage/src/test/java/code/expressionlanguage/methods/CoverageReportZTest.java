@@ -10897,6 +10897,61 @@ public final class CoverageReportZTest extends ProcessMethodCommon {
                 "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
+    public void coverage646Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("interface pkg.Int<T> {\n");
+        xml_.append(" T field();\n");
+        xml_.append("}\n");
+        xml_.append("class pkg.Ext<U> {\n");
+        xml_.append(" static int extField;\n");
+        xml_.append(" static int m(){\n");
+        xml_.append("  return staticCall(Ext<int>).m(2);\n");
+        xml_.append(" }\n");
+        xml_.append(" staticCall U m(U p){\n");
+        xml_.append("  Int<U> l = new Int<U>(p){\n");
+        xml_.append("   public T field;\n");
+        xml_.append("   public Int(T p){\n");
+        xml_.append("    field = p;\n");
+        xml_.append("   }\n");
+        xml_.append("   public T field(){\n");
+        xml_.append("    return field;\n");
+        xml_.append("   }\n");
+        xml_.append("  };\n");
+        xml_.append("  return l.field();\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("src/pkg/Ex", xml_.toString());
+        ContextEl cont_ = covEnReadOnlyImpl(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("m");
+        calculateNormal("pkg.Ext", id_, args_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">interface <a name=\"m10\">pkg.Int</a>&lt;<a name=\"m18\">T</a>&gt; {\n" +
+                " <a href=\"#m18\">T</a> <a name=\"m26\">field</a>();\n" +
+                "}\n" +
+                "class <a name=\"m43\">pkg.Ext</a>&lt;<a name=\"m51\">U</a>&gt; {\n" +
+                " static int <span class=\"g\"><a name=\"m68\">extField</a></span>;\n" +
+                " static int <a name=\"m90\">m</a>(){\n" +
+                "  return <span class=\"f\"><span class=\"f\">staticCall(<a title=\"pkg.Ext\" href=\"#m43\">Ext</a>&lt;int&gt;)</span>.<span class=\"f\"><a title=\"pkg.Ext.staticCall m(#U)\" href=\"#m148\">m</a>(<span class=\"f\">2</span>)</span></span>;\n" +
+                " }\n" +
+                " staticCall <a href=\"#m51\">U</a> <a name=\"m148\">m</a>(<a href=\"#m51\">U</a> <a name=\"m152\">p</a>){\n" +
+                "  <a title=\"pkg.Int\" href=\"#m10\">Int</a>&lt;<a href=\"#m51\">U</a>&gt; <span class=\"f\"><span class=\"f\"><a name=\"m165\">l</a> </span>=<span class=\"f\"> <a title=\"pkg.Ext..Int*1.pkg.Ext..Int*1(#T)\" href=\"#m206\">new</a> <a title=\"pkg.Int\" href=\"#m10\">Int</a>&lt;<a href=\"#m51\">U</a>&gt;(<span class=\"f\"><a href=\"#m152\">p</a></span>)<span class=\"t\"><a name=\"m182\">{</a>\n" +
+                "   public <a href=\"#m182\">T</a> <span class=\"f\"><a name=\"m196\">field</a></span>;\n" +
+                "   <a name=\"m206\">public Int(</a><a href=\"#m182\">T</a> <a name=\"m219\">p</a>){\n" +
+                "    <span class=\"f\"><span class=\"f\"><a title=\"pkg.Ext..Int*1.field\" href=\"#m196\">field</a> </span>=<span class=\"f\"> <a href=\"#m219\">p</a></span></span>;\n" +
+                "   }\n" +
+                "   public <a href=\"#m182\">T</a> <a name=\"m255\">field</a>(){\n" +
+                "    return <span class=\"f\"><a title=\"pkg.Ext..Int*1.field\" href=\"#m196\">field</a></span>;\n" +
+                "   }\n" +
+                "  }</span></span></span>;\n" +
+                "  return <span class=\"f\"><span class=\"f\"><a href=\"#m165\">l</a></span>.<span class=\"f\"><a title=\"pkg.Int.field()\" href=\"#m26\">field</a>()</span></span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
     public void coverageComment17Test() {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;

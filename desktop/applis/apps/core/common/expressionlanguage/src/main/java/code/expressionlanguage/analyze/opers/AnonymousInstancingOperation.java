@@ -3,19 +3,24 @@ package code.expressionlanguage.analyze.opers;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.*;
 import code.expressionlanguage.analyze.files.ParsedAnnotations;
+import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.analyze.opers.util.ConstrustorIdVarArg;
 import code.expressionlanguage.analyze.opers.util.MemberId;
 import code.expressionlanguage.analyze.opers.util.NameParametersFilter;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.ResolvingTypes;
 import code.expressionlanguage.analyze.util.ContextUtil;
+import code.expressionlanguage.analyze.util.TypeVar;
 import code.expressionlanguage.common.AnaGeneType;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
+import code.expressionlanguage.fwd.blocks.AnaRootBlockContent;
 import code.expressionlanguage.fwd.opers.AnaInstancingAnonContent;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.options.KeyWords;
 import code.util.CustList;
+import code.util.StringList;
+import code.util.StringMap;
 import code.util.core.StringUtil;
 
 public final class AnonymousInstancingOperation extends
@@ -27,6 +32,7 @@ public final class AnonymousInstancingOperation extends
     private String base="";
     private String type="";
     private int index;
+    private final StringMap<String> anonTypeVars = new StringMap<String>();
 
     public AnonymousInstancingOperation(int _index, int _indexChild,
                                         MethodOperation _m, OperationsSequence _op, AnonymousTypeBlock _block) {
@@ -66,7 +72,7 @@ public final class AnonymousInstancingOperation extends
         }
         realClassName_ = realClassName_.trim();
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _page);
-        if (getTypeInfer().contains("#")||!StringExpUtil.isDollarWord(instancingAnonContent.getBlock().getName())) {
+        if (!StringExpUtil.isDollarWord(instancingAnonContent.getBlock().getName())) {
             FoundErrorInterpret static_ = new FoundErrorInterpret();
             static_.setFileName(_page.getLocalizer().getCurrentFileName());
             static_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
@@ -102,9 +108,6 @@ public final class AnonymousInstancingOperation extends
 
     @Override
     protected boolean koType(AnaGeneType _type, String _realClassName, AnalyzedPageEl _page) {
-        if (_realClassName.contains("#")) {
-            return true;
-        }
         if (!(_type instanceof RootBlock)) {
             return true;
         }
@@ -139,9 +142,42 @@ public final class AnonymousInstancingOperation extends
             _page.getLocalizer().addError(call_);
             addErr(call_.getBuiltError());
         }
-        instancingAnonContent.getBlock().getDirectSuperTypes().add(_realClassName);
+        CustList<String> args_ = StringExpUtil.getAllTypes(_realClassName).mid(1);
+        CustList<TypeVar> cts_ = ((RootBlock) g_).getParamTypesMapValues();
+        StringMap<String> map_ = new StringMap<String>();
+        CustList<TypeVar> selected_ = new CustList<TypeVar>();
+        CustList<String> superNames_ = new CustList<String>();
+        int len_ = Math.min(args_.size(),cts_.size());
+        for (int i = 0; i < len_; i++) {
+            String a_ = args_.get(i);
+            TypeVar ct_ = cts_.get(i);
+            String name_ = ct_.getName();
+            if (a_.contains("#")) {
+                superNames_.add(StringUtil.concat("#",name_));
+                selected_.add(ct_);
+                anonTypeVars.addEntry(name_,a_);
+            } else {
+                superNames_.add(a_);
+                map_.addEntry(name_,a_);
+            }
+        }
+        AnaRootBlockContent rootBlockContent_ = instancingAnonContent.getBlock().getRootBlockContent();
+        for (TypeVar t: selected_) {
+            TypeVar t_ = new TypeVar();
+            t_.setOffset(instancingAnonContent.getBlock().getIdRowCol());
+            t_.setLength(t.getLength());
+            StringList const_ = new StringList();
+            for (String c: t.getConstraints()) {
+                const_.add(StringExpUtil.getQuickFormattedType(c, map_));
+            }
+            t_.setConstraints(const_);
+            t_.setName(t.getName());
+            rootBlockContent_.getParamTypes().add(t_);
+        }
+        String superType_ = AnaTemplates.getRealClassName(base_,superNames_);
+        instancingAnonContent.getBlock().getDirectSuperTypes().add(superType_);
         instancingAnonContent.getBlock().getExplicitDirectSuperTypes().put(-1, false);
-        instancingAnonContent.getBlock().getRowColDirectSuperTypes().put(-1, _realClassName);
+        instancingAnonContent.getBlock().getRowColDirectSuperTypes().put(-1, superType_);
         base = base_;
         RootBlock parentType_ = instancingAnonContent.getBlock().getParentType();
         OperatorBlock operator_ = instancingAnonContent.getBlock().getOperator();
@@ -198,7 +234,7 @@ public final class AnonymousInstancingOperation extends
         CustList<OperationNode> filter_ = getChildrenNodes();
         int varargOnly_ = lookOnlyForVarArg();
         String varargParam_ = getVarargParam(filter_);
-        AnaClassArgumentMatching aClass_ = new AnaClassArgumentMatching(instancingAnonContent.getBlock().getGenericString());
+        AnaClassArgumentMatching aClass_ = new AnaClassArgumentMatching(StringExpUtil.getQuickFormattedType(instancingAnonContent.getBlock().getGenericString(), anonTypeVars));
         NameParametersFilter name_ = buildFilter(_page);
         if (!name_.isOk()) {
             setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));

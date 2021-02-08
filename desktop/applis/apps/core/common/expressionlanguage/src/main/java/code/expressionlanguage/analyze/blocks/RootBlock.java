@@ -356,6 +356,12 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
         _page.getMappingLocal().putAllMap(mappings);
         for (RootBlock r: getSelfAndParentTypes()) {
             if (r == this) {
+                if (r instanceof AnonymousTypeBlock) {
+                    for (TypeVar t: rootBlockContent.getParamTypes()) {
+                        rootBlockContent.getParamTypesMap().addEntry(t.getName(), t);
+                    }
+                    continue;
+                }
                 int j_ = 0;
                 for (TypeVar t: rootBlockContent.getParamTypes()) {
                     StringList const_ = new StringList();

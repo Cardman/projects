@@ -624,7 +624,7 @@ public final class AnaTemplates {
         return getCorrectTemplateAll(realClassName_, _parts, _inherit, _page);
     }
 
-    public static String getRealClassName(String _className, StringList _parts) {
+    public static String getRealClassName(String _className, CustList<String> _parts) {
         String realClassName_;
         if (_parts.isEmpty()) {
             realClassName_ = _className;
