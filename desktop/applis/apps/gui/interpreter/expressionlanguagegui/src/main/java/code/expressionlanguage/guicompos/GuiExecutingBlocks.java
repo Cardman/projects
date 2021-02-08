@@ -51,6 +51,8 @@ public final class GuiExecutingBlocks {
     private ExecNamedFunctionBlock valueChanged;
     private ExecRootBlock listPaintSelection;
     private ExecNamedFunctionBlock paintEvent;
+    private ExecRootBlock listDimSelection;
+    private ExecNamedFunctionBlock dimEvent;
     private ExecRootBlock listWidthSelection;
     private ExecNamedFunctionBlock widthEvent;
     private ExecRootBlock listHeightSelection;
@@ -66,6 +68,7 @@ public final class GuiExecutingBlocks {
     private ExecNamedFunctionBlock keyTyped;
     private ExecNamedFunctionBlock keyReleased;
     private ExecTypeFunction pairPaintRefresh;
+    private ExecTypeFunction pairPaintRefreshOne;
     private ExecTypeFunction pairPaintMethod;
     private ExecTypeFunction pairPaintAdd;
     private ExecTypeFunction pairPaintSet;
@@ -164,19 +167,16 @@ public final class GuiExecutingBlocks {
         fct_ = new MethodId(MethodAccessKind.INSTANCE,
                 _guiAliases.getAliasListPaintPaintEvent(),new StringList(indPaintSelOne_,indPaintSelTwo_,indPaintSelThree_,indPaintSelFour_,indPaintSelFive_));
         paintEvent = ExecClassesUtil.getMethodBodiesById(listPaintSelection,fct_).first();
-        String aliasListHeight_ = _guiAliases.getAliasListHeight();
-        listHeightSelection = _classes.getClassBody(aliasListHeight_);
-        String indPaintHeightOne_ = _content.getCoreNames().getAliasObject();
+        String aliasListDim_ = _guiAliases.getAliasListDim();
+        listDimSelection = _classes.getClassBody(aliasListDim_);
+        String indDimSelOne_ = _guiAliases.getAliasGrList();
+        String indDimSelTwo_ = _content.getCoreNames().getAliasObject();
+        String indDimSelThree_ = _content.getPrimTypes().getAliasPrimInteger();
+        String indDimSelFour_ = _content.getPrimTypes().getAliasPrimBoolean();
+        String indDimSelFive_ = _content.getPrimTypes().getAliasPrimInteger();
         fct_ = new MethodId(MethodAccessKind.INSTANCE,
-                _guiAliases.getAliasListHeightPaintEvent(),new StringList(indPaintHeightOne_));
-        heightEvent = ExecClassesUtil.getMethodBodiesById(listHeightSelection,fct_).first();
-        String aliasListWidth_ = _guiAliases.getAliasListWidth();
-        listWidthSelection = _classes.getClassBody(aliasListWidth_);
-        String indPaintWidthOne_ = _content.getCoreNames().getAliasObject();
-        String indPaintWidthTwo_ = _content.getPrimTypes().getAliasPrimInteger();
-        fct_ = new MethodId(MethodAccessKind.INSTANCE,
-                _guiAliases.getAliasListWidthPaintEvent(),new StringList(indPaintWidthOne_,indPaintWidthTwo_));
-        widthEvent = ExecClassesUtil.getMethodBodiesById(listWidthSelection,fct_).first();
+                _guiAliases.getAliasListDimPaintEvent(),new StringList(indDimSelOne_,indDimSelTwo_,indDimSelThree_,indDimSelFour_,indDimSelFive_));
+        dimEvent = ExecClassesUtil.getMethodBodiesById(listDimSelection,fct_).first();
         String aliasChangeListener_ = _guiAliases.getAliasChangeListener();
         changeListener = _classes.getClassBody(aliasChangeListener_);
         fct_ = new MethodId(MethodAccessKind.INSTANCE,
@@ -210,6 +210,14 @@ public final class GuiExecutingBlocks {
                 _guiAliases.getAliasPaintRefresh(),new StringList(_guiAliases.getAliasGrList()));
         ExecNamedFunctionBlock paintRefresh_ = ExecClassesUtil.getMethodBodiesById(paint_, fct_).first();
         pairPaintRefresh = new ExecTypeFunction(paint_, paintRefresh_);
+        fct_ = new MethodId(MethodAccessKind.STATIC,
+                _guiAliases.getAliasPaintRefreshOne(),new StringList(_guiAliases.getAliasGrList(),
+                _content.getPrimTypes().getAliasPrimInteger(),_content.getPrimTypes().getAliasPrimInteger(),
+                _content.getCoreNames().getAliasObject(),
+                _content.getPrimTypes().getAliasPrimInteger(),_content.getPrimTypes().getAliasPrimBoolean()
+        ));
+        ExecNamedFunctionBlock paintRefreshOne_ = ExecClassesUtil.getMethodBodiesById(paint_, fct_).first();
+        pairPaintRefreshOne = new ExecTypeFunction(paint_, paintRefreshOne_);
         fct_ = new MethodId(MethodAccessKind.STATIC,
                 _guiAliases.getAliasPaintMethod(),new StringList(_guiAliases.getAliasComponent()));
         ExecNamedFunctionBlock paintMethod_ = ExecClassesUtil.getMethodBodiesById(paint_,fct_).first();
@@ -312,22 +320,6 @@ public final class GuiExecutingBlocks {
         return valueChanged;
     }
 
-    public ExecRootBlock getListWidthSelection() {
-        return listWidthSelection;
-    }
-
-    public ExecNamedFunctionBlock getWidthEvent() {
-        return widthEvent;
-    }
-
-    public ExecRootBlock getListHeightSelection() {
-        return listHeightSelection;
-    }
-
-    public ExecNamedFunctionBlock getHeightEvent() {
-        return heightEvent;
-    }
-
     public ExecRootBlock getListPaintSelection() {
         return listPaintSelection;
     }
@@ -378,6 +370,18 @@ public final class GuiExecutingBlocks {
 
     public ExecTypeFunction getPairPaintRefresh() {
         return pairPaintRefresh;
+    }
+
+    public ExecRootBlock getListDimSelection() {
+        return listDimSelection;
+    }
+
+    public ExecNamedFunctionBlock getDimEvent() {
+        return dimEvent;
+    }
+
+    public ExecTypeFunction getPairPaintRefreshOne() {
+        return pairPaintRefreshOne;
     }
 
     public ExecTypeFunction getPairPaintMethod() {

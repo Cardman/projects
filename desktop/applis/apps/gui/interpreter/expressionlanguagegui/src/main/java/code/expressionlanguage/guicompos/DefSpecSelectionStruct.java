@@ -4,12 +4,11 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.CommonExecutionInfos;
 import code.expressionlanguage.exec.InitPhase;
+import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
-import code.expressionlanguage.structs.AbstractFunctionalInstance;
-import code.expressionlanguage.structs.LambdaStruct;
-import code.expressionlanguage.structs.Struct;
-import code.expressionlanguage.structs.WithoutParentIdStruct;
-import code.expressionlanguage.utilcompo.RunnableFunctionalInstance;
+import code.expressionlanguage.exec.util.ArgumentListCall;
+import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
+import code.expressionlanguage.structs.*;
 import code.expressionlanguage.utilcompo.RunnableStruct;
 import code.gui.SpecSelectionStruct;
 import code.util.CustList;
@@ -41,8 +40,8 @@ public final class DefSpecSelectionStruct extends WithoutParentIdStruct implemen
     @Override
     public Argument execute(CustList<Argument> _args, Rectangle _rect) {
         CustList<Argument> real_ = new CustList<Argument>(_args);
+        real_.remove(2);
         real_.add(0,new Argument(component));
-        Argument sel_ = _args.last();
         Struct dest_ = _args.get(2).getStruct();
         int w_ = 100;
         if (_rect != null) {
@@ -53,17 +52,24 @@ public final class DefSpecSelectionStruct extends WithoutParentIdStruct implemen
             h_ = Math.max(h_, _rect.height);
         }
         if (dest_ instanceof PreparedLabelStruct) {
-            ImageStruct text_ = new ImageStruct(w_, h_, true);
-            real_.set(3,sel_);
-            real_.set(4,new Argument(text_));
+            real_.add(1,new Argument(new IntStruct(w_)));
+            real_.add(2,new Argument(new IntStruct(h_)));
             GuiContextEl r_ = newCtx(executionInfos);
-            Argument argument_ = RunnableFunctionalInstance.callMethod(r_, lambda, real_);
-            ((PreparedLabelStruct)dest_).setImage(text_);
+            Argument argument_ = invokePaint(r_, real_);
+            ((PreparedLabelStruct)dest_).setImage(argument_.getStruct());
             return argument_;
         }
         return Argument.createVoid();
     }
 
+    private static Argument invokePaint(GuiContextEl _r, CustList<Argument> _args) {
+        Argument arg_ = new Argument();
+        ExecTypeFunction pair_ = ((LgNamesGui) _r.getStandards()).getGuiExecutingBlocks().getPairPaintRefreshOne();
+        LgNamesGui stds_ = (LgNamesGui) _r.getStandards();
+        ArgumentListCall argList_ = new ArgumentListCall();
+        argList_.getArguments().addAllElts(_args);
+        return RunnableStruct.invoke(arg_, stds_.getGuiAliases().getAliasPaint(), _r,pair_, StackCall.newInstance(InitPhase.NOTHING,_r), argList_, null);
+    }
     private static GuiContextEl newCtx(CommonExecutionInfos _executionInfos) {
         GuiContextEl r_ = new GuiContextEl(InitPhase.NOTHING, _executionInfos);
         RunnableStruct.setupThread(r_);

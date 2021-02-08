@@ -51,12 +51,19 @@
           {if} ({hf} == {null} || {lf} == {null} || {pf} == {null})'{'
               {return};
           '}'
-          {var} {h} = ({hf}).{call}({addPar02});
+          {var} {h} = ({hf}).{call}({addPar00},{addPar02},{addPar01},{false},0);
           {var} {la} = 0;
           {for} ({var} {o}: ({addPar00}).{getView}())'{'
-              {la} = ({lf}).{call}({o},{la});
+              {var} {nb} = {false};
+              {for} ({var} {c}:({refreshPar}).{getSelected}())'{'
+                   {if} ({c} == ([{o}]))'{'
+                        {nb} = {true};
+                        {break};
+                   '}'
+              '}'
+              {la} = ({lf}).{call}({addPar00},{o},([{o}]),{nb},{la});
            '}'
-          {la} = ({lf}).{call}({addPar02},{la});
+          {la} = ({lf}).{call}({addPar00},{setPar2},{setPar1},{false},{la});
 
           {var} {img} = {new} {Image}({la},{h},{true});
           ({pf}).{call}({addPar00},{addPar02},{addPar01},{false},{img});
@@ -75,12 +82,19 @@
           {if} ({hf} == {null} || {lf} == {null} || {pf} == {null})'{'
               {return};
           '}'
-          {var} {h} = ({hf}).{call}({setPar2});
+          {var} {h} = ({hf}).{call}({setPar0},{setPar2},{setPar1},{false},0);
           {var} {la} = 0;
           {for} ({var} {o}: ({setPar0}).{getView}())'{'
-              {la} = ({lf}).{call}({o},{la});
+              {var} {nb} = {false};
+              {for} ({var} {c}:({refreshPar}).{getSelected}())'{'
+                   {if} ({c} == ([{o}]))'{'
+                        {nb} = {true};
+                        {break};
+                   '}'
+              '}'
+              {la} = ({lf}).{call}({setPar0},{o},([{o}]),{nb},{la});
            '}'
-          {la} = ({lf}).{call}({setPar2},{la});
+          {la} = ({lf}).{call}({setPar0},{setPar2},{setPar1},{false},{la});
 
           {var} {img} = {new} {Image}({la},{h},{true});
           ({pf}).{call}({setPar0},{setPar2},{setPar1},{false},{img});
@@ -102,13 +116,23 @@
           '}'
           {var} {la} = 0;
           {for} ({var} {o}: ({addPar10}).{getView}())'{'
-               {la} = ({lf}).{call}({o},{la});
+                {var} {nb} = {false};
+                {for} ({var} {c}:({refreshPar}).{getSelected}())'{'
+                     {if} ({c} == ([{o}]))'{'
+                          {nb} = {true};
+                          {break};
+                     '}'
+                '}'
+               {la} = ({lf}).{call}({addPar10},{o},([{o}]),{nb},{la});
            '}'
           {for} ({var} {o}: {addPar11})'{'
-             {la} = ({lf}).{call}({o},{la});
+             {la} = ({lf}).{call}({addPar10},{o},([{o}]),{false},{la});
           '}'
+          {var} {h} = 0;
           {for} ({var} {o}: {addPar11})'{'
-              {var} {h} = ({hf}).{call}({o});
+               {h} = ({hf}).{call}({addPar10},{o},([{o}]),{false},{h});
+           '}'
+          {for} ({var} {o}: {addPar11})'{'
               {var} {img} = {new} {Image}({la},{h},{true});
               ({pf}).{call}({addPar10},{o},([{o}]),{false},{img});
               ({addPar10}).{addCompo}(([{o}]),{new} {ImageLabel}({img}),{o});
@@ -129,10 +153,27 @@
           '}'
           {var} {la} = 0;
           {for} ({var} {o}: ({refreshPar}).{getView}())'{'
-               {la} = ({lf}).{call}({o},{la});
+                {var} {nb} = {false};
+                {for} ({var} {c}:({refreshPar}).{getSelected}())'{'
+                     {if} ({c} == ([{o}]))'{'
+                          {nb} = {true};
+                          {break};
+                     '}'
+                '}'
+              {la} = ({lf}).{call}({refreshPar},{o},([{o}]),{nb},{la});
+          '}'
+          {var} {h} = 0;
+          {for} ({var} {o}: ({refreshPar}).{getView}())'{'
+                {var} {nb} = {false};
+                 {for} ({var} {c}:({refreshPar}).{getSelected}())'{'
+                      {if} ({c} == ([{o}]))'{'
+                           {nb} = {true};
+                           {break};
+                      '}'
+                 '}'
+               {h} = ({hf}).{call}({refreshPar},{o},([{o}]),{nb},{h});
           '}'
           {for} ({var} {o}: ({refreshPar}).{getView}())'{'
-               {var} {h} = ({hf}).{call}({o});
                {var} {img} = {new} {Image}({la},{h},{true});
                {var} {nb} = {false};
                {for} ({var} {c}:({refreshPar}).{getSelected}())'{'
@@ -147,4 +188,27 @@
            '}'
            ({refreshPar}).{updateGraphics}();
       '}'
+       {public} {static} {Image} {refreshOne}({GrList} {refreshPar0},{int} {w},{int} {h0},{Object} {o0}, {int} {f}, {boolean} {s})'{'
+        {var} {r} = ({refreshPar0}).{getRender}();
+        {if} ({r} == {null})'{'
+             {return} {null};
+        '}'
+        {var} {hf} = {r}.{getHeight}();
+        {var} {lf} = {r}.{getWidth}();
+        {var} {pf} = {r}.{getPaint}();
+        {if} ({pf} == {null})'{'
+             {return} {null};
+        '}'
+        {var} {la} = {w};
+        {if} ({lf} != {null})'{'
+             {la} = ({lf}).{call}({refreshPar0},{o0},{f},{s},{w});
+        '}'
+        {var} {ha} = {h0};
+        {if} ({hf} != {null})'{'
+             {ha} = ({hf}).{call}({refreshPar0},{o0},{f},{s},{h0});
+        '}'
+        {var} {img} = {new} {Image}({la},{ha},{true});
+        ({pf}).{call}({refreshPar0},{o0},{f},{s},{img});
+        {return} {img};
+    '}'
 '}'

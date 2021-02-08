@@ -138,7 +138,22 @@ public class GraphicList<T> extends CustComponent implements AbsGraphicList<T>,A
         list.set(_index, _elt);
         listComponents.set(_index, _lab);
         repaintAdded(_index);
-        addListeners(_index, _lab);
+        if (!simple) {
+            MultSelectKeyEltList i_ = new MultSelectKeyEltList(this, _index, graphicListPainter);
+            i_.setSelection(listener);
+            _lab.addKeyListener(i_);
+            indexableKey.set(_index,i_);
+            MultSelectEltList j_ = new MultSelectEltList(this, _index, graphicListPainter);
+            j_.setSelection(listener);
+            _lab.addMouseListener(j_);
+            indexableMouse.set(_index,j_);
+            reindex(indexableMouse);
+            reindex(indexableKey);
+        } else {
+            IndexableListener i_ = buildSingleSelect(_lab, _index);
+            indexableMouse.set(_index,i_);
+            reindex(indexableMouse);
+        }
     }
     protected void repaintAdded(int _index) {
         CustCellRender<T> r_ = getRender();

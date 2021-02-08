@@ -169,14 +169,14 @@ public final class GraphicListStruct extends InputStruct {
                 ExecNamedFunctionBlock paintMeth_ = guiExecutingBlocks_.getPaintEvent();
                 if (hei_ instanceof LambdaStruct) {
                     LambdaStruct hl_ = (LambdaStruct) hei_;
-                    ExecRootBlock typeHe_ = guiExecutingBlocks_.getListHeightSelection();
-                    ExecNamedFunctionBlock heMeth_ = guiExecutingBlocks_.getHeightEvent();
+                    ExecRootBlock typeHe_ = guiExecutingBlocks_.getListDimSelection();
+                    ExecNamedFunctionBlock heMeth_ = guiExecutingBlocks_.getDimEvent();
                     heightStr_ = new DefSpecSelectionDimStruct(_ctx, typeHe_.getFullName(), hl_, heMeth_);
                 }
                 if (wid_ instanceof LambdaStruct) {
                     LambdaStruct wl_ = (LambdaStruct) wid_;
-                    ExecRootBlock typeWi_ = guiExecutingBlocks_.getListWidthSelection();
-                    ExecNamedFunctionBlock wiMeth_ = guiExecutingBlocks_.getWidthEvent();
+                    ExecRootBlock typeWi_ = guiExecutingBlocks_.getListDimSelection();
+                    ExecNamedFunctionBlock wiMeth_ = guiExecutingBlocks_.getDimEvent();
                     widthStr_ = new DefSpecSelectionDimStruct(_ctx, typeWi_.getFullName(), wl_, wiMeth_);
                 }
                 grList.setCell(this, _ctx, lab_, im_, new DefSpecSelectionCtx(_ctx.getExecutionInfos()),

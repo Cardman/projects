@@ -36,20 +36,20 @@ public final class CustSelListStr implements ListCellRenderer<Struct> {
             boolean _cellHasFocus) {
         int defWidth_ = Math.max(_list.getWidth(), _list.getFixedCellWidth());
         int width_ = defWidth_;
-        if (width != null) {
-            Struct str_ = new IntStruct(defWidth_);
-            Argument argumentWidth_ = new Argument(str_);
-            Argument res_ = width.execute(new CustList<>(
-                    new Argument(_value),
-                    argumentWidth_), null);
-            width_ = NumParsers.convertToNumber(res_.getStruct()).intStruct();
-        }
+//        if (width != null) {
+//            Struct str_ = new IntStruct(defWidth_);
+//            Argument argumentWidth_ = new Argument(str_);
+//            Argument res_ = width.execute(new CustList<>(
+//                    new Argument(_value),
+//                    argumentWidth_), null);
+//            width_ = NumParsers.convertToNumber(res_.getStruct()).intStruct();
+//        }
         int height_ = Math.max(_list.getFixedCellHeight(),0);
-        if (height != null) {
-            Argument h_ = height.execute(new CustList<>(
-                    new Argument(_value)), null);
-            height_ = NumParsers.convertToNumber(h_.getStruct()).intStruct();
-        }
+//        if (height != null) {
+//            Argument h_ = height.execute(new CustList<>(
+//                    new Argument(_value)), null);
+//            height_ = NumParsers.convertToNumber(h_.getStruct()).intStruct();
+//        }
 
         Rectangle rect_ = new Rectangle();
         rect_.width = width_;

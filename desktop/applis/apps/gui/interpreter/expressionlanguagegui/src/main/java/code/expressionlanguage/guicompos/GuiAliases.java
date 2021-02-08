@@ -71,12 +71,10 @@ public final class GuiAliases {
     private static final String COMP_LOC = "CompLoc";
     private static final String IMAGE_GET = "ImageGet";
     private static final String RENDER = "Render";
-    private static final String LIST_HEIGHT = "ListHeight";
-    private static final String LIST_HEIGHT_PAINT_EVENT = "ListHeightPaintEvent";
-    private static final String LIST_WIDTH = "ListWidth";
-    private static final String LIST_WIDTH_PAINT_EVENT = "ListWidthPaintEvent";
     private static final String LIST_PAINT = "ListPaint";
     private static final String LIST_PAINT_PAINT_EVENT = "ListPaintPaintEvent";
+    private static final String LIST_DIM = "ListDim";
+    private static final String LIST_DIM_PAINT_EVENT = "ListDimPaintEvent";
     private static final String COMBO = "Combo";
     private static final String ADD_COMPO = "AddCompo";
     private static final String INPUT = "Input";
@@ -196,6 +194,7 @@ public final class GuiAliases {
     private static final String MOUSE_EVENT_IS_SHIFT = "MouseEventIsShift";
     private static final String SCROLL_PANE_GET_VIEW = "ScrollPaneGetView";
     private static final String PAINT_REFRESH = "PaintRefresh";
+    private static final String PAINT_REFRESH_ONE = "PaintRefreshOne";
     private static final String MOUSE_EXITED = "MouseExited";
     private static final String SPLIT_PANE = "SplitPane";
     private static final String SPLIT_PANE_SET_RIGHT = "SplitPaneSetRight";
@@ -683,6 +682,7 @@ public final class GuiAliases {
     private String aliasPaintAdd;
     private String aliasPaintSet;
     private String aliasPaintRefresh;
+    private String aliasPaintRefreshOne;
     private String aliasRemoveCompo;
     private String aliasCount;
     private String aliasIsVisible;
@@ -710,10 +710,8 @@ public final class GuiAliases {
     private String aliasRenderSetPaint;
     private String aliasListPaint;
     private String aliasListPaintPaintEvent;
-    private String aliasListHeight;
-    private String aliasListHeightPaintEvent;
-    private String aliasListWidth;
-    private String aliasListWidthPaintEvent;
+    private String aliasListDim;
+    private String aliasListDimPaintEvent;
     private String aliasGrList;
     private String aliasGrListAdd;
     private String aliasGrListSet;
@@ -1025,10 +1023,8 @@ public final class GuiAliases {
         map_.put("{interface}", interface_);
         map_.put("{ListPaintSelection}", aliasListPaint);
         map_.put("{paintEvent}", aliasListPaintPaintEvent);
-        map_.put("{ListWidthSelection}", aliasListWidth);
-        map_.put("{width}", aliasListWidthPaintEvent);
-        map_.put("{ListHeightSelection}", aliasListHeight);
-        map_.put("{height}", aliasListHeightPaintEvent);
+        map_.put("{ListDimSelection}", aliasListDim);
+        map_.put("{dim}", aliasListDimPaintEvent);
         map_.put("{void}", co_.getAliasVoid());
         map_.put("{GrList}", aliasGrList);
         map_.put("{int}", primTypes_.getAliasPrimInteger());
@@ -1037,20 +1033,20 @@ public final class GuiAliases {
         map_.put("{ImageLab}",aliasImage);
         map_.put("{g}", guiAliasParameters.getAliasListPaint0PaintEvent0());
         map_.put("{o}", guiAliasParameters.getAliasListPaint0PaintEvent1());
-        map_.put("{q}", guiAliasParameters.getAliasListPaint0HeightEvent0());
-        map_.put("{p}", guiAliasParameters.getAliasListPaint0WidthEvent0());
-        map_.put("{l}", guiAliasParameters.getAliasListPaint0WidthEvent1());
         map_.put("{f}", guiAliasParameters.getAliasListPaint0PaintEvent2());
         map_.put("{s}", guiAliasParameters.getAliasListPaint0PaintEvent3());
         map_.put("{i}", guiAliasParameters.getAliasListPaint0PaintEvent4());
+        map_.put("{h}", guiAliasParameters.getAliasListPaint0DimEvent0());
+        map_.put("{p}", guiAliasParameters.getAliasListPaint0DimEvent1());
+        map_.put("{j}", guiAliasParameters.getAliasListPaint0DimEvent2());
+        map_.put("{t}", guiAliasParameters.getAliasListPaint0DimEvent3());
+        map_.put("{l}", guiAliasParameters.getAliasListPaint0DimEvent4());
         content_ = StringUtil.formatQuote(content_, map_);
         _predefinedClasses.add(aliasListPaint);
-        _predefinedClasses.add(aliasListWidth);
-        _predefinedClasses.add(aliasListHeight);
+        _predefinedClasses.add(aliasListDim);
         stds_.put(aliasListPaint, content_);
         _predefinedInterfacesInitOrder.add(aliasListPaint);
-        _predefinedInterfacesInitOrder.add(aliasListWidth);
-        _predefinedInterfacesInitOrder.add(aliasListHeight);
+        _predefinedInterfacesInitOrder.add(aliasListDim);
         content_ = ResourceFiles.ressourceFichier("resources_lg_gui/repaint.txt");
         map_ = new StringMap<String>();
         map_.put("{public}", public_);
@@ -1072,6 +1068,13 @@ public final class GuiAliases {
         map_.put("{addPar11}", guiAliasParameters.getAliasPaint1TabbedPaneAdd1());
         map_.put("{refreshPar}", guiAliasParameters.getAliasPaint0PaintRefresh0());
         map_.put("{refresh}", aliasPaintRefresh);
+        map_.put("{refreshOne}", aliasPaintRefreshOne);
+        map_.put("{refreshPar0}", guiAliasParameters.getAliasPaint0PaintRefreshOne0());
+        map_.put("{w}", guiAliasParameters.getAliasPaint0PaintRefreshOne1());
+        map_.put("{h0}", guiAliasParameters.getAliasPaint0PaintRefreshOne2());
+        map_.put("{o0}", guiAliasParameters.getAliasPaint0PaintRefreshOne3());
+        map_.put("{f}", guiAliasParameters.getAliasPaint0PaintRefreshOne4());
+        map_.put("{s}", guiAliasParameters.getAliasPaint0PaintRefreshOne5());
         map_.put("{static}", static_);
         map_.put("{if}", if_);
         map_.put("{elseif}", elseif_);
@@ -1103,7 +1106,13 @@ public final class GuiAliases {
                 guiAliasParameters.getAliasPaint0TabbedPaneAdd2(),
                 guiAliasParameters.getAliasPaint1TabbedPaneAdd0(),
                 guiAliasParameters.getAliasPaint1TabbedPaneAdd1(),
-                guiAliasParameters.getAliasPaint0PaintRefresh0()));
+                guiAliasParameters.getAliasPaint0PaintRefresh0(),
+                guiAliasParameters.getAliasPaint0PaintRefreshOne0(),
+                guiAliasParameters.getAliasPaint0PaintRefreshOne1(),
+                guiAliasParameters.getAliasPaint0PaintRefreshOne2(),
+                guiAliasParameters.getAliasPaint0PaintRefreshOne3(),
+                guiAliasParameters.getAliasPaint0PaintRefreshOne4(),
+                guiAliasParameters.getAliasPaint0PaintRefreshOne5()));
         map_.put("{p}", tr("p", _keyWords, pr_, co_,
                 guiAliasParameters.getAliasPaint0PaintMethod0(),
                 guiAliasParameters.getAliasPaint0TabbedPaneSet0(),
@@ -1114,7 +1123,13 @@ public final class GuiAliases {
                 guiAliasParameters.getAliasPaint0TabbedPaneAdd2(),
                 guiAliasParameters.getAliasPaint1TabbedPaneAdd0(),
                 guiAliasParameters.getAliasPaint1TabbedPaneAdd1(),
-                guiAliasParameters.getAliasPaint0PaintRefresh0()));
+                guiAliasParameters.getAliasPaint0PaintRefresh0(),
+                guiAliasParameters.getAliasPaint0PaintRefreshOne0(),
+                guiAliasParameters.getAliasPaint0PaintRefreshOne1(),
+                guiAliasParameters.getAliasPaint0PaintRefreshOne2(),
+                guiAliasParameters.getAliasPaint0PaintRefreshOne3(),
+                guiAliasParameters.getAliasPaint0PaintRefreshOne4(),
+                guiAliasParameters.getAliasPaint0PaintRefreshOne5()));
         map_.put("{r}", tr("r", _keyWords, pr_, co_,
                 guiAliasParameters.getAliasPaint0PaintMethod0(),
                 guiAliasParameters.getAliasPaint0TabbedPaneSet0(),
@@ -1125,7 +1140,13 @@ public final class GuiAliases {
                 guiAliasParameters.getAliasPaint0TabbedPaneAdd2(),
                 guiAliasParameters.getAliasPaint1TabbedPaneAdd0(),
                 guiAliasParameters.getAliasPaint1TabbedPaneAdd1(),
-                guiAliasParameters.getAliasPaint0PaintRefresh0()));
+                guiAliasParameters.getAliasPaint0PaintRefresh0(),
+                guiAliasParameters.getAliasPaint0PaintRefreshOne0(),
+                guiAliasParameters.getAliasPaint0PaintRefreshOne1(),
+                guiAliasParameters.getAliasPaint0PaintRefreshOne2(),
+                guiAliasParameters.getAliasPaint0PaintRefreshOne3(),
+                guiAliasParameters.getAliasPaint0PaintRefreshOne4(),
+                guiAliasParameters.getAliasPaint0PaintRefreshOne5()));
         map_.put("{o}", tr("o", _keyWords, pr_, co_,
                 guiAliasParameters.getAliasPaint0PaintMethod0(),
                 guiAliasParameters.getAliasPaint0TabbedPaneSet0(),
@@ -1136,7 +1157,13 @@ public final class GuiAliases {
                 guiAliasParameters.getAliasPaint0TabbedPaneAdd2(),
                 guiAliasParameters.getAliasPaint1TabbedPaneAdd0(),
                 guiAliasParameters.getAliasPaint1TabbedPaneAdd1(),
-                guiAliasParameters.getAliasPaint0PaintRefresh0()));
+                guiAliasParameters.getAliasPaint0PaintRefresh0(),
+                guiAliasParameters.getAliasPaint0PaintRefreshOne0(),
+                guiAliasParameters.getAliasPaint0PaintRefreshOne1(),
+                guiAliasParameters.getAliasPaint0PaintRefreshOne2(),
+                guiAliasParameters.getAliasPaint0PaintRefreshOne3(),
+                guiAliasParameters.getAliasPaint0PaintRefreshOne4(),
+                guiAliasParameters.getAliasPaint0PaintRefreshOne5()));
         map_.put("{la}", tr("la", _keyWords, pr_, co_,
                 guiAliasParameters.getAliasPaint0PaintMethod0(),
                 guiAliasParameters.getAliasPaint0TabbedPaneSet0(),
@@ -1147,7 +1174,13 @@ public final class GuiAliases {
                 guiAliasParameters.getAliasPaint0TabbedPaneAdd2(),
                 guiAliasParameters.getAliasPaint1TabbedPaneAdd0(),
                 guiAliasParameters.getAliasPaint1TabbedPaneAdd1(),
-                guiAliasParameters.getAliasPaint0PaintRefresh0()));
+                guiAliasParameters.getAliasPaint0PaintRefresh0(),
+                guiAliasParameters.getAliasPaint0PaintRefreshOne0(),
+                guiAliasParameters.getAliasPaint0PaintRefreshOne1(),
+                guiAliasParameters.getAliasPaint0PaintRefreshOne2(),
+                guiAliasParameters.getAliasPaint0PaintRefreshOne3(),
+                guiAliasParameters.getAliasPaint0PaintRefreshOne4(),
+                guiAliasParameters.getAliasPaint0PaintRefreshOne5()));
         map_.put("{h}", tr("h", _keyWords, pr_, co_,
                 guiAliasParameters.getAliasPaint0PaintMethod0(),
                 guiAliasParameters.getAliasPaint0TabbedPaneSet0(),
@@ -1158,7 +1191,13 @@ public final class GuiAliases {
                 guiAliasParameters.getAliasPaint0TabbedPaneAdd2(),
                 guiAliasParameters.getAliasPaint1TabbedPaneAdd0(),
                 guiAliasParameters.getAliasPaint1TabbedPaneAdd1(),
-                guiAliasParameters.getAliasPaint0PaintRefresh0()));
+                guiAliasParameters.getAliasPaint0PaintRefresh0(),
+                guiAliasParameters.getAliasPaint0PaintRefreshOne0(),
+                guiAliasParameters.getAliasPaint0PaintRefreshOne1(),
+                guiAliasParameters.getAliasPaint0PaintRefreshOne2(),
+                guiAliasParameters.getAliasPaint0PaintRefreshOne3(),
+                guiAliasParameters.getAliasPaint0PaintRefreshOne4(),
+                guiAliasParameters.getAliasPaint0PaintRefreshOne5()));
         map_.put("{hf}", tr("hf", _keyWords, pr_, co_,
                 guiAliasParameters.getAliasPaint0PaintMethod0(),
                 guiAliasParameters.getAliasPaint0TabbedPaneSet0(),
@@ -1169,7 +1208,13 @@ public final class GuiAliases {
                 guiAliasParameters.getAliasPaint0TabbedPaneAdd2(),
                 guiAliasParameters.getAliasPaint1TabbedPaneAdd0(),
                 guiAliasParameters.getAliasPaint1TabbedPaneAdd1(),
-                guiAliasParameters.getAliasPaint0PaintRefresh0()));
+                guiAliasParameters.getAliasPaint0PaintRefresh0(),
+                guiAliasParameters.getAliasPaint0PaintRefreshOne0(),
+                guiAliasParameters.getAliasPaint0PaintRefreshOne1(),
+                guiAliasParameters.getAliasPaint0PaintRefreshOne2(),
+                guiAliasParameters.getAliasPaint0PaintRefreshOne3(),
+                guiAliasParameters.getAliasPaint0PaintRefreshOne4(),
+                guiAliasParameters.getAliasPaint0PaintRefreshOne5()));
         map_.put("{lf}", tr("lf", _keyWords, pr_, co_,
                 guiAliasParameters.getAliasPaint0PaintMethod0(),
                 guiAliasParameters.getAliasPaint0TabbedPaneSet0(),
@@ -1180,7 +1225,13 @@ public final class GuiAliases {
                 guiAliasParameters.getAliasPaint0TabbedPaneAdd2(),
                 guiAliasParameters.getAliasPaint1TabbedPaneAdd0(),
                 guiAliasParameters.getAliasPaint1TabbedPaneAdd1(),
-                guiAliasParameters.getAliasPaint0PaintRefresh0()));
+                guiAliasParameters.getAliasPaint0PaintRefresh0(),
+                guiAliasParameters.getAliasPaint0PaintRefreshOne0(),
+                guiAliasParameters.getAliasPaint0PaintRefreshOne1(),
+                guiAliasParameters.getAliasPaint0PaintRefreshOne2(),
+                guiAliasParameters.getAliasPaint0PaintRefreshOne3(),
+                guiAliasParameters.getAliasPaint0PaintRefreshOne4(),
+                guiAliasParameters.getAliasPaint0PaintRefreshOne5()));
         map_.put("{pf}", tr("pf", _keyWords, pr_, co_,
                 guiAliasParameters.getAliasPaint0PaintMethod0(),
                 guiAliasParameters.getAliasPaint0TabbedPaneSet0(),
@@ -1191,7 +1242,13 @@ public final class GuiAliases {
                 guiAliasParameters.getAliasPaint0TabbedPaneAdd2(),
                 guiAliasParameters.getAliasPaint1TabbedPaneAdd0(),
                 guiAliasParameters.getAliasPaint1TabbedPaneAdd1(),
-                guiAliasParameters.getAliasPaint0PaintRefresh0()));
+                guiAliasParameters.getAliasPaint0PaintRefresh0(),
+                guiAliasParameters.getAliasPaint0PaintRefreshOne0(),
+                guiAliasParameters.getAliasPaint0PaintRefreshOne1(),
+                guiAliasParameters.getAliasPaint0PaintRefreshOne2(),
+                guiAliasParameters.getAliasPaint0PaintRefreshOne3(),
+                guiAliasParameters.getAliasPaint0PaintRefreshOne4(),
+                guiAliasParameters.getAliasPaint0PaintRefreshOne5()));
         map_.put("{par}", tr("par", _keyWords, pr_, co_,
                 guiAliasParameters.getAliasPaint0PaintMethod0(),
                 guiAliasParameters.getAliasPaint0TabbedPaneSet0(),
@@ -1202,7 +1259,13 @@ public final class GuiAliases {
                 guiAliasParameters.getAliasPaint0TabbedPaneAdd2(),
                 guiAliasParameters.getAliasPaint1TabbedPaneAdd0(),
                 guiAliasParameters.getAliasPaint1TabbedPaneAdd1(),
-                guiAliasParameters.getAliasPaint0PaintRefresh0()));
+                guiAliasParameters.getAliasPaint0PaintRefresh0(),
+                guiAliasParameters.getAliasPaint0PaintRefreshOne0(),
+                guiAliasParameters.getAliasPaint0PaintRefreshOne1(),
+                guiAliasParameters.getAliasPaint0PaintRefreshOne2(),
+                guiAliasParameters.getAliasPaint0PaintRefreshOne3(),
+                guiAliasParameters.getAliasPaint0PaintRefreshOne4(),
+                guiAliasParameters.getAliasPaint0PaintRefreshOne5()));
         map_.put("{pan}", tr("pan", _keyWords, pr_, co_,
                 guiAliasParameters.getAliasPaint0PaintMethod0(),
                 guiAliasParameters.getAliasPaint0TabbedPaneSet0(),
@@ -1213,7 +1276,13 @@ public final class GuiAliases {
                 guiAliasParameters.getAliasPaint0TabbedPaneAdd2(),
                 guiAliasParameters.getAliasPaint1TabbedPaneAdd0(),
                 guiAliasParameters.getAliasPaint1TabbedPaneAdd1(),
-                guiAliasParameters.getAliasPaint0PaintRefresh0()));
+                guiAliasParameters.getAliasPaint0PaintRefresh0(),
+                guiAliasParameters.getAliasPaint0PaintRefreshOne0(),
+                guiAliasParameters.getAliasPaint0PaintRefreshOne1(),
+                guiAliasParameters.getAliasPaint0PaintRefreshOne2(),
+                guiAliasParameters.getAliasPaint0PaintRefreshOne3(),
+                guiAliasParameters.getAliasPaint0PaintRefreshOne4(),
+                guiAliasParameters.getAliasPaint0PaintRefreshOne5()));
         map_.put("{fct}", tr("fct", _keyWords, pr_, co_,
                 guiAliasParameters.getAliasPaint0PaintMethod0(),
                 guiAliasParameters.getAliasPaint0TabbedPaneSet0(),
@@ -1224,7 +1293,13 @@ public final class GuiAliases {
                 guiAliasParameters.getAliasPaint0TabbedPaneAdd2(),
                 guiAliasParameters.getAliasPaint1TabbedPaneAdd0(),
                 guiAliasParameters.getAliasPaint1TabbedPaneAdd1(),
-                guiAliasParameters.getAliasPaint0PaintRefresh0()));
+                guiAliasParameters.getAliasPaint0PaintRefresh0(),
+                guiAliasParameters.getAliasPaint0PaintRefreshOne0(),
+                guiAliasParameters.getAliasPaint0PaintRefreshOne1(),
+                guiAliasParameters.getAliasPaint0PaintRefreshOne2(),
+                guiAliasParameters.getAliasPaint0PaintRefreshOne3(),
+                guiAliasParameters.getAliasPaint0PaintRefreshOne4(),
+                guiAliasParameters.getAliasPaint0PaintRefreshOne5()));
         map_.put("{nb}", tr("nb", _keyWords, pr_, co_,
                 guiAliasParameters.getAliasPaint0PaintMethod0(),
                 guiAliasParameters.getAliasPaint0TabbedPaneSet0(),
@@ -1235,7 +1310,13 @@ public final class GuiAliases {
                 guiAliasParameters.getAliasPaint0TabbedPaneAdd2(),
                 guiAliasParameters.getAliasPaint1TabbedPaneAdd0(),
                 guiAliasParameters.getAliasPaint1TabbedPaneAdd1(),
-                guiAliasParameters.getAliasPaint0PaintRefresh0()));
+                guiAliasParameters.getAliasPaint0PaintRefresh0(),
+                guiAliasParameters.getAliasPaint0PaintRefreshOne0(),
+                guiAliasParameters.getAliasPaint0PaintRefreshOne1(),
+                guiAliasParameters.getAliasPaint0PaintRefreshOne2(),
+                guiAliasParameters.getAliasPaint0PaintRefreshOne3(),
+                guiAliasParameters.getAliasPaint0PaintRefreshOne4(),
+                guiAliasParameters.getAliasPaint0PaintRefreshOne5()));
         map_.put("{img}", tr("img", _keyWords, pr_, co_,
                 guiAliasParameters.getAliasPaint0PaintMethod0(),
                 guiAliasParameters.getAliasPaint0TabbedPaneSet0(),
@@ -1246,7 +1327,47 @@ public final class GuiAliases {
                 guiAliasParameters.getAliasPaint0TabbedPaneAdd2(),
                 guiAliasParameters.getAliasPaint1TabbedPaneAdd0(),
                 guiAliasParameters.getAliasPaint1TabbedPaneAdd1(),
-                guiAliasParameters.getAliasPaint0PaintRefresh0()));
+                guiAliasParameters.getAliasPaint0PaintRefresh0(),
+                guiAliasParameters.getAliasPaint0PaintRefreshOne0(),
+                guiAliasParameters.getAliasPaint0PaintRefreshOne1(),
+                guiAliasParameters.getAliasPaint0PaintRefreshOne2(),
+                guiAliasParameters.getAliasPaint0PaintRefreshOne3(),
+                guiAliasParameters.getAliasPaint0PaintRefreshOne4(),
+                guiAliasParameters.getAliasPaint0PaintRefreshOne5()));
+        map_.put("{ha}", tr("ha", _keyWords, pr_, co_,
+                guiAliasParameters.getAliasPaint0PaintMethod0(),
+                guiAliasParameters.getAliasPaint0TabbedPaneSet0(),
+                guiAliasParameters.getAliasPaint0TabbedPaneSet1(),
+                guiAliasParameters.getAliasPaint0TabbedPaneSet2(),
+                guiAliasParameters.getAliasPaint0TabbedPaneAdd0(),
+                guiAliasParameters.getAliasPaint0TabbedPaneAdd1(),
+                guiAliasParameters.getAliasPaint0TabbedPaneAdd2(),
+                guiAliasParameters.getAliasPaint1TabbedPaneAdd0(),
+                guiAliasParameters.getAliasPaint1TabbedPaneAdd1(),
+                guiAliasParameters.getAliasPaint0PaintRefresh0(),
+                guiAliasParameters.getAliasPaint0PaintRefreshOne0(),
+                guiAliasParameters.getAliasPaint0PaintRefreshOne1(),
+                guiAliasParameters.getAliasPaint0PaintRefreshOne2(),
+                guiAliasParameters.getAliasPaint0PaintRefreshOne3(),
+                guiAliasParameters.getAliasPaint0PaintRefreshOne4(),
+                guiAliasParameters.getAliasPaint0PaintRefreshOne5()));
+        map_.put("{er}", tr("img", _keyWords, pr_, co_,
+                guiAliasParameters.getAliasPaint0PaintMethod0(),
+                guiAliasParameters.getAliasPaint0TabbedPaneSet0(),
+                guiAliasParameters.getAliasPaint0TabbedPaneSet1(),
+                guiAliasParameters.getAliasPaint0TabbedPaneSet2(),
+                guiAliasParameters.getAliasPaint0TabbedPaneAdd0(),
+                guiAliasParameters.getAliasPaint0TabbedPaneAdd1(),
+                guiAliasParameters.getAliasPaint0TabbedPaneAdd2(),
+                guiAliasParameters.getAliasPaint1TabbedPaneAdd0(),
+                guiAliasParameters.getAliasPaint1TabbedPaneAdd1(),
+                guiAliasParameters.getAliasPaint0PaintRefresh0(),
+                guiAliasParameters.getAliasPaint0PaintRefreshOne0(),
+                guiAliasParameters.getAliasPaint0PaintRefreshOne1(),
+                guiAliasParameters.getAliasPaint0PaintRefreshOne2(),
+                guiAliasParameters.getAliasPaint0PaintRefreshOne3(),
+                guiAliasParameters.getAliasPaint0PaintRefreshOne4(),
+                guiAliasParameters.getAliasPaint0PaintRefreshOne5()));
         map_.put("{getRender}",aliasGrListGetRender);
         map_.put("{getHeight}",aliasRenderGetHeight);
         map_.put("{getWidth}",aliasRenderGetWidth);
@@ -1266,6 +1387,7 @@ public final class GuiAliases {
         map_.put("{GrList}",aliasGrList);
         map_.put("{Object}",co_.getAliasObject());
         map_.put("{dispose}",aliasImageDispose);
+        map_.put("{boolean}",primTypes_.getAliasPrimBoolean());
         content_ = StringUtil.formatQuote(content_, map_);
         _predefinedClasses.add(aliasPaint);
         stds_.put(aliasPaint, content_);
@@ -2374,14 +2496,14 @@ public final class GuiAliases {
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
         stdcl_ = new StandardClass(aliasRender, fields_, constructors_, methods_, _content.getCoreNames().getAliasObject(), MethodModifier.FINAL);
-        String typeHeight_ = StringUtil.concat(_content.getReflect().getAliasFct(),"<",_content.getCoreNames().getAliasObject(),",",_content.getPrimTypes().getAliasPrimInteger(),">");
+        String typeHeight_ = StringUtil.concat(_content.getReflect().getAliasFct(),"<",aliasGrList,",",_content.getCoreNames().getAliasObject(),",",_content.getPrimTypes().getAliasPrimInteger(),",",_content.getPrimTypes().getAliasPrimBoolean(),",",_content.getPrimTypes().getAliasPrimInteger(),","+_content.getPrimTypes().getAliasPrimInteger()+">");
         params_ = new StringList();
         method_ = new StandardMethod(aliasRenderGetHeight, params_, typeHeight_, false, MethodModifier.FINAL);
         methods_.add( method_);
         params_ = new StringList(typeHeight_);
         method_ = new StandardMethod(aliasRenderSetHeight, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasRender0RenderSetHeight0()));
         methods_.add( method_);
-        String typeWidth_ = StringUtil.concat(_content.getReflect().getAliasFct(),"<",_content.getCoreNames().getAliasObject(),",",_content.getPrimTypes().getAliasPrimInteger(),",",_content.getPrimTypes().getAliasPrimInteger(),">");
+        String typeWidth_ = StringUtil.concat(_content.getReflect().getAliasFct(),"<",aliasGrList,",",_content.getCoreNames().getAliasObject(),",",_content.getPrimTypes().getAliasPrimInteger(),",",_content.getPrimTypes().getAliasPrimBoolean(),",",_content.getPrimTypes().getAliasPrimInteger(),","+_content.getPrimTypes().getAliasPrimInteger()+">");
         params_ = new StringList();
         method_ = new StandardMethod(aliasRenderGetWidth, params_, typeWidth_, false, MethodModifier.FINAL);
         methods_.add( method_);
@@ -5134,10 +5256,8 @@ public final class GuiAliases {
         setAliasRender(LgNamesContent.get(_util, _cust, RENDER));
         setAliasListPaint(LgNamesContent.get(_util, _cust, LIST_PAINT));
         setAliasListPaintPaintEvent(LgNamesContent.get(_util, _cust, LIST_PAINT_PAINT_EVENT));
-        setAliasListWidth(LgNamesContent.get(_util, _cust, LIST_WIDTH));
-        setAliasListWidthPaintEvent(LgNamesContent.get(_util, _cust, LIST_WIDTH_PAINT_EVENT));
-        setAliasListHeight(LgNamesContent.get(_util, _cust, LIST_HEIGHT));
-        setAliasListHeightPaintEvent(LgNamesContent.get(_util, _cust, LIST_HEIGHT_PAINT_EVENT));
+        setAliasListDim(LgNamesContent.get(_util, _cust, LIST_DIM));
+        setAliasListDimPaintEvent(LgNamesContent.get(_util, _cust, LIST_DIM_PAINT_EVENT));
         setAliasCombo(LgNamesContent.get(_util, _cust, COMBO));
         setAliasAddCompo(LgNamesContent.get(_util, _cust, ADD_COMPO));
         setAliasInput(LgNamesContent.get(_util, _cust, INPUT));
@@ -5257,6 +5377,7 @@ public final class GuiAliases {
         setAliasMouseEventIsShift(LgNamesContent.get(_util, _cust, MOUSE_EVENT_IS_SHIFT));
         setAliasScrollPaneGetView(LgNamesContent.get(_util, _cust, SCROLL_PANE_GET_VIEW));
         setAliasPaintRefresh(LgNamesContent.get(_util, _cust, PAINT_REFRESH));
+        setAliasPaintRefreshOne(LgNamesContent.get(_util, _cust, PAINT_REFRESH_ONE));
         setAliasMouseExited(LgNamesContent.get(_util, _cust, MOUSE_EXITED));
         setAliasSplitPane(LgNamesContent.get(_util, _cust, SPLIT_PANE));
         setAliasSplitPaneSetRight(LgNamesContent.get(_util, _cust, SPLIT_PANE_SET_RIGHT));
@@ -5587,11 +5708,8 @@ public final class GuiAliases {
         m_.addEntry(getAliasListPaint(), new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(LIST_PAINT_PAINT_EVENT,getAliasListPaintPaintEvent())
         ));
-        m_.addEntry(getAliasListHeight(), new CustList<KeyValueMemberName>(
-                new KeyValueMemberName(LIST_HEIGHT_PAINT_EVENT, getAliasListHeightPaintEvent())
-        ));
-        m_.addEntry(getAliasListWidth(), new CustList<KeyValueMemberName>(
-                new KeyValueMemberName(LIST_WIDTH_PAINT_EVENT,getAliasListWidthPaintEvent())
+        m_.addEntry(getAliasListDim(), new CustList<KeyValueMemberName>(
+                new KeyValueMemberName(LIST_DIM_PAINT_EVENT,getAliasListDimPaintEvent())
         ));
         m_.addEntry(getAliasColor(), new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(COLOR_ALPHA,getAliasColorAlpha()),
@@ -5681,7 +5799,8 @@ public final class GuiAliases {
                 new KeyValueMemberName(PAINT_METHOD,getAliasPaintMethod()),
                 new KeyValueMemberName(PAINT_ADD,getAliasPaintAdd()),
                 new KeyValueMemberName(PAINT_SET,getAliasPaintSet()),
-                new KeyValueMemberName(PAINT_REFRESH,getAliasPaintRefresh()))
+                new KeyValueMemberName(PAINT_REFRESH,getAliasPaintRefresh()),
+                new KeyValueMemberName(PAINT_REFRESH_ONE,getAliasPaintRefreshOne()))
         );
         m_.addEntry(getAliasMenuBar(),new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(MENU_BAR_ADD,getAliasMenuBarAdd()),
@@ -6106,8 +6225,7 @@ public final class GuiAliases {
         ref_.addEntry(BUTTON_GROUP,getAliasButtonGroup());
         ref_.addEntry(RENDER,getAliasRender());
         ref_.addEntry(LIST_PAINT,getAliasListPaint());
-        ref_.addEntry(LIST_WIDTH,getAliasListWidth());
-        ref_.addEntry(LIST_HEIGHT, getAliasListHeight());
+        ref_.addEntry(LIST_DIM,getAliasListDim());
         ref_.addEntry(POPUP_MENU,getAliasPopupMenu());
         ref_.addEntry(DIMENSION,getAliasDimension());
         ref_.addEntry(KEY_LISTENER,getAliasKeyListener());
@@ -7524,6 +7642,14 @@ public final class GuiAliases {
         this.aliasPaintRefresh = _v;
     }
 
+    public String getAliasPaintRefreshOne() {
+        return aliasPaintRefreshOne;
+    }
+
+    public void setAliasPaintRefreshOne(String _v) {
+        this.aliasPaintRefreshOne = _v;
+    }
+
     public String getAliasRemoveCompo() {
         return aliasRemoveCompo;
     }
@@ -8308,36 +8434,20 @@ public final class GuiAliases {
         this.aliasListPaintPaintEvent = _v;
     }
 
-    public String getAliasListHeight() {
-        return aliasListHeight;
+    public String getAliasListDim() {
+        return aliasListDim;
     }
 
-    public void setAliasListHeight(String _v) {
-        this.aliasListHeight = _v;
+    public void setAliasListDim(String _v) {
+        this.aliasListDim = _v;
     }
 
-    public String getAliasListHeightPaintEvent() {
-        return aliasListHeightPaintEvent;
+    public String getAliasListDimPaintEvent() {
+        return aliasListDimPaintEvent;
     }
 
-    public void setAliasListHeightPaintEvent(String _v) {
-        this.aliasListHeightPaintEvent = _v;
-    }
-
-    public String getAliasListWidth() {
-        return aliasListWidth;
-    }
-
-    public void setAliasListWidth(String _v) {
-        this.aliasListWidth = _v;
-    }
-
-    public String getAliasListWidthPaintEvent() {
-        return aliasListWidthPaintEvent;
-    }
-
-    public void setAliasListWidthPaintEvent(String _v) {
-        this.aliasListWidthPaintEvent = _v;
+    public void setAliasListDimPaintEvent(String _v) {
+        this.aliasListDimPaintEvent = _v;
     }
 
     public String getAliasRenderGetHeight() {
