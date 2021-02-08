@@ -599,12 +599,13 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
                 } else {
                     realInstance_ = ExecTemplates.getFirstArgument(values_);
                 }
+                Struct struct_ = realInstance_.getStruct();
                 if (StringUtil.quickEq(l_.getReturnFieldType(), lgNames_.getContent().getPrimTypes().getAliasPrimBoolean())) {
                     String ownerType_ = StringUtil.nullToEmpty(l_.getOwnerType());
-                    boolean res_ = ExecTemplates.safeObject(ownerType_,realInstance_,_conf) == ErrorType.NOTHING;
+                    boolean res_ = ExecTemplates.safeObject(ownerType_, struct_,_conf) == ErrorType.NOTHING;
                     return new Argument(BooleanStruct.of(res_));
                 }
-                return new Argument(realInstance_.getStruct().getParent());
+                return new Argument(struct_.getParent());
             }
             boolean static_ = l_.isStaticField();
             int nbAncestors_ = l_.getAncestor();
@@ -632,17 +633,15 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
             }
             ReflectingType type_;
             boolean aff_ = l_.isAffect();
+            FieldMetaInfo method_ = NumParsers.getField(metaInfo_);
             if (aff_) {
                 type_ = ReflectingType.SET_FIELD;
-                FieldMetaInfo method_ = NumParsers.getField(metaInfo_);
                 _stackCall.setCallingState(new CustomReflectSetField(type_, method_, realInstance_, ExecTemplates.getLastArgument(values_), true));
                 return new Argument();
-            } else {
-                type_ = ReflectingType.GET_FIELD;
-                FieldMetaInfo method_ = NumParsers.getField(metaInfo_);
-                _stackCall.setCallingState(new CustomReflectGetField(type_, method_, realInstance_, true));
-                return new Argument();
             }
+            type_ = ReflectingType.GET_FIELD;
+            _stackCall.setCallingState(new CustomReflectGetField(type_, method_, realInstance_, true));
+            return new Argument();
         }
         if (ls_ instanceof LambdaMethodStruct) {
             LambdaMethodStruct l_ =  (LambdaMethodStruct) ls_;

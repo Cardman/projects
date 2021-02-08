@@ -607,7 +607,7 @@ public final class AliasMath {
         ExecTypeFunction p_ = new ExecTypeFunction(null,null);
         CustList<Argument> argsToPass_ = new CustList<Argument>();
         String cl_ = "";
-        if (matchNotNull(_cont, seedSpec_, argSeedSpec_, lgNames_.getContent().getPredefTypes().getAliasSeedDoubleGenerator())) {
+        if (matchNotNull(_cont, seedSpec_, lgNames_.getContent().getPredefTypes().getAliasSeedDoubleGenerator())) {
             String argClassName_ = seedSpec_.getClassName(_cont);
             Classes classes_ = _cont.getClasses();
             ExecOverrideInfo polymorphMeth_ = ExecInvokingOperation.polymorph(_cont, seedSpec_,classes_.getSeedDoubleGeneratorPair());
@@ -628,7 +628,7 @@ public final class AliasMath {
         }
         Struct seed_ = _stackCall.getSeed();
         Argument argSeed_ = new Argument(seed_);
-        if (matchNotNull(_cont, seed_, argSeed_, lgNames_.getContent().getPredefTypes().getAliasSeedDoubleGenerator())) {
+        if (matchNotNull(_cont, seed_, lgNames_.getContent().getPredefTypes().getAliasSeedDoubleGenerator())) {
             String argClassName_ = seed_.getClassName(_cont);
             Classes classes_ = _cont.getClasses();
             ExecOverrideInfo polymorphMeth_ = ExecInvokingOperation.polymorph(_cont, seed_,classes_.getSeedDoubleGeneratorPair());
@@ -659,7 +659,7 @@ public final class AliasMath {
         ExecTypeFunction p_ = new ExecTypeFunction(null,null);
         CustList<Argument> argsToPass_ = new CustList<Argument>();
         String cl_ = "";
-        if (matchNotNull(_cont, seedSpec_, argSeedSpec_, lgNames_.getContent().getPredefTypes().getAliasSeedGenerator())) {
+        if (matchNotNull(_cont, seedSpec_, lgNames_.getContent().getPredefTypes().getAliasSeedGenerator())) {
             String argClassName_ = seedSpec_.getClassName(_cont);
             Classes classes_ = _cont.getClasses();
             ExecOverrideInfo polymorphMeth_ = ExecInvokingOperation.polymorph(_cont, seedSpec_, classes_.getSeedGeneratorPair());
@@ -684,7 +684,7 @@ public final class AliasMath {
         argsToPass_.clear();
         Struct seed_ = _stackCall.getSeed();
         Argument argSeed_ = new Argument(seed_);
-        if (matchNotNull(_cont, seed_, argSeed_, lgNames_.getContent().getPredefTypes().getAliasSeedGenerator())) {
+        if (matchNotNull(_cont, seed_, lgNames_.getContent().getPredefTypes().getAliasSeedGenerator())) {
             String argClassName_ = seed_.getClassName(_cont);
             Classes classes_ = _cont.getClasses();
             ExecOverrideInfo polymorphMeth_ = ExecInvokingOperation.polymorph(_cont, seed_, classes_.getSeedGeneratorPair());
@@ -711,9 +711,9 @@ public final class AliasMath {
         return _result;
     }
 
-    private static boolean matchNotNull(ContextEl _cont, Struct _seed, Argument _argSeed, String _type) {
+    private static boolean matchNotNull(ContextEl _cont, Struct _seed, String _type) {
         return _seed != NullStruct.NULL_VALUE
-                && ExecTemplates.safeObject(_type, _argSeed, _cont) == ErrorType.NOTHING;
+                && ExecTemplates.safeObject(_type, _seed, _cont) == ErrorType.NOTHING;
     }
 
     public String getAliasAbs() {

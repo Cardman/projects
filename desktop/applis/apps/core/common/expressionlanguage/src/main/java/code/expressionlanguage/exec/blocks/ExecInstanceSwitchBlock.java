@@ -9,6 +9,7 @@ import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.exec.stacks.SwitchBlockStack;
 import code.expressionlanguage.exec.variables.LocalVariable;
+import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 
 public final class ExecInstanceSwitchBlock extends ExecAbstractSwitchBlock {
@@ -67,9 +68,10 @@ public final class ExecInstanceSwitchBlock extends ExecAbstractSwitchBlock {
         String type_ = _s.getImportedClassName();
         AbstractPageEl ip_ = _stackCall.getLastPage();
         type_ = _stackCall.formatVarType(type_);
-        if (ExecTemplates.safeObject(type_, _arg, _cont) == ErrorType.NOTHING) {
+        Struct struct_ = _arg.getStruct();
+        if (ExecTemplates.safeObject(type_, struct_, _cont) == ErrorType.NOTHING) {
             String var_ = _s.getVariableName();
-            ip_.putValueVar(var_,LocalVariable.newLocalVariable(_arg.getStruct(),type_));
+            ip_.putValueVar(var_,LocalVariable.newLocalVariable(struct_,type_));
             _if.setExecLastVisitedBlock(_s);
             return _s;
         }

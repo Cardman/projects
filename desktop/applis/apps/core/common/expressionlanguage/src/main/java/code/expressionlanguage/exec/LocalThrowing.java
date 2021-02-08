@@ -1,6 +1,5 @@
 package code.expressionlanguage.exec;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
@@ -37,8 +36,7 @@ public final class LocalThrowing {
                                 continue;
                             }
                             name_ = _stackCall.formatVarType(name_);
-                            Argument arg_ = new Argument(custCause_);
-                            if (ExecTemplates.safeObject(name_, arg_, _conf) == ErrorType.NOTHING) {
+                            if (ExecTemplates.safeObject(name_, custCause_, _conf) == ErrorType.NOTHING) {
                                 catchElt_ = ca_;
                                 String var_ = ca_.getVariableName();
                                 LocalVariable lv_ = LocalVariable.newLocalVariable(custCause_,name_);

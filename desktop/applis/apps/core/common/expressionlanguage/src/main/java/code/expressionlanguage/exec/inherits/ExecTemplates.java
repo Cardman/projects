@@ -367,7 +367,7 @@ public final class ExecTemplates {
 
     public static Struct checkObjectEx(String _param, Argument _arg, ContextEl _context, StackCall _stackCall) {
         LgNames stds_ = _context.getStandards();
-        ErrorType err_ = safeObject(_param, _arg, _context);
+        ErrorType err_ = safeObject(_param, _arg.getStruct(), _context);
         if (err_ == ErrorType.CAST) {
             String cast_ = stds_.getContent().getCoreNames().getAliasCastType();
             return new ErrorStruct(_context, getBadCastMessage(_param, _arg.getStruct().getClassName(_context)),cast_, _stackCall);
@@ -527,7 +527,7 @@ public final class ExecTemplates {
             if (str_ instanceof ArrayStruct) {
                 ArrayStruct arr_ = (ArrayStruct) str_;
                 for (Struct s: arr_.list()) {
-                    ErrorType state_ = checkElement(arr_, s, _conf);
+                    ErrorType state_ = safeObjectArr(s, _conf, arr_);
                     if (state_ != ErrorType.NOTHING) {
                         return processError(_conf, arr_, s, state_, _stackCall);
                     }
@@ -603,7 +603,7 @@ public final class ExecTemplates {
         if (str_ instanceof ArrayStruct) {
             ArrayStruct arr_ = (ArrayStruct) str_;
             for (Struct s: arr_.list()) {
-                ErrorType state_ = checkElement(arr_, s, _conf);
+                ErrorType state_ = safeObjectArr(s, _conf, arr_);
                 if (state_ != ErrorType.NOTHING) {
                     Struct struct_ = processError(_conf, arr_, s, state_, _stackCall);
                     p_.setError(struct_);
@@ -795,15 +795,13 @@ public final class ExecTemplates {
         StringBuilder mess_ = buildStoreError(_s, _conf, _arr);
         return new ErrorStruct(_conf,mess_.toString(),cast_, _stackCall);
     }
-    private static ErrorType checkElement(ArrayStruct _arr, Struct _value, ContextEl _context) {
-        String arrType_ = _arr.getClassName();
-        String param_ = StringUtil.nullToEmpty(StringExpUtil.getQuickComponentType(arrType_));
-        return safeObject(ErrorType.STORE,param_,_value,_context);
-    }
-    public static ErrorType safeObject(String _param, Argument _arg, ContextEl _context) {
-        return safeObject(ErrorType.CAST,_param,_arg.getStruct(),_context);
+    public static ErrorType safeObject(String _param, Struct _arg, ContextEl _context) {
+        return safeObject(ErrorType.CAST,_param,_arg,_context);
     }
     public static ErrorType safeObject(ErrorType _errCast,String _param, Struct _arg, ContextEl _context) {
+        if (_arg == null) {
+            return ErrorType.NPE;
+        }
         LgNames stds_ = _context.getStandards();
         String param_ = StringUtil.nullToEmpty(_param);
         if (_arg != NullStruct.NULL_VALUE) {
@@ -889,10 +887,15 @@ public final class ExecTemplates {
         if (index_ < 0 || index_ >= arr_.getLength()) {
             return ErrorType.BAD_INDEX;
         }
-        String arrType_ = arr_.getClassName();
+        return safeObjectArr(_value, _context, arr_);
+    }
+
+    private static ErrorType safeObjectArr(Struct _value, ContextEl _context, ArrayStruct _arr) {
+        String arrType_ = _arr.getClassName();
         String param_ = StringUtil.nullToEmpty(StringExpUtil.getQuickComponentType(arrType_));
         return safeObject(ErrorType.STORE,param_,_value,_context);
     }
+
     private static Struct gearErrorWhenIndex(Struct _array, Struct _index, ContextEl _context, StackCall _stackCall) {
         ErrorType err_ = getErrorWhenIndex(_array, _index);
         LgNames stds_ = _context.getStandards();

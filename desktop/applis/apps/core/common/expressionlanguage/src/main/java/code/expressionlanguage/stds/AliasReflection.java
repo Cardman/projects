@@ -1448,12 +1448,11 @@ public final class AliasReflection {
                 result_.setResult(BooleanStruct.of(false));
                 return result_;
             }
-            Argument arg_ = new Argument(_args[0]);
-            if (arg_.isNull()) {
+            if (_args[0] == NullStruct.NULL_VALUE) {
                 result_.setResult(BooleanStruct.of(false));
                 return result_;
             }
-            result_.setResult(BooleanStruct.of(ExecTemplates.safeObject(param_, arg_, _cont) == ErrorType.NOTHING));
+            result_.setResult(BooleanStruct.of(ExecTemplates.safeObject(param_, _args[0], _cont) == ErrorType.NOTHING));
             return result_;
         }
         if (StringUtil.quickEq(name_, ref_.aliasIsAssignableFrom)) {

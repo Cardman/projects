@@ -1157,6 +1157,12 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         AnalyzedTestContext c_ = validated(files_);
         assertNotNull(ExecTemplates.getGenericTypeNameOrObject(c_.getContext(),""));
     }
+    @Test
+    public void safeObject() {
+        StringMap<String> files_ = new StringMap<String>();
+        AnalyzedTestContext c_ = validated(files_);
+        assertSame(ErrorType.NPE,ExecTemplates.safeObject(ErrorType.CAST,"",null,c_.getContext()));
+    }
 
 
     @Test
