@@ -1,17 +1,25 @@
 package code.gui;
 
 import code.util.CustList;
-import code.util.Ints;
 
-public interface AbsGraphicList<T> extends AbsBasicGraphicList {
+public interface AbsGraphicList<T> {
     void add(T _elt);
+    void add(int _index, PreparedLabel _lab, T _elt);
     void add(int _index, T _elt);
-    void addLab(int _index, PreparedLabel _lab);
     void set(int _index, T _elt);
     void set(int _index, PreparedLabel _lab, T _elt);
-    void addListeners(int _index, PreparedLabel _lab);
-    void simpleAddLab(int _index, PreparedLabel _lab);
+    void clear();
+    void clearSelection();
+    void clearRevalidate();
+    int size();
+    void remove(int _index);
+    void setListener(ListSelection _list);
     void clearAllRange();
+    void setSelectedIndice(int _index);
+    void setVisibleRowCount(int _vis);
+    int getSelectedIndex();
+    boolean isSelectionEmpty();
+    boolean isEmpty();
 
     CustCellRender<T> getRender();
 

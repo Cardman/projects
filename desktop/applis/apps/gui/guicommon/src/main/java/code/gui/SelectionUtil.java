@@ -11,6 +11,6 @@ public final class SelectionUtil {
             SelectionInfo ev_ = new SelectionInfo(min_, max_, _methodAction);
             _list.valueChanged(ev_);
         }
-        _origin.update();
+        AbsComboBox.tryUp(_origin);
     }
 }

@@ -8,7 +8,8 @@ import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.utilcompo.RunnableStruct;
-import code.gui.AbsBasicGraphicList;
+import code.gui.AbsGraphicListDef;
+import code.gui.AbsGraphicListDefBase;
 import code.gui.Interval;
 import code.util.CustList;
 
@@ -19,7 +20,7 @@ public final class AdvGraphicListPainter extends AbsAdvGraphicListPainter {
     }
 
     @Override
-    public void selectPaint(AbsBasicGraphicList _list, boolean _sel, int _index) {
+    public void selectPaint(AbsGraphicListDefBase _list, boolean _sel, int _index) {
         Struct value_ = getValue();
         if (!(value_ instanceof GraphicListStruct)) {
             return;
@@ -39,7 +40,7 @@ public final class AdvGraphicListPainter extends AbsAdvGraphicListPainter {
     }
 
     @Override
-    public boolean selectOneAmongIntervalPaint(AbsBasicGraphicList _list, boolean _sel, int _index) {
+    public boolean selectOneAmongIntervalPaint(AbsGraphicListDefBase _list, boolean _sel, int _index) {
         Struct value_ = getValue();
         if (!(value_ instanceof GraphicListStruct)) {
             return false;
@@ -57,7 +58,7 @@ public final class AdvGraphicListPainter extends AbsAdvGraphicListPainter {
     }
 
     @Override
-    public void afterSelectOneAmongIntervalPaint(AbsBasicGraphicList _list, boolean _sel, int _index) {
+    public void afterSelectOneAmongIntervalPaint(AbsGraphicListDefBase _list, boolean _sel, int _index) {
         Struct value_ = getValue();
         if (!(value_ instanceof GraphicListStruct)) {
             return;
@@ -66,13 +67,13 @@ public final class AdvGraphicListPainter extends AbsAdvGraphicListPainter {
         if (!grList_.isEnabledList()) {
             return;
         }
-        if (grList_.getListComponents().isValidIndex(_index)) {
-            grList_.getListComponents().get(_index).requestFocus();
+        if (_list.getListComponents().isValidIndex(_index)) {
+            _list.getListComponents().get(_index).requestFocus();
         }
     }
 
     @Override
-    public Interval selectIntervalPaint(AbsBasicGraphicList _list, boolean _sel, int _index) {
+    public Interval selectIntervalPaint(AbsGraphicListDefBase _list, boolean _sel, int _index) {
         Struct value_ = getValue();
         if (!(value_ instanceof GraphicListStruct)) {
             return null;
@@ -90,7 +91,7 @@ public final class AdvGraphicListPainter extends AbsAdvGraphicListPainter {
     }
 
     @Override
-    public Interval selectIntervalKeyPaint(AbsBasicGraphicList _list, boolean _sel, int _index) {
+    public Interval selectIntervalKeyPaint(AbsGraphicListDefBase _list, boolean _sel, int _index) {
         Struct value_ = getValue();
         if (!(value_ instanceof GraphicListStruct)) {
             return null;
@@ -100,7 +101,7 @@ public final class AdvGraphicListPainter extends AbsAdvGraphicListPainter {
             return null;
         }
         int min_ = 0;
-        int max_ = grList_.getListComponents().size() - 1;
+        int max_ = _list.getListComponents().size() - 1;
         if (!_sel) {
             for (int i = min_; i <= max_; i++) {
                 grList_.getSelectedIndexes().removeObj(i);

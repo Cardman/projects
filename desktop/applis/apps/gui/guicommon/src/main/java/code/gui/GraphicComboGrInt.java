@@ -10,6 +10,5 @@ public interface GraphicComboGrInt extends WithPopup,GraphicComboInt, Input {
     String getSelectedItem();
     void simpleRemoveAllItems();
     void simpleRemoveItem(int _index);
-    void update();
     CustComponent self();
 }

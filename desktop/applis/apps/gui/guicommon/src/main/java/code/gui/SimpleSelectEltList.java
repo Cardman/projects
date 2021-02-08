@@ -7,14 +7,14 @@ import javax.swing.*;
 
 public final class SimpleSelectEltList extends MouseAdapter implements IndexableListener {
 
-    private final AbsBasicGraphicList grList;
+    private final AbsGraphicListDefBase grList;
 
     private int index;
     private final AbsGraphicListPainter graphicListPainter;
 
     private ListSelection selection;
 
-    public SimpleSelectEltList(AbsBasicGraphicList _grList, int _index, AbsGraphicListPainter _graphicListPainter) {
+    public SimpleSelectEltList(AbsGraphicListDefBase _grList, int _index, AbsGraphicListPainter _graphicListPainter) {
         grList = _grList;
         index = _index;
         graphicListPainter = _graphicListPainter;

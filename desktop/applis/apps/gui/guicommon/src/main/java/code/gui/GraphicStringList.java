@@ -39,18 +39,24 @@ public final class GraphicStringList extends GraphicList<String> implements Inpu
         Panel panel_ = getPanel();
         int len_ = elements.size();
         for (int i = 0; i < len_; i++) {
-            PreparedLabel lab_ = new PreparedLabel();
+            BufferedImage buff_ = repaintSelected(i, getSelectedIndexes().containsObj(i));
+            PreparedLabel lab_ = new PreparedLabel(buff_);
             getListComponents().add(lab_);
             panel_.add(lab_);
-            repaintSelect(i,getSelectedIndexes().containsObj(i));
         }
     }
 
     void repaintSelect(int _index, boolean _sel) {
-        String elt_ = elements.get(_index);
+        BufferedImage buff_ = repaintSelected(_index, _sel);
         PreparedLabel lab_ = getListComponents().get(_index);
-        Font font_ = lab_.getFont();
-        FontMetrics fontMetrics_ = lab_.getFontMetrics(font_);
+        lab_.setIcon(buff_);
+    }
+
+    private BufferedImage repaintSelected(int _index, boolean _sel) {
+        String elt_ = elements.get(_index);
+        Panel panel_ = getPanel();
+        Font font_ = panel_.getFont();
+        FontMetrics fontMetrics_ = panel_.getFontMetrics(font_);
         height = Math.max(height,fontMetrics_.getHeight());
         cellRender.setMaxWidth(Math.max(cellRender.getMaxWidth(),fontMetrics_.stringWidth(elt_)));
         BufferedImage buff_ = new BufferedImage(cellRender.getWidth(),fontMetrics_.getHeight(),BufferedImage.TYPE_INT_RGB);
@@ -63,8 +69,9 @@ public final class GraphicStringList extends GraphicList<String> implements Inpu
         } else {
             LabelButtonUtil.paintDefaultLabel(gr_, elt_, w_, cellRender.getMaxWidth(), h_, Color.BLACK, Color.WHITE);
         }
-        lab_.setIcon(buff_);
+        return buff_;
     }
+
     @Override
     protected IndexableListener buildSingleSelect(PreparedLabel _lab, int _index) {
         SimpleSelectCombo i_ = new SimpleSelectCombo(this, _index);

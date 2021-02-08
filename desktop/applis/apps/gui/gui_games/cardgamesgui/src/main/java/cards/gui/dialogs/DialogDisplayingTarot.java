@@ -125,10 +125,14 @@ public final class DialogDisplayingTarot extends DialogCards implements DialogDi
     @Override
     public void addSuit() {
         //Ajouter dans le tri
+        Suit current_ = listeChoix.getCurrent();
+        if (current_ == null) {
+            return;
+        }
         if(orderedSuits.nombreDeCouleurs()==5&&listeChoix.getItemCount()==5) {
             orderedSuits.toutSupprimer();
         }
-        orderedSuits.ajouterCouleur(listeChoix.getCurrent());
+        orderedSuits.ajouterCouleur(current_);
         listeChoix.removeItem(listeChoix.getSelectedIndex());
     }
     @Override

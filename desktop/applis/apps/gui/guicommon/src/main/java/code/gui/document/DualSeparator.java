@@ -1,13 +1,11 @@
 package code.gui.document;
 
-import javax.swing.*;
-
 import code.formathtml.render.MetaComponent;
 import code.gui.CustComponent;
 import code.gui.Separator;
 
 public final class DualSeparator extends DualLeaf {
-    private Separator separator;
+    private final Separator separator;
 
     public DualSeparator(DualContainer _container, MetaComponent _component,
             RenderedPage _page) {

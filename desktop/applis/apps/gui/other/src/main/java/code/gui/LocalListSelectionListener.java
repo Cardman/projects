@@ -2,10 +2,9 @@ package code.gui;
 import javax.swing.event.*;
 public class LocalListSelectionListener implements ListSelectionListener {
 	private final ListSelection listener;
-	private final AbsBasicGraphicList comp;
-	public LocalListSelectionListener(AbsBasicGraphicList _comp,ListSelection _listener){
+
+	public LocalListSelectionListener(ListSelection _listener){
 		listener = _listener;
-		comp = _comp;
 	}
 	public void valueChanged(ListSelectionEvent _e){
 		if (_e.getValueIsAdjusting()){

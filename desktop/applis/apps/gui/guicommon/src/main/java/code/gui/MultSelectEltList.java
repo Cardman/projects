@@ -7,14 +7,14 @@ import javax.swing.*;
 
 public final class MultSelectEltList extends MouseAdapter implements IndexableListener {
 
-    private final AbsBasicGraphicList grList;
+    private final AbsGraphicListDefBase grList;
 
     private int index;
 
     private ListSelection selection;
 
     private final AbsGraphicListPainter painter;
-    public MultSelectEltList(AbsBasicGraphicList _grList, int _index, AbsGraphicListPainter _painter) {
+    public MultSelectEltList(AbsGraphicListDefBase _grList, int _index, AbsGraphicListPainter _painter) {
         grList = _grList;
         index = _index;
         painter = _painter;

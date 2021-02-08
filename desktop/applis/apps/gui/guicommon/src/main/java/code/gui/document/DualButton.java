@@ -4,8 +4,6 @@ import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.image.BufferedImage;
 
-import javax.swing.*;
-
 import code.formathtml.render.MetaButton;
 import code.gui.CustComponent;
 import code.gui.LabelButtonUtil;
@@ -13,8 +11,8 @@ import code.gui.PreparedLabel;
 
 public final class DualButton extends DualInput {
 
-    private String value;
-    private PreparedLabel label;
+    private final String value;
+    private final PreparedLabel label;
 
     public DualButton(DualContainer _container, MetaButton _component,
             RenderedPage _page) {

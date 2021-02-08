@@ -3,7 +3,7 @@ import code.util.*;
 import code.util.TreeMap;
 import code.util.comparators.ComparatorMapValue;
 
-public final class IntTreeComboBox extends AbsComboBox implements GraphicComboGrInt {
+public final class IntTreeComboBox extends AbsComboBox implements GraphicComboGrIntBase {
 //implements TranslatableComponent
 
     private static final String EMPTY_STRING = "";

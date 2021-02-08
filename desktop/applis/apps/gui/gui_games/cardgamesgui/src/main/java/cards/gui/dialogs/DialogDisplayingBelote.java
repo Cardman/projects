@@ -130,10 +130,14 @@ public final class DialogDisplayingBelote extends DialogCards implements DialogD
 
     @Override
     public void addSuit() {
+        Suit current_ = listeChoix.getCurrent();
+        if (current_ == null) {
+            return;
+        }
         if(orderedSuits.nombreDeCouleurs()==4&&listeChoix.getItemCount()==4) {
             orderedSuits.toutSupprimer();
         }
-        orderedSuits.ajouterCouleur(listeChoix.getCurrent());
+        orderedSuits.ajouterCouleur(current_);
         listeChoix.removeItem(listeChoix.getSelectedIndex());
     }
 

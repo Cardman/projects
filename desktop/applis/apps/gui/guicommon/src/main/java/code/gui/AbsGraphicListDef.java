@@ -3,14 +3,8 @@ package code.gui;
 import code.util.CustList;
 import code.util.Ints;
 
-public interface AbsBasicGraphicList {
-    boolean selectOneAmongIntervalPaint(boolean _sel, int _index);
-    Interval selectIntervalKeyPaint(boolean _sel, int _index);
-    Interval selectIntervalPaint(boolean _sel, int _index);
-    Interval selectIntervalPaintBase(boolean _sel, int _index);
-    void selectOneAmongIntervalPaintBase(boolean _sel, int _index);
+public interface AbsGraphicListDef {
     void clear();
-    void updateGraphics();
     void clearRevalidate();
     void remove(int _index);
     int getVisibleRowCount();
@@ -19,7 +13,6 @@ public interface AbsBasicGraphicList {
     void setSelectedIndice(int _min);
     void clearSelection();
     Ints getSelectedIndexes();
-    CustList<PreparedLabel> getListComponents();
     void setSelectedIndexes(Ints _values);
     ListSelection getListener();
 
@@ -36,4 +29,5 @@ public interface AbsBasicGraphicList {
 
     boolean isEnabled();
     void setEnabled(boolean _enabled);
+
 }

@@ -20,4 +20,9 @@ public final class CustGrListStr extends CustGrList<Struct> implements AbsCustGr
             getListView().setCellRenderer(cell_::getListCellRendererComponent);
         }
     }
+
+    @Override
+    public void updateGraphics() {
+        getListView().repaint();
+    }
 }

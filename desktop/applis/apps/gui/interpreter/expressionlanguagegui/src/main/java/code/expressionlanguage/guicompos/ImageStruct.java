@@ -24,11 +24,7 @@ public final class ImageStruct extends WithoutParentIdStruct implements Struct {
         }
         graphics = image.getGraphics();
     }
-    public ImageStruct(BufferedImage _buff) {
-        withAlpha = _buff.getType() == BufferedImage.TYPE_INT_ARGB;
-        image = _buff;
-        graphics = image.getGraphics();
-    }
+
     public IntStruct getWidth() {
         return new IntStruct(image.getWidth());
     }

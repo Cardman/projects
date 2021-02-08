@@ -2,7 +2,6 @@ package code.gui.document;
 
 import code.formathtml.render.IntComboList;
 import code.formathtml.render.MetaComboList;
-import code.gui.AbsInputGraphicList;
 import code.util.Ints;
 import code.util.StringList;
 

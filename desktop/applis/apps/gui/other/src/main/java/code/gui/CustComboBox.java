@@ -3,6 +3,8 @@ import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import code.util.StringList;
 import code.util.Ints;
+import code.util.core.StringUtil;
+
 public final class CustComboBox extends CustComponent implements GraphicComboGrInt {
 
     private final JComboBox<String> combo = new JComboBox<>();
@@ -17,9 +19,7 @@ public final class CustComboBox extends CustComponent implements GraphicComboGrI
 		for (String s: _list){
 			addItem(s);
 		}
-        if (!_list.isEmpty()) {
-            selectItem(_selectedIndex);
-        }
+        selectItem(_selectedIndex);
     }
 
     public String getSelectedItem() {
@@ -32,7 +32,7 @@ public final class CustComboBox extends CustComponent implements GraphicComboGrI
 
     @Override
     public void addItem(String _object) {
-        combo.addItem(_object);
+        combo.addItem(StringUtil.nullToEmpty(_object));
     }
 
     @Override
@@ -67,27 +67,22 @@ public final class CustComboBox extends CustComponent implements GraphicComboGrI
     }
     @Override
     public void simpleRemoveItem(int _index) {
-        if (_index > -1) {
-            combo.removeItem(_index);
-        }
+        innerRemoveAtIndex(_index);
     }
     @Override
     public void removeItem(int _index) {
-        if (_index > -1) {
-            combo.removeItem(_index);
+        innerRemoveAtIndex(_index);
+    }
+
+    private void innerRemoveAtIndex(int _index) {
+        if (isOk(_index)) {
+            combo.removeItemAt(_index);
         }
     }
 
     @Override
     public int getSelectedIndex() {
         return combo.getSelectedIndex();
-    }
-
-    public void setSelectedIndex(int _index) {
-        if (_index < 0) {
-            return;
-        }
-		combo.setSelectedIndex(_index);
     }
 
     @Override
@@ -98,13 +93,21 @@ public final class CustComboBox extends CustComponent implements GraphicComboGrI
     }
     public void simpleSelectItem(int _index) {
         if (_index < 0) {
+            if (_index == -1) {
+                combo.setSelectedIndex(_index);
+            }
+            return;
+        }
+        if (!isOk(_index)) {
             return;
         }
 		combo.setSelectedIndex(_index);
     }
-
-    public void update() {
-        //
+    boolean isOk(int _index) {
+        if (_index < 0) {
+            return false;
+        }
+        return _index < combo.getItemCount();
     }
 
     public CustComponent getCurrentSelected() {
@@ -118,10 +121,11 @@ public final class CustComboBox extends CustComponent implements GraphicComboGrI
 
     @Override
     public Ints getSelectedIndexes() {
-        if (combo.getSelectedIndex() == -1) {
+        int selectedIndex_ = combo.getSelectedIndex();
+        if (selectedIndex_ == -1) {
             return new Ints();
         }
-        return new Ints(combo.getSelectedIndex());
+        return new Ints(selectedIndex_);
     }
 
     public boolean isEnabled() {

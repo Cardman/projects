@@ -83,7 +83,9 @@ public class SuitCellRenderer extends CustCellRender<Suit> {
             _g.setColor(Color.RED);
         }
         String lg_ = window.getLanguageKey();
-        _g.drawString(Games.toString(couleur,lg_),10,10);
+        if (couleur != null) {
+            _g.drawString(Games.toString(couleur, lg_), 10, 10);
+        }
     }
     @Override
     public int getHeight() {

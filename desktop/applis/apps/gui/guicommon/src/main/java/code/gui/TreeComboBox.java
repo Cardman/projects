@@ -1,7 +1,7 @@
 package code.gui;
 import code.util.AbsMap;
 
-public abstract class TreeComboBox<T> extends AbsComboBox implements GraphicComboGrInt {
+public abstract class TreeComboBox<T> extends AbsComboBox implements GraphicComboGrIntBase {
 //implements TranslatableComponent
 
 //    private static final String EMPTY_STRING = "";

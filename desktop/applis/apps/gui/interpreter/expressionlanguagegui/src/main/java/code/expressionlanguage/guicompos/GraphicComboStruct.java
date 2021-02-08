@@ -5,7 +5,6 @@ import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.utilcompo.RunnableContextEl;
 import code.expressionlanguage.structs.*;
 import code.gui.*;
-import code.util.StringList;
 
 
 public final class GraphicComboStruct extends InputStruct {
@@ -71,7 +70,7 @@ public final class GraphicComboStruct extends InputStruct {
         return graphicCombo.getListener();
     }
     public void update() {
-        graphicCombo.update();
+        AbsComboBox.tryUp(graphicCombo);
     }
     public ArrayStruct getSelectedIndexes(ContextEl _cont) {
         int selectedIndex_ = graphicCombo.getSelectedIndex();

@@ -13,10 +13,10 @@ import code.util.CustList;
 
 public abstract class DualLabel extends DualLeaf {
 
-    private CustList<SegmentPart> segments = new CustList<SegmentPart>();
+    private final CustList<SegmentPart> segments = new CustList<SegmentPart>();
 
-    private String text;
-    private PreparedLabel label;
+    private final String text;
+    private final PreparedLabel label;
 
     public DualLabel(DualContainer _container, MetaLabel _component, RenderedPage _page) {
         super(_container, _component, _page);
@@ -85,7 +85,7 @@ public abstract class DualLabel extends DualLeaf {
     public String getText() {
         return text;
     }
-    protected Font newFont(MetaStyle _style) {
+    protected static Font newFont(MetaStyle _style) {
         String fontFamily_ = _style.getFontFamily();
         int realSize_ = _style.getRealSize();
         if (_style.getBold() == Font.BOLD) {

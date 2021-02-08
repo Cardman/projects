@@ -5,14 +5,14 @@ import java.awt.event.KeyEvent;
 
 public final class MultSelectKeyEltList extends KeyAdapter implements IndexableListener {
 
-    private final AbsBasicGraphicList grList;
+    private final AbsGraphicListDefBase grList;
 
     private int index;
 
     private ListSelection selection;
     private final AbsGraphicListPainter painter;
 
-    public MultSelectKeyEltList(AbsBasicGraphicList _grList, int _index, AbsGraphicListPainter _painter) {
+    public MultSelectKeyEltList(AbsGraphicListDefBase _grList, int _index, AbsGraphicListPainter _painter) {
         grList = _grList;
         index = _index;
         painter = _painter;

@@ -1,15 +1,12 @@
 package code.gui.document;
 
-import javax.swing.*;
-
 import code.formathtml.render.MetaImage;
 import code.gui.CustComponent;
 import code.gui.PreparedLabel;
-import code.gui.TextLabel;
 
 public abstract class DualImage extends DualLeaf {
 
-    private PreparedLabel label;
+    private final PreparedLabel label;
 
     public DualImage(DualContainer _container, MetaImage _component,
             RenderedPage _page) {
@@ -32,6 +29,5 @@ public abstract class DualImage extends DualLeaf {
         return label;
     }
 
-    public void paint() {
-    }
+    public abstract void paint();
 }

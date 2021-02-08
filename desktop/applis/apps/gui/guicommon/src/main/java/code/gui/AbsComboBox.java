@@ -1,7 +1,7 @@
 package code.gui;
 import code.util.*;
 
-public abstract class AbsComboBox implements GraphicComboGrInt {
+public abstract class AbsComboBox implements GraphicComboGrIntBase {
 
     private final GraphicComboGrInt combo;
     public AbsComboBox(GraphicComboGrInt _combo) {
@@ -81,7 +81,13 @@ public abstract class AbsComboBox implements GraphicComboGrInt {
 
     @Override
     public void update() {
-        combo.update();
+        tryUp(combo);
+    }
+
+    public static void tryUp(GraphicComboGrInt _combo) {
+        if (_combo instanceof GraphicComboGrIntBase) {
+            ((GraphicComboGrIntBase) _combo).update();
+        }
     }
 
     @Override

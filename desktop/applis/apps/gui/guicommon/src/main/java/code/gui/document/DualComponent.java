@@ -20,7 +20,7 @@ public abstract class DualComponent implements IntComponent {
     private final MetaComponent component;
     private DualComponent nextSibling;
 
-    private RenderedPage page;
+    private final RenderedPage page;
 
     public DualComponent(DualContainer _container, MetaComponent _component, RenderedPage _page) {
         container = _container;
@@ -28,7 +28,7 @@ public abstract class DualComponent implements IntComponent {
         page = _page;
     }
 
-    protected void updateGraphics(CustComponent _component,MetaComponent _metaComponent) {
+    protected static void updateGraphics(CustComponent _component, MetaComponent _metaComponent) {
         MetaStyle style_ = _metaComponent.getStyle();
         if (style_.getBorder() == BorderEnum.SOLID) {
             _component.setLineBorder(new Color(style_.getBorderColor()), style_.getBorderSize());

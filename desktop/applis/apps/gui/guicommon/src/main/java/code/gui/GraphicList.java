@@ -7,7 +7,7 @@ import javax.swing.*;
 import code.util.CustList;
 import code.util.Ints;
 
-public class GraphicList<T> extends CustComponent implements AbsGraphicList<T> {
+public class GraphicList<T> extends CustComponent implements AbsGraphicList<T>,AbsGraphicListDefBase {
 
     private final AbsGraphicListPainter graphicListPainter;
     private CustList<T> list;
@@ -86,6 +86,14 @@ public class GraphicList<T> extends CustComponent implements AbsGraphicList<T> {
         addLab(_index, lab_);
     }
 
+    @Override
+    public void add(int _index, PreparedLabel _lab, T _elt) {
+        list.add(_index, _elt);
+        simpleAddLab(_index, _lab);
+        addListeners(_index, _lab);
+        updateGraphics();
+    }
+
     public void addLab(int _index, PreparedLabel _lab) {
         simpleAddLab(_index, _lab);
         repaintAdded(_index);
@@ -129,22 +137,8 @@ public class GraphicList<T> extends CustComponent implements AbsGraphicList<T> {
         panel.add(_lab,_index);
         list.set(_index, _elt);
         listComponents.set(_index, _lab);
-        if (!simple) {
-            MultSelectKeyEltList i_ = new MultSelectKeyEltList(this, _index, graphicListPainter);
-            i_.setSelection(listener);
-            _lab.addKeyListener(i_);
-            indexableKey.set(_index,i_);
-            MultSelectEltList j_ = new MultSelectEltList(this, _index, graphicListPainter);
-            j_.setSelection(listener);
-            _lab.addMouseListener(j_);
-            indexableMouse.set(_index,j_);
-            reindex(indexableMouse);
-            reindex(indexableKey);
-        } else {
-            IndexableListener i_ = buildSingleSelect(_lab, _index);
-            indexableMouse.set(_index,i_);
-            reindex(indexableMouse);
-        }
+        repaintAdded(_index);
+        addListeners(_index, _lab);
     }
     protected void repaintAdded(int _index) {
         CustCellRender<T> r_ = getRender();
@@ -191,6 +185,7 @@ public class GraphicList<T> extends CustComponent implements AbsGraphicList<T> {
             indexableMouse.remove(_index);
             reindex(indexableMouse);
         }
+        updateGraphics();
     }
     public final void rebuild() {
         CustCellRender<T> r_ = getRender();
@@ -250,6 +245,7 @@ public class GraphicList<T> extends CustComponent implements AbsGraphicList<T> {
             visibleRowCount = 1;
         }
         resetDimensions();
+        updateGraphics();
     }
 
     public void addRange() {

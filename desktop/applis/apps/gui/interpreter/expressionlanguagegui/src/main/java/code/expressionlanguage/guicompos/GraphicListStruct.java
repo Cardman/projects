@@ -30,17 +30,11 @@ public final class GraphicListStruct extends InputStruct {
         if (!(_img instanceof PreparedLabelStruct)) {
             return;
         }
-        grList.getList().add(_index, _elt);
-        addLab(_index, (PreparedLabelStruct) _img);
+        PreparedLabel textLabel_ = ((PreparedLabelStruct) _img).getTextLabel();
+        grList.add(_index,textLabel_, _elt);
     }
     public void add(int _index, Struct _elt) {
         grList.add(_index, _elt);
-    }
-    public void addLab(int _index, PreparedLabelStruct _img) {
-        PreparedLabel textLabel_ = _img.getTextLabel();
-        grList.simpleAddLab(_index, textLabel_);
-        grList.addListeners(_index, textLabel_);
-        updateGraphics();
     }
     void updateGraphics() {
         grList.updateGraphics();
@@ -112,11 +106,7 @@ public final class GraphicListStruct extends InputStruct {
 
     public void setVisibleRowCount(Struct _visibleRowCount) {
         int value_ = ((NumberStruct)_visibleRowCount).intStruct();
-        if (value_ < 0) {
-            value_ = 0;
-        }
         grList.setVisibleRowCount(value_);
-        updateGraphics();
     }
 
     public void clear() {
@@ -124,7 +114,6 @@ public final class GraphicListStruct extends InputStruct {
     }
     public void remove(int _index) {
         grList.remove(_index);
-        updateGraphics();
     }
     public void setListener(Struct _listener) {
         if (_listener instanceof ListSelection) {
@@ -156,10 +145,6 @@ public final class GraphicListStruct extends InputStruct {
         for (int i = min_; i <= max_; i++) {
             grList.getSelectedIndexes().removeObj(i);
         }
-    }
-
-    public CustList<PreparedLabel> getListComponents() {
-        return grList.getListComponents();
     }
 
     public Struct getRender() {

@@ -27,7 +27,7 @@ public class CustGrList<T> extends CustComponent implements AbsGraphicList<T> {
 
     public void setListener(ListSelection _listener) {
         listener = _listener;
-		list.addListSelectionListener(new LocalListSelectionListener(this,_listener));
+		list.addListSelectionListener(new LocalListSelectionListener(_listener));
     }
 
     public CustCellRender<T> getRender() {return inner;}
@@ -45,14 +45,16 @@ public class CustGrList<T> extends CustComponent implements AbsGraphicList<T> {
     public void add(T _elt) {
         add(elts.size(),_elt);
     }
+
+    @Override
+    public void add(int _index, PreparedLabel _lab, T _elt) {
+        elts.add(_index, _elt);
+        model.add(_index, _elt);
+    }
+
     public void add(int _index, T _elt) {
         elts.add(_index, _elt);
 		model.add(_index, _elt);
-    }
-
-    @Override
-    public void addLab(int _index, PreparedLabel _lab) {
-        //
     }
 
     @Override
@@ -67,49 +69,9 @@ public class CustGrList<T> extends CustComponent implements AbsGraphicList<T> {
         model.set(_index, _elt);
     }
 
-    @Override
-    public boolean selectOneAmongIntervalPaint(boolean _sel, int _index) {
-        return false;
-    }
-
-    @Override
-    public Interval selectIntervalKeyPaint(boolean _sel, int _index) {
-        return null;
-    }
-
-    @Override
-    public Interval selectIntervalPaint(boolean _sel, int _index) {
-        return null;
-    }
-
-    @Override
-    public Interval selectIntervalPaintBase(boolean _sel, int _index) {
-        return null;
-    }
-
-    @Override
-    public void selectOneAmongIntervalPaintBase(boolean _sel, int _index) {
-        //
-    }
-
     public void clear() {
         elts.clear();
         model.clear();
-    }
-
-    @Override
-    public void simpleAddLab(int _index, PreparedLabel _lab) {
-        //
-    }
-
-    @Override
-    public void addListeners(int _index, PreparedLabel _lab) {
-        //
-    }
-
-    @Override
-    public void updateGraphics() {
-        //
     }
 
     public void clearRevalidate() {
@@ -125,25 +87,13 @@ public class CustGrList<T> extends CustComponent implements AbsGraphicList<T> {
         return list.getVisibleRowCount();
     }
     public void setVisibleRowCount(int _visibleRowCount) {
-        int visibleRowCount_ = _visibleRowCount;
-        if (visibleRowCount_ <= 0) {
-            visibleRowCount_ = 1;
-        }
-		list.setVisibleRowCount(visibleRowCount_);
+        list.setVisibleRowCount(_visibleRowCount);
     }
 
     public void clearAllRange() {
         list.clearSelection();
     }
 
-    public void setSelectedIndexes(int _min, int _max) {
-        if (list.getSelectionMode() == ListSelectionModel.SINGLE_SELECTION) {
-            return;
-        }
-        int min_ = Math.min(_min, _max);
-        int max_ = Math.min(_min, _max);
-		list.addSelectionInterval(min_,max_);
-    }
     public void setSelectedIndice(int _min) {
         list.setSelectedIndex(_min);
     }
@@ -159,12 +109,6 @@ public class CustGrList<T> extends CustComponent implements AbsGraphicList<T> {
 		return out_;
     }
 
-    @Override
-    public CustList<PreparedLabel> getListComponents() {
-        return new CustList<>();
-    }
-
-    @Override
     public void setSelectedIndexes(Ints _values) {
         int len_ = _values.size();
         int[] inds_ = new int[len_];
@@ -180,23 +124,17 @@ public class CustGrList<T> extends CustComponent implements AbsGraphicList<T> {
     }
 
     public int getSelectedIndex() {
-        if (getSelectedIndexes().isEmpty()) {
-            return -1;
-        }
-        return getSelectedIndexes().first();
+        return list.getSelectedIndex();
     }
 
     public T getSelectedValue() {
-        if (getSelectedIndexes().isEmpty()) {
-            return null;
-        }
-        return elts.get(getSelectedIndexes().first());
+        return list.getSelectedValue();
     }
 
     public CustList<T> getSelectedValuesLs() {
         CustList<T> list_ = new CustList<>();
-        for (int i: getSelectedIndexes()) {
-            list_.add(get(i));
+        for (T i: list.getSelectedValuesList()) {
+            list_.add(i);
         }
         return list_;
     }
@@ -213,19 +151,17 @@ public class CustGrList<T> extends CustComponent implements AbsGraphicList<T> {
     }
 
     public boolean isSelectionEmpty() {
-        return getSelectedIndexes().isEmpty();
+        return list.isSelectionEmpty();
     }
 
     public int size() {
         return elts.size();
     }
 
-    @Override
     public boolean isEnabled() {
         return list.isEnabled();
     }
 
-    @Override
     public void setEnabled(boolean _enabled) {
         list.setEnabled(_enabled);
     }

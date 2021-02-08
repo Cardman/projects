@@ -4,7 +4,7 @@ import code.util.comparators.ComparatorIndexes;
 import code.util.comparators.ComparatorMapValue;
 import code.util.ints.Listable;
 
-public final class ComboBox<T> extends AbsComboBox implements GraphicComboGrInt {
+public final class ComboBox<T> extends AbsComboBox implements GraphicComboGrIntBase {
 
     private static final String EMPTY_STRING = "";
 
@@ -55,6 +55,9 @@ public final class ComboBox<T> extends AbsComboBox implements GraphicComboGrInt 
     public void removeItem(int _anIndex) {
         TreeMap<T, String> tr_;
         tr_ = getElements();
+        if (!tr_.isValidIndex(_anIndex)) {
+            return;
+        }
         T e_ = tr_.getKey(_anIndex);
         tr_.removeKey(e_);
         getCombo().removeItem(_anIndex);

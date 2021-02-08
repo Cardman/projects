@@ -1,6 +1,5 @@
 package code.expressionlanguage.guicompos;
 
-import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.structs.Struct;
 import code.gui.CustComponent;
 import code.gui.PreparedLabel;
@@ -29,9 +28,6 @@ public final class PreparedLabelStruct extends CustComponentStruct {
         }
     }
 
-    public ImageStruct getIcon() {
-        return new ImageStruct(textLabel.getBuffer());
-    }
     public static ImageIcon builImage(Struct _text) {
         BufferedImage img_ = null;
         if (_text instanceof ImageStruct) {

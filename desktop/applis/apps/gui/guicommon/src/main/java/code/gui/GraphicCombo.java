@@ -9,7 +9,7 @@ import code.util.*;
 import code.util.Ints;
 import code.util.core.NumberUtil;
 
-public final class GraphicCombo extends CustComponent implements GraphicComboGrInt  {
+public final class GraphicCombo extends CustComponent implements GraphicComboGrIntBase  {
 
     private final GraphicStringList grList;
 
@@ -17,9 +17,9 @@ public final class GraphicCombo extends CustComponent implements GraphicComboGrI
 
     private final Panel panel = Panel.newLineBox();
 
-    private final PreparedLabel currentSelected = new PreparedLabel();
+    private final PreparedLabel currentSelected;
 
-    private final PreparedLabel pseudoButton = new PreparedLabel();
+    private final PreparedLabel pseudoButton;
 
     private final PopupMenu menu = new PopupMenu();
 
@@ -40,8 +40,16 @@ public final class GraphicCombo extends CustComponent implements GraphicComboGrI
         gr_.fillRect(0, 0, s_, s_);
         gr_.setColor(Color.BLACK);
         gr_.fillPolygon(NumberUtil.wrapIntArray(s_/4,s_*3/4,s_/2), NumberUtil.wrapIntArray(s_/4,s_/4,s_*3/4), 3);
+        pseudoButton = new PreparedLabel(img_);
         pseudoButton.setIcon(img_);
         pseudoButton.addMouseListener(new Popup(this));
+        int w_ = 5;
+        BufferedImage img2_ = new BufferedImage(w_, s_, BufferedImage.TYPE_INT_RGB);
+        CustGraphics gr2_ = new CustGraphics(img2_.createGraphics());
+        gr2_.setFont(font_);
+        gr2_.setColor(Color.WHITE);
+        gr2_.fillRect(0, 0, w_, s_);
+        currentSelected = new PreparedLabel(img2_);
         currentSelected.setLineBorder(Color.BLACK);
         gr_.dispose();
         panel.add(currentSelected);
