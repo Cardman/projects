@@ -1,7 +1,7 @@
 package code.gui;
 
-import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.structs.Struct;
 
 public interface SpecSelectionCtx {
-    ContextEl ctx();
+    String convertStr(Struct _str);
 }

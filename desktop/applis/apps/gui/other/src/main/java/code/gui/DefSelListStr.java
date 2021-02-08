@@ -1,8 +1,6 @@
 package code.gui;
 
-import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.structs.Struct;
-import code.gui.initialize.StrConv;
 
 import javax.swing.*;
 import java.awt.*;
@@ -22,8 +20,7 @@ public final class DefSelListStr {
             int _index,
             boolean _isSelected,
             boolean _cellHasFocus) {
-        ContextEl ctx_ = specSelectionCtx.ctx();
-        String str_ = StrConv.convertStr(_value, ctx_);
+        String str_ = specSelectionCtx.convertStr(_value);
         return def.getListCellRendererComponent(_list,
                 str_,
                 _index, _isSelected, _cellHasFocus);

@@ -21,7 +21,6 @@ import code.expressionlanguage.exec.util.ExecTypeVar;
 import code.expressionlanguage.exec.variables.*;
 import code.expressionlanguage.functionid.Identifiable;
 import code.expressionlanguage.functionid.MethodAccessKind;
-import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.inherits.*;
 import code.expressionlanguage.stds.LgNames;
@@ -404,7 +403,7 @@ public final class ExecTemplates {
                 return "";
             }
         }
-        if (okArgsSet(_methodId, classFormat_, _firstArgs, _conf, _stackCall) != null) {
+        if (okArgsSet(_methodId, _firstArgs, _conf, _stackCall) != null) {
             return "";
         }
         return classFormat_;
@@ -453,7 +452,7 @@ public final class ExecTemplates {
                 return f_;
             }
         }
-        Parameters parameters_ = okArgsSetSw(_rootBlock, _methodId, classFormat_, _cache, _conf, _kind != MethodAccessKind.STATIC, _stackCall,_firstArgs);
+        Parameters parameters_ = okArgsSetSw(_rootBlock, _methodId, classFormat_, _cache, _conf, _stackCall,_firstArgs);
         if (parameters_.getError() != null) {
             return f_;
         }
@@ -462,8 +461,8 @@ public final class ExecTemplates {
         return f_;
     }
 
-    public static Struct okArgsSet(Identifiable _id, String _classNameFound, CustList<Argument> _firstArgs, ContextEl _conf, StackCall _stackCall) {
-        Struct ex_ = okArgsEx(_id, _classNameFound, _firstArgs, _conf, _stackCall);
+    public static Struct okArgsSet(Identifiable _id, CustList<Argument> _firstArgs, ContextEl _conf, StackCall _stackCall) {
+        Struct ex_ = okArgsEx(_id, _firstArgs, _conf, _stackCall);
         if (ex_ != null) {
             _stackCall.setCallingState(new CustomFoundExc(ex_));
         }
@@ -478,7 +477,7 @@ public final class ExecTemplates {
         return ex_;
     }
 
-    public static Parameters okArgsSetSw(ExecRootBlock _rootBlock, ExecAbstractSwitchMethod _id, String _classNameFound, Cache _cache, ContextEl _conf, boolean _hasFormat, StackCall _stackCall, ArgumentListCall _list) {
+    public static Parameters okArgsSetSw(ExecRootBlock _rootBlock, ExecAbstractSwitchMethod _id, String _classNameFound, Cache _cache, ContextEl _conf, StackCall _stackCall, ArgumentListCall _list) {
         CustList<Argument> arguments_ = _list.getArguments();
         if (arguments_.isEmpty()) {
             Parameters p_ = new Parameters();
@@ -490,14 +489,14 @@ public final class ExecTemplates {
             p_.setError(error_);
             return p_;
         }
-        Parameters ex_ = okArgsExSw(_rootBlock,_id, _classNameFound,_cache, _conf, _hasFormat, _stackCall, arguments_.first());
+        Parameters ex_ = okArgsExSw(_rootBlock,_id, _classNameFound,_cache, _conf, _stackCall, arguments_.first());
         if (ex_.getError() != null) {
             _stackCall.setCallingState(new CustomFoundExc(ex_.getError()));
         }
         return ex_;
     }
 
-    private static Struct okArgsEx(Identifiable _id, String _classNameFound, CustList<Argument> _firstArgs, ContextEl _conf, StackCall _stackCall) {
+    private static Struct okArgsEx(Identifiable _id, CustList<Argument> _firstArgs, ContextEl _conf, StackCall _stackCall) {
         StringList params_ = new StringList();
         int i_ = 0;
         for (String c: _id.getParametersTypes()) {
@@ -626,7 +625,7 @@ public final class ExecTemplates {
         }
         return p_;
     }
-    private static Parameters okArgsExSw(ExecRootBlock _rootBlock, ExecAbstractSwitchMethod _id, String _classNameFound, Cache _cache, ContextEl _conf, boolean _hasFormat, StackCall _stackCall, Argument _value) {
+    private static Parameters okArgsExSw(ExecRootBlock _rootBlock, ExecAbstractSwitchMethod _id, String _classNameFound, Cache _cache, ContextEl _conf, StackCall _stackCall, Argument _value) {
         Parameters p_ = new Parameters();
         possibleCheck(_rootBlock, _classNameFound, _cache, _conf, _stackCall, p_);
         if (p_.getError() != null) {
@@ -774,25 +773,16 @@ public final class ExecTemplates {
         out_.getArguments().addAllElts(_firstArgs);
         return out_;
     }
-    public static Parameters wrapAndCall(ExecTypeFunction _pair, String _formatted, Argument _previous, CustList<Argument> _firstArgs, ContextEl _conf, StackCall _stackCall) {
-        Parameters p_ = new Parameters();
+    public static Parameters wrapAndCall(ExecTypeFunction _pair, String _formatted, Argument _previous, ContextEl _conf, StackCall _stackCall, ArgumentListCall _argList, Argument _right) {
         ExecNamedFunctionBlock fct_ = _pair.getFct();
         ExecRootBlock type_ = _pair.getType();
-        int i_ = IndexConstants.FIRST_INDEX;
-        ParametersTypes params_ = fetchParamTypes(type_, fct_, _formatted, true);
-        for (Argument a: _firstArgs) {
-            String param_ = params_.getTypes().get(i_);
-            Struct ex_ = checkObjectEx(param_, a, _conf, _stackCall);
-            if (ex_ != null) {
-                _stackCall.setCallingState(new CustomFoundExc(ex_));
-                return p_;
-            }
-            LocalVariable lv_ = LocalVariable.newLocalVariable(a.getStruct(), param_);
-            p_.getParameters().addEntry(params_.getNames().get(i_),lv_);
-            i_++;
+        Parameters ex_ = okArgsEx(type_, fct_, _formatted, null, _argList, _conf, _right, true, _stackCall);
+        if (ex_.getError() != null) {
+            _stackCall.setCallingState(new CustomFoundExc(ex_.getError()));
+        } else {
+            _stackCall.setCallingState(new CustomFoundMethod(_previous,_formatted, _pair, ex_));
         }
-        _stackCall.setCallingState(new CustomFoundMethod(_previous,_formatted, _pair, p_));
-        return p_;
+        return ex_;
     }
 
     private static Struct processError(ContextEl _conf, ArrayStruct _arr, Struct _s, ErrorType _state, StackCall _stackCall) {
@@ -800,43 +790,34 @@ public final class ExecTemplates {
         if (_state == ErrorType.NPE) {
             String npe_ = stds_.getContent().getCoreNames().getAliasNullPe();
             return new ErrorStruct(_conf,npe_, _stackCall);
-        } else {
-            String cast_ = stds_.getContent().getCoreNames().getAliasStore();
-            StringBuilder mess_ = buildStoreError(_s, _conf, _arr);
-            return new ErrorStruct(_conf,mess_.toString(),cast_, _stackCall);
         }
+        String cast_ = stds_.getContent().getCoreNames().getAliasStore();
+        StringBuilder mess_ = buildStoreError(_s, _conf, _arr);
+        return new ErrorStruct(_conf,mess_.toString(),cast_, _stackCall);
     }
     private static ErrorType checkElement(ArrayStruct _arr, Struct _value, ContextEl _context) {
         String arrType_ = _arr.getClassName();
         String param_ = StringUtil.nullToEmpty(StringExpUtil.getQuickComponentType(arrType_));
-        LgNames stds_ = _context.getStandards();
-        if (primitiveTypeNullObject(param_, _value, stds_)) {
-            return ErrorType.NPE;
-        }
-        if (_value != NullStruct.NULL_VALUE) {
-            String arg_ = _value.getClassName(_context);
-            param_ = toWrapper(param_, stds_);
-            if (!isCorrectExecute(arg_, param_, _context)) {
-                return ErrorType.STORE;
-            }
-        }
-        return ErrorType.NOTHING;
+        return safeObject(ErrorType.STORE,param_,_value,_context);
     }
     public static ErrorType safeObject(String _param, Argument _arg, ContextEl _context) {
+        return safeObject(ErrorType.CAST,_param,_arg.getStruct(),_context);
+    }
+    public static ErrorType safeObject(ErrorType _errCast,String _param, Struct _arg, ContextEl _context) {
         LgNames stds_ = _context.getStandards();
-        Struct str_ = _arg.getStruct();
         String param_ = StringUtil.nullToEmpty(_param);
-        if (str_ != NullStruct.NULL_VALUE) {
-            String a_ = str_.getClassName(_context);
+        if (_arg != NullStruct.NULL_VALUE) {
+            String a_ = _arg.getClassName(_context);
             param_ = toWrapper(param_, stds_);
             if (!isCorrectExecute(a_, param_, _context)) {
-                return ErrorType.CAST;
+                return _errCast;
             }
+            return ErrorType.NOTHING;
         }
         if (param_.isEmpty()) {
             return ErrorType.CAST;
         }
-        if (primitiveTypeNullObject(param_, str_, _context)) {
+        if (_context.getStandards().getPrimitiveTypes().contains(param_)) {
             return ErrorType.NPE;
         }
         return ErrorType.NOTHING;
@@ -910,18 +891,7 @@ public final class ExecTemplates {
         }
         String arrType_ = arr_.getClassName();
         String param_ = StringUtil.nullToEmpty(StringExpUtil.getQuickComponentType(arrType_));
-        LgNames stds_ = _context.getStandards();
-        if (primitiveTypeNullObject(param_, _value, stds_)) {
-            return ErrorType.NPE;
-        }
-        if (_value != NullStruct.NULL_VALUE) {
-            String arg_ = _value.getClassName(_context);
-            param_ = toWrapper(param_, stds_);
-            if (!isCorrectExecute(arg_, param_, _context)) {
-                return ErrorType.STORE;
-            }
-        }
-        return ErrorType.NOTHING;
+        return safeObject(ErrorType.STORE,param_,_value,_context);
     }
     private static Struct gearErrorWhenIndex(Struct _array, Struct _index, ContextEl _context, StackCall _stackCall) {
         ErrorType err_ = getErrorWhenIndex(_array, _index);
@@ -1118,17 +1088,6 @@ public final class ExecTemplates {
     public static String reflectFormat(String _first, String _second, ContextEl _context) {
         StringMap<String> varTypes_ = getVarTypes(_first, _context);
         return StringExpUtil.getReflectFormattedType(_second, varTypes_);
-    }
-
-    private static boolean primitiveTypeNullObject(String _className, Struct _instance, ContextEl _context) {
-        return primitiveTypeNullObject(_className, _instance, _context.getStandards());
-    }
-
-    private static boolean primitiveTypeNullObject(String _className, Struct _instance, LgNames _stds) {
-        if (!_stds.getPrimitiveTypes().contains(_className)) {
-            return false;
-        }
-        return _instance == NullStruct.NULL_VALUE;
     }
 
     public static boolean hasBlockBreak(AbstractPageEl _ip, String _label) {

@@ -12,6 +12,7 @@ import code.expressionlanguage.exec.calls.util.CustomFoundMethod;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.inherits.Parameters;
 import code.expressionlanguage.exec.opers.ExecInvokingOperation;
+import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.exec.util.ExecOverrideInfo;
 import code.expressionlanguage.functionid.StdClassModifier;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
@@ -675,7 +676,9 @@ public final class AliasMath {
                 _result.setResult(ExecInvokingOperation.prepareCallDynReflect(fct_,argsToPass_,_cont, _stackCall).getStruct());
                 return _result;
             }
-            ExecTemplates.wrapAndCall(p_, cl_,argSeedSpec_,argsToPass_,_cont, _stackCall);
+            ArgumentListCall argList_ = new ArgumentListCall();
+            argList_.getArguments().addAllElts(argsToPass_);
+            ExecTemplates.wrapAndCall(p_, cl_,argSeedSpec_, _cont, _stackCall, argList_, null);
             return _result;
         }
         argsToPass_.clear();
@@ -698,7 +701,9 @@ public final class AliasMath {
                 _result.setResult(ExecInvokingOperation.prepareCallDynReflect(fct_,argsToPass_,_cont, _stackCall).getStruct());
                 return _result;
             }
-            ExecTemplates.wrapAndCall(p_, cl_,argSeed_,argsToPass_,_cont, _stackCall);
+            ArgumentListCall argList_ = new ArgumentListCall();
+            argList_.getArguments().addAllElts(argsToPass_);
+            ExecTemplates.wrapAndCall(p_, cl_,argSeed_, _cont, _stackCall, argList_, null);
             return _result;
         }
         AbstractGenerator generator_ = lgNames_.getGenerator();

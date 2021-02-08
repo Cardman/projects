@@ -1,10 +1,12 @@
 package code.expressionlanguage.guicompos;
 
-import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.CommonExecutionInfos;
 import code.expressionlanguage.exec.InitPhase;
+import code.expressionlanguage.exec.StackCall;
+import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.utilcompo.RunnableStruct;
 import code.gui.SpecSelectionCtx;
+import code.gui.initialize.StrConv;
 
 public final class DefSpecSelectionCtx implements SpecSelectionCtx {
     private final CommonExecutionInfos executionInfos;
@@ -14,9 +16,12 @@ public final class DefSpecSelectionCtx implements SpecSelectionCtx {
     }
 
     @Override
-    public ContextEl ctx() {
+    public String convertStr(Struct _struct) {
         GuiContextEl r_ = new GuiContextEl(InitPhase.NOTHING, executionInfos);
         RunnableStruct.setupThread(r_);
-        return r_;
+        StackCall stackCall_ = StackCall.newInstance(InitPhase.NOTHING, r_);
+        String value_ = StrConv.convertStr(_struct, r_, stackCall_);
+        r_.getCustInit().prExc(r_, stackCall_);
+        return value_;
     }
 }

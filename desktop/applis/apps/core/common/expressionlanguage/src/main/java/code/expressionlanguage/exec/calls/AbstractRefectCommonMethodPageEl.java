@@ -133,7 +133,7 @@ public abstract class AbstractRefectCommonMethodPageEl extends AbstractReflectPa
     }
 
     static Argument checkStaticCallSw(ExecRootBlock _type, ExecAbstractSwitchMethod _sw, Cache _cache, ContextEl _conf, String _paramName, ArgumentListCall _list, StackCall _stackCall) {
-        Parameters parameters_ = ExecTemplates.okArgsSetSw(_type, _sw, _paramName, _cache, _conf,true, _stackCall,_list);
+        Parameters parameters_ = ExecTemplates.okArgsSetSw(_type, _sw, _paramName, _cache, _conf, _stackCall,_list);
         if (parameters_.getError() != null) {
             return Argument.createVoid();
         }

@@ -17,6 +17,7 @@ import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
+import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.ConstructorId;
 import code.expressionlanguage.functionid.MethodModifier;
@@ -2909,7 +2910,9 @@ public final class CustAliases {
             if (StringUtil.quickEq(type_, aliasObject_)) {
                 String className_ = aliasFormatType;
                 Argument arg_ = new Argument(_args[0]);
-                ExecTemplates.wrapAndCall(_execBlocks.getFormatObjectPair(), className_,Argument.createVoid(),new CustList<Argument>(arg_),_cont, _stackCall);
+                ArgumentListCall argList_ = new ArgumentListCall();
+                argList_.getArguments().addAllElts(new CustList<Argument>(arg_));
+                ExecTemplates.wrapAndCall(_execBlocks.getFormatObjectPair(), className_,Argument.createVoid(), _cont, _stackCall, argList_, null);
                 return;
             }
         }
@@ -2917,7 +2920,9 @@ public final class CustAliases {
             String className_ = aliasFormatType;
             Argument arg_ = new Argument(_args[0]);
             Argument argArr_ = new Argument(_args[1]);
-            ExecTemplates.wrapAndCall(_execBlocks.getFormatObjectTwoPair(), className_,Argument.createVoid(),new CustList<Argument>(arg_,argArr_),_cont, _stackCall);
+            ArgumentListCall argList_ = new ArgumentListCall();
+            argList_.getArguments().addAllElts(new CustList<Argument>(arg_,argArr_));
+            ExecTemplates.wrapAndCall(_execBlocks.getFormatObjectTwoPair(), className_,Argument.createVoid(), _cont, _stackCall, argList_, null);
             return;
         }
         String stringAppFile_ = buildLog(_cont, _args);

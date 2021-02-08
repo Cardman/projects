@@ -8,6 +8,7 @@ import code.expressionlanguage.exec.InitPhase;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.blocks.ExecFileBlock;
 import code.expressionlanguage.exec.coverage.Coverage;
+import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.options.ContextFactory;
 import code.expressionlanguage.options.KeyWords;
@@ -15,7 +16,6 @@ import code.expressionlanguage.options.Options;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.utilcompo.*;
-import code.util.CustList;
 import code.util.EntryCust;
 import code.util.StringMap;
 import code.util.core.IndexConstants;
@@ -82,9 +82,11 @@ public final class CustContextFactory {
         ShowUpdates showUpdates_ = new ShowUpdates(infoStruct_,rCont_,_progressingTests,_definedLgNames);
         new Thread(showUpdates_).start();
         ExecTypeFunction pair_ = ((LgNamesWithNewAliases) rCont_.getStandards()).getExecutingBlocks().getExecuteMethodPair();
+        ArgumentListCall argList_ = new ArgumentListCall();
+        argList_.getArguments().add(argMethod_);
         Argument arg_ = RunnableStruct.invoke(argGlLoc_,
                 _definedLgNames.getCustAliases().getAliasExecute(),
-                new CustList<Argument>(argMethod_), rCont_, pair_, StackCall.newInstance(InitPhase.NOTHING,rCont_));
+                rCont_, pair_, StackCall.newInstance(InitPhase.NOTHING,rCont_), argList_, null);
         showUpdates_.stop();
         if (_options.isCovering()) {
             String exp_ = _exec.getOutput()+_exec.getCoverFolder();
