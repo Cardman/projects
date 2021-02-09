@@ -292,11 +292,11 @@ public class FightStatisticTest extends InitializationDataBase {
         FightFacade.initFight(fight_,player_, diff_, trainer_, data);
         fight_.setEnvType(EnvironmentType.ROAD);
         FightRound.initRound(fight_);
-        assertEq(Rate.one(),FightStatistic.multiplyStatisticPartner(fight_,Statistic.ACCURACY, Fight.PLAYER, data));
+        assertEq(Rate.one(),FightStatistic.multiplyStatisticPartner(fight_,Statistic.ACCURACY, Fight.CST_PLAYER, data));
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setCurrentAbility(NULL_REF);
-        assertEq(Rate.one(),FightStatistic.multiplyStatisticPartner(fight_,Statistic.ACCURACY, Fight.PLAYER, data));
+        assertEq(Rate.one(),FightStatistic.multiplyStatisticPartner(fight_,Statistic.ACCURACY, Fight.CST_PLAYER, data));
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setCurrentAbility(MAGNEPIEGE);
-        assertEq(new Rate("2"),FightStatistic.multiplyStatisticPartner(fight_,Statistic.ACCURACY, Fight.PLAYER, data));
+        assertEq(new Rate("2"),FightStatistic.multiplyStatisticPartner(fight_,Statistic.ACCURACY, Fight.CST_PLAYER, data));
     }
 
     @Test
@@ -354,10 +354,10 @@ public class FightStatisticTest extends InitializationDataBase {
         fight_.setEnvType(EnvironmentType.ROAD);
         FightRound.initRound(fight_);
         fight_.getUserTeam().activerEffetEquipe(REGARD_NOIR);
-        assertEq(new Rate("1/2"),FightStatistic.multiplyStatisticFoeTeamMoveEffect(fight_,Statistic.EVASINESS, Fight.PLAYER, data));
-        assertEq(Rate.one(),FightStatistic.multiplyStatisticFoeTeamMoveEffect(fight_,Statistic.ACCURACY, Fight.PLAYER, data));
+        assertEq(new Rate("1/2"),FightStatistic.multiplyStatisticFoeTeamMoveEffect(fight_,Statistic.EVASINESS, Fight.CST_PLAYER, data));
+        assertEq(Rate.one(),FightStatistic.multiplyStatisticFoeTeamMoveEffect(fight_,Statistic.ACCURACY, Fight.CST_PLAYER, data));
         fight_.getUserTeam().activerEffetEquipe(TOUR_RAPIDE);
-        assertEq(new Rate("1/2"),FightStatistic.multiplyStatisticFoeTeamMoveEffect(fight_,Statistic.EVASINESS, Fight.PLAYER, data));
+        assertEq(new Rate("1/2"),FightStatistic.multiplyStatisticFoeTeamMoveEffect(fight_,Statistic.EVASINESS, Fight.CST_PLAYER, data));
     }
 
     @Test
@@ -415,10 +415,10 @@ public class FightStatisticTest extends InitializationDataBase {
         fight_.setEnvType(EnvironmentType.ROAD);
         FightRound.initRound(fight_);
         fight_.getUserTeam().activerEffetEquipe(REGARD_NOIR);
-        assertEq(new Rate("2"),FightStatistic.multiplyStatisticTeamMoveEffect(fight_,Statistic.ACCURACY, Fight.PLAYER, data));
-        assertEq(Rate.one(),FightStatistic.multiplyStatisticTeamMoveEffect(fight_,Statistic.EVASINESS, Fight.PLAYER, data));
+        assertEq(new Rate("2"),FightStatistic.multiplyStatisticTeamMoveEffect(fight_,Statistic.ACCURACY, Fight.CST_PLAYER, data));
+        assertEq(Rate.one(),FightStatistic.multiplyStatisticTeamMoveEffect(fight_,Statistic.EVASINESS, Fight.CST_PLAYER, data));
         fight_.getUserTeam().activerEffetEquipe(TOUR_RAPIDE);
-        assertEq(new Rate("2"),FightStatistic.multiplyStatisticTeamMoveEffect(fight_,Statistic.ACCURACY, Fight.PLAYER, data));
+        assertEq(new Rate("2"),FightStatistic.multiplyStatisticTeamMoveEffect(fight_,Statistic.ACCURACY, Fight.CST_PLAYER, data));
     }
 
     @Test

@@ -47,7 +47,7 @@ public final class EditorBelote extends DialogBelote implements SetterSelectedCa
     private static final String PLAY_WITHOUT_SAVING = "playWithoutSaving";
     private static final String PLAYER_HAND = "playerHand";
     private static final String RANDOM = "random";
-    private static final String REMAINING = "remaining";
+    private static final String CST_REMAINING = "remaining";
     private static final String SAVE_THEN_CLOSE = "saveThenClose";
     private static final String SAVE_THEN_PLAY = "saveThenPlay";
     private static final String SAVE_WITHOUT_CLOSING = "saveWithoutClosing";
@@ -219,7 +219,7 @@ public final class EditorBelote extends DialogBelote implements SetterSelectedCa
             hands.add(plc_);
 //            i_++;
         }
-        plc_=new BeloteCardsScrollableList(lastCards_,lastCards_,getMessages().getVal(REMAINING), _parent.getCardFactories().getGeneBelote().create(false));
+        plc_=new BeloteCardsScrollableList(lastCards_,lastCards_,getMessages().getVal(CST_REMAINING), _parent.getCardFactories().getGeneBelote().create(false));
         plc_.initSelectionCarteBelote(_parent);
         plc_.getListe().setListener(new ListenerClickCardsList(getMessages().getVal(SELECTED_CARDS), this));
         panelsCards.add(plc_.getContainer());
@@ -240,7 +240,7 @@ public final class EditorBelote extends DialogBelote implements SetterSelectedCa
             message_ = StringUtil.simpleStringsFormat(message_, n);
             listeTwo.addItem(message_);
         }
-        listeTwo.addItem(getMessages().getVal(REMAINING));
+        listeTwo.addItem(getMessages().getVal(CST_REMAINING));
         sousPanneau_.add(listeTwo.self());
         labelSelectCards = new TextLabel(StringUtil.simpleNumberFormat(getMessages().getVal(SELECTED_CARDS),nombreCartesSelectionnees));
         sousPanneau_.add(labelSelectCards);

@@ -38,10 +38,10 @@ import code.util.ints.Listable;
 
 public final class Fight {
 
-    public static final byte PLAYER = 0;
+    public static final byte CST_PLAYER = 0;
 
     /***/
-    public static final byte FOE = 1;
+    public static final byte CST_FOE = 1;
 
     public static final String FIGHT = "aiki.game.fight.fight";
 
@@ -548,25 +548,25 @@ public final class Fight {
         return getFoeTeam().getMembers().getVal((byte)0);
     }
     public Team getFoeTeam() {
-        return teams.getVal(FOE);
+        return teams.getVal(CST_FOE);
     }
     public Team getUserTeam() {
-        return teams.getVal(PLAYER);
+        return teams.getVal(CST_PLAYER);
     }
 
     public static byte foe(byte _eq){
-        if(NumberUtil.eq(_eq, PLAYER)){
-            return FOE;
+        if(NumberUtil.eq(_eq, CST_PLAYER)){
+            return CST_FOE;
         }
-        return PLAYER;
+        return CST_PLAYER;
     }
 
     public static TeamPosition toFoeFighter(byte _pos){
-        return new TeamPosition(FOE,_pos);
+        return new TeamPosition(CST_FOE,_pos);
     }
 
     public static TeamPosition toUserFighter(byte _pos){
-        return new TeamPosition(PLAYER,_pos);
+        return new TeamPosition(CST_PLAYER,_pos);
     }
 
     String getFighterName(TeamPosition _teamPosition, DataBase _import) {
@@ -575,7 +575,7 @@ public final class Fight {
         if (fighter_.isBelongingToPlayer()) {
             return name_;
         }
-        return _import.getFighterName(NumberUtil.eq(_teamPosition.getTeam(), FOE),FIGHTER_FOE,FIGHTER_ALLY,name_);
+        return _import.getFighterName(NumberUtil.eq(_teamPosition.getTeam(), CST_FOE),FIGHTER_FOE,FIGHTER_ALLY,name_);
     }
 
     public TeamPosition getFighterKey(TargetCoords _targetCoords) {
@@ -1671,7 +1671,7 @@ public final class Fight {
         for (String m: _moves) {
             moves_.add(_import.translateMove(m));
         }
-        if (NumberUtil.eq(_team, FOE)) {
+        if (NumberUtil.eq(_team, CST_FOE)) {
             addMessage(_import, COMBO_MOVE_END_ROUND_FOE, StringUtil.join(moves_, SEPARATOR_COMMENTS));
         } else {
             addMessage(_import, COMBO_MOVE_END_ROUND, StringUtil.join(moves_, SEPARATOR_COMMENTS));
@@ -1733,7 +1733,7 @@ public final class Fight {
 
     public void addDisabledTeamUsesMoveMessage(byte _team,String _move, DataBase _import) {
         String move_ = _import.translateMove(_move);
-        if (NumberUtil.eq(_team, FOE)) {
+        if (NumberUtil.eq(_team, CST_FOE)) {
             addMessage(_import, DISABLED_FOE_TEAM_USES_MOVE, move_);
         } else {
             addMessage(_import, DISABLED_TEAM_USES_MOVE, move_);
@@ -1742,7 +1742,7 @@ public final class Fight {
 
     public void addIncrTeamUsesMoveMessage(byte _team,String _move, DataBase _import) {
         String move_ = _import.translateMove(_move);
-        if (NumberUtil.eq(_team, FOE)) {
+        if (NumberUtil.eq(_team, CST_FOE)) {
             addMessage(_import, INCR_FOE_TEAM_USES_MOVE, move_);
         } else {
             addMessage(_import, INCR_TEAM_USES_MOVE, move_);
@@ -1757,7 +1757,7 @@ public final class Fight {
 
     public void addDisabledTeamMoveMessage(byte _team,String _move, DataBase _import) {
         String move_ = _import.translateMove(_move);
-        if (NumberUtil.eq(_team, FOE)) {
+        if (NumberUtil.eq(_team, CST_FOE)) {
             addMessage(_import, DISABLED_FOE_TEAM_MOVE, move_);
         } else {
             addMessage(_import, DISABLED_TEAM_MOVE, move_);
@@ -1766,7 +1766,7 @@ public final class Fight {
 
     public void addEnabledTeamMoveMessage(byte _team,String _move, DataBase _import) {
         String move_ = _import.translateMove(_move);
-        if (NumberUtil.eq(_team, FOE)) {
+        if (NumberUtil.eq(_team, CST_FOE)) {
             addMessage(_import, ENABLED_FOE_TEAM_MOVE, move_);
         } else {
             addMessage(_import, ENABLED_TEAM_MOVE, move_);

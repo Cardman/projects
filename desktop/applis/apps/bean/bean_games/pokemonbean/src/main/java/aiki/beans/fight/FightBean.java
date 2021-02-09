@@ -18,7 +18,7 @@ public class FightBean extends CommonFightBean {
 
     @Override
     public void beforeDisplaying() {
-        FacadeGame dataBaseFight_ = (FacadeGame) getDataBase();
+        FacadeGame dataBaseFight_ = getDataBase();
         DataBase data_ = dataBaseFight_.getData();
         StringMap<String> translationsMoves_;
         translationsMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
@@ -45,11 +45,11 @@ public class FightBean extends CommonFightBean {
         return stillEnabledMoves.contains(key_);
     }
     public String clickPlayer() {
-        getForms().put(NO_TEAM, (int)Fight.PLAYER);
+        getForms().put(NO_TEAM, Fight.CST_PLAYER);
         return TEAM;
     }
     public String clickFoe() {
-        getForms().put(NO_TEAM, (int)Fight.FOE);
+        getForms().put(NO_TEAM, Fight.CST_FOE);
         return TEAM;
     }
 

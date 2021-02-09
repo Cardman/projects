@@ -20,7 +20,7 @@ public final class DialogNicknames extends DialogCards {
     private static final String DIALOG_ACCESS = "cards.gui.dialogs.dialognicknames";
 
     private static final String TAB = "\t";
-    private static final String NICKNAME = "nickname";
+    private static final String CST_NICKNAME = "nickname";
     private static final String NICKNAME_PLAYER = "nicknamePlayer";
     private static final String VALIDATE = "validate";
     private static final String ERROR_SAVE = "errorSave";
@@ -29,9 +29,9 @@ public final class DialogNicknames extends DialogCards {
     private StringMap<String> messages;
     private Nicknames pseudos;
     private TextField nickname;
-    private CustList<TextField> nicknamesBelote = new CustList<TextField>();
-    private CustList<TextField> nicknamesTarot = new CustList<TextField>();
-    private CustList<TextField> nicknamesPresident = new CustList<TextField>();
+    private final CustList<TextField> nicknamesBelote = new CustList<TextField>();
+    private final CustList<TextField> nicknamesTarot = new CustList<TextField>();
+    private final CustList<TextField> nicknamesPresident = new CustList<TextField>();
 
     public DialogNicknames() {
         setAccessFile(DIALOG_ACCESS);
@@ -98,7 +98,7 @@ public final class DialogNicknames extends DialogCards {
         container_.add(getJt(),BorderLayout.CENTER);
         //Panneau pseudo du joueur
         sousPanneau_=Panel.newPageBox();
-        sousPanneau_.add(new TextLabel(messages.getVal(NICKNAME)));
+        sousPanneau_.add(new TextLabel(messages.getVal(CST_NICKNAME)));
         nickname=new TextField(30);
         nickname.setText(pseudos.getPseudo());
         sousPanneau_.add(nickname);

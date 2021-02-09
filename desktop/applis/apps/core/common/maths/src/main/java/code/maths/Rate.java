@@ -16,7 +16,7 @@ public final class Rate implements Cmp<Rate>, Displayable {
 
     public static final String SEP_NUM_DEN = "/";
 
-    public static final String MINUS = "-";
+    public static final String CST_MINUS = "-";
 
     public static final int CENT = 100;
 
@@ -43,8 +43,8 @@ public final class Rate implements Cmp<Rate>, Displayable {
             tauxPris_ = StringUtil.concat(Character.toString(ZERO), tauxPris_);
         }
         // Ajout de 0 devant le . et derriere le - si ce n'est pas fait
-        if (tauxPris_.startsWith(StringUtil.concat(MINUS,Character.toString(SEP_INT_DEC)))) {
-            tauxPris_ = StringUtil.concat(MINUS, Character.toString(ZERO), tauxPris_.substring(1));
+        if (tauxPris_.startsWith(StringUtil.concat(CST_MINUS,Character.toString(SEP_INT_DEC)))) {
+            tauxPris_ = StringUtil.concat(CST_MINUS, Character.toString(ZERO), tauxPris_.substring(1));
         }
         if (tauxPris_.endsWith(Character.toString(SEP_INT_DEC))) {
             numerateur = new LgInt(StringUtil.removeStrings(tauxPris_, Character.toString(SEP_INT_DEC)));
@@ -376,7 +376,7 @@ public final class Rate implements Cmp<Rate>, Displayable {
         if (isInteger() || _numberDec == 0) {
             String signum_;
             if (!numerateur.isZeroOrGt()) {
-                signum_ = MINUS;
+                signum_ = CST_MINUS;
             } else {
                 signum_ = EMPTY_STRING;
             }
@@ -389,7 +389,7 @@ public final class Rate implements Cmp<Rate>, Displayable {
         }
         String signum_;
         if (!numerateur.isZeroOrGt()) {
-            signum_ = MINUS;
+            signum_ = CST_MINUS;
         } else {
             signum_ = EMPTY_STRING;
         }
@@ -446,7 +446,7 @@ public final class Rate implements Cmp<Rate>, Displayable {
         }
         String signum_;
         if (!numerateur.isZeroOrGt()) {
-            signum_ = MINUS;
+            signum_ = CST_MINUS;
         } else {
             signum_ = EMPTY_STRING;
         }

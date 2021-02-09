@@ -440,7 +440,7 @@ public final class Team {
             }
         }
         ByteMap< Fighter> members_ = _fight.getFoeTeam().getMembers();
-        if (_numberTeam == Fight.PLAYER) {
+        if (_numberTeam == Fight.CST_PLAYER) {
             for (byte b:_fight.getUserTeam().getMembers().getKeys()) {
                 if (!_fight.getUserTeam().getMembers().getVal(b).isBelongingToPlayer()) {
                     continue;

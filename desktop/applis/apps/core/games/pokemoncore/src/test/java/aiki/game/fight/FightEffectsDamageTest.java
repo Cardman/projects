@@ -6279,7 +6279,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         assertEq(new Rate("1786/325"),attaqueAnticipe_.getDamage());
         assertTrue(attaqueAnticipe_.isIncrementing());
         assertEq(0, attaqueAnticipe_.getNbRounds());
-        assertEq(Fight.FOE, attaqueAnticipe_.getTargetPosition().getTeam());
+        assertEq(Fight.CST_FOE, attaqueAnticipe_.getTargetPosition().getTeam());
         assertEq(0, attaqueAnticipe_.getTargetPosition().getPosition());
         //assertTrue(!fighter_.getEnabledMovesConstChoices().getVal(move_).isEnabled());
         //1786/325

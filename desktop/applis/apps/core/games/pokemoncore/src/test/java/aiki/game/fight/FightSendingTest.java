@@ -960,7 +960,7 @@ public class FightSendingTest extends InitializationDataBase {
         Fight fight_ = FightFacade.newFight();
         FightInitialization.initFight(fight_, player_, diff_, trainer_, data);
         FightInitialization.initFight(fight_, data);
-        FightSending.sendBeginTeam(fight_,Fight.FOE, data);
+        FightSending.sendBeginTeam(fight_,Fight.CST_FOE, data);
         assertTrue(!fight_.getEnabledMoves().getVal(ZENITH).isEnabled());
         StringList list_ = fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).getTypes();
         assertEq(1, list_.size());
@@ -4865,7 +4865,7 @@ public class FightSendingTest extends InitializationDataBase {
         foesMoves_.add(new LevelMoves((short)17,foeMoves_));
         foesMoves_.add(new LevelMoves((short)17,foeMoves_));
         Fight fight_ = firstEffectWhileSendingTeam(partnersMoves_, foesMoves_, player_, diff_);
-        FightSending.firstEffectWhileSendingTeam(fight_, Fight.PLAYER, diff_, data);
+        FightSending.firstEffectWhileSendingTeam(fight_, Fight.CST_PLAYER, diff_, data);
         Fighter fighter_ = fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         assertEq(1, fighter_.getTypes().size());
         assertTrue(StringUtil.contains(fighter_.getTypes(), DRAGON));
@@ -4900,7 +4900,7 @@ public class FightSendingTest extends InitializationDataBase {
         foesMoves_.add(new LevelMoves((short)17,foeMoves_));
         foesMoves_.add(new LevelMoves((short)17,foeMoves_));
         Fight fight_ = firstEffectWhileSendingTeam(partnersMoves_, foesMoves_, player_, diff_);
-        FightSending.firstEffectWhileSendingTeam(fight_, Fight.PLAYER, diff_, data);
+        FightSending.firstEffectWhileSendingTeam(fight_, Fight.CST_PLAYER, diff_, data);
         Fighter fighter_ = fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         assertEq(1, fighter_.getTypes().size());
         assertTrue(StringUtil.contains(fighter_.getTypes(), EAU));

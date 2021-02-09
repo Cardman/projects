@@ -731,8 +731,8 @@ public class FightKoTest extends InitializationDataBase {
         assertEq(Fighter.BACK, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getGroundPlace());
         assertEq(0, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getGroundPlaceSubst());
         assertEq(Rate.zero(), fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getRemainingHp());
-        assertTrue(!fight_.getKos().getVal(Fight.PLAYER));
-        assertTrue(!fight_.getKos().getVal(Fight.FOE));
+        assertTrue(!fight_.getKos().getVal(Fight.CST_PLAYER));
+        assertTrue(!fight_.getKos().getVal(Fight.CST_FOE));
     }
 
     private Fight setKo(Difficulty _diff) {
@@ -833,8 +833,8 @@ public class FightKoTest extends InitializationDataBase {
         assertEq(0, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getGroundPlaceSubst());
         assertEq(Rate.zero(), fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getRemainingHp());
         assertEq(0, fight_.getUserTeam().getPlayerFightersAgainstFoe().getVal((byte) 0).size());
-        assertTrue(!fight_.getKos().getVal(Fight.PLAYER));
-        assertTrue(!fight_.getKos().getVal(Fight.FOE));
+        assertTrue(!fight_.getKos().getVal(Fight.CST_PLAYER));
+        assertTrue(!fight_.getKos().getVal(Fight.CST_FOE));
     }
 
     @Test
@@ -861,8 +861,8 @@ public class FightKoTest extends InitializationDataBase {
         assertEq(0, list_.size());
         list_ = fight_.getUserTeam().getPlayerFightersAgainstFoe().getVal((byte)2);
         assertEq(0, list_.size());
-        assertTrue(!fight_.getKos().getVal(Fight.PLAYER));
-        assertTrue(!fight_.getKos().getVal(Fight.FOE));
+        assertTrue(!fight_.getKos().getVal(Fight.CST_PLAYER));
+        assertTrue(!fight_.getKos().getVal(Fight.CST_FOE));
     }
 
     @Test
@@ -892,8 +892,8 @@ public class FightKoTest extends InitializationDataBase {
         assertEq(0, list_.size());
         list_ = fight_.getUserTeam().getPlayerFightersAgainstFoe().getVal((byte)2);
         assertEq(0, list_.size());
-        assertTrue(!fight_.getKos().getVal(Fight.PLAYER));
-        assertTrue(fight_.getKos().getVal(Fight.FOE));
+        assertTrue(!fight_.getKos().getVal(Fight.CST_PLAYER));
+        assertTrue(fight_.getKos().getVal(Fight.CST_FOE));
     }
 
     @Test
@@ -904,8 +904,8 @@ public class FightKoTest extends InitializationDataBase {
         assertEq(Fighter.BACK, fight_.getFighter(POKEMON_PLAYER_FIGHTER_THREE).getGroundPlace());
         assertEq(1, fight_.getFighter(POKEMON_PLAYER_FIGHTER_THREE).getGroundPlaceSubst());
         assertEq(Rate.zero(), fight_.getFighter(POKEMON_PLAYER_FIGHTER_THREE).getRemainingHp());
-        assertTrue(!fight_.getKos().getVal(Fight.PLAYER));
-        assertTrue(!fight_.getKos().getVal(Fight.FOE));
+        assertTrue(!fight_.getKos().getVal(Fight.CST_PLAYER));
+        assertTrue(!fight_.getKos().getVal(Fight.CST_FOE));
     }
 
     private Fight endedFight(Difficulty _diff) {
@@ -1429,7 +1429,7 @@ public class FightKoTest extends InitializationDataBase {
     public void canBeHealed1Test() {
         Difficulty diff_ = new Difficulty();
         Fight fight_ = canBeHealed(diff_, (byte) 3);
-        assertTrue(FightKo.canBeHealed(fight_, Fight.PLAYER, data));
+        assertTrue(FightKo.canBeHealed(fight_, Fight.CST_PLAYER, data));
     }
 
     @Test
@@ -1437,7 +1437,7 @@ public class FightKoTest extends InitializationDataBase {
         Difficulty diff_ = new Difficulty();
         Fight fight_ = canBeHealed(diff_, (byte) 3);
         fight_.getFoeTeam().activerEffetEquipe(BRUME);
-        assertTrue(FightKo.canBeHealed(fight_, Fight.PLAYER, data));
+        assertTrue(FightKo.canBeHealed(fight_, Fight.CST_PLAYER, data));
     }
 
     @Test
@@ -1445,7 +1445,7 @@ public class FightKoTest extends InitializationDataBase {
         Difficulty diff_ = new Difficulty();
         Fight fight_ = canBeHealed(diff_, (byte) 3);
         fight_.getFoeTeam().activerEffetEquipe(ANTI_SOIN);
-        assertTrue(!FightKo.canBeHealed(fight_, Fight.PLAYER, data));
+        assertTrue(!FightKo.canBeHealed(fight_, Fight.CST_PLAYER, data));
     }
 
     @Test
@@ -1453,6 +1453,6 @@ public class FightKoTest extends InitializationDataBase {
         Difficulty diff_ = new Difficulty();
         Fight fight_ = canBeHealed(diff_, (byte) 3);
         fight_.getFoeTeam().activerEffetEquipe(TOUR_RAPIDE);
-        assertTrue(FightKo.canBeHealed(fight_, Fight.PLAYER, data));
+        assertTrue(FightKo.canBeHealed(fight_, Fight.CST_PLAYER, data));
     }
 }

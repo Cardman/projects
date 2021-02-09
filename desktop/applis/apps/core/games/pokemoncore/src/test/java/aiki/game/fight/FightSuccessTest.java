@@ -4537,7 +4537,7 @@ public class FightSuccessTest extends InitializationDataBase {
     @Test
     public void multProbaByComboOfMoves1Test() {
         Fight fight_ = multProbaByComboOfMoves();
-        assertEq(new Rate("1"),FightSuccess.multProbaByComboOfMoves(fight_, Fight.PLAYER, data));
+        assertEq(new Rate("1"),FightSuccess.multProbaByComboOfMoves(fight_, Fight.CST_PLAYER, data));
     }
 
     @Test
@@ -4545,9 +4545,9 @@ public class FightSuccessTest extends InitializationDataBase {
         Fight fight_ = multProbaByComboOfMoves();
         fight_.getUserTeam().addSuccessfulMoveRound(AIRE_DE_FEU);
         fight_.getUserTeam().addSuccessfulMoveRound(AIRE_D_HERBE);
-        assertEq(new Rate("1"),FightSuccess.multProbaByComboOfMoves(fight_, Fight.PLAYER, data));
+        assertEq(new Rate("1"),FightSuccess.multProbaByComboOfMoves(fight_, Fight.CST_PLAYER, data));
         fight_.getUserTeam().addSuccessfulMoveRound(AIRE_D_EAU);
-        assertEq(new Rate("4"),FightSuccess.multProbaByComboOfMoves(fight_, Fight.PLAYER, data));
+        assertEq(new Rate("4"),FightSuccess.multProbaByComboOfMoves(fight_, Fight.CST_PLAYER, data));
     }
 
     @Test
@@ -4555,9 +4555,9 @@ public class FightSuccessTest extends InitializationDataBase {
         Fight fight_ = multProbaByComboOfMoves();
         fight_.getUserTeam().addSuccessfulMoveRound(AIRE_DE_FEU);
         fight_.getUserTeam().addSuccessfulMoveRound(AIRE_D_EAU);
-        assertEq(new Rate("2"),FightSuccess.multProbaByComboOfMoves(fight_, Fight.PLAYER, data));
+        assertEq(new Rate("2"),FightSuccess.multProbaByComboOfMoves(fight_, Fight.CST_PLAYER, data));
         fight_.getUserTeam().addSuccessfulMoveRound(AIRE_D_HERBE);
-        assertEq(new Rate("4"),FightSuccess.multProbaByComboOfMoves(fight_, Fight.PLAYER, data));
+        assertEq(new Rate("4"),FightSuccess.multProbaByComboOfMoves(fight_, Fight.CST_PLAYER, data));
     }
 
     private Fight probaEffectStatistic() {

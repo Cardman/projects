@@ -143,8 +143,8 @@ final class FightInitialization {
         _fight.setEndRound(false);
         _fight.setState(FightState.ATTAQUES);
         _fight.setKos(new ByteMap<Boolean>());
-        _fight.getKos().put(Fight.PLAYER,false);
-        _fight.getKos().put(Fight.FOE,false);
+        _fight.getKos().put(Fight.CST_PLAYER,false);
+        _fight.getKos().put(Fight.CST_FOE,false);
         _fight.setNbFleeAttempt((short) 0);
         _fight.setNbRounds(LgInt.zero());
         _fight.setCatchingBall(DataBase.EMPTY_STRING);
@@ -155,55 +155,55 @@ final class FightInitialization {
     static void initUserTeam(Fight _fight,Player _utilisateur,Difficulty _diff,DataBase _import) {
         Team equipe_=new Team(_import);
         equipe_.initEquipeUtilisateur(_utilisateur,_diff,_fight.getMult(),_import);
-        _fight.getTeams().put(Fight.PLAYER,equipe_);
+        _fight.getTeams().put(Fight.CST_PLAYER,equipe_);
     }
 
     static void initUserTeam(Fight _fight,Player _utilisateur, Difficulty _diff, DualFight _dual,DataBase _d) {
         Team equipe_=new Team(_d);
         equipe_.initEquipeUtilisateur(_utilisateur,_diff,_fight.getPlayerMaxNumberFrontFighters(), _fight.getMult(), _d,_dual.getAlly().getTeam());
-        _fight.getTeams().put(Fight.PLAYER,equipe_);
+        _fight.getTeams().put(Fight.CST_PLAYER,equipe_);
     }
 
     static void initEquipeDresseurHorsLigue(Fight _fight,Player _utilisateur,Difficulty _diff,TrainerMultiFights _dresseur,int _numero,DataBase _import){
         _fight.setFightType(FightType.DRESSEUR);
         Team equipe_=new Team(_import);
         equipe_.initEquipeAdversaire(_utilisateur,_dresseur.getTeamsRewards().get(_numero).getTeam(),_diff,_fight.getMult(),_import);
-        _fight.getTeams().put(Fight.FOE,equipe_);
+        _fight.getTeams().put(Fight.CST_FOE,equipe_);
     }
 
     static void initEquipeTrainerGym(Fight _fight,Player _utilisateur,Difficulty _diff,GymTrainer _dresseur,DataBase _import){
         _fight.setFightType(FightType.DRESSEUR_GYM);
         Team equipe_=new Team(_import);
         equipe_.initEquipeAdversaire(_utilisateur,_dresseur.getTeam(),_diff,_fight.getMult(),_import);
-        _fight.getTeams().put(Fight.FOE,equipe_);
+        _fight.getTeams().put(Fight.CST_FOE,equipe_);
     }
 
     static void initEquipeLeaderGym(Fight _fight,Player _utilisateur,Difficulty _diff,GymLeader _dresseur,DataBase _import){
         _fight.setFightType(FightType.GYM_LEADER);
         Team equipe_=new Team(_import);
         equipe_.initEquipeAdversaire(_utilisateur,_dresseur.getTeam(),_diff,_fight.getMult(),_import);
-        _fight.getTeams().put(Fight.FOE,equipe_);
+        _fight.getTeams().put(Fight.CST_FOE,equipe_);
     }
 
     static void initEquipeDresseurLigue(Fight _fight,Player _utilisateur,Difficulty _diff,TrainerLeague _dresseur,DataBase _import){
         _fight.setFightType(FightType.DRESSEUR_LIGUE);
         Team equipe_=new Team(_import);
         equipe_.initEquipeAdversaire(_utilisateur,_dresseur.getTeam(),_diff,_fight.getMult(),_import);
-        _fight.getTeams().put(Fight.FOE,equipe_);
+        _fight.getTeams().put(Fight.CST_FOE,equipe_);
     }
 
     static void initEquipeTmpTrainer(Fight _fight,Player _utilisateur,Difficulty _diff,DualFight _dresseur,DataBase _import){
         _fight.setFightType(FightType.TMP_TRAINER);
         Team equipe_=new Team(_import);
         equipe_.initEquipeAdversaire(_utilisateur,_dresseur.getFoeTrainer().getTeam(),_diff,_fight.getMult(),_import);
-        _fight.getTeams().put(Fight.FOE,equipe_);
+        _fight.getTeams().put(Fight.CST_FOE,equipe_);
     }
 
     static void initWildPokemon(Fight _fight,Player _utilisateur,Difficulty _diff,WildPk _pokemon,DataBase _import) {
         _fight.setFightType(FightType.SAUVAGE);
         Team equipe_=new Team(_import);
         equipe_.initPokemonSauvage(_utilisateur,_diff, IndexConstants.FIRST_INDEX, _pokemon,_import);
-        _fight.getTeams().put(Fight.FOE,equipe_);
+        _fight.getTeams().put(Fight.CST_FOE,equipe_);
     }
 
 }

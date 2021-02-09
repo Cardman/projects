@@ -421,8 +421,8 @@ final class FightEffects {
             _fight.addSwitchItemsMessage(_cible, objetCible_, objetLanceur_, _import);
             FightSending.effectPlate(_fight, _lanceur, _import);
             FightSending.effectPlate(_fight, _cible, _import);
-            storeTargetObject_ = NumberUtil.eq(_cible.getTeam(), Fight.PLAYER);
-            storeThrowerObject_ = NumberUtil.eq(_lanceur.getTeam(), Fight.PLAYER);
+            storeTargetObject_ = NumberUtil.eq(_cible.getTeam(), Fight.CST_PLAYER);
+            storeThrowerObject_ = NumberUtil.eq(_lanceur.getTeam(), Fight.CST_PLAYER);
         } else if(_effet.getMoveObject() == MoveItemType.GIVE_OBJECT_TARGET) {
             String objetLanceur_=creatureLanceur_.getItem();
             creatureCible_.backUpObject(objetLanceur_);
@@ -430,13 +430,13 @@ final class FightEffects {
             creatureLanceur_.backUpObject(DataBase.EMPTY_STRING);
             _fight.addSwitchItemsMessage(_lanceur, objetLanceur_, DataBase.EMPTY_STRING, _import);
             FightSending.effectPlate(_fight, _cible, _import);
-            storeThrowerObject_ = NumberUtil.eq(_lanceur.getTeam(), Fight.PLAYER);
+            storeThrowerObject_ = NumberUtil.eq(_lanceur.getTeam(), Fight.CST_PLAYER);
         } else if(_effet.getMoveObject() == MoveItemType.DELETE_DEF_TARGET_BERRY) {
             if(creatureCible_.possedeObjet()){
                 String objetCible_ =creatureCible_.getItem();
                 Item objet_=creatureCible_.ficheObjet(_import);
                 if(objet_ instanceof Berry){
-                    storeTargetObject_ = NumberUtil.eq(_cible.getTeam(), Fight.PLAYER);
+                    storeTargetObject_ = NumberUtil.eq(_cible.getTeam(), Fight.CST_PLAYER);
                     creatureCible_.backUpObject(DataBase.EMPTY_STRING);
                     _fight.addSwitchItemsMessage(_cible, objetCible_, DataBase.EMPTY_STRING, _import);
                 }
@@ -448,7 +448,7 @@ final class FightEffects {
                     if(objet_ instanceof Berry){
                         FightItems.enableBerry(_fight,_lanceur,creatureCible_.getItem(),_import);
                         creatureCible_.useObject();
-                        storeTargetObject_ = NumberUtil.eq(_cible.getTeam(), Fight.PLAYER);
+                        storeTargetObject_ = NumberUtil.eq(_cible.getTeam(), Fight.CST_PLAYER);
                     }
                 }
             }
@@ -461,12 +461,12 @@ final class FightEffects {
             creatureCible_.backUpObject(DataBase.EMPTY_STRING);
             _fight.addSwitchItemsMessage(_cible, objetCible_, DataBase.EMPTY_STRING, _import);
             FightSending.effectPlate(_fight, _lanceur, _import);
-            storeTargetObject_ = NumberUtil.eq(_cible.getTeam(), Fight.PLAYER);
+            storeTargetObject_ = NumberUtil.eq(_cible.getTeam(), Fight.CST_PLAYER);
         } else {
             String objetCible_=creatureCible_.getItem();
             creatureCible_.backUpObject(DataBase.EMPTY_STRING);
             _fight.addSwitchItemsMessage(_cible, objetCible_, DataBase.EMPTY_STRING, _import);
-            storeTargetObject_ = NumberUtil.eq(_cible.getTeam(), Fight.PLAYER);
+            storeTargetObject_ = NumberUtil.eq(_cible.getTeam(), Fight.CST_PLAYER);
         }
         if (NumberUtil.eq(_cible.getTeam(), _lanceur.getTeam())) {
             return;
@@ -794,7 +794,7 @@ final class FightEffects {
         } else {
             if (Rate.greaterEq(pvSoignes_.opposNb(), creatureLanceur_.getRemainingHp())) {
                 FightKo.setKoMoveTeams(_fight, _lanceur, _diff, _import);
-                if(NumberUtil.eq(_lanceur.getTeam(),Fight.PLAYER)&&_fight.getSimulation()){
+                if(NumberUtil.eq(_lanceur.getTeam(),Fight.CST_PLAYER)&&_fight.getSimulation()){
                     _fight.setAcceptableChoices(false);
                     _fight.setIssue(IssueSimulation.KO_PLAYER);
                     return;
@@ -1037,7 +1037,7 @@ final class FightEffects {
         } else {
             degats_.affect(creatureCible_.getRemainingHp());
             FightKo.setKoMoveTeams(_fight,_cible,_diff,_import);
-            if(NumberUtil.eq(_cible.getTeam(),Fight.PLAYER)&&_fight.getSimulation()){
+            if(NumberUtil.eq(_cible.getTeam(),Fight.CST_PLAYER)&&_fight.getSimulation()){
                 _fight.setAcceptableChoices(false);
                 _fight.setIssue(IssueSimulation.KO_PLAYER);
             }
@@ -1048,7 +1048,7 @@ final class FightEffects {
         Rate cc_;
         LgInt maxRd_ = _import.getMaxRd();
         if(_fight.getSimulation()){
-            if(NumberUtil.eq(_target.getTeam(),Fight.FOE)){
+            if(NumberUtil.eq(_target.getTeam(),Fight.CST_FOE)){
                 cc_=_lawCriticalHitRate.minimum();
             }else{
                 cc_=_lawCriticalHitRate.maximum();
@@ -1706,7 +1706,7 @@ final class FightEffects {
         if(effect_.getRandMax()){
             loiRand_=_import.getLawsDamageRate().getVal(DifficultyModelLaw.CONSTANT_MAX).getLaw();
         }else{
-            loiRand_= _diff.loi(_lanceur.getTeam(), Fight.PLAYER, _import);
+            loiRand_= _diff.loi(_lanceur.getTeam(), Fight.CST_PLAYER, _import);
         }
         MonteCarloNumber copyRand_ = new MonteCarloNumber();
         for (Rate r: loiRand_.events()) {
@@ -1932,7 +1932,7 @@ final class FightEffects {
             if (Rate.greaterEq(degatsReculContreCible_, creatureCible_.getRemainingHp())) {
                 Rate remainHp_ = new Rate(creatureCible_.getRemainingHp());
                 FightKo.setKoMoveTeams(_fight,_cible,_diff,_import);
-                if(NumberUtil.eq(_cible.getTeam(),Fight.PLAYER)&&_fight.getSimulation()){
+                if(NumberUtil.eq(_cible.getTeam(),Fight.CST_PLAYER)&&_fight.getSimulation()){
                     _fight.setAcceptableChoices(false);
                     _fight.setIssue(IssueSimulation.KO_PLAYER);
                     return;
@@ -1994,12 +1994,12 @@ final class FightEffects {
         creatureLanceur_.setGroundPlace(placeTerrainCible_);
         creatureLanceur_.setGroundPlaceSubst(placeTerrainCiblePourRemplacement_);
         _fight.addSwitchPlacesMessage(_lanceur, _cible, _import);
-        if(NumberUtil.eq(_lanceur.getTeam(), Fight.PLAYER)){
+        if(NumberUtil.eq(_lanceur.getTeam(), Fight.CST_PLAYER)){
             _fight.getFirstPositPlayerFighters().put(_lanceur.getPosition(),placeTerrainCiblePourRemplacement_);
         } else {
             _fight.getFirstPositFoeFighters().put(_lanceur.getPosition(),placeTerrainCiblePourRemplacement_);
         }
-        if(NumberUtil.eq(_cible.getTeam(), Fight.PLAYER)){
+        if(NumberUtil.eq(_cible.getTeam(), Fight.CST_PLAYER)){
             _fight.getFirstPositPlayerFighters().put(_cible.getPosition(),placeTerrainLanceurPourRemplacement_);
         } else {
             _fight.getFirstPositFoeFighters().put(_cible.getPosition(),placeTerrainLanceurPourRemplacement_);
@@ -2199,7 +2199,7 @@ final class FightEffects {
         _fight.addBatonPassMessage(_user, new TeamPosition(_user.getTeam(),remplacant_), _import);
         FightSending.withdrawal(_fight,_user,_import);
         FightSending.sending(_fight,new TeamPosition(_user.getTeam(),remplacant_),_diff,_import);
-        if(NumberUtil.eq(_user.getTeam(), Fight.PLAYER)){
+        if(NumberUtil.eq(_user.getTeam(), Fight.CST_PLAYER)){
             _fight.getFirstPositPlayerFighters().put(_user.getPosition(),Fighter.BACK);
             _fight.getFirstPositPlayerFighters().put(remplacant_,placeTerrainPourRemplacement_);
         } else {
@@ -2228,7 +2228,7 @@ final class FightEffects {
     }
     static boolean randomRate(Fight _fight, DataBase _import, Rate _rate, TeamPosition _thrower) {
         if(_fight.getSimulation()){
-            if(NumberUtil.eq(_thrower.getTeam(),Fight.PLAYER)){
+            if(NumberUtil.eq(_thrower.getTeam(),Fight.CST_PLAYER)){
                 if(Rate.strLower(_rate, DataBase.determinatedRate())){
                     _fight.setAcceptableChoices(false);
                     _fight.setIssue(IssueSimulation.RANDOM);
@@ -2354,7 +2354,7 @@ final class FightEffects {
             FightKo.setKo(_fight,_lanceur,_diff,_import);
             _fight.addAnimationKoFighter(_lanceur);
             creatureCbtLanceur_.exitFrontBattleForBeingSubstitued();
-            if(NumberUtil.eq(_lanceur.getTeam(),Fight.PLAYER)&&_fight.getSimulation()){
+            if(NumberUtil.eq(_lanceur.getTeam(),Fight.CST_PLAYER)&&_fight.getSimulation()){
                 _fight.setAcceptableChoices(false);
                 _fight.setIssue(IssueSimulation.KO_PLAYER);
                 return;
@@ -2370,7 +2370,7 @@ final class FightEffects {
             creatureCbtRemplacant_.fullHeal(_import);
             creatureCbtRemplacant_.setGroundPlace(place_);
             creatureCbtRemplacant_.setGroundPlaceSubst(placeSub_);
-            if(NumberUtil.eq(_lanceur.getTeam(), Fight.PLAYER)){
+            if(NumberUtil.eq(_lanceur.getTeam(), Fight.CST_PLAYER)){
                 _fight.getFirstPositPlayerFighters().put(_lanceur.getPosition(),Fighter.BACK);
                 _fight.getFirstPositPlayerFighters().put(remplacant_.getPosition(),placeSub_);
             } else {
@@ -2453,7 +2453,7 @@ final class FightEffects {
             FightKo.setKoMoveTeams(_fight,_cible,_diff,_import);
             _fight.addEffectRecoil(_cible, _effet);
             _fight.setAnimationKoFighterEffectDamage(_cible, _effet);
-            if(NumberUtil.eq(_cible.getTeam(),Fight.PLAYER)&&_fight.getSimulation()){
+            if(NumberUtil.eq(_cible.getTeam(),Fight.CST_PLAYER)&&_fight.getSimulation()){
                 _fight.setAcceptableChoices(false);
                 _fight.setIssue(IssueSimulation.KO_PLAYER);
             }
@@ -2509,7 +2509,7 @@ final class FightEffects {
         }else if(Rate.greaterEq(varPv_.absNb(),creatureCible_.getRemainingHp())){
             FightKo.setKoMoveTeams(_fight,_cible,_diff,_import);
             _fight.addAnimationKoFighter(_cible);
-            if(NumberUtil.eq(_cible.getTeam(),Fight.PLAYER)&&_fight.getSimulation()){
+            if(NumberUtil.eq(_cible.getTeam(),Fight.CST_PLAYER)&&_fight.getSimulation()){
                 _fight.setAcceptableChoices(false);
                 _fight.setIssue(IssueSimulation.KO_PLAYER);
                 return;
@@ -2534,7 +2534,7 @@ final class FightEffects {
             if(Rate.strGreater(varPvMembresAdj_, partenaire_.getRemainingHp())){
                 FightKo.setKoMoveTeams(_fight,c,_diff,_import);
                 _fight.addAnimationKoFighter(c);
-                if(NumberUtil.eq(c.getTeam(),Fight.PLAYER)&&_fight.getSimulation()){
+                if(NumberUtil.eq(c.getTeam(),Fight.CST_PLAYER)&&_fight.getSimulation()){
                     _fight.setAcceptableChoices(false);
                     _fight.setIssue(IssueSimulation.KO_PLAYER);
                     return;
@@ -2563,7 +2563,7 @@ final class FightEffects {
         }else if(Rate.greaterEq(varPv_.absNb(),creatureLanceur_.getRemainingHp())){
             FightKo.setKoMoveTeams(_fight,_target,_diff,_import);
             _fight.addAnimationKoFighter(_target);
-            if(NumberUtil.eq(_target.getTeam(),Fight.PLAYER)&&_fight.getSimulation()){
+            if(NumberUtil.eq(_target.getTeam(),Fight.CST_PLAYER)&&_fight.getSimulation()){
                 _fight.setAcceptableChoices(false);
                 _fight.setIssue(IssueSimulation.KO_PLAYER);
             }

@@ -35,7 +35,7 @@ public abstract class Paginator {
 
     protected static final String NEW_SEARCH = "newsearch";
 
-    protected static final String END = "end";
+    protected static final String CST_END = "end";
 
     protected static final String POKEMON = "Pokemon";
 
@@ -48,11 +48,11 @@ public abstract class Paginator {
     private static final String ACCESS = "aiki.gui.components.paginator";
     private static final String ACCESS_SEARCH = "util.pagination.searchingmode";
 
-    private static final String BEGIN = "0";
-    private static final String PREVIOUS_DELTA = "<<";
-    private static final String PREVIOUS = "<";
-    private static final String NEXT = ">";
-    private static final String NEXT_DELTA = ">>";
+    private static final String CST_BEGIN = "0";
+    private static final String CST_PREVIOUS_DELTA = "<<";
+    private static final String CST_PREVIOUS = "<";
+    private static final String CST_NEXT = ">";
+    private static final String CST_NEXT_DELTA = ">>";
 
     private ChangeableTitle window;
 
@@ -96,17 +96,17 @@ public abstract class Paginator {
         container = _dest;
         initMessages(_access);
         header = new Header();
-        begin = new LabelButton(BEGIN);
+        begin = new LabelButton(CST_BEGIN);
         begin.addMouseListener(new BeginEvent(this));
-        previousDelta = new LabelButton(PREVIOUS_DELTA);
+        previousDelta = new LabelButton(CST_PREVIOUS_DELTA);
         previousDelta.addMouseListener(new PreviousDeltaEvent(this));
-        previous = new LabelButton(PREVIOUS);
+        previous = new LabelButton(CST_PREVIOUS);
         previous.addMouseListener(new PreviousEvent(this));
-        next = new LabelButton(NEXT);
+        next = new LabelButton(CST_NEXT);
         next.addMouseListener(new NextEvent(this));
-        nextDelta = new LabelButton(NEXT_DELTA);
+        nextDelta = new LabelButton(CST_NEXT_DELTA);
         nextDelta.addMouseListener(new NextDeltaEvent(this));
-        end = new LabelButton(messages.getVal(END));
+        end = new LabelButton(messages.getVal(CST_END));
         end.addMouseListener(new EndEvent(this));
     }
 

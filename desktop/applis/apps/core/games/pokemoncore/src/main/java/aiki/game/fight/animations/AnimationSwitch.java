@@ -21,7 +21,7 @@ public class AnimationSwitch implements AnimationInt {
     private LgInt wonExpRate;
 
     public boolean isPlayer() {
-        return NumberUtil.eq(substituted.getTeam(), Fight.PLAYER);
+        return NumberUtil.eq(substituted.getTeam(), Fight.CST_PLAYER);
     }
 
     public int getIndex() {

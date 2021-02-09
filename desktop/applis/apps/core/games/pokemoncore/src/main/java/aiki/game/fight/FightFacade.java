@@ -91,43 +91,43 @@ public final class FightFacade {
     public static void initFight(Fight _fight, Player _utilisateur,Difficulty _diff,GymLeader _dresseur,DataBase _import) {
         FightInitialization.initFight(_fight, _utilisateur, _diff, _dresseur, _import);
         FightInitialization.initFight(_fight,_import);
-        FightSending.sendBeginTeam(_fight,Fight.FOE, _import);
-        FightSending.sendBeginTeam(_fight,Fight.PLAYER, _import);
+        FightSending.sendBeginTeam(_fight,Fight.CST_FOE, _import);
+        FightSending.sendBeginTeam(_fight,Fight.CST_PLAYER, _import);
     }
 
     public static void initFight(Fight _fight,Player _utilisateur,Difficulty _diff,GymTrainer _dresseur,DataBase _import) {
         FightInitialization.initFight(_fight, _utilisateur, _diff, _dresseur, _import);
         FightInitialization.initFight(_fight,_import);
-        FightSending.sendBeginTeam(_fight,Fight.FOE, _import);
-        FightSending.sendBeginTeam(_fight,Fight.PLAYER, _import);
+        FightSending.sendBeginTeam(_fight,Fight.CST_FOE, _import);
+        FightSending.sendBeginTeam(_fight,Fight.CST_PLAYER, _import);
     }
 
     public static void initFight(Fight _fight,Player _utilisateur,Difficulty _diff,TrainerMultiFights _dresseur,int _numero,DataBase _import){
         FightInitialization.initFight(_fight, _utilisateur, _diff, _dresseur, _numero, _import);
         FightInitialization.initFight(_fight,_import);
-        FightSending.sendBeginTeam(_fight,Fight.FOE, _import);
-        FightSending.sendBeginTeam(_fight,Fight.PLAYER, _import);
+        FightSending.sendBeginTeam(_fight,Fight.CST_FOE, _import);
+        FightSending.sendBeginTeam(_fight,Fight.CST_PLAYER, _import);
     }
 
     public static void initFight(Fight _fight,Player _utilisateur,Difficulty _diff,TrainerLeague _dresseur,DataBase _import){
         FightInitialization.initFight(_fight, _utilisateur, _diff, _dresseur, _import);
         FightInitialization.initFight(_fight,_import);
-        FightSending.sendBeginTeam(_fight,Fight.FOE, _import);
-        FightSending.sendBeginTeam(_fight,Fight.PLAYER, _import);
+        FightSending.sendBeginTeam(_fight,Fight.CST_FOE, _import);
+        FightSending.sendBeginTeam(_fight,Fight.CST_PLAYER, _import);
     }
 
     public static void initFight(Fight _fight,Player _utilisateur, Difficulty _diff, DualFight _dual,DataBase _import){
         FightInitialization.initFight(_fight, _utilisateur, _diff, _dual, _import);
         FightInitialization.initFight(_fight,_import);
-        FightSending.sendBeginTeam(_fight,Fight.FOE, _import);
-        FightSending.sendBeginTeam(_fight,Fight.PLAYER, _import);
+        FightSending.sendBeginTeam(_fight,Fight.CST_FOE, _import);
+        FightSending.sendBeginTeam(_fight,Fight.CST_PLAYER, _import);
     }
 
     public static void initFight(Fight _fight,Player _utilisateur,Difficulty _diff,WildPk _pokemon, DataBase _import){
         FightInitialization.initFight(_fight, _utilisateur, _diff, _pokemon, _import);
         FightInitialization.initFight(_fight,_import);
-        FightSending.sendBeginTeam(_fight,Fight.FOE, _import);
-        FightSending.sendBeginTeam(_fight,Fight.PLAYER, _import);
+        FightSending.sendBeginTeam(_fight,Fight.CST_FOE, _import);
+        FightSending.sendBeginTeam(_fight,Fight.CST_PLAYER, _import);
     }
 
     public static void initTypeEnv(Fight _fight,EnvironmentType _env, Difficulty _diff, DataBase _d){
@@ -193,8 +193,8 @@ public final class FightFacade {
             }
         }
         Bytes noTeams_ = new Bytes();
-        noTeams_.add(Fight.FOE);
-        noTeams_.add(Fight.PLAYER);
+        noTeams_.add(Fight.CST_FOE);
+        noTeams_.add(Fight.CST_PLAYER);
         if (!NumberUtil.equalsSetBytes(_fight.getTeams().getKeys(), noTeams_)) {
             return false;
         }
@@ -230,7 +230,7 @@ public final class FightFacade {
             if (!_fight.getTeams().getVal(t).validate(_data, t, _fight)) {
                 return false;
             }
-            if (NumberUtil.eq(t, Fight.FOE)) {
+            if (NumberUtil.eq(t, Fight.CST_FOE)) {
                 continue;
             }
             Bytes posInit_ = new Bytes();
@@ -348,7 +348,7 @@ public final class FightFacade {
             int nbFrontPl_ = 0;
             int nbFrontAlly_ = 0;
             for (TeamPosition f: FightOrder.frontFighters(_fight)) {
-                if (f.getTeam() != Fight.PLAYER) {
+                if (f.getTeam() != Fight.CST_PLAYER) {
                     continue;
                 }
                 if (_fight.getFighter(f).isBelongingToPlayer()) {
@@ -366,20 +366,20 @@ public final class FightFacade {
         }
         if (validSwitchTeam_) {
             EqList<TeamPosition> team_;
-            team_ = FightOrder.fighters(_fight, Fight.FOE);
+            team_ = FightOrder.fighters(_fight, Fight.CST_FOE);
             for (TeamPosition t: team_) {
                 Fighter f_ = _fight.getFighter(t);
                 _fight.getFirstPositFoeFighters().put(t.getPosition(), f_.getGroundPlaceSubst());
             }
-            team_ = FightOrder.fighters(_fight, Fight.PLAYER);
+            team_ = FightOrder.fighters(_fight, Fight.CST_PLAYER);
             for (TeamPosition t: team_) {
                 Fighter f_ = _fight.getFighter(t);
                 _fight.getFirstPositPlayerFighters().put(t.getPosition(), f_.getGroundPlaceSubst());
             }
-            if (!validSwitchTeam(_fight, Fight.PLAYER)) {
+            if (!validSwitchTeam(_fight, Fight.CST_PLAYER)) {
                 return false;
             }
-            if (!validSwitchTeam(_fight, Fight.FOE)) {
+            if (!validSwitchTeam(_fight, Fight.CST_FOE)) {
                 return false;
             }
         }
@@ -389,18 +389,18 @@ public final class FightFacade {
             }
         }
         if (distinctPlacesGroundCheck_) {
-            if (!validPlaces(_fight, Fight.FOE)) {
+            if (!validPlaces(_fight, Fight.CST_FOE)) {
                 return false;
             }
-            if (!validPlaces(_fight, Fight.PLAYER)) {
+            if (!validPlaces(_fight, Fight.CST_PLAYER)) {
                 return false;
             }
         }
         if (distinctPlacesGroundSubtCheck_) {
-            if (!validPlacesSubst(_fight, Fight.FOE, false)) {
+            if (!validPlacesSubst(_fight, Fight.CST_FOE, false)) {
                 return false;
             }
-            if (!validPlacesSubst(_fight, Fight.PLAYER, onlyDistinctFoeCheckSubst_)) {
+            if (!validPlacesSubst(_fight, Fight.CST_PLAYER, onlyDistinctFoeCheckSubst_)) {
                 return false;
             }
         }
@@ -425,7 +425,7 @@ public final class FightFacade {
         if (_fight.getState() == FightState.SWITCH_APRES_ATTAQUE) {
             //The substituted can be KO
             _fight.getChoices().clear();
-            if (!NumberUtil.eq(_fight.getCurrentUser().getTeam(), Fight.PLAYER)) {
+            if (!NumberUtil.eq(_fight.getCurrentUser().getTeam(), Fight.CST_PLAYER)) {
                 return false;
             }
             if (!validAllyChoices(_fight, _data)) {
@@ -569,11 +569,11 @@ public final class FightFacade {
             }
             if (FightEndRound.proponedSwitchWhileKoPlayer(_fight)) {
                 EqList<TeamPosition> team_;
-                team_ = FightOrder.fighters(_fight, Fight.FOE);
+                team_ = FightOrder.fighters(_fight, Fight.CST_FOE);
                 if (!validSubstitutingTeam(_fight, team_)) {
                     return false;
                 }
-                team_ = FightOrder.fighters(_fight, Fight.PLAYER);
+                team_ = FightOrder.fighters(_fight, Fight.CST_PLAYER);
                 return validSubstitutingTeam(_fight, team_);
             }
             return true;
@@ -587,11 +587,11 @@ public final class FightFacade {
             }
             if (!_fight.getFightType().isWild()) {
                 EqList<TeamPosition> team_;
-                team_ = FightOrder.fighters(_fight, Fight.FOE);
+                team_ = FightOrder.fighters(_fight, Fight.CST_FOE);
                 if (!validSubstitutingTeam(_fight, team_)) {
                     return false;
                 }
-                team_ = FightOrder.fighters(_fight, Fight.PLAYER);
+                team_ = FightOrder.fighters(_fight, Fight.CST_PLAYER);
                 return validSubstitutingTeam(_fight, team_);
             }
             return true;
@@ -603,7 +603,7 @@ public final class FightFacade {
             if (!(_data.getItem(_fight.getCatchingBall()) instanceof Ball)) {
                 return false;
             }
-            return !_fight.getKos().getVal(Fight.PLAYER);
+            return !_fight.getKos().getVal(Fight.CST_PLAYER);
         } else if (_fight.getState() == FightState.CAPTURE_KO) {
             _fight.getChoices().clear();
             if (!_user.existBall(_data)) {
@@ -617,8 +617,8 @@ public final class FightFacade {
 
     static boolean validAllyChoices(Fight _fight, DataBase _data) {
         Bytes noTeams_ = new Bytes();
-        noTeams_.add(Fight.PLAYER);
-        noTeams_.add(Fight.FOE);
+        noTeams_.add(Fight.CST_PLAYER);
+        noTeams_.add(Fight.CST_FOE);
         if (_fight.getAllyChoiceSet().size() != DataBase.ONE_POSSIBLE_CHOICE) {
             for (MoveTarget p: _fight.getAllyChoiceSet()) {
                 if (!_data.getMoves().contains(p.getMove())) {
@@ -717,7 +717,7 @@ public final class FightFacade {
         Bytes replaceNoPlayer_ = new Bytes();
         byte teamNo_ = _pseusoTeam.first().getTeam();
         ByteMap<Byte> subst_;
-        if (NumberUtil.eq(teamNo_, Fight.FOE)) {
+        if (NumberUtil.eq(teamNo_, Fight.CST_FOE)) {
             subst_ = _fight.getFirstPositFoeFighters();
         } else {
             subst_ = _fight.getFirstPositPlayerFighters();
@@ -751,7 +751,7 @@ public final class FightFacade {
         if (nb_ > _fight.getMult()) {
             return false;
         }
-        if (NumberUtil.eq(teamNo_, Fight.FOE)) {
+        if (NumberUtil.eq(teamNo_, Fight.CST_FOE)) {
             if (nbNotKo_ > _fight.getMult()) {
                 return nb_ == _fight.getMult();
             }
@@ -834,7 +834,7 @@ public final class FightFacade {
             ActionMove actionMove_ = (ActionMove) action_;
             initChosableTargets(_fight, _place, actionMove_.getFirstChosenMove(), _diff, _import);
             if (!actionMove_.getChosenTargets().isEmpty()) {
-                if (NumberUtil.eq(actionMove_.getChosenTargets().first().getTeam(), Fight.PLAYER)) {
+                if (NumberUtil.eq(actionMove_.getChosenTargets().first().getTeam(), Fight.CST_PLAYER)) {
                     _fight.setChosenPlayerTarget((byte) actionMove_.getChosenTargets().first().getPosition());
                     _fight.setChosenFoeTarget(Fighter.BACK);
                 } else {
@@ -1433,7 +1433,7 @@ public final class FightFacade {
     }
 
     public static boolean koTeam(Fight _fight){
-        return _fight.getKos().getVal(Fight.PLAYER)||_fight.getKos().getVal(Fight.FOE);
+        return _fight.getKos().getVal(Fight.CST_PLAYER)||_fight.getKos().getVal(Fight.CST_FOE);
     }
 
     public static void endFight(Fight _fight){
@@ -1445,15 +1445,15 @@ public final class FightFacade {
     }
 
     public static boolean win(Fight _fight){
-        return !_fight.getKos().getVal(Fight.PLAYER)&&_fight.getKos().getVal(Fight.FOE);
+        return !_fight.getKos().getVal(Fight.CST_PLAYER)&&_fight.getKos().getVal(Fight.CST_FOE);
     }
 
     public static boolean equality(Fight _fight){
-        return _fight.getKos().getVal(Fight.PLAYER)&&_fight.getKos().getVal(Fight.FOE);
+        return _fight.getKos().getVal(Fight.CST_PLAYER)&&_fight.getKos().getVal(Fight.CST_FOE);
     }
 
     public static boolean loose(Fight _fight){
-        return _fight.getKos().getVal(Fight.PLAYER)&&!_fight.getKos().getVal(Fight.FOE);
+        return _fight.getKos().getVal(Fight.CST_PLAYER)&&!_fight.getKos().getVal(Fight.CST_FOE);
     }
 
     public static FightState fightStatement(Fight _fight, boolean _existBall,Difficulty _diff){
@@ -2351,7 +2351,7 @@ public final class FightFacade {
                 chooseMove(_fight, move_, _diff, _import);
                 if (!_fight.getChosableFoeTargets().isEmpty()) {
                     //!_fight.getChosableFoeTargets().isEmpty() <==> !_fight.getChosablePlayerTargets().isEmpty()
-                    if (NumberUtil.eq(action_.getChosenTargets().first().getTeam(), Fight.FOE)) {
+                    if (NumberUtil.eq(action_.getChosenTargets().first().getTeam(), Fight.CST_FOE)) {
                         setFirstChosenMoveFoeTarget(_fight, (byte) action_.getChosenTargets().first().getPosition());
                     } else {
                         setFirstChosenMovePlayerTarget(_fight, (byte) action_.getChosenTargets().first().getPosition());
@@ -2591,8 +2591,8 @@ public final class FightFacade {
         _fight.setComment(new Comment());
         _fight.setCurrentActivity(new ActivityOfMove());
         _fight.setKos(new ByteMap<Boolean>());
-        _fight.getKos().put(Fight.PLAYER,false);
-        _fight.getKos().put(Fight.FOE,false);
+        _fight.getKos().put(Fight.CST_PLAYER,false);
+        _fight.getKos().put(Fight.CST_FOE,false);
         _fight.getFoeTeam().setComment(new Comment());
         _fight.getUserTeam().setComment(new Comment());
         for (Fighter f: _fight.getFoeTeam().getMembers().values()) {

@@ -5372,7 +5372,7 @@ public class FightRoundTest extends InitializationDataBase {
         assertEq(1, fight_.getUsedItemsWhileRound().getVal(obj_));
         assertEq(1, fight_.getEffects().size());
         AnimationHealing animation_ = (AnimationHealing) fight_.getEffects().first();
-        assertEq(Fight.PLAYER, animation_.getHealed().getTeam());
+        assertEq(Fight.CST_PLAYER, animation_.getHealed().getTeam());
         assertTrue(animation_.isBackOrTeam());
     }
 
@@ -5405,7 +5405,7 @@ public class FightRoundTest extends InitializationDataBase {
         assertEq(72, fighter_.getHappiness());
         assertEq(1, fight_.getEffects().size());
         AnimationHealing animation_ = (AnimationHealing) fight_.getEffects().first();
-        assertEq(Fight.PLAYER, animation_.getHealed().getTeam());
+        assertEq(Fight.CST_PLAYER, animation_.getHealed().getTeam());
         assertTrue(animation_.isBackOrTeam());
     }
 
@@ -5438,7 +5438,7 @@ public class FightRoundTest extends InitializationDataBase {
         assertEq(74, fighter_.getHappiness());
         assertEq(1, fight_.getEffects().size());
         AnimationHealing animation_ = (AnimationHealing) fight_.getEffects().first();
-        assertEq(Fight.PLAYER, animation_.getHealed().getTeam());
+        assertEq(Fight.CST_PLAYER, animation_.getHealed().getTeam());
         assertTrue(animation_.isBackOrTeam());
     }
 
@@ -5504,7 +5504,7 @@ public class FightRoundTest extends InitializationDataBase {
         assertEq(72, fighter_.getHappiness());
         assertEq(1, fight_.getEffects().size());
         AnimationHealing animation_ = (AnimationHealing) fight_.getEffects().first();
-        assertEq(Fight.PLAYER, animation_.getHealed().getTeam());
+        assertEq(Fight.CST_PLAYER, animation_.getHealed().getTeam());
         assertTrue(animation_.isBackOrTeam());
     }
 
@@ -5991,7 +5991,7 @@ public class FightRoundTest extends InitializationDataBase {
         assertEq(0, fighter_.getStatusNbRound(SOMMEIL));
         assertEq(1, fight_.getEffects().size());
         AnimationHealing animation_ = (AnimationHealing) fight_.getEffects().first();
-        assertEq(Fight.FOE, animation_.getHealed().getTeam());
+        assertEq(Fight.CST_FOE, animation_.getHealed().getTeam());
         assertTrue(animation_.isBackOrTeam());
     }
 
@@ -6040,7 +6040,7 @@ public class FightRoundTest extends InitializationDataBase {
 
         assertEq(2, fight_.getEffects().size());
         AnimationHealing animation_ = (AnimationHealing) fight_.getEffects().first();
-        assertEq(Fight.PLAYER, animation_.getHealed().getTeam());
+        assertEq(Fight.CST_PLAYER, animation_.getHealed().getTeam());
         assertTrue(animation_.isBackOrTeam());
         AnimationSwitch animSwitch_ = (AnimationSwitch) fight_.getEffects().last();
         assertEq(POKEMON_PLAYER_TARGET_ONE, animSwitch_.getSubstituted());
@@ -6098,7 +6098,7 @@ public class FightRoundTest extends InitializationDataBase {
 
         assertEq(2, fight_.getEffects().size());
         AnimationHealing animation_ = (AnimationHealing) fight_.getEffects().first();
-        assertEq(Fight.PLAYER, animation_.getHealed().getTeam());
+        assertEq(Fight.CST_PLAYER, animation_.getHealed().getTeam());
         assertTrue(animation_.isBackOrTeam());
         assertTrue(animation_.isPlayer());
         AnimationSwitch animSwitch_ = (AnimationSwitch) fight_.getEffects().last();

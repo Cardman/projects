@@ -357,8 +357,8 @@ final class FightOrder {
 
     static EqList<TeamPosition> fighters(Fight _fight){
         EqList<TeamPosition> cbts_ = new EqList<TeamPosition>();
-        cbts_.addAllElts(fighters(_fight,Fight.FOE));
-        cbts_.addAllElts(fighters(_fight,Fight.PLAYER));
+        cbts_.addAllElts(fighters(_fight,Fight.CST_FOE));
+        cbts_.addAllElts(fighters(_fight,Fight.CST_PLAYER));
         return cbts_;
     }
 

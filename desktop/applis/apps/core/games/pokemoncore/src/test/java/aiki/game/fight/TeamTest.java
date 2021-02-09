@@ -713,8 +713,8 @@ public class TeamTest extends InitializationDataBase {
         Egg egg_ = new Egg(PIKACHU);
         player_.getTeam().add(egg_);
         team_.initEquipeUtilisateur(player_, diff_, (short) 2, data);
-        TeamPosition fighterCoordsOne_ = new TeamPosition(Fight.PLAYER, (byte)0);
-        TeamPosition fighterCoordsTwo_ = new TeamPosition(Fight.PLAYER, (byte)1);
+        TeamPosition fighterCoordsOne_ = new TeamPosition(Fight.CST_PLAYER, (byte)0);
+        TeamPosition fighterCoordsTwo_ = new TeamPosition(Fight.CST_PLAYER, (byte)1);
         EqList<TeamPosition> fightersCoords_ = new EqList<TeamPosition>();
         fightersCoords_.add(fighterCoordsOne_);
         fightersCoords_.add(fighterCoordsTwo_);

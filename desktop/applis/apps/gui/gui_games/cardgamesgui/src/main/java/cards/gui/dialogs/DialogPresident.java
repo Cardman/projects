@@ -22,7 +22,7 @@ public abstract class DialogPresident extends DialogCards implements DialogVaryi
     private static final String MIX_CARDS = "mixCards";
     private static final String NUMBER_DEALS = "numberDeals";
 
-    private static final String EQUALITY = "equality";
+    private static final String CST_EQUALITY = "equality";
     private static final String STOP_ALL_PLAYED_CARDS = "stopAllPlayedCards";
     private static final String CAN_PASS = "canPass";
     private static final String POSSIBLE_REVERSING = "possibleReversing";
@@ -92,7 +92,7 @@ public abstract class DialogPresident extends DialogCards implements DialogVaryi
         getJt().add(getMessages().getVal(DEALING),dealing_);
 
         Panel rules_=Panel.newGrid(0,2);
-        rules_.add(new TextLabel(getMessages().getVal(EQUALITY)));
+        rules_.add(new TextLabel(getMessages().getVal(CST_EQUALITY)));
         equality = new ComboBoxEnumCards<EqualtyPlaying>(_window.getFrames().getGeneComboBox().createCombo(new StringList(new IntTreeMap<String>().values()), 0));
         EqualtyPlaying curThree_ = getReglesPresident().getEqualty();
         int index_ = 0;

@@ -3,7 +3,7 @@ import code.util.core.IndexConstants;
 
 public class BlockBounds {
 
-    public static final short INVALIDATE = IndexConstants.INDEX_NOT_FOUND_ELT;
+    public static final short CST_INVALIDATE = IndexConstants.INDEX_NOT_FOUND_ELT;
     private short xLeftTop;
     private short yLeftTop;
     private short xRightTop;
@@ -21,18 +21,18 @@ public class BlockBounds {
             invalidate_ = true;
         }
         if (invalidate_) {
-            xLeftTop = INVALIDATE;
-            yLeftTop = INVALIDATE;
-            xRightTop = INVALIDATE;
-            yRightTop = INVALIDATE;
-            xLeftBottom = INVALIDATE;
-            yLeftBottom = INVALIDATE;
-            xRightBottom = INVALIDATE;
-            yRightBottom = INVALIDATE;
+            xLeftTop = CST_INVALIDATE;
+            yLeftTop = CST_INVALIDATE;
+            xRightTop = CST_INVALIDATE;
+            yRightTop = CST_INVALIDATE;
+            xLeftBottom = CST_INVALIDATE;
+            yLeftBottom = CST_INVALIDATE;
+            xRightBottom = CST_INVALIDATE;
+            yRightBottom = CST_INVALIDATE;
         }
     }
     public boolean isValid() {
-        return xLeftTop != INVALIDATE;
+        return xLeftTop != CST_INVALIDATE;
     }
     public short getxLeftTop() {
         return xLeftTop;

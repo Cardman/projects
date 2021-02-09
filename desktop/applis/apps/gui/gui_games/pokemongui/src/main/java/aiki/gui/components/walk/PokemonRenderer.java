@@ -18,7 +18,7 @@ public class PokemonRenderer extends CustCellRender<UsablePokemon> {
 
     private static final String PER_CENT = " %";
 
-    private static final String KO = "KO";
+    private static final String CST_KO = "KO";
 
     private final int sideLength;
 
@@ -116,7 +116,7 @@ public class PokemonRenderer extends CustCellRender<UsablePokemon> {
             _g.drawString(remainHp, sideLength, h_ * 3);
             if (ko) {
                 _g.setColor(Color.BLACK);
-                _g.drawString(KO, coords + sideLength, h_ * 3);
+                _g.drawString(CST_KO, coords + sideLength, h_ * 3);
             } else if (!rateRemain.isEmpty()) {
                 int rate_ = NumberUtil.parseInt(intRate.toNumberString());
                 int red_ = 255;

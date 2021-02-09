@@ -46,7 +46,7 @@ public class AnimationEffect implements AnimationInt {
     }
 
     public boolean isPlayerFromFighter() {
-        return NumberUtil.eq(fromFighter.getTeam(), Fight.PLAYER);
+        return NumberUtil.eq(fromFighter.getTeam(), Fight.CST_PLAYER);
     }
 
     public TargetCoords getToFighter() {
@@ -74,6 +74,6 @@ public class AnimationEffect implements AnimationInt {
     }
 
     public boolean isPlayerToFighter() {
-        return NumberUtil.eq(toFighter.getTeam(), Fight.PLAYER);
+        return NumberUtil.eq(toFighter.getTeam(), Fight.CST_PLAYER);
     }
 }

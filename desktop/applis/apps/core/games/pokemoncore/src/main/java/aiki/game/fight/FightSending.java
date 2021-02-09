@@ -47,8 +47,8 @@ final class FightSending {
     }
 
     static void firstEffectWhileSendingTeams(Fight _fight,Difficulty _diff,DataBase _import) {
-        firstEffectWhileSendingTeam(_fight,Fight.FOE,_diff,_import);
-        firstEffectWhileSendingTeam(_fight,Fight.PLAYER,_diff,_import);
+        firstEffectWhileSendingTeam(_fight,Fight.CST_FOE,_diff,_import);
+        firstEffectWhileSendingTeam(_fight,Fight.CST_PLAYER,_diff,_import);
     }
 
     static void firstEffectWhileSendingTeam(Fight _fight,byte _noTeam, Difficulty _diff,DataBase _import) {
@@ -82,7 +82,7 @@ final class FightSending {
                 }
                 equipeCbtEnvoye_.ajouterCombattantsContreAdv(_cbtEnvoye.getPosition(),c);
             }
-        } else if (NumberUtil.eq(_cbtEnvoye.getTeam(), Fight.FOE)){
+        } else if (NumberUtil.eq(_cbtEnvoye.getTeam(), Fight.CST_FOE)){
             Team team_=_fight.getUserTeam();
             for(byte c:team_.getMembers().getKeys()){
                 Fighter creature_=team_.getMembers().getVal(c);
@@ -444,7 +444,7 @@ final class FightSending {
                 }
                 _fight.getUserTeam().ajouterCombattantsContreAdv(_cbtEnvoye.getPosition(),c);
             }
-        }else if (NumberUtil.eq(_cbtEnvoye.getTeam(), Fight.FOE)){
+        }else if (NumberUtil.eq(_cbtEnvoye.getTeam(), Fight.CST_FOE)){
             Team team_=_fight.getUserTeam();
             for(byte c:team_.getMembers().getKeys()){
                 Fighter creature_=team_.getMembers().getVal(c);
@@ -600,7 +600,7 @@ final class FightSending {
             Rate inflictedHp_ = Rate.multiply(pvInfliges_,creatureCbt_.pvMax());
             if(Rate.greaterEq(inflictedHp_,creatureCbt_.getRemainingHp())){
                 FightKo.setKoMoveTeams(_fight,_cbt,_diff,_import);
-                if(NumberUtil.eq(_cbt.getTeam(),Fight.PLAYER)&&_fight.getSimulation()){
+                if(NumberUtil.eq(_cbt.getTeam(),Fight.CST_PLAYER)&&_fight.getSimulation()){
                     _fight.setAcceptableChoices(false);
                     _fight.setIssue(IssueSimulation.KO_PLAYER);
                     return;

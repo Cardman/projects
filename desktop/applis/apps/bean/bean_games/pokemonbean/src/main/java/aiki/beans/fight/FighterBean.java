@@ -481,7 +481,7 @@ public class FighterBean extends CommonFightBean {
     }
     public boolean isFoeStatusRelatTeam(int _index) {
         MoveTeamPosition mt_ = statusRelat.getKey(_index);
-        return mt_.getTeamPosition().getTeam() == Fight.FOE;
+        return mt_.getTeamPosition().getTeam() == Fight.CST_FOE;
     }
     public String getStatusRelatTeam(int _index) {
         FacadeGame dataBaseFight_ = getDataBase();
@@ -493,7 +493,7 @@ public class FighterBean extends CommonFightBean {
     }
     public boolean isFoePrivateMovesTeam(int _index) {
         MoveTeamPosition mt_ = privateMoves.getKey(_index);
-        return mt_.getTeamPosition().getTeam() == Fight.FOE;
+        return mt_.getTeamPosition().getTeam() == Fight.CST_FOE;
     }
     public String getIncrPrivateMovesTeam(int _index) {
         FacadeGame dataBaseFight_ = getDataBase();
@@ -502,7 +502,7 @@ public class FighterBean extends CommonFightBean {
     }
     public boolean isFoeTrappingMovesTeam(int _index) {
         MoveTeamPosition mt_ = trappingMoves.getKey(_index);
-        return mt_.getTeamPosition().getTeam() == Fight.FOE;
+        return mt_.getTeamPosition().getTeam() == Fight.CST_FOE;
     }
     public String getIncrTrappingMovesTeam(int _index) {
         FacadeGame dataBaseFight_ = getDataBase();
@@ -511,7 +511,7 @@ public class FighterBean extends CommonFightBean {
     }
     public boolean isFoeTrackingMovesTeam(int _index) {
         MoveTeamPosition mt_ = trackingMoves.getKey(_index);
-        return mt_.getTeamPosition().getTeam() == Fight.FOE;
+        return mt_.getTeamPosition().getTeam() == Fight.CST_FOE;
     }
     public String getIncrTrackingMovesTeam(int _index) {
         FacadeGame dataBaseFight_ = getDataBase();
@@ -520,7 +520,7 @@ public class FighterBean extends CommonFightBean {
     }
     public boolean isFoeIncrUserAccuracyTeam(int _index) {
         MoveTeamPosition mt_ = incrUserAccuracy.getKey(_index);
-        return mt_.getTeamPosition().getTeam() == Fight.FOE;
+        return mt_.getTeamPosition().getTeam() == Fight.CST_FOE;
     }
     public String getIncrUserAccuracyTeam(int _index) {
         FacadeGame dataBaseFight_ = getDataBase();

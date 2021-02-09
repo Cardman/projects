@@ -79,18 +79,18 @@ public final class MainWindow extends NetGroupFrame {
 
     private static final String TITLE = "title";
 
-    private static final String FILE = "file";
+    private static final String CST_FILE = "file";
     private static final String FOLDER_LOAD = "folderLoad";
     private static final String ZIP_LOAD = "zipLoad";
     private static final String GAME_LOAD = "gameLoad";
     private static final String GAME_SAVE = "gameSave";
-    private static final String LANGUAGE = "language";
-    private static final String PARAMS = "params";
+    private static final String CST_LANGUAGE = "language";
+    private static final String CST_PARAMS = "params";
     private static final String DATA_GAME = "dataGame";
     private static final String NEW_GAME = "newGame";
     private static final String DATA_WEB = "dataWeb";
 
-    private static final String NICKNAME = "nickname";
+    private static final String CST_NICKNAME = "nickname";
 
     private static final String SAVING = "saving";
 
@@ -112,11 +112,11 @@ public final class MainWindow extends NetGroupFrame {
 
     private static final String TITLE_BATTLE = "titleBattle";
 
-    private static final String DIFFICULTY = "difficulty";
+    private static final String CST_DIFFICULTY = "difficulty";
 
     private static final String TITLE_DIFFICULTY = "titleDifficulty";
 
-    private static final String QUIT = "quit";
+    private static final String CST_QUIT = "quit";
 
 //    private static final String PARAMETRES = "parametres";
 
@@ -419,20 +419,20 @@ public final class MainWindow extends NetGroupFrame {
         facade.getData().setLanguage(facade.getLanguage());
         DocumentReaderAikiCoreUtil.initMessages(facade.getData(),facade.getLanguage());
         messages = getMessages(this,Resources.MESSAGES_FOLDER);
-        file.setText(messages.getVal(FILE));
+        file.setText(messages.getVal(CST_FILE));
         zipLoad.setText(messages.getVal(ZIP_LOAD));
         folderLoad.setText(messages.getVal(FOLDER_LOAD));
         gameLoad.setText(messages.getVal(GAME_LOAD));
         gameSave.setText(messages.getVal(GAME_SAVE));
-        language.setText(messages.getVal(LANGUAGE));
-        params.setText(messages.getVal(PARAMS));
+        language.setText(messages.getVal(CST_LANGUAGE));
+        params.setText(messages.getVal(CST_PARAMS));
         dataGame.setText(messages.getVal(DATA_GAME));
-        quit.setText(messages.getVal(QUIT));
+        quit.setText(messages.getVal(CST_QUIT));
         newGame.setText(messages.getVal(NEW_GAME));
         //dataGame.setText(messages.getVal(NEW_GAME));
         dataWeb.setText(messages.getVal(DATA_WEB));
         dataBattle.setText(messages.getVal(TITLE_BATTLE));
-        difficulty.setText(messages.getVal(DIFFICULTY));
+        difficulty.setText(messages.getVal(CST_DIFFICULTY));
 //        lastSavedGameDate.setText(MessageFormat.format(messages.getVal(LAST_SAVED_GAME), dateLastSaved));
         lastSavedGameDate.setText(StringUtil.simpleStringsFormat(messages.getVal(LAST_SAVED_GAME), dateLastSaved));
         if (!helpInfo.getText().isEmpty()) {
@@ -475,7 +475,7 @@ public final class MainWindow extends NetGroupFrame {
         }
         beginGame.add(heros_);
         Panel nickname_ = Panel.newLineBox();
-        nickname_.add(new TextLabel(messages.getVal(NICKNAME)));
+        nickname_.add(new TextLabel(messages.getVal(CST_NICKNAME)));
         if (nickname == null) {
             nickname = new TextField(16);
         }
@@ -888,7 +888,7 @@ public final class MainWindow extends NetGroupFrame {
             GroupFrame.showDialogError(this);
             return;
         }
-        LanguageDialog.setLanguageDialog(this, messages.getVal(LANGUAGE));
+        LanguageDialog.setLanguageDialog(this, messages.getVal(CST_LANGUAGE));
         String langue_ = LanguageDialog.getStaticLanguage(getLanguageDialog());
         if(langue_ == null || langue_.isEmpty()) {
             return;

@@ -11,7 +11,7 @@ import code.util.core.StringUtil;
 public final class ConstructorId implements Identifiable {
 
     private static final String EMPTY = "";
-    private static final String VARARG = "...";
+    private static final String CST_VARARG = "...";
     private static final String SEP_TYPE = ",";
     private static final String LEFT = "(";
     private static final String RIGHT = ")";
@@ -80,7 +80,7 @@ public final class ConstructorId implements Identifiable {
     public String getSignature(DisplayedStrings _ana) {
         String suf_ = EMPTY;
         if (vararg) {
-            suf_ = VARARG;
+            suf_ = CST_VARARG;
         }
         StringList cls_ = new StringList();
         int m_ = Math.min(classNames.size(),refParams.size());

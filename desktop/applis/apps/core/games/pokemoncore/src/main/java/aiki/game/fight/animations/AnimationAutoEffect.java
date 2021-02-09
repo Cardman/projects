@@ -26,7 +26,7 @@ public final class AnimationAutoEffect implements AnimationInt {
     }
 
     public boolean isPlayer() {
-        return NumberUtil.eq(user.getTeam(), Fight.PLAYER);
+        return NumberUtil.eq(user.getTeam(), Fight.CST_PLAYER);
     }
 
     public TargetCoords getUser() {

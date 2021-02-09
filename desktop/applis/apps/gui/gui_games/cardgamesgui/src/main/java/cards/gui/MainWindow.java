@@ -151,9 +151,9 @@ public final class MainWindow extends NetGroupFrame {
 
     public static final String TOO_GAME = "tooGame";
 
-    public static final String LAUNCHING = "launching";
+    public static final String CST_LAUNCHING = "launching";
 
-    public static final String TIMING = "timing";
+    public static final String CST_TIMING = "timing";
 
     public static final String CAN_PLAY = "canPlay";
 
@@ -347,77 +347,68 @@ public final class MainWindow extends NetGroupFrame {
 
     static final String BUG = "bug";
 
-    static final String CHANGE = "change";
+    static final String CST_CHANGE = "change";
 
-    static final String CONSULTING = "consulting";
+    static final String CST_CONSULTING = "consulting";
 
-    static final String DEAL = "deal";
+    static final String CST_DEAL = "deal";
 
-    static final String DEMO = "demo";
+    static final String CST_DEMO = "demo";
 
-    static final String DISPLAYING = "displaying";
+    static final String CST_DISPLAYING = "displaying";
 
-    static final String EDIT = "edit";
+    static final String CST_EDIT = "edit";
 
-    static final String EXIT = "exit";
+    static final String CST_EXIT = "exit";
 
-    static final String FILE = "file";
+    static final String CST_FILE = "file";
 
-    static final String FILE_NOT_LOADED = "fileNotLoaded";
+    static final String CST_FILE_NOT_LOADED = "fileNotLoaded";
 
-    static final String FILE_NOT_LOADED_TILE = "fileNotLoadedTile";
+    static final String CST_FILE_NOT_LOADED_TILE = "fileNotLoadedTile";
 
-    static final String GENERAL_HELP = "generalHelp";
+    static final String CST_GENERAL_HELP = "generalHelp";
 
-    static final String GO_HELP_MENU = "goHelpMenu";
+    static final String CST_GO_HELP_MENU = "goHelpMenu";
 
-    static final String HELP = "help";
+    static final String CST_HELP = "help";
 
-    static final String INTERACT = "interact";
+    static final String CST_INTERACT = "interact";
 
-    static final String LANGUAGE = "language";
+    static final String CST_LANGUAGE = "language";
 
-    static final String LOAD = "load";
+    static final String CST_LOAD = "load";
 
-    static final String LOCALE = "locale";
+    static final String CST_MAIN_MENU = "mainMenu";
 
-    static final String MAIN_MENU = "mainMenu";
+    static final String CST_MULTI_MODE = "multiMode";
 
-    static final String MULTI_MODE = "multiMode";
+    static final String CST_MULTI_STOP = "multiStop";
 
-    static final String MULTI_STOP = "multiStop";
-
-    static final String PARAMETERS = "parameters";
+    static final String CST_PARAMETERS = "parameters";
 
     //static final String PARAMETRES = "parametres";
 
-    static final String PAUSE = "pause";
+    static final String CST_PAUSE = "pause";
 
-    static final String PLAYERS = "players";
+    static final String CST_PLAYERS = "players";
 
-    static final String ROBOTS = "robots";
+    static final String CST_SAVE = "save";
 
-    static final String SAVE = "save";
+    static final String CST_SAVING = "saving";
 
-    static final String SAVING = "saving";
+    static final String CST_SAVING_TITLE = "savingTitle";
 
-    static final String SAVING_TITLE = "savingTitle";
+    static final String CST_SINGLE_MODE = "singleMode";
 
-    static final String SINGLE_MODE = "singleMode";
+    static final String CST_TEAMS = "teams";
 
-    static final String SOFTWARE = "software";
+    static final String CST_TRAINING = "training";
 
-    static final String TEAMS = "teams";
+    static final String CST_TRICKS_HANDS = "tricksHands";
 
-    static final String TRAINING = "training";
+    static final String CST_WELCOME = "welcome";
 
-    static final String TRICKS_HANDS = "tricksHands";
-
-    static final String WELCOME = "welcome";
-
-    static final String NOT_FOUND_FILE = "notFoundFile";
-
-    static final String NOT_HELP = "notHelp";
     private static final String DIALOG_ACCESS = "cards.gui.mainwindow";
 
     private static final String TOO_MANY = "tooMany";
@@ -729,7 +720,7 @@ public final class MainWindow extends NetGroupFrame {
 
     private int saving() {
         //warning message
-        return confirm(getMessages().getVal(SAVING),getMessages().getVal(SAVING_TITLE));
+        return confirm(getMessages().getVal(CST_SAVING),getMessages().getVal(CST_SAVING_TITLE));
     }
     private void changerNombreDePartiesEnQuittant() {
         String fileName_ = StringUtil.concat(LaunchingCards.getTempFolderSl(getFrames()),FileConst.DECK_FOLDER,StreamTextFile.SEPARATEUR,FileConst.DECK_FILE);
@@ -1081,18 +1072,18 @@ public final class MainWindow extends NetGroupFrame {
         setTitle(Launching.WELCOME.toString(getLanguageKey()));
         Panel container_=Panel.newGrid(0,1);
         /*Pour montrer qu'on a de l'attention a l'utilisateur*/
-        container_.add(new TextLabel(StringUtil.simpleStringsFormat(getMessages().getVal(WELCOME), pseudo()),SwingConstants.CENTER));
+        container_.add(new TextLabel(StringUtil.simpleStringsFormat(getMessages().getVal(CST_WELCOME), pseudo()),SwingConstants.CENTER));
         /*Cree les boutons de jeu*/
         String lg_ = getLanguageKey();
         for (GameEnum jeu2_:GameEnum.values()) {
             ajouterBoutonPrincipal(jeu2_.toString(lg_),jeu2_,container_);
         }
-        LabelButton button_ = new LabelButton(getMessages().getVal(MAIN_MENU));
+        LabelButton button_ = new LabelButton(getMessages().getVal(CST_MAIN_MENU));
         button_.addMouseListener(new BackToMainMenuEvent(this));
         container_.add(button_);
         //Ajout d'une etiquette pour indiquer ou aller pour avoir de l'aide
         if (goHelpMenu == null) {
-            goHelpMenu = new TextLabel(getMessages().getVal(GO_HELP_MENU),SwingConstants.CENTER);
+            goHelpMenu = new TextLabel(getMessages().getVal(CST_GO_HELP_MENU),SwingConstants.CENTER);
         }
         container_.add(goHelpMenu);
         getLoad().setEnabledMenu(false);
@@ -1119,18 +1110,18 @@ public final class MainWindow extends NetGroupFrame {
         setTitle(Launching.WELCOME.toString(getLanguageKey()));
         Panel container_=Panel.newGrid(0,1);
         /*Pour montrer qu'on a de l'attention a l'utilisateur*/
-        container_.add(new TextLabel(StringUtil.simpleStringsFormat(getMessages().getVal(WELCOME), pseudo()),SwingConstants.CENTER));
+        container_.add(new TextLabel(StringUtil.simpleStringsFormat(getMessages().getVal(CST_WELCOME), pseudo()),SwingConstants.CENTER));
         /*Cree les boutons de jeu*/
         String lg_ = getLanguageKey();
         for (GameEnum jeu2_:GameEnum.values()) {
             ajouterBoutonPrincipal(jeu2_.toString(lg_),jeu2_,container_);
         }
-        LabelButton button_ = new LabelButton(getMessages().getVal(MAIN_MENU));
+        LabelButton button_ = new LabelButton(getMessages().getVal(CST_MAIN_MENU));
         button_.addMouseListener(new BackToMainMenuEvent(this));
         container_.add(button_);
         //Ajout d'une etiquette pour indiquer ou aller pour avoir de l'aide
         if (goHelpMenu == null) {
-            goHelpMenu = new TextLabel(getMessages().getVal(GO_HELP_MENU),SwingConstants.CENTER);
+            goHelpMenu = new TextLabel(getMessages().getVal(CST_GO_HELP_MENU),SwingConstants.CENTER);
         }
         container_.add(goHelpMenu);
         getSave().setEnabledMenu(false);
@@ -1165,18 +1156,18 @@ public final class MainWindow extends NetGroupFrame {
         setTitle(Launching.WELCOME.toString(getLanguageKey()));
         Panel pane_ = Panel.newGrid(0,1);
         /*Pour montrer qu'on a de l'attention a l'utilisateur*/
-        welcomeLabel = new TextLabel(StringUtil.simpleStringsFormat(getMessages().getVal(WELCOME), pseudo()));
+        welcomeLabel = new TextLabel(StringUtil.simpleStringsFormat(getMessages().getVal(CST_WELCOME), pseudo()));
         pane_.add(welcomeLabel,SwingConstants.CENTER);
         /*Cree les boutons de jeu*/
-        singleModeButton = new LabelButton(getMessages().getVal(SINGLE_MODE));
+        singleModeButton = new LabelButton(getMessages().getVal(CST_SINGLE_MODE));
         singleModeButton.addMouseListener(new ChooseModeEvent(this, true));
         pane_.add(singleModeButton);
-        multiModeButton = new LabelButton(getMessages().getVal(MULTI_MODE));
+        multiModeButton = new LabelButton(getMessages().getVal(CST_MULTI_MODE));
         multiModeButton.addMouseListener(new ChooseModeEvent(this, false));
         pane_.add(multiModeButton);
         //Ajout d'une etiquette pour indiquer ou aller pour avoir de l'aide
         if (goHelpMenu == null) {
-            goHelpMenu = new TextLabel(getMessages().getVal(GO_HELP_MENU),SwingConstants.CENTER);
+            goHelpMenu = new TextLabel(getMessages().getVal(CST_GO_HELP_MENU),SwingConstants.CENTER);
         }
         pane_.add(goHelpMenu);
         pane_.add(clock);
@@ -1195,27 +1186,27 @@ public final class MainWindow extends NetGroupFrame {
     }
     private void initFileMenu() {
         /* Fichier */
-        file=new Menu(getMessages().getVal(FILE));
+        file=new Menu(getMessages().getVal(CST_FILE));
         /* Fichier/Charger "accessible n'importe quand"*/
-        load=new MenuItem(getMessages().getVal(LOAD));
+        load=new MenuItem(getMessages().getVal(CST_LOAD));
         load.addActionListener(new LoadGameEvent(this));
         load.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, InputEvent.CTRL_DOWN_MASK));
         file.addMenuItem(load);
         /* Fichier/Sauvegarder "accessible que lorsqu'on joue une partie de cartes"*/
-        save=new MenuItem(getMessages().getVal(SAVE));
+        save=new MenuItem(getMessages().getVal(CST_SAVE));
         save.addActionListener(new SaveGameEvent(this));
         save.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, InputEvent.CTRL_DOWN_MASK));
         file.addMenuItem(save);
         file.addSeparator();
         /* Fichier/Changer de jeu ACCESSIBLE n'importe quand sauf au menu principal,
         on y revient lorsque c'est accessible*/
-        change=new MenuItem(getMessages().getVal(CHANGE));
+        change=new MenuItem(getMessages().getVal(CST_CHANGE));
         change.setEnabledMenu(false);
         change.addActionListener(new ChangeGameEvent(this));
         change.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_J,InputEvent.CTRL_DOWN_MASK));
         file.addMenuItem(change);
         file.addSeparator();
-        exit=new MenuItem(getMessages().getVal(EXIT));
+        exit=new MenuItem(getMessages().getVal(CST_EXIT));
         exit.addActionListener(new QuitEvent(this));
         exit.setAccelerator(KeyStroke.getKeyStroke((char)KeyEvent.VK_ESCAPE));
         file.addMenuItem(exit);
@@ -1362,17 +1353,17 @@ public final class MainWindow extends NetGroupFrame {
 
     private void initDealMenu() {
         String lg_ = getLanguageKey();
-        deal=new Menu(getMessages().getVal(DEAL));
+        deal=new Menu(getMessages().getVal(CST_DEAL));
         /* Partie/Conseil "accessible uniquement en cours de partie et
         dans les jeux non solitaires"*/
         MenuItem sousMenu_;
-        consulting=new MenuItem(getMessages().getVal(CONSULTING));
+        consulting=new MenuItem(getMessages().getVal(CST_CONSULTING));
         consulting.setAccelerator(KeyStroke.getKeyStroke(F_ONE));
         consulting.addActionListener(new ConsultEvent(this));
         deal.addMenuItem(consulting);
         /* Partie/Pause Permet de mettre le jeu en pause*/
-        pause=new CheckBoxMenuItem(getMessages().getVal(PAUSE));
-        pause.setAccelerator(KeyStroke.getKeyStroke(PAUSE));
+        pause=new CheckBoxMenuItem(getMessages().getVal(CST_PAUSE));
+        pause.setAccelerator(KeyStroke.getKeyStroke(CST_PAUSE));
         pause.addActionListener(new PauseEvent(this));
         deal.addMenuItem(pause);
         /* Partie/Pause Permet d avoir de l aide*/
@@ -1380,15 +1371,15 @@ public final class MainWindow extends NetGroupFrame {
         helpGame.setAccelerator(KeyStroke.getKeyStroke(F_TWO));
         helpGame.addActionListener(new DisplayHelpGameEvent(this));
         deal.addMenuItem(helpGame);
-        tricksHands=new MenuItem(getMessages().getVal(TRICKS_HANDS));
+        tricksHands=new MenuItem(getMessages().getVal(CST_TRICKS_HANDS));
 
         tricksHands.addActionListener(new DisplayTricksHandsEvent(this));
         deal.addMenuItem(tricksHands);
-        teams=new MenuItem(getMessages().getVal(TEAMS));
+        teams=new MenuItem(getMessages().getVal(CST_TEAMS));
         teams.addActionListener(new DisplayTeamsEvent(this));
         deal.addMenuItem(teams);
         /* Partie/Editer "Permet d'editer n'importe quelle partie de cartes et accessible n'importe quand"*/
-        edit=new Menu(getMessages().getVal(EDIT));
+        edit=new Menu(getMessages().getVal(CST_EDIT));
         MenuItem sousSousMenu_ = new MenuItem(GameEnum.BELOTE.toString(lg_));
         sousSousMenu_.addActionListener(new EditEvent(this, GameEnum.BELOTE));
         edit.addMenuItem(sousSousMenu_);
@@ -1403,7 +1394,7 @@ public final class MainWindow extends NetGroupFrame {
         editGames.put(GameEnum.TAROT, sousSousMenu_);
         deal.addMenuItem(edit);
         /* Partie/Demo "Permet de voir la demostration d une partie"*/
-        demo=new Menu(getMessages().getVal(DEMO));
+        demo=new Menu(getMessages().getVal(CST_DEMO));
         sousMenu_=new MenuItem(GameEnum.BELOTE.toString(lg_));
         sousMenu_.addActionListener(new SimulationEvent(this, GameEnum.BELOTE));
         sousMenu_.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_B,InputEvent.CTRL_DOWN_MASK+InputEvent.SHIFT_DOWN_MASK));
@@ -1421,7 +1412,7 @@ public final class MainWindow extends NetGroupFrame {
         demoGames.put(GameEnum.TAROT, sousSousMenu_);
         deal.addMenuItem(demo);
         /* Partie/Entrainement "accessible n'importe quand pour pouvoir s'entrainer"*/
-        training=new Menu(getMessages().getVal(TRAINING));
+        training=new Menu(getMessages().getVal(CST_TRAINING));
         /* Partie/Entrainement au Tarot*/
         //Petitasauver,Petitachasser,Petitaemmeneraubout;
         for (ChoiceTarot ct_:ChoiceTarot.values()) {
@@ -1432,7 +1423,7 @@ public final class MainWindow extends NetGroupFrame {
             trainingTarot.put(ct_, sousMenu_);
         }
         deal.addMenuItem(training);
-        multiStop = new MenuItem(getMessages().getVal(MULTI_STOP));
+        multiStop = new MenuItem(getMessages().getVal(CST_MULTI_STOP));
         multiStop.addActionListener(new QuitMultiEvent(this));
         deal.addMenuItem(multiStop);
         getJMenuBar().add(deal);
@@ -1656,7 +1647,7 @@ public final class MainWindow extends NetGroupFrame {
     private void initParametersMenu() {
         /* Parametres */
         String lg_ = getLanguageKey();
-        parameters=new Menu(getMessages().getVal(PARAMETERS));
+        parameters=new Menu(getMessages().getVal(CST_PARAMETERS));
         MenuItem sousMenu_=new MenuItem(GameEnum.BELOTE.toString(lg_));
         sousMenu_.addActionListener(new ManageRulesEvent(this, GameEnum.BELOTE));
         sousMenu_.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_B,InputEvent.SHIFT_DOWN_MASK));
@@ -1672,23 +1663,23 @@ public final class MainWindow extends NetGroupFrame {
         sousMenu_.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_T,InputEvent.SHIFT_DOWN_MASK));
         parameters.addMenuItem(sousMenu_);
         rulesGames.put(GameEnum.TAROT, sousMenu_);
-        players=new MenuItem(getMessages().getVal(PLAYERS));
+        players=new MenuItem(getMessages().getVal(CST_PLAYERS));
         players.addActionListener(new ManageNicknameEvent(this));
         players.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_J,InputEvent.CTRL_DOWN_MASK+InputEvent.ALT_DOWN_MASK));
         parameters.addMenuItem(players);
-        launching=new MenuItem(getMessages().getVal(LAUNCHING));
-        launching.addActionListener(new ManageSoftEvent(this, LAUNCHING));
+        launching=new MenuItem(getMessages().getVal(CST_LAUNCHING));
+        launching.addActionListener(new ManageSoftEvent(this, CST_LAUNCHING));
         launching.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_L,InputEvent.CTRL_DOWN_MASK));
         parameters.addMenuItem(launching);
-        timing=new MenuItem(getMessages().getVal(TIMING));
-        timing.addActionListener(new ManageSoftEvent(this, TIMING));
+        timing=new MenuItem(getMessages().getVal(CST_TIMING));
+        timing.addActionListener(new ManageSoftEvent(this, CST_TIMING));
         timing.setAccelerator(KeyStroke.getKeyStroke(F_FOUR));
         parameters.addMenuItem(timing);
-        interact=new MenuItem(getMessages().getVal(INTERACT));
-        interact.addActionListener(new ManageSoftEvent(this, INTERACT));
+        interact=new MenuItem(getMessages().getVal(CST_INTERACT));
+        interact.addActionListener(new ManageSoftEvent(this, CST_INTERACT));
         interact.setAccelerator(KeyStroke.getKeyStroke(F_FIVE));
         parameters.addMenuItem(interact);
-        language=new MenuItem(getMessages().getVal(LANGUAGE));
+        language=new MenuItem(getMessages().getVal(CST_LANGUAGE));
         language.addActionListener(new ManageLanguageEvent(this));
 //        if (Standalone.isStandalone()) {
 //            language.setAccelerator(KeyStroke.getKeyStroke(F_SIX));
@@ -1697,7 +1688,7 @@ public final class MainWindow extends NetGroupFrame {
         language.setAccelerator(KeyStroke.getKeyStroke(F_SIX));
         parameters.addMenuItem(language);
         /* Partie/Editer "Permet d'editer n'importe quelle partie de cartes et accessible n'importe quand"*/
-        displaying=new Menu(getMessages().getVal(DISPLAYING));
+        displaying=new Menu(getMessages().getVal(CST_DISPLAYING));
         MenuItem sousSousMenu_ = new MenuItem(GameEnum.BELOTE.toString(lg_));
         sousSousMenu_.addActionListener(new DisplayingGameEvent(this, GameEnum.BELOTE));
         displaying.addMenuItem(sousSousMenu_);
@@ -1747,7 +1738,7 @@ public final class MainWindow extends NetGroupFrame {
         }
     }
     public void manageNicknames() {
-        DialogNicknames.initDialogNicknames(getMessages().getVal(PLAYERS), this);
+        DialogNicknames.initDialogNicknames(getMessages().getVal(CST_PLAYERS), this);
         pseudosJoueurs=DialogNicknames.getPseudos(getDialogNicknames());
         pseudosJoueurs.sauvegarder(StringUtil.concat(LaunchingCards.getTempFolderSl(getFrames()),FileConst.PLAYERS));
         containerGame.setNicknames(pseudosJoueurs);
@@ -1764,7 +1755,7 @@ public final class MainWindow extends NetGroupFrame {
             GroupFrame.showDialogError(this);
             return;
         }
-        LanguageDialog.setLanguageDialog(this, getMessages().getVal(LANGUAGE));
+        LanguageDialog.setLanguageDialog(this, getMessages().getVal(CST_LANGUAGE));
         String langue_ = LanguageDialog.getStaticLanguage(getLanguageDialog());
         if(langue_ == null || langue_.isEmpty()) {
             return;
@@ -1794,9 +1785,9 @@ public final class MainWindow extends NetGroupFrame {
     //private JMenu help;
     private void initHelpMenu() {
         /* Aide */
-        help=new Menu(getMessages().getVal(HELP));
+        help=new Menu(getMessages().getVal(CST_HELP));
         /* Aide/Aide generale Explication du fonctionnement du logiciel et des regles utilisables*/
-        generalHelp=new MenuItem(getMessages().getVal(GENERAL_HELP));
+        generalHelp=new MenuItem(getMessages().getVal(CST_GENERAL_HELP));
         generalHelp.addActionListener(new DisplayHelpEvent(this));
         generalHelp.setAccelerator(KeyStroke.getKeyStroke(F_THREE));
         help.addMenuItem(generalHelp);
@@ -1808,7 +1799,7 @@ public final class MainWindow extends NetGroupFrame {
         //On indique a l utilisatteur comment utiliser le logiciel et jouer aux cartes
         if (!helpFrames.isEmpty()) {
             if (!helpFrames.first().isVisible()) {
-                helpFrames.first().setTitle(getMessages().getVal(GENERAL_HELP));
+                helpFrames.first().setTitle(getMessages().getVal(CST_GENERAL_HELP));
                 helpFrames.first().initialize(this);
             }
             return;
@@ -1816,7 +1807,7 @@ public final class MainWindow extends NetGroupFrame {
         if (helpInitializerThread == null || helpInitializerThread.isAlive() || helpInitializerTask == null) {
             return;
         }
-        FrameGeneralHelp aide_=new FrameGeneralHelp(getMessages().getVal(GENERAL_HELP),this);
+        FrameGeneralHelp aide_=new FrameGeneralHelp(getMessages().getVal(CST_GENERAL_HELP),this);
         aide_.initialize(this);
         helpFrames.add(aide_);
     }
@@ -1875,8 +1866,8 @@ public final class MainWindow extends NetGroupFrame {
     private void erreurDeChargement(String _fichier) {
         //The issue of quality of game are caught here
         String lg_ = getLanguageKey();
-        String mes_ = StringUtil.simpleStringsFormat(getMessages().getVal(FILE_NOT_LOADED), _fichier);
-        ConfirmDialog.showMessage(this,mes_, getMessages().getVal(FILE_NOT_LOADED_TILE),lg_, JOptionPane.ERROR_MESSAGE);
+        String mes_ = StringUtil.simpleStringsFormat(getMessages().getVal(CST_FILE_NOT_LOADED), _fichier);
+        ConfirmDialog.showMessage(this,mes_, getMessages().getVal(CST_FILE_NOT_LOADED_TILE),lg_, JOptionPane.ERROR_MESSAGE);
     }
 
     /**On ecoute les boutons du menu principal et des menus jeux*/
@@ -1973,56 +1964,56 @@ public final class MainWindow extends NetGroupFrame {
     private void translate() {
         initMessageName();
         String lg_ = getLanguageKey();
-        file.setText(getMessages().getVal(FILE));
-        load.setText(getMessages().getVal(LOAD));
-        save.setText(getMessages().getVal(SAVE));
-        change.setText(getMessages().getVal(CHANGE));
-        exit.setText(getMessages().getVal(EXIT));
-        deal.setText(getMessages().getVal(DEAL));
-        consulting.setText(getMessages().getVal(CONSULTING));
-        pause.setText(getMessages().getVal(PAUSE));
+        file.setText(getMessages().getVal(CST_FILE));
+        load.setText(getMessages().getVal(CST_LOAD));
+        save.setText(getMessages().getVal(CST_SAVE));
+        change.setText(getMessages().getVal(CST_CHANGE));
+        exit.setText(getMessages().getVal(CST_EXIT));
+        deal.setText(getMessages().getVal(CST_DEAL));
+        consulting.setText(getMessages().getVal(CST_CONSULTING));
+        pause.setText(getMessages().getVal(CST_PAUSE));
         helpGame.setText(getMessages().getVal(HELP_GAME));
-        tricksHands.setText(getMessages().getVal(TRICKS_HANDS));
-        teams.setText(getMessages().getVal(TEAMS));
-        edit.setText(getMessages().getVal(EDIT));
+        tricksHands.setText(getMessages().getVal(CST_TRICKS_HANDS));
+        teams.setText(getMessages().getVal(CST_TEAMS));
+        edit.setText(getMessages().getVal(CST_EDIT));
         for (GameEnum g: GameEnum.values()) {
             editGames.getVal(g).setText(g.toString(lg_));
         }
-        demo.setText(getMessages().getVal(DEMO));
+        demo.setText(getMessages().getVal(CST_DEMO));
         for (GameEnum g: GameEnum.values()) {
             demoGames.getVal(g).setText(g.toString(lg_));
         }
-        training.setText(getMessages().getVal(TRAINING));
+        training.setText(getMessages().getVal(CST_TRAINING));
         for (ChoiceTarot c: ChoiceTarot.values()) {
             trainingTarot.getVal(c).setText(Games.toString(c,lg_));
         }
-        multiStop.setText(getMessages().getVal(MULTI_STOP));
-        parameters.setText(getMessages().getVal(PARAMETERS));
+        multiStop.setText(getMessages().getVal(CST_MULTI_STOP));
+        parameters.setText(getMessages().getVal(CST_PARAMETERS));
         for (GameEnum g: GameEnum.values()) {
             rulesGames.getVal(g).setText(g.toString(lg_));
         }
-        players.setText(getMessages().getVal(PLAYERS));
-        launching.setText(getMessages().getVal(LAUNCHING));
-        timing.setText(getMessages().getVal(TIMING));
-        interact.setText(getMessages().getVal(INTERACT));
-        language.setText(getMessages().getVal(LANGUAGE));
-        displaying.setText(getMessages().getVal(DISPLAYING));
+        players.setText(getMessages().getVal(CST_PLAYERS));
+        launching.setText(getMessages().getVal(CST_LAUNCHING));
+        timing.setText(getMessages().getVal(CST_TIMING));
+        interact.setText(getMessages().getVal(CST_INTERACT));
+        language.setText(getMessages().getVal(CST_LANGUAGE));
+        displaying.setText(getMessages().getVal(CST_DISPLAYING));
         for (GameEnum g: GameEnum.values()) {
             displayingGames.getVal(g).setText(g.toString(lg_));
         }
-        help.setText(getMessages().getVal(HELP));
-        generalHelp.setText(getMessages().getVal(GENERAL_HELP));
+        help.setText(getMessages().getVal(CST_HELP));
+        generalHelp.setText(getMessages().getVal(CST_GENERAL_HELP));
         if (welcomeLabel != null) {
-            welcomeLabel.setText(StringUtil.simpleStringsFormat(getMessages().getVal(WELCOME), pseudo()));
+            welcomeLabel.setText(StringUtil.simpleStringsFormat(getMessages().getVal(CST_WELCOME), pseudo()));
         }
         if (singleModeButton != null) {
-            singleModeButton.setTextAndSize(getMessages().getVal(SINGLE_MODE));
+            singleModeButton.setTextAndSize(getMessages().getVal(CST_SINGLE_MODE));
         }
         if (multiModeButton != null) {
-            multiModeButton.setTextAndSize(getMessages().getVal(MULTI_MODE));
+            multiModeButton.setTextAndSize(getMessages().getVal(CST_MULTI_MODE));
         }
         if (goHelpMenu != null) {
-            goHelpMenu.setText(getMessages().getVal(GO_HELP_MENU));
+            goHelpMenu.setText(getMessages().getVal(CST_GO_HELP_MENU));
         }
         lastSavedGameDate.setText(StringUtil.simpleStringsFormat(getMessages().getVal(LAST_SAVED_GAME), dateLastSaved));
     }

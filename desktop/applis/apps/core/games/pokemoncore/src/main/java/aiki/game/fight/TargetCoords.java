@@ -36,11 +36,11 @@ public final class TargetCoords implements Equallable<TargetCoords>, Displayable
     }
 
     public static TargetCoords toUserTarget(short _position) {
-        return new TargetCoords(Fight.PLAYER, _position);
+        return new TargetCoords(Fight.CST_PLAYER, _position);
     }
 
     public static TargetCoords toFoeTarget(short _position) {
-        return new TargetCoords(Fight.FOE, _position);
+        return new TargetCoords(Fight.CST_FOE, _position);
     }
 
     public static boolean eq(TargetCoords _tp1, TargetCoords _tp2) {

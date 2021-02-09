@@ -1645,8 +1645,8 @@ public class FightFacadeSimulationTest extends InitializationDataBase {
         choice_.setAbility(NULL_REF);
         evos_.put((byte) 3, choice_);
         evolutions_.add(evos_);
-        fight_.getKos().put(Fight.FOE, true);
-        fight_.getKos().put(Fight.PLAYER, false);
+        fight_.getKos().put(Fight.CST_FOE, true);
+        fight_.getKos().put(Fight.CST_PLAYER, false);
         FightFacade.simulate(fight_, actionsRound_, actionsSubstitutingFront_, actionsSubstitutingBack_, evolutions_, player_, diff_, data);
         assertTrue(fight_.getSimulation());
     }

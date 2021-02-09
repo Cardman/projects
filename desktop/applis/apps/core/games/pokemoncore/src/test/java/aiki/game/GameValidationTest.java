@@ -710,7 +710,7 @@ public class GameValidationTest extends InitializationDataBase {
         game_.moving(Direction.UP, data);
         game_.initTrainerFight(data);
         //beat very quickly a trainer
-        game_.getFight().getKos().put(Fight.FOE, true);
+        game_.getFight().getKos().put(Fight.CST_FOE, true);
         game_.endFight(data);
         assertTrue(game_.validate(data));
         assertEq(newCoords(6, 0, 4, 5), game_.getPlayerCoords());
@@ -767,7 +767,7 @@ public class GameValidationTest extends InitializationDataBase {
         game_.moving(Direction.UP, data);
         game_.initTrainerFight(data);
         //beat very quickly a trainer
-        game_.getFight().getKos().put(Fight.FOE, true);
+        game_.getFight().getKos().put(Fight.CST_FOE, true);
         game_.endFight(data);
         assertTrue(game_.validate(data));
         assertEq(newCoords(6, 0, 4, 5), game_.getPlayerCoords());
@@ -824,7 +824,7 @@ public class GameValidationTest extends InitializationDataBase {
         game_.moving(Direction.UP, data);
         game_.initTrainerFight(data);
         //beat very quickly a trainer
-        game_.getFight().getKos().put(Fight.FOE, true);
+        game_.getFight().getKos().put(Fight.CST_FOE, true);
         game_.endFight(data);
         game_.moving(Direction.LEFT, data);
         game_.moving(Direction.LEFT, data);
@@ -892,7 +892,7 @@ public class GameValidationTest extends InitializationDataBase {
         game_.moving(Direction.UP, data);
         game_.initTrainerFight(data);
         //beat very quickly a trainer
-        game_.getFight().getKos().put(Fight.FOE, true);
+        game_.getFight().getKos().put(Fight.CST_FOE, true);
         game_.endFight(data);
         game_.moving(Direction.LEFT, data);
         game_.moving(Direction.LEFT, data);
@@ -960,7 +960,7 @@ public class GameValidationTest extends InitializationDataBase {
         game_.moving(Direction.UP, data);
         game_.initTrainerFight(data);
         //beat very quickly a trainer
-        game_.getFight().getKos().put(Fight.FOE, true);
+        game_.getFight().getKos().put(Fight.CST_FOE, true);
         game_.endFight(data);
         game_.moving(Direction.LEFT, data);
         game_.moving(Direction.LEFT, data);
@@ -1032,7 +1032,7 @@ public class GameValidationTest extends InitializationDataBase {
         game_.moving(Direction.UP, data);
         game_.initTrainerFight(data);
         //beat very quickly a trainer
-        game_.getFight().getKos().put(Fight.FOE, true);
+        game_.getFight().getKos().put(Fight.CST_FOE, true);
         game_.endFight(data);
         game_.moving(Direction.LEFT, data);
         game_.moving(Direction.LEFT, data);
@@ -1104,7 +1104,7 @@ public class GameValidationTest extends InitializationDataBase {
         game_.moving(Direction.UP, data);
         game_.initTrainerFight(data);
         //beat very quickly a trainer
-        game_.getFight().getKos().put(Fight.FOE, true);
+        game_.getFight().getKos().put(Fight.CST_FOE, true);
         game_.endFight(data);
         game_.moving(Direction.LEFT, data);
         game_.moving(Direction.LEFT, data);
@@ -1122,7 +1122,7 @@ public class GameValidationTest extends InitializationDataBase {
         game_.moving(Direction.UP, data);
         game_.initTrainerFight(data);
         //beat very quickly a trainer
-        game_.getFight().getKos().put(Fight.FOE, true);
+        game_.getFight().getKos().put(Fight.CST_FOE, true);
         game_.endFight(data);
         assertTrue(game_.validate(data));
         assertEq(newCoords(6, 1, 4, 5), game_.getPlayerCoords());
@@ -1179,7 +1179,7 @@ public class GameValidationTest extends InitializationDataBase {
         game_.moving(Direction.UP, data);
         game_.initTrainerFight(data);
         //beat very quickly a trainer
-        game_.getFight().getKos().put(Fight.FOE, true);
+        game_.getFight().getKos().put(Fight.CST_FOE, true);
         game_.endFight(data);
         game_.moving(Direction.LEFT, data);
         game_.moving(Direction.LEFT, data);
@@ -1197,7 +1197,7 @@ public class GameValidationTest extends InitializationDataBase {
         game_.moving(Direction.UP, data);
         game_.initTrainerFight(data);
         //beat very quickly a trainer
-        game_.getFight().getKos().put(Fight.FOE, true);
+        game_.getFight().getKos().put(Fight.CST_FOE, true);
         game_.endFight(data);
         assertTrue(game_.validate(data));
         assertEq(newCoords(6, 1, 4, 5), game_.getPlayerCoords());
@@ -1254,7 +1254,7 @@ public class GameValidationTest extends InitializationDataBase {
         game_.moving(Direction.UP, data);
         game_.initTrainerFight(data);
         //beat very quickly a trainer
-        game_.getFight().getKos().put(Fight.FOE, true);
+        game_.getFight().getKos().put(Fight.CST_FOE, true);
         game_.endFight(data);
         game_.moving(Direction.LEFT, data);
         game_.moving(Direction.LEFT, data);
@@ -1272,7 +1272,7 @@ public class GameValidationTest extends InitializationDataBase {
         game_.moving(Direction.UP, data);
         game_.initTrainerFight(data);
         //beat very quickly a trainer
-        game_.getFight().getKos().put(Fight.FOE, true);
+        game_.getFight().getKos().put(Fight.CST_FOE, true);
         game_.endFight(data);
         game_.moving(Direction.LEFT, data);
         game_.moving(Direction.LEFT, data);
@@ -1340,7 +1340,7 @@ public class GameValidationTest extends InitializationDataBase {
         game_.moving(Direction.UP, data);
         game_.initTrainerFight(data);
         //beat very quickly a trainer
-        game_.getFight().getKos().put(Fight.FOE, true);
+        game_.getFight().getKos().put(Fight.CST_FOE, true);
         game_.endFight(data);
         game_.moving(Direction.LEFT, data);
         game_.moving(Direction.LEFT, data);
@@ -1358,7 +1358,7 @@ public class GameValidationTest extends InitializationDataBase {
         game_.moving(Direction.UP, data);
         game_.initTrainerFight(data);
         //beat very quickly a trainer
-        game_.getFight().getKos().put(Fight.FOE, true);
+        game_.getFight().getKos().put(Fight.CST_FOE, true);
         game_.endFight(data);
         game_.moving(Direction.LEFT, data);
         game_.moving(Direction.LEFT, data);
@@ -1795,7 +1795,7 @@ public class GameValidationTest extends InitializationDataBase {
         game_.moving(Direction.DOWN, data);
         game_.initTrainerFight(data);
         //quick beat trainer
-        game_.getFight().getKos().put(Fight.FOE, true);
+        game_.getFight().getKos().put(Fight.CST_FOE, true);
         game_.endFight(data);
         assertTrue(game_.validate(data));
         assertEq(newCoords(0, 0, 1, 0), game_.getPlayerCoords());
@@ -1817,7 +1817,7 @@ public class GameValidationTest extends InitializationDataBase {
         game_.moving(Direction.DOWN, data);
         game_.initTrainerFight(data);
         //quick beat trainer
-        game_.getFight().getKos().put(Fight.FOE, true);
+        game_.getFight().getKos().put(Fight.CST_FOE, true);
         game_.endFight(data);
         assertTrue(game_.validate(data));
         assertEq(newCoords(0, 0, 1, 0), game_.getPlayerCoords());
@@ -1839,7 +1839,7 @@ public class GameValidationTest extends InitializationDataBase {
         game_.moving(Direction.DOWN, data);
         game_.initTrainerFight(data);
         //quick beat trainer
-        game_.getFight().getKos().put(Fight.FOE, true);
+        game_.getFight().getKos().put(Fight.CST_FOE, true);
         game_.endFight(data);
         assertTrue(game_.validate(data));
         assertEq(newCoords(0, 0, 1, 0), game_.getPlayerCoords());
@@ -1861,7 +1861,7 @@ public class GameValidationTest extends InitializationDataBase {
         game_.moving(Direction.DOWN, data);
         game_.initTrainerFight(data);
         //quick beat trainer
-        game_.getFight().getKos().put(Fight.FOE, true);
+        game_.getFight().getKos().put(Fight.CST_FOE, true);
         game_.endFight(data);
         assertTrue(game_.validate(data));
         assertEq(newCoords(0, 0, 1, 0), game_.getPlayerCoords());
@@ -1883,11 +1883,11 @@ public class GameValidationTest extends InitializationDataBase {
         game_.moving(Direction.DOWN, data);
         game_.initTrainerFight(data);
         //quick beat trainer
-        game_.getFight().getKos().put(Fight.FOE, true);
+        game_.getFight().getKos().put(Fight.CST_FOE, true);
         game_.endFight(data);
         game_.initTrainerFight(data);
         //quick beat trainer
-        game_.getFight().getKos().put(Fight.FOE, true);
+        game_.getFight().getKos().put(Fight.CST_FOE, true);
         game_.endFight(data);
         assertTrue(game_.validate(data));
         assertEq(newCoords(0, 0, 1, 0), game_.getPlayerCoords());
@@ -1909,11 +1909,11 @@ public class GameValidationTest extends InitializationDataBase {
         game_.moving(Direction.DOWN, data);
         game_.initTrainerFight(data);
         //quick beat trainer
-        game_.getFight().getKos().put(Fight.FOE, true);
+        game_.getFight().getKos().put(Fight.CST_FOE, true);
         game_.endFight(data);
         game_.initTrainerFight(data);
         //quick beat trainer
-        game_.getFight().getKos().put(Fight.FOE, true);
+        game_.getFight().getKos().put(Fight.CST_FOE, true);
         game_.endFight(data);
         assertTrue(game_.validate(data));
         assertEq(newCoords(0, 0, 1, 0), game_.getPlayerCoords());
@@ -2076,7 +2076,7 @@ public class GameValidationTest extends InitializationDataBase {
         game_.moving(Direction.LEFT, data);
         game_.initTrainerFight(data);
         //beat quickly a trainer
-        game_.getFight().getKos().put(Fight.FOE, true);
+        game_.getFight().getKos().put(Fight.CST_FOE, true);
         game_.endFight(data);
         assertTrue(game_.validate(data));
         assertEq(newCoords(1, 0, 5, 1, 2, 7), game_.getPlayerCoords());
@@ -2114,7 +2114,7 @@ public class GameValidationTest extends InitializationDataBase {
         game_.moving(Direction.LEFT, data);
         game_.initTrainerFight(data);
         //beat quickly a trainer
-        game_.getFight().getKos().put(Fight.FOE, true);
+        game_.getFight().getKos().put(Fight.CST_FOE, true);
         game_.endFight(data);
         assertTrue(game_.validate(data));
         assertEq(newCoords(1, 0, 5, 1, 2, 7), game_.getPlayerCoords());
@@ -2549,7 +2549,7 @@ public class GameValidationTest extends InitializationDataBase {
         game_.moving(Direction.UP, data);
         game_.initTrainerFight(data);
         //beat very quickly a trainer
-        game_.getFight().getKos().put(Fight.FOE, true);
+        game_.getFight().getKos().put(Fight.CST_FOE, true);
         game_.endFight(data);
         game_.moving(Direction.LEFT, data);
         game_.moving(Direction.LEFT, data);
@@ -2612,7 +2612,7 @@ public class GameValidationTest extends InitializationDataBase {
         game_.moving(Direction.UP, data);
         game_.initTrainerFight(data);
         //beat very quickly a trainer
-        game_.getFight().getKos().put(Fight.FOE, true);
+        game_.getFight().getKos().put(Fight.CST_FOE, true);
         game_.endFight(data);
         game_.moving(Direction.LEFT, data);
         game_.moving(Direction.LEFT, data);
@@ -2675,7 +2675,7 @@ public class GameValidationTest extends InitializationDataBase {
         game_.moving(Direction.UP, data);
         game_.initTrainerFight(data);
         //beat very quickly a trainer
-        game_.getFight().getKos().put(Fight.FOE, true);
+        game_.getFight().getKos().put(Fight.CST_FOE, true);
         game_.endFight(data);
         game_.moving(Direction.LEFT, data);
         game_.moving(Direction.LEFT, data);
@@ -2738,7 +2738,7 @@ public class GameValidationTest extends InitializationDataBase {
         game_.moving(Direction.UP, data);
         game_.initTrainerFight(data);
         //beat very quickly a trainer
-        game_.getFight().getKos().put(Fight.FOE, true);
+        game_.getFight().getKos().put(Fight.CST_FOE, true);
         game_.endFight(data);
         game_.moving(Direction.LEFT, data);
         game_.moving(Direction.LEFT, data);
@@ -3236,11 +3236,11 @@ public class GameValidationTest extends InitializationDataBase {
         game_.moving(Direction.DOWN, data);
         game_.initTrainerFight(data);
         //beat very quickly a trainer
-        game_.getFight().getKos().put(Fight.FOE, true);
+        game_.getFight().getKos().put(Fight.CST_FOE, true);
         game_.endFight(data);
         game_.initTrainerFight(data);
         //beat very quickly a trainer
-        game_.getFight().getKos().put(Fight.FOE, true);
+        game_.getFight().getKos().put(Fight.CST_FOE, true);
         game_.endFight(data);
         game_.moving(Direction.RIGHT, data);
         game_.moving(Direction.RIGHT, data);
@@ -3248,17 +3248,17 @@ public class GameValidationTest extends InitializationDataBase {
         game_.moving(Direction.RIGHT, data);
         game_.moving(Direction.RIGHT, data);
         game_.moving(Direction.RIGHT, data);
-        game_.moving(Direction.RIGHT, data);
-        game_.moving(Direction.RIGHT, data);
-        game_.initTrainerFight(data);
-        //beat very quickly a trainer
-        game_.getFight().getKos().put(Fight.FOE, true);
-        game_.endFight(data);
         game_.moving(Direction.RIGHT, data);
         game_.moving(Direction.RIGHT, data);
         game_.initTrainerFight(data);
         //beat very quickly a trainer
-        game_.getFight().getKos().put(Fight.FOE, true);
+        game_.getFight().getKos().put(Fight.CST_FOE, true);
+        game_.endFight(data);
+        game_.moving(Direction.RIGHT, data);
+        game_.moving(Direction.RIGHT, data);
+        game_.initTrainerFight(data);
+        //beat very quickly a trainer
+        game_.getFight().getKos().put(Fight.CST_FOE, true);
         game_.endFight(data);
         game_.setPlayerCoords(newCoords(1, 0, 1, 2));
         game_.moving(Direction.RIGHT, data);
@@ -3274,7 +3274,7 @@ public class GameValidationTest extends InitializationDataBase {
         game_.moving(Direction.LEFT, data);
         game_.initTrainerFight(data);
         //beat very quickly a trainer
-        game_.getFight().getKos().put(Fight.FOE, true);
+        game_.getFight().getKos().put(Fight.CST_FOE, true);
         game_.endFight(data);
         game_.getPlayer().getItem(REPOUSSE);
         game_.getPlayer().chooseObject(REPOUSSE);
@@ -3286,7 +3286,7 @@ public class GameValidationTest extends InitializationDataBase {
         game_.moving(Direction.RIGHT, data);
         game_.initTrainerFight(data);
         //beat very quickly a trainer
-        game_.getFight().getKos().put(Fight.FOE, true);
+        game_.getFight().getKos().put(Fight.CST_FOE, true);
         game_.endFight(data);
         game_.moving(Direction.LEFT, data);
         game_.moving(Direction.LEFT, data);
@@ -3299,7 +3299,7 @@ public class GameValidationTest extends InitializationDataBase {
         game_.moving(Direction.UP, data);
         game_.initTrainerFight(data);
         //beat very quickly a trainer
-        game_.getFight().getKos().put(Fight.FOE, true);
+        game_.getFight().getKos().put(Fight.CST_FOE, true);
         game_.endFight(data);
         game_.setPlayerCoords(newCoords(3, 0, 2, 2));
         game_.moving(Direction.RIGHT, data);
@@ -3313,7 +3313,7 @@ public class GameValidationTest extends InitializationDataBase {
         game_.moving(Direction.LEFT, data);
         game_.initTrainerFight(data);
         //beat very quickly a trainer
-        game_.getFight().getKos().put(Fight.FOE, true);
+        game_.getFight().getKos().put(Fight.CST_FOE, true);
         game_.endFight(data);
         game_.moving(Direction.RIGHT, data);
         game_.moving(Direction.RIGHT, data);
@@ -3322,7 +3322,7 @@ public class GameValidationTest extends InitializationDataBase {
         game_.moving(Direction.RIGHT, data);
         game_.initTrainerFight(data);
         //beat very quickly a trainer
-        game_.getFight().getKos().put(Fight.FOE, true);
+        game_.getFight().getKos().put(Fight.CST_FOE, true);
         game_.endFight(data);
         game_.moving(Direction.LEFT, data);
         game_.moving(Direction.LEFT, data);
@@ -3335,7 +3335,7 @@ public class GameValidationTest extends InitializationDataBase {
         game_.moving(Direction.UP, data);
         game_.initTrainerFight(data);
         //beat very quickly a trainer
-        game_.getFight().getKos().put(Fight.FOE, true);
+        game_.getFight().getKos().put(Fight.CST_FOE, true);
         game_.endFight(data);
         game_.setPlayerCoords(newCoords(3, 0, 2, 2));
         game_.moving(Direction.DOWN, data);
@@ -3368,7 +3368,7 @@ public class GameValidationTest extends InitializationDataBase {
         game_.moving(Direction.UP, data);
         game_.initTrainerFight(data);
         //beat very quickly a trainer
-        game_.getFight().getKos().put(Fight.FOE, true);
+        game_.getFight().getKos().put(Fight.CST_FOE, true);
         game_.endFight(data);
         game_.moving(Direction.LEFT, data);
         game_.moving(Direction.LEFT, data);
@@ -3378,7 +3378,7 @@ public class GameValidationTest extends InitializationDataBase {
         game_.moving(Direction.DOWN, data);
         game_.initTrainerFight(data);
         //beat very quickly a trainer
-        game_.getFight().getKos().put(Fight.FOE, true);
+        game_.getFight().getKos().put(Fight.CST_FOE, true);
         game_.endFight(data);
         game_.moving(Direction.UP, data);
         game_.moving(Direction.UP, data);
@@ -3391,30 +3391,7 @@ public class GameValidationTest extends InitializationDataBase {
         game_.moving(Direction.UP, data);
         game_.initTrainerFight(data);
         //beat very quickly a trainer
-        game_.getFight().getKos().put(Fight.FOE, true);
-        game_.endFight(data);
-        game_.setPlayerCoords(newCoords(3, 0, 2, 2));
-        game_.moving(Direction.DOWN, data);
-        game_.moving(Direction.DOWN, data);
-        game_.moving(Direction.DOWN, data);
-        game_.moving(Direction.DOWN, data);
-        game_.moving(Direction.DOWN, data);
-        game_.moving(Direction.DOWN, data);
-        game_.moving(Direction.DOWN, data);
-        game_.moving(Direction.DOWN, data);
-        game_.moving(Direction.DOWN, data);
-        game_.moving(Direction.RIGHT, data);
-        game_.moving(Direction.RIGHT, data);
-        game_.moving(Direction.RIGHT, data);
-        game_.moving(Direction.RIGHT, data);
-        game_.moving(Direction.RIGHT, data);
-        game_.moving(Direction.RIGHT, data);
-        game_.moving(Direction.RIGHT, data);
-        game_.moving(Direction.RIGHT, data);
-        game_.moving(Direction.RIGHT, data);
-        game_.initTrainerFight(data);
-        //beat very quickly a trainer
-        game_.getFight().getKos().put(Fight.FOE, true);
+        game_.getFight().getKos().put(Fight.CST_FOE, true);
         game_.endFight(data);
         game_.setPlayerCoords(newCoords(3, 0, 2, 2));
         game_.moving(Direction.DOWN, data);
@@ -3422,6 +3399,29 @@ public class GameValidationTest extends InitializationDataBase {
         game_.moving(Direction.DOWN, data);
         game_.moving(Direction.DOWN, data);
         game_.moving(Direction.DOWN, data);
+        game_.moving(Direction.DOWN, data);
+        game_.moving(Direction.DOWN, data);
+        game_.moving(Direction.DOWN, data);
+        game_.moving(Direction.DOWN, data);
+        game_.moving(Direction.RIGHT, data);
+        game_.moving(Direction.RIGHT, data);
+        game_.moving(Direction.RIGHT, data);
+        game_.moving(Direction.RIGHT, data);
+        game_.moving(Direction.RIGHT, data);
+        game_.moving(Direction.RIGHT, data);
+        game_.moving(Direction.RIGHT, data);
+        game_.moving(Direction.RIGHT, data);
+        game_.moving(Direction.RIGHT, data);
+        game_.initTrainerFight(data);
+        //beat very quickly a trainer
+        game_.getFight().getKos().put(Fight.CST_FOE, true);
+        game_.endFight(data);
+        game_.setPlayerCoords(newCoords(3, 0, 2, 2));
+        game_.moving(Direction.DOWN, data);
+        game_.moving(Direction.DOWN, data);
+        game_.moving(Direction.DOWN, data);
+        game_.moving(Direction.DOWN, data);
+        game_.moving(Direction.DOWN, data);
         game_.moving(Direction.LEFT, data);
         game_.moving(Direction.LEFT, data);
         game_.moving(Direction.DOWN, data);
@@ -3446,7 +3446,7 @@ public class GameValidationTest extends InitializationDataBase {
         game_.moving(Direction.UP, data);
         game_.initTrainerFight(data);
         //beat very quickly a trainer
-        game_.getFight().getKos().put(Fight.FOE, true);
+        game_.getFight().getKos().put(Fight.CST_FOE, true);
         game_.endFight(data);
         game_.moving(Direction.LEFT, data);
         game_.moving(Direction.LEFT, data);
@@ -3464,7 +3464,7 @@ public class GameValidationTest extends InitializationDataBase {
         game_.moving(Direction.UP, data);
         game_.initTrainerFight(data);
         //beat very quickly a trainer
-        game_.getFight().getKos().put(Fight.FOE, true);
+        game_.getFight().getKos().put(Fight.CST_FOE, true);
         game_.endFight(data);
         game_.setRankLeague((byte) 0);
         game_.setPlayerCoords(newCoords(0, 0, 0, 0));
@@ -3504,11 +3504,11 @@ public class GameValidationTest extends InitializationDataBase {
         game_.moving(Direction.DOWN, data);
         game_.initTrainerFight(data);
         //beat very quickly a trainer
-        game_.getFight().getKos().put(Fight.FOE, true);
+        game_.getFight().getKos().put(Fight.CST_FOE, true);
         game_.endFight(data);
         game_.initTrainerFight(data);
         //beat very quickly a trainer
-        game_.getFight().getKos().put(Fight.FOE, true);
+        game_.getFight().getKos().put(Fight.CST_FOE, true);
         game_.endFight(data);
         game_.moving(Direction.UP, data);
         game_.moving(Direction.UP, data);
@@ -3596,11 +3596,11 @@ public class GameValidationTest extends InitializationDataBase {
         game_.moving(Direction.DOWN, data);
         game_.initTrainerFight(data);
         //beat very quickly a trainer
-        game_.getFight().getKos().put(Fight.FOE, true);
+        game_.getFight().getKos().put(Fight.CST_FOE, true);
         game_.endFight(data);
         game_.initTrainerFight(data);
         //beat very quickly a trainer
-        game_.getFight().getKos().put(Fight.FOE, true);
+        game_.getFight().getKos().put(Fight.CST_FOE, true);
         game_.endFight(data);
         game_.moving(Direction.RIGHT, data);
         game_.moving(Direction.RIGHT, data);
@@ -3608,17 +3608,17 @@ public class GameValidationTest extends InitializationDataBase {
         game_.moving(Direction.RIGHT, data);
         game_.moving(Direction.RIGHT, data);
         game_.moving(Direction.RIGHT, data);
-        game_.moving(Direction.RIGHT, data);
-        game_.moving(Direction.RIGHT, data);
-        game_.initTrainerFight(data);
-        //beat very quickly a trainer
-        game_.getFight().getKos().put(Fight.FOE, true);
-        game_.endFight(data);
         game_.moving(Direction.RIGHT, data);
         game_.moving(Direction.RIGHT, data);
         game_.initTrainerFight(data);
         //beat very quickly a trainer
-        game_.getFight().getKos().put(Fight.FOE, true);
+        game_.getFight().getKos().put(Fight.CST_FOE, true);
+        game_.endFight(data);
+        game_.moving(Direction.RIGHT, data);
+        game_.moving(Direction.RIGHT, data);
+        game_.initTrainerFight(data);
+        //beat very quickly a trainer
+        game_.getFight().getKos().put(Fight.CST_FOE, true);
         game_.endFight(data);
         game_.setPlayerCoords(newCoords(1, 0, 1, 2));
         game_.moving(Direction.RIGHT, data);
@@ -3634,7 +3634,7 @@ public class GameValidationTest extends InitializationDataBase {
         game_.moving(Direction.LEFT, data);
         game_.initTrainerFight(data);
         //beat very quickly a trainer
-        game_.getFight().getKos().put(Fight.FOE, true);
+        game_.getFight().getKos().put(Fight.CST_FOE, true);
         game_.endFight(data);
         game_.getPlayer().getItem(REPOUSSE);
         game_.getPlayer().chooseObject(REPOUSSE);
@@ -3646,7 +3646,7 @@ public class GameValidationTest extends InitializationDataBase {
         game_.moving(Direction.RIGHT, data);
         game_.initTrainerFight(data);
         //beat very quickly a trainer
-        game_.getFight().getKos().put(Fight.FOE, true);
+        game_.getFight().getKos().put(Fight.CST_FOE, true);
         game_.endFight(data);
         game_.moving(Direction.LEFT, data);
         game_.moving(Direction.LEFT, data);
@@ -3659,7 +3659,7 @@ public class GameValidationTest extends InitializationDataBase {
         game_.moving(Direction.UP, data);
         game_.initTrainerFight(data);
         //beat very quickly a trainer
-        game_.getFight().getKos().put(Fight.FOE, true);
+        game_.getFight().getKos().put(Fight.CST_FOE, true);
         game_.endFight(data);
         game_.setPlayerCoords(newCoords(3, 0, 2, 2));
         game_.moving(Direction.RIGHT, data);
@@ -3673,7 +3673,7 @@ public class GameValidationTest extends InitializationDataBase {
         game_.moving(Direction.LEFT, data);
         game_.initTrainerFight(data);
         //beat very quickly a trainer
-        game_.getFight().getKos().put(Fight.FOE, true);
+        game_.getFight().getKos().put(Fight.CST_FOE, true);
         game_.endFight(data);
         game_.moving(Direction.RIGHT, data);
         game_.moving(Direction.RIGHT, data);
@@ -3682,7 +3682,7 @@ public class GameValidationTest extends InitializationDataBase {
         game_.moving(Direction.RIGHT, data);
         game_.initTrainerFight(data);
         //beat very quickly a trainer
-        game_.getFight().getKos().put(Fight.FOE, true);
+        game_.getFight().getKos().put(Fight.CST_FOE, true);
         game_.endFight(data);
         game_.moving(Direction.LEFT, data);
         game_.moving(Direction.LEFT, data);
@@ -3695,7 +3695,7 @@ public class GameValidationTest extends InitializationDataBase {
         game_.moving(Direction.UP, data);
         game_.initTrainerFight(data);
         //beat very quickly a trainer
-        game_.getFight().getKos().put(Fight.FOE, true);
+        game_.getFight().getKos().put(Fight.CST_FOE, true);
         game_.endFight(data);
         game_.setPlayerCoords(newCoords(3, 0, 2, 2));
         game_.moving(Direction.DOWN, data);
@@ -3728,7 +3728,7 @@ public class GameValidationTest extends InitializationDataBase {
         game_.moving(Direction.UP, data);
         game_.initTrainerFight(data);
         //beat very quickly a trainer
-        game_.getFight().getKos().put(Fight.FOE, true);
+        game_.getFight().getKos().put(Fight.CST_FOE, true);
         game_.endFight(data);
         game_.moving(Direction.LEFT, data);
         game_.moving(Direction.LEFT, data);
@@ -3738,7 +3738,7 @@ public class GameValidationTest extends InitializationDataBase {
         game_.moving(Direction.DOWN, data);
         game_.initTrainerFight(data);
         //beat very quickly a trainer
-        game_.getFight().getKos().put(Fight.FOE, true);
+        game_.getFight().getKos().put(Fight.CST_FOE, true);
         game_.endFight(data);
         game_.moving(Direction.UP, data);
         game_.moving(Direction.UP, data);
@@ -3751,30 +3751,7 @@ public class GameValidationTest extends InitializationDataBase {
         game_.moving(Direction.UP, data);
         game_.initTrainerFight(data);
         //beat very quickly a trainer
-        game_.getFight().getKos().put(Fight.FOE, true);
-        game_.endFight(data);
-        game_.setPlayerCoords(newCoords(3, 0, 2, 2));
-        game_.moving(Direction.DOWN, data);
-        game_.moving(Direction.DOWN, data);
-        game_.moving(Direction.DOWN, data);
-        game_.moving(Direction.DOWN, data);
-        game_.moving(Direction.DOWN, data);
-        game_.moving(Direction.DOWN, data);
-        game_.moving(Direction.DOWN, data);
-        game_.moving(Direction.DOWN, data);
-        game_.moving(Direction.DOWN, data);
-        game_.moving(Direction.RIGHT, data);
-        game_.moving(Direction.RIGHT, data);
-        game_.moving(Direction.RIGHT, data);
-        game_.moving(Direction.RIGHT, data);
-        game_.moving(Direction.RIGHT, data);
-        game_.moving(Direction.RIGHT, data);
-        game_.moving(Direction.RIGHT, data);
-        game_.moving(Direction.RIGHT, data);
-        game_.moving(Direction.RIGHT, data);
-        game_.initTrainerFight(data);
-        //beat very quickly a trainer
-        game_.getFight().getKos().put(Fight.FOE, true);
+        game_.getFight().getKos().put(Fight.CST_FOE, true);
         game_.endFight(data);
         game_.setPlayerCoords(newCoords(3, 0, 2, 2));
         game_.moving(Direction.DOWN, data);
@@ -3782,6 +3759,29 @@ public class GameValidationTest extends InitializationDataBase {
         game_.moving(Direction.DOWN, data);
         game_.moving(Direction.DOWN, data);
         game_.moving(Direction.DOWN, data);
+        game_.moving(Direction.DOWN, data);
+        game_.moving(Direction.DOWN, data);
+        game_.moving(Direction.DOWN, data);
+        game_.moving(Direction.DOWN, data);
+        game_.moving(Direction.RIGHT, data);
+        game_.moving(Direction.RIGHT, data);
+        game_.moving(Direction.RIGHT, data);
+        game_.moving(Direction.RIGHT, data);
+        game_.moving(Direction.RIGHT, data);
+        game_.moving(Direction.RIGHT, data);
+        game_.moving(Direction.RIGHT, data);
+        game_.moving(Direction.RIGHT, data);
+        game_.moving(Direction.RIGHT, data);
+        game_.initTrainerFight(data);
+        //beat very quickly a trainer
+        game_.getFight().getKos().put(Fight.CST_FOE, true);
+        game_.endFight(data);
+        game_.setPlayerCoords(newCoords(3, 0, 2, 2));
+        game_.moving(Direction.DOWN, data);
+        game_.moving(Direction.DOWN, data);
+        game_.moving(Direction.DOWN, data);
+        game_.moving(Direction.DOWN, data);
+        game_.moving(Direction.DOWN, data);
         game_.moving(Direction.LEFT, data);
         game_.moving(Direction.LEFT, data);
         game_.moving(Direction.DOWN, data);
@@ -3806,7 +3806,7 @@ public class GameValidationTest extends InitializationDataBase {
         game_.moving(Direction.UP, data);
         game_.initTrainerFight(data);
         //beat very quickly a trainer
-        game_.getFight().getKos().put(Fight.FOE, true);
+        game_.getFight().getKos().put(Fight.CST_FOE, true);
         game_.endFight(data);
         game_.moving(Direction.LEFT, data);
         game_.moving(Direction.LEFT, data);
@@ -3824,7 +3824,7 @@ public class GameValidationTest extends InitializationDataBase {
         game_.moving(Direction.UP, data);
         game_.initTrainerFight(data);
         //beat very quickly a trainer
-        game_.getFight().getKos().put(Fight.FOE, true);
+        game_.getFight().getKos().put(Fight.CST_FOE, true);
         game_.endFight(data);
         game_.setRankLeague((byte) 0);
         game_.setPlayerCoords(newCoords(0, 0, 0, 0));
@@ -3864,11 +3864,11 @@ public class GameValidationTest extends InitializationDataBase {
         game_.moving(Direction.DOWN, data);
         game_.initTrainerFight(data);
         //beat very quickly a trainer
-        game_.getFight().getKos().put(Fight.FOE, true);
+        game_.getFight().getKos().put(Fight.CST_FOE, true);
         game_.endFight(data);
         game_.initTrainerFight(data);
         //beat very quickly a trainer
-        game_.getFight().getKos().put(Fight.FOE, true);
+        game_.getFight().getKos().put(Fight.CST_FOE, true);
         game_.endFight(data);
         game_.moving(Direction.UP, data);
         game_.moving(Direction.UP, data);

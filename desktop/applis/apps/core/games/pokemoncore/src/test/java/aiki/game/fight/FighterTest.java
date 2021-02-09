@@ -795,7 +795,7 @@ public class FighterTest extends InitializationDataBase {
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel((short) 3);
         Fighter fighter_ = new Fighter(pokemon_, data, (byte) 0);
-        TeamPosition fighterCoords_ = new TeamPosition(Fight.PLAYER, (byte)0);
+        TeamPosition fighterCoords_ = new TeamPosition(Fight.CST_PLAYER, (byte)0);
         fighter_.ajouterRelationAutre(fighterCoords_, data);
         assertEq(12, fighter_.getStatusRelat().size());
 //        assertEq(11, fighter_.getStatusRelat().getKeys((short) 0).size());
@@ -860,8 +860,8 @@ public class FighterTest extends InitializationDataBase {
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel((short) 3);
         Fighter fighter_ = new Fighter(pokemon_, data, (byte) 0);
-        TeamPosition fighterCoordsOne_ = new TeamPosition(Fight.PLAYER, (byte)0);
-        TeamPosition fighterCoordsTwo_ = new TeamPosition(Fight.PLAYER, (byte)1);
+        TeamPosition fighterCoordsOne_ = new TeamPosition(Fight.CST_PLAYER, (byte)0);
+        TeamPosition fighterCoordsTwo_ = new TeamPosition(Fight.CST_PLAYER, (byte)1);
         EqList<TeamPosition> fightersCoords_ = new EqList<TeamPosition>();
         fightersCoords_.add(fighterCoordsOne_);
         fightersCoords_.add(fighterCoordsTwo_);
@@ -2231,8 +2231,8 @@ public class FighterTest extends InitializationDataBase {
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel((short) 3);
         Fighter fighter_ = new Fighter(pokemon_, data, (byte)0);
-        TeamPosition fighterCoordsOne_ = new TeamPosition(Fight.PLAYER, (byte)0);
-        TeamPosition fighterCoordsTwo_ = new TeamPosition(Fight.PLAYER, (byte)1);
+        TeamPosition fighterCoordsOne_ = new TeamPosition(Fight.CST_PLAYER, (byte)0);
+        TeamPosition fighterCoordsTwo_ = new TeamPosition(Fight.CST_PLAYER, (byte)1);
         EqList<TeamPosition> fightersCoords_ = new EqList<TeamPosition>();
         fightersCoords_.add(fighterCoordsOne_);
         fightersCoords_.add(fighterCoordsTwo_);
@@ -2280,7 +2280,7 @@ public class FighterTest extends InitializationDataBase {
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel((short) 3);
         Fighter fighter_ = new Fighter(pokemon_, data, (byte)0);
-        TeamPosition fighterCoordsOne_ = new TeamPosition(Fight.FOE, (byte)0);
+        TeamPosition fighterCoordsOne_ = new TeamPosition(Fight.CST_FOE, (byte)0);
         EqList<TeamPosition> fightersCoords_ = new EqList<TeamPosition>();
         fightersCoords_.add(fighterCoordsOne_);
         fighter_.initCreatureRelationsAutre(fightersCoords_, data);

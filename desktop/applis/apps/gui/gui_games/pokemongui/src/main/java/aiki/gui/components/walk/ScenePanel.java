@@ -103,13 +103,13 @@ public class ScenePanel {
 
     private static final String RETURN_LINE = "\n";
 
-    private static final String TEAM = "team";
+    private static final String CST_TEAM = "team";
 
-    private static final String ITEMS = "items";
+    private static final String CST_ITEMS = "items";
 
-    private static final String TM = "tm";
+    private static final String CST_TM = "tm";
 
-    private static final String FISH = "fish";
+    private static final String CST_FISH = "fish";
 
     private static final String SEE_POKEMON = "seePokemon";
 
@@ -121,7 +121,7 @@ public class ScenePanel {
 
     private static final String GO_BACK_MENU = "goBackMenu";
 
-    private static final String SERVER = "server";
+    private static final String CST_SERVER = "server";
 
     private static final String POKEMON_SELECT = "pokemonSelect";
 
@@ -145,7 +145,7 @@ public class ScenePanel {
 
     private static final String TAKE_ITEM = "takeItem";
 
-    private static final String STORE = "store";
+    private static final String CST_STORE = "store";
 
     private static final String WITHDRAW_PK = "withdrawPk";
 
@@ -153,7 +153,7 @@ public class ScenePanel {
 
     private static final String SWITCH_PK_EGG = "siwtchPkEgg";
 
-    private static final String RELEASE = "release";
+    private static final String CST_RELEASE = "release";
 
     private static final String TM_TITLE = "tmTitle";
 
@@ -383,19 +383,19 @@ public class ScenePanel {
     public void setMessages() {
         endGame.setText(facade.getEndGameMessage());
         useKeyPad.setText(messages.getVal(CLICK_SCENE));
-        team.setTextAndSize(messages.getVal(TEAM));
-        items.setTextAndSize(messages.getVal(ITEMS));
-        tm.setTextAndSize(messages.getVal(TM));
+        team.setTextAndSize(messages.getVal(CST_TEAM));
+        items.setTextAndSize(messages.getVal(CST_ITEMS));
+        tm.setTextAndSize(messages.getVal(CST_TM));
 //        difficulty.setText(messages.getVal(DIFFICULTY));
         if (fish != null) {
-            fish.setTextAndSize(messages.getVal(FISH));
+            fish.setTextAndSize(messages.getVal(CST_FISH));
         }
         seeBoxes.setTextAndSize(messages.getVal(SEE_POKEMON));
         seeEggs.setTextAndSize(messages.getVal(SEE_EGG));
         host.setTextAndSize(messages.getVal(SEE_HOSTED));
         game.setTextAndSize(messages.getVal(SEE_GAME));
         goBack.setTextAndSize(messages.getVal(GO_BACK_MENU));
-        server.setTextAndSize(messages.getVal(SERVER));
+        server.setTextAndSize(messages.getVal(CST_SERVER));
         if (interaction != null) {
             buttonInteract.setTextAndSize(messages.getVal(INTERACT));
         }
@@ -834,7 +834,7 @@ public class ScenePanel {
         buttonInteract = new LabelButton(messages.getVal(INTERACT));
         buttonInteract.addMouseListener(new InteractSceneEvent(this));
         interaction.add(buttonInteract);
-        fish = new LabelButton(messages.getVal(FISH));
+        fish = new LabelButton(messages.getVal(CST_FISH));
         fish.addMouseListener(new FishingEvent(this));
         interaction.add(fish);
     }
@@ -881,7 +881,7 @@ public class ScenePanel {
             takeItem.setEnabledLabel(false);
             takeItem.addMouseListener(new GearStorageEvent(this, StorageActions.TAKE_ITEM_BOX));
             storage_.add(takeItem);
-            store = new LabelButton(messages.getVal(STORE));
+            store = new LabelButton(messages.getVal(CST_STORE));
             store.setEnabledLabel(false);
             store.addMouseListener(new GearStorageEvent(this, StorageActions.STORE));
             storage_.add(store);
@@ -899,7 +899,7 @@ public class ScenePanel {
             storage_.add(switchPk);
             sep_ = new Separator();
             storage_.add(sep_);
-            release = new LabelButton(messages.getVal(RELEASE));
+            release = new LabelButton(messages.getVal(CST_RELEASE));
             release.setEnabledLabel(false);
             release.addMouseListener(new GearStorageEvent(this, StorageActions.RELEASE));
             storage_.add(release);

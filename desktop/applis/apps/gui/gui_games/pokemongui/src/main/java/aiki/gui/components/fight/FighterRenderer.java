@@ -14,7 +14,7 @@ import code.util.core.StringUtil;
 
 public class FighterRenderer extends CustCellRender<Fighter> {
 
-    private static final String KO = "KO";
+    private static final String CST_KO = "KO";
     private static final String PER_CENT = " %";
 
     private final int sideLength;
@@ -71,7 +71,7 @@ public class FighterRenderer extends CustCellRender<Fighter> {
         _g.drawString(facade.translatePokemon(name_), sideLength, 10);
         if (ko) {
             _g.setColor(Color.BLACK);
-            _g.drawString(KO, sideLength, getHeight());
+            _g.drawString(CST_KO, sideLength, getHeight());
         } else {
             int rate_ = NumberUtil.parseInt(intRate.toNumberString());
             int red_ = 255;

@@ -17,7 +17,7 @@ public abstract class DialogBelote extends DialogCards {
 
     private static final String ALL_POINTS_FOR_DEFENDER_TEAM = "allPointsForDefenderTeam";
     private static final String ALLOWED_DECLARING = "allowedDeclaring";
-    private static final String BIDS = "bids";
+    private static final String CST_BIDS = "bids";
     private static final String DEALING = "dealing";
     private static final String DEALING_MODE = "dealingMode";
     private static final String DECLARING = "declaring";
@@ -84,7 +84,7 @@ public abstract class DialogBelote extends DialogCards {
         getJt().add(getMessages().getVal(DEALING),dealing_);
         Panel bidding_=Panel.newPageBox();
         //Panneau Annonces autorisees
-        bidding_.add(new TextLabel(getMessages().getVal(BIDS)));
+        bidding_.add(new TextLabel(getMessages().getVal(CST_BIDS)));
         bids.clear();
         bidding=Panel.newGrid(1,0);
         for (BidBelote enchere_:BidBelote.values()) {

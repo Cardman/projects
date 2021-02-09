@@ -223,7 +223,7 @@ final class FightArtificialIntelligence {
 
     static ObjectMap<TeamPosition,Rate> remainingPartnerTargetHp(Fight _fight, TeamPosition _thrower, String _move, Difficulty _diff, DataBase _import) {
         ObjectMap<TeamPosition,Rate> remoteHpLoc_ = new ObjectMap<TeamPosition,Rate>();
-        for(TeamPosition f: FightOrder.fighters(_fight, Fight.PLAYER)){
+        for(TeamPosition f: FightOrder.fighters(_fight, Fight.CST_PLAYER)){
             Fighter partner_ = _fight.getFighter(f);
             Rate remoteHpPartner_ = partner_.getRemainingHp();
             SortableCustList<Rate> rates_ = new SortableCustList<Rate>();
@@ -283,13 +283,13 @@ final class FightArtificialIntelligence {
     static EqList<TeamPosition> untouchablePartners(Fight _fight, TeamPosition _thrower, String _move, Difficulty _diff, DataBase _import) {
         MoveData damageMove_ = _import.getMove(_move);
         if (damageMove_.getTargetChoice().isWithChoice()) {
-            return FightOrder.fighters(_fight, Fight.PLAYER);
+            return FightOrder.fighters(_fight, Fight.CST_PLAYER);
         }
         if (damageMove_.getTargetChoice() == TargetChoice.ADJ_ADV) {
-            return FightOrder.fighters(_fight, Fight.PLAYER);
+            return FightOrder.fighters(_fight, Fight.CST_PLAYER);
         }
         if (damageMove_.getTargetChoice() == TargetChoice.TOUS_ADV) {
-            return FightOrder.fighters(_fight, Fight.PLAYER);
+            return FightOrder.fighters(_fight, Fight.CST_PLAYER);
         }
         EqList<TeamPosition> untouchablePartners_ = new EqList<TeamPosition>();
         int index_ = damageMove_.indexOfPrimaryEffect();
@@ -388,7 +388,7 @@ final class FightArtificialIntelligence {
             return;
         }
         for(TeamPosition c:FightOrder.frontFighters(_fight)){
-            if(NumberUtil.eq(c.getTeam(),Fight.PLAYER)){
+            if(NumberUtil.eq(c.getTeam(),Fight.CST_PLAYER)){
                 continue;
             }
             StringList attaquesUtilisables_=FightRules.allowedMoves(_fight,c,_import);
@@ -520,7 +520,7 @@ final class FightArtificialIntelligence {
         }
         if(relais_){
             Fighter creature_ = _fight.getFighter(_foe);
-            for(TeamPosition c2_:FightOrder.fighters(_fight,Fight.FOE)){
+            for(TeamPosition c2_:FightOrder.fighters(_fight,Fight.CST_FOE)){
                 Fighter partenaire_=_fight.getFighter(c2_);
                 if (partenaire_.estKo()) {
                     continue;
@@ -601,7 +601,7 @@ final class FightArtificialIntelligence {
         }
         if(relais_){
             Fighter creature_ = _fight.getFighter(_ally);
-            for(TeamPosition c2_:FightOrder.fighters(_fight,Fight.PLAYER)){
+            for(TeamPosition c2_:FightOrder.fighters(_fight,Fight.CST_PLAYER)){
                 Fighter partenaire_=_fight.getFighter(c2_);
                 if (partenaire_.estKo()) {
                     continue;

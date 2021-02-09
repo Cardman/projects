@@ -59,8 +59,8 @@ public class FightInitializationTest extends InitializationDataBase {
         assertEq(4, fight_.getPlayerMaxNumberFrontFighters());
         assertEq(0, fight_.getTeams().size());
         assertEq(2, fight_.getKos().size());
-        assertTrue(!fight_.getKos().getVal(Fight.FOE));
-        assertTrue(!fight_.getKos().getVal(Fight.PLAYER));
+        assertTrue(!fight_.getKos().getVal(Fight.CST_FOE));
+        assertTrue(!fight_.getKos().getVal(Fight.CST_PLAYER));
     }
 
     @Test
@@ -1135,7 +1135,7 @@ public class FightInitializationTest extends InitializationDataBase {
         Fight fight_ = FightFacade.newFight();
         FightInitialization.initFight(fight_, player_, diff_, trainer_, data);
         FightInitialization.initFight(fight_,data);
-        EqList<TeamPosition> userTeam_ = fight_.sortedTeamMembersByPosition(Fight.PLAYER);
+        EqList<TeamPosition> userTeam_ = fight_.sortedTeamMembersByPosition(Fight.CST_PLAYER);
         assertEq(3, userTeam_.size());
         assertEq(POKEMON_PLAYER_FIGHTER_ZERO, userTeam_.get(0));
         assertEq(POKEMON_PLAYER_FIGHTER_ONE, userTeam_.get(1));

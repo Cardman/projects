@@ -33,7 +33,7 @@ public class TeamBean extends CommonFightBean {
         FacadeGame dataBaseFight_ = getDataBase();
         DataBase data_ = dataBaseFight_.getData();
         int noTeam_ = getForms().getValInt(NO_TEAM);
-        foeTeam = noTeam_ == Fight.FOE;
+        foeTeam = noTeam_ == Fight.CST_FOE;
         Team team_ = dataBaseFight_.getGame().getFight().getTeams().getVal((byte) noTeam_);
         StringMap<String> translationsMoves_;
         translationsMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
@@ -164,7 +164,7 @@ public class TeamBean extends CommonFightBean {
         return StringUtil.join(enabledMovesByGroup.getKey(_index), MOVES_SEPARATOR);
     }
     public boolean isFoeMovesAnticipationTeam(int _indexOne,int _indexTwo) {
-        return movesAnticipation.getValue(_indexOne).getValue(_indexTwo).getTargetPosition().getTeam() == Fight.FOE;
+        return movesAnticipation.getValue(_indexOne).getValue(_indexTwo).getTargetPosition().getTeam() == Fight.CST_FOE;
     }
     public boolean isBackMovesAnticipationTeam(int _indexOne,int _indexTwo) {
         return movesAnticipation.getValue(_indexOne).getValue(_indexTwo).getTargetPosition().getPosition() == Fighter.BACK;

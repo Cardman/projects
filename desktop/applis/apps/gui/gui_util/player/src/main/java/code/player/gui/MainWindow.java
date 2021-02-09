@@ -34,31 +34,31 @@ import code.util.core.StringUtil;
 public class MainWindow extends GroupFrame {
     private static final String ACCESS = "player.gui.mainwindow";
 
-    private static final String START = "start";
-    private static final String CLOSE = "close";
-    private static final String STOP_EVT = "stop";
-    private static final String TITLE_PLAYER = "titlePlayer";
-    private static final String SONGS = "songs";
-    private static final String RANDOM = "random";
-    private static final String CANNOT_READ_TITLE = "cannotReadTitle";
-    private static final String CANNOT_READ_MESSAGE_WPL = "cannotReadMessageWpl";
-    private static final String CANNOT_READ_MESSAGE_WAV = "cannotReadMessageWav";
-    private static final String RESOURCES_FOLDER = "resources_player";
+    private static final String CST_START = "start";
+    private static final String CST_CLOSE = "close";
+    private static final String CST_STOP_EVT = "stop";
+    private static final String CST_TITLE_PLAYER = "titlePlayer";
+    private static final String CST_SONGS = "songs";
+    private static final String CST_RANDOM = "random";
+    private static final String CST_CANNOT_READ_TITLE = "cannotReadTitle";
+    private static final String CST_CANNOT_READ_MESSAGE_WPL = "cannotReadMessageWpl";
+    private static final String CST_CANNOT_READ_MESSAGE_WAV = "cannotReadMessageWav";
+    private static final String CST_RESOURCES_FOLDER = "resources_player";
     private static final String SEC = " s ";
     private static final String MIN = " m ";
     private static final String HOUR = " h ";
     private static final String SPACE = " ";
     private static final String REL_SEP = " / ";
-    private static final String PAUSE = "||";
-    private static final String KEY_PAUSE = "pause";
-    private static final String KEY_RANDOM = "random";
-    private static final String ATTR_VALUE = "value";
-    private static final String MEDIA = "media";
-    private static final String SRC = "src";
-    private static final String STOP = "[]";
-    private static final String PREVIOUS = "<|";
-    private static final String NEXT = "|>";
-    private static final String PLAY = ">";
+    private static final String CST_PAUSE = "||";
+    private static final String CST_KEY_PAUSE = "pause";
+    private static final String CST_KEY_RANDOM = "random";
+    private static final String CST_ATTR_VALUE = "value";
+    private static final String CST_MEDIA = "media";
+    private static final String CST_SRC = "src";
+    private static final String CST_STOP = "[]";
+    private static final String CST_PREVIOUS = "<|";
+    private static final String CST_NEXT = "|>";
+    private static final String CST_PLAY = ">";
     private static final String EMPTY = "";
     private static final String LINE_RETURN = "\n";
     private static final String WPL = ".wpl";
@@ -80,19 +80,19 @@ public class MainWindow extends GroupFrame {
     private StringMap<String> messages = new StringMap<String>();
 
     private Timer timer;
-    private TextLabel songsLabel = new TextLabel("");
+    private final TextLabel songsLabel = new TextLabel("");
     private ClipStream clipStream;
     private int noSong = -1;
-    private TextArea songs = new TextArea(10, 40);
-    private SongRenderer songRend = new SongRenderer();
-    private CustCheckBox random = new CustCheckBox();
-    private LabelButton play = new LabelButton(PLAY);
-    private LabelButton playPrevious = new LabelButton(PREVIOUS);
-    private LabelButton playNext = new LabelButton(NEXT);
-    private LabelButton stop = new LabelButton(STOP);
-    private TextLabel currentSong = new TextLabel(EMPTY);
-    private ScrollPane scroll;
-    private TextLabel elapsedTime = new TextLabel(EMPTY);
+    private final TextArea songs = new TextArea(10, 40);
+    private final SongRenderer songRend = new SongRenderer();
+    private final CustCheckBox random = new CustCheckBox();
+    private final LabelButton play = new LabelButton(CST_PLAY);
+    private final LabelButton playPrevious = new LabelButton(CST_PREVIOUS);
+    private final LabelButton playNext = new LabelButton(CST_NEXT);
+    private final LabelButton stop = new LabelButton(CST_STOP);
+    private final TextLabel currentSong = new TextLabel(EMPTY);
+    private final ScrollPane scroll;
+    private final TextLabel elapsedTime = new TextLabel(EMPTY);
     private boolean pausing;
     private boolean next;
     private boolean playSong;
@@ -100,20 +100,20 @@ public class MainWindow extends GroupFrame {
     private StringList songsList = new StringList();
     private String contentList = "";
 
-    private CustButtonGroup group = new CustButtonGroup();
+    private final CustButtonGroup group = new CustButtonGroup();
 
-    private CustList<RadioButton> radios = new CustList<RadioButton>();
+    private final CustList<RadioButton> radios = new CustList<RadioButton>();
 
     public MainWindow(String _lg, AbstractProgramInfos _list) {
         super(_lg, _list);
         initMessages(_lg);
-        setTitle(messages.getVal(TITLE_PLAYER));
+        setTitle(messages.getVal(CST_TITLE_PLAYER));
         setIconImage(LaunchingPlayer.getIcon());
         Panel pane_ = Panel.newPageBox();
-        songsLabel.setText(messages.getVal(SONGS));
+        songsLabel.setText(messages.getVal(CST_SONGS));
         pane_.add(songsLabel);
         pane_.add(songs);
-        random.setText(messages.getVal(RANDOM));
+        random.setText(messages.getVal(CST_RANDOM));
         pane_.add(random);
         Panel actions_ = Panel.newLineBox();
 //        playPrevious.setTextAndSize(PREVIOUS);
@@ -164,7 +164,7 @@ public class MainWindow extends GroupFrame {
     }
 
     public void initMessages(String _lg) {
-        messages = ExtractFromFiles.getMessagesFromLocaleClass(RESOURCES_FOLDER,_lg, ACCESS);
+        messages = ExtractFromFiles.getMessagesFromLocaleClass(CST_RESOURCES_FOLDER,_lg, ACCESS);
     }
 
     public void playOrPause(boolean _click) {
@@ -192,7 +192,7 @@ public class MainWindow extends GroupFrame {
                 }
             }
             if (!songsList.isValidIndex(noSong)) {
-                ConfirmDialog.showMessage(this, messages.getVal(CANNOT_READ_MESSAGE_WPL), messages.getVal(CANNOT_READ_TITLE),getLanguageKey(),JOptionPane.ERROR_MESSAGE);
+                ConfirmDialog.showMessage(this, messages.getVal(CST_CANNOT_READ_MESSAGE_WPL), messages.getVal(CST_CANNOT_READ_TITLE),getLanguageKey(),JOptionPane.ERROR_MESSAGE);
                 return;
             }
             if (songsList.get(noSong).endsWith(WAV) || songsList.get(noSong).endsWith(TXT)) {
@@ -220,7 +220,7 @@ public class MainWindow extends GroupFrame {
                     }
                 }
                 if (songsList.isEmpty()) {
-                    ConfirmDialog.showMessage(this, messages.getVal(CANNOT_READ_MESSAGE_WAV), messages.getVal(CANNOT_READ_TITLE),getLanguageKey(),JOptionPane.ERROR_MESSAGE);
+                    ConfirmDialog.showMessage(this, messages.getVal(CST_CANNOT_READ_MESSAGE_WAV), messages.getVal(CST_CANNOT_READ_TITLE),getLanguageKey(),JOptionPane.ERROR_MESSAGE);
                     return;
                 }
                 clipStream = c_;
@@ -229,15 +229,15 @@ public class MainWindow extends GroupFrame {
                 String txt_ = StreamTextFile.contentsOfFile(songsList.get(noSong));
                 Document doc_ = DocumentBuilder.parseSax(txt_);
                 if (doc_ == null) {
-                    ConfirmDialog.showMessage(this, messages.getVal(CANNOT_READ_MESSAGE_WPL), messages.getVal(CANNOT_READ_TITLE),getLanguageKey(),JOptionPane.ERROR_MESSAGE);
+                    ConfirmDialog.showMessage(this, messages.getVal(CST_CANNOT_READ_MESSAGE_WPL), messages.getVal(CST_CANNOT_READ_TITLE),getLanguageKey(),JOptionPane.ERROR_MESSAGE);
                     return;
                 }
-                ElementList e_ = doc_.getElementsByTagName(MEDIA);
+                ElementList e_ = doc_.getElementsByTagName(CST_MEDIA);
                 int len_ = e_.getLength();
                 songsList.clear();
                 for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
                     Element elt_ = e_.item(i);
-                    String v_ = elt_.getAttribute(SRC);
+                    String v_ = elt_.getAttribute(CST_SRC);
                     if (!v_.endsWith(WAV)) {
                         if (!v_.endsWith(TXT)) {
                             continue;
@@ -247,20 +247,20 @@ public class MainWindow extends GroupFrame {
                 }
                 songsList.removeAllString(EMPTY);
                 if (songsList.isEmpty()) {
-                    ConfirmDialog.showMessage(this, messages.getVal(CANNOT_READ_MESSAGE_WPL), messages.getVal(CANNOT_READ_TITLE),getLanguageKey(),JOptionPane.ERROR_MESSAGE);
+                    ConfirmDialog.showMessage(this, messages.getVal(CST_CANNOT_READ_MESSAGE_WPL), messages.getVal(CST_CANNOT_READ_TITLE),getLanguageKey(),JOptionPane.ERROR_MESSAGE);
                     return;
                 }
                 ElementList elts_ = doc_.getDocumentElement().getChildElements();
                 boolean applyRand_ = true;
                 if (elts_.getLength() > 0) {
-                    if (StringUtil.quickEq(KEY_PAUSE,elts_.get(0).getTagName())) {
-                        String txtCont_ = elts_.get(0).getAttribute(ATTR_VALUE);
+                    if (StringUtil.quickEq(CST_KEY_PAUSE,elts_.get(0).getTagName())) {
+                        String txtCont_ = elts_.get(0).getAttribute(CST_ATTR_VALUE);
                         int paused_ = NumberUtil.parseInt(txtCont_);
                         if (songsList.isValidIndex(paused_)) {
                             noSong = paused_;
                             applyRand_ = false;
                         }
-                    } else if (StringUtil.quickEq(KEY_RANDOM,elts_.get(0).getTagName())) {
+                    } else if (StringUtil.quickEq(CST_KEY_RANDOM,elts_.get(0).getTagName())) {
                         random.setSelected(true);
                     }
                 }
@@ -274,8 +274,8 @@ public class MainWindow extends GroupFrame {
                 Document list_ = DocumentBuilder.newXmlDocument();
                 Element mainDoc_ = list_.createElement("smil");
                 for (String s: songsList) {
-                    Element elt_ = list_.createElement(MEDIA);
-                    elt_.setAttribute(SRC,s);
+                    Element elt_ = list_.createElement(CST_MEDIA);
+                    elt_.setAttribute(CST_SRC,s);
                     mainDoc_.appendChild(elt_);
                 }
                 contentList = mainDoc_.export();
@@ -303,7 +303,7 @@ public class MainWindow extends GroupFrame {
                 }
                 clipStream = c_;
                 if (songsList.isEmpty()) {
-                    ConfirmDialog.showMessage(this, messages.getVal(CANNOT_READ_MESSAGE_WPL), messages.getVal(CANNOT_READ_TITLE),getLanguageKey(),JOptionPane.ERROR_MESSAGE);
+                    ConfirmDialog.showMessage(this, messages.getVal(CST_CANNOT_READ_MESSAGE_WPL), messages.getVal(CST_CANNOT_READ_TITLE),getLanguageKey(),JOptionPane.ERROR_MESSAGE);
                     return;
                 }
             }
@@ -314,7 +314,7 @@ public class MainWindow extends GroupFrame {
             pack();
             clipStream.getClip().start();
             clipStream.getClip().addLineListener(new SpeakingEvent(this));
-            play.setTextAndSize(PAUSE);
+            play.setTextAndSize(CST_PAUSE);
             currentSong.setText(songsList.get(noSong));
             String strBegin_ = getStringTime(0);
             elapsedTime.setText(strBegin_+REL_SEP+getStringTime(clipStream.getClip().getMicrosecondLength()));
@@ -347,12 +347,12 @@ public class MainWindow extends GroupFrame {
         }
         Document list_ = DocumentBuilder.newXmlDocument();
         Element mainDoc_ = list_.createElement("smil");
-        Element pause_ = list_.createElement(KEY_PAUSE);
-        pause_.setAttribute(ATTR_VALUE,Long.toString(noSong));
+        Element pause_ = list_.createElement(CST_KEY_PAUSE);
+        pause_.setAttribute(CST_ATTR_VALUE,Long.toString(noSong));
         mainDoc_.appendChild(pause_);
         for (String s: songsList) {
-            Element elt_ = list_.createElement(MEDIA);
-            elt_.setAttribute(SRC,s);
+            Element elt_ = list_.createElement(CST_MEDIA);
+            elt_.setAttribute(CST_SRC,s);
             mainDoc_.appendChild(elt_);
         }
         contentList = mainDoc_.export();
@@ -509,13 +509,13 @@ public class MainWindow extends GroupFrame {
 
     public void updateClip(LineEvent _event) {
         String ev_ = toLowerCase(_event.getType().toString());
-        if (StringUtil.quickEq(ev_, START)) {
+        if (StringUtil.quickEq(ev_, CST_START)) {
             //LineEvent.Type.START
-            play.setTextAndSize(PAUSE);
-        } else if (StringUtil.quickEq(ev_, STOP_EVT)) {
+            play.setTextAndSize(CST_PAUSE);
+        } else if (StringUtil.quickEq(ev_, CST_STOP_EVT)) {
             //LineEvent.Type.STOP
             //The end of a song pass here
-            play.setTextAndSize(PLAY);
+            play.setTextAndSize(CST_PLAY);
             if (!pausing) {
                 next = true;
                 playSong = true;
@@ -523,9 +523,9 @@ public class MainWindow extends GroupFrame {
                 tryClose();
                 next = false;
             }
-        } else if (StringUtil.quickEq(ev_, CLOSE)) {
+        } else if (StringUtil.quickEq(ev_, CST_CLOSE)) {
             //LineEvent.Type.CLOSE
-            play.setTextAndSize(PLAY);
+            play.setTextAndSize(CST_PLAY);
             clipStream = null;
             pausing = false;
             if (!playSong) {
@@ -598,9 +598,9 @@ public class MainWindow extends GroupFrame {
     public void changeLanguage(String _language) {
         setLanguageKey(_language);
         initMessages(_language);
-        setTitle(messages.getVal(TITLE_PLAYER));
-        random.setText(messages.getVal(RANDOM));
-        songsLabel.setText(messages.getVal(SONGS));
+        setTitle(messages.getVal(CST_TITLE_PLAYER));
+        random.setText(messages.getVal(CST_RANDOM));
+        songsLabel.setText(messages.getVal(CST_SONGS));
     }
 
     @Override

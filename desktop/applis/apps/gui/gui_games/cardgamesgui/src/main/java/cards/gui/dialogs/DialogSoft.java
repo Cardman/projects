@@ -65,7 +65,7 @@ public final class DialogSoft extends DialogCards {
         menu = _menu;
         String lg_ = _fenetre.getLanguageKey();
         Panel container_=Panel.newBorder();
-        if(StringUtil.quickEq(menu,MainWindow.LAUNCHING)) {
+        if(StringUtil.quickEq(menu,MainWindow.CST_LAUNCHING)) {
             //Lancement du logiciel
             Panel panneau_=Panel.newPageBox();
             list = new ComboBox<GameEnum>(_fenetre.getFrames().getGeneComboBox().createCombo(new StringList(), -1));
@@ -86,7 +86,7 @@ public final class DialogSoft extends DialogCards {
             saveHomeFolder = new CustCheckBox(messages.getVal(SELECT_HOME_PATH));
             panneau_.add(saveHomeFolder);
             container_.add(panneau_,BorderLayout.CENTER);
-        } else if(StringUtil.quickEq(menu,MainWindow.TIMING)) {
+        } else if(StringUtil.quickEq(menu,MainWindow.CST_TIMING)) {
             Panel panneau_=Panel.newGrid(0,1);
             TextLabel label_;
             int valeur_=0;
@@ -152,7 +152,7 @@ public final class DialogSoft extends DialogCards {
 
     /**Enregistre les_ informations_ dans_ une_ variable_ et_ ferme_ la_ boite_ de_ dialogue_*/
     public void validateParams() {
-        if(StringUtil.quickEq(menu,MainWindow.LAUNCHING)) {
+        if(StringUtil.quickEq(menu,MainWindow.CST_LAUNCHING)) {
 //            Object rep_ = liste.getSelectedItem();
             GameEnum rep_ = list.getCurrent();
             EnumList<GameEnum> lancement_ = new EnumList<GameEnum>();
@@ -163,7 +163,7 @@ public final class DialogSoft extends DialogCards {
             parametres.setLancement(lancement_);
             parametres.setSaveHomeFolder(saveHomeFolder.isSelected());
             closeWindow();
-        } else if(StringUtil.quickEq(menu,MainWindow.TIMING)) {
+        } else if(StringUtil.quickEq(menu,MainWindow.CST_TIMING)) {
 //            JPanel panneau_=(JPanel)getContentPane().getComponent(0);
 //            JSlider slide_=null;
 //            int indiceInfo_=1;

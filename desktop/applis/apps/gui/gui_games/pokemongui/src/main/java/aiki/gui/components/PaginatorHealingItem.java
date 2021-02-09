@@ -26,11 +26,11 @@ import code.util.core.StringUtil;
 
 public final class PaginatorHealingItem extends Paginator {
 
-    private static final String NAME = "name";
+    private static final String CST_NAME = "name";
 
-    private static final String DESCRIPTION = "description";
+    private static final String CST_DESCRIPTION = "description";
 
-    private static final String STATUS = "status";
+    private static final String CST_STATUS = "status";
 
     private static final String HP = "hp";
 
@@ -492,13 +492,13 @@ public final class PaginatorHealingItem extends Paginator {
 //        });
         Panel search_;
         search_ = Panel.newGrid(0,3);
-        search_.add(new TextLabel(getMessages().getVal(NAME)));
+        search_.add(new TextLabel(getMessages().getVal(CST_NAME)));
         search_.add(name);
         search_.add(modeName.self());
-        search_.add(new TextLabel(getMessages().getVal(DESCRIPTION)));
+        search_.add(new TextLabel(getMessages().getVal(CST_DESCRIPTION)));
         search_.add(description);
         search_.add(modeDescription.self());
-        search_.add(new TextLabel(getMessages().getVal(STATUS)));
+        search_.add(new TextLabel(getMessages().getVal(CST_STATUS)));
         search_.add(status);
         search_.add(modeStatus.self());
         search_.add(new TextLabel(getMessages().getVal(HP)));
@@ -536,10 +536,10 @@ public final class PaginatorHealingItem extends Paginator {
         _p.add(search_);
         Panel sorting_;
         sorting_ = Panel.newGrid(0,3);
-        sorting_.add(new TextLabel(getMessages().getVal(NAME)));
+        sorting_.add(new TextLabel(getMessages().getVal(CST_NAME)));
         sorting_.add(cmpNameSorting.self());
         sorting_.add(cmpNamePrio.self());
-        sorting_.add(new TextLabel(getMessages().getVal(DESCRIPTION)));
+        sorting_.add(new TextLabel(getMessages().getVal(CST_DESCRIPTION)));
         sorting_.add(cmpDescriptionSorting.self());
         sorting_.add(cmpDescriptionPrio.self());
         sorting_.add(new TextLabel(getMessages().getVal(PRICE)));
@@ -563,7 +563,7 @@ public final class PaginatorHealingItem extends Paginator {
         sorting_.add(new TextLabel(getMessages().getVal(STATISTIC)));
         sorting_.add(cmpNbStatisticsSorting.self());
         sorting_.add(cmpNbStatisticsPrio.self());
-        sorting_.add(new TextLabel(getMessages().getVal(STATUS)));
+        sorting_.add(new TextLabel(getMessages().getVal(CST_STATUS)));
         sorting_.add(cmpNbStatusSorting.self());
         sorting_.add(cmpNbStatusPrio.self());
         _p.add(sorting_);
@@ -579,15 +579,15 @@ public final class PaginatorHealingItem extends Paginator {
         _p.add(top_);
 //        results.setLayout(new BoxLayout(results, BoxLayout.PAGE_AXIS));
         int side_ = getFacade().getMap().getSideLength();
-        int nameWidth_ = getHeader().width(StringUtil.concat(getMessages().getVal(NAME),SPACES));
+        int nameWidth_ = getHeader().width(StringUtil.concat(getMessages().getVal(CST_NAME),SPACES));
         int numberWidth_ = getHeader().width(StringUtil.concat(getMessages().getVal(NUMBER),SPACES));
         int width_ = side_+nameWidth_+numberWidth_;
         width_ += getHeader().width(StringUtil.concat(getMessages().getVal(PRICE),SPACES));
-        if (width_ < getHeader().width(getMessages().getVal(DESCRIPTION))) {
-            width_ = getHeader().width(getMessages().getVal(DESCRIPTION));
+        if (width_ < getHeader().width(getMessages().getVal(CST_DESCRIPTION))) {
+            width_ = getHeader().width(getMessages().getVal(CST_DESCRIPTION));
         }
-        getHeader().addString(StringUtil.concat(getMessages().getVal(NAME),SPACES), side_);
-        getHeader().addString(getMessages().getVal(DESCRIPTION), side_, Paginator.HEIGTH_CHARS);
+        getHeader().addString(StringUtil.concat(getMessages().getVal(CST_NAME),SPACES), side_);
+        getHeader().addString(getMessages().getVal(CST_DESCRIPTION), side_, Paginator.HEIGTH_CHARS);
         getHeader().addString(StringUtil.concat(getMessages().getVal(NUMBER),SPACES), side_+nameWidth_);
         getHeader().addString(StringUtil.concat(getMessages().getVal(PRICE),SPACES), side_+nameWidth_+numberWidth_);
         getHeader().setPreferredSize(new Dimension(width_, Paginator.HEIGTH_CHARS + Paginator.HEIGTH_CHARS));
@@ -758,14 +758,14 @@ public final class PaginatorHealingItem extends Paginator {
         getResultsLabels().clear();
         getHeader().clearStrings();
         int side_ = getFacade().getMap().getSideLength();
-        getHeader().addString(StringUtil.concat(getMessages().getVal(NAME),SPACES), side_);
-        getHeader().addString(getMessages().getVal(DESCRIPTION), side_, Paginator.HEIGTH_CHARS);
+        getHeader().addString(StringUtil.concat(getMessages().getVal(CST_NAME),SPACES), side_);
+        getHeader().addString(getMessages().getVal(CST_DESCRIPTION), side_, Paginator.HEIGTH_CHARS);
 
 
         CustList<SortingHealingItem> rendered_ = getFacade().getRenderedHealingItem();
         CustList<HealingItemLabel> list_ = new CustList<HealingItemLabel>();
         int thirdColumn_ = IndexConstants.SIZE_EMPTY;
-        int fourthColumn_ = getHeader().width(StringUtil.concat(getMessages().getVal(NAME),SPACES));
+        int fourthColumn_ = getHeader().width(StringUtil.concat(getMessages().getVal(CST_NAME),SPACES));
         int fifthColumn_ = getHeader().width(StringUtil.concat(getMessages().getVal(NUMBER),SPACES));
         //item.getName()
         //item.getItemClass()

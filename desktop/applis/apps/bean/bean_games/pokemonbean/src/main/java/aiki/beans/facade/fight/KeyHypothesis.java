@@ -15,17 +15,17 @@ public final class KeyHypothesis implements Cmp<KeyHypothesis>, Displayable {
 
     private static final String SEPARATOR = " ";
 
-    private String playerPokemon;
+    private final String playerPokemon;
 
-    private int numberPlayer;
+    private final int numberPlayer;
 
-    private String move;
+    private final String move;
 
-    private String targetPokemon;
+    private final String targetPokemon;
 
-    private boolean belongsToUser;
+    private final boolean belongsToUser;
 
-    private int numberTarget;
+    private final int numberTarget;
 
     private Rate damage;
 
@@ -38,7 +38,7 @@ public final class KeyHypothesis implements Cmp<KeyHypothesis>, Displayable {
         move = data_.translateMove(_move);
         name_ = fight_.getFighter(_targetPk).getName();
         targetPokemon = data_.translatePokemon(name_);
-        belongsToUser = NumberUtil.eq(_targetPk.getTeam(), Fight.PLAYER);
+        belongsToUser = NumberUtil.eq(_targetPk.getTeam(), Fight.CST_PLAYER);
         numberTarget = _targetPk.getPosition();
     }
 

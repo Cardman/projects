@@ -47,7 +47,7 @@ public final class PokemonPlayer extends Pokemon implements UsablePokemon {
 
 //    private static final String CENT = Byte.toString(Fighter.RATE_CENT);
 
-    private static final String HAPPINESS = "happiness";
+    private static final String CST_HAPPINESS = "happiness";
 
     private static final String DECREASING_HP = "decreasingHp";
 
@@ -578,7 +578,7 @@ public final class PokemonPlayer extends Pokemon implements UsablePokemon {
         happiness+=_var;
         String name_ = _data.translatePokemon(getName());
         StringMap<String> mess_ = _data.getMessagesPokemonPlayer();
-        commentPk.addMessage(mess_.getVal(HAPPINESS), name_, Long.toString(_var));
+        commentPk.addMessage(mess_.getVal(CST_HAPPINESS), name_, Long.toString(_var));
     }
 
     public void variationPvRestants(Rate _pv){

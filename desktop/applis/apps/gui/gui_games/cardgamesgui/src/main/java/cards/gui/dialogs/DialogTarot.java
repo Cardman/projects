@@ -24,7 +24,7 @@ import code.util.ints.Listable;
 public abstract class DialogTarot extends DialogCards implements DialogVaryingPlayerNumber {
 
     private static final String ALLOWED_MISERES = "allowedMiseres";
-    private static final String BIDS = "bids";
+    private static final String CST_BIDS = "bids";
     private static final String DEALING = "dealing";
     private static final String DECLARING = "declaring";
     private static final String DISCARDING = "discarding";
@@ -95,7 +95,7 @@ public abstract class DialogTarot extends DialogCards implements DialogVaryingPl
         //Panneau Distribution
         getJt().add(getMessages().getVal(DEALING),dealing_);
         Panel declaring_=Panel.newPageBox();
-        declaring_.add(new TextLabel(getMessages().getVal(BIDS)));
+        declaring_.add(new TextLabel(getMessages().getVal(CST_BIDS)));
         bidding=Panel.newLineBox();
         bids.clear();
         for (BidTarot enchere_:BidTarot.values()) {

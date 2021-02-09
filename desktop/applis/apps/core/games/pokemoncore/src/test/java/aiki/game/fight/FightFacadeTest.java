@@ -69,8 +69,8 @@ public class FightFacadeTest extends InitializationDataBase {
     @Test
     public void newFight2Test() {
         Fight fight_ = FightFacade.newFight();
-        fight_.getKos().put(Fight.PLAYER,false);
-        fight_.getKos().put(Fight.FOE,false);
+        fight_.getKos().put(Fight.CST_PLAYER,false);
+        fight_.getKos().put(Fight.CST_FOE,false);
         assertEq(FightType.NOTHING,fight_.getFightType());
         assertEq(Rate.zero(),fight_.getWinningMoney());
         assertTrue(!fight_.getSimulation());
@@ -13464,7 +13464,7 @@ public class FightFacadeTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         Fight fight_ = fightStatement(player_, PIKACHU, (short) 1, diff_);
         fight_.setState(FightState.SWITCH_PROPOSE);
-        fight_.getKos().put(Fight.FOE,true);
+        fight_.getKos().put(Fight.CST_FOE,true);
         assertTrue(!FightFacade.keepLoop(fight_,true));
     }
 

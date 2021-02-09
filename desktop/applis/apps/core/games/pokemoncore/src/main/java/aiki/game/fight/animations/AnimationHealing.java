@@ -27,7 +27,7 @@ public class AnimationHealing implements AnimationInt {
     }
 
     public boolean isPlayer() {
-        return NumberUtil.eq(healed.getTeam(), Fight.PLAYER);
+        return NumberUtil.eq(healed.getTeam(), Fight.CST_PLAYER);
     }
 
     /**For now, it is difficult to gear drawing i back or team*/

@@ -21,9 +21,9 @@ import code.util.core.NumberUtil;
 
 public final class PaginatorItem extends Paginator {
 
-    private static final String NAME = "name";
+    private static final String CST_NAME = "name";
 
-    private static final String DESCRIPTION = "description";
+    private static final String CST_DESCRIPTION = "description";
 
     private static final String PRICE = "price";
 
@@ -213,10 +213,10 @@ public final class PaginatorItem extends Paginator {
 //        });
         Panel search_;
         search_ = Panel.newGrid(0,3);
-        search_.add(new TextLabel(getMessages().getVal(NAME)));
+        search_.add(new TextLabel(getMessages().getVal(CST_NAME)));
         search_.add(name);
         search_.add(modeName.self());
-        search_.add(new TextLabel(getMessages().getVal(DESCRIPTION)));
+        search_.add(new TextLabel(getMessages().getVal(CST_DESCRIPTION)));
         search_.add(description);
         search_.add(modeDescription.self());
         search_.add(new TextLabel(getMessages().getVal(PRICE)));
@@ -228,10 +228,10 @@ public final class PaginatorItem extends Paginator {
         _p.add(search_);
         Panel sorting_;
         sorting_ = Panel.newGrid(0,3);
-        sorting_.add(new TextLabel(getMessages().getVal(NAME)));
+        sorting_.add(new TextLabel(getMessages().getVal(CST_NAME)));
         sorting_.add(cmpNameSorting.self());
         sorting_.add(cmpNamePrio.self());
-        sorting_.add(new TextLabel(getMessages().getVal(DESCRIPTION)));
+        sorting_.add(new TextLabel(getMessages().getVal(CST_DESCRIPTION)));
         sorting_.add(cmpDescriptionSorting.self());
         sorting_.add(cmpDescriptionPrio.self());
         sorting_.add(new TextLabel(getMessages().getVal(PRICE)));
@@ -259,15 +259,15 @@ public final class PaginatorItem extends Paginator {
 //        widths_.add(numberWidth_);
 //        int width_ = side_+nameWidth_+numberWidth_;
 //        width_ += getHeader().width(getMessages().getVal(PRICE));
-        widths_.add(getHeader().width(getMessages().getVal(NAME)));
+        widths_.add(getHeader().width(getMessages().getVal(CST_NAME)));
         widths_.add(getHeader().width(getMessages().getVal(NUMBER)));
         widths_.add(getHeader().width(getMessages().getVal(PRICE)));
-        widths_.add(getHeader().width(getMessages().getVal(DESCRIPTION)));
+        widths_.add(getHeader().width(getMessages().getVal(CST_DESCRIPTION)));
 //        if (width_ < getHeader().width(getMessages().getVal(DESCRIPTION))) {
 //            width_ = getHeader().width(getMessages().getVal(DESCRIPTION));
 //        }
-        getHeader().addString(getMessages().getVal(NAME), side_);
-        getHeader().addString(getMessages().getVal(DESCRIPTION), side_, Paginator.HEIGTH_CHARS);
+        getHeader().addString(getMessages().getVal(CST_NAME), side_);
+        getHeader().addString(getMessages().getVal(CST_DESCRIPTION), side_, Paginator.HEIGTH_CHARS);
         getHeader().addString(getMessages().getVal(PRICE), side_, Paginator.HEIGTH_CHARS + Paginator.HEIGTH_CHARS);
         getHeader().addString(getMessages().getVal(NUMBER), side_, Paginator.HEIGTH_CHARS + Paginator.HEIGTH_CHARS + Paginator.HEIGTH_CHARS);
         getHeader().setPreferredSize(new Dimension((int)widths_.getMaximum(1), Paginator.HEIGTH_CHARS + Paginator.HEIGTH_CHARS + Paginator.HEIGTH_CHARS + Paginator.HEIGTH_CHARS));

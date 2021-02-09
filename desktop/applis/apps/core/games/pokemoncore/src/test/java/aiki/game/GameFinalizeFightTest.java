@@ -63,7 +63,7 @@ public class GameFinalizeFightTest extends InitializationDataBase{
         AreaApparition area_;
         area_ = level_.getAreaByPoint(current_.getLevel().getPoint());
         game_.newRandomPokemon(area_.getWildPokemonRand(), data);
-        game_.getFight().getKos().put(Fight.FOE, true);
+        game_.getFight().getKos().put(Fight.CST_FOE, true);
         game_.endFight(data);
         assertTrue(!game_.getFight().getFightType().isExisting());
         assertEq(newCoords(0, 0, 2, 0), game_.getPlayerCoords());
@@ -85,7 +85,7 @@ public class GameFinalizeFightTest extends InitializationDataBase{
         AreaApparition area_;
         area_ = level_.getAreaByPoint(current_.getLevel().getPoint());
         game_.newRandomPokemon(area_.getWildPokemonRand(), data);
-        game_.getFight().getKos().put(Fight.FOE, true);
+        game_.getFight().getKos().put(Fight.CST_FOE, true);
         game_.endFight(data);
         assertTrue(game_.getFight().getFightType().isExisting());
         assertTrue(game_.getFight().getFightType().isWild());
@@ -108,7 +108,7 @@ public class GameFinalizeFightTest extends InitializationDataBase{
         AreaApparition area_;
         area_ = level_.getAreaByPoint(current_.getLevel().getPoint());
         game_.newRandomPokemon(area_.getWildPokemonRand(), data);
-        game_.getFight().getKos().put(Fight.FOE, true);
+        game_.getFight().getKos().put(Fight.CST_FOE, true);
         game_.endFight(data);
         assertTrue(!game_.getFight().getFightType().isExisting());
         assertEq(newCoords(0, 0, 2, 0), game_.getPlayerCoords());
@@ -130,7 +130,7 @@ public class GameFinalizeFightTest extends InitializationDataBase{
         AreaApparition area_;
         area_ = level_.getAreaByPoint(current_.getLevel().getPoint());
         game_.newRandomPokemon(area_.getWildPokemonRand(), data);
-        game_.getFight().getKos().put(Fight.FOE, true);
+        game_.getFight().getKos().put(Fight.CST_FOE, true);
         game_.endFight(data);
         assertTrue(!game_.getFight().getFightType().isExisting());
         assertEq(newCoords(0, 0, 2, 0), game_.getPlayerCoords());
@@ -151,7 +151,7 @@ public class GameFinalizeFightTest extends InitializationDataBase{
         AreaApparition area_;
         area_ = level_.getAreaByPoint(current_.getLevel().getPoint());
         game_.newRandomPokemon(area_.getWildPokemonRand(), data);
-        game_.getFight().getKos().put(Fight.PLAYER, true);
+        game_.getFight().getKos().put(Fight.CST_PLAYER, true);
         game_.endFight(data);
         assertTrue(!game_.getFight().getFightType().isExisting());
         assertEq(new LgInt("1000"), game_.getPlayer().getMoney());
@@ -173,8 +173,8 @@ public class GameFinalizeFightTest extends InitializationDataBase{
         AreaApparition area_;
         area_ = level_.getAreaByPoint(current_.getLevel().getPoint());
         game_.newRandomPokemon(area_.getWildPokemonRand(), data);
-        game_.getFight().getKos().put(Fight.PLAYER, true);
-        game_.getFight().getKos().put(Fight.FOE, true);
+        game_.getFight().getKos().put(Fight.CST_PLAYER, true);
+        game_.getFight().getKos().put(Fight.CST_FOE, true);
         game_.endFight(data);
         assertTrue(!game_.getFight().getFightType().isExisting());
         assertEq(new LgInt("3000"), game_.getPlayer().getMoney());
@@ -190,7 +190,7 @@ public class GameFinalizeFightTest extends InitializationDataBase{
         game_.setPlayerOrientation(Direction.LEFT);
         game_.getDifficulty().setRandomWildFight(false);
         game_.initTrainerFight(data);
-        game_.getFight().getKos().put(Fight.FOE, true);
+        game_.getFight().getKos().put(Fight.CST_FOE, true);
         game_.endFight(data);
         assertTrue(!game_.getFight().getFightType().isExisting());
         assertEq(7, game_.getBeatTrainer().size());
@@ -211,7 +211,7 @@ public class GameFinalizeFightTest extends InitializationDataBase{
         game_.getDifficulty().setRandomWildFight(false);
         game_.beatTrainer(new NbFightCoords(newCoords(0, 0, 1, 1),0));
         game_.initTrainerFight(data);
-        game_.getFight().getKos().put(Fight.FOE, true);
+        game_.getFight().getKos().put(Fight.CST_FOE, true);
         game_.endFight(data);
         assertTrue(!game_.getFight().getFightType().isExisting());
         assertEq(7, game_.getBeatTrainer().size());
@@ -234,7 +234,7 @@ public class GameFinalizeFightTest extends InitializationDataBase{
         game_.beatTrainer(new NbFightCoords(newCoords(0, 0, 1, 1),0));
         game_.beatTrainer(new NbFightCoords(newCoords(0, 0, 1, 1),1));
         game_.initTrainerFight(data);
-        game_.getFight().getKos().put(Fight.FOE, true);
+        game_.getFight().getKos().put(Fight.CST_FOE, true);
         game_.endFight(data);
         assertTrue(!game_.getFight().getFightType().isExisting());
         assertEq(7, game_.getBeatTrainer().size());
@@ -255,7 +255,7 @@ public class GameFinalizeFightTest extends InitializationDataBase{
         game_.setPlayerOrientation(Direction.RIGHT);
         game_.getDifficulty().setRandomWildFight(false);
         game_.initTrainerFight(data);
-        game_.getFight().getKos().put(Fight.FOE, true);
+        game_.getFight().getKos().put(Fight.CST_FOE, true);
         game_.endFight(data);
         assertTrue(!game_.getFight().getFightType().isExisting());
         assertEq(7, game_.getBeatTrainer().size());
@@ -276,7 +276,7 @@ public class GameFinalizeFightTest extends InitializationDataBase{
         game_.getDifficulty().setRandomWildFight(false);
         game_.beatTrainer(new NbFightCoords(newCoords(2, 0, 11, 4),0));
         game_.initTrainerFight(data);
-        game_.getFight().getKos().put(Fight.FOE, true);
+        game_.getFight().getKos().put(Fight.CST_FOE, true);
         game_.endFight(data);
         assertTrue(!game_.getFight().getFightType().isExisting());
         assertEq(7, game_.getBeatTrainer().size());
@@ -296,7 +296,7 @@ public class GameFinalizeFightTest extends InitializationDataBase{
         game_.setPlayerOrientation(Direction.UP);
         game_.getDifficulty().setRandomWildFight(false);
         game_.initTrainerFight(data);
-        game_.getFight().getKos().put(Fight.FOE, true);
+        game_.getFight().getKos().put(Fight.CST_FOE, true);
         game_.endFight(data);
         assertTrue(!game_.getFight().getFightType().isExisting());
         assertEq(6, game_.getBeatGymLeader().size());
@@ -316,7 +316,7 @@ public class GameFinalizeFightTest extends InitializationDataBase{
         game_.setPlayerOrientation(Direction.UP);
         game_.getDifficulty().setRandomWildFight(false);
         game_.initTrainerFight(data);
-        game_.getFight().getKos().put(Fight.FOE, true);
+        game_.getFight().getKos().put(Fight.CST_FOE, true);
         game_.endFight(data);
         assertTrue(!game_.getFight().getFightType().isExisting());
         assertEq(6, game_.getBeatGymLeader().size());
@@ -336,7 +336,7 @@ public class GameFinalizeFightTest extends InitializationDataBase{
         game_.setPlayerOrientation(Direction.UP);
         game_.getDifficulty().setRandomWildFight(false);
         game_.initTrainerFight(data);
-        game_.getFight().getKos().put(Fight.FOE, true);
+        game_.getFight().getKos().put(Fight.CST_FOE, true);
         game_.endFight(data);
         assertTrue(!game_.getFight().getFightType().isExisting());
         assertEq(2, game_.getBeatGymTrainer().size());
@@ -357,7 +357,7 @@ public class GameFinalizeFightTest extends InitializationDataBase{
         game_.getBeatGymTrainer().getVal((short) 1).add(newPoint(1, 7));
         game_.getBeatGymTrainer().getVal((short) 1).add(newPoint(7, 7));
         game_.initTrainerFight(data);
-        game_.getFight().getKos().put(Fight.FOE, true);
+        game_.getFight().getKos().put(Fight.CST_FOE, true);
         game_.endFight(data);
         assertTrue(!game_.getFight().getFightType().isExisting());
         assertEq(6, game_.getBeatGymLeader().size());
@@ -382,7 +382,7 @@ public class GameFinalizeFightTest extends InitializationDataBase{
         game_.setPlayerCoords(newCoords(6, 0, 4, 5));
         game_.setPlayerOrientation(Direction.UP);
         game_.initTrainerFight(data);
-        game_.getFight().getKos().put(Fight.FOE, true);
+        game_.getFight().getKos().put(Fight.CST_FOE, true);
         game_.endFight(data);
         assertTrue(!game_.getFight().getFightType().isExisting());
         assertEq(1, game_.getRankLeague());
@@ -410,7 +410,7 @@ public class GameFinalizeFightTest extends InitializationDataBase{
         game_.setPlayerOrientation(Direction.UP);
         game_.setRankLeague((byte) 1);
         game_.initTrainerFight(data);
-        game_.getFight().getKos().put(Fight.FOE, true);
+        game_.getFight().getKos().put(Fight.CST_FOE, true);
         game_.endFight(data);
         assertTrue(!game_.getFight().getFightType().isExisting());
         assertEq(2, game_.getRankLeague());
@@ -439,8 +439,8 @@ public class GameFinalizeFightTest extends InitializationDataBase{
         game_.setPlayerOrientation(Direction.UP);
         game_.setRankLeague((byte) 1);
         game_.initTrainerFight(data);
-        game_.getFight().getKos().put(Fight.PLAYER, true);
-        game_.getFight().getKos().put(Fight.FOE, true);
+        game_.getFight().getKos().put(Fight.CST_PLAYER, true);
+        game_.getFight().getKos().put(Fight.CST_FOE, true);
         game_.endFight(data);
         assertTrue(!game_.getFight().getFightType().isExisting());
         assertEq(2, game_.getRankLeague());
@@ -463,8 +463,8 @@ public class GameFinalizeFightTest extends InitializationDataBase{
         game_.setPlayerOrientation(Direction.LEFT);
         game_.getDifficulty().setRandomWildFight(false);
         game_.initTrainerFight(data);
-        game_.getFight().getKos().put(Fight.PLAYER, true);
-        game_.getFight().getKos().put(Fight.FOE, true);
+        game_.getFight().getKos().put(Fight.CST_PLAYER, true);
+        game_.getFight().getKos().put(Fight.CST_FOE, true);
         game_.endFight(data);
         assertTrue(!game_.getFight().getFightType().isExisting());
         assertEq(7, game_.getBeatTrainer().size());
@@ -483,8 +483,8 @@ public class GameFinalizeFightTest extends InitializationDataBase{
         game_.getDifficulty().setRandomWildFight(false);
         game_.beatTrainer(new NbFightCoords(newCoords(0, 0, 1, 1),0));
         game_.initTrainerFight(data);
-        game_.getFight().getKos().put(Fight.PLAYER, true);
-        game_.getFight().getKos().put(Fight.FOE, true);
+        game_.getFight().getKos().put(Fight.CST_PLAYER, true);
+        game_.getFight().getKos().put(Fight.CST_FOE, true);
         game_.endFight(data);
         assertTrue(!game_.getFight().getFightType().isExisting());
         assertEq(7, game_.getBeatTrainer().size());
@@ -506,8 +506,8 @@ public class GameFinalizeFightTest extends InitializationDataBase{
         game_.beatTrainer(new NbFightCoords(newCoords(0, 0, 1, 1),0));
         game_.beatTrainer(new NbFightCoords(newCoords(0, 0, 1, 1),1));
         game_.initTrainerFight(data);
-        game_.getFight().getKos().put(Fight.PLAYER, true);
-        game_.getFight().getKos().put(Fight.FOE, true);
+        game_.getFight().getKos().put(Fight.CST_PLAYER, true);
+        game_.getFight().getKos().put(Fight.CST_FOE, true);
         game_.endFight(data);
         assertTrue(!game_.getFight().getFightType().isExisting());
         assertEq(7, game_.getBeatTrainer().size());
@@ -528,8 +528,8 @@ public class GameFinalizeFightTest extends InitializationDataBase{
         game_.setPlayerOrientation(Direction.RIGHT);
         game_.getDifficulty().setRandomWildFight(false);
         game_.initTrainerFight(data);
-        game_.getFight().getKos().put(Fight.PLAYER, true);
-        game_.getFight().getKos().put(Fight.FOE, true);
+        game_.getFight().getKos().put(Fight.CST_PLAYER, true);
+        game_.getFight().getKos().put(Fight.CST_FOE, true);
         game_.endFight(data);
         assertTrue(!game_.getFight().getFightType().isExisting());
         assertEq(7, game_.getBeatTrainer().size());
@@ -548,8 +548,8 @@ public class GameFinalizeFightTest extends InitializationDataBase{
         game_.getDifficulty().setRandomWildFight(false);
         game_.beatTrainer(new NbFightCoords(newCoords(2, 0, 11, 4),0));
         game_.initTrainerFight(data);
-        game_.getFight().getKos().put(Fight.PLAYER, true);
-        game_.getFight().getKos().put(Fight.FOE, true);
+        game_.getFight().getKos().put(Fight.CST_PLAYER, true);
+        game_.getFight().getKos().put(Fight.CST_FOE, true);
         game_.endFight(data);
         assertTrue(!game_.getFight().getFightType().isExisting());
         assertEq(7, game_.getBeatTrainer().size());
@@ -568,8 +568,8 @@ public class GameFinalizeFightTest extends InitializationDataBase{
         game_.setPlayerOrientation(Direction.UP);
         game_.getDifficulty().setRandomWildFight(false);
         game_.initTrainerFight(data);
-        game_.getFight().getKos().put(Fight.PLAYER, true);
-        game_.getFight().getKos().put(Fight.FOE, true);
+        game_.getFight().getKos().put(Fight.CST_PLAYER, true);
+        game_.getFight().getKos().put(Fight.CST_FOE, true);
         game_.endFight(data);
         assertTrue(!game_.getFight().getFightType().isExisting());
         assertEq(6, game_.getBeatGymLeader().size());
@@ -587,8 +587,8 @@ public class GameFinalizeFightTest extends InitializationDataBase{
         game_.setPlayerOrientation(Direction.UP);
         game_.getDifficulty().setRandomWildFight(false);
         game_.initTrainerFight(data);
-        game_.getFight().getKos().put(Fight.PLAYER, true);
-        game_.getFight().getKos().put(Fight.FOE, true);
+        game_.getFight().getKos().put(Fight.CST_PLAYER, true);
+        game_.getFight().getKos().put(Fight.CST_FOE, true);
         game_.endFight(data);
         assertTrue(!game_.getFight().getFightType().isExisting());
         assertEq(6, game_.getBeatGymLeader().size());
@@ -606,8 +606,8 @@ public class GameFinalizeFightTest extends InitializationDataBase{
         game_.setPlayerOrientation(Direction.UP);
         game_.getDifficulty().setRandomWildFight(false);
         game_.initTrainerFight(data);
-        game_.getFight().getKos().put(Fight.PLAYER, true);
-        game_.getFight().getKos().put(Fight.FOE, true);
+        game_.getFight().getKos().put(Fight.CST_PLAYER, true);
+        game_.getFight().getKos().put(Fight.CST_FOE, true);
         game_.endFight(data);
         assertTrue(!game_.getFight().getFightType().isExisting());
         assertEq(2, game_.getBeatGymTrainer().size());
@@ -627,8 +627,8 @@ public class GameFinalizeFightTest extends InitializationDataBase{
         game_.getBeatGymTrainer().getVal((short) 1).add(newPoint(1, 7));
         game_.getBeatGymTrainer().getVal((short) 1).add(newPoint(7, 7));
         game_.initTrainerFight(data);
-        game_.getFight().getKos().put(Fight.PLAYER, true);
-        game_.getFight().getKos().put(Fight.FOE, true);
+        game_.getFight().getKos().put(Fight.CST_PLAYER, true);
+        game_.getFight().getKos().put(Fight.CST_FOE, true);
         game_.endFight(data);
         assertTrue(!game_.getFight().getFightType().isExisting());
         assertEq(6, game_.getBeatGymLeader().size());
@@ -651,8 +651,8 @@ public class GameFinalizeFightTest extends InitializationDataBase{
         game_.setPlayerCoords(newCoords(6, 0, 4, 5));
         game_.setPlayerOrientation(Direction.UP);
         game_.initTrainerFight(data);
-        game_.getFight().getKos().put(Fight.PLAYER, true);
-        game_.getFight().getKos().put(Fight.FOE, true);
+        game_.getFight().getKos().put(Fight.CST_PLAYER, true);
+        game_.getFight().getKos().put(Fight.CST_FOE, true);
         game_.endFight(data);
         assertTrue(!game_.getFight().getFightType().isExisting());
         assertEq(0, game_.getRankLeague());
@@ -680,7 +680,7 @@ public class GameFinalizeFightTest extends InitializationDataBase{
         game_.setPlayerOrientation(Direction.UP);
         game_.setRankLeague((byte) 1);
         game_.initTrainerFight(data);
-        game_.getFight().getKos().put(Fight.PLAYER, true);
+        game_.getFight().getKos().put(Fight.CST_PLAYER, true);
         game_.endFight(data);
         assertTrue(!game_.getFight().getFightType().isExisting());
         assertEq(1, game_.getRankLeague());
@@ -701,7 +701,7 @@ public class GameFinalizeFightTest extends InitializationDataBase{
         game_.setPlayerCoords(newCoords(2, 0, 11, 1));
         game_.setPlayerOrientation(Direction.DOWN);
         game_.initLegendaryPokemonFight(data);
-        game_.getFight().getKos().put(Fight.FOE, true);
+        game_.getFight().getKos().put(Fight.CST_FOE, true);
         game_.endFight(data);
         assertTrue(!game_.getTakenPokemon().getVal(newCoords(2, 0, 11, 2)));
         assertEq(newCoords(2, 0, 11, 1), game_.getPlayerCoords());
@@ -725,7 +725,7 @@ public class GameFinalizeFightTest extends InitializationDataBase{
         //Because of bad data
         game_.getPlayerCoords().affect(newCoords(0, 0, 0, 0));
         game_.setRankLeague((byte) 0);
-        game_.getFight().getKos().put(Fight.PLAYER, true);
+        game_.getFight().getKos().put(Fight.CST_PLAYER, true);
         game_.endFight(data);
         assertTrue(!game_.getFight().getFightType().isExisting());
         assertEq(newCoords(0, 0, 0, 0), game_.getPlayerCoords());
@@ -757,7 +757,7 @@ public class GameFinalizeFightTest extends InitializationDataBase{
         //Because of bad data
         game_.getPlayerCoords().affect(newCoords(0, 0, 0, 0));
         game_.setRankLeague((byte) 0);
-        game_.getFight().getKos().put(Fight.FOE, true);
+        game_.getFight().getKos().put(Fight.CST_FOE, true);
         game_.endFight(data);
         assertTrue(!game_.getFight().getFightType().isExisting());
         assertEq(newCoords(0, 0, 0, 0), game_.getPlayerCoords());
@@ -805,7 +805,7 @@ public class GameFinalizeFightTest extends InitializationDataBase{
         AreaApparition area_;
         area_ = level_.getAreaByPoint(current_.getLevel().getPoint());
         game_.newRandomPokemon(area_.getWildPokemonRand(), data);
-        game_.getFight().getKos().put(Fight.FOE, true);
+        game_.getFight().getKos().put(Fight.CST_FOE, true);
         game_.endFight(data);
         game_.getFight().setCatchingBall(HYPER_BALL);
         assertTrue(!game_.nextLegPk(data));
@@ -819,7 +819,7 @@ public class GameFinalizeFightTest extends InitializationDataBase{
         game_.setPlayerCoords(newCoords(2, 0, 11, 1));
         game_.setPlayerOrientation(Direction.DOWN);
         game_.initLegendaryPokemonFight(data);
-        game_.getFight().getKos().put(Fight.FOE, true);
+        game_.getFight().getKos().put(Fight.CST_FOE, true);
         game_.endFight(data);
         game_.getFight().setCatchingBall(HYPER_BALL);
         assertTrue(game_.nextLegPk(data));
@@ -840,7 +840,7 @@ public class GameFinalizeFightTest extends InitializationDataBase{
         AreaApparition area_;
         area_ = level_.getAreaByPoint(current_.getLevel().getPoint());
         game_.newRandomPokemon(area_.getWildPokemonRand(), data);
-        game_.getFight().getKos().put(Fight.FOE, true);
+        game_.getFight().getKos().put(Fight.CST_FOE, true);
         game_.endFight(data);
         game_.getFight().setCatchingBall(HYPER_BALL);
         assertTrue(!game_.nextLegPk(data));
@@ -861,7 +861,7 @@ public class GameFinalizeFightTest extends InitializationDataBase{
         AreaApparition area_;
         area_ = level_.getAreaByPoint(current_.getLevel().getPoint());
         game_.newRandomPokemon(area_.getWildPokemonRand(), data);
-        game_.getFight().getKos().put(Fight.FOE, true);
+        game_.getFight().getKos().put(Fight.CST_FOE, true);
         game_.endFight(data);
         game_.getFight().setCatchingBall(HYPER_BALL);
         game_.setPlayerCoords(newCoords(0, 0, 0, 0));
@@ -884,7 +884,7 @@ public class GameFinalizeFightTest extends InitializationDataBase{
         AreaApparition area_;
         area_ = level_.getAreaByPoint(current_.getLevel().getPoint());
         game_.newRandomPokemon(area_.getWildPokemonRand(), data);
-        game_.getFight().getKos().put(Fight.FOE, true);
+        game_.getFight().getKos().put(Fight.CST_FOE, true);
         game_.endFight(data);
         game_.getFight().setCatchingBall(HYPER_BALL);
         game_.catchWildPokemon(NICKNAME_SAMPLE, data);
@@ -908,7 +908,7 @@ public class GameFinalizeFightTest extends InitializationDataBase{
         game_.setPlayerCoords(newCoords(2, 0, 11, 1));
         game_.setPlayerOrientation(Direction.DOWN);
         game_.initLegendaryPokemonFight(data);
-        game_.getFight().getKos().put(Fight.FOE, true);
+        game_.getFight().getKos().put(Fight.CST_FOE, true);
         game_.endFight(data);
         game_.getFight().setCatchingBall(HYPER_BALL);
         game_.catchWildPokemon(NICKNAME_SAMPLE, data);
@@ -934,7 +934,7 @@ public class GameFinalizeFightTest extends InitializationDataBase{
         game_.setPlayerOrientation(Direction.RIGHT);
         game_.getDifficulty().setRandomWildFight(false);
         game_.initFishing(data);
-        game_.getFight().getKos().put(Fight.FOE, true);
+        game_.getFight().getKos().put(Fight.CST_FOE, true);
         game_.endFight(data);
         game_.getFight().setCatchingBall(HYPER_BALL);
         game_.catchWildPokemon(NICKNAME_SAMPLE, data);
@@ -960,7 +960,7 @@ public class GameFinalizeFightTest extends InitializationDataBase{
         AreaApparition area_;
         area_ = level_.getAreaByPoint(current_.getLevel().getPoint());
         game_.newRandomPokemon(area_.getWildPokemonRand(), data);
-        game_.getFight().getKos().put(Fight.FOE, true);
+        game_.getFight().getKos().put(Fight.CST_FOE, true);
         game_.endFight(data);
         game_.getFight().setCatchingBall(HYPER_BALL);
         game_.catchWildPokemon(NICKNAME_SAMPLE, data);
@@ -1009,7 +1009,7 @@ public class GameFinalizeFightTest extends InitializationDataBase{
         AreaApparition area_;
         area_ = level_.getAreaByPoint(current_.getLevel().getPoint());
         game_.newRandomPokemon(area_.getWildPokemonRand(), data);
-        game_.getFight().getKos().put(Fight.FOE, true);
+        game_.getFight().getKos().put(Fight.CST_FOE, true);
         game_.endFight(data);
         game_.catchKoWildPokemon(HYPER_BALL, NICKNAME_SAMPLE, data);
         assertEq(2, game_.getPlayer().getTeam().size());
@@ -1033,7 +1033,7 @@ public class GameFinalizeFightTest extends InitializationDataBase{
         AreaApparition area_;
         area_ = level_.getAreaByPoint(current_.getLevel().getPoint());
         game_.newRandomPokemon(area_.getWildPokemonRand(), data);
-        game_.getFight().getKos().put(Fight.FOE, true);
+        game_.getFight().getKos().put(Fight.CST_FOE, true);
         game_.endFight(data);
         game_.notCatchKoWildPokemon(data);
         assertEq(1, game_.getPlayer().getTeam().size());

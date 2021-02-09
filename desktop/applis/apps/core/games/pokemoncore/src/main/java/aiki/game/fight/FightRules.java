@@ -390,7 +390,7 @@ final class FightRules {
                                 continue;
                             }
                         } else if (fAtt_.getTargetChoice() == TargetChoice.ALLIE) {
-                            if (!NumberUtil.eq(cibles_.first().getTeam(), Fight.PLAYER)) {
+                            if (!NumberUtil.eq(cibles_.first().getTeam(), Fight.CST_PLAYER)) {
                                 error_ = true;
                                 _fight.addMessage(_import,Fight.ERR_BAD_CHOICE, moveName_, name_);
                             }
@@ -408,7 +408,7 @@ final class FightRules {
                                 _fight.addMessage(_import,Fight.ERR_BAD_CHOICE, moveName_, name_);
                             }
                         } else if (fAtt_.getTargetChoice() == TargetChoice.ANY_FOE) {
-                            if (NumberUtil.eq(cibles_.first().getTeam(), Fight.PLAYER)) {
+                            if (NumberUtil.eq(cibles_.first().getTeam(), Fight.CST_PLAYER)) {
                                 error_ = true;
                                 _fight.addMessage(_import,Fight.ERR_BAD_CHOICE, moveName_, name_);
                             }

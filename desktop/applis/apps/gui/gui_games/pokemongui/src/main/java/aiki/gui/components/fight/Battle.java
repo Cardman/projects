@@ -77,7 +77,7 @@ public class Battle extends ChildFrame {
 
     private static final String CATCH_PK = "catchPk";
 
-    private static final String FLEE = "flee";
+    private static final String CST_FLEE = "flee";
 
     private static final String GO_TO_ROUND = "goToRound";
 
@@ -119,7 +119,7 @@ public class Battle extends ChildFrame {
 
     private static final String ROUND = "round";
 
-    private static final String ACTIONS = "actions";
+    private static final String CST_ACTIONS = "actions";
 
 //    private static final JPanel UPPER = new JPanel();
 
@@ -266,7 +266,7 @@ public class Battle extends ChildFrame {
     }
 
     public void setMessages() {
-        setTitle(messages.getVal(ACTIONS));
+        setTitle(messages.getVal(CST_ACTIONS));
         if (fighterFrontPanel !=null) {
             fighterFrontPanel.setPanelTitle(messages.getVal(FRONT_TEAM));
         }
@@ -295,7 +295,7 @@ public class Battle extends ChildFrame {
         if (flee != null) {
             if (facade.isWildFight()) {
                 Rate r_ = facade.calculateFleeingRate();
-                flee.setTextAndSize(StringUtil.simpleStringsFormat(messages.getVal(FLEE), r_.toNumberString(), r_.percent().toNumberString()));
+                flee.setTextAndSize(StringUtil.simpleStringsFormat(messages.getVal(CST_FLEE), r_.toNumberString(), r_.percent().toNumberString()));
             }
         }
         if (validateActions != null && facade.isExistingFight()) {

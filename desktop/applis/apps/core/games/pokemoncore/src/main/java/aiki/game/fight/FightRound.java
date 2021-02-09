@@ -619,7 +619,7 @@ final class FightRound {
                     fini_= true;
                 } else {
                     if(_fight.getSimulation()){
-                        fini_= NumberUtil.eq(_combattant.getTeam(),Fight.FOE);
+                        fini_= NumberUtil.eq(_combattant.getTeam(),Fight.CST_FOE);
                     } else {
                         fini_=!loiModif_.editNumber(maxRd_,_import.getGenerator());
                     }
@@ -647,7 +647,7 @@ final class FightRound {
                         fini_= true;
                     } else {
                         if(_fight.getSimulation()){
-                            fini_= NumberUtil.eq(_combattant.getTeam(),Fight.FOE);
+                            fini_= NumberUtil.eq(_combattant.getTeam(),Fight.CST_FOE);
                         } else {
                             fini_=!loiModif_.editNumber(maxRd_,_import.getGenerator());
                         }
@@ -680,7 +680,7 @@ final class FightRound {
             } else if (StringUtil.contains(move_.getDeletedStatus(), _nomStatut)) {
                 tirageGuerison_=true;
             } else if(_fight.getSimulation()){
-                if(NumberUtil.eq(_combattant.getTeam(),Fight.PLAYER)){
+                if(NumberUtil.eq(_combattant.getTeam(),Fight.CST_PLAYER)){
                     attaquer_=false;
                 }else{
                     tirageGuerison_=true;
@@ -698,7 +698,7 @@ final class FightRound {
         boolean attaquerAdv_=true;
         if(!lawUseMoveIfFoe_.events().isEmpty()){
             if(_fight.getSimulation()){
-                if(NumberUtil.eq(_combattant.getTeam(),Fight.PLAYER)){
+                if(NumberUtil.eq(_combattant.getTeam(),Fight.CST_PLAYER)){
                     attaquerAdv_=false;
                 }
             } else {
@@ -732,7 +732,7 @@ final class FightRound {
         LgInt maxRd_ = _import.getMaxRd();
         Fighter creature_=_fight.getFighter(_combattant);
         if(_fight.getSimulation()){
-            if(NumberUtil.eq(_combattant.getTeam(),Fight.FOE)){
+            if(NumberUtil.eq(_combattant.getTeam(),Fight.CST_FOE)){
                 creature_.supprimerStatut(_nomStatut);
                 _fight.addDisabledStatusMessage(_nomStatut, _combattant, _import);
             }
@@ -781,7 +781,7 @@ final class FightRound {
         if(Rate.greaterEq(degats_,creature_.getRemainingHp())){
             FightKo.setKoMoveTeams(_fight,_combattant,_diff,_import);
             _fight.addAnimationKoFighter(_combattant);
-            if(NumberUtil.eq(_combattant.getTeam(),Fight.PLAYER)){
+            if(NumberUtil.eq(_combattant.getTeam(),Fight.CST_PLAYER)){
                 if (_fight.getSimulation()) {
                     _fight.setAcceptableChoices(false);
                     _fight.setIssue(IssueSimulation.KO_PLAYER);
@@ -1000,7 +1000,7 @@ final class FightRound {
             MonteCarloBoolean law_ = MonteCarloUtil.booleanLaw(precision_);
             boolean success_;
             if (FightSuccess.isBadSimulation(_fight, law_)) {
-                if(NumberUtil.eq(_target.getTeam(),Fight.FOE)){
+                if(NumberUtil.eq(_target.getTeam(),Fight.CST_FOE)){
                     return;
                 }
                 success_ = true;
@@ -1157,7 +1157,7 @@ final class FightRound {
             animationHeal_.setHealed(new TargetCoords(_lanceur.getTeam(), Fighter.BACK));
             _fight.getEffects().add(animationHeal_);
             if (_fight.getState() == FightState.SWITCH_WHILE_KO_USER) {
-                if (NumberUtil.eq(_lanceur.getTeam(), Fight.PLAYER)) {
+                if (NumberUtil.eq(_lanceur.getTeam(), Fight.CST_PLAYER)) {
                     //As for all team, is exists a "no ko fighter" at the front, so there a single free place
                     EqList<TeamPosition> pkPlayers_;
                     pkPlayers_ = FightOrder.fightersBelongingToUser(_fight, true);
@@ -1311,7 +1311,7 @@ final class FightRound {
         creature_.exitFrontBattleForBeingSubstitued();
         FightSending.withdrawal(_fight,_lanceur,_import);
         FightSending.sending(_fight,envoye_,_diff,_import);
-        if(NumberUtil.eq(_lanceur.getTeam(), Fight.PLAYER)){
+        if(NumberUtil.eq(_lanceur.getTeam(), Fight.CST_PLAYER)){
             _fight.getFirstPositPlayerFighters().put(_lanceur.getPosition(),Fighter.BACK);
             _fight.getFirstPositPlayerFighters().put(remplacant_,placeTerrainPourRemplacement_);
         } else {

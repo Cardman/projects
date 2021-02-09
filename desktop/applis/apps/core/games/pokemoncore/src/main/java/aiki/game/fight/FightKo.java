@@ -34,7 +34,7 @@ final class FightKo {
         if(_fight.getFighter(_combattant).isBelongingToPlayer()){
             equipe_.toutSupprimerCombattantsContreAdvMembre(_combattant.getPosition());
             _fight.getFirstPositPlayerFighters().put(_combattant.getPosition(),Fighter.BACK);
-        }else if(NumberUtil.eq(_combattant.getTeam(),Fight.FOE)){
+        }else if(NumberUtil.eq(_combattant.getTeam(),Fight.CST_FOE)){
             Team equipeUt_=_fight.getUserTeam();
             Bytes liste_ = FightOrder.fightersBelongingToUserHavingBeaten(_fight,_combattant.getPosition());
             addExpEvsFighters(_fight,liste_,_combattant.getPosition(),_diff,_import);
