@@ -1049,7 +1049,17 @@ public abstract class OperationNode {
         return getConstrustorIdLambda(_op, _page, clCurName_, signatures_, _args);
     }
 
-    protected static ConstructorInfo tryGetSignaturesInfer(String _id, AnaGeneType _type, AnalyzedPageEl _page, StringList _args, String _clCurName, String _stCall, String _retType) {
+    protected static ConstructorInfo tryGetFilterSignaturesInfer(CustList<ConstructorInfo> _list, AnaGeneType _type, AnalyzedPageEl _page, StringList _args, String _stCall, String _retType) {
+        CustList<ConstructorInfo> signatures_ = new CustList<ConstructorInfo>();
+        for (ConstructorInfo c: _list) {
+            filter(_type, _page, _args, _stCall, _retType, signatures_, c.getConstraints(), c);
+        }
+        StringMap<StringList> map_ = _page.getCurrentConstraints().getCurrentConstraints();
+        ArgumentsGroup gr_ = new ArgumentsGroup(_page, map_);
+        return sortCtors(signatures_, gr_);
+    }
+
+    protected static CustList<ConstructorInfo> tryGetSignatures(String _id, AnaGeneType _type, AnalyzedPageEl _page, String _clCurName, String _stCall) {
         CustList<ConstructorInfo> signatures_ = new CustList<ConstructorInfo>();
         if (_type instanceof StandardType) {
             for (StandardConstructor s: ((StandardType)_type).getConstructors()) {
@@ -1063,7 +1073,7 @@ public abstract class OperationNode {
                 mloc_.setClassName(_clCurName);
                 mloc_.setStCall(_stCall);
                 mloc_.format(_page);
-                filter(_type, _page, _args, _stCall, _retType, signatures_, ctor_, mloc_);
+                signatures_.add(mloc_);
             }
         }
         if (_type instanceof RootBlock){
@@ -1085,12 +1095,10 @@ public abstract class OperationNode {
                 mloc_.setClassName(_clCurName);
                 mloc_.setStCall(_stCall);
                 mloc_.format(_page);
-                filter(_type, _page, _args, _stCall, _retType, signatures_, ctor_, mloc_);
+                signatures_.add(mloc_);
             }
         }
-        StringMap<StringList> map_ = _page.getCurrentConstraints().getCurrentConstraints();
-        ArgumentsGroup gr_ = new ArgumentsGroup(_page, map_);
-        return sortCtors(signatures_, gr_);
+        return signatures_;
     }
 
     private static void filter(AnaGeneType _type, AnalyzedPageEl _page, StringList _args, String _stCall, String _retType, CustList<ConstructorInfo> _signatures, ConstructorId _ctor, ConstructorInfo _mloc) {
@@ -1370,15 +1378,6 @@ public abstract class OperationNode {
         methods_ = getDeclaredCustMethodByType(_staticContext, _classes, _name, _import, _page, new ScopeFilter(_uniqueId, _accessFromSuper, _superClass, false, _page.getGlobalClass()), new FormattedFilter());
         int varargOnly_ = fetchVarargOnly(_varargOnly, _uniqueId);
         return getCustResultLambda(varargOnly_, methods_, _name, _page, _argsClass);
-    }
-    protected static ClassMethodIdReturn tryGetDeclaredCustMethodLambdaInfer(MethodAccessKind _staticContext,
-                                                                             StringList _classes, String _name,
-                                                                             boolean _superClass, boolean _accessFromSuper,
-                                                                             boolean _import, ClassMethodIdAncestor _uniqueId,
-                                                                             String _stCall, StringList _argsClass, AnalyzedPageEl _page, String _retType) {
-        CustList<CustList<MethodInfo>> methods_;
-        methods_ = getDeclaredCustMethodByType(_staticContext, _classes, _name, _import, _page, new ScopeFilter(_uniqueId, _accessFromSuper, _superClass, false, _page.getGlobalClass()), new FormattedFilter());
-        return getCustResultLambdaInfer(methods_, _name, _page, _stCall,_argsClass, _retType);
     }
 
     protected static ClassMethodIdReturn tryGetDeclaredTrue(String _classes, AnalyzedPageEl _page) {
@@ -2587,7 +2586,7 @@ public abstract class OperationNode {
         if (isCandidateMethod(_scType.getId(),_anc, base_, _id)) {
             return null;
         }
-        String formattedClass_ = getFormattedClass(_s, _f, _page, base_, _id);
+        String formattedClass_ = getFormattedClass(_s, _f, _page, base_);
         return buildMethodInfo(_m, _keepParams, _anc, formattedClass_, _page, _id, _importedReturnType, _scType.getFormattedFilter());
     }
 
@@ -2597,7 +2596,7 @@ public abstract class OperationNode {
         if (isCandidateMethod(_scType.getId(),_anc, base_, _id)) {
             return null;
         }
-        String formattedClass_ = getFormattedClass(_s, _f, _page, base_, _id);
+        String formattedClass_ = getFormattedClass(_s, _f, _page, base_);
         if (_m instanceof OverridableBlock) {
             OverridableBlock c = (OverridableBlock) _m;
             Accessed a_ = new Accessed(c.getAccess(), _r.getPackageName(), _r);
@@ -2608,9 +2607,9 @@ public abstract class OperationNode {
         return buildMethodInfoCust(_r,_m, _keepParams, _anc, formattedClass_, _page, _id, _importedReturnType, _scType.getFormattedFilter());
     }
 
-    private static String getFormattedClass(String _s, String _f, AnalyzedPageEl _page, String _base, MethodId _id) {
+    private static String getFormattedClass(String _s, String _f, AnalyzedPageEl _page, String _base) {
         String formattedClass_;
-        if (!_id.canAccessParamTypes() || StringUtil.quickEq(_base, _page.getAliasFct())) {
+        if (StringUtil.quickEq(_base, _page.getAliasFct())) {
             formattedClass_ = _s;
         } else {
             formattedClass_ = _f;
@@ -2833,8 +2832,35 @@ public abstract class OperationNode {
         return res_;
     }
 
-    private static ClassMethodIdReturn getCustResultLambdaInfer(CustList<CustList<MethodInfo>> _methods,
+    protected static ClassMethodIdReturn getCustResultLambdaInfer(CustList<CustList<MethodInfo>> _methods,
                                                                 String _name, AnalyzedPageEl _page, String _stCall, StringList _argsClass, String _retType) {
+        CustList<CustList<MethodInfo>> next_ = filterInferredMethods(_methods, _name, _page, _stCall, _argsClass, _retType);
+
+        StringMap<StringList> map_;
+        map_ = _page.getCurrentConstraints().getCurrentConstraints();
+        ArgumentsGroup gr_ = new ArgumentsGroup(_page, map_);
+        Parametrable found_ = sortFct(next_, gr_);
+        if (!(found_ instanceof MethodInfo)) {
+            return new ClassMethodIdReturn(false);
+        }
+        MethodInfo m_ = (MethodInfo) found_;
+        MethodId constraints_ = m_.getConstraints();
+        String baseClassName_ = m_.getClassName();
+        ClassMethodIdReturn res_ = new ClassMethodIdReturn(true);
+        MethodId id_ = m_.getFormatted();
+        res_.setId(new ClassMethodId(baseClassName_, id_));
+        res_.setRealId(constraints_);
+        res_.setRealClass(baseClassName_);
+        res_.setReturnType(m_.getReturnType());
+        res_.setOriginalReturnType(m_.getOriginalReturnType());
+        res_.setFileName(m_.getFileName());
+        setIds(m_, res_);
+        res_.setAncestor(m_.getAncestor());
+        res_.setAbstractMethod(m_.isAbstractMethod());
+        return res_;
+    }
+
+    protected static CustList<CustList<MethodInfo>> filterInferredMethods(CustList<CustList<MethodInfo>> _methods, String _name, AnalyzedPageEl _page, String _stCall, StringList _argsClass, String _retType) {
         CustList<CustList<MethodInfo>> infs_;
         if (_argsClass != null &&!_stCall.isEmpty()) {
             infs_ = new CustList<CustList<MethodInfo>>();
@@ -2854,7 +2880,7 @@ public abstract class OperationNode {
                     if (result_.isEmpty()) {
                         continue;
                     }
-                    e.reformat(result_,_page);
+                    e.reformat(result_, _page);
                     m_.add(e);
                 }
                 infs_.add(m_);
@@ -2889,7 +2915,7 @@ public abstract class OperationNode {
                     if (!matchRefInf(_retType,id_.isRetRef())) {
                         continue;
                     }
-                    if (!subsType(e.getReturnType(),_retType,id_.isRetRef(),_page)) {
+                    if (!subsType(e.getReturnType(), _retType,id_.isRetRef(), _page)) {
                         continue;
                     }
                     m_.add(e);
@@ -2897,30 +2923,9 @@ public abstract class OperationNode {
                 next_.add(m_);
             }
         }
-
-        StringMap<StringList> map_;
-        map_ = _page.getCurrentConstraints().getCurrentConstraints();
-        ArgumentsGroup gr_ = new ArgumentsGroup(_page, map_);
-        Parametrable found_ = sortFct(next_, gr_);
-        if (!(found_ instanceof MethodInfo)) {
-            return new ClassMethodIdReturn(false);
-        }
-        MethodInfo m_ = (MethodInfo) found_;
-        MethodId constraints_ = m_.getConstraints();
-        String baseClassName_ = m_.getClassName();
-        ClassMethodIdReturn res_ = new ClassMethodIdReturn(true);
-        MethodId id_ = m_.getFormatted();
-        res_.setId(new ClassMethodId(baseClassName_, id_));
-        res_.setRealId(constraints_);
-        res_.setRealClass(baseClassName_);
-        res_.setReturnType(m_.getReturnType());
-        res_.setOriginalReturnType(m_.getOriginalReturnType());
-        res_.setFileName(m_.getFileName());
-        setIds(m_, res_);
-        res_.setAncestor(m_.getAncestor());
-        res_.setAbstractMethod(m_.isAbstractMethod());
-        return res_;
+        return next_;
     }
+
     private static boolean subsType(String _arg, String _param, boolean _ref,AnalyzedPageEl _page) {
         if (StringUtil.quickEq(_arg,"?")) {
             return true;

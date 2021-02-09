@@ -251,6 +251,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                         }
                         StringMap<StringList> mapCtr_ = _page.getCurrentConstraints().getCurrentConstraints();
                         CustList<ConstrustorIdVarArg> ctors_ = new CustList<ConstrustorIdVarArg>();
+                        CustList<ConstructorInfo> sgns_ = tryGetSignatures(id_, h_, _page, prev_, stCall_.getStCall());
 
                         for (String s: candidates_) {
                             StringList allTypes_ = StringExpUtil.getAllTypes(s);
@@ -267,7 +268,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                                     ctors_.add(out_);
                                     continue;
                                 }
-                                tryAddCtor(_page, prev_, id_, h_, ctors_, null,stCall_.getStCall(),"");
+                                tryFilterAddCtor(sgns_,_page, h_, ctors_, null,stCall_.getStCall(),"");
                                 continue;
                             }
                             StringList argsTypes_ = new StringList(allTypes_.mid(1,allTypes_.size()-2));
@@ -313,7 +314,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                                     continue;
                                 }
                             }
-                            tryAddCtor(_page, prev_, id_, h_, ctors_, argsTypes_,stCall_.getStCall(),ret_);
+                            tryFilterAddCtor(sgns_,_page, h_, ctors_, argsTypes_,stCall_.getStCall(),ret_);
                         }
                         ctors_ = AnaTemplates.reduceCtors(ctors_);
                         if (ctors_.size() == 1) {
@@ -325,7 +326,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                             lambdaMemberNumberContentId = ctorRes_.getMemberId();
                             ConstructorId fid_ = ctorRes_.getConstId();
                             StringList parts_ = new StringList();
-                            if (!h_.isStaticType()) {
+                            if (!h_.withoutInstance()) {
                                 //From analyze
                                 StringList innerParts_ = StringExpUtil.getAllPartInnerTypes(fid_.getName());
                                 parts_.add(StringUtil.join(innerParts_.left(innerParts_.size() - 2), ""));
@@ -404,16 +405,20 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                         polymorph_ = false;
                     }
                     CustList<ClassMethodIdReturn> resList_ = new CustList<ClassMethodIdReturn>();
+                    CustList<CustList<MethodInfo>> methodsInst_;
+                    methodsInst_ = getDeclaredCustMethodByType(MethodAccessKind.INSTANCE, bounds_, name_, false, _page, new ScopeFilter(null, false, true, false, _page.getGlobalClass()), new FormattedFilter());
+                    CustList<CustList<MethodInfo>> methodsSta_;
+                    methodsSta_ = getDeclaredCustMethodByType(MethodAccessKind.STATIC_CALL, bounds_, name_, false, _page, new ScopeFilter(null, false, true, false, _page.getGlobalClass()), new FormattedFilter());
                     //use types of previous operation
                     for (String s: candidates_) {
                         StringList allTypes_ = StringExpUtil.getAllTypes(s);
                         if (allTypes_.size() == 1) {
-                            tryAddMeth(_page, name_, bounds_, resList_, null, "", MethodAccessKind.INSTANCE, stCall_.getStCall());
+                            tryAddMeth(methodsInst_,_page, name_, resList_, null, "", stCall_.getStCall());
                             continue;
                         }
                         StringList argsTypes_ = new StringList(allTypes_.mid(1,allTypes_.size()-2));
                         String ret_ = allTypes_.last();
-                        tryAddMeth(_page, name_, bounds_, resList_, argsTypes_, ret_, MethodAccessKind.STATIC_CALL, stCall_.getStCall());
+                        tryAddMeth(methodsSta_,_page, name_, resList_, argsTypes_, ret_, stCall_.getStCall());
                         if (!argsTypes_.isEmpty()&&!argsTypes_.first().startsWith("~")) {
                             Mapping mapp_ = new Mapping();
                             mapp_.setArg(argsTypes_.first());
@@ -421,7 +426,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                             mapp_.setMapping(_page.getCurrentConstraints().getCurrentConstraints());
                             if (AnaTemplates.isCorrectOrNumbers(mapp_,_page)) {
                                 argsTypes_.remove(0);
-                                tryAddMeth(_page, name_, bounds_, resList_, argsTypes_, ret_, MethodAccessKind.INSTANCE, stCall_.getStCall());
+                                tryAddMeth(methodsInst_,_page, name_, resList_, argsTypes_, ret_, stCall_.getStCall());
                             }
                         }
                     }
@@ -495,15 +500,17 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                         polymorph_ = false;
                     }
                     CustList<ClassMethodIdReturn> resList_ = new CustList<ClassMethodIdReturn>();
+                    CustList<CustList<MethodInfo>> methodsInst_;
+                    methodsInst_ = getDeclaredCustMethodByType(MethodAccessKind.INSTANCE, bounds_, name_, false, _page, new ScopeFilter(null, false, true, false, _page.getGlobalClass()), new FormattedFilter());
                     for (String s: candidates_) {
                         StringList allTypes_ = StringExpUtil.getAllTypes(s);
                         if (allTypes_.size() == 1) {
-                            tryAddMeth(_page, name_, bounds_, resList_, null, "", MethodAccessKind.INSTANCE, "");
+                            tryAddMeth(methodsInst_,_page,name_,resList_,null,"","");
                             continue;
                         }
                         StringList argsTypes_ = new StringList(allTypes_.mid(1,allTypes_.size()-2));
                         String ret_ = allTypes_.last();
-                        tryAddMeth(_page, name_, bounds_, resList_, argsTypes_, ret_, MethodAccessKind.INSTANCE, "");
+                        tryAddMeth(methodsInst_,_page,name_,resList_,argsTypes_,ret_,"");
                     }
                     resList_ = AnaTemplates.reduceMethods(resList_);
                     if (okList(resList_,!polymorph_)) {
@@ -575,17 +582,15 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         return real_;
     }
 
-    private static void tryAddMeth(AnalyzedPageEl _page, String _name, StringList _bounds, CustList<ClassMethodIdReturn> _resList, StringList _argsTypes, String _ret, MethodAccessKind _instance, String _stCall) {
-        ClassMethodIdReturn resultOther_ = tryGetDeclaredCustMethodLambdaInfer(_instance, _bounds,
-                _name, true, false, false, null,
-                _stCall, _argsTypes, _page, _ret);
+    private static void tryAddMeth(CustList<CustList<MethodInfo>> _methods, AnalyzedPageEl _page, String _name, CustList<ClassMethodIdReturn> _resList, StringList _argsTypes, String _ret, String _stCall) {
+        ClassMethodIdReturn resultOther_ = getCustResultLambdaInfer(_methods, _name, _page, _stCall, _argsTypes, _ret);
         if (resultOther_.isFoundMethod()) {
             _resList.add(resultOther_);
         }
     }
 
-    private static void tryAddCtor(AnalyzedPageEl _page, String _prev, String _id, AnaGeneType _h, CustList<ConstrustorIdVarArg> _ctors, StringList _argsTypes, String _stCall, String _retType) {
-        ConstructorInfo constructorInfo_ = tryGetSignaturesInfer(_id, _h, _page, _argsTypes, _prev,_stCall,_retType);
+    private static void tryFilterAddCtor(CustList<ConstructorInfo> _list, AnalyzedPageEl _page, AnaGeneType _h, CustList<ConstrustorIdVarArg> _ctors, StringList _argsTypes, String _stCall, String _retType) {
+        ConstructorInfo constructorInfo_ = tryGetFilterSignaturesInfer(_list, _h, _page, _argsTypes,_stCall,_retType);
         if (constructorInfo_ != null) {
             _ctors.add(buildCtorInfo(constructorInfo_));
         }
@@ -1565,7 +1570,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             lambdaMemberNumberContentId = ctorRes_.getMemberId();
             ConstructorId fid_ = ctorRes_.getConstId();
             StringList parts_ = new StringList();
-            if (!h_.isStaticType()) {
+            if (!h_.withoutInstance()) {
                 //From analyze
                 StringList innerParts_ = StringExpUtil.getAllPartInnerTypes(fid_.getName());
                 parts_.add(StringUtil.join(innerParts_.left(innerParts_.size() - 2), ""));
