@@ -10,7 +10,7 @@ public final class ExecEnumBlock extends ExecRootBlock implements ExecUniqueRoot
     }
 
     @Override
-    public boolean isStaticType() {
+    public boolean withoutInstance() {
         return true;
     }
 

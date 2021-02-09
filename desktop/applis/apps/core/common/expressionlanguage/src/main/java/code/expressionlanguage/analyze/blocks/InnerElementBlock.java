@@ -212,12 +212,6 @@ public final class InnerElementBlock extends RootBlock implements InnerTypeOrEle
         return fieldList;
     }
 
-    @Override
-    public boolean isStaticType() {
-        return false;
-    }
-
-
     public int getFieldNameOffest() {
         return elementContent.getFieldNameOffest();
     }

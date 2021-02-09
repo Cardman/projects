@@ -19,7 +19,7 @@ public final class ClassBlock extends RootBlock implements UniqueRootedBlock {
     }
 
     @Override
-    public boolean isStaticType() {
+    public boolean withoutInstance() {
         return classContent.isStaticType();
     }
     @Override

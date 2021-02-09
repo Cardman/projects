@@ -2418,7 +2418,7 @@ public abstract class OperationNode {
                 continue;
             }
             RootBlock r_ = (RootBlock) root_;
-            boolean add_ = !r_.isStaticType();
+            boolean add_ = !r_.withoutInstance();
             int anc_ = 1;
             MethodAccessKind scope_ = _staticContext;
             for (RootBlock p: r_.getAllParentTypes()) {
@@ -2433,7 +2433,7 @@ public abstract class OperationNode {
                     String formatted_ = m.getFormatted();
                     addToList(typeInfosInt_,scope_,root_,f_,rootBlock_,formatted_,anc_,false, _page);
                 }
-                if (p.isStaticType()) {
+                if (p.withoutInstance()) {
                     add_ = false;
                 }
                 anc_++;

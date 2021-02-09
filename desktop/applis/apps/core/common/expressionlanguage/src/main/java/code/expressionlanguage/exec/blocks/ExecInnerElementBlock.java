@@ -75,11 +75,6 @@ public final class ExecInnerElementBlock extends ExecRootBlock implements ExecIn
     }
 
     @Override
-    public boolean isStaticType() {
-        return false;
-    }
-
-    @Override
     public boolean withoutInstance() {
         return true;
     }

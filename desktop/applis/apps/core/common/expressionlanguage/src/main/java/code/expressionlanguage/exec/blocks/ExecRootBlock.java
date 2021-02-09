@@ -82,11 +82,6 @@ public abstract class ExecRootBlock extends ExecBracedBlock implements GeneType,
         return rootBlockContent.getWildCardString();
     }
 
-    @Override
-    public boolean withoutInstance() {
-        return isStaticType();
-    }
-
     public final CustList<ExecFormattedRootBlock> getAllGenericSuperTypes() {
         return allGenericSuperTypes;
     }

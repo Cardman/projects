@@ -10,7 +10,7 @@ public final class ExecAnnotationBlock extends ExecRootBlock implements ExecInte
     }
 
     @Override
-    public boolean isStaticType() {
+    public boolean withoutInstance() {
         return true;
     }
 

@@ -41,7 +41,7 @@ public final class ReflectConstructorPageEl extends AbstractReflectConstructorPa
         String className_ = metaInfo.getDeclaringClass();
         String id_ = StringExpUtil.getIdFromAllTypes(className_);
         GeneType type_ = _context.getClassBody(id_);
-        boolean static_ = type_.isStaticType();
+        boolean static_ = type_.withoutInstance();
         String res_ = getResolved();
         setWrapException(false);
         if (!calledMethod) {

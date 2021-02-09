@@ -576,7 +576,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
             call_.getWrappers().addAllElts(_values.getWrappers());
             if (!l_.isShiftInstance()) {
                 ExecRootBlock type_ = meta_.getPair().getType();
-                if (type_ != null && !type_.isStaticType()) {
+                if (type_ != null && !type_.withoutInstance()) {
                     instance_ = ExecTemplates.getFirstArgument(values_);
                     values_ = values_.mid(1);
                 }

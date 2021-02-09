@@ -12,7 +12,7 @@ public final class ExecRecordBlock extends ExecRootBlock {
     }
 
     @Override
-    public boolean isStaticType() {
+    public boolean withoutInstance() {
         return true;
     }
 

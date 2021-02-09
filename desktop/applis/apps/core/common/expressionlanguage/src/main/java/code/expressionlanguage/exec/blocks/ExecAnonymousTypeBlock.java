@@ -9,7 +9,7 @@ public final class ExecAnonymousTypeBlock extends ExecRootBlock implements ExecU
     }
 
     @Override
-    public boolean isStaticType() {
+    public boolean withoutInstance() {
         return true;
     }
 }

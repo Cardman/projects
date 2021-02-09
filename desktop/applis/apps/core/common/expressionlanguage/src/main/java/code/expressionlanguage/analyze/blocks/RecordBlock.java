@@ -16,7 +16,7 @@ public final class RecordBlock extends RootBlock {
     }
 
     @Override
-    public boolean isStaticType() {
+    public boolean withoutInstance() {
         return true;
     }
     @Override

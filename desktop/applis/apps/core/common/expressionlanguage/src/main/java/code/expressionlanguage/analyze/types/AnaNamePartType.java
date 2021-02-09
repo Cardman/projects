@@ -197,7 +197,7 @@ final class AnaNamePartType extends AnaLeafPartType {
                 resType_ = e.getValue().getSimpleName();
             }
             if (inner_ != null) {
-                if (inner_.isStaticType()) {
+                if (inner_.withoutInstance()) {
                     setAnalyzedType(StringUtil.concat(id_,"..",resType_));
                     owner = a;
                     return true;

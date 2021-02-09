@@ -15,7 +15,7 @@ import code.util.CustList;
 public final class InterfaceFctConstructor extends AbstractInvokingConstructor {
     private String className = EMPTY_STRING;
 
-    private CustList<PartOffset> partOffsets = new CustList<PartOffset>();
+    private final CustList<PartOffset> partOffsets = new CustList<PartOffset>();
     public InterfaceFctConstructor(int _index, int _indexChild, MethodOperation _m, OperationsSequence _op) {
         super(_index, _indexChild, _m, _op);
     }
@@ -60,7 +60,7 @@ public final class InterfaceFctConstructor extends AbstractInvokingConstructor {
         }
         String idCl_ = StringExpUtil.getIdFromAllTypes(className_);
         RootBlock sub_ = _page.getAnaClassBody(idCl_);
-        if (!(sub_ instanceof InterfaceBlock)|| !sub_.isStaticType()) {
+        if (!(sub_ instanceof InterfaceBlock)|| !sub_.withoutInstance()) {
             FoundErrorInterpret call_ = new FoundErrorInterpret();
             call_.setFileName(_page.getLocalizer().getCurrentFileName());
             call_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());

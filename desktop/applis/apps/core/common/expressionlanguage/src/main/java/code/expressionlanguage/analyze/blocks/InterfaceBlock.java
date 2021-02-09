@@ -16,7 +16,7 @@ public final class InterfaceBlock extends RootBlock {
     }
 
     @Override
-    public boolean isStaticType() {
+    public boolean withoutInstance() {
         return staticType;
     }
     @Override

@@ -28,7 +28,7 @@ public final class DefaultTokenValidation implements AbstractTokenValidation {
             return ((InfoBlock)bl_).isStaticField();
         }
         if (bl_ instanceof RootBlock) {
-            return ((RootBlock)bl_).isStaticType();
+            return ((RootBlock)bl_).withoutInstance();
         }
         MemberCallingsBlock fct_ = page.getCurrentFct();
         return fct_.getStaticContext() == MethodAccessKind.STATIC;

@@ -7,7 +7,6 @@ public interface GeneType extends InheritedType {
 
 
 
-    boolean isStaticType();
     boolean withoutInstance();
 
     Ints getTypeVarCounts();

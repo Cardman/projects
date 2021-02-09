@@ -22,7 +22,7 @@ public final class ExecClassBlock extends ExecRootBlock implements ExecUniqueRoo
     }
 
     @Override
-    public boolean isStaticType() {
+    public boolean withoutInstance() {
         return classContent.isStaticType();
     }
 

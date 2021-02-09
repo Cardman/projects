@@ -221,7 +221,7 @@ public final class MetaInfoUtil {
             format_ = "";
         }
         AccessEnum acc_ = _type.getAccess();
-        boolean st_ = _type.isStaticType();
+        boolean st_ = _type.withoutInstance();
         if (_type instanceof ExecInterfaceBlock) {
             ClassMetaInfo cl_ = new ClassMetaInfo(_name, _type.getImportedDirectGenericSuperInterfaces(), format_, inners_,
                     infosFields_, infosExplicits_,infosImplicits_,infosTrues_,infosFalses_,infos_, infosConst_, ClassCategory.INTERFACE, st_, acc_);
@@ -419,7 +419,7 @@ public final class MetaInfoUtil {
             met_.setStandardType(_type);
             infosConst_.add(met_);
         }
-        boolean st_ = _type.isStaticType();
+        boolean st_ = _type.withoutInstance();
         if (_type instanceof StandardInterface) {
             return new ClassMetaInfo(_name, ((StandardInterface)_type).getDirectInterfaces(), "",inners_,infosFields_,infosExplicits_,infosImplicits_,infosTrues_,infosFalses_,infos_, infosConst_, ClassCategory.INTERFACE,st_,AccessEnum.PUBLIC);
         }

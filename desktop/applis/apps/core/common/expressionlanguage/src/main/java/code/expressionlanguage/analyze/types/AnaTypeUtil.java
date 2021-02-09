@@ -491,7 +491,7 @@ public final class AnaTypeUtil {
     private static void added(String _innerName, boolean _staticOnly, StringList _owners, String _s, RootBlock _sub) {
         for (RootBlock b: ClassesUtil.accessedClassMembers(_sub)) {
             if (_staticOnly) {
-                if (!b.isStaticType()) {
+                if (!b.withoutInstance()) {
                     continue;
                 }
             }

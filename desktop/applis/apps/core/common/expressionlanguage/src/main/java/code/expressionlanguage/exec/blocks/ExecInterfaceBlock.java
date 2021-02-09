@@ -13,7 +13,7 @@ public final class ExecInterfaceBlock extends ExecRootBlock implements GeneInter
     }
 
     @Override
-    public boolean isStaticType() {
+    public boolean withoutInstance() {
         return staticType;
     }
 

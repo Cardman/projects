@@ -15,7 +15,7 @@ public final class EnumBlock extends RootBlock implements UniqueRootedBlock {
     }
 
     @Override
-    public boolean isStaticType() {
+    public boolean withoutInstance() {
         return true;
     }
     @Override

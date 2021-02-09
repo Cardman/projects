@@ -347,9 +347,6 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
         }
         return pars_.getReverse();
     }
-    public boolean withoutInstance() {
-        return isStaticType();
-    }
     public final void buildMapParamType(AnalyzedPageEl _page) {
         rootBlockContent.setParamTypesMap(new StringMap<TypeVar>());
         _page.getMappingLocal().clear();
@@ -584,7 +581,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                 }
             }
         }
-        if (!isStaticType()) {
+        if (!withoutInstance()) {
             for (Block b: bl_) {
                 if (b instanceof InfoBlock) {
                     continue;

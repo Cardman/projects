@@ -10,7 +10,6 @@ public interface AnaGeneType extends AnaInheritedType {
     StringList getParamTypesValues();
     CustList<StringList> getBoundAll();
     StringList getAllGenericSuperTypes();
-    boolean isStaticType();
     String getPackageName();
     boolean withoutInstance();
 

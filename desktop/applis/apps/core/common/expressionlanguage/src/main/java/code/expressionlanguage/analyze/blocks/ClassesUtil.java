@@ -2621,7 +2621,7 @@ public final class ClassesUtil {
 
     private static void checkConstField(StringList _err, RootBlock _cl, String _clName, String _field, AnalyzedPageEl _page) {
         if (NumParsers.getStaticFieldMap(_clName, _page.getStaticFields()).getVal(_field) == null) {
-            if (!_cl.isStaticType()) {
+            if (!_cl.withoutInstance()) {
                 //ERROR
                 FoundErrorInterpret un_ = new FoundErrorInterpret();
                 un_.setFileName(_cl.getFile().getFileName());

@@ -62,7 +62,7 @@ public final class ForwardInfos {
                 v_.setRootBlock(e_);
             }
             if (r instanceof InterfaceBlock) {
-                ExecInterfaceBlock e_ = new ExecInterfaceBlock(r.getOffset().getOffsetTrim(), new ExecRootBlockContent(r.getRootBlockContent()), r.getAccess(), r.isStaticType());
+                ExecInterfaceBlock e_ = new ExecInterfaceBlock(r.getOffset().getOffsetTrim(), new ExecRootBlockContent(r.getRootBlockContent()), r.getAccess(), r.withoutInstance());
                 e_.setFile(exFile_);
                 v_.setRootBlock(e_);
             }

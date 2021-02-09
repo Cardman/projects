@@ -49,7 +49,7 @@ public final class ExecCastOperation extends ExecAbstractUnaryOperation {
             if (str_ instanceof LambdaStruct) {
                 String id_ = StringExpUtil.getIdFromAllTypes(_className);
                 ExecRootBlock r_ = _conf.getClasses().getClassBody(id_);
-                if (r_ instanceof ExecInterfaceBlock && r_.isStaticType()) {
+                if (r_ instanceof ExecInterfaceBlock && r_.withoutInstance()) {
                     CustList<ExecFunctionalInfo> functional_ = r_.getFunctionalBodies();
                     if ((!r_.isWithInstanceElements() || _full)&& functional_.size() == 1) {
                         ExecFunctionalInfo clRealId_ = functional_.first();

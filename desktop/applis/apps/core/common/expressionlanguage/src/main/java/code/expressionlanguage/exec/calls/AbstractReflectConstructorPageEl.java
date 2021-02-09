@@ -23,7 +23,7 @@ public abstract class AbstractReflectConstructorPageEl extends AbstractReflectPa
             _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_context, className_, null_, _stackCall)));
             return false;
         }
-        boolean static_ = type_.isStaticType();
+        boolean static_ = type_.withoutInstance();
         String res_ = ExecTemplates.correctClassPartsDynamicWildCard(className_,_context);
         if (res_.isEmpty()) {
             String null_;

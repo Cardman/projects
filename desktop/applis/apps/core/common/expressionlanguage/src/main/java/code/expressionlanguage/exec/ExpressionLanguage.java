@@ -1,6 +1,7 @@
 package code.expressionlanguage.exec;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.exec.blocks.ExecInnerElementBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
@@ -57,7 +58,7 @@ public final class ExpressionLanguage {
             if (parent_ instanceof ExecAbstractInstancingOperation && ((ExecAbstractInstancingOperation) parent_).isInitBefore() && o.getIndexChild() == 0) {
                 ExecRootBlock type_ = ((ExecAbstractInstancingOperation) parent_).getPair().getType();
                 String fullName_ = type_.getFullName();
-                if (type_.isStaticType()&&_context.getExiting().hasToExit(_stackCall, fullName_)) {
+                if (!(type_ instanceof ExecInnerElementBlock)&&type_.withoutInstance()&&_context.getExiting().hasToExit(_stackCall, fullName_)) {
                     processCalling(_el, pageEl_, o, _stackCall);
                     return;
                 }
