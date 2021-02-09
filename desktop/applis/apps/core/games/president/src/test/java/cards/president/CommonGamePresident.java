@@ -32,9 +32,7 @@ public abstract class CommonGamePresident extends EquallablePresidentUtil {
         g_.setTricks(_trs);
         g_.loadGame();
         CheckerGamePresidentWithRules.check(g_);
-        if (!g_.getError().isEmpty()) {
-            fail(g_.getError());
-        }
+        assertTrue(g_.getError().isEmpty());
         return g_;
     }
 }

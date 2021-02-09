@@ -12,7 +12,6 @@ import cards.tarot.enumerations.DealingTarot;
 import code.util.EnumMap;
 
 public class GameTarotPlayingFourTest extends CommonTarotGame {
-    private GameTarot game;
 
     static DealTarot initializeHands(byte _dealer) {
         CustList<HandTarot> hands_ = new CustList<HandTarot>();
@@ -126,52 +125,52 @@ public class GameTarotPlayingFourTest extends CommonTarotGame {
     @Test
     public void playableCards_beginningTrickWithConstraint1Test() {
         RulesTarot regles_=initializeRulesWithBids();
-        game = new GameTarot(GameType.RANDOM,initializeHands((byte) 2),regles_);
+        GameTarot game_ = new GameTarot(GameType.RANDOM, initializeHands((byte) 2), regles_);
         //game.resetNbPlisTotal();
-        bidding(BidTarot.GUARD_AGAINST, (byte) 4, game);
+        bidding(BidTarot.GUARD_AGAINST, (byte) 4, game_);
         HandTarot cartesAppeler_ = new HandTarot();
         cartesAppeler_.ajouter(CardTarot.SPADE_KING);
-        game.setCarteAppelee(cartesAppeler_);
-        game.initConfianceAppele();
-        game.gererChienInconnu();
+        game_.setCarteAppelee(cartesAppeler_);
+        game_.initConfianceAppele();
+        game_.gererChienInconnu();
 
-        game.setEntameur(game.playerAfter(game.getDistribution().getDealer()));
-        game.setPliEnCours(true);
-        assertEq(3,game.getEntameur());
-        HandTarot hand_ = game.getDistribution().hand(game.getEntameur());
-        HandTarot playableCards_ = game.playableCards(hand_.couleurs());
+        game_.setEntameur(game_.playerAfter(game_.getDistribution().getDealer()));
+        game_.setPliEnCours(true);
+        assertEq(3,game_.getEntameur());
+        HandTarot hand_ = game_.getDistribution().hand(game_.getEntameur());
+        HandTarot playableCards_ = game_.playableCards(hand_.couleurs());
         assertEq(hand_.total(),playableCards_.total());
         assertTrue(playableCards_.contientCartes(hand_));
-        assertEq(Suit.UNDEFINED,game.getPliEnCours().couleurDemandee());
+        assertEq(Suit.UNDEFINED,game_.getPliEnCours().couleurDemandee());
     }
 
     @Test
     public void playableCards_beginningFreeSecondTrickWithoutCall2Test() {
         RulesTarot regles_=initializeRulesWithBids();
-        game = new GameTarot(GameType.RANDOM,initializeHands((byte) 2),regles_);
+        GameTarot game_ = new GameTarot(GameType.RANDOM, initializeHands((byte) 2), regles_);
         //game.resetNbPlisTotal();
-        bidding(BidTarot.GUARD_AGAINST, (byte) 4, game);
+        bidding(BidTarot.GUARD_AGAINST, (byte) 4, game_);
         HandTarot cartesAppeler_ = new HandTarot();
         cartesAppeler_.ajouter(CardTarot.SPADE_KING);
-        game.setCarteAppelee(cartesAppeler_);
-        game.initConfianceAppele();
-        game.gererChienInconnu();
-        game.setEntameur(game.playerAfter(game.getDistribution().getDealer()));
-        game.setPliEnCours(true);
-        game.ajouterUneCarteDansPliEnCours((byte) 3, CardTarot.SPADE_2);
-        game.ajouterUneCarteDansPliEnCours((byte) 4, CardTarot.TRUMP_2);
-        game.ajouterUneCarteDansPliEnCours((byte) 5, CardTarot.TRUMP_5);
-        game.ajouterUneCarteDansPliEnCours((byte) 0, CardTarot.DIAMOND_1);
-        game.ajouterUneCarteDansPliEnCours((byte) 1, CardTarot.SPADE_3);
-        game.ajouterUneCarteDansPliEnCours((byte) 2, CardTarot.SPADE_KING);
-        game.ajouterPetitAuBoutPliEnCours();
-        game.setPliEnCours(true);
-        assertEq(5,game.getEntameur());
-        HandTarot hand_ = game.getDistribution().hand(game.getEntameur());
-        HandTarot playableCards_ = game.playableCards(hand_.couleurs());
+        game_.setCarteAppelee(cartesAppeler_);
+        game_.initConfianceAppele();
+        game_.gererChienInconnu();
+        game_.setEntameur(game_.playerAfter(game_.getDistribution().getDealer()));
+        game_.setPliEnCours(true);
+        game_.ajouterUneCarteDansPliEnCours((byte) 3, CardTarot.SPADE_2);
+        game_.ajouterUneCarteDansPliEnCours((byte) 4, CardTarot.TRUMP_2);
+        game_.ajouterUneCarteDansPliEnCours((byte) 5, CardTarot.TRUMP_5);
+        game_.ajouterUneCarteDansPliEnCours((byte) 0, CardTarot.DIAMOND_1);
+        game_.ajouterUneCarteDansPliEnCours((byte) 1, CardTarot.SPADE_3);
+        game_.ajouterUneCarteDansPliEnCours((byte) 2, CardTarot.SPADE_KING);
+        game_.ajouterPetitAuBoutPliEnCours();
+        game_.setPliEnCours(true);
+        assertEq(5,game_.getEntameur());
+        HandTarot hand_ = game_.getDistribution().hand(game_.getEntameur());
+        HandTarot playableCards_ = game_.playableCards(hand_.couleurs());
 
         assertEq(hand_.total(),playableCards_.total());
         assertTrue(playableCards_.contientCartes(hand_));
-        assertEq(Suit.UNDEFINED,game.getPliEnCours().couleurDemandee());
+        assertEq(Suit.UNDEFINED,game_.getPliEnCours().couleurDemandee());
     }
 }

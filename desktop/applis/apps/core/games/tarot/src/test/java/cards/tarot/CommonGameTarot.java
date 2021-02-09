@@ -192,12 +192,8 @@ public abstract class CommonGameTarot extends EquallableTarotUtil {
             _g.getAppele().add(_g.getPliEnCours().getNextPlayer((byte) nbPl_));
             _g.getAppele().removeDuplicates();
         }
-        if (_g.getAppele().size() > 1) {
-            fail("too much");
-        }
-        if (_g.getAppele().size() > _g.getRegles().getDealing().getNbAppeles()) {
-            fail("too much");
-        }
+        assertTrue("too much",_g.getAppele().size() <= 1);
+        assertTrue("too much",_g.getAppele().size() <= _g.getRegles().getDealing().getNbAppeles());
         if (!hPl_.contientCartes(_calledCards)) {
             for (int i =0;i<nbPl_;i++) {
                 if (!_g.getAppele().containsObj(i)) {
@@ -209,14 +205,10 @@ public abstract class CommonGameTarot extends EquallableTarotUtil {
         }
         HandTarot hPlCh_ = new HandTarot();
         for (CardTarot c: hPl_) {
-            if (hPlCh_.contient(c)) {
-                fail(StringUtil.concat("found ",c.name()));
-            }
+            assertTrue(StringUtil.concat("found ",c.name()),!hPlCh_.contient(c));
             hPlCh_.ajouter(c);
         }
-        if (handLengths_.get(_g.getPliEnCours().getNextPlayer((byte) nbPl_)) != _currentHand.total()) {
-            fail(StringUtil.concat("Error len",Long.toString(handLengths_.get(_g.getPliEnCours().getNextPlayer((byte) nbPl_))),",",Long.toString(_currentHand.total())));
-        }
+        assertTrue(StringUtil.concat("Error len",Long.toString(handLengths_.get(_g.getPliEnCours().getNextPlayer((byte) nbPl_))),",",Long.toString(_currentHand.total())),handLengths_.get(_g.getPliEnCours().getNextPlayer((byte) nbPl_)) == _currentHand.total());
         EnumMap<Hypothesis,EnumMap<Suit,CustList<HandTarot>>> hypotheses_ = info_.cartesCertaines(cartesPossibles_);
         cartesPossibles_ = hypotheses_.getVal(Hypothesis.POSSIBLE);
         EnumMap<Suit,CustList<HandTarot>> cartesCertaines_ = hypotheses_
@@ -237,16 +229,7 @@ public abstract class CommonGameTarot extends EquallableTarotUtil {
             }
             all_.supprimerCartes(curFound_);
             int req_ = handLengths_.get(det_) - curFound_.total();
-            if (req_ >= all_.total()) {
-                for (int i = 0; i < nbPl_; i++) {
-                    HandTarot h_ = new HandTarot();
-                    for (EntryCust<Suit,CustList<HandTarot>> h: cartesCertaines_.entryList()) {
-                        h_.ajouterCartes(h.getValue().get(i));
-                    }
-                    hands_.add(h_);
-                }
-                fail("No enough");
-            }
+            assertTrue("No enough",req_ < all_.total());
             for (int i = req_; i < all_.total(); i++) {
                 del_.ajouter(all_.carte(i));
             }
@@ -268,9 +251,7 @@ public abstract class CommonGameTarot extends EquallableTarotUtil {
         hands_.add(_g.derniereMain());
         _g.getDeal().setDeal(hands_);
         CheckerGameTarotWithRules.check(_g);
-        if (!_g.getError().isEmpty()) {
-            fail("Error");
-        }
+        assertTrue("Error",_g.getError().isEmpty());
     }
     protected TrickTarot newFirstTrick(CustList<BidTarot> _bids, RulesTarot _rules, byte _deal) {
         return new TrickTarot((byte) getTaker(_rules,_deal,_bids),false);

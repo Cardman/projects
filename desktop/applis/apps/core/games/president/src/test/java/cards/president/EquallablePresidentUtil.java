@@ -13,9 +13,7 @@ public abstract class EquallablePresidentUtil {
     public static void assertNull(Object _value) {
         Assert.assertNull(_value);
     }
-    public static void fail(String _value) {
-        Assert.fail(_value);
-    }
+
     public static void assertTrue(boolean _value) {
         Assert.assertTrue(_value);
     }

@@ -152,14 +152,10 @@ public abstract class CommonGameBelote extends EquallableBeloteUtil {
         hPl_.ajouterCartes(_currentHand);
         HandBelote hPlCh_ = new HandBelote();
         for (CardBelote c: hPl_) {
-            if (hPlCh_.contient(c)) {
-                fail(StringUtil.concat("found ",c.name()));
-            }
+            assertTrue(StringUtil.concat("found ",c.name()),!hPlCh_.contient(c));
             hPlCh_.ajouter(c);
         }
-        if (handLengths_.get(_g.getPliEnCours().getNextPlayer((byte) nbPl_)) != _currentHand.total()) {
-            fail(StringUtil.concat("Error len",Long.toString(handLengths_.get(_g.getPliEnCours().getNextPlayer((byte) nbPl_))),",",Long.toString(_currentHand.total())));
-        }
+        assertTrue(StringUtil.concat("Error len",Long.toString(handLengths_.get(_g.getPliEnCours().getNextPlayer((byte) nbPl_))),",",Long.toString(_currentHand.total())),handLengths_.get(_g.getPliEnCours().getNextPlayer((byte) nbPl_)) == _currentHand.total());
         EnumMap<Hypothesis,EnumMap<Suit,CustList<HandBelote>>> hypotheses_ = info_.cartesCertaines(cartesPossibles_);
         cartesPossibles_ = hypotheses_.getVal(Hypothesis.POSSIBLE);
         EnumMap<Suit,CustList<HandBelote>> cartesCertaines_ = hypotheses_
@@ -180,16 +176,7 @@ public abstract class CommonGameBelote extends EquallableBeloteUtil {
             }
             all_.supprimerCartes(curFound_);
             int req_ = handLengths_.get(det_) - curFound_.total();
-            if (req_ >= all_.total()) {
-                for (int i = 0; i < nbPl_; i++) {
-                    HandBelote h_ = new HandBelote();
-                    for (EntryCust<Suit,CustList<HandBelote>> h: cartesCertaines_.entryList()) {
-                        h_.ajouterCartes(h.getValue().get(i));
-                    }
-                    hands_.add(h_);
-                }
-                fail("No enough");
-            }
+            assertTrue("No enough",req_ < all_.total());
             for (int i = req_; i < all_.total(); i++) {
                 del_.ajouter(all_.carte(i));
             }
@@ -258,9 +245,7 @@ public abstract class CommonGameBelote extends EquallableBeloteUtil {
         }
         _g.getDeal().setDeal(hands_);
         CheckerGameBeloteWithRules.check(_g);
-        if (!_g.getError().isEmpty()) {
-            fail("Error");
-        }
+        assertTrue("Error",_g.getError().isEmpty());
     }
     protected static int getTaker(RulesBelote _g, int _dealer, CustList<BidBeloteSuit> _bids) {
         byte player_ = _g.getRepartition().getNextPlayer(_dealer);

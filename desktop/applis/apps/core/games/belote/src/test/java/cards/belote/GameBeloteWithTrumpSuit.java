@@ -5,9 +5,7 @@ import cards.consts.Suit;
 public class GameBeloteWithTrumpSuit extends EquallableBeloteUtil {
 
     void biddingTrumpSuit(GameBelote _game,BidBelote _bid,Suit _suit) {
-        if (!_bid.getCouleurDominante()) {
-            fail("Bad bid arg");
-        }
+        assertTrue("Bad bid arg",_bid.getCouleurDominante());
         byte playerAfterDealer_ = _game.playerAfter(_game.getDistribution().getDealer());
         if (_bid == BidBelote.OTHER_SUIT) {
             for (byte p: _game.orderedPlayers(playerAfterDealer_)) {

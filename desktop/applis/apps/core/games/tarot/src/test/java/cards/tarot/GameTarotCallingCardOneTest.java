@@ -11,7 +11,6 @@ import cards.tarot.enumerations.DealingTarot;
 import code.util.EnumMap;
 
 public class GameTarotCallingCardOneTest extends CommonTarotGame {
-    private GameTarot game;
 
     static DealTarot initializeHands() {
         CustList<HandTarot> hands_ = new CustList<HandTarot>();
@@ -121,19 +120,19 @@ public class GameTarotCallingCardOneTest extends CommonTarotGame {
     @Test
     public void callableCards_WithLessThanFourKings1Test() {
         RulesTarot regles_=initializeRulesWithBids();
-        game = new GameTarot(GameType.RANDOM,initializeHands(),regles_);
+        GameTarot game_ = new GameTarot(GameType.RANDOM, initializeHands(), regles_);
         //game.resetNbPlisTotal();
-        byte player_ = game.playerAfter(game.getDistribution().getDealer());
-        game.ajouterContrat(BidTarot.FOLD,player_);
-        player_ = game.playerAfter(player_);
-        game.ajouterContrat(BidTarot.FOLD,player_);
-        player_ = game.playerAfter(player_);
-        game.ajouterContrat(BidTarot.FOLD,player_);
-        player_ = game.playerAfter(player_);
-        game.ajouterContrat(BidTarot.FOLD,player_);
-        player_ = game.playerAfter(player_);
-        game.ajouterContrat(BidTarot.GUARD,player_);
-        HandTarot callableCards_ = game.callableCards();
+        byte player_ = game_.playerAfter(game_.getDistribution().getDealer());
+        game_.ajouterContrat(BidTarot.FOLD,player_);
+        player_ = game_.playerAfter(player_);
+        game_.ajouterContrat(BidTarot.FOLD,player_);
+        player_ = game_.playerAfter(player_);
+        game_.ajouterContrat(BidTarot.FOLD,player_);
+        player_ = game_.playerAfter(player_);
+        game_.ajouterContrat(BidTarot.FOLD,player_);
+        player_ = game_.playerAfter(player_);
+        game_.ajouterContrat(BidTarot.GUARD,player_);
+        HandTarot callableCards_ = game_.callableCards();
         HandTarot expected_ = new HandTarot();
         expected_.ajouter(CardTarot.HEART_KING);
         expected_.ajouter(CardTarot.SPADE_KING);
@@ -146,19 +145,19 @@ public class GameTarotCallingCardOneTest extends CommonTarotGame {
     @Test
     public void strategieAppelTest() {
         RulesTarot regles_=initializeRulesWithBids();
-        game = new GameTarot(GameType.RANDOM,initializeHands(),regles_);
+        GameTarot game_ = new GameTarot(GameType.RANDOM, initializeHands(), regles_);
         //game.resetNbPlisTotal();
-        byte player_ = game.playerAfter(game.getDistribution().getDealer());
-        game.ajouterContrat(BidTarot.FOLD,player_);
-        player_ = game.playerAfter(player_);
-        game.ajouterContrat(BidTarot.FOLD,player_);
-        player_ = game.playerAfter(player_);
-        game.ajouterContrat(BidTarot.FOLD,player_);
-        player_ = game.playerAfter(player_);
-        game.ajouterContrat(BidTarot.FOLD,player_);
-        player_ = game.playerAfter(player_);
-        game.ajouterContrat(BidTarot.GUARD,player_);
-        HandTarot h_ = game.strategieAppel();
+        byte player_ = game_.playerAfter(game_.getDistribution().getDealer());
+        game_.ajouterContrat(BidTarot.FOLD,player_);
+        player_ = game_.playerAfter(player_);
+        game_.ajouterContrat(BidTarot.FOLD,player_);
+        player_ = game_.playerAfter(player_);
+        game_.ajouterContrat(BidTarot.FOLD,player_);
+        player_ = game_.playerAfter(player_);
+        game_.ajouterContrat(BidTarot.FOLD,player_);
+        player_ = game_.playerAfter(player_);
+        game_.ajouterContrat(BidTarot.GUARD,player_);
+        HandTarot h_ = game_.strategieAppel();
         assertEq(1, h_.total());
         assertSame(CardTarot.SPADE_KING,h_.premiereCarte());
     }

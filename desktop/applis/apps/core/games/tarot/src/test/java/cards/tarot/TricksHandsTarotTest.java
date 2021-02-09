@@ -794,9 +794,7 @@ public final class TricksHandsTarotTest extends CommonGameTarot {
         g_.setStarter(starter_);
         g_.setTrickWinner(trickWinner_);
         CheckerGameTarotWithRules.check(g_);
-        if (!g_.getError().isEmpty()) {
-            fail("Error");
-        }
+        assertTrue("Error",g_.getError().isEmpty());
         return g_;
     }
 }
