@@ -1,7 +1,6 @@
 package aiki.game;
 
 import aiki.db.DataBase;
-import org.junit.Before;
 import org.junit.Test;
 
 import aiki.game.fight.InitializationDataBase;
@@ -16,36 +15,34 @@ import aiki.util.Point;
 
 public class GameEndTest extends InitializationDataBase {
 
-    private DataBase data;
-    @Before
-    public void initTests() {
-        data = initDb();
-    }
     @Test
     public void endGame1Test() {
-        Game game_ = new Game(data);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data);
+        DataBase data_ = initDb();
+        Game game_ = new Game(data_);
+        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
         game_.getDifficulty().setRandomWildFight(true);
         game_.setPlayerCoords(newCoords(3, 0, 2, 1, 7, 4));
         game_.setPlayerOrientation(Direction.RIGHT);
-        assertTrue(!game_.endGame(data));
+        assertTrue(!game_.endGame(data_));
     }
 
     @Test
     public void endGame2Test() {
-        Game game_ = new Game(data);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data);
+        DataBase data_ = initDb();
+        Game game_ = new Game(data_);
+        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
         game_.getDifficulty().setRandomWildFight(true);
         game_.setPlayerCoords(newCoords(3, 0, 2, 1, 7, 4));
         game_.setPlayerOrientation(Direction.RIGHT);
-        game_.catchAll(data);
-        assertTrue(!game_.endGame(data));
+        game_.catchAll(data_);
+        assertTrue(!game_.endGame(data_));
     }
 
     @Test
     public void endGame3Test() {
-        Game game_ = new Game(data);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data);
+        DataBase data_ = initDb();
+        Game game_ = new Game(data_);
+        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
         game_.getDifficulty().setRandomWildFight(true);
         game_.setPlayerCoords(newCoords(3, 0, 2, 1, 7, 4));
         game_.setPlayerOrientation(Direction.RIGHT);
@@ -55,7 +52,7 @@ public class GameEndTest extends InitializationDataBase {
         game_.beatGymLeader(newCoords(3, 0, 4, 1, 4, 1));
         game_.beatGymLeader(newCoords(5, 0, 2, 0));
         game_.beatGymLeader(newCoords(6, 0, 4, 8));
-        assertTrue(!game_.endGame(data));
+        assertTrue(!game_.endGame(data_));
     }
 
 //    @Test
@@ -77,12 +74,13 @@ public class GameEndTest extends InitializationDataBase {
 
     @Test
     public void endGame4Test() {
-        Game game_ = new Game(data);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data);
+        DataBase data_ = initDb();
+        Game game_ = new Game(data_);
+        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
         game_.getDifficulty().setRandomWildFight(true);
         game_.setPlayerCoords(newCoords(3, 0, 2, 1, 7, 4));
         game_.setPlayerOrientation(Direction.RIGHT);
-        game_.catchAll(data);
+        game_.catchAll(data_);
         game_.beatGymLeader(newCoords(1, 0, 5, 1, 4, 1));
         game_.beatGymLeader(newCoords(2, 0, 2, 0));
         game_.beatGymLeader(newCoords(2, 0, 4, 0));
@@ -102,19 +100,20 @@ public class GameEndTest extends InitializationDataBase {
         game_.beatTrainer(new NbFightCoords(newCoords(5, 1, 5, 1), 0));
         game_.getPlayer().recupererOeufPensions(new Egg(PIKACHU));
         PokemonPlayer first_ = (PokemonPlayer) game_.getPlayer().getTeam().first();
-        first_.setLevel((short) data.getMaxLevel());
-        first_.setHappiness((short) data.getHappinessMax());
-        assertTrue(!game_.endGame(data));
+        first_.setLevel((short) data_.getMaxLevel());
+        first_.setHappiness((short) data_.getHappinessMax());
+        assertTrue(!game_.endGame(data_));
     }
 
     @Test
     public void endGame5Test() {
-        Game game_ = new Game(data);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data);
+        DataBase data_ = initDb();
+        Game game_ = new Game(data_);
+        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
         game_.getDifficulty().setRandomWildFight(true);
         game_.setPlayerCoords(newCoords(3, 0, 2, 1, 7, 4));
         game_.setPlayerOrientation(Direction.RIGHT);
-        game_.catchAll(data);
+        game_.catchAll(data_);
         game_.beatGymLeader(newCoords(1, 0, 5, 1, 4, 1));
         game_.beatGymLeader(newCoords(2, 0, 2, 0));
         game_.beatGymLeader(newCoords(2, 0, 4, 0));
@@ -134,19 +133,20 @@ public class GameEndTest extends InitializationDataBase {
         game_.beatTrainer(new NbFightCoords(newCoords(5, 1, 5, 1), 0));
         game_.getPlayer().getBox().add(new Egg(PIKACHU));
         PokemonPlayer first_ = (PokemonPlayer) game_.getPlayer().getTeam().first();
-        first_.setLevel((short) data.getMaxLevel());
-        first_.setHappiness((short) data.getHappinessMax());
-        assertTrue(!game_.endGame(data));
+        first_.setLevel((short) data_.getMaxLevel());
+        first_.setHappiness((short) data_.getHappinessMax());
+        assertTrue(!game_.endGame(data_));
     }
 
     @Test
     public void endGame6Test() {
-        Game game_ = new Game(data);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data);
+        DataBase data_ = initDb();
+        Game game_ = new Game(data_);
+        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
         game_.getDifficulty().setRandomWildFight(true);
         game_.setPlayerCoords(newCoords(3, 0, 2, 1, 7, 4));
         game_.setPlayerOrientation(Direction.RIGHT);
-        game_.catchAll(data);
+        game_.catchAll(data_);
         game_.beatGymLeader(newCoords(1, 0, 5, 1, 4, 1));
         game_.beatGymLeader(newCoords(2, 0, 2, 0));
         game_.beatGymLeader(newCoords(2, 0, 4, 0));
@@ -164,21 +164,22 @@ public class GameEndTest extends InitializationDataBase {
         game_.beatTrainer(new NbFightCoords(newCoords(2, 0, 11, 4), 0));
         game_.beatTrainer(new NbFightCoords(newCoords(5, 0, 1, 5), 0));
         game_.beatTrainer(new NbFightCoords(newCoords(5, 1, 5, 1), 0));
-        game_.getPlayer().getBox().add(new PokemonPlayer(data.getMap().getFirstPokemon(), data));
+        game_.getPlayer().getBox().add(new PokemonPlayer(data_.getMap().getFirstPokemon(), data_));
         PokemonPlayer first_ = (PokemonPlayer) game_.getPlayer().getTeam().first();
-        first_.setLevel((short) data.getMaxLevel());
-        first_.setHappiness((short) data.getHappinessMax());
-        assertTrue(!game_.endGame(data));
+        first_.setLevel((short) data_.getMaxLevel());
+        first_.setHappiness((short) data_.getHappinessMax());
+        assertTrue(!game_.endGame(data_));
     }
 
     @Test
     public void endGame7Test() {
-        Game game_ = new Game(data);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data);
+        DataBase data_ = initDb();
+        Game game_ = new Game(data_);
+        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
         game_.getDifficulty().setRandomWildFight(true);
         game_.setPlayerCoords(newCoords(3, 0, 2, 1, 7, 4));
         game_.setPlayerOrientation(Direction.RIGHT);
-        game_.catchAll(data);
+        game_.catchAll(data_);
         game_.beatGymLeader(newCoords(1, 0, 5, 1, 4, 1));
         game_.beatGymLeader(newCoords(2, 0, 2, 0));
         game_.beatGymLeader(newCoords(2, 0, 4, 0));
@@ -197,18 +198,19 @@ public class GameEndTest extends InitializationDataBase {
         game_.beatTrainer(new NbFightCoords(newCoords(5, 0, 1, 5), 0));
         game_.beatTrainer(new NbFightCoords(newCoords(5, 1, 5, 1), 0));
         PokemonPlayer first_ = (PokemonPlayer) game_.getPlayer().getTeam().first();
-        first_.setHappiness((short) data.getHappinessMax());
-        assertTrue(!game_.endGame(data));
+        first_.setHappiness((short) data_.getHappinessMax());
+        assertTrue(!game_.endGame(data_));
     }
 
     @Test
     public void endGame8Test() {
-        Game game_ = new Game(data);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data);
+        DataBase data_ = initDb();
+        Game game_ = new Game(data_);
+        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
         game_.getDifficulty().setRandomWildFight(true);
         game_.setPlayerCoords(newCoords(3, 0, 2, 1, 7, 4));
         game_.setPlayerOrientation(Direction.RIGHT);
-        game_.catchAll(data);
+        game_.catchAll(data_);
         game_.beatGymLeader(newCoords(1, 0, 5, 1, 4, 1));
         game_.beatGymLeader(newCoords(2, 0, 2, 0));
         game_.beatGymLeader(newCoords(2, 0, 4, 0));
@@ -227,18 +229,19 @@ public class GameEndTest extends InitializationDataBase {
         game_.beatTrainer(new NbFightCoords(newCoords(5, 0, 1, 5), 0));
         game_.beatTrainer(new NbFightCoords(newCoords(5, 1, 5, 1), 0));
         PokemonPlayer first_ = (PokemonPlayer) game_.getPlayer().getTeam().first();
-        first_.setLevel((short) data.getMaxLevel());
-        assertTrue(!game_.endGame(data));
+        first_.setLevel((short) data_.getMaxLevel());
+        assertTrue(!game_.endGame(data_));
     }
 
     @Test
     public void endGame9Test() {
-        Game game_ = new Game(data);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data);
+        DataBase data_ = initDb();
+        Game game_ = new Game(data_);
+        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
         game_.getDifficulty().setRandomWildFight(true);
         game_.setPlayerCoords(newCoords(3, 0, 2, 1, 7, 4));
         game_.setPlayerOrientation(Direction.RIGHT);
-        game_.catchAll(data);
+        game_.catchAll(data_);
         game_.beatGymLeader(newCoords(1, 0, 5, 1, 4, 1));
         game_.beatGymLeader(newCoords(2, 0, 2, 0));
         game_.beatGymLeader(newCoords(2, 0, 4, 0));
@@ -256,19 +259,20 @@ public class GameEndTest extends InitializationDataBase {
         game_.beatTrainer(new NbFightCoords(newCoords(2, 0, 11, 4), 0));
         game_.beatTrainer(new NbFightCoords(newCoords(5, 0, 1, 5), 0));
         PokemonPlayer first_ = (PokemonPlayer) game_.getPlayer().getTeam().first();
-        first_.setLevel((short) data.getMaxLevel());
-        first_.setHappiness((short) data.getHappinessMax());
-        assertTrue(!game_.endGame(data));
+        first_.setLevel((short) data_.getMaxLevel());
+        first_.setHappiness((short) data_.getHappinessMax());
+        assertTrue(!game_.endGame(data_));
     }
 
     @Test
     public void endGame10Test() {
-        Game game_ = new Game(data);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data);
+        DataBase data_ = initDb();
+        Game game_ = new Game(data_);
+        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
         game_.getDifficulty().setRandomWildFight(true);
         game_.setPlayerCoords(newCoords(3, 0, 2, 1, 7, 4));
         game_.setPlayerOrientation(Direction.RIGHT);
-        game_.catchAll(data);
+        game_.catchAll(data_);
         game_.beatGymLeader(newCoords(1, 0, 5, 1, 4, 1));
         game_.beatGymLeader(newCoords(2, 0, 2, 0));
         game_.beatGymLeader(newCoords(2, 0, 4, 0));
@@ -286,19 +290,20 @@ public class GameEndTest extends InitializationDataBase {
         game_.beatTrainer(new NbFightCoords(newCoords(5, 0, 1, 5), 0));
         game_.beatTrainer(new NbFightCoords(newCoords(5, 1, 5, 1), 0));
         PokemonPlayer first_ = (PokemonPlayer) game_.getPlayer().getTeam().first();
-        first_.setLevel((short) data.getMaxLevel());
-        first_.setHappiness((short) data.getHappinessMax());
-        assertTrue(!game_.endGame(data));
+        first_.setLevel((short) data_.getMaxLevel());
+        first_.setHappiness((short) data_.getHappinessMax());
+        assertTrue(!game_.endGame(data_));
     }
 
     @Test
     public void endGame11Test() {
-        Game game_ = new Game(data);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data);
+        DataBase data_ = initDb();
+        Game game_ = new Game(data_);
+        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
         game_.getDifficulty().setRandomWildFight(true);
         game_.setPlayerCoords(newCoords(3, 0, 2, 1, 7, 4));
         game_.setPlayerOrientation(Direction.RIGHT);
-        game_.catchAll(data);
+        game_.catchAll(data_);
         game_.beatGymLeader(newCoords(1, 0, 5, 1, 4, 1));
         game_.beatGymLeader(newCoords(2, 0, 2, 0));
         game_.beatGymLeader(newCoords(2, 0, 4, 0));
@@ -317,9 +322,9 @@ public class GameEndTest extends InitializationDataBase {
         game_.beatTrainer(new NbFightCoords(newCoords(5, 0, 1, 5), 0));
         game_.beatTrainer(new NbFightCoords(newCoords(5, 1, 5, 1), 0));
         PokemonPlayer first_ = (PokemonPlayer) game_.getPlayer().getTeam().first();
-        first_.setLevel((short) data.getMaxLevel());
-        first_.setHappiness((short) data.getHappinessMax());
-        assertTrue(game_.endGame(data));
+        first_.setLevel((short) data_.getMaxLevel());
+        first_.setHappiness((short) data_.getHappinessMax());
+        assertTrue(game_.endGame(data_));
     }
 
     private static Coords newCoords(int _place, int _level, int _x, int _y) {
