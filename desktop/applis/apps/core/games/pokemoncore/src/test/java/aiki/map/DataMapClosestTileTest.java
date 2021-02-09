@@ -1,7 +1,6 @@
 package aiki.map;
 
 import aiki.db.EquallablePkUtil;
-import org.junit.Before;
 import org.junit.Test;
 
 import aiki.map.buildings.Building;
@@ -25,7 +24,6 @@ import code.util.ObjectMap;
 public class DataMapClosestTileTest extends EquallablePkUtil {
 
     private static final String VOIE = "voie";
-    private DataMap dataMap;
 
     private static City city() {
         City c_ = new City();
@@ -73,8 +71,7 @@ public class DataMapClosestTileTest extends EquallablePkUtil {
         return road_;
     }
 
-    @Before
-    public void initDataMap() {
+    public static DataMap initDataMap() {
         City cityOne_ = city();
         Road roadOne_ = vroad();
         DataMap dataMap_ = new DataMap();
@@ -82,28 +79,30 @@ public class DataMapClosestTileTest extends EquallablePkUtil {
         dataMap_.getPlaces().add(cityOne_);
         dataMap_.getPlaces().add(roadOne_);
         dataMap_.join((short)0, (short)1, new Point((short)4,(short)0), new Point((short)1,(short)5), Direction.UP);
-        dataMap = dataMap_;
+        return dataMap_;
     }
 
     @Test
     public void closestTile1Test() {
+        DataMap dataMap_ = initDataMap();
         Coords begin_ = new Coords();
         begin_.setNumberPlace((short) 0);
         begin_.setLevel(new LevelPoint());
         begin_.getLevel().setLevelIndex((byte) 0);
         begin_.getLevel().setPoint(new Point((short)0,(short)0));
-        Coords dest_ = dataMap.closestTile(begin_, Direction.LEFT);
+        Coords dest_ = dataMap_.closestTile(begin_, Direction.LEFT);
         assertTrue(!dest_.isValid());
     }
 
     @Test
     public void closestTile2Test() {
+        DataMap dataMap_ = initDataMap();
         Coords begin_ = new Coords();
         begin_.setNumberPlace((short) 0);
         begin_.setLevel(new LevelPoint());
         begin_.getLevel().setLevelIndex((byte) 0);
         begin_.getLevel().setPoint(new Point((short)0,(short)0));
-        Coords dest_ = dataMap.closestTile(begin_, Direction.RIGHT);
+        Coords dest_ = dataMap_.closestTile(begin_, Direction.RIGHT);
         assertEq(0, dest_.getNumberPlace());
         assertEq(0, dest_.getLevel().getLevelIndex());
         assertEq(0, dest_.getLevel().getPoint().gety());
@@ -112,12 +111,13 @@ public class DataMapClosestTileTest extends EquallablePkUtil {
 
     @Test
     public void closestTile3Test() {
+        DataMap dataMap_ = initDataMap();
         Coords begin_ = new Coords();
         begin_.setNumberPlace((short) 0);
         begin_.setLevel(new LevelPoint());
         begin_.getLevel().setLevelIndex((byte) 0);
         begin_.getLevel().setPoint(new Point((short)2,(short)3));
-        Coords dest_ = dataMap.closestTile(begin_, Direction.RIGHT);
+        Coords dest_ = dataMap_.closestTile(begin_, Direction.RIGHT);
         assertEq(0, dest_.getNumberPlace());
         assertEq(0, dest_.getLevel().getLevelIndex());
         assertEq(3, dest_.getLevel().getPoint().gety());
@@ -126,12 +126,13 @@ public class DataMapClosestTileTest extends EquallablePkUtil {
 
     @Test
     public void closestTile4Test() {
+        DataMap dataMap_ = initDataMap();
         Coords begin_ = new Coords();
         begin_.setNumberPlace((short) 0);
         begin_.setLevel(new LevelPoint());
         begin_.getLevel().setLevelIndex((byte) 0);
         begin_.getLevel().setPoint(new Point((short)3,(short)0));
-        Coords dest_ = dataMap.closestTile(begin_, Direction.UP);
+        Coords dest_ = dataMap_.closestTile(begin_, Direction.UP);
         assertEq(1, dest_.getNumberPlace());
         assertEq(0, dest_.getLevel().getLevelIndex());
         assertEq(5, dest_.getLevel().getPoint().gety());
@@ -140,25 +141,27 @@ public class DataMapClosestTileTest extends EquallablePkUtil {
 
     @Test
     public void closestTile5Test() {
+        DataMap dataMap_ = initDataMap();
         Coords begin_ = new Coords();
         begin_.setNumberPlace((short) 0);
         begin_.setLevel(new LevelPoint());
         begin_.getLevel().setLevelIndex((byte) 0);
         begin_.setInsideBuilding(new Point((short)4,(short)5));
         begin_.getLevel().setPoint(new Point((short)3,(short)0));
-        Coords dest_ = dataMap.closestTile(begin_, Direction.UP);
+        Coords dest_ = dataMap_.closestTile(begin_, Direction.UP);
         assertTrue(!dest_.isValid());
     }
 
     @Test
     public void closestTile6Test() {
+        DataMap dataMap_ = initDataMap();
         Coords begin_ = new Coords();
         begin_.setNumberPlace((short) 0);
         begin_.setLevel(new LevelPoint());
         begin_.getLevel().setLevelIndex((byte) 0);
         begin_.setInsideBuilding(new Point((short)4,(short)5));
         begin_.getLevel().setPoint(new Point((short)3,(short)1));
-        Coords dest_ = dataMap.closestTile(begin_, Direction.UP);
+        Coords dest_ = dataMap_.closestTile(begin_, Direction.UP);
         assertEq(0, dest_.getNumberPlace());
         assertEq(0, dest_.getLevel().getLevelIndex());
         assertEq(5, dest_.getInsideBuilding().gety());

@@ -1,7 +1,6 @@
 package aiki.map;
 
 import aiki.db.EquallablePkUtil;
-import org.junit.Before;
 import org.junit.Test;
 
 import aiki.map.buildings.Building;
@@ -22,13 +21,11 @@ import aiki.util.Coords;
 import aiki.util.LevelPoint;
 import aiki.util.Point;
 import code.util.CustList;
-import code.util.*;
 import code.util.ObjectMap;
 
 public class DataMapJoiningTest extends EquallablePkUtil {
 
     private static final String VOIE = "voie";
-    private DataMap dataMap;
 
     private static City city() {
         City c_ = new City();
@@ -97,8 +94,7 @@ public class DataMapJoiningTest extends EquallablePkUtil {
         return league_;
     }
 
-    @Before
-    public void initDataMap() {
+    public static DataMap initDataMap() {
         City cityOne_ = city();
         City cityTwo_ = city();
         City cityThree_ = city();
@@ -129,16 +125,17 @@ public class DataMapJoiningTest extends EquallablePkUtil {
         dataMap_.getPlaces().add(league(coordsAccessLeague_));
         dataMap_.getPlaces().add(roadSix_);
         dataMap_.getPlaces().add(cityFive_);
-        dataMap = dataMap_;
+        return dataMap_;
     }
     @Test
     public void join1Test() {
-        dataMap.join((short)0, (short)1, new Point((short)4,(short)0), new Point((short)1,(short)5), Direction.UP);
-        assertTrue(dataMap.validSavedLink());
-        City cityZero_ = (City) dataMap.getPlace((short) 0);
+        DataMap dataMap_ = initDataMap();
+        dataMap_.join((short)0, (short)1, new Point((short)4,(short)0), new Point((short)1,(short)5), Direction.UP);
+        assertTrue(dataMap_.validSavedLink());
+        City cityZero_ = (City) dataMap_.getPlace((short) 0);
         assertEq(3, cityZero_.getPointsWithCitiesAndOtherRoads().size());
         assertEq(1, cityZero_.getSavedlinks().size());
-        Road roadOne_ = (Road) dataMap.getPlace((short) 1);
+        Road roadOne_ = (Road) dataMap_.getPlace((short) 1);
         assertEq(3, roadOne_.getPointsWithCitiesAndOtherRoads().size());
         assertEq(1, roadOne_.getSavedlinks().size());
         assertTrue(cityZero_.getPointsWithCitiesAndOtherRoads().contains(new PlaceInterConnect(new Point((short)3,(short)0), Direction.UP)));
@@ -197,12 +194,13 @@ public class DataMapJoiningTest extends EquallablePkUtil {
 
     @Test
     public void join2Test() {
-        dataMap.join((short)2, (short)3, new Point((short)8,(short)4), new Point((short)0,(short)1), Direction.RIGHT);
-        assertTrue(dataMap.validSavedLink());
-        City cityTwo_ = (City) dataMap.getPlace((short) 2);
+        DataMap dataMap_ = initDataMap();
+        dataMap_.join((short)2, (short)3, new Point((short)8,(short)4), new Point((short)0,(short)1), Direction.RIGHT);
+        assertTrue(dataMap_.validSavedLink());
+        City cityTwo_ = (City) dataMap_.getPlace((short) 2);
         assertEq(3, cityTwo_.getPointsWithCitiesAndOtherRoads().size());
         assertEq(1, cityTwo_.getSavedlinks().size());
-        Road roadTwo_ = (Road) dataMap.getPlace((short) 3);
+        Road roadTwo_ = (Road) dataMap_.getPlace((short) 3);
         assertEq(3, roadTwo_.getPointsWithCitiesAndOtherRoads().size());
         assertEq(1, roadTwo_.getSavedlinks().size());
         assertTrue(cityTwo_.getPointsWithCitiesAndOtherRoads().contains(new PlaceInterConnect(new Point((short)8,(short)3), Direction.RIGHT)));
@@ -249,12 +247,13 @@ public class DataMapJoiningTest extends EquallablePkUtil {
 
     @Test
     public void join3Test() {
-        dataMap.join((short)4, (short)5, new Point((short)4,(short)8), new Point((short)1,(short)0), Direction.DOWN);
-        assertTrue(dataMap.validSavedLink());
-        City cityZero_ = (City) dataMap.getPlace((short) 4);
+        DataMap dataMap_ = initDataMap();
+        dataMap_.join((short)4, (short)5, new Point((short)4,(short)8), new Point((short)1,(short)0), Direction.DOWN);
+        assertTrue(dataMap_.validSavedLink());
+        City cityZero_ = (City) dataMap_.getPlace((short) 4);
         assertEq(3, cityZero_.getPointsWithCitiesAndOtherRoads().size());
         assertEq(1, cityZero_.getSavedlinks().size());
-        Road roadOne_ = (Road) dataMap.getPlace((short) 5);
+        Road roadOne_ = (Road) dataMap_.getPlace((short) 5);
         assertEq(3, roadOne_.getPointsWithCitiesAndOtherRoads().size());
         assertEq(1, roadOne_.getSavedlinks().size());
         assertTrue(cityZero_.getPointsWithCitiesAndOtherRoads().contains(new PlaceInterConnect(new Point((short)3,(short)8), Direction.DOWN)));
@@ -301,12 +300,13 @@ public class DataMapJoiningTest extends EquallablePkUtil {
 
     @Test
     public void join4Test() {
-        dataMap.join((short)6, (short)7, new Point((short)0,(short)4), new Point((short)5,(short)1), Direction.LEFT);
-        assertTrue(dataMap.validSavedLink());
-        City cityTwo_ = (City) dataMap.getPlace((short) 6);
+        DataMap dataMap_ = initDataMap();
+        dataMap_.join((short)6, (short)7, new Point((short)0,(short)4), new Point((short)5,(short)1), Direction.LEFT);
+        assertTrue(dataMap_.validSavedLink());
+        City cityTwo_ = (City) dataMap_.getPlace((short) 6);
         assertEq(3, cityTwo_.getPointsWithCitiesAndOtherRoads().size());
         assertEq(1, cityTwo_.getSavedlinks().size());
-        Road roadTwo_ = (Road) dataMap.getPlace((short) 7);
+        Road roadTwo_ = (Road) dataMap_.getPlace((short) 7);
         assertEq(3, roadTwo_.getPointsWithCitiesAndOtherRoads().size());
         assertEq(1, roadTwo_.getSavedlinks().size());
         assertTrue(cityTwo_.getPointsWithCitiesAndOtherRoads().contains(new PlaceInterConnect(new Point((short)0,(short)3), Direction.LEFT)));
@@ -353,14 +353,15 @@ public class DataMapJoiningTest extends EquallablePkUtil {
 
     @Test
     public void initializeLinks1Test() {
-        dataMap.join((short)0, (short)1, new Point((short)4,(short)0), new Point((short)1,(short)5), Direction.UP);
-        City cityZero_ = (City) dataMap.getPlace((short) 0);
+        DataMap dataMap_ = initDataMap();
+        dataMap_.join((short)0, (short)1, new Point((short)4,(short)0), new Point((short)1,(short)5), Direction.UP);
+        City cityZero_ = (City) dataMap_.getPlace((short) 0);
         cityZero_.getPointsWithCitiesAndOtherRoads().clear();
         assertEq(1, cityZero_.getSavedlinks().size());
-        Road roadOne_ = (Road) dataMap.getPlace((short) 1);
+        Road roadOne_ = (Road) dataMap_.getPlace((short) 1);
         roadOne_.getPointsWithCitiesAndOtherRoads().clear();
         assertEq(1, roadOne_.getSavedlinks().size());
-        dataMap.initializeLinks();
+        dataMap_.initializeLinks();
         assertEq(3, cityZero_.getPointsWithCitiesAndOtherRoads().size());
         assertEq(3, roadOne_.getPointsWithCitiesAndOtherRoads().size());
         assertTrue(cityZero_.getPointsWithCitiesAndOtherRoads().contains(new PlaceInterConnect(new Point((short)3,(short)0), Direction.UP)));
@@ -406,18 +407,19 @@ public class DataMapJoiningTest extends EquallablePkUtil {
     }
     @Test
     public void initializeLinks2Test() {
-        dataMap.join((short)0, (short)1, new Point((short)4,(short)0), new Point((short)1,(short)5), Direction.UP);
-        dataMap.join((short)1, (short)2, new Point((short)1,(short)0), new Point((short)4,(short)8), Direction.UP);
-        City cityZero_ = (City) dataMap.getPlace((short) 0);
+        DataMap dataMap_ = initDataMap();
+        dataMap_.join((short)0, (short)1, new Point((short)4,(short)0), new Point((short)1,(short)5), Direction.UP);
+        dataMap_.join((short)1, (short)2, new Point((short)1,(short)0), new Point((short)4,(short)8), Direction.UP);
+        City cityZero_ = (City) dataMap_.getPlace((short) 0);
         cityZero_.getPointsWithCitiesAndOtherRoads().clear();
         assertEq(1, cityZero_.getSavedlinks().size());
-        Road roadOne_ = (Road) dataMap.getPlace((short) 1);
+        Road roadOne_ = (Road) dataMap_.getPlace((short) 1);
         roadOne_.getPointsWithCitiesAndOtherRoads().clear();
         assertEq(2, roadOne_.getSavedlinks().size());
-        City cityOne_ = (City) dataMap.getPlace((short) 2);
+        City cityOne_ = (City) dataMap_.getPlace((short) 2);
         cityOne_.getPointsWithCitiesAndOtherRoads().clear();
         assertEq(1, cityOne_.getSavedlinks().size());
-        dataMap.initializeLinks();
+        dataMap_.initializeLinks();
         assertEq(3, cityZero_.getPointsWithCitiesAndOtherRoads().size());
         assertEq(6, roadOne_.getPointsWithCitiesAndOtherRoads().size());
         assertTrue(cityZero_.getPointsWithCitiesAndOtherRoads().contains(new PlaceInterConnect(new Point((short)3,(short)0), Direction.UP)));
