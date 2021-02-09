@@ -1351,7 +1351,58 @@ public final class GuiAliases {
                 guiAliasParameters.getAliasPaint0PaintRefreshOne3(),
                 guiAliasParameters.getAliasPaint0PaintRefreshOne4(),
                 guiAliasParameters.getAliasPaint0PaintRefreshOne5()));
-        map_.put("{er}", tr("img", _keyWords, pr_, co_,
+        map_.put("{ft}", tr("ft", _keyWords, pr_, co_,
+                guiAliasParameters.getAliasPaint0PaintMethod0(),
+                guiAliasParameters.getAliasPaint0TabbedPaneSet0(),
+                guiAliasParameters.getAliasPaint0TabbedPaneSet1(),
+                guiAliasParameters.getAliasPaint0TabbedPaneSet2(),
+                guiAliasParameters.getAliasPaint0TabbedPaneAdd0(),
+                guiAliasParameters.getAliasPaint0TabbedPaneAdd1(),
+                guiAliasParameters.getAliasPaint0TabbedPaneAdd2(),
+                guiAliasParameters.getAliasPaint1TabbedPaneAdd0(),
+                guiAliasParameters.getAliasPaint1TabbedPaneAdd1(),
+                guiAliasParameters.getAliasPaint0PaintRefresh0(),
+                guiAliasParameters.getAliasPaint0PaintRefreshOne0(),
+                guiAliasParameters.getAliasPaint0PaintRefreshOne1(),
+                guiAliasParameters.getAliasPaint0PaintRefreshOne2(),
+                guiAliasParameters.getAliasPaint0PaintRefreshOne3(),
+                guiAliasParameters.getAliasPaint0PaintRefreshOne4(),
+                guiAliasParameters.getAliasPaint0PaintRefreshOne5()));
+        map_.put("{text}", tr("text", _keyWords, pr_, co_,
+                guiAliasParameters.getAliasPaint0PaintMethod0(),
+                guiAliasParameters.getAliasPaint0TabbedPaneSet0(),
+                guiAliasParameters.getAliasPaint0TabbedPaneSet1(),
+                guiAliasParameters.getAliasPaint0TabbedPaneSet2(),
+                guiAliasParameters.getAliasPaint0TabbedPaneAdd0(),
+                guiAliasParameters.getAliasPaint0TabbedPaneAdd1(),
+                guiAliasParameters.getAliasPaint0TabbedPaneAdd2(),
+                guiAliasParameters.getAliasPaint1TabbedPaneAdd0(),
+                guiAliasParameters.getAliasPaint1TabbedPaneAdd1(),
+                guiAliasParameters.getAliasPaint0PaintRefresh0(),
+                guiAliasParameters.getAliasPaint0PaintRefreshOne0(),
+                guiAliasParameters.getAliasPaint0PaintRefreshOne1(),
+                guiAliasParameters.getAliasPaint0PaintRefreshOne2(),
+                guiAliasParameters.getAliasPaint0PaintRefreshOne3(),
+                guiAliasParameters.getAliasPaint0PaintRefreshOne4(),
+                guiAliasParameters.getAliasPaint0PaintRefreshOne5()));
+        map_.put("{mw}", tr("mw", _keyWords, pr_, co_,
+                guiAliasParameters.getAliasPaint0PaintMethod0(),
+                guiAliasParameters.getAliasPaint0TabbedPaneSet0(),
+                guiAliasParameters.getAliasPaint0TabbedPaneSet1(),
+                guiAliasParameters.getAliasPaint0TabbedPaneSet2(),
+                guiAliasParameters.getAliasPaint0TabbedPaneAdd0(),
+                guiAliasParameters.getAliasPaint0TabbedPaneAdd1(),
+                guiAliasParameters.getAliasPaint0TabbedPaneAdd2(),
+                guiAliasParameters.getAliasPaint1TabbedPaneAdd0(),
+                guiAliasParameters.getAliasPaint1TabbedPaneAdd1(),
+                guiAliasParameters.getAliasPaint0PaintRefresh0(),
+                guiAliasParameters.getAliasPaint0PaintRefreshOne0(),
+                guiAliasParameters.getAliasPaint0PaintRefreshOne1(),
+                guiAliasParameters.getAliasPaint0PaintRefreshOne2(),
+                guiAliasParameters.getAliasPaint0PaintRefreshOne3(),
+                guiAliasParameters.getAliasPaint0PaintRefreshOne4(),
+                guiAliasParameters.getAliasPaint0PaintRefreshOne5()));
+        map_.put("{er}", tr("er", _keyWords, pr_, co_,
                 guiAliasParameters.getAliasPaint0PaintMethod0(),
                 guiAliasParameters.getAliasPaint0TabbedPaneSet0(),
                 guiAliasParameters.getAliasPaint0TabbedPaneSet1(),
@@ -1369,6 +1420,20 @@ public final class GuiAliases {
                 guiAliasParameters.getAliasPaint0PaintRefreshOne4(),
                 guiAliasParameters.getAliasPaint0PaintRefreshOne5()));
         map_.put("{getRender}",aliasGrListGetRender);
+        map_.put("{Math}",_content.getMathRef().getAliasMath());
+        map_.put("{max}",_content.getMathRef().getAliasMax());
+        map_.put("{StringUtil}",_content.getCoreNames().getAliasStringUtil());
+        map_.put("{valueOf}",_content.getCoreNames().getAliasStringUtilValueOf());
+        map_.put("{widthStr}",aliasFontStringWidth);
+        map_.put("{setColor}",aliasImageSetColor);
+        map_.put("{fillRect}",aliasImageFillRect);
+        map_.put("{drawString}",aliasImageDraw);
+        map_.put("{getFont}",aliasGetFont);
+        map_.put("{size}",aliasFontGetSize);
+        map_.put("{Color}",aliasColor);
+        map_.put("{getCompWidth}",aliasComponentGetWidth);
+        map_.put("{else}",_keyWords.getKeyWordElse());
+        map_.put("{setFont}",aliasImageSetFont);
         map_.put("{getHeight}",aliasRenderGetHeight);
         map_.put("{getWidth}",aliasRenderGetWidth);
         map_.put("{getPaint}",aliasRenderGetPaint);
@@ -3553,7 +3618,6 @@ public final class GuiAliases {
                 return res_;
             }
             if (StringUtil.quickEq(name_, aliasGetWindowListeners)) {
-                WindowListener[] listeners_ = inst_.getWindowListeners();
                 CustList<Struct> user_ = new CustList<Struct>();
                 for (WindowListener w: inst_.getWindowListeners()) {
                     if (w instanceof Struct) {
@@ -5206,7 +5270,7 @@ public final class GuiAliases {
         return _custAliases.getOtherResult(_cont,_instance,_method, _execBlocks, _stackCall, _args);
     }
 
-    protected void processFailInit(ContextEl _cont, CustAliases _custAliases, StackCall _stackCall) {
+    protected static void processFailInit(ContextEl _cont, CustAliases _custAliases, StackCall _stackCall) {
         _custAliases.processFailInit(_cont, _stackCall);
     }
     private void wrapAndCall(ContextEl _cont, CustList<Argument> _args, ExecTypeFunction _pair, StackCall _stackCall) {
@@ -6058,7 +6122,7 @@ public final class GuiAliases {
         );
     }
 
-    private CustList<KeyValueMemberName> merge(CustList<KeyValueMemberName> _one, CustList<KeyValueMemberName> _two) {
+    private static CustList<KeyValueMemberName> merge(CustList<KeyValueMemberName> _one, CustList<KeyValueMemberName> _two) {
         CustList<KeyValueMemberName> all_ = new CustList<KeyValueMemberName>();
         all_.addAllElts(_one);
         all_.addAllElts(_two);
