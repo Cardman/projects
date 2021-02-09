@@ -5,7 +5,6 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.CommonExecutionInfos;
 import code.expressionlanguage.exec.InitPhase;
 import code.expressionlanguage.exec.StackCall;
-import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.structs.*;
@@ -15,26 +14,14 @@ import code.util.CustList;
 
 import java.awt.*;
 
-public final class DefSpecSelectionStruct extends WithoutParentIdStruct implements SpecSelectionStruct, AbstractFunctionalInstance {
+public final class DefSpecSelectionStruct implements SpecSelectionStruct {
 
     private final CommonExecutionInfos executionInfos;
-    private final String className;
     private final Struct component;
-    private final LambdaStruct lambda;
-    private final ExecNamedFunctionBlock named;
 
-    public DefSpecSelectionStruct(ContextEl _ctx,String _className, Struct _component,
-                                  LambdaStruct _lambda, ExecNamedFunctionBlock _named) {
+    public DefSpecSelectionStruct(ContextEl _ctx, Struct _component) {
         executionInfos = _ctx.getExecutionInfos();
-        this.className = _className;
         this.component = _component;
-        this.lambda = _lambda;
-        this.named = _named;
-    }
-
-    @Override
-    public String getClassName(ContextEl _contextEl) {
-        return className;
     }
 
     @Override
@@ -43,17 +30,9 @@ public final class DefSpecSelectionStruct extends WithoutParentIdStruct implemen
         real_.remove(2);
         real_.add(0,new Argument(component));
         Struct dest_ = _args.get(2).getStruct();
-        int w_ = 100;
-        if (_rect != null) {
-            w_ = Math.max(w_, _rect.width);
-        }
-        int h_ = 12;
-        if (_rect != null) {
-            h_ = Math.max(h_, _rect.height);
-        }
         if (dest_ instanceof PreparedLabelStruct) {
-            real_.add(1,new Argument(new IntStruct(w_)));
-            real_.add(2,new Argument(new IntStruct(h_)));
+            real_.add(1,new Argument(new IntStruct(_rect.width)));
+            real_.add(2,new Argument(new IntStruct(_rect.height)));
             GuiContextEl r_ = newCtx(executionInfos);
             Argument argument_ = invokePaint(r_, real_);
             ((PreparedLabelStruct)dest_).setImage(argument_.getStruct());
@@ -74,14 +53,5 @@ public final class DefSpecSelectionStruct extends WithoutParentIdStruct implemen
         GuiContextEl r_ = new GuiContextEl(InitPhase.NOTHING, _executionInfos);
         RunnableStruct.setupThread(r_);
         return r_;
-    }
-    @Override
-    public LambdaStruct getFunctional() {
-        return lambda;
-    }
-
-    @Override
-    public ExecNamedFunctionBlock getNamed() {
-        return named;
     }
 }

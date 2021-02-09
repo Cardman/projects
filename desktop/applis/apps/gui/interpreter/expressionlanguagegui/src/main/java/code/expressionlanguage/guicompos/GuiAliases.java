@@ -71,10 +71,6 @@ public final class GuiAliases {
     private static final String COMP_LOC = "CompLoc";
     private static final String IMAGE_GET = "ImageGet";
     private static final String RENDER = "Render";
-    private static final String LIST_PAINT = "ListPaint";
-    private static final String LIST_PAINT_PAINT_EVENT = "ListPaintPaintEvent";
-    private static final String LIST_DIM = "ListDim";
-    private static final String LIST_DIM_PAINT_EVENT = "ListDimPaintEvent";
     private static final String COMBO = "Combo";
     private static final String ADD_COMPO = "AddCompo";
     private static final String INPUT = "Input";
@@ -708,10 +704,6 @@ public final class GuiAliases {
     private String aliasRenderSetHeight;
     private String aliasRenderSetWidth;
     private String aliasRenderSetPaint;
-    private String aliasListPaint;
-    private String aliasListPaintPaintEvent;
-    private String aliasListDim;
-    private String aliasListDimPaintEvent;
     private String aliasGrList;
     private String aliasGrListAdd;
     private String aliasGrListSet;
@@ -1017,36 +1009,6 @@ public final class GuiAliases {
         _predefinedClasses.add(aliasListSelection);
         stds_.put(aliasListSelection, content_);
         _predefinedInterfacesInitOrder.add(aliasListSelection);
-        content_ = ResourceFiles.ressourceFichier("resources_lg_gui/repaint_list_event.txt");
-        map_ = new StringMap<String>();
-        map_.put("{public}", public_);
-        map_.put("{interface}", interface_);
-        map_.put("{ListPaintSelection}", aliasListPaint);
-        map_.put("{paintEvent}", aliasListPaintPaintEvent);
-        map_.put("{ListDimSelection}", aliasListDim);
-        map_.put("{dim}", aliasListDimPaintEvent);
-        map_.put("{void}", co_.getAliasVoid());
-        map_.put("{GrList}", aliasGrList);
-        map_.put("{int}", primTypes_.getAliasPrimInteger());
-        map_.put("{Object}", co_.getAliasObject());
-        map_.put("{boolean}", primTypes_.getAliasPrimBoolean());
-        map_.put("{ImageLab}",aliasImage);
-        map_.put("{g}", guiAliasParameters.getAliasListPaint0PaintEvent0());
-        map_.put("{o}", guiAliasParameters.getAliasListPaint0PaintEvent1());
-        map_.put("{f}", guiAliasParameters.getAliasListPaint0PaintEvent2());
-        map_.put("{s}", guiAliasParameters.getAliasListPaint0PaintEvent3());
-        map_.put("{i}", guiAliasParameters.getAliasListPaint0PaintEvent4());
-        map_.put("{h}", guiAliasParameters.getAliasListPaint0DimEvent0());
-        map_.put("{p}", guiAliasParameters.getAliasListPaint0DimEvent1());
-        map_.put("{j}", guiAliasParameters.getAliasListPaint0DimEvent2());
-        map_.put("{t}", guiAliasParameters.getAliasListPaint0DimEvent3());
-        map_.put("{l}", guiAliasParameters.getAliasListPaint0DimEvent4());
-        content_ = StringUtil.formatQuote(content_, map_);
-        _predefinedClasses.add(aliasListPaint);
-        _predefinedClasses.add(aliasListDim);
-        stds_.put(aliasListPaint, content_);
-        _predefinedInterfacesInitOrder.add(aliasListPaint);
-        _predefinedInterfacesInitOrder.add(aliasListDim);
         content_ = ResourceFiles.ressourceFichier("resources_lg_gui/repaint.txt");
         map_ = new StringMap<String>();
         map_.put("{public}", public_);
@@ -5318,10 +5280,6 @@ public final class GuiAliases {
         setAliasCompLoc(LgNamesContent.get(_util, _cust, COMP_LOC));
         setAliasImageGet(LgNamesContent.get(_util, _cust, IMAGE_GET));
         setAliasRender(LgNamesContent.get(_util, _cust, RENDER));
-        setAliasListPaint(LgNamesContent.get(_util, _cust, LIST_PAINT));
-        setAliasListPaintPaintEvent(LgNamesContent.get(_util, _cust, LIST_PAINT_PAINT_EVENT));
-        setAliasListDim(LgNamesContent.get(_util, _cust, LIST_DIM));
-        setAliasListDimPaintEvent(LgNamesContent.get(_util, _cust, LIST_DIM_PAINT_EVENT));
         setAliasCombo(LgNamesContent.get(_util, _cust, COMBO));
         setAliasAddCompo(LgNamesContent.get(_util, _cust, ADD_COMPO));
         setAliasInput(LgNamesContent.get(_util, _cust, INPUT));
@@ -5768,12 +5726,6 @@ public final class GuiAliases {
                 new KeyValueMemberName(RENDER_SET_HEIGHT,getAliasRenderSetHeight()),
                 new KeyValueMemberName(RENDER_SET_PAINT,getAliasRenderSetPaint()),
                 new KeyValueMemberName(RENDER_SET_WIDTH,getAliasRenderSetWidth())
-        ));
-        m_.addEntry(getAliasListPaint(), new CustList<KeyValueMemberName>(
-                new KeyValueMemberName(LIST_PAINT_PAINT_EVENT,getAliasListPaintPaintEvent())
-        ));
-        m_.addEntry(getAliasListDim(), new CustList<KeyValueMemberName>(
-                new KeyValueMemberName(LIST_DIM_PAINT_EVENT,getAliasListDimPaintEvent())
         ));
         m_.addEntry(getAliasColor(), new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(COLOR_ALPHA,getAliasColorAlpha()),
@@ -6288,8 +6240,6 @@ public final class GuiAliases {
         ref_.addEntry(COMBO,getAliasCombo());
         ref_.addEntry(BUTTON_GROUP,getAliasButtonGroup());
         ref_.addEntry(RENDER,getAliasRender());
-        ref_.addEntry(LIST_PAINT,getAliasListPaint());
-        ref_.addEntry(LIST_DIM,getAliasListDim());
         ref_.addEntry(POPUP_MENU,getAliasPopupMenu());
         ref_.addEntry(DIMENSION,getAliasDimension());
         ref_.addEntry(KEY_LISTENER,getAliasKeyListener());
@@ -8480,38 +8430,6 @@ public final class GuiAliases {
 
     public void setAliasRender(String _v) {
         this.aliasRender = _v;
-    }
-
-    public String getAliasListPaint() {
-        return aliasListPaint;
-    }
-
-    public void setAliasListPaint(String _v) {
-        this.aliasListPaint = _v;
-    }
-
-    public String getAliasListPaintPaintEvent() {
-        return aliasListPaintPaintEvent;
-    }
-
-    public void setAliasListPaintPaintEvent(String _v) {
-        this.aliasListPaintPaintEvent = _v;
-    }
-
-    public String getAliasListDim() {
-        return aliasListDim;
-    }
-
-    public void setAliasListDim(String _v) {
-        this.aliasListDim = _v;
-    }
-
-    public String getAliasListDimPaintEvent() {
-        return aliasListDimPaintEvent;
-    }
-
-    public void setAliasListDimPaintEvent(String _v) {
-        this.aliasListDimPaintEvent = _v;
     }
 
     public String getAliasRenderGetHeight() {

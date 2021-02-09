@@ -1,6 +1,0 @@
-{public} {interface} {ListPaintSelection} '{'
- {public} {void} {paintEvent}({GrList} {g}, {Object} {o}, {int} {f}, {boolean} {s}, {ImageLab} {i});
-'}'
-{public} {interface} {ListDimSelection} '{'
- {public} {int} {dim}({GrList} {h}, {Object} {p}, {int} {j}, {boolean} {t}, {int} {l});
-'}'

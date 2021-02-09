@@ -9,7 +9,7 @@ public final class GraphicListStr extends GraphicList<Struct> implements AbsGrap
     }
 
     @Override
-    public void setCell(Struct _grComp, ContextEl _ctx, PreparedLabel _lab, Struct _labStruct, SpecSelectionCtx _create, SpecSelectionStruct _cell, SpecSelectionStruct _width, SpecSelectionStruct _height) {
+    public void setCell(Struct _grComp, ContextEl _ctx, PreparedLabel _lab, Struct _labStruct, SpecSelectionCtx _create, SpecSelectionStruct _cell) {
         AbsGraphicListPainter graphicListPainter_ = getGraphicListPainter();
         if (graphicListPainter_ != null) {
             graphicListPainter_.setValue(_grComp);

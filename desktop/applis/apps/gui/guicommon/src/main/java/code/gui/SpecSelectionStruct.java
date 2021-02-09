@@ -6,6 +6,6 @@ import code.util.CustList;
 
 import java.awt.*;
 
-public interface SpecSelectionStruct extends Struct {
+public interface SpecSelectionStruct {
     Argument execute(CustList<Argument> _args, Rectangle _rect);
 }

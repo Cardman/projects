@@ -20,7 +20,7 @@ public final class GraphicListStruct extends InputStruct {
     public GraphicListStruct(GuiContextEl _ctx,String _className,boolean _simple) {
         super(_className);
         grList = ((LgNamesGui)_ctx.getStandards()).getGuiExecutingBlocks().getWindow().getFact().getGraphicListGenerator().create(_simple, new AdvGraphicListPainter(_ctx.getExecutionInfos()));
-        grList.setCell(this, _ctx,null,null,new DefSpecSelectionCtx(_ctx.getExecutionInfos()),null, null, null);
+        grList.setCell(this, _ctx,null,null,new DefSpecSelectionCtx(_ctx.getExecutionInfos()),null);
     }
 
     public boolean isCust() {
@@ -152,44 +152,24 @@ public final class GraphicListStruct extends InputStruct {
     }
 
     public void setRender(GuiContextEl _ctx, Struct _render) {
+        this.render = _render;
+        DefSpecSelectionCtx create_ = new DefSpecSelectionCtx(_ctx.getExecutionInfos());
         if (_render instanceof RenderStruct) {
             RenderStruct rend_ = (RenderStruct) _render;
             Struct paint_ = rend_.getPaint();
-            Struct hei_ = rend_.getHeight();
-            Struct wid_ = rend_.getWidth();
             if (paint_ instanceof LambdaStruct) {
-                LambdaStruct p_ = (LambdaStruct) paint_;
-                DefSpecSelectionDimStruct widthStr_ = null;
-                DefSpecSelectionDimStruct heightStr_ = null;
                 String aliasImageLabel_ = ((LgNamesGui) _ctx.getStandards()).getGuiAliases().getAliasImageLabel();
                 PreparedLabelStruct im_ = new PreparedLabelStruct(aliasImageLabel_);
                 PreparedLabel lab_ = im_.getTextLabel();
-                GuiExecutingBlocks guiExecutingBlocks_ = ((LgNamesGui) _ctx.getStandards()).getGuiExecutingBlocks();
-                ExecRootBlock typePaint_ = guiExecutingBlocks_.getListPaintSelection();
-                ExecNamedFunctionBlock paintMeth_ = guiExecutingBlocks_.getPaintEvent();
-                if (hei_ instanceof LambdaStruct) {
-                    LambdaStruct hl_ = (LambdaStruct) hei_;
-                    ExecRootBlock typeHe_ = guiExecutingBlocks_.getListDimSelection();
-                    ExecNamedFunctionBlock heMeth_ = guiExecutingBlocks_.getDimEvent();
-                    heightStr_ = new DefSpecSelectionDimStruct(_ctx, typeHe_.getFullName(), hl_, heMeth_);
-                }
-                if (wid_ instanceof LambdaStruct) {
-                    LambdaStruct wl_ = (LambdaStruct) wid_;
-                    ExecRootBlock typeWi_ = guiExecutingBlocks_.getListDimSelection();
-                    ExecNamedFunctionBlock wiMeth_ = guiExecutingBlocks_.getDimEvent();
-                    widthStr_ = new DefSpecSelectionDimStruct(_ctx, typeWi_.getFullName(), wl_, wiMeth_);
-                }
-                grList.setCell(this, _ctx, lab_, im_, new DefSpecSelectionCtx(_ctx.getExecutionInfos()),
-                        new DefSpecSelectionStruct(_ctx, typePaint_.getFullName(), this, p_, paintMeth_),
-                        widthStr_,
-                        heightStr_);
+                grList.setCell(this, _ctx, lab_, im_, create_,
+                        new DefSpecSelectionStruct(_ctx, this)
+                );
             } else {
-                grList.setCell(this, _ctx, null, null, new DefSpecSelectionCtx(_ctx.getExecutionInfos()), null, null, null);
+                grList.setCell(this, _ctx, null, null, create_, null);
             }
         } else {
-            grList.setCell(this, _ctx,null,null,new DefSpecSelectionCtx(_ctx.getExecutionInfos()),null, null, null);
+            grList.setCell(this, _ctx,null,null, create_,null);
         }
-        this.render = _render;
     }
 
     public boolean isEnabledList() {
