@@ -16,19 +16,14 @@ import code.util.NatStringTreeMap;
 import code.util.StringList;
 import code.util.TreeMap;
 import code.util.core.StringUtil;
-import org.junit.Before;
 import org.junit.Test;
 
 public final class FacadeGameFightKoThreeTest extends InitializationDataBase {
 
-    private DataBase data;
-    private Game game;
-    private FacadeGame facadeGame;
-    @Before
-    public void initTests() {
-        data = initDb();
-        Game game_ = new Game(data);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data);
+    public static FacadeGame initTests() {
+        DataBase data_ = initDb();
+        Game game_ = new Game(data_);
+        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
         game_.setPlayerCoords(newCoords(5, 0, 1, 4));
         game_.setPlayerOrientation(Direction.DOWN);
         Pokemon pk_ = new WildPk();
@@ -37,34 +32,34 @@ public final class FacadeGameFightKoThreeTest extends InitializationDataBase {
         pk_.setGender(Gender.NO_GENDER);
         pk_.setAbility(ABSORB_EAU);
         pk_.setLevel((short) 100);
-        game_.getPlayer().recevoirPokemon(pk_, game_.getDifficulty(), data);
+        game_.getPlayer().recevoirPokemon(pk_, game_.getDifficulty(), data_);
         game_.getPlayer().setChosenTeamPokemon((short) 0);
         game_.getPlayer().switchTeamOrder((short) 1);
         PokemonPlayer pkPl_ = (PokemonPlayer) game_.getPlayer().getTeam().first();
-        pkPl_.learnMove(SEISME, LIRE_ESPRIT, data);
+        pkPl_.learnMove(SEISME, LIRE_ESPRIT, data_);
         pkPl_.setHappiness((short) 120);
-        game_.directInteraction(game_.closestTile(data.getMap()), data.getMap());
+        game_.directInteraction(game_.closestTile(data_.getMap()), data_.getMap());
         game_.getDifficulty().setRandomWildFight(false);
-        game_.initTrainerFight(data);
-        game = game_;
+        game_.initTrainerFight(data_);
         FacadeGame facadeGame_ = new FacadeGame();
-        facadeGame_.setData(data);
+        facadeGame_.setData(data_);
         facadeGame_.setLanguage(LANGUAGE);
         facadeGame_.setGame(game_);
-        facadeGame = facadeGame_;
+        return facadeGame_;
     }
 
     @Test
     public void act1Test() {
-        facadeGame.chooseFrontFighter((byte) 0);
-        facadeGame.chooseMove(SEISME);
-        facadeGame.roundAllThrowers(false);
-        facadeGame.deselect();
-        facadeGame.choosePokemonForLearningAndEvolving((byte) 0);
-        facadeGame.setEvolution(TARINORME);
-        facadeGame.setAbility(MAGNEPIEGE);
-        assertEq(0, facadeGame.getChosenIndex());
-        NatStringTreeMap<Boolean> moves_ = facadeGame.getMoves();
+        FacadeGame facadeGame_ = initTests();
+        facadeGame_.chooseFrontFighter((byte) 0);
+        facadeGame_.chooseMove(SEISME);
+        facadeGame_.roundAllThrowers(false);
+        facadeGame_.deselect();
+        facadeGame_.choosePokemonForLearningAndEvolving((byte) 0);
+        facadeGame_.setEvolution(TARINORME);
+        facadeGame_.setAbility(MAGNEPIEGE);
+        assertEq(0, facadeGame_.getChosenIndex());
+        NatStringTreeMap<Boolean> moves_ = facadeGame_.getMoves();
         assertEq(17, moves_.size());
         assertTrue(!moves_.getVal(BOMBAIMANT));
         assertTrue(!moves_.getVal(CAGE_ECLAIR));
@@ -83,15 +78,15 @@ public final class FacadeGameFightKoThreeTest extends InitializationDataBase {
         assertTrue(moves_.getVal(TELLURIFORCE));
         assertTrue(!moves_.getVal(TEMPETESABLE));
         assertTrue(!moves_.getVal(VOL_MAGNETIK));
-        TreeMap<String,Boolean> evolutions_ = facadeGame.getEvolutions();
+        TreeMap<String,Boolean> evolutions_ = facadeGame_.getEvolutions();
         assertEq(2, evolutions_.size());
         assertTrue(!evolutions_.getVal(NULL_REF));
         assertTrue(evolutions_.getVal(TARINORME));
-        StringList abilities_ = facadeGame.getAbilities();
+        StringList abilities_ = facadeGame_.getAbilities();
         assertEq(2, abilities_.size());
         assertTrue(StringUtil.contains(abilities_, FERMETE));
         assertTrue(StringUtil.contains(abilities_, MAGNEPIEGE));
-        assertEq(MAGNEPIEGE, facadeGame.getAbility());
+        assertEq(MAGNEPIEGE, facadeGame_.getAbility());
     }
 
     private static Coords newCoords(int _place, int _level, int _x, int _y) {

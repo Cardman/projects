@@ -2,7 +2,6 @@ package aiki.facade;
 
 import aiki.db.DataBase;
 import code.util.core.IndexConstants;
-import org.junit.Before;
 import org.junit.Test;
 
 import aiki.game.fight.InitializationDataBase;
@@ -21,16 +20,12 @@ import aiki.facade.enums.SelectedBoolean;
 
 public class PaginationPokemonPlayerTest extends InitializationDataBase {
 
-    private DataBase data;
-    @Before
-    public void initTests() {
-        data = initDb();
-    }
     @Test
     public void match1Test() {
+        DataBase data_ = initDb();
         PaginationPokemonPlayer pagination_;
         pagination_ = new PaginationPokemonPlayer();
-        pagination_.setTranslation(data,LANGUAGE);
+        pagination_.setTranslation(data_,LANGUAGE);
         pagination_.getCriteria().setSearchModeName(SearchingMode.META_CHARACTER);
         pagination_.getCriteria().setContentOfName("P*");
         Pokemon pk_ = new WildPk();
@@ -39,15 +34,16 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
         pk_.setLevel((short) 2);
         pk_.setAbility(ABSORB_EAU);
         pk_.setItem(NULL_REF);
-        PokemonPlayer pkPlayer_ = new PokemonPlayer(pk_, data);
+        PokemonPlayer pkPlayer_ = new PokemonPlayer(pk_, data_);
         assertTrue(!pagination_.match(pkPlayer_));
     }
 
     @Test
     public void match2Test() {
+        DataBase data_ = initDb();
         PaginationPokemonPlayer pagination_;
         pagination_ = new PaginationPokemonPlayer();
-        pagination_.setTranslation(data,LANGUAGE);
+        pagination_.setTranslation(data_,LANGUAGE);
         pagination_.getCriteria().setSearchModeAbility(SearchingMode.META_CHARACTER);
         pagination_.getCriteria().setContentOfAbility("P*");
         Pokemon pk_ = new WildPk();
@@ -56,15 +52,16 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
         pk_.setLevel((short) 2);
         pk_.setAbility(ABSORB_EAU);
         pk_.setItem(NULL_REF);
-        PokemonPlayer pkPlayer_ = new PokemonPlayer(pk_, data);
+        PokemonPlayer pkPlayer_ = new PokemonPlayer(pk_, data_);
         assertTrue(!pagination_.match(pkPlayer_));
     }
 
     @Test
     public void match3Test() {
+        DataBase data_ = initDb();
         PaginationPokemonPlayer pagination_;
         pagination_ = new PaginationPokemonPlayer();
-        pagination_.setTranslation(data,LANGUAGE);
+        pagination_.setTranslation(data_,LANGUAGE);
         pagination_.getCriteria().setSearchModeItem(SearchingMode.META_CHARACTER);
         pagination_.getCriteria().setContentOfItem(NULL_REF);
         pagination_.getCriteria().setWithItem(SelectedBoolean.YES);
@@ -74,15 +71,16 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
         pk_.setLevel((short) 2);
         pk_.setAbility(ABSORB_EAU);
         pk_.setItem(NULL_REF);
-        PokemonPlayer pkPlayer_ = new PokemonPlayer(pk_, data);
+        PokemonPlayer pkPlayer_ = new PokemonPlayer(pk_, data_);
         assertTrue(!pagination_.match(pkPlayer_));
     }
 
     @Test
     public void match4Test() {
+        DataBase data_ = initDb();
         PaginationPokemonPlayer pagination_;
         pagination_ = new PaginationPokemonPlayer();
-        pagination_.setTranslation(data,LANGUAGE);
+        pagination_.setTranslation(data_,LANGUAGE);
         pagination_.getCriteria().setGender(Gender.FEMALE);
         Pokemon pk_ = new WildPk();
         pk_.setName(NUCLEOS);
@@ -90,15 +88,16 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
         pk_.setLevel((short) 2);
         pk_.setAbility(ABSORB_EAU);
         pk_.setItem(NULL_REF);
-        PokemonPlayer pkPlayer_ = new PokemonPlayer(pk_, data);
+        PokemonPlayer pkPlayer_ = new PokemonPlayer(pk_, data_);
         assertTrue(!pagination_.match(pkPlayer_));
     }
 
     @Test
     public void match5Test() {
+        DataBase data_ = initDb();
         PaginationPokemonPlayer pagination_;
         pagination_ = new PaginationPokemonPlayer();
-        pagination_.setTranslation(data,LANGUAGE);
+        pagination_.setTranslation(data_,LANGUAGE);
         pagination_.getCriteria().setGender(Gender.MALE);
         Pokemon pk_ = new WildPk();
         pk_.setName(NUCLEOS);
@@ -106,15 +105,16 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
         pk_.setLevel((short) 2);
         pk_.setAbility(ABSORB_EAU);
         pk_.setItem(NULL_REF);
-        PokemonPlayer pkPlayer_ = new PokemonPlayer(pk_, data);
+        PokemonPlayer pkPlayer_ = new PokemonPlayer(pk_, data_);
         assertTrue(!pagination_.match(pkPlayer_));
     }
 
     @Test
     public void match6Test() {
+        DataBase data_ = initDb();
         PaginationPokemonPlayer pagination_;
         pagination_ = new PaginationPokemonPlayer();
-        pagination_.setTranslation(data,LANGUAGE);
+        pagination_.setTranslation(data_,LANGUAGE);
         pagination_.getCriteria().setContentOfMove(CHARGE);
         pagination_.getCriteria().setSearchModeMove(SearchingMode.WHOLE_STRING);
         Pokemon pk_ = new WildPk();
@@ -123,15 +123,16 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
         pk_.setLevel((short) 2);
         pk_.setAbility(ABSORB_EAU);
         pk_.setItem(NULL_REF);
-        PokemonPlayer pkPlayer_ = new PokemonPlayer(pk_, data);
+        PokemonPlayer pkPlayer_ = new PokemonPlayer(pk_, data_);
         assertTrue(!pagination_.match(pkPlayer_));
     }
 
     @Test
     public void match7Test() {
+        DataBase data_ = initDb();
         PaginationPokemonPlayer pagination_;
         pagination_ = new PaginationPokemonPlayer();
-        pagination_.setTranslation(data,LANGUAGE);
+        pagination_.setTranslation(data_,LANGUAGE);
         pagination_.getCriteria().setMaxLevel(1L);
         Pokemon pk_ = new WildPk();
         pk_.setName(NUCLEOS);
@@ -139,15 +140,16 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
         pk_.setLevel((short) 2);
         pk_.setAbility(ABSORB_EAU);
         pk_.setItem(NULL_REF);
-        PokemonPlayer pkPlayer_ = new PokemonPlayer(pk_, data);
+        PokemonPlayer pkPlayer_ = new PokemonPlayer(pk_, data_);
         assertTrue(!pagination_.match(pkPlayer_));
     }
 
     @Test
     public void match8Test() {
+        DataBase data_ = initDb();
         PaginationPokemonPlayer pagination_;
         pagination_ = new PaginationPokemonPlayer();
-        pagination_.setTranslation(data,LANGUAGE);
+        pagination_.setTranslation(data_,LANGUAGE);
         pagination_.getCriteria().setContentOfMove(VAGUE_PSY);
         pagination_.getCriteria().setSearchModeMove(SearchingMode.WHOLE_STRING);
         Pokemon pk_ = new WildPk();
@@ -156,15 +158,16 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
         pk_.setLevel((short) 2);
         pk_.setAbility(ABSORB_EAU);
         pk_.setItem(NULL_REF);
-        PokemonPlayer pkPlayer_ = new PokemonPlayer(pk_, data);
+        PokemonPlayer pkPlayer_ = new PokemonPlayer(pk_, data_);
         assertTrue(pagination_.match(pkPlayer_));
     }
 
     @Test
     public void match9Test() {
+        DataBase data_ = initDb();
         PaginationPokemonPlayer pagination_;
         pagination_ = new PaginationPokemonPlayer();
-        pagination_.setTranslation(data,LANGUAGE);
+        pagination_.setTranslation(data_,LANGUAGE);
         pagination_.getCriteria().setSearchModeItem(SearchingMode.META_CHARACTER);
         pagination_.getCriteria().setContentOfItem("BAIE*");
         pagination_.getCriteria().setWithItem(SelectedBoolean.YES);
@@ -174,15 +177,16 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
         pk_.setLevel((short) 2);
         pk_.setAbility(ABSORB_EAU);
         pk_.setItem(MULTI_EXP);
-        PokemonPlayer pkPlayer_ = new PokemonPlayer(pk_, data);
+        PokemonPlayer pkPlayer_ = new PokemonPlayer(pk_, data_);
         assertTrue(!pagination_.match(pkPlayer_));
     }
 
     @Test
     public void match10Test() {
+        DataBase data_ = initDb();
         PaginationPokemonPlayer pagination_;
         pagination_ = new PaginationPokemonPlayer();
-        pagination_.setTranslation(data,LANGUAGE);
+        pagination_.setTranslation(data_,LANGUAGE);
         pagination_.getCriteria().setMaxNbPossEvols(0L);
         Pokemon pk_ = new WildPk();
         pk_.setName(NUCLEOS);
@@ -190,15 +194,16 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
         pk_.setLevel((short) 2);
         pk_.setAbility(ABSORB_EAU);
         pk_.setItem(MULTI_EXP);
-        PokemonPlayer pkPlayer_ = new PokemonPlayer(pk_, data);
+        PokemonPlayer pkPlayer_ = new PokemonPlayer(pk_, data_);
         assertTrue(!pagination_.match(pkPlayer_));
     }
 
     @Test
     public void match11Test() {
+        DataBase data_ = initDb();
         PaginationPokemonPlayer pagination_;
         pagination_ = new PaginationPokemonPlayer();
-        pagination_.setTranslation(data,LANGUAGE);
+        pagination_.setTranslation(data_,LANGUAGE);
         pagination_.getCriteria().setMaxNbPossEvols(1L);
         Pokemon pk_ = new WildPk();
         pk_.setName(NUCLEOS);
@@ -206,77 +211,85 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
         pk_.setLevel((short) 2);
         pk_.setAbility(ABSORB_EAU);
         pk_.setItem(MULTI_EXP);
-        PokemonPlayer pkPlayer_ = new PokemonPlayer(pk_, data);
+        PokemonPlayer pkPlayer_ = new PokemonPlayer(pk_, data_);
         assertTrue(pagination_.match(pkPlayer_));
     }
 
     @Test
     public void sortable1Test() {
+        DataBase data_ = initDb();
         PaginationPokemonPlayer pagination_;
         pagination_ = new PaginationPokemonPlayer();
-        pagination_.setTranslation(data,LANGUAGE);
+        pagination_.setTranslation(data_,LANGUAGE);
         assertTrue(pagination_.sortable());
     }
 
     @Test
     public void sortable2Test() {
+        DataBase data_ = initDb();
         PaginationPokemonPlayer pagination_;
         pagination_ = new PaginationPokemonPlayer();
-        pagination_.setTranslation(data,LANGUAGE);
+        pagination_.setTranslation(data_,LANGUAGE);
         pagination_.getCmpName().setPriority(1);
         assertTrue(pagination_.sortable());
     }
 
     @Test
     public void sortable3Test() {
+        DataBase data_ = initDb();
         PaginationPokemonPlayer pagination_;
         pagination_ = new PaginationPokemonPlayer();
-        pagination_.setTranslation(data,LANGUAGE);
+        pagination_.setTranslation(data_,LANGUAGE);
         pagination_.getCmpLevel().setPriority(1);
         assertTrue(pagination_.sortable());
     }
 
     @Test
     public void sortable4Test() {
+        DataBase data_ = initDb();
         PaginationPokemonPlayer pagination_;
         pagination_ = new PaginationPokemonPlayer();
-        pagination_.setTranslation(data,LANGUAGE);
+        pagination_.setTranslation(data_,LANGUAGE);
         pagination_.getCmpAbility().setPriority(1);
         assertTrue(pagination_.sortable());
     }
 
     @Test
     public void sortable5Test() {
+        DataBase data_ = initDb();
         PaginationPokemonPlayer pagination_;
         pagination_ = new PaginationPokemonPlayer();
-        pagination_.setTranslation(data,LANGUAGE);
+        pagination_.setTranslation(data_,LANGUAGE);
         pagination_.getCmpItem().setPriority(1);
         assertTrue(pagination_.sortable());
     }
 
     @Test
     public void sortable6Test() {
+        DataBase data_ = initDb();
         PaginationPokemonPlayer pagination_;
         pagination_ = new PaginationPokemonPlayer();
-        pagination_.setTranslation(data,LANGUAGE);
+        pagination_.setTranslation(data_,LANGUAGE);
         pagination_.getCmpGender().setPriority(1);
         assertTrue(pagination_.sortable());
     }
 
     @Test
     public void sortable7Test() {
+        DataBase data_ = initDb();
         PaginationPokemonPlayer pagination_;
         pagination_ = new PaginationPokemonPlayer();
-        pagination_.setTranslation(data,LANGUAGE);
+        pagination_.setTranslation(data_,LANGUAGE);
         pagination_.getCmpPossEvos().setPriority(1);
         assertTrue(pagination_.sortable());
     }
 
     @Test
     public void sortable8Test() {
+        DataBase data_ = initDb();
         PaginationPokemonPlayer pagination_;
         pagination_ = new PaginationPokemonPlayer();
-        pagination_.setTranslation(data,LANGUAGE);
+        pagination_.setTranslation(data_,LANGUAGE);
         pagination_.getCmpName().setPriority(1);
         pagination_.getCmpLevel().setPriority(1);
         assertTrue(!pagination_.sortable());
@@ -284,25 +297,26 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
 
     @Test
     public void sort1Test() {
+        DataBase data_ = initDb();
         PaginationPokemonPlayer pagination_;
         pagination_ = new PaginationPokemonPlayer();
-        pagination_.setTranslation(data,LANGUAGE);
+        pagination_.setTranslation(data_,LANGUAGE);
         SortingPokemonPlayer sorting_;
         PokemonPlayer pk_;
-        pk_ = newPokemonPlayer(PIKACHU, Gender.NO_GENDER, 2, STATIK, NULL_REF);
-        sorting_ = toSorting(pk_, 3);
+        pk_ = newPokemonPlayer(data_,PIKACHU, Gender.NO_GENDER, 2, STATIK, NULL_REF);
+        sorting_ = toSorting(data_,pk_, 3);
         pagination_.getResults().put(sorting_, pk_);
-        pk_ = newPokemonPlayer(LIMAGMA, Gender.NO_GENDER, 2, FOUR, BAIE_MEPO);
-        sorting_ = toSorting(pk_, 0);
+        pk_ = newPokemonPlayer(data_,LIMAGMA, Gender.NO_GENDER, 2, FOUR, BAIE_MEPO);
+        sorting_ = toSorting(data_,pk_, 0);
         pagination_.getResults().put(sorting_, pk_);
-        pk_ = newPokemonPlayer(PTITARD, Gender.MALE, 3, ABSORB_EAU, MULTI_EXP);
-        sorting_ = toSorting(pk_, 2);
+        pk_ = newPokemonPlayer(data_,PTITARD, Gender.MALE, 3, ABSORB_EAU, MULTI_EXP);
+        sorting_ = toSorting(data_,pk_, 2);
         pagination_.getResults().put(sorting_, pk_);
-        pk_ = newPokemonPlayer(PTITARD, Gender.FEMALE, 3, ABSORB_EAU, MULTI_EXP);
-        sorting_ = toSorting(pk_, 1);
+        pk_ = newPokemonPlayer(data_,PTITARD, Gender.FEMALE, 3, ABSORB_EAU, MULTI_EXP);
+        sorting_ = toSorting(data_,pk_, 1);
         pagination_.getResults().put(sorting_, pk_);
-        pk_ = newPokemonPlayer(LIMAGMA, Gender.NO_GENDER, 2, FOUR, BAIE_MEPO);
-        sorting_ = toSorting(pk_, 4);
+        pk_ = newPokemonPlayer(data_,LIMAGMA, Gender.NO_GENDER, 2, FOUR, BAIE_MEPO);
+        sorting_ = toSorting(data_,pk_, 4);
         pagination_.getResults().put(sorting_, pk_);
         pagination_.sort();
         assertEq(5, pagination_.getResults().size());
@@ -342,9 +356,10 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
 
     @Test
     public void sort2Test() {
+        DataBase data_ = initDb();
         PaginationPokemonPlayer pagination_;
         pagination_ = new PaginationPokemonPlayer();
-        pagination_.setTranslation(data,LANGUAGE);
+        pagination_.setTranslation(data_,LANGUAGE);
         pagination_.getCmpName().setPriority(5);
         pagination_.getCmpName().setIncreasing(SelectedBoolean.YES);
         pagination_.getCmpLevel().setPriority(4);
@@ -357,26 +372,26 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
         pagination_.getCmpAbility().setIncreasing(SelectedBoolean.YES);
         SortingPokemonPlayer sorting_;
         PokemonPlayer pk_;
-        pk_ = newPokemonPlayer(PIKACHU, Gender.NO_GENDER, 2, STATIK, NULL_REF);
-        sorting_ = toSorting(pk_, 3);
+        pk_ = newPokemonPlayer(data_,PIKACHU, Gender.NO_GENDER, 2, STATIK, NULL_REF);
+        sorting_ = toSorting(data_,pk_, 3);
         pagination_.getResults().put(sorting_, pk_);
-        pk_ = newPokemonPlayer(LIMAGMA, Gender.NO_GENDER, 2, FOUR, BAIE_MEPO);
-        sorting_ = toSorting(pk_, 0);
+        pk_ = newPokemonPlayer(data_,LIMAGMA, Gender.NO_GENDER, 2, FOUR, BAIE_MEPO);
+        sorting_ = toSorting(data_,pk_, 0);
         pagination_.getResults().put(sorting_, pk_);
-        pk_ = newPokemonPlayer(PTITARD, Gender.MALE, 3, ABSORB_EAU, MULTI_EXP);
-        sorting_ = toSorting(pk_, 2);
+        pk_ = newPokemonPlayer(data_,PTITARD, Gender.MALE, 3, ABSORB_EAU, MULTI_EXP);
+        sorting_ = toSorting(data_,pk_, 2);
         pagination_.getResults().put(sorting_, pk_);
-        pk_ = newPokemonPlayer(PTITARD, Gender.FEMALE, 3, ABSORB_EAU, MULTI_EXP);
-        sorting_ = toSorting(pk_, 1);
+        pk_ = newPokemonPlayer(data_,PTITARD, Gender.FEMALE, 3, ABSORB_EAU, MULTI_EXP);
+        sorting_ = toSorting(data_,pk_, 1);
         pagination_.getResults().put(sorting_, pk_);
-        pk_ = newPokemonPlayer(LIMAGMA, Gender.NO_GENDER, 4, FOUR, BAIE_MEPO);
-        sorting_ = toSorting(pk_, 4);
+        pk_ = newPokemonPlayer(data_,LIMAGMA, Gender.NO_GENDER, 4, FOUR, BAIE_MEPO);
+        sorting_ = toSorting(data_,pk_, 4);
         pagination_.getResults().put(sorting_, pk_);
-        pk_ = newPokemonPlayer(LIMAGMA, Gender.NO_GENDER, 2, FOUR, NULL_REF);
-        sorting_ = toSorting(pk_, 5);
+        pk_ = newPokemonPlayer(data_,LIMAGMA, Gender.NO_GENDER, 2, FOUR, NULL_REF);
+        sorting_ = toSorting(data_,pk_, 5);
         pagination_.getResults().put(sorting_, pk_);
-        pk_ = newPokemonPlayer(LIMAGMA, Gender.NO_GENDER, 2, STATIK, NULL_REF);
-        sorting_ = toSorting(pk_, 6);
+        pk_ = newPokemonPlayer(data_,LIMAGMA, Gender.NO_GENDER, 2, STATIK, NULL_REF);
+        sorting_ = toSorting(data_,pk_, 6);
         pagination_.getResults().put(sorting_, pk_);
         pagination_.sort();
         assertEq(7, pagination_.getResults().size());
@@ -428,9 +443,10 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
 
     @Test
     public void sort3Test() {
+        DataBase data_ = initDb();
         PaginationPokemonPlayer pagination_;
         pagination_ = new PaginationPokemonPlayer();
-        pagination_.setTranslation(data,LANGUAGE);
+        pagination_.setTranslation(data_,LANGUAGE);
         pagination_.getCmpName().setPriority(4);
         pagination_.getCmpName().setIncreasing(SelectedBoolean.YES);
         pagination_.getCmpLevel().setPriority(3);
@@ -441,26 +457,26 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
         pagination_.getCmpItem().setIncreasing(SelectedBoolean.NO);
         SortingPokemonPlayer sorting_;
         PokemonPlayer pk_;
-        pk_ = newPokemonPlayer(PIKACHU, Gender.NO_GENDER, 2, STATIK, NULL_REF);
-        sorting_ = toSorting(pk_, 3);
+        pk_ = newPokemonPlayer(data_,PIKACHU, Gender.NO_GENDER, 2, STATIK, NULL_REF);
+        sorting_ = toSorting(data_,pk_, 3);
         pagination_.getResults().put(sorting_, pk_);
-        pk_ = newPokemonPlayer(LIMAGMA, Gender.NO_GENDER, 2, FOUR, BAIE_MEPO);
-        sorting_ = toSorting(pk_, 0);
+        pk_ = newPokemonPlayer(data_,LIMAGMA, Gender.NO_GENDER, 2, FOUR, BAIE_MEPO);
+        sorting_ = toSorting(data_,pk_, 0);
         pagination_.getResults().put(sorting_, pk_);
-        pk_ = newPokemonPlayer(PTITARD, Gender.MALE, 3, ABSORB_EAU, MULTI_EXP);
-        sorting_ = toSorting(pk_, 2);
+        pk_ = newPokemonPlayer(data_,PTITARD, Gender.MALE, 3, ABSORB_EAU, MULTI_EXP);
+        sorting_ = toSorting(data_,pk_, 2);
         pagination_.getResults().put(sorting_, pk_);
-        pk_ = newPokemonPlayer(PTITARD, Gender.FEMALE, 3, ABSORB_EAU, MULTI_EXP);
-        sorting_ = toSorting(pk_, 1);
+        pk_ = newPokemonPlayer(data_,PTITARD, Gender.FEMALE, 3, ABSORB_EAU, MULTI_EXP);
+        sorting_ = toSorting(data_,pk_, 1);
         pagination_.getResults().put(sorting_, pk_);
-        pk_ = newPokemonPlayer(LIMAGMA, Gender.NO_GENDER, 4, FOUR, BAIE_MEPO);
-        sorting_ = toSorting(pk_, 4);
+        pk_ = newPokemonPlayer(data_,LIMAGMA, Gender.NO_GENDER, 4, FOUR, BAIE_MEPO);
+        sorting_ = toSorting(data_,pk_, 4);
         pagination_.getResults().put(sorting_, pk_);
-        pk_ = newPokemonPlayer(LIMAGMA, Gender.NO_GENDER, 2, FOUR, NULL_REF);
-        sorting_ = toSorting(pk_, 5);
+        pk_ = newPokemonPlayer(data_,LIMAGMA, Gender.NO_GENDER, 2, FOUR, NULL_REF);
+        sorting_ = toSorting(data_,pk_, 5);
         pagination_.getResults().put(sorting_, pk_);
-        pk_ = newPokemonPlayer(LIMAGMA, Gender.NO_GENDER, 2, STATIK, NULL_REF);
-        sorting_ = toSorting(pk_, 6);
+        pk_ = newPokemonPlayer(data_,LIMAGMA, Gender.NO_GENDER, 2, STATIK, NULL_REF);
+        sorting_ = toSorting(data_,pk_, 6);
         pagination_.getResults().put(sorting_, pk_);
         pagination_.sort();
         assertEq(7, pagination_.getResults().size());
@@ -512,9 +528,10 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
 
     @Test
     public void sort4Test() {
+        DataBase data_ = initDb();
         PaginationPokemonPlayer pagination_;
         pagination_ = new PaginationPokemonPlayer();
-        pagination_.setTranslation(data,LANGUAGE);
+        pagination_.setTranslation(data_,LANGUAGE);
         pagination_.getCmpName().setPriority(4);
         pagination_.getCmpName().setIncreasing(SelectedBoolean.YES);
         pagination_.getCmpLevel().setPriority(3);
@@ -525,26 +542,26 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
         pagination_.getCmpItem().setIncreasing(SelectedBoolean.NO);
         SortingPokemonPlayer sorting_;
         PokemonPlayer pk_;
-        pk_ = newPokemonPlayer(PIKACHU, Gender.NO_GENDER, 2, STATIK, NULL_REF);
-        sorting_ = toSorting(pk_, 3);
+        pk_ = newPokemonPlayer(data_,PIKACHU, Gender.NO_GENDER, 2, STATIK, NULL_REF);
+        sorting_ = toSorting(data_,pk_, 3);
         pagination_.getResults().put(sorting_, pk_);
-        pk_ = newPokemonPlayer(LIMAGMA, Gender.NO_GENDER, 2, FOUR, BAIE_MEPO);
-        sorting_ = toSorting(pk_, 0);
+        pk_ = newPokemonPlayer(data_,LIMAGMA, Gender.NO_GENDER, 2, FOUR, BAIE_MEPO);
+        sorting_ = toSorting(data_,pk_, 0);
         pagination_.getResults().put(sorting_, pk_);
-        pk_ = newPokemonPlayer(PTITARD, Gender.MALE, 3, ABSORB_EAU, MULTI_EXP);
-        sorting_ = toSorting(pk_, 2);
+        pk_ = newPokemonPlayer(data_,PTITARD, Gender.MALE, 3, ABSORB_EAU, MULTI_EXP);
+        sorting_ = toSorting(data_,pk_, 2);
         pagination_.getResults().put(sorting_, pk_);
-        pk_ = newPokemonPlayer(PTITARD, Gender.FEMALE, 3, ABSORB_EAU, MULTI_EXP);
-        sorting_ = toSorting(pk_, 1);
+        pk_ = newPokemonPlayer(data_,PTITARD, Gender.FEMALE, 3, ABSORB_EAU, MULTI_EXP);
+        sorting_ = toSorting(data_,pk_, 1);
         pagination_.getResults().put(sorting_, pk_);
-        pk_ = newPokemonPlayer(LIMAGMA, Gender.NO_GENDER, 4, FOUR, BAIE_MEPO);
-        sorting_ = toSorting(pk_, 4);
+        pk_ = newPokemonPlayer(data_,LIMAGMA, Gender.NO_GENDER, 4, FOUR, BAIE_MEPO);
+        sorting_ = toSorting(data_,pk_, 4);
         pagination_.getResults().put(sorting_, pk_);
-        pk_ = newPokemonPlayer(LIMAGMA, Gender.NO_GENDER, 2, FOUR, NULL_REF);
-        sorting_ = toSorting(pk_, 5);
+        pk_ = newPokemonPlayer(data_,LIMAGMA, Gender.NO_GENDER, 2, FOUR, NULL_REF);
+        sorting_ = toSorting(data_,pk_, 5);
         pagination_.getResults().put(sorting_, pk_);
-        pk_ = newPokemonPlayer(LIMAGMA, Gender.NO_GENDER, 2, STATIK, NULL_REF);
-        sorting_ = toSorting(pk_, 6);
+        pk_ = newPokemonPlayer(data_,LIMAGMA, Gender.NO_GENDER, 2, STATIK, NULL_REF);
+        sorting_ = toSorting(data_,pk_, 6);
         pagination_.getResults().put(sorting_, pk_);
         pagination_.sort();
         assertEq(7, pagination_.getResults().size());
@@ -596,9 +613,10 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
 
     @Test
     public void sort5Test() {
+        DataBase data_ = initDb();
         PaginationPokemonPlayer pagination_;
         pagination_ = new PaginationPokemonPlayer();
-        pagination_.setTranslation(data,LANGUAGE);
+        pagination_.setTranslation(data_,LANGUAGE);
         pagination_.getCmpName().setPriority(4);
         pagination_.getCmpName().setIncreasing(SelectedBoolean.YES);
         pagination_.getCmpLevel().setPriority(3);
@@ -609,26 +627,26 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
         pagination_.getCmpItem().setIncreasing(SelectedBoolean.NO);
         SortingPokemonPlayer sorting_;
         PokemonPlayer pk_;
-        pk_ = newPokemonPlayer(PIKACHU, Gender.NO_GENDER, 2, STATIK, NULL_REF);
-        sorting_ = toSorting(pk_, 3);
+        pk_ = newPokemonPlayer(data_,PIKACHU, Gender.NO_GENDER, 2, STATIK, NULL_REF);
+        sorting_ = toSorting(data_,pk_, 3);
         pagination_.getResults().put(sorting_, pk_);
-        pk_ = newPokemonPlayer(LIMAGMA, Gender.NO_GENDER, 2, FOUR, BAIE_MEPO);
-        sorting_ = toSorting(pk_, 0);
+        pk_ = newPokemonPlayer(data_,LIMAGMA, Gender.NO_GENDER, 2, FOUR, BAIE_MEPO);
+        sorting_ = toSorting(data_,pk_, 0);
         pagination_.getResults().put(sorting_, pk_);
-        pk_ = newPokemonPlayer(PTITARD, Gender.MALE, 3, ABSORB_EAU, MULTI_EXP);
-        sorting_ = toSorting(pk_, 2);
+        pk_ = newPokemonPlayer(data_,PTITARD, Gender.MALE, 3, ABSORB_EAU, MULTI_EXP);
+        sorting_ = toSorting(data_,pk_, 2);
         pagination_.getResults().put(sorting_, pk_);
-        pk_ = newPokemonPlayer(PTITARD, Gender.FEMALE, 3, ABSORB_EAU, MULTI_EXP);
-        sorting_ = toSorting(pk_, 1);
+        pk_ = newPokemonPlayer(data_,PTITARD, Gender.FEMALE, 3, ABSORB_EAU, MULTI_EXP);
+        sorting_ = toSorting(data_,pk_, 1);
         pagination_.getResults().put(sorting_, pk_);
-        pk_ = newPokemonPlayer(LIMAGMA, Gender.NO_GENDER, 4, FOUR, BAIE_MEPO);
-        sorting_ = toSorting(pk_, 4);
+        pk_ = newPokemonPlayer(data_,LIMAGMA, Gender.NO_GENDER, 4, FOUR, BAIE_MEPO);
+        sorting_ = toSorting(data_,pk_, 4);
         pagination_.getResults().put(sorting_, pk_);
-        pk_ = newPokemonPlayer(LIMAGMA, Gender.NO_GENDER, 2, FOUR, NULL_REF);
-        sorting_ = toSorting(pk_, 5);
+        pk_ = newPokemonPlayer(data_,LIMAGMA, Gender.NO_GENDER, 2, FOUR, NULL_REF);
+        sorting_ = toSorting(data_,pk_, 5);
         pagination_.getResults().put(sorting_, pk_);
-        pk_ = newPokemonPlayer(LIMAGMA, Gender.NO_GENDER, 2, STATIK, NULL_REF);
-        sorting_ = toSorting(pk_, 6);
+        pk_ = newPokemonPlayer(data_,LIMAGMA, Gender.NO_GENDER, 2, STATIK, NULL_REF);
+        sorting_ = toSorting(data_,pk_, 6);
         pagination_.getResults().put(sorting_, pk_);
         pagination_.sort();
         assertEq(7, pagination_.getResults().size());
@@ -680,9 +698,10 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
 
     @Test
     public void calculateRendered1Test() {
+        DataBase data_ = initDb();
         PaginationPokemonPlayer pagination_;
         pagination_ = new PaginationPokemonPlayer();
-        pagination_.setTranslation(data,LANGUAGE);
+        pagination_.setTranslation(data_,LANGUAGE);
         pagination_.setNbResultsPerPage(2);
         pagination_.getCmpName().setPriority(5);
         pagination_.getCmpName().setIncreasing(SelectedBoolean.YES);
@@ -696,26 +715,26 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
         pagination_.getCmpAbility().setIncreasing(SelectedBoolean.YES);
         SortingPokemonPlayer sorting_;
         PokemonPlayer pk_;
-        pk_ = newPokemonPlayer(PIKACHU, Gender.NO_GENDER, 2, STATIK, NULL_REF);
-        sorting_ = toSorting(pk_, 3);
+        pk_ = newPokemonPlayer(data_,PIKACHU, Gender.NO_GENDER, 2, STATIK, NULL_REF);
+        sorting_ = toSorting(data_,pk_, 3);
         pagination_.getResults().put(sorting_, pk_);
-        pk_ = newPokemonPlayer(LIMAGMA, Gender.NO_GENDER, 2, FOUR, BAIE_MEPO);
-        sorting_ = toSorting(pk_, 0);
+        pk_ = newPokemonPlayer(data_,LIMAGMA, Gender.NO_GENDER, 2, FOUR, BAIE_MEPO);
+        sorting_ = toSorting(data_,pk_, 0);
         pagination_.getResults().put(sorting_, pk_);
-        pk_ = newPokemonPlayer(PTITARD, Gender.MALE, 3, ABSORB_EAU, MULTI_EXP);
-        sorting_ = toSorting(pk_, 2);
+        pk_ = newPokemonPlayer(data_,PTITARD, Gender.MALE, 3, ABSORB_EAU, MULTI_EXP);
+        sorting_ = toSorting(data_,pk_, 2);
         pagination_.getResults().put(sorting_, pk_);
-        pk_ = newPokemonPlayer(PTITARD, Gender.FEMALE, 3, ABSORB_EAU, MULTI_EXP);
-        sorting_ = toSorting(pk_, 1);
+        pk_ = newPokemonPlayer(data_,PTITARD, Gender.FEMALE, 3, ABSORB_EAU, MULTI_EXP);
+        sorting_ = toSorting(data_,pk_, 1);
         pagination_.getResults().put(sorting_, pk_);
-        pk_ = newPokemonPlayer(LIMAGMA, Gender.NO_GENDER, 4, FOUR, BAIE_MEPO);
-        sorting_ = toSorting(pk_, 4);
+        pk_ = newPokemonPlayer(data_,LIMAGMA, Gender.NO_GENDER, 4, FOUR, BAIE_MEPO);
+        sorting_ = toSorting(data_,pk_, 4);
         pagination_.getResults().put(sorting_, pk_);
-        pk_ = newPokemonPlayer(LIMAGMA, Gender.NO_GENDER, 2, FOUR, NULL_REF);
-        sorting_ = toSorting(pk_, 5);
+        pk_ = newPokemonPlayer(data_,LIMAGMA, Gender.NO_GENDER, 2, FOUR, NULL_REF);
+        sorting_ = toSorting(data_,pk_, 5);
         pagination_.getResults().put(sorting_, pk_);
-        pk_ = newPokemonPlayer(LIMAGMA, Gender.NO_GENDER, 2, STATIK, NULL_REF);
-        sorting_ = toSorting(pk_, 6);
+        pk_ = newPokemonPlayer(data_,LIMAGMA, Gender.NO_GENDER, 2, STATIK, NULL_REF);
+        sorting_ = toSorting(data_,pk_, 6);
         pagination_.getResults().put(sorting_, pk_);
         pagination_.sort();
         pagination_.calculateRendered();
@@ -740,9 +759,10 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
 
     @Test
     public void pages1Test() {
+        DataBase data_ = initDb();
         PaginationPokemonPlayer pagination_;
         pagination_ = new PaginationPokemonPlayer();
-        pagination_.setTranslation(data,LANGUAGE);
+        pagination_.setTranslation(data_,LANGUAGE);
         pagination_.setNbResultsPerPage(2);
         pagination_.getCmpName().setPriority(5);
         pagination_.getCmpName().setIncreasing(SelectedBoolean.YES);
@@ -756,26 +776,26 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
         pagination_.getCmpAbility().setIncreasing(SelectedBoolean.YES);
         SortingPokemonPlayer sorting_;
         PokemonPlayer pk_;
-        pk_ = newPokemonPlayer(PIKACHU, Gender.NO_GENDER, 2, STATIK, NULL_REF);
-        sorting_ = toSorting(pk_, 3);
+        pk_ = newPokemonPlayer(data_,PIKACHU, Gender.NO_GENDER, 2, STATIK, NULL_REF);
+        sorting_ = toSorting(data_,pk_, 3);
         pagination_.getResults().put(sorting_, pk_);
-        pk_ = newPokemonPlayer(LIMAGMA, Gender.NO_GENDER, 2, FOUR, BAIE_MEPO);
-        sorting_ = toSorting(pk_, 0);
+        pk_ = newPokemonPlayer(data_,LIMAGMA, Gender.NO_GENDER, 2, FOUR, BAIE_MEPO);
+        sorting_ = toSorting(data_,pk_, 0);
         pagination_.getResults().put(sorting_, pk_);
-        pk_ = newPokemonPlayer(PTITARD, Gender.MALE, 3, ABSORB_EAU, MULTI_EXP);
-        sorting_ = toSorting(pk_, 2);
+        pk_ = newPokemonPlayer(data_,PTITARD, Gender.MALE, 3, ABSORB_EAU, MULTI_EXP);
+        sorting_ = toSorting(data_,pk_, 2);
         pagination_.getResults().put(sorting_, pk_);
-        pk_ = newPokemonPlayer(PTITARD, Gender.FEMALE, 3, ABSORB_EAU, MULTI_EXP);
-        sorting_ = toSorting(pk_, 1);
+        pk_ = newPokemonPlayer(data_,PTITARD, Gender.FEMALE, 3, ABSORB_EAU, MULTI_EXP);
+        sorting_ = toSorting(data_,pk_, 1);
         pagination_.getResults().put(sorting_, pk_);
-        pk_ = newPokemonPlayer(LIMAGMA, Gender.NO_GENDER, 4, FOUR, BAIE_MEPO);
-        sorting_ = toSorting(pk_, 4);
+        pk_ = newPokemonPlayer(data_,LIMAGMA, Gender.NO_GENDER, 4, FOUR, BAIE_MEPO);
+        sorting_ = toSorting(data_,pk_, 4);
         pagination_.getResults().put(sorting_, pk_);
-        pk_ = newPokemonPlayer(LIMAGMA, Gender.NO_GENDER, 2, FOUR, NULL_REF);
-        sorting_ = toSorting(pk_, 5);
+        pk_ = newPokemonPlayer(data_,LIMAGMA, Gender.NO_GENDER, 2, FOUR, NULL_REF);
+        sorting_ = toSorting(data_,pk_, 5);
         pagination_.getResults().put(sorting_, pk_);
-        pk_ = newPokemonPlayer(LIMAGMA, Gender.NO_GENDER, 2, STATIK, NULL_REF);
-        sorting_ = toSorting(pk_, 6);
+        pk_ = newPokemonPlayer(data_,LIMAGMA, Gender.NO_GENDER, 2, STATIK, NULL_REF);
+        sorting_ = toSorting(data_,pk_, 6);
         pagination_.getResults().put(sorting_, pk_);
         pagination_.sort();
         pagination_.calculateRendered();
@@ -784,27 +804,28 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
 
     @Test
     public void search1Test() {
+        DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data);
+        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
         PokemonPlayer pk_;
-        pk_ = newPokemonPlayer(PIKACHU, Gender.NO_GENDER, 2, STATIK, NULL_REF);
+        pk_ = newPokemonPlayer(data_,PIKACHU, Gender.NO_GENDER, 2, STATIK, NULL_REF);
         player_.getBox().add(pk_);
-        pk_ = newPokemonPlayer(LIMAGMA, Gender.NO_GENDER, 2, FOUR, BAIE_MEPO);
+        pk_ = newPokemonPlayer(data_,LIMAGMA, Gender.NO_GENDER, 2, FOUR, BAIE_MEPO);
         player_.getBox().add(pk_);
-        pk_ = newPokemonPlayer(PTITARD, Gender.MALE, 3, ABSORB_EAU, MULTI_EXP);
+        pk_ = newPokemonPlayer(data_,PTITARD, Gender.MALE, 3, ABSORB_EAU, MULTI_EXP);
         player_.getBox().add(pk_);
-        pk_ = newPokemonPlayer(PTITARD, Gender.FEMALE, 3, ABSORB_EAU, MULTI_EXP);
+        pk_ = newPokemonPlayer(data_,PTITARD, Gender.FEMALE, 3, ABSORB_EAU, MULTI_EXP);
         player_.getBox().add(pk_);
-        pk_ = newPokemonPlayer(LIMAGMA, Gender.NO_GENDER, 4, FOUR, BAIE_MEPO);
+        pk_ = newPokemonPlayer(data_,LIMAGMA, Gender.NO_GENDER, 4, FOUR, BAIE_MEPO);
         player_.getBox().add(pk_);
-        pk_ = newPokemonPlayer(LIMAGMA, Gender.NO_GENDER, 2, FOUR, NULL_REF);
+        pk_ = newPokemonPlayer(data_,LIMAGMA, Gender.NO_GENDER, 2, FOUR, NULL_REF);
         player_.getBox().add(pk_);
-        pk_ = newPokemonPlayer(LIMAGMA, Gender.NO_GENDER, 2, STATIK, NULL_REF);
+        pk_ = newPokemonPlayer(data_,LIMAGMA, Gender.NO_GENDER, 2, STATIK, NULL_REF);
         player_.getBox().add(pk_);
         PaginationPokemonPlayer pagination_;
         pagination_ = new PaginationPokemonPlayer();
-        pagination_.setTranslation(data,LANGUAGE);
+        pagination_.setTranslation(data_,LANGUAGE);
         pagination_.setNbResultsPerPage(2);
         pagination_.getCmpName().setPriority(5);
         pagination_.getCmpName().setIncreasing(SelectedBoolean.YES);
@@ -888,27 +909,28 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
 
     @Test
     public void search2Test() {
+        DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data);
+        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
         PokemonPlayer pk_;
-        pk_ = newPokemonPlayer(PIKACHU, Gender.NO_GENDER, 2, STATIK, NULL_REF);
+        pk_ = newPokemonPlayer(data_,PIKACHU, Gender.NO_GENDER, 2, STATIK, NULL_REF);
         player_.getBox().add(pk_);
-        pk_ = newPokemonPlayer(LIMAGMA, Gender.NO_GENDER, 2, FOUR, BAIE_MEPO);
+        pk_ = newPokemonPlayer(data_,LIMAGMA, Gender.NO_GENDER, 2, FOUR, BAIE_MEPO);
         player_.getBox().add(pk_);
-        pk_ = newPokemonPlayer(PTITARD, Gender.MALE, 3, ABSORB_EAU, MULTI_EXP);
+        pk_ = newPokemonPlayer(data_,PTITARD, Gender.MALE, 3, ABSORB_EAU, MULTI_EXP);
         player_.getBox().add(pk_);
-        pk_ = newPokemonPlayer(PTITARD, Gender.FEMALE, 3, ABSORB_EAU, MULTI_EXP);
+        pk_ = newPokemonPlayer(data_,PTITARD, Gender.FEMALE, 3, ABSORB_EAU, MULTI_EXP);
         player_.getBox().add(pk_);
-        pk_ = newPokemonPlayer(LIMAGMA, Gender.NO_GENDER, 4, FOUR, BAIE_MEPO);
+        pk_ = newPokemonPlayer(data_,LIMAGMA, Gender.NO_GENDER, 4, FOUR, BAIE_MEPO);
         player_.getBox().add(pk_);
-        pk_ = newPokemonPlayer(LIMAGMA, Gender.NO_GENDER, 2, FOUR, NULL_REF);
+        pk_ = newPokemonPlayer(data_,LIMAGMA, Gender.NO_GENDER, 2, FOUR, NULL_REF);
         player_.getBox().add(pk_);
-        pk_ = newPokemonPlayer(LIMAGMA, Gender.NO_GENDER, 2, STATIK, NULL_REF);
+        pk_ = newPokemonPlayer(data_,LIMAGMA, Gender.NO_GENDER, 2, STATIK, NULL_REF);
         player_.getBox().add(pk_);
         PaginationPokemonPlayer pagination_;
         pagination_ = new PaginationPokemonPlayer();
-        pagination_.setTranslation(data,LANGUAGE);
+        pagination_.setTranslation(data_,LANGUAGE);
         pagination_.setNbResultsPerPage(2);
         pagination_.getCmpName().setPriority(5);
         pagination_.getCmpName().setIncreasing(SelectedBoolean.YES);
@@ -933,23 +955,24 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
 
     @Test
     public void search3Test() {
+        DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data);
+        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
         PokemonPlayer pk_;
-        pk_ = newPokemonPlayer(PIKACHU, Gender.NO_GENDER, 2, STATIK, NULL_REF);
+        pk_ = newPokemonPlayer(data_,PIKACHU, Gender.NO_GENDER, 2, STATIK, NULL_REF);
         player_.getBox().add(pk_);
-        pk_ = newPokemonPlayer(LIMAGMA, Gender.NO_GENDER, 2, FOUR, BAIE_MEPO);
+        pk_ = newPokemonPlayer(data_,LIMAGMA, Gender.NO_GENDER, 2, FOUR, BAIE_MEPO);
         player_.getBox().add(pk_);
-        pk_ = newPokemonPlayer(PTITARD, Gender.MALE, 3, ABSORB_EAU, MULTI_EXP);
+        pk_ = newPokemonPlayer(data_,PTITARD, Gender.MALE, 3, ABSORB_EAU, MULTI_EXP);
         player_.getBox().add(pk_);
-        pk_ = newPokemonPlayer(PTITARD, Gender.FEMALE, 3, ABSORB_EAU, MULTI_EXP);
+        pk_ = newPokemonPlayer(data_,PTITARD, Gender.FEMALE, 3, ABSORB_EAU, MULTI_EXP);
         player_.getBox().add(pk_);
-        pk_ = newPokemonPlayer(LIMAGMA, Gender.NO_GENDER, 2, FOUR, BAIE_MEPO);
+        pk_ = newPokemonPlayer(data_,LIMAGMA, Gender.NO_GENDER, 2, FOUR, BAIE_MEPO);
         player_.getBox().add(pk_);
         PaginationPokemonPlayer pagination_;
         pagination_ = new PaginationPokemonPlayer();
-        pagination_.setTranslation(data,LANGUAGE);
+        pagination_.setTranslation(data_,LANGUAGE);
         pagination_.getCmpAbility().setPriority(1);
         pagination_.getCmpAbility().setIncreasing(SelectedBoolean.YES);
         pagination_.getCmpName().setPriority(1);
@@ -1009,28 +1032,29 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
 
     @Test
     public void search4Test() {
+        DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data);
+        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
         player_.getBox().add(new Egg(PIKACHU));
         PokemonPlayer pk_;
-        pk_ = newPokemonPlayer(PIKACHU, Gender.NO_GENDER, 2, STATIK, NULL_REF);
+        pk_ = newPokemonPlayer(data_,PIKACHU, Gender.NO_GENDER, 2, STATIK, NULL_REF);
         player_.getBox().add(pk_);
-        pk_ = newPokemonPlayer(LIMAGMA, Gender.NO_GENDER, 2, FOUR, BAIE_MEPO);
+        pk_ = newPokemonPlayer(data_,LIMAGMA, Gender.NO_GENDER, 2, FOUR, BAIE_MEPO);
         player_.getBox().add(pk_);
-        pk_ = newPokemonPlayer(PTITARD, Gender.MALE, 3, ABSORB_EAU, MULTI_EXP);
+        pk_ = newPokemonPlayer(data_,PTITARD, Gender.MALE, 3, ABSORB_EAU, MULTI_EXP);
         player_.getBox().add(pk_);
-        pk_ = newPokemonPlayer(PTITARD, Gender.FEMALE, 3, ABSORB_EAU, MULTI_EXP);
+        pk_ = newPokemonPlayer(data_,PTITARD, Gender.FEMALE, 3, ABSORB_EAU, MULTI_EXP);
         player_.getBox().add(pk_);
-        pk_ = newPokemonPlayer(LIMAGMA, Gender.NO_GENDER, 4, FOUR, BAIE_MEPO);
+        pk_ = newPokemonPlayer(data_,LIMAGMA, Gender.NO_GENDER, 4, FOUR, BAIE_MEPO);
         player_.getBox().add(pk_);
-        pk_ = newPokemonPlayer(LIMAGMA, Gender.NO_GENDER, 2, FOUR, NULL_REF);
+        pk_ = newPokemonPlayer(data_,LIMAGMA, Gender.NO_GENDER, 2, FOUR, NULL_REF);
         player_.getBox().add(pk_);
-        pk_ = newPokemonPlayer(LIMAGMA, Gender.NO_GENDER, 2, STATIK, NULL_REF);
+        pk_ = newPokemonPlayer(data_,LIMAGMA, Gender.NO_GENDER, 2, STATIK, NULL_REF);
         player_.getBox().add(pk_);
         PaginationPokemonPlayer pagination_;
         pagination_ = new PaginationPokemonPlayer();
-        pagination_.setTranslation(data,LANGUAGE);
+        pagination_.setTranslation(data_,LANGUAGE);
         pagination_.setNbResultsPerPage(2);
         pagination_.getCmpName().setPriority(5);
         pagination_.getCmpName().setIncreasing(SelectedBoolean.YES);
@@ -1110,28 +1134,29 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
 
     @Test
     public void search5Test() {
+        DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data);
+        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
         player_.getBox().add(new Egg(PIKACHU));
         PokemonPlayer pk_;
-        pk_ = newPokemonPlayer(PIKACHU, Gender.NO_GENDER, 2, STATIK, NULL_REF);
+        pk_ = newPokemonPlayer(data_,PIKACHU, Gender.NO_GENDER, 2, STATIK, NULL_REF);
         player_.getBox().add(pk_);
-        pk_ = newPokemonPlayer(LIMAGMA, Gender.NO_GENDER, 2, FOUR, BAIE_MEPO);
+        pk_ = newPokemonPlayer(data_,LIMAGMA, Gender.NO_GENDER, 2, FOUR, BAIE_MEPO);
         player_.getBox().add(pk_);
-        pk_ = newPokemonPlayer(PTITARD, Gender.MALE, 3, ABSORB_EAU, MULTI_EXP);
+        pk_ = newPokemonPlayer(data_,PTITARD, Gender.MALE, 3, ABSORB_EAU, MULTI_EXP);
         player_.getBox().add(pk_);
-        pk_ = newPokemonPlayer(PTITARD, Gender.FEMALE, 3, ABSORB_EAU, MULTI_EXP);
+        pk_ = newPokemonPlayer(data_,PTITARD, Gender.FEMALE, 3, ABSORB_EAU, MULTI_EXP);
         player_.getBox().add(pk_);
-        pk_ = newPokemonPlayer(LIMAGMA, Gender.NO_GENDER, 4, FOUR, BAIE_MEPO);
+        pk_ = newPokemonPlayer(data_,LIMAGMA, Gender.NO_GENDER, 4, FOUR, BAIE_MEPO);
         player_.getBox().add(pk_);
-        pk_ = newPokemonPlayer(LIMAGMA, Gender.NO_GENDER, 2, FOUR, NULL_REF);
+        pk_ = newPokemonPlayer(data_,LIMAGMA, Gender.NO_GENDER, 2, FOUR, NULL_REF);
         player_.getBox().add(pk_);
-        pk_ = newPokemonPlayer(LIMAGMA, Gender.NO_GENDER, 2, STATIK, NULL_REF);
+        pk_ = newPokemonPlayer(data_,LIMAGMA, Gender.NO_GENDER, 2, STATIK, NULL_REF);
         player_.getBox().add(pk_);
         PaginationPokemonPlayer pagination_;
         pagination_ = new PaginationPokemonPlayer();
-        pagination_.setTranslation(data,LANGUAGE);
+        pagination_.setTranslation(data_,LANGUAGE);
         pagination_.setNbResultsPerPage(2);
         pagination_.getCmpName().setPriority(5);
         pagination_.getCmpName().setIncreasing(SelectedBoolean.YES);
@@ -1168,27 +1193,28 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
 
     @Test
     public void search6Test() {
+        DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data);
+        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
         PokemonPlayer pk_;
-        pk_ = newPokemonPlayer(PIKACHU, Gender.NO_GENDER, 2, STATIK, NULL_REF);
+        pk_ = newPokemonPlayer(data_,PIKACHU, Gender.NO_GENDER, 2, STATIK, NULL_REF);
         player_.getBox().add(pk_);
-        pk_ = newPokemonPlayer(LIMAGMA, Gender.NO_GENDER, 2, FOUR, BAIE_MEPO);
+        pk_ = newPokemonPlayer(data_,LIMAGMA, Gender.NO_GENDER, 2, FOUR, BAIE_MEPO);
         player_.getBox().add(pk_);
-        pk_ = newPokemonPlayer(PTITARD, Gender.MALE, 3, ABSORB_EAU, MULTI_EXP);
+        pk_ = newPokemonPlayer(data_,PTITARD, Gender.MALE, 3, ABSORB_EAU, MULTI_EXP);
         player_.getBox().add(pk_);
-        pk_ = newPokemonPlayer(PTITARD, Gender.FEMALE, 3, ABSORB_EAU, MULTI_EXP);
+        pk_ = newPokemonPlayer(data_,PTITARD, Gender.FEMALE, 3, ABSORB_EAU, MULTI_EXP);
         player_.getBox().add(pk_);
-        pk_ = newPokemonPlayer(LIMAGMA, Gender.NO_GENDER, 4, FOUR, BAIE_MEPO);
+        pk_ = newPokemonPlayer(data_,LIMAGMA, Gender.NO_GENDER, 4, FOUR, BAIE_MEPO);
         player_.getBox().add(pk_);
-        pk_ = newPokemonPlayer(LIMAGMA, Gender.NO_GENDER, 2, FOUR, NULL_REF);
+        pk_ = newPokemonPlayer(data_,LIMAGMA, Gender.NO_GENDER, 2, FOUR, NULL_REF);
         player_.getBox().add(pk_);
-        pk_ = newPokemonPlayer(LIMAGMA, Gender.NO_GENDER, 2, STATIK, NULL_REF);
+        pk_ = newPokemonPlayer(data_,LIMAGMA, Gender.NO_GENDER, 2, STATIK, NULL_REF);
         player_.getBox().add(pk_);
         PaginationPokemonPlayer pagination_;
         pagination_ = new PaginationPokemonPlayer();
-        pagination_.setTranslation(data,LANGUAGE);
+        pagination_.setTranslation(data_,LANGUAGE);
         pagination_.setNbResultsPerPage(2);
         pagination_.getCmpPossEvos().setPriority(6);
         pagination_.getCmpPossEvos().setIncreasing(SelectedBoolean.YES);
@@ -1270,27 +1296,28 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
 
     @Test
     public void checkLine1Test() {
+        DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data);
+        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
         PokemonPlayer pk_;
-        pk_ = newPokemonPlayer(PIKACHU, Gender.NO_GENDER, 2, STATIK, NULL_REF);
+        pk_ = newPokemonPlayer(data_,PIKACHU, Gender.NO_GENDER, 2, STATIK, NULL_REF);
         player_.getBox().add(pk_);
-        pk_ = newPokemonPlayer(LIMAGMA, Gender.NO_GENDER, 2, FOUR, BAIE_MEPO);
+        pk_ = newPokemonPlayer(data_,LIMAGMA, Gender.NO_GENDER, 2, FOUR, BAIE_MEPO);
         player_.getBox().add(pk_);
-        pk_ = newPokemonPlayer(PTITARD, Gender.MALE, 3, ABSORB_EAU, MULTI_EXP);
+        pk_ = newPokemonPlayer(data_,PTITARD, Gender.MALE, 3, ABSORB_EAU, MULTI_EXP);
         player_.getBox().add(pk_);
-        pk_ = newPokemonPlayer(PTITARD, Gender.FEMALE, 3, ABSORB_EAU, MULTI_EXP);
+        pk_ = newPokemonPlayer(data_,PTITARD, Gender.FEMALE, 3, ABSORB_EAU, MULTI_EXP);
         player_.getBox().add(pk_);
-        pk_ = newPokemonPlayer(LIMAGMA, Gender.NO_GENDER, 4, FOUR, BAIE_MEPO);
+        pk_ = newPokemonPlayer(data_,LIMAGMA, Gender.NO_GENDER, 4, FOUR, BAIE_MEPO);
         player_.getBox().add(pk_);
-        pk_ = newPokemonPlayer(LIMAGMA, Gender.NO_GENDER, 2, FOUR, NULL_REF);
+        pk_ = newPokemonPlayer(data_,LIMAGMA, Gender.NO_GENDER, 2, FOUR, NULL_REF);
         player_.getBox().add(pk_);
-        pk_ = newPokemonPlayer(LIMAGMA, Gender.NO_GENDER, 2, STATIK, NULL_REF);
+        pk_ = newPokemonPlayer(data_,LIMAGMA, Gender.NO_GENDER, 2, STATIK, NULL_REF);
         player_.getBox().add(pk_);
         PaginationPokemonPlayer pagination_;
         pagination_ = new PaginationPokemonPlayer();
-        pagination_.setTranslation(data,LANGUAGE);
+        pagination_.setTranslation(data_,LANGUAGE);
         pagination_.setNbResultsPerPage(2);
         pagination_.getCmpName().setPriority(5);
         pagination_.getCmpName().setIncreasing(SelectedBoolean.YES);
@@ -1309,27 +1336,28 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
 
     @Test
     public void changePage1Test() {
+        DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data);
+        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
         PokemonPlayer pk_;
-        pk_ = newPokemonPlayer(PIKACHU, Gender.NO_GENDER, 2, STATIK, NULL_REF);
+        pk_ = newPokemonPlayer(data_,PIKACHU, Gender.NO_GENDER, 2, STATIK, NULL_REF);
         player_.getBox().add(pk_);
-        pk_ = newPokemonPlayer(LIMAGMA, Gender.NO_GENDER, 2, FOUR, BAIE_MEPO);
+        pk_ = newPokemonPlayer(data_,LIMAGMA, Gender.NO_GENDER, 2, FOUR, BAIE_MEPO);
         player_.getBox().add(pk_);
-        pk_ = newPokemonPlayer(PTITARD, Gender.MALE, 3, ABSORB_EAU, MULTI_EXP);
+        pk_ = newPokemonPlayer(data_,PTITARD, Gender.MALE, 3, ABSORB_EAU, MULTI_EXP);
         player_.getBox().add(pk_);
-        pk_ = newPokemonPlayer(PTITARD, Gender.FEMALE, 3, ABSORB_EAU, MULTI_EXP);
+        pk_ = newPokemonPlayer(data_,PTITARD, Gender.FEMALE, 3, ABSORB_EAU, MULTI_EXP);
         player_.getBox().add(pk_);
-        pk_ = newPokemonPlayer(LIMAGMA, Gender.NO_GENDER, 4, FOUR, BAIE_MEPO);
+        pk_ = newPokemonPlayer(data_,LIMAGMA, Gender.NO_GENDER, 4, FOUR, BAIE_MEPO);
         player_.getBox().add(pk_);
-        pk_ = newPokemonPlayer(LIMAGMA, Gender.NO_GENDER, 2, FOUR, NULL_REF);
+        pk_ = newPokemonPlayer(data_,LIMAGMA, Gender.NO_GENDER, 2, FOUR, NULL_REF);
         player_.getBox().add(pk_);
-        pk_ = newPokemonPlayer(LIMAGMA, Gender.NO_GENDER, 2, STATIK, NULL_REF);
+        pk_ = newPokemonPlayer(data_,LIMAGMA, Gender.NO_GENDER, 2, STATIK, NULL_REF);
         player_.getBox().add(pk_);
         PaginationPokemonPlayer pagination_;
         pagination_ = new PaginationPokemonPlayer();
-        pagination_.setTranslation(data,LANGUAGE);
+        pagination_.setTranslation(data_,LANGUAGE);
         pagination_.setNbResultsPerPage(2);
         pagination_.getCmpName().setPriority(5);
         pagination_.getCmpName().setIncreasing(SelectedBoolean.YES);
@@ -1364,27 +1392,28 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
 
     @Test
     public void currentIndex1Test() {
+        DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data);
+        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
         PokemonPlayer pk_;
-        pk_ = newPokemonPlayer(PIKACHU, Gender.NO_GENDER, 2, STATIK, NULL_REF);
+        pk_ = newPokemonPlayer(data_,PIKACHU, Gender.NO_GENDER, 2, STATIK, NULL_REF);
         player_.getBox().add(pk_);
-        pk_ = newPokemonPlayer(LIMAGMA, Gender.NO_GENDER, 2, FOUR, BAIE_MEPO);
+        pk_ = newPokemonPlayer(data_,LIMAGMA, Gender.NO_GENDER, 2, FOUR, BAIE_MEPO);
         player_.getBox().add(pk_);
-        pk_ = newPokemonPlayer(PTITARD, Gender.MALE, 3, ABSORB_EAU, MULTI_EXP);
+        pk_ = newPokemonPlayer(data_,PTITARD, Gender.MALE, 3, ABSORB_EAU, MULTI_EXP);
         player_.getBox().add(pk_);
-        pk_ = newPokemonPlayer(PTITARD, Gender.FEMALE, 3, ABSORB_EAU, MULTI_EXP);
+        pk_ = newPokemonPlayer(data_,PTITARD, Gender.FEMALE, 3, ABSORB_EAU, MULTI_EXP);
         player_.getBox().add(pk_);
-        pk_ = newPokemonPlayer(LIMAGMA, Gender.NO_GENDER, 4, FOUR, BAIE_MEPO);
+        pk_ = newPokemonPlayer(data_,LIMAGMA, Gender.NO_GENDER, 4, FOUR, BAIE_MEPO);
         player_.getBox().add(pk_);
-        pk_ = newPokemonPlayer(LIMAGMA, Gender.NO_GENDER, 2, FOUR, NULL_REF);
+        pk_ = newPokemonPlayer(data_,LIMAGMA, Gender.NO_GENDER, 2, FOUR, NULL_REF);
         player_.getBox().add(pk_);
-        pk_ = newPokemonPlayer(LIMAGMA, Gender.NO_GENDER, 2, STATIK, NULL_REF);
+        pk_ = newPokemonPlayer(data_,LIMAGMA, Gender.NO_GENDER, 2, STATIK, NULL_REF);
         player_.getBox().add(pk_);
         PaginationPokemonPlayer pagination_;
         pagination_ = new PaginationPokemonPlayer();
-        pagination_.setTranslation(data,LANGUAGE);
+        pagination_.setTranslation(data_,LANGUAGE);
         pagination_.setNbResultsPerPage(2);
         pagination_.getCmpName().setPriority(5);
         pagination_.getCmpName().setIncreasing(SelectedBoolean.YES);
@@ -1403,26 +1432,27 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
 
     @Test
     public void currentIndex2Test() {
+        DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data);
+        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
         player_.getBox().add(new Egg(PIKACHU));
         PokemonPlayer pk_;
-        pk_ = newPokemonPlayer(LIMAGMA, Gender.NO_GENDER, 2, FOUR, BAIE_MEPO);
+        pk_ = newPokemonPlayer(data_,LIMAGMA, Gender.NO_GENDER, 2, FOUR, BAIE_MEPO);
         player_.getBox().add(pk_);
-        pk_ = newPokemonPlayer(PTITARD, Gender.MALE, 3, ABSORB_EAU, MULTI_EXP);
+        pk_ = newPokemonPlayer(data_,PTITARD, Gender.MALE, 3, ABSORB_EAU, MULTI_EXP);
         player_.getBox().add(pk_);
-        pk_ = newPokemonPlayer(PTITARD, Gender.FEMALE, 3, ABSORB_EAU, MULTI_EXP);
+        pk_ = newPokemonPlayer(data_,PTITARD, Gender.FEMALE, 3, ABSORB_EAU, MULTI_EXP);
         player_.getBox().add(pk_);
-        pk_ = newPokemonPlayer(LIMAGMA, Gender.NO_GENDER, 4, FOUR, BAIE_MEPO);
+        pk_ = newPokemonPlayer(data_,LIMAGMA, Gender.NO_GENDER, 4, FOUR, BAIE_MEPO);
         player_.getBox().add(pk_);
-        pk_ = newPokemonPlayer(LIMAGMA, Gender.NO_GENDER, 2, FOUR, NULL_REF);
+        pk_ = newPokemonPlayer(data_,LIMAGMA, Gender.NO_GENDER, 2, FOUR, NULL_REF);
         player_.getBox().add(pk_);
-        pk_ = newPokemonPlayer(LIMAGMA, Gender.NO_GENDER, 2, STATIK, NULL_REF);
+        pk_ = newPokemonPlayer(data_,LIMAGMA, Gender.NO_GENDER, 2, STATIK, NULL_REF);
         player_.getBox().add(pk_);
         PaginationPokemonPlayer pagination_;
         pagination_ = new PaginationPokemonPlayer();
-        pagination_.setTranslation(data,LANGUAGE);
+        pagination_.setTranslation(data_,LANGUAGE);
         pagination_.setNbResultsPerPage(2);
         pagination_.getCmpName().setPriority(5);
         pagination_.getCmpName().setIncreasing(SelectedBoolean.YES);
@@ -1441,25 +1471,26 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
 
     @Test
     public void currentIndex3Test() {
+        DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data);
+        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
         PokemonPlayer pk_;
-        pk_ = newPokemonPlayer(LIMAGMA, Gender.NO_GENDER, 2, FOUR, BAIE_MEPO);
+        pk_ = newPokemonPlayer(data_,LIMAGMA, Gender.NO_GENDER, 2, FOUR, BAIE_MEPO);
         player_.getBox().add(pk_);
-        pk_ = newPokemonPlayer(PTITARD, Gender.MALE, 3, ABSORB_EAU, MULTI_EXP);
+        pk_ = newPokemonPlayer(data_,PTITARD, Gender.MALE, 3, ABSORB_EAU, MULTI_EXP);
         player_.getBox().add(pk_);
-        pk_ = newPokemonPlayer(PTITARD, Gender.FEMALE, 3, ABSORB_EAU, MULTI_EXP);
+        pk_ = newPokemonPlayer(data_,PTITARD, Gender.FEMALE, 3, ABSORB_EAU, MULTI_EXP);
         player_.getBox().add(pk_);
-        pk_ = newPokemonPlayer(LIMAGMA, Gender.NO_GENDER, 4, FOUR, BAIE_MEPO);
+        pk_ = newPokemonPlayer(data_,LIMAGMA, Gender.NO_GENDER, 4, FOUR, BAIE_MEPO);
         player_.getBox().add(pk_);
-        pk_ = newPokemonPlayer(LIMAGMA, Gender.NO_GENDER, 2, FOUR, NULL_REF);
+        pk_ = newPokemonPlayer(data_,LIMAGMA, Gender.NO_GENDER, 2, FOUR, NULL_REF);
         player_.getBox().add(pk_);
-        pk_ = newPokemonPlayer(LIMAGMA, Gender.NO_GENDER, 2, STATIK, NULL_REF);
+        pk_ = newPokemonPlayer(data_,LIMAGMA, Gender.NO_GENDER, 2, STATIK, NULL_REF);
         player_.getBox().add(pk_);
         PaginationPokemonPlayer pagination_;
         pagination_ = new PaginationPokemonPlayer();
-        pagination_.setTranslation(data,LANGUAGE);
+        pagination_.setTranslation(data_,LANGUAGE);
         pagination_.setNbResultsPerPage(2);
         pagination_.getCmpName().setPriority(5);
         pagination_.getCmpName().setIncreasing(SelectedBoolean.YES);
@@ -1478,27 +1509,28 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
 
     @Test
     public void currentObject1Test() {
+        DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data);
+        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
         PokemonPlayer pk_;
-        pk_ = newPokemonPlayer(PIKACHU, Gender.NO_GENDER, 2, STATIK, NULL_REF);
+        pk_ = newPokemonPlayer(data_,PIKACHU, Gender.NO_GENDER, 2, STATIK, NULL_REF);
         player_.getBox().add(pk_);
-        pk_ = newPokemonPlayer(LIMAGMA, Gender.NO_GENDER, 2, FOUR, BAIE_MEPO);
+        pk_ = newPokemonPlayer(data_,LIMAGMA, Gender.NO_GENDER, 2, FOUR, BAIE_MEPO);
         player_.getBox().add(pk_);
-        pk_ = newPokemonPlayer(PTITARD, Gender.MALE, 3, ABSORB_EAU, MULTI_EXP);
+        pk_ = newPokemonPlayer(data_,PTITARD, Gender.MALE, 3, ABSORB_EAU, MULTI_EXP);
         player_.getBox().add(pk_);
-        pk_ = newPokemonPlayer(PTITARD, Gender.FEMALE, 3, ABSORB_EAU, MULTI_EXP);
+        pk_ = newPokemonPlayer(data_,PTITARD, Gender.FEMALE, 3, ABSORB_EAU, MULTI_EXP);
         player_.getBox().add(pk_);
-        pk_ = newPokemonPlayer(LIMAGMA, Gender.NO_GENDER, 4, FOUR, BAIE_MEPO);
+        pk_ = newPokemonPlayer(data_,LIMAGMA, Gender.NO_GENDER, 4, FOUR, BAIE_MEPO);
         player_.getBox().add(pk_);
-        pk_ = newPokemonPlayer(LIMAGMA, Gender.NO_GENDER, 2, FOUR, NULL_REF);
+        pk_ = newPokemonPlayer(data_,LIMAGMA, Gender.NO_GENDER, 2, FOUR, NULL_REF);
         player_.getBox().add(pk_);
-        pk_ = newPokemonPlayer(LIMAGMA, Gender.NO_GENDER, 2, STATIK, NULL_REF);
+        pk_ = newPokemonPlayer(data_,LIMAGMA, Gender.NO_GENDER, 2, STATIK, NULL_REF);
         player_.getBox().add(pk_);
         PaginationPokemonPlayer pagination_;
         pagination_ = new PaginationPokemonPlayer();
-        pagination_.setTranslation(data,LANGUAGE);
+        pagination_.setTranslation(data_,LANGUAGE);
         pagination_.setNbResultsPerPage(2);
         pagination_.getCmpName().setPriority(5);
         pagination_.getCmpName().setIncreasing(SelectedBoolean.YES);
@@ -1517,26 +1549,27 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
 
     @Test
     public void currentObject2Test() {
+        DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data);
+        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
         player_.getBox().add(new Egg(PIKACHU));
         PokemonPlayer pk_;
-        pk_ = newPokemonPlayer(LIMAGMA, Gender.NO_GENDER, 2, FOUR, BAIE_MEPO);
+        pk_ = newPokemonPlayer(data_,LIMAGMA, Gender.NO_GENDER, 2, FOUR, BAIE_MEPO);
         player_.getBox().add(pk_);
-        pk_ = newPokemonPlayer(PTITARD, Gender.MALE, 3, ABSORB_EAU, MULTI_EXP);
+        pk_ = newPokemonPlayer(data_,PTITARD, Gender.MALE, 3, ABSORB_EAU, MULTI_EXP);
         player_.getBox().add(pk_);
-        pk_ = newPokemonPlayer(PTITARD, Gender.FEMALE, 3, ABSORB_EAU, MULTI_EXP);
+        pk_ = newPokemonPlayer(data_,PTITARD, Gender.FEMALE, 3, ABSORB_EAU, MULTI_EXP);
         player_.getBox().add(pk_);
-        pk_ = newPokemonPlayer(LIMAGMA, Gender.NO_GENDER, 4, FOUR, BAIE_MEPO);
+        pk_ = newPokemonPlayer(data_,LIMAGMA, Gender.NO_GENDER, 4, FOUR, BAIE_MEPO);
         player_.getBox().add(pk_);
-        pk_ = newPokemonPlayer(LIMAGMA, Gender.NO_GENDER, 2, FOUR, NULL_REF);
+        pk_ = newPokemonPlayer(data_,LIMAGMA, Gender.NO_GENDER, 2, FOUR, NULL_REF);
         player_.getBox().add(pk_);
-        pk_ = newPokemonPlayer(LIMAGMA, Gender.NO_GENDER, 2, STATIK, NULL_REF);
+        pk_ = newPokemonPlayer(data_,LIMAGMA, Gender.NO_GENDER, 2, STATIK, NULL_REF);
         player_.getBox().add(pk_);
         PaginationPokemonPlayer pagination_;
         pagination_ = new PaginationPokemonPlayer();
-        pagination_.setTranslation(data,LANGUAGE);
+        pagination_.setTranslation(data_,LANGUAGE);
         pagination_.setNbResultsPerPage(2);
         pagination_.getCmpName().setPriority(5);
         pagination_.getCmpName().setIncreasing(SelectedBoolean.YES);
@@ -1555,27 +1588,28 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
 
     @Test
     public void enabledPrevious1Test() {
+        DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data);
+        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
         PokemonPlayer pk_;
-        pk_ = newPokemonPlayer(PIKACHU, Gender.NO_GENDER, 2, STATIK, NULL_REF);
+        pk_ = newPokemonPlayer(data_,PIKACHU, Gender.NO_GENDER, 2, STATIK, NULL_REF);
         player_.getBox().add(pk_);
-        pk_ = newPokemonPlayer(LIMAGMA, Gender.NO_GENDER, 2, FOUR, BAIE_MEPO);
+        pk_ = newPokemonPlayer(data_,LIMAGMA, Gender.NO_GENDER, 2, FOUR, BAIE_MEPO);
         player_.getBox().add(pk_);
-        pk_ = newPokemonPlayer(PTITARD, Gender.MALE, 3, ABSORB_EAU, MULTI_EXP);
+        pk_ = newPokemonPlayer(data_,PTITARD, Gender.MALE, 3, ABSORB_EAU, MULTI_EXP);
         player_.getBox().add(pk_);
-        pk_ = newPokemonPlayer(PTITARD, Gender.FEMALE, 3, ABSORB_EAU, MULTI_EXP);
+        pk_ = newPokemonPlayer(data_,PTITARD, Gender.FEMALE, 3, ABSORB_EAU, MULTI_EXP);
         player_.getBox().add(pk_);
-        pk_ = newPokemonPlayer(LIMAGMA, Gender.NO_GENDER, 4, FOUR, BAIE_MEPO);
+        pk_ = newPokemonPlayer(data_,LIMAGMA, Gender.NO_GENDER, 4, FOUR, BAIE_MEPO);
         player_.getBox().add(pk_);
-        pk_ = newPokemonPlayer(LIMAGMA, Gender.NO_GENDER, 2, FOUR, NULL_REF);
+        pk_ = newPokemonPlayer(data_,LIMAGMA, Gender.NO_GENDER, 2, FOUR, NULL_REF);
         player_.getBox().add(pk_);
-        pk_ = newPokemonPlayer(LIMAGMA, Gender.NO_GENDER, 2, STATIK, NULL_REF);
+        pk_ = newPokemonPlayer(data_,LIMAGMA, Gender.NO_GENDER, 2, STATIK, NULL_REF);
         player_.getBox().add(pk_);
         PaginationPokemonPlayer pagination_;
         pagination_ = new PaginationPokemonPlayer();
-        pagination_.setTranslation(data,LANGUAGE);
+        pagination_.setTranslation(data_,LANGUAGE);
         pagination_.setNbResultsPerPage(2);
         pagination_.getCmpName().setPriority(5);
         pagination_.getCmpName().setIncreasing(SelectedBoolean.YES);
@@ -1593,27 +1627,28 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
 
     @Test
     public void enabledNext1Test() {
+        DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data);
+        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
         PokemonPlayer pk_;
-        pk_ = newPokemonPlayer(PIKACHU, Gender.NO_GENDER, 2, STATIK, NULL_REF);
+        pk_ = newPokemonPlayer(data_,PIKACHU, Gender.NO_GENDER, 2, STATIK, NULL_REF);
         player_.getBox().add(pk_);
-        pk_ = newPokemonPlayer(LIMAGMA, Gender.NO_GENDER, 2, FOUR, BAIE_MEPO);
+        pk_ = newPokemonPlayer(data_,LIMAGMA, Gender.NO_GENDER, 2, FOUR, BAIE_MEPO);
         player_.getBox().add(pk_);
-        pk_ = newPokemonPlayer(PTITARD, Gender.MALE, 3, ABSORB_EAU, MULTI_EXP);
+        pk_ = newPokemonPlayer(data_,PTITARD, Gender.MALE, 3, ABSORB_EAU, MULTI_EXP);
         player_.getBox().add(pk_);
-        pk_ = newPokemonPlayer(PTITARD, Gender.FEMALE, 3, ABSORB_EAU, MULTI_EXP);
+        pk_ = newPokemonPlayer(data_,PTITARD, Gender.FEMALE, 3, ABSORB_EAU, MULTI_EXP);
         player_.getBox().add(pk_);
-        pk_ = newPokemonPlayer(LIMAGMA, Gender.NO_GENDER, 4, FOUR, BAIE_MEPO);
+        pk_ = newPokemonPlayer(data_,LIMAGMA, Gender.NO_GENDER, 4, FOUR, BAIE_MEPO);
         player_.getBox().add(pk_);
-        pk_ = newPokemonPlayer(LIMAGMA, Gender.NO_GENDER, 2, FOUR, NULL_REF);
+        pk_ = newPokemonPlayer(data_,LIMAGMA, Gender.NO_GENDER, 2, FOUR, NULL_REF);
         player_.getBox().add(pk_);
-        pk_ = newPokemonPlayer(LIMAGMA, Gender.NO_GENDER, 2, STATIK, NULL_REF);
+        pk_ = newPokemonPlayer(data_,LIMAGMA, Gender.NO_GENDER, 2, STATIK, NULL_REF);
         player_.getBox().add(pk_);
         PaginationPokemonPlayer pagination_;
         pagination_ = new PaginationPokemonPlayer();
-        pagination_.setTranslation(data,LANGUAGE);
+        pagination_.setTranslation(data_,LANGUAGE);
         pagination_.setNbResultsPerPage(2);
         pagination_.getCmpName().setPriority(5);
         pagination_.getCmpName().setIncreasing(SelectedBoolean.YES);
@@ -1631,27 +1666,28 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
 
     @Test
     public void next1Test() {
+        DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data);
+        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
         PokemonPlayer pk_;
-        pk_ = newPokemonPlayer(PIKACHU, Gender.NO_GENDER, 2, STATIK, NULL_REF);
+        pk_ = newPokemonPlayer(data_,PIKACHU, Gender.NO_GENDER, 2, STATIK, NULL_REF);
         player_.getBox().add(pk_);
-        pk_ = newPokemonPlayer(LIMAGMA, Gender.NO_GENDER, 2, FOUR, BAIE_MEPO);
+        pk_ = newPokemonPlayer(data_,LIMAGMA, Gender.NO_GENDER, 2, FOUR, BAIE_MEPO);
         player_.getBox().add(pk_);
-        pk_ = newPokemonPlayer(PTITARD, Gender.MALE, 3, ABSORB_EAU, MULTI_EXP);
+        pk_ = newPokemonPlayer(data_,PTITARD, Gender.MALE, 3, ABSORB_EAU, MULTI_EXP);
         player_.getBox().add(pk_);
-        pk_ = newPokemonPlayer(PTITARD, Gender.FEMALE, 3, ABSORB_EAU, MULTI_EXP);
+        pk_ = newPokemonPlayer(data_,PTITARD, Gender.FEMALE, 3, ABSORB_EAU, MULTI_EXP);
         player_.getBox().add(pk_);
-        pk_ = newPokemonPlayer(LIMAGMA, Gender.NO_GENDER, 4, FOUR, BAIE_MEPO);
+        pk_ = newPokemonPlayer(data_,LIMAGMA, Gender.NO_GENDER, 4, FOUR, BAIE_MEPO);
         player_.getBox().add(pk_);
-        pk_ = newPokemonPlayer(LIMAGMA, Gender.NO_GENDER, 2, FOUR, NULL_REF);
+        pk_ = newPokemonPlayer(data_,LIMAGMA, Gender.NO_GENDER, 2, FOUR, NULL_REF);
         player_.getBox().add(pk_);
-        pk_ = newPokemonPlayer(LIMAGMA, Gender.NO_GENDER, 2, STATIK, NULL_REF);
+        pk_ = newPokemonPlayer(data_,LIMAGMA, Gender.NO_GENDER, 2, STATIK, NULL_REF);
         player_.getBox().add(pk_);
         PaginationPokemonPlayer pagination_;
         pagination_ = new PaginationPokemonPlayer();
-        pagination_.setTranslation(data,LANGUAGE);
+        pagination_.setTranslation(data_,LANGUAGE);
         pagination_.setNbResultsPerPage(2);
         pagination_.getCmpName().setPriority(5);
         pagination_.getCmpName().setIncreasing(SelectedBoolean.YES);
@@ -1686,27 +1722,28 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
 
     @Test
     public void previous1Test() {
+        DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data);
+        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
         PokemonPlayer pk_;
-        pk_ = newPokemonPlayer(PIKACHU, Gender.NO_GENDER, 2, STATIK, NULL_REF);
+        pk_ = newPokemonPlayer(data_,PIKACHU, Gender.NO_GENDER, 2, STATIK, NULL_REF);
         player_.getBox().add(pk_);
-        pk_ = newPokemonPlayer(LIMAGMA, Gender.NO_GENDER, 2, FOUR, BAIE_MEPO);
+        pk_ = newPokemonPlayer(data_,LIMAGMA, Gender.NO_GENDER, 2, FOUR, BAIE_MEPO);
         player_.getBox().add(pk_);
-        pk_ = newPokemonPlayer(PTITARD, Gender.MALE, 3, ABSORB_EAU, MULTI_EXP);
+        pk_ = newPokemonPlayer(data_,PTITARD, Gender.MALE, 3, ABSORB_EAU, MULTI_EXP);
         player_.getBox().add(pk_);
-        pk_ = newPokemonPlayer(PTITARD, Gender.FEMALE, 3, ABSORB_EAU, MULTI_EXP);
+        pk_ = newPokemonPlayer(data_,PTITARD, Gender.FEMALE, 3, ABSORB_EAU, MULTI_EXP);
         player_.getBox().add(pk_);
-        pk_ = newPokemonPlayer(LIMAGMA, Gender.NO_GENDER, 4, FOUR, BAIE_MEPO);
+        pk_ = newPokemonPlayer(data_,LIMAGMA, Gender.NO_GENDER, 4, FOUR, BAIE_MEPO);
         player_.getBox().add(pk_);
-        pk_ = newPokemonPlayer(LIMAGMA, Gender.NO_GENDER, 2, FOUR, NULL_REF);
+        pk_ = newPokemonPlayer(data_,LIMAGMA, Gender.NO_GENDER, 2, FOUR, NULL_REF);
         player_.getBox().add(pk_);
-        pk_ = newPokemonPlayer(LIMAGMA, Gender.NO_GENDER, 2, STATIK, NULL_REF);
+        pk_ = newPokemonPlayer(data_,LIMAGMA, Gender.NO_GENDER, 2, STATIK, NULL_REF);
         player_.getBox().add(pk_);
         PaginationPokemonPlayer pagination_;
         pagination_ = new PaginationPokemonPlayer();
-        pagination_.setTranslation(data,LANGUAGE);
+        pagination_.setTranslation(data_,LANGUAGE);
         pagination_.setNbResultsPerPage(2);
         pagination_.getCmpName().setPriority(5);
         pagination_.getCmpName().setIncreasing(SelectedBoolean.YES);
@@ -1745,27 +1782,28 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
 
     @Test
     public void begin1Test() {
+        DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data);
+        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
         PokemonPlayer pk_;
-        pk_ = newPokemonPlayer(PIKACHU, Gender.NO_GENDER, 2, STATIK, NULL_REF);
+        pk_ = newPokemonPlayer(data_,PIKACHU, Gender.NO_GENDER, 2, STATIK, NULL_REF);
         player_.getBox().add(pk_);
-        pk_ = newPokemonPlayer(LIMAGMA, Gender.NO_GENDER, 2, FOUR, BAIE_MEPO);
+        pk_ = newPokemonPlayer(data_,LIMAGMA, Gender.NO_GENDER, 2, FOUR, BAIE_MEPO);
         player_.getBox().add(pk_);
-        pk_ = newPokemonPlayer(PTITARD, Gender.MALE, 3, ABSORB_EAU, MULTI_EXP);
+        pk_ = newPokemonPlayer(data_,PTITARD, Gender.MALE, 3, ABSORB_EAU, MULTI_EXP);
         player_.getBox().add(pk_);
-        pk_ = newPokemonPlayer(PTITARD, Gender.FEMALE, 3, ABSORB_EAU, MULTI_EXP);
+        pk_ = newPokemonPlayer(data_,PTITARD, Gender.FEMALE, 3, ABSORB_EAU, MULTI_EXP);
         player_.getBox().add(pk_);
-        pk_ = newPokemonPlayer(LIMAGMA, Gender.NO_GENDER, 4, FOUR, BAIE_MEPO);
+        pk_ = newPokemonPlayer(data_,LIMAGMA, Gender.NO_GENDER, 4, FOUR, BAIE_MEPO);
         player_.getBox().add(pk_);
-        pk_ = newPokemonPlayer(LIMAGMA, Gender.NO_GENDER, 2, FOUR, NULL_REF);
+        pk_ = newPokemonPlayer(data_,LIMAGMA, Gender.NO_GENDER, 2, FOUR, NULL_REF);
         player_.getBox().add(pk_);
-        pk_ = newPokemonPlayer(LIMAGMA, Gender.NO_GENDER, 2, STATIK, NULL_REF);
+        pk_ = newPokemonPlayer(data_,LIMAGMA, Gender.NO_GENDER, 2, STATIK, NULL_REF);
         player_.getBox().add(pk_);
         PaginationPokemonPlayer pagination_;
         pagination_ = new PaginationPokemonPlayer();
-        pagination_.setTranslation(data,LANGUAGE);
+        pagination_.setTranslation(data_,LANGUAGE);
         pagination_.setNbResultsPerPage(2);
         pagination_.getCmpName().setPriority(5);
         pagination_.getCmpName().setIncreasing(SelectedBoolean.YES);
@@ -1804,27 +1842,28 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
 
     @Test
     public void end1Test() {
+        DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data);
+        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
         PokemonPlayer pk_;
-        pk_ = newPokemonPlayer(PIKACHU, Gender.NO_GENDER, 2, STATIK, NULL_REF);
+        pk_ = newPokemonPlayer(data_,PIKACHU, Gender.NO_GENDER, 2, STATIK, NULL_REF);
         player_.getBox().add(pk_);
-        pk_ = newPokemonPlayer(LIMAGMA, Gender.NO_GENDER, 2, FOUR, BAIE_MEPO);
+        pk_ = newPokemonPlayer(data_,LIMAGMA, Gender.NO_GENDER, 2, FOUR, BAIE_MEPO);
         player_.getBox().add(pk_);
-        pk_ = newPokemonPlayer(PTITARD, Gender.MALE, 3, ABSORB_EAU, MULTI_EXP);
+        pk_ = newPokemonPlayer(data_,PTITARD, Gender.MALE, 3, ABSORB_EAU, MULTI_EXP);
         player_.getBox().add(pk_);
-        pk_ = newPokemonPlayer(PTITARD, Gender.FEMALE, 3, ABSORB_EAU, MULTI_EXP);
+        pk_ = newPokemonPlayer(data_,PTITARD, Gender.FEMALE, 3, ABSORB_EAU, MULTI_EXP);
         player_.getBox().add(pk_);
-        pk_ = newPokemonPlayer(LIMAGMA, Gender.NO_GENDER, 4, FOUR, BAIE_MEPO);
+        pk_ = newPokemonPlayer(data_,LIMAGMA, Gender.NO_GENDER, 4, FOUR, BAIE_MEPO);
         player_.getBox().add(pk_);
-        pk_ = newPokemonPlayer(LIMAGMA, Gender.NO_GENDER, 2, FOUR, NULL_REF);
+        pk_ = newPokemonPlayer(data_,LIMAGMA, Gender.NO_GENDER, 2, FOUR, NULL_REF);
         player_.getBox().add(pk_);
-        pk_ = newPokemonPlayer(LIMAGMA, Gender.NO_GENDER, 2, STATIK, NULL_REF);
+        pk_ = newPokemonPlayer(data_,LIMAGMA, Gender.NO_GENDER, 2, STATIK, NULL_REF);
         player_.getBox().add(pk_);
         PaginationPokemonPlayer pagination_;
         pagination_ = new PaginationPokemonPlayer();
-        pagination_.setTranslation(data,LANGUAGE);
+        pagination_.setTranslation(data_,LANGUAGE);
         pagination_.setNbResultsPerPage(2);
         pagination_.getCmpName().setPriority(5);
         pagination_.getCmpName().setIncreasing(SelectedBoolean.YES);
@@ -1854,27 +1893,28 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
 
     @Test
     public void nextDelta1Test() {
+        DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data);
+        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
         PokemonPlayer pk_;
-        pk_ = newPokemonPlayer(PIKACHU, Gender.NO_GENDER, 2, STATIK, NULL_REF);
+        pk_ = newPokemonPlayer(data_,PIKACHU, Gender.NO_GENDER, 2, STATIK, NULL_REF);
         player_.getBox().add(pk_);
-        pk_ = newPokemonPlayer(LIMAGMA, Gender.NO_GENDER, 2, FOUR, BAIE_MEPO);
+        pk_ = newPokemonPlayer(data_,LIMAGMA, Gender.NO_GENDER, 2, FOUR, BAIE_MEPO);
         player_.getBox().add(pk_);
-        pk_ = newPokemonPlayer(PTITARD, Gender.MALE, 3, ABSORB_EAU, MULTI_EXP);
+        pk_ = newPokemonPlayer(data_,PTITARD, Gender.MALE, 3, ABSORB_EAU, MULTI_EXP);
         player_.getBox().add(pk_);
-        pk_ = newPokemonPlayer(PTITARD, Gender.FEMALE, 3, ABSORB_EAU, MULTI_EXP);
+        pk_ = newPokemonPlayer(data_,PTITARD, Gender.FEMALE, 3, ABSORB_EAU, MULTI_EXP);
         player_.getBox().add(pk_);
-        pk_ = newPokemonPlayer(LIMAGMA, Gender.NO_GENDER, 4, FOUR, BAIE_MEPO);
+        pk_ = newPokemonPlayer(data_,LIMAGMA, Gender.NO_GENDER, 4, FOUR, BAIE_MEPO);
         player_.getBox().add(pk_);
-        pk_ = newPokemonPlayer(LIMAGMA, Gender.NO_GENDER, 2, FOUR, NULL_REF);
+        pk_ = newPokemonPlayer(data_,LIMAGMA, Gender.NO_GENDER, 2, FOUR, NULL_REF);
         player_.getBox().add(pk_);
-        pk_ = newPokemonPlayer(LIMAGMA, Gender.NO_GENDER, 2, STATIK, NULL_REF);
+        pk_ = newPokemonPlayer(data_,LIMAGMA, Gender.NO_GENDER, 2, STATIK, NULL_REF);
         player_.getBox().add(pk_);
         PaginationPokemonPlayer pagination_;
         pagination_ = new PaginationPokemonPlayer();
-        pagination_.setTranslation(data,LANGUAGE);
+        pagination_.setTranslation(data_,LANGUAGE);
         pagination_.setNbResultsPerPage(2);
         pagination_.setDelta(3);
         pagination_.getCmpName().setPriority(5);
@@ -1905,27 +1945,28 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
 
     @Test
     public void previousDelta1Test() {
+        DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data);
+        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
         PokemonPlayer pk_;
-        pk_ = newPokemonPlayer(PIKACHU, Gender.NO_GENDER, 2, STATIK, NULL_REF);
+        pk_ = newPokemonPlayer(data_,PIKACHU, Gender.NO_GENDER, 2, STATIK, NULL_REF);
         player_.getBox().add(pk_);
-        pk_ = newPokemonPlayer(LIMAGMA, Gender.NO_GENDER, 2, FOUR, BAIE_MEPO);
+        pk_ = newPokemonPlayer(data_,LIMAGMA, Gender.NO_GENDER, 2, FOUR, BAIE_MEPO);
         player_.getBox().add(pk_);
-        pk_ = newPokemonPlayer(PTITARD, Gender.MALE, 3, ABSORB_EAU, MULTI_EXP);
+        pk_ = newPokemonPlayer(data_,PTITARD, Gender.MALE, 3, ABSORB_EAU, MULTI_EXP);
         player_.getBox().add(pk_);
-        pk_ = newPokemonPlayer(PTITARD, Gender.FEMALE, 3, ABSORB_EAU, MULTI_EXP);
+        pk_ = newPokemonPlayer(data_,PTITARD, Gender.FEMALE, 3, ABSORB_EAU, MULTI_EXP);
         player_.getBox().add(pk_);
-        pk_ = newPokemonPlayer(LIMAGMA, Gender.NO_GENDER, 4, FOUR, BAIE_MEPO);
+        pk_ = newPokemonPlayer(data_,LIMAGMA, Gender.NO_GENDER, 4, FOUR, BAIE_MEPO);
         player_.getBox().add(pk_);
-        pk_ = newPokemonPlayer(LIMAGMA, Gender.NO_GENDER, 2, FOUR, NULL_REF);
+        pk_ = newPokemonPlayer(data_,LIMAGMA, Gender.NO_GENDER, 2, FOUR, NULL_REF);
         player_.getBox().add(pk_);
-        pk_ = newPokemonPlayer(LIMAGMA, Gender.NO_GENDER, 2, STATIK, NULL_REF);
+        pk_ = newPokemonPlayer(data_,LIMAGMA, Gender.NO_GENDER, 2, STATIK, NULL_REF);
         player_.getBox().add(pk_);
         PaginationPokemonPlayer pagination_;
         pagination_ = new PaginationPokemonPlayer();
-        pagination_.setTranslation(data,LANGUAGE);
+        pagination_.setTranslation(data_,LANGUAGE);
         pagination_.setNbResultsPerPage(2);
         pagination_.setDelta(3);
         pagination_.getCmpName().setPriority(5);
@@ -1963,27 +2004,28 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
 
     @Test
     public void newSearch1Test() {
+        DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data);
+        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
         PokemonPlayer pk_;
-        pk_ = newPokemonPlayer(PIKACHU, Gender.NO_GENDER, 2, STATIK, NULL_REF);
+        pk_ = newPokemonPlayer(data_,PIKACHU, Gender.NO_GENDER, 2, STATIK, NULL_REF);
         player_.getBox().add(pk_);
-        pk_ = newPokemonPlayer(LIMAGMA, Gender.NO_GENDER, 2, FOUR, BAIE_MEPO);
+        pk_ = newPokemonPlayer(data_,LIMAGMA, Gender.NO_GENDER, 2, FOUR, BAIE_MEPO);
         player_.getBox().add(pk_);
-        pk_ = newPokemonPlayer(PTITARD, Gender.MALE, 3, ABSORB_EAU, MULTI_EXP);
+        pk_ = newPokemonPlayer(data_,PTITARD, Gender.MALE, 3, ABSORB_EAU, MULTI_EXP);
         player_.getBox().add(pk_);
-        pk_ = newPokemonPlayer(PTITARD, Gender.FEMALE, 3, ABSORB_EAU, MULTI_EXP);
+        pk_ = newPokemonPlayer(data_,PTITARD, Gender.FEMALE, 3, ABSORB_EAU, MULTI_EXP);
         player_.getBox().add(pk_);
-        pk_ = newPokemonPlayer(LIMAGMA, Gender.NO_GENDER, 4, FOUR, BAIE_MEPO);
+        pk_ = newPokemonPlayer(data_,LIMAGMA, Gender.NO_GENDER, 4, FOUR, BAIE_MEPO);
         player_.getBox().add(pk_);
-        pk_ = newPokemonPlayer(LIMAGMA, Gender.NO_GENDER, 2, FOUR, NULL_REF);
+        pk_ = newPokemonPlayer(data_,LIMAGMA, Gender.NO_GENDER, 2, FOUR, NULL_REF);
         player_.getBox().add(pk_);
-        pk_ = newPokemonPlayer(LIMAGMA, Gender.NO_GENDER, 2, STATIK, NULL_REF);
+        pk_ = newPokemonPlayer(data_,LIMAGMA, Gender.NO_GENDER, 2, STATIK, NULL_REF);
         player_.getBox().add(pk_);
         PaginationPokemonPlayer pagination_;
         pagination_ = new PaginationPokemonPlayer();
-        pagination_.setTranslation(data,LANGUAGE);
+        pagination_.setTranslation(data_,LANGUAGE);
         pagination_.setNbResultsPerPage(2);
         pagination_.getCmpName().setPriority(5);
         pagination_.getCmpName().setIncreasing(SelectedBoolean.YES);
@@ -2040,27 +2082,28 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
 
     @Test
     public void clear1Test() {
+        DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data);
+        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
         PokemonPlayer pk_;
-        pk_ = newPokemonPlayer(PIKACHU, Gender.NO_GENDER, 2, STATIK, NULL_REF);
+        pk_ = newPokemonPlayer(data_,PIKACHU, Gender.NO_GENDER, 2, STATIK, NULL_REF);
         player_.getBox().add(pk_);
-        pk_ = newPokemonPlayer(LIMAGMA, Gender.NO_GENDER, 2, FOUR, BAIE_MEPO);
+        pk_ = newPokemonPlayer(data_,LIMAGMA, Gender.NO_GENDER, 2, FOUR, BAIE_MEPO);
         player_.getBox().add(pk_);
-        pk_ = newPokemonPlayer(PTITARD, Gender.MALE, 3, ABSORB_EAU, MULTI_EXP);
+        pk_ = newPokemonPlayer(data_,PTITARD, Gender.MALE, 3, ABSORB_EAU, MULTI_EXP);
         player_.getBox().add(pk_);
-        pk_ = newPokemonPlayer(PTITARD, Gender.FEMALE, 3, ABSORB_EAU, MULTI_EXP);
+        pk_ = newPokemonPlayer(data_,PTITARD, Gender.FEMALE, 3, ABSORB_EAU, MULTI_EXP);
         player_.getBox().add(pk_);
-        pk_ = newPokemonPlayer(LIMAGMA, Gender.NO_GENDER, 4, FOUR, BAIE_MEPO);
+        pk_ = newPokemonPlayer(data_,LIMAGMA, Gender.NO_GENDER, 4, FOUR, BAIE_MEPO);
         player_.getBox().add(pk_);
-        pk_ = newPokemonPlayer(LIMAGMA, Gender.NO_GENDER, 2, FOUR, NULL_REF);
+        pk_ = newPokemonPlayer(data_,LIMAGMA, Gender.NO_GENDER, 2, FOUR, NULL_REF);
         player_.getBox().add(pk_);
-        pk_ = newPokemonPlayer(LIMAGMA, Gender.NO_GENDER, 2, STATIK, NULL_REF);
+        pk_ = newPokemonPlayer(data_,LIMAGMA, Gender.NO_GENDER, 2, STATIK, NULL_REF);
         player_.getBox().add(pk_);
         PaginationPokemonPlayer pagination_;
         pagination_ = new PaginationPokemonPlayer();
-        pagination_.setTranslation(data,LANGUAGE);
+        pagination_.setTranslation(data_,LANGUAGE);
         pagination_.setNbResultsPerPage(2);
         pagination_.setDelta(3);
         pagination_.getCmpName().setPriority(5);
@@ -2082,7 +2125,8 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
         assertEq(IndexConstants.INDEX_NOT_FOUND_ELT, pagination_.currentIndex());
     }
 
-    private SortingPokemonPlayer toSorting(
+    private static SortingPokemonPlayer toSorting(
+            DataBase _data,
             PokemonPlayer _pk, int _index) {
         SortingPokemonPlayer sorting_;
         sorting_ = new SortingPokemonPlayer();
@@ -2092,11 +2136,12 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
         sorting_.setGender(_pk.getGender());
         sorting_.setItem(_pk.getItem());
         sorting_.setIndex(_index);
-        sorting_.setNbPossEvos((short) _pk.getDirectEvolutions(data).size());
+        sorting_.setNbPossEvos((short) _pk.getDirectEvolutions(_data).size());
         return sorting_;
     }
 
-    private PokemonPlayer newPokemonPlayer(
+    private static PokemonPlayer newPokemonPlayer(
+            DataBase _data,
             String _name,
             Gender _gender,
             int _level,
@@ -2108,6 +2153,6 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
         pk_.setLevel((short) _level);
         pk_.setAbility(_ability);
         pk_.setItem(_object);
-        return new PokemonPlayer(pk_, data);
+        return new PokemonPlayer(pk_, _data);
     }
 }

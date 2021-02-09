@@ -15,22 +15,14 @@ import aiki.map.pokemon.enums.Gender;
 import aiki.util.Coords;
 import aiki.util.LevelPoint;
 import aiki.util.Point;
-import code.util.NatStringTreeMap;
-import code.util.StringList;
-import code.util.TreeMap;
-import org.junit.Before;
 import org.junit.Test;
 
 public final class FacadeGameFightKoFourTest extends InitializationDataBase {
 
-    private DataBase data;
-    private Game game;
-    private FacadeGame facadeGame;
-    @Before
-    public void initTests() {
-        data = initDb();
-        Game game_ = new Game(data);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data);
+    public static FacadeGame initTests() {
+        DataBase data_ = initDb();
+        Game game_ = new Game(data_);
+        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
         game_.setPlayerCoords(newCoords(2, 0, 3, 1));
         game_.setPlayerOrientation(Direction.UP);
         game_.getDifficulty().setRandomWildFight(false);
@@ -40,37 +32,37 @@ public final class FacadeGameFightKoFourTest extends InitializationDataBase {
         pk_.setGender(Gender.NO_GENDER);
         pk_.setAbility(ABSORB_EAU);
         pk_.setLevel((short) 100);
-        game_.getPlayer().recevoirPokemon(pk_, game_.getDifficulty(), data);
+        game_.getPlayer().recevoirPokemon(pk_, game_.getDifficulty(), data_);
         game_.getPlayer().setChosenTeamPokemon((short) 0);
         game_.getPlayer().switchTeamOrder((short) 1);
         PokemonPlayer pkPl_ = (PokemonPlayer) game_.getPlayer().getTeam().first();
-        pkPl_.learnMove(CHARGE, HATE, data);
-        game_.initTrainerFight(data);
-        game = game_;
+        pkPl_.learnMove(CHARGE, HATE, data_);
+        game_.initTrainerFight(data_);
         FacadeGame facadeGame_ = new FacadeGame();
-        facadeGame_.setData(data);
+        facadeGame_.setData(data_);
         facadeGame_.setLanguage(LANGUAGE);
         facadeGame_.setGame(game_);
-        facadeGame = facadeGame_;
+        return facadeGame_;
     }
 
     @Test
     public void act1Test() {
-        facadeGame.chooseFrontFighter((byte) 0);
-        facadeGame.chooseMove(CHARGE);
-        facadeGame.setFirstChosenMovePlayerTarget((byte) 1);
+        FacadeGame facadeGame_ = initTests();
+        facadeGame_.chooseFrontFighter((byte) 0);
+        facadeGame_.chooseMove(CHARGE);
+        facadeGame_.setFirstChosenMovePlayerTarget((byte) 1);
         AbstractAction action_;
-        action_ = facadeGame.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getAction();
+        action_ = facadeGame_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getAction();
         assertEq(CHARGE, ((ActionMove)action_).getFirstChosenMove());
         assertEq(1, ((ActionMove)action_).getChosenTargets().size());
         assertEq(POKEMON_PLAYER_TARGET_ONE, ((ActionMove)action_).getChosenTargets().first());
         assertEq(Fighter.BACK, ((ActionMove)action_).getSubstitute());
-        assertEq(2, facadeGame.getFight().getChosableFoeTargets().size());
-        assertTrue(facadeGame.getFight().getChosableFoeTargets().get(0));
-        assertTrue(facadeGame.getFight().getChosableFoeTargets().get(1));
-        assertEq(2, facadeGame.getFight().getChosablePlayerTargets().size());
-        assertTrue(!facadeGame.getFight().getChosablePlayerTargets().get(0));
-        assertTrue(facadeGame.getFight().getChosablePlayerTargets().get(1));
+        assertEq(2, facadeGame_.getFight().getChosableFoeTargets().size());
+        assertTrue(facadeGame_.getFight().getChosableFoeTargets().get(0));
+        assertTrue(facadeGame_.getFight().getChosableFoeTargets().get(1));
+        assertEq(2, facadeGame_.getFight().getChosablePlayerTargets().size());
+        assertTrue(!facadeGame_.getFight().getChosablePlayerTargets().get(0));
+        assertTrue(facadeGame_.getFight().getChosablePlayerTargets().get(1));
     }
 
     private static Coords newCoords(int _place, int _level, int _x, int _y) {

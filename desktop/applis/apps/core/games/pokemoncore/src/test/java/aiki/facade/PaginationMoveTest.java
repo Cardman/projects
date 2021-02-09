@@ -2,7 +2,6 @@ package aiki.facade;
 
 import aiki.db.DataBase;
 import code.util.CustList;
-import org.junit.Before;
 import org.junit.Test;
 
 import aiki.fight.moves.DamagingMoveData;
@@ -17,16 +16,12 @@ import aiki.facade.enums.SelectedBoolean;
 
 public class PaginationMoveTest extends InitializationDataBase {
 
-    private DataBase data;
-    @Before
-    public void initTests() {
-        data = initDb();
-    }
     @Test
     public void match1Test() {
+        DataBase data_ = initDb();
         PaginationMove pagination_;
         pagination_ = new PaginationMove();
-        pagination_.setTranslation(data, LANGUAGE);
+        pagination_.setTranslation(data_, LANGUAGE);
         pagination_.getCriteria().setSearchModeName(SearchingMode.META_CHARACTER);
         pagination_.getCriteria().setContentOfName("E*");
         assertTrue(pagination_.match(ECLAIR));
@@ -34,9 +29,10 @@ public class PaginationMoveTest extends InitializationDataBase {
 
     @Test
     public void match2Test() {
+        DataBase data_ = initDb();
         PaginationMove pagination_;
         pagination_ = new PaginationMove();
-        pagination_.setTranslation(data, LANGUAGE);
+        pagination_.setTranslation(data_, LANGUAGE);
         pagination_.getCriteria().setSearchModeName(SearchingMode.META_CHARACTER);
         pagination_.getCriteria().setContentOfName("P*");
         assertTrue(!pagination_.match(ECLAIR));
@@ -51,27 +47,30 @@ public class PaginationMoveTest extends InitializationDataBase {
 
     @Test
     public void sortable2Test() {
+        DataBase data_ = initDb();
         PaginationMove pagination_;
         pagination_ = new PaginationMove();
-        pagination_.setTranslation(data, LANGUAGE);
+        pagination_.setTranslation(data_, LANGUAGE);
         pagination_.getCmpName().setPriority(1);
         assertTrue(pagination_.sortable());
     }
 
     @Test
     public void sortable3Test() {
+        DataBase data_ = initDb();
         PaginationMove pagination_;
         pagination_ = new PaginationMove();
-        pagination_.setTranslation(data, LANGUAGE);
+        pagination_.setTranslation(data_, LANGUAGE);
         pagination_.getCmpPrice().setPriority(1);
         assertTrue(pagination_.sortable());
     }
 
     @Test
     public void sortable4Test() {
+        DataBase data_ = initDb();
         PaginationMove pagination_;
         pagination_ = new PaginationMove();
-        pagination_.setTranslation(data, LANGUAGE);
+        pagination_.setTranslation(data_, LANGUAGE);
         pagination_.getCmpName().setPriority(1);
         pagination_.getCmpPrice().setPriority(1);
         assertTrue(!pagination_.sortable());
@@ -79,9 +78,10 @@ public class PaginationMoveTest extends InitializationDataBase {
 
     @Test
     public void sortable5Test() {
+        DataBase data_ = initDb();
         PaginationMove pagination_;
         pagination_ = new PaginationMove();
-        pagination_.setTranslation(data, LANGUAGE);
+        pagination_.setTranslation(data_, LANGUAGE);
         pagination_.getCmpName().setPriority(1);
         pagination_.getCmpDescription().setPriority(1);
         assertTrue(!pagination_.sortable());
@@ -89,9 +89,10 @@ public class PaginationMoveTest extends InitializationDataBase {
 
     @Test
     public void sortable6Test() {
+        DataBase data_ = initDb();
         PaginationMove pagination_;
         pagination_ = new PaginationMove();
-        pagination_.setTranslation(data, LANGUAGE);
+        pagination_.setTranslation(data_, LANGUAGE);
         pagination_.getCmpName().setPriority(1);
         pagination_.getCmpPrio().setPriority(1);
         assertTrue(!pagination_.sortable());
@@ -99,9 +100,10 @@ public class PaginationMoveTest extends InitializationDataBase {
 
     @Test
     public void sortable7Test() {
+        DataBase data_ = initDb();
         PaginationMove pagination_;
         pagination_ = new PaginationMove();
-        pagination_.setTranslation(data, LANGUAGE);
+        pagination_.setTranslation(data_, LANGUAGE);
         pagination_.getCmpName().setPriority(1);
         pagination_.getCmpPpp().setPriority(1);
         assertTrue(!pagination_.sortable());
@@ -109,9 +111,10 @@ public class PaginationMoveTest extends InitializationDataBase {
 
     @Test
     public void sortable8Test() {
+        DataBase data_ = initDb();
         PaginationMove pagination_;
         pagination_ = new PaginationMove();
-        pagination_.setTranslation(data, LANGUAGE);
+        pagination_.setTranslation(data_, LANGUAGE);
         pagination_.getCmpName().setPriority(1);
         pagination_.getCmpTargetChoice().setPriority(1);
         assertTrue(!pagination_.sortable());
@@ -119,9 +122,10 @@ public class PaginationMoveTest extends InitializationDataBase {
 
     @Test
     public void sort1Test() {
+        DataBase data_ = initDb();
         PaginationMove pagination_;
         pagination_ = new PaginationMove();
-        pagination_.setTranslation(data, LANGUAGE);
+        pagination_.setTranslation(data_, LANGUAGE);
         SortingMove sorting_;
         String itemName_;
         sorting_ = new SortingMove();
@@ -162,9 +166,10 @@ public class PaginationMoveTest extends InitializationDataBase {
 
     @Test
     public void sort2Test() {
+        DataBase data_ = initDb();
         PaginationMove pagination_;
         pagination_ = new PaginationMove();
-        pagination_.setTranslation(data, LANGUAGE);
+        pagination_.setTranslation(data_, LANGUAGE);
         SortingMove sorting_;
         String itemName_;
         sorting_ = new SortingMove();
@@ -205,9 +210,10 @@ public class PaginationMoveTest extends InitializationDataBase {
 
     @Test
     public void sort3Test() {
+        DataBase data_ = initDb();
         PaginationMove pagination_;
         pagination_ = new PaginationMove();
-        pagination_.setTranslation(data, LANGUAGE);
+        pagination_.setTranslation(data_, LANGUAGE);
         SortingMove sorting_;
         String itemName_;
         sorting_ = new SortingMove();
@@ -248,9 +254,10 @@ public class PaginationMoveTest extends InitializationDataBase {
 
     @Test
     public void sort4Test() {
+        DataBase data_ = initDb();
         PaginationMove pagination_;
         pagination_ = new PaginationMove();
-        pagination_.setTranslation(data, LANGUAGE);
+        pagination_.setTranslation(data_, LANGUAGE);
         SortingMove sorting_;
         String itemName_;
         sorting_ = new SortingMove();
@@ -291,9 +298,10 @@ public class PaginationMoveTest extends InitializationDataBase {
 
     @Test
     public void sort5Test() {
+        DataBase data_ = initDb();
         PaginationMove pagination_;
         pagination_ = new PaginationMove();
-        pagination_.setTranslation(data, LANGUAGE);
+        pagination_.setTranslation(data_, LANGUAGE);
         SortingMove sorting_;
         String itemName_;
         sorting_ = new SortingMove();
@@ -334,9 +342,10 @@ public class PaginationMoveTest extends InitializationDataBase {
 
     @Test
     public void sort6Test() {
+        DataBase data_ = initDb();
         PaginationMove pagination_;
         pagination_ = new PaginationMove();
-        pagination_.setTranslation(data, LANGUAGE);
+        pagination_.setTranslation(data_, LANGUAGE);
         SortingMove sorting_;
         String itemName_;
         sorting_ = new SortingMove();
@@ -377,10 +386,11 @@ public class PaginationMoveTest extends InitializationDataBase {
 
     @Test
     public void search1Test() {
+        DataBase data_ = initDb();
         PaginationMove pagination_;
         pagination_ = new PaginationMove();
         pagination_.setNbResultsPerPage(1);
-        pagination_.setTranslation(data, LANGUAGE);
+        pagination_.setTranslation(data_, LANGUAGE);
         StringList moves_;
         moves_ = new StringList();
         moves_.add(ECLAIR);
@@ -391,7 +401,7 @@ public class PaginationMoveTest extends InitializationDataBase {
         moves_.add(RELAIS);
         moves_.add(FONCE);
         moves_.add(JACKPOT);
-        pagination_.search(moves_, data);
+        pagination_.search(moves_, data_);
         assertTrue(!pagination_.hasNoRendered());
         assertEq(8, pagination_.getResults().size());
         String itemName_;
@@ -493,10 +503,11 @@ public class PaginationMoveTest extends InitializationDataBase {
 
     @Test
     public void search2Test() {
+        DataBase data_ = initDb();
         PaginationMove pagination_;
         pagination_ = new PaginationMove();
         pagination_.setNbResultsPerPage(1);
-        pagination_.setTranslation(data, LANGUAGE);
+        pagination_.setTranslation(data_, LANGUAGE);
         pagination_.getCriteria().setSelectedClass(StatusMoveData.MOVE);
         StringList moves_;
         moves_ = new StringList();
@@ -508,7 +519,7 @@ public class PaginationMoveTest extends InitializationDataBase {
         moves_.add(RELAIS);
         moves_.add(FONCE);
         moves_.add(JACKPOT);
-        pagination_.search(moves_, data);
+        pagination_.search(moves_, data_);
         assertEq(1, pagination_.getResults().size());
         String itemName_;
         CustList<SortingMove> sorted_;
@@ -534,10 +545,11 @@ public class PaginationMoveTest extends InitializationDataBase {
 
     @Test
     public void search3Test() {
+        DataBase data_ = initDb();
         PaginationMove pagination_;
         pagination_ = new PaginationMove();
         pagination_.setNbResultsPerPage(1);
-        pagination_.setTranslation(data, LANGUAGE);
+        pagination_.setTranslation(data_, LANGUAGE);
         pagination_.getCriteria().setSelectedClass(DamagingMoveData.MOVE);
         StringList moves_;
         moves_ = new StringList();
@@ -549,7 +561,7 @@ public class PaginationMoveTest extends InitializationDataBase {
         moves_.add(RELAIS);
         moves_.add(FONCE);
         moves_.add(JACKPOT);
-        pagination_.search(moves_, data);
+        pagination_.search(moves_, data_);
         assertEq(7, pagination_.getResults().size());
         String itemName_;
         CustList<SortingMove> sorted_;
@@ -655,10 +667,11 @@ public class PaginationMoveTest extends InitializationDataBase {
 
     @Test
     public void search5Test() {
+        DataBase data_ = initDb();
         PaginationMove pagination_;
         pagination_ = new PaginationMove();
         pagination_.setNbResultsPerPage(1);
-        pagination_.setTranslation(data, LANGUAGE);
+        pagination_.setTranslation(data_, LANGUAGE);
         pagination_.getCriteria().setTargetChoice(TargetChoice.PSEUDO_GLOBALE);
         StringList moves_;
         moves_ = new StringList();
@@ -670,7 +683,7 @@ public class PaginationMoveTest extends InitializationDataBase {
         moves_.add(RELAIS);
         moves_.add(FONCE);
         moves_.add(JACKPOT);
-        pagination_.search(moves_, data);
+        pagination_.search(moves_, data_);
         assertEq(1, pagination_.getResults().size());
         String itemName_;
         CustList<SortingMove> sorted_;
@@ -696,10 +709,11 @@ public class PaginationMoveTest extends InitializationDataBase {
 
     @Test
     public void search6Test() {
+        DataBase data_ = initDb();
         PaginationMove pagination_;
         pagination_ = new PaginationMove();
         pagination_.setNbResultsPerPage(1);
-        pagination_.setTranslation(data, LANGUAGE);
+        pagination_.setTranslation(data_, LANGUAGE);
         pagination_.getCriteria().setMinPp(20L);
         StringList moves_;
         moves_ = new StringList();
@@ -711,7 +725,7 @@ public class PaginationMoveTest extends InitializationDataBase {
         moves_.add(RELAIS);
         moves_.add(FONCE);
         moves_.add(JACKPOT);
-        pagination_.search(moves_, data);
+        pagination_.search(moves_, data_);
         assertEq(7, pagination_.getResults().size());
         String itemName_;
         CustList<SortingMove> sorted_;
@@ -797,10 +811,11 @@ public class PaginationMoveTest extends InitializationDataBase {
 
     @Test
     public void search7Test() {
+        DataBase data_ = initDb();
         PaginationMove pagination_;
         pagination_ = new PaginationMove();
         pagination_.setNbResultsPerPage(1);
-        pagination_.setTranslation(data, LANGUAGE);
+        pagination_.setTranslation(data_, LANGUAGE);
         pagination_.getCriteria().setMaxPrice(1500L);
         StringList moves_;
         moves_ = new StringList();
@@ -812,7 +827,7 @@ public class PaginationMoveTest extends InitializationDataBase {
         moves_.add(RELAIS);
         moves_.add(FONCE);
         moves_.add(JACKPOT);
-        pagination_.search(moves_, data);
+        pagination_.search(moves_, data_);
         assertEq(7, pagination_.getResults().size());
         String itemName_;
         CustList<SortingMove> sorted_;
@@ -898,10 +913,11 @@ public class PaginationMoveTest extends InitializationDataBase {
 
     @Test
     public void search8Test() {
+        DataBase data_ = initDb();
         PaginationMove pagination_;
         pagination_ = new PaginationMove();
         pagination_.setNbResultsPerPage(1);
-        pagination_.setTranslation(data, LANGUAGE);
+        pagination_.setTranslation(data_, LANGUAGE);
         pagination_.getCriteria().setMaxPrio(0L);
         StringList moves_;
         moves_ = new StringList();
@@ -913,7 +929,7 @@ public class PaginationMoveTest extends InitializationDataBase {
         moves_.add(RELAIS);
         moves_.add(FONCE);
         moves_.add(JACKPOT);
-        pagination_.search(moves_, data);
+        pagination_.search(moves_, data_);
         assertEq(7, pagination_.getResults().size());
         String itemName_;
         CustList<SortingMove> sorted_;
@@ -999,10 +1015,11 @@ public class PaginationMoveTest extends InitializationDataBase {
 
     @Test
     public void search9Test() {
+        DataBase data_ = initDb();
         PaginationMove pagination_;
         pagination_ = new PaginationMove();
         pagination_.setNbResultsPerPage(1);
-        pagination_.setTranslation(data, LANGUAGE);
+        pagination_.setTranslation(data_, LANGUAGE);
         pagination_.getCriteria().setContentOfType("NOR*");
         pagination_.getCriteria().setSearchModeType(SearchingMode.META_CHARACTER);
         StringList moves_;
@@ -1015,7 +1032,7 @@ public class PaginationMoveTest extends InitializationDataBase {
         moves_.add(RELAIS);
         moves_.add(FONCE);
         moves_.add(JACKPOT);
-        pagination_.search(moves_, data);
+        pagination_.search(moves_, data_);
         assertEq(3, pagination_.getResults().size());
         String itemName_;
         CustList<SortingMove> sorted_;
@@ -1061,10 +1078,11 @@ public class PaginationMoveTest extends InitializationDataBase {
 
     @Test
     public void search10Test() {
+        DataBase data_ = initDb();
         PaginationMove pagination_;
         pagination_ = new PaginationMove();
         pagination_.setNbResultsPerPage(1);
-        pagination_.setTranslation(data, LANGUAGE);
+        pagination_.setTranslation(data_, LANGUAGE);
         pagination_.getCriteria().setContentOfName("J*");
         pagination_.getCriteria().setSearchModeName(SearchingMode.META_CHARACTER);
         StringList moves_;
@@ -1077,7 +1095,7 @@ public class PaginationMoveTest extends InitializationDataBase {
         moves_.add(RELAIS);
         moves_.add(FONCE);
         moves_.add(JACKPOT);
-        pagination_.search(moves_, data);
+        pagination_.search(moves_, data_);
         assertEq(1, pagination_.getResults().size());
         String itemName_;
         CustList<SortingMove> sorted_;
@@ -1103,10 +1121,11 @@ public class PaginationMoveTest extends InitializationDataBase {
 
     @Test
     public void search11Test() {
+        DataBase data_ = initDb();
         PaginationMove pagination_;
         pagination_ = new PaginationMove();
         pagination_.setNbResultsPerPage(1);
-        pagination_.setTranslation(data, LANGUAGE);
+        pagination_.setTranslation(data_, LANGUAGE);
         pagination_.getCriteria().setContentOfName("Z*");
         pagination_.getCriteria().setSearchModeName(SearchingMode.META_CHARACTER);
         StringList moves_;
@@ -1119,7 +1138,7 @@ public class PaginationMoveTest extends InitializationDataBase {
         moves_.add(RELAIS);
         moves_.add(FONCE);
         moves_.add(JACKPOT);
-        pagination_.search(moves_, data);
+        pagination_.search(moves_, data_);
         assertEq(0, pagination_.getResults().size());
         CustList<SortingMove> sorted_;
         sorted_ = pagination_.getRendered();
@@ -1130,10 +1149,11 @@ public class PaginationMoveTest extends InitializationDataBase {
 
     @Test
     public void search12Test() {
+        DataBase data_ = initDb();
         PaginationMove pagination_;
         pagination_ = new PaginationMove();
         pagination_.setNbResultsPerPage(1);
-        pagination_.setTranslation(data, LANGUAGE);
+        pagination_.setTranslation(data_, LANGUAGE);
         pagination_.getCmpName().setPriority(1);
         pagination_.getCmpTargetChoice().setPriority(1);
         StringList moves_;
@@ -1146,7 +1166,7 @@ public class PaginationMoveTest extends InitializationDataBase {
         moves_.add(RELAIS);
         moves_.add(FONCE);
         moves_.add(JACKPOT);
-        pagination_.search(moves_, data);
+        pagination_.search(moves_, data_);
         assertEq(8, pagination_.getResults().size());
         String itemName_;
         CustList<SortingMove> sorted_;
@@ -1242,10 +1262,11 @@ public class PaginationMoveTest extends InitializationDataBase {
 
     @Test
     public void newSearch1Test() {
+        DataBase data_ = initDb();
         PaginationMove pagination_;
         pagination_ = new PaginationMove();
         pagination_.setNbResultsPerPage(1);
-        pagination_.setTranslation(data, LANGUAGE);
+        pagination_.setTranslation(data_, LANGUAGE);
         StringList moves_;
         moves_ = new StringList();
         moves_.add(ECLAIR);
@@ -1256,7 +1277,7 @@ public class PaginationMoveTest extends InitializationDataBase {
         moves_.add(RELAIS);
         moves_.add(FONCE);
         moves_.add(JACKPOT);
-        pagination_.search(moves_, data);
+        pagination_.search(moves_, data_);
         pagination_.getCriteria().setSearchModeName(SearchingMode.SUBSTRING);
         pagination_.getCriteria().setContentOfName("E");
         pagination_.newSearch();

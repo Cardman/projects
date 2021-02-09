@@ -16,19 +16,14 @@ import aiki.map.pokemon.enums.Gender;
 import aiki.util.Coords;
 import aiki.util.LevelPoint;
 import aiki.util.Point;
-import org.junit.Before;
 import org.junit.Test;
 
 public final class FacadeGameFightKoTwoTest extends InitializationDataBase {
 
-    private DataBase data;
-    private Game game;
-    private FacadeGame facadeGame;
-    @Before
-    public void initTests() {
-        data = initDb();
-        Game game_ = new Game(data);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data);
+    public static FacadeGame initTests() {
+        DataBase data_ = initDb();
+        Game game_ = new Game(data_);
+        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
         game_.setPlayerCoords(newCoords(0, 0, 2, 1));
         game_.setPlayerOrientation(Direction.LEFT);
         game_.getDifficulty().setRandomWildFight(false);
@@ -38,124 +33,129 @@ public final class FacadeGameFightKoTwoTest extends InitializationDataBase {
         pk_.setAbility(ABSORB_EAU);
         pk_.setGender(Gender.NO_GENDER);
         pk_.setItem(NULL_REF);
-        game_.getPlayer().recevoirPokemon(pk_, game_.getDifficulty(), data);
+        game_.getPlayer().recevoirPokemon(pk_, game_.getDifficulty(), data_);
         game_.getPlayer().setChosenTeamPokemon((short) 0);
         game_.getPlayer().switchTeamOrder((short) 1);
-        game_.initTrainerFight(data);
-        game = game_;
+        game_.initTrainerFight(data_);
         FacadeGame facadeGame_ = new FacadeGame();
-        facadeGame_.setData(data);
+        facadeGame_.setData(data_);
         facadeGame_.setLanguage(LANGUAGE);
         facadeGame_.setGame(game_);
-        facadeGame = facadeGame_;
+        return facadeGame_;
     }
 
     @Test
     public void act1Test() {
-        facadeGame.getFight().getUserTeam().getEnabledMoves().getVal(AIR_VEINARD).enable();
-        facadeGame.getFight().getFoeTeam().getEnabledMoves().getVal(AIR_VEINARD).enable();
-        facadeGame.chooseFrontFighter((byte) 0);
-        facadeGame.chooseMove(BULLES_D_O);
-        facadeGame.setFirstChosenMoveFoeTarget((byte) 0);
-        facadeGame.roundAllThrowers(false);
-        assertTrue(facadeGame.isChosableForLearningAndEvolving((byte) 0));
-        facadeGame.choosePokemonForLearningAndEvolving((byte) 0);
-        assertEq(2,facadeGame.getEvolutions().size());
-        assertEq(1,facadeGame.getAbilities().size());
-        assertEq(NULL_REF,facadeGame.getAbility());
-        facadeGame.setEvolution(TETARTE);
-        assertEq(10,facadeGame.getMoves().size());
-        facadeGame.addOrForgetMove(BULLES_D_O);
-        facadeGame.addOrForgetMove(ECUME);
-        facadeGame.learnAndEvolve();
-        assertEq(TETARTE, facadeGame.getFight().getUserTeam().getMembers().firstValue().getName());
-        assertEq(TETARTE, facadeGame.getFight().getUserTeam().getMembers().firstValue().getCurrentName());
+        FacadeGame facadeGame_ = initTests();
+        facadeGame_.getFight().getUserTeam().getEnabledMoves().getVal(AIR_VEINARD).enable();
+        facadeGame_.getFight().getFoeTeam().getEnabledMoves().getVal(AIR_VEINARD).enable();
+        facadeGame_.chooseFrontFighter((byte) 0);
+        facadeGame_.chooseMove(BULLES_D_O);
+        facadeGame_.setFirstChosenMoveFoeTarget((byte) 0);
+        facadeGame_.roundAllThrowers(false);
+        assertTrue(facadeGame_.isChosableForLearningAndEvolving((byte) 0));
+        facadeGame_.choosePokemonForLearningAndEvolving((byte) 0);
+        assertEq(2,facadeGame_.getEvolutions().size());
+        assertEq(1,facadeGame_.getAbilities().size());
+        assertEq(NULL_REF,facadeGame_.getAbility());
+        facadeGame_.setEvolution(TETARTE);
+        assertEq(10,facadeGame_.getMoves().size());
+        facadeGame_.addOrForgetMove(BULLES_D_O);
+        facadeGame_.addOrForgetMove(ECUME);
+        facadeGame_.learnAndEvolve();
+        assertEq(TETARTE, facadeGame_.getFight().getUserTeam().getMembers().firstValue().getName());
+        assertEq(TETARTE, facadeGame_.getFight().getUserTeam().getMembers().firstValue().getCurrentName());
     }
 
     @Test
     public void act2Test() {
-        facadeGame.getFight().getUserTeam().getEnabledMoves().getVal(AIR_VEINARD).enable();
-        facadeGame.getFight().getFoeTeam().getEnabledMoves().getVal(AIR_VEINARD).enable();
-        facadeGame.chooseFrontFighter((byte) 0);
-        facadeGame.chooseMove(BULLES_D_O);
-        facadeGame.setFirstChosenMoveFoeTarget((byte) 0);
-        facadeGame.roundAllThrowers(false);
-        assertEq(FightState.APPRENDRE_EVOLUER, facadeGame.getFight().getState());
-        facadeGame.choosePokemonForLearningAndEvolving((byte) 0);
-        facadeGame.setEvolution(TETARTE);
-        facadeGame.learnAndEvolve();
-        assertEq(FightState.SWITCH_PROPOSE, facadeGame.getFight().getState());
-        assertEq(2, facadeGame.getPlayerTeam().size());
-        assertEq(1, facadeGame.getUnionFrontTeam().size());
-        assertEq(1, facadeGame.getPlayerBackTeam().size());
-        assertEq(1, facadeGame.getPlayerFrontTeam().size());
-        assertEq(1, facadeGame.getPlayerBackTeamForSubstituting().size());
-        assertEq(1, facadeGame.getPlayerFrontTeamForSubstituting().size());
-        assertEq(1, facadeGame.getFoeFrontTeam().size());
-        facadeGame.sendSubstitutes();
-        assertEq(FightState.ATTAQUES, facadeGame.getFight().getState());
+        FacadeGame facadeGame_ = initTests();
+        facadeGame_.getFight().getUserTeam().getEnabledMoves().getVal(AIR_VEINARD).enable();
+        facadeGame_.getFight().getFoeTeam().getEnabledMoves().getVal(AIR_VEINARD).enable();
+        facadeGame_.chooseFrontFighter((byte) 0);
+        facadeGame_.chooseMove(BULLES_D_O);
+        facadeGame_.setFirstChosenMoveFoeTarget((byte) 0);
+        facadeGame_.roundAllThrowers(false);
+        assertEq(FightState.APPRENDRE_EVOLUER, facadeGame_.getFight().getState());
+        facadeGame_.choosePokemonForLearningAndEvolving((byte) 0);
+        facadeGame_.setEvolution(TETARTE);
+        facadeGame_.learnAndEvolve();
+        assertEq(FightState.SWITCH_PROPOSE, facadeGame_.getFight().getState());
+        assertEq(2, facadeGame_.getPlayerTeam().size());
+        assertEq(1, facadeGame_.getUnionFrontTeam().size());
+        assertEq(1, facadeGame_.getPlayerBackTeam().size());
+        assertEq(1, facadeGame_.getPlayerFrontTeam().size());
+        assertEq(1, facadeGame_.getPlayerBackTeamForSubstituting().size());
+        assertEq(1, facadeGame_.getPlayerFrontTeamForSubstituting().size());
+        assertEq(1, facadeGame_.getFoeFrontTeam().size());
+        facadeGame_.sendSubstitutes();
+        assertEq(FightState.ATTAQUES, facadeGame_.getFight().getState());
     }
 
     @Test
     public void act3Test() {
-        facadeGame.chooseFrontFighter((byte) 0);
-        facadeGame.changeAction(ActionType.SWITCH);
+        FacadeGame facadeGame_ = initTests();
+        facadeGame_.chooseFrontFighter((byte) 0);
+        facadeGame_.changeAction(ActionType.SWITCH);
         AbstractAction action_;
-        action_ = facadeGame.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getAction();
+        action_ = facadeGame_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getAction();
         assertNull(action_);
-        assertEq(Fighter.BACK, facadeGame.getFight().getChosenIndexBack());
-        assertEq(0, facadeGame.getFight().getChosenIndexFront());
-        assertEq(ActionType.SWITCH, facadeGame.getFight().getSelectedActionCurFighter());
-        assertEq(0, facadeGame.getFight().getChosableFoeTargets().size());
-        assertEq(0, facadeGame.getFight().getChosablePlayerTargets().size());
+        assertEq(Fighter.BACK, facadeGame_.getFight().getChosenIndexBack());
+        assertEq(0, facadeGame_.getFight().getChosenIndexFront());
+        assertEq(ActionType.SWITCH, facadeGame_.getFight().getSelectedActionCurFighter());
+        assertEq(0, facadeGame_.getFight().getChosableFoeTargets().size());
+        assertEq(0, facadeGame_.getFight().getChosablePlayerTargets().size());
     }
 
     @Test
     public void act4Test() {
-        facadeGame.chooseFrontFighter((byte) 0);
-        facadeGame.changeAction(ActionType.SWITCH);
-        facadeGame.chooseBackFighter((byte) 0);
+        FacadeGame facadeGame_ = initTests();
+        facadeGame_.chooseFrontFighter((byte) 0);
+        facadeGame_.changeAction(ActionType.SWITCH);
+        facadeGame_.chooseBackFighter((byte) 0);
         AbstractAction action_;
-        action_ = facadeGame.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getAction();
+        action_ = facadeGame_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getAction();
         assertEq(1, ((ActionSwitch) action_).getSubstitute());
-        assertEq(Fighter.BACK, facadeGame.getFight().getChosenIndexBack());
-        assertEq(Fighter.BACK, facadeGame.getFight().getChosenIndexFront());
-        assertEq(ActionType.NOTHING, facadeGame.getFight().getSelectedActionCurFighter());
-        assertEq(0, facadeGame.getFight().getChosableFoeTargets().size());
-        assertEq(0, facadeGame.getFight().getChosablePlayerTargets().size());
+        assertEq(Fighter.BACK, facadeGame_.getFight().getChosenIndexBack());
+        assertEq(Fighter.BACK, facadeGame_.getFight().getChosenIndexFront());
+        assertEq(ActionType.NOTHING, facadeGame_.getFight().getSelectedActionCurFighter());
+        assertEq(0, facadeGame_.getFight().getChosableFoeTargets().size());
+        assertEq(0, facadeGame_.getFight().getChosablePlayerTargets().size());
     }
 
     @Test
     public void act5Test() {
-        facadeGame.getFight().getUserTeam().getEnabledMoves().getVal(AIR_VEINARD).enable();
-        facadeGame.getFight().getFoeTeam().getEnabledMoves().getVal(AIR_VEINARD).enable();
-        facadeGame.chooseFrontFighter((byte) 0);
-        facadeGame.chooseMove(BULLES_D_O);
-        facadeGame.setFirstChosenMoveFoeTarget((byte) 0);
-        facadeGame.roundAllThrowers(false);
-        assertEq(FightState.APPRENDRE_EVOLUER, facadeGame.getFight().getState());
-        facadeGame.choosePokemonForLearningAndEvolving((byte) 0);
-        facadeGame.setEvolution(TETARTE);
-        facadeGame.learnAndEvolve();
-        assertEq(FightState.SWITCH_PROPOSE, facadeGame.getFight().getState());
-        facadeGame.chooseFrontFighter((byte) 0);
-        facadeGame.setSubstituteEndRound(Fighter.BACK);
-        facadeGame.chooseBackFighter((byte) 0);
-        facadeGame.setSubstituteEndRound((byte) 0);
-        assertEq(Fighter.BACK, facadeGame.getFight().getChosenIndexBack());
-        assertEq(Fighter.BACK, facadeGame.getFight().getChosenIndexFront());
-        assertEq(Fighter.BACK, facadeGame.getFight().getFirstPositPlayerFighters().getVal((byte) 0));
-        assertEq(0, facadeGame.getFight().getFirstPositPlayerFighters().getVal((byte) 1));
+        FacadeGame facadeGame_ = initTests();
+        facadeGame_.getFight().getUserTeam().getEnabledMoves().getVal(AIR_VEINARD).enable();
+        facadeGame_.getFight().getFoeTeam().getEnabledMoves().getVal(AIR_VEINARD).enable();
+        facadeGame_.chooseFrontFighter((byte) 0);
+        facadeGame_.chooseMove(BULLES_D_O);
+        facadeGame_.setFirstChosenMoveFoeTarget((byte) 0);
+        facadeGame_.roundAllThrowers(false);
+        assertEq(FightState.APPRENDRE_EVOLUER, facadeGame_.getFight().getState());
+        facadeGame_.choosePokemonForLearningAndEvolving((byte) 0);
+        facadeGame_.setEvolution(TETARTE);
+        facadeGame_.learnAndEvolve();
+        assertEq(FightState.SWITCH_PROPOSE, facadeGame_.getFight().getState());
+        facadeGame_.chooseFrontFighter((byte) 0);
+        facadeGame_.setSubstituteEndRound(Fighter.BACK);
+        facadeGame_.chooseBackFighter((byte) 0);
+        facadeGame_.setSubstituteEndRound((byte) 0);
+        assertEq(Fighter.BACK, facadeGame_.getFight().getChosenIndexBack());
+        assertEq(Fighter.BACK, facadeGame_.getFight().getChosenIndexFront());
+        assertEq(Fighter.BACK, facadeGame_.getFight().getFirstPositPlayerFighters().getVal((byte) 0));
+        assertEq(0, facadeGame_.getFight().getFirstPositPlayerFighters().getVal((byte) 1));
     }
 
     @Test
     public void act6Test() {
-        facadeGame.setChangeToFightScene(false);
-        facadeGame.getTrainerImage();
-        facadeGame.chooseFrontFighter((byte) 0);
-        facadeGame.chooseMove(BULLES_D_O);
-        facadeGame.setFirstChosenMoveFoeTarget((byte) 0);
-        assertEq(2,facadeGame.sortedFightersBeginRound().size());
+        FacadeGame facadeGame_ = initTests();
+        facadeGame_.setChangeToFightScene(false);
+        facadeGame_.getTrainerImage();
+        facadeGame_.chooseFrontFighter((byte) 0);
+        facadeGame_.chooseMove(BULLES_D_O);
+        facadeGame_.setFirstChosenMoveFoeTarget((byte) 0);
+        assertEq(2,facadeGame_.sortedFightersBeginRound().size());
     }
 
     private static Coords newCoords(int _place, int _level, int _x, int _y) {

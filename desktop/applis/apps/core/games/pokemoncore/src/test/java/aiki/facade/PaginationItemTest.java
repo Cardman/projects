@@ -2,7 +2,6 @@ package aiki.facade;
 
 import aiki.db.DataBase;
 import code.util.CustList;
-import org.junit.Before;
 import org.junit.Test;
 
 import aiki.fight.items.Berry;
@@ -24,16 +23,12 @@ public class PaginationItemTest extends InitializationDataBase {
     private static final String BATTLE_ITEM = "battle item";
     private static final String BERRY = "berry";
 
-    private DataBase data;
-    @Before
-    public void initTests() {
-        data = initDb();
-    }
     @Test
     public void match1Test() {
+        DataBase data_ = initDb();
         PaginationItem pagination_;
         pagination_ = new PaginationItem();
-        pagination_.setTranslation(data, LANGUAGE);
+        pagination_.setTranslation(data_, LANGUAGE);
         pagination_.getCriteria().setSearchModeName(SearchingMode.META_CHARACTER);
         pagination_.getCriteria().setContentOfName("P*");
         pagination_.getCriteria().setMinPrice(1L);
@@ -42,9 +37,10 @@ public class PaginationItemTest extends InitializationDataBase {
 
     @Test
     public void match2Test() {
+        DataBase data_ = initDb();
         PaginationItem pagination_;
         pagination_ = new PaginationItem();
-        pagination_.setTranslation(data, LANGUAGE);
+        pagination_.setTranslation(data_, LANGUAGE);
         pagination_.getCriteria().setSearchModeName(SearchingMode.META_CHARACTER);
         pagination_.getCriteria().setContentOfName("P*");
         assertTrue(pagination_.match(POKE_BALL));
@@ -52,35 +48,39 @@ public class PaginationItemTest extends InitializationDataBase {
 
     @Test
     public void sortable1Test() {
+        DataBase data_ = initDb();
         PaginationItem pagination_;
         pagination_ = new PaginationItem();
-        pagination_.setTranslation(data, LANGUAGE);
+        pagination_.setTranslation(data_, LANGUAGE);
         assertTrue(pagination_.sortable());
     }
 
     @Test
     public void sortable2Test() {
+        DataBase data_ = initDb();
         PaginationItem pagination_;
         pagination_ = new PaginationItem();
-        pagination_.setTranslation(data, LANGUAGE);
+        pagination_.setTranslation(data_, LANGUAGE);
         pagination_.getCmpName().setPriority(1);
         assertTrue(pagination_.sortable());
     }
 
     @Test
     public void sortable3Test() {
+        DataBase data_ = initDb();
         PaginationItem pagination_;
         pagination_ = new PaginationItem();
-        pagination_.setTranslation(data, LANGUAGE);
+        pagination_.setTranslation(data_, LANGUAGE);
         pagination_.getCmpPrice().setPriority(1);
         assertTrue(pagination_.sortable());
     }
 
     @Test
     public void sortable4Test() {
+        DataBase data_ = initDb();
         PaginationItem pagination_;
         pagination_ = new PaginationItem();
-        pagination_.setTranslation(data, LANGUAGE);
+        pagination_.setTranslation(data_, LANGUAGE);
         pagination_.getCmpName().setPriority(1);
         pagination_.getCmpPrice().setPriority(1);
         assertTrue(!pagination_.sortable());
@@ -88,9 +88,10 @@ public class PaginationItemTest extends InitializationDataBase {
 
     @Test
     public void sortable5Test() {
+        DataBase data_ = initDb();
         PaginationItem pagination_;
         pagination_ = new PaginationItem();
-        pagination_.setTranslation(data, LANGUAGE);
+        pagination_.setTranslation(data_, LANGUAGE);
         pagination_.getCmpName().setPriority(1);
         pagination_.getCmpDescription().setPriority(1);
         assertTrue(!pagination_.sortable());
@@ -98,9 +99,10 @@ public class PaginationItemTest extends InitializationDataBase {
 
     @Test
     public void sortable6Test() {
+        DataBase data_ = initDb();
         PaginationItem pagination_;
         pagination_ = new PaginationItem();
-        pagination_.setTranslation(data, LANGUAGE);
+        pagination_.setTranslation(data_, LANGUAGE);
         pagination_.getCmpName().setPriority(1);
         pagination_.getCmpNumber().setPriority(1);
         assertTrue(!pagination_.sortable());
@@ -108,9 +110,10 @@ public class PaginationItemTest extends InitializationDataBase {
 
     @Test
     public void sort1Test() {
+        DataBase data_ = initDb();
         PaginationItem pagination_;
         pagination_ = new PaginationItem();
-        pagination_.setTranslation(data, LANGUAGE);
+        pagination_.setTranslation(data_, LANGUAGE);
         SortingItem sorting_;
         String itemName_;
         sorting_ = new SortingItem();
@@ -147,9 +150,10 @@ public class PaginationItemTest extends InitializationDataBase {
 
     @Test
     public void sort2Test() {
+        DataBase data_ = initDb();
         PaginationItem pagination_;
         pagination_ = new PaginationItem();
-        pagination_.setTranslation(data, LANGUAGE);
+        pagination_.setTranslation(data_, LANGUAGE);
         SortingItem sorting_;
         String itemName_;
         sorting_ = new SortingItem();
@@ -186,9 +190,10 @@ public class PaginationItemTest extends InitializationDataBase {
 
     @Test
     public void sort3Test() {
+        DataBase data_ = initDb();
         PaginationItem pagination_;
         pagination_ = new PaginationItem();
-        pagination_.setTranslation(data, LANGUAGE);
+        pagination_.setTranslation(data_, LANGUAGE);
         SortingItem sorting_;
         String itemName_;
         sorting_ = new SortingItem();
@@ -225,9 +230,10 @@ public class PaginationItemTest extends InitializationDataBase {
 
     @Test
     public void sort4Test() {
+        DataBase data_ = initDb();
         PaginationItem pagination_;
         pagination_ = new PaginationItem();
-        pagination_.setTranslation(data, LANGUAGE);
+        pagination_.setTranslation(data_, LANGUAGE);
         SortingItem sorting_;
         String itemName_;
         sorting_ = new SortingItem();
@@ -260,9 +266,10 @@ public class PaginationItemTest extends InitializationDataBase {
 
     @Test
     public void sort5Test() {
+        DataBase data_ = initDb();
         PaginationItem pagination_;
         pagination_ = new PaginationItem();
-        pagination_.setTranslation(data, LANGUAGE);
+        pagination_.setTranslation(data_, LANGUAGE);
         SortingItem sorting_;
         String itemName_;
         sorting_ = new SortingItem();
@@ -293,23 +300,24 @@ public class PaginationItemTest extends InitializationDataBase {
 
     @Test
     public void search1Test() {
+        DataBase data_ = initDb();
         StringList items_;
         items_ = new StringList();
         items_.add(BAIE_ORAN);
         items_.add(BAIE_MEPO);
         items_.add(MULTI_EXP);
         Inventory inv_;
-        inv_ = new Inventory(data);
+        inv_ = new Inventory(data_);
         inv_.getItem(BAIE_MEPO);
         PaginationItem pagination_;
         pagination_ = new PaginationItem();
         pagination_.setNbResultsPerPage(1);
-        pagination_.setTranslation(data, LANGUAGE);
+        pagination_.setTranslation(data_, LANGUAGE);
         pagination_.getCriteria().setSearchModeName(SearchingMode.META_CHARACTER);
         pagination_.getCriteria().setContentOfName("*P*");
         pagination_.getCriteria().setSelectedClass(Berry.ITEM);
         pagination_.setInventory(inv_);
-        pagination_.search(items_, data);
+        pagination_.search(items_, data_);
         assertTrue(!pagination_.hasNoRendered());
         assertEq(1, pagination_.getResults().size());
         String itemName_;
@@ -335,24 +343,25 @@ public class PaginationItemTest extends InitializationDataBase {
 
     @Test
     public void search2Test() {
+        DataBase data_ = initDb();
         StringList items_;
         items_ = new StringList();
         items_.add(BAIE_ORAN);
         items_.add(BAIE_MEPO);
         items_.add(MULTI_EXP);
         Inventory inv_;
-        inv_ = new Inventory(data);
+        inv_ = new Inventory(data_);
         inv_.getItem(BAIE_MEPO);
         PaginationItem pagination_;
         pagination_ = new PaginationItem();
         pagination_.setNbResultsPerPage(1);
-        pagination_.setTranslation(data, LANGUAGE);
+        pagination_.setTranslation(data_, LANGUAGE);
         pagination_.getCriteria().setSearchModeName(SearchingMode.META_CHARACTER);
         pagination_.getCriteria().setContentOfName("*P*");
         pagination_.getCriteria().setSelectedClass(Berry.ITEM);
         pagination_.getCriteria().setMinPrice(300L);
         pagination_.setInventory(inv_);
-        pagination_.search(items_, data);
+        pagination_.search(items_, data_);
         assertEq(0, pagination_.getResults().size());
         CustList<SortingItem> sorted_;
         sorted_ = pagination_.getRendered();
@@ -363,25 +372,26 @@ public class PaginationItemTest extends InitializationDataBase {
 
     @Test
     public void search3Test() {
+        DataBase data_ = initDb();
         StringList items_;
         items_ = new StringList();
         items_.add(BAIE_ORAN);
         items_.add(BAIE_MEPO);
         items_.add(MULTI_EXP);
         Inventory inv_;
-        inv_ = new Inventory(data);
+        inv_ = new Inventory(data_);
         inv_.getItem(BAIE_MEPO);
         PaginationItem pagination_;
         pagination_ = new PaginationItem();
         pagination_.setNbResultsPerPage(1);
-        pagination_.setTranslation(data, LANGUAGE);
+        pagination_.setTranslation(data_, LANGUAGE);
         pagination_.getCmpName().setPriority(1);
         pagination_.getCmpDescription().setPriority(1);
         pagination_.getCriteria().setSearchModeName(SearchingMode.META_CHARACTER);
         pagination_.getCriteria().setContentOfName("*P*");
         pagination_.getCriteria().setSelectedClass(Berry.ITEM);
         pagination_.setInventory(inv_);
-        pagination_.search(items_, data);
+        pagination_.search(items_, data_);
         assertEq(1, pagination_.getResults().size());
         String itemName_;
         CustList<SortingItem> sorted_;
@@ -400,6 +410,7 @@ public class PaginationItemTest extends InitializationDataBase {
 
     @Test
     public void search4Test() {
+        DataBase data_ = initDb();
         StringList items_;
         items_ = new StringList();
         items_.add(BAIE_ORAN);
@@ -409,15 +420,15 @@ public class PaginationItemTest extends InitializationDataBase {
         items_.add(CENDRESACREE);
         items_.add(EAU_FRAICHE);
         Inventory inv_;
-        inv_ = new Inventory(data);
+        inv_ = new Inventory(data_);
         inv_.getItem(BAIE_MEPO);
         PaginationItem pagination_;
         pagination_ = new PaginationItem();
         pagination_.setNbResultsPerPage(1);
-        pagination_.setTranslation(data, LANGUAGE);
+        pagination_.setTranslation(data_, LANGUAGE);
         pagination_.getCriteria().setSelectedClass(HealingItem.ITEM);
         pagination_.setInventory(inv_);
-        pagination_.search(items_, data);
+        pagination_.search(items_, data_);
         assertEq(3, pagination_.getResults().size());
         String itemName_;
         CustList<SortingItem> sorted_;
@@ -440,6 +451,7 @@ public class PaginationItemTest extends InitializationDataBase {
 
     @Test
     public void search5Test() {
+        DataBase data_ = initDb();
         StringList items_;
         items_ = new StringList();
         items_.add(BAIE_ORAN);
@@ -449,15 +461,15 @@ public class PaginationItemTest extends InitializationDataBase {
         items_.add(CENDRESACREE);
         items_.add(EAU_FRAICHE);
         Inventory inv_;
-        inv_ = new Inventory(data);
+        inv_ = new Inventory(data_);
         inv_.getItem(EAU_FRAICHE);
         PaginationItem pagination_;
         pagination_ = new PaginationItem();
         pagination_.setNbResultsPerPage(3);
-        pagination_.setTranslation(data, LANGUAGE);
+        pagination_.setTranslation(data_, LANGUAGE);
         pagination_.getCriteria().setSelectedClass(HealingItem.ITEM);
         pagination_.setInventory(inv_);
-        pagination_.search(items_, data);
+        pagination_.search(items_, data_);
         assertEq(3, pagination_.getResults().size());
         String itemName_;
         CustList<SortingItem> sorted_;
@@ -488,6 +500,7 @@ public class PaginationItemTest extends InitializationDataBase {
 
     @Test
     public void search6Test() {
+        DataBase data_ = initDb();
         StringList items_;
         items_ = new StringList();
         items_.add(BAIE_ORAN);
@@ -497,14 +510,14 @@ public class PaginationItemTest extends InitializationDataBase {
         items_.add(CENDRESACREE);
         items_.add(EAU_FRAICHE);
         Inventory inv_;
-        inv_ = new Inventory(data);
+        inv_ = new Inventory(data_);
         inv_.getItem(BAIE_MEPO);
         PaginationItem pagination_;
         pagination_ = new PaginationItem();
         pagination_.setNbResultsPerPage(3);
-        pagination_.setTranslation(data, LANGUAGE);
+        pagination_.setTranslation(data_, LANGUAGE);
         pagination_.setInventory(inv_);
-        pagination_.search(items_, data);
+        pagination_.search(items_, data_);
         assertEq(6, pagination_.getResults().size());
         String itemName_;
         CustList<SortingItem> sorted_;
@@ -541,22 +554,23 @@ public class PaginationItemTest extends InitializationDataBase {
 
     @Test
     public void search7Test() {
+        DataBase data_ = initDb();
         StringList items_;
         items_ = new StringList();
         items_.add(BAIE_ORAN);
         items_.add(BAIE_MEPO);
         items_.add(MULTI_EXP);
         Inventory inv_;
-        inv_ = new Inventory(data);
+        inv_ = new Inventory(data_);
         inv_.getItem(BAIE_MEPO);
         PaginationItem pagination_;
         pagination_ = new PaginationItem();
         pagination_.setNbResultsPerPage(1);
-        pagination_.setTranslation(data, LANGUAGE);
+        pagination_.setTranslation(data_, LANGUAGE);
         pagination_.getCriteria().setSearchModeDescription(SearchingMode.META_CHARACTER);
         pagination_.getCriteria().setContentOfDescription("*ItemForBattle*");
         pagination_.setInventory(inv_);
-        pagination_.search(items_, data);
+        pagination_.search(items_, data_);
         assertEq(1, pagination_.getResults().size());
         String itemName_;
         CustList<SortingItem> sorted_;
@@ -575,6 +589,7 @@ public class PaginationItemTest extends InitializationDataBase {
 
     @Test
     public void search8Test() {
+        DataBase data_ = initDb();
         StringList items_;
         items_ = new StringList();
         items_.add(BAIE_ORAN);
@@ -584,15 +599,15 @@ public class PaginationItemTest extends InitializationDataBase {
         items_.add(CENDRESACREE);
         items_.add(EAU_FRAICHE);
         Inventory inv_;
-        inv_ = new Inventory(data);
+        inv_ = new Inventory(data_);
         inv_.getItem(BAIE_MEPO);
         PaginationItem pagination_;
         pagination_ = new PaginationItem();
         pagination_.setNbResultsPerPage(3);
         pagination_.getCriteria().setMaxNumber(LgInt.zero());
-        pagination_.setTranslation(data, LANGUAGE);
+        pagination_.setTranslation(data_, LANGUAGE);
         pagination_.setInventory(inv_);
-        pagination_.search(items_, data);
+        pagination_.search(items_, data_);
         assertEq(5, pagination_.getResults().size());
         String itemName_;
         CustList<SortingItem> sorted_;
@@ -623,20 +638,21 @@ public class PaginationItemTest extends InitializationDataBase {
 
     @Test
     public void newSearch1Test() {
+        DataBase data_ = initDb();
         StringList items_;
         items_ = new StringList();
         items_.add(BAIE_ORAN);
         items_.add(BAIE_MEPO);
         items_.add(MULTI_EXP);
         Inventory inv_;
-        inv_ = new Inventory(data);
+        inv_ = new Inventory(data_);
         inv_.getItem(BAIE_MEPO);
         PaginationItem pagination_;
         pagination_ = new PaginationItem();
         pagination_.setNbResultsPerPage(1);
-        pagination_.setTranslation(data, LANGUAGE);
+        pagination_.setTranslation(data_, LANGUAGE);
         pagination_.setInventory(inv_);
-        pagination_.search(items_, data);
+        pagination_.search(items_, data_);
         pagination_.getCriteria().setSearchModeName(SearchingMode.SUBSTRING);
         pagination_.getCriteria().setContentOfName("BAIE");
         pagination_.newSearch();

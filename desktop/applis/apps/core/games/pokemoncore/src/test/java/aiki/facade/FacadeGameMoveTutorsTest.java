@@ -9,79 +9,76 @@ import aiki.map.pokemon.PokemonPlayer;
 import aiki.util.Coords;
 import aiki.util.LevelPoint;
 import aiki.util.Point;
-import org.junit.Before;
 import org.junit.Test;
 
 public final class FacadeGameMoveTutorsTest extends InitializationDataBase {
 
-    private DataBase data;
-    private Game game;
-    private FacadeGame facadeGame;
-    @Before
-    public void initTests() {
-        data = initDb();
-        Game game_ = new Game(data);
+    public static FacadeGame initTests() {
+        DataBase data_ = initDb();
+        Game game_ = new Game(data_);
         Difficulty diff_ = new Difficulty();
-        game_.initUtilisateur(NICKNAME, null, diff_, data);
+        game_.initUtilisateur(NICKNAME, null, diff_, data_);
         game_.setPlayerCoords(newCoords(1, 0, 1, 1, 7, 6));
         game_.setPlayerOrientation(Direction.RIGHT);
         game_.getDifficulty().setRandomWildFight(false);
         game_.getPlayer().getItem(LAVA);
-        game_.getPlayer().doRevivingFossil(LAVA, diff_, data);
+        game_.getPlayer().doRevivingFossil(LAVA, diff_, data_);
         PokemonPlayer pk_ = (PokemonPlayer) game_.getPlayer().getTeam().get(1);
         pk_.setItem(PIERRE_LUNE);
-        game = game_;
         FacadeGame facadeGame_ = new FacadeGame();
-        facadeGame_.setData(data);
+        facadeGame_.setData(data_);
         facadeGame_.setLanguage(LANGUAGE);
         facadeGame_.setGame(game_);
         facadeGame_.directInteraction();
         facadeGame_.interact();
-        facadeGame = facadeGame_;
+        return facadeGame_;
     }
 
     @Test
     public void listMoves1Test() {
-        facadeGame.choosePokemonForMoveTutors((short)0);
-        assertEq(3,facadeGame.getSelectedMoves().size());
-        assertEq(1,facadeGame.getUnselectedMoves().size());
-        String move_ = facadeGame.getUnselectedMoves().get(0);
-        facadeGame.addOrDeleteMove(move_);
-        assertEq(4,facadeGame.getSelectedMoves().size());
-        assertEq(0,facadeGame.getUnselectedMoves().size());
-        facadeGame.addOrDeleteMove(move_);
-        assertEq(3,facadeGame.getSelectedMoves().size());
-        assertEq(1,facadeGame.getUnselectedMoves().size());
+        FacadeGame facadeGame_ = initTests();
+        facadeGame_.choosePokemonForMoveTutors((short)0);
+        assertEq(3,facadeGame_.getSelectedMoves().size());
+        assertEq(1,facadeGame_.getUnselectedMoves().size());
+        String move_ = facadeGame_.getUnselectedMoves().get(0);
+        facadeGame_.addOrDeleteMove(move_);
+        assertEq(4,facadeGame_.getSelectedMoves().size());
+        assertEq(0,facadeGame_.getUnselectedMoves().size());
+        facadeGame_.addOrDeleteMove(move_);
+        assertEq(3,facadeGame_.getSelectedMoves().size());
+        assertEq(1,facadeGame_.getUnselectedMoves().size());
     }
 
     @Test
     public void listMoves2Test() {
-        facadeGame.choosePokemonForMoveTutors((short)0);
-        assertEq(3,facadeGame.getSelectedMoves().size());
-        assertEq(1,facadeGame.getUnselectedMoves().size());
-        String move_ = facadeGame.getUnselectedMoves().get(0);
-        facadeGame.addOrDeleteMove(move_);
-        assertEq(4,facadeGame.getSelectedMoves().size());
-        assertEq(0,facadeGame.getUnselectedMoves().size());
-        facadeGame.addOrDeleteMove(move_);
-        assertEq(3,facadeGame.getSelectedMoves().size());
-        assertEq(1,facadeGame.getUnselectedMoves().size());
-        facadeGame.cancelLearningMoveOnPokemon();
-        assertEq(3,game.getPlayer().getPokemonPlayerList().getValue(0).getMoves().size());
+        FacadeGame facadeGame_ = initTests();
+        facadeGame_.choosePokemonForMoveTutors((short)0);
+        assertEq(3,facadeGame_.getSelectedMoves().size());
+        assertEq(1,facadeGame_.getUnselectedMoves().size());
+        String move_ = facadeGame_.getUnselectedMoves().get(0);
+        facadeGame_.addOrDeleteMove(move_);
+        assertEq(4,facadeGame_.getSelectedMoves().size());
+        assertEq(0,facadeGame_.getUnselectedMoves().size());
+        facadeGame_.addOrDeleteMove(move_);
+        assertEq(3,facadeGame_.getSelectedMoves().size());
+        assertEq(1,facadeGame_.getUnselectedMoves().size());
+        facadeGame_.cancelLearningMoveOnPokemon();
+        assertEq(3,facadeGame_.getGame().getPlayer().getPokemonPlayerList().getValue(0).getMoves().size());
     }
 
     @Test
     public void listMoves3Test() {
-        facadeGame.choosePokemonForMoveTutors((short)0);
-        assertEq(3,facadeGame.getSelectedMoves().size());
-        assertEq(1,facadeGame.getUnselectedMoves().size());
-        String move_ = facadeGame.getUnselectedMoves().get(0);
-        facadeGame.addOrDeleteMove(move_);
-        assertEq(4,facadeGame.getSelectedMoves().size());
-        assertEq(0,facadeGame.getUnselectedMoves().size());
-        assertEq(3,game.getPlayer().getPokemonPlayerList().getValue(0).getMoves().size());
-        facadeGame.learnMovesByMoveTutor();
-        assertEq(4,game.getPlayer().getPokemonPlayerList().getValue(0).getMoves().size());
+        FacadeGame facadeGame_ = initTests();
+        facadeGame_.choosePokemonForMoveTutors((short)0);
+        assertEq(3,facadeGame_.getSelectedMoves().size());
+        assertEq(1,facadeGame_.getUnselectedMoves().size());
+        String move_ = facadeGame_.getUnselectedMoves().get(0);
+        facadeGame_.addOrDeleteMove(move_);
+        assertEq(4,facadeGame_.getSelectedMoves().size());
+        assertEq(0,facadeGame_.getUnselectedMoves().size());
+        assertEq(3,facadeGame_.getGame().getPlayer().getPokemonPlayerList().getValue(0).getMoves().size());
+        facadeGame_.learnMovesByMoveTutor();
+        assertEq(4,facadeGame_.getGame().getPlayer().getPokemonPlayerList().getValue(0).getMoves().size());
 
     }
     private static Coords newCoords(int _place, int _level, int _xi, int _yi, int _x, int _y) {

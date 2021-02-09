@@ -12,118 +12,123 @@ import aiki.util.Coords;
 import aiki.util.LevelPoint;
 import aiki.util.Point;
 import code.maths.Rate;
-import org.junit.Before;
 import org.junit.Test;
 
 public final class FacadeGameFightTest extends InitializationDataBase {
 
-    private DataBase data;
-    private Game game;
-    private FacadeGame facadeGame;
-    @Before
-    public void initTests() {
-        data = initDb();
-        Game game_ = new Game(data);
+    public static FacadeGame initTests() {
+        DataBase data_ = initDb();
+        Game game_ = new Game(data_);
         Difficulty diff_ = new Difficulty();
-        game_.initUtilisateur(NICKNAME, null, diff_, data);
+        game_.initUtilisateur(NICKNAME, null, diff_, data_);
         game_.setPlayerCoords(newCoords(0, 0, 3, 2));
         game_.setPlayerOrientation(Direction.RIGHT);
         game_.getDifficulty().setRandomWildFight(false);
         game_.getPlayer().getItem(LAVA);
-        game_.getPlayer().doRevivingFossil(LAVA, diff_, data);
+        game_.getPlayer().doRevivingFossil(LAVA, diff_, data_);
         PokemonPlayer pk_ = (PokemonPlayer) game_.getPlayer().getTeam().get(1);
         pk_.setItem(PIERRE_LUNE);
-        game = game_;
         FacadeGame facadeGame_ = new FacadeGame();
-        facadeGame_.setData(data);
+        facadeGame_.setData(data_);
         facadeGame_.setLanguage(LANGUAGE);
         facadeGame_.setGame(game_);
         facadeGame_.setupMovingHeros();
         facadeGame_.directInteraction();
         facadeGame_.interact();
-        facadeGame = facadeGame_;
+        return facadeGame_;
     }
 
     @Test
     public void act1Test() {
-        assertEq(PTITARD, facadeGame.getNicknameOrDefault(""));
-        assertEq("NICKNAME", facadeGame.getNicknameOrDefault("NICKNAME"));
-        facadeGame.attemptFlee(false);
-        assertTrue(facadeGame.isEnabledMovingHero());
+        FacadeGame facadeGame_ = initTests();
+        assertEq(PTITARD, facadeGame_.getNicknameOrDefault(""));
+        assertEq("NICKNAME", facadeGame_.getNicknameOrDefault("NICKNAME"));
+        facadeGame_.attemptFlee(false);
+        assertTrue(facadeGame_.isEnabledMovingHero());
     }
 
     @Test
     public void act2Test() {
-        facadeGame.attemptFlee(true);
-        facadeGame.endRoundFightFlee();
-        assertTrue(facadeGame.isEnabledMovingHero());
+        FacadeGame facadeGame_ = initTests();
+        facadeGame_.attemptFlee(true);
+        facadeGame_.endRoundFightFlee();
+        assertTrue(facadeGame_.isEnabledMovingHero());
     }
 
     @Test
     public void act3Test() {
-        facadeGame.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setRemainedHp(Rate.one());
-        facadeGame.getPlayer().getItem(EAU_FRAICHE);
-        facadeGame.chooseFrontFighter((byte) 0);
-        facadeGame.searchPokemonHealingItem();
-        facadeGame.checkLineHealingItem(0);
-        facadeGame.setChosenHealingItem();
-        assertEq(EAU_FRAICHE,((ActionHeal)facadeGame.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getAction()).getChosenHealingItem());
+        FacadeGame facadeGame_ = initTests();
+        facadeGame_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setRemainedHp(Rate.one());
+        facadeGame_.getPlayer().getItem(EAU_FRAICHE);
+        facadeGame_.chooseFrontFighter((byte) 0);
+        facadeGame_.searchPokemonHealingItem();
+        facadeGame_.checkLineHealingItem(0);
+        facadeGame_.setChosenHealingItem();
+        assertEq(EAU_FRAICHE,((ActionHeal)facadeGame_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getAction()).getChosenHealingItem());
     }
 
     @Test
     public void act4Test() {
-        facadeGame.getPlayer().getItem(MASTER_BALL);
-        facadeGame.attemptCatchingWildPokemon(MASTER_BALL,false);
-        assertEq(FightState.SURNOM, facadeGame.getFight().getState());
+        FacadeGame facadeGame_ = initTests();
+        facadeGame_.getPlayer().getItem(MASTER_BALL);
+        facadeGame_.attemptCatchingWildPokemon(MASTER_BALL,false);
+        assertEq(FightState.SURNOM, facadeGame_.getFight().getState());
     }
 
     @Test
     public void act5Test() {
-        facadeGame.getPlayer().getItem(MASTER_BALL);
-        facadeGame.attemptCatchingWildPokemon(MASTER_BALL,false);
-        facadeGame.catchWildPokemon("WILD");
-        assertTrue(facadeGame.isEnabledMovingHero());
-        assertEq(3,facadeGame.getPlayer().getTeam().size());
+        FacadeGame facadeGame_ = initTests();
+        facadeGame_.getPlayer().getItem(MASTER_BALL);
+        facadeGame_.attemptCatchingWildPokemon(MASTER_BALL,false);
+        facadeGame_.catchWildPokemon("WILD");
+        assertTrue(facadeGame_.isEnabledMovingHero());
+        assertEq(3,facadeGame_.getPlayer().getTeam().size());
     }
 
     @Test
     public void act6Test() {
-        facadeGame.getPlayer().getItem(MASTER_BALL);
-        facadeGame.attemptCatchingWildPokemon(MASTER_BALL,true);
-        facadeGame.endRoundFightSuccessBall();
-        facadeGame.catchWildPokemon("WILD");
-        assertTrue(facadeGame.isEnabledMovingHero());
-        assertEq(3,facadeGame.getPlayer().getTeam().size());
+        FacadeGame facadeGame_ = initTests();
+        facadeGame_.getPlayer().getItem(MASTER_BALL);
+        facadeGame_.attemptCatchingWildPokemon(MASTER_BALL,true);
+        facadeGame_.endRoundFightSuccessBall();
+        facadeGame_.catchWildPokemon("WILD");
+        assertTrue(facadeGame_.isEnabledMovingHero());
+        assertEq(3,facadeGame_.getPlayer().getTeam().size());
     }
 
     @Test
     public void act7Test() {
-        facadeGame.chooseFrontFighter((byte) 0);
-        facadeGame.chooseMove(JACKPOT);
-        assertEq(1,facadeGame.sortedFightersBeginRoundWildFight().size());
-        assertEq(2,facadeGame.sortedFightersBeginRoundWildFight().firstValue().size());
+        FacadeGame facadeGame_ = initTests();
+        facadeGame_.chooseFrontFighter((byte) 0);
+        facadeGame_.chooseMove(JACKPOT);
+        assertEq(1,facadeGame_.sortedFightersBeginRoundWildFight().size());
+        assertEq(2,facadeGame_.sortedFightersBeginRoundWildFight().firstValue().size());
     }
 
     @Test
     public void act8Test() {
-        facadeGame.getPlayer().getItem(MASTER_BALL);
-        assertEq(1,facadeGame.calculateCatchingRates().size());
+        FacadeGame facadeGame_ = initTests();
+        facadeGame_.getPlayer().getItem(MASTER_BALL);
+        assertEq(1,facadeGame_.calculateCatchingRates().size());
     }
 
     @Test
     public void act9Test() {
-        assertEq(Rate.one(),facadeGame.calculateFleeingRate());
+        FacadeGame facadeGame_ = initTests();
+        assertEq(Rate.one(),facadeGame_.calculateFleeingRate());
     }
 
     @Test
     public void act10Test() {
-        assertEq(2,facadeGame.remainingThrowersTargetsHp().size());
+        FacadeGame facadeGame_ = initTests();
+        assertEq(2,facadeGame_.remainingThrowersTargetsHp().size());
     }
 
     @Test
     public void act11Test() {
-        assertTrue(facadeGame.isExistingFight());
-        assertTrue(facadeGame.isWildFight());
+        FacadeGame facadeGame_ = initTests();
+        assertTrue(facadeGame_.isExistingFight());
+        assertTrue(facadeGame_.isWildFight());
     }
 
     private static Coords newCoords(int _place, int _level, int _x, int _y) {

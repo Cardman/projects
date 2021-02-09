@@ -10,30 +10,27 @@ import aiki.util.Coords;
 import aiki.util.LevelPoint;
 import aiki.util.Point;
 import code.util.CustList;
-import org.junit.Before;
 import org.junit.Test;
 
 public final class ComparatorsTest extends EquallablePkUtil {
-    private DataBase data;
-    @Before
-    public void initDb() {
-        data = InitializationDataBase.initDb();
-    }
+
     @Test
     public void compareCoords1Test() {
+        DataBase data_ = InitializationDataBase.initDb();
         CustList<Coords> coords_ = new CustList<Coords>();
         coords_.add(newCoords(0,0,0,0));
         coords_.add(newCoords(1,0,0,0));
-        coords_.sortElts(new ComparatorCoords(data));
+        coords_.sortElts(new ComparatorCoords(data_));
         assertEq(newCoords(1,0,0,0),coords_.get(0));
         assertEq(newCoords(0,0,0,0),coords_.get(1));
     }
     @Test
     public void compareCoords2Test() {
+        DataBase data_ = InitializationDataBase.initDb();
         CustList<Coords> coords_ = new CustList<Coords>();
         coords_.add(newCoords(0,0,0,0));
         coords_.add(newCoords(0,0,0,1));
-        coords_.sortElts(new ComparatorCoords(data));
+        coords_.sortElts(new ComparatorCoords(data_));
         assertEq(newCoords(0,0,0,0),coords_.get(0));
         assertEq(newCoords(0,0,0,1),coords_.get(1));
     }

@@ -11,152 +11,151 @@ import aiki.util.Coords;
 import aiki.util.LevelPoint;
 import aiki.util.Point;
 import code.maths.LgInt;
-import org.junit.Before;
 import org.junit.Test;
 
 public final class FacadeGameBuyItemsTest extends InitializationDataBase {
 
-    private DataBase data;
-    private Game game;
-    private FacadeGame facadeGame;
-    @Before
-    public void initTests() {
-        data = initDb();
-        Game game_ = new Game(data);
+    public static FacadeGame initTests() {
+        DataBase data_ = initDb();
+        Game game_ = new Game(data_);
         Difficulty diff_ = new Difficulty();
-        game_.initUtilisateur(NICKNAME, null, diff_, data);
+        game_.initUtilisateur(NICKNAME, null, diff_, data_);
         game_.setPlayerCoords(newCoords(1, 0, 1, 1, 7, 4));
         game_.setPlayerOrientation(Direction.RIGHT);
         game_.getDifficulty().setRandomWildFight(false);
         game_.getPlayer().getItem(LAVA);
-        game_.getPlayer().doRevivingFossil(LAVA, diff_, data);
+        game_.getPlayer().doRevivingFossil(LAVA, diff_, data_);
         PokemonPlayer pk_ = (PokemonPlayer) game_.getPlayer().getTeam().get(1);
         pk_.setItem(PIERRE_LUNE);
-        game = game_;
         FacadeGame facadeGame_ = new FacadeGame();
-        facadeGame_.setData(data);
+        facadeGame_.setData(data_);
         facadeGame_.setLanguage(LANGUAGE);
         facadeGame_.setGame(game_);
         facadeGame_.directInteraction();
         facadeGame_.interact();
-        facadeGame = facadeGame_;
+        return facadeGame_;
     }
 
     @Test
     public void listItem1Test() {
-        facadeGame.setSearchModeNameItem(SearchingMode.WHOLE_STRING);
-        facadeGame.setContentOfNameItem(HYPER_BALL);
-        facadeGame.searchObjectToBuyOrSell(true);
-        facadeGame.checkLineItem(0);
-        facadeGame.addItemToBuyOrSell();
-        facadeGame.addOrRemoveItemToBuyOrSell(HYPER_BALL,true);
-        assertEq(1,facadeGame.getChosenItemsForBuyOrSell().size());
-        assertEq(HYPER_BALL,facadeGame.getChosenItemsForBuyOrSell().getKey(0));
-        assertEq(LgInt.newLgInt("2"),facadeGame.getChosenItemsForBuyOrSell().getValue(0));
-        assertEq(LgInt.newLgInt("2000"),facadeGame.amount());
-        facadeGame.addOrRemoveItemToBuyOrSell(HYPER_BALL,false);
-        assertEq(1,facadeGame.getChosenItemsForBuyOrSell().size());
-        assertEq(HYPER_BALL,facadeGame.getChosenItemsForBuyOrSell().getKey(0));
-        assertEq(LgInt.newLgInt("1"),facadeGame.getChosenItemsForBuyOrSell().getValue(0));
-        assertEq(LgInt.newLgInt("1000"),facadeGame.amount());
-        facadeGame.addOrRemoveItemToBuyOrSell(POTION,false);
-        assertEq(1,facadeGame.getChosenItemsForBuyOrSell().size());
-        assertEq(HYPER_BALL,facadeGame.getChosenItemsForBuyOrSell().getKey(0));
-        assertEq(LgInt.newLgInt("1"),facadeGame.getChosenItemsForBuyOrSell().getValue(0));
-        assertEq(LgInt.newLgInt("1000"),facadeGame.amount());
-        facadeGame.addOrRemoveItemToBuyOrSell(HYPER_BALL,false);
-        assertEq(1,facadeGame.getChosenItemsForBuyOrSell().size());
-        assertEq(HYPER_BALL,facadeGame.getChosenItemsForBuyOrSell().getKey(0));
-        assertEq(LgInt.newLgInt("0"),facadeGame.getChosenItemsForBuyOrSell().getValue(0));
-        assertEq(LgInt.newLgInt("0"),facadeGame.amount());
-        facadeGame.addOrRemoveItemToBuyOrSell(HYPER_BALL,false);
-        assertEq(1,facadeGame.getChosenItemsForBuyOrSell().size());
-        assertEq(HYPER_BALL,facadeGame.getChosenItemsForBuyOrSell().getKey(0));
-        assertEq(LgInt.newLgInt("0"),facadeGame.getChosenItemsForBuyOrSell().getValue(0));
-        assertEq(LgInt.newLgInt("0"),facadeGame.amount());
+        FacadeGame facadeGame_ = initTests();
+        facadeGame_.setSearchModeNameItem(SearchingMode.WHOLE_STRING);
+        facadeGame_.setContentOfNameItem(HYPER_BALL);
+        facadeGame_.searchObjectToBuyOrSell(true);
+        facadeGame_.checkLineItem(0);
+        facadeGame_.addItemToBuyOrSell();
+        facadeGame_.addOrRemoveItemToBuyOrSell(HYPER_BALL,true);
+        assertEq(1,facadeGame_.getChosenItemsForBuyOrSell().size());
+        assertEq(HYPER_BALL,facadeGame_.getChosenItemsForBuyOrSell().getKey(0));
+        assertEq(LgInt.newLgInt("2"),facadeGame_.getChosenItemsForBuyOrSell().getValue(0));
+        assertEq(LgInt.newLgInt("2000"),facadeGame_.amount());
+        facadeGame_.addOrRemoveItemToBuyOrSell(HYPER_BALL,false);
+        assertEq(1,facadeGame_.getChosenItemsForBuyOrSell().size());
+        assertEq(HYPER_BALL,facadeGame_.getChosenItemsForBuyOrSell().getKey(0));
+        assertEq(LgInt.newLgInt("1"),facadeGame_.getChosenItemsForBuyOrSell().getValue(0));
+        assertEq(LgInt.newLgInt("1000"),facadeGame_.amount());
+        facadeGame_.addOrRemoveItemToBuyOrSell(POTION,false);
+        assertEq(1,facadeGame_.getChosenItemsForBuyOrSell().size());
+        assertEq(HYPER_BALL,facadeGame_.getChosenItemsForBuyOrSell().getKey(0));
+        assertEq(LgInt.newLgInt("1"),facadeGame_.getChosenItemsForBuyOrSell().getValue(0));
+        assertEq(LgInt.newLgInt("1000"),facadeGame_.amount());
+        facadeGame_.addOrRemoveItemToBuyOrSell(HYPER_BALL,false);
+        assertEq(1,facadeGame_.getChosenItemsForBuyOrSell().size());
+        assertEq(HYPER_BALL,facadeGame_.getChosenItemsForBuyOrSell().getKey(0));
+        assertEq(LgInt.newLgInt("0"),facadeGame_.getChosenItemsForBuyOrSell().getValue(0));
+        assertEq(LgInt.newLgInt("0"),facadeGame_.amount());
+        facadeGame_.addOrRemoveItemToBuyOrSell(HYPER_BALL,false);
+        assertEq(1,facadeGame_.getChosenItemsForBuyOrSell().size());
+        assertEq(HYPER_BALL,facadeGame_.getChosenItemsForBuyOrSell().getKey(0));
+        assertEq(LgInt.newLgInt("0"),facadeGame_.getChosenItemsForBuyOrSell().getValue(0));
+        assertEq(LgInt.newLgInt("0"),facadeGame_.amount());
     }
 
     @Test
     public void listItem2Test() {
-        facadeGame.setSearchModeNameItem(SearchingMode.WHOLE_STRING);
-        facadeGame.setContentOfNameItem(HYPER_BALL);
-        facadeGame.searchObjectToBuyOrSell(true);
-        facadeGame.checkLineItem(0);
-        facadeGame.addItemToBuyOrSell();
-        facadeGame.addOrRemoveItemToBuyOrSell(HYPER_BALL,true);
-        assertEq(1,facadeGame.getChosenItemsForBuyOrSell().size());
-        assertEq(HYPER_BALL,facadeGame.getChosenItemsForBuyOrSell().getKey(0));
-        assertEq(LgInt.newLgInt("2"),facadeGame.getChosenItemsForBuyOrSell().getValue(0));
-        assertEq(LgInt.newLgInt("2000"),facadeGame.amount());
-        facadeGame.addOrRemoveItemToBuyOrSell(HYPER_BALL,false);
-        assertEq(1,facadeGame.getChosenItemsForBuyOrSell().size());
-        assertEq(HYPER_BALL,facadeGame.getChosenItemsForBuyOrSell().getKey(0));
-        assertEq(LgInt.newLgInt("1"),facadeGame.getChosenItemsForBuyOrSell().getValue(0));
-        assertEq(LgInt.newLgInt("1000"),facadeGame.amount());
-        facadeGame.addOrRemoveItemToBuyOrSell(POTION,false);
-        assertEq(1,facadeGame.getChosenItemsForBuyOrSell().size());
-        assertEq(HYPER_BALL,facadeGame.getChosenItemsForBuyOrSell().getKey(0));
-        assertEq(LgInt.newLgInt("1"),facadeGame.getChosenItemsForBuyOrSell().getValue(0));
-        assertEq(LgInt.newLgInt("1000"),facadeGame.amount());
-        facadeGame.addOrRemoveItemToBuyOrSell(HYPER_BALL,false);
-        assertEq(1,facadeGame.getChosenItemsForBuyOrSell().size());
-        assertEq(HYPER_BALL,facadeGame.getChosenItemsForBuyOrSell().getKey(0));
-        assertEq(LgInt.newLgInt("0"),facadeGame.getChosenItemsForBuyOrSell().getValue(0));
-        assertEq(LgInt.newLgInt("0"),facadeGame.amount());
-        facadeGame.addOrRemoveItemToBuyOrSell(HYPER_BALL,false);
-        assertEq(1,facadeGame.getChosenItemsForBuyOrSell().size());
-        assertEq(HYPER_BALL,facadeGame.getChosenItemsForBuyOrSell().getKey(0));
-        assertEq(LgInt.newLgInt("0"),facadeGame.getChosenItemsForBuyOrSell().getValue(0));
-        assertEq(LgInt.newLgInt("0"),facadeGame.amount());
+        FacadeGame facadeGame_ = initTests();
+        facadeGame_.setSearchModeNameItem(SearchingMode.WHOLE_STRING);
+        facadeGame_.setContentOfNameItem(HYPER_BALL);
+        facadeGame_.searchObjectToBuyOrSell(true);
+        facadeGame_.checkLineItem(0);
+        facadeGame_.addItemToBuyOrSell();
+        facadeGame_.addOrRemoveItemToBuyOrSell(HYPER_BALL,true);
+        assertEq(1,facadeGame_.getChosenItemsForBuyOrSell().size());
+        assertEq(HYPER_BALL,facadeGame_.getChosenItemsForBuyOrSell().getKey(0));
+        assertEq(LgInt.newLgInt("2"),facadeGame_.getChosenItemsForBuyOrSell().getValue(0));
+        assertEq(LgInt.newLgInt("2000"),facadeGame_.amount());
+        facadeGame_.addOrRemoveItemToBuyOrSell(HYPER_BALL,false);
+        assertEq(1,facadeGame_.getChosenItemsForBuyOrSell().size());
+        assertEq(HYPER_BALL,facadeGame_.getChosenItemsForBuyOrSell().getKey(0));
+        assertEq(LgInt.newLgInt("1"),facadeGame_.getChosenItemsForBuyOrSell().getValue(0));
+        assertEq(LgInt.newLgInt("1000"),facadeGame_.amount());
+        facadeGame_.addOrRemoveItemToBuyOrSell(POTION,false);
+        assertEq(1,facadeGame_.getChosenItemsForBuyOrSell().size());
+        assertEq(HYPER_BALL,facadeGame_.getChosenItemsForBuyOrSell().getKey(0));
+        assertEq(LgInt.newLgInt("1"),facadeGame_.getChosenItemsForBuyOrSell().getValue(0));
+        assertEq(LgInt.newLgInt("1000"),facadeGame_.amount());
+        facadeGame_.addOrRemoveItemToBuyOrSell(HYPER_BALL,false);
+        assertEq(1,facadeGame_.getChosenItemsForBuyOrSell().size());
+        assertEq(HYPER_BALL,facadeGame_.getChosenItemsForBuyOrSell().getKey(0));
+        assertEq(LgInt.newLgInt("0"),facadeGame_.getChosenItemsForBuyOrSell().getValue(0));
+        assertEq(LgInt.newLgInt("0"),facadeGame_.amount());
+        facadeGame_.addOrRemoveItemToBuyOrSell(HYPER_BALL,false);
+        assertEq(1,facadeGame_.getChosenItemsForBuyOrSell().size());
+        assertEq(HYPER_BALL,facadeGame_.getChosenItemsForBuyOrSell().getKey(0));
+        assertEq(LgInt.newLgInt("0"),facadeGame_.getChosenItemsForBuyOrSell().getValue(0));
+        assertEq(LgInt.newLgInt("0"),facadeGame_.amount());
     }
 
     @Test
     public void listItem3Test() {
-        facadeGame.setSearchModeNameItem(SearchingMode.WHOLE_STRING);
-        facadeGame.setContentOfNameItem(HYPER_BALL);
-        facadeGame.searchObjectToBuyOrSell(true);
-        facadeGame.checkLineItem(0);
-        facadeGame.addItemToBuyOrSell();
-        facadeGame.addOrRemoveItemToBuyOrSell(HYPER_BALL,true);
-        facadeGame.addOrRemoveItemToBuyOrSell(HYPER_BALL,true);
-        facadeGame.addOrRemoveItemToBuyOrSell(HYPER_BALL,true);
-        facadeGame.addOrRemoveItemToBuyOrSell(HYPER_BALL,true);
-        facadeGame.buyOrSellItems(true);
-        assertEq(LgInt.newLgInt("3000"),game.getPlayer().getMoney());
-        assertEq(LgInt.newLgInt("0"),game.getPlayer().getInventory().getNumber(HYPER_BALL));
+        FacadeGame facadeGame_ = initTests();
+        facadeGame_.setSearchModeNameItem(SearchingMode.WHOLE_STRING);
+        facadeGame_.setContentOfNameItem(HYPER_BALL);
+        facadeGame_.searchObjectToBuyOrSell(true);
+        facadeGame_.checkLineItem(0);
+        facadeGame_.addItemToBuyOrSell();
+        facadeGame_.addOrRemoveItemToBuyOrSell(HYPER_BALL,true);
+        facadeGame_.addOrRemoveItemToBuyOrSell(HYPER_BALL,true);
+        facadeGame_.addOrRemoveItemToBuyOrSell(HYPER_BALL,true);
+        facadeGame_.addOrRemoveItemToBuyOrSell(HYPER_BALL,true);
+        facadeGame_.buyOrSellItems(true);
+        assertEq(LgInt.newLgInt("3000"),facadeGame_.getGame().getPlayer().getMoney());
+        assertEq(LgInt.newLgInt("0"),facadeGame_.getGame().getPlayer().getInventory().getNumber(HYPER_BALL));
     }
 
     @Test
     public void listItem4Test() {
-        facadeGame.setSearchModeNameItem(SearchingMode.WHOLE_STRING);
-        facadeGame.setContentOfNameItem(HYPER_BALL);
-        facadeGame.searchObjectToBuyOrSell(true);
-        facadeGame.checkLineItem(0);
-        facadeGame.addItemToBuyOrSell();
-        facadeGame.addOrRemoveItemToBuyOrSell(HYPER_BALL,true);
-        assertTrue(facadeGame.canBeBought());
-        facadeGame.buyOrSellItems(true);
-        assertEq(LgInt.newLgInt("1000"),game.getPlayer().getMoney());
-        assertEq(LgInt.newLgInt("2"),game.getPlayer().getInventory().getNumber(HYPER_BALL));
+        FacadeGame facadeGame_ = initTests();
+        facadeGame_.setSearchModeNameItem(SearchingMode.WHOLE_STRING);
+        facadeGame_.setContentOfNameItem(HYPER_BALL);
+        facadeGame_.searchObjectToBuyOrSell(true);
+        facadeGame_.checkLineItem(0);
+        facadeGame_.addItemToBuyOrSell();
+        facadeGame_.addOrRemoveItemToBuyOrSell(HYPER_BALL,true);
+        assertTrue(facadeGame_.canBeBought());
+        facadeGame_.buyOrSellItems(true);
+        assertEq(LgInt.newLgInt("1000"),facadeGame_.getGame().getPlayer().getMoney());
+        assertEq(LgInt.newLgInt("2"),facadeGame_.getGame().getPlayer().getInventory().getNumber(HYPER_BALL));
     }
 
     @Test
     public void listItem5Test() {
-        facadeGame.clearItemsToBuyOrSell();
-        facadeGame.setSearchModeNameItem(SearchingMode.WHOLE_STRING);
-        facadeGame.setContentOfNameItem(HYPER_BALL);
-        facadeGame.searchObjectToBuyOrSell(true);
-        facadeGame.checkLineItem(0);
-        facadeGame.addItemToBuyOrSell();
-        facadeGame.addOrRemoveItemToBuyOrSell(HYPER_BALL,true);
-        facadeGame.buyOrSellItems(true);
-        facadeGame.searchObjectToBuyOrSell(false);
-        facadeGame.checkLineItem(0);
-        facadeGame.addItemToBuyOrSell();
-        facadeGame.addOrRemoveItemToBuyOrSell(HYPER_BALL,true);
-        facadeGame.buyOrSellItems(false);
-        assertEq(LgInt.newLgInt("3000"),game.getPlayer().getMoney());
-        assertEq(LgInt.newLgInt("0"),game.getPlayer().getInventory().getNumber(HYPER_BALL));
+        FacadeGame facadeGame_ = initTests();
+        facadeGame_.clearItemsToBuyOrSell();
+        facadeGame_.setSearchModeNameItem(SearchingMode.WHOLE_STRING);
+        facadeGame_.setContentOfNameItem(HYPER_BALL);
+        facadeGame_.searchObjectToBuyOrSell(true);
+        facadeGame_.checkLineItem(0);
+        facadeGame_.addItemToBuyOrSell();
+        facadeGame_.addOrRemoveItemToBuyOrSell(HYPER_BALL,true);
+        facadeGame_.buyOrSellItems(true);
+        facadeGame_.searchObjectToBuyOrSell(false);
+        facadeGame_.checkLineItem(0);
+        facadeGame_.addItemToBuyOrSell();
+        facadeGame_.addOrRemoveItemToBuyOrSell(HYPER_BALL,true);
+        facadeGame_.buyOrSellItems(false);
+        assertEq(LgInt.newLgInt("3000"),facadeGame_.getGame().getPlayer().getMoney());
+        assertEq(LgInt.newLgInt("0"),facadeGame_.getGame().getPlayer().getInventory().getNumber(HYPER_BALL));
     }
     private static Coords newCoords(int _place, int _level, int _xi, int _yi, int _x, int _y) {
         Coords begin_ = new Coords();

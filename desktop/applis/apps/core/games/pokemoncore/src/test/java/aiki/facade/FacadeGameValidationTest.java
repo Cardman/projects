@@ -6,44 +6,38 @@ import aiki.game.fight.InitializationDataBase;
 import aiki.game.params.Difficulty;
 import aiki.map.enums.Direction;
 import aiki.map.pokemon.PokemonPlayer;
-import aiki.util.Coords;
-import aiki.util.LevelPoint;
-import aiki.util.Point;
-import org.junit.Before;
 import org.junit.Test;
 
 public final class FacadeGameValidationTest extends InitializationDataBase {
 
-    private DataBase data;
-    private Game game;
-    private FacadeGame facadeGame;
-    @Before
-    public void initTests() {
-        data = initDb();
-        Game game_ = new Game(data);
+    public static FacadeGame initTests() {
+        DataBase data_ = initDb();
+        Game game_ = new Game(data_);
         Difficulty diff_ = new Difficulty();
-        game_.initUtilisateur(NICKNAME, null, diff_, data);
+        game_.initUtilisateur(NICKNAME, null, diff_, data_);
         game_.setPlayerOrientation(Direction.UP);
         game_.getDifficulty().setRandomWildFight(false);
         game_.getPlayer().getItem(LAVA);
-        game_.getPlayer().doRevivingFossil(LAVA, diff_, data);
+        game_.getPlayer().doRevivingFossil(LAVA, diff_, data_);
         PokemonPlayer pk_ = (PokemonPlayer) game_.getPlayer().getTeam().get(1);
         pk_.setItem(PIERRE_LUNE);
-        game = game_;
         FacadeGame facadeGame_ = new FacadeGame();
-        facadeGame_.setData(data);
+        facadeGame_.setGame(game_);
+        facadeGame_.setData(data_);
         facadeGame_.setLanguage(LANGUAGE);
-        facadeGame = facadeGame_;
+        return facadeGame_;
     }
 
     @Test
     public void validate1Test() {
-        assertTrue(facadeGame.checkAndSetGame(game));
+        FacadeGame facadeGame_ = initTests();
+        assertTrue(facadeGame_.checkAndSetGame(facadeGame_.getGame()));
     }
 
     @Test
     public void validate2Test() {
-        game.getPlayer().getTeam().clear();
-        assertTrue(!facadeGame.checkAndSetGame(game));
+        FacadeGame facadeGame_ = initTests();
+        facadeGame_.getGame().getPlayer().getTeam().clear();
+        assertTrue(!facadeGame_.checkAndSetGame(facadeGame_.getGame()));
     }
 }
