@@ -3,7 +3,6 @@ package aiki.game;
 import aiki.db.DataBase;
 import code.util.CustList;
 import code.util.core.StringUtil;
-import org.junit.Before;
 import org.junit.Test;
 
 import aiki.fight.pokemon.TrainerPlaceNames;
@@ -22,16 +21,12 @@ public class GameProgressionTest extends InitializationDataBase {
 
     private static final String SEPARATOR_TRAINERS = " ";
 
-    private DataBase data;
-    @Before
-    public void initTests() {
-        data = initDb();
-    }
     @Test
     public void new_GameProgression_DataBase_Game_1Test() {
-        Game game_ = new Game(data);
-        game_.initUserInteract(NICKNAME, null, game_.getDifficulty(), data);
-        GameProgression gameProgression_ = new GameProgression(data,game_);
+        DataBase data_ = initDb();
+        Game game_ = new Game(data_);
+        game_.initUserInteract(NICKNAME, null, game_.getDifficulty(), data_);
+        GameProgression gameProgression_ = new GameProgression(data_,game_);
         assertTrue(!gameProgression_.isFinishedGame());
         assertEq(NICKNAME, gameProgression_.getNickname());
         assertEq(0, gameProgression_.getPartialFamiliesBaseCaught().size());
@@ -143,13 +138,14 @@ public class GameProgressionTest extends InitializationDataBase {
 
     @Test
     public void new_GameProgression_DataBase_Game_2Test() {
-        Game game_ = new Game(data);
-        game_.initUserInteract(NICKNAME, null, game_.getDifficulty(), data);
+        DataBase data_ = initDb();
+        Game game_ = new Game(data_);
+        game_.initUserInteract(NICKNAME, null, game_.getDifficulty(), data_);
         Pokemon pk_ = new WildPk();
         pk_.setName(PTITARD);
         pk_.setAbility(ATTENTION);
-        game_.getPlayer().recevoirPokemon(pk_, game_.getDifficulty(), data);
-        GameProgression gameProgression_ = new GameProgression(data,game_);
+        game_.getPlayer().recevoirPokemon(pk_, game_.getDifficulty(), data_);
+        GameProgression gameProgression_ = new GameProgression(data_,game_);
         assertTrue(!gameProgression_.isFinishedGame());
         assertEq(NICKNAME, gameProgression_.getNickname());
         assertEq(1, gameProgression_.getPartialFamiliesBaseCaught().size());
@@ -265,10 +261,11 @@ public class GameProgressionTest extends InitializationDataBase {
 
     @Test
     public void new_GameProgression_DataBase_Game_3Test() {
-        Game game_ = new Game(data);
-        game_.initUserInteract(NICKNAME, null, game_.getDifficulty(), data);
+        DataBase data_ = initDb();
+        Game game_ = new Game(data_);
+        game_.initUserInteract(NICKNAME, null, game_.getDifficulty(), data_);
         game_.beatTrainer(new NbFightCoords(newCoords(0, 0, 1, 1), 0));
-        GameProgression gameProgression_ = new GameProgression(data,game_);
+        GameProgression gameProgression_ = new GameProgression(data_,game_);
         assertTrue(!gameProgression_.isFinishedGame());
         assertEq(NICKNAME, gameProgression_.getNickname());
         assertEq(0, gameProgression_.getPartialFamiliesBaseCaught().size());
@@ -380,11 +377,12 @@ public class GameProgressionTest extends InitializationDataBase {
 
     @Test
     public void new_GameProgression_DataBase_Game_4Test() {
-        Game game_ = new Game(data);
-        game_.initUserInteract(NICKNAME, null, game_.getDifficulty(), data);
+        DataBase data_ = initDb();
+        Game game_ = new Game(data_);
+        game_.initUserInteract(NICKNAME, null, game_.getDifficulty(), data_);
         game_.beatTrainer(new NbFightCoords(newCoords(0, 0, 1, 1), 0));
         game_.beatTrainer(new NbFightCoords(newCoords(0, 0, 1, 1), 1));
-        GameProgression gameProgression_ = new GameProgression(data,game_);
+        GameProgression gameProgression_ = new GameProgression(data_,game_);
         assertTrue(!gameProgression_.isFinishedGame());
         assertEq(NICKNAME, gameProgression_.getNickname());
         assertEq(0, gameProgression_.getPartialFamiliesBaseCaught().size());
@@ -495,10 +493,11 @@ public class GameProgressionTest extends InitializationDataBase {
 
     @Test
     public void new_GameProgression_DataBase_Game_5Test() {
-        Game game_ = new Game(data);
-        game_.initUserInteract(NICKNAME, null, game_.getDifficulty(), data);
+        DataBase data_ = initDb();
+        Game game_ = new Game(data_);
+        game_.initUserInteract(NICKNAME, null, game_.getDifficulty(), data_);
         game_.beatTrainer(new NbFightCoords(newCoords(5, 0, 1, 5), 0));
-        GameProgression gameProgression_ = new GameProgression(data,game_);
+        GameProgression gameProgression_ = new GameProgression(data_,game_);
         assertTrue(!gameProgression_.isFinishedGame());
         assertEq(NICKNAME, gameProgression_.getNickname());
         assertEq(0, gameProgression_.getPartialFamiliesBaseCaught().size());
@@ -610,10 +609,11 @@ public class GameProgressionTest extends InitializationDataBase {
 
     @Test
     public void new_GameProgression_DataBase_Game_6Test() {
-        Game game_ = new Game(data);
-        game_.initUserInteract(NICKNAME, null, game_.getDifficulty(), data);
+        DataBase data_ = initDb();
+        Game game_ = new Game(data_);
+        game_.initUserInteract(NICKNAME, null, game_.getDifficulty(), data_);
         game_.beatGymLeader(newCoords(1, 0, 5, 1, 4, 1));
-        GameProgression gameProgression_ = new GameProgression(data,game_);
+        GameProgression gameProgression_ = new GameProgression(data_,game_);
         assertTrue(!gameProgression_.isFinishedGame());
         assertEq(NICKNAME, gameProgression_.getNickname());
         assertEq(0, gameProgression_.getPartialFamiliesBaseCaught().size());
@@ -725,15 +725,16 @@ public class GameProgressionTest extends InitializationDataBase {
 
     @Test
     public void new_GameProgression_DataBase_Game_7Test() {
-        Game game_ = new Game(data);
-        game_.initUserInteract(NICKNAME, null, game_.getDifficulty(), data);
+        DataBase data_ = initDb();
+        Game game_ = new Game(data_);
+        game_.initUserInteract(NICKNAME, null, game_.getDifficulty(), data_);
         Pokemon pk_ = new WildPk();
         pk_.setName(PTITARD);
         pk_.setAbility(ATTENTION);
-        game_.getPlayer().recevoirPokemon(pk_, game_.getDifficulty(), data);
+        game_.getPlayer().recevoirPokemon(pk_, game_.getDifficulty(), data_);
         game_.getPlayer().setChosenTeamPokemon((short) 1);
-        game_.getPlayer().storeIntoBox(data);
-        GameProgression gameProgression_ = new GameProgression(data,game_);
+        game_.getPlayer().storeIntoBox(data_);
+        GameProgression gameProgression_ = new GameProgression(data_,game_);
         assertTrue(!gameProgression_.isFinishedGame());
         assertEq(NICKNAME, gameProgression_.getNickname());
         assertEq(1, gameProgression_.getPartialFamiliesBaseCaught().size());
@@ -849,10 +850,11 @@ public class GameProgressionTest extends InitializationDataBase {
 
     @Test
     public void new_GameProgression_DataBase_Game_8Test() {
-        Game game_ = new Game(data);
-        game_.initUserInteract(NICKNAME, null, game_.getDifficulty(), data);
+        DataBase data_ = initDb();
+        Game game_ = new Game(data_);
+        game_.initUserInteract(NICKNAME, null, game_.getDifficulty(), data_);
         game_.getPlayer().getBox().add(new Egg(PTITARD));
-        GameProgression gameProgression_ = new GameProgression(data,game_);
+        GameProgression gameProgression_ = new GameProgression(data_,game_);
         assertTrue(!gameProgression_.isFinishedGame());
         assertEq(NICKNAME, gameProgression_.getNickname());
         assertEq(0, gameProgression_.getPartialFamiliesBaseCaught().size());
@@ -964,11 +966,12 @@ public class GameProgressionTest extends InitializationDataBase {
 
     @Test
     public void new_GameProgression_DataBase_Game_9Test() {
-        Game game_ = new Game(data);
-        game_.initUserInteract(NICKNAME, null, game_.getDifficulty(), data);
+        DataBase data_ = initDb();
+        Game game_ = new Game(data_);
+        game_.initUserInteract(NICKNAME, null, game_.getDifficulty(), data_);
         PokemonPlayer pkPlayer_ = (PokemonPlayer) game_.getPlayer().getTeam().get(0);
         pkPlayer_.setLevel((short) 100);
-        GameProgression gameProgression_ = new GameProgression(data,game_);
+        GameProgression gameProgression_ = new GameProgression(data_,game_);
         assertTrue(!gameProgression_.isFinishedGame());
         assertEq(NICKNAME, gameProgression_.getNickname());
         assertEq(0, gameProgression_.getPartialFamiliesBaseCaught().size());
@@ -1080,11 +1083,12 @@ public class GameProgressionTest extends InitializationDataBase {
 
     @Test
     public void new_GameProgression_DataBase_Game_10Test() {
-        Game game_ = new Game(data);
-        game_.initUserInteract(NICKNAME, null, game_.getDifficulty(), data);
+        DataBase data_ = initDb();
+        Game game_ = new Game(data_);
+        game_.initUserInteract(NICKNAME, null, game_.getDifficulty(), data_);
         PokemonPlayer pkPlayer_ = (PokemonPlayer) game_.getPlayer().getTeam().get(0);
         pkPlayer_.setHappiness((short) 170);
-        GameProgression gameProgression_ = new GameProgression(data,game_);
+        GameProgression gameProgression_ = new GameProgression(data_,game_);
         assertTrue(!gameProgression_.isFinishedGame());
         assertEq(NICKNAME, gameProgression_.getNickname());
         assertEq(0, gameProgression_.getPartialFamiliesBaseCaught().size());
@@ -1196,12 +1200,13 @@ public class GameProgressionTest extends InitializationDataBase {
 
     @Test
     public void new_GameProgression_DataBase_Game_11Test() {
-        Game game_ = new Game(data);
-        game_.initUserInteract(NICKNAME, null, game_.getDifficulty(), data);
+        DataBase data_ = initDb();
+        Game game_ = new Game(data_);
+        game_.initUserInteract(NICKNAME, null, game_.getDifficulty(), data_);
         PokemonPlayer pkPlayer_ = (PokemonPlayer) game_.getPlayer().getTeam().get(0);
         pkPlayer_.setHappiness((short) 170);
         pkPlayer_.setLevel((short) 100);
-        game_.catchAll(data);
+        game_.catchAll(data_);
         game_.beatGymLeader(newCoords(1, 0, 5, 1, 4, 1));
         game_.beatGymLeader(newCoords(2, 0, 2, 0));
         game_.beatGymLeader(newCoords(2, 0, 4, 0));
@@ -1219,7 +1224,7 @@ public class GameProgressionTest extends InitializationDataBase {
         game_.beatTrainer(new NbFightCoords(newCoords(2, 0, 11, 4), 0));
         game_.beatTrainer(new NbFightCoords(newCoords(5, 0, 1, 5), 0));
         game_.beatTrainer(new NbFightCoords(newCoords(5, 1, 5, 1), 0));
-        GameProgression gameProgression_ = new GameProgression(data,game_);
+        GameProgression gameProgression_ = new GameProgression(data_,game_);
         assertTrue(gameProgression_.isFinishedGame());
         assertEq(NICKNAME, gameProgression_.getNickname());
         assertEq(0, gameProgression_.getPartialFamiliesBaseCaught().size());

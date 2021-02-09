@@ -1,6 +1,5 @@
 package aiki.game;
 
-import org.junit.Before;
 import org.junit.Test;
 
 import aiki.db.DataBase;
@@ -33,13 +32,12 @@ import aiki.util.LevelPoint;
 import aiki.util.Point;
 import code.util.CustList;
 import code.util.EqList;
-import code.util.*;
 import code.util.ObjectMap;
 
 
 public class GameUnlockPlacesTest extends InitializationDataBase {
 
-    private static final String L = "L";
+    private static final String CST_L = "L";
     private static final String VOIE = "voie";
     private static final String ROAD_6 = "R 6";
     private static final String ROAD_5 = "R 5";
@@ -52,24 +50,23 @@ public class GameUnlockPlacesTest extends InitializationDataBase {
     private static final String C_3 = "C 3";
     private static final String C_2 = "C 2";
     private static final String C_1 = "C 1";
-    private DataBase dataCore;
 
-    @Before
-    public void initLocalDataBase() {
-        dataCore = InitializationDataBase.coreDataBase();
-        dataCore.sortEndRound();
-        dataCore.completeVariables();
-        initTableTypes(dataCore);
-        initConstants(dataCore);
-        initRandomLaws(dataCore);
-        initExpPoints(dataCore);
-        initTmHm(dataCore);
-        dataCore.initTypesByTable();
-        initTranslations(dataCore);
-        initCondition();
+    public static DataBase initLocalDataBase() {
+        DataBase dataCore_ = InitializationDataBase.coreDataBase();
+        dataCore_.sortEndRound();
+        dataCore_.completeVariables();
+        initTableTypes(dataCore_);
+        initConstants(dataCore_);
+        initRandomLaws(dataCore_);
+        initExpPoints(dataCore_);
+        initTmHm(dataCore_);
+        dataCore_.initTypesByTable();
+        initTranslations(dataCore_);
+        initCondition(dataCore_);
+        return dataCore_;
     }
 
-    private void initCondition() {
+    private static void initCondition(DataBase _data) {
         City cityOne_ = city();
         cityOne_.setName(C_1);
         City cityTwo_ = city();
@@ -92,7 +89,7 @@ public class GameUnlockPlacesTest extends InitializationDataBase {
         roadFive_.setName(ROAD_5);
         Road roadSix_ = hroad();
         roadSix_.setName(ROAD_6);
-        DataMap dataMap_ = dataCore.getMap();
+        DataMap dataMap_ = _data.getMap();
         dataMap_.setAccessCondition(new ObjectMap<Coords,EqList<Coords>>());
         dataMap_.setPlaces(new CustList<Place>());
         dataMap_.getPlaces().add(cityOne_);
@@ -324,7 +321,7 @@ public class GameUnlockPlacesTest extends InitializationDataBase {
 
     private static League league(Coords _access) {
         League league_ = new League();
-        league_.setName(L);
+        league_.setName(CST_L);
         league_.setAccessCoords(_access);
         league_.setRooms(new CustList<LevelLeague>());
         LevelLeague level_ = new LevelLeague();
@@ -367,10 +364,11 @@ public class GameUnlockPlacesTest extends InitializationDataBase {
 
     @Test
     public void addBeatenTrainer1Test() {
-        Game game_ = new Game(dataCore);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), dataCore);
+        DataBase dataCore_ = initLocalDataBase();
+        Game game_ = new Game(dataCore_);
+        game_.initUtilisateur(NICKNAME, null, new Difficulty(), dataCore_);
         game_.beatGymLeader(coords(0,4,5,1,1));
-        game_.addBeatenTrainer(coords(0,4,5,1,1), dataCore);
+        game_.addBeatenTrainer(coords(0,4,5,1,1), dataCore_);
         assertEq(1, game_.getPartiallyAccessiblePlaces().size());
         assertEq(ROAD_2, game_.getPartiallyAccessiblePlaces().get(0));
         assertEq(0, game_.getFullAccessiblePlaces().size());
@@ -378,21 +376,23 @@ public class GameUnlockPlacesTest extends InitializationDataBase {
 
     @Test
     public void addBeatenTrainer2Test() {
-        Game game_ = new Game(dataCore);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), dataCore);
+        DataBase dataCore_ = initLocalDataBase();
+        Game game_ = new Game(dataCore_);
+        game_.initUtilisateur(NICKNAME, null, new Difficulty(), dataCore_);
         game_.beatGymLeader(coords(0,4,5,1,1));
-        game_.addBeatenTrainer(coords(0,4,5,1,2), dataCore);
+        game_.addBeatenTrainer(coords(0,4,5,1,2), dataCore_);
         assertEq(0, game_.getPartiallyAccessiblePlaces().size());
         assertEq(0, game_.getFullAccessiblePlaces().size());
     }
 
     @Test
     public void addBeatenTrainer3Test() {
-        Game game_ = new Game(dataCore);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), dataCore);
+        DataBase dataCore_ = initLocalDataBase();
+        Game game_ = new Game(dataCore_);
+        game_.initUtilisateur(NICKNAME, null, new Difficulty(), dataCore_);
         game_.beatGymLeader(coords(0,4,5,1,1));
         game_.beatGymLeader(coords(2,4,5,1,1));
-        game_.addBeatenTrainer(coords(2,4,5,1,1), dataCore);
+        game_.addBeatenTrainer(coords(2,4,5,1,1), dataCore_);
         assertEq(1, game_.getPartiallyAccessiblePlaces().size());
         assertEq(ROAD_3, game_.getPartiallyAccessiblePlaces().get(0));
         assertEq(2, game_.getFullAccessiblePlaces().size());
@@ -402,39 +402,42 @@ public class GameUnlockPlacesTest extends InitializationDataBase {
 
     @Test
     public void addBeatenTrainer4Test() {
-        Game game_ = new Game(dataCore);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), dataCore);
-        game_.addBeatenTrainer(coords(0,4,5,1,2), dataCore);
+        DataBase dataCore_ = initLocalDataBase();
+        Game game_ = new Game(dataCore_);
+        game_.initUtilisateur(NICKNAME, null, new Difficulty(), dataCore_);
+        game_.addBeatenTrainer(coords(0,4,5,1,2), dataCore_);
         assertEq(0, game_.getPartiallyAccessiblePlaces().size());
         assertEq(0, game_.getFullAccessiblePlaces().size());
     }
 
     @Test
     public void addBeatenTrainer5Test() {
-        Game game_ = new Game(dataCore);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), dataCore);
+        DataBase dataCore_ = initLocalDataBase();
+        Game game_ = new Game(dataCore_);
+        game_.initUtilisateur(NICKNAME, null, new Difficulty(), dataCore_);
         game_.beatGymLeader(coords(0,4,5,1,1));
         game_.beatGymLeader(coords(2,4,5,1,1));
         game_.beatGymLeader(coords(4,4,5,1,1));
         game_.beatGymLeader(coords(6,4,5,1,1));
-        game_.addBeatenTrainer(coords(6,4,5,1,1), dataCore);
+        game_.addBeatenTrainer(coords(6,4,5,1,1), dataCore_);
         assertEq(0, game_.getPartiallyAccessiblePlaces().size());
         assertEq(3, game_.getFullAccessiblePlaces().size());
-        assertEq(L, game_.getFullAccessiblePlaces().get(0));
+        assertEq(CST_L, game_.getFullAccessiblePlaces().get(0));
         assertEq(ROAD_4, game_.getFullAccessiblePlaces().get(1));
         assertEq(ROAD_5, game_.getFullAccessiblePlaces().get(2));
     }
 
     @Test
     public void addBeatenTrainer6Test() {
-        Game game_ = new Game(dataCore);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), dataCore);
+        DataBase dataCore_ = initLocalDataBase();
+        Game game_ = new Game(dataCore_);
+        game_.initUtilisateur(NICKNAME, null, new Difficulty(), dataCore_);
         game_.beatGymLeader(coords(0,4,5,1,1));
         game_.beatGymLeader(coords(2,4,5,1,1));
         game_.beatGymLeader(coords(4,4,5,1,1));
         game_.beatGymLeader(coords(6,4,5,1,1));
         game_.beatGymLeader(coords(9,0,2,4));
-        game_.addBeatenTrainer(coords(9,0,2,4), dataCore);
+        game_.addBeatenTrainer(coords(9,0,2,4), dataCore_);
         assertEq(0, game_.getPartiallyAccessiblePlaces().size());
         assertEq(2, game_.getFullAccessiblePlaces().size());
         assertEq(C_5, game_.getFullAccessiblePlaces().get(0));
@@ -443,12 +446,13 @@ public class GameUnlockPlacesTest extends InitializationDataBase {
 
     @Test
     public void addBeatenTrainer7Test() {
-        Game game_ = new Game(dataCore);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), dataCore);
+        DataBase dataCore_ = initLocalDataBase();
+        Game game_ = new Game(dataCore_);
+        game_.initUtilisateur(NICKNAME, null, new Difficulty(), dataCore_);
         game_.beatGymLeader(coords(0,4,5,1,1));
         game_.beatGymLeader(coords(2,4,5,1,1));
         game_.beatGymLeader(coords(4,4,5,1,1));
-        game_.addBeatenTrainer(coords(4,4,5,1,1), dataCore);
+        game_.addBeatenTrainer(coords(4,4,5,1,1), dataCore_);
         assertEq(2, game_.getPartiallyAccessiblePlaces().size());
         assertEq(ROAD_4, game_.getPartiallyAccessiblePlaces().get(0));
         assertEq(ROAD_5, game_.getPartiallyAccessiblePlaces().get(1));
@@ -459,12 +463,13 @@ public class GameUnlockPlacesTest extends InitializationDataBase {
 
     @Test
     public void addBeatenTrainer8Test() {
-        Game game_ = new Game(dataCore);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), dataCore);
+        DataBase dataCore_ = initLocalDataBase();
+        Game game_ = new Game(dataCore_);
+        game_.initUtilisateur(NICKNAME, null, new Difficulty(), dataCore_);
         game_.beatGymLeader(coords(0,4,5,1,1));
         game_.beatGymLeader(coords(2,4,5,1,1));
         game_.beatGymLeader(coords(4,4,5,1,1));
-        game_.addBeatenTrainer(new Coords(), dataCore);
+        game_.addBeatenTrainer(new Coords(), dataCore_);
         assertEq(0, game_.getPartiallyAccessiblePlaces().size());
         assertEq(0, game_.getFullAccessiblePlaces().size());
     }
