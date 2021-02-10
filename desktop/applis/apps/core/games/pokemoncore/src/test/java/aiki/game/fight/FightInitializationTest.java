@@ -3,7 +3,6 @@ package aiki.game.fight;
 import aiki.comments.Comment;
 import aiki.db.DataBase;
 import code.util.core.StringUtil;
-import org.junit.Before;
 import org.junit.Test;
 
 import aiki.game.fight.enums.FightState;
@@ -30,24 +29,20 @@ import code.util.StringList;
 
 public class FightInitializationTest extends InitializationDataBase {
 
-    private DataBase data;
-    @Before
-    public void initTests() {
-        data = initDb();
-    }
     @Test
     public void initMultiplicity1Test() {
+        DataBase data_ = initDb();
         Difficulty diff_= new Difficulty();
-        Player player_ = new Player(NICKNAME,null,diff_,true,data);
+        Player player_ = new Player(NICKNAME,null,diff_,true,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(ARTIKODIN);
         pokemon_.setItem(MAGNET);
         pokemon_.setAbility(PARATONNERRE);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel((short) 3);
-        PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data);
+        PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_);
         lasPk_.initIv(diff_);
-        lasPk_.initPvRestants(data);
+        lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         Egg egg_ = new Egg(PIKACHU);
         player_.getTeam().add(egg_);
@@ -65,39 +60,41 @@ public class FightInitializationTest extends InitializationDataBase {
 
     @Test
     public void initUserTeam1Test() {
+        DataBase data_ = initDb();
         Difficulty diff_= new Difficulty();
-        Player player_ = new Player(NICKNAME,null,diff_,true,data);
+        Player player_ = new Player(NICKNAME,null,diff_,true,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(ARTIKODIN);
         pokemon_.setItem(MAGNET);
         pokemon_.setAbility(PARATONNERRE);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel((short) 3);
-        PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data);
+        PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_);
         lasPk_.initIv(diff_);
-        lasPk_.initPvRestants(data);
+        lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         Egg egg_ = new Egg(PIKACHU);
         player_.getTeam().add(egg_);
         Fight fight_ = FightFacade.newFight();
         FightInitialization.initMultiplicity(fight_,(byte) 1);
-        FightInitialization.initUserTeam(fight_,player_, diff_, data);
+        FightInitialization.initUserTeam(fight_,player_, diff_, data_);
         assertEq(2, fight_.getUserTeam().getMembers().size());
     }
 
     @Test
     public void initUserTeam2Test() {
+        DataBase data_ = initDb();
         Difficulty diff_= new Difficulty();
-        Player player_ = new Player(NICKNAME,null,diff_,true,data);
+        Player player_ = new Player(NICKNAME,null,diff_,true,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(ARTIKODIN);
         pokemon_.setItem(MAGNET);
         pokemon_.setAbility(PARATONNERRE);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel((short) 3);
-        PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data);
+        PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_);
         lasPk_.initIv(diff_);
-        lasPk_.initPvRestants(data);
+        lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         Egg egg_ = new Egg(PIKACHU);
         player_.getTeam().add(egg_);
@@ -124,23 +121,24 @@ public class FightInitializationTest extends InitializationDataBase {
         dual_.setAlly(allyTrainer_);
         Fight fight_ = FightFacade.newFight();
         FightInitialization.initMultiplicity(fight_,(byte) 2);
-        FightInitialization.initUserTeam(fight_,player_, diff_, dual_, data);
+        FightInitialization.initUserTeam(fight_,player_, diff_, dual_, data_);
         assertEq(4, fight_.getUserTeam().getMembers().size());
     }
 
     @Test
     public void initEquipeDresseurHorsLigue1Test() {
+        DataBase data_ = initDb();
         Difficulty diff_= new Difficulty();
-        Player player_ = new Player(NICKNAME,null,diff_,true,data);
+        Player player_ = new Player(NICKNAME,null,diff_,true,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(ARTIKODIN);
         pokemon_.setItem(MAGNET);
         pokemon_.setAbility(PARATONNERRE);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel((short) 3);
-        PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data);
+        PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_);
         lasPk_.initIv(diff_);
-        lasPk_.initPvRestants(data);
+        lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         Egg egg_ = new Egg(PIKACHU);
         player_.getTeam().add(egg_);
@@ -168,8 +166,8 @@ public class FightInitializationTest extends InitializationDataBase {
         trainer_.setTeamsRewards(new CustList<PokemonTeam>(foeTeamList_));
         Fight fight_ = FightFacade.newFight();
         FightInitialization.initMultiplicity(fight_,(byte) 1);
-        FightInitialization.initUserTeam(fight_,player_, diff_, data);
-        FightInitialization.initEquipeDresseurHorsLigue(fight_,player_, diff_, trainer_, 0, data);
+        FightInitialization.initUserTeam(fight_,player_, diff_, data_);
+        FightInitialization.initEquipeDresseurHorsLigue(fight_,player_, diff_, trainer_, 0, data_);
         assertEq(2, fight_.getFoeTeam().getMembers().size());
         assertEq(0, fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).getGroundPlace());
         assertEq(Fighter.BACK, fight_.getFighter(POKEMON_FOE_FIGHTER_ONE).getGroundPlace());
@@ -177,17 +175,18 @@ public class FightInitializationTest extends InitializationDataBase {
 
     @Test
     public void initEquipeTrainerGym1Test() {
+        DataBase data_ = initDb();
         Difficulty diff_= new Difficulty();
-        Player player_ = new Player(NICKNAME,null,diff_,true,data);
+        Player player_ = new Player(NICKNAME,null,diff_,true,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(ARTIKODIN);
         pokemon_.setItem(MAGNET);
         pokemon_.setAbility(PARATONNERRE);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel((short) 3);
-        PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data);
+        PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_);
         lasPk_.initIv(diff_);
-        lasPk_.initPvRestants(data);
+        lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         Egg egg_ = new Egg(PIKACHU);
         player_.getTeam().add(egg_);
@@ -213,8 +212,8 @@ public class FightInitializationTest extends InitializationDataBase {
         trainer_.setReward((short) 200);
         Fight fight_ = FightFacade.newFight();
         FightInitialization.initMultiplicity(fight_,(byte) 1);
-        FightInitialization.initUserTeam(fight_,player_, diff_, data);
-        FightInitialization.initEquipeTrainerGym(fight_,player_, diff_, trainer_, data);
+        FightInitialization.initUserTeam(fight_,player_, diff_, data_);
+        FightInitialization.initEquipeTrainerGym(fight_,player_, diff_, trainer_, data_);
         assertEq(2, fight_.getFoeTeam().getMembers().size());
         assertEq(0, fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).getGroundPlace());
         assertEq(Fighter.BACK, fight_.getFighter(POKEMON_FOE_FIGHTER_ONE).getGroundPlace());
@@ -222,17 +221,18 @@ public class FightInitializationTest extends InitializationDataBase {
 
     @Test
     public void initEquipeLeaderGym1Test() {
+        DataBase data_ = initDb();
         Difficulty diff_= new Difficulty();
-        Player player_ = new Player(NICKNAME,null,diff_,true,data);
+        Player player_ = new Player(NICKNAME,null,diff_,true,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(ARTIKODIN);
         pokemon_.setItem(MAGNET);
         pokemon_.setAbility(PARATONNERRE);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel((short) 3);
-        PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data);
+        PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_);
         lasPk_.initIv(diff_);
-        lasPk_.initPvRestants(data);
+        lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         Egg egg_ = new Egg(PIKACHU);
         player_.getTeam().add(egg_);
@@ -258,8 +258,8 @@ public class FightInitializationTest extends InitializationDataBase {
         trainer_.setReward((short) 200);
         Fight fight_ = FightFacade.newFight();
         FightInitialization.initMultiplicity(fight_,(byte) 1);
-        FightInitialization.initUserTeam(fight_,player_, diff_, data);
-        FightInitialization.initEquipeLeaderGym(fight_,player_, diff_, trainer_, data);
+        FightInitialization.initUserTeam(fight_,player_, diff_, data_);
+        FightInitialization.initEquipeLeaderGym(fight_,player_, diff_, trainer_, data_);
         assertEq(2, fight_.getFoeTeam().getMembers().size());
         assertEq(0, fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).getGroundPlace());
         assertEq(Fighter.BACK, fight_.getFighter(POKEMON_FOE_FIGHTER_ONE).getGroundPlace());
@@ -267,17 +267,18 @@ public class FightInitializationTest extends InitializationDataBase {
 
     @Test
     public void initEquipeDresseurLigue1Test() {
+        DataBase data_ = initDb();
         Difficulty diff_= new Difficulty();
-        Player player_ = new Player(NICKNAME,null,diff_,true,data);
+        Player player_ = new Player(NICKNAME,null,diff_,true,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(ARTIKODIN);
         pokemon_.setItem(MAGNET);
         pokemon_.setAbility(PARATONNERRE);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel((short) 3);
-        PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data);
+        PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_);
         lasPk_.initIv(diff_);
-        lasPk_.initPvRestants(data);
+        lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         Egg egg_ = new Egg(PIKACHU);
         player_.getTeam().add(egg_);
@@ -303,8 +304,8 @@ public class FightInitializationTest extends InitializationDataBase {
         trainer_.setReward((short) 200);
         Fight fight_ = FightFacade.newFight();
         FightInitialization.initMultiplicity(fight_,(byte) 1);
-        FightInitialization.initUserTeam(fight_,player_, diff_, data);
-        FightInitialization.initEquipeDresseurLigue(fight_,player_, diff_, trainer_, data);
+        FightInitialization.initUserTeam(fight_,player_, diff_, data_);
+        FightInitialization.initEquipeDresseurLigue(fight_,player_, diff_, trainer_, data_);
         assertEq(2, fight_.getFoeTeam().getMembers().size());
         assertEq(0, fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).getGroundPlace());
         assertEq(Fighter.BACK, fight_.getFighter(POKEMON_FOE_FIGHTER_ONE).getGroundPlace());
@@ -312,17 +313,18 @@ public class FightInitializationTest extends InitializationDataBase {
 
     @Test
     public void initEquipeTmpTrainer1Test() {
+        DataBase data_ = initDb();
         Difficulty diff_= new Difficulty();
-        Player player_ = new Player(NICKNAME,null,diff_,true,data);
+        Player player_ = new Player(NICKNAME,null,diff_,true,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(ARTIKODIN);
         pokemon_.setItem(MAGNET);
         pokemon_.setAbility(PARATONNERRE);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel((short) 3);
-        PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data);
+        PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_);
         lasPk_.initIv(diff_);
-        lasPk_.initPvRestants(data);
+        lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         Egg egg_ = new Egg(PIKACHU);
         player_.getTeam().add(egg_);
@@ -370,8 +372,8 @@ public class FightInitializationTest extends InitializationDataBase {
         dual_.setFoeTrainer(tempTrainer_);
         Fight fight_ = FightFacade.newFight();
         FightInitialization.initMultiplicity(fight_,dual_.getFoeTrainer().getMultiplicityFight());
-        FightInitialization.initUserTeam(fight_,player_, diff_, dual_, data);
-        FightInitialization.initEquipeTmpTrainer(fight_,player_, diff_, dual_, data);
+        FightInitialization.initUserTeam(fight_,player_, diff_, dual_, data_);
+        FightInitialization.initEquipeTmpTrainer(fight_,player_, diff_, dual_, data_);
         assertEq(2, fight_.getFoeTeam().getMembers().size());
         assertEq(0, fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).getGroundPlace());
         assertEq(1, fight_.getFighter(POKEMON_FOE_FIGHTER_ONE).getGroundPlace());
@@ -379,17 +381,18 @@ public class FightInitializationTest extends InitializationDataBase {
 
     @Test
     public void initWildPokemon1Test() {
+        DataBase data_ = initDb();
         Difficulty diff_= new Difficulty();
-        Player player_ = new Player(NICKNAME,null,diff_,true,data);
+        Player player_ = new Player(NICKNAME,null,diff_,true,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(ARTIKODIN);
         pokemon_.setItem(MAGNET);
         pokemon_.setAbility(PARATONNERRE);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel((short) 3);
-        PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data);
+        PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_);
         lasPk_.initIv(diff_);
-        lasPk_.initPvRestants(data);
+        lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         Egg egg_ = new Egg(PIKACHU);
         player_.getTeam().add(egg_);
@@ -401,25 +404,26 @@ public class FightInitializationTest extends InitializationDataBase {
         wildPokemon_.setLevel((short) 3);
         Fight fight_ = FightFacade.newFight();
         FightInitialization.initMultiplicity(fight_,(byte) 1);
-        FightInitialization.initUserTeam(fight_,player_, diff_, data);
-        FightInitialization.initWildPokemon(fight_,player_, diff_, wildPokemon_, data);
+        FightInitialization.initUserTeam(fight_,player_, diff_, data_);
+        FightInitialization.initWildPokemon(fight_,player_, diff_, wildPokemon_, data_);
         assertEq(1, fight_.getPlayerMaxNumberFrontFighters());
         assertEq(1, fight_.getFoeTeam().getMembers().size());
     }
 
     @Test
     public void initFightGymLeader1Test() {
+        DataBase data_ = initDb();
         Difficulty diff_= new Difficulty();
-        Player player_ = new Player(NICKNAME,null,diff_,true,data);
+        Player player_ = new Player(NICKNAME,null,diff_,true,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(ARTIKODIN);
         pokemon_.setItem(MAGNET);
         pokemon_.setAbility(PARATONNERRE);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel((short) 3);
-        PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data);
+        PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_);
         lasPk_.initIv(diff_);
-        lasPk_.initPvRestants(data);
+        lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         Egg egg_ = new Egg(PIKACHU);
         player_.getTeam().add(egg_);
@@ -444,7 +448,7 @@ public class FightInitializationTest extends InitializationDataBase {
         trainer_.setTeam(foeTeam_);
         trainer_.setReward((short) 200);
         Fight fight_ = FightFacade.newFight();
-        FightInitialization.initFight(fight_, player_, diff_, trainer_, data);
+        FightInitialization.initFight(fight_, player_, diff_, trainer_, data_);
         assertEq(1, fight_.getPlayerMaxNumberFrontFighters());
         assertEq(2, fight_.getFoeTeam().getMembers().size());
         assertEq(0, fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).getGroundPlace());
@@ -453,17 +457,18 @@ public class FightInitializationTest extends InitializationDataBase {
 
     @Test
     public void initFightGymTrainer1Test() {
+        DataBase data_ = initDb();
         Difficulty diff_= new Difficulty();
-        Player player_ = new Player(NICKNAME,null,diff_,true,data);
+        Player player_ = new Player(NICKNAME,null,diff_,true,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(ARTIKODIN);
         pokemon_.setItem(MAGNET);
         pokemon_.setAbility(PARATONNERRE);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel((short) 3);
-        PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data);
+        PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_);
         lasPk_.initIv(diff_);
-        lasPk_.initPvRestants(data);
+        lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         Egg egg_ = new Egg(PIKACHU);
         player_.getTeam().add(egg_);
@@ -488,7 +493,7 @@ public class FightInitializationTest extends InitializationDataBase {
         trainer_.setTeam(foeTeam_);
         trainer_.setReward((short) 200);
         Fight fight_ = FightFacade.newFight();
-        FightInitialization.initFight(fight_, player_, diff_, trainer_, data);
+        FightInitialization.initFight(fight_, player_, diff_, trainer_, data_);
         assertEq(1, fight_.getPlayerMaxNumberFrontFighters());
         assertEq(2, fight_.getFoeTeam().getMembers().size());
         assertEq(0, fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).getGroundPlace());
@@ -497,17 +502,18 @@ public class FightInitializationTest extends InitializationDataBase {
 
     @Test
     public void initFightTrainerMultiFights1Test() {
+        DataBase data_ = initDb();
         Difficulty diff_= new Difficulty();
-        Player player_ = new Player(NICKNAME,null,diff_,true,data);
+        Player player_ = new Player(NICKNAME,null,diff_,true,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(ARTIKODIN);
         pokemon_.setItem(MAGNET);
         pokemon_.setAbility(PARATONNERRE);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel((short) 3);
-        PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data);
+        PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_);
         lasPk_.initIv(diff_);
-        lasPk_.initPvRestants(data);
+        lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         Egg egg_ = new Egg(PIKACHU);
         player_.getTeam().add(egg_);
@@ -534,7 +540,7 @@ public class FightInitializationTest extends InitializationDataBase {
         TrainerMultiFights trainer_ = new TrainerMultiFights();
         trainer_.setTeamsRewards(new CustList<PokemonTeam>(foeTeamList_));
         Fight fight_ = FightFacade.newFight();
-        FightInitialization.initFight(fight_, player_, diff_, trainer_, 0, data);
+        FightInitialization.initFight(fight_, player_, diff_, trainer_, 0, data_);
         assertEq(1, fight_.getPlayerMaxNumberFrontFighters());
         assertEq(2, fight_.getFoeTeam().getMembers().size());
         assertEq(0, fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).getGroundPlace());
@@ -543,17 +549,18 @@ public class FightInitializationTest extends InitializationDataBase {
 
     @Test
     public void initFightTrainerLeague1Test() {
+        DataBase data_ = initDb();
         Difficulty diff_= new Difficulty();
-        Player player_ = new Player(NICKNAME,null,diff_,true,data);
+        Player player_ = new Player(NICKNAME,null,diff_,true,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(ARTIKODIN);
         pokemon_.setItem(MAGNET);
         pokemon_.setAbility(PARATONNERRE);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel((short) 3);
-        PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data);
+        PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_);
         lasPk_.initIv(diff_);
-        lasPk_.initPvRestants(data);
+        lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         Egg egg_ = new Egg(PIKACHU);
         player_.getTeam().add(egg_);
@@ -578,7 +585,7 @@ public class FightInitializationTest extends InitializationDataBase {
         trainer_.setTeam(foeTeam_);
         trainer_.setReward((short) 200);
         Fight fight_ = FightFacade.newFight();
-        FightInitialization.initFight(fight_, player_, diff_, trainer_, data);
+        FightInitialization.initFight(fight_, player_, diff_, trainer_, data_);
         assertEq(1, fight_.getPlayerMaxNumberFrontFighters());
         assertEq(2, fight_.getFoeTeam().getMembers().size());
         assertEq(0, fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).getGroundPlace());
@@ -587,17 +594,18 @@ public class FightInitializationTest extends InitializationDataBase {
 
     @Test
     public void initFightDualFight1Test() {
+        DataBase data_ = initDb();
         Difficulty diff_= new Difficulty();
-        Player player_ = new Player(NICKNAME,null,diff_,true,data);
+        Player player_ = new Player(NICKNAME,null,diff_,true,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(ARTIKODIN);
         pokemon_.setItem(MAGNET);
         pokemon_.setAbility(PARATONNERRE);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel((short) 3);
-        PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data);
+        PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_);
         lasPk_.initIv(diff_);
-        lasPk_.initPvRestants(data);
+        lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         Egg egg_ = new Egg(PIKACHU);
         player_.getTeam().add(egg_);
@@ -644,7 +652,7 @@ public class FightInitializationTest extends InitializationDataBase {
         tempTrainer_.setReward((short)200);
         dual_.setFoeTrainer(tempTrainer_);
         Fight fight_ = FightFacade.newFight();
-        FightInitialization.initFight(fight_,player_, diff_, dual_, data);
+        FightInitialization.initFight(fight_,player_, diff_, dual_, data_);
         assertEq(1, fight_.getPlayerMaxNumberFrontFighters());
         assertEq(4, fight_.getUserTeam().getMembers().size());
         assertEq(2, fight_.getFoeTeam().getMembers().size());
@@ -654,17 +662,18 @@ public class FightInitializationTest extends InitializationDataBase {
 
     @Test
     public void initFightPokemon1Test() {
+        DataBase data_ = initDb();
         Difficulty diff_= new Difficulty();
-        Player player_ = new Player(NICKNAME,null,diff_,true,data);
+        Player player_ = new Player(NICKNAME,null,diff_,true,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(ARTIKODIN);
         pokemon_.setItem(MAGNET);
         pokemon_.setAbility(PARATONNERRE);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel((short) 3);
-        PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data);
+        PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_);
         lasPk_.initIv(diff_);
-        lasPk_.initPvRestants(data);
+        lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         Egg egg_ = new Egg(PIKACHU);
         player_.getTeam().add(egg_);
@@ -675,7 +684,7 @@ public class FightInitializationTest extends InitializationDataBase {
         foePokemon_.setGender(Gender.NO_GENDER);
         foePokemon_.setLevel((short) 3);
         Fight fight_ = FightFacade.newFight();
-        FightInitialization.initFight(fight_, player_, diff_, foePokemon_, data);
+        FightInitialization.initFight(fight_, player_, diff_, foePokemon_, data_);
         assertEq(1, fight_.getPlayerMaxNumberFrontFighters());
         assertEq(2, fight_.getUserTeam().getMembers().size());
         assertEq(1, fight_.getFoeTeam().getMembers().size());
@@ -686,22 +695,23 @@ public class FightInitializationTest extends InitializationDataBase {
 
     @Test
     public void initPositionsForUserTeam1Test() {
+        DataBase data_ = initDb();
         Difficulty diff_= new Difficulty();
-        Player player_ = new Player(NICKNAME,null,diff_,true,data);
+        Player player_ = new Player(NICKNAME,null,diff_,true,data_);
         WildPk pokemon_ = new WildPk();
         pokemon_.setName(ARTIKODIN);
         pokemon_.setItem(MAGNET);
         pokemon_.setAbility(PARATONNERRE);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel((short) 3);
-        PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data);
+        PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_);
         lasPk_.initIv(diff_);
-        lasPk_.initPvRestants(data);
+        lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         Egg egg_ = new Egg(PIKACHU);
         player_.getTeam().add(egg_);
         Fight fight_ = FightFacade.newFight();
-        FightInitialization.initFight(fight_, player_, diff_, pokemon_, data);
+        FightInitialization.initFight(fight_, player_, diff_, pokemon_, data_);
         FightInitialization.initPositionsForUserTeam(fight_);
         assertEq(2, fight_.getFirstPositPlayerFighters().size());
         assertTrue(fight_.getFirstPositPlayerFighters().contains((byte) 0));
@@ -712,17 +722,18 @@ public class FightInitializationTest extends InitializationDataBase {
 
     @Test
     public void initPositionsForUserTeam2Test() {
+        DataBase data_ = initDb();
         Difficulty diff_= new Difficulty();
-        Player player_ = new Player(NICKNAME,null,diff_,true,data);
+        Player player_ = new Player(NICKNAME,null,diff_,true,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(ARTIKODIN);
         pokemon_.setItem(MAGNET);
         pokemon_.setAbility(PARATONNERRE);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel((short) 3);
-        PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data);
+        PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_);
         lasPk_.initIv(diff_);
-        lasPk_.initPvRestants(data);
+        lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         Egg egg_ = new Egg(PIKACHU);
         player_.getTeam().add(egg_);
@@ -748,7 +759,7 @@ public class FightInitializationTest extends InitializationDataBase {
         trainer_.setTeam(foeTeam_);
         trainer_.setReward((short) 200);
         Fight fight_ = FightFacade.newFight();
-        FightInitialization.initFight(fight_, player_, diff_, trainer_, data);
+        FightInitialization.initFight(fight_, player_, diff_, trainer_, data_);
         FightInitialization.initPositionsForUserTeam(fight_);
         assertEq(2, fight_.getFirstPositPlayerFighters().size());
         assertTrue(fight_.getFirstPositPlayerFighters().contains((byte) 0));
@@ -759,17 +770,18 @@ public class FightInitializationTest extends InitializationDataBase {
 
     @Test
     public void initPositionsForUserTeam3Test() {
+        DataBase data_ = initDb();
         Difficulty diff_= new Difficulty();
-        Player player_ = new Player(NICKNAME,null,diff_,true,data);
+        Player player_ = new Player(NICKNAME,null,diff_,true,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(ARTIKODIN);
         pokemon_.setItem(MAGNET);
         pokemon_.setAbility(PARATONNERRE);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel((short) 3);
-        PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data);
+        PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_);
         lasPk_.initIv(diff_);
-        lasPk_.initPvRestants(data);
+        lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         Egg egg_ = new Egg(PIKACHU);
         player_.getTeam().add(egg_);
@@ -816,7 +828,7 @@ public class FightInitializationTest extends InitializationDataBase {
         trainer_.setReward((short) 200);
         dual_.setFoeTrainer(trainer_);
         Fight fight_ = FightFacade.newFight();
-        FightInitialization.initFight(fight_, player_, diff_, dual_, data);
+        FightInitialization.initFight(fight_, player_, diff_, dual_, data_);
         FightInitialization.initPositionsForUserTeam(fight_);
         assertEq(4, fight_.getFirstPositPlayerFighters().size());
         assertTrue(fight_.getFirstPositPlayerFighters().contains((byte) 0));
@@ -831,17 +843,18 @@ public class FightInitializationTest extends InitializationDataBase {
 
     @Test
     public void initPositionsForFoeTeam1Test() {
+        DataBase data_ = initDb();
         Difficulty diff_= new Difficulty();
-        Player player_ = new Player(NICKNAME,null,diff_,true,data);
+        Player player_ = new Player(NICKNAME,null,diff_,true,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(ARTIKODIN);
         pokemon_.setItem(MAGNET);
         pokemon_.setAbility(PARATONNERRE);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel((short) 3);
-        PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data);
+        PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_);
         lasPk_.initIv(diff_);
-        lasPk_.initPvRestants(data);
+        lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         Egg egg_ = new Egg(PIKACHU);
         player_.getTeam().add(egg_);
@@ -875,7 +888,7 @@ public class FightInitializationTest extends InitializationDataBase {
         trainer_.setTeam(foeTeam_);
         trainer_.setReward((short) 200);
         Fight fight_ = FightFacade.newFight();
-        FightInitialization.initFight(fight_, player_, diff_, trainer_, data);
+        FightInitialization.initFight(fight_, player_, diff_, trainer_, data_);
         FightInitialization.initPositionsForFoeTeam(fight_);
         assertEq(3, fight_.getFirstPositFoeFighters().size());
         assertTrue(fight_.getFirstPositFoeFighters().contains((byte) 0));
@@ -888,24 +901,25 @@ public class FightInitializationTest extends InitializationDataBase {
 
     @Test
     public void initGlobalMoves1Test() {
+        DataBase data_ = initDb();
         Difficulty diff_= new Difficulty();
-        Player player_ = new Player(NICKNAME,null,diff_,true,data);
+        Player player_ = new Player(NICKNAME,null,diff_,true,data_);
         WildPk pokemon_ = new WildPk();
         pokemon_.setName(ARTIKODIN);
         pokemon_.setItem(MAGNET);
         pokemon_.setAbility(PARATONNERRE);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel((short) 3);
-        PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data);
+        PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_);
         lasPk_.initIv(diff_);
-        lasPk_.initPvRestants(data);
+        lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         Egg egg_ = new Egg(PIKACHU);
         player_.getTeam().add(egg_);
         Fight fight_ = FightFacade.newFight();
-        FightInitialization.initFight(fight_, player_, diff_, pokemon_, data);
+        FightInitialization.initFight(fight_, player_, diff_, pokemon_, data_);
         FightInitialization.initPositionsForUserTeam(fight_);
-        FightInitialization.initGlobalMoves(fight_,data);
+        FightInitialization.initGlobalMoves(fight_,data_);
         assertEq(12, fight_.getEnabledMoves().size());
         assertTrue(fight_.getEnabledMoves().contains(REQUIEM));
         assertTrue(fight_.getEnabledMoves().contains(ORAGE));
@@ -967,17 +981,18 @@ public class FightInitializationTest extends InitializationDataBase {
 
     @Test
     public void initRelationships1Test() {
+        DataBase data_ = initDb();
         Difficulty diff_= new Difficulty();
-        Player player_ = new Player(NICKNAME,null,diff_,true,data);
+        Player player_ = new Player(NICKNAME,null,diff_,true,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(ARTIKODIN);
         pokemon_.setItem(MAGNET);
         pokemon_.setAbility(PARATONNERRE);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel((short) 3);
-        PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data);
+        PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_);
         lasPk_.initIv(diff_);
-        lasPk_.initPvRestants(data);
+        lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         Egg egg_ = new Egg(PIKACHU);
         player_.getTeam().add(egg_);
@@ -1003,10 +1018,10 @@ public class FightInitializationTest extends InitializationDataBase {
         trainer_.setReward((short) 200);
         trainer_.setMultiplicityFight((byte) 2);
         Fight fight_ = FightFacade.newFight();
-        FightInitialization.initFight(fight_, player_, diff_, trainer_, data);
+        FightInitialization.initFight(fight_, player_, diff_, trainer_, data_);
         FightInitialization.initPositionsForUserTeam(fight_);
-        FightInitialization.initGlobalMoves(fight_,data);
-        FightInitialization.initRelationships(fight_,data);
+        FightInitialization.initGlobalMoves(fight_,data_);
+        FightInitialization.initRelationships(fight_,data_);
         assertEq(8, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getTrappingMoves().size());
         assertTrue(fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getTrappingMoves().contains(new MoveTeamPosition(TIPHON,POKEMON_PLAYER_FIGHTER_ZERO)));
         assertTrue(fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getTrappingMoves().contains(new MoveTeamPosition(TIPHON,POKEMON_PLAYER_FIGHTER_ONE)));
@@ -1047,17 +1062,18 @@ public class FightInitializationTest extends InitializationDataBase {
 
     @Test
     public void initFight1Test() {
+        DataBase data_ = initDb();
         Difficulty diff_= new Difficulty();
-        Player player_ = new Player(NICKNAME,null,diff_,true,data);
+        Player player_ = new Player(NICKNAME,null,diff_,true,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(ARTIKODIN);
         pokemon_.setItem(PLAQUE_DRACO);
         pokemon_.setAbility(MULTITYPE);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel((short) 3);
-        PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data);
+        PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_);
         lasPk_.initIv(diff_);
-        lasPk_.initPvRestants(data);
+        lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         Egg egg_ = new Egg(PIKACHU);
         player_.getTeam().add(egg_);
@@ -1083,8 +1099,8 @@ public class FightInitializationTest extends InitializationDataBase {
         trainer_.setReward((short) 200);
         trainer_.setMultiplicityFight((byte) 1);
         Fight fight_ = FightFacade.newFight();
-        FightInitialization.initFight(fight_, player_, diff_, trainer_, data);
-        FightInitialization.initFight(fight_,data);
+        FightInitialization.initFight(fight_, player_, diff_, trainer_, data_);
+        FightInitialization.initFight(fight_,data_);
         assertTrue(!fight_.getEnabledMoves().getVal(ZENITH).isEnabled());
         StringList list_ = fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).getTypes();
         assertEq(1, list_.size());
@@ -1093,23 +1109,24 @@ public class FightInitializationTest extends InitializationDataBase {
 
     @Test
     public void sortedTeamMembersByPosition1Test() {
+        DataBase data_ = initDb();
         Difficulty diff_= new Difficulty();
-        Player player_ = new Player(NICKNAME,null,diff_,true,data);
+        Player player_ = new Player(NICKNAME,null,diff_,true,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(ARTIKODIN);
         pokemon_.setItem(PLAQUE_DRACO);
         pokemon_.setAbility(MULTITYPE);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel((short) 3);
-        PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data);
+        PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_);
         lasPk_.initIv(diff_);
-        lasPk_.initPvRestants(data);
+        lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         Egg egg_ = new Egg(PIKACHU);
         player_.getTeam().add(egg_);
-        lasPk_ = new PokemonPlayer(pokemon_,data);
+        lasPk_ = new PokemonPlayer(pokemon_,data_);
         lasPk_.initIv(diff_);
-        lasPk_.initPvRestants(data);
+        lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
         PkTrainer foePokemon_ = new PkTrainer();
@@ -1133,8 +1150,8 @@ public class FightInitializationTest extends InitializationDataBase {
         trainer_.setReward((short) 200);
         trainer_.setMultiplicityFight((byte) 1);
         Fight fight_ = FightFacade.newFight();
-        FightInitialization.initFight(fight_, player_, diff_, trainer_, data);
-        FightInitialization.initFight(fight_,data);
+        FightInitialization.initFight(fight_, player_, diff_, trainer_, data_);
+        FightInitialization.initFight(fight_,data_);
         EqList<TeamPosition> userTeam_ = fight_.sortedTeamMembersByPosition(Fight.CST_PLAYER);
         assertEq(3, userTeam_.size());
         assertEq(POKEMON_PLAYER_FIGHTER_ZERO, userTeam_.get(0));
@@ -1144,17 +1161,18 @@ public class FightInitializationTest extends InitializationDataBase {
 
     @Test
     public void getFighterKey1Test() {
+        DataBase data_ = initDb();
         Difficulty diff_= new Difficulty();
-        Player player_ = new Player(NICKNAME,null,diff_,true,data);
+        Player player_ = new Player(NICKNAME,null,diff_,true,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(ARTIKODIN);
         pokemon_.setItem(MAGNET);
         pokemon_.setAbility(PARATONNERRE);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel((short) 3);
-        PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data);
+        PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_);
         lasPk_.initIv(diff_);
-        lasPk_.initPvRestants(data);
+        lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         Egg egg_ = new Egg(PIKACHU);
         player_.getTeam().add(egg_);
@@ -1179,23 +1197,24 @@ public class FightInitializationTest extends InitializationDataBase {
         trainer_.setTeam(foeTeam_);
         trainer_.setReward((short) 200);
         Fight fight_ = FightFacade.newFight();
-        FightInitialization.initFight(fight_, player_, diff_, trainer_, data);
+        FightInitialization.initFight(fight_, player_, diff_, trainer_, data_);
         assertEq(Fight.toUserFighter((byte) 0), fight_.getFighterKey(TargetCoords.toUserTarget((short) 0)));
     }
 
     @Test
     public void getFighterKey2Test() {
+        DataBase data_ = initDb();
         Difficulty diff_= new Difficulty();
-        Player player_ = new Player(NICKNAME,null,diff_,true,data);
+        Player player_ = new Player(NICKNAME,null,diff_,true,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(ARTIKODIN);
         pokemon_.setItem(MAGNET);
         pokemon_.setAbility(PARATONNERRE);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel((short) 3);
-        PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data);
+        PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_);
         lasPk_.initIv(diff_);
-        lasPk_.initPvRestants(data);
+        lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         Egg egg_ = new Egg(PIKACHU);
         player_.getTeam().add(egg_);
@@ -1220,22 +1239,23 @@ public class FightInitializationTest extends InitializationDataBase {
         trainer_.setTeam(foeTeam_);
         trainer_.setReward((short) 200);
         Fight fight_ = FightFacade.newFight();
-        FightInitialization.initFight(fight_, player_, diff_, trainer_, data);
+        FightInitialization.initFight(fight_, player_, diff_, trainer_, data_);
         assertEq(Fight.toFoeFighter((byte) 0), fight_.getFighterKey(TargetCoords.toFoeTarget((short) 0)));
     }
     @Test
     public void getFighterKey3Test() {
+        DataBase data_ = initDb();
         Difficulty diff_= new Difficulty();
-        Player player_ = new Player(NICKNAME,null,diff_,true,data);
+        Player player_ = new Player(NICKNAME,null,diff_,true,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(ARTIKODIN);
         pokemon_.setItem(MAGNET);
         pokemon_.setAbility(PARATONNERRE);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel((short) 3);
-        PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data);
+        PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_);
         lasPk_.initIv(diff_);
-        lasPk_.initPvRestants(data);
+        lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         Egg egg_ = new Egg(PIKACHU);
         player_.getTeam().add(egg_);
@@ -1260,22 +1280,23 @@ public class FightInitializationTest extends InitializationDataBase {
         trainer_.setTeam(foeTeam_);
         trainer_.setReward((short) 200);
         Fight fight_ = FightFacade.newFight();
-        FightInitialization.initFight(fight_, player_, diff_, trainer_, data);
+        FightInitialization.initFight(fight_, player_, diff_, trainer_, data_);
         assertEq(new TeamPosition(), fight_.getFighterKey(TargetCoords.toUserTarget((short) 4)));
     }
     @Test
     public void addComment1Test() {
+        DataBase data_ = initDb();
         Difficulty diff_= new Difficulty();
-        Player player_ = new Player(NICKNAME,null,diff_,true,data);
+        Player player_ = new Player(NICKNAME,null,diff_,true,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(ARTIKODIN);
         pokemon_.setItem(MAGNET);
         pokemon_.setAbility(PARATONNERRE);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel((short) 3);
-        PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data);
+        PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_);
         lasPk_.initIv(diff_);
-        lasPk_.initPvRestants(data);
+        lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         Egg egg_ = new Egg(PIKACHU);
         player_.getTeam().add(egg_);
@@ -1290,17 +1311,18 @@ public class FightInitializationTest extends InitializationDataBase {
 
     @Test
     public void addComment2Test() {
+        DataBase data_ = initDb();
         Difficulty diff_= new Difficulty();
-        Player player_ = new Player(NICKNAME,null,diff_,true,data);
+        Player player_ = new Player(NICKNAME,null,diff_,true,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(ARTIKODIN);
         pokemon_.setItem(MAGNET);
         pokemon_.setAbility(PARATONNERRE);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel((short) 3);
-        PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data);
+        PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_);
         lasPk_.initIv(diff_);
-        lasPk_.initPvRestants(data);
+        lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         Egg egg_ = new Egg(PIKACHU);
         player_.getTeam().add(egg_);
@@ -1314,17 +1336,18 @@ public class FightInitializationTest extends InitializationDataBase {
     }
     @Test
     public void getBeginRound1Test() {
+        DataBase data_ = initDb();
         Difficulty diff_= new Difficulty();
-        Player player_ = new Player(NICKNAME,null,diff_,true,data);
+        Player player_ = new Player(NICKNAME,null,diff_,true,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(ARTIKODIN);
         pokemon_.setItem(MAGNET);
         pokemon_.setAbility(PARATONNERRE);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel((short) 3);
-        PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data);
+        PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_);
         lasPk_.initIv(diff_);
-        lasPk_.initPvRestants(data);
+        lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         Egg egg_ = new Egg(PIKACHU);
         player_.getTeam().add(egg_);
@@ -1335,17 +1358,18 @@ public class FightInitializationTest extends InitializationDataBase {
     }
     @Test
     public void getBeginRound2Test() {
+        DataBase data_ = initDb();
         Difficulty diff_= new Difficulty();
-        Player player_ = new Player(NICKNAME,null,diff_,true,data);
+        Player player_ = new Player(NICKNAME,null,diff_,true,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(ARTIKODIN);
         pokemon_.setItem(MAGNET);
         pokemon_.setAbility(PARATONNERRE);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel((short) 3);
-        PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data);
+        PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_);
         lasPk_.initIv(diff_);
-        lasPk_.initPvRestants(data);
+        lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         Egg egg_ = new Egg(PIKACHU);
         player_.getTeam().add(egg_);

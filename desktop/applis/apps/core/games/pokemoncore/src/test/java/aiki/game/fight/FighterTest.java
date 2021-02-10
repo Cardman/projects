@@ -6,7 +6,6 @@ import code.util.*;
 import code.util.core.IndexConstants;
 import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
-import org.junit.Before;
 import org.junit.Test;
 
 import aiki.fight.enums.Statistic;
@@ -28,11 +27,6 @@ public class FighterTest extends InitializationDataBase {
 
     private static final String PIKA = "PIKA";
 
-    private DataBase data;
-    @Before
-    public void initTests() {
-        data = initDb();
-    }
     @Test
     public void initCreature1Test() {
         Fighter fighter_ = new Fighter();
@@ -61,6 +55,7 @@ public class FighterTest extends InitializationDataBase {
 
     @Test
     public void initCreatureUser1Test() {
+        DataBase data_ = initDb();
         Fighter fighter_ = new Fighter();
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(PIKACHU);
@@ -68,13 +63,13 @@ public class FighterTest extends InitializationDataBase {
         pokemon_.setAbility(PARATONNERRE);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel((short) 3);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_);
         pokemonUser_.getStatus().add(GEL);
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
         pokemonUser_.setHappiness((short) 40);
         pokemonUser_.setWonExpSinceLastLevel(new Rate(3,2));
-        fighter_.initCreatureUser(pokemonUser_, data);
+        fighter_.initCreatureUser(pokemonUser_, data_);
         assertEq(SUPER_BALL, fighter_.getUsedBallCatching());
         assertEq(40, fighter_.getHappiness());
         assertEq(PIKA, fighter_.getNickname());
@@ -120,6 +115,7 @@ public class FighterTest extends InitializationDataBase {
 
     @Test
     public void initCreatureUser2Test() {
+        DataBase data_ = initDb();
         Fighter fighter_ = new Fighter();
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(PIKACHU);
@@ -127,13 +123,13 @@ public class FighterTest extends InitializationDataBase {
         pokemon_.setAbility(PARATONNERRE);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel((short) 3);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_);
         pokemonUser_.getStatus().add(GEL);
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
         pokemonUser_.setHappiness((short) 40);
         pokemonUser_.setWonExpSinceLastLevel(new Rate(3,2));
-        fighter_.initCreatureUser(pokemonUser_, data);
+        fighter_.initCreatureUser(pokemonUser_, data_);
         assertEq(SUPER_BALL, fighter_.getUsedBallCatching());
         assertEq(40, fighter_.getHappiness());
         assertEq(PIKA, fighter_.getNickname());
@@ -179,6 +175,7 @@ public class FighterTest extends InitializationDataBase {
 
     @Test
     public void initCreatureUser3Test() {
+        DataBase data_ = initDb();
         Fighter fighter_ = new Fighter();
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(PIKACHU);
@@ -186,13 +183,13 @@ public class FighterTest extends InitializationDataBase {
         pokemon_.setAbility(PARATONNERRE);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel((short) 3);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_);
         pokemonUser_.getStatus().add(GEL);
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
         pokemonUser_.setHappiness((short) 40);
         pokemonUser_.setWonExpSinceLastLevel(new Rate(3,2));
-        fighter_.initCreatureUser(pokemonUser_, data);
+        fighter_.initCreatureUser(pokemonUser_, data_);
         assertEq(SUPER_BALL, fighter_.getUsedBallCatching());
         assertEq(40, fighter_.getHappiness());
         assertEq(PIKA, fighter_.getNickname());
@@ -210,6 +207,7 @@ public class FighterTest extends InitializationDataBase {
 
     @Test
     public void initCreatureUser4Test() {
+        DataBase data_ = initDb();
         Fighter fighter_ = new Fighter();
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(PIKACHU);
@@ -217,13 +215,13 @@ public class FighterTest extends InitializationDataBase {
         pokemon_.setAbility(PARATONNERRE);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel((short) 3);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_);
         pokemonUser_.getStatus().add(GEL);
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
         pokemonUser_.setHappiness((short) 40);
         pokemonUser_.setWonExpSinceLastLevel(new Rate(3,2));
-        fighter_.initCreatureUser(pokemonUser_, data);
+        fighter_.initCreatureUser(pokemonUser_, data_);
         assertEq(SUPER_BALL, fighter_.getUsedBallCatching());
         assertEq(40, fighter_.getHappiness());
         assertEq(PIKA, fighter_.getNickname());
@@ -241,6 +239,7 @@ public class FighterTest extends InitializationDataBase {
 
     @Test
     public void initCreatureNonUser1Test() {
+        DataBase data_ = initDb();
         Fighter fighter_ = new Fighter();
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(PIKACHU);
@@ -248,7 +247,7 @@ public class FighterTest extends InitializationDataBase {
         pokemon_.setAbility(PARATONNERRE);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel((short) 3);
-        fighter_.initCreatureNonUser(pokemon_, data);
+        fighter_.initCreatureNonUser(pokemon_, data_);
         assertEq(70, fighter_.getHappiness());
         assertEq(PIKACHU, fighter_.getNickname());
         assertEq(PIKACHU, fighter_.getName());
@@ -321,6 +320,7 @@ public class FighterTest extends InitializationDataBase {
     }
     @Test
     public void initUserMoves1Test() {
+        DataBase data_ = initDb();
         Fighter fighter_ = new Fighter();
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(PIKACHU);
@@ -328,7 +328,7 @@ public class FighterTest extends InitializationDataBase {
         pokemon_.setAbility(PARATONNERRE);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel((short) 3);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_);
         pokemonUser_.getMoves().getVal(OEIL_MIRACLE).setCurrent((short) 0);
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
@@ -359,6 +359,7 @@ public class FighterTest extends InitializationDataBase {
 
     @Test
     public void initPokemonTrainerMoves1Test() {
+        DataBase data_ = initDb();
         Fighter fighter_ = new Fighter();
         PkTrainer pokemon_ = new PkTrainer();
         pokemon_.setName(PIKACHU);
@@ -367,8 +368,8 @@ public class FighterTest extends InitializationDataBase {
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel((short) 3);
         pokemon_.setMoves(new StringList(JACKPOT));
-        fighter_.initCreatureNonUser(pokemon_, data);
-        fighter_.initPokemonTrainerMoves(pokemon_, data);
+        fighter_.initCreatureNonUser(pokemon_, data_);
+        fighter_.initPokemonTrainerMoves(pokemon_, data_);
         assertEq(1, fighter_.getMoves().size());
         assertEq(1, fighter_.getCurrentMoves().size());
         assertTrue(fighter_.getMoves().contains(JACKPOT));
@@ -383,6 +384,7 @@ public class FighterTest extends InitializationDataBase {
 
     @Test
     public void initWildPokemonMoves1Test() {
+        DataBase data_ = initDb();
         Fighter fighter_ = new Fighter();
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(PIKACHU);
@@ -390,8 +392,8 @@ public class FighterTest extends InitializationDataBase {
         pokemon_.setAbility(PARATONNERRE);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel((short) 3);
-        fighter_.initCreatureNonUser(pokemon_, data);
-        fighter_.initWildPokemonMoves(data);
+        fighter_.initCreatureNonUser(pokemon_, data_);
+        fighter_.initWildPokemonMoves(data_);
         assertEq(2, fighter_.getMoves().size());
         assertEq(2, fighter_.getCurrentMoves().size());
         assertTrue(fighter_.getMoves().contains(JACKPOT));
@@ -414,6 +416,7 @@ public class FighterTest extends InitializationDataBase {
 
     @Test
     public void initEvIvUser1Test() {
+        DataBase data_ = initDb();
         Fighter fighter_ = new Fighter();
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(PIKACHU);
@@ -421,14 +424,14 @@ public class FighterTest extends InitializationDataBase {
         pokemon_.setAbility(PARATONNERRE);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel((short) 3);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_);
         pokemonUser_.initIv(new Difficulty());
         pokemonUser_.getEv().put(Statistic.ATTACK, (short) 1);
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
         pokemonUser_.setHappiness((short) 40);
         pokemonUser_.setWonExpSinceLastLevel(new Rate(3,2));
-        fighter_.initCreatureUser(pokemonUser_, data);
+        fighter_.initCreatureUser(pokemonUser_, data_);
         fighter_.initUserMoves(pokemonUser_);
         fighter_.initEvIvUser(pokemonUser_);
         assertEq(6, fighter_.getEv().size());
@@ -451,6 +454,7 @@ public class FighterTest extends InitializationDataBase {
 
     @Test
     public void initEvIvOther1Test() {
+        DataBase data_ = initDb();
         Fighter fighter_ = new Fighter();
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(PIKACHU);
@@ -458,9 +462,9 @@ public class FighterTest extends InitializationDataBase {
         pokemon_.setAbility(PARATONNERRE);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel((short) 3);
-        fighter_.initCreatureNonUser(pokemon_, data);
-        fighter_.initWildPokemonMoves(data);
-        fighter_.initEvIvOther(data);
+        fighter_.initCreatureNonUser(pokemon_, data_);
+        fighter_.initWildPokemonMoves(data_);
+        fighter_.initEvIvOther(data_);
         assertEq(6, fighter_.getEv().size());
         assertEq(0, fighter_.getEv().getVal(Statistic.ATTACK));
         assertEq(0, fighter_.getEv().getVal(Statistic.DEFENSE));
@@ -480,6 +484,7 @@ public class FighterTest extends InitializationDataBase {
 
     @Test
     public void initCreatureGeneral1Test() {
+        DataBase data_ = initDb();
         StringList types_;
         Fighter fighter_ = new Fighter();
         Pokemon pokemon_ = new WildPk();
@@ -488,17 +493,17 @@ public class FighterTest extends InitializationDataBase {
         pokemon_.setAbility(PARATONNERRE);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel((short) 3);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_);
         pokemonUser_.initIv(new Difficulty());
         pokemonUser_.getEv().put(Statistic.ATTACK, (short) 1);
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
         pokemonUser_.setHappiness((short) 40);
         pokemonUser_.setWonExpSinceLastLevel(new Rate(3,2));
-        fighter_.initCreatureUser(pokemonUser_, data);
+        fighter_.initCreatureUser(pokemonUser_, data_);
         fighter_.initUserMoves(pokemonUser_);
         fighter_.initEvIvUser(pokemonUser_);
-        fighter_.initCreatureGeneral(data);
+        fighter_.initCreatureGeneral(data_);
         assertEq(new Rate("50"), fighter_.getStatisBase().getVal(Statistic.ATTACK));
         assertEq(new Rate("143/16"), fighter_.statistiqueGlobaleEvIv(Statistic.ATTACK));
         assertEq(0, fighter_.getStatisBoost().getVal(Statistic.ATTACK));
@@ -512,7 +517,7 @@ public class FighterTest extends InitializationDataBase {
         assertEq(Rate.zero(), fighter_.getWonExp());
         types_ = new StringList(fighter_.getDamageRateInflictedByType().getKeys());
         assertEq(18, types_.size());
-        assertEq(data.getTypes().size(), types_.size());
+        assertEq(data_.getTypes().size(), types_.size());
         types_.sort();
         assertEq(ACIER,types_.get(0));
         assertEq(COMBAT,types_.get(1));
@@ -535,7 +540,7 @@ public class FighterTest extends InitializationDataBase {
         assertEq(18, nbValues(fighter_.getDamageRateInflictedByType(), Rate.one()));
         types_ = new StringList(fighter_.getDamageRateSufferedByType().getKeys());
         assertEq(18, types_.size());
-        assertEq(data.getTypes().size(), types_.size());
+        assertEq(data_.getTypes().size(), types_.size());
         types_.sort();
         assertEq(ACIER,types_.get(0));
         assertEq(COMBAT,types_.get(1));
@@ -729,7 +734,7 @@ public class FighterTest extends InitializationDataBase {
         assertEq(0, fighter_.getLastSufferedMoveTypes().size());
     }
 
-    private int nbValues(StringMap<Rate> _map, Rate _value) {
+    private static int nbValues(StringMap<Rate> _map, Rate _value) {
         int nb_ = 0;
         for (EntryCust<String,Rate> e: _map.entryList()) {
             if (e.getValue().eq(_value)) {
@@ -741,26 +746,28 @@ public class FighterTest extends InitializationDataBase {
 
     @Test
     public void new_Fighter_PokemonPlayer_DataBase_byte_1Test() {
+        DataBase data_ = initDb();
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(PIKACHU);
         pokemon_.setItem(MAGNET);
         pokemon_.setAbility(PARATONNERRE);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel((short) 3);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_);
         pokemonUser_.initIv(new Difficulty());
         pokemonUser_.getEv().put(Statistic.ATTACK, (short) 1);
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
         pokemonUser_.setHappiness((short) 40);
         pokemonUser_.setWonExpSinceLastLevel(new Rate(3,2));
-        Fighter fighter_ = new Fighter(pokemonUser_, data, (byte) 0);
+        Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
         assertEq(0, fighter_.getGroundPlace());
         assertEq(0, fighter_.getGroundPlaceSubst());
     }
 
     @Test
     public void new_Fighter_PokemonTrainer_DataBase_byte_1Test() {
+        DataBase data_ = initDb();
         PkTrainer pokemon_ = new PkTrainer();
         pokemon_.setName(PIKACHU);
         pokemon_.setItem(MAGNET);
@@ -768,35 +775,37 @@ public class FighterTest extends InitializationDataBase {
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel((short) 3);
         pokemon_.setMoves(new StringList(JACKPOT));
-        Fighter fighter_ = new Fighter(pokemon_, data, (byte) 0);
+        Fighter fighter_ = new Fighter(pokemon_, data_, (byte) 0);
         assertEq(0, fighter_.getGroundPlace());
         assertEq(0, fighter_.getGroundPlaceSubst());
     }
 
     @Test
     public void new_Fighter_Pokemon_DataBase_byte_1Test() {
+        DataBase data_ = initDb();
         WildPk pokemon_ = new WildPk();
         pokemon_.setName(PIKACHU);
         pokemon_.setItem(MAGNET);
         pokemon_.setAbility(PARATONNERRE);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel((short) 3);
-        Fighter fighter_ = new Fighter(pokemon_, data, (byte) 0);
+        Fighter fighter_ = new Fighter(pokemon_, data_, (byte) 0);
         assertEq(0, fighter_.getGroundPlace());
         assertEq(0, fighter_.getGroundPlaceSubst());
     }
 
     @Test
     public void ajouterRelationAutre1Test() {
+        DataBase data_ = initDb();
         WildPk pokemon_ = new WildPk();
         pokemon_.setName(PIKACHU);
         pokemon_.setItem(MAGNET);
         pokemon_.setAbility(PARATONNERRE);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel((short) 3);
-        Fighter fighter_ = new Fighter(pokemon_, data, (byte) 0);
+        Fighter fighter_ = new Fighter(pokemon_, data_, (byte) 0);
         TeamPosition fighterCoords_ = new TeamPosition(Fight.CST_PLAYER, (byte)0);
-        fighter_.ajouterRelationAutre(fighterCoords_, data);
+        fighter_.ajouterRelationAutre(fighterCoords_, data_);
         assertEq(12, fighter_.getStatusRelat().size());
 //        assertEq(11, fighter_.getStatusRelat().getKeys((short) 0).size());
         assertEq(12, getNbStatusRelatByRounds(fighter_,(short) 0));
@@ -853,19 +862,20 @@ public class FighterTest extends InitializationDataBase {
 
     @Test
     public void initCreatureRelationsAutre1Test() {
+        DataBase data_ = initDb();
         WildPk pokemon_ = new WildPk();
         pokemon_.setName(PIKACHU);
         pokemon_.setItem(MAGNET);
         pokemon_.setAbility(PARATONNERRE);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel((short) 3);
-        Fighter fighter_ = new Fighter(pokemon_, data, (byte) 0);
+        Fighter fighter_ = new Fighter(pokemon_, data_, (byte) 0);
         TeamPosition fighterCoordsOne_ = new TeamPosition(Fight.CST_PLAYER, (byte)0);
         TeamPosition fighterCoordsTwo_ = new TeamPosition(Fight.CST_PLAYER, (byte)1);
         EqList<TeamPosition> fightersCoords_ = new EqList<TeamPosition>();
         fightersCoords_.add(fighterCoordsOne_);
         fightersCoords_.add(fighterCoordsTwo_);
-        fighter_.initCreatureRelationsAutre(fightersCoords_, data);
+        fighter_.initCreatureRelationsAutre(fightersCoords_, data_);
         assertEq(24, fighter_.getStatusRelat().size());
 //        assertEq(22, fighter_.getStatusRelat().getKeys((short) 0).size());
         assertEq(24, getNbStatusRelatByRounds(fighter_,(short) 0));
@@ -969,13 +979,14 @@ public class FighterTest extends InitializationDataBase {
 
     @Test
     public void initIvUt1Test() {
+        DataBase data_ = initDb();
         WildPk pokemon_ = new WildPk();
         pokemon_.setName(PIKACHU);
         pokemon_.setItem(MAGNET);
         pokemon_.setAbility(PARATONNERRE);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel((short) 3);
-        Fighter fighter_ = new Fighter(pokemon_, data, (byte) 0);
+        Fighter fighter_ = new Fighter(pokemon_, data_, (byte) 0);
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((short) 3);
         fighter_.initIvUt(diff_);
@@ -997,13 +1008,14 @@ public class FighterTest extends InitializationDataBase {
 
     @Test
     public void initIvAdv1Test() {
+        DataBase data_ = initDb();
         WildPk pokemon_ = new WildPk();
         pokemon_.setName(PIKACHU);
         pokemon_.setItem(MAGNET);
         pokemon_.setAbility(PARATONNERRE);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel((short) 3);
-        Fighter fighter_ = new Fighter(pokemon_, data, (byte) 0);
+        Fighter fighter_ = new Fighter(pokemon_, data_, (byte) 0);
         Difficulty diff_ = new Difficulty();
         diff_.setIvFoe((short) 3);
         fighter_.initIvAdv(diff_,HYPER_BALL);
@@ -1026,13 +1038,14 @@ public class FighterTest extends InitializationDataBase {
 
     @Test
     public void initHp1Test() {
+        DataBase data_ = initDb();
         WildPk pokemon_ = new WildPk();
         pokemon_.setName(PIKACHU);
         pokemon_.setItem(MAGNET);
         pokemon_.setAbility(PARATONNERRE);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel((short) 3);
-        Fighter fighter_ = new Fighter(pokemon_, data, (byte) 0);
+        Fighter fighter_ = new Fighter(pokemon_, data_, (byte) 0);
         Difficulty diff_ = new Difficulty();
         diff_.setIvFoe((short) 3);
         fighter_.initIvAdv(diff_,HYPER_BALL);
@@ -1058,13 +1071,14 @@ public class FighterTest extends InitializationDataBase {
 
     @Test
     public void initHp2Test() {
+        DataBase data_ = initDb();
         WildPk pokemon_ = new WildPk();
         pokemon_.setName(PIKACHU);
         pokemon_.setItem(MAGNET);
         pokemon_.setAbility(PARATONNERRE);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel((short) 3);
-        Fighter fighter_ = new Fighter(pokemon_, data, (byte) 0);
+        Fighter fighter_ = new Fighter(pokemon_, data_, (byte) 0);
         fighter_.getRemainingHp().affect(new Rate("100"));
         Difficulty diff_ = new Difficulty();
         diff_.setIvFoe((short) 3);
@@ -1091,13 +1105,14 @@ public class FighterTest extends InitializationDataBase {
 
     @Test
     public void initHp3Test() {
+        DataBase data_ = initDb();
         WildPk pokemon_ = new WildPk();
         pokemon_.setName(PIKACHU);
         pokemon_.setItem(MAGNET);
         pokemon_.setAbility(PARATONNERRE);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel((short) 3);
-        Fighter fighter_ = new Fighter(pokemon_, data, (byte) 0);
+        Fighter fighter_ = new Fighter(pokemon_, data_, (byte) 0);
         fighter_.getRemainingHp().affect(new Rate("1"));
         Difficulty diff_ = new Difficulty();
         diff_.setIvFoe((short) 3);
@@ -1124,13 +1139,14 @@ public class FighterTest extends InitializationDataBase {
 
     @Test
     public void initHp4Test() {
+        DataBase data_ = initDb();
         WildPk pokemon_ = new WildPk();
         pokemon_.setName(PIKACHU);
         pokemon_.setItem(MAGNET);
         pokemon_.setAbility(PARATONNERRE);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel((short) 3);
-        Fighter fighter_ = new Fighter(pokemon_, data, (byte) 0);
+        Fighter fighter_ = new Fighter(pokemon_, data_, (byte) 0);
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((short) 3);
         fighter_.initIvUt(diff_);
@@ -1155,13 +1171,14 @@ public class FighterTest extends InitializationDataBase {
 
     @Test
     public void initHp5Test() {
+        DataBase data_ = initDb();
         WildPk pokemon_ = new WildPk();
         pokemon_.setName(PIKACHU);
         pokemon_.setItem(MAGNET);
         pokemon_.setAbility(PARATONNERRE);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel((short) 3);
-        Fighter fighter_ = new Fighter(pokemon_, data, (byte) 0);
+        Fighter fighter_ = new Fighter(pokemon_, data_, (byte) 0);
         fighter_.getRemainingHp().affect(new Rate("100"));
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((short) 3);
@@ -1187,13 +1204,14 @@ public class FighterTest extends InitializationDataBase {
 
     @Test
     public void initHp6Test() {
+        DataBase data_ = initDb();
         WildPk pokemon_ = new WildPk();
         pokemon_.setName(PIKACHU);
         pokemon_.setItem(MAGNET);
         pokemon_.setAbility(PARATONNERRE);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel((short) 3);
-        Fighter fighter_ = new Fighter(pokemon_, data, (byte) 0);
+        Fighter fighter_ = new Fighter(pokemon_, data_, (byte) 0);
         fighter_.getRemainingHp().affect(new Rate("1"));
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((short) 3);
@@ -1219,6 +1237,7 @@ public class FighterTest extends InitializationDataBase {
 
     @Test
     public void apprendreAttaqueEcrasant1Test() {
+        DataBase data_ = initDb();
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(BABIMANTA);
         pokemon_.setItem(CARTE_ROUGE);
@@ -1229,15 +1248,15 @@ public class FighterTest extends InitializationDataBase {
         moves_.put(COPIE, (short) 10);
         moves_.put(BROUHAHA, (short) 10);
         moves_.put(POUV_ANTIQUE, (short) 10);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data, moves_);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_, moves_);
         pokemonUser_.initIv(new Difficulty());
         pokemonUser_.getEv().put(Statistic.ATTACK, (short) 1);
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
         pokemonUser_.setHappiness((short) 140);
         pokemonUser_.setWonExpSinceLastLevel(new Rate(3));
-        Fighter fighter_ = new Fighter(pokemonUser_, data, (byte) 0);
-        fighter_.apprendreAttaqueEcrasant(DETECTION, COPIE, data);
+        Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
+        fighter_.apprendreAttaqueEcrasant(DETECTION, COPIE, data_);
         CopiedMove newMoveInfo_ = fighter_.getCopiedMoves().getVal(COPIE);
         assertEq(DETECTION, newMoveInfo_.getMove());
         assertEq(5, newMoveInfo_.getPp());
@@ -1245,6 +1264,7 @@ public class FighterTest extends InitializationDataBase {
 
     @Test
     public void apprendreAttaqueEcrasant2Test() {
+        DataBase data_ = initDb();
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(BABIMANTA);
         pokemon_.setItem(CARTE_ROUGE);
@@ -1255,15 +1275,15 @@ public class FighterTest extends InitializationDataBase {
         moves_.put(COPIE, (short) 10);
         moves_.put(BROUHAHA, (short) 10);
         moves_.put(POUV_ANTIQUE, (short) 10);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data, moves_);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_, moves_);
         pokemonUser_.initIv(new Difficulty());
         pokemonUser_.getEv().put(Statistic.ATTACK, (short) 1);
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
         pokemonUser_.setHappiness((short) 140);
         pokemonUser_.setWonExpSinceLastLevel(new Rate(3));
-        Fighter fighter_ = new Fighter(pokemonUser_, data, (byte) 0);
-        fighter_.apprendreAttaqueEcrasant(DETECTION, GRIBOUILLE, data);
+        Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
+        fighter_.apprendreAttaqueEcrasant(DETECTION, GRIBOUILLE, data_);
         CopiedMove newMoveInfo_ = fighter_.getCopiedMoves().getVal(COPIE);
         assertEq(NULL_REF, newMoveInfo_.getMove());
         assertEq(0, newMoveInfo_.getPp());
@@ -1271,6 +1291,7 @@ public class FighterTest extends InitializationDataBase {
 
     @Test
     public void apprendreAttaqueEcrasant3Test() {
+        DataBase data_ = initDb();
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(BABIMANTA);
         pokemon_.setItem(CARTE_ROUGE);
@@ -1281,15 +1302,15 @@ public class FighterTest extends InitializationDataBase {
         moves_.put(COPIE, (short) 10);
         moves_.put(BROUHAHA, (short) 10);
         moves_.put(POUV_ANTIQUE, (short) 10);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data, moves_);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_, moves_);
         pokemonUser_.initIv(new Difficulty());
         pokemonUser_.getEv().put(Statistic.ATTACK, (short) 1);
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
         pokemonUser_.setHappiness((short) 140);
         pokemonUser_.setWonExpSinceLastLevel(new Rate(3));
-        Fighter fighter_ = new Fighter(pokemonUser_, data, (byte) 0);
-        fighter_.apprendreAttaqueEcrasant(DETECTION, POUV_ANTIQUE, data);
+        Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
+        fighter_.apprendreAttaqueEcrasant(DETECTION, POUV_ANTIQUE, data_);
         CopiedMove newMoveInfo_ = fighter_.getCopiedMoves().getVal(COPIE);
         assertEq(NULL_REF, newMoveInfo_.getMove());
         assertEq(0, newMoveInfo_.getPp());
@@ -1297,6 +1318,7 @@ public class FighterTest extends InitializationDataBase {
 
     @Test
     public void apprendreAttaqueEcrasantDef1Test() {
+        DataBase data_ = initDb();
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(BABIMANTA);
         pokemon_.setItem(CARTE_ROUGE);
@@ -1307,16 +1329,16 @@ public class FighterTest extends InitializationDataBase {
         moves_.put(GRIBOUILLE, (short) 10);
         moves_.put(BROUHAHA, (short) 10);
         moves_.put(POUV_ANTIQUE, (short) 10);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data, moves_);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_, moves_);
         pokemonUser_.initIv(new Difficulty());
         pokemonUser_.getEv().put(Statistic.ATTACK, (short) 1);
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
         pokemonUser_.setHappiness((short) 140);
         pokemonUser_.setWonExpSinceLastLevel(new Rate(3));
-        Fighter fighter_ = new Fighter(pokemonUser_, data, (byte) 0);
+        Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
         fighter_.setChanged(false);
-        fighter_.apprendreAttaqueEcrasantDef(DETECTION, GRIBOUILLE, data);
+        fighter_.apprendreAttaqueEcrasantDef(DETECTION, GRIBOUILLE, data_);
         StringMap<UsesOfMove> map_ = fighter_.getMoves();
         assertEq(3, map_.size());
         assertTrue(map_.contains(DETECTION));
@@ -1337,6 +1359,7 @@ public class FighterTest extends InitializationDataBase {
 
     @Test
     public void apprendreAttaqueEcrasantDef2Test() {
+        DataBase data_ = initDb();
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(BABIMANTA);
         pokemon_.setItem(CARTE_ROUGE);
@@ -1347,16 +1370,16 @@ public class FighterTest extends InitializationDataBase {
         moves_.put(GRIBOUILLE, (short) 10);
         moves_.put(BROUHAHA, (short) 10);
         moves_.put(POUV_ANTIQUE, (short) 10);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data, moves_);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_, moves_);
         pokemonUser_.initIv(new Difficulty());
         pokemonUser_.getEv().put(Statistic.ATTACK, (short) 1);
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
         pokemonUser_.setHappiness((short) 140);
         pokemonUser_.setWonExpSinceLastLevel(new Rate(3));
-        Fighter fighter_ = new Fighter(pokemonUser_, data, (byte) 0);
+        Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
         fighter_.setChanged(true);
-        fighter_.apprendreAttaqueEcrasantDef(DETECTION, GRIBOUILLE, data);
+        fighter_.apprendreAttaqueEcrasantDef(DETECTION, GRIBOUILLE, data_);
         StringMap<UsesOfMove> map_ = fighter_.getMoves();
         assertEq(3, map_.size());
         assertTrue(map_.contains(GRIBOUILLE));
@@ -1377,6 +1400,7 @@ public class FighterTest extends InitializationDataBase {
 
     @Test
     public void apprendreAttaqueEcrasantDef3Test() {
+        DataBase data_ = initDb();
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(BABIMANTA);
         pokemon_.setItem(CARTE_ROUGE);
@@ -1387,15 +1411,15 @@ public class FighterTest extends InitializationDataBase {
         moves_.put(GRIBOUILLE, (short) 10);
         moves_.put(BROUHAHA, (short) 10);
         moves_.put(POUV_ANTIQUE, (short) 10);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data, moves_);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_, moves_);
         pokemonUser_.initIv(new Difficulty());
         pokemonUser_.getEv().put(Statistic.ATTACK, (short) 1);
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
         pokemonUser_.setHappiness((short) 140);
         pokemonUser_.setWonExpSinceLastLevel(new Rate(3));
-        Fighter fighter_ = new Fighter(pokemonUser_, data, (byte) 0);
-        fighter_.apprendreAttaqueEcrasantDef(DETECTION, COPIE, data);
+        Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
+        fighter_.apprendreAttaqueEcrasantDef(DETECTION, COPIE, data_);
         StringMap<UsesOfMove> map_ = fighter_.getMoves();
         assertEq(3, map_.size());
         assertTrue(map_.contains(GRIBOUILLE));
@@ -1416,6 +1440,7 @@ public class FighterTest extends InitializationDataBase {
 
     @Test
     public void attaquesUtilisables1Test() {
+        DataBase data_ = initDb();
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(BABIMANTA);
         pokemon_.setItem(CARTE_ROUGE);
@@ -1426,15 +1451,15 @@ public class FighterTest extends InitializationDataBase {
         moves_.put(COPIE, (short) 10);
         moves_.put(BROUHAHA, (short) 10);
         moves_.put(POUV_ANTIQUE, (short) 10);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data, moves_);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_, moves_);
         pokemonUser_.initIv(new Difficulty());
         pokemonUser_.getEv().put(Statistic.ATTACK, (short) 1);
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
         pokemonUser_.setHappiness((short) 140);
         pokemonUser_.setWonExpSinceLastLevel(new Rate(3));
-        Fighter fighter_ = new Fighter(pokemonUser_, data, (byte) 0);
-        fighter_.apprendreAttaqueEcrasant(DETECTION, COPIE, data);
+        Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
+        fighter_.apprendreAttaqueEcrasant(DETECTION, COPIE, data_);
         StringList list_ = fighter_.attaquesUtilisables();
         assertEq(3, list_.size());
         assertTrue(StringUtil.contains(list_, DETECTION));
@@ -1444,6 +1469,7 @@ public class FighterTest extends InitializationDataBase {
 
     @Test
     public void attaquesUtilisables2Test() {
+        DataBase data_ = initDb();
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(BABIMANTA);
         pokemon_.setItem(CARTE_ROUGE);
@@ -1454,15 +1480,15 @@ public class FighterTest extends InitializationDataBase {
         moves_.put(COPIE, (short) 10);
         moves_.put(BROUHAHA, (short) 10);
         moves_.put(POUV_ANTIQUE, (short) 10);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data, moves_);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_, moves_);
         pokemonUser_.initIv(new Difficulty());
         pokemonUser_.getEv().put(Statistic.ATTACK, (short) 1);
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
         pokemonUser_.setHappiness((short) 140);
         pokemonUser_.setWonExpSinceLastLevel(new Rate(3));
-        Fighter fighter_ = new Fighter(pokemonUser_, data, (byte) 0);
-        fighter_.apprendreAttaqueEcrasant(DETECTION, COPIE, data);
+        Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
+        fighter_.apprendreAttaqueEcrasant(DETECTION, COPIE, data_);
         fighter_.getCopiedMoves().getVal(COPIE).setPp((short) 0);
         StringList list_ = fighter_.attaquesUtilisables();
         assertEq(3, list_.size());
@@ -1473,6 +1499,7 @@ public class FighterTest extends InitializationDataBase {
 
     @Test
     public void powerPointsMove1Test() {
+        DataBase data_ = initDb();
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(BABIMANTA);
         pokemon_.setItem(CARTE_ROUGE);
@@ -1483,15 +1510,15 @@ public class FighterTest extends InitializationDataBase {
         moves_.put(COPIE, (short) 10);
         moves_.put(BROUHAHA, (short) 10);
         moves_.put(POUV_ANTIQUE, (short) 10);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data, moves_);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_, moves_);
         pokemonUser_.initIv(new Difficulty());
         pokemonUser_.getEv().put(Statistic.ATTACK, (short) 1);
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
         pokemonUser_.setHappiness((short) 140);
         pokemonUser_.setWonExpSinceLastLevel(new Rate(3));
-        Fighter fighter_ = new Fighter(pokemonUser_, data, (byte) 0);
-        fighter_.apprendreAttaqueEcrasant(DETECTION, COPIE, data);
+        Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
+        fighter_.apprendreAttaqueEcrasant(DETECTION, COPIE, data_);
         assertEq(10, fighter_.powerPointsMove(BROUHAHA));
         assertEq(10, fighter_.powerPointsMove(POUV_ANTIQUE));
         assertEq(10, fighter_.powerPointsMove(COPIE));
@@ -1501,6 +1528,7 @@ public class FighterTest extends InitializationDataBase {
 
     @Test
     public void powerPointsMove2Test() {
+        DataBase data_ = initDb();
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(BABIMANTA);
         pokemon_.setItem(CARTE_ROUGE);
@@ -1511,14 +1539,14 @@ public class FighterTest extends InitializationDataBase {
         moves_.put(COPIE, (short) 10);
         moves_.put(BROUHAHA, (short) 10);
         moves_.put(POUV_ANTIQUE, (short) 10);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data, moves_);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_, moves_);
         pokemonUser_.initIv(new Difficulty());
         pokemonUser_.getEv().put(Statistic.ATTACK, (short) 1);
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
         pokemonUser_.setHappiness((short) 140);
         pokemonUser_.setWonExpSinceLastLevel(new Rate(3));
-        Fighter fighter_ = new Fighter(pokemonUser_, data, (byte) 0);
+        Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
         fighter_.getMoves().removeKey(COPIE);
         UsesOfMove uses_ = new UsesOfMove((short) 7,(short) 8);
         fighter_.getMoves().put(SEISME, uses_);
@@ -1531,6 +1559,7 @@ public class FighterTest extends InitializationDataBase {
 
     @Test
     public void maxPowerPointsMove1Test() {
+        DataBase data_ = initDb();
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(BABIMANTA);
         pokemon_.setItem(CARTE_ROUGE);
@@ -1541,24 +1570,25 @@ public class FighterTest extends InitializationDataBase {
         moves_.put(COPIE, (short) 10);
         moves_.put(BROUHAHA, (short) 10);
         moves_.put(POUV_ANTIQUE, (short) 10);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data, moves_);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_, moves_);
         pokemonUser_.initIv(new Difficulty());
         pokemonUser_.getEv().put(Statistic.ATTACK, (short) 1);
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
         pokemonUser_.setHappiness((short) 140);
         pokemonUser_.setWonExpSinceLastLevel(new Rate(3));
-        Fighter fighter_ = new Fighter(pokemonUser_, data, (byte) 0);
-        fighter_.apprendreAttaqueEcrasant(DETECTION, COPIE, data);
-        assertEq(10, fighter_.maxPowerPointsMove(BROUHAHA, data));
-        assertEq(10, fighter_.maxPowerPointsMove(POUV_ANTIQUE, data));
-        assertEq(10, fighter_.maxPowerPointsMove(COPIE, data));
-        assertEq(5, fighter_.maxPowerPointsMove(DETECTION, data));
-        assertEq(0, fighter_.maxPowerPointsMove(SEISME, data));
+        Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
+        fighter_.apprendreAttaqueEcrasant(DETECTION, COPIE, data_);
+        assertEq(10, fighter_.maxPowerPointsMove(BROUHAHA, data_));
+        assertEq(10, fighter_.maxPowerPointsMove(POUV_ANTIQUE, data_));
+        assertEq(10, fighter_.maxPowerPointsMove(COPIE, data_));
+        assertEq(5, fighter_.maxPowerPointsMove(DETECTION, data_));
+        assertEq(0, fighter_.maxPowerPointsMove(SEISME, data_));
     }
 
     @Test
     public void maxPowerPointsMove2Test() {
+        DataBase data_ = initDb();
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(BABIMANTA);
         pokemon_.setItem(CARTE_ROUGE);
@@ -1569,26 +1599,27 @@ public class FighterTest extends InitializationDataBase {
         moves_.put(COPIE, (short) 10);
         moves_.put(BROUHAHA, (short) 10);
         moves_.put(POUV_ANTIQUE, (short) 10);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data, moves_);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_, moves_);
         pokemonUser_.initIv(new Difficulty());
         pokemonUser_.getEv().put(Statistic.ATTACK, (short) 1);
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
         pokemonUser_.setHappiness((short) 140);
         pokemonUser_.setWonExpSinceLastLevel(new Rate(3));
-        Fighter fighter_ = new Fighter(pokemonUser_, data, (byte) 0);
+        Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
         fighter_.getMoves().removeKey(COPIE);
         UsesOfMove uses_ = new UsesOfMove((short) 7,(short) 8);
         fighter_.getMoves().put(SEISME, uses_);
-        assertEq(10, fighter_.maxPowerPointsMove(BROUHAHA,data));
-        assertEq(10, fighter_.maxPowerPointsMove(POUV_ANTIQUE,data));
-        assertEq(10, fighter_.maxPowerPointsMove(COPIE,data));
-        assertEq(0, fighter_.maxPowerPointsMove(DETECTION,data));
-        assertEq(8, fighter_.maxPowerPointsMove(SEISME,data));
+        assertEq(10, fighter_.maxPowerPointsMove(BROUHAHA,data_));
+        assertEq(10, fighter_.maxPowerPointsMove(POUV_ANTIQUE,data_));
+        assertEq(10, fighter_.maxPowerPointsMove(COPIE,data_));
+        assertEq(0, fighter_.maxPowerPointsMove(DETECTION,data_));
+        assertEq(8, fighter_.maxPowerPointsMove(SEISME,data_));
     }
 
     @Test
     public void usePowerPointsByMove1Test() {
+        DataBase data_ = initDb();
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(BABIMANTA);
         pokemon_.setItem(CARTE_ROUGE);
@@ -1599,15 +1630,15 @@ public class FighterTest extends InitializationDataBase {
         moves_.put(COPIE, (short) 10);
         moves_.put(BROUHAHA, (short) 10);
         moves_.put(POUV_ANTIQUE, (short) 10);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data, moves_);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_, moves_);
         pokemonUser_.initIv(new Difficulty());
         pokemonUser_.getEv().put(Statistic.ATTACK, (short) 1);
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
         pokemonUser_.setHappiness((short) 140);
         pokemonUser_.setWonExpSinceLastLevel(new Rate(3));
-        Fighter fighter_ = new Fighter(pokemonUser_, data, (byte) 0);
-        fighter_.apprendreAttaqueEcrasant(DETECTION, COPIE, data);
+        Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
+        fighter_.apprendreAttaqueEcrasant(DETECTION, COPIE, data_);
         Difficulty diff_ = new Difficulty();
         diff_.setRestoredMovesEndFight(false);
         fighter_.usePowerPointsByMove(diff_, BROUHAHA, (short) 1);
@@ -1618,6 +1649,7 @@ public class FighterTest extends InitializationDataBase {
 
     @Test
     public void usePowerPointsByMove2Test() {
+        DataBase data_ = initDb();
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(BABIMANTA);
         pokemon_.setItem(CARTE_ROUGE);
@@ -1628,15 +1660,15 @@ public class FighterTest extends InitializationDataBase {
         moves_.put(COPIE, (short) 10);
         moves_.put(BROUHAHA, (short) 10);
         moves_.put(POUV_ANTIQUE, (short) 10);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data, moves_);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_, moves_);
         pokemonUser_.initIv(new Difficulty());
         pokemonUser_.getEv().put(Statistic.ATTACK, (short) 1);
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
         pokemonUser_.setHappiness((short) 140);
         pokemonUser_.setWonExpSinceLastLevel(new Rate(3));
-        Fighter fighter_ = new Fighter(pokemonUser_, data, (byte) 0);
-        fighter_.apprendreAttaqueEcrasant(DETECTION, COPIE, data);
+        Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
+        fighter_.apprendreAttaqueEcrasant(DETECTION, COPIE, data_);
         Difficulty diff_ = new Difficulty();
         diff_.setRestoredMovesEndFight(false);
         fighter_.usePowerPointsByMove(diff_, DETECTION, (short) 1);
@@ -1647,6 +1679,7 @@ public class FighterTest extends InitializationDataBase {
 
     @Test
     public void usePowerPointsByMove3Test() {
+        DataBase data_ = initDb();
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(BABIMANTA);
         pokemon_.setItem(CARTE_ROUGE);
@@ -1657,15 +1690,15 @@ public class FighterTest extends InitializationDataBase {
         moves_.put(COPIE, (short) 10);
         moves_.put(BROUHAHA, (short) 10);
         moves_.put(POUV_ANTIQUE, (short) 10);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data, moves_);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_, moves_);
         pokemonUser_.initIv(new Difficulty());
         pokemonUser_.getEv().put(Statistic.ATTACK, (short) 1);
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
         pokemonUser_.setHappiness((short) 140);
         pokemonUser_.setWonExpSinceLastLevel(new Rate(3));
-        Fighter fighter_ = new Fighter(pokemonUser_, data, (byte) 0);
-        fighter_.apprendreAttaqueEcrasant(DETECTION, COPIE, data);
+        Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
+        fighter_.apprendreAttaqueEcrasant(DETECTION, COPIE, data_);
         Difficulty diff_ = new Difficulty();
         diff_.setRestoredMovesEndFight(false);
         fighter_.usePowerPointsByMove(diff_, DETECTION, (short) 6);
@@ -1674,6 +1707,7 @@ public class FighterTest extends InitializationDataBase {
 
     @Test
     public void usePowerPointsByMove4Test() {
+        DataBase data_ = initDb();
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(BABIMANTA);
         pokemon_.setItem(CARTE_ROUGE);
@@ -1684,15 +1718,15 @@ public class FighterTest extends InitializationDataBase {
         moves_.put(COPIE, (short) 10);
         moves_.put(BROUHAHA, (short) 10);
         moves_.put(POUV_ANTIQUE, (short) 10);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data, moves_);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_, moves_);
         pokemonUser_.initIv(new Difficulty());
         pokemonUser_.getEv().put(Statistic.ATTACK, (short) 1);
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
         pokemonUser_.setHappiness((short) 140);
         pokemonUser_.setWonExpSinceLastLevel(new Rate(3));
-        Fighter fighter_ = new Fighter(pokemonUser_, data, (byte) 0);
-        fighter_.apprendreAttaqueEcrasant(DETECTION, COPIE, data);
+        Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
+        fighter_.apprendreAttaqueEcrasant(DETECTION, COPIE, data_);
         Difficulty diff_ = new Difficulty();
         diff_.setRestoredMovesEndFight(false);
         fighter_.usePowerPointsByMove(diff_, BROUHAHA, (short) 11);
@@ -1703,6 +1737,7 @@ public class FighterTest extends InitializationDataBase {
 
     @Test
     public void usePowerPointsByMove5Test() {
+        DataBase data_ = initDb();
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(BABIMANTA);
         pokemon_.setItem(CARTE_ROUGE);
@@ -1713,15 +1748,15 @@ public class FighterTest extends InitializationDataBase {
         moves_.put(COPIE, (short) 10);
         moves_.put(BROUHAHA, (short) 10);
         moves_.put(POUV_ANTIQUE, (short) 10);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data, moves_);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_, moves_);
         pokemonUser_.initIv(new Difficulty());
         pokemonUser_.getEv().put(Statistic.ATTACK, (short) 1);
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
         pokemonUser_.setHappiness((short) 140);
         pokemonUser_.setWonExpSinceLastLevel(new Rate(3));
-        Fighter fighter_ = new Fighter(pokemonUser_, data, (byte) 0);
-        fighter_.apprendreAttaqueEcrasant(DETECTION, COPIE, data);
+        Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
+        fighter_.apprendreAttaqueEcrasant(DETECTION, COPIE, data_);
         Difficulty diff_ = new Difficulty();
         diff_.setRestoredMovesEndFight(true);
         fighter_.usePowerPointsByMove(diff_, BROUHAHA, (short) 1);
@@ -1732,6 +1767,7 @@ public class FighterTest extends InitializationDataBase {
 
     @Test
     public void usePowerPointsByMove6Test() {
+        DataBase data_ = initDb();
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(BABIMANTA);
         pokemon_.setItem(CARTE_ROUGE);
@@ -1742,15 +1778,15 @@ public class FighterTest extends InitializationDataBase {
         moves_.put(COPIE, (short) 10);
         moves_.put(BROUHAHA, (short) 10);
         moves_.put(POUV_ANTIQUE, (short) 10);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data, moves_);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_, moves_);
         pokemonUser_.initIv(new Difficulty());
         pokemonUser_.getEv().put(Statistic.ATTACK, (short) 1);
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
         pokemonUser_.setHappiness((short) 140);
         pokemonUser_.setWonExpSinceLastLevel(new Rate(3));
-        Fighter fighter_ = new Fighter(pokemonUser_, data, (byte) 0);
-        fighter_.apprendreAttaqueEcrasant(DETECTION, COPIE, data);
+        Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
+        fighter_.apprendreAttaqueEcrasant(DETECTION, COPIE, data_);
         Difficulty diff_ = new Difficulty();
         diff_.setRestoredMovesEndFight(true);
         fighter_.usePowerPointsByMove(diff_, BROUHAHA, (short) 11);
@@ -1761,6 +1797,7 @@ public class FighterTest extends InitializationDataBase {
 
     @Test
     public void usePowerPointsByMove7Test() {
+        DataBase data_ = initDb();
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(BABIMANTA);
         pokemon_.setItem(CARTE_ROUGE);
@@ -1771,16 +1808,16 @@ public class FighterTest extends InitializationDataBase {
         moves_.put(COPIE, (short) 10);
         moves_.put(BROUHAHA, (short) 10);
         moves_.put(POUV_ANTIQUE, (short) 10);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data, moves_);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_, moves_);
         pokemonUser_.initIv(new Difficulty());
         pokemonUser_.getEv().put(Statistic.ATTACK, (short) 1);
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
         pokemonUser_.setHappiness((short) 140);
         pokemonUser_.setWonExpSinceLastLevel(new Rate(3));
-        Fighter fighter_ = new Fighter(pokemonUser_, data, (byte) 0);
+        Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
         fighter_.setChanged(true);
-        fighter_.apprendreAttaqueEcrasant(DETECTION, COPIE, data);
+        fighter_.apprendreAttaqueEcrasant(DETECTION, COPIE, data_);
         Difficulty diff_ = new Difficulty();
         diff_.setRestoredMovesEndFight(false);
         fighter_.usePowerPointsByMove(diff_, BROUHAHA, (short) 1);
@@ -1791,6 +1828,7 @@ public class FighterTest extends InitializationDataBase {
 
     @Test
     public void usePowerPointsByMove8Test() {
+        DataBase data_ = initDb();
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(BABIMANTA);
         pokemon_.setItem(CARTE_ROUGE);
@@ -1801,16 +1839,16 @@ public class FighterTest extends InitializationDataBase {
         moves_.put(COPIE, (short) 10);
         moves_.put(BROUHAHA, (short) 10);
         moves_.put(POUV_ANTIQUE, (short) 10);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data, moves_);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_, moves_);
         pokemonUser_.initIv(new Difficulty());
         pokemonUser_.getEv().put(Statistic.ATTACK, (short) 1);
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
         pokemonUser_.setHappiness((short) 140);
         pokemonUser_.setWonExpSinceLastLevel(new Rate(3));
-        Fighter fighter_ = new Fighter(pokemonUser_, data, (byte) 0);
+        Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
         fighter_.setChanged(true);
-        fighter_.apprendreAttaqueEcrasant(DETECTION, COPIE, data);
+        fighter_.apprendreAttaqueEcrasant(DETECTION, COPIE, data_);
         Difficulty diff_ = new Difficulty();
         diff_.setRestoredMovesEndFight(false);
         fighter_.usePowerPointsByMove(diff_, BROUHAHA, (short) 11);
@@ -1821,13 +1859,14 @@ public class FighterTest extends InitializationDataBase {
 
     @Test
     public void activerAttaque1Test() {
+        DataBase data_ = initDb();
         WildPk pokemon_ = new WildPk();
         pokemon_.setName(PIKACHU);
         pokemon_.setItem(MAGNET);
         pokemon_.setAbility(PARATONNERRE);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel((short) 3);
-        Fighter fighter_ = new Fighter(pokemon_, data, (byte) 0);
+        Fighter fighter_ = new Fighter(pokemon_, data_, (byte) 0);
         fighter_.activerAttaque(PROVOC);
         ActivityOfMove currentActivity_ = fighter_.getEnabledMoves().getVal(PROVOC);
         assertTrue(currentActivity_.isEnabled());
@@ -1836,13 +1875,14 @@ public class FighterTest extends InitializationDataBase {
 
     @Test
     public void desactiverAttaque1Test() {
+        DataBase data_ = initDb();
         WildPk pokemon_ = new WildPk();
         pokemon_.setName(PIKACHU);
         pokemon_.setItem(MAGNET);
         pokemon_.setAbility(PARATONNERRE);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel((short) 3);
-        Fighter fighter_ = new Fighter(pokemon_, data, (byte) 0);
+        Fighter fighter_ = new Fighter(pokemon_, data_, (byte) 0);
         fighter_.activerAttaque(PROVOC);
         fighter_.desactiverAttaque(PROVOC);
         ActivityOfMove currentActivity_ = fighter_.getEnabledMoves().getVal(PROVOC);
@@ -1852,14 +1892,15 @@ public class FighterTest extends InitializationDataBase {
 
     @Test
     public void activerAttaqueImmu1Test() {
+        DataBase data_ = initDb();
         WildPk pokemon_ = new WildPk();
         pokemon_.setName(PIKACHU);
         pokemon_.setItem(MAGNET);
         pokemon_.setAbility(PARATONNERRE);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel((short) 3);
-        Fighter fighter_ = new Fighter(pokemon_, data, (byte) 0);
-        fighter_.activerAttaqueImmu(VOL_MAGNETIK, data);
+        Fighter fighter_ = new Fighter(pokemon_, data_, (byte) 0);
+        fighter_.activerAttaqueImmu(VOL_MAGNETIK, data_);
         ActivityOfMove currentActivity_ = fighter_.getEnabledMovesProt().getVal(VOL_MAGNETIK);
         assertTrue(currentActivity_.isEnabled());
         assertEq(0, currentActivity_.getNbTurn());
@@ -1869,14 +1910,15 @@ public class FighterTest extends InitializationDataBase {
 
     @Test
     public void activerAttaqueImmu2Test() {
+        DataBase data_ = initDb();
         WildPk pokemon_ = new WildPk();
         pokemon_.setName(PIKACHU);
         pokemon_.setItem(MAGNET);
         pokemon_.setAbility(PARATONNERRE);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel((short) 3);
-        Fighter fighter_ = new Fighter(pokemon_, data, (byte) 0);
-        fighter_.activerAttaqueImmu(TROU_BIS, data);
+        Fighter fighter_ = new Fighter(pokemon_, data_, (byte) 0);
+        fighter_.activerAttaqueImmu(TROU_BIS, data_);
         ActivityOfMove currentActivity_ = fighter_.getEnabledMovesProt().getVal(TROU_BIS);
         assertTrue(currentActivity_.isEnabled());
         assertEq(0, currentActivity_.getNbTurn());
@@ -1886,15 +1928,16 @@ public class FighterTest extends InitializationDataBase {
 
     @Test
     public void desactiverAttaqueImmu1Test() {
+        DataBase data_ = initDb();
         WildPk pokemon_ = new WildPk();
         pokemon_.setName(PIKACHU);
         pokemon_.setItem(MAGNET);
         pokemon_.setAbility(PARATONNERRE);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel((short) 3);
-        Fighter fighter_ = new Fighter(pokemon_, data, (byte) 0);
-        fighter_.activerAttaqueImmu(VOL_MAGNETIK, data);
-        fighter_.desactiverAttaqueImmu(VOL_MAGNETIK, data);
+        Fighter fighter_ = new Fighter(pokemon_, data_, (byte) 0);
+        fighter_.activerAttaqueImmu(VOL_MAGNETIK, data_);
+        fighter_.desactiverAttaqueImmu(VOL_MAGNETIK, data_);
         ActivityOfMove currentActivity_ = fighter_.getEnabledMovesProt().getVal(VOL_MAGNETIK);
         assertTrue(!currentActivity_.isEnabled());
         assertEq(0, currentActivity_.getNbTurn());
@@ -1903,16 +1946,17 @@ public class FighterTest extends InitializationDataBase {
 
     @Test
     public void desactiverAttaqueImmu2Test() {
+        DataBase data_ = initDb();
         WildPk pokemon_ = new WildPk();
         pokemon_.setName(PIKACHU);
         pokemon_.setItem(MAGNET);
         pokemon_.setAbility(PARATONNERRE);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel((short) 3);
-        Fighter fighter_ = new Fighter(pokemon_, data, (byte) 0);
-        fighter_.activerAttaqueImmu(VOL_MAGNETIK, data);
-        fighter_.activerAttaqueImmu(TROU, data);
-        fighter_.desactiverAttaqueImmu(VOL_MAGNETIK, data);
+        Fighter fighter_ = new Fighter(pokemon_, data_, (byte) 0);
+        fighter_.activerAttaqueImmu(VOL_MAGNETIK, data_);
+        fighter_.activerAttaqueImmu(TROU, data_);
+        fighter_.desactiverAttaqueImmu(VOL_MAGNETIK, data_);
         ActivityOfMove currentActivity_ = fighter_.getEnabledMovesProt().getVal(VOL_MAGNETIK);
         assertTrue(!currentActivity_.isEnabled());
         assertEq(0, currentActivity_.getNbTurn());
@@ -1925,16 +1969,17 @@ public class FighterTest extends InitializationDataBase {
 
     @Test
     public void desactiverAttaqueImmu3Test() {
+        DataBase data_ = initDb();
         WildPk pokemon_ = new WildPk();
         pokemon_.setName(PIKACHU);
         pokemon_.setItem(MAGNET);
         pokemon_.setAbility(PARATONNERRE);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel((short) 3);
-        Fighter fighter_ = new Fighter(pokemon_, data, (byte) 0);
-        fighter_.activerAttaqueImmu(TROU_BIS, data);
-        fighter_.activerAttaqueImmu(VOL_MAGNETIK, data);
-        fighter_.desactiverAttaqueImmu(VOL_MAGNETIK, data);
+        Fighter fighter_ = new Fighter(pokemon_, data_, (byte) 0);
+        fighter_.activerAttaqueImmu(TROU_BIS, data_);
+        fighter_.activerAttaqueImmu(VOL_MAGNETIK, data_);
+        fighter_.desactiverAttaqueImmu(VOL_MAGNETIK, data_);
         ActivityOfMove currentActivity_ = fighter_.getEnabledMovesProt().getVal(VOL_MAGNETIK);
         assertTrue(!currentActivity_.isEnabled());
         assertEq(0, currentActivity_.getNbTurn());
@@ -1947,13 +1992,14 @@ public class FighterTest extends InitializationDataBase {
 
     @Test
     public void activerAttaqueAntiImmu1Test() {
+        DataBase data_ = initDb();
         WildPk pokemon_ = new WildPk();
         pokemon_.setName(PIKACHU);
         pokemon_.setItem(MAGNET);
         pokemon_.setAbility(PARATONNERRE);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel((short) 3);
-        Fighter fighter_ = new Fighter(pokemon_, data, (byte) 0);
+        Fighter fighter_ = new Fighter(pokemon_, data_, (byte) 0);
         fighter_.activerAttaqueAntiImmu(OEIL_MIRACLE);
         ActivityOfMove currentActivity_ = fighter_.getEnabledMovesUnprot().getVal(OEIL_MIRACLE);
         assertTrue(currentActivity_.isEnabled());
@@ -1962,13 +2008,14 @@ public class FighterTest extends InitializationDataBase {
 
     @Test
     public void desactiverAttaqueAntiImmu1Test() {
+        DataBase data_ = initDb();
         WildPk pokemon_ = new WildPk();
         pokemon_.setName(PIKACHU);
         pokemon_.setItem(MAGNET);
         pokemon_.setAbility(PARATONNERRE);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel((short) 3);
-        Fighter fighter_ = new Fighter(pokemon_, data, (byte) 0);
+        Fighter fighter_ = new Fighter(pokemon_, data_, (byte) 0);
         fighter_.activerAttaqueAntiImmu(OEIL_MIRACLE);
         fighter_.desactiverAttaqueAntiImmu(OEIL_MIRACLE);
         ActivityOfMove currentActivity_ = fighter_.getEnabledMovesUnprot().getVal(OEIL_MIRACLE);
@@ -1978,13 +2025,14 @@ public class FighterTest extends InitializationDataBase {
 
     @Test
     public void activerAttaqueBlocantLanceur1Test() {
+        DataBase data_ = initDb();
         WildPk pokemon_ = new WildPk();
         pokemon_.setName(PIKACHU);
         pokemon_.setItem(MAGNET);
         pokemon_.setAbility(PARATONNERRE);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel((short) 3);
-        Fighter fighter_ = new Fighter(pokemon_, data, (byte) 0);
+        Fighter fighter_ = new Fighter(pokemon_, data_, (byte) 0);
         fighter_.activerAttaqueBlocantLanceur(ROULADE);
         ActivityOfMove currentActivity_ = fighter_.getEnabledMovesConstChoices().getVal(ROULADE);
         assertTrue(currentActivity_.isEnabled());
@@ -1993,13 +2041,14 @@ public class FighterTest extends InitializationDataBase {
 
     @Test
     public void desactiverAttaqueBlocantLanceur1Test() {
+        DataBase data_ = initDb();
         WildPk pokemon_ = new WildPk();
         pokemon_.setName(PIKACHU);
         pokemon_.setItem(MAGNET);
         pokemon_.setAbility(PARATONNERRE);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel((short) 3);
-        Fighter fighter_ = new Fighter(pokemon_, data, (byte) 0);
+        Fighter fighter_ = new Fighter(pokemon_, data_, (byte) 0);
         fighter_.activerAttaqueBlocantLanceur(ROULADE);
         fighter_.desactiverAttaqueBlocantLanceur(ROULADE);
         ActivityOfMove currentActivity_ = fighter_.getEnabledMovesConstChoices().getVal(ROULADE);
@@ -2009,13 +2058,14 @@ public class FighterTest extends InitializationDataBase {
 
     @Test
     public void activerAttaqueFinTourIndividuel1Test() {
+        DataBase data_ = initDb();
         WildPk pokemon_ = new WildPk();
         pokemon_.setName(PIKACHU);
         pokemon_.setItem(MAGNET);
         pokemon_.setAbility(PARATONNERRE);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel((short) 3);
-        Fighter fighter_ = new Fighter(pokemon_, data, (byte) 0);
+        Fighter fighter_ = new Fighter(pokemon_, data_, (byte) 0);
         fighter_.activerAttaqueFinTourIndividuel(RACINES);
         ActivityOfMove currentActivity_ = fighter_.getEnabledMovesEndRound().getVal(RACINES);
         assertTrue(currentActivity_.isEnabled());
@@ -2024,13 +2074,14 @@ public class FighterTest extends InitializationDataBase {
 
     @Test
     public void desactiverAttaqueFinTourIndividuel1Test() {
+        DataBase data_ = initDb();
         WildPk pokemon_ = new WildPk();
         pokemon_.setName(PIKACHU);
         pokemon_.setItem(MAGNET);
         pokemon_.setAbility(PARATONNERRE);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel((short) 3);
-        Fighter fighter_ = new Fighter(pokemon_, data, (byte) 0);
+        Fighter fighter_ = new Fighter(pokemon_, data_, (byte) 0);
         fighter_.activerAttaqueFinTourIndividuel(RACINES);
         fighter_.desactiverAttaqueFinTourIndividuel(RACINES);
         ActivityOfMove currentActivity_ = fighter_.getEnabledMovesEndRound().getVal(RACINES);
@@ -2040,23 +2091,24 @@ public class FighterTest extends InitializationDataBase {
 
     @Test
     public void formeNormale1Test() {
+        DataBase data_ = initDb();
         WildPk pokemon_ = new WildPk();
         pokemon_.setName(PIKACHU);
         pokemon_.setItem(MAGNET);
         pokemon_.setAbility(PARATONNERRE);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel((short) 3);
-        Fighter fighter_ = new Fighter(pokemon_, data, (byte) 0);
+        Fighter fighter_ = new Fighter(pokemon_, data_, (byte) 0);
         fighter_.setWeight(new Rate("4"));
         fighter_.setHeight(new Rate("1"));
         fighter_.setTypes(new StringList(EAU,FEU));
         fighter_.setClone(new Rate("2"));
         fighter_.activerAttaque(PROVOC);
-        fighter_.activerAttaqueImmu(VOL_MAGNETIK, data);
+        fighter_.activerAttaqueImmu(VOL_MAGNETIK, data_);
         fighter_.activerAttaqueAntiImmu(OEIL_MIRACLE);
         fighter_.activerAttaqueBlocantLanceur(ROULADE);
         fighter_.activerAttaqueFinTourIndividuel(RACINES);
-        fighter_.formeNormale(data);
+        fighter_.formeNormale(data_);
         ActivityOfMove activity_ = fighter_.getEnabledMoves().getVal(PROVOC);
         assertTrue(!activity_.isEnabled());
         assertEq(0, activity_.getNbTurn());
@@ -2082,19 +2134,20 @@ public class FighterTest extends InitializationDataBase {
 
     @Test
     public void formeNormale2Test() {
+        DataBase data_ = initDb();
         WildPk pokemon_ = new WildPk();
         pokemon_.setName(PIKACHU);
         pokemon_.setItem(MAGNET);
         pokemon_.setAbility(PARATONNERRE);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel((short) 3);
-        Fighter fighter_ = new Fighter(pokemon_, data, (byte) 0);
+        Fighter fighter_ = new Fighter(pokemon_, data_, (byte) 0);
         fighter_.setWeight(new Rate("4"));
         fighter_.setHeight(new Rate("1"));
         fighter_.setTypes(new StringList(EAU,FEU));
         fighter_.setClone(new Rate("2"));
         fighter_.activerAttaque(PROVOC);
-        fighter_.activerAttaqueImmu(VOL_MAGNETIK, data);
+        fighter_.activerAttaqueImmu(VOL_MAGNETIK, data_);
         fighter_.activerAttaqueAntiImmu(OEIL_MIRACLE);
         fighter_.activerAttaqueBlocantLanceur(ROULADE);
         fighter_.activerAttaqueFinTourIndividuel(RACINES);
@@ -2103,7 +2156,7 @@ public class FighterTest extends InitializationDataBase {
         fighter_.setCurrentGender(Gender.NO_GENDER);
         fighter_.getCurrentMoves().clear();
         fighter_.getCurrentMoves().put(SEISME, new UsesOfMove((short) 5));
-        fighter_.formeNormale(data);
+        fighter_.formeNormale(data_);
         ActivityOfMove activity_ = fighter_.getEnabledMoves().getVal(PROVOC);
         assertTrue(!activity_.isEnabled());
         assertEq(0, activity_.getNbTurn());
@@ -2148,243 +2201,261 @@ public class FighterTest extends InitializationDataBase {
 
     @Test
     public void canDisableWeather1Test() {
+        DataBase data_ = initDb();
         WildPk pokemon_ = new WildPk();
         pokemon_.setName(PIKACHU);
         pokemon_.setItem(MAGNET);
         pokemon_.setAbility(PARATONNERRE);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel((short) 3);
-        Fighter fighter_ = new Fighter(pokemon_, data, (byte) 0);
-        assertTrue(!fighter_.canDisableWeather(data));
+        Fighter fighter_ = new Fighter(pokemon_, data_, (byte) 0);
+        assertTrue(!fighter_.canDisableWeather(data_));
     }
 
     @Test
     public void canDisableWeather2Test() {
+        DataBase data_ = initDb();
         WildPk pokemon_ = new WildPk();
         pokemon_.setName(PIKACHU);
         pokemon_.setItem(MAGNET);
         pokemon_.setAbility(PARATONNERRE);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel((short) 3);
-        Fighter fighter_ = new Fighter(pokemon_, data, (byte) 0);
+        Fighter fighter_ = new Fighter(pokemon_, data_, (byte) 0);
         fighter_.setCurrentAbility(NULL_REF);
-        assertTrue(!fighter_.canDisableWeather(data));
+        assertTrue(!fighter_.canDisableWeather(data_));
     }
 
     @Test
     public void canDisableWeather3Test() {
+        DataBase data_ = initDb();
         WildPk pokemon_ = new WildPk();
         pokemon_.setName(PIKACHU);
         pokemon_.setItem(MAGNET);
         pokemon_.setAbility(AIR_LOCK);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel((short) 3);
-        Fighter fighter_ = new Fighter(pokemon_, data, Fighter.BACK);
-        assertTrue(!fighter_.canDisableWeather(data));
+        Fighter fighter_ = new Fighter(pokemon_, data_, Fighter.BACK);
+        assertTrue(!fighter_.canDisableWeather(data_));
     }
 
     @Test
     public void canDisableWeather4Test() {
+        DataBase data_ = initDb();
         WildPk pokemon_ = new WildPk();
         pokemon_.setName(PIKACHU);
         pokemon_.setItem(MAGNET);
         pokemon_.setAbility(TELECHARGE);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel((short) 3);
-        Fighter fighter_ = new Fighter(pokemon_, data, (byte)0);
-        assertTrue(!fighter_.canDisableWeather(data));
+        Fighter fighter_ = new Fighter(pokemon_, data_, (byte)0);
+        assertTrue(!fighter_.canDisableWeather(data_));
     }
 
     @Test
     public void canDisableWeather5Test() {
+        DataBase data_ = initDb();
         WildPk pokemon_ = new WildPk();
         pokemon_.setName(PIKACHU);
         pokemon_.setItem(MAGNET);
         pokemon_.setAbility(AIR_LOCK);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel((short) 3);
-        Fighter fighter_ = new Fighter(pokemon_, data, (byte)0);
-        assertTrue(fighter_.canDisableWeather(data));
+        Fighter fighter_ = new Fighter(pokemon_, data_, (byte)0);
+        assertTrue(fighter_.canDisableWeather(data_));
     }
 
     @Test
     public void disableAllStatusByEnabledWeather1Test() {
+        DataBase data_ = initDb();
         WildPk pokemon_ = new WildPk();
         pokemon_.setName(PIKACHU);
         pokemon_.setItem(MAGNET);
         pokemon_.setAbility(ATTENTION);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel((short) 3);
-        Fighter fighter_ = new Fighter(pokemon_, data, (byte)0);
+        Fighter fighter_ = new Fighter(pokemon_, data_, (byte)0);
         fighter_.setCurrentAbility(NULL_REF);
         fighter_.affecterStatut(PEUR);
-        fighter_.disableAllStatusByEnabledWeather(NULL_REF, data);
+        fighter_.disableAllStatusByEnabledWeather(NULL_REF, data_);
         assertEq(1, fighter_.getStatusNbRound(PEUR));
     }
 
     @Test
     public void disableAllStatusByEnabledWeather2Test() {
+        DataBase data_ = initDb();
         WildPk pokemon_ = new WildPk();
         pokemon_.setName(PIKACHU);
         pokemon_.setItem(MAGNET);
         pokemon_.setAbility(GARDE_MAGIK);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel((short) 3);
-        Fighter fighter_ = new Fighter(pokemon_, data, (byte)0);
+        Fighter fighter_ = new Fighter(pokemon_, data_, (byte)0);
         TeamPosition fighterCoordsOne_ = new TeamPosition(Fight.CST_PLAYER, (byte)0);
         TeamPosition fighterCoordsTwo_ = new TeamPosition(Fight.CST_PLAYER, (byte)1);
         EqList<TeamPosition> fightersCoords_ = new EqList<TeamPosition>();
         fightersCoords_.add(fighterCoordsOne_);
         fightersCoords_.add(fighterCoordsTwo_);
-        fighter_.initCreatureRelationsAutre(fightersCoords_, data);
+        fighter_.initCreatureRelationsAutre(fightersCoords_, data_);
         fighter_.setCurrentAbility(NULL_REF);
         fighter_.affecterPseudoStatut(fighterCoordsTwo_, VAMPIGRAINE);
-        fighter_.disableAllStatusByEnabledWeather(NULL_REF, data);
+        fighter_.disableAllStatusByEnabledWeather(NULL_REF, data_);
         assertEq(1, fighter_.getStatusRelatNbRound(new MoveTeamPosition(VAMPIGRAINE, fighterCoordsTwo_)));
     }
 
     @Test
     public void disableAllStatusByEnabledWeather3Test() {
+        DataBase data_ = initDb();
         WildPk pokemon_ = new WildPk();
         pokemon_.setName(PIKACHU);
         pokemon_.setItem(MAGNET);
         pokemon_.setAbility(FEUILLE_GARDE);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel((short) 3);
-        Fighter fighter_ = new Fighter(pokemon_, data, (byte)0);
+        Fighter fighter_ = new Fighter(pokemon_, data_, (byte)0);
         fighter_.affecterStatut(PEUR);
-        fighter_.disableAllStatusByEnabledWeather(ORAGE, data);
+        fighter_.disableAllStatusByEnabledWeather(ORAGE, data_);
         assertEq(1, fighter_.getStatusNbRound(PEUR));
     }
 
     @Test
     public void disableAllStatusByEnabledWeather4Test() {
+        DataBase data_ = initDb();
         WildPk pokemon_ = new WildPk();
         pokemon_.setName(PIKACHU);
         pokemon_.setItem(MAGNET);
         pokemon_.setAbility(ATTENTION);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel((short) 3);
-        Fighter fighter_ = new Fighter(pokemon_, data, (byte)0);
+        Fighter fighter_ = new Fighter(pokemon_, data_, (byte)0);
         fighter_.affecterStatut(PEUR);
-        fighter_.disableAllStatusByEnabledWeather(NULL_REF, data);
+        fighter_.disableAllStatusByEnabledWeather(NULL_REF, data_);
         assertEq(0, fighter_.getStatusNbRound(PEUR));
     }
 
     @Test
     public void disableAllStatusByEnabledWeather5Test() {
+        DataBase data_ = initDb();
         WildPk pokemon_ = new WildPk();
         pokemon_.setName(PIKACHU);
         pokemon_.setItem(MAGNET);
         pokemon_.setAbility(FEUILLE_PETITE);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel((short) 3);
-        Fighter fighter_ = new Fighter(pokemon_, data, (byte)0);
+        Fighter fighter_ = new Fighter(pokemon_, data_, (byte)0);
         TeamPosition fighterCoordsOne_ = new TeamPosition(Fight.CST_FOE, (byte)0);
         EqList<TeamPosition> fightersCoords_ = new EqList<TeamPosition>();
         fightersCoords_.add(fighterCoordsOne_);
-        fighter_.initCreatureRelationsAutre(fightersCoords_, data);
+        fighter_.initCreatureRelationsAutre(fightersCoords_, data_);
         fighter_.affecterPseudoStatut(POKEMON_FOE_FIGHTER_ZERO, VAMPIGRAINE);
-        fighter_.disableAllStatusByEnabledWeather(ZENITH, data);
+        fighter_.disableAllStatusByEnabledWeather(ZENITH, data_);
         assertEq(0, fighter_.getStatusRelatNbRound(new MoveTeamPosition(VAMPIGRAINE, POKEMON_FOE_FIGHTER_ZERO)));
     }
 
     @Test
     public void getAddedTypesByEnabledWeather1Test() {
+        DataBase data_ = initDb();
         WildPk pokemon_ = new WildPk();
         pokemon_.setName(PIKACHU);
         pokemon_.setItem(MAGNET);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel((short) 3);
-        Fighter fighter_ = new Fighter(pokemon_, data, (byte)0);
+        Fighter fighter_ = new Fighter(pokemon_, data_, (byte)0);
         fighter_.setCurrentAbility(NULL_REF);
-        assertEq(0, fighter_.getAddedTypesByEnabledWeather(ZENITH, data).size());
+        assertEq(0, fighter_.getAddedTypesByEnabledWeather(ZENITH, data_).size());
     }
 
     @Test
     public void getAddedTypesByEnabledWeather2Test() {
+        DataBase data_ = initDb();
         WildPk pokemon_ = new WildPk();
         pokemon_.setName(PIKACHU);
         pokemon_.setItem(MAGNET);
         pokemon_.setAbility(ATTENTION);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel((short) 3);
-        Fighter fighter_ = new Fighter(pokemon_, data, (byte)0);
-        assertEq(0, fighter_.getAddedTypesByEnabledWeather(ZENITH, data).size());
+        Fighter fighter_ = new Fighter(pokemon_, data_, (byte)0);
+        assertEq(0, fighter_.getAddedTypesByEnabledWeather(ZENITH, data_).size());
     }
 
     @Test
     public void getAddedTypesByEnabledWeather3Test() {
+        DataBase data_ = initDb();
         WildPk pokemon_ = new WildPk();
         pokemon_.setName(PIKACHU);
         pokemon_.setItem(MAGNET);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel((short) 3);
-        Fighter fighter_ = new Fighter(pokemon_, data, (byte)0);
-        StringList list_ = fighter_.getAddedTypesByEnabledWeather(ZENITH, data);
+        Fighter fighter_ = new Fighter(pokemon_, data_, (byte)0);
+        StringList list_ = fighter_.getAddedTypesByEnabledWeather(ZENITH, data_);
         assertEq(1, list_.size());
         assertTrue(StringUtil.contains(list_, FEU));
     }
 
     @Test
     public void hasObjectEnabledBeingSent1Test() {
+        DataBase data_ = initDb();
         WildPk pokemon_ = new WildPk();
         pokemon_.setName(PIKACHU);
         pokemon_.setItem(NULL_REF);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel((short) 3);
-        Fighter fighter_ = new Fighter(pokemon_, data, (byte)0);
-        assertTrue(!fighter_.hasObjectEnabledBeingSent(data));
+        Fighter fighter_ = new Fighter(pokemon_, data_, (byte)0);
+        assertTrue(!fighter_.hasObjectEnabledBeingSent(data_));
     }
 
     @Test
     public void hasObjectEnabledBeingSent2Test() {
+        DataBase data_ = initDb();
         WildPk pokemon_ = new WildPk();
         pokemon_.setName(PIKACHU);
         pokemon_.setItem(HUILE);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel((short) 3);
-        Fighter fighter_ = new Fighter(pokemon_, data, (byte)0);
-        assertTrue(!fighter_.hasObjectEnabledBeingSent(data));
+        Fighter fighter_ = new Fighter(pokemon_, data_, (byte)0);
+        assertTrue(!fighter_.hasObjectEnabledBeingSent(data_));
     }
 
     @Test
     public void hasObjectEnabledBeingSent3Test() {
+        DataBase data_ = initDb();
         WildPk pokemon_ = new WildPk();
         pokemon_.setName(PIKACHU);
         pokemon_.setItem(VIVE_GRIFFE);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel((short) 3);
-        Fighter fighter_ = new Fighter(pokemon_, data, (byte)0);
-        assertTrue(!fighter_.hasObjectEnabledBeingSent(data));
+        Fighter fighter_ = new Fighter(pokemon_, data_, (byte)0);
+        assertTrue(!fighter_.hasObjectEnabledBeingSent(data_));
     }
 
     @Test
     public void hasObjectEnabledBeingSent4Test() {
+        DataBase data_ = initDb();
         WildPk pokemon_ = new WildPk();
         pokemon_.setName(PIKACHU);
         pokemon_.setItem(PIERRALLEGEE);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel((short) 3);
-        Fighter fighter_ = new Fighter(pokemon_, data, (byte)0);
-        assertTrue(fighter_.hasObjectEnabledBeingSent(data));
+        Fighter fighter_ = new Fighter(pokemon_, data_, (byte)0);
+        assertTrue(fighter_.hasObjectEnabledBeingSent(data_));
     }
 
     @Test
     public void variationBoostStatistique1Test() {
+        DataBase data_ = initDb();
         WildPk pokemon_ = new WildPk();
         pokemon_.setName(PIKACHU);
         pokemon_.setItem(PIERRALLEGEE);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel((short) 3);
-        Fighter fighter_ = new Fighter(pokemon_, data, (byte)0);
+        Fighter fighter_ = new Fighter(pokemon_, data_, (byte)0);
         fighter_.variationBoostStatistique(Statistic.ATTACK, (byte) 2);
         assertEq(2, fighter_.getStatisBoost().getVal(Statistic.ATTACK));
         fighter_.variationBoostStatistique(Statistic.ATTACK, (byte) 1);
@@ -2393,13 +2464,14 @@ public class FighterTest extends InitializationDataBase {
 
     @Test
     public void setFirstChosenMoveTarget1Test() {
+        DataBase data_ = initDb();
         WildPk pokemon_ = new WildPk();
         pokemon_.setName(PIKACHU);
         pokemon_.setItem(PIERRALLEGEE);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel((short) 3);
-        Fighter fighter_ = new Fighter(pokemon_, data, (byte)0);
+        Fighter fighter_ = new Fighter(pokemon_, data_, (byte)0);
         fighter_.setFirstChosenMoveTarget(PISTOLET_A_O, POKEMON_FOE_TARGET_ZERO);
         ActionMove action_ = (ActionMove) fighter_.getAction();
         assertEq(PISTOLET_A_O, action_.getFirstChosenMove());
@@ -2411,6 +2483,7 @@ public class FighterTest extends InitializationDataBase {
 
     @Test
     public void setFirstChosenMoveTargetSubstitute1Test() {
+        DataBase data_ = initDb();
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(YANMA);
         pokemon_.setItem(NULL_REF);
@@ -2422,14 +2495,14 @@ public class FighterTest extends InitializationDataBase {
         moves_.put(ULTRASON, (short) 10);
         moves_.put(BROUHAHA, (short) 10);
         moves_.put(POURSUITE, (short) 10);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data, moves_);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_, moves_);
         pokemonUser_.initIv(new Difficulty());
         pokemonUser_.getEv().put(Statistic.ATTACK, (short) 1);
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
         pokemonUser_.setHappiness((short) 140);
         pokemonUser_.setWonExpSinceLastLevel(new Rate("3167"));
-        Fighter fighter_ = new Fighter(pokemonUser_, data, (byte) 0);
+        Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
         fighter_.setFirstChosenMoveTargetSubstitute(DEMI_TOUR, POKEMON_FOE_TARGET_ZERO, (byte) 1);
         AbstractAction action_ = fighter_.getAction();
         assertEq(DEMI_TOUR,((ActionMove)action_).getFirstChosenMove());
@@ -2441,6 +2514,7 @@ public class FighterTest extends InitializationDataBase {
 
     @Test
     public void setFirstChosenMove1Test() {
+        DataBase data_ = initDb();
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(YANMA);
         pokemon_.setItem(NULL_REF);
@@ -2452,14 +2526,14 @@ public class FighterTest extends InitializationDataBase {
         moves_.put(ULTRASON, (short) 10);
         moves_.put(BROUHAHA, (short) 10);
         moves_.put(POURSUITE, (short) 10);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data, moves_);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_, moves_);
         pokemonUser_.initIv(new Difficulty());
         pokemonUser_.getEv().put(Statistic.ATTACK, (short) 1);
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
         pokemonUser_.setHappiness((short) 140);
         pokemonUser_.setWonExpSinceLastLevel(new Rate("3167"));
-        Fighter fighter_ = new Fighter(pokemonUser_, data, (byte) 0);
+        Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
         fighter_.setFirstChosenMove(BROUHAHA);
         AbstractAction action_ = fighter_.getAction();
         assertEq(BROUHAHA,((ActionMove)action_).getFirstChosenMove());
@@ -2469,6 +2543,7 @@ public class FighterTest extends InitializationDataBase {
 
     @Test
     public void setChosenHealingObject1Test() {
+        DataBase data_ = initDb();
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(YANMA);
         pokemon_.setItem(NULL_REF);
@@ -2480,15 +2555,15 @@ public class FighterTest extends InitializationDataBase {
         moves_.put(ULTRASON, (short) 10);
         moves_.put(BROUHAHA, (short) 10);
         moves_.put(POURSUITE, (short) 10);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data, moves_);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_, moves_);
         pokemonUser_.initIv(new Difficulty());
         pokemonUser_.getEv().put(Statistic.ATTACK, (short) 1);
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
         pokemonUser_.setHappiness((short) 140);
         pokemonUser_.setWonExpSinceLastLevel(new Rate("3167"));
-        Fighter fighter_ = new Fighter(pokemonUser_, data, (byte) 0);
-        fighter_.setChosenHealingObject(BAIE_ENIGMA, data);
+        Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
+        fighter_.setChosenHealingObject(BAIE_ENIGMA, data_);
         AbstractAction action_ = fighter_.getAction();
         assertEq(BAIE_ENIGMA,((ActionSimpleHeal)action_).getChosenHealingItem());
         assertTrue(!((ActionSimpleHeal)action_).isTeam());
@@ -2496,6 +2571,7 @@ public class FighterTest extends InitializationDataBase {
 
     @Test
     public void setChosenHealingObject2Test() {
+        DataBase data_ = initDb();
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(YANMA);
         pokemon_.setItem(NULL_REF);
@@ -2507,15 +2583,15 @@ public class FighterTest extends InitializationDataBase {
         moves_.put(ULTRASON, (short) 10);
         moves_.put(BROUHAHA, (short) 10);
         moves_.put(POURSUITE, (short) 10);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data, moves_);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_, moves_);
         pokemonUser_.initIv(new Difficulty());
         pokemonUser_.getEv().put(Statistic.ATTACK, (short) 1);
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
         pokemonUser_.setHappiness((short) 140);
         pokemonUser_.setWonExpSinceLastLevel(new Rate("3167"));
-        Fighter fighter_ = new Fighter(pokemonUser_, data, (byte) 0);
-        fighter_.setChosenHealingObject(CENDRESACREE, data);
+        Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
+        fighter_.setChosenHealingObject(CENDRESACREE, data_);
         AbstractAction action_ = fighter_.getAction();
         assertEq(CENDRESACREE,((ActionSimpleHeal)action_).getChosenHealingItem());
         assertTrue(((ActionSimpleHeal)action_).isTeam());
@@ -2523,6 +2599,7 @@ public class FighterTest extends InitializationDataBase {
 
     @Test
     public void setChosenHealingObject3Test() {
+        DataBase data_ = initDb();
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(YANMA);
         pokemon_.setItem(NULL_REF);
@@ -2534,15 +2611,15 @@ public class FighterTest extends InitializationDataBase {
         moves_.put(ULTRASON, (short) 10);
         moves_.put(BROUHAHA, (short) 10);
         moves_.put(POURSUITE, (short) 10);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data, moves_);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_, moves_);
         pokemonUser_.initIv(new Difficulty());
         pokemonUser_.getEv().put(Statistic.ATTACK, (short) 1);
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
         pokemonUser_.setHappiness((short) 140);
         pokemonUser_.setWonExpSinceLastLevel(new Rate("3167"));
-        Fighter fighter_ = new Fighter(pokemonUser_, data, (byte) 0);
-        fighter_.setChosenHealingObject(EAU_FRAICHE, data);
+        Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
+        fighter_.setChosenHealingObject(EAU_FRAICHE, data_);
         AbstractAction action_ = fighter_.getAction();
         assertEq(EAU_FRAICHE,((ActionSimpleHeal)action_).getChosenHealingItem());
         assertTrue(!((ActionSimpleHeal)action_).isTeam());
@@ -2550,6 +2627,7 @@ public class FighterTest extends InitializationDataBase {
 
     @Test
     public void setChosenHealingObjectMove1Test() {
+        DataBase data_ = initDb();
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(YANMA);
         pokemon_.setItem(NULL_REF);
@@ -2561,14 +2639,14 @@ public class FighterTest extends InitializationDataBase {
         moves_.put(ULTRASON, (short) 10);
         moves_.put(BROUHAHA, (short) 10);
         moves_.put(POURSUITE, (short) 10);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data, moves_);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_, moves_);
         pokemonUser_.initIv(new Difficulty());
         pokemonUser_.getEv().put(Statistic.ATTACK, (short) 1);
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
         pokemonUser_.setHappiness((short) 140);
         pokemonUser_.setWonExpSinceLastLevel(new Rate("3167"));
-        Fighter fighter_ = new Fighter(pokemonUser_, data, (byte) 0);
+        Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
         fighter_.setChosenHealingObjectMove(HUILE, DEMI_TOUR);
         AbstractAction action_ = fighter_.getAction();
         assertEq(DEMI_TOUR,((ActionHealMove)action_).getFirstChosenMove());
@@ -2578,6 +2656,7 @@ public class FighterTest extends InitializationDataBase {
 
     @Test
     public void setSubstitute1Test() {
+        DataBase data_ = initDb();
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(YANMA);
         pokemon_.setItem(NULL_REF);
@@ -2589,14 +2668,14 @@ public class FighterTest extends InitializationDataBase {
         moves_.put(ULTRASON, (short) 10);
         moves_.put(BROUHAHA, (short) 10);
         moves_.put(POURSUITE, (short) 10);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data, moves_);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_, moves_);
         pokemonUser_.initIv(new Difficulty());
         pokemonUser_.getEv().put(Statistic.ATTACK, (short) 1);
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
         pokemonUser_.setHappiness((short) 140);
         pokemonUser_.setWonExpSinceLastLevel(new Rate("3167"));
-        Fighter fighter_ = new Fighter(pokemonUser_, data, (byte) 0);
+        Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
         fighter_.setSubstitute((byte) 1);
         AbstractAction action_ = fighter_.getAction();
         assertEq(1,((ActionSwitch)action_).getSubstitute());
@@ -2604,6 +2683,7 @@ public class FighterTest extends InitializationDataBase {
 
     @Test
     public void setSubstituteForMove1Test() {
+        DataBase data_ = initDb();
         WildPk pokemon_ = new WildPk();
         pokemon_.setName(YANMA);
         pokemon_.setItem(NULL_REF);
@@ -2615,14 +2695,14 @@ public class FighterTest extends InitializationDataBase {
         moves_.put(ULTRASON, (short) 10);
         moves_.put(BROUHAHA, (short) 10);
         moves_.put(POURSUITE, (short) 10);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data, moves_);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_, moves_);
         pokemonUser_.initIv(new Difficulty());
         pokemonUser_.getEv().put(Statistic.ATTACK, (short) 1);
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
         pokemonUser_.setHappiness((short) 140);
         pokemonUser_.setWonExpSinceLastLevel(new Rate("3167"));
-        Fighter fighter_ = new Fighter(pokemonUser_, data, (byte) 0);
+        Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
         fighter_.setSubstituteForMove((byte) 1);
         AbstractAction action_ = fighter_.getAction();
         assertTrue(noAction(action_));
@@ -2630,6 +2710,7 @@ public class FighterTest extends InitializationDataBase {
 
     @Test
     public void setSubstituteForMove2Test() {
+        DataBase data_ = initDb();
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(YANMA);
         pokemon_.setItem(NULL_REF);
@@ -2641,14 +2722,14 @@ public class FighterTest extends InitializationDataBase {
         moves_.put(ULTRASON, (short) 10);
         moves_.put(BROUHAHA, (short) 10);
         moves_.put(POURSUITE, (short) 10);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data, moves_);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_, moves_);
         pokemonUser_.initIv(new Difficulty());
         pokemonUser_.getEv().put(Statistic.ATTACK, (short) 1);
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
         pokemonUser_.setHappiness((short) 140);
         pokemonUser_.setWonExpSinceLastLevel(new Rate("3167"));
-        Fighter fighter_ = new Fighter(pokemonUser_, data, (byte) 0);
+        Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
         fighter_.setAction(new ActionSwitch());
         fighter_.setSubstituteForMove((byte) 1);
         AbstractAction action_ = fighter_.getAction();
@@ -2657,6 +2738,7 @@ public class FighterTest extends InitializationDataBase {
 
     @Test
     public void setSubstituteForMove3Test() {
+        DataBase data_ = initDb();
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(YANMA);
         pokemon_.setItem(NULL_REF);
@@ -2668,14 +2750,14 @@ public class FighterTest extends InitializationDataBase {
         moves_.put(ULTRASON, (short) 10);
         moves_.put(BROUHAHA, (short) 10);
         moves_.put(POURSUITE, (short) 10);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data, moves_);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_, moves_);
         pokemonUser_.initIv(new Difficulty());
         pokemonUser_.getEv().put(Statistic.ATTACK, (short) 1);
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
         pokemonUser_.setHappiness((short) 140);
         pokemonUser_.setWonExpSinceLastLevel(new Rate("3167"));
-        Fighter fighter_ = new Fighter(pokemonUser_, data, (byte) 0);
+        Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
         fighter_.setAction(new ActionMove());
         fighter_.setSubstituteForMove((byte) 1);
         AbstractAction action_ = fighter_.getAction();
@@ -2684,6 +2766,7 @@ public class FighterTest extends InitializationDataBase {
 
     @Test
     public void cancelActions1Test() {
+        DataBase data_ = initDb();
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(YANMA);
         pokemon_.setItem(NULL_REF);
@@ -2695,14 +2778,14 @@ public class FighterTest extends InitializationDataBase {
         moves_.put(ULTRASON, (short) 10);
         moves_.put(BROUHAHA, (short) 10);
         moves_.put(POURSUITE, (short) 10);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data, moves_);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_, moves_);
         pokemonUser_.initIv(new Difficulty());
         pokemonUser_.getEv().put(Statistic.ATTACK, (short) 1);
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
         pokemonUser_.setHappiness((short) 140);
         pokemonUser_.setWonExpSinceLastLevel(new Rate("3167"));
-        Fighter fighter_ = new Fighter(pokemonUser_, data, (byte) 0);
+        Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
         fighter_.cancelActions();
         AbstractAction action_ = fighter_.getAction();
         assertTrue(noAction(action_));
@@ -2710,13 +2793,14 @@ public class FighterTest extends InitializationDataBase {
 
     @Test
     public void cancelSubstituing1Test() {
+        DataBase data_ = initDb();
         WildPk pokemon_ = new WildPk();
         pokemon_.setName(PIKACHU);
         pokemon_.setItem(PIERRALLEGEE);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel((short) 3);
-        Fighter fighter_ = new Fighter(pokemon_, data, (byte)0);
+        Fighter fighter_ = new Fighter(pokemon_, data_, (byte)0);
         fighter_.setFirstChosenMove(SEISME);
         fighter_.cancelSubstituing();
         AbstractAction action_ = fighter_.getAction();
@@ -2725,14 +2809,15 @@ public class FighterTest extends InitializationDataBase {
 
     @Test
     public void cancelSubstituing2Test() {
+        DataBase data_ = initDb();
         WildPk pokemon_ = new WildPk();
         pokemon_.setName(PIKACHU);
         pokemon_.setItem(PIERRALLEGEE);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel((short) 3);
-        Fighter fighter_ = new Fighter(pokemon_, data, (byte)0);
-        fighter_.setChosenHealingObject(EAU_FRAICHE, data);
+        Fighter fighter_ = new Fighter(pokemon_, data_, (byte)0);
+        fighter_.setChosenHealingObject(EAU_FRAICHE, data_);
         AbstractAction action_ = fighter_.getAction();
         assertEq(EAU_FRAICHE, ((ActionSimpleHeal)action_).getChosenHealingItem());
         assertTrue(!((ActionSimpleHeal)action_).isTeam());
@@ -2740,6 +2825,7 @@ public class FighterTest extends InitializationDataBase {
 
     @Test
     public void cancelSubstituing3Test() {
+        DataBase data_ = initDb();
         WildPk pokemon_ = new WildPk();
         pokemon_.setName(PIKACHU);
         pokemon_.setItem(PIERRALLEGEE);
@@ -2751,14 +2837,14 @@ public class FighterTest extends InitializationDataBase {
         moves_.put(ULTRASON, (short) 10);
         moves_.put(BROUHAHA, (short) 10);
         moves_.put(POURSUITE, (short) 10);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data, moves_);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_, moves_);
         pokemonUser_.initIv(new Difficulty());
         pokemonUser_.getEv().put(Statistic.ATTACK, (short) 1);
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
         pokemonUser_.setHappiness((short) 140);
         pokemonUser_.setWonExpSinceLastLevel(new Rate("3167"));
-        Fighter fighter_ = new Fighter(pokemonUser_, data, (byte) 0);
+        Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
         fighter_.setChosenHealingObjectMove(HUILE, DEMI_TOUR);
         AbstractAction action_ = fighter_.getAction();
         assertTrue(action_ instanceof ActionHealMove);
@@ -2766,6 +2852,7 @@ public class FighterTest extends InitializationDataBase {
 
     @Test
     public void cancelSubstituing4Test() {
+        DataBase data_ = initDb();
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(PIKACHU);
         pokemon_.setItem(PIERRALLEGEE);
@@ -2777,14 +2864,14 @@ public class FighterTest extends InitializationDataBase {
         moves_.put(ULTRASON, (short) 10);
         moves_.put(BROUHAHA, (short) 10);
         moves_.put(POURSUITE, (short) 10);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data, moves_);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_, moves_);
         pokemonUser_.initIv(new Difficulty());
         pokemonUser_.getEv().put(Statistic.ATTACK, (short) 1);
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
         pokemonUser_.setHappiness((short) 140);
         pokemonUser_.setWonExpSinceLastLevel(new Rate("3167"));
-        Fighter fighter_ = new Fighter(pokemonUser_, data, (byte) 0);
+        Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
         fighter_.setSubstitute((byte) 1);
         fighter_.cancelSubstituing();
         AbstractAction action_ = fighter_.getAction();
@@ -2793,32 +2880,35 @@ public class FighterTest extends InitializationDataBase {
 
     @Test
     public void getFirstChosenMove1Test() {
+        DataBase data_ = initDb();
         WildPk pokemon_ = new WildPk();
         pokemon_.setName(PIKACHU);
         pokemon_.setItem(PIERRALLEGEE);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel((short) 3);
-        Fighter fighter_ = new Fighter(pokemon_, data, (byte)0);
+        Fighter fighter_ = new Fighter(pokemon_, data_, (byte)0);
         fighter_.setFirstChosenMove(SEISME);
         assertEq(SEISME, fighter_.getFirstChosenMove());
     }
 
     @Test
     public void getFirstChosenMove2Test() {
+        DataBase data_ = initDb();
         WildPk pokemon_ = new WildPk();
         pokemon_.setName(PIKACHU);
         pokemon_.setItem(PIERRALLEGEE);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel((short) 3);
-        Fighter fighter_ = new Fighter(pokemon_, data, (byte)0);
-        fighter_.setChosenHealingObject(EAU_FRAICHE, data);
+        Fighter fighter_ = new Fighter(pokemon_, data_, (byte)0);
+        fighter_.setChosenHealingObject(EAU_FRAICHE, data_);
         assertEq(NULL_REF, fighter_.getFirstChosenMove());
     }
 
     @Test
     public void getFirstChosenMove3Test() {
+        DataBase data_ = initDb();
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(PIKACHU);
         pokemon_.setItem(PIERRALLEGEE);
@@ -2830,20 +2920,21 @@ public class FighterTest extends InitializationDataBase {
         moves_.put(ULTRASON, (short) 10);
         moves_.put(BROUHAHA, (short) 10);
         moves_.put(POURSUITE, (short) 10);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data, moves_);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_, moves_);
         pokemonUser_.initIv(new Difficulty());
         pokemonUser_.getEv().put(Statistic.ATTACK, (short) 1);
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
         pokemonUser_.setHappiness((short) 140);
         pokemonUser_.setWonExpSinceLastLevel(new Rate("3167"));
-        Fighter fighter_ = new Fighter(pokemonUser_, data, (byte) 0);
+        Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
         fighter_.setChosenHealingObjectMove(HUILE, DEMI_TOUR);
         assertEq(DEMI_TOUR, fighter_.getFirstChosenMove());
     }
 
     @Test
     public void getFirstChosenMove4Test() {
+        DataBase data_ = initDb();
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(PIKACHU);
         pokemon_.setItem(PIERRALLEGEE);
@@ -2855,20 +2946,21 @@ public class FighterTest extends InitializationDataBase {
         moves_.put(ULTRASON, (short) 10);
         moves_.put(BROUHAHA, (short) 10);
         moves_.put(POURSUITE, (short) 10);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data, moves_);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_, moves_);
         pokemonUser_.initIv(new Difficulty());
         pokemonUser_.getEv().put(Statistic.ATTACK, (short) 1);
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
         pokemonUser_.setHappiness((short) 140);
         pokemonUser_.setWonExpSinceLastLevel(new Rate("3167"));
-        Fighter fighter_ = new Fighter(pokemonUser_, data, (byte) 0);
+        Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
         fighter_.setSubstitute((byte) 1);
         assertEq(NULL_REF, fighter_.getFirstChosenMove());
     }
 
     @Test
     public void getFirstChosenMove5Test() {
+        DataBase data_ = initDb();
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(PIKACHU);
         pokemon_.setItem(PIERRALLEGEE);
@@ -2880,46 +2972,49 @@ public class FighterTest extends InitializationDataBase {
         moves_.put(ULTRASON, (short) 10);
         moves_.put(BROUHAHA, (short) 10);
         moves_.put(POURSUITE, (short) 10);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data, moves_);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_, moves_);
         pokemonUser_.initIv(new Difficulty());
         pokemonUser_.getEv().put(Statistic.ATTACK, (short) 1);
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
         pokemonUser_.setHappiness((short) 140);
         pokemonUser_.setWonExpSinceLastLevel(new Rate("3167"));
-        Fighter fighter_ = new Fighter(pokemonUser_, data, (byte) 0);
+        Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
         fighter_.cancelActions();
         assertEq(NULL_REF, fighter_.getFirstChosenMove());
     }
 
     @Test
     public void getObjetSoinChoisi1Test() {
+        DataBase data_ = initDb();
         WildPk pokemon_ = new WildPk();
         pokemon_.setName(PIKACHU);
         pokemon_.setItem(PIERRALLEGEE);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel((short) 3);
-        Fighter fighter_ = new Fighter(pokemon_, data, (byte)0);
+        Fighter fighter_ = new Fighter(pokemon_, data_, (byte)0);
         fighter_.setFirstChosenMove(SEISME);
         assertEq(NULL_REF, fighter_.getChosenHealingItem());
     }
 
     @Test
     public void getObjetSoinChoisi2Test() {
+        DataBase data_ = initDb();
         WildPk pokemon_ = new WildPk();
         pokemon_.setName(PIKACHU);
         pokemon_.setItem(PIERRALLEGEE);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel((short) 3);
-        Fighter fighter_ = new Fighter(pokemon_, data, (byte)0);
-        fighter_.setChosenHealingObject(EAU_FRAICHE, data);
+        Fighter fighter_ = new Fighter(pokemon_, data_, (byte)0);
+        fighter_.setChosenHealingObject(EAU_FRAICHE, data_);
         assertEq(EAU_FRAICHE, fighter_.getChosenHealingItem());
     }
 
     @Test
     public void getObjetSoinChoisi3Test() {
+        DataBase data_ = initDb();
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(PIKACHU);
         pokemon_.setItem(PIERRALLEGEE);
@@ -2931,20 +3026,21 @@ public class FighterTest extends InitializationDataBase {
         moves_.put(ULTRASON, (short) 10);
         moves_.put(BROUHAHA, (short) 10);
         moves_.put(POURSUITE, (short) 10);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data, moves_);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_, moves_);
         pokemonUser_.initIv(new Difficulty());
         pokemonUser_.getEv().put(Statistic.ATTACK, (short) 1);
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
         pokemonUser_.setHappiness((short) 140);
         pokemonUser_.setWonExpSinceLastLevel(new Rate("3167"));
-        Fighter fighter_ = new Fighter(pokemonUser_, data, (byte) 0);
+        Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
         fighter_.setChosenHealingObjectMove(HUILE, DEMI_TOUR);
         assertEq(HUILE, fighter_.getChosenHealingItem());
     }
 
     @Test
     public void getObjetSoinChoisi4Test() {
+        DataBase data_ = initDb();
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(PIKACHU);
         pokemon_.setItem(PIERRALLEGEE);
@@ -2956,20 +3052,21 @@ public class FighterTest extends InitializationDataBase {
         moves_.put(ULTRASON, (short) 10);
         moves_.put(BROUHAHA, (short) 10);
         moves_.put(POURSUITE, (short) 10);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data, moves_);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_, moves_);
         pokemonUser_.initIv(new Difficulty());
         pokemonUser_.getEv().put(Statistic.ATTACK, (short) 1);
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
         pokemonUser_.setHappiness((short) 140);
         pokemonUser_.setWonExpSinceLastLevel(new Rate("3167"));
-        Fighter fighter_ = new Fighter(pokemonUser_, data, (byte) 0);
+        Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
         fighter_.setSubstitute((byte) 1);
         assertEq(NULL_REF, fighter_.getChosenHealingItem());
     }
 
     @Test
     public void getObjetSoinChoisi5Test() {
+        DataBase data_ = initDb();
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(PIKACHU);
         pokemon_.setItem(PIERRALLEGEE);
@@ -2981,27 +3078,28 @@ public class FighterTest extends InitializationDataBase {
         moves_.put(ULTRASON, (short) 10);
         moves_.put(BROUHAHA, (short) 10);
         moves_.put(POURSUITE, (short) 10);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data, moves_);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_, moves_);
         pokemonUser_.initIv(new Difficulty());
         pokemonUser_.getEv().put(Statistic.ATTACK, (short) 1);
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
         pokemonUser_.setHappiness((short) 140);
         pokemonUser_.setWonExpSinceLastLevel(new Rate("3167"));
-        Fighter fighter_ = new Fighter(pokemonUser_, data, (byte) 0);
+        Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
         fighter_.cancelActions();
         assertEq(NULL_REF, fighter_.getChosenHealingItem());
     }
 
     @Test
     public void getChosenTargets1Test() {
+        DataBase data_ = initDb();
         WildPk pokemon_ = new WildPk();
         pokemon_.setName(PIKACHU);
         pokemon_.setItem(PIERRALLEGEE);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel((short) 3);
-        Fighter fighter_ = new Fighter(pokemon_, data, (byte)0);
+        Fighter fighter_ = new Fighter(pokemon_, data_, (byte)0);
         fighter_.setFirstChosenMoveTarget(PISTOLET_A_O, POKEMON_FOE_TARGET_ZERO);
         EqList<TargetCoords> list_ = fighter_.getChosenTargets();
         assertEq(1, list_.size());
@@ -3010,20 +3108,22 @@ public class FighterTest extends InitializationDataBase {
 
     @Test
     public void getChosenTargets2Test() {
+        DataBase data_ = initDb();
         WildPk pokemon_ = new WildPk();
         pokemon_.setName(PIKACHU);
         pokemon_.setItem(PIERRALLEGEE);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel((short) 3);
-        Fighter fighter_ = new Fighter(pokemon_, data, (byte)0);
-        fighter_.setChosenHealingObject(EAU_FRAICHE, data);
+        Fighter fighter_ = new Fighter(pokemon_, data_, (byte)0);
+        fighter_.setChosenHealingObject(EAU_FRAICHE, data_);
         EqList<TargetCoords> list_ = fighter_.getChosenTargets();
         assertEq(0, list_.size());
     }
 
     @Test
     public void getChosenTargets3Test() {
+        DataBase data_ = initDb();
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(PIKACHU);
         pokemon_.setItem(PIERRALLEGEE);
@@ -3035,14 +3135,14 @@ public class FighterTest extends InitializationDataBase {
         moves_.put(ULTRASON, (short) 10);
         moves_.put(BROUHAHA, (short) 10);
         moves_.put(POURSUITE, (short) 10);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data, moves_);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_, moves_);
         pokemonUser_.initIv(new Difficulty());
         pokemonUser_.getEv().put(Statistic.ATTACK, (short) 1);
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
         pokemonUser_.setHappiness((short) 140);
         pokemonUser_.setWonExpSinceLastLevel(new Rate("3167"));
-        Fighter fighter_ = new Fighter(pokemonUser_, data, (byte) 0);
+        Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
         fighter_.setChosenHealingObjectMove(HUILE, DEMI_TOUR);
         EqList<TargetCoords> list_ = fighter_.getChosenTargets();
         assertEq(0, list_.size());
@@ -3050,6 +3150,7 @@ public class FighterTest extends InitializationDataBase {
 
     @Test
     public void getChosenTargets4Test() {
+        DataBase data_ = initDb();
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(PIKACHU);
         pokemon_.setItem(PIERRALLEGEE);
@@ -3061,14 +3162,14 @@ public class FighterTest extends InitializationDataBase {
         moves_.put(ULTRASON, (short) 10);
         moves_.put(BROUHAHA, (short) 10);
         moves_.put(POURSUITE, (short) 10);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data, moves_);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_, moves_);
         pokemonUser_.initIv(new Difficulty());
         pokemonUser_.getEv().put(Statistic.ATTACK, (short) 1);
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
         pokemonUser_.setHappiness((short) 140);
         pokemonUser_.setWonExpSinceLastLevel(new Rate("3167"));
-        Fighter fighter_ = new Fighter(pokemonUser_, data, (byte) 0);
+        Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
         fighter_.setSubstitute((byte) 1);
         EqList<TargetCoords> list_ = fighter_.getChosenTargets();
         assertEq(0, list_.size());
@@ -3076,6 +3177,7 @@ public class FighterTest extends InitializationDataBase {
 
     @Test
     public void getChosenTargets5Test() {
+        DataBase data_ = initDb();
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(PIKACHU);
         pokemon_.setItem(PIERRALLEGEE);
@@ -3087,14 +3189,14 @@ public class FighterTest extends InitializationDataBase {
         moves_.put(ULTRASON, (short) 10);
         moves_.put(BROUHAHA, (short) 10);
         moves_.put(POURSUITE, (short) 10);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data, moves_);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_, moves_);
         pokemonUser_.initIv(new Difficulty());
         pokemonUser_.getEv().put(Statistic.ATTACK, (short) 1);
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
         pokemonUser_.setHappiness((short) 140);
         pokemonUser_.setWonExpSinceLastLevel(new Rate("3167"));
-        Fighter fighter_ = new Fighter(pokemonUser_, data, (byte) 0);
+        Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
         fighter_.cancelActions();
         EqList<TargetCoords> list_ = fighter_.getChosenTargets();
         assertEq(0, list_.size());
@@ -3102,19 +3204,21 @@ public class FighterTest extends InitializationDataBase {
 
     @Test
     public void getSubstistute1Test() {
+        DataBase data_ = initDb();
         WildPk pokemon_ = new WildPk();
         pokemon_.setName(PIKACHU);
         pokemon_.setItem(PIERRALLEGEE);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel((short) 3);
-        Fighter fighter_ = new Fighter(pokemon_, data, (byte)0);
+        Fighter fighter_ = new Fighter(pokemon_, data_, (byte)0);
         fighter_.setFirstChosenMove(SEISME);
         assertEq(Fighter.BACK, fighter_.getSubstistute());
     }
 
     @Test
     public void getSubstistute2Test() {
+        DataBase data_ = initDb();
         WildPk pokemon_ = new WildPk();
         pokemon_.setName(PIKACHU);
         pokemon_.setItem(PIERRALLEGEE);
@@ -3126,14 +3230,14 @@ public class FighterTest extends InitializationDataBase {
         moves_.put(ULTRASON, (short) 10);
         moves_.put(BROUHAHA, (short) 10);
         moves_.put(POURSUITE, (short) 10);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data, moves_);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_, moves_);
         pokemonUser_.initIv(new Difficulty());
         pokemonUser_.getEv().put(Statistic.ATTACK, (short) 1);
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
         pokemonUser_.setHappiness((short) 140);
         pokemonUser_.setWonExpSinceLastLevel(new Rate("3167"));
-        Fighter fighter_ = new Fighter(pokemonUser_, data, (byte) 0);
+        Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
         fighter_.setFirstChosenMove(DEMI_TOUR);
         fighter_.setSubstituteForMove((byte) 1);
         //fighter_.setFirstChosenMoveSubstitute(DEMI_TOUR, (byte) 1);
@@ -3142,19 +3246,21 @@ public class FighterTest extends InitializationDataBase {
 
     @Test
     public void getSubstistute3Test() {
+        DataBase data_ = initDb();
         WildPk pokemon_ = new WildPk();
         pokemon_.setName(PIKACHU);
         pokemon_.setItem(PIERRALLEGEE);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel((short) 3);
-        Fighter fighter_ = new Fighter(pokemon_, data, (byte)0);
-        fighter_.setChosenHealingObject(EAU_FRAICHE, data);
+        Fighter fighter_ = new Fighter(pokemon_, data_, (byte)0);
+        fighter_.setChosenHealingObject(EAU_FRAICHE, data_);
         assertEq(Fighter.BACK, fighter_.getSubstistute());
     }
 
     @Test
     public void getSubstistute4Test() {
+        DataBase data_ = initDb();
         WildPk pokemon_ = new WildPk();
         pokemon_.setName(PIKACHU);
         pokemon_.setItem(PIERRALLEGEE);
@@ -3166,20 +3272,21 @@ public class FighterTest extends InitializationDataBase {
         moves_.put(ULTRASON, (short) 10);
         moves_.put(BROUHAHA, (short) 10);
         moves_.put(POURSUITE, (short) 10);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data, moves_);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_, moves_);
         pokemonUser_.initIv(new Difficulty());
         pokemonUser_.getEv().put(Statistic.ATTACK, (short) 1);
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
         pokemonUser_.setHappiness((short) 140);
         pokemonUser_.setWonExpSinceLastLevel(new Rate("3167"));
-        Fighter fighter_ = new Fighter(pokemonUser_, data, (byte) 0);
+        Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
         fighter_.setChosenHealingObjectMove(HUILE, DEMI_TOUR);
         assertEq(Fighter.BACK, fighter_.getSubstistute());
     }
 
     @Test
     public void getSubstistute5Test() {
+        DataBase data_ = initDb();
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(PIKACHU);
         pokemon_.setItem(PIERRALLEGEE);
@@ -3191,20 +3298,21 @@ public class FighterTest extends InitializationDataBase {
         moves_.put(ULTRASON, (short) 10);
         moves_.put(BROUHAHA, (short) 10);
         moves_.put(POURSUITE, (short) 10);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data, moves_);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_, moves_);
         pokemonUser_.initIv(new Difficulty());
         pokemonUser_.getEv().put(Statistic.ATTACK, (short) 1);
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
         pokemonUser_.setHappiness((short) 140);
         pokemonUser_.setWonExpSinceLastLevel(new Rate("3167"));
-        Fighter fighter_ = new Fighter(pokemonUser_, data, (byte) 0);
+        Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
         fighter_.setSubstitute((byte) 1);
         assertEq(1, fighter_.getSubstistute());
     }
 
     @Test
     public void getSubstistute6Test() {
+        DataBase data_ = initDb();
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(PIKACHU);
         pokemon_.setItem(PIERRALLEGEE);
@@ -3216,27 +3324,28 @@ public class FighterTest extends InitializationDataBase {
         moves_.put(ULTRASON, (short) 10);
         moves_.put(BROUHAHA, (short) 10);
         moves_.put(POURSUITE, (short) 10);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data, moves_);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_, moves_);
         pokemonUser_.initIv(new Difficulty());
         pokemonUser_.getEv().put(Statistic.ATTACK, (short) 1);
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
         pokemonUser_.setHappiness((short) 140);
         pokemonUser_.setWonExpSinceLastLevel(new Rate("3167"));
-        Fighter fighter_ = new Fighter(pokemonUser_, data, (byte) 0);
+        Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
         fighter_.cancelActions();
         assertEq(Fighter.BACK, fighter_.getSubstistute());
     }
 
     @Test
     public void choisirAttaqueFin1Test() {
+        DataBase data_ = initDb();
         WildPk pokemon_ = new WildPk();
         pokemon_.setName(PIKACHU);
         pokemon_.setItem(PIERRALLEGEE);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel((short) 3);
-        Fighter fighter_ = new Fighter(pokemon_, data, (byte)0);
+        Fighter fighter_ = new Fighter(pokemon_, data_, (byte)0);
         fighter_.setFirstChosenMove(SEISME);
         fighter_.choisirAttaqueFin();
         ActionMove action_ = (ActionMove) fighter_.getAction();
@@ -3247,13 +3356,14 @@ public class FighterTest extends InitializationDataBase {
 
     @Test
     public void choisirAttaqueFin2Test() {
+        DataBase data_ = initDb();
         WildPk pokemon_ = new WildPk();
         pokemon_.setName(PIKACHU);
         pokemon_.setItem(PIERRALLEGEE);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel((short) 3);
-        Fighter fighter_ = new Fighter(pokemon_, data, (byte)0);
+        Fighter fighter_ = new Fighter(pokemon_, data_, (byte)0);
         fighter_.setFirstChosenMoveTarget(PISTOLET_A_O, POKEMON_FOE_TARGET_ZERO);
         fighter_.choisirAttaqueFin();
         ActionMove action_ = (ActionMove) fighter_.getAction();
@@ -3265,13 +3375,14 @@ public class FighterTest extends InitializationDataBase {
 
     @Test
     public void getFinalChosenMove1Test() {
+        DataBase data_ = initDb();
         WildPk pokemon_ = new WildPk();
         pokemon_.setName(PIKACHU);
         pokemon_.setItem(PIERRALLEGEE);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel((short) 3);
-        Fighter fighter_ = new Fighter(pokemon_, data, (byte)0);
+        Fighter fighter_ = new Fighter(pokemon_, data_, (byte)0);
         fighter_.setFirstChosenMove(SEISME);
         fighter_.choisirAttaqueFin();
         assertEq(SEISME, fighter_.getFinalChosenMove());
@@ -3279,20 +3390,22 @@ public class FighterTest extends InitializationDataBase {
 
     @Test
     public void getFinalChosenMove2Test() {
+        DataBase data_ = initDb();
         WildPk pokemon_ = new WildPk();
         pokemon_.setName(PIKACHU);
         pokemon_.setItem(PIERRALLEGEE);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel((short) 3);
-        Fighter fighter_ = new Fighter(pokemon_, data, (byte)0);
-        fighter_.setChosenHealingObject(EAU_FRAICHE, data);
+        Fighter fighter_ = new Fighter(pokemon_, data_, (byte)0);
+        fighter_.setChosenHealingObject(EAU_FRAICHE, data_);
         fighter_.choisirAttaqueFin();
         assertEq(NULL_REF, fighter_.getFinalChosenMove());
     }
 
     @Test
     public void getFinalChosenMove3Test() {
+        DataBase data_ = initDb();
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(PIKACHU);
         pokemon_.setItem(PIERRALLEGEE);
@@ -3304,14 +3417,14 @@ public class FighterTest extends InitializationDataBase {
         moves_.put(ULTRASON, (short) 10);
         moves_.put(BROUHAHA, (short) 10);
         moves_.put(POURSUITE, (short) 10);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data, moves_);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_, moves_);
         pokemonUser_.initIv(new Difficulty());
         pokemonUser_.getEv().put(Statistic.ATTACK, (short) 1);
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
         pokemonUser_.setHappiness((short) 140);
         pokemonUser_.setWonExpSinceLastLevel(new Rate("3167"));
-        Fighter fighter_ = new Fighter(pokemonUser_, data, (byte) 0);
+        Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
         fighter_.setChosenHealingObjectMove(HUILE, DEMI_TOUR);
         fighter_.choisirAttaqueFin();
         assertEq(NULL_REF, fighter_.getFinalChosenMove());
@@ -3319,6 +3432,7 @@ public class FighterTest extends InitializationDataBase {
 
     @Test
     public void getFinalChosenMove4Test() {
+        DataBase data_ = initDb();
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(PIKACHU);
         pokemon_.setItem(PIERRALLEGEE);
@@ -3330,14 +3444,14 @@ public class FighterTest extends InitializationDataBase {
         moves_.put(ULTRASON, (short) 10);
         moves_.put(BROUHAHA, (short) 10);
         moves_.put(POURSUITE, (short) 10);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data, moves_);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_, moves_);
         pokemonUser_.initIv(new Difficulty());
         pokemonUser_.getEv().put(Statistic.ATTACK, (short) 1);
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
         pokemonUser_.setHappiness((short) 140);
         pokemonUser_.setWonExpSinceLastLevel(new Rate("3167"));
-        Fighter fighter_ = new Fighter(pokemonUser_, data, (byte) 0);
+        Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
         fighter_.setSubstitute((byte) 1);
         fighter_.choisirAttaqueFin();
         assertEq(NULL_REF, fighter_.getFinalChosenMove());
@@ -3345,6 +3459,7 @@ public class FighterTest extends InitializationDataBase {
 
     @Test
     public void getFinalChosenMove5Test() {
+        DataBase data_ = initDb();
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(PIKACHU);
         pokemon_.setItem(PIERRALLEGEE);
@@ -3356,20 +3471,21 @@ public class FighterTest extends InitializationDataBase {
         moves_.put(ULTRASON, (short) 10);
         moves_.put(BROUHAHA, (short) 10);
         moves_.put(POURSUITE, (short) 10);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data, moves_);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_, moves_);
         pokemonUser_.initIv(new Difficulty());
         pokemonUser_.getEv().put(Statistic.ATTACK, (short) 1);
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
         pokemonUser_.setHappiness((short) 140);
         pokemonUser_.setWonExpSinceLastLevel(new Rate("3167"));
-        Fighter fighter_ = new Fighter(pokemonUser_, data, (byte) 0);
+        Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
         fighter_.cancelActions();
         assertEq(NULL_REF, fighter_.getFinalChosenMove());
     }
 
     @Test
     public void healedPpMove1Test() {
+        DataBase data_ = initDb();
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(PIKACHU);
         pokemon_.setItem(PIERRALLEGEE);
@@ -3381,19 +3497,20 @@ public class FighterTest extends InitializationDataBase {
         moves_.put(ULTRASON, (short) 10);
         moves_.put(BROUHAHA, (short) 10);
         moves_.put(POURSUITE, (short) 10);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data, moves_);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_, moves_);
         pokemonUser_.initIv(new Difficulty());
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
         pokemonUser_.setHappiness((short) 140);
         pokemonUser_.setWonExpSinceLastLevel(new Rate("3167"));
-        Fighter fighter_ = new Fighter(pokemonUser_, data, (byte) 0);
+        Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
         fighter_.setChanged(true);
-        assertEq(0, fighter_.healedPpMove(POURSUITE, HUILE, data));
+        assertEq(0, fighter_.healedPpMove(POURSUITE, HUILE, data_));
     }
 
     @Test
     public void healedPpMove2Test() {
+        DataBase data_ = initDb();
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(PIKACHU);
         pokemon_.setItem(PIERRALLEGEE);
@@ -3405,20 +3522,21 @@ public class FighterTest extends InitializationDataBase {
         moves_.put(COPIE, (short) 10);
         moves_.put(BROUHAHA, (short) 10);
         moves_.put(POURSUITE, (short) 10);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data, moves_);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_, moves_);
         pokemonUser_.initIv(new Difficulty());
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
         pokemonUser_.setHappiness((short) 140);
         pokemonUser_.setWonExpSinceLastLevel(new Rate("3167"));
-        Fighter fighter_ = new Fighter(pokemonUser_, data, (byte) 0);
-        fighter_.apprendreAttaqueEcrasant(ULTRASON, COPIE, data);
+        Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
+        fighter_.apprendreAttaqueEcrasant(ULTRASON, COPIE, data_);
         fighter_.usePowerPointsByMove(new Difficulty(), ULTRASON, (short) 5);
-        assertEq(0, fighter_.healedPpMove(ULTRASON, HUILE, data));
+        assertEq(0, fighter_.healedPpMove(ULTRASON, HUILE, data_));
     }
 
     @Test
     public void healedPpMove3Test() {
+        DataBase data_ = initDb();
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(PIKACHU);
         pokemon_.setItem(PIERRALLEGEE);
@@ -3430,19 +3548,20 @@ public class FighterTest extends InitializationDataBase {
         moves_.put(ULTRASON, (short) 10);
         moves_.put(BROUHAHA, (short) 10);
         moves_.put(POURSUITE, (short) 10);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data, moves_);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_, moves_);
         pokemonUser_.initIv(new Difficulty());
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
         pokemonUser_.setHappiness((short) 140);
         pokemonUser_.setWonExpSinceLastLevel(new Rate("3167"));
-        Fighter fighter_ = new Fighter(pokemonUser_, data, (byte) 0);
+        Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
         fighter_.usePowerPointsByMove(new Difficulty(), POURSUITE, (short) 5);
-        assertEq(5, fighter_.healedPpMove(POURSUITE, HUILE, data));
+        assertEq(5, fighter_.healedPpMove(POURSUITE, HUILE, data_));
     }
 
     @Test
     public void healedPpMove4Test() {
+        DataBase data_ = initDb();
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(PIKACHU);
         pokemon_.setItem(PIERRALLEGEE);
@@ -3454,19 +3573,20 @@ public class FighterTest extends InitializationDataBase {
         moves_.put(ULTRASON, (short) 10);
         moves_.put(BROUHAHA, (short) 10);
         moves_.put(POURSUITE, (short) 15);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data, moves_);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_, moves_);
         pokemonUser_.initIv(new Difficulty());
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
         pokemonUser_.setHappiness((short) 140);
         pokemonUser_.setWonExpSinceLastLevel(new Rate("3167"));
-        Fighter fighter_ = new Fighter(pokemonUser_, data, (byte) 0);
+        Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
         fighter_.usePowerPointsByMove(new Difficulty(), POURSUITE, (short) 12);
-        assertEq(10, fighter_.healedPpMove(POURSUITE, HUILE, data));
+        assertEq(10, fighter_.healedPpMove(POURSUITE, HUILE, data_));
     }
 
     @Test
     public void healedPpMove5Test() {
+        DataBase data_ = initDb();
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(PIKACHU);
         pokemon_.setItem(PIERRALLEGEE);
@@ -3478,19 +3598,20 @@ public class FighterTest extends InitializationDataBase {
         moves_.put(ULTRASON, (short) 10);
         moves_.put(BROUHAHA, (short) 10);
         moves_.put(POURSUITE, (short) 10);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data, moves_);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_, moves_);
         pokemonUser_.initIv(new Difficulty());
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
         pokemonUser_.setHappiness((short) 140);
         pokemonUser_.setWonExpSinceLastLevel(new Rate("3167"));
-        Fighter fighter_ = new Fighter(pokemonUser_, data, (byte) 0);
+        Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
         fighter_.usePowerPointsByMove(new Difficulty(), POURSUITE, (short) 5);
-        assertEq(5, fighter_.healedPpMove(POURSUITE, HUILE_MAX, data));
+        assertEq(5, fighter_.healedPpMove(POURSUITE, HUILE_MAX, data_));
     }
 
     @Test
     public void healedPpMove6Test() {
+        DataBase data_ = initDb();
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(PIKACHU);
         pokemon_.setItem(PIERRALLEGEE);
@@ -3502,19 +3623,20 @@ public class FighterTest extends InitializationDataBase {
         moves_.put(ULTRASON, (short) 10);
         moves_.put(BROUHAHA, (short) 10);
         moves_.put(POURSUITE, (short) 15);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data, moves_);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_, moves_);
         pokemonUser_.initIv(new Difficulty());
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
         pokemonUser_.setHappiness((short) 140);
         pokemonUser_.setWonExpSinceLastLevel(new Rate("3167"));
-        Fighter fighter_ = new Fighter(pokemonUser_, data, (byte) 0);
+        Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
         fighter_.usePowerPointsByMove(new Difficulty(), POURSUITE, (short) 12);
-        assertEq(12, fighter_.healedPpMove(POURSUITE, HUILE_MAX, data));
+        assertEq(12, fighter_.healedPpMove(POURSUITE, HUILE_MAX, data_));
     }
 
     @Test
     public void healedPpMove7Test() {
+        DataBase data_ = initDb();
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(PIKACHU);
         pokemon_.setItem(PIERRALLEGEE);
@@ -3526,19 +3648,20 @@ public class FighterTest extends InitializationDataBase {
         moves_.put(ULTRASON, (short) 10);
         moves_.put(BROUHAHA, (short) 10);
         moves_.put(POURSUITE, (short) 10);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data, moves_);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_, moves_);
         pokemonUser_.initIv(new Difficulty());
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
         pokemonUser_.setHappiness((short) 140);
         pokemonUser_.setWonExpSinceLastLevel(new Rate("3167"));
-        Fighter fighter_ = new Fighter(pokemonUser_, data, (byte) 0);
+        Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
         fighter_.usePowerPointsByMove(new Difficulty(), POURSUITE, (short) 5);
-        assertEq(5, fighter_.healedPpMove(POURSUITE, ELIXIR, data));
+        assertEq(5, fighter_.healedPpMove(POURSUITE, ELIXIR, data_));
     }
 
     @Test
     public void healedPpMove8Test() {
+        DataBase data_ = initDb();
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(PIKACHU);
         pokemon_.setItem(PIERRALLEGEE);
@@ -3550,19 +3673,20 @@ public class FighterTest extends InitializationDataBase {
         moves_.put(ULTRASON, (short) 10);
         moves_.put(BROUHAHA, (short) 10);
         moves_.put(POURSUITE, (short) 15);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data, moves_);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_, moves_);
         pokemonUser_.initIv(new Difficulty());
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
         pokemonUser_.setHappiness((short) 140);
         pokemonUser_.setWonExpSinceLastLevel(new Rate("3167"));
-        Fighter fighter_ = new Fighter(pokemonUser_, data, (byte) 0);
+        Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
         fighter_.usePowerPointsByMove(new Difficulty(), POURSUITE, (short) 12);
-        assertEq(10, fighter_.healedPpMove(POURSUITE, ELIXIR, data));
+        assertEq(10, fighter_.healedPpMove(POURSUITE, ELIXIR, data_));
     }
 
     @Test
     public void healedPpMove9Test() {
+        DataBase data_ = initDb();
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(PIKACHU);
         pokemon_.setItem(PIERRALLEGEE);
@@ -3574,19 +3698,20 @@ public class FighterTest extends InitializationDataBase {
         moves_.put(ULTRASON, (short) 10);
         moves_.put(BROUHAHA, (short) 10);
         moves_.put(POURSUITE, (short) 10);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data, moves_);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_, moves_);
         pokemonUser_.initIv(new Difficulty());
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
         pokemonUser_.setHappiness((short) 140);
         pokemonUser_.setWonExpSinceLastLevel(new Rate("3167"));
-        Fighter fighter_ = new Fighter(pokemonUser_, data, (byte) 0);
+        Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
         fighter_.usePowerPointsByMove(new Difficulty(), POURSUITE, (short) 5);
-        assertEq(5, fighter_.healedPpMove(POURSUITE, MAX_ELIXIR, data));
+        assertEq(5, fighter_.healedPpMove(POURSUITE, MAX_ELIXIR, data_));
     }
 
     @Test
     public void healedPpMove10Test() {
+        DataBase data_ = initDb();
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(PIKACHU);
         pokemon_.setItem(PIERRALLEGEE);
@@ -3598,19 +3723,20 @@ public class FighterTest extends InitializationDataBase {
         moves_.put(ULTRASON, (short) 10);
         moves_.put(BROUHAHA, (short) 10);
         moves_.put(POURSUITE, (short) 15);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data, moves_);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_, moves_);
         pokemonUser_.initIv(new Difficulty());
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
         pokemonUser_.setHappiness((short) 140);
         pokemonUser_.setWonExpSinceLastLevel(new Rate("3167"));
-        Fighter fighter_ = new Fighter(pokemonUser_, data, (byte) 0);
+        Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
         fighter_.usePowerPointsByMove(new Difficulty(), POURSUITE, (short) 12);
-        assertEq(12, fighter_.healedPpMove(POURSUITE, MAX_ELIXIR, data));
+        assertEq(12, fighter_.healedPpMove(POURSUITE, MAX_ELIXIR, data_));
     }
 
     @Test
     public void healedPpMove11Test() {
+        DataBase data_ = initDb();
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(PIKACHU);
         pokemon_.setItem(PIERRALLEGEE);
@@ -3622,19 +3748,20 @@ public class FighterTest extends InitializationDataBase {
         moves_.put(ULTRASON, (short) 10);
         moves_.put(BROUHAHA, (short) 10);
         moves_.put(POURSUITE, (short) 10);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data, moves_);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_, moves_);
         pokemonUser_.initIv(new Difficulty());
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
         pokemonUser_.setHappiness((short) 140);
         pokemonUser_.setWonExpSinceLastLevel(new Rate("3167"));
-        Fighter fighter_ = new Fighter(pokemonUser_, data, (byte) 0);
+        Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
         fighter_.usePowerPointsByMove(new Difficulty(), POURSUITE, (short) 5);
-        assertEq(5, fighter_.healedPpMove(POURSUITE, BAIE_MEPO, data));
+        assertEq(5, fighter_.healedPpMove(POURSUITE, BAIE_MEPO, data_));
     }
 
     @Test
     public void healedPpMove12Test() {
+        DataBase data_ = initDb();
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(PIKACHU);
         pokemon_.setItem(PIERRALLEGEE);
@@ -3646,19 +3773,20 @@ public class FighterTest extends InitializationDataBase {
         moves_.put(ULTRASON, (short) 10);
         moves_.put(BROUHAHA, (short) 10);
         moves_.put(POURSUITE, (short) 15);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data, moves_);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_, moves_);
         pokemonUser_.initIv(new Difficulty());
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
         pokemonUser_.setHappiness((short) 140);
         pokemonUser_.setWonExpSinceLastLevel(new Rate("3167"));
-        Fighter fighter_ = new Fighter(pokemonUser_, data, (byte) 0);
+        Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
         fighter_.usePowerPointsByMove(new Difficulty(), POURSUITE, (short) 12);
-        assertEq(10, fighter_.healedPpMove(POURSUITE, BAIE_MEPO, data));
+        assertEq(10, fighter_.healedPpMove(POURSUITE, BAIE_MEPO, data_));
     }
 
     @Test
     public void healPowerPoints1Test() {
+        DataBase data_ = initDb();
         WildPk pokemon_ = new WildPk();
         pokemon_.setName(PIKACHU);
         pokemon_.setItem(PIERRALLEGEE);
@@ -3670,13 +3798,13 @@ public class FighterTest extends InitializationDataBase {
         moves_.put(ULTRASON, (short) 10);
         moves_.put(BROUHAHA, (short) 10);
         moves_.put(POURSUITE, (short) 15);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data, moves_);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_, moves_);
         pokemonUser_.initIv(new Difficulty());
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
         pokemonUser_.setHappiness((short) 140);
         pokemonUser_.setWonExpSinceLastLevel(new Rate("3167"));
-        Fighter fighter_ = new Fighter(pokemonUser_, data, (byte) 0);
+        Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
         fighter_.usePowerPointsByMove(new Difficulty(), POURSUITE, (short) 12);
         fighter_.healPowerPoints(POURSUITE, (short) 10);
         assertEq(13, fighter_.getCurrentMoves().getVal(POURSUITE).getCurrent());
@@ -3684,13 +3812,14 @@ public class FighterTest extends InitializationDataBase {
 
     @Test
     public void ajouterAttaquesDejaInvoqueesTour1Test(){
+        DataBase data_ = initDb();
         WildPk pokemon_ = new WildPk();
         pokemon_.setName(PIKACHU);
         pokemon_.setItem(PIERRALLEGEE);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel((short) 3);
-        Fighter fighter_ = new Fighter(pokemon_, data, (byte)0);
+        Fighter fighter_ = new Fighter(pokemon_, data_, (byte)0);
         fighter_.setFirstChosenMove(SEISME);
         fighter_.choisirAttaqueFin();
         fighter_.ajouterAttaquesDejaInvoqueesTour(SEISME);
@@ -3700,13 +3829,14 @@ public class FighterTest extends InitializationDataBase {
 
     @Test
     public void toutSupprimerAttaquesDejaInvoqueesTour1Test(){
+        DataBase data_ = initDb();
         WildPk pokemon_ = new WildPk();
         pokemon_.setName(PIKACHU);
         pokemon_.setItem(PIERRALLEGEE);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel((short) 3);
-        Fighter fighter_ = new Fighter(pokemon_, data, (byte)0);
+        Fighter fighter_ = new Fighter(pokemon_, data_, (byte)0);
         fighter_.setFirstChosenMove(SEISME);
         fighter_.choisirAttaqueFin();
         fighter_.ajouterAttaquesDejaInvoqueesTour(SEISME);
@@ -3716,13 +3846,14 @@ public class FighterTest extends InitializationDataBase {
 
     @Test
     public void reinitEffetTour1Test(){
+        DataBase data_ = initDb();
         WildPk pokemon_ = new WildPk();
         pokemon_.setName(PIKACHU);
         pokemon_.setItem(PIERRALLEGEE);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel((short) 3);
-        Fighter fighter_ = new Fighter(pokemon_, data, (byte)0);
+        Fighter fighter_ = new Fighter(pokemon_, data_, (byte)0);
         fighter_.setFirstChosenMove(SEISME);
         fighter_.choisirAttaqueFin();
         fighter_.getEnabledMovesForAlly().put(COUP_D_MAIN, true);
@@ -3732,13 +3863,14 @@ public class FighterTest extends InitializationDataBase {
 
     @Test
     public void reinitEffetTour2Test(){
+        DataBase data_ = initDb();
         WildPk pokemon_ = new WildPk();
         pokemon_.setName(PIKACHU);
         pokemon_.setItem(PIERRALLEGEE);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel((short) 3);
-        Fighter fighter_ = new Fighter(pokemon_, data, (byte)0);
+        Fighter fighter_ = new Fighter(pokemon_, data_, (byte)0);
         fighter_.setFirstChosenMove(SEISME);
         fighter_.choisirAttaqueFin();
         fighter_.reinitEffetTour();
@@ -3747,13 +3879,14 @@ public class FighterTest extends InitializationDataBase {
 
     @Test
     public void initRoundFrontFighter1Test() {
+        DataBase data_ = initDb();
         WildPk pokemon_ = new WildPk();
         pokemon_.setName(PIKACHU);
         pokemon_.setItem(PIERRALLEGEE);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel((short) 3);
-        Fighter fighter_ = new Fighter(pokemon_, data, (byte)0);
+        Fighter fighter_ = new Fighter(pokemon_, data_, (byte)0);
         fighter_.getDamageSufferedCateg().getVal(PHYSIQUE).affect(new Rate("2"));
         fighter_.getDamageSufferedCateg().getVal(SPECIALE).affect(new Rate("2"));
         fighter_.getDamageSufferedCategRound().getVal(PHYSIQUE).affect(new Rate("3"));
@@ -3770,13 +3903,14 @@ public class FighterTest extends InitializationDataBase {
 
     @Test
     public void initRoundFrontFighter2Test() {
+        DataBase data_ = initDb();
         WildPk pokemon_ = new WildPk();
         pokemon_.setName(PIKACHU);
         pokemon_.setItem(PIERRALLEGEE);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel((short) 3);
-        Fighter fighter_ = new Fighter(pokemon_, data, (byte)0);
+        Fighter fighter_ = new Fighter(pokemon_, data_, (byte)0);
         fighter_.setNbPrepaRound((short) 1);
         fighter_.getDamageSufferedCateg().getVal(PHYSIQUE).affect(new Rate("2"));
         fighter_.getDamageSufferedCateg().getVal(SPECIALE).affect(new Rate("2"));
@@ -3794,6 +3928,7 @@ public class FighterTest extends InitializationDataBase {
 
     @Test
     public void invokeMove1Test() {
+        DataBase data_ = initDb();
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(YANMA);
         pokemon_.setItem(NULL_REF);
@@ -3805,14 +3940,14 @@ public class FighterTest extends InitializationDataBase {
         moves_.put(MIMIQUE, (short) 10);
         moves_.put(BROUHAHA, (short) 10);
         moves_.put(POURSUITE, (short) 10);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data, moves_);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_, moves_);
         pokemonUser_.initIv(new Difficulty());
         pokemonUser_.getEv().put(Statistic.ATTACK, (short) 1);
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
         pokemonUser_.setHappiness((short) 140);
         pokemonUser_.setWonExpSinceLastLevel(new Rate("3167"));
-        Fighter fighter_ = new Fighter(pokemonUser_, data, (byte) 0);
+        Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
         fighter_.setFirstChosenMoveTarget(MIMIQUE, POKEMON_FOE_TARGET_ZERO);
         fighter_.choisirAttaqueFin();
         fighter_.ajouterAttaquesDejaInvoqueesTour(SEISME);
@@ -3822,6 +3957,7 @@ public class FighterTest extends InitializationDataBase {
 
     @Test
     public void successUsingMove1Test() {
+        DataBase data_ = initDb();
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(YANMA);
         pokemon_.setItem(NULL_REF);
@@ -3833,14 +3969,14 @@ public class FighterTest extends InitializationDataBase {
         moves_.put(SEISME, (short) 10);
         moves_.put(BROUHAHA, (short) 10);
         moves_.put(POURSUITE, (short) 10);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data, moves_);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_, moves_);
         pokemonUser_.initIv(new Difficulty());
         pokemonUser_.getEv().put(Statistic.ATTACK, (short) 1);
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
         pokemonUser_.setHappiness((short) 140);
         pokemonUser_.setWonExpSinceLastLevel(new Rate("3167"));
-        Fighter fighter_ = new Fighter(pokemonUser_, data, (byte) 0);
+        Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
         fighter_.setFirstChosenMove(SEISME);
         fighter_.choisirAttaqueFin();
         fighter_.successUsingMove();
@@ -3850,13 +3986,14 @@ public class FighterTest extends InitializationDataBase {
 
     @Test
     public void setLastUsedMove1Test() {
+        DataBase data_ = initDb();
         WildPk pokemon_ = new WildPk();
         pokemon_.setName(PIKACHU);
         pokemon_.setItem(PIERRALLEGEE);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel((short) 3);
-        Fighter fighter_ = new Fighter(pokemon_, data, (byte)0);
+        Fighter fighter_ = new Fighter(pokemon_, data_, (byte)0);
         fighter_.setFirstChosenMove(SEISME);
         fighter_.choisirAttaqueFin();
         fighter_.setLastUsedMove();
@@ -3865,14 +4002,15 @@ public class FighterTest extends InitializationDataBase {
 
     @Test
     public void setLastUsedMove2Test() {
+        DataBase data_ = initDb();
         WildPk pokemon_ = new WildPk();
         pokemon_.setName(PIKACHU);
         pokemon_.setItem(PIERRALLEGEE);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel((short) 3);
-        Fighter fighter_ = new Fighter(pokemon_, data, (byte)0);
-        fighter_.setChosenHealingObject(EAU_FRAICHE, data);
+        Fighter fighter_ = new Fighter(pokemon_, data_, (byte)0);
+        fighter_.setChosenHealingObject(EAU_FRAICHE, data_);
         fighter_.choisirAttaqueFin();
         fighter_.setLastUsedMove();
         assertEq(NULL_REF, fighter_.getUsedMoveLastRound());
@@ -3880,6 +4018,7 @@ public class FighterTest extends InitializationDataBase {
 
     @Test
     public void setLastUsedMove3Test() {
+        DataBase data_ = initDb();
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(PIKACHU);
         pokemon_.setItem(PIERRALLEGEE);
@@ -3891,14 +4030,14 @@ public class FighterTest extends InitializationDataBase {
         moves_.put(ULTRASON, (short) 10);
         moves_.put(BROUHAHA, (short) 10);
         moves_.put(POURSUITE, (short) 10);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data, moves_);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_, moves_);
         pokemonUser_.initIv(new Difficulty());
         pokemonUser_.getEv().put(Statistic.ATTACK, (short) 1);
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
         pokemonUser_.setHappiness((short) 140);
         pokemonUser_.setWonExpSinceLastLevel(new Rate("3167"));
-        Fighter fighter_ = new Fighter(pokemonUser_, data, (byte) 0);
+        Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
         fighter_.setChosenHealingObjectMove(HUILE, DEMI_TOUR);
         fighter_.choisirAttaqueFin();
         fighter_.setLastUsedMove();
@@ -3907,6 +4046,7 @@ public class FighterTest extends InitializationDataBase {
 
     @Test
     public void setLastUsedMove4Test() {
+        DataBase data_ = initDb();
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(PIKACHU);
         pokemon_.setItem(PIERRALLEGEE);
@@ -3918,14 +4058,14 @@ public class FighterTest extends InitializationDataBase {
         moves_.put(ULTRASON, (short) 10);
         moves_.put(BROUHAHA, (short) 10);
         moves_.put(POURSUITE, (short) 10);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data, moves_);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_, moves_);
         pokemonUser_.initIv(new Difficulty());
         pokemonUser_.getEv().put(Statistic.ATTACK, (short) 1);
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
         pokemonUser_.setHappiness((short) 140);
         pokemonUser_.setWonExpSinceLastLevel(new Rate("3167"));
-        Fighter fighter_ = new Fighter(pokemonUser_, data, (byte) 0);
+        Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
         fighter_.setSubstitute((byte) 1);
         fighter_.choisirAttaqueFin();
         fighter_.setLastUsedMove();
@@ -3934,6 +4074,7 @@ public class FighterTest extends InitializationDataBase {
 
     @Test
     public void setLastUsedMove5Test() {
+        DataBase data_ = initDb();
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(PIKACHU);
         pokemon_.setItem(PIERRALLEGEE);
@@ -3945,14 +4086,14 @@ public class FighterTest extends InitializationDataBase {
         moves_.put(ULTRASON, (short) 10);
         moves_.put(BROUHAHA, (short) 10);
         moves_.put(POURSUITE, (short) 10);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data, moves_);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_, moves_);
         pokemonUser_.initIv(new Difficulty());
         pokemonUser_.getEv().put(Statistic.ATTACK, (short) 1);
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
         pokemonUser_.setHappiness((short) 140);
         pokemonUser_.setWonExpSinceLastLevel(new Rate("3167"));
-        Fighter fighter_ = new Fighter(pokemonUser_, data, (byte) 0);
+        Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
         fighter_.cancelActions();
         fighter_.choisirAttaqueFin();
         fighter_.setLastUsedMove();
@@ -3961,6 +4102,7 @@ public class FighterTest extends InitializationDataBase {
 
     @Test
     public void backUpObject1Test() {
+        DataBase data_ = initDb();
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(PIKACHU);
         pokemon_.setItem(PIERRALLEGEE);
@@ -3972,14 +4114,14 @@ public class FighterTest extends InitializationDataBase {
         moves_.put(ULTRASON, (short) 10);
         moves_.put(BROUHAHA, (short) 10);
         moves_.put(POURSUITE, (short) 10);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data, moves_);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_, moves_);
         pokemonUser_.initIv(new Difficulty());
         pokemonUser_.getEv().put(Statistic.ATTACK, (short) 1);
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
         pokemonUser_.setHappiness((short) 140);
         pokemonUser_.setWonExpSinceLastLevel(new Rate("3167"));
-        Fighter fighter_ = new Fighter(pokemonUser_, data, (byte) 0);
+        Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
         fighter_.backUpObject(NULL_REF);
         assertEq(PIERRALLEGEE, fighter_.getLastUsedItem());
         assertEq(NULL_REF, fighter_.getItem());
@@ -3987,6 +4129,7 @@ public class FighterTest extends InitializationDataBase {
 
     @Test
     public void backUpObject2Test() {
+        DataBase data_ = initDb();
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(PIKACHU);
         pokemon_.setItem(NULL_REF);
@@ -3998,14 +4141,14 @@ public class FighterTest extends InitializationDataBase {
         moves_.put(ULTRASON, (short) 10);
         moves_.put(BROUHAHA, (short) 10);
         moves_.put(POURSUITE, (short) 10);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data, moves_);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_, moves_);
         pokemonUser_.initIv(new Difficulty());
         pokemonUser_.getEv().put(Statistic.ATTACK, (short) 1);
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
         pokemonUser_.setHappiness((short) 140);
         pokemonUser_.setWonExpSinceLastLevel(new Rate("3167"));
-        Fighter fighter_ = new Fighter(pokemonUser_, data, (byte) 0);
+        Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
         fighter_.backUpObject(BAIE_MEPO);
         assertEq(NULL_REF, fighter_.getLastUsedItem());
         assertEq(BAIE_MEPO, fighter_.getItem());
@@ -4013,6 +4156,7 @@ public class FighterTest extends InitializationDataBase {
 
     @Test
     public void backUpObject3Test() {
+        DataBase data_ = initDb();
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(PIKACHU);
         pokemon_.setItem(PIERRALLEGEE);
@@ -4024,14 +4168,14 @@ public class FighterTest extends InitializationDataBase {
         moves_.put(ULTRASON, (short) 10);
         moves_.put(BROUHAHA, (short) 10);
         moves_.put(POURSUITE, (short) 10);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data, moves_);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_, moves_);
         pokemonUser_.initIv(new Difficulty());
         pokemonUser_.getEv().put(Statistic.ATTACK, (short) 1);
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
         pokemonUser_.setHappiness((short) 140);
         pokemonUser_.setWonExpSinceLastLevel(new Rate("3167"));
-        Fighter fighter_ = new Fighter(pokemonUser_, data, (byte) 0);
+        Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
         fighter_.backUpObject(BAIE_MEPO);
         assertEq(NULL_REF, fighter_.getLastUsedItem());
         assertEq(BAIE_MEPO, fighter_.getItem());
@@ -4039,6 +4183,7 @@ public class FighterTest extends InitializationDataBase {
 
     @Test
     public void restoreLastObject1Test() {
+        DataBase data_ = initDb();
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(PIKACHU);
         pokemon_.setItem(PIERRALLEGEE);
@@ -4050,14 +4195,14 @@ public class FighterTest extends InitializationDataBase {
         moves_.put(ULTRASON, (short) 10);
         moves_.put(BROUHAHA, (short) 10);
         moves_.put(POURSUITE, (short) 10);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data, moves_);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_, moves_);
         pokemonUser_.initIv(new Difficulty());
         pokemonUser_.getEv().put(Statistic.ATTACK, (short) 1);
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
         pokemonUser_.setHappiness((short) 140);
         pokemonUser_.setWonExpSinceLastLevel(new Rate("3167"));
-        Fighter fighter_ = new Fighter(pokemonUser_, data, (byte) 0);
+        Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
         fighter_.restoreLastObject();
         assertEq(NULL_REF, fighter_.getLastUsedItem());
         assertEq(PIERRALLEGEE, fighter_.getItem());
@@ -4065,6 +4210,7 @@ public class FighterTest extends InitializationDataBase {
 
     @Test
     public void restoreLastObject2Test() {
+        DataBase data_ = initDb();
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(PIKACHU);
         pokemon_.setItem(PIERRALLEGEE);
@@ -4076,14 +4222,14 @@ public class FighterTest extends InitializationDataBase {
         moves_.put(ULTRASON, (short) 10);
         moves_.put(BROUHAHA, (short) 10);
         moves_.put(POURSUITE, (short) 10);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data, moves_);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_, moves_);
         pokemonUser_.initIv(new Difficulty());
         pokemonUser_.getEv().put(Statistic.ATTACK, (short) 1);
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
         pokemonUser_.setHappiness((short) 140);
         pokemonUser_.setWonExpSinceLastLevel(new Rate("3167"));
-        Fighter fighter_ = new Fighter(pokemonUser_, data, (byte) 0);
+        Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
         fighter_.setLastUsedItem(PIERRALLEGEE);
         fighter_.setItem(NULL_REF);
         fighter_.restoreLastObject();
@@ -4093,6 +4239,7 @@ public class FighterTest extends InitializationDataBase {
 
     @Test
     public void restoreLastObject3Test() {
+        DataBase data_ = initDb();
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(PIKACHU);
         pokemon_.setItem(NULL_REF);
@@ -4104,14 +4251,14 @@ public class FighterTest extends InitializationDataBase {
         moves_.put(ULTRASON, (short) 10);
         moves_.put(BROUHAHA, (short) 10);
         moves_.put(POURSUITE, (short) 10);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data, moves_);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_, moves_);
         pokemonUser_.initIv(new Difficulty());
         pokemonUser_.getEv().put(Statistic.ATTACK, (short) 1);
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
         pokemonUser_.setHappiness((short) 140);
         pokemonUser_.setWonExpSinceLastLevel(new Rate("3167"));
-        Fighter fighter_ = new Fighter(pokemonUser_, data, (byte) 0);
+        Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
         fighter_.restoreLastObject();
         assertEq(NULL_REF, fighter_.getLastUsedItem());
         assertEq(NULL_REF, fighter_.getItem());
@@ -4119,6 +4266,7 @@ public class FighterTest extends InitializationDataBase {
 
     @Test
     public void useObject1Test() {
+        DataBase data_ = initDb();
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(PIKACHU);
         pokemon_.setItem(NULL_REF);
@@ -4130,20 +4278,21 @@ public class FighterTest extends InitializationDataBase {
         moves_.put(ULTRASON, (short) 10);
         moves_.put(BROUHAHA, (short) 10);
         moves_.put(POURSUITE, (short) 10);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data, moves_);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_, moves_);
         pokemonUser_.initIv(new Difficulty());
         pokemonUser_.getEv().put(Statistic.ATTACK, (short) 1);
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
         pokemonUser_.setHappiness((short) 140);
         pokemonUser_.setWonExpSinceLastLevel(new Rate("3167"));
-        Fighter fighter_ = new Fighter(pokemonUser_, data, (byte) 0);
+        Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
         fighter_.useObject();
         assertTrue(fighter_.isUsingItem());
     }
 
     @Test
     public void tossLastUsedObject1Test() {
+        DataBase data_ = initDb();
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(PIKACHU);
         pokemon_.setItem(PIERRALLEGEE);
@@ -4155,14 +4304,14 @@ public class FighterTest extends InitializationDataBase {
         moves_.put(ULTRASON, (short) 10);
         moves_.put(BROUHAHA, (short) 10);
         moves_.put(POURSUITE, (short) 10);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data, moves_);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_, moves_);
         pokemonUser_.initIv(new Difficulty());
         pokemonUser_.getEv().put(Statistic.ATTACK, (short) 1);
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
         pokemonUser_.setHappiness((short) 140);
         pokemonUser_.setWonExpSinceLastLevel(new Rate("3167"));
-        Fighter fighter_ = new Fighter(pokemonUser_, data, (byte) 0);
+        Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
         fighter_.tossLastUsedObject();
         assertEq(NULL_REF, fighter_.getLastUsedItem());
         assertEq(PIERRALLEGEE, fighter_.getItem());
@@ -4170,6 +4319,7 @@ public class FighterTest extends InitializationDataBase {
 
     @Test
     public void tossLastUsedObject2Test() {
+        DataBase data_ = initDb();
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(PIKACHU);
         pokemon_.setItem(PIERRALLEGEE);
@@ -4181,14 +4331,14 @@ public class FighterTest extends InitializationDataBase {
         moves_.put(ULTRASON, (short) 10);
         moves_.put(BROUHAHA, (short) 10);
         moves_.put(POURSUITE, (short) 10);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data, moves_);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_, moves_);
         pokemonUser_.initIv(new Difficulty());
         pokemonUser_.getEv().put(Statistic.ATTACK, (short) 1);
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
         pokemonUser_.setHappiness((short) 140);
         pokemonUser_.setWonExpSinceLastLevel(new Rate("3167"));
-        Fighter fighter_ = new Fighter(pokemonUser_, data, (byte) 0);
+        Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
         fighter_.useObject();
         fighter_.tossLastUsedObject();
         assertEq(NULL_REF, fighter_.getItem());
@@ -4197,6 +4347,7 @@ public class FighterTest extends InitializationDataBase {
 
     @Test
     public void tossLastUsedObject3Test() {
+        DataBase data_ = initDb();
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(PIKACHU);
         pokemon_.setItem(PIERRALLEGEE);
@@ -4208,14 +4359,14 @@ public class FighterTest extends InitializationDataBase {
         moves_.put(ULTRASON, (short) 10);
         moves_.put(BROUHAHA, (short) 10);
         moves_.put(POURSUITE, (short) 10);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data, moves_);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_, moves_);
         pokemonUser_.initIv(new Difficulty());
         pokemonUser_.getEv().put(Statistic.ATTACK, (short) 1);
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
         pokemonUser_.setHappiness((short) 140);
         pokemonUser_.setWonExpSinceLastLevel(new Rate("3167"));
-        Fighter fighter_ = new Fighter(pokemonUser_, data, (byte) 0);
+        Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
         fighter_.useObject();
         fighter_.tossLastUsedObject();
         fighter_.useObject();
@@ -4226,6 +4377,7 @@ public class FighterTest extends InitializationDataBase {
 
     @Test
     public void affectNoUsesMove1Test() {
+        DataBase data_ = initDb();
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(PIKACHU);
         pokemon_.setItem(PIERRALLEGEE);
@@ -4237,14 +4389,14 @@ public class FighterTest extends InitializationDataBase {
         moves_.put(ULTRASON, (short) 10);
         moves_.put(BROUHAHA, (short) 10);
         moves_.put(POURSUITE, (short) 10);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data, moves_);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_, moves_);
         pokemonUser_.initIv(new Difficulty());
         pokemonUser_.getEv().put(Statistic.ATTACK, (short) 1);
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
         pokemonUser_.setHappiness((short) 140);
         pokemonUser_.setWonExpSinceLastLevel(new Rate("3167"));
-        Fighter fighter_ = new Fighter(pokemonUser_, data, (byte) 0);
+        Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
         fighter_.setNbRepeatingSuccessfulMoves(new LgInt("2"));
         fighter_.affectNoUsesMove();
         assertEq(LgInt.zero(), fighter_.getNbRepeatingSuccessfulMoves());
@@ -4252,6 +4404,7 @@ public class FighterTest extends InitializationDataBase {
 
     @Test
     public void incrementConsecutiveUsesMove1Test() {
+        DataBase data_ = initDb();
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(PIKACHU);
         pokemon_.setItem(PIERRALLEGEE);
@@ -4263,14 +4416,14 @@ public class FighterTest extends InitializationDataBase {
         moves_.put(ULTRASON, (short) 10);
         moves_.put(BROUHAHA, (short) 10);
         moves_.put(POURSUITE, (short) 10);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data, moves_);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_, moves_);
         pokemonUser_.initIv(new Difficulty());
         pokemonUser_.getEv().put(Statistic.ATTACK, (short) 1);
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
         pokemonUser_.setHappiness((short) 140);
         pokemonUser_.setWonExpSinceLastLevel(new Rate("3167"));
-        Fighter fighter_ = new Fighter(pokemonUser_, data, (byte) 0);
+        Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
         fighter_.setNbRepeatingSuccessfulMoves(new LgInt("2"));
         fighter_.incrementConsecutiveUsesMove();
         assertEq(new LgInt("3"), fighter_.getNbRepeatingSuccessfulMoves());
@@ -4278,6 +4431,7 @@ public class FighterTest extends InitializationDataBase {
 
     @Test
     public void affectNoRoundBeforeUsingMove1Test() {
+        DataBase data_ = initDb();
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(PIKACHU);
         pokemon_.setItem(PIERRALLEGEE);
@@ -4289,14 +4443,14 @@ public class FighterTest extends InitializationDataBase {
         moves_.put(ULTRASON, (short) 10);
         moves_.put(BROUHAHA, (short) 10);
         moves_.put(POURSUITE, (short) 10);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data, moves_);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_, moves_);
         pokemonUser_.initIv(new Difficulty());
         pokemonUser_.getEv().put(Statistic.ATTACK, (short) 1);
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
         pokemonUser_.setHappiness((short) 140);
         pokemonUser_.setWonExpSinceLastLevel(new Rate("3167"));
-        Fighter fighter_ = new Fighter(pokemonUser_, data, (byte) 0);
+        Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
         fighter_.setNbPrepaRound((short) 2);
         fighter_.affectNoRoundBeforeUsingMove();
         assertEq(0, fighter_.getNbPrepaRound());
@@ -4304,6 +4458,7 @@ public class FighterTest extends InitializationDataBase {
 
     @Test
     public void incrementRoundBeforeUsingMove1Test() {
+        DataBase data_ = initDb();
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(PIKACHU);
         pokemon_.setItem(PIERRALLEGEE);
@@ -4315,14 +4470,14 @@ public class FighterTest extends InitializationDataBase {
         moves_.put(ULTRASON, (short) 10);
         moves_.put(BROUHAHA, (short) 10);
         moves_.put(POURSUITE, (short) 10);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data, moves_);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_, moves_);
         pokemonUser_.initIv(new Difficulty());
         pokemonUser_.getEv().put(Statistic.ATTACK, (short) 1);
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
         pokemonUser_.setHappiness((short) 140);
         pokemonUser_.setWonExpSinceLastLevel(new Rate("3167"));
-        Fighter fighter_ = new Fighter(pokemonUser_, data, (byte) 0);
+        Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
         fighter_.setNbPrepaRound((short) 2);
         fighter_.incrementRoundBeforeUsingMove();
         assertEq(3, fighter_.getNbPrepaRound());
@@ -4330,146 +4485,154 @@ public class FighterTest extends InitializationDataBase {
 
     @Test
     public void variationGainExperience1Test() {
+        DataBase data_ = initDb();
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(PIKACHU);
         pokemon_.setItem(PIERRALLEGEE);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel((short) 3);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_);
         pokemonUser_.initIv(new Difficulty());
         pokemonUser_.getEv().put(Statistic.ATTACK, (short) 1);
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
         pokemonUser_.setHappiness((short) 40);
         pokemonUser_.setWonExpSinceLastLevel(new Rate(3,2));
-        Fighter fighter_ = new Fighter(pokemonUser_, data, (byte) 0);
-        fighter_.variationGainExperience(new Rate("2"), data);
+        Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
+        fighter_.variationGainExperience(new Rate("2"), data_);
         assertEq(new Rate("2"), fighter_.getWonExp());
     }
 
     @Test
     public void numberNecessaryPointsForGrowingLevel1Test() {
+        DataBase data_ = initDb();
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(PIKACHU);
         pokemon_.setItem(PIERRALLEGEE);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel((short) 3);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_);
         pokemonUser_.initIv(new Difficulty());
         pokemonUser_.getEv().put(Statistic.ATTACK, (short) 1);
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
         pokemonUser_.setHappiness((short) 40);
         pokemonUser_.setWonExpSinceLastLevel(new Rate(3,2));
-        Fighter fighter_ = new Fighter(pokemonUser_, data, (byte) 0);
-        Rate nbPoints_ = fighter_.numberNecessaryPointsForGrowingLevel((short) 4, data);
+        Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
+        Rate nbPoints_ = fighter_.numberNecessaryPointsForGrowingLevel((short) 4, data_);
         assertEq(new Rate("7"),nbPoints_);
-        nbPoints_ = fighter_.numberNecessaryPointsForGrowingLevel((short) 5, data);
+        nbPoints_ = fighter_.numberNecessaryPointsForGrowingLevel((short) 5, data_);
         assertEq(new Rate("9"),nbPoints_);
     }
 
     @Test
     public void nomEvolutions1Test() {
+        DataBase data_ = initDb();
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(PIKACHU);
         pokemon_.setItem(PIERRE_STASE);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel((short) 3);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_);
         pokemonUser_.initIv(new Difficulty());
         pokemonUser_.getEv().put(Statistic.ATTACK, (short) 1);
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
         pokemonUser_.setHappiness((short) 40);
         pokemonUser_.setWonExpSinceLastLevel(new Rate(3));
-        Fighter fighter_ = new Fighter(pokemonUser_, data, (byte) 0);
-        assertEq(0, fighter_.nomEvolutions(data, new StringList()).size());
+        Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
+        assertEq(0, fighter_.nomEvolutions(data_, new StringList()).size());
     }
 
     @Test
     public void nomEvolutions2Test() {
+        DataBase data_ = initDb();
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(NUCLEOS);
         pokemon_.setItem(PIERRE_STASE);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel((short) 34);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_);
         pokemonUser_.initIv(new Difficulty());
         pokemonUser_.getEv().put(Statistic.ATTACK, (short) 1);
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
         pokemonUser_.setHappiness((short) 40);
         pokemonUser_.setWonExpSinceLastLevel(new Rate(3));
-        Fighter fighter_ = new Fighter(pokemonUser_, data, (byte) 0);
-        assertEq(0, fighter_.nomEvolutions(data, new StringList()).size());
+        Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
+        assertEq(0, fighter_.nomEvolutions(data_, new StringList()).size());
     }
 
     @Test
     public void nomEvolutions3Test() {
+        DataBase data_ = initDb();
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(NUCLEOS);
         pokemon_.setItem(PIERRE_STASE);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel((short) 31);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_);
         pokemonUser_.initIv(new Difficulty());
         pokemonUser_.getEv().put(Statistic.ATTACK, (short) 1);
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
         pokemonUser_.setHappiness((short) 40);
         pokemonUser_.setWonExpSinceLastLevel(new Rate(3));
-        Fighter fighter_ = new Fighter(pokemonUser_, data, (byte) 0);
-        assertEq(0, fighter_.nomEvolutions(data, new StringList()).size());
+        Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
+        assertEq(0, fighter_.nomEvolutions(data_, new StringList()).size());
     }
 
     @Test
     public void nomEvolutions4Test() {
+        DataBase data_ = initDb();
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(NUCLEOS);
         pokemon_.setItem(NULL_REF);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel((short) 34);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_);
         pokemonUser_.initIv(new Difficulty());
         pokemonUser_.getEv().put(Statistic.ATTACK, (short) 1);
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
         pokemonUser_.setHappiness((short) 40);
         pokemonUser_.setWonExpSinceLastLevel(new Rate(3));
-        Fighter fighter_ = new Fighter(pokemonUser_, data, (byte) 0);
-        StringList list_ = fighter_.nomEvolutions(data, new StringList());
+        Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
+        StringList list_ = fighter_.nomEvolutions(data_, new StringList());
         assertEq(1, list_.size());
         assertTrue(StringUtil.contains(list_, MEIOS));
     }
 
     @Test
     public void nomEvolutions5Test() {
+        DataBase data_ = initDb();
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(NUCLEOS);
         pokemon_.setItem(BRAC_MACHO);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel((short) 31);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_);
         pokemonUser_.initIv(new Difficulty());
         pokemonUser_.getEv().put(Statistic.ATTACK, (short) 1);
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
         pokemonUser_.setHappiness((short) 40);
         pokemonUser_.setWonExpSinceLastLevel(new Rate(3));
-        Fighter fighter_ = new Fighter(pokemonUser_, data, (byte) 0);
-        StringList list_ = fighter_.nomEvolutions(data, new StringList());
+        Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
+        StringList list_ = fighter_.nomEvolutions(data_, new StringList());
         assertEq(0, list_.size());
     }
 
     @Test
     public void nomEvolutions6Test() {
+        DataBase data_ = initDb();
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(YANMA);
         pokemon_.setItem(NULL_REF);
@@ -4479,20 +4642,21 @@ public class FighterTest extends InitializationDataBase {
         StringMap<Short> moves_ = new StringMap<Short>();
         moves_.put(DETECTION, (short) 10);
         moves_.put(BROUHAHA, (short) 10);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data, moves_);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_, moves_);
         pokemonUser_.initIv(new Difficulty());
         pokemonUser_.getEv().put(Statistic.ATTACK, (short) 1);
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
         pokemonUser_.setHappiness((short) 40);
         pokemonUser_.setWonExpSinceLastLevel(new Rate(3));
-        Fighter fighter_ = new Fighter(pokemonUser_, data, (byte) 0);
-        StringList list_ = fighter_.nomEvolutions(data, new StringList());
+        Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
+        StringList list_ = fighter_.nomEvolutions(data_, new StringList());
         assertEq(0, list_.size());
     }
 
     @Test
     public void nomEvolutions7Test() {
+        DataBase data_ = initDb();
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(YANMA);
         pokemon_.setItem(NULL_REF);
@@ -4503,21 +4667,22 @@ public class FighterTest extends InitializationDataBase {
         moves_.put(DETECTION, (short) 10);
         moves_.put(BROUHAHA, (short) 10);
         moves_.put(POUV_ANTIQUE, (short) 10);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data, moves_);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_, moves_);
         pokemonUser_.initIv(new Difficulty());
         pokemonUser_.getEv().put(Statistic.ATTACK, (short) 1);
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
         pokemonUser_.setHappiness((short) 40);
         pokemonUser_.setWonExpSinceLastLevel(new Rate(3));
-        Fighter fighter_ = new Fighter(pokemonUser_, data, (byte) 0);
-        StringList list_ = fighter_.nomEvolutions(data, new StringList());
+        Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
+        StringList list_ = fighter_.nomEvolutions(data_, new StringList());
         assertEq(1, list_.size());
         assertTrue(StringUtil.contains(list_, YANMEGA));
     }
 
     @Test
     public void nomEvolutions8Test() {
+        DataBase data_ = initDb();
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(CHENITI);
         pokemon_.setItem(NULL_REF);
@@ -4528,20 +4693,21 @@ public class FighterTest extends InitializationDataBase {
         moves_.put(DETECTION, (short) 10);
         moves_.put(BROUHAHA, (short) 10);
         moves_.put(POUV_ANTIQUE, (short) 10);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data, moves_);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_, moves_);
         pokemonUser_.initIv(new Difficulty());
         pokemonUser_.getEv().put(Statistic.ATTACK, (short) 1);
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
         pokemonUser_.setHappiness((short) 40);
         pokemonUser_.setWonExpSinceLastLevel(new Rate(3));
-        Fighter fighter_ = new Fighter(pokemonUser_, data, (byte) 0);
-        StringList list_ = fighter_.nomEvolutions(data, new StringList());
+        Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
+        StringList list_ = fighter_.nomEvolutions(data_, new StringList());
         assertEq(0, list_.size());
     }
 
     @Test
     public void nomEvolutions9Test() {
+        DataBase data_ = initDb();
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(CHENITI);
         pokemon_.setItem(NULL_REF);
@@ -4552,20 +4718,21 @@ public class FighterTest extends InitializationDataBase {
         moves_.put(DETECTION, (short) 10);
         moves_.put(BROUHAHA, (short) 10);
         moves_.put(POUV_ANTIQUE, (short) 10);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data, moves_);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_, moves_);
         pokemonUser_.initIv(new Difficulty());
         pokemonUser_.getEv().put(Statistic.ATTACK, (short) 1);
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
         pokemonUser_.setHappiness((short) 40);
         pokemonUser_.setWonExpSinceLastLevel(new Rate(3));
-        Fighter fighter_ = new Fighter(pokemonUser_, data, (byte) 0);
-        StringList list_ = fighter_.nomEvolutions(data, new StringList());
+        Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
+        StringList list_ = fighter_.nomEvolutions(data_, new StringList());
         assertEq(0, list_.size());
     }
 
     @Test
     public void nomEvolutions10Test() {
+        DataBase data_ = initDb();
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(CHENITI);
         pokemon_.setItem(NULL_REF);
@@ -4576,21 +4743,22 @@ public class FighterTest extends InitializationDataBase {
         moves_.put(DETECTION, (short) 10);
         moves_.put(BROUHAHA, (short) 10);
         moves_.put(POUV_ANTIQUE, (short) 10);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data, moves_);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_, moves_);
         pokemonUser_.initIv(new Difficulty());
         pokemonUser_.getEv().put(Statistic.ATTACK, (short) 1);
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
         pokemonUser_.setHappiness((short) 40);
         pokemonUser_.setWonExpSinceLastLevel(new Rate(3));
-        Fighter fighter_ = new Fighter(pokemonUser_, data, (byte) 0);
-        StringList list_ = fighter_.nomEvolutions(data, new StringList());
+        Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
+        StringList list_ = fighter_.nomEvolutions(data_, new StringList());
         assertEq(1, list_.size());
         assertTrue(StringUtil.contains(list_, PAPILORD));
     }
 
     @Test
     public void nomEvolutions11Test() {
+        DataBase data_ = initDb();
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(CHENITI);
         pokemon_.setItem(NULL_REF);
@@ -4601,21 +4769,22 @@ public class FighterTest extends InitializationDataBase {
         moves_.put(DETECTION, (short) 10);
         moves_.put(BROUHAHA, (short) 10);
         moves_.put(POUV_ANTIQUE, (short) 10);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data, moves_);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_, moves_);
         pokemonUser_.initIv(new Difficulty());
         pokemonUser_.getEv().put(Statistic.ATTACK, (short) 1);
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
         pokemonUser_.setHappiness((short) 40);
         pokemonUser_.setWonExpSinceLastLevel(new Rate(3));
-        Fighter fighter_ = new Fighter(pokemonUser_, data, (byte) 0);
-        StringList list_ = fighter_.nomEvolutions(data, new StringList());
+        Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
+        StringList list_ = fighter_.nomEvolutions(data_, new StringList());
         assertEq(1, list_.size());
         assertTrue(StringUtil.contains(list_, CHENISELLE));
     }
 
     @Test
     public void nomEvolutions12Test() {
+        DataBase data_ = initDb();
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(TARINOR);
         pokemon_.setItem(NULL_REF);
@@ -4626,20 +4795,21 @@ public class FighterTest extends InitializationDataBase {
         moves_.put(DETECTION, (short) 10);
         moves_.put(BROUHAHA, (short) 10);
         moves_.put(POUV_ANTIQUE, (short) 10);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data, moves_);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_, moves_);
         pokemonUser_.initIv(new Difficulty());
         pokemonUser_.getEv().put(Statistic.ATTACK, (short) 1);
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
         pokemonUser_.setHappiness((short) 40);
         pokemonUser_.setWonExpSinceLastLevel(new Rate(3));
-        Fighter fighter_ = new Fighter(pokemonUser_, data, (byte) 0);
-        StringList list_ = fighter_.nomEvolutions(data, new StringList());
+        Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
+        StringList list_ = fighter_.nomEvolutions(data_, new StringList());
         assertEq(0, list_.size());
     }
 
     @Test
     public void nomEvolutions13Test() {
+        DataBase data_ = initDb();
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(TARINOR);
         pokemon_.setItem(NULL_REF);
@@ -4650,21 +4820,22 @@ public class FighterTest extends InitializationDataBase {
         moves_.put(DETECTION, (short) 10);
         moves_.put(BROUHAHA, (short) 10);
         moves_.put(POUV_ANTIQUE, (short) 10);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data, moves_);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_, moves_);
         pokemonUser_.initIv(new Difficulty());
         pokemonUser_.getEv().put(Statistic.ATTACK, (short) 1);
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
         pokemonUser_.setHappiness((short) 140);
         pokemonUser_.setWonExpSinceLastLevel(new Rate(3));
-        Fighter fighter_ = new Fighter(pokemonUser_, data, (byte) 0);
-        StringList list_ = fighter_.nomEvolutions(data, new StringList());
+        Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
+        StringList list_ = fighter_.nomEvolutions(data_, new StringList());
         assertEq(1, list_.size());
         assertTrue(StringUtil.contains(list_, TARINORME));
     }
 
     @Test
     public void nomEvolutions14Test() {
+        DataBase data_ = initDb();
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(TETARTE);
         pokemon_.setItem(NULL_REF);
@@ -4675,20 +4846,21 @@ public class FighterTest extends InitializationDataBase {
         moves_.put(DETECTION, (short) 10);
         moves_.put(BROUHAHA, (short) 10);
         moves_.put(POUV_ANTIQUE, (short) 10);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data, moves_);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_, moves_);
         pokemonUser_.initIv(new Difficulty());
         pokemonUser_.getEv().put(Statistic.ATTACK, (short) 1);
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
         pokemonUser_.setHappiness((short) 140);
         pokemonUser_.setWonExpSinceLastLevel(new Rate(3));
-        Fighter fighter_ = new Fighter(pokemonUser_, data, (byte) 0);
-        StringList list_ = fighter_.nomEvolutions(data, new StringList());
+        Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
+        StringList list_ = fighter_.nomEvolutions(data_, new StringList());
         assertEq(0, list_.size());
     }
 
     @Test
     public void nomEvolutions15Test() {
+        DataBase data_ = initDb();
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(TETARTE);
         pokemon_.setItem(ROCHE_ROYALE);
@@ -4699,21 +4871,22 @@ public class FighterTest extends InitializationDataBase {
         moves_.put(DETECTION, (short) 10);
         moves_.put(BROUHAHA, (short) 10);
         moves_.put(POUV_ANTIQUE, (short) 10);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data, moves_);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_, moves_);
         pokemonUser_.initIv(new Difficulty());
         pokemonUser_.getEv().put(Statistic.ATTACK, (short) 1);
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
         pokemonUser_.setHappiness((short) 140);
         pokemonUser_.setWonExpSinceLastLevel(new Rate(3));
-        Fighter fighter_ = new Fighter(pokemonUser_, data, (byte) 0);
-        StringList list_ = fighter_.nomEvolutions(data, new StringList());
+        Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
+        StringList list_ = fighter_.nomEvolutions(data_, new StringList());
         assertEq(1, list_.size());
         assertTrue(StringUtil.contains(list_, TARPAUD));
     }
 
     @Test
     public void nomEvolutions16Test() {
+        DataBase data_ = initDb();
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(BABIMANTA);
         pokemon_.setItem(NULL_REF);
@@ -4724,20 +4897,21 @@ public class FighterTest extends InitializationDataBase {
         moves_.put(DETECTION, (short) 10);
         moves_.put(BROUHAHA, (short) 10);
         moves_.put(POUV_ANTIQUE, (short) 10);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data, moves_);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_, moves_);
         pokemonUser_.initIv(new Difficulty());
         pokemonUser_.getEv().put(Statistic.ATTACK, (short) 1);
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
         pokemonUser_.setHappiness((short) 140);
         pokemonUser_.setWonExpSinceLastLevel(new Rate(3));
-        Fighter fighter_ = new Fighter(pokemonUser_, data, (byte) 0);
-        StringList list_ = fighter_.nomEvolutions(data, new StringList());
+        Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
+        StringList list_ = fighter_.nomEvolutions(data_, new StringList());
         assertEq(0, list_.size());
     }
 
     @Test
     public void nomEvolutions17Test() {
+        DataBase data_ = initDb();
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(BABIMANTA);
         pokemon_.setItem(CARTE_ROUGE);
@@ -4748,21 +4922,22 @@ public class FighterTest extends InitializationDataBase {
         moves_.put(DETECTION, (short) 10);
         moves_.put(BROUHAHA, (short) 10);
         moves_.put(POUV_ANTIQUE, (short) 10);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data, moves_);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_, moves_);
         pokemonUser_.initIv(new Difficulty());
         pokemonUser_.getEv().put(Statistic.ATTACK, (short) 1);
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
         pokemonUser_.setHappiness((short) 140);
         pokemonUser_.setWonExpSinceLastLevel(new Rate(3));
-        Fighter fighter_ = new Fighter(pokemonUser_, data, (byte) 0);
-        StringList list_ = fighter_.nomEvolutions(data, new StringList(REMORAID));
+        Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
+        StringList list_ = fighter_.nomEvolutions(data_, new StringList(REMORAID));
         assertEq(1, list_.size());
         assertTrue(StringUtil.contains(list_, DEMANTA));
     }
 
     @Test
     public void nomEvolutions18Test() {
+        DataBase data_ = initDb();
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(CARAPUCE);
         pokemon_.setItem(CARTE_ROUGE);
@@ -4771,18 +4946,19 @@ public class FighterTest extends InitializationDataBase {
         pokemon_.setLevel((short) 2);
         StringMap<Short> moves_ = new StringMap<Short>();
         moves_.put(CHARGE, (short) 10);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data, moves_);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_, moves_);
         pokemonUser_.initIv(new Difficulty());
         pokemonUser_.getEv().put(Statistic.ATTACK, (short) 1);
         pokemonUser_.setNickname(CARAPUCE);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
-        Fighter fighter_ = new Fighter(pokemonUser_, data, (byte) 0);
-        StringList list_ = fighter_.nomEvolutions(data, new StringList());
+        Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
+        StringList list_ = fighter_.nomEvolutions(data_, new StringList());
         assertEq(0, list_.size());
     }
 
     @Test
     public void nomEvolutions19Test() {
+        DataBase data_ = initDb();
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(CARAPUCE);
         pokemon_.setItem(CARTE_ROUGE);
@@ -4791,19 +4967,20 @@ public class FighterTest extends InitializationDataBase {
         pokemon_.setLevel((short) 2);
         StringMap<Short> moves_ = new StringMap<Short>();
         moves_.put(PISTOLET_A_O, (short) 10);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data, moves_);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_, moves_);
         pokemonUser_.initIv(new Difficulty());
         pokemonUser_.getEv().put(Statistic.ATTACK, (short) 1);
         pokemonUser_.setNickname(CARAPUCE);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
-        Fighter fighter_ = new Fighter(pokemonUser_, data, (byte) 0);
-        StringList list_ = fighter_.nomEvolutions(data, new StringList());
+        Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
+        StringList list_ = fighter_.nomEvolutions(data_, new StringList());
         assertEq(1, list_.size());
         assertTrue(StringUtil.contains(list_, CARABAFFE));
     }
 
     @Test
     public void transformer1Test() {
+        DataBase data_ = initDb();
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(BABIMANTA);
         pokemon_.setItem(NULL_REF);
@@ -4814,7 +4991,7 @@ public class FighterTest extends InitializationDataBase {
         moves_.put(MORPHING, (short) 10);
         moves_.put(BROUHAHA, (short) 10);
         moves_.put(POUV_ANTIQUE, (short) 10);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data, moves_);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_, moves_);
         pokemonUser_.initIv(new Difficulty());
         pokemonUser_.getEv().put(Statistic.ATTACK, (short) 1);
         pokemonUser_.setNickname(PIKA);
@@ -4828,8 +5005,8 @@ public class FighterTest extends InitializationDataBase {
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel((short) 22);
         PkTrainer pokemonTrainer_ = new PkTrainer(pokemon_, new StringList(GRIBOUILLE,COPIE,POUV_ANTIQUE));
-        Fighter fighter_ = new Fighter(pokemonUser_, data, (byte) 0);
-        Fighter foeFighter_ = new Fighter(pokemonTrainer_, data, (byte) 0);
+        Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
+        Fighter foeFighter_ = new Fighter(pokemonTrainer_, data_, (byte) 0);
         foeFighter_.getTypes().add(SOL);
         fighter_.transformer(foeFighter_, (short) 5);
         assertTrue(fighter_.isChanged());
@@ -4864,6 +5041,7 @@ public class FighterTest extends InitializationDataBase {
 
     @Test
     public void creerClone1Test() {
+        DataBase data_ = initDb();
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(BABIMANTA);
         pokemon_.setItem(NULL_REF);
@@ -4874,14 +5052,14 @@ public class FighterTest extends InitializationDataBase {
         moves_.put(MORPHING, (short) 10);
         moves_.put(BROUHAHA, (short) 10);
         moves_.put(POUV_ANTIQUE, (short) 10);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data, moves_);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_, moves_);
         pokemonUser_.initIv(new Difficulty());
         pokemonUser_.getEv().put(Statistic.ATTACK, (short) 1);
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
         pokemonUser_.setHappiness((short) 140);
         pokemonUser_.setWonExpSinceLastLevel(new Rate(3));
-        Fighter fighter_ = new Fighter(pokemonUser_, data, (byte) 0);
+        Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
         fighter_.creerClone(new Rate("1/4"));
         assertEq(new Rate("271/20"),fighter_.getClone());
         assertEq(new Rate("813/20"),fighter_.getRemainingHp());
@@ -4889,6 +5067,7 @@ public class FighterTest extends InitializationDataBase {
 
     @Test
     public void creerClone2Test() {
+        DataBase data_ = initDb();
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(BABIMANTA);
         pokemon_.setItem(NULL_REF);
@@ -4899,14 +5078,14 @@ public class FighterTest extends InitializationDataBase {
         moves_.put(MORPHING, (short) 10);
         moves_.put(BROUHAHA, (short) 10);
         moves_.put(POUV_ANTIQUE, (short) 10);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data, moves_);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_, moves_);
         pokemonUser_.initIv(new Difficulty());
         pokemonUser_.getEv().put(Statistic.ATTACK, (short) 1);
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
         pokemonUser_.setHappiness((short) 140);
         pokemonUser_.setWonExpSinceLastLevel(new Rate(3));
-        Fighter fighter_ = new Fighter(pokemonUser_, data, (byte) 0);
+        Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
         fighter_.setRemainingHp(new Rate("1"));
         fighter_.creerClone(new Rate("1/4"));
         assertEq(new Rate("0"),fighter_.getClone());
@@ -4915,6 +5094,7 @@ public class FighterTest extends InitializationDataBase {
 
     @Test
     public void infligerDegatsClone1Test() {
+        DataBase data_ = initDb();
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(BABIMANTA);
         pokemon_.setItem(NULL_REF);
@@ -4925,14 +5105,14 @@ public class FighterTest extends InitializationDataBase {
         moves_.put(MORPHING, (short) 10);
         moves_.put(BROUHAHA, (short) 10);
         moves_.put(POUV_ANTIQUE, (short) 10);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data, moves_);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_, moves_);
         pokemonUser_.initIv(new Difficulty());
         pokemonUser_.getEv().put(Statistic.ATTACK, (short) 1);
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
         pokemonUser_.setHappiness((short) 140);
         pokemonUser_.setWonExpSinceLastLevel(new Rate(3));
-        Fighter fighter_ = new Fighter(pokemonUser_, data, (byte) 0);
+        Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
         fighter_.creerClone(new Rate("1/4"));
         fighter_.infligerDegatsClone(new Rate("271/80"));
         assertEq(new Rate("813/80"),fighter_.getClone());
@@ -4941,6 +5121,7 @@ public class FighterTest extends InitializationDataBase {
 
     @Test
     public void infligerDegatsClone2Test() {
+        DataBase data_ = initDb();
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(BABIMANTA);
         pokemon_.setItem(NULL_REF);
@@ -4951,14 +5132,14 @@ public class FighterTest extends InitializationDataBase {
         moves_.put(MORPHING, (short) 10);
         moves_.put(BROUHAHA, (short) 10);
         moves_.put(POUV_ANTIQUE, (short) 10);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data, moves_);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_, moves_);
         pokemonUser_.initIv(new Difficulty());
         pokemonUser_.getEv().put(Statistic.ATTACK, (short) 1);
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
         pokemonUser_.setHappiness((short) 140);
         pokemonUser_.setWonExpSinceLastLevel(new Rate(3));
-        Fighter fighter_ = new Fighter(pokemonUser_, data, (byte) 0);
+        Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
         fighter_.creerClone(new Rate("1/4"));
         fighter_.infligerDegatsClone(new Rate("271/10"));
         assertEq(Rate.zero(),fighter_.getClone());
@@ -4967,6 +5148,7 @@ public class FighterTest extends InitializationDataBase {
 
     @Test
     public void effectBatonPass1Test() {
+        DataBase data_ = initDb();
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(BABIMANTA);
         pokemon_.setItem(NULL_REF);
@@ -4977,24 +5159,24 @@ public class FighterTest extends InitializationDataBase {
         moves_.put(MORPHING, (short) 10);
         moves_.put(BROUHAHA, (short) 10);
         moves_.put(POUV_ANTIQUE, (short) 10);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data, moves_);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_, moves_);
         pokemonUser_.initIv(new Difficulty());
         pokemonUser_.getEv().put(Statistic.ATTACK, (short) 1);
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
         pokemonUser_.setHappiness((short) 140);
         pokemonUser_.setWonExpSinceLastLevel(new Rate(3));
-        Fighter fighter_ = new Fighter(pokemonUser_, data, (byte) 0);
-        pokemonUser_ = new PokemonPlayer(pokemon_, data, moves_);
+        Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
+        pokemonUser_ = new PokemonPlayer(pokemon_, data_, moves_);
         pokemonUser_.initIv(new Difficulty());
         pokemonUser_.getEv().put(Statistic.ATTACK, (short) 1);
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
         pokemonUser_.setHappiness((short) 140);
         pokemonUser_.setWonExpSinceLastLevel(new Rate(3));
-        Fighter partner_ = new Fighter(pokemonUser_, data, Fighter.BACK);
-        fighter_.initCreatureRelationsAutre(new EqList<TeamPosition>(POKEMON_FOE_FIGHTER_ZERO),data);
-        partner_.initCreatureRelationsAutre(new EqList<TeamPosition>(POKEMON_FOE_FIGHTER_ZERO),data);
+        Fighter partner_ = new Fighter(pokemonUser_, data_, Fighter.BACK);
+        fighter_.initCreatureRelationsAutre(new EqList<TeamPosition>(POKEMON_FOE_FIGHTER_ZERO),data_);
+        partner_.initCreatureRelationsAutre(new EqList<TeamPosition>(POKEMON_FOE_FIGHTER_ZERO),data_);
         fighter_.getStatisBoost().put(Statistic.ATTACK, (byte) 1);
         fighter_.creerClone(new Rate("1/2"));
         fighter_.getNbUsesMoves().put(BOUL_ARMURE, 1);
@@ -5006,7 +5188,7 @@ public class FighterTest extends InitializationDataBase {
         fighter_.getNbRepeatingSuccessfulMoves().affect(new LgInt("2"));
         fighter_.activerAttaque(EMBARGO);
         fighter_.activerAttaqueAntiImmu(RACINES);
-        fighter_.activerAttaqueImmu(TROU, data);
+        fighter_.activerAttaqueImmu(TROU, data_);
         fighter_.activerAttaqueBlocantLanceur(ROULADE);
         fighter_.activerAttaqueFinTourIndividuel(RACINES);
         fighter_.getEnabledMovesForAlly().put(COUP_D_MAIN, true);
@@ -5051,6 +5233,7 @@ public class FighterTest extends InitializationDataBase {
 
     @Test
     public void newLevelWonPoints1Test() {
+        DataBase data_ = initDb();
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(PIKACHU);
         pokemon_.setItem(NULL_REF);
@@ -5061,21 +5244,22 @@ public class FighterTest extends InitializationDataBase {
         moves_.put(MORPHING, (short) 10);
         moves_.put(BROUHAHA, (short) 10);
         moves_.put(POUV_ANTIQUE, (short) 10);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data, moves_);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_, moves_);
         pokemonUser_.initIv(new Difficulty());
         pokemonUser_.getEv().put(Statistic.ATTACK, (short) 1);
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
         pokemonUser_.setHappiness((short) 140);
         pokemonUser_.setWonExpSinceLastLevel(new Rate(3));
-        Fighter fighter_ = new Fighter(pokemonUser_, data, (byte) 0);
-        LevelExpPoints result_ = fighter_.newLevelWonPoints(data);
+        Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
+        LevelExpPoints result_ = fighter_.newLevelWonPoints(data_);
         assertEq(3, result_.getLevel());
         assertEq(new Rate("7"), result_.getExpPoints());
     }
 
     @Test
     public void newLevelWonPoints2Test() {
+        DataBase data_ = initDb();
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(PIKACHU);
         pokemon_.setItem(NULL_REF);
@@ -5086,22 +5270,23 @@ public class FighterTest extends InitializationDataBase {
         moves_.put(MORPHING, (short) 10);
         moves_.put(BROUHAHA, (short) 10);
         moves_.put(POUV_ANTIQUE, (short) 10);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data, moves_);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_, moves_);
         pokemonUser_.initIv(new Difficulty());
         pokemonUser_.getEv().put(Statistic.ATTACK, (short) 1);
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
         pokemonUser_.setHappiness((short) 140);
         pokemonUser_.setWonExpSinceLastLevel(new Rate(5));
-        Fighter fighter_ = new Fighter(pokemonUser_, data, (byte) 0);
+        Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
         fighter_.setWonExp(new Rate(4));
-        LevelExpPoints result_ = fighter_.newLevelWonPoints(data);
+        LevelExpPoints result_ = fighter_.newLevelWonPoints(data_);
         assertEq(4, result_.getLevel());
         assertEq(new Rate("16"), result_.getExpPoints());
     }
 
     @Test
     public void newLevelWonPoints3Test() {
+        DataBase data_ = initDb();
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(PIKACHU);
         pokemon_.setItem(NULL_REF);
@@ -5112,21 +5297,22 @@ public class FighterTest extends InitializationDataBase {
         moves_.put(MORPHING, (short) 10);
         moves_.put(BROUHAHA, (short) 10);
         moves_.put(POUV_ANTIQUE, (short) 10);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data, moves_);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_, moves_);
         pokemonUser_.initIv(new Difficulty());
         pokemonUser_.getEv().put(Statistic.ATTACK, (short) 1);
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
         pokemonUser_.setHappiness((short) 140);
         pokemonUser_.setWonExpSinceLastLevel(new Rate("1000"));
-        Fighter fighter_ = new Fighter(pokemonUser_, data, (byte) 0);
-        LevelExpPoints result_ = fighter_.newLevelWonPoints(data);
+        Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
+        LevelExpPoints result_ = fighter_.newLevelWonPoints(data_);
         assertEq(100, result_.getLevel());
         assertEq(new Rate("199"), result_.getExpPoints());
     }
 
     @Test
     public void newLevelWonPoints4Test() {
+        DataBase data_ = initDb();
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(PIKACHU);
         pokemon_.setItem(NULL_REF);
@@ -5137,19 +5323,20 @@ public class FighterTest extends InitializationDataBase {
         moves_.put(MORPHING, (short) 10);
         moves_.put(BROUHAHA, (short) 10);
         moves_.put(POUV_ANTIQUE, (short) 10);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data, moves_);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_, moves_);
         pokemonUser_.initIv(new Difficulty());
         pokemonUser_.getEv().put(Statistic.ATTACK, (short) 1);
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
         pokemonUser_.setHappiness((short) 140);
-        Fighter fighter_ = new Fighter(pokemonUser_, data, (byte) 0);
-        LevelExpPoints result_ = fighter_.newLevelWonPoints(data);
+        Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
+        LevelExpPoints result_ = fighter_.newLevelWonPoints(data_);
         assertEq(100, result_.getLevel());
     }
 
     @Test
     public void newLevelWonPoints5Test() {
+        DataBase data_ = initDb();
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(PIKACHU);
         pokemon_.setItem(NULL_REF);
@@ -5160,20 +5347,21 @@ public class FighterTest extends InitializationDataBase {
         moves_.put(MORPHING, (short) 10);
         moves_.put(BROUHAHA, (short) 10);
         moves_.put(POUV_ANTIQUE, (short) 10);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data, moves_);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_, moves_);
         pokemonUser_.initIv(new Difficulty());
         pokemonUser_.getEv().put(Statistic.ATTACK, (short) 1);
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
         pokemonUser_.setHappiness((short) 140);
-        Fighter fighter_ = new Fighter(pokemonUser_, data, (byte) 0);
+        Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
         fighter_.getWonExp().affect(new Rate("201"));
-        LevelExpPoints result_ = fighter_.newLevelWonPoints(data);
+        LevelExpPoints result_ = fighter_.newLevelWonPoints(data_);
         assertEq(100, result_.getLevel());
     }
 
     @Test
     public void changeWonPoints1Test() {
+        DataBase data_ = initDb();
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(PIKACHU);
         pokemon_.setItem(NULL_REF);
@@ -5184,22 +5372,23 @@ public class FighterTest extends InitializationDataBase {
         moves_.put(MORPHING, (short) 10);
         moves_.put(BROUHAHA, (short) 10);
         moves_.put(POUV_ANTIQUE, (short) 10);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data, moves_);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_, moves_);
         pokemonUser_.initIv(new Difficulty());
         pokemonUser_.getEv().put(Statistic.ATTACK, (short) 1);
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
         pokemonUser_.setHappiness((short) 140);
         pokemonUser_.setWonExpSinceLastLevel(new Rate(3));
-        Fighter fighter_ = new Fighter(pokemonUser_, data, (byte) 0);
-        LevelExpPoints result_ = fighter_.newLevelWonPoints(data);
-        fighter_.changeWonPoints(result_.getLevel(), result_.getExpPoints(), data);
+        Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
+        LevelExpPoints result_ = fighter_.newLevelWonPoints(data_);
+        fighter_.changeWonPoints(result_.getLevel(), result_.getExpPoints(), data_);
         assertEq(Rate.zero(), fighter_.getWonExp());
         assertEq(new Rate("3"), fighter_.getWonExpSinceLastLevel());
     }
 
     @Test
     public void changeWonPoints2Test() {
+        DataBase data_ = initDb();
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(PIKACHU);
         pokemon_.setItem(NULL_REF);
@@ -5210,23 +5399,24 @@ public class FighterTest extends InitializationDataBase {
         moves_.put(MORPHING, (short) 10);
         moves_.put(BROUHAHA, (short) 10);
         moves_.put(POUV_ANTIQUE, (short) 10);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data, moves_);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_, moves_);
         pokemonUser_.initIv(new Difficulty());
         pokemonUser_.getEv().put(Statistic.ATTACK, (short) 1);
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
         pokemonUser_.setHappiness((short) 140);
         pokemonUser_.setWonExpSinceLastLevel(new Rate(5));
-        Fighter fighter_ = new Fighter(pokemonUser_, data, (byte) 0);
+        Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
         fighter_.setWonExp(new Rate(4));
-        LevelExpPoints result_ = fighter_.newLevelWonPoints(data);
-        fighter_.changeWonPoints(result_.getLevel(), result_.getExpPoints(), data);
+        LevelExpPoints result_ = fighter_.newLevelWonPoints(data_);
+        fighter_.changeWonPoints(result_.getLevel(), result_.getExpPoints(), data_);
         assertEq(Rate.zero(), fighter_.getWonExp());
         assertEq(new Rate("2"), fighter_.getWonExpSinceLastLevel());
     }
 
     @Test
     public void changeWonPoints3Test() {
+        DataBase data_ = initDb();
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(PIKACHU);
         pokemon_.setItem(NULL_REF);
@@ -5237,23 +5427,24 @@ public class FighterTest extends InitializationDataBase {
         moves_.put(MORPHING, (short) 10);
         moves_.put(BROUHAHA, (short) 10);
         moves_.put(POUV_ANTIQUE, (short) 10);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data, moves_);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_, moves_);
         pokemonUser_.initIv(new Difficulty());
         pokemonUser_.getEv().put(Statistic.ATTACK, (short) 1);
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
         pokemonUser_.setHappiness((short) 140);
         pokemonUser_.setWonExpSinceLastLevel(new Rate(5));
-        Fighter fighter_ = new Fighter(pokemonUser_, data, (byte) 0);
+        Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
         fighter_.setWonExp(new Rate(14));
-        LevelExpPoints result_ = fighter_.newLevelWonPoints(data);
-        fighter_.changeWonPoints(result_.getLevel(), result_.getExpPoints(), data);
+        LevelExpPoints result_ = fighter_.newLevelWonPoints(data_);
+        fighter_.changeWonPoints(result_.getLevel(), result_.getExpPoints(), data_);
         assertEq(Rate.zero(), fighter_.getWonExp());
         assertEq(new Rate("3"), fighter_.getWonExpSinceLastLevel());
     }
 
     @Test
     public void changeWonPoints4Test() {
+        DataBase data_ = initDb();
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(PIKACHU);
         pokemon_.setItem(NULL_REF);
@@ -5264,23 +5455,24 @@ public class FighterTest extends InitializationDataBase {
         moves_.put(MORPHING, (short) 10);
         moves_.put(BROUHAHA, (short) 10);
         moves_.put(POUV_ANTIQUE, (short) 10);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data, moves_);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_, moves_);
         pokemonUser_.initIv(new Difficulty());
         pokemonUser_.getEv().put(Statistic.ATTACK, (short) 1);
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
         pokemonUser_.setHappiness((short) 140);
         pokemonUser_.setWonExpSinceLastLevel(new Rate("0"));
-        Fighter fighter_ = new Fighter(pokemonUser_, data, (byte) 0);
+        Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
         fighter_.setWonExp(new Rate("1000"));
-        LevelExpPoints result_ = fighter_.newLevelWonPoints(data);
-        fighter_.changeWonPoints(result_.getLevel(), result_.getExpPoints(), data);
+        LevelExpPoints result_ = fighter_.newLevelWonPoints(data_);
+        fighter_.changeWonPoints(result_.getLevel(), result_.getExpPoints(), data_);
         assertEq(new Rate("801"), fighter_.getWonExp());
         assertEq(Rate.zero(), fighter_.getWonExpSinceLastLevel());
     }
 
     @Test
     public void newMoves1Test() {
+        DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setSkipLearningMovesWhileNotGrowingLevel(false);
         Pokemon pokemon_ = new WildPk();
@@ -5293,18 +5485,18 @@ public class FighterTest extends InitializationDataBase {
         moves_.put(ULTRASON, (short) 10);
         moves_.put(BROUHAHA, (short) 10);
         moves_.put(POURSUITE, (short) 10);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data, moves_);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_, moves_);
         pokemonUser_.initIv(new Difficulty());
         pokemonUser_.getEv().put(Statistic.ATTACK, (short) 1);
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
         pokemonUser_.setHappiness((short) 140);
         pokemonUser_.setWonExpSinceLastLevel(new Rate("3167"));
-        Fighter fighter_ = new Fighter(pokemonUser_, data, (byte) 0);
+        Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
         fighter_.setWonExp(new Rate("3"));
-        LevelExpPoints result_ = fighter_.newLevelWonPoints(data);
-        fighter_.changeWonPoints(result_.getLevel(), result_.getExpPoints(), data);
-        StringMap<Boolean> newMoves_ = fighter_.newMoves(result_.getLevel(), diff_, data);
+        LevelExpPoints result_ = fighter_.newLevelWonPoints(data_);
+        fighter_.changeWonPoints(result_.getLevel(), result_.getExpPoints(), data_);
+        StringMap<Boolean> newMoves_ = fighter_.newMoves(result_.getLevel(), diff_, data_);
         assertEq(4, newMoves_.size());
         assertTrue(!newMoves_.getVal(ULTRASON));
         assertTrue(!newMoves_.getVal(BROUHAHA));
@@ -5314,6 +5506,7 @@ public class FighterTest extends InitializationDataBase {
 
     @Test
     public void newMoves2Test() {
+        DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setSkipLearningMovesWhileNotGrowingLevel(true);
         Pokemon pokemon_ = new WildPk();
@@ -5326,18 +5519,18 @@ public class FighterTest extends InitializationDataBase {
         moves_.put(ULTRASON, (short) 10);
         moves_.put(BROUHAHA, (short) 10);
         moves_.put(POURSUITE, (short) 10);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data, moves_);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_, moves_);
         pokemonUser_.initIv(new Difficulty());
         pokemonUser_.getEv().put(Statistic.ATTACK, (short) 1);
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
         pokemonUser_.setHappiness((short) 140);
         pokemonUser_.setWonExpSinceLastLevel(new Rate("3167"));
-        Fighter fighter_ = new Fighter(pokemonUser_, data, (byte) 0);
+        Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
         fighter_.setWonExp(new Rate("3"));
-        LevelExpPoints result_ = fighter_.newLevelWonPoints(data);
-        fighter_.changeWonPoints(result_.getLevel(), result_.getExpPoints(), data);
-        StringMap<Boolean> newMoves_ = fighter_.newMoves(result_.getLevel(), diff_, data);
+        LevelExpPoints result_ = fighter_.newLevelWonPoints(data_);
+        fighter_.changeWonPoints(result_.getLevel(), result_.getExpPoints(), data_);
+        StringMap<Boolean> newMoves_ = fighter_.newMoves(result_.getLevel(), diff_, data_);
         assertEq(4, newMoves_.size());
         assertTrue(!newMoves_.getVal(ULTRASON));
         assertTrue(!newMoves_.getVal(BROUHAHA));
@@ -5347,6 +5540,7 @@ public class FighterTest extends InitializationDataBase {
 
     @Test
     public void newMoves3Test() {
+        DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setSkipLearningMovesWhileNotGrowingLevel(false);
         Pokemon pokemon_ = new WildPk();
@@ -5359,18 +5553,18 @@ public class FighterTest extends InitializationDataBase {
         moves_.put(ULTRASON, (short) 10);
         moves_.put(BROUHAHA, (short) 10);
         moves_.put(POURSUITE, (short) 10);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data, moves_);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_, moves_);
         pokemonUser_.initIv(new Difficulty());
         pokemonUser_.getEv().put(Statistic.ATTACK, (short) 1);
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
         pokemonUser_.setHappiness((short) 140);
         pokemonUser_.setWonExpSinceLastLevel(new Rate("3167"));
-        Fighter fighter_ = new Fighter(pokemonUser_, data, (byte) 0);
+        Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
         fighter_.setWonExp(new Rate("3"));
-        LevelExpPoints result_ = fighter_.newLevelWonPoints(data);
-        fighter_.changeWonPoints(result_.getLevel(), result_.getExpPoints(), data);
-        StringMap<Boolean> newMoves_ = fighter_.newMoves(result_.getLevel(), diff_, data);
+        LevelExpPoints result_ = fighter_.newLevelWonPoints(data_);
+        fighter_.changeWonPoints(result_.getLevel(), result_.getExpPoints(), data_);
+        StringMap<Boolean> newMoves_ = fighter_.newMoves(result_.getLevel(), diff_, data_);
         assertEq(4, newMoves_.size());
         assertTrue(!newMoves_.getVal(ULTRASON));
         assertTrue(!newMoves_.getVal(BROUHAHA));
@@ -5380,6 +5574,7 @@ public class FighterTest extends InitializationDataBase {
 
     @Test
     public void newMoves4Test() {
+        DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setSkipLearningMovesWhileNotGrowingLevel(true);
         Pokemon pokemon_ = new WildPk();
@@ -5392,18 +5587,18 @@ public class FighterTest extends InitializationDataBase {
         moves_.put(ULTRASON, (short) 10);
         moves_.put(BROUHAHA, (short) 10);
         moves_.put(POURSUITE, (short) 10);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data, moves_);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_, moves_);
         pokemonUser_.initIv(new Difficulty());
         pokemonUser_.getEv().put(Statistic.ATTACK, (short) 1);
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
         pokemonUser_.setHappiness((short) 140);
         pokemonUser_.setWonExpSinceLastLevel(new Rate("3167"));
-        Fighter fighter_ = new Fighter(pokemonUser_, data, (byte) 0);
+        Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
         fighter_.setWonExp(new Rate("3"));
-        LevelExpPoints result_ = fighter_.newLevelWonPoints(data);
-        fighter_.changeWonPoints(result_.getLevel(), result_.getExpPoints(), data);
-        StringMap<Boolean> newMoves_ = fighter_.newMoves(result_.getLevel(), diff_, data);
+        LevelExpPoints result_ = fighter_.newLevelWonPoints(data_);
+        fighter_.changeWonPoints(result_.getLevel(), result_.getExpPoints(), data_);
+        StringMap<Boolean> newMoves_ = fighter_.newMoves(result_.getLevel(), diff_, data_);
         assertEq(3, newMoves_.size());
         assertTrue(!newMoves_.getVal(ULTRASON));
         assertTrue(!newMoves_.getVal(BROUHAHA));
@@ -5412,6 +5607,7 @@ public class FighterTest extends InitializationDataBase {
 
     @Test
     public void initLearntMoves1Test() {
+        DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setSkipLearningMovesWhileNotGrowingLevel(false);
         Pokemon pokemon_ = new WildPk();
@@ -5424,28 +5620,29 @@ public class FighterTest extends InitializationDataBase {
         moves_.put(ULTRASON, (short) 10);
         moves_.put(BROUHAHA, (short) 10);
         moves_.put(POURSUITE, (short) 10);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data, moves_);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_, moves_);
         pokemonUser_.initIv(new Difficulty());
         pokemonUser_.getEv().put(Statistic.ATTACK, (short) 1);
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
         pokemonUser_.setHappiness((short) 140);
         pokemonUser_.setWonExpSinceLastLevel(new Rate("3167"));
-        Fighter fighter_ = new Fighter(pokemonUser_, data, (byte) 0);
+        Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
         fighter_.setWonExp(new Rate("3"));
-        LevelExpPoints result_ = fighter_.newLevelWonPoints(data);
-        fighter_.changeWonPoints(result_.getLevel(), result_.getExpPoints(), data);
-        StringMap<Boolean> newMoves_ = fighter_.newMoves(result_.getLevel(), diff_, data);
+        LevelExpPoints result_ = fighter_.newLevelWonPoints(data_);
+        fighter_.changeWonPoints(result_.getLevel(), result_.getExpPoints(), data_);
+        StringMap<Boolean> newMoves_ = fighter_.newMoves(result_.getLevel(), diff_, data_);
 //        StringList attaquesConnues_=new StringList(newMoves_.getKeys(false));
 //        StringList attaquesApprendre_=new StringList(newMoves_.getKeys(true));
         StringList attaquesConnues_=getMoves(newMoves_,false);
         StringList attaquesApprendre_=getMoves(newMoves_,true);
-        fighter_.initLearntMoves(attaquesApprendre_, attaquesConnues_, data);
+        fighter_.initLearntMoves(attaquesApprendre_, attaquesConnues_, data_);
         assertEq(0, fighter_.getMovesToBeLearnt().size());
     }
 
     @Test
     public void initLearntMoves2Test() {
+        DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setSkipLearningMovesWhileNotGrowingLevel(false);
         Pokemon pokemon_ = new WildPk();
@@ -5459,23 +5656,23 @@ public class FighterTest extends InitializationDataBase {
         moves_.put(ULTRASON, (short) 10);
         moves_.put(BROUHAHA, (short) 10);
         moves_.put(POURSUITE, (short) 10);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data, moves_);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_, moves_);
         pokemonUser_.initIv(new Difficulty());
         pokemonUser_.getEv().put(Statistic.ATTACK, (short) 1);
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
         pokemonUser_.setHappiness((short) 140);
         pokemonUser_.setWonExpSinceLastLevel(new Rate("3167"));
-        Fighter fighter_ = new Fighter(pokemonUser_, data, (byte) 0);
+        Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
         fighter_.setWonExp(new Rate("3"));
-        LevelExpPoints result_ = fighter_.newLevelWonPoints(data);
-        fighter_.changeWonPoints(result_.getLevel(), result_.getExpPoints(), data);
-        StringMap<Boolean> newMoves_ = fighter_.newMoves(result_.getLevel(), diff_, data);
+        LevelExpPoints result_ = fighter_.newLevelWonPoints(data_);
+        fighter_.changeWonPoints(result_.getLevel(), result_.getExpPoints(), data_);
+        StringMap<Boolean> newMoves_ = fighter_.newMoves(result_.getLevel(), diff_, data_);
 //        StringList attaquesConnues_=new StringList(newMoves_.getKeys(false));
 //        StringList attaquesApprendre_=new StringList(newMoves_.getKeys(true));
         StringList attaquesConnues_=getMoves(newMoves_,false);
         StringList attaquesApprendre_=getMoves(newMoves_,true);
-        fighter_.initLearntMoves(attaquesApprendre_, attaquesConnues_, data);
+        fighter_.initLearntMoves(attaquesApprendre_, attaquesConnues_, data_);
         StringList movesToBeLearnt_ = fighter_.getMovesToBeLearnt();
         assertEq(1, movesToBeLearnt_.size());
         assertTrue(StringUtil.contains(movesToBeLearnt_, POUV_ANTIQUE));
@@ -5483,6 +5680,7 @@ public class FighterTest extends InitializationDataBase {
 
     @Test
     public void learnMoves1Test() {
+        DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setSkipLearningMovesWhileNotGrowingLevel(false);
         Pokemon pokemon_ = new WildPk();
@@ -5495,25 +5693,25 @@ public class FighterTest extends InitializationDataBase {
         moves_.put(ULTRASON, (short) 10);
         moves_.put(BROUHAHA, (short) 10);
         moves_.put(POURSUITE, (short) 10);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data, moves_);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_, moves_);
         pokemonUser_.initIv(new Difficulty());
         pokemonUser_.getEv().put(Statistic.ATTACK, (short) 1);
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
         pokemonUser_.setHappiness((short) 140);
         pokemonUser_.setWonExpSinceLastLevel(new Rate("3167"));
-        Fighter fighter_ = new Fighter(pokemonUser_, data, (byte) 0);
+        Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
         fighter_.setWonExp(new Rate("3"));
-        LevelExpPoints result_ = fighter_.newLevelWonPoints(data);
-        fighter_.changeWonPoints(result_.getLevel(), result_.getExpPoints(), data);
-        StringMap<Boolean> newMoves_ = fighter_.newMoves(result_.getLevel(), diff_, data);
+        LevelExpPoints result_ = fighter_.newLevelWonPoints(data_);
+        fighter_.changeWonPoints(result_.getLevel(), result_.getExpPoints(), data_);
+        StringMap<Boolean> newMoves_ = fighter_.newMoves(result_.getLevel(), diff_, data_);
 //        StringList attaquesConnues_=new StringList(newMoves_.getKeys(false));
 //        StringList attaquesApprendre_=new StringList(newMoves_.getKeys(true));
         StringList attaquesConnues_=getMoves(newMoves_,false);
         StringList attaquesApprendre_=getMoves(newMoves_,true);
-        fighter_.initLearntMoves(attaquesApprendre_, attaquesConnues_, data);
+        fighter_.initLearntMoves(attaquesApprendre_, attaquesConnues_, data_);
         fighter_.setLevel(result_.getLevel());
-        fighter_.learnMoves(attaquesApprendre_, data);
+        fighter_.learnMoves(attaquesApprendre_, data_);
         StringMap<UsesOfMove> map_ = fighter_.getMoves();
         assertEq(4, map_.size());
         assertTrue(map_.contains(ULTRASON));
@@ -5538,6 +5736,7 @@ public class FighterTest extends InitializationDataBase {
 
     @Test
     public void learnMoves2Test() {
+        DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setSkipLearningMovesWhileNotGrowingLevel(false);
         Pokemon pokemon_ = new WildPk();
@@ -5550,26 +5749,26 @@ public class FighterTest extends InitializationDataBase {
         moves_.put(ULTRASON, (short) 10);
         moves_.put(BROUHAHA, (short) 10);
         moves_.put(POURSUITE, (short) 10);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data, moves_);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_, moves_);
         pokemonUser_.initIv(new Difficulty());
         pokemonUser_.getEv().put(Statistic.ATTACK, (short) 1);
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
         pokemonUser_.setHappiness((short) 140);
         pokemonUser_.setWonExpSinceLastLevel(new Rate("3167"));
-        Fighter fighter_ = new Fighter(pokemonUser_, data, (byte) 0);
+        Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
         fighter_.getCurrentMoves().put(POUV_ANTIQUE, new UsesOfMove((short) 5));
         fighter_.setWonExp(new Rate("3"));
-        LevelExpPoints result_ = fighter_.newLevelWonPoints(data);
-        fighter_.changeWonPoints(result_.getLevel(), result_.getExpPoints(), data);
-        StringMap<Boolean> newMoves_ = fighter_.newMoves(result_.getLevel(), diff_, data);
+        LevelExpPoints result_ = fighter_.newLevelWonPoints(data_);
+        fighter_.changeWonPoints(result_.getLevel(), result_.getExpPoints(), data_);
+        StringMap<Boolean> newMoves_ = fighter_.newMoves(result_.getLevel(), diff_, data_);
 //        StringList attaquesConnues_=new StringList(newMoves_.getKeys(false));
 //        StringList attaquesApprendre_=new StringList(newMoves_.getKeys(true));
         StringList attaquesConnues_=getMoves(newMoves_,false);
         StringList attaquesApprendre_=getMoves(newMoves_,true);
-        fighter_.initLearntMoves(attaquesApprendre_, attaquesConnues_, data);
+        fighter_.initLearntMoves(attaquesApprendre_, attaquesConnues_, data_);
         fighter_.setLevel(result_.getLevel());
-        fighter_.learnMoves(attaquesApprendre_, data);
+        fighter_.learnMoves(attaquesApprendre_, data_);
         StringMap<UsesOfMove> map_ = fighter_.getMoves();
         assertEq(4, map_.size());
         assertTrue(map_.contains(ULTRASON));
@@ -5594,6 +5793,7 @@ public class FighterTest extends InitializationDataBase {
 
     @Test
     public void learnMoves3Test() {
+        DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setSkipLearningMovesWhileNotGrowingLevel(false);
         Pokemon pokemon_ = new WildPk();
@@ -5607,25 +5807,25 @@ public class FighterTest extends InitializationDataBase {
         moves_.put(ULTRASON, (short) 10);
         moves_.put(BROUHAHA, (short) 10);
         moves_.put(POURSUITE, (short) 10);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data, moves_);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_, moves_);
         pokemonUser_.initIv(new Difficulty());
         pokemonUser_.getEv().put(Statistic.ATTACK, (short) 1);
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
         pokemonUser_.setHappiness((short) 140);
         pokemonUser_.setWonExpSinceLastLevel(new Rate("3167"));
-        Fighter fighter_ = new Fighter(pokemonUser_, data, (byte) 0);
+        Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
         fighter_.setWonExp(new Rate("3"));
-        LevelExpPoints result_ = fighter_.newLevelWonPoints(data);
-        fighter_.changeWonPoints(result_.getLevel(), result_.getExpPoints(), data);
-        StringMap<Boolean> newMoves_ = fighter_.newMoves(result_.getLevel(), diff_, data);
+        LevelExpPoints result_ = fighter_.newLevelWonPoints(data_);
+        fighter_.changeWonPoints(result_.getLevel(), result_.getExpPoints(), data_);
+        StringMap<Boolean> newMoves_ = fighter_.newMoves(result_.getLevel(), diff_, data_);
 //        StringList attaquesConnues_=new StringList(newMoves_.getKeys(false));
 //        StringList attaquesApprendre_=new StringList(newMoves_.getKeys(true));
         StringList attaquesConnues_=getMoves(newMoves_,false);
         StringList attaquesApprendre_=getMoves(newMoves_,true);
-        fighter_.initLearntMoves(attaquesApprendre_, attaquesConnues_, data);
+        fighter_.initLearntMoves(attaquesApprendre_, attaquesConnues_, data_);
         fighter_.setLevel(result_.getLevel());
-        fighter_.learnMoves(attaquesApprendre_, data);
+        fighter_.learnMoves(attaquesApprendre_, data_);
         StringMap<UsesOfMove> map_ = fighter_.getMoves();
         assertEq(4, map_.size());
         assertTrue(map_.contains(ULTRASON));
@@ -5650,6 +5850,7 @@ public class FighterTest extends InitializationDataBase {
 
     @Test
     public void proponeMovesAbilitiesForEvolutions1Test() {
+        DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setSkipLearningMovesWhileNotGrowingLevel(false);
         Pokemon pokemon_ = new WildPk();
@@ -5662,28 +5863,28 @@ public class FighterTest extends InitializationDataBase {
         moves_.put(ULTRASON, (short) 10);
         moves_.put(BROUHAHA, (short) 10);
         moves_.put(POURSUITE, (short) 10);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data, moves_);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_, moves_);
         pokemonUser_.initIv(new Difficulty());
         pokemonUser_.getEv().put(Statistic.ATTACK, (short) 1);
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
         pokemonUser_.setHappiness((short) 140);
         pokemonUser_.setWonExpSinceLastLevel(new Rate("3167"));
-        Fighter fighter_ = new Fighter(pokemonUser_, data, (byte) 0);
+        Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
         fighter_.setWonExp(new Rate("3"));
-        LevelExpPoints result_ = fighter_.newLevelWonPoints(data);
-        fighter_.changeWonPoints(result_.getLevel(), result_.getExpPoints(), data);
-        StringMap<Boolean> newMoves_ = fighter_.newMoves(result_.getLevel(), diff_, data);
+        LevelExpPoints result_ = fighter_.newLevelWonPoints(data_);
+        fighter_.changeWonPoints(result_.getLevel(), result_.getExpPoints(), data_);
+        StringMap<Boolean> newMoves_ = fighter_.newMoves(result_.getLevel(), diff_, data_);
 //        StringList attaquesConnues_=new StringList(newMoves_.getKeys(false));
 //        StringList attaquesApprendre_=new StringList(newMoves_.getKeys(true));
         StringList attaquesConnues_=getMoves(newMoves_,false);
         StringList attaquesApprendre_=getMoves(newMoves_,true);
-        fighter_.initLearntMoves(attaquesApprendre_, attaquesConnues_, data);
+        fighter_.initLearntMoves(attaquesApprendre_, attaquesConnues_, data_);
         fighter_.setLevel(result_.getLevel());
-        fighter_.learnMoves(attaquesApprendre_, data);
+        fighter_.learnMoves(attaquesApprendre_, data_);
         attaquesConnues_.clear();
         attaquesConnues_.addAllElts(fighter_.getMoves().getKeys());
-        fighter_.proponeMovesAbilitiesForEvolutions(attaquesApprendre_, attaquesConnues_, data, new StringList());
+        fighter_.proponeMovesAbilitiesForEvolutions(attaquesApprendre_, attaquesConnues_, data_, new StringList());
         StringMap<MovesAbilities> movesAbilities_ = fighter_.getMovesAbilitiesEvos();
         assertEq(1, movesAbilities_.size());
         assertTrue(movesAbilities_.contains(YANMEGA));
@@ -5705,6 +5906,7 @@ public class FighterTest extends InitializationDataBase {
 
     @Test
     public void proponeMovesAbilitiesForEvolutions2Test() {
+        DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setSkipLearningMovesWhileNotGrowingLevel(false);
         Pokemon pokemon_ = new WildPk();
@@ -5718,28 +5920,28 @@ public class FighterTest extends InitializationDataBase {
         moves_.put(ULTRASON, (short) 10);
         moves_.put(BROUHAHA, (short) 10);
         moves_.put(POURSUITE, (short) 10);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data, moves_);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_, moves_);
         pokemonUser_.initIv(new Difficulty());
         pokemonUser_.getEv().put(Statistic.ATTACK, (short) 1);
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
         pokemonUser_.setHappiness((short) 140);
         pokemonUser_.setWonExpSinceLastLevel(new Rate("4215"));
-        Fighter fighter_ = new Fighter(pokemonUser_, data, (byte) 0);
+        Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
         fighter_.setWonExp(new Rate("5"));
-        LevelExpPoints result_ = fighter_.newLevelWonPoints(data);
-        fighter_.changeWonPoints(result_.getLevel(), result_.getExpPoints(), data);
-        StringMap<Boolean> newMoves_ = fighter_.newMoves(result_.getLevel(), diff_, data);
+        LevelExpPoints result_ = fighter_.newLevelWonPoints(data_);
+        fighter_.changeWonPoints(result_.getLevel(), result_.getExpPoints(), data_);
+        StringMap<Boolean> newMoves_ = fighter_.newMoves(result_.getLevel(), diff_, data_);
 //        StringList attaquesConnues_=new StringList(newMoves_.getKeys(false));
 //        StringList attaquesApprendre_=new StringList(newMoves_.getKeys(true));
         StringList attaquesConnues_=getMoves(newMoves_,false);
         StringList attaquesApprendre_=getMoves(newMoves_,true);
-        fighter_.initLearntMoves(attaquesApprendre_, attaquesConnues_, data);
+        fighter_.initLearntMoves(attaquesApprendre_, attaquesConnues_, data_);
         fighter_.setLevel(result_.getLevel());
-        fighter_.learnMoves(attaquesApprendre_, data);
+        fighter_.learnMoves(attaquesApprendre_, data_);
         attaquesConnues_.clear();
         attaquesConnues_.addAllElts(fighter_.getMoves().getKeys());
-        fighter_.proponeMovesAbilitiesForEvolutions(attaquesApprendre_, attaquesConnues_, data, new StringList());
+        fighter_.proponeMovesAbilitiesForEvolutions(attaquesApprendre_, attaquesConnues_, data_, new StringList());
         StringMap<MovesAbilities> movesAbilities_ = fighter_.getMovesAbilitiesEvos();
         assertEq(1, movesAbilities_.size());
         assertTrue(movesAbilities_.contains(YANMEGA));
@@ -5763,6 +5965,7 @@ public class FighterTest extends InitializationDataBase {
 
     @Test
     public void proponeMovesAbilitiesForEvolutions3Test() {
+        DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setSkipLearningMovesWhileNotGrowingLevel(false);
         Pokemon pokemon_ = new WildPk();
@@ -5776,33 +5979,33 @@ public class FighterTest extends InitializationDataBase {
         moves_.put(ULTRASON, (short) 10);
         moves_.put(BROUHAHA, (short) 10);
         moves_.put(POURSUITE, (short) 10);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data, moves_);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_, moves_);
         pokemonUser_.initIv(new Difficulty());
         pokemonUser_.getEv().put(Statistic.ATTACK, (short) 1);
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
         pokemonUser_.setHappiness((short) 140);
         pokemonUser_.setWonExpSinceLastLevel(new Rate("3167"));
-        Fighter fighter_ = new Fighter(pokemonUser_, data, (byte) 0);
+        Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
         fighter_.setWonExp(new Rate("3"));
-        LevelExpPoints result_ = fighter_.newLevelWonPoints(data);
-        fighter_.changeWonPoints(result_.getLevel(), result_.getExpPoints(), data);
-        StringMap<Boolean> newMoves_ = fighter_.newMoves(result_.getLevel(), diff_, data);
+        LevelExpPoints result_ = fighter_.newLevelWonPoints(data_);
+        fighter_.changeWonPoints(result_.getLevel(), result_.getExpPoints(), data_);
+        StringMap<Boolean> newMoves_ = fighter_.newMoves(result_.getLevel(), diff_, data_);
 //        StringList attaquesConnues_=new StringList(newMoves_.getKeys(false));
 //        StringList attaquesApprendre_=new StringList(newMoves_.getKeys(true));
         StringList attaquesConnues_=getMoves(newMoves_,false);
         StringList attaquesApprendre_=getMoves(newMoves_,true);
-        fighter_.initLearntMoves(attaquesApprendre_, attaquesConnues_, data);
+        fighter_.initLearntMoves(attaquesApprendre_, attaquesConnues_, data_);
         fighter_.setLevel(result_.getLevel());
-        fighter_.learnMoves(attaquesApprendre_, data);
+        fighter_.learnMoves(attaquesApprendre_, data_);
         attaquesConnues_.clear();
         attaquesConnues_.addAllElts(fighter_.getMoves().getKeys());
-        fighter_.proponeMovesAbilitiesForEvolutions(attaquesApprendre_, attaquesConnues_, data, new StringList());
+        fighter_.proponeMovesAbilitiesForEvolutions(attaquesApprendre_, attaquesConnues_, data_, new StringList());
         StringMap<MovesAbilities> movesAbilities_ = fighter_.getMovesAbilitiesEvos();
         assertEq(0, movesAbilities_.size());
     }
 
-    private StringList getMoves(StringMap<Boolean> _map, boolean _learn) {
+    private static StringList getMoves(StringMap<Boolean> _map, boolean _learn) {
         StringList moves_;
         moves_ = new StringList();
         if (_learn) {
@@ -5823,6 +6026,7 @@ public class FighterTest extends InitializationDataBase {
 
     @Test
     public void winHappinessByGrowingLevel1Test() {
+        DataBase data_ = initDb();
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(YANMA);
         pokemon_.setItem(NULL_REF);
@@ -5833,20 +6037,21 @@ public class FighterTest extends InitializationDataBase {
         moves_.put(ULTRASON, (short) 10);
         moves_.put(BROUHAHA, (short) 10);
         moves_.put(POURSUITE, (short) 10);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data, moves_);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_, moves_);
         pokemonUser_.initIv(new Difficulty());
         pokemonUser_.getEv().put(Statistic.ATTACK, (short) 1);
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
         pokemonUser_.setHappiness((short) 140);
         pokemonUser_.setWonExpSinceLastLevel(new Rate("3167"));
-        Fighter fighter_ = new Fighter(pokemonUser_, data, (byte) 0);
-        fighter_.winHappinessByGrowingLevel((short) 5, data);
+        Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
+        fighter_.winHappinessByGrowingLevel((short) 5, data_);
         assertEq(150, fighter_.getHappiness());
     }
 
     @Test
     public void winHappinessByGrowingLevel2Test() {
+        DataBase data_ = initDb();
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(YANMA);
         pokemon_.setItem(HUILE);
@@ -5857,20 +6062,21 @@ public class FighterTest extends InitializationDataBase {
         moves_.put(ULTRASON, (short) 10);
         moves_.put(BROUHAHA, (short) 10);
         moves_.put(POURSUITE, (short) 10);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data, moves_);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_, moves_);
         pokemonUser_.initIv(new Difficulty());
         pokemonUser_.getEv().put(Statistic.ATTACK, (short) 1);
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
         pokemonUser_.setHappiness((short) 140);
         pokemonUser_.setWonExpSinceLastLevel(new Rate("3167"));
-        Fighter fighter_ = new Fighter(pokemonUser_, data, (byte) 0);
-        fighter_.winHappinessByGrowingLevel((short) 5, data);
+        Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
+        fighter_.winHappinessByGrowingLevel((short) 5, data_);
         assertEq(150, fighter_.getHappiness());
     }
 
     @Test
     public void winHappinessByGrowingLevel3Test() {
+        DataBase data_ = initDb();
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(YANMA);
         pokemon_.setItem(BRAC_MACHO);
@@ -5881,20 +6087,21 @@ public class FighterTest extends InitializationDataBase {
         moves_.put(ULTRASON, (short) 10);
         moves_.put(BROUHAHA, (short) 10);
         moves_.put(POURSUITE, (short) 10);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data, moves_);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_, moves_);
         pokemonUser_.initIv(new Difficulty());
         pokemonUser_.getEv().put(Statistic.ATTACK, (short) 1);
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
         pokemonUser_.setHappiness((short) 140);
         pokemonUser_.setWonExpSinceLastLevel(new Rate("3167"));
-        Fighter fighter_ = new Fighter(pokemonUser_, data, (byte) 0);
-        fighter_.winHappinessByGrowingLevel((short) 5, data);
+        Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
+        fighter_.winHappinessByGrowingLevel((short) 5, data_);
         assertEq(150, fighter_.getHappiness());
     }
 
     @Test
     public void winHappinessByGrowingLevel4Test() {
+        DataBase data_ = initDb();
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(YANMA);
         pokemon_.setItem(GRELOT_ZEN);
@@ -5905,20 +6112,21 @@ public class FighterTest extends InitializationDataBase {
         moves_.put(ULTRASON, (short) 10);
         moves_.put(BROUHAHA, (short) 10);
         moves_.put(POURSUITE, (short) 10);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data, moves_);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_, moves_);
         pokemonUser_.initIv(new Difficulty());
         pokemonUser_.getEv().put(Statistic.ATTACK, (short) 1);
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
         pokemonUser_.setHappiness((short) 140);
         pokemonUser_.setWonExpSinceLastLevel(new Rate("3167"));
-        Fighter fighter_ = new Fighter(pokemonUser_, data, (byte) 0);
-        fighter_.winHappinessByGrowingLevel((short) 5, data);
+        Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
+        fighter_.winHappinessByGrowingLevel((short) 5, data_);
         assertEq(160, fighter_.getHappiness());
     }
 
     @Test
     public void winHappinessByGrowingLevel5Test() {
+        DataBase data_ = initDb();
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(YANMA);
         pokemon_.setItem(GRELOT_ZEN);
@@ -5929,20 +6137,21 @@ public class FighterTest extends InitializationDataBase {
         moves_.put(ULTRASON, (short) 10);
         moves_.put(BROUHAHA, (short) 10);
         moves_.put(POURSUITE, (short) 10);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data, moves_);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_, moves_);
         pokemonUser_.initIv(new Difficulty());
         pokemonUser_.getEv().put(Statistic.ATTACK, (short) 1);
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
         pokemonUser_.setHappiness((short) 155);
         pokemonUser_.setWonExpSinceLastLevel(new Rate("3167"));
-        Fighter fighter_ = new Fighter(pokemonUser_, data, (byte) 0);
-        fighter_.winHappinessByGrowingLevel((short) 5, data);
+        Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
+        fighter_.winHappinessByGrowingLevel((short) 5, data_);
         assertEq(170, fighter_.getHappiness());
     }
 
     @Test
     public void exitFrontBattle1Test() {
+        DataBase data_ = initDb();
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(YANMA);
         pokemon_.setItem(GRELOT_ZEN);
@@ -5953,20 +6162,21 @@ public class FighterTest extends InitializationDataBase {
         moves_.put(ULTRASON, (short) 10);
         moves_.put(BROUHAHA, (short) 10);
         moves_.put(POURSUITE, (short) 10);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data, moves_);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_, moves_);
         pokemonUser_.initIv(new Difficulty());
         pokemonUser_.getEv().put(Statistic.ATTACK, (short) 1);
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
         pokemonUser_.setHappiness((short) 155);
         pokemonUser_.setWonExpSinceLastLevel(new Rate("3167"));
-        Fighter fighter_ = new Fighter(pokemonUser_, data, (byte) 0);
+        Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
         fighter_.exitFrontBattle();
         assertEq(Fighter.BACK,fighter_.getGroundPlace());
     }
 
     @Test
     public void exitFrontBattleForBeingSubstitued1Test() {
+        DataBase data_ = initDb();
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(YANMA);
         pokemon_.setItem(GRELOT_ZEN);
@@ -5977,20 +6187,21 @@ public class FighterTest extends InitializationDataBase {
         moves_.put(ULTRASON, (short) 10);
         moves_.put(BROUHAHA, (short) 10);
         moves_.put(POURSUITE, (short) 10);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data, moves_);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_, moves_);
         pokemonUser_.initIv(new Difficulty());
         pokemonUser_.getEv().put(Statistic.ATTACK, (short) 1);
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
         pokemonUser_.setHappiness((short) 155);
         pokemonUser_.setWonExpSinceLastLevel(new Rate("3167"));
-        Fighter fighter_ = new Fighter(pokemonUser_, data, (byte) 0);
+        Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
         fighter_.exitFrontBattleForBeingSubstitued();
         assertEq(Fighter.BACK,fighter_.getGroundPlaceSubst());
     }
 
     @Test
     public void incrementRoundsStatus1Test() {
+        DataBase data_ = initDb();
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(YANMA);
         pokemon_.setItem(GRELOT_ZEN);
@@ -6001,7 +6212,7 @@ public class FighterTest extends InitializationDataBase {
         moves_.put(ULTRASON, (short) 10);
         moves_.put(BROUHAHA, (short) 10);
         moves_.put(POURSUITE, (short) 10);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data, moves_);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_, moves_);
         pokemonUser_.getStatus().add(GEL);
         pokemonUser_.initIv(new Difficulty());
         pokemonUser_.getEv().put(Statistic.ATTACK, (short) 1);
@@ -6009,13 +6220,14 @@ public class FighterTest extends InitializationDataBase {
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
         pokemonUser_.setHappiness((short) 155);
         pokemonUser_.setWonExpSinceLastLevel(new Rate("3167"));
-        Fighter fighter_ = new Fighter(pokemonUser_, data, (byte) 0);
+        Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
         fighter_.incrementRoundsStatus(GEL);
         assertEq(2, fighter_.getStatusNbRound(GEL));
     }
 
     @Test
     public void fullHeal1Test() {
+        DataBase data_ = initDb();
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(BABIMANTA);
         pokemon_.setItem(NULL_REF);
@@ -6026,15 +6238,15 @@ public class FighterTest extends InitializationDataBase {
         moves_.put(MORPHING, (short) 10);
         moves_.put(BROUHAHA, (short) 10);
         moves_.put(POUV_ANTIQUE, (short) 10);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data, moves_);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_, moves_);
         pokemonUser_.initIv(new Difficulty());
         pokemonUser_.getEv().put(Statistic.ATTACK, (short) 1);
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
         pokemonUser_.setHappiness((short) 140);
         pokemonUser_.setWonExpSinceLastLevel(new Rate(3));
-        Fighter fighter_ = new Fighter(pokemonUser_, data, (byte) 0);
-        fighter_.ajouterRelationAutre(POKEMON_FOE_FIGHTER_ZERO, data);
+        Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
+        fighter_.ajouterRelationAutre(POKEMON_FOE_FIGHTER_ZERO, data_);
         fighter_.setRemainingHp(new Rate("813/20"));
         fighter_.getMoves().getVal(MORPHING).setCurrent((short) 0);
         fighter_.getMoves().getVal(BROUHAHA).setCurrent((short) 5);
@@ -6042,7 +6254,7 @@ public class FighterTest extends InitializationDataBase {
         fighter_.getCurrentMoves().getVal(MORPHING).setCurrent((short) 0);
         fighter_.getCurrentMoves().getVal(BROUHAHA).setCurrent((short) 5);
         fighter_.getCurrentMoves().getVal(POUV_ANTIQUE).setCurrent((short) 0);
-        fighter_.fullHeal(data);
+        fighter_.fullHeal(data_);
         assertEq(new Rate("271/5"),fighter_.getRemainingHp());
         StringMap<UsesOfMove> map_ = fighter_.getMoves();
         assertEq(3, map_.size());
@@ -6064,6 +6276,7 @@ public class FighterTest extends InitializationDataBase {
 
     @Test
     public void calculateNewLevel1Test() {
+        DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setSkipLearningMovesWhileNotGrowingLevel(false);
         Pokemon pokemon_ = new WildPk();
@@ -6077,16 +6290,16 @@ public class FighterTest extends InitializationDataBase {
         moves_.put(ULTRASON, (short) 10);
         moves_.put(BROUHAHA, (short) 10);
         moves_.put(POURSUITE, (short) 10);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data, moves_);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_, moves_);
         pokemonUser_.initIv(new Difficulty());
         pokemonUser_.getEv().put(Statistic.ATTACK, (short) 1);
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
         pokemonUser_.setHappiness((short) 70);
         pokemonUser_.setWonExpSinceLastLevel(new Rate("1"));
-        Fighter fighter_ = new Fighter(pokemonUser_, data, (byte) 0);
+        Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
         fighter_.setWonExp(new Rate("3"));
-        fighter_.calculateNewLevel(diff_, data, new StringList());
+        fighter_.calculateNewLevel(diff_, data_, new StringList());
         StringMap<MovesAbilities> movesAbilities_ = fighter_.getMovesAbilitiesEvos();
         assertEq(0, movesAbilities_.size());
         assertEq(0, fighter_.getMovesToBeLearnt().size());
@@ -6098,6 +6311,7 @@ public class FighterTest extends InitializationDataBase {
 
     @Test
     public void calculateNewLevel2Test() {
+        DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setSkipLearningMovesWhileNotGrowingLevel(false);
         Pokemon pokemon_ = new WildPk();
@@ -6111,16 +6325,16 @@ public class FighterTest extends InitializationDataBase {
         moves_.put(ULTRASON, (short) 10);
         moves_.put(BROUHAHA, (short) 10);
         moves_.put(POURSUITE, (short) 10);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data, moves_);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_, moves_);
         pokemonUser_.initIv(new Difficulty());
         pokemonUser_.getEv().put(Statistic.ATTACK, (short) 1);
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
         pokemonUser_.setHappiness((short) 140);
         pokemonUser_.setWonExpSinceLastLevel(new Rate("1"));
-        Fighter fighter_ = new Fighter(pokemonUser_, data, (byte) 0);
+        Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
         fighter_.setWonExp(new Rate("3"));
-        fighter_.calculateNewLevel(diff_, data, new StringList());
+        fighter_.calculateNewLevel(diff_, data_, new StringList());
         StringMap<MovesAbilities> movesAbilities_ = fighter_.getMovesAbilitiesEvos();
         assertEq(1, movesAbilities_.size());
         assertEq(0, fighter_.getMovesToBeLearnt().size());
@@ -6147,6 +6361,7 @@ public class FighterTest extends InitializationDataBase {
 
     @Test
     public void calculateNewLevel3Test() {
+        DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setSkipLearningMovesWhileNotGrowingLevel(false);
         Pokemon pokemon_ = new WildPk();
@@ -6160,16 +6375,16 @@ public class FighterTest extends InitializationDataBase {
         moves_.put(ULTRASON, (short) 10);
         moves_.put(BROUHAHA, (short) 10);
         moves_.put(POURSUITE, (short) 10);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data, moves_);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_, moves_);
         pokemonUser_.initIv(new Difficulty());
         pokemonUser_.getEv().put(Statistic.ATTACK, (short) 1);
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
         pokemonUser_.setHappiness((short) 140);
         pokemonUser_.setWonExpSinceLastLevel(new Rate("3168"));
-        Fighter fighter_ = new Fighter(pokemonUser_, data, (byte) 0);
+        Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
         fighter_.setWonExp(new Rate("3"));
-        fighter_.calculateNewLevel(diff_, data, new StringList());
+        fighter_.calculateNewLevel(diff_, data_, new StringList());
         StringMap<MovesAbilities> movesAbilities_ = fighter_.getMovesAbilitiesEvos();
         assertEq(1, movesAbilities_.size());
         assertEq(0, fighter_.getMovesToBeLearnt().size());
@@ -6196,6 +6411,7 @@ public class FighterTest extends InitializationDataBase {
 
     @Test
     public void calculateNewLevel4Test() {
+        DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setSkipLearningMovesWhileNotGrowingLevel(false);
         Pokemon pokemon_ = new WildPk();
@@ -6209,16 +6425,16 @@ public class FighterTest extends InitializationDataBase {
         moves_.put(ULTRASON, (short) 10);
         moves_.put(BROUHAHA, (short) 10);
         moves_.put(POURSUITE, (short) 10);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data, moves_);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_, moves_);
         pokemonUser_.initIv(new Difficulty());
         pokemonUser_.getEv().put(Statistic.ATTACK, (short) 1);
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
         pokemonUser_.setHappiness((short) 70);
         pokemonUser_.setWonExpSinceLastLevel(new Rate("2790"));
-        Fighter fighter_ = new Fighter(pokemonUser_, data, (byte) 0);
+        Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
         fighter_.setWonExp(new Rate("3"));
-        fighter_.calculateNewLevel(diff_, data, new StringList());
+        fighter_.calculateNewLevel(diff_, data_, new StringList());
         StringMap<MovesAbilities> movesAbilities_ = fighter_.getMovesAbilitiesEvos();
         assertEq(0, movesAbilities_.size());
         assertEq(1, fighter_.getMovesToBeLearnt().size());
@@ -6231,6 +6447,7 @@ public class FighterTest extends InitializationDataBase {
 
     @Test
     public void calculateNewLevel5Test() {
+        DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setSkipLearningMovesWhileNotGrowingLevel(false);
         Pokemon pokemon_ = new WildPk();
@@ -6244,16 +6461,16 @@ public class FighterTest extends InitializationDataBase {
         moves_.put(ULTRASON, (short) 10);
         moves_.put(BROUHAHA, (short) 10);
         moves_.put(POURSUITE, (short) 10);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data, moves_);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_, moves_);
         pokemonUser_.initIv(new Difficulty());
         pokemonUser_.getEv().put(Statistic.ATTACK, (short) 1);
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
         pokemonUser_.setHappiness((short) 70);
         pokemonUser_.setWonExpSinceLastLevel(new Rate("0"));
-        Fighter fighter_ = new Fighter(pokemonUser_, data, (byte) 0);
+        Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
         fighter_.setWonExp(new Rate("3"));
-        fighter_.calculateNewLevel(diff_, data, new StringList());
+        fighter_.calculateNewLevel(diff_, data_, new StringList());
         StringMap<MovesAbilities> movesAbilities_ = fighter_.getMovesAbilitiesEvos();
         assertEq(2, movesAbilities_.size());
         assertEq(1, fighter_.getMovesToBeLearnt().size());
@@ -6293,6 +6510,7 @@ public class FighterTest extends InitializationDataBase {
 
     @Test
     public void calculateNewLevel6Test() {
+        DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setSkipLearningMovesWhileNotGrowingLevel(false);
         Pokemon pokemon_ = new WildPk();
@@ -6301,14 +6519,14 @@ public class FighterTest extends InitializationDataBase {
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel((short) 100);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_);
         pokemonUser_.initIv(new Difficulty());
         pokemonUser_.getEv().put(Statistic.ATTACK, (short) 1);
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
         pokemonUser_.setHappiness((short) 70);
-        Fighter fighter_ = new Fighter(pokemonUser_, data, (byte) 0);
-        fighter_.calculateNewLevel(diff_, data, new StringList());
+        Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
+        fighter_.calculateNewLevel(diff_, data_, new StringList());
         assertEq(100,fighter_.getLevel());
         assertEq(new Rate("0"), fighter_.getWonExpSinceLastLevel());
         assertEq(new Rate("0"), fighter_.getWonExp());
@@ -6357,6 +6575,7 @@ public class FighterTest extends InitializationDataBase {
 
     @Test
     public void calculateNewLevel7Test() {
+        DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setSkipLearningMovesWhileNotGrowingLevel(false);
         Pokemon pokemon_ = new WildPk();
@@ -6365,14 +6584,14 @@ public class FighterTest extends InitializationDataBase {
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel((short) 100);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_);
         pokemonUser_.initIv(new Difficulty());
         pokemonUser_.getEv().put(Statistic.ATTACK, (short) 1);
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
         pokemonUser_.setHappiness((short) 70);
-        Fighter fighter_ = new Fighter(pokemonUser_, data, (byte) 0);
-        fighter_.calculateNewLevel(diff_, data, new StringList());
+        Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
+        fighter_.calculateNewLevel(diff_, data_, new StringList());
         assertEq(100,fighter_.getLevel());
         assertEq(new Rate("0"), fighter_.getWonExpSinceLastLevel());
         assertEq(new Rate("0"), fighter_.getWonExp());
@@ -6383,6 +6602,7 @@ public class FighterTest extends InitializationDataBase {
 
     @Test
     public void calculateNewLevel8Test() {
+        DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setSkipLearningMovesWhileNotGrowingLevel(false);
         Pokemon pokemon_ = new WildPk();
@@ -6391,16 +6611,16 @@ public class FighterTest extends InitializationDataBase {
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel((short) 99);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_);
         pokemonUser_.initIv(new Difficulty());
         pokemonUser_.getEv().put(Statistic.ATTACK, (short) 1);
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
         pokemonUser_.setHappiness((short) 70);
         pokemonUser_.setWonExpSinceLastLevel(new Rate("1"));
-        Fighter fighter_ = new Fighter(pokemonUser_, data, (byte) 0);
+        Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
         fighter_.setWonExp(new Rate("1"));
-        fighter_.calculateNewLevel(diff_, data, new StringList());
+        fighter_.calculateNewLevel(diff_, data_, new StringList());
         assertEq(100,fighter_.getLevel());
         assertEq(new Rate("0"), fighter_.getWonExpSinceLastLevel());
         assertEq(new Rate("0"), fighter_.getWonExp());
@@ -6411,6 +6631,7 @@ public class FighterTest extends InitializationDataBase {
 
     @Test
     public void calculateNewLevel9Test() {
+        DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setSkipLearningMovesWhileNotGrowingLevel(false);
         Pokemon pokemon_ = new WildPk();
@@ -6424,14 +6645,14 @@ public class FighterTest extends InitializationDataBase {
         moves_.put(ULTRASON, (short) 10);
         moves_.put(BROUHAHA, (short) 10);
         moves_.put(POURSUITE, (short) 10);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data, moves_);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_, moves_);
         pokemonUser_.initIv(new Difficulty());
         pokemonUser_.getEv().put(Statistic.ATTACK, (short) 1);
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
         pokemonUser_.setHappiness((short) 70);
-        Fighter fighter_ = new Fighter(pokemonUser_, data, (byte) 0);
-        fighter_.calculateNewLevel(diff_, data, new StringList());
+        Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
+        fighter_.calculateNewLevel(diff_, data_, new StringList());
         StringMap<MovesAbilities> movesAbilities_ = fighter_.getMovesAbilitiesEvos();
         assertEq(0, movesAbilities_.size());
         assertEq(0, fighter_.getMovesToBeLearnt().size());
@@ -6443,6 +6664,7 @@ public class FighterTest extends InitializationDataBase {
 
     @Test
     public void calculateNewLevel10Test() {
+        DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setSkipLearningMovesWhileNotGrowingLevel(false);
         Pokemon pokemon_ = new WildPk();
@@ -6456,15 +6678,15 @@ public class FighterTest extends InitializationDataBase {
         moves_.put(ULTRASON, (short) 10);
         moves_.put(BROUHAHA, (short) 10);
         moves_.put(POURSUITE, (short) 10);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data, moves_);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_, moves_);
         pokemonUser_.initIv(new Difficulty());
         pokemonUser_.getEv().put(Statistic.ATTACK, (short) 1);
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
         pokemonUser_.setHappiness((short) 70);
         pokemonUser_.setWonExpSinceLastLevel(new Rate("1"));
-        Fighter fighter_ = new Fighter(pokemonUser_, data, (byte) 0);
-        fighter_.calculateNewLevel(diff_, data, new StringList());
+        Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
+        fighter_.calculateNewLevel(diff_, data_, new StringList());
         StringMap<MovesAbilities> movesAbilities_ = fighter_.getMovesAbilitiesEvos();
         assertEq(0, movesAbilities_.size());
         assertEq(0, fighter_.getMovesToBeLearnt().size());
@@ -6476,6 +6698,7 @@ public class FighterTest extends InitializationDataBase {
 
     @Test
     public void calculateNewLevel11Test() {
+        DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setSkipLearningMovesWhileNotGrowingLevel(false);
         Pokemon pokemon_ = new WildPk();
@@ -6489,15 +6712,15 @@ public class FighterTest extends InitializationDataBase {
         moves_.put(ULTRASON, (short) 10);
         moves_.put(BROUHAHA, (short) 10);
         moves_.put(POURSUITE, (short) 10);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data, moves_);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_, moves_);
         pokemonUser_.initIv(new Difficulty());
         pokemonUser_.getEv().put(Statistic.ATTACK, (short) 1);
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
         pokemonUser_.setHappiness((short) 70);
-        Fighter fighter_ = new Fighter(pokemonUser_, data, (byte) 0);
+        Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
         fighter_.setWonExp(new Rate("1"));
-        fighter_.calculateNewLevel(diff_, data, new StringList());
+        fighter_.calculateNewLevel(diff_, data_, new StringList());
         StringMap<MovesAbilities> movesAbilities_ = fighter_.getMovesAbilitiesEvos();
         assertEq(0, movesAbilities_.size());
         assertEq(0, fighter_.getMovesToBeLearnt().size());
@@ -6509,6 +6732,7 @@ public class FighterTest extends InitializationDataBase {
 
     @Test
     public void variationLeftHp1Test() {
+        DataBase data_ = initDb();
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(BABIMANTA);
         pokemon_.setItem(NULL_REF);
@@ -6519,20 +6743,21 @@ public class FighterTest extends InitializationDataBase {
         moves_.put(MORPHING, (short) 10);
         moves_.put(BROUHAHA, (short) 10);
         moves_.put(POUV_ANTIQUE, (short) 10);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data, moves_);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_, moves_);
         pokemonUser_.initIv(new Difficulty());
         pokemonUser_.getEv().put(Statistic.ATTACK, (short) 1);
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
         pokemonUser_.setHappiness((short) 140);
         pokemonUser_.setWonExpSinceLastLevel(new Rate(3));
-        Fighter fighter_ = new Fighter(pokemonUser_, data, (byte) 0);
+        Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
         fighter_.variationLeftHp(new Rate("1"));
         assertEq(new Rate("271/5"),fighter_.getRemainingHp());
     }
 
     @Test
     public void variationLeftHp2Test() {
+        DataBase data_ = initDb();
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(BABIMANTA);
         pokemon_.setItem(NULL_REF);
@@ -6543,20 +6768,21 @@ public class FighterTest extends InitializationDataBase {
         moves_.put(MORPHING, (short) 10);
         moves_.put(BROUHAHA, (short) 10);
         moves_.put(POUV_ANTIQUE, (short) 10);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data, moves_);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_, moves_);
         pokemonUser_.initIv(new Difficulty());
         pokemonUser_.getEv().put(Statistic.ATTACK, (short) 1);
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
         pokemonUser_.setHappiness((short) 140);
         pokemonUser_.setWonExpSinceLastLevel(new Rate(3));
-        Fighter fighter_ = new Fighter(pokemonUser_, data, (byte) 0);
+        Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
         fighter_.variationLeftHp(new Rate("-1"));
         assertEq(new Rate("266/5"),fighter_.getRemainingHp());
     }
 
     @Test
     public void wonEvStatistic1Test() {
+        DataBase data_ = initDb();
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(BABIMANTA);
         pokemon_.setItem(NULL_REF);
@@ -6567,20 +6793,21 @@ public class FighterTest extends InitializationDataBase {
         moves_.put(MORPHING, (short) 10);
         moves_.put(BROUHAHA, (short) 10);
         moves_.put(POUV_ANTIQUE, (short) 10);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data, moves_);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_, moves_);
         pokemonUser_.initIv(new Difficulty());
         pokemonUser_.getEv().put(Statistic.ATTACK, (short) 1);
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
         pokemonUser_.setHappiness((short) 140);
         pokemonUser_.setWonExpSinceLastLevel(new Rate(3));
-        Fighter fighter_ = new Fighter(pokemonUser_, data, (byte) 0);
-        fighter_.wonEvStatistic(Statistic.ATTACK, (short) 1, (short) 100, data);
+        Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
+        fighter_.wonEvStatistic(Statistic.ATTACK, (short) 1, (short) 100, data_);
         assertEq(2, fighter_.getEv().getVal(Statistic.ATTACK));
     }
 
     @Test
     public void wonEvStatistic2Test() {
+        DataBase data_ = initDb();
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(BABIMANTA);
         pokemon_.setItem(NULL_REF);
@@ -6591,20 +6818,21 @@ public class FighterTest extends InitializationDataBase {
         moves_.put(MORPHING, (short) 10);
         moves_.put(BROUHAHA, (short) 10);
         moves_.put(POUV_ANTIQUE, (short) 10);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data, moves_);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_, moves_);
         pokemonUser_.initIv(new Difficulty());
         pokemonUser_.getEv().put(Statistic.ATTACK, (short) 90);
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
         pokemonUser_.setHappiness((short) 140);
         pokemonUser_.setWonExpSinceLastLevel(new Rate(3));
-        Fighter fighter_ = new Fighter(pokemonUser_, data, (byte) 0);
-        fighter_.wonEvStatistic(Statistic.ATTACK, (short) 20, (short) 100, data);
+        Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
+        fighter_.wonEvStatistic(Statistic.ATTACK, (short) 20, (short) 100, data_);
         assertEq(100, fighter_.getEv().getVal(Statistic.ATTACK));
     }
 
     @Test
     public void learnMovesWithoutEvolving1Test() {
+        DataBase data_ = initDb();
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(YANMA);
         pokemon_.setItem(NULL_REF);
@@ -6616,15 +6844,15 @@ public class FighterTest extends InitializationDataBase {
         moves_.put(ULTRASON, (short) 10);
         moves_.put(BROUHAHA, (short) 10);
         moves_.put(POURSUITE, (short) 10);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data, moves_);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_, moves_);
         pokemonUser_.initIv(new Difficulty());
         pokemonUser_.getEv().put(Statistic.ATTACK, (short) 1);
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
         pokemonUser_.setHappiness((short) 140);
         pokemonUser_.setWonExpSinceLastLevel(new Rate("3167"));
-        Fighter fighter_ = new Fighter(pokemonUser_, data, (byte) 0);
-        fighter_.learnMovesWithoutEvolving(new StringList(POURSUITE,ULTRASON,POUV_ANTIQUE,BROUHAHA), data);
+        Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
+        fighter_.learnMovesWithoutEvolving(new StringList(POURSUITE,ULTRASON,POUV_ANTIQUE,BROUHAHA), data_);
         StringMap<UsesOfMove> map_ = fighter_.getMoves();
         assertEq(4, map_.size());
         assertTrue(map_.contains(ULTRASON));
@@ -6649,6 +6877,7 @@ public class FighterTest extends InitializationDataBase {
 
     @Test
     public void noPowerPointForLastUsedMove1Test() {
+        DataBase data_ = initDb();
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(YANMA);
         pokemon_.setItem(NULL_REF);
@@ -6660,14 +6889,14 @@ public class FighterTest extends InitializationDataBase {
         moves_.put(ULTRASON, (short) 0);
         moves_.put(BROUHAHA, (short) 10);
         moves_.put(POURSUITE, (short) 10);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data, moves_);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_, moves_);
         pokemonUser_.initIv(new Difficulty());
         pokemonUser_.getEv().put(Statistic.ATTACK, (short) 1);
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
         pokemonUser_.setHappiness((short) 140);
         pokemonUser_.setWonExpSinceLastLevel(new Rate("3167"));
-        Fighter fighter_ = new Fighter(pokemonUser_, data, (byte) 0);
+        Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
         assertTrue(fighter_.noPowerPointForLastUsedMove());
         fighter_.setUsedMoveLastRound(IMPLORE);
         assertTrue(fighter_.noPowerPointForLastUsedMove());
@@ -6679,6 +6908,7 @@ public class FighterTest extends InitializationDataBase {
 
     @Test
     public void resistingTypes1Test() {
+        DataBase data_ = initDb();
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(YANMA);
         pokemon_.setItem(NULL_REF);
@@ -6690,17 +6920,17 @@ public class FighterTest extends InitializationDataBase {
         moves_.put(ULTRASON, (short) 0);
         moves_.put(BROUHAHA, (short) 10);
         moves_.put(POURSUITE, (short) 10);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data, moves_);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_, moves_);
         pokemonUser_.initIv(new Difficulty());
         pokemonUser_.getEv().put(Statistic.ATTACK, (short) 1);
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
         pokemonUser_.setHappiness((short) 140);
         pokemonUser_.setWonExpSinceLastLevel(new Rate("3167"));
-        Fighter fighter_ = new Fighter(pokemonUser_, data, (byte) 0);
-        assertEq(0, fighter_.resistingTypes(data).size());
+        Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
+        assertEq(0, fighter_.resistingTypes(data_).size());
         fighter_.getLastSufferedMoveTypes().add(ROCHE);
-        StringList list_ = fighter_.resistingTypes(data);
+        StringList list_ = fighter_.resistingTypes(data_);
         assertEq(3, list_.size());
         assertTrue(StringUtil.contains(list_, COMBAT));
         assertTrue(StringUtil.contains(list_, SOL));
@@ -6709,6 +6939,7 @@ public class FighterTest extends InitializationDataBase {
 
     @Test
     public void spendPowerPoint1Test() {
+        DataBase data_ = initDb();
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(YANMA);
         pokemon_.setItem(NULL_REF);
@@ -6720,23 +6951,24 @@ public class FighterTest extends InitializationDataBase {
         moves_.put(ULTRASON, (short) 0);
         moves_.put(BROUHAHA, (short) 10);
         moves_.put(POURSUITE, (short) 10);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data, moves_);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_, moves_);
         pokemonUser_.initIv(new Difficulty());
         pokemonUser_.getEv().put(Statistic.ATTACK, (short) 1);
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
         pokemonUser_.setHappiness((short) 140);
         pokemonUser_.setWonExpSinceLastLevel(new Rate("3167"));
-        Fighter fighter_ = new Fighter(pokemonUser_, data, (byte) 0);
-        assertTrue(fighter_.spendPowerPoint(DETECTION, data));
-        assertTrue(fighter_.spendPowerPoint(ROC_BOULET, data));
-        assertTrue(fighter_.spendPowerPoint(ROULADE, data));
+        Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
+        assertTrue(fighter_.spendPowerPoint(DETECTION, data_));
+        assertTrue(fighter_.spendPowerPoint(ROC_BOULET, data_));
+        assertTrue(fighter_.spendPowerPoint(ROULADE, data_));
         fighter_.setUsedMoveLastRound(ROULADE);
-        assertTrue(!fighter_.spendPowerPoint(ROULADE, data));
+        assertTrue(!fighter_.spendPowerPoint(ROULADE, data_));
     }
 
     @Test
     public void getMoves1Test() {
+        DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setSkipLearningMovesWhileNotGrowingLevel(false);
         Pokemon pokemon_ = new WildPk();
@@ -6750,16 +6982,16 @@ public class FighterTest extends InitializationDataBase {
         moves_.put(ULTRASON, (short) 10);
         moves_.put(BROUHAHA, (short) 10);
         moves_.put(POURSUITE, (short) 10);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data, moves_);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_, moves_);
         pokemonUser_.initIv(new Difficulty());
         pokemonUser_.getEv().put(Statistic.ATTACK, (short) 1);
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
         pokemonUser_.setHappiness((short) 140);
         pokemonUser_.setWonExpSinceLastLevel(new Rate("1"));
-        Fighter fighter_ = new Fighter(pokemonUser_, data, (byte) 0);
+        Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
         fighter_.setWonExp(new Rate("3"));
-        fighter_.calculateNewLevel(diff_, data, new StringList());
+        fighter_.calculateNewLevel(diff_, data_, new StringList());
         NatStringTreeMap<Boolean> map_ = fighter_.getMoves(NULL_REF);
         assertEq(4, map_.size());
         assertTrue(map_.getVal(DETECTION));
@@ -6770,6 +7002,7 @@ public class FighterTest extends InitializationDataBase {
 
     @Test
     public void getMoves2Test() {
+        DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setSkipLearningMovesWhileNotGrowingLevel(false);
         Pokemon pokemon_ = new WildPk();
@@ -6783,16 +7016,16 @@ public class FighterTest extends InitializationDataBase {
         moves_.put(ULTRASON, (short) 10);
         moves_.put(BROUHAHA, (short) 10);
         moves_.put(POURSUITE, (short) 10);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data, moves_);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_, moves_);
         pokemonUser_.initIv(new Difficulty());
         pokemonUser_.getEv().put(Statistic.ATTACK, (short) 1);
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
         pokemonUser_.setHappiness((short) 140);
         pokemonUser_.setWonExpSinceLastLevel(new Rate("1"));
-        Fighter fighter_ = new Fighter(pokemonUser_, data, (byte) 0);
+        Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
         fighter_.setWonExp(new Rate("3"));
-        fighter_.calculateNewLevel(diff_, data, new StringList());
+        fighter_.calculateNewLevel(diff_, data_, new StringList());
         NatStringTreeMap<Boolean> map_ = fighter_.getMoves(TARINORME);
         assertEq(12, map_.size());
         assertTrue(map_.getVal(DETECTION));
@@ -6811,6 +7044,7 @@ public class FighterTest extends InitializationDataBase {
 
     @Test
     public void getMoves3Test() {
+        DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setSkipLearningMovesWhileNotGrowingLevel(false);
         Pokemon pokemon_ = new WildPk();
@@ -6824,16 +7058,16 @@ public class FighterTest extends InitializationDataBase {
         moves_.put(ULTRASON, (short) 10);
         moves_.put(BROUHAHA, (short) 10);
         moves_.put(POURSUITE, (short) 10);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data, moves_);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_, moves_);
         pokemonUser_.initIv(new Difficulty());
         pokemonUser_.getEv().put(Statistic.ATTACK, (short) 1);
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
         pokemonUser_.setHappiness((short) 70);
         pokemonUser_.setWonExpSinceLastLevel(new Rate("2790"));
-        Fighter fighter_ = new Fighter(pokemonUser_, data, (byte) 0);
+        Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
         fighter_.setWonExp(new Rate("3"));
-        fighter_.calculateNewLevel(diff_, data, new StringList());
+        fighter_.calculateNewLevel(diff_, data_, new StringList());
         NatStringTreeMap<Boolean> map_ = fighter_.getMoves(NULL_REF);
         assertEq(5, map_.size());
         assertTrue(map_.getVal(DETECTION));
@@ -6845,6 +7079,7 @@ public class FighterTest extends InitializationDataBase {
 
     @Test
     public void getAbilities1Test() {
+        DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setSkipLearningMovesWhileNotGrowingLevel(false);
         Pokemon pokemon_ = new WildPk();
@@ -6858,16 +7093,16 @@ public class FighterTest extends InitializationDataBase {
         moves_.put(ULTRASON, (short) 10);
         moves_.put(BROUHAHA, (short) 10);
         moves_.put(POURSUITE, (short) 10);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data, moves_);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_, moves_);
         pokemonUser_.initIv(new Difficulty());
         pokemonUser_.getEv().put(Statistic.ATTACK, (short) 1);
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
         pokemonUser_.setHappiness((short) 140);
         pokemonUser_.setWonExpSinceLastLevel(new Rate("1"));
-        Fighter fighter_ = new Fighter(pokemonUser_, data, (byte) 0);
+        Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
         fighter_.setWonExp(new Rate("3"));
-        fighter_.calculateNewLevel(diff_, data, new StringList());
+        fighter_.calculateNewLevel(diff_, data_, new StringList());
         StringList list_ = fighter_.getAbilities(NULL_REF);
         assertEq(1, list_.size());
         assertTrue(StringUtil.contains(list_, METEO));
@@ -6875,6 +7110,7 @@ public class FighterTest extends InitializationDataBase {
 
     @Test
     public void getAbilities2Test() {
+        DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setSkipLearningMovesWhileNotGrowingLevel(false);
         Pokemon pokemon_ = new WildPk();
@@ -6888,16 +7124,16 @@ public class FighterTest extends InitializationDataBase {
         moves_.put(ULTRASON, (short) 10);
         moves_.put(BROUHAHA, (short) 10);
         moves_.put(POURSUITE, (short) 10);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data, moves_);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_, moves_);
         pokemonUser_.initIv(new Difficulty());
         pokemonUser_.getEv().put(Statistic.ATTACK, (short) 1);
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
         pokemonUser_.setHappiness((short) 140);
         pokemonUser_.setWonExpSinceLastLevel(new Rate("1"));
-        Fighter fighter_ = new Fighter(pokemonUser_, data, (byte) 0);
+        Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
         fighter_.setWonExp(new Rate("3"));
-        fighter_.calculateNewLevel(diff_, data, new StringList());
+        fighter_.calculateNewLevel(diff_, data_, new StringList());
         StringList list_ = fighter_.getAbilities(TARINORME);
         assertEq(2, list_.size());
         assertTrue(StringUtil.contains(list_, MAGNEPIEGE));
@@ -6906,6 +7142,7 @@ public class FighterTest extends InitializationDataBase {
 
     @Test
     public void isKoAt1Test() {
+        DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setSkipLearningMovesWhileNotGrowingLevel(false);
         Pokemon pokemon_ = new WildPk();
@@ -6919,19 +7156,20 @@ public class FighterTest extends InitializationDataBase {
         moves_.put(ULTRASON, (short) 10);
         moves_.put(BROUHAHA, (short) 10);
         moves_.put(POURSUITE, (short) 10);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data, moves_);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_, moves_);
         pokemonUser_.initIv(new Difficulty());
         pokemonUser_.getEv().put(Statistic.ATTACK, (short) 1);
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
         pokemonUser_.setHappiness((short) 140);
         pokemonUser_.setWonExpSinceLastLevel(new Rate("1"));
-        Fighter fighter_ = new Fighter(pokemonUser_, data, (byte) 0);
+        Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
         assertTrue(!fighter_.isKoAt((byte) 0));
     }
 
     @Test
     public void isKoAt2Test() {
+        DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setSkipLearningMovesWhileNotGrowingLevel(false);
         Pokemon pokemon_ = new WildPk();
@@ -6945,14 +7183,14 @@ public class FighterTest extends InitializationDataBase {
         moves_.put(ULTRASON, (short) 10);
         moves_.put(BROUHAHA, (short) 10);
         moves_.put(POURSUITE, (short) 10);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data, moves_);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_, moves_);
         pokemonUser_.initIv(new Difficulty());
         pokemonUser_.getEv().put(Statistic.ATTACK, (short) 1);
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
         pokemonUser_.setHappiness((short) 140);
         pokemonUser_.setWonExpSinceLastLevel(new Rate("1"));
-        Fighter fighter_ = new Fighter(pokemonUser_, data, (byte) 0);
+        Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
         fighter_.getRemainingHp().affectZero();
         fighter_.setGroundPlaceSubst((byte) 1);
         assertTrue(!fighter_.isKoAt((byte) 0));
@@ -6960,6 +7198,7 @@ public class FighterTest extends InitializationDataBase {
 
     @Test
     public void isKoAt3Test() {
+        DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setSkipLearningMovesWhileNotGrowingLevel(false);
         Pokemon pokemon_ = new WildPk();
@@ -6973,19 +7212,19 @@ public class FighterTest extends InitializationDataBase {
         moves_.put(ULTRASON, (short) 10);
         moves_.put(BROUHAHA, (short) 10);
         moves_.put(POURSUITE, (short) 10);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data, moves_);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_, moves_);
         pokemonUser_.initIv(new Difficulty());
         pokemonUser_.getEv().put(Statistic.ATTACK, (short) 1);
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
         pokemonUser_.setHappiness((short) 140);
         pokemonUser_.setWonExpSinceLastLevel(new Rate("1"));
-        Fighter fighter_ = new Fighter(pokemonUser_, data, (byte) 0);
+        Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
         fighter_.getRemainingHp().affectZero();
         assertTrue(fighter_.isKoAt((byte) 0));
     }
 
-    int getNbStatusRelatByRounds(Fighter _f, short _nbRounds) {
+    static int getNbStatusRelatByRounds(Fighter _f, short _nbRounds) {
         int i_ = IndexConstants.SIZE_EMPTY;
         for (EntryCust<MoveTeamPosition, Short> e: _f.getStatusRelat().entryList()) {
             if (NumberUtil.eq(e.getValue(), _nbRounds)) {
