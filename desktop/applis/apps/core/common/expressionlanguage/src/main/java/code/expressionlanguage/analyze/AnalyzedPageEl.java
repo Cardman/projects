@@ -1311,11 +1311,15 @@ public final class AnalyzedPageEl {
     }
 
     public boolean isGettingParts() {
-        return isCovering() || isGettingErrors();
+        return isCovering() || isGettingErrorsWarn();
     }
 
     public boolean isImplicit() {
         return getOptions().isDisplayImplicit();
+    }
+
+    public boolean isDisplayWarning() {
+        return getOptions().isDisplayWarning();
     }
 
     public boolean isEncodeHeader() {
@@ -1326,8 +1330,8 @@ public final class AnalyzedPageEl {
         return getOptions().isCovering();
     }
 
-    public boolean isGettingErrors() {
-        return gettingErrors;
+    public boolean isGettingErrorsWarn() {
+        return gettingErrors || isDisplayWarning();
     }
 
     public void setGettingErrors(boolean _gettingErrors) {

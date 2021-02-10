@@ -7,11 +7,12 @@ import code.util.StringList;
 
 public final class Options {
 
-    private StringList typesInit = new StringList();
+    private final StringList typesInit = new StringList();
     private boolean readOnly;
     private boolean covering;
     private boolean gettingErrors;
     private boolean displayImplicit;
+    private boolean displayWarning;
     private boolean encodeHeader = true;
     private final CustList<CommentDelimiters> comments = new CustList<CommentDelimiters>();
     private final DefaultAccess defaultAccess = new DefaultAccess();
@@ -50,6 +51,14 @@ public final class Options {
 
     public void setDisplayImplicit(boolean _displayImplicit) {
         this.displayImplicit = _displayImplicit;
+    }
+
+    public boolean isDisplayWarning() {
+        return displayWarning;
+    }
+
+    public void setDisplayWarning(boolean _displayWarning) {
+        this.displayWarning = _displayWarning;
     }
 
     public boolean isEncodeHeader() {

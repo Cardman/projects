@@ -21,7 +21,7 @@ public final class ReachTernaryOperation extends ReachMethodOperation implements
         for (ReachOperationNode o: chidren_) {
             arguments_.add(o.getArgument());
         }
-        checkDeadCode(chidren_.first(), _page);
+        checkDeadCode(chidren_.first(),getInfo(), _page);
         Argument argBool_ = arguments_.first();
         if (argBool_ == null) {
             return;
@@ -42,12 +42,14 @@ public final class ReachTernaryOperation extends ReachMethodOperation implements
         setSimpleArgumentAna(arg_);
     }
 
-    private static void checkDeadCode(ReachOperationNode _opOne, AnalyzedPageEl _page) {
+    static void checkDeadCode(ReachOperationNode _opOne, OperationNode _info, AnalyzedPageEl _page) {
         if (_opOne.getArgument() != null) {
             FoundWarningInterpret d_ = new FoundWarningInterpret();
             d_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
             d_.setFileName(_page.getLocalizer().getCurrentFileName());
+            d_.buildWarning(_page.getAnalysisMessages().getDeadCodeTernary());
             _page.getLocalizer().addWarning(d_);
+            _info.addWarn(d_.getBuiltWarning());
         }
     }
 }

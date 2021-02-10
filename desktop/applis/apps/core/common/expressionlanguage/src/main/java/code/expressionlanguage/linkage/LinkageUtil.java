@@ -34,6 +34,7 @@ public final class LinkageUtil {
         StringMap<String> files_ = new StringMap<String>();
         KeyWords keyWords_ = _analyzing.getKeyWords();
         boolean implicit_ = _analyzing.isImplicit();
+        boolean displayWarning_ = _analyzing.isDisplayWarning();
         DisplayedStrings displayedStrings_ = _analyzing.getDisplayedStrings();
         StringList toStringOwners_ = _analyzing.getToStringOwners();
         for (FileBlock f: _analyzing.getErrors().getFiles()) {
@@ -42,7 +43,7 @@ public final class LinkageUtil {
             }
             String value_ = f.getContent();
             String fileExp_ = f.getFileName() + ".html";
-            CustList<PartOffset> listStr_ = processError(toStringOwners_,f,fileExp_, keyWords_, displayedStrings_, implicit_);
+            CustList<PartOffset> listStr_ = processError(toStringOwners_,f,fileExp_, keyWords_, displayedStrings_, implicit_, displayWarning_);
             StringBuilder xml_ = build(f, value_, listStr_);
             String rel_ = relativize(fileExp_,"css/style.css");
             String cssPart_ = "<head>" +encode(_analyzing.isEncodeHeader())+
@@ -51,6 +52,7 @@ public final class LinkageUtil {
             files_.addEntry(fileExp_,"<html>"+cssPart_+"<body><pre><span class=\"t\">"+xml_+"</span></pre></body></html>");
         }
         String cssContent_ = ".e{background-color:red;}\n";
+        cssContent_ += ".w{background-color:yellow;}\n";
         cssContent_ += ".s{color:blue;}\n";
         cssContent_ += ".c{color:grey;background-color:white;}\n";
         cssContent_ += ".i{color:red;}\n";
@@ -234,7 +236,7 @@ public final class LinkageUtil {
         return " ";
     }
 
-    private static CustList<PartOffset> processError(StringList _toStringOwers, FileBlock _ex, String _fileExp, KeyWords _keyWords, DisplayedStrings _displayedStrings, boolean _implicit){
+    private static CustList<PartOffset> processError(StringList _toStringOwers, FileBlock _ex, String _fileExp, KeyWords _keyWords, DisplayedStrings _displayedStrings, boolean _implicit, boolean _warning){
         CustList<PartOffset> list_ = new CustList<PartOffset>();
         VariablesOffsets vars_ = new VariablesOffsets();
         vars_.getStack().add(new LinkageStackElement());

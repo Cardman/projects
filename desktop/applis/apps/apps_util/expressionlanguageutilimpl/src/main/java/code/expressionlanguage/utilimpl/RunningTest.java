@@ -151,6 +151,9 @@ public final class RunningTest implements Runnable {
             if (l.startsWith("impl=")) {
                 _options.setDisplayImplicit(true);
             }
+            if (l.startsWith("warn=")) {
+                _options.setDisplayWarning(true);
+            }
             if (l.startsWith("res=")) {
                 String output_ = l.substring("res=".length());
                 if (!output_.isEmpty()) {

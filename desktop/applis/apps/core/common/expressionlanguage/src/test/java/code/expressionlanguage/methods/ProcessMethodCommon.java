@@ -184,6 +184,11 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
         return getErrors(report_);
     }
 
+    private static StringMap<String> validateAndCheckReportWarnings(StringMap<String> _files, AnalyzedTestContext _cont) {
+        ReportedMessages report_ = validate(_cont, _files);
+        return getErrors(report_);
+    }
+
     private static StringMap<String> validateAndCheckNoReportErrors(StringMap<String> _files, AnalyzedTestContext _cont) {
         ReportedMessages report_ = validate(_cont, _files);
         assertTrue(isEmptyErrors(_cont));
@@ -214,6 +219,11 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
         return validateAndCheckReportErrors(_files, cont_);
     }
 
+    protected static StringMap<String> ctxWarnStdReadOnly(StringMap<String> _files) {
+        AnalyzedTestContext cont_ = contextElErrorStdWarningDef();
+        return validateAndCheckReportWarnings(_files, cont_);
+    }
+
     protected static StringMap<String> ctxErrStdReadOnlyImpl(StringMap<String> _files) {
         AnalyzedTestContext cont_ = contextElErrorStdReadOnlyDefImpl();
         return validateAndCheckReportErrors(_files, cont_);
@@ -226,6 +236,12 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
         Options opt_ = newOptions();
         opt_.setReadOnly(true);
         opt_.setGettingErrors(true);
+        return InitializationLgNames.buildStdOneAna("en",opt_);
+    }
+    private static AnalyzedTestContext contextElErrorStdWarningDef() {
+        Options opt_ = newOptions();
+        opt_.setReadOnly(true);
+        opt_.setDisplayWarning(true);
         return InitializationLgNames.buildStdOneAna("en",opt_);
     }
     private static AnalyzedTestContext contextElCoverageReadOnlyDef() {

@@ -97,7 +97,7 @@ public final class CustContextFactory {
         _progressingTests.setResults(rCont_,arg_, _definedLgNames);
     }
     public static void reportErrors(RunnableContextEl _ctx, Options _options, ExecutingOptions _exec, ReportedMessages _reportedMessages, FileInfos _infos) {
-        if (_options.isGettingErrors()) {
+        if (_options.isGettingErrors() || _options.isDisplayWarning()) {
             String exp_ = _exec.getOutput()+_exec.getErrorsFolder();
             for (EntryCust<String,String> f: _reportedMessages.getErrors().entryList()) {
                 _infos.getReporter().errorFile(exp_, f.getKey(), f.getValue(), _ctx);

@@ -174,6 +174,7 @@ public final class AnalysisMessages {
     private static final String DUPLICATED_VARIABLE_NAME="DuplicatedVariableName";
     private static final String CYCLIC_CTOR_CALL="CyclicCtorCall";
     private static final String DEAD_CODE="DeadCode";
+    private static final String DEAD_CODE_TERNARY="DeadCodeTernary";
     private static final String DUPLICATED_CTOR="DuplicatedCtor";
     private static final String DUPLICATED_GENERIC_SUPER_TYPES="DuplicatedGenericSuperTypes";
     private static final String DUPLICATED_INNER_TYPE="DuplicatedInnerType";
@@ -405,6 +406,7 @@ public final class AnalysisMessages {
     private String duplicatedVariableName="The variable name {0} is not valid. It must not be the name of an other variable of the scope.";
     private String cyclicCtorCall="The constructors {0} of the type {1} belong to cyclic calls.";
     private String deadCode="The code is unreachable in the function {0}";
+    private String deadCodeTernary="A part of code is unreachable in this ternary operation.";
     private String duplicatedCtor="The constructor {0} is duplicated.";
     private String duplicatedGenericSuperTypes="The generic super types {0} are duplicated.";
     private String duplicatedInnerType="The inner type simple name {0} is duplicated.";
@@ -639,6 +641,7 @@ public final class AnalysisMessages {
         setDuplicatedVariableName(LgNamesContent.get(_util, _cust, DUPLICATED_VARIABLE_NAME));
         setCyclicCtorCall(LgNamesContent.get(_util, _cust, CYCLIC_CTOR_CALL));
         setDeadCode(LgNamesContent.get(_util, _cust, DEAD_CODE));
+        setDeadCodeTernary(LgNamesContent.get(_util, _cust, DEAD_CODE_TERNARY));
         setDuplicatedCtor(LgNamesContent.get(_util, _cust, DUPLICATED_CTOR));
         setDuplicatedGenericSuperTypes(LgNamesContent.get(_util, _cust, DUPLICATED_GENERIC_SUPER_TYPES));
         setDuplicatedInnerType(LgNamesContent.get(_util, _cust, DUPLICATED_INNER_TYPE));
@@ -865,6 +868,7 @@ public final class AnalysisMessages {
         mess_.addEntry(DUPLICATED_VARIABLE_NAME,getDuplicatedVariableName());
         mess_.addEntry(CYCLIC_CTOR_CALL,getCyclicCtorCall());
         mess_.addEntry(DEAD_CODE,getDeadCode());
+        mess_.addEntry(DEAD_CODE_TERNARY,getDeadCodeTernary());
         mess_.addEntry(DUPLICATED_CTOR,getDuplicatedCtor());
         mess_.addEntry(DUPLICATED_GENERIC_SUPER_TYPES,getDuplicatedGenericSuperTypes());
         mess_.addEntry(DUPLICATED_INNER_TYPE,getDuplicatedInnerType());
@@ -2098,6 +2102,14 @@ public final class AnalysisMessages {
 
     public void setDeadCode(String _v) {
         this.deadCode =_v;
+    }
+
+    public String getDeadCodeTernary() {
+        return deadCodeTernary;
+    }
+
+    public void setDeadCodeTernary(String _v) {
+        this.deadCodeTernary = _v;
     }
 
     public String getDuplicatedCtor() {

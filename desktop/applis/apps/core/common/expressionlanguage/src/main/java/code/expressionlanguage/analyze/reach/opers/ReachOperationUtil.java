@@ -3,12 +3,14 @@ package code.expressionlanguage.analyze.reach.opers;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.FieldBlock;
-import code.expressionlanguage.analyze.opers.DeclaringOperation;
-import code.expressionlanguage.analyze.opers.OperationNode;
+import code.expressionlanguage.analyze.instr.PartOffset;
+import code.expressionlanguage.analyze.opers.*;
+import code.expressionlanguage.linkage.LinkageUtil;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
+import code.util.StringList;
 import code.util.core.StringUtil;
 
 public final class ReachOperationUtil {
@@ -48,9 +50,7 @@ public final class ReachOperationUtil {
                 ind_ = getNextIndex(curr_, a_.getStruct());
                 continue;
             }
-            if (curr_ instanceof ReachCalculable) {
-                ((ReachCalculable)curr_).tryCalculateNode(_page);
-            }
+            tryCalculateNode(_page, curr_);
             a_ = curr_.getArgument();
             if (a_ == null) {
                 return;
@@ -79,15 +79,39 @@ public final class ReachOperationUtil {
                 ind_ = getNextIndex(curr_, a_.getStruct());
                 continue;
             }
-            if (curr_ instanceof ReachCalculable) {
-                ((ReachCalculable)curr_).tryCalculateNode(_page);
-            }
+            tryCalculateNode(_page, curr_);
             a_ = curr_.getArgument();
             if (a_ == null) {
                 ind_++;
                 continue;
             }
             ind_ = getNextIndex(curr_, a_.getStruct());
+        }
+    }
+
+    private static void tryCalculateNode(AnalyzedPageEl _page, ReachOperationNode _curr) {
+        OperationNode info_ = _curr.getInfo();
+        info_.setRelativeOffsetPossibleAnalyzable(info_.getIndexInEl(), _page);
+        if (_curr instanceof ReachCalculable) {
+            ((ReachCalculable) _curr).tryCalculateNode(_page);
+        }
+        CustList<ReachOperationNode> chidren_ = ((ReachMethodOperation)_curr).getChildrenNodes();
+        if (!chidren_.isEmpty()&&info_ instanceof AbstractRefTernaryOperation) {
+            ReachTernaryOperation.checkDeadCode(chidren_.first(),info_,_page);
+        }
+        if ((info_ instanceof AbstractRefTernaryOperation
+        || info_ instanceof AbstractTernaryOperation)
+        &&((MethodOperation)info_).getPartOffsetsChildren().isEmpty()
+        && _page.isDisplayWarning()) {
+            int offLoc_ = info_.getOperations().getOperators().firstKey();
+            StringList deep_ = info_.getWarns();
+            if (!deep_.isEmpty()) {
+                int i_ = offLoc_ + _page.getLocalizer().getCurrentLocationIndex();
+                CustList<PartOffset> list_ = new CustList<PartOffset>();
+                list_.add(new PartOffset("<a title=\""+ LinkageUtil.transform(StringUtil.join(deep_,"\n\n")) +"\" class=\"w\">",i_));
+                list_.add(new PartOffset("</a>",i_+1));
+                ((MethodOperation)info_).getPartOffsetsChildren().add(list_);
+            }
         }
     }
 

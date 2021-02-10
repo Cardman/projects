@@ -78,6 +78,7 @@ public abstract class OperationNode {
     private final OperationsSequence operations;
 
     private final StringList errs = new StringList();
+    private final StringList warns = new StringList();
 
     private int indexInExp = -1;
 //    private int indexInEl;
@@ -4243,6 +4244,13 @@ public abstract class OperationNode {
 
     public StringList getErrs() {
         return errs;
+    }
+    public void addWarn(String _err) {
+        warns.add(_err);
+    }
+
+    public StringList getWarns() {
+        return warns;
     }
 
     public int getIndexInExp() {

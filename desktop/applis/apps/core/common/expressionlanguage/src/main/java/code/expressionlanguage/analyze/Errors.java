@@ -4,10 +4,10 @@ import code.expressionlanguage.analyze.blocks.FileBlock;
 import code.util.CustList;
 
 public final class Errors {
-    private CustList<FileBlock> files = new CustList<FileBlock>();
+    private final CustList<FileBlock> files = new CustList<FileBlock>();
 
     public void putFile(FileBlock _file, AnalyzedPageEl _page) {
-        if (!_page.isGettingErrors()) {
+        if (!_page.isGettingErrorsWarn()) {
             return;
         }
         files.add(_file);
