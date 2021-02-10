@@ -1,7 +1,6 @@
 package aiki.game.fight;
 
 import aiki.db.DataBase;
-import org.junit.Before;
 import org.junit.Test;
 
 import aiki.game.params.Difficulty;
@@ -13,11 +12,6 @@ import code.util.StringList;
 
 public class PseudoFoeFighterTest extends InitializationDataBase {
 
-    private DataBase data;
-    @Before
-    public void initTests() {
-        data = initDb();
-    }
     @Test
     public void new_PseudoFoeFighter_PokemonTrainer_1Test() {
         PseudoFoeFighter pseudoFoeFighter_;
@@ -35,6 +29,7 @@ public class PseudoFoeFighterTest extends InitializationDataBase {
 
     @Test
     public void pointsFoe1Test() {
+        DataBase data_ = initDb();
         PseudoFoeFighter pseudoFoeFighter_;
         PkTrainer foe_ = new PkTrainer();
         foe_.setName(TARTARD);
@@ -47,7 +42,7 @@ public class PseudoFoeFighterTest extends InitializationDataBase {
         diff_.setDiffWinningExpPtsFight(DifficultyWinPointsFight.DIFFICILE);
         diff_.setWinTrainerExp(new Rate("3/2"));
         diff_.setRateWinningExpPtsFight(Rate.one());
-        Rate wonPoints_ = pseudoFoeFighter_.pointsFoe((byte) 2, diff_, data);
+        Rate wonPoints_ = pseudoFoeFighter_.pointsFoe((byte) 2, diff_, data_);
         assertEq(new Rate("5550"),wonPoints_);
     }
 }

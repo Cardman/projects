@@ -1,7 +1,6 @@
 package aiki.game.fight;
 
 import aiki.db.DataBase;
-import org.junit.Before;
 import org.junit.Test;
 
 import aiki.fight.pokemon.NameLevel;
@@ -11,25 +10,20 @@ import aiki.map.pokemon.WildPk;
 import aiki.map.pokemon.enums.Gender;
 import code.maths.Rate;
 import code.util.CustList;
-import code.util.EqList;
 
 
 public class PseudoPlayerTest extends InitializationDataBase {
 
-    private DataBase data;
-    @Before
-    public void initTests() {
-        data = initDb();
-    }
     @Test
     public void new_PseudoPlayer_List_List_1Test() {
+        DataBase data_ = initDb();
         Pokemon pokemon_ = new WildPk();
         pokemon_.setLevel((short) 3);
         pokemon_.setName(PTITARD);
         pokemon_.setAbility(ABSORB_EAU);
         pokemon_.setItem(MULTI_EXP);
         pokemon_.setGender(Gender.NO_GENDER);
-        PokemonPlayer pk_ = new PokemonPlayer(pokemon_, data);
+        PokemonPlayer pk_ = new PokemonPlayer(pokemon_, data_);
         pk_.setWonExpSinceLastLevel(new Rate("3/2"));
         CustList<CustList<NameLevel>> evolutions_;
         evolutions_ = new CustList<CustList<NameLevel>>();
