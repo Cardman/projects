@@ -738,17 +738,6 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         assertEq(0, fight_.getFirstPositPlayerFighters().getVal((byte) 3));
     }
 
-    private static Fight setFirstChosenMoveAlly(
-            CustList<LevelMoves> _partnerMoves,
-            CustList<LevelMoves> _foeMoves,
-            Player _player,
-            Difficulty _diff, DataBase _data,
-            int... _mult) {
-        Fight fight_ = choiceForSubstituing(_partnerMoves, _foeMoves, _player, _diff, _data, _mult);
-        FightSending.firstEffectWhileSendingTeams(fight_, _diff, _data);
-        return fight_;
-    }
-
     @Test
     public void setFirstChosenMoveAlly1Test() {
         DataBase data_ = initDb();
@@ -824,15 +813,6 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         assertEq(SEISME, action_.getFirstChosenMove());
         assertEq(0, action_.getChosenTargets().size());
         assertEq(Fighter.BACK, action_.getSubstitute());
-    }
-
-    private static Fight setBatonPassAlly(
-            CustList<LevelMoves> _partnerMoves,
-            CustList<LevelMoves> _foeMoves,
-            Player _player,
-            Difficulty _diff, DataBase _data,
-            int... _mult) {
-        return setBatonPass(_partnerMoves, _foeMoves, _player, _diff, _data, _mult);
     }
 
     @Test
@@ -1116,15 +1096,6 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         assertEq(Fighter.BACK, action_.getSubstitute());
     }
 
-    private static Fight reachable(
-            CustList<LevelMoves> _partnerMoves,
-            CustList<LevelMoves> _foeMoves,
-            Player _player,
-            Difficulty _diff, DataBase _data,
-            int... _mult) {
-        return setBatonPassAlly(_partnerMoves, _foeMoves, _player, _diff, _data, _mult);
-    }
-
     @Test
     public void reachable1Test() {
         DataBase data_ = initDb();
@@ -1312,15 +1283,6 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
         TeamPosition target_ = POKEMON_FOE_FIGHTER_TWO;
         assertTrue(!FightArtificialIntelligence.reachable(fight_, thrower_, target_, COUPE_VENT, diff_, data_));
-    }
-
-    private static Fight remainingFoeTargetHp(
-            CustList<LevelMoves> _partnerMoves,
-            CustList<LevelMoves> _foeMoves,
-            Player _player,
-            Difficulty _diff, DataBase _data,
-            int... _mult) {
-        return reachable(_partnerMoves, _foeMoves, _player, _diff, _data, _mult);
     }
 
     @Test
@@ -1631,15 +1593,6 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         assertEq(2, damages_.size());
         assertEq(new Rate("7768603/160000"), damages_.getVal(POKEMON_FOE_TARGET_ZERO));
         assertEq(new Rate("7768603/160000"), damages_.getVal(POKEMON_FOE_TARGET_ONE));
-    }
-
-    private static Fight untouchablePartners(
-            CustList<LevelMoves> _partnerMoves,
-            CustList<LevelMoves> _foeMoves,
-            Player _player,
-            Difficulty _diff, DataBase _data,
-            int... _mult) {
-        return remainingFoeTargetHp(_partnerMoves, _foeMoves, _player, _diff, _data, _mult);
     }
 
     @Test
@@ -2021,15 +1974,6 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         assertTrue(list_.containsObj(POKEMON_PLAYER_FIGHTER_TWO));
     }
 
-    private static Fight remainingPartnerTargetHp(
-            CustList<LevelMoves> _partnerMoves,
-            CustList<LevelMoves> _foeMoves,
-            Player _player,
-            Difficulty _diff, DataBase _data,
-            int... _mult) {
-        return untouchablePartners(_partnerMoves, _foeMoves, _player, _diff, _data, _mult);
-    }
-
     @Test
     public void remainingPartnerTargetHp1Test() {
         DataBase data_ = initDb();
@@ -2212,15 +2156,6 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         assertEq(new Rate("6287/100"),damages_.getVal(POKEMON_PLAYER_FIGHTER_FOUR));
     }
 
-    private static Fight usableMove(
-            CustList<LevelMoves> _partnerMoves,
-            CustList<LevelMoves> _foeMoves,
-            Player _player,
-            Difficulty _diff, DataBase _data,
-            int... _mult) {
-        return remainingPartnerTargetHp(_partnerMoves, _foeMoves, _player, _diff, _data, _mult);
-    }
-
     @Test
     public void usableMove1Test() {
         DataBase data_ = initDb();
@@ -2376,15 +2311,6 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         TeamPosition target_ = POKEMON_PLAYER_FIGHTER_ZERO;
         TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_TWO;
         assertTrue(!FightArtificialIntelligence.usableMove(fight_, thrower_, target_, true, TONNERRE, diff_, data_));
-    }
-
-    private static Fight koFoeFighter(
-            CustList<LevelMoves> _partnerMoves,
-            CustList<LevelMoves> _foeMoves,
-            Player _player,
-            Difficulty _diff, DataBase _data,
-            int... _mult) {
-        return usableMove(_partnerMoves, _foeMoves, _player, _diff, _data, _mult);
     }
 
     @Test
@@ -2585,15 +2511,6 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         assertTrue(!FightArtificialIntelligence.koFoeFighter(fight_, thrower_, TONNERRE, target_, diff_, data_));
     }
 
-    private static Fight koFoeFighters(
-            CustList<LevelMoves> _partnerMoves,
-            CustList<LevelMoves> _foeMoves,
-            Player _player,
-            Difficulty _diff, DataBase _data,
-            int... _mult) {
-        return koFoeFighter(_partnerMoves, _foeMoves, _player, _diff, _data, _mult);
-    }
-
     @Test
     public void koFoeFighters1Test() {
         DataBase data_ = initDb();
@@ -2635,15 +2552,6 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         EqList<TargetCoords> kos_ = FightArtificialIntelligence.koFoeFighters(fight_, thrower_, TONNERRE, mapTargets_, diff_, data_);
         assertEq(1, kos_.size());
         assertTrue(kos_.containsObj(POKEMON_PLAYER_TARGET_ONE));
-    }
-
-    private static Fight choiceAllyArtificialIntelligenceWithoutUser(
-            CustList<LevelMoves> _partnerMoves,
-            CustList<LevelMoves> _foeMoves,
-            Player _player,
-            Difficulty _diff, DataBase _data,
-            int... _mult) {
-        return koFoeFighters(_partnerMoves, _foeMoves, _player, _diff, _data, _mult);
     }
 
     @Test
@@ -2878,15 +2786,6 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         ObjectMap<MoveTarget,MoveTarget> choices_;
         choices_ = fight_.getAllyChoice();
         assertEq(0, choices_.size());
-    }
-
-    private static Fight choiceAllyArtificialIntelligence(
-            CustList<LevelMoves> _partnerMoves,
-            CustList<LevelMoves> _foeMoves,
-            Player _player,
-            Difficulty _diff, DataBase _data,
-            int... _mult) {
-        return choiceAllyArtificialIntelligenceWithoutUser(_partnerMoves, _foeMoves, _player, _diff, _data, _mult);
     }
 
     @Test
@@ -3641,7 +3540,9 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
             Player _player,
             Difficulty _diff, DataBase _data,
             int... _mult) {
-        return choiceAllyArtificialIntelligence(_partnerMoves, _foeMoves, _player, _diff, _data, _mult);
+        Fight fight_ = choiceForSubstituing(_partnerMoves, _foeMoves, _player, _diff, _data, _mult);
+        FightSending.firstEffectWhileSendingTeams(fight_, _diff, _data);
+        return fight_;
     }
 
     @Test
@@ -3797,15 +3698,6 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         assertEq(0, action_.getChosenTargets().size());
         //assertTrue(action_.getChosenTargets().containsObj(POKEMON_FOE_TARGET_ONE));
         assertEq(Fighter.BACK, action_.getSubstitute());
-    }
-
-    private static Fight setBatonPass(
-            CustList<LevelMoves> _partnerMoves,
-            CustList<LevelMoves> _foeMoves,
-            Player _player,
-            Difficulty _diff, DataBase _data,
-            int... _mult) {
-        return choiceFoeArtificialIntelligence(_partnerMoves, _foeMoves, _player, _diff, _data, _mult);
     }
 
     @Test
@@ -4048,15 +3940,6 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         assertEq(RELAIS, action_.getFirstChosenMove());
         assertEq(0, action_.getChosenTargets().size());
         assertEq(Fighter.BACK, action_.getSubstitute());
-    }
-
-    private static Fight choiceFoeArtificialIntelligence(
-            CustList<LevelMoves> _partnerMoves,
-            CustList<LevelMoves> _foeMoves,
-            Player _player,
-            Difficulty _diff, DataBase _data,
-            int... _mult) {
-        return setFirstChosenMoveAlly(_partnerMoves, _foeMoves, _player, _diff, _data, _mult);
     }
 
     @Test

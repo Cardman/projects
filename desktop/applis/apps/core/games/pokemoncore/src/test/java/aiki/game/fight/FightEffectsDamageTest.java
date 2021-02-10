@@ -33,12 +33,6 @@ import code.util.StringMap;
 
 public class FightEffectsDamageTest extends InitializationDataBase {
 
-    private static Fight randomRate(DataBase _data) {
-        Difficulty diff_= new Difficulty();
-        diff_.setEnabledClosing(true);
-        return enableBoostEffectWhileKoTarget(diff_, _data);
-    }
-
     @Test
     public void randomRate1Test() {
         DataBase data_ = initDb();
@@ -101,10 +95,6 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         assertTrue(!FightEffects.randomRate(fight_, data_, new Rate("1/2"), POKEMON_PLAYER_FIGHTER_ZERO));
     }
 
-    private static Fight multBasePower(DataBase _data) {
-        return criticalHitEvent(_data);
-    }
-
     @Test
     public void multBaseDamage1Test() {
         DataBase data_ = initDb();
@@ -139,10 +129,6 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         variables_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.ATTAQUE_NOM), _move);
         variables_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.PUISSANCE_BASE), _power.toNumberString());
         return variables_;
-    }
-
-    private static Fight rateObjectPower(DataBase _data) {
-        return multBasePower(_data);
     }
 
     @Test
@@ -203,10 +189,6 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         fighter_.backUpObject(BAIE_MEPO);
         StringMap<String> variables_ = getValues(fight_, thrower_, target_, DON_NATUREL, new Rate("20"), data_);
         assertEq(new Rate("1"), FightEffects.rateObjectPower(fight_, thrower_, variables_, data_));
-    }
-
-    private static Fight rateAbilityPower(DataBase _data) {
-        return rateObjectPower(_data);
     }
 
     @Test
@@ -281,10 +263,6 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         assertEq(new Rate("1"), FightEffects.rateAbilityPower(fight_, thrower_, variables_, data_));
     }
 
-    private static Fight rateTypesPower(DataBase _data) {
-        return rateAbilityPower(_data);
-    }
-
     @Test
     public void rateTypesPower1Test() {
         DataBase data_ = initDb();
@@ -336,10 +314,6 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         fighter_ = fight_.getFighter(target_);
         fighter_.getDamageRateSufferedByType().getVal(FEU).multiplyBy(new Rate("1/2"));
         assertEq(new Rate("1"), FightEffects.rateTypesPower(fight_, thrower_, target_, new StringList(ELECTRIQUE,FEU)));
-    }
-
-    private static Fight attack(DataBase _data) {
-        return rateTypesPower(_data);
     }
 
     @Test
@@ -475,10 +449,6 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         assertEq(new Rate("2679/200"),FightEffects.attack(fight_, thrower_, target_, eff_, variables_, data_));
     }
 
-    private static Fight defense(DataBase _data) {
-        return attack(_data);
-    }
-
     @Test
     public void defense1Test() {
         DataBase data_ = initDb();
@@ -593,10 +563,6 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         assertEq(new Rate("107/15"),FightEffects.defense(fight_, thrower_, target_, eff_, variables_, data_));
     }
 
-    private static Fight ratePartnerMove(DataBase _data) {
-        return defense(_data);
-    }
-
     @Test
     public void ratePartnerMove1Test() {
         DataBase data_ = initDb();
@@ -630,10 +596,6 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         Fighter fighter_ = fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         fighter_.getEnabledMovesForAlly().put(COUP_D_MAIN_2, true);
         assertEq(new Rate("3/2"),FightEffects.ratePartnerMove(fighter_, data_));
-    }
-
-    private static Fight rateDamageTargetAbility(DataBase _data) {
-        return ratePartnerMove(_data);
     }
 
     @Test
@@ -711,10 +673,6 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         assertEq(new Rate("1"),FightEffects.rateDamageTargetAbility(fight_, thrower_, target_, new StringList(FEU), new Rate("1"), data_));
     }
 
-    private static Fight rateDamageTargetTeamMoves(DataBase _data) {
-        return rateDamageTargetAbility(_data);
-    }
-
     @Test
     public void rateDamageTargetTeamMoves1Test() {
         DataBase data_ = initDb();
@@ -777,10 +735,6 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         fighter_.backUpObject(NULL_REF);
         fight_.getFoeTeam().activerEffetEquipe(TOUR_RAPIDE);
         assertEq(new Rate("1"), FightEffects.rateDamageTargetTeamMoves(fight_, thrower_, target_, TONNERRE, data_));
-    }
-
-    private static Fight rateDamageGlobalAbilities(DataBase _data) {
-        return rateDamageTargetTeamMoves(_data);
     }
 
     @Test
@@ -856,10 +810,6 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         assertEq(new Rate("1"), FightEffects.rateDamageGlobalAbilities(fight_, types_, data_));
     }
 
-    private static Fight rateDamageGlobalMoves(DataBase _data) {
-        return rateDamageGlobalAbilities(_data);
-    }
-
     @Test
     public void rateDamageGlobalMoves1Test() {
         DataBase data_ = initDb();
@@ -878,10 +828,6 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         variables_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.COEFF_EFF), _efficiency.toNumberString());
         variables_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.NB_UTILISATION_CONSECUTIF), fighter_.getNbRepeatingSuccessfulMoves().toNumberString());
         return variables_;
-    }
-
-    private static Fight rateDamageThrowerObject(DataBase _data) {
-        return rateDamageGlobalMoves(_data);
     }
 
     @Test
@@ -947,10 +893,6 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         fighter_.backUpObject(BAIE_MEPO);
         StringMap<String> variables_ = getValues(fight_, thrower_, target_, DON_NATUREL, new Rate("60"), new Rate("2"), data_);
         assertEq(new Rate("1"),FightEffects.rateDamageThrowerObject(fight_, thrower_, variables_, data_));
-    }
-
-    private static Fight rateDamageThrowerAbility(DataBase _data) {
-        return rateDamageThrowerObject(_data);
     }
 
     @Test
@@ -1150,10 +1092,6 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         assertEq(new Rate("1"), FightEffects.rateDamageInvokedMove(fight_, thrower_, target_, data_));
     }
 
-    private static Fight rateDamageTargetBerry(DataBase _data) {
-        return rateDamageThrowerAbility(_data);
-    }
-
     @Test
     public void rateDamageTargetBerry1Test() {
         DataBase data_ = initDb();
@@ -1198,10 +1136,6 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         fighter_.affecterTypes(PSY);
         fighter_.backUpObject(BAIE_LAMPOU);
         assertEq(new Rate("1/2"), FightEffects.rateDamageTargetBerry(fight_, thrower_, target_, new StringList(TENEBRE), data_));
-    }
-
-    private static Fight rateDamageTargetBeforeUsingMove(DataBase _data) {
-        return rateDamageTargetBerry(_data);
     }
 
     @Test
@@ -1251,10 +1185,6 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         fighter_.affectNoRoundBeforeUsingMove();
         fighter_.incrementRoundBeforeUsingMove();
         assertEq(new Rate("2"), FightEffects.rateDamageTargetBeforeUsingMove(fight_, target_, new StringList(ELECTRIQUE), data_));
-    }
-
-    private static Fight rateDamageThrowerTarget(DataBase _data) {
-        return rateDamageTargetBeforeUsingMove(_data);
     }
 
     @Test
@@ -1344,10 +1274,6 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         assertEq(new Rate("1"), FightEffects.rateDamageThrowerTarget(fight_, thrower_, target_, data_));
     }
 
-    private static Fight rateDamageBoostedTypes(DataBase _data) {
-        return rateDamageThrowerTarget(_data);
-    }
-
     @Test
     public void rateDamageBoostedTypes1Test() {
         DataBase data_ = initDb();
@@ -1389,10 +1315,6 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         fighter_.affecterTypes(ELECTRIQUE);
         fighter_.setCurrentAbility(ADAPTABILITE);
         assertEq(new Rate("2"),FightEffects.rateDamageBoostedTypes(fight_, thrower_, TONNERRE, data_));
-    }
-
-    private static Fight rateDamageThrowerTargetAbility(DataBase _data) {
-        return rateDamageBoostedTypes(_data);
     }
 
     @Test
@@ -1444,10 +1366,6 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setCurrentAbility(NULL_REF);
         assertEq(new Rate("1"), FightEffects.rateDamageThrowerTargetAbility(fight_, thrower_, target_, data_));
-    }
-
-    private static Fight calculateDamageBaseWithoutRandom(DataBase _data) {
-        return rateDamageThrowerTargetAbility(_data);
     }
 
     @Test
@@ -1541,7 +1459,9 @@ public class FightEffectsDamageTest extends InitializationDataBase {
     }
 
     private static Fight criticalHitCanHappen(DataBase _data) {
-        return calculateDamageBaseWithoutRandom(_data);
+        Difficulty diff_= new Difficulty();
+        diff_.setEnabledClosing(true);
+        return enableBoostEffectWhileKoTarget(diff_, _data);
     }
 
     @Test
@@ -1655,10 +1575,6 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         assertTrue(FightEffects.criticalHitCanHappen(fight_, thrower_, target_, data_));
     }
 
-    private static Fight criticalHitEvent(DataBase _data) {
-        return randomRate(_data);
-    }
-
     @Test
     public void criticalHitEvent1Test() {
         DataBase data_ = initDb();
@@ -1709,64 +1625,6 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         fighter_ = fight_.getFighter(partner_);
         fighter_.setCurrentAbility(TIRS);
         assertEq(new Rate("6"),FightEffects.criticalHitEvent(fight_, thrower_, new Rate("2"), data_));
-    }
-
-    private static Fight calculateLawsForDamage(Difficulty _diff, DataBase _data) {
-        Player player_ = new Player(NICKNAME,null,_diff,false, _data);
-        Pokemon pokemon_ = new WildPk();
-        pokemon_.setName(ARTIKODIN);
-        pokemon_.setItem(PLAQUE_DRACO);
-        pokemon_.setAbility(METEO);
-        pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 3);
-        StringMap<Short> moves_ = new StringMap<Short>();
-        moves_.put(COPIE, (short) 10);
-        moves_.put(SEISME, (short) 10);
-        PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_, _data, moves_);
-        lasPk_.initIv(_diff);
-        lasPk_.initPvRestants(_data);
-        player_.getTeam().add(lasPk_);
-        lasPk_ = new PokemonPlayer(pokemon_, _data, moves_);
-        lasPk_.initIv(_diff);
-        lasPk_.initPvRestants(_data);
-        player_.getTeam().add(lasPk_);
-        lasPk_ = new PokemonPlayer(pokemon_, _data, moves_);
-        lasPk_.initIv(_diff);
-        lasPk_.initPvRestants(_data);
-        player_.getTeam().add(lasPk_);
-        CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
-        PkTrainer foePokemon_ = new PkTrainer();
-        foePokemon_.setName(TARTARD);
-        foePokemon_.setItem(PLAQUE_DRACO);
-        foePokemon_.setAbility(MULTITYPE);
-        foePokemon_.setGender(Gender.NO_GENDER);
-        foePokemon_.setLevel((short) 3);
-        foePokemon_.setMoves(new StringList(JACKPOT,PAR_ICI,COPIE));
-        foeTeam_.add(foePokemon_);
-        foePokemon_ = new PkTrainer();
-        foePokemon_.setName(TARTARD);
-        foePokemon_.setItem(MAGNET);
-        foePokemon_.setAbility(SECHERESSE);
-        foePokemon_.setGender(Gender.NO_GENDER);
-        foePokemon_.setLevel((short) 4);
-        foePokemon_.setMoves(new StringList(JACKPOT,PAR_ICI,COPIE));
-        foeTeam_.add(foePokemon_);
-        foePokemon_ = new PkTrainer();
-        foePokemon_.setName(TARTARD);
-        foePokemon_.setItem(MAGNET);
-        foePokemon_.setAbility(SECHERESSE);
-        foePokemon_.setGender(Gender.NO_GENDER);
-        foePokemon_.setLevel((short) 4);
-        foePokemon_.setMoves(new StringList(JACKPOT,PAR_ICI,COPIE));
-        foeTeam_.add(foePokemon_);
-        GymLeader trainer_ = new GymLeader();
-        trainer_.setTeam(foeTeam_);
-        trainer_.setReward((short) 200);
-        trainer_.setMultiplicityFight((byte) 3);
-        Fight fight_ = FightFacade.newFight();
-        FightFacade.initFight(fight_,player_, _diff, trainer_, _data);
-        fight_.setEnvType(EnvironmentType.ROAD);
-        return fight_;
     }
 
     @Test
@@ -2155,10 +2013,6 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         assertEq(new LgInt("1"),law_.rate(new Rate("5")));
     }
 
-    private static Fight calculateLawsForDamageByTeam(Difficulty _diff, DataBase _data) {
-        return enableAbilityWhileKoTarget(_diff, _data);
-    }
-
     @Test
     public void calculateLawsForDamageByTeam1Test() {
         DataBase data_ = initDb();
@@ -2283,10 +2137,6 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         assertEq(new Rate("0"),values_.getVal(UsefulValueLaw.VAR));
     }
 
-    private static Fight useBerryAgainstEfficiencyMoves(Difficulty _diff, DataBase _data) {
-        return calculateLawsForDamageByTeam(_diff, _data);
-    }
-
     @Test
     public void useBerryAgainstEfficiencyMoves1Test() {
         DataBase data_ = initDb();
@@ -2377,10 +2227,6 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         FightEffects.useBerryAgainstEfficiencyMoves(fight_, thrower_, target_, move_, data_);
         fighter_ = fight_.getFighter(target_);
         assertTrue(fighter_.isUsingItem());
-    }
-
-    private static Fight damageByUserOfMove(Difficulty _diff, DataBase _data) {
-        return useBerryAgainstEfficiencyMoves(_diff, _data);
     }
 
     @Test
@@ -2552,10 +2398,6 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         fighter_.affecterTypes(NORMAL);
         ThrowerDamageLaws laws_ = FightEffects.calculateLawsForDamageByTeam(fight_, thrower_, target_, move_, diff_, data_);
         assertTrue(FightEffects.koTarget(fight_, target_, laws_));
-    }
-
-    private static Fight canReverseAbsorb(Difficulty _diff, DataBase _data) {
-        return damageByUserOfMove(_diff, _data);
     }
 
     @Test
@@ -2805,10 +2647,6 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         fighter_.backUpObject(CEINT_FORCE);
         fighter_.setRemainedHp(new Rate("18"));
         assertEq(new Rate("0"),FightEffects.remainingHp(fight_, target_, DRACO_RAGE, data_));
-    }
-
-    private static Fight inflictDamageToTargetByUserOfMove(Difficulty _diff, DataBase _data) {
-        return canReverseAbsorb(_diff, _data);
     }
 
     private static void initDamage(Fight _fight) {
@@ -3211,10 +3049,6 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         assertTrue(!damage_.isKeepProcessing());
     }
 
-    private static Fight calculateDamageKo(Difficulty _diff, DataBase _data) {
-        return inflictDamageToTargetByUserOfMove(_diff, _data);
-    }
-
     @Test
     public void calculateDamageKo1Test() {
         DataBase data_ = initDb();
@@ -3310,10 +3144,6 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         assertTrue(!fight_.getAcceptableChoices());
     }
 
-    private static Fight rateAbsorb(Difficulty _diff, DataBase _data) {
-        return calculateDamageKo(_diff, _data);
-    }
-
     @Test
     public void rateAbsorb1Test() {
         DataBase data_ = initDb();
@@ -3365,10 +3195,6 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         fighter_.backUpObject(GRELOT_COQUE);
         fight_.getFoeTeam().activerEffetEquipe(ANTI_SOIN);
         assertEq(new Rate("0"), FightEffects.rateAbsorb(fight_, thrower_, data_));
-    }
-
-    private static Fight healedLostHp(Difficulty _diff, DataBase _data) {
-        return rateAbsorb(_diff, _data);
     }
 
     @Test
@@ -3434,10 +3260,6 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.backUpObject(GRELOT_COQUE);
         assertEq(new Rate("1/8"), FightEffects.healedLostHp(fight_, thrower_, new Rate("1"), true, new Rate("2"), data_));
-    }
-
-    private static Fight enableTargetAbility(Difficulty _diff, DataBase _data) {
-        return healedLostHp(_diff, _data);
     }
 
     @Test
@@ -3580,11 +3402,6 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         assertEq(0, fighter_.getStatisBoost().getVal(Statistic.CRITICAL_HIT));
     }
 
-
-
-    private static Fight enableFighterHavingToUseAbility(Difficulty _diff, DataBase _data) {
-        return enableTargetAbility(_diff, _data);
-    }
 
     @Test
     public void enableFighterHavingToUseAbility1Test() {
@@ -3983,10 +3800,6 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         assertEq(0, fighter_.getStatusNbRound(BRULURE));
     }
 
-    private static Fight recoilAgainstTarget(Difficulty _diff, DataBase _data) {
-        return enableFighterHavingToUseAbility(_diff, _data);
-    }
-
     @Test
     public void recoilAgainstTarget1Test() {
         DataBase data_ = initDb();
@@ -4369,7 +4182,61 @@ public class FightEffectsDamageTest extends InitializationDataBase {
     }
 
     private static Fight enableBoostEffectWhileKoTarget(Difficulty _diff, DataBase _data) {
-        return recoilAgainstTarget(_diff, _data);
+        Player player_ = new Player(NICKNAME,null, _diff,false, _data);
+        Pokemon pokemon_ = new WildPk();
+        pokemon_.setName(ARTIKODIN);
+        pokemon_.setItem(PLAQUE_DRACO);
+        pokemon_.setAbility(METEO);
+        pokemon_.setGender(Gender.NO_GENDER);
+        pokemon_.setLevel((short) 3);
+        StringMap<Short> moves_ = new StringMap<Short>();
+        moves_.put(COPIE, (short) 10);
+        moves_.put(SEISME, (short) 10);
+        PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_, _data, moves_);
+        lasPk_.initIv(_diff);
+        lasPk_.initPvRestants(_data);
+        player_.getTeam().add(lasPk_);
+        lasPk_ = new PokemonPlayer(pokemon_, _data, moves_);
+        lasPk_.initIv(_diff);
+        lasPk_.initPvRestants(_data);
+        player_.getTeam().add(lasPk_);
+        lasPk_ = new PokemonPlayer(pokemon_, _data, moves_);
+        lasPk_.initIv(_diff);
+        lasPk_.initPvRestants(_data);
+        player_.getTeam().add(lasPk_);
+        CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
+        PkTrainer foePokemon_ = new PkTrainer();
+        foePokemon_.setName(TARTARD);
+        foePokemon_.setItem(PLAQUE_DRACO);
+        foePokemon_.setAbility(MULTITYPE);
+        foePokemon_.setGender(Gender.NO_GENDER);
+        foePokemon_.setLevel((short) 3);
+        foePokemon_.setMoves(new StringList(JACKPOT,PAR_ICI,COPIE));
+        foeTeam_.add(foePokemon_);
+        foePokemon_ = new PkTrainer();
+        foePokemon_.setName(TARTARD);
+        foePokemon_.setItem(MAGNET);
+        foePokemon_.setAbility(SECHERESSE);
+        foePokemon_.setGender(Gender.NO_GENDER);
+        foePokemon_.setLevel((short) 4);
+        foePokemon_.setMoves(new StringList(JACKPOT,PAR_ICI,COPIE));
+        foeTeam_.add(foePokemon_);
+        foePokemon_ = new PkTrainer();
+        foePokemon_.setName(TARTARD);
+        foePokemon_.setItem(MAGNET);
+        foePokemon_.setAbility(SECHERESSE);
+        foePokemon_.setGender(Gender.NO_GENDER);
+        foePokemon_.setLevel((short) 4);
+        foePokemon_.setMoves(new StringList(JACKPOT,PAR_ICI,COPIE));
+        foeTeam_.add(foePokemon_);
+        GymLeader trainer_ = new GymLeader();
+        trainer_.setTeam(foeTeam_);
+        trainer_.setReward((short) 200);
+        trainer_.setMultiplicityFight((byte) 3);
+        Fight fight_ = FightFacade.newFight();
+        FightFacade.initFight(fight_,player_, _diff, trainer_, _data);
+        fight_.setEnvType(EnvironmentType.ROAD);
+        return fight_;
     }
 
     @Test
@@ -4414,10 +4281,6 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         assertEq(0, fighter_.getStatisBoost().getVal(Statistic.ACCURACY));
         assertEq(0, fighter_.getStatisBoost().getVal(Statistic.EVASINESS));
         assertEq(0, fighter_.getStatisBoost().getVal(Statistic.CRITICAL_HIT));
-    }
-
-    private static Fight enableAbilityWhileKoTarget(Difficulty _diff, DataBase _data) {
-        return effectDamage(_diff, _data);
     }
 
     @Test
@@ -4484,10 +4347,6 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         assertEq(0, fighter_.getStatisBoost().getVal(Statistic.ACCURACY));
         assertEq(0, fighter_.getStatisBoost().getVal(Statistic.EVASINESS));
         assertEq(0, fighter_.getStatisBoost().getVal(Statistic.CRITICAL_HIT));
-    }
-
-    private static Fight effectDamage(Difficulty _diff, DataBase _data) {
-        return calculateLawsForDamage(_diff, _data);
     }
 
     @Test

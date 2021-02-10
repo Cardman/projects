@@ -175,68 +175,6 @@ public class FightEffectsTest extends InitializationDataBase {
         assertEq(0, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getStatusRelatNbRound(new MoveTeamPosition(AMOUR, POKEMON_FOE_FIGHTER_ZERO)));
     }
 
-    private static Fight deltaBoostStatistic(DataBase _data) {
-        Difficulty diff_= new Difficulty();
-        diff_.setEnabledClosing(true);
-        Player player_ = new Player(NICKNAME,null,diff_,false, _data);
-        Pokemon pokemon_ = new WildPk();
-        pokemon_.setName(ARTIKODIN);
-        pokemon_.setItem(PLAQUE_DRACO);
-        pokemon_.setAbility(METEO);
-        pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 3);
-        StringMap<Short> moves_ = new StringMap<Short>();
-        moves_.put(SEISME, (short) 10);
-        moves_.put(COPIE, (short) 10);
-        moves_.put(GLAS_DE_SOIN, (short) 10);
-        moves_.put(INTERVERSION, (short) 10);
-        PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_, _data, moves_);
-        lasPk_.initIv(diff_);
-        lasPk_.initPvRestants(_data);
-        player_.getTeam().add(lasPk_);
-        lasPk_ = new PokemonPlayer(pokemon_, _data, moves_);
-        lasPk_.initIv(diff_);
-        lasPk_.initPvRestants(_data);
-        player_.getTeam().add(lasPk_);
-        lasPk_ = new PokemonPlayer(pokemon_, _data, moves_);
-        lasPk_.initIv(diff_);
-        lasPk_.initPvRestants(_data);
-        player_.getTeam().add(lasPk_);
-        CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
-        PkTrainer foePokemon_ = new PkTrainer();
-        foePokemon_.setName(TARTARD);
-        foePokemon_.setItem(PLAQUE_DRACO);
-        foePokemon_.setAbility(MULTITYPE);
-        foePokemon_.setGender(Gender.NO_GENDER);
-        foePokemon_.setLevel((short) 3);
-        foePokemon_.setMoves(new StringList(JACKPOT,PAR_ICI,COPIE));
-        foeTeam_.add(foePokemon_);
-        foePokemon_ = new PkTrainer();
-        foePokemon_.setName(TARTARD);
-        foePokemon_.setItem(MAGNET);
-        foePokemon_.setAbility(SECHERESSE);
-        foePokemon_.setGender(Gender.NO_GENDER);
-        foePokemon_.setLevel((short) 4);
-        foePokemon_.setMoves(new StringList(JACKPOT,PAR_ICI,COPIE));
-        foeTeam_.add(foePokemon_);
-        foePokemon_ = new PkTrainer();
-        foePokemon_.setName(TARTARD);
-        foePokemon_.setItem(MAGNET);
-        foePokemon_.setAbility(SECHERESSE);
-        foePokemon_.setGender(Gender.NO_GENDER);
-        foePokemon_.setLevel((short) 4);
-        foePokemon_.setMoves(new StringList(JACKPOT,PAR_ICI,COPIE));
-        foeTeam_.add(foePokemon_);
-        GymLeader trainer_ = new GymLeader();
-        trainer_.setTeam(foeTeam_);
-        trainer_.setReward((short) 200);
-        trainer_.setMultiplicityFight((byte) 3);
-        Fight fight_ = FightFacade.newFight();
-        FightFacade.initFight(fight_,player_, diff_, trainer_, _data);
-        fight_.setEnvType(EnvironmentType.ROAD);
-        return fight_;
-    }
-
     @Test
     public void deltaBoostStatistic1Test() {
         DataBase data_ = initDb();
@@ -308,10 +246,6 @@ public class FightEffectsTest extends InitializationDataBase {
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setCurrentAbility(CONTRAIRE);
         assertEq(2, FightEffects.deltaBoostStatistic(fight_,POKEMON_PLAYER_FIGHTER_ZERO, Statistic.ATTACK, (byte) 1, data_));
         assertEq(2, FightEffects.deltaBoostStatistic(fight_,POKEMON_PLAYER_FIGHTER_ZERO, Statistic.ATTACK, (byte) -1, data_));
-    }
-
-    private static Fight deltaBoostStatisticMap(DataBase _data) {
-        return deltaBoostStatistic(_data);
     }
 
     @Test
@@ -431,10 +365,6 @@ public class FightEffectsTest extends InitializationDataBase {
         EnumMap<Statistic,Byte> vars_;
         vars_ = FightEffects.deltaBoostStatisticMap(fight_, POKEMON_PLAYER_FIGHTER_ZERO, varsBase_, data_);
         assertEq(0, vars_.size());
-    }
-
-    private static Fight pairNewThrowerTarget(DataBase _data) {
-        return effectSwitchAbilities(_data);
     }
 
     @Test
@@ -610,10 +540,6 @@ public class FightEffectsTest extends InitializationDataBase {
         assertEq(POKEMON_FOE_FIGHTER_ZERO,pair_.getUser());
     }
 
-    private static Fight effectRestriction(DataBase _data) {
-        return pairNewThrowerTarget(_data);
-    }
-
     @Test
     public void effectRestriction1Test() {
         DataBase data_ = initDb();
@@ -771,7 +697,65 @@ public class FightEffectsTest extends InitializationDataBase {
     }
 
     private static Fight effectUnprotectFromMoveTypes(DataBase _data) {
-        return effectRestriction(_data);
+        Difficulty diff_= new Difficulty();
+        diff_.setEnabledClosing(true);
+        Player player_ = new Player(NICKNAME,null,diff_,false, _data);
+        Pokemon pokemon_ = new WildPk();
+        pokemon_.setName(ARTIKODIN);
+        pokemon_.setItem(PLAQUE_DRACO);
+        pokemon_.setAbility(METEO);
+        pokemon_.setGender(Gender.NO_GENDER);
+        pokemon_.setLevel((short) 3);
+        StringMap<Short> moves_ = new StringMap<Short>();
+        moves_.put(SEISME, (short) 10);
+        moves_.put(COPIE, (short) 10);
+        moves_.put(GLAS_DE_SOIN, (short) 10);
+        moves_.put(INTERVERSION, (short) 10);
+        PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_, _data, moves_);
+        lasPk_.initIv(diff_);
+        lasPk_.initPvRestants(_data);
+        player_.getTeam().add(lasPk_);
+        lasPk_ = new PokemonPlayer(pokemon_, _data, moves_);
+        lasPk_.initIv(diff_);
+        lasPk_.initPvRestants(_data);
+        player_.getTeam().add(lasPk_);
+        lasPk_ = new PokemonPlayer(pokemon_, _data, moves_);
+        lasPk_.initIv(diff_);
+        lasPk_.initPvRestants(_data);
+        player_.getTeam().add(lasPk_);
+        CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
+        PkTrainer foePokemon_ = new PkTrainer();
+        foePokemon_.setName(TARTARD);
+        foePokemon_.setItem(PLAQUE_DRACO);
+        foePokemon_.setAbility(MULTITYPE);
+        foePokemon_.setGender(Gender.NO_GENDER);
+        foePokemon_.setLevel((short) 3);
+        foePokemon_.setMoves(new StringList(JACKPOT,PAR_ICI,COPIE));
+        foeTeam_.add(foePokemon_);
+        foePokemon_ = new PkTrainer();
+        foePokemon_.setName(TARTARD);
+        foePokemon_.setItem(MAGNET);
+        foePokemon_.setAbility(SECHERESSE);
+        foePokemon_.setGender(Gender.NO_GENDER);
+        foePokemon_.setLevel((short) 4);
+        foePokemon_.setMoves(new StringList(JACKPOT,PAR_ICI,COPIE));
+        foeTeam_.add(foePokemon_);
+        foePokemon_ = new PkTrainer();
+        foePokemon_.setName(TARTARD);
+        foePokemon_.setItem(MAGNET);
+        foePokemon_.setAbility(SECHERESSE);
+        foePokemon_.setGender(Gender.NO_GENDER);
+        foePokemon_.setLevel((short) 4);
+        foePokemon_.setMoves(new StringList(JACKPOT,PAR_ICI,COPIE));
+        foeTeam_.add(foePokemon_);
+        GymLeader trainer_ = new GymLeader();
+        trainer_.setTeam(foeTeam_);
+        trainer_.setReward((short) 200);
+        trainer_.setMultiplicityFight((byte) 3);
+        Fight fight_ = FightFacade.newFight();
+        FightFacade.initFight(fight_,player_, diff_, trainer_, _data);
+        fight_.setEnvType(EnvironmentType.ROAD);
+        return fight_;
     }
 
     @Test
@@ -886,10 +870,6 @@ public class FightEffectsTest extends InitializationDataBase {
         StringList types_ = fighter_.getProtectedAgainstMoveTypes();
         assertEq(1, types_.size());
         assertEq(VOL, types_.first());
-    }
-
-    private static Fight effectSwitchAbilities(DataBase _data) {
-        return effectSwitchObjects(_data);
     }
 
     @Test
@@ -1096,10 +1076,6 @@ public class FightEffectsTest extends InitializationDataBase {
         assertEq(2, typesTarget_.size());
         assertTrue(StringUtil.contains(typesTarget_, EAU));
         assertTrue(StringUtil.contains(typesTarget_, COMBAT));
-    }
-
-    private static Fight effectSwitchObjects(DataBase _data) {
-        return deltaBoostStatisticMap(_data);
     }
 
     @Test
@@ -1397,65 +1373,6 @@ public class FightEffectsTest extends InitializationDataBase {
         StringList lostObjects_ = fight_.getLostObjects();
         assertEq(1, lostObjects_.size());
         assertTrue(StringUtil.contains(lostObjects_, BAIE_MEPO));
-    }
-
-    private static Fight effectSwitchTypes(DataBase _data) {
-        Difficulty diff_= new Difficulty();
-        diff_.setEnabledClosing(true);
-        Player player_ = new Player(NICKNAME,null,diff_,false, _data);
-        Pokemon pokemon_ = new WildPk();
-        pokemon_.setName(ARTIKODIN);
-        pokemon_.setItem(PLAQUE_DRACO);
-        pokemon_.setAbility(METEO);
-        pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 3);
-        StringMap<Short> moves_ = new StringMap<Short>();
-        moves_.put(SEISME, (short) 10);
-        PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_, _data, moves_);
-        lasPk_.initIv(diff_);
-        lasPk_.initPvRestants(_data);
-        player_.getTeam().add(lasPk_);
-        lasPk_ = new PokemonPlayer(pokemon_, _data, moves_);
-        lasPk_.initIv(diff_);
-        lasPk_.initPvRestants(_data);
-        player_.getTeam().add(lasPk_);
-        lasPk_ = new PokemonPlayer(pokemon_, _data, moves_);
-        lasPk_.initIv(diff_);
-        lasPk_.initPvRestants(_data);
-        player_.getTeam().add(lasPk_);
-        CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
-        PkTrainer foePokemon_ = new PkTrainer();
-        foePokemon_.setName(TARTARD);
-        foePokemon_.setItem(PLAQUE_DRACO);
-        foePokemon_.setAbility(MULTITYPE);
-        foePokemon_.setGender(Gender.NO_GENDER);
-        foePokemon_.setLevel((short) 3);
-        foePokemon_.setMoves(new StringList(JACKPOT,PAR_ICI,COPIE));
-        foeTeam_.add(foePokemon_);
-        foePokemon_ = new PkTrainer();
-        foePokemon_.setName(TARTARD);
-        foePokemon_.setItem(MAGNET);
-        foePokemon_.setAbility(SECHERESSE);
-        foePokemon_.setGender(Gender.NO_GENDER);
-        foePokemon_.setLevel((short) 4);
-        foePokemon_.setMoves(new StringList(JACKPOT,PAR_ICI,COPIE));
-        foeTeam_.add(foePokemon_);
-        foePokemon_ = new PkTrainer();
-        foePokemon_.setName(TARTARD);
-        foePokemon_.setItem(MAGNET);
-        foePokemon_.setAbility(SECHERESSE);
-        foePokemon_.setGender(Gender.NO_GENDER);
-        foePokemon_.setLevel((short) 4);
-        foePokemon_.setMoves(new StringList(JACKPOT,PAR_ICI,COPIE));
-        foeTeam_.add(foePokemon_);
-        GymLeader trainer_ = new GymLeader();
-        trainer_.setTeam(foeTeam_);
-        trainer_.setReward((short) 200);
-        trainer_.setMultiplicityFight((byte) 3);
-        Fight fight_ = FightFacade.newFight();
-        FightFacade.initFight(fight_,player_, diff_, trainer_, _data);
-        fight_.setEnvType(EnvironmentType.ROAD);
-        return fight_;
     }
 
     @Test
@@ -1784,7 +1701,62 @@ public class FightEffectsTest extends InitializationDataBase {
     }
 
     private static Fight effectCommonStatistics(DataBase _data) {
-        return effectSwitchTypes(_data);
+        Difficulty diff_= new Difficulty();
+        diff_.setEnabledClosing(true);
+        Player player_ = new Player(NICKNAME,null,diff_,false, _data);
+        Pokemon pokemon_ = new WildPk();
+        pokemon_.setName(ARTIKODIN);
+        pokemon_.setItem(PLAQUE_DRACO);
+        pokemon_.setAbility(METEO);
+        pokemon_.setGender(Gender.NO_GENDER);
+        pokemon_.setLevel((short) 3);
+        StringMap<Short> moves_ = new StringMap<Short>();
+        moves_.put(SEISME, (short) 10);
+        PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_, _data, moves_);
+        lasPk_.initIv(diff_);
+        lasPk_.initPvRestants(_data);
+        player_.getTeam().add(lasPk_);
+        lasPk_ = new PokemonPlayer(pokemon_, _data, moves_);
+        lasPk_.initIv(diff_);
+        lasPk_.initPvRestants(_data);
+        player_.getTeam().add(lasPk_);
+        lasPk_ = new PokemonPlayer(pokemon_, _data, moves_);
+        lasPk_.initIv(diff_);
+        lasPk_.initPvRestants(_data);
+        player_.getTeam().add(lasPk_);
+        CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
+        PkTrainer foePokemon_ = new PkTrainer();
+        foePokemon_.setName(TARTARD);
+        foePokemon_.setItem(PLAQUE_DRACO);
+        foePokemon_.setAbility(MULTITYPE);
+        foePokemon_.setGender(Gender.NO_GENDER);
+        foePokemon_.setLevel((short) 3);
+        foePokemon_.setMoves(new StringList(JACKPOT,PAR_ICI,COPIE));
+        foeTeam_.add(foePokemon_);
+        foePokemon_ = new PkTrainer();
+        foePokemon_.setName(TARTARD);
+        foePokemon_.setItem(MAGNET);
+        foePokemon_.setAbility(SECHERESSE);
+        foePokemon_.setGender(Gender.NO_GENDER);
+        foePokemon_.setLevel((short) 4);
+        foePokemon_.setMoves(new StringList(JACKPOT,PAR_ICI,COPIE));
+        foeTeam_.add(foePokemon_);
+        foePokemon_ = new PkTrainer();
+        foePokemon_.setName(TARTARD);
+        foePokemon_.setItem(MAGNET);
+        foePokemon_.setAbility(SECHERESSE);
+        foePokemon_.setGender(Gender.NO_GENDER);
+        foePokemon_.setLevel((short) 4);
+        foePokemon_.setMoves(new StringList(JACKPOT,PAR_ICI,COPIE));
+        foeTeam_.add(foePokemon_);
+        GymLeader trainer_ = new GymLeader();
+        trainer_.setTeam(foeTeam_);
+        trainer_.setReward((short) 200);
+        trainer_.setMultiplicityFight((byte) 3);
+        Fight fight_ = FightFacade.newFight();
+        FightFacade.initFight(fight_,player_, diff_, trainer_, _data);
+        fight_.setEnvType(EnvironmentType.ROAD);
+        return fight_;
     }
 
     @Test
@@ -2043,64 +2015,6 @@ public class FightEffectsTest extends InitializationDataBase {
         assertEq(new LgInt("2"), FightEffects.rateNoStatus(map_));
     }
 
-    private static Fight generatedStatusLaw(Difficulty _diff, DataBase _data) {
-        Player player_ = new Player(NICKNAME,null,_diff,false, _data);
-        Pokemon pokemon_ = new WildPk();
-        pokemon_.setName(ARTIKODIN);
-        pokemon_.setItem(PLAQUE_DRACO);
-        pokemon_.setAbility(METEO);
-        pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 3);
-        StringMap<Short> moves_ = new StringMap<Short>();
-        moves_.put(COPIE, (short) 10);
-        moves_.put(SEISME, (short) 10);
-        PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_, _data, moves_);
-        lasPk_.initIv(_diff);
-        lasPk_.initPvRestants(_data);
-        player_.getTeam().add(lasPk_);
-        lasPk_ = new PokemonPlayer(pokemon_, _data, moves_);
-        lasPk_.initIv(_diff);
-        lasPk_.initPvRestants(_data);
-        player_.getTeam().add(lasPk_);
-        lasPk_ = new PokemonPlayer(pokemon_, _data, moves_);
-        lasPk_.initIv(_diff);
-        lasPk_.initPvRestants(_data);
-        player_.getTeam().add(lasPk_);
-        CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
-        PkTrainer foePokemon_ = new PkTrainer();
-        foePokemon_.setName(TARTARD);
-        foePokemon_.setItem(PLAQUE_DRACO);
-        foePokemon_.setAbility(MULTITYPE);
-        foePokemon_.setGender(Gender.NO_GENDER);
-        foePokemon_.setLevel((short) 3);
-        foePokemon_.setMoves(new StringList(JACKPOT,PAR_ICI,COPIE));
-        foeTeam_.add(foePokemon_);
-        foePokemon_ = new PkTrainer();
-        foePokemon_.setName(TARTARD);
-        foePokemon_.setItem(MAGNET);
-        foePokemon_.setAbility(SECHERESSE);
-        foePokemon_.setGender(Gender.NO_GENDER);
-        foePokemon_.setLevel((short) 4);
-        foePokemon_.setMoves(new StringList(JACKPOT,PAR_ICI,COPIE));
-        foeTeam_.add(foePokemon_);
-        foePokemon_ = new PkTrainer();
-        foePokemon_.setName(TARTARD);
-        foePokemon_.setItem(MAGNET);
-        foePokemon_.setAbility(SECHERESSE);
-        foePokemon_.setGender(Gender.NO_GENDER);
-        foePokemon_.setLevel((short) 4);
-        foePokemon_.setMoves(new StringList(JACKPOT,PAR_ICI,COPIE));
-        foeTeam_.add(foePokemon_);
-        GymLeader trainer_ = new GymLeader();
-        trainer_.setTeam(foeTeam_);
-        trainer_.setReward((short) 200);
-        trainer_.setMultiplicityFight((byte) 3);
-        Fight fight_ = FightFacade.newFight();
-        FightFacade.initFight(fight_,player_, _diff, trainer_, _data);
-        fight_.setEnvType(EnvironmentType.ROAD);
-        return fight_;
-    }
-
     @Test
     public void generatedStatusLaw1Test() {
         DataBase data_ = initDb();
@@ -2261,10 +2175,6 @@ public class FightEffectsTest extends InitializationDataBase {
         assertEq(1, res_.nbEvents());
         assertTrue(res_.containsEvent(NULL_REF));
         assertTrue(res_.isValid());
-    }
-
-    private static Fight setStatus(Difficulty _diff, DataBase _data) {
-        return generatedStatusLaw(_diff, _data);
     }
 
     @Test
@@ -2480,10 +2390,6 @@ public class FightEffectsTest extends InitializationDataBase {
         assertEq(0, fighter_.getStatisBoost().getVal(Statistic.CRITICAL_HIT));
     }
 
-    private static Fight processStatusLaw(Difficulty _diff, DataBase _data) {
-        return setStatus(_diff, _data);
-    }
-
     @Test
     public void processStatusLaw1Test() {
         DataBase data_ = initDb();
@@ -2537,10 +2443,6 @@ public class FightEffectsTest extends InitializationDataBase {
         Fighter fighter_ = fight_.getFighter(target_);
         assertEq(0, fighter_.getStatusNbRound(SOMMEIL));
         assertTrue(!fight_.getAcceptableChoices());
-    }
-
-    private static Fight affectStatusToThrower(Difficulty _diff, DataBase _data) {
-        return effectSwitchPosition(_diff, _data);
     }
 
     @Test
@@ -2653,7 +2555,61 @@ public class FightEffectsTest extends InitializationDataBase {
     }
 
     private static Fight synchronizeStatus(Difficulty _diff, DataBase _data) {
-        return affectStatusToThrower(_diff, _data);
+        Player player_ = new Player(NICKNAME,null, _diff,false, _data);
+        Pokemon pokemon_ = new WildPk();
+        pokemon_.setName(ARTIKODIN);
+        pokemon_.setItem(PLAQUE_DRACO);
+        pokemon_.setAbility(METEO);
+        pokemon_.setGender(Gender.NO_GENDER);
+        pokemon_.setLevel((short) 3);
+        StringMap<Short> moves_ = new StringMap<Short>();
+        moves_.put(COPIE, (short) 10);
+        moves_.put(SEISME, (short) 10);
+        PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_, _data, moves_);
+        lasPk_.initIv(_diff);
+        lasPk_.initPvRestants(_data);
+        player_.getTeam().add(lasPk_);
+        lasPk_ = new PokemonPlayer(pokemon_, _data, moves_);
+        lasPk_.initIv(_diff);
+        lasPk_.initPvRestants(_data);
+        player_.getTeam().add(lasPk_);
+        lasPk_ = new PokemonPlayer(pokemon_, _data, moves_);
+        lasPk_.initIv(_diff);
+        lasPk_.initPvRestants(_data);
+        player_.getTeam().add(lasPk_);
+        CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
+        PkTrainer foePokemon_ = new PkTrainer();
+        foePokemon_.setName(TARTARD);
+        foePokemon_.setItem(PLAQUE_DRACO);
+        foePokemon_.setAbility(MULTITYPE);
+        foePokemon_.setGender(Gender.NO_GENDER);
+        foePokemon_.setLevel((short) 3);
+        foePokemon_.setMoves(new StringList(JACKPOT,PAR_ICI,COPIE));
+        foeTeam_.add(foePokemon_);
+        foePokemon_ = new PkTrainer();
+        foePokemon_.setName(TARTARD);
+        foePokemon_.setItem(MAGNET);
+        foePokemon_.setAbility(SECHERESSE);
+        foePokemon_.setGender(Gender.NO_GENDER);
+        foePokemon_.setLevel((short) 4);
+        foePokemon_.setMoves(new StringList(JACKPOT,PAR_ICI,COPIE));
+        foeTeam_.add(foePokemon_);
+        foePokemon_ = new PkTrainer();
+        foePokemon_.setName(TARTARD);
+        foePokemon_.setItem(MAGNET);
+        foePokemon_.setAbility(SECHERESSE);
+        foePokemon_.setGender(Gender.NO_GENDER);
+        foePokemon_.setLevel((short) 4);
+        foePokemon_.setMoves(new StringList(JACKPOT,PAR_ICI,COPIE));
+        foeTeam_.add(foePokemon_);
+        GymLeader trainer_ = new GymLeader();
+        trainer_.setTeam(foeTeam_);
+        trainer_.setReward((short) 200);
+        trainer_.setMultiplicityFight((byte) 3);
+        Fight fight_ = FightFacade.newFight();
+        FightFacade.initFight(fight_,player_, _diff, trainer_, _data);
+        fight_.setEnvType(EnvironmentType.ROAD);
+        return fight_;
     }
 
     @Test
@@ -2950,89 +2906,6 @@ public class FightEffectsTest extends InitializationDataBase {
         assertEq(0, fighter_.getStatusRelatNbRound(new MoveTeamPosition(AMOUR, target_)));
     }
 
-    private static Fight effectSwitchPosition(Difficulty _diff, DataBase _data) {
-        return processStatusLaw(_diff, _data);
-    }
-
-    private static Fight effectSwitchPosition2(Difficulty _diff, DataBase _data) {
-        Player player_ = new Player(NICKNAME,null,_diff,false, _data);
-        Pokemon pokemon_ = new WildPk();
-        pokemon_.setName(ARTIKODIN);
-        pokemon_.setItem(PLAQUE_DRACO);
-        pokemon_.setAbility(METEO);
-        pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 3);
-        StringMap<Short> moves_ = new StringMap<Short>();
-        moves_.put(COPIE, (short) 10);
-        moves_.put(SEISME, (short) 10);
-        PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_, _data, moves_);
-        lasPk_.initIv(_diff);
-        lasPk_.initPvRestants(_data);
-        player_.getTeam().add(lasPk_);
-        lasPk_ = new PokemonPlayer(pokemon_, _data, moves_);
-        lasPk_.initIv(_diff);
-        lasPk_.initPvRestants(_data);
-        player_.getTeam().add(lasPk_);
-        lasPk_ = new PokemonPlayer(pokemon_, _data, moves_);
-        lasPk_.initIv(_diff);
-        lasPk_.initPvRestants(_data);
-        player_.getTeam().add(lasPk_);
-        DualFight dual_ = new DualFight();
-        Ally ally_ = new Ally();
-        CustList<PkTrainer> allyTeam_ = new CustList<PkTrainer>();
-        PkTrainer allyPokemon_ = new PkTrainer();
-        allyPokemon_.setName(TARTARD);
-        allyPokemon_.setItem(PLAQUE_DRACO);
-        allyPokemon_.setAbility(MULTITYPE);
-        allyPokemon_.setGender(Gender.NO_GENDER);
-        allyPokemon_.setLevel((short) 3);
-        allyPokemon_.setMoves(new StringList(JACKPOT,PAR_ICI,COPIE));
-        allyTeam_.add(allyPokemon_);
-        allyPokemon_ = new PkTrainer();
-        allyPokemon_.setName(TARTARD);
-        allyPokemon_.setItem(MAGNET);
-        allyPokemon_.setAbility(SECHERESSE);
-        allyPokemon_.setGender(Gender.NO_GENDER);
-        allyPokemon_.setLevel((short) 4);
-        allyPokemon_.setMoves(new StringList(JACKPOT,PAR_ICI,COPIE));
-        allyTeam_.add(allyPokemon_);
-        ally_.setTeam(allyTeam_);
-        dual_.setAlly(ally_);
-        CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
-        PkTrainer foePokemon_ = new PkTrainer();
-        foePokemon_.setName(TARTARD);
-        foePokemon_.setItem(PLAQUE_DRACO);
-        foePokemon_.setAbility(MULTITYPE);
-        foePokemon_.setGender(Gender.NO_GENDER);
-        foePokemon_.setLevel((short) 3);
-        foePokemon_.setMoves(new StringList(JACKPOT,PAR_ICI,COPIE));
-        foeTeam_.add(foePokemon_);
-        foePokemon_ = new PkTrainer();
-        foePokemon_.setName(TARTARD);
-        foePokemon_.setItem(MAGNET);
-        foePokemon_.setAbility(SECHERESSE);
-        foePokemon_.setGender(Gender.NO_GENDER);
-        foePokemon_.setLevel((short) 4);
-        foePokemon_.setMoves(new StringList(JACKPOT,PAR_ICI,COPIE));
-        foeTeam_.add(foePokemon_);
-        foePokemon_ = new PkTrainer();
-        foePokemon_.setName(TARTARD);
-        foePokemon_.setItem(MAGNET);
-        foePokemon_.setAbility(SECHERESSE);
-        foePokemon_.setGender(Gender.NO_GENDER);
-        foePokemon_.setLevel((short) 4);
-        foePokemon_.setMoves(new StringList(JACKPOT,PAR_ICI,COPIE));
-        foeTeam_.add(foePokemon_);
-        TempTrainer trainer_ = new TempTrainer();
-        trainer_.setTeam(foeTeam_);
-        trainer_.setReward((short) 200);
-        dual_.setFoeTrainer(trainer_);
-        Fight fight_ = FightFacade.newFight();
-        FightFacade.initFight(fight_,player_, _diff, dual_, _data);
-        fight_.setEnvType(EnvironmentType.ROAD);
-        return fight_;
-    }
-
     @Test
     public void effectSwitchPosition1Test() {
         DataBase data_ = initDb();
@@ -3159,10 +3032,6 @@ public class FightEffectsTest extends InitializationDataBase {
         assertEq(POKEMON_FOE_TARGET_ONE, animSwitch_.getToFighter());
         assertTrue(!animSwitch_.isKoFromFighter());
         assertTrue(!animSwitch_.isKoToFighter());
-    }
-
-    private static Fight effectStatistic(Difficulty _diff, DataBase _data) {
-        return effectSwitchPosition2(_diff, _data);
     }
 
     @Test
@@ -3592,10 +3461,6 @@ public class FightEffectsTest extends InitializationDataBase {
         assertTrue(!fight_.getAcceptableChoices());
     }
 
-    private static Fight effectStatisticRandom(Difficulty _diff, DataBase _data) {
-        return effectStatistic(_diff, _data);
-    }
-
     @Test
     public void effectStatisticRandom1Test() {
         DataBase data_ = initDb();
@@ -3668,10 +3533,6 @@ public class FightEffectsTest extends InitializationDataBase {
         FightEffects.effectStatisticRandom(fight_, thrower_, target_, eff_, statistics_, Rate.zero(), true, data_);
         fighter_ = fight_.getFighter(target_);
         assertEq(0, fighter_.getStatisBoost().getVal(Statistic.ACCURACY));
-    }
-
-    private static Fight effectStatus(Difficulty _diff, DataBase _data) {
-        return effectStatisticRandom(_diff, _data);
     }
 
     @Test
@@ -4080,10 +3941,6 @@ public class FightEffectsTest extends InitializationDataBase {
         assertTrue(fight_.getAcceptableChoices());
     }
 
-    private static Fight effectTeam(Difficulty _diff, DataBase _data) {
-        return effectStatus(_diff, _data);
-    }
-
     @Test
     public void effectTeam1Test() {
         DataBase data_ = initDb();
@@ -4301,10 +4158,6 @@ public class FightEffectsTest extends InitializationDataBase {
         assertEq(-1, fighter_.getStatisBoost().getVal(Statistic.EVASINESS));
     }
 
-    private static Fight effectEndRound(Difficulty _diff, DataBase _data) {
-        return effectTeam(_diff, _data);
-    }
-
     @Test
     public void effectEndRound1Test() {
         DataBase data_ = initDb();
@@ -4495,7 +4348,82 @@ public class FightEffectsTest extends InitializationDataBase {
     }
 
     private static Fight effectBatonPass(Difficulty _diff, DataBase _data) {
-        return effectEndRound(_diff, _data);
+        Player player_ = new Player(NICKNAME,null, _diff,false, _data);
+        Pokemon pokemon_ = new WildPk();
+        pokemon_.setName(ARTIKODIN);
+        pokemon_.setItem(PLAQUE_DRACO);
+        pokemon_.setAbility(METEO);
+        pokemon_.setGender(Gender.NO_GENDER);
+        pokemon_.setLevel((short) 3);
+        StringMap<Short> moves_ = new StringMap<Short>();
+        moves_.put(COPIE, (short) 10);
+        moves_.put(SEISME, (short) 10);
+        PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_, _data, moves_);
+        lasPk_.initIv(_diff);
+        lasPk_.initPvRestants(_data);
+        player_.getTeam().add(lasPk_);
+        lasPk_ = new PokemonPlayer(pokemon_, _data, moves_);
+        lasPk_.initIv(_diff);
+        lasPk_.initPvRestants(_data);
+        player_.getTeam().add(lasPk_);
+        lasPk_ = new PokemonPlayer(pokemon_, _data, moves_);
+        lasPk_.initIv(_diff);
+        lasPk_.initPvRestants(_data);
+        player_.getTeam().add(lasPk_);
+        DualFight dual_ = new DualFight();
+        Ally ally_ = new Ally();
+        CustList<PkTrainer> allyTeam_ = new CustList<PkTrainer>();
+        PkTrainer allyPokemon_ = new PkTrainer();
+        allyPokemon_.setName(TARTARD);
+        allyPokemon_.setItem(PLAQUE_DRACO);
+        allyPokemon_.setAbility(MULTITYPE);
+        allyPokemon_.setGender(Gender.NO_GENDER);
+        allyPokemon_.setLevel((short) 3);
+        allyPokemon_.setMoves(new StringList(JACKPOT,PAR_ICI,COPIE));
+        allyTeam_.add(allyPokemon_);
+        allyPokemon_ = new PkTrainer();
+        allyPokemon_.setName(TARTARD);
+        allyPokemon_.setItem(MAGNET);
+        allyPokemon_.setAbility(SECHERESSE);
+        allyPokemon_.setGender(Gender.NO_GENDER);
+        allyPokemon_.setLevel((short) 4);
+        allyPokemon_.setMoves(new StringList(JACKPOT,PAR_ICI,COPIE));
+        allyTeam_.add(allyPokemon_);
+        ally_.setTeam(allyTeam_);
+        dual_.setAlly(ally_);
+        CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
+        PkTrainer foePokemon_ = new PkTrainer();
+        foePokemon_.setName(TARTARD);
+        foePokemon_.setItem(PLAQUE_DRACO);
+        foePokemon_.setAbility(MULTITYPE);
+        foePokemon_.setGender(Gender.NO_GENDER);
+        foePokemon_.setLevel((short) 3);
+        foePokemon_.setMoves(new StringList(JACKPOT,PAR_ICI,COPIE));
+        foeTeam_.add(foePokemon_);
+        foePokemon_ = new PkTrainer();
+        foePokemon_.setName(TARTARD);
+        foePokemon_.setItem(MAGNET);
+        foePokemon_.setAbility(SECHERESSE);
+        foePokemon_.setGender(Gender.NO_GENDER);
+        foePokemon_.setLevel((short) 4);
+        foePokemon_.setMoves(new StringList(JACKPOT,PAR_ICI,COPIE));
+        foeTeam_.add(foePokemon_);
+        foePokemon_ = new PkTrainer();
+        foePokemon_.setName(TARTARD);
+        foePokemon_.setItem(MAGNET);
+        foePokemon_.setAbility(SECHERESSE);
+        foePokemon_.setGender(Gender.NO_GENDER);
+        foePokemon_.setLevel((short) 4);
+        foePokemon_.setMoves(new StringList(JACKPOT,PAR_ICI,COPIE));
+        foeTeam_.add(foePokemon_);
+        TempTrainer trainer_ = new TempTrainer();
+        trainer_.setTeam(foeTeam_);
+        trainer_.setReward((short) 200);
+        dual_.setFoeTrainer(trainer_);
+        Fight fight_ = FightFacade.newFight();
+        FightFacade.initFight(fight_,player_, _diff, dual_, _data);
+        fight_.setEnvType(EnvironmentType.ROAD);
+        return fight_;
     }
 
     @Test
@@ -4863,85 +4791,6 @@ public class FightEffectsTest extends InitializationDataBase {
         assertEq(0, fight_.getEffects().size());
     }
 
-    private static Fight effectGlobal(Difficulty _diff, DataBase _data) {
-        Player player_ = new Player(NICKNAME,null,_diff,false, _data);
-        Pokemon pokemon_ = new WildPk();
-        pokemon_.setName(ARTIKODIN);
-        pokemon_.setItem(PLAQUE_DRACO);
-        pokemon_.setAbility(METEO);
-        pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 3);
-        StringMap<Short> moves_ = new StringMap<Short>();
-        moves_.put(COPIE, (short) 10);
-        moves_.put(SEISME, (short) 10);
-        PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_, _data, moves_);
-        lasPk_.initIv(_diff);
-        lasPk_.initPvRestants(_data);
-        player_.getTeam().add(lasPk_);
-        lasPk_ = new PokemonPlayer(pokemon_, _data, moves_);
-        lasPk_.initIv(_diff);
-        lasPk_.initPvRestants(_data);
-        player_.getTeam().add(lasPk_);
-        lasPk_ = new PokemonPlayer(pokemon_, _data, moves_);
-        lasPk_.initIv(_diff);
-        lasPk_.initPvRestants(_data);
-        player_.getTeam().add(lasPk_);
-        DualFight dual_ = new DualFight();
-        Ally ally_ = new Ally();
-        CustList<PkTrainer> allyTeam_ = new CustList<PkTrainer>();
-        PkTrainer allyPokemon_ = new PkTrainer();
-        allyPokemon_.setName(TARTARD);
-        allyPokemon_.setItem(PLAQUE_DRACO);
-        allyPokemon_.setAbility(MULTITYPE);
-        allyPokemon_.setGender(Gender.NO_GENDER);
-        allyPokemon_.setLevel((short) 3);
-        allyPokemon_.setMoves(new StringList(JACKPOT,PAR_ICI,COPIE));
-        allyTeam_.add(allyPokemon_);
-        allyPokemon_ = new PkTrainer();
-        allyPokemon_.setName(TARTARD);
-        allyPokemon_.setItem(MAGNET);
-        allyPokemon_.setAbility(SECHERESSE);
-        allyPokemon_.setGender(Gender.NO_GENDER);
-        allyPokemon_.setLevel((short) 4);
-        allyPokemon_.setMoves(new StringList(JACKPOT,PAR_ICI,COPIE));
-        allyTeam_.add(allyPokemon_);
-        ally_.setTeam(allyTeam_);
-        dual_.setAlly(ally_);
-        CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
-        PkTrainer foePokemon_ = new PkTrainer();
-        foePokemon_.setName(TARTARD);
-        foePokemon_.setItem(PLAQUE_DRACO);
-        foePokemon_.setAbility(MULTITYPE);
-        foePokemon_.setGender(Gender.NO_GENDER);
-        foePokemon_.setLevel((short) 3);
-        foePokemon_.setMoves(new StringList(JACKPOT,PAR_ICI,COPIE));
-        foeTeam_.add(foePokemon_);
-        foePokemon_ = new PkTrainer();
-        foePokemon_.setName(TARTARD);
-        foePokemon_.setItem(MAGNET);
-        foePokemon_.setAbility(PRESSION);
-        foePokemon_.setGender(Gender.NO_GENDER);
-        foePokemon_.setLevel((short) 4);
-        foePokemon_.setMoves(new StringList(JACKPOT,PAR_ICI,COPIE));
-        foeTeam_.add(foePokemon_);
-        foePokemon_ = new PkTrainer();
-        foePokemon_.setName(TARTARD);
-        foePokemon_.setItem(MAGNET);
-        foePokemon_.setAbility(SECHERESSE);
-        foePokemon_.setGender(Gender.NO_GENDER);
-        foePokemon_.setLevel((short) 4);
-        foePokemon_.setMoves(new StringList(JACKPOT,PAR_ICI,COPIE));
-        foeTeam_.add(foePokemon_);
-        TempTrainer trainer_ = new TempTrainer();
-        trainer_.setTeam(foeTeam_);
-        trainer_.setReward((short) 200);
-        dual_.setFoeTrainer(trainer_);
-        Fight fight_ = FightFacade.newFight();
-        FightFacade.initFight(fight_,player_, _diff, dual_, _data);
-        fight_.setEnvType(EnvironmentType.ROAD);
-        return fight_;
-    }
-
     @Test
     public void effectGlobal1Test() {
         DataBase data_ = initDb();
@@ -5266,7 +5115,82 @@ public class FightEffectsTest extends InitializationDataBase {
     }
 
     private static Fight effectDamageRate(Difficulty _diff, DataBase _data) {
-        return effectGlobal(_diff, _data);
+        Player player_ = new Player(NICKNAME,null, _diff,false, _data);
+        Pokemon pokemon_ = new WildPk();
+        pokemon_.setName(ARTIKODIN);
+        pokemon_.setItem(PLAQUE_DRACO);
+        pokemon_.setAbility(METEO);
+        pokemon_.setGender(Gender.NO_GENDER);
+        pokemon_.setLevel((short) 3);
+        StringMap<Short> moves_ = new StringMap<Short>();
+        moves_.put(COPIE, (short) 10);
+        moves_.put(SEISME, (short) 10);
+        PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_, _data, moves_);
+        lasPk_.initIv(_diff);
+        lasPk_.initPvRestants(_data);
+        player_.getTeam().add(lasPk_);
+        lasPk_ = new PokemonPlayer(pokemon_, _data, moves_);
+        lasPk_.initIv(_diff);
+        lasPk_.initPvRestants(_data);
+        player_.getTeam().add(lasPk_);
+        lasPk_ = new PokemonPlayer(pokemon_, _data, moves_);
+        lasPk_.initIv(_diff);
+        lasPk_.initPvRestants(_data);
+        player_.getTeam().add(lasPk_);
+        DualFight dual_ = new DualFight();
+        Ally ally_ = new Ally();
+        CustList<PkTrainer> allyTeam_ = new CustList<PkTrainer>();
+        PkTrainer allyPokemon_ = new PkTrainer();
+        allyPokemon_.setName(TARTARD);
+        allyPokemon_.setItem(PLAQUE_DRACO);
+        allyPokemon_.setAbility(MULTITYPE);
+        allyPokemon_.setGender(Gender.NO_GENDER);
+        allyPokemon_.setLevel((short) 3);
+        allyPokemon_.setMoves(new StringList(JACKPOT,PAR_ICI,COPIE));
+        allyTeam_.add(allyPokemon_);
+        allyPokemon_ = new PkTrainer();
+        allyPokemon_.setName(TARTARD);
+        allyPokemon_.setItem(MAGNET);
+        allyPokemon_.setAbility(SECHERESSE);
+        allyPokemon_.setGender(Gender.NO_GENDER);
+        allyPokemon_.setLevel((short) 4);
+        allyPokemon_.setMoves(new StringList(JACKPOT,PAR_ICI,COPIE));
+        allyTeam_.add(allyPokemon_);
+        ally_.setTeam(allyTeam_);
+        dual_.setAlly(ally_);
+        CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
+        PkTrainer foePokemon_ = new PkTrainer();
+        foePokemon_.setName(TARTARD);
+        foePokemon_.setItem(PLAQUE_DRACO);
+        foePokemon_.setAbility(MULTITYPE);
+        foePokemon_.setGender(Gender.NO_GENDER);
+        foePokemon_.setLevel((short) 3);
+        foePokemon_.setMoves(new StringList(JACKPOT,PAR_ICI,COPIE));
+        foeTeam_.add(foePokemon_);
+        foePokemon_ = new PkTrainer();
+        foePokemon_.setName(TARTARD);
+        foePokemon_.setItem(MAGNET);
+        foePokemon_.setAbility(PRESSION);
+        foePokemon_.setGender(Gender.NO_GENDER);
+        foePokemon_.setLevel((short) 4);
+        foePokemon_.setMoves(new StringList(JACKPOT,PAR_ICI,COPIE));
+        foeTeam_.add(foePokemon_);
+        foePokemon_ = new PkTrainer();
+        foePokemon_.setName(TARTARD);
+        foePokemon_.setItem(MAGNET);
+        foePokemon_.setAbility(SECHERESSE);
+        foePokemon_.setGender(Gender.NO_GENDER);
+        foePokemon_.setLevel((short) 4);
+        foePokemon_.setMoves(new StringList(JACKPOT,PAR_ICI,COPIE));
+        foeTeam_.add(foePokemon_);
+        TempTrainer trainer_ = new TempTrainer();
+        trainer_.setTeam(foeTeam_);
+        trainer_.setReward((short) 200);
+        dual_.setFoeTrainer(trainer_);
+        Fight fight_ = FightFacade.newFight();
+        FightFacade.initFight(fight_,player_, _diff, dual_, _data);
+        fight_.setEnvType(EnvironmentType.ROAD);
+        return fight_;
     }
 
     @Test
@@ -5676,77 +5600,6 @@ public class FightEffectsTest extends InitializationDataBase {
         assertTrue(!fight_.getAcceptableChoices());
     }
 
-    private static Fight effectFullHpRate(Difficulty _diff, DataBase _data) {
-        Player player_ = new Player(NICKNAME,null,_diff,false, _data);
-        Pokemon pokemon_ = new WildPk();
-        pokemon_.setName(ARTIKODIN);
-        pokemon_.setItem(PLAQUE_DRACO);
-        pokemon_.setAbility(METEO);
-        pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 3);
-        StringMap<Short> moves_ = new StringMap<Short>();
-        moves_.put(COPIE, (short) 10);
-        moves_.put(SEISME, (short) 10);
-        PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_, _data, moves_);
-        lasPk_.initIv(_diff);
-        lasPk_.initPvRestants(_data);
-        player_.getTeam().add(lasPk_);
-        lasPk_ = new PokemonPlayer(pokemon_, _data, moves_);
-        lasPk_.initIv(_diff);
-        lasPk_.initPvRestants(_data);
-        player_.getTeam().add(lasPk_);
-        lasPk_ = new PokemonPlayer(pokemon_, _data, moves_);
-        lasPk_.initIv(_diff);
-        lasPk_.initPvRestants(_data);
-        player_.getTeam().add(lasPk_);
-        DualFight dual_ = new DualFight();
-        Ally ally_ = new Ally();
-        CustList<PkTrainer> allyTeam_ = new CustList<PkTrainer>();
-        PkTrainer allyPokemon_ = new PkTrainer();
-        allyPokemon_.setName(TARTARD);
-        allyPokemon_.setItem(PLAQUE_DRACO);
-        allyPokemon_.setAbility(MULTITYPE);
-        allyPokemon_.setGender(Gender.NO_GENDER);
-        allyPokemon_.setLevel((short) 3);
-        allyPokemon_.setMoves(new StringList(JACKPOT,PAR_ICI,COPIE));
-        allyTeam_.add(allyPokemon_);
-        allyPokemon_ = new PkTrainer();
-        allyPokemon_.setName(TARTARD);
-        allyPokemon_.setItem(MAGNET);
-        allyPokemon_.setAbility(SECHERESSE);
-        allyPokemon_.setGender(Gender.NO_GENDER);
-        allyPokemon_.setLevel((short) 4);
-        allyPokemon_.setMoves(new StringList(JACKPOT,PAR_ICI,COPIE));
-        allyTeam_.add(allyPokemon_);
-        ally_.setTeam(allyTeam_);
-        dual_.setAlly(ally_);
-        CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
-        PkTrainer foePokemon_ = new PkTrainer();
-        foePokemon_.setName(TARTARD);
-        foePokemon_.setItem(PLAQUE_DRACO);
-        foePokemon_.setAbility(MULTITYPE);
-        foePokemon_.setGender(Gender.NO_GENDER);
-        foePokemon_.setLevel((short) 3);
-        foePokemon_.setMoves(new StringList(JACKPOT,PAR_ICI,COPIE));
-        foeTeam_.add(foePokemon_);
-        foePokemon_ = new PkTrainer();
-        foePokemon_.setName(TARTARD);
-        foePokemon_.setItem(MAGNET);
-        foePokemon_.setAbility(PRESSION);
-        foePokemon_.setGender(Gender.NO_GENDER);
-        foePokemon_.setLevel((short) 4);
-        foePokemon_.setMoves(new StringList(JACKPOT,PAR_ICI,COPIE));
-        foeTeam_.add(foePokemon_);
-        TempTrainer trainer_ = new TempTrainer();
-        trainer_.setTeam(foeTeam_);
-        trainer_.setReward((short) 200);
-        dual_.setFoeTrainer(trainer_);
-        Fight fight_ = FightFacade.newFight();
-        FightFacade.initFight(fight_,player_, _diff, dual_, _data);
-        fight_.setEnvType(EnvironmentType.ROAD);
-        return fight_;
-    }
-
     @Test
     public void effectFullHpRate1Test() {
         DataBase data_ = initDb();
@@ -5958,10 +5811,6 @@ public class FightEffectsTest extends InitializationDataBase {
         assertTrue(fight_.getAcceptableChoices());
     }
 
-    private static Fight effectLeftHpRate(Difficulty _diff, DataBase _data) {
-        return effectFullHpRate(_diff, _data);
-    }
-
     @Test
     public void effectLeftHpRate1Test() {
         DataBase data_ = initDb();
@@ -6052,10 +5901,6 @@ public class FightEffectsTest extends InitializationDataBase {
         assertTrue(!fight_.getAcceptableChoices());
     }
 
-    private static Fight effectVarPp(Difficulty _diff, DataBase _data) {
-        return effectLeftHpRate(_diff, _data);
-    }
-
     @Test
     public void effectVarPp1Test() {
         DataBase data_ = initDb();
@@ -6112,7 +5957,74 @@ public class FightEffectsTest extends InitializationDataBase {
     }
 
     private static Fight processEffectTarget(Difficulty _diff, DataBase _data) {
-        return effectVarPp(_diff, _data);
+        Player player_ = new Player(NICKNAME,null, _diff,false, _data);
+        Pokemon pokemon_ = new WildPk();
+        pokemon_.setName(ARTIKODIN);
+        pokemon_.setItem(PLAQUE_DRACO);
+        pokemon_.setAbility(METEO);
+        pokemon_.setGender(Gender.NO_GENDER);
+        pokemon_.setLevel((short) 3);
+        StringMap<Short> moves_ = new StringMap<Short>();
+        moves_.put(COPIE, (short) 10);
+        moves_.put(SEISME, (short) 10);
+        PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_, _data, moves_);
+        lasPk_.initIv(_diff);
+        lasPk_.initPvRestants(_data);
+        player_.getTeam().add(lasPk_);
+        lasPk_ = new PokemonPlayer(pokemon_, _data, moves_);
+        lasPk_.initIv(_diff);
+        lasPk_.initPvRestants(_data);
+        player_.getTeam().add(lasPk_);
+        lasPk_ = new PokemonPlayer(pokemon_, _data, moves_);
+        lasPk_.initIv(_diff);
+        lasPk_.initPvRestants(_data);
+        player_.getTeam().add(lasPk_);
+        DualFight dual_ = new DualFight();
+        Ally ally_ = new Ally();
+        CustList<PkTrainer> allyTeam_ = new CustList<PkTrainer>();
+        PkTrainer allyPokemon_ = new PkTrainer();
+        allyPokemon_.setName(TARTARD);
+        allyPokemon_.setItem(PLAQUE_DRACO);
+        allyPokemon_.setAbility(MULTITYPE);
+        allyPokemon_.setGender(Gender.NO_GENDER);
+        allyPokemon_.setLevel((short) 3);
+        allyPokemon_.setMoves(new StringList(JACKPOT,PAR_ICI,COPIE));
+        allyTeam_.add(allyPokemon_);
+        allyPokemon_ = new PkTrainer();
+        allyPokemon_.setName(TARTARD);
+        allyPokemon_.setItem(MAGNET);
+        allyPokemon_.setAbility(SECHERESSE);
+        allyPokemon_.setGender(Gender.NO_GENDER);
+        allyPokemon_.setLevel((short) 4);
+        allyPokemon_.setMoves(new StringList(JACKPOT,PAR_ICI,COPIE));
+        allyTeam_.add(allyPokemon_);
+        ally_.setTeam(allyTeam_);
+        dual_.setAlly(ally_);
+        CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
+        PkTrainer foePokemon_ = new PkTrainer();
+        foePokemon_.setName(TARTARD);
+        foePokemon_.setItem(PLAQUE_DRACO);
+        foePokemon_.setAbility(MULTITYPE);
+        foePokemon_.setGender(Gender.NO_GENDER);
+        foePokemon_.setLevel((short) 3);
+        foePokemon_.setMoves(new StringList(JACKPOT,PAR_ICI,COPIE));
+        foeTeam_.add(foePokemon_);
+        foePokemon_ = new PkTrainer();
+        foePokemon_.setName(TARTARD);
+        foePokemon_.setItem(MAGNET);
+        foePokemon_.setAbility(PRESSION);
+        foePokemon_.setGender(Gender.NO_GENDER);
+        foePokemon_.setLevel((short) 4);
+        foePokemon_.setMoves(new StringList(JACKPOT,PAR_ICI,COPIE));
+        foeTeam_.add(foePokemon_);
+        TempTrainer trainer_ = new TempTrainer();
+        trainer_.setTeam(foeTeam_);
+        trainer_.setReward((short) 200);
+        dual_.setFoeTrainer(trainer_);
+        Fight fight_ = FightFacade.newFight();
+        FightFacade.initFight(fight_,player_, _diff, dual_, _data);
+        fight_.setEnvType(EnvironmentType.ROAD);
+        return fight_;
     }
 
     @Test
