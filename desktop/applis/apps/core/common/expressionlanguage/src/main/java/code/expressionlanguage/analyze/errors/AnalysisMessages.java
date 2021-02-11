@@ -1,9 +1,12 @@
 package code.expressionlanguage.analyze.errors;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.options.WarningShow;
 import code.expressionlanguage.stds.LgNamesContent;
 import code.util.EntryCust;
+import code.util.StringList;
 import code.util.StringMap;
+import code.util.core.StringUtil;
 
 public final class AnalysisMessages {
     private static final String DUPLICATE_MERGED_METHOD="DuplicateMergedMethod";
@@ -175,6 +178,7 @@ public final class AnalysisMessages {
     private static final String CYCLIC_CTOR_CALL="CyclicCtorCall";
     private static final String DEAD_CODE="DeadCode";
     private static final String DEAD_CODE_TERNARY="DeadCodeTernary";
+    private static final String UNUSED_PARAM_STATIC="UnusedParamStatic";
     private static final String DUPLICATED_CTOR="DuplicatedCtor";
     private static final String DUPLICATED_GENERIC_SUPER_TYPES="DuplicatedGenericSuperTypes";
     private static final String DUPLICATED_INNER_TYPE="DuplicatedInnerType";
@@ -407,6 +411,7 @@ public final class AnalysisMessages {
     private String cyclicCtorCall="The constructors {0} of the type {1} belong to cyclic calls.";
     private String deadCode="The code is unreachable in the function {0}";
     private String deadCodeTernary="A part of code is unreachable in this ternary operation.";
+    private String unusedParamStatic="The parameter {0} is unused.";
     private String duplicatedCtor="The constructor {0} is duplicated.";
     private String duplicatedGenericSuperTypes="The generic super types {0} are duplicated.";
     private String duplicatedInnerType="The inner type simple name {0} is duplicated.";
@@ -473,6 +478,13 @@ public final class AnalysisMessages {
             }
         }
     }
+    public static WarningShow build(StringList _optionsWarn) {
+        WarningShow w_ = new WarningShow();
+        w_.setUnusedParameterStaticMethod(StringUtil.contains(_optionsWarn,UNUSED_PARAM_STATIC));
+        w_.setTernary(StringUtil.contains(_optionsWarn,DEAD_CODE_TERNARY));
+        return w_;
+    }
+
     public void build(StringMap<String> _util, StringMap<String> _cust) {
         setDuplicateMergedMethod(LgNamesContent.get(_util, _cust, DUPLICATE_MERGED_METHOD));
         setDuplicateField(LgNamesContent.get(_util, _cust, DUPLICATE_FIELD));
@@ -642,6 +654,7 @@ public final class AnalysisMessages {
         setCyclicCtorCall(LgNamesContent.get(_util, _cust, CYCLIC_CTOR_CALL));
         setDeadCode(LgNamesContent.get(_util, _cust, DEAD_CODE));
         setDeadCodeTernary(LgNamesContent.get(_util, _cust, DEAD_CODE_TERNARY));
+        setUnusedParamStatic(LgNamesContent.get(_util, _cust, UNUSED_PARAM_STATIC));
         setDuplicatedCtor(LgNamesContent.get(_util, _cust, DUPLICATED_CTOR));
         setDuplicatedGenericSuperTypes(LgNamesContent.get(_util, _cust, DUPLICATED_GENERIC_SUPER_TYPES));
         setDuplicatedInnerType(LgNamesContent.get(_util, _cust, DUPLICATED_INNER_TYPE));
@@ -869,6 +882,7 @@ public final class AnalysisMessages {
         mess_.addEntry(CYCLIC_CTOR_CALL,getCyclicCtorCall());
         mess_.addEntry(DEAD_CODE,getDeadCode());
         mess_.addEntry(DEAD_CODE_TERNARY,getDeadCodeTernary());
+        mess_.addEntry(UNUSED_PARAM_STATIC,getUnusedParamStatic());
         mess_.addEntry(DUPLICATED_CTOR,getDuplicatedCtor());
         mess_.addEntry(DUPLICATED_GENERIC_SUPER_TYPES,getDuplicatedGenericSuperTypes());
         mess_.addEntry(DUPLICATED_INNER_TYPE,getDuplicatedInnerType());
@@ -2110,6 +2124,14 @@ public final class AnalysisMessages {
 
     public void setDeadCodeTernary(String _v) {
         this.deadCodeTernary = _v;
+    }
+
+    public String getUnusedParamStatic() {
+        return unusedParamStatic;
+    }
+
+    public void setUnusedParamStatic(String _v) {
+        this.unusedParamStatic = _v;
     }
 
     public String getDuplicatedCtor() {

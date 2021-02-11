@@ -5,6 +5,7 @@ import code.expressionlanguage.analyze.AbstractConstantsCalculator;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.DefaultConstantsCalculator;
 import code.expressionlanguage.analyze.DefaultFileBuilder;
+import code.expressionlanguage.options.*;
 import code.expressionlanguage.sample.CustLgNames;
 import code.expressionlanguage.common.ParseLinesArgUtil;
 import code.expressionlanguage.analyze.errors.AnalysisMessages;
@@ -20,10 +21,6 @@ import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.methods.ProcessMethodCommon;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
-import code.expressionlanguage.options.ContextFactory;
-import code.expressionlanguage.options.KeyWords;
-import code.expressionlanguage.options.Options;
-import code.expressionlanguage.options.ValidatorStandard;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
@@ -2467,6 +2464,30 @@ public class LgNamesTest extends ProcessMethodCommon {
         assertEq("",lgNamesContent_.getEmptyPart());
     }
     @Test
+    public void getAlias7() {
+        WarningShow built_ = AnalysisMessages.build(new StringList("DeadCodeTernary", "UnusedParamStatic"));
+        assertTrue(built_.isTernary());
+        assertTrue(built_.isUnusedParameterStaticMethod());
+    }
+    @Test
+    public void getAlias8() {
+        WarningShow built_ = AnalysisMessages.build(new StringList("UnusedParamStatic"));
+        assertTrue(!built_.isTernary());
+        assertTrue(built_.isUnusedParameterStaticMethod());
+    }
+    @Test
+    public void getAlias9() {
+        WarningShow built_ = AnalysisMessages.build(new StringList("DeadCodeTernary"));
+        assertTrue(built_.isTernary());
+        assertTrue(!built_.isUnusedParameterStaticMethod());
+    }
+    @Test
+    public void getAlias10() {
+        WarningShow built_ = AnalysisMessages.build(new StringList());
+        assertTrue(!built_.isTernary());
+        assertTrue(!built_.isUnusedParameterStaticMethod());
+    }
+    @Test
     public void parseLineArg1Test() {
         StringList args_ = ParseLinesArgUtil.parseLineArg("first_arg");
         assertEq(1, args_.size());
@@ -2713,6 +2734,27 @@ public class LgNamesTest extends ProcessMethodCommon {
     @Test
     public void parseValue23Test() {
         assertEq("first_argugggg", ParseLinesArgUtil.parseValue("first_arg\\ugggg"));
+    }
+    @Test
+    public void buildList1Test() {
+        StringList map_ = new StringList();
+        ParseLinesArgUtil.buildList(new StringBuilder(), map_);
+        assertEq(0, map_.size());
+    }
+    @Test
+    public void buildList2Test() {
+        StringList map_ = new StringList();
+        ParseLinesArgUtil.buildList(new StringBuilder("key"), map_);
+        assertEq(1, map_.size());
+        assertEq("key", map_.get(0));
+    }
+    @Test
+    public void buildList3Test() {
+        StringList map_ = new StringList();
+        ParseLinesArgUtil.buildList(new StringBuilder("key1,,key2"), map_);
+        assertEq(2, map_.size());
+        assertEq("key1", map_.get(0));
+        assertEq("key2", map_.get(1));
     }
     @Test
     public void buildMap1Test() {

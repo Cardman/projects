@@ -4,6 +4,7 @@ import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.reach.opers.ReachOperationUtil;
 import code.expressionlanguage.analyze.syntax.ResultExpression;
 import code.expressionlanguage.analyze.types.ResolvingTypes;
+import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.expressionlanguage.common.AccessEnum;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.files.OffsetAccessInfo;
@@ -15,21 +16,18 @@ import code.expressionlanguage.analyze.opers.Calculation;
 import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.stds.DisplayedStrings;
-import code.util.BooleanList;
-import code.util.CustList;
-import code.util.Ints;
-import code.util.StringList;
+import code.util.*;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 
 public abstract class NamedFunctionBlock extends MemberCallingsBlock implements AnnotableParametersBlock {
-    private StringList annotations = new StringList();
+    private final StringList annotations = new StringList();
 
-    private Ints annotationsIndexes = new Ints();
+    private final Ints annotationsIndexes = new Ints();
 
     private String name;
 
-    private int nameOffset;
+    private final int nameOffset;
 
     private final StringList parametersTypes;
 
@@ -44,8 +42,9 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
     private int returnTypeOffset;
 
     private final StringList parametersNames;
+    private final StringMap<AnaLocalVariable> usedParameters;
 
-    private BooleanList parametersRef;
+    private final BooleanList parametersRef;
     private Ints parametersNamesOffset;
 
     private final AccessEnum access;
@@ -53,19 +52,20 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
     private int accessOffset;
 
     private boolean varargs;
-    private CustList<StringList> annotationsParams = new CustList<StringList>();
-    private CustList<Ints> annotationsIndexesParams = new CustList<Ints>();
+    private final CustList<StringList> annotationsParams = new CustList<StringList>();
+    private final CustList<Ints> annotationsIndexesParams = new CustList<Ints>();
 
-    private CustList<CustList<PartOffset>> partOffsetsParams = new CustList<CustList<PartOffset>>();
-    private CustList<PartOffset> partOffsetsReturn = new CustList<PartOffset>();
+    private final CustList<CustList<PartOffset>> partOffsetsParams = new CustList<CustList<PartOffset>>();
+    private final CustList<PartOffset> partOffsetsReturn = new CustList<PartOffset>();
 
     private CustList<OperationNode> roots = new CustList<OperationNode>();
-    private CustList<ResultExpression> resList = new CustList<ResultExpression>();
+    private final CustList<ResultExpression> resList = new CustList<ResultExpression>();
     private CustList<CustList<OperationNode>> rootsList = new CustList<CustList<OperationNode>>();
-    private CustList<CustList<ResultExpression>> resLists = new CustList<CustList<ResultExpression>>();
+    private final CustList<CustList<ResultExpression>> resLists = new CustList<CustList<ResultExpression>>();
 
     private final StringList nameErrors = new StringList();
     private final CustList<StringList> paramErrors = new CustList<StringList>();
+    private final CustList<StringList> paramWarns = new CustList<StringList>();
     private int nameNumber;
     private boolean matchParamNames = true;
     private boolean retRef;
@@ -82,6 +82,7 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
         nameOffset = _fctName.getOffset();
         parametersTypes = new StringList();
         parametersNames = new StringList();
+        usedParameters = new StringMap<AnaLocalVariable>();
         parametersRef = new BooleanList();
         varargs = setupParam(_paramTypes,_paramNames, _refParams);
         access = _access.getInfo();
@@ -103,6 +104,7 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
         access = AccessEnum.PUBLIC;
         returnType = "";
         parametersNames = new StringList();
+        usedParameters = new StringMap<AnaLocalVariable>();
         parametersRef = new BooleanList();
     }
 
@@ -268,6 +270,10 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
         return new StringList(parametersNames);
     }
 
+    public StringMap<AnaLocalVariable> getUsedParameters() {
+        return usedParameters;
+    }
+
     public final boolean isVarargs() {
         return varargs;
     }
@@ -337,12 +343,21 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
     public void addParamErrors(int _i,FoundErrorInterpret _error) {
         paramErrors.get(_i).add(_error.getBuiltError());
     }
+
+    public void addParamWarns() {
+        paramWarns.add(new StringList());
+    }
+
     public StringList getNameErrors() {
         return nameErrors;
     }
 
     public CustList<StringList> getParamErrors() {
         return paramErrors;
+    }
+
+    public CustList<StringList> getParamWarns() {
+        return paramWarns;
     }
 
     public int getNameNumber() {

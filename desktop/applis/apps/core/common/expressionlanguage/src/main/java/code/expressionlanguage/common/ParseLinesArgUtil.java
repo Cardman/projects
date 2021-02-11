@@ -43,6 +43,18 @@ public final class ParseLinesArgUtil {
             }
         }
     }
+    public static void buildList(StringBuilder _parts, StringList _list) {
+        if (_parts.length() > 0) {
+            StringList infos_ = StringUtil.splitChars(_parts.toString(),',');
+            for (String l: infos_) {
+                String key_ = l.trim();
+                if (key_.isEmpty()) {
+                    continue;
+                }
+                _list.add(key_);
+            }
+        }
+    }
     public static StringList parseLineArg(String _line) {
         StringList args_ = new StringList();
         StringBuilder arg_ = new StringBuilder();

@@ -14,6 +14,10 @@ public class AnaLocalVariable {
 
     private boolean keyWord;
 
+    private boolean used;
+
+    private int indexParam;
+
     public String getClassName() {
         return className;
     }
@@ -52,5 +56,21 @@ public class AnaLocalVariable {
 
     public void setKeyWord(boolean _keyWord) {
         this.keyWord = _keyWord;
+    }
+
+    public boolean isUsed() {
+        return used;
+    }
+
+    public void setUsed(boolean _used) {
+        this.used = _used;
+    }
+
+    public int getIndexParam() {
+        return indexParam;
+    }
+
+    public void setIndexParam(int _indexParam) {
+        this.indexParam = _indexParam;
     }
 }

@@ -183,6 +183,7 @@ public final class AnalysisMessagesTest extends EquallableElUtil {
         def_.setCyclicCtorCall("");
         def_.setDeadCode("");
         def_.setDeadCodeTernary("");
+        def_.setUnusedParamStatic("");
         def_.setDuplicatedCtor("");
         def_.setDuplicatedGenericSuperTypes("");
         def_.setDuplicatedInnerType("");

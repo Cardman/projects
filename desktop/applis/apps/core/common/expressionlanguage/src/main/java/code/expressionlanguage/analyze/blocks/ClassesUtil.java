@@ -6,6 +6,7 @@ import code.expressionlanguage.analyze.ManageTokens;
 import code.expressionlanguage.analyze.TokenErrorMessage;
 import code.expressionlanguage.analyze.accessing.OperatorAccessor;
 import code.expressionlanguage.analyze.accessing.TypeAccessor;
+import code.expressionlanguage.analyze.errors.custom.FoundWarningInterpret;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.analyze.inherits.FoundSuperType;
 import code.expressionlanguage.analyze.inherits.Mapping;
@@ -49,6 +50,25 @@ public final class ClassesUtil {
             validateFinals(_page);
         } else {
             validateSimFinals(_page);
+        }
+        for (RootBlock r: _page.getAllFoundTypes()) {
+            for (OverridableBlock o: r.getOverridableBlocks()) {
+                if (o.getKind() == MethodKind.STD_METHOD
+                        && MethodId.getKind(o.getModifier()) != MethodAccessKind.INSTANCE) {
+                    for (EntryCust<String,AnaLocalVariable> e: o.getUsedParameters().entryList()) {
+                        AnaLocalVariable var_ = e.getValue();
+                        int indexParam_ = var_.getIndexParam();
+                        if (!var_.isUsed()) {
+                            FoundWarningInterpret d_ = new FoundWarningInterpret();
+                            d_.setIndexFile(var_.getRef());
+                            d_.setFileName(o.getFile().getFileName());
+                            d_.buildWarning(_page.getAnalysisMessages().getUnusedParamStatic(),e.getKey());
+                            _page.getLocalizer().addWarning(d_);
+                            o.getParamWarns().get(indexParam_).add(d_.getBuiltWarning());
+                        }
+                    }
+                }
+            }
         }
         for (RootBlock e: _page.getAllFoundTypes()) {
             ClassMethodIdReturn resDyn_ = tryGetDeclaredToString(e, _page);
@@ -1727,6 +1747,7 @@ public final class ClassesUtil {
             int i_ = 0;
             for (String v: l_) {
                 o.addParamErrors();
+                o.addParamWarns();
                 TokenErrorMessage res_ = ManageTokens.partParam(_page).checkToken(v, _page);
                 if (res_.isError()) {
                     FoundErrorInterpret b_;
@@ -1992,6 +2013,7 @@ public final class ClassesUtil {
                     StringList params_ = method_.getParametersNames();
                     StringList types_ = method_.getImportedParametersTypes();
                     prepareParams(_page,method_.getParametersNamesOffset(), method_.getParamErrors(),params_, method_.getParametersRef(), types_, method_.isVarargs());
+                    method_.getUsedParameters().addAllEntries(_page.getInfosVars());
                     _page.getMappingLocal().clear();
                     _page.getMappingLocal().putAllMap(method_.getMappings());
                     method_.buildFctInstructionsReadOnly(_page);
@@ -2611,6 +2633,7 @@ public final class ClassesUtil {
         AnaLocalVariable lv_ = new AnaLocalVariable();
         lv_.setClassName(_c);
         lv_.setRef(_offs.get(_i));
+        lv_.setIndexParam(_i);
         if (_refParams.get(_i)) {
             lv_.setConstType(ConstType.REF_PARAM);
         } else {

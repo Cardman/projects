@@ -1057,6 +1057,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
         int j_ = 0;
         for (String v: l_) {
             _method.addParamErrors();
+            _method.addParamWarns();
             TokenErrorMessage res_ = ManageTokens.partParam(_page).checkToken(v, _page);
             if (res_.isError()) {
                 FoundErrorInterpret b_;

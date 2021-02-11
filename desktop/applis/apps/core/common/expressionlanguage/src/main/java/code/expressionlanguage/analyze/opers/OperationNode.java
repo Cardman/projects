@@ -567,6 +567,7 @@ public abstract class OperationNode {
         }
         if (val_ != null) {
             if (val_.getConstType() == ConstType.REF_PARAM) {
+                val_.setUsed(true);
                 return new RefParamOperation(_index,_indexChild,val_.getClassName(), val_.getRef(),_m,_op, deep_);
             }
             if (val_.getConstType() == ConstType.REF_LOC_VAR) {
@@ -578,6 +579,7 @@ public abstract class OperationNode {
             if (val_.getConstType() == ConstType.MUTABLE_LOOP_VAR) {
                 return new MutableLoopVariableOperation(_index, _indexChild, _m, _op, val_.getClassName(), val_.getRef(),deep_,val_.isFinalVariable());
             }
+            val_.setUsed(true);
             return new FinalVariableOperation(_index, _indexChild, _m, _op,val_.getClassName(),val_.getRef(),deep_,val_.isKeyWord());
         }
         return new StandardFieldOperation(_index, _indexChild, _m, _op);

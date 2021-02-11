@@ -35,6 +35,7 @@ public final class CustContextFactory {
             _undefinedLgNames.getCustAliases().keyWord(kwl_, _exec.getKeyWords(), new StringMap<String>());
             _undefinedLgNames.getCustAliases().allAlias(_undefinedLgNames.getContent(),_exec.getAliases(), new StringMap<String>());
         }
+        _options.setWarningShow(AnalysisMessages.build(_exec.getWarns()));
         return build(IndexConstants.INDEX_NOT_FOUND_ELT, _options, _exec,mess_,kwl_, _undefinedLgNames, _files, _tabWidth);
     }
     public static void executeDefKw(String _lang,
@@ -50,6 +51,7 @@ public final class CustContextFactory {
             _stds.getCustAliases().keyWord(kwl_, _exec.getKeyWords(), new StringMap<String>());
             _stds.getCustAliases().allAlias(_stds.getContent(),_exec.getAliases(), new StringMap<String>());
         }
+        _options.setWarningShow(AnalysisMessages.build(_exec.getWarns()));
         execute(-1,_options,_exec,mess_,kwl_, _stds,_files,_progressingTests);
     }
     public static void execute(int _stack,
@@ -97,7 +99,7 @@ public final class CustContextFactory {
         _progressingTests.setResults(rCont_,arg_, _definedLgNames);
     }
     public static void reportErrors(RunnableContextEl _ctx, Options _options, ExecutingOptions _exec, ReportedMessages _reportedMessages, FileInfos _infos) {
-        if (_options.isGettingErrors() || _options.isDisplayWarning()) {
+        if (_options.isGettingErrors()) {
             String exp_ = _exec.getOutput()+_exec.getErrorsFolder();
             for (EntryCust<String,String> f: _reportedMessages.getErrors().entryList()) {
                 _infos.getReporter().errorFile(exp_, f.getKey(), f.getValue(), _ctx);

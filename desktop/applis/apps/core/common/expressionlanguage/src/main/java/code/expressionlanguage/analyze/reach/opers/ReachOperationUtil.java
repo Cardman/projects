@@ -102,7 +102,7 @@ public final class ReachOperationUtil {
         if ((info_ instanceof AbstractRefTernaryOperation
         || info_ instanceof AbstractTernaryOperation)
         &&((MethodOperation)info_).getPartOffsetsChildren().isEmpty()
-        && _page.isDisplayWarning()) {
+        && _page.isDisplayWarningTernary()) {
             int offLoc_ = info_.getOperations().getOperators().firstKey();
             StringList deep_ = info_.getWarns();
             if (!deep_.isEmpty()) {

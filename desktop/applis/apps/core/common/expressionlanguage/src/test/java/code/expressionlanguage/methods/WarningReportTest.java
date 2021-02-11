@@ -156,4 +156,52 @@ public final class WarningReportTest extends ProcessMethodCommon {
                 " }\n" +
                 "}</span></pre></body></html>", filesExp_.firstValue());
     }
+    @Test
+    public void report8Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static void exmeth(int u){\n");
+        xml_.append(" }\n");
+        xml_.append("}");
+        files_.put("src/pkg/Ex", xml_.toString());
+        StringMap<String> filesExp_ = ctxWarnStdReadOnly(files_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
+                " public static void <a name=\"m42\">exmeth</a>(int <a title=\"The parameter u is unused.\" name=\"m53\" class=\"w\">u</a>){\n" +
+                " }\n" +
+                "}</span></pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report9Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static int exmeth(int u){\n");
+        xml_.append("  return u;\n");
+        xml_.append(" }\n");
+        xml_.append("}");
+        files_.put("src/pkg/Ex", xml_.toString());
+        StringMap<String> filesExp_ = ctxWarnStdReadOnly(files_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
+                " public static int <a name=\"m41\">exmeth</a>(int <a name=\"m52\">u</a>){\n" +
+                "  return <a href=\"#m52\">u</a>;\n" +
+                " }\n" +
+                "}</span></pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report10Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static void exmeth(int int,int u){\n");
+        xml_.append(" }\n");
+        xml_.append("}");
+        files_.put("src/pkg/Ex", xml_.toString());
+        StringMap<String> filesExp_ = ctxWarnStdReadOnly(files_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
+                " public static void <a name=\"m42\">exmeth</a>(int <a title=\"The parameter function name int is not valid. It must not a primitive type.\" class=\"e\">int</a>,int <a title=\"The parameter u is unused.\" name=\"m61\" class=\"w\">u</a>){\n" +
+                " }\n" +
+                "}</span></pre></body></html>", filesExp_.firstValue());
+    }
+
 }

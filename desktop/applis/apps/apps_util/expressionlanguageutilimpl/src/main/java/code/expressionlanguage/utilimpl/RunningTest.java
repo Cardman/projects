@@ -3,6 +3,7 @@ package code.expressionlanguage.utilimpl;
 import code.expressionlanguage.analyze.files.CommentDelimiters;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.common.ParseLinesArgUtil;
+import code.expressionlanguage.options.WarningShow;
 import code.expressionlanguage.utilcompo.AbstractReporter;
 import code.expressionlanguage.utilcompo.ExecutingOptions;
 import code.expressionlanguage.utilcompo.FileInfos;
@@ -112,6 +113,7 @@ public final class RunningTest implements Runnable {
         StringBuilder messagesPart_ = new StringBuilder();
         StringBuilder keyWordsPart_ = new StringBuilder();
         StringBuilder classesPart_ = new StringBuilder();
+        StringBuilder warnsPart_ = new StringBuilder();
         for (String l: _lines.mid(_from)) {
             if (l.startsWith("log=")) {
                 String output_ = l.substring("log=".length());
@@ -152,7 +154,7 @@ public final class RunningTest implements Runnable {
                 _options.setDisplayImplicit(true);
             }
             if (l.startsWith("warn=")) {
-                _options.setDisplayWarning(true);
+                warnsPart_.append(l.substring("warn=".length()));
             }
             if (l.startsWith("res=")) {
                 String output_ = l.substring("res=".length());
@@ -218,6 +220,11 @@ public final class RunningTest implements Runnable {
         }
         if (classesPart_.length() > 0) {
             _options.getTypesInit().addAllElts(ParseLinesArgUtil.parseLineArg(classesPart_.toString()));
+        }
+        if (warnsPart_.length() > 0) {
+            StringList ws_ = new StringList();
+            ParseLinesArgUtil.buildList(warnsPart_,ws_);
+            _exec.setWarns(ws_);
         }
         if (aliasesPart_.length() > 0) {
             StringMap<String> al_ = new StringMap<String>();

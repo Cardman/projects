@@ -12,7 +12,7 @@ public final class Options {
     private boolean covering;
     private boolean gettingErrors;
     private boolean displayImplicit;
-    private boolean displayWarning;
+    private WarningShow warningShow;
     private boolean encodeHeader = true;
     private final CustList<CommentDelimiters> comments = new CustList<CommentDelimiters>();
     private final DefaultAccess defaultAccess = new DefaultAccess();
@@ -53,12 +53,12 @@ public final class Options {
         this.displayImplicit = _displayImplicit;
     }
 
-    public boolean isDisplayWarning() {
-        return displayWarning;
+    public WarningShow getWarningShow() {
+        return warningShow;
     }
 
-    public void setDisplayWarning(boolean _displayWarning) {
-        this.displayWarning = _displayWarning;
+    public void setWarningShow(WarningShow _warningShow) {
+        warningShow = _warningShow;
     }
 
     public boolean isEncodeHeader() {

@@ -29,6 +29,7 @@ import code.expressionlanguage.analyze.instr.DefaultProcessKeyWord;
 import code.expressionlanguage.analyze.instr.PartOffset;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.Options;
+import code.expressionlanguage.options.WarningShow;
 import code.expressionlanguage.stds.*;
 import code.expressionlanguage.structs.ClassMetaInfo;
 import code.expressionlanguage.structs.Struct;
@@ -1311,15 +1312,20 @@ public final class AnalyzedPageEl {
     }
 
     public boolean isGettingParts() {
-        return isCovering() || isGettingErrorsWarn();
+        return isCovering() || isGettingErrors();
     }
 
     public boolean isImplicit() {
         return getOptions().isDisplayImplicit();
     }
 
-    public boolean isDisplayWarning() {
-        return getOptions().isDisplayWarning();
+    public WarningShow getWarningShow() {
+        return getOptions().getWarningShow();
+    }
+
+    public boolean isDisplayWarningTernary() {
+        WarningShow warningShow_ = getOptions().getWarningShow();
+        return WarningShow.isTernary(warningShow_);
     }
 
     public boolean isEncodeHeader() {
@@ -1330,8 +1336,8 @@ public final class AnalyzedPageEl {
         return getOptions().isCovering();
     }
 
-    public boolean isGettingErrorsWarn() {
-        return gettingErrors || isDisplayWarning();
+    public boolean isGettingErrors() {
+        return gettingErrors;
     }
 
     public void setGettingErrors(boolean _gettingErrors) {

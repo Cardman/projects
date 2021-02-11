@@ -79,7 +79,7 @@ public final class Classes {
         }
         ClassesUtil.buildAllBracesBodies(_files, _page);
         ClassesUtil.postValidation(_page);
-        if (_page.isGettingErrorsWarn()) {
+        if (_page.isGettingErrors()) {
             _page.getToStringOwners().add(_page.getAliasObject());
             for (EntryCust<RootBlock, ClassMethodIdReturn> e: _page.getToStr().entryList()) {
                 String fullName_ = e.getKey().getFullName();

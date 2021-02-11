@@ -7,7 +7,7 @@ public final class Errors {
     private final CustList<FileBlock> files = new CustList<FileBlock>();
 
     public void putFile(FileBlock _file, AnalyzedPageEl _page) {
-        if (!_page.isGettingErrorsWarn()) {
+        if (!_page.isGettingErrors()) {
             return;
         }
         files.add(_file);

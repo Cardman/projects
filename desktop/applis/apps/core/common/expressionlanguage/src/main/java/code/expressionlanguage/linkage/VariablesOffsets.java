@@ -2,6 +2,7 @@ package code.expressionlanguage.linkage;
 
 import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.options.KeyWords;
+import code.expressionlanguage.options.WarningShow;
 import code.expressionlanguage.stds.DisplayedStrings;
 import code.util.CustList;
 import code.util.IdList;
@@ -17,6 +18,7 @@ public final class VariablesOffsets {
     private DisplayedStrings displayedStrings;
     private StringList toStringOwners;
     private boolean implicit;
+    private WarningShow warningShow;
 
     public String getCurrentFileName() {
         return currentFileName;
@@ -76,5 +78,13 @@ public final class VariablesOffsets {
 
     public void setImplicit(boolean _implicit) {
         this.implicit = _implicit;
+    }
+
+    public WarningShow getWarningShow() {
+        return warningShow;
+    }
+
+    public void setWarningShow(WarningShow _warningShow) {
+        this.warningShow = _warningShow;
     }
 }

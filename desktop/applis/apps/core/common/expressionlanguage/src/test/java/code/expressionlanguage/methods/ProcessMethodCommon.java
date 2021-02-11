@@ -21,6 +21,7 @@ import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.fwd.blocks.ForwardInfos;
 import code.expressionlanguage.options.ContextFactory;
 import code.expressionlanguage.options.Options;
+import code.expressionlanguage.options.WarningShow;
 import code.expressionlanguage.structs.*;
 import code.util.*;
 import code.util.core.IndexConstants;
@@ -241,7 +242,11 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
     private static AnalyzedTestContext contextElErrorStdWarningDef() {
         Options opt_ = newOptions();
         opt_.setReadOnly(true);
-        opt_.setDisplayWarning(true);
+        WarningShow warningShow_ = new WarningShow();
+        warningShow_.setTernary(true);
+        warningShow_.setUnusedParameterStaticMethod(true);
+        opt_.setWarningShow(warningShow_);
+        opt_.setGettingErrors(true);
         return InitializationLgNames.buildStdOneAna("en",opt_);
     }
     private static AnalyzedTestContext contextElCoverageReadOnlyDef() {

@@ -26,6 +26,7 @@ public final class GuiContextFactory {
             _undefinedLgNames.getCustAliases().keyWord(kwl_, _exec.getKeyWords(), new StringMap<String>());
             _undefinedLgNames.allAlias(_exec.getAliases(), new StringMap<String>());
         }
+        _options.setWarningShow(AnalysisMessages.build(_exec.getWarns()));
         return build(_mainArgs,_window,IndexConstants.INDEX_NOT_FOUND_ELT, _options, _exec,mess_,kwl_, _undefinedLgNames, _files, _tabWidth);
     }
     public static ResultsGuiContext build(StringList _mainArgs, MainWindow _window, int _stack,

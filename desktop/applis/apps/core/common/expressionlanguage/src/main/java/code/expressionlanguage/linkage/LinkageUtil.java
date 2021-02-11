@@ -19,6 +19,7 @@ import code.expressionlanguage.exec.coverage.StandardCoverageResult;
 import code.expressionlanguage.functionid.*;
 import code.expressionlanguage.analyze.instr.*;
 import code.expressionlanguage.options.KeyWords;
+import code.expressionlanguage.options.WarningShow;
 import code.expressionlanguage.stds.DisplayedStrings;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.BooleanStruct;
@@ -34,7 +35,7 @@ public final class LinkageUtil {
         StringMap<String> files_ = new StringMap<String>();
         KeyWords keyWords_ = _analyzing.getKeyWords();
         boolean implicit_ = _analyzing.isImplicit();
-        boolean displayWarning_ = _analyzing.isDisplayWarning();
+        WarningShow warningShow_ = _analyzing.getWarningShow();
         DisplayedStrings displayedStrings_ = _analyzing.getDisplayedStrings();
         StringList toStringOwners_ = _analyzing.getToStringOwners();
         for (FileBlock f: _analyzing.getErrors().getFiles()) {
@@ -43,7 +44,7 @@ public final class LinkageUtil {
             }
             String value_ = f.getContent();
             String fileExp_ = f.getFileName() + ".html";
-            CustList<PartOffset> listStr_ = processError(toStringOwners_,f,fileExp_, keyWords_, displayedStrings_, implicit_, displayWarning_);
+            CustList<PartOffset> listStr_ = processError(toStringOwners_,f,fileExp_, keyWords_, displayedStrings_, implicit_, warningShow_);
             StringBuilder xml_ = build(f, value_, listStr_);
             String rel_ = relativize(fileExp_,"css/style.css");
             String cssPart_ = "<head>" +encode(_analyzing.isEncodeHeader())+
@@ -236,7 +237,7 @@ public final class LinkageUtil {
         return " ";
     }
 
-    private static CustList<PartOffset> processError(StringList _toStringOwers, FileBlock _ex, String _fileExp, KeyWords _keyWords, DisplayedStrings _displayedStrings, boolean _implicit, boolean _warning){
+    private static CustList<PartOffset> processError(StringList _toStringOwers, FileBlock _ex, String _fileExp, KeyWords _keyWords, DisplayedStrings _displayedStrings, boolean _implicit, WarningShow _warningShow){
         CustList<PartOffset> list_ = new CustList<PartOffset>();
         VariablesOffsets vars_ = new VariablesOffsets();
         vars_.getStack().add(new LinkageStackElement());
@@ -245,6 +246,7 @@ public final class LinkageUtil {
         vars_.setDisplayedStrings(_displayedStrings);
         vars_.setToStringOwners(_toStringOwers);
         vars_.setCurrentFileName(_fileExp);
+        vars_.setWarningShow(_warningShow);
         if (_ex.getFirstChild() == null || !_ex.getErrorsFiles().getLi().isEmpty()) {
             processFileBlockError(_ex,list_);
             return list_;
@@ -2428,7 +2430,14 @@ public final class LinkageUtil {
             String param_ = _cond.getParametersNames().get(i);
             StringList errs_ = _cond.getParamErrors().get(i);
             if (errs_.isEmpty()) {
-                _parts.add(new PartOffset("<a name=\"m"+off_+"\">",off_));
+                boolean unusedParameterStaticMethod_ = WarningShow.isUnusedParameterStaticMethod(_vars.getWarningShow());
+                StringList warns_ = _cond.getParamWarns().get(i);
+                if (unusedParameterStaticMethod_ && !warns_.isEmpty()) {
+                    String warn_ = transform(StringUtil.join(warns_,"\n\n"));
+                    _parts.add(new PartOffset("<a title=\""+warn_+"\" name=\"m"+off_+"\" class=\"w\">",off_));
+                } else {
+                    _parts.add(new PartOffset("<a name=\"m"+off_+"\">",off_));
+                }
                 _parts.add(new PartOffset("</a>",off_+param_.length()));
             } else {
                 String err_ = transform(StringUtil.join(errs_,"\n\n"));

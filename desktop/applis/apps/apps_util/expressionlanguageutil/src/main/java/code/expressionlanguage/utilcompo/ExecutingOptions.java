@@ -17,13 +17,14 @@ public final class ExecutingOptions {
     private String outputFolder = "";
     private String output = "";
     private int tabWidth = 4;
-    private AtomicBoolean interrupt = new AtomicBoolean();
+    private final AtomicBoolean interrupt = new AtomicBoolean();
     private boolean covering;
     private String coverFolder = "coverage";
     private String errorsFolder = "errors";
     private boolean invokeDirect;
     private boolean hasArg;
     private StringList args = new StringList();
+    private StringList warns = new StringList();
     private StringMap<String> messages = new StringMap<String>();
     private StringMap<String> keyWords = new StringMap<String>();
     private StringMap<String> aliases = new StringMap<String>();
@@ -142,6 +143,14 @@ public final class ExecutingOptions {
 
     public void setArgs(StringList _args) {
         args = _args;
+    }
+
+    public StringList getWarns() {
+        return warns;
+    }
+
+    public void setWarns(StringList _warns) {
+        this.warns = _warns;
     }
 
     public StringMap<String> getAliases() {
