@@ -67,7 +67,6 @@ public final class CheckerGameTarotWithRules {
             _loadedGame.setError(BAD_COUNT_FOR_REMAINING_CARDS);
             return;
         }
-        _loadedGame.loadGame();
         if (_loadedGame.getDistribution().nombreDeMains() != rules_
                 .getRepartition().getNombreJoueurs() + 1) {
             _loadedGame.setError(BAD_COUNT_FOR_DEAL);
@@ -78,6 +77,7 @@ public final class CheckerGameTarotWithRules {
             _loadedGame.setError(BAD_COUNT_FOR_REMAINING_CARDS);
             return;
         }
+        _loadedGame.loadGame();
         CustList<TrickTarot> allTricks_ = _loadedGame.unionPlis();
         HandTarot cards_ = new HandTarot();
         for (TrickTarot t : allTricks_) {

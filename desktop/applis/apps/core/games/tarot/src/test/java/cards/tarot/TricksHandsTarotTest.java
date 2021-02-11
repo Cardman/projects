@@ -407,7 +407,7 @@ public final class TricksHandsTarotTest extends CommonGameTarot {
         assertEq(24, tricksHands_.getDistribution().hand((byte) 2).total());
         assertEq(6, tricksHands_.getDistribution().hand((byte) 3).total());
     }
-    GameTarot newSimpleDeal() {
+    static GameTarot newSimpleDeal() {
         RulesTarot rules_ = new RulesTarot();
         rules_.setDealing(DealingTarot.DEAL_1_VS_2);
         rules_.setMode(ModeTarot.NORMAL_WITH_ONE_FOR_ONE);
@@ -573,7 +573,7 @@ public final class TricksHandsTarotTest extends CommonGameTarot {
         }
         return newEndedGameTarot(rules_, trs_, m_, dh_, h_, dealer_, bids_, new HandTarot(), last_);
     }
-    GameTarot newSimpleDealOther() {
+    static GameTarot newSimpleDealOther() {
         RulesTarot rules_ = new RulesTarot();
         rules_.setDealing(DealingTarot.DEAL_1_VS_2);
         rules_.setMode(ModeTarot.ONE_FOR_ONE);
