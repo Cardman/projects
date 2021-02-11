@@ -306,6 +306,7 @@ public final class DefaultInitialization {
         _lgNames.getContent().getReflect().setAliasIsInstance("isInstance");
         _lgNames.getContent().getReflect().setAliasIsAssignableFrom("isAssignableFrom");
         _lgNames.getContent().getReflect().setAliasInit("init");
+        _lgNames.getContent().getReflect().setAliasTryWrap("tryWrap");
         _lgNames.getContent().getReflect().setAliasDefaultInstance("defaultInstance");
         _lgNames.getContent().getReflect().setAliasEnumValueOf("enumValueOf");
         _lgNames.getContent().getReflect().setAliasGetEnumConstants("getEnumConstants");

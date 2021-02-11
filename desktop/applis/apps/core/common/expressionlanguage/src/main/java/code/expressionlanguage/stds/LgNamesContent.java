@@ -237,6 +237,7 @@ public final class LgNamesContent {
     private static final String INVOKE = "Invoke";
     private static final String IS_ENUM = "IsEnum";
     private static final String INIT = "Init";
+    private static final String TRY_WRAP = "TryWrap";
     private static final String FOR_NAME = "ForName";
     private static final String IS_STATIC = "IsStatic";
     private static final String IS_STATIC_CALL = "IsStaticCall";
@@ -588,6 +589,7 @@ public final class LgNamesContent {
         getReflect().setAliasInvoke(get(_util,_cust, INVOKE));
         getReflect().setAliasIsEnum(get(_util,_cust, IS_ENUM));
         getReflect().setAliasInit(get(_util,_cust, INIT));
+        getReflect().setAliasTryWrap(get(_util,_cust, TRY_WRAP));
         getReflect().setAliasForName(get(_util,_cust, FOR_NAME));
         getReflect().setAliasIsStatic(get(_util,_cust, IS_STATIC));
         getReflect().setAliasIsStaticCall(get(_util,_cust, IS_STATIC_CALL));
@@ -1124,6 +1126,7 @@ public final class LgNamesContent {
         getReflect().getParams().setAliasClassType0ForName1(get(_util,_cust, AliasParamReflection.CLASS_TYPE_0_FOR_NAME_1));
         getReflect().getParams().setAliasClassType1ForName0(get(_util,_cust, AliasParamReflection.CLASS_TYPE_1_FOR_NAME_0));
         getReflect().getParams().setAliasClassType0IsInstance0(get(_util,_cust, AliasParamReflection.CLASS_TYPE_0_IS_INSTANCE_0));
+        getReflect().getParams().setAliasClassType0TryWrap0(get(_util,_cust, AliasParamReflection.CLASS_TYPE_0_TRY_WRAP_0));
         getReflect().getParams().setAliasClassType0IsAssignableFrom0(get(_util,_cust, AliasParamReflection.CLASS_TYPE_0_IS_ASSIGNABLE_FROM_0));
         getReflect().getParams().setAliasClassType0DefaultInstance0(get(_util,_cust, AliasParamReflection.CLASS_TYPE_0_DEFAULT_INSTANCE_0));
         getReflect().getParams().setAliasClassType0EnumValueOf0(get(_util,_cust, AliasParamReflection.CLASS_TYPE_0_ENUM_VALUE_OF_0));
@@ -1395,6 +1398,7 @@ public final class LgNamesContent {
                 new KeyValueMemberName(GET_UPPER_BOUNDS,getReflect().getAliasGetUpperBounds()),
                 new KeyValueMemberName(GET_VARIABLE_OWNER,getReflect().getAliasGetVariableOwner()),
                 new KeyValueMemberName(INIT,getReflect().getAliasInit()),
+                new KeyValueMemberName(TRY_WRAP,getReflect().getAliasTryWrap()),
                 new KeyValueMemberName(IS_ABSTRACT,getReflect().getAliasIsAbstract()),
                 new KeyValueMemberName(IS_ANNOTATION,getReflect().getAliasIsAnnotation()),
                 new KeyValueMemberName(IS_ARRAY,getReflect().getAliasIsArray()),
@@ -2097,6 +2101,7 @@ public final class LgNamesContent {
         map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamReflection.CLASS_TYPE_0_GET_CLASS_0, getReflect().getParams().getAliasClassType0GetClass0())));
         map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamReflection.CLASS_TYPE_0_FOR_NAME_0, getReflect().getParams().getAliasClassType0ForName0()),new KeyValueMemberName(AliasParamReflection.CLASS_TYPE_0_FOR_NAME_1, getReflect().getParams().getAliasClassType0ForName1())));
         map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamReflection.CLASS_TYPE_1_FOR_NAME_0, getReflect().getParams().getAliasClassType1ForName0())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamReflection.CLASS_TYPE_0_TRY_WRAP_0, getReflect().getParams().getAliasClassType0TryWrap0())));
         map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamReflection.CLASS_TYPE_0_IS_INSTANCE_0, getReflect().getParams().getAliasClassType0IsInstance0())));
         map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamReflection.CLASS_TYPE_0_IS_ASSIGNABLE_FROM_0, getReflect().getParams().getAliasClassType0IsAssignableFrom0())));
         map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamReflection.CLASS_TYPE_0_DEFAULT_INSTANCE_0, getReflect().getParams().getAliasClassType0DefaultInstance0())));

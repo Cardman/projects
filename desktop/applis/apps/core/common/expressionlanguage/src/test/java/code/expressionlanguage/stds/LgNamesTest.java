@@ -2140,6 +2140,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         lgName_.getReflect().getParams().setAliasClassType0ForName1("");
         lgName_.getReflect().getParams().setAliasClassType1ForName0("");
         lgName_.getReflect().getParams().setAliasClassType0IsInstance0("");
+        lgName_.getReflect().getParams().setAliasClassType0TryWrap0("");
         lgName_.getReflect().getParams().setAliasClassType0IsAssignableFrom0("");
         lgName_.getReflect().getParams().setAliasClassType0DefaultInstance0("");
         lgName_.getReflect().getParams().setAliasClassType0EnumValueOf0("");

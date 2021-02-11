@@ -88,6 +88,7 @@ public final class AliasReflection {
     private String aliasIsInstance;
     private String aliasIsAssignableFrom;
     private String aliasInit;
+    private String aliasTryWrap;
     private String aliasDefaultInstance;
     private String aliasEnumValueOf;
     private String aliasGetEnumConstants;
@@ -381,6 +382,9 @@ public final class AliasReflection {
         methods_.add( method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasGetDeclaredAnonymousTypes, params_, StringExpUtil.getPrettyArrayType(aliasClassType), false, MethodModifier.FINAL);
+        methods_.add( method_);
+        params_ = new StringList(aliasObject_);
+        method_ = new StandardMethod(aliasTryWrap, params_, aliasObject_, false, MethodModifier.FINAL,new StringList(params.getAliasClassType0TryWrap0()));
         methods_.add( method_);
         _stds.getStandards().addEntry(aliasClassType, stdcl_);
         methods_ = new CustList<StandardMethod>();
@@ -1187,6 +1191,7 @@ public final class AliasReflection {
         String aliasEnumsValues_ = lgNames_.getContent().getReflect().getAliasGetEnumConstants();
         String aliasDefaultInstance_ = lgNames_.getContent().getReflect().getAliasDefaultInstance();
         String aliasInit_ = lgNames_.getContent().getReflect().getAliasInit();
+        String aliasTryWrap_ = lgNames_.getContent().getReflect().getAliasTryWrap();
         ClassMetaInfo instanceClass_ = NumParsers.getClass(_struct);
         if (StringUtil.quickEq(aliasValueOf_, name_)) {
             String enumName_ = instanceClass_.getName();
@@ -1327,6 +1332,10 @@ public final class AliasReflection {
             String clDyn_ = instanceClass_.getName();
             _exit.hasToExit(_stackCall, clDyn_);
             result_.setResult(NullStruct.NULL_VALUE);
+            return result_;
+        }
+        if (StringUtil.quickEq(aliasTryWrap_, name_)) {
+            result_.setResult(instanceClass_.tryWrap(_cont,_args[0]));
             return result_;
         }
         if (StringUtil.quickEq(name_, ref_.aliasIsAbstract)) {
@@ -2714,6 +2723,15 @@ public final class AliasReflection {
     public void setAliasInit(String _aliasInit) {
         aliasInit = _aliasInit;
     }
+
+    public String getAliasTryWrap() {
+        return aliasTryWrap;
+    }
+
+    public void setAliasTryWrap(String _aliasTryWrap) {
+        this.aliasTryWrap = _aliasTryWrap;
+    }
+
     public String getAliasDefaultInstance() {
         return aliasDefaultInstance;
     }

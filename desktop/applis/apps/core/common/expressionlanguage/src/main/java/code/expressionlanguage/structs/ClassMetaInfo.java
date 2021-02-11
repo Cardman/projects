@@ -1,5 +1,6 @@
 package code.expressionlanguage.structs;
 
+import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.common.StringExpUtil;
@@ -7,6 +8,7 @@ import code.expressionlanguage.exec.blocks.ExecAbstractSwitchMethod;
 import code.expressionlanguage.exec.blocks.ExecAnnotableBlock;
 import code.expressionlanguage.exec.blocks.ExecAnonymousFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
+import code.expressionlanguage.exec.opers.ExecCastOperation;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.expressionlanguage.exec.util.ExecTypeVar;
 import code.expressionlanguage.inherits.Templates;
@@ -253,6 +255,11 @@ public final class ClassMetaInfo extends WithoutParentStruct implements Annotate
     }
     public StringList getUpperBounds() {
         return upperBounds;
+    }
+    public Struct tryWrap(ContextEl _cont, Struct _input) {
+        Argument arg_ = new Argument(_input);
+        ExecCastOperation.wrapFct(name,true,_cont,arg_);
+        return arg_.getStruct();
     }
     public StringList getBounds(ContextEl _cont) {
         StringList list_ = new StringList();

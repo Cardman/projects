@@ -6,6 +6,7 @@ public final class AliasParamReflection {
     public static final String CLASS_TYPE_0_FOR_NAME_0="ClassType0ForName0";
     public static final String CLASS_TYPE_0_FOR_NAME_1="ClassType0ForName1";
     public static final String CLASS_TYPE_1_FOR_NAME_0="ClassType1ForName0";
+    public static final String CLASS_TYPE_0_TRY_WRAP_0="ClassType0TryWrap0";
     public static final String CLASS_TYPE_0_IS_INSTANCE_0="ClassType0IsInstance0";
     public static final String CLASS_TYPE_0_IS_ASSIGNABLE_FROM_0="ClassType0IsAssignableFrom0";
     public static final String CLASS_TYPE_0_DEFAULT_INSTANCE_0="ClassType0DefaultInstance0";
@@ -80,6 +81,7 @@ public final class AliasParamReflection {
     private String aliasClassType0ForName0="a";
     private String aliasClassType0ForName1="b";
     private String aliasClassType1ForName0="a";
+    private String aliasClassType0TryWrap0="a";
     private String aliasClassType0IsInstance0="a";
     private String aliasClassType0IsAssignableFrom0="a";
     private String aliasClassType0DefaultInstance0="a";
@@ -187,6 +189,14 @@ public final class AliasParamReflection {
 
     public void setAliasClassType1ForName0(String _v) {
         this.aliasClassType1ForName0 =_v;
+    }
+
+    public String getAliasClassType0TryWrap0() {
+        return aliasClassType0TryWrap0;
+    }
+
+    public void setAliasClassType0TryWrap0(String _v) {
+        this.aliasClassType0TryWrap0 = _v;
     }
 
     public String getAliasClassType0IsInstance0() {
