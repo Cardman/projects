@@ -1319,13 +1319,14 @@ public final class AnalyzedPageEl {
         return getOptions().isDisplayImplicit();
     }
 
-    public WarningShow getWarningShow() {
-        return getOptions().getWarningShow();
-    }
-
     public boolean isDisplayWarningTernary() {
         WarningShow warningShow_ = getOptions().getWarningShow();
         return WarningShow.isTernary(warningShow_);
+    }
+
+    public boolean isDisplayUnusedParameterStaticMethod() {
+        WarningShow warningShow_ = getOptions().getWarningShow();
+        return WarningShow.isUnusedParameterStaticMethod(warningShow_);
     }
 
     public boolean isEncodeHeader() {

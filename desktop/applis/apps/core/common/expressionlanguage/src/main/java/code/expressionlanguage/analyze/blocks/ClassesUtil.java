@@ -51,20 +51,22 @@ public final class ClassesUtil {
         } else {
             validateSimFinals(_page);
         }
-        for (RootBlock r: _page.getAllFoundTypes()) {
-            for (OverridableBlock o: r.getOverridableBlocks()) {
-                if (o.getKind() == MethodKind.STD_METHOD
-                        && MethodId.getKind(o.getModifier()) != MethodAccessKind.INSTANCE) {
-                    for (EntryCust<String,AnaLocalVariable> e: o.getUsedParameters().entryList()) {
-                        AnaLocalVariable var_ = e.getValue();
-                        int indexParam_ = var_.getIndexParam();
-                        if (!var_.isUsed()) {
-                            FoundWarningInterpret d_ = new FoundWarningInterpret();
-                            d_.setIndexFile(var_.getRef());
-                            d_.setFileName(o.getFile().getFileName());
-                            d_.buildWarning(_page.getAnalysisMessages().getUnusedParamStatic(),e.getKey());
-                            _page.getLocalizer().addWarning(d_);
-                            o.getParamWarns().get(indexParam_).add(d_.getBuiltWarning());
+        if (_page.isDisplayUnusedParameterStaticMethod()) {
+            for (RootBlock r: _page.getAllFoundTypes()) {
+                for (OverridableBlock o: r.getOverridableBlocks()) {
+                    if (!o.isUsedRefMethod()&&o.getKind() == MethodKind.STD_METHOD
+                            && MethodId.getKind(o.getModifier()) != MethodAccessKind.INSTANCE) {
+                        for (EntryCust<String,AnaLocalVariable> e: o.getUsedParameters().entryList()) {
+                            AnaLocalVariable var_ = e.getValue();
+                            int indexParam_ = var_.getIndexParam();
+                            if (!var_.isUsed()) {
+                                FoundWarningInterpret d_ = new FoundWarningInterpret();
+                                d_.setIndexFile(var_.getRef());
+                                d_.setFileName(o.getFile().getFileName());
+                                d_.buildWarning(_page.getAnalysisMessages().getUnusedParamStatic(),e.getKey());
+                                _page.getLocalizer().addWarning(d_);
+                                o.getParamWarns().get(indexParam_).add(d_.getBuiltWarning());
+                            }
                         }
                     }
                 }

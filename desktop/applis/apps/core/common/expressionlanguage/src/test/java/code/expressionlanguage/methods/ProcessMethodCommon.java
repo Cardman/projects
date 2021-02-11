@@ -520,6 +520,16 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
         return InitializationLgNames.buildStdOneAna(opt_);
     }
 
+    protected static AnalyzedTestContext ctxAnaWarn(String... _types) {
+        Options opt_ = newOptions();
+        WarningShow warningShow_ = new WarningShow();
+        warningShow_.setTernary(true);
+        warningShow_.setUnusedParameterStaticMethod(true);
+        opt_.setWarningShow(warningShow_);
+        addTypesInit(opt_, _types);
+        return InitializationLgNames.buildStdOneAna(opt_);
+    }
+
     protected static AnalyzedTestContext ctxLgAna(String _lg, String... _types) {
         Options opt_ = newOptions();
         addTypesInit(opt_, _types);
@@ -786,7 +796,7 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
     }
 
     protected static ContextEl checkWarn(StringMap<String> _files) {
-        AnalyzedTestContext cont_ = ctxAna();
+        AnalyzedTestContext cont_ = ctxAnaWarn();
         ReportedMessages methodHeaders_ = validateAll(_files, cont_);
         assertTrue(isEmptyErrors(cont_));
         assertTrue(methodHeaders_.displayMessageErrors()+methodHeaders_.displayErrors()+methodHeaders_.displayStdErrors()+methodHeaders_.displayWarnings(),!methodHeaders_.isEmptyWarnings());

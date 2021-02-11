@@ -69,6 +69,7 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
     private int nameNumber;
     private boolean matchParamNames = true;
     private boolean retRef;
+    private boolean usedRefMethod;
 
     public NamedFunctionBlock(boolean _retRef, OffsetAccessInfo _access,
                               OffsetStringInfo _retType, OffsetStringInfo _fctName,
@@ -378,5 +379,13 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
 
     public boolean isRetRef() {
         return retRef;
+    }
+
+    public boolean isUsedRefMethod() {
+        return usedRefMethod;
+    }
+
+    public void setUsedRefMethod(boolean _usedRefMethod) {
+        this.usedRefMethod = _usedRefMethod;
     }
 }

@@ -43,7 +43,7 @@ public final class ReachTernaryOperation extends ReachMethodOperation implements
     }
 
     static void checkDeadCode(ReachOperationNode _opOne, OperationNode _info, AnalyzedPageEl _page) {
-        if (_opOne.getArgument() != null) {
+        if (_page.isDisplayWarningTernary()&&_opOne.getArgument() != null) {
             FoundWarningInterpret d_ = new FoundWarningInterpret();
             d_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
             d_.setFileName(_page.getLocalizer().getCurrentFileName());

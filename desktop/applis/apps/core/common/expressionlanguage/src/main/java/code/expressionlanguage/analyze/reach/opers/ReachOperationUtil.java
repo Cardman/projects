@@ -101,11 +101,10 @@ public final class ReachOperationUtil {
         }
         if ((info_ instanceof AbstractRefTernaryOperation
         || info_ instanceof AbstractTernaryOperation)
-        &&((MethodOperation)info_).getPartOffsetsChildren().isEmpty()
-        && _page.isDisplayWarningTernary()) {
-            int offLoc_ = info_.getOperations().getOperators().firstKey();
+        &&((MethodOperation)info_).getPartOffsetsChildren().isEmpty()) {
             StringList deep_ = info_.getWarns();
             if (!deep_.isEmpty()) {
+                int offLoc_ = info_.getOperations().getOperators().firstKey();
                 int i_ = offLoc_ + _page.getLocalizer().getCurrentLocationIndex();
                 CustList<PartOffset> list_ = new CustList<PartOffset>();
                 list_.add(new PartOffset("<a title=\""+ LinkageUtil.transform(StringUtil.join(deep_,"\n\n")) +"\" class=\"w\">",i_));

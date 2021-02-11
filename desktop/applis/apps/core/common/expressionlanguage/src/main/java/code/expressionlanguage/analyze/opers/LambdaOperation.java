@@ -321,6 +321,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                             ConstrustorIdVarArg ctorRes_ = ctors_.first();
                             realId = ctorRes_.getRealId();
                             function = ctorRes_.getPair();
+                            setupFct();
                             standardType = ctorRes_.getStandardType();
                             lambdaCommonContent.setFileName(ctorRes_.getFileName());
                             lambdaMemberNumberContentId = ctorRes_.getMemberId();
@@ -439,6 +440,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                         lambdaCommonContent.setFileName(id_.getFileName());
                         lambdaMemberNumberContentId = id_.getMemberId();
                         function = id_.getPair();
+                        setupFct();
                         String foundClass_ = id_.getRealClass();
                         if (!stCall_.getStCall().isEmpty()) {
                             ContextUtil.appendTitlePartsAbs(stCall_.getLt(), stCall_.getGt(), foundClass_, stCall_.getStCallSolved(), _page);
@@ -521,6 +523,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                         lambdaCommonContent.setFileName(id_.getFileName());
                         lambdaMemberNumberContentId = id_.getMemberId();
                         function = id_.getPair();
+                        setupFct();
                         String foundClass_ = id_.getRealClass();
                         foundClass_ = StringExpUtil.getIdFromAllTypes(foundClass_);
                         lambdaCommonContent.setFoundClass(id_.getId().getClassName());
@@ -695,6 +698,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                 lambdaCommonContent.setFileName(resMethod_.getFileName());
                 lambdaMemberNumberContentId = resMethod_.getMemberId();
                 function = resMethod_.getPair();
+                setupFct();
                 String foundClass_ = resMethod_.getRealClass();
                 foundClass_ = StringExpUtil.getIdFromAllTypes(foundClass_);
                 lambdaCommonContent.setFoundClass(resMethod_.getId().getClassName());
@@ -836,6 +840,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             lambdaCommonContent.setFileName(id_.getFileName());
             lambdaMemberNumberContentId = id_.getMemberId();
             function = id_.getPair();
+            setupFct();
             String foundClass_ = id_.getRealClass();
             foundClass_ = StringExpUtil.getIdFromAllTypes(foundClass_);
             lambdaCommonContent.setFoundClass(id_.getId().getClassName());
@@ -1024,6 +1029,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             lambdaCommonContent.setFileName(id_.getFileName());
             lambdaMemberNumberContentId = id_.getMemberId();
             function = id_.getPair();
+            setupFct();
             String foundClass_ = id_.getRealClass();
             foundClass_ = StringExpUtil.getIdFromAllTypes(foundClass_);
             lambdaCommonContent.setFoundClass(id_.getId().getClassName());
@@ -1109,6 +1115,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             lambdaCommonContent.setFileName(id_.getFileName());
             lambdaMemberNumberContentId = id_.getMemberId();
             function = id_.getPair();
+            setupFct();
             String foundClass_ = id_.getRealClass();
             MethodId idCt_ = id_.getRealId();
             if (idCt_.getKind() != MethodAccessKind.STATIC_CALL) {
@@ -1310,6 +1317,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         lambdaCommonContent.setFileName(id_.getFileName());
         lambdaMemberNumberContentId = id_.getMemberId();
         function = id_.getPair();
+        setupFct();
         String foundClass_ = id_.getRealClass();
         foundClass_ = StringExpUtil.getIdFromAllTypes(foundClass_);
         lambdaCommonContent.setFoundClass(id_.getId().getClassName());
@@ -1565,6 +1573,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                 return;
             }
             function = ctorRes_.getPair();
+            setupFct();
             standardType = ctorRes_.getStandardType();
             lambdaCommonContent.setFileName(ctorRes_.getFileName());
             lambdaMemberNumberContentId = ctorRes_.getMemberId();
@@ -1689,6 +1698,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             return;
         }
         function = ctorRes_.getPair();
+        setupFct();
         standardType = ctorRes_.getStandardType();
         lambdaCommonContent.setFileName(ctorRes_.getFileName());
         lambdaMemberNumberContentId = ctorRes_.getMemberId();
@@ -2242,6 +2252,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             lambdaCommonContent.setFileName(id_.getFileName());
             lambdaMemberNumberContentId = id_.getMemberId();
             function = id_.getPair();
+            setupFct();
             String foundClass_ = id_.getRealClass();
             foundClass_ = StringExpUtil.getIdFromAllTypes(foundClass_);
             lambdaCommonContent.setFoundClass(id_.getId().getClassName());
@@ -2271,6 +2282,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         lambdaCommonContent.setFileName(id_.getFileName());
         lambdaMemberNumberContentId = id_.getMemberId();
         function = id_.getPair();
+        setupFct();
         lambdaCommonContent.setReturnFieldType(id_.getOriginalReturnType());
         String foundClass_ = id_.getRealClass();
         foundClass_ = StringExpUtil.getIdFromAllTypes(foundClass_);
@@ -2589,6 +2601,15 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         previousResultClass = _previousResultClass;
     }
 
+    private void setupFct() {
+        NamedFunctionBlock fct_ = null;
+        if (function != null) {
+            fct_ = function.getFunction();
+        }
+        if (fct_ != null) {
+            fct_.setUsedRefMethod(true);
+        }
+    }
     public AnaTypeFct getFunction() {
         return function;
     }

@@ -203,5 +203,44 @@ public final class WarningReportTest extends ProcessMethodCommon {
                 " }\n" +
                 "}</span></pre></body></html>", filesExp_.firstValue());
     }
-
+    @Test
+    public void report11Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public @class pkg.Ex {\n");
+        xml_.append(" int f;\n");
+        xml_.append(" operator+ Ex(Ex a,Ex b){\n");
+        xml_.append("  return new(f:a.f+b.f);\n");
+        xml_.append(" }\n");
+        xml_.append("}");
+        files_.put("src/pkg/Ex", xml_.toString());
+        StringMap<String> filesExp_ = ctxWarnStdReadOnly(files_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public @class <a name=\"m14\">pkg.Ex</a> {\n" +
+                " int <a name=\"m28\">f</a>;\n" +
+                " operator<a name=\"m40\">+</a> <a title=\"pkg.Ex\" href=\"#m14\">Ex</a>(<a title=\"pkg.Ex\" href=\"#m14\">Ex</a> <a name=\"m48\">a</a>,<a title=\"pkg.Ex\" href=\"#m14\">Ex</a> <a name=\"m53\">b</a>){\n" +
+                "  return new(<a title=\"pkg.Ex.f\" href=\"#m28\">f</a>:<a href=\"#m48\">a</a>.<a title=\"pkg.Ex.f\" href=\"#m28\">f</a>+<a href=\"#m53\">b</a>.<a title=\"pkg.Ex.f\" href=\"#m28\">f</a>);\n" +
+                " }\n" +
+                "}</span></pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report12Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static void caller(){\n");
+        xml_.append("  Fct<int,void> elt = staticCall(Ex).$lambda(exmeth);\n");
+        xml_.append(" }\n");
+        xml_.append(" public static void exmeth(int u){\n");
+        xml_.append(" }\n");
+        xml_.append("}");
+        files_.put("src/pkg/Ex", xml_.toString());
+        StringMap<String> filesExp_ = ctxWarnStdReadOnly(files_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
+                " public static void <a name=\"m42\">caller</a>(){\n" +
+                "  Fct&lt;int,void&gt; <a name=\"m68\">elt</a> = staticCall(<a title=\"pkg.Ex\" href=\"#m13\">Ex</a>).<a title=\"pkg.Ex.static exmeth(int)\" href=\"#m129\">$lambda</a>(exmeth);\n" +
+                " }\n" +
+                " public static void <a name=\"m129\">exmeth</a>(int <a name=\"m140\">u</a>){\n" +
+                " }\n" +
+                "}</span></pre></body></html>", filesExp_.firstValue());
+    }
 }
