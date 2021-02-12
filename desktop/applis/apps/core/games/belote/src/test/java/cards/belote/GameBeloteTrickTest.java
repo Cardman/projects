@@ -30,10 +30,16 @@ public final class GameBeloteTrickTest extends CommonGameBelote {
         bids_.add(b_);
         CustList<TrickBelote> trs_ = new CustList<TrickBelote>();
         TrickBelote pr_ = new TrickBelote(r_.getRepartition().getNextPlayer(d_));
-        GameBelote g_ = newGameBeloteWithourDecl(r_, trs_, pr_, d_, bids_, last_);
+        DealBelote deal_ = new DealBelote(new CustList<HandBelote>(),d_);
+        deal_.getDeal().add(create(CardBelote.HEART_JACK,CardBelote.HEART_9,CardBelote.HEART_8,CardBelote.HEART_7,CardBelote.SPADE_KING,CardBelote.SPADE_QUEEN,CardBelote.SPADE_JACK,CardBelote.SPADE_9));
+        deal_.getDeal().add(create(CardBelote.SPADE_8,CardBelote.SPADE_7,CardBelote.DIAMOND_10,CardBelote.DIAMOND_KING,CardBelote.DIAMOND_QUEEN,CardBelote.DIAMOND_JACK,CardBelote.DIAMOND_9,CardBelote.DIAMOND_8));
+        deal_.getDeal().add(create(CardBelote.DIAMOND_7,CardBelote.CLUB_10,CardBelote.CLUB_KING,CardBelote.CLUB_QUEEN,CardBelote.CLUB_JACK,CardBelote.CLUB_9,CardBelote.CLUB_8,CardBelote.CLUB_7));
+        deal_.getDeal().add(create(CardBelote.HEART_1,CardBelote.HEART_10,CardBelote.HEART_KING,CardBelote.HEART_QUEEN,CardBelote.SPADE_1,CardBelote.SPADE_10,CardBelote.DIAMOND_1,CardBelote.CLUB_1));
+        deal_.getDeal().add(create(CardBelote.HEART_1,CardBelote.HEART_10,CardBelote.HEART_KING,CardBelote.HEART_JACK,CardBelote.HEART_9,CardBelote.HEART_8,CardBelote.SPADE_8,CardBelote.SPADE_7,CardBelote.DIAMOND_10,CardBelote.DIAMOND_7,CardBelote.CLUB_10,CardBelote.CLUB_KING));
+        GameBelote g_ = newGameBeloteWithourDecl(r_, trs_, pr_, d_, bids_, deal_);
         GameBeloteTeamsRelation team_ = g_.getTeamsRelation();
         GameBeloteTrickInfo info_ = newGameBeloteTrickInfo(g_);
-        GameBeloteBeginTrick gbt_ = newGameBeloteBeginTrick(g_,info_,team_,curHand_);
+        GameBeloteBeginTrick gbt_ = newGameBeloteBeginTrickDeal(g_,info_,team_,curHand_);
         assertSame(CardBelote.HEART_1, gbt_.entame());
     }
     @Test
@@ -58,10 +64,16 @@ public final class GameBeloteTrickTest extends CommonGameBelote {
         bids_.add(b_);
         CustList<TrickBelote> trs_ = new CustList<TrickBelote>();
         TrickBelote pr_ = new TrickBelote(r_.getRepartition().getNextPlayer(d_));
-        GameBelote g_ = newGameBeloteWithourDecl(r_, trs_, pr_, d_, bids_, last_);
+        DealBelote deal_ = new DealBelote(new CustList<HandBelote>(),d_);
+        deal_.getDeal().add(create(CardBelote.HEART_KING,CardBelote.HEART_QUEEN,CardBelote.HEART_8,CardBelote.HEART_7,CardBelote.SPADE_KING,CardBelote.SPADE_QUEEN,CardBelote.SPADE_JACK,CardBelote.SPADE_9));
+        deal_.getDeal().add(create(CardBelote.SPADE_8,CardBelote.SPADE_7,CardBelote.DIAMOND_10,CardBelote.DIAMOND_KING,CardBelote.DIAMOND_QUEEN,CardBelote.DIAMOND_JACK,CardBelote.DIAMOND_9,CardBelote.DIAMOND_8));
+        deal_.getDeal().add(create(CardBelote.DIAMOND_7,CardBelote.CLUB_10,CardBelote.CLUB_KING,CardBelote.CLUB_QUEEN,CardBelote.CLUB_JACK,CardBelote.CLUB_9,CardBelote.CLUB_8,CardBelote.CLUB_7));
+        deal_.getDeal().add(create(CardBelote.HEART_JACK,CardBelote.HEART_9,CardBelote.HEART_1,CardBelote.HEART_10,CardBelote.SPADE_1,CardBelote.SPADE_10,CardBelote.DIAMOND_1,CardBelote.CLUB_1));
+        deal_.getDeal().add(create(CardBelote.HEART_JACK,CardBelote.HEART_9,CardBelote.HEART_1,CardBelote.HEART_KING,CardBelote.HEART_QUEEN,CardBelote.HEART_8,CardBelote.SPADE_8,CardBelote.SPADE_7,CardBelote.DIAMOND_10,CardBelote.DIAMOND_7,CardBelote.CLUB_10,CardBelote.CLUB_KING));
+        GameBelote g_ = newGameBeloteWithourDecl(r_, trs_, pr_, d_, bids_, deal_);
         GameBeloteTeamsRelation team_ = g_.getTeamsRelation();
         GameBeloteTrickInfo info_ = newGameBeloteTrickInfo(g_);
-        GameBeloteBeginTrick gbt_ = newGameBeloteBeginTrick(g_,info_,team_,curHand_);
+        GameBeloteBeginTrick gbt_ = newGameBeloteBeginTrickDeal(g_,info_,team_,curHand_);
         assertSame(CardBelote.HEART_JACK, gbt_.entame());
     }
     @Test
@@ -121,10 +133,16 @@ public final class GameBeloteTrickTest extends CommonGameBelote {
         t_.ajouter(CardBelote.SPADE_10);
         trs_.add(t_);
         TrickBelote pr_ = new TrickBelote(t_.getRamasseur(b_));
-        GameBelote g_ = newGameBeloteWithourDecl(r_, trs_, pr_, d_, bids_, last_);
+        DealBelote deal_ = new DealBelote(new CustList<HandBelote>(),d_);
+        deal_.getDeal().add(create(CardBelote.SPADE_KING));
+        deal_.getDeal().add(create(CardBelote.DIAMOND_KING));
+        deal_.getDeal().add(create(CardBelote.CLUB_KING));
+        deal_.getDeal().add(create(CardBelote.CLUB_10));
+        deal_.getDeal().add(create(CardBelote.HEART_JACK,CardBelote.CLUB_10,CardBelote.SPADE_1,CardBelote.SPADE_KING,CardBelote.SPADE_9,CardBelote.CLUB_7,CardBelote.DIAMOND_KING,CardBelote.SPADE_7,CardBelote.CLUB_8,CardBelote.CLUB_KING,CardBelote.SPADE_8,CardBelote.CLUB_9));
+        GameBelote g_ = newGameBeloteWithourDecl(r_, trs_, pr_, d_, bids_, deal_);
         GameBeloteTeamsRelation team_ = g_.getTeamsRelation();
         GameBeloteTrickInfo info_ = newGameBeloteTrickInfo(g_);
-        GameBeloteBeginTrick gbt_ = newGameBeloteBeginTrick(g_,info_,team_,curHand_);
+        GameBeloteBeginTrick gbt_ = newGameBeloteBeginTrickDeal(g_,info_,team_,curHand_);
         assertSame(CardBelote.CLUB_10, gbt_.entame());
     }
 }

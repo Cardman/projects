@@ -15,16 +15,36 @@ public abstract class CommonGameBelote extends EquallableBeloteUtil {
                                                          CustList<BidBeloteSuit> _bids, HandBelote _lastHand) {
         return newGameBelote(_currentHand,_r,_trs,_prog,_dealer,_bids, _lastHand);
     }
+    protected static GameBelote newGameBeloteWithourDecl(HandBelote _currentHand, RulesBelote _r, CustList<TrickBelote> _trs, TrickBelote _prog,
+                                                         int _dealer,
+                                                         CustList<BidBeloteSuit> _bids, DealBelote _lastHand) {
+        return newGameBelote(_currentHand,_r,_trs,_prog,_dealer,_bids, _lastHand);
+    }
     protected static GameBelote newGameBeloteWithourDecl(RulesBelote _r, CustList<TrickBelote> _trs, TrickBelote _prog,
                                                          int _dealer,
                                                          CustList<BidBeloteSuit> _bids, HandBelote _lastHand) {
         return newGameBelote(_r,_trs,_prog,_dealer,_bids, _lastHand);
+    }
+    protected static GameBelote newGameBeloteWithourDecl(RulesBelote _r, CustList<TrickBelote> _trs, TrickBelote _prog,
+                                                         int _dealer,
+                                                         CustList<BidBeloteSuit> _bids, DealBelote _lastHand) {
+        byte nombreDeJoueurs_ = (byte) _r.getDealing().getNombreJoueurs();
+        return newGameBelote(_r,_trs,_prog,_dealer,_bids,nombreDeJoueurs_, _lastHand);
     }
     protected static GameBelote newGameBelote(HandBelote _currentHand, RulesBelote _r, CustList<TrickBelote> _trs, TrickBelote _prog,
                                               int _dealer,
                                               CustList<BidBeloteSuit> _bids, HandBelote _lastHand) {
         GameBelote g_ = newGameBelote(_r,_trs,_prog,_dealer,_bids,_lastHand);
         check(g_,_currentHand);
+        return g_;
+    }
+    protected static GameBelote newGameBelote(HandBelote _currentHand, RulesBelote _r, CustList<TrickBelote> _trs, TrickBelote _prog,
+                                              int _dealer,
+                                              CustList<BidBeloteSuit> _bids, DealBelote _lastHand) {
+        byte nombreDeJoueurs_ = (byte) _r.getDealing().getNombreJoueurs();
+        GameBelote g_ = newGameBelote(_r,_trs,_prog,_dealer,_bids, nombreDeJoueurs_,_lastHand);
+        CheckerGameBeloteWithRules.check(g_);
+        assertTrue("Error",g_.getError().isEmpty());
         return g_;
     }
     protected static GameBelote newGameBelote(RulesBelote _r, CustList<TrickBelote> _trs, TrickBelote _prog,
@@ -36,12 +56,16 @@ public abstract class CommonGameBelote extends EquallableBeloteUtil {
             deal_.add(new HandBelote());
         }
         deal_.add(_lastHand);
-        GameBelote g_ = new GameBelote(GameType.RANDOM,new DealBelote(deal_, (byte) _dealer),_r);
+        return newGameBelote(_r, _trs, _prog, _dealer, _bids, nombreDeJoueurs_, new DealBelote(deal_, (byte) _dealer));
+    }
+
+    protected static GameBelote newGameBelote(RulesBelote _r, CustList<TrickBelote> _trs, TrickBelote _prog, int _dealer, CustList<BidBeloteSuit> _bids, byte _nombreDeJoueurs, DealBelote _donne) {
+        GameBelote g_ = new GameBelote(GameType.RANDOM, _donne, _r);
         g_.setProgressingTrick(_prog);
         g_.setTricks(_trs);
         g_.setBids(_bids);
         byte player_ = g_.playerAfter((byte) _dealer);
-        int taker_ = getTaker(_r,_dealer,_bids);
+        int taker_ = getTaker(_r, _dealer, _bids);
         BidBeloteSuit bid_ = new BidBeloteSuit();
         if (_r.dealAll()) {
             g_.setEndBidsFirstRound(false);
@@ -53,7 +77,7 @@ public abstract class CommonGameBelote extends EquallableBeloteUtil {
             }
             g_.setContrat(bid_);
         } else {
-            g_.setEndBidsFirstRound(_bids.size() >= nombreDeJoueurs_);
+            g_.setEndBidsFirstRound(_bids.size() >= _nombreDeJoueurs);
             for (BidBeloteSuit b: _bids) {
                 if (b.strongerThan(bid_)) {
                     bid_ = b;
@@ -94,6 +118,13 @@ public abstract class CommonGameBelote extends EquallableBeloteUtil {
         return new GameBeloteProgTrick(_done,_teamsRelation,_currentHand);
     }
 
+    protected static GameBeloteProgTrick newGameBeloteProgTrickDeal(GameBelote _g, GameBeloteTrickInfo _done, GameBeloteTeamsRelation _teamsRelation,
+                                                                       HandBelote _currentHand) {
+        CheckerGameBeloteWithRules.check(_g);
+        assertTrue("Error",_g.getError().isEmpty());
+        return new GameBeloteProgTrick(_done,_teamsRelation,_currentHand);
+    }
+
     private static int det(EnumMap<Suit,CustList<HandBelote>> _foundHands, Ints _lengths) {
         int nb_ = _lengths.size();
         for (int i = 0;i < nb_; i++) {
@@ -110,6 +141,12 @@ public abstract class CommonGameBelote extends EquallableBeloteUtil {
     protected static GameBeloteBeginTrick newGameBeloteBeginTrick(GameBelote _g, GameBeloteTrickInfo _done, GameBeloteTeamsRelation _teamsRelation,
                                                                   HandBelote _currentHand) {
         check(_g,_currentHand);
+        return new GameBeloteBeginTrick(_done,_teamsRelation,_currentHand);
+    }
+    protected static GameBeloteBeginTrick newGameBeloteBeginTrickDeal(GameBelote _g, GameBeloteTrickInfo _done, GameBeloteTeamsRelation _teamsRelation,
+                                                                  HandBelote _currentHand) {
+        CheckerGameBeloteWithRules.check(_g);
+        assertTrue("Error",_g.getError().isEmpty());
         return new GameBeloteBeginTrick(_done,_teamsRelation,_currentHand);
     }
     private static void check(GameBelote _g,HandBelote _currentHand) {
@@ -365,5 +402,12 @@ public abstract class CommonGameBelote extends EquallableBeloteUtil {
     protected static void removeSureCard(BeloteInfoPliEnCours _info, int _p, CardBelote _c) {
         HandBelote h_ = _info.getCartesCertaines().getVal(_c.couleur()).get(_p);
         h_.removeCardIfPresent(_c);
+    }
+    protected static HandBelote create(CardBelote... _cards) {
+        HandBelote h_ = new HandBelote();
+        for (CardBelote c : _cards) {
+            h_.ajouter(c);
+        }
+        return h_;
     }
 }
