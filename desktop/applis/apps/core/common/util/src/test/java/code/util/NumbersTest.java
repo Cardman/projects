@@ -6,6 +6,29 @@ import org.junit.Test;
 
 public class NumbersTest extends EquallableExUtil {
     @Test
+    public void isValidIndex1() {
+        assertTrue(!NumberUtil.isValidIndex(-1,2));
+    }
+    @Test
+    public void isValidIndex2() {
+        assertTrue(!NumberUtil.isValidIndex(5,2));
+    }
+    @Test
+    public void isValidIndex3() {
+        assertTrue(NumberUtil.isValidIndex(1,2));
+    }
+    @Test
+    public void singleOrEmpty1() {
+        Ints res_ = Ints.singleOrEmpty(0);
+        assertEq(1, res_.size());
+        assertEq(0, res_.get(0));
+    }
+    @Test
+    public void singleOrEmpty2() {
+        Ints res_ = Ints.singleOrEmpty(-1);
+        assertEq(0, res_.size());
+    }
+    @Test
     public void getReverseTest() {
         Ints list_ = new Ints();
         list_.add(0);

@@ -12,18 +12,14 @@ public final class AdvGraphicStringListGenerator implements AbstractGraphicStrin
     @Override
     public AbsGraphicList<String> createStrList(StringList _objects) {
         CustGrList<String> l_ = new CustGrList<>(true);
-        for (String s: _objects) {
-            l_.add(s);
-        }
+        _objects.list().forEach(l_::add);
         return l_;
     }
 
     @Override
     public AbsInputGraphicList<String> createMultStrList(StringList _objects, Ints _selectedIndexes, int _visibleRows) {
         CustGrMultList l_ = new CustGrMultList(false);
-        for (String s: _objects) {
-            l_.add(s);
-        }
+        _objects.list().forEach(l_::add);
         return l_;
     }
 }

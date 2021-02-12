@@ -7,7 +7,12 @@ public final class NumberUtil {
 
     private NumberUtil() {
     }
-
+    public static boolean isValidIndex(int _index, int _max) {
+        if (_index < IndexConstants.FIRST_INDEX) {
+            return false;
+        }
+        return _index < _max;
+    }
     public static boolean equalsSetBytes(Listable<Byte> _list1, Listable<Byte> _list2) {
         for (Byte c: _list2) {
             boolean contains_ = containsByte(_list1, c);
@@ -63,11 +68,11 @@ public final class NumberUtil {
     }
 
     public static int mod(int _one, int _two) {
-        return (int) mod((long)_one,(long)_two);
+        return (int) mod(_one,(long)_two);
     }
 
     public static int quot(int _one, int _two) {
-        return (int) quot((long)_one,(long)_two);
+        return (int) quot(_one,(long)_two);
     }
 
     public static long mod(long _one, long _two) {

@@ -20,6 +20,13 @@ public final class Ints extends Numbers<Integer> {
         super(_capacity);
     }
 
+    public static Ints singleOrEmpty(int _element) {
+        if (_element < 0) {
+            return new Ints();
+        }
+        return new Ints(_element);
+    }
+
     public CustList<Ints> getAllIndexes() {
         CustList<Ints> e_;
         e_ = new CustList<Ints>();

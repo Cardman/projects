@@ -2,6 +2,7 @@ package code.gui;
 import code.util.CustList;
 import code.util.Ints;
 import javax.swing.*;
+import java.util.Arrays;
 
 public class CustGrList<T> extends CustComponent implements AbsGraphicList<T> {
 
@@ -103,19 +104,12 @@ public class CustGrList<T> extends CustComponent implements AbsGraphicList<T> {
 
     public Ints getSelectedIndexes() {
 		Ints out_ = new Ints();
-		for (int i:list.getSelectedIndices()){
-			out_.add(i);
-		}
+        Arrays.stream(list.getSelectedIndices()).forEach(out_::add);
 		return out_;
     }
 
     public void setSelectedIndexes(Ints _values) {
-        int len_ = _values.size();
-        int[] inds_ = new int[len_];
-        for (int i = 0; i < len_; i++) {
-            inds_[i] = _values.get(i);
-        }
-        list.setSelectedIndices(inds_);
+        list.setSelectedIndices(_values.list().stream().mapToInt(Integer::intValue).toArray());
     }
 
 
@@ -133,9 +127,7 @@ public class CustGrList<T> extends CustComponent implements AbsGraphicList<T> {
 
     public CustList<T> getSelectedValuesLs() {
         CustList<T> list_ = new CustList<>();
-        for (T i: list.getSelectedValuesList()) {
-            list_.add(i);
-        }
+        list.getSelectedValuesList().forEach(list_::add);
         return list_;
     }
     public T get(int _i) {
