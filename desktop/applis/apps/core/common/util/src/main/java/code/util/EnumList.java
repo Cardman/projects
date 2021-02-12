@@ -48,20 +48,6 @@ public final class EnumList<T> extends AbEqList<T> {
         groups_.add(group_);
         return groups_;
     }
-    public Ints indexesOfObj(T _element) {
-        Ints indexes_;
-        indexes_ = new Ints();
-        int i_ = IndexConstants.FIRST_INDEX;
-        while (true) {
-            int found_ = indexOfObj(_element, i_);
-            if (found_ == IndexConstants.INDEX_NOT_FOUND_ELT) {
-                break;
-            }
-            indexes_.add(found_);
-            i_ = found_ + 1;
-        }
-        return indexes_;
-    }
     @Override
     public boolean match(T _one, T _two) {
         return _one == _two;

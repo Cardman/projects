@@ -1,6 +1,7 @@
 package code.util;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 import code.util.core.IndexConstants;
 import code.util.core.SortConstants;
@@ -9,7 +10,7 @@ import code.util.ints.Listable;
 
 public class CustList<T> implements Listable<T> {
 
-    private final ArrayList<T> list;
+    private final List<T> list;
 
     public CustList() {
         list = new ArrayList<T>();
@@ -96,7 +97,7 @@ public class CustList<T> implements Listable<T> {
     public final Iterable<T> getList() {
         return list();
     }
-    public final ArrayList<T> list() {
+    public final List<T> list() {
         return list;
     }
 

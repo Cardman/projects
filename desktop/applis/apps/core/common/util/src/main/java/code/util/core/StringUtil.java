@@ -86,102 +86,112 @@ public final class StringUtil {
         int i_ = _from;
         StringBuilder out_ = new StringBuilder();
         while (i_ < len_) {
-            byte cur_ = _bytes[i_];
-            if (cur_ >= 0) {
-                out_.append((char)cur_);
-                i_++;
-                continue;
-            }
-            if (i_ + 1 >= len_) {
+            int n_ = processChar(_bytes, i_, len_, out_);
+            if (n_ < 0) {
                 return null;
             }
-            if (cur_ < -62) {
-                return null;
-            }
-            if (cur_ > -17) {
-                return null;
-            }
-            byte next_ = _bytes[i_ + 1];
-            if (next_ > -65) {
-                return null;
-            }
-            if (cur_ <= -33) {
-                short f_ = (short)(cur_ + 64);
-                short s_ = (short)(next_ + 128);
-                short t_ = (short) (64 * f_ + s_);
-                out_.append((char)t_);
-                i_++;
-                i_++;
-                continue;
-            }
-            if (i_ + 2 >= len_) {
-                return null;
-            }
-            byte afterNext_ = _bytes[i_ + 2];
-            if (afterNext_ > -65) {
-                return null;
-            }
-            if (cur_ == -32) {
-                short f_ = (short)(next_ + 128);
-                short s_ = (short)(afterNext_ + 128);
-                short t_ = (short) (64 * f_ + s_);
-                out_.append((char)t_);
-                i_++;
-                i_++;
-                i_++;
-                continue;
-            }
-            short f_ = (short)(cur_ + 32);
-            short s_ = (short)(next_ + 128);
-            short t_ = (short) (afterNext_ + 128);
-            short full_ = (short) (64 * 64 * f_ + 64 * s_ + t_);
-            out_.append((char)full_);
-            i_++;
-            i_++;
-            i_++;
+            i_ = n_;
         }
         return out_.toString();
     }
 
+    private static int processChar(byte[] _bytes, int _index, int _len,StringBuilder _dest) {
+        int i_ = _index;
+        byte cur_ = _bytes[i_];
+        if (cur_ >= 0) {
+            _dest.append((char)cur_);
+            i_++;
+            return i_;
+        }
+        if (koNextChar(_len, i_, cur_)) {
+            return -1;
+        }
+        byte next_ = _bytes[i_ + 1];
+        if (next_ > -65) {
+            return -1;
+        }
+        if (cur_ <= -33) {
+            short f_ = (short)(cur_ + 64);
+            short s_ = (short)(next_ + 128);
+            short t_ = (short) (64 * f_ + s_);
+            _dest.append((char)t_);
+            i_++;
+            i_++;
+            return i_;
+        }
+        if (i_ + 2 >= _len) {
+            return -1;
+        }
+        byte afterNext_ = _bytes[i_ + 2];
+        if (afterNext_ > -65) {
+            return -1;
+        }
+        if (cur_ == -32) {
+            short f_ = (short)(next_ + 128);
+            short s_ = (short)(afterNext_ + 128);
+            short t_ = (short) (64 * f_ + s_);
+            _dest.append((char)t_);
+            i_++;
+            i_++;
+            i_++;
+            return i_;
+        }
+        short f_ = (short)(cur_ + 32);
+        short s_ = (short)(next_ + 128);
+        short t_ = (short) (afterNext_ + 128);
+        short full_ = (short) (64 * 64 * f_ + 64 * s_ + t_);
+        _dest.append((char)full_);
+        i_++;
+        i_++;
+        i_++;
+        return i_;
+    }
     public static int badDecode(byte[] _bytes, int _from, int _length) {
         int len_ = _from + _length;
         int i_ = _from;
         while (i_ < len_) {
-            byte cur_ = _bytes[i_];
-            if (cur_ >= 0) {
-                i_++;
-                continue;
-            }
-            if (i_ + 1 >= len_) {
+            int n_ = processBadChar(_bytes, i_, len_);
+            if (n_ == i_) {
                 return i_;
             }
-            if (cur_ < -62) {
-                return i_;
-            }
-            if (cur_ > -17) {
-                return i_;
-            }
-            byte next_ = _bytes[i_ + 1];
-            if (next_ > -65) {
-                return i_;
-            }
-            if (cur_ <= -33) {
-                i_++;
-                i_++;
-                continue;
-            }
-            if (i_ + 2 >= len_) {
-                return i_;
-            }
-            byte afterNext_ = _bytes[i_ + 2];
-            if (afterNext_ > -65) {
-                return i_;
-            }
-            i_++;
-            i_++;
-            i_++;
+            i_ = n_;
         }
         return -1;
+    }
+
+    private static int processBadChar(byte[] _bytes, int _index, int _len) {
+        int i_ = _index;
+        byte cur_ = _bytes[i_];
+        if (cur_ >= 0) {
+            i_++;
+            return i_;
+        }
+        if (koNextChar(_len, i_, cur_)) {
+            return i_;
+        }
+        byte next_ = _bytes[i_ + 1];
+        if (next_ > -65) {
+            return i_;
+        }
+        if (cur_ <= -33) {
+            i_++;
+            i_++;
+            return i_;
+        }
+        if (i_ + 2 >= _len) {
+            return i_;
+        }
+        byte afterNext_ = _bytes[i_ + 2];
+        if (afterNext_ > -65) {
+            return i_;
+        }
+        i_++;
+        i_++;
+        i_++;
+        return i_;
+    }
+    private static boolean koNextChar(int _len, int _i, byte _cur) {
+        return _i + 1 >= _len || _cur < -62 || _cur > -17;
     }
 
     public static boolean equalsSet(CustList<String> _list1, CustList<String> _list2) {
@@ -248,53 +258,12 @@ public final class StringUtil {
 
     public static String formatBasic(String _pattern, StringMap<String> _map, boolean _substringFirst) {
         if (_substringFirst) {
-            int length_ = _pattern.length();
-            StringBuilder strBuilder_ = new StringBuilder();
-            int i_ = IndexConstants.FIRST_INDEX;
-            StringList keys_ = new StringList(_map.getKeys());
-            boolean exit_ = false;
-            while (i_ < length_) {
-                int j_ = IndexConstants.FIRST_INDEX;
-                StringList list_ = keys_;
-                while (true) {
-                    StringList nexList_ = new StringList();
-                    for (String k: list_) {
-                        if (okKey(_pattern, i_, j_, k)) {
-                            nexList_.add(k);
-                        }
-                    }
-                    list_ = nexList_;
-                    if (_pattern.length() <= j_ + i_ + 1) {
-                        exit_ = true;
-                        String subString_ = _pattern.substring(i_);
-                        if (contains(list_, subString_)) {
-                            strBuilder_.append(_map.getVal(subString_));
-                        } else {
-                            strBuilder_.append(subString_);
-                        }
-                        break;
-                    }
-//                    String subString_ = _pattern.substring(i_, j_ + i_ + 1);
-                    String subString_ = _pattern.substring(i_, Math.min(j_ + i_ + 1, _pattern.length()));
-                    if (contains(list_, subString_)) {
-                        strBuilder_.append(_map.getVal(subString_));
-                        i_ += j_;
-                        break;
-                    }
-                    if (list_.isEmpty()) {
-                        strBuilder_.append(subString_);
-                        i_ += j_;
-                        break;
-                    }
-                    j_++;
-                }
-                if (exit_) {
-                    break;
-                }
-                i_++;
-            }
-            return strBuilder_.toString();
+            return formatBasicSub(_pattern, _map);
         }
+        return formatBasicDef(_pattern, _map);
+    }
+
+    private static String formatBasicDef(String _pattern, StringMap<String> _map) {
         int length_ = _pattern.length();
         StringBuilder strBuilder_ = new StringBuilder();
         int i_ = IndexConstants.FIRST_INDEX;
@@ -304,21 +273,10 @@ public final class StringUtil {
             int j_ = IndexConstants.FIRST_INDEX;
             StringList list_ = keys_;
             while (true) {
-                StringList nexList_ = new StringList();
-                for (String k: list_) {
-                    if (okKey(_pattern, i_, j_, k)) {
-                        nexList_.add(k);
-                    }
-                }
-                list_ = nexList_;
+                list_ = buildNextList(_pattern, i_, j_, list_);
                 if (_pattern.length() <= j_ + i_ + 1) {
                     exit_ = true;
-                    String subString_ = _pattern.substring(i_);
-                    if (contains(list_, subString_)) {
-                        strBuilder_.append(_map.getVal(subString_));
-                    } else {
-                        strBuilder_.append(subString_);
-                    }
+                    appendSub(_pattern, _map, strBuilder_, i_, list_);
                     break;
                 }
 //                String subString_ = _pattern.substring(i_, j_ + i_ + 1);
@@ -331,6 +289,63 @@ public final class StringUtil {
                     }
                 }
                 if (contains(list_, subString_) && !exist_) {
+                    strBuilder_.append(_map.getVal(subString_));
+                    i_ += j_;
+                    break;
+                }
+                if (list_.isEmpty()) {
+                    strBuilder_.append(subString_);
+                    i_ += j_;
+                    break;
+                }
+                j_++;
+            }
+            if (exit_) {
+                break;
+            }
+            i_++;
+        }
+        return strBuilder_.toString();
+    }
+
+    private static StringList buildNextList(String _pattern, int _i, int _j, StringList _list) {
+        StringList nexList_ = new StringList();
+        for (String k : _list) {
+            if (okKey(_pattern, _i, _j, k)) {
+                nexList_.add(k);
+            }
+        }
+        return nexList_;
+    }
+
+    private static void appendSub(String _pattern, StringMap<String> _map, StringBuilder _strBuilder, int _i, StringList _list) {
+        String subString_ = _pattern.substring(_i);
+        if (contains(_list, subString_)) {
+            _strBuilder.append(_map.getVal(subString_));
+        } else {
+            _strBuilder.append(subString_);
+        }
+    }
+
+    private static String formatBasicSub(String _pattern, StringMap<String> _map) {
+        int length_ = _pattern.length();
+        StringBuilder strBuilder_ = new StringBuilder();
+        int i_ = IndexConstants.FIRST_INDEX;
+        StringList keys_ = new StringList(_map.getKeys());
+        boolean exit_ = false;
+        while (i_ < length_) {
+            int j_ = IndexConstants.FIRST_INDEX;
+            StringList list_ = keys_;
+            while (true) {
+                list_ = buildNextList(_pattern, i_, j_, list_);
+                if (_pattern.length() <= j_ + i_ + 1) {
+                    exit_ = true;
+                    appendSub(_pattern, _map, strBuilder_, i_, list_);
+                    break;
+                }
+//                    String subString_ = _pattern.substring(i_, j_ + i_ + 1);
+                String subString_ = _pattern.substring(i_, Math.min(j_ + i_ + 1, _pattern.length()));
+                if (contains(list_, subString_)) {
                     strBuilder_.append(_map.getVal(subString_));
                     i_ += j_;
                     break;
@@ -389,13 +404,7 @@ public final class StringUtil {
             int j_ = IndexConstants.FIRST_INDEX;
             StringList list_ = keys_;
             while (true) {
-                StringList nexList_ = new StringList();
-                for (String k: list_) {
-                    if (okKey(_pattern, i_, j_, k)) {
-                        nexList_.add(k);
-                    }
-                }
-                list_ = nexList_;
+                list_ = buildNextList(_pattern, i_, j_, list_);
 //                String subString_ = _pattern.substring(i_, j_ + i_ + 1);
                 String subString_ = _pattern.substring(i_, Math.min(j_ + i_ + 1, _pattern.length()));
                 if (contains(list_, subString_)) {
@@ -497,7 +506,7 @@ public final class StringUtil {
             } else if (cur_ == RIGHT_BRACE) {
                 inside_ = false;
                 int argNb_ = NumberUtil.parseInt(arg_.toString());
-                if (argNb_ >= 0 && argNb_ < argLength_) {
+                if (inRange(argLength_, argNb_)) {
                     str_.append(_args[argNb_]);
                 } else {
                     str_.append(LEFT_BRACE);
@@ -512,6 +521,10 @@ public final class StringUtil {
             i_++;
         }
         return str_.toString();
+    }
+
+    private static boolean inRange(int _argLength, int _argNb) {
+        return _argNb >= 0 && _argNb < _argLength;
     }
 
     public static String simpleNumberFormat(String _format, long... _args) {
@@ -549,9 +562,8 @@ public final class StringUtil {
             } else if (cur_ == RIGHT_BRACE) {
                 inside_ = false;
                 int argNb_ = NumberUtil.parseInt(arg_.toString());
-                if (argNb_ >= 0 && argNb_ < argLength_) {
-                    long a_ = _args[argNb_];
-                    str_.append(Long.toString(a_));
+                if (inRange(argLength_, argNb_)) {
+                    str_.append(_args[argNb_]);
                 } else {
                     str_.append(LEFT_BRACE);
                     str_.append(arg_);
@@ -889,29 +901,7 @@ public final class StringUtil {
         StringList words_=wordsAndSeparators_.getWords();
         StringList separators_=wordsAndSeparators_.getSeparators();
         if (words_.isEmpty()) {
-            String lastSep_ = separators_.last();
-            int nbPts_ = 0;
-            int nbZeroOne_ = 0;
-            int index_ = IndexConstants.FIRST_INDEX;
-            for (char c: lastSep_.toCharArray()) {
-                if (c == CHARACTER) {
-                    nbPts_++;
-                }
-                if (c == POSSIBLE_CHAR) {
-                    nbZeroOne_++;
-                }
-            }
-            index_+=nbPts_;
-            if(index_==_string.length()){
-                return true;
-            }
-            if(index_<_string.length()){
-                if(lastSep_.contains(Character.toString(STRING))){
-                    return true;
-                }
-                return _string.length() <= index_ + nbZeroOne_;
-            }
-            return false;
+            return procNoWords(_string, separators_);
         }
         if (wordsAndSeparators_.isFirstSep()) {
             separators_.add(IndexConstants.FIRST_INDEX, EMPTY_STRING);
@@ -962,7 +952,17 @@ public final class StringUtil {
             index_=indiceNext_+e.length();
             i_++;
         }
-        String lastSep_ = separators_.last();
+        return procDefFilter(_string, separators_, index_);
+    }
+
+    private static boolean procNoWords(String _string, StringList _separators) {
+        int index_ = IndexConstants.FIRST_INDEX;
+        return procDefFilter(_string, _separators, index_);
+    }
+
+    private static boolean procDefFilter(String _string, StringList _separators, int _i) {
+        int index_ = _i;
+        String lastSep_ = _separators.last();
         int nbPts_ = 0;
         int nbZeroOne_ = 0;
         for (char c: lastSep_.toCharArray()) {
@@ -1016,13 +1016,7 @@ public final class StringUtil {
         while (true) {
             int minIndex_ = lowestIndexOfMetaChar(_string, begin_, metas_);
             if (minIndex_ == IndexConstants.INDEX_NOT_FOUND_ELT) {
-                if (begin_ < _string.length()) {
-                    words_.add(_string.substring(begin_));
-                }
-                if (begin_ == IndexConstants.FIRST_INDEX) {
-                    wordsSepBeginEnd_.setFirstSep(true);
-                }
-                wordsSepBeginEnd_.setLastSep(begin_ < _string.length());
+                procLastSepSpace(_string, wordsSepBeginEnd_, words_, begin_);
                 break;
             }
             if (minIndex_ > begin_) {
@@ -1048,6 +1042,16 @@ public final class StringUtil {
         return wordsSepBeginEnd_;
     }
 
+    private static void procLastSepSpace(String _string, WordsSeparators _wordsSepBeginEnd, StringList _words, int _begin) {
+        if (_begin < _string.length()) {
+            _words.add(_string.substring(_begin));
+        }
+        if (_begin == IndexConstants.FIRST_INDEX) {
+            _wordsSepBeginEnd.setFirstSep(true);
+        }
+        _wordsSepBeginEnd.setLastSep(_begin < _string.length());
+    }
+
     private static WordsSeparators wordsAndSeparators(String _string){
         WordsSeparators wordsSepBeginEnd_;
         wordsSepBeginEnd_ = new WordsSeparators();
@@ -1058,13 +1062,7 @@ public final class StringUtil {
         while (true) {
             int minIndex_ = lowestIndexOfMetaChar(_string, begin_, metas_);
             if (minIndex_ == IndexConstants.INDEX_NOT_FOUND_ELT) {
-                if (begin_ < _string.length()) {
-                    words_.add(_string.substring(begin_));
-                }
-                if (begin_ == IndexConstants.FIRST_INDEX) {
-                    wordsSepBeginEnd_.setFirstSep(true);
-                }
-                wordsSepBeginEnd_.setLastSep(begin_ < _string.length());
+                procLastSepSpace(_string, wordsSepBeginEnd_, words_, begin_);
                 break;
             }
             if (minIndex_ > begin_) {

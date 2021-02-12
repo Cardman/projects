@@ -89,6 +89,21 @@ public abstract class AbEqList<T> extends CustList<T> {
         }
         return false;
     }
+    public Ints indexesOfObj(T _element) {
+        Ints indexes_;
+        indexes_ = new Ints();
+        int i_ = IndexConstants.FIRST_INDEX;
+        while (true) {
+            int found_ = indexOfObj(_element, i_);
+            if (found_ == IndexConstants.INDEX_NOT_FOUND_ELT) {
+                break;
+            }
+            indexes_.add(found_);
+            i_ = found_ + 1;
+        }
+        return indexes_;
+    }
+
     public int indexOfObj(T _element, int _from) {
         int s_ = size();
         for (int i = _from; i < s_; i++) {
