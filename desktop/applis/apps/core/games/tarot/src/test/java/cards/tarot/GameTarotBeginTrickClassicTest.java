@@ -2784,6 +2784,61 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         assertSame(CardTarot.WHITE,gbt_.playWithStrongestTrumps(infoTr_));
     }
     @Test
+    public void playWithStrongestTrumps21Test() {
+        HandTarot last_ = new HandTarot();
+        last_.ajouter(CardTarot.SPADE_QUEEN);
+        last_.ajouter(CardTarot.SPADE_10);
+        last_.ajouter(CardTarot.SPADE_1);
+        RulesTarot r_ = new RulesTarot();
+        HandTarot curHand_ = new HandTarot();
+        curHand_.ajouter(CardTarot.TRUMP_20);
+        curHand_.ajouter(CardTarot.TRUMP_19);
+        curHand_.ajouter(CardTarot.TRUMP_18);
+        curHand_.ajouter(CardTarot.TRUMP_17);
+        curHand_.ajouter(CardTarot.TRUMP_16);
+        curHand_.ajouter(CardTarot.TRUMP_15);
+        curHand_.ajouter(CardTarot.TRUMP_14);
+        curHand_.ajouter(CardTarot.TRUMP_13);
+        curHand_.ajouter(CardTarot.TRUMP_5);
+        curHand_.ajouter(CardTarot.EXCUSE);
+        curHand_.ajouter(CardTarot.TRUMP_1);
+        curHand_.ajouter(CardTarot.CLUB_QUEEN);
+        curHand_.ajouter(CardTarot.DIAMOND_KING);
+        curHand_.ajouter(CardTarot.HEART_QUEEN);
+        curHand_.ajouter(CardTarot.HEART_KING);
+        byte d_ = 3;
+        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        bids_.add(BidTarot.FOLD);
+        bids_.add(BidTarot.GUARD);
+        bids_.add(BidTarot.FOLD);
+        bids_.add(BidTarot.FOLD);
+        bids_.add(BidTarot.FOLD);
+        CustList<TrickTarot> trs_ = new CustList<TrickTarot>();
+        TrickTarot t_ = new TrickTarot((byte) getTaker(r_,d_,bids_),false);
+        t_.ajouter(CardTarot.SPADE_QUEEN);
+        t_.ajouter(CardTarot.SPADE_10);
+        t_.ajouter(CardTarot.SPADE_1);
+        trs_.add(t_);
+        TrickTarot pr_ = new TrickTarot(t_.getRamasseur(),true);
+        HandTarot calledCards_ = new HandTarot();
+        calledCards_.ajouter(CardTarot.CLUB_KING);
+        DealTarot deal_ = new DealTarot(new CustList<HandTarot>(),d_);
+        deal_.getDeal().add(create(CardTarot.TRUMP_5,CardTarot.TRUMP_20,CardTarot.EXCUSE,CardTarot.TRUMP_19,CardTarot.TRUMP_18,CardTarot.TRUMP_17,CardTarot.TRUMP_16,CardTarot.TRUMP_15,CardTarot.TRUMP_14,CardTarot.TRUMP_13,CardTarot.TRUMP_1,CardTarot.HEART_KING,CardTarot.HEART_QUEEN,CardTarot.DIAMOND_KING,CardTarot.CLUB_QUEEN));
+        deal_.getDeal().add(create(CardTarot.TRUMP_21,CardTarot.TRUMP_7,CardTarot.TRUMP_12,CardTarot.TRUMP_11,CardTarot.TRUMP_10,CardTarot.HEART_KNIGHT,CardTarot.HEART_JACK,CardTarot.HEART_10,CardTarot.HEART_9,CardTarot.HEART_8,CardTarot.HEART_7,CardTarot.HEART_6,CardTarot.HEART_5,CardTarot.HEART_4,CardTarot.HEART_3));
+        deal_.getDeal().add(create(CardTarot.TRUMP_2,CardTarot.TRUMP_8,CardTarot.HEART_2,CardTarot.HEART_1,CardTarot.SPADE_KING,CardTarot.SPADE_KNIGHT,CardTarot.SPADE_JACK,CardTarot.SPADE_9,CardTarot.SPADE_8,CardTarot.SPADE_7,CardTarot.SPADE_6,CardTarot.SPADE_5,CardTarot.SPADE_4,CardTarot.SPADE_3,CardTarot.CLUB_KING));
+        deal_.getDeal().add(create(CardTarot.TRUMP_3,CardTarot.TRUMP_9,CardTarot.SPADE_2,CardTarot.DIAMOND_QUEEN,CardTarot.DIAMOND_KNIGHT,CardTarot.DIAMOND_JACK,CardTarot.DIAMOND_10,CardTarot.DIAMOND_9,CardTarot.DIAMOND_8,CardTarot.DIAMOND_7,CardTarot.DIAMOND_6,CardTarot.DIAMOND_5,CardTarot.DIAMOND_4,CardTarot.DIAMOND_3,CardTarot.DIAMOND_2));
+        deal_.getDeal().add(create(CardTarot.TRUMP_4,CardTarot.TRUMP_6,CardTarot.DIAMOND_1,CardTarot.CLUB_KNIGHT,CardTarot.CLUB_JACK,CardTarot.CLUB_10,CardTarot.CLUB_9,CardTarot.CLUB_8,CardTarot.CLUB_7,CardTarot.CLUB_6,CardTarot.CLUB_5,CardTarot.CLUB_4,CardTarot.CLUB_3,CardTarot.CLUB_2,CardTarot.CLUB_1));
+        deal_.getDeal().add(create(CardTarot.SPADE_QUEEN,CardTarot.SPADE_10,CardTarot.SPADE_1));
+        GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 2, deal_);
+        GameTarotTeamsRelation team_ = g_.getTeamsRelation();
+        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
+        GameTarotBeginTrickClassic gbt_ = newGameTarotBeginTrickClassicDeal(g_,info_,team_,calledCards_,curHand_);
+        TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
+        assertSame(Status.TAKER,gbt_.getCurrentStatus());
+        assertSame(CardTarot.WHITE,gbt_.playWithStrongestTrumps(infoTr_));
+    }
+
+    @Test
     public void playWithAtMostOneSuitCard1Test() {
         HandTarot last_ = new HandTarot();
         last_.ajouter(CardTarot.SPADE_QUEEN);

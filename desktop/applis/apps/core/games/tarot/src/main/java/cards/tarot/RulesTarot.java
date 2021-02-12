@@ -22,6 +22,7 @@ public final class RulesTarot {
     private EndDealTarot endDealTarot=EndDealTarot.ATTACK_LOOSE;
     private int nbDeals;
     private boolean discardAfterCall = true;
+    private boolean allowPlayCalledSuit = true;
 
     private String general="";
     private String specific="";
@@ -199,6 +200,14 @@ public final class RulesTarot {
 
     public void setDiscardAfterCall(boolean _discardAfterCall) {
         discardAfterCall = _discardAfterCall;
+    }
+
+    public boolean isAllowPlayCalledSuit() {
+        return allowPlayCalledSuit;
+    }
+
+    public void setAllowPlayCalledSuit(boolean _allowPlayCalledSuit) {
+        this.allowPlayCalledSuit = _allowPlayCalledSuit;
     }
 
     public MixCardsChoice getMixedCards() {

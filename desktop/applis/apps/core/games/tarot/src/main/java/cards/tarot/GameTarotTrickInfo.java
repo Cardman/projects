@@ -9,21 +9,21 @@ import code.util.core.IndexConstants;
 
 public final class GameTarotTrickInfo {
 
-    private TrickTarot progressingTrick;
-    private CustList<TrickTarot> tricks;
+    private final TrickTarot progressingTrick;
+    private final CustList<TrickTarot> tricks;
 
-    private CustList<EnumList<Miseres>> declaresMiseres;
+    private final CustList<EnumList<Miseres>> declaresMiseres;
 
-    private CustList<HandTarot> handfuls;
-    private BidTarot bid;
-    private HandTarot calledCards;
-    private Ints handLengths;
+    private final CustList<HandTarot> handfuls;
+    private final BidTarot bid;
+    private final HandTarot calledCards;
+    private final Ints handLengths;
 
-    private HandTarot lastSeenHand = new HandTarot();
+    private final HandTarot lastSeenHand = new HandTarot();
     private byte nbPlayers;
     private byte taker;
     private RulesTarot rules;
-    private CustList<CustList<Confidence>> confidence = new CustList<CustList<Confidence>>();
+    private final CustList<CustList<Confidence>> confidence = new CustList<CustList<Confidence>>();
 
     public GameTarotTrickInfo(TrickTarot _progressingTrick, CustList<TrickTarot> _tricks,
                               CustList<EnumList<Miseres>> _declaresMiseres,
@@ -121,6 +121,41 @@ public final class GameTarotTrickInfo {
             }
         }
         possibleExcuse_.add(new HandTarot());
+        HandTarot copy_ = new HandTarot();
+        copy_.ajouterCartes(calledCards);
+        copy_.supprimerCartes(HandTarot.trumpsPlusExcuse());
+        if (!copy_.estVide()) {
+            CardTarot calledCard_ = copy_.premiereCarte();
+            Suit couleur_ = calledCard_.couleur();
+
+            if (tricks.size() == 1) {
+                if (progressingTrick.couleurDemandee() == couleur_) {
+                    CardTarot cardTarot_ = progressingTrick.premiereCarteNonExc();
+                    if (applyFilter(calledCard_, cardTarot_)) {
+                        for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_ < nbPlayers; joueur_++) {
+                            byte pl_ = progressingTrick.joueurAyantJouePliEnCours(cardTarot_, (byte) rules.getDealing().getNombreJoueurs());
+                            if (pl_ != joueur_) {
+                                continue;
+                            }
+                            HandTarot hand_ = possibleExcuse_.get(pl_);
+                            hand_.supprimerCartes();
+                        }
+                    }
+                }
+            } else if (tricks.get(1).couleurDemandee() == couleur_) {
+                CardTarot cardTarot_ = tricks.get(1).premiereCarteNonExc();
+                if (applyFilter(calledCard_, cardTarot_)) {
+                    for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_ < nbPlayers; joueur_++) {
+                        byte pl_ = tricks.get(1).joueurAyantJoue(cardTarot_);
+                        if (pl_ != joueur_) {
+                            continue;
+                        }
+                        HandTarot hand_ = possibleExcuse_.get(pl_);
+                        hand_.supprimerCartes();
+                    }
+                }
+            }
+        }
         if (bid.getJeuChien() != PlayingDog.WITH) {
             if (!noExc_) {
                 possibleExcuse_.last().ajouter(CardTarot.excuse());
@@ -257,6 +292,41 @@ public final class GameTarotTrickInfo {
             }
         }
         m.add(new HandTarot());
+        HandTarot copy_ = new HandTarot();
+        copy_.ajouterCartes(calledCards);
+        copy_.supprimerCartes(HandTarot.trumpsPlusExcuse());
+        if (!copy_.estVide()) {
+            CardTarot calledCard_ = copy_.premiereCarte();
+            Suit couleur_ = calledCard_.couleur();
+
+            if (tricks.size() == 1) {
+                if (progressingTrick.couleurDemandee() == couleur_) {
+                    CardTarot cardTarot_ = progressingTrick.premiereCarteNonExc();
+                    if (applyFilter(calledCard_, cardTarot_)) {
+                        for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_ < nbPlayers; joueur_++) {
+                            byte pl_ = progressingTrick.joueurAyantJouePliEnCours(cardTarot_, (byte) rules.getDealing().getNombreJoueurs());
+                            if (pl_ != joueur_) {
+                                continue;
+                            }
+                            HandTarot hand_ = m.get(pl_);
+                            hand_.supprimerCartes();
+                        }
+                    }
+                }
+            } else if (tricks.get(1).couleurDemandee() == couleur_) {
+                CardTarot cardTarot_ = tricks.get(1).premiereCarteNonExc();
+                if (applyFilter(calledCard_, cardTarot_)) {
+                    for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_ < nbPlayers; joueur_++) {
+                        byte pl_ = tricks.get(1).joueurAyantJoue(cardTarot_);
+                        if (pl_ != joueur_) {
+                            continue;
+                        }
+                        HandTarot hand_ = m.get(pl_);
+                        hand_.supprimerCartes();
+                    }
+                }
+            }
+        }
         if (bid.getJeuChien() == PlayingDog.WITH) {
             /*
             Les atouts ecartes sont annonces donc certains de faire partie du
@@ -496,6 +566,49 @@ public final class GameTarotTrickInfo {
             }
         }
         m.add(new HandTarot());
+        HandTarot copy_ = new HandTarot();
+        copy_.ajouterCartes(calledCards);
+        copy_.supprimerCartes(HandTarot.trumpsPlusExcuse());
+        if (!copy_.estVide()) {
+            CardTarot calledCard_ = copy_.premiereCarte();
+            Suit couleur_ = calledCard_.couleur();
+
+            if (tricks.size() == 1) {
+                if (progressingTrick.couleurDemandee() == couleur_) {
+                    CardTarot cardTarot_ = progressingTrick.premiereCarteNonExc();
+                    if (applyFilter(calledCard_, cardTarot_)) {
+                        for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_ < nbPlayers; joueur_++) {
+                            byte pl_ = progressingTrick.joueurAyantJouePliEnCours(cardTarot_, (byte) rules.getDealing().getNombreJoueurs());
+                            if (pl_ != joueur_) {
+                                continue;
+                            }
+                            HandTarot hand_ = m.get(pl_);
+                            if (_couleur != couleur_) {
+                                hand_.supprimerCartes();
+                            } else {
+                                hand_.supprimerCartes(copy_);
+                            }
+                        }
+                    }
+                }
+            } else if (tricks.get(1).couleurDemandee() == couleur_) {
+                CardTarot cardTarot_ = tricks.get(1).premiereCarteNonExc();
+                if (applyFilter(calledCard_, cardTarot_)) {
+                    for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_ < nbPlayers; joueur_++) {
+                        byte pl_ = tricks.get(1).joueurAyantJoue(cardTarot_);
+                        if (pl_ != joueur_) {
+                            continue;
+                        }
+                        HandTarot hand_ = m.get(pl_);
+                        if (_couleur != couleur_) {
+                            hand_.supprimerCartes();
+                        } else {
+                            hand_.supprimerCartes(copy_);
+                        }
+                    }
+                }
+            }
+        }
         if (bid.getJeuChien() != PlayingDog.WITH) {
             for (CardTarot carte_ : HandTarot.couleurComplete(_couleur)) {
                 if (!playedCards_.contient(carte_)
@@ -578,6 +691,11 @@ public final class GameTarotTrickInfo {
         }
         return m;
     }
+
+    private boolean applyFilter(CardTarot _calledCard, CardTarot _cardTarot) {
+        return _calledCard != _cardTarot &&!rules.isAllowPlayCalledSuit();
+    }
+
     /**
      Retourne l'ensemble des cartes certainement possedees par les joueurs
      classees par couleur puis par joueurs
