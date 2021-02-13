@@ -2,7 +2,7 @@ package code.images;
 
 import code.util.ints.Equallable;
 
-public class IntPoint implements Equallable<IntPoint> {
+public final class IntPoint implements Equallable<IntPoint> {
     private int xcoords;
     private int ycoords;
 

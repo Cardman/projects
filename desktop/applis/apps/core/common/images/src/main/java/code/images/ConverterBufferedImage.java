@@ -69,14 +69,17 @@ public final class ConverterBufferedImage {
                 if (addedPixels_.containsObj(new IntPoint(j,i))) {
                     continue;
                 }
-                int rgb_ = _buffered[i][j];
-                if (rgb_ != WHITE_RGB_INT) {
-                    continue;
-                }
-                list_.add(new IntPoint(j,i));
+                tryAddNew(_buffered[i][j], list_, i, j);
             }
         }
         return list_;
+    }
+
+    private static void tryAddNew(int _rgb, EqList<IntPoint> _list, int _i, int _j) {
+        if (_rgb != WHITE_RGB_INT) {
+            return;
+        }
+        _list.add(new IntPoint(_j, _i));
     }
 
     public static EqList<IntPoint> whitePixels(boolean _hf,int[][] _buffered) {
@@ -152,14 +155,18 @@ public final class ConverterBufferedImage {
                 if (_addedPixels.containsObj(coordsChild_)) {
                     continue;
                 }
-                int rgb_ = _buffered[coordsChild_.getYcoords()][coordsChild_.getXcoords()];
-                if (rgb_ != _white) {
-                    continue;
-                }
-                _addedPixels.add(coordsChild_);
-                _newPixels.add(coordsChild_);
+                tryAddNew(_buffered[coordsChild_.getYcoords()], _white, _addedPixels, _newPixels, coordsChild_);
             }
         }
+    }
+
+    private static void tryAddNew(int[] _ints, int _white, EqList<IntPoint> _addedPixels, EqList<IntPoint> _newPixels, IntPoint _coordsChild) {
+        int rgb_ = _ints[_coordsChild.getXcoords()];
+        if (rgb_ != _white) {
+            return;
+        }
+        _addedPixels.add(_coordsChild);
+        _newPixels.add(_coordsChild);
     }
 
     public static String getSquareColorSixtyFour(String _color,
