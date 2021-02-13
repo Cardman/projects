@@ -11,8 +11,6 @@ public final class Format {
     private static final String RETURNE_LINE = "\n";
     private static final String SEPARATOR = ":";
 
-    private static final char DOT_CHAR = '.';
-
     private Format(){}
 
     public static String getConstanteLangue(String _fichier,String _group ,String _nomConstante) {
@@ -32,7 +30,7 @@ public final class Format {
             int indice_ = line_.indexOf(SEPARATOR);
             String cle_ = line_.substring(0, indice_);
 //            cle_ = cle_.replaceAll(NO_WORD_DOT, EMPTY_STRING);
-            cle_ = keepOnlyWordCharsDot(cle_);
+            cle_ = StringUtil.removeAllSpaces(cle_);
             String valeur_ = line_.substring(indice_+1);
             valeur_ = DocumentBuilder.transformSpecialChars(valeur_);
             constantes_.put(cle_, valeur_);
@@ -40,40 +38,4 @@ public final class Format {
         return constantes_.getVal(_nomConstante);
     }
 
-    public static String keepOnlyWordCharsDot(String _string) {
-        StringBuilder str_ = new StringBuilder();
-        for (char c: _string.toCharArray()) {
-            if (!isWordChar(c)) {
-                if (c != DOT_CHAR) {
-                    continue;
-                }
-            }
-            str_.append(c);
-        }
-        return str_.toString();
-    }
-    private static boolean isWordChar(char _char) {
-        if (_char == '_') {
-            return true;
-        }
-        if (_char < '0') {
-            return false;
-        }
-        if (_char <= '9') {
-            return true;
-        }
-        if (_char < 'A') {
-            return false;
-        }
-        if (_char <= 'Z') {
-            return true;
-        }
-        if (_char < 'a') {
-            return false;
-        }
-        if (_char <= 'z') {
-            return true;
-        }
-        return _char >= 160;
-    }
 }

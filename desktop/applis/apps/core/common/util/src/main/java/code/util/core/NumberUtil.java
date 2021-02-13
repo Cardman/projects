@@ -160,8 +160,6 @@ public final class NumberUtil {
         }
         boolean negative_ = false;
         int i_ = 0;
-        int max_ = _string.length();
-        int digit_;
 
         if (_string.charAt(0) == '-') {
             negative_ = true;
@@ -170,22 +168,27 @@ public final class NumberUtil {
         if (i_ >= _string.length()) {
             return 0;
         }
+        long result_ = simpleParse(i_,_string);
+        if (negative_) {
+            return result_;
+        }
+        return -result_;
+    }
+    public static long simpleParse(int _i,String _string) {
+        int i_ = _i;
+        int max_ = _string.length();
         int ch_ = _string.charAt(i_);
         i_++;
-        digit_ = ch_ - '0';
+        int digit_ = ch_ - '0';
         long result_ = -digit_;
         while (i_ < max_) {
-            // Accumulating negatively avoids surprises near MAX_VALUE
             ch_ = _string.charAt(i_);
             i_++;
             digit_ = ch_ - '0';
             result_ *= DEFAULT_RADIX;
             result_ -= digit_;
         }
-        if (negative_) {
-            return result_;
-        }
-        return -result_;
+        return result_;
     }
 
     public static byte signum(long _v) {

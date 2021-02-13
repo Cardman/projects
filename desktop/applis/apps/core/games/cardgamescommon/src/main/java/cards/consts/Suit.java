@@ -7,16 +7,18 @@ UNDEFINED,TRUMP,HEART,SPADE,DIAMOND,CLUB;
     public static EnumList<Suit> couleursOrdinaires(){
         EnumList<Suit> couleurs_ = new EnumList<Suit>();
         for(Suit suit_:values()){
-            if(suit_ == Suit.UNDEFINED){
-                continue;
-            }
-            if(suit_ == Suit.TRUMP){
+            if (notNormal(suit_)) {
                 continue;
             }
             couleurs_.add(suit_);
         }
         return couleurs_;
     }
+
+    private static boolean notNormal(Suit _suit) {
+        return _suit == Suit.UNDEFINED || _suit == Suit.TRUMP;
+    }
+
     public static boolean equalsSuits(EnumList<Suit> _one, EnumList<Suit> _two) {
         if (_one.size() != _two.size()) {
             return false;

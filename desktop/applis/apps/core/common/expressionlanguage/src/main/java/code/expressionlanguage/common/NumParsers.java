@@ -811,22 +811,7 @@ public final class NumParsers {
     }
 
     private static long parseQuickLongTen(String _string) {
-        int i_ = 0;
-        int max_ = _string.length();
-        int digit_;
-        int ch_ = _string.charAt(i_);
-        i_++;
-        digit_ = ch_ - '0';
-        long result_ = -digit_;
-        while (i_ < max_) {
-            // Accumulating negatively avoids surprises near MAX_VALUE
-            ch_ = _string.charAt(i_);
-            i_++;
-            digit_ = ch_ - '0';
-            result_ *= DEFAULT_RADIX;
-            result_ -= digit_;
-        }
-        return -result_;
+        return -NumberUtil.simpleParse(0,_string);
     }
 
     public static LongInfo parseLong(String _string, int _radix) {
