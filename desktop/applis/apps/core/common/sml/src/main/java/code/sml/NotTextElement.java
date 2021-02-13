@@ -307,10 +307,7 @@ public final class NotTextElement extends FullNode implements Element {
                 index_ = i + 1;
             }
         }
-        if (!((NotTextElement) parentNode_).childElements.isValidIndex(index_)) {
-            return null;
-        }
-        return ((NotTextElement) parentNode_).childElements.item(index_);
+        return tryGetElt((NotTextElement) parentNode_, index_);
     }
 
     @Override
@@ -326,10 +323,14 @@ public final class NotTextElement extends FullNode implements Element {
                 index_ = i - 1;
             }
         }
-        if (!((NotTextElement) parentNode_).childElements.isValidIndex(index_)) {
+        return tryGetElt((NotTextElement) parentNode_, index_);
+    }
+
+    private static Node tryGetElt(NotTextElement _parentNode, int _index) {
+        if (!_parentNode.childElements.isValidIndex(_index)) {
             return null;
         }
-        return ((NotTextElement) parentNode_).childElements.item(index_);
+        return _parentNode.childElements.item(_index);
     }
 
     @Override
