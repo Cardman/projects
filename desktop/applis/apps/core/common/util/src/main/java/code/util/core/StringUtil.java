@@ -281,13 +281,7 @@ public final class StringUtil {
                 }
 //                String subString_ = _pattern.substring(i_, j_ + i_ + 1);
                 String subString_ = _pattern.substring(i_, Math.min(j_ + i_ + 1, _pattern.length()));
-                boolean exist_ = false;
-                for (String s: list_) {
-                    if (s.contains(concat(subString_, Character.toString(_pattern.charAt(j_ + i_ + 1))))) {
-                        exist_ = true;
-                        break;
-                    }
-                }
+                boolean exist_ = existSub(_pattern, i_, j_, list_, subString_);
                 if (contains(list_, subString_) && !exist_) {
                     strBuilder_.append(_map.getVal(subString_));
                     i_ += j_;
@@ -306,6 +300,17 @@ public final class StringUtil {
             i_++;
         }
         return strBuilder_.toString();
+    }
+
+    private static boolean existSub(String _pattern, int _i, int _j, StringList _list, String _subString) {
+        boolean exist_ = false;
+        for (String s: _list) {
+            if (s.contains(concat(_subString, Character.toString(_pattern.charAt(_j + _i + 1))))) {
+                exist_ = true;
+                break;
+            }
+        }
+        return exist_;
     }
 
     private static StringList buildNextList(String _pattern, int _i, int _j, StringList _list) {
@@ -382,46 +387,57 @@ public final class StringUtil {
                 i_++;
                 continue;
             }
-            int nbSeqQuotes_ = IndexConstants.SIZE_EMPTY;
-            while (true) {
-                if (i_ >= length_) {
-                    break;
-                }
-                if (_pattern.charAt(i_) != _sep) {
-                    break;
-                }
-                nbSeqQuotes_++;
-                i_++;
-            }
+            int after_ = nbQuotes(_pattern, length_, i_, _sep);
+            int nbSeqQuotes_ = after_ - i_;
+            i_ = after_;
             quoted_ = nbSeqQuotes_ % 2 ==1;
-            int nbAdds_ = nbSeqQuotes_/2;
-            for (int i = IndexConstants.SIZE_EMPTY; i < nbAdds_; i++) {
-                strBuilder_.append(_sep);
-            }
+            appendSeps(_sep, strBuilder_, nbSeqQuotes_);
             if (quoted_) {
                 continue;
             }
-            int j_ = IndexConstants.FIRST_INDEX;
-            StringList list_ = keys_;
-            while (true) {
-                list_ = buildNextList(_pattern, i_, j_, list_);
+            i_ = incr(strBuilder_, keys_, i_, _pattern, _map);
+        }
+        return strBuilder_.toString();
+    }
+
+    private static int incr(StringBuilder _strBuilder, StringList _keys, int _i, String _pattern, StringMap<String> _map) {
+        int i_ = _i;
+        int j_ = IndexConstants.FIRST_INDEX;
+        StringList list_ = _keys;
+        while (true) {
+            list_ = buildNextList(_pattern, i_, j_, list_);
 //                String subString_ = _pattern.substring(i_, j_ + i_ + 1);
-                String subString_ = _pattern.substring(i_, Math.min(j_ + i_ + 1, _pattern.length()));
-                if (contains(list_, subString_)) {
-                    strBuilder_.append(_map.getVal(subString_));
-                    i_ += j_;
-                    break;
-                }
-                if (list_.isEmpty()) {
-                    strBuilder_.append(subString_);
-                    i_ += j_;
-                    break;
-                }
-                j_++;
+            String subString_ = _pattern.substring(i_, Math.min(j_ + i_ + 1, _pattern.length()));
+            if (contains(list_, subString_)) {
+                _strBuilder.append(_map.getVal(subString_));
+                i_ += j_;
+                break;
+            }
+            if (list_.isEmpty()) {
+                _strBuilder.append(subString_);
+                i_ += j_;
+                break;
+            }
+            j_++;
+        }
+        i_++;
+        return i_;
+    }
+    private static int nbQuotes(String _pattern, int _length, int _from, char _sep) {
+        int i_ = _from;
+        while (i_ < _length) {
+            if (_pattern.charAt(i_) != _sep) {
+                break;
             }
             i_++;
         }
-        return strBuilder_.toString();
+        return i_;
+    }
+    private static void appendSeps(char _sep, StringBuilder _strBuilder, int _nbSeqQuotes) {
+        int nbAdds_ = _nbSeqQuotes /2;
+        for (int i = IndexConstants.SIZE_EMPTY; i < nbAdds_; i++) {
+            _strBuilder.append(_sep);
+        }
     }
 
     private static boolean okKey(String _pattern, int _i, int _j, String _k) {
@@ -483,14 +499,12 @@ public final class StringUtil {
             char cur_ = _format.charAt(i_);
             if (cur_ == QUOTE) {
                 escaped_ = !escaped_;
-                if (i_ < length_ - 1) {
-                    if (_format.charAt(i_ + 1) == QUOTE) {
-                        str_.append(QUOTE);
-                        i_++;
-                        i_++;
-                        escaped_ = false;
-                        continue;
-                    }
+                if (endQuote(_format, length_, i_)) {
+                    str_.append(QUOTE);
+                    i_++;
+                    i_++;
+                    escaped_ = false;
+                    continue;
                 }
                 i_++;
                 continue;
@@ -506,13 +520,7 @@ public final class StringUtil {
             } else if (cur_ == RIGHT_BRACE) {
                 inside_ = false;
                 int argNb_ = NumberUtil.parseInt(arg_.toString());
-                if (inRange(argLength_, argNb_)) {
-                    str_.append(_args[argNb_]);
-                } else {
-                    str_.append(LEFT_BRACE);
-                    str_.append(arg_);
-                    str_.append(RIGHT_BRACE);
-                }
+                tryAppArg(str_, arg_, argLength_, argNb_, _args);
             } else if (inside_) {
                 arg_.append(cur_);
             } else {
@@ -521,6 +529,16 @@ public final class StringUtil {
             i_++;
         }
         return str_.toString();
+    }
+
+    private static void tryAppArg(StringBuilder _str, StringBuilder _arg, int _argLength, int _argNb, String[] _args) {
+        if (inRange(_argLength, _argNb)) {
+            _str.append(_args[_argNb]);
+        } else {
+            _str.append(LEFT_BRACE);
+            _str.append(_arg);
+            _str.append(RIGHT_BRACE);
+        }
     }
 
     private static boolean inRange(int _argLength, int _argNb) {
@@ -539,14 +557,12 @@ public final class StringUtil {
             char cur_ = _format.charAt(i_);
             if (cur_ == QUOTE) {
                 escaped_ = !escaped_;
-                if (i_ < length_ - 1) {
-                    if (_format.charAt(i_ + 1) == QUOTE) {
-                        str_.append(QUOTE);
-                        i_++;
-                        i_++;
-                        escaped_ = false;
-                        continue;
-                    }
+                if (endQuote(_format, length_, i_)) {
+                    str_.append(QUOTE);
+                    i_++;
+                    i_++;
+                    escaped_ = false;
+                    continue;
                 }
                 i_++;
                 continue;
@@ -562,13 +578,7 @@ public final class StringUtil {
             } else if (cur_ == RIGHT_BRACE) {
                 inside_ = false;
                 int argNb_ = NumberUtil.parseInt(arg_.toString());
-                if (inRange(argLength_, argNb_)) {
-                    str_.append(_args[argNb_]);
-                } else {
-                    str_.append(LEFT_BRACE);
-                    str_.append(arg_);
-                    str_.append(RIGHT_BRACE);
-                }
+                tryAppArg(str_, arg_, argLength_, argNb_, _args);
             } else if (inside_) {
                 arg_.append(cur_);
             } else {
@@ -577,6 +587,20 @@ public final class StringUtil {
             i_++;
         }
         return str_.toString();
+    }
+
+    private static void tryAppArg(StringBuilder _str, StringBuilder _arg, int _argLength, int _argNb, long[] _args) {
+        if (inRange(_argLength, _argNb)) {
+            _str.append(_args[_argNb]);
+        } else {
+            _str.append(LEFT_BRACE);
+            _str.append(_arg);
+            _str.append(RIGHT_BRACE);
+        }
+    }
+
+    private static boolean endQuote(String _format, int _length, int _i) {
+        return _i < _length - 1 && _format.charAt(_i + 1) == QUOTE;
     }
 
     public static StringList getFields(String _pattern) {
@@ -706,25 +730,7 @@ public final class StringUtil {
             return _string;
         }
         if (_new == null) {
-            if (_old.isEmpty()) {
-                return _string;
-            }
-            StringBuilder list_ = new StringBuilder();
-            int i_ = IndexConstants.FIRST_INDEX;
-            int len_ = _string.length();
-            int index_;
-            while (i_ < len_) {
-                index_ = _string.indexOf(_old, i_);
-                if (index_ < 0) {
-                    break;
-                }
-                list_.append(_string, i_, index_);
-                i_ = index_ + _old.length();
-            }
-            if (i_ < len_) {
-                list_.append(_string.substring(i_));
-            }
-            return list_.toString();
+            return replaceWhenNull(_string, _old);
         }
         if (_old.isEmpty()) {
             StringList list_ = new StringList();
@@ -746,6 +752,28 @@ public final class StringUtil {
             }
             list_.append(_string, i_, index_);
             list_.append(_new);
+            i_ = index_ + _old.length();
+        }
+        if (i_ < len_) {
+            list_.append(_string.substring(i_));
+        }
+        return list_.toString();
+    }
+
+    private static String replaceWhenNull(String _string, String _old) {
+        if (_old.isEmpty()) {
+            return _string;
+        }
+        StringBuilder list_ = new StringBuilder();
+        int i_ = IndexConstants.FIRST_INDEX;
+        int len_ = _string.length();
+        int index_;
+        while (i_ < len_) {
+            index_ = _string.indexOf(_old, i_);
+            if (index_ < 0) {
+                break;
+            }
+            list_.append(_string, i_, index_);
             i_ = index_ + _old.length();
         }
         if (i_ < len_) {
@@ -850,20 +878,14 @@ public final class StringUtil {
                 =wordsAndSeparatorsSpace(_filter);
         StringList words_=wordsAndSeparators_.getWords();
         StringList separators_=wordsAndSeparators_.getSeparators();
-        if (wordsAndSeparators_.isFirstSep()) {
-            separators_.add(IndexConstants.FIRST_INDEX, EMPTY_STRING);
-        }
-        if (wordsAndSeparators_.isLastSep()) {
-            separators_.add(EMPTY_STRING);
-        }
+        tryAddSeps(wordsAndSeparators_, separators_);
         int i_= IndexConstants.FIRST_INDEX;
         int index_= IndexConstants.FIRST_INDEX;
-        int indiceRDecalePt_;
-        int indiceNext_;
         for(String e:words_){
-            indiceRDecalePt_=index_;
+            int indiceRDecalePt_ = index_;
             //indiceNext_=_string.indexOf(e,indiceRDecalePt_);
             //indiceNext_ = greatestIndex(_string, e, indiceRDecalePt_);
+            int indiceNext_;
             if(separators_.get(i_).contains(Character.toString(SPACE_CHAR))){
                 if (words_.isValidIndex(i_+1)) {
                     indiceNext_=_string.indexOf(e,indiceRDecalePt_);
@@ -892,6 +914,15 @@ public final class StringUtil {
         return separators_.get(i_).contains(Character.toString(SPACE_CHAR));
     }
 
+    private static void tryAddSeps(WordsSeparators _wordsAndSeparators, StringList _separators) {
+        if (_wordsAndSeparators.isFirstSep()) {
+            _separators.add(IndexConstants.FIRST_INDEX, EMPTY_STRING);
+        }
+        if (_wordsAndSeparators.isLastSep()) {
+            _separators.add(EMPTY_STRING);
+        }
+    }
+
     public static boolean match(String _string, String _filter){
         if(_filter.isEmpty()){
             return true;
@@ -903,12 +934,7 @@ public final class StringUtil {
         if (words_.isEmpty()) {
             return procNoWords(_string, separators_);
         }
-        if (wordsAndSeparators_.isFirstSep()) {
-            separators_.add(IndexConstants.FIRST_INDEX, EMPTY_STRING);
-        }
-        if (wordsAndSeparators_.isLastSep()) {
-            separators_.add(EMPTY_STRING);
-        }
+        tryAddSeps(wordsAndSeparators_, separators_);
         int i_= IndexConstants.FIRST_INDEX;
         int index_= IndexConstants.FIRST_INDEX;
         for(String e:words_){
@@ -1253,24 +1279,10 @@ public final class StringUtil {
             if (c_ == ESCAPING_CHAR) {
                 int next_ = i_;
                 next_++;
-                if (next_ < length_) {
-                    if (_input.charAt(next_) == CHARACTER) {
-                        i_++;
-                        c_ = _input.charAt(i_);
-                        newLength_--;
-                    } else if (_input.charAt(next_) == STRING) {
-                        i_++;
-                        c_ = _input.charAt(i_);
-                        newLength_--;
-                    } else if (_input.charAt(next_) == POSSIBLE_CHAR) {
-                        i_++;
-                        c_ = _input.charAt(i_);
-                        newLength_--;
-                    } else if (_input.charAt(next_) == ESCAPING_CHAR) {
-                        i_++;
-                        c_ = _input.charAt(i_);
-                        newLength_--;
-                    }
+                if (next_ < length_ && isEscChar(_input, next_)) {
+                    i_++;
+                    c_ = _input.charAt(i_);
+                    newLength_--;
                 }
             }
             newArray_[j_] = c_;
@@ -1278,6 +1290,10 @@ public final class StringUtil {
             i_++;
         }
         return extract(newArray_, newLength_);
+    }
+
+    private static boolean isEscChar(String _input, int _next) {
+        return _input.charAt(_next) == CHARACTER || _input.charAt(_next) == STRING || _input.charAt(_next) == POSSIBLE_CHAR || _input.charAt(_next) == ESCAPING_CHAR;
     }
 
     public static String escapeSpace(String _input) {
@@ -1291,16 +1307,10 @@ public final class StringUtil {
             if (c_ == ESCAPING_CHAR) {
                 int next_ = i_;
                 next_++;
-                if (next_ < length_) {
-                    if (_input.charAt(next_) == SPACE_CHAR) {
-                        i_++;
-                        c_ = _input.charAt(i_);
-                        newLength_--;
-                    } else if (_input.charAt(next_) == ESCAPING_CHAR) {
-                        i_++;
-                        c_ = _input.charAt(i_);
-                        newLength_--;
-                    }
+                if (next_ < length_ && isEscSpaceChar(_input, next_)) {
+                    i_++;
+                    c_ = _input.charAt(i_);
+                    newLength_--;
                 }
             }
             newArray_[j_] = c_;
@@ -1308,6 +1318,10 @@ public final class StringUtil {
             i_++;
         }
         return extract(newArray_, newLength_);
+    }
+
+    private static boolean isEscSpaceChar(String _input, int _next) {
+        return _input.charAt(_next) == SPACE_CHAR || _input.charAt(_next) == ESCAPING_CHAR;
     }
 
     private static String extract(char[] _arr, int _len) {
@@ -1418,40 +1432,48 @@ public final class StringUtil {
         int len_ = _string.length();
         String sub_ = _string;
         while (true) {
-            String candidate_ = null;
-            int minIndex_ = len_;
-            int maxLength_ = 0;
-            for (String s: _separators) {
-                int locIndex_ = sub_.indexOf(s);
-                if (locIndex_ < 0) {
-                    continue;
-                }
-                if (locIndex_ > minIndex_) {
-                    continue;
-                }
-                int locLength_ = s.length();
-                if (locLength_ == 0) {
-                    continue;
-                }
-                if (locIndex_ < minIndex_) {
-                    minIndex_ = locIndex_;
-                    maxLength_ = locLength_;
-                    candidate_ = s;
-                    continue;
-                }
-                if (locLength_ > maxLength_) {
-                    maxLength_ = locLength_;
-                    candidate_ = s;
-                }
-            }
-            if (candidate_ == null) {
-                l_.add(sub_);
+            String next_ = nextStr(len_, sub_, l_, _separators);
+            if (next_ == null) {
                 break;
             }
-            l_.add(sub_.substring(IndexConstants.FIRST_INDEX, minIndex_));
-            sub_ = sub_.substring(minIndex_ + maxLength_);
+            sub_ = next_;
         }
         return l_;
+    }
+
+    private static String nextStr(int _len,String _sub, StringList _list,String... _separators) {
+        String candidate_ = null;
+        int minIndex_ = _len;
+        int maxLength_ = 0;
+        for (String s: _separators) {
+            int locIndex_ = _sub.indexOf(s);
+            if (outBound(minIndex_, locIndex_)) {
+                continue;
+            }
+            int locLength_ = s.length();
+            if (locLength_ == 0) {
+                continue;
+            }
+            if (locIndex_ < minIndex_) {
+                minIndex_ = locIndex_;
+                maxLength_ = locLength_;
+                candidate_ = s;
+                continue;
+            }
+            if (locLength_ > maxLength_) {
+                maxLength_ = locLength_;
+                candidate_ = s;
+            }
+        }
+        if (candidate_ == null) {
+            _list.add(_sub);
+            return null;
+        }
+        _list.add(_sub.substring(IndexConstants.FIRST_INDEX, minIndex_));
+        return _sub.substring(minIndex_ + maxLength_);
+    }
+    private static boolean outBound(int _minIndex, int _locIndex) {
+        return _locIndex < 0 || _locIndex > _minIndex;
     }
 
     public static StringList splitCharSep(String _string, char _separators) {
@@ -1477,43 +1499,47 @@ public final class StringUtil {
         int len_ = _string.length();
         String sub_ = _string;
         while (true) {
-            String candidate_ = null;
-            int minIndex_ = len_;
-            int maxLength_ = 0;
-            for (String s: _separators) {
-                int locIndex_ = sub_.indexOf(s);
-                if (locIndex_ < 0) {
-                    continue;
-                }
-                if (locIndex_ > minIndex_) {
-                    continue;
-                }
-                int locLength_ = s.length();
-                if (locLength_ == 0) {
-                    continue;
-                }
-                if (locIndex_ < minIndex_) {
-                    minIndex_ = locIndex_;
-                    maxLength_ = locLength_;
-                    candidate_ = s;
-                    continue;
-                }
-                if (locLength_ > maxLength_) {
-                    maxLength_ = locLength_;
-                    candidate_ = s;
-                }
-            }
-            if (candidate_ == null) {
-                l_.add(sub_);
+            String next_ = nextStrSep(len_, sub_, l_, _separators);
+            if (next_ == null) {
                 break;
             }
-            l_.add(sub_.substring(IndexConstants.FIRST_INDEX, minIndex_));
-            l_.add(candidate_);
-            sub_ = sub_.substring(minIndex_ + maxLength_);
+            sub_ = next_;
         }
         return l_;
     }
 
+    private static String nextStrSep(int _len,String _sub, StringList _list,String... _separators) {
+        String candidate_ = null;
+        int minIndex_ = _len;
+        int maxLength_ = 0;
+        for (String s: _separators) {
+            int locIndex_ = _sub.indexOf(s);
+            if (outBound(minIndex_, locIndex_)) {
+                continue;
+            }
+            int locLength_ = s.length();
+            if (locLength_ == 0) {
+                continue;
+            }
+            if (locIndex_ < minIndex_) {
+                minIndex_ = locIndex_;
+                maxLength_ = locLength_;
+                candidate_ = s;
+                continue;
+            }
+            if (locLength_ > maxLength_) {
+                maxLength_ = locLength_;
+                candidate_ = s;
+            }
+        }
+        if (candidate_ == null) {
+            _list.add(_sub);
+            return null;
+        }
+        _list.add(_sub.substring(IndexConstants.FIRST_INDEX, minIndex_));
+        _list.add(candidate_);
+        return _sub.substring(minIndex_ + maxLength_);
+    }
     public static StringList getTokensSets(String _str) {
         int i_ = IndexConstants.FIRST_INDEX;
         StringList tokens_ = new StringList();
@@ -1540,8 +1566,10 @@ public final class StringUtil {
         String path_ = replaceBackSlash(_path);
         if (path_.endsWith(concat(Character.toString(SLASH),Character.toString(DOT)))) {
             path_ = path_.substring(0, path_.length() - 1);
-        } else if (!path_.endsWith(Character.toString(SLASH))) {
-            path_ = concat(path_, Character.toString(SLASH));
+        } else {
+            if (!path_.endsWith(Character.toString(SLASH))) {
+                path_ = concat(path_, Character.toString(SLASH));
+            }
         }
         return path_;
     }
