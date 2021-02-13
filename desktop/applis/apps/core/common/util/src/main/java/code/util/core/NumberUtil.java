@@ -89,6 +89,10 @@ public final class NumberUtil {
             }
             return 1;
         }
+        return quotNormal(_one, _two);
+    }
+
+    private static long quotNormal(long _one, long _two) {
         if (_one >= 0) {
             if (_two >= 0) {
                 return _one/_two;
