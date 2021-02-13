@@ -1363,19 +1363,7 @@ public final class DocumentBuilder {
         }
         String input_ = _input.substring(firstPrint_);
         int len_ = input_.length();
-        int indexFoot_ = 0;
-        ReadingState state_ = ReadingState.HEADER;
-        boolean addChild_ = true;
-        char delimiterAttr_ = 0;
-        StringBuilder attributeName_ = new StringBuilder();
-        StringBuilder tagName_ = new StringBuilder();
-        StringList stack_ = new StringList();
-        StringBuilder currentText_ = new StringBuilder();
-        FullElement currentElement_ = (FullElement) doc_.createElement(tagName_.toString());
-        boolean finished_ = false;
-//        StringBuilder currentComment_ = new StringBuilder();
-        StringBuilder attributeValue_ = new StringBuilder();
-        CustList<Attr> attrs_ = new CustList<Attr>();
+        FullElement currentElement_ = (FullElement) doc_.createElement("");
         int i_ = IndexConstants.FIRST_INDEX;
         if (input_.charAt(i_) != LT) {
             RowCol rc_ = new RowCol();
