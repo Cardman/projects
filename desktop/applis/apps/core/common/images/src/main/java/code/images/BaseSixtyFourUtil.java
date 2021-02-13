@@ -31,7 +31,11 @@ public final class BaseSixtyFourUtil {
         if (len_ % 4 != 0) {
             return new int[0][0];
         }
-        byte[] widthArray_ = parseFourChars(img_.substring(0, 4));
+        return processDef(img_, len_);
+    }
+
+    private static int[][] processDef(String _img, int _len) {
+        byte[] widthArray_ = parseFourChars(_img.substring(0, 4));
         int width_ = 0;
         for (byte b: widthArray_) {
             int real_ = b;
@@ -45,10 +49,10 @@ public final class BaseSixtyFourUtil {
         if (fourWidth_ <= 0) {
             return new int[0][0];
         }
-        if ((len_ - 4) % fourWidth_ != 0) {
+        if ((_len - 4) % fourWidth_ != 0) {
             return new int[0][0];
         }
-        int height_ = (len_ - 4) / fourWidth_;
+        int height_ = (_len - 4) / fourWidth_;
         if (height_ <= 0) {
             return new int[0][0];
         }
@@ -57,9 +61,9 @@ public final class BaseSixtyFourUtil {
         int i_ = 4;
         int h_ = 0;
         int w_ = 0;
-        int max_ = len_ - 4;
+        int max_ = _len - 4;
         while (i_ <= max_) {
-            String part_ = img_.substring(i_, i_ + 4);
+            String part_ = _img.substring(i_, i_ + 4);
             byte[] pixel_ = parseFourChars(part_);
             int color_ = 0;
             for (byte b: pixel_) {
@@ -92,22 +96,8 @@ public final class BaseSixtyFourUtil {
         // convert the quadruplet to three bytes.
         for(int i=0; i<FOUR_BITS; i++ ) {
             char ch_ = _text.charAt(i);
-            
-            byte v_;
-            if (ch_ >= FIRST_DIGIT && ch_ <= '9') {
-                int diff_ = ch_ - FIRST_DIGIT;
-                v_ = (byte) (NB_LETTERS_UPP_LOW + diff_);
-            } else if (ch_ >= FIRST_LOW_LETTER && ch_ <= 'z') {
-                int diff_ = ch_ - FIRST_LOW_LETTER;
-                v_ = (byte) (NB_LETTERS+diff_);
-            } else if (ch_ >= FIRST_UPP_LETTER && ch_ <= 'Z') {
-                int diff_ = ch_ - FIRST_UPP_LETTER;
-                v_ = (byte) diff_;
-            } else if (ch_ == '+') {
-                v_ = NB_DIGITS_LETTERS;
-            } else {
-                v_ = NB_DIGITS_LETTERS + 1;
-            }
+
+            byte v_ = charToByte(ch_);
             quadruplet_[i] = v_;
         }
          // quadruplet is now filled.
@@ -122,6 +112,26 @@ public final class BaseSixtyFourUtil {
         out_[o_] = (byte)(thirdBytes_ * SIXTY_FOUR_BITS +fourthBytes_);
         return out_;
     }
+
+    public static byte charToByte(char _ch) {
+        byte v_;
+        if (_ch >= FIRST_DIGIT && _ch <= '9') {
+            int diff_ = _ch - FIRST_DIGIT;
+            v_ = (byte) (NB_LETTERS_UPP_LOW + diff_);
+        } else if (_ch >= FIRST_LOW_LETTER && _ch <= 'z') {
+            int diff_ = _ch - FIRST_LOW_LETTER;
+            v_ = (byte) (NB_LETTERS+diff_);
+        } else if (_ch >= FIRST_UPP_LETTER && _ch <= 'Z') {
+            int diff_ = _ch - FIRST_UPP_LETTER;
+            v_ = (byte) diff_;
+        } else if (_ch == '+') {
+            v_ = NB_DIGITS_LETTERS;
+        } else {
+            v_ = NB_DIGITS_LETTERS + 1;
+        }
+        return v_;
+    }
+
     public static String getStringByImage(int[][] _image) {
         int w_ = _image[0].length;
         StringBuilder str_ = new StringBuilder(4+_image[0].length*_image.length*4);

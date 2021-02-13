@@ -9,6 +9,7 @@ import javax.swing.WindowConstants;
 import code.gui.*;
 import code.gui.events.QuittingEvent;
 import code.gui.initialize.AbstractProgramInfos;
+import code.images.BaseSixtyFourUtil;
 import code.maths.montecarlo.AbstractGenerator;
 import code.maths.montecarlo.MonteCarloUtil;
 import code.player.main.LaunchingPlayer;
@@ -403,27 +404,8 @@ public class MainWindow extends GroupFrame {
         // convert each quadruplet to three bytes.
         for(int i=0; i<len_; i++ ) {
             char ch_ = _text.charAt(i);
-
-            byte v_;
-            if (ch_ >= FIRST_DIGIT && ch_ <= '9') {
-                int diff_ = ch_ - FIRST_DIGIT;
-                v_ = (byte) (NB_LETTERS_UPP_LOW + diff_);
-            } else if (ch_ >= FIRST_LOW_LETTER && ch_ <= 'z') {
-                int diff_ = ch_ - FIRST_LOW_LETTER;
-                v_ = (byte) (NB_LETTERS+diff_);
-            } else if (ch_ >= FIRST_UPP_LETTER && ch_ <= 'Z') {
-                int diff_ = ch_ - FIRST_UPP_LETTER;
-                v_ = (byte) diff_;
-            } else if (ch_ == '+') {
-                v_ = NB_DIGITS_LETTERS;
-            } else if (ch_ == '/') {
-                v_ = NB_DIGITS_LETTERS + 1;
-            } else {
-                v_ = PADDING;
-            }
-
             //v!=-1
-            quadruplet_[q_] = v_;
+            quadruplet_[q_] = BaseSixtyFourUtil.charToByte(ch_);
             q_++;
 
             if(q_==FOUR_BITS) {

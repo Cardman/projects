@@ -25,7 +25,7 @@ public final class ConverterBufferedImage {
         int wLoc_ = _back[0].length;
         for (int i = 0; i < hLoc_; i++) {
             for (int j = 0; j < wLoc_; j++) {
-                str_[i][j] =_back[i][j];
+                copy(_back, str_, i, j);
             }
         }
         int offx_ = (w_ - wMin_) / 2;
@@ -41,6 +41,10 @@ public final class ConverterBufferedImage {
             }
         }
         return str_;
+    }
+
+    private static void copy(int[][] _back, int[][] _str, int _i, int _j) {
+        _str[_i][_j] =_back[_i][_j];
     }
 
     public static int getIntColor(String _color, String _separator) {
@@ -80,66 +84,82 @@ public final class ConverterBufferedImage {
         int w_ = _buffered[0].length;
         int white_ = WHITE_RGB_INT;
         EqList<IntPoint> addedPixels_ = new EqList<IntPoint>();
-        EqList<IntPoint> currentPixels_ = new EqList<IntPoint>();
-        EqList<IntPoint> newPixels_;
         if (_hf) {
-            if (_buffered[IndexConstants.FIRST_INDEX][IndexConstants.FIRST_INDEX] == white_) {
-                addedPixels_.add(new IntPoint((int) IndexConstants.FIRST_INDEX, (int) IndexConstants.FIRST_INDEX));
-            }
-            if (_buffered[IndexConstants.FIRST_INDEX][w_ - 1] == white_) {
-                addedPixels_.add(new IntPoint(w_ - 1, (int) IndexConstants.FIRST_INDEX));
-            }
-            if (_buffered[h_ - 1][IndexConstants.FIRST_INDEX] == white_) {
-                addedPixels_.add(new IntPoint((int) IndexConstants.FIRST_INDEX, h_ - 1));
-            }
-            if (_buffered[h_ - 1][w_ - 1] == white_) {
-                addedPixels_.add(new IntPoint(w_ -1, h_ - 1));
-            }
+            bounds(_buffered, h_, w_, white_, addedPixels_);
         } else {
-            for (int i = IndexConstants.FIRST_INDEX; i < w_; i++) {
-                if (_buffered[IndexConstants.FIRST_INDEX][i] == white_) {
-                    addedPixels_.add(new IntPoint(i, (int) IndexConstants.FIRST_INDEX));
-                }
-            }
-            for (int i = IndexConstants.FIRST_INDEX; i < w_; i++) {
-                if (_buffered[h_-1][i] == white_) {
-                    addedPixels_.add(new IntPoint(i, h_ - 1));
-                }
-            }
-            for (int i = IndexConstants.FIRST_INDEX; i < h_; i++) {
-                if (_buffered[i][IndexConstants.FIRST_INDEX] == white_) {
-                    addedPixels_.add(new IntPoint((int) IndexConstants.FIRST_INDEX, i));
-                }
-            }
-            for (int i = IndexConstants.FIRST_INDEX; i < h_; i++) {
-                if (_buffered[i][w_-1] == white_) {
-                    addedPixels_.add(new IntPoint(w_ - 1, i));
-                }
-            }
-            addedPixels_.removeDuplicates();
+            border(_buffered, h_, w_, white_, addedPixels_);
         }
-        currentPixels_.addAllElts(addedPixels_);
+        return loop(_buffered, h_, w_, white_, addedPixels_);
+    }
+
+    private static void border(int[][] _buffered, int _h, int _w, int _white, EqList<IntPoint> _addedPixels) {
+        for (int i = IndexConstants.FIRST_INDEX; i < _w; i++) {
+            if (_buffered[IndexConstants.FIRST_INDEX][i] == _white) {
+                _addedPixels.add(new IntPoint(i, IndexConstants.FIRST_INDEX));
+            }
+        }
+        for (int i = IndexConstants.FIRST_INDEX; i < _w; i++) {
+            if (_buffered[_h -1][i] == _white) {
+                _addedPixels.add(new IntPoint(i, _h - 1));
+            }
+        }
+        for (int i = IndexConstants.FIRST_INDEX; i < _h; i++) {
+            if (_buffered[i][IndexConstants.FIRST_INDEX] == _white) {
+                _addedPixels.add(new IntPoint(IndexConstants.FIRST_INDEX, i));
+            }
+        }
+        for (int i = IndexConstants.FIRST_INDEX; i < _h; i++) {
+            if (_buffered[i][_w -1] == _white) {
+                _addedPixels.add(new IntPoint(_w - 1, i));
+            }
+        }
+        _addedPixels.removeDuplicates();
+    }
+
+    private static void bounds(int[][] _buffered, int _h, int _w, int _white, EqList<IntPoint> _addedPixels) {
+        if (_buffered[IndexConstants.FIRST_INDEX][IndexConstants.FIRST_INDEX] == _white) {
+            _addedPixels.add(new IntPoint(IndexConstants.FIRST_INDEX, IndexConstants.FIRST_INDEX));
+        }
+        if (_buffered[IndexConstants.FIRST_INDEX][_w - 1] == _white) {
+            _addedPixels.add(new IntPoint(_w - 1, IndexConstants.FIRST_INDEX));
+        }
+        if (_buffered[_h - 1][IndexConstants.FIRST_INDEX] == _white) {
+            _addedPixels.add(new IntPoint(IndexConstants.FIRST_INDEX, _h - 1));
+        }
+        if (_buffered[_h - 1][_w - 1] == _white) {
+            _addedPixels.add(new IntPoint(_w -1, _h - 1));
+        }
+    }
+
+    private static EqList<IntPoint> loop(int[][] _buffered, int _h, int _w, int _white, EqList<IntPoint> _addedPixels) {
+        EqList<IntPoint> newPixels_;
+        EqList<IntPoint> currentPixels_ = new EqList<IntPoint>();
+        currentPixels_.addAllElts(_addedPixels);
         while (true) {
             newPixels_ = new EqList<IntPoint>();
-            for (IntPoint coords_: currentPixels_) {
-                for (IntPoint coordsChild_: getNext(w_, h_, coords_)) {
-                    if (addedPixels_.containsObj(coordsChild_)) {
-                        continue;
-                    }
-                    int rgb_ = _buffered[coordsChild_.getYcoords()][coordsChild_.getXcoords()];
-                    if (rgb_ != white_) {
-                        continue;
-                    }
-                    addedPixels_.add(coordsChild_);
-                    newPixels_.add(coordsChild_);
-                }
-            }
+            nextPixels(_buffered, _h, _w, _white, _addedPixels, newPixels_, currentPixels_);
             if (newPixels_.isEmpty()) {
                 break;
             }
             currentPixels_ = new EqList<IntPoint>(newPixels_);
         }
-        return addedPixels_;
+        return _addedPixels;
+    }
+
+    private static void nextPixels(int[][] _buffered, int _h, int _w, int _white, EqList<IntPoint> _addedPixels, EqList<IntPoint> _newPixels, EqList<IntPoint> _currentPixels) {
+        for (IntPoint coords_: _currentPixels) {
+            for (IntPoint coordsChild_: getNext(_w, _h, coords_)) {
+                if (_addedPixels.containsObj(coordsChild_)) {
+                    continue;
+                }
+                int rgb_ = _buffered[coordsChild_.getYcoords()][coordsChild_.getXcoords()];
+                if (rgb_ != _white) {
+                    continue;
+                }
+                _addedPixels.add(coordsChild_);
+                _newPixels.add(coordsChild_);
+            }
+        }
     }
 
     public static String getSquareColorSixtyFour(String _color,
@@ -183,48 +203,53 @@ public final class ConverterBufferedImage {
         }
         CustList<EqList<IntPoint>> polygons_ = new CustList<EqList<IntPoint>>();
         for (IntPoint point_: mapClasses_.getKeys()) {
-            EqList<IntPoint> visitedPoints_ = mapClasses_.getVal(point_);
-            EqList<IntPoint> currentPoints_ = new EqList<IntPoint>(point_);
-            EqList<IntPoint> newPoints_;
-            while (true) {
-                newPoints_ = new EqList<IntPoint>();
-                for (IntPoint currentPoint_: currentPoints_) {
-                    IntPoint ptOne_ = new IntPoint();
-                    ptOne_.setXcoords(currentPoint_.getXcoords()+1);
-                    ptOne_.setYcoords(currentPoint_.getYcoords());
-                    IntPoint ptTwo_ = new IntPoint();
-                    ptTwo_.setXcoords(currentPoint_.getXcoords());
-                    ptTwo_.setYcoords(currentPoint_.getYcoords()+1);
-                    IntPoint ptThree_ = new IntPoint();
-                    ptThree_.setXcoords(currentPoint_.getXcoords()-1);
-                    ptThree_.setYcoords(currentPoint_.getYcoords());
-                    IntPoint ptFour_ = new IntPoint();
-                    ptFour_.setXcoords(currentPoint_.getXcoords());
-                    ptFour_.setYcoords(currentPoint_.getYcoords()-1);
-                    EqList<IntPoint> nextPoints_ = new EqList<IntPoint>();
-                    nextPoints_.add(ptOne_);
-                    nextPoints_.add(ptTwo_);
-                    nextPoints_.add(ptThree_);
-                    nextPoints_.add(ptFour_);
-                    for (IntPoint next_: nextPoints_) {
-                        if (!_classes.containsObj(next_)) {
-                            continue;
-                        }
-                        if (visitedPoints_.containsObj(next_)) {
-                            continue;
-                        }
-                        newPoints_.add(next_);
-                        visitedPoints_.add(next_);
-                    }
-                }
-                if (newPoints_.isEmpty()) {
-                    break;
-                }
-                currentPoints_ = new EqList<IntPoint>(newPoints_);
-            }
-            visitedPoints_.sortElts(new ComparatorIntPoint());
-            polygons_.add(visitedPoints_);
+            processPoint(_classes, mapClasses_, polygons_, point_);
         }
         return polygons_;
+    }
+
+    private static void processPoint(EqList<IntPoint> _classes, ObjectMap<IntPoint, EqList<IntPoint>> _mapClasses, CustList<EqList<IntPoint>> _polygons, IntPoint _point) {
+        EqList<IntPoint> visitedPoints_ = _mapClasses.getVal(_point);
+        EqList<IntPoint> currentPoints_ = new EqList<IntPoint>(_point);
+        EqList<IntPoint> newPoints_;
+        while (true) {
+            newPoints_ = new EqList<IntPoint>();
+            for (IntPoint currentPoint_: currentPoints_) {
+                IntPoint ptOne_ = new IntPoint();
+                ptOne_.setXcoords(currentPoint_.getXcoords()+1);
+                ptOne_.setYcoords(currentPoint_.getYcoords());
+                IntPoint ptTwo_ = new IntPoint();
+                ptTwo_.setXcoords(currentPoint_.getXcoords());
+                ptTwo_.setYcoords(currentPoint_.getYcoords()+1);
+                IntPoint ptThree_ = new IntPoint();
+                ptThree_.setXcoords(currentPoint_.getXcoords()-1);
+                ptThree_.setYcoords(currentPoint_.getYcoords());
+                IntPoint ptFour_ = new IntPoint();
+                ptFour_.setXcoords(currentPoint_.getXcoords());
+                ptFour_.setYcoords(currentPoint_.getYcoords()-1);
+                EqList<IntPoint> nextPoints_ = new EqList<IntPoint>();
+                nextPoints_.add(ptOne_);
+                nextPoints_.add(ptTwo_);
+                nextPoints_.add(ptThree_);
+                nextPoints_.add(ptFour_);
+                tryAddNext(_classes, visitedPoints_, newPoints_, nextPoints_);
+            }
+            if (newPoints_.isEmpty()) {
+                break;
+            }
+            currentPoints_ = new EqList<IntPoint>(newPoints_);
+        }
+        visitedPoints_.sortElts(new ComparatorIntPoint());
+        _polygons.add(visitedPoints_);
+    }
+
+    private static void tryAddNext(EqList<IntPoint> _classes, EqList<IntPoint> _visitedPoints, EqList<IntPoint> _newPoints, EqList<IntPoint> _nextPoints) {
+        for (IntPoint next_: _nextPoints) {
+            if (!_classes.containsObj(next_) || _visitedPoints.containsObj(next_)) {
+                continue;
+            }
+            _newPoints.add(next_);
+            _visitedPoints.add(next_);
+        }
     }
 }
