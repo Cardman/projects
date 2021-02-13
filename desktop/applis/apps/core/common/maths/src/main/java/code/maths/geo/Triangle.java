@@ -45,9 +45,9 @@ public final class Triangle implements HasEdges, Displayable {
         long x_ = omega_.getXcoords();
         long y_ = omega_.getYcoords();
         long den_ = omega_.getCommon();
-        long firstMember_ = firstPoint.getXcoords() - _point.getXcoords();
+        long firstMember_ = (long)firstPoint.getXcoords() - _point.getXcoords();
         firstMember_ *= 2 * x_ - den_ *(_point.getXcoords() + firstPoint.getXcoords());
-        long secondMember_ = _point.getYcoords() - firstPoint.getYcoords();
+        long secondMember_ = (long)_point.getYcoords() - firstPoint.getYcoords();
         secondMember_ *= 2 * y_ - den_ *(_point.getYcoords() + firstPoint.getYcoords());
         if (den_ > 0) {
             return firstMember_ < secondMember_;
@@ -61,9 +61,9 @@ public final class Triangle implements HasEdges, Displayable {
         long x_ = omega_.getXcoords();
         long y_ = omega_.getYcoords();
         long den_ = omega_.getCommon();
-        long firstMember_ = firstPoint.getXcoords() - _point.getXcoords();
+        long firstMember_ = (long)firstPoint.getXcoords() - _point.getXcoords();
         firstMember_ *= 2 * x_ - den_ *(_point.getXcoords() + firstPoint.getXcoords());
-        long secondMember_ = _point.getYcoords() - firstPoint.getYcoords();
+        long secondMember_ = (long)_point.getYcoords() - firstPoint.getYcoords();
         secondMember_ *= 2 * y_ - den_ *(_point.getYcoords() + firstPoint.getYcoords());
         return firstMember_ == secondMember_;
     }
@@ -98,10 +98,10 @@ public final class Triangle implements HasEdges, Displayable {
     }
 
     public CompactPlanePoint getCircumCenter() {
-        long bpx_ = secondPoint.getXcoords() - firstPoint.getXcoords();
-        long cpx_ = thirdPoint.getXcoords() - firstPoint.getXcoords();
-        long bpy_ = secondPoint.getYcoords() - firstPoint.getYcoords();
-        long cpy_ = thirdPoint.getYcoords() - firstPoint.getYcoords();
+        long bpx_ = (long)secondPoint.getXcoords() - firstPoint.getXcoords();
+        long cpx_ = (long)thirdPoint.getXcoords() - firstPoint.getXcoords();
+        long bpy_ = (long)secondPoint.getYcoords() - firstPoint.getYcoords();
+        long cpy_ = (long)thirdPoint.getYcoords() - firstPoint.getYcoords();
         long dp_ = 2*(bpx_ * cpy_ - bpy_ * cpx_);
         long x_ = cpy_ * (bpx_ * bpx_ + bpy_ * bpy_);
         x_ -= bpy_ * (cpx_ * cpx_ + cpy_ * cpy_);

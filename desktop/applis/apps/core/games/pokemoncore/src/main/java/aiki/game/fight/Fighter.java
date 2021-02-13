@@ -1164,7 +1164,7 @@ public final class Fighter {
         Rate next_;
         next_ = _import.evaluateNumericable(expLitt_, vars_, Rate.one());
         Rate current_;
-        vars_.put(StringUtil.concat(DataBase.VAR_PREFIX,NIVEAU),Long.toString(_niveau - 1));
+        vars_.put(StringUtil.concat(DataBase.VAR_PREFIX,NIVEAU),Long.toString(_niveau - 1L));
         current_ = _import.evaluateNumericable(expLitt_, vars_, Rate.one());
         vars_.clear();
         return _import.evaluatePositiveExp(Rate.minus(next_, current_).toNumberString(), vars_, Rate.one());

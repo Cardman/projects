@@ -12,11 +12,11 @@ import code.util.ObjectMap;
 
 public final class WindowPage implements Runnable {
 
-    private RenderedPage page;
+    private final RenderedPage page;
 
-    private ScrollPane frame;
+    private final ScrollPane frame;
 
-    private MetaDocument meta;
+    private final MetaDocument meta;
 
     public WindowPage(MetaDocument _meta, ScrollPane _frame, RenderedPage _page) {
         page = _page;
@@ -91,7 +91,7 @@ public final class WindowPage implements Runnable {
                 if (gr_ instanceof MetaOrderedList) {
                     int len_ = gr_.getChildren().size();
                     for (int i = 0; i < len_; i++) {
-                        width_ = Math.max(width_, fontMetrics_.stringWidth(Long.toString(i + 1)));
+                        width_ = Math.max(width_, fontMetrics_.stringWidth(Long.toString(i + 1L)));
                     }
                 }
                 cur_.add(new DualIndentNbLabel((DualContainer) cur_,(MetaIndentNbLabel) meta_, page, width_));

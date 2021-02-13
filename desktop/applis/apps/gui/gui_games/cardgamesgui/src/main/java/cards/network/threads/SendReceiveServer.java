@@ -1392,9 +1392,9 @@ public final class SendReceiveServer extends BasicServer {
         forcedBye_.setForced(false);
         forcedBye_.setServer(false);
         forcedBye_.setClosing(bye_.isClosing());
-        for (int i: Net.getPlacesPlayersByValue(bye_.getPlace(), _instance)) {
-            Net.removePlayer(i, forcedBye_, _instance);
-            break;
+        Ints placesPlayersByValue_ = Net.getPlacesPlayersByValue(bye_.getPlace(), _instance);
+        if (!placesPlayersByValue_.isEmpty()) {
+            Net.removePlayer(placesPlayersByValue_.first(), forcedBye_, _instance);
         }
         if (Net.getGames(_instance).enCoursDePartieBelote()) {
             GameBelote game_ = Net.getGames(_instance).partieBelote();
@@ -1581,11 +1581,7 @@ public final class SendReceiveServer extends BasicServer {
             }
 
             if (game_.getContrat().getJeuChien() == PlayingDog.WITH) {
-                if (!game_.unionPlis().isEmpty()) {
-                    game_.ecarter(false);
-                } else {
-                    game_.ecarter(true);
-                }
+                game_.ecarter(game_.unionPlis().isEmpty());
                 if (!game_.getPliEnCours().getCartes().couleur(Suit.TRUMP).estVide()) {
                     DiscardedTrumps discarded_ = new DiscardedTrumps();
                     discarded_.setTrumps(game_.getPliEnCours().getCartes().couleur(Suit.TRUMP));

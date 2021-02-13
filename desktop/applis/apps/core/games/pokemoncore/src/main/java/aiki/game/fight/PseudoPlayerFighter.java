@@ -20,21 +20,21 @@ public class PseudoPlayerFighter extends PseudoFighter {
 
     private Rate wonExp;
 
-    private Rate wonExpSinceLastLevel;
+    private final Rate wonExpSinceLastLevel;
 
     private boolean front;
 
-    private Bytes foes;
+    private final Bytes foes;
 
-    private CustList<NameLevel> evoLevels;
+    private final CustList<NameLevel> evoLevels;
 
-    private CustList<StringList> moves;
+    private final CustList<StringList> moves;
 
-    private CustList<StringList> abilities;
+    private final CustList<StringList> abilities;
 
-    private ByteMap<String> evolutions;
+    private final ByteMap<String> evolutions;
 
-    private CustList<NameLevel> infosRealEvolutions;
+    private final CustList<NameLevel> infosRealEvolutions;
 
     public PseudoPlayerFighter(PseudoPokemonPlayer _pseudo, boolean _front, CustList<NameLevel> _evoLevels) {
         super(_pseudo.getName(), _pseudo.getLevel());
@@ -109,7 +109,7 @@ public class PseudoPlayerFighter extends PseudoFighter {
         Rate next_;
         next_ = _import.evaluateNumericable(expLitt_, vars_, Rate.one());
         Rate current_;
-        vars_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fighter.NIVEAU),Long.toString(_niveau - 1));
+        vars_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fighter.NIVEAU),Long.toString(_niveau - 1L));
         current_ = _import.evaluateNumericable(expLitt_, vars_, Rate.one());
         vars_.clear();
         return _import.evaluatePositiveExp(Rate.minus(next_, current_).toNumberString(), vars_, Rate.one());

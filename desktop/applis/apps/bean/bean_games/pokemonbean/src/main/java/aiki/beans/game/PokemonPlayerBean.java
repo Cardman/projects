@@ -160,7 +160,7 @@ public class PokemonPlayerBean extends Bean implements WithFacade {
         PokemonData fPk_=data_.getPokemon(_name);
         String expLitt_=data_.getExpGrowth().getVal(fPk_.getExpEvo());
         StringMap<String> vars_ = new StringMap<String>();
-        vars_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fighter.NIVEAU),Long.toString(level + 1));
+        vars_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fighter.NIVEAU),Long.toString(level + 1L));
         Rate next_;
         next_ = data_.evaluateNumericable(expLitt_, vars_, Rate.one());
         Rate current_;

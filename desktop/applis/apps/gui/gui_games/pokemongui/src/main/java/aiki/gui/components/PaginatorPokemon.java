@@ -698,7 +698,7 @@ public final class PaginatorPokemon extends Paginator {
         for (int i = IndexConstants.FIRST_INDEX; i < nbPages_; i++) {
             getPages().addItem(i);
         }
-        getEnd().setTextAndSize(Long.toString(nbPages_ - 1));
+        getEnd().setTextAndSize(Long.toString(nbPages_ - 1L));
         setAdding(false);
     }
     private void changeNav() {

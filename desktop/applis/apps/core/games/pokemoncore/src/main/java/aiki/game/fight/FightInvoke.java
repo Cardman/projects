@@ -7,6 +7,8 @@ import aiki.fight.moves.effects.EffectGlobal;
 import aiki.fight.moves.effects.EffectInvoke;
 import aiki.game.params.Difficulty;
 import code.maths.montecarlo.MonteCarloString;
+import code.util.CustList;
+import code.util.EqList;
 import code.util.StringList;
 import code.util.core.IndexConstants;
 import code.util.core.NumberUtil;
@@ -36,17 +38,18 @@ final class FightInvoke {
             MoveData fAttInvoque_=_import.getMove(attaqueInvoque_);
             boolean invoquer_=false;
             EffectInvoke effet_=(EffectInvoke) fAttInvoque_.getEffet(IndexConstants.FIRST_INDEX);
-            for(TeamPosition e:FightOrder.targetsEffect(_fight,_lanceur,effet_,_diff,_import)){
+            CustList<TeamPosition> targets_ = FightOrder.targetsEffect(_fight, _lanceur, effet_, _diff, _import);
+            if (!targets_.isEmpty()) {
+                TeamPosition e_ = targets_.first();
                 _fight.setSending(false);
-                if(FightSuccess.successfulMove(_fight,_lanceur,e,attaqueInvoque_, IndexConstants.FIRST_INDEX,true,_import).isSuccessful()){
+                if(FightSuccess.successfulMove(_fight,_lanceur,e_,attaqueInvoque_, IndexConstants.FIRST_INDEX,true,_import).isSuccessful()){
                     //debugger la chaine d'invocation d'attaques
-                    effectInvoke(_fight,_lanceur,e,effet_,_import);
+                    effectInvoke(_fight,_lanceur,e_,effet_,_import);
                     if(!_fight.getAcceptableChoices()){
                         return;
                     }
                     invoquer_=true;
                 }
-                break;
             }
             if(!invoquer_){
                 _fight.addInvokeMoveFailMessage(attaqueInvoque_, _import);

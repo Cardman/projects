@@ -146,8 +146,8 @@ final class FightValues {
             }
         }
         variables_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.NB_COMBATTANTS_TERRAIN),Long.toString(nbCombattantsTerrain_));
-        variables_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.NB_KO_EQUIPE_FIGHTER),Long.toString(equipeLanceur_.getNbKoRound()+equipeLanceur_.getNbKoPreviousRound()));
-        variables_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.NB_KO_EQUIPE_ADV_FIGHTER),Long.toString(equipeAdvLanceur_.getNbKoRound()+equipeAdvLanceur_.getNbKoPreviousRound()));
+        variables_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.NB_KO_EQUIPE_FIGHTER),Long.toString((long)equipeLanceur_.getNbKoRound()+equipeLanceur_.getNbKoPreviousRound()));
+        variables_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.NB_KO_EQUIPE_ADV_FIGHTER),Long.toString((long)equipeAdvLanceur_.getNbKoRound()+equipeAdvLanceur_.getNbKoPreviousRound()));
         StringList coeffTypes_ = _import.getVarParamsMove(Fight.COEFF_EFF_BASE_TYPES_FIGHTER);
         for(String e:coeffTypes_){
             Rate coeffLanceur_=DataBase.defRateProduct();
@@ -253,8 +253,8 @@ final class FightValues {
         }
         Team equipeAdvCible_=_fight.getTeams().getVal(Fight.foe(_cible.getTeam()));
         variables_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.CIBLE_NIVEAU),Long.toString(creatureCbtCible_.getLevel()));
-        variables_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.NB_KO_EQUIPE_CIBLE),Long.toString(equipeCible_.getNbKoRound()+equipeCible_.getNbKoPreviousRound()));
-        variables_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.NB_KO_EQUIPE_ADV_CIBLE),Long.toString(equipeAdvCible_.getNbKoRound()+equipeAdvCible_.getNbKoPreviousRound()));
+        variables_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.NB_KO_EQUIPE_CIBLE),Long.toString((long)equipeCible_.getNbKoRound()+equipeCible_.getNbKoPreviousRound()));
+        variables_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.NB_KO_EQUIPE_ADV_CIBLE),Long.toString((long)equipeAdvCible_.getNbKoRound()+equipeAdvCible_.getNbKoPreviousRound()));
         StringList coeffTypes_ = _import.getVarParamsMove(Fight.COEFF_EFF_BASE_TYPES_CIBLE);
         for(String e:coeffTypes_){
             Rate coeffCible_=DataBase.defRateProduct();
@@ -401,8 +401,8 @@ final class FightValues {
             }
         }
         variables_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.NB_COMBATTANTS_TERRAIN),Long.toString(nbCombattantsTerrain_));
-        variables_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.NB_KO_EQUIPE_LANCEUR),Long.toString(equipeLanceur_.getNbKoRound()+equipeLanceur_.getNbKoPreviousRound()));
-        variables_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.NB_KO_EQUIPE_ADV_LANCEUR),Long.toString(equipeAdvLanceur_.getNbKoRound()+equipeAdvLanceur_.getNbKoPreviousRound()));
+        variables_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.NB_KO_EQUIPE_LANCEUR),Long.toString((long)equipeLanceur_.getNbKoRound()+equipeLanceur_.getNbKoPreviousRound()));
+        variables_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.NB_KO_EQUIPE_ADV_LANCEUR),Long.toString((long)equipeAdvLanceur_.getNbKoRound()+equipeAdvLanceur_.getNbKoPreviousRound()));
         coeffTypes_ = _import.getVarParamsMove(Fight.COEFF_EFF_BASE_TYPES_LANCEUR);
         for(String e:coeffTypes_){
             Rate coeffLanceur_=DataBase.defRateProduct();

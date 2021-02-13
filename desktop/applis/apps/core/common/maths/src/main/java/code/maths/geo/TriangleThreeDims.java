@@ -40,10 +40,10 @@ public final class TriangleThreeDims implements Displayable {
     }
 
     public CompactPlanePoint getCircumCenter() {
-        long bpx_ = secondPoint.getXcoords() - firstPoint.getXcoords();
-        long cpx_ = thirdPoint.getXcoords() - firstPoint.getXcoords();
-        long bpy_ = secondPoint.getYcoords() - firstPoint.getYcoords();
-        long cpy_ = thirdPoint.getYcoords() - firstPoint.getYcoords();
+        long bpx_ = (long)secondPoint.getXcoords() - firstPoint.getXcoords();
+        long cpx_ = (long)thirdPoint.getXcoords() - firstPoint.getXcoords();
+        long bpy_ = (long)secondPoint.getYcoords() - firstPoint.getYcoords();
+        long cpy_ = (long)thirdPoint.getYcoords() - firstPoint.getYcoords();
         long dp_ = 2*(bpx_ * cpy_ - bpy_ * cpx_);
         long x_ = cpy_ * (bpx_ * bpx_ + bpy_ * bpy_);
         x_ -= bpy_ * (cpx_ * cpx_ + cpy_ * cpy_);

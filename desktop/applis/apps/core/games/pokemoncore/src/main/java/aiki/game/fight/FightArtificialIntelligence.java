@@ -64,14 +64,16 @@ final class FightArtificialIntelligence {
         }
         StringMap<ObjectMap<TargetCoords,Rate>> remoteHp_ = new StringMap<ObjectMap<TargetCoords,Rate>>();
         boolean existUser_ = false;
-        for (TeamPosition f: FightOrder.notKoFrontFightersBelongingToUser(_fight,true)) {
-            for (String m: FightFacade.allowedMovesNotEmpty(_fight,f, _import)) {
+        CustList<TeamPosition> notKoFront_ = FightOrder.notKoFrontFightersBelongingToUser(_fight, true);
+        if (!notKoFront_.isEmpty()) {
+            TeamPosition f_ = notKoFront_.first();
+            for (String m: FightFacade.allowedMovesNotEmpty(_fight,f_, _import)) {
                 MoveData fAtt_ = _import.getMove(m);
                 if (!(fAtt_ instanceof DamagingMoveData)) {
                     continue;
                 }
                 ObjectMap<TargetCoords,Rate> remainingTargetHp_;
-                remainingTargetHp_ = remainingFoeTargetHp(_fight, f, m, _diff, _import);
+                remainingTargetHp_ = remainingFoeTargetHp(_fight, f_, m, _diff, _import);
                 remoteHp_.put(m, remainingTargetHp_);
                 for (TargetCoords t: remainingTargetHp_.getKeys()) {
                     Bytes foeFighers_ = _fight.getFoeTeam().fightersAtCurrentPlace(t.getPosition());
@@ -83,9 +85,8 @@ final class FightArtificialIntelligence {
                     }
                 }
             }
-            userPk_ = f;
+            userPk_ = f_;
             existUser_ = true;
-            break;
         }
         for (String m: remoteHp_.getKeys()) {
             //m move of player pk
@@ -156,11 +157,12 @@ final class FightArtificialIntelligence {
             if (chosen_) {
                 continue;
             }
-            for (String m2_: possibleChoicesAlly_.getKeys()) {
+            if (!possibleChoicesAlly_.isEmpty()) {
+                String m2_ = possibleChoicesAlly_.firstKey();
+                CustList<TargetCoords> v2_ = possibleChoicesAlly_.firstValue();
                 for (TargetCoords t: remoteHpLoc_.getKeys()) {
-                    _fight.getAllyChoice().put(new MoveTarget(m,t), new MoveTarget(m2_,possibleChoicesAlly_.getVal(m2_).first()));
+                    _fight.getAllyChoice().put(new MoveTarget(m,t), new MoveTarget(m2_,v2_.first()));
                 }
-                break;
             }
         }
         if (!existUser_) {
@@ -568,9 +570,10 @@ final class FightArtificialIntelligence {
         if (chosen_) {
             return;
         }
-        for (String m2_: _possibleChoicesAlly.getKeys()) {
-            _fight.getAllyChoice().put(new MoveTarget(DataBase.EMPTY_STRING,new TargetCoords()), new MoveTarget(m2_,_possibleChoicesAlly.getVal(m2_).first()));
-            break;
+        if (!_possibleChoicesAlly.isEmpty()) {
+            String m2_ = _possibleChoicesAlly.firstKey();
+            CustList<TargetCoords> v2_ = _possibleChoicesAlly.firstValue();
+            _fight.getAllyChoice().put(new MoveTarget(DataBase.EMPTY_STRING,new TargetCoords()), new MoveTarget(m2_,v2_.first()));
         }
     }
 

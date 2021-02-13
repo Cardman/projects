@@ -367,7 +367,7 @@ public final class EditorBelote extends DialogBelote implements SetterSelectedCa
             nombreCartesSelectionnees=0;
         } else {
             String mes_ = getMessages().getVal(ERROR_MOVE);
-            mes_ = StringUtil.simpleStringsFormat(mes_, Long.toString(m.total()), Long.toString(max_-taille_), listeTwo.getSelectedComboItem());
+            mes_ = StringUtil.simpleStringsFormat(mes_, Long.toString(m.total()), Long.toString((long)max_-taille_), listeTwo.getSelectedComboItem());
             ConfirmDialog.showMessage(this, mes_, getMessages().getVal(ERROR_MOVE_TITLE), lg_, JOptionPane.ERROR_MESSAGE, getMain().getConfirmDialog());
             //JOptionPane.showMessageDialog(this,mes_, getMessages().getVal(ERROR_MOVE_TITLE), JOptionPane.ERROR_MESSAGE);
         }

@@ -52,7 +52,7 @@ public final class DialogHelpPresident extends Dialog {
             } else {
                 panelCards_.add(new TextLabel(Games.toString(char_,_lg)));
             }
-            byte pl_ = _playedCards.getVal(c);
+            long pl_ = _playedCards.getVal(c);
             panelCards_.add(new TextLabel(Long.toString(pl_)));
             panelCards_.add(new TextLabel(Long.toString(count_ - pl_)));
         }

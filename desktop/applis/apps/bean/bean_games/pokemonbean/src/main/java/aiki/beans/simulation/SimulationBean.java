@@ -1274,7 +1274,7 @@ public class SimulationBean extends CommonBean {
         PokemonData fPk_=data_.getPokemon(pk_.getName());
         String expLitt_=data_.getExpGrowth().getVal(fPk_.getExpEvo());
         StringMap<String> vars_ = new StringMap<String>();
-        vars_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fighter.NIVEAU),Long.toString(level_ + 1));
+        vars_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fighter.NIVEAU),Long.toString(level_ + 1L));
         Rate next_;
         next_ = data_.evaluateNumericable(expLitt_, vars_, Rate.one());
         Rate current_;

@@ -32,15 +32,21 @@ public final class VectTwoDims implements Equallable<VectTwoDims>, Displayable {
     }
 
     public long squareLength() {
-        return getDeltax() * getDeltax() + getDeltay() * getDeltay();
+        return sq(getDeltax()) + sq(getDeltay());
     }
-
+    private static long sq(long _sq) {
+        return _sq * _sq;
+    }
     public long scal(VectTwoDims _b) {
-        return getDeltax() * _b.getDeltax() + getDeltay() * _b.getDeltay();
+        long f_ = (long)getDeltax() * _b.getDeltax();
+        long s_ = (long)getDeltay() * _b.getDeltay();
+        return f_ + s_;
     }
 
     public long det(VectTwoDims _b) {
-        return getDeltax()*_b.getDeltay()-getDeltay()*_b.getDeltax();
+        long f_ = (long)getDeltax() * _b.getDeltay();
+        long s_ = (long)getDeltay() * _b.getDeltax();
+        return f_ - s_;
     }
 
     public int getDeltax() {

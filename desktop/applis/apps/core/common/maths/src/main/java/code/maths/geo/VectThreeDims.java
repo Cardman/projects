@@ -39,24 +39,41 @@ public final class VectThreeDims implements Equallable<VectThreeDims>, Displayab
     }
 
     public long squareLength() {
-        return getDeltax() * getDeltax() + getDeltay() * getDeltay() + getDeltaz() * getDeltaz();
+        return sq(getDeltax()) + sq(getDeltay()) + sq(getDeltaz());
+    }
+    private static long sq(long _sq) {
+        return _sq * _sq;
     }
 
     public long scal(VectThreeDims _b) {
-        return getDeltax() * _b.getDeltax() + getDeltay() * _b.getDeltay() + getDeltaz() * _b.getDeltaz();
+        long f_ = (long)getDeltax() * _b.getDeltax();
+        long s_ = (long)getDeltay() * _b.getDeltay();
+        long t_ = (long)getDeltaz() * _b.getDeltaz();
+        return f_ + s_ + t_;
     }
-
     public VectThreeDims vectProd(VectThreeDims _b) {
-        long rx_ = getDeltay() * _b.getDeltaz() - getDeltaz() * _b.getDeltay();
-        long ry_ = -getDeltax() * _b.getDeltaz() + getDeltaz() * _b.getDeltax();
-        long rz_ = getDeltax() * _b.getDeltay() - getDeltay() * _b.getDeltax();
+        long f1_ = (long)getDeltay() * _b.getDeltaz();
+        long f2_ = (long)getDeltaz() * _b.getDeltay();
+        long rx_ = f1_ - f2_;
+        long s1_ = (long)-getDeltax() * _b.getDeltaz();
+        long s2_ = (long)getDeltaz() * _b.getDeltax();
+        long ry_ = s1_ + s2_;
+        long t1_ = (long)getDeltax() * _b.getDeltay();
+        long t2_ = (long)getDeltay() * _b.getDeltax();
+        long rz_ = t1_ - t2_;
         return new VectThreeDims((int)rx_, (int) ry_, (int) rz_);
     }
 
     public long quickDet(VectThreeDims _b, VectThreeDims _c) {
-        long rx_ = _b.getDeltay() * _c.getDeltaz() - _b.getDeltaz() * _c.getDeltay();
-        long ry_ = _b.getDeltax() * _c.getDeltaz() - _b.getDeltaz() * _c.getDeltax();
-        long rz_ = _b.getDeltax() * _c.getDeltay() - _b.getDeltay() * _c.getDeltax();
+        long f1_ = (long)_b.getDeltay() * _c.getDeltaz();
+        long f2_ = (long)_b.getDeltaz() * _c.getDeltay();
+        long rx_ = f1_ - f2_;
+        long s1_ = (long)_b.getDeltax() * _c.getDeltaz();
+        long s2_ = (long)_b.getDeltaz() * _c.getDeltax();
+        long ry_ = s1_ - s2_;
+        long t1_ = (long)_b.getDeltax() * _c.getDeltay();
+        long t2_ = (long)_b.getDeltay() * _c.getDeltax();
+        long rz_ = t1_ - t2_;
         return getDeltax()*rx_ - getDeltay()*ry_ + getDeltaz()*rz_;
     }
 

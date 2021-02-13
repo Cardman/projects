@@ -146,7 +146,7 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
         while (firstInd_ >= IndexConstants.FIRST_INDEX) {
             String nbLuBis_;
             if (nbLu_.length() >= powerTen_) {
-                nbLuBis_ = nbLu_.substring(nbLu_.length() - powerTen_, nbLu_.length());
+                nbLuBis_ = nbLu_.substring(nbLu_.length() - powerTen_);
                 if (nbLu_.length() > powerTen_) {
                     // nbLu_.resize(nbLu_.length()-puissance10_)
                     nbLu_ = nbLu_.substring(IndexConstants.FIRST_INDEX, nbLu_.length() - powerTen_);
@@ -765,7 +765,7 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
     static long base() {
         long max_ = Long.MAX_VALUE;
         long copieBase_ = 1;
-        long div_ = BASE_NUMER * BASE_NUMER;
+        long div_ = (long)BASE_NUMER * BASE_NUMER;
         long copieBaseBis_ = 1;
         while (max_ > 0) {
             max_ /= div_;
@@ -863,7 +863,7 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
             if (resultatChiffres_.first() != 0) {
                 break;
             }
-            resultatChiffres_.remove((int) IndexConstants.FIRST_INDEX);
+            resultatChiffres_.remove(IndexConstants.FIRST_INDEX);
         }
         return resultat_;
     }
@@ -1642,7 +1642,7 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
     private void removeBeginningZeros() {
         //setModified();
         while (grDigits.size() > 1 && grDigits.first() == 0) {
-            grDigits.remove((int) IndexConstants.FIRST_INDEX);
+            grDigits.remove(IndexConstants.FIRST_INDEX);
         }
     }
 

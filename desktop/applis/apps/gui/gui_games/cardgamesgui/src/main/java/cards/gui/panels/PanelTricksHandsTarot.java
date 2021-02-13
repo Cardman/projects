@@ -207,7 +207,7 @@ public class PanelTricksHandsTarot implements ViewablePanelTricksHands {
                 indice_++;
             }
             while(indice_<2*numberPlayers-1) {
-                TextLabel etiquette2_=new TextLabel(Long.toString(indice_-numberPlayers));
+                TextLabel etiquette2_=new TextLabel(Long.toString((long)indice_-numberPlayers));
                 etiquette2_.setHorizontalAlignment(SwingConstants.CENTER);
                 etiquette2_.setFont(new Font(DEFAULT,Font.BOLD,50));
                 etiquette2_.setOpaque(true);
@@ -244,7 +244,7 @@ public class PanelTricksHandsTarot implements ViewablePanelTricksHands {
                 indice_++;
             }
             while(indice_<numberPlayers*2-1) {
-                TextLabel etiquette2_=new TextLabel(Long.toString(indice_-numberPlayers));
+                TextLabel etiquette2_=new TextLabel(Long.toString((long)indice_-numberPlayers));
                 etiquette2_.setHorizontalAlignment(SwingConstants.CENTER);
                 etiquette2_.setFont(new Font(DEFAULT,Font.BOLD,50));
                 etiquette2_.setOpaque(true);
@@ -317,7 +317,7 @@ public class PanelTricksHandsTarot implements ViewablePanelTricksHands {
             }
         }
         while(indice_<2*numberPlayers-1) {
-            TextLabel etiquette2_=new TextLabel(Long.toString(indice_-numberPlayers));
+            TextLabel etiquette2_=new TextLabel(Long.toString((long)indice_-numberPlayers));
             etiquette2_.setHorizontalAlignment(SwingConstants.CENTER);
             etiquette2_.setFont(new Font(DEFAULT,Font.BOLD,50));
             etiquette2_.setOpaque(true);

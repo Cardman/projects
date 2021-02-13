@@ -113,18 +113,18 @@ public final class Tetrahedron implements Displayable {
     }
 
     public RatePointThreeDims getCircumCenter() {
-        long sumOne_ = firstPoint.getXcoords() * firstPoint.getXcoords();
-        sumOne_ += firstPoint.getYcoords() * firstPoint.getYcoords();
-        sumOne_ += firstPoint.getZcoords() * firstPoint.getZcoords();
-        long sumTwo_ = secondPoint.getXcoords() * secondPoint.getXcoords();
-        sumTwo_ += secondPoint.getYcoords() * secondPoint.getYcoords();
-        sumTwo_ += secondPoint.getZcoords() * secondPoint.getZcoords();
-        long sumThree_ = thirdPoint.getXcoords() * thirdPoint.getXcoords();
-        sumThree_ += thirdPoint.getYcoords() * thirdPoint.getYcoords();
-        sumThree_ += thirdPoint.getZcoords() * thirdPoint.getZcoords();
-        long sumFour_ = fourthPoint.getXcoords() * fourthPoint.getXcoords();
-        sumFour_ += fourthPoint.getYcoords() * fourthPoint.getYcoords();
-        sumFour_ += fourthPoint.getZcoords() * fourthPoint.getZcoords();
+        long sumOne_ = (long)firstPoint.getXcoords() * firstPoint.getXcoords();
+        sumOne_ += (long)firstPoint.getYcoords() * firstPoint.getYcoords();
+        sumOne_ += (long)firstPoint.getZcoords() * firstPoint.getZcoords();
+        long sumTwo_ = (long)secondPoint.getXcoords() * secondPoint.getXcoords();
+        sumTwo_ += (long)secondPoint.getYcoords() * secondPoint.getYcoords();
+        sumTwo_ += (long)secondPoint.getZcoords() * secondPoint.getZcoords();
+        long sumThree_ = (long)thirdPoint.getXcoords() * thirdPoint.getXcoords();
+        sumThree_ += (long)thirdPoint.getYcoords() * thirdPoint.getYcoords();
+        sumThree_ += (long)thirdPoint.getZcoords() * thirdPoint.getZcoords();
+        long sumFour_ = (long)fourthPoint.getXcoords() * fourthPoint.getXcoords();
+        sumFour_ += (long)fourthPoint.getYcoords() * fourthPoint.getYcoords();
+        sumFour_ += (long)fourthPoint.getZcoords() * fourthPoint.getZcoords();
         Matrix denMatrix_ = new Matrix();
         Vect v_ = new Vect();
         v_.add(new Rate(firstPoint.getXcoords()));
@@ -266,42 +266,42 @@ public final class Tetrahedron implements Displayable {
     public static CompactSpacePoint getEq(CustPointThreeDims _one,
             CustPointThreeDims _two,
             CustPointThreeDims _three) {
-        long a_ = (_two.getYcoords() - _one.getYcoords()) * (_three.getZcoords() - _two.getZcoords());
-        a_ -= (_two.getZcoords() - _one.getZcoords()) * (_three.getYcoords() - _two.getYcoords());
-        long b_ = -(_two.getXcoords() - _one.getXcoords()) * (_three.getZcoords() - _two.getZcoords());
-        b_ += (_two.getZcoords() - _one.getZcoords()) * (_three.getXcoords() - _two.getXcoords());
-        long c_ = (_two.getXcoords() - _one.getXcoords()) * (_three.getYcoords() - _two.getYcoords());
-        c_ -= (_two.getYcoords() - _one.getYcoords()) * (_three.getXcoords() - _two.getXcoords());
+        long a_ =(long) (_two.getYcoords() - _one.getYcoords()) * (_three.getZcoords() - _two.getZcoords());
+        a_ -= (long)(_two.getZcoords() - _one.getZcoords()) * (_three.getYcoords() - _two.getYcoords());
+        long b_ = (long)-(_two.getXcoords() - _one.getXcoords()) * (_three.getZcoords() - _two.getZcoords());
+        b_ += (long)(_two.getZcoords() - _one.getZcoords()) * (_three.getXcoords() - _two.getXcoords());
+        long c_ = (long)(_two.getXcoords() - _one.getXcoords()) * (_three.getYcoords() - _two.getYcoords());
+        c_ -= (long)(_two.getYcoords() - _one.getYcoords()) * (_three.getXcoords() - _two.getXcoords());
         long d_ = a_ * _one.getXcoords() + b_ * _one.getYcoords() + c_ * _one.getZcoords();
         return new CompactSpacePoint(b_, c_, a_,d_);
     }
     public static CompactSpacePoint getCircumCenter(CustPointThreeDims _one,
             CustPointThreeDims _two,
             CustPointThreeDims _three) {
-        long a_ = (_two.getYcoords() - _one.getYcoords()) * (_three.getZcoords() - _two.getZcoords());
-        a_ -= (_two.getZcoords() - _one.getZcoords()) * (_three.getYcoords() - _two.getYcoords());
-        long b_ = -(_two.getXcoords() - _one.getXcoords()) * (_three.getZcoords() - _two.getZcoords());
-        b_ += (_two.getZcoords() - _one.getZcoords()) * (_three.getXcoords() - _two.getXcoords());
-        long c_ = (_two.getXcoords() - _one.getXcoords()) * (_three.getYcoords() - _two.getYcoords());
-        c_ -= (_two.getYcoords() - _one.getYcoords()) * (_three.getXcoords() - _two.getXcoords());
+        long a_ = (long)(_two.getYcoords() - _one.getYcoords()) * (_three.getZcoords() - _two.getZcoords());
+        a_ -= (long)(_two.getZcoords() - _one.getZcoords()) * (_three.getYcoords() - _two.getYcoords());
+        long b_ = (long)-(_two.getXcoords() - _one.getXcoords()) * (_three.getZcoords() - _two.getZcoords());
+        b_ += (long)(_two.getZcoords() - _one.getZcoords()) * (_three.getXcoords() - _two.getXcoords());
+        long c_ =(long)(_two.getXcoords() - _one.getXcoords()) * (_three.getYcoords() - _two.getYcoords());
+        c_ -= (long)(_two.getYcoords() - _one.getYcoords()) * (_three.getXcoords() - _two.getXcoords());
 //        long d_ = a_ * _one.getXcoords() + b_ * _one.getYcoords() + c_ * _one.getZcoords();
         VectThreeDims n_ = new VectThreeDims((int) a_, (int) b_, (int) c_);
         VectThreeDims eOneTwo_ = new VectThreeDims(_one, _two);
         long x_;
         long y_;
         long z_;
-        x_ = _one.getXcoords() + _two.getXcoords();
-        y_ = _one.getYcoords() + _two.getYcoords();
-        z_ = _one.getZcoords() + _two.getZcoords();
+        x_ = (long)_one.getXcoords() + _two.getXcoords();
+        y_ = (long)_one.getYcoords() + _two.getYcoords();
+        z_ = (long)_one.getZcoords() + _two.getZcoords();
         CompactSpacePoint midOneTwo_;
-        midOneTwo_ = new CompactSpacePoint(y_, z_, x_,2l);
+        midOneTwo_ = new CompactSpacePoint(y_, z_, x_,2L);
         VectThreeDims lOneTwo_ = n_.vectProd(eOneTwo_);
         VectThreeDims eOneThree_ = new VectThreeDims(_one, _three);
-        x_ = _one.getXcoords() + _three.getXcoords();
-        y_ = _one.getYcoords() + _three.getYcoords();
-        z_ = _one.getZcoords() + _three.getZcoords();
+        x_ = (long)_one.getXcoords() + _three.getXcoords();
+        y_ = (long)_one.getYcoords() + _three.getYcoords();
+        z_ = (long)_one.getZcoords() + _three.getZcoords();
         CompactSpacePoint midOneThree_;
-        midOneThree_ = new CompactSpacePoint(y_, z_, x_,2l);
+        midOneThree_ = new CompactSpacePoint(y_, z_, x_,2L);
         VectThreeDims lOneThree_ = n_.vectProd(eOneThree_);
         return intersection(midOneTwo_, lOneTwo_, midOneThree_, lOneThree_);
     }
@@ -313,7 +313,9 @@ public final class Tetrahedron implements Displayable {
             VectThreeDims _vTwo) {
         long n_ = (_ptTwo.getZcoords() - _ptOne.getZcoords()) * _vTwo.getDeltay();
         n_ -= (_ptTwo.getXcoords() - _ptOne.getXcoords()) * _vTwo.getDeltax();
-        long d_ = 2 *(_vOne.getDeltax() * _vTwo.getDeltay() - _vOne.getDeltay() * _vTwo.getDeltax());
+        long firstPart_ = (long) _vOne.getDeltax() * _vTwo.getDeltay();
+        long secondPart_ = (long) _vOne.getDeltay() * _vTwo.getDeltax();
+        long d_ = 2 *(firstPart_ - secondPart_);
         long x_ = _ptOne.getCommon() * n_ * _vOne.getDeltax() + d_ * _ptOne.getZcoords();
         long y_ = _ptOne.getCommon() * n_ * _vOne.getDeltay() + d_ * _ptOne.getXcoords();
         long z_ = _ptOne.getCommon() * n_ * _vOne.getDeltaz() + d_ * _ptOne.getYcoords();

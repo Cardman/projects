@@ -356,10 +356,10 @@ public abstract class Level {
         Point leftTopPoint_ = new Point((short) 0, (short) 0);
         Point rightBottomPoint_ = new Point((short) 0, (short) 0);
         CustList<Point> cles_ = blocks.getKeys();
-        for (Point p : cles_) {
-            leftTopPoint_.affect(p);
-            rightBottomPoint_.affect(p);
-            break;
+        if (!cles_.isEmpty()) {
+            Point p_ = cles_.first();
+            leftTopPoint_.affect(p_);
+            rightBottomPoint_.affect(p_);
         }
         for (Point p : cles_) {
             if (p.getx() < leftTopPoint_.getx()) {

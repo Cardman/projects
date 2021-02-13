@@ -1349,8 +1349,8 @@ public final class ClassesUtil {
                             enum_.buildError(_page.getAnalysisMessages().getBadInheritsTypeAsInn(),
                                     c,
                                     k_,
-                                    Long.toString(subSise_-1),
-                                    Long.toString(supSise_-1));
+                                    Long.toString(subSise_-1L),
+                                    Long.toString(supSise_-1L));
                             _page.addLocError(enum_);
                             r.addNameErrors(enum_);
                         }
