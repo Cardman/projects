@@ -590,7 +590,7 @@ public final class DocumentBuilder {
         return new DocumentBuilder(_tabWidth);
     }
 
-    protected static String transformSpecialCharsLtGt(String _htmlText) {
+    static String transformSpecialCharsLtGt(String _htmlText) {
         return transformSpecialChars(_htmlText, true, true);
     }
 
@@ -701,10 +701,7 @@ public final class DocumentBuilder {
         map_.put(E_THORN, StringUtil.simpleNumberFormat(ENCODE, (int)THORN));
         map_.put(E_YUML, StringUtil.simpleNumberFormat(ENCODE, (int)YUML));
         map_.put(E_QUOT, StringUtil.simpleNumberFormat(ENCODE, (int)QUOT));
-        if (_affectLtGt) {
-            map_.put(E_LT, StringUtil.simpleNumberFormat(ENCODE, (int)LT));
-            map_.put(E_GT, StringUtil.simpleNumberFormat(ENCODE, (int)GT));
-        }
+        addLtGt(_affectLtGt, map_);
         map_.put(E_APOS, StringUtil.simpleNumberFormat(ENCODE, (int)APOS));
         map_.put(E_U_OELIG, StringUtil.simpleNumberFormat(ENCODE, (int)U_OE_LIG));
         map_.put(E_OELIG, StringUtil.simpleNumberFormat(ENCODE, (int)OELIG));
@@ -858,9 +855,7 @@ public final class DocumentBuilder {
         map_.put(E_CLUBS, StringUtil.simpleNumberFormat(ENCODE, (int)CLUBS));
         map_.put(E_HEARTS, StringUtil.simpleNumberFormat(ENCODE, (int)HEARTS));
         map_.put(E_DIAMS, StringUtil.simpleNumberFormat(ENCODE, (int)DIAMS));
-        if (_affectEamp) {
-            map_.put(E_AMP, StringUtil.simpleNumberFormat(ENCODE, (int)ASCII_38));
-        }
+        addEamp(_affectEamp, map_);
         int length_ = _htmlText.length();
         StringBuilder str_ = new StringBuilder();
         int i_ = 0;
@@ -887,44 +882,80 @@ public final class DocumentBuilder {
                 str_.append(_htmlText.substring(iBegin_));
                 break;
             }
-            boolean add_ = false;
-            for (EntryCust<String,String> k: map_.entryList()) {
-                boolean equals_ = true;
-                int j_ = 0;
-                String key_ = k.getKey();
-                for (int i = iBegin_; i <= i_; i++) {
-                    if (_htmlText.charAt(i) != key_.charAt(j_)) {
-                        equals_ = false;
-                        break;
-                    }
-                    j_++;
-                }
-                if (equals_) {
-                    String strValue_ = k.getValue();
-                    strValue_ = strValue_.substring(2, strValue_.length() - 1);
-                    int ascii_ = NumberUtil.parseInt(strValue_);
-                    char char_ = (char) ascii_;
-                    str_.append(char_);
-                    i_++;
-                    add_ = true;
-                    break;
-                }
-            }
-            if (!add_) {
-                if (_htmlText.charAt(iBegin_ + 1) == NUMBERED_CHAR) {
-                    String strValue_ = _htmlText.substring(iBegin_ + 2, i_);
-                    int ascii_ = (int) NumberUtil.parseLongZero(strValue_);
-                    char char_ = (char) ascii_;
-                    str_.append(char_);
-                    i_++;
-                    continue;
-                }
-                str_.append(_htmlText, iBegin_, i_ + 1);
-                i_++;
-            }
+            i_ = tryIncr(_htmlText, map_, str_, i_, iBegin_);
         }
         return str_.toString();
     }
+
+    private static int tryIncr(String _htmlText, StringMap<String> _map, StringBuilder _str, int _i, int _iBegin) {
+        int i_ = _i;
+        int next_ = next(_htmlText, _str, i_, _map, _iBegin);
+        if (next_ == i_) {
+            i_ = tryApp(_htmlText, _str, next_, _iBegin);
+        } else {
+            i_ = next_;
+        }
+        return i_;
+    }
+
+    private static int next(String _htmlText, StringBuilder _str, int _i,StringMap<String> _map, int _iBegin) {
+        int i_ = _i;
+        for (EntryCust<String,String> k: _map.entryList()) {
+            boolean equals_ = eq(_htmlText, i_, _iBegin, k);
+            if (equals_) {
+                String strValue_ = k.getValue();
+                strValue_ = strValue_.substring(2, strValue_.length() - 1);
+                int ascii_ = NumberUtil.parseInt(strValue_);
+                char char_ = (char) ascii_;
+                _str.append(char_);
+                i_++;
+                break;
+            }
+        }
+        return i_;
+    }
+    private static int tryApp(String _htmlText, StringBuilder _str, int _i, int _iBegin) {
+        int i_ = _i;
+        if (_htmlText.charAt(_iBegin + 1) == NUMBERED_CHAR) {
+            String strValue_ = _htmlText.substring(_iBegin + 2, i_);
+            int ascii_ = (int) NumberUtil.parseLongZero(strValue_);
+            char char_ = (char) ascii_;
+            _str.append(char_);
+            i_++;
+            return i_;
+        }
+        _str.append(_htmlText, _iBegin, i_ + 1);
+        i_++;
+        return i_;
+    }
+
+    private static boolean eq(String _htmlText, int _i, int _iBegin, EntryCust<String, String> _e) {
+        boolean equals_ = true;
+        int j_ = 0;
+        String key_ = _e.getKey();
+        for (int i = _iBegin; i <= _i; i++) {
+            if (_htmlText.charAt(i) != key_.charAt(j_)) {
+                equals_ = false;
+                break;
+            }
+            j_++;
+        }
+        return equals_;
+    }
+
+    private static void addEamp(boolean _affectEamp, StringMap<String> _map) {
+        if (_affectEamp) {
+            _map.put(E_AMP, StringUtil.simpleNumberFormat(ENCODE, (int)ASCII_38));
+        }
+    }
+
+    private static void addLtGt(boolean _affectLtGt, StringMap<String> _map) {
+        if (_affectLtGt) {
+            _map.put(E_LT, StringUtil.simpleNumberFormat(ENCODE, (int)LT));
+            _map.put(E_GT, StringUtil.simpleNumberFormat(ENCODE, (int)GT));
+        }
+    }
+
     public static String encodeHtml(String _htmlText) {
         StringMap<String> map_ = new StringMap<String>();
         map_.put(E_NBSP, StringUtil.simpleNumberFormat(ENCODE, (int)NBSP));
@@ -1206,32 +1237,28 @@ public final class DocumentBuilder {
                 str_.append(_htmlText.substring(iBegin_));
                 break;
             }
-            boolean add_ = false;
-            for (EntryCust<String,String> k: map_.entryList()) {
-                boolean equals_ = true;
-                int j_ = 0;
-                String key_ = k.getKey();
-                for (int i = iBegin_; i <= i_; i++) {
-                    //j_ is max as i_-iBegin_+1
-                    if (_htmlText.charAt(i) != key_.charAt(j_)) {
-                        equals_ = false;
-                        break;
-                    }
-                    j_++;
-                }
-                if (equals_) {
-                    str_.append(k.getValue());
-                    i_++;
-                    add_ = true;
-                    break;
-                }
-            }
-            if (!add_) {
-                str_.append(_htmlText, iBegin_, i_ + 1);
-                i_++;
-            }
+            i_ = incr(_htmlText, map_, str_, i_, iBegin_);
         }
         return str_.toString();
+    }
+
+    private static int incr(String _htmlText, StringMap<String> _map, StringBuilder _str, int _i, int _iBegin) {
+        int i_ = _i;
+        boolean add_ = false;
+        for (EntryCust<String,String> k: _map.entryList()) {
+            boolean equals_ = eq(_htmlText, i_, _iBegin, k);
+            if (equals_) {
+                _str.append(k.getValue());
+                i_++;
+                add_ = true;
+                break;
+            }
+        }
+        if (!add_) {
+            _str.append(_htmlText, _iBegin, i_ + 1);
+            i_++;
+        }
+        return i_;
     }
 
     public static String encodeToHtml(String _text) {
@@ -1264,19 +1291,23 @@ public final class DocumentBuilder {
                 escapedXml_.append(E_AMP);
                 continue;
             }
-            if (_quote) {
-                if (c == QUOT) {
-                    escapedXml_.append(E_QUOT);
-                    continue;
-                }
-                if (c == APOS) {
-                    escapedXml_.append(E_APOS);
-                    continue;
-                }
-            }
-            escapedXml_.append(c);
+            processDef(_quote, escapedXml_, c);
         }
         return escapedXml_.toString();
+    }
+
+    private static void processDef(boolean _quote, StringBuilder _escapedXml, char _c) {
+        if (_quote) {
+            if (_c == QUOT) {
+                _escapedXml.append(E_QUOT);
+                return;
+            }
+            if (_c == APOS) {
+                _escapedXml.append(E_APOS);
+                return;
+            }
+        }
+        _escapedXml.append(_c);
     }
 
     public static boolean equalsDocs(String _expected, String _found) {
@@ -1327,20 +1358,11 @@ public final class DocumentBuilder {
         while (i_ < len_) {
             char curChar_ = input_.charAt(i_);
             if (state_ == ReadingState.HEADER) {
-                if (curChar_ == LT_CHAR) {
-                    break;
-                }
-                if (curChar_ == ENCODED) {
+                if (directResChar2(curChar_)) {
                     break;
                 }
                 if (tagName_.length() == 0) {
-                    if (curChar_ == GT_CHAR) {
-                        break;
-                    }
-                    if (curChar_ == SLASH) {
-                        break;
-                    }
-                    if (StringUtil.isWhitespace(curChar_)) {
+                    if (directResChar(curChar_)) {
                         break;
                     }
                     tagName_.append(curChar_);
@@ -1351,11 +1373,7 @@ public final class DocumentBuilder {
                     NotTextElement element_ = (NotTextElement) doc_.createElement(tagName_.toString());
                     element_.setAttributes(new NamedNodeMap(attrs_));
                     attrs_ = new CustList<Attr>();
-                    if (doc_.getDocumentElement() == null) {
-                        doc_.appendChild(element_);
-                    } else {
-                        currentElement_.appendChild(element_);
-                    }
+                    appendCh(doc_, currentElement_, element_);
                     if (addChild_) {
                         currentElement_ = element_;
                         stack_.add(tagName_.append(GT_CHAR).toString());
@@ -1412,10 +1430,7 @@ public final class DocumentBuilder {
                     i_++;
                     continue;
                 }
-                if (i_ + 1 >= len_) {
-                    break;
-                }
-                if (input_.charAt(i_ + 1) != GT_CHAR) {
+                if (notGt(input_, len_, i_)) {
                     break;
                 }
                 addChild_ = false;
@@ -1423,16 +1438,7 @@ public final class DocumentBuilder {
                 continue;
             }
             if (state_ == ReadingState.ATTR_NAME) {
-                if (curChar_ == LT_CHAR) {
-                    break;
-                }
-                if (curChar_ == ENCODED) {
-                    break;
-                }
-                if (curChar_ == GT_CHAR) {
-                    break;
-                }
-                if (curChar_ == SLASH) {
+                if (directResChar3(curChar_)) {
                     break;
                 }
                 if (!StringUtil.isWhitespace(curChar_) && curChar_ != EQUALS) {
@@ -1450,10 +1456,7 @@ public final class DocumentBuilder {
                         }
                         nextPrintable_++;
                     }
-                    if (nextPrintable_ == len_) {
-                        break;
-                    }
-                    if (input_.charAt(nextPrintable_) != EQUALS) {
+                    if (notEq(input_, len_, nextPrintable_)) {
                         break;
                     }
                     i_ = nextPrintable_;
@@ -1462,7 +1465,7 @@ public final class DocumentBuilder {
                     break;
                 }
                 char nextEq_ = input_.charAt(i_ + 1);
-                if (nextEq_ != APOS_CHAR && nextEq_ != QUOT_CHAR) {
+                if (notDelAttr(nextEq_)) {
                     if (!StringUtil.isWhitespace(nextEq_)) {
                         break;
                     }
@@ -1478,7 +1481,7 @@ public final class DocumentBuilder {
                         break;
                     }
                     char nextCharDel_ = input_.charAt(nextPrintable_);
-                    if (nextCharDel_ != APOS_CHAR && nextCharDel_ != QUOT_CHAR) {
+                    if (notDelAttr(nextCharDel_)) {
                         break;
                     }
                     i_ = nextPrintable_;
@@ -1502,10 +1505,7 @@ public final class DocumentBuilder {
                 continue;
             }
             if (state_ == ReadingState.ATTR_VALUE) {
-                if (curChar_ == LT_CHAR) {
-                    break;
-                }
-                if (curChar_ == GT_CHAR) {
+                if (directResChar4(curChar_)) {
                     break;
                 }
                 if (curChar_ != delimiterAttr_) {
@@ -1533,10 +1533,7 @@ public final class DocumentBuilder {
                 boolean endHead_ = false;
                 if (nextPr_ == SLASH) {
                     i_ = nextPrintable_ + 1;
-                    if (i_ >= len_) {
-                        break;
-                    }
-                    if (input_.charAt(i_) != GT_CHAR) {
+                    if (notGt2(input_, len_, i_)) {
                         break;
                     }
                     endHead_ = true;
@@ -1550,11 +1547,7 @@ public final class DocumentBuilder {
                     NotTextElement element_ = (NotTextElement) doc_.createElement(tagName_.toString());
                     element_.setAttributes(new NamedNodeMap(attrs_));
                     attrs_ = new CustList<Attr>();
-                    if (doc_.getDocumentElement() == null) {
-                        doc_.appendChild(element_);
-                    } else {
-                        currentElement_.appendChild(element_);
-                    }
+                    appendCh(doc_, currentElement_, element_);
                     if (addChild_) {
                         currentElement_ = element_;
                         stack_.add(tagName_.append(GT_CHAR).toString());
@@ -1665,33 +1658,7 @@ public final class DocumentBuilder {
             i_++;
         }
         if (!finished_) {
-            int max_;
-            if (i_ < len_) {
-                max_ = i_;
-            } else {
-                max_ = len_ - 1;
-            }
-            int row_ = 1;
-            int col_ = 1;
-            int j_ = IndexConstants.FIRST_INDEX;
-            while (j_ <= max_) {
-                char curChar_ = input_.charAt(j_);
-                if (curChar_ == LINE_RETURN) {
-                    row_++;
-                    col_ = 1;
-                } else {
-                    col_++;
-                    if (curChar_ == TAB) {
-                        col_ += doc_.getTabWidth() - 1;
-                    }
-                }
-                j_++;
-            }
-            RowCol rc_ = new RowCol();
-            rc_.setRow(row_);
-            rc_.setCol(col_);
-            res_.setLocation(rc_);
-            return res_;
+            return processErr(res_, input_, len_, i_, doc_.getTabWidth());
         }
         res_.setDocument(doc_);
         return res_;
@@ -1731,20 +1698,11 @@ public final class DocumentBuilder {
         while (i_ < len_) {
             char curChar_ = input_.charAt(i_);
             if (state_ == ReadingState.HEADER) {
-                if (curChar_ == LT_CHAR) {
-                    break;
-                }
-                if (curChar_ == ENCODED) {
+                if (directResChar2(curChar_)) {
                     break;
                 }
                 if (tagName_.length() == 0) {
-                    if (curChar_ == GT_CHAR) {
-                        break;
-                    }
-                    if (curChar_ == SLASH) {
-                        break;
-                    }
-                    if (StringUtil.isWhitespace(curChar_)) {
+                    if (directResChar(curChar_)) {
                         break;
                     }
                     tagName_.append(curChar_);
@@ -1755,11 +1713,7 @@ public final class DocumentBuilder {
                     FullElement element_ = (FullElement) doc_.createElement(tagName_.toString());
                     element_.setAttributes(new NamedNodeMap(attrs_));
                     attrs_ = new CustList<Attr>();
-                    if (doc_.getDocumentElement() == null) {
-                        doc_.appendChild(element_);
-                    } else {
-                        currentElement_.appendChild(element_);
-                    }
+                    appendChFull(doc_, currentElement_, element_);
                     if (addChild_) {
                         currentElement_ = element_;
                         stack_.add(tagName_.append(GT_CHAR).toString());
@@ -1816,10 +1770,7 @@ public final class DocumentBuilder {
                     i_++;
                     continue;
                 }
-                if (i_ + 1 >= len_) {
-                    break;
-                }
-                if (input_.charAt(i_ + 1) != GT_CHAR) {
+                if (notGt(input_, len_, i_)) {
                     break;
                 }
                 addChild_ = false;
@@ -1827,16 +1778,7 @@ public final class DocumentBuilder {
                 continue;
             }
             if (state_ == ReadingState.ATTR_NAME) {
-                if (curChar_ == LT_CHAR) {
-                    break;
-                }
-                if (curChar_ == ENCODED) {
-                    break;
-                }
-                if (curChar_ == GT_CHAR) {
-                    break;
-                }
-                if (curChar_ == SLASH) {
+                if (directResChar3(curChar_)) {
                     break;
                 }
                 if (!StringUtil.isWhitespace(curChar_) && curChar_ != EQUALS) {
@@ -1854,10 +1796,7 @@ public final class DocumentBuilder {
                         }
                         nextPrintable_++;
                     }
-                    if (nextPrintable_ == len_) {
-                        break;
-                    }
-                    if (input_.charAt(nextPrintable_) != EQUALS) {
+                    if (notEq(input_, len_, nextPrintable_)) {
                         break;
                     }
                     i_ = nextPrintable_;
@@ -1866,7 +1805,7 @@ public final class DocumentBuilder {
                     break;
                 }
                 char nextEq_ = input_.charAt(i_ + 1);
-                if (nextEq_ != APOS_CHAR && nextEq_ != QUOT_CHAR) {
+                if (notDelAttr(nextEq_)) {
                     if (!StringUtil.isWhitespace(nextEq_)) {
                         break;
                     }
@@ -1882,7 +1821,7 @@ public final class DocumentBuilder {
                         break;
                     }
                     char nextCharDel_ = input_.charAt(nextPrintable_);
-                    if (nextCharDel_ != APOS_CHAR && nextCharDel_ != QUOT_CHAR) {
+                    if (notDelAttr(nextCharDel_)) {
                         break;
                     }
                     i_ = nextPrintable_;
@@ -1906,10 +1845,7 @@ public final class DocumentBuilder {
                 continue;
             }
             if (state_ == ReadingState.ATTR_VALUE) {
-                if (curChar_ == LT_CHAR) {
-                    break;
-                }
-                if (curChar_ == GT_CHAR) {
+                if (directResChar4(curChar_)) {
                     break;
                 }
                 if (curChar_ != delimiterAttr_) {
@@ -1937,10 +1873,7 @@ public final class DocumentBuilder {
                 boolean endHead_ = false;
                 if (nextPr_ == SLASH) {
                     i_ = nextPrintable_ + 1;
-                    if (i_ >= len_) {
-                        break;
-                    }
-                    if (input_.charAt(i_) != GT_CHAR) {
+                    if (notGt2(input_, len_, i_)) {
                         break;
                     }
                     endHead_ = true;
@@ -1954,11 +1887,7 @@ public final class DocumentBuilder {
                     FullElement element_ = (FullElement) doc_.createElement(tagName_.toString());
                     element_.setAttributes(new NamedNodeMap(attrs_));
                     attrs_ = new CustList<Attr>();
-                    if (doc_.getDocumentElement() == null) {
-                        doc_.appendChild(element_);
-                    } else {
-                        currentElement_.appendChild(element_);
-                    }
+                    appendChFull(doc_, currentElement_, element_);
                     if (addChild_) {
                         currentElement_ = element_;
                         stack_.add(tagName_.append(GT_CHAR).toString());
@@ -2069,36 +1998,88 @@ public final class DocumentBuilder {
             i_++;
         }
         if (!finished_) {
-            int max_;
-            if (i_ < len_) {
-                max_ = i_;
-            } else {
-                max_ = len_ - 1;
-            }
-            int row_ = 1;
-            int col_ = 1;
-            int j_ = IndexConstants.FIRST_INDEX;
-            while (j_ <= max_) {
-                char curChar_ = input_.charAt(j_);
-                if (curChar_ == LINE_RETURN) {
-                    row_++;
-                    col_ = 1;
-                } else {
-                    col_++;
-                    if (curChar_ == TAB) {
-                        col_ += doc_.getTabWidth() - 1;
-                    }
-                }
-                j_++;
-            }
-            RowCol rc_ = new RowCol();
-            rc_.setRow(row_);
-            rc_.setCol(col_);
-            res_.setLocation(rc_);
-            return res_;
+            return processErr(res_, input_, len_, i_, doc_.getTabWidth());
         }
         res_.setDocument(doc_);
         return res_;
+    }
+
+    private static boolean directResChar4(char _curChar) {
+        return _curChar == LT_CHAR || _curChar == GT_CHAR;
+    }
+
+    private static boolean notDelAttr(char _nextCharDel) {
+        return _nextCharDel != APOS_CHAR && _nextCharDel != QUOT_CHAR;
+    }
+
+    private static boolean notGt(String _input, int _len, int _i) {
+        return notGt2(_input, _len, _i + 1);
+    }
+
+    private static boolean notGt2(String _input, int _len, int _i) {
+        return _i >= _len || _input.charAt(_i) != GT_CHAR;
+    }
+
+    private static boolean directResChar2(char _curChar) {
+        return _curChar == LT_CHAR || _curChar == ENCODED;
+    }
+
+    private static boolean directResChar(char _curChar) {
+        return _curChar == GT_CHAR || _curChar == SLASH || StringUtil.isWhitespace(_curChar);
+    }
+
+    private static boolean notEq(String _input, int _len, int _nextPrintable) {
+        return _nextPrintable == _len || _input.charAt(_nextPrintable) != EQUALS;
+    }
+
+    private static boolean directResChar3(char _curChar) {
+        return _curChar == LT_CHAR || _curChar == ENCODED || _curChar == GT_CHAR || _curChar == SLASH;
+    }
+
+    private static void appendCh(NoTextDocument _doc, NotTextElement _currentElement, NotTextElement _element) {
+        commonAppend(_doc, _currentElement, _element);
+    }
+
+    private static void appendChFull(FullDocument _doc, FullElement _currentElement, FullElement _element) {
+        commonAppend(_doc, _currentElement, _element);
+    }
+
+    private static void commonAppend(CoreDocument _doc, Element _currentElement, Element _element) {
+        if (_doc.getDocumentElement() == null) {
+            _doc.appendChild(_element);
+        } else {
+            _currentElement.appendChild(_element);
+        }
+    }
+
+    private static DocumentResult processErr(DocumentResult _res, String _input, int _len, int _i, int _tabWidth) {
+        int max_;
+        if (_i < _len) {
+            max_ = _i;
+        } else {
+            max_ = _len - 1;
+        }
+        int row_ = 1;
+        int col_ = 1;
+        int j_ = IndexConstants.FIRST_INDEX;
+        while (j_ <= max_) {
+            char curChar_ = _input.charAt(j_);
+            if (curChar_ == LINE_RETURN) {
+                row_++;
+                col_ = 1;
+            } else {
+                col_++;
+                if (curChar_ == TAB) {
+                    col_ += _tabWidth - 1;
+                }
+            }
+            j_++;
+        }
+        RowCol rc_ = new RowCol();
+        rc_.setRow(row_);
+        rc_.setCol(col_);
+        _res.setLocation(rc_);
+        return _res;
     }
 
     public static String indent(String _xml) {
@@ -2304,17 +2285,12 @@ public final class DocumentBuilder {
         while (i_ < len_) {
             char ch_ = _xml.charAt(i_);
             if (ch_ == GT) {
-                if (addAttribute_) {
-                    endHeader_.setRow(nbLineReturns_+minLine_+1);
-                    endHeader_.setCol(j_+2);
-                }
+                processEndHeader(nbLineReturns_, minLine_, addAttribute_, j_, endHeader_);
                 addAttribute_ = false;
             }
             if (addAttribute_ && k_ > nodeLen_) {
                 if (delimiter_ == -1) {
-                    if (ch_ == APOS) {
-                        delimiter_ = ch_;
-                    } else if (ch_ == QUOT) {
+                    if (isDelAttr(ch_)) {
                         delimiter_ = ch_;
                     }
                     if (delimiter_ == -1) {
@@ -2343,10 +2319,10 @@ public final class DocumentBuilder {
                     }
                     offset_++;
                 }
-            } else if (ch_ == LT) {
-                if (_xml.charAt(i_ + 1) != SLASH) {
+            } else {
+                if (ch_ == LT && _xml.charAt(i_ + 1) != SLASH) {
                     next_ = i_;
-                    nextCol_.setRow(nbLineReturns_+minLine_);
+                    nextCol_.setRow(nbLineReturns_ + minLine_);
                     nextCol_.setCol(j_);
                     break;
                 }
@@ -2365,6 +2341,14 @@ public final class DocumentBuilder {
         }
         return new ElementOffsetsNext(tabsMap_, offsetsMap_, m_, nextCol_, endHeader_, next_, found_ + 1);
     }
+
+    private static void processEndHeader(int _nbLineReturns, int _minLine, boolean _addAttribute, int _j, RowCol _endHeader) {
+        if (_addAttribute) {
+            _endHeader.setRow(_nbLineReturns + _minLine +1);
+            _endHeader.setCol(_j +2);
+        }
+    }
+
     public static RowCol getOffset(
             String _attribute,
             StringMap<RowCol> _attributes,
@@ -2479,10 +2463,7 @@ public final class DocumentBuilder {
         for (int i = _from; i < _to; i++) {
             char ch_ = _html.charAt(i);
             if (delimiter_ == -1) {
-                if (ch_ == APOS) {
-                    delimiter_ = ch_;
-                    beginToken_ = i + 1;
-                } else if (ch_ == QUOT) {
+                if (isDelAttr(ch_)) {
                     delimiter_ = ch_;
                     beginToken_ = i + 1;
                 }
@@ -2530,12 +2511,8 @@ public final class DocumentBuilder {
                 found_ = _xml.indexOf(StringUtil.concat(Character.toString(LT),nodeName_), index_) + 1;
                 boolean isTag_ = true;
                 int j_ = found_ + nodeName_.length();
-                if (!StringUtil.isWhitespace(_xml.charAt(j_))) {
-                    if (_xml.charAt(j_) != GT) {
-                        if (_xml.charAt(j_) != SLASH) {
-                            isTag_ = false;
-                        }
-                    }
+                if (!StringUtil.isWhitespace(_xml.charAt(j_)) && _xml.charAt(j_) != GT && _xml.charAt(j_) != SLASH) {
+                    isTag_ = false;
                 }
                 if (isTag_) {
                     count_++;
@@ -2557,9 +2534,7 @@ public final class DocumentBuilder {
             for (int i = firstIndex_; i < lastIndex_; i++) {
                 char ch_ = _xml.charAt(i);
                 if (delimiter_ == -1) {
-                    if (ch_ == APOS) {
-                        delimiter_ = ch_;
-                    } else if (ch_ == QUOT) {
+                    if (isDelAttr(ch_)) {
                         delimiter_ = ch_;
                     }
                 } else {
@@ -2679,6 +2654,10 @@ public final class DocumentBuilder {
             }
         }
         return found_;
+    }
+
+    private static boolean isDelAttr(char _ch) {
+        return _ch == APOS || _ch == QUOT;
     }
 
     public static CustList<Node> getDeepChildNodesDocOrder(Node _root, Node _until) {
