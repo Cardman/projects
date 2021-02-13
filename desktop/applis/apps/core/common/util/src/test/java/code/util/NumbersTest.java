@@ -821,6 +821,8 @@ public class NumbersTest extends EquallableExUtil {
         nbs_.removeObj(5);
         assertEq(1, nbs_.size());
         assertEq(1, nbs_.get(0));
+        nbs_.removeObj(1);
+        assertEq(0, nbs_.size());
     }
     @Test
     public void removeAllLong1Test(){

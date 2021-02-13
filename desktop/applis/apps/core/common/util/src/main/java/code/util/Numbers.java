@@ -6,19 +6,19 @@ import code.util.ints.Listable;
 
 public abstract class Numbers<T> extends CustList<T> {
 
-    public Numbers() {
+    protected Numbers() {
     }
 
-    public Numbers(Listable<T> _list) {
+    protected Numbers(Listable<T> _list) {
         super(_list);
     }
 
-    public Numbers(T... _array) {
+    protected Numbers(T... _array) {
         super(_array);
     }
 
-    
-    public Numbers(CollCapacity _capacity) {
+
+    protected Numbers(CollCapacity _capacity) {
         super(_capacity);
     }
 
@@ -71,7 +71,7 @@ public abstract class Numbers<T> extends CustList<T> {
         for (int i = 0; i < s_; i++) {
             long lg_ = getLong(i);
             if (NumberUtil.eq(lg_,_n)) {
-                removeObj(lg_);
+                remove(i);
                 break;
             }
         }

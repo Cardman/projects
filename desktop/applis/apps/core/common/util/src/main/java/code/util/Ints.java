@@ -39,15 +39,15 @@ public final class Ints extends Numbers<Integer> {
             Ints nbs_ = new Ints(i);
             e_.add(nbs_);
         }
-        for (int i = 1; i < sdims_; i++) {
+        for (int d = 1; d < sdims_; d++) {
             CustList<Ints> newIndexes_;
             newIndexes_ = new CustList<Ints>();
-            int d_ = get(i);
+            int d_ = get(d);
             for (Ints p: e_) {
-                for (int j = 0; j < d_; j++) {
+                for (int i = 0; i < d_; i++) {
                     Ints n_;
                     n_ = new Ints(p);
-                    n_.add(j);
+                    n_.add(i);
                     newIndexes_.add(n_);
                 }
             }
