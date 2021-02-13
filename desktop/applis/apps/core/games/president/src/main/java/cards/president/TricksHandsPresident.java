@@ -257,12 +257,12 @@ public final class TricksHandsPresident {
     }
 
     public byte getMatchingWinner(byte _loser) {
-        int ind_ = getLoosers().indexOfObj(_loser);
+        int ind_ = getLoosers().indexOfNb(_loser);
         return getWinners().get(ind_);
     }
 
     public byte getMatchingLoser(byte _winner) {
-        int ind_ = getWinners().indexOfObj(_winner);
+        int ind_ = getWinners().indexOfNb(_winner);
         return getLoosers().get(ind_);
     }
 

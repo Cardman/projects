@@ -260,7 +260,7 @@ public final class GamePresident {
             leader_ = (byte) ((deal.getDonneur() + 1) % getNombreDeJoueurs());
         } else {
             long min_ = ranks.getMaximum((byte) -1);
-            int pl_ = ranks.indexOfObj(min_);
+            int pl_ = ranks.indexOfNb(min_);
             leader_ = (byte) pl_;
         }
         return leader_;
@@ -268,7 +268,7 @@ public final class GamePresident {
 
     public byte numberGivenCards(byte _player) {
         if (getWinners().containsObj(_player)) {
-            int ind_ = getWinners().indexOfObj(_player);
+            int ind_ = getWinners().indexOfNb(_player);
             return (byte) (nombresCartesEchangesMax() - ind_);
         }
         return IndexConstants.SIZE_EMPTY;
@@ -366,22 +366,22 @@ public final class GamePresident {
     }
 
     public static byte getMatchingWinner(Bytes _winners, Bytes _losers, byte _loser) {
-        int ind_ = _losers.indexOfObj(_loser);
+        int ind_ = _losers.indexOfNb(_loser);
         return _winners.get(ind_);
     }
 
     public static byte getMatchingLoser(Bytes _winners, Bytes _losers, byte _winner) {
-        int ind_ = _winners.indexOfObj(_winner);
+        int ind_ = _winners.indexOfNb(_winner);
         return _losers.get(ind_);
     }
 
     public byte getMatchingWinner(byte _loser) {
-        int ind_ = getLoosers().indexOfObj(_loser);
+        int ind_ = getLoosers().indexOfNb(_loser);
         return getWinners().get(ind_);
     }
 
     public byte getMatchingLoser(byte _winner) {
-        int ind_ = getWinners().indexOfObj(_winner);
+        int ind_ = getWinners().indexOfNb(_winner);
         return getLoosers().get(ind_);
     }
 
@@ -456,7 +456,7 @@ public final class GamePresident {
     }
 
     public void donnerMeilleuresCartes(byte _joueur) {
-        int ind_= getLoosers().indexOfObj(_joueur);
+        int ind_= getLoosers().indexOfNb(_joueur);
         int nbCards_ = nombresCartesEchangesMax() - ind_;
         HandPresident copie_=new HandPresident();
         copie_.ajouterCartes(getDistribution().hand(_joueur));
@@ -467,7 +467,7 @@ public final class GamePresident {
     }
 
     public void recevoirMeilleuresCartes(byte _joueur) {
-        int ind_= getWinners().indexOfObj(_joueur);
+        int ind_= getWinners().indexOfNb(_joueur);
         byte pl_ = getLoosers().get(ind_);
         getDistribution().hand(_joueur).ajouterCartes(switchedCards.get(pl_));
     }
@@ -480,7 +480,7 @@ public final class GamePresident {
     }
 
     public void recevoirPiresCartes(byte _joueur) {
-        int ind_= getLoosers().indexOfObj(_joueur);
+        int ind_= getLoosers().indexOfNb(_joueur);
         byte pl_ = getWinners().get(ind_);
         getDistribution().hand(_joueur).ajouterCartes(switchedCards.get(pl_));
     }
@@ -498,13 +498,13 @@ public final class GamePresident {
             return;
         }
         for (byte w: getWinners()) {
-            int ind_= getWinners().indexOfObj(w);
+            int ind_= getWinners().indexOfNb(w);
             byte pl_ = getLoosers().get(ind_);
             getDistribution().hand(w).supprimerCartes(switchedCards.get(pl_));
             getDistribution().hand(w).ajouterCartes(switchedCards.get(w));
         }
         for (byte l: getLoosers()) {
-            int ind_= getLoosers().indexOfObj(l);
+            int ind_= getLoosers().indexOfNb(l);
             byte pl_ = getWinners().get(ind_);
             getDistribution().hand(l).supprimerCartes(switchedCards.get(pl_));
             getDistribution().hand(l).ajouterCartes(switchedCards.get(l));
@@ -519,7 +519,7 @@ public final class GamePresident {
     public HandPresident strategieEchange(byte _joueur) {
         HandPresident h_ = new HandPresident();
         HandPresident hPlayer_= getDistribution().hand(_joueur);
-        byte gifts_ =(byte) (nombresCartesEchangesMax() - getWinners().indexOfObj(_joueur));
+        byte gifts_ =(byte) (nombresCartesEchangesMax() - getWinners().indexOfNb(_joueur));
         //0 == h_.total() < gifts_
         CustList<HandPresident> rep_ = getCardsSortedByLengthSortedByStrength(hPlayer_);
         int index_ = IndexConstants.FIRST_INDEX;

@@ -1363,7 +1363,7 @@ public class Battle extends ChildFrame {
             }
             BooleanList chosablePlayer_ = facade.getFight().getChosablePlayerTargets();
             BooleanList chosableFoe_ = facade.getFight().getChosableFoeTargets();
-            if (chosablePlayer_.indexesOfObj(true).size() + chosableFoe_.indexesOfObj(true).size() > DataBase.ONE_POSSIBLE_CHOICE) {
+            if (chosablePlayer_.indexesOfBool(true).size() + chosableFoe_.indexesOfBool(true).size() > DataBase.ONE_POSSIBLE_CHOICE) {
                 targets.setTargets(facade, this);
                 TextLabel header_ = new TextLabel(messages.getVal(SELECT_TARGET));
                 targetsPanel.add(header_, BorderLayout.NORTH);
@@ -1393,7 +1393,7 @@ public class Battle extends ChildFrame {
             }
             BooleanList foeTargets_ = facade.getFight().getChosableFoeTargets();
             BooleanList plTargets_ = facade.getFight().getChosablePlayerTargets();
-            if (foeTargets_.indexesOfObj(true).size() + plTargets_.indexesOfObj(true).size() > DataBase.ONE_POSSIBLE_CHOICE) {
+            if (foeTargets_.indexesOfBool(true).size() + plTargets_.indexesOfBool(true).size() > DataBase.ONE_POSSIBLE_CHOICE) {
                 targets.setTargets(facade, this);
                 TextLabel header_ = new TextLabel(messages.getVal(SELECT_TARGET));
                 targetsPanel.add(header_, BorderLayout.NORTH);

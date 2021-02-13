@@ -248,7 +248,7 @@ public class AbEqListTest extends EquallableExUtil {
         e_.add(false);
         e_.add(false);
         e_.add(true);
-        Ints indexes_ = e_.indexesOfObj(true);
+        Ints indexes_ = e_.indexesOfBool(true);
         assertEq(2, indexes_.size());
         assertEq(0, indexes_.get(0));
         assertEq(3, indexes_.get(1));
@@ -259,7 +259,7 @@ public class AbEqListTest extends EquallableExUtil {
         BooleanList e_ = new BooleanList(new BooleanList());
         e_.add(false);
         e_.add(false);
-        Ints indexes_ = e_.indexesOfObj(true);
+        Ints indexes_ = e_.indexesOfBool(true);
         assertEq(0, indexes_.size());
         assertTrue(!e_.containsObj(true));
     }

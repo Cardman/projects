@@ -97,7 +97,7 @@ public final class CheckerGamePresidentWithRules {
                 return;
             }
             for (byte w : _loadedGame.getWinners()) {
-                int ind_ = _loadedGame.getWinners().indexOfObj(w);
+                int ind_ = _loadedGame.getWinners().indexOfNb(w);
                 int nbGivenCards_ = _loadedGame.nombresCartesEchangesMax()
                         - ind_;
                 if (w == DealPresident.NUMERO_UTILISATEUR) {
@@ -117,7 +117,7 @@ public final class CheckerGamePresidentWithRules {
                 }
             }
             for (byte l : _loadedGame.getLoosers()) {
-                int ind_ = _loadedGame.getLoosers().indexOfObj(l);
+                int ind_ = _loadedGame.getLoosers().indexOfNb(l);
                 int nbGivenCards_ = _loadedGame.nombresCartesEchangesMax()
                         - ind_;
                 if (_loadedGame.getSwitchedCards().get(l).total() != nbGivenCards_) {
@@ -175,13 +175,13 @@ public final class CheckerGamePresidentWithRules {
                 }
             }
             for (byte l : _loadedGame.getLoosers()) {
-                int ind_ = _loadedGame.getLoosers().indexOfObj(l);
+                int ind_ = _loadedGame.getLoosers().indexOfNb(l);
                 byte pl_ = _loadedGame.getWinners().get(ind_);
                 deal_.hand(l).supprimerCartes(
                         _loadedGame.getSwitchedCards().get(pl_));
             }
             for (byte w : _loadedGame.getWinners()) {
-                int ind_ = _loadedGame.getWinners().indexOfObj(w);
+                int ind_ = _loadedGame.getWinners().indexOfNb(w);
                 byte pl_ = _loadedGame.getLoosers().get(ind_);
                 deal_.hand(w).supprimerCartes(
                         _loadedGame.getSwitchedCards().get(pl_));
@@ -256,13 +256,13 @@ public final class CheckerGamePresidentWithRules {
         }
         if (_loadedGame.availableSwitchingCards()) {
             for (byte w : _loadedGame.getWinners()) {
-                int ind_ = _loadedGame.getWinners().indexOfObj(w);
+                int ind_ = _loadedGame.getWinners().indexOfNb(w);
                 byte pl_ = _loadedGame.getLoosers().get(ind_);
                 deal_.hand(w).ajouterCartes(
                         _loadedGame.getSwitchedCards().get(pl_));
             }
             for (byte l : _loadedGame.getLoosers()) {
-                int ind_ = _loadedGame.getLoosers().indexOfObj(l);
+                int ind_ = _loadedGame.getLoosers().indexOfNb(l);
                 byte pl_ = _loadedGame.getWinners().get(ind_);
                 deal_.hand(l).ajouterCartes(
                         _loadedGame.getSwitchedCards().get(pl_));

@@ -1100,9 +1100,9 @@ public final class FightFacade {
             return;
         }
         Ints possiblePlayerChoices_;
-        possiblePlayerChoices_ = playerTargets_.indexesOfObj(true);
+        possiblePlayerChoices_ = playerTargets_.indexesOfBool(true);
         Ints possibleFoeChoices_;
-        possibleFoeChoices_ = foeTargets_.indexesOfObj(true);
+        possibleFoeChoices_ = foeTargets_.indexesOfBool(true);
         _fight.setChosenMoveFront(_move);
         if (possiblePlayerChoices_.isEmpty() && possibleFoeChoices_.isEmpty()) {
             setFirstChosenMove(_fight, index_, _move);

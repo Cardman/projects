@@ -7,7 +7,7 @@ import code.util.ints.SortedEdge;
 
 public final class SortedGraph<T extends SortedEdge<T>> {
 
-    private Graph<T> graph = new Graph<T>();
+    private final Graph<T> graph = new Graph<T>();
 
     public EqList<T> process() {
         EqList<T> elts_ = graph.getElements();
@@ -19,18 +19,9 @@ public final class SortedGraph<T extends SortedEdge<T>> {
                 if (e.getOrder() > IndexConstants.INDEX_NOT_FOUND_ELT) {
                     continue;
                 }
-                EqList<T> list_ = graph.getChildren(e);
-                boolean allNb_ = true;
-                for (T s: list_) {
-                    if (s.getOrder() == IndexConstants.INDEX_NOT_FOUND_ELT) {
-                        allNb_ = false;
-                        break;
-                    }
+                if (allNumbered(graph.getChildren(e))) {
+                    next_.add(e);
                 }
-                if (!allNb_) {
-                    continue;
-                }
-                next_.add(e);
             }
             if (next_.isEmpty()) {
                 break;
@@ -42,6 +33,17 @@ public final class SortedGraph<T extends SortedEdge<T>> {
             }
         }
         return result_;
+    }
+
+    private boolean allNumbered(EqList<T> _list) {
+        boolean allNb_ = true;
+        for (T s: _list) {
+            if (s.getOrder() == IndexConstants.INDEX_NOT_FOUND_ELT) {
+                allNb_ = false;
+                break;
+            }
+        }
+        return allNb_;
     }
 
     public EqList<T> getTreeFrom(T _elt) {

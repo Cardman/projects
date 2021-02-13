@@ -80,6 +80,13 @@ public final class StringListUtil {
             i_++;
             j_++;
         }
+        return lastMatch(_s, _t, firstOne_, firstTwo_);
+    }
+
+    private static StringList lastMatch(StringList _s, StringList _t, StringList _firstOne, StringList _firstTwo) {
+        boolean found_;
+        int j_;
+        int i_;
         i_ = 0;
         j_ = 0;
         int k_ = 0;
@@ -98,20 +105,26 @@ public final class StringListUtil {
             }
             k_++;
         }
+        return endSub(_s, _t, _firstOne, _firstTwo, i_, j_);
+    }
+
+    private static StringList endSub(StringList _s, StringList _t, StringList _firstOne, StringList _firstTwo, int _i, int _j) {
+        int i_ = _i;
+        int j_ = _j;
         while (i_ < _s.size() && j_ < _t.size()) {
             if (!StringUtil.quickEq(_s.get(i_), _t.get(j_))) {
                 break;
             }
-            firstTwo_.add(_s.get(i_));
+            _firstTwo.add(_s.get(i_));
             i_++;
             j_++;
         }
-        int lastIndexOne_ = Math.max(lastIndexOf(_s, firstOne_), lastIndexOf(_t,firstOne_));
-        int lastIndexTwo_ = Math.max(lastIndexOf(_s,firstTwo_), lastIndexOf(_t,firstTwo_));
+        int lastIndexOne_ = Math.max(lastIndexOf(_s, _firstOne), lastIndexOf(_t,_firstOne));
+        int lastIndexTwo_ = Math.max(lastIndexOf(_s,_firstTwo), lastIndexOf(_t,_firstTwo));
         if (lastIndexOne_ > lastIndexTwo_) {
-            return firstTwo_;
+            return _firstTwo;
         }
-        return firstOne_;
+        return _firstOne;
     }
     private static int indexOf(StringList _list, StringList _sub) {
         return _list.indexesOfString(_sub.first()).first();
@@ -149,6 +162,13 @@ public final class StringListUtil {
             i_++;
             j_++;
         }
+        return lastCommon(_s, _t, firstOne_, firstTwo_);
+    }
+
+    private static String lastCommon(String _s, String _t, StringBuilder _firstOne, StringBuilder _firstTwo) {
+        int j_;
+        int i_;
+        boolean found_;
         i_ = 0;
         j_ = 0;
         found_ = false;
@@ -171,15 +191,15 @@ public final class StringListUtil {
             if (_s.charAt(i_) != _t.charAt(j_)) {
                 break;
             }
-            firstTwo_.append(_s.charAt(i_));
+            _firstTwo.append(_s.charAt(i_));
             i_++;
             j_++;
         }
-        int lastIndexOne_ = Math.max(_s.lastIndexOf(firstOne_.toString()), _t.lastIndexOf(firstOne_.toString()));
-        int lastIndexTwo_ = Math.max(_s.lastIndexOf(firstTwo_.toString()), _t.lastIndexOf(firstTwo_.toString()));
+        int lastIndexOne_ = Math.max(_s.lastIndexOf(_firstOne.toString()), _t.lastIndexOf(_firstOne.toString()));
+        int lastIndexTwo_ = Math.max(_s.lastIndexOf(_firstTwo.toString()), _t.lastIndexOf(_firstTwo.toString()));
         if (lastIndexOne_ > lastIndexTwo_) {
-            return firstTwo_.toString();
+            return _firstTwo.toString();
         }
-        return firstOne_.toString();
+        return _firstOne.toString();
     }
 }

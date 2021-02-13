@@ -521,14 +521,20 @@ public final class StringUtil {
                 inside_ = false;
                 int argNb_ = NumberUtil.parseInt(arg_.toString());
                 tryAppArg(str_, arg_, argLength_, argNb_, _args);
-            } else if (inside_) {
-                arg_.append(cur_);
             } else {
-                str_.append(cur_);
+                append(str_, arg_, inside_, cur_);
             }
             i_++;
         }
         return str_.toString();
+    }
+
+    private static void append(StringBuilder _str, StringBuilder _arg, boolean _inside, char _cur) {
+        if (_inside) {
+            _arg.append(_cur);
+        } else {
+            _str.append(_cur);
+        }
     }
 
     private static void tryAppArg(StringBuilder _str, StringBuilder _arg, int _argLength, int _argNb, String[] _args) {
@@ -579,10 +585,8 @@ public final class StringUtil {
                 inside_ = false;
                 int argNb_ = NumberUtil.parseInt(arg_.toString());
                 tryAppArg(str_, arg_, argLength_, argNb_, _args);
-            } else if (inside_) {
-                arg_.append(cur_);
             } else {
-                str_.append(cur_);
+                append(str_, arg_, inside_, cur_);
             }
             i_++;
         }

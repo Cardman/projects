@@ -103,7 +103,7 @@ final class AfterUnaryParts {
         }
         if (_d.getDelCast().contains(firstPrintChar_ + _offset)) {
             prio = ElResolver.UNARY_PRIO;
-            int min_ = _d.getDelCast().indexOfObj(firstPrintChar_ + _offset);
+            int min_ = _d.getDelCast().indexOfNb(firstPrintChar_ + _offset);
             int max_ = _d.getDelCast().get(min_ + 1) - _offset;
             operators.put(firstPrintChar_, _string.substring(firstPrintChar_, max_ + 1));
             int ext_ = min_ / 2;
@@ -114,7 +114,7 @@ final class AfterUnaryParts {
         }
         if (_d.getDelExplicit().contains(firstPrintChar_ + _offset)) {
             prio = ElResolver.UNARY_PRIO;
-            int min_ = _d.getDelExplicit().indexOfObj(firstPrintChar_ + _offset);
+            int min_ = _d.getDelExplicit().indexOfNb(firstPrintChar_ + _offset);
             int max_ = _d.getDelExplicit().get(min_ + 1) - _offset;
             operators.put(firstPrintChar_, _string.substring(firstPrintChar_, max_ + 1));
             index = incrementUnary(_string, firstPrintChar_, lastPrintChar_, _offset, _d);
@@ -384,7 +384,7 @@ final class AfterUnaryParts {
         int len_ = lastPrintChar_ + 1;
         boolean clearOperators_ = false;
         boolean foundOperator_ = false;
-        int min_ = _d.getDelInstanceof().indexOfObj(index+_offset);
+        int min_ = _d.getDelInstanceof().indexOfNb(index+_offset);
         if (isPairPositive(min_)) {
             int next_ = _d.getDelInstanceof().get(min_+1) - _offset;
             instOf = true;
@@ -643,14 +643,14 @@ final class AfterUnaryParts {
                         if (ch_ != NEG_BOOL_CHAR) {
                             if (!StringUtil.isWhitespace(ch_)) {
                                 int sum_ = _offset + j_;
-                                int indexCast_ = _d.getDelCast().indexOfObj(sum_);
+                                int indexCast_ = _d.getDelCast().indexOfNb(sum_);
                                 if (indexCast_ > -1) {
                                     int next_ = _d.getDelCast().get(indexCast_ + 1);
                                     next_ -= _offset;
                                     j_ = next_ + 1;
                                     continue;
                                 }
-                                indexCast_ = _d.getDelExplicit().indexOfObj(sum_);
+                                indexCast_ = _d.getDelExplicit().indexOfNb(sum_);
                                 if (indexCast_ > -1) {
                                     int next_ = _d.getDelExplicit().get(indexCast_ + 1);
                                     next_ -= _offset;

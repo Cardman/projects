@@ -361,8 +361,8 @@ public final class MathResolver {
         len_ = lastPrintChar_+1;
         int begin_;
         int end_;
-        begin_ = _d.getDelStringsChars().indexOfObj(firstPrintChar_+_offset);
-        end_ = _d.getDelStringsChars().indexOfObj(lastPrintChar_+_offset);
+        begin_ = _d.getDelStringsChars().indexOfNb(firstPrintChar_+_offset);
+        end_ = _d.getDelStringsChars().indexOfNb(lastPrintChar_+_offset);
         if (delimits(begin_, end_)) {
             OperationsSequence op_ = new OperationsSequence();
             op_.setIndexCst(begin_/2);
@@ -372,8 +372,8 @@ public final class MathResolver {
             op_.setDelimiter(_d);
             return op_;
         }
-        begin_ = _d.getDelNumbers().indexOfObj(_offset + firstPrintChar_);
-        end_ = _d.getDelNumbers().indexOfObj(_offset + lastPrintChar_ + 1);
+        begin_ = _d.getDelNumbers().indexOfNb(_offset + firstPrintChar_);
+        end_ = _d.getDelNumbers().indexOfNb(_offset + lastPrintChar_ + 1);
         if (delimits(begin_, end_)) {
             OperationsSequence op_ = new OperationsSequence();
             op_.setIndexCst(begin_/2);

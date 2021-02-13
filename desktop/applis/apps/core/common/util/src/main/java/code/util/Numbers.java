@@ -91,7 +91,7 @@ public abstract class Numbers<T> extends CustList<T> {
 
 
     public final void removeObj(long _obj) {
-        int index_ = indexOfObj(_obj);
+        int index_ = indexOfNb(_obj);
         if (index_ == IndexConstants.INDEX_NOT_FOUND_ELT) {
             return;
         }
@@ -99,7 +99,7 @@ public abstract class Numbers<T> extends CustList<T> {
     }
 
     public final boolean containsObj(long _obj) {
-        return indexOfObj(_obj) != IndexConstants.INDEX_NOT_FOUND_ELT;
+        return indexOfNb(_obj) != IndexConstants.INDEX_NOT_FOUND_ELT;
     }
 
     public final void removeDuplicates() {
@@ -107,11 +107,11 @@ public abstract class Numbers<T> extends CustList<T> {
         while (i_ < size()) {
             long e_ = getLong(i_);
             boolean rem_ = false;
-            int next_ = indexOfObj(e_, i_ + 1);
+            int next_ = indexOfNb(e_, i_ + 1);
             while (next_ != IndexConstants.INDEX_NOT_FOUND_ELT) {
                 remove(next_);
                 rem_ = true;
-                next_ = indexOfObj(e_, i_ + 1);
+                next_ = indexOfNb(e_, i_ + 1);
             }
             if (!rem_) {
                 i_++;
@@ -122,7 +122,7 @@ public abstract class Numbers<T> extends CustList<T> {
         int i_ = IndexConstants.FIRST_INDEX;
         while (i_ < size()) {
             long e_ = getLong(i_);
-            int next_ = indexOfObj(e_, i_ + 1);
+            int next_ = indexOfNb(e_, i_ + 1);
             if (next_ > IndexConstants.INDEX_NOT_FOUND_ELT) {
                 return true;
             }
@@ -130,10 +130,10 @@ public abstract class Numbers<T> extends CustList<T> {
         }
         return false;
     }
-    public final int indexOfObj(long _element) {
-        return indexOfObj(_element, IndexConstants.FIRST_INDEX);
+    public final int indexOfNb(long _element) {
+        return indexOfNb(_element, IndexConstants.FIRST_INDEX);
     }
-    public final int indexOfObj(long _element, int _from) {
+    public final int indexOfNb(long _element, int _from) {
         int s_ = size();
         for (int i = _from; i < s_; i++) {
             long e_ = getLong(i);
@@ -148,7 +148,7 @@ public abstract class Numbers<T> extends CustList<T> {
         indexes_ = new Ints();
         int i_ = IndexConstants.FIRST_INDEX;
         while (true) {
-            int found_ = indexOfObj(_element, i_);
+            int found_ = indexOfNb(_element, i_);
             if (found_ == IndexConstants.INDEX_NOT_FOUND_ELT) {
                 break;
             }

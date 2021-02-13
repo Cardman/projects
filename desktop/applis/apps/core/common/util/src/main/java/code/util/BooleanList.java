@@ -19,19 +19,8 @@ public final class BooleanList extends AbEqList<Boolean> {
         super(_capacity);
     }
 
-    public Ints indexesOfObj(boolean _element) {
-        Ints indexes_;
-        indexes_ = new Ints();
-        int i_ = IndexConstants.FIRST_INDEX;
-        while (true) {
-            int found_ = indexOfObj(_element, i_);
-            if (found_ == IndexConstants.INDEX_NOT_FOUND_ELT) {
-                break;
-            }
-            indexes_.add(found_);
-            i_ = found_ + 1;
-        }
-        return indexes_;
+    public Ints indexesOfBool(boolean _element) {
+        return indexesOfObj(_element);
     }
 
     public boolean containsObj(boolean _b) {
