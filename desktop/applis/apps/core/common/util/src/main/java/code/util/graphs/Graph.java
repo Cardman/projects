@@ -188,10 +188,10 @@ public final class Graph<T extends GraphElement<T>> {
         current_.add(_s);
         EqList<T> visited_ = new EqList<T>();
         visited_.add(_s);
-        EqList<T> new_ = new EqList<T>();
         boolean found_ = false;
         CustList<ArrowedSegment<T>> lines_ = new CustList<ArrowedSegment<T>>();
         while (true) {
+            EqList<T> new_ = new EqList<T>();
             for (T t: current_) {
                 for (ArrowedSegment<T> u: getChildrenSegments(t)) {
                     lines_.add(u);
@@ -210,7 +210,6 @@ public final class Graph<T extends GraphElement<T>> {
                 break;
             }
             current_ = new_;
-            new_ = new EqList<T>();
         }
         return found_;
     }
@@ -397,8 +396,8 @@ public final class Graph<T extends GraphElement<T>> {
         current_.add(_s);
         EqList<T> visited_ = new EqList<T>();
         visited_.add(_s);
-        EqList<T> new_ = new EqList<T>();
         while (true) {
+            EqList<T> new_ = new EqList<T>();
             for (T t: current_) {
                 for (T u: getChildren(t)) {
                     if (u.eq(_s)) {
@@ -411,7 +410,6 @@ public final class Graph<T extends GraphElement<T>> {
                 break;
             }
             current_ = new_;
-            new_ = new EqList<T>();
         }
         return false;
     }
