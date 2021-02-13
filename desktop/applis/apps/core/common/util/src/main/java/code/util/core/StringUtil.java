@@ -879,41 +879,54 @@ public final class StringUtil {
         StringList words_=wordsAndSeparators_.getWords();
         StringList separators_=wordsAndSeparators_.getSeparators();
         tryAddSeps(wordsAndSeparators_, separators_);
-        int i_= IndexConstants.FIRST_INDEX;
-        int index_= IndexConstants.FIRST_INDEX;
+        IndexSeparators ind_ = new IndexSeparators();
         for(String e:words_){
-            int indiceRDecalePt_ = index_;
-            //indiceNext_=_string.indexOf(e,indiceRDecalePt_);
-            //indiceNext_ = greatestIndex(_string, e, indiceRDecalePt_);
-            int indiceNext_;
-            if(separators_.get(i_).contains(Character.toString(SPACE_CHAR))){
-                if (words_.isValidIndex(i_+1)) {
-                    indiceNext_=_string.indexOf(e,indiceRDecalePt_);
-                    if(indiceNext_ == IndexConstants.INDEX_NOT_FOUND_ELT){
-                        return false;
-                    }
-                } else {
-                    indiceNext_=greatestIndex(_string, e,indiceRDecalePt_);
-                    if(indiceNext_ == IndexConstants.INDEX_NOT_FOUND_ELT){
-                        return false;
-                    }
-                }
-            } else{
-                indiceNext_=_string.indexOf(e,indiceRDecalePt_);
-                if(indiceRDecalePt_ != indiceNext_){
-                    return false;
-                }
+            if (!hasNextSepSpace(_string,e,ind_,wordsAndSeparators_)){
+                return false;
             }
-
-            index_=indiceNext_+e.length();
-            i_++;
         }
+        int i_= ind_.getIndexSep();
+        int index_= ind_.getIndex();
         if(index_==_string.length()){
             return true;
         }
         return separators_.get(i_).contains(Character.toString(SPACE_CHAR));
     }
 
+    private static boolean hasNextSepSpace(String _string,String _w,IndexSeparators _curr, WordsSeparators _ws) {
+        int index_ = _curr.getIndex();
+        int i_ = _curr.getIndexSep();
+        int indiceRDecalePt_ = index_;
+        StringList words_=_ws.getWords();
+        StringList separators_=_ws.getSeparators();
+        //indiceNext_=_string.indexOf(e,indiceRDecalePt_);
+        //indiceNext_ = greatestIndex(_string, e, indiceRDecalePt_);
+        int indiceNext_;
+        if(separators_.get(i_).contains(Character.toString(SPACE_CHAR))){
+            if (words_.isValidIndex(i_+1)) {
+                indiceNext_=_string.indexOf(_w,indiceRDecalePt_);
+                if(indiceNext_ == IndexConstants.INDEX_NOT_FOUND_ELT){
+                    return false;
+                }
+            } else {
+                indiceNext_=greatestIndex(_string, _w,indiceRDecalePt_);
+                if(indiceNext_ == IndexConstants.INDEX_NOT_FOUND_ELT){
+                    return false;
+                }
+            }
+        } else{
+            indiceNext_=_string.indexOf(_w,indiceRDecalePt_);
+            if(indiceRDecalePt_ != indiceNext_){
+                return false;
+            }
+        }
+
+        index_=indiceNext_+_w.length();
+        i_++;
+        _curr.setIndex(index_);
+        _curr.setIndexSep(i_);
+        return true;
+    }
     private static void tryAddSeps(WordsSeparators _wordsAndSeparators, StringList _separators) {
         if (_wordsAndSeparators.isFirstSep()) {
             _separators.add(IndexConstants.FIRST_INDEX, EMPTY_STRING);
@@ -935,50 +948,68 @@ public final class StringUtil {
             return procNoWords(_string, separators_);
         }
         tryAddSeps(wordsAndSeparators_, separators_);
-        int i_= IndexConstants.FIRST_INDEX;
-        int index_= IndexConstants.FIRST_INDEX;
+        IndexSeparators ind_ = new IndexSeparators();
         for(String e:words_){
-            String sep_ = separators_.get(i_);
-            int nbPts_ = 0;
-            int nbZeroOne_ = 0;
-            for (char c: sep_.toCharArray()) {
-                if (c == CHARACTER) {
-                    nbPts_++;
+            if (!hasNextSep(_string,e,ind_,wordsAndSeparators_)){
+                return false;
+            }
+        }
+        int index_= ind_.getIndex();
+        return procDefFilter(_string, separators_, index_);
+    }
+
+    private static boolean hasNextSep(String _string,String _w,IndexSeparators _curr, WordsSeparators _ws) {
+        int i_ = _curr.getIndexSep();
+        StringList words_=_ws.getWords();
+        StringList separators_=_ws.getSeparators();
+        String sep_ = separators_.get(i_);
+        int nbPts_ = 0;
+        int nbZeroOne_ = 0;
+        for (char c: sep_.toCharArray()) {
+            if (c == CHARACTER) {
+                nbPts_++;
+            }
+            if (c == POSSIBLE_CHAR) {
+                nbZeroOne_++;
+            }
+        }
+        return hasNextSep(_string, _w, _curr, words_, separators_, nbPts_, nbZeroOne_);
+    }
+
+    private static boolean hasNextSep(String _string, String _w, IndexSeparators _curr, StringList _words, StringList _separators, int _nbPts, int _nbZeroOne) {
+        int index_ = _curr.getIndex();
+        int i_ = _curr.getIndexSep();
+        int indiceRDecalePt_ = index_ + _nbPts;
+        int indiceNext_;
+        if(_separators.get(i_).contains(Character.toString(STRING))){
+            //indiceNext_=_string.indexOf(e,indiceRDecalePt_);
+            //indiceNext_ = greatestIndex(_string, e, indiceRDecalePt_);
+            if (_words.isValidIndex(i_ +1)) {
+                indiceNext_= _string.indexOf(_w,indiceRDecalePt_);
+                if(indiceNext_ == IndexConstants.INDEX_NOT_FOUND_ELT){
+                    return false;
                 }
-                if (c == POSSIBLE_CHAR) {
-                    nbZeroOne_++;
+            } else {
+                indiceNext_=greatestIndex(_string, _w,indiceRDecalePt_);
+                if(indiceNext_ == IndexConstants.INDEX_NOT_FOUND_ELT){
+                    return false;
                 }
             }
-            int indiceRDecalePt_ = index_ + nbPts_;
-            int indiceNext_;
-            if(separators_.get(i_).contains(Character.toString(STRING))){
-                //indiceNext_=_string.indexOf(e,indiceRDecalePt_);
-                //indiceNext_ = greatestIndex(_string, e, indiceRDecalePt_);
-                if (words_.isValidIndex(i_+1)) {
-                    indiceNext_=_string.indexOf(e,indiceRDecalePt_);
-                    if(indiceNext_ == IndexConstants.INDEX_NOT_FOUND_ELT){
-                        return false;
-                    }
-                } else {
-                    indiceNext_=greatestIndex(_string, e,indiceRDecalePt_);
-                    if(indiceNext_ == IndexConstants.INDEX_NOT_FOUND_ELT){
-                        return false;
-                    }
-                }
 //                indiceNext_=_string.indexOf(e,indiceRDecalePt_);
 //                if(indiceNext_ == INDEX_NOT_FOUND_ELT){
 //                    return false;
 //                }
-            }else{
-                indiceNext_=_string.indexOf(e,indiceRDecalePt_);
-                if(indiceRDecalePt_>indiceNext_||indiceRDecalePt_<indiceNext_-nbZeroOne_){
-                    return false;
-                }
+        }else{
+            indiceNext_= _string.indexOf(_w,indiceRDecalePt_);
+            if(indiceRDecalePt_>indiceNext_||indiceRDecalePt_<indiceNext_- _nbZeroOne){
+                return false;
             }
-            index_=indiceNext_+e.length();
-            i_++;
         }
-        return procDefFilter(_string, separators_, index_);
+        index_ =indiceNext_+ _w.length();
+        i_++;
+        _curr.setIndex(index_);
+        _curr.setIndexSep(i_);
+        return true;
     }
 
     private static boolean procNoWords(String _string, StringList _separators) {
