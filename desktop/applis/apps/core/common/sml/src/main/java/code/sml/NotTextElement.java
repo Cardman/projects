@@ -185,15 +185,15 @@ public final class NotTextElement extends FullNode implements Element {
         while (current_ != null) {
             NotTextElement elt_ = (NotTextElement) current_;
             appendInfos(str_, elt_);
-            Node next_ = current_.getFirstChild();
-            if (next_ != null) {
+            Node child_ = current_.getFirstChild();
+            if (child_ != null) {
                 str_.append(END_TAG);
-                current_ = next_;
+                current_ = child_;
                 continue;
             }
             str_.append(END_LEAF);
             while (true) {
-                next_ = current_.getNextSibling();
+                Node next_ = current_.getNextSibling();
                 if (next_ != null) {
                     current_ = next_;
                     break;
@@ -251,24 +251,12 @@ public final class NotTextElement extends FullNode implements Element {
         Node current_ = this;
         while (current_ != null) {
             elements_.add(current_);
-            Node next_ = current_.getFirstChild();
-            if (next_ != null) {
-                current_ = next_;
+            Node child_ = current_.getFirstChild();
+            if (child_ != null) {
+                current_ = child_;
                 continue;
             }
-            while (true) {
-                next_ = current_.getNextSibling();
-                if (next_ != null) {
-                    current_ = next_;
-                    break;
-                }
-                Element parent_ = current_.getParentNode();
-                if (parent_ == root_) {
-                    current_ = null;
-                    break;
-                }
-                current_ = parent_;
-            }
+            current_ = next(current_,root_);
         }
         return elements_;
     }
@@ -285,24 +273,12 @@ public final class NotTextElement extends FullNode implements Element {
         while (current_ != null) {
             Element elt_ = (Element) current_;
             addIfMatch(_tagName, elements_, elt_);
-            Node next_ = current_.getFirstChild();
-            if (next_ != null) {
-                current_ = next_;
+            Node child_ = current_.getFirstChild();
+            if (child_ != null) {
+                current_ = child_;
                 continue;
             }
-            while (true) {
-                next_ = current_.getNextSibling();
-                if (next_ != null) {
-                    current_ = next_;
-                    break;
-                }
-                Element parent_ = current_.getParentNode();
-                if (parent_ == root_) {
-                    current_ = null;
-                    break;
-                }
-                current_ = parent_;
-            }
+            current_ = next(current_,root_);
         }
         return elements_;
     }

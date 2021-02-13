@@ -263,14 +263,7 @@ public final class FullElement extends NavigableNode implements Element {
             return str_.toString();
         }
         while (current_ != null) {
-            if (current_ instanceof FullElement) {
-                FullElement elt_ = (FullElement) current_;
-                appendInfos(str_, elt_);
-            }
-            if (current_ instanceof Text) {
-                Text txt_ = (Text) current_;
-                str_.append(DocumentBuilder.escape(txt_.getData(), false));
-            }
+            appendHeader(current_, str_);
             Node next_ = current_.getFirstChild();
             if (next_ != null) {
                 str_.append(END_TAG);
@@ -302,6 +295,18 @@ public final class FullElement extends NavigableNode implements Element {
         }
         return str_.toString();
     }
+
+    private static void appendHeader(Node _current, StringBuilder _str) {
+        if (_current instanceof FullElement) {
+            FullElement elt_ = (FullElement) _current;
+            appendInfos(_str, elt_);
+        }
+        if (_current instanceof Text) {
+            Text txt_ = (Text) _current;
+            _str.append(DocumentBuilder.escape(txt_.getData(), false));
+        }
+    }
+
     public String exportSorted() {
         FullElement root_ = this;
         Node current_ = this;
@@ -312,14 +317,7 @@ public final class FullElement extends NavigableNode implements Element {
             return str_.toString();
         }
         while (current_ != null) {
-            if (current_ instanceof FullElement) {
-                FullElement elt_ = (FullElement) current_;
-                appendSortedInfos(str_, elt_);
-            }
-            if (current_ instanceof Text) {
-                Text txt_ = (Text) current_;
-                str_.append(DocumentBuilder.escape(txt_.getData(), false));
-            }
+            appendSortedHeader(current_, str_);
             Node next_ = current_.getFirstChild();
             if (next_ != null) {
                 str_.append(END_TAG);
@@ -349,6 +347,17 @@ public final class FullElement extends NavigableNode implements Element {
         return str_.toString();
     }
 
+    private static void appendSortedHeader(Node _current, StringBuilder _str) {
+        if (_current instanceof FullElement) {
+            FullElement elt_ = (FullElement) _current;
+            appendSortedInfos(_str, elt_);
+        }
+        if (_current instanceof Text) {
+            Text txt_ = (Text) _current;
+            _str.append(DocumentBuilder.escape(txt_.getData(), false));
+        }
+    }
+
     private static void appendSortedInfos(StringBuilder _str, FullElement _elt) {
         _str.append(BEGIN_TAG);
         _str.append(_elt.getTagName());
@@ -374,14 +383,7 @@ public final class FullElement extends NavigableNode implements Element {
             return str_.toString();
         }
         while (current_ != null) {
-            if (current_ instanceof FullElement) {
-                FullElement elt_ = (FullElement) current_;
-                appendInfos(str_, elt_);
-            }
-            if (current_ instanceof Text) {
-                Text txt_ = (Text) current_;
-                str_.append(DocumentBuilder.escape(txt_.getData(), false));
-            }
+            appendHeader(current_, str_);
             Node next_ = current_.getFirstChild();
             if (next_ != null) {
                 str_.append(END_TAG);
@@ -447,19 +449,7 @@ public final class FullElement extends NavigableNode implements Element {
                 current_ = next_;
                 continue;
             }
-            while (true) {
-                next_ = current_.getNextSibling();
-                if (next_ != null) {
-                    current_ = next_;
-                    break;
-                }
-                Element parent_ = current_.getParentNode();
-                if (parent_ == root_) {
-                    current_ = null;
-                    break;
-                }
-                current_ = parent_;
-            }
+            current_ = next(current_,root_);
         }
         return elements_;
     }
@@ -481,19 +471,7 @@ public final class FullElement extends NavigableNode implements Element {
                 current_ = next_;
                 continue;
             }
-            while (true) {
-                next_ = current_.getNextSibling();
-                if (next_ != null) {
-                    current_ = next_;
-                    break;
-                }
-                Element parent_ = current_.getParentNode();
-                if (parent_ == root_) {
-                    current_ = null;
-                    break;
-                }
-                current_ = parent_;
-            }
+            current_ = next(current_,root_);
         }
         return elements_;
     }
@@ -517,19 +495,7 @@ public final class FullElement extends NavigableNode implements Element {
                 current_ = next_;
                 continue;
             }
-            while (true) {
-                next_ = current_.getNextSibling();
-                if (next_ != null) {
-                    current_ = next_;
-                    break;
-                }
-                Element parent_ = current_.getParentNode();
-                if (parent_ == root_) {
-                    current_ = null;
-                    break;
-                }
-                current_ = parent_;
-            }
+            current_ = next(current_,root_);
         }
         return elements_;
     }
@@ -558,19 +524,7 @@ public final class FullElement extends NavigableNode implements Element {
                 current_ = next_;
                 continue;
             }
-            while (true) {
-                next_ = current_.getNextSibling();
-                if (next_ != null) {
-                    current_ = next_;
-                    break;
-                }
-                Element parent_ = current_.getParentNode();
-                if (parent_ == root_) {
-                    current_ = null;
-                    break;
-                }
-                current_ = parent_;
-            }
+            current_ = next(current_,root_);
         }
         return str_.toString();
     }

@@ -48,18 +48,17 @@ public abstract class CoreDocument implements Node,Document {
     }
 
     static Attr createAttribute(String _name) {
-        Attr attr_ = new Attr(_name);
-        return attr_;
+        return new Attr(_name);
     }
 
     @Override
     public Node getFirstChild() {
-        return documentElement;
+        return getDocumentElement();
     }
 
     @Override
     public Node getLastChild() {
-        return documentElement;
+        return getDocumentElement();
     }
     @Override
     public Element getDocumentElement() {
@@ -91,8 +90,7 @@ public abstract class CoreDocument implements Node,Document {
 
     @Override
     public void appendChild(Node _newChild) {
-        Element element_ = (Element) _newChild;
-        documentElement = element_;
+        documentElement = (Element) _newChild;
     }
 
     public void renameNode(Node _node, String _name) {

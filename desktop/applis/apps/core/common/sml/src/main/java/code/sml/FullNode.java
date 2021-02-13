@@ -10,6 +10,24 @@ public abstract class FullNode implements Node {
         ownerDocument = _ownerDocument;
     }
 
+    protected static Node next(Node _current, Node _root) {
+        Node current_ = _current;
+        while (true) {
+            Node next_ = current_.getNextSibling();
+            if (next_ != null) {
+                current_ = next_;
+                break;
+            }
+            Element parent_ = current_.getParentNode();
+            if (parent_ == _root) {
+                current_ = null;
+                break;
+            }
+            current_ = parent_;
+        }
+        return current_;
+    }
+
     @Override
     public Document getOwnerDocument() {
         return ownerDocument;
