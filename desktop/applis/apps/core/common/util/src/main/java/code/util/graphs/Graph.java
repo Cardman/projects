@@ -77,19 +77,7 @@ public final class Graph<T extends GraphElement<T>> {
         while (true) {
             for (T t: current_) {
                 for (ArrowedSegment<T> u: getChildrenSegments(t)) {
-                    boolean ex_ = false;
-                    for (T e: visited_) {
-                        if (e.eq(u.getTo())) {
-                            //!e.eq(s)
-                            ex_ = true;
-                            break;
-                        }
-                    }
-                    if (ex_) {
-                        continue;
-                    }
-                    new_.add(u.getTo());
-                    visited_.add(u.getTo());
+                    addVisited(visited_, new_, u);
                 }
             }
             if (new_.isEmpty()) {
@@ -100,6 +88,11 @@ public final class Graph<T extends GraphElement<T>> {
         }
         return visited_;
     }
+
+    private boolean match(EqList<T> _visited, ArrowedSegment<T> _u) {
+        return visited(_visited, _u.getTo());
+    }
+
     public EqList<T> elementsCycle() {
 //        if (segments.isEmpty()) {
 //            return new List<T>();
@@ -184,72 +177,83 @@ public final class Graph<T extends GraphElement<T>> {
 //            return l_;
 //        }
         for (T s: sep_) {
-            EqList<T> current_ = new EqList<T>();
-            current_.add(s);
-            EqList<T> visited_ = new EqList<T>();
-            visited_.add(s);
-            EqList<T> new_ = new EqList<T>();
-            boolean found_ = false;
-            CustList<ArrowedSegment<T>> lines_ = new CustList<ArrowedSegment<T>>();
-            while (true) {
-                for (T t: current_) {
-                    for (ArrowedSegment<T> u: getChildrenSegments(t)) {
-                        lines_.add(u);
-                        if (u.getTo().eq(s)) {
-                            Graph<T> gLoc_ = new Graph<T>();
-                            for (ArrowedSegment<T> l: lines_) {
-                                gLoc_.addReversedSegment(l);
-                            }
-                            for (ArrowedSegment<T> m: gLoc_.getLines(s)) {
-                                T to_ = m.getTo();
-                                boolean add_ = true;
-                                for (T e: l_) {
-                                    if (e.eq(to_)) {
-                                        add_ = false;
-                                        break;
-                                    }
-                                }
-                                if (!add_) {
-                                    continue;
-                                }
-                                l_.add(to_);
-                            }
-                            found_ = true;
-                            break;
-                        }
-                        boolean ex_ = false;
-                        for (T e: visited_) {
-                            if (e.eq(u.getTo())) {
-                                //!e.eq(s)
-                                ex_ = true;
-                                break;
-                            }
-                        }
-                        if (ex_) {
-                            continue;
-                        }
-                        new_.add(u.getTo());
-                        visited_.add(u.getTo());
-                    }
-                    if (found_) {
-                        break;
-                    }
-                }
-                if (found_) {
-                    break;
-                }
-                if (new_.isEmpty()) {
-                    break;
-                }
-                current_ = new_;
-                new_ = new EqList<T>();
-            }
-            if (found_) {
+            if (found(s,l_)) {
                 break;
             }
         }
         return l_;
     }
+    private boolean found(T _s, EqList<T> _l) {
+        EqList<T> current_ = new EqList<T>();
+        current_.add(_s);
+        EqList<T> visited_ = new EqList<T>();
+        visited_.add(_s);
+        EqList<T> new_ = new EqList<T>();
+        boolean found_ = false;
+        CustList<ArrowedSegment<T>> lines_ = new CustList<ArrowedSegment<T>>();
+        while (true) {
+            for (T t: current_) {
+                for (ArrowedSegment<T> u: getChildrenSegments(t)) {
+                    lines_.add(u);
+                    if (u.getTo().eq(_s)) {
+                        addSegs(_l, _s, lines_);
+                        found_ = true;
+                        break;
+                    }
+                    addVisited(visited_, new_, u);
+                }
+                if (found_) {
+                    break;
+                }
+            }
+            if (stop(new_, found_)) {
+                break;
+            }
+            current_ = new_;
+            new_ = new EqList<T>();
+        }
+        return found_;
+    }
+
+    private boolean stop(EqList<T> _new, boolean _found) {
+        return _found || _new.isEmpty();
+    }
+
+    private void addVisited(EqList<T> _visited, EqList<T> _new, ArrowedSegment<T> _u) {
+        boolean ex_ = match(_visited, _u);
+        if (ex_) {
+            return;
+        }
+        _new.add(_u.getTo());
+        _visited.add(_u.getTo());
+    }
+
+    private void addSegs(EqList<T> _l, T _s, CustList<ArrowedSegment<T>> _lines) {
+        Graph<T> gLoc_ = new Graph<T>();
+        for (ArrowedSegment<T> l: _lines) {
+            gLoc_.addReversedSegment(l);
+        }
+        for (ArrowedSegment<T> m: gLoc_.getLines(_s)) {
+            T to_ = m.getTo();
+            boolean add_ = add(_l, to_);
+            if (!add_) {
+                continue;
+            }
+            _l.add(to_);
+        }
+    }
+
+    private boolean add(EqList<T> _l, T _to) {
+        boolean add_ = true;
+        for (T e: _l) {
+            if (e.eq(_to)) {
+                add_ = false;
+                break;
+            }
+        }
+        return add_;
+    }
+
     public CustList<ArrowedSegment<T>> getLines(T _root) {
         EqList<T> current_ = new EqList<T>();
         current_.add(_root);
@@ -259,22 +263,7 @@ public final class Graph<T extends GraphElement<T>> {
         CustList<ArrowedSegment<T>> lines_ = new CustList<ArrowedSegment<T>>();
         while (true) {
             for (T t: current_) {
-                for (ArrowedSegment<T> u: getChildrenSegments(t)) {
-                    lines_.add(u);
-                    boolean ex_ = false;
-                    for (T e: visited_) {
-                        if (e.eq(u.getTo())) {
-                            //!e.eq(s)
-                            ex_ = true;
-                            break;
-                        }
-                    }
-                    if (ex_) {
-                        continue;
-                    }
-                    new_.add(u.getTo());
-                    visited_.add(u.getTo());
-                }
+                addNewVisit(visited_, new_, lines_, t);
             }
             if (new_.isEmpty()) {
                 break;
@@ -284,7 +273,15 @@ public final class Graph<T extends GraphElement<T>> {
         }
         return lines_;
     }
-//    public boolean quickHasCycle() {
+
+    private void addNewVisit(EqList<T> _visited, EqList<T> _new, CustList<ArrowedSegment<T>> _lines, T _t) {
+        for (ArrowedSegment<T> u: getChildrenSegments(_t)) {
+            _lines.add(u);
+            addVisited(_visited, _new, u);
+        }
+    }
+
+    //    public boolean quickHasCycle() {
 //        if (segments.isEmpty()) {
 //            return false;
 //        }
@@ -383,42 +380,62 @@ public final class Graph<T extends GraphElement<T>> {
         if (!hasPseudoRoots()) {
             return true;
         }
+        return hasCycleDef();
+    }
+
+    private boolean hasCycleDef() {
         for (T s: getDynamicSeparations()) {
-            EqList<T> current_ = new EqList<T>();
-            current_.add(s);
-            EqList<T> visited_ = new EqList<T>();
-            visited_.add(s);
-            EqList<T> new_ = new EqList<T>();
-            while (true) {
-                for (T t: current_) {
-                    for (T u: getChildren(t)) {
-                        if (u.eq(s)) {
-                            return true;
-                        }
-                        boolean ex_ = false;
-                        for (T e: visited_) {
-                            if (e.eq(u)) {
-                                //!e.eq(s)
-                                ex_ = true;
-                                break;
-                            }
-                        }
-                        if (ex_) {
-                            continue;
-                        }
-                        new_.add(u);
-                        visited_.add(u);
-                    }
-                }
-                if (new_.isEmpty()) {
-                    break;
-                }
-                current_ = new_;
-                new_ = new EqList<T>();
+            if (hasCycleOne(s)) {
+                return true;
             }
         }
         return false;
     }
+
+    private boolean hasCycleOne(T _s) {
+        EqList<T> current_ = new EqList<T>();
+        current_.add(_s);
+        EqList<T> visited_ = new EqList<T>();
+        visited_.add(_s);
+        EqList<T> new_ = new EqList<T>();
+        while (true) {
+            for (T t: current_) {
+                for (T u: getChildren(t)) {
+                    if (u.eq(_s)) {
+                        return true;
+                    }
+                    tryAddVisited(visited_, new_, u);
+                }
+            }
+            if (new_.isEmpty()) {
+                break;
+            }
+            current_ = new_;
+            new_ = new EqList<T>();
+        }
+        return false;
+    }
+    private void tryAddVisited(EqList<T> _visited, EqList<T> _new, T _u) {
+        boolean ex_ = visited(_visited, _u);
+        if (ex_) {
+            return;
+        }
+        _new.add(_u);
+        _visited.add(_u);
+    }
+
+    private boolean visited(EqList<T> _visited, T _u) {
+        boolean ex_ = false;
+        for (T e: _visited) {
+            if (e.eq(_u)) {
+                //!e.eq(s)
+                ex_ = true;
+                break;
+            }
+        }
+        return ex_;
+    }
+
     public EqList<T> getChildren(T _element) {
         EqList<T> c_ = new EqList<T>();
         for (ArrowedSegment<T> s: segments) {
