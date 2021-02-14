@@ -89,7 +89,7 @@ public final class CustComboBox extends CustComponent implements GraphicComboGrI
         CustComponent.invokeLater(new SelectionComboEvent(_index, _index, this,listener,old_));
     }
     public void simpleSelectItem(int _index) {
-        int index_ = Math.min(combo.getItemCount(),_index);
+        int index_ = Math.min(combo.getItemCount()-1,_index);
         index_ = Math.max(index_,-1);
 		combo.setSelectedIndex(index_);
     }
