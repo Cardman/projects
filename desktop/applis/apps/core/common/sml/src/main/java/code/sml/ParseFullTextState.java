@@ -236,8 +236,7 @@ public final class ParseFullTextState extends AbstractParseTextState {
             index++;
             return true;
         }
-        Attr attr_ = CoreDocument.createAttribute(attributeName.toString());
-        attr_.setEscapedValue(attributeValue.toString());
+        Attr attr_ = CoreDocument.createAttribute(attributeName.toString(),attributeValue.toString());
         attrs.add(attr_);
         attributeName.delete(0, attributeName.length());
         attributeValue.delete(0, attributeValue.length());

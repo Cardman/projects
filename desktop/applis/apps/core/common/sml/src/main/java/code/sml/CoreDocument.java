@@ -50,6 +50,11 @@ public abstract class CoreDocument implements Node,Document {
     static Attr createAttribute(String _name) {
         return new Attr(_name);
     }
+    public static Attr createAttribute(String _name, String _value) {
+        Attr attr_ = new Attr(_name);
+        attr_.setEscapedValue(_value);
+        return attr_;
+    }
 
     @Override
     public Node getFirstChild() {

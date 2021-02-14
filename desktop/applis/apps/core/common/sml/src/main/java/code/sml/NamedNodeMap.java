@@ -8,13 +8,13 @@ import code.util.ints.Listable;
 
 public final class NamedNodeMap implements Iterable<Attr> {
 
-    private CustList<Attr> attrs;
+    private final CustList<Attr> attrs;
 
     public NamedNodeMap() {
         attrs = new CustList<Attr>();
     }
 
-    protected NamedNodeMap(Listable<Attr> _c) {
+    public NamedNodeMap(Listable<Attr> _c) {
         attrs = new CustList<Attr>(_c);
     }
 
@@ -43,7 +43,7 @@ public final class NamedNodeMap implements Iterable<Attr> {
         attrs.remove(_index);
     }
 
-    protected void add(Attr _attr) {
+    public void add(Attr _attr) {
         attrs.add(_attr);
     }
 }
