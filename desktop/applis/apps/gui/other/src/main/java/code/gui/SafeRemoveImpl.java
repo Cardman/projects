@@ -1,11 +1,10 @@
 package code.gui;
 
-import code.util.core.NumberUtil;
-import code.util.ints.SafeRemove;
+import code.adv.SafeRemoveAdv;
 
 import javax.swing.*;
 
-public final class SafeRemoveImpl implements SafeRemove {
+public final class SafeRemoveImpl implements SafeRemoveAdv {
     private final JComboBox<String> combo;
 
     public SafeRemoveImpl(JComboBox<String> _combo) {
@@ -13,8 +12,8 @@ public final class SafeRemoveImpl implements SafeRemove {
     }
 
     @Override
-    public boolean ok(int _index) {
-        return NumberUtil.isValidIndex(_index,combo.getItemCount());
+    public int size() {
+        return combo.getItemCount();
     }
 
     @Override

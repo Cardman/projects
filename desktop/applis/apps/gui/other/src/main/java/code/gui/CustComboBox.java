@@ -1,10 +1,11 @@
 package code.gui;
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
+
+import code.adv.SafeRemoveAdvUtil;
 import code.util.StringList;
 import code.util.Ints;
 import code.util.core.StringUtil;
-import code.util.opers.SafeRemoveUtil;
 
 import java.util.Optional;
 
@@ -73,7 +74,7 @@ public final class CustComboBox extends CustComponent implements GraphicComboGrI
     }
 
     private void innerRemoveAtIndex(int _index) {
-        SafeRemoveUtil.safeRemove(new SafeRemoveImpl(combo),_index);
+        SafeRemoveAdvUtil.safeRemove(new SafeRemoveImpl(combo),_index);
     }
 
     @Override
