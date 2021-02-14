@@ -251,11 +251,6 @@ public final class NotTextElement extends FullNode implements Element {
         Node current_ = this;
         while (current_ != null) {
             elements_.add(current_);
-            Node child_ = current_.getFirstChild();
-            if (child_ != null) {
-                current_ = child_;
-                continue;
-            }
             current_ = next(current_,root_);
         }
         return elements_;
@@ -273,11 +268,6 @@ public final class NotTextElement extends FullNode implements Element {
         while (current_ != null) {
             Element elt_ = (Element) current_;
             addIfMatch(_tagName, elements_, elt_);
-            Node child_ = current_.getFirstChild();
-            if (child_ != null) {
-                current_ = child_;
-                continue;
-            }
             current_ = next(current_,root_);
         }
         return elements_;

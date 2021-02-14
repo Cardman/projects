@@ -444,11 +444,6 @@ public final class FullElement extends NavigableNode implements Element {
         Node current_ = this;
         while (current_ != null) {
             elements_.add(current_);
-            Node next_ = current_.getFirstChild();
-            if (next_ != null) {
-                current_ = next_;
-                continue;
-            }
             current_ = next(current_,root_);
         }
         return elements_;
@@ -465,11 +460,6 @@ public final class FullElement extends NavigableNode implements Element {
         while (current_ != null) {
             if (current_ instanceof Element) {
                 elements_.add(current_);
-            }
-            Node next_ = current_.getFirstChild();
-            if (next_ != null) {
-                current_ = next_;
-                continue;
             }
             current_ = next(current_,root_);
         }
@@ -489,11 +479,6 @@ public final class FullElement extends NavigableNode implements Element {
             if (current_ instanceof Element) {
                 Element elt_ = (Element) current_;
                 addIfMatch(_tagName, elements_, elt_);
-            }
-            Node next_ = current_.getFirstChild();
-            if (next_ != null) {
-                current_ = next_;
-                continue;
             }
             current_ = next(current_,root_);
         }
@@ -518,11 +503,6 @@ public final class FullElement extends NavigableNode implements Element {
             if (current_ instanceof Text) {
                 Text txt_ = (Text) current_;
                 str_.append(txt_.getTextContent());
-            }
-            Node next_ = current_.getFirstChild();
-            if (next_ != null) {
-                current_ = next_;
-                continue;
             }
             current_ = next(current_,root_);
         }

@@ -11,6 +11,10 @@ public abstract class FullNode implements Node {
     }
 
     protected static Node next(Node _current, Node _root) {
+        Node ch_ = _current.getFirstChild();
+        if (ch_ != null) {
+            return ch_;
+        }
         Node current_ = _current;
         while (true) {
             Node next_ = current_.getNextSibling();
