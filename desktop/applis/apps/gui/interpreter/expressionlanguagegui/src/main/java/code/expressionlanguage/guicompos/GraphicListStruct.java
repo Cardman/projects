@@ -20,7 +20,7 @@ public final class GraphicListStruct extends InputStruct {
     public GraphicListStruct(GuiContextEl _ctx,String _className,boolean _simple) {
         super(_className);
         grList = ((LgNamesGui)_ctx.getStandards()).getGuiExecutingBlocks().getWindow().getFact().getGraphicListGenerator().create(_simple, new AdvGraphicListPainter(_ctx.getExecutionInfos()));
-        grList.setCell(this, _ctx,null,null,new DefSpecSelectionCtx(_ctx.getExecutionInfos()),null);
+        grList.setDefCell(this, new DefSpecSelectionCtx(_ctx.getExecutionInfos()));
     }
 
     public boolean isCust() {
@@ -161,14 +161,14 @@ public final class GraphicListStruct extends InputStruct {
                 String aliasImageLabel_ = ((LgNamesGui) _ctx.getStandards()).getGuiAliases().getAliasImageLabel();
                 PreparedLabelStruct im_ = new PreparedLabelStruct(aliasImageLabel_);
                 PreparedLabel lab_ = im_.getTextLabel();
-                grList.setCell(this, _ctx, lab_, im_, create_,
+                grList.setCustCell(this, lab_, im_,
                         new DefSpecSelectionStruct(_ctx, this)
                 );
             } else {
-                grList.setCell(this, _ctx, null, null, create_, null);
+                grList.setDefCell(this, create_);
             }
         } else {
-            grList.setCell(this, _ctx,null,null, create_,null);
+            grList.setDefCell(this, create_);
         }
     }
 
