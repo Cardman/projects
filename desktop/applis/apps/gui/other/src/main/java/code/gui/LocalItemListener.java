@@ -1,5 +1,7 @@
 package code.gui;
 
+import code.adv.ValueChangingSecondUtil;
+
 import java.awt.event.ItemListener;
 import java.awt.event.ItemEvent;
 import javax.swing.JComboBox;
@@ -12,9 +14,6 @@ public class LocalItemListener implements ItemListener {
 		listener = _listener;
 	}
 	public void itemStateChanged(ItemEvent _e){
-		if (_e.getStateChange() != ItemEvent.SELECTED){
-			return;
-		}
-		listener.valueChanged(new SelectionInfo(combo.getSelectedIndex(),combo.getSelectedIndex(),false));
+		ValueChangingSecondUtil.act(new ValueChangingSecondImpl(combo,listener,_e),ItemEvent.SELECTED);
 	}
 }
