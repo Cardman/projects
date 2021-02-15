@@ -15,11 +15,11 @@ public final class Attr {
     //set for example by setting from the owner element
     private String value;
 
-    protected Attr(String _name) {
+    public Attr(String _name) {
         name = _name;
     }
 
-    protected String export() {
+    public String export() {
         StringBuilder str_ = new StringBuilder(BEG_ATTR);
         str_.append(getName());
         str_.append(SEPARATOR);
@@ -44,7 +44,7 @@ public final class Attr {
         }
     }
 
-    protected void setEscapedValue(String _escapedValue) {
+    public void setEscapedValue(String _escapedValue) {
         value = DocumentBuilder.transformSpecialCharsLtGt(_escapedValue);
     }
 

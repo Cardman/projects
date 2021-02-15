@@ -4,7 +4,7 @@ public final class Text extends NavigableNode {
 
     private String textContent;
 
-    protected Text(Document _ownerDocument) {
+    public Text(Document _ownerDocument) {
         super(_ownerDocument);
     }
 
@@ -98,7 +98,7 @@ public final class Text extends NavigableNode {
         textContent = _textContent;
     }
 
-    protected void setEscapedTextContent(String _escapedTextContent) {
+    public void setEscapedTextContent(String _escapedTextContent) {
         textContent = DocumentBuilder.transformSpecialCharsLtGt(_escapedTextContent);
     }
 
