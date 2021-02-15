@@ -962,17 +962,8 @@ public final class StringUtil {
         int i_ = _curr.getIndexSep();
         StringList separators_=_ws.getSeparators();
         String sep_ = separators_.get(i_);
-        int nbPts_ = 0;
-        int nbZeroOne_ = 0;
-        for (char c: sep_.toCharArray()) {
-            if (c == CHARACTER) {
-                nbPts_++;
-            }
-            if (c == POSSIBLE_CHAR) {
-                nbZeroOne_++;
-            }
-        }
-        return hasNextSep(_string, _w, _curr, _ws, nbPts_, nbZeroOne_);
+        NbPtsZeroOne nb_ = calculateSeparators(sep_);
+        return hasNextSep(_string, _w, _curr, _ws, nb_.getNbPts(), nb_.getNbZeroOne());
     }
 
     private static boolean hasNextSep(String _string, String _w, IndexSeparators _curr, WordsSeparators _ws, int _nbPts, int _nbZeroOne) {
@@ -1008,16 +999,9 @@ public final class StringUtil {
     private static boolean procDefFilter(String _string, StringList _separators, int _i) {
         int index_ = _i;
         String lastSep_ = _separators.last();
-        int nbPts_ = 0;
-        int nbZeroOne_ = 0;
-        for (char c: lastSep_.toCharArray()) {
-            if (c == CHARACTER) {
-                nbPts_++;
-            }
-            if (c == POSSIBLE_CHAR) {
-                nbZeroOne_++;
-            }
-        }
+        NbPtsZeroOne nb_ = calculateSeparators(lastSep_);
+        int nbPts_ = nb_.getNbPts();
+        int nbZeroOne_ = nb_.getNbZeroOne();
         index_+=nbPts_;
         if(index_==_string.length()){
             return true;
@@ -1029,6 +1013,19 @@ public final class StringUtil {
             return _string.length() <= index_ + nbZeroOne_;
         }
         return false;
+    }
+
+    private static NbPtsZeroOne calculateSeparators(String _sep) {
+        NbPtsZeroOne nb_ = new NbPtsZeroOne();
+        for (char c : _sep.toCharArray()) {
+            if (c == CHARACTER) {
+                nb_.setNbPts(nb_.getNbPts() + 1);
+            }
+            if (c == POSSIBLE_CHAR) {
+                nb_.setNbZeroOne(nb_.getNbZeroOne() + 1);
+            }
+        }
+        return nb_;
     }
 
     public static int greatestIndex(String _string, String _substring, int _offset) {
