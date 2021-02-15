@@ -161,21 +161,16 @@ public final class Rate implements Cmp<Rate>, Displayable {
             return false;
         }
         if (_input.charAt(i_) == SEP_INT_DEC) {
-            i_++;
-            while (true) {
-                if (i_ >= _input.length()) {
-                    break;
-                }
-                if (!MathExpUtil.isDigit(_input.charAt(i_))) {
-                    return false;
-                }
-                i_++;
-            }
-            return true;
+            return loopDec(_input, i_);
         }
         if (!MathExpUtil.isDigit(_input.charAt(i_))) {
             return false;
         }
+        return loopFrac(_input, i_);
+    }
+
+    private static boolean loopFrac(String _input, int _i) {
+        int i_ = _i;
         while (true) {
             if (i_ >= _input.length()) {
                 return true;
@@ -192,17 +187,7 @@ public final class Rate implements Cmp<Rate>, Displayable {
             i_++;
         }
         if (_input.charAt(i_) == SEP_INT_DEC) {
-            i_++;
-            while (true) {
-                if (i_ >= _input.length()) {
-                    break;
-                }
-                if (!MathExpUtil.isDigit(_input.charAt(i_))) {
-                    return false;
-                }
-                i_++;
-            }
-            return true;
+            return loopDec(_input, i_);
         }
         //_input.charAt(i_) == SEP_NUM_DEN_CHAR
 //        i_++;
@@ -216,6 +201,23 @@ public final class Rate implements Cmp<Rate>, Displayable {
 //        if (i_ >= _input.length()) {
 //            return false;
 //        }
+        return loopDigits(_input, i_);
+    }
+
+    private static boolean loopDec(String _input, int _i) {
+        int i_ = _i;
+        i_++;
+        while (i_ < _input.length()) {
+            if (!MathExpUtil.isDigit(_input.charAt(i_))) {
+                return false;
+            }
+            i_++;
+        }
+        return true;
+    }
+
+    private static boolean loopDigits(String _input, int _i) {
+        int i_ = _i;
         while (true) {
             if (i_ >= _input.length()) {
                 return false;
@@ -229,10 +231,7 @@ public final class Rate implements Cmp<Rate>, Displayable {
             i_++;
         }
         //_input.charAt(i_) is a digit
-        while (true) {
-            if (i_ >= _input.length()) {
-                break;
-            }
+        while (i_ < _input.length()) {
             if (!MathExpUtil.isDigit(_input.charAt(i_))) {
                 return false;
             }
@@ -259,7 +258,7 @@ public final class Rate implements Cmp<Rate>, Displayable {
         //setModified();
         numerateur.affectZero();
         denominateur.getGrDigits().clear();
-        denominateur.getGrDigits().add(1l);
+        denominateur.getGrDigits().add(1L);
     }
 
     public boolean isInteger() {
@@ -369,23 +368,16 @@ public final class Rate implements Cmp<Rate>, Displayable {
         if (isZero()) {
             return Character.toString(ZERO);
         }
+        return evaluatePointNonZero(_numberDec);
+    }
+
+    private String evaluatePointNonZero(int _numberDec) {
         if (_numberDec < 0) {
             return EMPTY_STRING;
         }
         Rate abs_ = absNb();
         if (isInteger() || _numberDec == 0) {
-            String signum_;
-            if (!numerateur.isZeroOrGt()) {
-                signum_ = CST_MINUS;
-            } else {
-                signum_ = EMPTY_STRING;
-            }
-            LgInt int_ = abs_.intPart();
-            if (int_.isZero()) {
-                int_ = LgInt.zero();
-                signum_ = EMPTY_STRING;
-            }
-            return StringUtil.concat(signum_,int_.toNumberString());
+            return evaluatePointInt(abs_);
         }
         String signum_;
         if (!numerateur.isZeroOrGt()) {
@@ -434,7 +426,22 @@ public final class Rate implements Cmp<Rate>, Displayable {
         return str_.toString();
     }
 
-    public String evaluate(int _numberMeaningDigits) {
+    private String evaluatePointInt(Rate _abs) {
+        String signum_;
+        if (!numerateur.isZeroOrGt()) {
+            signum_ = CST_MINUS;
+        } else {
+            signum_ = EMPTY_STRING;
+        }
+        LgInt int_ = _abs.intPart();
+        if (int_.isZero()) {
+            int_ = LgInt.zero();
+            signum_ = EMPTY_STRING;
+        }
+        return StringUtil.concat(signum_,int_.toNumberString());
+    }
+
+    public String evaluate(long _numberMeaningDigits) {
         if (isZero()) {
             return Character.toString(ZERO);
         }
@@ -467,7 +474,7 @@ public final class Rate implements Cmp<Rate>, Displayable {
                 puissance_++;
             }
         }
-        intTen_.growToPow(new LgInt(_numberMeaningDigits - 1));
+        intTen_.growToPow(new LgInt(_numberMeaningDigits - 1L));
         copie_.numerateur.multiplyBy(intTen_);
         String retour_ = copie_.intPart().toNumberString();
         StringBuilder str_ = new StringBuilder();
@@ -556,13 +563,9 @@ public final class Rate implements Cmp<Rate>, Displayable {
         LgInt num_ = _exposant.getNumerator();
         LgInt den_ = _exposant.getDenominator();
         Rate resTaux_ = _base.powNb(num_).rootAbs(den_);
-        if (!_base.isZeroOrGt()) {
-            //base strictement negative
-            if (den_.remainByBase() % 2 == 1) {
-                if (num_.remainByBase() % 2 == 1) {
-                    resTaux_.changeSignum();
-                }
-            }
+        //base strictement negative
+        if (!_base.isZeroOrGt() && den_.remainByBase() % 2 == 1 && num_.remainByBase() % 2 == 1) {
+            resTaux_.changeSignum();
         }
         return resTaux_;
     }
@@ -730,10 +733,8 @@ public final class Rate implements Cmp<Rate>, Displayable {
             }
             return _max.cmp(this) >= 0;
         }
-        if (_max != null) {
-            if (_max.cmp(this) < 0) {
-                return false;
-            }
+        if (_max != null && _max.cmp(this) < 0) {
+            return false;
         }
         return _min.cmp(this) <= 0;
     }
