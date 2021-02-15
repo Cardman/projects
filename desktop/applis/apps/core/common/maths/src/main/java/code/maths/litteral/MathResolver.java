@@ -109,19 +109,7 @@ public final class MathResolver {
                     i_++;
                     continue;
                 }
-                if (curChar_ == DELIMITER_STRING_END) {
-                    elt_.append(curChar_);
-                    escapedMeta_ = false;
-                    i_++;
-                    continue;
-                }
-                if (curChar_ == DELIMITER_STRING_SEP) {
-                    elt_.append(curChar_);
-                    escapedMeta_ = false;
-                    i_++;
-                    continue;
-                }
-                if (curChar_ == ESCAPE_META_CHAR) {
+                if (seps(curChar_)) {
                     elt_.append(curChar_);
                     escapedMeta_ = false;
                     i_++;
@@ -248,11 +236,7 @@ public final class MathResolver {
                 i_ = j_;
                 continue;
             }
-            boolean idOp_ = false;
             if (curChar_ == PAR_RIGHT) {
-                idOp_ = true;
-            }
-            if (idOp_) {
                 d_.getAllowedOperatorsIndexes().add(i_);
             }
             i_++;
@@ -271,6 +255,11 @@ public final class MathResolver {
         }
         return d_;
     }
+
+    private static boolean seps(char _curChar) {
+        return _curChar == DELIMITER_STRING_END || _curChar == DELIMITER_STRING_SEP || _curChar == ESCAPE_META_CHAR;
+    }
+
     private static int addNumberInfo(Delimiters _d, int _from, int _begin,String _string) {
         StringBuilder nbInfo_ = new StringBuilder();
         int len_ = _string.length();
@@ -283,12 +272,7 @@ public final class MathResolver {
                 i_++;
                 continue;
             }
-            if (cur_ == DOT) {
-                nbInfo_.append(cur_);
-                i_++;
-                break;
-            }
-            if (cur_ == SEP_RATE) {
+            if (cur_ == DOT || cur_ == SEP_RATE) {
                 nbInfo_.append(cur_);
                 i_++;
                 break;
@@ -344,10 +328,8 @@ public final class MathResolver {
             lastPrintChar_--;
         }
         len_ = lastPrintChar_+1;
-        int begin_;
-        int end_;
-        begin_ = _d.getDelStringsChars().indexOfNb(firstPrintChar_+_offset);
-        end_ = _d.getDelStringsChars().indexOfNb(lastPrintChar_+_offset);
+        int begin_ = _d.getDelStringsChars().indexOfNb((long) firstPrintChar_ + _offset);
+        int end_ = _d.getDelStringsChars().indexOfNb((long) lastPrintChar_ + _offset);
         if (delimits(begin_, end_)) {
             OperationsSequence op_ = new OperationsSequence();
             op_.setIndexCst(begin_/2);
@@ -357,8 +339,8 @@ public final class MathResolver {
             op_.setDelimiter(_d);
             return op_;
         }
-        begin_ = _d.getDelNumbers().indexOfNb(_offset + firstPrintChar_);
-        end_ = _d.getDelNumbers().indexOfNb(_offset + lastPrintChar_ + 1);
+        begin_ = _d.getDelNumbers().indexOfNb((long)_offset + firstPrintChar_);
+        end_ = _d.getDelNumbers().indexOfNb((long)_offset + lastPrintChar_ + 1L);
         if (delimits(begin_, end_)) {
             OperationsSequence op_ = new OperationsSequence();
             op_.setIndexCst(begin_/2);
@@ -400,22 +382,15 @@ public final class MathResolver {
         }
         boolean useFct_ = false;
         String fctName_ = EMPTY_STRING;
-        if (_string.charAt(firstPrintChar_) == MINUS_CHAR) {
+        String opUn_ = Character.toString(_string.charAt(firstPrintChar_));
+        if (areUnary(_string, firstPrintChar_)) {
             prio_ = UNARY_PRIO;
-            operators_.put(firstPrintChar_, Character.toString(MINUS_CHAR));
-            i_ = incrementUnary(_string,  firstPrintChar_ + 1, lastPrintChar_);
-        } else if (_string.charAt(firstPrintChar_) == PLUS_CHAR) {
-            prio_ = UNARY_PRIO;
-            operators_.put(firstPrintChar_, Character.toString(PLUS_CHAR));
-            i_ = incrementUnary(_string,  firstPrintChar_ + 1, lastPrintChar_);
-        } else if (_string.charAt(firstPrintChar_) == NEG_BOOL_CHAR) {
-            prio_ = UNARY_PRIO;
-            operators_.put(firstPrintChar_, Character.toString(NEG_BOOL_CHAR));
-            i_ = incrementUnary(_string,  firstPrintChar_ + 1, lastPrintChar_);
+            operators_.put(firstPrintChar_, opUn_);
+            i_ = incrementUnary(_string, firstPrintChar_ + 1, lastPrintChar_);
         }
         while (i_ < len_) {
             char curChar_ = _string.charAt(i_);
-            if (!_d.getAllowedOperatorsIndexes().containsObj(i_+_offset)) {
+            if (!_d.getAllowedOperatorsIndexes().containsObj((long)i_+_offset)) {
                 i_++;
                 continue;
             }
@@ -469,16 +444,7 @@ public final class MathResolver {
                     foundOperator_ = true;
                 }
             }
-            int prioOpMult_ = 0;
-            if (curChar_ == MINUS_CHAR || curChar_ == PLUS_CHAR) {
-                prioOpMult_ = ADD_PRIO;
-            } else if (curChar_ == MULT_CHAR || curChar_ == DIV_CHAR) {
-                prioOpMult_ = MULT_PRIO;
-            } else if (curChar_ == AND_CHAR) {
-                prioOpMult_ = AND_PRIO;
-            } else if (curChar_ == OR_CHAR) {
-                prioOpMult_ = OR_PRIO;
-            }
+            int prioOpMult_ = getPrio(curChar_);
             if (prioOpMult_ > 0) {
                 builtOperator_.append(curChar_);
                 if (prio_ > prioOpMult_) {
@@ -522,6 +488,26 @@ public final class MathResolver {
         op_.setupValues(_string);
         op_.setDelimiter(_d);
         return op_;
+    }
+
+    private static int getPrio(char _curChar) {
+        int prioOpMult_ = 0;
+        if (_curChar == MINUS_CHAR || _curChar == PLUS_CHAR) {
+            prioOpMult_ = ADD_PRIO;
+        } else if (_curChar == MULT_CHAR || _curChar == DIV_CHAR) {
+            prioOpMult_ = MULT_PRIO;
+        } else if (_curChar == AND_CHAR) {
+            prioOpMult_ = AND_PRIO;
+        } else {
+            if (_curChar == OR_CHAR) {
+                prioOpMult_ = OR_PRIO;
+            }
+        }
+        return prioOpMult_;
+    }
+
+    private static boolean areUnary(String _string, int _i) {
+        return _string.charAt(_i) == MINUS_CHAR || _string.charAt(_i) == PLUS_CHAR || _string.charAt(_i) == NEG_BOOL_CHAR;
     }
 
     private static boolean delimits(int _begin, int _end) {
