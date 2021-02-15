@@ -541,10 +541,14 @@ public final class StringUtil {
         if (inRange(_argLength, _argNb)) {
             _str.append(_args[_argNb]);
         } else {
-            _str.append(LEFT_BRACE);
-            _str.append(_arg);
-            _str.append(RIGHT_BRACE);
+            appFull(_str, _arg);
         }
+    }
+
+    private static void appFull(StringBuilder _str, StringBuilder _arg) {
+        _str.append(LEFT_BRACE);
+        _str.append(_arg);
+        _str.append(RIGHT_BRACE);
     }
 
     private static boolean inRange(int _argLength, int _argNb) {
@@ -597,9 +601,7 @@ public final class StringUtil {
         if (inRange(_argLength, _argNb)) {
             _str.append(_args[_argNb]);
         } else {
-            _str.append(LEFT_BRACE);
-            _str.append(_arg);
-            _str.append(RIGHT_BRACE);
+            appFull(_str, _arg);
         }
     }
 
@@ -901,14 +903,13 @@ public final class StringUtil {
     private static boolean hasNextSepSpace(String _string,String _w,IndexSeparators _curr, WordsSeparators _ws) {
         int index_ = _curr.getIndex();
         int i_ = _curr.getIndexSep();
-        int indiceRDecalePt_ = index_;
         StringList words_=_ws.getWords();
         StringList separators_=_ws.getSeparators();
         if(separators_.get(i_).contains(Character.toString(SPACE_CHAR))){
-            return processAny(_string, _w, _curr, i_, indiceRDecalePt_, words_);
+            return processAny(_string, _w, _curr, i_, index_, words_);
         }
-        int indiceNext_ = _string.indexOf(_w, indiceRDecalePt_);
-        if(indiceRDecalePt_ != indiceNext_){
+        int indiceNext_ = _string.indexOf(_w, index_);
+        if(index_ != indiceNext_){
             return false;
         }
         return processKeep(_w, _curr, i_, indiceNext_);
@@ -997,12 +998,11 @@ public final class StringUtil {
     }
 
     private static boolean procDefFilter(String _string, StringList _separators, int _i) {
-        int index_ = _i;
         String lastSep_ = _separators.last();
         NbPtsZeroOne nb_ = calculateSeparators(lastSep_);
         int nbPts_ = nb_.getNbPts();
         int nbZeroOne_ = nb_.getNbZeroOne();
-        index_+=nbPts_;
+        int index_ = _i + nbPts_;
         if(index_==_string.length()){
             return true;
         }
@@ -1054,26 +1054,7 @@ public final class StringUtil {
         StringList words_ = new StringList();
         StringList separators_ = new StringList();
         CharList metas_ = getMetaCharactersSpace();
-        int begin_ = IndexConstants.FIRST_INDEX;
-        while (true) {
-            int minIndex_ = lowestIndexOfMetaChar(_string, begin_, metas_);
-            if (minIndex_ == IndexConstants.INDEX_NOT_FOUND_ELT) {
-                procLastSepSpace(_string, wordsSepBeginEnd_, words_, begin_);
-                break;
-            }
-            if (minIndex_ > begin_) {
-                words_.add(_string.substring(begin_, minIndex_));
-                if (begin_ == IndexConstants.FIRST_INDEX) {
-                    wordsSepBeginEnd_.setFirstSep(true);
-                }
-            }
-            int ind_ = lowestIndexOfWordChar(_string, minIndex_, metas_);
-            //ind_ < _string.length() ==> all character after or at minIndex_ are meta characters
-            //so if ind_ is lower than the length of the string _string,
-            //then this string does not end with a character of word
-            separators_.add(_string.substring(minIndex_, ind_));
-            begin_ = ind_;
-        }
+        feedSeparators(_string, wordsSepBeginEnd_, words_, separators_, metas_);
         int nbWords_=words_.size();
         for(int i = IndexConstants.FIRST_INDEX; i<nbWords_; i++){
             String escapedString_= escapeSpace(words_.get(i));
@@ -1082,6 +1063,29 @@ public final class StringUtil {
         wordsSepBeginEnd_.setSeparators(separators_);
         wordsSepBeginEnd_.setWords(words_);
         return wordsSepBeginEnd_;
+    }
+
+    private static void feedSeparators(String _string, WordsSeparators _wordsSeps, StringList _words, StringList _separators, CharList _metas) {
+        int begin_ = IndexConstants.FIRST_INDEX;
+        while (true) {
+            int minIndex_ = lowestIndexOfMetaChar(_string, begin_, _metas);
+            if (minIndex_ == IndexConstants.INDEX_NOT_FOUND_ELT) {
+                procLastSepSpace(_string, _wordsSeps, _words, begin_);
+                break;
+            }
+            if (minIndex_ > begin_) {
+                _words.add(_string.substring(begin_, minIndex_));
+                if (begin_ == IndexConstants.FIRST_INDEX) {
+                    _wordsSeps.setFirstSep(true);
+                }
+            }
+            int ind_ = lowestIndexOfWordChar(_string, minIndex_, _metas);
+            //ind_ < _string.length() ==> all character after or at minIndex_ are meta characters
+            //so if ind_ is lower than the length of the string _string,
+            //then this string does not end with a character of word
+            _separators.add(_string.substring(minIndex_, ind_));
+            begin_ = ind_;
+        }
     }
 
     private static void procLastSepSpace(String _string, WordsSeparators _wordsSepBeginEnd, StringList _words, int _begin) {
@@ -1100,26 +1104,7 @@ public final class StringUtil {
         StringList words_ = new StringList();
         StringList separators_ = new StringList();
         CharList metas_ = getMetaCharacters();
-        int begin_ = IndexConstants.FIRST_INDEX;
-        while (true) {
-            int minIndex_ = lowestIndexOfMetaChar(_string, begin_, metas_);
-            if (minIndex_ == IndexConstants.INDEX_NOT_FOUND_ELT) {
-                procLastSepSpace(_string, wordsSepBeginEnd_, words_, begin_);
-                break;
-            }
-            if (minIndex_ > begin_) {
-                words_.add(_string.substring(begin_, minIndex_));
-                if (begin_ == IndexConstants.FIRST_INDEX) {
-                    wordsSepBeginEnd_.setFirstSep(true);
-                }
-            }
-            int ind_ = lowestIndexOfWordChar(_string, minIndex_, metas_);
-            //ind_ < _string.length() ==> all character after or at minIndex_ are meta characters
-            //so if ind_ is lower than the length of the string _string,
-            //then this string does not end with a character of word
-            separators_.add(_string.substring(minIndex_, ind_));
-            begin_ = ind_;
-        }
+        feedSeparators(_string, wordsSepBeginEnd_, words_, separators_, metas_);
         int nbWords_=words_.size();
         for(int i = IndexConstants.FIRST_INDEX; i<nbWords_; i++){
             String escapedString_= escape(words_.get(i));
@@ -1295,11 +1280,13 @@ public final class StringUtil {
             if (c_ == ESCAPING_CHAR) {
                 int next_ = i_;
                 next_++;
+                EscapeState esc_ = new EscapeState(i_,c_,newLength_);
                 if (next_ < length_ && isEscChar(_input, next_)) {
-                    i_++;
-                    c_ = _input.charAt(i_);
-                    newLength_--;
+                    esc_.apply(_input);
                 }
+                i_ = esc_.getIndex();
+                c_ = esc_.getCurChar();
+                newLength_ = esc_.getNewLength();
             }
             newArray_[j_] = c_;
             j_++;
@@ -1323,11 +1310,13 @@ public final class StringUtil {
             if (c_ == ESCAPING_CHAR) {
                 int next_ = i_;
                 next_++;
+                EscapeState esc_ = new EscapeState(i_,c_,newLength_);
                 if (next_ < length_ && isEscSpaceChar(_input, next_)) {
-                    i_++;
-                    c_ = _input.charAt(i_);
-                    newLength_--;
+                    esc_.apply(_input);
                 }
+                i_ = esc_.getIndex();
+                c_ = esc_.getCurChar();
+                newLength_ = esc_.getNewLength();
             }
             newArray_[j_] = c_;
             j_++;
@@ -1397,12 +1386,11 @@ public final class StringUtil {
             if (p.length() + pos_ + 1 > _maxCols) {
                 pos_ = p.length();
                 str_.append(LINE_RETURN_CHAR);
-                str_.append(p);
             } else {
                 pos_ += p.length() + 1;
                 str_.append(SPACE_CHAR);
-                str_.append(p);
             }
+            str_.append(p);
             entered_ = true;
         }
         return str_.toString();
@@ -1458,38 +1446,17 @@ public final class StringUtil {
     }
 
     private static String nextStr(int _len,String _sub, StringList _list,String... _separators) {
-        String candidate_ = null;
-        int minIndex_ = _len;
-        int maxLength_ = 0;
-        for (String s: _separators) {
-            int locIndex_ = _sub.indexOf(s);
-            if (outBound(minIndex_, locIndex_)) {
-                continue;
-            }
-            int locLength_ = s.length();
-            if (locLength_ == 0) {
-                continue;
-            }
-            if (locIndex_ < minIndex_) {
-                minIndex_ = locIndex_;
-                maxLength_ = locLength_;
-                candidate_ = s;
-                continue;
-            }
-            if (locLength_ > maxLength_) {
-                maxLength_ = locLength_;
-                candidate_ = s;
-            }
-        }
+        SubstringResults sub_ = new SubstringResults(_len);
+        sub_.calculate(_sub, _separators);
+        String candidate_ = sub_.getCandidate();
+        int minIndex_ = sub_.getMinIndex();
+        int maxLength_ = sub_.getMaxLength();
         if (candidate_ == null) {
             _list.add(_sub);
             return null;
         }
         _list.add(_sub.substring(IndexConstants.FIRST_INDEX, minIndex_));
         return _sub.substring(minIndex_ + maxLength_);
-    }
-    private static boolean outBound(int _minIndex, int _locIndex) {
-        return _locIndex < 0 || _locIndex > _minIndex;
     }
 
     public static StringList splitCharSep(String _string, char _separators) {
@@ -1525,29 +1492,11 @@ public final class StringUtil {
     }
 
     private static String nextStrSep(int _len,String _sub, StringList _list,String... _separators) {
-        String candidate_ = null;
-        int minIndex_ = _len;
-        int maxLength_ = 0;
-        for (String s: _separators) {
-            int locIndex_ = _sub.indexOf(s);
-            if (outBound(minIndex_, locIndex_)) {
-                continue;
-            }
-            int locLength_ = s.length();
-            if (locLength_ == 0) {
-                continue;
-            }
-            if (locIndex_ < minIndex_) {
-                minIndex_ = locIndex_;
-                maxLength_ = locLength_;
-                candidate_ = s;
-                continue;
-            }
-            if (locLength_ > maxLength_) {
-                maxLength_ = locLength_;
-                candidate_ = s;
-            }
-        }
+        SubstringResults sub_ = new SubstringResults(_len);
+        sub_.calculate(_sub, _separators);
+        String candidate_ = sub_.getCandidate();
+        int minIndex_ = sub_.getMinIndex();
+        int maxLength_ = sub_.getMaxLength();
         if (candidate_ == null) {
             _list.add(_sub);
             return null;
