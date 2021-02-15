@@ -930,31 +930,22 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
             i_--;
             j_--;
         }
-        if (longueur_ > longueurBis_) {
+        completeNb(_autre, retenue_, longueur_, longueurBis_, i_, j_);
+    }
+
+    private void completeNb(LgInt _autre, int _retenue, int _longueur, int _longueurBis, int _i, int _j) {
+        int retenue_ = _retenue;
+        int i_ = _i;
+        int j_ = _j;
+        if (_longueur > _longueurBis) {
             while (i_ >= IndexConstants.FIRST_INDEX) {
-                somme_ = grDigits.get(i_) + retenue_;
-                if (somme_ < BASE) {
-                    grDigits.set(i_, somme_);
-                    retenue_ = 0;
-                } else {
-                    reste_ = somme_ - BASE;
-                    grDigits.set(i_, reste_);
-                    retenue_ = 1;
-                }
+                retenue_ = changeRetMaj(retenue_,i_);
                 i_--;
             }
         } else {
-            if (longueur_ < longueurBis_) {
+            if (_longueur < _longueurBis) {
                 while (j_ >= IndexConstants.FIRST_INDEX) {
-                    somme_ = _autre.grDigits.get(j_) + retenue_;
-                    if (somme_ < BASE) {
-                        grDigits.add(IndexConstants.FIRST_INDEX, somme_);
-                        retenue_ = 0;
-                    } else {
-                        reste_ = somme_ - BASE;
-                        grDigits.add(IndexConstants.FIRST_INDEX, reste_);
-                        retenue_ = 1;
-                    }
+                    retenue_ = changeRetAj(retenue_,_autre,j_);
                     j_--;
                 }
             }
@@ -964,6 +955,32 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
         }
     }
 
+    private int changeRetMaj(int _retenue,int _i) {
+        int retenue_ = _retenue;
+        long somme_ = grDigits.get(_i) + retenue_;
+        if (somme_ < BASE) {
+            grDigits.set(_i, somme_);
+            retenue_ = 0;
+        } else {
+            long reste_ = somme_ - BASE;
+            grDigits.set(_i, reste_);
+            retenue_ = 1;
+        }
+        return retenue_;
+    }
+    private int changeRetAj(int _retenue,LgInt _autre, int _i) {
+        int retenue_ = _retenue;
+        long somme_ = _autre.grDigits.get(_i) + retenue_;
+        if (somme_ < BASE) {
+            grDigits.add(IndexConstants.FIRST_INDEX, somme_);
+            retenue_ = 0;
+        } else {
+            long reste_ = somme_ - BASE;
+            grDigits.add(IndexConstants.FIRST_INDEX, reste_);
+            retenue_ = 1;
+        }
+        return retenue_;
+    }
     private void retrancher(LgInt _autre) {
         retrancherChiffres(_autre.grDigits);
     }
@@ -1689,36 +1706,39 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
     public String toNumberString() {
         StringBuilder chaine_ = new StringBuilder();
         int indice_ = IndexConstants.FIRST_INDEX;
-        int powerTen_ = LOG_BASE;
         // puissance10 vaut log10(_base_)
         for (long c : grDigits) {
-            if (indice_ > IndexConstants.FIRST_INDEX) {
-                if (c == 0) {
-                    for (int i = IndexConstants.FIRST_INDEX; i < powerTen_; i++) {
-                        chaine_.append(ZERO);
-                    }
-                } else {
-                    int puissance_ = 0;
-                    long copie_ = c;
-                    while (copie_ > 0) {
-                        copie_ /= BASE_NUMER;
-                        puissance_++;
-                    }
-                    int nbZeros_ = powerTen_ - puissance_;
-                    for (int i = IndexConstants.FIRST_INDEX; i < nbZeros_; i++) {
-                        chaine_.append(ZERO);
-                    }
-                    chaine_.append(c);
-                }
-            } else {
-                chaine_.append(c);
-            }
+            appendDigits(chaine_, indice_, c);
             indice_++;
         }
         if (!isZeroOrGt()) {
             return chaine_.insert(0, MINUS).toString();
         }
         return chaine_.toString();
+    }
+
+    private static void appendDigits(StringBuilder _chaine, int _indice, long _c) {
+        if (_indice > IndexConstants.FIRST_INDEX) {
+            if (_c == 0) {
+                for (int i = IndexConstants.FIRST_INDEX; i < LOG_BASE; i++) {
+                    _chaine.append(ZERO);
+                }
+            } else {
+                int puissance_ = 0;
+                long copie_ = _c;
+                while (copie_ > 0) {
+                    copie_ /= BASE_NUMER;
+                    puissance_++;
+                }
+                int nbZeros_ = LgInt.LOG_BASE - puissance_;
+                for (int i = IndexConstants.FIRST_INDEX; i < nbZeros_; i++) {
+                    _chaine.append(ZERO);
+                }
+                _chaine.append(_c);
+            }
+        } else {
+            _chaine.append(_c);
+        }
     }
 
     /**
