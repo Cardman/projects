@@ -758,10 +758,7 @@ public final class StringUtil {
             list_.append(_new);
             i_ = index_ + _old.length();
         }
-        if (i_ < len_) {
-            list_.append(_string.substring(i_));
-        }
-        return list_.toString();
+        return appendLastPart(_string, list_, i_, len_);
     }
 
     private static String replaceWhenNull(String _string, String _old) {
@@ -780,10 +777,14 @@ public final class StringUtil {
             list_.append(_string, i_, index_);
             i_ = index_ + _old.length();
         }
-        if (i_ < len_) {
-            list_.append(_string.substring(i_));
+        return appendLastPart(_string, list_, i_, len_);
+    }
+
+    private static String appendLastPart(String _string, StringBuilder _list, int _i, int _len) {
+        if (_i < _len) {
+            _list.append(_string.substring(_i));
         }
-        return list_.toString();
+        return _list.toString();
     }
 
     public static Ints indexesOfSubString(String _string, String _subString) {
@@ -903,34 +904,38 @@ public final class StringUtil {
         int indiceRDecalePt_ = index_;
         StringList words_=_ws.getWords();
         StringList separators_=_ws.getSeparators();
-        //indiceNext_=_string.indexOf(e,indiceRDecalePt_);
-        //indiceNext_ = greatestIndex(_string, e, indiceRDecalePt_);
-        int indiceNext_;
         if(separators_.get(i_).contains(Character.toString(SPACE_CHAR))){
-            if (words_.isValidIndex(i_+1)) {
-                indiceNext_=_string.indexOf(_w,indiceRDecalePt_);
-                if(indiceNext_ == IndexConstants.INDEX_NOT_FOUND_ELT){
-                    return false;
-                }
-            } else {
-                indiceNext_=greatestIndex(_string, _w,indiceRDecalePt_);
-                if(indiceNext_ == IndexConstants.INDEX_NOT_FOUND_ELT){
-                    return false;
-                }
-            }
-        } else{
-            indiceNext_=_string.indexOf(_w,indiceRDecalePt_);
-            if(indiceRDecalePt_ != indiceNext_){
-                return false;
-            }
+            return processAny(_string, _w, _curr, i_, indiceRDecalePt_, words_);
         }
-
+        int indiceNext_ = _string.indexOf(_w, indiceRDecalePt_);
+        if(indiceRDecalePt_ != indiceNext_){
+            return false;
+        }
         index_=indiceNext_+_w.length();
         i_++;
         _curr.setIndex(index_);
         _curr.setIndexSep(i_);
         return true;
     }
+
+    private static boolean processAny(String _string, String _w, IndexSeparators _curr, int _i, int _indiceRDecalePt, StringList _words) {
+        int i_ = _i;
+        int indiceNext_;
+        if (_words.isValidIndex(i_ + 1)) {
+            indiceNext_ = _string.indexOf(_w, _indiceRDecalePt);
+        } else {
+            indiceNext_ = greatestIndex(_string, _w, _indiceRDecalePt);
+        }
+        if (indiceNext_ == IndexConstants.INDEX_NOT_FOUND_ELT) {
+            return false;
+        }
+        int index_ = indiceNext_ + _w.length();
+        i_++;
+        _curr.setIndex(index_);
+        _curr.setIndexSep(i_);
+        return true;
+    }
+
     private static void tryAddSeps(WordsSeparators _wordsAndSeparators, StringList _separators) {
         if (_wordsAndSeparators.isFirstSep()) {
             _separators.add(IndexConstants.FIRST_INDEX, EMPTY_STRING);
@@ -964,7 +969,6 @@ public final class StringUtil {
 
     private static boolean hasNextSep(String _string,String _w,IndexSeparators _curr, WordsSeparators _ws) {
         int i_ = _curr.getIndexSep();
-        StringList words_=_ws.getWords();
         StringList separators_=_ws.getSeparators();
         String sep_ = separators_.get(i_);
         int nbPts_ = 0;
@@ -977,37 +981,21 @@ public final class StringUtil {
                 nbZeroOne_++;
             }
         }
-        return hasNextSep(_string, _w, _curr, words_, separators_, nbPts_, nbZeroOne_);
+        return hasNextSep(_string, _w, _curr, _ws, nbPts_, nbZeroOne_);
     }
 
-    private static boolean hasNextSep(String _string, String _w, IndexSeparators _curr, StringList _words, StringList _separators, int _nbPts, int _nbZeroOne) {
+    private static boolean hasNextSep(String _string, String _w, IndexSeparators _curr, WordsSeparators _ws, int _nbPts, int _nbZeroOne) {
+        StringList words_=_ws.getWords();
+        StringList separators_=_ws.getSeparators();
         int index_ = _curr.getIndex();
         int i_ = _curr.getIndexSep();
         int indiceRDecalePt_ = index_ + _nbPts;
-        int indiceNext_;
-        if(_separators.get(i_).contains(Character.toString(STRING))){
-            //indiceNext_=_string.indexOf(e,indiceRDecalePt_);
-            //indiceNext_ = greatestIndex(_string, e, indiceRDecalePt_);
-            if (_words.isValidIndex(i_ +1)) {
-                indiceNext_= _string.indexOf(_w,indiceRDecalePt_);
-                if(indiceNext_ == IndexConstants.INDEX_NOT_FOUND_ELT){
-                    return false;
-                }
-            } else {
-                indiceNext_=greatestIndex(_string, _w,indiceRDecalePt_);
-                if(indiceNext_ == IndexConstants.INDEX_NOT_FOUND_ELT){
-                    return false;
-                }
-            }
-//                indiceNext_=_string.indexOf(e,indiceRDecalePt_);
-//                if(indiceNext_ == INDEX_NOT_FOUND_ELT){
-//                    return false;
-//                }
-        }else{
-            indiceNext_= _string.indexOf(_w,indiceRDecalePt_);
-            if(indiceRDecalePt_>indiceNext_||indiceRDecalePt_<indiceNext_- _nbZeroOne){
-                return false;
-            }
+        if(separators_.get(i_).contains(Character.toString(STRING))){
+            return processAny(_string, _w, _curr, i_, indiceRDecalePt_, words_);
+        }
+        int indiceNext_ = _string.indexOf(_w, indiceRDecalePt_);
+        if(indiceRDecalePt_>indiceNext_||indiceRDecalePt_<indiceNext_- _nbZeroOne){
+            return false;
         }
         index_ =indiceNext_+ _w.length();
         i_++;
