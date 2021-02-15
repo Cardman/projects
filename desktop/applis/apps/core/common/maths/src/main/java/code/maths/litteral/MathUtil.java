@@ -51,10 +51,7 @@ final class MathUtil {
     public static CustList<OperationNode> getSortedDescNodes(OperationNode _root, StringMap<String> _context, ErrorStatus _error) {
         CustList<OperationNode> list_ = new CustList<OperationNode>();
         OperationNode c_ = _root;
-        while (true) {
-            if (c_ == null) {
-                break;
-            }
+        while (c_ != null) {
             c_ = getAnalyzedNext(c_, _root, list_, _context, _error);
         }
         return list_;
