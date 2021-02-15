@@ -504,7 +504,7 @@ public class GraphicList<T> extends CustComponent implements AbsGraphicList<T>,A
         return width_;
     }
 
-    protected void reindex(CustList<IndexableListener> _list) {
+    protected static void reindex(CustList<IndexableListener> _list) {
         int index_ = 0;
         for (IndexableListener c: _list) {
             c.setIndex(index_);

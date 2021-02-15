@@ -1,4 +1,6 @@
 package code.gui;
+import code.adv.BoolIntChoiceImpl;
+import code.adv.BoolIntChoiceUtil;
 import code.util.CustList;
 import code.util.Ints;
 import javax.swing.*;
@@ -16,11 +18,12 @@ public class CustGrList<T> extends CustComponent implements AbsGraphicList<T> {
     private ListSelection listener;
 
     public CustGrList(boolean _simple) {
-        if (_simple) {
-            list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        } else {
-            list.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
-        }
+        setup(BoolIntChoiceUtil.choice(new BoolIntChoiceImpl(_simple),
+                ListSelectionModel.SINGLE_SELECTION,
+                ListSelectionModel.MULTIPLE_INTERVAL_SELECTION));
+    }
+    private void setup(int _value) {
+        list.setSelectionMode(_value);
     }
     public ListSelection getListener() {
         return listener;
