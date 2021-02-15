@@ -911,17 +911,12 @@ public final class StringUtil {
         if(indiceRDecalePt_ != indiceNext_){
             return false;
         }
-        index_=indiceNext_+_w.length();
-        i_++;
-        _curr.setIndex(index_);
-        _curr.setIndexSep(i_);
-        return true;
+        return processKeep(_w, _curr, i_, indiceNext_);
     }
 
     private static boolean processAny(String _string, String _w, IndexSeparators _curr, int _i, int _indiceRDecalePt, StringList _words) {
-        int i_ = _i;
         int indiceNext_;
-        if (_words.isValidIndex(i_ + 1)) {
+        if (_words.isValidIndex(_i + 1)) {
             indiceNext_ = _string.indexOf(_w, _indiceRDecalePt);
         } else {
             indiceNext_ = greatestIndex(_string, _w, _indiceRDecalePt);
@@ -929,11 +924,7 @@ public final class StringUtil {
         if (indiceNext_ == IndexConstants.INDEX_NOT_FOUND_ELT) {
             return false;
         }
-        int index_ = indiceNext_ + _w.length();
-        i_++;
-        _curr.setIndex(index_);
-        _curr.setIndexSep(i_);
-        return true;
+        return processKeep(_w, _curr, _i, indiceNext_);
     }
 
     private static void tryAddSeps(WordsSeparators _wordsAndSeparators, StringList _separators) {
@@ -997,7 +988,12 @@ public final class StringUtil {
         if(indiceRDecalePt_>indiceNext_||indiceRDecalePt_<indiceNext_- _nbZeroOne){
             return false;
         }
-        index_ =indiceNext_+ _w.length();
+        return processKeep(_w, _curr, i_, indiceNext_);
+    }
+
+    private static boolean processKeep(String _w, IndexSeparators _curr, int _i, int _indiceNext) {
+        int i_ = _i;
+        int index_ = _indiceNext + _w.length();
         i_++;
         _curr.setIndex(index_);
         _curr.setIndexSep(i_);
