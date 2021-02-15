@@ -1436,9 +1436,7 @@ public final class DocumentBuilder {
                 if (_xml.charAt(index_ + 1) == SLASH) {
                     end_ = true;
                 } else {
-                    if (_xml.charAt(i_ - 1) != SLASH) {
-                        begin_ = true;
-                    }
+                    begin_ = changeBegin(_xml, i_);
                 }
             }
             if (end_) {
@@ -1456,6 +1454,13 @@ public final class DocumentBuilder {
         return indented_.toString();
     }
 
+    private static boolean changeBegin(String _xml, int _i) {
+        boolean begin_ = false;
+        if (_xml.charAt(_i - 1) != SLASH) {
+            begin_ = true;
+        }
+        return begin_;
+    }
     public static String indentWithoutTextNode(String _xml) {
         int index_ = IndexConstants.FIRST_INDEX;
         int indentation_ = IndexConstants.SIZE_EMPTY;
@@ -1587,106 +1592,37 @@ public final class DocumentBuilder {
             ElementOffsetsNext getIndexesOfElementOrAttribute(
                     String _xml, ElementOffsetsNext _previous,
                     Element _node, int _tabWidth) {
-        int next_ = IndexConstants.INDEX_NOT_FOUND_ELT;
-        StringMap<RowCol> m_ = new StringMap<RowCol>();
-        StringMap<Ints> offsetsMap_;
-        offsetsMap_ = new StringMap<Ints>();
-        Ints offsets_ = new Ints();
-        StringMap<Ints> tabsMap_;
-        tabsMap_ = new StringMap<Ints>();
-        Ints tabs_ = new Ints();
-        int index_ = _previous.getNextElt();
-        String nodeName_ = _node.getTagName();
-        int found_ = _xml.indexOf(StringUtil.concat(Character.toString(LT),nodeName_), index_);
-        int nbLineReturns_ = 0;
-        int minLine_ = _previous.getNextCol().getRow();
-        int indexLoc_ = _previous.getNextCol().getCol();
-        for (int i = index_; i <= found_; i++) {
-            if (_xml.charAt(i) == LINE_RETURN) {
-                nbLineReturns_++;
-                indexLoc_ = 0;
-            } else {
-                indexLoc_++;
-            }
-        }
-        RowCol rc_ = new RowCol();
-        rc_.setRow(nbLineReturns_+minLine_+1);
-        rc_.setCol(indexLoc_+1);
-        m_.put(EMPTY_STRING, rc_);
+        CalculNextIndexes calc_ = new CalculNextIndexes(_xml,_previous,_node);
         int len_ = _xml.length();
-        int i_ = found_+1;
-        int nodeLen_ = nodeName_.length();
-        int k_ = 0;
-        boolean addAttribute_ = true;
-        int delimiter_ = -1;
-        StringBuilder str_ = new StringBuilder();
-        int j_ = indexLoc_;
-        int offset_ = 0;
-        RowCol endHeader_ = new RowCol();
-        RowCol nextCol_ = new RowCol();
-        while (i_ < len_) {
-            char ch_ = _xml.charAt(i_);
-            if (ch_ == GT) {
-                processEndHeader(nbLineReturns_, minLine_, addAttribute_, j_, endHeader_);
-                addAttribute_ = false;
+        while (calc_.getIndex() < len_) {
+            if (!calc_.keep(_xml,_tabWidth)){
+                break;
             }
-            if (addAttribute_ && k_ > nodeLen_) {
-                if (delimiter_ == -1) {
-                    if (isDelAttr(ch_)) {
-                        delimiter_ = ch_;
-                    }
-                    if (delimiter_ == -1) {
-                        if (!StringUtil.isWhitespace(ch_) && ch_ != EQUALS) {
-                            str_.append(ch_);
-                        }
-                    } else {
-                        rc_ = new RowCol();
-                        rc_.setRow(nbLineReturns_+minLine_+1);
-                        rc_.setCol(j_+2);
-                        offset_ = 0;
-                    }
-                } else {
-                    if (ch_ == delimiter_) {
-                        delimiter_ = -1;
-                        m_.put(str_.toString(), rc_);
-                        offsetsMap_.put(str_.toString(), offsets_);
-                        offsets_ = new Ints();
-                        tabsMap_.put(str_.toString(), tabs_);
-                        tabs_ = new Ints();
-                        str_ = new StringBuilder();
-                    } else if (ch_ == LINE_RETURN) {
-                        offsets_.add(offset_);
-                    } else {
-                        if (ch_ == TAB) {
-                            tabs_.add(offset_);
-                        }
-                    }
-                    offset_++;
-                }
-            } else {
-                if (ch_ == LT && _xml.charAt(i_ + 1) != SLASH) {
-                    next_ = i_;
-                    nextCol_.setRow(nbLineReturns_ + minLine_);
-                    nextCol_.setCol(j_);
-                    break;
-                }
-            }
-            k_++;
-            if (ch_ == LINE_RETURN) {
-                nbLineReturns_++;
-                j_ = 0;
-            } else {
-                j_++;
-                if (ch_ == TAB) {
-                    j_+=_tabWidth-1;
-                }
-            }
-            i_++;
         }
-        return new ElementOffsetsNext(tabsMap_, offsetsMap_, m_, nextCol_, endHeader_, next_, found_ + 1);
+        return new ElementOffsetsNext(calc_.getTabsMap(), calc_.getOffsetsMap(), calc_.getMap(), calc_.getNextCol(), calc_.getEndHeader(), calc_.getNext(), calc_.getFound() + 1);
     }
 
-    private static void processEndHeader(int _nbLineReturns, int _minLine, boolean _addAttribute, int _j, RowCol _endHeader) {
+    static void addPossibleSpace(Ints _offsets, Ints _tabs, int _offset, char _ch) {
+        if (_ch == LINE_RETURN) {
+            _offsets.add(_offset);
+        } else {
+            addPossibleTab(_tabs, _offset, _ch);
+        }
+    }
+
+    static void completeAttr(StringBuilder _str, char _ch) {
+        if (!StringUtil.isWhitespace(_ch) && _ch != EQUALS) {
+            _str.append(_ch);
+        }
+    }
+
+    private static void addPossibleTab(Ints _tabs, int _offset, char _ch) {
+        if (_ch == TAB) {
+            _tabs.add(_offset);
+        }
+    }
+
+    static void processEndHeader(int _nbLineReturns, int _minLine, boolean _addAttribute, int _j, RowCol _endHeader) {
         if (_addAttribute) {
             _endHeader.setRow(_nbLineReturns + _minLine +1);
             _endHeader.setCol(_j +2);
@@ -1835,7 +1771,7 @@ public final class DocumentBuilder {
         return attributes_;
     }
 
-    private static boolean spaceOrEq(char _ch) {
+    static boolean spaceOrEq(char _ch) {
         return StringUtil.isWhitespace(_ch) || _ch == EQUALS;
     }
 
@@ -1899,24 +1835,14 @@ public final class DocumentBuilder {
                     j_++;
                     j_++;
                     StringBuilder nbArg_ = new StringBuilder();
-                    char charArg_ = _arg.charAt(j_);
-                    while (charArg_ != END_ESCAPED) {
-                        j_++;
-                        nbArg_.append(charArg_);
-                        charArg_ = _arg.charAt(j_);
-                    }
+                    j_ = goToEndEsc(_arg, j_, nbArg_);
                     int intArg_ = NumberUtil.parseInt(nbArg_.toString());
                     formatted_.append((char) intArg_);
                     j_++;
                     continue;
                 }
                 StringBuilder strArg_ = new StringBuilder();
-                char charArg_ = _arg.charAt(j_);
-                while (charArg_ != END_ESCAPED) {
-                    j_++;
-                    strArg_.append(charArg_);
-                    charArg_ = _arg.charAt(j_);
-                }
+                j_ = goToEndEsc(_arg, j_, strArg_);
                 String convered_ = DocumentBuilder.encodeHtml(strArg_.append(END_ESCAPED).toString());
                 convered_ = convered_.substring(IndexConstants.SECOND_INDEX + 1, convered_.length() - 1);
                 int intArg_ = NumberUtil.parseInt(convered_);
@@ -1927,6 +1853,17 @@ public final class DocumentBuilder {
             j_++;
         }
         return formatted_;
+    }
+
+    private static int goToEndEsc(StringBuilder _arg, int _j, StringBuilder _nbArg) {
+        int j_ = _j;
+        char charArg_ = _arg.charAt(j_);
+        while (charArg_ != END_ESCAPED) {
+            j_++;
+            _nbArg.append(charArg_);
+            charArg_ = _arg.charAt(j_);
+        }
+        return j_;
     }
 
     private static int processElt(String _xml, Element _node, String _attribute, boolean _attrValue, CustList<Node> _nodesBefore, int _nbSameNamedNodes) {
@@ -1964,49 +1901,27 @@ public final class DocumentBuilder {
 
     private static int loopAttr2(String _xml, String _attribute, boolean _attrValue, String _nodeName, int _found) {
         int firstIndex_ = _found + _nodeName.length();
-        while (StringUtil.isWhitespace(_xml.charAt(firstIndex_))) {
-            firstIndex_++;
-        }
+        firstIndex_ = skipSpace(_xml, firstIndex_);
         return loopAttr(_xml, _attribute, _attrValue, firstIndex_);
     }
 
     private static int loopAttr(String _xml, String _attribute, boolean _attrValue, int _firstIndex) {
         int lastIndex_ = _xml.indexOf(GT, _firstIndex);
-        int beginToken_ = _firstIndex;
-        StringBuilder str_ = new StringBuilder();
-        int delimiter_ = -1;
-        int foundAttr_ = IndexConstants.INDEX_NOT_FOUND_ELT;
+        LookForAttr lk_ = new LookForAttr(_firstIndex);
         for (int i = _firstIndex; i < lastIndex_; i++) {
-            char ch_ = _xml.charAt(i);
-            if (delimiter_ == -1) {
-                if (isDelAttr(ch_)) {
-                    delimiter_ = ch_;
-                }
-            } else {
-                if (ch_ == delimiter_) {
-                    delimiter_ = -1;
-                    beginToken_ = i + 1;
-                    while (StringUtil.isWhitespace(_xml.charAt(beginToken_))) {
-                        beginToken_++;
-                    }
-                    continue;
-                }
-            }
-            if (delimiter_ == -1) {
-                if (spaceOrEq(ch_)) {
-                    if (StringUtil.quickEq(str_.toString(), _attribute)) {
-                        foundAttr_ = beginToken_;
-                        break;
-                    }
-                    if (ch_ == EQUALS) {
-                        str_ = new StringBuilder();
-                    }
-                    continue;
-                }
-                str_.append(ch_);
+            if (!lk_.keep(i,_xml,_attribute)) {
+                break;
             }
         }
-        return tryFindAttr(_xml, _attribute, _attrValue, lastIndex_, foundAttr_);
+        return tryFindAttr(_xml, _attribute, _attrValue, lastIndex_, lk_.getFoundAttr());
+    }
+
+    static int skipSpace(String _xml, int _beginToken) {
+        int beginToken_ = _beginToken;
+        while (StringUtil.isWhitespace(_xml.charAt(beginToken_))) {
+            beginToken_++;
+        }
+        return beginToken_;
     }
 
     private static int tryFindAttr(String _xml, String _attribute, boolean _attrValue, int _lastIndex, int _foundAttr) {
@@ -2028,7 +1943,7 @@ public final class DocumentBuilder {
         return _c == _quot || _c == _apos;
     }
 
-    private static boolean isDelAttr(char _ch) {
+    static boolean isDelAttr(char _ch) {
         return isDel(_ch, APOS, QUOT);
     }
 
@@ -2037,22 +1952,27 @@ public final class DocumentBuilder {
         if (_root == null) {
             return nodes_;
         }
+        return getDeepChildNodesDocOrder(_root, _until, nodes_);
+    }
+
+    private static CustList<Node> getDeepChildNodesDocOrder(Node _root, Node _until, CustList<Node> _nodes) {
         Node en_ = _root;
-        while (true) {
+        while (en_ != null) {
             if (en_ == _until) {
-                break;
+                en_ = null;
+                continue;
             }
-            nodes_.add(en_);
+            _nodes.add(en_);
             Node n_ = en_.getFirstChild();
             if (n_ != null) {
                 en_ = n_;
                 continue;
             }
             if (en_ == _root) {
-                break;
+                en_ = null;
+                continue;
             }
-            boolean stop_ = false;
-            while (true) {
+            while (en_ != null) {
                 n_ = en_.getNextSibling();
                 if (n_ != null) {
                     en_ = n_;
@@ -2060,16 +1980,13 @@ public final class DocumentBuilder {
                 }
                 n_ = en_.getParentNode();
                 if (n_ == _root) {
-                    stop_ = true;
-                    break;
+                    en_ = null;
+                    continue;
                 }
                 en_ = n_;
             }
-            if (stop_) {
-                break;
-            }
         }
-        return nodes_;
+        return _nodes;
     }
 
     public static Ints getIndexes(Node _node) {
