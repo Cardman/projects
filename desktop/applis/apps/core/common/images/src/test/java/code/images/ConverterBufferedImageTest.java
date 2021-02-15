@@ -1,7 +1,6 @@
 package code.images;
 
 import code.util.CustList;
-import code.util.EqList;
 import org.junit.Test;
 
 public class ConverterBufferedImageTest extends EquallableImageUtil {
@@ -60,7 +59,7 @@ public class ConverterBufferedImageTest extends EquallableImageUtil {
         fr_[2][0] = ConverterBufferedImage.WHITE_RGB_INT;
         fr_[2][1] = 3;
         fr_[2][2] = 6;
-        EqList<IntPoint> intPoints_ = ConverterBufferedImage.whitePixels(true, fr_);
+        CustList<IntPoint> intPoints_ = ConverterBufferedImage.whitePixels(true, fr_);
         assertEq(3,intPoints_.size());
     }
     @Test
@@ -75,7 +74,7 @@ public class ConverterBufferedImageTest extends EquallableImageUtil {
         fr_[2][2] = ConverterBufferedImage.WHITE_RGB_INT;
         fr_[2][1] = 3;
         fr_[2][0] = 6;
-        EqList<IntPoint> intPoints_ = ConverterBufferedImage.whitePixels(true, fr_);
+        CustList<IntPoint> intPoints_ = ConverterBufferedImage.whitePixels(true, fr_);
         assertEq(3,intPoints_.size());
     }
     @Test
@@ -90,7 +89,7 @@ public class ConverterBufferedImageTest extends EquallableImageUtil {
         fr_[2][0] = ConverterBufferedImage.WHITE_RGB_INT;
         fr_[2][1] = 3;
         fr_[2][2] = 6;
-        EqList<IntPoint> intPoints_ = ConverterBufferedImage.whitePixels(false, fr_);
+        CustList<IntPoint> intPoints_ = ConverterBufferedImage.whitePixels(false, fr_);
         assertEq(3,intPoints_.size());
     }
     @Test
@@ -105,7 +104,7 @@ public class ConverterBufferedImageTest extends EquallableImageUtil {
         fr_[2][2] = ConverterBufferedImage.WHITE_RGB_INT;
         fr_[2][1] = 3;
         fr_[2][0] = 6;
-        EqList<IntPoint> intPoints_ = ConverterBufferedImage.whitePixels(false, fr_);
+        CustList<IntPoint> intPoints_ = ConverterBufferedImage.whitePixels(false, fr_);
         assertEq(3,intPoints_.size());
     }
     @Test
@@ -120,7 +119,7 @@ public class ConverterBufferedImageTest extends EquallableImageUtil {
         fr_[2][0] = ConverterBufferedImage.WHITE_RGB_INT;
         fr_[2][1] = 3;
         fr_[2][2] = 6;
-        EqList<IntPoint> intPoints_ = ConverterBufferedImage.containedWhiteInside(true, fr_);
+        CustList<IntPoint> intPoints_ = ConverterBufferedImage.containedWhiteInside(true, fr_);
         assertEq(0,intPoints_.size());
     }
     @Test
@@ -135,12 +134,12 @@ public class ConverterBufferedImageTest extends EquallableImageUtil {
         fr_[2][0] = ConverterBufferedImage.WHITE_RGB_INT;
         fr_[2][1] = 3;
         fr_[2][2] = 6;
-        EqList<IntPoint> intPoints_ = ConverterBufferedImage.containedWhiteInside(true, fr_);
+        CustList<IntPoint> intPoints_ = ConverterBufferedImage.containedWhiteInside(true, fr_);
         assertEq(1,intPoints_.size());
     }
     @Test
     public void getPolygons() {
-        EqList<IntPoint> l_ = new EqList<IntPoint>();
+        CustList<IntPoint> l_ = new CustList<IntPoint>();
         IntPoint pt_ = new IntPoint(0,0);
         l_.add(pt_);
         IntPoint pt2_ = new IntPoint(pt_);
@@ -156,7 +155,7 @@ public class ConverterBufferedImageTest extends EquallableImageUtil {
         l_.add(pt6_);
         IntPoint pt7_ = new IntPoint(4,4);
         l_.add(pt7_);
-        CustList<EqList<IntPoint>> polygons_ = ConverterBufferedImage.getPolygons(l_);
+        CustList<CustList<IntPoint>> polygons_ = ConverterBufferedImage.getPolygons(l_);
         assertEq(7, polygons_.size());
     }
 }

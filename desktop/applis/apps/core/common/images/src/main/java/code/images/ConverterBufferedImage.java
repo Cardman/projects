@@ -59,14 +59,14 @@ public final class ConverterBufferedImage {
         return NumberUtil.mod(ints_.first() *256*256 + ints_.get(1) *256 + ints_.last(), 256*256*256);
     }
 
-    public static EqList<IntPoint> containedWhiteInside(boolean _hf,int[][] _buffered) {
+    public static CustList<IntPoint> containedWhiteInside(boolean _hf,int[][] _buffered) {
         int h_ = _buffered.length;
         int w_ = _buffered[0].length;
-        EqList<IntPoint> addedPixels_ = whitePixels(_hf,_buffered);
-        EqList<IntPoint> list_ = new EqList<IntPoint>();
+        CustList<IntPoint> addedPixels_ = whitePixels(_hf,_buffered);
+        CustList<IntPoint> list_ = new CustList<IntPoint>();
         for (int i = IndexConstants.FIRST_INDEX; i < h_; i++) {
             for (int j = IndexConstants.FIRST_INDEX; j < w_; j++) {
-                if (addedPixels_.containsObj(new IntPoint(j,i))) {
+                if (contains(addedPixels_,new IntPoint(j,i))) {
                     continue;
                 }
                 tryAddNew(_buffered[i][j], list_, i, j);
@@ -75,18 +75,18 @@ public final class ConverterBufferedImage {
         return list_;
     }
 
-    private static void tryAddNew(int _rgb, EqList<IntPoint> _list, int _i, int _j) {
+    private static void tryAddNew(int _rgb, CustList<IntPoint> _list, int _i, int _j) {
         if (_rgb != WHITE_RGB_INT) {
             return;
         }
         _list.add(new IntPoint(_j, _i));
     }
 
-    public static EqList<IntPoint> whitePixels(boolean _hf,int[][] _buffered) {
+    public static CustList<IntPoint> whitePixels(boolean _hf,int[][] _buffered) {
         int h_ = _buffered.length;
         int w_ = _buffered[0].length;
         int white_ = WHITE_RGB_INT;
-        EqList<IntPoint> addedPixels_ = new EqList<IntPoint>();
+        CustList<IntPoint> addedPixels_ = new CustList<IntPoint>();
         if (_hf) {
             bounds(_buffered, h_, w_, white_, addedPixels_);
         } else {
@@ -95,7 +95,7 @@ public final class ConverterBufferedImage {
         return loop(_buffered, h_, w_, white_, addedPixels_);
     }
 
-    private static void border(int[][] _buffered, int _h, int _w, int _white, EqList<IntPoint> _addedPixels) {
+    private static void border(int[][] _buffered, int _h, int _w, int _white, CustList<IntPoint> _addedPixels) {
         for (int i = IndexConstants.FIRST_INDEX; i < _w; i++) {
             if (_buffered[IndexConstants.FIRST_INDEX][i] == _white) {
                 _addedPixels.add(new IntPoint(i, IndexConstants.FIRST_INDEX));
@@ -116,10 +116,22 @@ public final class ConverterBufferedImage {
                 _addedPixels.add(new IntPoint(_w - 1, i));
             }
         }
-        _addedPixels.removeDuplicates();
+        removeDuplicates(_addedPixels);
     }
 
-    private static void bounds(int[][] _buffered, int _h, int _w, int _white, EqList<IntPoint> _addedPixels) {
+    private static void removeDuplicates(CustList<IntPoint> _addedPixels) {
+        CustList<IntPoint> next_ = new CustList<IntPoint>();
+        for (IntPoint i: _addedPixels) {
+            if (contains(next_,i)) {
+                continue;
+            }
+            next_.add(i);
+        }
+        _addedPixels.clear();
+        _addedPixels.addAllElts(next_);
+    }
+
+    private static void bounds(int[][] _buffered, int _h, int _w, int _white, CustList<IntPoint> _addedPixels) {
         if (_buffered[IndexConstants.FIRST_INDEX][IndexConstants.FIRST_INDEX] == _white) {
             _addedPixels.add(new IntPoint(IndexConstants.FIRST_INDEX, IndexConstants.FIRST_INDEX));
         }
@@ -134,25 +146,25 @@ public final class ConverterBufferedImage {
         }
     }
 
-    private static EqList<IntPoint> loop(int[][] _buffered, int _h, int _w, int _white, EqList<IntPoint> _addedPixels) {
-        EqList<IntPoint> newPixels_;
-        EqList<IntPoint> currentPixels_ = new EqList<IntPoint>();
+    private static CustList<IntPoint> loop(int[][] _buffered, int _h, int _w, int _white, CustList<IntPoint> _addedPixels) {
+        CustList<IntPoint> newPixels_;
+        CustList<IntPoint> currentPixels_ = new CustList<IntPoint>();
         currentPixels_.addAllElts(_addedPixels);
         while (true) {
-            newPixels_ = new EqList<IntPoint>();
+            newPixels_ = new CustList<IntPoint>();
             nextPixels(_buffered, _h, _w, _white, _addedPixels, newPixels_, currentPixels_);
             if (newPixels_.isEmpty()) {
                 break;
             }
-            currentPixels_ = new EqList<IntPoint>(newPixels_);
+            currentPixels_ = new CustList<IntPoint>(newPixels_);
         }
         return _addedPixels;
     }
 
-    private static void nextPixels(int[][] _buffered, int _h, int _w, int _white, EqList<IntPoint> _addedPixels, EqList<IntPoint> _newPixels, EqList<IntPoint> _currentPixels) {
+    private static void nextPixels(int[][] _buffered, int _h, int _w, int _white, CustList<IntPoint> _addedPixels, CustList<IntPoint> _newPixels, CustList<IntPoint> _currentPixels) {
         for (IntPoint coords_: _currentPixels) {
             for (IntPoint coordsChild_: getNext(_w, _h, coords_)) {
-                if (_addedPixels.containsObj(coordsChild_)) {
+                if (contains(_addedPixels,coordsChild_)) {
                     continue;
                 }
                 tryAddNew(_buffered[coordsChild_.getYcoords()], _white, _addedPixels, _newPixels, coordsChild_);
@@ -160,7 +172,7 @@ public final class ConverterBufferedImage {
         }
     }
 
-    private static void tryAddNew(int[] _ints, int _white, EqList<IntPoint> _addedPixels, EqList<IntPoint> _newPixels, IntPoint _coordsChild) {
+    private static void tryAddNew(int[] _ints, int _white, CustList<IntPoint> _addedPixels, CustList<IntPoint> _newPixels, IntPoint _coordsChild) {
         int rgb_ = _ints[_coordsChild.getXcoords()];
         if (rgb_ != _white) {
             return;
@@ -202,25 +214,19 @@ public final class ConverterBufferedImage {
         }
         return list_;
     }
-    public static CustList<EqList<IntPoint>> getPolygons(EqList<IntPoint> _classes) {
-        ObjectMap<IntPoint,EqList<IntPoint>> mapClasses_;
-        mapClasses_ = new ObjectMap<IntPoint,EqList<IntPoint>>();
+    public static CustList<CustList<IntPoint>> getPolygons(CustList<IntPoint> _classes) {
+        CustList<CustList<IntPoint>> polygons_ = new CustList<CustList<IntPoint>>();
         for (IntPoint point_: _classes) {
-            mapClasses_.put(point_, new EqList<IntPoint>(point_));
-        }
-        CustList<EqList<IntPoint>> polygons_ = new CustList<EqList<IntPoint>>();
-        for (IntPoint point_: mapClasses_.getKeys()) {
-            processPoint(_classes, mapClasses_, polygons_, point_);
+            processPoint(_classes, polygons_, point_, new CustList<IntPoint>(point_));
         }
         return polygons_;
     }
 
-    private static void processPoint(EqList<IntPoint> _classes, ObjectMap<IntPoint, EqList<IntPoint>> _mapClasses, CustList<EqList<IntPoint>> _polygons, IntPoint _point) {
-        EqList<IntPoint> visitedPoints_ = _mapClasses.getVal(_point);
-        EqList<IntPoint> currentPoints_ = new EqList<IntPoint>(_point);
-        EqList<IntPoint> newPoints_;
+    private static void processPoint(CustList<IntPoint> _classes, CustList<CustList<IntPoint>> _polygons, IntPoint _point, CustList<IntPoint> _visited) {
+        CustList<IntPoint> currentPoints_ = new CustList<IntPoint>(_point);
+        CustList<IntPoint> newPoints_;
         while (true) {
-            newPoints_ = new EqList<IntPoint>();
+            newPoints_ = new CustList<IntPoint>();
             for (IntPoint currentPoint_: currentPoints_) {
                 IntPoint ptOne_ = new IntPoint();
                 ptOne_.setXcoords(currentPoint_.getXcoords()+1);
@@ -234,29 +240,37 @@ public final class ConverterBufferedImage {
                 IntPoint ptFour_ = new IntPoint();
                 ptFour_.setXcoords(currentPoint_.getXcoords());
                 ptFour_.setYcoords(currentPoint_.getYcoords()-1);
-                EqList<IntPoint> nextPoints_ = new EqList<IntPoint>();
+                CustList<IntPoint> nextPoints_ = new CustList<IntPoint>();
                 nextPoints_.add(ptOne_);
                 nextPoints_.add(ptTwo_);
                 nextPoints_.add(ptThree_);
                 nextPoints_.add(ptFour_);
-                tryAddNext(_classes, visitedPoints_, newPoints_, nextPoints_);
+                tryAddNext(_classes, _visited, newPoints_, nextPoints_);
             }
             if (newPoints_.isEmpty()) {
                 break;
             }
-            currentPoints_ = new EqList<IntPoint>(newPoints_);
+            currentPoints_ = new CustList<IntPoint>(newPoints_);
         }
-        visitedPoints_.sortElts(new ComparatorIntPoint());
-        _polygons.add(visitedPoints_);
+        _visited.sortElts(new ComparatorIntPoint());
+        _polygons.add(_visited);
     }
 
-    private static void tryAddNext(EqList<IntPoint> _classes, EqList<IntPoint> _visitedPoints, EqList<IntPoint> _newPoints, EqList<IntPoint> _nextPoints) {
+    private static void tryAddNext(CustList<IntPoint> _classes, CustList<IntPoint> _visitedPoints, CustList<IntPoint> _newPoints, CustList<IntPoint> _nextPoints) {
         for (IntPoint next_: _nextPoints) {
-            if (!_classes.containsObj(next_) || _visitedPoints.containsObj(next_)) {
+            if (!contains(_classes,next_) || contains(_visitedPoints,next_)) {
                 continue;
             }
             _newPoints.add(next_);
             _visitedPoints.add(next_);
         }
+    }
+    private static boolean contains(CustList<IntPoint> _ls, IntPoint _pt) {
+        for (IntPoint i: _ls) {
+            if (_pt.eq(i)) {
+                return true;
+            }
+        }
+        return false;
     }
 }

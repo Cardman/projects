@@ -1,8 +1,6 @@
 package code.images;
 
-import code.util.ints.Equallable;
-
-public final class IntPoint implements Equallable<IntPoint> {
+public final class IntPoint {
     private int xcoords;
     private int ycoords;
 
@@ -34,7 +32,6 @@ public final class IntPoint implements Equallable<IntPoint> {
         ycoords = _ycoords;
     }
 
-    @Override
     public boolean eq(IntPoint _g) {
         return xcoords == _g.xcoords && ycoords == _g.ycoords;
     }
