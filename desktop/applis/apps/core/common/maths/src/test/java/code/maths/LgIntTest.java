@@ -2114,7 +2114,7 @@ public class LgIntTest extends EquallableMathUtil {
         repartitions_.add(new LgInt(8));
         repartitions_.add(new LgInt(8));
         LgInt sommeTotale_ = new LgInt(8);
-        TreeMap<SortableCustList<LgInt>,LgInt> combinatoire_ = LgInt.seqAmong(repartitions_, sommeTotale_);
+        AbsMap<SortableCustList<LgInt>,LgInt> combinatoire_ = LgInt.seqAmong(repartitions_, sommeTotale_);
         assertEq(15,combinatoire_.size());
         assertTrue(combinatoire_.contains(new SortableCustList<LgInt>(LgInt.zero(),LgInt.zero(),LgInt.zero(),new LgInt(8))));
         assertTrue(combinatoire_.contains(new SortableCustList<LgInt>(LgInt.zero(),LgInt.zero(),new LgInt(1),new LgInt(7))));
@@ -2147,7 +2147,7 @@ public class LgIntTest extends EquallableMathUtil {
         repartitions_.add(new LgInt(14));
         repartitions_.add(new LgInt(14));
         repartitions_.add(new LgInt(14));
-        TreeMap<SortableCustList<LgInt>,LgInt> combinatoire_ = LgInt.seqAmong(repartitions_, sommeTotale_);
+        AbsMap<SortableCustList<LgInt>,LgInt> combinatoire_ = LgInt.seqAmong(repartitions_, sommeTotale_);
         assertEq(18,combinatoire_.size());
         assertEq(5,combinatoire_.getKey(0).size());
         assertEq(new LgInt(0),combinatoire_.getKey(0).get(0));
@@ -2285,7 +2285,7 @@ public class LgIntTest extends EquallableMathUtil {
         repartitions_.add(new LgInt(-4));
         repartitions_.add(new LgInt(-4));
         LgInt sommeTotale_ = new LgInt(8);
-        TreeMap<SortableCustList<LgInt>,LgInt> combinatoire_ = LgInt.seqAmong(repartitions_, sommeTotale_);
+        AbsMap<SortableCustList<LgInt>,LgInt> combinatoire_ = LgInt.seqAmong(repartitions_, sommeTotale_);
         assertEq(1,combinatoire_.size());
         assertEq(0, combinatoire_.firstKey().size());
         assertEq(new LgInt(1), combinatoire_.firstValue());

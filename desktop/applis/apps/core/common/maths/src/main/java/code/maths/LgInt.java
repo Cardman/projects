@@ -243,10 +243,7 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
         if (!MathExpUtil.isDigit(_input.charAt(i_))) {
             return false;
         }
-        while (true) {
-            if (i_ >= _input.length()) {
-                break;
-            }
+        while (i_ < _input.length()) {
             if (!MathExpUtil.isDigit(_input.charAt(i_))) {
                 return false;
             }
@@ -338,12 +335,9 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
         LgInt init_ = new LgInt(2);
         divs_.add(LgInt.one());
         divs_.add(abs_);
-        while (true) {
-            if(LgInt.strGreater(init_, rootAbs_)) {
-                break;
-            }
-            QuotModLgInt qr_=abs_.divisionEuclidienneGeneralise(init_);
-            if(qr_.getMod().isZero()) {
+        while (!LgInt.strGreater(init_, rootAbs_)) {
+            QuotModLgInt qr_ = abs_.divisionEuclidienneGeneralise(init_);
+            if (qr_.getMod().isZero()) {
                 divs_.add(new LgInt(init_));
                 divs_.add(qr_.getQuot());
             }
@@ -367,10 +361,9 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
                 somme fixe
     @return les repartitions possibles ponderees
     */
-    public static TreeMap<SortableCustList<LgInt>,LgInt> seqAmong(
+    public static AbsMap<SortableCustList<LgInt>,LgInt> seqAmong(
             EqList<LgInt> _repartitions,
             LgInt _sommeTotale) {
-        TreeMap<SortableCustList<LgInt>,LgInt> loiProba_ = new TreeMap<SortableCustList<LgInt>,LgInt>(new ComparatorEvents());
         int i_ = IndexConstants.FIRST_INDEX;
         int nbIterations_ = _repartitions.size();
         CustList<SortableCustList<LgInt>> repartitionsPossibles_ = new CustList<SortableCustList<LgInt>>();
@@ -383,42 +376,53 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
             }
             modif_=false;
             repartitionsPossiblesLoc_.clear();
-            LgInt terme_ = _repartitions.get(i_);
-            for (SortableCustList<LgInt> l: repartitionsPossibles_) {
-                LgInt somme_ = LgInt.zero();
-                for (LgInt e: l) {
-                    somme_.addNb(e);
-                }
-                LgInt event_ = LgInt.zero();
-                while (LgInt.lowerEq(event_, terme_)) {
-                    LgInt sommeLoc_ = new LgInt(somme_);
-                    sommeLoc_.addNb(event_);
-                    if (strGreater(sommeLoc_, _sommeTotale)) {
-                        break;
-                    }
-                    if (i_ == nbIterations_-1) {
-                        if (!sommeLoc_.eq(_sommeTotale)) {
-                            event_.increment();
-                            continue;
-                        }
-                    }
-                    SortableCustList<LgInt> l_ = new SortableCustList<LgInt>(l);
-                    l_.add(new LgInt(event_));
-                    repartitionsPossiblesLoc_.add(l_);
-                    event_.increment();
-                }
-            }
+            feedEvents(_repartitions, _sommeTotale, i_, nbIterations_, repartitionsPossibles_, repartitionsPossiblesLoc_);
             if (!repartitionsPossiblesLoc_.isEmpty()) {
                 modif_ = true;
                 repartitionsPossibles_ = new CustList<SortableCustList<LgInt>>(repartitionsPossiblesLoc_);
             }
             i_++;
         }
-        for (SortableCustList<LgInt> l: repartitionsPossibles_) {
+        return buildSortedLaw(repartitionsPossibles_);
+    }
+
+    private static void feedEvents(EqList<LgInt> _repartitions, LgInt _sommeTotale, int _i, int _nbIterations, CustList<SortableCustList<LgInt>> _repartitionsPossibles, CustList<SortableCustList<LgInt>> _repartitionsPossiblesLoc) {
+        LgInt terme_ = _repartitions.get(_i);
+        for (SortableCustList<LgInt> l: _repartitionsPossibles) {
+            LgInt somme_ = LgInt.zero();
+            for (LgInt e: l) {
+                somme_.addNb(e);
+            }
+            LgInt event_ = LgInt.zero();
+            while (LgInt.lowerEq(event_, terme_)) {
+                LgInt sommeLoc_ = new LgInt(somme_);
+                sommeLoc_.addNb(event_);
+                if (strGreater(sommeLoc_, _sommeTotale)) {
+                    break;
+                }
+                if (_i == _nbIterations - 1 && !sommeLoc_.eq(_sommeTotale)) {
+                    event_.increment();
+                    continue;
+                }
+                SortableCustList<LgInt> l_ = new SortableCustList<LgInt>(l);
+                l_.add(new LgInt(event_));
+                _repartitionsPossiblesLoc.add(l_);
+                event_.increment();
+            }
+        }
+    }
+
+    private static TreeMap<SortableCustList<LgInt>, LgInt> buildSortedLaw(CustList<SortableCustList<LgInt>> _repartitionsPossibles) {
+        for (SortableCustList<LgInt> l: _repartitionsPossibles) {
             l.sort();
         }
+        return buildLaw(_repartitionsPossibles);
+    }
+
+    private static TreeMap<SortableCustList<LgInt>, LgInt> buildLaw(CustList<SortableCustList<LgInt>> _repartitionsPossibles) {
+        TreeMap<SortableCustList<LgInt>,LgInt> loiProba_ = new TreeMap<SortableCustList<LgInt>,LgInt>(new ComparatorEvents());
         LgInt one_ = one();
-        for (SortableCustList<LgInt> l: repartitionsPossibles_) {
+        for (SortableCustList<LgInt> l: _repartitionsPossibles) {
             boolean present_ = false;
             for (EntryCust<SortableCustList<LgInt>,LgInt> lTwo_: loiProba_.entryList()) {
                 if(!l.eq(lTwo_.getKey())) {
@@ -881,7 +885,7 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
             for (int i = first_; i >= IndexConstants.FIRST_INDEX; i--) {
                 tmp_ = _autre.multiplyBy(grDigits.get(i));
                 for (int j = IndexConstants.SIZE_EMPTY; j < expo_; j++) {
-                    tmp_.grDigits.add(0l);
+                    tmp_.grDigits.add(0L);
                 }
                 tmp_.removeBeginningZeros();
                 expo_++;
@@ -893,7 +897,7 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
             for (int i = first_; i >= IndexConstants.FIRST_INDEX; i--) {
                 tmp_ = multiplyBy(_autre.grDigits.get(i));
                 for (int j = IndexConstants.SIZE_EMPTY; j < expo_; j++) {
-                    tmp_.grDigits.add(0l);
+                    tmp_.grDigits.add(0L);
                 }
                 tmp_.removeBeginningZeros();
                 expo_++;
@@ -939,18 +943,20 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
                 }
                 i_--;
             }
-        } else if (longueur_ < longueurBis_) {
-            while (j_ >= IndexConstants.FIRST_INDEX) {
-                somme_ = _autre.grDigits.get(j_) + retenue_;
-                if (somme_ < BASE) {
-                    grDigits.add(IndexConstants.FIRST_INDEX, somme_);
-                    retenue_ = 0;
-                } else {
-                    reste_ = somme_ - BASE;
-                    grDigits.add(IndexConstants.FIRST_INDEX, reste_);
-                    retenue_ = 1;
+        } else {
+            if (longueur_ < longueurBis_) {
+                while (j_ >= IndexConstants.FIRST_INDEX) {
+                    somme_ = _autre.grDigits.get(j_) + retenue_;
+                    if (somme_ < BASE) {
+                        grDigits.add(IndexConstants.FIRST_INDEX, somme_);
+                        retenue_ = 0;
+                    } else {
+                        reste_ = somme_ - BASE;
+                        grDigits.add(IndexConstants.FIRST_INDEX, reste_);
+                        retenue_ = 1;
+                    }
+                    j_--;
                 }
-                j_--;
             }
         }
         if (retenue_ == 1) {
@@ -1012,12 +1018,16 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
             quotientReste_.setMod(new Longs(grDigits));
             return quotientReste_;
         }
+        return divisionEuclidienne(_autre, quotientReste_);
+    }
+
+    private QuotMod divisionEuclidienne(LgInt _autre, QuotMod _quotientReste) {
         long first_ = _autre.grDigits.first();
         if (first_ <= 0) {
-            quotientReste_.setQuot(new Longs());
-            quotientReste_.getQuot().add(0L);
-            quotientReste_.setMod(new Longs(grDigits));
-            return quotientReste_;
+            _quotientReste.setQuot(new Longs());
+            _quotientReste.getQuot().add(0L);
+            _quotientReste.setMod(new Longs(grDigits));
+            return _quotientReste;
         }
         int taille_ = grDigits.size();
         int tailleBis_ = _autre.grDigits.size();
@@ -1087,9 +1097,9 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
             }
             indiceChiffre_++;
         }
-        quotientReste_.setQuot(chiffresQuotient_);
-        quotientReste_.setMod(reste_.grDigits);
-        return quotientReste_;
+        _quotientReste.setQuot(chiffresQuotient_);
+        _quotientReste.setMod(reste_.grDigits);
+        return _quotientReste;
     }
 
     private long divisionTemporaire(LgInt _diviseur, long _max) {
@@ -1310,10 +1320,7 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
         LgInt res_ = one();
         LgInt init_ = zero();
         LgInt incr_ = one();
-        while (true) {
-            if (eq(init_)) {
-                break;
-            }
+        while (!eq(init_)) {
             init_.addNb(incr_);
             res_.multiplierParEntierPositif(init_);
         }
@@ -1377,7 +1384,7 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
     public void growToPow(LgInt _expo) {
         LgInt copie_ = new LgInt(this);
         grDigits.clear();
-        grDigits.add(1l);
+        grDigits.add(1L);
         signum = SIGNE_POSITIF;
         LgInt e = LgInt.zero();
         while (strLower(e, _expo)) {
@@ -1454,7 +1461,6 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
         } else {
             signum = !SIGNE_POSITIF;
         }
-        return;
     }
 
     /**
@@ -1523,13 +1529,11 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
             affect(_autre);
             return;
         }
-        if (!sameSignum(_autre)) {
-            //numbers which have not a same signum
-            if (eq(grDigits,_autre.grDigits)) {
-                //opposite numbers
-                affectZero();
-                return;
-            }
+        //numbers which have not a same signum
+        if (!sameSignum(_autre) && eq(grDigits, _autre.grDigits)) {
+            //opposite numbers
+            affectZero();
+            return;
         }
 //        if (isZeroOrGt() == _autre.isZeroOrGt()) {
 //            ajouter(_autre);
@@ -1546,7 +1550,6 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
             return;
         }
         retrancher(_autre);
-        return;
     }
 
     private QuotModLgInt divisionEuclidienneGeneralise(LgInt _autre) {
@@ -1599,7 +1602,7 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
     public void affectZero() {
         //setModified();
         grDigits.clear();
-        grDigits.add(0l);
+        grDigits.add(0L);
         signum = SIGNE_POSITIF;
     }
 
@@ -1666,10 +1669,8 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
             }
             return _max.cmp(this) >= 0;
         }
-        if (_max != null) {
-            if (_max.cmp(this) < 0) {
-                return false;
-            }
+        if (_max != null && _max.cmp(this) < 0) {
+            return false;
         }
         return _min.cmp(this) <= 0;
     }
