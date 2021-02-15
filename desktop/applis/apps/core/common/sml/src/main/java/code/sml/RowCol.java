@@ -1,9 +1,8 @@
 package code.sml;
 import code.util.core.NumberUtil;
-import code.util.ints.Cmp;
 import code.util.ints.Displayable;
 
-public final class RowCol implements Cmp<RowCol>, Displayable {
+public final class RowCol implements Displayable {
 
     private static final String SEP = ",";
 
@@ -20,7 +19,6 @@ public final class RowCol implements Cmp<RowCol>, Displayable {
         return str_.toString();
     }
 
-    @Override
     public boolean eq(RowCol _obj) {
         if (row != _obj.row) {
             return false;
@@ -28,7 +26,6 @@ public final class RowCol implements Cmp<RowCol>, Displayable {
         return col == _obj.col;
     }
 
-    @Override
     public int cmp(RowCol _other) {
         if (row != _other.row) {
             return NumberUtil.compareLg(row, _other.row);
