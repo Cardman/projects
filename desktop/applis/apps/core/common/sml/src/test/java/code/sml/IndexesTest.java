@@ -1016,7 +1016,7 @@ public class IndexesTest extends EquallableRowColUtil {
         e_ = DocumentBuilder.getIndexesOfElementOrAttribute(html_, e_, (Element) node_, 4);
         StringMap<IntTreeMap<Integer>> s_;
         s_ = DocumentBuilder.getSpecialChars(html_, (Element) node_);
-        RowCol rc_ = DocumentBuilder.getOffset("", e_.getAttributes(), s_, 0, e_.getOffsets(), e_.getTabs(), e_.getEndHeader(), 4);
+        RowCol rc_ = getOffset("", e_.getAttributes(), s_, 0, e_.getOffsets(), e_.getTabs(), e_.getEndHeader(), 4);
         assertEq(2, rc_.getRow());
         assertEq(6, rc_.getCol());
         assertEq(8, e_.getBegin());
@@ -1033,7 +1033,7 @@ public class IndexesTest extends EquallableRowColUtil {
         e_ = DocumentBuilder.getIndexesOfElementOrAttribute(html_, e_, (Element) node_, 4);
         StringMap<IntTreeMap<Integer>> s_;
         s_ = DocumentBuilder.getSpecialChars(html_, (Element) node_);
-        RowCol rc_ = DocumentBuilder.getOffset("where", e_.getAttributes(), s_, 0, e_.getOffsets(), e_.getTabs(), e_.getEndHeader(), 4);
+        RowCol rc_ = getOffset("where", e_.getAttributes(), s_, 0, e_.getOffsets(), e_.getTabs(), e_.getEndHeader(), 4);
         assertEq(2, rc_.getRow());
         assertEq(16, rc_.getCol());
     }
@@ -1049,7 +1049,7 @@ public class IndexesTest extends EquallableRowColUtil {
         e_ = DocumentBuilder.getIndexesOfElementOrAttribute(html_, e_, (Element) node_, 4);
         StringMap<IntTreeMap<Integer>> s_;
         s_ = DocumentBuilder.getSpecialChars(html_, (Element) node_);
-        RowCol rc_ = DocumentBuilder.getOffset("where", e_.getAttributes(), s_, 1, e_.getOffsets(), e_.getTabs(), e_.getEndHeader(), 4);
+        RowCol rc_ = getOffset("where", e_.getAttributes(), s_, 1, e_.getOffsets(), e_.getTabs(), e_.getEndHeader(), 4);
         assertEq(2, rc_.getRow());
         assertEq(17, rc_.getCol());
     }
@@ -1065,7 +1065,7 @@ public class IndexesTest extends EquallableRowColUtil {
         e_ = DocumentBuilder.getIndexesOfElementOrAttribute(html_, e_, (Element) node_, 4);
         StringMap<IntTreeMap<Integer>> s_;
         s_ = DocumentBuilder.getSpecialChars(html_, (Element) node_);
-        RowCol rc_ = DocumentBuilder.getOffset("where", e_.getAttributes(), s_, 2, e_.getOffsets(), e_.getTabs(), e_.getEndHeader(), 4);
+        RowCol rc_ = getOffset("where", e_.getAttributes(), s_, 2, e_.getOffsets(), e_.getTabs(), e_.getEndHeader(), 4);
         assertEq(2, rc_.getRow());
         assertEq(23, rc_.getCol());
     }
@@ -1081,7 +1081,7 @@ public class IndexesTest extends EquallableRowColUtil {
         e_ = DocumentBuilder.getIndexesOfElementOrAttribute(html_, e_, (Element) node_, 4);
         StringMap<IntTreeMap<Integer>> s_;
         s_ = DocumentBuilder.getSpecialChars(html_, (Element) node_);
-        RowCol rc_ = DocumentBuilder.getOffset("where", e_.getAttributes(), s_, 3, e_.getOffsets(), e_.getTabs(), e_.getEndHeader(), 4);
+        RowCol rc_ = getOffset("where", e_.getAttributes(), s_, 3, e_.getOffsets(), e_.getTabs(), e_.getEndHeader(), 4);
         assertEq(2, rc_.getRow());
         assertEq(24, rc_.getCol());
     }
@@ -1097,7 +1097,7 @@ public class IndexesTest extends EquallableRowColUtil {
         e_ = DocumentBuilder.getIndexesOfElementOrAttribute(html_, e_, (Element) node_, 4);
         StringMap<IntTreeMap<Integer>> s_;
         s_ = DocumentBuilder.getSpecialChars(html_, (Element) node_);
-        RowCol rc_ = DocumentBuilder.getOffset("where", e_.getAttributes(), s_, 6, e_.getOffsets(), e_.getTabs(), e_.getEndHeader(), 4);
+        RowCol rc_ = getOffset("where", e_.getAttributes(), s_, 6, e_.getOffsets(), e_.getTabs(), e_.getEndHeader(), 4);
         assertEq(2, rc_.getRow());
         assertEq(27, rc_.getCol());
     }
@@ -1114,7 +1114,7 @@ public class IndexesTest extends EquallableRowColUtil {
         e_ = DocumentBuilder.getIndexesOfElementOrAttribute(html_, e_, (Element) node_, 4);
         StringMap<IntTreeMap<Integer>> s_;
         s_ = DocumentBuilder.getSpecialChars(html_, (Element) node_);
-        RowCol rc_ = DocumentBuilder.getOffset("where", e_.getAttributes(), s_, 7, e_.getOffsets(), e_.getTabs(), e_.getEndHeader(), 4);
+        RowCol rc_ = getOffset("where", e_.getAttributes(), s_, 7, e_.getOffsets(), e_.getTabs(), e_.getEndHeader(), 4);
         assertEq(2, rc_.getRow());
         assertEq(35, rc_.getCol());
     }
@@ -1131,7 +1131,7 @@ public class IndexesTest extends EquallableRowColUtil {
         e_ = DocumentBuilder.getIndexesOfElementOrAttribute(html_, e_, (Element) node_, 4);
         StringMap<IntTreeMap<Integer>> s_;
         s_ = DocumentBuilder.getSpecialChars(html_, (Element) node_);
-        RowCol rc_ = DocumentBuilder.getOffset("where", e_.getAttributes(), s_, 0, e_.getOffsets(), e_.getTabs(), e_.getEndHeader(), 4);
+        RowCol rc_ = getOffset("where", e_.getAttributes(), s_, 0, e_.getOffsets(), e_.getTabs(), e_.getEndHeader(), 4);
         assertEq(3, rc_.getRow());
         assertEq(0, rc_.getCol());
     }
@@ -1147,7 +1147,7 @@ public class IndexesTest extends EquallableRowColUtil {
         e_ = DocumentBuilder.getIndexesOfElementOrAttribute(html_, e_, (Element) node_, 4);
         StringMap<IntTreeMap<Integer>> s_;
         s_ = DocumentBuilder.getSpecialChars(html_, (Element) node_);
-        RowCol rc_ = DocumentBuilder.getOffset("where", e_.getAttributes(), s_, 1, e_.getOffsets(), e_.getTabs(), e_.getEndHeader(), 4);
+        RowCol rc_ = getOffset("where", e_.getAttributes(), s_, 1, e_.getOffsets(), e_.getTabs(), e_.getEndHeader(), 4);
         assertEq(3, rc_.getRow());
         assertEq(1, rc_.getCol());
     }
@@ -1163,7 +1163,7 @@ public class IndexesTest extends EquallableRowColUtil {
         e_ = DocumentBuilder.getIndexesOfElementOrAttribute(html_, e_, (Element) node_, 4);
         StringMap<IntTreeMap<Integer>> s_;
         s_ = DocumentBuilder.getSpecialChars(html_, (Element) node_);
-        RowCol rc_ = DocumentBuilder.getOffset("where", e_.getAttributes(), s_, 2, e_.getOffsets(), e_.getTabs(), e_.getEndHeader(), 4);
+        RowCol rc_ = getOffset("where", e_.getAttributes(), s_, 2, e_.getOffsets(), e_.getTabs(), e_.getEndHeader(), 4);
         assertEq(3, rc_.getRow());
         assertEq(2, rc_.getCol());
     }
@@ -1179,7 +1179,7 @@ public class IndexesTest extends EquallableRowColUtil {
         e_ = DocumentBuilder.getIndexesOfElementOrAttribute(html_, e_, (Element) node_, 4);
         StringMap<IntTreeMap<Integer>> s_;
         s_ = DocumentBuilder.getSpecialChars(html_, (Element) node_);
-        RowCol rc_ = DocumentBuilder.getOffset("where", e_.getAttributes(), s_, 3, e_.getOffsets(), e_.getTabs(), e_.getEndHeader(), 4);
+        RowCol rc_ = getOffset("where", e_.getAttributes(), s_, 3, e_.getOffsets(), e_.getTabs(), e_.getEndHeader(), 4);
         assertEq(3, rc_.getRow());
         assertEq(8, rc_.getCol());
     }
@@ -1195,7 +1195,7 @@ public class IndexesTest extends EquallableRowColUtil {
         e_ = DocumentBuilder.getIndexesOfElementOrAttribute(html_, e_, (Element) node_, 4);
         StringMap<IntTreeMap<Integer>> s_;
         s_ = DocumentBuilder.getSpecialChars(html_, (Element) node_);
-        RowCol rc_ = DocumentBuilder.getOffset("where", e_.getAttributes(), s_, 6, e_.getOffsets(), e_.getTabs(), e_.getEndHeader(), 4);
+        RowCol rc_ = getOffset("where", e_.getAttributes(), s_, 6, e_.getOffsets(), e_.getTabs(), e_.getEndHeader(), 4);
         assertEq(3, rc_.getRow());
         assertEq(11, rc_.getCol());
     }
@@ -1212,7 +1212,7 @@ public class IndexesTest extends EquallableRowColUtil {
         e_ = DocumentBuilder.getIndexesOfElementOrAttribute(html_, e_, (Element) node_, 4);
         StringMap<IntTreeMap<Integer>> s_;
         s_ = DocumentBuilder.getSpecialChars(html_, (Element) node_);
-        RowCol rc_ = DocumentBuilder.getOffset("where", e_.getAttributes(), s_, 7, e_.getOffsets(), e_.getTabs(), e_.getEndHeader(), 4);
+        RowCol rc_ = getOffset("where", e_.getAttributes(), s_, 7, e_.getOffsets(), e_.getTabs(), e_.getEndHeader(), 4);
         assertEq(3, rc_.getRow());
         assertEq(12, rc_.getCol());
     }
@@ -1228,7 +1228,7 @@ public class IndexesTest extends EquallableRowColUtil {
         e_ = DocumentBuilder.getIndexesOfElementOrAttribute(html_, e_, (Element) node_, 4);
         StringMap<IntTreeMap<Integer>> s_;
         s_ = DocumentBuilder.getSpecialChars(html_, (Element) node_);
-        RowCol rc_ = DocumentBuilder.getOffset("where", e_.getAttributes(), s_, 8, e_.getOffsets(), e_.getTabs(), e_.getEndHeader(), 4);
+        RowCol rc_ = getOffset("where", e_.getAttributes(), s_, 8, e_.getOffsets(), e_.getTabs(), e_.getEndHeader(), 4);
         assertEq(3, rc_.getRow());
         assertEq(20, rc_.getCol());
     }
@@ -1245,7 +1245,7 @@ public class IndexesTest extends EquallableRowColUtil {
         e_ = DocumentBuilder.getIndexesOfElementOrAttribute(html_, e_, (Element) node_, 4);
         StringMap<IntTreeMap<Integer>> s_;
         s_ = DocumentBuilder.getSpecialChars(html_, (Element) node_);
-        RowCol rc_ = DocumentBuilder.getOffset("where", e_.getAttributes(), s_, 0, e_.getOffsets(), e_.getTabs(), e_.getEndHeader(), 4);
+        RowCol rc_ = getOffset("where", e_.getAttributes(), s_, 0, e_.getOffsets(), e_.getTabs(), e_.getEndHeader(), 4);
         assertEq(2, rc_.getRow());
         assertEq(16, rc_.getCol());
     }
@@ -1261,7 +1261,7 @@ public class IndexesTest extends EquallableRowColUtil {
         e_ = DocumentBuilder.getIndexesOfElementOrAttribute(html_, e_, (Element) node_, 4);
         StringMap<IntTreeMap<Integer>> s_;
         s_ = DocumentBuilder.getSpecialChars(html_, (Element) node_);
-        RowCol rc_ = DocumentBuilder.getOffset("where", e_.getAttributes(), s_, 1, e_.getOffsets(), e_.getTabs(), e_.getEndHeader(), 4);
+        RowCol rc_ = getOffset("where", e_.getAttributes(), s_, 1, e_.getOffsets(), e_.getTabs(), e_.getEndHeader(), 4);
         assertEq(3, rc_.getRow());
         assertEq(0, rc_.getCol());
     }
@@ -1277,7 +1277,7 @@ public class IndexesTest extends EquallableRowColUtil {
         e_ = DocumentBuilder.getIndexesOfElementOrAttribute(html_, e_, (Element) node_, 4);
         StringMap<IntTreeMap<Integer>> s_;
         s_ = DocumentBuilder.getSpecialChars(html_, (Element) node_);
-        RowCol rc_ = DocumentBuilder.getOffset("where", e_.getAttributes(), s_, 2, e_.getOffsets(), e_.getTabs(), e_.getEndHeader(), 4);
+        RowCol rc_ = getOffset("where", e_.getAttributes(), s_, 2, e_.getOffsets(), e_.getTabs(), e_.getEndHeader(), 4);
         assertEq(3, rc_.getRow());
         assertEq(1, rc_.getCol());
     }
@@ -1293,7 +1293,7 @@ public class IndexesTest extends EquallableRowColUtil {
         e_ = DocumentBuilder.getIndexesOfElementOrAttribute(html_, e_, (Element) node_, 4);
         StringMap<IntTreeMap<Integer>> s_;
         s_ = DocumentBuilder.getSpecialChars(html_, (Element) node_);
-        RowCol rc_ = DocumentBuilder.getOffset("where", e_.getAttributes(), s_, 3, e_.getOffsets(), e_.getTabs(), e_.getEndHeader(), 4);
+        RowCol rc_ = getOffset("where", e_.getAttributes(), s_, 3, e_.getOffsets(), e_.getTabs(), e_.getEndHeader(), 4);
         assertEq(3, rc_.getRow());
         assertEq(2, rc_.getCol());
     }
@@ -1309,7 +1309,7 @@ public class IndexesTest extends EquallableRowColUtil {
         e_ = DocumentBuilder.getIndexesOfElementOrAttribute(html_, e_, (Element) node_, 4);
         StringMap<IntTreeMap<Integer>> s_;
         s_ = DocumentBuilder.getSpecialChars(html_, (Element) node_);
-        RowCol rc_ = DocumentBuilder.getOffset("where", e_.getAttributes(), s_, 6, e_.getOffsets(), e_.getTabs(), e_.getEndHeader(), 4);
+        RowCol rc_ = getOffset("where", e_.getAttributes(), s_, 6, e_.getOffsets(), e_.getTabs(), e_.getEndHeader(), 4);
         assertEq(3, rc_.getRow());
         assertEq(10, rc_.getCol());
     }
@@ -1326,7 +1326,7 @@ public class IndexesTest extends EquallableRowColUtil {
         e_ = DocumentBuilder.getIndexesOfElementOrAttribute(html_, e_, (Element) node_, 4);
         StringMap<IntTreeMap<Integer>> s_;
         s_ = DocumentBuilder.getSpecialChars(html_, (Element) node_);
-        RowCol rc_ = DocumentBuilder.getOffset("where", e_.getAttributes(), s_, 7, e_.getOffsets(), e_.getTabs(), e_.getEndHeader(), 4);
+        RowCol rc_ = getOffset("where", e_.getAttributes(), s_, 7, e_.getOffsets(), e_.getTabs(), e_.getEndHeader(), 4);
         assertEq(3, rc_.getRow());
         assertEq(11, rc_.getCol());
     }
@@ -1342,7 +1342,7 @@ public class IndexesTest extends EquallableRowColUtil {
         e_ = DocumentBuilder.getIndexesOfElementOrAttribute(html_, e_, (Element) node_, 4);
         StringMap<IntTreeMap<Integer>> s_;
         s_ = DocumentBuilder.getSpecialChars(html_, (Element) node_);
-        RowCol rc_ = DocumentBuilder.getOffset("where", e_.getAttributes(), s_, 8, e_.getOffsets(), e_.getTabs(), e_.getEndHeader(), 4);
+        RowCol rc_ = getOffset("where", e_.getAttributes(), s_, 8, e_.getOffsets(), e_.getTabs(), e_.getEndHeader(), 4);
         assertEq(3, rc_.getRow());
         assertEq(12, rc_.getCol());
     }
@@ -1358,7 +1358,7 @@ public class IndexesTest extends EquallableRowColUtil {
         e_ = DocumentBuilder.getIndexesOfElementOrAttribute(html_, e_, (Element) node_, 4);
         StringMap<IntTreeMap<Integer>> s_;
         s_ = DocumentBuilder.getSpecialChars(html_, (Element) node_);
-        RowCol rc_ = DocumentBuilder.getOffset("where", e_.getAttributes(), s_, 4, e_.getOffsets(), e_.getTabs(), e_.getEndHeader(), 4);
+        RowCol rc_ = getOffset("where", e_.getAttributes(), s_, 4, e_.getOffsets(), e_.getTabs(), e_.getEndHeader(), 4);
         assertEq(3, rc_.getRow());
         assertEq(8, rc_.getCol());
     }
@@ -1374,7 +1374,7 @@ public class IndexesTest extends EquallableRowColUtil {
         e_ = DocumentBuilder.getIndexesOfElementOrAttribute(html_, e_, (Element) node_, 4);
         StringMap<IntTreeMap<Integer>> s_;
         s_ = DocumentBuilder.getSpecialChars(html_, (Element) node_);
-        RowCol rc_ = DocumentBuilder.getOffset("where", e_.getAttributes(), s_, 9, e_.getOffsets(), e_.getTabs(), e_.getEndHeader(), 4);
+        RowCol rc_ = getOffset("where", e_.getAttributes(), s_, 9, e_.getOffsets(), e_.getTabs(), e_.getEndHeader(), 4);
         assertEq(3, rc_.getRow());
         assertEq(20, rc_.getCol());
     }
@@ -1390,7 +1390,7 @@ public class IndexesTest extends EquallableRowColUtil {
         e_ = DocumentBuilder.getIndexesOfElementOrAttribute(html_, e_, (Element) node_, 4);
         StringMap<IntTreeMap<Integer>> s_;
         s_ = DocumentBuilder.getSpecialChars(html_, (Element) node_);
-        RowCol rc_ = DocumentBuilder.getOffset("how", e_.getAttributes(), s_, 0, e_.getOffsets(), e_.getTabs(), e_.getEndHeader(), 4);
+        RowCol rc_ = getOffset("how", e_.getAttributes(), s_, 0, e_.getOffsets(), e_.getTabs(), e_.getEndHeader(), 4);
         assertEq(3, rc_.getRow());
         assertEq(58, rc_.getCol());
     }
@@ -1406,9 +1406,23 @@ public class IndexesTest extends EquallableRowColUtil {
         e_ = DocumentBuilder.getIndexesOfElementOrAttribute(html_, e_, (Element) node_, 4);
         StringMap<IntTreeMap<Integer>> s_;
         s_ = DocumentBuilder.getSpecialChars(html_, (Element) node_);
-        RowCol rc_ = DocumentBuilder.getOffset("where", e_.getAttributes(), s_, 1, e_.getOffsets(), e_.getTabs(), e_.getEndHeader(), 4);
+        RowCol rc_ = getOffset("where", e_.getAttributes(), s_, 1, e_.getOffsets(), e_.getTabs(), e_.getEndHeader(), 4);
         assertEq(2, rc_.getRow());
         assertEq(16, rc_.getCol());
+    }
+    private static RowCol getOffset(
+            String _attribute,
+            StringMap<RowCol> _attributes,
+            StringMap<IntTreeMap<Integer>> _specialChars,
+            int _offset,
+            StringMap<Ints> _offsets,
+            StringMap<Ints> _tabs,
+            RowCol _endHeader,
+            int _tabWidth) {
+        if (!_attributes.contains(_attribute)) {
+            return _endHeader;
+        }
+        return DocumentBuilder.getOffset(_attribute, _attributes, _specialChars, _offset, _offsets, _tabs, _tabWidth);
     }
 
 }

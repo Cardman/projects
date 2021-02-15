@@ -1629,18 +1629,7 @@ public final class DocumentBuilder {
         }
     }
 
-    public static RowCol getOffset(
-            String _attribute,
-            StringMap<RowCol> _attributes,
-            StringMap<IntTreeMap<Integer>> _specialChars,
-            int _offset,
-            StringMap<Ints> _offsets,
-            StringMap<Ints> _tabs,
-            RowCol _endHeader,
-            int _tabWidth) {
-        if (!_attributes.contains(_attribute)) {
-            return _endHeader;
-        }
+    public static RowCol getOffset(String _attribute, StringMap<RowCol> _attributes, StringMap<IntTreeMap<Integer>> _specialChars, int _offset, StringMap<Ints> _offsets, StringMap<Ints> _tabs, int _tabWidth) {
         RowCol offset_ = _attributes.getVal(_attribute);
         if (_attribute.isEmpty()) {
             return offset_;
