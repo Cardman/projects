@@ -36,14 +36,12 @@ public final class OperationsSequence {
             priority = MathResolver.BAD_PRIO;
             return;
         }
-        int beginValuePart_ = IndexConstants.FIRST_INDEX;
+        feedValues(_string);
+    }
+
+    private void feedValues(String _string) {
+        firstOperand(_string);
         int endValuePart_ = operators.firstKey();
-        String str_;
-        if (priority != MathResolver.UNARY_PRIO && !(fctName.trim().isEmpty() && useFct)) {
-            //not unary priority, not identity priority
-            str_ = _string.substring(beginValuePart_, endValuePart_);
-            values.put(beginValuePart_, str_);
-        }
         if (priority == MathResolver.FCT_OPER_PRIO) {
             int afterLastPar_ = operators.lastKey()+1;
             if (!_string.substring(afterLastPar_).trim().isEmpty()) {
@@ -54,9 +52,9 @@ public final class OperationsSequence {
             }
         }
         if (priority == MathResolver.FCT_OPER_PRIO && operators.size() == 2) {
-            beginValuePart_ = endValuePart_ + operators.firstValue().length();
+            int beginValuePart_ = endValuePart_ + operators.firstValue().length();
             endValuePart_ = operators.getKey(IndexConstants.SECOND_INDEX);
-            str_ = _string.substring(beginValuePart_, endValuePart_);
+            String str_ = _string.substring(beginValuePart_, endValuePart_);
             if (!str_.isEmpty()) {
                 values.put(beginValuePart_, str_);
             }
@@ -65,15 +63,25 @@ public final class OperationsSequence {
         int i_ = IndexConstants.SECOND_INDEX;
         int nbKeys_ = operators.size();
         while (i_ < nbKeys_) {
-            beginValuePart_ = endValuePart_ + operators.getValue(i_-1).length();
+            int beginValuePart_ = endValuePart_ + operators.getValue(i_ - 1).length();
             endValuePart_ = operators.getKey(i_);
-            str_ = _string.substring(beginValuePart_, endValuePart_);
+            String str_ = _string.substring(beginValuePart_, endValuePart_);
             values.put(beginValuePart_, str_);
             i_++;
         }
         if (priority != MathResolver.FCT_OPER_PRIO) {
-            beginValuePart_ = endValuePart_ + operators.lastValue().length();
-            str_ = _string.substring(beginValuePart_);
+            int beginValuePart_ = endValuePart_ + operators.lastValue().length();
+            String str_ = _string.substring(beginValuePart_);
+            values.put(beginValuePart_, str_);
+        }
+    }
+
+    private void firstOperand(String _string) {
+        if (priority != MathResolver.UNARY_PRIO && !(fctName.trim().isEmpty() && useFct)) {
+            //not unary priority, not identity priority
+            int beginValuePart_ = IndexConstants.FIRST_INDEX;
+            int endValuePart_ = operators.firstKey();
+            String str_ = _string.substring(beginValuePart_, endValuePart_);
             values.put(beginValuePart_, str_);
         }
     }

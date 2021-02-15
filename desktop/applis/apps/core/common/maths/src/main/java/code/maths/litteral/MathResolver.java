@@ -176,13 +176,11 @@ public final class MathResolver {
                 }
                 parsBrackets_.removeKey(parsBrackets_.lastKey());
             }
-            if (curChar_ == SEP_ARG) {
-                if (parsBrackets_.isEmpty()) {
-                    _error.setIndex(i_);
-                    _error.setError(true);
-                    _error.setString(_string);
-                    return d_;
-                }
+            if (curChar_ == SEP_ARG && parsBrackets_.isEmpty()) {
+                _error.setIndex(i_);
+                _error.setError(true);
+                _error.setString(_string);
+                return d_;
             }
             boolean escapeOpers_ = false;
             boolean addOp_ = true;
@@ -238,19 +236,7 @@ public final class MathResolver {
                 }
                 while (j_ < len_) {
                     char curLoc_ = _string.charAt(j_);
-                    if (StringUtil.isWhitespace(curLoc_)) {
-                        j_++;
-                        continue;
-                    }
-                    if (curLoc_ == PLUS_CHAR) {
-                        j_++;
-                        continue;
-                    }
-                    if (curLoc_ == MINUS_CHAR) {
-                        j_++;
-                        continue;
-                    }
-                    if (curLoc_ == NEG_BOOL_CHAR) {
+                    if (StringUtil.isWhitespace(curLoc_) || curLoc_ == PLUS_CHAR || curLoc_ == MINUS_CHAR || curLoc_ == NEG_BOOL_CHAR) {
                         j_++;
                         continue;
                     }
@@ -336,8 +322,7 @@ public final class MathResolver {
         operators_ = new IntTreeMap<String>();
         IntTreeMap<Character> parsBrackets_;
         parsBrackets_ = new IntTreeMap<Character>();
-        int prioMax_ = FCT_OPER_PRIO;
-        int prio_ = prioMax_;
+        int prio_ = FCT_OPER_PRIO;
         int len_ = _string.length();
         int i_ = IndexConstants.FIRST_INDEX;
         while (i_ < len_) {
@@ -547,14 +532,8 @@ public final class MathResolver {
         int j_ = _from;
         while (j_ <= _to) {
             char ch_ = _string.charAt(j_);
-            if (ch_ != MINUS_CHAR) {
-                if (ch_ != PLUS_CHAR) {
-                    if (ch_ != NEG_BOOL_CHAR) {
-                        if (!StringUtil.isWhitespace(ch_)) {
-                            break;
-                        }
-                    }
-                }
+            if (ch_ != MINUS_CHAR && ch_ != PLUS_CHAR && ch_ != NEG_BOOL_CHAR && !StringUtil.isWhitespace(ch_)) {
+                break;
             }
             j_++;
         }

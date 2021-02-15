@@ -6,17 +6,18 @@ import code.util.core.StringUtil;
 
 public final class EqOperation extends PrimitiveBoolOperation {
 
+    private MathType eqType;
     public EqOperation(String _el, int _index, StringMap<String> _importingPage,
             int _indexChild, MethodOperation _m, OperationsSequence _op) {
         super(_el, _index, _importingPage, _indexChild, _m, _op);
     }
 
-    static Argument calculateEq(Argument _a, Argument _b) {
+    Argument calculateEq(Argument _a, Argument _b) {
         Argument a_ = new Argument();
         a_.setArgClass(MathType.BOOLEAN);
-        if (_a.getArgClass() == MathType.RATE) {
+        if (eqType == MathType.RATE) {
             a_.setObject(_a.getRateVal().eq(_b.getRateVal()));
-        } else if (_a.getArgClass() == MathType.SET) {
+        } else if (eqType == MathType.SET) {
             a_.setObject(_a.getListVal().eq(_b.getListVal()));
         } else {
             //first_ instanceof Boolean
@@ -36,6 +37,7 @@ public final class EqOperation extends PrimitiveBoolOperation {
         MathType first_ = chidren_.first().getResultClass();
         MathType second_ = chidren_.last().getResultClass();
         if (first_ == second_) {
+            eqType = first_;
             setResultClass(MathType.BOOLEAN);
             return;
         }
