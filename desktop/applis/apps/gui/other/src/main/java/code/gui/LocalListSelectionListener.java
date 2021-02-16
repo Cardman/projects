@@ -11,4 +11,8 @@ public class LocalListSelectionListener implements ListSelectionListener {
 	public void valueChanged(ListSelectionEvent _e){
 		ValueChangingUtil.act(new ValueChangingImpl(listener,_e));
 	}
+
+	public ListSelection getListener() {
+		return listener;
+	}
 }

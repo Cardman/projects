@@ -13,8 +13,6 @@ public final class GraphicListStruct extends InputStruct {
 
     private Struct render = NullStruct.NULL_VALUE;
 
-    private Struct listener = NullStruct.NULL_VALUE;
-
     private final AbsGraphicListStr grList;
 
     public GraphicListStruct(GuiContextEl _ctx,String _className,boolean _simple) {
@@ -121,11 +119,14 @@ public final class GraphicListStruct extends InputStruct {
         } else {
             grList.setListener(null);
         }
-        listener = _listener;
     }
 
     public Struct getListener() {
-        return listener;
+        ListSelection listener_ = grList.getListener();
+        if (!(listener_ instanceof Struct)) {
+            return NullStruct.NULL_VALUE;
+        }
+        return (Struct) listener_;
     }
 
     public void addRange(int _first, int _last) {

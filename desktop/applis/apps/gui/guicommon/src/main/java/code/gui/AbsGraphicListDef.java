@@ -17,6 +17,11 @@ public interface AbsGraphicListDef {
     ListSelection getListener();
 
     void setListener(ListSelection _listener);
+    ListSelection[] getListeners();
+
+    void addListener(ListSelection _listener);
+
+    void removeListener(ListSelection _listener);
 
 
     int getSelectedIndex();

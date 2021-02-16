@@ -2,9 +2,11 @@ package code.gui;
 import code.adv.BoolIntChoiceImpl;
 import code.adv.BoolIntChoiceUtil;
 import code.util.CustList;
+import code.util.IdList;
 import code.util.Ints;
 import javax.swing.*;
 import java.util.Arrays;
+import java.util.Optional;
 
 public class CustGrList<T> extends CustComponent implements AbsGraphicList<T> {
 
@@ -13,9 +15,8 @@ public class CustGrList<T> extends CustComponent implements AbsGraphicList<T> {
 	private final JScrollPane scroll = new JScrollPane(list);
 	private final ScrollPane custScroll = new ScrollPane(scroll);
 	private final CustList<T> elts = new CustList<>();
+	private final IdList<LocalListSelectionListener> listeners = new IdList<>();
 	private CustCellRender<T> inner;
-
-    private ListSelection listener;
 
     public CustGrList(boolean _simple) {
         setup(BoolIntChoiceUtil.choice(new BoolIntChoiceImpl(_simple),
@@ -26,14 +27,34 @@ public class CustGrList<T> extends CustComponent implements AbsGraphicList<T> {
         list.setSelectionMode(_value);
     }
     public ListSelection getListener() {
-        return listener;
+        return listeners.list().stream().map(LocalListSelectionListener::getListener).findAny().orElse(null);
     }
 
     public void setListener(ListSelection _listener) {
-        listener = _listener;
-		list.addListSelectionListener(new LocalListSelectionListener(_listener));
+        listeners.list().forEach(list::removeListSelectionListener);
+        listeners.clear();
+        addListener(_listener);
     }
 
+    public ListSelection[] getListeners() {
+        return listeners.list().stream().map(LocalListSelectionListener::getListener).toArray(ListSelection[]::new);
+    }
+
+    public void addListener(ListSelection _listener) {
+        Optional.ofNullable(_listener).ifPresent(this::simpleAdd);
+    }
+
+    private void simpleAdd(ListSelection _l) {
+        LocalListSelectionListener loc_ = new LocalListSelectionListener(_l);
+        list.addListSelectionListener(loc_);
+        listeners.add(loc_);
+    }
+
+    public void removeListener(ListSelection _listener) {
+        Optional<LocalListSelectionListener> result_ = listeners.list().stream().filter(l -> l.getListener() == _listener).findFirst();
+        result_.ifPresent(list::removeListSelectionListener);
+        result_.ifPresent(listeners::removeObj);
+    }
     public CustCellRender<T> getRender() {return inner;}
     public void setRender(CustCellRender<T> _render) {
 		CustSelList<T> r_ = new CustSelList<>();

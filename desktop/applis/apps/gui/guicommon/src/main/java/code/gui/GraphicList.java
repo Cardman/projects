@@ -526,6 +526,30 @@ public class GraphicList<T> extends CustComponent implements AbsGraphicList<T>,A
         simpleSetListener(_listener);
     }
 
+    @Override
+    public ListSelection[] getListeners() {
+        if (listener == null) {
+            return new ListSelection[0];
+        }
+        return new ListSelection[]{listener};
+    }
+
+    @Override
+    public void addListener(ListSelection _listener) {
+        if (_listener == null) {
+            return;
+        }
+        simpleSetListener(_listener);
+    }
+
+    @Override
+    public void removeListener(ListSelection _listener) {
+        if (listener != _listener) {
+            return;
+        }
+        listener = null;
+    }
+
     public void simpleSetListener(ListSelection _listener) {
         listener = _listener;
     }
