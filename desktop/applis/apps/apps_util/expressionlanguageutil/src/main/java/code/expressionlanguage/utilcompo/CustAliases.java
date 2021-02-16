@@ -74,6 +74,7 @@ public final class CustAliases {
     private static final String THREAD_EXIT_HOOK = "ThreadExitHook";
     private static final String APPEND_TO_FILE = "AppendToFile";
     private static final String THREAD_CURRENT_TIME = "ThreadCurrentTime";
+    private static final String THREAD_CURRENT_NANO_TIME = "ThreadCurrentNanoTime";
     private static final String SET_PRIORITY = "SetPriority";
     private static final String FILE_LIST_FILES = "FileListFiles";
     private static final String GET_PRIORITY = "GetPriority";
@@ -234,6 +235,7 @@ public final class CustAliases {
     private String aliasThreadSetSnapshot;
     private String aliasThread;
     private String aliasThreadCurrentTime;
+    private String aliasThreadCurrentNanoTime;
     private String aliasThreadExitHook;
     private String aliasCurrentThread;
     private String aliasStart;
@@ -461,6 +463,8 @@ public final class CustAliases {
         method_ = new StandardMethod(aliasCurrentThread, params_, aliasThread, false, MethodModifier.STATIC);
         methods_.add( method_);
         method_ = new StandardMethod(aliasThreadCurrentTime, params_, _content.getPrimTypes().getAliasPrimLong(), false, MethodModifier.STATIC);
+        methods_.add( method_);
+        method_ = new StandardMethod(aliasThreadCurrentNanoTime, params_, _content.getPrimTypes().getAliasPrimLong(), false, MethodModifier.STATIC);
         methods_.add( method_);
         method_ = new StandardMethod(aliasJoin, params_, _content.getNbAlias().getAliasBoolean(), false, MethodModifier.FINAL);
         methods_.add( method_);
@@ -1389,7 +1393,7 @@ public final class CustAliases {
         map_.put("{stTime}",tr("stTime", _keyWords, primitiveTypes_, coreNames_,
                 custAliasParameters.getAliasExecute0Run0(),custAliasParameters.getAliasExecute0Run1(),custAliasParameters.getAliasExecute0Run2()
         ));
-        map_.put("{instant}",aliasThreadCurrentTime);
+        map_.put("{instant}",aliasThreadCurrentNanoTime);
         map_.put("{diff}",tr("diff", _keyWords, primitiveTypes_, coreNames_,
                 custAliasParameters.getAliasExecute0Run0(),custAliasParameters.getAliasExecute0Run1(),custAliasParameters.getAliasExecute0Run2()
         ));
@@ -1497,6 +1501,7 @@ public final class CustAliases {
         setAliasThreadExitHook(LgNamesContent.get(_util, _cust, THREAD_EXIT_HOOK));
         setAliasAppendToFile(LgNamesContent.get(_util, _cust, APPEND_TO_FILE));
         setAliasThreadCurrentTime(LgNamesContent.get(_util, _cust, THREAD_CURRENT_TIME));
+        setAliasThreadCurrentNanoTime(LgNamesContent.get(_util, _cust, THREAD_CURRENT_NANO_TIME));
         setAliasSetPriority(LgNamesContent.get(_util, _cust, SET_PRIORITY));
         setAliasFileListFiles(LgNamesContent.get(_util, _cust, FILE_LIST_FILES));
         setAliasGetPriority(LgNamesContent.get(_util, _cust, GET_PRIORITY));
@@ -1754,6 +1759,7 @@ public final class CustAliases {
         m_.addEntry(getAliasThread(), new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(START,getAliasStart()),
                 new KeyValueMemberName(THREAD_CURRENT_TIME,getAliasThreadCurrentTime()),
+                new KeyValueMemberName(THREAD_CURRENT_NANO_TIME,getAliasThreadCurrentNanoTime()),
                 new KeyValueMemberName(IS_ALIVE,getAliasIsAlive()),
                 new KeyValueMemberName(IS_ENDED,getAliasIsEnded()),
                 new KeyValueMemberName(END,getAliasEnd()),
@@ -2293,6 +2299,10 @@ public final class CustAliases {
             if (_stackCall.getInitializingTypeInfos().isWideInitEnums()) {
                 processFailInit(_cont, _stackCall);
                 res_.setResult(NullStruct.NULL_VALUE);
+                return res_;
+            }
+            if (StringUtil.quickEq(name_,aliasThreadCurrentNanoTime)) {
+                res_.setResult(new LongStruct(System.nanoTime()));
                 return res_;
             }
             res_.setResult(new LongStruct(System.currentTimeMillis()));
@@ -3071,6 +3081,14 @@ public final class CustAliases {
 
     public void setAliasThreadCurrentTime(String _aliasThreadCurrentTime) {
         aliasThreadCurrentTime = _aliasThreadCurrentTime;
+    }
+
+    public String getAliasThreadCurrentNanoTime() {
+        return aliasThreadCurrentNanoTime;
+    }
+
+    public void setAliasThreadCurrentNanoTime(String _aliasThreadCurrentNanoTime) {
+        this.aliasThreadCurrentNanoTime = _aliasThreadCurrentNanoTime;
     }
 
     public String getAliasStart() {
