@@ -3,6 +3,7 @@ package code.expressionlanguage.exec.opers;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ErrorType;
+import code.expressionlanguage.exec.ExecHelper;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
@@ -25,7 +26,7 @@ public final class ExecInstanceOfOperation extends ExecAbstractUnaryOperation {
                           ContextEl _conf, StackCall _stack) {
         CustList<Argument> arguments_ = getArguments(_nodes, this);
         setRelOffsetPossibleLastPage(typeCheckContent.getOffset(), _stack);
-        Argument objArg_ = ExecTemplates.getFirstArgument(arguments_);
+        Argument objArg_ = ExecHelper.getFirstArgument(arguments_);
         Argument argres_;
         if (objArg_.isNull()) {
             argres_ = new Argument(BooleanStruct.of(false));

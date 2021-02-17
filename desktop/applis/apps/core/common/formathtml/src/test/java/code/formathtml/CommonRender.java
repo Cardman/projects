@@ -20,6 +20,7 @@ import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.analyze.instr.ElResolver;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.fwd.Forwards;
+import code.expressionlanguage.options.WarningShow;
 import code.formathtml.analyze.AnalyzingDoc;
 import code.formathtml.analyze.RenderAnalysis;
 import code.formathtml.analyze.blocks.AnaRendDocumentBlock;
@@ -286,6 +287,9 @@ public abstract class CommonRender extends EquallableExUtil {
     private static AnalyzedTestContext buildStd(String... _types) {
         Options opt_ = newOptions();
         opt_.setReadOnly(true);
+        WarningShow warningShow_ = new WarningShow();
+        warningShow_.setTernary(true);
+        opt_.setWarningShow(warningShow_);
         opt_.getTypesInit().addAllElts(new StringList(_types));
 
         return InitializationLgNames.buildStdThree(opt_);

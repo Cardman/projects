@@ -1,8 +1,8 @@
 package code.expressionlanguage.exec.blocks;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.exec.ExecHelperBlocks;
 import code.expressionlanguage.exec.StackCall;
-import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.util.CustList;
 
@@ -14,6 +14,6 @@ public final class ExecElseIfCondition extends ExecCondition implements Stackabl
 
     @Override
     public void processEl(ContextEl _cont, StackCall _stack) {
-        ExecTemplates.processElseIf(_cont,this, _stack);
+        ExecHelperBlocks.processElseIf(_cont,this, _stack);
     }
 }

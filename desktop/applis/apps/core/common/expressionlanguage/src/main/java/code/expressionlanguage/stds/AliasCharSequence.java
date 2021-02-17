@@ -5,9 +5,9 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.common.StringDataUtil;
 import code.expressionlanguage.common.StringExpUtil;
+import code.expressionlanguage.exec.ExecHelper;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
-import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.opers.ExecCatOperation;
 import code.expressionlanguage.functionid.*;
 import code.expressionlanguage.structs.*;
@@ -1656,14 +1656,14 @@ public final class AliasCharSequence {
     public static ResultErrorStd invokeMethod(ContextEl _cont, ClassMethodId _method, Struct _struct, StackCall _stackCall, Argument... _args) {
         ResultErrorStd result_;
         result_ = new ResultErrorStd();
-        Struct[] args_ = ExecTemplates.getObjects(_args);
+        Struct[] args_ = ExecHelper.getObjects(_args);
         calculateStrBuilder(_cont, result_, _method, _struct, _stackCall, args_);
         return result_;
     }
 
     static ResultErrorStd invokeStdMethod(ContextEl _cont, ClassMethodId _method, Struct _struct, StackCall _stackCall, Argument... _args) {
         ResultErrorStd result_ = new ResultErrorStd();
-        Struct[] args_ = ExecTemplates.getObjects(_args);
+        Struct[] args_ = ExecHelper.getObjects(_args);
         LgNames lgNames_ = _cont.getStandards();
         String type_ = _method.getClassName();
         String stringType_ = lgNames_.getContent().getCharSeq().getAliasString();

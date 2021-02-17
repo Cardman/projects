@@ -4,7 +4,7 @@ import code.expressionlanguage.AnalyzedTestContext;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.common.StringExpUtil;
-import code.expressionlanguage.exec.inherits.ExecTemplates;
+import code.expressionlanguage.exec.inherits.ExecInherits;
 import code.expressionlanguage.methods.ProcessMethodCommon;
 import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.util.StringList;
@@ -674,7 +674,7 @@ public final class TemplatesTest extends ProcessMethodCommon {
     }
 
     private static String getFullTypeByBasesTmp(ContextEl _cont, String _sub, String _sup) {
-        return ExecTemplates.getFullTypeByBases(_sub, _sup, _cont);
+        return ExecInherits.getFullTypeByBases(_sub, _sup, _cont);
     }
 
     @Test
@@ -955,7 +955,7 @@ public final class TemplatesTest extends ProcessMethodCommon {
     }
 
     private static String getOverridingFullTypeByBases(AnalyzedTestContext _cont, String _sub, String _sup) {
-        return ExecTemplates.getOverridingFullTypeByBases(_sub, _sup,_cont.getContext());
+        return ExecInherits.getOverridingFullTypeByBases(_sub, _sup,_cont.getContext());
     }
 
     private static AnalyzedTestContext unfullValidateOverridingMethodsStd(StringMap<String> _files) {
@@ -996,11 +996,11 @@ public final class TemplatesTest extends ProcessMethodCommon {
     }
 
     private static String quickFormat(AnalyzedTestContext _context, String _first, String _second) {
-        return ExecTemplates.quickFormat(_first, _second, _context.getContext());
+        return ExecInherits.quickFormat(_first, _second, _context.getContext());
     }
 
     private static String format(AnalyzedTestContext _context, String _first, String _second) {
-        return ExecTemplates.format(_first, _second, _context.getContext());
+        return ExecInherits.format(_first, _second, _context.getContext());
     }
 
     private static StringList getAllInnerTypesSingleDotted(String _type, AnalyzedTestContext _an) {
@@ -1008,7 +1008,7 @@ public final class TemplatesTest extends ProcessMethodCommon {
     }
 
     private static boolean correctNbParameters(AnalyzedTestContext _cont, String _pkg) {
-        return ExecTemplates.correctNbParameters(_pkg, _cont.getContext());
+        return ExecInherits.correctNbParameters(_pkg, _cont.getContext());
     }
 
 }

@@ -1,11 +1,11 @@
 package code.expressionlanguage.exec.blocks;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.exec.ExecHelperBlocks;
 import code.expressionlanguage.exec.ExecutingUtil;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
-import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.stacks.*;
 import code.expressionlanguage.structs.Struct;
 
@@ -36,7 +36,7 @@ public abstract class ExecBlock {
     }
 
     public final void processBlockAndRemove(ContextEl _conf, StackCall _stackCall) {
-        ExecTemplates.processBlockAndRemove(_conf,this, _stackCall);
+        ExecHelperBlocks.processBlockAndRemove(_conf,this, _stackCall);
     }
 
     public final void processBlock(ContextEl _conf, StackCall _stackCall) {

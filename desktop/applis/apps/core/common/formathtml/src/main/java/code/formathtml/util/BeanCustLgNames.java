@@ -10,6 +10,7 @@ import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
+import code.expressionlanguage.exec.inherits.ExecInherits;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.functionid.*;
 import code.expressionlanguage.fwd.Forwards;
@@ -482,7 +483,7 @@ public abstract class BeanCustLgNames extends BeanLgNames {
             }
             Struct strBean_ = arg_.getStruct();
             String clName_ = strBean_.getClassName(_ctx);
-            if (!ExecTemplates.isCorrectExecute(clName_, beanAliases.getAliasBean(), _ctx)) {
+            if (!ExecInherits.isCorrectExecute(clName_, beanAliases.getAliasBean(), _ctx)) {
                 _rendStack.removeLastPage();
                 _conf.getBuiltBeans().setValue(index_,strBean_);
                 index_++;
@@ -658,7 +659,7 @@ public abstract class BeanCustLgNames extends BeanLgNames {
     private Argument getForms(Struct _bean, Configuration _conf, ContextEl _ctx, StackCall _stackCall, RendStackCall _rendStackCall) {
         String clName_ = _bean.getClassName(_ctx);
         _rendStackCall.getLastPage().setEnabledOp(false);
-        if (!ExecTemplates.isCorrectExecute(clName_, beanAliases.getAliasBean(), _ctx)) {
+        if (!ExecInherits.isCorrectExecute(clName_, beanAliases.getAliasBean(), _ctx)) {
             return RenderExpUtil.calculateReuse(opsMap, _conf, this, _ctx, _stackCall, _rendStackCall);
         }
         _rendStackCall.getLastPage().putInternVars(getFormsVar, _bean, _ctx);
@@ -952,7 +953,7 @@ public abstract class BeanCustLgNames extends BeanLgNames {
     @Override
     public void beforeDisplaying(Struct _arg, Configuration _cont, ContextEl _ctx, StackCall _stack, RendStackCall _rendStack) {
         String clName_ = _arg.getClassName(_ctx);
-        if (!ExecTemplates.isCorrectExecute(clName_, beanAliases.getAliasBean(), _ctx)) {
+        if (!ExecInherits.isCorrectExecute(clName_, beanAliases.getAliasBean(), _ctx)) {
             return;
         }
         String locName_ = getBeforeDisplayingVar();

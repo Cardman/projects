@@ -2,8 +2,8 @@ package code.expressionlanguage.exec.opers;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.exec.ExecHelper;
 import code.expressionlanguage.exec.StackCall;
-import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.structs.BooleanStruct;
@@ -31,10 +31,10 @@ public final class ExecTernaryOperation extends ExecMethodOperation implements A
 
     public static Argument getArgument(CustList<Argument> _arguments) {
         Argument arg_;
-        if (BooleanStruct.isTrue(ExecTemplates.getFirstArgument(_arguments).getStruct())) {
-            arg_ = ExecTemplates.getArgument(_arguments,IndexConstants.SECOND_INDEX);
+        if (BooleanStruct.isTrue(ExecHelper.getFirstArgument(_arguments).getStruct())) {
+            arg_ = ExecHelper.getArgument(_arguments,IndexConstants.SECOND_INDEX);
         } else {
-            arg_ = ExecTemplates.getLastArgument(_arguments);
+            arg_ = ExecHelper.getLastArgument(_arguments);
         }
         return arg_;
     }

@@ -2,6 +2,7 @@ package code.expressionlanguage.exec.opers;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.exec.ExecHelper;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.PageEl;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
@@ -29,7 +30,7 @@ public class ExecStdRefVariableOperation extends ExecLeafOperation implements
             if (!declare) {
                 PageEl ip_ = _stack.getLastPage();
                 AbstractWrapper val_ = ExecTemplates.getWrapper(variableContent.getVariableName(),variableContent.getDeep(), ip_.getCache(), _stack.getLastPage().getRefParams());
-                ArgumentsPair pair_ = ExecTemplates.getArgumentPair(_nodes, this);
+                ArgumentsPair pair_ = ExecHelper.getArgumentPair(_nodes, this);
                 pair_.setWrapper(val_);
                 setQuickNoConvertSimpleArgument(ExecTemplates.getArgValue(val_,_conf, _stack), _conf, _nodes, _stack);
             } else {
@@ -38,7 +39,7 @@ public class ExecStdRefVariableOperation extends ExecLeafOperation implements
         } else {
             PageEl ip_ = _stack.getLastPage();
             AbstractWrapper val_ = ExecTemplates.getWrapper(variableContent.getVariableName(),variableContent.getDeep(), ip_.getCache(), _stack.getLastPage().getRefParams());
-            ArgumentsPair pair_ = ExecTemplates.getArgumentPair(_nodes, this);
+            ArgumentsPair pair_ = ExecHelper.getArgumentPair(_nodes, this);
             pair_.setWrapper(val_);
             setSimpleArgument(ExecTemplates.getArgValue(val_,_conf, _stack), _conf, _nodes, _stack);
         }

@@ -1,8 +1,8 @@
 package code.expressionlanguage.exec.blocks;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.exec.ExecHelperBlocks;
 import code.expressionlanguage.exec.StackCall;
-import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.util.CustList;
 
@@ -13,6 +13,6 @@ public final class ExecDoWhileCondition extends ExecCondition {
 
     @Override
     public void processEl(ContextEl _cont, StackCall _stack) {
-        ExecTemplates.processDo(_cont,this, _stack);
+        ExecHelperBlocks.processDo(_cont,this, _stack);
     }
 }

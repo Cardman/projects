@@ -3,9 +3,11 @@ package code.expressionlanguage.exec.opers;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.CallPrepareState;
+import code.expressionlanguage.exec.ExecHelper;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.util.InstancingStep;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
+import code.expressionlanguage.exec.inherits.ExecInherits;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
@@ -23,8 +25,8 @@ public final class ExecInterfaceFctConstructor extends ExecAbstractInvokingConst
     @Override
     public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes,
                           ContextEl _conf, StackCall _stack) {
-        ExecOperationNode main_ = ExecTemplates.getMainNode(this);
-        ArgumentsPair pair_ = ExecTemplates.getArgumentPair(_nodes, main_);
+        ExecOperationNode main_ = ExecHelper.getMainNode(this);
+        ArgumentsPair pair_ = ExecHelper.getArgumentPair(_nodes, main_);
         Argument mainArgument_ = Argument.getNullableValue(pair_.getArgument());
         if (getIndexChild() == 1) {
             //init and test
@@ -44,7 +46,7 @@ public final class ExecInterfaceFctConstructor extends ExecAbstractInvokingConst
             int off_ = getOffsetOper();
             setRelOffsetPossibleLastPage(off_, _stack);
             String superClass_ = _stack.formatVarType(getClassFromName());
-            String lastType_ = ExecTemplates.quickFormat(getPair().getType(), superClass_, getLastType());
+            String lastType_ = ExecInherits.quickFormat(getPair().getType(), superClass_, getLastType());
             checkParameters(_conf, superClass_, getPair(), ref_,null, fectchArgs(_nodes, lastType_, getNaturalVararg()),CallPrepareState.CTOR, InstancingStep.USING_SUPER,null, MethodAccessKind.INSTANCE, _stack);
             Argument res_ = Argument.createVoid();
             setSimpleArgument(res_, _conf, _nodes, _stack);
@@ -53,7 +55,7 @@ public final class ExecInterfaceFctConstructor extends ExecAbstractInvokingConst
         int off_ = getOffsetOper();
         setRelOffsetPossibleLastPage(off_, _stack);
         String superClass_ = _stack.formatVarType(getClassFromName());
-        String lastType_ = ExecTemplates.quickFormat(getPair().getType(), superClass_, getLastType());
+        String lastType_ = ExecInherits.quickFormat(getPair().getType(), superClass_, getLastType());
         checkParameters(_conf, superClass_, getPair(), mainArgument_,null, fectchArgs(_nodes, lastType_, getNaturalVararg()),CallPrepareState.CTOR, InstancingStep.USING_SUPER,null, MethodAccessKind.INSTANCE, _stack);
         Argument res_ = Argument.createVoid();
         setSimpleArgument(res_, _conf, _nodes, _stack);

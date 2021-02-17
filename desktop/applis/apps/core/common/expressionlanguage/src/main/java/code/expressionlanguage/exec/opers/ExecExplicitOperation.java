@@ -4,6 +4,7 @@ import code.expressionlanguage.AbstractExiting;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.StringExpUtil;
+import code.expressionlanguage.exec.ExecHelper;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
@@ -77,7 +78,7 @@ public final class ExecExplicitOperation extends ExecAbstractUnaryOperation {
     }
 
     public static Argument getArgument(CustList<Argument> _arguments, String _paramName, ContextEl _conf, StackCall _stackCall) {
-        Argument objArg_ = new Argument(ExecTemplates.getFirstArgument(_arguments).getStruct());
+        Argument objArg_ = new Argument(ExecHelper.getFirstArgument(_arguments).getStruct());
         ExecTemplates.checkObject(_paramName, objArg_, _conf, _stackCall);
         return objArg_;
     }

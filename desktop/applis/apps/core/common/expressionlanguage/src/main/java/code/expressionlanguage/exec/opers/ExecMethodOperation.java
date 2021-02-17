@@ -1,12 +1,12 @@
 package code.expressionlanguage.exec.opers;
-import code.expressionlanguage.exec.inherits.ExecTemplates;
+import code.expressionlanguage.exec.ExecHelper;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.util.CustList;
 
 public abstract class ExecMethodOperation extends ExecOperationNode {
 
-    private CustList<ExecOperationNode> childrenNodes = new CustList<ExecOperationNode>();
+    private final CustList<ExecOperationNode> childrenNodes = new CustList<ExecOperationNode>();
 
     protected ExecMethodOperation(ExecOperationContent _m) {
         super(_m);
@@ -27,7 +27,7 @@ public abstract class ExecMethodOperation extends ExecOperationNode {
 
     @Override
     public final ExecOperationNode getFirstChild() {
-        return ExecTemplates.getFirstNode(this);
+        return ExecHelper.getFirstNode(this);
     }
 
 }

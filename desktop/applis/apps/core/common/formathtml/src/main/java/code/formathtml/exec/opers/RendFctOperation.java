@@ -5,6 +5,7 @@ import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.ArgumentWrapper;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
+import code.expressionlanguage.exec.inherits.ExecInherits;
 import code.expressionlanguage.exec.opers.ExecInvokingOperation;
 import code.expressionlanguage.exec.util.ExecOverrideInfo;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
@@ -48,8 +49,8 @@ public final class RendFctOperation extends RendSettableCallFctOperation impleme
             String base_ = StringExpUtil.getIdFromAllTypes(classNameFound_);
             Struct pr_ = prev_.getStruct();
             String cl_ = pr_.getClassName(_context);
-            String clGen_ = ExecTemplates.getSuperGeneric(cl_, base_, _context);
-            lastType_ = ExecTemplates.quickFormat(pair.getType(), clGen_, lastType_);
+            String clGen_ = ExecInherits.getSuperGeneric(cl_, base_, _context);
+            lastType_ = ExecInherits.quickFormat(pair.getType(), clGen_, lastType_);
             ExecOverrideInfo polymorph_ = ExecInvokingOperation.polymorphOrSuper(isStaticChoiceMethod(), _context, pr_, classNameFound_, pair);
             ExecTypeFunction pair_ = polymorph_.getPair();
             classNameFound_ = polymorph_.getClassName();

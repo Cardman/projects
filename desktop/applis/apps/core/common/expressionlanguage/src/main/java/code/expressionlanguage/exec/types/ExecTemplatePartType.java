@@ -4,8 +4,8 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.DimComp;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.common.StringExpUtil;
-import code.expressionlanguage.exec.inherits.ExecTemplates;
 
+import code.expressionlanguage.exec.inherits.ExecInherits;
 import code.expressionlanguage.inherits.Templates;
 
 import code.util.CustList;
@@ -74,8 +74,8 @@ final class ExecTemplatePartType extends ExecBinaryType {
             DimComp dimCompArg_ = StringExpUtil.getQuickComponentBaseType(comp_);
             comp_ = dimCompArg_.getComponent();
             for (String e: t_) {
-                String param_ = ExecTemplates.format(tempClFull_, e, _an);
-                if (!ExecTemplates.isCorrectExecute(comp_, param_, _an)) {
+                String param_ = ExecInherits.format(tempClFull_, e, _an);
+                if (!ExecInherits.isCorrectExecute(comp_, param_, _an)) {
                     return false;
                 }
             }

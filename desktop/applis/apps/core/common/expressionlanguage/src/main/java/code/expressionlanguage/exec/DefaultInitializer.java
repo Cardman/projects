@@ -10,7 +10,7 @@ import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.calls.ForwardPageEl;
 import code.expressionlanguage.exec.calls.StaticInitPageEl;
 import code.expressionlanguage.exec.calls.util.ReadWrite;
-import code.expressionlanguage.exec.inherits.ExecTemplates;
+import code.expressionlanguage.exec.inherits.ExecInherits;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 
@@ -37,10 +37,10 @@ public class DefaultInitializer implements Initializer {
         for (ExecFormattedRootBlock c: allClasses_) {
             String preFormatted_ = c.getFormatted();
             String id_ = StringExpUtil.getIdFromAllTypes(preFormatted_);
-            String formatted_ = ExecTemplates.quickFormat(_rootBlock,_className, preFormatted_);
+            String formatted_ = ExecInherits.quickFormat(_rootBlock,_className, preFormatted_);
             for (ExecFieldBlock b: c.getRootBlock().getInstanceFields()) {
                 String fieldDeclClass_ = b.getImportedClassName();
-                fieldDeclClass_ = ExecTemplates.quickFormat(c.getRootBlock(),formatted_,fieldDeclClass_);
+                fieldDeclClass_ = ExecInherits.quickFormat(c.getRootBlock(),formatted_,fieldDeclClass_);
                 for (String f: b.getFieldName()) {
                     ClassField key_ = new ClassField(id_, f);
                     fields_.add(new ClassFieldStruct(key_, ExecClassArgumentMatching.defaultValue(fieldDeclClass_, _context)));

@@ -10,7 +10,7 @@ import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.calls.util.NotInitializedClass;
-import code.expressionlanguage.exec.inherits.ExecTemplates;
+import code.expressionlanguage.exec.inherits.ExecInherits;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.expressionlanguage.functionid.ConstructorId;
 import code.expressionlanguage.functionid.MethodAccessKind;
@@ -212,8 +212,8 @@ public final class MetaInfoUtil {
         String format_;
         if (par_ != null) {
             String gene_ = par_.getGenericString();
-            if (ExecTemplates.correctNbParameters(_name, _context)) {
-                format_ = ExecTemplates.quickFormat(_type,_name, gene_);
+            if (ExecInherits.correctNbParameters(_name, _context)) {
+                format_ = ExecInherits.quickFormat(_type,_name, gene_);
             } else {
                 format_ = par_.getFullName();
             }
@@ -267,7 +267,7 @@ public final class MetaInfoUtil {
 
     public static ConstructorId tryFormatId(String _name, ContextEl _context, ConstructorId _id) {
         ConstructorId fid_;
-        if (ExecTemplates.correctNbParameters(_name, _context)) {
+        if (ExecInherits.correctNbParameters(_name, _context)) {
             fid_ = _id.reflectFormat(_name, _context);
         } else {
             fid_ = _id;
@@ -277,7 +277,7 @@ public final class MetaInfoUtil {
 
     public static String tryFormatType(String _idType, String _name, ContextEl _context) {
         String formCl_ = _idType;
-        if (ExecTemplates.correctNbParameters(_name, _context)) {
+        if (ExecInherits.correctNbParameters(_name, _context)) {
             formCl_ = _name;
         }
         return formCl_;
@@ -285,7 +285,7 @@ public final class MetaInfoUtil {
 
     public static MethodId tryFormatId(String _name, ContextEl _context, MethodId _id) {
         MethodId fid_;
-        if (ExecTemplates.correctNbParameters(_name, _context)) {
+        if (ExecInherits.correctNbParameters(_name, _context)) {
             fid_ = _id.reflectFormat(_name, _context);
         } else {
             fid_ = _id;

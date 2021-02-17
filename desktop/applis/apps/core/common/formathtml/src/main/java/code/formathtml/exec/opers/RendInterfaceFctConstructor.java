@@ -6,6 +6,7 @@ import code.expressionlanguage.exec.CallPrepareState;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.util.InstancingStep;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
+import code.expressionlanguage.exec.inherits.ExecInherits;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.exec.opers.ExecCastOperation;
 import code.expressionlanguage.exec.opers.ExecInvokingOperation;
@@ -64,7 +65,7 @@ public final class RendInterfaceFctConstructor extends RendInvokingOperation imp
         setRelativeOffsetPossibleLastPage(getIndexInEl()+ invokingConstructorContent.getOffsetOper(), _rendStackCall);
         String superClass_ = invokingConstructorContent.getClassFromName();
         String lastType_ = getLastType();
-        lastType_ = ExecTemplates.quickFormat(pair.getType(),superClass_, lastType_);
+        lastType_ = ExecInherits.quickFormat(pair.getType(),superClass_, lastType_);
         int natvararg_ = getNaturalVararg();
         ExecInvokingOperation.checkParameters(_context, superClass_, pair, _arguments,null, fectchArgs(_all,lastType_,natvararg_, _rendStackCall),CallPrepareState.CTOR, InstancingStep.USING_SUPER,null, MethodAccessKind.INSTANCE, _stackCall);
     }

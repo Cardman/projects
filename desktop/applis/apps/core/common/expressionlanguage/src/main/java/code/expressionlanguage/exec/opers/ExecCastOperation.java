@@ -3,9 +3,11 @@ package code.expressionlanguage.exec.opers;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.common.StringExpUtil;
+import code.expressionlanguage.exec.ExecHelper;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
+import code.expressionlanguage.exec.inherits.ExecInherits;
 import code.expressionlanguage.exec.util.ExecFunctionalInfo;
 import code.expressionlanguage.functionid.IdentifiableUtil;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
@@ -36,7 +38,7 @@ public final class ExecCastOperation extends ExecAbstractUnaryOperation {
                           ContextEl _conf, StackCall _stack) {
         CustList<Argument> arguments_ = getArguments(_nodes, this);
         setRelOffsetPossibleLastPage(typeCheckContent.getOffset(), _stack);
-        Argument objArg_ = new Argument(ExecTemplates.getFirstArgument(arguments_).getStruct());
+        Argument objArg_ = new Argument(ExecHelper.getFirstArgument(arguments_).getStruct());
         String paramName_ = _stack.formatVarType(typeCheckContent.getClassName());
         wrapFct(paramName_,false, _conf, objArg_);
         ExecTemplates.checkObject(paramName_, objArg_, _conf, _stack);
@@ -58,13 +60,13 @@ public final class ExecCastOperation extends ExecAbstractUnaryOperation {
                         String geneStr_ = r_.getGenericString();
                         MethodId idMeth_ = realId_.quickFormat(r_,geneStr_);
                         String gene_ = clRealId_.getClassName();
-                        String geneFor_ = ExecTemplates.quickFormat(r_,_className,gene_);
+                        String geneFor_ = ExecInherits.quickFormat(r_,_className,gene_);
                         String ret_ = overridableBlock_.getImportedReturnType();
-                        ret_ = ExecTemplates.quickFormat(r_,geneStr_,ret_);
+                        ret_ = ExecInherits.quickFormat(r_,geneStr_,ret_);
                         String fctParam_ = formatReturn(_conf, ret_, idMeth_);
-                        fctParam_ = ExecTemplates.quickFormat(r_,geneFor_,fctParam_);
+                        fctParam_ = ExecInherits.quickFormat(r_,geneFor_,fctParam_);
                         String argCl_ = str_.getClassName(_conf);
-                        if (ExecTemplates.isCorrectExecute(argCl_,fctParam_,_conf)) {
+                        if (ExecInherits.isCorrectExecute(argCl_,fctParam_,_conf)) {
                             AbstractFunctionalInstance struct_;
                             if (_full) {
                                 struct_ = _conf.getStandards().newFullFunctionalInstance(_className, r_, (LambdaStruct) str_, overridableBlock_, _conf);

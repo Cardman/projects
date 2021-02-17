@@ -6,6 +6,7 @@ import code.expressionlanguage.exec.*;
 import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.exec.calls.util.*;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
+import code.expressionlanguage.exec.inherits.ExecInherits;
 import code.expressionlanguage.exec.opers.ExecInvokingOperation;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.expressionlanguage.exec.types.ExecPartTypeUtil;
@@ -650,11 +651,11 @@ public final class AliasReflection {
         String aliasGetDeclaredSwitchMethods_ = ref_.getAliasGetDeclaredSwitchMethods();
         AnnotatedStruct annotated_ = NumParsers.getAnnotated(_struct);
         if (StringUtil.quickEq(aliasGetAnnotations_, name_)) {
-            _stackCall.setCallingState(new CustomReflectAnnotations(ReflectingType.ANNOTATION, annotated_, ExecTemplates.getArgs(_args), false));
+            _stackCall.setCallingState(new CustomReflectAnnotations(ReflectingType.ANNOTATION, annotated_, ExecHelper.getArgs(_args), false));
             return result_;
         }
         if (StringUtil.quickEq(aliasGetAnnotationsParam_, name_)) {
-            _stackCall.setCallingState(new CustomReflectAnnotations(ReflectingType.ANNOTATION_PARAM, annotated_, ExecTemplates.getArgs(_args), false));
+            _stackCall.setCallingState(new CustomReflectAnnotations(ReflectingType.ANNOTATION_PARAM, annotated_, ExecHelper.getArgs(_args), false));
             return result_;
         }
         if (StringUtil.quickEq(aliasGetDeclaredAnonymousLambda_, name_)) {
@@ -1285,7 +1286,7 @@ public final class AliasReflection {
                     //From analyze
                     StringList inners_ = StringExpUtil.getAllPartInnerTypes(className_);
                     String param_ = StringUtil.join(inners_.left(inners_.size() - 2), "");
-                    if (!ExecTemplates.isCorrectExecute(argCl_, param_, _cont)) {
+                    if (!ExecInherits.isCorrectExecute(argCl_, param_, _cont)) {
                         String cast_ = lgNames_.getContent().getCoreNames().getAliasCastType();
                         _stackCall.setCallingState(new CustomFoundExc(getClassIssue(_cont, StringUtil.concat(argCl_, "\n", param_, "\n"), cast_, _stackCall)));
                         return result_;
@@ -1293,7 +1294,7 @@ public final class AliasReflection {
                 }
                 Initializer in_ = _cont.getInit();
                 String genStr_ = root_.getGenericString();
-                String form_ = ExecTemplates.quickFormat(type_,className_, genStr_);
+                String form_ = ExecInherits.quickFormat(type_,className_, genStr_);
                 par_ = in_.processInit(_cont, par_, form_,root_, "", 0);
                 result_.setResult(par_);
                 return result_;
@@ -1322,7 +1323,7 @@ public final class AliasReflection {
             Initializer in_ = _cont.getInit();
             for (ExecRootBlock r: needRoot_.mid(start_)) {
                 String genStr_ = r.getGenericString();
-                String form_ = ExecTemplates.quickFormat(type_,className_, genStr_);
+                String form_ = ExecInherits.quickFormat(type_,className_, genStr_);
                 parent_ = in_.processInit(_cont, parent_, form_,r, "", 0);
             }
             result_.setResult(parent_);
@@ -1472,7 +1473,7 @@ public final class AliasReflection {
                 return result_;
             }
             String arg_ = NumParsers.getClass(subType_).getName();
-            result_.setResult(BooleanStruct.of(ExecTemplates.isCorrectExecute(arg_,param_, _cont)));
+            result_.setResult(BooleanStruct.of(ExecInherits.isCorrectExecute(arg_,param_, _cont)));
             return result_;
         }
         if (StringUtil.quickEq(name_, ref_.aliasGetName)) {
@@ -1877,7 +1878,7 @@ public final class AliasReflection {
                 _stackCall.setCallingState(new CustomFoundExc(getClassIssue(_cont, clDyn_, lgNames_.getContent().getReflect().getAliasClassNotFoundError(), _stackCall)));
                 return result_;
             }
-            if (!ExecTemplates.correctNbParameters(clDyn_,_cont)) {
+            if (!ExecInherits.correctNbParameters(clDyn_,_cont)) {
                 _stackCall.setCallingState(new CustomFoundExc(getClassIssue(_cont, clDyn_, lgNames_.getContent().getCoreNames().getAliasIllegalArg(), _stackCall)));
                 return result_;
             }
@@ -2176,8 +2177,8 @@ public final class AliasReflection {
     }
     private static String tryFormatType(ContextEl _cont, String _owner, String _type) {
         String type_ = _type;
-        if (ExecTemplates.correctNbParameters(_owner,_cont)) {
-            type_ = ExecTemplates.reflectFormat(_owner, type_, _cont);
+        if (ExecInherits.correctNbParameters(_owner,_cont)) {
+            type_ = ExecInherits.reflectFormat(_owner, type_, _cont);
         }
         return type_;
     }
@@ -2207,10 +2208,10 @@ public final class AliasReflection {
     }
     private static String getReturnTypeClone(ContextEl _cont, String _instClass, String _idCl) {
         String ret_;
-        if (ExecTemplates.correctNbParameters(_instClass, _cont)) {
+        if (ExecInherits.correctNbParameters(_instClass, _cont)) {
             DimComp dc_ = StringExpUtil.getQuickComponentBaseType(_idCl);
             String compo_ = dc_.getComponent();
-            String geneForm_ = ExecTemplates.getGenericTypeNameOrObject(_cont,StringExpUtil.getIdFromAllTypes(compo_));
+            String geneForm_ = ExecHelper.getGenericTypeNameOrObject(_cont,StringExpUtil.getIdFromAllTypes(compo_));
             ret_ = StringExpUtil.getPrettyArrayType(geneForm_,dc_.getDim());
         } else {
             ret_ = _instClass;

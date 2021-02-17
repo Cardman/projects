@@ -2,6 +2,7 @@ package code.expressionlanguage.exec.opers;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.exec.ExecHelper;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.PageEl;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
@@ -26,7 +27,7 @@ public final class ExecRefParamOperation extends ExecLeafOperation implements
     public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, StackCall _stack) {
         PageEl ip_ = _stack.getLastPage();
         AbstractWrapper val_ = ExecTemplates.getWrapper(variableContent.getVariableName(),variableContent.getDeep(), ip_.getCache(), _stack.getLastPage().getRefParams());
-        ArgumentsPair pair_ = ExecTemplates.getArgumentPair(_nodes, this);
+        ArgumentsPair pair_ = ExecHelper.getArgumentPair(_nodes, this);
         pair_.setWrapper(val_);
         if (resultCanBeSet()) {
             setQuickNoConvertSimpleArgument(ExecTemplates.getArgValue(val_,_conf, _stack), _conf, _nodes, _stack);

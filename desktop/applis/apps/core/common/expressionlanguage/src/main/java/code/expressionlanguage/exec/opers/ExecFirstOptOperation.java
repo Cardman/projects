@@ -2,8 +2,8 @@ package code.expressionlanguage.exec.opers;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.exec.ExecHelper;
 import code.expressionlanguage.exec.StackCall;
-import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.util.CustList;
@@ -22,7 +22,7 @@ public final class ExecFirstOptOperation extends ExecAbstractUnaryOperation {
                           ContextEl _conf, StackCall _stack) {
         CustList<Argument> arguments_ = getArguments(_nodes, this);
         setRelOffsetPossibleLastPage(offset, _stack);
-        Argument argres_ = ExecTemplates.getFirstArgument(arguments_);
+        Argument argres_ = ExecHelper.getFirstArgument(arguments_);
         setSimpleArgument(argres_, _conf, _nodes, _stack);
     }
 

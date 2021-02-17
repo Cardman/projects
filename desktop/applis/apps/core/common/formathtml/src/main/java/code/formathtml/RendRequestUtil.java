@@ -3,7 +3,7 @@ package code.formathtml;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.StackCall;
-import code.expressionlanguage.exec.inherits.ExecTemplates;
+import code.expressionlanguage.exec.inherits.ExecInherits;
 import code.expressionlanguage.structs.LongStruct;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
@@ -96,7 +96,7 @@ final class RendRequestUtil {
                 i_++;
             }
         }
-        String wrap_ = ExecTemplates.toWrapper(_nodeContainer.getNodeInformation().getInputClass(), _context.getStandards());
+        String wrap_ = ExecInherits.toWrapper(_nodeContainer.getNodeInformation().getInputClass(), _context.getStandards());
         lv_ = LocalVariable.newLocalVariable(_attribute,wrap_);
         ip_.putValueVar(attrName_, lv_);
         RenderExpUtil.calculateReuse(wr_,_conf, _advStandards, _context, _stackCall, _rendStackCall);

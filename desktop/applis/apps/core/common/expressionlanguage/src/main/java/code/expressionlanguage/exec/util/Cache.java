@@ -7,6 +7,7 @@ import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.blocks.WithCache;
 import code.expressionlanguage.exec.calls.PageEl;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
+import code.expressionlanguage.exec.inherits.ExecInherits;
 import code.expressionlanguage.exec.variables.*;
 import code.expressionlanguage.structs.LongStruct;
 import code.expressionlanguage.structs.NullStruct;
@@ -69,13 +70,13 @@ public final class Cache {
     public void setCache(ExecRootBlock _rootBlock, String _globalClass, ContextEl _context, StackCall _stackCall) {
         int i_ = 0;
         for (NameAndType v: cacheInfo.getCacheLocalNames()) {
-            String cl_ = ExecTemplates.quickFormat(_rootBlock, _globalClass, v.getType());
+            String cl_ = ExecInherits.quickFormat(_rootBlock, _globalClass, v.getType());
             setClassLocalValueWrapper(i_,cl_,_context, _stackCall);
             i_++;
         }
         i_ = 0;
         for (NameAndType v: cacheInfo.getCacheLoopNames()) {
-            String cl_ = ExecTemplates.quickFormat(_rootBlock, _globalClass, v.getType());
+            String cl_ = ExecInherits.quickFormat(_rootBlock, _globalClass, v.getType());
             setClassLoopValue(i_,cl_);
             i_++;
         }

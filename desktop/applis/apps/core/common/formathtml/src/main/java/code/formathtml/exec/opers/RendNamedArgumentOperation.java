@@ -2,8 +2,8 @@ package code.formathtml.exec.opers;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.exec.ExecHelper;
 import code.expressionlanguage.exec.StackCall;
-import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecNamedContent;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
@@ -32,7 +32,7 @@ public final class RendNamedArgumentOperation extends RendAbstractUnaryOperation
         }
         CustList<Argument> arguments_ = getArguments(_nodes,this);
         setRelativeOffsetPossibleLastPage(getIndexInEl()+ namedContent.getOffset(), _rendStack);
-        Argument argres_ = ExecTemplates.getFirstArgument(arguments_);
+        Argument argres_ = ExecHelper.getFirstArgument(arguments_);
         setSimpleArgument(argres_, _nodes, _context, _stack, _rendStack);
     }
 

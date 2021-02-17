@@ -1,9 +1,9 @@
 package code.expressionlanguage.exec.blocks;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.exec.ExecHelperBlocks;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
-import code.expressionlanguage.exec.inherits.ExecTemplates;
 
 public abstract class ExecAbstractCaseCondition extends ExecBracedBlock implements
         StackableBlock {
@@ -21,7 +21,7 @@ public abstract class ExecAbstractCaseCondition extends ExecBracedBlock implemen
         ip_.setGlobalOffset(valueOffset);
         ip_.setOffset(0);
         ip_.setBlock(getFirstChild());
-        ExecTemplates.setVisited(ip_,this);
+        ExecHelperBlocks.setVisited(ip_,this);
     }
 
 }

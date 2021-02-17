@@ -350,7 +350,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         AnalyzedTestContext context_ = validated(files_);
         String first_ = "pkg.Ex<java.lang.Object>";
         String second_ = "[pkg.ExTwo";
-        String t_ = ExecTemplates.getQuickFullTypeByBases(first_, second_, context_.getContext());
+        String t_ = ExecInherits.getQuickFullTypeByBases(first_, second_, context_.getContext());
         assertEq("",t_);
     }
 
@@ -364,7 +364,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         AnalyzedTestContext context_ = validated(files_);
         String first_ = "[pkg.Ex<java.lang.Object>";
         String second_ = "pkg.ExTwo";
-        String t_ = ExecTemplates.getQuickFullTypeByBases(first_, second_, context_.getContext());
+        String t_ = ExecInherits.getQuickFullTypeByBases(first_, second_, context_.getContext());
         assertEq("",t_);
     }
 
@@ -946,7 +946,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         AnalyzedTestContext cont_ = validated(files_);
         AbstractPageEl instancingClass_ = ExecutingUtil.createInstancingClass(cont_.getClasses().getClassBody("pkg.Ex"), "pkg.Ex", null, cont_.getStackCall());
         addPage(cont_.getContext(), instancingClass_, cont_.getStackCall());
-        assertTrue(!ExecTemplates.hasBlockBreak(instancingClass_,""));
+        assertTrue(!ExecHelperBlocks.hasBlockBreak(instancingClass_,""));
         assertNull(instancingClass_.getReadWrite());
     }
     @Test
@@ -960,7 +960,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         AnalyzedTestContext cont_ = validated(files_);
         AbstractPageEl instancingClass_ = ExecutingUtil.createInstancingClass(cont_.getClasses().getClassBody("pkg.Ex"), "pkg.Ex", null, cont_.getStackCall());
         addPage(cont_.getContext(), instancingClass_, cont_.getStackCall());
-        assertTrue(!ExecTemplates.hasBlockContinue(cont_.getContext(),instancingClass_,"", cont_.getStackCall()));
+        assertTrue(!ExecHelperBlocks.hasBlockContinue(cont_.getContext(),instancingClass_,"", cont_.getStackCall()));
         assertNull(instancingClass_.getReadWrite());
     }
     @Test
@@ -974,7 +974,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         AnalyzedTestContext cont_ = validated(files_);
         AbstractPageEl instancingClass_ = ExecutingUtil.createInstancingClass(cont_.getClasses().getClassBody("pkg.Ex"), "pkg.Ex", null, cont_.getStackCall());
         addPage(cont_.getContext(), instancingClass_, cont_.getStackCall());
-        ExecTemplates.setVisited(instancingClass_,null);
+        ExecHelperBlocks.setVisited(instancingClass_,null);
         assertNull(instancingClass_.getReadWrite());
     }
     @Test
@@ -988,7 +988,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         AnalyzedTestContext cont_ = validated(files_);
         AbstractPageEl instancingClass_ = ExecutingUtil.createInstancingClass(cont_.getClasses().getClassBody("pkg.Ex"), "pkg.Ex", null, cont_.getStackCall());
         addPage(cont_.getContext(), instancingClass_, cont_.getStackCall());
-        ExecTemplates.processFinally(cont_.getContext(),null, cont_.getStackCall());
+        ExecHelperBlocks.processFinally(cont_.getContext(),null, cont_.getStackCall());
         assertNull(instancingClass_.getReadWrite());
     }
     @Test
@@ -1002,7 +1002,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         AnalyzedTestContext cont_ = validated(files_);
         AbstractPageEl instancingClass_ = ExecutingUtil.createInstancingClass(cont_.getClasses().getClassBody("pkg.Ex"), "pkg.Ex", null, cont_.getStackCall());
         addPage(cont_.getContext(), instancingClass_, cont_.getStackCall());
-        ExecTemplates.processElseIf(cont_.getContext(),null, cont_.getStackCall());
+        ExecHelperBlocks.processElseIf(cont_.getContext(),null, cont_.getStackCall());
         assertNull(instancingClass_.getReadWrite());
     }
     @Test
@@ -1016,7 +1016,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         AnalyzedTestContext cont_ = validated(files_);
         AbstractPageEl instancingClass_ = ExecutingUtil.createInstancingClass(cont_.getClasses().getClassBody("pkg.Ex"), "pkg.Ex", null, cont_.getStackCall());
         addPage(cont_.getContext(), instancingClass_, cont_.getStackCall());
-        ExecTemplates.processElse(cont_.getContext(),null, cont_.getStackCall());
+        ExecHelperBlocks.processElse(cont_.getContext(),null, cont_.getStackCall());
         assertNull(instancingClass_.getReadWrite());
     }
     @Test
@@ -1030,7 +1030,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         AnalyzedTestContext cont_ = validated(files_);
         AbstractPageEl instancingClass_ = ExecutingUtil.createInstancingClass(cont_.getClasses().getClassBody("pkg.Ex"), "pkg.Ex", null, cont_.getStackCall());
         addPage(cont_.getContext(), instancingClass_, cont_.getStackCall());
-        ExecTemplates.processDo(cont_.getContext(),null, cont_.getStackCall());
+        ExecHelperBlocks.processDo(cont_.getContext(),null, cont_.getStackCall());
         assertNull(instancingClass_.getReadWrite());
     }
     @Test
@@ -1044,7 +1044,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         AnalyzedTestContext cont_ = validated(files_);
         AbstractPageEl instancingClass_ = ExecutingUtil.createInstancingClass(cont_.getClasses().getClassBody("pkg.Ex"), "pkg.Ex", null, cont_.getStackCall());
         addPage(cont_.getContext(), instancingClass_, cont_.getStackCall());
-        ExecTemplates.processBlockAndRemove(cont_.getContext(),null, cont_.getStackCall());
+        ExecHelperBlocks.processBlockAndRemove(cont_.getContext(),null, cont_.getStackCall());
         assertNull(instancingClass_.getReadWrite());
     }
     @Test
@@ -1127,11 +1127,11 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
     }
     @Test
     public void getFirstArgument() {
-        assertEq("",ExecTemplates.getFirstArgument(new CustList<Argument>()).getStruct().getClassName(null));
+        assertEq("", ExecHelper.getFirstArgument(new CustList<Argument>()).getStruct().getClassName(null));
     }
     @Test
     public void getLastArgument() {
-        assertEq("",ExecTemplates.getLastArgument(new CustList<Argument>(Argument.createVoid())).getStruct().getClassName(null));
+        assertEq("", ExecHelper.getLastArgument(new CustList<Argument>(Argument.createVoid())).getStruct().getClassName(null));
     }
     @Test
     public void setArgumentExp() {
@@ -1141,27 +1141,27 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
     }
     @Test
     public void getParentOrNull() {
-        assertNull(ExecTemplates.getParentOrNull(null));
+        assertNull(ExecHelper.getParentOrNull(null));
     }
     @Test
     public void getFirstNode() {
-        assertNull(ExecTemplates.getFirstNode(null));
+        assertNull(ExecHelper.getFirstNode(null));
     }
     @Test
     public void getArgumentPair() {
-        assertNotNull(ExecTemplates.getArgumentPair(new IdMap<ExecOperationNode, ArgumentsPair>(),null));
+        assertNotNull(ExecHelper.getArgumentPair(new IdMap<ExecOperationNode, ArgumentsPair>(),null));
     }
     @Test
     public void getGenericTypeNameOrObject() {
         StringMap<String> files_ = new StringMap<String>();
         AnalyzedTestContext c_ = validated(files_);
-        assertNotNull(ExecTemplates.getGenericTypeNameOrObject(c_.getContext(),""));
+        assertNotNull(ExecHelper.getGenericTypeNameOrObject(c_.getContext(),""));
     }
     @Test
     public void safeObject() {
         StringMap<String> files_ = new StringMap<String>();
         AnalyzedTestContext c_ = validated(files_);
-        assertSame(ErrorType.NPE,ExecTemplates.safeObject(ErrorType.CAST,"",null,c_.getContext()));
+        assertSame(ErrorType.NPE, ExecInherits.safeObject(ErrorType.CAST,"",null,c_.getContext()));
     }
 
 
@@ -1211,7 +1211,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
     }
 
     private static String reflectFormat(AnalyzedTestContext _context, String _first, String _second) {
-        return ExecTemplates.reflectFormat(_first,_second,_context.getContext());
+        return ExecInherits.reflectFormat(_first,_second,_context.getContext());
     }
 
     private void addPage2(AnalyzedTestContext _c, AbstractPageEl _instancingClass2) {
@@ -1225,28 +1225,28 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
     }
 
     private static String getFullTypeByBases(AnalyzedTestContext _context, String _first, String _second) {
-        return ExecTemplates.getFullTypeByBases(_first, _second, _context.getContext());
+        return ExecInherits.getFullTypeByBases(_first, _second, _context.getContext());
     }
 
     private static String getFullTypeByBases(ContextEl _context, String _first, String _second) {
-        return ExecTemplates.getFullTypeByBases(_first, _second, _context);
+        return ExecInherits.getFullTypeByBases(_first, _second, _context);
     }
 
 
     private String getFullObject(ContextEl _context, String _first, String _second) {
-        return ExecTemplates.getFullObject(_first, _second, _context);
+        return ExecInherits.getFullObject(_first, _second, _context);
     }
 
     private String getFullObject(AnalyzedTestContext _context, String _first, String _second) {
-        return ExecTemplates.getFullObject(_first, _second, _context.getContext());
+        return ExecInherits.getFullObject(_first, _second, _context.getContext());
     }
 
     private static String getSuperGeneric(AnalyzedTestContext _context, String _first, String _second) {
-        return ExecTemplates.getSuperGeneric(_first, _second, _context.getContext());
+        return ExecInherits.getSuperGeneric(_first, _second, _context.getContext());
     }
 
     private static String getSuperGeneric(ContextEl _context, String _first, String _second) {
-        return ExecTemplates.getSuperGeneric(_first, _second, _context);
+        return ExecInherits.getSuperGeneric(_first, _second, _context);
     }
 
 }

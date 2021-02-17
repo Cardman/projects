@@ -6,7 +6,7 @@ import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.blocks.ExecRecordBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.calls.util.CustomFoundRecordConstructor;
-import code.expressionlanguage.exec.inherits.ExecTemplates;
+import code.expressionlanguage.exec.inherits.ExecInherits;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.exec.opers.ExecInvokingOperation;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
@@ -43,7 +43,7 @@ public final class RendStandardInstancingOperation extends RendInvokingOperation
         int off_ = StringUtil.getFirstPrintableCharIndex(instancingCommonContent.getMethodName());
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _rendStack);
         String className_ = instancingCommonContent.getClassName();
-        String lastType_ = ExecTemplates.quickFormat(pair.getType(),className_, instancingCommonContent.getLastType());
+        String lastType_ = ExecInherits.quickFormat(pair.getType(),className_, instancingCommonContent.getLastType());
         Argument result_;
         if (pair.getType() instanceof ExecRecordBlock) {
             CustList<Argument> arguments_ = getArguments(_nodes, this);

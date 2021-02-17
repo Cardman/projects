@@ -5,11 +5,13 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.exec.Classes;
 import code.expressionlanguage.exec.ErrorType;
+import code.expressionlanguage.exec.ExecHelper;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.blocks.ExecOverridableBlock;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.calls.util.CustomFoundMethod;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
+import code.expressionlanguage.exec.inherits.ExecInherits;
 import code.expressionlanguage.exec.inherits.Parameters;
 import code.expressionlanguage.exec.opers.ExecInvokingOperation;
 import code.expressionlanguage.exec.util.ArgumentListCall;
@@ -337,7 +339,7 @@ public final class AliasMath {
     }
     public static ResultErrorStd invokeStdMethod(ContextEl _cont, ClassMethodId _method, StackCall _stackCall, Argument... _args) {
         ResultErrorStd result_ = new ResultErrorStd();
-        Struct[] args_ = ExecTemplates.getObjects(_args);
+        Struct[] args_ = ExecHelper.getObjects(_args);
         String name_ = _method.getConstraints().getName();
         StringList paramList_ = _method.getConstraints().getParametersTypes();
         LgNames lgNames_ = _cont.getStandards();
@@ -613,7 +615,7 @@ public final class AliasMath {
             ExecOverrideInfo polymorphMeth_ = ExecInvokingOperation.polymorph(_cont, seedSpec_,classes_.getSeedDoubleGeneratorPair());
             p_ = polymorphMeth_.getPair();
             String className_ = polymorphMeth_.getClassName();
-            className_ = ExecTemplates.getOverridingFullTypeByBases(argClassName_, className_, _cont);
+            className_ = ExecInherits.getOverridingFullTypeByBases(argClassName_, className_, _cont);
             cl_ = className_;
         }
         if (p_.getFct() instanceof ExecOverridableBlock) {
@@ -634,7 +636,7 @@ public final class AliasMath {
             ExecOverrideInfo polymorphMeth_ = ExecInvokingOperation.polymorph(_cont, seed_,classes_.getSeedDoubleGeneratorPair());
             p_ = polymorphMeth_.getPair();
             String className_ = polymorphMeth_.getClassName();
-            className_ = ExecTemplates.getOverridingFullTypeByBases(argClassName_, className_, _cont);
+            className_ = ExecInherits.getOverridingFullTypeByBases(argClassName_, className_, _cont);
             cl_ = className_;
         }
         if (p_.getFct() instanceof ExecOverridableBlock) {
@@ -665,7 +667,7 @@ public final class AliasMath {
             ExecOverrideInfo polymorphMeth_ = ExecInvokingOperation.polymorph(_cont, seedSpec_, classes_.getSeedGeneratorPair());
             p_ = polymorphMeth_.getPair();
             String className_ = polymorphMeth_.getClassName();
-            className_ = ExecTemplates.getOverridingFullTypeByBases(argClassName_, className_, _cont);
+            className_ = ExecInherits.getOverridingFullTypeByBases(argClassName_, className_, _cont);
             cl_ = className_;
             argsToPass_.add(new Argument(_args[0]));
         }
@@ -690,7 +692,7 @@ public final class AliasMath {
             ExecOverrideInfo polymorphMeth_ = ExecInvokingOperation.polymorph(_cont, seed_, classes_.getSeedGeneratorPair());
             p_ = polymorphMeth_.getPair();
             String className_ = polymorphMeth_.getClassName();
-            className_ = ExecTemplates.getOverridingFullTypeByBases(argClassName_, className_, _cont);
+            className_ = ExecInherits.getOverridingFullTypeByBases(argClassName_, className_, _cont);
             cl_ = className_;
             argsToPass_.add(new Argument(_args[0]));
         }

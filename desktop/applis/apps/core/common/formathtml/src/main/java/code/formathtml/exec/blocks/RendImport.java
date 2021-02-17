@@ -2,7 +2,7 @@ package code.formathtml.exec.blocks;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.StackCall;
-import code.expressionlanguage.exec.inherits.ExecTemplates;
+import code.expressionlanguage.exec.inherits.ExecInherits;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.Configuration;
 import code.formathtml.ImportingPage;
@@ -70,7 +70,7 @@ public final class RendImport extends RendParentBlock implements RendWithEl {
                         continue;
                     }
                     RendClass cl_ = (RendClass) c;
-                    if (!ExecTemplates.isCorrectExecute(className_,cl_.getFullName(), _ctx)) {
+                    if (!ExecInherits.isCorrectExecute(className_,cl_.getFullName(), _ctx)) {
                         continue;
                     }
                     for (RendBlock f: getDirectChildren(c)) {

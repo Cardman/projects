@@ -6,6 +6,7 @@ import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.ArgumentWrapper;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
+import code.expressionlanguage.exec.inherits.ExecInherits;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.exec.opers.ExecInvokingOperation;
 import code.expressionlanguage.functionid.MethodAccessKind;
@@ -44,8 +45,8 @@ public final class RendSuperFctOperation extends RendSettableCallFctOperation im
         } else {
             String argClassName_ = prev_.getStruct().getClassName(_context);
             String base_ = StringExpUtil.getIdFromAllTypes(classNameFound_);
-            String fullClassNameFound_ = ExecTemplates.getSuperGeneric(argClassName_, base_, _context);
-            lastType_ = ExecTemplates.quickFormat(pair.getType(), fullClassNameFound_, lastType_);
+            String fullClassNameFound_ = ExecInherits.getSuperGeneric(argClassName_, base_, _context);
+            lastType_ = ExecInherits.quickFormat(pair.getType(), fullClassNameFound_, lastType_);
             result_ = ExecInvokingOperation.callPrepare(_context.getExiting(), _context, classNameFound_, pair, prev_, null, fectchArgs(_nodes, lastType_, naturalVararg_, _rendStack), null, MethodAccessKind.INSTANCE, "", _stack);
         }
         ArgumentWrapper argres_ = RendDynOperationNode.processCall(result_, _context, _stack);

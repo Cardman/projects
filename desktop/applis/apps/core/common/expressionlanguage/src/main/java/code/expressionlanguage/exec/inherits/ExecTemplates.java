@@ -3,20 +3,17 @@ package code.expressionlanguage.exec.inherits;
 import code.expressionlanguage.*;
 import code.expressionlanguage.common.*;
 import code.expressionlanguage.exec.*;
-import code.expressionlanguage.exec.blocks.*;
-import code.expressionlanguage.exec.calls.AbstractPageEl;
+import code.expressionlanguage.exec.blocks.ExecAbstractSwitchMethod;
+import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
+import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.calls.util.CustomFoundMethod;
 import code.expressionlanguage.exec.opers.ExecArrayFieldOperation;
-import code.expressionlanguage.exec.opers.ExecMethodOperation;
-import code.expressionlanguage.exec.opers.ExecOperationNode;
-import code.expressionlanguage.exec.stacks.*;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.expressionlanguage.exec.types.ExecPartTypeUtil;
 import code.expressionlanguage.exec.types.ExecResultPartType;
 import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.exec.util.Cache;
-import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.exec.util.ExecTypeVar;
 import code.expressionlanguage.exec.variables.*;
 import code.expressionlanguage.functionid.Identifiable;
@@ -25,7 +22,6 @@ import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.inherits.*;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.stds.PrimitiveType;
-import code.expressionlanguage.stds.StandardType;
 import code.expressionlanguage.structs.*;
 import code.util.*;
 import code.util.core.IndexConstants;
@@ -257,98 +253,6 @@ public final class ExecTemplates {
         return madeVarTypes_;
     }
 
-    public static boolean isCorrectExecute(String _a, String _p, ContextEl _context) {
-        if (_p.isEmpty()) {
-            return false;
-        }
-        CustList<Matching> matchs_ = new CustList<Matching>();
-        Matching match_ = new Matching();
-        match_.setArg(_a);
-        match_.setParam(_p);
-        matchs_.add(match_);
-        boolean okTree_ = true;
-        while (true) {
-            CustList<Matching> new_ = new CustList<Matching>();
-            for (Matching m: matchs_) {
-                String a_ = m.getArg();
-                String p_ = m.getParam();
-                MappingPairs m_ = getExecutingCorrect(a_,p_, _context);
-                if (m_ == null) {
-                    okTree_ = false;
-                    break;
-                }
-                for (Matching n: m_.getPairsArgParam()) {
-                    String param_ = n.getParam();
-                    String arg_ = n.getArg();
-                    if (n.getMatchEq() == MatchingEnum.EQ) {
-                        if (!StringUtil.quickEq(param_, arg_)) {
-                            okTree_ = false;
-                            break;
-                        }
-                        continue;
-                    }
-                    if (StringUtil.quickEq(param_, arg_)) {
-                        continue;
-                    }
-                    Matching n_ = new Matching();
-                    if (n.getMatchEq() == MatchingEnum.SUB) {
-                        n_.setArg(arg_);
-                        n_.setParam(param_);
-                    } else {
-                        n_.setArg(param_);
-                        n_.setParam(arg_);
-                    }
-                    new_.add(n_);
-                }
-                if (!okTree_) {
-                    break;
-                }
-            }
-            if (new_.isEmpty()) {
-                break;
-            }
-            matchs_ = new_;
-            if (!okTree_) {
-                break;
-            }
-        }
-        return okTree_;
-    }
-
-    private static MappingPairs getExecutingCorrect(String _arg, String _param, ContextEl _context) {
-        StringList typesArg_ = StringExpUtil.getAllTypes(_arg);
-        StringList typesParam_ = StringExpUtil.getAllTypes(_param);
-        DimComp dArg_ = StringExpUtil.getQuickComponentBaseType(_arg);
-        DimComp dParam_ = StringExpUtil.getQuickComponentBaseType(_param);
-        String baseArrayArg_ = dArg_.getComponent();
-        String baseArrayParam_ = dParam_.getComponent();
-        String fct_ = _context.getStandards().getContent().getReflect().getAliasFct();
-        String obj_ = _context.getStandards().getContent().getCoreNames().getAliasObject();
-        String idBaseArrayArg_ = StringExpUtil.getIdFromAllTypes(baseArrayArg_);
-        String idBaseArrayParam_ = StringExpUtil.getIdFromAllTypes(baseArrayParam_);
-        if (StringUtil.quickEq(idBaseArrayArg_, fct_)) {
-            if (StringUtil.quickEq(idBaseArrayParam_, fct_)) {
-                int dim_ = dArg_.getDim();
-                if (dim_ != dParam_.getDim()) {
-                    return null;
-                }
-                if (StringUtil.quickEq(baseArrayParam_, fct_)) {
-                    return new MappingPairs();
-                }
-                return StringExpUtil.newMappingPairsFct(typesArg_, typesParam_, obj_);
-            }
-            return StringExpUtil.getMappingFctPairs(dArg_, dParam_, baseArrayParam_, obj_);
-        }
-        if (StringUtil.quickEq(idBaseArrayParam_, fct_)) {
-            return null;
-        }
-        String generic_ = getFullTypeByBases(_arg, _param, _context);
-        if (generic_.isEmpty()) {
-            return null;
-        }
-        return StringExpUtil.newMappingPairs(generic_, typesParam_);
-    }
-
     public static boolean checkObject(String _param, Argument _arg, ContextEl _context, StackCall _stackCall) {
         Struct str_ = _arg.getStruct();
         byte cast_ = ExecClassArgumentMatching.getPrimitiveWrapCast(_param, _context.getStandards());
@@ -397,7 +301,7 @@ public final class ExecTemplates {
         String classFormat_ = _classNameFound;
         if (!_methodId.isStaticMethod()) {
             String className_ = Argument.getNullableValue(_previous).getStruct().getClassName(_conf);
-            classFormat_ = getQuickFullTypeByBases(className_, classFormat_, _conf);
+            classFormat_ = ExecInherits.getQuickFullTypeByBases(className_, classFormat_, _conf);
             if (classFormat_.isEmpty()) {
                 _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_conf, getBadCastMessage(_classNameFound, className_), cast_, _stackCall)));
                 return "";
@@ -422,7 +326,7 @@ public final class ExecTemplates {
         FormattedParameters f_ = new FormattedParameters();
         if (_kind == MethodAccessKind.INSTANCE) {
             String className_ = Argument.getNullableValue(_previous).getStruct().getClassName(_conf);
-            classFormat_ = getQuickFullTypeByBases(className_, classFormat_, _conf);
+            classFormat_ = ExecInherits.getQuickFullTypeByBases(className_, classFormat_, _conf);
             if (classFormat_.isEmpty()) {
                 _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_conf, getBadCastMessage(_classNameFound, className_), cast_, _stackCall)));
                 return f_;
@@ -446,7 +350,7 @@ public final class ExecTemplates {
         FormattedParameters f_ = new FormattedParameters();
         if (_kind == MethodAccessKind.INSTANCE) {
             String className_ = Argument.getNullableValue(_previous).getStruct().getClassName(_conf);
-            classFormat_ = getQuickFullTypeByBases(className_, classFormat_, _conf);
+            classFormat_ = ExecInherits.getQuickFullTypeByBases(className_, classFormat_, _conf);
             if (classFormat_.isEmpty()) {
                 _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_conf, getBadCastMessage(_classNameFound, className_), cast_, _stackCall)));
                 return f_;
@@ -613,7 +517,7 @@ public final class ExecTemplates {
         }
         if (_right != null) {
             String type_ = _id.getImportedReturnType();
-            type_ = quickFormat(_rootBlock,_classNameFound, type_);
+            type_ = ExecInherits.quickFormat(_rootBlock,_classNameFound, type_);
             Struct ex_ = checkObjectEx(type_, _right, _conf, _stackCall);
             if (ex_ != null) {
                 p_.setError(ex_);
@@ -632,7 +536,7 @@ public final class ExecTemplates {
             return p_;
         }
         String c_ = _id.getImportedParamType();
-        c_ = quickFormat(_rootBlock,_classNameFound, c_);
+        c_ = ExecInherits.quickFormat(_rootBlock,_classNameFound, c_);
         Struct ex_ = checkObjectEx(c_, _value, _conf, _stackCall);
         if (ex_ != null) {
             p_.setError(ex_);
@@ -688,7 +592,7 @@ public final class ExecTemplates {
         if (_hasFormat) {
             for (String c: _id.getImportedParametersTypes()) {
                 String c_ = c;
-                c_ = quickFormat(_rootBlock,_classNameFound, c_);
+                c_ = ExecInherits.quickFormat(_rootBlock,_classNameFound, c_);
                 if (i_ + 1 == _id.getImportedParametersTypes().size() && _id.isVarargs()) {
                     c_ = StringExpUtil.getPrettyArrayType(c_);
                 }
@@ -741,7 +645,7 @@ public final class ExecTemplates {
         ArgumentListCall out_ = new ArgumentListCall();
         String classFormat_ = _formatted;
         if (_kind != null && !_previous.isNull()) {
-            classFormat_ = getQuickFullTypeByBases(_previous.getStruct().getClassName(_conf), classFormat_, _conf);
+            classFormat_ = ExecInherits.getQuickFullTypeByBases(_previous.getStruct().getClassName(_conf), classFormat_, _conf);
         }
         ExecRootBlock type_ = _pair.getType();
         ExecNamedFunctionBlock fct_ = _pair.getFct();
@@ -751,7 +655,7 @@ public final class ExecTemplates {
         int i_ = 0;
         for (String c: fct_.getImportedParametersTypes()) {
             String c_ = c;
-            c_ = quickFormat(type_,classFormat_, c_);
+            c_ = ExecInherits.quickFormat(type_,classFormat_, c_);
             if (i_ + 1 == fct_.getImportedParametersTypes().size() && fct_.isVarargs()) {
                 c_ = StringExpUtil.getPrettyArrayType(c_);
             }
@@ -796,29 +700,7 @@ public final class ExecTemplates {
         return new ErrorStruct(_conf,mess_.toString(),cast_, _stackCall);
     }
     public static ErrorType safeObject(String _param, Struct _arg, ContextEl _context) {
-        return safeObject(ErrorType.CAST,_param,_arg,_context);
-    }
-    public static ErrorType safeObject(ErrorType _errCast,String _param, Struct _arg, ContextEl _context) {
-        if (_arg == null) {
-            return ErrorType.NPE;
-        }
-        LgNames stds_ = _context.getStandards();
-        String param_ = StringUtil.nullToEmpty(_param);
-        if (_arg != NullStruct.NULL_VALUE) {
-            String a_ = _arg.getClassName(_context);
-            param_ = toWrapper(param_, stds_);
-            if (!isCorrectExecute(a_, param_, _context)) {
-                return _errCast;
-            }
-            return ErrorType.NOTHING;
-        }
-        if (param_.isEmpty()) {
-            return ErrorType.CAST;
-        }
-        if (_context.getStandards().getPrimitiveTypes().contains(param_)) {
-            return ErrorType.NPE;
-        }
-        return ErrorType.NOTHING;
+        return ExecInherits.safeObject(ErrorType.CAST,_param,_arg,_context);
     }
 
     public static Struct getElement(Struct _struct, Struct _index, ContextEl _conf, StackCall _stackCall) {
@@ -893,7 +775,7 @@ public final class ExecTemplates {
     private static ErrorType safeObjectArr(Struct _value, ContextEl _context, ArrayStruct _arr) {
         String arrType_ = _arr.getClassName();
         String param_ = StringUtil.nullToEmpty(StringExpUtil.getQuickComponentType(arrType_));
-        return safeObject(ErrorType.STORE,param_,_value,_context);
+        return ExecInherits.safeObject(ErrorType.STORE,param_,_value,_context);
     }
 
     private static Struct gearErrorWhenIndex(Struct _array, Struct _index, ContextEl _context, StackCall _stackCall) {
@@ -1033,8 +915,8 @@ public final class ExecTemplates {
                 if (arg_.startsWith("~")) {
                     arg_ = arg_.substring(1);
                 }
-                String param_ = format(root_,formatted_, b);
-                if (!isCorrectExecute(arg_,param_,_context)) {
+                String param_ = ExecInherits.format(root_,formatted_, b);
+                if (!ExecInherits.isCorrectExecute(arg_,param_,_context)) {
                     return null;
                 }
             }
@@ -1043,211 +925,6 @@ public final class ExecTemplates {
     }
 
 
-    public static String getQuickFullTypeByBases(String _subType, String _superType, ContextEl _context) {
-        String idSuperType_ = StringExpUtil.getIdFromAllTypes(_superType);
-        DimComp dBaseParam_ = StringExpUtil.getQuickComponentBaseType(idSuperType_);
-        String classParam_ = dBaseParam_.getComponent();
-        int dim_ = dBaseParam_.getDim();
-        String idArg_ = StringExpUtil.getIdFromAllTypes(_subType);
-        DimComp dBaseArg_ = StringExpUtil.getQuickComponentBaseType(idArg_);
-        int dimArg_ = dBaseArg_.getDim();
-        if (StringUtil.quickEq(classParam_, _context.getStandards().getContent().getCoreNames().getAliasObject())) {
-            if (dimArg_ < dim_) {
-                return "";
-            }
-            return _superType;
-        }
-        if (dimArg_ != dim_) {
-            return "";
-        }
-        return getFullObject(_subType, _superType,_context);
-    }
-    public static String getSuperGeneric(String _arg, String _classParam, ContextEl _context) {
-        String idArg_ = StringExpUtil.getIdFromAllTypes(_arg);
-        String idSuperType_ = StringExpUtil.getIdFromAllTypes(_classParam);
-        if (StringUtil.quickEq(idArg_,idSuperType_)) {
-            return _arg;
-        }
-        GeneType classBody_ = _context.getClassBody(idArg_);
-        String generic_ = getSuperGeneric(classBody_, _context, 0, _classParam);
-        return quickFormat(classBody_,_arg, generic_);
-    }
-    public static String getFullObject(String _subType, String _superType, ContextEl _context) {
-        String idSuperType_ = StringExpUtil.getIdFromAllTypes(_superType);
-        DimComp dBaseParam_ = StringExpUtil.getQuickComponentBaseType(idSuperType_);
-        int dim_ = dBaseParam_.getDim();
-        String classParam_ = dBaseParam_.getComponent();
-        String idArg_ = StringExpUtil.getIdFromAllTypes(_subType);
-        DimComp dBaseArg_ = StringExpUtil.getQuickComponentBaseType(idArg_);
-        String baseArr_ = dBaseArg_.getComponent();
-        if (StringUtil.quickEq(idArg_,idSuperType_)) {
-            return _subType;
-        }
-        GeneType classBody_ = _context.getClassBody(baseArr_);
-        String generic_ = getSuperGeneric(classBody_,_context, dim_, classParam_);
-        return quickFormat(classBody_,_subType, generic_);
-    }
-
-    public static String reflectFormat(String _first, String _second, ContextEl _context) {
-        StringMap<String> varTypes_ = getVarTypes(_first, _context);
-        return StringExpUtil.getReflectFormattedType(_second, varTypes_);
-    }
-
-    public static boolean hasBlockBreak(AbstractPageEl _ip, String _label) {
-        if (!_ip.hasBlock()) {
-            _ip.setNullReadWrite();
-            return false;
-        }
-        AbstractStask bl_ = _ip.getLastStack();
-        if (_label.isEmpty()) {
-            if (bl_ instanceof LoopBlockStack || bl_ instanceof SwitchBlockStack) {
-                ExecBlock forLoopLoc_ = bl_.getLastBlock();
-                _ip.setBlock(forLoopLoc_);
-                if (bl_ instanceof LoopBlockStack) {
-                    _ip.setLastLoop((LoopBlockStack) bl_);
-                    ((LoopBlockStack)bl_).setFinished(true);
-                }
-                return false;
-            }
-        } else {
-            if (StringUtil.quickEq(_label, bl_.getLabel())){
-                ExecBlock forLoopLoc_ = bl_.getLastBlock();
-                _ip.setBlock(forLoopLoc_);
-                if (bl_ instanceof LoopBlockStack) {
-                    _ip.setLastLoop((LoopBlockStack) bl_);
-                    ((LoopBlockStack)bl_).setFinished(true);
-                }
-                if (bl_ instanceof IfBlockStack) {
-                    _ip.setLastIf((IfBlockStack) bl_);
-                }
-                if (bl_ instanceof TryBlockStack) {
-                    _ip.setLastTry((TryBlockStack) bl_);
-                }
-                return false;
-            }
-        }
-        return true;
-    }
-    public static boolean hasBlockContinue(ContextEl _conf, AbstractPageEl _ip, String _label, StackCall _stackCall) {
-        if (!_ip.hasBlock()) {
-            _ip.setNullReadWrite();
-            return false;
-        }
-        AbstractStask bl_ = _ip.getLastStack();
-        if (bl_ instanceof LoopBlockStack) {
-            ExecBracedBlock br_ = bl_.getBlock();
-            if (_label.isEmpty()) {
-                LoopBlockStack lSt_;
-                lSt_ = (LoopBlockStack) bl_;
-                br_.removeLocalVars(_ip);
-                ExecLoop loop_;
-                loop_ = ((LoopBlockStack) bl_).getExecLoop();
-                _ip.setBlock(br_);
-                loop_.processLastElementLoop(_conf,lSt_, _stackCall);
-                return false;
-            }
-            if (StringUtil.quickEq(_label, bl_.getLabel())){
-                LoopBlockStack lSt_;
-                lSt_ = (LoopBlockStack) bl_;
-                br_.removeLocalVars(_ip);
-                ExecLoop loop_;
-                loop_ = ((LoopBlockStack) bl_).getExecLoop();
-                _ip.setBlock(br_);
-                loop_.processLastElementLoop(_conf,lSt_, _stackCall);
-                return false;
-            }
-        }
-        return true;
-    }
-    public static void setVisited(AbstractPageEl _ip, ExecBracedBlock _block) {
-        if (!_ip.hasBlock()) {
-            _ip.setNullReadWrite();
-            return;
-        }
-        _ip.getLastStack().setCurrentVisitedBlock(_block);
-    }
-    public static void processFinally(ContextEl _cont, ExecBracedBlock _block, StackCall _stackCall) {
-        AbstractPageEl ip_ = _stackCall.getLastPage();
-        TryBlockStack ts_ = ip_.getLastTry();
-        if (ts_ == null) {
-            ip_.setNullReadWrite();
-            return;
-        }
-        ts_.setCurrentVisitedBlock(_block);
-        if (ts_.isVisitedFinally()) {
-            _block.processBlockAndRemove(_cont, _stackCall);
-            return;
-        }
-        ts_.setVisitedFinally(true);
-        ip_.setBlock(_block.getFirstChild());
-    }
-    public static void processElseIf(ContextEl _cont, ExecCondition _cond, StackCall _stackCall) {
-        AbstractPageEl ip_ = _stackCall.getLastPage();
-        IfBlockStack if_ = ip_.getLastIf();
-        if (if_ == null) {
-            ip_.setNullReadWrite();
-            return;
-        }
-        if_.setCurrentVisitedBlock(_cond);
-        if (!if_.isEntered()) {
-            ConditionReturn assert_ = _cond.evaluateCondition(_cont, _stackCall);
-            if (assert_ == ConditionReturn.CALL_EX) {
-                return;
-            }
-            if (assert_ == ConditionReturn.YES) {
-                if_.setEntered(true);
-                ip_.setBlock(_cond.getFirstChild());
-                return;
-            }
-        }
-        if (ExecBracedBlock.isNextIfParts(_cond.getNextSibling())) {
-            ip_.setBlock(_cond.getNextSibling());
-            return;
-        }
-        _cond.processBlockAndRemove(_cont, _stackCall);
-    }
-    public static void processElse(ContextEl _cont, ExecBracedBlock _cond, StackCall _stackCall) {
-        AbstractPageEl ip_ = _stackCall.getLastPage();
-        IfBlockStack if_ = ip_.getLastIf();
-        if (if_ == null) {
-            ip_.setNullReadWrite();
-            return;
-        }
-        if_.setCurrentVisitedBlock(_cond);
-        if (!if_.isEntered()) {
-            if_.setEntered(true);
-            ip_.setBlock(_cond.getFirstChild());
-            return;
-        }
-        _cond.processBlockAndRemove(_cont, _stackCall);
-    }
-    public static void processDo(ContextEl _cont, ExecCondition _cond, StackCall _stackCall) {
-        AbstractPageEl ip_ = _stackCall.getLastPage();
-        LoopBlockStack l_ = ip_.getLastLoop();
-        if (l_ == null) {
-            ip_.setNullReadWrite();
-            return;
-        }
-        l_.setEvaluatingKeepLoop(true);
-        ConditionReturn keep_ = _cond.evaluateCondition(_cont, _stackCall);
-        if (keep_ == ConditionReturn.CALL_EX) {
-            return;
-        }
-        if (keep_ == ConditionReturn.NO) {
-            l_.setFinished(true);
-        }
-        l_.setEvaluatingKeepLoop(false);
-        ip_.setBlock(_cond.getPreviousSibling());
-    }
-    public static void processBlockAndRemove(ContextEl _context, ExecBlock _bl, StackCall _stackCall) {
-        AbstractPageEl ip_ = _stackCall.getLastPage();
-        if (!ip_.hasBlock()) {
-            ip_.setNullReadWrite();
-            return;
-        }
-        ip_.removeLastBlock();
-        _bl.processBlock(_context, _stackCall);
-    }
     public static Argument getIndexLoop(ContextEl _context, String _val, int _deep, Cache _cache, StringMap<LoopVariable> _vars, StackCall _stackCall) {
         LgNames stds_ = _context.getStandards();
         if (_cache != null) {
@@ -1340,221 +1017,6 @@ public final class ExecTemplates {
         }
         _loc.setStruct(_right.getStruct());
         return _right;
-    }
-
-    /**parameriterized sub type (possibly array) - super type<br/>
-     Let this code:<br/>
-     <code><pre>public class my.pkg.MyClass&lt;A,B&gt;:MySecondClass&lt;A,B&gt;{}</pre>
-     <pre>public class my.pkg.MySecondClass&lt;C,D&gt;{}</pre></code><br/>
-     Sample 1: "my.pkg.MyClass&lt;long,int&gt;" - "my.pkg.MySecondClass" => "my.pkg.MySecondClass&lt;long,int&gt;"<br/>
-     Sample 2: "my.pkg.MyClass" - "my.pkg.MySecondClass" => null<br/>
-     Sample 3: "my.pkg.MySecondClass&lt;long,int&gt;" - "my.pkg.MyClass" => null<br/>
-     Sample 4: "my.pkg.MyClass&lt;long,int&gt;" - "my.pkg.MySecondClass[]" => "my.pkg.MySecondClass&lt;long,int&gt;[]"<br/>
-     */
-    public static String getFullTypeByBases(String _subType, String _superType, ContextEl _context) {
-        String idArg_ = StringExpUtil.getIdFromAllTypes(_subType);
-        String idSuperType_ = StringExpUtil.getIdFromAllTypes(_superType);
-        if (StringUtil.quickEq(idArg_,idSuperType_)) {
-            return _subType;
-        }
-        DimComp dBaseParam_ = StringExpUtil.getQuickComponentBaseType(idSuperType_);
-        int dim_ = dBaseParam_.getDim();
-        String classParam_ = dBaseParam_.getComponent();
-        DimComp dBaseArg_ = StringExpUtil.getQuickComponentBaseType(idArg_);
-        String baseArr_ = dBaseArg_.getComponent();
-        int dimArg_ = dBaseArg_.getDim();
-        if (StringUtil.quickEq(classParam_, _context.getStandards().getContent().getCoreNames().getAliasObject())) {
-            if (dimArg_ < dim_) {
-                return "";
-            }
-            return _superType;
-        }
-        if (dimArg_ != dim_) {
-            return "";
-        }
-        if (ExecClassArgumentMatching.isPrimitive(baseArr_,_context)) {
-            PrimitiveType pr_ = _context.getStandards().getPrimitiveTypes().getVal(baseArr_);
-            if (StringUtil.contains(pr_.getAllSuperType(_context), classParam_)) {
-                return _superType;
-            }
-            return "";
-        }
-        if (StringUtil.quickEq(_subType, _context.getStandards().getContent().getCoreNames().getAliasVoid())) {
-            return "";
-        }
-        if (StringUtil.quickEq(_superType, _context.getStandards().getContent().getCoreNames().getAliasVoid())) {
-            return "";
-        }
-        GeneType classBody_ = _context.getClassBody(baseArr_);
-        String generic_ = getSuperGeneric(classBody_,_context, dim_, classParam_);
-        return format(classBody_,_subType, generic_);
-    }
-
-    public static String getOverridingFullTypeByBases(String _subType, String _superType, ContextEl _context) {
-        String idArg_ = StringExpUtil.getIdFromAllTypes(_subType);
-        String idSuperType_ = StringExpUtil.getIdFromAllTypes(_superType);
-        if (StringUtil.quickEq(idArg_,idSuperType_)) {
-            return _subType;
-        }
-        GeneType classBody_ = _context.getClassBody(idArg_);
-        String generic_ = getSuperGeneric(classBody_,_context, 0, idSuperType_);
-        return quickFormat(classBody_,_subType, generic_);
-    }
-
-    private static String getSuperGeneric(GeneType _subType, ContextEl _context, int _dim, String _classParam) {
-        String param_ = StringExpUtil.getIdFromAllTypes(_classParam);
-        if (_subType instanceof ExecAnnotationBlock) {
-            if (StringUtil.quickEq(param_, _context.getStandards().getContent().getReflect().getAliasAnnotationType())) {
-                return StringExpUtil.getPrettyArrayType(param_,_dim);
-            }
-        }
-        String generic_ = "";
-        if (_subType instanceof ExecRootBlock) {
-            for (ExecFormattedRootBlock e: ((ExecRootBlock)_subType).getAllGenericSuperTypes()) {
-                String g = e.getFormatted();
-                if (StringUtil.quickEq(StringExpUtil.getIdFromAllTypes(g),param_)) {
-                    generic_ = g;
-                    break;
-                }
-            }
-        }
-        if (_subType instanceof StandardType) {
-            for (String g: ((StandardType)_subType).getAllGenericSuperTypes()) {
-                 if (StringUtil.quickEq(StringExpUtil.getIdFromAllTypes(g),param_)) {
-                    generic_ = g;
-                    break;
-                }
-            }
-        }
-        if (generic_.isEmpty()) {
-            return "";
-        }
-        return StringExpUtil.getPrettyArrayType(generic_,_dim);
-    }
-
-    /**Returns a formatted string (variables present in second type are defined in the scope of the first type id)<br/>
-     Let this code:<br/>
-     <code><pre>public class my.pkg.MyClass&lt;K,V&gt;{}</pre>
-     <pre>public class my.pkg.MySecondClass&lt;K&gt;{</pre>
-     <pre>     public class Inner&lt;V&gt;{}</pre>
-     <pre>}</pre></code><br/>
-     <pre>public class my.pkg.MyThirdClass&lt;K&gt;{</pre>
-     <pre>     public static class Inner&lt;V&gt;{}</pre></code>
-     <pre>}</pre></code><br/>
-     Sample 1: "my.pkg.MyClass&lt;long,int&gt;" - "?#K" => null<br/>
-     Sample 2: "my.pkg.MyClass&lt;?long,int&gt;" - "#K" => "long"<br/>
-     Sample 3: "my.pkg.MyClass&lt;?long,int&gt;" - "?#K" => null<br/>
-     */
-    public static String format(String _first, String _second, ContextEl _context) {
-        StringMap<String> varTypes_ = getVarTypes(_first, _context);
-        return StringExpUtil.getFormattedType(_second, varTypes_);
-    }
-    public static String format(GeneType _type, String _first, String _second) {
-        StringMap<String> varTypes_ = getVarTypes(_first, _type);
-        return StringExpUtil.getFormattedType(_second, varTypes_);
-    }
-
-    /**Returns a formatted string (variables present in second type are defined in the scope of the first type id)<br/>
-     Let this code:<br/>
-     <code><pre>public class my.pkg.MyClass&lt;K,V&gt;{}</pre>
-     <pre>public class my.pkg.MySecondClass&lt;K&gt;{</pre>
-     <pre>     public class Inner&lt;V&gt;{}</pre>
-     <pre>}</pre></code><br/>
-     <pre>public class my.pkg.MyThirdClass&lt;K&gt;{</pre>
-     <pre>     public static class Inner&lt;V&gt;{}</pre></code>
-     <pre>}</pre></code><br/>
-     Sample 1: "my.pkg.MyClass&lt;long,int&gt;" - "#K" => "long"<br/>
-     Sample 2: "my.pkg.MyClass&lt;long,int&gt;" - "#V" => "int"<br/>
-     Sample 3: "my.pkg.MySecondClass&lt;long&gt;..Inner&lt;int&gt;" - "#K" => "long"<br/>
-     Sample 4: "my.pkg.MyThirdClass..Inner&lt;int&gt;" - "#V" => "int"<br/>
-     */
-    public static String quickFormat(String _first, String _second, ContextEl _context) {
-        return quickFormat(_context.getClassBody(StringExpUtil.getIdFromAllTypes(_first)),_first,_second);
-    }
-    public static String quickFormat(GeneType _type, String _first, String _second) {
-        StringMap<String> varTypes_ = getVarTypes(_first,_type);
-        return StringExpUtil.getQuickFormattedType(_second, varTypes_);
-    }
-
-    /**Returns the map of variables of a paramethized type<br/>
-      Let this code:<br/>
-           <code><pre>public class my.pkg.MyClass&lt;K,V&gt;{}</pre>
-           <pre>public class my.pkg.MySecondClass&lt;K&gt;{</pre>
-           <pre>     public class Inner&lt;V&gt;{}</pre>
-           <pre>}</pre></code><br/>
-           <pre>public class my.pkg.MyThirdClass&lt;K&gt;{</pre>
-           <pre>     public static class Inner&lt;V&gt;{}</pre></code>
-           <pre>}</pre></code><br/>
-     Sample 1: "my.pkg.MyClass&lt;long,int&gt;" => ["K"-"long","V"-"int"]<br/>
-     Sample 2: "my.pkg.MySecondClass&lt;long&gt;..Inner&lt;int&gt;" => ["K"-"long","V"-"int"]<br/>
-     Sample 3: "my.pkg.MyThirdClass..Inner&lt;int&gt;" => ["V"-"int"]<br/>
-     Sample 4: "my.pkg.MyClass&lt;long,int&gt;[]" => ["K"-"long","V"-"int"]<br/>
-     */
-    private static StringMap<String> getVarTypes(String _className, ContextEl _context) {
-        StringList types_ = StringExpUtil.getAllTypes(_className);
-        String className_ = StringExpUtil.getQuickComponentBaseType(types_.first()).getComponent();
-        GeneType root_ = _context.getClassBody(className_);
-        return getVarTypes(types_, root_);
-    }
-
-    private static StringMap<String> getVarTypes(String _className, GeneType _root) {
-        StringList types_ = StringExpUtil.getAllTypes(_className);
-        return getVarTypes(types_,_root);
-    }
-    private static StringMap<String> getVarTypes(StringList _types, GeneType _root) {
-        StringMap<String> varTypes_ = new StringMap<String>();
-        if (_root == null) {
-            return varTypes_;
-        }
-        int i_ = IndexConstants.FIRST_INDEX;
-        for (String t: _root.getParamTypesValues()) {
-            i_++;
-            if (!_types.isValidIndex(i_)) {
-                return varTypes_;
-            }
-            String arg_ = _types.get(i_);
-            varTypes_.put(t, arg_);
-        }
-        return varTypes_;
-    }
-
-    /**Checks nb parameters of the most wrapping type<br/>
-     Let this code:<br/>
-     <code><pre>public class my.pkg.MySimpleClass{}</pre>
-     <pre>public class my.pkg.MyClass&lt;K&gt;{}</pre>
-     <pre>public class my.pkg.MySecondClass&lt;K&gt;{</pre>
-     <pre>     public class Inner&lt;V&gt;{}</pre>
-     <pre>}</pre></code><br/>
-     <pre>public class my.pkg.MyThirdClass&lt;K&gt;{</pre>
-     <pre>     public static class Inner&lt;V&gt;{}</pre></code>
-     <pre>}</pre></code><br/>
-    Sample 1: int => true<br/>
-    Sample 2: my.pkg.MySimpleClass => true<br/>
-    Sample 3: my.pkg.MyClass => false<br/>
-    Sample 4: my.pkg.MyClass&lt;Integer&gt; => true<br/>
-    Sample 5: my.pkg.MyClass&lt;my.pkg.MyClass&gt; => true<br/>
-    Sample 6: my.pkg.MyClass&lt;Integer,Integer&gt; => false<br/>
-    Sample 7: my.pkg.MySecondClass..Inner&lt;Integer&gt; => false<br/>
-    Sample 8: my.pkg.MySecondClass&lt;Integer&gt;..Inner&lt;Integer&gt; => true<br/>
-    Sample 9: my.pkg.MySecondClass..Inner&lt;Integer,Integer&gt; => false<br/>
-    Sample 10: my.pkg.MyThirdClass..Inner&lt;Integer,Integer&gt; => true<br/>
-    Sample 11: my.pkg.MyThirdClass&lt;Integer&gt;..Inner&lt;Integer&gt; => false<br/>
-    Sample 12: my.pkg.MyThirdClass..Inner&lt;Integer,Integer&gt; => false<br/>
-    */
-    public static boolean correctNbParameters(String _genericClass, ContextEl _context) {
-        //From analyze
-        String idCl_ = StringExpUtil.getIdFromAllTypes(_genericClass);
-        String compo_ = StringExpUtil.getQuickComponentBaseType(idCl_).getComponent();
-        GeneType info_ = _context.getClassBody(compo_);
-        if (info_ == null) {
-            if (ExecClassArgumentMatching.isPrimitive(compo_,_context)) {
-                return true;
-            }
-            return StringUtil.quickEq(compo_, _context.getStandards().getContent().getCoreNames().getAliasVoid());
-        }
-        String fct_ = _context.getStandards().getContent().getReflect().getAliasFct();
-        Ints rep_ = info_.getTypeVarCounts();
-        return StringExpUtil.commonCorrectType(_genericClass,compo_,fct_,rep_);
     }
 
     public static Argument getField(FieldMetaInfo _meta, Argument _previous, ContextEl _conf, StackCall _stackCall) {
@@ -1658,8 +1120,8 @@ public final class ExecTemplates {
             _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_conf, getBadCastMessage(_className, argClassName_), cast_, _stackCall)));
             return Argument.createVoid();
         }
-        String classNameFound_ = getSuperGeneric(argClassName_, _className, _conf);
-        String fieldType_ = quickFormat(_rootBlock,classNameFound_, _returnType);
+        String classNameFound_ = ExecInherits.getSuperGeneric(argClassName_, _className, _conf);
+        String fieldType_ = ExecInherits.quickFormat(_rootBlock,classNameFound_, _returnType);
         if (!checkQuick(fieldType_, _right, _conf, _stackCall)) {
             return Argument.createVoid();
         }
@@ -1694,108 +1156,6 @@ public final class ExecTemplates {
         }
         NumParsers.getStaticFieldMap(className_, classes_.getStaticFields()).set(fieldId_.getFieldName(), _right.getStruct());
         return _right;
-    }
-
-    public static String toWrapper(String _class, LgNames _stds) {
-        for (EntryCust<String, PrimitiveType> e: _stds.getPrimitiveTypes().entryList()) {
-            if (StringUtil.quickEq(e.getKey(), _class)) {
-                return e.getValue().getWrapper();
-            }
-        }
-        return _class;
-    }
-
-    public static Struct[] getObjects(Argument... _args) {
-        int len_ = _args.length;
-        Struct[] classes_ = new Struct[len_];
-        for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
-            classes_[i] = _args[i].getStruct();
-        }
-        return classes_;
-    }
-
-    public static CustList<Argument> getArgs(Struct... _args) {
-        int len_ = _args.length;
-        CustList<Argument> classes_ = new CustList<Argument>(new CollCapacity(len_));
-        for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
-            classes_.add(new Argument(_args[i]));
-        }
-        return classes_;
-    }
-
-    public static Argument getFirstArgument(CustList<Argument> _list) {
-        return getArgument(_list,0);
-    }
-    public static Argument getLastArgument(CustList<Argument> _list) {
-        return getArgument(_list,_list.size()-1);
-    }
-    public static Argument getArgument(CustList<Argument> _list, int _index) {
-        if (_list.isValidIndex(_index)) {
-            return Argument.getNullableValue(_list.get(_index));
-        }
-        return Argument.createVoid();
-    }
-    public static ExecMethodOperation getParentOrNull(ExecOperationNode _node) {
-        if (_node == null) {
-            return null;
-        }
-        return _node.getParent();
-    }
-    public static ExecOperationNode getMainNode(ExecOperationNode _node) {
-        ExecMethodOperation parent_ = _node.getParent();
-        return getFirstNode(parent_);
-    }
-
-    public static ExecOperationNode getFirstNode(ExecMethodOperation _parent) {
-        if (_parent == null) {
-            return null;
-        }
-        return getNode(_parent.getChildrenNodes(),0);
-    }
-
-    public static ExecOperationNode getLastNode(ExecMethodOperation _parent) {
-        CustList<ExecOperationNode> childrenNodes_ = _parent.getChildrenNodes();
-        return getNode(childrenNodes_,childrenNodes_.size()-1);
-    }
-    public static ExecOperationNode getNextNode(ExecOperationNode _node) {
-        ExecMethodOperation par_ = _node.getParent();
-        if (par_ == null) {
-            return null;
-        }
-        return getNode(par_.getChildrenNodes(),_node.getIndexChild()+1);
-    }
-    public static ArgumentsPair getArgumentPair(IdMap<ExecOperationNode,ArgumentsPair> _nodes, ExecOperationNode _node) {
-        int order_ = getOrder(_node);
-        return getArgumentPair(_nodes, order_);
-    }
-
-    public static ArgumentsPair getArgumentPair(IdMap<ExecOperationNode, ArgumentsPair> _nodes, int _order) {
-        if (!_nodes.isValidIndex(_order)) {
-            ArgumentsPair pair_ = new ArgumentsPair();
-            pair_.setArgument(Argument.createVoid());
-            return pair_;
-        }
-        return _nodes.getValue(_order);
-    }
-
-    public static int getOrder(ExecOperationNode _node) {
-        if (_node == null) {
-            return 0;
-        }
-        return _node.getOrder();
-    }
-    public static ExecOperationNode getNode(CustList<ExecOperationNode> _nodes, int _index) {
-        if (_nodes.isValidIndex(_index)) {
-            return _nodes.get(_index);
-        }
-        return null;
-    }
-    public static String getGenericTypeNameOrObject(ContextEl _ctx, String _id) {
-        GeneType classBody_ = _ctx.getClassBody(_id);
-        if (classBody_ != null) {
-            return classBody_.getGenericString();
-        }
-        return _ctx.getStandards().getCoreNames().getAliasObject();
     }
 
     public static Argument trySetArgument(ContextEl _conf, Argument _res, ArgumentsPair _pair, StackCall _stackCall) {

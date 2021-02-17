@@ -5,6 +5,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
+import code.expressionlanguage.exec.inherits.ExecInherits;
 import code.expressionlanguage.exec.util.ExecOverrideInfo;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
@@ -106,8 +107,8 @@ public final class RendCustArrOperation extends RendInvokingOperation implements
             }
             Struct pr_ = prev_.getStruct();
             String cl_ = pr_.getClassName(_context);
-            String clGen_ = ExecTemplates.getSuperGeneric(cl_, base_, _context);
-            lastType_ = ExecTemplates.quickFormat(fct_.getType(), clGen_, lastType_);
+            String clGen_ = ExecInherits.getSuperGeneric(cl_, base_, _context);
+            lastType_ = ExecInherits.quickFormat(fct_.getType(), clGen_, lastType_);
             ExecOverrideInfo polymorph_ = ExecInvokingOperation.polymorphOrSuper(instFctContent.isStaticChoiceMethod(), _context, pr_, classNameFound_, fct_);
             fct_ = polymorph_.getPair();
             classNameFound_ = polymorph_.getClassName();

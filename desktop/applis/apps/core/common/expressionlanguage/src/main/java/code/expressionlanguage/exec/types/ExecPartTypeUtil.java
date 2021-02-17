@@ -4,7 +4,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ArrayResult;
 import code.expressionlanguage.common.StrTypes;
 import code.expressionlanguage.common.StringExpUtil;
-import code.expressionlanguage.exec.inherits.ExecTemplates;
+import code.expressionlanguage.exec.inherits.ExecInherits;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.types.KindPartType;
 import code.util.core.IndexConstants;
@@ -96,7 +96,7 @@ public final class ExecPartTypeUtil {
     }
 
     private static boolean isNotCorrectParam(ContextEl _context, ExecPartType _current) {
-        return !skip(_current) && !ExecTemplates.correctNbParameters(_current.getAnalyzedType(), _context);
+        return !skip(_current) && !ExecInherits.correctNbParameters(_current.getAnalyzedType(), _context);
     }
 
     private static boolean skip(ExecPartType _current) {
@@ -315,7 +315,7 @@ public final class ExecPartTypeUtil {
         ExecAnalyzingType a_ = new ExecAnalyzingType();
         StrTypes values_ = a_.getValues();
         if (_string.trim().isEmpty()) {
-            values_.addEntry((int)IndexConstants.FIRST_INDEX, _string);
+            values_.addEntry(IndexConstants.FIRST_INDEX, _string);
             a_.setError(true);
             return a_;
         }
@@ -354,7 +354,7 @@ public final class ExecPartTypeUtil {
         ArrayResult res_ = StringExpUtil.tryGetArray(_string, values_, operators_);
         if (res_ != ArrayResult.NONE) {
             if (res_ == ArrayResult.ERROR) {
-                values_.addEntry((int) IndexConstants.FIRST_INDEX, _string);
+                values_.addEntry(IndexConstants.FIRST_INDEX, _string);
                 a_.setError(true);
             } else {
                 a_.setPrio(ARR_PRIO);

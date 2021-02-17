@@ -2,10 +2,10 @@ package code.expressionlanguage.exec.opers;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.exec.ExecHelper;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
-import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.expressionlanguage.exec.util.ImplicitMethods;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
@@ -49,7 +49,7 @@ public final class ExecCompoundAffectationOperation extends ExecMethodOperation 
             ExecOperationNode left_ = settableParent.getFirstChild();
             Argument leftArg_ = getArgument(_nodes,left_);
             if (leftArg_.isNull()) {
-                ArgumentsPair pair_ = ExecTemplates.getArgumentPair(_nodes,this);
+                ArgumentsPair pair_ = ExecHelper.getArgumentPair(_nodes,this);
                 pair_.setIndexImplicitCompound(-1);
                 pair_.setEndCalculate(true);
                 leftArg_ = new Argument(ExecClassArgumentMatching.convertFormatted(NullStruct.NULL_VALUE,_conf, getResultClass().getNames(), _stack));
@@ -59,8 +59,8 @@ public final class ExecCompoundAffectationOperation extends ExecMethodOperation 
         }
         Argument leftArg_ = getFirstArgument(_nodes,this);
         Argument rightArg_ = getLastArgument(_nodes,this);
-        ArgumentsPair pair_ = ExecTemplates.getArgumentPair(_nodes,this);
-        ArgumentsPair argumentPair_ = ExecTemplates.getArgumentPair(_nodes, getFirstChild());
+        ArgumentsPair pair_ = ExecHelper.getArgumentPair(_nodes,this);
+        ArgumentsPair argumentPair_ = ExecHelper.getArgumentPair(_nodes, getFirstChild());
         if (argumentPair_.isArgumentTest()){
             pair_.setIndexImplicitCompound(-1);
             if (StringUtil.quickEq(operatorContent.getOper(), "&&&=") || StringUtil.quickEq(operatorContent.getOper(), "|||=")) {
@@ -86,7 +86,7 @@ public final class ExecCompoundAffectationOperation extends ExecMethodOperation 
                 return;
             }
         }
-        ArgumentsPair pairBefore_ = ExecTemplates.getArgumentPair(_nodes,this);
+        ArgumentsPair pairBefore_ = ExecHelper.getArgumentPair(_nodes,this);
         ImplicitMethods implicits_ = pairBefore_.getImplicitsCompound();
         int indexImplicit_ = pairBefore_.getIndexImplicitCompound();
         if (implicits_.isValidIndex(indexImplicit_)) {
@@ -137,7 +137,7 @@ public final class ExecCompoundAffectationOperation extends ExecMethodOperation 
 
     @Override
     public void endCalculate(ContextEl _conf, IdMap<ExecOperationNode, ArgumentsPair> _nodes, Argument _right, StackCall _stack) {
-        ArgumentsPair pair_ = ExecTemplates.getArgumentPair(_nodes,this);
+        ArgumentsPair pair_ = ExecHelper.getArgumentPair(_nodes,this);
         setRelOffsetPossibleLastPage(operatorContent.getOpOffset(), _stack);
         ImplicitMethods implicits_ = pair_.getImplicitsCompound();
         int indexImplicit_ = pair_.getIndexImplicitCompound();

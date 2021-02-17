@@ -1,7 +1,7 @@
 package code.expressionlanguage.functionid;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
-import code.expressionlanguage.exec.inherits.ExecTemplates;
+import code.expressionlanguage.exec.inherits.ExecInherits;
 import code.util.core.StringUtil;
 
 public final class ClassMethodId {
@@ -24,7 +24,7 @@ public final class ClassMethodId {
 
     public static String formatType(ExecRootBlock _rootBlock, String _owner, String _formatted, MethodAccessKind _kind) {
         if (_kind == MethodAccessKind.STATIC_CALL) {
-            return ExecTemplates.quickFormat(_rootBlock,_owner, _formatted);
+            return ExecInherits.quickFormat(_rootBlock,_owner, _formatted);
         }
         return _formatted;
     }

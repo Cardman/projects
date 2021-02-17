@@ -1,7 +1,7 @@
 package code.expressionlanguage.exec.calls;
 
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.exec.inherits.ExecTemplates;
+import code.expressionlanguage.exec.inherits.ExecInherits;
 
 public final class CastPageEl extends AbstractMethodPageEl {
     public CastPageEl(Argument _gl, String _glClass) {
@@ -10,6 +10,6 @@ public final class CastPageEl extends AbstractMethodPageEl {
 
     @Override
     public String formatVarType(String _varType) {
-        return ExecTemplates.quickFormat(getBlockRootType(),getGlobalClass(),_varType);
+        return ExecInherits.quickFormat(getBlockRootType(),getGlobalClass(),_varType);
     }
 }

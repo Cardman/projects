@@ -4,7 +4,6 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.blocks.ExecInnerElementBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
-import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.opers.*;
 import code.expressionlanguage.exec.util.ImplicitMethods;
 import code.expressionlanguage.exec.variables.AbstractWrapper;
@@ -43,7 +42,7 @@ public final class ExpressionLanguage {
         if (_conf.callsOrException(_stackCall)) {
             return null;
         }
-        _right.argument = ExecTemplates.getArgumentPair(_right.arguments,_right.arguments.size()-1);
+        _right.argument = ExecHelper.getArgumentPair(_right.arguments,_right.arguments.size()-1);
         return _right.argument;
     }
 
@@ -150,7 +149,7 @@ public final class ExpressionLanguage {
     public void setArgument(AbstractWrapper _wrapp, Argument _arg, ContextEl _cont, StackCall _stackCall) {
         Argument arg_ = tryUnwrapp(_wrapp, _arg, _cont, _stackCall);
         if (_wrapp != null) {
-            ExecTemplates.getArgumentPair(arguments,currentOper).setWrapper(_wrapp);
+            ExecHelper.getArgumentPair(arguments,currentOper).setWrapper(_wrapp);
         }
         setArgument(arg_,_cont, _stackCall);
     }
@@ -189,7 +188,7 @@ public final class ExpressionLanguage {
     }
 
     private static int getNextIndex(IdMap<ExecOperationNode, ArgumentsPair> _args, ExecOperationNode _oper, int _least) {
-        ArgumentsPair value_ = ExecTemplates.getArgumentPair(_args,_oper);
+        ArgumentsPair value_ = ExecHelper.getArgumentPair(_args,_oper);
         Argument res_ = Argument.getNullableValue(value_.getArgument());
         Struct v_ = res_.getStruct();
         if (_oper.getNextSibling() != null&&value_.isArgumentTest()){

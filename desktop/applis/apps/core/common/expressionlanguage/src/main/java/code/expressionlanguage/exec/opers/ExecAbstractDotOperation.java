@@ -2,8 +2,8 @@ package code.expressionlanguage.exec.opers;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.exec.ExecHelper;
 import code.expressionlanguage.exec.StackCall;
-import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
@@ -18,8 +18,8 @@ public abstract class ExecAbstractDotOperation extends ExecMethodOperation imple
         super(_indexChild,_res,_order);
     }
     public void calculateDot(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, StackCall _stackCall) {
-        ExecOperationNode lastNode_ = ExecTemplates.getLastNode(this);
-        ArgumentsPair pairCh_ = ExecTemplates.getArgumentPair(_nodes, lastNode_);
+        ExecOperationNode lastNode_ = ExecHelper.getLastNode(this);
+        ArgumentsPair pairCh_ = ExecHelper.getArgumentPair(_nodes, lastNode_);
         Argument a_ = Argument.getNullableValue(pairCh_.getArgument());
         boolean simple_;
         if (getParent() instanceof ExecAffectationOperation) {
@@ -28,7 +28,7 @@ public abstract class ExecAbstractDotOperation extends ExecMethodOperation imple
         } else {
             simple_ = false;
         }
-        ArgumentsPair pair_ = ExecTemplates.getArgumentPair(_nodes, this);
+        ArgumentsPair pair_ = ExecHelper.getArgumentPair(_nodes, this);
         pair_.setWrapper(pairCh_.getWrapper());
         if (simple_) {
             setQuickNoConvertSimpleArgument(a_, _conf, _nodes, _stackCall);

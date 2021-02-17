@@ -4,7 +4,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.util.InstancingStep;
-import code.expressionlanguage.exec.inherits.ExecTemplates;
+import code.expressionlanguage.exec.inherits.ExecInherits;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.fwd.opers.ExecInvokingConstructorContent;
@@ -24,7 +24,7 @@ public final class ExecSuperInvokingConstructor extends ExecAbstractInvokingCons
         setRelOffsetPossibleLastPage(off_, _stack);
 
         String superClass_ = _stack.formatVarType(getClassFromName());
-        String lastType_ = ExecTemplates.quickFormat(getPair().getType(), superClass_, getLastType());
+        String lastType_ = ExecInherits.quickFormat(getPair().getType(), superClass_, getLastType());
         checkParametersCtors(_conf, superClass_, getPair(), fectchArgs(_nodes, lastType_, getNaturalVararg()), InstancingStep.USING_SUPER, _stack);
         Argument res_ = Argument.createVoid();
         setSimpleArgument(res_, _conf, _nodes, _stack);

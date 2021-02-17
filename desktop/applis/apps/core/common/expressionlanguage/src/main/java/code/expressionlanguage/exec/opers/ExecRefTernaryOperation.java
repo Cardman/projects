@@ -2,7 +2,7 @@ package code.expressionlanguage.exec.opers;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.exec.ExpressionLanguage;
+import code.expressionlanguage.exec.ExecHelper;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
@@ -11,7 +11,6 @@ import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecArrContent;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.structs.BooleanStruct;
-import code.expressionlanguage.structs.Struct;
 import code.util.IdMap;
 
 public final class ExecRefTernaryOperation extends ExecMethodOperation implements AtomicExecCalculableOperation,ExecSettableElResult {
@@ -30,7 +29,7 @@ public final class ExecRefTernaryOperation extends ExecMethodOperation implement
                           ContextEl _conf, StackCall _stack) {
         setRelOffsetPossibleLastPage(offsetLocal, _stack);
         AbstractWrapper res_ = getWrapper(_nodes);
-        ArgumentsPair pair_ = ExecTemplates.getArgumentPair(_nodes, this);
+        ArgumentsPair pair_ = ExecHelper.getArgumentPair(_nodes, this);
         pair_.setWrapper(res_);
         Argument arg_ = ExecTemplates.getArgValue(res_, _conf, _stack);
         if (resultCanBeSet()) {
@@ -42,10 +41,10 @@ public final class ExecRefTernaryOperation extends ExecMethodOperation implement
 
     private AbstractWrapper getWrapper(IdMap<ExecOperationNode, ArgumentsPair> _nodes) {
         AbstractWrapper arg_;
-        if (BooleanStruct.isTrue(ExecTemplates.getArgumentPair(_nodes,ExecTemplates.getNode(getChildrenNodes(),0)).getArgument().getStruct())) {
-            arg_ = ExecTemplates.getArgumentPair(_nodes,ExecTemplates.getNode(getChildrenNodes(),1)).getWrapper();
+        if (BooleanStruct.isTrue(ExecHelper.getArgumentPair(_nodes, ExecHelper.getNode(getChildrenNodes(),0)).getArgument().getStruct())) {
+            arg_ = ExecHelper.getArgumentPair(_nodes, ExecHelper.getNode(getChildrenNodes(),1)).getWrapper();
         } else {
-            arg_ = ExecTemplates.getArgumentPair(_nodes,ExecTemplates.getNode(getChildrenNodes(),2)).getWrapper();
+            arg_ = ExecHelper.getArgumentPair(_nodes, ExecHelper.getNode(getChildrenNodes(),2)).getWrapper();
         }
         return arg_;
     }
@@ -57,7 +56,7 @@ public final class ExecRefTernaryOperation extends ExecMethodOperation implement
 
     @Override
     public Argument calculateCompoundSetting(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, String _op, Argument _right, ExecClassArgumentMatching _cl, byte _cast, StackCall _stack) {
-        ArgumentsPair pair_ = ExecTemplates.getArgumentPair(_nodes, this);
+        ArgumentsPair pair_ = ExecHelper.getArgumentPair(_nodes, this);
         Argument left_ = ExecTemplates.getArgValue(pair_.getWrapper(), _conf, _stack);
         Argument res_ = ExecNumericOperation.calculateAffect(left_, _conf, _right, _op, arrContent.isCatString(), _cl.getNames(), _cast, _stack);
         return trySetArgument(_nodes, _conf, res_, _stack);
@@ -65,7 +64,7 @@ public final class ExecRefTernaryOperation extends ExecMethodOperation implement
 
     @Override
     public Argument calculateSemiSetting(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, String _op, boolean _post, byte _cast, StackCall _stack) {
-        ArgumentsPair pair_ = ExecTemplates.getArgumentPair(_nodes, this);
+        ArgumentsPair pair_ = ExecHelper.getArgumentPair(_nodes, this);
         Argument left_ = ExecTemplates.getArgValue(pair_.getWrapper(), _conf, _stack);
         Argument res_ = ExecNumericOperation.calculateIncrDecr(left_, _op, _cast);
         trySetArgument(_nodes, _conf, res_, _stack);
@@ -84,7 +83,7 @@ public final class ExecRefTernaryOperation extends ExecMethodOperation implement
     }
 
     private Argument trySetArgument(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, Argument _res, StackCall _stackCall) {
-        ArgumentsPair pair_ = ExecTemplates.getArgumentPair(_nodes, this);
+        ArgumentsPair pair_ = ExecHelper.getArgumentPair(_nodes, this);
         return ExecTemplates.trySetArgument(_conf, _res, pair_, _stackCall);
     }
 

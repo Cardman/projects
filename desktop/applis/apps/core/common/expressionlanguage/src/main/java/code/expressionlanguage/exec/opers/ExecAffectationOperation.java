@@ -2,6 +2,7 @@ package code.expressionlanguage.exec.opers;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.exec.ExecHelper;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.PageEl;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
@@ -34,7 +35,7 @@ public final class ExecAffectationOperation extends ExecMethodOperation implemen
         if (!(root_ instanceof ExecAbstractDotOperation)) {
             elt_ = root_;
         } else {
-            elt_ = ExecTemplates.getLastNode((ExecMethodOperation)root_);
+            elt_ = ExecHelper.getLastNode((ExecMethodOperation)root_);
         }
         return elt_;
     }
@@ -42,7 +43,7 @@ public final class ExecAffectationOperation extends ExecMethodOperation implemen
         ExecOperationNode root_ = getFirstToBeAnalyzed(_operation);
         ExecMethodOperation elt_;
         if (!(root_ instanceof ExecAbstractDotOperation)) {
-            elt_ = ExecTemplates.getParentOrNull(root_);
+            elt_ = ExecHelper.getParentOrNull(root_);
         } else {
             elt_ = (ExecMethodOperation)root_;
         }
@@ -77,7 +78,7 @@ public final class ExecAffectationOperation extends ExecMethodOperation implemen
         if (settable instanceof ExecStdRefVariableOperation) {
             if (((ExecStdRefVariableOperation)settable).isDeclare()){
                 CustList<ExecOperationNode> childrenNodes_ = getChildrenNodes();
-                ArgumentsPair pairRight_ = ExecTemplates.getArgumentPair(_nodes, ExecTemplates.getNode(childrenNodes_,childrenNodes_.size()-1));
+                ArgumentsPair pairRight_ = ExecHelper.getArgumentPair(_nodes, ExecHelper.getNode(childrenNodes_,childrenNodes_.size()-1));
                 PageEl ip_ = _stack.getLastPage();
                 ip_.getRefParams().put(((ExecStdRefVariableOperation)settable).getVariableName(),ExecTemplates.getWrap(pairRight_.getWrapper()));
                 setQuickNoConvertSimpleArgument(new Argument(), _conf, _nodes, _stack);

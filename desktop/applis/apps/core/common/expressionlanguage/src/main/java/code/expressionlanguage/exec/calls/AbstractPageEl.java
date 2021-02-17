@@ -6,7 +6,7 @@ import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.exec.calls.util.ReadWrite;
 import code.expressionlanguage.exec.ExpressionLanguage;
-import code.expressionlanguage.exec.inherits.ExecTemplates;
+import code.expressionlanguage.exec.inherits.ExecInherits;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.exec.stacks.*;
 import code.expressionlanguage.exec.variables.AbstractWrapper;
@@ -57,7 +57,7 @@ public abstract class AbstractPageEl extends PageEl {
         if (getGlobalArgument().isNull()) {
             return _varType;
         }
-        return ExecTemplates.quickFormat(blockRootType, globalClass, _varType);
+        return ExecInherits.quickFormat(blockRootType, globalClass, _varType);
     }
 
     void basicReceive(AbstractWrapper _wrap, Argument _argument, ContextEl _context, StackCall _stackCall) {

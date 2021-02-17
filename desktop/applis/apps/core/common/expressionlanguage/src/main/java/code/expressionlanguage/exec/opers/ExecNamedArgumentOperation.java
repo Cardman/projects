@@ -2,8 +2,8 @@ package code.expressionlanguage.exec.opers;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.exec.ExecHelper;
 import code.expressionlanguage.exec.StackCall;
-import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecNamedContent;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
@@ -22,15 +22,15 @@ public final class ExecNamedArgumentOperation extends ExecAbstractUnaryOperation
     public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes,
                           ContextEl _conf, StackCall _stack) {
         if (getFirstChild() instanceof ExecWrappOperation) {
-            ArgumentsPair pairCh_ = ExecTemplates.getArgumentPair(_nodes, getFirstChild());
-            ArgumentsPair pair_ = ExecTemplates.getArgumentPair(_nodes, this);
+            ArgumentsPair pairCh_ = ExecHelper.getArgumentPair(_nodes, getFirstChild());
+            ArgumentsPair pair_ = ExecHelper.getArgumentPair(_nodes, this);
             pair_.setWrapper(pairCh_.getWrapper());
             setQuickNoConvertSimpleArgument(Argument.createVoid(), _conf, _nodes, _stack);
             return;
         }
         CustList<Argument> arguments_ = getArguments(_nodes, this);
         setRelOffsetPossibleLastPage(namedContent.getOffset(), _stack);
-        Argument argres_ = ExecTemplates.getFirstArgument(arguments_);
+        Argument argres_ = ExecHelper.getFirstArgument(arguments_);
         setSimpleArgument(argres_, _conf, _nodes, _stack);
     }
 

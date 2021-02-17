@@ -1,10 +1,10 @@
 package code.expressionlanguage.exec.opers;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.exec.ExecHelper;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
-import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.util.ImplicitMethods;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
@@ -33,7 +33,7 @@ public abstract class ExecQuickOperation extends ExecMethodOperation implements 
                                 ContextEl _conf, StackCall _stack) {
         ExecOperationNode first_ = getFirstChild();
         if (pair.getFct() != null) {
-            ArgumentsPair argumentPair_ = ExecTemplates.getArgumentPair(_nodes, first_);
+            ArgumentsPair argumentPair_ = ExecHelper.getArgumentPair(_nodes, first_);
             if (argumentPair_.isArgumentTest()){
                 Argument f_ = getArgument(_nodes,first_);
                 setQuickConvertSimpleArgument(f_, _conf, _nodes, _stack);
@@ -57,12 +57,12 @@ public abstract class ExecQuickOperation extends ExecMethodOperation implements 
     @Override
     public void endCalculate(ContextEl _conf, IdMap<ExecOperationNode, ArgumentsPair> _nodes, Argument _right, StackCall _stack) {
         ExecOperationNode first_ = getFirstChild();
-        ArgumentsPair argumentPair_ = ExecTemplates.getArgumentPair(_nodes, first_);
+        ArgumentsPair argumentPair_ = ExecHelper.getArgumentPair(_nodes, first_);
         if (argumentPair_.isArgumentTest()){
             setSimpleArgument(_right,_conf,_nodes, _stack);
             return;
         }
-        ArgumentsPair pair_ = ExecTemplates.getArgumentPair(_nodes,this);
+        ArgumentsPair pair_ = ExecHelper.getArgumentPair(_nodes,this);
         setRelativeOffsetPossibleLastPage(_stack);
         ImplicitMethods implicits_ = pair_.getImplicitsCompound();
         int indexImplicit_ = pair_.getIndexImplicitCompound();

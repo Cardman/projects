@@ -5,10 +5,11 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.common.StringExpUtil;
+import code.expressionlanguage.exec.ExecHelper;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.calls.util.CustomFoundMethod;
-import code.expressionlanguage.exec.inherits.ExecTemplates;
+import code.expressionlanguage.exec.inherits.ExecInherits;
 import code.expressionlanguage.exec.inherits.Parameters;
 import code.expressionlanguage.exec.util.ExecOverrideInfo;
 import code.expressionlanguage.exec.util.ImplicitMethods;
@@ -87,7 +88,7 @@ public abstract class ExecOperationNode {
     public abstract ExecOperationNode getFirstChild();
 
     public final ExecOperationNode getNextSibling() {
-        return ExecTemplates.getNextNode(this);
+        return ExecHelper.getNextNode(this);
     }
 
     protected Argument getPreviousArg(ExecPossibleIntermediateDotted _possible, IdMap<ExecOperationNode, ArgumentsPair> _nodes, StackCall _stackCall) {
@@ -107,17 +108,17 @@ public abstract class ExecOperationNode {
         return a_;
     }
     protected static Argument getArgument(IdMap<ExecOperationNode,ArgumentsPair> _nodes, ExecOperationNode _node) {
-        return Argument.getNullableValue(ExecTemplates.getArgumentPair(_nodes,_node).getArgument());
+        return Argument.getNullableValue(ExecHelper.getArgumentPair(_nodes,_node).getArgument());
     }
     protected static Argument getFirstArgument(IdMap<ExecOperationNode,ArgumentsPair> _nodes, ExecMethodOperation _node) {
-        return Argument.getNullableValue(ExecTemplates.getArgumentPair(_nodes,ExecTemplates.getFirstNode(_node)).getArgument());
+        return Argument.getNullableValue(ExecHelper.getArgumentPair(_nodes, ExecHelper.getFirstNode(_node)).getArgument());
     }
     protected static Argument getLastArgument(IdMap<ExecOperationNode,ArgumentsPair> _nodes, ExecMethodOperation _node) {
         CustList<ExecOperationNode> childrenNodes_ = _node.getChildrenNodes();
-        return Argument.getNullableValue(ExecTemplates.getArgumentPair(_nodes,ExecTemplates.getNode(childrenNodes_,childrenNodes_.size()-1)).getArgument());
+        return Argument.getNullableValue(ExecHelper.getArgumentPair(_nodes, ExecHelper.getNode(childrenNodes_,childrenNodes_.size()-1)).getArgument());
     }
     protected static Argument getPreviousArgument(IdMap<ExecOperationNode,ArgumentsPair> _nodes, ExecOperationNode _node) {
-        return Argument.getNullableValue(ExecTemplates.getArgumentPair(_nodes,_node).getPreviousArgument());
+        return Argument.getNullableValue(ExecHelper.getArgumentPair(_nodes,_node).getPreviousArgument());
     }
 
     private void setNextSiblingsArg(ContextEl _cont, IdMap<ExecOperationNode, ArgumentsPair> _nodes, StackCall _stackCall) {
@@ -125,7 +126,7 @@ public abstract class ExecOperationNode {
             return;
         }
         byte unwrapObjectNb_ = content.getResultClass().getUnwrapObjectNb();
-        ArgumentsPair pair_ = ExecTemplates.getArgumentPair(_nodes, this);
+        ArgumentsPair pair_ = ExecHelper.getArgumentPair(_nodes, this);
         Argument last_ = Argument.getNullableValue(pair_.getArgument());
         if (content.getResultClass().isCheckOnlyNullPe() || unwrapObjectNb_ > -1) {
             if (last_.isNull()) {
@@ -187,7 +188,7 @@ public abstract class ExecOperationNode {
         }
         if (par_ instanceof ExecSafeDotOperation) {
             if (_value == NullStruct.NULL_VALUE) {
-                ExecOperationNode last_ = ExecTemplates.getLastNode(par_);
+                ExecOperationNode last_ = ExecHelper.getLastNode(par_);
                 boolean skip_ = true;
                 if (last_ instanceof ExecAbstractLambdaOperation) {
                     skip_ = false;
@@ -229,7 +230,7 @@ public abstract class ExecOperationNode {
             }
             if (index_ == 0) {
                 if (BooleanStruct.isFalse(_value)) {
-                    return ExecTemplates.getOrder(_operation.getNextSibling()) + 1;
+                    return ExecHelper.getOrder(_operation.getNextSibling()) + 1;
                 }
             }
         }
@@ -239,7 +240,7 @@ public abstract class ExecOperationNode {
             }
             if (index_ == 0) {
                 if (BooleanStruct.isFalse(_value)) {
-                    return ExecTemplates.getOrder(_operation.getNextSibling()) + 1;
+                    return ExecHelper.getOrder(_operation.getNextSibling()) + 1;
                 }
             }
         }
@@ -286,7 +287,7 @@ public abstract class ExecOperationNode {
         if (_conf.callsOrException(_stackCall)) {
             return;
         }
-        ArgumentsPair pair_ = ExecTemplates.getArgumentPair(_nodes,this);
+        ArgumentsPair pair_ = ExecHelper.getArgumentPair(_nodes,this);
         ImplicitMethods implicitsTest_ = pair_.getImplicitsTest();
         int indexImplicitTest_ = pair_.getIndexImplicitTest();
         Argument before_ = _argument;
@@ -371,9 +372,9 @@ public abstract class ExecOperationNode {
     private void calcArg(boolean _possiblePartial, ContextEl _conf, IdMap<ExecOperationNode, ArgumentsPair> _nodes, Argument _arg, StackCall _stackCall) {
         ExecPossibleIntermediateDotted n_ = getSiblingSet();
         if (n_ instanceof ExecOperationNode) {
-            ExecTemplates.getArgumentPair(_nodes,(ExecOperationNode)n_).setPreviousArgument(_arg);
+            ExecHelper.getArgumentPair(_nodes,(ExecOperationNode)n_).setPreviousArgument(_arg);
         }
-        ArgumentsPair pair_ = ExecTemplates.getArgumentPair(_nodes,this);
+        ArgumentsPair pair_ = ExecHelper.getArgumentPair(_nodes,this);
         pair_.setArgument(_arg);
         _conf.getCoverage().passBlockOperation(this, !_possiblePartial, pair_, _stackCall);
     }
@@ -391,7 +392,7 @@ public abstract class ExecOperationNode {
         } else {
             argClassName_ = " ";
         }
-        clCall_ = ExecTemplates.getOverridingFullTypeByBases(argClassName_,clCall_,_conf);
+        clCall_ = ExecInherits.getOverridingFullTypeByBases(argClassName_,clCall_,_conf);
         if (p_.getFct() == null) {
             return new Argument(ExecCatOperation.getDisplayable(_argument,_conf));
         }

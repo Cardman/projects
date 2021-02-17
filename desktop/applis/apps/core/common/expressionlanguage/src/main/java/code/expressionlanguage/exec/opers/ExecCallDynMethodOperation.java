@@ -2,8 +2,8 @@ package code.expressionlanguage.exec.opers;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.exec.ExecHelper;
 import code.expressionlanguage.exec.StackCall;
-import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecArrContent;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
@@ -49,9 +49,9 @@ public final class ExecCallDynMethodOperation extends ExecSettableCallFctOperati
             }
             ArgumentsPair a_ = new ArgumentsPair();
             if (o instanceof ExecWrappOperation) {
-                a_.setWrapper(ExecTemplates.getArgumentPair(_nodes,o).getWrapper());
+                a_.setWrapper(ExecHelper.getArgumentPair(_nodes,o).getWrapper());
             } else {
-                a_.setArgument(ExecTemplates.getArgumentPair(_nodes,o).getArgument());
+                a_.setArgument(ExecHelper.getArgumentPair(_nodes,o).getArgument());
             }
             out_.add(a_);
         }
