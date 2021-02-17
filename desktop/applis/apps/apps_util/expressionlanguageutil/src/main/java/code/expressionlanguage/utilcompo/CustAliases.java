@@ -1995,22 +1995,22 @@ public final class CustAliases {
         }
         if (StringUtil.quickEq(_id,aliasReentrantLock)) {
             AbstractLock re_ = LockFactory.newLock();
-            StdStruct std_ = StdStruct.newInstance(re_, aliasReentrantLock);
+            AbstractLockStruct std_ = new AbstractLockStruct(re_, aliasReentrantLock);
             return new Argument(std_);
         }
         if (StringUtil.quickEq(_id,aliasAtomicBoolean)) {
             AtomicBoolean at_ = new AtomicBoolean();
-            StdStruct std_ = StdStruct.newInstance(at_, aliasAtomicBoolean);
+            AtomicBooleanStruct std_ = new AtomicBooleanStruct(at_, aliasAtomicBoolean);
             return new Argument(std_);
         }
         if (StringUtil.quickEq(_id,aliasAtomicInteger)) {
             AtomicInteger at_ = new AtomicInteger();
-            StdStruct std_ = StdStruct.newInstance(at_, aliasAtomicInteger);
+            AtomicIntegerStruct std_ = new AtomicIntegerStruct(at_, aliasAtomicInteger);
             return new Argument(std_);
         }
         if (StringUtil.quickEq(_id,aliasAtomicLong)) {
             AtomicLong at_ = new AtomicLong();
-            StdStruct std_ = StdStruct.newInstance(at_, aliasAtomicLong);
+            AtomicLongStruct std_ = new AtomicLongStruct(at_, aliasAtomicLong);
             return new Argument(std_);
         }
         return Argument.createVoid();
@@ -2048,49 +2048,49 @@ public final class CustAliases {
         if (StringUtil.quickEq(name_,aliasReentrantLock)) {
             if (_method.getParametersTypes().isEmpty()) {
                 AbstractLock re_ = LockFactory.newLock();
-                StdStruct std_ = StdStruct.newInstance(re_, aliasReentrantLock);
+                AbstractLockStruct std_ = new AbstractLockStruct(re_, aliasReentrantLock);
                 res_.setResult(std_);
                 return res_;
             }
             AbstractLock re_ = LockFactory.newLock();
             re_.setSleep(((NumberStruct)_args[0]).longStruct());
-            StdStruct std_ = StdStruct.newInstance(re_, aliasReentrantLock);
+            AbstractLockStruct std_ = new AbstractLockStruct(re_, aliasReentrantLock);
             res_.setResult(std_);
             return res_;
         }
         if (StringUtil.quickEq(name_,aliasAtomicBoolean)) {
             if (_method.getParametersTypes().isEmpty()) {
                 AtomicBoolean at_ = new AtomicBoolean();
-                StdStruct std_ = StdStruct.newInstance(at_, aliasAtomicBoolean);
+                AtomicBooleanStruct std_ = new AtomicBooleanStruct(at_, aliasAtomicBoolean);
                 res_.setResult(std_);
                 return res_;
             }
             AtomicBoolean at_ = new AtomicBoolean(BooleanStruct.isTrue(_args[0]));
-            StdStruct std_ = StdStruct.newInstance(at_, aliasAtomicBoolean);
+            AtomicBooleanStruct std_ = new AtomicBooleanStruct(at_, aliasAtomicBoolean);
             res_.setResult(std_);
             return res_;
         }
         if (StringUtil.quickEq(name_,aliasAtomicInteger)) {
             if (_method.getParametersTypes().isEmpty()) {
                 AtomicInteger at_ = new AtomicInteger();
-                StdStruct std_ = StdStruct.newInstance(at_, aliasAtomicInteger);
+                AtomicIntegerStruct std_ = new AtomicIntegerStruct(at_, aliasAtomicInteger);
                 res_.setResult(std_);
                 return res_;
             }
             AtomicInteger at_ = new AtomicInteger(((NumberStruct)_args[0]).intStruct());
-            StdStruct std_ = StdStruct.newInstance(at_, aliasAtomicInteger);
+            AtomicIntegerStruct std_ = new AtomicIntegerStruct(at_, aliasAtomicInteger);
             res_.setResult(std_);
             return res_;
         }
         if (StringUtil.quickEq(name_,aliasAtomicLong)) {
             if (_method.getParametersTypes().isEmpty()) {
                 AtomicLong at_ = new AtomicLong();
-                StdStruct std_ = StdStruct.newInstance(at_, aliasAtomicLong);
+                AtomicLongStruct std_ = new AtomicLongStruct(at_, aliasAtomicLong);
                 res_.setResult(std_);
                 return res_;
             }
             AtomicLong at_ = new AtomicLong(((NumberStruct)_args[0]).longStruct());
-            StdStruct std_ = StdStruct.newInstance(at_, aliasAtomicLong);
+            AtomicLongStruct std_ = new AtomicLongStruct(at_, aliasAtomicLong);
             res_.setResult(std_);
             return res_;
         }
@@ -2316,17 +2316,17 @@ public final class CustAliases {
             }
             String name_ = _method.getConstraints().getName();
             if (StringUtil.quickEq(name_,aliasLock)) {
-                AbstractLock re_ = (AbstractLock) ((StdStruct) _instance).getInstance();
+                AbstractLock re_ = ((AbstractLockStruct) _instance).getInstance();
                 res_.setResult(new IntStruct(re_.lock((RunnableContextEl)_cont)));
                 return res_;
             }
             if (StringUtil.quickEq(name_,aliasUnlock)) {
-                AbstractLock re_ = (AbstractLock) ((StdStruct) _instance).getInstance();
+                AbstractLock re_ = ((AbstractLockStruct) _instance).getInstance();
                 res_.setResult(new IntStruct(re_.unlock((RunnableContextEl)_cont)));
                 return res_;
             }
             if (StringUtil.quickEq(name_,aliasIsHeldByCurrentThread)) {
-                AbstractLock re_ = (AbstractLock) ((StdStruct) _instance).getInstance();
+                AbstractLock re_ = ((AbstractLockStruct) _instance).getInstance();
                 boolean held_ = re_.heldLock((RunnableContextEl)_cont);
                 res_.setResult(BooleanStruct.of(held_));
                 return res_;
@@ -2335,7 +2335,7 @@ public final class CustAliases {
         if (StringUtil.quickEq(className_,aliasAtomicBoolean)) {
             String name_ = _method.getConstraints().getName();
             if (StringUtil.quickEq(name_,aliasGetAtomic)) {
-                AtomicBoolean re_ = (AtomicBoolean) ((StdStruct) _instance).getInstance();
+                AtomicBoolean re_ = ((AtomicBooleanStruct) _instance).getInstance();
                 boolean held_ = re_.get();
                 res_.setResult(BooleanStruct.of(held_));
                 return res_;
@@ -2346,22 +2346,22 @@ public final class CustAliases {
                 return res_;
             }
             if (StringUtil.quickEq(name_,aliasSetAtomic)) {
-                AtomicBoolean re_ = (AtomicBoolean) ((StdStruct) _instance).getInstance();
+                AtomicBoolean re_ = ((AtomicBooleanStruct) _instance).getInstance();
                 re_.set(BooleanStruct.isTrue(_args[0]));
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
             if (StringUtil.quickEq(name_,aliasCompareAndSetAtomic)) {
-                AtomicBoolean re_ = (AtomicBoolean) ((StdStruct) _instance).getInstance();
+                AtomicBoolean re_ = ((AtomicBooleanStruct) _instance).getInstance();
                 res_.setResult(BooleanStruct.of(re_.compareAndSet(BooleanStruct.isTrue(_args[0]),BooleanStruct.isTrue(_args[1]))));
                 return res_;
             }
             if (StringUtil.quickEq(name_,aliasGetAndSetAtomic)) {
-                AtomicBoolean re_ = (AtomicBoolean) ((StdStruct) _instance).getInstance();
+                AtomicBoolean re_ = ((AtomicBooleanStruct) _instance).getInstance();
                 res_.setResult(BooleanStruct.of(re_.getAndSet(BooleanStruct.isTrue(_args[0]))));
                 return res_;
             }
-            AtomicBoolean re_ = (AtomicBoolean) ((StdStruct) _instance).getInstance();
+            AtomicBoolean re_ = ((AtomicBooleanStruct) _instance).getInstance();
             re_.lazySet(BooleanStruct.isTrue(_args[0]));
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
@@ -2369,7 +2369,7 @@ public final class CustAliases {
         if (StringUtil.quickEq(className_,aliasAtomicInteger)) {
             String name_ = _method.getConstraints().getName();
             if (StringUtil.quickEq(name_,aliasGetAtomic)) {
-                AtomicInteger re_ = (AtomicInteger) ((StdStruct) _instance).getInstance();
+                AtomicInteger re_ = ((AtomicIntegerStruct) _instance).getInstance();
                 int held_ = re_.get();
                 res_.setResult(new IntStruct(held_));
                 return res_;
@@ -2380,52 +2380,52 @@ public final class CustAliases {
                 return res_;
             }
             if (StringUtil.quickEq(name_,aliasSetAtomic)) {
-                AtomicInteger re_ = (AtomicInteger) ((StdStruct) _instance).getInstance();
+                AtomicInteger re_ = ((AtomicIntegerStruct) _instance).getInstance();
                 re_.set(((NumberStruct)_args[0]).intStruct());
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
             if (StringUtil.quickEq(name_,aliasCompareAndSetAtomic)) {
-                AtomicInteger re_ = (AtomicInteger) ((StdStruct) _instance).getInstance();
+                AtomicInteger re_ = ((AtomicIntegerStruct) _instance).getInstance();
                 res_.setResult(BooleanStruct.of(re_.compareAndSet(((NumberStruct)_args[0]).intStruct(),((NumberStruct)_args[1]).intStruct())));
                 return res_;
             }
             if (StringUtil.quickEq(name_,aliasGetAndSetAtomic)) {
-                AtomicInteger re_ = (AtomicInteger) ((StdStruct) _instance).getInstance();
+                AtomicInteger re_ = ((AtomicIntegerStruct) _instance).getInstance();
                 res_.setResult(new IntStruct(re_.getAndSet(((NumberStruct)_args[0]).intStruct())));
                 return res_;
             }
             if (StringUtil.quickEq(name_,aliasGetAndAddAtomic)) {
-                AtomicInteger re_ = (AtomicInteger) ((StdStruct) _instance).getInstance();
+                AtomicInteger re_ = ((AtomicIntegerStruct) _instance).getInstance();
                 res_.setResult(new IntStruct(re_.getAndAdd(((NumberStruct)_args[0]).intStruct())));
                 return res_;
             }
             if (StringUtil.quickEq(name_,aliasAddAndGetAtomic)) {
-                AtomicInteger re_ = (AtomicInteger) ((StdStruct) _instance).getInstance();
+                AtomicInteger re_ = ((AtomicIntegerStruct) _instance).getInstance();
                 res_.setResult(new IntStruct(re_.addAndGet(((NumberStruct)_args[0]).intStruct())));
                 return res_;
             }
             if (StringUtil.quickEq(name_,aliasGetAndIncrementAtomic)) {
-                AtomicInteger re_ = (AtomicInteger) ((StdStruct) _instance).getInstance();
+                AtomicInteger re_ = ((AtomicIntegerStruct) _instance).getInstance();
                 res_.setResult(new IntStruct(re_.getAndIncrement()));
                 return res_;
             }
             if (StringUtil.quickEq(name_,aliasIncrementAndGetAtomic)) {
-                AtomicInteger re_ = (AtomicInteger) ((StdStruct) _instance).getInstance();
+                AtomicInteger re_ = ((AtomicIntegerStruct) _instance).getInstance();
                 res_.setResult(new IntStruct(re_.incrementAndGet()));
                 return res_;
             }
             if (StringUtil.quickEq(name_,aliasGetAndDecrementAtomic)) {
-                AtomicInteger re_ = (AtomicInteger) ((StdStruct) _instance).getInstance();
+                AtomicInteger re_ = ((AtomicIntegerStruct) _instance).getInstance();
                 res_.setResult(new IntStruct(re_.getAndDecrement()));
                 return res_;
             }
             if (StringUtil.quickEq(name_,aliasDecrementAndGetAtomic)) {
-                AtomicInteger re_ = (AtomicInteger) ((StdStruct) _instance).getInstance();
+                AtomicInteger re_ = ((AtomicIntegerStruct) _instance).getInstance();
                 res_.setResult(new IntStruct(re_.decrementAndGet()));
                 return res_;
             }
-            AtomicInteger re_ = (AtomicInteger) ((StdStruct) _instance).getInstance();
+            AtomicInteger re_ = ((AtomicIntegerStruct) _instance).getInstance();
             re_.lazySet(((NumberStruct)_args[0]).intStruct());
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
@@ -2433,7 +2433,7 @@ public final class CustAliases {
         if (StringUtil.quickEq(className_,aliasAtomicLong)) {
             String name_ = _method.getConstraints().getName();
             if (StringUtil.quickEq(name_,aliasGetAtomic)) {
-                AtomicLong re_ = (AtomicLong) ((StdStruct) _instance).getInstance();
+                AtomicLong re_ = ((AtomicLongStruct) _instance).getInstance();
                 long held_ = re_.get();
                 res_.setResult(new LongStruct(held_));
                 return res_;
@@ -2444,52 +2444,52 @@ public final class CustAliases {
                 return res_;
             }
             if (StringUtil.quickEq(name_,aliasSetAtomic)) {
-                AtomicLong re_ = (AtomicLong) ((StdStruct) _instance).getInstance();
+                AtomicLong re_ = ((AtomicLongStruct) _instance).getInstance();
                 re_.set(((NumberStruct)_args[0]).longStruct());
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
             if (StringUtil.quickEq(name_,aliasCompareAndSetAtomic)) {
-                AtomicLong re_ = (AtomicLong) ((StdStruct) _instance).getInstance();
+                AtomicLong re_ = ((AtomicLongStruct) _instance).getInstance();
                 res_.setResult(BooleanStruct.of(re_.compareAndSet(((NumberStruct)_args[0]).longStruct(),((NumberStruct)_args[1]).longStruct())));
                 return res_;
             }
             if (StringUtil.quickEq(name_,aliasGetAndSetAtomic)) {
-                AtomicLong re_ = (AtomicLong) ((StdStruct) _instance).getInstance();
+                AtomicLong re_ = ((AtomicLongStruct) _instance).getInstance();
                 res_.setResult(new LongStruct(re_.getAndSet(((NumberStruct)_args[0]).longStruct())));
                 return res_;
             }
             if (StringUtil.quickEq(name_,aliasGetAndAddAtomic)) {
-                AtomicLong re_ = (AtomicLong) ((StdStruct) _instance).getInstance();
+                AtomicLong re_ = ((AtomicLongStruct) _instance).getInstance();
                 res_.setResult(new LongStruct(re_.getAndAdd(((NumberStruct)_args[0]).longStruct())));
                 return res_;
             }
             if (StringUtil.quickEq(name_,aliasAddAndGetAtomic)) {
-                AtomicLong re_ = (AtomicLong) ((StdStruct) _instance).getInstance();
+                AtomicLong re_ = ((AtomicLongStruct) _instance).getInstance();
                 res_.setResult(new LongStruct(re_.addAndGet(((NumberStruct)_args[0]).longStruct())));
                 return res_;
             }
             if (StringUtil.quickEq(name_,aliasGetAndIncrementAtomic)) {
-                AtomicLong re_ = (AtomicLong) ((StdStruct) _instance).getInstance();
+                AtomicLong re_ = ((AtomicLongStruct) _instance).getInstance();
                 res_.setResult(new LongStruct(re_.getAndIncrement()));
                 return res_;
             }
             if (StringUtil.quickEq(name_,aliasIncrementAndGetAtomic)) {
-                AtomicLong re_ = (AtomicLong) ((StdStruct) _instance).getInstance();
+                AtomicLong re_ = ((AtomicLongStruct) _instance).getInstance();
                 res_.setResult(new LongStruct(re_.incrementAndGet()));
                 return res_;
             }
             if (StringUtil.quickEq(name_,aliasGetAndDecrementAtomic)) {
-                AtomicLong re_ = (AtomicLong) ((StdStruct) _instance).getInstance();
+                AtomicLong re_ = ((AtomicLongStruct) _instance).getInstance();
                 res_.setResult(new LongStruct(re_.getAndDecrement()));
                 return res_;
             }
             if (StringUtil.quickEq(name_,aliasDecrementAndGetAtomic)) {
-                AtomicLong re_ = (AtomicLong) ((StdStruct) _instance).getInstance();
+                AtomicLong re_ = ((AtomicLongStruct) _instance).getInstance();
                 res_.setResult(new LongStruct(re_.decrementAndGet()));
                 return res_;
             }
-            AtomicLong re_ = (AtomicLong) ((StdStruct) _instance).getInstance();
+            AtomicLong re_ = ((AtomicLongStruct) _instance).getInstance();
             re_.lazySet(((NumberStruct)_args[0]).longStruct());
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
