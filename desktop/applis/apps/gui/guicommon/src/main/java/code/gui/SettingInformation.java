@@ -3,14 +3,14 @@ package code.gui;
 /**Thread safe class*/
 public final class SettingInformation implements Runnable {
 
-    private FileOpenDialog dialog;
+    private final FileOpenDialog dialog;
 
-    private int searchedFiles;
+    private final long searchedFiles;
 
-    private int foundFiles;
+    private final long foundFiles;
 
-    public SettingInformation(FileOpenDialog _dialog, int _searchedFiles,
-            int _foundFiles) {
+    public SettingInformation(FileOpenDialog _dialog, long _searchedFiles,
+                              long _foundFiles) {
         dialog = _dialog;
         searchedFiles = _searchedFiles;
         foundFiles = _foundFiles;

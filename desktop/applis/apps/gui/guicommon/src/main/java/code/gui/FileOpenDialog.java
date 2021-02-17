@@ -34,16 +34,16 @@ public final class FileOpenDialog extends FileDialog implements SingleFileSelect
     private static final int NB_COLS = 24;
     private ConfirmDialog dialog;
     private TextField typedString = new TextField(NB_COLS);
-    private Panel searchingPanel = Panel.newPageBox();
+    private final Panel searchingPanel = Panel.newPageBox();
 
     private StringMap<String> messages;
 
     private ThreadSearchingFile info;
     private Thread thread;
 
-    private AtomicBoolean keepSearching = new AtomicBoolean();
+    private final AtomicBoolean keepSearching = new AtomicBoolean();
 
-    private AtomicBoolean showNewResults = new AtomicBoolean();
+    private final AtomicBoolean showNewResults = new AtomicBoolean();
 
     private TextLabel searchedFiles = new TextLabel("");
 
@@ -233,7 +233,7 @@ public final class FileOpenDialog extends FileDialog implements SingleFileSelect
         closeWindow();
     }
 
-    public void setInformations(int _s, int _f) {
+    public void setInformations(long _s, long _f) {
         searchedFiles.setText(StringUtil.simpleNumberFormat(messages.getVal(FILE_COUNT), _s));
         foundFiles.setText(StringUtil.simpleNumberFormat(messages.getVal(RESULT_COUNT), _f));
     }

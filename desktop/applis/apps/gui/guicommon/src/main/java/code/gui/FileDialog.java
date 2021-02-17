@@ -31,7 +31,6 @@ public abstract class FileDialog extends Dialog {
     private static final String FILES = "files";
 
     private static final int NB_COLS = 32;
-    private final Panel contentPane = Panel.newBorder();
     private Panel buttons = Panel.newLineBox();
     private TextField fileName = new TextField(NB_COLS);
     private AutoCompleteDocument auto;
@@ -126,7 +125,8 @@ public abstract class FileDialog extends Dialog {
         }
         buttons = Panel.newLineBox();
         openSaveFile_.add(buttons);
-        contentPane.add(openSaveFile_, BorderLayout.SOUTH);
+        Panel contentPane_ = Panel.newBorder();
+        contentPane_.add(openSaveFile_, BorderLayout.SOUTH);
         if (currentFolderRoot) {
             DefaultMutableTreeNode default_ = new DefaultMutableTreeNode(currentFolder.substring(0, currentFolder.length() - 1));
             File[] files_ = new File(currentFolder).listFiles();
@@ -134,16 +134,7 @@ public abstract class FileDialog extends Dialog {
                 CustList<File> currentFiles_ = new CustList<File>(files_);
                 currentFiles_.sortElts(new FileNameComparator());
                 CustList<File> filesList_ = new CustList<File>();
-                for (File f: currentFiles_) {
-                    if (f.isDirectory()) {
-                        if (StringUtil.contains(excludedFolders, StringUtil.replaceBackSlash(f.getAbsolutePath()))) {
-                            continue;
-                        }
-                        default_.add(new DefaultMutableTreeNode(f.getName()));
-                    } else if (f.getName().endsWith(extension)){
-                        filesList_.add(f);
-                    }
-                }
+                retrieve(default_, filesList_, currentFiles_);
                 refreshList(filesList_);
             }
             folderSystem = new TreeGui(default_);
@@ -157,9 +148,9 @@ public abstract class FileDialog extends Dialog {
         }
         SplitPane fileSelector_ = new SplitPane(JSplitPane.HORIZONTAL_SPLIT,new ScrollPane(folderSystem),new ScrollPane(fileTable));
         folderSystem.addTreeSelectionListener(new DeployTreeEvent(this));
-        contentPane.add(fileSelector_, BorderLayout.CENTER);
-        contentPane.add(openSaveFile_, BorderLayout.SOUTH);
-        setContentPane(contentPane);
+        contentPane_.add(fileSelector_, BorderLayout.CENTER);
+        contentPane_.add(openSaveFile_, BorderLayout.SOUTH);
+        setContentPane(contentPane_);
     }
 
     public void refreshList(CustList<File> _filesList) {
@@ -231,29 +222,30 @@ public abstract class FileDialog extends Dialog {
             return;
         }
         selected_.removeAllChildren();
-        StringList folderList_ = new StringList();
         CustList<File> files_ = new CustList<File>();
         File[] filesArray_ = currentFolder_.listFiles();
         if (filesArray_ != null) {
             CustList<File> currentFiles_ = new CustList<File>(filesArray_);
             currentFiles_.sortElts(new FileNameComparator());
-            for (File l: currentFiles_) {
-                if (l.isDirectory()) {
-                    if (StringUtil.contains(excludedFolders, StringUtil.replaceBackSlash(l.getAbsolutePath()))) {
-                        continue;
-                    }
-                    folderList_.add(l.getName());
-                } else if (l.getName().endsWith(extension)) {
-                    files_.add(l);
-                }
-            }
-        }
-        folderList_.sort();
-        for (String f: folderList_) {
-            selected_.add(new DefaultMutableTreeNode(f));
+            retrieve(selected_, files_, currentFiles_);
         }
         folderSystem.reload();
         refreshList(files_);
+    }
+
+    private void retrieve(DefaultMutableTreeNode _directoryNode, CustList<File> _files, CustList<File> _currentFiles) {
+        for (File f : _currentFiles) {
+            if (f.isDirectory()) {
+                if (StringUtil.contains(excludedFolders, StringUtil.replaceBackSlash(f.getAbsolutePath()))) {
+                    continue;
+                }
+                _directoryNode.add(new DefaultMutableTreeNode(f.getName()));
+            } else {
+                if (f.getName().endsWith(extension)) {
+                    _files.add(f);
+                }
+            }
+        }
     }
 
     static StringBuilder buildPath(DefaultMutableTreeNode _treePath) {
