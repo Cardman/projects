@@ -304,7 +304,8 @@ public final class GuiAliasParameters {
     private static final String RENDER_0_RENDER_SET_WIDTH_0="Render0RenderSetWidth0";
     private static final String RENDER_0_COMPONENT_SET_PAINT_0="Render0ComponentSetPaint0";
     private static final String GR_LIST_0_GR_LIST_SET_RENDER_0="GrList0GrListSetRender0";
-    private static final String GR_LIST_0_GR_LIST_SET_SELECTION_0="GrList0GrListSetSelection0";
+    private static final String GR_LIST_0_GR_LIST_ADD_SELECTION_0="GrList0GrListAddSelection0";
+    private static final String GR_LIST_0_GR_LIST_REMOVE_SELECTION_0="GrList0GrListRemoveSelection0";
     private static final String GR_LIST_0_GR_LIST_SET_VISIBLE_ROW_COUNT_0="GrList0GrListSetVisibleRowCount0";
     private static final String GR_LIST_0_TABBED_PANE_ADD_0="GrList0TabbedPaneAdd0";
     private static final String GR_LIST_0_TABBED_PANE_ADD_1="GrList0TabbedPaneAdd1";
@@ -714,7 +715,8 @@ public final class GuiAliasParameters {
     private String aliasRender0RenderSetWidth0;
     private String aliasRender0ComponentSetPaint0;
     private String aliasGrList0GrListSetRender0;
-    private String aliasGrList0GrListSetSelection0;
+    private String aliasGrList0GrListAddSelection0;
+    private String aliasGrList0GrListRemoveSelection0;
     private String aliasGrList0GrListSetVisibleRowCount0;
     private String aliasGrList0TabbedPaneAdd0;
     private String aliasGrList0TabbedPaneAdd1;
@@ -1123,7 +1125,8 @@ public final class GuiAliasParameters {
         aliasRender0RenderSetWidth0=LgNamesContent.get(_util,_cust, RENDER_0_RENDER_SET_WIDTH_0);
         aliasRender0ComponentSetPaint0=LgNamesContent.get(_util,_cust, RENDER_0_COMPONENT_SET_PAINT_0);
         aliasGrList0GrListSetRender0=LgNamesContent.get(_util,_cust, GR_LIST_0_GR_LIST_SET_RENDER_0);
-        aliasGrList0GrListSetSelection0=LgNamesContent.get(_util,_cust, GR_LIST_0_GR_LIST_SET_SELECTION_0);
+        aliasGrList0GrListAddSelection0=LgNamesContent.get(_util,_cust, GR_LIST_0_GR_LIST_ADD_SELECTION_0);
+        aliasGrList0GrListRemoveSelection0=LgNamesContent.get(_util,_cust, GR_LIST_0_GR_LIST_REMOVE_SELECTION_0);
         aliasGrList0GrListSetVisibleRowCount0=LgNamesContent.get(_util,_cust, GR_LIST_0_GR_LIST_SET_VISIBLE_ROW_COUNT_0);
         aliasGrList0TabbedPaneAdd0=LgNamesContent.get(_util,_cust, GR_LIST_0_TABBED_PANE_ADD_0);
         aliasGrList0TabbedPaneAdd1=LgNamesContent.get(_util,_cust, GR_LIST_0_TABBED_PANE_ADD_1);
@@ -1399,7 +1402,8 @@ public final class GuiAliasParameters {
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(RENDER_0_RENDER_SET_WIDTH_0,aliasRender0RenderSetWidth0)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(RENDER_0_COMPONENT_SET_PAINT_0,aliasRender0ComponentSetPaint0)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(GR_LIST_0_GR_LIST_SET_RENDER_0,aliasGrList0GrListSetRender0)));
-        m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(GR_LIST_0_GR_LIST_SET_SELECTION_0,aliasGrList0GrListSetSelection0)));
+        m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(GR_LIST_0_GR_LIST_ADD_SELECTION_0,aliasGrList0GrListAddSelection0)));
+        m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(GR_LIST_0_GR_LIST_REMOVE_SELECTION_0,aliasGrList0GrListRemoveSelection0)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(GR_LIST_0_GR_LIST_SET_VISIBLE_ROW_COUNT_0,aliasGrList0GrListSetVisibleRowCount0)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(GR_LIST_0_TABBED_PANE_ADD_0,aliasGrList0TabbedPaneAdd0),new KeyValueMemberName(GR_LIST_0_TABBED_PANE_ADD_1,aliasGrList0TabbedPaneAdd1)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(GR_LIST_1_TABBED_PANE_ADD_0,aliasGrList1TabbedPaneAdd0),new KeyValueMemberName(GR_LIST_1_TABBED_PANE_ADD_1,aliasGrList1TabbedPaneAdd1),new KeyValueMemberName(GR_LIST_1_TABBED_PANE_ADD_2,aliasGrList1TabbedPaneAdd2)));
@@ -2670,8 +2674,12 @@ public final class GuiAliasParameters {
         return aliasGrList0GrListSetRender0;
     }
 
-    public String getAliasGrList0GrListSetSelection0() {
-        return aliasGrList0GrListSetSelection0;
+    public String getAliasGrList0GrListAddSelection0() {
+        return aliasGrList0GrListAddSelection0;
+    }
+
+    public String getAliasGrList0GrListRemoveSelection0() {
+        return aliasGrList0GrListRemoveSelection0;
     }
 
     public String getAliasGrList0GrListSetVisibleRowCount0() {

@@ -322,7 +322,7 @@ public final class GuiAliases {
     private static final String RENDER_GET_WIDTH = "RenderGetWidth";
     private static final String RENDER_GET_HEIGHT = "RenderGetHeight";
     private static final String GR_LIST_GET_SELECTED_INDEXES = "GrListGetSelectedIndexes";
-    private static final String GR_LIST_GET_SELECTION = "GrListGetSelection";
+    private static final String GR_LIST_GET_SELECTIONS = "GrListGetSelections";
     private static final String RENDER_SET_WIDTH = "RenderSetWidth";
     private static final String INPUT_IS_ENABLED = "InputIsEnabled";
     private static final String GR_LIST_UPDATE_GRAPHICS = "GrListUpdateGraphics";
@@ -332,7 +332,8 @@ public final class GuiAliases {
     private static final String WINDOW_EVENT = "WindowEvent";
     private static final String GR_LIST_CLEAR = "GrListClear";
     private static final String GR_LIST_SET_RENDER = "GrListSetRender";
-    private static final String GR_LIST_SET_SELECTION = "GrListSetSelection";
+    private static final String GR_LIST_ADD_SELECTION = "GrListAddSelection";
+    private static final String GR_LIST_REMOVE_SELECTION = "GrListRemoveSelection";
     private static final String GR_LIST_REMOVE = "GrListRemove";
     private static final String INPUT_SET_ENABLED = "InputSetEnabled";
     private static final String WINDOW_DEICONIFIED = "WindowDeiconified";
@@ -716,8 +717,9 @@ public final class GuiAliases {
     private String aliasGrListUpdateGraphics;
     private String aliasGrListGetRender;
     private String aliasGrListSetRender;
-    private String aliasGrListGetSelection;
-    private String aliasGrListSetSelection;
+    private String aliasGrListGetSelections;
+    private String aliasGrListAddSelection;
+    private String aliasGrListRemoveSelection;
     private String aliasGrListGetVisibleRowCount;
     private String aliasGrListSetVisibleRowCount;
 
@@ -2558,10 +2560,13 @@ public final class GuiAliases {
         method_ = new StandardMethod(aliasGrListSetRender, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasGrList0GrListSetRender0()));
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasGrListGetSelection, params_, aliasListSelection, false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasGrListGetSelections, params_, StringExpUtil.getPrettyArrayType(aliasListSelection), false, MethodModifier.FINAL);
         methods_.add( method_);
         params_ = new StringList(aliasListSelection);
-        method_ = new StandardMethod(aliasGrListSetSelection, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasGrList0GrListSetSelection0()));
+        method_ = new StandardMethod(aliasGrListAddSelection, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasGrList0GrListAddSelection0()));
+        methods_.add( method_);
+        params_ = new StringList(aliasListSelection);
+        method_ = new StandardMethod(aliasGrListRemoveSelection, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasGrList0GrListRemoveSelection0()));
         methods_.add( method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasGrListGetVisibleRowCount, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL);
@@ -4734,13 +4739,18 @@ public final class GuiAliases {
         }
         if (StringUtil.quickEq(type_, aliasGrList)) {
             GraphicListStruct inst_ = (GraphicListStruct) _instance;
-            if (StringUtil.quickEq(name_, aliasGrListSetSelection)) {
-                inst_.setListener(_args[0]);
+            if (StringUtil.quickEq(name_, aliasGrListAddSelection)) {
+                inst_.addListener(_args[0]);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
-            if (StringUtil.quickEq(name_, aliasGrListGetSelection)) {
-                res_.setResult(inst_.getListener());
+            if (StringUtil.quickEq(name_, aliasGrListRemoveSelection)) {
+                inst_.removeListener(_args[0]);
+                res_.setResult(NullStruct.NULL_VALUE);
+                return res_;
+            }
+            if (StringUtil.quickEq(name_, aliasGrListGetSelections)) {
+                res_.setResult(inst_.getListeners(_cont));
                 return res_;
             }
             if (StringUtil.quickEq(name_, aliasGrListSetVisibleRowCount)) {
@@ -5531,7 +5541,7 @@ public final class GuiAliases {
         setAliasRenderGetWidth(LgNamesContent.get(_util, _cust, RENDER_GET_WIDTH));
         setAliasRenderGetHeight(LgNamesContent.get(_util, _cust, RENDER_GET_HEIGHT));
         setAliasGrListGetSelectedIndexes(LgNamesContent.get(_util, _cust, GR_LIST_GET_SELECTED_INDEXES));
-        setAliasGrListGetSelection(LgNamesContent.get(_util, _cust, GR_LIST_GET_SELECTION));
+        setAliasGrListGetSelections(LgNamesContent.get(_util, _cust, GR_LIST_GET_SELECTIONS));
         setAliasRenderSetWidth(LgNamesContent.get(_util, _cust, RENDER_SET_WIDTH));
         setAliasInputIsEnabled(LgNamesContent.get(_util, _cust, INPUT_IS_ENABLED));
         setAliasGrListUpdateGraphics(LgNamesContent.get(_util, _cust, GR_LIST_UPDATE_GRAPHICS));
@@ -5541,7 +5551,8 @@ public final class GuiAliases {
         setAliasWindowEvent(LgNamesContent.get(_util, _cust, WINDOW_EVENT));
         setAliasGrListClear(LgNamesContent.get(_util, _cust, GR_LIST_CLEAR));
         setAliasGrListSetRender(LgNamesContent.get(_util, _cust, GR_LIST_SET_RENDER));
-        setAliasGrListSetSelection(LgNamesContent.get(_util, _cust, GR_LIST_SET_SELECTION));
+        setAliasGrListAddSelection(LgNamesContent.get(_util, _cust, GR_LIST_ADD_SELECTION));
+        setAliasGrListRemoveSelection(LgNamesContent.get(_util, _cust, GR_LIST_REMOVE_SELECTION));
         setAliasGrListRemove(LgNamesContent.get(_util, _cust, GR_LIST_REMOVE));
         setAliasInputSetEnabled(LgNamesContent.get(_util, _cust, INPUT_SET_ENABLED));
         setAliasWindowDeiconified(LgNamesContent.get(_util, _cust, WINDOW_DEICONIFIED));
@@ -6020,13 +6031,14 @@ public final class GuiAliases {
                 new KeyValueMemberName(GR_LIST_GET_LIST_VIEW,getAliasGrListGetListView()),
                 new KeyValueMemberName(GR_LIST_GET_RENDER,getAliasGrListGetRender()),
                 new KeyValueMemberName(GR_LIST_GET_SELECTED_INDEXES,getAliasGrListGetSelectedIndexes()),
-                new KeyValueMemberName(GR_LIST_GET_SELECTION,getAliasGrListGetSelection()),
+                new KeyValueMemberName(GR_LIST_GET_SELECTIONS,getAliasGrListGetSelections()),
                 new KeyValueMemberName(GR_LIST_GET_VISIBLE_ROW_COUNT,getAliasGrListGetVisibleRowCount()),
                 new KeyValueMemberName(GR_LIST_REMOVE,getAliasGrListRemove()),
                 new KeyValueMemberName(GR_LIST_SET,getAliasGrListSet()),
                 new KeyValueMemberName(GR_LIST_SET_RENDER,getAliasGrListSetRender()),
                 new KeyValueMemberName(GR_LIST_SET_SELECTED_INDEXES,getAliasGrListSetSelectedIndexes()),
-                new KeyValueMemberName(GR_LIST_SET_SELECTION,getAliasGrListSetSelection()),
+                new KeyValueMemberName(GR_LIST_ADD_SELECTION,getAliasGrListAddSelection()),
+                new KeyValueMemberName(GR_LIST_REMOVE_SELECTION,getAliasGrListRemoveSelection()),
                 new KeyValueMemberName(GR_LIST_SET_VISIBLE_ROW_COUNT,getAliasGrListSetVisibleRowCount()),
                 new KeyValueMemberName(GR_LIST_UPDATE_GRAPHICS,getAliasGrListUpdateGraphics())),names_)
         );
@@ -8560,20 +8572,29 @@ public final class GuiAliases {
         this.aliasGrListSetRender = _v;
     }
 
-    public String getAliasGrListGetSelection() {
-        return aliasGrListGetSelection;
+    public String getAliasGrListGetSelections() {
+        return aliasGrListGetSelections;
     }
 
-    public void setAliasGrListGetSelection(String _v) {
-        this.aliasGrListGetSelection = _v;
+    public void setAliasGrListGetSelections(String _v) {
+        this.aliasGrListGetSelections = _v;
     }
 
-    public String getAliasGrListSetSelection() {
-        return aliasGrListSetSelection;
+
+    public String getAliasGrListAddSelection() {
+        return aliasGrListAddSelection;
     }
 
-    public void setAliasGrListSetSelection(String _v) {
-        this.aliasGrListSetSelection = _v;
+    public void setAliasGrListAddSelection(String _v) {
+        this.aliasGrListAddSelection = _v;
+    }
+
+    public String getAliasGrListRemoveSelection() {
+        return aliasGrListRemoveSelection;
+    }
+
+    public void setAliasGrListRemoveSelection(String _v) {
+        this.aliasGrListRemoveSelection = _v;
     }
 
     public String getAliasGrListGetVisibleRowCount() {

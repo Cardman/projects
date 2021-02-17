@@ -2,8 +2,6 @@ package code.expressionlanguage.guicompos;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.StringExpUtil;
-import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
-import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.structs.*;
 import code.gui.*;
 import code.util.CustList;
@@ -18,6 +16,10 @@ public final class GraphicListStruct extends InputStruct {
     public GraphicListStruct(GuiContextEl _ctx,String _className,boolean _simple) {
         super(_className);
         grList = ((LgNamesGui)_ctx.getStandards()).getGuiExecutingBlocks().getWindow().getFact().getGraphicListGenerator().create(_simple, new AdvGraphicListPainter(_ctx.getExecutionInfos()));
+        init(_ctx);
+    }
+
+    private void init(GuiContextEl _ctx) {
         grList.setDefCell(this, new DefSpecSelectionCtx(_ctx.getExecutionInfos()));
     }
 
@@ -113,20 +115,31 @@ public final class GraphicListStruct extends InputStruct {
     public void remove(int _index) {
         grList.remove(_index);
     }
-    public void setListener(Struct _listener) {
+    public ArrayStruct getListeners(ContextEl _ctx) {
+        ListSelection[] listeners_ = grList.getListeners();
+        String aliasListSelection_ = ((LgNamesGui) _ctx.getStandards()).getGuiAliases().getAliasListSelection();
+        int len_ = listeners_.length;
+        ArrayStruct out_ = new ArrayStruct(len_,StringExpUtil.getPrettyArrayType(aliasListSelection_));
+        for (int i = 0; i < len_; i++) {
+            if (listeners_[i] instanceof Struct) {
+                out_.set(i,(Struct)listeners_[i]);
+            }
+        }
+        return out_;
+    }
+    public void removeListener(Struct _listener) {
         if (_listener instanceof ListSelection) {
-            grList.setListener((ListSelection)_listener);
+            grList.removeListener((ListSelection)_listener);
         } else {
-            grList.setListener(null);
+            grList.removeListener(null);
         }
     }
-
-    public Struct getListener() {
-        ListSelection listener_ = grList.getListener();
-        if (!(listener_ instanceof Struct)) {
-            return NullStruct.NULL_VALUE;
+    public void addListener(Struct _listener) {
+        if (_listener instanceof ListSelection) {
+            grList.addListener((ListSelection)_listener);
+        } else {
+            grList.addListener(null);
         }
-        return (Struct) listener_;
     }
 
     public void addRange(int _first, int _last) {
