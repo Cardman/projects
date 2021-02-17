@@ -1,8 +1,7 @@
 package code.expressionlanguage.exec.types;
 
-import code.expressionlanguage.common.StrTypes;
+import code.maths.litteral.StrTypes;
 import code.expressionlanguage.types.KindPartType;
-import code.util.IntTreeMap;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 
@@ -16,7 +15,7 @@ public final class ExecAnalyzingType {
 
     public void setupValueExec(String _string) {
         values = new StrTypes();
-        values.addEntry((int)IndexConstants.FIRST_INDEX, _string);
+        values.addEntry(IndexConstants.FIRST_INDEX, _string);
     }
 
     public void setupUnaryValuesExec(String _string, String _operator) {
@@ -39,7 +38,7 @@ public final class ExecAnalyzingType {
     public void setupValuesExec(String _string) {
         values = new StrTypes();
         if (operators.isEmpty()) {
-            values.addEntry((int) IndexConstants.FIRST_INDEX, _string);
+            values.addEntry(IndexConstants.FIRST_INDEX, _string);
             error = true;
             return;
         }
@@ -60,7 +59,7 @@ public final class ExecAnalyzingType {
         str_ = _string.substring(beginValuePart_);
         if (!str_.trim().isEmpty() && prio == ExecPartTypeUtil.TMP_PRIO) {
             values = new StrTypes();
-            values.addEntry((int) IndexConstants.FIRST_INDEX, _string);
+            values.addEntry(IndexConstants.FIRST_INDEX, _string);
             error = true;
             return;
         }

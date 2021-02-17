@@ -3,6 +3,7 @@ import code.expressionlanguage.analyze.blocks.Block;
 import code.expressionlanguage.analyze.blocks.SwitchMethodBlock;
 import code.expressionlanguage.common.*;
 import code.expressionlanguage.analyze.files.ParsedFctHeader;
+import code.maths.litteral.StrTypes;
 import code.util.CustList;
 import code.util.*;
 import code.util.Ints;
@@ -25,9 +26,9 @@ public final class OperationsSequence {
 
     private int priority;
 
-    private IntTreeMap<String> values;
+    private StrTypes values;
 
-    private IntTreeMap<String> operators;
+    private StrTypes operators;
 
     private Delimiters delimiter;
 
@@ -47,16 +48,16 @@ public final class OperationsSequence {
     private Block block;
     private int length;
     public void setValue(String _string, int _offset) {
-        values = new IntTreeMap<String>();
-        values.put((int)IndexConstants.FIRST_INDEX, _string);
+        values = new StrTypes();
+        values.addEntry(IndexConstants.FIRST_INDEX, _string);
         offset = _offset;
     }
 
     public void setupValues(String _string, boolean _is, boolean _instance, Ints _nb) {
-        values = new IntTreeMap<String>();
+        values = new StrTypes();
         instance = _instance;
         if (operators.isEmpty()) {
-            values.put((int) IndexConstants.FIRST_INDEX, _string);
+            values.addEntry(IndexConstants.FIRST_INDEX, _string);
             constType = ConstType.ERROR;
             return;
         }
@@ -68,7 +69,7 @@ public final class OperationsSequence {
                 int beginValuePart_ = IndexConstants.FIRST_INDEX;
                 int endValuePart_ = operators.firstKey();
                 String str_ = _string.substring(beginValuePart_, endValuePart_);
-                values.put(beginValuePart_, str_);
+                values.addEntry(beginValuePart_, str_);
                 int i_ = IndexConstants.SECOND_INDEX;
                 int nbKeys_ = operators.size();
                 if (nbKeys_ == 2) {
@@ -82,7 +83,7 @@ public final class OperationsSequence {
                     beginValuePart_ = endValuePart_ + operators.getValue(i_-1).length();
                     endValuePart_ = operators.getKey(i_);
                     str_ = _string.substring(beginValuePart_, endValuePart_);
-                    values.put(beginValuePart_, str_);
+                    values.addEntry(beginValuePart_, str_);
                     i_++;
                 }
                 return;
@@ -107,10 +108,10 @@ public final class OperationsSequence {
                             if (!filter_.substring(afterLastPar_).trim().isEmpty()) {
                                 if (!instance) {
                                     operators.clear();
-                                    operators.put(afterLastPar_, "");
+                                    operators.addEntry(afterLastPar_, "");
                                     return;
                                 }
-                                values.put((int) IndexConstants.FIRST_INDEX, _string);
+                                values.addEntry(IndexConstants.FIRST_INDEX, _string);
                                 constType = ConstType.ERROR;
                                 return;
                             }
@@ -130,24 +131,24 @@ public final class OperationsSequence {
         String str_;
         if (priority == ElResolver.DECL_PRIO) {
             str_ = _string.substring(beginValuePart_, endValuePart_);
-            values.put(beginValuePart_, str_);
+            values.addEntry(beginValuePart_, str_);
             int i_ = IndexConstants.SECOND_INDEX;
             int nbKeys_ = operators.size();
             while (i_ < nbKeys_) {
                 beginValuePart_ = endValuePart_ + operators.getValue(i_-1).length();
                 endValuePart_ = operators.getKey(i_);
                 str_ = _string.substring(beginValuePart_, endValuePart_);
-                values.put(beginValuePart_, str_);
+                values.addEntry(beginValuePart_, str_);
                 i_++;
             }
             beginValuePart_ = endValuePart_ + operators.lastValue().length();
             str_ = _string.substring(beginValuePart_);
-            values.put(beginValuePart_, str_);
+            values.addEntry(beginValuePart_, str_);
             return;
         }
         if (priority == ElResolver.POST_INCR_PRIO) {
             str_ = _string.substring(beginValuePart_, endValuePart_);
-            values.put((int) IndexConstants.FIRST_INDEX, str_);
+            values.addEntry(IndexConstants.FIRST_INDEX, str_);
             beginValuePart_ = endValuePart_ + operators.firstValue().length();
             str_ = _string.substring(beginValuePart_);
             addValueIfNotEmpty(beginValuePart_, str_);
@@ -157,7 +158,7 @@ public final class OperationsSequence {
             //instanceof operator
             instanceTest = true;
             str_ = _string.substring(beginValuePart_, endValuePart_);
-            values.put((int) IndexConstants.FIRST_INDEX, str_);
+            values.addEntry(IndexConstants.FIRST_INDEX, str_);
             beginValuePart_ = endValuePart_ + operators.firstValue().length();
             str_ = _string.substring(beginValuePart_);
             addValueIfNotEmpty(beginValuePart_, str_);
@@ -166,12 +167,12 @@ public final class OperationsSequence {
         if (priority != ElResolver.UNARY_PRIO && !(fctName.trim().isEmpty() && isLeftParFirstOperator())) {
             //not unary priority, not identity priority
             str_ = _string.substring(beginValuePart_, endValuePart_);
-            values.put(beginValuePart_, str_);
+            values.addEntry(beginValuePart_, str_);
         }
         if (pureDot_) {
             beginValuePart_ = endValuePart_ + operators.lastValue().length();
             str_ = _string.substring(beginValuePart_);
-            values.put(beginValuePart_, str_);
+            values.addEntry(beginValuePart_, str_);
             return;
         }
         if (initArrayDim_) {
@@ -190,7 +191,7 @@ public final class OperationsSequence {
                     }
                 }
                 str_ = _string.substring(beginValuePart_, endValuePart_);
-                values.put(beginValuePart_, str_);
+                values.addEntry(beginValuePart_, str_);
                 i_++;
                 i_++;
             }
@@ -210,7 +211,7 @@ public final class OperationsSequence {
                 beginValuePart_ = endValuePart_ + operators.getValue(i_-1).length();
                 endValuePart_ = operators.getKey(i_);
                 str_ = _string.substring(beginValuePart_, endValuePart_);
-                values.put(beginValuePart_, str_);
+                values.addEntry(beginValuePart_, str_);
                 i_++;
             }
             return;
@@ -221,12 +222,12 @@ public final class OperationsSequence {
             beginValuePart_ = endValuePart_ + operators.getValue(i_-1).length();
             endValuePart_ = operators.getKey(i_);
             str_ = _string.substring(beginValuePart_, endValuePart_);
-            values.put(beginValuePart_, str_);
+            values.addEntry(beginValuePart_, str_);
             i_++;
         }
         beginValuePart_ = endValuePart_ + operators.lastValue().length();
         str_ = _string.substring(beginValuePart_);
-        values.put(beginValuePart_, str_);
+        values.addEntry(beginValuePart_, str_);
     }
 
     private void addValueIfNotEmpty(int _beginValuePart,
@@ -234,7 +235,7 @@ public final class OperationsSequence {
         if (_str.trim().isEmpty()) {
             return;
         }
-        values.put(_beginValuePart, _str);
+        values.addEntry(_beginValuePart, _str);
     }
 
     public Ints getErrorParts() {
@@ -310,15 +311,15 @@ public final class OperationsSequence {
         priority = _priority;
     }
 
-    public IntTreeMap< String> getValues() {
+    public StrTypes getValues() {
         return values;
     }
 
-    public IntTreeMap< String> getOperators() {
+    public StrTypes getOperators() {
         return operators;
     }
 
-    public void setOperators(IntTreeMap< String> _operators) {
+    public void setOperators(StrTypes _operators) {
         operators = _operators;
     }
 

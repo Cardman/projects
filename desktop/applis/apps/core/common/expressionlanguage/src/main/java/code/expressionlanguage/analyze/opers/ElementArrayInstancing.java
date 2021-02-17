@@ -22,6 +22,7 @@ import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
 import code.expressionlanguage.linkage.LinkageUtil;
 import code.expressionlanguage.options.KeyWords;
+import code.maths.litteral.StrTypes;
 import code.util.CustList;
 import code.util.IntTreeMap;
 import code.util.StringList;
@@ -269,7 +270,7 @@ public final class ElementArrayInstancing extends AbstractArrayInstancingOperati
             un_.buildError(_page.getAnalysisMessages().getUnexpectedType(),
                     className_);
             _page.getLocalizer().addError(un_);
-            IntTreeMap<String> operators_ = getOperations().getOperators();
+            StrTypes operators_ = getOperations().getOperators();
             setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ operators_.firstKey(), _page);
             int i_ = _page.getLocalizer().getCurrentLocationIndex();
             partOffsetsErr.add(new PartOffset("<a title=\""+un_.getBuiltError()+"\" class=\"e\">",i_));
@@ -286,7 +287,7 @@ public final class ElementArrayInstancing extends AbstractArrayInstancingOperati
         mapping_.setParam(eltType_);
         for (OperationNode o: chidren_) {
             int index_ = getPartOffsetsChildren().size();
-            IntTreeMap<String> operators_ = getOperations().getOperators();
+            StrTypes operators_ = getOperations().getOperators();
             CustList<PartOffset> parts_ = new CustList<PartOffset>();
             setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ operators_.getKey(index_), _page);
             AnaClassArgumentMatching argType_ = o.getResultClass();

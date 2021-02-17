@@ -10,6 +10,7 @@ import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 
 import code.expressionlanguage.stds.PrimitiveTypes;
+import code.maths.litteral.StrTypes;
 import code.util.CustList;
 import code.util.*;
 
@@ -61,7 +62,7 @@ public abstract class NumericOperation extends MethodOperation implements Middle
         CustList<OperationNode> chidren_ = getChildrenNodes();
         OperationNode l_ = chidren_.first();
         AnaClassArgumentMatching a_ = l_.getResultClass();
-        IntTreeMap< String> ops_ = getOperations().getOperators();
+        StrTypes ops_ = getOperations().getOperators();
         OperationNode r_ = chidren_.last();
         AnaClassArgumentMatching c_ = r_.getResultClass();
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ops_.firstKey(), _page);
@@ -85,8 +86,8 @@ public abstract class NumericOperation extends MethodOperation implements Middle
 
     @Override
     final void calculateChildren() {
-        IntTreeMap< String> vs_ = getOperations().getValues();
-        getChildren().putAllMap(vs_);
+        StrTypes vs_ = getOperations().getValues();
+        getChildren().addAllEntries(vs_);
     }
 
     public AnaTypeFct getFunction() {

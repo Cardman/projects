@@ -6,6 +6,7 @@ import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.analyze.instr.PartOffset;
 import code.expressionlanguage.linkage.LinkageUtil;
+import code.maths.litteral.StrTypes;
 import code.util.CustList;
 import code.util.IntTreeMap;
 import code.util.StringList;
@@ -41,8 +42,8 @@ public final class BadTernaryOperation extends MethodOperation {
 
     @Override
     void calculateChildren() {
-        IntTreeMap< String> vs_ = getOperations().getValues();
-        vs_.removeKey(vs_.firstKey());
-        getChildren().putAllMap(vs_);
+        StrTypes vs_ = getOperations().getValues();
+        vs_.remove(0);
+        getChildren().addAllEntries(vs_);
     }
 }

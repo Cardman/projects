@@ -6,6 +6,7 @@ import code.expressionlanguage.analyze.blocks.*;
 import code.expressionlanguage.analyze.types.ResolvingTypes;
 import code.expressionlanguage.common.*;
 import code.expressionlanguage.options.KeyWords;
+import code.maths.litteral.StrTypes;
 import code.util.*;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
@@ -2072,7 +2073,7 @@ public final class ElResolver {
         }
         Ints laterIndexesDouble_ = af_.getLaterIndexesDouble();
         int prio_ = af_.getPrio();
-        IntTreeMap<String> operators_;
+        StrTypes operators_;
         operators_ = af_.getOperators();
         boolean leftParFirstOperator_ = af_.isLeftParFirstOperator();
         boolean is_ = af_.isInstOf();
@@ -2108,7 +2109,7 @@ public final class ElResolver {
         if (i_ >= len_) {
             OperationsSequence op_ = new OperationsSequence();
             op_.setConstType(ConstType.ERROR);
-            op_.setOperators(new IntTreeMap< String>());
+            op_.setOperators(new StrTypes());
             op_.setValue(_string, 0);
             op_.setDelimiter(_d);
             return op_;
@@ -2136,7 +2137,7 @@ public final class ElResolver {
             }
             OperationsSequence op_ = new OperationsSequence();
             op_.setConstType(v.getKind());
-            op_.setOperators(new IntTreeMap< String>());
+            op_.setOperators(new StrTypes());
             op_.setValue(v.getName(), firstPrintChar_);
             op_.setDelimiter(_d);
             return op_;
@@ -2151,7 +2152,7 @@ public final class ElResolver {
             }
             OperationsSequence op_ = new OperationsSequence();
             op_.setConstType(ConstType.ANON_FCT);
-            op_.setOperators(new IntTreeMap< String>());
+            op_.setOperators(new StrTypes());
             op_.setValue(_string, firstPrintChar_);
             op_.setDelimiter(_d);
             op_.setBlock(a.getType());
@@ -2161,8 +2162,8 @@ public final class ElResolver {
         }
         int begin_;
         int end_;
-        begin_ = _d.getDelKeyWordStatic().indexOfNb(_offset + firstPrintChar_);
-        end_ = _d.getDelKeyWordStatic().indexOfNb(_offset + strLen_);
+        begin_ = _d.getDelKeyWordStatic().indexOfNb((long)_offset + firstPrintChar_);
+        end_ = _d.getDelKeyWordStatic().indexOfNb((long)_offset + strLen_);
         if (delimits(begin_, end_)) {
             int ext_ = begin_ / 2;
             String extracted_ = _d.getDelKeyWordStaticExtract().get(ext_);
@@ -2170,107 +2171,107 @@ public final class ElResolver {
             op_.setConstType(ConstType.STATIC_ACCESS);
             op_.setExtractType(extracted_);
             op_.setPartOffsets(_d.getStaticParts().get(ext_));
-            op_.setOperators(new IntTreeMap< String>());
+            op_.setOperators(new StrTypes());
             op_.setValue(_string, firstPrintChar_);
             op_.setDelimiter(_d);
             return op_;
         }
-        begin_ = _d.getDelKeyWordStaticCall().indexOfNb(_offset + firstPrintChar_);
-        end_ = _d.getDelKeyWordStaticCall().indexOfNb(_offset + strLen_);
+        begin_ = _d.getDelKeyWordStaticCall().indexOfNb((long)_offset + firstPrintChar_);
+        end_ = _d.getDelKeyWordStaticCall().indexOfNb((long)_offset + strLen_);
         if (delimits(begin_, end_)) {
             OperationsSequence op_ = new OperationsSequence();
             op_.setConstType(ConstType.STATIC_CALL_ACCESS);
             op_.setPartOffsets(new CustList<PartOffset>());
-            op_.setOperators(new IntTreeMap< String>());
+            op_.setOperators(new StrTypes());
             op_.setValue(_string, firstPrintChar_);
             op_.setDelimiter(_d);
             return op_;
         }
-        begin_ = _d.getDelSimpleAnnotations().indexOfNb(_offset + firstPrintChar_);
-        end_ = _d.getDelSimpleAnnotations().indexOfNb(_offset + lastPrintChar_);
+        begin_ = _d.getDelSimpleAnnotations().indexOfNb((long)_offset + firstPrintChar_);
+        end_ = _d.getDelSimpleAnnotations().indexOfNb((long)_offset + lastPrintChar_);
         if (delimits(begin_, end_)) {
             OperationsSequence op_ = new OperationsSequence();
             op_.setConstType(ConstType.SIMPLE_ANNOTATION);
-            op_.setOperators(new IntTreeMap< String>());
+            op_.setOperators(new StrTypes());
             op_.setValue(_string, firstPrintChar_);
             op_.setFctName(_string);
             op_.setDelimiter(_d);
             return op_;
         }
-        begin_ = _d.getDelVararg().indexOfNb(_offset + firstPrintChar_);
-        end_ = _d.getDelVararg().indexOfNb(_offset + lastPrintChar_);
+        begin_ = _d.getDelVararg().indexOfNb((long)_offset + firstPrintChar_);
+        end_ = _d.getDelVararg().indexOfNb((long)_offset + lastPrintChar_);
         if (delimits(begin_, end_)) {
             OperationsSequence op_ = new OperationsSequence();
             op_.setConstType(ConstType.VARARG);
-            op_.setOperators(new IntTreeMap< String>());
+            op_.setOperators(new StrTypes());
             op_.setValue(_string, firstPrintChar_);
             op_.setDelimiter(_d);
             return op_;
         }
-        begin_ = _d.getDelDefaultValue().indexOfNb(_offset + firstPrintChar_);
-        end_ = _d.getDelDefaultValue().indexOfNb(_offset + lastPrintChar_);
+        begin_ = _d.getDelDefaultValue().indexOfNb((long)_offset + firstPrintChar_);
+        end_ = _d.getDelDefaultValue().indexOfNb((long)_offset + lastPrintChar_);
         if (delimits(begin_, end_)) {
             OperationsSequence op_ = new OperationsSequence();
             op_.setConstType(ConstType.DEFAULT_VALUE);
-            op_.setOperators(new IntTreeMap< String>());
+            op_.setOperators(new StrTypes());
             op_.setValue(_string, firstPrintChar_);
             op_.setDelimiter(_d);
             return op_;
         }
-        begin_ = _d.getDelLambda().indexOfNb(_offset + firstPrintChar_);
-        end_ = _d.getDelLambda().indexOfNb(_offset + lastPrintChar_);
+        begin_ = _d.getDelLambda().indexOfNb((long)_offset + firstPrintChar_);
+        end_ = _d.getDelLambda().indexOfNb((long)_offset + lastPrintChar_);
         if (delimits(begin_, end_)) {
             OperationsSequence op_ = new OperationsSequence();
             op_.setConstType(ConstType.LAMBDA);
-            op_.setOperators(new IntTreeMap< String>());
+            op_.setOperators(new StrTypes());
             op_.setValue(_string, firstPrintChar_);
             op_.setDelimiter(_d);
             return op_;
         }
-        begin_ = _d.getDelIds().indexOfNb(_offset + firstPrintChar_);
-        end_ = _d.getDelIds().indexOfNb(_offset + lastPrintChar_);
+        begin_ = _d.getDelIds().indexOfNb((long)_offset + firstPrintChar_);
+        end_ = _d.getDelIds().indexOfNb((long)_offset + lastPrintChar_);
         if (delimits(begin_, end_)) {
             OperationsSequence op_ = new OperationsSequence();
             op_.setConstType(ConstType.ID);
-            op_.setOperators(new IntTreeMap< String>());
+            op_.setOperators(new StrTypes());
             op_.setValue(_string, firstPrintChar_);
             op_.setDelimiter(_d);
             return op_;
         }
-        begin_ = _d.getDelClass().indexOfNb(_offset + firstPrintChar_);
-        end_ = _d.getDelClass().indexOfNb(_offset + lastPrintChar_);
+        begin_ = _d.getDelClass().indexOfNb((long)_offset + firstPrintChar_);
+        end_ = _d.getDelClass().indexOfNb((long)_offset + lastPrintChar_);
         if (delimits(begin_, end_)) {
             OperationsSequence op_ = new OperationsSequence();
             op_.setConstType(ConstType.CLASS_INFO);
-            op_.setOperators(new IntTreeMap< String>());
+            op_.setOperators(new StrTypes());
             op_.setValue(_string, firstPrintChar_);
             op_.setDelimiter(_d);
             return op_;
         }
-        begin_ = _d.getDelKeyWordSuper().indexOfNb(_offset + firstPrintChar_);
-        end_ = _d.getDelKeyWordSuper().indexOfNb(_offset + lastPrintChar_ + 1);
+        begin_ = _d.getDelKeyWordSuper().indexOfNb((long)_offset + firstPrintChar_);
+        end_ = _d.getDelKeyWordSuper().indexOfNb((long)_offset + lastPrintChar_ + 1L);
         if (delimits(begin_, end_)) {
             OperationsSequence op_ = new OperationsSequence();
             op_.setConstType(ConstType.SUPER_KEYWORD);
-            op_.setOperators(new IntTreeMap< String>());
+            op_.setOperators(new StrTypes());
             int ind_ = _string.indexOf('.') + 1;
             op_.setDelta(ind_);
             op_.setValue(_string.substring(ind_, lastPrintChar_ + 1), firstPrintChar_);
             op_.setDelimiter(_d);
             return op_;
         }
-        begin_ = _d.getDelKeyWordClassChoice().indexOfNb(_offset + firstPrintChar_);
-        end_ = _d.getDelKeyWordClassChoice().indexOfNb(_offset + lastPrintChar_ + 1);
+        begin_ = _d.getDelKeyWordClassChoice().indexOfNb((long)_offset + firstPrintChar_);
+        end_ = _d.getDelKeyWordClassChoice().indexOfNb((long)_offset + lastPrintChar_ + 1L);
         if (delimits(begin_, end_)) {
             OperationsSequence op_ = new OperationsSequence();
             op_.setConstType(ConstType.CLASSCHOICE_KEYWORD);
-            op_.setOperators(new IntTreeMap< String>());
+            op_.setOperators(new StrTypes());
             op_.setValue(_string.substring(firstPrintChar_, lastPrintChar_ + 1),firstPrintChar_);
             op_.setDelimiter(_d);
             return op_;
         }
-        begin_ = _d.getDelLoopVars().indexOfNb(_offset + firstPrintChar_);
-        end_ = _d.getDelLoopVars().indexOfNb(_offset + lastPrintChar_);
+        begin_ = _d.getDelLoopVars().indexOfNb((long)_offset + firstPrintChar_);
+        end_ = _d.getDelLoopVars().indexOfNb((long)_offset + lastPrintChar_);
         if (delimits(begin_, end_)) {
             int indexLeftArr_ = _string.indexOf(ARR_LEFT);
             int indexRightArr_ = _string.lastIndexOf(ARR_RIGHT);
@@ -2278,38 +2279,38 @@ public final class ElResolver {
             String name_ = _string.substring(indexLeftArr_+1, indexRightArr_);
             OperationsSequence op_ = new OperationsSequence();
             op_.setConstType(ConstType.LOOP_INDEX);
-            op_.setOperators(new IntTreeMap< String>());
+            op_.setOperators(new StrTypes());
             op_.setDelta(delta_);
             op_.setValue(name_, firstPrintChar_);
             op_.setDelimiter(_d);
             return op_;
         }
-        begin_ = _d.getDelKeyWordSuperAccess().indexOfNb(_offset + firstPrintChar_);
-        end_ = _d.getDelKeyWordSuperAccess().indexOfNb(_offset + lastPrintChar_ + 1);
+        begin_ = _d.getDelKeyWordSuperAccess().indexOfNb((long)_offset + firstPrintChar_);
+        end_ = _d.getDelKeyWordSuperAccess().indexOfNb((long)_offset + lastPrintChar_ + 1L);
         if (delimits(begin_, end_)) {
             OperationsSequence op_ = new OperationsSequence();
             op_.setConstType(ConstType.SUPER_ACCESS_KEYWORD);
-            op_.setOperators(new IntTreeMap< String>());
+            op_.setOperators(new StrTypes());
             op_.setValue(_string.substring(firstPrintChar_, lastPrintChar_ + 1),firstPrintChar_);
             op_.setDelimiter(_d);
             return op_;
         }
-        begin_ = _d.getDelAccessIndexers().indexOfNb(_offset + firstPrintChar_);
-        end_ = _d.getDelAccessIndexers().indexOfNb(_offset + lastPrintChar_+1);
+        begin_ = _d.getDelAccessIndexers().indexOfNb((long)_offset + firstPrintChar_);
+        end_ = _d.getDelAccessIndexers().indexOfNb((long)_offset + lastPrintChar_+1L);
         if (delimits(begin_, end_)) {
             OperationsSequence op_ = new OperationsSequence();
             op_.setConstType(ConstType.ACCESS_INDEXER);
-            op_.setOperators(new IntTreeMap< String>());
+            op_.setOperators(new StrTypes());
             op_.setValue(_string.substring(firstPrintChar_, lastPrintChar_ + 1),firstPrintChar_);
             op_.setDelimiter(_d);
             return op_;
         }
-        begin_ = _d.getDelValues().indexOfNb(_offset + firstPrintChar_);
-        end_ = _d.getDelValues().indexOfNb(_offset + lastPrintChar_);
+        begin_ = _d.getDelValues().indexOfNb((long)_offset + firstPrintChar_);
+        end_ = _d.getDelValues().indexOfNb((long)_offset + lastPrintChar_);
         if (delimits(begin_, end_)) {
             OperationsSequence op_ = new OperationsSequence();
             op_.setConstType(ConstType.VALUES);
-            op_.setOperators(new IntTreeMap< String>());
+            op_.setOperators(new StrTypes());
             op_.setValue(_string, firstPrintChar_);
             op_.setDelimiter(_d);
             return op_;
@@ -2318,7 +2319,7 @@ public final class ElResolver {
         if (StringUtil.quickEq(sub_, keyWordThis_)) {
             OperationsSequence op_ = new OperationsSequence();
             op_.setConstType(ConstType.THIS_KEYWORD);
-            op_.setOperators(new IntTreeMap< String>());
+            op_.setOperators(new StrTypes());
             op_.setValue(_string, firstPrintChar_);
             op_.setDelimiter(_d);
             return op_;
@@ -2326,7 +2327,7 @@ public final class ElResolver {
         if (StringUtil.quickEq(sub_, keyWordParent_)) {
             OperationsSequence op_ = new OperationsSequence();
             op_.setConstType(ConstType.PARENT_KEY_WORD);
-            op_.setOperators(new IntTreeMap< String>());
+            op_.setOperators(new StrTypes());
             op_.setValue(_string, firstPrintChar_);
             op_.setDelimiter(_d);
             return op_;
@@ -2334,7 +2335,7 @@ public final class ElResolver {
         if (StringUtil.quickEq(sub_, keyWordNull_)) {
             OperationsSequence op_ = new OperationsSequence();
             op_.setConstType(ConstType.NULL_CST);
-            op_.setOperators(new IntTreeMap< String>());
+            op_.setOperators(new StrTypes());
             op_.setValue(_string, firstPrintChar_);
             op_.setDelimiter(_d);
             return op_;
@@ -2342,7 +2343,7 @@ public final class ElResolver {
         if (StringUtil.quickEq(sub_, keyWordTrue_)) {
             OperationsSequence op_ = new OperationsSequence();
             op_.setConstType(ConstType.TRUE_CST);
-            op_.setOperators(new IntTreeMap< String>());
+            op_.setOperators(new StrTypes());
             op_.setValue(_string, firstPrintChar_);
             op_.setDelimiter(_d);
             return op_;
@@ -2350,26 +2351,26 @@ public final class ElResolver {
         if (StringUtil.quickEq(sub_, keyWordFalse_)) {
             OperationsSequence op_ = new OperationsSequence();
             op_.setConstType(ConstType.FALSE_CST);
-            op_.setOperators(new IntTreeMap< String>());
+            op_.setOperators(new StrTypes());
             op_.setValue(_string, firstPrintChar_);
             op_.setDelimiter(_d);
             return op_;
         }
-        begin_ = _d.getDelNumbers().indexOfNb(_offset + firstPrintChar_);
-        end_ = _d.getDelNumbers().indexOfNb(_offset + lastPrintChar_ + 1);
+        begin_ = _d.getDelNumbers().indexOfNb((long)_offset + firstPrintChar_);
+        end_ = _d.getDelNumbers().indexOfNb((long)_offset + lastPrintChar_ + 1L);
         if (delimits(begin_, end_)) {
             OperationsSequence op_ = new OperationsSequence();
             op_.setConstType(ConstType.NUMBER);
             int indexNb_ = begin_/2;
-            op_.setOperators(new IntTreeMap< String>());
+            op_.setOperators(new StrTypes());
             op_.setNbInfos(_d.getNbInfos().get(indexNb_));
             op_.getNbInfos().setPositive(true);
             op_.setValue(_string, firstPrintChar_);
             op_.setDelimiter(_d);
             return op_;
         }
-        begin_ = _d.getDelStringsChars().indexOfNb(firstPrintChar_+_offset);
-        end_ = _d.getDelStringsChars().indexOfNb(lastPrintChar_+_offset);
+        begin_ = _d.getDelStringsChars().indexOfNb((long)firstPrintChar_+_offset);
+        end_ = _d.getDelStringsChars().indexOfNb((long)lastPrintChar_+_offset);
         if (delimits(begin_, end_)) {
             StringInfo info_ = _d.getStringInfo().get(begin_/2);
             CharList list_ = info_.getChars();
@@ -2381,7 +2382,7 @@ public final class ElResolver {
             if (_string.charAt(firstPrintChar_) == DELIMITER_CHAR) {
                 OperationsSequence op_ = new OperationsSequence();
                 op_.setConstType(ConstType.CHARACTER);
-                op_.setOperators(new IntTreeMap< String>());
+                op_.setOperators(new StrTypes());
                 op_.setStrInfo(info_);
                 info_.setFound(_string);
                 op_.setValue(String.valueOf(str_), firstPrintChar_);
@@ -2391,7 +2392,7 @@ public final class ElResolver {
             if (_string.charAt(firstPrintChar_) == DELIMITER_STRING) {
                 OperationsSequence op_ = new OperationsSequence();
                 op_.setConstType(ConstType.STRING);
-                op_.setOperators(new IntTreeMap< String>());
+                op_.setOperators(new StrTypes());
                 op_.setStrInfo(info_);
                 info_.setFound(_string);
                 op_.setValue(String.valueOf(str_), firstPrintChar_);
@@ -2400,15 +2401,15 @@ public final class ElResolver {
             }
             OperationsSequence op_ = new OperationsSequence();
             op_.setConstType(ConstType.STRING);
-            op_.setOperators(new IntTreeMap< String>());
+            op_.setOperators(new StrTypes());
             op_.setStrInfo(info_);
             info_.setFound(_string);
             op_.setValue(String.valueOf(str_), firstPrintChar_);
             op_.setDelimiter(_d);
             return op_;
         }
-        begin_ = _d.getDelTextBlocks().indexOfNb(firstPrintChar_+_offset);
-        end_ = _d.getDelTextBlocks().indexOfNb(lastPrintChar_+_offset);
+        begin_ = _d.getDelTextBlocks().indexOfNb((long)firstPrintChar_+_offset);
+        end_ = _d.getDelTextBlocks().indexOfNb((long)lastPrintChar_+_offset);
         if (delimits(begin_, end_)) {
             TextBlockInfo info_ = _d.getTextInfo().get(begin_/2);
             CharList list_ = info_.getChars();
@@ -2419,7 +2420,7 @@ public final class ElResolver {
             }
             OperationsSequence op_ = new OperationsSequence();
             op_.setConstType(ConstType.TEXT_BLOCK);
-            op_.setOperators(new IntTreeMap< String>());
+            op_.setOperators(new StrTypes());
             op_.setTextInfo(info_);
             info_.setFound(_string);
             op_.setValue(String.valueOf(str_), firstPrintChar_);

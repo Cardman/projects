@@ -1,7 +1,7 @@
 package code.expressionlanguage.analyze.types;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.common.StrTypes;
+import code.maths.litteral.StrTypes;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.blocks.AccessedBlock;
 import code.expressionlanguage.analyze.instr.PartOffset;
@@ -14,17 +14,17 @@ import code.util.core.StringUtil;
 abstract class AnaPartType {
 
     protected static final String EMPTY_STRING = "";
-    private AnaParentPartType parent;
+    private final AnaParentPartType parent;
     private AnaPartType previousSibling;
     private AnaPartType nextSibling;
-    private int index;
-    private int indexInType;
+    private final int index;
+    private final int indexInType;
     private String analyzedType = EMPTY_STRING;
     private PartOffset beginOffset;
     private PartOffset endOffset;
     private final CustList<InaccessibleType> inaccessibleTypes = new CustList<InaccessibleType>();
     private String titleRef = "";
-    private StringList errs = new StringList();
+    private final StringList errs = new StringList();
     private String href = "";
     private int length;
     private boolean alreadyError;

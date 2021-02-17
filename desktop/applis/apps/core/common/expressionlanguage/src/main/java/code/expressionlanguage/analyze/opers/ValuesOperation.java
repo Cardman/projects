@@ -12,6 +12,7 @@ import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.analyze.instr.PartOffset;
 import code.expressionlanguage.fwd.opers.AnaValuesContent;
+import code.maths.litteral.StrTypes;
 import code.util.*;
 import code.util.core.StringUtil;
 
@@ -25,7 +26,7 @@ public final class ValuesOperation extends LeafOperation {
     public ValuesOperation(int _indexInEl, int _indexChild, MethodOperation _m,
             OperationsSequence _op) {
         super(_indexInEl, _indexChild, _m, _op);
-        IntTreeMap< String> vs_ = getOperations().getValues();
+        StrTypes vs_ = getOperations().getValues();
         className = vs_.firstValue();
         valuesContent = new AnaValuesContent(0);
     }

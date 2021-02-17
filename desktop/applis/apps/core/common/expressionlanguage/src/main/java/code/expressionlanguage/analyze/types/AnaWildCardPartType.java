@@ -1,14 +1,14 @@
 package code.expressionlanguage.analyze.types;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.common.StrTypes;
+import code.maths.litteral.StrTypes;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.analyze.blocks.AccessedBlock;
 import code.util.core.StringUtil;
 
 final class AnaWildCardPartType extends AnaParentPartType {
 
-    private String prefix;
+    private final String prefix;
     AnaWildCardPartType(AnaParentPartType _parent, int _index, int _indexInType, String _prefix, StrTypes _operators) {
         super(_parent, _index, _indexInType,_operators);
         prefix = _prefix;

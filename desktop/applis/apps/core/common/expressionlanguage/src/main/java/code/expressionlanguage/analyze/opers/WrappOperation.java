@@ -7,6 +7,7 @@ import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.expressionlanguage.fwd.opers.AnaSettableOperationContent;
+import code.maths.litteral.StrTypes;
 import code.util.IntTreeMap;
 
 public final class WrappOperation extends AbstractUnaryOperation implements PreAnalyzableOperation {
@@ -19,10 +20,10 @@ public final class WrappOperation extends AbstractUnaryOperation implements PreA
 
     @Override
     void calculateChildren() {
-        IntTreeMap< String> vs_ = getOperations().getValues();
+        StrTypes vs_ = getOperations().getValues();
         offset = vs_.firstKey();
-        vs_.removeKey(vs_.firstKey());
-        getChildren().putAllMap(vs_);
+        vs_.remove(0);
+        getChildren().addAllEntries(vs_);
     }
 
     @Override

@@ -1,5 +1,4 @@
 package code.maths.litteral;
-import code.util.*;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 
@@ -12,9 +11,9 @@ public final class OperationsSequence {
 
     private int priority;
 
-    private IntTreeMap<String> values;
+    private StrTypes values;
 
-    private IntTreeMap<String> operators;
+    private StrTypes operators;
 
     private Delimiters delimiter;
 
@@ -23,13 +22,13 @@ public final class OperationsSequence {
     private int indexCst;
 
     public void setupValue(String _string) {
-        values = new IntTreeMap<String>();
-        values.put((int)IndexConstants.FIRST_INDEX, _string);
+        values = new StrTypes();
+        values.addEntry(IndexConstants.FIRST_INDEX, _string);
     }
     public void setupValues(String _string) {
-        values = new IntTreeMap<String>();
+        values = new StrTypes();
         if (operators.isEmpty()) {
-            values.put((int) IndexConstants.FIRST_INDEX, _string);
+            values.addEntry(IndexConstants.FIRST_INDEX, _string);
             return;
         }
         if (priority == MathResolver.EQ_PRIO && StringUtil.quickEq(operators.firstValue(), Character.toString(NEG_BOOL_CHAR))) {
@@ -46,7 +45,7 @@ public final class OperationsSequence {
             int afterLastPar_ = operators.lastKey()+1;
             if (!_string.substring(afterLastPar_).trim().isEmpty()) {
                 operators.clear();
-                operators.put(afterLastPar_, "");
+                operators.addEntry(afterLastPar_, "");
                 priority = MathResolver.BAD_PRIO;
                 return;
             }
@@ -56,7 +55,7 @@ public final class OperationsSequence {
             endValuePart_ = operators.getKey(IndexConstants.SECOND_INDEX);
             String str_ = _string.substring(beginValuePart_, endValuePart_);
             if (!str_.isEmpty()) {
-                values.put(beginValuePart_, str_);
+                values.addEntry(beginValuePart_, str_);
             }
             return;
         }
@@ -66,13 +65,13 @@ public final class OperationsSequence {
             int beginValuePart_ = endValuePart_ + operators.getValue(i_ - 1).length();
             endValuePart_ = operators.getKey(i_);
             String str_ = _string.substring(beginValuePart_, endValuePart_);
-            values.put(beginValuePart_, str_);
+            values.addEntry(beginValuePart_, str_);
             i_++;
         }
         if (priority != MathResolver.FCT_OPER_PRIO) {
             int beginValuePart_ = endValuePart_ + operators.lastValue().length();
             String str_ = _string.substring(beginValuePart_);
-            values.put(beginValuePart_, str_);
+            values.addEntry(beginValuePart_, str_);
         }
     }
 
@@ -82,7 +81,7 @@ public final class OperationsSequence {
             int beginValuePart_ = IndexConstants.FIRST_INDEX;
             int endValuePart_ = operators.firstKey();
             String str_ = _string.substring(beginValuePart_, endValuePart_);
-            values.put(beginValuePart_, str_);
+            values.addEntry(beginValuePart_, str_);
         }
     }
 
@@ -106,15 +105,15 @@ public final class OperationsSequence {
         priority = _priority;
     }
 
-    public IntTreeMap< String> getValues() {
+    public StrTypes getValues() {
         return values;
     }
 
-    public IntTreeMap< String> getOperators() {
+    public StrTypes getOperators() {
         return operators;
     }
 
-    public void setOperators(IntTreeMap< String> _operators) {
+    public void setOperators(StrTypes _operators) {
         operators = _operators;
     }
 

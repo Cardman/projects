@@ -2,7 +2,7 @@ package code.expressionlanguage.analyze.types;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.AccessedBlock;
-import code.expressionlanguage.common.StrTypes;
+import code.maths.litteral.StrTypes;
 import code.util.CustList;
 
 final class AnaInnerPartType extends AnaBinaryType {

@@ -1,4 +1,4 @@
-package code.expressionlanguage.common;
+package code.maths.litteral;
 
 import code.util.CustList;
 

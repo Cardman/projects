@@ -17,6 +17,7 @@ import code.expressionlanguage.analyze.blocks.ReturnMethod;
 import code.expressionlanguage.linkage.LinkageUtil;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.stds.PrimitiveTypes;
+import code.maths.litteral.StrTypes;
 import code.util.CustList;
 import code.util.IntTreeMap;
 import code.util.StringList;
@@ -368,7 +369,7 @@ public final class DimensionArrayInstancing extends
         }
         for (OperationNode o: chidren_) {
             int index_ = getPartOffsetsChildren().size();
-            IntTreeMap<String> operators_ = getOperations().getOperators();
+            StrTypes operators_ = getOperations().getOperators();
             CustList<PartOffset> parts_ = new CustList<PartOffset>();
             setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ operators_.getKey(2*index_), _page);
             AnaClassArgumentMatching resCh_ = o.getResultClass();

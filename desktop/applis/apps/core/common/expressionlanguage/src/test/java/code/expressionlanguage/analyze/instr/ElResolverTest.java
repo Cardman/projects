@@ -8,6 +8,8 @@ import code.expressionlanguage.analyze.blocks.*;
 import code.expressionlanguage.common.*;
 
 import code.expressionlanguage.methods.ProcessMethodCommon;
+import code.maths.litteral.IndexStrPart;
+import code.maths.litteral.StrTypes;
 import code.util.*;
 import code.util.core.StringUtil;
 import org.junit.Test;
@@ -22,16 +24,16 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "abs(4,3)";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(3, opers_.size());
-        assertEq("(", opers_.getVal(3));
-        assertEq(",", opers_.getVal(5));
-        assertEq(")", opers_.getVal(7));
-        IntTreeMap<String> values_ = seq_.getValues();
+        assertEq("(", getVal(opers_, 3));
+        assertEq(",", getVal(opers_, 5));
+        assertEq(")", getVal(opers_, 7));
+        StrTypes values_ = seq_.getValues();
         assertEq(3, values_.size());
-        assertEq("abs", values_.getVal(0));
-        assertEq("4", values_.getVal(4));
-        assertEq("3", values_.getVal(6));
+        assertEq("abs", getVal(values_, 0));
+        assertEq("4", getVal(values_, 4));
+        assertEq("3", getVal(values_, 6));
         assertTrue(seq_.isCall());
     }
 
@@ -42,13 +44,13 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "abs(4,3).abs(4,3)";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq(".", opers_.getVal(8));
-        IntTreeMap<String> values_ = seq_.getValues();
+        assertEq(".", getVal(opers_, 8));
+        StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("abs(4,3)", values_.getVal(0));
-        assertEq("abs(4,3)", values_.getVal(9));
+        assertEq("abs(4,3)", getVal(values_, 0));
+        assertEq("abs(4,3)", getVal(values_, 9));
         assertEq(ElResolver.FCT_OPER_PRIO,seq_.getPriority());
     }
 
@@ -59,13 +61,13 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "abs(4+3).abs(4,3)";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq(".", opers_.getVal(8));
-        IntTreeMap<String> values_ = seq_.getValues();
+        assertEq(".", getVal(opers_, 8));
+        StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("abs(4+3)", values_.getVal(0));
-        assertEq("abs(4,3)", values_.getVal(9));
+        assertEq("abs(4+3)", getVal(values_, 0));
+        assertEq("abs(4,3)", getVal(values_, 9));
         assertEq(ElResolver.FCT_OPER_PRIO,seq_.getPriority());
     }
 
@@ -76,13 +78,13 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "abs($vararg([$int),4+3).abs(4,3)";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq(".", opers_.getVal(23));
-        IntTreeMap<String> values_ = seq_.getValues();
+        assertEq(".", getVal(opers_, 23));
+        StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("abs($vararg([$int),4+3)", values_.getVal(0));
-        assertEq("abs(4,3)", values_.getVal(24));
+        assertEq("abs($vararg([$int),4+3)", getVal(values_, 0));
+        assertEq("abs(4,3)", getVal(values_, 24));
         assertEq(ElResolver.FCT_OPER_PRIO,seq_.getPriority());
     }
 
@@ -93,13 +95,13 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "abs($vararg([$int),'[').abs(4,3)";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq(".", opers_.getVal(23));
-        IntTreeMap<String> values_ = seq_.getValues();
+        assertEq(".", getVal(opers_, 23));
+        StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("abs($vararg([$int),'[')", values_.getVal(0));
-        assertEq("abs(4,3)", values_.getVal(24));
+        assertEq("abs($vararg([$int),'[')", getVal(values_, 0));
+        assertEq("abs(4,3)", getVal(values_, 24));
         assertEq(ElResolver.FCT_OPER_PRIO,seq_.getPriority());
     }
 
@@ -110,13 +112,13 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "abs($vararg([$int),'[').abs(4,3)+8";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("+", opers_.getVal(32));
-        IntTreeMap<String> values_ = seq_.getValues();
+        assertEq("+", getVal(opers_, 32));
+        StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("abs($vararg([$int),'[').abs(4,3)", values_.getVal(0));
-        assertEq("8", values_.getVal(33));
+        assertEq("abs($vararg([$int),'[').abs(4,3)", getVal(values_, 0));
+        assertEq("8", getVal(values_, 33));
         assertEq(ElResolver.ADD_PRIO, seq_.getPriority());
     }
 
@@ -127,13 +129,13 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "6*(1+8)";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("*", opers_.getVal(1));
-        IntTreeMap<String> values_ = seq_.getValues();
+        assertEq("*", getVal(opers_, 1));
+        StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("6", values_.getVal(0));
-        assertEq("(1+8)", values_.getVal(2));
+        assertEq("6", getVal(values_, 0));
+        assertEq("(1+8)", getVal(values_, 2));
         assertEq(ElResolver.MULT_PRIO, seq_.getPriority());
     }
 
@@ -144,13 +146,13 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "6*('\\u9fcb'+8)";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("*", opers_.getVal(1));
-        IntTreeMap<String> values_ = seq_.getValues();
+        assertEq("*", getVal(opers_, 1));
+        StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("6", values_.getVal(0));
-        assertEq("('\\u9fcb'+8)", values_.getVal(2));
+        assertEq("6", getVal(values_, 0));
+        assertEq("('\\u9fcb'+8)", getVal(values_, 2));
         assertEq(ElResolver.MULT_PRIO, seq_.getPriority());
     }
 
@@ -161,13 +163,13 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "6*('\\''+8)";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("*", opers_.getVal(1));
-        IntTreeMap<String> values_ = seq_.getValues();
+        assertEq("*", getVal(opers_, 1));
+        StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("6", values_.getVal(0));
-        assertEq("('\\''+8)", values_.getVal(2));
+        assertEq("6", getVal(values_, 0));
+        assertEq("('\\''+8)", getVal(values_, 2));
         assertEq(ElResolver.MULT_PRIO, seq_.getPriority());
     }
 
@@ -178,13 +180,13 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "6*(\"ab\"+8)";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("*", opers_.getVal(1));
-        IntTreeMap<String> values_ = seq_.getValues();
+        assertEq("*", getVal(opers_, 1));
+        StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("6", values_.getVal(0));
-        assertEq("(\"ab\"+8)", values_.getVal(2));
+        assertEq("6", getVal(values_, 0));
+        assertEq("(\"ab\"+8)", getVal(values_, 2));
         assertEq(ElResolver.MULT_PRIO, seq_.getPriority());
     }
 
@@ -195,13 +197,13 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "-6*8";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("*", opers_.getVal(2));
-        IntTreeMap<String> values_ = seq_.getValues();
+        assertEq("*", getVal(opers_, 2));
+        StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("-6", values_.getVal(0));
-        assertEq("8", values_.getVal(3));
+        assertEq("-6", getVal(values_, 0));
+        assertEq("8", getVal(values_, 3));
         assertEq(ElResolver.MULT_PRIO, seq_.getPriority());
     }
 
@@ -212,12 +214,12 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "-abs(8)";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("-", opers_.getVal(0));
-        IntTreeMap<String> values_ = seq_.getValues();
+        assertEq("-", getVal(opers_, 0));
+        StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-        assertEq("abs(8)", values_.getVal(1));
+        assertEq("abs(8)", getVal(values_, 1));
         assertEq(ElResolver.UNARY_PRIO, seq_.getPriority());
     }
 
@@ -228,13 +230,13 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "abs($vararg([$int),'[').abs(4,3)+8-9";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("-", opers_.getVal(34));
-        IntTreeMap<String> values_ = seq_.getValues();
+        assertEq("-", getVal(opers_, 34));
+        StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("abs($vararg([$int),'[').abs(4,3)+8", values_.getVal(0));
-        assertEq("9", values_.getVal(35));
+        assertEq("abs($vararg([$int),'[').abs(4,3)+8", getVal(values_, 0));
+        assertEq("9", getVal(values_, 35));
         assertEq(ElResolver.ADD_PRIO, seq_.getPriority());
     }
 
@@ -245,13 +247,13 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "1.8-abs(9)";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("-", opers_.getVal(3));
-        IntTreeMap<String> values_ = seq_.getValues();
+        assertEq("-", getVal(opers_, 3));
+        StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("1.8", values_.getVal(0));
-        assertEq("abs(9)", values_.getVal(4));
+        assertEq("1.8", getVal(values_, 0));
+        assertEq("abs(9)", getVal(values_, 4));
         assertEq(ElResolver.ADD_PRIO, seq_.getPriority());
     }
 
@@ -262,11 +264,11 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "1.8";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(0, opers_.size());
-        IntTreeMap<String> values_ = seq_.getValues();
+        StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-        assertEq("1.8", values_.getVal(0));
+        assertEq("1.8", getVal(values_, 0));
         assertEq(ElResolver.CONST_PRIO, seq_.getPriority());
     }
 
@@ -277,11 +279,11 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "\"18\"";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(0, opers_.size());
-        IntTreeMap<String> values_ = seq_.getValues();
+        StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-        assertEq("18", values_.getVal(0));
+        assertEq("18", getVal(values_, 0));
         assertSame(ConstType.STRING, seq_.getConstType());
         assertEq(ElResolver.CONST_PRIO, seq_.getPriority());
     }
@@ -293,11 +295,11 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "18";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(0, opers_.size());
-        IntTreeMap<String> values_ = seq_.getValues();
+        StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-        assertEq("18", values_.getVal(0));
+        assertEq("18", getVal(values_, 0));
         assertEq(ElResolver.CONST_PRIO, seq_.getPriority());
     }
 
@@ -308,13 +310,13 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "(4+3)";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(2, opers_.size());
-        assertEq("(", opers_.getVal(0));
-        assertEq(")", opers_.getVal(4));
-        IntTreeMap<String> values_ = seq_.getValues();
+        assertEq("(", getVal(opers_, 0));
+        assertEq(")", getVal(opers_, 4));
+        StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-        assertEq("4+3", values_.getVal(1));
+        assertEq("4+3", getVal(values_, 1));
         assertTrue(seq_.isCall());
     }
 
@@ -325,14 +327,14 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "$firstopt(4+3)";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(2, opers_.size());
-        assertEq("(", opers_.getVal(9));
-        assertEq(")", opers_.getVal(13));
-        IntTreeMap<String> values_ = seq_.getValues();
+        assertEq("(", getVal(opers_, 9));
+        assertEq(")", getVal(opers_, 13));
+        StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("$firstopt", values_.getVal(0));
-        assertEq("4+3", values_.getVal(10));
+        assertEq("$firstopt", getVal(values_, 0));
+        assertEq("4+3", getVal(values_, 10));
         assertTrue(seq_.isCall());
     }
 
@@ -343,18 +345,18 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "abs($vararg([$int),4,3)";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(4, opers_.size());
-        assertEq("(", opers_.getVal(3));
-        assertEq(",", opers_.getVal(18));
-        assertEq(",", opers_.getVal(20));
-        assertEq(")", opers_.getVal(22));
-        IntTreeMap<String> values_ = seq_.getValues();
+        assertEq("(", getVal(opers_, 3));
+        assertEq(",", getVal(opers_, 18));
+        assertEq(",", getVal(opers_, 20));
+        assertEq(")", getVal(opers_, 22));
+        StrTypes values_ = seq_.getValues();
         assertEq(4, values_.size());
-        assertEq("abs", values_.getVal(0));
-        assertEq("$vararg([$int)", values_.getVal(4));
-        assertEq("4", values_.getVal(19));
-        assertEq("3", values_.getVal(21));
+        assertEq("abs", getVal(values_, 0));
+        assertEq("$vararg([$int)", getVal(values_, 4));
+        assertEq("4", getVal(values_, 19));
+        assertEq("3", getVal(values_, 21));
         assertTrue(seq_.isCall());
     }
 
@@ -366,7 +368,7 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "v;.";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
     }
 
@@ -377,11 +379,11 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "v";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(0, opers_.size());
-        IntTreeMap<String> values_ = seq_.getValues();
+        StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-        assertEq("v", values_.getVal(0));
+        assertEq("v", getVal(values_, 0));
     
         assertEq(ElResolver.CONST_PRIO, seq_.getPriority());
     }
@@ -393,14 +395,14 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "abs(4,3)[0]";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("", opers_.getVal(8));
+        assertEq("", getVal(opers_, 8));
         assertEq(ElResolver.FCT_OPER_PRIO,seq_.getPriority());
-        IntTreeMap<String> values_ = seq_.getValues();
+        StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("abs(4,3)", values_.getVal(0));
-        assertEq("[0]", values_.getVal(8));
+        assertEq("abs(4,3)", getVal(values_, 0));
+        assertEq("[0]", getVal(values_, 8));
         assertEq(ElResolver.FCT_OPER_PRIO,seq_.getPriority());
     }
 
@@ -411,14 +413,14 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "abs(4,3)[14][5]";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("", opers_.getVal(12));
+        assertEq("", getVal(opers_, 12));
         assertEq(ElResolver.FCT_OPER_PRIO,seq_.getPriority());
-        IntTreeMap<String> values_ = seq_.getValues();
+        StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("abs(4,3)[14]", values_.getVal(0));
-        assertEq("[5]", values_.getVal(12));
+        assertEq("abs(4,3)[14]", getVal(values_, 0));
+        assertEq("[5]", getVal(values_, 12));
         assertEq(ElResolver.FCT_OPER_PRIO,seq_.getPriority());
     }
 
@@ -429,14 +431,14 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "abs(4,3)[0,1]";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("", opers_.getVal(8));
+        assertEq("", getVal(opers_, 8));
         assertEq(ElResolver.FCT_OPER_PRIO,seq_.getPriority());
-        IntTreeMap<String> values_ = seq_.getValues();
+        StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("abs(4,3)", values_.getVal(0));
-        assertEq("[0,1]", values_.getVal(8));
+        assertEq("abs(4,3)", getVal(values_, 0));
+        assertEq("[0,1]", getVal(values_, 8));
         assertEq(ElResolver.FCT_OPER_PRIO,seq_.getPriority());
     }
 
@@ -447,14 +449,14 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "abs(4,3)[14][5,0]";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("", opers_.getVal(12));
+        assertEq("", getVal(opers_, 12));
         assertEq(ElResolver.FCT_OPER_PRIO,seq_.getPriority());
-        IntTreeMap<String> values_ = seq_.getValues();
+        StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("abs(4,3)[14]", values_.getVal(0));
-        assertEq("[5,0]", values_.getVal(12));
+        assertEq("abs(4,3)[14]", getVal(values_, 0));
+        assertEq("[5,0]", getVal(values_, 12));
         assertEq(ElResolver.FCT_OPER_PRIO,seq_.getPriority());
     }
 
@@ -465,14 +467,14 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "abs(4,3)[14,0][5]";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("", opers_.getVal(14));
+        assertEq("", getVal(opers_, 14));
         assertEq(ElResolver.FCT_OPER_PRIO,seq_.getPriority());
-        IntTreeMap<String> values_ = seq_.getValues();
+        StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("abs(4,3)[14,0]", values_.getVal(0));
-        assertEq("[5]", values_.getVal(14));
+        assertEq("abs(4,3)[14,0]", getVal(values_, 0));
+        assertEq("[5]", getVal(values_, 14));
         assertEq(ElResolver.FCT_OPER_PRIO,seq_.getPriority());
     }
 
@@ -483,14 +485,14 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "abs(4,3)[14,0][5,1]";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("", opers_.getVal(14));
+        assertEq("", getVal(opers_, 14));
         assertEq(ElResolver.FCT_OPER_PRIO,seq_.getPriority());
-        IntTreeMap<String> values_ = seq_.getValues();
+        StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("abs(4,3)[14,0]", values_.getVal(0));
-        assertEq("[5,1]", values_.getVal(14));
+        assertEq("abs(4,3)[14,0]", getVal(values_, 0));
+        assertEq("[5,1]", getVal(values_, 14));
         assertEq(ElResolver.FCT_OPER_PRIO,seq_.getPriority());
     }
     @Test
@@ -500,13 +502,13 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "6*(\"a b\"+8)";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("*", opers_.getVal(1));
-        IntTreeMap<String> values_ = seq_.getValues();
+        assertEq("*", getVal(opers_, 1));
+        StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("6", values_.getVal(0));
-        assertEq("(\"a b\"+8)", values_.getVal(2));
+        assertEq("6", getVal(values_, 0));
+        assertEq("(\"a b\"+8)", getVal(values_, 2));
     
         assertEq(ElResolver.MULT_PRIO, seq_.getPriority());
     }
@@ -542,13 +544,13 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = l_.getExpression();
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq(".", opers_.getVal(9));
-        IntTreeMap<String> values_ = seq_.getValues();
+        assertEq(".", getVal(opers_, 9));
+        StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("composite", values_.getVal(0));
-        assertEq("integer", values_.getVal(10));
+        assertEq("composite", getVal(values_, 0));
+        assertEq("integer", getVal(values_, 10));
         assertEq(ElResolver.FCT_OPER_PRIO,seq_.getPriority());
     }
 
@@ -560,7 +562,7 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "var;.call()";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
     }
 
@@ -571,7 +573,7 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "var;.;call()";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
     }
 
@@ -582,13 +584,13 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "var;.call().call()";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq(".", opers_.getVal(11));
-        IntTreeMap<String> values_ = seq_.getValues();
+        assertEq(".", getVal(opers_, 11));
+        StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("var;.call()", values_.getVal(0));
-        assertEq("call()", values_.getVal(12));
+        assertEq("var;.call()", getVal(values_, 0));
+        assertEq("call()", getVal(values_, 12));
     
         assertEq(ElResolver.FCT_OPER_PRIO,seq_.getPriority());
     }
@@ -601,13 +603,13 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "var;.;call().call()";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq(".", opers_.getVal(12));
-        IntTreeMap<String> values_ = seq_.getValues();
+        assertEq(".", getVal(opers_, 12));
+        StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("var;.;call()", values_.getVal(0));
-        assertEq("call()", values_.getVal(13));
+        assertEq("var;.;call()", getVal(values_, 0));
+        assertEq("call()", getVal(values_, 13));
         assertEq(ElResolver.FCT_OPER_PRIO,seq_.getPriority());
     }
 
@@ -618,13 +620,13 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "var;;call().call()";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq(".", opers_.getVal(11));
-        IntTreeMap<String> values_ = seq_.getValues();
+        assertEq(".", getVal(opers_, 11));
+        StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("var;;call()", values_.getVal(0));
-        assertEq("call()", values_.getVal(12));
+        assertEq("var;;call()", getVal(values_, 0));
+        assertEq("call()", getVal(values_, 12));
     
         assertEq(ElResolver.FCT_OPER_PRIO,seq_.getPriority());
     }
@@ -636,13 +638,13 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "var;call().call()";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq(".", opers_.getVal(10));
-        IntTreeMap<String> values_ = seq_.getValues();
+        assertEq(".", getVal(opers_, 10));
+        StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("var;call()", values_.getVal(0));
-        assertEq("call()", values_.getVal(11));
+        assertEq("var;call()", getVal(values_, 0));
+        assertEq("call()", getVal(values_, 11));
     
         assertEq(ElResolver.FCT_OPER_PRIO,seq_.getPriority());
     }
@@ -654,14 +656,14 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "$new java.lang.Integer(\"8\")";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(2, opers_.size());
-        assertEq("(", opers_.getVal(22));
-        assertEq(")", opers_.getVal(26));
-        IntTreeMap<String> values_ = seq_.getValues();
+        assertEq("(", getVal(opers_, 22));
+        assertEq(")", getVal(opers_, 26));
+        StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("$new java.lang.Integer", values_.getVal(0));
-        assertEq("\"8\"", values_.getVal(23));
+        assertEq("$new java.lang.Integer", getVal(values_, 0));
+        assertEq("\"8\"", getVal(values_, 23));
     
         assertTrue(seq_.isCall());
     }
@@ -674,10 +676,10 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "$new java.lang.Integer(\"8\"){}";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(2, opers_.size());
-        assertEq("(", opers_.getVal(22));
-        assertEq(")", opers_.getVal(26));
+        assertEq("(", getVal(opers_, 22));
+        assertEq(")", getVal(opers_, 26));
     }
 
     @Test
@@ -687,13 +689,13 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "call().$new java.lang.Integer(\"8\")";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq(".", opers_.getVal(6));
-        IntTreeMap<String> values_ = seq_.getValues();
+        assertEq(".", getVal(opers_, 6));
+        StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("call()", values_.getVal(0));
-        assertEq("$new java.lang.Integer(\"8\")", values_.getVal(7));
+        assertEq("call()", getVal(values_, 0));
+        assertEq("$new java.lang.Integer(\"8\")", getVal(values_, 7));
     
         assertEq(ElResolver.FCT_OPER_PRIO,seq_.getPriority());
     }
@@ -706,13 +708,13 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "$new java.lang.Integer(\"8\").intValue()";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq(".", opers_.getVal(27));
-        IntTreeMap<String> values_ = seq_.getValues();
+        assertEq(".", getVal(opers_, 27));
+        StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("$new java.lang.Integer(\"8\")", values_.getVal(0));
-        assertEq("intValue()", values_.getVal(28));
+        assertEq("$new java.lang.Integer(\"8\")", getVal(values_, 0));
+        assertEq("intValue()", getVal(values_, 28));
         assertEq(ElResolver.FCT_OPER_PRIO,seq_.getPriority());
     }
 
@@ -724,14 +726,14 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "$new java.lang.Integer[]{8i}";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(2, opers_.size());
-        assertEq("{", opers_.getVal(24));
-        assertEq("}", opers_.getVal(27));
-        IntTreeMap<String> values_ = seq_.getValues();
+        assertEq("{", getVal(opers_, 24));
+        assertEq("}", getVal(opers_, 27));
+        StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("$new java.lang.Integer[]", values_.getVal(0));
-        assertEq("8i", values_.getVal(25));
+        assertEq("$new java.lang.Integer[]", getVal(values_, 0));
+        assertEq("8i", getVal(values_, 25));
         assertTrue(seq_.isInstance());
     }
 
@@ -742,13 +744,13 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "$new java.lang.Integer(\"8\").intValue()+5";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("+", opers_.getVal(38));
-        IntTreeMap<String> values_ = seq_.getValues();
+        assertEq("+", getVal(opers_, 38));
+        StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("$new java.lang.Integer(\"8\").intValue()", values_.getVal(0));
-        assertEq("5", values_.getVal(39));
+        assertEq("$new java.lang.Integer(\"8\").intValue()", getVal(values_, 0));
+        assertEq("5", getVal(values_, 39));
     
         assertEq(ElResolver.ADD_PRIO, seq_.getPriority());
     }
@@ -760,13 +762,13 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "var;.[0]";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("", opers_.getVal(5));
-        IntTreeMap<String> values_ = seq_.getValues();
+        assertEq("", getVal(opers_, 5));
+        StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("var;.", values_.getVal(0));
-        assertEq("[0]", values_.getVal(5));
+        assertEq("var;.", getVal(values_, 0));
+        assertEq("[0]", getVal(values_, 5));
     
         assertEq(ElResolver.FCT_OPER_PRIO,seq_.getPriority());
     }
@@ -778,13 +780,13 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "var;.;[0]";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("", opers_.getVal(6));
-        IntTreeMap<String> values_ = seq_.getValues();
+        assertEq("", getVal(opers_, 6));
+        StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("var;.;", values_.getVal(0));
-        assertEq("[0]", values_.getVal(6));
+        assertEq("var;.;", getVal(values_, 0));
+        assertEq("[0]", getVal(values_, 6));
     
         assertEq(ElResolver.FCT_OPER_PRIO,seq_.getPriority());
     }
@@ -796,13 +798,13 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "var;;[0]";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("", opers_.getVal(5));
-        IntTreeMap<String> values_ = seq_.getValues();
+        assertEq("", getVal(opers_, 5));
+        StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("var;;", values_.getVal(0));
-        assertEq("[0]", values_.getVal(5));
+        assertEq("var;;", getVal(values_, 0));
+        assertEq("[0]", getVal(values_, 5));
     
         assertEq(ElResolver.FCT_OPER_PRIO,seq_.getPriority());
     }
@@ -814,13 +816,13 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "var;[0]";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("", opers_.getVal(4));
-        IntTreeMap<String> values_ = seq_.getValues();
+        assertEq("", getVal(opers_, 4));
+        StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("var;", values_.getVal(0));
-        assertEq("[0]", values_.getVal(4));
+        assertEq("var;", getVal(values_, 0));
+        assertEq("[0]", getVal(values_, 4));
     
         assertEq(ElResolver.FCT_OPER_PRIO,seq_.getPriority());
     }
@@ -832,13 +834,13 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "var;.f[0]";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("", opers_.getVal(6));
-        IntTreeMap<String> values_ = seq_.getValues();
+        assertEq("", getVal(opers_, 6));
+        StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("var;.f", values_.getVal(0));
-        assertEq("[0]", values_.getVal(6));
+        assertEq("var;.f", getVal(values_, 0));
+        assertEq("[0]", getVal(values_, 6));
     
         assertEq(ElResolver.FCT_OPER_PRIO,seq_.getPriority());
     }
@@ -850,13 +852,13 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "var;.;f[0]";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("", opers_.getVal(7));
-        IntTreeMap<String> values_ = seq_.getValues();
+        assertEq("", getVal(opers_, 7));
+        StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("var;.;f", values_.getVal(0));
-        assertEq("[0]", values_.getVal(7));
+        assertEq("var;.;f", getVal(values_, 0));
+        assertEq("[0]", getVal(values_, 7));
     
         assertEq(ElResolver.FCT_OPER_PRIO,seq_.getPriority());
     }
@@ -868,13 +870,13 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "var;;f[0]";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("", opers_.getVal(6));
-        IntTreeMap<String> values_ = seq_.getValues();
+        assertEq("", getVal(opers_, 6));
+        StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("var;;f", values_.getVal(0));
-        assertEq("[0]", values_.getVal(6));
+        assertEq("var;;f", getVal(values_, 0));
+        assertEq("[0]", getVal(values_, 6));
     
         assertEq(ElResolver.FCT_OPER_PRIO,seq_.getPriority());
     }
@@ -886,13 +888,13 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "var;f[0]";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("", opers_.getVal(5));
-        IntTreeMap<String> values_ = seq_.getValues();
+        assertEq("", getVal(opers_, 5));
+        StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("var;f", values_.getVal(0));
-        assertEq("[0]", values_.getVal(5));
+        assertEq("var;f", getVal(values_, 0));
+        assertEq("[0]", getVal(values_, 5));
     
         assertEq(ElResolver.FCT_OPER_PRIO,seq_.getPriority());
     }
@@ -904,13 +906,13 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "var;.f()[0]";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("", opers_.getVal(8));
-        IntTreeMap<String> values_ = seq_.getValues();
+        assertEq("", getVal(opers_, 8));
+        StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("var;.f()", values_.getVal(0));
-        assertEq("[0]", values_.getVal(8));
+        assertEq("var;.f()", getVal(values_, 0));
+        assertEq("[0]", getVal(values_, 8));
     
         assertEq(ElResolver.FCT_OPER_PRIO,seq_.getPriority());
     }
@@ -922,13 +924,13 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "var;.;f()[0]";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("", opers_.getVal(9));
-        IntTreeMap<String> values_ = seq_.getValues();
+        assertEq("", getVal(opers_, 9));
+        StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("var;.;f()", values_.getVal(0));
-        assertEq("[0]", values_.getVal(9));
+        assertEq("var;.;f()", getVal(values_, 0));
+        assertEq("[0]", getVal(values_, 9));
     
         assertEq(ElResolver.FCT_OPER_PRIO,seq_.getPriority());
     }
@@ -940,13 +942,13 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "var;;f()[0]";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("", opers_.getVal(8));
-        IntTreeMap<String> values_ = seq_.getValues();
+        assertEq("", getVal(opers_, 8));
+        StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("var;;f()", values_.getVal(0));
-        assertEq("[0]", values_.getVal(8));
+        assertEq("var;;f()", getVal(values_, 0));
+        assertEq("[0]", getVal(values_, 8));
     
         assertEq(ElResolver.FCT_OPER_PRIO,seq_.getPriority());
     }
@@ -958,13 +960,13 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "var;f()[0]";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("", opers_.getVal(7));
-        IntTreeMap<String> values_ = seq_.getValues();
+        assertEq("", getVal(opers_, 7));
+        StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("var;f()", values_.getVal(0));
-        assertEq("[0]", values_.getVal(7));
+        assertEq("var;f()", getVal(values_, 0));
+        assertEq("[0]", getVal(values_, 7));
         assertEq(ElResolver.FCT_OPER_PRIO,seq_.getPriority());
     }
 
@@ -975,13 +977,13 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "$static(pkg.classname).field";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq(".", opers_.getVal(22));
-        IntTreeMap<String> values_ = seq_.getValues();
+        assertEq(".", getVal(opers_, 22));
+        StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("$static(pkg.classname)", values_.getVal(0));
-        assertEq("field", values_.getVal(23));
+        assertEq("$static(pkg.classname)", getVal(values_, 0));
+        assertEq("field", getVal(values_, 23));
         assertEq(ElResolver.FCT_OPER_PRIO,seq_.getPriority());
     }
 
@@ -992,12 +994,12 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "- -1";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("-", opers_.getVal(0));
-        IntTreeMap<String> values_ = seq_.getValues();
+        assertEq("-", getVal(opers_, 0));
+        StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-        assertEq(" -1", values_.getVal(1));
+        assertEq(" -1", getVal(values_, 1));
     
         assertEq(ElResolver.UNARY_PRIO, seq_.getPriority());
     }
@@ -1009,12 +1011,12 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "-1";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("-", opers_.getVal(0));
-        IntTreeMap<String> values_ = seq_.getValues();
+        assertEq("-", getVal(opers_, 0));
+        StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-        assertEq("1", values_.getVal(1));
+        assertEq("1", getVal(values_, 1));
     
         assertEq(ElResolver.UNARY_PRIO, seq_.getPriority());
     }
@@ -1026,12 +1028,12 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "-1.0";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("-", opers_.getVal(0));
-        IntTreeMap<String> values_ = seq_.getValues();
+        assertEq("-", getVal(opers_, 0));
+        StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-        assertEq("1.0", values_.getVal(1));
+        assertEq("1.0", getVal(values_, 1));
         assertEq(ElResolver.UNARY_PRIO, seq_.getPriority());
     }
 
@@ -1042,13 +1044,13 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "1- -1";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("-", opers_.getVal(1));
-        IntTreeMap<String> values_ = seq_.getValues();
+        assertEq("-", getVal(opers_, 1));
+        StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("1", values_.getVal(0));
-        assertEq(" -1", values_.getVal(2));
+        assertEq("1", getVal(values_, 0));
+        assertEq(" -1", getVal(values_, 2));
         assertEq(ElResolver.ADD_PRIO, seq_.getPriority());
     }
 
@@ -1059,12 +1061,12 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "!a";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("!", opers_.getVal(0));
-        IntTreeMap<String> values_ = seq_.getValues();
+        assertEq("!", getVal(opers_, 0));
+        StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-        assertEq("a", values_.getVal(1));
+        assertEq("a", getVal(values_, 1));
     
         assertEq(ElResolver.UNARY_PRIO, seq_.getPriority());
     }
@@ -1076,12 +1078,12 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "!!a";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("!", opers_.getVal(0));
-        IntTreeMap<String> values_ = seq_.getValues();
+        assertEq("!", getVal(opers_, 0));
+        StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-        assertEq("!a", values_.getVal(1));
+        assertEq("!a", getVal(values_, 1));
     
         assertEq(ElResolver.UNARY_PRIO, seq_.getPriority());
     }
@@ -1093,13 +1095,13 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "b!=a";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("!=", opers_.getVal(1));
-        IntTreeMap<String> values_ = seq_.getValues();
+        assertEq("!=", getVal(opers_, 1));
+        StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("b", values_.getVal(0));
-        assertEq("a", values_.getVal(3));
+        assertEq("b", getVal(values_, 0));
+        assertEq("a", getVal(values_, 3));
     
         assertEq(ElResolver.EQ_PRIO, seq_.getPriority());
     }
@@ -1111,13 +1113,13 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "b<=a";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("<=", opers_.getVal(1));
-        IntTreeMap<String> values_ = seq_.getValues();
+        assertEq("<=", getVal(opers_, 1));
+        StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("b", values_.getVal(0));
-        assertEq("a", values_.getVal(3));
+        assertEq("b", getVal(values_, 0));
+        assertEq("a", getVal(values_, 3));
     
         assertEq(ElResolver.CMP_PRIO, seq_.getPriority());
         assertTrue(!seq_.isInstanceTest());
@@ -1130,13 +1132,13 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "b>=a";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq(">=", opers_.getVal(1));
-        IntTreeMap<String> values_ = seq_.getValues();
+        assertEq(">=", getVal(opers_, 1));
+        StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("b", values_.getVal(0));
-        assertEq("a", values_.getVal(3));
+        assertEq("b", getVal(values_, 0));
+        assertEq("a", getVal(values_, 3));
     
         assertEq(ElResolver.CMP_PRIO, seq_.getPriority());
         assertTrue(!seq_.isInstanceTest());
@@ -1149,13 +1151,13 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "b==a";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("==", opers_.getVal(1));
-        IntTreeMap<String> values_ = seq_.getValues();
+        assertEq("==", getVal(opers_, 1));
+        StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("b", values_.getVal(0));
-        assertEq("a", values_.getVal(3));
+        assertEq("b", getVal(values_, 0));
+        assertEq("a", getVal(values_, 3));
     
         assertEq(ElResolver.EQ_PRIO, seq_.getPriority());
     }
@@ -1167,11 +1169,11 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "\"\\\"string\"";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(0, opers_.size());
-        IntTreeMap<String> values_ = seq_.getValues();
+        StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-        assertEq("\"string", values_.getVal(0));
+        assertEq("\"string", getVal(values_, 0));
         assertSame(ConstType.STRING, seq_.getConstType());
     
         assertEq(ElResolver.CONST_PRIO, seq_.getPriority());
@@ -1184,12 +1186,12 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "'\\''";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(0, opers_.size());
-        IntTreeMap<String> values_ = seq_.getValues();
+        StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
         assertSame(ConstType.CHARACTER, seq_.getConstType());
-        assertEq("'", values_.getVal(0));
+        assertEq("'", getVal(values_, 0));
     
         assertEq(ElResolver.CONST_PRIO, seq_.getPriority());
     }
@@ -1201,12 +1203,12 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "'\\\\'";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(0, opers_.size());
-        IntTreeMap<String> values_ = seq_.getValues();
+        StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
         assertSame(ConstType.CHARACTER, seq_.getConstType());
-        assertEq("\\", values_.getVal(0));
+        assertEq("\\", getVal(values_, 0));
     
         assertEq(ElResolver.CONST_PRIO, seq_.getPriority());
     }
@@ -1218,14 +1220,14 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "$firstopt(\"\\\"string\")";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(2, opers_.size());
-        assertEq("(", opers_.getVal(9));
-        assertEq(")", opers_.getVal(20));
-        IntTreeMap<String> values_ = seq_.getValues();
+        assertEq("(", getVal(opers_, 9));
+        assertEq(")", getVal(opers_, 20));
+        StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("$firstopt", values_.getVal(0));
-        assertEq("\"\\\"string\"", values_.getVal(10));
+        assertEq("$firstopt", getVal(values_, 0));
+        assertEq("\"\\\"string\"", getVal(values_, 10));
     
         assertTrue(seq_.isCall());
     }
@@ -1237,14 +1239,14 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "$firstopt('\\'')";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(2, opers_.size());
-        assertEq("(", opers_.getVal(9));
-        assertEq(")", opers_.getVal(14));
-        IntTreeMap<String> values_ = seq_.getValues();
+        assertEq("(", getVal(opers_, 9));
+        assertEq(")", getVal(opers_, 14));
+        StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("$firstopt", values_.getVal(0));
-        assertEq("'\\''", values_.getVal(10));
+        assertEq("$firstopt", getVal(values_, 0));
+        assertEq("'\\''", getVal(values_, 10));
     
         assertTrue(seq_.isCall());
     }
@@ -1256,14 +1258,14 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "$firstopt('\\\\')";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(2, opers_.size());
-        assertEq("(", opers_.getVal(9));
-        assertEq(")", opers_.getVal(14));
-        IntTreeMap<String> values_ = seq_.getValues();
+        assertEq("(", getVal(opers_, 9));
+        assertEq(")", getVal(opers_, 14));
+        StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("$firstopt", values_.getVal(0));
-        assertEq("'\\\\'", values_.getVal(10));
+        assertEq("$firstopt", getVal(values_, 0));
+        assertEq("'\\\\'", getVal(values_, 10));
     
         assertTrue(seq_.isCall());
     }
@@ -1275,14 +1277,14 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "$firstopt(1.0)";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(2, opers_.size());
-        assertEq("(", opers_.getVal(9));
-        assertEq(")", opers_.getVal(13));
-        IntTreeMap<String> values_ = seq_.getValues();
+        assertEq("(", getVal(opers_, 9));
+        assertEq(")", getVal(opers_, 13));
+        StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("$firstopt", values_.getVal(0));
-        assertEq("1.0", values_.getVal(10));
+        assertEq("$firstopt", getVal(values_, 0));
+        assertEq("1.0", getVal(values_, 10));
     
         assertTrue(seq_.isCall());
     }
@@ -1294,18 +1296,18 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "abs($vararg(java.lang.Object),$firstopt(4),3)";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(4, opers_.size());
-        assertEq("(", opers_.getVal(3));
-        assertEq(",", opers_.getVal(29));
-        assertEq(",", opers_.getVal(42));
-        assertEq(")", opers_.getVal(44));
-        IntTreeMap<String> values_ = seq_.getValues();
+        assertEq("(", getVal(opers_, 3));
+        assertEq(",", getVal(opers_, 29));
+        assertEq(",", getVal(opers_, 42));
+        assertEq(")", getVal(opers_, 44));
+        StrTypes values_ = seq_.getValues();
         assertEq(4, values_.size());
-        assertEq("abs", values_.getVal(0));
-        assertEq("$vararg(java.lang.Object)", values_.getVal(4));
-        assertEq("$firstopt(4)", values_.getVal(30));
-        assertEq("3", values_.getVal(43));
+        assertEq("abs", getVal(values_, 0));
+        assertEq("$vararg(java.lang.Object)", getVal(values_, 4));
+        assertEq("$firstopt(4)", getVal(values_, 30));
+        assertEq("3", getVal(values_, 43));
     
         assertTrue(seq_.isCall());
     }
@@ -1317,18 +1319,18 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "abs($vararg(java.lang.Object),$firstopt(4;.;),3)";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(4, opers_.size());
-        assertEq("(", opers_.getVal(3));
-        assertEq(",", opers_.getVal(29));
-        assertEq(",", opers_.getVal(45));
-        assertEq(")", opers_.getVal(47));
-        IntTreeMap<String> values_ = seq_.getValues();
+        assertEq("(", getVal(opers_, 3));
+        assertEq(",", getVal(opers_, 29));
+        assertEq(",", getVal(opers_, 45));
+        assertEq(")", getVal(opers_, 47));
+        StrTypes values_ = seq_.getValues();
         assertEq(4, values_.size());
-        assertEq("abs", values_.getVal(0));
-        assertEq("$vararg(java.lang.Object)", values_.getVal(4));
-        assertEq("$firstopt(4;.;)", values_.getVal(30));
-        assertEq("3", values_.getVal(46));
+        assertEq("abs", getVal(values_, 0));
+        assertEq("$vararg(java.lang.Object)", getVal(values_, 4));
+        assertEq("$firstopt(4;.;)", getVal(values_, 30));
+        assertEq("3", getVal(values_, 46));
     
         assertTrue(seq_.isCall());
     }
@@ -1340,18 +1342,18 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "abs($vararg(java.lang.Object),$firstopt(4;.),3)";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(4, opers_.size());
-        assertEq("(", opers_.getVal(3));
-        assertEq(",", opers_.getVal(29));
-        assertEq(",", opers_.getVal(44));
-        assertEq(")", opers_.getVal(46));
-        IntTreeMap<String> values_ = seq_.getValues();
+        assertEq("(", getVal(opers_, 3));
+        assertEq(",", getVal(opers_, 29));
+        assertEq(",", getVal(opers_, 44));
+        assertEq(")", getVal(opers_, 46));
+        StrTypes values_ = seq_.getValues();
         assertEq(4, values_.size());
-        assertEq("abs", values_.getVal(0));
-        assertEq("$vararg(java.lang.Object)", values_.getVal(4));
-        assertEq("$firstopt(4;.)", values_.getVal(30));
-        assertEq("3", values_.getVal(45));
+        assertEq("abs", getVal(values_, 0));
+        assertEq("$vararg(java.lang.Object)", getVal(values_, 4));
+        assertEq("$firstopt(4;.)", getVal(values_, 30));
+        assertEq("3", getVal(values_, 45));
     
         assertTrue(seq_.isCall());
     }
@@ -1363,14 +1365,14 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "$firstopt(v;.)";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(2, opers_.size());
-        assertEq("(", opers_.getVal(9));
-        assertEq(")", opers_.getVal(13));
-        IntTreeMap<String> values_ = seq_.getValues();
+        assertEq("(", getVal(opers_, 9));
+        assertEq(")", getVal(opers_, 13));
+        StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("$firstopt", values_.getVal(0));
-        assertEq("v;.", values_.getVal(10));
+        assertEq("$firstopt", getVal(values_, 0));
+        assertEq("v;.", getVal(values_, 10));
     
         assertTrue(seq_.isCall());
     }
@@ -1382,14 +1384,14 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "$firstopt(v;.;)";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(2, opers_.size());
-        assertEq("(", opers_.getVal(9));
-        assertEq(")", opers_.getVal(14));
-        IntTreeMap<String> values_ = seq_.getValues();
+        assertEq("(", getVal(opers_, 9));
+        assertEq(")", getVal(opers_, 14));
+        StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("$firstopt", values_.getVal(0));
-        assertEq("v;.;", values_.getVal(10));
+        assertEq("$firstopt", getVal(values_, 0));
+        assertEq("v;.;", getVal(values_, 10));
     
         assertTrue(seq_.isCall());
     }
@@ -1401,14 +1403,14 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "$firstopt(v;)";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(2, opers_.size());
-        assertEq("(", opers_.getVal(9));
-        assertEq(")", opers_.getVal(12));
-        IntTreeMap<String> values_ = seq_.getValues();
+        assertEq("(", getVal(opers_, 9));
+        assertEq(")", getVal(opers_, 12));
+        StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("$firstopt", values_.getVal(0));
-        assertEq("v;", values_.getVal(10));
+        assertEq("$firstopt", getVal(values_, 0));
+        assertEq("v;", getVal(values_, 10));
     
         assertTrue(seq_.isCall());
     }
@@ -1420,14 +1422,14 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "$firstopt(v;;)";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(2, opers_.size());
-        assertEq("(", opers_.getVal(9));
-        assertEq(")", opers_.getVal(13));
-        IntTreeMap<String> values_ = seq_.getValues();
+        assertEq("(", getVal(opers_, 9));
+        assertEq(")", getVal(opers_, 13));
+        StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("$firstopt", values_.getVal(0));
-        assertEq("v;;", values_.getVal(10));
+        assertEq("$firstopt", getVal(values_, 0));
+        assertEq("v;;", getVal(values_, 10));
     
         assertTrue(seq_.isCall());
     }
@@ -1439,14 +1441,14 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "$firstopt(v;.t)";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(2, opers_.size());
-        assertEq("(", opers_.getVal(9));
-        assertEq(")", opers_.getVal(14));
-        IntTreeMap<String> values_ = seq_.getValues();
+        assertEq("(", getVal(opers_, 9));
+        assertEq(")", getVal(opers_, 14));
+        StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("$firstopt", values_.getVal(0));
-        assertEq("v;.t", values_.getVal(10));
+        assertEq("$firstopt", getVal(values_, 0));
+        assertEq("v;.t", getVal(values_, 10));
     
         assertTrue(seq_.isCall());
     }
@@ -1458,14 +1460,14 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "$firstopt(v;.;t)";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(2, opers_.size());
-        assertEq("(", opers_.getVal(9));
-        assertEq(")", opers_.getVal(15));
-        IntTreeMap<String> values_ = seq_.getValues();
+        assertEq("(", getVal(opers_, 9));
+        assertEq(")", getVal(opers_, 15));
+        StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("$firstopt", values_.getVal(0));
-        assertEq("v;.;t", values_.getVal(10));
+        assertEq("$firstopt", getVal(values_, 0));
+        assertEq("v;.;t", getVal(values_, 10));
     
         assertTrue(seq_.isCall());
     }
@@ -1477,14 +1479,14 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "$firstopt(v;t)";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(2, opers_.size());
-        assertEq("(", opers_.getVal(9));
-        assertEq(")", opers_.getVal(13));
-        IntTreeMap<String> values_ = seq_.getValues();
+        assertEq("(", getVal(opers_, 9));
+        assertEq(")", getVal(opers_, 13));
+        StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("$firstopt", values_.getVal(0));
-        assertEq("v;t", values_.getVal(10));
+        assertEq("$firstopt", getVal(values_, 0));
+        assertEq("v;t", getVal(values_, 10));
     
         assertTrue(seq_.isCall());
     }
@@ -1498,14 +1500,14 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "$firstopt(v;;t)";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(2, opers_.size());
-        assertEq("(", opers_.getVal(9));
-        assertEq(")", opers_.getVal(14));
-        IntTreeMap<String> values_ = seq_.getValues();
+        assertEq("(", getVal(opers_, 9));
+        assertEq(")", getVal(opers_, 14));
+        StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("$firstopt", values_.getVal(0));
-        assertEq("v;;t", values_.getVal(10));
+        assertEq("$firstopt", getVal(values_, 0));
+        assertEq("v;;t", getVal(values_, 10));
     
         assertTrue(seq_.isCall());
     }
@@ -1517,12 +1519,12 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "-10";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("-", opers_.getVal(0));
-        IntTreeMap<String> values_ = seq_.getValues();
+        assertEq("-", getVal(opers_, 0));
+        StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-        assertEq("10", values_.getVal(1));
+        assertEq("10", getVal(values_, 1));
     
         assertEq(ElResolver.UNARY_PRIO, seq_.getPriority());
     }
@@ -1534,12 +1536,12 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "-a";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("-", opers_.getVal(0));
-        IntTreeMap<String> values_ = seq_.getValues();
+        assertEq("-", getVal(opers_, 0));
+        StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-        assertEq("a", values_.getVal(1));
+        assertEq("a", getVal(values_, 1));
     
         assertEq(ElResolver.UNARY_PRIO, seq_.getPriority());
     }
@@ -1551,12 +1553,12 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "-1d";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("-", opers_.getVal(0));
-        IntTreeMap<String> values_ = seq_.getValues();
+        assertEq("-", getVal(opers_, 0));
+        StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-        assertEq("1d", values_.getVal(1));
+        assertEq("1d", getVal(values_, 1));
     
         assertEq(ElResolver.UNARY_PRIO, seq_.getPriority());
     }
@@ -1569,12 +1571,12 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "-1.0d";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("-", opers_.getVal(0));
-        IntTreeMap<String> values_ = seq_.getValues();
+        assertEq("-", getVal(opers_, 0));
+        StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-        assertEq("1.0d", values_.getVal(1));
+        assertEq("1.0d", getVal(values_, 1));
     
         assertEq(ElResolver.UNARY_PRIO, seq_.getPriority());
     }
@@ -1586,13 +1588,13 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "a&&b!=c";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("&&", opers_.getVal(1));
-        IntTreeMap<String> values_ = seq_.getValues();
+        assertEq("&&", getVal(opers_, 1));
+        StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("a", values_.getVal(0));
-        assertEq("b!=c", values_.getVal(3));
+        assertEq("a", getVal(values_, 0));
+        assertEq("b!=c", getVal(values_, 3));
         assertEq(ElResolver.AND_PRIO, seq_.getPriority());
     }
 
@@ -1603,13 +1605,13 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "6*('\\u9Fcb'+8)";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("*", opers_.getVal(1));
-        IntTreeMap<String> values_ = seq_.getValues();
+        assertEq("*", getVal(opers_, 1));
+        StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("6", values_.getVal(0));
-        assertEq("('\\u9Fcb'+8)", values_.getVal(2));
+        assertEq("6", getVal(values_, 0));
+        assertEq("('\\u9Fcb'+8)", getVal(values_, 2));
     
         assertEq(ElResolver.MULT_PRIO, seq_.getPriority());
     }
@@ -1621,13 +1623,13 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "6*(\"\\u9Fcb\"+8)";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("*", opers_.getVal(1));
-        IntTreeMap<String> values_ = seq_.getValues();
+        assertEq("*", getVal(opers_, 1));
+        StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("6", values_.getVal(0));
-        assertEq("(\"\\u9Fcb\"+8)", values_.getVal(2));
+        assertEq("6", getVal(values_, 0));
+        assertEq("(\"\\u9Fcb\"+8)", getVal(values_, 2));
         assertEq(ElResolver.MULT_PRIO, seq_.getPriority());
     }
 
@@ -1638,13 +1640,13 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "6*('\\n'+8)";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("*", opers_.getVal(1));
-        IntTreeMap<String> values_ = seq_.getValues();
+        assertEq("*", getVal(opers_, 1));
+        StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("6", values_.getVal(0));
-        assertEq("('\\n'+8)", values_.getVal(2));
+        assertEq("6", getVal(values_, 0));
+        assertEq("('\\n'+8)", getVal(values_, 2));
     
         assertEq(ElResolver.MULT_PRIO, seq_.getPriority());
     }
@@ -1656,13 +1658,13 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "6*(\"\\n\"+8)";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("*", opers_.getVal(1));
-        IntTreeMap<String> values_ = seq_.getValues();
+        assertEq("*", getVal(opers_, 1));
+        StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("6", values_.getVal(0));
-        assertEq("(\"\\n\"+8)", values_.getVal(2));
+        assertEq("6", getVal(values_, 0));
+        assertEq("(\"\\n\"+8)", getVal(values_, 2));
         assertEq(ElResolver.MULT_PRIO, seq_.getPriority());
     }
 
@@ -1673,13 +1675,13 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "6*('\\r'+8)";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("*", opers_.getVal(1));
-        IntTreeMap<String> values_ = seq_.getValues();
+        assertEq("*", getVal(opers_, 1));
+        StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("6", values_.getVal(0));
-        assertEq("('\\r'+8)", values_.getVal(2));
+        assertEq("6", getVal(values_, 0));
+        assertEq("('\\r'+8)", getVal(values_, 2));
     
         assertEq(ElResolver.MULT_PRIO, seq_.getPriority());
     }
@@ -1691,13 +1693,13 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "6*(\"\\r\"+8)";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("*", opers_.getVal(1));
-        IntTreeMap<String> values_ = seq_.getValues();
+        assertEq("*", getVal(opers_, 1));
+        StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("6", values_.getVal(0));
-        assertEq("(\"\\r\"+8)", values_.getVal(2));
+        assertEq("6", getVal(values_, 0));
+        assertEq("(\"\\r\"+8)", getVal(values_, 2));
     
         assertEq(ElResolver.MULT_PRIO, seq_.getPriority());
     }
@@ -1709,13 +1711,13 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "6*('\\b'+8)";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("*", opers_.getVal(1));
-        IntTreeMap<String> values_ = seq_.getValues();
+        assertEq("*", getVal(opers_, 1));
+        StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("6", values_.getVal(0));
-        assertEq("('\\b'+8)", values_.getVal(2));
+        assertEq("6", getVal(values_, 0));
+        assertEq("('\\b'+8)", getVal(values_, 2));
         assertEq(ElResolver.MULT_PRIO, seq_.getPriority());
     }
 
@@ -1726,13 +1728,13 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "6*(\"\\b\"+8)";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("*", opers_.getVal(1));
-        IntTreeMap<String> values_ = seq_.getValues();
+        assertEq("*", getVal(opers_, 1));
+        StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("6", values_.getVal(0));
-        assertEq("(\"\\b\"+8)", values_.getVal(2));
+        assertEq("6", getVal(values_, 0));
+        assertEq("(\"\\b\"+8)", getVal(values_, 2));
         assertEq(ElResolver.MULT_PRIO, seq_.getPriority());
     }
 
@@ -1743,13 +1745,13 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "6*('\\t'+8)";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("*", opers_.getVal(1));
-        IntTreeMap<String> values_ = seq_.getValues();
+        assertEq("*", getVal(opers_, 1));
+        StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("6", values_.getVal(0));
-        assertEq("('\\t'+8)", values_.getVal(2));
+        assertEq("6", getVal(values_, 0));
+        assertEq("('\\t'+8)", getVal(values_, 2));
         assertEq(ElResolver.MULT_PRIO, seq_.getPriority());
     }
 
@@ -1760,13 +1762,13 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "6*(\"\\t\"+8)";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("*", opers_.getVal(1));
-        IntTreeMap<String> values_ = seq_.getValues();
+        assertEq("*", getVal(opers_, 1));
+        StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("6", values_.getVal(0));
-        assertEq("(\"\\t\"+8)", values_.getVal(2));
+        assertEq("6", getVal(values_, 0));
+        assertEq("(\"\\t\"+8)", getVal(values_, 2));
         assertEq(ElResolver.MULT_PRIO, seq_.getPriority());
     }
 
@@ -1777,13 +1779,13 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "\"\\\"string\"+\"\\\"string\"";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("+", opers_.getVal(10));
-        IntTreeMap<String> values_ = seq_.getValues();
+        assertEq("+", getVal(opers_, 10));
+        StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("\"\\\"string\"", values_.getVal(0));
-        assertEq("\"\\\"string\"", values_.getVal(11));
+        assertEq("\"\\\"string\"", getVal(values_, 0));
+        assertEq("\"\\\"string\"", getVal(values_, 11));
         assertEq(ElResolver.ADD_PRIO, seq_.getPriority());
     }
 
@@ -1794,13 +1796,13 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "\"\\\\\\\"string\"+\"\\\"string\"";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("+", opers_.getVal(12));
-        IntTreeMap<String> values_ = seq_.getValues();
+        assertEq("+", getVal(opers_, 12));
+        StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("\"\\\\\\\"string\"", values_.getVal(0));
-        assertEq("\"\\\"string\"", values_.getVal(13));
+        assertEq("\"\\\\\\\"string\"", getVal(values_, 0));
+        assertEq("\"\\\"string\"", getVal(values_, 13));
     
         assertEq(ElResolver.ADD_PRIO, seq_.getPriority());
     }
@@ -1812,13 +1814,13 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "6*('\\f'+8)";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("*", opers_.getVal(1));
-        IntTreeMap<String> values_ = seq_.getValues();
+        assertEq("*", getVal(opers_, 1));
+        StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("6", values_.getVal(0));
-        assertEq("('\\f'+8)", values_.getVal(2));
+        assertEq("6", getVal(values_, 0));
+        assertEq("('\\f'+8)", getVal(values_, 2));
         assertEq(ElResolver.MULT_PRIO, seq_.getPriority());
     }
 
@@ -1829,13 +1831,13 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "6*(\"\\f\"+8)";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("*", opers_.getVal(1));
-        IntTreeMap<String> values_ = seq_.getValues();
+        assertEq("*", getVal(opers_, 1));
+        StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("6", values_.getVal(0));
-        assertEq("(\"\\f\"+8)", values_.getVal(2));
+        assertEq("6", getVal(values_, 0));
+        assertEq("(\"\\f\"+8)", getVal(values_, 2));
     
         assertEq(ElResolver.MULT_PRIO, seq_.getPriority());
     }
@@ -1847,12 +1849,12 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "!!field";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("!", opers_.getVal(0));
-        IntTreeMap<String> values_ = seq_.getValues();
+        assertEq("!", getVal(opers_, 0));
+        StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-        assertEq("!field", values_.getVal(1));
+        assertEq("!field", getVal(values_, 1));
         assertEq(ElResolver.UNARY_PRIO, seq_.getPriority());
     }
 
@@ -1863,13 +1865,13 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "!field!=anotherfield";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("!=", opers_.getVal(6));
-        IntTreeMap<String> values_ = seq_.getValues();
+        assertEq("!=", getVal(opers_, 6));
+        StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("!field", values_.getVal(0));
-        assertEq("anotherfield", values_.getVal(8));
+        assertEq("!field", getVal(values_, 0));
+        assertEq("anotherfield", getVal(values_, 8));
         assertEq(ElResolver.EQ_PRIO, seq_.getPriority());
     }
 
@@ -1880,13 +1882,13 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "field!=!anotherfield";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("!=", opers_.getVal(5));
-        IntTreeMap<String> values_ = seq_.getValues();
+        assertEq("!=", getVal(opers_, 5));
+        StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("field", values_.getVal(0));
-        assertEq("!anotherfield", values_.getVal(7));
+        assertEq("field", getVal(values_, 0));
+        assertEq("!anotherfield", getVal(values_, 7));
         assertEq(ElResolver.EQ_PRIO, seq_.getPriority());
     }
 
@@ -1897,13 +1899,13 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "!field!=!anotherfield";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("!=", opers_.getVal(6));
-        IntTreeMap<String> values_ = seq_.getValues();
+        assertEq("!=", getVal(opers_, 6));
+        StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("!field", values_.getVal(0));
-        assertEq("!anotherfield", values_.getVal(8));
+        assertEq("!field", getVal(values_, 0));
+        assertEq("!anotherfield", getVal(values_, 8));
         assertEq(ElResolver.EQ_PRIO, seq_.getPriority());
     }
 
@@ -1915,13 +1917,13 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "v;.news.a()";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq(".", opers_.getVal(7));
-        IntTreeMap<String> values_ = seq_.getValues();
+        assertEq(".", getVal(opers_, 7));
+        StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("v;.news", values_.getVal(0));
-        assertEq("a()", values_.getVal(8));
+        assertEq("v;.news", getVal(values_, 0));
+        assertEq("a()", getVal(values_, 8));
     
         assertEq(ElResolver.FCT_OPER_PRIO,seq_.getPriority());
     }
@@ -1955,13 +1957,13 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = l_.getExpression();
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq(".", opers_.getVal(9));
-        IntTreeMap<String> values_ = seq_.getValues();
+        assertEq(".", getVal(opers_, 9));
+        StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("composite", values_.getVal(0));
-        assertEq("getOverridenFour(0)", values_.getVal(10));
+        assertEq("composite", getVal(values_, 0));
+        assertEq("getOverridenFour(0)", getVal(values_, 10));
         assertEq(ElResolver.FCT_OPER_PRIO,seq_.getPriority());
     }
 
@@ -1973,7 +1975,7 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "var;.f";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
     }
 
@@ -1984,7 +1986,7 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "var;.;f";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
     }
 
@@ -1995,12 +1997,12 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "+a";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("+", opers_.getVal(0));
-        IntTreeMap<String> values_ = seq_.getValues();
+        assertEq("+", getVal(opers_, 0));
+        StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-        assertEq("a", values_.getVal(1));
+        assertEq("a", getVal(values_, 1));
     
         assertEq(ElResolver.UNARY_PRIO, seq_.getPriority());
     }
@@ -2012,13 +2014,13 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "a||b";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("||", opers_.getVal(1));
-        IntTreeMap<String> values_ = seq_.getValues();
+        assertEq("||", getVal(opers_, 1));
+        StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("a", values_.getVal(0));
-        assertEq("b", values_.getVal(3));
+        assertEq("a", getVal(values_, 0));
+        assertEq("b", getVal(values_, 3));
     
         assertEq(ElResolver.OR_PRIO, seq_.getPriority());
     }
@@ -2030,13 +2032,13 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "a&&b";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("&&", opers_.getVal(1));
-        IntTreeMap<String> values_ = seq_.getValues();
+        assertEq("&&", getVal(opers_, 1));
+        StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("a", values_.getVal(0));
-        assertEq("b", values_.getVal(3));
+        assertEq("a", getVal(values_, 0));
+        assertEq("b", getVal(values_, 3));
     
         assertEq(ElResolver.AND_PRIO, seq_.getPriority());
     }
@@ -2048,13 +2050,13 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "a||b&&c";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("||", opers_.getVal(1));
-        IntTreeMap<String> values_ = seq_.getValues();
+        assertEq("||", getVal(opers_, 1));
+        StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("a", values_.getVal(0));
-        assertEq("b&&c", values_.getVal(3));
+        assertEq("a", getVal(values_, 0));
+        assertEq("b&&c", getVal(values_, 3));
     
         assertEq(ElResolver.OR_PRIO, seq_.getPriority());
     }
@@ -2066,13 +2068,13 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "a&&b||c";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("||", opers_.getVal(4));
-        IntTreeMap<String> values_ = seq_.getValues();
+        assertEq("||", getVal(opers_, 4));
+        StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("a&&b", values_.getVal(0));
-        assertEq("c", values_.getVal(6));
+        assertEq("a&&b", getVal(values_, 0));
+        assertEq("c", getVal(values_, 6));
     
         assertEq(ElResolver.OR_PRIO, seq_.getPriority());
     }
@@ -2084,13 +2086,13 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "!a||b";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("||", opers_.getVal(2));
-        IntTreeMap<String> values_ = seq_.getValues();
+        assertEq("||", getVal(opers_, 2));
+        StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("!a", values_.getVal(0));
-        assertEq("b", values_.getVal(4));
+        assertEq("!a", getVal(values_, 0));
+        assertEq("b", getVal(values_, 4));
     
         assertEq(ElResolver.OR_PRIO, seq_.getPriority());
     }
@@ -2102,13 +2104,13 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "!a&&b";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("&&", opers_.getVal(2));
-        IntTreeMap<String> values_ = seq_.getValues();
+        assertEq("&&", getVal(opers_, 2));
+        StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("!a", values_.getVal(0));
-        assertEq("b", values_.getVal(4));
+        assertEq("!a", getVal(values_, 0));
+        assertEq("b", getVal(values_, 4));
     
         assertEq(ElResolver.AND_PRIO, seq_.getPriority());
     }
@@ -2120,13 +2122,13 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "!a||b&&c";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("||", opers_.getVal(2));
-        IntTreeMap<String> values_ = seq_.getValues();
+        assertEq("||", getVal(opers_, 2));
+        StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("!a", values_.getVal(0));
-        assertEq("b&&c", values_.getVal(4));
+        assertEq("!a", getVal(values_, 0));
+        assertEq("b&&c", getVal(values_, 4));
     
         assertEq(ElResolver.OR_PRIO, seq_.getPriority());
     }
@@ -2138,13 +2140,13 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "!a&&b||c";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("||", opers_.getVal(5));
-        IntTreeMap<String> values_ = seq_.getValues();
+        assertEq("||", getVal(opers_, 5));
+        StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("!a&&b", values_.getVal(0));
-        assertEq("c", values_.getVal(7));
+        assertEq("!a&&b", getVal(values_, 0));
+        assertEq("c", getVal(values_, 7));
     
         assertEq(ElResolver.OR_PRIO, seq_.getPriority());
     }
@@ -2156,13 +2158,13 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "(a||b)&&c";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("&&", opers_.getVal(6));
-        IntTreeMap<String> values_ = seq_.getValues();
+        assertEq("&&", getVal(opers_, 6));
+        StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("(a||b)", values_.getVal(0));
-        assertEq("c", values_.getVal(8));
+        assertEq("(a||b)", getVal(values_, 0));
+        assertEq("c", getVal(values_, 8));
     
         assertEq(ElResolver.AND_PRIO, seq_.getPriority());
     }
@@ -2174,13 +2176,13 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "(a|b)";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(2, opers_.size());
-        assertEq("(", opers_.getVal(0));
-        assertEq(")", opers_.getVal(4));
-        IntTreeMap<String> values_ = seq_.getValues();
+        assertEq("(", getVal(opers_, 0));
+        assertEq(")", getVal(opers_, 4));
+        StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-        assertEq("a|b", values_.getVal(1));
+        assertEq("a|b", getVal(values_, 1));
     
         assertTrue(seq_.isCall());
     }
@@ -2192,13 +2194,13 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "v;.[0i].array[0i]";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("", opers_.getVal(13));
-        IntTreeMap<String> values_ = seq_.getValues();
+        assertEq("", getVal(opers_, 13));
+        StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("v;.[0i].array", values_.getVal(0));
-        assertEq("[0i]", values_.getVal(13));
+        assertEq("v;.[0i].array", getVal(values_, 0));
+        assertEq("[0i]", getVal(values_, 13));
     
         assertEq(ElResolver.FCT_OPER_PRIO,seq_.getPriority());
     }
@@ -2210,7 +2212,7 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "var;.$new java.lang.Integer(\"8\")";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
     }
 
@@ -2221,11 +2223,11 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "1e2";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(0, opers_.size());
-        IntTreeMap<String> values_ = seq_.getValues();
+        StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-        assertEq("1e2", values_.getVal(0));
+        assertEq("1e2", getVal(values_, 0));
         assertEq(ElResolver.CONST_PRIO, seq_.getPriority());
     }
 
@@ -2236,11 +2238,11 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "1e-2";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(0, opers_.size());
-        IntTreeMap<String> values_ = seq_.getValues();
+        StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-        assertEq("1e-2", values_.getVal(0));
+        assertEq("1e-2", getVal(values_, 0));
         assertEq(ElResolver.CONST_PRIO, seq_.getPriority());
     }
 
@@ -2251,11 +2253,11 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "1.0e2";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(0, opers_.size());
-        IntTreeMap<String> values_ = seq_.getValues();
+        StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-        assertEq("1.0e2", values_.getVal(0));
+        assertEq("1.0e2", getVal(values_, 0));
         assertEq(ElResolver.CONST_PRIO, seq_.getPriority());
     }
 
@@ -2266,11 +2268,11 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "1.0e-2";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(0, opers_.size());
-        IntTreeMap<String> values_ = seq_.getValues();
+        StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-        assertEq("1.0e-2", values_.getVal(0));
+        assertEq("1.0e-2", getVal(values_, 0));
         assertEq(ElResolver.CONST_PRIO, seq_.getPriority());
     }
 
@@ -2281,11 +2283,11 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "1.e2";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(0, opers_.size());
-        IntTreeMap<String> values_ = seq_.getValues();
+        StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-        assertEq("1.e2", values_.getVal(0));
+        assertEq("1.e2", getVal(values_, 0));
         assertEq(ElResolver.CONST_PRIO, seq_.getPriority());
     }
 
@@ -2296,11 +2298,11 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "1.e-2";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(0, opers_.size());
-        IntTreeMap<String> values_ = seq_.getValues();
+        StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-        assertEq("1.e-2", values_.getVal(0));
+        assertEq("1.e-2", getVal(values_, 0));
         assertEq(ElResolver.CONST_PRIO, seq_.getPriority());
     }
 
@@ -2311,11 +2313,11 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = ".1e2";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(0, opers_.size());
-        IntTreeMap<String> values_ = seq_.getValues();
+        StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-        assertEq(".1e2", values_.getVal(0));
+        assertEq(".1e2", getVal(values_, 0));
         assertEq(ElResolver.CONST_PRIO, seq_.getPriority());
     }
 
@@ -2326,11 +2328,11 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = ".1e-2";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(0, opers_.size());
-        IntTreeMap<String> values_ = seq_.getValues();
+        StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-        assertEq(".1e-2", values_.getVal(0));
+        assertEq(".1e-2", getVal(values_, 0));
         assertEq(ElResolver.CONST_PRIO, seq_.getPriority());
     }
 
@@ -2341,11 +2343,11 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = ".1";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(0, opers_.size());
-        IntTreeMap<String> values_ = seq_.getValues();
+        StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-        assertEq(".1", values_.getVal(0));
+        assertEq(".1", getVal(values_, 0));
         assertEq(ElResolver.CONST_PRIO, seq_.getPriority());
     }
 
@@ -2356,12 +2358,12 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "-.1";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("-", opers_.getVal(0));
-        IntTreeMap<String> values_ = seq_.getValues();
+        assertEq("-", getVal(opers_, 0));
+        StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-        assertEq(".1", values_.getVal(1));
+        assertEq(".1", getVal(values_, 1));
         assertEq(ElResolver.UNARY_PRIO, seq_.getPriority());
     }
 
@@ -2372,12 +2374,12 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "-.1e2";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("-", opers_.getVal(0));
-        IntTreeMap<String> values_ = seq_.getValues();
+        assertEq("-", getVal(opers_, 0));
+        StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-        assertEq(".1e2", values_.getVal(1));
+        assertEq(".1e2", getVal(values_, 1));
         assertEq(ElResolver.UNARY_PRIO, seq_.getPriority());
     }
 
@@ -2388,12 +2390,12 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "-.1e-2";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("-", opers_.getVal(0));
-        IntTreeMap<String> values_ = seq_.getValues();
+        assertEq("-", getVal(opers_, 0));
+        StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-        assertEq(".1e-2", values_.getVal(1));
+        assertEq(".1e-2", getVal(values_, 1));
         assertEq(ElResolver.UNARY_PRIO, seq_.getPriority());
     }
 
@@ -2404,11 +2406,11 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "1.";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(0, opers_.size());
-        IntTreeMap<String> values_ = seq_.getValues();
+        StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-        assertEq("1.", values_.getVal(0));
+        assertEq("1.", getVal(values_, 0));
         assertEq(ElResolver.CONST_PRIO, seq_.getPriority());
     }
 
@@ -2419,13 +2421,13 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "-.1e-2+.5";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("+", opers_.getVal(6));
-        IntTreeMap<String> values_ = seq_.getValues();
+        assertEq("+", getVal(opers_, 6));
+        StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("-.1e-2", values_.getVal(0));
-        assertEq(".5", values_.getVal(7));
+        assertEq("-.1e-2", getVal(values_, 0));
+        assertEq(".5", getVal(values_, 7));
         assertEq(ElResolver.ADD_PRIO, seq_.getPriority());
     }
 
@@ -2436,12 +2438,12 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "-.1e-2d";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("-", opers_.getVal(0));
-        IntTreeMap<String> values_ = seq_.getValues();
+        assertEq("-", getVal(opers_, 0));
+        StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-        assertEq(".1e-2d", values_.getVal(1));
+        assertEq(".1e-2d", getVal(values_, 1));
         assertEq(ElResolver.UNARY_PRIO, seq_.getPriority());
     }
 
@@ -2452,16 +2454,16 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "lbs(4,3)";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(3, opers_.size());
-        assertEq("(", opers_.getVal(3));
-        assertEq(",", opers_.getVal(5));
-        assertEq(")", opers_.getVal(7));
-        IntTreeMap<String> values_ = seq_.getValues();
+        assertEq("(", getVal(opers_, 3));
+        assertEq(",", getVal(opers_, 5));
+        assertEq(")", getVal(opers_, 7));
+        StrTypes values_ = seq_.getValues();
         assertEq(3, values_.size());
-        assertEq("lbs", values_.getVal(0));
-        assertEq("4", values_.getVal(4));
-        assertEq("3", values_.getVal(6));
+        assertEq("lbs", getVal(values_, 0));
+        assertEq("4", getVal(values_, 4));
+        assertEq("3", getVal(values_, 6));
         assertTrue(seq_.isCall());
     }
 
@@ -2472,12 +2474,12 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = " !a";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("!", opers_.getVal(1));
-        IntTreeMap<String> values_ = seq_.getValues();
+        assertEq("!", getVal(opers_, 1));
+        StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-        assertEq("a", values_.getVal(2));
+        assertEq("a", getVal(values_, 2));
         assertEq(ElResolver.UNARY_PRIO, seq_.getPriority());
     }
 
@@ -2488,12 +2490,12 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "! a";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("!", opers_.getVal(0));
-        IntTreeMap<String> values_ = seq_.getValues();
+        assertEq("!", getVal(opers_, 0));
+        StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-        assertEq(" a", values_.getVal(1));
+        assertEq(" a", getVal(values_, 1));
         assertEq(ElResolver.UNARY_PRIO, seq_.getPriority());
     }
 
@@ -2504,12 +2506,12 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "- - a";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("-", opers_.getVal(0));
-        IntTreeMap<String> values_ = seq_.getValues();
+        assertEq("-", getVal(opers_, 0));
+        StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-        assertEq(" - a", values_.getVal(1));
+        assertEq(" - a", getVal(values_, 1));
         assertEq(ElResolver.UNARY_PRIO, seq_.getPriority());
     }
 
@@ -2520,12 +2522,12 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "- -a";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("-", opers_.getVal(0));
-        IntTreeMap<String> values_ = seq_.getValues();
+        assertEq("-", getVal(opers_, 0));
+        StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-        assertEq(" -a", values_.getVal(1));
+        assertEq(" -a", getVal(values_, 1));
         assertEq(ElResolver.UNARY_PRIO, seq_.getPriority());
     }
 
@@ -2536,12 +2538,12 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = " - -a";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("-", opers_.getVal(1));
-        IntTreeMap<String> values_ = seq_.getValues();
+        assertEq("-", getVal(opers_, 1));
+        StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-        assertEq(" -a", values_.getVal(2));
+        assertEq(" -a", getVal(values_, 2));
         assertEq(ElResolver.UNARY_PRIO, seq_.getPriority());
     }
 
@@ -2552,12 +2554,12 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "-.1_0e-2d";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("-", opers_.getVal(0));
-        IntTreeMap<String> values_ = seq_.getValues();
+        assertEq("-", getVal(opers_, 0));
+        StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-        assertEq(".1_0e-2d", values_.getVal(1));
+        assertEq(".1_0e-2d", getVal(values_, 1));
         assertEq(ElResolver.UNARY_PRIO, seq_.getPriority());
     }
 
@@ -2568,12 +2570,12 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "-.1e-2_0d";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("-", opers_.getVal(0));
-        IntTreeMap<String> values_ = seq_.getValues();
+        assertEq("-", getVal(opers_, 0));
+        StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-        assertEq(".1e-2_0d", values_.getVal(1));
+        assertEq(".1e-2_0d", getVal(values_, 1));
         assertEq(ElResolver.UNARY_PRIO, seq_.getPriority());
     }
 
@@ -2584,12 +2586,12 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "-.1_0";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("-", opers_.getVal(0));
-        IntTreeMap<String> values_ = seq_.getValues();
+        assertEq("-", getVal(opers_, 0));
+        StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-        assertEq(".1_0", values_.getVal(1));
+        assertEq(".1_0", getVal(values_, 1));
         assertEq(ElResolver.UNARY_PRIO, seq_.getPriority());
     }
 
@@ -2600,12 +2602,12 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "-.1_0d";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("-", opers_.getVal(0));
-        IntTreeMap<String> values_ = seq_.getValues();
+        assertEq("-", getVal(opers_, 0));
+        StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-        assertEq(".1_0d", values_.getVal(1));
+        assertEq(".1_0d", getVal(values_, 1));
         assertEq(ElResolver.UNARY_PRIO, seq_.getPriority());
     }
 
@@ -2616,12 +2618,12 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "-.1e1_0d";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("-", opers_.getVal(0));
-        IntTreeMap<String> values_ = seq_.getValues();
+        assertEq("-", getVal(opers_, 0));
+        StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-        assertEq(".1e1_0d", values_.getVal(1));
+        assertEq(".1e1_0d", getVal(values_, 1));
         assertEq(ElResolver.UNARY_PRIO, seq_.getPriority());
     }
 
@@ -2632,11 +2634,11 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "1_0d";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(0, opers_.size());
-        IntTreeMap<String> values_ = seq_.getValues();
+        StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-        assertEq("1_0d", values_.getVal(0));
+        assertEq("1_0d", getVal(values_, 0));
         assertEq(ElResolver.CONST_PRIO, seq_.getPriority());
     }
 
@@ -2647,11 +2649,11 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = ".1_0";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(0, opers_.size());
-        IntTreeMap<String> values_ = seq_.getValues();
+        StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-        assertEq(".1_0", values_.getVal(0));
+        assertEq(".1_0", getVal(values_, 0));
         assertEq(ElResolver.CONST_PRIO, seq_.getPriority());
     }
 
@@ -2662,11 +2664,11 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = ".1_0d";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(0, opers_.size());
-        IntTreeMap<String> values_ = seq_.getValues();
+        StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-        assertEq(".1_0d", values_.getVal(0));
+        assertEq(".1_0d", getVal(values_, 0));
         assertEq(ElResolver.CONST_PRIO, seq_.getPriority());
     }
 
@@ -2677,12 +2679,12 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "-1_0d";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("-", opers_.getVal(0));
-        IntTreeMap<String> values_ = seq_.getValues();
+        assertEq("-", getVal(opers_, 0));
+        StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-        assertEq("1_0d", values_.getVal(1));
+        assertEq("1_0d", getVal(values_, 1));
         assertEq(ElResolver.UNARY_PRIO, seq_.getPriority());
     }
 
@@ -2693,11 +2695,11 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "1_0d";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(0, opers_.size());
-        IntTreeMap<String> values_ = seq_.getValues();
+        StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-        assertEq("1_0d", values_.getVal(0));
+        assertEq("1_0d", getVal(values_, 0));
         assertEq(ElResolver.CONST_PRIO, seq_.getPriority());
     }
 
@@ -2708,11 +2710,11 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "1.d";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(0, opers_.size());
-        IntTreeMap<String> values_ = seq_.getValues();
+        StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-        assertEq("1.d", values_.getVal(0));
+        assertEq("1.d", getVal(values_, 0));
         assertEq(ElResolver.CONST_PRIO, seq_.getPriority());
     }
  
@@ -2723,12 +2725,12 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "-.2_0e1_0d";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("-", opers_.getVal(0));
-        IntTreeMap<String> values_ = seq_.getValues();
+        assertEq("-", getVal(opers_, 0));
+        StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-        assertEq(".2_0e1_0d", values_.getVal(1));
+        assertEq(".2_0e1_0d", getVal(values_, 1));
         assertEq(ElResolver.UNARY_PRIO, seq_.getPriority());
     }
 
@@ -2739,12 +2741,12 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "-1.2_0e1_0d";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("-", opers_.getVal(0));
-        IntTreeMap<String> values_ = seq_.getValues();
+        assertEq("-", getVal(opers_, 0));
+        StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-        assertEq("1.2_0e1_0d", values_.getVal(1));
+        assertEq("1.2_0e1_0d", getVal(values_, 1));
         assertEq(ElResolver.UNARY_PRIO, seq_.getPriority());
     }
 
@@ -2755,11 +2757,11 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "1.1_0";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(0, opers_.size());
-        IntTreeMap<String> values_ = seq_.getValues();
+        StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-        assertEq("1.1_0", values_.getVal(0));
+        assertEq("1.1_0", getVal(values_, 0));
         assertEq(ElResolver.CONST_PRIO, seq_.getPriority());
     }
     
@@ -2770,11 +2772,11 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "1.1_0d";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(0, opers_.size());
-        IntTreeMap<String> values_ = seq_.getValues();
+        StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-        assertEq("1.1_0d", values_.getVal(0));
+        assertEq("1.1_0d", getVal(values_, 0));
         assertEq(ElResolver.CONST_PRIO, seq_.getPriority());
     }
 
@@ -2785,13 +2787,13 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "$classchoice($math)abs()";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(2, opers_.size());
-        assertEq("(", opers_.getVal(22));
-        assertEq(")", opers_.getVal(23));
-        IntTreeMap<String> values_ = seq_.getValues();
+        assertEq("(", getVal(opers_, 22));
+        assertEq(")", getVal(opers_, 23));
+        StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-        assertEq("$classchoice($math)abs", values_.getVal(0));
+        assertEq("$classchoice($math)abs", getVal(values_, 0));
         assertTrue(seq_.isCall());
     }
 
@@ -2802,13 +2804,13 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "v+=b";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("+=", opers_.getVal(1));
-        IntTreeMap<String> values_ = seq_.getValues();
+        assertEq("+=", getVal(opers_, 1));
+        StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("v", values_.getVal(0));
-        assertEq("b", values_.getVal(3));
+        assertEq("v", getVal(values_, 0));
+        assertEq("b", getVal(values_, 3));
         assertEq(ElResolver.AFF_PRIO, seq_.getPriority());
     }
 
@@ -2819,12 +2821,12 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "v++";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("++", opers_.getVal(1));
-        IntTreeMap<String> values_ = seq_.getValues();
+        assertEq("++", getVal(opers_, 1));
+        StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-        assertEq("v", values_.getVal(0));
+        assertEq("v", getVal(values_, 0));
         assertEq(ElResolver.POST_INCR_PRIO, seq_.getPriority());
     }
     @Test
@@ -2834,11 +2836,11 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "$classchoice($math)abs";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(0, opers_.size());
-        IntTreeMap<String> values_ = seq_.getValues();
+        StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-        assertEq("$classchoice($math)abs", values_.getVal(0));
+        assertEq("$classchoice($math)abs", getVal(values_, 0));
         assertEq(ElResolver.CONST_PRIO, seq_.getPriority());
     }
     @Test
@@ -2848,13 +2850,13 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "$classchoice($math)abs$.field";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq(".", opers_.getVal(23));
-        IntTreeMap<String> values_ = seq_.getValues();
+        assertEq(".", getVal(opers_, 23));
+        StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("$classchoice($math)abs$", values_.getVal(0));
-        assertEq("field", values_.getVal(24));
+        assertEq("$classchoice($math)abs$", getVal(values_, 0));
+        assertEq("field", getVal(values_, 24));
         assertEq(ElResolver.FCT_OPER_PRIO,seq_.getPriority());
     }
     @Test
@@ -2864,13 +2866,13 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "$this()";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(2, opers_.size());
-        assertEq("(", opers_.getVal(5));
-        assertEq(")", opers_.getVal(6));
-        IntTreeMap<String> values_ = seq_.getValues();
+        assertEq("(", getVal(opers_, 5));
+        assertEq(")", getVal(opers_, 6));
+        StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-        assertEq("$this", values_.getVal(0));
+        assertEq("$this", getVal(values_, 0));
         assertTrue(seq_.isCall());
     }
     @Test
@@ -2880,13 +2882,13 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "$this ()";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(2, opers_.size());
-        assertEq("(", opers_.getVal(6));
-        assertEq(")", opers_.getVal(7));
-        IntTreeMap<String> values_ = seq_.getValues();
+        assertEq("(", getVal(opers_, 6));
+        assertEq(")", getVal(opers_, 7));
+        StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-        assertEq("$this ", values_.getVal(0));
+        assertEq("$this ", getVal(values_, 0));
         assertTrue(seq_.isCall());
     }
     @Test
@@ -2896,11 +2898,11 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "$this";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(0, opers_.size());
-        IntTreeMap<String> values_ = seq_.getValues();
+        StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-        assertEq("$this", values_.getVal(0));
+        assertEq("$this", getVal(values_, 0));
         assertEq(ElResolver.CONST_PRIO, seq_.getPriority());
     }
     @Test
@@ -2910,12 +2912,12 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "$($int)1";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("$($int)", opers_.getVal(0));
-        IntTreeMap<String> values_ = seq_.getValues();
+        assertEq("$($int)", getVal(opers_, 0));
+        StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-        assertEq("1", values_.getVal(7));
+        assertEq("1", getVal(values_, 7));
         assertEq(ElResolver.UNARY_PRIO, seq_.getPriority());
     }
     @Test
@@ -2925,12 +2927,12 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "$($int) 1";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("$($int)", opers_.getVal(0));
-        IntTreeMap<String> values_ = seq_.getValues();
+        assertEq("$($int)", getVal(opers_, 0));
+        StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-        assertEq(" 1", values_.getVal(7));
+        assertEq(" 1", getVal(values_, 7));
         assertEq(ElResolver.UNARY_PRIO, seq_.getPriority());
     }
     @Test
@@ -2940,12 +2942,12 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = " $($int)1";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("$($int)", opers_.getVal(1));
-        IntTreeMap<String> values_ = seq_.getValues();
+        assertEq("$($int)", getVal(opers_, 1));
+        StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-        assertEq("1", values_.getVal(8));
+        assertEq("1", getVal(values_, 8));
         assertEq(ElResolver.UNARY_PRIO, seq_.getPriority());
     }
     @Test
@@ -2955,12 +2957,12 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "-$($int)1";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("-", opers_.getVal(0));
-        IntTreeMap<String> values_ = seq_.getValues();
+        assertEq("-", getVal(opers_, 0));
+        StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-        assertEq("$($int)1", values_.getVal(1));
+        assertEq("$($int)1", getVal(values_, 1));
         assertEq(ElResolver.UNARY_PRIO, seq_.getPriority());
     }
     @Test
@@ -2970,12 +2972,12 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "$($int)$($byte)1";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("$($int)", opers_.getVal(0));
-        IntTreeMap<String> values_ = seq_.getValues();
+        assertEq("$($int)", getVal(opers_, 0));
+        StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-        assertEq("$($byte)1", values_.getVal(7));
+        assertEq("$($byte)1", getVal(values_, 7));
         assertEq(ElResolver.UNARY_PRIO, seq_.getPriority());
     }
     @Test
@@ -2985,12 +2987,12 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "1 $instanceof $byte";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("$instanceof $byte", opers_.getVal(2));
-        IntTreeMap<String> values_ = seq_.getValues();
+        assertEq("$instanceof $byte", getVal(opers_, 2));
+        StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-        assertEq("1 ", values_.getVal(0));
+        assertEq("1 ", getVal(values_, 0));
         assertEq(ElResolver.CMP_PRIO, seq_.getPriority());
         assertTrue(seq_.isInstanceTest());
     }
@@ -3001,12 +3003,12 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "1 $instanceof pkg.List<two.Tmp>";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("$instanceof pkg.List<two.Tmp>", opers_.getVal(2));
-        IntTreeMap<String> values_ = seq_.getValues();
+        assertEq("$instanceof pkg.List<two.Tmp>", getVal(opers_, 2));
+        StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-        assertEq("1 ", values_.getVal(0));
+        assertEq("1 ", getVal(values_, 0));
         assertEq(ElResolver.CMP_PRIO, seq_.getPriority());
         assertTrue(seq_.isInstanceTest());
     }
@@ -3017,12 +3019,12 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "1 $instanceof pkg.List<two.Tmp,three.Sec>";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("$instanceof pkg.List<two.Tmp,three.Sec>", opers_.getVal(2));
-        IntTreeMap<String> values_ = seq_.getValues();
+        assertEq("$instanceof pkg.List<two.Tmp,three.Sec>", getVal(opers_, 2));
+        StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-        assertEq("1 ", values_.getVal(0));
+        assertEq("1 ", getVal(values_, 0));
         assertEq(ElResolver.CMP_PRIO, seq_.getPriority());
         assertTrue(seq_.isInstanceTest());
     }
@@ -3033,12 +3035,12 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "1 $instanceof pkg.List<two.Tmp<three.Sec>>";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("$instanceof pkg.List<two.Tmp<three.Sec>>", opers_.getVal(2));
-        IntTreeMap<String> values_ = seq_.getValues();
+        assertEq("$instanceof pkg.List<two.Tmp<three.Sec>>", getVal(opers_, 2));
+        StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-        assertEq("1 ", values_.getVal(0));
+        assertEq("1 ", getVal(values_, 0));
         assertEq(ElResolver.CMP_PRIO, seq_.getPriority());
         assertTrue(seq_.isInstanceTest());
     }
@@ -3049,13 +3051,13 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "1 $instanceof pkg.List<two.Tmp<three.Sec>>==$true";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("==", opers_.getVal(42));
-        IntTreeMap<String> values_ = seq_.getValues();
+        assertEq("==", getVal(opers_, 42));
+        StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("1 $instanceof pkg.List<two.Tmp<three.Sec>>", values_.getVal(0));
-        assertEq("$true", values_.getVal(44));
+        assertEq("1 $instanceof pkg.List<two.Tmp<three.Sec>>", getVal(values_, 0));
+        assertEq("$true", getVal(values_, 44));
         assertEq(ElResolver.EQ_PRIO, seq_.getPriority());
     }
     @Test
@@ -3065,12 +3067,12 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "v; $instanceof $byte";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("$instanceof $byte", opers_.getVal(3));
-        IntTreeMap<String> values_ = seq_.getValues();
+        assertEq("$instanceof $byte", getVal(opers_, 3));
+        StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-        assertEq("v; ", values_.getVal(0));
+        assertEq("v; ", getVal(values_, 0));
         assertEq(ElResolver.CMP_PRIO, seq_.getPriority());
         assertTrue(seq_.isInstanceTest());
     }
@@ -3081,12 +3083,12 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "v $instanceof $byte";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("$instanceof $byte", opers_.getVal(2));
-        IntTreeMap<String> values_ = seq_.getValues();
+        assertEq("$instanceof $byte", getVal(opers_, 2));
+        StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-        assertEq("v ", values_.getVal(0));
+        assertEq("v ", getVal(values_, 0));
         assertEq(ElResolver.CMP_PRIO, seq_.getPriority());
         assertTrue(seq_.isInstanceTest());
     }
@@ -3097,12 +3099,12 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "v() $instanceof $byte";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("$instanceof $byte", opers_.getVal(4));
-        IntTreeMap<String> values_ = seq_.getValues();
+        assertEq("$instanceof $byte", getVal(opers_, 4));
+        StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-        assertEq("v() ", values_.getVal(0));
+        assertEq("v() ", getVal(values_, 0));
         assertEq(ElResolver.CMP_PRIO, seq_.getPriority());
         assertTrue(seq_.isInstanceTest());
     }
@@ -3113,13 +3115,13 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "$true==1 $instanceof pkg.List<two.Tmp<three.Sec>>";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("==", opers_.getVal(5));
-        IntTreeMap<String> values_ = seq_.getValues();
+        assertEq("==", getVal(opers_, 5));
+        StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("1 $instanceof pkg.List<two.Tmp<three.Sec>>", values_.getVal(7));
-        assertEq("$true", values_.getVal(0));
+        assertEq("1 $instanceof pkg.List<two.Tmp<three.Sec>>", getVal(values_, 7));
+        assertEq("$true", getVal(values_, 0));
         assertEq(ElResolver.EQ_PRIO, seq_.getPriority());
     }
     @Test
@@ -3129,12 +3131,12 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "1 $instanceof #T";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("$instanceof #T", opers_.getVal(2));
-        IntTreeMap<String> values_ = seq_.getValues();
+        assertEq("$instanceof #T", getVal(opers_, 2));
+        StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-        assertEq("1 ", values_.getVal(0));
+        assertEq("1 ", getVal(values_, 0));
         assertEq(ElResolver.CMP_PRIO, seq_.getPriority());
         assertTrue(seq_.isInstanceTest());
     }
@@ -3145,12 +3147,12 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "1 $instanceof pkg . One";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("$instanceof pkg . One", opers_.getVal(2));
-        IntTreeMap<String> values_ = seq_.getValues();
+        assertEq("$instanceof pkg . One", getVal(opers_, 2));
+        StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-        assertEq("1 ", values_.getVal(0));
+        assertEq("1 ", getVal(values_, 0));
         assertEq(ElResolver.CMP_PRIO, seq_.getPriority());
         assertTrue(seq_.isInstanceTest());
     }
@@ -3161,14 +3163,14 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "$interfaces(pkg.MyClass)(arg;.)";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(2, opers_.size());
-        assertEq("(", opers_.getVal(24));
-        assertEq(")", opers_.getVal(30));
-        IntTreeMap<String> values_ = seq_.getValues();
+        assertEq("(", getVal(opers_, 24));
+        assertEq(")", getVal(opers_, 30));
+        StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("$interfaces(pkg.MyClass)", values_.getVal(0));
-        assertEq("arg;.", values_.getVal(25));
+        assertEq("$interfaces(pkg.MyClass)", getVal(values_, 0));
+        assertEq("arg;.", getVal(values_, 25));
         assertTrue(seq_.isCall());
     }
 
@@ -3179,14 +3181,14 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "[0]";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(2, opers_.size());
-        assertEq("[", opers_.getVal(0));
-        assertEq("]", opers_.getVal(2));
-        IntTreeMap<String> values_ = seq_.getValues();
+        assertEq("[", getVal(opers_, 0));
+        assertEq("]", getVal(opers_, 2));
+        StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("", values_.getVal(0));
-        assertEq("0", values_.getVal(1));
+        assertEq("", getVal(values_, 0));
+        assertEq("0", getVal(values_, 1));
         assertTrue(!seq_.isCallDbArray());
         assertTrue(seq_.isArray());
     }
@@ -3198,13 +3200,13 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "-.1e-2-.5";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("-", opers_.getVal(6));
-        IntTreeMap<String> values_ = seq_.getValues();
+        assertEq("-", getVal(opers_, 6));
+        StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("-.1e-2", values_.getVal(0));
-        assertEq(".5", values_.getVal(7));
+        assertEq("-.1e-2", getVal(values_, 0));
+        assertEq(".5", getVal(values_, 7));
         assertEq(ElResolver.ADD_PRIO, seq_.getPriority());
     }
     @Test
@@ -3214,12 +3216,12 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "1 $instanceof pkg.List<two.Tmp<three.Sec>>..Inner<other>";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("$instanceof pkg.List<two.Tmp<three.Sec>>..Inner<other>", opers_.getVal(2));
-        IntTreeMap<String> values_ = seq_.getValues();
+        assertEq("$instanceof pkg.List<two.Tmp<three.Sec>>..Inner<other>", getVal(opers_, 2));
+        StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-        assertEq("1 ", values_.getVal(0));
+        assertEq("1 ", getVal(values_, 0));
         assertEq(ElResolver.CMP_PRIO, seq_.getPriority());
         assertTrue(seq_.isInstanceTest());
     }
@@ -3230,13 +3232,13 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "1 $instanceof pkg.List<two.Tmp<three.Sec>>..Inner<other>==$true";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("==", opers_.getVal(56));
-        IntTreeMap<String> values_ = seq_.getValues();
+        assertEq("==", getVal(opers_, 56));
+        StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("1 $instanceof pkg.List<two.Tmp<three.Sec>>..Inner<other>", values_.getVal(0));
-        assertEq("$true", values_.getVal(58));
+        assertEq("1 $instanceof pkg.List<two.Tmp<three.Sec>>..Inner<other>", getVal(values_, 0));
+        assertEq("$true", getVal(values_, 58));
         assertEq(ElResolver.EQ_PRIO, seq_.getPriority());
     }
     @Test
@@ -3246,12 +3248,12 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "v; $instanceof $byte[]";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("$instanceof $byte[]", opers_.getVal(3));
-        IntTreeMap<String> values_ = seq_.getValues();
+        assertEq("$instanceof $byte[]", getVal(opers_, 3));
+        StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-        assertEq("v; ", values_.getVal(0));
+        assertEq("v; ", getVal(values_, 0));
         assertEq(ElResolver.CMP_PRIO, seq_.getPriority());
         assertTrue(seq_.isInstanceTest());
     }
@@ -3286,13 +3288,13 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = l_.getValue();
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("=", opers_.getVal(5));
-        IntTreeMap<String> values_ = seq_.getValues();
+        assertEq("=", getVal(opers_, 5));
+        StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("inst ", values_.getVal(0));
-        assertEq(" pkg.Ex.exmeth(0i)", values_.getVal(6));
+        assertEq("inst ", getVal(values_, 0));
+        assertEq(" pkg.Ex.exmeth(0i)", getVal(values_, 6));
         assertEq(ElResolver.AFF_PRIO, seq_.getPriority());
         assertEq("", seq_.getExtractType());
         assertEq(1, d_.getDelKeyWordStaticExtract().size());
@@ -3330,13 +3332,13 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = l_.getValue();
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("=", opers_.getVal(5));
-        IntTreeMap<String> values_ = seq_.getValues();
+        assertEq("=", getVal(opers_, 5));
+        StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("inst ", values_.getVal(0));
-        assertEq(" Ex.exmeth(0i)", values_.getVal(6));
+        assertEq("inst ", getVal(values_, 0));
+        assertEq(" Ex.exmeth(0i)", getVal(values_, 6));
         assertEq(ElResolver.AFF_PRIO, seq_.getPriority());
         assertEq("", seq_.getExtractType());
         assertEq(1, d_.getDelKeyWordStaticExtract().size());
@@ -3373,13 +3375,13 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = l_.getValue();
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("=", opers_.getVal(5));
-        IntTreeMap<String> values_ = seq_.getValues();
+        assertEq("=", getVal(opers_, 5));
+        StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("inst ", values_.getVal(0));
-        assertEq(" $Class.forName(\"\")", values_.getVal(6));
+        assertEq("inst ", getVal(values_, 0));
+        assertEq(" $Class.forName(\"\")", getVal(values_, 6));
         assertEq(ElResolver.AFF_PRIO, seq_.getPriority());
         assertEq("", seq_.getExtractType());
         assertEq(1, d_.getDelKeyWordStaticExtract().size());
@@ -3418,13 +3420,13 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = l_.getValue();
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("=", opers_.getVal(5));
-        IntTreeMap<String> values_ = seq_.getValues();
+        assertEq("=", getVal(opers_, 5));
+        StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("inst ", values_.getVal(0));
-        assertEq(" Ex.exmeth(0i)", values_.getVal(6));
+        assertEq("inst ", getVal(values_, 0));
+        assertEq(" Ex.exmeth(0i)", getVal(values_, 6));
         assertEq(ElResolver.AFF_PRIO, seq_.getPriority());
         assertEq("", seq_.getExtractType());
         assertEq(1, d_.getDelKeyWordStaticExtract().size());
@@ -3471,13 +3473,13 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = l_.getValue();
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("=", opers_.getVal(5));
-        IntTreeMap<String> values_ = seq_.getValues();
+        assertEq("=", getVal(opers_, 5));
+        StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("inst ", values_.getVal(0));
-        assertEq(" pkg.ExThree.Ex.inst", values_.getVal(6));
+        assertEq("inst ", getVal(values_, 0));
+        assertEq(" pkg.ExThree.Ex.inst", getVal(values_, 6));
         assertEq(ElResolver.AFF_PRIO, seq_.getPriority());
         assertEq("", seq_.getExtractType());
         assertEq(1, d_.getDelKeyWordStaticExtract().size());
@@ -3516,13 +3518,13 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = l_.getValue();
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("=", opers_.getVal(5));
-        IntTreeMap<String> values_ = seq_.getValues();
+        assertEq("=", getVal(opers_, 5));
+        StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("inst ", values_.getVal(0));
-        assertEq(" ExTwo.Ex.exmeth(0i)", values_.getVal(6));
+        assertEq("inst ", getVal(values_, 0));
+        assertEq(" ExTwo.Ex.exmeth(0i)", getVal(values_, 6));
         assertEq(ElResolver.AFF_PRIO, seq_.getPriority());
         assertEq("", seq_.getExtractType());
         assertEq(1, d_.getDelKeyWordStaticExtract().size());
@@ -3537,15 +3539,15 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "a<b>c";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(2, opers_.size());
-        assertEq("<", opers_.getVal(1));
-        assertEq(">", opers_.getVal(3));
-        IntTreeMap<String> values_ = seq_.getValues();
+        assertEq("<", getVal(opers_, 1));
+        assertEq(">", getVal(opers_, 3));
+        StrTypes values_ = seq_.getValues();
         assertEq(3, values_.size());
-        assertEq("a", values_.getVal(0));
-        assertEq("b", values_.getVal(2));
-        assertEq("c", values_.getVal(4));
+        assertEq("a", getVal(values_, 0));
+        assertEq("b", getVal(values_, 2));
+        assertEq("c", getVal(values_, 4));
     
         assertEq(ElResolver.CMP_PRIO, seq_.getPriority());
         assertTrue(!seq_.isInstanceTest());
@@ -3558,14 +3560,14 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "$new java.lang.Integer[8i]";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(2, opers_.size());
-        assertEq("[", opers_.getVal(22));
-        assertEq("]", opers_.getVal(25));
-        IntTreeMap<String> values_ = seq_.getValues();
+        assertEq("[", getVal(opers_, 22));
+        assertEq("]", getVal(opers_, 25));
+        StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("$new java.lang.Integer", values_.getVal(0));
-        assertEq("8i", values_.getVal(23));
+        assertEq("$new java.lang.Integer", getVal(values_, 0));
+        assertEq("8i", getVal(values_, 23));
         assertTrue(seq_.isInstance());
         assertEq(0, seq_.getCountArrays());
     }
@@ -3577,14 +3579,14 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "$new java.lang.Integer[8i][]";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(2, opers_.size());
-        assertEq("[", opers_.getVal(22));
-        assertEq("]", opers_.getVal(25));
-        IntTreeMap<String> values_ = seq_.getValues();
+        assertEq("[", getVal(opers_, 22));
+        assertEq("]", getVal(opers_, 25));
+        StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("$new java.lang.Integer", values_.getVal(0));
-        assertEq("8i", values_.getVal(23));
+        assertEq("$new java.lang.Integer", getVal(values_, 0));
+        assertEq("8i", getVal(values_, 23));
         assertTrue(seq_.isInstance());
         assertEq(1, seq_.getCountArrays());
     }
@@ -3596,17 +3598,17 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "$new java.lang.Integer[8i][5i]";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(4, opers_.size());
-        assertEq("[", opers_.getVal(22));
-        assertEq("]", opers_.getVal(25));
-        assertEq("[", opers_.getVal(26));
-        assertEq("]", opers_.getVal(29));
-        IntTreeMap<String> values_ = seq_.getValues();
+        assertEq("[", getVal(opers_, 22));
+        assertEq("]", getVal(opers_, 25));
+        assertEq("[", getVal(opers_, 26));
+        assertEq("]", getVal(opers_, 29));
+        StrTypes values_ = seq_.getValues();
         assertEq(3, values_.size());
-        assertEq("$new java.lang.Integer", values_.getVal(0));
-        assertEq("8i", values_.getVal(23));
-        assertEq("5i", values_.getVal(27));
+        assertEq("$new java.lang.Integer", getVal(values_, 0));
+        assertEq("8i", getVal(values_, 23));
+        assertEq("5i", getVal(values_, 27));
         assertTrue(seq_.isInstance());
         assertEq(0, seq_.getCountArrays());
     }
@@ -3618,14 +3620,14 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "$new java.lang.Integer[8i][][]";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(2, opers_.size());
-        assertEq("[", opers_.getVal(22));
-        assertEq("]", opers_.getVal(25));
-        IntTreeMap<String> values_ = seq_.getValues();
+        assertEq("[", getVal(opers_, 22));
+        assertEq("]", getVal(opers_, 25));
+        StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("$new java.lang.Integer", values_.getVal(0));
-        assertEq("8i", values_.getVal(23));
+        assertEq("$new java.lang.Integer", getVal(values_, 0));
+        assertEq("8i", getVal(values_, 23));
         assertTrue(seq_.isInstance());
         assertEq(2, seq_.getCountArrays());
     }
@@ -3636,14 +3638,14 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "$new List<java.lang.Integer>[8i]";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(2, opers_.size());
-        assertEq("[", opers_.getVal(28));
-        assertEq("]", opers_.getVal(31));
-        IntTreeMap<String> values_ = seq_.getValues();
+        assertEq("[", getVal(opers_, 28));
+        assertEq("]", getVal(opers_, 31));
+        StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("$new List<java.lang.Integer>", values_.getVal(0));
-        assertEq("8i", values_.getVal(29));
+        assertEq("$new List<java.lang.Integer>", getVal(values_, 0));
+        assertEq("8i", getVal(values_, 29));
         assertTrue(seq_.isInstance());
         assertEq(0, seq_.getCountArrays());
     }
@@ -3654,14 +3656,14 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "$new List<java.lang.Integer[]>[8i]";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(2, opers_.size());
-        assertEq("[", opers_.getVal(30));
-        assertEq("]", opers_.getVal(33));
-        IntTreeMap<String> values_ = seq_.getValues();
+        assertEq("[", getVal(opers_, 30));
+        assertEq("]", getVal(opers_, 33));
+        StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("$new List<java.lang.Integer[]>", values_.getVal(0));
-        assertEq("8i", values_.getVal(31));
+        assertEq("$new List<java.lang.Integer[]>", getVal(values_, 0));
+        assertEq("8i", getVal(values_, 31));
         assertTrue(seq_.isInstance());
         assertEq(0, seq_.getCountArrays());
     }
@@ -3672,14 +3674,14 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "$new List<java.lang.Integer[]>[8i][]";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(2, opers_.size());
-        assertEq("[", opers_.getVal(30));
-        assertEq("]", opers_.getVal(33));
-        IntTreeMap<String> values_ = seq_.getValues();
+        assertEq("[", getVal(opers_, 30));
+        assertEq("]", getVal(opers_, 33));
+        StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("$new List<java.lang.Integer[]>", values_.getVal(0));
-        assertEq("8i", values_.getVal(31));
+        assertEq("$new List<java.lang.Integer[]>", getVal(values_, 0));
+        assertEq("8i", getVal(values_, 31));
         assertTrue(seq_.isInstance());
         assertEq(1, seq_.getCountArrays());
     }
@@ -3691,14 +3693,14 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "$new java.lang.Integer(8i)";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(2, opers_.size());
-        assertEq("(", opers_.getVal(22));
-        assertEq(")", opers_.getVal(25));
-        IntTreeMap<String> values_ = seq_.getValues();
+        assertEq("(", getVal(opers_, 22));
+        assertEq(")", getVal(opers_, 25));
+        StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("$new java.lang.Integer", values_.getVal(0));
-        assertEq("8i", values_.getVal(23));
+        assertEq("$new java.lang.Integer", getVal(values_, 0));
+        assertEq("8i", getVal(values_, 23));
         assertTrue(seq_.isInstance());
         assertEq(0, seq_.getCountArrays());
     }
@@ -3724,13 +3726,13 @@ public final class ElResolverTest extends ProcessMethodCommon {
         vi_.setLastChar(21);
         d_.getVariables().add(vi_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq(".", opers_.getVal(17));
-        IntTreeMap<String> values_ = seq_.getValues();
+        assertEq(".", getVal(opers_, 17));
+        StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("composite.integer", values_.getVal(0));
-        assertEq("int", values_.getVal(18));
+        assertEq("composite.integer", getVal(values_, 0));
+        assertEq("int", getVal(values_, 18));
         assertEq(ElResolver.FCT_OPER_PRIO,seq_.getPriority());
     }
 
@@ -3741,13 +3743,13 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "integer=1=0";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("=", opers_.getVal(7));
-        IntTreeMap<String> values_ = seq_.getValues();
+        assertEq("=", getVal(opers_, 7));
+        StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("integer", values_.getVal(0));
-        assertEq("1=0", values_.getVal(8));
+        assertEq("integer", getVal(values_, 0));
+        assertEq("1=0", getVal(values_, 8));
         assertEq(ElResolver.AFF_PRIO, seq_.getPriority());
         assertTrue(!seq_.isCallDbArray());
         assertEq(0, seq_.getCountArrays());
@@ -3759,12 +3761,12 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "1 $instanceof pkg.List<two.Tmp>[]";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("$instanceof pkg.List<two.Tmp>[]", opers_.getVal(2));
-        IntTreeMap<String> values_ = seq_.getValues();
+        assertEq("$instanceof pkg.List<two.Tmp>[]", getVal(opers_, 2));
+        StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-        assertEq("1 ", values_.getVal(0));
+        assertEq("1 ", getVal(values_, 0));
         assertEq(ElResolver.CMP_PRIO, seq_.getPriority());
         assertTrue(seq_.isInstanceTest());
     }
@@ -3775,12 +3777,12 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "1 $instanceof pkg.List<two.Tmp>[ ]";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("$instanceof pkg.List<two.Tmp>[ ]", opers_.getVal(2));
-        IntTreeMap<String> values_ = seq_.getValues();
+        assertEq("$instanceof pkg.List<two.Tmp>[ ]", getVal(opers_, 2));
+        StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-        assertEq("1 ", values_.getVal(0));
+        assertEq("1 ", getVal(values_, 0));
         assertEq(ElResolver.CMP_PRIO, seq_.getPriority());
         assertTrue(seq_.isInstanceTest());
     }
@@ -3791,12 +3793,12 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "1 $instanceof $byte[ ]";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("$instanceof $byte[ ]", opers_.getVal(2));
-        IntTreeMap<String> values_ = seq_.getValues();
+        assertEq("$instanceof $byte[ ]", getVal(opers_, 2));
+        StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-        assertEq("1 ", values_.getVal(0));
+        assertEq("1 ", getVal(values_, 0));
         assertEq(ElResolver.CMP_PRIO, seq_.getPriority());
         assertTrue(seq_.isInstanceTest());
     }
@@ -3807,12 +3809,12 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "1 $instanceof pkg.List<two.Tmp> []";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("$instanceof pkg.List<two.Tmp> []", opers_.getVal(2));
-        IntTreeMap<String> values_ = seq_.getValues();
+        assertEq("$instanceof pkg.List<two.Tmp> []", getVal(opers_, 2));
+        StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-        assertEq("1 ", values_.getVal(0));
+        assertEq("1 ", getVal(values_, 0));
         assertEq(ElResolver.CMP_PRIO, seq_.getPriority());
         assertTrue(seq_.isInstanceTest());
     }
@@ -3823,14 +3825,14 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "abs(4,3)[0](1,2)";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("", opers_.getVal(11));
+        assertEq("", getVal(opers_, 11));
         assertEq(ElResolver.FCT_OPER_PRIO,seq_.getPriority());
-        IntTreeMap<String> values_ = seq_.getValues();
+        StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("abs(4,3)[0]", values_.getVal(0));
-        assertEq("(1,2)", values_.getVal(11));
+        assertEq("abs(4,3)[0]", getVal(values_, 0));
+        assertEq("(1,2)", getVal(values_, 11));
         assertEq(ElResolver.FCT_OPER_PRIO,seq_.getPriority());
     }
     @Test
@@ -3840,14 +3842,14 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "abs(4,3)[0](1)";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("", opers_.getVal(11));
+        assertEq("", getVal(opers_, 11));
         assertEq(ElResolver.FCT_OPER_PRIO,seq_.getPriority());
-        IntTreeMap<String> values_ = seq_.getValues();
+        StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("abs(4,3)[0]", values_.getVal(0));
-        assertEq("(1)", values_.getVal(11));
+        assertEq("abs(4,3)[0]", getVal(values_, 0));
+        assertEq("(1)", getVal(values_, 11));
         assertEq(ElResolver.FCT_OPER_PRIO,seq_.getPriority());
     }
     @Test
@@ -3857,14 +3859,14 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "abs(4,3)[0]((1,2))";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("", opers_.getVal(11));
+        assertEq("", getVal(opers_, 11));
         assertEq(ElResolver.FCT_OPER_PRIO,seq_.getPriority());
-        IntTreeMap<String> values_ = seq_.getValues();
+        StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("abs(4,3)[0]", values_.getVal(0));
-        assertEq("((1,2))", values_.getVal(11));
+        assertEq("abs(4,3)[0]", getVal(values_, 0));
+        assertEq("((1,2))", getVal(values_, 11));
         assertEq(ElResolver.FCT_OPER_PRIO,seq_.getPriority());
     }
     @Test
@@ -3874,14 +3876,14 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "abs(4,3)[0](-(1,2))";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("", opers_.getVal(11));
+        assertEq("", getVal(opers_, 11));
         assertEq(ElResolver.FCT_OPER_PRIO,seq_.getPriority());
-        IntTreeMap<String> values_ = seq_.getValues();
+        StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("abs(4,3)[0]", values_.getVal(0));
-        assertEq("(-(1,2))", values_.getVal(11));
+        assertEq("abs(4,3)[0]", getVal(values_, 0));
+        assertEq("(-(1,2))", getVal(values_, 11));
         assertEq(ElResolver.FCT_OPER_PRIO,seq_.getPriority());
     }
     @Test
@@ -3891,13 +3893,13 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "((1))";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(2, opers_.size());
-        assertEq("(", opers_.getVal(0));
-        assertEq(")", opers_.getVal(4));
-        IntTreeMap<String> values_ = seq_.getValues();
+        assertEq("(", getVal(opers_, 0));
+        assertEq(")", getVal(opers_, 4));
+        StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-        assertEq("(1)", values_.getVal(1));
+        assertEq("(1)", getVal(values_, 1));
         assertEq(ElResolver.FCT_OPER_PRIO,seq_.getPriority());
     }
     @Test
@@ -3907,13 +3909,13 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "(1)=5";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("=", opers_.getVal(3));
-        IntTreeMap<String> values_ = seq_.getValues();
+        assertEq("=", getVal(opers_, 3));
+        StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("(1)", values_.getVal(0));
-        assertEq("5", values_.getVal(4));
+        assertEq("(1)", getVal(values_, 0));
+        assertEq("5", getVal(values_, 4));
         assertEq(ElResolver.AFF_PRIO,seq_.getPriority());
     }
     @Test
@@ -3923,14 +3925,14 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "abs(4,3)[0]{1}";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("", opers_.getVal(11));
+        assertEq("", getVal(opers_, 11));
         assertEq(ElResolver.FCT_OPER_PRIO,seq_.getPriority());
-        IntTreeMap<String> values_ = seq_.getValues();
+        StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("abs(4,3)[0]", values_.getVal(0));
-        assertEq("{1}", values_.getVal(11));
+        assertEq("abs(4,3)[0]", getVal(values_, 0));
+        assertEq("{1}", getVal(values_, 11));
         assertEq(ElResolver.FCT_OPER_PRIO,seq_.getPriority());
     }
 
@@ -3941,11 +3943,11 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "0x1";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(0, opers_.size());
-        IntTreeMap<String> values_ = seq_.getValues();
+        StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-        assertEq("0x1", values_.getVal(0));
+        assertEq("0x1", getVal(values_, 0));
         assertEq(ElResolver.CONST_PRIO, seq_.getPriority());
         CustList<NumberInfos> ni_ = d_.getNbInfos();
         assertEq(1, ni_.size());
@@ -3963,11 +3965,11 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "0x1f";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(0, opers_.size());
-        IntTreeMap<String> values_ = seq_.getValues();
+        StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-        assertEq("0x1f", values_.getVal(0));
+        assertEq("0x1f", getVal(values_, 0));
         assertEq(ElResolver.CONST_PRIO, seq_.getPriority());
         CustList<NumberInfos> ni_ = d_.getNbInfos();
         assertEq(1, ni_.size());
@@ -3985,11 +3987,11 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "0x1p0";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(0, opers_.size());
-        IntTreeMap<String> values_ = seq_.getValues();
+        StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-        assertEq("0x1p0", values_.getVal(0));
+        assertEq("0x1p0", getVal(values_, 0));
         assertEq(ElResolver.CONST_PRIO, seq_.getPriority());
         CustList<NumberInfos> ni_ = d_.getNbInfos();
         assertEq(1, ni_.size());
@@ -4007,11 +4009,11 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "0x1fp0";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(0, opers_.size());
-        IntTreeMap<String> values_ = seq_.getValues();
+        StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-        assertEq("0x1fp0", values_.getVal(0));
+        assertEq("0x1fp0", getVal(values_, 0));
         assertEq(ElResolver.CONST_PRIO, seq_.getPriority());
         CustList<NumberInfos> ni_ = d_.getNbInfos();
         assertEq(1, ni_.size());
@@ -4029,11 +4031,11 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "0x1.2p0";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(0, opers_.size());
-        IntTreeMap<String> values_ = seq_.getValues();
+        StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-        assertEq("0x1.2p0", values_.getVal(0));
+        assertEq("0x1.2p0", getVal(values_, 0));
         assertEq(ElResolver.CONST_PRIO, seq_.getPriority());
         CustList<NumberInfos> ni_ = d_.getNbInfos();
         assertEq(1, ni_.size());
@@ -4051,11 +4053,11 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "0x1f.2p0";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(0, opers_.size());
-        IntTreeMap<String> values_ = seq_.getValues();
+        StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-        assertEq("0x1f.2p0", values_.getVal(0));
+        assertEq("0x1f.2p0", getVal(values_, 0));
         assertEq(ElResolver.CONST_PRIO, seq_.getPriority());
         CustList<NumberInfos> ni_ = d_.getNbInfos();
         assertEq(1, ni_.size());
@@ -4073,11 +4075,11 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "`18`";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(0, opers_.size());
-        IntTreeMap<String> values_ = seq_.getValues();
+        StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-        assertEq("18", values_.getVal(0));
+        assertEq("18", getVal(values_, 0));
         assertSame(ConstType.STRING, seq_.getConstType());
         assertEq(ElResolver.CONST_PRIO, seq_.getPriority());
     }
@@ -4089,11 +4091,11 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "`18``36`";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(0, opers_.size());
-        IntTreeMap<String> values_ = seq_.getValues();
+        StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-        assertEq("18`36", values_.getVal(0));
+        assertEq("18`36", getVal(values_, 0));
         assertSame(ConstType.STRING, seq_.getConstType());
         assertEq(ElResolver.CONST_PRIO, seq_.getPriority());
     }
@@ -4105,13 +4107,13 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "tab[0]";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("", opers_.getVal(3));
-        IntTreeMap<String> values_ = seq_.getValues();
+        assertEq("", getVal(opers_, 3));
+        StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("tab", values_.getVal(0));
-        assertEq("[0]", values_.getVal(3));
+        assertEq("tab", getVal(values_, 0));
+        assertEq("[0]", getVal(values_, 3));
         assertTrue(!seq_.isCallDbArray());
         assertTrue(!seq_.isArray());
         assertEq(ElResolver.FCT_OPER_PRIO,seq_.getPriority());
@@ -4124,13 +4126,13 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "tab[0][1]";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("", opers_.getVal(6));
-        IntTreeMap<String> values_ = seq_.getValues();
+        assertEq("", getVal(opers_, 6));
+        StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("tab[0]", values_.getVal(0));
-        assertEq("[1]", values_.getVal(6));
+        assertEq("tab[0]", getVal(values_, 0));
+        assertEq("[1]", getVal(values_, 6));
         assertTrue(!seq_.isCallDbArray());
         assertTrue(!seq_.isArray());
         assertEq(ElResolver.FCT_OPER_PRIO,seq_.getPriority());
@@ -4143,13 +4145,13 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "3*";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("*", opers_.getVal(1));
-        IntTreeMap<String> values_ = seq_.getValues();
+        assertEq("*", getVal(opers_, 1));
+        StrTypes values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("3", values_.getVal(0));
-        assertEq("", values_.getVal(2));
+        assertEq("3", getVal(values_, 0));
+        assertEq("", getVal(values_, 2));
         assertEq(ElResolver.MULT_PRIO,seq_.getPriority());
     }
 
@@ -4160,11 +4162,11 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "4. ";
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
-        IntTreeMap<String> opers_ = seq_.getOperators();
+        StrTypes opers_ = seq_.getOperators();
         assertEq(0, opers_.size());
-        IntTreeMap<String> values_ = seq_.getValues();
+        StrTypes values_ = seq_.getValues();
         assertEq(1, values_.size());
-        assertEq("4. ", values_.getVal(0));
+        assertEq("4. ", getVal(values_, 0));
     }
 
     @Test
@@ -5501,4 +5503,15 @@ public final class ElResolverTest extends ProcessMethodCommon {
         }
         return null;
     }
+
+    private static String getVal(StrTypes _opers, int _i) {
+        for (IndexStrPart e:_opers.getValues()) {
+            if (_i == e.getIndex()) {
+                return e.getPart();
+            }
+        }
+        return null;
+    }
+
+
 }

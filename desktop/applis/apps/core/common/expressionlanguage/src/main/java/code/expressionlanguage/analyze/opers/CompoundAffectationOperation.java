@@ -17,6 +17,7 @@ import code.expressionlanguage.analyze.blocks.Block;
 import code.expressionlanguage.analyze.instr.PartOffset;
 import code.expressionlanguage.fwd.opers.AnaOperatorContent;
 import code.expressionlanguage.linkage.LinkageUtil;
+import code.maths.litteral.StrTypes;
 import code.util.*;
 import code.util.core.StringUtil;
 
@@ -44,8 +45,8 @@ public final class CompoundAffectationOperation extends MethodOperation {
 
     @Override
     void calculateChildren() {
-        IntTreeMap< String> vs_ = getOperations().getValues();
-        getChildren().putAllMap(vs_);
+        StrTypes vs_ = getOperations().getValues();
+        getChildren().addAllEntries(vs_);
     }
 
     @Override
@@ -54,7 +55,7 @@ public final class CompoundAffectationOperation extends MethodOperation {
         OperationNode right_ = chidren_.last();
         SettableElResult elt_ = AffectationOperation.tryGetSettable(this);
         if (!isLeftValue(elt_)) {
-            IntTreeMap< String> ops_ = getOperations().getOperators();
+            StrTypes ops_ = getOperations().getOperators();
             setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ops_.firstKey(), _page);
             FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setFileName(_page.getLocalizer().getCurrentFileName());
@@ -87,7 +88,7 @@ public final class CompoundAffectationOperation extends MethodOperation {
                 addErr(un_.getBuiltError());
             }
         }
-        IntTreeMap< String> ops_ = getOperations().getOperators();
+        StrTypes ops_ = getOperations().getOperators();
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ops_.firstKey(), _page);
         int opLocat_ = _page.getLocalizer().getCurrentLocationIndex();
         String op_ = ops_.firstValue();

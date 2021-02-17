@@ -1,6 +1,6 @@
 package code.expressionlanguage.analyze.types;
 
-import code.expressionlanguage.common.StrTypes;
+import code.maths.litteral.StrTypes;
 import code.expressionlanguage.types.KindPartType;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
@@ -15,13 +15,13 @@ public final class AnalyzingType {
 
     public void setupValue(String _string) {
         values = new StrTypes();
-        values.addEntry((int)IndexConstants.FIRST_INDEX, _string);
+        values.addEntry(IndexConstants.FIRST_INDEX, _string);
     }
 
     public void setupValues(String _string) {
         values = new StrTypes();
         if (operators.isEmpty()) {
-            values.addEntry((int) IndexConstants.FIRST_INDEX, _string);
+            values.addEntry(IndexConstants.FIRST_INDEX, _string);
             error = true;
             return;
         }
@@ -43,7 +43,7 @@ public final class AnalyzingType {
         str_ = _string.substring(beginValuePart_);
         if (!str_.trim().isEmpty() && prio == ParserType.TMP_PRIO) {
             values = new StrTypes();
-            values.addEntry((int) IndexConstants.FIRST_INDEX, _string);
+            values.addEntry(IndexConstants.FIRST_INDEX, _string);
             error = true;
             return;
         }

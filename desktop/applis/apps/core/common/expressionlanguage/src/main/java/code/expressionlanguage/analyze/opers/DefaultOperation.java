@@ -3,12 +3,13 @@ package code.expressionlanguage.analyze.opers;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
+import code.maths.litteral.StrTypes;
 import code.util.IntTreeMap;
 
 public final class DefaultOperation extends AbstractUnaryOperation {
 
     private int offset;
-    private int delta;
+    private final int delta;
     public DefaultOperation(int _index, int _indexChild, MethodOperation _m,
                             OperationsSequence _op, int _delta) {
         super(_index, _indexChild, _m, _op);
@@ -17,10 +18,10 @@ public final class DefaultOperation extends AbstractUnaryOperation {
 
     @Override
     void calculateChildren() {
-        IntTreeMap< String> vs_ = getOperations().getValues();
+        StrTypes vs_ = getOperations().getValues();
         offset = vs_.firstKey();
-        vs_.removeKey(vs_.firstKey());
-        getChildren().putAllMap(vs_);
+        vs_.remove(0);
+        getChildren().addAllEntries(vs_);
     }
 
     @Override

@@ -12,6 +12,7 @@ import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.analyze.instr.PartOffset;
 import code.expressionlanguage.fwd.opers.AnaValuesContent;
+import code.maths.litteral.StrTypes;
 import code.util.CustList;
 import code.util.*;
 import code.util.core.StringUtil;
@@ -20,9 +21,9 @@ public final class EnumValueOfOperation extends AbstractUnaryOperation {
 
     private String className;
     private int argOffset;
-    private AnaValuesContent valuesContent;
+    private final AnaValuesContent valuesContent;
 
-    private CustList<PartOffset> partOffsets = new CustList<PartOffset>();
+    private final CustList<PartOffset> partOffsets = new CustList<PartOffset>();
 
     public EnumValueOfOperation(int _index, int _indexChild,
             MethodOperation _m, OperationsSequence _op) {
@@ -32,16 +33,16 @@ public final class EnumValueOfOperation extends AbstractUnaryOperation {
 
     @Override
     void calculateChildren() {
-        IntTreeMap< String> vs_ = getOperations().getValues();
-        vs_.removeKey(vs_.firstKey());
+        StrTypes vs_ = getOperations().getValues();
+        vs_.remove(0);
         if (vs_.isEmpty()) {
             className = "";
             return;
         }
         className = vs_.firstValue();
         argOffset = vs_.firstKey();
-        vs_.removeKey(vs_.firstKey());
-        getChildren().putAllMap(vs_);
+        vs_.remove(0);
+        getChildren().addAllEntries(vs_);
     }
 
     @Override

@@ -7,6 +7,7 @@ import code.expressionlanguage.common.Delimiters;
 import code.expressionlanguage.common.ExpPartDelimiters;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.options.KeyWords;
+import code.maths.litteral.StrTypes;
 import code.util.CustList;
 import code.util.IntTreeMap;
 import code.util.Ints;
@@ -53,7 +54,7 @@ final class AfterUnaryParts {
     private static final char SEP_ARG = ',';
     private static final char DOT_VAR = '.';
 
-    private final IntTreeMap<String> operators = new IntTreeMap<String>();
+    private final StrTypes operators = new StrTypes();
     private final IntTreeMap<Character> parsBrackets = new IntTreeMap<Character>();
     private int prio = ElResolver.FCT_OPER_PRIO;
     private String extracted = "";
@@ -90,14 +91,14 @@ final class AfterUnaryParts {
         if (preIncr_) {
             prio = ElResolver.UNARY_PRIO;
             String ch_ = Character.toString(_string.charAt(firstPrintChar_));
-            operators.put(firstPrintChar_, StringUtil.concat(EMPTY_STRING,ch_,ch_));
+            operators.addEntry(firstPrintChar_, StringUtil.concat(EMPTY_STRING,ch_,ch_));
             index = incrementUnary(_string, firstPrintChar_ + 2, lastPrintChar_, _offset, _d);
             return;
         }
         if (_string.charAt(firstPrintChar_) == MINUS_CHAR || _string.charAt(firstPrintChar_) == PLUS_CHAR
                 || _string.charAt(firstPrintChar_) == NEG_BOOL_CHAR || _string.charAt(firstPrintChar_) == NEG_BOOL) {
             prio = ElResolver.UNARY_PRIO;
-            operators.put(firstPrintChar_, Character.toString(_string.charAt(firstPrintChar_)));
+            operators.addEntry(firstPrintChar_, Character.toString(_string.charAt(firstPrintChar_)));
             index = incrementUnary(_string, firstPrintChar_ + 1, lastPrintChar_, _offset, _d);
             return;
         }
@@ -105,7 +106,7 @@ final class AfterUnaryParts {
             prio = ElResolver.UNARY_PRIO;
             int min_ = _d.getDelCast().indexOfNb(firstPrintChar_ + _offset);
             int max_ = _d.getDelCast().get(min_ + 1) - _offset;
-            operators.put(firstPrintChar_, _string.substring(firstPrintChar_, max_ + 1));
+            operators.addEntry(firstPrintChar_, _string.substring(firstPrintChar_, max_ + 1));
             int ext_ = min_ / 2;
             extracted = _d.getDelCastExtract().get(ext_);
             partsOffs.addAllElts(_d.getCastParts().get(ext_));
@@ -116,7 +117,7 @@ final class AfterUnaryParts {
             prio = ElResolver.UNARY_PRIO;
             int min_ = _d.getDelExplicit().indexOfNb(firstPrintChar_ + _offset);
             int max_ = _d.getDelExplicit().get(min_ + 1) - _offset;
-            operators.put(firstPrintChar_, _string.substring(firstPrintChar_, max_ + 1));
+            operators.addEntry(firstPrintChar_, _string.substring(firstPrintChar_, max_ + 1));
             index = incrementUnary(_string, firstPrintChar_, lastPrintChar_, _offset, _d);
             return;
         }
@@ -183,13 +184,13 @@ final class AfterUnaryParts {
                 if (enPars) {
                     leftParFirstOperator = true;
                     fctName = _string.substring(IndexConstants.FIRST_INDEX, index);
-                    operators.put(index, Character.toString(PAR_LEFT));
+                    operators.addEntry(index, Character.toString(PAR_LEFT));
                 } else if (enabledId) {
                     instance = false;
                     instanceStrict = false;
                     operators.clear();
                     errorDot = true;
-                    operators.put(index, EMPTY_STRING);
+                    operators.addEntry(index, EMPTY_STRING);
                 }
             }
             parsBrackets.put(index, curChar_);
@@ -205,7 +206,7 @@ final class AfterUnaryParts {
                 instanceStrict = false;
                 enabledId = false;
                 enPars = false;
-                operators.put(index, Character.toString(SEP_ARG));
+                operators.addEntry(index, Character.toString(SEP_ARG));
                 prio = ElResolver.DECL_PRIO;
             } else if (parsBrackets.size() == 1 && prio == ElResolver.FCT_OPER_PRIO && enPars){
                 addCommaOperIfNotEmpty(operators, index,PAR_LEFT,ARR_LEFT,ANN_ARR_LEFT);
@@ -230,12 +231,12 @@ final class AfterUnaryParts {
                     if (instance) {
                         fctName = _string.substring(IndexConstants.FIRST_INDEX, index);
                         if (operators.isEmpty()) {
-                            operators.put(index, ANN_ARR);
+                            operators.addEntry(index, ANN_ARR);
                         }
                     } else {
                         fctName = EMPTY_STRING;
                         operators.clear();
-                        operators.put(index,EMPTY_STRING);
+                        operators.addEntry(index,EMPTY_STRING);
                         errorDot = true;
                     }
                 }
@@ -262,28 +263,28 @@ final class AfterUnaryParts {
                     if (instance) {
                         if (operators.isEmpty()) {
                             fctName = _string.substring(IndexConstants.FIRST_INDEX, index);
-                            operators.put(index, ARR);
+                            operators.addEntry(index, ARR);
                         } else {
                             String op_ = operators.firstValue();
                             if (StringUtil.quickEq(op_,ARR)) {
-                                operators.put(index, ARR);
+                                operators.addEntry(index, ARR);
                             } else {
                                 fctName = EMPTY_STRING;
                                 instance = false;
                                 instanceStrict = false;
                                 operators.clear();
-                                operators.put(index, EMPTY_STRING);
+                                operators.addEntry(index, EMPTY_STRING);
                             }
                         }
                     } else {
                         fctName = EMPTY_STRING;
                         if (firstPrintChar_ == index) {
                             operators.clear();
-                            operators.put(index, ARR);
+                            operators.addEntry(index, ARR);
                         } else {
                             if (_string.charAt(index - 1) != '?') {
                                 operators.clear();
-                                operators.put(index, EMPTY_STRING);
+                                operators.addEntry(index, EMPTY_STRING);
                             }
                         }
                     }
@@ -326,7 +327,7 @@ final class AfterUnaryParts {
                 if (parsBrackets.isEmpty() && prio > ElResolver.TERNARY_PRIO) {
                     operators.clear();
                     leftParFirstOperator = false;
-                    operators.put(index, Character.toString(curChar_));
+                    operators.addEntry(index, Character.toString(curChar_));
                 }
                 parsBrackets.put(index, curChar_);
                 index++;
@@ -351,7 +352,7 @@ final class AfterUnaryParts {
         if (curChar_ == END_TERNARY&&!parsBrackets.isEmpty()&&parsBrackets.lastValue() == BEGIN_TERNARY) {
             parsBrackets.removeKey(parsBrackets.lastKey());
             if (parsBrackets.isEmpty() && prio > ElResolver.TERNARY_PRIO) {
-                operators.put(index, Character.toString(curChar_));
+                operators.addEntry(index, Character.toString(curChar_));
                 enPars = false;
                 enabledId = true;
                 prio = ElResolver.TERNARY_PRIO;
@@ -365,7 +366,7 @@ final class AfterUnaryParts {
         }
         if (prio == ElResolver.NAME_PRIO) {
             if (operators.isEmpty()) {
-                operators.put(index, Character.toString(curChar_));
+                operators.addEntry(index, Character.toString(curChar_));
             }
             enPars = false;
             enabledId = false;
@@ -606,7 +607,7 @@ final class AfterUnaryParts {
             instanceStrict = false;
             enPars = false;
             enabledId = false;
-            operators.put(index,_op);
+            operators.addEntry(index,_op);
         }
         index += _op.length();
     }
@@ -672,22 +673,22 @@ final class AfterUnaryParts {
         return _prio > ElResolver.AFF_PRIO && _prio != ElResolver.TERNARY_PRIO && _prio != ElResolver.NULL_SAFE_PRIO;
     }
 
-    private static void addCommaOperIfNotEmpty(IntTreeMap<String> _operators, int _i, char... _open) {
+    private static void addCommaOperIfNotEmpty(StrTypes _operators, int _i, char... _open) {
         String oper_ = _operators.firstValue();
         int len_ = oper_.length();
         for (char c: _open) {
             if (StringExpUtil.nextCharIs(oper_,0, len_,c)) {
-                _operators.put(_i, Character.toString(SEP_ARG));
+                _operators.addEntry(_i, Character.toString(SEP_ARG));
                 break;
             }
         }
     }
 
 
-    private static void addOperIfNotEmpty(IntTreeMap< String> _operators, int _i, char _open, char _op) {
+    private static void addOperIfNotEmpty(StrTypes _operators, int _i, char _open, char _op) {
         String oper_ = _operators.firstValue();
         if (StringExpUtil.nextCharIs(oper_,0, oper_.length(),_open)) {
-            _operators.put(_i, Character.toString(_op));
+            _operators.addEntry(_i, Character.toString(_op));
         }
     }
 
@@ -707,7 +708,7 @@ final class AfterUnaryParts {
         return prio;
     }
 
-    IntTreeMap<String> getOperators() {
+    StrTypes getOperators() {
         return operators;
     }
 

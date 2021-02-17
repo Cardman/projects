@@ -7,11 +7,11 @@ public abstract class MethodOperation extends OperationNode {
 
     private OperationNode firstChild;
 
-    private IntTreeMap<String> children;
+    private final StrTypes children;
 
     public MethodOperation(String _el, int _index, StringMap<String> _importingPage, int _indexChild, MethodOperation _m, OperationsSequence _op) {
         super(_el, _index, _importingPage, _indexChild, _m, _op);
-        children = new IntTreeMap<String>();
+        children = new StrTypes();
         calculateChildren();
     }
 
@@ -44,7 +44,7 @@ public abstract class MethodOperation extends OperationNode {
             child_ = sibling_;
         }
     }
-    public final IntTreeMap< String> getChildren() {
+    public final StrTypes getChildren() {
         return children;
     }
 }

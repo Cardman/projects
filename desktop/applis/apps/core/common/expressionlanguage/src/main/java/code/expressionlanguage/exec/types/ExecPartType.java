@@ -1,19 +1,19 @@
 package code.expressionlanguage.exec.types;
 
-import code.expressionlanguage.common.StrTypes;
+import code.maths.litteral.StrTypes;
 import code.expressionlanguage.types.KindPartType;
 import code.util.CustList;
 import code.util.core.StringUtil;
 
 abstract class ExecPartType {
     protected static final String EMPTY_STRING = "";
-    private ExecParentPartType parent;
+    private final ExecParentPartType parent;
     private ExecPartType previousSibling;
     private ExecPartType nextSibling;
-    private int index;
+    private final int index;
     private String analyzedType = EMPTY_STRING;
-    private String previousOperator;
-    private String previousOperatorSingle;
+    private final String previousOperator;
+    private final String previousOperatorSingle;
     ExecPartType(ExecParentPartType _parent, int _index, String _previousOperator) {
         parent = _parent;
         index = _index;

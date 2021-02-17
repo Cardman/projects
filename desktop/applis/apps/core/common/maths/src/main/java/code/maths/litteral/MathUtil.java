@@ -131,7 +131,7 @@ final class MathUtil {
         if (p_ == null) {
             return null;
         }
-        IntTreeMap<String> children_ = p_.getChildren();
+        StrTypes children_ = p_.getChildren();
         if (_block.getIndexChild() + 1 >= children_.size()) {
             return null;
         }

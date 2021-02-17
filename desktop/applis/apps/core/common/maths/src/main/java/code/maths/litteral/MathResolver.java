@@ -302,8 +302,8 @@ public final class MathResolver {
     }
     static OperationsSequence getOperationsSequence(int _offset, String _string,
             StringMap<String> _conf, Delimiters _d) {
-        IntTreeMap<String> operators_;
-        operators_ = new IntTreeMap<String>();
+        StrTypes operators_;
+        operators_ = new StrTypes();
         IntTreeMap<Character> parsBrackets_;
         parsBrackets_ = new IntTreeMap<Character>();
         int prio_ = FCT_OPER_PRIO;
@@ -317,7 +317,7 @@ public final class MathResolver {
         }
         if (i_ >= len_) {
             OperationsSequence op_ = new OperationsSequence();
-            op_.setOperators(new IntTreeMap< String>());
+            op_.setOperators(new StrTypes());
             op_.setupValue(_string);
             op_.setDelimiter(_d);
             return op_;
@@ -334,7 +334,7 @@ public final class MathResolver {
             OperationsSequence op_ = new OperationsSequence();
             op_.setIndexCst(begin_/2);
             op_.setConstType(ConstType.STRING);
-            op_.setOperators(new IntTreeMap< String>());
+            op_.setOperators(new StrTypes());
             op_.setupValue(_string);
             op_.setDelimiter(_d);
             return op_;
@@ -345,7 +345,7 @@ public final class MathResolver {
             OperationsSequence op_ = new OperationsSequence();
             op_.setIndexCst(begin_/2);
             op_.setConstType(ConstType.NUMBER);
-            op_.setOperators(new IntTreeMap< String>());
+            op_.setOperators(new StrTypes());
             op_.setupValue(_string);
             op_.setDelimiter(_d);
             return op_;
@@ -353,14 +353,14 @@ public final class MathResolver {
         String sub_ = _string.substring(firstPrintChar_, len_);
         if (StringUtil.quickEq(sub_,TRUE)) {
             OperationsSequence op_ = new OperationsSequence();
-            op_.setOperators(new IntTreeMap< String>());
+            op_.setOperators(new StrTypes());
             op_.setupValue(_string);
             op_.setDelimiter(_d);
             return op_;
         }
         if (StringUtil.quickEq(sub_, FALSE)) {
             OperationsSequence op_ = new OperationsSequence();
-            op_.setOperators(new IntTreeMap< String>());
+            op_.setOperators(new StrTypes());
             op_.setupValue(_string);
             op_.setDelimiter(_d);
             return op_;
@@ -375,7 +375,7 @@ public final class MathResolver {
             }
             OperationsSequence op_ = new OperationsSequence();
             op_.setConstType(ConstType.LOC_VAR);
-            op_.setOperators(new IntTreeMap< String>());
+            op_.setOperators(new StrTypes());
             op_.setupValue(v.getName());
             op_.setDelimiter(_d);
             return op_;
@@ -385,7 +385,7 @@ public final class MathResolver {
         String opUn_ = Character.toString(_string.charAt(firstPrintChar_));
         if (areUnary(_string, firstPrintChar_)) {
             prio_ = UNARY_PRIO;
-            operators_.put(firstPrintChar_, opUn_);
+            operators_.addEntry(firstPrintChar_, opUn_);
             i_ = incrementUnary(_string, firstPrintChar_ + 1, lastPrintChar_);
         }
         while (i_ < len_) {
@@ -400,17 +400,17 @@ public final class MathResolver {
                     useFct_ = true;
                     fctName_ = _string.substring(IndexConstants.FIRST_INDEX, i_);
                     operators_.clear();
-                    operators_.put(i_, Character.toString(PAR_LEFT));
+                    operators_.addEntry(i_, Character.toString(PAR_LEFT));
                 }
                 parsBrackets_.put(i_, curChar_);
             }
             if (curChar_ == SEP_ARG && parsBrackets_.size() == 1 && prio_ == FCT_OPER_PRIO) {
-                operators_.put(i_, Character.toString(SEP_ARG));
+                operators_.addEntry(i_, Character.toString(SEP_ARG));
             }
             if (curChar_ == PAR_RIGHT) {
                 parsBrackets_.removeKey(parsBrackets_.lastKey());
                 if (parsBrackets_.isEmpty() && prio_ == FCT_OPER_PRIO) {
-                    operators_.put(i_, Character.toString(PAR_RIGHT));
+                    operators_.addEntry(i_, Character.toString(PAR_RIGHT));
                 }
                 i_++;
                 continue;
@@ -476,7 +476,7 @@ public final class MathResolver {
                     fctName_ = EMPTY_STRING;
                     operators_.clear();
                 }
-                operators_.put(i_,builtOperator_.toString());
+                operators_.addEntry(i_,builtOperator_.toString());
             }
             i_ += increment_;
         }

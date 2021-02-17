@@ -13,6 +13,7 @@ import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.linkage.LinkageUtil;
 import code.expressionlanguage.stds.PrimitiveTypes;
+import code.maths.litteral.StrTypes;
 import code.util.CustList;
 import code.util.IntTreeMap;
 import code.util.StringList;
@@ -41,8 +42,8 @@ public abstract class QuickOperation extends MethodOperation {
 
     @Override
     final void calculateChildren() {
-        IntTreeMap< String> vs_ = getOperations().getValues();
-        getChildren().putAllMap(vs_);
+        StrTypes vs_ = getOperations().getValues();
+        getChildren().addAllEntries(vs_);
     }
 
     @Override

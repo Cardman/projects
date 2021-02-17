@@ -18,6 +18,7 @@ import code.expressionlanguage.inherits.Matching;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.stds.StandardConstructor;
 import code.expressionlanguage.stds.StandardType;
+import code.maths.litteral.StrTypes;
 import code.util.CustList;
 import code.util.IntTreeMap;
 import code.util.StringList;
@@ -38,9 +39,9 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
 
     @Override
     final void calculateChildren() {
-        IntTreeMap< String> vs_ = getOperations().getValues();
-        vs_.removeKey(vs_.firstKey());
-        getChildren().putAllMap(vs_);
+        StrTypes vs_ = getOperations().getValues();
+        vs_.remove(0);
+        getChildren().addAllEntries(vs_);
     }
 
     NameParametersFilter buildFilter(AnalyzedPageEl _page) {

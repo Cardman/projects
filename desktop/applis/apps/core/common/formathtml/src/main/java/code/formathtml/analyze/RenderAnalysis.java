@@ -14,6 +14,7 @@ import code.expressionlanguage.common.Delimiters;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.options.KeyWords;
+import code.maths.litteral.StrTypes;
 import code.util.CustList;
 import code.util.IntTreeMap;
 import code.util.core.IndexConstants;
@@ -209,7 +210,7 @@ public final class RenderAnalysis {
         if (p_ == null) {
             return null;
         }
-        IntTreeMap<String> children_ = p_.getChildren();
+        StrTypes children_ = p_.getChildren();
         int del_ = _block.getIndexChild() + 1;
         if (del_ >= children_.size()) {
             return null;
@@ -245,7 +246,7 @@ public final class RenderAnalysis {
                 if (StringUtil.quickEq(sub_, keyWordIntern_)) {
                     OperationsSequence op_ = new OperationsSequence();
                     op_.setConstType(ConstType.WORD);
-                    op_.setOperators(new IntTreeMap< String>());
+                    op_.setOperators(new StrTypes());
                     op_.setValue(_string, i_);
                     op_.setDelimiter(_d);
                     return op_;

@@ -15,6 +15,7 @@ import code.expressionlanguage.common.AnnotationFieldInfo;
 import code.expressionlanguage.common.AnnotationTypeInfo;
 import code.expressionlanguage.fwd.opers.AnaInstancingAnnotContent;
 import code.expressionlanguage.linkage.LinkageUtil;
+import code.maths.litteral.StrTypes;
 import code.util.*;
 import code.util.core.StringUtil;
 
@@ -145,7 +146,7 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
             map_ = new StringMap<StringList>();
             String eltType_ = StringExpUtil.getQuickComponentType(instancingAnnotContent.getClassName());
             if (eltType_ == null) {
-                IntTreeMap<String> operators_ = getOperations().getOperators();
+                StrTypes operators_ = getOperations().getOperators();
                 int offFirstOp_ = operators_.firstKey();
                 FoundErrorInterpret un_ = new FoundErrorInterpret();
                 int i_ = _page.getLocalizer().getCurrentLocationIndex()+offFirstOp_;
@@ -164,7 +165,7 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
             mapping_.setParam(eltType_);
             for (OperationNode o: chidren_) {
                 int index_ = getPartOffsetsChildren().size();
-                IntTreeMap<String> operators_ = getOperations().getOperators();
+                StrTypes operators_ = getOperations().getOperators();
                 setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ operators_.getKey(index_), _page);
                 int i_ = _page.getLocalizer().getCurrentLocationIndex();
                 CustList<PartOffset> parts_ = new CustList<PartOffset>();
@@ -254,7 +255,7 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
                     }
                     FoundErrorInterpret cast_ = new FoundErrorInterpret();
                     cast_.setFileName(_page.getLocalizer().getCurrentFileName());
-                    IntTreeMap<String> operators_ = getOperations().getOperators();
+                    StrTypes operators_ = getOperations().getOperators();
                     int k_ = operators_.firstKey();
                     cast_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex()+k_);
                     //first parenthese
@@ -276,7 +277,7 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
             }
             FoundErrorInterpret cast_ = new FoundErrorInterpret();
             cast_.setFileName(_page.getLocalizer().getCurrentFileName());
-            IntTreeMap<String> operators_ = getOperations().getOperators();
+            StrTypes operators_ = getOperations().getOperators();
             int k_ = operators_.lastKey();
             cast_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex()+k_);
             //last parenthese
@@ -293,7 +294,7 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
         if (filter_.size() != suppliedFields_.size()) {
             FoundErrorInterpret cast_ = new FoundErrorInterpret();
             cast_.setFileName(_page.getLocalizer().getCurrentFileName());
-            IntTreeMap<String> operators_ = getOperations().getOperators();
+            StrTypes operators_ = getOperations().getOperators();
             int k_ = operators_.lastKey();
             cast_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex()+k_);
             //last parenthese
@@ -346,7 +347,7 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
                 //ERROR
                 FoundErrorInterpret cast_ = new FoundErrorInterpret();
                 cast_.setFileName(_page.getLocalizer().getCurrentFileName());
-                IntTreeMap<String> operators_ = getOperations().getOperators();
+                StrTypes operators_ = getOperations().getOperators();
                 int k_ = 0;
                 if (!operators_.isEmpty()) {
                     k_ = operators_.lastKey();
@@ -361,7 +362,7 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
         }
         StringList deep_ = getErrs();
         if (!deep_.isEmpty()) {
-            IntTreeMap<String> operators_ = getOperations().getOperators();
+            StrTypes operators_ = getOperations().getOperators();
             if (!operators_.isEmpty()) {
                 int k_ = operators_.lastKey();
                 int i_ = _page.getLocalizer().getCurrentLocationIndex()+k_;

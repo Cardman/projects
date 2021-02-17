@@ -9,16 +9,17 @@ import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.analyze.instr.PartOffset;
 import code.expressionlanguage.linkage.LinkageUtil;
 import code.expressionlanguage.stds.PrimitiveTypes;
+import code.maths.litteral.StrTypes;
 import code.util.CustList;
 import code.util.*;
 import code.util.core.StringUtil;
 
 public final class EqOperation extends MethodOperation implements MiddleSymbolOperation {
 
-    private String oper;
+    private final String oper;
     private String className="";
     private AnaTypeFct function;
-    private int opOffset;
+    private final int opOffset;
     private MemberId memberId = new MemberId();
     public EqOperation(int _index,
             int _indexChild, MethodOperation _m, OperationsSequence _op) {
@@ -60,8 +61,8 @@ public final class EqOperation extends MethodOperation implements MiddleSymbolOp
 
     @Override
     void calculateChildren() {
-        IntTreeMap< String> vs_ = getOperations().getValues();
-        getChildren().putAllMap(vs_);
+        StrTypes vs_ = getOperations().getValues();
+        getChildren().addAllEntries(vs_);
     }
 
     public String getOper() {

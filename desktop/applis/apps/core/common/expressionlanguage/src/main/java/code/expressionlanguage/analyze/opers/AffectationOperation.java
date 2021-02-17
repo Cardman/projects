@@ -14,6 +14,7 @@ import code.expressionlanguage.analyze.instr.OperationsSequence;
 
 import code.expressionlanguage.analyze.instr.PartOffset;
 import code.expressionlanguage.linkage.LinkageUtil;
+import code.maths.litteral.StrTypes;
 import code.util.*;
 import code.util.core.StringUtil;
 
@@ -37,14 +38,14 @@ public final class AffectationOperation extends MethodOperation {
 
     @Override
     void calculateChildren() {
-        IntTreeMap< String> vs_ = getOperations().getValues();
-        getChildren().putAllMap(vs_);
+        StrTypes vs_ = getOperations().getValues();
+        getChildren().addAllEntries(vs_);
         opOffset = getOperations().getOperators().firstKey();
     }
 
     @Override
     public void analyze(AnalyzedPageEl _page) {
-        IntTreeMap< String> ops_ = getOperations().getOperators();
+        StrTypes ops_ = getOperations().getOperators();
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ops_.firstKey(), _page);
         CustList<OperationNode> chidren_ = getChildrenNodes();
         OperationNode right_ = chidren_.last();

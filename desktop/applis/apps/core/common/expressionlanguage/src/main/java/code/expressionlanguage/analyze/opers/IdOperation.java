@@ -9,6 +9,7 @@ import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.functionid.ConstructorId;
 import code.expressionlanguage.analyze.instr.PartOffset;
 import code.expressionlanguage.linkage.LinkageUtil;
+import code.maths.litteral.StrTypes;
 import code.util.CustList;
 import code.util.*;
 import code.util.core.StringUtil;
@@ -33,7 +34,7 @@ public final class IdOperation extends AbstractUnaryOperation {
             getPartOffsetsChildren().add(new CustList<PartOffset>());
             if (!(par_ instanceof CastOperation)) {
                 CustList<PartOffset> parts_ = new CustList<PartOffset>();
-                IntTreeMap<String> operators_ = getOperations().getOperators();
+                StrTypes operators_ = getOperations().getOperators();
                 setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ operators_.getKey(1), _page);
                 int i_ = _page.getLocalizer().getCurrentLocationIndex();
                 FoundErrorInterpret un_ = new FoundErrorInterpret();
@@ -55,7 +56,7 @@ public final class IdOperation extends AbstractUnaryOperation {
             RootBlock rBase_ = _page.getAnaClassBody(id_);
             if (!(rBase_ instanceof InterfaceBlock)) {
                 CustList<PartOffset> parts_ = new CustList<PartOffset>();
-                IntTreeMap<String> operators_ = getOperations().getOperators();
+                StrTypes operators_ = getOperations().getOperators();
                 setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ operators_.getKey(1), _page);
                 int i_ = _page.getLocalizer().getCurrentLocationIndex();
                 FoundErrorInterpret un_ = new FoundErrorInterpret();
@@ -77,7 +78,7 @@ public final class IdOperation extends AbstractUnaryOperation {
             boolean existAll_ = true;
             for (int i = 1; i < len_; i++) {
                 int index_ = getPartOffsetsChildren().size();
-                IntTreeMap<String> operators_ = getOperations().getOperators();
+                StrTypes operators_ = getOperations().getOperators();
                 setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ operators_.getKey(index_), _page);
                 int i_ = _page.getLocalizer().getCurrentLocationIndex();
                 CustList<PartOffset> parts_ = new CustList<PartOffset>();
@@ -117,7 +118,7 @@ public final class IdOperation extends AbstractUnaryOperation {
             all_.add(id_);
             all_.removeAllString(_page.getAliasObject());
             if (!StringUtil.equalsSet(all_,previousInts_)) {
-                IntTreeMap<String> operators_ = getOperations().getOperators();
+                StrTypes operators_ = getOperations().getOperators();
                 setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ operators_.lastKey(), _page);
                 int i_ = _page.getLocalizer().getCurrentLocationIndex();
                 FoundErrorInterpret un_ = new FoundErrorInterpret();

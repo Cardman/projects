@@ -2,11 +2,10 @@ package code.expressionlanguage.analyze.types;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.common.ArrayResult;
-import code.expressionlanguage.common.StrTypes;
+import code.maths.litteral.StrTypes;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.types.KindPartType;
-import code.util.*;
 import code.util.Ints;
 import code.util.StringList;
 import code.util.core.IndexConstants;
@@ -114,7 +113,7 @@ public final class ParserType {
     private static AnalyzingType analyzeOther(int _offset, String _string, Ints _indexes, AnalyzingType _a) {
         StrTypes values_ = _a.getValues();
         if (_string.trim().isEmpty()) {
-            values_.addEntry((int)IndexConstants.FIRST_INDEX, _string);
+            values_.addEntry(IndexConstants.FIRST_INDEX, _string);
             _a.setError(true);
             return _a;
         }
@@ -148,7 +147,7 @@ public final class ParserType {
         ArrayResult res_ = StringExpUtil.tryGetArray(_string, values_,operators_);
         if (res_ != ArrayResult.NONE) {
             if (res_ == ArrayResult.ERROR) {
-                values_.addEntry((int) IndexConstants.FIRST_INDEX, _string);
+                values_.addEntry(IndexConstants.FIRST_INDEX, _string);
                 _a.setError(true);
             } else {
                 _a.setPrio(ARR_PRIO);

@@ -16,6 +16,7 @@ import code.expressionlanguage.analyze.variables.AnaNamedLoopVariable;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.fwd.opers.AnaArrContent;
 import code.expressionlanguage.options.KeyWords;
+import code.maths.litteral.StrTypes;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.IntTreeMap;
@@ -40,9 +41,9 @@ public final class SwitchOperation extends AbstractUnaryOperation implements Pre
     }
     @Override
     void calculateChildren() {
-        IntTreeMap< String> vs_ = getOperations().getValues();
-        vs_.removeKey(vs_.firstKey());
-        getChildren().putAllMap(vs_);
+        StrTypes vs_ = getOperations().getValues();
+        vs_.remove(0);
+        getChildren().addAllEntries(vs_);
     }
     @Override
     public void preAnalyze(AnalyzedPageEl _page) {

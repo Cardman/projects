@@ -3,6 +3,7 @@ package code.expressionlanguage.analyze.opers;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
+import code.maths.litteral.StrTypes;
 import code.util.*;
 
 public final class DeclaringOperation extends MethodOperation {
@@ -15,8 +16,8 @@ public final class DeclaringOperation extends MethodOperation {
 
     @Override
     void calculateChildren() {
-        IntTreeMap< String> vs_ = getOperations().getValues();
-        getChildren().putAllMap(vs_);
+        StrTypes vs_ = getOperations().getValues();
+        getChildren().addAllEntries(vs_);
     }
 
     @Override

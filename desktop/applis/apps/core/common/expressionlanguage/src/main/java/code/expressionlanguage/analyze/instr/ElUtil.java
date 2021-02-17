@@ -14,6 +14,8 @@ import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
+import code.maths.litteral.IndexStrPart;
+import code.maths.litteral.StrTypes;
 import code.util.*;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
@@ -34,19 +36,19 @@ public final class ElUtil {
         }
         OperationsSequence opTwo_ = ElResolver.getOperationsSequence(IndexConstants.FIRST_INDEX, _el, d_, _page);
         if (opTwo_.getOperators().isEmpty()) {
-            for (EntryCust<Integer,String> e: opTwo_.getValues().entryList()) {
-                String var_ = e.getValue();
+            for (IndexStrPart e: opTwo_.getValues().getValues()) {
+                String var_ = e.getPart();
                 String trimmed_ = var_.trim();
-                int offset_ = _valueOffset + e.getKey();
+                int offset_ = _valueOffset + e.getIndex();
                 addPart(names_, var_, trimmed_, offset_, false);
             }
             return names_;
         }
         if (opTwo_.getPriority() == ElResolver.DECL_PRIO) {
-            for (EntryCust<Integer,String> e: opTwo_.getValues().entryList()) {
-                String var_ = e.getValue();
+            for (IndexStrPart e: opTwo_.getValues().getValues()) {
+                String var_ = e.getPart();
                 String trimmed_ = var_.trim();
-                int offset_ = _valueOffset + e.getKey();
+                int offset_ = _valueOffset + e.getIndex();
                 if (StringExpUtil.isTypeLeafPart(trimmed_)) {
                     addFieldName(names_, var_, offset_, false, trimmed_);
                     continue;
@@ -359,7 +361,7 @@ public final class ElUtil {
         if (p_ == null) {
             return null;
         }
-        IntTreeMap<String> children_ = p_.getChildren();
+        StrTypes children_ = p_.getChildren();
         int del_ = _block.getIndexChild() + 1;
         if (del_ >= children_.size()) {
             return null;

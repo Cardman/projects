@@ -30,8 +30,7 @@ public final class UnaryOperation extends PrimitiveBoolOperation {
         Argument a_ = new Argument();
         Rate o_ = arg_.getRateVal();
         a_.setArgClass(MathType.RATE);
-        int key_ = getOperations().getOperators().firstKey();
-        if (StringUtil.quickEq(getOperations().getOperators().getVal(key_).trim(), UNARY_MINUS)) {
+        if (StringUtil.quickEq(getOperations().getOperators().firstValue().trim(), UNARY_MINUS)) {
             a_.setObject(o_.opposNb());
         } else {
             a_.setObject(o_);
@@ -41,7 +40,7 @@ public final class UnaryOperation extends PrimitiveBoolOperation {
 
     @Override
     void calculateChildren() {
-        IntTreeMap< String> vs_ = getOperations().getValues();
-        getChildren().putAllMap(vs_);
+        StrTypes vs_ = getOperations().getValues();
+        getChildren().addAllEntries(vs_);
     }
 }

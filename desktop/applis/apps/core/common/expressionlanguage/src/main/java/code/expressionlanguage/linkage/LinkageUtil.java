@@ -22,6 +22,7 @@ import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.stds.DisplayedStrings;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.BooleanStruct;
+import code.maths.litteral.StrTypes;
 import code.util.*;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
@@ -2781,7 +2782,7 @@ public final class LinkageUtil {
 
     private static int getOffsetEnd(int _sum, OperationNode _val, MethodOperation _parent) {
         int indexChild_ = _val.getIndexChild();
-        IntTreeMap<String> children_ = _parent.getChildren();
+        StrTypes children_ = _parent.getChildren();
         return _sum + _val.getIndexInEl() + children_.getValue(indexChild_).length();
     }
 
@@ -3017,7 +3018,7 @@ public final class LinkageUtil {
         } else {
             StringList l_ = new StringList();
             MethodOperation.processEmptyError(_val,l_);
-            IntTreeMap<String> operators_ =  par_.getOperations().getOperators();
+            StrTypes operators_ =  par_.getOperations().getOperators();
             if (leftOperNotUnary(par_)&& !(indexChild_ == 0 && par_ instanceof ArrOperation)) {
                 if (!l_.isEmpty()) {
                     int s_ = _sum + par_.getIndexInEl() + operators_.getKey(indexChild_);
@@ -3819,7 +3820,7 @@ public final class LinkageUtil {
                     _parts.add(new PartOffset("</a>",begin_+ n_.getName().length()));
                 }
                 if (refTwo_ != -1){
-                    IntTreeMap<String> vs_ = _val.getOperations().getOperators();
+                    StrTypes vs_ = _val.getOperations().getOperators();
                     int begin_ = _sum + _val.getIndexInEl()+vs_.firstKey();
                     String rel_ = relativize(_currentFileName, relFileTwo_ + "#m" + refTwo_);
                     _parts.add(new PartOffset("<a href=\""+rel_ +"\">",begin_));
@@ -3934,7 +3935,7 @@ public final class LinkageUtil {
         MethodOperation.processEmptyError(_nextSiblingOp,l_);
         if (middleOper(_parent)) {
             int index_ = _curOp.getIndexChild();
-            IntTreeMap<String> operators_ =  _parent.getOperations().getOperators();
+            StrTypes operators_ =  _parent.getOperations().getOperators();
             AnaTypeFct testFct_ = null;
             if (_vars.isImplicit()&&_parent instanceof ShortTernaryOperation && index_ == 0) {
                 ShortTernaryOperation sh_ = (ShortTernaryOperation) _parent;

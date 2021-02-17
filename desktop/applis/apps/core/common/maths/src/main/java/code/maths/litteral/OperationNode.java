@@ -139,8 +139,7 @@ abstract class OperationNode {
             return new FctOperation(_el, _index, _conf, _indexChild, _m, _op);
         }
         if (_op.getPriority() == MathResolver.UNARY_PRIO) {
-            int key_ = _op.getOperators().firstKey();
-            if (StringUtil.quickEq(_op.getOperators().getVal(key_).trim(), NEG_BOOL)) {
+            if (StringUtil.quickEq(_op.getOperators().firstValue().trim(), NEG_BOOL)) {
                 return new UnaryBooleanOperation(_el, _index, _conf, _indexChild, _m, _op);
             }
             return new UnaryOperation(_el, _index, _conf, _indexChild, _m, _op);

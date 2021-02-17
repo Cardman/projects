@@ -56,9 +56,9 @@ public abstract class NumericOperation extends MethodOperation {
         MathType a_ = chidren_.first().getResultClass();
         MathType r_;
         int i_ = IndexConstants.SECOND_INDEX;
-        for (EntryCust<Integer, String> e: getOperations().getOperators().entryList()) {
+        for (IndexStrPart e: getOperations().getOperators().getValues()) {
             MathType c_ = chidren_.get(i_).getResultClass();
-            r_ = analyzeOper(a_, e.getValue(), c_, chidren_.get(i_).getIndexInEl(), _error);
+            r_ = analyzeOper(a_, e.getPart(), c_, chidren_.get(i_).getIndexInEl(), _error);
             if (_error.isError()) {
                 return;
             }
@@ -77,9 +77,9 @@ public abstract class NumericOperation extends MethodOperation {
         Argument a_ = chidren_.first().getArgument();
         Argument r_;
         int i_ = IndexConstants.SECOND_INDEX;
-        for (EntryCust<Integer, String> e: getOperations().getOperators().entryList()) {
+        for (IndexStrPart e: getOperations().getOperators().getValues()) {
             Argument c_ = chidren_.get(i_).getArgument();
-            r_ = calculateOper(a_, e.getValue(), c_, chidren_.get(i_).getIndexInEl(), _error);
+            r_ = calculateOper(a_, e.getPart(), c_, chidren_.get(i_).getIndexInEl(), _error);
             if (_error.isError()) {
                 return;
             }
@@ -91,7 +91,7 @@ public abstract class NumericOperation extends MethodOperation {
 
     @Override
     void calculateChildren() {
-        IntTreeMap< String> vs_ = getOperations().getValues();
-        getChildren().putAllMap(vs_);
+        StrTypes vs_ = getOperations().getValues();
+        getChildren().addAllEntries(vs_);
     }
 }

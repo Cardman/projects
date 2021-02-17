@@ -22,6 +22,7 @@ import code.expressionlanguage.analyze.instr.PartOffset;
 import code.expressionlanguage.linkage.LinkageUtil;
 import code.expressionlanguage.stds.StandardMethod;
 import code.expressionlanguage.stds.StandardType;
+import code.maths.litteral.StrTypes;
 import code.util.*;
 import code.util.core.StringUtil;
 
@@ -405,7 +406,7 @@ public final class CallDynMethodOperation extends InvokingOperation implements P
             int nb_ = param_.size();
             StringMap<StringList> map_ = _page.getCurrentConstraints().getCurrentConstraints();
             for (int i = 0; i < nb_; i++) {
-                IntTreeMap<String> operators_ = getOperations().getOperators();
+                StrTypes operators_ = getOperations().getOperators();
                 CustList<PartOffset> parts_ = new CustList<PartOffset>();
                 setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ operators_.getKey(i), _page);
                 AnaClassArgumentMatching a_ = firstArgs_.get(i);

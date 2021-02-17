@@ -2,7 +2,7 @@ package code.expressionlanguage.exec.types;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ArrayResult;
-import code.expressionlanguage.common.StrTypes;
+import code.maths.litteral.StrTypes;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.inherits.ExecInherits;
 import code.expressionlanguage.inherits.Templates;

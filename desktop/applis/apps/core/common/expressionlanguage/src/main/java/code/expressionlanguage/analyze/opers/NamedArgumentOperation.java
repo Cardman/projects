@@ -7,6 +7,7 @@ import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.fwd.opers.AnaNamedContent;
+import code.maths.litteral.StrTypes;
 import code.util.CustList;
 import code.util.IntTreeMap;
 import code.util.core.StringUtil;
@@ -26,12 +27,12 @@ public final class NamedArgumentOperation extends AbstractUnaryOperation {
 
     @Override
     void calculateChildren() {
-        IntTreeMap< String> vs_ = getOperations().getValues();
+        StrTypes vs_ = getOperations().getValues();
         String first_ = vs_.firstValue();
         name = first_.trim();
         offsetTr = StringUtil.getFirstPrintableCharIndex(first_);
-        vs_.removeKey(vs_.firstKey());
-        getChildren().putAllMap(vs_);
+        vs_.remove(0);
+        getChildren().addAllEntries(vs_);
     }
 
     @Override

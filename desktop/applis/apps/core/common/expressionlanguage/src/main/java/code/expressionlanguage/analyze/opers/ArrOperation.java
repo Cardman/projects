@@ -13,6 +13,7 @@ import code.expressionlanguage.analyze.instr.PartOffset;
 import code.expressionlanguage.fwd.opers.AnaArrContent;
 import code.expressionlanguage.fwd.opers.AnaCallFctContent;
 import code.expressionlanguage.linkage.LinkageUtil;
+import code.maths.litteral.StrTypes;
 import code.util.CustList;
 import code.util.IntTreeMap;
 import code.util.StringList;
@@ -193,7 +194,7 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
         }
         if (chidren_.size() != 1) {
             getPartOffsetsChildren().add(new CustList<PartOffset>());
-            IntTreeMap<String> operators_ =  getOperations().getOperators();
+            StrTypes operators_ =  getOperations().getOperators();
             setRelativeOffsetPossibleAnalyzable(getIndexInEl(), _page);
             int i_ = _page.getLocalizer().getCurrentLocationIndex() + operators_.getKey(1);
             FoundErrorInterpret badNb_ = new FoundErrorInterpret();

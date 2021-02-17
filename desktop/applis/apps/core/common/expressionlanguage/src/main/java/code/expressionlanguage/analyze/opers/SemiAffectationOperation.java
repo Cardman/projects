@@ -13,13 +13,14 @@ import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
 import code.expressionlanguage.analyze.instr.ElUtil;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.fwd.opers.AnaOperatorContent;
+import code.maths.litteral.StrTypes;
 import code.util.*;
 import code.util.core.StringUtil;
 
 public final class SemiAffectationOperation extends AbstractUnaryOperation  {
     private SettableElResult settable;
-    private AnaOperatorContent operatorContent;
-    private boolean post;
+    private final AnaOperatorContent operatorContent;
+    private final boolean post;
     private String className="";
     private MemberId memberId = new MemberId();
     private AnaTypeFct function;
@@ -73,7 +74,7 @@ public final class SemiAffectationOperation extends AbstractUnaryOperation  {
         }
         setResultClass(AnaClassArgumentMatching.copy(AnaTypeUtil.toPrimitive(settable.getResultClass(), _page), _page.getPrimitiveTypes()));
         settable.setVariable(false);
-        IntTreeMap< String> ops_ = getOperations().getOperators();
+        StrTypes ops_ = getOperations().getOperators();
         String op_ = ops_.firstValue();
         ClassMethodIdReturn cl_ = getIncrDecrOperatorOrMethod(this,leftEl_, op_, _page);
         if (cl_ != null) {

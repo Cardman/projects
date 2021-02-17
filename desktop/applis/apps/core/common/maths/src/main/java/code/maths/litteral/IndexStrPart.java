@@ -1,4 +1,4 @@
-package code.expressionlanguage.common;
+package code.maths.litteral;
 
 public final class IndexStrPart {
     private final int index;

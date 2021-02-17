@@ -1001,8 +1001,8 @@ public final class FctOperation extends InvokingOperation {
 
     @Override
     void calculateChildren() {
-        IntTreeMap< String> vs_ = getOperations().getValues();
-        vs_.removeKey(vs_.firstKey());
-        getChildren().putAllMap(vs_);
+        StrTypes vs_ = getOperations().getValues();
+        vs_.remove(0);
+        getChildren().addAllEntries(vs_);
     }
 }

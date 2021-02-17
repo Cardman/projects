@@ -2,6 +2,7 @@ package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.analyze.instr.PartOffset;
+import code.maths.litteral.StrTypes;
 import code.util.CustList;
 import code.util.*;
 
@@ -9,14 +10,14 @@ public abstract class MethodOperation extends OperationNode {
 
     private OperationNode firstChild;
 
-    private final IntTreeMap<String> children;
+    private final StrTypes children;
     private final CustList<CustList<PartOffset>> partOffsetsChildren = new CustList<CustList<PartOffset>>();
     private final CustList<PartOffset> partOffsetsEnd = new CustList<PartOffset>();
 
 
     public MethodOperation(int _index, int _indexChild, MethodOperation _m, OperationsSequence _op) {
         super(_index, _indexChild, _m, _op);
-        children = new IntTreeMap<String>();
+        children = new StrTypes();
         calculateChildren();
     }
 
@@ -53,7 +54,7 @@ public abstract class MethodOperation extends OperationNode {
         return firstChild;
     }
 
-    public final IntTreeMap< String> getChildren() {
+    public final StrTypes getChildren() {
         return children;
     }
 
