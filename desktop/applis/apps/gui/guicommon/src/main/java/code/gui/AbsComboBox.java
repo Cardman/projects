@@ -25,11 +25,6 @@ public abstract class AbsComboBox implements GraphicComboGrIntBase {
 
 
     @Override
-    public ListSelection getListener() {
-        return combo.getListener();
-    }
-
-    @Override
     public ListSelection[] getListeners() {
         return combo.getListeners();
     }

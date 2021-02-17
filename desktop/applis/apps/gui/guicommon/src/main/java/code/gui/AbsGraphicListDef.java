@@ -1,6 +1,5 @@
 package code.gui;
 
-import code.util.CustList;
 import code.util.Ints;
 
 public interface AbsGraphicListDef {
@@ -14,9 +13,6 @@ public interface AbsGraphicListDef {
     void clearSelection();
     Ints getSelectedIndexes();
     void setSelectedIndexes(Ints _values);
-    ListSelection getListener();
-
-    void setListener(ListSelection _listener);
     ListSelection[] getListeners();
 
     void addListener(ListSelection _listener);

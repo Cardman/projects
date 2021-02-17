@@ -114,7 +114,6 @@ public final class GraphicCombo extends CustComponent implements GraphicComboGrI
         }
     }
 
-    @Override
     public ListSelection getListener() {
         return listener;
     }

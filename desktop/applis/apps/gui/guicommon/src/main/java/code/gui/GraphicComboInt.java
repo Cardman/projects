@@ -11,7 +11,6 @@ public interface GraphicComboInt {
     void selectItem(int _index);
 
     void removeAllItems();
-    ListSelection getListener();
     void addItem(String _object);
     void setListener(ListSelection _listener);
     ListSelection[] getListeners();

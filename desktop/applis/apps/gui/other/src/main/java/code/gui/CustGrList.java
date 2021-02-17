@@ -26,10 +26,6 @@ public class CustGrList<T> extends CustComponent implements AbsGraphicList<T> {
     private void setup(int _value) {
         list.setSelectionMode(_value);
     }
-    public ListSelection getListener() {
-        return listeners.list().stream().map(LocalListSelectionListener::getListener).findAny().orElse(null);
-    }
-
     public void setListener(ListSelection _listener) {
         listeners.list().forEach(list::removeListSelectionListener);
         listeners.clear();

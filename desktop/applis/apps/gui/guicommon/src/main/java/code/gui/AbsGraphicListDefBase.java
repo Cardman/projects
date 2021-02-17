@@ -11,4 +11,5 @@ public interface AbsGraphicListDefBase extends AbsGraphicListDef {
     void selectOneAmongIntervalPaintBase(boolean _sel, int _index);
     CustList<PreparedLabel> getListComponents();
     void updateGraphics();
+    void setListener(ListSelection _listener);
 }
