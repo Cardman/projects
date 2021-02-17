@@ -1,7 +1,7 @@
 package code.expressionlanguage.functionid;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.analyze.inherits.AnaTemplates;
+import code.expressionlanguage.analyze.inherits.AnaInherits;
 import code.expressionlanguage.analyze.util.FormattedMethodId;
 import code.expressionlanguage.common.AnaGeneType;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
@@ -233,7 +233,7 @@ public final class MethodId implements Identifiable {
         StringList pTypes_ = new StringList();
         for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
             String n_ = classNames.get(i);
-            String formatted_ = AnaTemplates.quickFormat(_root,_genericClass, n_);
+            String formatted_ = AnaInherits.quickFormat(_root,_genericClass, n_);
             pTypes_.add(formatted_);
         }
         return pTypes_;

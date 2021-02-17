@@ -3,7 +3,7 @@ package code.expressionlanguage.analyze.opers;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.expressionlanguage.analyze.blocks.UniqueRootedBlock;
-import code.expressionlanguage.analyze.inherits.AnaTemplates;
+import code.expressionlanguage.analyze.inherits.AnaInherits;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.util.AnaFormattedRootBlock;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
@@ -32,7 +32,7 @@ public final class SuperInvokingConstructor extends AbstractInvokingConstructor 
             return null;
         }
         UniqueRootedBlock unique_ =(UniqueRootedBlock) clBody_;
-        String superClass_ = AnaTemplates.quickFormat(clBody_,clCurName_, unique_.getImportedDirectGenericSuperClass());
+        String superClass_ = AnaInherits.quickFormat(clBody_,clCurName_, unique_.getImportedDirectGenericSuperClass());
         CustList<AnaFormattedRootBlock> genericClasses_ = clBody_.getAllGenericClassesInfo();
         if (genericClasses_.size() > 1) {
             setType(genericClasses_.get(1).getRootBlock());

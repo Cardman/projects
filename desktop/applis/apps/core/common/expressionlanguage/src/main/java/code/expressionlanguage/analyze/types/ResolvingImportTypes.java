@@ -5,7 +5,7 @@ import code.expressionlanguage.analyze.ImportedField;
 import code.expressionlanguage.analyze.ImportedMethod;
 import code.expressionlanguage.analyze.accessing.Accessed;
 import code.expressionlanguage.analyze.blocks.*;
-import code.expressionlanguage.analyze.inherits.AnaTemplates;
+import code.expressionlanguage.analyze.inherits.AnaInherits;
 import code.expressionlanguage.analyze.util.ContextUtil;
 import code.expressionlanguage.common.*;
 import code.expressionlanguage.functionid.ClassMethodId;
@@ -94,7 +94,7 @@ public final class ResolvingImportTypes {
             stQualifier_ = true;
         }
         String typeInner_ = StringUtil.concat(beginImp_, _look);
-        StringList allInnerTypes_ = AnaTemplates.getAllInnerTypes(typeInner_, _page);
+        StringList allInnerTypes_ = AnaInherits.getAllInnerTypes(typeInner_, _page);
         String owner_ = allInnerTypes_.first();
         AnaGeneType cl_ = _page.getAnaGeneType(owner_);
         String res_ = owner_;
@@ -388,7 +388,7 @@ public final class ResolvingImportTypes {
 
     public static StringList getParts(String _c, AnalyzedPageEl _page) {
         StringList allInnerTypes_;
-        allInnerTypes_ = AnaTemplates.getAllInnerTypes(_c, _page);
+        allInnerTypes_ = AnaInherits.getAllInnerTypes(_c, _page);
         return allInnerTypes_;
     }
 

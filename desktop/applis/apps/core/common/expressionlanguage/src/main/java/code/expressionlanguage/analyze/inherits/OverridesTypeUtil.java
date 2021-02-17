@@ -24,7 +24,7 @@ public final class OverridesTypeUtil {
         String baseClassFound_ = _type.getFullName();
         for (RootBlock c: _page.getAllFoundTypes()) {
             String name_ = c.getFullName();
-            String baseCond_ = AnaTemplates.getOverridingFullTypeByBases(c, baseClassFound_, _page);
+            String baseCond_ = AnaInherits.getOverridingFullTypeByBases(c, baseClassFound_, _page);
             if (baseCond_.isEmpty()) {
                 continue;
             }
@@ -43,7 +43,7 @@ public final class OverridesTypeUtil {
                     continue;
                 }
                 InterfaceBlock i_ = (InterfaceBlock) s;
-                String v_ = AnaTemplates.getOverridingFullTypeByBases(i_, baseClassFound_, _page);
+                String v_ = AnaInherits.getOverridingFullTypeByBases(i_, baseClassFound_, _page);
                 if (v_.isEmpty()) {
                     continue;
                 }
@@ -147,7 +147,7 @@ public final class OverridesTypeUtil {
         //c is a concrete sub type of type input
         for (AnaFormattedRootBlock s: _type.getAllGenericClassesInfo()) {
             RootBlock r_ = s.getRootBlock();
-            String v_ = AnaTemplates.getOverridingFullTypeByBases(r_, _subTypeName, _page);
+            String v_ = AnaInherits.getOverridingFullTypeByBases(r_, _subTypeName, _page);
             if (v_.isEmpty()) {
                 continue;
             }

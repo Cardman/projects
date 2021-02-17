@@ -7,6 +7,7 @@ import code.expressionlanguage.analyze.ImportedMethod;
 import code.expressionlanguage.analyze.MethodHeaderInfo;
 import code.expressionlanguage.analyze.accessing.Accessed;
 import code.expressionlanguage.analyze.blocks.*;
+import code.expressionlanguage.analyze.inherits.AnaInherits;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.analyze.util.*;
@@ -798,7 +799,7 @@ public abstract class OperationNode {
         if (staticField_) {
             formatted_ = _scope.getFormatted();
         } else {
-            formatted_ = AnaTemplates.quickFormat(root_, _scope.getFormatted(),genericString_);
+            formatted_ = AnaInherits.quickFormat(root_, _scope.getFormatted(),genericString_);
         }
         String realType_ = _fi.getType();
         boolean finalField_ = _fi.isFinalField();
@@ -2128,7 +2129,7 @@ public abstract class OperationNode {
         StringList allClasses_ = new StringList(r_.getGenericString());
         allClasses_.addAllElts(r_.getAllGenericSuperTypes());
         for (String s: allClasses_) {
-            String formatted_ = AnaTemplates.quickFormat(r_,_id,s);
+            String formatted_ = AnaInherits.quickFormat(r_,_id,s);
             String supId_ = StringExpUtil.getIdFromAllTypes(formatted_);
             StringMap<String> superTypesBaseAncBis_ = new StringMap<String>();
             superTypesBaseAncBis_.addEntry(supId_,supId_);
@@ -2158,7 +2159,7 @@ public abstract class OperationNode {
                 CustList<AnaFormattedRootBlock> allClasses_ = new CustList<AnaFormattedRootBlock>(new AnaFormattedRootBlock(r_,r_.getGenericString()));
                 allClasses_.addAllElts(r_.getAllGenericSuperTypesInfo());
                 for (AnaFormattedRootBlock s: allClasses_) {
-                    String formatted_ = AnaTemplates.quickFormat(r_,_first,s.getFormatted());
+                    String formatted_ = AnaInherits.quickFormat(r_,_first,s.getFormatted());
                     String supId_ = StringExpUtil.getIdFromAllTypes(formatted_);
                     CustList<MethodHeaderInfo> binaryFirst_ = _page.getBinaryFirst().getVal(supId_);
                     CustList<MethodHeaderInfo> binaryAll_ = _page.getBinaryAll().getVal(supId_);
@@ -2174,7 +2175,7 @@ public abstract class OperationNode {
                 CustList<AnaFormattedRootBlock> allClasses_ = new CustList<AnaFormattedRootBlock>(new AnaFormattedRootBlock(r_,r_.getGenericString()));
                 allClasses_.addAllElts(r_.getAllGenericSuperTypesInfo());
                 for (AnaFormattedRootBlock s: allClasses_) {
-                    String formatted_ = AnaTemplates.quickFormat(r_,_second,s.getFormatted());
+                    String formatted_ = AnaInherits.quickFormat(r_,_second,s.getFormatted());
                     String supId_ = StringExpUtil.getIdFromAllTypes(formatted_);
                     CustList<MethodHeaderInfo> binarySecond_ = _page.getBinarySecond().getVal(supId_);
                     CustList<MethodHeaderInfo> binaryAll_ = _page.getBinaryAll().getVal(supId_);
@@ -2196,7 +2197,7 @@ public abstract class OperationNode {
         CustList<AnaFormattedRootBlock> allClasses_ = new CustList<AnaFormattedRootBlock>(new AnaFormattedRootBlock(r_,r_.getGenericString()));
         allClasses_.addAllElts(r_.getAllGenericSuperTypesInfo());
         for (AnaFormattedRootBlock s: allClasses_) {
-            String formatted_ = AnaTemplates.quickFormat(r_,_id,s.getFormatted());
+            String formatted_ = AnaInherits.quickFormat(r_,_id,s.getFormatted());
             String supId_ = StringExpUtil.getIdFromAllTypes(formatted_);
             CustList<MethodHeaderInfo> castsFrom_ = _page.getUnary().getVal(supId_);
             fetchImproveOperators(_methods,formatted_, castsFrom_, _page);
@@ -2233,7 +2234,7 @@ public abstract class OperationNode {
         allClasses_.addAllElts(r_.getAllGenericSuperTypes());
         String glClass_ = _page.getGlobalClass();
         for (String s: allClasses_) {
-            String formatted_ = AnaTemplates.quickFormat(r_,_id,s);
+            String formatted_ = AnaInherits.quickFormat(r_,_id,s);
             String supId_ = StringExpUtil.getIdFromAllTypes(formatted_);
             StringMap<String> superTypesBaseAncBis_ = new StringMap<String>();
             superTypesBaseAncBis_.addEntry(supId_,supId_);
@@ -2254,7 +2255,7 @@ public abstract class OperationNode {
         allClasses_.addAllElts(r_.getAllGenericSuperTypes());
         String glClass_ = _page.getGlobalClass();
         for (String s: allClasses_) {
-            String formatted_ = AnaTemplates.quickFormat(r_,_id,s);
+            String formatted_ = AnaInherits.quickFormat(r_,_id,s);
             String supId_ = StringExpUtil.getIdFromAllTypes(formatted_);
             StringMap<String> superTypesBaseAncBis_ = new StringMap<String>();
             superTypesBaseAncBis_.addEntry(supId_,supId_);
@@ -2460,8 +2461,8 @@ public abstract class OperationNode {
     private static TypeInfo newTypeInfo(MethodAccessKind _k, AnaGeneType _firstType, String _first, AnaGeneType _secondType, String _second, int _anc, AnalyzedPageEl _page) {
         MethodAccessKind k_ = _k;
         String type_ = _second;
-        if (AnaTemplates.correctNbParameters(_firstType,_first, _page)) {
-            type_ = AnaTemplates.format(_firstType,_first, _second);
+        if (AnaInherits.correctNbParameters(_firstType,_first, _page)) {
+            type_ = AnaInherits.format(_firstType,_first, _second);
         } else {
             k_ = MethodAccessKind.STATIC;
         }
@@ -2651,7 +2652,7 @@ public abstract class OperationNode {
 
     private static MethodInfo buildMethodInfoCust(RootBlock _r, NamedFunctionBlock _m, boolean _keepParams, int _anc, String _formattedClass, AnalyzedPageEl _page, MethodId _id, String _importedReturnType, FormattedFilter _formatted) {
         String ret_ = _importedReturnType;
-        ret_ = AnaTemplates.wildCardFormatReturn(_formattedClass, ret_, _page);
+        ret_ = AnaInherits.wildCardFormatReturn(_formattedClass, ret_, _page);
         ParametersGroup p_ = new ParametersGroup();
         MethodInfo mloc_ = new MethodInfo();
         mloc_.setOriginalReturnType(_importedReturnType);
@@ -2678,7 +2679,7 @@ public abstract class OperationNode {
 
     private static MethodInfo buildMethodInfo(StandardMethod _m, boolean _keepParams, int _anc, String _formattedClass, AnalyzedPageEl _page, MethodId _id, String _importedReturnType, FormattedFilter _formatted) {
         String ret_ = _importedReturnType;
-        ret_ = AnaTemplates.wildCardFormatReturn(_formattedClass, ret_, _page);
+        ret_ = AnaInherits.wildCardFormatReturn(_formattedClass, ret_, _page);
         return getMethodInfo(_m, _keepParams, _anc, _formattedClass, _page, _id, _importedReturnType, ret_, _formatted);
     }
 
@@ -2701,7 +2702,7 @@ public abstract class OperationNode {
     private static MethodInfo buildCastMethodInfo(MethodHeaderInfo _m, ClassMethodIdAncestor _uniqueId, String _returnType, String _formattedClass, AnalyzedPageEl _page, StringMap<StringList> _vars, AbstractComparer _cmp) {
         String importedReturnType_ = _m.getImportedReturnType();
         String ret_ = importedReturnType_;
-        ret_ = AnaTemplates.wildCardFormatReturn(_formattedClass, ret_, _page);
+        ret_ = AnaInherits.wildCardFormatReturn(_formattedClass, ret_, _page);
         ParametersGroup p_ = new ParametersGroup();
         MethodId id_ = _m.getId();
         MethodInfo mloc_ = new MethodInfo();
@@ -2729,7 +2730,7 @@ public abstract class OperationNode {
 
     private static MethodInfo buildImproveOperatorInfo(MethodHeaderInfo _m, String _formattedClass, AnalyzedPageEl _page) {
         String ret_ = _m.getImportedReturnType();
-        ret_ = AnaTemplates.wildCardFormatReturn(_formattedClass, ret_, _page);
+        ret_ = AnaInherits.wildCardFormatReturn(_formattedClass, ret_, _page);
         ParametersGroup p_ = new ParametersGroup();
         MethodId id_ = _m.getId();
         MethodInfo mloc_ = new MethodInfo();
@@ -2951,7 +2952,7 @@ public abstract class OperationNode {
             map_.setArg(realArg_);
             map_.getMapping().putAllMap(mapCtr_);
             map_.setParam(realParam_);
-            return AnaTemplates.isCorrectOrNumbers(map_, _page);
+            return AnaInherits.isCorrectOrNumbers(map_, _page);
         }
     }
     private static ClassMethodIdReturn getCustResult(boolean _unique, int _varargOnly,
@@ -3184,7 +3185,7 @@ public abstract class OperationNode {
             map_.setArg(real_);
             map_.getMapping().putAllMap(mapCtr_);
             map_.setParam(wc_);
-            if (!AnaTemplates.isCorrectOrNumbers(map_, _page)) {
+            if (!AnaInherits.isCorrectOrNumbers(map_, _page)) {
                 return false;
             }
         }
@@ -3210,12 +3211,12 @@ public abstract class OperationNode {
             }
             String arr_ = StringExpUtil.getPrettyArrayType(wc_);
             map_.setParam(arr_);
-            if (AnaTemplates.isCorrectOrNumbers(map_, _page)) {
+            if (AnaInherits.isCorrectOrNumbers(map_, _page)) {
                 _id.setInvocation(InvocationMethod.STRICT);
                 return true;
             }
             map_.setParam(wc_);
-            if (AnaTemplates.isCorrectOrNumbers(map_, _page)) {
+            if (AnaInherits.isCorrectOrNumbers(map_, _page)) {
                 _id.setInvocation(InvocationMethod.VARARG);
                 return true;
             }
@@ -3236,7 +3237,7 @@ public abstract class OperationNode {
                 real_ = a_.substring(1);
             }
             map_.setArg(real_);
-            if (!AnaTemplates.isCorrectOrNumbers(map_, _page)) {
+            if (!AnaInherits.isCorrectOrNumbers(map_, _page)) {
                 return false;
             }
         }
@@ -3380,7 +3381,7 @@ public abstract class OperationNode {
                 return false;
             }
             map_.setParam(wc_);
-            if (!AnaTemplates.isCorrectOrNumbers(map_, _page)) {
+            if (!AnaInherits.isCorrectOrNumbers(map_, _page)) {
                 ClassMethodIdReturn res_ = OperationNode.tryGetDeclaredImplicitCast(wc_, arg_, _page);
                 if (res_.isFoundMethod()) {
                     implicit_ = true;
@@ -3443,11 +3444,11 @@ public abstract class OperationNode {
             }
             String arr_ = StringExpUtil.getPrettyArrayType(wc_);
             map_.setParam(arr_);
-            if (AnaTemplates.isCorrectOrNumbers(map_, _page)) {
+            if (AnaInherits.isCorrectOrNumbers(map_, _page)) {
                 setWideInvoke(_id, false, allNotBoxUnbox_, implicit_);
                 if (_unique) {
                     map_.setParam(wc_);
-                    if (AnaTemplates.isCorrectOrNumbers(map_, _page)) {
+                    if (AnaInherits.isCorrectOrNumbers(map_, _page)) {
                         setVarargOrImplicit(_id, implicit_);
                         _id.setVarArgWrap(true);
                     }
@@ -3455,7 +3456,7 @@ public abstract class OperationNode {
                 return true;
             }
             map_.setParam(wc_);
-            if (AnaTemplates.isCorrectOrNumbers(map_, _page)) {
+            if (AnaInherits.isCorrectOrNumbers(map_, _page)) {
                 setVarargOrImplicit(_id, implicit_);
                 _id.setVarArgWrap(true);
                 return true;
@@ -3493,7 +3494,7 @@ public abstract class OperationNode {
             }
             AnaClassArgumentMatching a_ = operationNode_.getResultClass();
             map_.setArg(a_);
-            if (!AnaTemplates.isCorrectOrNumbers(map_, _page)) {
+            if (!AnaInherits.isCorrectOrNumbers(map_, _page)) {
                 ClassMethodIdReturn res_ = OperationNode.tryGetDeclaredImplicitCast(wc_, a_, _page);
                 if (res_.isFoundMethod()) {
                     implicit_ = true;
@@ -3528,11 +3529,11 @@ public abstract class OperationNode {
         map_.setArg(_argsClass);
         map_.getMapping().putAllMap(mapCtr_);
         map_.setParam(wc_);
-        if (!AnaTemplates.isCorrectOrNumbers(map_, _page)) {
+        if (!AnaInherits.isCorrectOrNumbers(map_, _page)) {
             return false;
         }
         map_.setArg(_id.getReturnType());
-        if (!AnaTemplates.isCorrectOrNumbers(map_, _page)) {
+        if (!AnaInherits.isCorrectOrNumbers(map_, _page)) {
             return false;
         }
         _id.setInvocation(InvocationMethod.STRICT);
@@ -3884,7 +3885,7 @@ public abstract class OperationNode {
                         spec_ = false;
                         break;
                     }
-                    if (!AnaTemplates.isReturnCorrect(otherRet_, curRet_, map_, context_)) {
+                    if (!AnaInherits.isReturnCorrect(otherRet_, curRet_, map_, context_)) {
                         spec_ = false;
                         break;
                     }
@@ -3904,7 +3905,7 @@ public abstract class OperationNode {
                     }
                     MethodInfo otherMi_ = abs_.get(j);
                     String otherRet_ = otherMi_.getReturnType();
-                    if (!AnaTemplates.isReturnCorrect(otherRet_, curRet_, map_, context_)) {
+                    if (!AnaInherits.isReturnCorrect(otherRet_, curRet_, map_, context_)) {
                         spec_ = false;
                         break;
                     }
@@ -4138,12 +4139,12 @@ public abstract class OperationNode {
         if (!StringUtil.quickEq(_o2.getReturnType(), _o1.getReturnType())) {
             String p_ = _o1.getReturnType();
             String a_ = _o2.getReturnType();
-            if (AnaTemplates.isReturnCorrect(p_, a_, map_, context_)) {
+            if (AnaInherits.isReturnCorrect(p_, a_, map_, context_)) {
                 return SortConstants.SWAP_SORT;
             }
             a_ = _o1.getReturnType();
             p_ = _o2.getReturnType();
-            if (AnaTemplates.isReturnCorrect(p_, a_, map_, context_)) {
+            if (AnaInherits.isReturnCorrect(p_, a_, map_, context_)) {
                 return SortConstants.NO_SWAP_SORT;
             }
         } else if (StringUtil.quickEq(baseTypeOne_, baseTypeTwo_)){
@@ -4235,7 +4236,7 @@ public abstract class OperationNode {
         MethodOperation.processEmptyError(getFirstChild(),errs);
     }
     protected String check(String _className, StringList _parts, StringMap<StringList> _inherit, AnalyzedPageEl _page) {
-        return AnaTemplates.check(errs,_className,_parts,_inherit,_page);
+        return AnaInherits.check(errs,_className,_parts,_inherit,_page);
     }
     public void mergeErrs(OperationNode _err) {
         errs.addAllElts(_err.errs);

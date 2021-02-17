@@ -2,6 +2,7 @@ package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.*;
+import code.expressionlanguage.analyze.inherits.AnaInherits;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.analyze.opers.util.ConstructorInfo;
 import code.expressionlanguage.analyze.opers.util.MethodInfo;
@@ -64,7 +65,7 @@ public final class ElementArrayInstancing extends AbstractArrayInstancingOperati
             typeAff_ = tryGetTypeAff(m_, par_.getOperationChild().getIndexChild());
         }
         CustList<PartOffset> partOffsets_ = new CustList<PartOffset>();
-        DimComp dim_ = AnaTemplates.getComponentForm(className_);
+        DimComp dim_ = AnaInherits.getComponentForm(className_);
         String inferForm_ = AnaTemplates.getInferForm(dim_.getComponent());
         if (inferForm_ == null) {
             int loc_ = StringUtil.getFirstPrintableCharIndex(className_);
@@ -291,7 +292,7 @@ public final class ElementArrayInstancing extends AbstractArrayInstancingOperati
             AnaClassArgumentMatching argType_ = o.getResultClass();
             mapping_.setArg(argType_);
             mapping_.setMapping(map_);
-            if (!AnaTemplates.isCorrectOrNumbers(mapping_, _page)) {
+            if (!AnaInherits.isCorrectOrNumbers(mapping_, _page)) {
                 ClassMethodIdReturn res_ = tryGetDeclaredImplicitCast(eltType_, argType_, _page);
                 if (res_.isFoundMethod()) {
                     ClassMethodId cl_ = new ClassMethodId(res_.getId().getClassName(),res_.getRealId());

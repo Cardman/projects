@@ -1,7 +1,7 @@
 package code.expressionlanguage.analyze.blocks;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.analyze.inherits.AnaTemplates;
+import code.expressionlanguage.analyze.inherits.AnaInherits;
 import code.expressionlanguage.analyze.opers.IdFctOperation;
 import code.expressionlanguage.analyze.opers.util.AnaTypeFct;
 import code.expressionlanguage.analyze.types.GeneStringOverridable;
@@ -26,7 +26,7 @@ import code.util.core.StringUtil;
 
 public final class OverridableBlock extends NamedCalledFunctionBlock implements ReturnableWithSignature {
 
-    private int modifierOffset;
+    private final int modifierOffset;
 
     private final boolean staticMethod;
     private final boolean staticCallMethod;
@@ -36,10 +36,10 @@ public final class OverridableBlock extends NamedCalledFunctionBlock implements 
 
     private final boolean normalMethod;
     private MethodKind kind;
-    private CustList<PartOffsetsClassMethodId> allInternTypesParts = new CustList<PartOffsetsClassMethodId>();
+    private final CustList<PartOffsetsClassMethodId> allInternTypesParts = new CustList<PartOffsetsClassMethodId>();
     private String definition  = "";
     private int definitionOffset;
-    private StringMap<GeneStringOverridable> overrides = new StringMap<GeneStringOverridable>();
+    private final StringMap<GeneStringOverridable> overrides = new StringMap<GeneStringOverridable>();
     private int nameOverrideNumber;
     private String returnTypeGet = "";
     public OverridableBlock(boolean _retRef, OffsetAccessInfo _access,
@@ -189,7 +189,7 @@ public final class OverridableBlock extends NamedCalledFunctionBlock implements 
             String clDest_ = ResolvingTypes.resolveAccessibleIdType(off_+firstPar_+1,fromType_, _page);
             CustList<PartOffset> superPartOffsets_ = new CustList<PartOffset>();
             superPartOffsets_.addAllElts(_page.getCurrentParts());
-            String formattedDest_ = AnaTemplates.getOverridingFullTypeByBases(root_, clDest_, _page);
+            String formattedDest_ = AnaInherits.getOverridingFullTypeByBases(root_, clDest_, _page);
             RootBlock formattedDestType_ = _page.getAnaClassBody(StringExpUtil.getIdFromAllTypes(formattedDest_));
             if (formattedDestType_ == null) {
                 allPartSuperTypes_.addAllElts(superPartOffsets_);
@@ -211,14 +211,14 @@ public final class OverridableBlock extends NamedCalledFunctionBlock implements 
                 continue;
             }
             CustList<OverridableBlock> methods_ = formattedDestType_.getOverridableBlocks();
-            String formattedDeclaring_ = AnaTemplates.getOverridingFullTypeByBases(root_, _root.getFullName(), _page);
+            String formattedDeclaring_ = AnaInherits.getOverridingFullTypeByBases(root_, _root.getFullName(), _page);
             if (!getId().quickOverrideFormat(_root,formattedDeclaring_).eqPartial(MethodId.to(methodIdDest_.quickFormat(formattedDestType_,formattedDest_)))) {
                 allPartSuperTypes_.addAllElts(superPartOffsets_);
                 sum_ += o.length()+1;
                 allInternTypesParts.add(new PartOffsetsClassMethodId(allPartTypes_,allPartSuperTypes_,null,null,  0, 0));
                 continue;
             }
-            String return_ = AnaTemplates.quickFormat(_root,formattedDeclaring_,getImportedReturnType());
+            String return_ = AnaInherits.quickFormat(_root,formattedDeclaring_,getImportedReturnType());
             StringMap<StringList> vars_ = new StringMap<StringList>();
             for (TypeVar t: root_.getParamTypesMapValues()) {
                 vars_.put(t.getName(), t.getConstraints());
@@ -231,13 +231,13 @@ public final class OverridableBlock extends NamedCalledFunctionBlock implements 
                     continue;
                 }
                 if (m.getId().eq(methodIdDest_)) {
-                    String returnDest_ = AnaTemplates.quickFormat(formattedDestType_,formattedDest_,m.getImportedReturnType());
+                    String returnDest_ = AnaInherits.quickFormat(formattedDestType_,formattedDest_,m.getImportedReturnType());
                     if (methodIdDest_.isRetRef()) {
                         if (!StringUtil.quickEq(return_,returnDest_)) {
                             continue;
                         }
                     } else {
-                        if (!AnaTemplates.isReturnCorrect(return_,returnDest_,vars_,_page)) {
+                        if (!AnaInherits.isReturnCorrect(return_,returnDest_,vars_,_page)) {
                             continue;
                         }
                     }

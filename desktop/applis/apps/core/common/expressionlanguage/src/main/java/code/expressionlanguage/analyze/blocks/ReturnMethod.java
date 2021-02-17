@@ -1,7 +1,7 @@
 package code.expressionlanguage.analyze.blocks;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.analyze.inherits.AnaTemplates;
+import code.expressionlanguage.analyze.inherits.AnaInherits;
 import code.expressionlanguage.analyze.opers.WrappOperation;
 import code.expressionlanguage.analyze.syntax.ResultExpression;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
@@ -142,7 +142,7 @@ public final class ReturnMethod extends AbruptBlock {
             addErrorBlock(cast_.getBuiltError());
             return;
         }
-        if (!AnaTemplates.isCorrectOrNumbers(mapping_, _page)) {
+        if (!AnaInherits.isCorrectOrNumbers(mapping_, _page)) {
             //look for implicit casts
             ClassMethodIdReturn res_ = OperationNode.tryGetDeclaredImplicitCast(_retType, ret_, _page);
             if (res_.isFoundMethod()) {

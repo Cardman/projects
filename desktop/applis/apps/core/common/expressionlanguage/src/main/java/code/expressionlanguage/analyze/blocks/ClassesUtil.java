@@ -7,9 +7,7 @@ import code.expressionlanguage.analyze.TokenErrorMessage;
 import code.expressionlanguage.analyze.accessing.OperatorAccessor;
 import code.expressionlanguage.analyze.accessing.TypeAccessor;
 import code.expressionlanguage.analyze.errors.custom.FoundWarningInterpret;
-import code.expressionlanguage.analyze.inherits.AnaTemplates;
-import code.expressionlanguage.analyze.inherits.FoundSuperType;
-import code.expressionlanguage.analyze.inherits.Mapping;
+import code.expressionlanguage.analyze.inherits.*;
 import code.expressionlanguage.analyze.opers.AnonymousInstancingOperation;
 import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.analyze.opers.util.MethodInfo;
@@ -30,7 +28,6 @@ import code.expressionlanguage.analyze.files.FileResolver;
 import code.expressionlanguage.analyze.files.OffsetsBlock;
 import code.expressionlanguage.functionid.*;
 import code.expressionlanguage.inherits.Templates;
-import code.expressionlanguage.analyze.inherits.OverridesTypeUtil;
 import code.expressionlanguage.stds.StandardClass;
 import code.expressionlanguage.stds.StandardType;
 import code.expressionlanguage.structs.Struct;
@@ -601,7 +598,7 @@ public final class ClassesUtil {
             if (!_root.getParamTypes().isEmpty()) {
                 StringList vars_ = new StringList();
                 for (TypeVar t:_root.getParamTypes()) {
-                    vars_.add(StringUtil.concat(AnaTemplates.PREFIX_VAR_TYPE,t.getName()));
+                    vars_.add(StringUtil.concat(AnaInherits.PREFIX_VAR_TYPE,t.getName()));
                 }
                 generic_.append(Templates.TEMPLATE_BEGIN);
                 generic_.append(StringUtil.join(vars_, Templates.TEMPLATE_SEP));

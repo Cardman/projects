@@ -5,12 +5,11 @@ import code.expressionlanguage.analyze.AnaApplyCoreMethodUtil;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.*;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
-import code.expressionlanguage.analyze.inherits.AnaTemplates;
+import code.expressionlanguage.analyze.inherits.AnaInherits;
 import code.expressionlanguage.analyze.inherits.Mapping;
 import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.analyze.reach.opers.ReachOperationUtil;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
-import code.expressionlanguage.analyze.util.ContextUtil;
 import code.expressionlanguage.common.AnaGeneType;
 import code.expressionlanguage.common.StringExpUtil;
 import code.util.StringList;
@@ -109,7 +108,7 @@ public final class ReachCaseCondition extends ReachSwitchPartBlock {
             Mapping m_ = new Mapping();
             m_.setArg(_resCase);
             m_.setParam(_resSwitch);
-            if (!AnaTemplates.isCorrectOrNumbers(m_, _page)) {
+            if (!AnaInherits.isCorrectOrNumbers(m_, _page)) {
                 FoundErrorInterpret un_ = new FoundErrorInterpret();
                 un_.setFileName(getFile().getFileName());
                 un_.setIndexFile(valueOffset);

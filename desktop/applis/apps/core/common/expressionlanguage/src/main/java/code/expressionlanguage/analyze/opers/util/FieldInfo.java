@@ -3,7 +3,7 @@ package code.expressionlanguage.analyze.opers.util;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.accessing.Accessed;
 import code.expressionlanguage.analyze.blocks.RootBlock;
-import code.expressionlanguage.analyze.inherits.AnaTemplates;
+import code.expressionlanguage.analyze.inherits.AnaInherits;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.StringExpUtil;
 
@@ -39,9 +39,9 @@ public final class FieldInfo {
             return new FieldInfo(_name, _declaringClass, formattedType_, _type, true, _finalField, _accessed, _valOffset);
         }
         if (_aff) {
-            formattedType_ = AnaTemplates.wildCardFormatParam(_declaringClass, formattedType_, _page);
+            formattedType_ = AnaInherits.wildCardFormatParam(_declaringClass, formattedType_, _page);
         } else {
-            formattedType_ = AnaTemplates.wildCardFormatReturn(_declaringClass, formattedType_, _page);
+            formattedType_ = AnaInherits.wildCardFormatReturn(_declaringClass, formattedType_, _page);
         }
         if (formattedType_.isEmpty()) {
             return null;

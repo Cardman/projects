@@ -1,7 +1,7 @@
 package code.expressionlanguage.analyze.instr;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.analyze.inherits.AnaTemplates;
+import code.expressionlanguage.analyze.inherits.AnaInherits;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.analyze.types.ResolvingTypes;
@@ -161,7 +161,7 @@ public final class FullFieldRetriever implements FieldRetriever {
         }
         CustList<PartOffset> partOffsets_ = new CustList<PartOffset>();
         String join_ = StringUtil.join(partsFieldsBisFields_, "");
-        StringList inns_ = AnaTemplates.getAllInnerTypes(join_, _page);
+        StringList inns_ = AnaInherits.getAllInnerTypes(join_, _page);
         String trim_ = inns_.first().trim();
         int nextOff_ = _from;
         int nb_ = 0;

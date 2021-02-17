@@ -2,7 +2,7 @@ package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.*;
-import code.expressionlanguage.analyze.inherits.AnaTemplates;
+import code.expressionlanguage.analyze.inherits.AnaInherits;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.analyze.types.ResolvingTypes;
@@ -20,11 +20,11 @@ import code.util.core.StringUtil;
 
 public final class AnnotationInstanceOperation extends InvokingOperation implements PreAnalyzableOperation {
 
-    private AnaInstancingAnnotContent instancingAnnotContent;
+    private final AnaInstancingAnnotContent instancingAnnotContent;
 
-    private CustList<PartOffset> partOffsetsErr = new CustList<PartOffset>();
-    private CustList<PartOffset> partOffsets = new CustList<PartOffset>();
-    private CustList<PartOffset> partOffsetsErrPar = new CustList<PartOffset>();
+    private final CustList<PartOffset> partOffsetsErr = new CustList<PartOffset>();
+    private final CustList<PartOffset> partOffsets = new CustList<PartOffset>();
+    private final CustList<PartOffset> partOffsetsErrPar = new CustList<PartOffset>();
     private int rootNumber = -1;
 
     public AnnotationInstanceOperation(int _index,
@@ -171,7 +171,7 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
                 AnaClassArgumentMatching argType_ = o.getResultClass();
                 mapping_.setArg(argType_);
                 mapping_.setMapping(map_);
-                if (!AnaTemplates.isCorrectOrNumbers(mapping_, _page)) {
+                if (!AnaInherits.isCorrectOrNumbers(mapping_, _page)) {
                     FoundErrorInterpret cast_ = new FoundErrorInterpret();
                     cast_.setFileName(_page.getLocalizer().getCurrentFileName());
                     cast_.setIndexFile(i_);
@@ -240,10 +240,10 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
                 mapping_.setMapping(_page.getCurrentConstraints().getCurrentConstraints());
                 mapping_.setArg(arg_);
                 mapping_.setParam(param_);
-                if (!AnaTemplates.isCorrectOrNumbers(mapping_, _page)) {
+                if (!AnaInherits.isCorrectOrNumbers(mapping_, _page)) {
                     if (param_.isArray()) {
                         mapping_.setParam(AnaTypeUtil.getQuickComponentType(param_));
-                        if (AnaTemplates.isCorrectOrNumbers(mapping_, _page)) {
+                        if (AnaInherits.isCorrectOrNumbers(mapping_, _page)) {
                             AnnotationTypeInfo i_ = new AnnotationTypeInfo();
                             i_.setType(paramName_);
                             i_.setWrap(true);
@@ -386,10 +386,10 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
                 mapping_.setMapping(_page.getCurrentConstraints().getCurrentConstraints());
                 mapping_.setArg(arg_);
                 mapping_.setParam(param_);
-                if (!AnaTemplates.isCorrectOrNumbers(mapping_, _page)) {
+                if (!AnaInherits.isCorrectOrNumbers(mapping_, _page)) {
                     if (param_.isArray()) {
                         mapping_.setParam(AnaTypeUtil.getQuickComponentType(param_));
-                        if (AnaTemplates.isCorrectOrNumbers(mapping_, _page)) {
+                        if (AnaInherits.isCorrectOrNumbers(mapping_, _page)) {
                             AnnotationTypeInfo i_ = instancingAnnotContent.getFieldNames().getVal(suppliedKey_);
                             i_.setType(paramName_);
                             i_.setWrap(true);

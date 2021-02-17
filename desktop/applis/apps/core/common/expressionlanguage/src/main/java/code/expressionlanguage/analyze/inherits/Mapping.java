@@ -20,7 +20,7 @@ public final class Mapping {
                 StringList nextBounds_ = new StringList();
                 for (String c: currentBounds_) {
                     String var_ = c;
-                    if (c.startsWith(AnaTemplates.PREFIX_VAR_TYPE)) {
+                    if (c.startsWith(AnaInherits.PREFIX_VAR_TYPE)) {
                         var_ = c.substring(1);
                     }
                     if (!mapping.contains(var_)) {
@@ -28,7 +28,7 @@ public final class Mapping {
                     }
                     visitedBounds_.add(var_);
                     for (String n: mapping.getVal(var_)) {
-                        if (n.startsWith(AnaTemplates.PREFIX_VAR_TYPE)) {
+                        if (n.startsWith(AnaInherits.PREFIX_VAR_TYPE)) {
                             if (StringUtil.quickEq(n.substring(1),k)) {
                                 return visitedBounds_;
                             }
@@ -56,7 +56,7 @@ public final class Mapping {
             StringList nextBounds_ = new StringList();
             for (String c: currentBounds_) {
                 String var_ = c;
-                if (c.startsWith(AnaTemplates.PREFIX_VAR_TYPE)) {
+                if (c.startsWith(AnaInherits.PREFIX_VAR_TYPE)) {
                     var_ = c.substring(1);
                 }
                 if (!_mapping.contains(var_)) {
@@ -89,7 +89,7 @@ public final class Mapping {
             StringList nextBounds_ = new StringList();
             for (String c: currentBounds_) {
                 String var_ = c;
-                if (c.startsWith(AnaTemplates.PREFIX_VAR_TYPE)) {
+                if (c.startsWith(AnaInherits.PREFIX_VAR_TYPE)) {
                     var_ = c.substring(1);
                 }
                 if (!_mapping.contains(var_)) {
@@ -97,7 +97,7 @@ public final class Mapping {
                     continue;
                 }
                 StringBuilder str_ = new StringBuilder();
-                str_.append(AnaTemplates.PREFIX_VAR_TYPE);
+                str_.append(AnaInherits.PREFIX_VAR_TYPE);
                 str_.append(var_);
                 varBounds_.add(str_.toString());
                 for (String n: _mapping.getVal(var_)) {
@@ -131,7 +131,7 @@ public final class Mapping {
                     continue;
                 }
                 for (String n: mapping.getVal(c)) {
-                    if (!n.startsWith(AnaTemplates.PREFIX_VAR_TYPE)) {
+                    if (!n.startsWith(AnaInherits.PREFIX_VAR_TYPE)) {
                         continue;
                     }
                     String var_ = n.substring(1);

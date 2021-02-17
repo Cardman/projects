@@ -3,7 +3,7 @@ package code.formathtml.analyze.blocks;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.files.OffsetsBlock;
-import code.expressionlanguage.analyze.inherits.AnaTemplates;
+import code.expressionlanguage.analyze.inherits.AnaInherits;
 import code.expressionlanguage.analyze.inherits.Mapping;
 import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
@@ -50,7 +50,7 @@ public abstract class AnaRendInput extends AnaRendElement {
             Mapping m_ = new Mapping();
             m_.setArg(r_.getOpsReadRoot().getResultClass());
             m_.setParam(_anaDoc.getAliasCharSequence());
-            if (!AnaTemplates.isCorrectOrNumbers(m_, _page)) {
+            if (!AnaInherits.isCorrectOrNumbers(m_, _page)) {
                 String string_ = _page.getAliasString();
                 StringList varNames_ = new StringList();
                 String varLoc_ = AnaRendBlock.lookForVar(varNames_, _page);
@@ -67,7 +67,7 @@ public abstract class AnaRendInput extends AnaRendElement {
                 }
                 m_.setArg(rootConverter.getResultClass());
                 m_.setParam(r_.getOpsReadRoot().getResultClass());
-                if (!AnaTemplates.isCorrectOrNumbers(m_, _page)) {
+                if (!AnaInherits.isCorrectOrNumbers(m_, _page)) {
                     FoundErrorInterpret badEl_ = new FoundErrorInterpret();
                     badEl_.setFileName(_anaDoc.getFileName());
                     badEl_.setIndexFile(attr_);
@@ -122,7 +122,7 @@ public abstract class AnaRendInput extends AnaRendElement {
             Mapping m_ = new Mapping();
             m_.setArg(rootConverterField.getResultClass());
             m_.setParam(_anaDoc.getAliasCharSequence());
-            if (!AnaTemplates.isCorrectOrNumbers(m_, _page)) {
+            if (!AnaInherits.isCorrectOrNumbers(m_, _page)) {
                 FoundErrorInterpret badEl_ = new FoundErrorInterpret();
                 badEl_.setFileName(_anaDoc.getFileName());
                 badEl_.setIndexFile(attr_);

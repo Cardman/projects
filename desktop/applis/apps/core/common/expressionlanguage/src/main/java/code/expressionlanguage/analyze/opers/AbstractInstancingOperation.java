@@ -4,6 +4,7 @@ import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.InterfacesPart;
 import code.expressionlanguage.analyze.blocks.*;
 import code.expressionlanguage.analyze.files.ParsedAnnotations;
+import code.expressionlanguage.analyze.inherits.AnaInherits;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.analyze.inherits.Mapping;
 import code.expressionlanguage.analyze.opers.util.*;
@@ -103,7 +104,7 @@ public abstract class AbstractInstancingOperation extends InvokingOperation {
                 }
                 sup_ = ownersMap_.values().first();
                 RootBlock root_ = _page.getAnaClassBody(StringExpUtil.getIdFromAllTypes(sup_));
-                vars_ = AnaTemplates.getVarTypes(root_,sup_);
+                vars_ = AnaInherits.getVarTypes(root_,sup_);
             }
         } else {
             setStaticAccess(_page.getStaticContext());
@@ -282,7 +283,7 @@ public abstract class AbstractInstancingOperation extends InvokingOperation {
                     offset_ += a.length() + 1;
                 }
                 StringMap<StringList> currVars_ = _page.getCurrentConstraints().getCurrentConstraints();
-                String res_ = AnaTemplates.tryGetAllInners(StringUtil.concat(sup_, "..", idClass_), partsArgs_, currVars_, _page);
+                String res_ = AnaInherits.tryGetAllInners(StringUtil.concat(sup_, "..", idClass_), partsArgs_, currVars_, _page);
                 if (!res_.isEmpty()) {
                     partOffsets.addAllElts(partOffsets_);
                     typeInfer = res_;
@@ -500,7 +501,7 @@ public abstract class AbstractInstancingOperation extends InvokingOperation {
                 m_.setArg(glClass_);
                 m_.setParam(outer_);
                 m_.setMapping(vars_);
-                if (!AnaTemplates.isCorrectOrNumbers(m_, _page)){
+                if (!AnaInherits.isCorrectOrNumbers(m_, _page)){
                     FoundErrorInterpret static_ = new FoundErrorInterpret();
                     static_.setFileName(_page.getLocalizer().getCurrentFileName());
                     static_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
@@ -526,7 +527,7 @@ public abstract class AbstractInstancingOperation extends InvokingOperation {
             m_.setArg(_argOwner);
             m_.setParam(outer_);
             m_.setMapping(vars_);
-            return !AnaTemplates.isCorrectOrNumbers(m_, _page);
+            return !AnaInherits.isCorrectOrNumbers(m_, _page);
         }
         return false;
     }

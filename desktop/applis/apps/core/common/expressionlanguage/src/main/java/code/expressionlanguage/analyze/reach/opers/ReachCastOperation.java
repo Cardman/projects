@@ -2,7 +2,7 @@ package code.expressionlanguage.analyze.reach.opers;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.analyze.inherits.AnaTemplates;
+import code.expressionlanguage.analyze.inherits.AnaInherits;
 import code.expressionlanguage.analyze.inherits.Mapping;
 import code.expressionlanguage.analyze.opers.CastOperation;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
@@ -11,7 +11,7 @@ import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.structs.*;
 
 public final class ReachCastOperation extends ReachMethodOperation implements ReachCalculable {
-    private String className;
+    private final String className;
     ReachCastOperation(CastOperation _info) {
         super(_info);
         className = _info.getClassName();
@@ -67,7 +67,7 @@ public final class ReachCastOperation extends ReachMethodOperation implements Re
         if (after_.getStruct() instanceof ClassMetaInfo) {
             m_.setArg(_page.getAliasClassType());
         }
-        if (!AnaTemplates.isCorrectOrNumbers(m_, _page)) {
+        if (!AnaInherits.isCorrectOrNumbers(m_, _page)) {
             return;
         }
         setSimpleArgumentAna(after_);

@@ -9,7 +9,7 @@ import code.expressionlanguage.analyze.blocks.*;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.files.OffsetStringInfo;
 import code.expressionlanguage.analyze.files.OffsetsBlock;
-import code.expressionlanguage.analyze.inherits.AnaTemplates;
+import code.expressionlanguage.analyze.inherits.AnaInherits;
 import code.expressionlanguage.analyze.inherits.Mapping;
 import code.expressionlanguage.analyze.instr.ElResolver;
 import code.expressionlanguage.analyze.instr.ElUtil;
@@ -152,7 +152,7 @@ public final class AnaRendCaseCondition extends AnaRendSwitchPartCondition {
             Mapping m_ = new Mapping();
             m_.setArg(resCase_);
             m_.setParam(resSwitch_);
-            if (!AnaTemplates.isCorrectOrNumbers(m_, _page)) {
+            if (!AnaInherits.isCorrectOrNumbers(m_, _page)) {
                 FoundErrorInterpret un_ = new FoundErrorInterpret();
                 un_.setFileName(_anaDoc.getFileName());
                 un_.setIndexFile(valueOffset);

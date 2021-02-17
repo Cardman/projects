@@ -2,6 +2,7 @@ package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.*;
+import code.expressionlanguage.analyze.inherits.AnaInherits;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.analyze.opers.util.*;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
@@ -723,7 +724,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
                             continue;
                         }
                     } else {
-                        if (!AnaTemplates.isCorrectOrNumbers(mapping_, _page)) {
+                        if (!AnaInherits.isCorrectOrNumbers(mapping_, _page)) {
                             ClassMethodIdReturn res_ = tryGetDeclaredImplicitCast(_typeAff, new AnaClassArgumentMatching(returnType_), _page);
                             if (!res_.isFoundMethod()) {
                                 continue;
@@ -764,7 +765,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
     static StringList getBounds(String _cl, AnalyzedPageEl _page) {
         String objectClassName_ = _page.getAliasObject();
         StringList bounds_ = new StringList();
-        if (_cl.startsWith(AnaTemplates.PREFIX_VAR_TYPE)) {
+        if (_cl.startsWith(AnaInherits.PREFIX_VAR_TYPE)) {
             AnaGeneType gl_ = _page.getGlobalType();
             StringMap<StringList> mapping_ = new StringMap<StringList>();
             for (TypeVar t: ContextUtil.getParamTypesMapValues(gl_)) {

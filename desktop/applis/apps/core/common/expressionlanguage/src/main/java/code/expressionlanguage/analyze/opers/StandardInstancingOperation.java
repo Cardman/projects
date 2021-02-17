@@ -6,7 +6,7 @@ import code.expressionlanguage.analyze.blocks.InfoBlock;
 import code.expressionlanguage.analyze.blocks.RecordBlock;
 import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.expressionlanguage.analyze.files.ParsedAnnotations;
-import code.expressionlanguage.analyze.inherits.AnaTemplates;
+import code.expressionlanguage.analyze.inherits.AnaInherits;
 import code.expressionlanguage.analyze.inherits.Mapping;
 import code.expressionlanguage.analyze.opers.util.*;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
@@ -322,7 +322,7 @@ public final class StandardInstancingOperation extends
             String name_ = ((NamedArgumentOperation) o).getName();
             boolean contained_ = false;
             for (InfoBlock f: _root.getFieldsBlocks()) {
-                String par_ = AnaTemplates.quickFormat(_root, _real, f.getImportedClassName());
+                String par_ = AnaInherits.quickFormat(_root, _real, f.getImportedClassName());
                 Mapping m_ = new Mapping();
                 m_.setArg(o.getResultClass());
                 m_.setParam(par_);
@@ -332,7 +332,7 @@ public final class StandardInstancingOperation extends
                     ((NamedArgumentOperation) o).setField(_root);
                     ((NamedArgumentOperation) o).setRef(index_);
                     instancingStdContent.getInfos().addEntry(name_,f.getImportedClassName());
-                    if (!AnaTemplates.isCorrectOrNumbers(m_, _page)){
+                    if (!AnaInherits.isCorrectOrNumbers(m_, _page)){
                         ClassMethodIdReturn res_ = OperationNode.tryGetDeclaredImplicitCast(par_, o.getResultClass(), _page);
                         if (!res_.isFoundMethod()) {
                             continue;

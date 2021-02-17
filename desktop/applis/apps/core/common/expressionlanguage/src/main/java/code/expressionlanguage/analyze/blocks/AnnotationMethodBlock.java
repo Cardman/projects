@@ -1,7 +1,7 @@
 package code.expressionlanguage.analyze.blocks;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.analyze.inherits.AnaTemplates;
+import code.expressionlanguage.analyze.inherits.AnaInherits;
 import code.expressionlanguage.analyze.reach.opers.ReachOperationUtil;
 import code.expressionlanguage.analyze.syntax.ResultExpression;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
@@ -25,10 +25,10 @@ import code.util.core.StringUtil;
 
 public final class AnnotationMethodBlock extends NamedCalledFunctionBlock {
 
-    private String defaultValue;
-    private ResultExpression res = new ResultExpression();
-    private int defaultValueOffset;
-    private int rightPar;
+    private final String defaultValue;
+    private final ResultExpression res = new ResultExpression();
+    private final int defaultValueOffset;
+    private final int rightPar;
     private boolean ko;
 
     public AnnotationMethodBlock(OffsetStringInfo _retType, OffsetStringInfo _fctName,
@@ -111,7 +111,7 @@ public final class AnnotationMethodBlock extends NamedCalledFunctionBlock {
         AnaClassArgumentMatching arg_ = res.getRoot().getResultClass();
         mapping_.setArg(arg_);
         mapping_.setParam(import_);
-        if (!AnaTemplates.isCorrectOrNumbers(mapping_, _page)) {
+        if (!AnaInherits.isCorrectOrNumbers(mapping_, _page)) {
             FoundErrorInterpret cast_ = new FoundErrorInterpret();
             cast_.setFileName(getFile().getFileName());
             cast_.setIndexFile(defaultValueOffset);

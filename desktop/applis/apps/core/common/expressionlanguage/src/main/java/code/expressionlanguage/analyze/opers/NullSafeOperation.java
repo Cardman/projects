@@ -1,7 +1,6 @@
 package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.analyze.inherits.ResultTernary;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
@@ -62,7 +61,7 @@ public final class NullSafeOperation extends MethodOperation {
         }
         StringList one_ = clMatchTwo_.getNames();
         StringList two_ = clMatchThree_.getNames();
-        ResultTernary res_ = AnaTemplates.getResultTernary(one_, null, two_, null, vars_, _page);
+        ResultTernary res_ = ResultTernary.getResultTernary(one_, null, two_, null, vars_, _page);
         setResultClass(new AnaClassArgumentMatching(res_.getTypes()));
     }
 

@@ -1,7 +1,7 @@
 package code.expressionlanguage.analyze.types;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.analyze.inherits.AnaTemplates;
+import code.expressionlanguage.analyze.inherits.AnaInherits;
 import code.expressionlanguage.common.AnaGeneType;
 import code.expressionlanguage.common.DimComp;
 import code.expressionlanguage.common.StrTypes;
@@ -17,7 +17,7 @@ import code.util.*;
 import code.util.core.StringUtil;
 
 final class AnaTemplatePartType extends AnaBinaryType {
-    private Ints indexesChildConstraints = new Ints();
+    private final Ints indexesChildConstraints = new Ints();
     private PartOffset lastPartBegin = new PartOffset("",0);
     private PartOffset lastPartEnd = new PartOffset("",0);
 
@@ -80,7 +80,7 @@ final class AnaTemplatePartType extends AnaBinaryType {
         String tempClFull_ = fetchTemplate();
         tempCl_ = StringExpUtil.getIdFromAllTypes(tempCl_);
         AnaGeneType type_ = _page.getAnaGeneType(tempCl_);
-        CustList<StringList> boundsAll_ = AnaTemplates.getBoundAll(type_);
+        CustList<StringList> boundsAll_ = AnaInherits.getBoundAll(type_);
         int i_ = 0;
         for (StringList t: boundsAll_) {
             getBeginOps().add(new PartOffset("",0));
@@ -106,7 +106,7 @@ final class AnaTemplatePartType extends AnaBinaryType {
             String comp_ = arg_;
             DimComp dimCompArg_ = StringExpUtil.getQuickComponentBaseType(comp_);
             comp_ = dimCompArg_.getComponent();
-            boolean lookInInherit_ = comp_.startsWith(AnaTemplates.PREFIX_VAR_TYPE);
+            boolean lookInInherit_ = comp_.startsWith(AnaInherits.PREFIX_VAR_TYPE);
             StringList bounds_ = new StringList();
             if (lookInInherit_) {
                 bounds_.addAllElts(_inherit.getVal(comp_.substring(1)));
@@ -115,13 +115,13 @@ final class AnaTemplatePartType extends AnaBinaryType {
             }
             for (String e: t) {
                 Mapping m_ = new Mapping();
-                String param_ = AnaTemplates.format(type_,tempClFull_, e);
+                String param_ = AnaInherits.format(type_,tempClFull_, e);
                 m_.setParam(param_);
                 boolean ok_ = false;
                 for (String v: bounds_) {
                     m_.setArg(v);
                     m_.setMapping(_inherit);
-                    if (AnaTemplates.isCorrect(m_, _page)) {
+                    if (AnaInherits.isCorrect(m_, _page)) {
                         ok_ = true;
                         break;
                     }

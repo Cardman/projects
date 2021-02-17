@@ -1,7 +1,7 @@
 package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.analyze.inherits.AnaTemplates;
+import code.expressionlanguage.analyze.inherits.AnaInherits;
 import code.expressionlanguage.analyze.opers.util.*;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.ResolvingTypes;
@@ -114,7 +114,7 @@ public final class SuperFctOperation extends InvokingOperation implements PreAna
         map_.setArg(clCur_);
         StringMap<StringList> mapping_ = _page.getCurrentConstraints().getCurrentConstraints();
         map_.setMapping(mapping_);
-        if (!AnaTemplates.isCorrectOrNumbers(map_, _page)) {
+        if (!AnaInherits.isCorrectOrNumbers(map_, _page)) {
             FoundErrorInterpret cast_ = new FoundErrorInterpret();
             cast_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
             cast_.setFileName(_page.getLocalizer().getCurrentFileName());

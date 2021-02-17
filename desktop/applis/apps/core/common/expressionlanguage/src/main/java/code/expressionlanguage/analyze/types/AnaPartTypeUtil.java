@@ -1,7 +1,7 @@
 package code.expressionlanguage.analyze.types;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.analyze.inherits.AnaTemplates;
+import code.expressionlanguage.analyze.inherits.AnaInherits;
 import code.expressionlanguage.common.AnaGeneType;
 import code.expressionlanguage.common.StrTypes;
 import code.expressionlanguage.common.StringExpUtil;
@@ -290,7 +290,7 @@ public final class AnaPartTypeUtil {
         String idCl_ = StringExpUtil.getIdFromAllTypes(analyzedType_);
         String compo_ = StringExpUtil.getQuickComponentBaseType(idCl_).getComponent();
         AnaGeneType info_ = _page.getAnaGeneType(compo_);
-        return !skip(_current) && !AnaTemplates.correctNbParameters(info_,analyzedType_, _page);
+        return !skip(_current) && !AnaInherits.correctNbParameters(info_,analyzedType_, _page);
     }
 
     private static boolean skip(AnaPartType _current) {

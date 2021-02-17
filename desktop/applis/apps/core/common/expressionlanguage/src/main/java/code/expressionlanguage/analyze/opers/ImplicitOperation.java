@@ -1,7 +1,7 @@
 package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.analyze.inherits.AnaTemplates;
+import code.expressionlanguage.analyze.inherits.AnaInherits;
 import code.expressionlanguage.analyze.opers.util.AnaTypeFct;
 import code.expressionlanguage.analyze.opers.util.MemberId;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
@@ -22,7 +22,7 @@ import code.util.StringList;
 import code.util.core.StringUtil;
 
 public final class ImplicitOperation extends AbstractUnaryOperation {
-    private AnaExplicitContent explicitContent;
+    private final AnaExplicitContent explicitContent;
     private CustList<PartOffset> partOffsets;
 
     private MemberId memberId = new MemberId();
@@ -125,7 +125,7 @@ public final class ImplicitOperation extends AbstractUnaryOperation {
         partOffsets.addAllElts(_page.getCurrentParts());
         uniq_ = new ClassMethodId(explicitContent.getClassName(),new MethodId(MethodAccessKind.STATIC,exp_,new StringList(midType_,lastType_)));
         AnaClassArgumentMatching resultClass_ = getFirstChild().getResultClass();
-        AnaClassArgumentMatching virtual_ = new AnaClassArgumentMatching(AnaTemplates.quickFormat(geneType_, explicitContent.getClassName(), midType_), _page.getPrimitiveTypes());
+        AnaClassArgumentMatching virtual_ = new AnaClassArgumentMatching(AnaInherits.quickFormat(geneType_, explicitContent.getClassName(), midType_), _page.getPrimitiveTypes());
         CustList<AnaClassArgumentMatching> args_ = new CustList<AnaClassArgumentMatching>(virtual_);
         args_.add(resultClass_);
         AnaClassArgumentMatching[] argsClass_ = OperationNode.toArgArray(args_);

@@ -31,102 +31,102 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
 
     @Test
     public void getAllInnerTypesSingleDotted1_Test(){
-        assertEq(new StringList("int"),AnaTemplates.getAllInnerTypes("int", new StringList()));
+        assertEq(new StringList("int"), AnaInherits.getAllInnerTypes("int", new StringList()));
     }
     @Test
     public void getAllInnerTypesSingleDotted2_Test(){
-        assertEq(new StringList("String"),AnaTemplates.getAllInnerTypes("String", new StringList()));
+        assertEq(new StringList("String"), AnaInherits.getAllInnerTypes("String", new StringList()));
     }
     @Test
     public void getAllInnerTypesSingleDotted3_Test(){
-        assertEq(new StringList("pkg.Ex"),AnaTemplates.getAllInnerTypes("pkg.Ex", new StringList("pkg")));
+        assertEq(new StringList("pkg.Ex"), AnaInherits.getAllInnerTypes("pkg.Ex", new StringList("pkg")));
     }
     @Test
     public void getAllInnerTypesSingleDotted4_Test(){
-        assertEq(new StringList("pkg.Ex",".","Inner"),AnaTemplates.getAllInnerTypes("pkg.Ex.Inner", new StringList("pkg")));
+        assertEq(new StringList("pkg.Ex",".","Inner"), AnaInherits.getAllInnerTypes("pkg.Ex.Inner", new StringList("pkg")));
     }
     @Test
     public void getAllInnerTypesSingleDotted5_Test(){
-        assertEq(new StringList("Ex"),AnaTemplates.getAllInnerTypes("Ex", new StringList("pkg")));
+        assertEq(new StringList("Ex"), AnaInherits.getAllInnerTypes("Ex", new StringList("pkg")));
     }
     @Test
     public void getAllInnerTypesSingleDotted6_Test(){
-        assertEq(new StringList("pkg.Ex",".","Inner"),AnaTemplates.getAllInnerTypes("pkg.Ex.Inner", new StringList("pkg")));
+        assertEq(new StringList("pkg.Ex",".","Inner"), AnaInherits.getAllInnerTypes("pkg.Ex.Inner", new StringList("pkg")));
     }
     @Test
     public void getAllInnerTypesSingleDotted7_Test(){
-        assertEq(new StringList("Ex",".","Inner"),AnaTemplates.getAllInnerTypes("Ex.Inner", new StringList("pkg")));
+        assertEq(new StringList("Ex",".","Inner"), AnaInherits.getAllInnerTypes("Ex.Inner", new StringList("pkg")));
     }
     @Test
     public void getAllInnerTypesSingleDotted8_Test(){
-        assertEq(new StringList("Ex",".","pkg",".","Inner"),AnaTemplates.getAllInnerTypes("Ex.pkg.Inner", new StringList("pkg")));
+        assertEq(new StringList("Ex",".","pkg",".","Inner"), AnaInherits.getAllInnerTypes("Ex.pkg.Inner", new StringList("pkg")));
     }
     @Test
     public void getAllInnerTypesSingleDotted9_Test(){
-        assertEq(new StringList("Ex",".","pkg",".","Inner",".","Outer"),AnaTemplates.getAllInnerTypes("Ex.pkg.Inner.Outer", new StringList("pkg")));
+        assertEq(new StringList("Ex",".","pkg",".","Inner",".","Outer"), AnaInherits.getAllInnerTypes("Ex.pkg.Inner.Outer", new StringList("pkg")));
     }
     @Test
     public void getAllInnerTypesSingleDotted10_Test(){
-        assertEq(new StringList("pkg.Ex",".","Inner","..","Outer"),AnaTemplates.getAllInnerTypes("pkg.Ex.Inner..Outer", new StringList("pkg")));
+        assertEq(new StringList("pkg.Ex",".","Inner","..","Outer"), AnaInherits.getAllInnerTypes("pkg.Ex.Inner..Outer", new StringList("pkg")));
     }
     @Test
     public void getAllInnerTypesSingleDotted11_Test(){
-        assertEq(new StringList("pkg","..","Outer"),AnaTemplates.getAllInnerTypes("pkg..Outer", new StringList("pkg")));
+        assertEq(new StringList("pkg","..","Outer"), AnaInherits.getAllInnerTypes("pkg..Outer", new StringList("pkg")));
     }
 
 
     @Test
     public void getComponentForm1Test() {
-        DimComp inferred_ = AnaTemplates.getComponentForm("pkg.ExTwo");
+        DimComp inferred_ = AnaInherits.getComponentForm("pkg.ExTwo");
         assertEq("pkg.ExTwo", inferred_.getComponent());
         assertEq(0, inferred_.getDim());
     }
 
     @Test
     public void getComponentForm2Test() {
-        DimComp inferred_ = AnaTemplates.getComponentForm("pkg.ExTwo[]");
+        DimComp inferred_ = AnaInherits.getComponentForm("pkg.ExTwo[]");
         assertEq("pkg.ExTwo", inferred_.getComponent());
         assertEq(1, inferred_.getDim());
     }
 
     @Test
     public void getComponentForm3Test() {
-        DimComp inferred_ = AnaTemplates.getComponentForm("pkg.ExTwo[] ");
+        DimComp inferred_ = AnaInherits.getComponentForm("pkg.ExTwo[] ");
         assertEq("pkg.ExTwo", inferred_.getComponent());
         assertEq(1, inferred_.getDim());
     }
 
     @Test
     public void getComponentForm4Test() {
-        DimComp inferred_ = AnaTemplates.getComponentForm("pkg.ExTwo[ ]");
+        DimComp inferred_ = AnaInherits.getComponentForm("pkg.ExTwo[ ]");
         assertEq("pkg.ExTwo", inferred_.getComponent());
         assertEq(1, inferred_.getDim());
     }
 
     @Test
     public void getComponentForm5Test() {
-        DimComp inferred_ = AnaTemplates.getComponentForm("pkg.ExTwo[][]");
+        DimComp inferred_ = AnaInherits.getComponentForm("pkg.ExTwo[][]");
         assertEq("pkg.ExTwo", inferred_.getComponent());
         assertEq(2, inferred_.getDim());
     }
 
     @Test
     public void getComponentForm6Test() {
-        DimComp inferred_ = AnaTemplates.getComponentForm("[]");
+        DimComp inferred_ = AnaInherits.getComponentForm("[]");
         assertEq("", inferred_.getComponent());
         assertEq(0, inferred_.getDim());
     }
 
     @Test
     public void getComponentForm7Test() {
-        DimComp inferred_ = AnaTemplates.getComponentForm("]");
+        DimComp inferred_ = AnaInherits.getComponentForm("]");
         assertEq("", inferred_.getComponent());
         assertEq(0, inferred_.getDim());
     }
 
     @Test
     public void getComponentForm8Test() {
-        DimComp inferred_ = AnaTemplates.getComponentForm(" ]");
+        DimComp inferred_ = AnaInherits.getComponentForm(" ]");
         assertEq("", inferred_.getComponent());
         assertEq(0, inferred_.getDim());
     }
@@ -425,7 +425,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
         String inferred_ = tryInfer(cont_,"", "", new StringMap<String>());
         assertNull(inferred_);
-        assertEq(0,AnaTemplates.getBoundAll(null).size());
+        assertEq(0, AnaInherits.getBoundAll(null).size());
     }
     @Test
     public void tryInfer18Test() {
@@ -2843,7 +2843,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     public void getCorrectTemplateAllAll() {
         StringMap<String> files_ = new StringMap<String>();
         AnalyzedTestContext cont_ = unfullValidateOverridingMethodsIds(files_);
-        assertEq("",AnaTemplates.getCorrectTemplateAllAll("",new StringList(),new StringMap<StringList>(),cont_.getAnalyzing()));
+        assertEq("", AnaInherits.getCorrectTemplateAllAll("",new StringList(),new StringMap<StringList>(),cont_.getAnalyzing()));
     }
 
     @Test
@@ -4787,7 +4787,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     }
 
     private static StringMap<String> getVarTypes(RootBlock _root, String _s) {
-        return AnaTemplates.getVarTypes(_root, _s);
+        return AnaInherits.getVarTypes(_root, _s);
     }
 
     @Test
@@ -4828,7 +4828,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     }
 
     private static boolean isCorrectOrNumbers(AnalyzedTestContext _context, Mapping _m) {
-        return AnaTemplates.isCorrectOrNumbers(_m, _context.getAnalyzing());
+        return AnaInherits.isCorrectOrNumbers(_m, _context.getAnalyzing());
     }
 
     @Test
@@ -6594,7 +6594,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     }
 
     private static boolean isCorrect(AnalyzedTestContext _context, Mapping _m) {
-        return AnaTemplates.isCorrect(_m, _context.getAnalyzing());
+        return AnaInherits.isCorrect(_m, _context.getAnalyzing());
     }
 
     @Test
@@ -9474,7 +9474,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     }
 
     private static String wildCardFormatReturn(AnalyzedTestContext _context, String _first, String _second) {
-        return AnaTemplates.wildCardFormatReturn(_first, _second, _context.getAnalyzing());
+        return AnaInherits.wildCardFormatReturn(_first, _second, _context.getAnalyzing());
     }
 
 
@@ -9527,7 +9527,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     }
 
     private static String wildCardFormatParam(AnalyzedTestContext _context, String _first, String _second) {
-        return AnaTemplates.wildCardFormatParam(_first, _second, _context.getAnalyzing());
+        return AnaInherits.wildCardFormatParam(_first, _second, _context.getAnalyzing());
     }
 
 
@@ -10756,7 +10756,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     }
 
     private static String getCorrectTemplateAll(AnalyzedTestContext _cont, StringMap<StringList> _t) {
-        return AnaTemplates.getCorrectTemplateAll("",new StringList(),_t, _cont.getAnalyzing());
+        return AnaInherits.getCorrectTemplateAll("",new StringList(),_t, _cont.getAnalyzing());
     }
 
 
@@ -10824,15 +10824,15 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
 
 
     private static ResultTernary getResultTernary(StringList _one, StringList _two, Argument _argOne, Argument _argTwo, StringMap<StringList> _map, AnalyzedTestContext _c) {
-        return AnaTemplates.getResultTernary(_one, _argOne, _two, _argTwo, _map, _c.getAnalyzing());
+        return ResultTernary.getResultTernary(_one, _argOne, _two, _argTwo, _map, _c.getAnalyzing());
     }
 
     private static StringList getSuperTypesSet(AnalyzedTestContext _c, StringMap<StringList> _vars, StringList _list) {
-        return AnaTemplates.getSuperTypesSet(_list, _vars, _c.getAnalyzing());
+        return ResultTernary.getSuperTypesSet(_list, _vars, _c.getAnalyzing());
     }
 
 
     private static StringList getTernarySubclasses(AnalyzedTestContext _c, StringMap<StringList> _map, StringList _list) {
-        return AnaTemplates.getTernarySubclasses(_list, _map, _c.getAnalyzing());
+        return ResultTernary.getTernarySubclasses(_list, _map, _c.getAnalyzing());
     }
 }

@@ -1,7 +1,7 @@
 package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.analyze.inherits.AnaTemplates;
+import code.expressionlanguage.analyze.inherits.AnaInherits;
 import code.expressionlanguage.analyze.opers.util.FormattedFilter;
 import code.expressionlanguage.analyze.opers.util.MethodInfo;
 import code.expressionlanguage.analyze.opers.util.ParametersGroup;
@@ -441,7 +441,7 @@ public final class CallDynMethodOperation extends InvokingOperation implements P
                         _page.getLocalizer().addError(cast_);
                         parts_.add(new PartOffset("<a title=\""+LinkageUtil.transform(cast_.getBuiltError()) +"\" class=\"e\">",i_));
                         parts_.add(new PartOffset("</a>",i_+1));
-                    } else if (!AnaTemplates.isCorrectOrNumbers(m_, _page)) {
+                    } else if (!AnaInherits.isCorrectOrNumbers(m_, _page)) {
                         ClassMethodIdReturn res_ = tryGetDeclaredImplicitCast(pa_, a_, _page);
                         if (res_.isFoundMethod()) {
                             ClassMethodId cl_ = new ClassMethodId(res_.getId().getClassName(),res_.getRealId());

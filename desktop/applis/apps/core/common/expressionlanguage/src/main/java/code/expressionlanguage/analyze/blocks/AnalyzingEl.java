@@ -3,21 +3,21 @@ package code.expressionlanguage.analyze.blocks;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.BlocksFlags;
 import code.expressionlanguage.analyze.BlocksLabels;
-import code.expressionlanguage.analyze.inherits.AnaTemplates;
+import code.expressionlanguage.analyze.inherits.AnaInherits;
 import code.expressionlanguage.analyze.reach.blocks.*;
 import code.expressionlanguage.analyze.inherits.Mapping;
 import code.util.*;
 
 public final class AnalyzingEl {
-    private BlocksFlags canCompleteNormally = new BlocksFlags();
-    private BlocksFlags canCompleteNormallyGroup = new BlocksFlags();
+    private final BlocksFlags canCompleteNormally = new BlocksFlags();
+    private final BlocksFlags canCompleteNormallyGroup = new BlocksFlags();
 
-    private BlocksFlags reachable = new BlocksFlags();
-    private BlocksLabels labelsMapping = new BlocksLabels();
-    private IdMap<ReachBreakBlock, ReachBreakableBlock> reachBreakables = new IdMap<ReachBreakBlock, ReachBreakableBlock>();
-    private IdMap<ReachContinueBlock, ReachLoop> reachContinuables = new IdMap<ReachContinueBlock, ReachLoop>();
-    private StringList labels = new StringList();
-    private Mapping mapping;
+    private final BlocksFlags reachable = new BlocksFlags();
+    private final BlocksLabels labelsMapping = new BlocksLabels();
+    private final IdMap<ReachBreakBlock, ReachBreakableBlock> reachBreakables = new IdMap<ReachBreakBlock, ReachBreakableBlock>();
+    private final IdMap<ReachContinueBlock, ReachLoop> reachContinuables = new IdMap<ReachContinueBlock, ReachLoop>();
+    private final StringList labels = new StringList();
+    private final Mapping mapping;
     private boolean variableIssue;
 
     public AnalyzingEl(Mapping _mapping) {
@@ -122,7 +122,7 @@ public final class AnalyzingEl {
         mapping.setArg(_arg);
     }
     public boolean isCorrectMapping(AnalyzedPageEl _page) {
-        return AnaTemplates.isCorrectOrNumbers(mapping, _page);
+        return AnaInherits.isCorrectOrNumbers(mapping, _page);
     }
 
     public StringList getLabels() {

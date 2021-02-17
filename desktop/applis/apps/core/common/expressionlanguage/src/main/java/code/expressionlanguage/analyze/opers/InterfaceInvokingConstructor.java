@@ -2,7 +2,7 @@ package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.*;
-import code.expressionlanguage.analyze.inherits.AnaTemplates;
+import code.expressionlanguage.analyze.inherits.AnaInherits;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.ResolvingTypes;
 import code.expressionlanguage.common.StringExpUtil;
@@ -42,7 +42,7 @@ public final class InterfaceInvokingConstructor extends AbstractInvokingConstruc
         }
         String clCurName_ = _page.getGlobalClass();
         RootBlock clCurType_ = _page.getGlobalType();
-        String superClass_ = AnaTemplates.getOverridingFullTypeByBases(clCurType_,clCurName_, cl_, _page);
+        String superClass_ = AnaInherits.getOverridingFullTypeByBases(clCurType_,clCurName_, cl_, _page);
         if (superClass_.isEmpty()) {
             FoundErrorInterpret call_ = new FoundErrorInterpret();
             call_.setFileName(_page.getLocalizer().getCurrentFileName());

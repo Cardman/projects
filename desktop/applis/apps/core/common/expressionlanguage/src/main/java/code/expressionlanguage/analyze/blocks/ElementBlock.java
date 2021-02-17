@@ -1,7 +1,7 @@
 package code.expressionlanguage.analyze.blocks;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.analyze.inherits.AnaTemplates;
+import code.expressionlanguage.analyze.inherits.AnaInherits;
 import code.expressionlanguage.analyze.reach.opers.ReachOperationUtil;
 import code.expressionlanguage.analyze.syntax.ResultExpression;
 import code.expressionlanguage.analyze.types.ResolvingTypes;
@@ -131,7 +131,7 @@ public final class ElementBlock extends Leaf implements InnerTypeOrElement{
         }
         StringMap<StringList> varsCt_ = _page.getCurrentConstraints().getCurrentConstraints();
         StringList errs_ = new StringList();
-        importedClassName = AnaTemplates.check(errs_,fullName_,j_,varsCt_, _page);
+        importedClassName = AnaInherits.check(errs_,fullName_,j_,varsCt_, _page);
         for (String e: errs_) {
             addNameErrors(e);
         }

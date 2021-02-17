@@ -1,7 +1,7 @@
 package code.formathtml.analyze;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.analyze.inherits.AnaTemplates;
+import code.expressionlanguage.analyze.inherits.AnaInherits;
 import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
@@ -26,8 +26,8 @@ public final class ResultText {
 
     private StringList texts = new StringList();
     private StringList varNames = new StringList();
-    private Ints expOffsets = new Ints();
-    private Ints expEnds = new Ints();
+    private final Ints expOffsets = new Ints();
+    private final Ints expEnds = new Ints();
 
     public void buildAna(String _expression, int _off, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
         opExpRoot = new CustList<OperationNode>();
@@ -205,7 +205,7 @@ public final class ResultText {
                 Mapping m_ = new Mapping();
                 m_.setArg(e.getResultClass());
                 m_.setParam(_page.getAliasLong());
-                if (!AnaTemplates.isCorrectOrNumbers(m_, _page)) {
+                if (!AnaInherits.isCorrectOrNumbers(m_, _page)) {
                     FoundErrorInterpret badEl_ = new FoundErrorInterpret();
                     badEl_.setFileName(_anaDoc.getFileName());
                     badEl_.setIndexFile(colsGrId_);

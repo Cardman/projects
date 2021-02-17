@@ -2,6 +2,7 @@ package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.*;
+import code.expressionlanguage.analyze.inherits.AnaInherits;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.analyze.opers.util.*;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
@@ -107,7 +108,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                     mapping_.setMapping(_page.getCurrentConstraints().getCurrentConstraints());
                     mapping_.setParam(pattern_.toString());
                     mapping_.setArg(foundType_);
-                    if (AnaTemplates.isCorrectOrNumbers(mapping_, _page)) {
+                    if (AnaInherits.isCorrectOrNumbers(mapping_, _page)) {
                         candidates_.add(foundType_);
                     } else {
                         StringList conv_ = InvokingOperation.tryInferOrImplicitFctRef(pattern_.toString(), new StringMap<String>(), _page, foundType_);
@@ -282,7 +283,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                                     map_.setArg(prev_);
                                     map_.getMapping().putAllMap(mapCtr_);
                                     map_.setParam(ret_);
-                                    if (!AnaTemplates.isCorrectOrNumbers(map_, _page)) {
+                                    if (!AnaInherits.isCorrectOrNumbers(map_, _page)) {
                                         continue;
                                     }
                                 } else {
@@ -425,7 +426,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                             mapp_.setArg(argsTypes_.first());
                             mapp_.setParam(new AnaClassArgumentMatching(bounds_));
                             mapp_.setMapping(_page.getCurrentConstraints().getCurrentConstraints());
-                            if (AnaTemplates.isCorrectOrNumbers(mapp_,_page)) {
+                            if (AnaInherits.isCorrectOrNumbers(mapp_,_page)) {
                                 argsTypes_.remove(0);
                                 tryAddMeth(methodsInst_,_page, name_, resList_, argsTypes_, ret_, stCall_.getStCall());
                             }
@@ -742,7 +743,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                 }
                 feed_ = new ClassMethodId(type_, new MethodId(MethodAccessKind.STATIC, name_, params_, varargFct_));
                 for (String s: argsRes_.getParametersTypes()) {
-                    String format_ = AnaTemplates.wildCardFormatParam(type_, s, _page);
+                    String format_ = AnaInherits.wildCardFormatParam(type_, s, _page);
                     if (format_.isEmpty()) {
                         MethodId idCast_ = new MethodId(MethodAccessKind.STATIC,exp_,new StringList(_page.getAliasObject()));
                         lambdaCommonContent.setFoundClass(type_);
@@ -1292,7 +1293,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         StringMap<StringList> maps_ = new StringMap<StringList>();
         getRefConstraints(maps_, _page);
         map_.setMapping(maps_);
-        if (!AnaTemplates.isCorrectOrNumbers(map_, _page)) {
+        if (!AnaInherits.isCorrectOrNumbers(map_, _page)) {
             FoundErrorInterpret cast_ = new FoundErrorInterpret();
             cast_.setFileName(_page.getLocalizer().getCurrentFileName());
             cast_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
@@ -1336,7 +1337,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         }
         int indexType_ = 0;
         for (String s: _id.getParametersTypes()) {
-            String format_ = AnaTemplates.wildCardFormatParam(_type, s, _page);
+            String format_ = AnaInherits.wildCardFormatParam(_type, s, _page);
             if (format_.isEmpty()) {
                 FoundErrorInterpret static_ = new FoundErrorInterpret();
                 static_.setFileName(_page.getLocalizer().getCurrentFileName());
@@ -1471,7 +1472,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                     String name_ = arg_.trim();
                     boolean contained_ = false;
                     for (InfoBlock f: ((RecordBlock)h_).getFieldsBlocks()) {
-                        String par_ = AnaTemplates.quickFormat(h_, clFrom_, f.getImportedClassName());
+                        String par_ = AnaInherits.quickFormat(h_, clFrom_, f.getImportedClassName());
                         int index_ = AnaTypeUtil.getIndex(f,name_);
                         if (index_ >= 0) {
                             contained_ = true;
@@ -1858,7 +1859,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                 mapping_.setArg(arg_);
                 mapping_.setParam(out_);
                 mapping_.setMapping(map_);
-                if (!AnaTemplates.isCorrectOrNumbers(mapping_, _page)) {
+                if (!AnaInherits.isCorrectOrNumbers(mapping_, _page)) {
                     FoundErrorInterpret cast_ = new FoundErrorInterpret();
                     cast_.setFileName(_page.getLocalizer().getCurrentFileName());
                     cast_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
@@ -1918,7 +1919,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                 mapping_.setArg(arg_);
                 mapping_.setParam(out_);
                 mapping_.setMapping(map_);
-                if (!AnaTemplates.isCorrectOrNumbers(mapping_, _page)) {
+                if (!AnaInherits.isCorrectOrNumbers(mapping_, _page)) {
                     FoundErrorInterpret cast_ = new FoundErrorInterpret();
                     cast_.setFileName(_page.getLocalizer().getCurrentFileName());
                     cast_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
@@ -1967,7 +1968,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             StringMap<StringList> maps_ = new StringMap<StringList>();
             getRefConstraints(maps_, _page);
             map_.setMapping(maps_);
-            if (!AnaTemplates.isCorrectOrNumbers(map_, _page)) {
+            if (!AnaInherits.isCorrectOrNumbers(map_, _page)) {
                 FoundErrorInterpret cast_ = new FoundErrorInterpret();
                 cast_.setFileName(_page.getLocalizer().getCurrentFileName());
                 cast_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
@@ -2020,7 +2021,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         StringMap<StringList> maps_ = new StringMap<StringList>();
         getRefConstraints(maps_, _page);
         map_.setMapping(maps_);
-        if (!AnaTemplates.isCorrectOrNumbers(map_, _page)) {
+        if (!AnaInherits.isCorrectOrNumbers(map_, _page)) {
             FoundErrorInterpret cast_ = new FoundErrorInterpret();
             cast_.setFileName(_page.getLocalizer().getCurrentFileName());
             cast_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
@@ -2069,7 +2070,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             mapping_.setArg(arg_);
             mapping_.setParam(out_);
             mapping_.setMapping(maps_);
-            if (!AnaTemplates.isCorrectOrNumbers(mapping_, _page)) {
+            if (!AnaInherits.isCorrectOrNumbers(mapping_, _page)) {
                 FoundErrorInterpret cast_ = new FoundErrorInterpret();
                 cast_.setFileName(_page.getLocalizer().getCurrentFileName());
                 cast_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
@@ -2537,7 +2538,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             if (getIndexers_.size() == 1) {
                 OverridableBlock matching_ = getIndexers_.first();
                 String importedReturnType_ = matching_.getImportedReturnType();
-                importedReturnType_ = AnaTemplates.wildCardFormatReturn(_realClass, importedReturnType_, _page);
+                importedReturnType_ = AnaInherits.wildCardFormatReturn(_realClass, importedReturnType_, _page);
                 _paramsReturn.add(importedReturnType_);
             }
         }

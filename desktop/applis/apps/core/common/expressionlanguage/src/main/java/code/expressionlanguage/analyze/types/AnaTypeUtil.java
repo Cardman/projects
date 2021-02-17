@@ -4,7 +4,7 @@ import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.accessing.Accessed;
 import code.expressionlanguage.analyze.accessing.TypeAccessor;
 import code.expressionlanguage.analyze.blocks.*;
-import code.expressionlanguage.analyze.inherits.AnaTemplates;
+import code.expressionlanguage.analyze.inherits.AnaInherits;
 import code.expressionlanguage.analyze.inherits.Mapping;
 import code.expressionlanguage.analyze.util.AnaFormattedRootBlock;
 import code.expressionlanguage.analyze.util.ContextUtil;
@@ -96,8 +96,8 @@ public final class AnaTypeUtil {
                 } else {
                     String retBase_ = supId_.getBlock().getImportedReturnType();
                     String retDerive_ = subId_.getBlock().getImportedReturnType();
-                    String formattedRetDer_ = AnaTemplates.quickFormat(subId_.getType(),subId_.getGeneString(), retDerive_);
-                    String formattedRetBase_ = AnaTemplates.quickFormat(supId_.getType(),supId_.getGeneString(), retBase_);
+                    String formattedRetDer_ = AnaInherits.quickFormat(subId_.getType(),subId_.getGeneString(), retDerive_);
+                    String formattedRetBase_ = AnaInherits.quickFormat(supId_.getType(),supId_.getGeneString(), retBase_);
                     if (supId_.getBlock().isFinalMethod()) {
                         FoundErrorInterpret err_;
                         err_ = new FoundErrorInterpret();
@@ -148,7 +148,7 @@ public final class AnaTypeUtil {
                         addClass(_type.getAllOverridingMethods(), key_, supId_);
                         continue;
                     }
-                    if (!AnaTemplates.isReturnCorrect(formattedRetBase_, formattedRetDer_, vars_, _page)) {
+                    if (!AnaInherits.isReturnCorrect(formattedRetBase_, formattedRetDer_, vars_, _page)) {
                         FoundErrorInterpret err_;
                         err_ = new FoundErrorInterpret();
                         err_.setFileName(fileName_);
@@ -460,7 +460,7 @@ public final class AnaTypeUtil {
                     continue;
                 }
                 added(_innerName, false, owners_, s, g_);
-                if (!AnaTemplates.correctNbParameters(g_,s, _page)) {
+                if (!AnaInherits.correctNbParameters(g_,s, _page)) {
                     for (AnaFormattedRootBlock t: g_.getImportedDirectSuperTypesInfo()) {
                         String format_ = StringExpUtil.getIdFromAllTypes(t.getFormatted());
                         addIfNotFound(visited_, new_, format_);
@@ -468,7 +468,7 @@ public final class AnaTypeUtil {
                     continue;
                 }
                 for (AnaFormattedRootBlock t: g_.getImportedDirectSuperTypesInfo()) {
-                    String format_ = AnaTemplates.quickFormat(g_,s, t.getFormatted());
+                    String format_ = AnaInherits.quickFormat(g_,s, t.getFormatted());
                     addIfNotFound(visited_, new_, format_);
                 }
             }
@@ -530,7 +530,7 @@ public final class AnaTypeUtil {
                 m_.setArg(j);
                 m_.setParam(i);
                 m_.setMapping(_vars);
-                if (AnaTemplates.isCorrectOrNumbers(m_,_page)) {
+                if (AnaInherits.isCorrectOrNumbers(m_,_page)) {
                     sub_ = false;
                     break;
                 }

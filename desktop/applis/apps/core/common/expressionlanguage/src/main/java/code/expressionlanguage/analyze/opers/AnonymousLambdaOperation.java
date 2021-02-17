@@ -2,11 +2,10 @@ package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.*;
-import code.expressionlanguage.analyze.inherits.AnaTemplates;
+import code.expressionlanguage.analyze.inherits.AnaInherits;
 import code.expressionlanguage.analyze.inherits.Mapping;
 import code.expressionlanguage.analyze.opers.util.*;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
-import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.expressionlanguage.analyze.variables.AnaLoopVariable;
 import code.expressionlanguage.analyze.variables.AnaNamedLocalVariable;
@@ -97,7 +96,7 @@ public final class AnonymousLambdaOperation extends
             mapping_.setMapping(_page.getCurrentConstraints().getCurrentConstraints());
             mapping_.setParam(pattern_.toString());
             mapping_.setArg(foundType_);
-            if (AnaTemplates.isCorrectOrNumbers(mapping_, _page)) {
+            if (AnaInherits.isCorrectOrNumbers(mapping_, _page)) {
                 candidates_.add(foundType_);
             } else {
                 StringList conv_ = InvokingOperation.tryInferOrImplicitFct(type_, pattern_.toString(), new StringMap<String>(), _page, foundType_);
@@ -132,7 +131,7 @@ public final class AnonymousLambdaOperation extends
                         StringList format_ = InvokingOperation.tryParamFormatFct(filter_,methodInfo_, name_, nbParentsInfer_, type_, pattern_.toString(), vars_, _page);
                         for (String c: format_) {
                             mapping_.setArg(c);
-                            if (!AnaTemplates.isCorrectOrNumbers(mapping_, _page)) {
+                            if (!AnaInherits.isCorrectOrNumbers(mapping_, _page)) {
                                 continue;
                             }
                             candidates_.add(c);
@@ -158,7 +157,7 @@ public final class AnonymousLambdaOperation extends
                     StringList format_ = InvokingOperation.tryParamFormatFct(filter_,methodInfo_, name_, nbParentsInfer_, type_, pattern_.toString(), vars_, _page);
                     for (String c: format_) {
                         mapping_.setArg(c);
-                        if (!AnaTemplates.isCorrectOrNumbers(mapping_, _page)) {
+                        if (!AnaInherits.isCorrectOrNumbers(mapping_, _page)) {
                             continue;
                         }
                         candidates_.add(c);
@@ -185,7 +184,7 @@ public final class AnonymousLambdaOperation extends
                     StringList format_ = InvokingOperation.tryFormatFct(methodInfo_, indexChild_, nbParentsInfer_, type_, pattern_.toString(), vars_, _page);
                     for (String c: format_) {
                         mapping_.setArg(c);
-                        if (!AnaTemplates.isCorrectOrNumbers(mapping_, _page)) {
+                        if (!AnaInherits.isCorrectOrNumbers(mapping_, _page)) {
                             continue;
                         }
                         candidates_.add(c);
@@ -208,7 +207,7 @@ public final class AnonymousLambdaOperation extends
                 StringList format_ = InvokingOperation.tryFormatFct(methodInfo_, indexChild_, nbParentsInfer_, type_, pattern_.toString(), vars_, _page);
                 for (String c: format_) {
                     mapping_.setArg(c);
-                    if (!AnaTemplates.isCorrectOrNumbers(mapping_, _page)) {
+                    if (!AnaInherits.isCorrectOrNumbers(mapping_, _page)) {
                         continue;
                     }
                     candidates_.add(c);

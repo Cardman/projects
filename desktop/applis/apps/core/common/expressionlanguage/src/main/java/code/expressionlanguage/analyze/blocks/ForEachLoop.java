@@ -3,7 +3,7 @@ package code.expressionlanguage.analyze.blocks;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.ManageTokens;
 import code.expressionlanguage.analyze.TokenErrorMessage;
-import code.expressionlanguage.analyze.inherits.AnaTemplates;
+import code.expressionlanguage.analyze.inherits.AnaInherits;
 import code.expressionlanguage.analyze.syntax.ResultExpression;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
@@ -216,7 +216,7 @@ public final class ForEachLoop extends AbstractForLoop implements Loop,ImportFor
                     mapping_.setParam(importedClassName);
                     StringMap<StringList> vars_ = _page.getCurrentConstraints().getCurrentConstraints();
                     mapping_.setMapping(vars_);
-                    if (!AnaTemplates.isCorrectOrNumbers(mapping_, _page)) {
+                    if (!AnaInherits.isCorrectOrNumbers(mapping_, _page)) {
                         FoundErrorInterpret cast_ = new FoundErrorInterpret();
                         cast_.setFileName(getFile().getFileName());
                         cast_.setIndexFile(expressionOffset);
@@ -298,7 +298,7 @@ public final class ForEachLoop extends AbstractForLoop implements Loop,ImportFor
                 mapping_.setParam(importedClassName);
                 StringMap<StringList> vars_ = _page.getCurrentConstraints().getCurrentConstraints();
                 mapping_.setMapping(vars_);
-                if (!AnaTemplates.isCorrectOrNumbers(mapping_, _page)) {
+                if (!AnaInherits.isCorrectOrNumbers(mapping_, _page)) {
                     FoundErrorInterpret cast_ = new FoundErrorInterpret();
                     cast_.setFileName(getFile().getFileName());
                     cast_.setIndexFile(expressionOffset);

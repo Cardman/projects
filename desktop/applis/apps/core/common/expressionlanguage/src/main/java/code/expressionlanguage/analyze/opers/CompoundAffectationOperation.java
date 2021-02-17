@@ -1,7 +1,7 @@
 package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.analyze.inherits.AnaTemplates;
+import code.expressionlanguage.analyze.inherits.AnaInherits;
 import code.expressionlanguage.analyze.opers.util.AnaTypeFct;
 import code.expressionlanguage.analyze.opers.util.MemberId;
 import code.expressionlanguage.analyze.opers.util.OperatorConverter;
@@ -116,7 +116,7 @@ public final class CompoundAffectationOperation extends MethodOperation {
             Mapping map_ = new Mapping();
             map_.setArg(getResultClass());
             map_.setParam(elt_.getResultClass());
-            if (!AnaTemplates.isCorrectOrNumbers(map_, _page)) {
+            if (!AnaInherits.isCorrectOrNumbers(map_, _page)) {
                 ClassMethodIdReturn res_ = tryGetDeclaredImplicitCast(elt_.getResultClass().getSingleNameOrEmpty(), getResultClass(), _page);
                 if (res_.isFoundMethod()) {
                     converter = new ClassMethodId(res_.getId().getClassName(),res_.getRealId());
@@ -260,7 +260,7 @@ public final class CompoundAffectationOperation extends MethodOperation {
             mapping_.setMapping(vars_);
             mapping_.setArg(clMatchRight_);
             mapping_.setParam(clMatchLeft_);
-            if (!AnaTemplates.isCorrectOrNumbers(mapping_, _page)) {
+            if (!AnaInherits.isCorrectOrNumbers(mapping_, _page)) {
                 ClassMethodIdReturn res_ = tryGetDeclaredImplicitCast(clMatchLeft_.getSingleNameOrEmpty(), clMatchRight_, _page);
                 if (res_.isFoundMethod()) {
                     ClassMethodId clImpl_ = new ClassMethodId(res_.getId().getClassName(),res_.getRealId());

@@ -3,7 +3,7 @@ package code.expressionlanguage.analyze.opers;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.*;
 import code.expressionlanguage.analyze.files.ParsedAnnotations;
-import code.expressionlanguage.analyze.inherits.AnaTemplates;
+import code.expressionlanguage.analyze.inherits.AnaInherits;
 import code.expressionlanguage.analyze.opers.util.ConstrustorIdVarArg;
 import code.expressionlanguage.analyze.opers.util.MemberId;
 import code.expressionlanguage.analyze.opers.util.NameParametersFilter;
@@ -174,7 +174,7 @@ public final class AnonymousInstancingOperation extends
             t_.setName(t.getName());
             rootBlockContent_.getParamTypes().add(t_);
         }
-        String superType_ = AnaTemplates.getRealClassName(base_,superNames_);
+        String superType_ = AnaInherits.getRealClassName(base_,superNames_);
         instancingAnonContent.getBlock().getDirectSuperTypes().add(superType_);
         instancingAnonContent.getBlock().getExplicitDirectSuperTypes().put(-1, false);
         instancingAnonContent.getBlock().getRowColDirectSuperTypes().put(-1, superType_);

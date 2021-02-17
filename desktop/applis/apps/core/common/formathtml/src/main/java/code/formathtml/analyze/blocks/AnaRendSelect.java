@@ -3,7 +3,7 @@ package code.formathtml.analyze.blocks;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.files.OffsetsBlock;
-import code.expressionlanguage.analyze.inherits.AnaTemplates;
+import code.expressionlanguage.analyze.inherits.AnaInherits;
 import code.expressionlanguage.analyze.inherits.Mapping;
 import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.analyze.util.IterableAnalysisResult;
@@ -27,14 +27,14 @@ public final class AnaRendSelect extends AnaRendParentBlock {
     private OperationNode rootConverter;
     private OperationNode rootConverterField;
     private OperationNode rootConverterFieldValue;
-    private StringMap<ResultText> attributesText = new StringMap<ResultText>();
-    private StringMap<ResultText> attributes = new StringMap<ResultText>();
+    private final StringMap<ResultText> attributesText = new StringMap<ResultText>();
+    private final StringMap<ResultText> attributes = new StringMap<ResultText>();
     private String varName = EMPTY_STRING;
     private InputInfo varNames = new InputInfo();
     private String id = EMPTY_STRING;
     private String idClass = EMPTY_STRING;
     private String idName = EMPTY_STRING;
-    private Element elt;
+    private final Element elt;
     private boolean multiple;
     private String varNameConverter = EMPTY_STRING;
     private String varNameConverterField = EMPTY_STRING;
@@ -121,7 +121,7 @@ public final class AnaRendSelect extends AnaRendParentBlock {
                 Mapping m_ = new Mapping();
                 m_.setArg(rootConverter.getResultClass());
                 m_.setParam(r_.getOpsReadRoot().getResultClass());
-                if (!AnaTemplates.isCorrectOrNumbers(m_, _page)) {
+                if (!AnaInherits.isCorrectOrNumbers(m_, _page)) {
                     FoundErrorInterpret badEl_ = new FoundErrorInterpret();
                     badEl_.setFileName(_anaDoc.getFileName());
                     badEl_.setIndexFile(getOffset().getOffsetTrim());
@@ -135,7 +135,7 @@ public final class AnaRendSelect extends AnaRendParentBlock {
             Mapping m_ = new Mapping();
             m_.setArg(r_.getOpsReadRoot().getResultClass());
             m_.setParam(_anaDoc.getAliasCharSequence());
-            if (!AnaTemplates.isCorrectOrNumbers(m_, _page)) {
+            if (!AnaInherits.isCorrectOrNumbers(m_, _page)) {
                 if (converterValue_.trim().isEmpty()) {
                     FoundErrorInterpret badEl_ = new FoundErrorInterpret();
                     badEl_.setFileName(_anaDoc.getFileName());
@@ -160,7 +160,7 @@ public final class AnaRendSelect extends AnaRendParentBlock {
                 }
                 m_.setArg(rootConverter.getResultClass());
                 m_.setParam(r_.getOpsReadRoot().getResultClass());
-                if (!AnaTemplates.isCorrectOrNumbers(m_, _page)) {
+                if (!AnaInherits.isCorrectOrNumbers(m_, _page)) {
                     FoundErrorInterpret badEl_ = new FoundErrorInterpret();
                     badEl_.setFileName(_anaDoc.getFileName());
                     badEl_.setIndexFile(offConvValue_);
@@ -186,7 +186,7 @@ public final class AnaRendSelect extends AnaRendParentBlock {
                 }
                 m_.setArg(rootConverter.getResultClass());
                 m_.setParam(r_.getOpsReadRoot().getResultClass());
-                if (!AnaTemplates.isCorrectOrNumbers(m_, _page)) {
+                if (!AnaInherits.isCorrectOrNumbers(m_, _page)) {
                     FoundErrorInterpret badEl_ = new FoundErrorInterpret();
                     badEl_.setFileName(_anaDoc.getFileName());
                     badEl_.setIndexFile(offConvValue_);
@@ -216,7 +216,7 @@ public final class AnaRendSelect extends AnaRendParentBlock {
             Mapping m_ = new Mapping();
             m_.setArg(rootConverterField.getResultClass());
             m_.setParam(_anaDoc.getAliasCharSequence());
-            if (!AnaTemplates.isCorrectOrNumbers(m_, _page)) {
+            if (!AnaInherits.isCorrectOrNumbers(m_, _page)) {
                 FoundErrorInterpret badEl_ = new FoundErrorInterpret();
                 badEl_.setFileName(_anaDoc.getFileName());
                 badEl_.setIndexFile(offConvValue_);
@@ -245,7 +245,7 @@ public final class AnaRendSelect extends AnaRendParentBlock {
             Mapping m_ = new Mapping();
             m_.setArg(rootConverterFieldValue.getResultClass());
             m_.setParam(_anaDoc.getAliasCharSequence());
-            if (!AnaTemplates.isCorrectOrNumbers(m_, _page)) {
+            if (!AnaInherits.isCorrectOrNumbers(m_, _page)) {
                 FoundErrorInterpret badEl_ = new FoundErrorInterpret();
                 badEl_.setFileName(_anaDoc.getFileName());
                 badEl_.setIndexFile(offConvValue_);
@@ -273,7 +273,7 @@ public final class AnaRendSelect extends AnaRendParentBlock {
             m_.setArg(rootDefault.getResultClass());
             if (!multiple) {
                 m_.setParam(_anaDoc.getAliasCharSequence());
-                if (!AnaTemplates.isCorrectOrNumbers(m_, _page)) {
+                if (!AnaInherits.isCorrectOrNumbers(m_, _page)) {
                     FoundErrorInterpret badEl_ = new FoundErrorInterpret();
                     badEl_.setFileName(_anaDoc.getFileName());
                     badEl_.setIndexFile(getAttributeDelimiter(_anaDoc.getRendKeyWords().getAttrDefault()));

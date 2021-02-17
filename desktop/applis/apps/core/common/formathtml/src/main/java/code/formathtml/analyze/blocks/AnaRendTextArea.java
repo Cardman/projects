@@ -3,7 +3,7 @@ package code.formathtml.analyze.blocks;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.files.OffsetsBlock;
-import code.expressionlanguage.analyze.inherits.AnaTemplates;
+import code.expressionlanguage.analyze.inherits.AnaInherits;
 import code.expressionlanguage.analyze.inherits.Mapping;
 import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
@@ -22,8 +22,8 @@ public final class AnaRendTextArea extends AnaRendParentBlock {
     private OperationNode rootValue;
     private OperationNode rootConverter;
     private OperationNode rootConverterField;
-    private StringMap<ResultText> attributesText = new StringMap<ResultText>();
-    private StringMap<ResultText> attributes = new StringMap<ResultText>();
+    private final StringMap<ResultText> attributesText = new StringMap<ResultText>();
+    private final StringMap<ResultText> attributes = new StringMap<ResultText>();
 
     private String varNameConverter = EMPTY_STRING;
     private String varNameConverterField = EMPTY_STRING;
@@ -33,7 +33,7 @@ public final class AnaRendTextArea extends AnaRendParentBlock {
     private String idClass = EMPTY_STRING;
     private String idName = EMPTY_STRING;
     private String className = EMPTY_STRING;
-    private Element elt;
+    private final Element elt;
     private ResultInput resultInput;
 
     protected AnaRendTextArea(Element _elt, OffsetsBlock _offset) {
@@ -59,7 +59,7 @@ public final class AnaRendTextArea extends AnaRendParentBlock {
             Mapping m_ = new Mapping();
             m_.setArg(r_.getOpsReadRoot().getResultClass());
             m_.setParam(_anaDoc.getAliasCharSequence());
-            if (!AnaTemplates.isCorrectOrNumbers(m_, _page)) {
+            if (!AnaInherits.isCorrectOrNumbers(m_, _page)) {
                 if (converterValue_.trim().isEmpty()) {
                     FoundErrorInterpret badEl_ = new FoundErrorInterpret();
                     badEl_.setFileName(_anaDoc.getFileName());
@@ -84,7 +84,7 @@ public final class AnaRendTextArea extends AnaRendParentBlock {
                 }
                 m_.setArg(rootConverter.getResultClass());
                 m_.setParam(r_.getOpsReadRoot().getResultClass());
-                if (!AnaTemplates.isCorrectOrNumbers(m_, _page)) {
+                if (!AnaInherits.isCorrectOrNumbers(m_, _page)) {
                     FoundErrorInterpret badEl_ = new FoundErrorInterpret();
                     badEl_.setFileName(_anaDoc.getFileName());
                     badEl_.setIndexFile(attr_);
@@ -114,7 +114,7 @@ public final class AnaRendTextArea extends AnaRendParentBlock {
             Mapping m_ = new Mapping();
             m_.setArg(rootConverterField.getResultClass());
             m_.setParam(_anaDoc.getAliasCharSequence());
-            if (!AnaTemplates.isCorrectOrNumbers(m_, _page)) {
+            if (!AnaInherits.isCorrectOrNumbers(m_, _page)) {
                 FoundErrorInterpret badEl_ = new FoundErrorInterpret();
                 badEl_.setFileName(_anaDoc.getFileName());
                 badEl_.setIndexFile(attr_);

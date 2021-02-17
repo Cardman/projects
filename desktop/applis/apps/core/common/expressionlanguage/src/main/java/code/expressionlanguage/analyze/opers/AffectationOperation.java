@@ -1,7 +1,7 @@
 package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.analyze.inherits.AnaTemplates;
+import code.expressionlanguage.analyze.inherits.AnaInherits;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
@@ -198,7 +198,7 @@ public final class AffectationOperation extends MethodOperation {
         mapping_.setMapping(vars_);
         mapping_.setArg(clMatchRight_);
         mapping_.setParam(clMatchLeft_);
-        if (!AnaTemplates.isCorrectOrNumbers(mapping_, _page)) {
+        if (!AnaInherits.isCorrectOrNumbers(mapping_, _page)) {
             ClassMethodIdReturn res_ = tryGetDeclaredImplicitCast(clMatchLeft_.getSingleNameOrEmpty(), clMatchRight_, _page);
             if (res_.isFoundMethod()) {
                 ClassMethodId cl_ = new ClassMethodId(res_.getId().getClassName(),res_.getRealId());

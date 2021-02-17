@@ -2,7 +2,7 @@ package code.expressionlanguage.analyze.opers.util;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.NamedFunctionBlock;
 import code.expressionlanguage.analyze.blocks.RootBlock;
-import code.expressionlanguage.analyze.inherits.AnaTemplates;
+import code.expressionlanguage.analyze.inherits.AnaInherits;
 import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.common.AnaGeneType;
 import code.expressionlanguage.common.StringExpUtil;
@@ -138,14 +138,14 @@ public final class MethodInfo implements Parametrable {
 
     public void reformat(String _foundType,AnalyzedPageEl _page) {
         AnaGeneType type_ = _page.getAnaGeneType(StringExpUtil.getIdFromAllTypes(_foundType));
-        className = AnaTemplates.getOverridingFullTypeByBases(type_,_foundType,className,_page);
+        className = AnaInherits.getOverridingFullTypeByBases(type_,_foundType,className,_page);
         StringList params_ = new StringList();
         for (String p: constraints.getParametersTypes()) {
-            params_.add(AnaTemplates.wildCardFormatParam(className,p, _page));
+            params_.add(AnaInherits.wildCardFormatParam(className,p, _page));
         }
         formattedParams = params_;
         formatted = buildFormatted(MethodId.getKind(false), params_, constraints);
-        returnType = AnaTemplates.wildCardFormatReturn(className,originalReturnType,_page);
+        returnType = AnaInherits.wildCardFormatReturn(className,originalReturnType,_page);
     }
 
     public void format(boolean _keepParams, AnalyzedPageEl _page) {
@@ -164,7 +164,7 @@ public final class MethodInfo implements Parametrable {
         }
         StringList params_ = new StringList();
         for (String p: constraints.getParametersTypes()) {
-            params_.add(AnaTemplates.wildCardFormatParam(className,p, _page));
+            params_.add(AnaInherits.wildCardFormatParam(className,p, _page));
         }
         formattedParams = params_;
         formatted = buildFormatted(MethodId.getKind(_keepParams), params_, constraints);

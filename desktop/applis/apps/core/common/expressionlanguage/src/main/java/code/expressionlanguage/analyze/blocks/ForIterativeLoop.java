@@ -2,7 +2,7 @@ package code.expressionlanguage.analyze.blocks;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.ManageTokens;
 import code.expressionlanguage.analyze.TokenErrorMessage;
-import code.expressionlanguage.analyze.inherits.AnaTemplates;
+import code.expressionlanguage.analyze.inherits.AnaInherits;
 import code.expressionlanguage.analyze.syntax.ResultExpression;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
@@ -26,35 +26,35 @@ import code.util.core.StringUtil;
 
 public final class ForIterativeLoop extends AbstractForLoop implements Loop {
 
-    private String label;
-    private int labelOffset;
+    private final String label;
+    private final int labelOffset;
 
     private final String className;
     private String importedClassName;
-    private int classNameOffset;
+    private final int classNameOffset;
 
     private final String classIndexName;
     private String importedClassIndexName;
-    private int classIndexNameOffset;
+    private final int classIndexNameOffset;
 
     private final String variableName;
-    private int variableNameOffset;
+    private final int variableNameOffset;
 
     private final String init;
-    private int initOffset;
+    private final int initOffset;
 
     private final String expression;
-    private int expressionOffset;
+    private final int expressionOffset;
 
     private final String step;
-    private int stepOffset;
+    private final int stepOffset;
 
     private final boolean eq;
-    private int eqOffset;
+    private final int eqOffset;
 
-    private ResultExpression resInit = new ResultExpression();
-    private ResultExpression resExp = new ResultExpression();
-    private ResultExpression resStep = new ResultExpression();
+    private final ResultExpression resInit = new ResultExpression();
+    private final ResultExpression resExp = new ResultExpression();
+    private final ResultExpression resStep = new ResultExpression();
 
     private final StringList nameErrors = new StringList();
     public ForIterativeLoop(OffsetStringInfo _className, OffsetStringInfo _variable,
@@ -214,7 +214,7 @@ public final class ForIterativeLoop extends AbstractForLoop implements Loop {
         AnaClassArgumentMatching arg_ = _root.getResultClass();
         m_.setArg(arg_);
         m_.setParam(_elementClass);
-        if (!AnaTemplates.isCorrectOrNumbers(m_, _page)) {
+        if (!AnaInherits.isCorrectOrNumbers(m_, _page)) {
             ClassMethodIdReturn res_ = OperationNode.tryGetDeclaredImplicitCast(_elementClass, arg_, _page);
             if (res_.isFoundMethod()) {
                 ClassMethodId cl_ = new ClassMethodId(res_.getId().getClassName(),res_.getRealId());

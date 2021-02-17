@@ -3,7 +3,7 @@ package code.expressionlanguage.analyze.opers;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.InterfaceBlock;
 import code.expressionlanguage.analyze.blocks.RootBlock;
-import code.expressionlanguage.analyze.inherits.AnaTemplates;
+import code.expressionlanguage.analyze.inherits.AnaInherits;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.ResolvingTypes;
 import code.expressionlanguage.common.StringExpUtil;
@@ -70,7 +70,7 @@ public final class InterfaceFctConstructor extends AbstractInvokingConstructor {
             addErr(call_.getBuiltError());
             return null;
         }
-        String superClass_ = AnaTemplates.getOverridingFullTypeByBases(sub_,className_, cl_, _page);
+        String superClass_ = AnaInherits.getOverridingFullTypeByBases(sub_,className_, cl_, _page);
         if (superClass_.isEmpty()) {
             FoundErrorInterpret call_ = new FoundErrorInterpret();
             call_.setFileName(_page.getLocalizer().getCurrentFileName());

@@ -1,7 +1,7 @@
 package code.expressionlanguage.analyze.blocks;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.analyze.inherits.AnaTemplates;
+import code.expressionlanguage.analyze.inherits.AnaInherits;
 import code.expressionlanguage.analyze.opers.IdFctOperation;
 import code.expressionlanguage.analyze.opers.util.AnaTypeFct;
 import code.expressionlanguage.analyze.types.GeneStringOverridable;
@@ -24,10 +24,10 @@ import code.util.StringList;
 import code.util.core.StringUtil;
 
 public final class InternOverrideBlock extends Leaf {
-    private CustList<OverridingMethodDto> overrides = new CustList<OverridingMethodDto>();
-    private String definition;
-    private int definitionOffset;
-    private CustList<PartOffsetsClassMethodIdList> allPartsTypes = new CustList<PartOffsetsClassMethodIdList>();
+    private final CustList<OverridingMethodDto> overrides = new CustList<OverridingMethodDto>();
+    private final String definition;
+    private final int definitionOffset;
+    private final CustList<PartOffsetsClassMethodIdList> allPartsTypes = new CustList<PartOffsetsClassMethodIdList>();
     public InternOverrideBlock(OffsetsBlock _offset, String _definition, int _definitionOffset) {
         super(_offset);
         definition = _definition;
@@ -99,7 +99,7 @@ public final class InternOverrideBlock extends Leaf {
                 int firstPar_ = extValue_.getFirst().length();
                 String cl_ = ResolvingTypes.resolveAccessibleIdType(off_+firstPar_+1,fromType_, _page);
                 superPartOffsets_.addAllElts(_page.getCurrentParts());
-                String formatted_ = AnaTemplates.getOverridingFullTypeByBases(_root, cl_, _page);
+                String formatted_ = AnaInherits.getOverridingFullTypeByBases(_root, cl_, _page);
                 RootBlock formattedType_ = _page.getAnaClassBody(StringExpUtil.getIdFromAllTypes(formatted_));
                 if (formattedType_ == null) {
                     localSum_ += s.length()+1;

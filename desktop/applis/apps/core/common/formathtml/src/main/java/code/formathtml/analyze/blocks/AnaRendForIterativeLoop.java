@@ -7,7 +7,7 @@ import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.files.OffsetBooleanInfo;
 import code.expressionlanguage.analyze.files.OffsetStringInfo;
 import code.expressionlanguage.analyze.files.OffsetsBlock;
-import code.expressionlanguage.analyze.inherits.AnaTemplates;
+import code.expressionlanguage.analyze.inherits.AnaInherits;
 import code.expressionlanguage.analyze.inherits.Mapping;
 import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
@@ -25,31 +25,31 @@ import code.util.core.StringUtil;
 
 public final class AnaRendForIterativeLoop extends AnaRendParentBlock implements AnaRendLoop {
 
-    private String label;
-    private int labelOffset;
+    private final String label;
+    private final int labelOffset;
 
     private final String className;
     private String importedClassName;
-    private int classNameOffset;
+    private final int classNameOffset;
 
     private final String classIndexName;
     private String importedClassIndexName;
-    private int classIndexNameOffset;
+    private final int classIndexNameOffset;
 
     private final String variableName;
-    private int variableNameOffset;
+    private final int variableNameOffset;
 
     private final String init;
-    private int initOffset;
+    private final int initOffset;
 
     private final String expression;
-    private int expressionOffset;
+    private final int expressionOffset;
 
     private final String step;
-    private int stepOffset;
+    private final int stepOffset;
 
     private final boolean eq;
-    private int eqOffset;
+    private final int eqOffset;
 
     private OperationNode rootInit;
 
@@ -152,7 +152,7 @@ public final class AnaRendForIterativeLoop extends AnaRendParentBlock implements
         AnaClassArgumentMatching resCl_ = _currentRoot.getResultClass();
         m_.setArg(resCl_);
         m_.setParam(_result);
-        if (!AnaTemplates.isCorrectOrNumbers(m_, _page)) {
+        if (!AnaInherits.isCorrectOrNumbers(m_, _page)) {
             ClassMethodIdReturn res_ = OperationNode.tryGetDeclaredImplicitCast(_result, resCl_, _page);
             if (res_.isFoundMethod()) {
                 ClassMethodId cl_ = new ClassMethodId(res_.getId().getClassName(),res_.getRealId());

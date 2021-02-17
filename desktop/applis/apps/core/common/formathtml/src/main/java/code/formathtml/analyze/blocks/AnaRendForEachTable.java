@@ -8,7 +8,7 @@ import code.expressionlanguage.analyze.blocks.ImportForEachTable;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.files.OffsetStringInfo;
 import code.expressionlanguage.analyze.files.OffsetsBlock;
-import code.expressionlanguage.analyze.inherits.AnaTemplates;
+import code.expressionlanguage.analyze.inherits.AnaInherits;
 import code.expressionlanguage.analyze.inherits.Mapping;
 import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
@@ -188,7 +188,7 @@ public final class AnaRendForEachTable extends AnaRendParentBlock implements Ana
                 mapping_.setParam(importedClassNameFirst);
                 StringMap<StringList> vars_ = _page.getCurrentConstraints().getCurrentConstraints();
                 mapping_.setMapping(vars_);
-                if (!AnaTemplates.isCorrectOrNumbers(mapping_, _page)) {
+                if (!AnaInherits.isCorrectOrNumbers(mapping_, _page)) {
                     FoundErrorInterpret cast_ = new FoundErrorInterpret();
                     cast_.setFileName(_anaDoc.getFileName());
                     cast_.setIndexFile(expressionOffset);
@@ -214,7 +214,7 @@ public final class AnaRendForEachTable extends AnaRendParentBlock implements Ana
                 mapping_.setParam(importedClassNameSecond);
                 StringMap<StringList> vars_ = _page.getCurrentConstraints().getCurrentConstraints();
                 mapping_.setMapping(vars_);
-                if (!AnaTemplates.isCorrectOrNumbers(mapping_, _page)) {
+                if (!AnaInherits.isCorrectOrNumbers(mapping_, _page)) {
                     FoundErrorInterpret cast_ = new FoundErrorInterpret();
                     cast_.setFileName(_anaDoc.getFileName());
                     cast_.setIndexFile(expressionOffset);

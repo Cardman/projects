@@ -3,6 +3,7 @@ package code.expressionlanguage.analyze.opers;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.RootBlock;
+import code.expressionlanguage.analyze.inherits.AnaInherits;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.ResolvingTypes;
@@ -83,7 +84,7 @@ public final class StaticCallAccessOperation extends LeafOperation {
             _page.getLocalizer().addError(badAccess_);
             addErr(badAccess_.getBuiltError());
         }
-        if (type_.startsWith(AnaTemplates.PREFIX_VAR_TYPE)) {
+        if (type_.startsWith(AnaInherits.PREFIX_VAR_TYPE)) {
             FoundErrorInterpret badAccess_ = new FoundErrorInterpret();
             badAccess_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
             badAccess_.setFileName(_page.getLocalizer().getCurrentFileName());

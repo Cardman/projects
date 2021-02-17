@@ -5,7 +5,7 @@ import code.expressionlanguage.analyze.ManageTokens;
 import code.expressionlanguage.analyze.MethodHeaderInfo;
 import code.expressionlanguage.analyze.TokenErrorMessage;
 import code.expressionlanguage.analyze.accessing.Accessed;
-import code.expressionlanguage.analyze.inherits.AnaTemplates;
+import code.expressionlanguage.analyze.inherits.AnaInherits;
 import code.expressionlanguage.analyze.inherits.Mapping;
 import code.expressionlanguage.analyze.opers.util.MethodInfo;
 import code.expressionlanguage.analyze.reach.opers.ReachOperationUtil;
@@ -274,8 +274,8 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                     }
                     String retInt_ = supInt_.getImportedReturnType();
                     String retBase_ = supCl_.getImportedReturnType();
-                    String formattedRetDer_ = AnaTemplates.quickFormat(c.getType(),nameCl_, retBase_);
-                    String formattedRetBase_ = AnaTemplates.quickFormat(i.getType(),name_, retInt_);
+                    String formattedRetDer_ = AnaInherits.quickFormat(c.getType(),nameCl_, retBase_);
+                    String formattedRetBase_ = AnaInherits.quickFormat(i.getType(),name_, retInt_);
                     if (supCl_.mustHaveSameRet()) {
                         if (!StringUtil.quickEq(formattedRetBase_, formattedRetDer_)) {
                             FoundErrorInterpret err_;
@@ -295,7 +295,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                         }
                         continue;
                     }
-                    if (!AnaTemplates.isReturnCorrect(formattedRetBase_, formattedRetDer_, vars_, _page)) {
+                    if (!AnaInherits.isReturnCorrect(formattedRetBase_, formattedRetDer_, vars_, _page)) {
                         FoundErrorInterpret err_;
                         err_ = new FoundErrorInterpret();
                         err_.setFileName(getFile().getFileName());
@@ -1221,7 +1221,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                 }
                 String res_;
                 if (ok_) {
-                    res_ = AnaTemplates.getRealClassName(allTypes_.first(), j_);
+                    res_ = AnaInherits.getRealClassName(allTypes_.first(), j_);
                 } else {
                     res_ = _page.getAliasObject();
                 }
@@ -1261,7 +1261,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                 RootBlock rootBlock_ = c.getRootBlock();
                 CustList<AnaFormattedRootBlock> superTypes_ = rootBlock_.getImportedDirectSuperTypesInfo();
                 for (AnaFormattedRootBlock t: superTypes_) {
-                    String format_ = AnaTemplates.quickFormat(rootBlock_,c.getFormatted(), t.getFormatted());
+                    String format_ = AnaInherits.quickFormat(rootBlock_,c.getFormatted(), t.getFormatted());
                     AnaFormattedRootBlock a_ = new AnaFormattedRootBlock(t.getRootBlock(), format_);
                     if (!added(format_,allSeen_,a_,next_)) {
                         continue;
@@ -1293,7 +1293,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                 allSeen_.add(c.getFormatted());
                 CustList<AnaFormattedRootBlock> superTypes_ = curType_.getImportedDirectSuperTypesInfo();
                 for (AnaFormattedRootBlock t: superTypes_) {
-                    String format_ = AnaTemplates.quickFormat(curType_,c.getFormatted(), t.getFormatted());
+                    String format_ = AnaInherits.quickFormat(curType_,c.getFormatted(), t.getFormatted());
                     AnaFormattedRootBlock a_ = new AnaFormattedRootBlock(t.getRootBlock(), format_);
                     added(format_,allSeen_, a_, next_);
                 }
@@ -1375,7 +1375,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
             String subType_ = subInt_.getReturnType();
             for (MethodInfo s: e.getMethodInfos()) {
                 String formattedSup_ = s.getReturnType();
-                if (!AnaTemplates.isReturnCorrect(formattedSup_, subType_,_vars, _page)) {
+                if (!AnaInherits.isReturnCorrect(formattedSup_, subType_,_vars, _page)) {
                     FoundErrorInterpret err_ = new FoundErrorInterpret();
                     err_.setFileName(getFile().getFileName());
                     err_.setIndexFile(rootBlockContent.getIdRowCol());
@@ -1574,7 +1574,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                 boolean err_ = false;
                 for (MethodInfo s: e.getMethodInfos()) {
                     String formattedSup_ = s.getReturnType();
-                    if (!AnaTemplates.isReturnCorrect(formattedSup_, subType_,_vars, _page)) {
+                    if (!AnaInherits.isReturnCorrect(formattedSup_, subType_,_vars, _page)) {
                         err_ = true;
                         addClass(output_, cst_, s);
                     }
@@ -1624,7 +1624,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                     if (StringUtil.quickEq(cur_, other_)) {
                         continue;
                     }
-                    if (!AnaTemplates.isReturnCorrect(other_, cur_, _vars, _page)) {
+                    if (!AnaInherits.isReturnCorrect(other_, cur_, _vars, _page)) {
                         sub_ = false;
                         break;
                     }
@@ -1984,7 +1984,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
             if (!r.rootBlockContent.getParamTypes().isEmpty()) {
                 StringList vars_ = new StringList();
                 for (TypeVar t: r.rootBlockContent.getParamTypes()) {
-                    vars_.add(StringUtil.concat(AnaTemplates.PREFIX_VAR_TYPE,t.getName()));
+                    vars_.add(StringUtil.concat(AnaInherits.PREFIX_VAR_TYPE,t.getName()));
                 }
                 generic_.append(Templates.TEMPLATE_BEGIN);
                 generic_.append(StringUtil.join(vars_, Templates.TEMPLATE_SEP));

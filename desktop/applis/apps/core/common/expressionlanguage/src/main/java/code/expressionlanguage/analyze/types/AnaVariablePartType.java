@@ -2,13 +2,13 @@ package code.expressionlanguage.analyze.types;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.Block;
-import code.expressionlanguage.analyze.inherits.AnaTemplates;
+import code.expressionlanguage.analyze.inherits.AnaInherits;
 import code.expressionlanguage.analyze.blocks.AccessedBlock;
 import code.expressionlanguage.linkage.LinkageUtil;
 import code.util.core.StringUtil;
 
 final class AnaVariablePartType extends AnaLeafPartType {
-    private int value;
+    private final int value;
     AnaVariablePartType(AnaParentPartType _parent, int _index, int _indexInType, String _type, String _previousSeparator, int _value) {
         super(_parent, _index, _indexInType, _type, _previousSeparator);
         value = _value;
@@ -23,7 +23,7 @@ final class AnaVariablePartType extends AnaLeafPartType {
     void analyzeLine(ReadyTypes _ready, AccessedBlock _local, AccessedBlock _rooted, AnalyzedPageEl _page) {
         String type_ = getTypeName();
         String t_ = StringUtil.removeAllSpaces(type_);
-        t_ = StringUtil.concat(AnaTemplates.PREFIX_VAR_TYPE,t_);
+        t_ = StringUtil.concat(AnaInherits.PREFIX_VAR_TYPE,t_);
         setAnalyzedType(t_);
     }
 
@@ -31,7 +31,7 @@ final class AnaVariablePartType extends AnaLeafPartType {
     void analyzeAccessibleId(AccessedBlock _rooted, AnalyzedPageEl _page) {
         String type_ = getTypeName();
         String t_ = StringUtil.removeAllSpaces(type_);
-        t_ = StringUtil.concat(AnaTemplates.PREFIX_VAR_TYPE,t_);
+        t_ = StringUtil.concat(AnaInherits.PREFIX_VAR_TYPE,t_);
         setAnalyzedType(t_);
     }
 

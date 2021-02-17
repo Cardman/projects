@@ -3,7 +3,7 @@ package code.expressionlanguage.analyze.util;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.accessing.Accessed;
 import code.expressionlanguage.analyze.blocks.*;
-import code.expressionlanguage.analyze.inherits.AnaTemplates;
+import code.expressionlanguage.analyze.inherits.AnaInherits;
 import code.expressionlanguage.analyze.inherits.Mapping;
 import code.expressionlanguage.analyze.opers.util.FieldInfo;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
@@ -294,7 +294,7 @@ public final class ContextUtil {
         mapping_.setMapping(vars_);
         for (String f: _names) {
             String iterable_ = _page.getAliasIterable();
-            String type_ = AnaTemplates.getGeneric(f,iterable_, mapping_, _page);
+            String type_ = AnaInherits.getGeneric(f,iterable_, mapping_, _page);
             if (!type_.isEmpty()) {
                 out_.add(type_);
             }
@@ -309,7 +309,7 @@ public final class ContextUtil {
         mapping_.setMapping(vars_);
         for (String f: _names) {
             String iterable_ = _page.getAliasIterableTable();
-            String type_ = AnaTemplates.getGeneric(f,iterable_, mapping_, _page);
+            String type_ = AnaInherits.getGeneric(f,iterable_, mapping_, _page);
             if (!type_.isEmpty()) {
                 out_.add(type_);
             }
