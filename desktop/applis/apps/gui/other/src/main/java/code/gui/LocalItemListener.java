@@ -16,4 +16,8 @@ public class LocalItemListener implements ItemListener {
 	public void itemStateChanged(ItemEvent _e){
 		ValueChangingSecondUtil.act(new ValueChangingSecondImpl(combo,listener,_e),ItemEvent.SELECTED);
 	}
+
+	public ListSelection getListener() {
+		return listener;
+	}
 }

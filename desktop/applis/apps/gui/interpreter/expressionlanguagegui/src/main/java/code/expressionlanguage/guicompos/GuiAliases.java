@@ -347,7 +347,7 @@ public final class GuiAliases {
     private static final String COMBO_GET_SELECTED_ITEM = "ComboGetSelectedItem";
     private static final String COMBO_ADD_ITEM = "ComboAddItem";
     private static final String POPUP_MENU_GET_COMP = "PopupMenuGetComp";
-    private static final String COMBO_GET_LISTENER = "ComboGetListener";
+    private static final String COMBO_GET_LISTENERS = "ComboGetListeners";
     private static final String COMBO_GET_SELECTED_INDEX = "ComboGetSelectedIndex";
     private static final String POPUP_MENU = "PopupMenu";
     private static final String POPUP_MENU_ADD_MENU = "PopupMenuAddMenu";
@@ -363,7 +363,8 @@ public final class GuiAliases {
     private static final String BUTTON_GROUP = "ButtonGroup";
     private static final String POPUP_MENU_ADD = "PopupMenuAdd";
     private static final String RADIO_IS_SELECTED = "RadioIsSelected";
-    private static final String COMBO_SET_LISTENER = "ComboSetListener";
+    private static final String COMBO_ADD_LISTENER = "ComboAddListener";
+    private static final String COMBO_REMOVE_LISTENER = "ComboRemoveListener";
     private static final String TEXT_FIELD = "TextField";
     private static final String COMBO_REMOVE_ITEM = "ComboRemoveItem";
     private static final String RADIO_SET_SELECTED = "RadioSetSelected";
@@ -728,8 +729,9 @@ public final class GuiAliases {
     private String aliasComboAddItem;
     private String aliasComboGetItemCount;
     private String aliasComboSelectItem;
-    private String aliasComboSetListener;
-    private String aliasComboGetListener;
+    private String aliasComboAddListener;
+    private String aliasComboRemoveListener;
+    private String aliasComboGetListeners;
     private String aliasComboGetSelectedIndexes;
     private String aliasComboGetSelectedIndex;
     private String aliasComboRemoveAllItems;
@@ -2617,10 +2619,13 @@ public final class GuiAliases {
         fields_ = new CustList<StandardField>();
         stdcl_ = new StandardClass(aliasCombo, fields_, constructors_, methods_, aliasInput, MethodModifier.FINAL);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasComboGetListener, params_, aliasListSelection, false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasComboGetListeners, params_, StringExpUtil.getPrettyArrayType(aliasListSelection), false, MethodModifier.FINAL);
         methods_.add( method_);
         params_ = new StringList(aliasListSelection);
-        method_ = new StandardMethod(aliasComboSetListener, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasCombo0ComboSetListener0()));
+        method_ = new StandardMethod(aliasComboAddListener, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasCombo0ComboAddListener0()));
+        methods_.add( method_);
+        params_ = new StringList(aliasListSelection);
+        method_ = new StandardMethod(aliasComboRemoveListener, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasCombo0ComboRemoveListener0()));
         methods_.add( method_);
         params_ = new StringList(_content.getCharSeq().getAliasString());
         method_ = new StandardMethod(aliasComboAddItem, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasCombo0TabbedPaneAdd0()));
@@ -4851,13 +4856,18 @@ public final class GuiAliases {
         }
         if (StringUtil.quickEq(type_, aliasCombo)) {
             GraphicComboStruct inst_ = (GraphicComboStruct) _instance;
-            if (StringUtil.quickEq(name_, aliasComboSetListener)) {
-                inst_.setListener(_args[0]);
+            if (StringUtil.quickEq(name_, aliasComboAddListener)) {
+                inst_.addListener(_args[0]);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
-            if (StringUtil.quickEq(name_, aliasComboGetListener)) {
-                res_.setResult(inst_.getListener());
+            if (StringUtil.quickEq(name_, aliasComboRemoveListener)) {
+                inst_.removeListener(_args[0]);
+                res_.setResult(NullStruct.NULL_VALUE);
+                return res_;
+            }
+            if (StringUtil.quickEq(name_, aliasComboGetListeners)) {
+                res_.setResult(inst_.getListeners(_cont));
                 return res_;
             }
             if (StringUtil.quickEq(name_, aliasComboGetSelectedIndexes)) {
@@ -4878,7 +4888,7 @@ public final class GuiAliases {
                 return res_;
             }
             if (StringUtil.quickEq(name_, aliasComboSelectItem)) {
-                inst_.selectItem((RunnableContextEl) _cont,(NumberStruct) _args[0]);
+                inst_.selectItem((NumberStruct) _args[0]);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
@@ -5566,7 +5576,7 @@ public final class GuiAliases {
         setAliasComboGetSelectedItem(LgNamesContent.get(_util, _cust, COMBO_GET_SELECTED_ITEM));
         setAliasComboAddItem(LgNamesContent.get(_util, _cust, COMBO_ADD_ITEM));
         setAliasPopupMenuGetComp(LgNamesContent.get(_util, _cust, POPUP_MENU_GET_COMP));
-        setAliasComboGetListener(LgNamesContent.get(_util, _cust, COMBO_GET_LISTENER));
+        setAliasComboGetListeners(LgNamesContent.get(_util, _cust, COMBO_GET_LISTENERS));
         setAliasComboGetSelectedIndex(LgNamesContent.get(_util, _cust, COMBO_GET_SELECTED_INDEX));
         setAliasPopupMenu(LgNamesContent.get(_util, _cust, POPUP_MENU));
         setAliasPopupMenuAddMenu(LgNamesContent.get(_util, _cust, POPUP_MENU_ADD_MENU));
@@ -5582,7 +5592,8 @@ public final class GuiAliases {
         setAliasButtonGroup(LgNamesContent.get(_util, _cust, BUTTON_GROUP));
         setAliasPopupMenuAdd(LgNamesContent.get(_util, _cust, POPUP_MENU_ADD));
         setAliasRadioIsSelected(LgNamesContent.get(_util, _cust, RADIO_IS_SELECTED));
-        setAliasComboSetListener(LgNamesContent.get(_util, _cust, COMBO_SET_LISTENER));
+        setAliasComboAddListener(LgNamesContent.get(_util, _cust, COMBO_ADD_LISTENER));
+        setAliasComboRemoveListener(LgNamesContent.get(_util, _cust, COMBO_REMOVE_LISTENER));
         setAliasTextField(LgNamesContent.get(_util, _cust, TEXT_FIELD));
         setAliasComboRemoveItem(LgNamesContent.get(_util, _cust, COMBO_REMOVE_ITEM));
         setAliasRadioSetSelected(LgNamesContent.get(_util, _cust, RADIO_SET_SELECTED));
@@ -6015,14 +6026,15 @@ public final class GuiAliases {
         _m.addEntry(getAliasCombo(),merge(new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(COMBO_ADD_ITEM,getAliasComboAddItem()),
                 new KeyValueMemberName(COMBO_GET_ITEM_COUNT,getAliasComboGetItemCount()),
-                new KeyValueMemberName(COMBO_GET_LISTENER,getAliasComboGetListener()),
+                new KeyValueMemberName(COMBO_GET_LISTENERS,getAliasComboGetListeners()),
                 new KeyValueMemberName(COMBO_GET_SELECTED_INDEX,getAliasComboGetSelectedIndex()),
                 new KeyValueMemberName(COMBO_GET_SELECTED_INDEXES,getAliasComboGetSelectedIndexes()),
                 new KeyValueMemberName(COMBO_GET_SELECTED_ITEM,getAliasComboGetSelectedItem()),
                 new KeyValueMemberName(COMBO_REMOVE_ALL_ITEMS,getAliasComboRemoveAllItems()),
                 new KeyValueMemberName(COMBO_REMOVE_ITEM,getAliasComboRemoveItem()),
                 new KeyValueMemberName(COMBO_SELECT_ITEM,getAliasComboSelectItem()),
-                new KeyValueMemberName(COMBO_SET_LISTENER,getAliasComboSetListener())),names_)
+                new KeyValueMemberName(COMBO_ADD_LISTENER,getAliasComboAddListener()),
+                new KeyValueMemberName(COMBO_REMOVE_LISTENER,getAliasComboRemoveListener())),names_)
         );
         _m.addEntry(getAliasGrList(),merge(new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(GR_LIST_ADD,getAliasGrListAdd()),
@@ -8669,20 +8681,28 @@ public final class GuiAliases {
         this.aliasComboSelectItem = _v;
     }
 
-    public String getAliasComboSetListener() {
-        return aliasComboSetListener;
+    public String getAliasComboAddListener() {
+        return aliasComboAddListener;
     }
 
-    public void setAliasComboSetListener(String _v) {
-        this.aliasComboSetListener = _v;
+    public void setAliasComboAddListener(String _v) {
+        this.aliasComboAddListener = _v;
     }
 
-    public String getAliasComboGetListener() {
-        return aliasComboGetListener;
+    public String getAliasComboRemoveListener() {
+        return aliasComboRemoveListener;
     }
 
-    public void setAliasComboGetListener(String _v) {
-        this.aliasComboGetListener = _v;
+    public void setAliasComboRemoveListener(String _v) {
+        this.aliasComboRemoveListener = _v;
+    }
+
+    public String getAliasComboGetListeners() {
+        return aliasComboGetListeners;
+    }
+
+    public void setAliasComboGetListeners(String _v) {
+        this.aliasComboGetListeners = _v;
     }
 
     public String getAliasComboGetSelectedIndexes() {

@@ -2,7 +2,6 @@ package code.expressionlanguage.guicompos;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.StringExpUtil;
-import code.expressionlanguage.utilcompo.RunnableContextEl;
 import code.expressionlanguage.structs.*;
 import code.gui.*;
 
@@ -48,27 +47,38 @@ public final class GraphicComboStruct extends InputStruct {
         return new IntStruct(graphicCombo.getItemCount());
     }
 
-    public void selectItem(RunnableContextEl _run, NumberStruct _index) {
+    public void selectItem(NumberStruct _index) {
         int index_ = _index.intStruct();
-        graphicCombo.simpleSelectItem(index_);
-        invokeRunnable(_run,new SelectionComboEventStruct(index_, index_, this));
+        graphicCombo.selectItem(index_);
     }
-    public void setListener(Struct _arg) {
+    public void addListener(Struct _arg) {
         if (!(_arg instanceof ListSelection)) {
+            graphicCombo.addListener(null);
             return;
         }
-        graphicCombo.setListener((ListSelection) _arg);
+        graphicCombo.addListener((ListSelection) _arg);
     }
-    public Struct getListener() {
-        ListSelection l_ = graphicCombo.getListener();
-        if (!(l_ instanceof Struct)) {
-            return NullStruct.NULL_VALUE;
+
+    public void removeListener(Struct _arg) {
+        if (!(_arg instanceof ListSelection)) {
+            graphicCombo.removeListener(null);
+            return;
         }
-        return (Struct) l_;
+        graphicCombo.removeListener((ListSelection) _arg);
     }
-    ListSelection getSelection() {
-        return graphicCombo.getListener();
+    public ArrayStruct getListeners(ContextEl _ctx) {
+        ListSelection[] listeners_ = graphicCombo.getListeners();
+        String aliasListSelection_ = ((LgNamesGui) _ctx.getStandards()).getGuiAliases().getAliasListSelection();
+        int len_ = listeners_.length;
+        ArrayStruct out_ = new ArrayStruct(len_,StringExpUtil.getPrettyArrayType(aliasListSelection_));
+        for (int i = 0; i < len_; i++) {
+            if (listeners_[i] instanceof Struct) {
+                out_.set(i,(Struct)listeners_[i]);
+            }
+        }
+        return out_;
     }
+
     public void update() {
         AbsComboBox.tryUp(graphicCombo);
     }

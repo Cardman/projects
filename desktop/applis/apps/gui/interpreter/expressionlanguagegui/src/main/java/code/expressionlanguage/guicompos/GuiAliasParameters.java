@@ -320,7 +320,8 @@ public final class GuiAliasParameters {
     private static final String GR_LIST_0_GR_LIST_SET_SELECTED_INDEXES_0="GrList0GrListSetSelectedIndexes0";
     private static final String GR_LIST_0_REMOVE_COMPO_0="GrList0RemoveCompo0";
     private static final String GR_LIST_0_GR_LIST_0="GrList0GrList0";
-    private static final String COMBO_0_COMBO_SET_LISTENER_0="Combo0ComboSetListener0";
+    private static final String COMBO_0_COMBO_ADD_LISTENER_0="Combo0ComboAddListener0";
+    private static final String COMBO_0_COMBO_REMOVE_LISTENER_0="Combo0ComboRemoveListener0";
     private static final String COMBO_0_TABBED_PANE_ADD_0="Combo0TabbedPaneAdd0";
     private static final String COMBO_0_COMBO_SELECT_ITEM_0="Combo0ComboSelectItem0";
     private static final String COMBO_0_COMBO_REMOVE_ITEM_0="Combo0ComboRemoveItem0";
@@ -731,7 +732,8 @@ public final class GuiAliasParameters {
     private String aliasGrList0GrListSetSelectedIndexes0;
     private String aliasGrList0RemoveCompo0;
     private String aliasGrList0GrList0;
-    private String aliasCombo0ComboSetListener0;
+    private String aliasCombo0ComboAddListener0;
+    private String aliasCombo0ComboRemoveListener0;
     private String aliasCombo0TabbedPaneAdd0;
     private String aliasCombo0ComboSelectItem0;
     private String aliasCombo0ComboRemoveItem0;
@@ -1141,7 +1143,8 @@ public final class GuiAliasParameters {
         aliasGrList0GrListSetSelectedIndexes0=LgNamesContent.get(_util,_cust, GR_LIST_0_GR_LIST_SET_SELECTED_INDEXES_0);
         aliasGrList0RemoveCompo0=LgNamesContent.get(_util,_cust, GR_LIST_0_REMOVE_COMPO_0);
         aliasGrList0GrList0=LgNamesContent.get(_util,_cust, GR_LIST_0_GR_LIST_0);
-        aliasCombo0ComboSetListener0=LgNamesContent.get(_util,_cust, COMBO_0_COMBO_SET_LISTENER_0);
+        aliasCombo0ComboAddListener0=LgNamesContent.get(_util,_cust, COMBO_0_COMBO_ADD_LISTENER_0);
+        aliasCombo0ComboRemoveListener0=LgNamesContent.get(_util,_cust, COMBO_0_COMBO_REMOVE_LISTENER_0);
         aliasCombo0TabbedPaneAdd0=LgNamesContent.get(_util,_cust, COMBO_0_TABBED_PANE_ADD_0);
         aliasCombo0ComboSelectItem0=LgNamesContent.get(_util,_cust, COMBO_0_COMBO_SELECT_ITEM_0);
         aliasCombo0ComboRemoveItem0=LgNamesContent.get(_util,_cust, COMBO_0_COMBO_REMOVE_ITEM_0);
@@ -1412,7 +1415,8 @@ public final class GuiAliasParameters {
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(GR_LIST_0_GR_LIST_SET_SELECTED_INDEXES_0,aliasGrList0GrListSetSelectedIndexes0)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(GR_LIST_0_REMOVE_COMPO_0,aliasGrList0RemoveCompo0)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(GR_LIST_0_GR_LIST_0,aliasGrList0GrList0)));
-        m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(COMBO_0_COMBO_SET_LISTENER_0,aliasCombo0ComboSetListener0)));
+        m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(COMBO_0_COMBO_ADD_LISTENER_0,aliasCombo0ComboAddListener0)));
+        m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(COMBO_0_COMBO_REMOVE_LISTENER_0,aliasCombo0ComboRemoveListener0)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(COMBO_0_TABBED_PANE_ADD_0,aliasCombo0TabbedPaneAdd0)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(COMBO_0_COMBO_SELECT_ITEM_0,aliasCombo0ComboSelectItem0)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(COMBO_0_COMBO_REMOVE_ITEM_0,aliasCombo0ComboRemoveItem0)));
@@ -2738,8 +2742,12 @@ public final class GuiAliasParameters {
         return aliasGrList0GrList0;
     }
 
-    public String getAliasCombo0ComboSetListener0() {
-        return aliasCombo0ComboSetListener0;
+    public String getAliasCombo0ComboAddListener0() {
+        return aliasCombo0ComboAddListener0;
+    }
+
+    public String getAliasCombo0ComboRemoveListener0() {
+        return aliasCombo0ComboRemoveListener0;
     }
 
     public String getAliasCombo0TabbedPaneAdd0() {

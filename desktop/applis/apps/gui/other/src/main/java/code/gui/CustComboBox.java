@@ -3,17 +3,21 @@ import javax.swing.JComboBox;
 import javax.swing.JComponent;
 
 import code.adv.SafeRemoveAdvUtil;
+import code.util.CustList;
+import code.util.IdList;
 import code.util.StringList;
 import code.util.Ints;
 import code.util.core.StringUtil;
 
 import java.util.Optional;
+import java.util.stream.Stream;
 
 public final class CustComboBox extends CustComponent implements GraphicComboGrInt {
 
     private final JComboBox<String> combo = new JComboBox<>();
 
     private ListSelection listener;
+    private final IdList<LocalItemListener> listeners = new IdList<>();
 
     public CustComboBox(StringList _list) {
         this(_list,0);
@@ -47,6 +51,28 @@ public final class CustComboBox extends CustComponent implements GraphicComboGrI
     @Override
     public void removeAllItems() {
         combo.removeAllItems();
+    }
+
+    @Override
+    public ListSelection[] getListeners() {
+        return listeners.list().stream().map(LocalItemListener::getListener).toArray(ListSelection[]::new);
+    }
+
+    @Override
+    public void addListener(ListSelection _listener) {
+        Optional.ofNullable(_listener).ifPresent(this::innerAddListener);
+    }
+
+    private void innerAddListener(ListSelection _listener) {
+        LocalItemListener listen_ = new LocalItemListener(combo, _listener);
+        combo.addItemListener(listen_);
+        listeners.add(listen_);
+    }
+    @Override
+    public void removeListener(ListSelection _listener) {
+        Optional<LocalItemListener> result_ = listeners.list().stream().filter(l -> l.getListener() == _listener).findFirst();
+        result_.ifPresent(combo::removeItemListener);
+        result_.ifPresent(listeners::removeObj);
     }
 
     @Override

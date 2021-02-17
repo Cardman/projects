@@ -124,6 +124,30 @@ public final class GraphicCombo extends CustComponent implements GraphicComboGrI
         listener = _listener;
     }
 
+    @Override
+    public ListSelection[] getListeners() {
+        if (listener == null) {
+            return new ListSelection[0];
+        }
+        return new ListSelection[]{listener};
+    }
+
+    @Override
+    public void addListener(ListSelection _listener) {
+        if (_listener == null) {
+            return;
+        }
+        listener = _listener;
+    }
+
+    @Override
+    public void removeListener(ListSelection _listener) {
+        if (listener != _listener) {
+            return;
+        }
+        listener = null;
+    }
+
     public Panel getPanel() {
         return panel;
     }
