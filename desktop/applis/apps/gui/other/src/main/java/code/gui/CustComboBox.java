@@ -3,20 +3,17 @@ import javax.swing.JComboBox;
 import javax.swing.JComponent;
 
 import code.adv.SafeRemoveAdvUtil;
-import code.util.CustList;
 import code.util.IdList;
 import code.util.StringList;
 import code.util.Ints;
 import code.util.core.StringUtil;
 
 import java.util.Optional;
-import java.util.stream.Stream;
 
 public final class CustComboBox extends CustComponent implements GraphicComboGrInt {
 
     private final JComboBox<String> combo = new JComboBox<>();
 
-    private ListSelection listener;
     private final IdList<LocalItemListener> listeners = new IdList<>();
 
     public CustComboBox(StringList _list) {
@@ -75,13 +72,8 @@ public final class CustComboBox extends CustComponent implements GraphicComboGrI
         result_.ifPresent(listeners::removeObj);
     }
 
-    public ListSelection getListener() {
-        return listener;
-    }
-
     public void setListener(ListSelection _listener) {
 		combo.addItemListener(new LocalItemListener(combo,_listener));
-        listener = _listener;
     }
 
     @Override
@@ -108,9 +100,7 @@ public final class CustComboBox extends CustComponent implements GraphicComboGrI
 
     @Override
     public void selectItem(int _index) {
-		int old_ = combo.getSelectedIndex();
         simpleSelectItem(_index);
-        CustComponent.invokeLater(new SelectionComboEvent(_index, _index, this,listener,old_));
     }
     public void simpleSelectItem(int _index) {
         int index_ = Math.min(combo.getItemCount()-1,_index);
