@@ -17,8 +17,6 @@ public final class AutoCompleteDocument implements FocusListener, DocumentListen
 
     private final StringList dictionary = new StringList();
 
-    private final StringList results = new StringList();
-
     private final PopupMenu popup;
 
     private final AbsGraphicList<String> list;
@@ -31,9 +29,13 @@ public final class AutoCompleteDocument implements FocusListener, DocumentListen
         changeableTitle = _changeableTitle;
         dictionary.addAllElts(_aDictionary);
         popup = new PopupMenu();
-        AbsGraphicList<String> comp_ = _abs.createStrList(results);
+        AbsGraphicList<String> comp_ = _abs.createStrList(new StringList());
         list = comp_;
         popup.add(new ScrollPane(comp_.self()));
+        init();
+    }
+
+    private void init() {
         textField.addFocusListener(this);
         textField.getDocument().addDocumentListener(this);
         textField.addKeyListener(this);
@@ -46,7 +48,7 @@ public final class AutoCompleteDocument implements FocusListener, DocumentListen
         if (skip()) {
             return;
         }
-        if (results.isEmpty()) {
+        if (list.getList().isEmpty()) {
             return;
         }
         int height_ = textField.getHeight();
@@ -98,7 +100,7 @@ public final class AutoCompleteDocument implements FocusListener, DocumentListen
             }
         } else if (keyCode_ == KeyEvent.VK_DOWN) {
             int index_ = list.getSelectedIndex();
-            if (index_ != -1 && results.size() > index_ + 1) {
+            if (index_ != -1 && list.getList().size() > index_ + 1) {
                 list.clearAllRange();
                 list.setSelectedIndice(index_ + 1);
             }
@@ -106,8 +108,10 @@ public final class AutoCompleteDocument implements FocusListener, DocumentListen
             String text_ = list.getSelectedValue();
             textField.setText(text_);
             textField.setCaretPosition(text_.length());
-        } else if (keyCode_ == KeyEvent.VK_ESCAPE) {
-            hideAutocompletePopup();
+        } else {
+            if (keyCode_ == KeyEvent.VK_ESCAPE) {
+                hideAutocompletePopup();
+            }
         }
     }
     @Override
@@ -161,7 +165,7 @@ public final class AutoCompleteDocument implements FocusListener, DocumentListen
         for (String s: r_){
             list.add(s);
         }
-        if (results.isEmpty()) {
+        if (list.getList().isEmpty()) {
             hideAutocompletePopup();
             return;
         }
