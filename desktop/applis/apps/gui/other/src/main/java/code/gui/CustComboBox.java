@@ -68,10 +68,12 @@ public final class CustComboBox extends CustComponent implements GraphicComboGrI
     @Override
     public void removeListener(ListSelection _listener) {
         Optional<LocalItemListener> result_ = listeners.list().stream().filter(l -> l.getListener().equals(_listener)).findFirst();
-        result_.ifPresent(combo::removeItemListener);
-        result_.ifPresent(listeners::removeObj);
+        result_.ifPresent(this::remove);
     }
-
+    private void remove(LocalItemListener _listener) {
+        combo.removeItemListener(_listener);
+        listeners.removeObj(_listener);
+    }
     public void setListener(ListSelection _listener) {
 		combo.addItemListener(new LocalItemListener(combo,_listener));
     }
