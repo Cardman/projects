@@ -47,7 +47,7 @@ public class CustGrList<T> extends CustComponent implements AbsGraphicList<T> {
     }
 
     public void removeListener(ListSelection _listener) {
-        Optional<LocalListSelectionListener> result_ = listeners.list().stream().filter(l -> l.getListener() == _listener).findFirst();
+        Optional<LocalListSelectionListener> result_ = listeners.list().stream().filter(l -> l.getListener().equals(_listener)).findFirst();
         result_.ifPresent(list::removeListSelectionListener);
         result_.ifPresent(listeners::removeObj);
     }
