@@ -27,14 +27,6 @@ public abstract class PaintableLabel extends CustComponent {
     }
     public abstract void paintComponent(CustGraphics _g);
 
-    public void removeMouseListener(MouseListener _l) {
-        label.removeMouseListener(_l);
-    }
-
-    public MouseListener[] getMouseListeners() {
-        return label.getMouseListeners();
-    }
-
     public boolean requestFocusInWindow() {
         return label.requestFocusInWindow();
     }

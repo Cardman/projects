@@ -271,6 +271,8 @@ public final class GuiAliases {
     private static final String TABBED_PANE_SET = "TabbedPaneSet";
     private static final String TABBED_PANE_SEL_INDEX = "TabbedPaneSelIndex";
     private static final String ADD_LISTENER = "AddListener";
+    private static final String REMOVE_LISTENER = "RemoveListener";
+    private static final String GET_LISTENERS = "GetListeners";
     private static final String MENU_ITEM_CHECK = "MenuItemCheck";
     private static final String MENU_ADD_SEPARATOR = "MenuAddSeparator";
     private static final String ABS_MENU_ITEM = "AbsMenuItem";
@@ -297,6 +299,8 @@ public final class GuiAliases {
     private static final String COMP_GET_FIRST_POS = "CompGetFirstPos";
     private static final String COMP_BOR_TITLE = "CompBorTitle";
     private static final String ADD_KEY_LISTENER = "AddKeyListener";
+    private static final String REMOVE_KEY_LISTENER = "RemoveKeyListener";
+    private static final String GET_KEY_LISTENERS = "GetKeyListeners";
     private static final String KEY_EVENT_IS_ALT = "KeyEventIsAlt";
     private static final String KEY_LISTENER = "KeyListener";
     private static final String KEY_EVENT_CHAR = "KeyEventChar";
@@ -313,6 +317,8 @@ public final class GuiAliases {
     private static final String WINDOW_ICONIFIED = "WindowIconified";
     private static final String KEY_RELEASED = "KeyReleased";
     private static final String ADD_WHEEL_LISTENER = "AddWheelListener";
+    private static final String REMOVE_WHEEL_LISTENER = "RemoveWheelListener";
+    private static final String GET_WHEEL_LISTENERS = "GetWheelListeners";
     private static final String WINDOW_CLOSING = "WindowClosing";
     private static final String GR_LIST_SET = "GrListSet";
     private static final String WINDOW_ACTIVATED = "WindowActivated";
@@ -530,7 +536,11 @@ public final class GuiAliases {
     private String aliasCompBorLower;
     private String aliasCompBorRaise;
     private String aliasAddWheelListener;
+    private String aliasRemoveWheelListener;
+    private String aliasGetWheelListeners;
     private String aliasAddKeyListener;
+    private String aliasRemoveKeyListener;
+    private String aliasGetKeyListeners;
     private String aliasKeyListener;
     private String aliasKeyPressed;
     private String aliasKeyTyped;
@@ -672,6 +682,8 @@ public final class GuiAliases {
     private String aliasGetIndexCompo;
     private String aliasRemoveAll;
     private String aliasAddListener;
+    private String aliasRemoveListener;
+    private String aliasGetListeners;
     private String aliasAddWindowListener;
     private String aliasSetLabelText;
     private String aliasSetLabelImage;
@@ -1667,11 +1679,29 @@ public final class GuiAliases {
         params_ = new StringList(aliasKeyListener);
         method_ = new StandardMethod(aliasAddKeyListener, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasComponent0AddKeyListener0()));
         methods_.add( method_);
+        params_ = new StringList(aliasKeyListener);
+        method_ = new StandardMethod(aliasRemoveKeyListener, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasComponent0RemoveKeyListener0()));
+        methods_.add( method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasGetKeyListeners, params_, StringExpUtil.getPrettyArrayType(aliasKeyListener), false, MethodModifier.FINAL,new StringList());
+        methods_.add( method_);
         params_ = new StringList(aliasWheelListener);
         method_ = new StandardMethod(aliasAddWheelListener, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasComponent0AddWheelListener0()));
         methods_.add( method_);
+        params_ = new StringList(aliasWheelListener);
+        method_ = new StandardMethod(aliasRemoveWheelListener, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasComponent0RemoveWheelListener0()));
+        methods_.add( method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasGetWheelListeners, params_, StringExpUtil.getPrettyArrayType(aliasWheelListener), false, MethodModifier.FINAL,new StringList());
+        methods_.add( method_);
         params_ = new StringList(aliasMouseListener);
         method_ = new StandardMethod(aliasAddListener, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasComponent0AddListener0()));
+        methods_.add( method_);
+        params_ = new StringList(aliasMouseListener);
+        method_ = new StandardMethod(aliasRemoveListener, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasComponent0RemoveListener0()));
+        methods_.add( method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasGetListeners, params_, StringExpUtil.getPrettyArrayType(aliasMouseListener), false, MethodModifier.FINAL,new StringList());
         methods_.add( method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasRequestFocus, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL);
@@ -3782,13 +3812,38 @@ public final class GuiAliases {
                 inst_.addKeyListener(_args[0]);
                 return res_;
             }
+            if (StringUtil.quickEq(name_, aliasRemoveKeyListener)) {
+                inst_.removeKeyListener(_args[0]);
+                return res_;
+            }
+            if (StringUtil.quickEq(name_, aliasGetKeyListeners)) {
+                res_.setResult(inst_.getKeyListeners(_cont));
+                return res_;
+            }
             if (StringUtil.quickEq(name_, aliasAddWheelListener)) {
                 inst_.addWheel(_args[0]);
+                return res_;
+            }
+            if (StringUtil.quickEq(name_, aliasRemoveWheelListener)) {
+                inst_.removeWheel(_args[0]);
+                return res_;
+            }
+            if (StringUtil.quickEq(name_, aliasGetWheelListeners)) {
+                res_.setResult(inst_.getWheels(_cont));
                 return res_;
             }
             if (StringUtil.quickEq(name_, aliasAddListener)) {
                 inst_.addMouse(_args[0]);
                 res_.setResult(NullStruct.NULL_VALUE);
+                return res_;
+            }
+            if (StringUtil.quickEq(name_, aliasRemoveListener)) {
+                inst_.removeMouse(_args[0]);
+                res_.setResult(NullStruct.NULL_VALUE);
+                return res_;
+            }
+            if (StringUtil.quickEq(name_, aliasGetListeners)) {
+                res_.setResult(inst_.getMouses(_cont));
                 return res_;
             }
             if (StringUtil.quickEq(name_, aliasCompBack)) {
@@ -5500,6 +5555,8 @@ public final class GuiAliases {
         setAliasTabbedPaneSet(LgNamesContent.get(_util, _cust, TABBED_PANE_SET));
         setAliasTabbedPaneSelIndex(LgNamesContent.get(_util, _cust, TABBED_PANE_SEL_INDEX));
         setAliasAddListener(LgNamesContent.get(_util, _cust, ADD_LISTENER));
+        setAliasRemoveListener(LgNamesContent.get(_util, _cust, REMOVE_LISTENER));
+        setAliasGetListeners(LgNamesContent.get(_util, _cust, GET_LISTENERS));
         setAliasMenuItemCheck(LgNamesContent.get(_util, _cust, MENU_ITEM_CHECK));
         setAliasMenuAddSeparator(LgNamesContent.get(_util, _cust, MENU_ADD_SEPARATOR));
         setAliasAbsMenuItem(LgNamesContent.get(_util, _cust, ABS_MENU_ITEM));
@@ -5526,6 +5583,8 @@ public final class GuiAliases {
         setAliasCompGetFirstPos(LgNamesContent.get(_util, _cust, COMP_GET_FIRST_POS));
         setAliasCompBorTitle(LgNamesContent.get(_util, _cust, COMP_BOR_TITLE));
         setAliasAddKeyListener(LgNamesContent.get(_util, _cust, ADD_KEY_LISTENER));
+        setAliasRemoveKeyListener(LgNamesContent.get(_util, _cust, REMOVE_KEY_LISTENER));
+        setAliasGetKeyListeners(LgNamesContent.get(_util, _cust, GET_KEY_LISTENERS));
         setAliasKeyEventIsAlt(LgNamesContent.get(_util, _cust, KEY_EVENT_IS_ALT));
         setAliasKeyListener(LgNamesContent.get(_util, _cust, KEY_LISTENER));
         setAliasKeyEventChar(LgNamesContent.get(_util, _cust, KEY_EVENT_CHAR));
@@ -5542,6 +5601,8 @@ public final class GuiAliases {
         setAliasWindowIconified(LgNamesContent.get(_util, _cust, WINDOW_ICONIFIED));
         setAliasKeyReleased(LgNamesContent.get(_util, _cust, KEY_RELEASED));
         setAliasAddWheelListener(LgNamesContent.get(_util, _cust, ADD_WHEEL_LISTENER));
+        setAliasRemoveWheelListener(LgNamesContent.get(_util, _cust, REMOVE_WHEEL_LISTENER));
+        setAliasGetWheelListeners(LgNamesContent.get(_util, _cust, GET_WHEEL_LISTENERS));
         setAliasWindowClosing(LgNamesContent.get(_util, _cust, WINDOW_CLOSING));
         setAliasGrListSet(LgNamesContent.get(_util, _cust, GR_LIST_SET));
         setAliasWindowActivated(LgNamesContent.get(_util, _cust, WINDOW_ACTIVATED));
@@ -6124,8 +6185,14 @@ public final class GuiAliases {
                 new KeyValueMemberName(COMPONENT_SET_VISIBLE,getAliasComponentSetVisible()),
                 new KeyValueMemberName(COMPONENT_INVOKE_LATER,getAliasComponentInvokeLater()),
                 new KeyValueMemberName(ADD_KEY_LISTENER,getAliasAddKeyListener()),
+                new KeyValueMemberName(REMOVE_KEY_LISTENER,getAliasRemoveKeyListener()),
+                new KeyValueMemberName(GET_KEY_LISTENERS,getAliasGetKeyListeners()),
                 new KeyValueMemberName(ADD_WHEEL_LISTENER,getAliasAddWheelListener()),
+                new KeyValueMemberName(REMOVE_WHEEL_LISTENER,getAliasRemoveWheelListener()),
+                new KeyValueMemberName(GET_WHEEL_LISTENERS,getAliasGetWheelListeners()),
                 new KeyValueMemberName(ADD_LISTENER,getAliasAddListener()),
+                new KeyValueMemberName(REMOVE_LISTENER,getAliasRemoveListener()),
+                new KeyValueMemberName(GET_LISTENERS,getAliasGetListeners()),
                 new KeyValueMemberName(REQUEST_FOCUS,getAliasRequestFocus()),
                 new KeyValueMemberName(COMP_BACK,getAliasCompBack()),
                 new KeyValueMemberName(COMP_FOCUSABLE,getAliasCompFocusable()),
@@ -7616,6 +7683,22 @@ public final class GuiAliases {
         this.aliasAddListener = _v;
     }
 
+    public String getAliasRemoveListener() {
+        return aliasRemoveListener;
+    }
+
+    public void setAliasRemoveListener(String _v) {
+        this.aliasRemoveListener = _v;
+    }
+
+    public String getAliasGetListeners() {
+        return aliasGetListeners;
+    }
+
+    public void setAliasGetListeners(String _v) {
+        this.aliasGetListeners = _v;
+    }
+
     public String getAliasAddWindowListener() {
         return aliasAddWindowListener;
     }
@@ -8248,12 +8331,44 @@ public final class GuiAliases {
         this.aliasAddKeyListener = _v;
     }
 
+    public String getAliasRemoveKeyListener() {
+        return aliasRemoveKeyListener;
+    }
+
+    public void setAliasRemoveKeyListener(String _v) {
+        this.aliasRemoveKeyListener = _v;
+    }
+
+    public String getAliasGetKeyListeners() {
+        return aliasGetKeyListeners;
+    }
+
+    public void setAliasGetKeyListeners(String _v) {
+        this.aliasGetKeyListeners = _v;
+    }
+
     public String getAliasAddWheelListener() {
         return aliasAddWheelListener;
     }
 
     public void setAliasAddWheelListener(String _v) {
         this.aliasAddWheelListener = _v;
+    }
+
+    public String getAliasRemoveWheelListener() {
+        return aliasRemoveWheelListener;
+    }
+
+    public void setAliasRemoveWheelListener(String _v) {
+        this.aliasRemoveWheelListener = _v;
+    }
+
+    public String getAliasGetWheelListeners() {
+        return aliasGetWheelListeners;
+    }
+
+    public void setAliasGetWheelListeners(String _v) {
+        this.aliasGetWheelListeners = _v;
     }
 
     public String getAliasKeyListener() {

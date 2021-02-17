@@ -131,6 +131,9 @@ public final class GuiAliasParameters {
     private static final String COMPONENT_0_ADD_KEY_LISTENER_0="Component0AddKeyListener0";
     private static final String COMPONENT_0_ADD_WHEEL_LISTENER_0="Component0AddWheelListener0";
     private static final String COMPONENT_0_ADD_LISTENER_0="Component0AddListener0";
+    private static final String COMPONENT_0_REMOVE_KEY_LISTENER_0="Component0RemoveKeyListener0";
+    private static final String COMPONENT_0_REMOVE_WHEEL_LISTENER_0="Component0RemoveWheelListener0";
+    private static final String COMPONENT_0_REMOVE_LISTENER_0="Component0RemoveListener0";
     private static final String DIMENSION_0_DIMENSION_0="Dimension0Dimension0";
     private static final String DIMENSION_0_DIMENSION_1="Dimension0Dimension1";
     private static final String DIMENSION_1_DIMENSION_0="Dimension1Dimension0";
@@ -543,6 +546,9 @@ public final class GuiAliasParameters {
     private String aliasComponent0AddKeyListener0;
     private String aliasComponent0AddWheelListener0;
     private String aliasComponent0AddListener0;
+    private String aliasComponent0RemoveKeyListener0;
+    private String aliasComponent0RemoveWheelListener0;
+    private String aliasComponent0RemoveListener0;
     private String aliasDimension0Dimension0;
     private String aliasDimension0Dimension1;
     private String aliasDimension1Dimension0;
@@ -954,6 +960,9 @@ public final class GuiAliasParameters {
         aliasComponent0AddKeyListener0=LgNamesContent.get(_util,_cust, COMPONENT_0_ADD_KEY_LISTENER_0);
         aliasComponent0AddWheelListener0=LgNamesContent.get(_util,_cust, COMPONENT_0_ADD_WHEEL_LISTENER_0);
         aliasComponent0AddListener0=LgNamesContent.get(_util,_cust, COMPONENT_0_ADD_LISTENER_0);
+        aliasComponent0RemoveKeyListener0=LgNamesContent.get(_util,_cust, COMPONENT_0_REMOVE_KEY_LISTENER_0);
+        aliasComponent0RemoveWheelListener0=LgNamesContent.get(_util,_cust, COMPONENT_0_REMOVE_WHEEL_LISTENER_0);
+        aliasComponent0RemoveListener0=LgNamesContent.get(_util,_cust, COMPONENT_0_REMOVE_LISTENER_0);
         aliasDimension0Dimension0=LgNamesContent.get(_util,_cust, DIMENSION_0_DIMENSION_0);
         aliasDimension0Dimension1=LgNamesContent.get(_util,_cust, DIMENSION_0_DIMENSION_1);
         aliasDimension1Dimension0=LgNamesContent.get(_util,_cust, DIMENSION_1_DIMENSION_0);
@@ -1308,6 +1317,9 @@ public final class GuiAliasParameters {
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(COMPONENT_0_ADD_KEY_LISTENER_0,aliasComponent0AddKeyListener0)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(COMPONENT_0_ADD_WHEEL_LISTENER_0,aliasComponent0AddWheelListener0)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(COMPONENT_0_ADD_LISTENER_0,aliasComponent0AddListener0)));
+        m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(COMPONENT_0_REMOVE_KEY_LISTENER_0,aliasComponent0RemoveKeyListener0)));
+        m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(COMPONENT_0_REMOVE_WHEEL_LISTENER_0,aliasComponent0RemoveWheelListener0)));
+        m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(COMPONENT_0_REMOVE_LISTENER_0,aliasComponent0RemoveListener0)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(DIMENSION_0_DIMENSION_0,aliasDimension0Dimension0),new KeyValueMemberName(DIMENSION_0_DIMENSION_1,aliasDimension0Dimension1)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(DIMENSION_1_DIMENSION_0,aliasDimension1Dimension0)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(TREE_NODE_0_TREE_NODE_ADD_0,aliasTreeNode0TreeNodeAdd0)));
@@ -1984,6 +1996,18 @@ public final class GuiAliasParameters {
 
     public String getAliasComponent0AddListener0() {
         return aliasComponent0AddListener0;
+    }
+
+    public String getAliasComponent0RemoveKeyListener0() {
+        return aliasComponent0RemoveKeyListener0;
+    }
+
+    public String getAliasComponent0RemoveWheelListener0() {
+        return aliasComponent0RemoveWheelListener0;
+    }
+
+    public String getAliasComponent0RemoveListener0() {
+        return aliasComponent0RemoveListener0;
     }
 
     public String getAliasDimension0Dimension0() {

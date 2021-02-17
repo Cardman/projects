@@ -22,7 +22,7 @@ public class LabelButton extends CustComponent {
 
     private boolean enabledLabel = true;
 
-    private JLabel label;
+    private final JLabel label;
 
     private String text = "";
 
@@ -104,9 +104,5 @@ public class LabelButton extends CustComponent {
     @Override
     protected JComponent getComponent() {
         return label;
-    }
-
-    public MouseListener[] getMouseListeners() {
-        return label.getMouseListeners();
     }
 }

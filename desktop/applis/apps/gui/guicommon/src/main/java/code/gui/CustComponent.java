@@ -41,6 +41,36 @@ public abstract class CustComponent {
     public void addKeyListener(KeyListener _l) {
         getComponent().addKeyListener(_l);
     }
+    public void removeMouseListener(MouseListener _mouseListener) {
+        getComponent().removeMouseListener(_mouseListener);
+    }
+
+    public void removeMouseMotionListener(MouseMotionListener _mouseListener) {
+        getComponent().removeMouseMotionListener(_mouseListener);
+    }
+
+    public void removeMouseWheelListener(MouseWheelListener _l) {
+        getComponent().removeMouseWheelListener(_l);
+    }
+    public void removeKeyListener(KeyListener _l) {
+        getComponent().removeKeyListener(_l);
+    }
+
+    public MouseListener[] getMouseListeners() {
+        return getComponent().getMouseListeners();
+    }
+
+    public MouseMotionListener[] getMouseMotionListeners() {
+        return getComponent().getMouseMotionListeners();
+    }
+
+    public MouseWheelListener[] getMouseWheelListeners() {
+        return getComponent().getMouseWheelListeners();
+    }
+
+    public KeyListener[] getKeyListeners() {
+        return getComponent().getKeyListeners();
+    }
 
     public void requestFocus() {
         getComponent().requestFocus();
