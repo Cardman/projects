@@ -1343,7 +1343,7 @@ public final class DocumentBuilder {
         i_++;
         ParseNoTextState st_ = new ParseNoTextState(doc_,currentElement_,input_,i_);
         while (st_.getIndex() < len_) {
-            if (!st_.keep()) {
+            if (st_.skip()) {
                 break;
             }
         }
@@ -1375,7 +1375,7 @@ public final class DocumentBuilder {
         i_++;
         ParseFullTextState st_ = new ParseFullTextState(doc_,currentElement_,input_,i_);
         while (st_.getIndex() < len_) {
-            if (!st_.keep()) {
+            if (st_.skip()) {
                 break;
             }
         }

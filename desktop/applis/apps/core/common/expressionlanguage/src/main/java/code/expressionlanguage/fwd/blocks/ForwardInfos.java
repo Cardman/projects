@@ -637,7 +637,7 @@ public final class ForwardInfos {
                     if (((CaseCondition) en_).getImportedType().isEmpty()) {
                         exec_ = new ExecNullInstanceCaseCondition(((CaseCondition) en_).getValueOffset(), en_.getOffset().getOffsetTrim());
                     } else {
-                        exec_ = new ExecInstanceCaseCondition(((CaseCondition)en_).getVariableName(), ((CaseCondition) en_).getImportedType(), ((CaseCondition) en_).getValueOffset(), en_.getOffset().getOffsetTrim());
+                        exec_ = new ExecAbstractInstanceTypeCaseCondition(((CaseCondition)en_).getVariableName(), ((CaseCondition) en_).getImportedType(), ((CaseCondition) en_).getValueOffset(), en_.getOffset().getOffsetTrim(), true);
                     }
                 } else {
                     getExecutableNodes(((CaseCondition)en_).getRoot(), _coverage, _forwards, en_);
@@ -736,7 +736,7 @@ public final class ForwardInfos {
                 if (instanceTest_.isEmpty()) {
                     exec_ = new ExecDefaultCondition(en_.getOffset().getOffsetTrim());
                 } else {
-                    exec_ = new ExecInstanceDefaultCondition(((DefaultCondition)en_).getVariableName(), instanceTest_, ((DefaultCondition)en_).getVariableOffset(), en_.getOffset().getOffsetTrim());
+                    exec_ = new ExecAbstractInstanceTypeCaseCondition(((DefaultCondition)en_).getVariableName(), instanceTest_, ((DefaultCondition)en_).getVariableOffset(), en_.getOffset().getOffsetTrim(), false);
                 }
                 SwitchBlock b_ = ((DefaultCondition)en_).getSwitchParent();
                 if (b_ != null) {

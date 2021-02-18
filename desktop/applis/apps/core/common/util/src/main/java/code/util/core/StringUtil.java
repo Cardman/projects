@@ -270,23 +270,23 @@ public final class StringUtil {
         StringList keys_ = new StringList(_map.getKeys());
         while (i_ < length_) {
             int j_ = IndexConstants.FIRST_INDEX;
-            StringList list_ = keys_;
-            boolean keep_ = false;
+            StringList listDef_ = keys_;
+            boolean keepDef_ = false;
             while (_pattern.length() > j_ + i_ + 1) {
-                list_ = buildNextList(_pattern, i_, j_, list_);
+                listDef_ = buildNextList(_pattern, i_, j_, listDef_);
 //                String subString_ = _pattern.substring(i_, j_ + i_ + 1);
-                String subString_ = _pattern.substring(i_, Math.min(j_ + i_ + 1, _pattern.length()));
-                boolean exist_ = existSub(_pattern, i_, j_, list_, subString_);
-                if (stop(exist_,_map,list_,strBuilder_,subString_)) {
+                String subStringDef_ = _pattern.substring(i_, Math.min(j_ + i_ + 1, _pattern.length()));
+                boolean exist_ = existSub(_pattern, i_, j_, listDef_, subStringDef_);
+                if (stop(exist_,_map,listDef_,strBuilder_,subStringDef_)) {
                     i_ += j_;
-                    keep_ = true;
+                    keepDef_ = true;
                     break;
                 }
                 j_++;
             }
-            if (!keep_) {
-                list_ = buildNextList(_pattern, i_, j_, list_);
-                appendSub(_pattern, _map, strBuilder_, i_, list_);
+            if (!keepDef_) {
+                listDef_ = buildNextList(_pattern, i_, j_, listDef_);
+                appendSub(_pattern, _map, strBuilder_, i_, listDef_);
                 break;
             }
             i_++;
@@ -485,10 +485,10 @@ public final class StringUtil {
         int i_ = IndexConstants.FIRST_INDEX;
         int argLength_ = _args.length;
         while (i_ < length_) {
-            FormatState res_ = FormatState.keep(i_, escaped_, str_, _format);
-            escaped_ = res_.isEscaped();
-            i_ = res_.getIndex();
-            if (res_.isIterate()) {
+            FormatState resString_ = FormatState.keep(i_, escaped_, str_, _format);
+            escaped_ = resString_.isEscaped();
+            i_ = resString_.getIndex();
+            if (resString_.isIterate()) {
                 continue;
             }
             char cur_ = _format.charAt(i_);

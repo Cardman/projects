@@ -43,7 +43,7 @@ public final class ExecInstanceSwitchBlock extends ExecAbstractSwitchBlock {
             }
         } else {
             for (ExecBracedBlock b: children_) {
-                if (b instanceof ExecInstanceCaseCondition) {
+                if (b instanceof ExecAbstractInstanceTypeCaseCondition && ((ExecAbstractInstanceTypeCaseCondition)b).isSpecific()) {
                     ExecAbstractInstanceTypeCaseCondition b_ = (ExecAbstractInstanceTypeCaseCondition) b;
                     found_ = fetch(_cont, _if, _arg,found_,b_, _stack);
                 }
@@ -51,7 +51,7 @@ public final class ExecInstanceSwitchBlock extends ExecAbstractSwitchBlock {
         }
         if (found_ == null) {
             for (ExecBracedBlock b: children_) {
-                if (b instanceof ExecInstanceDefaultCondition) {
+                if (b instanceof ExecAbstractInstanceTypeCaseCondition && !((ExecAbstractInstanceTypeCaseCondition)b).isSpecific()) {
                     ExecAbstractInstanceTypeCaseCondition b_ = (ExecAbstractInstanceTypeCaseCondition) b;
                     found_ = fetch(_cont, _if, _arg,found_,b_, _stack);
                 }
