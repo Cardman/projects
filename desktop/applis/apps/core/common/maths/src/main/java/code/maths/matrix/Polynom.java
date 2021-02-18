@@ -645,9 +645,9 @@ public final class Polynom implements Equallable<Polynom>, Displayable {
 
     public long dg(){
         if(size()== IndexConstants.ONE_ELEMENT&&numbers.first().isZero()) {
-            return -1;
+            return -1L;
         }
-        return numbers.size() - 1;
+        return numbers.size() - 1L;
     }
 
     public boolean isZero() {

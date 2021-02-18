@@ -133,7 +133,7 @@ public final class ConstantOperation extends LeafOperation {
         Delimiters d_ = getOperations().getDelimiter();
         int firstPrintChar_ = getOperations().getOffset();
         int offset_ = getIndexInEl();
-        int begin_ = d_.getDelStringsChars().indexOfNb(firstPrintChar_+offset_);
+        int begin_ = d_.getDelStringsChars().indexOfNb((long)firstPrintChar_+offset_);
         return d_.getDelStringsChars().get(begin_+1)-offset_+1-firstPrintChar_;
     }
 
@@ -141,7 +141,7 @@ public final class ConstantOperation extends LeafOperation {
         Delimiters d_ = getOperations().getDelimiter();
         int firstPrintChar_ = getOperations().getOffset();
         int offset_ = getIndexInEl();
-        int begin_ = d_.getDelTextBlocks().indexOfNb(firstPrintChar_+offset_);
+        int begin_ = d_.getDelTextBlocks().indexOfNb((long)firstPrintChar_+offset_);
         return d_.getDelTextBlocks().get(begin_+1)-offset_+1-firstPrintChar_;
     }
 
@@ -149,7 +149,7 @@ public final class ConstantOperation extends LeafOperation {
         Delimiters d_ = getOperations().getDelimiter();
         int firstPrintChar_ = getOperations().getOffset();
         int offset_ = getIndexInEl();
-        int begin_ = d_.getDelNumbers().indexOfNb(firstPrintChar_+offset_);
+        int begin_ = d_.getDelNumbers().indexOfNb((long)firstPrintChar_+offset_);
         return d_.getDelNumbers().get(begin_+1)-offset_-firstPrintChar_;
     }
 }

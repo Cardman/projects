@@ -41,7 +41,7 @@ public final class DualTable extends DualContainer {
             getPanel().add(Panel.newGrid(0,width));
             return;
         }
-        int remNext_ = remainders.indexOf(count-1);
+        int remNext_ = remainders.indexOf(count-1L);
         int count_ = getPanel().getComponentCount();
         if (count_ == 0) {
             getPanel().add(Panel.newGrid(0,width));

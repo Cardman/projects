@@ -1218,7 +1218,7 @@ public final class DataMap {
             if (place_ instanceof League) {
                 League league_ = (League) place_;
                 byte ind_ = c.getLevel().getLevelIndex();
-                if (NumberUtil.eq(ind_ + 1, league_.getRooms().size())) {
+                if (NumberUtil.eq(ind_ + 1L, league_.getRooms().size())) {
                     Coords coords_ = new Coords(c);
 
                     coords_.getLevel().setLevelIndex((byte) 0);

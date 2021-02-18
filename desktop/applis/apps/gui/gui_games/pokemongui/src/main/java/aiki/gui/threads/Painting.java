@@ -66,7 +66,7 @@ public final class Painting implements Runnable {
                 scene.keepTiles();
                 facade.changeCamera();
                 scene.load(facade, false);
-                ThreadUtil.sleep(pause * 5);
+                ThreadUtil.sleep(pause * 5L);
                 scene.repaintLabel();
             } else {
                 facade.changeCamera(dir);

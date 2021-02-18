@@ -247,10 +247,10 @@ public final class Games {
             return EMPTY;
         }
         if(_hand.total()>nbTrumps_) {
-            return formatter(FOLDER, TAROT_FILE_NAME, _loc, TAROT_HANDFUL_TOO_MANY_TRUMPS, Long.toString(_hand.total()-nbTrumps_));
+            return formatter(FOLDER, TAROT_FILE_NAME, _loc, TAROT_HANDFUL_TOO_MANY_TRUMPS, Long.toString((long)_hand.total()-nbTrumps_));
         }
         if(_hand.total()<nbTrumps_) {
-            return formatter(FOLDER, TAROT_FILE_NAME, _loc, TAROT_HANDFUL_NOT_ENOUGH_TRUMPS, Long.toString(nbTrumps_-_hand.total()));
+            return formatter(FOLDER, TAROT_FILE_NAME, _loc, TAROT_HANDFUL_NOT_ENOUGH_TRUMPS, Long.toString((long)nbTrumps_-_hand.total()));
         }
         return formatter(FOLDER, TAROT_FILE_NAME, _loc, TAROT_HANDFUL_EXCUSE);
     }
