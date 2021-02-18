@@ -1051,7 +1051,7 @@ public abstract class BeanCustLgNames extends BeanLgNames {
     }
 
     @Override
-    public Argument iterator(Struct _arg, Configuration _cont, ContextEl _ctx, StackCall _stack, RendStackCall _rendStack) {
+    public Argument iteratorList(Struct _arg, Configuration _cont, ContextEl _ctx, StackCall _stack, RendStackCall _rendStack) {
         String locName_ = getIteratorVar();
         _rendStack.getLastPage().putInternVars(locName_, _arg, _ctx);
         _rendStack.getLastPage().setEnabledOp(false);
@@ -1062,7 +1062,7 @@ public abstract class BeanCustLgNames extends BeanLgNames {
     }
 
     @Override
-    public Argument next(Struct _arg, Configuration _cont, ContextEl _ctx, StackCall _stack, RendStackCall _rendStack) {
+    public Argument nextList(Struct _arg, Configuration _cont, ContextEl _ctx, StackCall _stack, RendStackCall _rendStack) {
         String locName_ = getNextVar();
         _rendStack.getLastPage().putInternVars(locName_, _arg, _ctx);
         _rendStack.getLastPage().setEnabledOp(false);

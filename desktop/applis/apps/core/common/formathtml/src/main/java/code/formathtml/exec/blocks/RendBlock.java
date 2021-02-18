@@ -256,13 +256,13 @@ public abstract class RendBlock {
         return _advStandards.second(_arg,_conf, _ctx, _stackCall, _rendStackCall);
     }
     protected static Argument iterator(Struct _arg, Configuration _cont, BeanLgNames _advStandards, ContextEl _ctx, StackCall _stackCall, RendStackCall _rendStackCall) {
-        return _advStandards.iterator(_arg,_cont, _ctx, _stackCall, _rendStackCall);
+        return _advStandards.iteratorList(_arg,_cont, _ctx, _stackCall, _rendStackCall);
     }
     protected static Argument hasNext(Struct _arg, Configuration _cont, BeanLgNames _advStandards, ContextEl _ctx, StackCall _stackCall, RendStackCall _rendStackCall) {
         return _advStandards.hasNext(_arg,_cont, _ctx, _stackCall, _rendStackCall);
     }
     protected static Argument next(Struct _arg, Configuration _cont, BeanLgNames _advStandards, ContextEl _ctx, StackCall _stackCall, RendStackCall _rendStackCall) {
-        return _advStandards.next(_arg,_cont, _ctx, _stackCall, _rendStackCall);
+        return _advStandards.nextList(_arg,_cont, _ctx, _stackCall, _rendStackCall);
     }
     protected static void beforeDisplaying(Struct _arg, Configuration _cont, BeanLgNames _advStandards, ContextEl _ctx, StackCall _stackCall, RendStackCall _rendStackCall) {
         if (_arg == null) {

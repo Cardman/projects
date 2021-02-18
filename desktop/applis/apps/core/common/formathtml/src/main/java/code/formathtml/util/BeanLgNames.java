@@ -58,9 +58,9 @@ public abstract class BeanLgNames extends LgNames {
     public abstract Argument nextPair(Struct _arg, Configuration _conf, ContextEl _ctx, StackCall _stack, RendStackCall _rendStack);
     public abstract Argument first(Struct _arg, Configuration _conf, ContextEl _ctx, StackCall _stack, RendStackCall _rendStack);
     public abstract Argument second(Struct _arg, Configuration _conf, ContextEl _ctx, StackCall _stack, RendStackCall _rendStack);
-    public abstract Argument iterator(Struct _arg, Configuration _cont, ContextEl _ctx, StackCall _stack, RendStackCall _rendStack);
+    public abstract Argument iteratorList(Struct _arg, Configuration _cont, ContextEl _ctx, StackCall _stack, RendStackCall _rendStack);
     public abstract Argument hasNext(Struct _arg, Configuration _cont, ContextEl _ctx, StackCall _stack, RendStackCall _rendStack);
-    public abstract Argument next(Struct _arg, Configuration _cont, ContextEl _ctx, StackCall _stack, RendStackCall _rendStack);
+    public abstract Argument nextList(Struct _arg, Configuration _cont, ContextEl _ctx, StackCall _stack, RendStackCall _rendStack);
 
     public abstract String getStringKey(Struct _instance, ContextEl _ctx, StackCall _stack);
 

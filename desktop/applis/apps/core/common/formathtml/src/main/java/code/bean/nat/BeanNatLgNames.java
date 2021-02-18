@@ -71,13 +71,13 @@ public abstract class BeanNatLgNames extends BeanNatCommonLgNames {
     }
 
     @Override
-    public Argument iterator(Struct _arg, Configuration _cont, ContextEl _ctx, StackCall _stack, RendStackCall _rendStack) {
+    public Argument iteratorList(Struct _arg, Configuration _cont, ContextEl _ctx, StackCall _stack, RendStackCall _rendStack) {
         ArrayStruct array_ = ExecArrayFieldOperation.getArray(_arg, _ctx);
         return new Argument(new SimpleItrStruct(StringUtil.concat(TYPE_ITERATOR,Templates.TEMPLATE_BEGIN,"?",Templates.TEMPLATE_END),array_));
     }
 
     @Override
-    public Argument next(Struct _arg, Configuration _cont, ContextEl _ctx, StackCall _stack, RendStackCall _rendStack) {
+    public Argument nextList(Struct _arg, Configuration _cont, ContextEl _ctx, StackCall _stack, RendStackCall _rendStack) {
         SimpleItrStruct simpleItrStruct_ = getSimpleItrStruct(_arg, _ctx);
         Struct resObj_ = simpleItrStruct_.next();
         return new Argument(resObj_);
