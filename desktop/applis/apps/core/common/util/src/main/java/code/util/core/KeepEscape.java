@@ -10,8 +10,7 @@ final class KeepEscape {
         keep = _keep;
     }
     static KeepEscape keep(int _index,String _input, int _begin, char _meta) {
-        int index_ = _index;
-        int i_ = index_ - 1;
+        int i_ = _index - 1;
         int nbSl_ = 0;
         while (i_ >= _begin) {
             if (_input.charAt(i_) != ESCAPING_CHAR) {
@@ -21,15 +20,13 @@ final class KeepEscape {
             i_--;
         }
         if (nbSl_%2 == 0) {
-            return new KeepEscape(index_,false);
+            return new KeepEscape(_index,false);
         }
-        int ind_ = _input.indexOf(_meta, index_+1);
+        int ind_ = _input.indexOf(_meta, _index +1);
         if (ind_ == IndexConstants.INDEX_NOT_FOUND_ELT) {
-            index_ = IndexConstants.INDEX_NOT_FOUND_ELT;
-            return new KeepEscape(index_,false);
+            return new KeepEscape(IndexConstants.INDEX_NOT_FOUND_ELT,false);
         }
-        index_ = ind_;
-        return new KeepEscape(index_,true);
+        return new KeepEscape(ind_,true);
     }
 
     public int getNext() {
