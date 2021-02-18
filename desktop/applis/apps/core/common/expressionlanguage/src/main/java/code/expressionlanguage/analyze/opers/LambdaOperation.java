@@ -2520,13 +2520,13 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
 
     private static void appendRightPart(StringList _paramsReturn, AnalyzedPageEl _page, String _realClass, MethodId _realId) {
         if (StringUtil.quickEq(_realId.getName(),"[]=")) {
-            CustList<OverridableBlock> getIndexers_ = new CustList<OverridableBlock>();
+            CustList<NamedCalledFunctionBlock> getIndexers_ = new CustList<NamedCalledFunctionBlock>();
             String idCl_ = StringExpUtil.getIdFromAllTypes(_realClass);
             for (Block b: ClassesUtil.getDirectChildren(_page.getAnaClassBody(idCl_))) {
-                if (!(b instanceof OverridableBlock)) {
+                if (!Block.isOverBlock(b)) {
                     continue;
                 }
-                OverridableBlock i_ = (OverridableBlock) b;
+                NamedCalledFunctionBlock i_ = (NamedCalledFunctionBlock) b;
                 if (i_.getKind() != MethodKind.GET_INDEX) {
                     continue;
                 }
@@ -2536,7 +2536,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                 getIndexers_.add(i_);
             }
             if (getIndexers_.size() == 1) {
-                OverridableBlock matching_ = getIndexers_.first();
+                NamedCalledFunctionBlock matching_ = getIndexers_.first();
                 String importedReturnType_ = matching_.getImportedReturnType();
                 importedReturnType_ = AnaInherits.wildCardFormatReturn(_realClass, importedReturnType_, _page);
                 _paramsReturn.add(importedReturnType_);

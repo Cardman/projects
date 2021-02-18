@@ -46,7 +46,7 @@ public final class ElementBlock extends Leaf implements InnerTypeOrElement{
     private final EnumBlock parentEnum;
     private final StringList fieldList = new StringList();
     private final CustList<AnonymousTypeBlock> anonymous = new CustList<AnonymousTypeBlock>();
-    private final CustList<AnonymousFunctionBlock> anonymousFct = new CustList<AnonymousFunctionBlock>();
+    private final CustList<NamedCalledFunctionBlock> anonymousFct = new CustList<NamedCalledFunctionBlock>();
     private final CustList<SwitchMethodBlock> switchMethods = new CustList<SwitchMethodBlock>();
 
     public ElementBlock(EnumBlock _m, OffsetStringInfo _fieldName,
@@ -271,7 +271,7 @@ public final class ElementBlock extends Leaf implements InnerTypeOrElement{
     }
 
     @Override
-    public CustList<AnonymousFunctionBlock> getAnonymousFct() {
+    public CustList<NamedCalledFunctionBlock> getAnonymousFct() {
         return anonymousFct;
     }
 

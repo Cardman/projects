@@ -42,7 +42,7 @@ public final class InnerElementBlock extends RootBlock implements InnerTypeOrEle
     private final StringList fieldList = new StringList();
     private int numberInner = -1;
     private final CustList<AnonymousTypeBlock> anonymous = new CustList<AnonymousTypeBlock>();
-    private final CustList<AnonymousFunctionBlock> anonymousFct = new CustList<AnonymousFunctionBlock>();
+    private final CustList<NamedCalledFunctionBlock> anonymousFct = new CustList<NamedCalledFunctionBlock>();
     private final CustList<SwitchMethodBlock> switchMethods = new CustList<SwitchMethodBlock>();
     public InnerElementBlock(EnumBlock _m, String _pkgName,OffsetStringInfo _fieldName,
                              OffsetStringInfo _type,
@@ -248,7 +248,7 @@ public final class InnerElementBlock extends RootBlock implements InnerTypeOrEle
     }
 
     @Override
-    public CustList<AnonymousFunctionBlock> getAnonymousFct() {
+    public CustList<NamedCalledFunctionBlock> getAnonymousFct() {
         return anonymousFct;
     }
 

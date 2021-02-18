@@ -2,10 +2,7 @@ package code.expressionlanguage.analyze.instr;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.AnonymousResult;
-import code.expressionlanguage.analyze.blocks.AnonymousFunctionBlock;
-import code.expressionlanguage.analyze.blocks.FieldBlock;
-import code.expressionlanguage.analyze.blocks.FileBlock;
-import code.expressionlanguage.analyze.blocks.ReturnMethod;
+import code.expressionlanguage.analyze.blocks.*;
 import code.expressionlanguage.analyze.files.*;
 import code.expressionlanguage.analyze.syntax.ResultExpression;
 import code.expressionlanguage.analyze.types.AnaPartTypeUtil;
@@ -737,7 +734,7 @@ public final class ElRetrieverAnonymous {
             String part_ = _string.substring(indAfterArrow_,k_);
             int begAnon_ = dash_ + instrLoc_;
             int begImplRet_ = indAfterArrow_ + instrLoc_;
-            AnonymousFunctionBlock block_ = new AnonymousFunctionBlock(begAnon_,new OffsetsBlock(begImplRet_, begImplRet_), _page);
+            NamedCalledFunctionBlock block_ = new NamedCalledFunctionBlock(begAnon_,new OffsetsBlock(begImplRet_, begImplRet_), _page);
             block_.getAnnotations().addAllElts(parse_.getAnnotations());
             block_.getAnnotationsIndexes().addAllElts(parse_.getAnnotationsIndexes());
             block_.getAnnotationsParams().addAllElts(parse_.getAnnotationsParams());
@@ -1080,7 +1077,7 @@ public final class ElRetrieverAnonymous {
                     }
                     int k_ = stack(_string, indAfterArrow_, _page, _packageName, _file);
                     String part_ = _string.substring(indAfterArrow_,k_);
-                    AnonymousFunctionBlock block_ = new AnonymousFunctionBlock(indBeforeArrow_ +instrLoc_,new OffsetsBlock(indAfterArrow_ +instrLoc_, indAfterArrow_ +instrLoc_), _page);
+                    NamedCalledFunctionBlock block_ = new NamedCalledFunctionBlock(indBeforeArrow_ +instrLoc_,new OffsetsBlock(indAfterArrow_ +instrLoc_, indAfterArrow_ +instrLoc_), _page);
                     block_.getAnnotations().addAllElts(parse_.getAnnotations());
                     block_.getAnnotationsIndexes().addAllElts(parse_.getAnnotationsIndexes());
                     block_.getAnnotationsParams().addAllElts(parse_.getAnnotationsParams());

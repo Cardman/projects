@@ -50,7 +50,7 @@ public final class ClassesUtil {
         }
         if (_page.isDisplayUnusedParameterStaticMethod()) {
             for (RootBlock r: _page.getAllFoundTypes()) {
-                for (OverridableBlock o: r.getOverridableBlocks()) {
+                for (NamedCalledFunctionBlock o: r.getOverridableBlocks()) {
                     if (!o.isUsedRefMethod()&&o.getKind() == MethodKind.STD_METHOD
                             && MethodId.getKind(o.getModifier()) != MethodAccessKind.INSTANCE) {
                         for (EntryCust<String,AnaLocalVariable> e: o.getUsedParameters().entryList()) {
@@ -84,16 +84,16 @@ public final class ClassesUtil {
             _page.getMappingLocal().clear();
             _page.getMappingLocal().putAllMap(e.getMappings());
             for (Block b: getDirectChildren(e)) {
-                if (b instanceof OverridableBlock) {
+                if (Block.isOverBlock(b)) {
                     _page.setCurrentBlock(e);
-                    ((OverridableBlock)b).buildTypes(e, _page);
+                    ((NamedCalledFunctionBlock)b).buildTypes(e, _page);
                 }
             }
         }
-        IdMap<OverridableBlock,StringMap<GeneStringOverridable>> anaRed_;
-        anaRed_ = new IdMap<OverridableBlock,StringMap<GeneStringOverridable>>();
+        IdMap<NamedCalledFunctionBlock,StringMap<GeneStringOverridable>> anaRed_;
+        anaRed_ = new IdMap<NamedCalledFunctionBlock,StringMap<GeneStringOverridable>>();
         for (RootBlock e: _page.getAllFoundTypes()) {
-            for (OverridableBlock o: e.getOverridableBlocks()) {
+            for (NamedCalledFunctionBlock o: e.getOverridableBlocks()) {
                 if (o.hiddenInstance()) {
                     continue;
                 }
@@ -112,7 +112,7 @@ public final class ClassesUtil {
                 for (AnaFormattedRootBlock s: allSuperClass_) {
                     String base_ = StringExpUtil.getIdFromAllTypes(s.getFormatted());
                     RootBlock superBl_ = s.getRootBlock();
-                    for (OverridableBlock m: superBl_.getOverridableBlocks()) {
+                    for (NamedCalledFunctionBlock m: superBl_.getOverridableBlocks()) {
                         if (m.isAbstractMethod()) {
                             GeneStringOverridable inf_ = anaRed_.getVal(m).getVal(r.getFullName());
                             if (inf_ == null) {
@@ -369,7 +369,7 @@ public final class ClassesUtil {
             for (AnonymousTypeBlock a: s.getAnonymousTypes()) {
                 processType(basePkgFound_,pkgFound_, a, _page);
             }
-            for (AnonymousFunctionBlock e: s.getAnonymousFunctions()) {
+            for (NamedCalledFunctionBlock e: s.getAnonymousFunctions()) {
                 processType(basePkgFound_,pkgFound_, e, _page);
             }
             for (SwitchMethodBlock e: s.getSwitchMethods()) {
@@ -387,7 +387,7 @@ public final class ClassesUtil {
             _page.getAnonymous().clear();
             _page.getAnonymousLambda().clear();
             validateEl(_page);
-            for (AnonymousFunctionBlock e:s.getAnonymousFunctions()) {
+            for (NamedCalledFunctionBlock e:s.getAnonymousFunctions()) {
                 _page.setupFctChars(e);
                 _page.getCache().getLocalVariables().clear();
                 _page.getCache().getLoopVariables().clear();
@@ -417,7 +417,7 @@ public final class ClassesUtil {
                 _page.getResultsSwMethod().addEntry(e,a_);
             }
             _page.setAnnotAnalysis(true);
-            for (AnonymousFunctionBlock e:s.getAnonymousFunctions()) {
+            for (NamedCalledFunctionBlock e:s.getAnonymousFunctions()) {
                 _page.setupFctChars(e);
                 _page.getMappingLocal().clear();
                 _page.getMappingLocal().putAllMap(e.getMappings());
@@ -810,10 +810,7 @@ public final class ClassesUtil {
                 }
             }
         }
-        if (_r instanceof AnonymousFunctionBlock) {
-            AnonymousFunctionBlock r_ = (AnonymousFunctionBlock) _r;
-            allReservedInnersRoot_.addAllElts(r_.getAllReservedInners());
-        }
+        addReserved(_r, allReservedInnersRoot_);
         if (_r instanceof SwitchMethodBlock) {
             SwitchMethodBlock r_ = (SwitchMethodBlock) _r;
             allReservedInnersRoot_.addAllElts(r_.getAllReservedInners());
@@ -980,6 +977,13 @@ public final class ClassesUtil {
             if (_r instanceof RootBlock) {
                 ClassesUtil.processBracedClass(addPkg_, (RootBlock) _r, _page);
             }
+        }
+    }
+
+    private static void addReserved(Block _r, StringList _allReservedInnersRoot) {
+        if (Block.isAnonBlock(_r)) {
+            NamedCalledFunctionBlock r_ = (NamedCalledFunctionBlock) _r;
+            _allReservedInnersRoot.addAllElts(r_.getAllReservedInners());
         }
     }
 
@@ -2000,10 +2004,10 @@ public final class ClassesUtil {
             _page.setImportingTypes(c);
             CustList<Block> bl_ = getDirectChildren(c);
             for (Block b: bl_) {
-                if (!(b instanceof OverridableBlock)) {
+                if (!Block.isOverBlock(b)) {
                     continue;
                 }
-                OverridableBlock method_ = (OverridableBlock) b;
+                NamedCalledFunctionBlock method_ = (NamedCalledFunctionBlock) b;
                 if (isStdOrExplicit(method_)) {
                     _page.setGlobalClass(c.getGenericString());
                     _page.setGlobalType(c);
@@ -2057,8 +2061,8 @@ public final class ClassesUtil {
             _page.getMappingLocal().putAllMap(c.getMappings());
             for (Block b:annotated_) {
                 _page.setCurrentBlock(b);
-                if (b instanceof AnnotationMethodBlock) {
-                    ((AnnotationMethodBlock)b).buildExpressionLanguage(_page);
+                if (Block.isAnnotBlock(b)) {
+                    ((NamedCalledFunctionBlock)b).buildExpressionLanguage(_page);
                 }
                 if (b instanceof NamedFunctionBlock) {
                     ((NamedFunctionBlock)b).buildAnnotations(_page);
@@ -2350,8 +2354,8 @@ public final class ClassesUtil {
                 }
             }
         }
-        for (EntryCust<AnonymousFunctionBlock, AnalyzingEl> e: _page.getResultsMethod().entryList()) {
-            AnonymousFunctionBlock method_ = e.getKey();
+        for (EntryCust<NamedCalledFunctionBlock, AnalyzingEl> e: _page.getResultsMethod().entryList()) {
+            NamedCalledFunctionBlock method_ = e.getKey();
             _page.setupFctChars(method_);
             AnalyzingEl anAss_ = e.getValue();
             assVars_.setCache(method_.getCache());
@@ -2474,8 +2478,8 @@ public final class ClassesUtil {
             }
         }
 
-        for (EntryCust<AnonymousFunctionBlock, AnalyzingEl> e: _page.getResultsMethod().entryList()) {
-            AnonymousFunctionBlock method_ = e.getKey();
+        for (EntryCust<NamedCalledFunctionBlock, AnalyzingEl> e: _page.getResultsMethod().entryList()) {
+            NamedCalledFunctionBlock method_ = e.getKey();
             _page.setupFctChars(method_);
             AnalyzingEl anAss_ = e.getValue();
             assVars_.setCache(method_.getCache());
@@ -2527,16 +2531,16 @@ public final class ClassesUtil {
         return errs_;
     }
 
-    private static boolean isStdOrExplicit(OverridableBlock _method) {
+    private static boolean isStdOrExplicit(NamedCalledFunctionBlock _method) {
         return _method.getKind() == MethodKind.STD_METHOD || _method.getKind() == MethodKind.TO_STRING || _method.getKind() == MethodKind.EXPLICIT_CAST || _method.getKind() == MethodKind.IMPLICIT_CAST
                 || _method.getKind() == MethodKind.TRUE_OPERATOR || _method.getKind() == MethodKind.FALSE_OPERATOR;
     }
 
-    private static void processValueParam(AnalyzedPageEl _page, RootBlock _cl, OverridableBlock _method) {
+    private static void processValueParam(AnalyzedPageEl _page, RootBlock _cl, NamedCalledFunctionBlock _method) {
         if (_method.getKind() == MethodKind.SET_INDEX) {
             String p_ = _page.getKeyWords().getKeyWordValue();
-            CustList<OverridableBlock> getIndexers_ = new CustList<OverridableBlock>();
-            for (OverridableBlock d: _cl.getOverridableBlocks()) {
+            CustList<NamedCalledFunctionBlock> getIndexers_ = new CustList<NamedCalledFunctionBlock>();
+            for (NamedCalledFunctionBlock d: _cl.getOverridableBlocks()) {
                 if (d.getKind() != MethodKind.GET_INDEX) {
                     continue;
                 }
@@ -2546,7 +2550,7 @@ public final class ClassesUtil {
                 getIndexers_.add(d);
             }
             if (getIndexers_.size() == 1) {
-                OverridableBlock matching_ = getIndexers_.first();
+                NamedCalledFunctionBlock matching_ = getIndexers_.first();
                 String c_ = matching_.getImportedReturnType();
                 AnaLocalVariable lv_ = new AnaLocalVariable();
                 lv_.setClassName(c_);
@@ -2732,9 +2736,9 @@ public final class ClassesUtil {
     }
 
 
-    public static CustList<AnnotationMethodBlock> getMethodAnnotationBodiesById(RootBlock _r, String _id) {
-        CustList<AnnotationMethodBlock> methods_ = new CustList<AnnotationMethodBlock>();
-        for (AnnotationMethodBlock b: _r.getAnnotationsMethodsBlocks()) {
+    public static CustList<NamedCalledFunctionBlock> getMethodAnnotationBodiesById(RootBlock _r, String _id) {
+        CustList<NamedCalledFunctionBlock> methods_ = new CustList<NamedCalledFunctionBlock>();
+        for (NamedCalledFunctionBlock b: _r.getAnnotationsMethodsBlocks()) {
             if (StringUtil.quickEq(b.getName(), _id)) {
                 methods_.add(b);
             }

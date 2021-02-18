@@ -43,7 +43,7 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
             Block curr_ = _page.getCurrentBlock();
             instancingAnnotContent.setClassName(_page.getAliasObject());
             if (mOp_ == null) {
-                instancingAnnotContent.setClassName(((AnnotationMethodBlock) curr_).getImportedReturnType());
+                instancingAnnotContent.setClassName(((NamedCalledFunctionBlock) curr_).getImportedReturnType());
             }
             if (mOp_ instanceof AssocationOperation) {
                 AssocationOperation ass_ = (AssocationOperation) mOp_;
@@ -58,7 +58,7 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
                     return;
                 }
                 String type_ = EMPTY_STRING;
-                CustList<AnnotationMethodBlock> list_ = ClassesUtil.getMethodAnnotationBodiesById(typeInfo_, fieldName_);
+                CustList<NamedCalledFunctionBlock> list_ = ClassesUtil.getMethodAnnotationBodiesById(typeInfo_, fieldName_);
                 if (!list_.isEmpty()) {
                     type_ = list_.first().getImportedReturnType();
                 }
@@ -80,18 +80,18 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
                         return;
                     }
                     CustList<Block> bls_ = ClassesUtil.getDirectChildren(type_);
-                    CustList<AnnotationMethodBlock> blsAnn_ = new CustList<AnnotationMethodBlock>();
+                    CustList<NamedCalledFunctionBlock> blsAnn_ = new CustList<NamedCalledFunctionBlock>();
                     for (Block b: bls_) {
-                        if (!(b instanceof AnnotationMethodBlock)) {
+                        if (!Block.isAnnotBlock(b)) {
                             continue;
                         }
-                        AnnotationMethodBlock a_ = (AnnotationMethodBlock) b;
+                        NamedCalledFunctionBlock a_ = (NamedCalledFunctionBlock) b;
                         blsAnn_.add(a_);
                     }
                     if (blsAnn_.size() != 1) {
                         instancingAnnotContent.setClassName(_page.getAliasObject());
                     } else {
-                        AnnotationMethodBlock a_ =blsAnn_.first();
+                        NamedCalledFunctionBlock a_ =blsAnn_.first();
                         instancingAnnotContent.setClassName(a_.getImportedReturnType());
                     }
                 }
@@ -217,10 +217,10 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
         RootBlock g_ = _page.getAnaClassBody(instancingAnnotContent.getClassName());
         StringMap<AnnotationFieldInfo> fields_ = new StringMap<AnnotationFieldInfo>();
         for (Block b: ClassesUtil.getDirectChildren(g_)) {
-            if (!(b instanceof AnnotationMethodBlock)) {
+            if (!Block.isAnnotBlock(b)) {
                 continue;
             }
-            AnnotationMethodBlock a_ = (AnnotationMethodBlock) b;
+            NamedCalledFunctionBlock a_ = (NamedCalledFunctionBlock) b;
             fields_.put(a_.getName(), new AnnotationFieldInfo(a_.getImportedReturnType(),!a_.getDefaultValue().isEmpty()));
         }
         CustList<AssocationOperation> suppliedFields_ = new CustList<AssocationOperation>();

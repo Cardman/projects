@@ -6,8 +6,8 @@ import code.util.IdMap;
 
 public final class Members {
     private ExecRootBlock rootBlock;
-    private final IdMap<OverridableBlock,ExecOverridableBlock> allMethods = new IdMap<OverridableBlock,ExecOverridableBlock>();
-    private final IdMap<AnnotationMethodBlock,ExecAnnotationMethodBlock> allAnnotMethods = new IdMap<AnnotationMethodBlock,ExecAnnotationMethodBlock>();
+    private final IdMap<NamedCalledFunctionBlock,ExecOverridableBlock> allMethods = new IdMap<NamedCalledFunctionBlock,ExecOverridableBlock>();
+    private final IdMap<NamedCalledFunctionBlock,ExecAnnotationMethodBlock> allAnnotMethods = new IdMap<NamedCalledFunctionBlock,ExecAnnotationMethodBlock>();
     private final IdMap<ConstructorBlock,ExecConstructorBlock> allCtors = new IdMap<ConstructorBlock,ExecConstructorBlock>();
     private final IdMap<InitBlock,ExecInitBlock> allInits = new IdMap<InitBlock,ExecInitBlock>();
     private final IdMap<InfoBlock,ExecInfoBlock> allFields = new IdMap<InfoBlock,ExecInfoBlock>();
@@ -19,7 +19,7 @@ public final class Members {
     private final IdMap<MemberCallingsBlock,ExecMemberCallingsBlock> allFct = new IdMap<MemberCallingsBlock,ExecMemberCallingsBlock>();
     private final IdMap<MemberCallingsBlock,ExecMemberCallingsBlock> allFctBodies = new IdMap<MemberCallingsBlock,ExecMemberCallingsBlock>();
 
-    public IdMap<AnnotationMethodBlock, ExecAnnotationMethodBlock> getAllAnnotMethods() {
+    public IdMap<NamedCalledFunctionBlock, ExecAnnotationMethodBlock> getAllAnnotMethods() {
         return allAnnotMethods;
     }
 
@@ -35,7 +35,7 @@ public final class Members {
         return allInits;
     }
 
-    public IdMap<OverridableBlock, ExecOverridableBlock> getAllMethods() {
+    public IdMap<NamedCalledFunctionBlock, ExecOverridableBlock> getAllMethods() {
         return allMethods;
     }
 

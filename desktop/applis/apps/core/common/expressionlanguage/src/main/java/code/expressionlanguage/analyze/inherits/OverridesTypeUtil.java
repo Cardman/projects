@@ -2,7 +2,7 @@ package code.expressionlanguage.analyze.inherits;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.InterfaceBlock;
-import code.expressionlanguage.analyze.blocks.OverridableBlock;
+import code.expressionlanguage.analyze.blocks.NamedCalledFunctionBlock;
 import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.analyze.types.GeneStringOverridable;
@@ -107,7 +107,7 @@ public final class OverridesTypeUtil {
 
     private static void feedMehodsLists(CustList<GeneStringOverridable> _finalMethods, CustList<GeneStringOverridable> _methods, CustList<GeneStringOverridable> _foundSuperClasses) {
         for (GeneStringOverridable t: _foundSuperClasses) {
-            OverridableBlock method_ = t.getBlock();
+            NamedCalledFunctionBlock method_ = t.getBlock();
             if (method_.isAbstractMethod()) {
                 continue;
             }

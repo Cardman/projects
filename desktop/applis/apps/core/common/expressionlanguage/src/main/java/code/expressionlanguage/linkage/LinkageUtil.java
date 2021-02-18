@@ -91,7 +91,7 @@ public final class LinkageUtil {
             int countCall_ = 0;
             int count_ = 0;
             for (Block b: ClassesUtil.getDirectChildren(t)) {
-                if (b instanceof AnnotationMethodBlock) {
+                if (Block.isAnnotBlock(b)) {
                     countCall_++;
                     count_++;
                     continue;
@@ -291,17 +291,11 @@ public final class LinkageUtil {
             if (child_ instanceof ConstructorBlock) {
                 processConstructorBlockError(vars_,(ConstructorBlock)child_, list_);
             }
-            if (child_ instanceof OverridableBlock) {
-                processOverridableBlockError(vars_,(OverridableBlock)child_, list_);
-            }
-            if (child_ instanceof AnonymousFunctionBlock) {
-                processAnonymousFctBlockError(vars_,(AnonymousFunctionBlock) child_,list_);
+            if (child_ instanceof NamedCalledFunctionBlock) {
+                processNamedCalledFunctionBlockError(list_, vars_, (NamedCalledFunctionBlock) child_);
             }
             if (child_ instanceof SwitchMethodBlock) {
                 processSwitchMethodError(vars_,(SwitchMethodBlock) child_,list_);
-            }
-            if (child_ instanceof AnnotationMethodBlock) {
-                processAnnotationMethodBlockError(vars_,(AnnotationMethodBlock)child_, list_);
             }
             if (child_ instanceof ElementBlock) {
                 processElementBlockError(vars_,(ElementBlock)child_, list_);
@@ -405,6 +399,19 @@ public final class LinkageUtil {
         }
         return list_;
     }
+
+    private static void processNamedCalledFunctionBlockError(CustList<PartOffset> _list, VariablesOffsets _vars, NamedCalledFunctionBlock _child) {
+        if (_child.getTypeCall() == NameCalledEnum.OVERRIDABLE) {
+            processOverridableBlockError(_vars, _child, _list);
+        }
+        if (_child.getTypeCall() == NameCalledEnum.ANONYMOUS) {
+            processAnonymousFctBlockError(_vars, _child, _list);
+        }
+        if (_child.getTypeCall() == NameCalledEnum.ANNOTATION) {
+            processAnnotationMethodBlockError(_vars, _child, _list);
+        }
+    }
+
     private static void processFileBlockError(FileBlock _cond, CustList<PartOffset> _parts) {
         for (GraphicErrorInterpret g: _cond.getErrorsFiles().getLi()) {
             int index_ = g.getIndexFile();
@@ -504,21 +511,16 @@ public final class LinkageUtil {
             if (child_ instanceof ConstructorBlock) {
                 processConstructorBlockReport(vars_,(ConstructorBlock)child_, list_, _coverage);
             }
-            if (child_ instanceof OverridableBlock) {
-                processOverridableBlockReport(vars_,(OverridableBlock)child_, list_, _coverage);
+            if (child_ instanceof NamedCalledFunctionBlock) {
+                processNamedCalledFunctionBlockReport(_coverage, list_, vars_, (NamedCalledFunctionBlock) child_);
             }
             if (child_ instanceof InternOverrideBlock) {
                 processInternOverrideBlock(vars_,list_, (InternOverrideBlock) child_);
             }
-            if (child_ instanceof AnonymousFunctionBlock) {
-                processAnonymousFctReport(vars_,(AnonymousFunctionBlock)child_,list_,_coverage);
-            }
             if (child_ instanceof SwitchMethodBlock) {
                 processSwitchMethodReport(vars_,(SwitchMethodBlock)child_,list_,_coverage);
             }
-            if (child_ instanceof AnnotationMethodBlock) {
-                processAnnotationMethodBlockReport(vars_,(AnnotationMethodBlock)child_, list_, _coverage);
-            }
+
             if (child_ instanceof OperatorBlock) {
                 processOverridableBlockReport(vars_,(OperatorBlock)child_, list_, _coverage);
             }
@@ -554,6 +556,18 @@ public final class LinkageUtil {
             }
         }
         return list_;
+    }
+
+    private static void processNamedCalledFunctionBlockReport(Coverage _coverage, CustList<PartOffset> _list, VariablesOffsets _vars, NamedCalledFunctionBlock _child) {
+        if (_child.getTypeCall() == NameCalledEnum.OVERRIDABLE) {
+            processOverridableBlockReport(_vars, _child, _list, _coverage);
+        }
+        if (_child.getTypeCall() == NameCalledEnum.ANONYMOUS) {
+            processAnonymousFctReport(_vars, _child, _list, _coverage);
+        }
+        if (_child.getTypeCall() == NameCalledEnum.ANNOTATION) {
+            processAnnotationMethodBlockReport(_vars, _child, _list, _coverage);
+        }
     }
 
     private static Block redirect(VariablesOffsets _vars) {
@@ -1743,7 +1757,7 @@ public final class LinkageUtil {
             _vars.getStack().last().setIndexAnnotationGroup(0);
         }
         int begName_ = _cond.getNameOffset();
-        if (!(_cond instanceof OverridableBlock) || ((OverridableBlock)_cond).getKind() == MethodKind.OPERATOR) {
+        if (!Block.isOverBlock(_cond) || ((NamedCalledFunctionBlock)_cond).getKind() == MethodKind.OPERATOR) {
             if (k_ == -1) {
                 addNameParts(_cond, _parts, begName_, _cond.getName().length());
                 if (_cond instanceof OperatorBlock) {
@@ -1762,7 +1776,7 @@ public final class LinkageUtil {
         if (k_ == -1) {
             _parts.addAllElts(_cond.getPartOffsetsReturn());
         }
-        OverridableBlock m_ = (OverridableBlock) _cond;
+        NamedCalledFunctionBlock m_ = (NamedCalledFunctionBlock) _cond;
         if (m_.getKind() == MethodKind.GET_INDEX) {
             if (k_ == -1) {
                 addNameParts(_cond, _parts, begName_, _vars.getKeyWords().getKeyWordThis().length());
@@ -1787,7 +1801,7 @@ public final class LinkageUtil {
         processOverridableRedef(_vars,m_,_parts);
     }
 
-    private static void processAnonymousFctReport(VariablesOffsets _vars, AnonymousFunctionBlock _cond, CustList<PartOffset> _parts, Coverage _cov) {
+    private static void processAnonymousFctReport(VariablesOffsets _vars, NamedCalledFunctionBlock _cond, CustList<PartOffset> _parts, Coverage _cov) {
         if (!_vars.getStack().last().isVisitedParams()) {
             refParams(_vars,_cond, _parts, _cov);
             if (_vars.getState() != null) {
@@ -1835,7 +1849,7 @@ public final class LinkageUtil {
             _vars.getStack().last().setIndexAnnotationGroup(0);
         }
         int begName_ = _cond.getNameOffset();
-        if (!(_cond instanceof OverridableBlock) || ((OverridableBlock)_cond).getKind() == MethodKind.OPERATOR) {
+        if (!Block.isOverBlock(_cond) || ((NamedCalledFunctionBlock)_cond).getKind() == MethodKind.OPERATOR) {
             if (k_ == -1) {
                 addNameParts(_cond, _parts, begName_, _cond.getName().length());
                 if (_cond instanceof OperatorBlock) {
@@ -1854,7 +1868,7 @@ public final class LinkageUtil {
         if (k_ == -1) {
             _parts.addAllElts(_cond.getPartOffsetsReturn());
         }
-        OverridableBlock m_ = (OverridableBlock) _cond;
+        NamedCalledFunctionBlock m_ = (NamedCalledFunctionBlock) _cond;
         if (m_.getKind() == MethodKind.GET_INDEX) {
             if (k_ == -1) {
                 addNameParts(_cond, _parts, begName_, _vars.getKeyWords().getKeyWordThis().length());
@@ -1879,7 +1893,7 @@ public final class LinkageUtil {
         processOverridableRedef(_vars,m_,_parts);
     }
 
-    private static void processOverridableRedef(VariablesOffsets _vars, OverridableBlock _cond, CustList<PartOffset> _parts) {
+    private static void processOverridableRedef(VariablesOffsets _vars, NamedCalledFunctionBlock _cond, CustList<PartOffset> _parts) {
         for (PartOffsetsClassMethodId p:_cond.getAllInternTypesParts()) {
             _parts.addAllElts(p.getTypes());
             ClassMethodId id_ = p.getId();
@@ -1894,7 +1908,7 @@ public final class LinkageUtil {
             _parts.addAllElts(p.getSuperTypes());
         }
     }
-    private static void processAnonymousFctBlockError(VariablesOffsets _vars, AnonymousFunctionBlock _cond, CustList<PartOffset> _parts) {
+    private static void processAnonymousFctBlockError(VariablesOffsets _vars, NamedCalledFunctionBlock _cond, CustList<PartOffset> _parts) {
         if (!_vars.getStack().last().isVisitedParams()) {
             refParamsError(_vars,_cond, _parts);
             if (_vars.getState() != null) {
@@ -1935,7 +1949,7 @@ public final class LinkageUtil {
         _parts.add(new PartOffset("<span class=\"t\">", _cond.getBegin()));
     }
 
-    private static void processAnnotationMethodBlockReport(VariablesOffsets _vars, AnnotationMethodBlock _cond, CustList<PartOffset> _parts, Coverage _cov) {
+    private static void processAnnotationMethodBlockReport(VariablesOffsets _vars, NamedCalledFunctionBlock _cond, CustList<PartOffset> _parts, Coverage _cov) {
         int k_ = _vars.getStack().last().getIndexAnnotationGroup();
         if (k_ == -1) {
             buildAnnotationsReport(_vars,_cond, _parts, _cov);
@@ -1960,7 +1974,7 @@ public final class LinkageUtil {
         _vars.getStack().last().setIndexAnnotationGroup(-1);
     }
 
-    private static void processAnnotationMethodBlockError(VariablesOffsets _vars, AnnotationMethodBlock _cond, CustList<PartOffset> _parts) {
+    private static void processAnnotationMethodBlockError(VariablesOffsets _vars, NamedCalledFunctionBlock _cond, CustList<PartOffset> _parts) {
         int k_ = _vars.getStack().last().getIndexAnnotationGroup();
         if (k_ == -1) {
             buildAnnotationsError(_vars,_cond, _parts);
@@ -2524,7 +2538,7 @@ public final class LinkageUtil {
                 }
                 if (val_ instanceof AnonymousLambdaOperation) {
                     LinkageStackElement state_ = new LinkageStackElement();
-                    AnonymousFunctionBlock block_ = ((AnonymousLambdaOperation) val_).getBlock();
+                    NamedCalledFunctionBlock block_ = ((AnonymousLambdaOperation) val_).getBlock();
                     state_.setBlock(block_);
                     int begin_ = sum_ + val_.getIndexInEl();
                     _parts.add(new PartOffset("<span class=\"t\">", begin_));
@@ -2661,7 +2675,7 @@ public final class LinkageUtil {
                 }
                 if (val_ instanceof AnonymousLambdaOperation) {
                     LinkageStackElement state_ = new LinkageStackElement();
-                    AnonymousFunctionBlock block_ = ((AnonymousLambdaOperation) val_).getBlock();
+                    NamedCalledFunctionBlock block_ = ((AnonymousLambdaOperation) val_).getBlock();
                     state_.setBlock(block_);
                     state_.setIndexEnd(block_.getIndexEnd());
                     state_.setIndexAnnotationGroup(0);
@@ -2793,7 +2807,7 @@ public final class LinkageUtil {
         String partial_;
         String partialInit_;
         String none_;
-        if (_annot || _block instanceof AnnotationMethodBlock) {
+        if (_annot || Block.isAnnotBlock(_block)) {
             full_ = "f2";
             fullInit_ = "g2";
             partial_ = "p2";
@@ -3776,8 +3790,8 @@ public final class LinkageUtil {
                     offs_ = n.getParametersNamesOffset();
                 }
                 if (offs_.isValidIndex(n_.getIndex())) {
-                    if (n instanceof OverridableBlock) {
-                        OverridableBlock ov_ = (OverridableBlock) n;
+                    if (Block.isOverBlock(n)) {
+                        NamedCalledFunctionBlock ov_ = (NamedCalledFunctionBlock) n;
                         if (ov_.getKind() == MethodKind.GET_INDEX) {
                             filterGet_.add(n);
                         }

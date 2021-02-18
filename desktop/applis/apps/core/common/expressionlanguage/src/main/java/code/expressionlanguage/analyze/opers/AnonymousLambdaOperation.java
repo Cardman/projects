@@ -26,11 +26,11 @@ public final class AnonymousLambdaOperation extends
         LeafOperation {
     private final AnaLambdaCommonContent lambdaCommonContent;
     private final AnaLambdaAnoContent lambdaAnoContent;
-    private final AnonymousFunctionBlock block;
+    private final NamedCalledFunctionBlock block;
     private final ParsedFctHeader parse;
 
     public AnonymousLambdaOperation(int _index, int _indexChild,
-                                    MethodOperation _m, OperationsSequence _op, AnonymousFunctionBlock _block, ParsedFctHeader _parse) {
+                                    MethodOperation _m, OperationsSequence _op, NamedCalledFunctionBlock _block, ParsedFctHeader _parse) {
         super(_index, _indexChild, _m, _op);
         lambdaCommonContent = new AnaLambdaCommonContent();
         lambdaAnoContent = new AnaLambdaAnoContent();
@@ -334,7 +334,7 @@ public final class AnonymousLambdaOperation extends
         _page.setGlobalOffset(globalOffset_);
     }
 
-    public AnonymousFunctionBlock getBlock() {
+    public NamedCalledFunctionBlock getBlock() {
         return block;
     }
 

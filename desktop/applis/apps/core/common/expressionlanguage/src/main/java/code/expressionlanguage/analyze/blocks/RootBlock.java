@@ -93,10 +93,10 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
     private final StringMap<MappingLocalType> mappings = new StringMap<MappingLocalType>();
     private ConstructorBlock emptyCtor;
     private final CustList<AnonymousTypeBlock> anonymousRoot = new CustList<AnonymousTypeBlock>();
-    private final CustList<AnonymousFunctionBlock> anonymousRootFct = new CustList<AnonymousFunctionBlock>();
+    private final CustList<NamedCalledFunctionBlock> anonymousRootFct = new CustList<NamedCalledFunctionBlock>();
     private final CustList<SwitchMethodBlock> switchMethods = new CustList<SwitchMethodBlock>();
-    private final CustList<OverridableBlock> overridableBlocks = new CustList<OverridableBlock>();
-    private final CustList<AnnotationMethodBlock> annotationsMethodsBlocks = new CustList<AnnotationMethodBlock>();
+    private final CustList<NamedCalledFunctionBlock> overridableBlocks = new CustList<NamedCalledFunctionBlock>();
+    private final CustList<NamedCalledFunctionBlock> annotationsMethodsBlocks = new CustList<NamedCalledFunctionBlock>();
     private final CustList<ConstructorBlock> constructorBlocks = new CustList<ConstructorBlock>();
     private final CustList<InfoBlock> fieldsBlocks = new CustList<InfoBlock>();
     private int countFct;
@@ -251,12 +251,12 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                 }
             }
             for (GeneStringOverridable i: locGeneInt_) {
-                OverridableBlock supInt_ = i.getBlock();
+                NamedCalledFunctionBlock supInt_ = i.getBlock();
                 String name_ = i.getGeneString();
                 MethodId id_ = supInt_.getId();
                 for (GeneStringOverridable c: locGeneCl_) {
                     String nameCl_ = c.getGeneString();
-                    OverridableBlock supCl_ = c.getBlock();
+                    NamedCalledFunctionBlock supCl_ = c.getBlock();
                     MethodId idCl_ = supCl_.getId();
                     if (supInt_.getAccess().isStrictMoreAccessibleThan(supCl_.getAccess())) {
                         FoundErrorInterpret err_;
@@ -489,8 +489,8 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
 
     public final void validateIds(AnalyzedPageEl _page) {
         CustList<MethodId> idMethods_ = new CustList<MethodId>();
-        CustList<OverridableBlock> indexersGet_ = new CustList<OverridableBlock>();
-        CustList<OverridableBlock> indexersSet_ = new CustList<OverridableBlock>();
+        CustList<NamedCalledFunctionBlock> indexersGet_ = new CustList<NamedCalledFunctionBlock>();
+        CustList<NamedCalledFunctionBlock> indexersSet_ = new CustList<NamedCalledFunctionBlock>();
         CustList<ConstructorId> idConstructors_ = new CustList<ConstructorId>();
         CustList<Block> bl_;
         bl_ = ClassesUtil.getDirectChildren(this);
@@ -618,8 +618,8 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
             }
             NamedFunctionBlock method_ = (NamedFunctionBlock) b;
             String name_ = method_.getName();
-            if (method_ instanceof OverridableBlock) {
-                OverridableBlock m_ = (OverridableBlock) method_;
+            if (isOverBlock(method_)) {
+                NamedCalledFunctionBlock m_ = (NamedCalledFunctionBlock) method_;
                 m_.buildImportedTypes(_page);
                 if (m_.getKind() == MethodKind.OPERATOR) {
                     if (!StringExpUtil.isOper(m_.getName())) {
@@ -873,8 +873,8 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                     }
                 }
             }
-            if (method_ instanceof AnnotationMethodBlock) {
-                AnnotationMethodBlock m_ = (AnnotationMethodBlock) method_;
+            if (Block.isAnnotBlock(method_)) {
+                NamedCalledFunctionBlock m_ = (NamedCalledFunctionBlock) method_;
                 m_.buildImportedTypes(_page);
                 if (m_.isKo()) {
                     int r_ = m_.getNameOffset();
@@ -898,8 +898,8 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                     m_.addNameErrors(badMeth_);
                 }
             }
-            if (method_ instanceof OverridableBlock) {
-                OverridableBlock m_ = (OverridableBlock) method_;
+            if (isOverBlock(method_)) {
+                NamedCalledFunctionBlock m_ = (NamedCalledFunctionBlock) method_;
                 if (m_.getKind() == MethodKind.TO_STRING || m_.getKind() == MethodKind.STD_METHOD || m_.getKind() == MethodKind.OPERATOR || m_.getKind() == MethodKind.EXPLICIT_CAST || m_.getKind() == MethodKind.IMPLICIT_CAST
                         || m_.getKind() == MethodKind.TRUE_OPERATOR || m_.getKind() == MethodKind.FALSE_OPERATOR) {
                     MethodId id_ = m_.getId();
@@ -966,8 +966,8 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                     idMethods_.add(id_);
                 }
             }
-            if (method_ instanceof AnnotationMethodBlock) {
-                MethodId id_ = ((AnnotationMethodBlock)method_).getId();
+            if (Block.isAnnotBlock(method_)) {
+                MethodId id_ = ((NamedCalledFunctionBlock)method_).getId();
                 for (MethodId m: idMethods_) {
                     if (m.eq(id_)) {
                         int r_ = method_.getOffset().getOffsetTrim();
@@ -1069,8 +1069,8 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                 _page.addLocError(b_);
                 _method.addParamErrors(j_,b_);
             }
-            if (_method instanceof OverridableBlock) {
-                OverridableBlock i_ = (OverridableBlock) _method;
+            if (isOverBlock(_method)) {
+                NamedCalledFunctionBlock i_ = (NamedCalledFunctionBlock) _method;
                 if (i_.getKind() == MethodKind.SET_INDEX) {
                     if (StringUtil.quickEq(v, keyWordValue_)) {
                         FoundErrorInterpret b_;
@@ -1114,12 +1114,12 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
         }
     }
 
-    private void validateIndexers(CustList<OverridableBlock> _indexersGet, CustList<OverridableBlock> _indexersSet, AnalyzedPageEl _page) {
-        for (OverridableBlock i: _indexersGet) {
+    private void validateIndexers(CustList<NamedCalledFunctionBlock> _indexersGet, CustList<NamedCalledFunctionBlock> _indexersSet, AnalyzedPageEl _page) {
+        for (NamedCalledFunctionBlock i: _indexersGet) {
             MethodId iOne_ = i.getId();
             boolean ok_ = false;
-            OverridableBlock set_ = null;
-            for (OverridableBlock j: _indexersSet) {
+            NamedCalledFunctionBlock set_ = null;
+            for (NamedCalledFunctionBlock j: _indexersSet) {
                 MethodId iTwo_ = j.getId();
                 if (iOne_.eqPartial(iTwo_)) {
                     ok_ = true;
@@ -1163,10 +1163,10 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                 }
             }
         }
-        for (OverridableBlock i: _indexersSet) {
+        for (NamedCalledFunctionBlock i: _indexersSet) {
             MethodId iOne_ = i.getId();
             boolean ok_ = false;
-            for (OverridableBlock j: _indexersGet) {
+            for (NamedCalledFunctionBlock j: _indexersGet) {
                 MethodId iTwo_ = j.getId();
                 if (iOne_.eqPartial(iTwo_)) {
                     i.setReturnTypeGet(j.getImportedReturnType());
@@ -1457,7 +1457,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
         for (TypeVar t: getParamTypesMapValues()) {
             vars_.put(t.getName(), t.getConstraints());
         }
-        for (OverridableBlock b: overridableBlocks) {
+        for (NamedCalledFunctionBlock b: overridableBlocks) {
             if (b.isAbstractMethod()) {
                 if (b.getFirstChild() != null) {
                     FoundErrorInterpret err_;
@@ -1475,7 +1475,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
             }
         }
         if (concreteClass_) {
-            for (OverridableBlock b: overridableBlocks) {
+            for (NamedCalledFunctionBlock b: overridableBlocks) {
                 if (b.isAbstractMethod()) {
                     FoundErrorInterpret err_;
                     err_ = new FoundErrorInterpret();
@@ -2076,7 +2076,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
         this.countsAnonFct = _countsAnonFct;
     }
 
-    public CustList<AnonymousFunctionBlock> getAnonymousRootFct() {
+    public CustList<NamedCalledFunctionBlock> getAnonymousRootFct() {
         return anonymousRootFct;
     }
 
@@ -2088,11 +2088,11 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
         return switchMethods;
     }
 
-    public CustList<OverridableBlock> getOverridableBlocks() {
+    public CustList<NamedCalledFunctionBlock> getOverridableBlocks() {
         return overridableBlocks;
     }
 
-    public CustList<AnnotationMethodBlock> getAnnotationsMethodsBlocks() {
+    public CustList<NamedCalledFunctionBlock> getAnnotationsMethodsBlocks() {
         return annotationsMethodsBlocks;
     }
 

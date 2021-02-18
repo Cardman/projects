@@ -17,7 +17,7 @@ public abstract class MemberCallingsBlock extends BracedBlock implements Functio
     private final StringMap<MappingLocalType> mappings = new StringMap<MappingLocalType>();
     private final CustList<RootBlock> reserved = new CustList<RootBlock>();
     private final CustList<AnonymousTypeBlock> anonymous = new CustList<AnonymousTypeBlock>();
-    private final CustList<AnonymousFunctionBlock> anonymousFct = new CustList<AnonymousFunctionBlock>();
+    private final CustList<NamedCalledFunctionBlock> anonymousFct = new CustList<NamedCalledFunctionBlock>();
     private final CustList<SwitchMethodBlock> switchMethods = new CustList<SwitchMethodBlock>();
     private int numberFct;
     private int numberBodyFct;
@@ -138,7 +138,7 @@ public abstract class MemberCallingsBlock extends BracedBlock implements Functio
         return anonymous;
     }
 
-    public CustList<AnonymousFunctionBlock> getAnonymousFct() {
+    public CustList<NamedCalledFunctionBlock> getAnonymousFct() {
         return anonymousFct;
     }
 

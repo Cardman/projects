@@ -80,7 +80,7 @@ public final class AnalyzedPageEl {
     private final IdMap<MemberCallingsBlock,AnalyzingEl> resultsAnaInst = new IdMap<MemberCallingsBlock,AnalyzingEl>();
     private final IdMap<MemberCallingsBlock,AnalyzingEl> resultsAnaNamed = new IdMap<MemberCallingsBlock,AnalyzingEl>();
     private final IdMap<MemberCallingsBlock,AnalyzingEl> resultsAnaMethod = new IdMap<MemberCallingsBlock,AnalyzingEl>();
-    private final IdMap<AnonymousFunctionBlock,AnalyzingEl> resultsMethod = new IdMap<AnonymousFunctionBlock,AnalyzingEl>();
+    private final IdMap<NamedCalledFunctionBlock,AnalyzingEl> resultsMethod = new IdMap<NamedCalledFunctionBlock,AnalyzingEl>();
     private final IdMap<SwitchMethodBlock,AnalyzingEl> resultsSwMethod = new IdMap<SwitchMethodBlock,AnalyzingEl>();
     private final IdMap<OperatorBlock,AnalyzingEl> resultsAnaOperator = new IdMap<OperatorBlock,AnalyzingEl>();
     private final CustList<RootBlock> outerTypes = new CustList<RootBlock>();
@@ -458,7 +458,7 @@ public final class AnalyzedPageEl {
         globalType = _globalType;
     }
 
-    public void setupFctChars(AnonymousFunctionBlock _fct) {
+    public void setupFctChars(NamedCalledFunctionBlock _fct) {
         setImporting(null);
         setGlobalType(null);
         setImportingTypes(null);
@@ -1255,7 +1255,7 @@ public final class AnalyzedPageEl {
         return resultsSwMethod;
     }
 
-    public IdMap<AnonymousFunctionBlock, AnalyzingEl> getResultsMethod() {
+    public IdMap<NamedCalledFunctionBlock, AnalyzingEl> getResultsMethod() {
         return resultsMethod;
     }
 

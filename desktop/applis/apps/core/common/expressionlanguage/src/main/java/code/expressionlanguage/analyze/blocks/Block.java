@@ -35,16 +35,16 @@ public abstract class Block {
 
     private Block previousSibling;
 
-    private OffsetsBlock offset;
+    private final OffsetsBlock offset;
 
     private int begin;
 
     private int lengthHeader;
 
-    private Ints badIndexes = new Ints();
-    private Ints badIndexesGlobal = new Ints();
-    private StringList errorsBlock = new StringList();
-    private StringList errorsLabels = new StringList();
+    private final Ints badIndexes = new Ints();
+    private final Ints badIndexesGlobal = new Ints();
+    private final StringList errorsBlock = new StringList();
+    private final StringList errorsLabels = new StringList();
     private int blockNb;
 
     Block(OffsetsBlock _offset) {
@@ -57,6 +57,24 @@ public abstract class Block {
         return offset;
     }
 
+    public static boolean isAnnotBlock(Block _bl) {
+        if (_bl instanceof NamedCalledFunctionBlock) {
+            return ((NamedCalledFunctionBlock)_bl).getTypeCall() == NameCalledEnum.ANNOTATION;
+        }
+        return false;
+    }
+    public static boolean isAnonBlock(Block _bl) {
+        if (_bl instanceof NamedCalledFunctionBlock) {
+            return ((NamedCalledFunctionBlock)_bl).getTypeCall() == NameCalledEnum.ANONYMOUS;
+        }
+        return false;
+    }
+    public static boolean isOverBlock(Block _bl) {
+        if (_bl instanceof NamedCalledFunctionBlock) {
+            return ((NamedCalledFunctionBlock)_bl).getTypeCall() == NameCalledEnum.OVERRIDABLE;
+        }
+        return false;
+    }
     public void checkLabelReference(AnalyzingEl _anEl, AnalyzedPageEl _page) {
         if (this instanceof BreakableBlock) {
             String label_ = ((BreakableBlock)this).getRealLabel();

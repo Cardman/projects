@@ -1,20 +1,18 @@
 package code.expressionlanguage.analyze.reach.blocks;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.analyze.blocks.AnalyzingEl;
-import code.expressionlanguage.analyze.blocks.NamedFunctionBlock;
-import code.expressionlanguage.analyze.blocks.OverridableBlock;
+import code.expressionlanguage.analyze.blocks.*;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.util.core.StringUtil;
 
 public final class ReachStdNamedFunctionBlock extends ReachNamedFunctionBlock {
-    private NamedFunctionBlock meta;
+    private final NamedFunctionBlock meta;
     private boolean abstractMethod;
     protected ReachStdNamedFunctionBlock(NamedFunctionBlock _info) {
         super(_info);
         meta = _info;
-        if (_info instanceof OverridableBlock) {
-            abstractMethod = ((OverridableBlock) _info).isAbstractMethod();
+        if (Block.isOverBlock(_info)) {
+            abstractMethod = ((NamedCalledFunctionBlock) _info).isAbstractMethod();
         }
     }
     @Override

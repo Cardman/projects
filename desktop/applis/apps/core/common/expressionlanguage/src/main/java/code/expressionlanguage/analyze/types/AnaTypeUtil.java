@@ -191,7 +191,7 @@ public final class AnaTypeUtil {
     private static CustList<OverridingMethodDto> getAllInstanceSignatures(RootBlock _r) {
         CustList<OverridingMethodDto> map_;
         map_ = new CustList<OverridingMethodDto>();
-        for (OverridableBlock b: _r.getOverridableBlocks()) {
+        for (NamedCalledFunctionBlock b: _r.getOverridableBlocks()) {
             if (b.hiddenInstance()) {
                 continue;
             }
@@ -202,7 +202,7 @@ public final class AnaTypeUtil {
         }
         for (AnaFormattedRootBlock s: _r.getAllGenericSuperTypesInfo()) {
             RootBlock b_ = s.getRootBlock();
-            for (OverridableBlock b: b_.getOverridableBlocks()) {
+            for (NamedCalledFunctionBlock b: b_.getOverridableBlocks()) {
                 if (b.hiddenInstance()) {
                     continue;
                 }
@@ -212,7 +212,7 @@ public final class AnaTypeUtil {
         return map_;
     }
 
-    private static void addDtoClass(CustList<OverridingMethodDto> _map, FormattedMethodId _key, RootBlock _r,OverridableBlock _ov, String _str) {
+    private static void addDtoClass(CustList<OverridingMethodDto> _map, FormattedMethodId _key, RootBlock _r,NamedCalledFunctionBlock _ov, String _str) {
         boolean found_ = false;
         for (OverridingMethodDto o: _map) {
             if (o.getFormattedMethodId().eq(_key)) {

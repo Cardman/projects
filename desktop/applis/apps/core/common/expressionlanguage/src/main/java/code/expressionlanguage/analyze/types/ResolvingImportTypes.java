@@ -255,7 +255,7 @@ public final class ResolvingImportTypes {
             AnaGeneType super_ = _page.getAnaGeneType(s);
             if (super_ instanceof RootBlock) {
                 RootBlock t_ = (RootBlock) super_;
-                for (OverridableBlock e: t_.getOverridableBlocks()) {
+                for (NamedCalledFunctionBlock e: t_.getOverridableBlocks()) {
                     if (e.getModifier() != _modif) {
                         continue;
                     }

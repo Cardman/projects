@@ -173,7 +173,7 @@ public final class Coverage {
             mappingOperators.addEntry(_exec,(MemberCallingsBlock)_block);
             return;
         }
-        if (_block instanceof AnonymousFunctionBlock) {
+        if (Block.isAnonBlock(_block)) {
             mappingLambdas.addEntry(_exec,(MemberCallingsBlock)_block);
             return;
         }
@@ -233,8 +233,8 @@ public final class Coverage {
         if (!isCovering()) {
             return;
         }
-        if (_block instanceof AnnotationMethodBlock) {
-            AnnotationMethodBlock mem_ = (AnnotationMethodBlock) _block;
+        if (Block.isAnnotBlock(_block)) {
+            NamedCalledFunctionBlock mem_ = (NamedCalledFunctionBlock) _block;
             BlockCoverageResult fctRes_ = types.get(((RootBlock)mem_.getParent()).getNumberAll()).getAnnotationsFields().get(mem_.getNameNumber());
             fctRes_.getAnnotations().add(new BlockCoverageResult());
             return;
@@ -260,8 +260,8 @@ public final class Coverage {
         FunctionCoverageResult fctRes_;
         if (_mem instanceof OperatorBlock) {
             fctRes_ = operators.get(((OperatorBlock) _mem).getNameNumber());
-        } else if (_mem instanceof AnonymousFunctionBlock){
-            fctRes_ = lambdas.get(((AnonymousFunctionBlock)_mem).getNumberLambda());
+        } else if (Block.isAnonBlock(_mem)){
+            fctRes_ = lambdas.get(((NamedCalledFunctionBlock)_mem).getNumberLambda());
         } else if (_mem instanceof SwitchMethodBlock){
             fctRes_ = switchMethods.get(((SwitchMethodBlock)_mem).getConditionNb());
         } else {
@@ -545,7 +545,7 @@ public final class Coverage {
     }
     private MemberCallingsBlock getFctBlock(ExecMemberCallingsBlock _block, RootBlock _type) {
         MemberCallingsBlock valLambda_ = mappingLambdas.getVal(_block);
-        if (valLambda_ instanceof AnonymousFunctionBlock) {
+        if (Block.isAnonBlock(valLambda_)) {
             return valLambda_;
         }
         MemberCallingsBlock valSwitchMethod_ = mappingSwitchMethods.getVal(_block);
@@ -571,8 +571,8 @@ public final class Coverage {
                 BlockCoverageResult fieldRes_ = getFieldRes(_block);
                 return fieldRes_.getAnnotations().get(_indexAnnot);
             }
-            if (_block instanceof AnnotationMethodBlock) {
-                AnnotationMethodBlock mem_ = (AnnotationMethodBlock) _block;
+            if (Block.isAnnotBlock(_block)) {
+                NamedCalledFunctionBlock mem_ = (NamedCalledFunctionBlock) _block;
                 BlockCoverageResult fctRes_ = types.get(((RootBlock)mem_.getParent()).getNumberAll()).getAnnotationsFields().get(mem_.getNameNumber());
                 return fctRes_.getAnnotations().get(_indexAnnot);
             }
@@ -587,8 +587,8 @@ public final class Coverage {
             TypeCoverageResult fctRes_ = types.get(((RootBlock)_block).getNumberAll());
             return fctRes_.getAnnotations().get(_indexAnnot);
         }
-        if (_block instanceof AnnotationMethodBlock) {
-            return types.get(((RootBlock)_block.getParent()).getNumberAll()).getAnnotationsFields().get(((AnnotationMethodBlock)_block).getNameNumber());
+        if (Block.isAnnotBlock(_block)) {
+            return types.get(((RootBlock)_block.getParent()).getNumberAll()).getAnnotationsFields().get(((NamedCalledFunctionBlock)_block).getNameNumber());
         }
         if (_block instanceof InfoBlock) {
             return getFieldRes(_block);

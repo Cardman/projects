@@ -462,9 +462,9 @@ public abstract class OperationNode {
         String originalStr_ = _op.getValues().getValue(IndexConstants.FIRST_INDEX);
         String str_ = originalStr_.trim();
         Block block_ = _op.getBlock();
-        if (block_ instanceof AnonymousFunctionBlock) {
-            ((AnonymousFunctionBlock)block_).setIndexEnd(((AnonymousFunctionBlock)block_).getNameOffset()+_op.getLength());
-            return new AnonymousLambdaOperation(_index,_indexChild,_m,_op,(AnonymousFunctionBlock)block_,_op.getResults());
+        if (Block.isAnonBlock(block_)) {
+            ((NamedCalledFunctionBlock)block_).setIndexEnd(((NamedCalledFunctionBlock)block_).getNameOffset()+_op.getLength());
+            return new AnonymousLambdaOperation(_index,_indexChild,_m,_op,(NamedCalledFunctionBlock)block_,_op.getResults());
         }
         if (ct_ == ConstType.CHARACTER) {
             return new ConstantOperation(_index, _indexChild, _m, _op);
@@ -2508,10 +2508,10 @@ public abstract class OperationNode {
         String genericString_ = _g.getGenericString();
         if (_g instanceof RootBlock) {
             CustList<NamedCalledFunctionBlock> methods_ = new CustList<NamedCalledFunctionBlock>();
-            for (OverridableBlock b: ((RootBlock) _g).getOverridableBlocks()) {
+            for (NamedCalledFunctionBlock b: ((RootBlock) _g).getOverridableBlocks()) {
                 methods_.add(b);
             }
-            for (AnnotationMethodBlock b: ((RootBlock) _g).getAnnotationsMethodsBlocks()) {
+            for (NamedCalledFunctionBlock b: ((RootBlock) _g).getAnnotationsMethodsBlocks()) {
                 methods_.add(b);
             }
             for (NamedCalledFunctionBlock e: methods_) {
@@ -2601,8 +2601,8 @@ public abstract class OperationNode {
             return null;
         }
         String formattedClass_ = getFormattedClass(_s, _f, _page, base_);
-        if (_m instanceof OverridableBlock) {
-            OverridableBlock c = (OverridableBlock) _m;
+        if (Block.isOverBlock(_m)) {
+            NamedCalledFunctionBlock c = (NamedCalledFunctionBlock) _m;
             Accessed a_ = new Accessed(c.getAccess(), _r.getPackageName(), _r);
             if (cannotAccess(base_,a_,_scType.getGlClass(),_scType.getSuperTypesBaseAncBis(), _page)) {
                 return null;
@@ -2664,9 +2664,9 @@ public abstract class OperationNode {
         mloc_.pair(_r,_m);
         mloc_.setCustMethod(_m);
         mloc_.setClassName(_formattedClass);
-        if (_m instanceof OverridableBlock) {
-            mloc_.setAbstractMethod(((OverridableBlock)_m).isAbstractMethod());
-            mloc_.setFinalMethod(((OverridableBlock)_m).isFinalMethod());
+        if (Block.isOverBlock(_m)) {
+            mloc_.setAbstractMethod(((NamedCalledFunctionBlock)_m).isAbstractMethod());
+            mloc_.setFinalMethod(((NamedCalledFunctionBlock)_m).isFinalMethod());
         }
         mloc_.setConstraints(_id);
         mloc_.setParameters(p_);

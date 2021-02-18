@@ -124,7 +124,7 @@ public final class ForwardInfos {
             RootBlock root_ = e.getKey();
             Members mem_ = e.getValue();
             ClassMethodIdOverrides redirections_ = mem_.getRootBlock().getRedirections();
-            for (OverridableBlock o: root_.getOverridableBlocks()) {
+            for (NamedCalledFunctionBlock o: root_.getOverridableBlocks()) {
                 if (o.hiddenInstance()) {
                     continue;
                 }
@@ -152,7 +152,7 @@ public final class ForwardInfos {
                 boolean instEltCount_ = false;
                 for (AnaFormattedRootBlock s: allSuperClass_) {
                     RootBlock superBl_ = s.getRootBlock();
-                    for (OverridableBlock b: superBl_.getOverridableBlocks()) {
+                    for (NamedCalledFunctionBlock b: superBl_.getOverridableBlocks()) {
                         if (b.isAbstractMethod()) {
                             Members mem_ = _forwards.getMapMembers().getValue(superBl_.getNumberAll());
                             ExecRootBlock ex_ = mem_.getRootBlock();
@@ -253,7 +253,7 @@ public final class ForwardInfos {
             _forwards.getAllFctBodies().addEntry(o,value_);
         }
         for (AnonymousLambdaOperation e: _page.getAllAnonymousLambda()) {
-            AnonymousFunctionBlock method_ = e.getBlock();
+            NamedCalledFunctionBlock method_ = e.getBlock();
             coverage_.putCallsAnon();
             ExecNamedFunctionBlock function_ = buildExecAnonymousLambdaOperation(e, _forwards);
             _forwards.getAllFct().addEntry(method_, function_);
@@ -290,7 +290,7 @@ public final class ForwardInfos {
                     }
                 }
             }
-            for (EntryCust<AnnotationMethodBlock, ExecAnnotationMethodBlock> f: mem_.getAllAnnotMethods().entryList()) {
+            for (EntryCust<NamedCalledFunctionBlock, ExecAnnotationMethodBlock> f: mem_.getAllAnnotMethods().entryList()) {
                 mem_.getRootBlock().getAnnotationsFields().add(f.getValue());
             }
             for (EntryCust<InnerTypeOrElement, ExecInnerTypeOrElement> f: mem_.getAllElementFields().entryList()) {
@@ -333,8 +333,8 @@ public final class ForwardInfos {
             RootBlock c = e.getKey();
             Members mem_ = e.getValue();
             coverage_.putBlockOperationsType(mem_.getRootBlock(),c);
-            for (EntryCust<AnnotationMethodBlock, ExecAnnotationMethodBlock> a: mem_.getAllAnnotMethods().entryList()) {
-                AnnotationMethodBlock b = a.getKey();
+            for (EntryCust<NamedCalledFunctionBlock, ExecAnnotationMethodBlock> a: mem_.getAllAnnotMethods().entryList()) {
+                NamedCalledFunctionBlock b = a.getKey();
                 ExecAnnotationMethodBlock d = a.getValue();
                 coverage_.putBlockOperationsField(d, b);
                 coverage_.putBlockOperationsAnnotMethodField(b);
@@ -371,8 +371,8 @@ public final class ForwardInfos {
             fwdAnnotations(o, value_, coverage_, _forwards);
             fwdAnnotationsParameters(o, value_, coverage_, _forwards);
         }
-        for (EntryCust<AnonymousFunctionBlock, ExecAnonymousFunctionBlock> a: _forwards.getMapAnonLambda().entryList()) {
-            AnonymousFunctionBlock key_ = a.getKey();
+        for (EntryCust<NamedCalledFunctionBlock, ExecAnonymousFunctionBlock> a: _forwards.getMapAnonLambda().entryList()) {
+            NamedCalledFunctionBlock key_ = a.getKey();
             ExecAnonymousFunctionBlock value_ = a.getValue();
             fwdAnnotations(key_, value_, coverage_, _forwards);
             fwdAnnotationsParameters(key_, value_, coverage_, _forwards);
@@ -402,13 +402,13 @@ public final class ForwardInfos {
                     for (SwitchMethodBlock a: ((InfoBlock)b).getSwitchMethods()) {
                         value_.getSwitchMethods().add(_forwards.getMapSwitchMethods().getValue(a.getConditionNb()));
                     }
-                    for (AnonymousFunctionBlock a: ((InfoBlock)b).getAnonymousFct()) {
+                    for (NamedCalledFunctionBlock a: ((InfoBlock)b).getAnonymousFct()) {
                         value_.getAnonymousLambda().add(_forwards.getMapAnonLambda().getValue(a.getNumberLambda()));
                     }
                 }
             }
             ExecRootBlock value_ = e.getValue().getRootBlock();
-            for (AnonymousFunctionBlock a: root_.getAnonymousRootFct()) {
+            for (NamedCalledFunctionBlock a: root_.getAnonymousRootFct()) {
                 value_.getAnonymousRootLambda().add(_forwards.getMapAnonLambda().getValue(a.getNumberLambda()));
             }
             for (SwitchMethodBlock a: root_.getSwitchMethods()) {
@@ -423,8 +423,8 @@ public final class ForwardInfos {
             ExecOperatorBlock value_ = e.getValue();
             feedFct(key_, value_, _forwards);
         }
-        for (EntryCust<AnonymousFunctionBlock, ExecAnonymousFunctionBlock> a: _forwards.getMapAnonLambda().entryList()) {
-            AnonymousFunctionBlock key_ = a.getKey();
+        for (EntryCust<NamedCalledFunctionBlock, ExecAnonymousFunctionBlock> a: _forwards.getMapAnonLambda().entryList()) {
+            NamedCalledFunctionBlock key_ = a.getKey();
             ExecAnonymousFunctionBlock value_ = a.getValue();
             feedFct(key_, value_, _forwards);
         }
@@ -439,7 +439,7 @@ public final class ForwardInfos {
         for (SwitchMethodBlock a: _b1.getSwitchMethods()) {
             _value.getSwitchMethods().add(_forwards.getMapSwitchMethods().getValue(a.getConditionNb()));
         }
-        for (AnonymousFunctionBlock a: _b1.getAnonymousFct()) {
+        for (NamedCalledFunctionBlock a: _b1.getAnonymousFct()) {
             _value.getAnonymousLambda().add(_forwards.getMapAnonLambda().getValue(a.getNumberLambda()));
         }
         for (AnonymousTypeBlock a: _b1.getAnonymous()) {
@@ -461,6 +461,26 @@ public final class ForwardInfos {
             RootBlock k_ = r.getKey();
             Members mem_ = r.getValue();
             for (Block b: ClassesUtil.getDirectChildren(k_)) {
+                if (Block.isOverBlock(b)) {
+                    NamedCalledFunctionBlock ov_ = (NamedCalledFunctionBlock) b;
+                    MethodKind kind_ = ov_.getKind();
+                    ExecOverridableBlock val_ = new ExecOverridableBlock(ov_.isRetRef(), ov_.getName(), ov_.isVarargs(), ov_.getAccess(), ov_.getParametersNames(), ov_.getModifier(), toExecMethodKind(kind_), b.getOffset().getOffsetTrim(), ov_.getImportedParametersTypes(), ov_.getParametersRef());
+                    current_.appendChild(val_);
+                    val_.setFile(current_.getFile());
+                    mem_.getAllMethods().addEntry(ov_,val_);
+                    mem_.getAllNamed().addEntry(ov_,val_);
+                    mem_.getAllFct().addEntry(ov_,val_);
+                    mem_.getAllFctBodies().addEntry(ov_,val_);
+                }
+                if (Block.isAnnotBlock(b)) {
+                    NamedCalledFunctionBlock annot_ = (NamedCalledFunctionBlock) b;
+                    ExecAnnotationMethodBlock val_ = new ExecAnnotationMethodBlock((annot_).getName(), (annot_).isVarargs(), (annot_).getAccess(), (annot_).getParametersNames(), (annot_).getDefaultValueOffset(), b.getOffset().getOffsetTrim());
+                    current_.appendChild(val_);
+                    val_.setFile(current_.getFile());
+                    mem_.getAllAnnotMethods().addEntry(annot_,val_);
+                    mem_.getAllNamed().addEntry(annot_,val_);
+                    mem_.getAllFct().addEntry(annot_,val_);
+                }
                 if (b instanceof InnerElementBlock) {
                     ExecInnerElementBlock val_ = _forwards.getMapInnerEltTypes().getValue(((InnerElementBlock) b).getNumberInner());
                     current_.appendChild(val_);
@@ -491,24 +511,6 @@ public final class ForwardInfos {
                     mem_.getAllNamed().addEntry((ConstructorBlock) b,val_);
                     mem_.getAllFct().addEntry((MemberCallingsBlock)b,val_);
                     mem_.getAllFctBodies().addEntry((MemberCallingsBlock)b,val_);
-                }
-                if (b instanceof OverridableBlock) {
-                    MethodKind kind_ = ((OverridableBlock) b).getKind();
-                    ExecOverridableBlock val_ = new ExecOverridableBlock(((OverridableBlock) b).isRetRef(), ((OverridableBlock)b).getName(), ((OverridableBlock)b).isVarargs(), ((OverridableBlock)b).getAccess(), ((OverridableBlock)b).getParametersNames(), ((OverridableBlock)b).getModifier(), toExecMethodKind(kind_), b.getOffset().getOffsetTrim(), ((OverridableBlock)b).getImportedParametersTypes(), ((OverridableBlock)b).getParametersRef());
-                    current_.appendChild(val_);
-                    val_.setFile(current_.getFile());
-                    mem_.getAllMethods().addEntry((OverridableBlock) b,val_);
-                    mem_.getAllNamed().addEntry((OverridableBlock) b,val_);
-                    mem_.getAllFct().addEntry((MemberCallingsBlock)b,val_);
-                    mem_.getAllFctBodies().addEntry((MemberCallingsBlock)b,val_);
-                }
-                if (b instanceof AnnotationMethodBlock) {
-                    ExecAnnotationMethodBlock val_ = new ExecAnnotationMethodBlock(((AnnotationMethodBlock)b).getName(), ((AnnotationMethodBlock)b).isVarargs(), ((AnnotationMethodBlock)b).getAccess(), ((AnnotationMethodBlock)b).getParametersNames(), ((AnnotationMethodBlock)b).getDefaultValueOffset(), b.getOffset().getOffsetTrim());
-                    current_.appendChild(val_);
-                    val_.setFile(current_.getFile());
-                    mem_.getAllAnnotMethods().addEntry((AnnotationMethodBlock) b,val_);
-                    mem_.getAllNamed().addEntry((AnnotationMethodBlock) b,val_);
-                    mem_.getAllFct().addEntry((MemberCallingsBlock)b,val_);
                 }
                 if (b instanceof InstanceBlock) {
                     ExecInstanceBlock val_ = new ExecInstanceBlock(b.getOffset().getOffsetTrim());
@@ -576,7 +578,7 @@ public final class ForwardInfos {
     private static ExecAnonymousFunctionBlock buildExecAnonymousLambdaOperation(AnonymousLambdaOperation _s, Forwards _forwards) {
         ExecRootBlock declaring_ = FetchMemberUtil.fetchType(_s.getRootNumber(),_forwards);
 //        ExecRootBlock declaring_ = _forwards.getMapMembers().getValue(_s.getRootNumber()).getRootBlock();
-        AnonymousFunctionBlock block_ = _s.getBlock();
+        NamedCalledFunctionBlock block_ = _s.getBlock();
         block_.setNumberLambda(_forwards.getMapAnonLambda().size());
         ExecAnonymousFunctionBlock fct_ = new ExecAnonymousFunctionBlock(block_.isRetRef(),block_.getName(), block_.isVarargs(), block_.getAccess(), block_.getParametersNames(), block_.getModifier(), block_.getOffset().getOffsetTrim(), new ExecAnonFctContent(block_.getAnaAnonFctContent()), block_.getImportedParametersTypes(), block_.getParametersRef());
         fct_.setParentType(declaring_);
@@ -1193,7 +1195,7 @@ public final class ForwardInfos {
         if (_anaNode instanceof AnonymousLambdaOperation) {
             AnonymousLambdaOperation s_ = (AnonymousLambdaOperation) _anaNode;
 
-            AnonymousFunctionBlock method_ = s_.getBlock();
+            NamedCalledFunctionBlock method_ = s_.getBlock();
             ExecAnonymousFunctionBlock r_ = _forwards.getMapAnonLambda().getValue(method_.getNumberLambda());
             ExecTypeFunction pair_ = new ExecTypeFunction(FetchMemberUtil.fetchType(s_.getRootNumber(),_forwards), r_);
 //            ExecTypeFunction pair_ = new ExecTypeFunction(_forwards.getMapMembers().getValue(s_.getRootNumber()).getRootBlock(), r_);
@@ -1456,7 +1458,7 @@ public final class ForwardInfos {
         _ex.setTypeVarCounts(_root.getTypeVarCounts());
     }
 
-    private static void fwd(AnnotationMethodBlock _ana, ExecAnnotationMethodBlock _exec, Coverage _coverage, Forwards _forwards) {
+    private static void fwd(NamedCalledFunctionBlock _ana, ExecAnnotationMethodBlock _exec, Coverage _coverage, Forwards _forwards) {
         OperationNode root_ = _ana.getRoot();
         if (root_ == null) {
             _exec.setOpValue(new CustList<ExecOperationNode>());
@@ -1467,7 +1469,7 @@ public final class ForwardInfos {
     }
 
     private static void validateIds(Members _mem) {
-        for (EntryCust<OverridableBlock,ExecOverridableBlock> e: _mem.getAllMethods().entryList()) {
+        for (EntryCust<NamedCalledFunctionBlock,ExecOverridableBlock> e: _mem.getAllMethods().entryList()) {
             e.getValue().setImportedReturnType(e.getKey().getImportedReturnType());
             String returnTypeGet_ = e.getKey().getReturnTypeGet();
             if (!returnTypeGet_.isEmpty()) {
@@ -1477,8 +1479,8 @@ public final class ForwardInfos {
         for (EntryCust<ConstructorBlock,ExecConstructorBlock> e: _mem.getAllCtors().entryList()) {
             e.getValue().setImportedReturnType(e.getKey().getImportedReturnType());
         }
-        for (EntryCust<AnnotationMethodBlock,ExecAnnotationMethodBlock> e: _mem.getAllAnnotMethods().entryList()) {
-            AnnotationMethodBlock key1_ = e.getKey();
+        for (EntryCust<NamedCalledFunctionBlock, ExecAnnotationMethodBlock> e: _mem.getAllAnnotMethods().entryList()) {
+            NamedCalledFunctionBlock key1_ = e.getKey();
             e.getValue().setImportedReturnType(key1_.getImportedReturnType());
             e.getValue().getImportedParametersTypes().addAllElts(key1_.getImportedParametersTypes());
         }

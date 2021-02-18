@@ -1,14 +1,14 @@
 package code.expressionlanguage.analyze.types;
 
-import code.expressionlanguage.analyze.blocks.OverridableBlock;
+import code.expressionlanguage.analyze.blocks.NamedCalledFunctionBlock;
 import code.expressionlanguage.analyze.blocks.RootBlock;
 
 public class GeneStringOverridable {
     private final String geneString;
     private final RootBlock type;
-    private final OverridableBlock block;
+    private final NamedCalledFunctionBlock block;
 
-    public GeneStringOverridable(String _geneString, RootBlock _type, OverridableBlock _block) {
+    public GeneStringOverridable(String _geneString, RootBlock _type, NamedCalledFunctionBlock _block) {
         geneString = _geneString;
         type = _type;
         block = _block;
@@ -22,7 +22,7 @@ public class GeneStringOverridable {
         return type;
     }
 
-    public OverridableBlock getBlock() {
+    public NamedCalledFunctionBlock getBlock() {
         return block;
     }
 }

@@ -129,11 +129,11 @@ public final class ContextUtil {
     }
 
     private static boolean isExplicitFct(FunctionBlock _fct) {
-        return _fct instanceof OverridableBlock
-                && (((OverridableBlock) _fct).getKind() == MethodKind.EXPLICIT_CAST
-        ||((OverridableBlock) _fct).getKind() == MethodKind.IMPLICIT_CAST
-        ||((OverridableBlock) _fct).getKind() == MethodKind.TRUE_OPERATOR
-                ||((OverridableBlock) _fct).getKind() == MethodKind.FALSE_OPERATOR);
+        return _fct instanceof NamedCalledFunctionBlock
+                && (((NamedCalledFunctionBlock) _fct).getKind() == MethodKind.EXPLICIT_CAST
+        ||((NamedCalledFunctionBlock) _fct).getKind() == MethodKind.IMPLICIT_CAST
+        ||((NamedCalledFunctionBlock) _fct).getKind() == MethodKind.TRUE_OPERATOR
+                ||((NamedCalledFunctionBlock) _fct).getKind() == MethodKind.FALSE_OPERATOR);
     }
 
     public static boolean idDisjointToken(String _id, AnalyzedPageEl _analyzing) {

@@ -48,7 +48,7 @@ public final class SplitExpressionUtil {
         while (!int_.getAnonymousTypes().isEmpty()||!int_.getAnonymousFunctions().isEmpty()||!int_.getSwitchMethods().isEmpty()) {
             list_.add(int_);
             CustList<AnonymousTypeBlock> anonymousTypes_ = int_.getAnonymousTypes();
-            CustList<AnonymousFunctionBlock> anonymousFunctions_ = int_.getAnonymousFunctions();
+            CustList<NamedCalledFunctionBlock> anonymousFunctions_ = int_.getAnonymousFunctions();
             CustList<SwitchMethodBlock> switchMethods_ = int_.getSwitchMethods();
             int_ = new IntermediaryResults();
             CustList<RootBlock> all_ = new CustList<RootBlock>();
@@ -66,7 +66,7 @@ public final class SplitExpressionUtil {
                     }
                 }
             }
-            for (AnonymousFunctionBlock c: anonymousFunctions_) {
+            for (NamedCalledFunctionBlock c: anonymousFunctions_) {
                 RootBlock parentType_ = c.getParentType();
                 if (parentType_ != null) {
                     parentType_.setCountsAnonFct(parentType_.getCountsAnonFct() + 1);
@@ -93,7 +93,7 @@ public final class SplitExpressionUtil {
             for (RootBlock c: anonymousTypes_) {
                 all_.addAllElts(walkType(c));
             }
-            for (AnonymousFunctionBlock c: anonymousFunctions_) {
+            for (NamedCalledFunctionBlock c: anonymousFunctions_) {
                 all_.addAllElts(walkType(c));
             }
             for (SwitchMethodBlock c: switchMethods_) {
@@ -102,7 +102,7 @@ public final class SplitExpressionUtil {
             for (RootBlock c: all_) {
                 processType(_page, int_, c);
             }
-            for (AnonymousFunctionBlock c: anonymousFunctions_) {
+            for (NamedCalledFunctionBlock c: anonymousFunctions_) {
                 _page.setupFctChars(c);
                 processFunction(_page,int_,c, c.getParentType());
             }
@@ -110,7 +110,7 @@ public final class SplitExpressionUtil {
                 _page.setupFctChars(c);
                 processFunction(_page,int_,c, c.getParentType());
             }
-            for (AnonymousFunctionBlock c: anonymousFunctions_) {
+            for (NamedCalledFunctionBlock c: anonymousFunctions_) {
                 _page.setupFctChars(c);
                 processAnnotFct(_page,int_,c, c.getParentType());
             }
@@ -187,12 +187,12 @@ public final class SplitExpressionUtil {
         _page.setCurrentFile(_type.getFile());
         CustList<Block> bl_ = ClassesUtil.getDirectChildren(_type);
         for (Block b: bl_) {
-            if (b instanceof AnnotationMethodBlock) {
+            if (Block.isAnnotBlock(b)) {
                 _page.setCurrentBlock(b);
-                _page.setGlobalOffset(((AnnotationMethodBlock) b).getDefaultValueOffset());
+                _page.setGlobalOffset(((NamedCalledFunctionBlock) b).getDefaultValueOffset());
                 _page.setOffset(0);
-                String value_ = ((AnnotationMethodBlock) b).getDefaultValue();
-                ResultExpression resultExpression_ = ((AnnotationMethodBlock) b).getRes();
+                String value_ = ((NamedCalledFunctionBlock) b).getDefaultValue();
+                ResultExpression resultExpression_ = ((NamedCalledFunctionBlock) b).getRes();
                 _page.setAccessStaticContext(MethodAccessKind.STATIC);
                 ElRetrieverAnonymous.commonCheckQuick(value_, 0, _page,resultExpression_);
                 feedResult(null, resultExpression_, _int, _type);
@@ -510,6 +510,13 @@ public final class SplitExpressionUtil {
         OperatorBlock op_ = tryGetOperator(_mem);
         for (AnonymousResult a: _resultExpression.getAnonymousResults()) {
             Block type_ = a.getType();
+            if (Block.isAnonBlock(type_)) {
+                ((NamedCalledFunctionBlock)type_).setParentType(_type);
+                if (((NamedCalledFunctionBlock)type_).getParentType() == null) {
+                    ((NamedCalledFunctionBlock)type_).setOperator(op_);
+                }
+                _int.getAnonymousFunctions().add((NamedCalledFunctionBlock)type_);
+            }
             if (type_ instanceof AnonymousTypeBlock) {
                 ((AnonymousTypeBlock)type_).setParentType(_type);
                 if (op_ != null) {
@@ -519,13 +526,6 @@ public final class SplitExpressionUtil {
                     ((AnonymousTypeBlock)type_).setOperator(op_);
                 }
                 _int.getAnonymousTypes().add((AnonymousTypeBlock)type_);
-            }
-            if (type_ instanceof AnonymousFunctionBlock) {
-                ((AnonymousFunctionBlock)type_).setParentType(_type);
-                if (((AnonymousFunctionBlock)type_).getParentType() == null) {
-                    ((AnonymousFunctionBlock)type_).setOperator(op_);
-                }
-                _int.getAnonymousFunctions().add((AnonymousFunctionBlock)type_);
             }
             if (type_ instanceof SwitchMethodBlock) {
                 ((SwitchMethodBlock)type_).setParentType(_type);
@@ -539,11 +539,11 @@ public final class SplitExpressionUtil {
 
     private static OperatorBlock tryGetOperator(BracedBlock _mem) {
         OperatorBlock op_ = null;
+        if (Block.isAnonBlock(_mem)) {
+            op_ = ((NamedCalledFunctionBlock) _mem).getOperator();
+        }
         if (_mem instanceof OperatorBlock) {
             op_ = (OperatorBlock) _mem;
-        }
-        if (_mem instanceof AnonymousFunctionBlock) {
-            op_ = ((AnonymousFunctionBlock) _mem).getOperator();
         }
         if (_mem instanceof SwitchMethodBlock) {
             op_ = ((SwitchMethodBlock) _mem).getOperator();

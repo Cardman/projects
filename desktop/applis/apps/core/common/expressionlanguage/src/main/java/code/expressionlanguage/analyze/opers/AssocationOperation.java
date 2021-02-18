@@ -1,13 +1,12 @@
 package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.analyze.blocks.AnnotationMethodBlock;
+import code.expressionlanguage.analyze.blocks.NamedCalledFunctionBlock;
 import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.analyze.opers.util.AnaTypeFct;
 import code.maths.litteral.StrTypes;
-import code.util.*;
 import code.util.core.StringUtil;
 
 public final class AssocationOperation extends AbstractUnaryOperation {
@@ -42,7 +41,7 @@ public final class AssocationOperation extends AbstractUnaryOperation {
         RootBlock type_ = _page.getAnaClassBody(annotationClass_);
         if (type_ != null) {
             boolean ok_ = false;
-            for (AnnotationMethodBlock b: type_.getAnnotationsMethodsBlocks()) {
+            for (NamedCalledFunctionBlock b: type_.getAnnotationsMethodsBlocks()) {
                 if (StringUtil.quickEq(b.getName(), fieldName)) {
                     function = new AnaTypeFct();
                     function.setType(type_);
