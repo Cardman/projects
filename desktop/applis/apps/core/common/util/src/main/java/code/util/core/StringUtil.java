@@ -485,24 +485,13 @@ public final class StringUtil {
         int i_ = IndexConstants.FIRST_INDEX;
         int argLength_ = _args.length;
         while (i_ < length_) {
+            FormatState res_ = FormatState.keep(i_, escaped_, str_, _format);
+            escaped_ = res_.isEscaped();
+            i_ = res_.getIndex();
+            if (res_.isIterate()) {
+                continue;
+            }
             char cur_ = _format.charAt(i_);
-            if (cur_ == QUOTE) {
-                escaped_ = !escaped_;
-                if (endQuote(_format, length_, i_)) {
-                    str_.append(QUOTE);
-                    i_++;
-                    i_++;
-                    escaped_ = false;
-                    continue;
-                }
-                i_++;
-                continue;
-            }
-            if (escaped_) {
-                str_.append(cur_);
-                i_++;
-                continue;
-            }
             if (cur_ == LEFT_BRACE) {
                 arg_ = new StringBuilder();
                 inside_ = true;
@@ -553,31 +542,20 @@ public final class StringUtil {
         int i_ = IndexConstants.FIRST_INDEX;
         int argLength_ = _args.length;
         while (i_ < length_) {
+            FormatState res_ = FormatState.keep(i_, escaped_, str_, _format);
+            escaped_ = res_.isEscaped();
+            i_ = res_.getIndex();
+            if (res_.isIterate()) {
+                continue;
+            }
             char cur_ = _format.charAt(i_);
-            if (cur_ == QUOTE) {
-                escaped_ = !escaped_;
-                if (endQuote(_format, length_, i_)) {
-                    str_.append(QUOTE);
-                    i_++;
-                    i_++;
-                    escaped_ = false;
-                    continue;
-                }
-                i_++;
-                continue;
-            }
-            if (escaped_) {
-                str_.append(cur_);
-                i_++;
-                continue;
-            }
             if (cur_ == LEFT_BRACE) {
                 arg_ = new StringBuilder();
                 inside_ = true;
             } else if (cur_ == RIGHT_BRACE) {
                 inside_ = false;
                 int argNb_ = NumberUtil.parseInt(arg_.toString());
-                tryAppArg(str_, arg_, argLength_, argNb_, _args);
+                tryAppLongArg(str_, arg_, argLength_, argNb_, _args);
             } else {
                 append(str_, arg_, inside_, cur_);
             }
@@ -586,16 +564,12 @@ public final class StringUtil {
         return str_.toString();
     }
 
-    private static void tryAppArg(StringBuilder _str, StringBuilder _arg, int _argLength, int _argNb, long[] _args) {
+    private static void tryAppLongArg(StringBuilder _str, StringBuilder _arg, int _argLength, int _argNb, long[] _args) {
         if (inRange(_argLength, _argNb)) {
             _str.append(_args[_argNb]);
         } else {
             appFull(_str, _arg);
         }
-    }
-
-    private static boolean endQuote(String _format, int _length, int _i) {
-        return _i < _length - 1 && _format.charAt(_i + 1) == QUOTE;
     }
 
     public static StringList getFields(String _pattern) {
