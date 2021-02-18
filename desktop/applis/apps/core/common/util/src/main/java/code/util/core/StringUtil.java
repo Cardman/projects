@@ -47,34 +47,38 @@ public final class StringUtil {
     private static Bytes encodeList(char[] _input) {
         Bytes expBytes_ = new Bytes();
         for (char c: _input) {
-            if (c < 128) {
-                expBytes_.add((byte)c);
-                continue;
-            }
-            if (c < 2048) {
-                byte f_ = (byte) (c/64+192);
-                expBytes_.add(f_);
-                byte s_ = (byte) (c%64+128);
-                expBytes_.add(s_);
-                continue;
-            }
-            if (c < 4096) {
-                byte f_ = -32;
-                expBytes_.add(f_);
-                byte s_ = (byte) (c/64+128);
-                expBytes_.add(s_);
-                byte t_ = (byte) (c%64+128);
-                expBytes_.add(t_);
-                continue;
-            }
-            byte f_ = (byte)(c/(64*64)+224);
-            expBytes_.add(f_);
-            byte s_ = (byte) ((c/64)%64+128);
-            expBytes_.add(s_);
-            byte t_ = (byte) (c%64+128);
-            expBytes_.add(t_);
+            encode(expBytes_, c);
         }
         return expBytes_;
+    }
+
+    private static void encode(Bytes _expBytes, char _c) {
+        if (_c < 128) {
+            _expBytes.add((byte) _c);
+            return;
+        }
+        if (_c < 2048) {
+            byte f_ = (byte) (_c /64+192);
+            _expBytes.add(f_);
+            byte s_ = (byte) (_c %64+128);
+            _expBytes.add(s_);
+            return;
+        }
+        if (_c < 4096) {
+            byte f_ = -32;
+            _expBytes.add(f_);
+            byte s_ = (byte) (_c /64+128);
+            _expBytes.add(s_);
+            byte t_ = (byte) (_c %64+128);
+            _expBytes.add(t_);
+            return;
+        }
+        byte f_ = (byte)(_c /(64*64)+224);
+        _expBytes.add(f_);
+        byte s_ = (byte) ((_c /64)%64+128);
+        _expBytes.add(s_);
+        byte t_ = (byte) (_c %64+128);
+        _expBytes.add(t_);
     }
 
     public static String decode(byte[] _bytes) {
@@ -375,10 +379,9 @@ public final class StringUtil {
             if (quoted_) {
                 if (_pattern.charAt(i_) != _sep) {
                     strBuilder_.append(_pattern.charAt(i_));
-                    i_++;
-                    continue;
+                } else {
+                    quoted_ = false;
                 }
-                quoted_ = false;
                 i_++;
                 continue;
             }
@@ -387,12 +390,18 @@ public final class StringUtil {
             i_ = after_;
             quoted_ = nbSeqQuotes_ % 2 ==1;
             appendSeps(_sep, strBuilder_, nbSeqQuotes_);
-            if (quoted_) {
-                continue;
-            }
-            i_ = incr(strBuilder_, keys_, i_, _pattern, _map);
+            i_ = tryIncr(_pattern, _map, strBuilder_, i_, keys_, quoted_);
         }
         return strBuilder_.toString();
+    }
+
+    private static int tryIncr(String _pattern, StringMap<String> _map, StringBuilder _strBuilder, int _i, StringList _keys, boolean _quoted) {
+        int i_ = _i;
+        if (_quoted) {
+            return i_;
+        }
+        i_ = incr(_strBuilder, _keys, i_, _pattern, _map);
+        return i_;
     }
 
     private static int incr(StringBuilder _strBuilder, StringList _keys, int _i, String _pattern, StringMap<String> _map) {
@@ -577,22 +586,29 @@ public final class StringUtil {
         tokens_ = new StringList();
         int i_ = IndexConstants.FIRST_INDEX;
         while (i_ < _pattern.length()) {
-            int indexOne_ = _pattern.indexOf(QUOTE, i_);
-            if (indexOne_ == IndexConstants.INDEX_NOT_FOUND_ELT) {
-                //add tokens from _pattern (min:i_+1)
-                tokens_.addAllElts(getEl(_pattern.substring(i_)));
+            int n_ = next2(i_, tokens_, _pattern);
+            if (n_ < 0) {
                 break;
             }
-            tokens_.addAllElts(getEl(_pattern.substring(i_, indexOne_)));
-            int indexTwo_ = _pattern.indexOf(QUOTE, indexOne_ + 1);
-            if (indexTwo_ == IndexConstants.INDEX_NOT_FOUND_ELT) {
-                break;
-            }
-            i_ = indexTwo_ + 1;
+            i_ = n_;
         }
         return tokens_;
     }
 
+    private static int next2(int _i,StringList _tokens,String _pattern) {
+        int indexOne_ = _pattern.indexOf(QUOTE, _i);
+        if (indexOne_ == IndexConstants.INDEX_NOT_FOUND_ELT) {
+            //add tokens from _pattern (min:i_+1)
+            _tokens.addAllElts(getEl(_pattern.substring(_i)));
+            return -1;
+        }
+        _tokens.addAllElts(getEl(_pattern.substring(_i, indexOne_)));
+        int indexTwo_ = _pattern.indexOf(QUOTE, indexOne_ + 1);
+        if (indexTwo_ == IndexConstants.INDEX_NOT_FOUND_ELT) {
+            return -1;
+        }
+        return indexTwo_ + 1;
+    }
     private static StringList getEl(String _string) {
         StringList tokens_ = getTokensSets(_string);
         StringList newList_ = new StringList();
@@ -608,10 +624,7 @@ public final class StringUtil {
     private static String removeElBounds(String _string) {
         StringBuilder str_ = new StringBuilder();
         for (char c: _string.toCharArray()) {
-            if (c == LEFT_BRACE) {
-                continue;
-            }
-            if (c == RIGHT_BRACE) {
+            if (c == LEFT_BRACE || c == RIGHT_BRACE) {
                 continue;
             }
             str_.append(c);
@@ -1002,11 +1015,10 @@ public final class StringUtil {
             return_ = index_;
             return_--;
             int ind_ = start_.indexOf(_substring, index_);
-            if (ind_ != IndexConstants.INDEX_NOT_FOUND_ELT) {
-                index_ = ind_ + 1;
-            } else {
+            if (ind_ == IndexConstants.INDEX_NOT_FOUND_ELT) {
                 break;
             }
+            index_ = ind_ + 1;
         }
         return return_ + _offset;
     }
@@ -1115,24 +1127,11 @@ public final class StringUtil {
             return index_;
         }
         while(true) {
-            int i_ = index_ - 1;
-            int nbSl_ = 0;
-            while (i_ >= _begin) {
-                if (_input.charAt(i_) != ESCAPING_CHAR) {
-                    break;
-                }
-                nbSl_++;
-                i_--;
-            }
-            if (nbSl_%2 == 0) {
+            KeepEscape keep_ = KeepEscape.keep(index_, _input, _begin, _meta);
+            index_ = keep_.getNext();
+            if (!keep_.isKeep()) {
                 break;
             }
-            int ind_ = _input.indexOf(_meta, index_+1);
-            if (ind_ == IndexConstants.INDEX_NOT_FOUND_ELT) {
-                index_ = IndexConstants.INDEX_NOT_FOUND_ELT;
-                break;
-            }
-            index_ = ind_;
         }
         return index_;
     }
@@ -1269,19 +1268,19 @@ public final class StringUtil {
         int j_ = IndexConstants.FIRST_INDEX;
         int newLength_ = length_;
         while (i_ < length_) {
-            char c_ = _input.charAt(i_);
-            if (c_ == ESCAPING_CHAR) {
+            char cSp_ = _input.charAt(i_);
+            if (cSp_ == ESCAPING_CHAR) {
                 int next_ = i_;
                 next_++;
-                EscapeState esc_ = new EscapeState(i_,c_,newLength_);
+                EscapeState esc_ = new EscapeState(i_,cSp_,newLength_);
                 if (next_ < length_ && isEscSpaceChar(_input, next_)) {
                     esc_.apply(_input);
                 }
                 i_ = esc_.getIndex();
-                c_ = esc_.getCurChar();
+                cSp_ = esc_.getCurChar();
                 newLength_ = esc_.getNewLength();
             }
-            newArray_[j_] = c_;
+            newArray_[j_] = cSp_;
             j_++;
             i_++;
         }
@@ -1472,23 +1471,30 @@ public final class StringUtil {
         int i_ = IndexConstants.FIRST_INDEX;
         StringList tokens_ = new StringList();
         while (true) {
-            int index_ = _str.indexOf(LEFT_BRACE, i_);
-            if (index_ < 0) {
-                tokens_.add(_str.substring(i_));
+            int n_ = next(i_, _str, tokens_);
+            if (n_ < 0) {
                 break;
             }
-            int indexTwo_ = _str.indexOf(RIGHT_BRACE, index_ + 2);
-            if (indexTwo_ < 0) {
-                tokens_.add(_str.substring(i_));
-                break;
-            }
-            tokens_.add(_str.substring(i_, index_));
-            tokens_.add(_str.substring(index_, indexTwo_ + 1));
-            i_ = indexTwo_ + 1;
+            i_ = n_;
         }
         return tokens_;
     }
 
+    private static int next(int _i,String _str,StringList _tokens) {
+        int index_ = _str.indexOf(LEFT_BRACE, _i);
+        if (index_ < 0) {
+            _tokens.add(_str.substring(_i));
+            return -1;
+        }
+        int indexTwo_ = _str.indexOf(RIGHT_BRACE, index_ + 2);
+        if (indexTwo_ < 0) {
+            _tokens.add(_str.substring(_i));
+            return -1;
+        }
+        _tokens.add(_str.substring(_i, index_));
+        _tokens.add(_str.substring(index_, indexTwo_ + 1));
+        return indexTwo_ + 1;
+    }
     /**The returned String ends with a slash.*/
     public static String replaceBackSlashDot(String _path) {
         String path_ = replaceBackSlash(_path);
