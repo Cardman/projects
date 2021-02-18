@@ -399,13 +399,7 @@ public final class StringUtil {
             list_ = buildNextList(_pattern, i_, j_, list_);
 //                String subString_ = _pattern.substring(i_, j_ + i_ + 1);
             String subString_ = _pattern.substring(i_, Math.min(j_ + i_ + 1, _pattern.length()));
-            if (contains(list_, subString_)) {
-                _strBuilder.append(_map.getVal(subString_));
-                i_ += j_;
-                break;
-            }
-            if (list_.isEmpty()) {
-                _strBuilder.append(subString_);
+            if (stop(false,_map,list_,_strBuilder,subString_)) {
                 i_ += j_;
                 break;
             }
