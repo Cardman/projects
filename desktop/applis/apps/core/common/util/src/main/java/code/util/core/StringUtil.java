@@ -271,6 +271,7 @@ public final class StringUtil {
         while (i_ < length_) {
             int j_ = IndexConstants.FIRST_INDEX;
             StringList list_ = keys_;
+            boolean keep_ = false;
             while (_pattern.length() > j_ + i_ + 1) {
                 list_ = buildNextList(_pattern, i_, j_, list_);
 //                String subString_ = _pattern.substring(i_, j_ + i_ + 1);
@@ -278,11 +279,12 @@ public final class StringUtil {
                 boolean exist_ = existSub(_pattern, i_, j_, list_, subString_);
                 if (stop(exist_,_map,list_,strBuilder_,subString_)) {
                     i_ += j_;
+                    keep_ = true;
                     break;
                 }
                 j_++;
             }
-            if (_pattern.length() <= j_ + i_ + 1) {
+            if (!keep_) {
                 list_ = buildNextList(_pattern, i_, j_, list_);
                 appendSub(_pattern, _map, strBuilder_, i_, list_);
                 break;
@@ -330,17 +332,19 @@ public final class StringUtil {
         while (i_ < length_) {
             int j_ = IndexConstants.FIRST_INDEX;
             StringList list_ = keys_;
+            boolean keep_ = false;
             while (_pattern.length() > j_ + i_ + 1) {
                 list_ = buildNextList(_pattern, i_, j_, list_);
 //                    String subString_ = _pattern.substring(i_, j_ + i_ + 1);
                 String subString_ = _pattern.substring(i_, Math.min(j_ + i_ + 1, _pattern.length()));
                 if (stop(false,_map,list_,strBuilder_,subString_)) {
                     i_ += j_;
+                    keep_ = true;
                     break;
                 }
                 j_++;
             }
-            if (_pattern.length() <= j_ + i_ + 1) {
+            if (!keep_) {
                 list_ = buildNextList(_pattern, i_, j_, list_);
                 appendSub(_pattern, _map, strBuilder_, i_, list_);
                 break;
