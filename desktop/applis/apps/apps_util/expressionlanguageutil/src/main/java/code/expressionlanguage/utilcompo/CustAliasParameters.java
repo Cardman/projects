@@ -15,6 +15,8 @@ public final class CustAliasParameters {
     private static final String THREAD_2_PRINT_1="Thread2Print1";
     private static final String THREAD_0_THREAD_EXIT_HOOK_0="Thread0ThreadExitHook0";
     private static final String THREAD_0_THREAD_0="Thread0Thread0";
+    private static final String THREAD_0_THREAD_EQ_0="Thread0ThreadEq0";
+    private static final String THREAD_0_THREAD_EQ_1="Thread0ThreadEq1";
     private static final String THREAD_SET_0_THREAD_SET_ADD_0="ThreadSet0ThreadSetAdd0";
     private static final String THREAD_SET_0_THREAD_SET_CONTAINS_0="ThreadSet0ThreadSetContains0";
     private static final String THREAD_SET_0_THREAD_SET_REMOVE_0="ThreadSet0ThreadSetRemove0";
@@ -225,6 +227,8 @@ public final class CustAliasParameters {
     private String aliasThread2Print1;
     private String aliasThread0ThreadExitHook0;
     private String aliasThread0Thread0;
+    private String aliasThread0ThreadEq0;
+    private String aliasThread0ThreadEq1;
     private String aliasThreadSet0ThreadSetAdd0;
     private String aliasThreadSet0ThreadSetContains0;
     private String aliasThreadSet0ThreadSetRemove0;
@@ -435,6 +439,7 @@ public final class CustAliasParameters {
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(THREAD_2_PRINT_0,aliasThread2Print0),new KeyValueMemberName(THREAD_2_PRINT_1,aliasThread2Print1)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(THREAD_0_THREAD_EXIT_HOOK_0,aliasThread0ThreadExitHook0)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(THREAD_0_THREAD_0,aliasThread0Thread0)));
+        m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(THREAD_0_THREAD_EQ_0,aliasThread0ThreadEq0),new KeyValueMemberName(THREAD_0_THREAD_EQ_1,aliasThread0ThreadEq1)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(THREAD_SET_0_THREAD_SET_ADD_0,aliasThreadSet0ThreadSetAdd0)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(THREAD_SET_0_THREAD_SET_CONTAINS_0,aliasThreadSet0ThreadSetContains0)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(THREAD_SET_0_THREAD_SET_REMOVE_0,aliasThreadSet0ThreadSetRemove0)));
@@ -576,6 +581,8 @@ public final class CustAliasParameters {
         aliasThread2Print1= LgNamesContent.get(_util, _cust, THREAD_2_PRINT_1);
         aliasThread0ThreadExitHook0= LgNamesContent.get(_util, _cust, THREAD_0_THREAD_EXIT_HOOK_0);
         aliasThread0Thread0= LgNamesContent.get(_util, _cust, THREAD_0_THREAD_0);
+        aliasThread0ThreadEq0= LgNamesContent.get(_util, _cust, THREAD_0_THREAD_EQ_0);
+        aliasThread0ThreadEq1= LgNamesContent.get(_util, _cust, THREAD_0_THREAD_EQ_1);
         aliasThreadSet0ThreadSetAdd0= LgNamesContent.get(_util, _cust, THREAD_SET_0_THREAD_SET_ADD_0);
         aliasThreadSet0ThreadSetContains0= LgNamesContent.get(_util, _cust, THREAD_SET_0_THREAD_SET_CONTAINS_0);
         aliasThreadSet0ThreadSetRemove0= LgNamesContent.get(_util, _cust, THREAD_SET_0_THREAD_SET_REMOVE_0);
@@ -808,6 +815,14 @@ public final class CustAliasParameters {
 
     public String getAliasThread0Thread0() {
         return aliasThread0Thread0;
+    }
+
+    public String getAliasThread0ThreadEq0() {
+        return aliasThread0ThreadEq0;
+    }
+
+    public String getAliasThread0ThreadEq1() {
+        return aliasThread0ThreadEq1;
     }
 
     public String getAliasThreadSet0ThreadSetAdd0() {

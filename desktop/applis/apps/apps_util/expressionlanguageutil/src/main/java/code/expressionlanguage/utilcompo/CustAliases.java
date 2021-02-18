@@ -186,6 +186,7 @@ public final class CustAliases {
     private static final String THREAD_SET_CONTAINS = "ThreadSetContains";
     private static final String THREAD_SET_REMOVE = "ThreadSetRemove";
     private static final String THREAD_SET_SNAPSHOT = "ThreadSetSnapshot";
+    private static final String THREAD_EQ = "ThreadEq";
     private static final String START = "Start";
     private static final String JOIN = "Join";
     private static final String LENGTH_LI = "LengthLi";
@@ -239,6 +240,7 @@ public final class CustAliases {
     private String aliasThreadExitHook;
     private String aliasCurrentThread;
     private String aliasStart;
+    private String aliasThreadEq;
     private String aliasJoin;
     private String aliasJoinOthers;
     private String aliasSleep;
@@ -500,6 +502,9 @@ public final class CustAliases {
         methods_.add( method_);
         params_ = new StringList(aliasThread);
         method_ = new StandardMethod(aliasThreadExitHook, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.STATIC,new StringList(custAliasParameters.getAliasThread0ThreadExitHook0()));
+        methods_.add( method_);
+        params_ = new StringList(aliasThread,aliasThread);
+        method_ = new StandardMethod(aliasThreadEq, params_, _content.getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.FINAL,new StringList(custAliasParameters.getAliasThread0ThreadEq0(),custAliasParameters.getAliasThread0ThreadEq1()));
         methods_.add( method_);
         StandardConstructor ctor_;
         params_ = new StringList(aliasRunnable);
@@ -1614,6 +1619,7 @@ public final class CustAliases {
         setAliasThreadSetRemove(LgNamesContent.get(_util, _cust, THREAD_SET_REMOVE));
         setAliasThreadSetSnapshot(LgNamesContent.get(_util, _cust, THREAD_SET_SNAPSHOT));
         setAliasStart(LgNamesContent.get(_util, _cust, START));
+        setAliasThreadEq(LgNamesContent.get(_util, _cust, THREAD_EQ));
         setAliasJoin(LgNamesContent.get(_util, _cust, JOIN));
         setAliasRun(LgNamesContent.get(_util, _cust, RUN));
         setAliasLengthLi(LgNamesContent.get(_util, _cust, LENGTH_LI));
@@ -1758,6 +1764,7 @@ public final class CustAliases {
         StringMap<CustList<KeyValueMemberName>> m_ = new StringMap<CustList<KeyValueMemberName>>();
         m_.addEntry(getAliasThread(), new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(START,getAliasStart()),
+                new KeyValueMemberName(THREAD_EQ,getAliasThreadEq()),
                 new KeyValueMemberName(THREAD_CURRENT_TIME,getAliasThreadCurrentTime()),
                 new KeyValueMemberName(THREAD_CURRENT_NANO_TIME,getAliasThreadCurrentNanoTime()),
                 new KeyValueMemberName(IS_ALIVE,getAliasIsAlive()),
@@ -2299,6 +2306,18 @@ public final class CustAliases {
             if (_stackCall.getInitializingTypeInfos().isWideInitEnums()) {
                 processFailInit(_cont, _stackCall);
                 res_.setResult(NullStruct.NULL_VALUE);
+                return res_;
+            }
+            if (StringUtil.quickEq(name_,aliasThreadEq)) {
+                if (_args[0] instanceof ThreadStruct) {
+                    if (_args[1] instanceof ThreadStruct) {
+                        res_.setResult(BooleanStruct.of(((ThreadStruct)_args[0]).getThread() == ((ThreadStruct)_args[1]).getThread()));
+                        return res_;
+                    }
+                    res_.setResult(BooleanStruct.of(false));
+                    return res_;
+                }
+                res_.setResult(BooleanStruct.of(_args[0] == _args[1]));
                 return res_;
             }
             if (StringUtil.quickEq(name_,aliasThreadCurrentNanoTime)) {
@@ -3097,6 +3116,15 @@ public final class CustAliases {
     public void setAliasStart(String _aliasStart) {
         aliasStart = _aliasStart;
     }
+
+    public String getAliasThreadEq() {
+        return aliasThreadEq;
+    }
+
+    public void setAliasThreadEq(String _aliasThreadEq) {
+        this.aliasThreadEq = _aliasThreadEq;
+    }
+
     public String getAliasRun() {
         return aliasRun;
     }
