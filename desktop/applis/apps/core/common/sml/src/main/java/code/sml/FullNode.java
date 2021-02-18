@@ -67,6 +67,16 @@ public abstract class FullNode implements Node {
         getAttributes().add(attr_);
     }
 
+    public NodeList getChildNodes() {
+        NodeList children_ = new NodeList();
+        Node child_ = getFirstChild();
+        while (child_ != null) {
+            children_.add(child_);
+            child_ = child_.getNextSibling();
+        }
+        return children_;
+    }
+
     public NodeList getDescNodes() {
         NodeList elements_ = new NodeList();
         if (getFirstChild() == null) {

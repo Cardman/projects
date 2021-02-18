@@ -70,11 +70,6 @@ public final class Text extends NavigableNode {
     }
 
     @Override
-    public NodeList getChildNodes() {
-        return new NodeList();
-    }
-
-    @Override
     public ElementList getChildElements() {
         return new ElementList();
     }

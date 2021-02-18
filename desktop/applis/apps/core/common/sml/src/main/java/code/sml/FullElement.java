@@ -31,17 +31,6 @@ public final class FullElement extends NavigableNode implements Element {
     }
 
     @Override
-    public NodeList getChildNodes() {
-        NodeList children_ = new NodeList();
-        Node child_ = getFirstChild();
-        while (child_ != null) {
-            children_.add(child_);
-            child_ = child_.getNextSibling();
-        }
-        return children_;
-    }
-
-    @Override
     public ElementList getChildElements() {
         ElementList children_ = new ElementList();
         Node child_ = getFirstChild();
