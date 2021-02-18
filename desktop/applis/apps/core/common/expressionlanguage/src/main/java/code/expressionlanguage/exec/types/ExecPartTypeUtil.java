@@ -304,7 +304,7 @@ public final class ExecPartTypeUtil {
         if (_p instanceof ExecTemplatePartType) {
             StrTypes values_;
             values_ = _an.getValues();
-            values_.removeLast();
+            values_.remove(values_.getValues().getLastIndex());
             ((ExecParentPartType)_p).getStrTypes().addAllEntries(values_);
         } else {
             ((ExecParentPartType)_p).getStrTypes().addAllEntries(_an.getValues());

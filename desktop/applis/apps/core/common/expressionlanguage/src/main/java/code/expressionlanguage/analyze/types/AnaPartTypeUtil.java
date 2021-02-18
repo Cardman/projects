@@ -824,7 +824,7 @@ public final class AnaPartTypeUtil {
         if (_p instanceof AnaTemplatePartType) {
             StrTypes values_;
             values_ = _an.getValues();
-            values_.removeLast();
+            values_.remove(values_.getValues().getLastIndex());
             ((AnaParentPartType)_p).getStrTypes().addAllEntries(values_);
         } else {
             ((AnaParentPartType)_p).getStrTypes().addAllEntries(_an.getValues());

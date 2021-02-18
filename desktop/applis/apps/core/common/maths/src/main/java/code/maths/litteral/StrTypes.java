@@ -36,9 +36,6 @@ public final class StrTypes {
         return values.get(_i).getPart();
     }
 
-    public void removeLast() {
-        remove(values.getLastIndex());
-    }
     public void remove(int _i) {
         values.remove(_i);
     }
