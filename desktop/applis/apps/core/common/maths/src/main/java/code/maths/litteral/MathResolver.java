@@ -56,8 +56,8 @@ public final class MathResolver {
 
     static Delimiters checkSyntax(String _string, ErrorStatus _error) {
         Delimiters d_ = new Delimiters();
-        IntTreeMap<Character> parsBrackets_;
-        parsBrackets_ = new IntTreeMap<Character>();
+        int parsBrackets_;
+        parsBrackets_ = 0;
         boolean constString_ = false;
         boolean escapedMeta_ = false;
         int len_ = _string.length();
@@ -153,18 +153,18 @@ public final class MathResolver {
                 d_.getStringInfo().add(new StringList());
             }
             if (curChar_ == PAR_LEFT) {
-                parsBrackets_.put(i_, curChar_);
+                parsBrackets_++;
             }
             if (curChar_ == PAR_RIGHT) {
-                if (parsBrackets_.isEmpty()) {
+                if (parsBrackets_==0) {
                     _error.setIndex(i_);
                     _error.setError(true);
                     _error.setString(_string);
                     return d_;
                 }
-                parsBrackets_.removeKey(parsBrackets_.lastKey());
+                parsBrackets_--;
             }
-            if (curChar_ == SEP_ARG && parsBrackets_.isEmpty()) {
+            if (curChar_ == SEP_ARG && parsBrackets_==0) {
                 _error.setIndex(i_);
                 _error.setError(true);
                 _error.setString(_string);
@@ -247,7 +247,7 @@ public final class MathResolver {
             _error.setString(_string);
             return d_;
         }
-        if (!parsBrackets_.isEmpty()) {
+        if (parsBrackets_ != 0) {
             _error.setIndex(i_);
             _error.setError(true);
             _error.setString(_string);
@@ -304,8 +304,8 @@ public final class MathResolver {
             StringMap<String> _conf, Delimiters _d) {
         StrTypes operators_;
         operators_ = new StrTypes();
-        IntTreeMap<Character> parsBrackets_;
-        parsBrackets_ = new IntTreeMap<Character>();
+        int parsBrackets_;
+        parsBrackets_ = 0;
         int prio_ = FCT_OPER_PRIO;
         int len_ = _string.length();
         int i_ = IndexConstants.FIRST_INDEX;
@@ -396,26 +396,26 @@ public final class MathResolver {
             }
 
             if (curChar_ == PAR_LEFT) {
-                if (parsBrackets_.isEmpty() && prio_ == FCT_OPER_PRIO) {
+                if (parsBrackets_ == 0 && prio_ == FCT_OPER_PRIO) {
                     useFct_ = true;
                     fctName_ = _string.substring(IndexConstants.FIRST_INDEX, i_);
                     operators_.clear();
                     operators_.addEntry(i_, Character.toString(PAR_LEFT));
                 }
-                parsBrackets_.put(i_, curChar_);
+                parsBrackets_++;
             }
-            if (curChar_ == SEP_ARG && parsBrackets_.size() == 1 && prio_ == FCT_OPER_PRIO) {
+            if (curChar_ == SEP_ARG && parsBrackets_ == 1 && prio_ == FCT_OPER_PRIO) {
                 operators_.addEntry(i_, Character.toString(SEP_ARG));
             }
             if (curChar_ == PAR_RIGHT) {
-                parsBrackets_.removeKey(parsBrackets_.lastKey());
-                if (parsBrackets_.isEmpty() && prio_ == FCT_OPER_PRIO) {
+                parsBrackets_--;
+                if (parsBrackets_==0 && prio_ == FCT_OPER_PRIO) {
                     operators_.addEntry(i_, Character.toString(PAR_RIGHT));
                 }
                 i_++;
                 continue;
             }
-            if (!parsBrackets_.isEmpty()) {
+            if (parsBrackets_ != 0) {
                 i_++;
                 continue;
             }

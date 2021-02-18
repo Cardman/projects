@@ -552,7 +552,7 @@ public final class ElResolverCommon {
         return j_;
     }
 
-    static void tryAddStringParts(IntTreeMap<Character> _parsBrackets, int _i, StackDelimiters _stack) {
+    static void tryAddStringParts(StackOperators _parsBrackets, int _i, StackDelimiters _stack) {
         int indexLast_ = _stack.getIndexesNew().indexOf(_parsBrackets.lastKey());
         if (indexLast_ > -1) {
             _stack.getIndexesNewEnd().add(_i);
@@ -565,7 +565,7 @@ public final class ElResolverCommon {
         }
     }
 
-    static void tryAddAnnotationsParts(IntTreeMap<Character> _parsBrackets, StackDelimiters _stack) {
+    static void tryAddAnnotationsParts(StackOperators _parsBrackets, StackDelimiters _stack) {
         int indexLast_ = _stack.getIndexesNew().indexOf(_parsBrackets.lastKey());
         if (indexLast_ > -1) {
             _stack.getAnnotationsEnd().add(_stack.getAnnotations().get(indexLast_));

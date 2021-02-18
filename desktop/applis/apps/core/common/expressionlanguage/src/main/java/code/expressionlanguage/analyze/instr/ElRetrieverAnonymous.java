@@ -11,10 +11,10 @@ import code.expressionlanguage.analyze.syntax.ResultExpression;
 import code.expressionlanguage.analyze.types.AnaPartTypeUtil;
 import code.expressionlanguage.common.NumberInfosOutput;
 import code.expressionlanguage.common.StackDelimiters;
+import code.expressionlanguage.common.StackOperators;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.options.KeyWords;
 import code.util.CustList;
-import code.util.IntTreeMap;
 import code.util.Ints;
 import code.util.StringList;
 import code.util.core.StringUtil;
@@ -38,7 +38,7 @@ public final class ElRetrieverAnonymous {
         boolean constChar_ = false;
         boolean constText_ = false;
         StackDelimiters stack_ = new StackDelimiters();
-        IntTreeMap<Character> parsBrackets_ = new IntTreeMap<Character>();
+        StackOperators parsBrackets_ = new StackOperators();
         char prevOp_ = ElResolver.SPACE;
         int from_ = _from;
         int len_ = _string.length();
@@ -194,7 +194,7 @@ public final class ElRetrieverAnonymous {
         boolean constChar_ = false;
         boolean constText_ = false;
         StackDelimiters stack_ = new StackDelimiters();
-        IntTreeMap<Character> parsBrackets_ = new IntTreeMap<Character>();
+        StackOperators parsBrackets_ = new StackOperators();
         char prevOp_ = ElResolver.SPACE;
         int from_ = _from;
         int len_ = _string.length();
@@ -765,9 +765,9 @@ public final class ElRetrieverAnonymous {
         return i_;
     }
 
-    private static int processOperatorsQuick(IntTreeMap<Character> _parsBrackets, StackDelimiters _stack, int _i, char _curChar, String _string,
+    private static int processOperatorsQuick(StackOperators _parsBrackets, StackDelimiters _stack, int _i, char _curChar, String _string,
                                              AnalyzedPageEl _page, String _packageName, FileBlock _file) {
-        IntTreeMap<Character> parsBrackets_;
+        StackOperators parsBrackets_;
         parsBrackets_ = _parsBrackets;
 
         int len_ = _string.length();
@@ -812,7 +812,7 @@ public final class ElRetrieverAnonymous {
                 return j_;
             }
             _stack.getCallings().add(i_);
-            parsBrackets_.put(i_, _curChar);
+            parsBrackets_.addEntry(i_, _curChar);
         }
         if (_curChar == ElResolver.PAR_RIGHT) {
             if (parsBrackets_.isEmpty()) {
@@ -820,7 +820,7 @@ public final class ElRetrieverAnonymous {
             }
             ElResolverCommon.tryAddStringParts(parsBrackets_, i_, _stack);
             ElResolverCommon.tryAddAnnotationsParts(parsBrackets_, _stack);
-            parsBrackets_.removeKey(parsBrackets_.lastKey());
+            parsBrackets_.removeLast();
         }
         if (_curChar == ElResolver.ANN_ARR_LEFT) {
             int bk_ = StringExpUtil.getBackPrintChar(_string, i_);
@@ -858,13 +858,13 @@ public final class ElRetrieverAnonymous {
                     return j_+1;
                 }
             }
-            parsBrackets_.put(i_, _curChar);
+            parsBrackets_.addEntry(i_, _curChar);
         }
         if (_curChar == ElResolver.ANN_ARR_RIGHT) {
             if (parsBrackets_.isEmpty()) {
                 return -1;
             }
-            parsBrackets_.removeKey(parsBrackets_.lastKey());
+            parsBrackets_.removeLast();
         }
         if (_curChar == ElResolver.ARR_LEFT) {
             int j_ = i_ + 1;
@@ -875,13 +875,13 @@ public final class ElRetrieverAnonymous {
             if (skip_) {
                 return j_ + 1;
             }
-            parsBrackets_.put(i_, _curChar);
+            parsBrackets_.addEntry(i_, _curChar);
         }
         if (_curChar == ElResolver.ARR_RIGHT) {
             if (parsBrackets_.isEmpty()) {
                 return -1;
             }
-            parsBrackets_.removeKey(parsBrackets_.lastKey());
+            parsBrackets_.removeLast();
         }
         if (_curChar == ElResolver.BEGIN_TERNARY) {
             boolean ternary_ = false;
@@ -897,7 +897,7 @@ public final class ElRetrieverAnonymous {
                 }
             }
             if (ternary_) {
-                parsBrackets_.put(i_, _curChar);
+                parsBrackets_.addEntry(i_, _curChar);
             }
         }
         if (_curChar == ElResolver.END_TERNARY) {
@@ -905,7 +905,7 @@ public final class ElRetrieverAnonymous {
                 return -1;
             }
             if (parsBrackets_.lastValue() == ElResolver.BEGIN_TERNARY) {
-                parsBrackets_.removeKey(parsBrackets_.lastKey());
+                parsBrackets_.removeLast();
             }
         }
         if (_curChar == ElResolver.SEP_ARG && parsBrackets_.isEmpty()) {
@@ -1030,9 +1030,9 @@ public final class ElRetrieverAnonymous {
         return i_;
     }
 
-    private static int processOperatorsQuickBegin(IntTreeMap<Character> _parsBrackets, StackDelimiters _stack, int _i, char _curChar, String _string,
+    private static int processOperatorsQuickBegin(StackOperators _parsBrackets, StackDelimiters _stack, int _i, char _curChar, String _string,
                                                   AnalyzedPageEl _page, String _packageName, FileBlock _file) {
-        IntTreeMap<Character> parsBrackets_;
+        StackOperators parsBrackets_;
         parsBrackets_ = _parsBrackets;
         KeyWords keyWords_ = _page.getKeyWords();
 
@@ -1112,7 +1112,7 @@ public final class ElRetrieverAnonymous {
                 return j_;
             }
             _stack.getCallings().add(i_);
-            parsBrackets_.put(i_, _curChar);
+            parsBrackets_.addEntry(i_, _curChar);
         }
         if (_curChar == ElResolver.PAR_RIGHT) {
             if (parsBrackets_.isEmpty()) {
@@ -1120,7 +1120,7 @@ public final class ElRetrieverAnonymous {
             }
             ElResolverCommon.tryAddStringParts(parsBrackets_, i_, _stack);
             ElResolverCommon.tryAddAnnotationsParts(parsBrackets_, _stack);
-            parsBrackets_.removeKey(parsBrackets_.lastKey());
+            parsBrackets_.removeLast();
         }
         if (_curChar == ElResolver.ANN_ARR_LEFT) {
             int bk_ = StringExpUtil.getBackPrintChar(_string, i_);
@@ -1176,13 +1176,13 @@ public final class ElRetrieverAnonymous {
                     }
                 }
             }
-            parsBrackets_.put(i_, _curChar);
+            parsBrackets_.addEntry(i_, _curChar);
         }
         if (_curChar == ElResolver.ANN_ARR_RIGHT) {
             if (parsBrackets_.isEmpty()) {
                 return -1;
             }
-            parsBrackets_.removeKey(parsBrackets_.lastKey());
+            parsBrackets_.removeLast();
         }
         if (_curChar == ElResolver.ARR_LEFT) {
             int j_ = i_ + 1;
@@ -1193,13 +1193,13 @@ public final class ElRetrieverAnonymous {
             if (skip_) {
                 return j_ + 1;
             }
-            parsBrackets_.put(i_, _curChar);
+            parsBrackets_.addEntry(i_, _curChar);
         }
         if (_curChar == ElResolver.ARR_RIGHT) {
             if (parsBrackets_.isEmpty()) {
                 return -1;
             }
-            parsBrackets_.removeKey(parsBrackets_.lastKey());
+            parsBrackets_.removeLast();
         }
         if (_curChar == ElResolver.BEGIN_TERNARY) {
             boolean ternary_ = false;
@@ -1215,7 +1215,7 @@ public final class ElRetrieverAnonymous {
                 }
             }
             if (ternary_) {
-                parsBrackets_.put(i_, _curChar);
+                parsBrackets_.addEntry(i_, _curChar);
             }
         }
         if (_curChar == ElResolver.END_TERNARY) {
@@ -1223,7 +1223,7 @@ public final class ElRetrieverAnonymous {
                 return -1;
             }
             if (parsBrackets_.lastValue() == ElResolver.BEGIN_TERNARY) {
-                parsBrackets_.removeKey(parsBrackets_.lastKey());
+                parsBrackets_.removeLast();
             }
         }
         boolean escapeOpers_ = false;

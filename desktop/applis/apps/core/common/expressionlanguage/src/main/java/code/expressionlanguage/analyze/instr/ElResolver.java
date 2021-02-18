@@ -123,8 +123,8 @@ public final class ElResolver {
         boolean partOfString_ = _d.isPartOfString();
         boolean delimiters_ = partOfString_;
 
-        IntTreeMap<Character> parsBrackets_;
-        parsBrackets_ = new IntTreeMap<Character>();
+        StackOperators parsBrackets_;
+        parsBrackets_ = new StackOperators();
         ResultAfterOperators resOpers_ = new ResultAfterOperators();
         resOpers_.setParsBrackets(parsBrackets_);
         resOpers_.setPartOfString(partOfString_);
@@ -1077,9 +1077,9 @@ public final class ElResolver {
                 }
                 if (min_ >= 0) {
                     stack_.getCallings().add(afterSuper_);
-                    IntTreeMap<Character> parsBrackets_;
+                    StackOperators parsBrackets_;
                     parsBrackets_ = _opers.getParsBrackets();
-                    parsBrackets_.put(afterSuper_, PAR_LEFT);
+                    parsBrackets_.addEntry(afterSuper_, PAR_LEFT);
                     _d.getAllowedOperatorsIndexes().add(afterSuper_);
                     _out.setNextIndex(min_);
                     return;
@@ -1220,7 +1220,7 @@ public final class ElResolver {
 
     private static void processOperators(int _beginIndex, int _minIndex, String _string, boolean _delimiters,
                                          Delimiters _dout, ResultAfterOperators _out, AnalyzedPageEl _page) {
-        IntTreeMap<Character> parsBrackets_;
+        StackOperators parsBrackets_;
         parsBrackets_ = _out.getParsBrackets();
 
         int len_ = _string.length();
@@ -1328,7 +1328,7 @@ public final class ElResolver {
                 }
             }
             stack_.getCallings().add(i_);
-            parsBrackets_.put(i_, curChar_);
+            parsBrackets_.addEntry(i_, curChar_);
         }
         if (curChar_ == PAR_RIGHT) {
             if (parsBrackets_.isEmpty()) {
@@ -1340,7 +1340,7 @@ public final class ElResolver {
                 return;
             }
             ElResolverCommon.tryAddStringParts(parsBrackets_, i_, stack_);
-            parsBrackets_.removeKey(parsBrackets_.lastKey());
+            parsBrackets_.removeLast();
         }
         if (curChar_ == ANN_ARR_LEFT) {
             for (AnonymousResult r:_page.getCurrentAnonymousResults()) {
@@ -1350,7 +1350,7 @@ public final class ElResolver {
                     return;
                 }
             }
-            parsBrackets_.put(i_, curChar_);
+            parsBrackets_.addEntry(i_, curChar_);
         }
         if (curChar_ == ANN_ARR_RIGHT) {
             if (parsBrackets_.isEmpty()) {
@@ -1368,7 +1368,7 @@ public final class ElResolver {
                 _dout.setBadOffset(i_);
                 return;
             }
-            parsBrackets_.removeKey(parsBrackets_.lastKey());
+            parsBrackets_.removeLast();
         }
         if (curChar_ == ARR_LEFT) {
             int j_ = i_ + 1;
@@ -1383,7 +1383,7 @@ public final class ElResolver {
                 doubleDotted_.setNextIndex(i_);
                 return;
             }
-            parsBrackets_.put(i_, curChar_);
+            parsBrackets_.addEntry(i_, curChar_);
         }
         if (curChar_ == ARR_RIGHT) {
             if (parsBrackets_.isEmpty()) {
@@ -1394,7 +1394,7 @@ public final class ElResolver {
                 _dout.setBadOffset(i_);
                 return;
             }
-            parsBrackets_.removeKey(parsBrackets_.lastKey());
+            parsBrackets_.removeLast();
         }
         if (curChar_ == BEGIN_TERNARY) {
             boolean ternary_ = false;
@@ -1410,7 +1410,7 @@ public final class ElResolver {
                 }
             }
             if (ternary_) {
-                parsBrackets_.put(i_, curChar_);
+                parsBrackets_.addEntry(i_, curChar_);
             }
         }
         if (curChar_ == END_TERNARY) {
@@ -1419,7 +1419,7 @@ public final class ElResolver {
                 return;
             }
             if (parsBrackets_.lastValue() == BEGIN_TERNARY) {
-                parsBrackets_.removeKey(parsBrackets_.lastKey());
+                parsBrackets_.removeLast();
             }
         }
         if (curChar_ == SEP_ARG && parsBrackets_.isEmpty() && isAcceptCommaInstr(_page)) {

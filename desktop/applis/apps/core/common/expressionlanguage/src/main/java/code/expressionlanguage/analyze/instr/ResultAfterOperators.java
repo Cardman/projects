@@ -1,10 +1,11 @@
 package code.expressionlanguage.analyze.instr;
 
+import code.expressionlanguage.common.StackOperators;
 import code.util.*;
 
 public final class ResultAfterOperators {
     private ResultAfterDoubleDotted doubleDotted;
-    private IntTreeMap<Character> parsBrackets;
+    private StackOperators parsBrackets;
     private boolean constTextString;
     private boolean constTextChar;
     private boolean constString;
@@ -21,11 +22,11 @@ public final class ResultAfterOperators {
         doubleDotted = _doubleDotted;
     }
 
-    public IntTreeMap< Character> getParsBrackets() {
+    public StackOperators getParsBrackets() {
         return parsBrackets;
     }
 
-    public void setParsBrackets(IntTreeMap< Character> _parsBrackets) {
+    public void setParsBrackets(StackOperators _parsBrackets) {
         parsBrackets = _parsBrackets;
     }
 
