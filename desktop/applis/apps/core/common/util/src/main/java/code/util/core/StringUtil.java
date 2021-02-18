@@ -268,33 +268,23 @@ public final class StringUtil {
         StringBuilder strBuilder_ = new StringBuilder();
         int i_ = IndexConstants.FIRST_INDEX;
         StringList keys_ = new StringList(_map.getKeys());
-        boolean exit_ = false;
         while (i_ < length_) {
             int j_ = IndexConstants.FIRST_INDEX;
             StringList list_ = keys_;
-            while (true) {
+            while (_pattern.length() > j_ + i_ + 1) {
                 list_ = buildNextList(_pattern, i_, j_, list_);
-                if (_pattern.length() <= j_ + i_ + 1) {
-                    exit_ = true;
-                    appendSub(_pattern, _map, strBuilder_, i_, list_);
-                    break;
-                }
 //                String subString_ = _pattern.substring(i_, j_ + i_ + 1);
                 String subString_ = _pattern.substring(i_, Math.min(j_ + i_ + 1, _pattern.length()));
                 boolean exist_ = existSub(_pattern, i_, j_, list_, subString_);
-                if (contains(list_, subString_) && !exist_) {
-                    strBuilder_.append(_map.getVal(subString_));
-                    i_ += j_;
-                    break;
-                }
-                if (list_.isEmpty()) {
-                    strBuilder_.append(subString_);
+                if (stop(exist_,_map,list_,strBuilder_,subString_)) {
                     i_ += j_;
                     break;
                 }
                 j_++;
             }
-            if (exit_) {
+            if (_pattern.length() <= j_ + i_ + 1) {
+                list_ = buildNextList(_pattern, i_, j_, list_);
+                appendSub(_pattern, _map, strBuilder_, i_, list_);
                 break;
             }
             i_++;
@@ -302,7 +292,7 @@ public final class StringUtil {
         return strBuilder_.toString();
     }
 
-    private static boolean existSub(String _pattern, int _i, int _j, StringList _list, String _subString) {
+    static boolean existSub(String _pattern, int _i, int _j, StringList _list, String _subString) {
         boolean exist_ = false;
         for (String s: _list) {
             if (s.contains(concat(_subString, Character.toString(_pattern.charAt(_j + _i + 1))))) {
@@ -313,7 +303,7 @@ public final class StringUtil {
         return exist_;
     }
 
-    private static StringList buildNextList(String _pattern, int _i, int _j, StringList _list) {
+    static StringList buildNextList(String _pattern, int _i, int _j, StringList _list) {
         StringList nexList_ = new StringList();
         for (String k : _list) {
             if (okKey(_pattern, _i, _j, k)) {
@@ -323,7 +313,7 @@ public final class StringUtil {
         return nexList_;
     }
 
-    private static void appendSub(String _pattern, StringMap<String> _map, StringBuilder _strBuilder, int _i, StringList _list) {
+    static void appendSub(String _pattern, StringMap<String> _map, StringBuilder _strBuilder, int _i, StringList _list) {
         String subString_ = _pattern.substring(_i);
         if (contains(_list, subString_)) {
             _strBuilder.append(_map.getVal(subString_));
@@ -337,32 +327,22 @@ public final class StringUtil {
         StringBuilder strBuilder_ = new StringBuilder();
         int i_ = IndexConstants.FIRST_INDEX;
         StringList keys_ = new StringList(_map.getKeys());
-        boolean exit_ = false;
         while (i_ < length_) {
             int j_ = IndexConstants.FIRST_INDEX;
             StringList list_ = keys_;
-            while (true) {
+            while (_pattern.length() > j_ + i_ + 1) {
                 list_ = buildNextList(_pattern, i_, j_, list_);
-                if (_pattern.length() <= j_ + i_ + 1) {
-                    exit_ = true;
-                    appendSub(_pattern, _map, strBuilder_, i_, list_);
-                    break;
-                }
 //                    String subString_ = _pattern.substring(i_, j_ + i_ + 1);
                 String subString_ = _pattern.substring(i_, Math.min(j_ + i_ + 1, _pattern.length()));
-                if (contains(list_, subString_)) {
-                    strBuilder_.append(_map.getVal(subString_));
-                    i_ += j_;
-                    break;
-                }
-                if (list_.isEmpty()) {
-                    strBuilder_.append(subString_);
+                if (stop(false,_map,list_,strBuilder_,subString_)) {
                     i_ += j_;
                     break;
                 }
                 j_++;
             }
-            if (exit_) {
+            if (_pattern.length() <= j_ + i_ + 1) {
+                list_ = buildNextList(_pattern, i_, j_, list_);
+                appendSub(_pattern, _map, strBuilder_, i_, list_);
                 break;
             }
             i_++;
@@ -370,6 +350,17 @@ public final class StringUtil {
         return strBuilder_.toString();
     }
 
+    private static boolean stop(boolean _exist,StringMap<String> _map,StringList _list,StringBuilder _strBuilder, String _subString) {
+        if (contains(_list, _subString)&&!_exist) {
+            _strBuilder.append(_map.getVal(_subString));
+            return true;
+        }
+        if (_list.isEmpty()) {
+            _strBuilder.append(_subString);
+            return true;
+        }
+        return false;
+    }
     public static String format(String _pattern, char _sep, StringMap<String> _map) {
         int length_ = _pattern.length();
         StringBuilder strBuilder_ = new StringBuilder();
