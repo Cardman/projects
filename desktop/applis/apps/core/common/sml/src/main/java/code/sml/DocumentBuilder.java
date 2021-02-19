@@ -1580,37 +1580,41 @@ public final class DocumentBuilder {
     private static CustList<Node> getDeepChildNodesDocOrder(Node _root, Node _until, CustList<Node> _nodes) {
         Node en_ = _root;
         while (en_ != null) {
-            if (en_ == _until) {
-                en_ = null;
-                continue;
+            if (en_ != _until) {
+                _nodes.add(en_);
             }
-            _nodes.add(en_);
             Node n_ = en_.getFirstChild();
-            if (n_ != null) {
-                en_ = n_;
+            if (en_ == _until) {
+                n_ = _root;
+            }
+            if (n_ != null||en_ == _root) {
+                en_ = nextSib(n_,_root);
                 continue;
             }
-            if (en_ == _root) {
-                en_ = null;
-                continue;
-            }
-            while (en_ != null) {
-                n_ = en_.getNextSibling();
-                if (n_ != null) {
-                    en_ = n_;
-                    break;
-                }
-                n_ = en_.getParentNode();
-                if (n_ == _root) {
-                    en_ = null;
-                    continue;
-                }
-                en_ = n_;
-            }
+            en_ = next(en_,_root);
         }
         return _nodes;
     }
 
+    private static Node next(Node _en,Node _root) {
+        Node en_ = _en;
+        while (en_ != null) {
+            Node n_ = en_.getNextSibling();
+            if (n_ != null) {
+                en_ = n_;
+                break;
+            }
+            n_ = en_.getParentNode();
+            en_ = nextSib(n_,_root);
+        }
+        return en_;
+    }
+    private static Node nextSib(Node _curr,Node _root) {
+        if (_curr == _root) {
+            return null;
+        }
+        return _curr;
+    }
     public static Ints getIndexes(Node _node) {
         Node par_ = _node.getParentNode();
         Ints indexes_ = new Ints();
