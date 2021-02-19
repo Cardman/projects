@@ -1410,8 +1410,8 @@ public final class Instances {
     public static AreaApparition newAreaApparition() {
         AreaApparition object_ = new AreaApparition();
         CollCapacity cap_ = new CollCapacity(0);
-        object_.setWildPokemon(new EqList<WildPk>(cap_));
-        object_.setWildPokemonFishing(new EqList<WildPk>(cap_));
+        object_.setWildPokemon(new CustList<WildPk>(cap_));
+        object_.setWildPokemonFishing(new CustList<WildPk>(cap_));
         return object_;
     }
 

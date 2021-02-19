@@ -1,14 +1,11 @@
 package code.maths.montecarlo;
 import code.maths.LgInt;
-import code.maths.NumDiffDenNum;
-import code.maths.Rate;
 import code.util.AbsMap;
-import code.util.BooleanList;
 import code.util.BooleanMap;
 import code.util.CollCapacity;
 
 
-public final class MonteCarloBoolean extends AbMonteCarlo<Boolean> {
+public final class MonteCarloBoolean extends AbMonteCarloMap<Boolean> {
 
     private AbsMap<Boolean,LgInt> law;
 

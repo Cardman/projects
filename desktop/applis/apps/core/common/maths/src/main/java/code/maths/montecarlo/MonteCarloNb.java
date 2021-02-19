@@ -3,9 +3,9 @@ import code.maths.LgInt;
 import code.util.*;
 
 
-public final class MonteCarloNb extends AbMonteCarlo<Long> {
+public final class MonteCarloNb extends AbMonteCarloMap<Long> {
 
-    private AbsMap<Long,LgInt> law;
+    private final AbsMap<Long,LgInt> law;
 
     public MonteCarloNb() {
         law = new LongMap<LgInt>();

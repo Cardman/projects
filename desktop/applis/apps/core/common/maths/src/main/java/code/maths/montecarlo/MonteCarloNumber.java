@@ -8,7 +8,7 @@ import code.util.ObjectMap;
 import code.util.core.IndexConstants;
 
 
-public final class MonteCarloNumber extends AbMonteCarlo<Rate> {
+public final class MonteCarloNumber extends AbMonteCarloMap<Rate> {
 
     private AbsMap<Rate,LgInt> law;
 
@@ -46,17 +46,8 @@ public final class MonteCarloNumber extends AbMonteCarlo<Rate> {
         LgInt quotient_ = LgInt.divide(plusGdNbAlea_, sommeDen_);
         LgInt remain_ = LgInt.remain(plusGdNbAlea_, sommeDen_);
         LgInt sumDenTwo_=LgInt.zero();
-        int maxIndice_;
         int nbEvenements_=evenements_.size();
-        int i_ = IndexConstants.FIRST_INDEX;
-        while (true) {
-            sumDenTwo_.addNb(law_.getVal(evenements_.get(i_)));
-            if (LgInt.strLower(remain_, sumDenTwo_)) {
-                maxIndice_=i_;
-                break;
-            }
-            i_++;
-        }
+        int maxIndice_ = getMaxIndice(law_, evenements_, remain_, sumDenTwo_);
         if (!remain_.isZero()) {
             ObjectMap<Rate,LgInt> lawTwo_=new ObjectMap<Rate,LgInt>();
             for (Rate c:evenements_) {
@@ -70,22 +61,44 @@ public final class MonteCarloNumber extends AbMonteCarlo<Rate> {
                     effectif_.addNb(tmp_);
                 } else if (i==maxIndice_) {
                     sumDenTwo_.affectZero();
-                    for (int j = IndexConstants.FIRST_INDEX; j<maxIndice_; j++){
-                        sumDenTwo_.addNb(law_.getVal(evenements_.get(j)));
-                    }
+                    addEvts(law_, evenements_, sumDenTwo_, maxIndice_);
                     effectif_.addNb(LgInt.minus(remain_,sumDenTwo_));
                 }
             }
             law_=lawTwo_;
         }
-        for(Rate c:evenements_){
-            LgInt effectif_=law_.getVal(c);
-            sommeNum_.addNb(Rate.multiply(c, new Rate(effectif_)));
+        return sumRet(sommeNum_, sommeDen_, law_, evenements_, plusGdNbAlea_, remain_);
+    }
+
+    private static void addEvts(ObjectMap<Rate, LgInt> _law, CustList<Rate> _evenements, LgInt _sumDenTwo, int _maxIndice) {
+        for (int j = IndexConstants.FIRST_INDEX; j< _maxIndice; j++){
+            _sumDenTwo.addNb(_law.getVal(_evenements.get(j)));
         }
-        if(!remain_.isZero()){
-            return Rate.divide(sommeNum_, new Rate(plusGdNbAlea_));
+    }
+
+    private static Rate sumRet(Rate _sommeNum, LgInt _sommeDen, ObjectMap<Rate, LgInt> _law, CustList<Rate> _evenements, LgInt _plusGdNbAlea, LgInt _remain) {
+        for(Rate c: _evenements){
+            LgInt effectif_= _law.getVal(c);
+            _sommeNum.addNb(Rate.multiply(c, new Rate(effectif_)));
         }
-        return Rate.divide(sommeNum_, new Rate(sommeDen_));
+        if(!_remain.isZero()){
+            return Rate.divide(_sommeNum, new Rate(_plusGdNbAlea));
+        }
+        return Rate.divide(_sommeNum, new Rate(_sommeDen));
+    }
+
+    private static int getMaxIndice(ObjectMap<Rate, LgInt> _law, CustList<Rate> _evenements, LgInt _remain, LgInt _sumDenTwo) {
+        int maxIndice_;
+        int i_ = IndexConstants.FIRST_INDEX;
+        while (true) {
+            _sumDenTwo.addNb(_law.getVal(_evenements.get(i_)));
+            if (LgInt.strLower(_remain, _sumDenTwo)) {
+                maxIndice_=i_;
+                break;
+            }
+            i_++;
+        }
+        return maxIndice_;
     }
 
     /**Retourne la variance d'une loi de probabilite.*/

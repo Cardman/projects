@@ -224,8 +224,8 @@ final class InitializationMap {
         wild_.setLevel((short) 1);
         wild_.setAbility(PARATONNERRE);
         wild_.setGender(Gender.NO_GENDER);
-        area_.setWildPokemon(new EqList<WildPk>());
-        area_.setWildPokemonFishing(new EqList<WildPk>());
+        area_.setWildPokemon(new CustList<WildPk>());
+        area_.setWildPokemonFishing(new CustList<WildPk>());
         area_.getWildPokemon().add(wild_);
         wild_ = new WildPk();
         wild_.setName(PIKACHU);
@@ -242,8 +242,8 @@ final class InitializationMap {
         wild_.setLevel((short) 1);
         wild_.setAbility(PARATONNERRE);
         wild_.setGender(Gender.NO_GENDER);
-        area_.setWildPokemon(new EqList<WildPk>());
-        area_.setWildPokemonFishing(new EqList<WildPk>());
+        area_.setWildPokemon(new CustList<WildPk>());
+        area_.setWildPokemonFishing(new CustList<WildPk>());
         area_.getWildPokemon().add(wild_);
         road_.getLevelRoad().getWildPokemonAreas().add(area_);
         area_ = new AreaApparition();
@@ -254,8 +254,8 @@ final class InitializationMap {
         wild_.setLevel((short) 1);
         wild_.setAbility(PARATONNERRE);
         wild_.setGender(Gender.NO_GENDER);
-        area_.setWildPokemon(new EqList<WildPk>());
-        area_.setWildPokemonFishing(new EqList<WildPk>());
+        area_.setWildPokemon(new CustList<WildPk>());
+        area_.setWildPokemonFishing(new CustList<WildPk>());
         area_.getWildPokemon().add(wild_);
         road_.getLevelRoad().getWildPokemonAreas().add(area_);
         area_ = new AreaApparition();
@@ -266,8 +266,8 @@ final class InitializationMap {
         wild_.setLevel((short) 1);
         wild_.setAbility(PARATONNERRE);
         wild_.setGender(Gender.NO_GENDER);
-        area_.setWildPokemon(new EqList<WildPk>());
-        area_.setWildPokemonFishing(new EqList<WildPk>());
+        area_.setWildPokemon(new CustList<WildPk>());
+        area_.setWildPokemonFishing(new CustList<WildPk>());
         area_.getWildPokemon().add(wild_);
         wild_ = new WildPk();
         wild_.setName(MEW);
@@ -279,8 +279,8 @@ final class InitializationMap {
         area_ = new AreaApparition();
         area_.setAvgNbSteps((short) 1);
         area_.setMultFight((byte) 1);
-        area_.setWildPokemon(new EqList<WildPk>());
-        area_.setWildPokemonFishing(new EqList<WildPk>());
+        area_.setWildPokemon(new CustList<WildPk>());
+        area_.setWildPokemonFishing(new CustList<WildPk>());
         wild_ = new WildPk();
         wild_.setName(PTITARD);
         wild_.setLevel((short) 1);
@@ -310,8 +310,8 @@ final class InitializationMap {
         area_ = new AreaApparition();
         area_.setAvgNbSteps((short) 1);
         area_.setMultFight((byte) 1);
-        area_.setWildPokemon(new EqList<WildPk>());
-        area_.setWildPokemonFishing(new EqList<WildPk>());
+        area_.setWildPokemon(new CustList<WildPk>());
+        area_.setWildPokemonFishing(new CustList<WildPk>());
         wild_ = new WildPk();
         wild_.setName(TETARTE);
         wild_.setLevel((short) 26);
@@ -731,8 +731,8 @@ final class InitializationMap {
         wild_.setLevel((short) 10);
         wild_.setAbility(PARATONNERRE);
         wild_.setGender(Gender.NO_GENDER);
-        area_.setWildPokemon(new EqList<WildPk>());
-        area_.setWildPokemonFishing(new EqList<WildPk>());
+        area_.setWildPokemon(new CustList<WildPk>());
+        area_.setWildPokemonFishing(new CustList<WildPk>());
         area_.getWildPokemon().add(wild_);
         wild_ = new WildPk();
         wild_.setName(NINGALE);
@@ -742,8 +742,8 @@ final class InitializationMap {
         area_.getWildPokemon().add(wild_);
         level_.getWildPokemonAreas().add(area_);
         area_ = new AreaApparition();
-        area_.setWildPokemon(new EqList<WildPk>());
-        area_.setWildPokemonFishing(new EqList<WildPk>());
+        area_.setWildPokemon(new CustList<WildPk>());
+        area_.setWildPokemonFishing(new CustList<WildPk>());
         area_.setAvgNbSteps((short) 1);
         area_.setMultFight((byte) 2);
         wild_ = new WildPk();

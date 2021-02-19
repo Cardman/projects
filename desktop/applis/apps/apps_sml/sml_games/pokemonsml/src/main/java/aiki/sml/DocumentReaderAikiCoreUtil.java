@@ -7961,11 +7961,11 @@ public final class DocumentReaderAikiCoreUtil {
         return list_;
     }
 
-    private static EqList<WildPk> getListWildPk(Element _elt) {
+    private static CustList<WildPk> getListWildPk(Element _elt) {
         ElementList childElements_ = _elt.getChildElements();
         int len_ = childElements_.getLength();
         CollCapacity cap_ = new CollCapacity(len_);
-        EqList<WildPk> list_ = new EqList<WildPk>(cap_);
+        CustList<WildPk> list_ = new CustList<WildPk>(cap_);
         for (Element c: childElements_) {
             list_.add(getWildPk(c));
         }

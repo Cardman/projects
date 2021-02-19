@@ -41,7 +41,7 @@ public class LevelWithWildPokemonTest extends EquallablePkUtil {
         block_.setIndexApparition((short) 0);
         level_.getBlocks().put(new Point((short)0,(short)0), block_);
         AreaApparition area_ = new AreaApparition();
-        area_.setWildPokemon(new EqList<WildPk>());
+        area_.setWildPokemon(new CustList<WildPk>());
         WildPk pk_;
         pk_ = new WildPk();
         pk_.setName("PIKACHU");

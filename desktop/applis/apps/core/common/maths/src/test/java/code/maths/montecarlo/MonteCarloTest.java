@@ -334,7 +334,7 @@ public class MonteCarloTest extends EquallableMathUtil {
     }
     @Test
     public void new_MonteCarloEq_test() {
-        MonteCarloEq<SampleEquallable> l_ = new MonteCarloEq<SampleEquallable>(new CollCapacity(1));
+        MonteCarloList<SampleEquallable> l_ = new MonteCarloList<SampleEquallable>();
         l_.addEvent(new SampleEquallable(1),LgInt.one());
         assertEq(1,l_.nbEvents());
     }
@@ -346,5 +346,58 @@ public class MonteCarloTest extends EquallableMathUtil {
         l_ = new MonteCarloString(new CollCapacity(1));
         l_.addEvent("1",LgInt.one());
         assertEq(1,l_.nbEvents());
+    }
+
+    @Test
+    public void editNumber14Test() {
+        MonteCarloList<String> law_ = new MonteCarloList<String>();
+        law_.addEvent("2", new LgInt(1));
+        law_.addEvent("3", new LgInt(1));
+        law_.addEvent("2", new LgInt(1));
+        law_.addEvent("3", new LgInt(1));
+        assertEq("2", law_.editNumberSeed(LgInt.zero()));
+        assertEq("3", law_.editNumberSeed(LgInt.one()));
+        assertEq("2", law_.editNumberSeed(new LgInt(2)));
+        assertEq("3", law_.editNumberSeed(new LgInt(3)));
+        assertEq("2", law_.editNumberSeed(new LgInt(4)));
+        assertEq("3", law_.editNumberSeed(new LgInt(5)));
+        assertEq("2", law_.editNumberSeed(new LgInt(6)));
+        assertEq("3", law_.editNumberSeed(new LgInt(7)));
+    }
+
+    @Test
+    public void editNumber15Test() {
+        MonteCarloList<String> law_ = new MonteCarloList<String>();
+        law_.addEvent("2", new LgInt(1));
+        law_.addEvent("3", new LgInt(2));
+        law_.addEvent("2", new LgInt(3));
+        law_.addEvent("3", new LgInt(4));
+        assertEq("2", law_.editNumberSeed(LgInt.zero()));
+        assertEq("3", law_.editNumberSeed(LgInt.one()));
+        assertEq("3", law_.editNumberSeed(new LgInt(2)));
+        assertEq("2", law_.editNumberSeed(new LgInt(3)));
+        assertEq("2", law_.editNumberSeed(new LgInt(4)));
+        assertEq("2", law_.editNumberSeed(new LgInt(5)));
+        assertEq("3", law_.editNumberSeed(new LgInt(6)));
+        assertEq("3", law_.editNumberSeed(new LgInt(7)));
+        assertEq("3", law_.editNumberSeed(new LgInt(8)));
+        assertEq("3", law_.editNumberSeed(new LgInt(9)));
+        assertEq("2", law_.editNumberSeed(new LgInt(10)));
+        assertEq("3", law_.editNumberSeed(new LgInt(11)));
+        assertEq("3", law_.editNumberSeed(new LgInt(12)));
+        assertEq("2", law_.editNumberSeed(new LgInt(13)));
+        assertEq("2", law_.editNumberSeed(new LgInt(14)));
+        assertEq("2", law_.editNumberSeed(new LgInt(15)));
+        assertEq("3", law_.editNumberSeed(new LgInt(16)));
+        assertEq("3", law_.editNumberSeed(new LgInt(17)));
+        assertEq("3", law_.editNumberSeed(new LgInt(18)));
+        assertEq("3", law_.editNumberSeed(new LgInt(19)));
+    }
+
+    @Test
+    public void editNumber16Test() {
+        MonteCarloList<String> law_ = new MonteCarloList<String>();
+        law_.addEvent("2", new LgInt(1));
+        assertEq("2", law_.editNumber(LgInt.one(),new DefaultGenerator()));
     }
 }

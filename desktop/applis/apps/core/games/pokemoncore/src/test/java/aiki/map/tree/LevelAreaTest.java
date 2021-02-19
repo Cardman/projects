@@ -139,8 +139,8 @@ public class LevelAreaTest extends EquallablePkUtil {
         AreaApparition areaApp_ = new AreaApparition();
         areaApp_.setMultFight((byte) 1);
         areaApp_.setAvgNbSteps((short) 1);
-        areaApp_.setWildPokemon(new EqList<WildPk>());
-        areaApp_.setWildPokemonFishing(new EqList<WildPk>());
+        areaApp_.setWildPokemon(new CustList<WildPk>());
+        areaApp_.setWildPokemonFishing(new CustList<WildPk>());
         WildPk pk_ = new WildPk();
         pk_.setName("PIKACHU");
         pk_.setItem("");
@@ -186,8 +186,8 @@ public class LevelAreaTest extends EquallablePkUtil {
         AreaApparition areaApp_ = new AreaApparition();
         areaApp_.setMultFight((byte) 1);
         areaApp_.setAvgNbSteps((short) 1);
-        areaApp_.setWildPokemon(new EqList<WildPk>());
-        areaApp_.setWildPokemonFishing(new EqList<WildPk>());
+        areaApp_.setWildPokemon(new CustList<WildPk>());
+        areaApp_.setWildPokemonFishing(new CustList<WildPk>());
         WildPk pk_ = new WildPk();
         pk_.setName("PTITARD");
         pk_.setItem("");
@@ -248,8 +248,8 @@ public class LevelAreaTest extends EquallablePkUtil {
         AreaApparition areaApp_ = new AreaApparition();
         areaApp_.setMultFight((byte) 1);
         areaApp_.setAvgNbSteps((short) 1);
-        areaApp_.setWildPokemon(new EqList<WildPk>());
-        areaApp_.setWildPokemonFishing(new EqList<WildPk>());
+        areaApp_.setWildPokemon(new CustList<WildPk>());
+        areaApp_.setWildPokemonFishing(new CustList<WildPk>());
         WildPk pk_ = new WildPk();
         pk_.setName("PIKACHU");
         pk_.setItem("");
@@ -350,8 +350,8 @@ public class LevelAreaTest extends EquallablePkUtil {
         AreaApparition areaApp_ = new AreaApparition();
         areaApp_.setMultFight((byte) 1);
         areaApp_.setAvgNbSteps((short) 1);
-        areaApp_.setWildPokemon(new EqList<WildPk>());
-        areaApp_.setWildPokemonFishing(new EqList<WildPk>());
+        areaApp_.setWildPokemon(new CustList<WildPk>());
+        areaApp_.setWildPokemonFishing(new CustList<WildPk>());
         WildPk pk_ = new WildPk();
         pk_.setName("PIKACHU");
         pk_.setItem("");

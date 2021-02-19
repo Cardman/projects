@@ -8,7 +8,7 @@ import code.util.StringList;
 import code.util.StringMap;
 
 
-public final class MonteCarloString extends AbMonteCarlo<String> {
+public final class MonteCarloString extends AbMonteCarloMap<String> {
 
     private AbsMap<String,LgInt> law;
 

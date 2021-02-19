@@ -67,7 +67,8 @@ import aiki.util.LevelPoint;
 import aiki.util.Point;
 import code.maths.LgInt;
 import code.maths.Rate;
-import code.maths.montecarlo.MonteCarloEq;
+import code.maths.montecarlo.EventFreq;
+import code.maths.montecarlo.MonteCarloList;
 import code.maths.montecarlo.MonteCarloString;
 import code.util.*;
 import code.util.core.IndexConstants;
@@ -2334,8 +2335,8 @@ public final class Game {
         }
     }
 
-    void newRandomPokemon(MonteCarloEq<WildPk> _law, DataBase _d) {
-        MonteCarloEq<WildPk> lawCopy_ = lawCopy(_law, _d);
+    void newRandomPokemon(MonteCarloList<WildPk> _law, DataBase _d) {
+        MonteCarloList<WildPk> lawCopy_ = lawCopy(_law, _d);
         LgInt maxRd_ = _d.getMaxRd();
         WildPk pkAlea_=lawCopy_.editNumber(maxRd_,_d.getGenerator());
         if(pkAlea_.hasJustBeenCreated()){
@@ -2347,33 +2348,23 @@ public final class Game {
         interfaceType=InterfaceType.COMBAT_PK_SAUV;
     }
 
-    MonteCarloEq<WildPk> lawCopy(MonteCarloEq<WildPk> _law, DataBase _d) {
-        ObjectMap<WildPk,LgInt> tmpLaw_=new ObjectMap<WildPk,LgInt>();
-        for(WildPk e:_law.events()){
+    MonteCarloList<WildPk> lawCopy(MonteCarloList<WildPk> _law, DataBase _d) {
+        MonteCarloList<WildPk> lawCopy_ = new MonteCarloList<WildPk>();
+        for(EventFreq<WildPk> i:_law.getEvents()){
+            WildPk e = i.getEvent();
+            LgInt f_ = i.getFreq();
             if(e.getName().isEmpty()){
-                if(!tmpLaw_.contains(e)){
-                    tmpLaw_.put(e,new LgInt(_law.rate(e)));
-                }else{
-                    tmpLaw_.getVal(e).addNb(_law.rate(e));
-                }
+                lawCopy_.addQuickEvent(e,f_);
                 continue;
             }
             if(player.estAttrape(e.getName())){
                 PokemonData fPk_=_d.getPokedex().getVal(e.getName());
                 if(fPk_.getGenderRep() == GenderRepartition.LEGENDARY){
-                    if(!tmpLaw_.contains(new WildPk())){
-                        tmpLaw_.put(new WildPk(),new LgInt(_law.rate(e)));
-                    }else{
-                        tmpLaw_.getVal(new WildPk()).addNb(_law.rate(e));
-                    }
+                    lawCopy_.addQuickEvent(new WildPk(),f_);
                     continue;
                 }
             }
-            tmpLaw_.put(e,new LgInt(_law.rate(e)));
-        }
-        MonteCarloEq<WildPk> lawCopy_ = new MonteCarloEq<WildPk>(new CollCapacity(tmpLaw_.size()));
-        for(WildPk c:tmpLaw_.getKeys()){
-            lawCopy_.addQuickEvent(c,tmpLaw_.getVal(c));
+            lawCopy_.addQuickEvent(e,f_);
         }
         return lawCopy_;
     }

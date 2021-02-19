@@ -5,7 +5,7 @@ import code.util.CollCapacity;
 import code.util.EnumMap;
 
 
-public final class MonteCarloEnum<E> extends AbMonteCarlo<E> {
+public final class MonteCarloEnum<E> extends AbMonteCarloMap<E> {
 
     private AbsMap<E,LgInt> law;
 

@@ -1,12 +1,14 @@
 package aiki.map.levels;
 
 import aiki.db.EquallablePkUtil;
+import code.maths.montecarlo.EventFreq;
+import code.maths.montecarlo.MonteCarloList;
+import code.util.CustList;
 import org.junit.Test;
 
 import aiki.map.pokemon.WildPk;
 import aiki.map.pokemon.enums.Gender;
 import code.maths.LgInt;
-import code.maths.montecarlo.MonteCarloEq;
 import code.util.EqList;
 
 
@@ -14,22 +16,22 @@ public class AreaApparitionTest extends EquallablePkUtil {
 
     @Test
     public void random1Test() {
-        EqList<WildPk> list_ = new EqList<WildPk>();
-        MonteCarloEq<WildPk> law_ = AreaApparition.random(list_, AreaApparition.ALWAYS_APPARITION);
+        CustList<WildPk> list_ = new CustList<WildPk>();
+        MonteCarloList<WildPk> law_ = AreaApparition.random(list_, AreaApparition.ALWAYS_APPARITION);
         assertEq(0, law_.nbEvents());
     }
 
     @Test
     public void random2Test() {
-        EqList<WildPk> list_ = new EqList<WildPk>();
-        MonteCarloEq<WildPk> law_ = AreaApparition.random(list_, 2);
+        CustList<WildPk> list_ = new CustList<WildPk>();
+        MonteCarloList<WildPk> law_ = AreaApparition.random(list_, 2);
         assertEq(1, law_.nbEvents());
         assertTrue(law_.events().first().hasJustBeenCreated());
     }
 
     @Test
     public void random3Test() {
-        EqList<WildPk> list_ = new EqList<WildPk>();
+        CustList<WildPk> list_ = new CustList<WildPk>();
         WildPk pk_;
         pk_ = new WildPk();
         pk_.setName("PIKACHU");
@@ -38,7 +40,7 @@ public class AreaApparitionTest extends EquallablePkUtil {
         pk_.setLevel((short) 3);
         pk_.setItem("");
         list_.add(pk_);
-        MonteCarloEq<WildPk> law_ = AreaApparition.random(list_, AreaApparition.ALWAYS_APPARITION);
+        MonteCarloList<WildPk> law_ = AreaApparition.random(list_, AreaApparition.ALWAYS_APPARITION);
         assertEq(1, law_.nbEvents());
         WildPk event_;
         event_ = law_.events().first();
@@ -51,7 +53,7 @@ public class AreaApparitionTest extends EquallablePkUtil {
 
     @Test
     public void random4Test() {
-        EqList<WildPk> list_ = new EqList<WildPk>();
+        CustList<WildPk> list_ = new CustList<WildPk>();
         WildPk pk_;
         pk_ = new WildPk();
         pk_.setName("PIKACHU");
@@ -60,17 +62,17 @@ public class AreaApparitionTest extends EquallablePkUtil {
         pk_.setLevel((short) 3);
         pk_.setItem("");
         list_.add(pk_);
-        MonteCarloEq<WildPk> law_ = AreaApparition.random(list_, 3);
+        MonteCarloList<WildPk> law_ = AreaApparition.random(list_, 3);
         assertEq(2, law_.nbEvents());
-        assertTrue(law_.containsEvent(pk_));
-        assertTrue(law_.containsEvent(new WildPk()));
-        assertEq(new LgInt("1"), law_.rate(pk_));
-        assertEq(new LgInt("2"), law_.rate(new WildPk()));
+        assertTrue(containsPk(law_,pk_));
+        assertTrue(containsPk(law_,new WildPk()));
+        assertEq(new LgInt("1"), freqPk(law_,pk_));
+        assertEq(new LgInt("2"), freqPk(law_,new WildPk()));
     }
 
     @Test
     public void random5Test() {
-        EqList<WildPk> list_ = new EqList<WildPk>();
+        CustList<WildPk> list_ = new CustList<WildPk>();
         WildPk pkOne_ = new WildPk();
         pkOne_.setName("PIKACHU");
         pkOne_.setAbility("STATIK");
@@ -85,19 +87,19 @@ public class AreaApparitionTest extends EquallablePkUtil {
         pkTwo_.setLevel((short) 3);
         pkTwo_.setItem("");
         list_.add(pkTwo_);
-        MonteCarloEq<WildPk> law_ = AreaApparition.random(list_, 3);
+        MonteCarloList<WildPk> law_ = AreaApparition.random(list_, 3);
         assertEq(3, law_.nbEvents());
-        assertTrue(law_.containsEvent(pkOne_));
-        assertTrue(law_.containsEvent(pkTwo_));
-        assertTrue(law_.containsEvent(new WildPk()));
-        assertEq(new LgInt("1"), law_.rate(pkOne_));
-        assertEq(new LgInt("1"), law_.rate(pkTwo_));
-        assertEq(new LgInt("4"), law_.rate(new WildPk()));
+        assertTrue(containsPk(law_,pkOne_));
+        assertTrue(containsPk(law_,pkTwo_));
+        assertTrue(containsPk(law_,new WildPk()));
+        assertEq(new LgInt("1"), freqPk(law_,pkOne_));
+        assertEq(new LgInt("1"), freqPk(law_,pkTwo_));
+        assertEq(new LgInt("4"), freqPk(law_,new WildPk()));
     }
 
     @Test
     public void random6Test() {
-        EqList<WildPk> list_ = new EqList<WildPk>();
+        CustList<WildPk> list_ = new CustList<WildPk>();
         WildPk pkOne_ = new WildPk();
         pkOne_.setName("PIKACHU");
         pkOne_.setAbility("STATIK");
@@ -119,19 +121,19 @@ public class AreaApparitionTest extends EquallablePkUtil {
         pkThree_.setLevel((short) 3);
         pkThree_.setItem("");
         list_.add(pkThree_);
-        MonteCarloEq<WildPk> law_ = AreaApparition.random(list_, 3);
+        MonteCarloList<WildPk> law_ = AreaApparition.random(list_, 3);
         assertEq(3, law_.nbEvents());
-        assertTrue(law_.containsEvent(pkOne_));
-        assertTrue(law_.containsEvent(pkTwo_));
-        assertTrue(law_.containsEvent(new WildPk()));
-        assertEq(new LgInt("1"), law_.rate(pkOne_));
-        assertEq(new LgInt("2"), law_.rate(pkTwo_));
-        assertEq(new LgInt("6"), law_.rate(new WildPk()));
+        assertTrue(containsPk(law_,pkOne_));
+        assertTrue(containsPk(law_,pkTwo_));
+        assertTrue(containsPk(law_,new WildPk()));
+        assertEq(new LgInt("1"), freqPk(law_,pkOne_));
+        assertEq(new LgInt("2"), freqPk(law_,pkTwo_));
+        assertEq(new LgInt("6"), freqPk(law_,new WildPk()));
     }
 
     @Test
     public void random7Test() {
-        EqList<WildPk> list_ = new EqList<WildPk>();
+        CustList<WildPk> list_ = new CustList<WildPk>();
         WildPk pkOne_ = new WildPk();
         pkOne_.setName("PIKACHU");
         pkOne_.setAbility("STATIK");
@@ -146,17 +148,17 @@ public class AreaApparitionTest extends EquallablePkUtil {
         pkTwo_.setLevel((short) 3);
         pkTwo_.setItem("");
         list_.add(pkTwo_);
-        MonteCarloEq<WildPk> law_ = AreaApparition.random(list_, AreaApparition.ALWAYS_APPARITION);
+        MonteCarloList<WildPk> law_ = AreaApparition.random(list_, AreaApparition.ALWAYS_APPARITION);
         assertEq(2, law_.nbEvents());
-        assertTrue(law_.containsEvent(pkOne_));
-        assertTrue(law_.containsEvent(pkTwo_));
-        assertEq(new LgInt("1"), law_.rate(pkOne_));
-        assertEq(new LgInt("1"), law_.rate(pkTwo_));
+        assertTrue(containsPk(law_,pkOne_));
+        assertTrue(containsPk(law_,pkTwo_));
+        assertEq(new LgInt("1"), freqPk(law_,pkOne_));
+        assertEq(new LgInt("1"), freqPk(law_,pkTwo_));
     }
 
     @Test
     public void random8Test() {
-        EqList<WildPk> list_ = new EqList<WildPk>();
+        CustList<WildPk> list_ = new CustList<WildPk>();
         WildPk pkOne_ = new WildPk();
         pkOne_.setName("PIKACHU");
         pkOne_.setAbility("STATIK");
@@ -178,11 +180,28 @@ public class AreaApparitionTest extends EquallablePkUtil {
         pkThree_.setLevel((short) 3);
         pkThree_.setItem("");
         list_.add(pkThree_);
-        MonteCarloEq<WildPk> law_ = AreaApparition.random(list_, AreaApparition.ALWAYS_APPARITION);
+        MonteCarloList<WildPk> law_ = AreaApparition.random(list_, AreaApparition.ALWAYS_APPARITION);
         assertEq(2, law_.nbEvents());
-        assertTrue(law_.containsEvent(pkOne_));
-        assertTrue(law_.containsEvent(pkTwo_));
-        assertEq(new LgInt("1"), law_.rate(pkOne_));
-        assertEq(new LgInt("2"), law_.rate(pkTwo_));
+        assertTrue(containsPk(law_,pkOne_));
+        assertTrue(containsPk(law_,pkTwo_));
+        assertEq(new LgInt("1"), freqPk(law_,pkOne_));
+        assertEq(new LgInt("2"), freqPk(law_,pkTwo_));
+    }
+    private static boolean containsPk(MonteCarloList<WildPk> _monte, WildPk _ev) {
+        for (WildPk e: _monte.events()) {
+            if (e.eq(_ev)) {
+                return true;
+            }
+        }
+        return false;
+    }
+    private static LgInt freqPk(MonteCarloList<WildPk> _monte, WildPk _ev) {
+        LgInt sum_ = LgInt.zero();
+        for (EventFreq<WildPk> e: _monte.getEvents()) {
+            if (e.getEvent().eq(_ev)) {
+                sum_.addNb(e.getFreq());
+            }
+        }
+        return sum_;
     }
 }

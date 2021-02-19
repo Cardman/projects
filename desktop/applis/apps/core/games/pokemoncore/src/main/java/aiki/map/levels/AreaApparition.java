@@ -3,8 +3,7 @@ package aiki.map.levels;
 import aiki.db.DataBase;
 import aiki.map.pokemon.WildPk;
 import code.maths.LgInt;
-import code.maths.montecarlo.MonteCarloEq;
-import code.util.CollCapacity;
+import code.maths.montecarlo.MonteCarloList;
 import code.util.CustList;
 
 
@@ -20,9 +19,9 @@ public final class AreaApparition {
 
     private CustList<WildPk> wildPokemonFishing;
 
-    private MonteCarloEq<WildPk> wildPokemonRand;
+    private MonteCarloList<WildPk> wildPokemonRand;
 
-    private MonteCarloEq<WildPk> wildPokemonRandFishing;
+    private MonteCarloList<WildPk> wildPokemonRandFishing;
 
     public void validate(DataBase _data) {
         if (avgNbSteps < ALWAYS_APPARITION) {
@@ -50,7 +49,7 @@ public final class AreaApparition {
         wildPokemonRandFishing = random(wildPokemonFishing, ALWAYS_APPARITION);
     }
 
-    static MonteCarloEq<WildPk> random(CustList<WildPk> _wildPokemon,
+    static MonteCarloList<WildPk> random(CustList<WildPk> _wildPokemon,
             int _avgNbSteps) {
         CustList<WildPk> wildPokemonCopy_ = new CustList<WildPk>(_wildPokemon);
         int i_ = 0;
@@ -66,7 +65,7 @@ public final class AreaApparition {
             }
             i_++;
         }
-        MonteCarloEq<WildPk> wildPokemonRand_ = new MonteCarloEq<WildPk>(new CollCapacity(wildPokemonCopy_.size()));
+        MonteCarloList<WildPk> wildPokemonRand_ = new MonteCarloList<WildPk>();
         for (WildPk p : wildPokemonCopy_) {
             int count_ = 0;
             for (WildPk p2_ : _wildPokemon) {
@@ -142,11 +141,11 @@ public final class AreaApparition {
         wildPokemonFishing = _wildPokemonFishing;
     }
 
-    public MonteCarloEq<WildPk> getWildPokemonRand() {
+    public MonteCarloList<WildPk> getWildPokemonRand() {
         return wildPokemonRand;
     }
 
-    public MonteCarloEq<WildPk> getWildPokemonRandFishing() {
+    public MonteCarloList<WildPk> getWildPokemonRandFishing() {
         return wildPokemonRandFishing;
     }
 

@@ -1,7 +1,5 @@
 package code.maths.montecarlo;
 import code.maths.LgInt;
-import code.maths.Rate;
-import code.util.AbsMap;
 import code.util.CustList;
 import code.util.core.IndexConstants;
 import code.util.ints.Listable;
@@ -22,101 +20,27 @@ public abstract class AbMonteCarlo<E> implements IntMonteCarlo {
         sum_.affectZero();
         int i_ = 0;
         while (LgInt.greaterEq(random_,sum_)) {
-            sum_.addNb(rate(getLaw().getKey(i_)));
+            sum_.addNb(getFreq(i_));
             i_++;
         }
         i_--;
-        return getLaw().getKey(i_);
+        return getEvent(i_);
     }
 
-    public abstract AbsMap<E,LgInt> getLaw();
+    public abstract E getEvent(int _index);
+    public abstract LgInt getFreq(int _index);
+    public abstract CustList<E> events();
 
-    public boolean isValid() {
-        if (getLaw().isEmpty()) {
-            return false;
-        }
-        for (LgInt i:getLaw().values()) {
-            if (i.isZero()) {
-                return false;
-            }
-            if (!i.isZeroOrGt()) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    public LgInt sum() {
-        LgInt somme_= LgInt.zero();
-        for (LgInt i:getLaw().values()) {
-            somme_.addNb(i);
-        }
-        return somme_;
-    }
-
-    @Override
-    public int nbEvents() {
-        return getLaw().size();
-    }
-
-    public CustList<E> events() {
-        return getLaw().getKeys();
-    }
-
-    public boolean containsEvent(E _event) {
-        return getLaw().contains(_event);
-    }
+    public abstract LgInt sum();
 
     public final boolean isZero() {
         return sum().isZero();
     }
 
-    public final Rate normalizedRate(E _event) {
-        LgInt sum_ = sum();
-        return new Rate(rate(_event), sum_);
-    }
 
-    public LgInt rate(E _event) {
-        return getLaw().getVal(_event);
-    }
 
-    public void addEvent(E _event,LgInt _probaRelative){
-        getLaw().put(_event, _probaRelative);
-    }
+    public abstract void addEvent(E _event,LgInt _probaRelative);
 
-    public void addQuickEvent(E _event,LgInt _probaRelative){
-        getLaw().addEntry(_event, _probaRelative);
-    }
+    public abstract void addQuickEvent(E _event,LgInt _probaRelative);
 
-    public boolean checkEvents() {
-        Listable<E> cles_= events();
-        for (E e: cles_) {
-            LgInt integer_ = rate(e);
-            if (integer_.isZeroOrGt()) {
-                continue;
-            }
-            return false;
-        }
-        if (!getLaw().isEmpty()) {
-            return !sum().isZero();
-        }
-        return true;
-    }
-
-    public void deleteZeroEvents() {
-        Listable<E> cles_= events();
-        Listable<E> deletedKeys_ = new CustList<E>();
-        for (E e: cles_) {
-            LgInt integer_ = rate(e);
-            if (integer_.isZeroOrGt()) {
-                if (!integer_.isZero()) {
-                    continue;
-                }
-            }
-            deletedKeys_.add(e);
-        }
-        for (E e:deletedKeys_) {
-            getLaw().removeKey(e);
-        }
-    }
 }

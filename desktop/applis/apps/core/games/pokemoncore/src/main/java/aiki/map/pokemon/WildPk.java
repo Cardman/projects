@@ -5,7 +5,7 @@ import code.util.core.StringUtil;
 import code.util.ints.Equallable;
 
 
-public final class WildPk extends Pokemon implements Equallable<WildPk> {
+public final class WildPk extends Pokemon {
 
     /***/
     private String name;
@@ -35,7 +35,6 @@ public final class WildPk extends Pokemon implements Equallable<WildPk> {
     }
 
     //For laws of apparition in areas
-    @Override
     public boolean eq(WildPk _obj) {
         if (!StringUtil.quickEq(getName(),_obj.getName())) {
             return false;
