@@ -4,7 +4,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.exec.ExecHelper;
 import code.expressionlanguage.exec.StackCall;
-import code.expressionlanguage.exec.calls.PageEl;
+import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
@@ -79,7 +79,7 @@ public final class ExecAffectationOperation extends ExecMethodOperation implemen
             if (((ExecStdRefVariableOperation)settable).isDeclare()){
                 CustList<ExecOperationNode> childrenNodes_ = getChildrenNodes();
                 ArgumentsPair pairRight_ = ExecHelper.getArgumentPair(_nodes, ExecHelper.getNode(childrenNodes_,childrenNodes_.size()-1));
-                PageEl ip_ = _stack.getLastPage();
+                AbstractPageEl ip_ = _stack.getLastPage();
                 ip_.getRefParams().put(((ExecStdRefVariableOperation)settable).getVariableName(),ExecTemplates.getWrap(pairRight_.getWrapper()));
                 setQuickNoConvertSimpleArgument(new Argument(), _conf, _nodes, _stack);
                 return;

@@ -4,7 +4,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ExecHelper;
 import code.expressionlanguage.exec.StackCall;
-import code.expressionlanguage.exec.calls.PageEl;
+import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.expressionlanguage.exec.variables.AbstractWrapper;
@@ -25,7 +25,7 @@ public final class ExecRefParamOperation extends ExecLeafOperation implements
 
     @Override
     public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, StackCall _stack) {
-        PageEl ip_ = _stack.getLastPage();
+        AbstractPageEl ip_ = _stack.getLastPage();
         AbstractWrapper val_ = ExecTemplates.getWrapper(variableContent.getVariableName(),variableContent.getDeep(), ip_.getCache(), _stack.getLastPage().getRefParams());
         ArgumentsPair pair_ = ExecHelper.getArgumentPair(_nodes, this);
         pair_.setWrapper(val_);

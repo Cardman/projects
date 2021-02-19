@@ -9,14 +9,17 @@ import code.expressionlanguage.exec.ExpressionLanguage;
 import code.expressionlanguage.exec.inherits.ExecInherits;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.exec.stacks.*;
+import code.expressionlanguage.exec.util.Cache;
 import code.expressionlanguage.exec.variables.AbstractWrapper;
+import code.expressionlanguage.exec.variables.LoopVariable;
+import code.expressionlanguage.exec.variables.VariableWrapper;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.exec.variables.LocalVariable;
 import code.util.CustList;
 import code.util.StringMap;
 import code.util.core.StringUtil;
 
-public abstract class AbstractPageEl extends PageEl {
+public abstract class AbstractPageEl {
 
     protected static final String EMPTY_STRING = "";
 
@@ -46,6 +49,43 @@ public abstract class AbstractPageEl extends PageEl {
     private LoopBlockStack lastLoop;
     private IfBlockStack lastIf;
     private TryBlockStack lastTry;
+    private final PageElContent content = new PageElContent();
+    public Struct getGlobalStruct() {
+        return content.getGlobalStruct();
+    }
+    public Argument getGlobalArgument() {
+        return content.getGlobalArgument();
+    }
+    public void setGlobalArgumentStruct(Struct _obj) {
+        content.setGlobalArgumentStruct(_obj);
+    }
+
+    public void setGlobalArgument(Argument _globalArgument) {
+        content.setGlobalArgument(_globalArgument);
+    }
+
+    public StringMap<AbstractWrapper> getRefParams() {
+        return content.getRefParams();
+    }
+
+    public void putValueVar(String _key, LocalVariable _var) {
+        content.getRefParams().put(_key, new VariableWrapper(_var));
+    }
+    public StringMap<LoopVariable> getVars() {
+        return content.getVars();
+    }
+
+    public void removeRefVar(String _key) {
+        content.removeRefVar(_key);
+    }
+
+    public Cache getCache() {
+        return content.getCache();
+    }
+
+    public void setCache(Cache _cache) {
+        this.content.setCache(_cache);
+    }
 
     public final void forwardTo(AbstractPageEl _page, ContextEl _context, StackCall _stack) {
         _page.receive(wrapper, returnedArgument, _context, _stack);

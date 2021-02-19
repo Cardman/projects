@@ -3,7 +3,7 @@ package code.expressionlanguage.exec.opers;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.StackCall;
-import code.expressionlanguage.exec.calls.PageEl;
+import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
@@ -31,7 +31,7 @@ public final class ExecStdVariableOperation extends ExecLeafOperation implements
     public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes,
                           ContextEl _conf, StackCall _stack) {
         setRelOffsetPossibleLastPage(variableContent.getOff(), _stack);
-        PageEl ip_ = _stack.getLastPage();
+        AbstractPageEl ip_ = _stack.getLastPage();
         Argument arg_;
         if (resultCanBeSet()) {
             arg_ = Argument.createVoid();
@@ -88,7 +88,7 @@ public final class ExecStdVariableOperation extends ExecLeafOperation implements
     }
 
     private static Argument setVar(ContextEl _conf, String _variableName, Argument _value, int _deep, StackCall _stackCall) {
-        PageEl ip_ = _stackCall.getLastPage();
+        AbstractPageEl ip_ = _stackCall.getLastPage();
         return ExecTemplates.setWrapValue(_conf,_variableName, _value,_deep, ip_.getCache(), ip_.getRefParams(), _stackCall);
     }
 

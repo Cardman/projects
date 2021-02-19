@@ -4,7 +4,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ExecHelper;
 import code.expressionlanguage.exec.StackCall;
-import code.expressionlanguage.exec.calls.PageEl;
+import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.variables.*;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
@@ -21,7 +21,7 @@ public final class ExecWrappOperation extends ExecAbstractUnaryOperation {
         if (getFirstChild() instanceof ExecStdRefVariableOperation) {
             ExecStdRefVariableOperation ch_ = (ExecStdRefVariableOperation) getFirstChild();
             String variableName_ = ch_.getVariableContent().getVariableName();
-            PageEl ip_ = _stack.getLastPage();
+            AbstractPageEl ip_ = _stack.getLastPage();
             AbstractWrapper val_ = ExecTemplates.getWrapper(variableName_,ch_.getVariableContent().getDeep(), ip_.getCache(), _stack.getLastPage().getRefParams());
             ArgumentsPair pair_ = ExecHelper.getArgumentPair(_nodes, this);
             pair_.setWrapper(val_);
@@ -31,7 +31,7 @@ public final class ExecWrappOperation extends ExecAbstractUnaryOperation {
         if (getFirstChild() instanceof ExecStdVariableOperation) {
             ExecStdVariableOperation ch_ = (ExecStdVariableOperation) getFirstChild();
             String variableName_ = ch_.getVariableContent().getVariableName();
-            PageEl ip_ = _stack.getLastPage();
+            AbstractPageEl ip_ = _stack.getLastPage();
             AbstractWrapper val_ = ip_.getRefParams().getVal(variableName_);
             ArgumentsPair pair_ = ExecHelper.getArgumentPair(_nodes, this);
             pair_.setWrapper(val_);

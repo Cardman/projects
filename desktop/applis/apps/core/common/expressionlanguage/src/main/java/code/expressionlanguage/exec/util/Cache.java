@@ -5,7 +5,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.blocks.WithCache;
-import code.expressionlanguage.exec.calls.PageEl;
+import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.inherits.ExecInherits;
 import code.expressionlanguage.exec.variables.*;
@@ -40,7 +40,7 @@ public final class Cache {
             cacheInfo.getCacheLoopNames().add(new NameAndType(v.getName(),v.getType()));
         }
     }
-    public Cache(PageEl _cont) {
+    public Cache(AbstractPageEl _cont) {
         for (EntryCust<String, AbstractWrapper> v: _cont.getRefParams().entryList()) {
             AbstractWrapper value_ = v.getValue();
             addLocalWrapper(v.getKey(),value_);

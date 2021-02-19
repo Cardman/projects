@@ -3,7 +3,7 @@ package code.expressionlanguage.exec.opers;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.StackCall;
-import code.expressionlanguage.exec.calls.PageEl;
+import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
@@ -23,7 +23,7 @@ public final class ExecThisOperation extends ExecLeafOperation implements Atomic
     public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes,
                           ContextEl _conf, StackCall _stack) {
         setRelOffsetPossibleLastPage(thisContent.getOff(), _stack);
-        PageEl ip_ = _stack.getLastPage();
+        AbstractPageEl ip_ = _stack.getLastPage();
         Argument a_;
         if (isIntermediateDottedOperation()) {
             String c_ = getResultClass().getSingleNameOrEmpty();
