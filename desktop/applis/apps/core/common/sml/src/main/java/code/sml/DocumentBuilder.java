@@ -1075,34 +1075,25 @@ public final class DocumentBuilder {
             } else {
                 i_ = goTo(_xml, i_, GT);
             }
-            boolean begin_ = false;
-            boolean end_ = false;
+            IndentType ind_ = IndentType.MIDDLE;
             if (change_) {
                 if (_xml.charAt(index_ + 1) == SLASH) {
-                    end_ = true;
+                    ind_ = IndentType.END;
                 } else {
-                    begin_ = changeBegin(_xml, i_);
+                    ind_ = changeBegin(_xml, i_);
                 }
             }
-            if (end_) {
-                indentation_--;
-            }
-            addTab(indentation_, indented_);
-            indented_.append(_xml, index_, i_ + 1);
-            indented_.append(LINE_RETURN);
-            if (begin_) {
-                indentation_++;
-            }
+            indentation_ = incrIndent(_xml, index_, indentation_, indented_, i_, ind_);
             index_ = i_ + 1;
         }
         indented_.deleteCharAt(indented_.length() - 1);
         return indented_.toString();
     }
 
-    private static boolean changeBegin(String _xml, int _i) {
-        boolean begin_ = false;
+    private static IndentType changeBegin(String _xml, int _i) {
+        IndentType begin_ = IndentType.MIDDLE;
         if (_xml.charAt(_i - 1) != SLASH) {
-            begin_ = true;
+            begin_ = IndentType.BEGIN;
         }
         return begin_;
     }
@@ -1113,28 +1104,33 @@ public final class DocumentBuilder {
         while (index_ < _xml.length()) {
             int i_ = index_;
             i_ = goTo(_xml, i_, GT);
-            boolean begin_ = false;
-            boolean end_ = false;
+            IndentType ind_ = IndentType.MIDDLE;
             if (_xml.charAt(index_ + 1) == SLASH) {
-                end_ = true;
+                ind_ = IndentType.END;
             } else {
                 if (_xml.charAt(i_ - 1) != SLASH) {
-                    begin_ = true;
+                    ind_ = IndentType.BEGIN;
                 }
             }
-            if (end_) {
-                indentation_--;
-            }
-            addTab(indentation_, indented_);
-            indented_.append(_xml, index_, i_ + 1);
-            indented_.append(LINE_RETURN);
-            if (begin_) {
-                indentation_++;
-            }
+            indentation_ = incrIndent(_xml, index_, indentation_, indented_, i_, ind_);
             index_ = i_ + 1;
         }
         indented_.deleteCharAt(indented_.length() - 1);
         return indented_.toString();
+    }
+
+    private static int incrIndent(String _xml, int _index, int _indentation, StringBuilder _indented, int _i, IndentType _ind) {
+        int indentation_ = _indentation;
+        if (_ind == IndentType.END) {
+            indentation_--;
+        }
+        addTab(indentation_, _indented);
+        _indented.append(_xml, _index, _i + 1);
+        _indented.append(LINE_RETURN);
+        if (_ind == IndentType.BEGIN) {
+            indentation_++;
+        }
+        return indentation_;
     }
 
     private static void addTab(int _indentation, StringBuilder _indented) {
