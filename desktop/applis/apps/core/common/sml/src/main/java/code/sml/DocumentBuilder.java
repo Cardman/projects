@@ -566,11 +566,7 @@ public final class DocumentBuilder {
         int lengthAll_ = all_.getLength();
         for (int i = IndexConstants.FIRST_INDEX; i < lengthAll_; i++) {
             Node n_ = all_.item(i);
-            if (StringUtil.quickEq(((Element) n_).getAttribute(_attr),_id)) {
-                element_ = (Element) n_;
-                break;
-            }
-            if (StringUtil.quickEq(((Element) n_).getAttribute(_secAttr),_id)) {
+            if (StringUtil.quickEq(((Element) n_).getAttribute(_attr), _id) || StringUtil.quickEq(((Element) n_).getAttribute(_secAttr), _id)) {
                 element_ = (Element) n_;
                 break;
             }
