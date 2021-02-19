@@ -11,13 +11,12 @@ public final class DefaultUniformingString implements UniformingString {
         while (i_ < len_) {
             char ch_ = _input.charAt(i_);
             if (ch_ == '\r') {
-                if (i_ + 1 < len_ && _input.charAt(i_ + 1) == '\n') {
-                    str_.append('\n');
-                    i_ += 2;
-                    continue;
-                }
                 str_.append('\n');
-                i_++;
+                if (i_ + 1 < len_ && _input.charAt(i_ + 1) == '\n') {
+                    i_ += 2;
+                } else {
+                    i_++;
+                }
                 continue;
             }
             str_.append(ch_);
