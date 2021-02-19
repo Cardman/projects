@@ -1077,11 +1077,7 @@ public final class DocumentBuilder {
             }
             IndentType ind_ = IndentType.MIDDLE;
             if (change_) {
-                if (_xml.charAt(index_ + 1) == SLASH) {
-                    ind_ = IndentType.END;
-                } else {
-                    ind_ = changeBegin(_xml, i_);
-                }
+                ind_ = getIndentType(_xml, index_, i_);
             }
             indentation_ = incrIndent(_xml, index_, indentation_, indented_, i_, ind_);
             index_ = i_ + 1;
@@ -1090,13 +1086,6 @@ public final class DocumentBuilder {
         return indented_.toString();
     }
 
-    private static IndentType changeBegin(String _xml, int _i) {
-        IndentType begin_ = IndentType.MIDDLE;
-        if (_xml.charAt(_i - 1) != SLASH) {
-            begin_ = IndentType.BEGIN;
-        }
-        return begin_;
-    }
     public static String indentWithoutTextNode(String _xml) {
         int index_ = IndexConstants.FIRST_INDEX;
         int indentation_ = IndexConstants.SIZE_EMPTY;
@@ -1104,19 +1093,24 @@ public final class DocumentBuilder {
         while (index_ < _xml.length()) {
             int i_ = index_;
             i_ = goTo(_xml, i_, GT);
-            IndentType ind_ = IndentType.MIDDLE;
-            if (_xml.charAt(index_ + 1) == SLASH) {
-                ind_ = IndentType.END;
-            } else {
-                if (_xml.charAt(i_ - 1) != SLASH) {
-                    ind_ = IndentType.BEGIN;
-                }
-            }
+            IndentType ind_ = getIndentType(_xml, index_, i_);
             indentation_ = incrIndent(_xml, index_, indentation_, indented_, i_, ind_);
             index_ = i_ + 1;
         }
         indented_.deleteCharAt(indented_.length() - 1);
         return indented_.toString();
+    }
+
+    private static IndentType getIndentType(String _xml, int _index, int _i) {
+        IndentType ind_ = IndentType.MIDDLE;
+        if (_xml.charAt(_index + 1) == SLASH) {
+            ind_ = IndentType.END;
+        } else {
+            if (_xml.charAt(_i - 1) != SLASH) {
+                ind_ = IndentType.BEGIN;
+            }
+        }
+        return ind_;
     }
 
     private static int incrIndent(String _xml, int _index, int _indentation, StringBuilder _indented, int _i, IndentType _ind) {
