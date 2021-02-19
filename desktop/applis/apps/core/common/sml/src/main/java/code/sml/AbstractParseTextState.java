@@ -36,7 +36,7 @@ public abstract class AbstractParseTextState {
         input = _input;
         index = _index;
     }
-    boolean skip() {
+    boolean exit() {
         int len_ = input.length();
         char curChar_ = input.charAt(index);
         if (state == ReadingState.HEADER) {
