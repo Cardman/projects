@@ -1588,7 +1588,7 @@ public final class DocumentBuilder {
                 n_ = _root;
             }
             if (n_ != null||en_ == _root) {
-                en_ = nextSib(n_,_root);
+                en_ = FullNode.nextSib(_root, n_);
                 continue;
             }
             en_ = next(en_,_root);
@@ -1605,16 +1605,11 @@ public final class DocumentBuilder {
                 break;
             }
             n_ = en_.getParentNode();
-            en_ = nextSib(n_,_root);
+            en_ = FullNode.nextSib(_root, n_);
         }
         return en_;
     }
-    private static Node nextSib(Node _curr,Node _root) {
-        if (_curr == _root) {
-            return null;
-        }
-        return _curr;
-    }
+
     public static Ints getIndexes(Node _node) {
         Node par_ = _node.getParentNode();
         Ints indexes_ = new Ints();

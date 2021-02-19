@@ -319,7 +319,7 @@ public abstract class FullNode implements Node {
         return current_;
     }
 
-    private static Node nextSib(Node _root, Element _parent) {
+    static Node nextSib(Node _root, Node _parent) {
         if (_parent == _root) {
             return null;
         }
