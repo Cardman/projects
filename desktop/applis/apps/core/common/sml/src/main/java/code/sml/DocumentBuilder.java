@@ -1395,14 +1395,18 @@ public final class DocumentBuilder {
                     continue;
                 }
             }
-            if (delimiter_ == -1) {
-                if (spaceOrEq(ch_)) {
-                    continue;
-                }
-                str_.append(ch_);
-            }
+            tryAddChar(str_, delimiter_, ch_);
         }
         return attributes_;
+    }
+
+    private static void tryAddChar(StringBuilder _str, int _delimiter, char _ch) {
+        if (_delimiter == -1) {
+            if (spaceOrEq(_ch)) {
+                return;
+            }
+            _str.append(_ch);
+        }
     }
 
     static boolean spaceOrEq(char _ch) {
@@ -1481,8 +1485,6 @@ public final class DocumentBuilder {
                 convered_ = convered_.substring(IndexConstants.SECOND_INDEX + 1, convered_.length() - 1);
                 int intArg_ = NumberUtil.parseInt(convered_);
                 formatted_.append((char) intArg_);
-                j_++;
-                continue;
             }
             j_++;
         }

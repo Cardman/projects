@@ -376,40 +376,7 @@ public abstract class AnaRendBlock {
         return indexes_;
     }
     private static StringMap<AttributePart> getAttributes(String _html, int _from, int _to) {
-        StringMap<AttributePart> attributes_;
-        attributes_ = new StringMap<AttributePart>();
-        StringBuilder str_ = new StringBuilder();
-        int beginToken_ = _from;
-        int delimiter_ = -1;
-        for (int i = _from; i < _to; i++) {
-            char ch_ = _html.charAt(i);
-            if (delimiter_ == -1) {
-                if (ch_ == APOS) {
-                    delimiter_ = ch_;
-                    beginToken_ = i + 1;
-                } else if (ch_ == QUOT) {
-                    delimiter_ = ch_;
-                    beginToken_ = i + 1;
-                }
-            } else {
-                if (ch_ == delimiter_) {
-                    AttributePart attrPart_ = new AttributePart();
-                    attrPart_.setBegin(beginToken_);
-                    attrPart_.setEnd(i);
-                    attributes_.put(str_.toString(), attrPart_);
-                    str_ = new StringBuilder();
-                    delimiter_ = -1;
-                    continue;
-                }
-            }
-            if (delimiter_ == -1) {
-                if (StringUtil.isWhitespace(ch_) || ch_ == EQUALS) {
-                    continue;
-                }
-                str_.append(ch_);
-            }
-        }
-        return attributes_;
+        return DocumentBuilder.getAttributes(_html, _from, _to);
     }
     private static int indexOfBeginNode(Node _node, String _html, int _from) {
         if (_node instanceof Element) {

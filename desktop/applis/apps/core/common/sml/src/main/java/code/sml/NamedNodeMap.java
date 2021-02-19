@@ -3,7 +3,6 @@ package code.sml;
 import java.util.Iterator;
 
 import code.util.CustList;
-import code.util.StringList;
 import code.util.ints.Listable;
 
 public final class NamedNodeMap implements Iterable<Attr> {
