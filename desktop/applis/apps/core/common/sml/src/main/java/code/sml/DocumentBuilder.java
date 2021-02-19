@@ -921,21 +921,25 @@ public final class DocumentBuilder {
     public static String escape(String _text, boolean _quote) {
         StringBuilder escapedXml_ = new StringBuilder();
         for (char c: _text.toCharArray()) {
-            if (c == LT) {
-                escapedXml_.append(E_LT);
-                continue;
-            }
-            if (c == GT) {
-                escapedXml_.append(E_GT);
-                continue;
-            }
-            if (c == ENCODED) {
-                escapedXml_.append(E_AMP);
-                continue;
-            }
-            processDef(_quote, escapedXml_, c);
+            escape(_quote, escapedXml_, c);
         }
         return escapedXml_.toString();
+    }
+
+    private static void escape(boolean _quote, StringBuilder _escapedXml, char _c) {
+        if (_c == LT) {
+            _escapedXml.append(E_LT);
+            return;
+        }
+        if (_c == GT) {
+            _escapedXml.append(E_GT);
+            return;
+        }
+        if (_c == ENCODED) {
+            _escapedXml.append(E_AMP);
+            return;
+        }
+        processDef(_quote, _escapedXml, _c);
     }
 
     private static void processDef(boolean _quote, StringBuilder _escapedXml, char _c) {

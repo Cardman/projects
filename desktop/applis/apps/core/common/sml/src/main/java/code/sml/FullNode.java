@@ -237,7 +237,7 @@ public abstract class FullNode implements Node {
 
     private static Node appendEndTag(Node _current,Node _root, StringBuilder _str) {
         Node current_ = _current;
-        while (true) {
+        while (current_ != null) {
             Node next_ = current_.getNextSibling();
             if (next_ != null) {
                 current_ = next_;
@@ -247,11 +247,7 @@ public abstract class FullNode implements Node {
             _str.append(BEGIN_FOOTER);
             _str.append(parent_.getTagName());
             _str.append(END_TAG);
-            if (parent_ == _root) {
-                current_ = null;
-                break;
-            }
-            current_ = parent_;
+            current_ = nextSib(_root, parent_);
         }
         return current_;
     }
@@ -311,20 +307,23 @@ public abstract class FullNode implements Node {
             return ch_;
         }
         Node current_ = _current;
-        while (true) {
+        while (current_ != null) {
             Node next_ = current_.getNextSibling();
             if (next_ != null) {
                 current_ = next_;
                 break;
             }
             Element parent_ = current_.getParentNode();
-            if (parent_ == _root) {
-                current_ = null;
-                break;
-            }
-            current_ = parent_;
+            current_ = nextSib(_root, parent_);
         }
         return current_;
+    }
+
+    private static Node nextSib(Node _root, Element _parent) {
+        if (_parent == _root) {
+            return null;
+        }
+        return _parent;
     }
 
     @Override
