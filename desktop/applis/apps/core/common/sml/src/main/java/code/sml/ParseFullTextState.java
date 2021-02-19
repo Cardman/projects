@@ -2,8 +2,6 @@ package code.sml;
 
 public final class ParseFullTextState extends AbstractParseTextState {
 
-    private static final char SLASH = '/';
-
     private static final char LT_CHAR = '<';
     private static final char GT_CHAR = '>';
 
@@ -27,20 +25,7 @@ public final class ParseFullTextState extends AbstractParseTextState {
         Text attr_ = getDoc().createEscapedTextNode(currentText.toString());
         currentText.delete(0, currentText.length());
         getCurrentElement().appendChild(attr_);
-        if (getIndex() + 1 >= _len) {
-            return false;
-        }
-        if (getInput().charAt(getIndex() + 1) == SLASH) {
-            incr();
-            incr();
-            setIndexFoot(getIndex());
-            setState(ReadingState.FOOTER);
-            return true;
-        }
-        incr();
-        setState(ReadingState.HEADER);
-        setAddChild(true);
-        return true;
+        return processAfterText(_len);
     }
 
 

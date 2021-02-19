@@ -63,6 +63,23 @@ public abstract class AbstractParseTextState {
         return false;
     }
 
+    protected boolean processAfterText(int _len) {
+        if (getIndex() + 1 >= _len) {
+            return false;
+        }
+        if (getInput().charAt(getIndex() + 1) == SLASH) {
+            incr();
+            incr();
+            setIndexFoot(getIndex());
+            setState(ReadingState.FOOTER);
+            return true;
+        }
+        incr();
+        setState(ReadingState.HEADER);
+        setAddChild(true);
+        return true;
+    }
+
     private boolean processHeader(int _len, char _curChar) {
         if (directResChar2(_curChar)) {
             return false;
@@ -95,44 +112,7 @@ public abstract class AbstractParseTextState {
     }
 
     private boolean processEndHeaderTag(int _len) {
-        Element element_ = doc.createElement(tagName.toString());
-        element_.setAttributes(new NamedNodeMap(attrs));
-        attrs = new CustList<Attr>();
-        appendChFull(doc, currentElement, element_);
-        if (addChild) {
-            currentElement = element_;
-            stack.add(tagName.append(GT_CHAR).toString());
-        } else {
-            if (stack.isEmpty()) {
-                finished = true;
-                return false;
-            }
-        }
-        tagName.delete(IndexConstants.FIRST_INDEX, tagName.length());
-        if (index + 2 >= _len) {
-            return false;
-        }
-        if (input.charAt(index + 1) == LT_CHAR) {
-            if (input.charAt(index + 2) == SLASH) {
-                index++;
-                //input.charAt(index) == '<'
-                index++;
-                //input.charAt(index) == '/'
-                index++;
-                //input.charAt(index) is the first character of end tag
-                state = ReadingState.FOOTER;
-                indexFoot = index;
-                return true;
-            }
-            index++;
-            index++;
-            state = ReadingState.HEADER;
-            addChild = true;
-            return true;
-        }
-        state = ReadingState.TEXT;
-        index++;
-        return true;
+        return endTagCommon(_len);
     }
 
     private boolean processSpace(int _len) {
@@ -275,6 +255,10 @@ public abstract class AbstractParseTextState {
     }
 
     private boolean processLastAttrValue(int _len) {
+        return endTagCommon(_len);
+    }
+
+    private boolean endTagCommon(int _len) {
         Element element_ = doc.createElement(tagName.toString());
         element_.setAttributes(new NamedNodeMap(attrs));
         attrs = new CustList<Attr>();
@@ -304,10 +288,10 @@ public abstract class AbstractParseTextState {
                 indexFoot = index;
                 return true;
             }
+            index++;
+            index++;
             state = ReadingState.HEADER;
             addChild = true;
-            index++;
-            index++;
             return true;
         }
         state = ReadingState.TEXT;
