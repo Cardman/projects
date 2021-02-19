@@ -211,6 +211,5 @@ public class DocReqTest extends EquallableRowColUtil {
         assertTrue(!t_.hasAttributes());
         assertEq(0,t_.getChildElements().size());
         assertEq(0,t_.getChildNodes().size());
-        assertNull(t_.getAttributes());
     }
 }

@@ -17,8 +17,28 @@ public abstract class FullNode implements Node {
 
     private Element parentNode;
 
+    private String tagName = "";
+
+    private NamedNodeMap attributes = new NamedNodeMap();
+
     protected FullNode(Document _ownerDocument) {
         ownerDocument = _ownerDocument;
+    }
+
+    public String getTagName() {
+        return tagName;
+    }
+
+    public void setTagName(String _tagName) {
+        tagName = _tagName;
+    }
+
+    public NamedNodeMap getAttributes() {
+        return attributes;
+    }
+
+    public void setAttributes(NamedNodeMap _attributes) {
+        attributes = _attributes;
     }
 
     public String getAttribute(String _name) {

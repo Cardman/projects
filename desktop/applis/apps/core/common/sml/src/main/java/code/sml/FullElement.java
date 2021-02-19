@@ -2,32 +2,8 @@ package code.sml;
 
 public final class FullElement extends NavigableNode implements Element {
 
-    private String tagName;
-
-    private NamedNodeMap attributes = new NamedNodeMap();
-
     protected FullElement(Document _ownerDocument) {
         super(_ownerDocument);
-    }
-
-    @Override
-    public String getTagName() {
-        return tagName;
-    }
-
-    @Override
-    public void setTagName(String _tagName) {
-        tagName = _tagName;
-    }
-
-    @Override
-    public NamedNodeMap getAttributes() {
-        return attributes;
-    }
-
-    @Override
-    public void setAttributes(NamedNodeMap _attributes) {
-        attributes = _attributes;
     }
 
     @Override
@@ -182,7 +158,7 @@ public final class FullElement extends NavigableNode implements Element {
 
     @Override
     public boolean hasAttributes() {
-        return !attributes.isEmpty();
+        return !getAttributes().isEmpty();
     }
 
 }

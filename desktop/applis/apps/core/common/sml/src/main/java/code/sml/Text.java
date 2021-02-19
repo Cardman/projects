@@ -65,11 +65,6 @@ public final class Text extends NavigableNode {
     }
 
     @Override
-    public NamedNodeMap getAttributes() {
-        return null;
-    }
-
-    @Override
     public ElementList getChildElements() {
         return new ElementList();
     }
