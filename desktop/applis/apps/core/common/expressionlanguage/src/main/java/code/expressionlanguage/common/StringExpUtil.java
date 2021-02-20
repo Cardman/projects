@@ -1466,7 +1466,6 @@ public final class StringExpUtil {
             return new StringList();
         }
         StringList ret_ = new StringList();
-        boolean wasWordChar_ = false;
         int i_ = IndexConstants.FIRST_INDEX;
         StringBuilder str_ = new StringBuilder();
         while (true) {
@@ -1480,29 +1479,7 @@ public final class StringExpUtil {
             }
             i_++;
         }
-        while (true) {
-            if (i_ >= _str.length()) {
-                ret_.add(str_.toString());
-                break;
-            }
-            char char_ = _str.charAt(i_);
-            if (isDollarWordChar(char_)) {
-                if (!wasWordChar_) {
-                    ret_.add(str_.toString());
-                    str_ = new StringBuilder();
-                    wasWordChar_ = true;
-                }
-            } else {
-                if (wasWordChar_) {
-                    ret_.add(str_.toString());
-                    str_ = new StringBuilder();
-                    wasWordChar_ = false;
-                }
-            }
-            str_.append(char_);
-            i_++;
-        }
-        return ret_;
+        return new AdvWordSplit().loop(_str,ret_,i_,str_);
     }
 
     public static boolean isDollarWord(String _string) {

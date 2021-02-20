@@ -74,15 +74,11 @@ public final class MathExpUtil {
                 } else {
                     newList_.add(t);
                 }
-                i_++;
-                continue;
-            }
-            if (t.startsWith(_prefixWord)) {
+            } else if (t.startsWith(_prefixWord)) {
                 newList_.add(t);
-                i_++;
-                continue;
+            } else {
+                newList_.set(newList_.getLastIndex(), StringUtil.concat(newList_.last(), t));
             }
-            newList_.set(newList_.getLastIndex(),StringUtil.concat(newList_.last(),t));
             i_++;
         }
         return newList_;
@@ -110,43 +106,24 @@ public final class MathExpUtil {
             return new StringList();
         }
         StringList ret_ = new StringList();
-        boolean wasWordChar_ = false;
         int i_ = IndexConstants.FIRST_INDEX;
-        StringBuilder str_ = new StringBuilder();
+        StringBuilder strBuild_ = new StringBuilder();
         while (true) {
             if (i_ >= _str.length()) {
                 ret_.add(_str);
                 return ret_;
             }
             if (isWordChar(_str.charAt(i_))) {
-                str_.append(_str, IndexConstants.FIRST_INDEX, i_);
+                strBuild_.append(_str, IndexConstants.FIRST_INDEX, i_);
                 break;
             }
             i_++;
         }
-        while (true) {
-            if (i_ >= _str.length()) {
-                ret_.add(str_.toString());
-                break;
-            }
-            char char_ = _str.charAt(i_);
-            if (isWordChar(char_)) {
-                if (!wasWordChar_) {
-                    ret_.add(str_.toString());
-                    str_ = new StringBuilder();
-                    wasWordChar_ = true;
-                }
-            } else {
-                if (wasWordChar_) {
-                    ret_.add(str_.toString());
-                    str_ = new StringBuilder();
-                    wasWordChar_ = false;
-                }
-            }
-            str_.append(char_);
-            i_++;
-        }
-        return ret_;
+        return loop(_str, ret_, i_, strBuild_);
+    }
+
+    private static StringList loop(String _str, StringList _ret, int _i, StringBuilder _strBuild) {
+        return new DefaultWordSplit().loop(_str, _ret, _i, _strBuild);
     }
 
     public static boolean isWordChar(char _char) {
