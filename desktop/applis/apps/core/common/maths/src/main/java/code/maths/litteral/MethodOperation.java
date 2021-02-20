@@ -1,7 +1,5 @@
 package code.maths.litteral;
 import code.util.CustList;
-import code.util.*;
-import code.util.StringMap;
 
 public abstract class MethodOperation extends OperationNode {
 
@@ -9,8 +7,8 @@ public abstract class MethodOperation extends OperationNode {
 
     private final StrTypes children;
 
-    public MethodOperation(String _el, int _index, StringMap<String> _importingPage, int _indexChild, MethodOperation _m, OperationsSequence _op) {
-        super(_el, _index, _importingPage, _indexChild, _m, _op);
+    protected MethodOperation(int _index, int _indexChild, MethodOperation _m, OperationsSequence _op) {
+        super(_index, _indexChild, _m, _op);
         children = new StrTypes();
         calculateChildren();
     }
@@ -34,6 +32,10 @@ public abstract class MethodOperation extends OperationNode {
             firstChild = _child;
             return;
         }
+        tryAppend(_child);
+    }
+
+    private void tryAppend(OperationNode _child) {
         OperationNode child_ = firstChild;
         while (true) {
             OperationNode sibling_ = child_.getNextSibling();
@@ -44,6 +46,7 @@ public abstract class MethodOperation extends OperationNode {
             child_ = sibling_;
         }
     }
+
     public final StrTypes getChildren() {
         return children;
     }

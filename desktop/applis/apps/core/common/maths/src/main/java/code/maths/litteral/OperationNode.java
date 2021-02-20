@@ -15,8 +15,6 @@ abstract class OperationNode {
 
     protected static final String NEG_BOOL = "!";
 
-    protected static final String UNARY_PLUS = "+";
-
     protected static final String UNARY_MINUS = "-";
 
     protected static final String MULT = "*";
@@ -117,7 +115,7 @@ abstract class OperationNode {
     private MathType resultClass;
 
 
-    OperationNode(String _el, int _indexInEl, StringMap<String> _importingPage, int _indexChild, MethodOperation _m, OperationsSequence _op) {
+    OperationNode(int _indexInEl, int _indexChild, MethodOperation _m, OperationsSequence _op) {
         parent = _m;
         indexInEl = _indexInEl;
         operations = _op;
@@ -127,42 +125,50 @@ abstract class OperationNode {
     abstract void analyze(StringMap<String> _conf, ErrorStatus _error);
     abstract void calculate(StringMap<String> _conf, ErrorStatus _error);
 
-    static OperationNode createOperationNode(String _el, int _index, StringMap<String> _conf,
-            int _indexChild, MethodOperation _m, OperationsSequence _op) {
+    static OperationNode createOperationNode(int _index,
+                                             int _indexChild, MethodOperation _m, OperationsSequence _op) {
         if (_op.getOperators().isEmpty()) {
-            return new ConstantOperation(_el, _index, _conf, _indexChild, _m, _op);
+            return new ConstantOperation(_index, _indexChild, _m, _op);
         }
         if (_op.getPriority() == MathResolver.FCT_OPER_PRIO) {
-            if (_op.getFctName().trim().isEmpty()) {
-                return new IdOperation(_el, _index, _conf, _indexChild, _m, _op);
-            }
-            return new FctOperation(_el, _index, _conf, _indexChild, _m, _op);
+            return procFct(_index, _indexChild, _m, _op);
         }
         if (_op.getPriority() == MathResolver.UNARY_PRIO) {
-            if (StringUtil.quickEq(_op.getOperators().firstValue().trim(), NEG_BOOL)) {
-                return new UnaryBooleanOperation(_el, _index, _conf, _indexChild, _m, _op);
-            }
-            return new UnaryOperation(_el, _index, _conf, _indexChild, _m, _op);
+            return procUnary(_index, _indexChild, _m, _op);
         }
         if (_op.getPriority() == MathResolver.MULT_PRIO) {
-            return new MultOperation(_el, _index, _conf, _indexChild, _m, _op);
+            return new MultOperation(_index, _indexChild, _m, _op);
         }
         if (_op.getPriority() == MathResolver.ADD_PRIO) {
-            return new AddOperation(_el, _index, _conf, _indexChild, _m, _op);
+            return new AddOperation(_index, _indexChild, _m, _op);
         }
         if (_op.getPriority() == MathResolver.CMP_PRIO) {
-            return new CmpOperation(_el, _index, _conf, _indexChild, _m, _op);
+            return new CmpOperation(_index, _indexChild, _m, _op);
         }
         if (_op.getPriority() == MathResolver.EQ_PRIO) {
-            return new EqOperation(_el, _index, _conf, _indexChild, _m, _op);
+            return new EqOperation(_index, _indexChild, _m, _op);
         }
         if (_op.getPriority() == MathResolver.AND_PRIO) {
-            return new AndOperation(_el, _index, _conf, _indexChild, _m, _op);
+            return new AndOperation(_index, _indexChild, _m, _op);
         }
         if (_op.getPriority() == MathResolver.OR_PRIO) {
-            return new OrOperation(_el, _index, _conf, _indexChild, _m, _op);
+            return new OrOperation(_index, _indexChild, _m, _op);
         }
         return null;
+    }
+
+    private static PrimitiveBoolOperation procUnary(int _index, int _indexChild, MethodOperation _m, OperationsSequence _op) {
+        if (StringUtil.quickEq(_op.getOperators().firstValue().trim(), NEG_BOOL)) {
+            return new UnaryBooleanOperation(_index, _indexChild, _m, _op);
+        }
+        return new UnaryOperation(_index, _indexChild, _m, _op);
+    }
+
+    private static MethodOperation procFct(int _index, int _indexChild, MethodOperation _m, OperationsSequence _op) {
+        if (_op.getFctName().trim().isEmpty()) {
+            return new IdOperation(_index, _indexChild, _m, _op);
+        }
+        return new FctOperation(_index, _indexChild, _m, _op);
     }
 
     public final OperationNode getNextSibling() {

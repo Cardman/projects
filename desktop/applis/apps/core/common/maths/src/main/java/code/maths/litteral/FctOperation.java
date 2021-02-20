@@ -3,7 +3,6 @@ import code.maths.LgInt;
 import code.maths.MathList;
 import code.maths.Rate;
 import code.util.CustList;
-import code.util.*;
 import code.util.StringMap;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
@@ -13,649 +12,163 @@ public final class FctOperation extends InvokingOperation {
     private static final int THREE_ARGUMENTS = 3;
     private final String methodName;
 
-    public FctOperation(String _el, int _index, StringMap<String> _importingPage,
-            int _indexChild, MethodOperation _m, OperationsSequence _op) {
-        super(_el, _index, _importingPage, _indexChild, _m, _op);
+    public FctOperation(int _index,
+                        int _indexChild, MethodOperation _m, OperationsSequence _op) {
+        super(_index, _indexChild, _m, _op);
         methodName = getOperations().getFctName().trim();
     }
 
     @Override
     void analyze(StringMap<String> _conf, ErrorStatus _error) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
-        if (StringUtil.quickEq(methodName,PUIS)) {
-            if (chidren_.size() != 2) {
-                _error.setIndex(getIndexInEl());
-                _error.setError(true);
-                return;
-            }
-            if (chidren_.first().getResultClass() != MathType.RATE) {
-                _error.setIndex(getIndexInEl());
-                _error.setError(true);
-                return;
-            } else if (chidren_.last().getResultClass() != MathType.RATE) {
-                _error.setIndex(getIndexInEl());
-                _error.setError(true);
-                return;
-            }
-            setResultClass(MathType.RATE);
+        if (checkBinNum()) {
+            checkBinary(_error, chidren_, MathType.RATE, MathType.RATE);
             return;
         }
-        if (StringUtil.quickEq(methodName,QUOT)) {
-            if (chidren_.size() != 2) {
-                _error.setIndex(getIndexInEl());
-                _error.setError(true);
-                return;
-            }
-            if (chidren_.first().getResultClass() != MathType.RATE) {
-                _error.setIndex(getIndexInEl());
-                _error.setError(true);
-                return;
-            } else if (chidren_.last().getResultClass() != MathType.RATE) {
-                _error.setIndex(getIndexInEl());
-                _error.setError(true);
-                return;
-            }
-            setResultClass(MathType.RATE);
+        if (processUnaryNum()) {
+            checkUnary(_error, chidren_, MathType.RATE);
             return;
         }
-        if (StringUtil.quickEq(methodName,MOD)) {
-            if (chidren_.size() != 2) {
-                _error.setIndex(getIndexInEl());
-                _error.setError(true);
-                return;
-            }
-            if (chidren_.first().getResultClass() != MathType.RATE) {
-                _error.setIndex(getIndexInEl());
-                _error.setError(true);
-                return;
-            } else if (chidren_.last().getResultClass() != MathType.RATE) {
-                _error.setIndex(getIndexInEl());
-                _error.setError(true);
-                return;
-            }
-            setResultClass(MathType.RATE);
+        if (procStatis()) {
+            processStat(_error, chidren_);
             return;
         }
-        if (StringUtil.quickEq(methodName,MODTAUX)) {
-            if (chidren_.size() != 2) {
-                _error.setIndex(getIndexInEl());
-                _error.setError(true);
-                return;
-            }
-            if (chidren_.first().getResultClass() != MathType.RATE) {
-                _error.setIndex(getIndexInEl());
-                _error.setError(true);
-                return;
-            } else if (chidren_.last().getResultClass() != MathType.RATE) {
-                _error.setIndex(getIndexInEl());
-                _error.setError(true);
-                return;
-            }
-            setResultClass(MathType.RATE);
+        if (processInterval()) {
+            processInterval(_error, chidren_);
             return;
         }
-        if (StringUtil.quickEq(methodName,DIV_FCT)){
-            if (chidren_.size() != 2) {
-                _error.setIndex(getIndexInEl());
-                _error.setError(true);
-                return;
-            }
-            if (chidren_.first().getResultClass() != MathType.RATE) {
-                _error.setIndex(getIndexInEl());
-                _error.setError(true);
-                return;
-            } else if (chidren_.last().getResultClass() != MathType.RATE) {
-                _error.setIndex(getIndexInEl());
-                _error.setError(true);
-                return;
-            }
-            setResultClass(MathType.RATE);
-            return;
-        }
-        //valeur absolue
-        if (StringUtil.quickEq(methodName,ABS)){
-            if (chidren_.size() != 1) {
-                _error.setIndex(getIndexInEl());
-                _error.setError(true);
-                return;
-            }
-            if (chidren_.first().getResultClass() != MathType.RATE) {
-                _error.setIndex(getIndexInEl());
-                _error.setError(true);
-                return;
-            }
-            setResultClass(MathType.RATE);
-            return;
-        }
-        //partie entiere
-        if (StringUtil.quickEq(methodName,ENT)){
-            if (chidren_.size() != 1) {
-                _error.setIndex(getIndexInEl());
-                _error.setError(true);
-                return;
-            }
-            if (chidren_.first().getResultClass() != MathType.RATE) {
-                _error.setIndex(getIndexInEl());
-                _error.setError(true);
-                return;
-            }
-            setResultClass(MathType.RATE);
-            return;
-        }
-        //troncature vers l'entier en valeur absolue le plus proche
-        //exemples:
-        //troncature(32/10)=3,troncature(35/10)=3,troncature(37/10)=3,troncature(4)=4
-        //troncature(-2)=-2,troncature(-21/10)=-2,troncature(-25/10)=-2,troncature(-26/10)=-2
-        if (StringUtil.quickEq(methodName,TRONC)){
-            if (chidren_.size() != 1) {
-                _error.setIndex(getIndexInEl());
-                _error.setError(true);
-                return;
-            }
-            if (chidren_.first().getResultClass() != MathType.RATE) {
-                _error.setIndex(getIndexInEl());
-                _error.setError(true);
-                return;
-            }
-            setResultClass(MathType.RATE);
-            return;
-        }
-        //numerateur
-        if (StringUtil.quickEq(methodName,NUM)){
-            if (chidren_.size() != 1) {
-                _error.setIndex(getIndexInEl());
-                _error.setError(true);
-                return;
-            }
-            if (chidren_.first().getResultClass() != MathType.RATE) {
-                _error.setIndex(getIndexInEl());
-                _error.setError(true);
-                return;
-            }
-            setResultClass(MathType.RATE);
-            return;
-        }
-        //denominateur
-        if (StringUtil.quickEq(methodName,DEN)){
-            if (chidren_.size() != 1) {
-                _error.setIndex(getIndexInEl());
-                _error.setError(true);
-                return;
-            }
-            if (chidren_.first().getResultClass() != MathType.RATE) {
-                _error.setIndex(getIndexInEl());
-                _error.setError(true);
-                return;
-            }
-            setResultClass(MathType.RATE);
-            return;
-        }
-        if (StringUtil.quickEq(methodName,SGN)){
-            if (chidren_.size() != 1) {
-                _error.setIndex(getIndexInEl());
-                _error.setError(true);
-                return;
-            }
-            if (chidren_.first().getResultClass() != MathType.RATE) {
-                _error.setIndex(getIndexInEl());
-                _error.setError(true);
-                return;
-            }
-            setResultClass(MathType.RATE);
-            return;
-        }
-        if (StringUtil.quickEq(methodName,MIN)){
-            if (chidren_.isEmpty()) {
-                _error.setIndex(getIndexInEl());
-                _error.setError(true);
-                return;
-            }
-            for(OperationNode a:chidren_){
-                if (a.getResultClass() != MathType.RATE) {
-                    _error.setIndex(getIndexInEl());
-                    _error.setError(true);
-                    return;
-                }
-            }
-            setResultClass(MathType.RATE);
-            return;
-        }
-        //maximum
-        if (StringUtil.quickEq(methodName,MAX)){
-            if (chidren_.isEmpty()) {
-                _error.setIndex(getIndexInEl());
-                _error.setError(true);
-                return;
-            }
-            for(OperationNode a:chidren_){
-                if (a.getResultClass() != MathType.RATE) {
-                    _error.setIndex(getIndexInEl());
-                    _error.setError(true);
-                    return;
-                }
-            }
-            setResultClass(MathType.RATE);
-            return;
-        }
-        //moyenne
-        if (StringUtil.quickEq(methodName,MOY)){
-            if (chidren_.isEmpty()) {
-                _error.setIndex(getIndexInEl());
-                _error.setError(true);
-                return;
-            }
-            for(OperationNode a:chidren_){
-                if (a.getResultClass() != MathType.RATE) {
-                    _error.setIndex(getIndexInEl());
-                    _error.setError(true);
-                    return;
-                }
-            }
-            setResultClass(MathType.RATE);
-            return;
-        }
-        //variance
-        if (StringUtil.quickEq(methodName,VAR)){
-            if (chidren_.isEmpty()) {
-                _error.setIndex(getIndexInEl());
-                _error.setError(true);
-                return;
-            }
-            for(OperationNode a:chidren_){
-                if (a.getResultClass() != MathType.RATE) {
-                    _error.setIndex(getIndexInEl());
-                    _error.setError(true);
-                    return;
-                }
-            }
-            setResultClass(MathType.RATE);
-            return;
-        }
-        //segment
-        if (StringUtil.quickEq(methodName,CARAC_FERME)){
-            if (chidren_.size() != THREE_ARGUMENTS) {
-                _error.setIndex(getIndexInEl());
-                _error.setError(true);
-                return;
-            }
-            if (chidren_.first().getResultClass() != MathType.RATE) {
-                _error.setIndex(getIndexInEl());
-                _error.setError(true);
-                return;
-            } else if (chidren_.get(IndexConstants.SECOND_INDEX).getResultClass() != MathType.RATE) {
-                _error.setIndex(getIndexInEl());
-                _error.setError(true);
-                return;
-            } else if (chidren_.last().getResultClass() != MathType.RATE) {
-                _error.setIndex(getIndexInEl());
-                _error.setError(true);
-                return;
-            }
-            setResultClass(MathType.RATE);
-            return;
-        }
-        //ouvert borne
-        if (StringUtil.quickEq(methodName,CARAC_OUVERT)){
-            if (chidren_.size() != THREE_ARGUMENTS) {
-                _error.setIndex(getIndexInEl());
-                _error.setError(true);
-                return;
-            }
-            if (chidren_.first().getResultClass() != MathType.RATE) {
-                _error.setIndex(getIndexInEl());
-                _error.setError(true);
-                return;
-            } else if (chidren_.get(IndexConstants.SECOND_INDEX).getResultClass() != MathType.RATE) {
-                _error.setIndex(getIndexInEl());
-                _error.setError(true);
-                return;
-            } else if (chidren_.last().getResultClass() != MathType.RATE) {
-                _error.setIndex(getIndexInEl());
-                _error.setError(true);
-                return;
-            }
-            setResultClass(MathType.RATE);
-            return;
-        }
-        //semi ouvert gauche borne
-        if (StringUtil.quickEq(methodName,CARAC_SEMI_OUVERT_G)){
-            if (chidren_.size() != THREE_ARGUMENTS) {
-                _error.setIndex(getIndexInEl());
-                _error.setError(true);
-                return;
-            }
-            if (chidren_.first().getResultClass() != MathType.RATE) {
-                _error.setIndex(getIndexInEl());
-                _error.setError(true);
-                return;
-            } else if (chidren_.get(IndexConstants.SECOND_INDEX).getResultClass() != MathType.RATE) {
-                _error.setIndex(getIndexInEl());
-                _error.setError(true);
-                return;
-            } else if (chidren_.last().getResultClass() != MathType.RATE) {
-                _error.setIndex(getIndexInEl());
-                _error.setError(true);
-                return;
-            }
-            setResultClass(MathType.RATE);
-            return;
-        }
-        //semi ouvert droite borne
-        if (StringUtil.quickEq(methodName,CARAC_SEMI_OUVERT_D)){
-            if (chidren_.size() != THREE_ARGUMENTS) {
-                _error.setIndex(getIndexInEl());
-                _error.setError(true);
-                return;
-            }
-            if (chidren_.first().getResultClass() != MathType.RATE) {
-                _error.setIndex(getIndexInEl());
-                _error.setError(true);
-                return;
-            } else if (chidren_.get(IndexConstants.SECOND_INDEX).getResultClass() != MathType.RATE) {
-                _error.setIndex(getIndexInEl());
-                _error.setError(true);
-                return;
-            } else if (chidren_.last().getResultClass() != MathType.RATE) {
-                _error.setIndex(getIndexInEl());
-                _error.setError(true);
-                return;
-            }
-            setResultClass(MathType.RATE);
-            return;
-        }
-        //ouvert droite minore
-        if (StringUtil.quickEq(methodName,CARAC_DROITE_OUVERT)){
-            if (chidren_.size() != 2) {
-                _error.setIndex(getIndexInEl());
-                _error.setError(true);
-                return;
-            }
-            if (chidren_.first().getResultClass() != MathType.RATE) {
-                _error.setIndex(getIndexInEl());
-                _error.setError(true);
-                return;
-            } else if (chidren_.last().getResultClass() != MathType.RATE) {
-                _error.setIndex(getIndexInEl());
-                _error.setError(true);
-                return;
-            }
-            setResultClass(MathType.RATE);
-            return;
-        }
-        //ferme droite minore
-        if (StringUtil.quickEq(methodName,CARAC_DROITE_FERME)){
-            if (chidren_.size() != 2) {
-                _error.setIndex(getIndexInEl());
-                _error.setError(true);
-                return;
-            }
-            if (chidren_.first().getResultClass() != MathType.RATE) {
-                _error.setIndex(getIndexInEl());
-                _error.setError(true);
-                return;
-            } else if (chidren_.last().getResultClass() != MathType.RATE) {
-                _error.setIndex(getIndexInEl());
-                _error.setError(true);
-                return;
-            }
-            setResultClass(MathType.RATE);
-            return;
-        }
-        //ouvert droite majore
-        if (StringUtil.quickEq(methodName,CARAC_GAUCHE_OUVERT)){
-            if (chidren_.size() != 2) {
-                _error.setIndex(getIndexInEl());
-                _error.setError(true);
-                return;
-            }
-            if (chidren_.first().getResultClass() != MathType.RATE) {
-                _error.setIndex(getIndexInEl());
-                _error.setError(true);
-                return;
-            } else if (chidren_.last().getResultClass() != MathType.RATE) {
-                _error.setIndex(getIndexInEl());
-                _error.setError(true);
-                return;
-            }
-            setResultClass(MathType.RATE);
-            return;
-        }
-        //ferme gauche majore
-        if (StringUtil.quickEq(methodName,CARAC_GAUCHE_FERME)){
-            if (chidren_.size() != 2) {
-                _error.setIndex(getIndexInEl());
-                _error.setError(true);
-                return;
-            }
-            if (chidren_.first().getResultClass() != MathType.RATE) {
-                _error.setIndex(getIndexInEl());
-                _error.setError(true);
-                return;
-            } else if (chidren_.last().getResultClass() != MathType.RATE) {
-                _error.setIndex(getIndexInEl());
-                _error.setError(true);
-                return;
-            }
-            setResultClass(MathType.RATE);
+        if (processBinInterval()) {
+            checkBinary(_error, chidren_, MathType.RATE, MathType.RATE);
             return;
         }
         if (StringUtil.quickEq(methodName,CARD)){
-            if (chidren_.size() != 1) {
-                _error.setIndex(getIndexInEl());
-                _error.setError(true);
-                return;
-            }
-            if (chidren_.first().getResultClass() != MathType.SET) {
-                _error.setIndex(getIndexInEl());
-                _error.setError(true);
-                return;
-            }
-            setResultClass(MathType.RATE);
+            checkUnary(_error, chidren_, MathType.SET);
             return;
         }
-        if (StringUtil.quickEq(methodName,INTER)){
-            if (chidren_.size() != 2) {
-                _error.setIndex(getIndexInEl());
-                _error.setError(true);
-                return;
-            }
-            if (chidren_.first().getResultClass() != MathType.SET) {
-                _error.setIndex(getIndexInEl());
-                _error.setError(true);
-                return;
-            } else if (chidren_.last().getResultClass() != MathType.SET) {
-                _error.setIndex(getIndexInEl());
-                _error.setError(true);
-                return;
-            }
-            setResultClass(MathType.SET);
+        if (checkBinSet()) {
+            checkBinary(_error, chidren_, MathType.SET, MathType.SET);
             return;
         }
-        if (StringUtil.quickEq(methodName,UNION)){
-            if (chidren_.size() != 2) {
-                _error.setIndex(getIndexInEl());
-                _error.setError(true);
-                return;
-            }
-            if (chidren_.first().getResultClass() != MathType.SET) {
-                _error.setIndex(getIndexInEl());
-                _error.setError(true);
-                return;
-            } else if (chidren_.last().getResultClass() != MathType.SET) {
-                _error.setIndex(getIndexInEl());
-                _error.setError(true);
-                return;
-            }
-            setResultClass(MathType.SET);
-            return;
-        }
-        if (StringUtil.quickEq(methodName,COMPL)){
-            if (chidren_.size() != 2) {
-                _error.setIndex(getIndexInEl());
-                _error.setError(true);
-                return;
-            }
-            if (chidren_.first().getResultClass() != MathType.SET) {
-                _error.setIndex(getIndexInEl());
-                _error.setError(true);
-                return;
-            } else if (chidren_.last().getResultClass() != MathType.SET) {
-                _error.setIndex(getIndexInEl());
-                _error.setError(true);
-                return;
-            }
-            setResultClass(MathType.SET);
-            return;
-        }
-        if (StringUtil.quickEq(methodName,INCL)){
-            if (chidren_.size() != 2) {
-                _error.setIndex(getIndexInEl());
-                _error.setError(true);
-                return;
-            }
-            if (chidren_.first().getResultClass() != MathType.SET) {
-                _error.setIndex(getIndexInEl());
-                _error.setError(true);
-                return;
-            } else if (chidren_.last().getResultClass() != MathType.SET) {
-                _error.setIndex(getIndexInEl());
-                _error.setError(true);
-                return;
-            }
-            setResultClass(MathType.RATE);
-            return;
-        }
-        if (StringUtil.quickEq(methodName,NON_INCL)){
-            if (chidren_.size() != 2) {
-                _error.setIndex(getIndexInEl());
-                _error.setError(true);
-                return;
-            }
-            if (chidren_.first().getResultClass() != MathType.SET) {
-                _error.setIndex(getIndexInEl());
-                _error.setError(true);
-                return;
-            } else if (chidren_.last().getResultClass() != MathType.SET) {
-                _error.setIndex(getIndexInEl());
-                _error.setError(true);
-                return;
-            }
-            setResultClass(MathType.RATE);
-            return;
-        }
-        if (StringUtil.quickEq(methodName,EQ_NUM)){
-            if (chidren_.size() != 2) {
-                _error.setIndex(getIndexInEl());
-                _error.setError(true);
-                return;
-            }
-            if (chidren_.first().getResultClass() != MathType.SET) {
-                _error.setIndex(getIndexInEl());
-                _error.setError(true);
-                return;
-            } else if (chidren_.last().getResultClass() != MathType.SET) {
-                _error.setIndex(getIndexInEl());
-                _error.setError(true);
-                return;
-            }
-            setResultClass(MathType.RATE);
-            return;
-        }
-        if (StringUtil.quickEq(methodName,NON_EQ_NUM)){
-            if (chidren_.size() != 2) {
-                _error.setIndex(getIndexInEl());
-                _error.setError(true);
-                return;
-            }
-            if (chidren_.first().getResultClass() != MathType.SET) {
-                _error.setIndex(getIndexInEl());
-                _error.setError(true);
-                return;
-            } else if (chidren_.last().getResultClass() != MathType.SET) {
-                _error.setIndex(getIndexInEl());
-                _error.setError(true);
-                return;
-            }
-            setResultClass(MathType.RATE);
+        if (checkBinSet2()) {
+            checkBinary(_error, chidren_, MathType.SET, MathType.RATE);
             return;
         }
         _error.setIndex(getIndexInEl());
         _error.setError(true);
     }
+
+    private boolean checkBinSet2() {
+        return StringUtil.quickEq(methodName, INCL) || StringUtil.quickEq(methodName, NON_INCL) || StringUtil.quickEq(methodName, EQ_NUM) || StringUtil.quickEq(methodName, NON_EQ_NUM);
+    }
+
+    private boolean checkBinSet() {
+        return StringUtil.quickEq(methodName, INTER) || StringUtil.quickEq(methodName, UNION) || StringUtil.quickEq(methodName, COMPL);
+    }
+
+    private boolean processBinInterval() {
+        return StringUtil.quickEq(methodName, CARAC_DROITE_OUVERT) || StringUtil.quickEq(methodName, CARAC_DROITE_FERME) || StringUtil.quickEq(methodName, CARAC_GAUCHE_OUVERT) || StringUtil.quickEq(methodName, CARAC_GAUCHE_FERME);
+    }
+
+    private boolean processInterval() {
+        return StringUtil.quickEq(methodName, CARAC_FERME) || StringUtil.quickEq(methodName, CARAC_OUVERT) || StringUtil.quickEq(methodName, CARAC_SEMI_OUVERT_G) || StringUtil.quickEq(methodName, CARAC_SEMI_OUVERT_D);
+    }
+
+    private boolean procStatis() {
+        return StringUtil.quickEq(methodName, MIN) || StringUtil.quickEq(methodName, MAX) || StringUtil.quickEq(methodName, MOY) || StringUtil.quickEq(methodName, VAR);
+    }
+
+    private boolean processUnaryNum() {
+        return processUnaryNum2() || StringUtil.quickEq(methodName, NUM) || StringUtil.quickEq(methodName, DEN) || StringUtil.quickEq(methodName, SGN);
+    }
+
+    private boolean processUnaryNum2() {
+        return StringUtil.quickEq(methodName, ABS) || StringUtil.quickEq(methodName, ENT) || StringUtil.quickEq(methodName, TRONC);
+    }
+
+    private boolean checkBinNum() {
+        return checkBinNum2() || StringUtil.quickEq(methodName, MODTAUX) || StringUtil.quickEq(methodName, DIV_FCT);
+    }
+
+    private boolean checkBinNum2() {
+        return StringUtil.quickEq(methodName, PUIS) || StringUtil.quickEq(methodName, QUOT) || StringUtil.quickEq(methodName, MOD);
+    }
+
+    private void processInterval(ErrorStatus _error, CustList<OperationNode> _chidren) {
+        if (processSets(_chidren)) {
+            _error.setIndex(getIndexInEl());
+            _error.setError(true);
+            return;
+        }
+        setResultClass(MathType.RATE);
+    }
+
+    private void processStat(ErrorStatus _error, CustList<OperationNode> _chidren) {
+        if (_chidren.isEmpty()) {
+            _error.setIndex(getIndexInEl());
+            _error.setError(true);
+            return;
+        }
+        for (OperationNode a : _chidren) {
+            if (a.getResultClass() != MathType.RATE) {
+                _error.setIndex(getIndexInEl());
+                _error.setError(true);
+                return;
+            }
+        }
+        setResultClass(MathType.RATE);
+    }
+
+    private void checkUnary(ErrorStatus _error, CustList<OperationNode> _chidren, MathType _type) {
+        if (unary(_chidren, _type)) {
+            _error.setIndex(getIndexInEl());
+            _error.setError(true);
+            return;
+        }
+        setResultClass(MathType.RATE);
+    }
+
+    private void checkBinary(ErrorStatus _error, CustList<OperationNode> _chidren, MathType _inType, MathType _outType) {
+        if (binary(_chidren, _inType)) {
+            _error.setIndex(getIndexInEl());
+            _error.setError(true);
+            return;
+        }
+        setResultClass(_outType);
+    }
+
+    private static boolean processSets(CustList<OperationNode> _chidren) {
+        return _chidren.size() != THREE_ARGUMENTS || _chidren.first().getResultClass() != MathType.RATE || _chidren.get(IndexConstants.SECOND_INDEX).getResultClass() != MathType.RATE || _chidren.last().getResultClass() != MathType.RATE;
+    }
+
+    private static boolean unary(CustList<OperationNode> _chidren, MathType _type) {
+        return _chidren.size() != 1 || _chidren.first().getResultClass() != _type;
+    }
+
+    private static boolean binary(CustList<OperationNode> _chidren, MathType _type) {
+        return _chidren.size() != 2 || _chidren.first().getResultClass() != _type || _chidren.last().getResultClass() != _type;
+    }
+
     @Override
     void calculate(StringMap<String> _conf, ErrorStatus _error) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         if (StringUtil.quickEq(methodName,PUIS)) {
-            Rate base_= chidren_.first().getArgument().getRateVal();
-            Rate exposant_= chidren_.last().getArgument().getRateVal();
-            if (base_.isZero() && !exposant_.isZeroOrGt()) {
-                _error.setIndex(getIndexInEl());
-                _error.setError(true);
-                return;
-            }
-            Argument arg_ = new Argument();
-            arg_.setArgClass(MathType.RATE);
-            arg_.setObject(Rate.powNb(base_, exposant_));
-            setArgument(arg_);
+            procPuiss(_error, chidren_);
             return;
         }
         if (StringUtil.quickEq(methodName,QUOT)) {
-            Rate base_= chidren_.first().getArgument().getRateVal();
-            Rate exposant_= chidren_.last().getArgument().getRateVal();
-            if (exposant_.isZero()) {
-                _error.setIndex(getIndexInEl());
-                _error.setError(true);
-                return;
-            }
-            Argument arg_ = new Argument();
-            arg_.setArgClass(MathType.RATE);
-            arg_.setObject(new Rate(LgInt.divide(base_.intPart(), exposant_.intPart())));
-            setArgument(arg_);
+            procQuot(_error, chidren_);
             return;
         }
         if (StringUtil.quickEq(methodName,MOD)) {
-            Rate base_= chidren_.first().getArgument().getRateVal();
-            Rate exposant_= chidren_.last().getArgument().getRateVal();
-            LgInt divisor_ = exposant_.intPart();
-            if (divisor_.isZero()) {
-                _error.setIndex(getIndexInEl());
-                _error.setError(true);
-                return;
-            }
-            Argument arg_ = new Argument();
-            arg_.setArgClass(MathType.RATE);
-            arg_.setObject(new Rate(LgInt.remain(base_.intPart(), divisor_)));
-            setArgument(arg_);
+            procMod(_error, chidren_);
             return;
         }
         if (StringUtil.quickEq(methodName,MODTAUX)) {
-            Rate rateOne_ = chidren_.first().getArgument().getRateVal();
-            Rate rateTwo_ = chidren_.last().getArgument().getRateVal();
-            if (rateTwo_.isZero()) {
-                _error.setIndex(getIndexInEl());
-                _error.setError(true);
-                return;
-            }
-            Rate res_=Rate.minus(rateOne_,Rate.multiply(new Rate(Rate.divide(rateOne_,rateTwo_).intPart()),rateTwo_));
-            Argument arg_ = new Argument();
-            arg_.setArgClass(MathType.RATE);
-            arg_.setObject(res_);
-            setArgument(arg_);
+            procModTaux(_error, chidren_);
             return;
         }
         if (StringUtil.quickEq(methodName,DIV_FCT)){
-            Rate rateOne_ = chidren_.first().getArgument().getRateVal();
-            Rate rateTwo_ = chidren_.last().getArgument().getRateVal();
-            if (rateTwo_.isZero()) {
-                _error.setIndex(getIndexInEl());
-                _error.setError(true);
-                return;
-            }
-            Rate res_=Rate.divide(rateOne_, rateTwo_);
-            Argument arg_ = new Argument();
-            arg_.setArgClass(MathType.RATE);
-            arg_.setObject(res_);
-            setArgument(arg_);
+            procDiv(_error, chidren_);
             return;
         }
         //valeur absolue
@@ -688,9 +201,13 @@ public final class FctOperation extends InvokingOperation {
             setArgument(arg_);
             return;
         }
+        calc2(chidren_);
+    }
+
+    private void calc2(CustList<OperationNode> _chidren) {
         //numerateur
         if (StringUtil.quickEq(methodName,NUM)){
-            Rate texteArg_= chidren_.first().getArgument().getRateVal();
+            Rate texteArg_= _chidren.first().getArgument().getRateVal();
             Argument arg_ = new Argument();
             arg_.setArgClass(MathType.RATE);
             arg_.setObject(new Rate(texteArg_.getNumeratorCopy()));
@@ -699,7 +216,7 @@ public final class FctOperation extends InvokingOperation {
         }
         //denominateur
         if (StringUtil.quickEq(methodName,DEN)){
-            Rate texteArg_= chidren_.first().getArgument().getRateVal();
+            Rate texteArg_= _chidren.first().getArgument().getRateVal();
             Argument arg_ = new Argument();
             arg_.setArgClass(MathType.RATE);
             arg_.setObject(new Rate(texteArg_.getDenominatorCopy()));
@@ -707,16 +224,93 @@ public final class FctOperation extends InvokingOperation {
             return;
         }
         if (StringUtil.quickEq(methodName,SGN)){
-            Rate texteArg_= chidren_.first().getArgument().getRateVal();
+            Rate texteArg_= _chidren.first().getArgument().getRateVal();
             Argument arg_ = new Argument();
             arg_.setArgClass(MathType.RATE);
             arg_.setObject(texteArg_.signum());
             setArgument(arg_);
             return;
         }
+        calc(_chidren);
+    }
+
+    private void procDiv(ErrorStatus _error, CustList<OperationNode> _chidren) {
+        Rate rateOne_ = _chidren.first().getArgument().getRateVal();
+        Rate rateTwo_ = _chidren.last().getArgument().getRateVal();
+        if (rateTwo_.isZero()) {
+            _error.setIndex(getIndexInEl());
+            _error.setError(true);
+            return;
+        }
+        Rate res_=Rate.divide(rateOne_, rateTwo_);
+        Argument arg_ = new Argument();
+        arg_.setArgClass(MathType.RATE);
+        arg_.setObject(res_);
+        setArgument(arg_);
+    }
+
+    private void procModTaux(ErrorStatus _error, CustList<OperationNode> _chidren) {
+        Rate rateOne_ = _chidren.first().getArgument().getRateVal();
+        Rate rateTwo_ = _chidren.last().getArgument().getRateVal();
+        if (rateTwo_.isZero()) {
+            _error.setIndex(getIndexInEl());
+            _error.setError(true);
+            return;
+        }
+        Rate res_=Rate.minus(rateOne_,Rate.multiply(new Rate(Rate.divide(rateOne_,rateTwo_).intPart()),rateTwo_));
+        Argument arg_ = new Argument();
+        arg_.setArgClass(MathType.RATE);
+        arg_.setObject(res_);
+        setArgument(arg_);
+    }
+
+    private void procMod(ErrorStatus _error, CustList<OperationNode> _chidren) {
+        Rate base_= _chidren.first().getArgument().getRateVal();
+        Rate exposant_= _chidren.last().getArgument().getRateVal();
+        LgInt divisor_ = exposant_.intPart();
+        if (divisor_.isZero()) {
+            _error.setIndex(getIndexInEl());
+            _error.setError(true);
+            return;
+        }
+        Argument arg_ = new Argument();
+        arg_.setArgClass(MathType.RATE);
+        arg_.setObject(new Rate(LgInt.remain(base_.intPart(), divisor_)));
+        setArgument(arg_);
+    }
+
+    private void procQuot(ErrorStatus _error, CustList<OperationNode> _chidren) {
+        Rate base_= _chidren.first().getArgument().getRateVal();
+        Rate exposant_= _chidren.last().getArgument().getRateVal();
+        if (exposant_.isZero()) {
+            _error.setIndex(getIndexInEl());
+            _error.setError(true);
+            return;
+        }
+        Argument arg_ = new Argument();
+        arg_.setArgClass(MathType.RATE);
+        arg_.setObject(new Rate(LgInt.divide(base_.intPart(), exposant_.intPart())));
+        setArgument(arg_);
+    }
+
+    private void procPuiss(ErrorStatus _error, CustList<OperationNode> _chidren) {
+        Rate base_= _chidren.first().getArgument().getRateVal();
+        Rate exposant_= _chidren.last().getArgument().getRateVal();
+        if (base_.isZero() && !exposant_.isZeroOrGt()) {
+            _error.setIndex(getIndexInEl());
+            _error.setError(true);
+            return;
+        }
+        Argument arg_ = new Argument();
+        arg_.setArgClass(MathType.RATE);
+        arg_.setObject(Rate.powNb(base_, exposant_));
+        setArgument(arg_);
+    }
+
+    private void calc(CustList<OperationNode> _chidren) {
         if (StringUtil.quickEq(methodName,MIN)){
-            Rate min_= chidren_.first().getArgument().getRateVal();
-            for(OperationNode a:chidren_.mid(IndexConstants.SECOND_INDEX)){
+            Rate min_= _chidren.first().getArgument().getRateVal();
+            for(OperationNode a: _chidren.mid(IndexConstants.SECOND_INDEX)){
                 Rate arg_= a.getArgument().getRateVal();
                 if(Rate.strGreater(min_, arg_)){
                     min_=arg_;
@@ -730,8 +324,8 @@ public final class FctOperation extends InvokingOperation {
         }
         //maximum
         if (StringUtil.quickEq(methodName,MAX)){
-            Rate min_= chidren_.first().getArgument().getRateVal();
-            for(OperationNode a:chidren_.mid(IndexConstants.SECOND_INDEX)){
+            Rate min_= _chidren.first().getArgument().getRateVal();
+            for(OperationNode a: _chidren.mid(IndexConstants.SECOND_INDEX)){
                 Rate arg_= a.getArgument().getRateVal();
                 if(Rate.strLower(min_, arg_)){
                     min_=arg_;
@@ -745,11 +339,8 @@ public final class FctOperation extends InvokingOperation {
         }
         //moyenne
         if (StringUtil.quickEq(methodName,MOY)){
-            Rate moy_=Rate.zero();
-            for(OperationNode a:chidren_){
-                moy_.addNb(a.getArgument().getRateVal());
-            }
-            moy_.divideBy(new Rate(chidren_.size()));
+            Rate moy_ = getMoy(_chidren);
+            moy_.divideBy(new Rate(_chidren.size()));
             Argument arg_ = new Argument();
             arg_.setArgClass(MathType.RATE);
             arg_.setObject(moy_);
@@ -758,31 +349,42 @@ public final class FctOperation extends InvokingOperation {
         }
         //variance
         if (StringUtil.quickEq(methodName,VAR)){
-            Rate var_=Rate.zero();
-            Rate moy_=Rate.zero();
-            for(OperationNode a:chidren_){
-                Rate a_ = a.getArgument().getRateVal();
-                moy_.addNb(a_);
-                var_.addNb(Rate.multiply(a_, a_));
-            }
-            moy_.divideBy(new Rate(chidren_.size()));
-            var_.divideBy(new Rate(chidren_.size()));
-            var_.removeNb(Rate.multiply(moy_, moy_));
+            Rate var_ = getVar(_chidren);
             Argument arg_ = new Argument();
             arg_.setArgClass(MathType.RATE);
             arg_.setObject(var_);
             setArgument(arg_);
             return;
         }
+        calcTwoSets2(_chidren);
+    }
+
+    private static Rate getVar(CustList<OperationNode> _chidren) {
+        Rate var_=Rate.zero();
+        Rate moy_=Rate.zero();
+        for(OperationNode a: _chidren){
+            Rate a_ = a.getArgument().getRateVal();
+            moy_.addNb(a_);
+            var_.addNb(Rate.multiply(a_, a_));
+        }
+        moy_.divideBy(new Rate(_chidren.size()));
+        var_.divideBy(new Rate(_chidren.size()));
+        var_.removeNb(Rate.multiply(moy_, moy_));
+        return var_;
+    }
+
+    private static Rate getMoy(CustList<OperationNode> _chidren) {
+        Rate moy_=Rate.zero();
+        for(OperationNode a: _chidren){
+            moy_.addNb(a.getArgument().getRateVal());
+        }
+        return moy_;
+    }
+
+    private void calcTwoSets2(CustList<OperationNode> _chidren) {
         //segment
         if (StringUtil.quickEq(methodName,CARAC_FERME)){
-            Rate res_=Rate.zero();
-            Rate rateOne_ = chidren_.first().getArgument().getRateVal();
-            Rate rateTwo_ = chidren_.get(IndexConstants.SECOND_INDEX).getArgument().getRateVal();
-            Rate rateThree_ = chidren_.last().getArgument().getRateVal();
-            if(Rate.greaterEq(rateOne_,rateTwo_)&&Rate.lowerEq(rateOne_,rateThree_)){
-                res_=Rate.one();
-            }
+            Rate res_ = segment(_chidren);
             Argument arg_ = new Argument();
             arg_.setArgClass(MathType.RATE);
             arg_.setObject(res_);
@@ -791,13 +393,7 @@ public final class FctOperation extends InvokingOperation {
         }
         //ouvert borne
         if (StringUtil.quickEq(methodName,CARAC_OUVERT)){
-            Rate res_=Rate.zero();
-            Rate rateOne_ = chidren_.first().getArgument().getRateVal();
-            Rate rateTwo_ = chidren_.get(IndexConstants.SECOND_INDEX).getArgument().getRateVal();
-            Rate rateThree_ = chidren_.last().getArgument().getRateVal();
-            if(Rate.strGreater(rateOne_,rateTwo_)&&Rate.strLower(rateOne_,rateThree_)){
-                res_=Rate.one();
-            }
+            Rate res_ = caracouvert(_chidren);
             Argument arg_ = new Argument();
             arg_.setArgClass(MathType.RATE);
             arg_.setObject(res_);
@@ -806,13 +402,7 @@ public final class FctOperation extends InvokingOperation {
         }
         //semi ouvert gauche borne
         if (StringUtil.quickEq(methodName,CARAC_SEMI_OUVERT_G)){
-            Rate res_=Rate.zero();
-            Rate rateOne_ = chidren_.first().getArgument().getRateVal();
-            Rate rateTwo_ = chidren_.get(IndexConstants.SECOND_INDEX).getArgument().getRateVal();
-            Rate rateThree_ = chidren_.last().getArgument().getRateVal();
-            if(Rate.strGreater(rateOne_,rateTwo_)&&Rate.lowerEq(rateOne_, rateThree_)){
-                res_=Rate.one();
-            }
+            Rate res_ = caracsemiouvertg(_chidren);
             Argument arg_ = new Argument();
             arg_.setArgClass(MathType.RATE);
             arg_.setObject(res_);
@@ -821,13 +411,7 @@ public final class FctOperation extends InvokingOperation {
         }
         //semi ouvert droite borne
         if (StringUtil.quickEq(methodName,CARAC_SEMI_OUVERT_D)){
-            Rate res_=Rate.zero();
-            Rate rateOne_ = chidren_.first().getArgument().getRateVal();
-            Rate rateTwo_ = chidren_.get(IndexConstants.SECOND_INDEX).getArgument().getRateVal();
-            Rate rateThree_ = chidren_.last().getArgument().getRateVal();
-            if(Rate.greaterEq(rateOne_,rateTwo_)&&Rate.strLower(rateOne_,rateThree_)){
-                res_=Rate.one();
-            }
+            Rate res_ = caracsemiouvertd(_chidren);
             Argument arg_ = new Argument();
             arg_.setArgClass(MathType.RATE);
             arg_.setObject(res_);
@@ -836,12 +420,7 @@ public final class FctOperation extends InvokingOperation {
         }
         //ouvert droite minore
         if (StringUtil.quickEq(methodName,CARAC_DROITE_OUVERT)){
-            Rate res_=Rate.zero();
-            Rate rateOne_ = chidren_.first().getArgument().getRateVal();
-            Rate rateTwo_ = chidren_.last().getArgument().getRateVal();
-            if(Rate.strGreater(rateOne_,rateTwo_)){
-                res_=Rate.one();
-            }
+            Rate res_ = caracdroiteouvert(_chidren);
             Argument arg_ = new Argument();
             arg_.setArgClass(MathType.RATE);
             arg_.setObject(res_);
@@ -850,12 +429,7 @@ public final class FctOperation extends InvokingOperation {
         }
         //ferme droite minore
         if (StringUtil.quickEq(methodName,CARAC_DROITE_FERME)){
-            Rate res_=Rate.zero();
-            Rate rateOne_ = chidren_.first().getArgument().getRateVal();
-            Rate rateTwo_ = chidren_.last().getArgument().getRateVal();
-            if(Rate.greaterEq(rateOne_,rateTwo_)){
-                res_=Rate.one();
-            }
+            Rate res_ = caracdroiteferme(_chidren);
             Argument arg_ = new Argument();
             arg_.setArgClass(MathType.RATE);
             arg_.setObject(res_);
@@ -864,12 +438,7 @@ public final class FctOperation extends InvokingOperation {
         }
         //ouvert droite majore
         if (StringUtil.quickEq(methodName,CARAC_GAUCHE_OUVERT)){
-            Rate res_=Rate.zero();
-            Rate rateOne_ = chidren_.first().getArgument().getRateVal();
-            Rate rateTwo_ = chidren_.last().getArgument().getRateVal();
-            if(Rate.strLower(rateOne_,rateTwo_)){
-                res_=Rate.one();
-            }
+            Rate res_ = caracgaucheouvert(_chidren);
             Argument arg_ = new Argument();
             arg_.setArgClass(MathType.RATE);
             arg_.setObject(res_);
@@ -878,20 +447,103 @@ public final class FctOperation extends InvokingOperation {
         }
         //ferme gauche majore
         if (StringUtil.quickEq(methodName,CARAC_GAUCHE_FERME)){
-            Rate res_=Rate.zero();
-            Rate rateOne_ = chidren_.first().getArgument().getRateVal();
-            Rate rateTwo_ = chidren_.last().getArgument().getRateVal();
-            if(Rate.lowerEq(rateOne_,rateTwo_)){
-                res_=Rate.one();
-            }
+            Rate res_ = caracgaucheferme(_chidren);
             Argument arg_ = new Argument();
             arg_.setArgClass(MathType.RATE);
             arg_.setObject(res_);
             setArgument(arg_);
             return;
         }
+        calcTwoSets(_chidren);
+    }
+
+    private static Rate caracgaucheferme(CustList<OperationNode> _chidren) {
+        Rate res_=Rate.zero();
+        Rate rateOne_ = _chidren.first().getArgument().getRateVal();
+        Rate rateTwo_ = _chidren.last().getArgument().getRateVal();
+        if(Rate.lowerEq(rateOne_,rateTwo_)){
+            res_=Rate.one();
+        }
+        return res_;
+    }
+
+    private static Rate caracgaucheouvert(CustList<OperationNode> _chidren) {
+        Rate res_=Rate.zero();
+        Rate rateOne_ = _chidren.first().getArgument().getRateVal();
+        Rate rateTwo_ = _chidren.last().getArgument().getRateVal();
+        if(Rate.strLower(rateOne_,rateTwo_)){
+            res_=Rate.one();
+        }
+        return res_;
+    }
+
+    private static Rate caracdroiteferme(CustList<OperationNode> _chidren) {
+        Rate res_=Rate.zero();
+        Rate rateOne_ = _chidren.first().getArgument().getRateVal();
+        Rate rateTwo_ = _chidren.last().getArgument().getRateVal();
+        if(Rate.greaterEq(rateOne_,rateTwo_)){
+            res_=Rate.one();
+        }
+        return res_;
+    }
+
+    private static Rate caracdroiteouvert(CustList<OperationNode> _chidren) {
+        Rate res_=Rate.zero();
+        Rate rateOne_ = _chidren.first().getArgument().getRateVal();
+        Rate rateTwo_ = _chidren.last().getArgument().getRateVal();
+        if(Rate.strGreater(rateOne_,rateTwo_)){
+            res_=Rate.one();
+        }
+        return res_;
+    }
+
+    private static Rate caracsemiouvertd(CustList<OperationNode> _chidren) {
+        Rate res_=Rate.zero();
+        Rate rateOne_ = _chidren.first().getArgument().getRateVal();
+        Rate rateTwo_ = _chidren.get(IndexConstants.SECOND_INDEX).getArgument().getRateVal();
+        Rate rateThree_ = _chidren.last().getArgument().getRateVal();
+        if(Rate.greaterEq(rateOne_,rateTwo_)&&Rate.strLower(rateOne_,rateThree_)){
+            res_=Rate.one();
+        }
+        return res_;
+    }
+
+    private static Rate caracsemiouvertg(CustList<OperationNode> _chidren) {
+        Rate res_=Rate.zero();
+        Rate rateOne_ = _chidren.first().getArgument().getRateVal();
+        Rate rateTwo_ = _chidren.get(IndexConstants.SECOND_INDEX).getArgument().getRateVal();
+        Rate rateThree_ = _chidren.last().getArgument().getRateVal();
+        if(Rate.strGreater(rateOne_,rateTwo_)&&Rate.lowerEq(rateOne_, rateThree_)){
+            res_=Rate.one();
+        }
+        return res_;
+    }
+
+    private static Rate caracouvert(CustList<OperationNode> _chidren) {
+        Rate res_=Rate.zero();
+        Rate rateOne_ = _chidren.first().getArgument().getRateVal();
+        Rate rateTwo_ = _chidren.get(IndexConstants.SECOND_INDEX).getArgument().getRateVal();
+        Rate rateThree_ = _chidren.last().getArgument().getRateVal();
+        if(Rate.strGreater(rateOne_,rateTwo_)&&Rate.strLower(rateOne_,rateThree_)){
+            res_=Rate.one();
+        }
+        return res_;
+    }
+
+    private static Rate segment(CustList<OperationNode> _chidren) {
+        Rate res_=Rate.zero();
+        Rate rateOne_ = _chidren.first().getArgument().getRateVal();
+        Rate rateTwo_ = _chidren.get(IndexConstants.SECOND_INDEX).getArgument().getRateVal();
+        Rate rateThree_ = _chidren.last().getArgument().getRateVal();
+        if(Rate.greaterEq(rateOne_,rateTwo_)&&Rate.lowerEq(rateOne_,rateThree_)){
+            res_=Rate.one();
+        }
+        return res_;
+    }
+
+    private void calcTwoSets(CustList<OperationNode> _chidren) {
         if (StringUtil.quickEq(methodName,CARD)){
-            MathList texteArg_= chidren_.first().getArgument().getListVal();
+            MathList texteArg_= _chidren.first().getArgument().getListVal();
             MathList set_ = new MathList(texteArg_);
             set_.removeDuplicates();
             Argument arg_ = new Argument();
@@ -901,8 +553,8 @@ public final class FctOperation extends InvokingOperation {
             return;
         }
         if (StringUtil.quickEq(methodName,INTER)){
-            MathList textArgOne_= chidren_.first().getArgument().getListVal();
-            MathList textArgTwo_= chidren_.last().getArgument().getListVal();
+            MathList textArgOne_= _chidren.first().getArgument().getListVal();
+            MathList textArgTwo_= _chidren.last().getArgument().getListVal();
             MathList inter_ = new MathList(textArgOne_.intersectStr(textArgTwo_));
             inter_.sort();
             Argument arg_ = new Argument();
@@ -912,8 +564,8 @@ public final class FctOperation extends InvokingOperation {
             return;
         }
         if (StringUtil.quickEq(methodName,UNION)){
-            MathList textArgOne_= chidren_.first().getArgument().getListVal();
-            MathList textArgTwo_= chidren_.last().getArgument().getListVal();
+            MathList textArgOne_= _chidren.first().getArgument().getListVal();
+            MathList textArgTwo_= _chidren.last().getArgument().getListVal();
             MathList union_ = new MathList(textArgOne_);
             union_.addAllElts(textArgTwo_);
             union_.sort();
@@ -925,8 +577,8 @@ public final class FctOperation extends InvokingOperation {
             return;
         }
         if (StringUtil.quickEq(methodName,COMPL)){
-            MathList textArgOne_= chidren_.first().getArgument().getListVal();
-            MathList textArgTwo_= chidren_.last().getArgument().getListVal();
+            MathList textArgOne_= _chidren.first().getArgument().getListVal();
+            MathList textArgTwo_= _chidren.last().getArgument().getListVal();
             MathList res_ = new MathList(textArgTwo_);
             res_.removeAllElements(textArgOne_);
             res_.sort();
@@ -936,9 +588,13 @@ public final class FctOperation extends InvokingOperation {
             setArgument(arg_);
             return;
         }
+        calcTwoSetsRate(_chidren);
+    }
+
+    private void calcTwoSetsRate(CustList<OperationNode> _chidren) {
         if (StringUtil.quickEq(methodName,INCL)){
-            MathList textArgOne_= chidren_.first().getArgument().getListVal();
-            MathList textArgTwo_= chidren_.last().getArgument().getListVal();
+            MathList textArgOne_= _chidren.first().getArgument().getListVal();
+            MathList textArgTwo_= _chidren.last().getArgument().getListVal();
             if (textArgTwo_.containsAllObj(textArgOne_)) {
                 Argument arg_ = new Argument();
                 arg_.setArgClass(MathType.RATE);
@@ -953,8 +609,8 @@ public final class FctOperation extends InvokingOperation {
             return;
         }
         if (StringUtil.quickEq(methodName,NON_INCL)){
-            MathList textArgOne_= chidren_.first().getArgument().getListVal();
-            MathList textArgTwo_= chidren_.last().getArgument().getListVal();
+            MathList textArgOne_= _chidren.first().getArgument().getListVal();
+            MathList textArgTwo_= _chidren.last().getArgument().getListVal();
             if (!textArgTwo_.containsAllObj(textArgOne_)) {
                 Argument arg_ = new Argument();
                 arg_.setArgClass(MathType.RATE);
@@ -969,8 +625,8 @@ public final class FctOperation extends InvokingOperation {
             return;
         }
         if (StringUtil.quickEq(methodName,EQ_NUM)){
-            MathList textArgOne_= chidren_.first().getArgument().getListVal();
-            MathList textArgTwo_= chidren_.last().getArgument().getListVal();
+            MathList textArgOne_= _chidren.first().getArgument().getListVal();
+            MathList textArgTwo_= _chidren.last().getArgument().getListVal();
             if (textArgOne_.eq(textArgTwo_)) {
                 Argument arg_ = new Argument();
                 arg_.setArgClass(MathType.RATE);
@@ -984,8 +640,8 @@ public final class FctOperation extends InvokingOperation {
             setArgument(arg_);
             return;
         }
-        MathList textArgOne_= chidren_.first().getArgument().getListVal();
-        MathList textArgTwo_= chidren_.last().getArgument().getListVal();
+        MathList textArgOne_= _chidren.first().getArgument().getListVal();
+        MathList textArgTwo_= _chidren.last().getArgument().getListVal();
         if (!textArgOne_.eq(textArgTwo_)) {
             Argument arg_ = new Argument();
             arg_.setArgClass(MathType.RATE);

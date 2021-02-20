@@ -1,16 +1,14 @@
 package code.maths.litteral;
 import code.maths.Rate;
 import code.util.CustList;
-import code.util.EntryCust;
-import code.util.*;
 import code.util.StringMap;
 import code.util.core.IndexConstants;
 
 public abstract class NumericOperation extends MethodOperation {
 
-    public NumericOperation(String _el, int _index, StringMap<String> _importingPage,
-            int _indexChild, MethodOperation _m, OperationsSequence _op) {
-        super(_el, _index, _importingPage, _indexChild, _m, _op);
+    protected NumericOperation(int _index,
+                               int _indexChild, MethodOperation _m, OperationsSequence _op) {
+        super(_index, _indexChild, _m, _op);
     }
 
     static Argument calculateSum(Argument _a, Argument _b) {
@@ -44,10 +42,6 @@ public abstract class NumericOperation extends MethodOperation {
         }
         a_.setObject(Rate.divide(_a.getRateVal(), den_));
         return a_;
-    }
-
-    static MathType getResultClass(MathType _a, MathType _b) {
-        return MathType.RATE;
     }
 
     @Override

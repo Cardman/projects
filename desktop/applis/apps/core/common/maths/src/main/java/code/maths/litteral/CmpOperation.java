@@ -1,15 +1,14 @@
 package code.maths.litteral;
 import code.maths.Rate;
 import code.util.CustList;
-import code.util.*;
 import code.util.StringMap;
 import code.util.core.StringUtil;
 
 public final class CmpOperation extends PrimitiveBoolOperation {
 
-    public CmpOperation(String _el, int _index, StringMap<String> _importingPage,
-            int _indexChild, MethodOperation _m, OperationsSequence _op) {
-        super(_el, _index, _importingPage, _indexChild, _m, _op);
+    public CmpOperation(int _index,
+                        int _indexChild, MethodOperation _m, OperationsSequence _op) {
+        super(_index, _indexChild, _m, _op);
     }
 
     static Argument calculateLower(Argument _a, Argument _b) {

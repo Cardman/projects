@@ -18,7 +18,7 @@ final class MathUtil {
             return arg_;
         }
         OperationsSequence opTwo_ = MathResolver.getOperationsSequence(IndexConstants.FIRST_INDEX, _el, d_);
-        OperationNode op_ = OperationNode.createOperationNode(_el, IndexConstants.FIRST_INDEX, _conf, IndexConstants.FIRST_INDEX, null, opTwo_);
+        OperationNode op_ = OperationNode.createOperationNode(IndexConstants.FIRST_INDEX, IndexConstants.FIRST_INDEX, null, opTwo_);
         if (op_ == null) {
             Argument arg_ = new Argument();
             arg_.setArgClass(MathType.NOTHING);
@@ -57,7 +57,7 @@ final class MathUtil {
     }
 
     public static OperationNode getAnalyzedNext(OperationNode _current, OperationNode _root, CustList<OperationNode> _sortedNodes,StringMap<String> _context, ErrorStatus _error) {
-        OperationNode next_ = createFirstChild(_current, _context, _error);
+        OperationNode next_ = createFirstChild(_current, _error);
         if (_error.isError()) {
             return null;
         }
@@ -74,7 +74,7 @@ final class MathUtil {
             current_.setOrder(_sortedNodes.size());
             tryReduce(_context, _error, current_);
             _sortedNodes.add(current_);
-            next_ = createNextSibling(current_, _context, _error);
+            next_ = createNextSibling(current_, _error);
             if (_error.isError()) {
                 return null;
             }
@@ -109,7 +109,7 @@ final class MathUtil {
         }
     }
 
-    private static OperationNode createFirstChild(OperationNode _block, StringMap<String> _context, ErrorStatus _error) {
+    private static OperationNode createFirstChild(OperationNode _block, ErrorStatus _error) {
         if (!(_block instanceof MethodOperation)) {
             return null;
         }
@@ -122,7 +122,7 @@ final class MathUtil {
         int curKey_ = block_.getChildren().getKey(0);
         int offset_ = block_.getIndexInEl()+curKey_;
         OperationsSequence r_ = MathResolver.getOperationsSequence(offset_, value_, d_);
-        OperationNode op_ = OperationNode.createOperationNode(value_, offset_, _context, IndexConstants.FIRST_INDEX, block_, r_);
+        OperationNode op_ = OperationNode.createOperationNode(offset_, IndexConstants.FIRST_INDEX, block_, r_);
         if (op_ == null) {
             _error.setIndex(offset_);
             _error.setError(true);
@@ -131,7 +131,7 @@ final class MathUtil {
         return op_;
     }
 
-    private static OperationNode createNextSibling(OperationNode _block, StringMap<String> _context, ErrorStatus _error) {
+    private static OperationNode createNextSibling(OperationNode _block, ErrorStatus _error) {
         MethodOperation p_ = _block.getParent();
         if (p_ == null) {
             return null;
@@ -145,7 +145,7 @@ final class MathUtil {
         int curKey_ = children_.getKey(_block.getIndexChild() + 1);
         int offset_ = p_.getIndexInEl()+curKey_;
         OperationsSequence r_ = MathResolver.getOperationsSequence(offset_, value_, d_);
-        OperationNode op_ = OperationNode.createOperationNode(value_, offset_, _context, _block.getIndexChild() + 1, p_, r_);
+        OperationNode op_ = OperationNode.createOperationNode(offset_, _block.getIndexChild() + 1, p_, r_);
         if (op_ == null) {
             _error.setIndex(offset_);
             _error.setError(true);

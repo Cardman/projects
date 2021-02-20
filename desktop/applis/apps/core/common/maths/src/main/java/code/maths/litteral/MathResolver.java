@@ -20,30 +20,30 @@ public final class MathResolver {
 
 
     static final String FALSE = "F";
-    private static final char DOT = '.';
-    private static final char SEP_RATE = '/';
-    private static final char PAR_LEFT = '(';
-    private static final char PAR_RIGHT = ')';
-    private static final char SEP_ARG = ',';
-    private static final char DELIMITER_STRING_BEGIN = '{';
+    static final char DOT = '.';
+    static final char SEP_RATE = '/';
+    static final char PAR_LEFT = '(';
+    static final char PAR_RIGHT = ')';
+    static final char SEP_ARG = ',';
+    static final char DELIMITER_STRING_BEGIN = '{';
 
-    private static final char NEG_BOOL_CHAR = '!';
+    static final char NEG_BOOL_CHAR = '!';
 
-    private static final char MULT_CHAR= '*';
-    private static final char DIV_CHAR= ':';
-    private static final char PLUS_CHAR= '+';
+    static final char MULT_CHAR= '*';
+    static final char DIV_CHAR= ':';
+    static final char PLUS_CHAR= '+';
 
-    private static final char MINUS_CHAR = '-';
+    static final char MINUS_CHAR = '-';
 
-    private static final char LOWER_CHAR = '<';
+    static final char LOWER_CHAR = '<';
 
-    private static final char GREATER_CHAR = '>';
+    static final char GREATER_CHAR = '>';
 
-    private static final char EQ_CHAR = '=';
+    static final char EQ_CHAR = '=';
 
-    private static final char AND_CHAR = '&';
+    static final char AND_CHAR = '&';
 
-    private static final char OR_CHAR = '|';
+    static final char OR_CHAR = '|';
 
     private MathResolver(){
     }
@@ -190,11 +190,10 @@ public final class MathResolver {
         }
         while (j_ < _len) {
             char curLoc_ = _string.charAt(j_);
-            if (StringUtil.isWhitespace(curLoc_) || curLoc_ == PLUS_CHAR || curLoc_ == MINUS_CHAR || curLoc_ == NEG_BOOL_CHAR) {
-                j_++;
-                continue;
+            if (!StringUtil.isWhitespace(curLoc_) && curLoc_ != PLUS_CHAR && curLoc_ != MINUS_CHAR && curLoc_ != NEG_BOOL_CHAR) {
+                break;
             }
-            break;
+            j_++;
         }
         if (_addOp) {
             _d.getAllowedOperatorsIndexes().add(i_);
@@ -233,18 +232,17 @@ public final class MathResolver {
         boolean stop_ = false;
         while (i_ < len_) {
             char cur_ = _string.charAt(i_);
-            if (MathExpUtil.isDigit(cur_)) {
-                nbInfo_.append(cur_);
-                i_++;
-                continue;
-            }
-            if (cur_ == DOT || cur_ == SEP_RATE) {
-                nbInfo_.append(cur_);
-                i_++;
+            if (!MathExpUtil.isDigit(cur_)) {
+                if (cur_ == DOT || cur_ == SEP_RATE) {
+                    nbInfo_.append(cur_);
+                    i_++;
+                } else {
+                    stop_ = true;
+                }
                 break;
             }
-            stop_ = true;
-            break;
+            nbInfo_.append(cur_);
+            i_++;
         }
         if (i_ >= len_ || stop_) {
             _d.getDelNumbers().add(_begin);
@@ -254,12 +252,11 @@ public final class MathResolver {
         }
         while (i_ < len_) {
             char cur_ = _string.charAt(i_);
-            if (MathExpUtil.isDigit(cur_)) {
-                nbInfo_.append(cur_);
-                i_++;
-                continue;
+            if (!MathExpUtil.isDigit(cur_)) {
+                break;
             }
-            break;
+            nbInfo_.append(cur_);
+            i_++;
         }
         _d.getDelNumbers().add(_begin);
         _d.getDelNumbers().add(i_);
@@ -313,19 +310,18 @@ public final class MathResolver {
             return op_;
         }
         for (VariableInfo v: _d.getVariables()) {
-            if (v.getFirstChar() != _offset + i_) {
-                continue;
+            if (v.getFirstChar() == _offset + i_) {
+                int iVar_ = v.getLastChar();
+                if (iVar_ != _offset + lastPrintChar_ + 1) {
+                    break;
+                }
+                OperationsSequence op_ = new OperationsSequence();
+                op_.setConstType(ConstType.LOC_VAR);
+                op_.setOperators(new StrTypes());
+                op_.setupValue(v.getName());
+                op_.setDelimiter(_d);
+                return op_;
             }
-            int iVar_ = v.getLastChar();
-            if (iVar_ != _offset + lastPrintChar_ + 1) {
-                break;
-            }
-            OperationsSequence op_ = new OperationsSequence();
-            op_.setConstType(ConstType.LOC_VAR);
-            op_.setOperators(new StrTypes());
-            op_.setupValue(v.getName());
-            op_.setDelimiter(_d);
-            return op_;
         }
         MathAfUnaryParts mat_ = new MathAfUnaryParts(_string,i_, i_,lastPrintChar_);
         while (mat_.getIndex() < len_) {

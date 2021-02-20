@@ -1,13 +1,12 @@
 package code.maths.litteral;
-import code.util.StringMap;
 import code.util.core.StringUtil;
 
 
 public final class AddOperation extends NumericOperation {
 
-    public AddOperation(String _el, int _index, StringMap<String> _importingPage,
-            int _indexChild, MethodOperation _m, OperationsSequence _op) {
-        super(_el, _index, _importingPage, _indexChild, _m, _op);
+    public AddOperation(int _index,
+                        int _indexChild, MethodOperation _m, OperationsSequence _op) {
+        super(_index, _indexChild, _m, _op);
     }
 
     @Override
@@ -25,7 +24,7 @@ public final class AddOperation extends NumericOperation {
             _error.setIndex(_offset);
             return MathType.NOTHING;
         }
-        return getResultClass(_a, _b);
+        return MathType.RATE;
     }
 
 }
