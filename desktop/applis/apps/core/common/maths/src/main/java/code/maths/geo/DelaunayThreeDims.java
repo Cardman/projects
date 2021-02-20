@@ -3,7 +3,7 @@ import code.util.CustList;
 import code.util.EqList;
 import code.util.IdList;
 
-public class DelaunayThreeDims {
+public final class DelaunayThreeDims {
 
     private final IdList<Tetrahedron> triangles = new IdList<Tetrahedron>();
 
