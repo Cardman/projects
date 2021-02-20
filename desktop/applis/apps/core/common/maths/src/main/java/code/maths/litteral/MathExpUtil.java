@@ -102,28 +102,7 @@ public final class MathExpUtil {
     }
 
     public static StringList getWordsSeparators(String _str) {
-        if (_str.isEmpty()) {
-            return new StringList();
-        }
-        StringList ret_ = new StringList();
-        int i_ = IndexConstants.FIRST_INDEX;
-        StringBuilder strBuild_ = new StringBuilder();
-        while (true) {
-            if (i_ >= _str.length()) {
-                ret_.add(_str);
-                return ret_;
-            }
-            if (isWordChar(_str.charAt(i_))) {
-                strBuild_.append(_str, IndexConstants.FIRST_INDEX, i_);
-                break;
-            }
-            i_++;
-        }
-        return loop(_str, ret_, i_, strBuild_);
-    }
-
-    private static StringList loop(String _str, StringList _ret, int _i, StringBuilder _strBuild) {
-        return new DefaultWordSplit().loop(_str, _ret, _i, _strBuild);
+        return new DefaultWordSplit().loop(_str);
     }
 
     public static boolean isWordChar(char _char) {

@@ -1462,24 +1462,7 @@ public final class StringExpUtil {
     }
 
     public static StringList getDollarWordSeparators(String _str) {
-        if (_str.length() == 0) {
-            return new StringList();
-        }
-        StringList ret_ = new StringList();
-        int i_ = IndexConstants.FIRST_INDEX;
-        StringBuilder str_ = new StringBuilder();
-        while (true) {
-            if (i_ >= _str.length()) {
-                ret_.add(_str);
-                return ret_;
-            }
-            if (isDollarWordChar(_str.charAt(i_))) {
-                str_.append(_str, IndexConstants.FIRST_INDEX, i_);
-                break;
-            }
-            i_++;
-        }
-        return new AdvWordSplit().loop(_str,ret_,i_,str_);
+        return new AdvWordSplit().loop(_str);
     }
 
     public static boolean isDollarWord(String _string) {
