@@ -146,22 +146,26 @@ public class DelaunayThreeDims {
             TriangleThreeDims _edge) {
         boolean addEdge_ = true;
         for (Tetrahedron o: _badTriangles) {
-            if (o == _triangle) {
-                continue;
-            }
-            boolean break_ = false;
-            for (TriangleThreeDims e_: o.getTriangles()) {
-                if (_edge.isSame(e_)) {
+            if (o != _triangle) {
+                boolean break_ = foundSameEdge(_edge, o);
+                if (break_) {
                     addEdge_ = false;
-                    break_ = true;
                     break;
                 }
             }
-            if (break_) {
+        }
+        return addEdge_;
+    }
+
+    private static boolean foundSameEdge(TriangleThreeDims _edge, Tetrahedron _o) {
+        boolean break_ = false;
+        for (TriangleThreeDims e_ : _o.getTriangles()) {
+            if (_edge.isSame(e_)) {
+                break_ = true;
                 break;
             }
         }
-        return addEdge_;
+        return break_;
     }
 
 //    public void increment(CustPoint _pt) {
