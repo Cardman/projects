@@ -47,37 +47,11 @@ public class CustLine {
         Matrix res_ = p_.multMatrix(i_);
         xRate = res_.cell(0, 0);
         yRate = res_.cell(1, 0);
-        if (m_.quickRank() == m_.nbLines()) {
-            cst = Rate.one();
-            defined = true;
-        } else {
-            Rate y_ = new Rate(_one.getYcoords());
-            Rate x_ = new Rate(_one.getXcoords());
-            if (!y_.isZero()) {
-                xRate = Rate.one();
-                yRate = Rate.divide(x_, y_).opposNb();
-                defined = true;
-            } else if (!x_.isZero()){
-                yRate = Rate.one();
-                xRate = Rate.divide(y_, x_).opposNb();
-                defined = true;
-            } else {
-                Rate y2_ = new Rate(_two.getYcoords());
-                Rate x2_ = new Rate(_two.getXcoords());
-                if (!y2_.isZero()) {
-                    xRate = Rate.one();
-                    yRate = Rate.divide(x2_, y2_).opposNb();
-                    defined = true;
-                } else if (!x2_.isZero()){
-                    yRate = Rate.one();
-                    xRate = Rate.divide(y2_, x2_).opposNb();
-                    defined = true;
-                }
-            }
-            if (_one.eq(_two)) {
-                defined = false;
-            }
-        }
+        Rate y_ = new Rate(_one.getYcoords());
+        Rate x_ = new Rate(_one.getXcoords());
+        Rate y2_ = new Rate(_two.getYcoords());
+        Rate x2_ = new Rate(_two.getXcoords());
+        def(m_, y_, x_, y2_, x2_, _one.eq(_two));
     }
 
     public CustLine(RatePoint _one, RatePoint _two) {
@@ -98,38 +72,50 @@ public class CustLine {
         v_ = new Vect();
         v_.add(Rate.one());
         i_.addLineRef(v_);
+        Rate y_ = new Rate(_one.getYcoords());
+        Rate x_ = new Rate(_one.getXcoords());
+        Rate y2_ = new Rate(_two.getYcoords());
+        Rate x2_ = new Rate(_two.getXcoords());
         Matrix res_ = p_.multMatrix(i_);
         xRate = res_.cell(0, 0);
         yRate = res_.cell(1, 0);
-        if (m_.quickRank() == m_.nbLines()) {
+        def(m_, y_, x_, y2_, x2_, _one.eq(_two));
+    }
+
+    private void defined(boolean _eq) {
+        if (_eq) {
+            defined = false;
+        }
+    }
+
+    private void def(Matrix _m, Rate _y, Rate _x, Rate _y2, Rate _x2, boolean _eq) {
+        if (_m.quickRank() == _m.nbLines()) {
             cst = Rate.one();
             defined = true;
         } else {
-            Rate y_ = new Rate(_one.getYcoords());
-            Rate x_ = new Rate(_one.getXcoords());
-            if (!y_.isZero()) {
+            init(_y, _x, _y2, _x2);
+            defined(_eq);
+        }
+    }
+
+    private void init(Rate _y, Rate _x, Rate _y2, Rate _x2) {
+        if (!_y.isZero()) {
+            xRate = Rate.one();
+            yRate = Rate.divide(_x, _y).opposNb();
+            defined = true;
+        } else if (!_x.isZero()) {
+            yRate = Rate.one();
+            xRate = Rate.divide(_y, _x).opposNb();
+            defined = true;
+        } else {
+            if (!_y2.isZero()) {
                 xRate = Rate.one();
-                yRate = Rate.divide(x_, y_).opposNb();
+                yRate = Rate.divide(_x2, _y2).opposNb();
                 defined = true;
-            } else if (!x_.isZero()){
+            } else if (!_x2.isZero()) {
                 yRate = Rate.one();
-                xRate = Rate.divide(y_, x_).opposNb();
+                xRate = Rate.divide(_y2, _x2).opposNb();
                 defined = true;
-            } else {
-                Rate y2_ = new Rate(_two.getYcoords());
-                Rate x2_ = new Rate(_two.getXcoords());
-                if (!y2_.isZero()) {
-                    xRate = Rate.one();
-                    yRate = Rate.divide(x2_, y2_).opposNb();
-                    defined = true;
-                } else if (!x2_.isZero()){
-                    yRate = Rate.one();
-                    xRate = Rate.divide(y2_, x2_).opposNb();
-                    defined = true;
-                }
-            }
-            if (_one.eq(_two)) {
-                defined = false;
             }
         }
     }

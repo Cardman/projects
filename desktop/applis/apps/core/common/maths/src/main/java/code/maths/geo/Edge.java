@@ -18,10 +18,8 @@ public final class Edge implements Displayable {
     }
 
     public boolean isSame(Edge _other) {
-        if (first == _other.first) {
-            if (second == _other.second) {
-                return true;
-            }
+        if (first == _other.first && second == _other.second) {
+            return true;
         }
         if (first == _other.second) {
             return second == _other.first;
@@ -30,10 +28,8 @@ public final class Edge implements Displayable {
     }
 
     public boolean isEqual(Edge _other) {
-        if (first.eq(_other.first)) {
-            if (second.eq(_other.second)) {
-                return true;
-            }
+        if (first.eq(_other.first) && second.eq(_other.second)) {
+            return true;
         }
         if (first.eq(_other.second)) {
             return second.eq(_other.first);
@@ -63,6 +59,10 @@ public final class Edge implements Displayable {
         if (second.eq(_other.second) && !first.eq(_other.first)) {
             return false;
         }
+        return procLines(_other, points_);
+    }
+
+    private boolean procLines(Edge _other, EqList<CustPoint> _points) {
         if (containsPoint(_other.second)) {
             return true;
         }
@@ -75,10 +75,10 @@ public final class Edge implements Displayable {
         if (_other.containsPoint(second)) {
             return true;
         }
-        return lookForIntersectEdges(points_);
+        return lookForIntersectEdges(_points);
     }
 
-    private boolean lookForIntersectEdges(EqList<CustPoint> _points) {
+    private static boolean lookForIntersectEdges(EqList<CustPoint> _points) {
         int index_ = IndexConstants.FIRST_INDEX;
         for (CustPoint p: _points) {
             EqList<CustPoint> others_ = new EqList<CustPoint>();
@@ -102,24 +102,30 @@ public final class Edge implements Displayable {
                 nextOthOne_ = IndexConstants.FIRST_INDEX;
                 nextOthTwo_ = IndexConstants.SECOND_INDEX;
             }
-            CustPoint o_ = _points.get(next_);
-            others_.add(_points.get(nextOthOne_));
-            others_.add(_points.get(nextOthTwo_));
-            CustList<Site> sites_ = new CustList<Site>();
-            VectTwoDims v_ = new VectTwoDims(p, o_);
-            for (CustPoint n: others_) {
-                sites_.add(new SitePoint(n, p, v_));
-            }
-            sites_.sortElts(new SiteComparing());
-            if (sites_.first().getInfo().getNumber() >= SiteInfo.QUAD_THREE) {
-                return false;
-            }
-            if (sites_.last().getInfo().getNumber() < SiteInfo.QUAD_THREE) {
+            CustList<Site> sites_ = getSites(_points, p, others_, next_, nextOthOne_, nextOthTwo_);
+            if (noIntersect(sites_)) {
                 return false;
             }
             index_++;
         }
         return true;
+    }
+
+    private static CustList<Site> getSites(EqList<CustPoint> _points, CustPoint _p, EqList<CustPoint> _others, int _next, int _nextOthOne, int _nextOthTwo) {
+        CustPoint o_ = _points.get(_next);
+        _others.add(_points.get(_nextOthOne));
+        _others.add(_points.get(_nextOthTwo));
+        CustList<Site> sites_ = new CustList<Site>();
+        VectTwoDims v_ = new VectTwoDims(_p, o_);
+        for (CustPoint n: _others) {
+            sites_.add(new SitePoint(n, _p, v_));
+        }
+        sites_.sortElts(new SiteComparing());
+        return sites_;
+    }
+
+    private static boolean noIntersect(CustList<Site> _sites) {
+        return _sites.first().getInfo().getNumber() >= SiteInfo.QUAD_THREE || _sites.last().getInfo().getNumber() < SiteInfo.QUAD_THREE;
     }
 
     public boolean intersect(Edge _other) {

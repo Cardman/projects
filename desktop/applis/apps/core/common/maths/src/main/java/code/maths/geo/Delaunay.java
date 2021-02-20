@@ -10,7 +10,7 @@ import code.util.core.SortConstants;
 
 public final class Delaunay {
 
-    private IdList<Triangle> triangles = new IdList<Triangle>();
+    private final IdList<Triangle> triangles = new IdList<Triangle>();
 
     private Polygon convexHull = new Polygon();
 
@@ -136,18 +136,7 @@ public final class Delaunay {
         }
         CustList<Triangle> badTriangles_ = new CustList<Triangle>();
         for (Triangle b: triangles) {
-            boolean remove_ = false;
-            for (CustPoint s: superTriangle_.getPoints()) {
-                for (CustPoint p: b.getPoints()) {
-                    if (s == p) {
-                        remove_ = true;
-                        break;
-                    }
-                }
-                if (remove_) {
-                    break;
-                }
-            }
+            boolean remove_ = hasToRemove(superTriangle_, b);
             if (remove_) {
                 badTriangles_.add(b);
             }
@@ -155,6 +144,22 @@ public final class Delaunay {
         for (Triangle b: badTriangles_) {
             triangles.removeObj(b);
         }
+    }
+
+    private static boolean hasToRemove(Triangle _superTriangle, Triangle _b) {
+        boolean remove_ = false;
+        for (CustPoint s : _superTriangle.getPoints()) {
+            for (CustPoint p : _b.getPoints()) {
+                if (s == p) {
+                    remove_ = true;
+                    break;
+                }
+            }
+            if (remove_) {
+                break;
+            }
+        }
+        return remove_;
     }
 
     private static boolean addEdge(CustList<Triangle> _badTriangles, Triangle _triangle,
@@ -213,8 +218,8 @@ public final class Delaunay {
         convexHull.add(second_);
         convexHull.add(third_);
         points_.remove(index_);
-        points_.remove((int) IndexConstants.SECOND_INDEX);
-        points_.remove((int) IndexConstants.FIRST_INDEX);
+        points_.remove(IndexConstants.SECOND_INDEX);
+        points_.remove(IndexConstants.FIRST_INDEX);
         EqList<CustPoint> all_ = new EqList<CustPoint>();
         all_.add(first_);
         all_.add(second_);
@@ -238,13 +243,7 @@ public final class Delaunay {
                 int len_ = p_.size();
                 for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
                     CustPoint c_ = p_.get(i);
-                    boolean contains_ = false;
-                    for (Edge e: hull_) {
-                        if (e.intersectNotContainsBound(new Edge(c, c_))) {
-                            contains_ = true;
-                            break;
-                        }
-                    }
+                    boolean contains_ = containsPt(c, hull_, c_);
                     if (!contains_) {
                         pts_.add(c_);
                     }
@@ -303,34 +302,7 @@ public final class Delaunay {
                     continue;
                 }
                 CustList<Edge> keepEdges_ = new CustList<Edge>();
-                for (Triangle t: del_) {
-                    edges_.addAllElts(t.getEdges());
-                }
-                for (Triangle t: nearlyDel_) {
-                    edges_.addAllElts(t.getEdges());
-                }
-                for (Edge e: edges_) {
-                    boolean same_ = false;
-                    for (Edge f: edges_) {
-                        if (e == f) {
-                            continue;
-                        }
-                        if (e.isSame(f)) {
-                            same_ = true;
-                            break;
-                        }
-                    }
-                    if (!same_) {
-                        keepEdges_.add(e);
-                    }
-                }
-                edges_.clear();
-                for (Triangle t: triangles) {
-                    edges_.addAllElts(t.getEdges());
-                }
-                removeDuplicates(edges_);
-                triangles.removeAllElements(del_);
-                triangles.removeAllElements(nearlyDel_);
+                feedEdges(del_, nearlyDel_, edges_, keepEdges_);
                 for (Edge e: keepEdges_) {
                     Triangle toBeIns_ = new Triangle(e.getFirst(), e.getSecond(), c);
                     VectTwoDims vOne_ = new VectTwoDims(e.getFirst(), e.getSecond());
@@ -350,7 +322,49 @@ public final class Delaunay {
         nextTriangles = calculateNextTriangles();
     }
 
-    int addPoint(Polygon _polygon, CustPoint _pt, int _indexPt, int _len, Edge _e) {
+    private void feedEdges(CustList<Triangle> _del, CustList<Triangle> _nearlyDel, CustList<Edge> _edges, CustList<Edge> _keepEdges) {
+        for (Triangle t : _del) {
+            _edges.addAllElts(t.getEdges());
+        }
+        for (Triangle t : _nearlyDel) {
+            _edges.addAllElts(t.getEdges());
+        }
+        for (Edge e : _edges) {
+            boolean same_ = false;
+            for (Edge f : _edges) {
+                if (e == f) {
+                    continue;
+                }
+                if (e.isSame(f)) {
+                    same_ = true;
+                    break;
+                }
+            }
+            if (!same_) {
+                _keepEdges.add(e);
+            }
+        }
+        _edges.clear();
+        for (Triangle t : triangles) {
+            _edges.addAllElts(t.getEdges());
+        }
+        removeDuplicates(_edges);
+        triangles.removeAllElements(_del);
+        triangles.removeAllElements(_nearlyDel);
+    }
+
+    private static boolean containsPt(CustPoint _c1, CustList<Edge> _hull, CustPoint _c2) {
+        boolean contains_ = false;
+        for (Edge e : _hull) {
+            if (e.intersectNotContainsBound(new Edge(_c1, _c2))) {
+                contains_ = true;
+                break;
+            }
+        }
+        return contains_;
+    }
+
+    static int addPoint(Polygon _polygon, CustPoint _pt, int _indexPt, int _len, Edge _e) {
         int indexPt_ = _indexPt;
         for (int i = IndexConstants.FIRST_INDEX; i < _len; i++) {
             Edge e_ = new Edge(_polygon.get(i),_polygon.get(NumberUtil.mod(i+1, _len)));
@@ -436,34 +450,7 @@ public final class Delaunay {
             CustList<Edge> edges_ = new CustList<Edge>();
 
             CustList<Edge> keepEdges_ = new CustList<Edge>();
-            for (Triangle t: del_) {
-                edges_.addAllElts(t.getEdges());
-            }
-            for (Triangle t: nearlyDel_) {
-                edges_.addAllElts(t.getEdges());
-            }
-            for (Edge e: edges_) {
-                boolean same_ = false;
-                for (Edge f: edges_) {
-                    if (e == f) {
-                        continue;
-                    }
-                    if (e.isSame(f)) {
-                        same_ = true;
-                        break;
-                    }
-                }
-                if (!same_) {
-                    keepEdges_.add(e);
-                }
-            }
-            edges_.clear();
-            for (Triangle t: triangles) {
-                edges_.addAllElts(t.getEdges());
-            }
-            removeDuplicates(edges_);
-            triangles.removeAllElements(del_);
-            triangles.removeAllElements(nearlyDel_);
+            feedEdges(del_, nearlyDel_, edges_, keepEdges_);
             for (Edge e: keepEdges_) {
                 Triangle toBeIns_ = new Triangle(e.getFirst(), e.getSecond(), c);
                 VectTwoDims vOne_ = new VectTwoDims(e.getFirst(), e.getSecond());
@@ -564,8 +551,8 @@ public final class Delaunay {
         superTriangle_ = new Triangle(firstPoint_, secondPoint_, thirdPoint_);
         triangles.add(superTriangle_);
         points_.remove(index_);
-        points_.remove((int) IndexConstants.SECOND_INDEX);
-        points_.remove((int) IndexConstants.FIRST_INDEX);
+        points_.remove(IndexConstants.SECOND_INDEX);
+        points_.remove(IndexConstants.FIRST_INDEX);
         EqList<CustPoint> all_ = new EqList<CustPoint>();
         all_.add(first_);
         all_.add(second_);
@@ -592,13 +579,7 @@ public final class Delaunay {
                 int len_ = p_.size();
                 for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
                     CustPoint c_ = p_.get(i);
-                    boolean contains_ = false;
-                    for (Edge e: hull_) {
-                        if (e.intersectNotContainsBound(new Edge(c, c_))) {
-                            contains_ = true;
-                            break;
-                        }
-                    }
+                    boolean contains_ = containsPt(c, hull_, c_);
                     if (!contains_) {
                         pts_.add(c_);
                     }
@@ -681,21 +662,9 @@ public final class Delaunay {
             allEdges_.addAllElts(b.getEdges());
         }
         for (Triangle b: triangles) {
-            boolean remove_ = false;
-            for (CustPoint s: superTriangle_.getPoints()) {
-                for (CustPoint p: b.getPoints()) {
-                    if (s == p) {
-                        remove_ = true;
-                        break;
-                    }
-                }
-                if (remove_) {
-                    break;
-                }
-            }
+            boolean remove_ = hasToRemove(superTriangle_, b);
             if (remove_) {
                 badTriangles_.add(b);
-                continue;
             }
         }
         for (Triangle b: badTriangles_) {
@@ -750,34 +719,8 @@ public final class Delaunay {
                 if (contained_) {
                     p_.add(midOne_);
                 }
-                CustList<Edge> edges_ = new CustList<Edge>();
-                int len_ = v_.size();
-                for (int i = 0; i < len_; i++) {
-                    CustPoint one_ = v_.get(i);
-                    CustPoint two_ = v_.get((i + 1) % len_);
-                    for (Triangle t: triangles) {
-                        int nbPoints_ = IndexConstants.SIZE_EMPTY;
-                        for (CustPoint p: t.getPoints()) {
-                            if (p == k_) {
-                                nbPoints_++;
-                            }
-                            if (p == one_) {
-                                nbPoints_++;
-                            }
-                            if (p == two_) {
-                                nbPoints_++;
-                            }
-                        }
-                        if (nbPoints_ == Triangle.NB_POINTS) {
-                            CompactPlanePoint c_;
-                            c_ = t.getCircumCenter();
-                            x_ = (int) (c_.getXcoords() / c_.getCommon());
-                            y_ = (int) (c_.getYcoords() / c_.getCommon());
-                            p_.add(new CustPoint(x_, y_));
-                            break;
-                        }
-                    }
-                }
+                CustList<Edge> edges_ = getEdges(k_, v_, p_);
+                int len_;
                 x_ = (v_.last().getXcoords() + k_.getXcoords()) / 2;
                 y_ = (v_.last().getYcoords() + k_.getYcoords()) / 2;
                 CustPoint midTwo_ = new CustPoint(x_, y_);
@@ -801,36 +744,8 @@ public final class Delaunay {
                 CustPoint k_ = e.getKey();
                 IdList<CustPoint> v_ = e.getValue();
                 Polygon p_ = new Polygon();
-                int x_;
-                int y_;
-                CustList<Edge> edges_ = new CustList<Edge>();
-                int len_ = v_.size();
-                for (int i = 0; i < len_; i++) {
-                    CustPoint one_ = v_.get(i);
-                    CustPoint two_ = v_.get((i + 1) % len_);
-                    for (Triangle t: triangles) {
-                        int nbPoints_ = IndexConstants.SIZE_EMPTY;
-                        for (CustPoint p: t.getPoints()) {
-                            if (p == k_) {
-                                nbPoints_++;
-                            }
-                            if (p == one_) {
-                                nbPoints_++;
-                            }
-                            if (p == two_) {
-                                nbPoints_++;
-                            }
-                        }
-                        if (nbPoints_ == Triangle.NB_POINTS) {
-                            CompactPlanePoint c_;
-                            c_ = t.getCircumCenter();
-                            x_ = (int) (c_.getXcoords() / c_.getCommon());
-                            y_ = (int) (c_.getYcoords() / c_.getCommon());
-                            p_.add(new CustPoint(x_, y_));
-                            break;
-                        }
-                    }
-                }
+                CustList<Edge> edges_ = getEdges(k_, v_, p_);
+                int len_;
                 len_ = p_.size();
                 for (int i = 0; i < len_; i++) {
                     CustPoint one_ = p_.get(i);
@@ -842,6 +757,40 @@ public final class Delaunay {
             }
         }
         return id_;
+    }
+
+    private CustList<Edge> getEdges(CustPoint _k, IdList<CustPoint> _v, Polygon _p) {
+        int x_;
+        int y_;
+        CustList<Edge> edges_ = new CustList<Edge>();
+        int len_ = _v.size();
+        for (int i = 0; i < len_; i++) {
+            CustPoint one_ = _v.get(i);
+            CustPoint two_ = _v.get((i + 1) % len_);
+            for (Triangle t : triangles) {
+                int nbPoints_ = IndexConstants.SIZE_EMPTY;
+                for (CustPoint p : t.getPoints()) {
+                    if (p == _k) {
+                        nbPoints_++;
+                    }
+                    if (p == one_) {
+                        nbPoints_++;
+                    }
+                    if (p == two_) {
+                        nbPoints_++;
+                    }
+                }
+                if (nbPoints_ == Triangle.NB_POINTS) {
+                    CompactPlanePoint c_;
+                    c_ = t.getCircumCenter();
+                    x_ = (int) (c_.getXcoords() / c_.getCommon());
+                    y_ = (int) (c_.getYcoords() / c_.getCommon());
+                    _p.add(new CustPoint(x_, y_));
+                    break;
+                }
+            }
+        }
+        return edges_;
     }
 
     private IdMap<CustPoint,CustList<Triangle>> calculateNextTriangles() {

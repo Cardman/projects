@@ -61,47 +61,7 @@ public final class EdgeThreeDimensions {
         if (_e2.containsPoint(second)) {
             return true;
         }
-        int index_ = IndexConstants.FIRST_INDEX;
-        for (CustPointThreeDims p: points_) {
-            EqList<CustPointThreeDims> others_ = new EqList<CustPointThreeDims>();
-            int next_;
-            int nextOthOne_;
-            int nextOthTwo_;
-            if (index_ <= IndexConstants.SECOND_INDEX) {
-                if (index_ == IndexConstants.FIRST_INDEX) {
-                    next_ = IndexConstants.SECOND_INDEX;
-                } else {
-                    next_ = IndexConstants.FIRST_INDEX;
-                }
-                nextOthOne_ = IndexConstants.SECOND_INDEX + IndexConstants.ONE_ELEMENT;
-                nextOthTwo_ = nextOthOne_ + IndexConstants.ONE_ELEMENT;
-            } else {
-                if (index_ == IndexConstants.SECOND_INDEX + IndexConstants.ONE_ELEMENT) {
-                    next_ = index_ + IndexConstants.ONE_ELEMENT;
-                } else {
-                    next_ = index_ - IndexConstants.ONE_ELEMENT;
-                }
-                nextOthOne_ = IndexConstants.FIRST_INDEX;
-                nextOthTwo_ = IndexConstants.SECOND_INDEX;
-            }
-            CustPointThreeDims o_ = points_.get(next_);
-            others_.add(points_.get(nextOthOne_));
-            others_.add(points_.get(nextOthTwo_));
-            CustList<Site> sites_ = new CustList<Site>();
-            VectThreeDims v_ = new VectThreeDims(p, o_);
-            for (CustPointThreeDims n: others_) {
-                sites_.add(new SitePointThreeDims(n, p, v_));
-            }
-            sites_.sortElts(new SiteComparing());
-            if (sites_.first().getInfo().getNumber() >= SiteInfo.QUAD_THREE) {
-                return false;
-            }
-            if (sites_.last().getInfo().getNumber() < SiteInfo.QUAD_THREE) {
-                return false;
-            }
-            index_++;
-        }
-        return true;
+        return loop(points_);
 //        if (!linear_) {
 ////            added_ = new Vect();
 ////            added_.add(new Rate(standard_.getDeltax()));
@@ -221,6 +181,56 @@ public final class EdgeThreeDimensions {
 ////            return true;
 ////        }
 //        return false;
+    }
+
+    private static boolean loop(EqList<CustPointThreeDims> _points) {
+        int index_ = IndexConstants.FIRST_INDEX;
+        for (CustPointThreeDims p: _points) {
+            EqList<CustPointThreeDims> others_ = new EqList<CustPointThreeDims>();
+            int next_;
+            int nextOthOne_;
+            int nextOthTwo_;
+            if (index_ <= IndexConstants.SECOND_INDEX) {
+                if (index_ == IndexConstants.FIRST_INDEX) {
+                    next_ = IndexConstants.SECOND_INDEX;
+                } else {
+                    next_ = IndexConstants.FIRST_INDEX;
+                }
+                nextOthOne_ = IndexConstants.SECOND_INDEX + IndexConstants.ONE_ELEMENT;
+                nextOthTwo_ = nextOthOne_ + IndexConstants.ONE_ELEMENT;
+            } else {
+                if (index_ == IndexConstants.SECOND_INDEX + IndexConstants.ONE_ELEMENT) {
+                    next_ = index_ + IndexConstants.ONE_ELEMENT;
+                } else {
+                    next_ = index_ - IndexConstants.ONE_ELEMENT;
+                }
+                nextOthOne_ = IndexConstants.FIRST_INDEX;
+                nextOthTwo_ = IndexConstants.SECOND_INDEX;
+            }
+            CustPointThreeDims o_ = _points.get(next_);
+            others_.add(_points.get(nextOthOne_));
+            others_.add(_points.get(nextOthTwo_));
+            CustList<Site> sites_ = getSites(p, others_, o_);
+            if (noIntersect(sites_)) {
+                return false;
+            }
+            index_++;
+        }
+        return true;
+    }
+
+    private static CustList<Site> getSites(CustPointThreeDims _p, EqList<CustPointThreeDims> _others, CustPointThreeDims _o) {
+        CustList<Site> sites_ = new CustList<Site>();
+        VectThreeDims v_ = new VectThreeDims(_p, _o);
+        for (CustPointThreeDims n: _others) {
+            sites_.add(new SitePointThreeDims(n, _p, v_));
+        }
+        sites_.sortElts(new SiteComparing());
+        return sites_;
+    }
+
+    private static boolean noIntersect(CustList<Site> _sites) {
+        return _sites.first().getInfo().getNumber() >= SiteInfo.QUAD_THREE || _sites.last().getInfo().getNumber() < SiteInfo.QUAD_THREE;
     }
 
     public boolean containsPoint(CustPointThreeDims _c) {

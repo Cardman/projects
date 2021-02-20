@@ -157,32 +157,26 @@ public final class Polygon implements Iterable<CustPoint>, HasEdges, Displayable
         if (isEmpty()) {
             return p_;
         }
+        return getConvexHull(p_);
+    }
+
+    private Polygon getConvexHull(Polygon _p) {
         CustPoint cust_ = first();
         for (CustPoint p: getPoints()) {
-            if (p.getXcoords() < cust_.getXcoords()) {
+            if (hasToRedef(cust_, p)) {
                 cust_ = p;
-                continue;
-            }
-            if (p.getXcoords() == cust_.getXcoords() && p.getYcoords() < cust_.getYcoords()) {
-                cust_ = p;
-                continue;
             }
         }
         CustPoint endPoint_ = first();
         int nbVertices_ = size();
-        while (true) {
-            if (!p_.isEmpty()) {
-                if (endPoint_ == p_.first()) {
-                    break;
-                }
-            }
-            p_.add(cust_);
+        while (_p.isEmpty() || endPoint_ != _p.first()) {
+            _p.add(cust_);
             endPoint_ = first();
             for (int j = IndexConstants.SECOND_INDEX; j < nbVertices_; j++) {
                 if (endPoint_ == cust_) {
                     endPoint_ = get(j);
                 } else {
-                    CustPoint b_ = p_.last();
+                    CustPoint b_ = _p.last();
                     VectTwoDims affineSegment_ = substract(b_, endPoint_);
                     VectTwoDims affinePoint_ = substract(get(j), endPoint_);
                     LinearDirection currentSide_ = getSide(affineSegment_, affinePoint_);
@@ -193,7 +187,11 @@ public final class Polygon implements Iterable<CustPoint>, HasEdges, Displayable
             }
             cust_ = endPoint_;
         }
-        return p_;
+        return _p;
+    }
+
+    private static boolean hasToRedef(CustPoint _cust, CustPoint _p) {
+        return _p.getXcoords() < _cust.getXcoords() || (_p.getXcoords() == _cust.getXcoords() && _p.getYcoords() < _cust.getYcoords());
     }
 
     public Polygon getStrictHull() {
@@ -245,26 +243,20 @@ public final class Polygon implements Iterable<CustPoint>, HasEdges, Displayable
         if (size() < Rect.NB_POINTS) {
             return new CustList<Triangle>();
         }
+        return getTriangles2();
+    }
+
+    public CustList<Triangle> getTriangles2() {
         Polygon copy_ = new Polygon();
         CustPoint cust_ = first();
         for (CustPoint p: points) {
-            if (p.getXcoords() < cust_.getXcoords()) {
+            if (p.getXcoords() < cust_.getXcoords() || (p.getXcoords() == cust_.getXcoords() && p.getYcoords() < cust_.getYcoords())) {
                 cust_ = p;
-                continue;
-            }
-            if (p.getXcoords() == cust_.getXcoords() && p.getYcoords() < cust_.getYcoords()) {
-                cust_ = p;
-                continue;
             }
         }
         int index_ = points.indexOfObj(cust_);
         int len_ = size();
-        for (int i = index_; i < len_; i++) {
-            copy_.add(get(i));
-        }
-        for (int i = IndexConstants.FIRST_INDEX; i < index_; i++) {
-            copy_.add(get(i));
-        }
+        addPoints(copy_, index_, len_);
         CustList<Triangle> triangles_ = new CustList<Triangle>();
         while (!copy_.isConvex()) {
             int i_ = 1;
@@ -280,18 +272,30 @@ public final class Polygon implements Iterable<CustPoint>, HasEdges, Displayable
                 VectTwoDims next_ = new VectTwoDims(curr_, after_);
                 long det_ = prev_.det(next_);
                 if (det_ <= 0) {
-                    if (det_ < 0) {
-                        Triangle t_;
-                        t_ = new Triangle(before_, curr_, after_);
-                        triangles_.add(t_);
-                    }
-                    copy_.remove(i_);
+                    procRem(copy_, triangles_, i_, before_, curr_, after_, det_);
                 } else {
                     i_++;
                 }
             }
         }
         return triangles_;
+    }
+    private static void procRem(Polygon _copy, CustList<Triangle> _triangles, int _i, CustPoint _before, CustPoint _curr, CustPoint _after, long _det) {
+        if (_det < 0) {
+            Triangle t_;
+            t_ = new Triangle(_before, _curr, _after);
+            _triangles.add(t_);
+        }
+        _copy.remove(_i);
+    }
+
+    private void addPoints(Polygon _copy, int _index, int _len) {
+        for (int i = _index; i < _len; i++) {
+            _copy.add(get(i));
+        }
+        for (int i = IndexConstants.FIRST_INDEX; i < _index; i++) {
+            _copy.add(get(i));
+        }
     }
 
     public boolean isConvex() {
@@ -343,8 +347,10 @@ public final class Polygon implements Iterable<CustPoint>, HasEdges, Displayable
             }
             if (previousSide_ == LinearDirection.NONE) {
                 previousSide_ = currentSide_;
-            } else if (previousSide_ != currentSide_) {
-                return false;
+            } else {
+                if (previousSide_ != currentSide_) {
+                    return false;
+                }
             }
         }
         return true;

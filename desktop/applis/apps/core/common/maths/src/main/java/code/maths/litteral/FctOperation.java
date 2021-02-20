@@ -612,17 +612,7 @@ public final class FctOperation extends InvokingOperation {
         }
         MathList textArgOne_= _chidren.first().getArgument().getListVal();
         MathList textArgTwo_= _chidren.last().getArgument().getListVal();
-        if (!textArgOne_.eq(textArgTwo_)) {
-            Argument arg_ = new Argument();
-            arg_.setArgClass(MathType.RATE);
-            arg_.setObject(Rate.one());
-            setArgument(arg_);
-            return;
-        }
-        Argument arg_ = new Argument();
-        arg_.setArgClass(MathType.RATE);
-        arg_.setObject(Rate.zero());
-        setArgument(arg_);
+        procBool(!textArgOne_.eq(textArgTwo_));
     }
 
     private void procBool(boolean _cond) {
@@ -637,7 +627,6 @@ public final class FctOperation extends InvokingOperation {
         arg_.setArgClass(MathType.RATE);
         arg_.setObject(Rate.zero());
         setArgument(arg_);
-        return;
     }
 
     @Override

@@ -1,13 +1,11 @@
 package code.maths.geo;
-import code.util.CustList;
-import code.util.ints.Cmp;
 
 
 public final class SitePointThreeDims implements Site {
 
-    private CustPointThreeDims point;
+    private final CustPointThreeDims point;
 
-    private SiteInfo info = new SiteInfo();
+    private final SiteInfo info = new SiteInfo();
 
     public SitePointThreeDims(CustPointThreeDims _point, CustPointThreeDims _first, VectThreeDims _vect) {
         point = _point;

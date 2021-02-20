@@ -14,7 +14,7 @@ public class DelaunayTest extends EquallableMathUtil {
     public void addTest() {
         Delaunay d_ = new Delaunay();
         Polygon p_ =new Polygon();
-        assertEq(-1,d_.addPoint(p_,new CustPoint(0,0),-1,0,new Edge(new CustPoint(0,0),new CustPoint(0,0))));
+        assertEq(-1, Delaunay.addPoint(p_,new CustPoint(0,0),-1,0,new Edge(new CustPoint(0,0),new CustPoint(0,0))));
     }
     @Test
     public void addIfNotIntersect1Test() {
