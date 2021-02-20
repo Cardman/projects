@@ -595,49 +595,19 @@ public final class FctOperation extends InvokingOperation {
         if (StringUtil.quickEq(methodName,INCL)){
             MathList textArgOne_= _chidren.first().getArgument().getListVal();
             MathList textArgTwo_= _chidren.last().getArgument().getListVal();
-            if (textArgTwo_.containsAllObj(textArgOne_)) {
-                Argument arg_ = new Argument();
-                arg_.setArgClass(MathType.RATE);
-                arg_.setObject(Rate.one());
-                setArgument(arg_);
-                return;
-            }
-            Argument arg_ = new Argument();
-            arg_.setArgClass(MathType.RATE);
-            arg_.setObject(Rate.zero());
-            setArgument(arg_);
+            procBool(textArgTwo_.containsAllObj(textArgOne_));
             return;
         }
         if (StringUtil.quickEq(methodName,NON_INCL)){
             MathList textArgOne_= _chidren.first().getArgument().getListVal();
             MathList textArgTwo_= _chidren.last().getArgument().getListVal();
-            if (!textArgTwo_.containsAllObj(textArgOne_)) {
-                Argument arg_ = new Argument();
-                arg_.setArgClass(MathType.RATE);
-                arg_.setObject(Rate.one());
-                setArgument(arg_);
-                return;
-            }
-            Argument arg_ = new Argument();
-            arg_.setArgClass(MathType.RATE);
-            arg_.setObject(Rate.zero());
-            setArgument(arg_);
+            procBool(!textArgTwo_.containsAllObj(textArgOne_));
             return;
         }
         if (StringUtil.quickEq(methodName,EQ_NUM)){
             MathList textArgOne_= _chidren.first().getArgument().getListVal();
             MathList textArgTwo_= _chidren.last().getArgument().getListVal();
-            if (textArgOne_.eq(textArgTwo_)) {
-                Argument arg_ = new Argument();
-                arg_.setArgClass(MathType.RATE);
-                arg_.setObject(Rate.one());
-                setArgument(arg_);
-                return;
-            }
-            Argument arg_ = new Argument();
-            arg_.setArgClass(MathType.RATE);
-            arg_.setObject(Rate.zero());
-            setArgument(arg_);
+            procBool(textArgOne_.eq(textArgTwo_));
             return;
         }
         MathList textArgOne_= _chidren.first().getArgument().getListVal();
@@ -653,6 +623,21 @@ public final class FctOperation extends InvokingOperation {
         arg_.setArgClass(MathType.RATE);
         arg_.setObject(Rate.zero());
         setArgument(arg_);
+    }
+
+    private void procBool(boolean _cond) {
+        if (_cond) {
+            Argument arg_ = new Argument();
+            arg_.setArgClass(MathType.RATE);
+            arg_.setObject(Rate.one());
+            setArgument(arg_);
+            return;
+        }
+        Argument arg_ = new Argument();
+        arg_.setArgClass(MathType.RATE);
+        arg_.setObject(Rate.zero());
+        setArgument(arg_);
+        return;
     }
 
     @Override

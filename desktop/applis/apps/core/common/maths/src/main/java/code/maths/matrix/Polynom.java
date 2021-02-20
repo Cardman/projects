@@ -305,30 +305,36 @@ public final class Polynom implements Equallable<Polynom>, Displayable {
     }
     public CustList<RootPol> racines() {
         if(numbers.last().isZero()) {
-            Polynom copy_ = new Polynom();
-            copy_.numbers.remove(0);
-            boolean written_=false;
-            int multZero_=0;
-            for(long i=dg();i>-1;i--) {
-                if(!numbers.get((int) i).isZero()) {
-                    written_=true;
-                } else if(!written_) {
-                    multZero_++;
-                }
-                if(written_) {
-                    copy_.numbers.add(0, get((int) i));
-                }
-            }
-            CustList<RootPol> r_ = new CustList<RootPol>();
-            r_.add(new RootPol(Rate.zero(),multZero_));
-            if (copy_.numbers.isEmpty()) {
-                r_.clear();
-                copy_.numbers.add(Rate.zero());
-            }
-            r_.addAllElts(copy_.nonZeroRoots());
-            return r_;
+            return racines2();
         }
         return nonZeroRoots();
+    }
+
+    private CustList<RootPol> racines2() {
+        Polynom copy_ = new Polynom();
+        copy_.numbers.remove(0);
+        boolean written_=false;
+        int multZero_=0;
+        for(long i=dg();i>-1;i--) {
+            if(!numbers.get((int) i).isZero()) {
+                written_=true;
+            } else {
+                if (!written_) {
+                    multZero_++;
+                }
+            }
+            if(written_) {
+                copy_.numbers.add(0, get((int) i));
+            }
+        }
+        CustList<RootPol> r_ = new CustList<RootPol>();
+        r_.add(new RootPol(Rate.zero(),multZero_));
+        if (copy_.numbers.isEmpty()) {
+            r_.clear();
+            copy_.numbers.add(Rate.zero());
+        }
+        r_.addAllElts(copy_.nonZeroRoots());
+        return r_;
     }
 
     private CustList<RootPol> nonZeroRoots() {
@@ -347,94 +353,61 @@ public final class Polynom implements Equallable<Polynom>, Displayable {
         Polynom pairPol_ = new Polynom();
         Polynom impairPol_ = new Polynom();
         if(deg_%2==0) {
-            for(int i=0;i<=deg_;i++) {
-                if(i%2==0) {
-                    pairPol_.add(polEnt_.get(i));
-                } else {
-                    pairPol_.add(Rate.zero());
-                }
-            }
-            for(int i=1;i<=deg_;i++) {
-                if(i%2==1) {
-                    impairPol_.add(polEnt_.get(i));
-                } else {
-                    impairPol_.add(Rate.zero());
-                }
-            }
+            feedPol(deg_, polEnt_, pairPol_, 0);
+            feedPol(deg_, polEnt_, impairPol_, 1);
         } else {
-            for(int i=0;i<=deg_;i++) {
-                if(i%2==0) {
-                    impairPol_.add(polEnt_.get(i));
-                } else {
-                    impairPol_.add(Rate.zero());
-                }
-            }
-            for(int i=1;i<=deg_;i++) {
-                if(i%2==1) {
-                    pairPol_.add(polEnt_.get(i));
-                } else {
-                    pairPol_.add(Rate.zero());
-                }
-            }
+            feedPol(deg_, polEnt_, impairPol_, 0);
+            feedPol(deg_, polEnt_, pairPol_, 1);
         }
-        int mult_=0;
-        for(LgInt m:mainDivs_) {
-            for(LgInt c:cstDivs_) {
-                Rate cand_=new Rate(c,m);
-                Rate image_=pairPol_.image(cand_);
-                Rate imageTwo_=impairPol_.image(cand_);
-                if(Rate.eq(image_,imageTwo_)) {
-                    cand_.changeSignum();
-                    RootPol rLoc_=new RootPol(cand_,1);
-                    if(!containsRoot(r_,cand_)) {
-                        mult_++;
-                        r_.add(rLoc_);
-                        if(mult_==deg_) {
-                            return r_;
-                        }
-                    }
-                }
-                if(Rate.eq(image_,imageTwo_.opposNb())) {
-                    cand_=new Rate(c,m);
-                    RootPol rLoc_=new RootPol(cand_,1);
-                    if(!containsRoot(r_,cand_)) {
-                        mult_++;
-                        r_.add(rLoc_);
-                        if(mult_==deg_) {
-                            return r_;
-                        }
-                    }
-                }
-            }
-        }
-        for(int i=1;i<deg_;i++) {
-            pairPol_=pairPol_.derivee();
-            impairPol_=impairPol_.derivee();
-            for(int j=0;j<r_.size();j++) {
-                if(r_.get(j).getDegree()==i) {
-                    Rate image_=pairPol_.image(r_.get(j).getValue());
-                    Rate imageTwo_=impairPol_.image(r_.get(j).getValue());
-                    if(Rate.eq(image_,imageTwo_.opposNb())) {
-                        mult_++;
-                        r_.get(j).setDegree(r_.get(j).getDegree() + 1);
-                        if(mult_==deg_) {
-                            return r_;
-                        }
-                    }
-                }
-            }
-        }
-        return r_;
+        return loop(r_, deg_, mainDivs_, cstDivs_, pairPol_, impairPol_);
     }
 
-    private static boolean containsRoot(CustList<RootPol> _roots, Rate _value) {
-        for (RootPol r: _roots) {
-            if (r.getValue().eq(_value)) {
-                return true;
+    private static void feedPol(long _deg, Polynom _polEnt, Polynom _pol, int _i) {
+        for (int i = _i; i <= _deg; i++) {
+            if (i % 2 == _i) {
+                _pol.add(_polEnt.get(i));
+            } else {
+                _pol.add(Rate.zero());
             }
         }
-        return false;
     }
+
+    private static CustList<RootPol> loop(CustList<RootPol> _r, long _deg, EqList<LgInt> _mainDivs, EqList<LgInt> _cstDivs, Polynom _pairPol, Polynom _impairPol) {
+        ProcRoot pr_ = new ProcRoot();
+        for(LgInt m: _mainDivs) {
+            for(LgInt c: _cstDivs) {
+                if (pr_.exit(c,m,_r,_deg, _pairPol,_impairPol)) {
+                    return _r;
+                }
+            }
+        }
+        return lastLoop(_r, _deg, _pairPol, _impairPol, pr_.getMult());
+    }
+
+    private static CustList<RootPol> lastLoop(CustList<RootPol> _r, long _deg, Polynom _pairPol, Polynom _impairPol, int _mult) {
+        Polynom pairPol_ = _pairPol;
+        Polynom impairPol_ = _impairPol;
+        int mult_ = _mult;
+        for(int i = 1; i< _deg; i++) {
+            pairPol_ = pairPol_.derivee();
+            impairPol_ = impairPol_.derivee();
+            for(int j = 0; j< _r.size(); j++) {
+                if(_r.get(j).getDegree()==i) {
+                    Rate image_= pairPol_.image(_r.get(j).getValue());
+                    Rate imageTwo_= impairPol_.image(_r.get(j).getValue());
+                    if(Rate.eq(image_,imageTwo_.opposNb())) {
+                        mult_++;
+                        _r.get(j).setDegree(_r.get(j).getDegree() + 1);
+                        if(mult_ == _deg) {
+                            return _r;
+                        }
+                    }
+                }
+            }
+        }
+        return _r;
+    }
+
     public Rate image(Rate _x) {
         Rate y_ = Rate.zero();
         long dg_=dg();
@@ -574,10 +547,18 @@ public final class Polynom implements Equallable<Polynom>, Displayable {
         if(_o.isZero()) {
             return new Polynom(this);
         }
+        long degSum_ = retDg(_o);
+        if(degSum_<0) {
+            return new Polynom();
+        }
+        return procDefault(_o, degSum_);
+    }
+
+    private long retDg(Polynom _o) {
         long degSum_;
-        if(dg()==_o.dg()||dg()>_o.dg()) {
+        if(dg()== _o.dg()||dg()> _o.dg()) {
             degSum_=dg();
-            if(dg()==_o.dg()) {
+            if(dg()== _o.dg()) {
                 int len_ = size();
                 for(int i=0;i<len_;i++) {
                     if(Rate.eq(get(i), _o.get(i).opposNb())) {
@@ -588,29 +569,30 @@ public final class Polynom implements Equallable<Polynom>, Displayable {
                 }
             }
         } else {
-            degSum_=_o.dg();
+            degSum_= _o.dg();
         }
-        if(degSum_<0) {
-            return new Polynom();
-        }
+        return degSum_;
+    }
+
+    private Polynom procDefault(Polynom _o, long _degSum) {
         long degOne_=dg();
-        long degTwo_=_o.dg();
+        long degTwo_= _o.dg();
         long m_ = Math.min(degOne_, degTwo_);
         //m_ est le minimum entre degOne_ et degTwo_
-        Polynom pol_ = new Polynom(Rate.zero(), (int) (degSum_ + 1));
+        Polynom pol_ = new Polynom(Rate.zero(), (int) (_degSum + 1));
         for(int i=0;i<=m_;i++) {
-            if(i>degSum_) {
+            if(i> _degSum) {
                 break;
             }
-            pol_.set((int) (degSum_-i), Rate.plus(get((int) (degOne_-i)), _o.get((int) (degTwo_-i))));
+            pol_.set((int) (_degSum -i), Rate.plus(get((int) (degOne_-i)), _o.get((int) (degTwo_-i))));
         }
         if(degOne_>m_) {
-            for(long i=m_+1;i<=degSum_;i++) {
-                pol_.setNb((int) (degSum_-i), get((int) (degOne_-i)));
+            for(long i = m_+1; i<= _degSum; i++) {
+                pol_.setNb((int) (_degSum -i), get((int) (degOne_-i)));
             }
         } else {
-            for(long i=m_+1;i<=degSum_;i++) {
-                pol_.setNb((int) (degSum_-i), _o.get((int) (degTwo_-i)));
+            for(long i = m_+1; i<= _degSum; i++) {
+                pol_.setNb((int) (_degSum -i), _o.get((int) (degTwo_-i)));
             }
         }
         return pol_;
@@ -638,7 +620,7 @@ public final class Polynom implements Equallable<Polynom>, Displayable {
 
     public void add(Rate _nb) {
         if(size()== IndexConstants.ONE_ELEMENT&&numbers.first().isZero()) {
-            numbers.remove((int) IndexConstants.FIRST_INDEX);
+            numbers.remove(IndexConstants.FIRST_INDEX);
         }
         numbers.add(_nb);
     }

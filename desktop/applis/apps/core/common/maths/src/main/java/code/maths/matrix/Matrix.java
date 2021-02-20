@@ -158,7 +158,7 @@ public final class Matrix implements Equallable<Matrix>, Displayable {
         return ownVects_;
     }
 
-    private void feedZeros(int _i, int _nbLinesTwo, Vect _solCopy) {
+    private static void feedZeros(int _i, int _nbLinesTwo, Vect _solCopy) {
         for(int j = _nbLinesTwo; j< _i; j++) {
             _solCopy.add(Rate.zero());
         }
@@ -216,32 +216,40 @@ public final class Matrix implements Equallable<Matrix>, Displayable {
         int nbLines_=copy_.lines.size();
         for(int i=0;i<nbLines_;i++) {
             if(copy_.cell(i,i).isZero()) {
-                for(int j=i+1;j<nbLines_;j++) {
-                    if(!copy_.cell(j,i).isZero()) {
-                        deter_.changeSignum();
-                        for(int k=i;k<nbLines_;k++) {
-                            Rate tmp_=copy_.cell(i,k);
-                            copy_.lines.get(i).set(k, copy_.cell(j,k));
-                            copy_.lines.get(j).set(k, tmp_);
-                        }
-                        //permuter les lignes i et j
-                        break;
-                    }
-                }
+                swap(deter_, copy_, nbLines_, i);
             }
-            for(int j=i+1;j<nbLines_;j++) {
-                if(!copy_.cell(j,i).isZero()) {
-                    Rate coeffPiv_=Rate.divide(copy_.cell(j,i), copy_.cell(i,i)).opposNb();
-                    for(int k=i+1;k<nbLines_;k++) {
-                        copy_.cell(j, k).addNb(Rate.multiply(coeffPiv_, copy_.cell(i,k)));
-                    }
-                }
-                //calculer LG = ligne j par coeff_pivot
-                //ajouter la ligne LG a la ligne i
-            }
+            sumVects(copy_, nbLines_, i);
             deter_.multiplyBy(copy_.cell(i,i));
         }
         return deter_;
+    }
+
+    private static void swap(Rate _deter, Matrix _copy, int _nbLines, int _i) {
+        for(int j = _i +1; j< _nbLines; j++) {
+            if(!_copy.cell(j, _i).isZero()) {
+                _deter.changeSignum();
+                for(int k = _i; k< _nbLines; k++) {
+                    Rate tmp_= _copy.cell(_i,k);
+                    _copy.lines.get(_i).set(k, _copy.cell(j,k));
+                    _copy.lines.get(j).set(k, tmp_);
+                }
+                //permuter les lignes i et j
+                break;
+            }
+        }
+    }
+
+    private static void sumVects(Matrix _copy, int _nbLines, int _i) {
+        for(int j = _i +1; j< _nbLines; j++) {
+            if(!_copy.cell(j, _i).isZero()) {
+                Rate coeffPiv_=Rate.divide(_copy.cell(j, _i), _copy.cell(_i, _i)).opposNb();
+                for(int k = _i +1; k< _nbLines; k++) {
+                    _copy.cell(j, k).addNb(Rate.multiply(coeffPiv_, _copy.cell(_i,k)));
+                }
+            }
+            //calculer LG = ligne j par coeff_pivot
+            //ajouter la ligne LG a la ligne i
+        }
     }
 
     public LgInt detSquareIntPart() {
@@ -277,13 +285,13 @@ public final class Matrix implements Equallable<Matrix>, Displayable {
         return rk_;
     }
 
-    private void swapHelperTest(Matrix _copy, int _nbCols, int _nbLines, int _i, int _i2) {
+    private static void swapHelperTest(Matrix _copy, int _nbCols, int _nbLines, int _i, int _i2) {
         if (_copy.cell(_i, _i).isZero()) {
             swapHelper(_copy, _nbCols, _nbLines, _i, _i2);
         }
     }
 
-    private void swapHelper(Matrix _copy, int _nbCols, int _nbLines, int _i, int _start) {
+    private static void swapHelper(Matrix _copy, int _nbCols, int _nbLines, int _i, int _start) {
         for (int j = _start; j < _nbLines; j++) {
             if (!_copy.cell(j, _i).isZero()) {
                 for (int k = _i; k < _nbCols; k++) {
@@ -296,7 +304,7 @@ public final class Matrix implements Equallable<Matrix>, Displayable {
         }
     }
 
-    private void rankHelper(Matrix _copy, int _nbCols, int _nbLines, int _i, int _start) {
+    private static void rankHelper(Matrix _copy, int _nbCols, int _nbLines, int _i, int _start) {
         for (int j = _start; j < _nbLines; j++) {
             if (!_copy.cell(j, _i).isZero()) {
                 Rate r_ = Rate.divide(_copy.cell(_i, _i), _copy.cell(j, _i));
@@ -371,39 +379,47 @@ public final class Matrix implements Equallable<Matrix>, Displayable {
     public Matrix transpose() {
         Matrix m_ = new Matrix();
         int nbLines_ = lines.size();
+        int nbCols_ = getNbCols();
+        for (int i = 0; i < nbCols_; i++) {
+            addNb(m_, nbLines_, i);
+        }
+        return m_;
+    }
+
+    private void addNb(Matrix _m, int _nbLines, int _i) {
+        Vect v_ = new Vect();
+        for (int j = 0; j < _nbLines; j++) {
+            v_.addNb(cell(j, _i));
+        }
+        _m.lines.add(v_);
+    }
+
+    private int getNbCols() {
         int nbCols_;
         if (lines.isEmpty()) {
             nbCols_ = 0;
         } else {
             nbCols_ = lines.first().size();
         }
-        for (int i = 0; i < nbCols_; i++) {
-            Vect v_ = new Vect();
-            for (int j = 0; j < nbLines_; j++) {
-                v_.addNb(cell(j,i));
-            }
-            m_.lines.add(v_);
-        }
-        return m_;
+        return nbCols_;
     }
 
     public Matrix transposeRef() {
         Matrix m_ = new Matrix();
         int nbLines_ = lines.size();
-        int nbCols_;
-        if (lines.isEmpty()) {
-            nbCols_ = 0;
-        } else {
-            nbCols_ = lines.first().size();
-        }
+        int nbCols_ = getNbCols();
         for (int i = 0; i < nbCols_; i++) {
-            Vect v_ = new Vect();
-            for (int j = 0; j < nbLines_; j++) {
-                v_.add(cell(j,i));
-            }
-            m_.lines.add(v_);
+            addRef(m_, nbLines_, i);
         }
         return m_;
+    }
+
+    private void addRef(Matrix _m, int _nbLines, int _i) {
+        Vect v_ = new Vect();
+        for (int j = 0; j < _nbLines; j++) {
+            v_.add(cell(j, _i));
+        }
+        _m.lines.add(v_);
     }
 
     public Matrix multMatrix(Rate _scal) {
@@ -498,12 +514,7 @@ public final class Matrix implements Equallable<Matrix>, Displayable {
     public Rate trace() {
         Rate trace_ = Rate.zero();
         int nbLines_ = lines.size();
-        int nbCols_;
-        if (lines.isEmpty()) {
-            nbCols_ = 0;
-        } else {
-            nbCols_ = lines.first().size();
-        }
+        int nbCols_ = getNbCols();
         int min_ = Math.min(nbLines_, nbCols_);
         for (int i = 0; i < min_; i++) {
             trace_.addNb(cell(i,i));
