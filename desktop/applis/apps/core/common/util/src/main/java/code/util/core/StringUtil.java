@@ -15,7 +15,6 @@ public final class StringUtil {
     private static final char CHARACTER = '.';
     private static final char STRING = '*';
     private static final char POSSIBLE_CHAR = '?';
-    private static final char ESCAPING_CHAR = '\\';
     private static final char QUOTE = '\'';
     private static final char LINE_RETURN_CHAR = '\n';
     private static final char SPACE_CHAR = ' ';
@@ -1232,76 +1231,11 @@ public final class StringUtil {
     }
 
     public static String escape(String _input) {
-        int length_ = _input.length();
-        char[] newArray_ = new char[length_];
-        int i_ = IndexConstants.FIRST_INDEX;
-        int j_ = IndexConstants.FIRST_INDEX;
-        int newLength_ = length_;
-        while (i_ < length_) {
-            char c_ = _input.charAt(i_);
-            if (c_ == ESCAPING_CHAR) {
-                int next_ = i_;
-                next_++;
-                EscapeState esc_ = new EscapeState(i_,c_,newLength_);
-                if (next_ < length_ && isEscChar(_input, next_)) {
-                    esc_.apply(_input);
-                }
-                i_ = esc_.getIndex();
-                c_ = esc_.getCurChar();
-                newLength_ = esc_.getNewLength();
-            }
-            newArray_[j_] = c_;
-            j_++;
-            i_++;
-        }
-        return extract(newArray_, newLength_);
-    }
-
-    private static boolean isEscChar(String _input, int _next) {
-        return _input.charAt(_next) == CHARACTER || _input.charAt(_next) == STRING || _input.charAt(_next) == POSSIBLE_CHAR || _input.charAt(_next) == ESCAPING_CHAR;
+        return new DefaultEscapingFilter().escape(_input);
     }
 
     public static String escapeSpace(String _input) {
-        int length_ = _input.length();
-        char[] newArray_ = new char[length_];
-        int i_ = IndexConstants.FIRST_INDEX;
-        int j_ = IndexConstants.FIRST_INDEX;
-        int newLength_ = length_;
-        while (i_ < length_) {
-            char cSp_ = _input.charAt(i_);
-            if (cSp_ == ESCAPING_CHAR) {
-                int next_ = i_;
-                next_++;
-                EscapeState esc_ = new EscapeState(i_,cSp_,newLength_);
-                if (next_ < length_ && isEscSpaceChar(_input, next_)) {
-                    esc_.apply(_input);
-                }
-                i_ = esc_.getIndex();
-                cSp_ = esc_.getCurChar();
-                newLength_ = esc_.getNewLength();
-            }
-            newArray_[j_] = cSp_;
-            j_++;
-            i_++;
-        }
-        return extract(newArray_, newLength_);
-    }
-
-    private static boolean isEscSpaceChar(String _input, int _next) {
-        return _input.charAt(_next) == SPACE_CHAR || _input.charAt(_next) == ESCAPING_CHAR;
-    }
-
-    private static String extract(char[] _arr, int _len) {
-        int min_ = Math.min(_arr.length,_len);
-        char[] ext_ = new char[min_];
-        for (int i = 0; i < min_; i++) {
-            set(_arr, ext_, i);
-        }
-        return String.valueOf(ext_);
-    }
-
-    private static void set(char[] _arr, char[] _ext, int _i) {
-        _ext[_i] = _arr[_i];
+        return new SpaceEscapingFilter().escape(_input);
     }
 
     public static String getFirstToken(String _string, char _separator) {
