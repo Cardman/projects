@@ -105,8 +105,12 @@ public final class OperationsSequence {
         priority = _priority;
     }
 
-    public StrTypes getValues() {
-        return values;
+    public Delimiters getDelimiter() {
+        return delimiter;
+    }
+
+    public void setDelimiter(Delimiters _delimiter) {
+        delimiter = _delimiter;
     }
 
     public StrTypes getOperators() {
@@ -117,12 +121,8 @@ public final class OperationsSequence {
         operators = _operators;
     }
 
-    public Delimiters getDelimiter() {
-        return delimiter;
-    }
-
-    public void setDelimiter(Delimiters _delimiter) {
-        delimiter = _delimiter;
+    public StrTypes getValues() {
+        return values;
     }
 
     public ConstType getConstType() {
