@@ -1,7 +1,5 @@
 package code.maths.litteral;
-import code.util.*;
 import code.util.StringList;
-import code.util.StringMap;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 
@@ -18,20 +16,16 @@ public final class MathResolver {
     static final int UNARY_PRIO = 7;
     static final int FCT_OPER_PRIO = 8;
 
-    static final String EMPTY_STRING = "";
     static final String TRUE = "V";
 
 
     static final String FALSE = "F";
     private static final char DOT = '.';
     private static final char SEP_RATE = '/';
-    private static final char ESCAPE_META_CHAR = '\\';
     private static final char PAR_LEFT = '(';
     private static final char PAR_RIGHT = ')';
     private static final char SEP_ARG = ',';
     private static final char DELIMITER_STRING_BEGIN = '{';
-    private static final char DELIMITER_STRING_SEP = ';';
-    private static final char DELIMITER_STRING_END = '}';
 
     private static final char NEG_BOOL_CHAR = '!';
 
@@ -56,10 +50,6 @@ public final class MathResolver {
 
     static Delimiters checkSyntax(String _string, ErrorStatus _error) {
         Delimiters d_ = new Delimiters();
-        int parsBrackets_;
-        parsBrackets_ = 0;
-        boolean constString_ = false;
-        boolean escapedMeta_ = false;
         int len_ = _string.length();
         int i_ = IndexConstants.FIRST_INDEX;
         while (i_ < len_) {
@@ -75,189 +65,165 @@ public final class MathResolver {
             _error.setString(_string);
             return d_;
         }
-        i_ = IndexConstants.FIRST_INDEX;
+        MathStringState m_ = new MathStringState();
         StringBuilder elt_ = new StringBuilder();
-        while (i_ < len_) {
-            char curChar_ = _string.charAt(i_);
-            if (constString_) {
-                if (!escapedMeta_) {
-                    if (curChar_ == ESCAPE_META_CHAR) {
-                        if (i_ + 1 >= len_) {
-                            _error.setIndex(i_ + 1);
-                            _error.setError(true);
-                            _error.setString(_string);
-                            return d_;
-                        }
-                        escapedMeta_ = true;
-                        i_++;
-                        continue;
-                    }
-                    if (curChar_ == DELIMITER_STRING_END) {
-                        d_.getDelStringsChars().add(i_);
-                        d_.getStringInfo().last().add(elt_.toString());
-                        elt_.delete(0, elt_.length());
-                        constString_ = false;
-                        i_++;
-                        continue;
-                    }
-                    if (curChar_ == DELIMITER_STRING_SEP) {
-                        d_.getStringInfo().last().add(elt_.toString());
-                        elt_.delete(0, elt_.length());
-                    } else {
-                        elt_.append(curChar_);
-                    }
-                    i_++;
-                    continue;
-                }
-                if (seps(curChar_)) {
-                    elt_.append(curChar_);
-                    escapedMeta_ = false;
-                    i_++;
-                    continue;
-                }
-                _error.setIndex(i_);
-                _error.setError(true);
-                _error.setString(_string);
-                return d_;
-            }
-            if (MathExpUtil.isWordChar(curChar_)) {
-                if (MathExpUtil.isDigit(curChar_)) {
-                    i_ = addNumberInfo(d_,i_,i_,_string);
-                    continue;
-                }
-                VariableInfo var_ = new VariableInfo();
-                var_.setFirstChar(i_);
-                StringBuilder name_ = new StringBuilder();
-                while (i_ < len_) {
-                    char last_ = _string.charAt(i_);
-                    if (!MathExpUtil.isWordChar(last_)) {
-                        break;
-                    }
-                    name_.append(last_);
-                    i_++;
-                }
-                var_.setLastChar(i_);
-                var_.setName(name_.toString());
-                d_.getVariables().add(var_);
-                continue;
-            }
-            if (curChar_ == DOT) {
-                int j_ = addNumberInfo(d_, i_ + 1, i_,_string);
-                d_.getNbInfos().last().insert(0,DOT);
-                i_ = j_;
-                continue;
-            }
-            if (curChar_ == DELIMITER_STRING_BEGIN) {
-                constString_ = true;
-                d_.getDelStringsChars().add(i_);
-                d_.getStringInfo().add(new StringList());
-            }
-            if (curChar_ == PAR_LEFT) {
-                parsBrackets_++;
-            }
-            if (curChar_ == PAR_RIGHT) {
-                if (parsBrackets_==0) {
-                    _error.setIndex(i_);
-                    _error.setError(true);
-                    _error.setString(_string);
-                    return d_;
-                }
-                parsBrackets_--;
-            }
-            if (curChar_ == SEP_ARG && parsBrackets_==0) {
-                _error.setIndex(i_);
-                _error.setError(true);
-                _error.setString(_string);
-                return d_;
-            }
-            boolean escapeOpers_ = false;
-            boolean addOp_ = true;
-            if (curChar_ == MULT_CHAR) {
-                escapeOpers_ = true;
-            }
-            if (curChar_ == DIV_CHAR) {
-                escapeOpers_ = true;
-            }
-            if (curChar_ == PLUS_CHAR){
-                escapeOpers_ = true;
-                if (beginIndex_ == i_) {
-                    addOp_ = false;
-                }
-            }
-            if (curChar_ == MINUS_CHAR){
-                escapeOpers_ = true;
-                if (beginIndex_ == i_) {
-                    addOp_ = false;
-                }
-            }
-            if (curChar_ == AND_CHAR) {
-                escapeOpers_ = true;
-            }
-            if (curChar_ == OR_CHAR) {
-                escapeOpers_ = true;
-            }
-            if (curChar_ == LOWER_CHAR) {
-                escapeOpers_ = true;
-            }
-            if (curChar_ == GREATER_CHAR) {
-                escapeOpers_ = true;
-            }
-            if (curChar_ == EQ_CHAR) {
-                escapeOpers_ = true;
-            }
-            if (curChar_ == NEG_BOOL_CHAR) {
-                escapeOpers_ = true;
-                if (beginIndex_ == i_) {
-                    addOp_ = false;
-                }
-            }
-            if (curChar_ == PAR_LEFT) {
-                escapeOpers_ = true;
-            }
-            if (curChar_ == SEP_ARG) {
-                escapeOpers_ = true;
-            }
-            if (escapeOpers_) {
-                int j_ = i_ + 1;
-                if (j_ < len_ && _string.charAt(j_) == EQ_CHAR) {
-                    j_++;
-                }
-                while (j_ < len_) {
-                    char curLoc_ = _string.charAt(j_);
-                    if (StringUtil.isWhitespace(curLoc_) || curLoc_ == PLUS_CHAR || curLoc_ == MINUS_CHAR || curLoc_ == NEG_BOOL_CHAR) {
-                        j_++;
-                        continue;
-                    }
-                    break;
-                }
-                if (addOp_) {
-                    d_.getAllowedOperatorsIndexes().add(i_);
-                }
-                i_ = j_;
-                continue;
-            }
-            if (curChar_ == PAR_RIGHT) {
-                d_.getAllowedOperatorsIndexes().add(i_);
-            }
-            i_++;
+        while (m_.getIndex() < len_) {
+            loop(_string, _error, d_, len_, beginIndex_, m_, elt_);
         }
-        if (constString_) {
-            _error.setIndex(i_);
-            _error.setError(true);
-            _error.setString(_string);
-            return d_;
-        }
-        if (parsBrackets_ != 0) {
-            _error.setIndex(i_);
-            _error.setError(true);
-            _error.setString(_string);
-            return d_;
-        }
-        return d_;
+        return redirect(_string, _error, d_, m_.getParsBrackets(), m_.isConstString(), m_.getIndex());
     }
 
-    private static boolean seps(char _curChar) {
-        return _curChar == DELIMITER_STRING_END || _curChar == DELIMITER_STRING_SEP || _curChar == ESCAPE_META_CHAR;
+    private static void loop(String _string, ErrorStatus _error, Delimiters _d, int _len, int _beginIndex, MathStringState _m, StringBuilder _elt) {
+        char curChar_ = _string.charAt(_m.getIndex());
+        if (_m.isConstString()) {
+            procStr(_string, _error, _d, _len, _m, _elt, curChar_);
+            return;
+        }
+        if (MathExpUtil.isWordChar(curChar_)) {
+            _m.setIndex(processWordChar(_string, _d, _len, _m.getIndex(), curChar_));
+            return;
+        }
+        if (curChar_ == DOT) {
+            int j_ = addNumberInfo(_d, _m.getIndex() + 1, _m.getIndex(), _string);
+            _d.getNbInfos().last().insert(0,DOT);
+            _m.setIndex(j_);
+            return;
+        }
+        if (curChar_ == DELIMITER_STRING_BEGIN) {
+            _m.setConstString();
+            _d.getDelStringsChars().add(_m.getIndex());
+            _d.getStringInfo().add(new StringList());
+        }
+        if (curChar_ == PAR_LEFT) {
+            _m.setParsBrackets(_m.getParsBrackets()+1);
+        }
+        if (curChar_ == PAR_RIGHT) {
+            if (_m.getParsBrackets()==0) {
+                _error.setIndex(_m.getIndex());
+                _error.setError(true);
+                _error.setString(_string);
+                _m.setIndex(_len);
+                return;
+            }
+            _m.setParsBrackets(_m.getParsBrackets()-1);
+        }
+        if (curChar_ == SEP_ARG && _m.getParsBrackets()==0) {
+            _error.setIndex(_m.getIndex());
+            _error.setError(true);
+            _error.setString(_string);
+            _m.setIndex(_len);
+            return;
+        }
+        _m.setIndex(procOper(_string, _d, _len, _m.getIndex(), _beginIndex, curChar_));
+    }
+
+    private static void procStr(String _string, ErrorStatus _error, Delimiters _d, int _len, MathStringState _m, StringBuilder _elt, char _curChar) {
+        if (_m.exit(_elt, _d, _curChar, _string, _error)) {
+            _m.setIndex(_len);
+        }
+    }
+
+    private static Delimiters redirect(String _string, ErrorStatus _error, Delimiters _d, int _parsBrackets, boolean _constString, int _i) {
+        if (_constString) {
+            _error.setIndex(_i);
+            _error.setError(true);
+            _error.setString(_string);
+            return _d;
+        }
+        if (_parsBrackets != 0) {
+            _error.setIndex(_i);
+            _error.setError(true);
+            _error.setString(_string);
+            return _d;
+        }
+        return _d;
+    }
+
+    private static int procOper(String _string, Delimiters _d, int _len, int _i, int _beginIndex, char _curChar) {
+        int i_ = _i;
+        boolean escapeOpers_ = false;
+        boolean addOp_ = true;
+        if (_curChar == PLUS_CHAR || _curChar == MINUS_CHAR || _curChar == NEG_BOOL_CHAR) {
+            escapeOpers_ = true;
+            if (_beginIndex == i_) {
+                addOp_ = false;
+            }
+        }
+        if (normalOp(_curChar)) {
+            escapeOpers_ = true;
+        }
+        if (escapeOpers_) {
+            return procEscOp(_string, _d, _len, i_, addOp_);
+        }
+        if (_curChar == PAR_RIGHT) {
+            _d.getAllowedOperatorsIndexes().add(i_);
+        }
+        i_++;
+        return i_;
+    }
+
+    private static boolean normalOp(char _curChar) {
+        return mult(_curChar) || andOr(_curChar) || cmp(_curChar) || call(_curChar);
+    }
+
+    private static boolean call(char _curChar) {
+        return _curChar == PAR_LEFT || _curChar == SEP_ARG;
+    }
+
+    private static boolean cmp(char _curChar) {
+        return _curChar == LOWER_CHAR || _curChar == GREATER_CHAR || _curChar == EQ_CHAR;
+    }
+
+    private static boolean andOr(char _curChar) {
+        return _curChar == AND_CHAR || _curChar == OR_CHAR;
+    }
+
+    private static boolean mult(char _curChar) {
+        return _curChar == MULT_CHAR || _curChar == DIV_CHAR;
+    }
+
+    private static int procEscOp(String _string, Delimiters _d, int _len, int _i, boolean _addOp) {
+        int i_ = _i;
+        int j_ = i_ + 1;
+        if (j_ < _len && _string.charAt(j_) == EQ_CHAR) {
+            j_++;
+        }
+        while (j_ < _len) {
+            char curLoc_ = _string.charAt(j_);
+            if (StringUtil.isWhitespace(curLoc_) || curLoc_ == PLUS_CHAR || curLoc_ == MINUS_CHAR || curLoc_ == NEG_BOOL_CHAR) {
+                j_++;
+                continue;
+            }
+            break;
+        }
+        if (_addOp) {
+            _d.getAllowedOperatorsIndexes().add(i_);
+        }
+        i_ = j_;
+        return i_;
+    }
+
+    private static int processWordChar(String _string, Delimiters _d, int _len, int _i, char _curChar) {
+        int i_ = _i;
+        if (MathExpUtil.isDigit(_curChar)) {
+            i_ = addNumberInfo(_d, i_, i_, _string);
+            return i_;
+        }
+        VariableInfo var_ = new VariableInfo();
+        var_.setFirstChar(i_);
+        StringBuilder name_ = new StringBuilder();
+        while (i_ < _len) {
+            char last_ = _string.charAt(i_);
+            if (!MathExpUtil.isWordChar(last_)) {
+                break;
+            }
+            name_.append(last_);
+            i_++;
+        }
+        var_.setLastChar(i_);
+        var_.setName(name_.toString());
+        _d.getVariables().add(var_);
+        return i_;
     }
 
     private static int addNumberInfo(Delimiters _d, int _from, int _begin,String _string) {
@@ -301,34 +267,22 @@ public final class MathResolver {
         return i_;
     }
     static OperationsSequence getOperationsSequence(int _offset, String _string,
-            StringMap<String> _conf, Delimiters _d) {
-        StrTypes operators_;
-        operators_ = new StrTypes();
-        int parsBrackets_;
-        parsBrackets_ = 0;
-        int prio_ = FCT_OPER_PRIO;
+                                                    Delimiters _d) {
         int len_ = _string.length();
-        int i_ = IndexConstants.FIRST_INDEX;
-        while (i_ < len_) {
-            if (!StringUtil.isWhitespace(_string.charAt(i_))) {
-                break;
-            }
-            i_++;
-        }
-        if (i_ >= len_) {
+        int i_ = StringUtil.getFirstPrintableCharIndex(_string);
+        if (i_ < 0) {
             OperationsSequence op_ = new OperationsSequence();
             op_.setOperators(new StrTypes());
             op_.setupValue(_string);
             op_.setDelimiter(_d);
             return op_;
         }
-        int firstPrintChar_ = i_;
         int lastPrintChar_ = len_ - 1;
         while (StringUtil.isWhitespace(_string.charAt(lastPrintChar_))) {
             lastPrintChar_--;
         }
         len_ = lastPrintChar_+1;
-        int begin_ = _d.getDelStringsChars().indexOfNb((long) firstPrintChar_ + _offset);
+        int begin_ = _d.getDelStringsChars().indexOfNb((long) i_ + _offset);
         int end_ = _d.getDelStringsChars().indexOfNb((long) lastPrintChar_ + _offset);
         if (delimits(begin_, end_)) {
             OperationsSequence op_ = new OperationsSequence();
@@ -339,7 +293,7 @@ public final class MathResolver {
             op_.setDelimiter(_d);
             return op_;
         }
-        begin_ = _d.getDelNumbers().indexOfNb((long)_offset + firstPrintChar_);
+        begin_ = _d.getDelNumbers().indexOfNb((long)_offset + i_);
         end_ = _d.getDelNumbers().indexOfNb((long)_offset + lastPrintChar_ + 1L);
         if (delimits(begin_, end_)) {
             OperationsSequence op_ = new OperationsSequence();
@@ -350,15 +304,8 @@ public final class MathResolver {
             op_.setDelimiter(_d);
             return op_;
         }
-        String sub_ = _string.substring(firstPrintChar_, len_);
-        if (StringUtil.quickEq(sub_,TRUE)) {
-            OperationsSequence op_ = new OperationsSequence();
-            op_.setOperators(new StrTypes());
-            op_.setupValue(_string);
-            op_.setDelimiter(_d);
-            return op_;
-        }
-        if (StringUtil.quickEq(sub_, FALSE)) {
+        String sub_ = _string.substring(i_, len_);
+        if (trFalse(sub_)) {
             OperationsSequence op_ = new OperationsSequence();
             op_.setOperators(new StrTypes());
             op_.setupValue(_string);
@@ -366,7 +313,7 @@ public final class MathResolver {
             return op_;
         }
         for (VariableInfo v: _d.getVariables()) {
-            if (v.getFirstChar() != _offset + firstPrintChar_) {
+            if (v.getFirstChar() != _offset + i_) {
                 continue;
             }
             int iVar_ = v.getLastChar();
@@ -380,149 +327,26 @@ public final class MathResolver {
             op_.setDelimiter(_d);
             return op_;
         }
-        boolean useFct_ = false;
-        String fctName_ = EMPTY_STRING;
-        String opUn_ = Character.toString(_string.charAt(firstPrintChar_));
-        if (areUnary(_string, firstPrintChar_)) {
-            prio_ = UNARY_PRIO;
-            operators_.addEntry(firstPrintChar_, opUn_);
-            i_ = incrementUnary(_string, firstPrintChar_ + 1, lastPrintChar_);
-        }
-        while (i_ < len_) {
-            char curChar_ = _string.charAt(i_);
-            if (!_d.getAllowedOperatorsIndexes().containsObj((long)i_+_offset)) {
-                i_++;
-                continue;
-            }
-
-            if (curChar_ == PAR_LEFT) {
-                if (parsBrackets_ == 0 && prio_ == FCT_OPER_PRIO) {
-                    useFct_ = true;
-                    fctName_ = _string.substring(IndexConstants.FIRST_INDEX, i_);
-                    operators_.clear();
-                    operators_.addEntry(i_, Character.toString(PAR_LEFT));
-                }
-                parsBrackets_++;
-            }
-            if (curChar_ == SEP_ARG && parsBrackets_ == 1 && prio_ == FCT_OPER_PRIO) {
-                operators_.addEntry(i_, Character.toString(SEP_ARG));
-            }
-            if (curChar_ == PAR_RIGHT) {
-                parsBrackets_--;
-                if (parsBrackets_==0 && prio_ == FCT_OPER_PRIO) {
-                    operators_.addEntry(i_, Character.toString(PAR_RIGHT));
-                }
-                i_++;
-                continue;
-            }
-            if (parsBrackets_ != 0) {
-                i_++;
-                continue;
-            }
-            StringBuilder builtOperator_ = new StringBuilder();
-            boolean clearOperators_ = false;
-            boolean foundOperator_ = false;
-            int increment_ = 1;
-            boolean eq_ = false;
-            if (curChar_ == NEG_BOOL_CHAR || curChar_ == EQ_CHAR) {
-                builtOperator_.append(curChar_);
-                if (curChar_ == NEG_BOOL_CHAR && i_ + 1 < _string.length()) {
-                    char nextChar_ = _string.charAt(i_ + 1);
-                    if (nextChar_ == EQ_CHAR) {
-                        builtOperator_.append(EQ_CHAR);
-                        increment_++;
-                    }
-                }
-                eq_ = true;
-            }
-            if (eq_) {
-                if (prio_ > EQ_PRIO) {
-                    clearOperators_ = true;
-                    prio_ = EQ_PRIO;
-                }
-                if (prio_ == EQ_PRIO) {
-                    foundOperator_ = true;
-                }
-            }
-            int prioOpMult_ = getPrio(curChar_);
-            if (prioOpMult_ > 0) {
-                builtOperator_.append(curChar_);
-                if (prio_ > prioOpMult_) {
-                    prio_ = prioOpMult_;
-                }
-                if (prio_ == prioOpMult_) {
-                    clearOperators_ = true;
-                    foundOperator_ = true;
-                }
-            }
-            if (curChar_ == LOWER_CHAR || curChar_ == GREATER_CHAR) {
-                builtOperator_.append(curChar_);
-                if (prio_ > CMP_PRIO) {
-                    clearOperators_ = true;
-                    prio_ = CMP_PRIO;
-                }
-                if (prio_ == CMP_PRIO) {
-                    foundOperator_ = true;
-                }
-                char nextChar_ = _string.charAt(i_ + 1);
-                if (nextChar_ == EQ_CHAR) {
-                    builtOperator_.append(nextChar_);
-                    increment_++;
-                }
-            }
-            if (foundOperator_) {
-                if (clearOperators_) {
-                    useFct_ = false;
-                    fctName_ = EMPTY_STRING;
-                    operators_.clear();
-                }
-                operators_.addEntry(i_,builtOperator_.toString());
-            }
-            i_ += increment_;
+        MathAfUnaryParts mat_ = new MathAfUnaryParts(_string,i_, i_,lastPrintChar_);
+        while (mat_.getIndex() < len_) {
+            mat_.loop(_offset, _string, _d);
         }
         OperationsSequence op_ = new OperationsSequence();
-        op_.setPriority(prio_);
-        op_.setOperators(operators_);
-        op_.setFctName(fctName_);
-        op_.setUseFct(useFct_);
+        op_.setPriority(mat_.getPrio());
+        op_.setOperators(mat_.getOperators());
+        op_.setFctName(mat_.getFctName());
+        op_.setUseFct(mat_.isUseFct());
         op_.setupValues(_string);
         op_.setDelimiter(_d);
         return op_;
     }
 
-    private static int getPrio(char _curChar) {
-        int prioOpMult_ = 0;
-        if (_curChar == MINUS_CHAR || _curChar == PLUS_CHAR) {
-            prioOpMult_ = ADD_PRIO;
-        } else if (_curChar == MULT_CHAR || _curChar == DIV_CHAR) {
-            prioOpMult_ = MULT_PRIO;
-        } else if (_curChar == AND_CHAR) {
-            prioOpMult_ = AND_PRIO;
-        } else {
-            if (_curChar == OR_CHAR) {
-                prioOpMult_ = OR_PRIO;
-            }
-        }
-        return prioOpMult_;
-    }
-
-    private static boolean areUnary(String _string, int _i) {
-        return _string.charAt(_i) == MINUS_CHAR || _string.charAt(_i) == PLUS_CHAR || _string.charAt(_i) == NEG_BOOL_CHAR;
+    private static boolean trFalse(String _sub) {
+        return StringUtil.quickEq(_sub,TRUE) || StringUtil.quickEq(_sub, FALSE);
     }
 
     private static boolean delimits(int _begin, int _end) {
         return _begin > IndexConstants.INDEX_NOT_FOUND_ELT && _begin + 1 == _end;
     }
 
-    static int incrementUnary(String _string, int _from, int _to) {
-        int j_ = _from;
-        while (j_ <= _to) {
-            char ch_ = _string.charAt(j_);
-            if (ch_ != MINUS_CHAR && ch_ != PLUS_CHAR && ch_ != NEG_BOOL_CHAR && !StringUtil.isWhitespace(ch_)) {
-                break;
-            }
-            j_++;
-        }
-        return j_;
-    }
 }

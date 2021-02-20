@@ -1,6 +1,5 @@
 package code.maths.litteral;
 import code.util.CustList;
-import code.util.*;
 import code.util.StringMap;
 import code.util.core.IndexConstants;
 
@@ -18,7 +17,7 @@ final class MathUtil {
             arg_.setObject(err_);
             return arg_;
         }
-        OperationsSequence opTwo_ = MathResolver.getOperationsSequence(IndexConstants.FIRST_INDEX, _el, _conf, d_);
+        OperationsSequence opTwo_ = MathResolver.getOperationsSequence(IndexConstants.FIRST_INDEX, _el, d_);
         OperationNode op_ = OperationNode.createOperationNode(_el, IndexConstants.FIRST_INDEX, _conf, IndexConstants.FIRST_INDEX, null, opTwo_);
         if (op_ == null) {
             Argument arg_ = new Argument();
@@ -116,7 +115,7 @@ final class MathUtil {
         Delimiters d_ = block_.getOperations().getDelimiter();
         int curKey_ = block_.getChildren().getKey(0);
         int offset_ = block_.getIndexInEl()+curKey_;
-        OperationsSequence r_ = MathResolver.getOperationsSequence(offset_, value_, _context, d_);
+        OperationsSequence r_ = MathResolver.getOperationsSequence(offset_, value_, d_);
         OperationNode op_ = OperationNode.createOperationNode(value_, offset_, _context, IndexConstants.FIRST_INDEX, block_, r_);
         if (op_ == null) {
             _error.setIndex(offset_);
@@ -139,7 +138,7 @@ final class MathUtil {
         Delimiters d_ = _block.getOperations().getDelimiter();
         int curKey_ = children_.getKey(_block.getIndexChild() + 1);
         int offset_ = p_.getIndexInEl()+curKey_;
-        OperationsSequence r_ = MathResolver.getOperationsSequence(offset_, value_, _context, d_);
+        OperationsSequence r_ = MathResolver.getOperationsSequence(offset_, value_, d_);
         OperationNode op_ = OperationNode.createOperationNode(value_, offset_, _context, _block.getIndexChild() + 1, p_, r_);
         if (op_ == null) {
             _error.setIndex(offset_);

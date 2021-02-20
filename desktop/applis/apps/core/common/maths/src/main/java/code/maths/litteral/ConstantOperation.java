@@ -17,22 +17,7 @@ public final class ConstantOperation extends OperationNode {
     void analyze(StringMap<String> _conf, ErrorStatus _error) {
         analyzeCalculate(_error);
         if (getArgument() != null) {
-            String str_ = getOperations().getValues().getValue(IndexConstants.FIRST_INDEX).trim();
-
-            for (EntryCust<String,String> v: _conf.entryList()) {
-                if (StringUtil.quickEq(str_, StringUtil.concat(Character.toString(DELIMITER_STRING_BEGIN),v.getKey(),Character.toString(DELIMITER_STRING_END)))) {
-                    MathList m_ = new MathList();
-                    for (String e: StringUtil.splitChars(v.getValue(), DELIMITER_STRING_SEP)) {
-                        if (e.isEmpty()) {
-                            continue;
-                        }
-                        m_.add(e);
-                    }
-                    getArgument().setObject(m_);
-                    break;
-                }
-            }
-            setResultClass(getArgument().getArgClass());
+            processConst(_conf);
             return;
         }
         String str_ = getOperations().getValues().getValue(IndexConstants.FIRST_INDEX).trim();
@@ -52,6 +37,25 @@ public final class ConstantOperation extends OperationNode {
         _error.setError(true);
         _error.setIndex(getIndexInEl());
         _error.setString(str_);
+    }
+
+    private void processConst(StringMap<String> _conf) {
+        String str_ = getOperations().getValues().getValue(IndexConstants.FIRST_INDEX).trim();
+
+        for (EntryCust<String,String> v: _conf.entryList()) {
+            if (StringUtil.quickEq(str_, StringUtil.concat(Character.toString(DELIMITER_STRING_BEGIN),v.getKey(),Character.toString(DELIMITER_STRING_END)))) {
+                MathList m_ = new MathList();
+                for (String e: StringUtil.splitChars(v.getValue(), DELIMITER_STRING_SEP)) {
+                    if (e.isEmpty()) {
+                        continue;
+                    }
+                    m_.add(e);
+                }
+                getArgument().setObject(m_);
+                break;
+            }
+        }
+        setResultClass(getArgument().getArgClass());
     }
 
     @Override
