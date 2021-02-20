@@ -64,11 +64,7 @@ public final class Delaunay {
     }
 
     private void mainCompute(EqList<CustPoint> _points) {
-        triangles.clear();
-        convexHull.clear();
-        edges.clear();
-        nextTriangles.clear();
-        nextPoints.clear();
+        cleanBefore();
         if (_points.size() < Triangle.NB_POINTS) {
             return;
         }
@@ -195,23 +191,16 @@ public final class Delaunay {
     }
 
     public void mainComputeIncr(EqList<CustPoint> _points, boolean _addMids) {
-        triangles.clear();
-        convexHull.clear();
-        edges.clear();
-        nextTriangles.clear();
-        nextPoints.clear();
-        EqList<CustPoint> points_ = new EqList<CustPoint>(_points);
-        points_.removeDuplicates();
+        EqList<CustPoint> points_ = cleanBefore(_points);
         if (points_.size() < Triangle.NB_POINTS) {
+            return;
+        }
+        int index_ = getIndex2(points_);
+        if (index_ >= points_.size()) {
             return;
         }
         CustPoint first_ = points_.first();
         CustPoint second_ = points_.get(1);
-        VectTwoDims v_ = new VectTwoDims(first_,second_);
-        int index_ = getIndex(points_, first_, v_);
-        if (index_ >= points_.size()) {
-            return;
-        }
         CustPoint third_ = points_.get(index_);
         triangles.add(new Triangle(first_, second_, third_));
         convexHull.add(first_);
@@ -232,6 +221,21 @@ public final class Delaunay {
         nextPoints = calculateNextPoints();
         edges = evaluateEdges(_addMids);
         nextTriangles = calculateNextTriangles();
+    }
+
+    private EqList<CustPoint> cleanBefore(EqList<CustPoint> _points) {
+        cleanBefore();
+        EqList<CustPoint> points_ = new EqList<CustPoint>(_points);
+        points_.removeDuplicates();
+        return points_;
+    }
+
+    private void cleanBefore() {
+        triangles.clear();
+        convexHull.clear();
+        edges.clear();
+        nextTriangles.clear();
+        nextPoints.clear();
     }
 
     private Polygon loop(EqList<CustPoint> _all, Polygon _p, CustPoint _c) {
@@ -347,10 +351,7 @@ public final class Delaunay {
         for (Edge e : _edges) {
             boolean same_ = false;
             for (Edge f : _edges) {
-                if (e == f) {
-                    continue;
-                }
-                if (e.isSame(f)) {
+                if (e != f && e.isSame(f)) {
                     same_ = true;
                     break;
                 }
@@ -410,13 +411,7 @@ public final class Delaunay {
     }
 
     public void mainComputeIncrConvex(EqList<CustPoint> _points) {
-        triangles.clear();
-        convexHull.clear();
-        edges.clear();
-        nextTriangles.clear();
-        nextPoints.clear();
-        EqList<CustPoint> points_ = new EqList<CustPoint>(_points);
-        points_.removeDuplicates();
+        EqList<CustPoint> points_ = cleanBefore(_points);
         if (points_.size() < Triangle.NB_POINTS) {
             return;
         }
@@ -517,23 +512,16 @@ public final class Delaunay {
     }
 
     public void mainComputeIncrSuperTriangle(EqList<CustPoint> _points) {
-        triangles.clear();
-        convexHull.clear();
-        edges.clear();
-        nextTriangles.clear();
-        nextPoints.clear();
-        EqList<CustPoint> points_ = new EqList<CustPoint>(_points);
-        points_.removeDuplicates();
+        EqList<CustPoint> points_ = cleanBefore(_points);
         if (points_.size() < Triangle.NB_POINTS) {
+            return;
+        }
+        int index_ = getIndex2(points_);
+        if (index_ >= points_.size()) {
             return;
         }
         CustPoint first_ = points_.first();
         CustPoint second_ = points_.get(1);
-        VectTwoDims v_ = new VectTwoDims(first_,second_);
-        int index_ = getIndex(points_, first_, v_);
-        if (index_ >= points_.size()) {
-            return;
-        }
         CustPoint third_ = points_.get(index_);
         triangles.add(new Triangle(first_, second_, third_));
         convexHull.add(first_);
@@ -588,6 +576,10 @@ public final class Delaunay {
             }
         }
         afterLoop(superTriangle_, p_);
+    }
+
+    private static int getIndex2(EqList<CustPoint> _points) {
+        return getIndex(_points, _points.first(), new VectTwoDims(_points.first(), _points.get(1)));
     }
 
     private void mergeEdges(Triangle _superTriangle, CustList<Edge> _edges) {
