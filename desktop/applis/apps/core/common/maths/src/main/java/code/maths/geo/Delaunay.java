@@ -192,9 +192,6 @@ public final class Delaunay {
 
     public void mainComputeIncr(EqList<CustPoint> _points, boolean _addMids) {
         EqList<CustPoint> points_ = cleanBefore(_points);
-        if (points_.size() < Triangle.NB_POINTS) {
-            return;
-        }
         int index_ = getIndex2(points_);
         if (index_ >= points_.size()) {
             return;
@@ -202,10 +199,7 @@ public final class Delaunay {
         CustPoint first_ = points_.first();
         CustPoint second_ = points_.get(1);
         CustPoint third_ = points_.get(index_);
-        triangles.add(new Triangle(first_, second_, third_));
-        convexHull.add(first_);
-        convexHull.add(second_);
-        convexHull.add(third_);
+        initHullTris(first_, second_, third_);
         points_.remove(index_);
         points_.remove(IndexConstants.SECOND_INDEX);
         points_.remove(IndexConstants.FIRST_INDEX);
@@ -221,6 +215,13 @@ public final class Delaunay {
         nextPoints = calculateNextPoints();
         edges = evaluateEdges(_addMids);
         nextTriangles = calculateNextTriangles();
+    }
+
+    private void initHullTris(CustPoint _first, CustPoint _second, CustPoint _third) {
+        triangles.add(new Triangle(_first, _second, _third));
+        convexHull.add(_first);
+        convexHull.add(_second);
+        convexHull.add(_third);
     }
 
     private EqList<CustPoint> cleanBefore(EqList<CustPoint> _points) {
@@ -513,9 +514,6 @@ public final class Delaunay {
 
     public void mainComputeIncrSuperTriangle(EqList<CustPoint> _points) {
         EqList<CustPoint> points_ = cleanBefore(_points);
-        if (points_.size() < Triangle.NB_POINTS) {
-            return;
-        }
         int index_ = getIndex2(points_);
         if (index_ >= points_.size()) {
             return;
@@ -523,10 +521,7 @@ public final class Delaunay {
         CustPoint first_ = points_.first();
         CustPoint second_ = points_.get(1);
         CustPoint third_ = points_.get(index_);
-        triangles.add(new Triangle(first_, second_, third_));
-        convexHull.add(first_);
-        convexHull.add(second_);
-        convexHull.add(third_);
+        initHullTris(first_, second_, third_);
         Edge extendedEdge_ = getExtendedEdge(points_);
         int xMax_ = extendedEdge_.getSecond().getXcoords();
         int xMin_ = extendedEdge_.getFirst().getXcoords();
@@ -579,6 +574,9 @@ public final class Delaunay {
     }
 
     private static int getIndex2(EqList<CustPoint> _points) {
+        if (_points.size() < Triangle.NB_POINTS) {
+            return _points.size();
+        }
         return getIndex(_points, _points.first(), new VectTwoDims(_points.first(), _points.get(1)));
     }
 
