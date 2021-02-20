@@ -5,7 +5,7 @@ import code.util.IdList;
 
 public class DelaunayThreeDims {
 
-    private IdList<Tetrahedron> triangles = new IdList<Tetrahedron>();
+    private final IdList<Tetrahedron> triangles = new IdList<Tetrahedron>();
 
     /**
     function BowyerWatson (pointList)
@@ -44,7 +44,6 @@ public class DelaunayThreeDims {
         int yMin_ = _points.first().getYcoords();
         int zMax_ = _points.first().getZcoords();
         int zMin_ = _points.first().getZcoords();
-        Tetrahedron superTriangle_;
         for (CustPointThreeDims c: _points) {
             if (c.getXcoords() < xMin_) {
                 xMin_ = c.getXcoords();
@@ -71,55 +70,74 @@ public class DelaunayThreeDims {
         xMax_++;
         yMax_++;
         zMax_++;
-        CustPointThreeDims firstPoint_ = new CustPointThreeDims(xMin_, yMin_, zMin_);
-        CustPointThreeDims secondPoint_ = new CustPointThreeDims(xMax_ + xMax_ - xMin_, yMin_, zMin_);
-        CustPointThreeDims thirdPoint_ = new CustPointThreeDims(xMin_, yMax_ + yMax_ - yMin_, zMin_);
-        CustPointThreeDims fourthPoint_ = new CustPointThreeDims(xMin_, yMin_, zMax_ + zMax_ - zMin_);
-        superTriangle_ = new Tetrahedron(firstPoint_, secondPoint_, thirdPoint_, fourthPoint_);
+        process(_points, xMax_, xMin_, yMax_, yMin_, zMax_, zMin_);
+    }
+
+    private void process(EqList<CustPointThreeDims> _points, int _xMax, int _xMin, int _yMax, int _yMin, int _zMax, int _zMin) {
+        CustPointThreeDims firstPoint_ = new CustPointThreeDims(_xMin, _yMin, _zMin);
+        CustPointThreeDims secondPoint_ = new CustPointThreeDims(_xMax + _xMax - _xMin, _yMin, _zMin);
+        CustPointThreeDims thirdPoint_ = new CustPointThreeDims(_xMin, _yMax + _yMax - _yMin, _zMin);
+        CustPointThreeDims fourthPoint_ = new CustPointThreeDims(_xMin, _yMin, _zMax + _zMax - _zMin);
+        Tetrahedron superTriangle_ = new Tetrahedron(firstPoint_, secondPoint_, thirdPoint_, fourthPoint_);
         triangles.add(superTriangle_);
         for (CustPointThreeDims c: _points) {
-            CustList<Tetrahedron> badTriangles_ = new CustList<Tetrahedron>();
-            for (Tetrahedron t: triangles) {
-                if (t.isInCircum(c)) {
-                    badTriangles_.add(t);
-                }
-            }
-            CustList<TriangleThreeDims> edges_;
-            edges_ = new CustList<TriangleThreeDims>();
-            for (Tetrahedron t: badTriangles_) {
-                for (TriangleThreeDims e: t.getTriangles()) {
-                    boolean addEdge_ = addEdge(badTriangles_, t, e);
-                    if (addEdge_) {
-                        edges_.add(e);
-                    }
-                }
-            }
-            for (Tetrahedron t: badTriangles_) {
-                triangles.removeObj(t);
-            }
-            for (TriangleThreeDims e: edges_) {
-                triangles.add(new Tetrahedron(e.getFirstPoint(), e.getSecondPoint(), e.getThirdPoint(), c));
+            loop(c);
+        }
+        afterLoop(superTriangle_);
+    }
+
+    private void loop(CustPointThreeDims _c) {
+        CustList<Tetrahedron> badTriangles_ = new CustList<Tetrahedron>();
+        for (Tetrahedron t: triangles) {
+            if (t.isInCircum(_c)) {
+                badTriangles_.add(t);
             }
         }
-        CustList<Tetrahedron> badTriangles_ = new CustList<Tetrahedron>();
-        for (Tetrahedron b: triangles) {
-            boolean remove_ = false;
-            for (CustPointThreeDims s: superTriangle_.getPoints()) {
-                for (CustPointThreeDims p: b.getPoints()) {
-                    if (s == p) {
-                        remove_ = true;
-                        break;
-                    }
-                }
-                if (remove_) {
-                    break;
+        CustList<TriangleThreeDims> edges_;
+        edges_ = new CustList<TriangleThreeDims>();
+        for (Tetrahedron t: badTriangles_) {
+            for (TriangleThreeDims e: t.getTriangles()) {
+                boolean addEdge_ = addEdge(badTriangles_, t, e);
+                if (addEdge_) {
+                    edges_.add(e);
                 }
             }
+        }
+        clean(badTriangles_);
+        for (TriangleThreeDims e: edges_) {
+            triangles.add(new Tetrahedron(e.getFirstPoint(), e.getSecondPoint(), e.getThirdPoint(), _c));
+        }
+    }
+
+    private void afterLoop(Tetrahedron _superTriangle) {
+        CustList<Tetrahedron> badTriangles_ = new CustList<Tetrahedron>();
+        for (Tetrahedron b: triangles) {
+            boolean remove_ = isRemove(_superTriangle, b);
             if (remove_) {
                 badTriangles_.add(b);
             }
         }
-        for (Tetrahedron b: badTriangles_) {
+        clean(badTriangles_);
+    }
+
+    private static boolean isRemove(Tetrahedron _superTriangle, Tetrahedron _b) {
+        boolean remove_ = false;
+        for (CustPointThreeDims s: _superTriangle.getPoints()) {
+            for (CustPointThreeDims p: _b.getPoints()) {
+                if (s == p) {
+                    remove_ = true;
+                    break;
+                }
+            }
+            if (remove_) {
+                break;
+            }
+        }
+        return remove_;
+    }
+
+    private void clean(CustList<Tetrahedron> _badTriangles) {
+        for (Tetrahedron b : _badTriangles) {
             triangles.removeObj(b);
         }
     }

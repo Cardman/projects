@@ -191,19 +191,11 @@ public final class EdgeThreeDimensions {
             int nextOthOne_;
             int nextOthTwo_;
             if (index_ <= IndexConstants.SECOND_INDEX) {
-                if (index_ == IndexConstants.FIRST_INDEX) {
-                    next_ = IndexConstants.SECOND_INDEX;
-                } else {
-                    next_ = IndexConstants.FIRST_INDEX;
-                }
+                next_ = getNextThreeDims(index_);
                 nextOthOne_ = IndexConstants.SECOND_INDEX + IndexConstants.ONE_ELEMENT;
                 nextOthTwo_ = nextOthOne_ + IndexConstants.ONE_ELEMENT;
             } else {
-                if (index_ == IndexConstants.SECOND_INDEX + IndexConstants.ONE_ELEMENT) {
-                    next_ = index_ + IndexConstants.ONE_ELEMENT;
-                } else {
-                    next_ = index_ - IndexConstants.ONE_ELEMENT;
-                }
+                next_ = getNextThreeDims2(index_);
                 nextOthOne_ = IndexConstants.FIRST_INDEX;
                 nextOthTwo_ = IndexConstants.SECOND_INDEX;
             }
@@ -217,6 +209,14 @@ public final class EdgeThreeDimensions {
             index_++;
         }
         return true;
+    }
+
+    private static int getNextThreeDims2(int _index) {
+        return Edge.getNext2(_index);
+    }
+
+    private static int getNextThreeDims(int _index) {
+        return Edge.getNext(_index);
     }
 
     private static CustList<Site> getSites(CustPointThreeDims _p, EqList<CustPointThreeDims> _others, CustPointThreeDims _o) {

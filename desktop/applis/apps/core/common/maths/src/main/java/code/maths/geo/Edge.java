@@ -86,19 +86,11 @@ public final class Edge implements Displayable {
             int nextOthOne_;
             int nextOthTwo_;
             if (index_ <= IndexConstants.SECOND_INDEX) {
-                if (index_ == IndexConstants.FIRST_INDEX) {
-                    next_ = IndexConstants.SECOND_INDEX;
-                } else {
-                    next_ = IndexConstants.FIRST_INDEX;
-                }
+                next_ = getNext(index_);
                 nextOthOne_ = IndexConstants.SECOND_INDEX + IndexConstants.ONE_ELEMENT;
                 nextOthTwo_ = nextOthOne_ + IndexConstants.ONE_ELEMENT;
             } else {
-                if (index_ == IndexConstants.SECOND_INDEX + IndexConstants.ONE_ELEMENT) {
-                    next_ = index_ + IndexConstants.ONE_ELEMENT;
-                } else {
-                    next_ = index_ - IndexConstants.ONE_ELEMENT;
-                }
+                next_ = getNext2(index_);
                 nextOthOne_ = IndexConstants.FIRST_INDEX;
                 nextOthTwo_ = IndexConstants.SECOND_INDEX;
             }
@@ -109,6 +101,26 @@ public final class Edge implements Displayable {
             index_++;
         }
         return true;
+    }
+
+    static int getNext2(int _index) {
+        int next_;
+        if (_index == IndexConstants.SECOND_INDEX + IndexConstants.ONE_ELEMENT) {
+            next_ = _index + IndexConstants.ONE_ELEMENT;
+        } else {
+            next_ = _index - IndexConstants.ONE_ELEMENT;
+        }
+        return next_;
+    }
+
+    static int getNext(int _index) {
+        int next_;
+        if (_index == IndexConstants.FIRST_INDEX) {
+            next_ = IndexConstants.SECOND_INDEX;
+        } else {
+            next_ = IndexConstants.FIRST_INDEX;
+        }
+        return next_;
     }
 
     private static CustList<Site> getSites(EqList<CustPoint> _points, CustPoint _p, EqList<CustPoint> _others, int _next, int _nextOthOne, int _nextOthTwo) {
