@@ -4,7 +4,7 @@ import code.maths.matrix.Matrix;
 import code.maths.matrix.Vect;
 import code.util.core.IndexConstants;
 
-public class CustLine {
+public final class CustLine {
 
     private Rate xRate = Rate.zero();
 

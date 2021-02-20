@@ -2,7 +2,7 @@ package code.maths;
 
 import code.util.Longs;
 
-class QuotMod {
+final class QuotMod {
 
     private Longs quot;
     private Longs mod;

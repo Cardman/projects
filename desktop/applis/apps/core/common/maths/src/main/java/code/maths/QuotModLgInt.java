@@ -1,7 +1,7 @@
 package code.maths;
 
 
-public class QuotModLgInt {
+public final class QuotModLgInt {
 
     private LgInt quot;
     private LgInt mod;
