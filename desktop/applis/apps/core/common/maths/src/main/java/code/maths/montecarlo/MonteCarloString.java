@@ -1,10 +1,7 @@
 package code.maths.montecarlo;
 import code.maths.LgInt;
-import code.maths.NumDiffDenNum;
-import code.maths.Rate;
 import code.util.AbsMap;
 import code.util.CollCapacity;
-import code.util.StringList;
 import code.util.StringMap;
 
 
