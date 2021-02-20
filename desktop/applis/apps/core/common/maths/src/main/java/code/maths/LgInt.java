@@ -133,13 +133,7 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
         String nbLu_ = chaineValeurAbsolue(_string);
         // Suppression des 0 au debut du nombre sauf s'il reste un 0 sans autre
         // chiffre
-        while (true) {
-            if (nbLu_.length() <= 1) {
-                break;
-            }
-            if (nbLu_.charAt(IndexConstants.FIRST_INDEX) != ZERO) {
-                break;
-            }
+        while (nbLu_.length() > 1 && nbLu_.charAt(IndexConstants.FIRST_INDEX) == ZERO) {
             nbLu_ = nbLu_.substring(IndexConstants.SECOND_INDEX);
         }
         int firstInd_ = nbLu_.length() - 1;
@@ -400,16 +394,20 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
                 if (strGreater(sommeLoc_, _sommeTotale)) {
                     break;
                 }
-                if (_i == _nbIterations - 1 && !sommeLoc_.eq(_sommeTotale)) {
-                    event_.increment();
-                    continue;
-                }
-                SortableCustList<LgInt> l_ = new SortableCustList<LgInt>(l);
-                l_.add(new LgInt(event_));
-                _repartitionsPossiblesLoc.add(l_);
-                event_.increment();
+                procIncr(_sommeTotale, _i, _nbIterations, _repartitionsPossiblesLoc, l, event_, sommeLoc_);
             }
         }
+    }
+
+    private static void procIncr(LgInt _sommeTotale, int _i, int _nbIterations, CustList<SortableCustList<LgInt>> _repartitionsPossiblesLoc, SortableCustList<LgInt> _l, LgInt _event, LgInt _sommeLoc) {
+        if (_i == _nbIterations - 1 && !_sommeLoc.eq(_sommeTotale)) {
+            _event.increment();
+            return;
+        }
+        SortableCustList<LgInt> l_ = new SortableCustList<LgInt>(_l);
+        l_.add(new LgInt(_event));
+        _repartitionsPossiblesLoc.add(l_);
+        _event.increment();
     }
 
     private static TreeMap<SortableCustList<LgInt>, LgInt> buildSortedLaw(CustList<SortableCustList<LgInt>> _repartitionsPossibles) {
@@ -425,12 +423,11 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
         for (SortableCustList<LgInt> l: _repartitionsPossibles) {
             boolean present_ = false;
             for (EntryCust<SortableCustList<LgInt>,LgInt> lTwo_: loiProba_.entryList()) {
-                if(!l.eq(lTwo_.getKey())) {
-                    continue;
+                if (l.eq(lTwo_.getKey())) {
+                    lTwo_.getValue().increment();
+                    present_ = true;
+                    break;
                 }
-                lTwo_.getValue().increment();
-                present_ = true;
-                break;
             }
             if (present_) {
                 continue;
@@ -1162,45 +1159,17 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
     }
 
     private boolean plusPetitQue(LgInt _autre) {
-        if (grDigits.size() > _autre.grDigits.size()) {
-            return false;
-        }
-        if (grDigits.size() < _autre.grDigits.size()) {
-            return true;
-        }
-        int len_;
-        len_ = grDigits.size();
-        for (int i = IndexConstants.FIRST_INDEX; i <len_; i++) {
-            long entier_ = grDigits.get(i);
-            long entierAutre_ = _autre.grDigits.get(i);
-            if (entier_ < entierAutre_) {
-                return true;
-            }
-            if (entier_ > entierAutre_) {
-                return false;
-            }
+        int res_ = quickCmp(_autre);
+        if (res_ != SortConstants.EQ_CMP) {
+            return res_ == SortConstants.NO_SWAP_SORT;
         }
         return false;
     }
 
     private boolean plusGrandQue(LgInt _autre) {
-        if (grDigits.size() > _autre.grDigits.size()) {
-            return true;
-        }
-        if (grDigits.size() < _autre.grDigits.size()) {
-            return false;
-        }
-        int len_;
-        len_ = grDigits.size();
-        for (int i = IndexConstants.FIRST_INDEX; i <len_; i++) {
-            long entier_ = grDigits.get(i);
-            long entierAutre_ = _autre.grDigits.get(i);
-            if (entier_ < entierAutre_) {
-                return false;
-            }
-            if (entier_ > entierAutre_) {
-                return true;
-            }
+        int res_ = quickCmp(_autre);
+        if (res_ != SortConstants.EQ_CMP) {
+            return res_ != SortConstants.NO_SWAP_SORT;
         }
         return false;
     }
@@ -1228,23 +1197,9 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
     }
 
     private boolean inferieurOuEgal(LgInt _autre) {
-        if (grDigits.size() > _autre.grDigits.size()) {
-            return false;
-        }
-        if (grDigits.size() < _autre.grDigits.size()) {
-            return true;
-        }
-        int len_;
-        len_ = grDigits.size();
-        for (int i = IndexConstants.FIRST_INDEX; i <len_; i++) {
-            long entier_ = grDigits.get(i);
-            long entierAutre_ = _autre.grDigits.get(i);
-            if (entier_ < entierAutre_) {
-                return true;
-            }
-            if (entier_ > entierAutre_) {
-                return false;
-            }
+        int res_ = quickCmp(_autre);
+        if (res_ != SortConstants.EQ_CMP) {
+            return res_ == SortConstants.NO_SWAP_SORT;
         }
         return true;
     }

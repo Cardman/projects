@@ -176,10 +176,7 @@ public final class Rate implements Cmp<Rate>, Displayable {
                 return true;
             }
             if (!MathExpUtil.isDigit(_input.charAt(i_))) {
-                if (_input.charAt(i_) == SEP_NUM_DEN_CHAR) {
-                    break;
-                }
-                if (_input.charAt(i_) == SEP_INT_DEC) {
+                if (_input.charAt(i_) == SEP_NUM_DEN_CHAR || _input.charAt(i_) == SEP_INT_DEC) {
                     break;
                 }
                 return false;
