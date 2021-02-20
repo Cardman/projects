@@ -72,9 +72,7 @@ final class MathUtil {
                 return null;
             }
             current_.setOrder(_sortedNodes.size());
-            if (current_ instanceof ReductibleOperable) {
-                ((ReductibleOperable)current_).tryCalculateNode(_context,_error);
-            }
+            tryReduce(_context, _error, current_);
             _sortedNodes.add(current_);
             next_ = createNextSibling(current_, _context, _error);
             if (_error.isError()) {
@@ -86,16 +84,7 @@ final class MathUtil {
             }
             OperationNode par_ = current_.getParent();
             if (par_ == _root) {
-                par_.analyze(_context, _error);
-                if (_error.isError()) {
-                    return null;
-                }
-                par_.setOrder(_sortedNodes.size());
-                if (par_ instanceof ReductibleOperable) {
-                    ((ReductibleOperable)par_).tryCalculateNode(_context,_error);
-                }
-                _sortedNodes.add(par_);
-                return null;
+                return processRoot(_sortedNodes, _context, _error, par_);
             }
             if (par_ == null) {
                 return null;
@@ -103,6 +92,23 @@ final class MathUtil {
             current_ = par_;
         }
     }
+
+    private static OperationNode processRoot(CustList<OperationNode> _sortedNodes, StringMap<String> _context, ErrorStatus _error, OperationNode _par) {
+        _par.analyze(_context, _error);
+        if (!_error.isError()) {
+            _par.setOrder(_sortedNodes.size());
+            tryReduce(_context, _error, _par);
+            _sortedNodes.add(_par);
+        }
+        return null;
+    }
+
+    private static void tryReduce(StringMap<String> _context, ErrorStatus _error, OperationNode _current) {
+        if (_current instanceof ReductibleOperable) {
+            ((ReductibleOperable) _current).tryCalculateNode(_context, _error);
+        }
+    }
+
     private static OperationNode createFirstChild(OperationNode _block, StringMap<String> _context, ErrorStatus _error) {
         if (!(_block instanceof MethodOperation)) {
             return null;
