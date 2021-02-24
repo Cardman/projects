@@ -18,7 +18,7 @@ final class FormatState {
         char cur_ = _format.charAt(i_);
         if (cur_ == QUOTE) {
             escaped_ = !escaped_;
-            if (endQuote(_format, length_, i_)) {
+            if (nextIsQuote(_format, length_, i_)) {
                 _str.append(QUOTE);
                 i_++;
                 i_++;
@@ -35,7 +35,7 @@ final class FormatState {
         return new FormatState(i_, false,false);
     }
 
-    private static boolean endQuote(String _format, int _length, int _i) {
+    private static boolean nextIsQuote(String _format, int _length, int _i) {
         return _i < _length - 1 && _format.charAt(_i + 1) == QUOTE;
     }
 

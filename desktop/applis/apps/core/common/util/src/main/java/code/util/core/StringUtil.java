@@ -278,7 +278,7 @@ public final class StringUtil {
             while (_pattern.length() > j_ + i_ + 1) {
                 listDef_ = buildNextList(_pattern, i_, j_, listDef_);
 //                String subString_ = _pattern.substring(i_, j_ + i_ + 1);
-                String subStringDef_ = _pattern.substring(i_, Math.min(j_ + i_ + 1, _pattern.length()));
+                String subStringDef_ = _pattern.substring(i_, j_ + i_ + 1);
                 boolean exist_ = existSub(_pattern, i_, j_, listDef_, subStringDef_);
                 if (stop(exist_,_map,listDef_,strBuilder_,subStringDef_)) {
                     i_ += j_;
@@ -339,7 +339,7 @@ public final class StringUtil {
             while (_pattern.length() > j_ + i_ + 1) {
                 list_ = buildNextList(_pattern, i_, j_, list_);
 //                    String subString_ = _pattern.substring(i_, j_ + i_ + 1);
-                String subString_ = _pattern.substring(i_, Math.min(j_ + i_ + 1, _pattern.length()));
+                String subString_ = _pattern.substring(i_, j_ + i_ + 1);
                 if (stop(false,_map,list_,strBuilder_,subString_)) {
                     i_ += j_;
                     keep_ = true;
@@ -395,12 +395,10 @@ public final class StringUtil {
     }
 
     private static int tryIncr(String _pattern, StringMap<String> _map, StringBuilder _strBuilder, int _i, StringList _keys, boolean _quoted) {
-        int i_ = _i;
         if (_quoted) {
-            return i_;
+            return _i;
         }
-        i_ = incr(_strBuilder, _keys, i_, _pattern, _map);
-        return i_;
+        return incr(_strBuilder, _keys, _i, _pattern, _map);
     }
 
     private static int incr(StringBuilder _strBuilder, StringList _keys, int _i, String _pattern, StringMap<String> _map) {
@@ -438,10 +436,10 @@ public final class StringUtil {
     }
 
     private static boolean okKey(String _pattern, int _i, int _j, String _k) {
-        return !checkLengths(_pattern, _i, _j, _k) && _k.charAt(_j) == _pattern.charAt(_j + _i);
+        return !outOfBounds(_pattern, _i, _j, _k) && _k.charAt(_j) == _pattern.charAt(_j + _i);
     }
 
-    private static boolean checkLengths(String _pattern, int _i, int _j, String _k) {
+    private static boolean outOfBounds(String _pattern, int _i, int _j, String _k) {
         return _k.length() <= _j || _pattern.length() <= _j + _i;
     }
 
