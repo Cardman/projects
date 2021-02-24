@@ -2,6 +2,7 @@ package aiki.fight.moves.effects;
 
 import aiki.db.DataBase;
 import aiki.fight.util.TypesDuo;
+import code.util.CustList;
 import code.util.EqList;
 import code.util.StringList;
 import code.util.core.StringUtil;
@@ -9,7 +10,7 @@ import code.util.core.StringUtil;
 
 public final class EffectUnprotectFromTypes extends Effect {
 
-    private EqList<TypesDuo> types;
+    private CustList<TypesDuo> types;
 
     private StringList disableImmuAgainstTypes;
     private StringList disableImmuFromMoves;
@@ -37,11 +38,11 @@ public final class EffectUnprotectFromTypes extends Effect {
         }
     }
 
-    public EqList<TypesDuo> getTypes() {
+    public CustList<TypesDuo> getTypes() {
         return types;
     }
 
-    public void setTypes(EqList<TypesDuo> _types) {
+    public void setTypes(CustList<TypesDuo> _types) {
         types = _types;
     }
 

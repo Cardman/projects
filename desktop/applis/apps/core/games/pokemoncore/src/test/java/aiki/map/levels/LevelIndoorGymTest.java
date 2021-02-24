@@ -1,6 +1,8 @@
 package aiki.map.levels;
 
 import aiki.db.EquallablePkUtil;
+import aiki.util.Points;
+import aiki.util.PointsBlock;
 import org.junit.Test;
 
 import aiki.map.characters.GymTrainer;
@@ -16,7 +18,7 @@ public class LevelIndoorGymTest extends EquallablePkUtil {
     @Test
     public void limits1Test() {
         LevelIndoorGym level_ = new LevelIndoorGym();
-        level_.setBlocks(new ObjectMap<Point,Block>());
+        level_.setBlocks(new PointsBlock());
         Limits limits_ = level_.limits();
         assertEq(0, limits_.getTopLeft().getx());
         assertEq(0, limits_.getTopLeft().gety());
@@ -26,7 +28,7 @@ public class LevelIndoorGymTest extends EquallablePkUtil {
     @Test
     public void limits2Test() {
         LevelIndoorGym level_ = new LevelIndoorGym();
-        level_.setBlocks(new ObjectMap<Point,Block>());
+        level_.setBlocks(new PointsBlock());
         Block block_ = new Block((short)5, (short)3, EnvironmentType.ROAD, "");
         level_.getBlocks().put(new Point((short)0,(short)0), block_);
         Limits limits_ = level_.limits();
@@ -39,7 +41,7 @@ public class LevelIndoorGymTest extends EquallablePkUtil {
     @Test
     public void getScreenCoordsByPoint1FailTest() {
         LevelIndoorGym level_ = new LevelIndoorGym();
-        level_.setBlocks(new ObjectMap<Point,Block>());
+        level_.setBlocks(new PointsBlock());
         ScreenCoords blockId_ = level_.getScreenCoordsByPoint(new Point((short)0,(short)0));
         assertEq(new ScreenCoords(-1,-1), blockId_);
     }
@@ -47,7 +49,7 @@ public class LevelIndoorGymTest extends EquallablePkUtil {
     @Test
     public void getScreenCoordsByPoint2FailTest() {
         LevelIndoorGym level_ = new LevelIndoorGym();
-        level_.setBlocks(new ObjectMap<Point,Block>());
+        level_.setBlocks(new PointsBlock());
         Block block_ = new Block((short)5, (short)3, EnvironmentType.ROAD, "");
         level_.getBlocks().put(new Point((short)0,(short)0), block_);
         ScreenCoords blockId_ = level_.getScreenCoordsByPoint(new Point((short)5,(short)3));
@@ -57,7 +59,7 @@ public class LevelIndoorGymTest extends EquallablePkUtil {
     @Test
     public void getBlockIdByPoint1Test() {
         LevelIndoorGym level_ = new LevelIndoorGym();
-        level_.setBlocks(new ObjectMap<Point,Block>());
+        level_.setBlocks(new PointsBlock());
         Block block_ = new Block((short)5, (short)3, EnvironmentType.ROAD, "");
         level_.getBlocks().put(new Point((short)1,(short)1), block_);
         ScreenCoords blockId_ = level_.getScreenCoordsByPoint(new Point((short)2,(short)2));
@@ -67,14 +69,14 @@ public class LevelIndoorGymTest extends EquallablePkUtil {
     @Test
     public void getBlockByPoint1FailTest() {
         LevelIndoorGym level_ = new LevelIndoorGym();
-        level_.setBlocks(new ObjectMap<Point,Block>());
+        level_.setBlocks(new PointsBlock());
         assertTrue(!level_.getBlockByPoint(new Point((short)0,(short)0)).isValid());
     }
 
     @Test
     public void getBlockByPoint2FailTest() {
         LevelIndoorGym level_ = new LevelIndoorGym();
-        level_.setBlocks(new ObjectMap<Point,Block>());
+        level_.setBlocks(new PointsBlock());
         Block block_ = new Block((short)5, (short)3, EnvironmentType.ROAD, "");
         level_.getBlocks().put(new Point((short)0,(short)0), block_);
         assertTrue(!level_.getBlockByPoint(new Point((short)5,(short)3)).isValid());
@@ -83,7 +85,7 @@ public class LevelIndoorGymTest extends EquallablePkUtil {
     @Test
     public void getBlockByPoint1Test() {
         LevelIndoorGym level_ = new LevelIndoorGym();
-        level_.setBlocks(new ObjectMap<Point,Block>());
+        level_.setBlocks(new PointsBlock());
         Block block_ = new Block((short)5, (short)3, EnvironmentType.ROAD, "");
         level_.getBlocks().put(new Point((short)0,(short)0), block_);
         Block storedBlock_ = level_.getBlockByPoint(new Point((short)1,(short)1));

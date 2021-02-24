@@ -4,6 +4,7 @@ import aiki.db.DataBase;
 import aiki.fight.enums.Statistic;
 import aiki.fight.moves.enums.TargetChoice;
 import aiki.fight.util.CategoryMult;
+import aiki.fight.util.CategoryMults;
 import code.maths.Rate;
 import code.util.*;
 import code.util.core.StringUtil;
@@ -17,7 +18,7 @@ public final class EffectTeam extends Effect {
     private EnumList<Statistic> cancelChgtStatFoeTeam;
     private EnumList<Statistic> cancelChgtStatTeam;
 
-    private ObjectMap<CategoryMult, Rate> multDamage;
+    private CategoryMults multDamage;
 
     private EnumMap<Statistic, Rate> multStatistic;
     private EnumMap<Statistic, Rate> multStatisticFoe;
@@ -134,11 +135,11 @@ public final class EffectTeam extends Effect {
         cancelChgtStatTeam = _cancelChgtStatTeam;
     }
 
-    public ObjectMap<CategoryMult, Rate> getMultDamage() {
+    public CategoryMults getMultDamage() {
         return multDamage;
     }
 
-    public void setMultDamage(ObjectMap<CategoryMult, Rate> _multDamage) {
+    public void setMultDamage(CategoryMults _multDamage) {
         multDamage = _multDamage;
     }
 

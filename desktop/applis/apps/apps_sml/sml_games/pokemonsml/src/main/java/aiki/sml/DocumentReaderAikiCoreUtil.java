@@ -136,6 +136,7 @@ import aiki.game.player.Inventory;
 import aiki.game.player.Player;
 import aiki.game.player.enums.Sex;
 import aiki.instances.Instances;
+import aiki.map.Condition;
 import aiki.map.DataMap;
 import aiki.map.buildings.Building;
 import aiki.map.buildings.Gym;
@@ -178,14 +179,9 @@ import aiki.map.pokemon.UsablePokemon;
 import aiki.map.pokemon.WildPk;
 import aiki.map.pokemon.enums.Gender;
 import aiki.map.tree.util.Dims;
-import aiki.map.util.MiniMapCoords;
-import aiki.map.util.PlaceInterConnect;
-import aiki.map.util.ScreenCoords;
-import aiki.map.util.TileMiniMap;
-import aiki.util.Coords;
-import aiki.util.LawNumber;
-import aiki.util.LevelPoint;
-import aiki.util.Point;
+import aiki.map.util.*;
+import aiki.sml.init.*;
+import aiki.util.*;
 import code.images.BaseSixtyFourUtil;
 import code.maths.LgInt;
 import code.maths.Rate;
@@ -447,6 +443,7 @@ public final class DocumentReaderAikiCoreUtil {
     private static final String FIELD_ENABLED_CLOSING = "enabledClosing";
     private static final String FIELD_ENABLED_COUNTERING_MOVES = "enabledCounteringMoves";
     private static final String FIELD_ENABLED_KEY_PAD = "enabledKeyPad";
+    private static final String FIELD_EXPORT = "export";
     private static final String FIELD_ENABLED_MOVES = "enabledMoves";
     private static final String FIELD_ENABLED_MOVES_BY_GROUP = "enabledMovesByGroup";
     private static final String FIELD_ENABLED_MOVES_CONST_CHOICES = "enabledMovesConstChoices";
@@ -1443,7 +1440,7 @@ public final class DocumentReaderAikiCoreUtil {
             }
 
         }
-        _d.setTableTypes(new ObjectMap<TypesDuo, Rate>());
+        _d.setTableTypes(new TypesDuos());
         String tTable_ = notNull(files_, StringUtil.concat(common_, TABLE_TYPES));
         StringList linesTableTypes_ = StringUtil.splitChars(
                 tTable_,
@@ -1470,7 +1467,7 @@ public final class DocumentReaderAikiCoreUtil {
                 } else {
                     r_ = DataBase.defRateProduct();
                 }
-                _d.getTableTypes().put(t_, r_);
+                _d.getTableTypes().addEntry(t_, r_);
 
                 i_++;
             }
@@ -1941,11 +1938,13 @@ public final class DocumentReaderAikiCoreUtil {
         _d.setStorage(BaseSixtyFourUtil.getImageByString(ResourceFiles
                 .ressourceFichier(StringUtil.concat(common_,
                         IMAGE_STORAGE_FILES, IMG_FILES_RES_EXT_TXT))));
-        _d.setCombos(DocumentReaderAikiCoreUtil.getCombos(ResourceFiles
-                .ressourceFichier(StringUtil.concat(common_, COMBOS))));
+        _d.setCombos(CoInit.c());
+//        _d.setCombos(DocumentReaderAikiCoreUtil.getCombos(ResourceFiles
+//                .ressourceFichier(StringUtil.concat(common_, COMBOS))));
         _d.completeMembersCombos();
-        _d.setMap(DocumentReaderAikiCoreUtil.getDataMap(ResourceFiles
-                .ressourceFichier(StringUtil.concat(common_, MAP_FILE))));
+        _d.setMap(Dm.map());
+//        _d.setMap(DocumentReaderAikiCoreUtil.getDataMap(ResourceFiles
+//                .ressourceFichier(StringUtil.concat(common_, MAP_FILE))));
         _perCentLoading.addPercent(delta_);
         _d.setConstNum(new StringMap<Rate>());
         StringList lines_ = StringUtil.splitChars(ResourceFiles
@@ -1987,7 +1986,7 @@ public final class DocumentReaderAikiCoreUtil {
             }
 
         }
-        _d.setTableTypes(new ObjectMap<TypesDuo, Rate>());
+        _d.setTableTypes(new TypesDuos());
         StringList linesTableTypes_ = StringUtil.splitChars(ResourceFiles
                         .ressourceFichier(StringUtil.concat(common_, TABLE_TYPES)),
                 RETURN_LINE_CHAR);
@@ -2013,7 +2012,7 @@ public final class DocumentReaderAikiCoreUtil {
                 } else {
                     r_ = DataBase.defRateProduct();
                 }
-                _d.getTableTypes().put(t_, r_);
+                _d.getTableTypes().addEntry(t_, r_);
 
                 i_++;
             }
@@ -2387,28 +2386,34 @@ public final class DocumentReaderAikiCoreUtil {
                 .ressourceFichier(StringUtil.concat(common_, ANIM_ABSORB))));
         StringList filesNames_;
         filesNames_ = new StringList();
-        for (String f : _d.getTranslatedPokemon().getVal(_lg)
-                .getKeys()) {
-            String n_ = StringUtil.concat(POKEDEX_FOLDER, SEPARATOR_FILES, f,
-                    FILES_RES_EXT);
-            filesNames_.add(f);
-            PokemonData f_ = DocumentReaderAikiCoreUtil
-                    .getPokemonData(ResourceFiles.ressourceFichier(StringUtil
-                            .concat(common_, n_)));
-            _d.completeMembers(DataBase.toUpperCase(f), f_);
+        for (EntryCust<String,PokemonData> e: PkInit.p().entryList()) {
+            _d.completeQuickMembers(e.getKey(),e.getValue());
         }
+//        for (String f : _d.getTranslatedPokemon().getVal(_lg)
+//                .getKeys()) {
+//            String n_ = StringUtil.concat(POKEDEX_FOLDER, SEPARATOR_FILES, f,
+//                    FILES_RES_EXT);
+//            filesNames_.add(f);
+//            PokemonData f_ = DocumentReaderAikiCoreUtil
+//                    .getPokemonData(ResourceFiles.ressourceFichier(StringUtil
+//                            .concat(common_, n_)));
+//            _d.completeMembers(DataBase.toUpperCase(f), f_);
+//        }
         _d.calculateAvgPound();
         filesNames_.clear();
-        for (String f : _d.getTranslatedMoves().getVal(_lg)
-                .getKeys()) {
-            String n_ = StringUtil.concat(MOVES_FOLDER, SEPARATOR_FILES, f,
-                    FILES_RES_EXT);
-            filesNames_.add(n_);
-            MoveData move_ = DocumentReaderAikiCoreUtil
-                    .getMoveData(ResourceFiles.ressourceFichier(StringUtil
-                            .concat(common_, n_)));
-            _d.completeMembers(DataBase.toUpperCase(f), move_);
+        for (EntryCust<String,MoveData> e: MvInit.m().entryList()) {
+            _d.completeQuickMembers(e.getKey(),e.getValue());
         }
+//        for (String f : _d.getTranslatedMoves().getVal(_lg)
+//                .getKeys()) {
+//            String n_ = StringUtil.concat(MOVES_FOLDER, SEPARATOR_FILES, f,
+//                    FILES_RES_EXT);
+//            filesNames_.add(n_);
+//            MoveData move_ = DocumentReaderAikiCoreUtil
+//                    .getMoveData(ResourceFiles.ressourceFichier(StringUtil
+//                            .concat(common_, n_)));
+//            _d.completeMembers(DataBase.toUpperCase(f), move_);
+//        }
         for (EntryCust<String,MoveData> e: _d.getMoves().entryList()) {
             if (e.getValue() instanceof DamagingMoveData) {
                 for (Effect f: e.getValue().getEffects()) {
@@ -2425,36 +2430,45 @@ public final class DocumentReaderAikiCoreUtil {
             }
         }
         filesNames_.clear();
-        for (String f : _d.getTranslatedItems().getVal(_lg)
-                .getKeys()) {
-            String n_ = StringUtil.concat(ITEMS_FOLDER, SEPARATOR_FILES, f,
-                    FILES_RES_EXT);
-            filesNames_.add(n_);
-            Item o_ = DocumentReaderAikiCoreUtil.getItem(ResourceFiles
-                    .ressourceFichier(StringUtil.concat(common_, n_)));
-            _d.completeMembers(DataBase.toUpperCase(f), o_);
+        for (EntryCust<String,Item> e: ItInit.i().entryList()) {
+            _d.completeQuickMembers(e.getKey(),e.getValue());
         }
+//        for (String f : _d.getTranslatedItems().getVal(_lg)
+//                .getKeys()) {
+//            String n_ = StringUtil.concat(ITEMS_FOLDER, SEPARATOR_FILES, f,
+//                    FILES_RES_EXT);
+//            filesNames_.add(n_);
+//            Item o_ = DocumentReaderAikiCoreUtil.getItem(ResourceFiles
+//                    .ressourceFichier(StringUtil.concat(common_, n_)));
+//            _d.completeMembers(DataBase.toUpperCase(f), o_);
+//        }
         filesNames_.clear();
-        for (String f : _d.getTranslatedAbilities().getVal(_lg)
-                .getKeys()) {
-            String n_ = StringUtil.concat(ABILITIES_FOLDER, SEPARATOR_FILES, f,
-                    FILES_RES_EXT);
-            filesNames_.add(n_);
-            AbilityData ab_ = DocumentReaderAikiCoreUtil
-                    .getAbilityData(ResourceFiles.ressourceFichier(StringUtil
-                            .concat(common_, n_)));
-            _d.completeMembers(DataBase.toUpperCase(f), ab_);
+        for (EntryCust<String,AbilityData> e: AbInit.a().entryList()) {
+            _d.completeQuickMembers(e.getKey(),e.getValue());
         }
+//        for (String f : _d.getTranslatedAbilities().getVal(_lg)
+//                .getKeys()) {
+//            String n_ = StringUtil.concat(ABILITIES_FOLDER, SEPARATOR_FILES, f,
+//                    FILES_RES_EXT);
+//            filesNames_.add(n_);
+//            AbilityData ab_ = DocumentReaderAikiCoreUtil
+//                    .getAbilityData(ResourceFiles.ressourceFichier(StringUtil
+//                            .concat(common_, n_)));
+//            _d.completeMembers(DataBase.toUpperCase(f), ab_);
+//        }
         filesNames_.clear();
-        for (String f : _d.getTranslatedStatus().getVal(_lg)
-                .getKeys()) {
-            String n_ = StringUtil.concat(STATUS_FOLDER, SEPARATOR_FILES, f,
-                    FILES_RES_EXT);
-            filesNames_.add(n_);
-            Status st_ = DocumentReaderAikiCoreUtil.getStatus(ResourceFiles
-                    .ressourceFichier(StringUtil.concat(common_, n_)));
-            _d.completeMembers(DataBase.toUpperCase(f), st_);
+        for (EntryCust<String,Status> e: StInit.s().entryList()) {
+            _d.completeQuickMembers(e.getKey(),e.getValue());
         }
+//        for (String f : _d.getTranslatedStatus().getVal(_lg)
+//                .getKeys()) {
+//            String n_ = StringUtil.concat(STATUS_FOLDER, SEPARATOR_FILES, f,
+//                    FILES_RES_EXT);
+//            filesNames_.add(n_);
+//            Status st_ = DocumentReaderAikiCoreUtil.getStatus(ResourceFiles
+//                    .ressourceFichier(StringUtil.concat(common_, n_)));
+//            _d.completeMembers(DataBase.toUpperCase(f), st_);
+//        }
         _d.completeVariables();
         filesNames_.clear();
         _d.sortEndRound();
@@ -6537,6 +6551,10 @@ public final class DocumentReaderAikiCoreUtil {
             _object.setClickButtonsPad(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
+        if (StringUtil.quickEq(_fieldName, FIELD_EXPORT)) {
+            _object.setExport(DocumentReaderCoreUtil.getBoolean(_element));
+            return;
+        }
         if (StringUtil.quickEq(_fieldName, FIELD_ENABLED_KEY_PAD)) {
             _object.setEnabledKeyPad(DocumentReaderCoreUtil.getBoolean(_element));
         }
@@ -7620,7 +7638,7 @@ public final class DocumentReaderAikiCoreUtil {
         CollCapacity cap_ = new CollCapacity(len_/2);
         EnumMap<Statistic,LgInt> map_ = new EnumMap<Statistic,LgInt>(cap_);
         EnumList<Statistic> keys_ = new EnumList<Statistic>(cap_);
-        EqList<LgInt> values_ = new EqList<LgInt>(cap_);
+        CustList<LgInt> values_ = new CustList<LgInt>(cap_);
         for (Element c: childElements_) {
             if (DocumentReaderCoreUtil.hasKey(c)) {
                 keys_.add(getStatistic(c));
@@ -7928,22 +7946,22 @@ public final class DocumentReaderAikiCoreUtil {
         return list_;
     }
 
-    private static EqList<StatisticStatus> getListStatisticStatus(Element _elt) {
+    private static CustList<StatisticStatus> getListStatisticStatus(Element _elt) {
         ElementList childElements_ = _elt.getChildElements();
         int len_ = childElements_.getLength();
         CollCapacity cap_ = new CollCapacity(len_);
-        EqList<StatisticStatus> list_ = new EqList<StatisticStatus>(cap_);
+        CustList<StatisticStatus> list_ = new CustList<StatisticStatus>(cap_);
         for (Element c: childElements_) {
             list_.add(getStatisticStatus(c));
         }
         return list_;
     }
 
-    private static EqList<TypesDuo> getListTypesDuo(Element _elt) {
+    private static CustList<TypesDuo> getListTypesDuo(Element _elt) {
         ElementList childElements_ = _elt.getChildElements();
         int len_ = childElements_.getLength();
         CollCapacity cap_ = new CollCapacity(len_);
-        EqList<TypesDuo> list_ = new EqList<TypesDuo>(cap_);
+        CustList<TypesDuo> list_ = new CustList<TypesDuo>(cap_);
         for (Element c: childElements_) {
             list_.add(getTypesDuo(c));
         }
@@ -7972,11 +7990,11 @@ public final class DocumentReaderAikiCoreUtil {
         return list_;
     }
 
-    private static EqList<Coords> getListCoords(Element _elt) {
+    private static Condition getListCoords(Element _elt) {
         ElementList childElements_ = _elt.getChildElements();
         int len_ = childElements_.getLength();
         CollCapacity cap_ = new CollCapacity(len_);
-        EqList<Coords> list_ = new EqList<Coords>(cap_);
+        Condition list_ = new Condition(cap_);
         for (Element c: childElements_) {
             list_.add(getCoords(c));
         }
@@ -8164,11 +8182,11 @@ public final class DocumentReaderAikiCoreUtil {
         }
         return map_;
     }
-    private static ObjectMap<CategoryMult,Rate> getMapCategoryMultRate(Element _elt) {
+    private static CategoryMults getMapCategoryMultRate(Element _elt) {
         ElementList childElements_ = _elt.getChildElements();
         int len_ = childElements_.getLength();
         CollCapacity cap_ = new CollCapacity(len_/2);
-        ObjectMap<CategoryMult,Rate> map_ = new ObjectMap<CategoryMult,Rate>(cap_);
+        CategoryMults map_ = new CategoryMults(cap_);
         CustList<CategoryMult> keys_ = new CustList<CategoryMult>(cap_);
         CustList<Rate> values_ = new CustList<Rate>(cap_);
         for (Element c: childElements_) {
@@ -8180,15 +8198,15 @@ public final class DocumentReaderAikiCoreUtil {
         }
         int min_ = Math.min(keys_.size(), values_.size());
         for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
-            map_.put(keys_.get(i), values_.get(i));
+            map_.addEntry(keys_.get(i), values_.get(i));
         }
         return map_;
     }
-    private static ObjectMap<StatisticCategory,Rate> getMapStatisticCategoryRate(Element _elt) {
+    private static StatisticCategoryList<Rate> getMapStatisticCategoryRate(Element _elt) {
         ElementList childElements_ = _elt.getChildElements();
         int len_ = childElements_.getLength();
         CollCapacity cap_ = new CollCapacity(len_/2);
-        ObjectMap<StatisticCategory,Rate> map_ = new ObjectMap<StatisticCategory,Rate>(cap_);
+        StatisticCategoryList<Rate> map_ = new StatisticCategoryRate(cap_);
         CustList<StatisticCategory> keys_ = new CustList<StatisticCategory>(cap_);
         CustList<Rate> values_ = new CustList<Rate>(cap_);
         for (Element c: childElements_) {
@@ -8200,15 +8218,15 @@ public final class DocumentReaderAikiCoreUtil {
         }
         int min_ = Math.min(keys_.size(), values_.size());
         for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
-            map_.put(keys_.get(i), values_.get(i));
+            map_.addEntry(keys_.get(i), values_.get(i));
         }
         return map_;
     }
-    private static ObjectMap<StatisticCategory,Byte> getMapStatisticCategoryByte(Element _elt) {
+    private static StatisticCategoryList<Byte> getMapStatisticCategoryByte(Element _elt) {
         ElementList childElements_ = _elt.getChildElements();
         int len_ = childElements_.getLength();
         CollCapacity cap_ = new CollCapacity(len_/2);
-        ObjectMap<StatisticCategory,Byte> map_ = new ObjectMap<StatisticCategory,Byte>(cap_);
+        StatisticCategoryList<Byte> map_ = new StatisticCategoryByte(cap_);
         CustList<StatisticCategory> keys_ = new CustList<StatisticCategory>(cap_);
         CustList<Byte> values_ = new CustList<Byte>(cap_);
         for (Element c: childElements_) {
@@ -8220,15 +8238,15 @@ public final class DocumentReaderAikiCoreUtil {
         }
         int min_ = Math.min(keys_.size(), values_.size());
         for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
-            map_.put(keys_.get(i), values_.get(i));
+            map_.addEntry(keys_.get(i), values_.get(i));
         }
         return map_;
     }
-    private static ObjectMap<StatisticPokemon,Byte> getMapStatisticPokemonByte(Element _elt) {
+    private static StatisticPokemons getMapStatisticPokemonByte(Element _elt) {
         ElementList childElements_ = _elt.getChildElements();
         int len_ = childElements_.getLength();
         CollCapacity cap_ = new CollCapacity(len_/2);
-        ObjectMap<StatisticPokemon,Byte> map_ = new ObjectMap<StatisticPokemon,Byte>(cap_);
+        StatisticPokemons map_ = new StatisticPokemons(cap_);
         CustList<StatisticPokemon> keys_ = new CustList<StatisticPokemon>(cap_);
         CustList<Byte> values_ = new CustList<Byte>(cap_);
         for (Element c: childElements_) {
@@ -8240,15 +8258,15 @@ public final class DocumentReaderAikiCoreUtil {
         }
         int min_ = Math.min(keys_.size(), values_.size());
         for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
-            map_.put(keys_.get(i), values_.get(i));
+            map_.addEntry(keys_.get(i), values_.get(i));
         }
         return map_;
     }
-    private static ObjectMap<StatisticStatus,Byte> getMapStatisticStatusByte(Element _elt) {
+    private static StatisticStatusList getMapStatisticStatusByte(Element _elt) {
         ElementList childElements_ = _elt.getChildElements();
         int len_ = childElements_.getLength();
         CollCapacity cap_ = new CollCapacity(len_/2);
-        ObjectMap<StatisticStatus,Byte> map_ = new ObjectMap<StatisticStatus,Byte>(cap_);
+        StatisticStatusList map_ = new StatisticStatusList(cap_);
         CustList<StatisticStatus> keys_ = new CustList<StatisticStatus>(cap_);
         CustList<Byte> values_ = new CustList<Byte>(cap_);
         for (Element c: childElements_) {
@@ -8260,15 +8278,15 @@ public final class DocumentReaderAikiCoreUtil {
         }
         int min_ = Math.min(keys_.size(), values_.size());
         for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
-            map_.put(keys_.get(i), values_.get(i));
+            map_.addEntry(keys_.get(i), values_.get(i));
         }
         return map_;
     }
-    private static ObjectMap<StatisticType,Rate> getMapStatisticTypeRate(Element _elt) {
+    private static StatisticTypeList<Rate> getMapStatisticTypeRate(Element _elt) {
         ElementList childElements_ = _elt.getChildElements();
         int len_ = childElements_.getLength();
         CollCapacity cap_ = new CollCapacity(len_/2);
-        ObjectMap<StatisticType,Rate> map_ = new ObjectMap<StatisticType,Rate>(cap_);
+        StatisticTypeList<Rate> map_ = new StatisticTypeRate(cap_);
         CustList<StatisticType> keys_ = new CustList<StatisticType>(cap_);
         CustList<Rate> values_ = new CustList<Rate>(cap_);
         for (Element c: childElements_) {
@@ -8280,15 +8298,15 @@ public final class DocumentReaderAikiCoreUtil {
         }
         int min_ = Math.min(keys_.size(), values_.size());
         for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
-            map_.put(keys_.get(i), values_.get(i));
+            map_.addEntry(keys_.get(i), values_.get(i));
         }
         return map_;
     }
-    private static ObjectMap<StatisticType,Byte> getMapStatisticTypeByte(Element _elt) {
+    private static StatisticTypeList<Byte> getMapStatisticTypeByte(Element _elt) {
         ElementList childElements_ = _elt.getChildElements();
         int len_ = childElements_.getLength();
         CollCapacity cap_ = new CollCapacity(len_/2);
-        ObjectMap<StatisticType,Byte> map_ = new ObjectMap<StatisticType,Byte>(cap_);
+        StatisticTypeList<Byte> map_ = new StatisticTypeByte(cap_);
         CustList<StatisticType> keys_ = new CustList<StatisticType>(cap_);
         CustList<Byte> values_ = new CustList<Byte>(cap_);
         for (Element c: childElements_) {
@@ -8300,15 +8318,15 @@ public final class DocumentReaderAikiCoreUtil {
         }
         int min_ = Math.min(keys_.size(), values_.size());
         for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
-            map_.put(keys_.get(i), values_.get(i));
+            map_.addEntry(keys_.get(i), values_.get(i));
         }
         return map_;
     }
-    private static ObjectMap<TypesDuo,Rate> getMapTypesDuoRate(Element _elt) {
+    private static TypesDuos getMapTypesDuoRate(Element _elt) {
         ElementList childElements_ = _elt.getChildElements();
         int len_ = childElements_.getLength();
         CollCapacity cap_ = new CollCapacity(len_/2);
-        ObjectMap<TypesDuo,Rate> map_ = new ObjectMap<TypesDuo,Rate>(cap_);
+        TypesDuos map_ = new TypesDuos(cap_);
         CustList<TypesDuo> keys_ = new CustList<TypesDuo>(cap_);
         CustList<Rate> values_ = new CustList<Rate>(cap_);
         for (Element c: childElements_) {
@@ -8320,15 +8338,15 @@ public final class DocumentReaderAikiCoreUtil {
         }
         int min_ = Math.min(keys_.size(), values_.size());
         for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
-            map_.put(keys_.get(i), values_.get(i));
+            map_.addEntry(keys_.get(i), values_.get(i));
         }
         return map_;
     }
-    private static ObjectMap<WeatherType,Rate> getMapWeatherTypeRate(Element _elt) {
+    private static WeatherTypes getMapWeatherTypeRate(Element _elt) {
         ElementList childElements_ = _elt.getChildElements();
         int len_ = childElements_.getLength();
         CollCapacity cap_ = new CollCapacity(len_/2);
-        ObjectMap<WeatherType,Rate> map_ = new ObjectMap<WeatherType,Rate>(cap_);
+        WeatherTypes map_ = new WeatherTypes(cap_);
         CustList<WeatherType> keys_ = new CustList<WeatherType>(cap_);
         CustList<Rate> values_ = new CustList<Rate>(cap_);
         for (Element c: childElements_) {
@@ -8340,7 +8358,7 @@ public final class DocumentReaderAikiCoreUtil {
         }
         int min_ = Math.min(keys_.size(), values_.size());
         for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
-            map_.put(keys_.get(i), values_.get(i));
+            map_.addEntry(keys_.get(i), values_.get(i));
         }
         return map_;
     }
@@ -8484,11 +8502,11 @@ public final class DocumentReaderAikiCoreUtil {
         }
         return map_;
     }
-    private static ObjectMap<MiniMapCoords,TileMiniMap> getMapMiniMapCoordsTileMiniMap(Element _elt) {
+    private static MiniMapCoordsList getMapMiniMapCoordsTileMiniMap(Element _elt) {
         ElementList childElements_ = _elt.getChildElements();
         int len_ = childElements_.getLength();
         CollCapacity cap_ = new CollCapacity(len_/2);
-        ObjectMap<MiniMapCoords,TileMiniMap> map_ = new ObjectMap<MiniMapCoords,TileMiniMap>(cap_);
+        MiniMapCoordsList map_ = new MiniMapCoordsList(cap_);
         CustList<MiniMapCoords> keys_ = new CustList<MiniMapCoords>(cap_);
         CustList<TileMiniMap> values_ = new CustList<TileMiniMap>(cap_);
         for (Element c: childElements_) {
@@ -8500,15 +8518,15 @@ public final class DocumentReaderAikiCoreUtil {
         }
         int min_ = Math.min(keys_.size(), values_.size());
         for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
-            map_.put(keys_.get(i), values_.get(i));
+            map_.addEntry(keys_.get(i), values_.get(i));
         }
         return map_;
     }
-    private static ObjectMap<PlaceInterConnect,Coords> getMapPlaceInterConnectCoords(Element _elt) {
+    private static PlaceInterConnects getMapPlaceInterConnectCoords(Element _elt) {
         ElementList childElements_ = _elt.getChildElements();
         int len_ = childElements_.getLength();
         CollCapacity cap_ = new CollCapacity(len_/2);
-        ObjectMap<PlaceInterConnect,Coords> map_ = new ObjectMap<PlaceInterConnect,Coords>(cap_);
+        PlaceInterConnects map_ = new PlaceInterConnects(cap_);
         CustList<PlaceInterConnect> keys_ = new CustList<PlaceInterConnect>(cap_);
         CustList<Coords> values_ = new CustList<Coords>(cap_);
         for (Element c: childElements_) {
@@ -8520,7 +8538,7 @@ public final class DocumentReaderAikiCoreUtil {
         }
         int min_ = Math.min(keys_.size(), values_.size());
         for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
-            map_.put(keys_.get(i), values_.get(i));
+            map_.addEntry(keys_.get(i), values_.get(i));
         }
         return map_;
     }
@@ -8544,13 +8562,13 @@ public final class DocumentReaderAikiCoreUtil {
         }
         return map_;
     }
-    private static ObjectMap<Coords,EqList<Coords>> getMapCoordsListCoords(Element _elt) {
+    private static CoordsLists getMapCoordsListCoords(Element _elt) {
         ElementList childElements_ = _elt.getChildElements();
         int len_ = childElements_.getLength();
         CollCapacity cap_ = new CollCapacity(len_/2);
-        ObjectMap<Coords,EqList<Coords>> map_ = new ObjectMap<Coords,EqList<Coords>>(cap_);
+        CoordsLists map_ = new CoordsLists(cap_);
         CustList<Coords> keys_ = new CustList<Coords>(cap_);
-        CustList<EqList<Coords>> values_ = new CustList<EqList<Coords>>(cap_);
+        CustList<Condition> values_ = new CustList<Condition>(cap_);
         for (Element c: childElements_) {
             if (DocumentReaderCoreUtil.hasKey(c)) {
                 keys_.add(getCoords(c));
@@ -8560,7 +8578,7 @@ public final class DocumentReaderAikiCoreUtil {
         }
         int min_ = Math.min(keys_.size(), values_.size());
         for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
-            map_.put(keys_.get(i), values_.get(i));
+            map_.addEntry(keys_.get(i), values_.get(i));
         }
         return map_;
     }
@@ -8584,11 +8602,11 @@ public final class DocumentReaderAikiCoreUtil {
         }
         return map_;
     }
-    private static ObjectMap<LevelPoint,Link> getMapLevelPointLink(Element _elt) {
+    private static LevelPoints getMapLevelPointLink(Element _elt) {
         ElementList childElements_ = _elt.getChildElements();
         int len_ = childElements_.getLength();
         CollCapacity cap_ = new CollCapacity(len_/2);
-        ObjectMap<LevelPoint,Link> map_ = new ObjectMap<LevelPoint,Link>(cap_);
+        LevelPoints map_ = new LevelPoints(cap_);
         CustList<LevelPoint> keys_ = new CustList<LevelPoint>(cap_);
         CustList<Link> values_ = new CustList<Link>(cap_);
         for (Element c: childElements_) {
@@ -8600,15 +8618,15 @@ public final class DocumentReaderAikiCoreUtil {
         }
         int min_ = Math.min(keys_.size(), values_.size());
         for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
-            map_.put(keys_.get(i), values_.get(i));
+            map_.addEntry(keys_.get(i), values_.get(i));
         }
         return map_;
     }
-    private static ObjectMap<Point,Building> getMapPointBuilding(Element _elt) {
+    private static Points<Building> getMapPointBuilding(Element _elt) {
         ElementList childElements_ = _elt.getChildElements();
         int len_ = childElements_.getLength();
         CollCapacity cap_ = new CollCapacity(len_/2);
-        ObjectMap<Point,Building> map_ = new ObjectMap<Point,Building>(cap_);
+        Points<Building> map_ = new PointsBuilding(cap_);
         CustList<Point> keys_ = new CustList<Point>(cap_);
         CustList<Building> values_ = new CustList<Building>(cap_);
         for (Element c: childElements_) {
@@ -8624,11 +8642,11 @@ public final class DocumentReaderAikiCoreUtil {
         }
         return map_;
     }
-    private static ObjectMap<Point,CharacterInRoadCave> getMapPointCharacterInRoadCave(Element _elt) {
+    private static Points<CharacterInRoadCave> getMapPointCharacterInRoadCave(Element _elt) {
         ElementList childElements_ = _elt.getChildElements();
         int len_ = childElements_.getLength();
         CollCapacity cap_ = new CollCapacity(len_/2);
-        ObjectMap<Point,CharacterInRoadCave> map_ = new ObjectMap<Point,CharacterInRoadCave>(cap_);
+        Points<CharacterInRoadCave> map_ = new PointsCharacterInRoadCave(cap_);
         CustList<Point> keys_ = new CustList<Point>(cap_);
         CustList<CharacterInRoadCave> values_ = new CustList<CharacterInRoadCave>(cap_);
         for (Element c: childElements_) {
@@ -8644,11 +8662,11 @@ public final class DocumentReaderAikiCoreUtil {
         }
         return map_;
     }
-    private static ObjectMap<Point,DualFight> getMapPointDualFight(Element _elt) {
+    private static Points<DualFight> getMapPointDualFight(Element _elt) {
         ElementList childElements_ = _elt.getChildElements();
         int len_ = childElements_.getLength();
         CollCapacity cap_ = new CollCapacity(len_/2);
-        ObjectMap<Point,DualFight> map_ = new ObjectMap<Point,DualFight>(cap_);
+        Points<DualFight> map_ = new PointsDualFight(cap_);
         CustList<Point> keys_ = new CustList<Point>(cap_);
         CustList<DualFight> values_ = new CustList<DualFight>(cap_);
         for (Element c: childElements_) {
@@ -8664,11 +8682,11 @@ public final class DocumentReaderAikiCoreUtil {
         }
         return map_;
     }
-    private static ObjectMap<Point,GymTrainer> getMapPointGymTrainer(Element _elt) {
+    private static Points<GymTrainer> getMapPointGymTrainer(Element _elt) {
         ElementList childElements_ = _elt.getChildElements();
         int len_ = childElements_.getLength();
         CollCapacity cap_ = new CollCapacity(len_/2);
-        ObjectMap<Point,GymTrainer> map_ = new ObjectMap<Point,GymTrainer>(cap_);
+        Points<GymTrainer> map_ = new PointsGymTrainer(cap_);
         CustList<Point> keys_ = new CustList<Point>(cap_);
         CustList<GymTrainer> values_ = new CustList<GymTrainer>(cap_);
         for (Element c: childElements_) {
@@ -8684,11 +8702,11 @@ public final class DocumentReaderAikiCoreUtil {
         }
         return map_;
     }
-    private static ObjectMap<Point,Person> getMapPointPerson(Element _elt) {
+    private static Points<Person> getMapPointPerson(Element _elt) {
         ElementList childElements_ = _elt.getChildElements();
         int len_ = childElements_.getLength();
         CollCapacity cap_ = new CollCapacity(len_/2);
-        ObjectMap<Point,Person> map_ = new ObjectMap<Point,Person>(cap_);
+        Points<Person> map_ = new PointsPerson(cap_);
         CustList<Point> keys_ = new CustList<Point>(cap_);
         CustList<Person> values_ = new CustList<Person>(cap_);
         for (Element c: childElements_) {
@@ -8704,11 +8722,11 @@ public final class DocumentReaderAikiCoreUtil {
         }
         return map_;
     }
-    private static ObjectMap<Point,Block> getMapPointBlock(Element _elt) {
+    private static Points<Block> getMapPointBlock(Element _elt) {
         ElementList childElements_ = _elt.getChildElements();
         int len_ = childElements_.getLength();
         CollCapacity cap_ = new CollCapacity(len_/2);
-        ObjectMap<Point,Block> map_ = new ObjectMap<Point,Block>(cap_);
+        Points<Block> map_ = new PointsBlock(cap_);
         CustList<Point> keys_ = new CustList<Point>(cap_);
         CustList<Block> values_ = new CustList<Block>(cap_);
         for (Element c: childElements_) {
@@ -8724,11 +8742,11 @@ public final class DocumentReaderAikiCoreUtil {
         }
         return map_;
     }
-    private static ObjectMap<Point,Link> getMapPointLink(Element _elt) {
+    private static Points<Link> getMapPointLink(Element _elt) {
         ElementList childElements_ = _elt.getChildElements();
         int len_ = childElements_.getLength();
         CollCapacity cap_ = new CollCapacity(len_/2);
-        ObjectMap<Point,Link> map_ = new ObjectMap<Point,Link>(cap_);
+        Points<Link> map_ = new PointsLink(cap_);
         CustList<Point> keys_ = new CustList<Point>(cap_);
         CustList<Link> values_ = new CustList<Link>(cap_);
         for (Element c: childElements_) {
@@ -8744,11 +8762,11 @@ public final class DocumentReaderAikiCoreUtil {
         }
         return map_;
     }
-    private static ObjectMap<Point,WildPk> getMapPointWildPk(Element _elt) {
+    private static Points<WildPk> getMapPointWildPk(Element _elt) {
         ElementList childElements_ = _elt.getChildElements();
         int len_ = childElements_.getLength();
         CollCapacity cap_ = new CollCapacity(len_/2);
-        ObjectMap<Point,WildPk> map_ = new ObjectMap<Point,WildPk>(cap_);
+        Points<WildPk> map_ = new PointsWildPk(cap_);
         CustList<Point> keys_ = new CustList<Point>(cap_);
         CustList<WildPk> values_ = new CustList<WildPk>(cap_);
         for (Element c: childElements_) {
@@ -8764,11 +8782,11 @@ public final class DocumentReaderAikiCoreUtil {
         }
         return map_;
     }
-    private static ObjectMap<Point,Short> getMapPointShort(Element _elt) {
+    private static Points<Short> getMapPointShort(Element _elt) {
         ElementList childElements_ = _elt.getChildElements();
         int len_ = childElements_.getLength();
         CollCapacity cap_ = new CollCapacity(len_/2);
-        ObjectMap<Point,Short> map_ = new ObjectMap<Point,Short>(cap_);
+        Points<Short> map_ = new PointsShort(cap_);
         CustList<Point> keys_ = new CustList<Point>(cap_);
         CustList<Short> values_ = new CustList<Short>(cap_);
         for (Element c: childElements_) {
@@ -8784,11 +8802,11 @@ public final class DocumentReaderAikiCoreUtil {
         }
         return map_;
     }
-    private static ObjectMap<Point,String> getMapPointString(Element _elt) {
+    private static Points<String> getMapPointString(Element _elt) {
         ElementList childElements_ = _elt.getChildElements();
         int len_ = childElements_.getLength();
         CollCapacity cap_ = new CollCapacity(len_/2);
-        ObjectMap<Point,String> map_ = new ObjectMap<Point,String>(cap_);
+        Points<String> map_ = new PointsString(cap_);
         CustList<Point> keys_ = new CustList<Point>(cap_);
         CustList<String> values_ = new CustList<String>(cap_);
         for (Element c: childElements_) {

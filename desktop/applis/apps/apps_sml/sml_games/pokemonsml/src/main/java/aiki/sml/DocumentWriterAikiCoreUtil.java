@@ -176,13 +176,8 @@ import aiki.map.pokemon.PokemonTeam;
 import aiki.map.pokemon.UsablePokemon;
 import aiki.map.pokemon.WildPk;
 import aiki.map.pokemon.enums.Gender;
-import aiki.map.util.MiniMapCoords;
-import aiki.map.util.PlaceInterConnect;
-import aiki.map.util.TileMiniMap;
-import aiki.util.Coords;
-import aiki.util.LawNumber;
-import aiki.util.LevelPoint;
-import aiki.util.Point;
+import aiki.map.util.*;
+import aiki.util.*;
 import code.images.BaseSixtyFourUtil;
 import code.maths.LgInt;
 import code.maths.Rate;
@@ -440,6 +435,7 @@ public final class DocumentWriterAikiCoreUtil {
     private static final String FIELD_ENABLED_CLOSING = "enabledClosing";
     private static final String FIELD_ENABLED_COUNTERING_MOVES = "enabledCounteringMoves";
     private static final String FIELD_ENABLED_KEY_PAD = "enabledKeyPad";
+    private static final String FIELD_EXPORT = "export";
     private static final String FIELD_ENABLED_MOVES = "enabledMoves";
     private static final String FIELD_ENABLED_MOVES_BY_GROUP = "enabledMovesByGroup";
     private static final String FIELD_ENABLED_MOVES_CONST_CHOICES = "enabledMovesConstChoices";
@@ -3439,6 +3435,7 @@ public final class DocumentWriterAikiCoreUtil {
         _element.appendChild(DocumentWriterCoreUtil.setBoolean(_object.isEnableMovingHerosAnimation(),FIELD_ENABLE_MOVING_HEROS_ANIMATION,_document));
         _element.appendChild(DocumentWriterCoreUtil.setBoolean(_object.isClickButtonsPad(),FIELD_CLICK_BUTTONS_PAD,_document));
         _element.appendChild(DocumentWriterCoreUtil.setBoolean(_object.isEnabledKeyPad(),FIELD_ENABLED_KEY_PAD,_document));
+        _element.appendChild(DocumentWriterCoreUtil.setBoolean(_object.isExport(),FIELD_EXPORT,_document));
     }
 
     private static Element setDifficultyModelLaw(DifficultyModelLaw _object, String _fieldName, Document _document) {
@@ -4323,7 +4320,7 @@ public final class DocumentWriterAikiCoreUtil {
         return elt_;
     }
 
-    private static Element setListStatisticStatus(EqList<StatisticStatus> _object, String _fieldName, Document _document) {
+    private static Element setListStatisticStatus(CustList<StatisticStatus> _object, String _fieldName, Document _document) {
         Element elt_ = _document.createElement(TYPE_LIST);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
         for (StatisticStatus s: _object) {
@@ -4332,7 +4329,7 @@ public final class DocumentWriterAikiCoreUtil {
         return elt_;
     }
 
-    private static Element setListTypesDuo(EqList<TypesDuo> _object, String _fieldName, Document _document) {
+    private static Element setListTypesDuo(CustList<TypesDuo> _object, String _fieldName, Document _document) {
         Element elt_ = _document.createElement(TYPE_LIST);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
         for (TypesDuo s: _object) {
@@ -4359,7 +4356,7 @@ public final class DocumentWriterAikiCoreUtil {
         return elt_;
     }
 
-    private static Element setListCoords(EqList<Coords> _object, String _fieldName, Document _document) {
+    private static Element setListCoords(CustList<Coords> _object, String _fieldName, Document _document) {
         Element elt_ = _document.createElement(TYPE_LIST);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
         for (Coords s: _object) {
@@ -4488,11 +4485,24 @@ public final class DocumentWriterAikiCoreUtil {
         return elt_;
     }
 
-    private static Element setMapCategoryMultRate(ObjectMap<CategoryMult,Rate> _object, String _fieldName, Document _document) {
+    private static Element setMapCategoryMultRate(CategoryMults _object, String _fieldName, Document _document) {
         Element elt_ = _document.createElement(TYPE_MAP);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
-        for (EntryCust<CategoryMult, Rate> s: _object.entryList()) {
-            Element sub_ = setCategoryMult(s.getKey(), EMPTY_STRING, _document);
+        for (CategoryMultRate s: _object.entryList()) {
+            Element sub_ = setCategoryMult(s.getCategory(), EMPTY_STRING, _document);
+            DocumentWriterCoreUtil.setKey(sub_);
+            elt_.appendChild(sub_);
+            sub_ = DocumentWriterMathUtil.setRate(s.getRate(), EMPTY_STRING, _document);
+            elt_.appendChild(sub_);
+        }
+        return elt_;
+    }
+
+    private static Element setMapStatisticCategoryRate(StatisticCategoryList<Rate> _object, String _fieldName, Document _document) {
+        Element elt_ = _document.createElement(TYPE_MAP);
+        DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
+        for (StatisticCategoryParam<Rate> s: _object.entryList()) {
+            Element sub_ = setStatisticCategory(s.getStatistic(), EMPTY_STRING, _document);
             DocumentWriterCoreUtil.setKey(sub_);
             elt_.appendChild(sub_);
             sub_ = DocumentWriterMathUtil.setRate(s.getValue(), EMPTY_STRING, _document);
@@ -4501,11 +4511,50 @@ public final class DocumentWriterAikiCoreUtil {
         return elt_;
     }
 
-    private static Element setMapStatisticCategoryRate(ObjectMap<StatisticCategory,Rate> _object, String _fieldName, Document _document) {
+    private static Element setMapStatisticCategoryByte(StatisticCategoryList<Byte> _object, String _fieldName, Document _document) {
         Element elt_ = _document.createElement(TYPE_MAP);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
-        for (EntryCust<StatisticCategory, Rate> s: _object.entryList()) {
-            Element sub_ = setStatisticCategory(s.getKey(), EMPTY_STRING, _document);
+        for (StatisticCategoryParam<Byte> s: _object.entryList()) {
+            Element sub_ = setStatisticCategory(s.getStatistic(), EMPTY_STRING, _document);
+            DocumentWriterCoreUtil.setKey(sub_);
+            elt_.appendChild(sub_);
+            sub_ = DocumentWriterCoreUtil.setByte(s.getValue(), EMPTY_STRING, _document);
+            elt_.appendChild(sub_);
+        }
+        return elt_;
+    }
+
+    private static Element setMapStatisticPokemonByte(StatisticPokemons _object, String _fieldName, Document _document) {
+        Element elt_ = _document.createElement(TYPE_MAP);
+        DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
+        for (StatisticPokemonByte s: _object.entryList()) {
+            Element sub_ = setStatisticPokemon(s.getStat(), EMPTY_STRING, _document);
+            DocumentWriterCoreUtil.setKey(sub_);
+            elt_.appendChild(sub_);
+            sub_ = DocumentWriterCoreUtil.setByte(s.getValue(), EMPTY_STRING, _document);
+            elt_.appendChild(sub_);
+        }
+        return elt_;
+    }
+
+    private static Element setMapStatisticStatusByte(StatisticStatusList _object, String _fieldName, Document _document) {
+        Element elt_ = _document.createElement(TYPE_MAP);
+        DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
+        for (StatisticStatusByte s: _object.entryList()) {
+            Element sub_ = setStatisticStatus(s.getStat(), EMPTY_STRING, _document);
+            DocumentWriterCoreUtil.setKey(sub_);
+            elt_.appendChild(sub_);
+            sub_ = DocumentWriterCoreUtil.setByte(s.getValue(), EMPTY_STRING, _document);
+            elt_.appendChild(sub_);
+        }
+        return elt_;
+    }
+
+    private static Element setMapStatisticTypeRate(StatisticTypeList<Rate> _object, String _fieldName, Document _document) {
+        Element elt_ = _document.createElement(TYPE_MAP);
+        DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
+        for (StatisticTypeParam<Rate> s: _object.entryList()) {
+            Element sub_ = setStatisticType(s.getStatistic(), EMPTY_STRING, _document);
             DocumentWriterCoreUtil.setKey(sub_);
             elt_.appendChild(sub_);
             sub_ = DocumentWriterMathUtil.setRate(s.getValue(), EMPTY_STRING, _document);
@@ -4514,11 +4563,11 @@ public final class DocumentWriterAikiCoreUtil {
         return elt_;
     }
 
-    private static Element setMapStatisticCategoryByte(ObjectMap<StatisticCategory,Byte> _object, String _fieldName, Document _document) {
+    private static Element setMapStatisticTypeByte(StatisticTypeList<Byte> _object, String _fieldName, Document _document) {
         Element elt_ = _document.createElement(TYPE_MAP);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
-        for (EntryCust<StatisticCategory, Byte> s: _object.entryList()) {
-            Element sub_ = setStatisticCategory(s.getKey(), EMPTY_STRING, _document);
+        for (StatisticTypeParam<Byte> s: _object.entryList()) {
+            Element sub_ = setStatisticType(s.getStatistic(), EMPTY_STRING, _document);
             DocumentWriterCoreUtil.setKey(sub_);
             elt_.appendChild(sub_);
             sub_ = DocumentWriterCoreUtil.setByte(s.getValue(), EMPTY_STRING, _document);
@@ -4527,37 +4576,11 @@ public final class DocumentWriterAikiCoreUtil {
         return elt_;
     }
 
-    private static Element setMapStatisticPokemonByte(ObjectMap<StatisticPokemon,Byte> _object, String _fieldName, Document _document) {
+    private static Element setMapTypesDuoRate(TypesDuos _object, String _fieldName, Document _document) {
         Element elt_ = _document.createElement(TYPE_MAP);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
-        for (EntryCust<StatisticPokemon, Byte> s: _object.entryList()) {
-            Element sub_ = setStatisticPokemon(s.getKey(), EMPTY_STRING, _document);
-            DocumentWriterCoreUtil.setKey(sub_);
-            elt_.appendChild(sub_);
-            sub_ = DocumentWriterCoreUtil.setByte(s.getValue(), EMPTY_STRING, _document);
-            elt_.appendChild(sub_);
-        }
-        return elt_;
-    }
-
-    private static Element setMapStatisticStatusByte(ObjectMap<StatisticStatus,Byte> _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(TYPE_MAP);
-        DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
-        for (EntryCust<StatisticStatus, Byte> s: _object.entryList()) {
-            Element sub_ = setStatisticStatus(s.getKey(), EMPTY_STRING, _document);
-            DocumentWriterCoreUtil.setKey(sub_);
-            elt_.appendChild(sub_);
-            sub_ = DocumentWriterCoreUtil.setByte(s.getValue(), EMPTY_STRING, _document);
-            elt_.appendChild(sub_);
-        }
-        return elt_;
-    }
-
-    private static Element setMapStatisticTypeRate(ObjectMap<StatisticType,Rate> _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(TYPE_MAP);
-        DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
-        for (EntryCust<StatisticType, Rate> s: _object.entryList()) {
-            Element sub_ = setStatisticType(s.getKey(), EMPTY_STRING, _document);
+        for (TypesDuoRate s: _object.entryList()) {
+            Element sub_ = setTypesDuo(s.getStat(), EMPTY_STRING, _document);
             DocumentWriterCoreUtil.setKey(sub_);
             elt_.appendChild(sub_);
             sub_ = DocumentWriterMathUtil.setRate(s.getValue(), EMPTY_STRING, _document);
@@ -4566,37 +4589,11 @@ public final class DocumentWriterAikiCoreUtil {
         return elt_;
     }
 
-    private static Element setMapStatisticTypeByte(ObjectMap<StatisticType,Byte> _object, String _fieldName, Document _document) {
+    private static Element setMapWeatherTypeRate(WeatherTypes _object, String _fieldName, Document _document) {
         Element elt_ = _document.createElement(TYPE_MAP);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
-        for (EntryCust<StatisticType, Byte> s: _object.entryList()) {
-            Element sub_ = setStatisticType(s.getKey(), EMPTY_STRING, _document);
-            DocumentWriterCoreUtil.setKey(sub_);
-            elt_.appendChild(sub_);
-            sub_ = DocumentWriterCoreUtil.setByte(s.getValue(), EMPTY_STRING, _document);
-            elt_.appendChild(sub_);
-        }
-        return elt_;
-    }
-
-    private static Element setMapTypesDuoRate(ObjectMap<TypesDuo,Rate> _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(TYPE_MAP);
-        DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
-        for (EntryCust<TypesDuo, Rate> s: _object.entryList()) {
-            Element sub_ = setTypesDuo(s.getKey(), EMPTY_STRING, _document);
-            DocumentWriterCoreUtil.setKey(sub_);
-            elt_.appendChild(sub_);
-            sub_ = DocumentWriterMathUtil.setRate(s.getValue(), EMPTY_STRING, _document);
-            elt_.appendChild(sub_);
-        }
-        return elt_;
-    }
-
-    private static Element setMapWeatherTypeRate(ObjectMap<WeatherType,Rate> _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(TYPE_MAP);
-        DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
-        for (EntryCust<WeatherType, Rate> s: _object.entryList()) {
-            Element sub_ = setWeatherType(s.getKey(), EMPTY_STRING, _document);
+        for (WeatherTypeRate s: _object.entryList()) {
+            Element sub_ = setWeatherType(s.getStat(), EMPTY_STRING, _document);
             DocumentWriterCoreUtil.setKey(sub_);
             elt_.appendChild(sub_);
             sub_ = DocumentWriterMathUtil.setRate(s.getValue(), EMPTY_STRING, _document);
@@ -4696,27 +4693,27 @@ public final class DocumentWriterAikiCoreUtil {
         return elt_;
     }
 
-    private static Element setMapMiniMapCoordsTileMiniMap(ObjectMap<MiniMapCoords,TileMiniMap> _object, String _fieldName, Document _document) {
+    private static Element setMapMiniMapCoordsTileMiniMap(MiniMapCoordsList _object, String _fieldName, Document _document) {
         Element elt_ = _document.createElement(TYPE_MAP);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
-        for (EntryCust<MiniMapCoords, TileMiniMap> s: _object.entryList()) {
-            Element sub_ = setMiniMapCoords(s.getKey(), EMPTY_STRING, _document);
+        for (MiniMapCoordsTile s: _object.entryList()) {
+            Element sub_ = setMiniMapCoords(s.getMiniMapCoords(), EMPTY_STRING, _document);
             DocumentWriterCoreUtil.setKey(sub_);
             elt_.appendChild(sub_);
-            sub_ = setTileMiniMap(s.getValue(), EMPTY_STRING, _document);
+            sub_ = setTileMiniMap(s.getTileMap(), EMPTY_STRING, _document);
             elt_.appendChild(sub_);
         }
         return elt_;
     }
 
-    private static Element setMapPlaceInterConnectCoords(ObjectMap<PlaceInterConnect,Coords> _object, String _fieldName, Document _document) {
+    private static Element setMapPlaceInterConnectCoords(PlaceInterConnects _object, String _fieldName, Document _document) {
         Element elt_ = _document.createElement(TYPE_MAP);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
-        for (EntryCust<PlaceInterConnect, Coords> s: _object.entryList()) {
-            Element sub_ = setPlaceInterConnect(s.getKey(), EMPTY_STRING, _document);
+        for (PlaceInterConnectCoords s: _object.entryList()) {
+            Element sub_ = setPlaceInterConnect(s.getPlaceInterConnect(), EMPTY_STRING, _document);
             DocumentWriterCoreUtil.setKey(sub_);
             elt_.appendChild(sub_);
-            sub_ = setCoords(s.getValue(), EMPTY_STRING, _document);
+            sub_ = setCoords(s.getCoords(), EMPTY_STRING, _document);
             elt_.appendChild(sub_);
         }
         return elt_;
@@ -4735,10 +4732,10 @@ public final class DocumentWriterAikiCoreUtil {
         return elt_;
     }
 
-    private static Element setMapCoordsListCoords(ObjectMap<Coords,EqList<Coords>> _object, String _fieldName, Document _document) {
+    private static Element setMapCoordsListCoords(CoordsLists _object, String _fieldName, Document _document) {
         Element elt_ = _document.createElement(TYPE_MAP);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
-        for (EntryCust<Coords, EqList<Coords>> s: _object.entryList()) {
+        for (CoordsListCoords s: _object.entryList()) {
             Element sub_ = setCoords(s.getKey(), EMPTY_STRING, _document);
             DocumentWriterCoreUtil.setKey(sub_);
             elt_.appendChild(sub_);
@@ -4761,23 +4758,23 @@ public final class DocumentWriterAikiCoreUtil {
         return elt_;
     }
 
-    private static Element setMapLevelPointLink(ObjectMap<LevelPoint,Link> _object, String _fieldName, Document _document) {
+    private static Element setMapLevelPointLink(LevelPoints _object, String _fieldName, Document _document) {
         Element elt_ = _document.createElement(TYPE_MAP);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
-        for (EntryCust<LevelPoint, Link> s: _object.entryList()) {
-            Element sub_ = setLevelPoint(s.getKey(), EMPTY_STRING, _document);
+        for (LevelPointLink s: _object.entryList()) {
+            Element sub_ = setLevelPoint(s.getLevelPoint(), EMPTY_STRING, _document);
             DocumentWriterCoreUtil.setKey(sub_);
             elt_.appendChild(sub_);
-            sub_ = setLink(s.getValue(), EMPTY_STRING, _document);
+            sub_ = setLink(s.getLink(), EMPTY_STRING, _document);
             elt_.appendChild(sub_);
         }
         return elt_;
     }
 
-    private static Element setMapPointBuilding(ObjectMap<Point,Building> _object, String _fieldName, Document _document) {
+    private static Element setMapPointBuilding(Points<Building> _object, String _fieldName, Document _document) {
         Element elt_ = _document.createElement(TYPE_MAP);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
-        for (EntryCust<Point, Building> s: _object.entryList()) {
+        for (PointParam<Building> s: _object.entryList()) {
             Element sub_ = setPoint(s.getKey(), EMPTY_STRING, _document);
             DocumentWriterCoreUtil.setKey(sub_);
             elt_.appendChild(sub_);
@@ -4787,10 +4784,10 @@ public final class DocumentWriterAikiCoreUtil {
         return elt_;
     }
 
-    private static Element setMapPointCharacterInRoadCave(ObjectMap<Point,CharacterInRoadCave> _object, String _fieldName, Document _document) {
+    private static Element setMapPointCharacterInRoadCave(Points<CharacterInRoadCave> _object, String _fieldName, Document _document) {
         Element elt_ = _document.createElement(TYPE_MAP);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
-        for (EntryCust<Point, CharacterInRoadCave> s: _object.entryList()) {
+        for (PointParam<CharacterInRoadCave> s: _object.entryList()) {
             Element sub_ = setPoint(s.getKey(), EMPTY_STRING, _document);
             DocumentWriterCoreUtil.setKey(sub_);
             elt_.appendChild(sub_);
@@ -4800,10 +4797,10 @@ public final class DocumentWriterAikiCoreUtil {
         return elt_;
     }
 
-    private static Element setMapPointDualFight(ObjectMap<Point,DualFight> _object, String _fieldName, Document _document) {
+    private static Element setMapPointDualFight(Points<DualFight> _object, String _fieldName, Document _document) {
         Element elt_ = _document.createElement(TYPE_MAP);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
-        for (EntryCust<Point, DualFight> s: _object.entryList()) {
+        for (PointParam<DualFight> s: _object.entryList()) {
             Element sub_ = setPoint(s.getKey(), EMPTY_STRING, _document);
             DocumentWriterCoreUtil.setKey(sub_);
             elt_.appendChild(sub_);
@@ -4813,10 +4810,10 @@ public final class DocumentWriterAikiCoreUtil {
         return elt_;
     }
 
-    private static Element setMapPointGymTrainer(ObjectMap<Point,GymTrainer> _object, String _fieldName, Document _document) {
+    private static Element setMapPointGymTrainer(Points<GymTrainer> _object, String _fieldName, Document _document) {
         Element elt_ = _document.createElement(TYPE_MAP);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
-        for (EntryCust<Point, GymTrainer> s: _object.entryList()) {
+        for (PointParam<GymTrainer> s: _object.entryList()) {
             Element sub_ = setPoint(s.getKey(), EMPTY_STRING, _document);
             DocumentWriterCoreUtil.setKey(sub_);
             elt_.appendChild(sub_);
@@ -4826,10 +4823,10 @@ public final class DocumentWriterAikiCoreUtil {
         return elt_;
     }
 
-    private static Element setMapPointPerson(ObjectMap<Point,Person> _object, String _fieldName, Document _document) {
+    private static Element setMapPointPerson(Points<Person> _object, String _fieldName, Document _document) {
         Element elt_ = _document.createElement(TYPE_MAP);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
-        for (EntryCust<Point, Person> s: _object.entryList()) {
+        for (PointParam<Person> s: _object.entryList()) {
             Element sub_ = setPoint(s.getKey(), EMPTY_STRING, _document);
             DocumentWriterCoreUtil.setKey(sub_);
             elt_.appendChild(sub_);
@@ -4839,10 +4836,10 @@ public final class DocumentWriterAikiCoreUtil {
         return elt_;
     }
 
-    private static Element setMapPointBlock(ObjectMap<Point,Block> _object, String _fieldName, Document _document) {
+    private static Element setMapPointBlock(Points<Block> _object, String _fieldName, Document _document) {
         Element elt_ = _document.createElement(TYPE_MAP);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
-        for (EntryCust<Point, Block> s: _object.entryList()) {
+        for (PointParam<Block> s: _object.entryList()) {
             Element sub_ = setPoint(s.getKey(), EMPTY_STRING, _document);
             DocumentWriterCoreUtil.setKey(sub_);
             elt_.appendChild(sub_);
@@ -4852,10 +4849,10 @@ public final class DocumentWriterAikiCoreUtil {
         return elt_;
     }
 
-    private static Element setMapPointLink(ObjectMap<Point,Link> _object, String _fieldName, Document _document) {
+    private static Element setMapPointLink(Points<Link> _object, String _fieldName, Document _document) {
         Element elt_ = _document.createElement(TYPE_MAP);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
-        for (EntryCust<Point, Link> s: _object.entryList()) {
+        for (PointParam<Link> s: _object.entryList()) {
             Element sub_ = setPoint(s.getKey(), EMPTY_STRING, _document);
             DocumentWriterCoreUtil.setKey(sub_);
             elt_.appendChild(sub_);
@@ -4865,10 +4862,10 @@ public final class DocumentWriterAikiCoreUtil {
         return elt_;
     }
 
-    private static Element setMapPointWildPk(ObjectMap<Point,WildPk> _object, String _fieldName, Document _document) {
+    private static Element setMapPointWildPk(Points<WildPk> _object, String _fieldName, Document _document) {
         Element elt_ = _document.createElement(TYPE_MAP);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
-        for (EntryCust<Point, WildPk> s: _object.entryList()) {
+        for (PointParam<WildPk> s: _object.entryList()) {
             Element sub_ = setPoint(s.getKey(), EMPTY_STRING, _document);
             DocumentWriterCoreUtil.setKey(sub_);
             elt_.appendChild(sub_);
@@ -4878,10 +4875,10 @@ public final class DocumentWriterAikiCoreUtil {
         return elt_;
     }
 
-    private static Element setMapPointShort(ObjectMap<Point,Short> _object, String _fieldName, Document _document) {
+    private static Element setMapPointShort(Points<Short> _object, String _fieldName, Document _document) {
         Element elt_ = _document.createElement(TYPE_MAP);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
-        for (EntryCust<Point, Short> s: _object.entryList()) {
+        for (PointParam<Short> s: _object.entryList()) {
             Element sub_ = setPoint(s.getKey(), EMPTY_STRING, _document);
             DocumentWriterCoreUtil.setKey(sub_);
             elt_.appendChild(sub_);
@@ -4891,10 +4888,10 @@ public final class DocumentWriterAikiCoreUtil {
         return elt_;
     }
 
-    private static Element setMapPointString(ObjectMap<Point,String> _object, String _fieldName, Document _document) {
+    private static Element setMapPointString(Points<String> _object, String _fieldName, Document _document) {
         Element elt_ = _document.createElement(TYPE_MAP);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
-        for (EntryCust<Point, String> s: _object.entryList()) {
+        for (PointParam<String> s: _object.entryList()) {
             Element sub_ = setPoint(s.getKey(), EMPTY_STRING, _document);
             DocumentWriterCoreUtil.setKey(sub_);
             elt_.appendChild(sub_);

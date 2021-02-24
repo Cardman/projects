@@ -51,6 +51,7 @@ import aiki.fight.status.Status;
 import aiki.fight.status.StatusType;
 import aiki.fight.util.LevelMove;
 import aiki.fight.util.ListEffectCombos;
+import aiki.fight.util.TypesDuos;
 import aiki.fight.util.TypesDuo;
 import aiki.game.fight.CheckNumericStringsFight;
 import aiki.game.params.enums.DifficultyModelLaw;
@@ -65,11 +66,7 @@ import aiki.map.pokemon.enums.Gender;
 import aiki.map.tree.util.Dims;
 import aiki.map.util.ScreenCoords;
 import aiki.map.util.TileMiniMap;
-import aiki.util.Coords;
-import aiki.util.LawNumber;
-import aiki.util.LevelPoint;
-import aiki.util.Point;
-import aiki.util.TypeStatistic;
+import aiki.util.*;
 import code.images.BaseSixtyFourUtil;
 import code.images.ConverterBufferedImage;
 import code.maths.LgInt;
@@ -272,7 +269,7 @@ public class DataBase {
 
     private EnumMap<DifficultyWinPointsFight, String> rates = new EnumMap<DifficultyWinPointsFight, String>();
 
-    private ObjectMap<TypesDuo, Rate> tableTypes = new ObjectMap<TypesDuo, Rate>();
+    private TypesDuos tableTypes = new TypesDuos();
     private StringList types = new StringList();
 
     private EnumMap<DifficultyModelLaw, LawNumber> lawsDamageRate = new EnumMap<DifficultyModelLaw, LawNumber>();
@@ -363,7 +360,7 @@ public class DataBase {
 
     private boolean checkTranslation;
 
-    private EvolvedMathFactory standardMathFactory = new EvolvedMathFactory();
+    private final EvolvedMathFactory standardMathFactory = new EvolvedMathFactory();
     private boolean error;
     private StringMap<String> messagesPokemonPlayer = new StringMap<String>();
     private StringMap<String> messagesPlayer = new StringMap<String>();
@@ -432,7 +429,7 @@ public class DataBase {
                 _default);
     }
 
-    public ObjectMap<Point, int[][]> getLevelImage(short _pl, byte _level) {
+    public Points< int[][]> getLevelImage(short _pl, byte _level) {
         Coords coords_ = new Coords();
         coords_.setNumberPlace(_pl);
         coords_.setLevel(new LevelPoint());
@@ -440,8 +437,8 @@ public class DataBase {
         return getLevelImage(coords_);
     }
 
-    public ObjectMap<Point, int[][]> getLevelImage(short _pl, byte _level,
-            Point _inside) {
+    public Points< int[][]> getLevelImage(short _pl, byte _level,
+                                          Point _inside) {
         Coords coords_ = new Coords();
         coords_.setNumberPlace(_pl);
         coords_.setLevel(new LevelPoint());
@@ -450,10 +447,10 @@ public class DataBase {
         return getLevelImage(coords_);
     }
 
-    public ObjectMap<Point, int[][]> getLevelImage(Coords _coords) {
-        ObjectMap<Point, int[][]> tiles_ = Level.getLevelBackgroundImage(this,
+    public Points< int[][]> getLevelImage(Coords _coords) {
+        Points< int[][]> tiles_ = Level.getLevelBackgroundImage(this,
                 _coords);
-        ObjectMap<Point, int[][]> frontTiles_ = Level.getLevelForegroundImage(
+        Points< int[][]> frontTiles_ = Level.getLevelForegroundImage(
                 this, _coords);
         for (Point p : frontTiles_.getKeys()) {
             tiles_.put(p, stackImages(tiles_, frontTiles_, p));
@@ -461,8 +458,8 @@ public class DataBase {
         return tiles_;
     }
 
-    public static int[][] stackImages(ObjectMap<Point, int[][]> _tiles,
-            ObjectMap<Point, int[][]> _frontTiles, Point _pt) {
+    public static int[][] stackImages(Points< int[][]> _tiles,
+            Points< int[][]> _frontTiles, Point _pt) {
         int[][] img_ = _frontTiles.getVal(_pt);
         int[][] imgBack_ = _tiles.getVal(_pt);
         return ConverterBufferedImage.stackImages(imgBack_, img_);
@@ -1899,7 +1896,7 @@ public class DataBase {
         rates = _rates;
     }
 
-    public void setTableTypes(ObjectMap<TypesDuo, Rate> _tableTypes) {
+    public void setTableTypes(TypesDuos _tableTypes) {
         tableTypes = _tableTypes;
     }
 
@@ -3287,7 +3284,7 @@ public class DataBase {
         return varParamsMove;
     }
 
-    public ObjectMap<TypesDuo, Rate> getTableTypes() {
+    public TypesDuos getTableTypes() {
         return tableTypes;
     }
 

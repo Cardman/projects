@@ -26,6 +26,7 @@ import aiki.map.places.Place;
 import aiki.map.pokemon.Pokemon;
 import aiki.map.pokemon.enums.Gender;
 import aiki.map.util.MiniMapCoords;
+import aiki.map.util.MiniMapCoordsTile;
 import aiki.map.util.TileMiniMap;
 import code.images.BaseSixtyFourUtil;
 import code.images.ConverterBufferedImage;
@@ -524,9 +525,9 @@ public class PokemonBean extends CommonBean {
     public TreeMap<MiniMapCoords,String> getImages() {
         DataBase data_ = getDataBase();
         TreeMap<MiniMapCoords, String> map_ = new TreeMap<MiniMapCoords, String>(new ComparatorMiniMapCoords());
-        for (EntryCust<MiniMapCoords,TileMiniMap> m_: data_.getMap().getMiniMap().entryList()) {
-            int[][] image_ = data_.getMiniMap(m_.getValue().getFile());
-            map_.put(m_.getKey(), BaseSixtyFourUtil.getStringByImage(image_));
+        for (MiniMapCoordsTile m_: data_.getMap().getMiniMap().entryList()) {
+            int[][] image_ = data_.getMiniMap(m_.getTileMap().getFile());
+            map_.put(m_.getMiniMapCoords(), BaseSixtyFourUtil.getStringByImage(image_));
         }
         return map_;
     }

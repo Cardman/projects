@@ -5,13 +5,13 @@ import aiki.fight.effects.EffectWhileSendingWithStatistic;
 import aiki.fight.enums.Statistic;
 import aiki.fight.moves.effects.EffectEndRound;
 import aiki.fight.moves.effects.EffectEndRoundIndividual;
-import aiki.fight.util.StatisticPokemon;
+import aiki.fight.util.StatisticPokemonByte;
+import aiki.fight.util.StatisticPokemons;
 import code.maths.Rate;
 import code.maths.montecarlo.MonteCarloBoolean;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.EnumMap;
-import code.util.ObjectMap;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.core.StringUtil;
@@ -47,7 +47,7 @@ public final class ItemForBattle extends Item {
     private Rate damageRecoil;
     private EnumMap<Statistic, Byte> multStatRank;
 
-    private ObjectMap<StatisticPokemon, Byte> multStatPokemonRank;
+    private StatisticPokemons multStatPokemonRank;
 
     private EnumMap<Statistic, String> multStat;
     private StringMap<Short> increasingMaxNbRoundGlobalMove;
@@ -89,9 +89,9 @@ public final class ItemForBattle extends Item {
         if (!effectSending.isEmpty()) {
             effectSending.first().validate(_data);
         }
-        for (EntryCust<StatisticPokemon, Byte> e : multStatPokemonRank
+        for (StatisticPokemonByte e : multStatPokemonRank
                 .entryList()) {
-            if (!_data.getPokedex().contains(e.getKey().getPokemon())) {
+            if (!_data.getPokedex().contains(e.getStat().getPokemon())) {
                 _data.setError(true);
             }
         }
@@ -433,12 +433,12 @@ public final class ItemForBattle extends Item {
         multStatRank = _multStat;
     }
 
-    public ObjectMap<StatisticPokemon, Byte> getMultStatPokemonRank() {
+    public StatisticPokemons getMultStatPokemonRank() {
         return multStatPokemonRank;
     }
 
     public void setMultStatPokemonRank(
-            ObjectMap<StatisticPokemon, Byte> _multStatPokemonRank) {
+            StatisticPokemons _multStatPokemonRank) {
         multStatPokemonRank = _multStatPokemonRank;
     }
 

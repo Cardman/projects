@@ -4,12 +4,13 @@ import aiki.comparators.ComparatorTrStrings;
 import aiki.db.DataBase;
 import aiki.fight.moves.effects.EffectUnprotectFromTypes;
 import aiki.fight.util.TypesDuo;
+import code.util.CustList;
 import code.util.EqList;
 import code.util.StringList;
 import code.util.StringMap;
 
 public class EffectUnprotectFromTypesBean extends EffectBean {
-    private EqList<TypesDuo> types;
+    private CustList<TypesDuo> types;
     private StringList disableImmuAgainstTypes;
     private StringList disableImmuFromMoves;
     private StringList attackTargetWithTypes;
@@ -18,10 +19,10 @@ public class EffectUnprotectFromTypesBean extends EffectBean {
     public void beforeDisplaying() {
         super.beforeDisplaying();
         EffectUnprotectFromTypes effect_ = (EffectUnprotectFromTypes) getEffect();
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         StringMap<String> translatedTypes_ = data_.getTranslatedTypes().getVal(getLanguage());
-        EqList<TypesDuo> types_;
-        types_ = new EqList<TypesDuo>();
+        CustList<TypesDuo> types_;
+        types_ = new CustList<TypesDuo>();
         for (TypesDuo duo_: effect_.getTypes()) {
             types_.add(duo_);
         }
@@ -57,20 +58,20 @@ public class EffectUnprotectFromTypesBean extends EffectBean {
         attackTargetWithTypes = attackTargetWithTypes_;
     }
     public String getTrDamageType(int _index) {
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         StringMap<String> translatedTypes_ = data_.getTranslatedTypes().getVal(getLanguage());
         String type_ = types.get(_index).getDamageType();
         return translatedTypes_.getVal(type_);
     }
     public String getTrPokemonType(int _index) {
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         StringMap<String> translatedTypes_ = data_.getTranslatedTypes().getVal(getLanguage());
         String type_ = types.get(_index).getPokemonType();
         return translatedTypes_.getVal(type_);
 
     }
     public String getTrDisableImmuType(int _index) {
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         StringMap<String> translatedTypes_ = data_.getTranslatedTypes().getVal(getLanguage());
         String type_ = disableImmuAgainstTypes.get(_index);
         return translatedTypes_.getVal(type_);
@@ -82,7 +83,7 @@ public class EffectUnprotectFromTypesBean extends EffectBean {
         return CST_MOVE;
     }
     public String getTrDisableImmuMove(int _index) {
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
         String type_ = disableImmuFromMoves.get(_index);
         return translatedMoves_.getVal(type_);
@@ -94,7 +95,7 @@ public class EffectUnprotectFromTypesBean extends EffectBean {
     }
 
     private StringList getDisableImmuFromMoves(EffectUnprotectFromTypes _effect) {
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
         StringList disableImmuFromMoves_;
         disableImmuFromMoves_ = new StringList();
@@ -105,13 +106,13 @@ public class EffectUnprotectFromTypesBean extends EffectBean {
         return disableImmuFromMoves_;
     }
     public String getTrAttackTargetType(int _index) {
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         StringMap<String> translatedTypes_ = data_.getTranslatedTypes().getVal(getLanguage());
         String type_ = attackTargetWithTypes.get(_index);
         return translatedTypes_.getVal(type_);
     }
 
-    public EqList<TypesDuo> getTypes() {
+    public CustList<TypesDuo> getTypes() {
         return types;
     }
 

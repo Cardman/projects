@@ -12,8 +12,12 @@ import aiki.map.tree.LevelArea;
 import aiki.map.tree.PlaceArea;
 import aiki.map.tree.Tree;
 import aiki.map.util.PlaceInterConnect;
+import aiki.map.util.PlaceInterConnectCoords;
+import aiki.map.util.PlaceInterConnects;
 import aiki.util.Coords;
 import aiki.util.Point;
+import aiki.util.PointParam;
+import aiki.util.Points;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.EqList;
@@ -25,17 +29,17 @@ import code.util.core.IndexConstants;
 public final class City extends Place implements InitializedPlace {
 
     /** key access to building, which is shown as a block */
-    private ObjectMap<Point, Building> buildings;
+    private Points< Building> buildings;
 
     private LevelOutdoor level;
 
     private String name;
 
-    private ObjectMap<PlaceInterConnect, Coords> savedlinks;
+    private PlaceInterConnects savedlinks;
 
-    private ObjectMap<PlaceInterConnect, Coords> linksPointsWithCitiesAndOtherRoads = new ObjectMap<PlaceInterConnect, Coords>();
+    private PlaceInterConnects linksPointsWithCitiesAndOtherRoads = new PlaceInterConnects();
 
-    private ObjectMap<Point, Link> linksWithCaves;
+    private Points< Link> linksWithCaves;
 
     @Override
     public void addSavedLink(PlaceInterConnect _key, Coords _value) {
@@ -50,7 +54,7 @@ public final class City extends Place implements InitializedPlace {
         EqList<Point> ids_ = new EqList<Point>();
         ids_.addAllElts(linksWithCaves.getKeys());
         ids_.addAllElts(buildings.getKeys());
-        for (EntryCust<Point, Building> e : buildings.entryList()) {
+        for (PointParam<Building> e : buildings.entryList()) {
             if (levelArea_.isAccessible(e.getKey())) {
                 _data.setError(true);
             }
@@ -124,13 +128,13 @@ public final class City extends Place implements InitializedPlace {
 
     @Override
     public boolean validLinks(short _place, Tree _tree) {
-        for (EntryCust<PlaceInterConnect, Coords> e : linksPointsWithCitiesAndOtherRoads
+        for (PlaceInterConnectCoords e : linksPointsWithCitiesAndOtherRoads
                 .entryList()) {
-            if (!_tree.isValid(e.getValue(), false)) {
+            if (!_tree.isValid(e.getCoords(), false)) {
                 return false;
             }
         }
-        for (EntryCust<Point, Link> e : linksWithCaves.entryList()) {
+        for (PointParam<Link> e : linksWithCaves.entryList()) {
             Link link_ = e.getValue();
             if (!_tree.isValid(link_.getCoords(), true)) {
                 return false;
@@ -160,11 +164,11 @@ public final class City extends Place implements InitializedPlace {
         return getLevelOutdoor();
     }
 
-    public ObjectMap<Point, Building> getBuildings() {
+    public Points< Building> getBuildings() {
         return buildings;
     }
 
-    public void setBuildings(ObjectMap<Point, Building> _buildings) {
+    public void setBuildings(Points< Building> _buildings) {
         buildings = _buildings;
     }
 
@@ -192,32 +196,32 @@ public final class City extends Place implements InitializedPlace {
     }
 
     @Override
-    public ObjectMap<PlaceInterConnect, Coords> getSavedlinks() {
+    public PlaceInterConnects getSavedlinks() {
         return savedlinks;
     }
 
     @Override
-    public void setSavedlinks(ObjectMap<PlaceInterConnect, Coords> _savedlinks) {
+    public void setSavedlinks(PlaceInterConnects _savedlinks) {
         savedlinks = _savedlinks;
     }
 
     @Override
-    public ObjectMap<PlaceInterConnect, Coords> getPointsWithCitiesAndOtherRoads() {
+    public PlaceInterConnects getPointsWithCitiesAndOtherRoads() {
         return linksPointsWithCitiesAndOtherRoads;
     }
 
     @Override
     public void setPointsWithCitiesAndOtherRoads(
-            ObjectMap<PlaceInterConnect, Coords> _linksPointsWithCitiesAndOtherRoads) {
+            PlaceInterConnects _linksPointsWithCitiesAndOtherRoads) {
         linksPointsWithCitiesAndOtherRoads = _linksPointsWithCitiesAndOtherRoads;
     }
 
     @Override
-    public ObjectMap<Point, Link> getLinksWithCaves() {
+    public Points< Link> getLinksWithCaves() {
         return linksWithCaves;
     }
 
-    public void setLinksWithCaves(ObjectMap<Point, Link> _linksWithCaves) {
+    public void setLinksWithCaves(Points< Link> _linksWithCaves) {
         linksWithCaves = _linksWithCaves;
     }
 

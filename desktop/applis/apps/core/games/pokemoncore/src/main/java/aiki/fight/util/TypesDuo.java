@@ -4,7 +4,7 @@ import code.util.core.StringUtil;
 import code.util.ints.Displayable;
 import code.util.ints.Equallable;
 
-public final class TypesDuo implements Equallable<TypesDuo>, Displayable {
+public final class TypesDuo implements Displayable {
 
     private static final char SEPARATOR = ';';
 
@@ -31,7 +31,6 @@ public final class TypesDuo implements Equallable<TypesDuo>, Displayable {
         return new TypesDuo(_string);
     }
 
-    @Override
     public boolean eq(TypesDuo _obj) {
         if (!StringUtil.quickEq(damageType, _obj.damageType)) {
             return false;

@@ -81,8 +81,8 @@ public class AbilityBean extends CommonBean {
     private TreeMap<String, Rate> singleStatus;
     private EnumList<Statistic> immuLowStat;
     private EnumList<Statistic> maxStatisticsIfCh;
-    private EqList<StatisticStatus> immuLowStatIfStatus;
-    private EqList<TypesDuo> breakFoeImmune;
+    private CustList<StatisticStatus> immuLowStatIfStatus;
+    private CustList<TypesDuo> breakFoeImmune;
     private TreeMap<Statistic, Byte> bonusStatRank;
     private TreeMap<Statistic, Byte> boostStatRankEndRound;
     private TreeMap<Statistic, Byte> boostStatRankProtected;
@@ -342,8 +342,8 @@ public class AbilityBean extends CommonBean {
             v.sortElts(new ComparatorTrStrings(translatedStatus_));
         }
         immuStatusTypes = immuStatusTypes_;
-        EqList<StatisticStatus> immuLowStatIfStatus_;
-        immuLowStatIfStatus_ = new EqList<StatisticStatus>();
+        CustList<StatisticStatus> immuLowStatIfStatus_;
+        immuLowStatIfStatus_ = new CustList<StatisticStatus>();
         for (StatisticStatus s: ability_.getImmuLowStatIfStatus()) {
             immuLowStatIfStatus_.add(new StatisticStatus(s.getStatistic(),s.getStatus()));
         }
@@ -383,8 +383,8 @@ public class AbilityBean extends CommonBean {
             failStatus_.put(s, formula_);
         }
         failStatus = failStatus_;
-        EqList<TypesDuo> breakFoeImmune_;
-        breakFoeImmune_ = new EqList<TypesDuo>();
+        CustList<TypesDuo> breakFoeImmune_;
+        breakFoeImmune_ = new CustList<TypesDuo>();
         for (TypesDuo s: ability_.getBreakFoeImmune()) {
             breakFoeImmune_.add(new TypesDuo(s.getDamageType(),s.getPokemonType()));
         }
@@ -1348,7 +1348,7 @@ public class AbilityBean extends CommonBean {
         return immuLowStat;
     }
 
-    public EqList<StatisticStatus> getImmuLowStatIfStatus() {
+    public CustList<StatisticStatus> getImmuLowStatIfStatus() {
         return immuLowStatIfStatus;
     }
 
@@ -1384,7 +1384,7 @@ public class AbilityBean extends CommonBean {
         return forwardStatus;
     }
 
-    public EqList<TypesDuo> getBreakFoeImmune() {
+    public CustList<TypesDuo> getBreakFoeImmune() {
         return breakFoeImmune;
     }
 

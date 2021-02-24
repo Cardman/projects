@@ -4,7 +4,7 @@ import code.util.core.StringUtil;
 import code.util.ints.Displayable;
 import code.util.ints.Equallable;
 
-public final class WeatherType implements Equallable<WeatherType>, Displayable {
+public final class WeatherType implements Displayable {
 
     private static final char SEPARATOR = ';';
 
@@ -31,7 +31,6 @@ public final class WeatherType implements Equallable<WeatherType>, Displayable {
         return new WeatherType(_string);
     }
 
-    @Override
     public boolean eq(WeatherType _obj) {
         if (!StringUtil.quickEq(weather, _obj.weather)) {
             return false;

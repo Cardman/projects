@@ -11,10 +11,7 @@ import aiki.fight.moves.effects.EffectCombo;
 import aiki.fight.moves.effects.EffectGlobal;
 import aiki.fight.moves.effects.EffectTeam;
 import aiki.fight.status.Status;
-import aiki.fight.util.BoostHpRate;
-import aiki.fight.util.StatisticPokemon;
-import aiki.fight.util.StatisticStatus;
-import aiki.fight.util.StatisticType;
+import aiki.fight.util.*;
 import code.maths.Rate;
 import code.util.EnumMap;
 import code.util.ObjectMap;
@@ -113,7 +110,7 @@ final class FightStatistic {
                 if(multStatisCran_.contains(_statistic)){
                     bonus_+=multStatisCran_.getVal(_statistic);
                 }
-                ObjectMap<StatisticPokemon,Byte> multStatisPkCran_=fObjetCombat_.getMultStatPokemonRank();
+                StatisticPokemons multStatisPkCran_=fObjetCombat_.getMultStatPokemonRank();
                 if(multStatisPkCran_.contains(new StatisticPokemon(_statistic,fighter_.getCurrentName()))){
                     bonus_+=multStatisPkCran_.getVal(new StatisticPokemon(_statistic,fighter_.getCurrentName()));
                 }
@@ -223,7 +220,7 @@ final class FightStatistic {
             }
             AbilityData fCapac_=fighter_.ficheCapaciteActuelle(_import);
             boolean immuBaisse_=false;
-            if(fCapac_.getImmuLowStatIfStatus().containsObj(new StatisticStatus(_statistic,c))){
+            if(fCapac_.containsStatisticStatus(new StatisticStatus(_statistic,c))){
                 immuBaisse_=true;
             }
             Rate taux_=statut_.getMultStat().getVal(_statistic);

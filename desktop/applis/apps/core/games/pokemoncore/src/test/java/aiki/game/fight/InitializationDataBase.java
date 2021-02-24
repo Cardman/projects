@@ -26,11 +26,9 @@ import aiki.map.places.Place;
 import aiki.map.pokemon.WildPk;
 import aiki.map.pokemon.enums.Gender;
 import aiki.map.util.MiniMapCoords;
+import aiki.map.util.MiniMapCoordsList;
 import aiki.map.util.TileMiniMap;
-import aiki.util.Coords;
-import aiki.util.LawNumber;
-import aiki.util.LevelPoint;
-import aiki.util.Point;
+import aiki.util.*;
 import code.maths.LgInt;
 import code.maths.Rate;
 import code.maths.litteral.EvolvedMathFactory;
@@ -825,7 +823,7 @@ public class InitializationDataBase extends EquallablePkUtil {
         DataBase data_ = coreDataBase();
         data_.sortEndRound();
         initPlaces(data_);
-        data_.getMap().setMiniMap(new ObjectMap<MiniMapCoords,TileMiniMap>());
+        data_.getMap().setMiniMap(new MiniMapCoordsList());
         data_.getMap().setUnlockedCity(NULL_REF);
         data_.getMap().setSideLength(2);
         //data_.getMap().setSpritesGirlBoy(new Map<EnvironmentType,String>());
@@ -916,7 +914,7 @@ public class InitializationDataBase extends EquallablePkUtil {
         DataBase data_ = coreDataBase();
         data_.sortEndRound();
         initPlaces(data_);
-        data_.getMap().setMiniMap(new ObjectMap<MiniMapCoords,TileMiniMap>());
+        data_.getMap().setMiniMap(new MiniMapCoordsList());
         data_.getMap().setUnlockedCity(NULL_REF);
         data_.getMap().setSideLength(2);
         //data_.getMap().setSpritesGirlBoy(new Map<EnvironmentType,String>());
@@ -1724,7 +1722,7 @@ public class InitializationDataBase extends EquallablePkUtil {
         Cave cave_ = (Cave) _dataMap.getPlace(_place);
         LevelCave l1_ = (LevelCave) cave_.getLevelsMap().getVal(
                 _l1.getLevelIndex());
-        ObjectMap<Point, Link> links_ = l1_.getLinksOtherLevels();
+        Points< Link> links_ = l1_.getLinksOtherLevels();
         if (links_.contains(_l1.getPoint())) {
             Link link_ = links_.getVal(_l1.getPoint());
             link_.getCoords().setNumberPlace(_place);
@@ -1751,12 +1749,12 @@ public class InitializationDataBase extends EquallablePkUtil {
         Cave cave_ = (Cave) _dataMap.getPlace(_coordsCave.getNumberPlace());
         InitializedPlace place_ = (InitializedPlace) _dataMap.getPlace(_coordsPlace
                 .getNumberPlace());
-        ObjectMap<LevelPoint, Link> links1_ = cave_.getLinksWithOtherPlaces();
+        LevelPoints links1_ = cave_.getLinksWithOtherPlaces();
         Link link1_ = new Link();
         link1_.setCoords(_coordsPlace);
         link1_.setFileName(_imgName1);
-        links1_.put(_coordsCave.getLevel(), link1_);
-        ObjectMap<Point, Link> links2_ = place_.getLinksWithCaves();
+        links1_.addEntry(_coordsCave.getLevel(), link1_);
+        Points< Link> links2_ = place_.getLinksWithCaves();
         Link link2_ = new Link();
         link2_.setCoords(_coordsCave);
         link2_.setFileName(_imgName2);
@@ -1766,7 +1764,7 @@ public class InitializationDataBase extends EquallablePkUtil {
     public static void addCave(DataMap _dataMap) {
         Cave cave_ = new Cave();
         cave_.setLevels(new CustList< LevelCave>());
-        cave_.setLinksWithOtherPlaces(new ObjectMap<LevelPoint, Link>());
+        cave_.setLinksWithOtherPlaces(new LevelPoints());
         addNewLevel(cave_);
         _dataMap.addPlace(cave_);
     }
@@ -1778,15 +1776,15 @@ public class InitializationDataBase extends EquallablePkUtil {
 
     public static void addNewLevel(Cave _cave) {
         LevelCave level_ = new LevelCave();
-        level_.setBlocks(new ObjectMap<Point, Block>());
-        level_.setCharacters(new ObjectMap<Point, CharacterInRoadCave>());
-        level_.setDualFights(new ObjectMap<Point, DualFight>());
-        level_.setHm(new ObjectMap<Point, Short>());
-        level_.setTm(new ObjectMap<Point, Short>());
-        level_.setItems(new ObjectMap<Point, String>());
-        level_.setLegendaryPks(new ObjectMap<Point, WildPk>());
+        level_.setBlocks(new PointsBlock());
+        level_.setCharacters(new PointsCharacterInRoadCave());
+        level_.setDualFights(new PointsDualFight());
+        level_.setHm(new PointsShort());
+        level_.setTm(new PointsShort());
+        level_.setItems(new PointsString());
+        level_.setLegendaryPks(new PointsWildPk());
         level_.setWildPokemonAreas(new CustList<AreaApparition>());
-        level_.setLinksOtherLevels(new ObjectMap<Point, Link>());
+        level_.setLinksOtherLevels(new PointsLink());
         _cave.getLevels().add(level_);
     }
 

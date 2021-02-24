@@ -1,6 +1,8 @@
 package aiki.map.tree;
 
 import aiki.db.EquallablePkUtil;
+import aiki.map.util.PlaceInterConnects;
+import aiki.util.*;
 import org.junit.Test;
 
 import aiki.map.DataMap;
@@ -16,8 +18,6 @@ import aiki.map.places.City;
 import aiki.map.places.Place;
 import aiki.map.tree.util.Dims;
 import aiki.map.util.PlaceInterConnect;
-import aiki.util.Coords;
-import aiki.util.Point;
 import code.util.EqList;
 import code.util.*;
 import code.util.ObjectMap;
@@ -27,10 +27,10 @@ public class BuildingAreaTest extends EquallablePkUtil {
 
     private static City city() {
         City c_ = new City();
-        c_.setSavedlinks(new ObjectMap<PlaceInterConnect,Coords>());
-        c_.setLinksWithCaves(new ObjectMap<Point,Link>());
+        c_.setSavedlinks(new PlaceInterConnects());
+        c_.setLinksWithCaves(new PointsLink());
         LevelOutdoor city_ = new LevelOutdoor();
-        city_.setBlocks(new ObjectMap<Point,Block>());
+        city_.setBlocks(new PointsBlock());
         Block block_ = new Block((short)3,(short)3, EnvironmentType.ROAD, "voie");
         city_.getBlocks().put(new Point((short)0,(short)0), block_);
         block_ = new Block((short)3,(short)3, EnvironmentType.ROAD, "voie");
@@ -50,15 +50,15 @@ public class BuildingAreaTest extends EquallablePkUtil {
         block_ = new Block((short)3,(short)3, EnvironmentType.ROAD, "voie");
         city_.getBlocks().put(new Point((short)6,(short)6), block_);
         c_.setLevel(city_);
-        c_.setBuildings(new ObjectMap<Point,Building>());
+        c_.setBuildings(new PointsBuilding());
         Gym gym_ = new Gym();
         gym_.setExitCity(new Point((short)1,(short)0));
         gym_.setLevel(new LevelIndoorGym());
-        gym_.getLevel().setBlocks(new ObjectMap<Point,Block>());
+        gym_.getLevel().setBlocks(new PointsBlock());
         block_ = new Block((short)6,(short)6, EnvironmentType.BUILDING, "voie");
         gym_.getLevel().getBlocks().put(new Point((short)0,(short)0), block_);
         gym_.getIndoor().setGymLeaderCoords(new Point((short)1,(short)1));
-        gym_.getIndoor().setGymTrainers(new ObjectMap<Point,GymTrainer>());
+        gym_.getIndoor().setGymTrainers(new PointsGymTrainer());
         c_.getBuildings().put(new Point((short)4,(short)5), gym_);
         return c_;
     }
@@ -70,7 +70,7 @@ public class BuildingAreaTest extends EquallablePkUtil {
     @Test
     public void initialize1Test() {
         DataMap dataMap_ = new DataMap();
-        dataMap_.setAccessCondition(new ObjectMap<Coords,EqList<Coords>>());
+        dataMap_.setAccessCondition(new CoordsLists());
         initPlaces(dataMap_);
         City city_ = city();
         dataMap_.getPlaces().add(city_);
@@ -93,7 +93,7 @@ public class BuildingAreaTest extends EquallablePkUtil {
     @Test
     public void isValid1Test() {
         DataMap dataMap_ = new DataMap();
-        dataMap_.setAccessCondition(new ObjectMap<Coords,EqList<Coords>>());
+        dataMap_.setAccessCondition(new CoordsLists());
         initPlaces(dataMap_);
         City city_ = city();
         dataMap_.getPlaces().add(city_);
@@ -110,7 +110,7 @@ public class BuildingAreaTest extends EquallablePkUtil {
     @Test
     public void isValid2Test() {
         DataMap dataMap_ = new DataMap();
-        dataMap_.setAccessCondition(new ObjectMap<Coords,EqList<Coords>>());
+        dataMap_.setAccessCondition(new CoordsLists());
         initPlaces(dataMap_);
         City city_ = city();
         dataMap_.getPlaces().add(city_);

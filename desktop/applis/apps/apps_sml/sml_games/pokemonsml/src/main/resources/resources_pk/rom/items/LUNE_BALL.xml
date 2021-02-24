@@ -1,4 +1,0 @@
-<aiki.fight.items.Ball>
-<java.lang.String class="aiki.fight.items.Ball" field="catchingRate" value="4*cardinal(inter({VAR__PK_SAUVAGE_PIERRES_EVOS},{PIERRE_LUNE}))+cardinal(complementaire({PIERRE_LUNE},{VAR__PK_SAUVAGE_PIERRES_EVOS}))"/>
-<java.lang.Integer class="aiki.fight.items.Item" field="price" value="700"/>
-</aiki.fight.items.Ball>

@@ -230,6 +230,7 @@ public final class MainWindow extends NetGroupFrame {
     private Thread preparedPkNetThread;
     private Thread preparedDiffThread;
     private Thread preparedProgThread;
+    private Thread exporting;
 //    private KeyPadListener keyPadListener;
 
 //    private ForwardingJavaCompiler compiling;
@@ -293,6 +294,7 @@ public final class MainWindow extends NetGroupFrame {
         //setVisible(true);
         setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
         addWindowListener(new QuittingEvent(this));
+        facade.setData(new DataBase(_list.getGenerator()));
         initMessages();
         setTitle(messages.getVal(TITLE));
     }
@@ -601,6 +603,11 @@ public final class MainWindow extends NetGroupFrame {
         dataGame.setEnabledMenu(true);
         gameLoad.setEnabledMenu(true);
         gameSave.setEnabledMenu(false);
+        if (exporting != null && exporting.isAlive()) {
+            return;
+        }
+        exporting = new Thread(new ExportRomThread(facade,loadingConf));
+        exporting.start();
     }
 
     public void afterLoadGame() {

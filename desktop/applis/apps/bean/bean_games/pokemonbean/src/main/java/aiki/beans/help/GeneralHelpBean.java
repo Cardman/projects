@@ -23,6 +23,7 @@ import aiki.fight.pokemon.PokemonData;
 import aiki.map.pokemon.Pokemon;
 import aiki.map.pokemon.enums.Gender;
 import aiki.map.util.MiniMapCoords;
+import aiki.map.util.MiniMapCoordsTile;
 import aiki.map.util.TileMiniMap;
 import code.images.BaseSixtyFourUtil;
 import code.images.ConverterBufferedImage;
@@ -62,7 +63,7 @@ public class GeneralHelpBean extends CommonBean {
 
     @Override
     public void beforeDisplaying() {
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         miniMap = data_.getMap().getImages(data_);
         begin = data_.getMap().getPlace(data_.getMap().getBegin().getNumberPlace()).getName();
         firstPokemon = data_.getMap().getFirstPokemon();
@@ -120,7 +121,7 @@ public class GeneralHelpBean extends CommonBean {
         return namesPlaces.getValue(_index);
     }
     public String getTrPokemon(int _index) {
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         String pk_ = pokemonDefaultEggGroup.get(_index);
         return data_.translatePokemon(pk_);
     }
@@ -130,13 +131,13 @@ public class GeneralHelpBean extends CommonBean {
         return CST_POKEMON;
     }
     public String getImage() {
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         String name_ = firstPokemon.getName();
         return BaseSixtyFourUtil.getStringByImage(data_.getMaxiPkFront().getVal(name_));
         //return ConverterBufferedImage.toBaseSixtyFour(data_.getMaxiPkFront().getVal(name_));
     }
     public String getName() {
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         StringMap<String> translationsPokemon_;
         translationsPokemon_ = data_.getTranslatedPokemon().getVal(getLanguage());
         String name_ = firstPokemon.getName();
@@ -151,14 +152,14 @@ public class GeneralHelpBean extends CommonBean {
         return firstPokemon.getLevel();
     }
     public String getGender() {
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         EnumMap<Gender,String> translationsGenders_;
         translationsGenders_ = data_.getTranslatedGenders().getVal(getLanguage());
         Gender gender_ = firstPokemon.getGender();
         return translationsGenders_.getVal(gender_);
     }
     public String getAbility() {
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         StringMap<String> translationsAbilities_;
         translationsAbilities_ = data_.getTranslatedAbilities().getVal(getLanguage());
         String ability_ = firstPokemon.getAbility();
@@ -173,14 +174,14 @@ public class GeneralHelpBean extends CommonBean {
         return !firstPokemon.getItem().isEmpty();
     }
     public String getItem() {
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         StringMap<String> translationsItems_;
         translationsItems_ = data_.getTranslatedItems().getVal(getLanguage());
         String item_ = firstPokemon.getItem();
         return translationsItems_.getVal(item_);
     }
     public String clickItem() {
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         String item_ = firstPokemon.getItem();
         getForms().put(CST_ITEM, item_);
         Item it_ = data_.getItem(item_);
@@ -229,7 +230,7 @@ public class GeneralHelpBean extends CommonBean {
         return CST_ITEM;
     }
     public String getMove(int _moveIndex) {
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         StringMap<String> translationsMoves_;
         translationsMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
         String move_ = getMovesAtLevel().get(_moveIndex);
@@ -241,7 +242,7 @@ public class GeneralHelpBean extends CommonBean {
         return CST_MOVE;
     }
     public StringList getMovesAtLevel() {
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         StringMap<String> translationsMoves_;
         translationsMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
         StringList moves_ = data_.getPokemon(firstPokemon.getName()).getMovesAtLevel(firstPokemon.getLevel(), data_.getNbMaxMoves());
@@ -259,14 +260,14 @@ public class GeneralHelpBean extends CommonBean {
         return CST_MOVE;
     }
     public String getTrTm(int _moveIndex) {
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         StringMap<String> translationsMoves_;
         translationsMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
         String move_ = tm.get(_moveIndex);
         return translationsMoves_.getVal(move_);
     }
     public String getTmPrice(int _moveIndex) {
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         String move_ = tm.get(_moveIndex);
 //        short key_ = data_.getTm().getKeys(move_).first();
         short key_ = data_.getTmByMove(move_).first();
@@ -276,26 +277,26 @@ public class GeneralHelpBean extends CommonBean {
         return DataBase.EMPTY_STRING;
     }
     public String getTrHm(int _moveIndex) {
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         StringMap<String> translationsMoves_;
         translationsMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
         String move_ = hm.get(_moveIndex);
         return translationsMoves_.getVal(move_);
     }
     public String getTrType(int _index) {
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         StringMap<String> translationsTypes_;
         translationsTypes_ = data_.getTranslatedTypes().getVal(getLanguage());
         String type_ = types.get(_index);
         return translationsTypes_.getVal(type_);
     }
     public String getImageType(int _index) {
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         String type_ = types.get(_index);
         return BaseSixtyFourUtil.getStringByImage(data_.getTypesImages().getVal(type_));
     }
     public String getColorType(int _index) {
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         String type_ = types.get(_index);
         String color_ = data_.getTypesColors().getVal(type_);
         String img_ = ConverterBufferedImage.getSquareColorSixtyFour(color_, DataBase.SEPARATOR_RGB, data_.getMap().getSideLength());
@@ -323,11 +324,11 @@ public class GeneralHelpBean extends CommonBean {
     }
 
     public TreeMap<MiniMapCoords,String> getMiniMap() {
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         TreeMap<MiniMapCoords, String> map_ = new TreeMap<MiniMapCoords, String>(new ComparatorMiniMapCoords());
-        for (EntryCust<MiniMapCoords,TileMiniMap> m_: data_.getMap().getMiniMap().entryList()) {
-            int[][] image_ = data_.getMiniMap(m_.getValue().getFile());
-            map_.put(m_.getKey(), BaseSixtyFourUtil.getStringByImage(image_));
+        for (MiniMapCoordsTile m_: data_.getMap().getMiniMap().entryList()) {
+            int[][] image_ = data_.getMiniMap(m_.getTileMap().getFile());
+            map_.put(m_.getMiniMapCoords(), BaseSixtyFourUtil.getStringByImage(image_));
         }
         return map_;
     }

@@ -9,6 +9,8 @@ import aiki.map.levels.enums.EnvironmentType;
 import aiki.map.pokemon.WildPk;
 import aiki.map.tree.LevelArea;
 import aiki.util.Point;
+import aiki.util.PointParam;
+import aiki.util.Points;
 import code.util.*;
 import code.util.core.StringUtil;
 
@@ -17,17 +19,17 @@ public abstract class LevelWithWildPokemon extends Level {
 
     private CustList<AreaApparition> wildPokemonAreas;
 
-    private ObjectMap<Point, CharacterInRoadCave> characters;
+    private Points< CharacterInRoadCave> characters;
 
-    private ObjectMap<Point, DualFight> dualFights;
+    private Points< DualFight> dualFights;
 
-    private ObjectMap<Point, WildPk> legendaryPks;
+    private Points< WildPk> legendaryPks;
 
-    private ObjectMap<Point, String> items;
+    private Points< String> items;
 
-    private ObjectMap<Point, Short> tm;
+    private Points< Short> tm;
 
-    private ObjectMap<Point, Short> hm;
+    private Points< Short> hm;
 
     protected final void validateLevelWithWildPokemon(DataBase _data, LevelArea _level) {
         int index_ = 0;
@@ -45,7 +47,7 @@ public abstract class LevelWithWildPokemon extends Level {
             }
             index_++;
         }
-        for (EntryCust<Point, Block> e : getBlocks().entryList()) {
+        for (PointParam<Block> e : getBlocks().entryList()) {
             AreaApparition a_ = getAreaByBlockId(e.getKey());
             if (a_.isVirtual()) {
                 continue;
@@ -57,14 +59,14 @@ public abstract class LevelWithWildPokemon extends Level {
             }
         }
         EqList<Point> keys_ = new EqList<Point>();
-        for (EntryCust<Point, CharacterInRoadCave> e : characters.entryList()) {
+        for (PointParam<CharacterInRoadCave> e : characters.entryList()) {
             if (!_level.isValid(e.getKey(), true)) {
                 _data.setError(true);
             }
             e.getValue().validate(_data);
             keys_.add(e.getKey());
         }
-        for (EntryCust<Point, DualFight> e : dualFights.entryList()) {
+        for (PointParam<DualFight> e : dualFights.entryList()) {
             Point id_ = e.getKey();
             if (!_level.isValid(id_, true)) {
                 _data.setError(true);
@@ -89,7 +91,7 @@ public abstract class LevelWithWildPokemon extends Level {
             keys_.add(e.getKey());
             keys_.add(dual_.getPt());
         }
-        for (EntryCust<Point, WildPk> e : legendaryPks.entryList()) {
+        for (PointParam<WildPk> e : legendaryPks.entryList()) {
             if (!_level.isValid(e.getKey(), true)) {
                 _data.setError(true);
             }
@@ -99,7 +101,7 @@ public abstract class LevelWithWildPokemon extends Level {
             }
             keys_.add(e.getKey());
         }
-        for (EntryCust<Point, String> e : items.entryList()) {
+        for (PointParam<String> e : items.entryList()) {
             if (!_level.isValid(e.getKey(), true)) {
                 _data.setError(true);
             }
@@ -108,7 +110,7 @@ public abstract class LevelWithWildPokemon extends Level {
             }
             keys_.add(e.getKey());
         }
-        for (EntryCust<Point, Short> e : tm.entryList()) {
+        for (PointParam<Short> e : tm.entryList()) {
             if (!_level.isValid(e.getKey(), true)) {
                 _data.setError(true);
             }
@@ -117,7 +119,7 @@ public abstract class LevelWithWildPokemon extends Level {
             }
             keys_.add(e.getKey());
         }
-        for (EntryCust<Point, Short> e : hm.entryList()) {
+        for (PointParam<Short> e : hm.entryList()) {
             if (!_level.isValid(e.getKey(), true)) {
                 _data.setError(true);
             }
@@ -166,12 +168,12 @@ public abstract class LevelWithWildPokemon extends Level {
         if (!super.hasValidImage(_data)) {
             val_ = false;
         }
-        for (EntryCust<Point, DualFight> e : dualFights.entryList()) {
+        for (PointParam<DualFight> e : dualFights.entryList()) {
             if (!e.getValue().getFoeTrainer().hasValidImage(_data)) {
                 val_ = false;
             }
         }
-        for (EntryCust<Point, CharacterInRoadCave> e : characters.entryList()) {
+        for (PointParam<CharacterInRoadCave> e : characters.entryList()) {
             if (!e.getValue().hasValidImage(_data)) {
                 val_ = false;
             }
@@ -234,51 +236,51 @@ public abstract class LevelWithWildPokemon extends Level {
         wildPokemonAreas = _wildPokemonAreas;
     }
 
-    public ObjectMap<Point, CharacterInRoadCave> getCharacters() {
+    public Points< CharacterInRoadCave> getCharacters() {
         return characters;
     }
 
-    public void setCharacters(ObjectMap<Point, CharacterInRoadCave> _characters) {
+    public void setCharacters(Points< CharacterInRoadCave> _characters) {
         characters = _characters;
     }
 
-    public ObjectMap<Point, DualFight> getDualFights() {
+    public Points< DualFight> getDualFights() {
         return dualFights;
     }
 
-    public void setDualFights(ObjectMap<Point, DualFight> _dualFights) {
+    public void setDualFights(Points< DualFight> _dualFights) {
         dualFights = _dualFights;
     }
 
-    public ObjectMap<Point, WildPk> getLegendaryPks() {
+    public Points< WildPk> getLegendaryPks() {
         return legendaryPks;
     }
 
-    public void setLegendaryPks(ObjectMap<Point, WildPk> _legendaryPks) {
+    public void setLegendaryPks(Points< WildPk> _legendaryPks) {
         legendaryPks = _legendaryPks;
     }
 
-    public ObjectMap<Point, String> getItems() {
+    public Points< String> getItems() {
         return items;
     }
 
-    public void setItems(ObjectMap<Point, String> _items) {
+    public void setItems(Points< String> _items) {
         items = _items;
     }
 
-    public ObjectMap<Point, Short> getTm() {
+    public Points< Short> getTm() {
         return tm;
     }
 
-    public void setTm(ObjectMap<Point, Short> _tm) {
+    public void setTm(Points< Short> _tm) {
         tm = _tm;
     }
 
-    public ObjectMap<Point, Short> getHm() {
+    public Points< Short> getHm() {
         return hm;
     }
 
-    public void setHm(ObjectMap<Point, Short> _hm) {
+    public void setHm(Points< Short> _hm) {
         hm = _hm;
     }
 

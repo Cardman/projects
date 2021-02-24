@@ -5,13 +5,15 @@ import aiki.map.characters.GymLeader;
 import aiki.map.characters.GymTrainer;
 import aiki.map.tree.LevelArea;
 import aiki.util.Point;
+import aiki.util.PointParam;
+import aiki.util.Points;
 import code.util.EntryCust;
 import code.util.ObjectMap;
 
 
 public final class LevelIndoorGym extends Level {
 
-    private ObjectMap<Point, GymTrainer> gymTrainers;
+    private Points< GymTrainer> gymTrainers;
 
     private Point gymLeaderCoords;
 
@@ -23,7 +25,7 @@ public final class LevelIndoorGym extends Level {
             _data.setError(true);
         }
         super.validate(_data, _level);
-        for (EntryCust<Point, GymTrainer> e : gymTrainers.entryList()) {
+        for (PointParam<GymTrainer> e : gymTrainers.entryList()) {
             if (!_level.isValid(e.getKey(), true)) {
                 _data.setError(true);
             }
@@ -48,10 +50,7 @@ public final class LevelIndoorGym extends Level {
         if (Point.eq(gymLeaderCoords, _point)) {
             return false;
         }
-        if (gymTrainers.contains(_point)) {
-            return false;
-        }
-        return true;
+        return !gymTrainers.contains(_point);
     }
 
     @Override
@@ -71,11 +70,11 @@ public final class LevelIndoorGym extends Level {
         return val_;
     }
 
-    public ObjectMap<Point, GymTrainer> getGymTrainers() {
+    public Points< GymTrainer> getGymTrainers() {
         return gymTrainers;
     }
 
-    public void setGymTrainers(ObjectMap<Point, GymTrainer> _gymTrainers) {
+    public void setGymTrainers(Points< GymTrainer> _gymTrainers) {
         gymTrainers = _gymTrainers;
     }
 

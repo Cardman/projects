@@ -1,6 +1,8 @@
 package aiki.map.levels;
 
 import aiki.db.EquallablePkUtil;
+import aiki.util.Points;
+import aiki.util.PointsBlock;
 import org.junit.Test;
 
 import aiki.map.levels.enums.EnvironmentType;
@@ -17,7 +19,7 @@ public class LevelWithWildPokemonTest extends EquallablePkUtil {
     @Test
     public void getAreaByPoint1FailTest() {
         LevelWithWildPokemon level_ = new LevelRoad();
-        level_.setBlocks(new ObjectMap<Point,Block>());
+        level_.setBlocks(new PointsBlock());
         level_.setWildPokemonAreas(new CustList<AreaApparition>());
         assertTrue(level_.getAreaByPoint(new Point((short)0,(short)0)).isVirtual());
     }
@@ -25,7 +27,7 @@ public class LevelWithWildPokemonTest extends EquallablePkUtil {
     @Test
     public void getAreaByPoint2FailTest() {
         LevelWithWildPokemon level_ = new LevelRoad();
-        level_.setBlocks(new ObjectMap<Point,Block>());
+        level_.setBlocks(new PointsBlock());
         Block block_ = new Block((short)5, (short)3, EnvironmentType.ROAD, "");
         level_.getBlocks().put(new Point((short)0,(short)0), block_);
         level_.setWildPokemonAreas(new CustList<AreaApparition>());
@@ -35,7 +37,7 @@ public class LevelWithWildPokemonTest extends EquallablePkUtil {
     @Test
     public void getAreaByPoint1Test() {
         LevelWithWildPokemon level_ = new LevelRoad();
-        level_.setBlocks(new ObjectMap<Point,Block>());
+        level_.setBlocks(new PointsBlock());
         level_.setWildPokemonAreas(new CustList<AreaApparition>());
         Block block_ = new Block((short)5, (short)3, EnvironmentType.ROAD, "");
         block_.setIndexApparition((short) 0);

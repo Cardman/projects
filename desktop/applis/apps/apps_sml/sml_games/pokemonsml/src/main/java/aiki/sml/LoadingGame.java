@@ -6,7 +6,7 @@ public final class LoadingGame {
 //    public static final String DEFAULT_SAVE_GAME = "last_save"+Resources.GAME_EXT;
     public static final String DEFAULT_SAVE_GAME = "last_save";
 
-    private String lastRom = "rom.zip";
+    private String lastRom = "";
 
     private String lastSavedGame = "";
 
@@ -28,14 +28,13 @@ public final class LoadingGame {
 
     private boolean enabledKeyPad = true;
 
+    private boolean export;
+
     public boolean loadRomAndGame() {
         if (loadLastGame) {
             return true;
         }
-        if (saveGameAtExit) {
-            return true;
-        }
-        return false;
+        return saveGameAtExit;
     }
 
     public String getLastRom() {
@@ -124,5 +123,13 @@ public final class LoadingGame {
 
     public void setEnabledKeyPad(boolean _enabledKeyPad) {
         enabledKeyPad = _enabledKeyPad;
+    }
+
+    public boolean isExport() {
+        return export;
+    }
+
+    public void setExport(boolean _export) {
+        this.export = _export;
     }
 }

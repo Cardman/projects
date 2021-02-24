@@ -5,6 +5,7 @@ import aiki.fight.enums.Statistic;
 import aiki.fight.pokemon.NameLevel;
 import aiki.fight.util.TypesDuo;
 import aiki.game.player.enums.Sex;
+import aiki.map.Condition;
 import aiki.map.DataMap;
 import aiki.map.buildings.Building;
 import aiki.map.buildings.Gym;
@@ -46,10 +47,9 @@ import aiki.map.pokemon.PokemonTeam;
 import aiki.map.pokemon.WildPk;
 import aiki.map.pokemon.enums.Gender;
 import aiki.map.util.MiniMapCoords;
+import aiki.map.util.MiniMapCoordsList;
 import aiki.map.util.TileMiniMap;
-import aiki.util.Coords;
-import aiki.util.LevelPoint;
-import aiki.util.Point;
+import aiki.util.*;
 import code.util.CustList;
 import code.util.EqList;
 import code.util.*;
@@ -359,19 +359,19 @@ final class InitializationMap {
         gym_ = new Gym();
         gym_.setLevel(new LevelIndoorGym());
         gym_.setExitCity(newPoint(4,8));
-        gym_.getLevel().setBlocks(new ObjectMap<Point,Block>());
+        gym_.getLevel().setBlocks(new PointsBlock());
         gym_.getLevel().getBlocks().addEntry(newPoint(0,0), newBuildingBlock(9, 9));
-        gym_.getIndoor().setGymTrainers(new ObjectMap<Point,GymTrainer>());
-        city_.setBuildings(new ObjectMap<Point,Building>());
+        gym_.getIndoor().setGymTrainers(new PointsGymTrainer());
+        city_.setBuildings(new PointsBuilding());
         city_.getBuildings().addEntry(newPoint(5, 1), gym_);
         PokemonCenter pkCenter_;
         pkCenter_ = new PokemonCenter();
         pkCenter_.setLevel(new LevelIndoorPokemonCenter());
         pkCenter_.setExitCity(newPoint(4,8));
-        pkCenter_.getLevel().setBlocks(new ObjectMap<Point,Block>());
+        pkCenter_.getLevel().setBlocks(new PointsBlock());
         pkCenter_.getLevel().getBlocks().addEntry(newPoint(0,0), newBuildingBlock(9, 9));
         pkCenter_.getIndoor().setStorageCoords(newPoint(4, 0));
-        pkCenter_.getIndoor().setGerants(new ObjectMap<Point,Person>());
+        pkCenter_.getIndoor().setGerants(new PointsPerson());
         city_.getBuildings().addEntry(newPoint(1, 1), pkCenter_);
     }
 
@@ -575,18 +575,18 @@ final class InitializationMap {
         gym_ = new Gym();
         gym_.setLevel(new LevelIndoorGym());
         gym_.setExitCity(newPoint(4,8));
-        gym_.getLevel().setBlocks(new ObjectMap<Point,Block>());
+        gym_.getLevel().setBlocks(new PointsBlock());
         gym_.getLevel().getBlocks().addEntry(newPoint(0,0), newBuildingBlock(9, 9));
-        gym_.getIndoor().setGymTrainers(new ObjectMap<Point,GymTrainer>());
-        city_.setBuildings(new ObjectMap<Point,Building>());
+        gym_.getIndoor().setGymTrainers(new PointsGymTrainer());
+        city_.setBuildings(new PointsBuilding());
         city_.getBuildings().addEntry(newPoint(4, 1), gym_);
         pkCenter_ = new PokemonCenter();
         pkCenter_.setLevel(new LevelIndoorPokemonCenter());
         pkCenter_.setExitCity(newPoint(4,8));
-        pkCenter_.getLevel().setBlocks(new ObjectMap<Point,Block>());
+        pkCenter_.getLevel().setBlocks(new PointsBlock());
         pkCenter_.getLevel().getBlocks().addEntry(newPoint(0,0), newBuildingBlock(9, 9));
         pkCenter_.getIndoor().setStorageCoords(newPoint(4, 0));
-        pkCenter_.getIndoor().setGerants(new ObjectMap<Point,Person>());
+        pkCenter_.getIndoor().setGerants(new PointsPerson());
         city_.getBuildings().addEntry(newPoint(2, 1), pkCenter_);
 //        map_.getCities().add(newCoords(1, 0, 1, 2));
 //        map_.getCities().add(newCoords(3, 0, 2, 2));
@@ -972,13 +972,13 @@ final class InitializationMap {
         league_.getRooms().get(1).setTrainer(newTrainerLeague(list_, 2000, 1));
         league_.getRooms().get(1).getTrainer().setName(LEAGUE_TR_TWO);
         //map_.getBeatGymLeader().add(newCoords(6, 0, 4, 8));
-        map_.setAccessCondition(new ObjectMap<Coords,EqList<Coords>>());
-        map_.getAccessCondition().addEntry(newCoords(4, 0, 0, 4), new EqList<Coords>(newCoords(1, 0, 5, 1, 4, 1),newCoords(3, 0, 4, 1, 4, 1)));
-        map_.getAccessCondition().addEntry(newCoords(4, 0, 1, 4), new EqList<Coords>(newCoords(1, 0, 5, 1, 4, 1),newCoords(3, 0, 4, 1, 4, 1)));
-        map_.getAccessCondition().addEntry(newCoords(4, 0, 2, 4), new EqList<Coords>(newCoords(1, 0, 5, 1, 4, 1),newCoords(3, 0, 4, 1, 4, 1)));
-        map_.getAccessCondition().addEntry(newCoords(4, 0, 3, 4), new EqList<Coords>(newCoords(1, 0, 5, 1, 4, 1),newCoords(3, 0, 4, 1, 4, 1)));
-        map_.getAccessCondition().addEntry(newCoords(4, 0, 4, 4), new EqList<Coords>(newCoords(1, 0, 5, 1, 4, 1),newCoords(3, 0, 4, 1, 4, 1)));
-        map_.getAccessCondition().addEntry(newCoords(4, 0, 5, 4), new EqList<Coords>(newCoords(1, 0, 5, 1, 4, 1),newCoords(3, 0, 4, 1, 4, 1)));
+        map_.setAccessCondition(new CoordsLists());
+        map_.getAccessCondition().addEntry(newCoords(4, 0, 0, 4), new Condition(newCoords(1, 0, 5, 1, 4, 1),newCoords(3, 0, 4, 1, 4, 1)));
+        map_.getAccessCondition().addEntry(newCoords(4, 0, 1, 4), new Condition(newCoords(1, 0, 5, 1, 4, 1),newCoords(3, 0, 4, 1, 4, 1)));
+        map_.getAccessCondition().addEntry(newCoords(4, 0, 2, 4), new Condition(newCoords(1, 0, 5, 1, 4, 1),newCoords(3, 0, 4, 1, 4, 1)));
+        map_.getAccessCondition().addEntry(newCoords(4, 0, 3, 4), new Condition(newCoords(1, 0, 5, 1, 4, 1),newCoords(3, 0, 4, 1, 4, 1)));
+        map_.getAccessCondition().addEntry(newCoords(4, 0, 4, 4), new Condition(newCoords(1, 0, 5, 1, 4, 1),newCoords(3, 0, 4, 1, 4, 1)));
+        map_.getAccessCondition().addEntry(newCoords(4, 0, 5, 4), new Condition(newCoords(1, 0, 5, 1, 4, 1),newCoords(3, 0, 4, 1, 4, 1)));
     }
 
     static void initBlockThirdCity(DataBase _data) {
@@ -1013,10 +1013,10 @@ final class InitializationMap {
         pkCenter_ = new PokemonCenter();
         pkCenter_.setLevel(new LevelIndoorPokemonCenter());
         pkCenter_.setExitCity(newPoint(4,8));
-        pkCenter_.getLevel().setBlocks(new ObjectMap<Point,Block>());
+        pkCenter_.getLevel().setBlocks(new PointsBlock());
         pkCenter_.getLevel().getBlocks().addEntry(newPoint(0,0), newBuildingBlock(9, 9));
         pkCenter_.getIndoor().setStorageCoords(newPoint(4, 0));
-        pkCenter_.getIndoor().setGerants(new ObjectMap<Point,Person>());
+        pkCenter_.getIndoor().setGerants(new PointsPerson());
         pkCenter_.getIndoor().getGerants().addEntry(newPoint(0, 4), newGerantPokemon(GeranceType.FOSSILE));
         city_.getBuildings().addEntry(newPoint(3,3), pkCenter_);
         //5, 1, 4, 0
@@ -1054,10 +1054,10 @@ final class InitializationMap {
         pkCenter_ = new PokemonCenter();
         pkCenter_.setLevel(new LevelIndoorPokemonCenter());
         pkCenter_.setExitCity(newPoint(4,8));
-        pkCenter_.getLevel().setBlocks(new ObjectMap<Point,Block>());
+        pkCenter_.getLevel().setBlocks(new PointsBlock());
         pkCenter_.getLevel().getBlocks().addEntry(newPoint(0,0), newBuildingBlock(9, 9));
         pkCenter_.getIndoor().setStorageCoords(newPoint(4, 0));
-        pkCenter_.getIndoor().setGerants(new ObjectMap<Point,Person>());
+        pkCenter_.getIndoor().setGerants(new PointsPerson());
         pkCenter_.getIndoor().getGerants().addEntry(newPoint(0, 4), newGerantPokemon(GeranceType.HOST));
         city_.getBuildings().addEntry(newPoint(3,3), pkCenter_);
         //5, 1, 4, 0
@@ -1132,13 +1132,13 @@ final class InitializationMap {
 //        map_.getAccessCondition().addEntry(newCoords(5, 1, 4, 0), new List<Coords>(newCoords(6, 0, 4, 8)));
         map_.join((short)7,(short) 4, newPoint(0,0), newPoint(0,5), Direction.UP);
         //map_.join(_pl1, _pl2, _p1, _p2, _dir1);
-        map_.getAccessCondition().addEntry(newCoords(5, 1, 4, 0), new EqList<Coords>(newCoords(6, 0, 4, 8)));
-        map_.getAccessCondition().addEntry(newCoords(7, 0, 0, 0), new EqList<Coords>(newCoords(6, 0, 4, 8)));
-        map_.getAccessCondition().addEntry(newCoords(7, 0, 1, 0), new EqList<Coords>(newCoords(6, 0, 4, 8)));
-        map_.getAccessCondition().addEntry(newCoords(7, 0, 2, 0), new EqList<Coords>(newCoords(6, 0, 4, 8)));
-        map_.getAccessCondition().addEntry(newCoords(7, 0, 3, 0), new EqList<Coords>(newCoords(6, 0, 4, 8)));
-        map_.getAccessCondition().addEntry(newCoords(7, 0, 4, 0), new EqList<Coords>(newCoords(6, 0, 4, 8)));
-        map_.getAccessCondition().addEntry(newCoords(7, 0, 5, 0), new EqList<Coords>(newCoords(6, 0, 4, 8)));
+        map_.getAccessCondition().addEntry(newCoords(5, 1, 4, 0), new Condition(newCoords(6, 0, 4, 8)));
+        map_.getAccessCondition().addEntry(newCoords(7, 0, 0, 0), new Condition(newCoords(6, 0, 4, 8)));
+        map_.getAccessCondition().addEntry(newCoords(7, 0, 1, 0), new Condition(newCoords(6, 0, 4, 8)));
+        map_.getAccessCondition().addEntry(newCoords(7, 0, 2, 0), new Condition(newCoords(6, 0, 4, 8)));
+        map_.getAccessCondition().addEntry(newCoords(7, 0, 3, 0), new Condition(newCoords(6, 0, 4, 8)));
+        map_.getAccessCondition().addEntry(newCoords(7, 0, 4, 0), new Condition(newCoords(6, 0, 4, 8)));
+        map_.getAccessCondition().addEntry(newCoords(7, 0, 5, 0), new Condition(newCoords(6, 0, 4, 8)));
         //map_.getAccessCondition().addEntry(newCoords(7, 0, 6, 0), new List<Coords>(newCoords(6, 0, 4, 8)));
         //map_.getAccessCondition().addEntry(newCoords(7, 0, 7, 0), new List<Coords>(newCoords(6, 0, 4, 8)));
         map_.join((short) 9, (short)7, newPoint(0,0), newPoint(0,5), Direction.UP);
@@ -1391,7 +1391,7 @@ final class InitializationMap {
     static void initMiniMap(DataBase _data) {
         DataMap map_ = _data.getMap();
         TileMiniMap tile_;
-        map_.setMiniMap(new ObjectMap<MiniMapCoords,TileMiniMap>());
+        map_.setMiniMap(new MiniMapCoordsList());
         tile_ = new TileMiniMap();
         tile_.setFile(MINI);
         tile_.setPlace((short) 0);

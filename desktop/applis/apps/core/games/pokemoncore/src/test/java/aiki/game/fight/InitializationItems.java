@@ -24,13 +24,13 @@ import aiki.fight.moves.enums.TargetChoice;
 import aiki.fight.util.BoostHpRate;
 import aiki.fight.util.EfficiencyRate;
 import aiki.fight.util.StatisticPokemon;
+import aiki.fight.util.StatisticPokemons;
 import code.maths.LgInt;
 import code.maths.Rate;
 import code.maths.montecarlo.MonteCarloBoolean;
 import code.util.CustList;
 import code.util.EnumMap;
 import code.util.*;
-import code.util.ObjectMap;
 import code.util.StringList;
 import code.util.StringMap;
 
@@ -741,7 +741,7 @@ final class InitializationItems {
         object_.setMultDrainedHp(Rate.zero());
         object_.setDamageRecoil(Rate.zero());
         object_.setMultStatRank(new EnumMap<Statistic,Byte>());
-        object_.setMultStatPokemonRank(new ObjectMap<StatisticPokemon,Byte>());
+        object_.setMultStatPokemonRank(new StatisticPokemons());
         object_.setMultStat(new EnumMap<Statistic,String>());
         object_.setIncreasingMaxNbRoundGlobalMove(new StringMap<Short>());
         object_.setIncreasingMaxNbRoundTeamMove(new StringMap<Short>());

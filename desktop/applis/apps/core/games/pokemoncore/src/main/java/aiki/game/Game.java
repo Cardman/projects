@@ -62,9 +62,7 @@ import aiki.map.pokemon.UsablePokemon;
 import aiki.map.pokemon.WildPk;
 import aiki.map.pokemon.enums.Gender;
 import aiki.map.util.ScreenCoords;
-import aiki.util.Coords;
-import aiki.util.LevelPoint;
-import aiki.util.Point;
+import aiki.util.*;
 import code.maths.LgInt;
 import code.maths.Rate;
 import code.maths.montecarlo.EventFreq;
@@ -307,7 +305,7 @@ public final class Game {
             return false;
         }
         EqList<Coords> accessCond_ = new EqList<Coords>();
-        for (EqList<Coords> l: map_.getAccessCondition().values()) {
+        for (CustList<Coords> l: map_.getAccessCondition().values()) {
             accessCond_.addAllElts(l);
         }
 //        for (Coords c: visitedPlaces.getKeys(true))
@@ -1025,7 +1023,7 @@ public final class Game {
             return;
         }
         LevelWithWildPokemon l_ = (LevelWithWildPokemon) pl_.getLevelByCoords(voisin_);
-        for (EntryCust<Point, DualFight> e: l_.getDualFights().entryList()) {
+        for (PointParam<DualFight> e: l_.getDualFights().entryList()) {
             DualFight dual_ = e.getValue();
             if (!Point.eq(e.getKey(), voisin_.getLevel().getPoint())) {
                 if (!Point.eq(dual_.getPt(), voisin_.getLevel().getPoint())) {
@@ -1084,7 +1082,7 @@ public final class Game {
             return false;
         }
         LevelWithWildPokemon l_ = (LevelWithWildPokemon) pl_.getLevelByCoords(voisin_);
-        for (EntryCust<Point, DualFight> e: l_.getDualFights().entryList()) {
+        for (PointParam<DualFight> e: l_.getDualFights().entryList()) {
             DualFight dual_ = e.getValue();
             if (!Point.eq(e.getKey(), voisin_.getLevel().getPoint())) {
                 if (!Point.eq(dual_.getPt(), voisin_.getLevel().getPoint())) {
@@ -1123,7 +1121,7 @@ public final class Game {
             return _d.getTrainer(gymTr_.getImageMaxiFileName());
         }
         LevelWithWildPokemon l_ = (LevelWithWildPokemon) pl_.getLevelByCoords(voisin_);
-        for (EntryCust<Point, DualFight> e: l_.getDualFights().entryList()) {
+        for (PointParam<DualFight> e: l_.getDualFights().entryList()) {
             DualFight dual_ = e.getValue();
             if (!Point.eq(e.getKey(), voisin_.getLevel().getPoint())) {
                 if (!Point.eq(dual_.getPt(), voisin_.getLevel().getPoint())) {
@@ -1337,7 +1335,7 @@ public final class Game {
                 return;
             }
             LevelWithWildPokemon l_ = (LevelWithWildPokemon) pl_.getLevelByCoords(playerCoords);
-            for (EntryCust<Point, DualFight> e: l_.getDualFights().entryList()) {
+            for (PointParam<DualFight> e: l_.getDualFights().entryList()) {
                 DualFight dual_ = e.getValue();
                 if (!Point.eq(e.getKey(), coordsFoe_.getLevel().getPoint())) {
                     if (!Point.eq(dual_.getPt(), coordsFoe_.getLevel().getPoint())) {
@@ -1359,7 +1357,7 @@ public final class Game {
                 directInteraction(closestTile(_import.getMap()), _import.getMap());
                 return;
             }
-            for (EntryCust<Point, CharacterInRoadCave> e:l_.getCharacters().entryList()) {
+            for (PointParam<CharacterInRoadCave> e:l_.getCharacters().entryList()) {
                 if (!Point.eq(e.getKey(),coordsFoe_.getLevel().getPoint())) {
                     continue;
                 }
@@ -1464,7 +1462,7 @@ public final class Game {
             return;
         }
         LevelWithWildPokemon l_ = (LevelWithWildPokemon) pl_.getLevelByCoords(playerCoords);
-        for (EntryCust<Point, DualFight> e: l_.getDualFights().entryList()) {
+        for (PointParam<DualFight> e: l_.getDualFights().entryList()) {
             DualFight dual_ = e.getValue();
             if (!Point.eq(e.getKey(), coordsFoe_.getLevel().getPoint())) {
                 if (!Point.eq(dual_.getPt(), coordsFoe_.getLevel().getPoint())) {
@@ -1483,7 +1481,7 @@ public final class Game {
             directInteraction(closestTile(_import.getMap()), _import.getMap());
             return;
         }
-        for (EntryCust<Point, CharacterInRoadCave> e:l_.getCharacters().entryList()) {
+        for (PointParam<CharacterInRoadCave> e:l_.getCharacters().entryList()) {
             if (!Point.eq(e.getKey(),coordsFoe_.getLevel().getPoint())) {
                 continue;
             }
@@ -2056,7 +2054,7 @@ public final class Game {
         nextlevel_ = nextPl_.getLevelByCoords(voisin_);
         Point nextPt_ = voisin_.getLevel().getPoint();
         if(nextPl_ instanceof City && !playerCoords.isInside()) {
-            ObjectMap<Point,Building> buildings_ = ((City)nextPl_).getBuildings();
+            Points<Building> buildings_ = ((City)nextPl_).getBuildings();
             if (buildings_.contains(nextPt_)) {
                 nbSteps++;
                 playerCoords.getLevel().getPoint().affect(buildings_.getVal(nextPt_).getExitCity());
@@ -2180,7 +2178,7 @@ public final class Game {
                     return;
                 }
                 //building_ instanceof PokemonCenter
-                ObjectMap<Point,Person> gerants_ =((PokemonCenter)building_).getIndoor().getGerants();
+                Points<Person> gerants_ =((PokemonCenter)building_).getIndoor().getGerants();
                 if (gerants_.contains(_voisin.getLevel().getPoint())) {
                     Person gear_ = gerants_.getVal(_voisin.getLevel().getPoint());
                     if (gear_ instanceof Seller) {
@@ -2235,7 +2233,7 @@ public final class Game {
             interfaceType=InterfaceType.RIEN;
             return;
         }
-        for (EntryCust<Point, DualFight> e: level_.getDualFights().entryList()) {
+        for (PointParam<DualFight> e: level_.getDualFights().entryList()) {
             DualFight dual_ = e.getValue();
             if (!Point.eq(e.getKey(), pt_)) {
                 if (!Point.eq(dual_.getPt(), pt_)) {
@@ -2390,7 +2388,7 @@ public final class Game {
         if (levelWildPk_.getHm().contains(pt_)) {
             return takenObjects.getVal(_coords);
         }
-        for (EntryCust<Point,DualFight> e: levelWildPk_.getDualFights().entryList()) {
+        for (PointParam<DualFight> e: levelWildPk_.getDualFights().entryList()) {
             if (Point.eq(e.getKey(), pt_)) {
                 return beatGymLeader.getVal(_coords);
             }

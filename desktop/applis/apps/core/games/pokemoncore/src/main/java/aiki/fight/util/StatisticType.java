@@ -5,7 +5,7 @@ import code.util.core.StringUtil;
 import code.util.ints.Displayable;
 import code.util.ints.Equallable;
 
-public final class StatisticType implements Equallable<StatisticType>, Displayable {
+public final class StatisticType implements Displayable {
 
     private static final char SEPARATOR = ';';
 
@@ -32,7 +32,6 @@ public final class StatisticType implements Equallable<StatisticType>, Displayab
         return new StatisticType(_string);
     }
 
-    @Override
     public boolean eq(StatisticType _obj) {
         if (statistic != _obj.statistic) {
             return false;

@@ -159,12 +159,8 @@ import aiki.map.pokemon.PokemonTeam;
 import aiki.map.pokemon.UsablePokemon;
 import aiki.map.pokemon.WildPk;
 import aiki.map.pokemon.enums.Gender;
-import aiki.map.util.MiniMapCoords;
-import aiki.map.util.PlaceInterConnect;
-import aiki.map.util.TileMiniMap;
-import aiki.util.Coords;
-import aiki.util.LevelPoint;
-import aiki.util.Point;
+import aiki.map.util.*;
+import aiki.util.*;
 import code.maths.LgInt;
 import code.maths.Rate;
 import code.maths.montecarlo.MonteCarloBoolean;
@@ -176,7 +172,6 @@ import code.util.CustList;
 import code.util.EnumList;
 import code.util.EnumMap;
 import code.util.EqList;
-import code.util.*;
 import code.util.*;
 import code.util.Ints;
 import code.util.ObjectMap;
@@ -196,7 +191,7 @@ public final class Instances {
     public static AbilityData newAbilityData() {
         AbilityData object_ = new AbilityData();
         CollCapacity cap_ = new CollCapacity(0);
-        object_.setBreakFoeImmune(new EqList<TypesDuo>(cap_));
+        object_.setBreakFoeImmune(new CustList<TypesDuo>(cap_));
         object_.setChgtTypeByWeather(new StringMap<String>(cap_));
         object_.setRecoilDamageFoe(Rate.zero());
         object_.setDivideStatusRound(new StringMap<Rate>(cap_));
@@ -205,7 +200,7 @@ public final class Instances {
         object_.setIgnFoeTeamMove(new StringList(cap_));
         object_.setImmuMove(new StringList(cap_));
         object_.setImmuLowStat(new EnumList<Statistic>(cap_));
-        object_.setImmuLowStatIfStatus(new EqList<StatisticStatus>(cap_));
+        object_.setImmuLowStatIfStatus(new CustList<StatisticStatus>(cap_));
         object_.setImmuWeather(new StringList(cap_));
         object_.setImmuAbility(new StringList(cap_));
         object_.setImmuStatusBeginRound(new StringList(cap_));
@@ -225,10 +220,10 @@ public final class Instances {
         object_.setMultStatAlly(new EnumMap<Statistic,Rate>(cap_));
         object_.setMultStatIfKoFoe(new EnumMap<Statistic,Byte>(cap_));
         object_.setMultStatIfLowStat(new EnumMap<Statistic,Byte>(cap_));
-        object_.setMultStatIfCat(new ObjectMap<StatisticCategory,Rate>(cap_));
-        object_.setMultStatIfStatutRank(new ObjectMap<StatisticStatus,Byte>(cap_));
-        object_.setMultStatIfDamageCat(new ObjectMap<StatisticCategory,Byte>(cap_));
-        object_.setMultStatIfDamgeType(new ObjectMap<StatisticType,Byte>(cap_));
+        object_.setMultStatIfCat(new StatisticCategoryRate(cap_));
+        object_.setMultStatIfStatutRank(new StatisticStatusList(cap_));
+        object_.setMultStatIfDamageCat(new StatisticCategoryByte(cap_));
+        object_.setMultStatIfDamgeType(new StatisticTypeByte(cap_));
         object_.setMultStat(new EnumMap<Statistic,String>(cap_));
         object_.setMultVarBoost(Rate.zero());
         object_.setHealedHpRateBySwitch(Rate.zero());
@@ -240,7 +235,7 @@ public final class Instances {
         object_.setFailStatus(new StringMap<String>(cap_));
         object_.setTypeForMoves(DataBase.EMPTY_STRING);
         object_.setMaxHpForUsingBerry(Rate.zero());
-        object_.setHealHpByTypeIfWeather(new ObjectMap<WeatherType,Rate>(cap_));
+        object_.setHealHpByTypeIfWeather(new WeatherTypes(cap_));
         object_.setImmuMoveTypesByWeather(new StringMap<StringList>(cap_));
         object_.setEffectEndRound(new CustList<EffectEndRound>(cap_));
         object_.setEffectSending(new CustList<EffectWhileSendingWithStatistic>(cap_));
@@ -376,7 +371,7 @@ public final class Instances {
         object_.setMultDrainedHp(Rate.zero());
         object_.setDamageRecoil(Rate.zero());
         object_.setMultStatRank(new EnumMap<Statistic,Byte>(cap_));
-        object_.setMultStatPokemonRank(new ObjectMap<StatisticPokemon,Byte>(cap_));
+        object_.setMultStatPokemonRank(new StatisticPokemons(cap_));
         object_.setMultStat(new EnumMap<Statistic,String>(cap_));
         object_.setIncreasingMaxNbRoundGlobalMove(new StringMap<Short>(cap_));
         object_.setIncreasingMaxNbRoundTeamMove(new StringMap<Short>(cap_));
@@ -695,7 +690,7 @@ public final class Instances {
         object_.setDamageEndRound(Rate.zero());
         object_.setHealingEndRound(Rate.zero());
         object_.setHealingEndRoundGround(Rate.zero());
-        object_.setEfficiencyMoves(new ObjectMap<TypesDuo,Rate>(cap_));
+        object_.setEfficiencyMoves(new TypesDuos(cap_));
         object_.setDisableImmuAgainstTypes(new StringList(cap_));
         object_.setCancelProtectingAbilities(new StringList(cap_));
         object_.setUnusableMoves(new StringList(cap_));
@@ -703,7 +698,7 @@ public final class Instances {
         object_.setMovesUsedByTargetedFighters(new StringList(cap_));
         object_.setMultEffectLovingAlly(Rate.zero());
         object_.setMultPowerMoves(new StringMap<Rate>(cap_));
-        object_.setMultStatIfContainsType(new ObjectMap<StatisticType,Rate>(cap_));
+        object_.setMultStatIfContainsType(new StatisticTypeRate(cap_));
         object_.setCancelEffects(new StringList(cap_));
         object_.setMultDamageTypesMoves(new StringMap<Rate>(cap_));
         object_.setCancelChgtStat(new EnumList<Statistic>(cap_));
@@ -899,7 +894,7 @@ public final class Instances {
         object_.setUnusableMoves(new StringList(cap_));
         object_.setCancelChgtStatFoeTeam(new EnumList<Statistic>(cap_));
         object_.setCancelChgtStatTeam(new EnumList<Statistic>(cap_));
-        object_.setMultDamage(new ObjectMap<CategoryMult,Rate>(cap_));
+        object_.setMultDamage(new CategoryMults(cap_));
         object_.setMultStatistic(new EnumMap<Statistic,Rate>(cap_));
         object_.setMultStatisticFoe(new EnumMap<Statistic,Rate>(cap_));
         object_.setProtectAgainstLowStat(new EnumList<Statistic>(cap_));
@@ -929,7 +924,7 @@ public final class Instances {
     public static EffectUnprotectFromTypes newEffectUnprotectFromTypes() {
         EffectUnprotectFromTypes object_ = new EffectUnprotectFromTypes();
         CollCapacity cap_ = new CollCapacity(0);
-        object_.setTypes(new EqList<TypesDuo>(cap_));
+        object_.setTypes(new CustList<TypesDuo>(cap_));
         object_.setDisableImmuAgainstTypes(new StringList(cap_));
         object_.setDisableImmuFromMoves(new StringList(cap_));
         object_.setAttackTargetWithTypes(new StringList(cap_));
@@ -1292,8 +1287,8 @@ public final class Instances {
         DataMap object_ = new DataMap();
         CollCapacity cap_ = new CollCapacity(0);
         object_.setPlaces(new CustList<Place>(cap_));
-        object_.setAccessCondition(new ObjectMap<Coords,EqList<Coords>>(cap_));
-        object_.setMiniMap(new ObjectMap<MiniMapCoords,TileMiniMap>(cap_));
+        object_.setAccessCondition(new CoordsLists(cap_));
+        object_.setMiniMap(new MiniMapCoordsList(cap_));
         object_.setUnlockedCity(DataBase.EMPTY_STRING);
         object_.setBegin(new Coords());
         object_.setFirstPokemon(newWildPk());
@@ -1425,34 +1420,34 @@ public final class Instances {
     public static LevelCave newLevelCave() {
         LevelCave object_ = new LevelCave();
         CollCapacity cap_ = new CollCapacity(0);
-        object_.setLinksOtherLevels(new ObjectMap<Point,Link>(cap_));
+        object_.setLinksOtherLevels(new PointsLink(cap_));
         object_.setWildPokemonAreas(new CustList<AreaApparition>(cap_));
-        object_.setCharacters(new ObjectMap<Point,CharacterInRoadCave>(cap_));
-        object_.setDualFights(new ObjectMap<Point,DualFight>(cap_));
-        object_.setLegendaryPks(new ObjectMap<Point,WildPk>(cap_));
-        object_.setItems(new ObjectMap<Point,String>(cap_));
-        object_.setTm(new ObjectMap<Point,Short>(cap_));
-        object_.setHm(new ObjectMap<Point,Short>(cap_));
-        object_.setBlocks(new ObjectMap<Point,Block>(cap_));
+        object_.setCharacters(new PointsCharacterInRoadCave(cap_));
+        object_.setDualFights(new PointsDualFight(cap_));
+        object_.setLegendaryPks(new PointsWildPk(cap_));
+        object_.setItems(new PointsString(cap_));
+        object_.setTm(new PointsShort(cap_));
+        object_.setHm(new PointsShort(cap_));
+        object_.setBlocks(new PointsBlock(cap_));
         return object_;
     }
 
     public static LevelIndoorGym newLevelIndoorGym() {
         LevelIndoorGym object_ = new LevelIndoorGym();
         CollCapacity cap_ = new CollCapacity(0);
-        object_.setGymTrainers(new ObjectMap<Point,GymTrainer>(cap_));
+        object_.setGymTrainers(new PointsGymTrainer(cap_));
         object_.setGymLeaderCoords(new Point());
         object_.setGymLeader(newGymLeader());
-        object_.setBlocks(new ObjectMap<Point,Block>(cap_));
+        object_.setBlocks(new PointsBlock(cap_));
         return object_;
     }
 
     public static LevelIndoorPokemonCenter newLevelIndoorPokemonCenter() {
         LevelIndoorPokemonCenter object_ = new LevelIndoorPokemonCenter();
         CollCapacity cap_ = new CollCapacity(0);
-        object_.setGerants(new ObjectMap<Point,Person>(cap_));
+        object_.setGerants(new PointsPerson(cap_));
         object_.setStorageCoords(new Point());
-        object_.setBlocks(new ObjectMap<Point,Block>(cap_));
+        object_.setBlocks(new PointsBlock(cap_));
         return object_;
     }
 
@@ -1464,14 +1459,14 @@ public final class Instances {
         object_.setAccessPoint(new Point());
         object_.setNextLevelTarget(new Point());
         object_.setFileName(DataBase.EMPTY_STRING);
-        object_.setBlocks(new ObjectMap<Point,Block>(cap_));
+        object_.setBlocks(new PointsBlock(cap_));
         return object_;
     }
 
     public static LevelOutdoor newLevelOutdoor() {
         LevelOutdoor object_ = new LevelOutdoor();
         CollCapacity cap_ = new CollCapacity(0);
-        object_.setBlocks(new ObjectMap<Point,Block>(cap_));
+        object_.setBlocks(new PointsBlock(cap_));
         return object_;
     }
 
@@ -1479,13 +1474,13 @@ public final class Instances {
         LevelRoad object_ = new LevelRoad();
         CollCapacity cap_ = new CollCapacity(0);
         object_.setWildPokemonAreas(new CustList<AreaApparition>(cap_));
-        object_.setCharacters(new ObjectMap<Point,CharacterInRoadCave>(cap_));
-        object_.setDualFights(new ObjectMap<Point,DualFight>(cap_));
-        object_.setLegendaryPks(new ObjectMap<Point,WildPk>(cap_));
-        object_.setItems(new ObjectMap<Point,String>(cap_));
-        object_.setTm(new ObjectMap<Point,Short>(cap_));
-        object_.setHm(new ObjectMap<Point,Short>(cap_));
-        object_.setBlocks(new ObjectMap<Point,Block>(cap_));
+        object_.setCharacters(new PointsCharacterInRoadCave(cap_));
+        object_.setDualFights(new PointsDualFight(cap_));
+        object_.setLegendaryPks(new PointsWildPk(cap_));
+        object_.setItems(new PointsString(cap_));
+        object_.setTm(new PointsShort(cap_));
+        object_.setHm(new PointsShort(cap_));
+        object_.setBlocks(new PointsBlock(cap_));
         return object_;
     }
 
@@ -1494,18 +1489,18 @@ public final class Instances {
         CollCapacity cap_ = new CollCapacity(0);
         object_.setName(DataBase.EMPTY_STRING);
         object_.setLevels(new CustList<LevelCave>(cap_));
-        object_.setLinksWithOtherPlaces(new ObjectMap<LevelPoint,Link>(cap_));
+        object_.setLinksWithOtherPlaces(new LevelPoints(cap_));
         return object_;
     }
 
     public static City newCity() {
         City object_ = new City();
         CollCapacity cap_ = new CollCapacity(0);
-        object_.setBuildings(new ObjectMap<Point,Building>(cap_));
+        object_.setBuildings(new PointsBuilding(cap_));
         object_.setLevel(newLevelOutdoor());
         object_.setName(DataBase.EMPTY_STRING);
-        object_.setSavedlinks(new ObjectMap<PlaceInterConnect,Coords>(cap_));
-        object_.setLinksWithCaves(new ObjectMap<Point,Link>(cap_));
+        object_.setSavedlinks(new PlaceInterConnects(cap_));
+        object_.setLinksWithCaves(new PointsLink(cap_));
         return object_;
     }
 
@@ -1525,8 +1520,8 @@ public final class Instances {
         CollCapacity cap_ = new CollCapacity(0);
         object_.setName(DataBase.EMPTY_STRING);
         object_.setLevel(newLevelRoad());
-        object_.setLinksWithCaves(new ObjectMap<Point,Link>(cap_));
-        object_.setSavedlinks(new ObjectMap<PlaceInterConnect,Coords>(cap_));
+        object_.setLinksWithCaves(new PointsLink(cap_));
+        object_.setSavedlinks(new PlaceInterConnects(cap_));
         return object_;
     }
 

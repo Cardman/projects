@@ -12,8 +12,12 @@ import aiki.map.tree.LevelArea;
 import aiki.map.tree.PlaceArea;
 import aiki.map.tree.Tree;
 import aiki.map.util.PlaceInterConnect;
+import aiki.map.util.PlaceInterConnectCoords;
+import aiki.map.util.PlaceInterConnects;
 import aiki.util.Coords;
 import aiki.util.Point;
+import aiki.util.PointParam;
+import aiki.util.Points;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.*;
@@ -27,11 +31,11 @@ public final class Road extends Campaign implements InitializedPlace {
 
     private LevelRoad level;
 
-    private ObjectMap<Point, Link> linksWithCaves;
+    private Points< Link> linksWithCaves;
 
-    private ObjectMap<PlaceInterConnect, Coords> savedlinks;
+    private PlaceInterConnects savedlinks;
 
-    private ObjectMap<PlaceInterConnect, Coords> linksWithCitiesAndOtherRoads = new ObjectMap<PlaceInterConnect, Coords>();
+    private PlaceInterConnects linksWithCitiesAndOtherRoads = new PlaceInterConnects();
 
     @Override
     public void addSavedLink(PlaceInterConnect _key, Coords _value) {
@@ -72,13 +76,13 @@ public final class Road extends Campaign implements InitializedPlace {
 
     @Override
     public boolean validLinks(short _place, Tree _tree) {
-        for (EntryCust<PlaceInterConnect, Coords> e : linksWithCitiesAndOtherRoads
+        for (PlaceInterConnectCoords e : linksWithCitiesAndOtherRoads
                 .entryList()) {
-            if (!_tree.isValid(e.getValue(), false)) {
+            if (!_tree.isValid(e.getCoords(), false)) {
                 return false;
             }
         }
-        for (EntryCust<Point, Link> e : linksWithCaves.entryList()) {
+        for (PointParam<Link> e : linksWithCaves.entryList()) {
             Link link_ = e.getValue();
             if (!_tree.isValid(link_.getCoords(), true)) {
                 return false;
@@ -158,32 +162,32 @@ public final class Road extends Campaign implements InitializedPlace {
     }
 
     @Override
-    public ObjectMap<PlaceInterConnect, Coords> getSavedlinks() {
+    public PlaceInterConnects getSavedlinks() {
         return savedlinks;
     }
 
     @Override
-    public void setSavedlinks(ObjectMap<PlaceInterConnect, Coords> _savedlinks) {
+    public void setSavedlinks(PlaceInterConnects _savedlinks) {
         savedlinks = _savedlinks;
     }
 
     @Override
-    public ObjectMap<PlaceInterConnect, Coords> getPointsWithCitiesAndOtherRoads() {
+    public PlaceInterConnects getPointsWithCitiesAndOtherRoads() {
         return linksWithCitiesAndOtherRoads;
     }
 
     @Override
     public void setPointsWithCitiesAndOtherRoads(
-            ObjectMap<PlaceInterConnect, Coords> _linksWithCitiesAndOtherRoads) {
+            PlaceInterConnects _linksWithCitiesAndOtherRoads) {
         linksWithCitiesAndOtherRoads = _linksWithCitiesAndOtherRoads;
     }
 
     @Override
-    public ObjectMap<Point, Link> getLinksWithCaves() {
+    public Points< Link> getLinksWithCaves() {
         return linksWithCaves;
     }
 
-    public void setLinksWithCaves(ObjectMap<Point, Link> _linksWithCaves) {
+    public void setLinksWithCaves(Points< Link> _linksWithCaves) {
         linksWithCaves = _linksWithCaves;
     }
 

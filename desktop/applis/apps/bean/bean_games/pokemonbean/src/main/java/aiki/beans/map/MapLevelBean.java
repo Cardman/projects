@@ -47,6 +47,7 @@ import aiki.map.util.PlaceInterConnect;
 import aiki.util.Coords;
 import aiki.util.LevelPoint;
 import aiki.util.Point;
+import aiki.util.PointParam;
 import code.images.BaseSixtyFourUtil;
 import code.util.CustList;
 import code.util.EntryCust;
@@ -105,7 +106,7 @@ public class MapLevelBean extends CommonBean {
                 }
             }
             placeName = place_.getName();
-            for (EntryCust<Point,int[][]> pt_: data_.getLevelImage((short) pl_, IndexConstants.FIRST_INDEX, ptInside_).entryList()) {
+            for (PointParam<int[][]> pt_: data_.getLevelImage((short) pl_, IndexConstants.FIRST_INDEX, ptInside_).entryList()) {
                 tiles.put(pt_.getKey(), BaseSixtyFourUtil.getStringByImage(pt_.getValue()));
             }
         } else {
@@ -123,7 +124,7 @@ public class MapLevelBean extends CommonBean {
             }
             placeName = data_.getMap().getPlace(pl_).getName();
             levelIndex = lev_;
-            for (EntryCust<Point, int[][]> pt_: data_.getLevelImage((short) pl_, (byte) lev_).entryList()) {
+            for (PointParam<int[][]> pt_: data_.getLevelImage((short) pl_, (byte) lev_).entryList()) {
                 tiles.put(pt_.getKey(), BaseSixtyFourUtil.getStringByImage(pt_.getValue()));
             }
         }

@@ -51,15 +51,8 @@ import aiki.map.pokemon.enums.Gender;
 import aiki.map.tree.LevelArea;
 import aiki.map.tree.PlaceArea;
 import aiki.map.tree.Tree;
-import aiki.map.util.Limits;
-import aiki.map.util.MiniMapCoords;
-import aiki.map.util.PlaceInterConnect;
-import aiki.map.util.PlaceLevel;
-import aiki.map.util.ScreenCoords;
-import aiki.map.util.TileMiniMap;
-import aiki.util.Coords;
-import aiki.util.LevelPoint;
-import aiki.util.Point;
+import aiki.map.util.*;
+import aiki.util.*;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.EnumList;
@@ -82,9 +75,9 @@ public final class DataMap {
 
     private CustList<Place> places;
 
-    private ObjectMap<Coords, EqList<Coords>> accessCondition;
+    private CoordsLists accessCondition;
 
-    private ObjectMap<MiniMapCoords, TileMiniMap> miniMap;
+    private MiniMapCoordsList miniMap;
 
     private String unlockedCity;
 
@@ -108,7 +101,7 @@ public final class DataMap {
 
     private ObjectMap<Coords, Condition> accessibility = new ObjectMap<Coords, Condition>();
 
-    private EqList<Coords> cities = new EqList<Coords>();
+    private final EqList<Coords> cities = new EqList<Coords>();
 
     private EqList<Coords> leagues = new EqList<Coords>();
 
@@ -126,9 +119,9 @@ public final class DataMap {
 
     private ObjectMap<ScreenCoords, Coords> tiles = new ObjectMap<ScreenCoords, Coords>();
 
-    private ObjectMap<ScreenCoords, int[][]> backgroundImages = new ObjectMap<ScreenCoords, int[][]>();
+    private final ObjectMap<ScreenCoords, int[][]> backgroundImages = new ObjectMap<ScreenCoords, int[][]>();
 
-    private ObjectMap<ScreenCoords, CustList<int[][]>> foregroundImages = new ObjectMap<ScreenCoords, CustList<int[][]>>();
+    private final ObjectMap<ScreenCoords, CustList<int[][]>> foregroundImages = new ObjectMap<ScreenCoords, CustList<int[][]>>();
 
     public void validate(DataBase _d) {
         if (screenWidth < 0 || screenHeight < 0) {
@@ -179,7 +172,7 @@ public final class DataMap {
         for (short p = IndexConstants.FIRST_INDEX; p < nbPlaces_; p++) {
             if (places.get(p) instanceof InitializedPlace) {
                 InitializedPlace place_ = (InitializedPlace) places.get(p);
-                ObjectMap<Point, Link> links_;
+                Points< Link> links_;
                 links_ = place_.getLinksWithCaves();
                 for (Point pt_ : links_.getKeys()) {
 
@@ -220,7 +213,7 @@ public final class DataMap {
             }
             if (places.get(p) instanceof Cave) {
                 Cave place_ = (Cave) places.get(p);
-                ObjectMap<LevelPoint, Link> links_;
+                LevelPoints links_;
                 links_ = place_.getLinksWithOtherPlaces();
                 for (LevelPoint l : links_.getKeys()) {
 
@@ -816,7 +809,7 @@ public final class DataMap {
         for (short s = IndexConstants.FIRST_INDEX; s < nbPlaces_; s++) {
             Place place_ = places.get(s);
             if (place_ instanceof City) {
-                for (EntryCust<Point, Building> b : ((City) place_)
+                for (PointParam<Building> b : ((City) place_)
                         .getBuildings().entryList()) {
                     if (b.getValue() instanceof Gym) {
                         Coords c_ = new Coords();
@@ -834,7 +827,7 @@ public final class DataMap {
                         break;
                     }
                 }
-                for (EntryCust<Point, Building> b : ((City) place_)
+                for (PointParam<Building> b : ((City) place_)
                         .getBuildings().entryList()) {
                     if (b.getValue() instanceof PokemonCenter) {
                         Coords coordsCity_ = new Coords();
@@ -846,7 +839,7 @@ public final class DataMap {
                         coordsCity_.getLevel().getPoint()
                                 .moveTo(Direction.DOWN);
                         cities.add(coordsCity_);
-                        for (EntryCust<Point, Person> g : ((PokemonCenter) b
+                        for (PointParam<Person> g : ((PokemonCenter) b
                                 .getValue()).getIndoor().getGerants()
                                 .entryList()) {
                             if (!(g.getValue() instanceof GerantPokemon)) {
@@ -937,7 +930,7 @@ public final class DataMap {
                 for (EntryCust<Byte, Level> e : levels_.entryList()) {
                     LevelWithWildPokemon wild_ = (LevelWithWildPokemon) e
                             .getValue();
-                    for (EntryCust<Point, CharacterInRoadCave> c : wild_
+                    for (PointParam<CharacterInRoadCave> c : wild_
                             .getCharacters().entryList()) {
                         if (!(c.getValue() instanceof TrainerMultiFights)) {
                             continue;
@@ -1065,7 +1058,7 @@ public final class DataMap {
                 }
                 coordsCondBis_.put(c_, cond_);
             }
-            EqList<Coords> inext_ = new EqList<Coords>();
+            Condition inext_ = new Condition();
             EqList<Coords> ext_ = new EqList<Coords>();
             for (EntryCust<Coords, Condition> e : neigh_.entryList()) {
                 Coords c_ = e.getKey();
@@ -1150,11 +1143,11 @@ public final class DataMap {
             ObjectMap<Coords, Condition> conditions_ = getNext(c,
                     accessibility.getVal(c));
             boolean contained_ = false;
-            EqList<Coords> elts_ = accessCondition.getVal(c);
+            Condition elts_ = accessCondition.getVal(c);
             for (Coords n : conditions_.getKeys()) {
                 if (accessCondition.contains(n)
                         && !accessLeagues_.containsObj(n)) {
-                    EqList<Coords> condLoc_ = accessCondition.getVal(n);
+                    CustList<Coords> condLoc_ = accessCondition.getVal(n);
                     if (Coords.equalsSet(condLoc_, elts_)) {
                         continue;
                     }
@@ -1280,7 +1273,7 @@ public final class DataMap {
                 Condition cond_ = initCondition(coords_, _condition);
                 return_.put(coords_, cond_);
             }
-            ObjectMap<PlaceInterConnect, Coords> links_ = pl_
+            PlaceInterConnects links_ = pl_
                     .getPointsWithCitiesAndOtherRoads();
             if (!_id.isInside()) {
                 Level level_ = place_.getLevelByCoords(_id);
@@ -1422,7 +1415,7 @@ public final class DataMap {
         return condition_;
     }
 
-    boolean validConditions(EqList<Coords> _accessCoords,
+    boolean validConditions(Condition _accessCoords,
             ObjectMap<Coords, Condition> _condition) {
         ObjectMap<Coords, EqList<Coords>> groups_ = new ObjectMap<Coords, EqList<Coords>>();
         Condition defaultCondition_ = new Condition();
@@ -1562,7 +1555,7 @@ public final class DataMap {
     }
 
     public void initializeLinks() {
-        ShortMap< EqList<PlaceInterConnect>> visited_ = new ShortMap< EqList<PlaceInterConnect>>();
+        ShortMap< CustList<PlaceInterConnect>> visited_ = new ShortMap< CustList<PlaceInterConnect>>();
         int nbPlaces_ = places.size();
         for (short i = IndexConstants.FIRST_INDEX; i < nbPlaces_; i++) {
             Place place_ = places.get(i);
@@ -1570,7 +1563,7 @@ public final class DataMap {
                 continue;
             }
             InitializedPlace pl_ = (InitializedPlace) place_;
-            pl_.setPointsWithCitiesAndOtherRoads(new ObjectMap<PlaceInterConnect, Coords>());
+            pl_.setPointsWithCitiesAndOtherRoads(new PlaceInterConnects());
         }
         for (short i = IndexConstants.FIRST_INDEX; i < nbPlaces_; i++) {
             Place place_ = places.get(i);
@@ -1579,7 +1572,7 @@ public final class DataMap {
             }
             InitializedPlace pl_ = (InitializedPlace) place_;
             for (PlaceInterConnect k : pl_.getSavedlinks().getKeys()) {
-                if (visited_.contains(i) && visited_.getVal(i).containsObj(k)) {
+                if (visited_.contains(i) && PlaceInterConnects.contains(visited_.getVal(i),k)) {
                     continue;
                 }
                 Coords coords_ = pl_.getSavedlinks().getVal(k);
@@ -1592,13 +1585,13 @@ public final class DataMap {
         }
     }
 
-    public static void merge(ShortMap<EqList<PlaceInterConnect>> _visited, PlaceInterConnect _k, Point _pt, short _i) {
+    public static void merge(ShortMap<CustList<PlaceInterConnect>> _visited, PlaceInterConnect _k, Point _pt, short _i) {
         if (!_visited.contains(_i)) {
-            EqList<PlaceInterConnect> v_ = new EqList<PlaceInterConnect>();
+            CustList<PlaceInterConnect> v_ = new CustList<PlaceInterConnect>();
             v_.add(new PlaceInterConnect(_pt, _k.getDir().getOpposite()));
             _visited.put(_i, v_);
         } else {
-            EqList<PlaceInterConnect> v_ = _visited.getVal(_i);
+            CustList<PlaceInterConnect> v_ = _visited.getVal(_i);
             v_.add(new PlaceInterConnect(_pt, _k.getDir().getOpposite()));
         }
     }
@@ -1609,8 +1602,8 @@ public final class DataMap {
         Place place2_ = places.get(_pl2);
         Level l1_ = ((InitializedPlace) place1_).getLevel();
         Level l2_ = ((InitializedPlace) place2_).getLevel();
-        EqList<PlaceInterConnect> keys1_ = new EqList<PlaceInterConnect>();
-        EqList<PlaceInterConnect> keys2_ = new EqList<PlaceInterConnect>();
+        CustList<PlaceInterConnect> keys1_ = new CustList<PlaceInterConnect>();
+        CustList<PlaceInterConnect> keys2_ = new CustList<PlaceInterConnect>();
         Limits limits1_ = l1_.limits();
         Limits limits2_ = l2_.limits();
         Point leftTopPointOne_ = limits1_.getTopLeft();
@@ -1679,8 +1672,8 @@ public final class DataMap {
         coords2_.getLevel().setPoint(new Point(p1_));
         ((InitializedPlace) place2_).addSavedLink(new PlaceInterConnect(p2_,
                 _dir1.getOpposite()), coords2_);
-        ObjectMap<PlaceInterConnect, Coords> join1_ = new ObjectMap<PlaceInterConnect, Coords>();
-        ObjectMap<PlaceInterConnect, Coords> join2_ = new ObjectMap<PlaceInterConnect, Coords>();
+        PlaceInterConnects join1_ = new PlaceInterConnects();
+        PlaceInterConnects join2_ = new PlaceInterConnects();
         for (short i = IndexConstants.FIRST_INDEX; i < length_; i++) {
             Coords c1_ = new Coords();
             c1_.setNumberPlace(_pl1);
@@ -1775,7 +1768,7 @@ public final class DataMap {
         league_.setRooms(new CustList<LevelLeague>());
         league_.setBegin(new Point());
         LevelLeague level_ = new LevelLeague();
-        level_.setBlocks(new ObjectMap<Point, Block>());
+        level_.setBlocks(new PointsBlock());
         level_.setAccessPoint(new Point());
         level_.setNextLevelTarget(new Point());
         level_.setTrainerCoords(new Point());
@@ -1792,7 +1785,7 @@ public final class DataMap {
     public void addLevelLeague(short _league) {
         League league_ = (League) places.get(_league);
         LevelLeague level_ = new LevelLeague();
-        level_.setBlocks(new ObjectMap<Point, Block>());
+        level_.setBlocks(new PointsBlock());
         level_.setAccessPoint(new Point());
         level_.setNextLevelTarget(new Point());
         level_.setTrainerCoords(new Point());
@@ -1808,27 +1801,27 @@ public final class DataMap {
     public void addCity(String _cityName) {
         City city_ = new City();
         city_.setName(_cityName);
-        city_.setBuildings(new ObjectMap<Point, Building>());
-        city_.setLinksWithCaves(new ObjectMap<Point, Link>());
-        city_.setSavedlinks(new ObjectMap<PlaceInterConnect, Coords>());
+        city_.setBuildings(new PointsBuilding());
+        city_.setLinksWithCaves(new PointsLink());
+        city_.setSavedlinks(new PlaceInterConnects());
         LevelOutdoor level_ = new LevelOutdoor();
-        level_.setBlocks(new ObjectMap<Point, Block>());
+        level_.setBlocks(new PointsBlock());
         city_.setLevel(level_);
         addPlace(city_);
     }
 
     public void addRoad() {
         Road road_ = new Road();
-        road_.setLinksWithCaves(new ObjectMap<Point, Link>());
-        road_.setSavedlinks(new ObjectMap<PlaceInterConnect, Coords>());
+        road_.setLinksWithCaves(new PointsLink());
+        road_.setSavedlinks(new PlaceInterConnects());
         LevelRoad level_ = new LevelRoad();
-        level_.setBlocks(new ObjectMap<Point, Block>());
-        level_.setCharacters(new ObjectMap<Point, CharacterInRoadCave>());
-        level_.setDualFights(new ObjectMap<Point, DualFight>());
-        level_.setHm(new ObjectMap<Point, Short>());
-        level_.setTm(new ObjectMap<Point, Short>());
-        level_.setItems(new ObjectMap<Point, String>());
-        level_.setLegendaryPks(new ObjectMap<Point, WildPk>());
+        level_.setBlocks(new PointsBlock());
+        level_.setCharacters(new PointsCharacterInRoadCave());
+        level_.setDualFights(new PointsDualFight());
+        level_.setHm(new PointsShort());
+        level_.setTm(new PointsShort());
+        level_.setItems(new PointsString());
+        level_.setLegendaryPks(new PointsWildPk());
         level_.setWildPokemonAreas(new CustList<AreaApparition>());
         road_.setLevel(level_);
         addPlace(road_);
@@ -2049,7 +2042,7 @@ public final class DataMap {
         if (!currentLevel_.getBlockByPoint(closestPoint_).isValid()) {
             if (currentPlace_ instanceof InitializedPlace) {
                 if (!_currentCoords.isInside()) {
-                    ObjectMap<PlaceInterConnect, Coords> rc_ = ((InitializedPlace) currentPlace_)
+                    PlaceInterConnects rc_ = ((InitializedPlace) currentPlace_)
                             .getPointsWithCitiesAndOtherRoads();
                     PlaceInterConnect key_ = new PlaceInterConnect(
                             _currentCoords.getLevel().getPoint(), _direction);
@@ -2127,20 +2120,20 @@ public final class DataMap {
         places = _places;
     }
 
-    public ObjectMap<Coords, EqList<Coords>> getAccessCondition() {
+    public CoordsLists getAccessCondition() {
         return accessCondition;
     }
 
     public void setAccessCondition(
-            ObjectMap<Coords, EqList<Coords>> _accessCondition) {
+            CoordsLists _accessCondition) {
         accessCondition = _accessCondition;
     }
 
-    public ObjectMap<MiniMapCoords, TileMiniMap> getMiniMap() {
+    public MiniMapCoordsList getMiniMap() {
         return miniMap;
     }
 
-    public void setMiniMap(ObjectMap<MiniMapCoords, TileMiniMap> _miniMap) {
+    public void setMiniMap(MiniMapCoordsList _miniMap) {
         miniMap = _miniMap;
     }
 

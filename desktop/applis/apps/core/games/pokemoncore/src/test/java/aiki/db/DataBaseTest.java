@@ -4,7 +4,7 @@ import aiki.fight.Combos;
 import aiki.fight.pokemon.PokemonData;
 import aiki.fight.pokemon.enums.ExpType;
 import aiki.fight.util.ListEffectCombo;
-import aiki.fight.util.TypesDuo;
+import aiki.fight.util.TypesDuos;
 import aiki.game.fight.InitializationDataBase;
 import aiki.game.params.enums.DifficultyModelLaw;
 import aiki.game.params.enums.DifficultyWinPointsFight;
@@ -112,7 +112,7 @@ public class DataBaseTest extends EquallablePkUtil {
         data_.setDefMove("");
         data_.setDamageFormula("");
         data_.setExpGrowth(new EnumMap<ExpType, String>());
-        data_.setTableTypes(new ObjectMap<TypesDuo, Rate>());
+        data_.setTableTypes(new TypesDuos());
         data_.setTypes(new StringList());
         data_.setLawsDamageRate(new EnumMap<DifficultyModelLaw, LawNumber>());
         data_.setMaxHeightPk(0);

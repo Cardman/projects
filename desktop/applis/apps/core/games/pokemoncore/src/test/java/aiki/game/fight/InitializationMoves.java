@@ -52,10 +52,7 @@ import aiki.fight.moves.effects.enums.MoveItemType;
 import aiki.fight.moves.effects.enums.PointViewChangementType;
 import aiki.fight.moves.enums.SwitchType;
 import aiki.fight.moves.enums.TargetChoice;
-import aiki.fight.util.CategoryMult;
-import aiki.fight.util.ListEffectCombo;
-import aiki.fight.util.StatisticType;
-import aiki.fight.util.TypesDuo;
+import aiki.fight.util.*;
 import aiki.map.levels.enums.EnvironmentType;
 import code.maths.LgInt;
 import code.maths.Rate;
@@ -65,10 +62,7 @@ import code.maths.montecarlo.MonteCarloString;
 import code.util.CustList;
 import code.util.EnumList;
 import code.util.EnumMap;
-import code.util.EqList;
 import code.util.*;
-import code.util.*;
-import code.util.ObjectMap;
 import code.util.StringList;
 import code.util.StringMap;
 
@@ -7539,7 +7533,7 @@ final class InitializationMoves {
         object_.setImmuneTypes(new StringList());
         object_.setDamageEndRound(Rate.zero());
         object_.setHealingEndRound(Rate.zero());
-        object_.setEfficiencyMoves(new ObjectMap<TypesDuo,Rate>());
+        object_.setEfficiencyMoves(new TypesDuos());
         object_.setDisableImmuAgainstTypes(new StringList());
         object_.setCancelProtectingAbilities(new StringList());
         object_.setUnusableMoves(new StringList());
@@ -7547,7 +7541,7 @@ final class InitializationMoves {
         object_.setMovesUsedByTargetedFighters(new StringList());
         object_.setMultEffectLovingAlly(Rate.zero());
         object_.setMultPowerMoves(new StringMap<Rate>());
-        object_.setMultStatIfContainsType(new ObjectMap<StatisticType,Rate>());
+        object_.setMultStatIfContainsType(new StatisticTypeRate());
         object_.setCancelEffects(new StringList());
         object_.setMultDamageTypesMoves(new StringMap<Rate>());
         object_.setCancelChgtStat(new EnumList<Statistic>());
@@ -7608,7 +7602,7 @@ final class InitializationMoves {
         object_.setUnusableMoves(new StringList());
         object_.setCancelChgtStatFoeTeam(new EnumList<Statistic>());
         object_.setCancelChgtStatTeam(new EnumList<Statistic>());
-        object_.setMultDamage(new ObjectMap<CategoryMult,Rate>());
+        object_.setMultDamage(new CategoryMults());
         object_.setMultStatistic(new EnumMap<Statistic,Rate>());
         object_.setMultStatisticFoe(new EnumMap<Statistic,Rate>());
         object_.setProtectAgainstLowStat(new EnumList<Statistic>());
@@ -7668,7 +7662,7 @@ final class InitializationMoves {
 
     private static EffectUnprotectFromTypes defaultEffetAntiImmu() {
         EffectUnprotectFromTypes object_ = new EffectUnprotectFromTypes();
-        object_.setTypes(new EqList<TypesDuo>());
+        object_.setTypes(new CustList<TypesDuo>());
         object_.setDisableImmuAgainstTypes(new StringList());
         object_.setDisableImmuFromMoves(new StringList());
         object_.setAttackTargetWithTypes(new StringList());

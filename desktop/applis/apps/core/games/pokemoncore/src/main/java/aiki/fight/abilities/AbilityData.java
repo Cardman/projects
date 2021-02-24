@@ -7,12 +7,7 @@ import aiki.fight.moves.effects.EffectEndRound;
 import aiki.fight.moves.effects.EffectEndRoundIndividual;
 import aiki.fight.moves.effects.EffectEndRoundMultiRelation;
 import aiki.fight.moves.effects.EffectEndRoundTeam;
-import aiki.fight.util.StatisticCategory;
-import aiki.fight.util.StatisticStatus;
-import aiki.fight.util.StatisticType;
-import aiki.fight.util.TypeDamageBoost;
-import aiki.fight.util.TypesDuo;
-import aiki.fight.util.WeatherType;
+import aiki.fight.util.*;
 import code.maths.Rate;
 import code.maths.montecarlo.MonteCarloString;
 import code.util.CustList;
@@ -28,7 +23,7 @@ import code.util.core.StringUtil;
 
 public final class AbilityData {
 
-    private EqList<TypesDuo> breakFoeImmune;
+    private CustList<TypesDuo> breakFoeImmune;
 
     private boolean forbidUseBerryAgainstFoes;
     private StringMap<String> chgtTypeByWeather;
@@ -43,7 +38,7 @@ public final class AbilityData {
     private StringList immuMove;
     private EnumList<Statistic> immuLowStat;
 
-    private EqList<StatisticStatus> immuLowStatIfStatus;
+    private CustList<StatisticStatus> immuLowStatIfStatus;
 
     private boolean immuCh;
     private StringList immuWeather;
@@ -73,13 +68,13 @@ public final class AbilityData {
     private EnumMap<Statistic, Rate> multStatAlly;
     private EnumMap<Statistic, Byte> multStatIfKoFoe;
     private EnumMap<Statistic, Byte> multStatIfLowStat;
-    private ObjectMap<StatisticCategory, Rate> multStatIfCat;
+    private StatisticCategoryList<Rate> multStatIfCat;
 
-    private ObjectMap<StatisticStatus, Byte> multStatIfStatutRank;
+    private StatisticStatusList multStatIfStatutRank;
 
-    private ObjectMap<StatisticCategory, Byte> multStatIfDamageCat;
+    private StatisticCategoryList<Byte> multStatIfDamageCat;
 
-    private ObjectMap<StatisticType, Byte> multStatIfDamgeType;
+    private StatisticTypeList<Byte> multStatIfDamgeType;
 
     private EnumMap<Statistic, String> multStat;
     private boolean inflictingDamageInsteadOfSuffering;
@@ -101,7 +96,7 @@ public final class AbilityData {
     private Rate maxHpForUsingBerry;
     private boolean mumy;
 
-    private ObjectMap<WeatherType, Rate> healHpByTypeIfWeather;
+    private WeatherTypes healHpByTypeIfWeather;
 
     private StringMap<StringList> immuMoveTypesByWeather;
 
@@ -469,15 +464,23 @@ public final class AbilityData {
         }
     }
 
+    public boolean containsStatisticStatus(StatisticStatus _s) {
+        for (StatisticStatus e:immuLowStatIfStatus) {
+            if (_s.eq(e)) {
+                return true;
+            }
+        }
+        return false;
+    }
     public boolean enabledSending() {
         return !effectSending.isEmpty();
     }
 
-    public EqList<TypesDuo> getBreakFoeImmune() {
+    public CustList<TypesDuo> getBreakFoeImmune() {
         return breakFoeImmune;
     }
 
-    public void setBreakFoeImmune(EqList<TypesDuo> _breakFoeImmune) {
+    public void setBreakFoeImmune(CustList<TypesDuo> _breakFoeImmune) {
         breakFoeImmune = _breakFoeImmune;
     }
 
@@ -577,12 +580,12 @@ public final class AbilityData {
         immuLowStat = _immuLowStat;
     }
 
-    public EqList<StatisticStatus> getImmuLowStatIfStatus() {
+    public CustList<StatisticStatus> getImmuLowStatIfStatus() {
         return immuLowStatIfStatus;
     }
 
     public void setImmuLowStatIfStatus(
-            EqList<StatisticStatus> _immuLowStatIfStatus) {
+            CustList<StatisticStatus> _immuLowStatIfStatus) {
         immuLowStatIfStatus = _immuLowStatIfStatus;
     }
 
@@ -812,39 +815,39 @@ public final class AbilityData {
         multStatIfLowStat = _multStatIfLowStat;
     }
 
-    public ObjectMap<StatisticCategory, Rate> getMultStatIfCat() {
+    public StatisticCategoryList<Rate> getMultStatIfCat() {
         return multStatIfCat;
     }
 
     public void setMultStatIfCat(
-            ObjectMap<StatisticCategory, Rate> _multStatIfCat) {
+            StatisticCategoryList<Rate> _multStatIfCat) {
         multStatIfCat = _multStatIfCat;
     }
 
-    public ObjectMap<StatisticStatus, Byte> getMultStatIfStatutRank() {
+    public StatisticStatusList getMultStatIfStatutRank() {
         return multStatIfStatutRank;
     }
 
     public void setMultStatIfStatutRank(
-            ObjectMap<StatisticStatus, Byte> _multStatIfStatutRank) {
+            StatisticStatusList _multStatIfStatutRank) {
         multStatIfStatutRank = _multStatIfStatutRank;
     }
 
-    public ObjectMap<StatisticCategory, Byte> getMultStatIfDamageCat() {
+    public StatisticCategoryList<Byte> getMultStatIfDamageCat() {
         return multStatIfDamageCat;
     }
 
     public void setMultStatIfDamageCat(
-            ObjectMap<StatisticCategory, Byte> _multStatIfDamageCat) {
+            StatisticCategoryList<Byte> _multStatIfDamageCat) {
         multStatIfDamageCat = _multStatIfDamageCat;
     }
 
-    public ObjectMap<StatisticType, Byte> getMultStatIfDamgeType() {
+    public StatisticTypeList<Byte> getMultStatIfDamgeType() {
         return multStatIfDamgeType;
     }
 
     public void setMultStatIfDamgeType(
-            ObjectMap<StatisticType, Byte> _multStatIfDamgeType) {
+            StatisticTypeList<Byte> _multStatIfDamgeType) {
         multStatIfDamgeType = _multStatIfDamgeType;
     }
 
@@ -1001,12 +1004,12 @@ public final class AbilityData {
         mumy = _mumy;
     }
 
-    public ObjectMap<WeatherType, Rate> getHealHpByTypeIfWeather() {
+    public WeatherTypes getHealHpByTypeIfWeather() {
         return healHpByTypeIfWeather;
     }
 
     public void setHealHpByTypeIfWeather(
-            ObjectMap<WeatherType, Rate> _healHpByTypeIfWeather) {
+            WeatherTypes _healHpByTypeIfWeather) {
         healHpByTypeIfWeather = _healHpByTypeIfWeather;
     }
 

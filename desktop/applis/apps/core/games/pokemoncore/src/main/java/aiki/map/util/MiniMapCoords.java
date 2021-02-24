@@ -5,7 +5,7 @@ import code.util.core.StringUtil;
 import code.util.ints.Displayable;
 import code.util.ints.Equallable;
 
-public final class MiniMapCoords implements Equallable<MiniMapCoords>, Displayable {
+public final class MiniMapCoords implements Displayable {
 
     private static final char SEPARATOR = ' ';
 
@@ -29,7 +29,6 @@ public final class MiniMapCoords implements Equallable<MiniMapCoords>, Displayab
         return new MiniMapCoords(_string);
     }
 
-    @Override
     public boolean eq(MiniMapCoords _obj) {
         if (!NumberUtil.eq(xCoords, _obj.xCoords)) {
             return false;

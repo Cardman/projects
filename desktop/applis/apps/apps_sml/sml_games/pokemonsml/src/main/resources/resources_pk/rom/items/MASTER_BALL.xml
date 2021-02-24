@@ -1,4 +1,0 @@
-<aiki.fight.items.Ball>
-<java.lang.String class="aiki.fight.items.Ball" field="catchingRate" value="255"/>
-<java.lang.Integer class="aiki.fight.items.Item" field="price" value="0"/>
-</aiki.fight.items.Ball>

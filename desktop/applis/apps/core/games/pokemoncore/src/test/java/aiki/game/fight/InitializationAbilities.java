@@ -9,12 +9,7 @@ import aiki.fight.moves.effects.EffectEndRoundMultiRelation;
 import aiki.fight.moves.effects.EffectEndRoundTeam;
 import aiki.fight.moves.effects.EffectStatistic;
 import aiki.fight.moves.enums.TargetChoice;
-import aiki.fight.util.StatisticCategory;
-import aiki.fight.util.StatisticStatus;
-import aiki.fight.util.StatisticType;
-import aiki.fight.util.TypeDamageBoost;
-import aiki.fight.util.TypesDuo;
-import aiki.fight.util.WeatherType;
+import aiki.fight.util.*;
 import code.maths.LgInt;
 import code.maths.Rate;
 import code.maths.montecarlo.MonteCarloEnum;
@@ -857,7 +852,7 @@ final class InitializationAbilities {
 
     private static AbilityData defaultFicheCapacite() {
         AbilityData object_ = new AbilityData();
-        object_.setBreakFoeImmune(new EqList<TypesDuo>());
+        object_.setBreakFoeImmune(new CustList<TypesDuo>());
         object_.setChgtTypeByWeather(new StringMap<String>());
         object_.setRecoilDamageFoe(Rate.zero());
         object_.setDivideStatusRound(new StringMap<Rate>());
@@ -866,7 +861,7 @@ final class InitializationAbilities {
         object_.setIgnFoeTeamMove(new StringList());
         object_.setImmuMove(new StringList());
         object_.setImmuLowStat(new EnumList<Statistic>());
-        object_.setImmuLowStatIfStatus(new EqList<StatisticStatus>());
+        object_.setImmuLowStatIfStatus(new CustList<StatisticStatus>());
         object_.setImmuWeather(new StringList());
         object_.setImmuAbility(new StringList());
         object_.setImmuStatusBeginRound(new StringList());
@@ -887,10 +882,10 @@ final class InitializationAbilities {
         object_.setMultStatAlly(new EnumMap<Statistic,Rate>());
         object_.setMultStatIfKoFoe(new EnumMap<Statistic,Byte>());
         object_.setMultStatIfLowStat(new EnumMap<Statistic,Byte>());
-        object_.setMultStatIfCat(new ObjectMap<StatisticCategory,Rate>());
-        object_.setMultStatIfStatutRank(new ObjectMap<StatisticStatus,Byte>());
-        object_.setMultStatIfDamageCat(new ObjectMap<StatisticCategory,Byte>());
-        object_.setMultStatIfDamgeType(new ObjectMap<StatisticType,Byte>());
+        object_.setMultStatIfCat(new StatisticCategoryRate());
+        object_.setMultStatIfStatutRank(new StatisticStatusList());
+        object_.setMultStatIfDamageCat(new StatisticCategoryByte());
+        object_.setMultStatIfDamgeType(new StatisticTypeByte());
         object_.setMultStat(new EnumMap<Statistic,String>());
         object_.setMultVarBoost(Rate.zero());
         object_.setHealedHpRateBySwitch(Rate.zero());
@@ -900,7 +895,7 @@ final class InitializationAbilities {
         object_.setForwardStatus(new StringMap<String>());
         object_.setTypeForMoves(NULL_REF);
         object_.setMaxHpForUsingBerry(Rate.zero());
-        object_.setHealHpByTypeIfWeather(new ObjectMap<WeatherType,Rate>());
+        object_.setHealHpByTypeIfWeather(new WeatherTypes());
         object_.setChangingBoostTypes(new StringMap<TypeDamageBoost>());
         object_.setImmuLowStatisTypes(new StringMap<EnumList<Statistic>>());
         object_.setImmuStatusTypes(new StringMap<StringList>());

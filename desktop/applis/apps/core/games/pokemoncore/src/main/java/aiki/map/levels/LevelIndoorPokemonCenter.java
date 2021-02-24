@@ -6,6 +6,8 @@ import aiki.map.characters.Person;
 import aiki.map.characters.Seller;
 import aiki.map.tree.LevelArea;
 import aiki.util.Point;
+import aiki.util.PointParam;
+import aiki.util.Points;
 import code.util.EntryCust;
 import code.util.EqList;
 import code.util.ObjectMap;
@@ -13,7 +15,7 @@ import code.util.ObjectMap;
 
 public final class LevelIndoorPokemonCenter extends Level {
 
-    private ObjectMap<Point, Person> gerants;
+    private Points< Person> gerants;
 
     private Point storageCoords;
 
@@ -25,7 +27,7 @@ public final class LevelIndoorPokemonCenter extends Level {
             _data.setError(true);
         }
         keys_.add(storageCoords);
-        for (EntryCust<Point, Person> e : gerants.entryList()) {
+        for (PointParam<Person> e : gerants.entryList()) {
             if (!_level.isValid(e.getKey(), true)) {
                 _data.setError(true);
             }
@@ -55,10 +57,7 @@ public final class LevelIndoorPokemonCenter extends Level {
         if (Point.eq(storageCoords, _point)) {
             return false;
         }
-        if (gerants.contains(_point)) {
-            return false;
-        }
-        return true;
+        return !gerants.contains(_point);
     }
     @Override
     public boolean hasValidImage(DataBase _data) {
@@ -74,11 +73,11 @@ public final class LevelIndoorPokemonCenter extends Level {
         return val_;
     }
 
-    public ObjectMap<Point, Person> getGerants() {
+    public Points< Person> getGerants() {
         return gerants;
     }
 
-    public void setGerants(ObjectMap<Point, Person> _gerants) {
+    public void setGerants(Points< Person> _gerants) {
         gerants = _gerants;
     }
 

@@ -3,9 +3,8 @@ import code.util.StringList;
 import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
 import code.util.ints.Displayable;
-import code.util.ints.Equallable;
 
-public final class CategoryMult implements Equallable<CategoryMult>, Displayable {
+public final class CategoryMult implements Displayable {
 
     private static final char SEPARATOR = ';';
 
@@ -31,7 +30,7 @@ public final class CategoryMult implements Equallable<CategoryMult>, Displayable
     public static CategoryMult newCategoryMult(String _string) {
         return new CategoryMult(_string);
     }
-    @Override
+
     public boolean eq(CategoryMult _obj) {
         if (!NumberUtil.eq(mult, _obj.mult)) {
             return false;

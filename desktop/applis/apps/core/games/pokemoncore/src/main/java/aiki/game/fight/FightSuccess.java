@@ -23,6 +23,7 @@ import aiki.fight.status.Status;
 import aiki.fight.status.effects.EffectPartnerStatus;
 import aiki.fight.util.StatisticCategory;
 import aiki.fight.util.StatisticStatus;
+import aiki.fight.util.TypesDuos;
 import aiki.fight.util.TypesDuo;
 import aiki.game.fight.util.NbEffectFighterCoords;
 import aiki.game.fight.util.RandomBoolResults;
@@ -258,7 +259,7 @@ final class FightSuccess {
                     if(StringUtil.contains(effetAntiImmu_.getAttackTargetWithTypes(), _type)){
                         protectedTypes_ = false;
                     }
-                    if(effetAntiImmu_.getTypes().containsObj(new TypesDuo(_type,e))){
+                    if(TypesDuos.contains(effetAntiImmu_.getTypes(),new TypesDuo(_type,e))){
                         protectedTypes_ = false;
                     }
                 }
@@ -402,7 +403,7 @@ final class FightSuccess {
                         continuer_=true;
                         break;
                     }
-                    if(effetAntiImmu_.getTypes().containsObj(new TypesDuo(_typeOff,e))){
+                    if(TypesDuos.contains(effetAntiImmu_.getTypes(),new TypesDuo(_typeOff,e))){
                         priseEnCompteCoeffNul_.put(e,false);
                         continuer_=true;
                         break;
@@ -416,7 +417,7 @@ final class FightSuccess {
         if(creatureCbtLanceur_.capaciteActive()){
             AbilityData fCapacite_=creatureCbtLanceur_.ficheCapaciteActuelle(_import);
             for(String e:creatureCbtCible_.getTypes()){
-                if(fCapacite_.getBreakFoeImmune().containsObj(new TypesDuo(_typeOff,e))){
+                if(TypesDuos.contains(fCapacite_.getBreakFoeImmune(),new TypesDuo(_typeOff,e))){
                     priseEnCompteCoeffNul_.put(e,false);
                 }
             }
@@ -869,7 +870,7 @@ final class FightSuccess {
                     if(NumberUtil.eq(creatureCbt_.getStatusNbRoundShort(c), 0)){
                         continue;
                     }
-                    if(fCapac_.getImmuLowStatIfStatus().containsObj(new StatisticStatus(_statistique,c))){
+                    if(fCapac_.containsStatisticStatus(new StatisticStatus(_statistique,c))){
                         _fight.addImmuLowStatStAbilityMessage(_combattant, _statistique, creatureCbt_.getCurrentAbility(), c, _import);
                         return false;
                     }

@@ -5,14 +5,11 @@ import aiki.map.levels.*;
 import aiki.map.tree.LevelArea;
 import aiki.map.tree.PlaceArea;
 import aiki.map.tree.Tree;
-import aiki.util.Coords;
-import aiki.util.LevelPoint;
-import aiki.util.Point;
+import aiki.util.*;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.EqList;
 import code.util.*;
-import code.util.ObjectMap;
 import code.util.core.IndexConstants;
 import code.util.core.NumberUtil;
 
@@ -23,7 +20,7 @@ public final class Cave extends Campaign {
 
     private CustList<LevelCave> levels;
 
-    private ObjectMap<LevelPoint, Link> linksWithOtherPlaces;
+    private LevelPoints linksWithOtherPlaces;
 
     @Override
     public void validate(DataBase _data, PlaceArea _placeArea) {
@@ -37,7 +34,7 @@ public final class Cave extends Campaign {
         for (byte i = IndexConstants.FIRST_INDEX; i < nbLevels_; i++) {
             LevelCave level_ = levels.get(i);
             level_.validate(_data, _placeArea.getLevel(i));
-            for (EntryCust<Point, Link> e : level_.getLinksOtherLevels()
+            for (PointParam<Link> e : level_.getLinksOtherLevels()
                     .entryList()) {
                 Link link_ = e.getValue();
                 if (!link_.isValid(_data)) {
@@ -63,12 +60,12 @@ public final class Cave extends Campaign {
                 }
             }
         }
-        for (EntryCust<LevelPoint, Link> e : linksWithOtherPlaces.entryList()) {
-            Link link_ = e.getValue();
+        for (LevelPointLink e : linksWithOtherPlaces.entryList()) {
+            Link link_ = e.getLink();
             if (!link_.isValid(_data)) {
                 _data.setError(true);
             }
-            LevelPoint k_ = e.getKey();
+            LevelPoint k_ = e.getLevelPoint();
             if (!_placeArea.isValidLevel(k_
                     .getLevelIndex())) {
                 _data.setError(true);
@@ -104,7 +101,7 @@ public final class Cave extends Campaign {
         boolean valid_ = true;
         for (byte i = IndexConstants.FIRST_INDEX; i < nbLevels_; i++) {
             LevelCave level_ = levels.get(i);
-            for (EntryCust<Point, Link> e : level_.getLinksOtherLevels()
+            for (PointParam<Link> e : level_.getLinksOtherLevels()
                     .entryList()) {
                 Link link_ = e.getValue();
                 Coords coords_ = link_.getCoords();
@@ -147,12 +144,12 @@ public final class Cave extends Campaign {
                 ids_.add(id_);
             }
         }
-        for (EntryCust<LevelPoint, Link> e : linksWithOtherPlaces.entryList()) {
-            Link link_ = e.getValue();
+        for (LevelPointLink e : linksWithOtherPlaces.entryList()) {
+            Link link_ = e.getLink();
             if (!_tree.isValid(link_.getCoords(), true)) {
                 valid_ = false;
             }
-            ids_.add(e.getKey());
+            ids_.add(e.getLevelPoint());
         }
         if (ids_.hasDuplicates()) {
             valid_ = false;
@@ -219,12 +216,12 @@ public final class Cave extends Campaign {
         name = _name;
     }
 
-    public ObjectMap<LevelPoint, Link> getLinksWithOtherPlaces() {
+    public LevelPoints getLinksWithOtherPlaces() {
         return linksWithOtherPlaces;
     }
 
     public void setLinksWithOtherPlaces(
-            ObjectMap<LevelPoint, Link> _linksWithOtherPlaces) {
+            LevelPoints _linksWithOtherPlaces) {
         linksWithOtherPlaces = _linksWithOtherPlaces;
     }
 }

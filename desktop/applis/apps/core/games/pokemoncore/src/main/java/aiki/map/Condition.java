@@ -1,5 +1,6 @@
 package aiki.map;
 import aiki.util.Coords;
+import code.util.CollCapacity;
 import code.util.CustList;
 import code.util.EqList;
 import code.util.core.IndexConstants;
@@ -9,8 +10,16 @@ public final class Condition extends CustList<Coords> {
     public Condition() {
     }
 
-    public Condition(Coords _coords) {
+    public Condition(Coords... _coords) {
         super(_coords);
+    }
+
+    public Condition(Condition _coords) {
+        super(_coords);
+    }
+
+    public Condition(CollCapacity _cap) {
+        super(_cap);
     }
 
     public boolean exists(EqList<Coords> _gymLeaders) {
@@ -60,5 +69,22 @@ public final class Condition extends CustList<Coords> {
             }
         }
         return true;
+    }
+
+    public void removeAllElements(CustList<Coords> _invalidCoords) {
+        for (Coords s: _invalidCoords) {
+            removeAllObj(s);
+        }
+    }
+
+    public void removeAllObj(Coords _obj) {
+        int index_ = size() - 1;
+        while (index_ >= IndexConstants.FIRST_INDEX) {
+            Coords current_ = get(index_);
+            if (Coords.eq(_obj,current_)) {
+                remove(index_);
+            }
+            index_--;
+        }
     }
 }

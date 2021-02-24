@@ -4,9 +4,8 @@ import aiki.util.Point;
 import code.util.StringList;
 import code.util.core.StringUtil;
 import code.util.ints.Displayable;
-import code.util.ints.Equallable;
 
-public final class PlaceInterConnect implements Equallable<PlaceInterConnect>, Displayable {
+public final class PlaceInterConnect implements Displayable {
 
     static final char SEPARATOR = ';';
 
@@ -35,7 +34,6 @@ public final class PlaceInterConnect implements Equallable<PlaceInterConnect>, D
         return new PlaceInterConnect(_string);
     }
 
-    @Override
     public boolean eq(PlaceInterConnect _obj) {
         if (!Point.eq(source, _obj.source)) {
             return false;

@@ -24,6 +24,7 @@ import aiki.map.places.Place;
 import aiki.map.pokemon.WildPk;
 import aiki.map.pokemon.enums.Gender;
 import aiki.map.util.MiniMapCoords;
+import aiki.map.util.MiniMapCoordsList;
 import aiki.map.util.TileMiniMap;
 import code.maths.LgInt;
 import code.maths.Rate;
@@ -102,10 +103,10 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
         data_.completeMembers(PIKACHU,pkData_);
         data_.completeMembers(POKE_BALL,ball_);
         data_.completeMembers(PARATONNERRE,ab_);
-        data_.getTableTypes().put(new TypesDuo(ELECTRICK,ELECTRICK),new Rate("1"));
+        data_.getTableTypes().addEntry(new TypesDuo(ELECTRICK,ELECTRICK),new Rate("1"));
         data_.sortEndRound();
         initPlaces(data_);
-        data_.getMap().setMiniMap(new ObjectMap<MiniMapCoords,TileMiniMap>());
+        data_.getMap().setMiniMap(new MiniMapCoordsList());
         data_.getMap().setUnlockedCity(NULL_REF);
         data_.getMap().setSideLength(2);
         DataMap map_ = data_.getMap();
@@ -141,7 +142,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
         data_.initializeMembers();
         data_.sortEndRound();
         initPlaces(data_);
-        data_.getMap().setMiniMap(new ObjectMap<MiniMapCoords,TileMiniMap>());
+        data_.getMap().setMiniMap(new MiniMapCoordsList());
         data_.getMap().setUnlockedCity(NULL_REF);
         data_.getMap().setSideLength(-2);
         data_.getTypesColors().addEntry(ELECTRICK,ELECTRICK);
@@ -205,7 +206,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
         data_.getHm().addEntry((short)1,TREMPETTE2);
         data_.sortEndRound();
         initPlaces(data_);
-        data_.getMap().setMiniMap(new ObjectMap<MiniMapCoords,TileMiniMap>());
+        data_.getMap().setMiniMap(new MiniMapCoordsList());
         data_.getMap().setUnlockedCity(NULL_REF);
         data_.getMap().setSideLength(-2);
         data_.getTableTypes().addEntry(new TypesDuo(ELECTRICK,TREMPETTE),Rate.newRate("0"));
@@ -297,7 +298,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
         translatedStatistics_.addEntry(TREMPETTE, stats_);
         data_.sortEndRound();
         initPlaces(data_);
-        data_.getMap().setMiniMap(new ObjectMap<MiniMapCoords,TileMiniMap>());
+        data_.getMap().setMiniMap(new MiniMapCoordsList());
         data_.getMap().setUnlockedCity(NULL_REF);
         data_.getMap().setSideLength(-2);
         data_.completeVariables();
@@ -391,7 +392,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
         translatedStatistics_.addEntry(LANGUAGE, stats_);
         data_.sortEndRound();
         initPlaces(data_);
-        data_.getMap().setMiniMap(new ObjectMap<MiniMapCoords,TileMiniMap>());
+        data_.getMap().setMiniMap(new MiniMapCoordsList());
         data_.getMap().setUnlockedCity(NULL_REF);
         data_.getMap().setSideLength(-2);
         data_.completeVariables();
@@ -485,7 +486,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
         translatedStatistics_.addEntry(TREMPETTE, stats_);
         data_.sortEndRound();
         initPlaces(data_);
-        data_.getMap().setMiniMap(new ObjectMap<MiniMapCoords,TileMiniMap>());
+        data_.getMap().setMiniMap(new MiniMapCoordsList());
         data_.getMap().setUnlockedCity(NULL_REF);
         data_.getMap().setSideLength(-2);
         data_.completeVariables();
@@ -524,7 +525,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
         translatedGenders_.addEntry(LANGUAGE, genders_);
         data_.sortEndRound();
         initPlaces(data_);
-        data_.getMap().setMiniMap(new ObjectMap<MiniMapCoords,TileMiniMap>());
+        data_.getMap().setMiniMap(new MiniMapCoordsList());
         data_.getMap().setUnlockedCity(NULL_REF);
         data_.getMap().setSideLength(-2);
         data_.completeVariables();
@@ -563,7 +564,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
         translatedGenders_.addEntry(TREMPETTE, genders_);
         data_.sortEndRound();
         initPlaces(data_);
-        data_.getMap().setMiniMap(new ObjectMap<MiniMapCoords,TileMiniMap>());
+        data_.getMap().setMiniMap(new MiniMapCoordsList());
         data_.getMap().setUnlockedCity(NULL_REF);
         data_.getMap().setSideLength(-2);
         data_.completeVariables();
@@ -602,7 +603,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
         translatedGenders_.addEntry(LANGUAGE, genders_);
         data_.sortEndRound();
         initPlaces(data_);
-        data_.getMap().setMiniMap(new ObjectMap<MiniMapCoords,TileMiniMap>());
+        data_.getMap().setMiniMap(new MiniMapCoordsList());
         data_.getMap().setUnlockedCity(NULL_REF);
         data_.getMap().setSideLength(-2);
         data_.completeVariables();
@@ -2268,7 +2269,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
         DataBase data_ =init();
         data_.getCombos().setEffects(new ListEffectCombos());
         initPlaces(data_);
-        data_.getMap().setMiniMap(new ObjectMap<MiniMapCoords, TileMiniMap>());
+        data_.getMap().setMiniMap(new MiniMapCoordsList());
         initConstants(data_);
         initExpPoints(data_);
         initRandomLaws(data_);
@@ -2280,7 +2281,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
         DataBase data_ =init();
         data_.getCombos().setEffects(new ListEffectCombos());
         initPlaces(data_);
-        data_.getMap().setMiniMap(new ObjectMap<MiniMapCoords, TileMiniMap>());
+        data_.getMap().setMiniMap(new MiniMapCoordsList());
         data_.completeMembers(PIKACHU,Instances.newPokemonData());
         initConstants(data_);
         initExpPoints(data_);
@@ -2293,7 +2294,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
         DataBase data_ =init();
         data_.getCombos().setEffects(new ListEffectCombos());
         initPlaces(data_);
-        data_.getMap().setMiniMap(new ObjectMap<MiniMapCoords, TileMiniMap>());
+        data_.getMap().setMiniMap(new MiniMapCoordsList());
         PokemonData pokemon_ = Instances.newPokemonData();
         pokemon_.getStatistics().addEntry(Statistic.ATTACK,new StatBaseEv((short)1,(short)1));
         pokemon_.getStatistics().addEntry(Statistic.SPECIAL_ATTACK,new StatBaseEv((short)1,(short)1));
@@ -2314,7 +2315,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
         DataBase data_ =init();
         data_.getCombos().setEffects(new ListEffectCombos());
         initPlaces(data_);
-        data_.getMap().setMiniMap(new ObjectMap<MiniMapCoords, TileMiniMap>());
+        data_.getMap().setMiniMap(new MiniMapCoordsList());
         PokemonData pokemon_ = Instances.newPokemonData();
         pokemon_.getStatistics().addEntry(Statistic.ATTACK,new StatBaseEv((short)1,(short)1));
         pokemon_.getStatistics().addEntry(Statistic.SPECIAL_ATTACK,new StatBaseEv((short)1,(short)1));
@@ -2340,7 +2341,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
         DataBase data_ =init();
         data_.getCombos().setEffects(new ListEffectCombos());
         initPlaces(data_);
-        data_.getMap().setMiniMap(new ObjectMap<MiniMapCoords, TileMiniMap>());
+        data_.getMap().setMiniMap(new MiniMapCoordsList());
         PokemonData pokemon_ = Instances.newPokemonData();
         pokemon_.getStatistics().addEntry(Statistic.ATTACK,new StatBaseEv((short)1,(short)1));
         pokemon_.getStatistics().addEntry(Statistic.SPECIAL_ATTACK,new StatBaseEv((short)1,(short)1));
@@ -2365,7 +2366,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
         DataBase data_ =init();
         data_.getCombos().setEffects(new ListEffectCombos());
         initPlaces(data_);
-        data_.getMap().setMiniMap(new ObjectMap<MiniMapCoords, TileMiniMap>());
+        data_.getMap().setMiniMap(new MiniMapCoordsList());
         PokemonData pokemon_ = Instances.newPokemonData();
         pokemon_.getStatistics().addEntry(Statistic.ATTACK,new StatBaseEv((short)1,(short)1));
         pokemon_.getStatistics().addEntry(Statistic.SPECIAL_ATTACK,new StatBaseEv((short)1,(short)1));
@@ -2389,7 +2390,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
         DataBase data_ =init();
         data_.getCombos().setEffects(new ListEffectCombos());
         initPlaces(data_);
-        data_.getMap().setMiniMap(new ObjectMap<MiniMapCoords, TileMiniMap>());
+        data_.getMap().setMiniMap(new MiniMapCoordsList());
         PokemonData pokemon_ = Instances.newPokemonData();
         pokemon_.getStatistics().addEntry(Statistic.HP,new StatBaseEv((short)1,(short)1));
         data_.completeMembers(PIKACHU, pokemon_);
@@ -2409,7 +2410,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
         DataBase data_ =init();
         data_.getCombos().setEffects(new ListEffectCombos());
         initPlaces(data_);
-        data_.getMap().setMiniMap(new ObjectMap<MiniMapCoords, TileMiniMap>());
+        data_.getMap().setMiniMap(new MiniMapCoordsList());
         initConstants(data_);
         initExpPoints(data_);
         initRandomLaws(data_);
@@ -2424,7 +2425,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
         DataBase data_ =init();
         data_.getCombos().setEffects(new ListEffectCombos());
         initPlaces(data_);
-        data_.getMap().setMiniMap(new ObjectMap<MiniMapCoords, TileMiniMap>());
+        data_.getMap().setMiniMap(new MiniMapCoordsList());
         initConstants(data_);
         initExpPoints(data_);
         initRandomLaws(data_);
@@ -2439,7 +2440,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
         DataBase data_ =init();
         data_.getCombos().setEffects(new ListEffectCombos());
         initPlaces(data_);
-        data_.getMap().setMiniMap(new ObjectMap<MiniMapCoords, TileMiniMap>());
+        data_.getMap().setMiniMap(new MiniMapCoordsList());
         initConstants(data_);
         initExpPoints(data_);
         initRandomLaws(data_);
@@ -2454,7 +2455,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
         DataBase data_ =init();
         data_.getCombos().setEffects(new ListEffectCombos());
         initPlaces(data_);
-        data_.getMap().setMiniMap(new ObjectMap<MiniMapCoords, TileMiniMap>());
+        data_.getMap().setMiniMap(new MiniMapCoordsList());
         initConstants(data_);
         initExpPoints(data_);
         initRandomLaws(data_);
@@ -2469,7 +2470,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
         DataBase data_ =init();
         data_.getCombos().setEffects(new ListEffectCombos());
         initPlaces(data_);
-        data_.getMap().setMiniMap(new ObjectMap<MiniMapCoords, TileMiniMap>());
+        data_.getMap().setMiniMap(new MiniMapCoordsList());
         initConstants(data_);
         initExpPoints(data_);
         initRandomLaws(data_);
@@ -2484,7 +2485,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
         DataBase data_ =init();
         data_.getCombos().setEffects(new ListEffectCombos());
         initPlaces(data_);
-        data_.getMap().setMiniMap(new ObjectMap<MiniMapCoords, TileMiniMap>());
+        data_.getMap().setMiniMap(new MiniMapCoordsList());
         initConstants(data_);
         initExpPoints(data_);
         initRandomLaws(data_);
@@ -2499,7 +2500,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
         DataBase data_ =init();
         data_.getCombos().setEffects(new ListEffectCombos());
         initPlaces(data_);
-        data_.getMap().setMiniMap(new ObjectMap<MiniMapCoords, TileMiniMap>());
+        data_.getMap().setMiniMap(new MiniMapCoordsList());
         PokemonData pokemon_ = Instances.newPokemonData();
         pokemon_.getStatistics().addEntry(Statistic.ATTACK,new StatBaseEv((short)1,(short)1));
         pokemon_.getStatistics().addEntry(Statistic.SPECIAL_ATTACK,new StatBaseEv((short)1,(short)1));
@@ -2528,7 +2529,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
         DataBase data_ =init();
         data_.getCombos().setEffects(new ListEffectCombos());
         initPlaces(data_);
-        data_.getMap().setMiniMap(new ObjectMap<MiniMapCoords, TileMiniMap>());
+        data_.getMap().setMiniMap(new MiniMapCoordsList());
         PokemonData pokemon_ = Instances.newPokemonData();
         pokemon_.getStatistics().addEntry(Statistic.ATTACK,new StatBaseEv((short)1,(short)1));
         pokemon_.getStatistics().addEntry(Statistic.SPECIAL_ATTACK,new StatBaseEv((short)1,(short)1));
@@ -2558,7 +2559,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
         DataBase data_ =init();
         data_.getCombos().setEffects(new ListEffectCombos());
         initPlaces(data_);
-        data_.getMap().setMiniMap(new ObjectMap<MiniMapCoords, TileMiniMap>());
+        data_.getMap().setMiniMap(new MiniMapCoordsList());
         PokemonData pokemon_ = Instances.newPokemonData();
         pokemon_.getStatistics().addEntry(Statistic.ATTACK,new StatBaseEv((short)1,(short)1));
         pokemon_.getStatistics().addEntry(Statistic.SPECIAL_ATTACK,new StatBaseEv((short)1,(short)1));
@@ -2607,7 +2608,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
         DataBase data_ =init();
         data_.getCombos().setEffects(new ListEffectCombos());
         initPlaces(data_);
-        data_.getMap().setMiniMap(new ObjectMap<MiniMapCoords, TileMiniMap>());
+        data_.getMap().setMiniMap(new MiniMapCoordsList());
         PokemonData pokemon_ = Instances.newPokemonData();
         pokemon_.getStatistics().addEntry(Statistic.ATTACK,new StatBaseEv((short)1,(short)1));
         pokemon_.getStatistics().addEntry(Statistic.SPECIAL_ATTACK,new StatBaseEv((short)1,(short)1));
@@ -2656,7 +2657,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
         DataBase data_ =init();
         data_.getCombos().setEffects(new ListEffectCombos());
         initPlaces(data_);
-        data_.getMap().setMiniMap(new ObjectMap<MiniMapCoords, TileMiniMap>());
+        data_.getMap().setMiniMap(new MiniMapCoordsList());
         PokemonData pokemon_ = Instances.newPokemonData();
         pokemon_.getStatistics().addEntry(Statistic.ATTACK,new StatBaseEv((short)1,(short)1));
         pokemon_.getStatistics().addEntry(Statistic.SPECIAL_ATTACK,new StatBaseEv((short)1,(short)1));
@@ -2704,7 +2705,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
         DataBase data_ =init();
         data_.getCombos().setEffects(new ListEffectCombos());
         initPlaces(data_);
-        data_.getMap().setMiniMap(new ObjectMap<MiniMapCoords, TileMiniMap>());
+        data_.getMap().setMiniMap(new MiniMapCoordsList());
         initConstants(data_);
         initExpPoints(data_);
         initRandomLaws(data_);
@@ -2718,7 +2719,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
         DataBase data_ =init();
         data_.getCombos().setEffects(new ListEffectCombos());
         initPlaces(data_);
-        data_.getMap().setMiniMap(new ObjectMap<MiniMapCoords, TileMiniMap>());
+        data_.getMap().setMiniMap(new MiniMapCoordsList());
         PokemonData pokemon_ = Instances.newPokemonData();
         pokemon_.getStatistics().addEntry(Statistic.ATTACK,new StatBaseEv((short)1,(short)1));
         pokemon_.getStatistics().addEntry(Statistic.SPECIAL_ATTACK,new StatBaseEv((short)1,(short)1));
@@ -2790,7 +2791,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
         DataBase data_ =init();
         data_.getCombos().setEffects(new ListEffectCombos());
         initPlaces(data_);
-        data_.getMap().setMiniMap(new ObjectMap<MiniMapCoords, TileMiniMap>());
+        data_.getMap().setMiniMap(new MiniMapCoordsList());
         PokemonData pokemon_ = Instances.newPokemonData();
         pokemon_.getStatistics().addEntry(Statistic.ATTACK,new StatBaseEv((short)1,(short)1));
         pokemon_.getStatistics().addEntry(Statistic.SPECIAL_ATTACK,new StatBaseEv((short)1,(short)1));
@@ -2840,7 +2841,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
         DataBase data_ =init();
         data_.getCombos().setEffects(new ListEffectCombos());
         initPlaces(data_);
-        data_.getMap().setMiniMap(new ObjectMap<MiniMapCoords, TileMiniMap>());
+        data_.getMap().setMiniMap(new MiniMapCoordsList());
         PokemonData pokemon_ = Instances.newPokemonData();
         pokemon_.getStatistics().addEntry(Statistic.ATTACK,new StatBaseEv((short)1,(short)1));
         pokemon_.getStatistics().addEntry(Statistic.SPECIAL_ATTACK,new StatBaseEv((short)1,(short)1));

@@ -2,6 +2,8 @@ package aiki.map;
 
 import aiki.db.EquallablePkUtil;
 import aiki.game.fight.InitializationDataBase;
+import aiki.map.util.PlaceInterConnects;
+import aiki.util.*;
 import org.junit.Test;
 
 import aiki.map.buildings.Building;
@@ -29,9 +31,6 @@ import aiki.map.places.Place;
 import aiki.map.places.Road;
 import aiki.map.pokemon.WildPk;
 import aiki.map.util.PlaceInterConnect;
-import aiki.util.Coords;
-import aiki.util.LevelPoint;
-import aiki.util.Point;
 import code.util.CustList;
 import code.util.EqList;
 import code.util.*;
@@ -45,10 +44,10 @@ public class DataMapInitializeAccessibilityTest extends EquallablePkUtil {
 
     private static City city() {
         City c_ = new City();
-        c_.setSavedlinks(new ObjectMap<PlaceInterConnect,Coords>());
-        c_.setLinksWithCaves(new ObjectMap<Point,Link>());
+        c_.setSavedlinks(new PlaceInterConnects());
+        c_.setLinksWithCaves(new PointsLink());
         LevelOutdoor city_ = new LevelOutdoor();
-        city_.setBlocks(new ObjectMap<Point,Block>());
+        city_.setBlocks(new PointsBlock());
         Block block_ = new Block((short)3,(short)3, EnvironmentType.ROAD, VOIE);
         city_.getBlocks().put(new Point((short)0,(short)0), block_);
         block_ = new Block((short)3,(short)3, EnvironmentType.ROAD, VOIE);
@@ -68,25 +67,25 @@ public class DataMapInitializeAccessibilityTest extends EquallablePkUtil {
         block_ = new Block((short)3,(short)3, EnvironmentType.ROAD, VOIE);
         city_.getBlocks().put(new Point((short)6,(short)6), block_);
         c_.setLevel(city_);
-        c_.setBuildings(new ObjectMap<Point,Building>());
+        c_.setBuildings(new PointsBuilding());
         Gym gym_ = new Gym();
         gym_.setExitCity(new Point((short)1,(short)0));
         gym_.setLevel(new LevelIndoorGym());
-        gym_.getLevel().setBlocks(new ObjectMap<Point,Block>());
+        gym_.getLevel().setBlocks(new PointsBlock());
         block_ = new Block((short)6,(short)6, EnvironmentType.BUILDING, VOIE);
         gym_.getLevel().getBlocks().put(new Point((short)0,(short)0), block_);
         gym_.getIndoor().setGymLeaderCoords(new Point((short)1,(short)1));
-        gym_.getIndoor().setGymTrainers(new ObjectMap<Point,GymTrainer>());
+        gym_.getIndoor().setGymTrainers(new PointsGymTrainer());
         c_.getBuildings().put(new Point((short)4,(short)5), gym_);
         return c_;
     }
 
     private static City cityPkCenter() {
         City c_ = new City();
-        c_.setSavedlinks(new ObjectMap<PlaceInterConnect,Coords>());
-        c_.setLinksWithCaves(new ObjectMap<Point,Link>());
+        c_.setSavedlinks(new PlaceInterConnects());
+        c_.setLinksWithCaves(new PointsLink());
         LevelOutdoor city_ = new LevelOutdoor();
-        city_.setBlocks(new ObjectMap<Point,Block>());
+        city_.setBlocks(new PointsBlock());
         Block block_ = new Block((short)3,(short)3, EnvironmentType.ROAD, VOIE);
         city_.getBlocks().put(new Point((short)0,(short)0), block_);
         block_ = new Block((short)3,(short)3, EnvironmentType.ROAD, VOIE);
@@ -106,11 +105,11 @@ public class DataMapInitializeAccessibilityTest extends EquallablePkUtil {
         block_ = new Block((short)3,(short)3, EnvironmentType.ROAD, VOIE);
         city_.getBlocks().put(new Point((short)6,(short)6), block_);
         c_.setLevel(city_);
-        c_.setBuildings(new ObjectMap<Point,Building>());
+        c_.setBuildings(new PointsBuilding());
         PokemonCenter pkCenter_ = new PokemonCenter();
         pkCenter_.setExitCity(new Point((short)1,(short)1));
         LevelIndoorPokemonCenter lIndoor_ = new LevelIndoorPokemonCenter();
-        lIndoor_.setBlocks(new ObjectMap<Point,Block>());
+        lIndoor_.setBlocks(new PointsBlock());
         block_ = new Block((short)3,(short)3, EnvironmentType.ROAD, VOIE);
         lIndoor_.getBlocks().put(new Point((short)0,(short)0), block_);
         pkCenter_.setLevel(lIndoor_);
@@ -120,16 +119,16 @@ public class DataMapInitializeAccessibilityTest extends EquallablePkUtil {
 
     private static Road hroad() {
         Road road_ = new Road();
-        road_.setSavedlinks(new ObjectMap<PlaceInterConnect,Coords>());
-        road_.setLinksWithCaves(new ObjectMap<Point,Link>());
+        road_.setSavedlinks(new PlaceInterConnects());
+        road_.setLinksWithCaves(new PointsLink());
         LevelRoad level_ = new LevelRoad();
-        level_.setCharacters(new ObjectMap<Point,CharacterInRoadCave>());
-        level_.setDualFights(new ObjectMap<Point,DualFight>());
-        level_.setBlocks(new ObjectMap<Point,Block>());
-        level_.setLegendaryPks(new ObjectMap<Point,WildPk>());
-        level_.setItems(new ObjectMap<Point,String>());
-        level_.setHm(new ObjectMap<Point,Short>());
-        level_.setTm(new ObjectMap<Point,Short>());
+        level_.setCharacters(new PointsCharacterInRoadCave());
+        level_.setDualFights(new PointsDualFight());
+        level_.setBlocks(new PointsBlock());
+        level_.setLegendaryPks(new PointsWildPk());
+        level_.setItems(new PointsString());
+        level_.setHm(new PointsShort());
+        level_.setTm(new PointsShort());
         level_.setWildPokemonAreas(new CustList<AreaApparition>());
         Block block_ = new Block((short)6,(short)3, EnvironmentType.ROAD, VOIE);
         level_.getBlocks().put(new Point((short)0,(short)0), block_);
@@ -138,16 +137,16 @@ public class DataMapInitializeAccessibilityTest extends EquallablePkUtil {
     }
     private static Road vroad() {
         Road road_ = new Road();
-        road_.setSavedlinks(new ObjectMap<PlaceInterConnect,Coords>());
-        road_.setLinksWithCaves(new ObjectMap<Point,Link>());
+        road_.setSavedlinks(new PlaceInterConnects());
+        road_.setLinksWithCaves(new PointsLink());
         LevelRoad level_ = new LevelRoad();
-        level_.setCharacters(new ObjectMap<Point,CharacterInRoadCave>());
-        level_.setDualFights(new ObjectMap<Point,DualFight>());
-        level_.setBlocks(new ObjectMap<Point,Block>());
-        level_.setLegendaryPks(new ObjectMap<Point,WildPk>());
-        level_.setItems(new ObjectMap<Point,String>());
-        level_.setHm(new ObjectMap<Point,Short>());
-        level_.setTm(new ObjectMap<Point,Short>());
+        level_.setCharacters(new PointsCharacterInRoadCave());
+        level_.setDualFights(new PointsDualFight());
+        level_.setBlocks(new PointsBlock());
+        level_.setLegendaryPks(new PointsWildPk());
+        level_.setItems(new PointsString());
+        level_.setHm(new PointsShort());
+        level_.setTm(new PointsShort());
         level_.setWildPokemonAreas(new CustList<AreaApparition>());
         Block block_ = new Block((short)3,(short)6, EnvironmentType.ROAD, VOIE);
         level_.getBlocks().put(new Point((short)0,(short)0), block_);
@@ -157,16 +156,16 @@ public class DataMapInitializeAccessibilityTest extends EquallablePkUtil {
 
     private static Road vroadBlocked() {
         Road road_ = new Road();
-        road_.setSavedlinks(new ObjectMap<PlaceInterConnect,Coords>());
-        road_.setLinksWithCaves(new ObjectMap<Point,Link>());
+        road_.setSavedlinks(new PlaceInterConnects());
+        road_.setLinksWithCaves(new PointsLink());
         LevelRoad level_ = new LevelRoad();
-        level_.setCharacters(new ObjectMap<Point,CharacterInRoadCave>());
-        level_.setDualFights(new ObjectMap<Point,DualFight>());
-        level_.setBlocks(new ObjectMap<Point,Block>());
-        level_.setLegendaryPks(new ObjectMap<Point,WildPk>());
-        level_.setItems(new ObjectMap<Point,String>());
-        level_.setHm(new ObjectMap<Point,Short>());
-        level_.setTm(new ObjectMap<Point,Short>());
+        level_.setCharacters(new PointsCharacterInRoadCave());
+        level_.setDualFights(new PointsDualFight());
+        level_.setBlocks(new PointsBlock());
+        level_.setLegendaryPks(new PointsWildPk());
+        level_.setItems(new PointsString());
+        level_.setHm(new PointsShort());
+        level_.setTm(new PointsShort());
         level_.setWildPokemonAreas(new CustList<AreaApparition>());
         Block block_ = new Block((short)3,(short)3, EnvironmentType.ROAD, VOIE);
         level_.getBlocks().put(new Point((short)0,(short)0), block_);
@@ -179,20 +178,20 @@ public class DataMapInitializeAccessibilityTest extends EquallablePkUtil {
     private static Cave cave() {
         Cave cave_ = new Cave();
         cave_.setLevels(new CustList<LevelCave>());
-        cave_.setLinksWithOtherPlaces(new ObjectMap<LevelPoint,Link>());
+        cave_.setLinksWithOtherPlaces(new LevelPoints());
         return cave_;
     }
     private static LevelCave levelCaveOne() {
         LevelCave levelCave_;
         levelCave_ = new LevelCave();
-        levelCave_.setBlocks(new ObjectMap<Point,Block>());
-        levelCave_.setCharacters(new ObjectMap<Point,CharacterInRoadCave>());
-        levelCave_.setDualFights(new ObjectMap<Point,DualFight>());
-        levelCave_.setLinksOtherLevels(new ObjectMap<Point,Link>());
-        levelCave_.setLegendaryPks(new ObjectMap<Point,WildPk>());
-        levelCave_.setItems(new ObjectMap<Point,String>());
-        levelCave_.setHm(new ObjectMap<Point,Short>());
-        levelCave_.setTm(new ObjectMap<Point,Short>());
+        levelCave_.setBlocks(new PointsBlock());
+        levelCave_.setCharacters(new PointsCharacterInRoadCave());
+        levelCave_.setDualFights(new PointsDualFight());
+        levelCave_.setLinksOtherLevels(new PointsLink());
+        levelCave_.setLegendaryPks(new PointsWildPk());
+        levelCave_.setItems(new PointsString());
+        levelCave_.setHm(new PointsShort());
+        levelCave_.setTm(new PointsShort());
         levelCave_.setWildPokemonAreas(new CustList<AreaApparition>());
         Block block_ = new Block((short)3,(short)6, EnvironmentType.ROCK, VOIE);
         levelCave_.getBlocks().put(new Point((short)0,(short)0), block_);
@@ -201,14 +200,14 @@ public class DataMapInitializeAccessibilityTest extends EquallablePkUtil {
     private static LevelCave levelCaveTwo() {
         LevelCave levelCave_;
         levelCave_ = new LevelCave();
-        levelCave_.setBlocks(new ObjectMap<Point,Block>());
-        levelCave_.setCharacters(new ObjectMap<Point,CharacterInRoadCave>());
-        levelCave_.setDualFights(new ObjectMap<Point,DualFight>());
-        levelCave_.setLinksOtherLevels(new ObjectMap<Point,Link>());
-        levelCave_.setLegendaryPks(new ObjectMap<Point,WildPk>());
-        levelCave_.setItems(new ObjectMap<Point,String>());
-        levelCave_.setHm(new ObjectMap<Point,Short>());
-        levelCave_.setTm(new ObjectMap<Point,Short>());
+        levelCave_.setBlocks(new PointsBlock());
+        levelCave_.setCharacters(new PointsCharacterInRoadCave());
+        levelCave_.setDualFights(new PointsDualFight());
+        levelCave_.setLinksOtherLevels(new PointsLink());
+        levelCave_.setLegendaryPks(new PointsWildPk());
+        levelCave_.setItems(new PointsString());
+        levelCave_.setHm(new PointsShort());
+        levelCave_.setTm(new PointsShort());
         levelCave_.setWildPokemonAreas(new CustList<AreaApparition>());
         Block block_ = new Block((short)3,(short)3, EnvironmentType.ROCK, VOIE);
         levelCave_.getBlocks().put(new Point((short)0,(short)0), block_);
@@ -221,7 +220,7 @@ public class DataMapInitializeAccessibilityTest extends EquallablePkUtil {
         league_.setAccessCoords(_access);
         league_.setRooms(new CustList<LevelLeague>());
         LevelLeague level_ = new LevelLeague();
-        level_.setBlocks(new ObjectMap<Point,Block>());
+        level_.setBlocks(new PointsBlock());
         Block block_ = new Block((short)5,(short)5, EnvironmentType.ROAD, VOIE);
         level_.getBlocks().put(new Point((short)0,(short)0), block_);
         level_.setAccessPoint(new Point((short)2,(short)0));
@@ -229,7 +228,7 @@ public class DataMapInitializeAccessibilityTest extends EquallablePkUtil {
         level_.setTrainerCoords(new Point((short)2,(short)2));
         league_.getRooms().add(level_);
         level_ = new LevelLeague();
-        level_.setBlocks(new ObjectMap<Point,Block>());
+        level_.setBlocks(new PointsBlock());
         block_ = new Block((short)5,(short)5, EnvironmentType.ROAD, VOIE);
         level_.getBlocks().put(new Point((short)0,(short)0), block_);
         level_.setAccessPoint(new Point((short)2,(short)0));
@@ -285,7 +284,7 @@ public class DataMapInitializeAccessibilityTest extends EquallablePkUtil {
         Road roadFive_ = hroad();
         Road roadSix_ = hroad();
         DataMap dataMap_ = new DataMap();
-        dataMap_.setAccessCondition(new ObjectMap<Coords,EqList<Coords>>());
+        dataMap_.setAccessCondition(new CoordsLists());
         initPlaces(dataMap_);
         addCity(cityOne_, dataMap_);
         addRoad(roadOne_, dataMap_);
@@ -315,7 +314,7 @@ public class DataMapInitializeAccessibilityTest extends EquallablePkUtil {
         dataMap_.join((short)8, (short)5, new Point((short)0,(short)1), new Point((short)2,(short)4), Direction.LEFT);
         dataMap_.join((short)10, (short)0, new Point((short)5,(short)1), new Point((short)0,(short)5), Direction.RIGHT);
         dataMap_.join((short)10, (short)11, new Point((short)0,(short)1), new Point((short)8,(short)4), Direction.LEFT);
-        EqList<Coords> leaders_ = new EqList<Coords>();
+        Condition leaders_ = new Condition();
         leaders_.add(coords(0,4,5,1,1));
         leaders_.add(coords(2,4,5,1,1));
         leaders_.add(coords(4,4,5,1,1));
@@ -326,20 +325,20 @@ public class DataMapInitializeAccessibilityTest extends EquallablePkUtil {
         coordsBlock_.setLevel(new LevelPoint());
         coordsBlock_.getLevel().setLevelIndex((byte) 0);
         coordsBlock_.getLevel().setPoint(new Point((short)3,(short)0));
-        dataMap_.getAccessCondition().put(coordsBlock_, new EqList<Coords>(leaders_));
+        dataMap_.getAccessCondition().put(coordsBlock_, new Condition(leaders_));
         coordsBlock_ = new Coords();
         coordsBlock_.setNumberPlace((short) 7);
         coordsBlock_.setLevel(new LevelPoint());
         coordsBlock_.getLevel().setLevelIndex((byte) 0);
         coordsBlock_.getLevel().setPoint(new Point((short)3,(short)1));
-        dataMap_.getAccessCondition().put(coordsBlock_, new EqList<Coords>(leaders_));
+        dataMap_.getAccessCondition().put(coordsBlock_, new Condition(leaders_));
         coordsBlock_ = new Coords();
         coordsBlock_.setNumberPlace((short) 7);
         coordsBlock_.setLevel(new LevelPoint());
         coordsBlock_.getLevel().setLevelIndex((byte) 0);
         coordsBlock_.getLevel().setPoint(new Point((short)3,(short)2));
-        dataMap_.getAccessCondition().put(coordsBlock_, new EqList<Coords>(leaders_));
-        leaders_ = new EqList<Coords>();
+        dataMap_.getAccessCondition().put(coordsBlock_, new Condition(leaders_));
+        leaders_ = new Condition();
         leaders_.add(coords(0,4,5,1,1));
         Coords coords_;
         coords_ = new Coords();
@@ -360,7 +359,7 @@ public class DataMapInitializeAccessibilityTest extends EquallablePkUtil {
         coords_.getLevel().setLevelIndex((byte) 0);
         coords_.getLevel().setPoint(new Point((short)2,(short)2));
         dataMap_.getAccessCondition().put(coords_, leaders_);
-        leaders_ = new EqList<Coords>();
+        leaders_ = new Condition();
         leaders_.add(coords(2,4,5,1,1));
         coords_ = new Coords();
         coords_.setNumberPlace((short) 3);
@@ -380,7 +379,7 @@ public class DataMapInitializeAccessibilityTest extends EquallablePkUtil {
         coords_.getLevel().setLevelIndex((byte) 0);
         coords_.getLevel().setPoint(new Point((short)3,(short)2));
         dataMap_.getAccessCondition().put(coords_, leaders_);
-        leaders_ = new EqList<Coords>();
+        leaders_ = new Condition();
         leaders_.add(coords(4,4,5,1,1));
         coords_ = new Coords();
         coords_.setNumberPlace((short) 5);
@@ -400,7 +399,7 @@ public class DataMapInitializeAccessibilityTest extends EquallablePkUtil {
         coords_.getLevel().setLevelIndex((byte) 0);
         coords_.getLevel().setPoint(new Point((short)2,(short)1));
         dataMap_.getAccessCondition().put(coords_, leaders_);
-        EqList<Coords> leagues_ = new EqList<Coords>();
+        Condition leagues_ = new Condition();
         leagues_.add(coords(9,0,2,4));
         coords_ = new Coords();
         coords_.setNumberPlace((short) 10);
@@ -455,7 +454,7 @@ public class DataMapInitializeAccessibilityTest extends EquallablePkUtil {
         levels_.add(level_);
         cave_.setLevels(levels_);
         DataMap dataMap_ = new DataMap();
-        dataMap_.setAccessCondition(new ObjectMap<Coords,EqList<Coords>>());
+        dataMap_.setAccessCondition(new CoordsLists());
         initPlaces(dataMap_);
         addCity(city_, dataMap_);
         addCave(cave_, dataMap_);
@@ -485,7 +484,7 @@ public class DataMapInitializeAccessibilityTest extends EquallablePkUtil {
         levels_.add(level_);
         cave_.setLevels(levels_);
         DataMap dataMap_ = new DataMap();
-        dataMap_.setAccessCondition(new ObjectMap<Coords,EqList<Coords>>());
+        dataMap_.setAccessCondition(new CoordsLists());
         initPlaces(dataMap_);
         addCity(city_, dataMap_);
         addCave(cave_, dataMap_);
@@ -508,7 +507,7 @@ public class DataMapInitializeAccessibilityTest extends EquallablePkUtil {
         levels_.add(level_);
         cave_.setLevels(levels_);
         DataMap dataMap_ = new DataMap();
-        dataMap_.setAccessCondition(new ObjectMap<Coords,EqList<Coords>>());
+        dataMap_.setAccessCondition(new CoordsLists());
         initPlaces(dataMap_);
         addRoad(road_, dataMap_);
         addCave(cave_, dataMap_);
@@ -524,7 +523,7 @@ public class DataMapInitializeAccessibilityTest extends EquallablePkUtil {
     public void getNext4Test() {
         City city_ = city();
         DataMap dataMap_ = new DataMap();
-        dataMap_.setAccessCondition(new ObjectMap<Coords,EqList<Coords>>());
+        dataMap_.setAccessCondition(new CoordsLists());
         initPlaces(dataMap_);
         addCity(city_, dataMap_);
         ObjectMap<Coords,Condition> next_ = dataMap_.getNext(coords(0, 0, 3, 6), new Condition());
@@ -538,7 +537,7 @@ public class DataMapInitializeAccessibilityTest extends EquallablePkUtil {
     public void getNext5Test() {
         City city_ = city();
         DataMap dataMap_ = new DataMap();
-        dataMap_.setAccessCondition(new ObjectMap<Coords,EqList<Coords>>());
+        dataMap_.setAccessCondition(new CoordsLists());
         initPlaces(dataMap_);
         addCity(city_, dataMap_);
         ObjectMap<Coords,Condition> next_ = dataMap_.getNext(coords(0, 0, 4, 6), new Condition());
@@ -553,7 +552,7 @@ public class DataMapInitializeAccessibilityTest extends EquallablePkUtil {
     public void getNext6Test() {
         City city_ = city();
         DataMap dataMap_ = new DataMap();
-        dataMap_.setAccessCondition(new ObjectMap<Coords,EqList<Coords>>());
+        dataMap_.setAccessCondition(new CoordsLists());
         initPlaces(dataMap_);
         addCity(city_, dataMap_);
         ObjectMap<Coords,Condition> next_ = dataMap_.getNext(coords(0, 4, 5, 1, 0), new Condition());
@@ -564,7 +563,7 @@ public class DataMapInitializeAccessibilityTest extends EquallablePkUtil {
     public void getNext7Test() {
         City city_ = city();
         DataMap dataMap_ = new DataMap();
-        dataMap_.setAccessCondition(new ObjectMap<Coords,EqList<Coords>>());
+        dataMap_.setAccessCondition(new CoordsLists());
         initPlaces(dataMap_);
         addCity(city_, dataMap_);
         ObjectMap<Coords,Condition> next_ = dataMap_.getNext(coords(0, 0, 4, 8), new Condition());
@@ -579,7 +578,7 @@ public class DataMapInitializeAccessibilityTest extends EquallablePkUtil {
         City city_ = city();
         Road road_ = vroad();
         DataMap dataMap_ = new DataMap();
-        dataMap_.setAccessCondition(new ObjectMap<Coords,EqList<Coords>>());
+        dataMap_.setAccessCondition(new CoordsLists());
         initPlaces(dataMap_);
         addCity(city_, dataMap_);
         addRoad(road_, dataMap_);
@@ -600,7 +599,7 @@ public class DataMapInitializeAccessibilityTest extends EquallablePkUtil {
         levels_.add(level_);
         cave_.setLevels(levels_);
         DataMap dataMap_ = new DataMap();
-        dataMap_.setAccessCondition(new ObjectMap<Coords,EqList<Coords>>());
+        dataMap_.setAccessCondition(new CoordsLists());
         initPlaces(dataMap_);
         addCave(cave_, dataMap_);
         ObjectMap<Coords,Condition> next_ = dataMap_.getNext(coords(0, 0, 1, 1), new Condition());
@@ -619,7 +618,7 @@ public class DataMapInitializeAccessibilityTest extends EquallablePkUtil {
         levels_.add(levelCaveOne());
         cave_.setLevels(levels_);
         DataMap dataMap_ = new DataMap();
-        dataMap_.setAccessCondition(new ObjectMap<Coords,EqList<Coords>>());
+        dataMap_.setAccessCondition(new CoordsLists());
         initPlaces(dataMap_);
         addCity(city_, dataMap_);
         addCave(cave_, dataMap_);
@@ -643,7 +642,7 @@ public class DataMapInitializeAccessibilityTest extends EquallablePkUtil {
         levels_.add(level_);
         cave_.setLevels(levels_);
         DataMap dataMap_ = new DataMap();
-        dataMap_.setAccessCondition(new ObjectMap<Coords,EqList<Coords>>());
+        dataMap_.setAccessCondition(new CoordsLists());
         initPlaces(dataMap_);
         addCity(city_, dataMap_);
         addCave(cave_, dataMap_);
@@ -667,7 +666,7 @@ public class DataMapInitializeAccessibilityTest extends EquallablePkUtil {
         levels_.add(level_);
         cave_.setLevels(levels_);
         DataMap dataMap_ = new DataMap();
-        dataMap_.setAccessCondition(new ObjectMap<Coords,EqList<Coords>>());
+        dataMap_.setAccessCondition(new CoordsLists());
         initPlaces(dataMap_);
         addCave(cave_, dataMap_);
         ObjectMap<Coords,Condition> next_ = dataMap_.getNext(coords(0, 0, 1, 1), new Condition());
@@ -681,7 +680,7 @@ public class DataMapInitializeAccessibilityTest extends EquallablePkUtil {
     public void getNext13Test() {
         Road road_ = hroad();
         DataMap dataMap_ = new DataMap();
-        dataMap_.setAccessCondition(new ObjectMap<Coords,EqList<Coords>>());
+        dataMap_.setAccessCondition(new CoordsLists());
         initPlaces(dataMap_);
         addRoad(road_, dataMap_);
         Coords coordsAccessLeague_ = coords(0, 0, 5, 1);
@@ -699,7 +698,7 @@ public class DataMapInitializeAccessibilityTest extends EquallablePkUtil {
     public void getNext14Test() {
         Road road_ = hroad();
         DataMap dataMap_ = new DataMap();
-        dataMap_.setAccessCondition(new ObjectMap<Coords,EqList<Coords>>());
+        dataMap_.setAccessCondition(new CoordsLists());
         initPlaces(dataMap_);
         addRoad(road_, dataMap_);
         Coords coordsAccessLeague_ = coords(0, 0, 5, 1);
@@ -718,7 +717,7 @@ public class DataMapInitializeAccessibilityTest extends EquallablePkUtil {
     public void getNext15Test() {
         Road road_ = hroad();
         DataMap dataMap_ = new DataMap();
-        dataMap_.setAccessCondition(new ObjectMap<Coords,EqList<Coords>>());
+        dataMap_.setAccessCondition(new CoordsLists());
         initPlaces(dataMap_);
         addRoad(road_, dataMap_);
         Coords coordsAccessLeague_ = coords(0, 0, 5, 1);
@@ -739,7 +738,7 @@ public class DataMapInitializeAccessibilityTest extends EquallablePkUtil {
     public void getNext16Test() {
         Road road_ = hroad();
         DataMap dataMap_ = new DataMap();
-        dataMap_.setAccessCondition(new ObjectMap<Coords,EqList<Coords>>());
+        dataMap_.setAccessCondition(new CoordsLists());
         initPlaces(dataMap_);
         addRoad(road_, dataMap_);
         Coords coordsAccessLeague_ = coords(0, 0, 5, 1);
@@ -756,7 +755,7 @@ public class DataMapInitializeAccessibilityTest extends EquallablePkUtil {
     public void getNext17Test() {
         Road road_ = hroad();
         DataMap dataMap_ = new DataMap();
-        dataMap_.setAccessCondition(new ObjectMap<Coords,EqList<Coords>>());
+        dataMap_.setAccessCondition(new CoordsLists());
         initPlaces(dataMap_);
         addRoad(road_, dataMap_);
         Coords coordsAccessLeague_ = coords(0, 0, 5, 1);
@@ -774,7 +773,7 @@ public class DataMapInitializeAccessibilityTest extends EquallablePkUtil {
     public void getNext18Test() {
         Road road_ = hroad();
         DataMap dataMap_ = new DataMap();
-        dataMap_.setAccessCondition(new ObjectMap<Coords,EqList<Coords>>());
+        dataMap_.setAccessCondition(new CoordsLists());
         initPlaces(dataMap_);
         addRoad(road_, dataMap_);
         Coords coordsAccessLeague_ = coords(0, 0, 5, 1);
@@ -791,7 +790,7 @@ public class DataMapInitializeAccessibilityTest extends EquallablePkUtil {
     public void getNext19Test() {
         City city_ = cityPkCenter();
         DataMap dataMap_ = new DataMap();
-        dataMap_.setAccessCondition(new ObjectMap<Coords,EqList<Coords>>());
+        dataMap_.setAccessCondition(new CoordsLists());
         initPlaces(dataMap_);
         addCity(city_, dataMap_);
         ObjectMap<Coords,Condition> next_ = dataMap_.getNext(coords(0, 0, 4, 6), new Condition());
@@ -806,7 +805,7 @@ public class DataMapInitializeAccessibilityTest extends EquallablePkUtil {
     public void getNext20Test() {
         Road road_ = vroadBlocked();
         DataMap dataMap_ = new DataMap();
-        dataMap_.setAccessCondition(new ObjectMap<Coords,EqList<Coords>>());
+        dataMap_.setAccessCondition(new CoordsLists());
         initPlaces(dataMap_);
         addRoad(road_, dataMap_);
         ObjectMap<Coords,Condition> next_ = dataMap_.getNext(coords(0, 0, 1, 2), new Condition());
@@ -821,7 +820,7 @@ public class DataMapInitializeAccessibilityTest extends EquallablePkUtil {
         Road roadOne_ = vroadBlocked();
         Road roadTwo_ = vroadBlocked();
         DataMap dataMap_ = new DataMap();
-        dataMap_.setAccessCondition(new ObjectMap<Coords,EqList<Coords>>());
+        dataMap_.setAccessCondition(new CoordsLists());
         initPlaces(dataMap_);
         addRoad(roadOne_, dataMap_);
         addRoad(roadTwo_, dataMap_);
@@ -838,7 +837,7 @@ public class DataMapInitializeAccessibilityTest extends EquallablePkUtil {
         Road roadOne_ = vroadBlocked();
         Road roadTwo_ = vroadBlocked();
         DataMap dataMap_ = new DataMap();
-        dataMap_.setAccessCondition(new ObjectMap<Coords,EqList<Coords>>());
+        dataMap_.setAccessCondition(new CoordsLists());
         initPlaces(dataMap_);
         addRoad(roadOne_, dataMap_);
         roadTwo_.getPointsWithCitiesAndOtherRoads().put(new PlaceInterConnect(point(1, 0), Direction.UP), coords(0, 0, 5, 5));
@@ -860,7 +859,7 @@ public class DataMapInitializeAccessibilityTest extends EquallablePkUtil {
         levels_.add(level_);
         cave_.setLevels(levels_);
         DataMap dataMap_ = new DataMap();
-        dataMap_.setAccessCondition(new ObjectMap<Coords,EqList<Coords>>());
+        dataMap_.setAccessCondition(new CoordsLists());
         initPlaces(dataMap_);
         addRoad(roadOne_, dataMap_);
         addCave(cave_, dataMap_);
@@ -881,7 +880,7 @@ public class DataMapInitializeAccessibilityTest extends EquallablePkUtil {
         levels_.add(level_);
         cave_.setLevels(levels_);
         DataMap dataMap_ = new DataMap();
-        dataMap_.setAccessCondition(new ObjectMap<Coords,EqList<Coords>>());
+        dataMap_.setAccessCondition(new CoordsLists());
         initPlaces(dataMap_);
         addRoad(roadOne_, dataMap_);
         addCave(cave_, dataMap_);
@@ -902,7 +901,7 @@ public class DataMapInitializeAccessibilityTest extends EquallablePkUtil {
         levels_.add(level_);
         cave_.setLevels(levels_);
         DataMap dataMap_ = new DataMap();
-        dataMap_.setAccessCondition(new ObjectMap<Coords,EqList<Coords>>());
+        dataMap_.setAccessCondition(new CoordsLists());
         initPlaces(dataMap_);
         addRoad(roadOne_, dataMap_);
         addCave(cave_, dataMap_);
@@ -919,14 +918,14 @@ public class DataMapInitializeAccessibilityTest extends EquallablePkUtil {
         Road road_ = vroad();
         City city_ = city();
         DataMap dataMap_ = new DataMap();
-        dataMap_.setAccessCondition(new ObjectMap<Coords,EqList<Coords>>());
+        dataMap_.setAccessCondition(new CoordsLists());
         initPlaces(dataMap_);
         addRoad(road_, dataMap_);
         addCity(city_, dataMap_);
         dataMap_.join((byte) 0,(byte) 1, point(1, 0), point(4, 8), Direction.UP);
-        dataMap_.getAccessCondition().put(coords(0, 0, 0, 3), new EqList<Coords>(coords(1, 4, 5, 1, 1)));
-        dataMap_.getAccessCondition().put(coords(0, 0, 1, 3), new EqList<Coords>(coords(1, 4, 5, 1, 1)));
-        dataMap_.getAccessCondition().put(coords(0, 0, 2, 3), new EqList<Coords>(coords(1, 4, 5, 1, 1)));
+        dataMap_.getAccessCondition().put(coords(0, 0, 0, 3), new Condition(coords(1, 4, 5, 1, 1)));
+        dataMap_.getAccessCondition().put(coords(0, 0, 1, 3), new Condition(coords(1, 4, 5, 1, 1)));
+        dataMap_.getAccessCondition().put(coords(0, 0, 2, 3), new Condition(coords(1, 4, 5, 1, 1)));
         dataMap_.setBegin(coords(0, 0, 0, 0));
         ObjectMap<Coords, Condition> visited_;
         visited_ = new ObjectMap<Coords, Condition>();
@@ -1102,7 +1101,7 @@ public class DataMapInitializeAccessibilityTest extends EquallablePkUtil {
         visited_.put(coords_,dataMap_.initCondition(coords_, new Condition()));
         coords_ = coords(1,4,5,1,0);
         visited_.put(coords_,dataMap_.initCondition(coords_, new Condition()));
-        assertTrue(dataMap_.validConditions(new EqList<Coords>(coords(0, 0, 0, 3),coords(0, 0, 1, 3),coords(0, 0, 2, 3)),visited_));
+        assertTrue(dataMap_.validConditions(new Condition(coords(0, 0, 0, 3),coords(0, 0, 1, 3),coords(0, 0, 2, 3)),visited_));
     }
 
     @Test
@@ -1110,20 +1109,20 @@ public class DataMapInitializeAccessibilityTest extends EquallablePkUtil {
         Road road_ = vroad();
         City city_ = city();
         DataMap dataMap_ = new DataMap();
-        dataMap_.setAccessCondition(new ObjectMap<Coords,EqList<Coords>>());
+        dataMap_.setAccessCondition(new CoordsLists());
         initPlaces(dataMap_);
         addRoad(road_, dataMap_);
         addCity(city_, dataMap_);
         dataMap_.join((byte) 0,(byte) 1, point(1, 0), point(4, 8), Direction.UP);
-        dataMap_.getAccessCondition().put(coords(0, 0, 0, 3), new EqList<Coords>(coords(1, 4, 5, 1, 1)));
-        dataMap_.getAccessCondition().put(coords(0, 0, 1, 3), new EqList<Coords>(coords(1, 4, 5, 1, 1)));
-        dataMap_.getAccessCondition().put(coords(0, 0, 2, 3), new EqList<Coords>(coords(1, 4, 5, 1, 1)));
-        dataMap_.getAccessCondition().put(coords(1, 0, 0, 5), new EqList<Coords>(coords(1, 4, 5, 1, 1)));
-        dataMap_.getAccessCondition().put(coords(1, 0, 1, 5), new EqList<Coords>(coords(1, 4, 5, 1, 1)));
-        dataMap_.getAccessCondition().put(coords(1, 0, 2, 5), new EqList<Coords>(coords(1, 4, 5, 1, 1)));
-        dataMap_.getAccessCondition().put(coords(1, 0, 6, 5), new EqList<Coords>(coords(1, 4, 5, 1, 1)));
-        dataMap_.getAccessCondition().put(coords(1, 0, 7, 5), new EqList<Coords>(coords(1, 4, 5, 1, 1)));
-        dataMap_.getAccessCondition().put(coords(1, 0, 8, 5), new EqList<Coords>(coords(1, 4, 5, 1, 1)));
+        dataMap_.getAccessCondition().put(coords(0, 0, 0, 3), new Condition(coords(1, 4, 5, 1, 1)));
+        dataMap_.getAccessCondition().put(coords(0, 0, 1, 3), new Condition(coords(1, 4, 5, 1, 1)));
+        dataMap_.getAccessCondition().put(coords(0, 0, 2, 3), new Condition(coords(1, 4, 5, 1, 1)));
+        dataMap_.getAccessCondition().put(coords(1, 0, 0, 5), new Condition(coords(1, 4, 5, 1, 1)));
+        dataMap_.getAccessCondition().put(coords(1, 0, 1, 5), new Condition(coords(1, 4, 5, 1, 1)));
+        dataMap_.getAccessCondition().put(coords(1, 0, 2, 5), new Condition(coords(1, 4, 5, 1, 1)));
+        dataMap_.getAccessCondition().put(coords(1, 0, 6, 5), new Condition(coords(1, 4, 5, 1, 1)));
+        dataMap_.getAccessCondition().put(coords(1, 0, 7, 5), new Condition(coords(1, 4, 5, 1, 1)));
+        dataMap_.getAccessCondition().put(coords(1, 0, 8, 5), new Condition(coords(1, 4, 5, 1, 1)));
         dataMap_.setBegin(coords(0, 0, 0, 0));
         ObjectMap<Coords, Condition> visited_;
         visited_ = new ObjectMap<Coords, Condition>();
@@ -1221,7 +1220,7 @@ public class DataMapInitializeAccessibilityTest extends EquallablePkUtil {
         visited_.put(coords_,dataMap_.initCondition(coords_, new Condition()));
         coords_ = coords(1,4,5,1,0);
         visited_.put(coords_,dataMap_.initCondition(coords_, new Condition()));
-        assertTrue(dataMap_.validConditions(new EqList<Coords>(coords(0, 0, 0, 3),coords(0, 0, 1, 3),coords(0, 0, 2, 3),coords(1, 0, 0, 5),coords(1, 0, 1, 5),coords(1, 0, 2, 5),coords(1, 0, 6, 5),coords(1, 0, 7, 5),coords(1, 0, 8, 5)),visited_));
+        assertTrue(dataMap_.validConditions(new Condition(coords(0, 0, 0, 3),coords(0, 0, 1, 3),coords(0, 0, 2, 3),coords(1, 0, 0, 5),coords(1, 0, 1, 5),coords(1, 0, 2, 5),coords(1, 0, 6, 5),coords(1, 0, 7, 5),coords(1, 0, 8, 5)),visited_));
     }
 
     @Test
@@ -1230,20 +1229,20 @@ public class DataMapInitializeAccessibilityTest extends EquallablePkUtil {
         road_.getLevelRoad().getDualFights().put(point(2,2),new DualFight());
         City city_ = city();
         DataMap dataMap_ = new DataMap();
-        dataMap_.setAccessCondition(new ObjectMap<Coords,EqList<Coords>>());
+        dataMap_.setAccessCondition(new CoordsLists());
         initPlaces(dataMap_);
         addRoad(road_, dataMap_);
         addCity(city_, dataMap_);
         dataMap_.join((byte) 0,(byte) 1, point(1, 0), point(4, 8), Direction.UP);
-        dataMap_.getAccessCondition().put(coords(0, 0, 0, 3), new EqList<Coords>(coords(0, 0, 2, 2)));
-        dataMap_.getAccessCondition().put(coords(0, 0, 1, 3), new EqList<Coords>(coords(1, 4, 5, 1, 1)));
-        dataMap_.getAccessCondition().put(coords(0, 0, 2, 3), new EqList<Coords>(coords(1, 4, 5, 1, 1)));
-        dataMap_.getAccessCondition().put(coords(1, 0, 0, 5), new EqList<Coords>(coords(1, 4, 5, 1, 1)));
-        dataMap_.getAccessCondition().put(coords(1, 0, 1, 5), new EqList<Coords>(coords(1, 4, 5, 1, 1)));
-        dataMap_.getAccessCondition().put(coords(1, 0, 2, 5), new EqList<Coords>(coords(1, 4, 5, 1, 1)));
-        dataMap_.getAccessCondition().put(coords(1, 0, 6, 5), new EqList<Coords>(coords(1, 4, 5, 1, 1)));
-        dataMap_.getAccessCondition().put(coords(1, 0, 7, 5), new EqList<Coords>(coords(1, 4, 5, 1, 1)));
-        dataMap_.getAccessCondition().put(coords(1, 0, 8, 5), new EqList<Coords>(coords(1, 4, 5, 1, 1)));
+        dataMap_.getAccessCondition().put(coords(0, 0, 0, 3), new Condition(coords(0, 0, 2, 2)));
+        dataMap_.getAccessCondition().put(coords(0, 0, 1, 3), new Condition(coords(1, 4, 5, 1, 1)));
+        dataMap_.getAccessCondition().put(coords(0, 0, 2, 3), new Condition(coords(1, 4, 5, 1, 1)));
+        dataMap_.getAccessCondition().put(coords(1, 0, 0, 5), new Condition(coords(1, 4, 5, 1, 1)));
+        dataMap_.getAccessCondition().put(coords(1, 0, 1, 5), new Condition(coords(1, 4, 5, 1, 1)));
+        dataMap_.getAccessCondition().put(coords(1, 0, 2, 5), new Condition(coords(1, 4, 5, 1, 1)));
+        dataMap_.getAccessCondition().put(coords(1, 0, 6, 5), new Condition(coords(1, 4, 5, 1, 1)));
+        dataMap_.getAccessCondition().put(coords(1, 0, 7, 5), new Condition(coords(1, 4, 5, 1, 1)));
+        dataMap_.getAccessCondition().put(coords(1, 0, 8, 5), new Condition(coords(1, 4, 5, 1, 1)));
         dataMap_.setBegin(coords(0, 0, 0, 0));
         ObjectMap<Coords, Condition> visited_;
         visited_ = new ObjectMap<Coords, Condition>();
@@ -1339,7 +1338,7 @@ public class DataMapInitializeAccessibilityTest extends EquallablePkUtil {
         visited_.put(coords_,dataMap_.initCondition(coords_, new Condition()));
         coords_ = coords(1,4,5,1,0);
         visited_.put(coords_,dataMap_.initCondition(coords_, new Condition()));
-        assertTrue(!dataMap_.validConditions(new EqList<Coords>(coords(0, 0, 0, 3),coords(0, 0, 1, 3),coords(0, 0, 2, 3),coords(1, 0, 0, 5),coords(1, 0, 1, 5),coords(1, 0, 2, 5),coords(1, 0, 6, 5),coords(1, 0, 7, 5),coords(1, 0, 8, 5)),visited_));
+        assertTrue(!dataMap_.validConditions(new Condition(coords(0, 0, 0, 3),coords(0, 0, 1, 3),coords(0, 0, 2, 3),coords(1, 0, 0, 5),coords(1, 0, 1, 5),coords(1, 0, 2, 5),coords(1, 0, 6, 5),coords(1, 0, 7, 5),coords(1, 0, 8, 5)),visited_));
     }
 
     @Test
@@ -1347,14 +1346,14 @@ public class DataMapInitializeAccessibilityTest extends EquallablePkUtil {
         Road road_ = vroad();
         City city_ = city();
         DataMap dataMap_ = new DataMap();
-        dataMap_.setAccessCondition(new ObjectMap<Coords,EqList<Coords>>());
+        dataMap_.setAccessCondition(new CoordsLists());
         initPlaces(dataMap_);
         addRoad(road_, dataMap_);
         addCity(city_, dataMap_);
         dataMap_.join((byte) 0,(byte) 1, point(1, 0), point(4, 8), Direction.UP);
-        dataMap_.getAccessCondition().put(coords(0, 0, 0, 3), new EqList<Coords>(coords(1, 4, 5, 1, 1)));
-        dataMap_.getAccessCondition().put(coords(0, 0, 1, 3), new EqList<Coords>(coords(1, 4, 5, 1, 1)));
-        dataMap_.getAccessCondition().put(coords(0, 0, 2, 3), new EqList<Coords>(coords(1, 4, 5, 1, 1)));
+        dataMap_.getAccessCondition().put(coords(0, 0, 0, 3), new Condition(coords(1, 4, 5, 1, 1)));
+        dataMap_.getAccessCondition().put(coords(0, 0, 1, 3), new Condition(coords(1, 4, 5, 1, 1)));
+        dataMap_.getAccessCondition().put(coords(0, 0, 2, 3), new Condition(coords(1, 4, 5, 1, 1)));
         dataMap_.setBegin(coords(0, 0, 0, 0));
         ObjectMap<Coords,Condition> visited_;
         visited_ = new ObjectMap<Coords,Condition>();
@@ -1539,14 +1538,14 @@ public class DataMapInitializeAccessibilityTest extends EquallablePkUtil {
         road_.getLevelRoad().getDualFights().put(point(2,2),new DualFight());
         City city_ = cityPkCenter();
         DataMap dataMap_ = new DataMap();
-        dataMap_.setAccessCondition(new ObjectMap<Coords,EqList<Coords>>());
+        dataMap_.setAccessCondition(new CoordsLists());
         initPlaces(dataMap_);
         addRoad(road_, dataMap_);
         addCity(city_, dataMap_);
         dataMap_.join((byte) 0,(byte) 1, point(1, 0), point(4, 8), Direction.UP);
-        dataMap_.getAccessCondition().put(coords(0, 0, 0, 3), new EqList<Coords>(coords(0, 0, 2, 2)));
-        dataMap_.getAccessCondition().put(coords(0, 0, 1, 3), new EqList<Coords>(coords(0, 0, 2, 2)));
-        dataMap_.getAccessCondition().put(coords(0, 0, 2, 3), new EqList<Coords>(coords(0, 0, 2, 2)));
+        dataMap_.getAccessCondition().put(coords(0, 0, 0, 3), new Condition(coords(0, 0, 2, 2)));
+        dataMap_.getAccessCondition().put(coords(0, 0, 1, 3), new Condition(coords(0, 0, 2, 2)));
+        dataMap_.getAccessCondition().put(coords(0, 0, 2, 3), new Condition(coords(0, 0, 2, 2)));
         dataMap_.setBegin(coords(0, 0, 0, 0));
         ObjectMap<Coords,Condition> visited_;
         visited_ = new ObjectMap<Coords,Condition>();
@@ -1726,16 +1725,16 @@ public class DataMapInitializeAccessibilityTest extends EquallablePkUtil {
         Road road_ = vroad();
         City city_ = cityPkCenter();
         DataMap dataMap_ = new DataMap();
-        dataMap_.setAccessCondition(new ObjectMap<Coords,EqList<Coords>>());
+        dataMap_.setAccessCondition(new CoordsLists());
         initPlaces(dataMap_);
         addRoad(road_, dataMap_);
         addCity(city_, dataMap_);
         Coords coordsAccessLeague_ = coords(0, 0, 0, 1);
         addLeague(dataMap_, coordsAccessLeague_);
         dataMap_.join((byte) 0,(byte) 1, point(1, 0), point(4, 8), Direction.UP);
-        dataMap_.getAccessCondition().put(coords(0, 0, 0, 3), new EqList<Coords>(coords(2, 1, 2, 2)));
-        dataMap_.getAccessCondition().put(coords(0, 0, 1, 3), new EqList<Coords>(coords(2, 1, 2, 2)));
-        dataMap_.getAccessCondition().put(coords(0, 0, 2, 3), new EqList<Coords>(coords(2, 1, 2, 2)));
+        dataMap_.getAccessCondition().put(coords(0, 0, 0, 3), new Condition(coords(2, 1, 2, 2)));
+        dataMap_.getAccessCondition().put(coords(0, 0, 1, 3), new Condition(coords(2, 1, 2, 2)));
+        dataMap_.getAccessCondition().put(coords(0, 0, 2, 3), new Condition(coords(2, 1, 2, 2)));
         dataMap_.setBegin(coords(0, 0, 0, 0));
         ObjectMap<Coords,Condition> visited_;
         visited_ = new ObjectMap<Coords,Condition>();
@@ -2014,7 +2013,7 @@ public class DataMapInitializeAccessibilityTest extends EquallablePkUtil {
     public void possibleNeighbours1Test() {
         Road road_ = vroadBlocked();
         DataMap dataMap_ = new DataMap();
-        dataMap_.setAccessCondition(new ObjectMap<Coords,EqList<Coords>>());
+        dataMap_.setAccessCondition(new CoordsLists());
         initPlaces(dataMap_);
         addRoad(road_, dataMap_);
         dataMap_.setBegin(coords(0, 0, 0, 0));
@@ -2041,7 +2040,7 @@ public class DataMapInitializeAccessibilityTest extends EquallablePkUtil {
     public void possibleNeighbours2Test() {
         Road road_ = vroadBlocked();
         DataMap dataMap_ = new DataMap();
-        dataMap_.setAccessCondition(new ObjectMap<Coords,EqList<Coords>>());
+        dataMap_.setAccessCondition(new CoordsLists());
         initPlaces(dataMap_);
         addRoad(road_, dataMap_);
         dataMap_.setBegin(coords(0, 0, 0, 0));
@@ -2071,14 +2070,14 @@ public class DataMapInitializeAccessibilityTest extends EquallablePkUtil {
         Road road_ = vroad();
         City city_ = city();
         DataMap dataMap_ = new DataMap();
-        dataMap_.setAccessCondition(new ObjectMap<Coords,EqList<Coords>>());
+        dataMap_.setAccessCondition(new CoordsLists());
         initPlaces(dataMap_);
         addRoad(road_, dataMap_);
         addCity(city_, dataMap_);
         dataMap_.join((byte) 0,(byte) 1, point(1, 0), point(4, 8), Direction.UP);
-        dataMap_.getAccessCondition().put(coords(0, 0, 0, 3), new EqList<Coords>(coords(1, 4, 5, 1, 1)));
-        dataMap_.getAccessCondition().put(coords(0, 0, 1, 3), new EqList<Coords>(coords(1, 4, 5, 1, 1)));
-        dataMap_.getAccessCondition().put(coords(0, 0, 2, 3), new EqList<Coords>(coords(1, 4, 5, 1, 1)));
+        dataMap_.getAccessCondition().put(coords(0, 0, 0, 3), new Condition(coords(1, 4, 5, 1, 1)));
+        dataMap_.getAccessCondition().put(coords(0, 0, 1, 3), new Condition(coords(1, 4, 5, 1, 1)));
+        dataMap_.getAccessCondition().put(coords(0, 0, 2, 3), new Condition(coords(1, 4, 5, 1, 1)));
         dataMap_.setBegin(coords(0, 0, 0, 0));
         ObjectMap<Coords, Condition> visited_;
         visited_ = new ObjectMap<Coords, Condition>();
@@ -2176,7 +2175,7 @@ public class DataMapInitializeAccessibilityTest extends EquallablePkUtil {
         assertEq(0, allTiles_.getVal(coords(1,0,8,7)).size());
         assertEq(0, allTiles_.getVal(coords(1,0,8,8)).size());
         assertEq(0, allTiles_.getVal(coords(1,4,5,1,0)).size());
-        assertTrue(dataMap_.validConditions(new EqList<Coords>(coords(0, 0, 0, 3),coords(0, 0, 1, 3),coords(0, 0, 2, 3)),allTiles_));
+        assertTrue(dataMap_.validConditions(new Condition(coords(0, 0, 0, 3),coords(0, 0, 1, 3),coords(0, 0, 2, 3)),allTiles_));
         visitedCond_ = new ObjectMap<Coords, Condition>();
         visitedCond_.put(coords(0, 0, 0, 3), allTiles_.getVal(coords(0, 0, 0, 3)));
         visitedCond_.put(coords(0, 0, 1, 3), allTiles_.getVal(coords(0, 0, 1, 3)));
@@ -2208,7 +2207,7 @@ public class DataMapInitializeAccessibilityTest extends EquallablePkUtil {
         Road road_ = vroad();
         City city_ = city();
         DataMap dataMap_ = new DataMap();
-        dataMap_.setAccessCondition(new ObjectMap<Coords,EqList<Coords>>());
+        dataMap_.setAccessCondition(new CoordsLists());
         initPlaces(dataMap_);
         addRoad(road_, dataMap_);
         addCity(city_, dataMap_);
@@ -2218,10 +2217,10 @@ public class DataMapInitializeAccessibilityTest extends EquallablePkUtil {
 //        dataMap_.getAccessCondition().put(coords(0, 0, 0, 3), new List<Coords>(coords(2, 1, 2, 2)));
 //        dataMap_.getAccessCondition().put(coords(0, 0, 1, 3), new List<Coords>(coords(2, 1, 2, 2)));
 //        dataMap_.getAccessCondition().put(coords(0, 0, 2, 3), new List<Coords>(coords(2, 1, 2, 2)));
-        dataMap_.getAccessCondition().put(coords(0, 0, 0, 3), new EqList<Coords>(coords(2, 0, 2, 4)));
-        dataMap_.getAccessCondition().put(coords(0, 0, 1, 3), new EqList<Coords>(coords(2, 0, 2, 4)));
-        dataMap_.getAccessCondition().put(coords(0, 0, 2, 3), new EqList<Coords>(coords(2, 0, 2, 4)));
-        dataMap_.getAccessCondition().put(coordsAccessLeague_, new EqList<Coords>(coords(1, 4, 5, 1, 1)));
+        dataMap_.getAccessCondition().put(coords(0, 0, 0, 3), new Condition(coords(2, 0, 2, 4)));
+        dataMap_.getAccessCondition().put(coords(0, 0, 1, 3), new Condition(coords(2, 0, 2, 4)));
+        dataMap_.getAccessCondition().put(coords(0, 0, 2, 3), new Condition(coords(2, 0, 2, 4)));
+        dataMap_.getAccessCondition().put(coordsAccessLeague_, new Condition(coords(1, 4, 5, 1, 1)));
         dataMap_.setBegin(coords(0, 0, 0, 0));
         dataMap_.initializeAccessibility();
         assertTrue(!dataMap_.isError());
@@ -2440,23 +2439,23 @@ public class DataMapInitializeAccessibilityTest extends EquallablePkUtil {
         Road road_ = vroad();
         City city_ = city();
         DataMap dataMap_ = new DataMap();
-        dataMap_.setAccessCondition(new ObjectMap<Coords,EqList<Coords>>());
+        dataMap_.setAccessCondition(new CoordsLists());
         initPlaces(dataMap_);
         addRoad(road_, dataMap_);
         addCity(city_, dataMap_);
         Coords coordsAccessLeague_ = coords(0, 0, 2, 0);
         addLeague(dataMap_, coordsAccessLeague_);
         dataMap_.join((byte) 0,(byte) 1, point(1, 0), point(4, 8), Direction.UP);
-        dataMap_.getAccessCondition().put(coords(0, 0, 0, 2), new EqList<Coords>(coords(1, 4, 5, 1, 1)));
-        dataMap_.getAccessCondition().put(coords(0, 0, 1, 2), new EqList<Coords>(coords(1, 4, 5, 1, 1)));
-        dataMap_.getAccessCondition().put(coords(0, 0, 2, 2), new EqList<Coords>(coords(1, 4, 5, 1, 1)));
+        dataMap_.getAccessCondition().put(coords(0, 0, 0, 2), new Condition(coords(1, 4, 5, 1, 1)));
+        dataMap_.getAccessCondition().put(coords(0, 0, 1, 2), new Condition(coords(1, 4, 5, 1, 1)));
+        dataMap_.getAccessCondition().put(coords(0, 0, 2, 2), new Condition(coords(1, 4, 5, 1, 1)));
 //        dataMap_.getAccessCondition().put(coords(0, 0, 0, 3), new List<Coords>(coords(2, 1, 2, 2)));
 //        dataMap_.getAccessCondition().put(coords(0, 0, 1, 3), new List<Coords>(coords(2, 1, 2, 2)));
 //        dataMap_.getAccessCondition().put(coords(0, 0, 2, 3), new List<Coords>(coords(2, 1, 2, 2)));
-        dataMap_.getAccessCondition().put(coords(0, 0, 0, 3), new EqList<Coords>(coords(2, 0, 2, 4)));
-        dataMap_.getAccessCondition().put(coords(0, 0, 1, 3), new EqList<Coords>(coords(2, 0, 2, 4)));
-        dataMap_.getAccessCondition().put(coords(0, 0, 2, 3), new EqList<Coords>(coords(2, 0, 2, 4)));
-        dataMap_.getAccessCondition().put(coordsAccessLeague_, new EqList<Coords>(coords(1, 4, 5, 1, 1)));
+        dataMap_.getAccessCondition().put(coords(0, 0, 0, 3), new Condition(coords(2, 0, 2, 4)));
+        dataMap_.getAccessCondition().put(coords(0, 0, 1, 3), new Condition(coords(2, 0, 2, 4)));
+        dataMap_.getAccessCondition().put(coords(0, 0, 2, 3), new Condition(coords(2, 0, 2, 4)));
+        dataMap_.getAccessCondition().put(coordsAccessLeague_, new Condition(coords(1, 4, 5, 1, 1)));
         dataMap_.setBegin(coords(0, 0, 0, 0));
         dataMap_.initializeAccessibility();
         assertTrue(!dataMap_.isError());
@@ -2676,7 +2675,7 @@ public class DataMapInitializeAccessibilityTest extends EquallablePkUtil {
     @Test
     public void initializeAccessibility3Test() {
         DataMap dataMap_ = new DataMap();
-        dataMap_.setAccessCondition(new ObjectMap<Coords,EqList<Coords>>());
+        dataMap_.setAccessCondition(new CoordsLists());
         initPlaces(dataMap_);
         addCity(cityPkCenter(), dataMap_);
         addRoad(vroad(), dataMap_);
@@ -2709,15 +2708,15 @@ public class DataMapInitializeAccessibilityTest extends EquallablePkUtil {
         dataMap_.join((byte) 3,(byte) 11, point(3, 0), point(0, 5), Direction.UP);
         dataMap_.join((byte) 11,(byte) 12, point(0, 0), point(4, 8), Direction.UP);
 
-        dataMap_.getAccessCondition().put(coords(7, 0, 3, 0), new EqList<Coords>(coords(5, 4, 5, 1, 1)));
-        dataMap_.getAccessCondition().put(coords(7, 0, 3, 1), new EqList<Coords>(coords(5, 4, 5, 1, 1)));
-        dataMap_.getAccessCondition().put(coords(7, 0, 3, 2), new EqList<Coords>(coords(5, 4, 5, 1, 1)));
-        dataMap_.getAccessCondition().put(coords(8, 0, 3, 0), new EqList<Coords>(coords(6, 4, 5, 1, 1)));
-        dataMap_.getAccessCondition().put(coords(8, 0, 3, 1), new EqList<Coords>(coords(6, 4, 5, 1, 1)));
-        dataMap_.getAccessCondition().put(coords(8, 0, 3, 2), new EqList<Coords>(coords(6, 4, 5, 1, 1)));
-        dataMap_.getAccessCondition().put(coords(11, 0, 0, 3), new EqList<Coords>(coords(9, 4, 5, 1, 1),coords(10, 4, 5, 1, 1)));
-        dataMap_.getAccessCondition().put(coords(11, 0, 1, 3), new EqList<Coords>(coords(9, 4, 5, 1, 1),coords(10, 4, 5, 1, 1)));
-        dataMap_.getAccessCondition().put(coords(11, 0, 2, 3), new EqList<Coords>(coords(9, 4, 5, 1, 1),coords(10, 4, 5, 1, 1)));
+        dataMap_.getAccessCondition().put(coords(7, 0, 3, 0), new Condition(coords(5, 4, 5, 1, 1)));
+        dataMap_.getAccessCondition().put(coords(7, 0, 3, 1), new Condition(coords(5, 4, 5, 1, 1)));
+        dataMap_.getAccessCondition().put(coords(7, 0, 3, 2), new Condition(coords(5, 4, 5, 1, 1)));
+        dataMap_.getAccessCondition().put(coords(8, 0, 3, 0), new Condition(coords(6, 4, 5, 1, 1)));
+        dataMap_.getAccessCondition().put(coords(8, 0, 3, 1), new Condition(coords(6, 4, 5, 1, 1)));
+        dataMap_.getAccessCondition().put(coords(8, 0, 3, 2), new Condition(coords(6, 4, 5, 1, 1)));
+        dataMap_.getAccessCondition().put(coords(11, 0, 0, 3), new Condition(coords(9, 4, 5, 1, 1),coords(10, 4, 5, 1, 1)));
+        dataMap_.getAccessCondition().put(coords(11, 0, 1, 3), new Condition(coords(9, 4, 5, 1, 1),coords(10, 4, 5, 1, 1)));
+        dataMap_.getAccessCondition().put(coords(11, 0, 2, 3), new Condition(coords(9, 4, 5, 1, 1),coords(10, 4, 5, 1, 1)));
         dataMap_.setBegin(coords(0, 0, 0, 0));
         dataMap_.initializeAccessibility();
         assertTrue(!dataMap_.isError());
@@ -3798,7 +3797,7 @@ public class DataMapInitializeAccessibilityTest extends EquallablePkUtil {
     @Test
     public void initializeAccessibility4Test() {
         DataMap dataMap_ = new DataMap();
-        dataMap_.setAccessCondition(new ObjectMap<Coords,EqList<Coords>>());
+        dataMap_.setAccessCondition(new CoordsLists());
         initPlaces(dataMap_);
         addCity(cityPkCenter(), dataMap_);
         addRoad(vroad(), dataMap_);
@@ -3835,15 +3834,15 @@ public class DataMapInitializeAccessibilityTest extends EquallablePkUtil {
         dataMap_.join((byte) 3,(byte) 11, point(3, 0), point(0, 5), Direction.UP);
         dataMap_.join((byte) 11,(byte) 12, point(0, 0), point(4, 8), Direction.UP);
 
-        dataMap_.getAccessCondition().put(coords(7, 0, 3, 0), new EqList<Coords>(coords(5, 0, 2, 1)));
-        dataMap_.getAccessCondition().put(coords(7, 0, 3, 1), new EqList<Coords>(coords(5, 0, 2, 1)));
-        dataMap_.getAccessCondition().put(coords(7, 0, 3, 2), new EqList<Coords>(coords(5, 0, 2, 1)));
-        dataMap_.getAccessCondition().put(coords(8, 0, 3, 0), new EqList<Coords>(coords(6, 0, 2, 1)));
-        dataMap_.getAccessCondition().put(coords(8, 0, 3, 1), new EqList<Coords>(coords(6, 0, 2, 1)));
-        dataMap_.getAccessCondition().put(coords(8, 0, 3, 2), new EqList<Coords>(coords(6, 0, 2, 1)));
-        dataMap_.getAccessCondition().put(coords(11, 0, 0, 3), new EqList<Coords>(coords(9, 4, 5, 1, 1),coords(10, 4, 5, 1, 1)));
-        dataMap_.getAccessCondition().put(coords(11, 0, 1, 3), new EqList<Coords>(coords(9, 4, 5, 1, 1),coords(10, 4, 5, 1, 1)));
-        dataMap_.getAccessCondition().put(coords(11, 0, 2, 3), new EqList<Coords>(coords(9, 4, 5, 1, 1),coords(10, 4, 5, 1, 1)));
+        dataMap_.getAccessCondition().put(coords(7, 0, 3, 0), new Condition(coords(5, 0, 2, 1)));
+        dataMap_.getAccessCondition().put(coords(7, 0, 3, 1), new Condition(coords(5, 0, 2, 1)));
+        dataMap_.getAccessCondition().put(coords(7, 0, 3, 2), new Condition(coords(5, 0, 2, 1)));
+        dataMap_.getAccessCondition().put(coords(8, 0, 3, 0), new Condition(coords(6, 0, 2, 1)));
+        dataMap_.getAccessCondition().put(coords(8, 0, 3, 1), new Condition(coords(6, 0, 2, 1)));
+        dataMap_.getAccessCondition().put(coords(8, 0, 3, 2), new Condition(coords(6, 0, 2, 1)));
+        dataMap_.getAccessCondition().put(coords(11, 0, 0, 3), new Condition(coords(9, 4, 5, 1, 1),coords(10, 4, 5, 1, 1)));
+        dataMap_.getAccessCondition().put(coords(11, 0, 1, 3), new Condition(coords(9, 4, 5, 1, 1),coords(10, 4, 5, 1, 1)));
+        dataMap_.getAccessCondition().put(coords(11, 0, 2, 3), new Condition(coords(9, 4, 5, 1, 1),coords(10, 4, 5, 1, 1)));
         dataMap_.setBegin(coords(0, 0, 0, 0));
         dataMap_.initializeAccessibility();
         assertTrue(!dataMap_.isError());
@@ -4824,7 +4823,7 @@ public class DataMapInitializeAccessibilityTest extends EquallablePkUtil {
         levels_.add(level_);
         cave_.setLevels(levels_);
         DataMap dataMap_ = new DataMap();
-        dataMap_.setAccessCondition(new ObjectMap<Coords,EqList<Coords>>());
+        dataMap_.setAccessCondition(new CoordsLists());
         initPlaces(dataMap_);
         addRoad(roadOne_, dataMap_);
         addCave(cave_, dataMap_);
@@ -4863,12 +4862,12 @@ public class DataMapInitializeAccessibilityTest extends EquallablePkUtil {
         levels_.add(level_);
         cave_.setLevels(levels_);
         DataMap dataMap_ = new DataMap();
-        dataMap_.setAccessCondition(new ObjectMap<Coords,EqList<Coords>>());
+        dataMap_.setAccessCondition(new CoordsLists());
         initPlaces(dataMap_);
         addRoad(roadOne_, dataMap_);
         addCave(cave_, dataMap_);
         InitializationDataBase.joinCavePlace(dataMap_, coords(1, 0, 0, 3), coords(0, 0, 0, 0), LINK, LINK);
-        dataMap_.getAccessCondition().put(coords(1, 0, 0, 4), new EqList<Coords>());
+        dataMap_.getAccessCondition().put(coords(1, 0, 0, 4), new Condition());
         dataMap_.setBegin(coords(0, 0, 0, 0));
         dataMap_.initializeAccessibility();
         assertTrue(!dataMap_.isError());
@@ -4899,7 +4898,7 @@ public class DataMapInitializeAccessibilityTest extends EquallablePkUtil {
         Road road_ = vroad();
         City city_ = city();
         DataMap dataMap_ = new DataMap();
-        dataMap_.setAccessCondition(new ObjectMap<Coords,EqList<Coords>>());
+        dataMap_.setAccessCondition(new CoordsLists());
         initPlaces(dataMap_);
         addRoad(road_, dataMap_);
         addCity(city_, dataMap_);
@@ -4909,11 +4908,11 @@ public class DataMapInitializeAccessibilityTest extends EquallablePkUtil {
 //        dataMap_.getAccessCondition().put(coords(0, 0, 0, 3), new List<Coords>(coords(2, 1, 2, 2)));
 //        dataMap_.getAccessCondition().put(coords(0, 0, 1, 3), new List<Coords>(coords(2, 1, 2, 2)));
 //        dataMap_.getAccessCondition().put(coords(0, 0, 2, 3), new List<Coords>(coords(2, 1, 2, 2)));
-        dataMap_.getAccessCondition().put(coords(0, 0, 0, 3), new EqList<Coords>(coords(2, 0, 2, 4)));
-        dataMap_.getAccessCondition().put(coords(0, 0, 1, 3), new EqList<Coords>(coords(2, 0, 2, 4)));
-        dataMap_.getAccessCondition().put(coords(0, 0, 2, 3), new EqList<Coords>(coords(2, 0, 2, 4)));
-        dataMap_.getAccessCondition().put(coordsAccessLeague_, new EqList<Coords>(coords(1, 4, 5, 1, 1)));
-        dataMap_.getAccessCondition().put(coords(0, 0, 1, 0), new EqList<Coords>(coords(1, 4, 5, 1, 1)));
+        dataMap_.getAccessCondition().put(coords(0, 0, 0, 3), new Condition(coords(2, 0, 2, 4)));
+        dataMap_.getAccessCondition().put(coords(0, 0, 1, 3), new Condition(coords(2, 0, 2, 4)));
+        dataMap_.getAccessCondition().put(coords(0, 0, 2, 3), new Condition(coords(2, 0, 2, 4)));
+        dataMap_.getAccessCondition().put(coordsAccessLeague_, new Condition(coords(1, 4, 5, 1, 1)));
+        dataMap_.getAccessCondition().put(coords(0, 0, 1, 0), new Condition(coords(1, 4, 5, 1, 1)));
         dataMap_.setBegin(coords(0, 0, 0, 0));
         dataMap_.initializeAccessibility();
         assertTrue(!dataMap_.isError());
@@ -5134,20 +5133,20 @@ public class DataMapInitializeAccessibilityTest extends EquallablePkUtil {
         road_.getLevelRoad().getDualFights().put(point(2,2),new DualFight());
         City city_ = city();
         DataMap dataMap_ = new DataMap();
-        dataMap_.setAccessCondition(new ObjectMap<Coords,EqList<Coords>>());
+        dataMap_.setAccessCondition(new CoordsLists());
         initPlaces(dataMap_);
         addRoad(road_, dataMap_);
         addCity(city_, dataMap_);
         dataMap_.join((byte) 0,(byte) 1, point(1, 0), point(4, 8), Direction.UP);
-        dataMap_.getAccessCondition().put(coords(0, 0, 0, 3), new EqList<Coords>(coords(0, 0, 2, 2)));
-        dataMap_.getAccessCondition().put(coords(0, 0, 1, 3), new EqList<Coords>(coords(1, 4, 5, 1, 1)));
-        dataMap_.getAccessCondition().put(coords(0, 0, 2, 3), new EqList<Coords>(coords(1, 4, 5, 1, 1)));
-        dataMap_.getAccessCondition().put(coords(1, 0, 0, 5), new EqList<Coords>(coords(1, 4, 5, 1, 1)));
-        dataMap_.getAccessCondition().put(coords(1, 0, 1, 5), new EqList<Coords>(coords(1, 4, 5, 1, 1)));
-        dataMap_.getAccessCondition().put(coords(1, 0, 2, 5), new EqList<Coords>(coords(1, 4, 5, 1, 1)));
-        dataMap_.getAccessCondition().put(coords(1, 0, 6, 5), new EqList<Coords>(coords(1, 4, 5, 1, 1)));
-        dataMap_.getAccessCondition().put(coords(1, 0, 7, 5), new EqList<Coords>(coords(1, 4, 5, 1, 1)));
-        dataMap_.getAccessCondition().put(coords(1, 0, 8, 5), new EqList<Coords>(coords(1, 4, 5, 1, 1)));
+        dataMap_.getAccessCondition().put(coords(0, 0, 0, 3), new Condition(coords(0, 0, 2, 2)));
+        dataMap_.getAccessCondition().put(coords(0, 0, 1, 3), new Condition(coords(1, 4, 5, 1, 1)));
+        dataMap_.getAccessCondition().put(coords(0, 0, 2, 3), new Condition(coords(1, 4, 5, 1, 1)));
+        dataMap_.getAccessCondition().put(coords(1, 0, 0, 5), new Condition(coords(1, 4, 5, 1, 1)));
+        dataMap_.getAccessCondition().put(coords(1, 0, 1, 5), new Condition(coords(1, 4, 5, 1, 1)));
+        dataMap_.getAccessCondition().put(coords(1, 0, 2, 5), new Condition(coords(1, 4, 5, 1, 1)));
+        dataMap_.getAccessCondition().put(coords(1, 0, 6, 5), new Condition(coords(1, 4, 5, 1, 1)));
+        dataMap_.getAccessCondition().put(coords(1, 0, 7, 5), new Condition(coords(1, 4, 5, 1, 1)));
+        dataMap_.getAccessCondition().put(coords(1, 0, 8, 5), new Condition(coords(1, 4, 5, 1, 1)));
         dataMap_.setBegin(coords(0, 0, 0, 0));
         dataMap_.initializeAccessibility();
         assertTrue(dataMap_.isError());
@@ -5159,7 +5158,7 @@ public class DataMapInitializeAccessibilityTest extends EquallablePkUtil {
 //        Road road_ = vroad();
 //        City city_ = city();
         DataMap dataMap_ = new DataMap();
-        dataMap_.setAccessCondition(new ObjectMap<Coords,EqList<Coords>>());
+        dataMap_.setAccessCondition(new CoordsLists());
         initPlaces(dataMap_);
         addCity(cityPkCenter(), dataMap_);
         addRoad(vroad(), dataMap_);
@@ -5183,12 +5182,12 @@ public class DataMapInitializeAccessibilityTest extends EquallablePkUtil {
         //dataMap_.getAccessCondition().put(coords(0, 0, 0, 3), new List<Coords>(coords(0, 0, 2, 2)));
 //        dataMap_.getAccessCondition().put(coords(0, 0, 1, 3), new List<Coords>(coords(2, 4, 5, 1, 1)));
 //        dataMap_.getAccessCondition().put(coords(0, 0, 2, 3), new List<Coords>(coords(2, 4, 5, 1, 1)));
-        dataMap_.getAccessCondition().put(coords(5, 0, 0, 3), new EqList<Coords>(coords(4, 4, 5, 1, 1)));
-        dataMap_.getAccessCondition().put(coords(5, 0, 1, 3), new EqList<Coords>(coords(4, 4, 5, 1, 1)));
-        dataMap_.getAccessCondition().put(coords(5, 0, 2, 3), new EqList<Coords>(coords(4, 4, 5, 1, 1)));
-        dataMap_.getAccessCondition().put(coords(6, 0, 3, 0), new EqList<Coords>(coords(2, 4, 5, 1, 1)));
-        dataMap_.getAccessCondition().put(coords(6, 0, 3, 1), new EqList<Coords>(coords(2, 4, 5, 1, 1)));
-        dataMap_.getAccessCondition().put(coords(6, 0, 3, 2), new EqList<Coords>(coords(2, 4, 5, 1, 1)));
+        dataMap_.getAccessCondition().put(coords(5, 0, 0, 3), new Condition(coords(4, 4, 5, 1, 1)));
+        dataMap_.getAccessCondition().put(coords(5, 0, 1, 3), new Condition(coords(4, 4, 5, 1, 1)));
+        dataMap_.getAccessCondition().put(coords(5, 0, 2, 3), new Condition(coords(4, 4, 5, 1, 1)));
+        dataMap_.getAccessCondition().put(coords(6, 0, 3, 0), new Condition(coords(2, 4, 5, 1, 1)));
+        dataMap_.getAccessCondition().put(coords(6, 0, 3, 1), new Condition(coords(2, 4, 5, 1, 1)));
+        dataMap_.getAccessCondition().put(coords(6, 0, 3, 2), new Condition(coords(2, 4, 5, 1, 1)));
 //        dataMap_.getAccessCondition().put(coords(1, 0, 6, 5), new List<Coords>(coords(2, 4, 5, 1, 1)));
 //        dataMap_.getAccessCondition().put(coords(1, 0, 7, 5), new List<Coords>(coords(2, 4, 5, 1, 1)));
 //        dataMap_.getAccessCondition().put(coords(1, 0, 8, 5), new List<Coords>(coords(2, 4, 5, 1, 1)));

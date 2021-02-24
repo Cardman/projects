@@ -1,9 +1,0 @@
-<aiki.fight.items.HealingPp>
-<java.lang.Long class="aiki.fight.items.HealingPp" field="healedMovePp" value="0"/>
-<java.lang.Long class="aiki.fight.items.HealingPp" field="healingAllMovesFullpp" value="0"/>
-<java.lang.Boolean class="aiki.fight.items.HealingPp" field="healingAllMovesPp" value="true"/>
-<java.lang.Boolean class="aiki.fight.items.HealingPp" field="healingMoveFullpp" value="false"/>
-<sm class="aiki.fight.items.HealingItem" field="happiness"/>
-<java.lang.Boolean class="aiki.fight.items.HealingItem" field="healingTeam" value="false"/>
-<java.lang.Integer class="aiki.fight.items.Item" field="price" value="3000"/>
-</aiki.fight.items.HealingPp>

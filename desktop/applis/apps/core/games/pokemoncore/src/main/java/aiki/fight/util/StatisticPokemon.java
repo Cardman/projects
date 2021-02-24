@@ -5,7 +5,7 @@ import code.util.core.StringUtil;
 import code.util.ints.Displayable;
 import code.util.ints.Equallable;
 
-public final class StatisticPokemon implements Equallable<StatisticPokemon>, Displayable {
+public final class StatisticPokemon implements Displayable {
 
     private static final char SEPARATOR = ';';
 
@@ -29,7 +29,6 @@ public final class StatisticPokemon implements Equallable<StatisticPokemon>, Dis
         return new StatisticPokemon(_string);
     }
 
-    @Override
     public boolean eq(StatisticPokemon _obj) {
         if (statistic != _obj.statistic) {
             return false;

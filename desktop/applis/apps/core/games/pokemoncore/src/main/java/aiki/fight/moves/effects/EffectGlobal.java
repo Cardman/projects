@@ -4,6 +4,8 @@ import aiki.db.DataBase;
 import aiki.fight.enums.Statistic;
 import aiki.fight.moves.enums.TargetChoice;
 import aiki.fight.util.StatisticType;
+import aiki.fight.util.StatisticTypeList;
+import aiki.fight.util.TypesDuos;
 import aiki.fight.util.TypesDuo;
 import code.maths.Rate;
 import code.util.*;
@@ -28,7 +30,7 @@ public final class EffectGlobal extends Effect {
 
     private Rate healingEndRoundGround;
 
-    private ObjectMap<TypesDuo, Rate> efficiencyMoves;
+    private TypesDuos efficiencyMoves;
 
     private StringList disableImmuAgainstTypes;
     private StringList cancelProtectingAbilities;
@@ -41,7 +43,7 @@ public final class EffectGlobal extends Effect {
     private Rate multEffectLovingAlly;
     private StringMap<Rate> multPowerMoves;
 
-    private ObjectMap<StatisticType, Rate> multStatIfContainsType;
+    private StatisticTypeList<Rate> multStatIfContainsType;
 
     private StringList cancelEffects;
     private StringMap<Rate> multDamageTypesMoves;
@@ -241,11 +243,11 @@ public final class EffectGlobal extends Effect {
         healingEndRoundGround = _healingEndRoundGround;
     }
 
-    public ObjectMap<TypesDuo, Rate> getEfficiencyMoves() {
+    public TypesDuos getEfficiencyMoves() {
         return efficiencyMoves;
     }
 
-    public void setEfficiencyMoves(ObjectMap<TypesDuo, Rate> _efficiencyMoves) {
+    public void setEfficiencyMoves(TypesDuos _efficiencyMoves) {
         efficiencyMoves = _efficiencyMoves;
     }
 
@@ -307,12 +309,12 @@ public final class EffectGlobal extends Effect {
         multPowerMoves = _multPowerMoves;
     }
 
-    public ObjectMap<StatisticType, Rate> getMultStatIfContainsType() {
+    public StatisticTypeList<Rate> getMultStatIfContainsType() {
         return multStatIfContainsType;
     }
 
     public void setMultStatIfContainsType(
-            ObjectMap<StatisticType, Rate> _multStatIfContainsType) {
+            StatisticTypeList<Rate> _multStatIfContainsType) {
         multStatIfContainsType = _multStatIfContainsType;
     }
 

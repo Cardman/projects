@@ -1,5 +1,8 @@
 package aiki.game;
 
+import aiki.map.Condition;
+import aiki.map.util.PlaceInterConnects;
+import aiki.util.*;
 import org.junit.Test;
 
 import aiki.db.DataBase;
@@ -27,9 +30,6 @@ import aiki.map.places.Road;
 import aiki.map.pokemon.WildPk;
 import aiki.map.pokemon.enums.Gender;
 import aiki.map.util.PlaceInterConnect;
-import aiki.util.Coords;
-import aiki.util.LevelPoint;
-import aiki.util.Point;
 import code.util.CustList;
 import code.util.EqList;
 import code.util.ObjectMap;
@@ -90,7 +90,7 @@ public class GameUnlockPlacesTest extends InitializationDataBase {
         Road roadSix_ = hroad();
         roadSix_.setName(ROAD_6);
         DataMap dataMap_ = _data.getMap();
-        dataMap_.setAccessCondition(new ObjectMap<Coords,EqList<Coords>>());
+        dataMap_.setAccessCondition(new CoordsLists());
         dataMap_.setPlaces(new CustList<Place>());
         dataMap_.getPlaces().add(cityOne_);
         dataMap_.getPlaces().add(roadOne_);
@@ -120,7 +120,7 @@ public class GameUnlockPlacesTest extends InitializationDataBase {
         dataMap_.join((short)8, (short)5, new Point((short)0,(short)1), new Point((short)2,(short)4), Direction.LEFT);
         dataMap_.join((short)10, (short)0, new Point((short)5,(short)1), new Point((short)0,(short)5), Direction.RIGHT);
         dataMap_.join((short)10, (short)11, new Point((short)0,(short)1), new Point((short)8,(short)4), Direction.LEFT);
-        EqList<Coords> leaders_ = new EqList<Coords>();
+        Condition leaders_ = new Condition();
         leaders_.add(coords(0,4,5,1,1));
         leaders_.add(coords(2,4,5,1,1));
         leaders_.add(coords(4,4,5,1,1));
@@ -131,20 +131,20 @@ public class GameUnlockPlacesTest extends InitializationDataBase {
         coordsBlock_.setLevel(new LevelPoint());
         coordsBlock_.getLevel().setLevelIndex((byte) 0);
         coordsBlock_.getLevel().setPoint(new Point((short)3,(short)0));
-        dataMap_.getAccessCondition().put(coordsBlock_, new EqList<Coords>(leaders_));
+        dataMap_.getAccessCondition().put(coordsBlock_, new Condition(leaders_));
         coordsBlock_ = new Coords();
         coordsBlock_.setNumberPlace((short) 7);
         coordsBlock_.setLevel(new LevelPoint());
         coordsBlock_.getLevel().setLevelIndex((byte) 0);
         coordsBlock_.getLevel().setPoint(new Point((short)3,(short)1));
-        dataMap_.getAccessCondition().put(coordsBlock_, new EqList<Coords>(leaders_));
+        dataMap_.getAccessCondition().put(coordsBlock_, new Condition(leaders_));
         coordsBlock_ = new Coords();
         coordsBlock_.setNumberPlace((short) 7);
         coordsBlock_.setLevel(new LevelPoint());
         coordsBlock_.getLevel().setLevelIndex((byte) 0);
         coordsBlock_.getLevel().setPoint(new Point((short)3,(short)2));
-        dataMap_.getAccessCondition().put(coordsBlock_, new EqList<Coords>(leaders_));
-        leaders_ = new EqList<Coords>();
+        dataMap_.getAccessCondition().put(coordsBlock_, new Condition(leaders_));
+        leaders_ = new Condition();
         leaders_.add(coords(0,4,5,1,1));
         Coords coords_;
         coords_ = new Coords();
@@ -165,7 +165,7 @@ public class GameUnlockPlacesTest extends InitializationDataBase {
         coords_.getLevel().setLevelIndex((byte) 0);
         coords_.getLevel().setPoint(new Point((short)2,(short)2));
         dataMap_.getAccessCondition().put(coords_, leaders_);
-        leaders_ = new EqList<Coords>();
+        leaders_ = new Condition();
         leaders_.add(coords(2,4,5,1,1));
         coords_ = new Coords();
         coords_.setNumberPlace((short) 3);
@@ -185,7 +185,7 @@ public class GameUnlockPlacesTest extends InitializationDataBase {
         coords_.getLevel().setLevelIndex((byte) 0);
         coords_.getLevel().setPoint(new Point((short)3,(short)2));
         dataMap_.getAccessCondition().put(coords_, leaders_);
-        leaders_ = new EqList<Coords>();
+        leaders_ = new Condition();
         leaders_.add(coords(4,4,5,1,1));
         coords_ = new Coords();
         coords_.setNumberPlace((short) 5);
@@ -205,7 +205,7 @@ public class GameUnlockPlacesTest extends InitializationDataBase {
         coords_.getLevel().setLevelIndex((byte) 0);
         coords_.getLevel().setPoint(new Point((short)2,(short)1));
         dataMap_.getAccessCondition().put(coords_, leaders_);
-        EqList<Coords> leagues_ = new EqList<Coords>();
+        Condition leagues_ = new Condition();
 //        leagues_.add(coords(9,0,2,2));
         leagues_.add(coords(9,0,2,4));
         coords_ = new Coords();
@@ -246,10 +246,10 @@ public class GameUnlockPlacesTest extends InitializationDataBase {
 
     private static City city() {
         City c_ = new City();
-        c_.setSavedlinks(new ObjectMap<PlaceInterConnect,Coords>());
-        c_.setLinksWithCaves(new ObjectMap<Point,Link>());
+        c_.setSavedlinks(new PlaceInterConnects());
+        c_.setLinksWithCaves(new PointsLink());
         LevelOutdoor city_ = new LevelOutdoor();
-        city_.setBlocks(new ObjectMap<Point,Block>());
+        city_.setBlocks(new PointsBlock());
         Block block_ = new Block((short)3,(short)3, EnvironmentType.ROAD, VOIE);
         city_.getBlocks().put(new Point((short)0,(short)0), block_);
         block_ = new Block((short)3,(short)3, EnvironmentType.ROAD, VOIE);
@@ -269,31 +269,31 @@ public class GameUnlockPlacesTest extends InitializationDataBase {
         block_ = new Block((short)3,(short)3, EnvironmentType.ROAD, VOIE);
         city_.getBlocks().put(new Point((short)6,(short)6), block_);
         c_.setLevel(city_);
-        c_.setBuildings(new ObjectMap<Point,Building>());
+        c_.setBuildings(new PointsBuilding());
         Gym gym_ = new Gym();
         gym_.setExitCity(new Point((short)1,(short)0));
         gym_.setLevel(new LevelIndoorGym());
-        gym_.getLevel().setBlocks(new ObjectMap<Point,Block>());
+        gym_.getLevel().setBlocks(new PointsBlock());
         block_ = new Block((short)6,(short)6, EnvironmentType.BUILDING, VOIE);
         gym_.getLevel().getBlocks().put(new Point((short)0,(short)0), block_);
         gym_.getIndoor().setGymLeaderCoords(new Point((short)1,(short)1));
-        gym_.getIndoor().setGymTrainers(new ObjectMap<Point,GymTrainer>());
+        gym_.getIndoor().setGymTrainers(new PointsGymTrainer());
         c_.getBuildings().put(new Point((short)4,(short)5), gym_);
         return c_;
     }
 
     private static Road hroad() {
         Road road_ = new Road();
-        road_.setSavedlinks(new ObjectMap<PlaceInterConnect,Coords>());
-        road_.setLinksWithCaves(new ObjectMap<Point,Link>());
+        road_.setSavedlinks(new PlaceInterConnects());
+        road_.setLinksWithCaves(new PointsLink());
         LevelRoad level_ = new LevelRoad();
-        level_.setCharacters(new ObjectMap<Point,CharacterInRoadCave>());
-        level_.setDualFights(new ObjectMap<Point,DualFight>());
-        level_.setBlocks(new ObjectMap<Point,Block>());
-        level_.setLegendaryPks(new ObjectMap<Point,WildPk>());
-        level_.setItems(new ObjectMap<Point,String>());
-        level_.setHm(new ObjectMap<Point,Short>());
-        level_.setTm(new ObjectMap<Point,Short>());
+        level_.setCharacters(new PointsCharacterInRoadCave());
+        level_.setDualFights(new PointsDualFight());
+        level_.setBlocks(new PointsBlock());
+        level_.setLegendaryPks(new PointsWildPk());
+        level_.setItems(new PointsString());
+        level_.setHm(new PointsShort());
+        level_.setTm(new PointsShort());
         level_.setWildPokemonAreas(new CustList<AreaApparition>());
         Block block_ = new Block((short)6,(short)3, EnvironmentType.ROAD, VOIE);
         level_.getBlocks().put(new Point((short)0,(short)0), block_);
@@ -302,16 +302,16 @@ public class GameUnlockPlacesTest extends InitializationDataBase {
     }
     private static Road vroad() {
         Road road_ = new Road();
-        road_.setSavedlinks(new ObjectMap<PlaceInterConnect,Coords>());
-        road_.setLinksWithCaves(new ObjectMap<Point,Link>());
+        road_.setSavedlinks(new PlaceInterConnects());
+        road_.setLinksWithCaves(new PointsLink());
         LevelRoad level_ = new LevelRoad();
-        level_.setCharacters(new ObjectMap<Point,CharacterInRoadCave>());
-        level_.setDualFights(new ObjectMap<Point,DualFight>());
-        level_.setBlocks(new ObjectMap<Point,Block>());
-        level_.setLegendaryPks(new ObjectMap<Point,WildPk>());
-        level_.setItems(new ObjectMap<Point,String>());
-        level_.setHm(new ObjectMap<Point,Short>());
-        level_.setTm(new ObjectMap<Point,Short>());
+        level_.setCharacters(new PointsCharacterInRoadCave());
+        level_.setDualFights(new PointsDualFight());
+        level_.setBlocks(new PointsBlock());
+        level_.setLegendaryPks(new PointsWildPk());
+        level_.setItems(new PointsString());
+        level_.setHm(new PointsShort());
+        level_.setTm(new PointsShort());
         level_.setWildPokemonAreas(new CustList<AreaApparition>());
         Block block_ = new Block((short)3,(short)6, EnvironmentType.ROAD, VOIE);
         level_.getBlocks().put(new Point((short)0,(short)0), block_);
@@ -325,7 +325,7 @@ public class GameUnlockPlacesTest extends InitializationDataBase {
         league_.setAccessCoords(_access);
         league_.setRooms(new CustList<LevelLeague>());
         LevelLeague level_ = new LevelLeague();
-        level_.setBlocks(new ObjectMap<Point,Block>());
+        level_.setBlocks(new PointsBlock());
         Block block_ = new Block((short)5,(short)5, EnvironmentType.ROAD, VOIE);
         level_.getBlocks().put(new Point((short)0,(short)0), block_);
         level_.setAccessPoint(new Point((short)2,(short)0));
@@ -333,7 +333,7 @@ public class GameUnlockPlacesTest extends InitializationDataBase {
         level_.setTrainerCoords(new Point((short)2,(short)2));
         league_.getRooms().add(level_);
         level_ = new LevelLeague();
-        level_.setBlocks(new ObjectMap<Point,Block>());
+        level_.setBlocks(new PointsBlock());
         block_ = new Block((short)5,(short)5, EnvironmentType.ROAD, VOIE);
         level_.getBlocks().put(new Point((short)0,(short)0), block_);
         level_.setAccessPoint(new Point((short)2,(short)0));

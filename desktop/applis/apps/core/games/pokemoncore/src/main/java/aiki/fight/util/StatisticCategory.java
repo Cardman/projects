@@ -3,9 +3,8 @@ import aiki.fight.enums.Statistic;
 import code.util.StringList;
 import code.util.core.StringUtil;
 import code.util.ints.Displayable;
-import code.util.ints.Equallable;
 
-public final class StatisticCategory implements Equallable<StatisticCategory>, Displayable {
+public final class StatisticCategory implements Displayable {
 
     private static final char SEPARATOR = ';';
 
@@ -32,7 +31,6 @@ public final class StatisticCategory implements Equallable<StatisticCategory>, D
         return new StatisticCategory(_string);
     }
 
-    @Override
     public boolean eq(StatisticCategory _obj) {
         if (statistic != _obj.statistic) {
             return false;

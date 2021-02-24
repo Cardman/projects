@@ -27,6 +27,7 @@ import aiki.map.places.Place;
 import aiki.map.pokemon.WildPk;
 import aiki.map.pokemon.enums.Gender;
 import aiki.map.util.MiniMapCoords;
+import aiki.map.util.MiniMapCoordsList;
 import aiki.map.util.TileMiniMap;
 import code.maths.LgInt;
 import code.maths.Rate;
@@ -91,7 +92,7 @@ public final class DataBaseValidationCoreTest extends DataBaseValidationCommon {
         data_.completeMembers(PIKACHU3,pkData_);
         data_.sortEndRound();
         initPlaces(data_);
-        data_.getMap().setMiniMap(new ObjectMap<MiniMapCoords,TileMiniMap>());
+        data_.getMap().setMiniMap(new MiniMapCoordsList());
         data_.getMap().setUnlockedCity(NULL_REF);
         data_.getMap().setSideLength(2);
         DataMap map_ = data_.getMap();
@@ -129,7 +130,7 @@ public final class DataBaseValidationCoreTest extends DataBaseValidationCommon {
         data_.completeMembers(PIKACHU,pkData_);
         data_.sortEndRound();
         initPlaces(data_);
-        data_.getMap().setMiniMap(new ObjectMap<MiniMapCoords,TileMiniMap>());
+        data_.getMap().setMiniMap(new MiniMapCoordsList());
         data_.getMap().setUnlockedCity(NULL_REF);
         data_.getMap().setSideLength(2);
         DataMap map_ = data_.getMap();

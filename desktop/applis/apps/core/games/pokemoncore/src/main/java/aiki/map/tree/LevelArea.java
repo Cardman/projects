@@ -9,7 +9,7 @@ import aiki.map.levels.enums.EnvironmentType;
 import aiki.map.pokemon.WildPk;
 import aiki.map.tree.util.Dims;
 import aiki.map.util.Limits;
-import aiki.util.Point;
+import aiki.util.*;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.EqList;
@@ -20,8 +20,8 @@ public class LevelArea {
 
     private Point leftTop;
     private EqList<Point> inacessiblePoints;
-    private ObjectMap<Point, Dims> dimsBlocks;
-    private ObjectMap<Point, Short> indexes;
+    private Points< Dims> dimsBlocks;
+    private Points< Short> indexes;
     private CustList<CustList<GenderName>> pokemon;
     private int height;
     private int width;
@@ -32,9 +32,9 @@ public class LevelArea {
         height = limits_.getBottomRight().gety() - leftTop.gety() + 1;
         width = limits_.getBottomRight().getx() - leftTop.getx() + 1;
         inacessiblePoints = new EqList<Point>();
-        indexes = new ObjectMap<Point, Short>();
-        dimsBlocks = new ObjectMap<Point, Dims>();
-        for (EntryCust<Point, Block> e : _level.getBlocks().entryList()) {
+        indexes = new PointsShort();
+        dimsBlocks = new PointsDims();
+        for (PointParam<Block> e : _level.getBlocks().entryList()) {
             Block block_ = e.getValue();
             Point id_ = e.getKey();
             if (block_.getType() != EnvironmentType.NOTHING) {
@@ -145,11 +145,11 @@ public class LevelArea {
         return inacessiblePoints;
     }
 
-    public ObjectMap<Point, Dims> getDimsBlocks() {
+    public Points< Dims> getDimsBlocks() {
         return dimsBlocks;
     }
 
-    public ObjectMap<Point, Short> getIndexes() {
+    public Points< Short> getIndexes() {
         return indexes;
     }
 

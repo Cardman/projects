@@ -15,9 +15,7 @@ import aiki.map.pokemon.WildPk;
 import aiki.map.tree.LevelArea;
 import aiki.map.util.Limits;
 import aiki.map.util.ScreenCoords;
-import aiki.util.Coords;
-import aiki.util.LevelPoint;
-import aiki.util.Point;
+import aiki.util.*;
 import code.images.BaseSixtyFourUtil;
 import code.util.CustList;
 import code.util.EntryCust;
@@ -33,7 +31,7 @@ public abstract class Level {
      * Left top for key, rectangle block for value that is an obstacle or an
      * area of wild pokemon.
      */
-    private ObjectMap<Point, Block> blocks;
+    private Points<Block> blocks;
 
     /**
      * @param _data
@@ -41,7 +39,7 @@ public abstract class Level {
     public void validate(DataBase _data, LevelArea _level) {
         long sum_ = 0;
         EqList<Point> used_ = new EqList<Point>();
-        for (EntryCust<Point, Block> e : blocks.entryList()) {
+        for (PointParam<Block> e : blocks.entryList()) {
             if (!e.getValue().isValid()) {
                 _data.setError(true);
                 continue;
@@ -72,7 +70,7 @@ public abstract class Level {
 
 
     public boolean hasValidImage(DataBase _data) {
-        for (EntryCust<Point, Block> e : blocks.entryList()) {
+        for (PointParam<Block> e : blocks.entryList()) {
             if (!e.getValue().hasValidImage(_data)) {
                 return false;
             }
@@ -80,12 +78,12 @@ public abstract class Level {
         return true;
     }
 
-    public static ObjectMap<Point, int[][]> getLevelBackgroundImage(
+    public static Points< int[][]> getLevelBackgroundImage(
             DataBase _data, Coords _coords) {
         int sideLen_ = _data.getMap().getSideLength();
         Place pl_ = _data.getMap().getPlace(_coords.getNumberPlace());
         Level lev_ = pl_.getLevelByCoords(_coords);
-        ObjectMap<Point, int[][]> tiles_ = new ObjectMap<Point, int[][]>();
+        Points< int[][]> tiles_ = new PointsArr();
         for (Point p : lev_.getBlocks().getKeys()) {
             Block bl_ = lev_.getBlocks().getVal(p);
             int[][] image_ = _data.getImage(bl_.getTileFileName());
@@ -104,11 +102,11 @@ public abstract class Level {
         return tiles_;
     }
 
-    public static ObjectMap<Point, int[][]> getLevelForegroundImage(
+    public static Points< int[][]> getLevelForegroundImage(
             DataBase _data, Coords _coords) {
         Place pl_ = _data.getMap().getPlace(_coords.getNumberPlace());
         Level lev_ = pl_.getLevelByCoords(_coords);
-        ObjectMap<Point, int[][]> frontTiles_ = new ObjectMap<Point, int[][]>();
+        Points< int[][]> frontTiles_ = new PointsArr();
         Coords curCoords_ = new Coords(_coords);
         curCoords_.getLevel().setPoint(new Point((short)0,(short)0));
         for (Place p : _data.getMap().getPlaces()) {
@@ -224,10 +222,10 @@ public abstract class Level {
         return frontTiles_;
     }
 
-    public static void translateShortLineData(ObjectMap<Point, Short> _data,
+    public static void translateShortLineData(Points< Short> _data,
             short _y, short _dir) {
         CustList<Point> links_ = _data.getKeys();
-        ObjectMap<Point, Point> deplLinks_ = new ObjectMap<Point, Point>();
+        Points< Point> deplLinks_ = new PointsPoint();
         for (Point c : links_) {
             if (c.gety() < _y) {
                 deplLinks_.put(c, c);
@@ -246,10 +244,10 @@ public abstract class Level {
                 }
             }
             for (Point c : links_) {
-                Point dest_ = deplLinks_.getVal(c);
-                if (dest_ == null) {
+                if (!deplLinks_.contains(c)) {
                     continue;
                 }
+                Point dest_ = deplLinks_.getVal(c);
                 if (Point.eq(c, dest_)) {
                     deplLinks_.removeKey(c);
                 }
@@ -258,10 +256,10 @@ public abstract class Level {
         }
     }
 
-    public static void translateShortColumnData(ObjectMap<Point, Short> _data,
+    public static void translateShortColumnData(Points< Short> _data,
             short _x, short _dir) {
         CustList<Point> links_ = _data.getKeys();
-        ObjectMap<Point, Point> deplLinks_ = new ObjectMap<Point, Point>();
+        Points< Point> deplLinks_ = new PointsPoint();
         for (Point c : links_) {
             if (c.getx() < _x) {
                 deplLinks_.put(c, c);
@@ -280,10 +278,10 @@ public abstract class Level {
                 }
             }
             for (Point c : links_) {
-                Point dest_ = deplLinks_.getVal(c);
-                if (dest_ == null) {
+                if (!deplLinks_.contains(c)) {
                     continue;
                 }
+                Point dest_ = deplLinks_.getVal(c);
                 if (Point.eq(c, dest_)) {
                     deplLinks_.removeKey(c);
                 }
@@ -381,11 +379,11 @@ public abstract class Level {
         return new Limits(leftTopPoint_, rightBottomPoint_);
     }
 
-    public ObjectMap<Point, Block> getBlocks() {
+    public Points<Block> getBlocks() {
         return blocks;
     }
 
-    public void setBlocks(ObjectMap<Point, Block> _blocks) {
+    public void setBlocks(Points<Block> _blocks) {
         blocks = _blocks;
     }
 
