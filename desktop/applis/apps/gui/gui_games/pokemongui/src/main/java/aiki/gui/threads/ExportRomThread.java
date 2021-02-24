@@ -4,6 +4,7 @@ import aiki.facade.FacadeGame;
 import aiki.sml.DocumentWriterAikiCoreUtil;
 import aiki.sml.LoadingGame;
 import code.stream.StreamBinaryFile;
+import code.stream.StreamFolderFile;
 import code.stream.core.ContentTime;
 import code.stream.core.StreamZipFile;
 import code.util.EntryCust;
@@ -32,6 +33,7 @@ public final class ExportRomThread implements Runnable {
             for (EntryCust<String,String> e: textFiles_.entryList()) {
                 meta_.addEntry(e.getKey(),new ContentTime(StringUtil.encode(e.getValue()),System.currentTimeMillis()));
             }
+            StreamFolderFile.makeParent(path_);
             StreamBinaryFile.writeFile(path_,StreamZipFile.zipBinFiles(meta_));
         }
     }
