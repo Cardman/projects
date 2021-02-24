@@ -7,7 +7,7 @@ import code.maths.*;
 import code.util.*;
 public final class MvInit{
 private MvInit(){}
-public static StringMap<MoveData> m(){
+public static StringMap<MoveData> mv(){
  StringMap<MoveData> m_ = new StringMap<MoveData>(new CollCapacity(625));
 m_.addEntry("ABIME",MvInit0.m0());
 m_.addEntry("ABOIEMENT",MvInit0.m1());

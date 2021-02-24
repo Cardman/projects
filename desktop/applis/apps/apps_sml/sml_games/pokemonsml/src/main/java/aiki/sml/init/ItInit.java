@@ -11,7 +11,7 @@ import code.maths.montecarlo.*;
 import code.util.*;
 public final class ItInit{
 private ItInit(){}
-public static StringMap<Item> i(){
+public static StringMap<Item> it(){
  StringMap<Item> i_ = new StringMap<Item>(new CollCapacity(287));
 i_.addEntry("ACCRO_GRIFFE",m0());
 i_.addEntry("AIMANT",m1());
@@ -1705,7 +1705,8 @@ return healingPp_;
 }
 static Item m177(){
 Repel repel_ =Instances.newRepel();
-repel_.setSteps(500);repel_.setPrice(800);
+repel_.setSteps(500);
+repel_.setPrice(800);
 return repel_;
 }
 static Item m178(){
@@ -2382,7 +2383,8 @@ return healingHpStatus_;
 }
 static Item m259(){
 Repel repel_ =Instances.newRepel();
-repel_.setSteps(100);repel_.setPrice(300);
+repel_.setSteps(100);
+repel_.setPrice(300);
 return repel_;
 }
 static Item m260(){
@@ -2547,7 +2549,8 @@ return healingHp_;
 }
 static Item m279(){
 Repel repel_ =Instances.newRepel();
-repel_.setSteps(200);repel_.setPrice(500);
+repel_.setSteps(200);
+repel_.setPrice(500);
 return repel_;
 }
 static Item m280(){

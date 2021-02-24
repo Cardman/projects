@@ -12,7 +12,7 @@ import code.maths.montecarlo.*;
 import code.util.*;
 public final class StInit{
 private StInit(){}
-public static StringMap<Status> s(){
+public static StringMap<Status> st(){
  StringMap<Status> s_ = new StringMap<Status>(new CollCapacity(13));
 s_.addEntry("AMOUR",m0());
 s_.addEntry("BRULURE",m1());

@@ -13,7 +13,7 @@ import code.maths.montecarlo.*;
 import code.util.*;
 public final class CoInit{
 private CoInit(){}
-public static Combos c(){
+public static Combos co(){
 Combos combos_ = Instances.newCombos();
 ListEffectCombos listEffectCombos_=new ListEffectCombos(new CollCapacity(3));
 EffectCombo effectCombo_=Instances.newEffectCombo();

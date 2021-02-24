@@ -1938,7 +1938,7 @@ public final class DocumentReaderAikiCoreUtil {
         _d.setStorage(BaseSixtyFourUtil.getImageByString(ResourceFiles
                 .ressourceFichier(StringUtil.concat(common_,
                         IMAGE_STORAGE_FILES, IMG_FILES_RES_EXT_TXT))));
-        _d.setCombos(CoInit.c());
+        _d.setCombos(CoInit.co());
 //        _d.setCombos(DocumentReaderAikiCoreUtil.getCombos(ResourceFiles
 //                .ressourceFichier(StringUtil.concat(common_, COMBOS))));
         _d.completeMembersCombos();
@@ -2386,7 +2386,7 @@ public final class DocumentReaderAikiCoreUtil {
                 .ressourceFichier(StringUtil.concat(common_, ANIM_ABSORB))));
         StringList filesNames_;
         filesNames_ = new StringList();
-        for (EntryCust<String,PokemonData> e: PkInit.p().entryList()) {
+        for (EntryCust<String,PokemonData> e: PkInit.pk().entryList()) {
             _d.completeQuickMembers(e.getKey(),e.getValue());
         }
 //        for (String f : _d.getTranslatedPokemon().getVal(_lg)
@@ -2401,7 +2401,7 @@ public final class DocumentReaderAikiCoreUtil {
 //        }
         _d.calculateAvgPound();
         filesNames_.clear();
-        for (EntryCust<String,MoveData> e: MvInit.m().entryList()) {
+        for (EntryCust<String,MoveData> e: MvInit.mv().entryList()) {
             _d.completeQuickMembers(e.getKey(),e.getValue());
         }
 //        for (String f : _d.getTranslatedMoves().getVal(_lg)
@@ -2430,7 +2430,7 @@ public final class DocumentReaderAikiCoreUtil {
             }
         }
         filesNames_.clear();
-        for (EntryCust<String,Item> e: ItInit.i().entryList()) {
+        for (EntryCust<String,Item> e: ItInit.it().entryList()) {
             _d.completeQuickMembers(e.getKey(),e.getValue());
         }
 //        for (String f : _d.getTranslatedItems().getVal(_lg)
@@ -2443,7 +2443,7 @@ public final class DocumentReaderAikiCoreUtil {
 //            _d.completeMembers(DataBase.toUpperCase(f), o_);
 //        }
         filesNames_.clear();
-        for (EntryCust<String,AbilityData> e: AbInit.a().entryList()) {
+        for (EntryCust<String,AbilityData> e: AbInit.ab().entryList()) {
             _d.completeQuickMembers(e.getKey(),e.getValue());
         }
 //        for (String f : _d.getTranslatedAbilities().getVal(_lg)
@@ -2457,7 +2457,7 @@ public final class DocumentReaderAikiCoreUtil {
 //            _d.completeMembers(DataBase.toUpperCase(f), ab_);
 //        }
         filesNames_.clear();
-        for (EntryCust<String,Status> e: StInit.s().entryList()) {
+        for (EntryCust<String,Status> e: StInit.st().entryList()) {
             _d.completeQuickMembers(e.getKey(),e.getValue());
         }
 //        for (String f : _d.getTranslatedStatus().getVal(_lg)

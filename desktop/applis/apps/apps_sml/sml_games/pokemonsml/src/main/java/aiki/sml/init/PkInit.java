@@ -6,7 +6,7 @@ import code.maths.*;
 import code.util.*;
 public final class PkInit{
 private PkInit(){}
-public static StringMap<PokemonData> p(){
+public static StringMap<PokemonData> pk(){
  StringMap<PokemonData> p_ = new StringMap<PokemonData>(new CollCapacity(722));
 p_.addEntry("ABO",PkInit0.p0());
 p_.addEntry("ABRA",PkInit0.p1());

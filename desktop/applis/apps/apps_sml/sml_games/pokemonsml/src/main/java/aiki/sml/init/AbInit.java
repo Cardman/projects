@@ -11,7 +11,7 @@ import code.maths.montecarlo.*;
 import code.util.*;
 public final class AbInit{
 private AbInit(){}
-public static StringMap<AbilityData> a(){
+public static StringMap<AbilityData> ab(){
  StringMap<AbilityData> a_ = new StringMap<AbilityData>(new CollCapacity(164));
 a_.addEntry("ABRI_PROT",m0());
 a_.addEntry("ABSORB_EAU",m1());
