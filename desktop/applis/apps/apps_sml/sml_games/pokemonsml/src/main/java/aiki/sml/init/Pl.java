@@ -45,16 +45,12 @@ objectMapPlaceInterConnectCoords_.addEntry(new PlaceInterConnect(new Point((shor
 objectMapPlaceInterConnectCoords_.addEntry(new PlaceInterConnect(new Point((short)9,(short)0),Direction.UP),LvUt.newCoords(1,0,new Point((short)4,(short)11)));
 objectMapPlaceInterConnectCoords_.addEntry(new PlaceInterConnect(new Point((short)0,(short)9),Direction.LEFT),LvUt.newCoords(11,0,new Point((short)11,(short)4)));
 city_.setSavedlinks(objectMapPlaceInterConnectCoords_);
-PointsLink objectMapPointLink_=new PointsLink(new CollCapacity(0));
-city_.setLinksWithCaves(objectMapPointLink_);
 return city_;
 }
 public static Road p1(){
 Road road_=Instances.newRoad();
 road_.setName("R 1");
 road_.setLevel(Lv.p1());
-PointsLink objectMapPointLink_=new PointsLink(new CollCapacity(0));
-road_.setLinksWithCaves(objectMapPointLink_);
 PlaceInterConnects objectMapPlaceInterConnectCoords_=new PlaceInterConnects(new CollCapacity(2));
 objectMapPlaceInterConnectCoords_.addEntry(new PlaceInterConnect(new Point((short)4,(short)11),Direction.DOWN),LvUt.newCoords(0,0,new Point((short)9,(short)0)));
 objectMapPlaceInterConnectCoords_.addEntry(new PlaceInterConnect(new Point((short)4,(short)0),Direction.UP),LvUt.newCoords(2,0,new Point((short)9,(short)18)));
@@ -81,16 +77,12 @@ PlaceInterConnects objectMapPlaceInterConnectCoords_=new PlaceInterConnects(new 
 objectMapPlaceInterConnectCoords_.addEntry(new PlaceInterConnect(new Point((short)25,(short)9),Direction.RIGHT),LvUt.newCoords(3,0,new Point((short)0,(short)4)));
 objectMapPlaceInterConnectCoords_.addEntry(new PlaceInterConnect(new Point((short)9,(short)18),Direction.DOWN),LvUt.newCoords(1,0,new Point((short)4,(short)0)));
 city_.setSavedlinks(objectMapPlaceInterConnectCoords_);
-PointsLink objectMapPointLink_=new PointsLink(new CollCapacity(0));
-city_.setLinksWithCaves(objectMapPointLink_);
 return city_;
 }
 public static Road p3(){
 Road road_=Instances.newRoad();
 road_.setName("R 2");
 road_.setLevel(Lv.p3());
-PointsLink objectMapPointLink_=new PointsLink(new CollCapacity(0));
-road_.setLinksWithCaves(objectMapPointLink_);
 PlaceInterConnects objectMapPlaceInterConnectCoords_=new PlaceInterConnects(new CollCapacity(2));
 objectMapPlaceInterConnectCoords_.addEntry(new PlaceInterConnect(new Point((short)11,(short)4),Direction.RIGHT),LvUt.newCoords(4,0,new Point((short)0,(short)9)));
 objectMapPlaceInterConnectCoords_.addEntry(new PlaceInterConnect(new Point((short)0,(short)4),Direction.LEFT),LvUt.newCoords(2,0,new Point((short)25,(short)9)));
@@ -117,8 +109,6 @@ PlaceInterConnects objectMapPlaceInterConnectCoords_=new PlaceInterConnects(new 
 objectMapPlaceInterConnectCoords_.addEntry(new PlaceInterConnect(new Point((short)9,(short)18),Direction.DOWN),LvUt.newCoords(5,0,new Point((short)4,(short)0)));
 objectMapPlaceInterConnectCoords_.addEntry(new PlaceInterConnect(new Point((short)0,(short)9),Direction.LEFT),LvUt.newCoords(3,0,new Point((short)11,(short)4)));
 city_.setSavedlinks(objectMapPlaceInterConnectCoords_);
-PointsLink objectMapPointLink_=new PointsLink(new CollCapacity(0));
-city_.setLinksWithCaves(objectMapPointLink_);
 return city_;
 }
 public static Road p5(){
@@ -173,16 +163,12 @@ PlaceInterConnects objectMapPlaceInterConnectCoords_=new PlaceInterConnects(new 
 objectMapPlaceInterConnectCoords_.addEntry(new PlaceInterConnect(new Point((short)9,(short)0),Direction.UP),LvUt.newCoords(7,0,new Point((short)4,(short)9)));
 objectMapPlaceInterConnectCoords_.addEntry(new PlaceInterConnect(new Point((short)0,(short)9),Direction.LEFT),LvUt.newCoords(9,0,new Point((short)11,(short)4)));
 city_.setSavedlinks(objectMapPlaceInterConnectCoords_);
-PointsLink objectMapPointLink_=new PointsLink(new CollCapacity(0));
-city_.setLinksWithCaves(objectMapPointLink_);
 return city_;
 }
 public static Road p9(){
 Road road_=Instances.newRoad();
 road_.setName("R 5");
 road_.setLevel(Lv.p9());
-PointsLink objectMapPointLink_=new PointsLink(new CollCapacity(0));
-road_.setLinksWithCaves(objectMapPointLink_);
 PlaceInterConnects objectMapPlaceInterConnectCoords_=new PlaceInterConnects(new CollCapacity(2));
 objectMapPlaceInterConnectCoords_.addEntry(new PlaceInterConnect(new Point((short)11,(short)4),Direction.RIGHT),LvUt.newCoords(8,0,new Point((short)0,(short)9)));
 objectMapPlaceInterConnectCoords_.addEntry(new PlaceInterConnect(new Point((short)0,(short)4),Direction.LEFT),LvUt.newCoords(0,0,new Point((short)25,(short)9)));
@@ -205,8 +191,6 @@ public static Road p11(){
 Road road_=Instances.newRoad();
 road_.setName("R 6");
 road_.setLevel(Lv.p11());
-PointsLink objectMapPointLink_=new PointsLink(new CollCapacity(0));
-road_.setLinksWithCaves(objectMapPointLink_);
 PlaceInterConnects objectMapPlaceInterConnectCoords_=new PlaceInterConnects(new CollCapacity(1));
 objectMapPlaceInterConnectCoords_.addEntry(new PlaceInterConnect(new Point((short)11,(short)4),Direction.RIGHT),LvUt.newCoords(0,0,new Point((short)0,(short)9)));
 road_.setSavedlinks(objectMapPlaceInterConnectCoords_);

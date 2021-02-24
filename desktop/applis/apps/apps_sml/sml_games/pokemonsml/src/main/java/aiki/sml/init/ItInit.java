@@ -313,20 +313,12 @@ stringMapShort_.addEntry("LIGOTAGE",(short)0);
 stringMapShort_.addEntry("TOURBI_SABLE",(short)0);
 stringMapShort_.addEntry("DANSEFLAMME",(short)0);
 itemForBattle_.setIncreasingMaxNbRoundTrap(stringMapShort_);
-EnumMap<Statistic,Short> enumMapStatisticShort_=new EnumMap<Statistic,Short>(new CollCapacity(0));
-itemForBattle_.setWinEvFight(enumMapStatisticShort_);
-StatisticPokemons objectMapStatisticPokemonByte_=new StatisticPokemons(new CollCapacity(0));
-itemForBattle_.setMultStatPokemonRank(objectMapStatisticPokemonByte_);
 itemForBattle_.setPrice(1000);
 return itemForBattle_;
 }
 static Item m1(){
 ItemForBattle itemForBattle_ =Instances.newItemForBattle();
-EnumMap<Statistic,Short> enumMapStatisticShort_=new EnumMap<Statistic,Short>(new CollCapacity(0));
-itemForBattle_.setWinEvFight(enumMapStatisticShort_);
 itemForBattle_.setMultPower("6/5*cardinal(inter({VAR__ATTAQUE_TYPES},{ELECTRIQUE}))+cardinal(complementaire({ELECTRIQUE},{VAR__ATTAQUE_TYPES}))");
-StatisticPokemons objectMapStatisticPokemonByte_=new StatisticPokemons(new CollCapacity(0));
-itemForBattle_.setMultStatPokemonRank(objectMapStatisticPokemonByte_);
 itemForBattle_.setPrice(1000);
 return itemForBattle_;
 }
@@ -856,10 +848,6 @@ return berry_;
 }
 static Item m75(){
 ItemForBattle itemForBattle_ =Instances.newItemForBattle();
-EnumMap<Statistic,Short> enumMapStatisticShort_=new EnumMap<Statistic,Short>(new CollCapacity(0));
-itemForBattle_.setWinEvFight(enumMapStatisticShort_);
-StatisticPokemons objectMapStatisticPokemonByte_=new StatisticPokemons(new CollCapacity(0));
-itemForBattle_.setMultStatPokemonRank(objectMapStatisticPokemonByte_);
 EnumMap<Statistic,String> enumMapStatisticString_=new EnumMap<Statistic,String>(new CollCapacity(1));
 enumMapStatisticString_.addEntry(Statistic.SPEED,"1/2");
 itemForBattle_.setMultStat(enumMapStatisticString_);
@@ -873,10 +861,6 @@ return itemForBattle_;
 }
 static Item m76(){
 ItemForBattle itemForBattle_ =Instances.newItemForBattle();
-EnumMap<Statistic,Short> enumMapStatisticShort_=new EnumMap<Statistic,Short>(new CollCapacity(0));
-itemForBattle_.setWinEvFight(enumMapStatisticShort_);
-StatisticPokemons objectMapStatisticPokemonByte_=new StatisticPokemons(new CollCapacity(0));
-itemForBattle_.setMultStatPokemonRank(objectMapStatisticPokemonByte_);
 StringList stringList_=new StringList(new CollCapacity(1));
 stringList_.add("SOL");
 itemForBattle_.setImmuTypes(stringList_);
@@ -886,29 +870,17 @@ return itemForBattle_;
 static Item m77(){
 ItemForBattle itemForBattle_ =Instances.newItemForBattle();
 itemForBattle_.setProtectAgainstKo(Rate.newRate("1"));
-EnumMap<Statistic,Short> enumMapStatisticShort_=new EnumMap<Statistic,Short>(new CollCapacity(0));
-itemForBattle_.setWinEvFight(enumMapStatisticShort_);
-StatisticPokemons objectMapStatisticPokemonByte_=new StatisticPokemons(new CollCapacity(0));
-itemForBattle_.setMultStatPokemonRank(objectMapStatisticPokemonByte_);
 itemForBattle_.setPrice(1000);
 return itemForBattle_;
 }
 static Item m78(){
 ItemForBattle itemForBattle_ =Instances.newItemForBattle();
-EnumMap<Statistic,Short> enumMapStatisticShort_=new EnumMap<Statistic,Short>(new CollCapacity(0));
-itemForBattle_.setWinEvFight(enumMapStatisticShort_);
 itemForBattle_.setMultTrappingDamage(Rate.newRate("2"));
-StatisticPokemons objectMapStatisticPokemonByte_=new StatisticPokemons(new CollCapacity(0));
-itemForBattle_.setMultStatPokemonRank(objectMapStatisticPokemonByte_);
 itemForBattle_.setPrice(1000);
 return itemForBattle_;
 }
 static Item m79(){
 ItemForBattle itemForBattle_ =Instances.newItemForBattle();
-EnumMap<Statistic,Short> enumMapStatisticShort_=new EnumMap<Statistic,Short>(new CollCapacity(0));
-itemForBattle_.setWinEvFight(enumMapStatisticShort_);
-StatisticPokemons objectMapStatisticPokemonByte_=new StatisticPokemons(new CollCapacity(0));
-itemForBattle_.setMultStatPokemonRank(objectMapStatisticPokemonByte_);
 EnumMap<Statistic,String> enumMapStatisticString_=new EnumMap<Statistic,String>(new CollCapacity(1));
 enumMapStatisticString_.addEntry(Statistic.ATTACK,"3/2");
 itemForBattle_.setMultStat(enumMapStatisticString_);
@@ -917,11 +889,7 @@ return itemForBattle_;
 }
 static Item m80(){
 ItemForBattle itemForBattle_ =Instances.newItemForBattle();
-EnumMap<Statistic,Short> enumMapStatisticShort_=new EnumMap<Statistic,Short>(new CollCapacity(0));
-itemForBattle_.setWinEvFight(enumMapStatisticShort_);
 itemForBattle_.setMultPower("11/10*cardinal(inter({VAR__ATTAQUE_CATEGORIE},{PHYSIQUE}))+cardinal(complementaire({PHYSIQUE},{VAR__ATTAQUE_CATEGORIE}))");
-StatisticPokemons objectMapStatisticPokemonByte_=new StatisticPokemons(new CollCapacity(0));
-itemForBattle_.setMultStatPokemonRank(objectMapStatisticPokemonByte_);
 itemForBattle_.setPrice(1000);
 return itemForBattle_;
 }
@@ -930,15 +898,11 @@ ItemForBattle itemForBattle_ =Instances.newItemForBattle();
 EnumMap<Statistic,Short> enumMapStatisticShort_=new EnumMap<Statistic,Short>(new CollCapacity(1));
 enumMapStatisticShort_.addEntry(Statistic.SPECIAL_DEFENSE,(short)4);
 itemForBattle_.setWinEvFight(enumMapStatisticShort_);
-StatisticPokemons objectMapStatisticPokemonByte_=new StatisticPokemons(new CollCapacity(0));
-itemForBattle_.setMultStatPokemonRank(objectMapStatisticPokemonByte_);
 itemForBattle_.setPrice(1000);
 return itemForBattle_;
 }
 static Item m82(){
 ItemForBattle itemForBattle_ =Instances.newItemForBattle();
-EnumMap<Statistic,Short> enumMapStatisticShort_=new EnumMap<Statistic,Short>(new CollCapacity(0));
-itemForBattle_.setWinEvFight(enumMapStatisticShort_);
 StatisticPokemons objectMapStatisticPokemonByte_=new StatisticPokemons(new CollCapacity(1));
 objectMapStatisticPokemonByte_.addEntry(new StatisticPokemon(Statistic.CRITICAL_HIT,"CANARTICHO"),(byte)2);
 itemForBattle_.setMultStatPokemonRank(objectMapStatisticPokemonByte_);
@@ -947,11 +911,7 @@ return itemForBattle_;
 }
 static Item m83(){
 ItemForBattle itemForBattle_ =Instances.newItemForBattle();
-EnumMap<Statistic,Short> enumMapStatisticShort_=new EnumMap<Statistic,Short>(new CollCapacity(0));
-itemForBattle_.setWinEvFight(enumMapStatisticShort_);
 itemForBattle_.setMultPower("6/5*cardinal(inter({VAR__ATTAQUE_TYPES},{VOL}))+cardinal(complementaire({VOL},{VAR__ATTAQUE_TYPES}))");
-StatisticPokemons objectMapStatisticPokemonByte_=new StatisticPokemons(new CollCapacity(0));
-itemForBattle_.setMultStatPokemonRank(objectMapStatisticPokemonByte_);
 itemForBattle_.setPrice(1000);
 return itemForBattle_;
 }
@@ -963,11 +923,7 @@ return ball_;
 }
 static Item m85(){
 ItemForBattle itemForBattle_ =Instances.newItemForBattle();
-EnumMap<Statistic,Short> enumMapStatisticShort_=new EnumMap<Statistic,Short>(new CollCapacity(0));
-itemForBattle_.setWinEvFight(enumMapStatisticShort_);
 itemForBattle_.setMultPower("11/10*cardinal(inter({VAR__ATTAQUE_TYPES},{PSY}))+cardinal(complementaire({PSY},{VAR__ATTAQUE_TYPES}))");
-StatisticPokemons objectMapStatisticPokemonByte_=new StatisticPokemons(new CollCapacity(0));
-itemForBattle_.setMultStatPokemonRank(objectMapStatisticPokemonByte_);
 StringList stringList_=new StringList(new CollCapacity(1));
 stringList_.add("MIME_JR");
 itemForBattle_.setHatching(stringList_);
@@ -976,10 +932,6 @@ return itemForBattle_;
 }
 static Item m86(){
 ItemForBattle itemForBattle_ =Instances.newItemForBattle();
-EnumMap<Statistic,Short> enumMapStatisticShort_=new EnumMap<Statistic,Short>(new CollCapacity(0));
-itemForBattle_.setWinEvFight(enumMapStatisticShort_);
-StatisticPokemons objectMapStatisticPokemonByte_=new StatisticPokemons(new CollCapacity(0));
-itemForBattle_.setMultStatPokemonRank(objectMapStatisticPokemonByte_);
 CustList<EffectEndRound> custListEffectEndRound_ = new CustList<EffectEndRound>(new CollCapacity(1));
 EffectEndRoundIndividual effectEndRoundIndividual_=Instances.newEffectEndRoundIndividual();
 effectEndRoundIndividual_.setDeleteAllStatus(Rate.newRate("0"));
@@ -1001,10 +953,6 @@ return itemForBattle_;
 }
 static Item m87(){
 ItemForBattle itemForBattle_ =Instances.newItemForBattle();
-EnumMap<Statistic,Short> enumMapStatisticShort_=new EnumMap<Statistic,Short>(new CollCapacity(0));
-itemForBattle_.setWinEvFight(enumMapStatisticShort_);
-StatisticPokemons objectMapStatisticPokemonByte_=new StatisticPokemons(new CollCapacity(0));
-itemForBattle_.setMultStatPokemonRank(objectMapStatisticPokemonByte_);
 StringMap<EnumMap<Statistic,Byte>> stringMapEnumMapStatisticByte_=new StringMap<EnumMap<Statistic,Byte>>(new CollCapacity(1));
 EnumMap<Statistic,Byte> enumMapStatisticByte_=new EnumMap<Statistic,Byte>(new CollCapacity(1));
 enumMapStatisticByte_.addEntry(Statistic.ATTACK,(byte)1);
@@ -1015,38 +963,22 @@ return itemForBattle_;
 }
 static Item m88(){
 ItemForBattle itemForBattle_ =Instances.newItemForBattle();
-EnumMap<Statistic,Short> enumMapStatisticShort_=new EnumMap<Statistic,Short>(new CollCapacity(0));
-itemForBattle_.setWinEvFight(enumMapStatisticShort_);
-StatisticPokemons objectMapStatisticPokemonByte_=new StatisticPokemons(new CollCapacity(0));
-itemForBattle_.setMultStatPokemonRank(objectMapStatisticPokemonByte_);
 itemForBattle_.setPrice(1000);
 return itemForBattle_;
 }
 static Item m89(){
 ItemForBattle itemForBattle_ =Instances.newItemForBattle();
-EnumMap<Statistic,Short> enumMapStatisticShort_=new EnumMap<Statistic,Short>(new CollCapacity(0));
-itemForBattle_.setWinEvFight(enumMapStatisticShort_);
-StatisticPokemons objectMapStatisticPokemonByte_=new StatisticPokemons(new CollCapacity(0));
-itemForBattle_.setMultStatPokemonRank(objectMapStatisticPokemonByte_);
 itemForBattle_.setPrice(1000);
 return itemForBattle_;
 }
 static Item m90(){
 ItemForBattle itemForBattle_ =Instances.newItemForBattle();
-EnumMap<Statistic,Short> enumMapStatisticShort_=new EnumMap<Statistic,Short>(new CollCapacity(0));
-itemForBattle_.setWinEvFight(enumMapStatisticShort_);
 itemForBattle_.setMultWinningEv(Rate.newRate("2"));
-StatisticPokemons objectMapStatisticPokemonByte_=new StatisticPokemons(new CollCapacity(0));
-itemForBattle_.setMultStatPokemonRank(objectMapStatisticPokemonByte_);
 itemForBattle_.setPrice(1000);
 return itemForBattle_;
 }
 static Item m91(){
 ItemForBattle itemForBattle_ =Instances.newItemForBattle();
-EnumMap<Statistic,Short> enumMapStatisticShort_=new EnumMap<Statistic,Short>(new CollCapacity(0));
-itemForBattle_.setWinEvFight(enumMapStatisticShort_);
-StatisticPokemons objectMapStatisticPokemonByte_=new StatisticPokemons(new CollCapacity(0));
-itemForBattle_.setMultStatPokemonRank(objectMapStatisticPokemonByte_);
 itemForBattle_.setPrice(1000);
 return itemForBattle_;
 }
@@ -1084,10 +1016,6 @@ return boost_;
 }
 static Item m93(){
 ItemForBattle itemForBattle_ =Instances.newItemForBattle();
-EnumMap<Statistic,Short> enumMapStatisticShort_=new EnumMap<Statistic,Short>(new CollCapacity(0));
-itemForBattle_.setWinEvFight(enumMapStatisticShort_);
-StatisticPokemons objectMapStatisticPokemonByte_=new StatisticPokemons(new CollCapacity(0));
-itemForBattle_.setMultStatPokemonRank(objectMapStatisticPokemonByte_);
 itemForBattle_.setPrice(1000);
 return itemForBattle_;
 }
@@ -1125,20 +1053,12 @@ return boost_;
 }
 static Item m95(){
 ItemForBattle itemForBattle_ =Instances.newItemForBattle();
-EnumMap<Statistic,Short> enumMapStatisticShort_=new EnumMap<Statistic,Short>(new CollCapacity(0));
-itemForBattle_.setWinEvFight(enumMapStatisticShort_);
-StatisticPokemons objectMapStatisticPokemonByte_=new StatisticPokemons(new CollCapacity(0));
-itemForBattle_.setMultStatPokemonRank(objectMapStatisticPokemonByte_);
 itemForBattle_.setPrice(1000);
 return itemForBattle_;
 }
 static Item m96(){
 ItemForBattle itemForBattle_ =Instances.newItemForBattle();
-EnumMap<Statistic,Short> enumMapStatisticShort_=new EnumMap<Statistic,Short>(new CollCapacity(0));
-itemForBattle_.setWinEvFight(enumMapStatisticShort_);
 itemForBattle_.setDamageRecoil(Rate.newRate("1/6"));
-StatisticPokemons objectMapStatisticPokemonByte_=new StatisticPokemons(new CollCapacity(0));
-itemForBattle_.setMultStatPokemonRank(objectMapStatisticPokemonByte_);
 itemForBattle_.setPrice(1000);
 return itemForBattle_;
 }
@@ -1149,31 +1069,19 @@ return evolvingItem_;
 }
 static Item m98(){
 ItemForBattle itemForBattle_ =Instances.newItemForBattle();
-EnumMap<Statistic,Short> enumMapStatisticShort_=new EnumMap<Statistic,Short>(new CollCapacity(0));
-itemForBattle_.setWinEvFight(enumMapStatisticShort_);
 itemForBattle_.setMultDamage("1/5*caracdroiteouvert(VAR__COEFF_EFF,1)+1");
-StatisticPokemons objectMapStatisticPokemonByte_=new StatisticPokemons(new CollCapacity(0));
-itemForBattle_.setMultStatPokemonRank(objectMapStatisticPokemonByte_);
 itemForBattle_.setPrice(1000);
 return itemForBattle_;
 }
 static Item m99(){
 ItemForBattle itemForBattle_ =Instances.newItemForBattle();
 itemForBattle_.setProtectAgainstKoIfFullHp(Rate.newRate("1"));
-EnumMap<Statistic,Short> enumMapStatisticShort_=new EnumMap<Statistic,Short>(new CollCapacity(0));
-itemForBattle_.setWinEvFight(enumMapStatisticShort_);
-StatisticPokemons objectMapStatisticPokemonByte_=new StatisticPokemons(new CollCapacity(0));
-itemForBattle_.setMultStatPokemonRank(objectMapStatisticPokemonByte_);
 itemForBattle_.setPrice(1000);
 return itemForBattle_;
 }
 static Item m100(){
 ItemForBattle itemForBattle_ =Instances.newItemForBattle();
-EnumMap<Statistic,Short> enumMapStatisticShort_=new EnumMap<Statistic,Short>(new CollCapacity(0));
-itemForBattle_.setWinEvFight(enumMapStatisticShort_);
 itemForBattle_.setMultPower("6/5*cardinal(inter({VAR__ATTAQUE_TYPES},{COMBAT}))+cardinal(complementaire({COMBAT},{VAR__ATTAQUE_TYPES}))");
-StatisticPokemons objectMapStatisticPokemonByte_=new StatisticPokemons(new CollCapacity(0));
-itemForBattle_.setMultStatPokemonRank(objectMapStatisticPokemonByte_);
 itemForBattle_.setPrice(1000);
 return itemForBattle_;
 }
@@ -1182,8 +1090,6 @@ ItemForBattle itemForBattle_ =Instances.newItemForBattle();
 EnumMap<Statistic,Short> enumMapStatisticShort_=new EnumMap<Statistic,Short>(new CollCapacity(1));
 enumMapStatisticShort_.addEntry(Statistic.DEFENSE,(short)4);
 itemForBattle_.setWinEvFight(enumMapStatisticShort_);
-StatisticPokemons objectMapStatisticPokemonByte_=new StatisticPokemons(new CollCapacity(0));
-itemForBattle_.setMultStatPokemonRank(objectMapStatisticPokemonByte_);
 itemForBattle_.setPrice(1000);
 return itemForBattle_;
 }
@@ -1198,8 +1104,6 @@ ItemForBattle itemForBattle_ =Instances.newItemForBattle();
 EnumMap<Statistic,Short> enumMapStatisticShort_=new EnumMap<Statistic,Short>(new CollCapacity(1));
 enumMapStatisticShort_.addEntry(Statistic.SPEED,(short)4);
 itemForBattle_.setWinEvFight(enumMapStatisticShort_);
-StatisticPokemons objectMapStatisticPokemonByte_=new StatisticPokemons(new CollCapacity(0));
-itemForBattle_.setMultStatPokemonRank(objectMapStatisticPokemonByte_);
 itemForBattle_.setPrice(1000);
 return itemForBattle_;
 }
@@ -1210,11 +1114,7 @@ return evolvingItem_;
 }
 static Item m105(){
 ItemForBattle itemForBattle_ =Instances.newItemForBattle();
-EnumMap<Statistic,Short> enumMapStatisticShort_=new EnumMap<Statistic,Short>(new CollCapacity(0));
-itemForBattle_.setWinEvFight(enumMapStatisticShort_);
 itemForBattle_.setMultPower("6/5*cardinal(inter({VAR__ATTAQUE_TYPES},{FEU}))+cardinal(complementaire({FEU},{VAR__ATTAQUE_TYPES}))");
-StatisticPokemons objectMapStatisticPokemonByte_=new StatisticPokemons(new CollCapacity(0));
-itemForBattle_.setMultStatPokemonRank(objectMapStatisticPokemonByte_);
 itemForBattle_.setPrice(1000);
 return itemForBattle_;
 }
@@ -1238,11 +1138,7 @@ return ball_;
 }
 static Item m109(){
 ItemForBattle itemForBattle_ =Instances.newItemForBattle();
-EnumMap<Statistic,Short> enumMapStatisticShort_=new EnumMap<Statistic,Short>(new CollCapacity(0));
-itemForBattle_.setWinEvFight(enumMapStatisticShort_);
 itemForBattle_.setMultPower("6/5*cardinal(inter({VAR__ATTAQUE_TYPES},{DRAGON}))+cardinal(complementaire({DRAGON},{VAR__ATTAQUE_TYPES}))");
-StatisticPokemons objectMapStatisticPokemonByte_=new StatisticPokemons(new CollCapacity(0));
-itemForBattle_.setMultStatPokemonRank(objectMapStatisticPokemonByte_);
 itemForBattle_.setPrice(1000);
 return itemForBattle_;
 }
@@ -1253,11 +1149,7 @@ return evolvingItem_;
 }
 static Item m111(){
 ItemForBattle itemForBattle_ =Instances.newItemForBattle();
-EnumMap<Statistic,Short> enumMapStatisticShort_=new EnumMap<Statistic,Short>(new CollCapacity(0));
-itemForBattle_.setWinEvFight(enumMapStatisticShort_);
 itemForBattle_.setMultPower("6/5*cardinal(inter({VAR__ATTAQUE_TYPES},{PSY}))+cardinal(complementaire({PSY},{VAR__ATTAQUE_TYPES}))");
-StatisticPokemons objectMapStatisticPokemonByte_=new StatisticPokemons(new CollCapacity(0));
-itemForBattle_.setMultStatPokemonRank(objectMapStatisticPokemonByte_);
 itemForBattle_.setPrice(1000);
 return itemForBattle_;
 }
@@ -1298,11 +1190,7 @@ return healingHp_;
 }
 static Item m114(){
 ItemForBattle itemForBattle_ =Instances.newItemForBattle();
-EnumMap<Statistic,Short> enumMapStatisticShort_=new EnumMap<Statistic,Short>(new CollCapacity(0));
-itemForBattle_.setWinEvFight(enumMapStatisticShort_);
 itemForBattle_.setMultPower("6/5*cardinal(inter({VAR__ATTAQUE_TYPES},{EAU}))+cardinal(complementaire({EAU},{VAR__ATTAQUE_TYPES}))");
-StatisticPokemons objectMapStatisticPokemonByte_=new StatisticPokemons(new CollCapacity(0));
-itemForBattle_.setMultStatPokemonRank(objectMapStatisticPokemonByte_);
 itemForBattle_.setPrice(1000);
 return itemForBattle_;
 }
@@ -1329,10 +1217,6 @@ return healingPp_;
 }
 static Item m119(){
 ItemForBattle itemForBattle_ =Instances.newItemForBattle();
-EnumMap<Statistic,Short> enumMapStatisticShort_=new EnumMap<Statistic,Short>(new CollCapacity(0));
-itemForBattle_.setWinEvFight(enumMapStatisticShort_);
-StatisticPokemons objectMapStatisticPokemonByte_=new StatisticPokemons(new CollCapacity(0));
-itemForBattle_.setMultStatPokemonRank(objectMapStatisticPokemonByte_);
 EnumMap<Statistic,String> enumMapStatisticString_=new EnumMap<Statistic,String>(new CollCapacity(1));
 enumMapStatisticString_.addEntry(Statistic.EVASINESS,"21/20");
 itemForBattle_.setMultStat(enumMapStatisticString_);
@@ -1344,11 +1228,7 @@ return itemForBattle_;
 }
 static Item m120(){
 ItemForBattle itemForBattle_ =Instances.newItemForBattle();
-EnumMap<Statistic,Short> enumMapStatisticShort_=new EnumMap<Statistic,Short>(new CollCapacity(0));
-itemForBattle_.setWinEvFight(enumMapStatisticShort_);
 itemForBattle_.setMultPower("11/10*cardinal(inter({VAR__ATTAQUE_TYPES},{PLANTE}))+cardinal(complementaire({PLANTE},{VAR__ATTAQUE_TYPES}))");
-StatisticPokemons objectMapStatisticPokemonByte_=new StatisticPokemons(new CollCapacity(0));
-itemForBattle_.setMultStatPokemonRank(objectMapStatisticPokemonByte_);
 StringList stringList_=new StringList(new CollCapacity(1));
 stringList_.add("ROZBOUTON");
 itemForBattle_.setHatching(stringList_);
@@ -1357,11 +1237,7 @@ return itemForBattle_;
 }
 static Item m121(){
 ItemForBattle itemForBattle_ =Instances.newItemForBattle();
-EnumMap<Statistic,Short> enumMapStatisticShort_=new EnumMap<Statistic,Short>(new CollCapacity(0));
-itemForBattle_.setWinEvFight(enumMapStatisticShort_);
 itemForBattle_.setMultPower("11/10*cardinal(inter({VAR__ATTAQUE_TYPES},{EAU}))+cardinal(complementaire({EAU},{VAR__ATTAQUE_TYPES}))");
-StatisticPokemons objectMapStatisticPokemonByte_=new StatisticPokemons(new CollCapacity(0));
-itemForBattle_.setMultStatPokemonRank(objectMapStatisticPokemonByte_);
 StringList stringList_=new StringList(new CollCapacity(1));
 stringList_.add("AZURILL");
 itemForBattle_.setHatching(stringList_);
@@ -1371,10 +1247,6 @@ return itemForBattle_;
 static Item m122(){
 ItemForBattle itemForBattle_ =Instances.newItemForBattle();
 itemForBattle_.setAttackLast(true);
-EnumMap<Statistic,Short> enumMapStatisticShort_=new EnumMap<Statistic,Short>(new CollCapacity(0));
-itemForBattle_.setWinEvFight(enumMapStatisticShort_);
-StatisticPokemons objectMapStatisticPokemonByte_=new StatisticPokemons(new CollCapacity(0));
-itemForBattle_.setMultStatPokemonRank(objectMapStatisticPokemonByte_);
 StringList stringList_=new StringList(new CollCapacity(1));
 stringList_.add("GOINFREX");
 itemForBattle_.setHatching(stringList_);
@@ -1383,10 +1255,6 @@ return itemForBattle_;
 }
 static Item m123(){
 ItemForBattle itemForBattle_ =Instances.newItemForBattle();
-EnumMap<Statistic,Short> enumMapStatisticShort_=new EnumMap<Statistic,Short>(new CollCapacity(0));
-itemForBattle_.setWinEvFight(enumMapStatisticShort_);
-StatisticPokemons objectMapStatisticPokemonByte_=new StatisticPokemons(new CollCapacity(0));
-itemForBattle_.setMultStatPokemonRank(objectMapStatisticPokemonByte_);
 StringList stringList_=new StringList(new CollCapacity(1));
 stringList_.add("KORILLON");
 itemForBattle_.setHatching(stringList_);
@@ -1395,11 +1263,7 @@ return itemForBattle_;
 }
 static Item m124(){
 ItemForBattle itemForBattle_ =Instances.newItemForBattle();
-EnumMap<Statistic,Short> enumMapStatisticShort_=new EnumMap<Statistic,Short>(new CollCapacity(0));
-itemForBattle_.setWinEvFight(enumMapStatisticShort_);
 itemForBattle_.setMultPower("11/10*cardinal(inter({VAR__ATTAQUE_TYPES},{ROCHE}))+cardinal(complementaire({ROCHE},{VAR__ATTAQUE_TYPES}))");
-StatisticPokemons objectMapStatisticPokemonByte_=new StatisticPokemons(new CollCapacity(0));
-itemForBattle_.setMultStatPokemonRank(objectMapStatisticPokemonByte_);
 StringList stringList_=new StringList(new CollCapacity(1));
 stringList_.add("MANZAI");
 itemForBattle_.setHatching(stringList_);
@@ -1408,11 +1272,7 @@ return itemForBattle_;
 }
 static Item m125(){
 ItemForBattle itemForBattle_ =Instances.newItemForBattle();
-EnumMap<Statistic,Short> enumMapStatisticShort_=new EnumMap<Statistic,Short>(new CollCapacity(0));
-itemForBattle_.setWinEvFight(enumMapStatisticShort_);
 itemForBattle_.setMultPower("11/10*cardinal(inter({VAR__ATTAQUE_TYPES},{EAU}))+cardinal(complementaire({EAU},{VAR__ATTAQUE_TYPES}))");
-StatisticPokemons objectMapStatisticPokemonByte_=new StatisticPokemons(new CollCapacity(0));
-itemForBattle_.setMultStatPokemonRank(objectMapStatisticPokemonByte_);
 StringList stringList_=new StringList(new CollCapacity(1));
 stringList_.add("BABIMANTA");
 itemForBattle_.setHatching(stringList_);
@@ -1421,10 +1281,6 @@ return itemForBattle_;
 }
 static Item m126(){
 ItemForBattle itemForBattle_ =Instances.newItemForBattle();
-EnumMap<Statistic,Short> enumMapStatisticShort_=new EnumMap<Statistic,Short>(new CollCapacity(0));
-itemForBattle_.setWinEvFight(enumMapStatisticShort_);
-StatisticPokemons objectMapStatisticPokemonByte_=new StatisticPokemons(new CollCapacity(0));
-itemForBattle_.setMultStatPokemonRank(objectMapStatisticPokemonByte_);
 StringList stringList_=new StringList(new CollCapacity(1));
 stringList_.add("PTIRAVI");
 itemForBattle_.setHatching(stringList_);
@@ -1433,10 +1289,6 @@ return itemForBattle_;
 }
 static Item m127(){
 ItemForBattle itemForBattle_ =Instances.newItemForBattle();
-EnumMap<Statistic,Short> enumMapStatisticShort_=new EnumMap<Statistic,Short>(new CollCapacity(0));
-itemForBattle_.setWinEvFight(enumMapStatisticShort_);
-StatisticPokemons objectMapStatisticPokemonByte_=new StatisticPokemons(new CollCapacity(0));
-itemForBattle_.setMultStatPokemonRank(objectMapStatisticPokemonByte_);
 EnumMap<Statistic,String> enumMapStatisticString_=new EnumMap<Statistic,String>(new CollCapacity(2));
 enumMapStatisticString_.addEntry(Statistic.SPECIAL_DEFENSE,"3/2*cardinal(inter({VAR__FIGHTER_NOM},{ABO;ABRA;ABSOL;AFLAMANOIR;AIKIVOL;AIRMURE;AMONITA;ANCHWATT;ANORITH;APITRINI;ARAKDO;ARCEUS;ARCHEOMIRE;ARCKO;ARKEAPTI;ARTIKODIN;ASPICOT;AXOLOTO;AZURILL;BABIMANTA;BAGGIGUANE;BALBUTO;BALIGNON;BARGANTUA;BARLOCHE;BARPAU;BAUDRIVE;BLIZZI;BOREAS;BULBIZARRE;CACNEA;CADOIZO;CANARTICHO;CANINOS;CAPUMAIN;CARABING;CARAPAGOS;CARAPUCE;CARATROC;CARVANHA;CELEBI;CERFROUSSE;CERIBOU;CHACRIPAN;CHAGLAM;CHAMALLOT;CHARPENTI;CHARTOR;CHENIPAN;CHENIPOTTE;CHENITI;CHETIFLOR;CHINCHIDOU;CHLOROBULE;CHOVSOURIR;CHUCHMUR;COBALTIUM;COQUIPERL;CORAYON;CORNEBRE;COUANETON;COUPENOTTE;COXY;CRABICOQUE;CRADOPAUD;CREFADET;CREFOLLET;CREHELF;CRESSELIA;CRIKZIK;CRYPTERO;DARKRAI;DARUMAROND;DEBUGANT;DEMETEROS;DEOXYS;DIALGA;DINOCLIER;DODUO;DOUDOUVET;DRABY;DRAKKARMIN;DYNAVOLT;ECAYON;ECRAPINCE;ECREMEUH;ELECTHOR;ELEKID;EMBRYLEX;EMOLGA;ENTEI;ESCARGAUME;ETOURMI;EVOLI;EXCELANGUE;FANTOMINUS;FARFURET;FERMITE;FEROSINGE;FEUFOREVE;FEUILLAJOU;FLAMAJOU;FLOTAJOU;FOUINETTE;FRISON;FULGURIS;FUNECIRE;FURAIGLON;GALEKID;GENESECT;GERMIGNON;GIRAFARIG;GIRATINA;GLOUPTI;GOBOU;GOELISE;GOINFREX;GOUPIX;GRAINIPIOT;GRANIVOL;GRIKNOT;GRINDUR;GRINGOLEM;GROUDON;GRUIKUI;HEATRAN;HERICENDRE;HEXAGEL;HIPPOPOTAS;HOOTHOOT;HO_OH;HYPOTREMPE;INSECATEUR;INSOLOURDO;JIRACHI;JUDOKRAK;KABUTO;KAIMINUS;KANGOUREX;KARACLEE;KECLEON;KELDEO;KEUNOTOR;KICKLEE;KOKIYAS;KORILLON;KRABBY;KRAKNOIX;KRANIDOS;KUNGFOUINE;KYOGRE;KYUREM;LAPOREILLE;LARVEYETTE;LATIAS;LATIOS;LEWSOR;LILIA;LIMAGMA;LIMONDE;LIPPOUTI;LIXY;LOKHLASS;LOUPIO;LOVDISC;LUGIA;LUMIVOLE;MACHOC;MAGBY;MAGICARPE;MAGNETI;MAKUHITA;MALOSSE;MAMANBO;MANAPHY;MANGRIFF;MANZAI;MARACACHI;MARCACRIN;MASCAIMAN;MEDHYENA;MEDITIKKA;MELO;MELOETTA;METAMORPH;MEW;MEWTWO;MIAMIASME;MIAOUSS;MIME_JR;MIMIGAL;MIMITOSS;MINIDRACO;MORPHEO;MOTISMA;MOUFOUETTE;MOUSTILLON;MUCIOLE;MUNNA;MUSTEBOUEE;MYSDIBULE;MYSTHERBE;NANMEOUIE;NATU;NEGAPI;NENUPIOT;NIDORAN_F;NIDORAN_M;NINGALE;NIRONDELLE;NODULITHE;NOEUNOEUF;NOSFERAPTI;NUCLEOS;OBALIE;OKEOKE;ONIX;OSSELAIT;OTARIA;OUISTICRAM;PACHIRISU;PALKIA;PARAS;PARECOOL;PHANPY;PHIONE;PIAFABEC;PICHU;PIJAKO;POICHIGEON;POISSIRENE;POLARHUME;POLICHOMBR;POMDEPIK;PONCHIOT;PONYTA;PORYGON;POSIPI;POUSSIFEU;PSYKOKWAK;PTERA;PTIRAVI;PTITARD;PYRONILLE;QUEULORIOR;QWILFISH;RACAILLOU;RAIKOU;RAMOLOSS;RAPION;RATENTIF;RATTATA;RAYQUAZA;REGICE;REGIGIGAS;REGIROCK;REGISTEEL;RELICANTH;REMORAID;RESHIRAM;RHINOCORNE;RIOLU;ROTOTAUPE;ROUCOOL;ROZBOUTON;SABELETTE;SALAMECHE;SANCOKI;SAQUEDENEU;SCALPION;SCARABRUTE;SCARHINO;SCORPLANE;SCRUTELLA;SELEROC;SEVIPER;SHAYMIN;SKELENOX;SKITTY;SMOGO;SNUBBULL;SOLAROC;SOLOCHI;SOPORIFIK;SORBEBE;SPINDA;SPIRITOMB;SPOINK;STALGAMIN;STARI;STATITIK;SUICUNE;SULFURA;TADMORV;TARINOR;TARSAL;TAUPIQUEUR;TAUROS;TEDDIURSA;TENEFIX;TENTACOOL;TERHAL;TERRAKIUM;TIC;TIPLOUF;TOGEPI;TORTIPOUSS;TOUDOUDOU;TOURNEGRIN;TRITONDE;TROMPIGNON;TROPIUS;TUTAFEH;TYGNON;TYLTON;VENIPATTE;VICTINI;VIPELIERRE;VIRIDIUM;VISKUSE;VIVALDAIM;VOLTORBE;VORTENTE;VOSTOURNO;WAILMER;WATTOUAT;YANMA;ZARBI;ZEBIBRON;ZEKROM;ZIGZATON;ZORUA}))+cardinal(complementaire({ABO;ABRA;ABSOL;AFLAMANOIR;AIKIVOL;AIRMURE;AMONITA;ANCHWATT;ANORITH;APITRINI;ARAKDO;ARCEUS;ARCHEOMIRE;ARCKO;ARKEAPTI;ARTIKODIN;ASPICOT;AXOLOTO;AZURILL;BABIMANTA;BAGGIGUANE;BALBUTO;BALIGNON;BARGANTUA;BARLOCHE;BARPAU;BAUDRIVE;BLIZZI;BOREAS;BULBIZARRE;CACNEA;CADOIZO;CANARTICHO;CANINOS;CAPUMAIN;CARABING;CARAPAGOS;CARAPUCE;CARATROC;CARVANHA;CELEBI;CERFROUSSE;CERIBOU;CHACRIPAN;CHAGLAM;CHAMALLOT;CHARPENTI;CHARTOR;CHENIPAN;CHENIPOTTE;CHENITI;CHETIFLOR;CHINCHIDOU;CHLOROBULE;CHOVSOURIR;CHUCHMUR;COBALTIUM;COQUIPERL;CORAYON;CORNEBRE;COUANETON;COUPENOTTE;COXY;CRABICOQUE;CRADOPAUD;CREFADET;CREFOLLET;CREHELF;CRESSELIA;CRIKZIK;CRYPTERO;DARKRAI;DARUMAROND;DEBUGANT;DEMETEROS;DEOXYS;DIALGA;DINOCLIER;DODUO;DOUDOUVET;DRABY;DRAKKARMIN;DYNAVOLT;ECAYON;ECRAPINCE;ECREMEUH;ELECTHOR;ELEKID;EMBRYLEX;EMOLGA;ENTEI;ESCARGAUME;ETOURMI;EVOLI;EXCELANGUE;FANTOMINUS;FARFURET;FERMITE;FEROSINGE;FEUFOREVE;FEUILLAJOU;FLAMAJOU;FLOTAJOU;FOUINETTE;FRISON;FULGURIS;FUNECIRE;FURAIGLON;GALEKID;GENESECT;GERMIGNON;GIRAFARIG;GIRATINA;GLOUPTI;GOBOU;GOELISE;GOINFREX;GOUPIX;GRAINIPIOT;GRANIVOL;GRIKNOT;GRINDUR;GRINGOLEM;GROUDON;GRUIKUI;HEATRAN;HERICENDRE;HEXAGEL;HIPPOPOTAS;HOOTHOOT;HO_OH;HYPOTREMPE;INSECATEUR;INSOLOURDO;JIRACHI;JUDOKRAK;KABUTO;KAIMINUS;KANGOUREX;KARACLEE;KECLEON;KELDEO;KEUNOTOR;KICKLEE;KOKIYAS;KORILLON;KRABBY;KRAKNOIX;KRANIDOS;KUNGFOUINE;KYOGRE;KYUREM;LAPOREILLE;LARVEYETTE;LATIAS;LATIOS;LEWSOR;LILIA;LIMAGMA;LIMONDE;LIPPOUTI;LIXY;LOKHLASS;LOUPIO;LOVDISC;LUGIA;LUMIVOLE;MACHOC;MAGBY;MAGICARPE;MAGNETI;MAKUHITA;MALOSSE;MAMANBO;MANAPHY;MANGRIFF;MANZAI;MARACACHI;MARCACRIN;MASCAIMAN;MEDHYENA;MEDITIKKA;MELO;MELOETTA;METAMORPH;MEW;MEWTWO;MIAMIASME;MIAOUSS;MIME_JR;MIMIGAL;MIMITOSS;MINIDRACO;MORPHEO;MOTISMA;MOUFOUETTE;MOUSTILLON;MUCIOLE;MUNNA;MUSTEBOUEE;MYSDIBULE;MYSTHERBE;NANMEOUIE;NATU;NEGAPI;NENUPIOT;NIDORAN_F;NIDORAN_M;NINGALE;NIRONDELLE;NODULITHE;NOEUNOEUF;NOSFERAPTI;NUCLEOS;OBALIE;OKEOKE;ONIX;OSSELAIT;OTARIA;OUISTICRAM;PACHIRISU;PALKIA;PARAS;PARECOOL;PHANPY;PHIONE;PIAFABEC;PICHU;PIJAKO;POICHIGEON;POISSIRENE;POLARHUME;POLICHOMBR;POMDEPIK;PONCHIOT;PONYTA;PORYGON;POSIPI;POUSSIFEU;PSYKOKWAK;PTERA;PTIRAVI;PTITARD;PYRONILLE;QUEULORIOR;QWILFISH;RACAILLOU;RAIKOU;RAMOLOSS;RAPION;RATENTIF;RATTATA;RAYQUAZA;REGICE;REGIGIGAS;REGIROCK;REGISTEEL;RELICANTH;REMORAID;RESHIRAM;RHINOCORNE;RIOLU;ROTOTAUPE;ROUCOOL;ROZBOUTON;SABELETTE;SALAMECHE;SANCOKI;SAQUEDENEU;SCALPION;SCARABRUTE;SCARHINO;SCORPLANE;SCRUTELLA;SELEROC;SEVIPER;SHAYMIN;SKELENOX;SKITTY;SMOGO;SNUBBULL;SOLAROC;SOLOCHI;SOPORIFIK;SORBEBE;SPINDA;SPIRITOMB;SPOINK;STALGAMIN;STARI;STATITIK;SUICUNE;SULFURA;TADMORV;TARINOR;TARSAL;TAUPIQUEUR;TAUROS;TEDDIURSA;TENEFIX;TENTACOOL;TERHAL;TERRAKIUM;TIC;TIPLOUF;TOGEPI;TORTIPOUSS;TOUDOUDOU;TOURNEGRIN;TRITONDE;TROMPIGNON;TROPIUS;TUTAFEH;TYGNON;TYLTON;VENIPATTE;VICTINI;VIPELIERRE;VIRIDIUM;VISKUSE;VIVALDAIM;VOLTORBE;VORTENTE;VOSTOURNO;WAILMER;WATTOUAT;YANMA;ZARBI;ZEBIBRON;ZEKROM;ZIGZATON;ZORUA},{VAR__FIGHTER_NOM}))");
 enumMapStatisticString_.addEntry(Statistic.DEFENSE,"3/2*cardinal(inter({VAR__FIGHTER_NOM},{ABO;ABRA;ABSOL;AFLAMANOIR;AIKIVOL;AIRMURE;AMONITA;ANCHWATT;ANORITH;APITRINI;ARAKDO;ARCEUS;ARCHEOMIRE;ARCKO;ARKEAPTI;ARTIKODIN;ASPICOT;AXOLOTO;AZURILL;BABIMANTA;BAGGIGUANE;BALBUTO;BALIGNON;BARGANTUA;BARLOCHE;BARPAU;BAUDRIVE;BLIZZI;BOREAS;BULBIZARRE;CACNEA;CADOIZO;CANARTICHO;CANINOS;CAPUMAIN;CARABING;CARAPAGOS;CARAPUCE;CARATROC;CARVANHA;CELEBI;CERFROUSSE;CERIBOU;CHACRIPAN;CHAGLAM;CHAMALLOT;CHARPENTI;CHARTOR;CHENIPAN;CHENIPOTTE;CHENITI;CHETIFLOR;CHINCHIDOU;CHLOROBULE;CHOVSOURIR;CHUCHMUR;COBALTIUM;COQUIPERL;CORAYON;CORNEBRE;COUANETON;COUPENOTTE;COXY;CRABICOQUE;CRADOPAUD;CREFADET;CREFOLLET;CREHELF;CRESSELIA;CRIKZIK;CRYPTERO;DARKRAI;DARUMAROND;DEBUGANT;DEMETEROS;DEOXYS;DIALGA;DINOCLIER;DODUO;DOUDOUVET;DRABY;DRAKKARMIN;DYNAVOLT;ECAYON;ECRAPINCE;ECREMEUH;ELECTHOR;ELEKID;EMBRYLEX;EMOLGA;ENTEI;ESCARGAUME;ETOURMI;EVOLI;EXCELANGUE;FANTOMINUS;FARFURET;FERMITE;FEROSINGE;FEUFOREVE;FEUILLAJOU;FLAMAJOU;FLOTAJOU;FOUINETTE;FRISON;FULGURIS;FUNECIRE;FURAIGLON;GALEKID;GENESECT;GERMIGNON;GIRAFARIG;GIRATINA;GLOUPTI;GOBOU;GOELISE;GOINFREX;GOUPIX;GRAINIPIOT;GRANIVOL;GRIKNOT;GRINDUR;GRINGOLEM;GROUDON;GRUIKUI;HEATRAN;HERICENDRE;HEXAGEL;HIPPOPOTAS;HOOTHOOT;HO_OH;HYPOTREMPE;INSECATEUR;INSOLOURDO;JIRACHI;JUDOKRAK;KABUTO;KAIMINUS;KANGOUREX;KARACLEE;KECLEON;KELDEO;KEUNOTOR;KICKLEE;KOKIYAS;KORILLON;KRABBY;KRAKNOIX;KRANIDOS;KUNGFOUINE;KYOGRE;KYUREM;LAPOREILLE;LARVEYETTE;LATIAS;LATIOS;LEWSOR;LILIA;LIMAGMA;LIMONDE;LIPPOUTI;LIXY;LOKHLASS;LOUPIO;LOVDISC;LUGIA;LUMIVOLE;MACHOC;MAGBY;MAGICARPE;MAGNETI;MAKUHITA;MALOSSE;MAMANBO;MANAPHY;MANGRIFF;MANZAI;MARACACHI;MARCACRIN;MASCAIMAN;MEDHYENA;MEDITIKKA;MELO;MELOETTA;METAMORPH;MEW;MEWTWO;MIAMIASME;MIAOUSS;MIME_JR;MIMIGAL;MIMITOSS;MINIDRACO;MORPHEO;MOTISMA;MOUFOUETTE;MOUSTILLON;MUCIOLE;MUNNA;MUSTEBOUEE;MYSDIBULE;MYSTHERBE;NANMEOUIE;NATU;NEGAPI;NENUPIOT;NIDORAN_F;NIDORAN_M;NINGALE;NIRONDELLE;NODULITHE;NOEUNOEUF;NOSFERAPTI;NUCLEOS;OBALIE;OKEOKE;ONIX;OSSELAIT;OTARIA;OUISTICRAM;PACHIRISU;PALKIA;PARAS;PARECOOL;PHANPY;PHIONE;PIAFABEC;PICHU;PIJAKO;POICHIGEON;POISSIRENE;POLARHUME;POLICHOMBR;POMDEPIK;PONCHIOT;PONYTA;PORYGON;POSIPI;POUSSIFEU;PSYKOKWAK;PTERA;PTIRAVI;PTITARD;PYRONILLE;QUEULORIOR;QWILFISH;RACAILLOU;RAIKOU;RAMOLOSS;RAPION;RATENTIF;RATTATA;RAYQUAZA;REGICE;REGIGIGAS;REGIROCK;REGISTEEL;RELICANTH;REMORAID;RESHIRAM;RHINOCORNE;RIOLU;ROTOTAUPE;ROUCOOL;ROZBOUTON;SABELETTE;SALAMECHE;SANCOKI;SAQUEDENEU;SCALPION;SCARABRUTE;SCARHINO;SCORPLANE;SCRUTELLA;SELEROC;SEVIPER;SHAYMIN;SKELENOX;SKITTY;SMOGO;SNUBBULL;SOLAROC;SOLOCHI;SOPORIFIK;SORBEBE;SPINDA;SPIRITOMB;SPOINK;STALGAMIN;STARI;STATITIK;SUICUNE;SULFURA;TADMORV;TARINOR;TARSAL;TAUPIQUEUR;TAUROS;TEDDIURSA;TENEFIX;TENTACOOL;TERHAL;TERRAKIUM;TIC;TIPLOUF;TOGEPI;TORTIPOUSS;TOUDOUDOU;TOURNEGRIN;TRITONDE;TROMPIGNON;TROPIUS;TUTAFEH;TYGNON;TYLTON;VENIPATTE;VICTINI;VIPELIERRE;VIRIDIUM;VISKUSE;VIVALDAIM;VOLTORBE;VORTENTE;VOSTOURNO;WAILMER;WATTOUAT;YANMA;ZARBI;ZEBIBRON;ZEKROM;ZIGZATON;ZORUA}))+cardinal(complementaire({ABO;ABRA;ABSOL;AFLAMANOIR;AIKIVOL;AIRMURE;AMONITA;ANCHWATT;ANORITH;APITRINI;ARAKDO;ARCEUS;ARCHEOMIRE;ARCKO;ARKEAPTI;ARTIKODIN;ASPICOT;AXOLOTO;AZURILL;BABIMANTA;BAGGIGUANE;BALBUTO;BALIGNON;BARGANTUA;BARLOCHE;BARPAU;BAUDRIVE;BLIZZI;BOREAS;BULBIZARRE;CACNEA;CADOIZO;CANARTICHO;CANINOS;CAPUMAIN;CARABING;CARAPAGOS;CARAPUCE;CARATROC;CARVANHA;CELEBI;CERFROUSSE;CERIBOU;CHACRIPAN;CHAGLAM;CHAMALLOT;CHARPENTI;CHARTOR;CHENIPAN;CHENIPOTTE;CHENITI;CHETIFLOR;CHINCHIDOU;CHLOROBULE;CHOVSOURIR;CHUCHMUR;COBALTIUM;COQUIPERL;CORAYON;CORNEBRE;COUANETON;COUPENOTTE;COXY;CRABICOQUE;CRADOPAUD;CREFADET;CREFOLLET;CREHELF;CRESSELIA;CRIKZIK;CRYPTERO;DARKRAI;DARUMAROND;DEBUGANT;DEMETEROS;DEOXYS;DIALGA;DINOCLIER;DODUO;DOUDOUVET;DRABY;DRAKKARMIN;DYNAVOLT;ECAYON;ECRAPINCE;ECREMEUH;ELECTHOR;ELEKID;EMBRYLEX;EMOLGA;ENTEI;ESCARGAUME;ETOURMI;EVOLI;EXCELANGUE;FANTOMINUS;FARFURET;FERMITE;FEROSINGE;FEUFOREVE;FEUILLAJOU;FLAMAJOU;FLOTAJOU;FOUINETTE;FRISON;FULGURIS;FUNECIRE;FURAIGLON;GALEKID;GENESECT;GERMIGNON;GIRAFARIG;GIRATINA;GLOUPTI;GOBOU;GOELISE;GOINFREX;GOUPIX;GRAINIPIOT;GRANIVOL;GRIKNOT;GRINDUR;GRINGOLEM;GROUDON;GRUIKUI;HEATRAN;HERICENDRE;HEXAGEL;HIPPOPOTAS;HOOTHOOT;HO_OH;HYPOTREMPE;INSECATEUR;INSOLOURDO;JIRACHI;JUDOKRAK;KABUTO;KAIMINUS;KANGOUREX;KARACLEE;KECLEON;KELDEO;KEUNOTOR;KICKLEE;KOKIYAS;KORILLON;KRABBY;KRAKNOIX;KRANIDOS;KUNGFOUINE;KYOGRE;KYUREM;LAPOREILLE;LARVEYETTE;LATIAS;LATIOS;LEWSOR;LILIA;LIMAGMA;LIMONDE;LIPPOUTI;LIXY;LOKHLASS;LOUPIO;LOVDISC;LUGIA;LUMIVOLE;MACHOC;MAGBY;MAGICARPE;MAGNETI;MAKUHITA;MALOSSE;MAMANBO;MANAPHY;MANGRIFF;MANZAI;MARACACHI;MARCACRIN;MASCAIMAN;MEDHYENA;MEDITIKKA;MELO;MELOETTA;METAMORPH;MEW;MEWTWO;MIAMIASME;MIAOUSS;MIME_JR;MIMIGAL;MIMITOSS;MINIDRACO;MORPHEO;MOTISMA;MOUFOUETTE;MOUSTILLON;MUCIOLE;MUNNA;MUSTEBOUEE;MYSDIBULE;MYSTHERBE;NANMEOUIE;NATU;NEGAPI;NENUPIOT;NIDORAN_F;NIDORAN_M;NINGALE;NIRONDELLE;NODULITHE;NOEUNOEUF;NOSFERAPTI;NUCLEOS;OBALIE;OKEOKE;ONIX;OSSELAIT;OTARIA;OUISTICRAM;PACHIRISU;PALKIA;PARAS;PARECOOL;PHANPY;PHIONE;PIAFABEC;PICHU;PIJAKO;POICHIGEON;POISSIRENE;POLARHUME;POLICHOMBR;POMDEPIK;PONCHIOT;PONYTA;PORYGON;POSIPI;POUSSIFEU;PSYKOKWAK;PTERA;PTIRAVI;PTITARD;PYRONILLE;QUEULORIOR;QWILFISH;RACAILLOU;RAIKOU;RAMOLOSS;RAPION;RATENTIF;RATTATA;RAYQUAZA;REGICE;REGIGIGAS;REGIROCK;REGISTEEL;RELICANTH;REMORAID;RESHIRAM;RHINOCORNE;RIOLU;ROTOTAUPE;ROUCOOL;ROZBOUTON;SABELETTE;SALAMECHE;SANCOKI;SAQUEDENEU;SCALPION;SCARABRUTE;SCARHINO;SCORPLANE;SCRUTELLA;SELEROC;SEVIPER;SHAYMIN;SKELENOX;SKITTY;SMOGO;SNUBBULL;SOLAROC;SOLOCHI;SOPORIFIK;SORBEBE;SPINDA;SPIRITOMB;SPOINK;STALGAMIN;STARI;STATITIK;SUICUNE;SULFURA;TADMORV;TARINOR;TARSAL;TAUPIQUEUR;TAUROS;TEDDIURSA;TENEFIX;TENTACOOL;TERHAL;TERRAKIUM;TIC;TIPLOUF;TOGEPI;TORTIPOUSS;TOUDOUDOU;TOURNEGRIN;TRITONDE;TROMPIGNON;TROPIUS;TUTAFEH;TYGNON;TYLTON;VENIPATTE;VICTINI;VIPELIERRE;VIRIDIUM;VISKUSE;VIVALDAIM;VOLTORBE;VORTENTE;VOSTOURNO;WAILMER;WATTOUAT;YANMA;ZARBI;ZEBIBRON;ZEKROM;ZIGZATON;ZORUA},{VAR__FIGHTER_NOM}))");
@@ -1484,11 +1336,7 @@ return boost_;
 }
 static Item m130(){
 ItemForBattle itemForBattle_ =Instances.newItemForBattle();
-EnumMap<Statistic,Short> enumMapStatisticShort_=new EnumMap<Statistic,Short>(new CollCapacity(0));
-itemForBattle_.setWinEvFight(enumMapStatisticShort_);
 itemForBattle_.setMultPower("6/5*cardinal(inter({VAR__ATTAQUE_TYPES},{ACIER}))+cardinal(complementaire({ACIER},{VAR__ATTAQUE_TYPES}))");
-StatisticPokemons objectMapStatisticPokemonByte_=new StatisticPokemons(new CollCapacity(0));
-itemForBattle_.setMultStatPokemonRank(objectMapStatisticPokemonByte_);
 itemForBattle_.setPrice(1000);
 return itemForBattle_;
 }
@@ -1549,21 +1397,13 @@ return fossil_;
 }
 static Item m139(){
 ItemForBattle itemForBattle_ =Instances.newItemForBattle();
-EnumMap<Statistic,Short> enumMapStatisticShort_=new EnumMap<Statistic,Short>(new CollCapacity(0));
-itemForBattle_.setWinEvFight(enumMapStatisticShort_);
 itemForBattle_.setMultPower("6/5*cardinal(inter({VAR__ATTAQUE_TYPES},{GLACE}))+cardinal(complementaire({GLACE},{VAR__ATTAQUE_TYPES}))");
-StatisticPokemons objectMapStatisticPokemonByte_=new StatisticPokemons(new CollCapacity(0));
-itemForBattle_.setMultStatPokemonRank(objectMapStatisticPokemonByte_);
 itemForBattle_.setPrice(1000);
 return itemForBattle_;
 }
 static Item m140(){
 ItemForBattle itemForBattle_ =Instances.newItemForBattle();
-EnumMap<Statistic,Short> enumMapStatisticShort_=new EnumMap<Statistic,Short>(new CollCapacity(0));
-itemForBattle_.setWinEvFight(enumMapStatisticShort_);
 itemForBattle_.setMultPower("6/5*cardinal(inter({VAR__ATTAQUE_TYPES},{PLANTE}))+cardinal(complementaire({PLANTE},{VAR__ATTAQUE_TYPES}))");
-StatisticPokemons objectMapStatisticPokemonByte_=new StatisticPokemons(new CollCapacity(0));
-itemForBattle_.setMultStatPokemonRank(objectMapStatisticPokemonByte_);
 itemForBattle_.setPrice(1000);
 return itemForBattle_;
 }
@@ -1575,20 +1415,12 @@ return sellingItem_;
 static Item m142(){
 ItemForBattle itemForBattle_ =Instances.newItemForBattle();
 itemForBattle_.setDrainedHpByDamageRate(Rate.newRate("1/8"));
-EnumMap<Statistic,Short> enumMapStatisticShort_=new EnumMap<Statistic,Short>(new CollCapacity(0));
-itemForBattle_.setWinEvFight(enumMapStatisticShort_);
-StatisticPokemons objectMapStatisticPokemonByte_=new StatisticPokemons(new CollCapacity(0));
-itemForBattle_.setMultStatPokemonRank(objectMapStatisticPokemonByte_);
 itemForBattle_.setPrice(1000);
 return itemForBattle_;
 }
 static Item m143(){
 ItemForBattle itemForBattle_ =Instances.newItemForBattle();
-EnumMap<Statistic,Short> enumMapStatisticShort_=new EnumMap<Statistic,Short>(new CollCapacity(0));
-itemForBattle_.setWinEvFight(enumMapStatisticShort_);
 itemForBattle_.setMultWinningHappiness(Rate.newRate("2"));
-StatisticPokemons objectMapStatisticPokemonByte_=new StatisticPokemons(new CollCapacity(0));
-itemForBattle_.setMultStatPokemonRank(objectMapStatisticPokemonByte_);
 itemForBattle_.setPrice(1000);
 return itemForBattle_;
 }
@@ -1599,11 +1431,7 @@ return evolvingItem_;
 }
 static Item m145(){
 ItemForBattle itemForBattle_ =Instances.newItemForBattle();
-EnumMap<Statistic,Short> enumMapStatisticShort_=new EnumMap<Statistic,Short>(new CollCapacity(0));
-itemForBattle_.setWinEvFight(enumMapStatisticShort_);
 itemForBattle_.setMultDrainedHp(Rate.newRate("2"));
-StatisticPokemons objectMapStatisticPokemonByte_=new StatisticPokemons(new CollCapacity(0));
-itemForBattle_.setMultStatPokemonRank(objectMapStatisticPokemonByte_);
 itemForBattle_.setPrice(1000);
 return itemForBattle_;
 }
@@ -1631,10 +1459,6 @@ return healingHpStatus_;
 static Item m148(){
 ItemForBattle itemForBattle_ =Instances.newItemForBattle();
 itemForBattle_.setImmuLowStatis(true);
-EnumMap<Statistic,Short> enumMapStatisticShort_=new EnumMap<Statistic,Short>(new CollCapacity(0));
-itemForBattle_.setWinEvFight(enumMapStatisticShort_);
-StatisticPokemons objectMapStatisticPokemonByte_=new StatisticPokemons(new CollCapacity(0));
-itemForBattle_.setMultStatPokemonRank(objectMapStatisticPokemonByte_);
 itemForBattle_.setPrice(1000);
 return itemForBattle_;
 }
@@ -1643,20 +1467,12 @@ ItemForBattle itemForBattle_ =Instances.newItemForBattle();
 StringList stringList_=new StringList(new CollCapacity(1));
 stringList_.add("AMOUR");
 itemForBattle_.setImmuStatus(stringList_);
-EnumMap<Statistic,Short> enumMapStatisticShort_=new EnumMap<Statistic,Short>(new CollCapacity(0));
-itemForBattle_.setWinEvFight(enumMapStatisticShort_);
-StatisticPokemons objectMapStatisticPokemonByte_=new StatisticPokemons(new CollCapacity(0));
-itemForBattle_.setMultStatPokemonRank(objectMapStatisticPokemonByte_);
 itemForBattle_.setPrice(1000);
 return itemForBattle_;
 }
 static Item m150(){
 ItemForBattle itemForBattle_ =Instances.newItemForBattle();
 itemForBattle_.setAttacksSoon(true);
-EnumMap<Statistic,Short> enumMapStatisticShort_=new EnumMap<Statistic,Short>(new CollCapacity(0));
-itemForBattle_.setWinEvFight(enumMapStatisticShort_);
-StatisticPokemons objectMapStatisticPokemonByte_=new StatisticPokemons(new CollCapacity(0));
-itemForBattle_.setMultStatPokemonRank(objectMapStatisticPokemonByte_);
 itemForBattle_.setPrice(1000);
 return itemForBattle_;
 }
@@ -1728,22 +1544,14 @@ return healingHp_;
 }
 static Item m158(){
 ItemForBattle itemForBattle_ =Instances.newItemForBattle();
-EnumMap<Statistic,Short> enumMapStatisticShort_=new EnumMap<Statistic,Short>(new CollCapacity(0));
-itemForBattle_.setWinEvFight(enumMapStatisticShort_);
 EnumMap<Statistic,Byte> enumMapStatisticByte_=new EnumMap<Statistic,Byte>(new CollCapacity(1));
 enumMapStatisticByte_.addEntry(Statistic.CRITICAL_HIT,(byte)1);
 itemForBattle_.setMultStatRank(enumMapStatisticByte_);
-StatisticPokemons objectMapStatisticPokemonByte_=new StatisticPokemons(new CollCapacity(0));
-itemForBattle_.setMultStatPokemonRank(objectMapStatisticPokemonByte_);
 itemForBattle_.setPrice(1000);
 return itemForBattle_;
 }
 static Item m159(){
 ItemForBattle itemForBattle_ =Instances.newItemForBattle();
-EnumMap<Statistic,Short> enumMapStatisticShort_=new EnumMap<Statistic,Short>(new CollCapacity(0));
-itemForBattle_.setWinEvFight(enumMapStatisticShort_);
-StatisticPokemons objectMapStatisticPokemonByte_=new StatisticPokemons(new CollCapacity(0));
-itemForBattle_.setMultStatPokemonRank(objectMapStatisticPokemonByte_);
 EnumMap<Statistic,String> enumMapStatisticString_=new EnumMap<Statistic,String>(new CollCapacity(1));
 enumMapStatisticString_.addEntry(Statistic.ACCURACY,"6/5*VAR__FIGHTER_DER_JOUE+(1-VAR__FIGHTER_DER_JOUE)");
 itemForBattle_.setMultStat(enumMapStatisticString_);
@@ -1755,17 +1563,11 @@ ItemForBattle itemForBattle_ =Instances.newItemForBattle();
 EnumMap<Statistic,Short> enumMapStatisticShort_=new EnumMap<Statistic,Short>(new CollCapacity(1));
 enumMapStatisticShort_.addEntry(Statistic.SPECIAL_ATTACK,(short)4);
 itemForBattle_.setWinEvFight(enumMapStatisticShort_);
-StatisticPokemons objectMapStatisticPokemonByte_=new StatisticPokemons(new CollCapacity(0));
-itemForBattle_.setMultStatPokemonRank(objectMapStatisticPokemonByte_);
 itemForBattle_.setPrice(1000);
 return itemForBattle_;
 }
 static Item m161(){
 ItemForBattle itemForBattle_ =Instances.newItemForBattle();
-EnumMap<Statistic,Short> enumMapStatisticShort_=new EnumMap<Statistic,Short>(new CollCapacity(0));
-itemForBattle_.setWinEvFight(enumMapStatisticShort_);
-StatisticPokemons objectMapStatisticPokemonByte_=new StatisticPokemons(new CollCapacity(0));
-itemForBattle_.setMultStatPokemonRank(objectMapStatisticPokemonByte_);
 StringMap<EnumMap<Statistic,Byte>> stringMapEnumMapStatisticByte_=new StringMap<EnumMap<Statistic,Byte>>(new CollCapacity(1));
 EnumMap<Statistic,Byte> enumMapStatisticByte_=new EnumMap<Statistic,Byte>(new CollCapacity(1));
 enumMapStatisticByte_.addEntry(Statistic.SPECIAL_DEFENSE,(byte)1);
@@ -1806,10 +1608,6 @@ return healingHp_;
 }
 static Item m163(){
 ItemForBattle itemForBattle_ =Instances.newItemForBattle();
-EnumMap<Statistic,Short> enumMapStatisticShort_=new EnumMap<Statistic,Short>(new CollCapacity(0));
-itemForBattle_.setWinEvFight(enumMapStatisticShort_);
-StatisticPokemons objectMapStatisticPokemonByte_=new StatisticPokemons(new CollCapacity(0));
-itemForBattle_.setMultStatPokemonRank(objectMapStatisticPokemonByte_);
 EnumMap<Statistic,String> enumMapStatisticString_=new EnumMap<Statistic,String>(new CollCapacity(1));
 enumMapStatisticString_.addEntry(Statistic.ACCURACY,"11/10");
 itemForBattle_.setMultStat(enumMapStatisticString_);
@@ -1824,10 +1622,6 @@ return ball_;
 }
 static Item m165(){
 ItemForBattle itemForBattle_ =Instances.newItemForBattle();
-EnumMap<Statistic,Short> enumMapStatisticShort_=new EnumMap<Statistic,Short>(new CollCapacity(0));
-itemForBattle_.setWinEvFight(enumMapStatisticShort_);
-StatisticPokemons objectMapStatisticPokemonByte_=new StatisticPokemons(new CollCapacity(0));
-itemForBattle_.setMultStatPokemonRank(objectMapStatisticPokemonByte_);
 StringMap<Short> stringMapShort_=new StringMap<Short>(new CollCapacity(2));
 stringMapShort_.addEntry("PROTECTION",(short)3);
 stringMapShort_.addEntry("MUR_LUMIERE",(short)3);
@@ -1837,10 +1631,6 @@ return itemForBattle_;
 }
 static Item m166(){
 ItemForBattle itemForBattle_ =Instances.newItemForBattle();
-EnumMap<Statistic,Short> enumMapStatisticShort_=new EnumMap<Statistic,Short>(new CollCapacity(0));
-itemForBattle_.setWinEvFight(enumMapStatisticShort_);
-StatisticPokemons objectMapStatisticPokemonByte_=new StatisticPokemons(new CollCapacity(0));
-itemForBattle_.setMultStatPokemonRank(objectMapStatisticPokemonByte_);
 StringList stringList_=new StringList(new CollCapacity(1));
 stringList_.add("POUDRE_TOXIK");
 itemForBattle_.setImmuMoves(stringList_);
@@ -1852,10 +1642,6 @@ return itemForBattle_;
 }
 static Item m167(){
 ItemForBattle itemForBattle_ =Instances.newItemForBattle();
-EnumMap<Statistic,Short> enumMapStatisticShort_=new EnumMap<Statistic,Short>(new CollCapacity(0));
-itemForBattle_.setWinEvFight(enumMapStatisticShort_);
-StatisticPokemons objectMapStatisticPokemonByte_=new StatisticPokemons(new CollCapacity(0));
-itemForBattle_.setMultStatPokemonRank(objectMapStatisticPokemonByte_);
 EnumMap<Statistic,String> enumMapStatisticString_=new EnumMap<Statistic,String>(new CollCapacity(1));
 enumMapStatisticString_.addEntry(Statistic.SPECIAL_ATTACK,"3/2");
 itemForBattle_.setMultStat(enumMapStatisticString_);
@@ -1864,21 +1650,13 @@ return itemForBattle_;
 }
 static Item m168(){
 ItemForBattle itemForBattle_ =Instances.newItemForBattle();
-EnumMap<Statistic,Short> enumMapStatisticShort_=new EnumMap<Statistic,Short>(new CollCapacity(0));
-itemForBattle_.setWinEvFight(enumMapStatisticShort_);
 itemForBattle_.setMultPower("6/5*cardinal(inter({VAR__ATTAQUE_TYPES},{TENEBRE}))+cardinal(complementaire({TENEBRE},{VAR__ATTAQUE_TYPES}))");
-StatisticPokemons objectMapStatisticPokemonByte_=new StatisticPokemons(new CollCapacity(0));
-itemForBattle_.setMultStatPokemonRank(objectMapStatisticPokemonByte_);
 itemForBattle_.setPrice(1000);
 return itemForBattle_;
 }
 static Item m169(){
 ItemForBattle itemForBattle_ =Instances.newItemForBattle();
-EnumMap<Statistic,Short> enumMapStatisticShort_=new EnumMap<Statistic,Short>(new CollCapacity(0));
-itemForBattle_.setWinEvFight(enumMapStatisticShort_);
 itemForBattle_.setMultPower("11/10*cardinal(inter({VAR__ATTAQUE_CATEGORIE},{SPECIALE}))+cardinal(complementaire({SPECIALE},{VAR__ATTAQUE_CATEGORIE}))");
-StatisticPokemons objectMapStatisticPokemonByte_=new StatisticPokemons(new CollCapacity(0));
-itemForBattle_.setMultStatPokemonRank(objectMapStatisticPokemonByte_);
 itemForBattle_.setPrice(1000);
 return itemForBattle_;
 }
@@ -1907,10 +1685,6 @@ return ball_;
 }
 static Item m174(){
 ItemForBattle itemForBattle_ =Instances.newItemForBattle();
-EnumMap<Statistic,Short> enumMapStatisticShort_=new EnumMap<Statistic,Short>(new CollCapacity(0));
-itemForBattle_.setWinEvFight(enumMapStatisticShort_);
-StatisticPokemons objectMapStatisticPokemonByte_=new StatisticPokemons(new CollCapacity(0));
-itemForBattle_.setMultStatPokemonRank(objectMapStatisticPokemonByte_);
 EnumMap<Statistic,String> enumMapStatisticString_=new EnumMap<Statistic,String>(new CollCapacity(1));
 enumMapStatisticString_.addEntry(Statistic.ATTACK,"2*cardinal(inter({VAR__FIGHTER_NOM},{OSSATUEUR;OSSELAIT}))+cardinal(complementaire({OSSATUEUR;OSSELAIT},{VAR__FIGHTER_NOM}))");
 itemForBattle_.setMultStat(enumMapStatisticString_);
@@ -1936,47 +1710,27 @@ return repel_;
 }
 static Item m178(){
 ItemForBattle itemForBattle_ =Instances.newItemForBattle();
-EnumMap<Statistic,Short> enumMapStatisticShort_=new EnumMap<Statistic,Short>(new CollCapacity(0));
-itemForBattle_.setWinEvFight(enumMapStatisticShort_);
 itemForBattle_.setMultDamage("div(VAR__NB_UTILISATION_CONSECUTIF,10)+11/10");
-StatisticPokemons objectMapStatisticPokemonByte_=new StatisticPokemons(new CollCapacity(0));
-itemForBattle_.setMultStatPokemonRank(objectMapStatisticPokemonByte_);
 itemForBattle_.setPrice(1000);
 return itemForBattle_;
 }
 static Item m179(){
 ItemForBattle itemForBattle_ =Instances.newItemForBattle();
-EnumMap<Statistic,Short> enumMapStatisticShort_=new EnumMap<Statistic,Short>(new CollCapacity(0));
-itemForBattle_.setWinEvFight(enumMapStatisticShort_);
-StatisticPokemons objectMapStatisticPokemonByte_=new StatisticPokemons(new CollCapacity(0));
-itemForBattle_.setMultStatPokemonRank(objectMapStatisticPokemonByte_);
 itemForBattle_.setPrice(200);
 return itemForBattle_;
 }
 static Item m180(){
 ItemForBattle itemForBattle_ =Instances.newItemForBattle();
-EnumMap<Statistic,Short> enumMapStatisticShort_=new EnumMap<Statistic,Short>(new CollCapacity(0));
-itemForBattle_.setWinEvFight(enumMapStatisticShort_);
-StatisticPokemons objectMapStatisticPokemonByte_=new StatisticPokemons(new CollCapacity(0));
-itemForBattle_.setMultStatPokemonRank(objectMapStatisticPokemonByte_);
 itemForBattle_.setPrice(200);
 return itemForBattle_;
 }
 static Item m181(){
 ItemForBattle itemForBattle_ =Instances.newItemForBattle();
-EnumMap<Statistic,Short> enumMapStatisticShort_=new EnumMap<Statistic,Short>(new CollCapacity(0));
-itemForBattle_.setWinEvFight(enumMapStatisticShort_);
-StatisticPokemons objectMapStatisticPokemonByte_=new StatisticPokemons(new CollCapacity(0));
-itemForBattle_.setMultStatPokemonRank(objectMapStatisticPokemonByte_);
 itemForBattle_.setPrice(200);
 return itemForBattle_;
 }
 static Item m182(){
 ItemForBattle itemForBattle_ =Instances.newItemForBattle();
-EnumMap<Statistic,Short> enumMapStatisticShort_=new EnumMap<Statistic,Short>(new CollCapacity(0));
-itemForBattle_.setWinEvFight(enumMapStatisticShort_);
-StatisticPokemons objectMapStatisticPokemonByte_=new StatisticPokemons(new CollCapacity(0));
-itemForBattle_.setMultStatPokemonRank(objectMapStatisticPokemonByte_);
 itemForBattle_.setPrice(200);
 return itemForBattle_;
 }
@@ -1987,10 +1741,6 @@ return sellingItem_;
 }
 static Item m184(){
 ItemForBattle itemForBattle_ =Instances.newItemForBattle();
-EnumMap<Statistic,Short> enumMapStatisticShort_=new EnumMap<Statistic,Short>(new CollCapacity(0));
-itemForBattle_.setWinEvFight(enumMapStatisticShort_);
-StatisticPokemons objectMapStatisticPokemonByte_=new StatisticPokemons(new CollCapacity(0));
-itemForBattle_.setMultStatPokemonRank(objectMapStatisticPokemonByte_);
 EnumMap<Statistic,String> enumMapStatisticString_=new EnumMap<Statistic,String>(new CollCapacity(1));
 enumMapStatisticString_.addEntry(Statistic.SPEED,"3/2");
 itemForBattle_.setMultStat(enumMapStatisticString_);
@@ -1999,21 +1749,13 @@ return itemForBattle_;
 }
 static Item m185(){
 ItemForBattle itemForBattle_ =Instances.newItemForBattle();
-EnumMap<Statistic,Short> enumMapStatisticShort_=new EnumMap<Statistic,Short>(new CollCapacity(0));
-itemForBattle_.setWinEvFight(enumMapStatisticShort_);
 itemForBattle_.setMultPower("6/5*cardinal(inter({VAR__ATTAQUE_TYPES},{NORMAL}))+cardinal(complementaire({NORMAL},{VAR__ATTAQUE_TYPES}))");
-StatisticPokemons objectMapStatisticPokemonByte_=new StatisticPokemons(new CollCapacity(0));
-itemForBattle_.setMultStatPokemonRank(objectMapStatisticPokemonByte_);
 itemForBattle_.setPrice(1000);
 return itemForBattle_;
 }
 static Item m186(){
 ItemForBattle itemForBattle_ =Instances.newItemForBattle();
 itemForBattle_.setBoostExp(true);
-EnumMap<Statistic,Short> enumMapStatisticShort_=new EnumMap<Statistic,Short>(new CollCapacity(0));
-itemForBattle_.setWinEvFight(enumMapStatisticShort_);
-StatisticPokemons objectMapStatisticPokemonByte_=new StatisticPokemons(new CollCapacity(0));
-itemForBattle_.setMultStatPokemonRank(objectMapStatisticPokemonByte_);
 itemForBattle_.setPrice(1000);
 return itemForBattle_;
 }
@@ -2038,39 +1780,23 @@ itemForBattle_.setSynchroStatus(stringList_);
 StringMap<String> stringMapString_=new StringMap<String>(new CollCapacity(1));
 stringMapString_.addEntry("AMOUR","VAR__EXISTE_GENRE_ASSEXUE|VAR__GENRES_EGAUX|VAR__CIBLE_POSSEDE_STATUT_RELATION__AMOUR");
 itemForBattle_.setFailStatus(stringMapString_);
-EnumMap<Statistic,Short> enumMapStatisticShort_=new EnumMap<Statistic,Short>(new CollCapacity(0));
-itemForBattle_.setWinEvFight(enumMapStatisticShort_);
-StatisticPokemons objectMapStatisticPokemonByte_=new StatisticPokemons(new CollCapacity(0));
-itemForBattle_.setMultStatPokemonRank(objectMapStatisticPokemonByte_);
 itemForBattle_.setPrice(1000);
 return itemForBattle_;
 }
 static Item m190(){
 ItemForBattle itemForBattle_ =Instances.newItemForBattle();
-EnumMap<Statistic,Short> enumMapStatisticShort_=new EnumMap<Statistic,Short>(new CollCapacity(0));
-itemForBattle_.setWinEvFight(enumMapStatisticShort_);
 itemForBattle_.setMultWinningExp(Rate.newRate("3/2"));
-StatisticPokemons objectMapStatisticPokemonByte_=new StatisticPokemons(new CollCapacity(0));
-itemForBattle_.setMultStatPokemonRank(objectMapStatisticPokemonByte_);
 itemForBattle_.setPrice(1000);
 return itemForBattle_;
 }
 static Item m191(){
 ItemForBattle itemForBattle_ =Instances.newItemForBattle();
-EnumMap<Statistic,Short> enumMapStatisticShort_=new EnumMap<Statistic,Short>(new CollCapacity(0));
-itemForBattle_.setWinEvFight(enumMapStatisticShort_);
 itemForBattle_.setMultPower("cardinal(inter({VAR__LANCEUR_NOM},{DIALGA}))*(6/5*cardinal(inter({VAR__ATTAQUE_TYPES},{DRAGON;ACIER}))+cardinal(complementaire({DRAGON;ACIER},{VAR__ATTAQUE_TYPES})))+cardinal(complementaire({DIALGA},{VAR__LANCEUR_NOM}))");
-StatisticPokemons objectMapStatisticPokemonByte_=new StatisticPokemons(new CollCapacity(0));
-itemForBattle_.setMultStatPokemonRank(objectMapStatisticPokemonByte_);
 itemForBattle_.setPrice(1000);
 return itemForBattle_;
 }
 static Item m192(){
 ItemForBattle itemForBattle_ =Instances.newItemForBattle();
-EnumMap<Statistic,Short> enumMapStatisticShort_=new EnumMap<Statistic,Short>(new CollCapacity(0));
-itemForBattle_.setWinEvFight(enumMapStatisticShort_);
-StatisticPokemons objectMapStatisticPokemonByte_=new StatisticPokemons(new CollCapacity(0));
-itemForBattle_.setMultStatPokemonRank(objectMapStatisticPokemonByte_);
 CustList<EffectEndRound> custListEffectEndRound_ = new CustList<EffectEndRound>(new CollCapacity(1));
 EffectEndRoundIndividual effectEndRoundIndividual_=Instances.newEffectEndRoundIndividual();
 effectEndRoundIndividual_.setDeleteAllStatus(Rate.newRate("0"));
@@ -2088,30 +1814,18 @@ return itemForBattle_;
 }
 static Item m193(){
 ItemForBattle itemForBattle_ =Instances.newItemForBattle();
-EnumMap<Statistic,Short> enumMapStatisticShort_=new EnumMap<Statistic,Short>(new CollCapacity(0));
-itemForBattle_.setWinEvFight(enumMapStatisticShort_);
 itemForBattle_.setMultPower("cardinal(inter({VAR__LANCEUR_NOM},{PALKIA}))*(6/5*cardinal(inter({VAR__ATTAQUE_TYPES},{DRAGON;EAU}))+cardinal(complementaire({DRAGON;EAU},{VAR__ATTAQUE_TYPES})))+cardinal(complementaire({PALKIA},{VAR__LANCEUR_NOM}))");
-StatisticPokemons objectMapStatisticPokemonByte_=new StatisticPokemons(new CollCapacity(0));
-itemForBattle_.setMultStatPokemonRank(objectMapStatisticPokemonByte_);
 itemForBattle_.setPrice(1000);
 return itemForBattle_;
 }
 static Item m194(){
 ItemForBattle itemForBattle_ =Instances.newItemForBattle();
-EnumMap<Statistic,Short> enumMapStatisticShort_=new EnumMap<Statistic,Short>(new CollCapacity(0));
-itemForBattle_.setWinEvFight(enumMapStatisticShort_);
 itemForBattle_.setMultPower("cardinal(inter({VAR__LANCEUR_NOM},{GIRATINA}))*(6/5*cardinal(inter({VAR__ATTAQUE_TYPES},{SPECTRE;DRAGON}))+cardinal(complementaire({SPECTRE;DRAGON},{VAR__ATTAQUE_TYPES})))+cardinal(complementaire({GIRATINA},{VAR__LANCEUR_NOM}))");
-StatisticPokemons objectMapStatisticPokemonByte_=new StatisticPokemons(new CollCapacity(0));
-itemForBattle_.setMultStatPokemonRank(objectMapStatisticPokemonByte_);
 itemForBattle_.setPrice(1000);
 return itemForBattle_;
 }
 static Item m195(){
 ItemForBattle itemForBattle_ =Instances.newItemForBattle();
-EnumMap<Statistic,Short> enumMapStatisticShort_=new EnumMap<Statistic,Short>(new CollCapacity(0));
-itemForBattle_.setWinEvFight(enumMapStatisticShort_);
-StatisticPokemons objectMapStatisticPokemonByte_=new StatisticPokemons(new CollCapacity(0));
-itemForBattle_.setMultStatPokemonRank(objectMapStatisticPokemonByte_);
 CustList<EffectEndRound> custListEffectEndRound_ = new CustList<EffectEndRound>(new CollCapacity(1));
 EffectEndRoundIndividual effectEndRoundIndividual_=Instances.newEffectEndRoundIndividual();
 effectEndRoundIndividual_.setDeleteAllStatus(Rate.newRate("0"));
@@ -2129,11 +1843,7 @@ return itemForBattle_;
 }
 static Item m196(){
 ItemForBattle itemForBattle_ =Instances.newItemForBattle();
-EnumMap<Statistic,Short> enumMapStatisticShort_=new EnumMap<Statistic,Short>(new CollCapacity(0));
-itemForBattle_.setWinEvFight(enumMapStatisticShort_);
 itemForBattle_.setMultDamage("13/10");
-StatisticPokemons objectMapStatisticPokemonByte_=new StatisticPokemons(new CollCapacity(0));
-itemForBattle_.setMultStatPokemonRank(objectMapStatisticPokemonByte_);
 CustList<EffectEndRound> custListEffectEndRound_ = new CustList<EffectEndRound>(new CollCapacity(1));
 EffectEndRoundIndividual effectEndRoundIndividual_=Instances.newEffectEndRoundIndividual();
 effectEndRoundIndividual_.setDeleteAllStatus(Rate.newRate("0"));
@@ -2176,29 +1886,17 @@ return sellingItem_;
 }
 static Item m202(){
 ItemForBattle itemForBattle_ =Instances.newItemForBattle();
-EnumMap<Statistic,Short> enumMapStatisticShort_=new EnumMap<Statistic,Short>(new CollCapacity(0));
-itemForBattle_.setWinEvFight(enumMapStatisticShort_);
 itemForBattle_.setMultPower("6/5*cardinal(inter({VAR__ATTAQUE_TYPES},{POISON}))+cardinal(complementaire({POISON},{VAR__ATTAQUE_TYPES}))");
-StatisticPokemons objectMapStatisticPokemonByte_=new StatisticPokemons(new CollCapacity(0));
-itemForBattle_.setMultStatPokemonRank(objectMapStatisticPokemonByte_);
 itemForBattle_.setPrice(1000);
 return itemForBattle_;
 }
 static Item m203(){
 ItemForBattle itemForBattle_ =Instances.newItemForBattle();
-EnumMap<Statistic,Short> enumMapStatisticShort_=new EnumMap<Statistic,Short>(new CollCapacity(0));
-itemForBattle_.setWinEvFight(enumMapStatisticShort_);
-StatisticPokemons objectMapStatisticPokemonByte_=new StatisticPokemons(new CollCapacity(0));
-itemForBattle_.setMultStatPokemonRank(objectMapStatisticPokemonByte_);
 itemForBattle_.setPrice(1000);
 return itemForBattle_;
 }
 static Item m204(){
 ItemForBattle itemForBattle_ =Instances.newItemForBattle();
-EnumMap<Statistic,Short> enumMapStatisticShort_=new EnumMap<Statistic,Short>(new CollCapacity(0));
-itemForBattle_.setWinEvFight(enumMapStatisticShort_);
-StatisticPokemons objectMapStatisticPokemonByte_=new StatisticPokemons(new CollCapacity(0));
-itemForBattle_.setMultStatPokemonRank(objectMapStatisticPokemonByte_);
 CustList<EffectWhileSendingWithStatistic> custListEffectWhileSendingWithStatistic_ = new CustList<EffectWhileSendingWithStatistic>(new CollCapacity(1));
 EffectWhileSendingWithStatistic effectWhileSendingWithStatistic_ = Instances.newEffectWhileSendingSimple();
 effectWhileSendingWithStatistic_.setMultWeight(Rate.newRate("1/2"));
@@ -2214,11 +1912,7 @@ return evolvingStone_;
 }
 static Item m206(){
 ItemForBattle itemForBattle_ =Instances.newItemForBattle();
-EnumMap<Statistic,Short> enumMapStatisticShort_=new EnumMap<Statistic,Short>(new CollCapacity(0));
-itemForBattle_.setWinEvFight(enumMapStatisticShort_);
 itemForBattle_.setMultPower("6/5*cardinal(inter({VAR__ATTAQUE_TYPES},{ROCHE}))+cardinal(complementaire({ROCHE},{VAR__ATTAQUE_TYPES}))");
-StatisticPokemons objectMapStatisticPokemonByte_=new StatisticPokemons(new CollCapacity(0));
-itemForBattle_.setMultStatPokemonRank(objectMapStatisticPokemonByte_);
 itemForBattle_.setPrice(1000);
 return itemForBattle_;
 }
@@ -2280,29 +1974,17 @@ return evolvingStone_;
 static Item m218(){
 ItemForBattle itemForBattle_ =Instances.newItemForBattle();
 itemForBattle_.setAgainstEvo(true);
-EnumMap<Statistic,Short> enumMapStatisticShort_=new EnumMap<Statistic,Short>(new CollCapacity(0));
-itemForBattle_.setWinEvFight(enumMapStatisticShort_);
-StatisticPokemons objectMapStatisticPokemonByte_=new StatisticPokemons(new CollCapacity(0));
-itemForBattle_.setMultStatPokemonRank(objectMapStatisticPokemonByte_);
 itemForBattle_.setPrice(1000);
 return itemForBattle_;
 }
 static Item m219(){
 ItemForBattle itemForBattle_ =Instances.newItemForBattle();
-EnumMap<Statistic,Short> enumMapStatisticShort_=new EnumMap<Statistic,Short>(new CollCapacity(0));
-itemForBattle_.setWinEvFight(enumMapStatisticShort_);
-StatisticPokemons objectMapStatisticPokemonByte_=new StatisticPokemons(new CollCapacity(0));
-itemForBattle_.setMultStatPokemonRank(objectMapStatisticPokemonByte_);
 itemForBattle_.setPrice(1000);
 return itemForBattle_;
 }
 static Item m220(){
 ItemForBattle itemForBattle_ =Instances.newItemForBattle();
-EnumMap<Statistic,Short> enumMapStatisticShort_=new EnumMap<Statistic,Short>(new CollCapacity(0));
-itemForBattle_.setWinEvFight(enumMapStatisticShort_);
 itemForBattle_.setDamageRecoil(Rate.newRate("1/8"));
-StatisticPokemons objectMapStatisticPokemonByte_=new StatisticPokemons(new CollCapacity(0));
-itemForBattle_.setMultStatPokemonRank(objectMapStatisticPokemonByte_);
 itemForBattle_.setPrice(1000);
 return itemForBattle_;
 }
@@ -2311,11 +1993,7 @@ ItemForBattle itemForBattle_ =Instances.newItemForBattle();
 StringList stringList_=new StringList(new CollCapacity(1));
 stringList_.add("PSY");
 itemForBattle_.setTypesPk(stringList_);
-EnumMap<Statistic,Short> enumMapStatisticShort_=new EnumMap<Statistic,Short>(new CollCapacity(0));
-itemForBattle_.setWinEvFight(enumMapStatisticShort_);
 itemForBattle_.setMultPower("6/5*cardinal(inter({VAR__ATTAQUE_TYPES},{PSY}))+cardinal(complementaire({PSY},{VAR__ATTAQUE_TYPES}))");
-StatisticPokemons objectMapStatisticPokemonByte_=new StatisticPokemons(new CollCapacity(0));
-itemForBattle_.setMultStatPokemonRank(objectMapStatisticPokemonByte_);
 itemForBattle_.setPrice(1000);
 return itemForBattle_;
 }
@@ -2324,11 +2002,7 @@ ItemForBattle itemForBattle_ =Instances.newItemForBattle();
 StringList stringList_=new StringList(new CollCapacity(1));
 stringList_.add("VOL");
 itemForBattle_.setTypesPk(stringList_);
-EnumMap<Statistic,Short> enumMapStatisticShort_=new EnumMap<Statistic,Short>(new CollCapacity(0));
-itemForBattle_.setWinEvFight(enumMapStatisticShort_);
 itemForBattle_.setMultPower("6/5*cardinal(inter({VAR__ATTAQUE_TYPES},{VOL}))+cardinal(complementaire({VOL},{VAR__ATTAQUE_TYPES}))");
-StatisticPokemons objectMapStatisticPokemonByte_=new StatisticPokemons(new CollCapacity(0));
-itemForBattle_.setMultStatPokemonRank(objectMapStatisticPokemonByte_);
 itemForBattle_.setPrice(1000);
 return itemForBattle_;
 }
@@ -2337,11 +2011,7 @@ ItemForBattle itemForBattle_ =Instances.newItemForBattle();
 StringList stringList_=new StringList(new CollCapacity(1));
 stringList_.add("DRAGON");
 itemForBattle_.setTypesPk(stringList_);
-EnumMap<Statistic,Short> enumMapStatisticShort_=new EnumMap<Statistic,Short>(new CollCapacity(0));
-itemForBattle_.setWinEvFight(enumMapStatisticShort_);
 itemForBattle_.setMultPower("6/5*cardinal(inter({VAR__ATTAQUE_TYPES},{DRAGON}))+cardinal(complementaire({DRAGON},{VAR__ATTAQUE_TYPES}))");
-StatisticPokemons objectMapStatisticPokemonByte_=new StatisticPokemons(new CollCapacity(0));
-itemForBattle_.setMultStatPokemonRank(objectMapStatisticPokemonByte_);
 itemForBattle_.setPrice(1000);
 return itemForBattle_;
 }
@@ -2350,11 +2020,7 @@ ItemForBattle itemForBattle_ =Instances.newItemForBattle();
 StringList stringList_=new StringList(new CollCapacity(1));
 stringList_.add("SPECTRE");
 itemForBattle_.setTypesPk(stringList_);
-EnumMap<Statistic,Short> enumMapStatisticShort_=new EnumMap<Statistic,Short>(new CollCapacity(0));
-itemForBattle_.setWinEvFight(enumMapStatisticShort_);
 itemForBattle_.setMultPower("6/5*cardinal(inter({VAR__ATTAQUE_TYPES},{SPECTRE}))+cardinal(complementaire({SPECTRE},{VAR__ATTAQUE_TYPES}))");
-StatisticPokemons objectMapStatisticPokemonByte_=new StatisticPokemons(new CollCapacity(0));
-itemForBattle_.setMultStatPokemonRank(objectMapStatisticPokemonByte_);
 itemForBattle_.setPrice(1000);
 return itemForBattle_;
 }
@@ -2363,11 +2029,7 @@ ItemForBattle itemForBattle_ =Instances.newItemForBattle();
 StringList stringList_=new StringList(new CollCapacity(1));
 stringList_.add("FEE");
 itemForBattle_.setTypesPk(stringList_);
-EnumMap<Statistic,Short> enumMapStatisticShort_=new EnumMap<Statistic,Short>(new CollCapacity(0));
-itemForBattle_.setWinEvFight(enumMapStatisticShort_);
 itemForBattle_.setMultPower("6/5*cardinal(inter({VAR__ATTAQUE_TYPES},{FEE}))+cardinal(complementaire({FEE},{VAR__ATTAQUE_TYPES}))");
-StatisticPokemons objectMapStatisticPokemonByte_=new StatisticPokemons(new CollCapacity(0));
-itemForBattle_.setMultStatPokemonRank(objectMapStatisticPokemonByte_);
 itemForBattle_.setPrice(1000);
 return itemForBattle_;
 }
@@ -2376,11 +2038,7 @@ ItemForBattle itemForBattle_ =Instances.newItemForBattle();
 StringList stringList_=new StringList(new CollCapacity(1));
 stringList_.add("ACIER");
 itemForBattle_.setTypesPk(stringList_);
-EnumMap<Statistic,Short> enumMapStatisticShort_=new EnumMap<Statistic,Short>(new CollCapacity(0));
-itemForBattle_.setWinEvFight(enumMapStatisticShort_);
 itemForBattle_.setMultPower("6/5*cardinal(inter({VAR__ATTAQUE_TYPES},{ACIER}))+cardinal(complementaire({ACIER},{VAR__ATTAQUE_TYPES}))");
-StatisticPokemons objectMapStatisticPokemonByte_=new StatisticPokemons(new CollCapacity(0));
-itemForBattle_.setMultStatPokemonRank(objectMapStatisticPokemonByte_);
 itemForBattle_.setPrice(1000);
 return itemForBattle_;
 }
@@ -2389,11 +2047,7 @@ ItemForBattle itemForBattle_ =Instances.newItemForBattle();
 StringList stringList_=new StringList(new CollCapacity(1));
 stringList_.add("FEU");
 itemForBattle_.setTypesPk(stringList_);
-EnumMap<Statistic,Short> enumMapStatisticShort_=new EnumMap<Statistic,Short>(new CollCapacity(0));
-itemForBattle_.setWinEvFight(enumMapStatisticShort_);
 itemForBattle_.setMultPower("6/5*cardinal(inter({VAR__ATTAQUE_TYPES},{FEU}))+cardinal(complementaire({FEU},{VAR__ATTAQUE_TYPES}))");
-StatisticPokemons objectMapStatisticPokemonByte_=new StatisticPokemons(new CollCapacity(0));
-itemForBattle_.setMultStatPokemonRank(objectMapStatisticPokemonByte_);
 itemForBattle_.setPrice(1000);
 return itemForBattle_;
 }
@@ -2402,11 +2056,7 @@ ItemForBattle itemForBattle_ =Instances.newItemForBattle();
 StringList stringList_=new StringList(new CollCapacity(1));
 stringList_.add("GLACE");
 itemForBattle_.setTypesPk(stringList_);
-EnumMap<Statistic,Short> enumMapStatisticShort_=new EnumMap<Statistic,Short>(new CollCapacity(0));
-itemForBattle_.setWinEvFight(enumMapStatisticShort_);
 itemForBattle_.setMultPower("6/5*cardinal(inter({VAR__ATTAQUE_TYPES},{GLACE}))+cardinal(complementaire({GLACE},{VAR__ATTAQUE_TYPES}))");
-StatisticPokemons objectMapStatisticPokemonByte_=new StatisticPokemons(new CollCapacity(0));
-itemForBattle_.setMultStatPokemonRank(objectMapStatisticPokemonByte_);
 itemForBattle_.setPrice(1000);
 return itemForBattle_;
 }
@@ -2415,11 +2065,7 @@ ItemForBattle itemForBattle_ =Instances.newItemForBattle();
 StringList stringList_=new StringList(new CollCapacity(1));
 stringList_.add("PLANTE");
 itemForBattle_.setTypesPk(stringList_);
-EnumMap<Statistic,Short> enumMapStatisticShort_=new EnumMap<Statistic,Short>(new CollCapacity(0));
-itemForBattle_.setWinEvFight(enumMapStatisticShort_);
 itemForBattle_.setMultPower("6/5*cardinal(inter({VAR__ATTAQUE_TYPES},{PLANTE}))+cardinal(complementaire({PLANTE},{VAR__ATTAQUE_TYPES}))");
-StatisticPokemons objectMapStatisticPokemonByte_=new StatisticPokemons(new CollCapacity(0));
-itemForBattle_.setMultStatPokemonRank(objectMapStatisticPokemonByte_);
 itemForBattle_.setPrice(1000);
 return itemForBattle_;
 }
@@ -2428,11 +2074,7 @@ ItemForBattle itemForBattle_ =Instances.newItemForBattle();
 StringList stringList_=new StringList(new CollCapacity(1));
 stringList_.add("EAU");
 itemForBattle_.setTypesPk(stringList_);
-EnumMap<Statistic,Short> enumMapStatisticShort_=new EnumMap<Statistic,Short>(new CollCapacity(0));
-itemForBattle_.setWinEvFight(enumMapStatisticShort_);
 itemForBattle_.setMultPower("6/5*cardinal(inter({VAR__ATTAQUE_TYPES},{EAU}))+cardinal(complementaire({EAU},{VAR__ATTAQUE_TYPES}))");
-StatisticPokemons objectMapStatisticPokemonByte_=new StatisticPokemons(new CollCapacity(0));
-itemForBattle_.setMultStatPokemonRank(objectMapStatisticPokemonByte_);
 itemForBattle_.setPrice(1000);
 return itemForBattle_;
 }
@@ -2441,11 +2083,7 @@ ItemForBattle itemForBattle_ =Instances.newItemForBattle();
 StringList stringList_=new StringList(new CollCapacity(1));
 stringList_.add("TENEBRE");
 itemForBattle_.setTypesPk(stringList_);
-EnumMap<Statistic,Short> enumMapStatisticShort_=new EnumMap<Statistic,Short>(new CollCapacity(0));
-itemForBattle_.setWinEvFight(enumMapStatisticShort_);
 itemForBattle_.setMultPower("6/5*cardinal(inter({VAR__ATTAQUE_TYPES},{TENEBRE}))+cardinal(complementaire({TENEBRE},{VAR__ATTAQUE_TYPES}))");
-StatisticPokemons objectMapStatisticPokemonByte_=new StatisticPokemons(new CollCapacity(0));
-itemForBattle_.setMultStatPokemonRank(objectMapStatisticPokemonByte_);
 itemForBattle_.setPrice(1000);
 return itemForBattle_;
 }
@@ -2454,11 +2092,7 @@ ItemForBattle itemForBattle_ =Instances.newItemForBattle();
 StringList stringList_=new StringList(new CollCapacity(1));
 stringList_.add("COMBAT");
 itemForBattle_.setTypesPk(stringList_);
-EnumMap<Statistic,Short> enumMapStatisticShort_=new EnumMap<Statistic,Short>(new CollCapacity(0));
-itemForBattle_.setWinEvFight(enumMapStatisticShort_);
 itemForBattle_.setMultPower("6/5*cardinal(inter({VAR__ATTAQUE_TYPES},{COMBAT}))+cardinal(complementaire({COMBAT},{VAR__ATTAQUE_TYPES}))");
-StatisticPokemons objectMapStatisticPokemonByte_=new StatisticPokemons(new CollCapacity(0));
-itemForBattle_.setMultStatPokemonRank(objectMapStatisticPokemonByte_);
 itemForBattle_.setPrice(1000);
 return itemForBattle_;
 }
@@ -2467,11 +2101,7 @@ ItemForBattle itemForBattle_ =Instances.newItemForBattle();
 StringList stringList_=new StringList(new CollCapacity(1));
 stringList_.add("ROCHE");
 itemForBattle_.setTypesPk(stringList_);
-EnumMap<Statistic,Short> enumMapStatisticShort_=new EnumMap<Statistic,Short>(new CollCapacity(0));
-itemForBattle_.setWinEvFight(enumMapStatisticShort_);
 itemForBattle_.setMultPower("6/5*cardinal(inter({VAR__ATTAQUE_TYPES},{ROCHE}))+cardinal(complementaire({ROCHE},{VAR__ATTAQUE_TYPES}))");
-StatisticPokemons objectMapStatisticPokemonByte_=new StatisticPokemons(new CollCapacity(0));
-itemForBattle_.setMultStatPokemonRank(objectMapStatisticPokemonByte_);
 itemForBattle_.setPrice(1000);
 return itemForBattle_;
 }
@@ -2480,11 +2110,7 @@ ItemForBattle itemForBattle_ =Instances.newItemForBattle();
 StringList stringList_=new StringList(new CollCapacity(1));
 stringList_.add("SOL");
 itemForBattle_.setTypesPk(stringList_);
-EnumMap<Statistic,Short> enumMapStatisticShort_=new EnumMap<Statistic,Short>(new CollCapacity(0));
-itemForBattle_.setWinEvFight(enumMapStatisticShort_);
 itemForBattle_.setMultPower("6/5*cardinal(inter({VAR__ATTAQUE_TYPES},{SOL}))+cardinal(complementaire({SOL},{VAR__ATTAQUE_TYPES}))");
-StatisticPokemons objectMapStatisticPokemonByte_=new StatisticPokemons(new CollCapacity(0));
-itemForBattle_.setMultStatPokemonRank(objectMapStatisticPokemonByte_);
 itemForBattle_.setPrice(1000);
 return itemForBattle_;
 }
@@ -2493,11 +2119,7 @@ ItemForBattle itemForBattle_ =Instances.newItemForBattle();
 StringList stringList_=new StringList(new CollCapacity(1));
 stringList_.add("POISON");
 itemForBattle_.setTypesPk(stringList_);
-EnumMap<Statistic,Short> enumMapStatisticShort_=new EnumMap<Statistic,Short>(new CollCapacity(0));
-itemForBattle_.setWinEvFight(enumMapStatisticShort_);
 itemForBattle_.setMultPower("6/5*cardinal(inter({VAR__ATTAQUE_TYPES},{POISON}))+cardinal(complementaire({POISON},{VAR__ATTAQUE_TYPES}))");
-StatisticPokemons objectMapStatisticPokemonByte_=new StatisticPokemons(new CollCapacity(0));
-itemForBattle_.setMultStatPokemonRank(objectMapStatisticPokemonByte_);
 itemForBattle_.setPrice(1000);
 return itemForBattle_;
 }
@@ -2506,11 +2128,7 @@ ItemForBattle itemForBattle_ =Instances.newItemForBattle();
 StringList stringList_=new StringList(new CollCapacity(1));
 stringList_.add("ELECTRIQUE");
 itemForBattle_.setTypesPk(stringList_);
-EnumMap<Statistic,Short> enumMapStatisticShort_=new EnumMap<Statistic,Short>(new CollCapacity(0));
-itemForBattle_.setWinEvFight(enumMapStatisticShort_);
 itemForBattle_.setMultPower("6/5*cardinal(inter({VAR__ATTAQUE_TYPES},{ELECTRIQUE}))+cardinal(complementaire({ELECTRIQUE},{VAR__ATTAQUE_TYPES}))");
-StatisticPokemons objectMapStatisticPokemonByte_=new StatisticPokemons(new CollCapacity(0));
-itemForBattle_.setMultStatPokemonRank(objectMapStatisticPokemonByte_);
 itemForBattle_.setPrice(1000);
 return itemForBattle_;
 }
@@ -2519,11 +2137,7 @@ ItemForBattle itemForBattle_ =Instances.newItemForBattle();
 StringList stringList_=new StringList(new CollCapacity(1));
 stringList_.add("INSECTE");
 itemForBattle_.setTypesPk(stringList_);
-EnumMap<Statistic,Short> enumMapStatisticShort_=new EnumMap<Statistic,Short>(new CollCapacity(0));
-itemForBattle_.setWinEvFight(enumMapStatisticShort_);
 itemForBattle_.setMultPower("6/5*cardinal(inter({VAR__ATTAQUE_TYPES},{INSECTE}))+cardinal(complementaire({INSECTE},{VAR__ATTAQUE_TYPES}))");
-StatisticPokemons objectMapStatisticPokemonByte_=new StatisticPokemons(new CollCapacity(0));
-itemForBattle_.setMultStatPokemonRank(objectMapStatisticPokemonByte_);
 itemForBattle_.setPrice(1000);
 return itemForBattle_;
 }
@@ -2532,8 +2146,6 @@ ItemForBattle itemForBattle_ =Instances.newItemForBattle();
 EnumMap<Statistic,Short> enumMapStatisticShort_=new EnumMap<Statistic,Short>(new CollCapacity(1));
 enumMapStatisticShort_.addEntry(Statistic.HP,(short)4);
 itemForBattle_.setWinEvFight(enumMapStatisticShort_);
-StatisticPokemons objectMapStatisticPokemonByte_=new StatisticPokemons(new CollCapacity(0));
-itemForBattle_.setMultStatPokemonRank(objectMapStatisticPokemonByte_);
 itemForBattle_.setPrice(1000);
 return itemForBattle_;
 }
@@ -2542,15 +2154,11 @@ ItemForBattle itemForBattle_ =Instances.newItemForBattle();
 EnumMap<Statistic,Short> enumMapStatisticShort_=new EnumMap<Statistic,Short>(new CollCapacity(1));
 enumMapStatisticShort_.addEntry(Statistic.ATTACK,(short)4);
 itemForBattle_.setWinEvFight(enumMapStatisticShort_);
-StatisticPokemons objectMapStatisticPokemonByte_=new StatisticPokemons(new CollCapacity(0));
-itemForBattle_.setMultStatPokemonRank(objectMapStatisticPokemonByte_);
 itemForBattle_.setPrice(1000);
 return itemForBattle_;
 }
 static Item m240(){
 ItemForBattle itemForBattle_ =Instances.newItemForBattle();
-EnumMap<Statistic,Short> enumMapStatisticShort_=new EnumMap<Statistic,Short>(new CollCapacity(0));
-itemForBattle_.setWinEvFight(enumMapStatisticShort_);
 StatisticPokemons objectMapStatisticPokemonByte_=new StatisticPokemons(new CollCapacity(1));
 objectMapStatisticPokemonByte_.addEntry(new StatisticPokemon(Statistic.CRITICAL_HIT,"LEVEINARD"),(byte)1);
 itemForBattle_.setMultStatPokemonRank(objectMapStatisticPokemonByte_);
@@ -2572,18 +2180,12 @@ return healingHp_;
 static Item m243(){
 HealingHpStatus healingHpStatus_ =Instances.newHealingHpStatus();
 healingHpStatus_.setHealedHpRate(Rate.newRate("1"));
-StringList stringList_=new StringList(new CollCapacity(0));
-healingHpStatus_.setStatus(stringList_);
 healingHpStatus_.setHealingKo(false);
 healingHpStatus_.setPrice(2500);
 return healingHpStatus_;
 }
 static Item m244(){
 ItemForBattle itemForBattle_ =Instances.newItemForBattle();
-EnumMap<Statistic,Short> enumMapStatisticShort_=new EnumMap<Statistic,Short>(new CollCapacity(0));
-itemForBattle_.setWinEvFight(enumMapStatisticShort_);
-StatisticPokemons objectMapStatisticPokemonByte_=new StatisticPokemons(new CollCapacity(0));
-itemForBattle_.setMultStatPokemonRank(objectMapStatisticPokemonByte_);
 EnumMap<Statistic,String> enumMapStatisticString_=new EnumMap<Statistic,String>(new CollCapacity(1));
 enumMapStatisticString_.addEntry(Statistic.EVASINESS,"10/9");
 itemForBattle_.setMultStat(enumMapStatisticString_);
@@ -2592,20 +2194,12 @@ return itemForBattle_;
 }
 static Item m245(){
 ItemForBattle itemForBattle_ =Instances.newItemForBattle();
-EnumMap<Statistic,Short> enumMapStatisticShort_=new EnumMap<Statistic,Short>(new CollCapacity(0));
-itemForBattle_.setWinEvFight(enumMapStatisticShort_);
 itemForBattle_.setMultPower("6/5*cardinal(inter({VAR__ATTAQUE_TYPES},{INSECTE}))+cardinal(complementaire({INSECTE},{VAR__ATTAQUE_TYPES}))");
-StatisticPokemons objectMapStatisticPokemonByte_=new StatisticPokemons(new CollCapacity(0));
-itemForBattle_.setMultStatPokemonRank(objectMapStatisticPokemonByte_);
 itemForBattle_.setPrice(1000);
 return itemForBattle_;
 }
 static Item m246(){
 ItemForBattle itemForBattle_ =Instances.newItemForBattle();
-EnumMap<Statistic,Short> enumMapStatisticShort_=new EnumMap<Statistic,Short>(new CollCapacity(0));
-itemForBattle_.setWinEvFight(enumMapStatisticShort_);
-StatisticPokemons objectMapStatisticPokemonByte_=new StatisticPokemons(new CollCapacity(0));
-itemForBattle_.setMultStatPokemonRank(objectMapStatisticPokemonByte_);
 EnumMap<Statistic,String> enumMapStatisticString_=new EnumMap<Statistic,String>(new CollCapacity(1));
 enumMapStatisticString_.addEntry(Statistic.DEFENSE,"3/2*cardinal(inter({VAR__FIGHTER_NOM},{METAMORPH}))+cardinal(complementaire({METAMORPH},{VAR__FIGHTER_NOM}))");
 itemForBattle_.setMultStat(enumMapStatisticString_);
@@ -2614,10 +2208,6 @@ return itemForBattle_;
 }
 static Item m247(){
 ItemForBattle itemForBattle_ =Instances.newItemForBattle();
-EnumMap<Statistic,Short> enumMapStatisticShort_=new EnumMap<Statistic,Short>(new CollCapacity(0));
-itemForBattle_.setWinEvFight(enumMapStatisticShort_);
-StatisticPokemons objectMapStatisticPokemonByte_=new StatisticPokemons(new CollCapacity(0));
-itemForBattle_.setMultStatPokemonRank(objectMapStatisticPokemonByte_);
 EnumMap<Statistic,String> enumMapStatisticString_=new EnumMap<Statistic,String>(new CollCapacity(1));
 enumMapStatisticString_.addEntry(Statistic.SPEED,"3/2*cardinal(inter({VAR__FIGHTER_NOM},{METAMORPH}))+cardinal(complementaire({METAMORPH},{VAR__FIGHTER_NOM}))");
 itemForBattle_.setMultStat(enumMapStatisticString_);
@@ -2729,10 +2319,6 @@ return boost_;
 static Item m253(){
 ItemForBattle itemForBattle_ =Instances.newItemForBattle();
 itemForBattle_.setCancelImmuType(true);
-EnumMap<Statistic,Short> enumMapStatisticShort_=new EnumMap<Statistic,Short>(new CollCapacity(0));
-itemForBattle_.setWinEvFight(enumMapStatisticShort_);
-StatisticPokemons objectMapStatisticPokemonByte_=new StatisticPokemons(new CollCapacity(0));
-itemForBattle_.setMultStatPokemonRank(objectMapStatisticPokemonByte_);
 itemForBattle_.setPrice(1000);
 return itemForBattle_;
 }
@@ -2771,10 +2357,6 @@ return boost_;
 static Item m255(){
 ItemForBattle itemForBattle_ =Instances.newItemForBattle();
 itemForBattle_.setAttackLast(true);
-EnumMap<Statistic,Short> enumMapStatisticShort_=new EnumMap<Statistic,Short>(new CollCapacity(0));
-itemForBattle_.setWinEvFight(enumMapStatisticShort_);
-StatisticPokemons objectMapStatisticPokemonByte_=new StatisticPokemons(new CollCapacity(0));
-itemForBattle_.setMultStatPokemonRank(objectMapStatisticPokemonByte_);
 itemForBattle_.setPrice(1000);
 return itemForBattle_;
 }
@@ -2787,8 +2369,6 @@ return ball_;
 static Item m257(){
 HealingHpStatus healingHpStatus_ =Instances.newHealingHpStatus();
 healingHpStatus_.setHealedHpRate(Rate.newRate("1/2"));
-StringList stringList_=new StringList(new CollCapacity(0));
-healingHpStatus_.setStatus(stringList_);
 healingHpStatus_.setHealingKo(true);
 healingHpStatus_.setPrice(1500);
 return healingHpStatus_;
@@ -2796,8 +2376,6 @@ return healingHpStatus_;
 static Item m258(){
 HealingHpStatus healingHpStatus_ =Instances.newHealingHpStatus();
 healingHpStatus_.setHealedHpRate(Rate.newRate("1"));
-StringList stringList_=new StringList(new CollCapacity(0));
-healingHpStatus_.setStatus(stringList_);
 healingHpStatus_.setHealingKo(true);
 healingHpStatus_.setPrice(2500);
 return healingHpStatus_;
@@ -2809,10 +2387,6 @@ return repel_;
 }
 static Item m260(){
 ItemForBattle itemForBattle_ =Instances.newItemForBattle();
-EnumMap<Statistic,Short> enumMapStatisticShort_=new EnumMap<Statistic,Short>(new CollCapacity(0));
-itemForBattle_.setWinEvFight(enumMapStatisticShort_);
-StatisticPokemons objectMapStatisticPokemonByte_=new StatisticPokemons(new CollCapacity(0));
-itemForBattle_.setMultStatPokemonRank(objectMapStatisticPokemonByte_);
 CustList<EffectEndRound> custListEffectEndRound_ = new CustList<EffectEndRound>(new CollCapacity(1));
 EffectEndRoundIndividual effectEndRoundIndividual_=Instances.newEffectEndRoundIndividual();
 effectEndRoundIndividual_.setDeleteAllStatus(Rate.newRate("0"));
@@ -2840,10 +2414,6 @@ return healingSimpleStatus_;
 }
 static Item m262(){
 ItemForBattle itemForBattle_ =Instances.newItemForBattle();
-EnumMap<Statistic,Short> enumMapStatisticShort_=new EnumMap<Statistic,Short>(new CollCapacity(0));
-itemForBattle_.setWinEvFight(enumMapStatisticShort_);
-StatisticPokemons objectMapStatisticPokemonByte_=new StatisticPokemons(new CollCapacity(0));
-itemForBattle_.setMultStatPokemonRank(objectMapStatisticPokemonByte_);
 StringMap<Short> stringMapShort_=new StringMap<Short>(new CollCapacity(1));
 stringMapShort_.addEntry("ZENITH",(short)3);
 itemForBattle_.setIncreasingMaxNbRoundGlobalMove(stringMapShort_);
@@ -2852,10 +2422,6 @@ return itemForBattle_;
 }
 static Item m263(){
 ItemForBattle itemForBattle_ =Instances.newItemForBattle();
-EnumMap<Statistic,Short> enumMapStatisticShort_=new EnumMap<Statistic,Short>(new CollCapacity(0));
-itemForBattle_.setWinEvFight(enumMapStatisticShort_);
-StatisticPokemons objectMapStatisticPokemonByte_=new StatisticPokemons(new CollCapacity(0));
-itemForBattle_.setMultStatPokemonRank(objectMapStatisticPokemonByte_);
 StringMap<Short> stringMapShort_=new StringMap<Short>(new CollCapacity(1));
 stringMapShort_.addEntry("ORAGE",(short)3);
 itemForBattle_.setIncreasingMaxNbRoundGlobalMove(stringMapShort_);
@@ -2864,10 +2430,6 @@ return itemForBattle_;
 }
 static Item m264(){
 ItemForBattle itemForBattle_ =Instances.newItemForBattle();
-EnumMap<Statistic,Short> enumMapStatisticShort_=new EnumMap<Statistic,Short>(new CollCapacity(0));
-itemForBattle_.setWinEvFight(enumMapStatisticShort_);
-StatisticPokemons objectMapStatisticPokemonByte_=new StatisticPokemons(new CollCapacity(0));
-itemForBattle_.setMultStatPokemonRank(objectMapStatisticPokemonByte_);
 StringMap<Short> stringMapShort_=new StringMap<Short>(new CollCapacity(1));
 stringMapShort_.addEntry("GRELE",(short)3);
 itemForBattle_.setIncreasingMaxNbRoundGlobalMove(stringMapShort_);
@@ -2876,10 +2438,6 @@ return itemForBattle_;
 }
 static Item m265(){
 ItemForBattle itemForBattle_ =Instances.newItemForBattle();
-EnumMap<Statistic,Short> enumMapStatisticShort_=new EnumMap<Statistic,Short>(new CollCapacity(0));
-itemForBattle_.setWinEvFight(enumMapStatisticShort_);
-StatisticPokemons objectMapStatisticPokemonByte_=new StatisticPokemons(new CollCapacity(0));
-itemForBattle_.setMultStatPokemonRank(objectMapStatisticPokemonByte_);
 StringMap<Short> stringMapShort_=new StringMap<Short>(new CollCapacity(1));
 stringMapShort_.addEntry("DANSE_PLUIE",(short)3);
 itemForBattle_.setIncreasingMaxNbRoundGlobalMove(stringMapShort_);
@@ -2888,10 +2446,6 @@ return itemForBattle_;
 }
 static Item m266(){
 ItemForBattle itemForBattle_ =Instances.newItemForBattle();
-EnumMap<Statistic,Short> enumMapStatisticShort_=new EnumMap<Statistic,Short>(new CollCapacity(0));
-itemForBattle_.setWinEvFight(enumMapStatisticShort_);
-StatisticPokemons objectMapStatisticPokemonByte_=new StatisticPokemons(new CollCapacity(0));
-itemForBattle_.setMultStatPokemonRank(objectMapStatisticPokemonByte_);
 StringMap<Short> stringMapShort_=new StringMap<Short>(new CollCapacity(1));
 stringMapShort_.addEntry("TEMPETESABLE",(short)3);
 itemForBattle_.setIncreasingMaxNbRoundGlobalMove(stringMapShort_);
@@ -2905,30 +2459,18 @@ return evolvingItem_;
 }
 static Item m268(){
 ItemForBattle itemForBattle_ =Instances.newItemForBattle();
-EnumMap<Statistic,Short> enumMapStatisticShort_=new EnumMap<Statistic,Short>(new CollCapacity(0));
-itemForBattle_.setWinEvFight(enumMapStatisticShort_);
-StatisticPokemons objectMapStatisticPokemonByte_=new StatisticPokemons(new CollCapacity(0));
-itemForBattle_.setMultStatPokemonRank(objectMapStatisticPokemonByte_);
 itemForBattle_.setPrice(1000);
 return itemForBattle_;
 }
 static Item m269(){
 ItemForBattle itemForBattle_ =Instances.newItemForBattle();
-EnumMap<Statistic,Short> enumMapStatisticShort_=new EnumMap<Statistic,Short>(new CollCapacity(0));
-itemForBattle_.setWinEvFight(enumMapStatisticShort_);
 itemForBattle_.setMultPower("6/5*cardinal(inter({VAR__ATTAQUE_TYPES},{SPECTRE}))+cardinal(complementaire({SPECTRE},{VAR__ATTAQUE_TYPES}))");
-StatisticPokemons objectMapStatisticPokemonByte_=new StatisticPokemons(new CollCapacity(0));
-itemForBattle_.setMultStatPokemonRank(objectMapStatisticPokemonByte_);
 itemForBattle_.setPrice(1000);
 return itemForBattle_;
 }
 static Item m270(){
 ItemForBattle itemForBattle_ =Instances.newItemForBattle();
-EnumMap<Statistic,Short> enumMapStatisticShort_=new EnumMap<Statistic,Short>(new CollCapacity(0));
-itemForBattle_.setWinEvFight(enumMapStatisticShort_);
 itemForBattle_.setMultPower("6/5*cardinal(inter({VAR__ATTAQUE_TYPES},{SOL}))+cardinal(complementaire({SOL},{VAR__ATTAQUE_TYPES}))");
-StatisticPokemons objectMapStatisticPokemonByte_=new StatisticPokemons(new CollCapacity(0));
-itemForBattle_.setMultStatPokemonRank(objectMapStatisticPokemonByte_);
 itemForBattle_.setPrice(1000);
 return itemForBattle_;
 }
@@ -3030,10 +2572,6 @@ return healingSimpleStatus_;
 }
 static Item m282(){
 ItemForBattle itemForBattle_ =Instances.newItemForBattle();
-EnumMap<Statistic,Short> enumMapStatisticShort_=new EnumMap<Statistic,Short>(new CollCapacity(0));
-itemForBattle_.setWinEvFight(enumMapStatisticShort_);
-StatisticPokemons objectMapStatisticPokemonByte_=new StatisticPokemons(new CollCapacity(0));
-itemForBattle_.setMultStatPokemonRank(objectMapStatisticPokemonByte_);
 EnumMap<Statistic,String> enumMapStatisticString_=new EnumMap<Statistic,String>(new CollCapacity(1));
 enumMapStatisticString_.addEntry(Statistic.SPECIAL_DEFENSE,"3/2");
 itemForBattle_.setMultStat(enumMapStatisticString_);
@@ -3049,23 +2587,15 @@ return fossil_;
 }
 static Item m284(){
 ItemForBattle itemForBattle_ =Instances.newItemForBattle();
-EnumMap<Statistic,Short> enumMapStatisticShort_=new EnumMap<Statistic,Short>(new CollCapacity(0));
-itemForBattle_.setWinEvFight(enumMapStatisticShort_);
 MonteCarloBoolean monteCarloBoolean_=new MonteCarloBoolean(new CollCapacity(2));
 monteCarloBoolean_.addQuickEvent(false,LgInt.newLgInt("4"));
 monteCarloBoolean_.addQuickEvent(true,LgInt.newLgInt("1"));
 itemForBattle_.setLawForAttackFirst(monteCarloBoolean_);
-StatisticPokemons objectMapStatisticPokemonByte_=new StatisticPokemons(new CollCapacity(0));
-itemForBattle_.setMultStatPokemonRank(objectMapStatisticPokemonByte_);
 itemForBattle_.setPrice(1000);
 return itemForBattle_;
 }
 static Item m285(){
 ItemForBattle itemForBattle_ =Instances.newItemForBattle();
-EnumMap<Statistic,Short> enumMapStatisticShort_=new EnumMap<Statistic,Short>(new CollCapacity(0));
-itemForBattle_.setWinEvFight(enumMapStatisticShort_);
-StatisticPokemons objectMapStatisticPokemonByte_=new StatisticPokemons(new CollCapacity(0));
-itemForBattle_.setMultStatPokemonRank(objectMapStatisticPokemonByte_);
 EnumMap<Statistic,Byte> enumMapStatisticByte_=new EnumMap<Statistic,Byte>(new CollCapacity(1));
 enumMapStatisticByte_.addEntry(Statistic.ATTACK,(byte)1);
 itemForBattle_.setBoostStatisSuperEff(enumMapStatisticByte_);
