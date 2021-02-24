@@ -6552,7 +6552,7 @@ public final class DocumentReaderAikiCoreUtil {
             return;
         }
         if (StringUtil.quickEq(_fieldName, FIELD_EXPORT)) {
-            _object.setExport(DocumentReaderCoreUtil.getBoolean(_element));
+            _object.setExport(DocumentReaderCoreUtil.getString(_element));
             return;
         }
         if (StringUtil.quickEq(_fieldName, FIELD_ENABLED_KEY_PAD)) {

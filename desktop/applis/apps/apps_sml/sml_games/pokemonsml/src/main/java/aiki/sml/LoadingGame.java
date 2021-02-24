@@ -28,7 +28,7 @@ public final class LoadingGame {
 
     private boolean enabledKeyPad = true;
 
-    private boolean export;
+    private String export = "";
 
     public boolean loadRomAndGame() {
         if (loadLastGame) {
@@ -125,11 +125,11 @@ public final class LoadingGame {
         enabledKeyPad = _enabledKeyPad;
     }
 
-    public boolean isExport() {
+    public String getExport() {
         return export;
     }
 
-    public void setExport(boolean _export) {
+    public void setExport(String _export) {
         this.export = _export;
     }
 }

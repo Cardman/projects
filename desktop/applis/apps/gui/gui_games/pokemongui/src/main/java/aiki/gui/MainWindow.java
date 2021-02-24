@@ -50,6 +50,7 @@ import aiki.network.stream.NetPokemon;
 import aiki.network.stream.NewPlayer;
 import aiki.network.stream.Ok;
 import aiki.network.stream.Quit;
+import code.expressionlanguage.filenames.AbstractNameValidating;
 import code.gui.*;
 import code.gui.document.RenderedPage;
 import code.gui.events.QuittingEvent;
@@ -605,6 +606,10 @@ public final class MainWindow extends NetGroupFrame {
         gameSave.setEnabledMenu(false);
         if (exporting != null && exporting.isAlive()) {
             return;
+        }
+        AbstractNameValidating def_ = getFrames().getValidator();
+        if (!def_.okPath(StreamFolderFile.getRelativeRootPath(loadingConf.getExport()),'/','\\')) {
+            loadingConf.setExport("");
         }
         exporting = new Thread(new ExportRomThread(facade,loadingConf));
         exporting.start();

@@ -3435,7 +3435,7 @@ public final class DocumentWriterAikiCoreUtil {
         _element.appendChild(DocumentWriterCoreUtil.setBoolean(_object.isEnableMovingHerosAnimation(),FIELD_ENABLE_MOVING_HEROS_ANIMATION,_document));
         _element.appendChild(DocumentWriterCoreUtil.setBoolean(_object.isClickButtonsPad(),FIELD_CLICK_BUTTONS_PAD,_document));
         _element.appendChild(DocumentWriterCoreUtil.setBoolean(_object.isEnabledKeyPad(),FIELD_ENABLED_KEY_PAD,_document));
-        _element.appendChild(DocumentWriterCoreUtil.setBoolean(_object.isExport(),FIELD_EXPORT,_document));
+        _element.appendChild(DocumentWriterCoreUtil.setString(_object.getExport(),FIELD_EXPORT,_document));
     }
 
     private static Element setDifficultyModelLaw(DifficultyModelLaw _object, String _fieldName, Document _document) {
