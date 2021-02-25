@@ -957,11 +957,9 @@ public final class StringUtil {
     }
 
     private static boolean processKeep(String _w, IndexSeparators _curr, int _i, int _indiceNext) {
-        int i_ = _i;
         int index_ = _indiceNext + _w.length();
-        i_++;
         _curr.setIndex(index_);
-        _curr.setIndexSep(i_);
+        _curr.setIndexSep(_i+1);
         return true;
     }
 

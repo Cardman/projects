@@ -271,6 +271,10 @@ public class StringListTest extends EquallableExUtil {
         assertTrue(!StringUtil.match("myStrinString","*yS*Strin"));
     }
     @Test
+    public void match50Test(){
+        assertTrue(StringUtil.match("myString","my*"));
+    }
+    @Test
     public void matchSpace1Test(){
         assertEq(true, StringUtil.matchSpace("myString", ""));
     }
@@ -405,6 +409,10 @@ public class StringListTest extends EquallableExUtil {
     @Test
     public void matchSpace34Test(){
         assertEq(false, StringUtil.matchSpace("my String", "my\\\\String"));
+    }
+    @Test
+    public void matchSpace35Test(){
+        assertTrue(StringUtil.matchSpace("myString","my "));
     }
     @Test
     public void greatestIndex1Test(){
