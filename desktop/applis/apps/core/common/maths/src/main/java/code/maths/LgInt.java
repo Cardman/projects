@@ -934,7 +934,7 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
         if (_longueur > _longueurBis) {
             while (i_ >= IndexConstants.FIRST_INDEX) {
                 long ch_ = grDigits.get(i_);
-                grDigits.set(i_, change(ch_, retenue_));
+                grDigits.set(i_, sommeOuReste(ch_, retenue_));
                 retenue_ = retenue(ch_, retenue_);
                 i_--;
             }
@@ -942,7 +942,7 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
             if (_longueur < _longueurBis) {
                 while (j_ >= IndexConstants.FIRST_INDEX) {
                     long ch_ = _autre.grDigits.get(j_);
-                    grDigits.add(IndexConstants.FIRST_INDEX,change(ch_, retenue_));
+                    grDigits.add(IndexConstants.FIRST_INDEX, sommeOuReste(ch_, retenue_));
                     retenue_ = retenue(ch_, retenue_);
                     j_--;
                 }
@@ -953,7 +953,7 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
         }
     }
 
-    private static long change(long _a, int _ret) {
+    private static long sommeOuReste(long _a, int _ret) {
         long somme_ = _a + _ret;
         if (somme_ < BASE) {
             return somme_;
@@ -979,11 +979,12 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
         int k_ = longueur_ - 1;
         int l_ = longueurBis_ - 1;
         while (k_ >= IndexConstants.FIRST_INDEX && l_ >= IndexConstants.FIRST_INDEX) {
-            if (grDigits.get(k_) >= _chiffresAutre.get(l_) + retenue_) {
-                diff_ = grDigits.get(k_) - _chiffresAutre.get(l_) - retenue_;
+            long suppr_ = _chiffresAutre.get(l_) + retenue_;
+            if (grDigits.get(k_) >= suppr_) {
+                diff_ = grDigits.get(k_) - suppr_;
                 retenue_ = 0;
             } else {
-                diff_ = grDigits.get(k_) + BASE - _chiffresAutre.get(l_) - retenue_;
+                diff_ = grDigits.get(k_) + BASE - suppr_;
                 retenue_ = 1;
             }
             grDigits.set(k_, diff_);
@@ -1009,7 +1010,7 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
     private void retrancherAutrePuisAffecter(LgInt _autre) {
         //setModified();
         LgInt copieAutre_ = new LgInt(_autre);
-        copieAutre_.retrancherChiffres(grDigits);
+        copieAutre_.retrancher(this);
         grDigits = copieAutre_.grDigits;
     }
 
