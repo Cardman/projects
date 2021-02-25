@@ -140,12 +140,11 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
         int firstInd_ = nbLu_.length() - 1;
         while (firstInd_ >= IndexConstants.FIRST_INDEX) {
             String nbLuBis_;
-            if (nbLu_.length() >= powerTen_) {
-                nbLuBis_ = nbLu_.substring(nbLu_.length() - powerTen_);
-                if (nbLu_.length() > powerTen_) {
-                    // nbLu_.resize(nbLu_.length()-puissance10_)
-                    nbLu_ = nbLu_.substring(IndexConstants.FIRST_INDEX, nbLu_.length() - powerTen_);
-                }
+            int chRestant_ = nbLu_.length() - powerTen_;
+            if (chRestant_ > 0) {
+                nbLuBis_ = nbLu_.substring(chRestant_);
+                // nbLu_.resize(nbLu_.length()-puissance10_)
+                nbLu_ = nbLu_.substring(IndexConstants.FIRST_INDEX, chRestant_);
             } else {
                 nbLuBis_ = nbLu_;
             }
@@ -673,8 +672,8 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
         LgInt cardinal_ = LgInt.one();
         int nombre_;
         LgInt pgcd_;
-        EqList<LgInt> numerateur_ = new EqList<LgInt>();
-        EqList<LgInt> denominateur_ = new EqList<LgInt>();
+        CustList<LgInt> numerateur_ = new CustList<LgInt>();
+        CustList<LgInt> denominateur_ = new CustList<LgInt>();
         LgInt diffTotalPartiel_ = minus(_nombreTotalElements, _nombre);
         long absBase_ = _nombre.remainByBase();
         long diffAbsBase_ = diffTotalPartiel_.remainByBase();
@@ -751,10 +750,7 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
     }
 
     public static boolean sameSignum(LgInt _one, LgInt _two) {
-        if (_one.isZeroOrGt()) {
-            return _two.isZeroOrGt();
-        }
-        return !_two.isZeroOrGt();
+        return _one.sameSignum(_two);
     }
 
     public boolean sameSignum(LgInt _two) {
@@ -937,13 +933,17 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
         int j_ = _j;
         if (_longueur > _longueurBis) {
             while (i_ >= IndexConstants.FIRST_INDEX) {
-                retenue_ = changeRetMaj(retenue_,i_);
+                long ch_ = grDigits.get(i_);
+                grDigits.set(i_, change(ch_, retenue_));
+                retenue_ = retenue(ch_, retenue_);
                 i_--;
             }
         } else {
             if (_longueur < _longueurBis) {
                 while (j_ >= IndexConstants.FIRST_INDEX) {
-                    retenue_ = changeRetAj(retenue_,_autre,j_);
+                    long ch_ = _autre.grDigits.get(j_);
+                    grDigits.add(IndexConstants.FIRST_INDEX,change(ch_, retenue_));
+                    retenue_ = retenue(ch_, retenue_);
                     j_--;
                 }
             }
@@ -953,31 +953,19 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
         }
     }
 
-    private int changeRetMaj(int _retenue,int _i) {
-        int retenue_ = _retenue;
-        long somme_ = grDigits.get(_i) + retenue_;
+    private static long change(long _a, int _ret) {
+        long somme_ = _a + _ret;
         if (somme_ < BASE) {
-            grDigits.set(_i, somme_);
-            retenue_ = 0;
-        } else {
-            long reste_ = somme_ - BASE;
-            grDigits.set(_i, reste_);
-            retenue_ = 1;
+            return somme_;
         }
-        return retenue_;
+        return somme_ - BASE;
     }
-    private int changeRetAj(int _retenue,LgInt _autre, int _i) {
-        int retenue_ = _retenue;
-        long somme_ = _autre.grDigits.get(_i) + retenue_;
+    private static int retenue(long _a, int _ret) {
+        long somme_ = _a + _ret;
         if (somme_ < BASE) {
-            grDigits.add(IndexConstants.FIRST_INDEX, somme_);
-            retenue_ = 0;
-        } else {
-            long reste_ = somme_ - BASE;
-            grDigits.add(IndexConstants.FIRST_INDEX, reste_);
-            retenue_ = 1;
+            return 0;
         }
-        return retenue_;
+        return 1;
     }
     private void retrancher(LgInt _autre) {
         retrancherChiffres(_autre.grDigits);

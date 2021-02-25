@@ -1015,6 +1015,23 @@ public class LgIntTest extends EquallableMathUtil {
         assertEq(new LgInt("-1"), two_);
     }
     @Test
+    public void plus19Test(){
+        LgInt one_ = new LgInt("999999999");
+        LgInt two_ = new LgInt("1");
+        assertEq(new LgInt("1000000000"), LgInt.plus(one_, two_));
+        assertEq(new LgInt("999999999"), one_);
+        assertEq(new LgInt("1"), two_);
+    }
+    @Test
+    public void plus20Test(){
+        LgInt one_ = new LgInt("1");
+        LgInt two_ = new LgInt("999999999");
+        assertEq(new LgInt("1000000000"), LgInt.plus(one_, two_));
+        assertEq(new LgInt("1"), one_);
+        assertEq(new LgInt("999999999"), two_);
+    }
+
+    @Test
     public void removeNb1Test(){
         LgInt intOne_ = new LgInt("0");
         LgInt intTwo_ = new LgInt("-20");
