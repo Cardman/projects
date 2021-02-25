@@ -1,10 +1,12 @@
-package code.sml;
+package code.sml.indexes;
 
+import code.sml.DocumentAttribute;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 
 public final class LookForAttr {
-
+    private static final char QUOT = 34;
+    private static final char APOS = 39;
     private static final char EQUALS = '=';
     private int beginToken;
     private StringBuilder str = new StringBuilder();
@@ -16,7 +18,7 @@ public final class LookForAttr {
     boolean keep(int _i, String _xml, String _attribute) {
         char ch_ = _xml.charAt(_i);
         if (delimiter == -1) {
-            if (DocumentAttribute.isDelAttr(ch_)) {
+            if (DocumentAttribute.isDel(ch_, APOS, QUOT)) {
                 delimiter = ch_;
             }
         } else {

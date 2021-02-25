@@ -1,5 +1,7 @@
 package code.sml;
 
+import code.sml.indexes.DocumentIndexer;
+import code.sml.indexes.ElementOffsetsNext;
 import code.util.Ints;
 import code.util.*;
 import code.util.StringMap;

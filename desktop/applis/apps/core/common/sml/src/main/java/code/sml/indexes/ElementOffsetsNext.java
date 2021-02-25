@@ -1,4 +1,5 @@
-package code.sml;
+package code.sml.indexes;
+import code.sml.RowCol;
 import code.util.Ints;
 import code.util.StringMap;
 

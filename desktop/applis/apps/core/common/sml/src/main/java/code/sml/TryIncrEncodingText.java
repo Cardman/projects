@@ -11,51 +11,41 @@ public final class TryIncrEncodingText extends AbstractEncodingText {
     }
 
     @Override
-    protected int incr(String _htmlText, StringMap<String> _map, StringBuilder _str, int _index, int _iBegin) {
-        return tryIncr(_htmlText, _map, _str, _index, _iBegin);
+    protected void incr(String _htmlText, StringMap<String> _map, StringBuilder _str, int _iBegin, int _index) {
+        tryIncr(_htmlText, _map, _str, _iBegin, _index);
     }
 
 
-    private static int tryIncr(String _htmlText, StringMap<String> _map, StringBuilder _str, int _i, int _iBegin) {
-        int i_ = _i;
-        int next_ = next(_htmlText, _str, i_, _map, _iBegin);
-        if (next_ == i_) {
-            i_ = tryApp(_htmlText, _str, next_, _iBegin);
-        } else {
-            i_ = next_;
+    private static void tryIncr(String _htmlText, StringMap<String> _map, StringBuilder _str, int _iBegin, int _index) {
+        if (!next(_htmlText, _str, _iBegin, _index, _map)) {
+            tryApp(_htmlText, _str, _iBegin, _index);
         }
-        return i_;
     }
 
-    private static int next(String _htmlText, StringBuilder _str, int _i,StringMap<String> _map, int _iBegin) {
-        int i_ = _i;
+    private static boolean next(String _htmlText, StringBuilder _str, int _iBegin, int _index, StringMap<String> _map) {
+        boolean incr_ = false;
         for (EntryCust<String,String> k: _map.entryList()) {
-            boolean equals_ = eq(_htmlText, i_, _iBegin, k);
-            if (equals_) {
+            if (matchRegion(_htmlText, _iBegin, _index, k.getKey())) {
                 String strValue_ = k.getValue();
                 strValue_ = strValue_.substring(2, strValue_.length() - 1);
                 int ascii_ = NumberUtil.parseInt(strValue_);
                 char char_ = (char) ascii_;
                 _str.append(char_);
-                i_++;
+                incr_ = true;
                 break;
             }
         }
-        return i_;
+        return incr_;
     }
-    private static int tryApp(String _htmlText, StringBuilder _str, int _i, int _iBegin) {
-        int i_ = _i;
+    private static void tryApp(String _htmlText, StringBuilder _str, int _iBegin, int _index) {
         if (_htmlText.charAt(_iBegin + 1) == NUMBERED_CHAR) {
-            String strValue_ = _htmlText.substring(_iBegin + 2, i_);
+            String strValue_ = _htmlText.substring(_iBegin + 2, _index);
             int ascii_ = (int) NumberUtil.parseLongZero(strValue_);
             char char_ = (char) ascii_;
             _str.append(char_);
-            i_++;
-            return i_;
+            return;
         }
-        _str.append(_htmlText, _iBegin, i_ + 1);
-        i_++;
-        return i_;
+        _str.append(_htmlText, _iBegin, _index + 1);
     }
 
 }

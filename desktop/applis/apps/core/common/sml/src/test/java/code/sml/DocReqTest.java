@@ -1,5 +1,6 @@
 package code.sml;
 
+import code.sml.indexes.DocumentIndexer;
 import code.util.core.SortConstants;
 import org.junit.Test;
 

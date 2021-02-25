@@ -1,5 +1,6 @@
 package code.sml;
 
+import code.sml.indexes.DocumentIndexer;
 import org.junit.Test;
 
 public class IndentTest extends EquallableRowColUtil {

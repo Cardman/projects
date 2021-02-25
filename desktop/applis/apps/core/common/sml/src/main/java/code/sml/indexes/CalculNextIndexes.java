@@ -1,5 +1,8 @@
-package code.sml;
+package code.sml.indexes;
 
+import code.sml.DocumentAttribute;
+import code.sml.Element;
+import code.sml.RowCol;
 import code.util.Ints;
 import code.util.StringMap;
 import code.util.core.IndexConstants;
@@ -7,6 +10,8 @@ import code.util.core.StringUtil;
 
 public final class CalculNextIndexes {
     private static final String EMPTY_STRING = "";
+    private static final char QUOT = 34;
+    private static final char APOS = 39;
     private static final char LT = 60;
     private static final char GT = 62;
 
@@ -113,7 +118,7 @@ public final class CalculNextIndexes {
 
     private void addAttr(char _ch) {
         if (delimiter == -1) {
-            if (DocumentAttribute.isDelAttr(_ch)) {
+            if (DocumentAttribute.isDel(_ch, APOS, QUOT)) {
                 delimiter = _ch;
             }
             if (delimiter == -1) {

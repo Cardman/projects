@@ -1,5 +1,6 @@
-package code.sml;
+package code.sml.indexes;
 
+import code.sml.*;
 import code.util.*;
 import code.util.core.IndexConstants;
 import code.util.core.NumberUtil;
@@ -29,7 +30,7 @@ public final class DocumentIndexer {
     }
 
     public static RowCol getRowColOfNodeOrAttribute(String _xml, Node _node, int _offest,
-            String _attribute, int _tabWidth, boolean _attrValue) {
+                                                    String _attribute, int _tabWidth, boolean _attrValue) {
         if (_node == null) {
             return new RowCol();
         }
@@ -213,16 +214,12 @@ public final class DocumentIndexer {
         }
         if (_attrValue) {
             foundAttr_ += _attribute.length();
-            while (!isDel(_xml.charAt(foundAttr_), QUOT, APOS)) {
+            while (!DocumentAttribute.isDel(_xml.charAt(foundAttr_), QUOT, APOS)) {
                 foundAttr_++;
             }
             foundAttr_++;
         }
         return foundAttr_;
-    }
-
-    static boolean isDel(char _c, char _quot, char _apos) {
-        return _c == _quot || _c == _apos;
     }
 
     public static CustList<Node> getDeepChildNodesDocOrder(Node _root, Node _until) {
@@ -346,11 +343,11 @@ public final class DocumentIndexer {
         return i_;
     }
 
-    static int getIndexOfNodeOrAttribute(String _xml, Node _node, String _attribute) {
+    public static int getIndexOfNodeOrAttribute(String _xml, Node _node, String _attribute) {
         return getIndexOfNodeOrAttribute(_xml, _node, _attribute, false);
     }
 
-    static StringMap<IntTreeMap<Integer>> getSpecialChars(String _html, Element _element) {
+    public static StringMap<IntTreeMap<Integer>> getSpecialChars(String _html, Element _element) {
         StringMap<IntTreeMap<Integer>> encoded_;
         encoded_ = new StringMap<IntTreeMap<Integer>>();
         int index_ = getIndexOfNodeOrAttribute(_html, _element, EMPTY_STRING);

@@ -549,17 +549,15 @@ public final class DocumentBuilder {
     }
 
     public static Element getElementById(Document _doc, String _attr, String _secAttr, String _id) {
-        Element element_ = null;
         NodeList all_ = _doc.getElementsByTagName();
         int lengthAll_ = all_.getLength();
         for (int i = IndexConstants.FIRST_INDEX; i < lengthAll_; i++) {
             Node n_ = all_.item(i);
             if (StringUtil.quickEq(((Element) n_).getAttribute(_attr), _id) || StringUtil.quickEq(((Element) n_).getAttribute(_secAttr), _id)) {
-                element_ = (Element) n_;
-                break;
+                return (Element) n_;
             }
         }
-        return element_;
+        return null;
     }
     
     public static DocumentBuilder newDocumentBuilder() {
@@ -592,7 +590,7 @@ public final class DocumentBuilder {
         StringBuilder str_ = new StringBuilder();
         int i_ = 0;
         AbstractEncodingText incr_ = new TryIncrEncodingText(i_,str_);
-        return encodeCommon(_htmlText, map_, length_, incr_);
+        return AbstractEncodingText.encodeCommon(_htmlText, map_, length_, incr_);
     }
 
     private static void format2(StringMap<String> _map) {
@@ -875,16 +873,7 @@ public final class DocumentBuilder {
         StringBuilder str_ = new StringBuilder();
         int i_ = 0;
         AbstractEncodingText incr_ = new IncrEncodingText(i_,str_);
-        return encodeCommon(_htmlText, map_, length_, incr_);
-    }
-
-    private static String encodeCommon(String _htmlText, StringMap<String> _map, int _length, AbstractEncodingText _incr) {
-        while (_incr.getIndex() < _length) {
-            if (_incr.exit(_htmlText, _map)) {
-                break;
-            }
-        }
-        return _incr.getStr().toString();
+        return AbstractEncodingText.encodeCommon(_htmlText, map_, length_, incr_);
     }
 
     public static String encodeToHtml(String _text) {

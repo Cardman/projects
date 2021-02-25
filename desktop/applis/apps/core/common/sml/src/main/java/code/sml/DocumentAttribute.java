@@ -49,11 +49,15 @@ public final class DocumentAttribute {
         }
     }
 
-    static boolean spaceOrEq(char _ch) {
+    public static boolean spaceOrEq(char _ch) {
         return StringUtil.isWhitespace(_ch) || _ch == EQUALS;
     }
 
     static boolean isDelAttr(char _ch) {
-        return DocumentIndexer.isDel(_ch, APOS, QUOT);
+        return isDel(_ch, APOS, QUOT);
+    }
+
+    public static boolean isDel(char _c, char _quot, char _apos) {
+        return _c == _quot || _c == _apos;
     }
 }
