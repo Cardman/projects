@@ -1,7 +1,6 @@
 package code.maths.montecarlo;
 
 import code.maths.EquallableMathUtil;
-import code.util.CollCapacity;
 import org.junit.Test;
 
 import code.maths.LgInt;
@@ -12,23 +11,25 @@ public class MonteCarloNumberTest extends EquallableMathUtil {
 
     @Test
     public void valid1Test() {
-        MonteCarloNumber law_ = new MonteCarloNumber();
-        assertTrue(!law_.isValid());
-        law_.addEvent(new Rate(2), new LgInt(0));
-        assertTrue(!law_.isValid());
+//        MonteCarloNumber law_ = new MonteCarloNumber();
+//        assertTrue(!law_.isValid());
+//        law_.addEvent(new Rate(2), new LgInt(0));
+//        assertTrue(!law_.isValid());
+////        law_ = new MonteCarloNumber();
+////        law_.addEvent(null, new LgInt(2));
+////        assertTrue(law_.isValid());
 //        law_ = new MonteCarloNumber();
-//        law_.addEvent(null, new LgInt(2));
+//        law_.addEvent(new Rate(2), new LgInt(-1));
+//        law_.addEvent(new Rate(3), new LgInt(2));
+//        assertTrue(!law_.isValid());
+//        law_ = new MonteCarloNumber();
+//        law_.addEvent(new Rate(2), new LgInt(1));
+//        law_.addEvent(new Rate(3), new LgInt(2));
 //        assertTrue(law_.isValid());
-        law_ = new MonteCarloNumber();
-        law_.addEvent(new Rate(2), new LgInt(-1));
-        law_.addEvent(new Rate(3), new LgInt(2));
-        assertTrue(!law_.isValid());
-        law_ = new MonteCarloNumber();
-        law_.addEvent(new Rate(2), new LgInt(1));
-        law_.addEvent(new Rate(3), new LgInt(2));
-        assertTrue(law_.isValid());
-        law_ = new MonteCarloNumber(new CollCapacity(0));
-        assertTrue(!law_.isValid());
+        MonteCarloNumber law_ = new MonteCarloNumber();
+        law_.addQuickEvent(Rate.one(),LgInt.one());
+        assertEq(1,law_.copy().nbEvents());
+//        assertTrue(!law_.isValid());
     }
 
     @Test

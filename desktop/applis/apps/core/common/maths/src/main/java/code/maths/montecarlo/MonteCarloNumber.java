@@ -1,30 +1,66 @@
 package code.maths.montecarlo;
 import code.maths.LgInt;
 import code.maths.Rate;
-import code.util.AbsMap;
 import code.util.CollCapacity;
 import code.util.CustList;
-import code.util.ObjectMap;
 import code.util.core.IndexConstants;
 
 
-public final class MonteCarloNumber extends AbMonteCarloMap<Rate> {
+public final class MonteCarloNumber extends AbMonteCarlo<Rate> {
 
-    private AbsMap<Rate,LgInt> law;
+    private final CustList<EventFreq<Rate>> events;
 
     public MonteCarloNumber() {
-        setLaw(new ObjectMap<Rate,LgInt>());
+        events = new CustList<EventFreq<Rate>>();
     }
     
     public MonteCarloNumber(CollCapacity _capacity) {
-        law = new ObjectMap<Rate,LgInt>(_capacity);
+        events = new CustList<EventFreq<Rate>>(_capacity);
+    }
+    public boolean containsEvent(Rate _event) {
+        for (EventFreq<Rate> e: events) {
+            if (_event.eq(e.getEvent())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public Rate normalizedRate(Rate _event) {
+        LgInt sum_ = sum();
+        return new Rate(rate(_event), sum_);
+    }
+    public MonteCarloNumber copy() {
+        MonteCarloNumber mc_ = new MonteCarloNumber(new CollCapacity(nbEvents()));
+        for (EventFreq<Rate> e: events) {
+            mc_.events.add(new EventFreq<Rate>(new Rate(e.getEvent()),new LgInt(e.getFreq())));
+        }
+        return mc_;
+    }
+    public LgInt rate(Rate _event) {
+        LgInt sum_ = LgInt.zero();
+        for (EventFreq<Rate> e: events) {
+            if (_event.eq(e.getEvent())) {
+                sum_.addNb(e.getFreq());
+            }
+        }
+        return sum_;
     }
     /**Retourne l'esperance d'une loi de probabilite.*/
     public Rate getAvg(){
         Rate sum_ = Rate.zero();
-        for(Rate c:events()){
-            sum_.addNb(Rate.multiply(c, normalizedRate(c)));
+        int nb_ = nbEvents();
+        LgInt sumFreq_ = sum();
+        for (int i = 0; i < nb_; i++) {
+            Rate e_ = getEvent(i);
+            sum_.addNb(Rate.multiply(e_, new Rate(getFreq(i),sumFreq_)));
         }
+        /*
+         LgInt sum_ = sum();
+        return new Rate(rate(_event), sum_);*/
+//        for(Rate c:events()){
+//            sum_.addNb(Rate.multiply(c, normalizedRate(c)));
+//        }
         return sum_;
     }
 
@@ -32,11 +68,11 @@ public final class MonteCarloNumber extends AbMonteCarloMap<Rate> {
     public Rate getRealAvg(LgInt _max){
         Rate sommeNum_=Rate.zero();
         LgInt sommeDen_=LgInt.zero();
-        ObjectMap<Rate,LgInt> law_=new ObjectMap<Rate,LgInt>();
+        MonteCarloNumber law_=new MonteCarloNumber();
         CustList<Rate> evenements_=events();
         for(Rate c:evenements_){
-            sommeDen_.addNb(getLaw().getVal(c));
-            law_.put(c, rate(c));
+            sommeDen_.addNb(rate(c));
+            law_.addQuickEvent(c,rate(c));
         }
         if (sommeDen_.isZero()) {
             return Rate.zero();
@@ -49,12 +85,12 @@ public final class MonteCarloNumber extends AbMonteCarloMap<Rate> {
         int nbEvenements_=evenements_.size();
         int maxIndice_ = getMaxIndice(law_, evenements_, remain_, sumDenTwo_);
         if (!remain_.isZero()) {
-            ObjectMap<Rate,LgInt> lawTwo_=new ObjectMap<Rate,LgInt>();
+            MonteCarloNumber lawTwo_=new MonteCarloNumber();
             for (Rate c:evenements_) {
-                lawTwo_.put(c, new LgInt(law_.getVal(c)));
+                lawTwo_.addQuickEvent(c, new LgInt(law_.rate(c)));
             }
             for (int i = IndexConstants.FIRST_INDEX; i<nbEvenements_; i++){
-                LgInt effectif_=lawTwo_.getVal(evenements_.get(i));
+                LgInt effectif_=lawTwo_.getFreq(i);
                 LgInt tmp_=new LgInt(effectif_);
                 effectif_.multiplyBy(quotient_);
                 if(i<maxIndice_){
@@ -70,15 +106,15 @@ public final class MonteCarloNumber extends AbMonteCarloMap<Rate> {
         return sumRet(sommeNum_, sommeDen_, law_, evenements_, plusGdNbAlea_, remain_);
     }
 
-    private static void addEvts(ObjectMap<Rate, LgInt> _law, CustList<Rate> _evenements, LgInt _sumDenTwo, int _maxIndice) {
+    private static void addEvts(MonteCarloNumber _law, CustList<Rate> _evenements, LgInt _sumDenTwo, int _maxIndice) {
         for (int j = IndexConstants.FIRST_INDEX; j< _maxIndice; j++){
-            _sumDenTwo.addNb(_law.getVal(_evenements.get(j)));
+            _sumDenTwo.addNb(_law.rate(_evenements.get(j)));
         }
     }
 
-    private static Rate sumRet(Rate _sommeNum, LgInt _sommeDen, ObjectMap<Rate, LgInt> _law, CustList<Rate> _evenements, LgInt _plusGdNbAlea, LgInt _remain) {
+    private static Rate sumRet(Rate _sommeNum, LgInt _sommeDen, MonteCarloNumber _law, CustList<Rate> _evenements, LgInt _plusGdNbAlea, LgInt _remain) {
         for(Rate c: _evenements){
-            LgInt effectif_= _law.getVal(c);
+            LgInt effectif_= _law.rate(c);
             _sommeNum.addNb(Rate.multiply(c, new Rate(effectif_)));
         }
         if(!_remain.isZero()){
@@ -87,11 +123,11 @@ public final class MonteCarloNumber extends AbMonteCarloMap<Rate> {
         return Rate.divide(_sommeNum, new Rate(_sommeDen));
     }
 
-    private static int getMaxIndice(ObjectMap<Rate, LgInt> _law, CustList<Rate> _evenements, LgInt _remain, LgInt _sumDenTwo) {
+    private static int getMaxIndice(MonteCarloNumber _law, CustList<Rate> _evenements, LgInt _remain, LgInt _sumDenTwo) {
         int maxIndice_;
         int i_ = IndexConstants.FIRST_INDEX;
         while (true) {
-            _sumDenTwo.addNb(_law.getVal(_evenements.get(i_)));
+            _sumDenTwo.addNb(_law.rate(_evenements.get(i_)));
             if (LgInt.strLower(_remain, _sumDenTwo)) {
                 maxIndice_=i_;
                 break;
@@ -104,10 +140,17 @@ public final class MonteCarloNumber extends AbMonteCarloMap<Rate> {
     /**Retourne la variance d'une loi de probabilite.*/
     public Rate getVar(){
         Rate sum_ = Rate.zero();
-        for(Rate c:events()){
-            Rate res_ = Rate.multiply(c, c);
-            sum_.addNb(Rate.multiply(res_, normalizedRate(c)));
+        int nb_ = nbEvents();
+        LgInt sumFreq_ = sum();
+        for (int i = 0; i < nb_; i++) {
+            Rate e_ = getEvent(i);
+            Rate res_ = Rate.multiply(e_, e_);
+            sum_.addNb(Rate.multiply(res_, new Rate(getFreq(i),sumFreq_)));
         }
+//        for(Rate c:events()){
+//            Rate res_ = Rate.multiply(c, c);
+//            sum_.addNb(Rate.multiply(res_, normalizedRate(c)));
+//        }
         Rate avg_ = getAvg();
         return Rate.minus(sum_, Rate.multiply(avg_, avg_));
     }
@@ -157,9 +200,10 @@ public final class MonteCarloNumber extends AbMonteCarloMap<Rate> {
             return loi_;
         }
         LgInt somme_=LgInt.zero();
-        for(Rate e:events()){
-            if(Rate.strLower(e, _event)){
-                somme_.addNb(rate(e));
+        int nb_ = nbEvents();
+        for (int i = 0; i < nb_; i++) {
+            if(Rate.strLower(getEvent(i), _event)){
+                somme_.addNb(getFreq(i));
             }
         }
         loi_.addQuickEvent(false,rate(_event));
@@ -180,9 +224,10 @@ public final class MonteCarloNumber extends AbMonteCarloMap<Rate> {
             return loi_;
         }
         LgInt somme_=LgInt.zero();
-        for(Rate e:events()){
-            if(Rate.strGreater(e, _event)){
-                somme_.addNb(rate(e));
+        int nb_ = nbEvents();
+        for (int i = 0; i < nb_; i++) {
+            if(Rate.strGreater(getEvent(i), _event)){
+                somme_.addNb(getFreq(i));
             }
         }
         loi_.addQuickEvent(false,rate(_event));
@@ -193,11 +238,49 @@ public final class MonteCarloNumber extends AbMonteCarloMap<Rate> {
     }
 
     @Override
-    public AbsMap<Rate,LgInt> getLaw() {
-        return law;
+    public Rate getEvent(int _index) {
+        return events.get(_index).getEvent();
     }
 
-    public void setLaw(AbsMap<Rate, LgInt> _law) {
-        law = _law;
+    @Override
+    public LgInt getFreq(int _index) {
+        return events.get(_index).getFreq();
+    }
+
+    @Override
+    public CustList<Rate> events() {
+        CustList<Rate> evs_ = new CustList<Rate>(new CollCapacity(events.size()));
+        for (EventFreq<Rate> e: events) {
+            evs_.add(e.getEvent());
+        }
+        return evs_;
+    }
+
+    @Override
+    public LgInt sum() {
+        LgInt somme_= LgInt.zero();
+        for (EventFreq<Rate> e: events) {
+            somme_.addNb(e.getFreq());
+        }
+        return somme_;
+    }
+
+    @Override
+    public void addEvent(Rate _event, LgInt _probaRelative) {
+        addQuickEvent(_event, _probaRelative);
+    }
+
+    @Override
+    public void addQuickEvent(Rate _event, LgInt _probaRelative) {
+        events.add(new EventFreq<Rate>(_event, _probaRelative));
+    }
+
+    public CustList<EventFreq<Rate>> getEvents() {
+        return events;
+    }
+
+    @Override
+    public int nbEvents() {
+        return getEvents().size();
     }
 }

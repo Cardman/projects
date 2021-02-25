@@ -5,6 +5,7 @@ import code.maths.Rate;
 import code.maths.geo.CustPoint;
 import code.maths.geo.Polygon;
 import code.maths.geo.Rect;
+import code.maths.montecarlo.EventFreq;
 import code.maths.montecarlo.MonteCarloBoolean;
 import code.maths.montecarlo.MonteCarloNumber;
 import code.maths.montecarlo.MonteCarloString;
@@ -30,6 +31,9 @@ public final class DocumentWriterMathUtil {
     private static final String TYPE_MAP = "m";
     private static final String TYPE_POLYGON = "Polygon";
     private static final String TYPE_RECT = "Rect";
+
+    private DocumentWriterMathUtil() {
+    }
 
     public static Element setLgInt(LgInt _boolean, String _fieldName, Document _document) {
         Element elt_ = _document.createElement(TYPE_LG_INT);
@@ -90,14 +94,14 @@ public final class DocumentWriterMathUtil {
         return elt_;
     }
 
-    public static Element setMapRateLgInt(AbsMap<Rate,LgInt> _object, String _fieldName, Document _document) {
+    public static Element setMapRateLgInt(MonteCarloNumber _object, String _fieldName, Document _document) {
         Element elt_ = _document.createElement(TYPE_MAP);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
-        for (EntryCust<Rate,LgInt> s: _object.entryList()) {
-            Element sub_ = setRate(s.getKey(), EMPTY_STRING, _document);
+        for (EventFreq<Rate> s: _object.getEvents()) {
+            Element sub_ = setRate(s.getEvent(), EMPTY_STRING, _document);
             DocumentWriterCoreUtil.setKey(sub_);
             elt_.appendChild(sub_);
-            sub_ = setLgInt(s.getValue(), EMPTY_STRING, _document);
+            sub_ = setLgInt(s.getFreq(), EMPTY_STRING, _document);
             elt_.appendChild(sub_);
         }
         return elt_;
@@ -133,7 +137,7 @@ public final class DocumentWriterMathUtil {
     public static Element setMonteCarloNumber(MonteCarloNumber _object, String _fieldName, Document _document) {
         Element elt_ = _document.createElement(TYPE_MAP);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
-        elt_.appendChild(setMapRateLgInt(_object.getLaw(), FIELD_LAW, _document));
+        elt_.appendChild(setMapRateLgInt(_object, FIELD_LAW, _document));
         return elt_;
     }
     public static Element setMapLongRate(LongMap<Rate> _object, String _fieldName, Document _document) {

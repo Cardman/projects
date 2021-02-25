@@ -80,10 +80,10 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
     */
     public LgInt(String _chaine) {
         grDigits = tryGetDigits(_chaine);
-        if (isZero()) {
+        if (isZero() || !_chaine.startsWith(MINUS)) {
             signum = SIGNE_POSITIF;
         } else {
-            signum = !_chaine.startsWith(MINUS) == SIGNE_POSITIF;
+            signum = !SIGNE_POSITIF;
         }
     }
 
@@ -98,10 +98,13 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
         long nombre_;
         if (_entierL == Long.MIN_VALUE) {
             nombre_ = -(_entierL+1);
+            signum = !SIGNE_POSITIF;
         } else if (_entierL < 0) {
             nombre_ = -_entierL;
+            signum = !SIGNE_POSITIF;
         } else {
             nombre_ = _entierL;
+            signum = SIGNE_POSITIF;
         }
         long quotient_ = nombre_ / BASE;
         long reste_ = nombre_ - quotient_ * BASE;
@@ -118,7 +121,6 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
         if (_entierL == Long.MIN_VALUE) {
             grDigits.set(grDigits.getLastIndex(),grDigits.last()+1);
         }
-        signum = (_entierL >= 0) == SIGNE_POSITIF;
     }
 
     private LgInt(Longs _grChiffre, boolean _signe) {
@@ -1592,8 +1594,12 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
     */
     public void changeSignum() {
         if (!isZero()) {
-            signum = !signum;
+            changerSigne();
         }
+    }
+
+    void changerSigne() {
+        signum = !signum;
     }
 
     /**

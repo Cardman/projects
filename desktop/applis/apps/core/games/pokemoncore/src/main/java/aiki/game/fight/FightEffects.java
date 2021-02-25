@@ -1629,17 +1629,11 @@ final class FightEffects {
                 law_.addQuickEvent(max_, DataBase.defElementaryEvent());
                 throwerDamageLaws_.getNumberHits().put(_lanceur, law_);
             } else {
-                MonteCarloNumber law_ = new MonteCarloNumber();
-                for (Rate e: effect_.getHitsLaw().events()) {
-                    law_.addQuickEvent(new Rate(e), new LgInt(effect_.getHitsLaw().rate(e)));
-                }
+                MonteCarloNumber law_ = effect_.getHitsLaw().copy();
                 throwerDamageLaws_.getNumberHits().put(_lanceur, law_);
             }
         } else {
-            MonteCarloNumber law_ = new MonteCarloNumber();
-            for (Rate e: effect_.getHitsLaw().events()) {
-                law_.addQuickEvent(new Rate(e), new LgInt(effect_.getHitsLaw().rate(e)));
-            }
+            MonteCarloNumber law_ = effect_.getHitsLaw().copy();
             throwerDamageLaws_.getNumberHits().put(_lanceur, law_);
         }
         if(effect_.getConstDamage()){
@@ -1708,10 +1702,7 @@ final class FightEffects {
         }else{
             loiRand_= _diff.loi(_lanceur.getTeam(), Fight.CST_PLAYER, _import);
         }
-        MonteCarloNumber copyRand_ = new MonteCarloNumber();
-        for (Rate r: loiRand_.events()) {
-            copyRand_.addQuickEvent(new Rate(r), new LgInt(loiRand_.rate(r)));
-        }
+        MonteCarloNumber copyRand_ = loiRand_.copy();
         throwerDamageLaws_.setRandomRate(copyRand_);
         Rate degats_=calculateDamageBaseWithoutRandom(_fight,_lanceur,_cible,_attaqueLanceur,_import);
         boolean criticalHitCanHappen_;

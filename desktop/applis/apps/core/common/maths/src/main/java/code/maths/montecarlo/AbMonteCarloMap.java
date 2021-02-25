@@ -54,7 +54,7 @@ public abstract class AbMonteCarloMap<E> extends AbMonteCarlo<E> {
         return true;
     }
 
-    public final Rate normalizedRate(E _event) {
+    public Rate normalizedRate(E _event) {
         LgInt sum_ = sum();
         return new Rate(rate(_event), sum_);
     }

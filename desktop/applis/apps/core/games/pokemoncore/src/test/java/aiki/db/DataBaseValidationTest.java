@@ -2709,7 +2709,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
         initConstants(data_);
         initExpPoints(data_);
         initRandomLaws(data_);
-        data_.getLawsDamageRate().lastValue().getLaw().getLaw().clear();
+        data_.getLawsDamageRate().lastValue().getLaw().getEvents().clear();
         data_.completeVariables();
         data_.validate(new PerCentImpl(),new LoadFlagSample());
         assertTrue(data_.isError());

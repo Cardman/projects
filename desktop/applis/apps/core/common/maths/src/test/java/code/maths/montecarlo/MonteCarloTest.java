@@ -400,4 +400,29 @@ public class MonteCarloTest extends EquallableMathUtil {
         law_.addEvent("2", new LgInt(1));
         assertEq("2", law_.editNumber(LgInt.one(),new DefaultGenerator()));
     }
+
+    @Test
+    public void editNumber17Test() {
+        MonteCarloNumber law_ = new MonteCarloNumber();
+        law_.addQuickEvent(new Rate(2), new LgInt(2));
+        law_.addQuickEvent(new Rate(2), new LgInt(1));
+        assertEq(new Rate(2), law_.editNumber(new LgInt(8), new DefaultGenerator()));
+    }
+
+    @Test
+    public void normalRate1() {
+        MonteCarloString law_ = new MonteCarloString();
+        law_.addEvent("2", new LgInt(1));
+        assertTrue(law_.containsEvent("2"));
+        assertEq(new Rate(1), law_.normalizedRate("2"));
+    }
+
+    @Test
+    public void normalRate2() {
+        MonteCarloNumber law_ = new MonteCarloNumber();
+        law_.addEvent(new Rate(2), new LgInt(1));
+        assertTrue(law_.containsEvent(new Rate(2)));
+        assertEq(new Rate(1), law_.normalizedRate(new Rate(2)));
+    }
+
 }

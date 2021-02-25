@@ -281,7 +281,7 @@ public final class Rate implements Cmp<Rate>, Displayable {
     public void changeSignum() {
         //setModified();
         if (!isZero()) {
-            numerateur.setSignum(!numerateur.getSignum());
+            numerateur.changerSigne();
         }
     }
 

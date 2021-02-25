@@ -5,6 +5,7 @@ import code.maths.Rate;
 import code.maths.geo.CustPoint;
 import code.maths.geo.Polygon;
 import code.maths.geo.Rect;
+import code.maths.montecarlo.EventFreq;
 import code.maths.montecarlo.MonteCarloBoolean;
 import code.maths.montecarlo.MonteCarloNumber;
 import code.maths.montecarlo.MonteCarloString;
@@ -16,7 +17,6 @@ import code.util.BooleanMap;
 import code.util.CollCapacity;
 import code.util.EqList;
 import code.util.*;
-import code.util.ObjectMap;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.core.IndexConstants;
@@ -28,7 +28,10 @@ public final class DocumentReaderMathUtil {
     private static final String ATTR_VALUE = "value";
     private static final String FIELD_LAW = "law";
     private static final String FIELD_POINTS = "points";
- 
+
+    private DocumentReaderMathUtil() {
+    }
+
     public static LgInt getLgInt(Element _boolean) {
         return LgInt.newLgInt(_boolean.getAttribute(ATTR_VALUE));
     }
@@ -101,11 +104,11 @@ public final class DocumentReaderMathUtil {
     }
 
 
-    public static ObjectMap<Rate,LgInt> getMapRateLgInt(Element _elt) {
+    public static CustList<EventFreq<Rate>> getMapRateLgInt(Element _elt) {
         ElementList childElements_ = _elt.getChildElements();
         int len_ = childElements_.getLength();
         CollCapacity cap_ = new CollCapacity(len_/2);
-        ObjectMap<Rate,LgInt> map_ = new ObjectMap<Rate,LgInt>(cap_);
+        CustList<EventFreq<Rate>> map_ = new CustList<EventFreq<Rate>>(cap_);
         EqList<Rate> keys_ = new EqList<Rate>(cap_);
         EqList<LgInt> values_ = new EqList<LgInt>(cap_);
         for (Element c: childElements_) {
@@ -117,7 +120,7 @@ public final class DocumentReaderMathUtil {
         }
         int min_ = Math.min(keys_.size(), values_.size());
         for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
-            map_.put(keys_.get(i), values_.get(i));
+            map_.add(new EventFreq<Rate>(keys_.get(i), values_.get(i)));
         }
         return map_;
     }
@@ -175,12 +178,15 @@ public final class DocumentReaderMathUtil {
         int len_ = childElements_.getLength();
         CollCapacity cap_ = new CollCapacity(len_/2);
         MonteCarloNumber law_ = new MonteCarloNumber(cap_);
-        law_.setLaw(new ObjectMap<Rate,LgInt>(cap_));
+        CustList<EventFreq<Rate>> ls_ = new CustList<EventFreq<Rate>>();
         for (Element c: childElements_) {
             String fieldName_ = c.getAttribute(ATTR_FIELD);
             if (StringUtil.quickEq(fieldName_, FIELD_LAW)) {
-                law_.setLaw(getMapRateLgInt(c));
+                ls_.addAllElts(getMapRateLgInt(c));
             }
+        }
+        for (EventFreq<Rate> e: ls_) {
+            law_.addQuickEvent(e.getEvent(),e.getFreq());
         }
         return law_;
     }
