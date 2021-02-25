@@ -2928,6 +2928,9 @@ public final class DocumentReaderAikiCoreUtil {
 
     public static Combos getCombos(String _string) {
         Document doc_ = DocumentBuilder.parseNoTextDocument(_string);
+        if (doc_ == null) {
+            return Instances.newCombos();
+        }
         return getCombos(doc_.getDocumentElement());
     }
 
@@ -6656,6 +6659,9 @@ public final class DocumentReaderAikiCoreUtil {
 
     public static DataMap getDataMap(String _string) {
         Document doc_ = DocumentBuilder.parseNoTextDocument(_string);
+        if (doc_ == null) {
+            return Instances.newDataMap();
+        }
         return getDataMap(doc_.getDocumentElement());
     }
 
