@@ -2,9 +2,6 @@ package code.sml;
 
 public final class ParseFullTextState extends AbstractParseTextState {
 
-    private static final char LT_CHAR = '<';
-    private static final char GT_CHAR = '>';
-
     private final StringBuilder currentText = new StringBuilder();
 
     ParseFullTextState(FullDocument _doc, FullElement _currentElement,String _input, int _index) {

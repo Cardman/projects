@@ -23,7 +23,7 @@ public final class Attr {
         StringBuilder str_ = new StringBuilder(BEG_ATTR);
         str_.append(getName());
         str_.append(SEPARATOR);
-        str_.append(DocumentBuilder.escape(getValue(), true));
+        str_.append(FullNode.escape(getValue(), true));
         str_.append(END_ATTR);
         return str_.toString();
     }

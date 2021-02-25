@@ -7,15 +7,20 @@ import code.util.core.StringUtil;
 
 public abstract class AbstractParseTextState {
 
+    protected static final char LT_CHAR = '<';
+    protected static final char GT_CHAR = '>';
     private static final char ENCODED = '&';
 
     private static final char SLASH = '/';
 
-    private static final char LT_CHAR = '<';
-    private static final char GT_CHAR = '>';
     private static final char QUOT_CHAR = '"';
     private static final char APOS_CHAR = '\'';
     private static final char EQUALS = '=';
+
+    private static final char TAB = '\t';
+
+    private static final char LINE_RETURN = '\n';
+
     private final CoreDocument doc;
     private final String input;
     private int indexFoot;
@@ -36,7 +41,50 @@ public abstract class AbstractParseTextState {
         input = _input;
         index = _index;
     }
-    boolean exit() {
+
+    static DocumentResult parseCommon(DocumentResult _res, CoreDocument _doc, String _input, int _len, AbstractParseTextState _st) {
+        while (_st.index < _len) {
+            if (_st.exit()) {
+                break;
+            }
+        }
+        if (!_st.finished) {
+            return processErr(_res, _input, _len, _st.index, _doc.getTabWidth());
+        }
+        _res.setDocument(_doc);
+        return _res;
+    }
+
+    private static DocumentResult processErr(DocumentResult _res, String _input, int _len, int _i, int _tabWidth) {
+        int max_;
+        if (_i < _len) {
+            max_ = _i;
+        } else {
+            max_ = _len - 1;
+        }
+        int row_ = 1;
+        int col_ = 1;
+        int j_ = IndexConstants.FIRST_INDEX;
+        while (j_ <= max_) {
+            char curChar_ = _input.charAt(j_);
+            if (curChar_ == LINE_RETURN) {
+                row_++;
+                col_ = 1;
+            } else {
+                col_++;
+                if (curChar_ == TAB) {
+                    col_ += _tabWidth - 1;
+                }
+            }
+            j_++;
+        }
+        RowCol rc_ = new RowCol();
+        rc_.setRow(row_);
+        rc_.setCol(col_);
+        _res.setLocation(rc_);
+        return _res;
+    }
+    private boolean exit() {
         int len_ = input.length();
         char curChar_ = input.charAt(index);
         if (state == ReadingState.HEADER) {
@@ -53,10 +101,10 @@ public abstract class AbstractParseTextState {
         }
         int indexTag_ = index - indexFoot;
         String lastTag_ = stack.last();
-        if (lastTag_.charAt(indexTag_) != input.charAt(index)) {
+        if (lastTag_.charAt(indexTag_) != curChar_) {
             return true;
         }
-        if (input.charAt(index) == GT_CHAR) {
+        if (curChar_ == GT_CHAR) {
             return !processEndTag(len_);
         }
         index++;
@@ -64,28 +112,28 @@ public abstract class AbstractParseTextState {
     }
 
     protected boolean processAfterText(int _len) {
-        if (getIndex() + 1 >= _len) {
+        if (index + 1 >= _len) {
             return false;
         }
-        if (getInput().charAt(getIndex() + 1) == SLASH) {
-            incr();
-            incr();
-            setIndexFoot(getIndex());
-            setState(ReadingState.FOOTER);
+        if (input.charAt(index + 1) == SLASH) {
+            index++;
+            index++;
+            indexFoot = index;
+            this.state = ReadingState.FOOTER;
             return true;
         }
-        incr();
-        setState(ReadingState.HEADER);
-        setAddChild(true);
+        index++;
+        this.state = ReadingState.HEADER;
+        this.addChild = true;
         return true;
     }
 
     private boolean processHeader(int _len, char _curChar) {
-        if (directResChar2(_curChar)) {
+        if (koTagHeader(_curChar)) {
             return false;
         }
         if (tagName.length() == 0) {
-            if (directResChar(_curChar)) {
+            if (koTagHeaderNoTagName(_curChar)) {
                 return false;
             }
             tagName.append(_curChar);
@@ -93,7 +141,7 @@ public abstract class AbstractParseTextState {
             return true;
         }
         if (_curChar == GT_CHAR) {
-            return processEndHeaderTag(_len);
+            return endTagCommon(_len);
         }
         if (StringUtil.isWhitespace(_curChar)) {
             return processSpace(_len);
@@ -103,7 +151,7 @@ public abstract class AbstractParseTextState {
             index++;
             return true;
         }
-        if (notGt(input, _len, index)) {
+        if (koEndTagHeader(input, _len, index + 1)) {
             return false;
         }
         addChild = false;
@@ -111,19 +159,8 @@ public abstract class AbstractParseTextState {
         return true;
     }
 
-    private boolean processEndHeaderTag(int _len) {
-        return endTagCommon(_len);
-    }
-
     private boolean processSpace(int _len) {
-        int nextPrintable_ = index;
-        while (nextPrintable_ < _len) {
-            char next_ = input.charAt(nextPrintable_);
-            if (!StringUtil.isWhitespace(next_)) {
-                break;
-            }
-            nextPrintable_++;
-        }
+        int nextPrintable_ = nextPrintable(_len, index);
         if (nextPrintable_ == _len) {
             return false;
         }
@@ -133,7 +170,7 @@ public abstract class AbstractParseTextState {
     }
 
     private boolean processAttrName(int _len, char _curChar) {
-        if (directResChar3(_curChar)) {
+        if (koAttrName(_curChar)) {
             return false;
         }
         if (!StringUtil.isWhitespace(_curChar) && _curChar != EQUALS) {
@@ -143,15 +180,8 @@ public abstract class AbstractParseTextState {
         }
         if (_curChar != EQUALS) {
             //Character.isWhitespace(curChar_)
-            int nextPrintable_ = index;
-            while (nextPrintable_ < _len) {
-                char next_ = input.charAt(nextPrintable_);
-                if (!StringUtil.isWhitespace(next_)) {
-                    break;
-                }
-                nextPrintable_++;
-            }
-            if (notEq(input, _len, nextPrintable_)) {
+            int nextPrintable_ = nextPrintable(_len, index);
+            if (koAfterAttrName(input, _len, nextPrintable_)) {
                 return false;
             }
             index = nextPrintable_;
@@ -168,14 +198,7 @@ public abstract class AbstractParseTextState {
             if (!StringUtil.isWhitespace(nextEq_)) {
                 return false;
             }
-            int nextPrintable_ = index + 1;
-            while (nextPrintable_ < _len) {
-                char next_ = input.charAt(nextPrintable_);
-                if (!StringUtil.isWhitespace(next_)) {
-                    break;
-                }
-                nextPrintable_++;
-            }
+            int nextPrintable_ = nextPrintable(_len, index + 1);
             if (nextPrintable_ == _len) {
                 return false;
             }
@@ -188,6 +211,18 @@ public abstract class AbstractParseTextState {
             index++;
         }
         return checkDuplicate();
+    }
+
+    private int nextPrintable(int _len, int _i) {
+        int nextPrintable_ = _i;
+        while (nextPrintable_ < _len) {
+            char next_ = input.charAt(nextPrintable_);
+            if (!StringUtil.isWhitespace(next_)) {
+                break;
+            }
+            nextPrintable_++;
+        }
+        return nextPrintable_;
     }
 
     private boolean checkDuplicate() {
@@ -209,7 +244,7 @@ public abstract class AbstractParseTextState {
     }
 
     private boolean processAttrValue(int _len, char _curChar) {
-        if (directResChar4(_curChar)) {
+        if (koAttrValue(_curChar)) {
             return false;
         }
         if (_curChar != delimiterAttr) {
@@ -221,14 +256,7 @@ public abstract class AbstractParseTextState {
         attrs.add(attr_);
         attributeName.delete(0, attributeName.length());
         attributeValue.delete(0, attributeValue.length());
-        int nextPrintable_ = index + 1;
-        while (nextPrintable_ < _len) {
-            char next_ = input.charAt(nextPrintable_);
-            if (!StringUtil.isWhitespace(next_)) {
-                break;
-            }
-            nextPrintable_++;
-        }
+        int nextPrintable_ = nextPrintable(_len, index + 1);
         if (nextPrintable_ == _len) {
             return false;
         }
@@ -236,7 +264,7 @@ public abstract class AbstractParseTextState {
         boolean endHead_ = false;
         if (nextPr_ == SLASH) {
             index = nextPrintable_ + 1;
-            if (notGt2(input, _len, index)) {
+            if (koEndTagHeader(input, _len, index)) {
                 return false;
             }
             endHead_ = true;
@@ -247,22 +275,18 @@ public abstract class AbstractParseTextState {
             endHead_ = true;
         }
         if (endHead_) {
-            return processLastAttrValue(_len);
+            return endTagCommon(_len);
         }
         state = ReadingState.ATTR_NAME;
         index = nextPrintable_;
         return true;
     }
 
-    private boolean processLastAttrValue(int _len) {
-        return endTagCommon(_len);
-    }
-
     private boolean endTagCommon(int _len) {
         Element element_ = doc.createElement(tagName.toString());
         element_.setAttributes(new NamedNodeMap(attrs));
         attrs = new CustList<Attr>();
-        appendChFull(doc, currentElement, element_);
+        commonAppend(doc, currentElement, element_);
         if (addChild) {
             currentElement = element_;
             stack.add(tagName.append(GT_CHAR).toString());
@@ -341,18 +365,6 @@ public abstract class AbstractParseTextState {
     }
     protected abstract boolean processText(int _len, char _curChar);
 
-    private static void appendChFull(CoreDocument _doc, Element _currentElement, Element _element) {
-        commonAppend(_doc, _currentElement, _element);
-    }
-
-    public boolean isFinished() {
-        return finished;
-    }
-
-    public int getIndex() {
-        return index;
-    }
-
     protected CoreDocument getDoc() {
         return doc;
     }
@@ -361,55 +373,35 @@ public abstract class AbstractParseTextState {
         return currentElement;
     }
 
-    protected String getInput() {
-        return input;
-    }
-
-    protected void setState(ReadingState _state) {
-        this.state = _state;
-    }
-
-    protected void setIndexFoot(int _indexFoot) {
-        indexFoot = _indexFoot;
-    }
-
-    protected void setAddChild(boolean _addChild) {
-        this.addChild = _addChild;
-    }
-
-    protected static boolean directResChar4(char _curChar) {
+    private static boolean koAttrValue(char _curChar) {
         return _curChar == LT_CHAR || _curChar == GT_CHAR;
     }
 
-    protected static boolean notDelAttr(char _nextCharDel) {
+    private static boolean notDelAttr(char _nextCharDel) {
         return _nextCharDel != APOS_CHAR && _nextCharDel != QUOT_CHAR;
     }
 
-    protected static boolean notGt(String _input, int _len, int _i) {
-        return notGt2(_input, _len, _i + 1);
-    }
-
-    protected static boolean notGt2(String _input, int _len, int _i) {
+    private static boolean koEndTagHeader(String _input, int _len, int _i) {
         return _i >= _len || _input.charAt(_i) != GT_CHAR;
     }
 
-    protected static boolean directResChar2(char _curChar) {
+    private static boolean koTagHeader(char _curChar) {
         return _curChar == LT_CHAR || _curChar == ENCODED;
     }
 
-    protected static boolean directResChar(char _curChar) {
+    private static boolean koTagHeaderNoTagName(char _curChar) {
         return _curChar == GT_CHAR || _curChar == SLASH || StringUtil.isWhitespace(_curChar);
     }
 
-    protected static boolean notEq(String _input, int _len, int _nextPrintable) {
+    private static boolean koAfterAttrName(String _input, int _len, int _nextPrintable) {
         return _nextPrintable == _len || _input.charAt(_nextPrintable) != EQUALS;
     }
 
-    protected static boolean directResChar3(char _curChar) {
+    private static boolean koAttrName(char _curChar) {
         return _curChar == LT_CHAR || _curChar == ENCODED || _curChar == GT_CHAR || _curChar == SLASH;
     }
 
-    protected static void commonAppend(CoreDocument _doc, Element _currentElement, Element _element) {
+    private static void commonAppend(CoreDocument _doc, Element _currentElement, Element _element) {
         if (_doc.getDocumentElement() == null) {
             _doc.appendChild(_element);
         } else {

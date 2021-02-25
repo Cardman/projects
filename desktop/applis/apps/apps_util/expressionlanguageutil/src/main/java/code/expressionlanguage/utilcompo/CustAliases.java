@@ -26,7 +26,6 @@ import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.ValidatorStandard;
 import code.expressionlanguage.stds.*;
 import code.expressionlanguage.structs.*;
-import code.sml.DocumentBuilder;
 import code.sml.util.ResourcesMessagesUtil;
 import code.threads.AbstractLock;
 import code.threads.LockFactory;
@@ -1447,7 +1446,7 @@ public final class CustAliases {
     public void messages(AnalysisMessages _mess,String _lang, StringMap<String> _cust) {
         String fileName_ = ResourcesMessagesUtil.getPropertiesPath("resources_lg/aliases",_lang,"messages");
         String content_ = infos.getReader().read(fileName_);
-        StringMap<String> util_ = DocumentBuilder.getMessagesFromContent(content_);
+        StringMap<String> util_ = ResourcesMessagesUtil.getMessagesFromContent(content_);
         messages(_mess,util_,_cust);
     }
     public void messages(AnalysisMessages _mess, StringMap<String> _util, StringMap<String> _cust) {
@@ -1456,7 +1455,7 @@ public final class CustAliases {
     public void keyWord(KeyWords _kw,String _lang, StringMap<String> _cust) {
         String fileName_ = ResourcesMessagesUtil.getPropertiesPath("resources_lg/aliases",_lang,"keywords");
         String content_ = infos.getReader().read(fileName_);
-        StringMap<String> util_ = DocumentBuilder.getMessagesFromContent(content_);
+        StringMap<String> util_ = ResourcesMessagesUtil.getMessagesFromContent(content_);
         keyWord(_kw,util_,_cust);
     }
     public void keyWord(KeyWords _kw,StringMap<String> _util,StringMap<String> _cust) {
@@ -1465,7 +1464,7 @@ public final class CustAliases {
     public void otherAlias(LgNamesContent _content,String _lang, StringMap<String>_cust) {
         String fileName_ = ResourcesMessagesUtil.getPropertiesPath("resources_lg/aliases",_lang,"types");
         String content_ = infos.getReader().read(fileName_);
-        StringMap<String> util_ = DocumentBuilder.getMessagesFromContent(content_);
+        StringMap<String> util_ = ResourcesMessagesUtil.getMessagesFromContent(content_);
         otherAlias(_content,util_,_cust);
     }
     public void allAlias(LgNamesContent _content,StringMap<String> _util, StringMap<String> _cust) {

@@ -16,19 +16,19 @@ public final class LookForAttr {
     boolean keep(int _i, String _xml, String _attribute) {
         char ch_ = _xml.charAt(_i);
         if (delimiter == -1) {
-            if (DocumentBuilder.isDelAttr(ch_)) {
+            if (DocumentAttribute.isDelAttr(ch_)) {
                 delimiter = ch_;
             }
         } else {
             if (ch_ == delimiter) {
                 delimiter = -1;
                 beginToken = _i + 1;
-                beginToken = DocumentBuilder.skipSpace(_xml, beginToken);
+                beginToken = DocumentIndexer.skipSpace(_xml, beginToken);
                 return true;
             }
         }
         if (delimiter == -1) {
-            if (DocumentBuilder.spaceOrEq(ch_)) {
+            if (DocumentAttribute.spaceOrEq(ch_)) {
                 if (StringUtil.quickEq(str.toString(), _attribute)) {
                     foundAttr = beginToken;
                     return false;

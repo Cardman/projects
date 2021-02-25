@@ -376,7 +376,7 @@ public abstract class AnaRendBlock {
         return indexes_;
     }
     private static StringMap<AttributePart> getAttributes(String _html, int _from, int _to) {
-        return DocumentBuilder.getAttributes(_html, _from, _to);
+        return DocumentAttribute.getAttributes(_html, _from, _to);
     }
     private static int indexOfBeginNode(Node _node, String _html, int _from) {
         if (_node instanceof Element) {

@@ -10,7 +10,7 @@ public final class CalculNextIndexes {
     private static final char LT = 60;
     private static final char GT = 62;
 
-
+    private static final char EQUALS = '=';
     private static final char SLASH = '/';
 
     private static final char TAB = '\t';
@@ -64,10 +64,38 @@ public final class CalculNextIndexes {
         thirdIndex = indexLoc_;
         offset = 0;
     }
+
+    private static void addPossibleSpace(Ints _offsets, Ints _tabs, int _offset, char _ch) {
+        if (_ch == LINE_RETURN) {
+            _offsets.add(_offset);
+        } else {
+            addPossibleTab(_tabs, _offset, _ch);
+        }
+    }
+
+    private static void addPossibleTab(Ints _tabs, int _offset, char _ch) {
+        if (_ch == TAB) {
+            _tabs.add(_offset);
+        }
+    }
+
+    private static void completeAttr(StringBuilder _str, char _ch) {
+        if (!StringUtil.isWhitespace(_ch) && _ch != EQUALS) {
+            _str.append(_ch);
+        }
+    }
+
+    private static void processEndHeader(int _nbLineReturns, int _minLine, boolean _addAttribute, int _j, RowCol _endHeader) {
+        if (_addAttribute) {
+            _endHeader.setRow(_nbLineReturns + _minLine +1);
+            _endHeader.setCol(_j +2);
+        }
+    }
+
     boolean keep(String _xml, int _tabWidth) {
         char ch_ = _xml.charAt(index);
         if (ch_ == GT) {
-            DocumentBuilder.processEndHeader(nbLineReturns, minLine, addAttribute, thirdIndex, endHeader);
+            processEndHeader(nbLineReturns, minLine, addAttribute, thirdIndex, endHeader);
             addAttribute = false;
         }
         if (addAttribute && secIndex > nodeLen) {
@@ -85,11 +113,11 @@ public final class CalculNextIndexes {
 
     private void addAttr(char _ch) {
         if (delimiter == -1) {
-            if (DocumentBuilder.isDelAttr(_ch)) {
+            if (DocumentAttribute.isDelAttr(_ch)) {
                 delimiter = _ch;
             }
             if (delimiter == -1) {
-                DocumentBuilder.completeAttr(str, _ch);
+                completeAttr(str, _ch);
             } else {
                 rc = new RowCol();
                 rc.setRow(nbLineReturns + minLine +1);
@@ -106,7 +134,7 @@ public final class CalculNextIndexes {
                 tabs = new Ints();
                 str = new StringBuilder();
             } else {
-                DocumentBuilder.addPossibleSpace(offsets, tabs, offset, _ch);
+                addPossibleSpace(offsets, tabs, offset, _ch);
             }
             offset++;
         }

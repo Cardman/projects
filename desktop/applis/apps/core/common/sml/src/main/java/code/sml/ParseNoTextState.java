@@ -2,9 +2,6 @@ package code.sml;
 
 public final class ParseNoTextState extends AbstractParseTextState {
 
-    private static final char LT_CHAR = '<';
-    private static final char GT_CHAR = '>';
-
     ParseNoTextState(NoTextDocument _doc, NotTextElement _currentElement,String _input, int _index) {
         super(_doc,_currentElement,_input,_index);
     }

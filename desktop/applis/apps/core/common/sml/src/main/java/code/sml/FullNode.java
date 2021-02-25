@@ -5,6 +5,16 @@ import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 
 public abstract class FullNode implements Node {
+    private static final char QUOT = 34;
+    private static final char APOS = 39;
+    private static final char LT = 60;
+    private static final char GT = 62;
+    private static final char ENCODED = '&';
+    private static final String E_GT = "&gt;";
+    private static final String E_LT = "&lt;";
+    private static final String E_AMP = "&amp;";
+    private static final String E_APOS = "&apos;";
+    private static final String E_QUOT = "&quot;";
 
     private static final String BEGIN_TAG = "<";
     private static final String END_LEAF = "/>";
@@ -23,6 +33,44 @@ public abstract class FullNode implements Node {
 
     protected FullNode(Document _ownerDocument) {
         ownerDocument = _ownerDocument;
+    }
+
+    public static String escape(String _text, boolean _quote) {
+        StringBuilder escapedXml_ = new StringBuilder();
+        for (char c: _text.toCharArray()) {
+            escape(_quote, escapedXml_, c);
+        }
+        return escapedXml_.toString();
+    }
+
+    private static void escape(boolean _quote, StringBuilder _escapedXml, char _c) {
+        if (_c == LT) {
+            _escapedXml.append(E_LT);
+            return;
+        }
+        if (_c == GT) {
+            _escapedXml.append(E_GT);
+            return;
+        }
+        if (_c == ENCODED) {
+            _escapedXml.append(E_AMP);
+            return;
+        }
+        processDef(_quote, _escapedXml, _c);
+    }
+
+    private static void processDef(boolean _quote, StringBuilder _escapedXml, char _c) {
+        if (_quote) {
+            if (_c == QUOT) {
+                _escapedXml.append(E_QUOT);
+                return;
+            }
+            if (_c == APOS) {
+                _escapedXml.append(E_APOS);
+                return;
+            }
+        }
+        _escapedXml.append(_c);
     }
 
     public String getTagName() {
@@ -279,7 +327,7 @@ public abstract class FullNode implements Node {
         }
         if (_current instanceof Text) {
             Text txt_ = (Text) _current;
-            _str.append(DocumentBuilder.escape(txt_.getData(), false));
+            _str.append(escape(txt_.getData(), false));
         }
     }
 
@@ -301,7 +349,7 @@ public abstract class FullNode implements Node {
         appendInfosGene(_current, _str);
         if (_current instanceof Text) {
             Text txt_ = (Text) _current;
-            _str.append(DocumentBuilder.escape(txt_.getData(), false));
+            _str.append(escape(txt_.getData(), false));
         }
     }
 

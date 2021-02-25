@@ -62,21 +62,21 @@ public class DocReqTest extends EquallableRowColUtil {
     public void getRowColOfNodeOrAttributeTest() {
         String xml_ = "<tag><inner id='ref'/>Text</tag>";
         CoreDocument doc_ = (CoreDocument) DocumentBuilder.parseSax(xml_);
-        assertNotNull(DocumentBuilder.getRowColOfNodeOrAttribute(xml_,null,0,"",4,true));
-        assertNotNull(DocumentBuilder.getRowColOfNodeOrAttribute(xml_,doc_.getDocumentElement(),0,"",4,true));
+        assertNotNull(DocumentIndexer.getRowColOfNodeOrAttribute(xml_,null,0,"",4,true));
+        assertNotNull(DocumentIndexer.getRowColOfNodeOrAttribute(xml_,doc_.getDocumentElement(),0,"",4,true));
     }
     @Test
     public void getDeepChildNodesDocOrder1Test() {
         String xml_ = "<tag><inner id='ref'/>Text</tag>";
         CoreDocument doc_ = (CoreDocument) DocumentBuilder.parseSax(xml_);
-        assertEq(3,DocumentBuilder.getDeepChildNodesDocOrder(doc_.getDocumentElement(),null).size());
+        assertEq(3, DocumentIndexer.getDeepChildNodesDocOrder(doc_.getDocumentElement(),null).size());
     }
 
     @Test
     public void getDeepChildNodesDocOrder2Test() {
         String xml_ = "<tag/>";
         CoreDocument doc_ = (CoreDocument) DocumentBuilder.parseSax(xml_);
-        assertEq(1,DocumentBuilder.getDeepChildNodesDocOrder(doc_.getDocumentElement(),null).size());
+        assertEq(1, DocumentIndexer.getDeepChildNodesDocOrder(doc_.getDocumentElement(),null).size());
     }
 
     @Test
@@ -84,7 +84,7 @@ public class DocReqTest extends EquallableRowColUtil {
         String xml_ = "<tag><inner id='ref'>Inner</inner>Text</tag>";
         CoreDocument doc_ = (CoreDocument) DocumentBuilder.parseSax(xml_);
         Element fr_ = doc_.getDocumentElement();
-        assertEq(3,DocumentBuilder.getDeepChildNodesDocOrder(fr_,fr_.getLastChild()).size());
+        assertEq(3, DocumentIndexer.getDeepChildNodesDocOrder(fr_,fr_.getLastChild()).size());
     }
 
     @Test
@@ -92,12 +92,12 @@ public class DocReqTest extends EquallableRowColUtil {
         String xml_ = "<tag><inner id='ref'>Inner</inner>Text</tag>";
         CoreDocument doc_ = (CoreDocument) DocumentBuilder.parseSax(xml_);
         Element fr_ = doc_.getDocumentElement();
-        assertEq(0,DocumentBuilder.getDeepChildNodesDocOrder(fr_,fr_).size());
+        assertEq(0, DocumentIndexer.getDeepChildNodesDocOrder(fr_,fr_).size());
     }
 
     @Test
     public void getDeepChildNodesDocOrder5Test() {
-        assertEq(0,DocumentBuilder.getDeepChildNodesDocOrder(null,null).size());
+        assertEq(0, DocumentIndexer.getDeepChildNodesDocOrder(null,null).size());
     }
     @Test
     public void rowColTest() {
