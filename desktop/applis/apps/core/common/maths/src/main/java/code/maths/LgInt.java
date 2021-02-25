@@ -60,8 +60,7 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
         si l'argument est nul.
     */
     public LgInt(LgInt _autre) {
-        affecterSansSigne(_autre);
-        signum = _autre.signum;
+        affecter(_autre);
     }
 
     /**
@@ -810,9 +809,9 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
         signum = _signum;
     }
 
-    private void affecterSansSigne(LgInt _autre) {
-        //setModified();
+    private void affecter(LgInt _autre) {
         grDigits = new Longs(_autre.grDigits);
+        signum = _autre.signum;
     }
 
     /**
@@ -1630,8 +1629,7 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
                 si l'argument est null.
     */
     public void affect(LgInt _autre) {
-        affecterSansSigne(_autre);
-        signum = _autre.signum;
+        affecter(_autre);
     }
 
     public boolean inRange(LgInt _min, LgInt _max) {

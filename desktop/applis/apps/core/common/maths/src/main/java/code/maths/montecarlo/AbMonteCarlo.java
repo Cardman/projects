@@ -26,7 +26,20 @@ public abstract class AbMonteCarlo<E> implements IntMonteCarlo {
         i_--;
         return getEvent(i_);
     }
-
+    public boolean checkEvents() {
+        Listable<E> cles_= events();
+        int len_ = cles_.size();
+        for (int i = 0; i < len_; i++){
+            if (getFreq(i).isZeroOrGt()) {
+                continue;
+            }
+            return false;
+        }
+        if (len_ > 0) {
+            return !sum().isZero();
+        }
+        return true;
+    }
     public abstract E getEvent(int _index);
     public abstract LgInt getFreq(int _index);
     public abstract CustList<E> events();

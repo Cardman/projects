@@ -62,21 +62,6 @@ public abstract class AbMonteCarloMap<E> extends AbMonteCarlo<E> {
         return getLaw().getVal(_event);
     }
 
-    public boolean checkEvents() {
-        Listable<E> cles_= events();
-        for (E e: cles_) {
-            LgInt integer_ = rate(e);
-            if (integer_.isZeroOrGt()) {
-                continue;
-            }
-            return false;
-        }
-        if (!getLaw().isEmpty()) {
-            return !sum().isZero();
-        }
-        return true;
-    }
-
     public void deleteZeroEvents() {
         Listable<E> cles_= events();
         Listable<E> deletedKeys_ = new CustList<E>();
