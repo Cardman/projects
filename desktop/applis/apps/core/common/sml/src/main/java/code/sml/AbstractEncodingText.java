@@ -29,26 +29,26 @@ abstract class AbstractEncodingText {
             index++;
             return false;
         }
-        int iBegin_ = index;
+        int iEncode_ = index;
         index++;
         while (index < length_ && _htmlText.charAt(index) != END_ESCAPED) {
             index++;
         }
         if (index >= length_) {
-            str.append(_htmlText.substring(iBegin_));
+            str.append(_htmlText.substring(iEncode_));
             return true;
         }
-        incr(_htmlText, _map, str, iBegin_, index);
+        incr(_htmlText, _map, str, iEncode_, index);
         index++;
         return false;
     }
 
-    protected abstract void incr(String _htmlText, StringMap<String> _map, StringBuilder _str, int _iBegin, int _index);
+    protected abstract void incr(String _htmlText, StringMap<String> _map, StringBuilder _str, int _iEncode, int _index);
 
-    protected static boolean matchRegion(String _htmlText, int _iBegin, int _i, String _key) {
+    protected static boolean matchRegion(String _htmlText, int _iEncode, int _index, String _key) {
         boolean equals_ = true;
         int j_ = 0;
-        for (int i = _iBegin; i <= _i; i++) {
+        for (int i = _iEncode; i <= _index; i++) {
             if (_htmlText.charAt(i) != _key.charAt(j_)) {
                 equals_ = false;
                 break;

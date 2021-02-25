@@ -11,21 +11,21 @@ public final class TryIncrEncodingText extends AbstractEncodingText {
     }
 
     @Override
-    protected void incr(String _htmlText, StringMap<String> _map, StringBuilder _str, int _iBegin, int _index) {
-        tryIncr(_htmlText, _map, _str, _iBegin, _index);
+    protected void incr(String _htmlText, StringMap<String> _map, StringBuilder _str, int _iEncode, int _index) {
+        tryIncr(_htmlText, _map, _str, _iEncode, _index);
     }
 
 
-    private static void tryIncr(String _htmlText, StringMap<String> _map, StringBuilder _str, int _iBegin, int _index) {
-        if (!next(_htmlText, _str, _iBegin, _index, _map)) {
-            tryApp(_htmlText, _str, _iBegin, _index);
+    private static void tryIncr(String _htmlText, StringMap<String> _map, StringBuilder _str, int _iEncode, int _index) {
+        if (!next(_htmlText, _str, _iEncode, _index, _map)) {
+            tryApp(_htmlText, _str, _iEncode, _index);
         }
     }
 
-    private static boolean next(String _htmlText, StringBuilder _str, int _iBegin, int _index, StringMap<String> _map) {
+    private static boolean next(String _htmlText, StringBuilder _str, int _iEncode, int _index, StringMap<String> _map) {
         boolean incr_ = false;
         for (EntryCust<String,String> k: _map.entryList()) {
-            if (matchRegion(_htmlText, _iBegin, _index, k.getKey())) {
+            if (matchRegion(_htmlText, _iEncode, _index, k.getKey())) {
                 String strValue_ = k.getValue();
                 strValue_ = strValue_.substring(2, strValue_.length() - 1);
                 int ascii_ = NumberUtil.parseInt(strValue_);
@@ -37,15 +37,15 @@ public final class TryIncrEncodingText extends AbstractEncodingText {
         }
         return incr_;
     }
-    private static void tryApp(String _htmlText, StringBuilder _str, int _iBegin, int _index) {
-        if (_htmlText.charAt(_iBegin + 1) == NUMBERED_CHAR) {
-            String strValue_ = _htmlText.substring(_iBegin + 2, _index);
+    private static void tryApp(String _htmlText, StringBuilder _str, int _iEncode, int _index) {
+        if (_htmlText.charAt(_iEncode + 1) == NUMBERED_CHAR) {
+            String strValue_ = _htmlText.substring(_iEncode + 2, _index);
             int ascii_ = (int) NumberUtil.parseLongZero(strValue_);
             char char_ = (char) ascii_;
             _str.append(char_);
             return;
         }
-        _str.append(_htmlText, _iBegin, _index + 1);
+        _str.append(_htmlText, _iEncode, _index + 1);
     }
 
 }

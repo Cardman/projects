@@ -108,6 +108,10 @@ public class TransformationsTest extends EquallableRowColUtil {
         assertEq("&", DocumentBuilder.transformSpecialChars("&amp;", true));
     }
     @Test
+    public void transformSpecialChars0FailTest() {
+        assertEq("&;",DocumentBuilder.transformSpecialChars("&;"));
+    }
+    @Test
     public void transformSpecialChars1FailTest() {
         assertEq("",DocumentBuilder.transformSpecialChars("&#;").trim());
     }
