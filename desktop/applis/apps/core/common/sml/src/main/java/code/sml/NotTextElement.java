@@ -92,9 +92,9 @@ public final class NotTextElement extends FullNode implements Element {
             return null;
         }
         int index_ = -1;
-        int size_ = ((NotTextElement) parentNode_).childElements.getLength();
+        int size_ = ((NotTextElement) parentNode_).childElements.getLength() - 1;
         for (int i = 0; i < size_; i++) {
-            if (((NotTextElement) parentNode_).childElements.item(i) == this && i + 1 < size_) {
+            if (((NotTextElement) parentNode_).childElements.item(i) == this) {
                 index_ = i + 1;
             }
         }
@@ -109,8 +109,8 @@ public final class NotTextElement extends FullNode implements Element {
         }
         int index_ = -1;
         int size_ = ((NotTextElement) parentNode_).childElements.getLength();
-        for (int i = 0; i < size_; i++) {
-            if (((NotTextElement) parentNode_).childElements.item(i) == this && i > 0) {
+        for (int i = 1; i < size_; i++) {
+            if (((NotTextElement) parentNode_).childElements.item(i) == this) {
                 index_ = i - 1;
             }
         }
