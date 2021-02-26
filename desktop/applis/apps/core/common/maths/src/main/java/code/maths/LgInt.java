@@ -915,36 +915,29 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
         int retenue_ = 0;
         while (j_ >= IndexConstants.FIRST_INDEX) {
             int k_ = j_ + diff_;
-            long ch_ = grDigits.get(k_) + _autre.grDigits.get(j_);
-            grDigits.set(k_, sommeOuReste(ch_, retenue_));
-            retenue_ = retenue(ch_, retenue_);
+            long ch_ = grDigits.get(k_) + _autre.grDigits.get(j_)+retenue_;
+            grDigits.set(k_, sommeOuReste(ch_));
+            retenue_ = retenueSomme(ch_);
             j_--;
         }
-        completeNb(retenue_, diff_-1);
+        int i_ = diff_-1;
+        while (i_ >= IndexConstants.FIRST_INDEX) {
+            long ch_ = grDigits.get(i_)+ retenue_;
+            grDigits.set(i_, sommeOuReste(ch_));
+            retenue_ = retenueSomme(ch_);
+            i_--;
+        }
         removeBeginningZeros();
     }
 
-    private void completeNb(int _retenue, int _i) {
-        int retenue_ = _retenue;
-        int i_ = _i;
-        while (i_ >= IndexConstants.FIRST_INDEX) {
-            long ch_ = grDigits.get(i_);
-            grDigits.set(i_, sommeOuReste(ch_, retenue_));
-            retenue_ = retenue(ch_, retenue_);
-            i_--;
+    private static long sommeOuReste(long _a) {
+        if (_a < BASE) {
+            return _a;
         }
+        return _a - BASE;
     }
-
-    private static long sommeOuReste(long _a, int _ret) {
-        long somme_ = _a + _ret;
-        if (somme_ < BASE) {
-            return somme_;
-        }
-        return somme_ - BASE;
-    }
-    private static int retenue(long _a, int _ret) {
-        long somme_ = _a + _ret;
-        if (somme_ < BASE) {
+    private static int retenueSomme(long _a) {
+        if (_a < BASE) {
             return 0;
         }
         return 1;
@@ -954,39 +947,40 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
     }
 
     private void retrancherChiffres(Longs _chiffresAutre) {
-        long retenue_ = 0;
+        int retenue_ = 0;
+        grDigits.add(IndexConstants.FIRST_INDEX, 0L);
         int longueur_ = grDigits.size();
         int longueurBis_ = _chiffresAutre.size();
-        long diff_;
-        int k_ = longueur_ - 1;
+        int diff_ = longueur_ - longueurBis_;
         int l_ = longueurBis_ - 1;
-        while (k_ >= IndexConstants.FIRST_INDEX && l_ >= IndexConstants.FIRST_INDEX) {
-            long suppr_ = _chiffresAutre.get(l_) + retenue_;
-            if (grDigits.get(k_) >= suppr_) {
-                diff_ = grDigits.get(k_) - suppr_;
-                retenue_ = 0;
-            } else {
-                diff_ = grDigits.get(k_) + BASE - suppr_;
-                retenue_ = 1;
-            }
-            grDigits.set(k_, diff_);
-            k_--;
+        while (l_ >= IndexConstants.FIRST_INDEX) {
+            int j_ = l_ + diff_;
+            long ch_ = grDigits.get(j_) - _chiffresAutre.get(l_)-retenue_;
+            grDigits.set(j_, diffOuReste(ch_));
+            retenue_ = retenueDiff(ch_);
             l_--;
         }
-        if (longueur_ > longueurBis_) {
-            while (k_ >= IndexConstants.FIRST_INDEX) {
-                if (grDigits.get(k_) >= retenue_) {
-                    diff_ = grDigits.get(k_) - retenue_;
-                    retenue_ = 0;
-                } else {
-                    diff_ = grDigits.get(k_) + BASE - retenue_;
-                    retenue_ = 1;
-                }
-                grDigits.set(k_, diff_);
-                k_--;
-            }
+        int k_ = diff_ - 1;
+        while (k_ >= IndexConstants.FIRST_INDEX) {
+            long ch_ = grDigits.get(k_)-retenue_;
+            grDigits.set(k_, diffOuReste(ch_));
+            retenue_ = retenueDiff(ch_);
+            k_--;
         }
         removeBeginningZeros();
+    }
+
+    private static long diffOuReste(long _a) {
+        if (_a < 0) {
+            return _a + BASE;
+        }
+        return _a;
+    }
+    private static int retenueDiff(long _a) {
+        if (_a < 0) {
+            return 1;
+        }
+        return 0;
     }
 
     private void retrancherAutrePuisAffecter(LgInt _autre) {
