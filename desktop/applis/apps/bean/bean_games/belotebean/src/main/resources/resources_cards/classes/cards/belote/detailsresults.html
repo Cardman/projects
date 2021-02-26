@@ -1,16 +1,19 @@
 <html c:bean="details" xmlns:c="javahtml">
 <head>
-<title>Results</title>
+<title><c:message value="msg,results"/></title>
 <link href="resources_cards/css/belote.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
-	<h1>D&eacute;tails des annonces</h1>
+	<h1><c:message value="msg,detail"/></h1>
 	<ul>
 		<c:for var="p" list="declaring" className='cards.belote.beans.SumDeclaringPlayer'>
 			<li>
-				Annonces de {p.nickname} ({p.statut}):
+				<c:message value="msg,decl_player">
+					<param value="p.nickname"/>
+					<param value="p.statut"/>
+				</c:message>
 				<c:if condition="p.declaring.isEmpty()">
-					Rien
+					<c:message value="msg,nothing"/>
 				</c:if>
 				<c:if condition="!p.declaring.isEmpty()">
 					<br/>
@@ -18,7 +21,7 @@
 						<c:for var="d" list="p.declaring" className='cards.belote.beans.DeclaringPlayerValue'>
 							<li>{d.declaring} : {d.value}</li>
 						</c:for>
-						<li>Somme : {p.sum}</li>
+						<li><c:message value="msg,sum"/>{p.sum}</li>
 					</ul>
 				</c:if>
 			</li>
