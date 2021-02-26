@@ -15,12 +15,9 @@ import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.fwd.blocks.FetchMemberUtil;
 import code.expressionlanguage.fwd.opers.*;
 import code.formathtml.*;
-import code.formathtml.analyze.InternGlobalOperation;
-import code.formathtml.analyze.ResultInput;
-import code.formathtml.analyze.ResultText;
+import code.formathtml.analyze.*;
 import code.formathtml.analyze.blocks.*;
 import code.formathtml.exec.blocks.*;
-import code.formathtml.analyze.AnalyzingDoc;
 import code.formathtml.exec.opers.*;
 import code.formathtml.structs.BeanInfo;
 import code.formathtml.structs.ValidatorInfo;
@@ -36,11 +33,12 @@ public final class RendForwardInfos {
     }
     private static RendDocumentBlock build(AnaRendDocumentBlock _ana, Forwards _forwards, AnalyzingDoc _anaDoc) {
         AbstractInputBuilder inputBuilder_ = _anaDoc.getInputBuilder();
+        AbstractConverterCheck converterCheck_ = _anaDoc.getConverterCheck();
         RendDocumentBlock rendDoc_ = new RendDocumentBlock(_ana.getOffset().getOffsetTrim(), _ana.getElt(), _ana.getFile(), _ana.getFileName(), _ana.getBeanName());
         RendParentBlock curPar_ = rendDoc_;
         AnaRendBlock en_ = _ana;
         while (en_ != null) {
-            RendBlock loc_ = newRendBlock(en_, _forwards, inputBuilder_);
+            RendBlock loc_ = newRendBlock(converterCheck_,en_, _forwards, inputBuilder_);
             if (loc_ != null) {
                 if (loc_ instanceof RendStdElement) {
                     if (StringUtil.quickEq(((RendStdElement) loc_).getRead().getTagName(), _anaDoc.getRendKeyWords().getKeyWordBody())) {
@@ -75,7 +73,7 @@ public final class RendForwardInfos {
         }
         return rendDoc_;
     }
-    private static RendBlock newRendBlock(AnaRendBlock _current, Forwards _forwards, AbstractInputBuilder _inputBuilder) {
+    private static RendBlock newRendBlock(AbstractConverterCheck _conv,AnaRendBlock _current, Forwards _forwards, AbstractInputBuilder _inputBuilder) {
         if (_current instanceof AnaRendEmptyText){
             return new RendEmptyText(_current.getOffset().getOffsetTrim(),((AnaRendEmptyText)_current).getExpression(),((AnaRendEmptyText)_current).isAdd());
         }
@@ -92,17 +90,17 @@ public final class RendForwardInfos {
                     return new RendForEachRefArray(f_.getImportedClassName(),f_.getVariableName(),
                             f_.getExpressionOffset(),f_.getImportedClassIndexName(),f_.getRealLabel(),f_.getOffset().getOffsetTrim(),op_);
                 }
-                return new RendForEachArray(f_.getImportedClassName(),f_.getVariableName(),
+                return new RendForEachArray(_conv.convertType(f_.getImportedClassName()),f_.getVariableName(),
                         f_.getExpressionOffset(),f_.getImportedClassIndexName(),f_.getRealLabel(),f_.getOffset().getOffsetTrim(),op_);
             }
-            return new RendForEachIterable(f_.getImportedClassName(),f_.getVariableName(),
+            return new RendForEachIterable(_conv.convertType(f_.getImportedClassName()),f_.getVariableName(),
                     f_.getExpressionOffset(),f_.getImportedClassIndexName(),f_.getRealLabel(),f_.getOffset().getOffsetTrim(),op_);
         }
         if (_current instanceof AnaRendForEachTable){
             AnaRendForEachTable f_ = (AnaRendForEachTable) _current;
             CustList<RendDynOperationNode> op_ = getExecutableNodes(f_.getRoot(), _forwards);
-            return new RendForEachTable(f_.getImportedClassNameFirst(),f_.getVariableNameFirst(),
-                    f_.getImportedClassNameSecond(),f_.getVariableNameSecond(),
+            return new RendForEachTable(_conv.convertType(f_.getImportedClassNameFirst()),f_.getVariableNameFirst(),
+                    _conv.convertType(f_.getImportedClassNameSecond()),f_.getVariableNameSecond(),
                     f_.getExpressionOffset(),f_.getImportedClassIndexName(),f_.getRealLabel(),f_.getOffset().getOffsetTrim(),op_);
         }
         if (_current instanceof AnaRendForIterativeLoop){

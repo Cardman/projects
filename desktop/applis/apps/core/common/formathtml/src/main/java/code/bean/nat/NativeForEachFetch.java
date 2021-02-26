@@ -30,12 +30,18 @@ public final class NativeForEachFetch implements AbstractForEachFetch {
 
     private String getIterableFullTypeByStds(String _subType, String _first) {
         String it_ = stds.getIterables().getVal(_subType);
-        if (it_ == null) {
-            it_ = stds.getAliasObject();
-        }
+        it_ = unNulizz(it_, stds.getAliasObject());
         if (StringUtil.quickEq(it_, stds.getAliasObject())) {
             it_ = _first;
         }
         return StringUtil.concat(stds.getContent().getPredefTypes().getAliasIterable(),"<",it_,">");
+    }
+
+    public static String unNulizz(String _it, String _aliasObject) {
+        String it_ = StringUtil.nullToEmpty(_it);
+        if (it_.isEmpty()) {
+            it_ = _aliasObject;
+        }
+        return it_;
     }
 }

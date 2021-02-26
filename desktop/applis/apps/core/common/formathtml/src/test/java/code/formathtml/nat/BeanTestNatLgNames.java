@@ -121,7 +121,7 @@ public abstract class BeanTestNatLgNames extends BeanNatCommonLgNames {
         analyzingDoc_.setContent(this);
         analyzingDoc_.setReducingOperations(new NativeReducingOperations());
         analyzingDoc_.setInputBuilder(new NatInputBuilder());
-        analyzingDoc_.setConverterCheck(new NativeConverterCheck());
+        analyzingDoc_.setConverterCheck(new NativeConverterCheck(getAliasObject()));
         AnalyzedPageEl page_ = _dual.getAnalyzed();
         page_.setForEachFetch(new NativeTestForEachFetch(this));
         initInstancesPattern(_nav.getSession(),analyzingDoc_);

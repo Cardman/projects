@@ -35,7 +35,7 @@ class NativeAnalyzedTestConfiguration {
         analyzingDoc.setReducingOperations(new NativeReducingOperations());
         analyzingDoc.setContent(adv);
         analyzingDoc.setInputBuilder(new DefaultInputBuilder());
-        analyzingDoc.setConverterCheck(new NativeConverterCheck());
+        analyzingDoc.setConverterCheck(new NativeConverterCheck(_standards.getAliasObject()));
         this.analyzing = _analyzing.getAnalyzing();
         context = _analyzing.getContext();
     }

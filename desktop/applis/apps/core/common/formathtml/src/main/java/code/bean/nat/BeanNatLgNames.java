@@ -26,7 +26,6 @@ import code.formathtml.*;
 import code.formathtml.util.DualAnalyzedContext;
 import code.util.*;
 import code.util.core.StringUtil;
-import code.util.ints.*;
 
 public abstract class BeanNatLgNames extends BeanNatCommonLgNames {
 
@@ -94,7 +93,7 @@ public abstract class BeanNatLgNames extends BeanNatCommonLgNames {
         analyzingDoc_.setReducingOperations(new NativeReducingOperations());
         analyzingDoc_.setContent(this);
         analyzingDoc_.setInputBuilder(new DefaultInputBuilder());
-        analyzingDoc_.setConverterCheck(new NativeConverterCheck());
+        analyzingDoc_.setConverterCheck(new NativeConverterCheck(getAliasObject()));
         AnalyzedPageEl page_ = _dual.getAnalyzed();
         page_.setForEachFetch(new NativeForEachFetch(this));
         initInstancesPattern(_nav.getSession(),analyzingDoc_);

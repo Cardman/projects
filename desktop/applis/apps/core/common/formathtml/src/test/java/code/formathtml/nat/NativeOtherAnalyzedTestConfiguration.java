@@ -33,7 +33,7 @@ class NativeOtherAnalyzedTestConfiguration {
         analyzingDoc.setContent(adv);
         analyzingDoc.setInputBuilder(new NatInputBuilder());
         analyzingDoc.setReducingOperations(new NativeReducingOperations());
-        analyzingDoc.setConverterCheck(new NativeConverterCheck());
+        analyzingDoc.setConverterCheck(new NativeConverterCheck(_standards.getAliasObject()));
         this.analyzing = _analyzing.getAnalyzing();
         context = _analyzing.getContext();
     }

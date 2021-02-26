@@ -22,4 +22,9 @@ public final class DefaultConverterCheck implements AbstractConverterCheck {
 
         return AnaTypeUtil.isPrimitiveOrWrapper(_className, primitiveTypes);
     }
+
+    @Override
+    public String convertType(String _className) {
+        return _className;
+    }
 }
