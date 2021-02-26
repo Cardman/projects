@@ -5,19 +5,17 @@
 </head>
 <body>
 	<c:if condition="playGame()">
-		<h1>1 Calculation of attack team''s points</h1>
+		<h1><c:message value="msg,calc_title"/></h1>
 		<ul>
-			<li>Number of necessary points in order that the taker
-				wins:{pointsDefenseTemporaire}</li>
-			<li>Number of points won in the attack team''s
-				tricks:{pointsAttaqueTemporaire}</li>
+			<li><c:message value="msg,need"/>{pointsDefenseTemporaire}</li>
+			<li><c:message value="msg,won_trick"/>{pointsAttaqueTemporaire}</li>
 		</ul>
-		<h1>2 Attack team</h1>
+		<h1><c:message value="msg,taker_title"/></h1>
 		<ul>
-			<li>Taker:{takerNickname}</li>
-			<li>Taker''s partners: <c:if
+			<li><c:message value="msg,taker"/>{takerNickname}</li>
+			<li><c:message value="msg,taker_team"/><c:if
 					condition="calledPlayersList.isEmpty()">
-					Noone
+				<c:message value="msg,none"/>
 				</c:if> <c:if condition="!calledPlayersList.isEmpty()">
 					<ul>
 						<c:for var="p" list="calledPlayersList" className='java.lang.String'>
@@ -27,24 +25,20 @@
 				</c:if>
 
 			</li>
-			<li>Bid:{bidString}</li>
+			<li><c:message value="msg,bid"/>{bidString}</li>
 		</ul>
-		<h1>3 Results</h1>
-		<p>Scored points by attack''s team without
-			bonuses:{pointsAttaqueSansPrime}</p>
+		<h1><c:message value="msg,results_title"/></h1>
+		<p><c:message value="msg,without_decl_att"/>{pointsAttaqueSansPrime}</p>
 		<br/>
-		<p>Scored points by defense''s team without
-			bonuses:{pointsDefenseSansPrime}</p>
+		<p><c:message value="msg,without_decl_def"/>{pointsDefenseSansPrime}</p>
 		<br/>
-		<p>Scored points by attack''s team with
-			bonuses:{pointsAttaqueTemporaire}</p>
+		<p><c:message value="msg,with_decl_att"/>{pointsAttaqueTemporaire}</p>
 		<br/>
-		<p>Scored points by defense''s team with
-			bonuses:{pointsDefenseTemporaire}</p>
+		<p><c:message value="msg,with_decl_def"/>{pointsDefenseTemporaire}</p>
 		<br/>
-		<p>Final scored points by attack''s team:{pointsAttaqueDefinitif}</p>
+		<p><c:message value="msg,fin_att"/>{pointsAttaqueDefinitif}</p>
 		<br/>
-		<p>Final scored points by defense''s team:{pointsDefenseDefinitif}</p>
+		<p><c:message value="msg,fin_def"/>{pointsDefenseDefinitif}</p>
 		<br/>
 		<p>
 			<c:if condition="win()">
@@ -90,7 +84,7 @@
 	</c:if>
 	<br/>
 	<table border="1">
-		<caption>Scores</caption>
+		<caption><c:message value="msg,scores"/></caption>
 		<thead>
 			<tr>
 				<td></td>
