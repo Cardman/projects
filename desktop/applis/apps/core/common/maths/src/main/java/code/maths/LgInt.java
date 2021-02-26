@@ -904,52 +904,34 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
 
     private void ajouter(LgInt _autre) {
         //setModified();
-        int retenue_ = 0;
-        long somme_;
-        long reste_;
-        int longueur_ = grDigits.size();
         int longueurBis_ = _autre.grDigits.size();
-        int i_ = longueur_ - 1;
+        while (grDigits.size() < longueurBis_) {
+            grDigits.add(IndexConstants.FIRST_INDEX, 0L);
+        }
+        grDigits.add(IndexConstants.FIRST_INDEX, 0L);
+        int longueur_ = grDigits.size();
+        int diff_ = longueur_ - longueurBis_;
         int j_ = longueurBis_ - 1;
-        while (i_ >= IndexConstants.FIRST_INDEX && j_ >= IndexConstants.FIRST_INDEX) {
-            somme_ = grDigits.get(i_) + _autre.grDigits.get(j_) + retenue_;
-            if (somme_ < BASE) {
-                grDigits.set(i_, somme_);
-                retenue_ = 0;
-            } else {
-                reste_ = somme_ - BASE;
-                grDigits.set(i_, reste_);
-                retenue_ = 1;
-            }
-            i_--;
+        int retenue_ = 0;
+        while (j_ >= IndexConstants.FIRST_INDEX) {
+            int k_ = j_ + diff_;
+            long ch_ = grDigits.get(k_) + _autre.grDigits.get(j_);
+            grDigits.set(k_, sommeOuReste(ch_, retenue_));
+            retenue_ = retenue(ch_, retenue_);
             j_--;
         }
-        completeNb(_autre, retenue_, longueur_, longueurBis_, i_, j_);
+        completeNb(retenue_, diff_-1);
+        removeBeginningZeros();
     }
 
-    private void completeNb(LgInt _autre, int _retenue, int _longueur, int _longueurBis, int _i, int _j) {
+    private void completeNb(int _retenue, int _i) {
         int retenue_ = _retenue;
         int i_ = _i;
-        int j_ = _j;
-        if (_longueur > _longueurBis) {
-            while (i_ >= IndexConstants.FIRST_INDEX) {
-                long ch_ = grDigits.get(i_);
-                grDigits.set(i_, sommeOuReste(ch_, retenue_));
-                retenue_ = retenue(ch_, retenue_);
-                i_--;
-            }
-        } else {
-            if (_longueur < _longueurBis) {
-                while (j_ >= IndexConstants.FIRST_INDEX) {
-                    long ch_ = _autre.grDigits.get(j_);
-                    grDigits.add(IndexConstants.FIRST_INDEX, sommeOuReste(ch_, retenue_));
-                    retenue_ = retenue(ch_, retenue_);
-                    j_--;
-                }
-            }
-        }
-        if (retenue_ == 1) {
-            grDigits.add(IndexConstants.FIRST_INDEX, (long) retenue_);
+        while (i_ >= IndexConstants.FIRST_INDEX) {
+            long ch_ = grDigits.get(i_);
+            grDigits.set(i_, sommeOuReste(ch_, retenue_));
+            retenue_ = retenue(ch_, retenue_);
+            i_--;
         }
     }
 
