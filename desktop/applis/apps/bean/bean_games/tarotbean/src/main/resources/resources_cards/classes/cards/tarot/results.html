@@ -1,25 +1,22 @@
 <html c:bean="results" xmlns:c="javahtml">
 <head>
-<title>Results</title>
+<title><c:message value="msg,results"/></title>
 <link href="resources_cards/css/tarot.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 	<c:if condition="playClassicGame()">
-		<h1>1 Calcul des points de l''attaque</h1>
+		<h1><c:message value="msg,classic_points"/></h1>
 		<ul>
-			<li>Nombre de bouts gagn&eacute;s dans les plis de l''attaque
-				:{numberOudlersTaker}</li>
-			<li>Nombre de points n&eacute;cessaires pour que le preneur gagne
-				:{needlyScoresTaker}</li>
-			<li>Nombre de points gagn&eacute;s dans les plis de l''attaque
-				:{scoreTaker}</li>
+			<li><c:message value="msg,classic_oulders"/>{numberOudlersTaker}</li>
+			<li><c:message value="msg,classic_need"/>{needlyScoresTaker}</li>
+			<li><c:message value="msg,classic_won"/>{scoreTaker}</li>
 		</ul>
-		<h1>2 Attaque</h1>
+		<h1><c:message value="msg,classic_att"/></h1>
 		<ul>
-			<li>Preneur:{taker}</li>
-			<li>Partenaires du preneur: <c:if
+			<li><c:message value="msg,classic_taker"/>{taker}</li>
+			<li><c:message value="msg,classic_parts"/><c:if
 					condition="calledPlayers.isEmpty()">
-					Aucun
+				<c:message value="msg,classic_none_part"/>
 				</c:if> <c:if condition="!calledPlayers.isEmpty()">
 					<ul>
 						<c:for var="p" list="calledPlayers" className='java.lang.String'>
@@ -29,9 +26,9 @@
 				</c:if>
 
 			</li>
-			<li>Cartes appel&eacute;s: <c:if
+			<li><c:message value="msg,classic_called"/><c:if
 					condition="calledCardsList.isEmpty()">
-					Aucune
+				<c:message value="msg,classic_none_called"/>
 				</c:if> <c:if condition="!calledCardsList.isEmpty()">
 					<ul>
 						<c:for var="c" list="calledCardsList" className='java.lang.String'>
@@ -41,9 +38,9 @@
 				</c:if>
 
 			</li>
-			<li>Ench&egrave;re:{bidString()}</li>
+			<li><c:message value="msg,classic_bid_end"/>{bidString()}</li>
 		</ul>
-		<h1>3 R&eacute;sultats:</h1>
+		<h1><c:message value="msg,classic_res"/></h1>
 		<p>
 			<c:if condition="win()">
 				<c:message value="msg,win"/>
@@ -99,16 +96,16 @@
 		<br/>
 	</c:if>
 	<c:if condition="playVariantModeGame()">
-		<h1>R&eacute;sultats</h1>
+		<h1><c:message value="msg,variant_res"/></h1>
 		<ul>
-			<li>La plus grande diff&eacute;rence de points: {maxDifference}</li>
-			<li>Votre position avant d&eacute;partage {initialUserPosition}</li>
-			<li>Votre position finale {finalUserPosition}</li>
+			<li><c:message value="msg,variant_res_1"/>{maxDifference}</li>
+			<li><c:message value="msg,variant_res_2"/>{initialUserPosition}</li>
+			<li><c:message value="msg,variant_res_3"/>{finalUserPosition}</li>
 		</ul>
 	</c:if>
 	<br/>
 	<table border="1">
-		<caption>Scores</caption>
+		<caption><c:message value="msg,variant_scores"/></caption>
 		<thead>
 			<tr>
 				<td></td>
