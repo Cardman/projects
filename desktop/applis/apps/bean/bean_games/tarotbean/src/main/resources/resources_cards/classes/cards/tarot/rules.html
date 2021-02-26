@@ -3,36 +3,36 @@
 <link href="resources_cards/css/tarot.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
-	<h1>Battre les cartes</h1>
+	<h1><c:message value="msg,beat_cards"/></h1>
 	{cartesBattues}
 	<br/>
-	<h1>R&eacute;partition des joueurs</h1>
+	<h1><c:message value="msg,dealing_pl"/></h1>
 	{repartition}
 	<br/>
-	<h1>Mode</h1>
+	<h1><c:message value="msg,mode"/></h1>
 	{mode}
 	<br/>
-	<h1>Ecart apr&egrave;s appel</h1>
+	<h1><c:message value="msg,discard"/></h1>
 	<c:if condition="discardAfterCall">
-		oui
+		<c:message value="msg,yes"/>
 	</c:if>
 	<c:if condition="!discardAfterCall">
-		non
+		<c:message value="msg,no"/>
 	</c:if>
 	<br/>
-	<h1>Ench&egrave;res au d&eacute;but de la partie</h1>
+	<h1><c:message value="msg,bids"/></h1>
 	<ul>
 		<c:for var="d" list="contrats" className='java.lang.String'>
 			<li>{d}</li>
 		</c:for>
 	</ul>
-	<h1>Annonces autoris&eacute;es</h1>
+	<h1><c:message value="msg,decls"/></h1>
 	<table>
-		<caption>Poign&eacute;es</caption>
+		<caption><c:message value="msg,hands"/></caption>
 		<thead>
 			<tr>
-				<td>Poign&eacute;e</td>
-				<td>Nombre</td>
+				<td><c:message value="msg,hand"/></td>
+				<td><c:message value="msg,nb"/></td>
 			</tr>
 		</thead>
 
@@ -47,7 +47,7 @@
 
 	</table>
 	<br/>
-	Mis&egrave;res autoris&eacute;es:<br/>
+	<c:message value="msg,mis"/><br/>
 	<c:if condition="!miseres.isEmpty()">
 		<ul>
 			<c:for var="m" list="miseres" className='java.lang.String'>
@@ -56,10 +56,10 @@
 		</ul>
 	</c:if>
 	<c:if condition="miseres.isEmpty()">
-		Rien<br/>
+		<c:message value="msg,nothing"/><br/>
 	</c:if>
 	<br/>
-	<h1>Fin de partie</h1>
+	<h1><c:message value="msg,ending"/></h1>
 	{finPartieTarot}
 </body>
 </html>
