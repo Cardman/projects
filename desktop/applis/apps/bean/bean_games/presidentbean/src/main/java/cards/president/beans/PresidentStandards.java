@@ -171,7 +171,7 @@ public final class PresidentStandards extends BeanNatLgNames {
                 return res_;
             }
             if (StringUtil.quickEq(fieldName_, NB_STACKS)) {
-                res_.setResult(new IntStruct(rules_.getNbPlayers()));
+                res_.setResult(new IntStruct(rules_.getNbStacks()));
                 return res_;
             }
             if (StringUtil.quickEq(fieldName_, NB_CARDS_PER_PLAYER_MIN)) {
