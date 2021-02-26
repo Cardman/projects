@@ -1552,6 +1552,16 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
         return quotientReste_;
     }
 
+    public LgInt signum() {
+        if (isZero()) {
+            return zero();
+        }
+        if (isZeroOrGt()) {
+            return one();
+        }
+        return minusOne();
+    }
+
     /**
     Calcule la valeur absolue du nombre courant.<br/>
     La valeur absolue de 0 est 0.

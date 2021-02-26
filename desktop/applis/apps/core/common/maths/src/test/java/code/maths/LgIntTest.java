@@ -1248,6 +1248,24 @@ public class LgIntTest extends EquallableMathUtil {
         assertEq(new LgInt("-12345678901234567890"), int_);
     }
     @Test
+    public void signum1Test(){
+        LgInt int_ = new LgInt("0");
+        assertEq(new LgInt("0"), int_.signum());
+        assertEq(new LgInt("0"), int_);
+    }
+    @Test
+    public void signum2Test(){
+        LgInt int_ = new LgInt("1");
+        assertEq(new LgInt("1"), int_.signum());
+        assertEq(new LgInt("1"), int_);
+    }
+    @Test
+    public void signum3Test(){
+        LgInt int_ = new LgInt("-1");
+        assertEq(new LgInt("-1"), int_.signum());
+        assertEq(new LgInt("-1"), int_);
+    }
+    @Test
     public void absNb1Test(){
         LgInt int_ = new LgInt("0");
         assertEq(new LgInt("0"), int_.absNb());
