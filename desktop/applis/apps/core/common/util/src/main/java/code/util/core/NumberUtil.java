@@ -93,31 +93,26 @@ public final class NumberUtil {
     }
 
     private static long quotNormal(long _one, long _two) {
-        if (_one >= 0) {
-            if (_two >= 0) {
-                return _one/_two;
-            }
-            //_two < 0
-            return -(_one/(-_two));
-        }
-        //_one < 0
-        if (_two <= 0) {
-            if (_one == Long.MIN_VALUE) {
+        if (_one == Long.MIN_VALUE) {
+            if (_two <= 0) {
                 return (-(_one+1))/(-_two)+1;
             }
-            if ((-_one) % (-_two) == 0) {
-                return (-_one)/(-_two);
-            }
-            return (-_one)/(-_two)+1;
-        }
-        if (_one == Long.MIN_VALUE) {
             return -(-(_one+1)/_two)-1;
         }
-        //_one < 0 && _two > 0
-        if ((-_one) % _two == 0) {
-            return -((-_one)/_two);
+        long absDiv_ = Math.abs(_two);
+        long absNb_ = Math.abs(_one);
+        long q_ = absNb_ / absDiv_;
+        long sigDiv_ = signum(_two);
+        q_ *= signum(_one) * sigDiv_;
+        if (_one >= 0) {
+            return q_;
         }
-        return -((-_one)/_two)-1;
+        long m_ = absNb_ % absDiv_;
+        if (m_ != 0) {
+            // sigDiv_ == 1 || sigDiv_ == -1
+            q_ += -sigDiv_;
+        }
+        return q_;
     }
 
     public static boolean eq(long _nb1, long _nb2) {

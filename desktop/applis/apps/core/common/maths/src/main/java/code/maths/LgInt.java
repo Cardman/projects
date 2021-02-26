@@ -1529,25 +1529,14 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
         quotientRestePositif_ = absolu_.divisionEuclidienne(autreAbsolu_);
         quotientReste_.setQuot(new LgInt(quotientRestePositif_.getQuot(), SIGNE_POSITIF));
         quotientReste_.setMod(new LgInt(quotientRestePositif_.getMod(), SIGNE_POSITIF));
+        quotientReste_.getQuot().multiplyBy(multiply(signum(), _autre.signum()));
         if (isZeroOrGt()) {
-            LgInt int_ = quotientReste_.getQuot();
-            if (!int_.isZero()) {
-                int_.signum = _autre.signum;
-            }
-            return quotientReste_;
-        }
-        if (_autre.isZeroOrGt()) {
-            if (!quotientReste_.getMod().isZero()) {
-                quotientReste_.setQuot(minus(minusOne(), quotientReste_.getQuot()));
-                quotientReste_.setMod(minus(_autre, quotientReste_.getMod()));
-            } else {
-                quotientReste_.getQuot().changeSignum();
-            }
             return quotientReste_;
         }
         if (!quotientReste_.getMod().isZero()) {
-            quotientReste_.getQuot().increment();
-            quotientReste_.setMod(minus(_autre.opposNb(), quotientReste_.getMod()));
+            quotientReste_.getQuot().addNb(_autre.signum().opposNb());
+            quotientReste_.getMod().changeSignum();
+            quotientReste_.getMod().addNb(_autre.absNb());
         }
         return quotientReste_;
     }
