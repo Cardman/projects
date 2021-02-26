@@ -869,37 +869,23 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
     private void multiplierParEntierPositif(LgInt _autre) {
         //setModified();
         LgInt resultat_ = LgInt.zero();
-        LgInt tmp_;
-        int longueur_ = grDigits.size();
-        int longueurBis_ = _autre.grDigits.size();
         int expo_ = 0;
-        if (longueur_ < longueurBis_) {
-            int first_ = longueur_;
-            first_--;
-            for (int i = first_; i >= IndexConstants.FIRST_INDEX; i--) {
-                tmp_ = _autre.multiplyBy(grDigits.get(i));
-                for (int j = IndexConstants.SIZE_EMPTY; j < expo_; j++) {
-                    tmp_.grDigits.add(0L);
-                }
-                tmp_.removeBeginningZeros();
-                expo_++;
-                resultat_.ajouter(tmp_);
-            }
-        } else {
-            int first_ = longueurBis_;
-            first_--;
-            for (int i = first_; i >= IndexConstants.FIRST_INDEX; i--) {
-                tmp_ = multiplyBy(_autre.grDigits.get(i));
-                for (int j = IndexConstants.SIZE_EMPTY; j < expo_; j++) {
-                    tmp_.grDigits.add(0L);
-                }
-                tmp_.removeBeginningZeros();
-                expo_++;
-                resultat_.ajouter(tmp_);
-            }
+        int first_ = _autre.grDigits.size()-1;
+        for (int i = first_; i >= IndexConstants.FIRST_INDEX; i--) {
+            LgInt tmp_ = multiplyBy(_autre.grDigits.get(i));
+            ajoutFinZerosNettoyage(expo_, tmp_);
+            expo_++;
+            resultat_.ajouter(tmp_);
         }
         grDigits.clear();
         grDigits.addAllElts(resultat_.grDigits);
+    }
+
+    private static void ajoutFinZerosNettoyage(int _expo, LgInt _tmp) {
+        for (int j = IndexConstants.SIZE_EMPTY; j < _expo; j++) {
+            _tmp.grDigits.add(0L);
+        }
+        _tmp.removeBeginningZeros();
     }
 
     private void ajouter(LgInt _autre) {
@@ -1011,69 +997,55 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
         }
         int taille_ = grDigits.size();
         int tailleBis_ = _autre.grDigits.size();
+        //taille_ >= tailleBis_
         int nbNombres_;
-        long chiffreMax_;
+        long chiffreMax_ = nbChiffresMax(first_);
         LgInt reste_ = LgInt.zero();
         reste_.grDigits.clear();
-        Longs chiffresQuotient_ = new Longs();
         int indiceChiffre_;
         if (grDigits.first() >= first_) {
-            chiffreMax_ = grDigits.first() / first_;
-            /*
-            chiffreMax_>=1 car grChiffres.first()>=_autre.grChiffres.first() et le quotient entier entre un dividende plus
-            grand que le diviseur est >= 1 de plus chiffreMax_<=grChiffres.first()<_base_
-            */
             nbNombres_ = taille_ - tailleBis_ + 1;
             for (int i = IndexConstants.FIRST_INDEX; i < tailleBis_; i++) {
                 reste_.grDigits.add(grDigits.get(i));
             }
             indiceChiffre_ = tailleBis_;
+            //indiceChiffre_ + nbNombres_ == taille_ + 1
         } else {
-            chiffreMax_ = (grDigits.first() * BASE + grDigits.get(IndexConstants.SECOND_INDEX)) / first_;
-            /*
-            _base_>=_autre.grChiffres.first(), car _base_ est la _base_ de numerotation. grChiffres.first()>=1, car
-            this>=_autre et _autre>0 => this>0 => grChiffres.first()>=1 donc
-            grChiffres.first()x_base_>=_autre.grChiffres.first() donc
-            grChiffres.first()x_base_+grChiffres[1]>=_autre.grChiffres.first() donc chiffreMax_>=1
-            grChiffres.first()+1<=_autre.grChiffres.first() => grChiffres.first()x_base_+_base_<=_autre.grChiffres.first()w_base_
-            => grChiffres.first()x_base_+_base_-1<_autre.grChiffres.first()x_base_ or grChiffres[1]<_base_ =>
-            grChiffres[1]<=_base_ -1 => grChiffres. first()x_base_+grChiffres[1]<_autre.grChiffres.first()x_base_ =>
-            chiffreMax_<_autre.grChiffres.first(), car _base_ | _autre.grChiffres.first()x_base_
-            */
+            //taille_ > tailleBis_
             nbNombres_ = taille_ - tailleBis_;
             for (int i = IndexConstants.FIRST_INDEX; i <= tailleBis_; i++) {
                 reste_.grDigits.add(grDigits.get(i));
             }
             indiceChiffre_ = tailleBis_ + 1;
+            //indiceChiffre_ + nbNombres_ == taille_ + 1
         }
         // chiffreMax_>=1
-        chiffresQuotient_.add(reste_.divisionTemporaire(_autre, chiffreMax_));
-        reste_.retrancher(_autre.multiplyBy(chiffresQuotient_.last()));
+        // reste_ >= _autre
+        long divDom_ = reste_.divisionTemporaire(_autre, chiffreMax_);
+        Longs chiffresQuotient_ = new Longs(new CollCapacity(nbNombres_));
+        chiffresQuotient_.add(divDom_);
+        reste_.retrancher(_autre.multiplyBy(divDom_));
+        //reste_ >= 0
+        //indiceChiffre_ + nbNombres_ == taille_ + 1
+        // et i < nbNombres_
+        // => i + indiceChiffre_ - 1 < nbNombres_ + indiceChiffre_ - 1 = taille_
+        // => i + indiceChiffre_ - 1 < taille_
+        // or 0 <= i - 1 => indiceChiffre_ <= i + indiceChiffre_ - 1
+        // => indiceChiffre_ <= i + indiceChiffre_ - 1 < taille_
+        // => indiceChiffre_ < taille_
         for (int i = IndexConstants.SECOND_INDEX; i < nbNombres_; i++) {
             reste_.grDigits.add(grDigits.get(indiceChiffre_));
             reste_.removeBeginningZeros();
             if (reste_.plusPetitQue(_autre)) {
                 chiffresQuotient_.add(0L);
             } else {
-                if (reste_.grDigits.first() >= first_) {
-                    chiffreMax_ = reste_.grDigits.first() / first_;
-                    /*
-                    chiffreMax_>=1 car reste_.grChiffres.first()>=_autre.grChiffres.first() et le quotient entier entre un
-                    dividende plus grand que le diviseur est >= 1
-                    */
-                } else {
-                    chiffreMax_ = reste_.grDigits.first() * BASE + reste_.grDigits.get(IndexConstants.SECOND_INDEX);
-                    chiffreMax_ /= first_;
-                    /*
-                    _base_>=_autre.grChiffres.first(), car _base_ est la _base_ de numerotation. reste_.grChiffres.first()>=1,
-                    car reste_>=_autre et _autre>0 => reste_>0 => grChiffres.first()>=1 donc
-                    grChiffres.first() x _base_>=_autre.grChiffres.first() donc grChiffres
-                    .first() x _base_+grChiffres[1]>=_autre.grChiffres.first() donc chiffreMax_>=1
-                    */
-                }
+                chiffreMax_ = reste_.nbChiffresMax(first_);
                 // chiffreMax_>=1
-                chiffresQuotient_.add(reste_.divisionTemporaire(_autre, chiffreMax_));
-                reste_.retrancher(_autre.multiplyBy(chiffresQuotient_.last()));
+                // reste_ >= _autre
+                long div_ = reste_.divisionTemporaire(_autre, chiffreMax_);
+                chiffresQuotient_.add(div_);
+                reste_.retrancher(_autre.multiplyBy(div_));
+                //reste_ >= 0
             }
             indiceChiffre_++;
         }
@@ -1082,13 +1054,47 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
         return _quotientReste;
     }
 
+    private long nbChiffresMax(long _premierGroupe) {
+        if (grDigits.first() >= _premierGroupe) {
+            /*
+            chiffreMax_>=1 car grChiffres.first()>=_autre.grChiffres.first()
+            et a / b >= 1 <=> a >= b pour tout entier positif non nul
+            de plus chiffreMax_<=grChiffres.first()<_base_
+            */
+            return grDigits.first() / _premierGroupe;
+        }
+        /*
+        A:_base_>=_autre.grChiffres.first()>=0, car _base_ est la base de numerotation.
+        grChiffres.first()>=1, car this>=_autre et _autre>0 => this>0 => B:grChiffres.first()>=1>=0
+        donc grChiffres.first()x_base_>=_autre.grChiffres.first() par A et B
+        donc grChiffres.first()x_base_+grChiffres[1]>=_autre.grChiffres.first()
+        donc (grChiffres.first()x_base_+grChiffres[1])/_autre.grChiffres.first()>=1 (_autre.grChiffres.first()>0)
+        donc chiffreMax_>=1
+        grChiffres.first()<_autre.grChiffres.first()
+        =>grChiffres.first()+1<=_autre.grChiffres.first()
+        => grChiffres.first()x_base_+_base_<=_autre.grChiffres.first()x_base_ (_base_>=0)
+        => grChiffres.first()x_base_+_base_-1<_autre.grChiffres.first()x_base_
+        or grChiffres[1]<_base_ => grChiffres[1]<=_base_ -1
+        donc grChiffres.first()x_base_+grChiffres[1]<=grChiffres.first()x_base_+_base_-1
+        => grChiffres.first()x_base_+grChiffres[1]<_autre.grChiffres.first()x_base_
+        => chiffreMax_<_autre.grChiffres.first(), car _base_ | _autre.grChiffres.first()x_base_
+        */
+        return (grDigits.first() * BASE + grDigits.get(IndexConstants.SECOND_INDEX)) / _premierGroupe;
+    }
     private long divisionTemporaire(LgInt _diviseur, long _max) {
         /*
-        _max>=1, car pendant les appels de cette fonction passe le dernier argument avec une valeur >= 1 _min==0, car pendant
-        les appels de cette fonction passe le premier argument avec une valeur == 0
+        _max>=1,
+        car pendant les appels de cette fonction
+        passe le dernier argument avec une valeur >= 1
+        _min==0,
+        car pendant les appels de cette fonction
+        passe le premier argument avec une valeur == 0
         */
+        //this >= _diviseur => this / _diviseur >= 1 > 0
         long quotient_ = _max / 2;
         if (quotient_ == 0) {
+            // _max == 1, car _max >= 1 est toujours vrai
+            // et _max >= 2 => _max / 2 >= 1 > 0
             // quotient_==1, car _min=0 et _min=quotient_ => quotient_=0 =>
             // _min+_max <= 1 => _max <= 1 => _max = 1
             // De meme _max = 1 => _min+_max/2 (division entiere) = 0 =>
@@ -1098,28 +1104,53 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
         // _max>=2
         LgInt prod_ = _diviseur.multiplyBy(_max);
         if (quickCmp(prod_) != SortConstants.NO_SWAP_SORT) {
+            //this >= prod_
             return _max;
         }
+        //this < prod_
         long max_ = _max;
         long min_ = 0;
+        //_max > 0 = min_
         /* _diviseur x _max=prod_>this */
-        /* On a toujours _min x _diviseur<=this, car _min==0 */
+        /* On a toujours _min x _diviseur<=this, car _min==0 et 0 <= this */
         while (min_ < max_ - 1) {
+            //dichotomie
+            // min_ < max_ - 1 < max_
+            // et min_ <= min_
+            // => 2 * min_ < max_ - 1 + min_
+            // => 2 * min_ <= max_ - 2 + min_
+            // => (2 * min_)/2 <= (max_ - 2 + min_)/2
+            // => min_ <= (max_ - 2 + min_)/2 < (max_ + min_)/2
+            // min_ < max_ - 1 => min_ + 1 < max_
+            // min_ + 1 < max_
+            // et max_ <= max_
+            // => max_ + min_ + 1 < 2 * max_
+            // => max_ + min_ + 2 <= 2 * max_
+            // => (max_ + min_ + 2)/2 <= (2 * max_)/2 = max_
+            // => (max_ + min_ + 2)/2 <= max_
+            // => (max_ + min_ )/2<(max_ + min_ + 2)/2 <= max_
+            // => (max_ + min_ )/2< max_
+            // ==> min_ < (max_ + min_ )/2< max_
             quotient_ = (min_ + max_) / 2;
             prod_ = _diviseur.multiplyBy(quotient_);
             int res_ = quickCmp(prod_);
             if (res_ == SortConstants.EQ_CMP) {
+                //trouve => quotient_ est la valeur exacte
                 return quotient_;
             }
             if (res_ == SortConstants.NO_SWAP_SORT) {
+                //this<prod_ => on cherche un quotient plus petit
                 max_ = quotient_;
             } else {
+                //this>prod_ => on cherche un quotient plus grand
                 min_ = quotient_;
             }
         }
-        /*
-        _max-1<=_min<_max, donc _max-1==_min et c'est le min qui doit etre retourne, car _min x _diviseur<=this et
-        _diviseur x _max>this
+        /*_max-1<=_min par fin de boucle et _min<_max par invariant
+        donc _max-1<=_min<_max
+        donc _max-1==_min (_min et _max sont entiers)
+        et c'est le min qui doit etre retourne,
+        car _min x _diviseur<=this et _diviseur x _max>this
         */
         return min_;
     }
@@ -1206,15 +1237,12 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
             return resultat_;
         }
         resultat_.grDigits.clear();
-        long quotient_;
         long retenue_ = 0;
-        long reste_;
-        int first_ = grDigits.size();
-        first_--;
+        int first_ = grDigits.size()-1;
         for (int i = first_; i >= IndexConstants.FIRST_INDEX; i--) {
-            quotient_ = grDigits.get(i) * _autre + retenue_;
+            long quotient_ = grDigits.get(i) * _autre + retenue_;
             retenue_ = quotient_ / BASE;
-            reste_ = quotient_ - BASE * retenue_;
+            long reste_ = quotient_ - BASE * retenue_;
             resultat_.grDigits.add(IndexConstants.FIRST_INDEX, reste_);
         }
         if (retenue_ > 0) {
@@ -1384,7 +1412,10 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
     @return l'entier courant modifie
     */
     public void multiplyBy(LgInt _autre) {
-        if (isZero() || _autre.isZero()) {
+        if (isZero()) {
+            return;
+        }
+        if (_autre.isZero()) {
             affectZero();
             return;
         }
