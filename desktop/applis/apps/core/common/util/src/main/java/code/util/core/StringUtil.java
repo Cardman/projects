@@ -485,19 +485,20 @@ public final class StringUtil {
     public static String simpleStringsFormat(String _format, String... _args) {
         StringBuilder str_ = new StringBuilder();
         StringBuilder arg_ = new StringBuilder();
-        int length_ = _format.length();
+        String form_ = nullToEmpty(_format);
+        int length_ = form_.length();
         boolean escaped_ = false;
         boolean inside_ = false;
         int i_ = IndexConstants.FIRST_INDEX;
         int argLength_ = _args.length;
         while (i_ < length_) {
-            FormatState resString_ = FormatState.keep(i_, escaped_, str_, _format);
+            FormatState resString_ = FormatState.keep(i_, escaped_, str_, form_);
             escaped_ = resString_.isEscaped();
             i_ = resString_.getIndex();
             if (resString_.isIterate()) {
                 continue;
             }
-            char cur_ = _format.charAt(i_);
+            char cur_ = form_.charAt(i_);
             if (cur_ == LEFT_BRACE) {
                 arg_ = new StringBuilder();
                 inside_ = true;
@@ -542,19 +543,20 @@ public final class StringUtil {
     public static String simpleNumberFormat(String _format, long... _args) {
         StringBuilder str_ = new StringBuilder();
         StringBuilder arg_ = new StringBuilder();
-        int length_ = _format.length();
+        String form_ = nullToEmpty(_format);
+        int length_ = form_.length();
         boolean escaped_ = false;
         boolean inside_ = false;
         int i_ = IndexConstants.FIRST_INDEX;
         int argLength_ = _args.length;
         while (i_ < length_) {
-            FormatState res_ = FormatState.keep(i_, escaped_, str_, _format);
+            FormatState res_ = FormatState.keep(i_, escaped_, str_, form_);
             escaped_ = res_.isEscaped();
             i_ = res_.getIndex();
             if (res_.isIterate()) {
                 continue;
             }
-            char cur_ = _format.charAt(i_);
+            char cur_ = form_.charAt(i_);
             if (cur_ == LEFT_BRACE) {
                 arg_ = new StringBuilder();
                 inside_ = true;
