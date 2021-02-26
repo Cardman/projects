@@ -3,48 +3,48 @@
 	<link href="resources_cards/css/belote.css" rel="stylesheet" type="text/css"/>
 	</head>
 	<body>
-	<h1>Mix Cards</h1>
+	<h1><c:message value="msg,beat_cards"/></h1>
 	{cartesBattues}
 	<br/>
-	<h1>Deal all cards</h1>
+	<h1><c:message value="msg,deal"/></h1>
 	<c:if condition="dealAll">
-		yes<br/>
+		<c:message value="msg,yes"/><br/>
 	</c:if>
 	<c:if condition="!dealAll">
-		no<br/>
+		<c:message value="msg,no"/><br/>
 	</c:if>
-	<h1>Allowed declaring</h1>
+	<h1><c:message value="msg,decl"/></h1>
 	<ul>
 		<c:for var="b" list="encheresAutorisees" className='java.lang.String'>
 			<li>{b}</li>
 		</c:for>
 	</ul>
 	<br/>
-	<h1>Undertrumping a foe</h1>
+	<h1><c:message value="msg,under"/></h1>
 	<c:if condition="sousCoupeAdv">
-		yes<br/>
+		<c:message value="msg,yes"/><br/>
 	</c:if>
 	<c:if condition="!sousCoupeAdv">
-		no<br/>
+		<c:message value="msg,no"/><br/>
 	</c:if>
 	<br/>
-	<h1>Allowed Bids at the beginning of the deal</h1>
+	<h1><c:message value="msg,bids"/></h1>
 	<ul>
 		<c:for var="d" list="annoncesAutorisees" className='java.lang.String'>
 			<li>{d}</li>
 		</c:for>
 	</ul>
-	<h1>Rules of playing trumps when a partner is leading the current trick</h1>
+	<h1><c:message value="msg,partner"/></h1>
 	{gestionCoupePartenaire}
 	<br/>
-	<h1>Players'' repartition</h1>
+	<h1><c:message value="msg,dealing"/></h1>
 	{repartition}
 	<br/>
-	<h1>End of game</h1>
+	<h1><c:message value="msg,end"/></h1>
 	<c:if condition="comptePointsClassique">
-		162 - 0, if the attack''s team looses.<br/>
+		<c:message value="msg,end_def"/><br/>
 	</c:if>
 	<c:if condition="!comptePointsClassique">
-		If the attack''s team looses, then this team keeps its own scored points.<br/>
+		<c:message value="msg,end_else"/><br/>
 	</c:if></body>
 </html>
