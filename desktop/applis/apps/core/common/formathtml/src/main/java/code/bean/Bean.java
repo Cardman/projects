@@ -2,11 +2,11 @@ package code.bean;
 
 public abstract class Bean {
 
-    private String scope;
+    private String scope = "";
 
-    private String className;
+    private String className = "";
 
-    private String language;
+    private String language = "";
 
     public abstract void beforeDisplaying();
 

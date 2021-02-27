@@ -1,7 +1,5 @@
 <cfg>
 	<java.lang.String class="cfg" field="firstUrl" value="web_prog/html/gameprog.html"/>
-	<sm class="cfg" field="validators"/>
-	<sm class="cfg" field="translators"/>
 	<sm class="cfg" field="beans">
 		<java.lang.String class="m" key="" value="progressing"/>
 		<b class="m">

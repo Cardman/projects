@@ -176,21 +176,6 @@ public abstract class BeanTestNatLgNames extends BeanNatCommonLgNames {
         return contextEl_;
     }
 
-    StringMap<Validator> loadValidator(Element _elt) {
-        StringMap<Validator> validators_ = new StringMap<Validator>();
-        int i_ = 0;
-        String key_ = "";
-        for (Element c: _elt.getChildElements()) {
-            if (i_ % 2 == 0) {
-                key_ = c.getAttribute("value");
-            } else {
-                validators_.put(key_, buildValidator(c));
-            }
-            i_++;
-        }
-        return validators_;
-    }
-
     public String processAfterInvoke(Configuration _conf, String _dest, String _beanName, Struct _bean, String _currentUrl, String _language, ContextEl _ctx, StackCall _stack, RendStackCall _rendStack) {
         ImportingPage ip_ = new ImportingPage();
         _rendStack.addPage(ip_);

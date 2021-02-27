@@ -217,6 +217,7 @@ public final class NativeTest extends EquallableExUtil {
         String htmlTwo_ = "<html c:bean=\"bean_two\"><body><form action=\"DELETE\" name=\"myform\" c:command=\"go\"><input type='text' name=\"typedString\" c:varValue=\"typedString\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         BeanNatLgNames lgNames_ = new CustBeanLgNames();
+        lgNames_.getValidators().addEntry("my_val",new MyValidator());
         basicStandards(lgNames_);
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);

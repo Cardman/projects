@@ -1,11 +1,5 @@
 <cfg>
 	<java.lang.String class="cfg" field="firstUrl" value="web_game/html/difficulty.html"/>
-	<sm class="cfg" field="validators">
-		<java.lang.String class="m" key="" value="rate_validator"/>
-		<aiki.beans.validators.RateValidator class="m"/>
-		<java.lang.String class="m" key="" value="short_validator"/>
-		<aiki.beans.validators.ShortValidator class="m"/>
-	</sm>
     <java.lang.String class="cfg" field="prefix" value="c"/>
 	<sm class="cfg" field="translators"/>
 	<sm class="cfg" field="beans">

@@ -33,7 +33,6 @@ import code.formathtml.util.BeanLgNames;
 import code.formathtml.util.NodeContainer;
 import code.formathtml.util.NodeInformations;
 import code.maths.montecarlo.DefaultGenerator;
-import code.sml.Element;
 import code.util.*;
 import code.util.core.StringUtil;
 
@@ -50,7 +49,7 @@ public abstract class BeanNatCommonLgNames extends BeanLgNames {
     private static final String TYPE_ENTRIES = "$custentries";
     private final StringMap<String> iterables = new StringMap<String>();
     private final StringMap<Bean> beans = new StringMap<Bean>();
-    private StringMap<Validator> validators = new StringMap<Validator>();
+    private final StringMap<Validator> validators = new StringMap<Validator>();
 
     public BeanNatCommonLgNames() {
         super(new DefaultGenerator());
@@ -95,21 +94,6 @@ public abstract class BeanNatCommonLgNames extends BeanLgNames {
         ClassMethodId classMethodId_ = _rend.getClassMethodId();
         ResultErrorStd res_ = LgNames.invokeMethod(_context, classMethodId_, _previous.getStruct(), null, _stack, Argument.toArgArray(firstArgs_));
         return new Argument(res_.getResult());
-    }
-
-    StringMap<Validator> loadValidator(Element _elt) {
-        StringMap<Validator> validators_ = new StringMap<Validator>();
-        int i_ = 0;
-        String key_ = "";
-        for (Element c: _elt.getChildElements()) {
-            if (i_ % 2 == 0) {
-                key_ = c.getAttribute("value");
-            } else {
-                validators_.put(key_, buildValidator(c));
-            }
-            i_++;
-        }
-        return validators_;
     }
 
     protected Struct getBeanOrNull(Configuration _conf,String _currentBeanName) {
@@ -254,9 +238,6 @@ public abstract class BeanNatCommonLgNames extends BeanLgNames {
     protected StringMap<String> getIterables() {
         return iterables;
     }
-    public Validator buildValidator(Element _element) {
-        return null;
-    }
 
     @Override
     public ContextEl newContext(int _tabWidth, int _stack, Coverage _coverage) {
@@ -277,10 +258,6 @@ public abstract class BeanNatCommonLgNames extends BeanLgNames {
 
     public StringMap<Validator> getValidators() {
         return validators;
-    }
-
-    public void setValidators(StringMap<Validator> _validators) {
-        validators = _validators;
     }
 
     public static PairStruct getPairStruct(Struct _arg, ContextEl _ctx) {

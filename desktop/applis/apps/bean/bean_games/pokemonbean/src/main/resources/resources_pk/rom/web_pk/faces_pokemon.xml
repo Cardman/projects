@@ -1,7 +1,5 @@
 <cfg>
 	<java.lang.String class="cfg" field="firstUrl" value="web_pk/html/pokemon.html"/>
-	<sm class="cfg" field="validators"/>
-	<sm class="cfg" field="translators"/>
 	<sm class="cfg" field="beans">
 		<java.lang.String class="m" key="" value="pokemon"/>
 		<b class="m">

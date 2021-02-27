@@ -300,6 +300,10 @@ public final class PokemonStandards extends BeanNatLgNames {
     public PokemonStandards() {
         PokemonStandards val_ = this;
         DefaultInitialization.basicStandards(val_);
+        getValidators().addEntry("positive_rate_validator",new PositiveRateValidator());
+        getValidators().addEntry("rate_validator",new RateValidator());
+        getValidators().addEntry("short_validator",new ShortValidator());
+        getValidators().addEntry("selected_radio",new UnselectedRadio());
     }
     @Override
     public void buildOther() {
@@ -1022,23 +1026,6 @@ public final class PokemonStandards extends BeanNatLgNames {
         forms_.putAllMap(formsMap_);
     }
 
-    @Override
-    public Validator buildValidator(Element _element) {
-        String clName_ = _element.getTagName();
-        if (StringUtil.quickEq(clName_, TYPE_FULL_RATE_VALIDATOR)){
-            return new RateValidator();
-        }
-        if (StringUtil.quickEq(clName_, TYPE_FULL_POSITIVE_RATE_VALIDATOR)){
-            return new PositiveRateValidator();
-        }
-        if (StringUtil.quickEq(clName_, TYPE_FULL_SHORT_VALIDATOR)){
-            return new ShortValidator();
-        }
-        if (StringUtil.quickEq(clName_, TYPE_FULL_UNSELECTED_RADIO)){
-            return new UnselectedRadio();
-        }
-        return null;
-    }
     @Override
     public ResultErrorStd getOtherResult(ContextEl _cont, ClassField _classField, Struct _instance) {
         if (_instance instanceof PkLineStruct) {
