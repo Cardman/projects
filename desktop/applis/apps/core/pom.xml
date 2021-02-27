@@ -15,7 +15,8 @@
 		<module>common</module>
 		<module>games</module>
 		<module>adv</module>
-	</modules>
+        <module>scripts</module>
+    </modules>
 	<build>
 		<plugins>
 			<plugin>

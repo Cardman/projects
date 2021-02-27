@@ -66,12 +66,16 @@ public final class Navigation {
     public DualAnalyzedContext loadConfiguration(String _cont, String _lgCode, BeanLgNames _lgNames, AbstractFileBuilder _fileBuilder, AbstractConfigurationLoader _confLoad) {
         DocumentResult res_ = DocumentBuilder.parseSaxHtmlRowCol(_cont);
         Document doc_ = res_.getDocument();
+        return loadConfiguration(_lgCode, _lgNames, _fileBuilder, _confLoad, doc_);
+    }
+
+    public DualAnalyzedContext loadConfiguration(String _lgCode, BeanLgNames _lgNames, AbstractFileBuilder _fileBuilder, AbstractConfigurationLoader _confLoad, Document _doc) {
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
-        if (doc_ == null) {
+        if (_doc == null) {
             return new DualAnalyzedContext(page_,_lgNames,null);
         }
         session = new Configuration();
-        DualConfigurationContext ctx_ = _confLoad.load(session,_lgCode, doc_, _fileBuilder, page_);
+        DualConfigurationContext ctx_ = _confLoad.load(session, _lgCode, _doc, _fileBuilder, page_);
         if (ctx_.getContext() == null) {
             return new DualAnalyzedContext(page_,_lgNames,null);
         }
