@@ -13,7 +13,6 @@ import code.sml.Document;
 import code.sml.core.DocumentWriterCoreUtil;
 import code.sml.Element;
 import code.util.EntryCust;
-import code.util.EqList;
 import code.util.*;
 import code.util.StringMap;
 
@@ -48,7 +47,7 @@ public final class DocumentWriterMathUtil {
         elt_.setAttribute(ATTR_VALUE, _boolean.display());
         return elt_;
     }
-    public static Element setListLgInt(EqList<LgInt> _object, String _fieldName, Document _document) {
+    public static Element setListLgInt(CustList<LgInt> _object, String _fieldName, Document _document) {
         Element elt_ = _document.createElement(TYPE_LIST);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
         for (LgInt s: _object) {

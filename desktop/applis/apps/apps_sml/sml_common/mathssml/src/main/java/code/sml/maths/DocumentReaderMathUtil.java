@@ -15,7 +15,6 @@ import code.sml.ElementList;
 import code.util.BooleanList;
 import code.util.BooleanMap;
 import code.util.CollCapacity;
-import code.util.EqList;
 import code.util.*;
 import code.util.StringList;
 import code.util.StringMap;
@@ -41,20 +40,20 @@ public final class DocumentReaderMathUtil {
     }
 
 
-    public static EqList<LgInt> getListLgInt(Element _elt) {
+    public static CustList<LgInt> getListLgInt(Element _elt) {
         ElementList childElements_ = _elt.getChildElements();
         int len_ = childElements_.getLength();
-        EqList<LgInt> list_ = new EqList<LgInt>(new CollCapacity(len_));
+        CustList<LgInt> list_ = new CustList<LgInt>(new CollCapacity(len_));
         for (Element c: childElements_) {
             list_.add(getLgInt(c));
         }
         return list_;
     }
 
-    public static EqList<Rate> getListRate(Element _elt) {
+    public static CustList<Rate> getListRate(Element _elt) {
         ElementList childElements_ = _elt.getChildElements();
         int len_ = childElements_.getLength();
-        EqList<Rate> list_ = new EqList<Rate>(new CollCapacity(len_));
+        CustList<Rate> list_ = new CustList<Rate>(new CollCapacity(len_));
         for (Element c: childElements_) {
             list_.add(getRate(c));
         }
@@ -67,7 +66,7 @@ public final class DocumentReaderMathUtil {
         CollCapacity cap_ = new CollCapacity(len_/2);
         StringMap<LgInt> map_ = new StringMap<LgInt>(cap_);
         StringList keys_ = new StringList(cap_);
-        EqList<LgInt> values_ = new EqList<LgInt>(cap_);
+        CustList<LgInt> values_ = new CustList<LgInt>(cap_);
         for (Element c: childElements_) {
             if (DocumentReaderCoreUtil.hasKey(c)) {
                 keys_.add(DocumentReaderCoreUtil.getString(c));
@@ -88,7 +87,7 @@ public final class DocumentReaderMathUtil {
         CollCapacity cap_ = new CollCapacity(len_/2);
         StringMap<Rate> map_ = new StringMap<Rate>(cap_);
         StringList keys_ = new StringList(cap_);
-        EqList<Rate> values_ = new EqList<Rate>(cap_);
+        CustList<Rate> values_ = new CustList<Rate>(cap_);
         for (Element c: childElements_) {
             if (DocumentReaderCoreUtil.hasKey(c)) {
                 keys_.add(DocumentReaderCoreUtil.getString(c));
@@ -109,8 +108,8 @@ public final class DocumentReaderMathUtil {
         int len_ = childElements_.getLength();
         CollCapacity cap_ = new CollCapacity(len_/2);
         CustList<EventFreq<Rate>> map_ = new CustList<EventFreq<Rate>>(cap_);
-        EqList<Rate> keys_ = new EqList<Rate>(cap_);
-        EqList<LgInt> values_ = new EqList<LgInt>(cap_);
+        CustList<Rate> keys_ = new CustList<Rate>(cap_);
+        CustList<LgInt> values_ = new CustList<LgInt>(cap_);
         for (Element c: childElements_) {
             if (DocumentReaderCoreUtil.hasKey(c)) {
                 keys_.add(getRate(c));
@@ -131,7 +130,7 @@ public final class DocumentReaderMathUtil {
         CollCapacity cap_ = new CollCapacity(len_/2);
         BooleanMap<LgInt> map_ = new BooleanMap<LgInt>(cap_);
         BooleanList keys_ = new BooleanList(cap_);
-        EqList<LgInt> values_ = new EqList<LgInt>(cap_);
+        CustList<LgInt> values_ = new CustList<LgInt>(cap_);
         for (Element c: childElements_) {
             if (DocumentReaderCoreUtil.hasKey(c)) {
                 keys_.add(DocumentReaderCoreUtil.getBoolean(c));
@@ -196,7 +195,7 @@ public final class DocumentReaderMathUtil {
         CollCapacity cap_ = new CollCapacity(len_/2);
         LongMap<Rate> map_ = new LongMap<Rate>(cap_);
         Longs keys_ = new Longs(cap_);
-        EqList<Rate> values_ = new EqList<Rate>(cap_);
+        CustList<Rate> values_ = new CustList<Rate>(cap_);
         for (Element c: childElements_) {
             if (DocumentReaderCoreUtil.hasKey(c)) {
                 keys_.add(DocumentReaderCoreUtil.getLong(c));
