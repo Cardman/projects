@@ -208,4 +208,11 @@ public final class RecordsMapTest extends EquallablePkUtil {
         PointsCharacterInRoadCave c_ = new PointsCharacterInRoadCave();
         assertNotNull(c_.getVal(new Point()));
     }
+    @Test
+    public void test34() {
+        PlaceInterConnects c_ = new PlaceInterConnects();
+        c_.put(new PlaceInterConnect(""),new Coords(""));
+        c_.put(new PlaceInterConnect(""),new Coords(""));
+        assertEq(1,c_.size());
+    }
 }

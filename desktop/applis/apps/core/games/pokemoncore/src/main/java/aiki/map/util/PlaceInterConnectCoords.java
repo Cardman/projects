@@ -4,7 +4,7 @@ import aiki.util.Coords;
 
 public final class PlaceInterConnectCoords {
     private final PlaceInterConnect placeInterConnect;
-    private final Coords coords;
+    private Coords coords;
 
     public PlaceInterConnectCoords(PlaceInterConnect _placeInterConnect, Coords _coords) {
         this.placeInterConnect = _placeInterConnect;
@@ -17,5 +17,9 @@ public final class PlaceInterConnectCoords {
 
     public Coords getCoords() {
         return coords;
+    }
+
+    public void setCoords(Coords _coords) {
+        this.coords = _coords;
     }
 }

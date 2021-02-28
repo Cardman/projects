@@ -82,7 +82,12 @@ public final class PlaceInterConnects {
     }
 
     public void put(PlaceInterConnect _k, Coords _v) {
-        addEntry(_k, _v);
+        int index_ = indexOfEntry(_k);
+        if (index_ < 0) {
+            addEntry(_k, _v);
+            return;
+        }
+        list.get(index_).setCoords(_v);
     }
     public void addEntry(PlaceInterConnect _k, Coords _v) {
         list.add(new PlaceInterConnectCoords(_k, _v));
