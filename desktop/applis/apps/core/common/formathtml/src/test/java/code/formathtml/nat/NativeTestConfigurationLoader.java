@@ -15,6 +15,7 @@ public final class NativeTestConfigurationLoader extends AbstractConfigurationLo
 
     @Override
     public void specificLoad(Configuration _configuration, String _lgCode, Document _document, DualConfigurationContext _dual, AnalyzedPageEl _page) {
+        update(_configuration,_document,_dual);
         _dual.setContext(stds.setupNative(_page));
     }
 }

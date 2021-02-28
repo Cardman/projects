@@ -70,10 +70,15 @@ public final class Navigation {
     }
 
     public DualAnalyzedContext loadConfiguration(String _lgCode, BeanLgNames _lgNames, AbstractFileBuilder _fileBuilder, AbstractConfigurationLoader _confLoad, Document _doc) {
-        AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
         if (_doc == null) {
+            AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
             return new DualAnalyzedContext(page_,_lgNames,null);
         }
+        return innerLoad(_lgCode, _lgNames, _fileBuilder, _confLoad, _doc);
+    }
+
+    public DualAnalyzedContext innerLoad(String _lgCode, BeanLgNames _lgNames, AbstractFileBuilder _fileBuilder, AbstractConfigurationLoader _confLoad, Document _doc) {
+        AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
         session = new Configuration();
         DualConfigurationContext ctx_ = _confLoad.load(session, _lgCode, _doc, _fileBuilder, page_);
         if (ctx_.getContext() == null) {

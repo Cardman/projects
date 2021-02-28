@@ -12,6 +12,12 @@ public abstract class AbstractConfigurationLoader {
 
     public DualConfigurationContext load(Configuration _configuration, String _lgCode, Document _document, AbstractFileBuilder _fileBuilder, AnalyzedPageEl _page) {
         DualConfigurationContext d_ = new DualConfigurationContext();
+        d_.setFileBuilder(_fileBuilder);
+        specificLoad(_configuration,_lgCode,_document, d_, _page);
+        return d_;
+    }
+
+    protected void update(Configuration _configuration, Document _document, DualConfigurationContext _d) {
         for (Element c: _document.getDocumentElement().getChildElements()) {
             String fieldName_ = c.getAttribute("field");
             if (StringUtil.quickEq(fieldName_, "firstUrl")) {
@@ -23,7 +29,7 @@ public abstract class AbstractConfigurationLoader {
                 continue;
             }
             if (StringUtil.quickEq(fieldName_, "messagesFolder")) {
-                d_.setMessagesFolder(c.getAttribute("value"));
+                _d.setMessagesFolder(c.getAttribute("value"));
                 continue;
             }
             if (StringUtil.quickEq(fieldName_, "beans")) {
@@ -31,11 +37,11 @@ public abstract class AbstractConfigurationLoader {
                 continue;
             }
             if (StringUtil.quickEq(fieldName_, "properties")) {
-                d_.setProperties(ReadConfiguration.loadStringMapString(c));
+                _d.setProperties(ReadConfiguration.loadStringMapString(c));
                 continue;
             }
             if (StringUtil.quickEq(fieldName_, "resources")) {
-                d_.setAddedResources(ReadConfiguration.getStringList(c));
+                _d.setAddedResources(ReadConfiguration.getStringList(c));
                 continue;
             }
             if (StringUtil.quickEq(fieldName_, "navigation")) {
@@ -44,17 +50,15 @@ public abstract class AbstractConfigurationLoader {
             }
 
             if (StringUtil.quickEq(fieldName_, "addedFiles")) {
-                d_.setAddedFiles(ReadConfiguration.getStringList(c));
+                _d.setAddedFiles(ReadConfiguration.getStringList(c));
                 continue;
             }
             if (StringUtil.quickEq(fieldName_, "renderFiles")) {
-                d_.setRenderFiles(ReadConfiguration.getStringList(c));
+                _d.setRenderFiles(ReadConfiguration.getStringList(c));
             }
         }
-        d_.setFileBuilder(_fileBuilder);
-        specificLoad(_configuration,_lgCode,_document, d_, _page);
-        return d_;
     }
+
     public abstract void specificLoad(Configuration _configuration, String _lgCode, Document _document, DualConfigurationContext _dual, AnalyzedPageEl _page);
 
 }

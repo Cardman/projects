@@ -1,5 +1,6 @@
 package cards.gui.animations;
 
+import code.bean.nat.AbstractNativeInit;
 import code.bean.nat.BeanNatLgNames;
 import code.bean.nat.NativeConfigurationLoader;
 import code.expressionlanguage.ContextEl;
@@ -36,18 +37,18 @@ public abstract class AbstractPreparedPagesCards implements PreparedAnalyzed {
         navigation.setLanguage(lg);
         navigation.setLanguages(Constants.getAvailableLanguages());
         String content_ = ResourceFiles.ressourceFichier(conf);
-        NativeConfigurationLoader nat_ = new NativeConfigurationLoader(beanNatLgNames);
+        NativeConfigurationLoader nat_ = new NativeConfigurationLoader(beanNatLgNames, null);
         DualAnalyzedContext du_ = navigation.loadConfiguration(content_, "", beanNatLgNames, DefaultFileBuilder.newInstance(beanNatLgNames.getContent()), nat_);
         return common(du_);
     }
 
-    public void prepareDoc(Document _doc) {
+    public void prepareDoc(Document _doc, AbstractNativeInit _init) {
         navigation = new Navigation();
         navigation.setSession(new Configuration());
         navigation.setLanguage(lg);
         navigation.setLanguages(Constants.getAvailableLanguages());
-        NativeConfigurationLoader nat_ = new NativeConfigurationLoader(beanNatLgNames);
-        DualAnalyzedContext du_ = navigation.loadConfiguration("", beanNatLgNames, DefaultFileBuilder.newInstance(beanNatLgNames.getContent()), nat_,_doc);
+        NativeConfigurationLoader nat_ = new NativeConfigurationLoader(beanNatLgNames, _init);
+        DualAnalyzedContext du_ = navigation.innerLoad("", beanNatLgNames, DefaultFileBuilder.newInstance(beanNatLgNames.getContent()), nat_,_doc);
         common(du_);
     }
 

@@ -18,6 +18,7 @@ public final class DefaultConfigurationLoader extends AbstractConfigurationLoade
 
     @Override
     public void specificLoad(Configuration _configuration, String _lgCode, Document _document, DualConfigurationContext _dual, AnalyzedPageEl _page) {
+        update(_configuration,_document,_dual);
         ContextEl page_ = null;
         for (Element c: _document.getDocumentElement().getChildElements()) {
             String fieldName_ = c.getAttribute("field");

@@ -268,7 +268,76 @@ public final class NativeTest extends EquallableExUtil {
                 "</cfg>\n" +
                 "\n";
         Navigation n_ = new Navigation();
-        NativeConfigurationLoader nat_ = new NativeConfigurationLoader(lgNames_);
+        NativeConfigurationLoader nat_ = new NativeConfigurationLoader(lgNames_, new SampleNativeInit());
+        DualAnalyzedContext du_ = n_.loadConfiguration(xmlConf_, "", lgNames_, DefaultFileBuilder.newInstance(lgNames_.getContent()), nat_);
+        n_.setFiles(files_);
+        lgNames_.setupAll(n_, n_.getSession(), n_.getFiles(), du_);
+        n_.initializeRendSession(du_.getContext().getContext(), du_.getStds(), StackCall.newInstance(InitPhase.NOTHING,du_.getContext().getContext()));
+        assertEq("<html><body><form action=\"\" name=\"myform\" c:command=\"go\" n-f=\"0\"><input type=\"text\" name=\"bean_two.typedString\" n-i=\"0\" value=\"TYPED_STRING\"/></form></body></html>", n_.getHtmlText());
+    }
+
+    @Test
+    public void process7_Test() {
+        String locale_ = "en";
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
+        String html_ = "<html c:bean=\"bean_one\"><body>HEAD<a c:command=\"goToNullPage\" href=\"\"/></body></html>";
+        String htmlTwo_ = "<html c:bean=\"bean_two\"><body><form action=\"DELETE\" name=\"myform\" c:command=\"go\"><input type='text' name=\"typedString\" c:varValue=\"typedString\"/></form></body></html>";
+        StringMap<String> files_ = new StringMap<String>();
+        BeanNatLgNames lgNames_ = new CustBeanLgNames();
+        lgNames_.getValidators().addEntry("my_val",new MyValidator());
+        basicStandards(lgNames_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put("page1.html", html_);
+        files_.put("page2.html", htmlTwo_);
+        String xmlConf_ = "<cfg>\n" +
+                "\t<java.lang.String field='firstUrl' value='page2.html'/>\n" +
+                "\t<java.lang.String field='prefix' value='c'/>\n" +
+                "\t<java.lang.String field='dataBaseClassName' value='java.lang.Object'/>\n" +
+                "\t<sm field='navigation'>\n" +
+                "\t\t<java.lang.String key='' value='bean_one.method'/>\n" +
+                "\t\t<sm>\n" +
+                "\t\t\t<java.lang.String key='' value='res'/>\n" +
+                "\t\t\t<java.lang.String value='page2.html'/>\n" +
+                "\t\t</sm>\n" +
+                "\t</sm>\n" +
+                "\t<java.lang.Integer field='tabWidth' value='4'/>\n" +
+                "\t<java.lang.String field='messagesFolder' value='messages'/>\n" +
+                "\t<java.lang.String field='filesConfName' value='conf'/>\n" +
+                "\t<sm field='beans'>\n" +
+                "\t\t<java.lang.String key='' value='bean_one'/>\n" +
+                "\t\t<b>\n" +
+                "\t\t\t<java.lang.String field='scope' value='session'/>\n" +
+                "\t\t\t<java.lang.String field='className' value='code.formathtml.classes.BeanOne'/>\n" +
+                "\t\t</b>\n" +
+                "\t\t<java.lang.String key='' value='bean_two'/>\n" +
+                "\t\t<b>\n" +
+                "\t\t\t<java.lang.String field='scope' value='session'/>\n" +
+                "\t\t\t<java.lang.String field='className' value='code.formathtml.classes.BeanTwo'/>\n" +
+                "\t\t</b>\n" +
+                "\t</sm>\n" +
+                "\t<sm field='properties'>\n" +
+                "\t\t<java.lang.String key='' value='msg_cust'/>\n" +
+                "\t\t<java.lang.String value='sample/file'/>\n" +
+                "\t</sm>\n" +
+                "\t<sl field='addedFiles'>\n" +
+                "\t\t<str value='page1.html'/>\n" +
+                "\t\t<str value='page2.html'/>\n" +
+                "\t</sl>\n" +
+                "\t<sl field='renderFiles'>\n" +
+                "\t\t<str value='page1.html'/>\n" +
+                "\t\t<str value='page2.html'/>\n" +
+                "\t</sl>\n" +
+                "\t<sm field='validators'>\n" +
+                "\t\t<str key='' value='my_val'/>\n" +
+                "\t\t<str value='code.formathtml.classes.MyValidator'/>\n" +
+                "\t</sm>\n" +
+                "\t<i field='inex'/>\n" +
+                "</cfg>\n" +
+                "\n";
+        Navigation n_ = new Navigation();
+        NativeConfigurationLoader nat_ = new NativeConfigurationLoader(lgNames_, null);
         DualAnalyzedContext du_ = n_.loadConfiguration(xmlConf_, "", lgNames_, DefaultFileBuilder.newInstance(lgNames_.getContent()), nat_);
         n_.setFiles(files_);
         lgNames_.setupAll(n_, n_.getSession(), n_.getFiles(), du_);

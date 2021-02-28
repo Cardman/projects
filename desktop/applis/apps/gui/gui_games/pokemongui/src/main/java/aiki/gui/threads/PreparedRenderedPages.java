@@ -1,6 +1,7 @@
 package aiki.gui.threads;
 
 import aiki.beans.PokemonStandards;
+import code.bean.nat.AbstractNativeInit;
 import code.bean.nat.NativeConfigurationLoader;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.DefaultFileBuilder;
@@ -16,15 +17,15 @@ import code.util.consts.Constants;
 import code.util.core.StringUtil;
 
 public final class PreparedRenderedPages implements PreparedAnalyzed {
+    private final AbstractNativeInit init;
     private Navigation navigation;
-    private String relative;
-    private String conf;
+    private final String relative;
     private BeanNatLgNames beanNatLgNames;
     private ContextEl context;
 
-    public PreparedRenderedPages(String _relative, String _conf) {
+    public PreparedRenderedPages(String _relative, AbstractNativeInit _init) {
         relative = _relative;
-        conf = _conf;
+        init = _init;
     }
 
     @Override
@@ -34,9 +35,10 @@ public final class PreparedRenderedPages implements PreparedAnalyzed {
         navigation.setLanguages(Constants.getAvailableLanguages());
         PokemonStandards stds_ = new PokemonStandards();
         beanNatLgNames = stds_;
-        String content_ = ResourceFiles.ressourceFichier(conf);
-        NativeConfigurationLoader nat_ = new NativeConfigurationLoader(stds_);
-        DualAnalyzedContext du_ = navigation.loadConfiguration(content_, "", stds_, DefaultFileBuilder.newInstance(stds_.getContent()), nat_);
+//        String content_ = ResourceFiles.ressourceFichier(conf);
+        NativeConfigurationLoader nat_ = new NativeConfigurationLoader(stds_, init);
+        DualAnalyzedContext du_ = navigation.innerLoad("", stds_, DefaultFileBuilder.newInstance(stds_.getContent()), nat_,null);
+//        DualAnalyzedContext du_ = navigation.loadConfiguration(content_, "", stds_, DefaultFileBuilder.newInstance(stds_.getContent()), nat_);
         context = du_.getContext().getContext();
         StringMap<String> files_ = new StringMap<String>();
         Configuration session_ = navigation.getSession();

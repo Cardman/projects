@@ -1,4 +1,5 @@
 package aiki.main;
+import aiki.beans.*;
 import aiki.gui.threads.PreparedRenderedPages;
 import aiki.sml.LoadingGame;
 import aiki.gui.MainWindow;
@@ -38,12 +39,12 @@ public final class CreateMainWindow implements Runnable {
 
     @Override
     public void run() {
-        PreparedRenderedPages dataWeb_ = new PreparedRenderedPages(Resources.ACCESS_TO_DEFAULT_FILES,Resources.ACCESS_TO_DEFAULT_DATA);
-        PreparedRenderedPages fight_ = new PreparedRenderedPages(Resources.ACCESS_TO_DEFAULT_FILES,Resources.ACCESS_TO_DEFAULT_FIGHT);
-        PreparedRenderedPages pk_ = new PreparedRenderedPages(Resources.ACCESS_TO_DEFAULT_FILES,Resources.ACCESS_TO_DEFAULT_PK);
-        PreparedRenderedPages pkNet_ = new PreparedRenderedPages(Resources.ACCESS_TO_DEFAULT_FILES,Resources.ACCESS_TO_DEFAULT_PK);
-        PreparedRenderedPages diff_ = new PreparedRenderedPages(Resources.ACCESS_TO_DEFAULT_FILES,Resources.ACCESS_TO_DEFAULT_DIFF);
-        PreparedRenderedPages prog_ = new PreparedRenderedPages(Resources.ACCESS_TO_DEFAULT_FILES,Resources.ACCESS_TO_DEFAULT_PROG);
+        PreparedRenderedPages dataWeb_ = new PreparedRenderedPages(Resources.ACCESS_TO_DEFAULT_FILES, new DataGameInit());
+        PreparedRenderedPages fight_ = new PreparedRenderedPages(Resources.ACCESS_TO_DEFAULT_FILES, new FightGameInit());
+        PreparedRenderedPages pk_ = new PreparedRenderedPages(Resources.ACCESS_TO_DEFAULT_FILES, new DetPkGameInit());
+        PreparedRenderedPages pkNet_ = new PreparedRenderedPages(Resources.ACCESS_TO_DEFAULT_FILES, new DetPkGameInit());
+        PreparedRenderedPages diff_ = new PreparedRenderedPages(Resources.ACCESS_TO_DEFAULT_FILES, new DiffGameInit());
+        PreparedRenderedPages prog_ = new PreparedRenderedPages(Resources.ACCESS_TO_DEFAULT_FILES, new ProgGameInit());
         MainWindow window_ = new MainWindow(lg, list,aikiFactory);
         Thread dataWebThread_ = CustComponent.newThread(dataWeb_);
         dataWebThread_.start();
