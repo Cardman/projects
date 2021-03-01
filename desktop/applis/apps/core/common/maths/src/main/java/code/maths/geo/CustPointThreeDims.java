@@ -3,9 +3,8 @@ import code.util.StringList;
 import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
 import code.util.ints.Displayable;
-import code.util.ints.Equallable;
 
-public final class CustPointThreeDims implements Equallable<CustPointThreeDims>, Displayable {
+public final class CustPointThreeDims implements Displayable {
 
     private static final String SEPARATOR = ",";
     private int xCoords;
@@ -50,7 +49,6 @@ public final class CustPointThreeDims implements Equallable<CustPointThreeDims>,
         zCoords = _z;
     }
 
-    @Override
     public boolean eq(CustPointThreeDims _obj) {
         if (_obj.xCoords != xCoords) {
             return false;

@@ -1,5 +1,5 @@
 package code.maths.geo;
-import code.util.EqList;
+import code.util.CustList;
 import code.util.ints.Displayable;
 
 public final class TriangleThreeDims implements Displayable {
@@ -20,8 +20,8 @@ public final class TriangleThreeDims implements Displayable {
         thirdPoint = _thirdPoint;
     }
 
-    public EqList<CustPointThreeDims> getPoints() {
-        EqList<CustPointThreeDims> l_ = new EqList<CustPointThreeDims>();
+    public CustList<CustPointThreeDims> getPoints() {
+        CustList<CustPointThreeDims> l_ = new CustList<CustPointThreeDims>();
         l_.add(firstPoint);
         l_.add(secondPoint);
         l_.add(thirdPoint);
@@ -73,8 +73,8 @@ public final class TriangleThreeDims implements Displayable {
     }
 
     public boolean isSame(TriangleThreeDims _e) {
-        EqList<CustPointThreeDims> listOne_ = getPoints();
-        EqList<CustPointThreeDims> listTwo_ = _e.getPoints();
+        CustList<CustPointThreeDims> listOne_ = getPoints();
+        CustList<CustPointThreeDims> listTwo_ = _e.getPoints();
         for (CustPointThreeDims p: listOne_) {
             boolean c_ = false;
             for (CustPointThreeDims c: listTwo_) {

@@ -6,9 +6,8 @@ import code.util.StringList;
 import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
 import code.util.ints.Displayable;
-import code.util.ints.Equallable;
 
-public final class VectThreeDims implements Equallable<VectThreeDims>, Displayable {
+public final class VectThreeDims implements Displayable {
 
     private static final String SEPARATOR = ",";
     private int deltax;
@@ -121,7 +120,6 @@ public final class VectThreeDims implements Equallable<VectThreeDims>, Displayab
         deltaz = _deltaz;
     }
 
-    @Override
     public boolean eq(VectThreeDims _obj) {
         if (_obj.deltax != deltax) {
             return false;

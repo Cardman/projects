@@ -1,7 +1,6 @@
 package code.maths.geo;
 import code.util.CustList;
 import code.util.EntryCust;
-import code.util.EqList;
 import code.util.IdList;
 import code.util.IdMap;
 import code.util.core.IndexConstants;
@@ -45,11 +44,11 @@ public final class Delaunay {
             remove triangle from triangulation
       return triangulation*/
 
-    public void compute(EqList<CustPoint> _points) {
+    public void compute(CustList<CustPoint> _points) {
         compute(_points, false);
     }
 
-    public void compute(EqList<CustPoint> _points, boolean _addMids) {
+    public void compute(CustList<CustPoint> _points, boolean _addMids) {
         mainCompute(_points);
         if (_points.isEmpty()) {
             return;
@@ -63,7 +62,7 @@ public final class Delaunay {
         nextTriangles = calculateNextTriangles();
     }
 
-    private void mainCompute(EqList<CustPoint> _points) {
+    private void mainCompute(CustList<CustPoint> _points) {
         cleanBefore();
         if (_points.size() < Triangle.NB_POINTS) {
             return;
@@ -85,7 +84,7 @@ public final class Delaunay {
         loopMain(_points, xMax_, xMin_, yMax_, yMin_);
     }
 
-    private void loopMain(EqList<CustPoint> _points, int _xMax, int _xMin, int _yMax, int _yMin) {
+    private void loopMain(CustList<CustPoint> _points, int _xMax, int _xMin, int _yMax, int _yMin) {
         Triangle superTriangle_;
         CustPoint firstPoint_ = new CustPoint(_xMin, _yMin);
         CustPoint secondPoint_ = new CustPoint(_xMax + _xMax - _xMin, _yMin);
@@ -186,12 +185,12 @@ public final class Delaunay {
         return break_;
     }
 
-    public void mainComputeIncr(EqList<CustPoint> _points) {
+    public void mainComputeIncr(CustList<CustPoint> _points) {
         mainComputeIncr(_points, true);
     }
 
-    public void mainComputeIncr(EqList<CustPoint> _points, boolean _addMids) {
-        EqList<CustPoint> points_ = cleanBefore(_points);
+    public void mainComputeIncr(CustList<CustPoint> _points, boolean _addMids) {
+        CustList<CustPoint> points_ = cleanBefore(_points);
         int index_ = getIndex2(points_);
         if (index_ >= points_.size()) {
             return;
@@ -203,7 +202,7 @@ public final class Delaunay {
         points_.remove(index_);
         points_.remove(IndexConstants.SECOND_INDEX);
         points_.remove(IndexConstants.FIRST_INDEX);
-        EqList<CustPoint> all_ = new EqList<CustPoint>();
+        CustList<CustPoint> all_ = new CustList<CustPoint>();
         all_.add(first_);
         all_.add(second_);
         all_.add(third_);
@@ -224,11 +223,15 @@ public final class Delaunay {
         convexHull.add(_third);
     }
 
-    private EqList<CustPoint> cleanBefore(EqList<CustPoint> _points) {
+    private CustList<CustPoint> cleanBefore(CustList<CustPoint> _points) {
         cleanBefore();
-        EqList<CustPoint> points_ = new EqList<CustPoint>(_points);
-        points_.removeDuplicates();
-        return points_;
+        CustList<CustPoint> next_ = new CustList<CustPoint>();
+        for (CustPoint p: _points) {
+            if (!Polygon.containsObj(p,next_)) {
+                next_.add(p);
+            }
+        }
+        return next_;
     }
 
     private void cleanBefore() {
@@ -239,7 +242,7 @@ public final class Delaunay {
         nextPoints.clear();
     }
 
-    private Polygon loop(EqList<CustPoint> _all, Polygon _p, CustPoint _c) {
+    private Polygon loop(CustList<CustPoint> _all, Polygon _p, CustPoint _c) {
         Polygon p_ = _p;
         CustList<Triangle> del_ = new CustList<Triangle>();
         CustList<Triangle> nearlyDel_ = new CustList<Triangle>();
@@ -248,7 +251,7 @@ public final class Delaunay {
         if (del_.isEmpty()) {
             //&& !Polygon.containsInside(p_, c)
             CustList<Edge> hull_ = p_.getEdges();
-            EqList<CustPoint> pts_ = getPts(_c, p_, hull_);
+            CustList<CustPoint> pts_ = getPts(_c, p_, hull_);
             edges_.add(new Edge(pts_.first(), pts_.get(1)));
             int lenPts_ = pts_.size() - 1;
             for (int i = IndexConstants.SECOND_INDEX; i < lenPts_; i++) {
@@ -282,8 +285,8 @@ public final class Delaunay {
         return p_;
     }
 
-    private static EqList<CustPoint> getPts(CustPoint _c, Polygon _p, CustList<Edge> _hull) {
-        EqList<CustPoint> pts_ = new EqList<CustPoint>();
+    private static CustList<CustPoint> getPts(CustPoint _c, Polygon _p, CustList<Edge> _hull) {
+        CustList<CustPoint> pts_ = new CustList<CustPoint>();
         int len_ = _p.size();
         for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
             CustPoint c_ = _p.get(i);
@@ -295,7 +298,7 @@ public final class Delaunay {
         return pts_;
     }
 
-    private Polygon notInPolygon(EqList<CustPoint> _all, CustPoint _c, Polygon _p, CustList<Triangle> _del) {
+    private Polygon notInPolygon(CustList<CustPoint> _all, CustPoint _c, Polygon _p, CustList<Triangle> _del) {
         Polygon p_ = _p;
         triangles.removeAllElements(_del);
         int indexPt_ = IndexConstants.INDEX_NOT_FOUND_ELT;
@@ -411,8 +414,8 @@ public final class Delaunay {
         }
     }
 
-    public void mainComputeIncrConvex(EqList<CustPoint> _points) {
-        EqList<CustPoint> points_ = cleanBefore(_points);
+    public void mainComputeIncrConvex(CustList<CustPoint> _points) {
+        CustList<CustPoint> points_ = cleanBefore(_points);
         if (points_.size() < Triangle.NB_POINTS) {
             return;
         }
@@ -422,11 +425,8 @@ public final class Delaunay {
         convexHull = convexHull.getConvexHull();
         CustPoint first_ = convexHull.first();
         farEdges(first_);
-        EqList<CustPoint> visited_ = getVisited(points_);
-        for (CustPoint c: visited_) {
-            points_.removeObj(c);
-        }
-        EqList<CustPoint> all_ = new EqList<CustPoint>(visited_);
+        CustList<CustPoint> visited_ = getVisited(points_);
+        CustList<CustPoint> all_ = new CustList<CustPoint>(visited_);
         Polygon p_ = convexHull.getConvexHull();
         for (CustPoint c: points_) {
             CustList<Triangle> del_ = new CustList<Triangle>();
@@ -457,8 +457,8 @@ public final class Delaunay {
         nextTriangles = calculateNextTriangles();
     }
 
-    private EqList<CustPoint> getVisited(EqList<CustPoint> _points) {
-        EqList<CustPoint> visited_ = new EqList<CustPoint>();
+    private CustList<CustPoint> getVisited(CustList<CustPoint> _points) {
+        CustList<CustPoint> visited_ = new CustList<CustPoint>();
         for (CustPoint c: _points) {
             for (CustPoint p: convexHull) {
                 if (c == p) {
@@ -467,7 +467,19 @@ public final class Delaunay {
                 }
             }
         }
-        return visited_;
+        return filter(_points, visited_);
+    }
+
+    private static CustList<CustPoint> filter(CustList<CustPoint> _points, CustList<CustPoint> _visited) {
+        CustList<CustPoint> next_ = new CustList<CustPoint>();
+        for (CustPoint c: _points) {
+            if (!Polygon.containsObj(c, _visited)) {
+                next_.add(c);
+            }
+        }
+        _points.clear();
+        _points.addAllElts(next_);
+        return _visited;
     }
 
     private void farEdges(CustPoint _first) {
@@ -512,8 +524,8 @@ public final class Delaunay {
         }
     }
 
-    public void mainComputeIncrSuperTriangle(EqList<CustPoint> _points) {
-        EqList<CustPoint> points_ = cleanBefore(_points);
+    public void mainComputeIncrSuperTriangle(CustList<CustPoint> _points) {
+        CustList<CustPoint> points_ = cleanBefore(_points);
         int index_ = getIndex2(points_);
         if (index_ >= points_.size()) {
             return;
@@ -535,7 +547,7 @@ public final class Delaunay {
         points_.remove(index_);
         points_.remove(IndexConstants.SECOND_INDEX);
         points_.remove(IndexConstants.FIRST_INDEX);
-        EqList<CustPoint> all_ = new EqList<CustPoint>();
+        CustList<CustPoint> all_ = new CustList<CustPoint>();
         all_.add(first_);
         all_.add(second_);
         all_.add(third_);
@@ -573,7 +585,7 @@ public final class Delaunay {
         afterLoop(superTriangle_, p_);
     }
 
-    private static int getIndex2(EqList<CustPoint> _points) {
+    private static int getIndex2(CustList<CustPoint> _points) {
         if (_points.size() < Triangle.NB_POINTS) {
             return _points.size();
         }
@@ -589,7 +601,7 @@ public final class Delaunay {
         }
     }
 
-    private void addTris(EqList<CustPoint> _all, CustPoint _c, CustList<Edge> _edges) {
+    private void addTris(CustList<CustPoint> _all, CustPoint _c, CustList<Edge> _edges) {
         CustList<Edge> allAddedEdges_ = new CustList<Edge>();
         for (Edge e: _edges) {
             Triangle toBeIns_ = new Triangle(e.getFirst(), e.getSecond(), _c);
@@ -667,7 +679,7 @@ public final class Delaunay {
         return pts_;
     }
 
-    private static boolean containsEdge2(EqList<CustPoint> _all, Edge _e, Triangle _toBeIns) {
+    private static boolean containsEdge2(CustList<CustPoint> _all, Edge _e, Triangle _toBeIns) {
         boolean contains_ = false;
         for (CustPoint o: _all) {
             if (o != _e.getFirst() && o != _e.getSecond() && _toBeIns.isInCircum(o)) {
@@ -706,7 +718,7 @@ public final class Delaunay {
         }
     }
 
-    private static int getIndex(EqList<CustPoint> _points, CustPoint _first, VectTwoDims _v) {
+    private static int getIndex(CustList<CustPoint> _points, CustPoint _first, VectTwoDims _v) {
         int index_ = Triangle.NB_POINTS - 1;
         while (index_ < _points.size()) {
             VectTwoDims vLoc_ = new VectTwoDims(_first, _points.get(index_));
@@ -882,7 +894,7 @@ public final class Delaunay {
     private IdMap<CustPoint, IdList<CustPoint>> calculateNextPoints() {
         IdMap<CustPoint, IdList<CustPoint>> id_;
         id_ = new IdMap<CustPoint, IdList<CustPoint>>();
-        EqList<CustPoint> list_ = new EqList<CustPoint>();
+        CustList<CustPoint> list_ = new CustList<CustPoint>();
         feedListPt(list_);
         for (CustPoint p: list_) {
             boolean contained_ = isContainedHull(p);
@@ -890,7 +902,7 @@ public final class Delaunay {
             feedMapping(p, all_);
             CustList<CustPoint> next_ = all_.getKeys();
             CustPoint first_ = next_.first();
-            EqList<CustPoint> once_ = new EqList<CustPoint>();
+            CustList<CustPoint> once_ = new CustList<CustPoint>();
             for (EntryCust<CustPoint, Integer> e: all_.entryList()) {
                 if (!NumberUtil.eq(e.getValue(), IndexConstants.ONE_ELEMENT)) {
                     continue;
@@ -948,7 +960,7 @@ public final class Delaunay {
         }
     }
 
-    private void feedListPt(EqList<CustPoint> _list) {
+    private void feedListPt(CustList<CustPoint> _list) {
         for (Triangle t: triangles) {
             for (CustPoint p: t.getPoints()) {
                 boolean contained_ = isFoundPoint(p, _list);

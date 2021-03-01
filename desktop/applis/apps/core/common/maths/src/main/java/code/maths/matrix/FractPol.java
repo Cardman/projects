@@ -3,9 +3,8 @@ import code.maths.LgInt;
 import code.util.StringList;
 import code.util.core.StringUtil;
 import code.util.ints.Displayable;
-import code.util.ints.Equallable;
 
-public final class FractPol implements Equallable<FractPol>, Displayable {
+public final class FractPol implements Displayable {
 
     private static final String SEP_NUM_DEN = "//";
 
@@ -183,7 +182,6 @@ public final class FractPol implements Equallable<FractPol>, Displayable {
         return numerateur.dividePolynom(denominateur);
     }
 
-    @Override
     public boolean eq(FractPol _autre) {
         return numerateur.multiplyPolynom(_autre.denominateur).eq(_autre.numerateur.multiplyPolynom(denominateur));
     }

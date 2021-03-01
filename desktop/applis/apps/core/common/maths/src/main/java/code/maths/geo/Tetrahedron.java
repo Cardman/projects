@@ -3,7 +3,6 @@ import code.maths.Rate;
 import code.maths.matrix.Matrix;
 import code.maths.matrix.Vect;
 import code.util.CustList;
-import code.util.EqList;
 import code.util.ints.Displayable;
 
 public final class Tetrahedron implements Displayable {
@@ -48,8 +47,8 @@ public final class Tetrahedron implements Displayable {
         return l_;
     }
 
-    public EqList<CustPointThreeDims> getPoints() {
-        EqList<CustPointThreeDims> l_ = new EqList<CustPointThreeDims>();
+    public CustList<CustPointThreeDims> getPoints() {
+        CustList<CustPointThreeDims> l_ = new CustList<CustPointThreeDims>();
         l_.add(firstPoint);
         l_.add(secondPoint);
         l_.add(thirdPoint);

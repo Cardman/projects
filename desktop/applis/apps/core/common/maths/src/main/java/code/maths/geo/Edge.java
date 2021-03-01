@@ -1,6 +1,5 @@
 package code.maths.geo;
 import code.util.CustList;
-import code.util.EqList;
 import code.util.core.IndexConstants;
 import code.util.ints.Displayable;
 
@@ -42,7 +41,7 @@ public final class Edge implements Displayable {
     }
 
     public boolean intersectNotContainsBound(Edge _other) {
-        EqList<CustPoint> points_ = new EqList<CustPoint>();
+        CustList<CustPoint> points_ = new CustList<CustPoint>();
         points_.add(first);
         points_.add(second);
         points_.add(_other.first);
@@ -62,7 +61,7 @@ public final class Edge implements Displayable {
         return procLines(_other, points_);
     }
 
-    private boolean procLines(Edge _other, EqList<CustPoint> _points) {
+    private boolean procLines(Edge _other, CustList<CustPoint> _points) {
         if (containsPoint(_other.second)) {
             return true;
         }
@@ -78,10 +77,10 @@ public final class Edge implements Displayable {
         return lookForIntersectEdges(_points);
     }
 
-    private static boolean lookForIntersectEdges(EqList<CustPoint> _points) {
+    private static boolean lookForIntersectEdges(CustList<CustPoint> _points) {
         int index_ = IndexConstants.FIRST_INDEX;
         for (CustPoint p: _points) {
-            EqList<CustPoint> others_ = new EqList<CustPoint>();
+            CustList<CustPoint> others_ = new CustList<CustPoint>();
             int next_;
             int nextOthOne_;
             int nextOthTwo_;
@@ -123,7 +122,7 @@ public final class Edge implements Displayable {
         return next_;
     }
 
-    private static CustList<Site> getSites(EqList<CustPoint> _points, CustPoint _p, EqList<CustPoint> _others, int _next, int _nextOthOne, int _nextOthTwo) {
+    private static CustList<Site> getSites(CustList<CustPoint> _points, CustPoint _p, CustList<CustPoint> _others, int _next, int _nextOthOne, int _nextOthTwo) {
         CustPoint o_ = _points.get(_next);
         _others.add(_points.get(_nextOthOne));
         _others.add(_points.get(_nextOthTwo));
@@ -145,7 +144,7 @@ public final class Edge implements Displayable {
     }
 
     private boolean intersectBoundsOpt(Edge _other, boolean _nonStrict) {
-        EqList<CustPoint> points_ = new EqList<CustPoint>();
+        CustList<CustPoint> points_ = new CustList<CustPoint>();
         points_.add(first);
         points_.add(second);
         points_.add(_other.first);

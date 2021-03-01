@@ -230,11 +230,11 @@ public final class DocumentReaderMathUtil {
         }
     }
 
-    private static EqList<CustPoint> getListCustPoint(Element _elt) {
+    private static CustList<CustPoint> getListCustPoint(Element _elt) {
         ElementList childElements_ = _elt.getChildElements();
         int len_ = childElements_.getLength();
         CollCapacity cap_ = new CollCapacity(len_);
-        EqList<CustPoint> list_ = new EqList<CustPoint>(cap_);
+        CustList<CustPoint> list_ = new CustList<CustPoint>(cap_);
         for (Element c: childElements_) {
             list_.add(getCustPoint(c));
         }

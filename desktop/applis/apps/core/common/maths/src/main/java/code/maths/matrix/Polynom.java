@@ -2,13 +2,11 @@ package code.maths.matrix;
 import code.maths.LgInt;
 import code.maths.Rate;
 import code.util.CustList;
-import code.util.EqList;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 import code.util.ints.Displayable;
-import code.util.ints.Equallable;
 
-public final class Polynom implements Equallable<Polynom>, Displayable {
+public final class Polynom implements Displayable {
 
     private static final String SEPARATOR = " ";
     private CustList<Rate> numbers = new CustList<Rate>();
@@ -227,7 +225,6 @@ public final class Polynom implements Equallable<Polynom>, Displayable {
         return Rate.eq(numbers,_o.numbers);
     }
 
-    @Override
     public boolean eq(Polynom _o) {
         return Rate.eq(numbers,_o.numbers);
     }
@@ -285,9 +282,9 @@ public final class Polynom implements Equallable<Polynom>, Displayable {
         return new IdBezoutPol(u1_,v1_,r1_,_a.dividePolynom(r1_).multiplyPolynom(_b));
     }
 
-    public EqList<Polynom> factor() {
+    public CustList<Polynom> factor() {
         CustList<RootPol> roots_=racines();
-        EqList<Polynom> polynoms_ = new EqList<Polynom>();
+        CustList<Polynom> polynoms_ = new CustList<Polynom>();
         Polynom copy_= new Polynom(this);
         Polynom one_= new Polynom(Rate.one());
         for(RootPol r : roots_) {

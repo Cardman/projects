@@ -2,16 +2,14 @@ package code.maths.matrix;
 import code.maths.LgInt;
 import code.maths.Rate;
 import code.util.CustList;
-import code.util.EqList;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 import code.util.ints.Displayable;
-import code.util.ints.Equallable;
 
-public final class Matrix implements Equallable<Matrix>, Displayable {
+public final class Matrix implements Displayable {
 
     private static final String SEPARATOR = ";";
-    private EqList<Vect> lines = new EqList<Vect>();
+    private CustList<Vect> lines = new CustList<Vect>();
 
     public Matrix() {
     }
@@ -351,7 +349,7 @@ public final class Matrix implements Equallable<Matrix>, Displayable {
         Matrix c_ = new Matrix();
         int nbLines_ = lines.size();
         for(int i=1;i<nbLines_;i++) {
-            c_.lines= new EqList<Vect>();
+            c_.lines= new CustList<Vect>();
             c_.addLineRef(lines.get(i));
             b_.addLineRef(lines.get(i-1));
             Matrix d_ = c_.multMatrix(inv_);
@@ -526,7 +524,6 @@ public final class Matrix implements Equallable<Matrix>, Displayable {
         return _tx1.eq(_tx2);
     }
 
-    @Override
     public boolean eq(Matrix _o) {
         if (nbLines() != _o.nbLines()) {
             return false;

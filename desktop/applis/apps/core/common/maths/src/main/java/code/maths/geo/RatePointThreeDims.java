@@ -3,9 +3,8 @@ import code.maths.Rate;
 import code.util.StringList;
 import code.util.core.StringUtil;
 import code.util.ints.Displayable;
-import code.util.ints.Equallable;
 
-public final class RatePointThreeDims implements Equallable<RatePointThreeDims>, Displayable {
+public final class RatePointThreeDims implements Displayable {
 
     private static final String SEPARATOR = ",";
     private Rate xCoords;
@@ -71,7 +70,6 @@ public final class RatePointThreeDims implements Equallable<RatePointThreeDims>,
         zCoords = _z;
     }
 
-    @Override
     public boolean eq(RatePointThreeDims _obj) {
         if (Rate.different(_obj.xCoords , xCoords)) {
             return false;

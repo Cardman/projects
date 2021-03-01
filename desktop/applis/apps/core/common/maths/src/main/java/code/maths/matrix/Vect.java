@@ -4,9 +4,8 @@ import code.util.CustList;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 import code.util.ints.Displayable;
-import code.util.ints.Equallable;
 
-public final class Vect implements Equallable<Vect>, Displayable {
+public final class Vect implements Displayable {
 
     private static final String SEPARATOR = " ";
     private final CustList<Rate> numbers = new CustList<Rate>();
@@ -88,7 +87,6 @@ public final class Vect implements Equallable<Vect>, Displayable {
         return true;
     }
 
-    @Override
     public boolean eq(Vect _o) {
         return Rate.eq(numbers,_o.numbers);
     }

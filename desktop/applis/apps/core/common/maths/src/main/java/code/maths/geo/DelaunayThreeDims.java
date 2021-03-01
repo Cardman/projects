@@ -1,6 +1,5 @@
 package code.maths.geo;
 import code.util.CustList;
-import code.util.EqList;
 import code.util.IdList;
 
 public final class DelaunayThreeDims {
@@ -33,7 +32,7 @@ public final class DelaunayThreeDims {
       return triangulation*/
 
 
-    public void compute(EqList<CustPointThreeDims> _points) {
+    public void compute(CustList<CustPointThreeDims> _points) {
         triangles.clear();
         if (_points.isEmpty()) {
             return;
@@ -73,7 +72,7 @@ public final class DelaunayThreeDims {
         process(_points, xMax_, xMin_, yMax_, yMin_, zMax_, zMin_);
     }
 
-    private void process(EqList<CustPointThreeDims> _points, int _xMax, int _xMin, int _yMax, int _yMin, int _zMax, int _zMin) {
+    private void process(CustList<CustPointThreeDims> _points, int _xMax, int _xMin, int _yMax, int _yMin, int _zMax, int _zMin) {
         CustPointThreeDims firstPoint_ = new CustPointThreeDims(_xMin, _yMin, _zMin);
         CustPointThreeDims secondPoint_ = new CustPointThreeDims(_xMax + _xMax - _xMin, _yMin, _zMin);
         CustPointThreeDims thirdPoint_ = new CustPointThreeDims(_xMin, _yMax + _yMax - _yMin, _zMin);

@@ -497,7 +497,7 @@ public class PolygonTest extends EquallableMathUtil {
         assertTrue(q_.containsObj(new CustPoint(1,2)));
         assertTrue(!q_.containsObj(new CustPoint(1,3)));
         assertEq("1,2;1,5;3,5;3,2",q_.display());
-        q_.setPoints(new EqList<CustPoint>());
+        q_.setPoints(new CustList<CustPoint>());
         assertEq("",q_.display());
     }
 }

@@ -3,7 +3,7 @@ package code.maths.geo;
 import code.maths.EquallableMathUtil;
 import org.junit.Test;
 
-import code.util.EqList;
+import code.util.CustList;
 import code.util.IdList;
 import code.util.IdMap;
 
@@ -29,7 +29,7 @@ public class DelaunayTest extends EquallableMathUtil {
     @Test
     public void compute0Test() {
         Delaunay d_ = new Delaunay();
-        EqList<CustPoint> pts_ = new EqList<CustPoint>();
+        CustList<CustPoint> pts_ = new CustList<CustPoint>();
         d_.compute(pts_, false);
         IdList<Triangle> ts_ = d_.getTriangles();
         assertEq(0, ts_.size());
@@ -37,7 +37,7 @@ public class DelaunayTest extends EquallableMathUtil {
     @Test
     public void compute1Test() {
         Delaunay d_ = new Delaunay();
-        EqList<CustPoint> pts_ = new EqList<CustPoint>();
+        CustList<CustPoint> pts_ = new CustList<CustPoint>();
         pts_.add(new CustPoint(0, 0));
         pts_.add(new CustPoint(2, 4));
         pts_.add(new CustPoint(1, 5));
@@ -56,7 +56,7 @@ public class DelaunayTest extends EquallableMathUtil {
     @Test
     public void compute2Test() {
         Delaunay d_ = new Delaunay();
-        EqList<CustPoint> pts_ = new EqList<CustPoint>();
+        CustList<CustPoint> pts_ = new CustList<CustPoint>();
         pts_.add(new CustPoint(1, 1));
         pts_.add(new CustPoint(2, 4));
         pts_.add(new CustPoint(0, 3));
@@ -75,7 +75,7 @@ public class DelaunayTest extends EquallableMathUtil {
     @Test
     public void compute3Test() {
         Delaunay d_ = new Delaunay();
-        EqList<CustPoint> pts_ = new EqList<CustPoint>();
+        CustList<CustPoint> pts_ = new CustList<CustPoint>();
         pts_.add(new CustPoint(3, 2));
         pts_.add(new CustPoint(0, 0));
         pts_.add(new CustPoint(2, 4));
@@ -94,7 +94,7 @@ public class DelaunayTest extends EquallableMathUtil {
     @Test
     public void compute4Test() {
         Delaunay d_ = new Delaunay();
-        EqList<CustPoint> pts_ = new EqList<CustPoint>();
+        CustList<CustPoint> pts_ = new CustList<CustPoint>();
         pts_.add(new CustPoint(3, 2));
         pts_.add(new CustPoint(1, 1));
         pts_.add(new CustPoint(2, 4));
@@ -113,7 +113,7 @@ public class DelaunayTest extends EquallableMathUtil {
     @Test
     public void compute5Test() {
         Delaunay d_ = new Delaunay();
-        EqList<CustPoint> pts_ = new EqList<CustPoint>();
+        CustList<CustPoint> pts_ = new CustList<CustPoint>();
         pts_.add(new CustPoint(0, 0));
         pts_.add(new CustPoint(1, 1));
         pts_.add(new CustPoint(2, 2));
@@ -125,7 +125,7 @@ public class DelaunayTest extends EquallableMathUtil {
     @Test
     public void compute6Test() {
         Delaunay d_ = new Delaunay();
-        EqList<CustPoint> pts_ = new EqList<CustPoint>();
+        CustList<CustPoint> pts_ = new CustList<CustPoint>();
         pts_.add(new CustPoint(2, 2));
         pts_.add(new CustPoint(4, 0));
         pts_.add(new CustPoint(6, 0));
@@ -138,7 +138,7 @@ public class DelaunayTest extends EquallableMathUtil {
     @Test
     public void compute7Test() {
         Delaunay d_ = new Delaunay();
-        EqList<CustPoint> pts_ = new EqList<CustPoint>();
+        CustList<CustPoint> pts_ = new CustList<CustPoint>();
         pts_.add(new CustPoint(0, 0));
         pts_.add(new CustPoint(2, 4));
         pts_.add(new CustPoint(1, 5));
@@ -153,7 +153,7 @@ public class DelaunayTest extends EquallableMathUtil {
     @Test
     public void compute8Test() {
         Delaunay d_ = new Delaunay();
-        EqList<CustPoint> pts_ = new EqList<CustPoint>();
+        CustList<CustPoint> pts_ = new CustList<CustPoint>();
         pts_.add(new CustPoint(1, 1));
         pts_.add(new CustPoint(2, 4));
         pts_.add(new CustPoint(0, 3));
@@ -168,7 +168,7 @@ public class DelaunayTest extends EquallableMathUtil {
     @Test
     public void compute9Test() {
         Delaunay d_ = new Delaunay();
-        EqList<CustPoint> pts_ = new EqList<CustPoint>();
+        CustList<CustPoint> pts_ = new CustList<CustPoint>();
         pts_.add(new CustPoint(0, 3));
         pts_.add(new CustPoint(2, 4));
         pts_.add(new CustPoint(1, 5));
@@ -183,7 +183,7 @@ public class DelaunayTest extends EquallableMathUtil {
     @Test
     public void compute10Test() {
         Delaunay d_ = new Delaunay();
-        EqList<CustPoint> pts_ = new EqList<CustPoint>();
+        CustList<CustPoint> pts_ = new CustList<CustPoint>();
         pts_.add(new CustPoint(67, 57));
         pts_.add(new CustPoint(145, 185));
         pts_.add(new CustPoint(333, 264));
@@ -198,7 +198,7 @@ public class DelaunayTest extends EquallableMathUtil {
     @Test
     public void mainComputeIncr0Test() {
         Delaunay d_ = new Delaunay();
-        EqList<CustPoint> pts_ = new EqList<CustPoint>();
+        CustList<CustPoint> pts_ = new CustList<CustPoint>();
         d_.mainComputeIncr(pts_);
         IdList<Triangle> ts_ = d_.getTriangles();
         assertEq(0, ts_.size());
@@ -206,7 +206,7 @@ public class DelaunayTest extends EquallableMathUtil {
     @Test
     public void mainComputeIncr1Test() {
         Delaunay d_ = new Delaunay();
-        EqList<CustPoint> pts_ = new EqList<CustPoint>();
+        CustList<CustPoint> pts_ = new CustList<CustPoint>();
         pts_.add(new CustPoint(0, 0));
         pts_.add(new CustPoint(2, 4));
         pts_.add(new CustPoint(1, 5));
@@ -221,11 +221,29 @@ public class DelaunayTest extends EquallableMathUtil {
         assertEq(new CustPoint(2, 4), ts_.get(1).getSecondPoint());
         assertEq(new CustPoint(3, 2), ts_.get(1).getThirdPoint());
     }
-
+    @Test
+    public void mainComputeIncr1_Test() {
+        Delaunay d_ = new Delaunay();
+        CustList<CustPoint> pts_ = new CustList<CustPoint>();
+        pts_.add(new CustPoint(0, 0));
+        pts_.add(new CustPoint(2, 4));
+        pts_.add(new CustPoint(2, 4));
+        pts_.add(new CustPoint(1, 5));
+        pts_.add(new CustPoint(3, 2));
+        d_.mainComputeIncr(pts_);
+        IdList<Triangle> ts_ = d_.getTriangles();
+        assertEq(2, ts_.size());
+        assertEq(new CustPoint(0, 0), ts_.get(0).getFirstPoint());
+        assertEq(new CustPoint(2, 4), ts_.get(0).getSecondPoint());
+        assertEq(new CustPoint(1, 5), ts_.get(0).getThirdPoint());
+        assertEq(new CustPoint(0, 0), ts_.get(1).getFirstPoint());
+        assertEq(new CustPoint(2, 4), ts_.get(1).getSecondPoint());
+        assertEq(new CustPoint(3, 2), ts_.get(1).getThirdPoint());
+    }
     @Test
     public void mainComputeIncr2Test() {
         Delaunay d_ = new Delaunay();
-        EqList<CustPoint> pts_ = new EqList<CustPoint>();
+        CustList<CustPoint> pts_ = new CustList<CustPoint>();
         pts_.add(new CustPoint(1, 1));
         pts_.add(new CustPoint(2, 4));
         pts_.add(new CustPoint(0, 3));
@@ -244,7 +262,7 @@ public class DelaunayTest extends EquallableMathUtil {
     @Test
     public void mainComputeIncr3Test() {
         Delaunay d_ = new Delaunay();
-        EqList<CustPoint> pts_ = new EqList<CustPoint>();
+        CustList<CustPoint> pts_ = new CustList<CustPoint>();
         pts_.add(new CustPoint(3, 2));
         pts_.add(new CustPoint(0, 0));
         pts_.add(new CustPoint(2, 4));
@@ -263,7 +281,7 @@ public class DelaunayTest extends EquallableMathUtil {
     @Test
     public void mainComputeIncr4Test() {
         Delaunay d_ = new Delaunay();
-        EqList<CustPoint> pts_ = new EqList<CustPoint>();
+        CustList<CustPoint> pts_ = new CustList<CustPoint>();
         pts_.add(new CustPoint(3, 2));
         pts_.add(new CustPoint(1, 1));
         pts_.add(new CustPoint(2, 4));
@@ -282,7 +300,7 @@ public class DelaunayTest extends EquallableMathUtil {
     @Test
     public void mainComputeIncr5Test() {
         Delaunay d_ = new Delaunay();
-        EqList<CustPoint> pts_ = new EqList<CustPoint>();
+        CustList<CustPoint> pts_ = new CustList<CustPoint>();
         pts_.add(new CustPoint(0, 0));
         pts_.add(new CustPoint(1, 1));
         pts_.add(new CustPoint(2, 2));
@@ -294,7 +312,7 @@ public class DelaunayTest extends EquallableMathUtil {
     @Test
     public void mainComputeIncr6Test() {
         Delaunay d_ = new Delaunay();
-        EqList<CustPoint> pts_ = new EqList<CustPoint>();
+        CustList<CustPoint> pts_ = new CustList<CustPoint>();
         pts_.add(new CustPoint(2, 2));
         pts_.add(new CustPoint(4, 0));
         pts_.add(new CustPoint(6, 0));
@@ -307,7 +325,7 @@ public class DelaunayTest extends EquallableMathUtil {
     @Test
     public void mainComputeIncr7Test() {
         Delaunay d_ = new Delaunay();
-        EqList<CustPoint> pts_ = new EqList<CustPoint>();
+        CustList<CustPoint> pts_ = new CustList<CustPoint>();
         pts_.add(new CustPoint(0, 0));
         pts_.add(new CustPoint(2, 4));
         pts_.add(new CustPoint(1, 5));
@@ -322,7 +340,7 @@ public class DelaunayTest extends EquallableMathUtil {
     @Test
     public void mainComputeIncr8Test() {
         Delaunay d_ = new Delaunay();
-        EqList<CustPoint> pts_ = new EqList<CustPoint>();
+        CustList<CustPoint> pts_ = new CustList<CustPoint>();
         pts_.add(new CustPoint(1, 1));
         pts_.add(new CustPoint(2, 4));
         pts_.add(new CustPoint(0, 3));
@@ -337,7 +355,7 @@ public class DelaunayTest extends EquallableMathUtil {
     @Test
     public void mainComputeIncr9Test() {
         Delaunay d_ = new Delaunay();
-        EqList<CustPoint> pts_ = new EqList<CustPoint>();
+        CustList<CustPoint> pts_ = new CustList<CustPoint>();
         pts_.add(new CustPoint(0, 3));
         pts_.add(new CustPoint(2, 4));
         pts_.add(new CustPoint(1, 5));
@@ -352,7 +370,7 @@ public class DelaunayTest extends EquallableMathUtil {
     @Test
     public void mainComputeIncr10Test() {
         Delaunay d_ = new Delaunay();
-        EqList<CustPoint> pts_ = new EqList<CustPoint>();
+        CustList<CustPoint> pts_ = new CustList<CustPoint>();
         pts_.add(new CustPoint(67, 57));
         pts_.add(new CustPoint(145, 185));
         pts_.add(new CustPoint(333, 264));
@@ -367,7 +385,7 @@ public class DelaunayTest extends EquallableMathUtil {
     @Test
     public void mainComputeIncr11Test() {
         Delaunay d_ = new Delaunay();
-        EqList<CustPoint> pts_ = new EqList<CustPoint>();
+        CustList<CustPoint> pts_ = new CustList<CustPoint>();
         pts_.add(new CustPoint(1, 1));
         pts_.add(new CustPoint(2, 4));
         pts_.add(new CustPoint(1, 3));
@@ -386,7 +404,7 @@ public class DelaunayTest extends EquallableMathUtil {
     @Test
     public void mainComputeIncr12Test() {
         Delaunay d_ = new Delaunay();
-        EqList<CustPoint> pts_ = new EqList<CustPoint>();
+        CustList<CustPoint> pts_ = new CustList<CustPoint>();
         pts_.add(new CustPoint(2, 2));
         pts_.add(new CustPoint(6, 0));
         pts_.add(new CustPoint(2, -2));
@@ -399,7 +417,7 @@ public class DelaunayTest extends EquallableMathUtil {
     @Test
     public void mainComputeIncr13Test() {
         Delaunay d_ = new Delaunay();
-        EqList<CustPoint> pts_ = new EqList<CustPoint>();
+        CustList<CustPoint> pts_ = new CustList<CustPoint>();
         pts_.add(new CustPoint(1, 2));
         pts_.add(new CustPoint(2, 1));
         pts_.add(new CustPoint(3, 2));
@@ -414,7 +432,7 @@ public class DelaunayTest extends EquallableMathUtil {
     @Test
     public void mainComputeIncr14Test() {
         Delaunay d_ = new Delaunay();
-        EqList<CustPoint> pts_ = new EqList<CustPoint>();
+        CustList<CustPoint> pts_ = new CustList<CustPoint>();
         pts_.add(new CustPoint(1, 2));
         pts_.add(new CustPoint(3, 1));
         pts_.add(new CustPoint(5, 2));
@@ -429,7 +447,7 @@ public class DelaunayTest extends EquallableMathUtil {
     @Test
     public void mainComputeIncr15Test() {
         Delaunay d_ = new Delaunay();
-        EqList<CustPoint> pts_ = new EqList<CustPoint>();
+        CustList<CustPoint> pts_ = new CustList<CustPoint>();
         pts_.add(new CustPoint(1, 2));
         pts_.add(new CustPoint(1, 3));
         pts_.add(new CustPoint(1, 4));
@@ -442,7 +460,7 @@ public class DelaunayTest extends EquallableMathUtil {
     @Test
     public void mainComputeIncr16Test() {
         Delaunay d_ = new Delaunay();
-        EqList<CustPoint> pts_ = new EqList<CustPoint>();
+        CustList<CustPoint> pts_ = new CustList<CustPoint>();
         pts_.add(new CustPoint(1, 2));
         pts_.add(new CustPoint(2, 1));
         pts_.add(new CustPoint(3, 2));
@@ -458,7 +476,7 @@ public class DelaunayTest extends EquallableMathUtil {
     @Test
     public void mainComputeIncr17Test() {
         Delaunay d_ = new Delaunay();
-        EqList<CustPoint> pts_ = new EqList<CustPoint>();
+        CustList<CustPoint> pts_ = new CustList<CustPoint>();
         pts_.add(new CustPoint(1, 2));
         pts_.add(new CustPoint(2, 1));
         pts_.add(new CustPoint(3, 1));
@@ -476,7 +494,7 @@ public class DelaunayTest extends EquallableMathUtil {
     @Test
     public void mainComputeIncrConvex0Test() {
         Delaunay d_ = new Delaunay();
-        EqList<CustPoint> pts_ = new EqList<CustPoint>();
+        CustList<CustPoint> pts_ = new CustList<CustPoint>();
         d_.mainComputeIncrConvex(pts_);
         IdList<Triangle> ts_ = d_.getTriangles();
         assertEq(0, ts_.size());
@@ -484,7 +502,7 @@ public class DelaunayTest extends EquallableMathUtil {
     @Test
     public void mainComputeIncrConvex1Test() {
         Delaunay d_ = new Delaunay();
-        EqList<CustPoint> pts_ = new EqList<CustPoint>();
+        CustList<CustPoint> pts_ = new CustList<CustPoint>();
         pts_.add(new CustPoint(0, 0));
         pts_.add(new CustPoint(2, 4));
         pts_.add(new CustPoint(1, 5));
@@ -503,7 +521,7 @@ public class DelaunayTest extends EquallableMathUtil {
     @Test
     public void mainComputeIncrConvex2Test() {
         Delaunay d_ = new Delaunay();
-        EqList<CustPoint> pts_ = new EqList<CustPoint>();
+        CustList<CustPoint> pts_ = new CustList<CustPoint>();
         pts_.add(new CustPoint(1, 1));
         pts_.add(new CustPoint(2, 4));
         pts_.add(new CustPoint(0, 3));
@@ -522,7 +540,7 @@ public class DelaunayTest extends EquallableMathUtil {
     @Test
     public void mainComputeIncrConvex3Test() {
         Delaunay d_ = new Delaunay();
-        EqList<CustPoint> pts_ = new EqList<CustPoint>();
+        CustList<CustPoint> pts_ = new CustList<CustPoint>();
         pts_.add(new CustPoint(3, 2));
         pts_.add(new CustPoint(0, 0));
         pts_.add(new CustPoint(2, 4));
@@ -541,7 +559,7 @@ public class DelaunayTest extends EquallableMathUtil {
     @Test
     public void mainComputeIncrConvex4Test() {
         Delaunay d_ = new Delaunay();
-        EqList<CustPoint> pts_ = new EqList<CustPoint>();
+        CustList<CustPoint> pts_ = new CustList<CustPoint>();
         pts_.add(new CustPoint(3, 2));
         pts_.add(new CustPoint(1, 1));
         pts_.add(new CustPoint(2, 4));
@@ -560,7 +578,7 @@ public class DelaunayTest extends EquallableMathUtil {
     @Test
     public void mainComputeIncrConvex5Test() {
         Delaunay d_ = new Delaunay();
-        EqList<CustPoint> pts_ = new EqList<CustPoint>();
+        CustList<CustPoint> pts_ = new CustList<CustPoint>();
         pts_.add(new CustPoint(0, 0));
         pts_.add(new CustPoint(1, 1));
         pts_.add(new CustPoint(2, 2));
@@ -572,7 +590,7 @@ public class DelaunayTest extends EquallableMathUtil {
     @Test
     public void mainComputeIncrConvex6Test() {
         Delaunay d_ = new Delaunay();
-        EqList<CustPoint> pts_ = new EqList<CustPoint>();
+        CustList<CustPoint> pts_ = new CustList<CustPoint>();
         pts_.add(new CustPoint(2, 2));
         pts_.add(new CustPoint(4, 0));
         pts_.add(new CustPoint(6, 0));
@@ -585,7 +603,7 @@ public class DelaunayTest extends EquallableMathUtil {
     @Test
     public void mainComputeIncrConvex7Test() {
         Delaunay d_ = new Delaunay();
-        EqList<CustPoint> pts_ = new EqList<CustPoint>();
+        CustList<CustPoint> pts_ = new CustList<CustPoint>();
         pts_.add(new CustPoint(0, 0));
         pts_.add(new CustPoint(2, 4));
         pts_.add(new CustPoint(1, 5));
@@ -600,7 +618,7 @@ public class DelaunayTest extends EquallableMathUtil {
     @Test
     public void mainComputeIncrConvex8Test() {
         Delaunay d_ = new Delaunay();
-        EqList<CustPoint> pts_ = new EqList<CustPoint>();
+        CustList<CustPoint> pts_ = new CustList<CustPoint>();
         pts_.add(new CustPoint(1, 1));
         pts_.add(new CustPoint(2, 4));
         pts_.add(new CustPoint(0, 3));
@@ -615,7 +633,7 @@ public class DelaunayTest extends EquallableMathUtil {
     @Test
     public void mainComputeIncrConvex9Test() {
         Delaunay d_ = new Delaunay();
-        EqList<CustPoint> pts_ = new EqList<CustPoint>();
+        CustList<CustPoint> pts_ = new CustList<CustPoint>();
         pts_.add(new CustPoint(0, 3));
         pts_.add(new CustPoint(2, 4));
         pts_.add(new CustPoint(1, 5));
@@ -630,7 +648,7 @@ public class DelaunayTest extends EquallableMathUtil {
     @Test
     public void mainComputeIncrConvex10Test() {
         Delaunay d_ = new Delaunay();
-        EqList<CustPoint> pts_ = new EqList<CustPoint>();
+        CustList<CustPoint> pts_ = new CustList<CustPoint>();
         pts_.add(new CustPoint(67, 57));
         pts_.add(new CustPoint(145, 185));
         pts_.add(new CustPoint(333, 264));
@@ -645,7 +663,7 @@ public class DelaunayTest extends EquallableMathUtil {
     @Test
     public void mainComputeIncrConvex11Test() {
         Delaunay d_ = new Delaunay();
-        EqList<CustPoint> pts_ = new EqList<CustPoint>();
+        CustList<CustPoint> pts_ = new CustList<CustPoint>();
         pts_.add(new CustPoint(1, 1));
         pts_.add(new CustPoint(2, 4));
         pts_.add(new CustPoint(1, 3));
@@ -664,7 +682,7 @@ public class DelaunayTest extends EquallableMathUtil {
     @Test
     public void mainComputeIncrConvex12Test() {
         Delaunay d_ = new Delaunay();
-        EqList<CustPoint> pts_ = new EqList<CustPoint>();
+        CustList<CustPoint> pts_ = new CustList<CustPoint>();
         pts_.add(new CustPoint(2, 2));
         pts_.add(new CustPoint(6, 0));
         pts_.add(new CustPoint(2, -2));
@@ -677,7 +695,7 @@ public class DelaunayTest extends EquallableMathUtil {
     @Test
     public void mainComputeIncrConvex13Test() {
         Delaunay d_ = new Delaunay();
-        EqList<CustPoint> pts_ = new EqList<CustPoint>();
+        CustList<CustPoint> pts_ = new CustList<CustPoint>();
         pts_.add(new CustPoint(1, 2));
         pts_.add(new CustPoint(2, 1));
         pts_.add(new CustPoint(3, 2));
@@ -692,7 +710,7 @@ public class DelaunayTest extends EquallableMathUtil {
     @Test
     public void mainComputeIncrConvex14Test() {
         Delaunay d_ = new Delaunay();
-        EqList<CustPoint> pts_ = new EqList<CustPoint>();
+        CustList<CustPoint> pts_ = new CustList<CustPoint>();
         pts_.add(new CustPoint(1, 2));
         pts_.add(new CustPoint(3, 1));
         pts_.add(new CustPoint(5, 2));
@@ -708,7 +726,7 @@ public class DelaunayTest extends EquallableMathUtil {
     @Test
     public void mainComputeIncrConvex15Test() {
         Delaunay d_ = new Delaunay();
-        EqList<CustPoint> pts_ = new EqList<CustPoint>();
+        CustList<CustPoint> pts_ = new CustList<CustPoint>();
         pts_.add(new CustPoint(1, 2));
         pts_.add(new CustPoint(1, 3));
         pts_.add(new CustPoint(1, 4));
@@ -721,7 +739,7 @@ public class DelaunayTest extends EquallableMathUtil {
     @Test
     public void mainComputeIncrConvex16Test() {
         Delaunay d_ = new Delaunay();
-        EqList<CustPoint> pts_ = new EqList<CustPoint>();
+        CustList<CustPoint> pts_ = new CustList<CustPoint>();
         pts_.add(new CustPoint(1, 2));
         pts_.add(new CustPoint(2, 1));
         pts_.add(new CustPoint(3, 2));
@@ -737,7 +755,7 @@ public class DelaunayTest extends EquallableMathUtil {
     @Test
     public void mainComputeIncrConvex17Test() {
         Delaunay d_ = new Delaunay();
-        EqList<CustPoint> pts_ = new EqList<CustPoint>();
+        CustList<CustPoint> pts_ = new CustList<CustPoint>();
         pts_.add(new CustPoint(1, 2));
         pts_.add(new CustPoint(2, 1));
         pts_.add(new CustPoint(3, 1));
@@ -755,7 +773,7 @@ public class DelaunayTest extends EquallableMathUtil {
     @Test
     public void mainComputeIncrSuperTriangle0Test() {
         Delaunay d_ = new Delaunay();
-        EqList<CustPoint> pts_ = new EqList<CustPoint>();
+        CustList<CustPoint> pts_ = new CustList<CustPoint>();
         d_.mainComputeIncrSuperTriangle(pts_);
         IdList<Triangle> ts_ = d_.getTriangles();
         assertEq(0, ts_.size());
@@ -763,7 +781,7 @@ public class DelaunayTest extends EquallableMathUtil {
     @Test
     public void mainComputeIncrSuperTriangle1Test() {
         Delaunay d_ = new Delaunay();
-        EqList<CustPoint> pts_ = new EqList<CustPoint>();
+        CustList<CustPoint> pts_ = new CustList<CustPoint>();
         pts_.add(new CustPoint(0, 0));
         pts_.add(new CustPoint(2, 4));
         pts_.add(new CustPoint(1, 5));
@@ -782,7 +800,7 @@ public class DelaunayTest extends EquallableMathUtil {
     @Test
     public void mainComputeIncrSuperTriangle2Test() {
         Delaunay d_ = new Delaunay();
-        EqList<CustPoint> pts_ = new EqList<CustPoint>();
+        CustList<CustPoint> pts_ = new CustList<CustPoint>();
         pts_.add(new CustPoint(1, 1));
         pts_.add(new CustPoint(2, 4));
         pts_.add(new CustPoint(0, 3));
@@ -801,7 +819,7 @@ public class DelaunayTest extends EquallableMathUtil {
     @Test
     public void mainComputeIncrSuperTriangle3Test() {
         Delaunay d_ = new Delaunay();
-        EqList<CustPoint> pts_ = new EqList<CustPoint>();
+        CustList<CustPoint> pts_ = new CustList<CustPoint>();
         pts_.add(new CustPoint(3, 2));
         pts_.add(new CustPoint(0, 0));
         pts_.add(new CustPoint(2, 4));
@@ -820,7 +838,7 @@ public class DelaunayTest extends EquallableMathUtil {
     @Test
     public void mainComputeIncrSuperTriangle4Test() {
         Delaunay d_ = new Delaunay();
-        EqList<CustPoint> pts_ = new EqList<CustPoint>();
+        CustList<CustPoint> pts_ = new CustList<CustPoint>();
         pts_.add(new CustPoint(3, 2));
         pts_.add(new CustPoint(1, 1));
         pts_.add(new CustPoint(2, 4));
@@ -839,7 +857,7 @@ public class DelaunayTest extends EquallableMathUtil {
     @Test
     public void mainComputeIncrSuperTriangle5Test() {
         Delaunay d_ = new Delaunay();
-        EqList<CustPoint> pts_ = new EqList<CustPoint>();
+        CustList<CustPoint> pts_ = new CustList<CustPoint>();
         pts_.add(new CustPoint(0, 0));
         pts_.add(new CustPoint(1, 1));
         pts_.add(new CustPoint(2, 2));
@@ -851,7 +869,7 @@ public class DelaunayTest extends EquallableMathUtil {
     @Test
     public void mainComputeIncrSuperTriangle6Test() {
         Delaunay d_ = new Delaunay();
-        EqList<CustPoint> pts_ = new EqList<CustPoint>();
+        CustList<CustPoint> pts_ = new CustList<CustPoint>();
         pts_.add(new CustPoint(2, 2));
         pts_.add(new CustPoint(4, 0));
         pts_.add(new CustPoint(6, 0));
@@ -864,7 +882,7 @@ public class DelaunayTest extends EquallableMathUtil {
     @Test
     public void mainComputeIncrSuperTriangle7Test() {
         Delaunay d_ = new Delaunay();
-        EqList<CustPoint> pts_ = new EqList<CustPoint>();
+        CustList<CustPoint> pts_ = new CustList<CustPoint>();
         pts_.add(new CustPoint(0, 0));
         pts_.add(new CustPoint(2, 4));
         pts_.add(new CustPoint(1, 5));
@@ -879,7 +897,7 @@ public class DelaunayTest extends EquallableMathUtil {
     @Test
     public void mainComputeIncrSuperTriangle8Test() {
         Delaunay d_ = new Delaunay();
-        EqList<CustPoint> pts_ = new EqList<CustPoint>();
+        CustList<CustPoint> pts_ = new CustList<CustPoint>();
         pts_.add(new CustPoint(1, 1));
         pts_.add(new CustPoint(2, 4));
         pts_.add(new CustPoint(0, 3));
@@ -894,7 +912,7 @@ public class DelaunayTest extends EquallableMathUtil {
     @Test
     public void mainComputeIncrSuperTriangle9Test() {
         Delaunay d_ = new Delaunay();
-        EqList<CustPoint> pts_ = new EqList<CustPoint>();
+        CustList<CustPoint> pts_ = new CustList<CustPoint>();
         pts_.add(new CustPoint(0, 3));
         pts_.add(new CustPoint(2, 4));
         pts_.add(new CustPoint(1, 5));
@@ -909,7 +927,7 @@ public class DelaunayTest extends EquallableMathUtil {
     @Test
     public void mainComputeIncrSuperTriangle10Test() {
         Delaunay d_ = new Delaunay();
-        EqList<CustPoint> pts_ = new EqList<CustPoint>();
+        CustList<CustPoint> pts_ = new CustList<CustPoint>();
         pts_.add(new CustPoint(67, 57));
         pts_.add(new CustPoint(145, 185));
         pts_.add(new CustPoint(333, 264));
@@ -924,7 +942,7 @@ public class DelaunayTest extends EquallableMathUtil {
     @Test
     public void mainComputeIncrSuperTriangle11Test() {
         Delaunay d_ = new Delaunay();
-        EqList<CustPoint> pts_ = new EqList<CustPoint>();
+        CustList<CustPoint> pts_ = new CustList<CustPoint>();
         pts_.add(new CustPoint(1, 1));
         pts_.add(new CustPoint(2, 4));
         pts_.add(new CustPoint(1, 3));
@@ -943,7 +961,7 @@ public class DelaunayTest extends EquallableMathUtil {
     @Test
     public void mainComputeIncrSuperTriangle12Test() {
         Delaunay d_ = new Delaunay();
-        EqList<CustPoint> pts_ = new EqList<CustPoint>();
+        CustList<CustPoint> pts_ = new CustList<CustPoint>();
         pts_.add(new CustPoint(2, 2));
         pts_.add(new CustPoint(6, 0));
         pts_.add(new CustPoint(2, -2));
@@ -956,7 +974,7 @@ public class DelaunayTest extends EquallableMathUtil {
     @Test
     public void mainComputeIncrSuperTriangle13Test() {
         Delaunay d_ = new Delaunay();
-        EqList<CustPoint> pts_ = new EqList<CustPoint>();
+        CustList<CustPoint> pts_ = new CustList<CustPoint>();
         pts_.add(new CustPoint(1, 2));
         pts_.add(new CustPoint(2, 1));
         pts_.add(new CustPoint(3, 2));
@@ -971,7 +989,7 @@ public class DelaunayTest extends EquallableMathUtil {
     @Test
     public void mainComputeIncrSuperTriangle14Test() {
         Delaunay d_ = new Delaunay();
-        EqList<CustPoint> pts_ = new EqList<CustPoint>();
+        CustList<CustPoint> pts_ = new CustList<CustPoint>();
         pts_.add(new CustPoint(1, 2));
         pts_.add(new CustPoint(3, 1));
         pts_.add(new CustPoint(5, 2));
@@ -987,7 +1005,7 @@ public class DelaunayTest extends EquallableMathUtil {
     @Test
     public void mainComputeIncrSuperTriangle15Test() {
         Delaunay d_ = new Delaunay();
-        EqList<CustPoint> pts_ = new EqList<CustPoint>();
+        CustList<CustPoint> pts_ = new CustList<CustPoint>();
         pts_.add(new CustPoint(1, 2));
         pts_.add(new CustPoint(1, 3));
         pts_.add(new CustPoint(1, 4));
@@ -1000,7 +1018,7 @@ public class DelaunayTest extends EquallableMathUtil {
     @Test
     public void mainComputeIncrSuperTriangle16Test() {
         Delaunay d_ = new Delaunay();
-        EqList<CustPoint> pts_ = new EqList<CustPoint>();
+        CustList<CustPoint> pts_ = new CustList<CustPoint>();
         pts_.add(new CustPoint(1, 2));
         pts_.add(new CustPoint(2, 1));
         pts_.add(new CustPoint(3, 2));
@@ -1016,7 +1034,7 @@ public class DelaunayTest extends EquallableMathUtil {
     @Test
     public void getNextPoints1Test() {
         Delaunay d_ = new Delaunay();
-        EqList<CustPoint> pts_ = new EqList<CustPoint>();
+        CustList<CustPoint> pts_ = new CustList<CustPoint>();
         CustPoint one_= new CustPoint(1, 1);
         pts_.add(one_);
         CustPoint two_= new CustPoint(2, 4);
@@ -1059,7 +1077,7 @@ public class DelaunayTest extends EquallableMathUtil {
     @Test
     public void getNextPoints2Test() {
         Delaunay d_ = new Delaunay();
-        EqList<CustPoint> pts_ = new EqList<CustPoint>();
+        CustList<CustPoint> pts_ = new CustList<CustPoint>();
         CustPoint one_= new CustPoint(0, 0);
         pts_.add(one_);
         CustPoint two_= new CustPoint(2, 4);
@@ -1102,7 +1120,7 @@ public class DelaunayTest extends EquallableMathUtil {
     @Test
     public void getNextPoints3Test() {
         Delaunay d_ = new Delaunay();
-        EqList<CustPoint> points_ = new EqList<CustPoint>();
+        CustList<CustPoint> points_ = new CustList<CustPoint>();
         CustPoint one_ = new CustPoint(0, 0);
         points_.add(one_);
         CustPoint two_ = new CustPoint(-2, 0);
@@ -1159,7 +1177,7 @@ public class DelaunayTest extends EquallableMathUtil {
     @Test
     public void getNextPoints4Test() {
         Delaunay d_ = new Delaunay();
-        EqList<CustPoint> pts_ = new EqList<CustPoint>();
+        CustList<CustPoint> pts_ = new CustList<CustPoint>();
         CustPoint one_= new CustPoint(1, 1);
         pts_.add(one_);
         CustPoint two_= new CustPoint(3, 2);
@@ -1202,7 +1220,7 @@ public class DelaunayTest extends EquallableMathUtil {
     @Test
     public void getNextPoints5Test() {
         Delaunay d_ = new Delaunay();
-        EqList<CustPoint> pts_ = new EqList<CustPoint>();
+        CustList<CustPoint> pts_ = new CustList<CustPoint>();
         CustPoint one_= new CustPoint(0, 0);
         pts_.add(one_);
         CustPoint two_= new CustPoint(3, 2);
@@ -1245,7 +1263,7 @@ public class DelaunayTest extends EquallableMathUtil {
     @Test
     public void getNextPoints6Test() {
         Delaunay d_ = new Delaunay();
-        EqList<CustPoint> pts_ = new EqList<CustPoint>();
+        CustList<CustPoint> pts_ = new CustList<CustPoint>();
         CustPoint one_= new CustPoint(-2, -4);
         pts_.add(one_);
         CustPoint two_= new CustPoint(-1, -5);
@@ -1289,7 +1307,7 @@ public class DelaunayTest extends EquallableMathUtil {
     @Test
     public void getNextPoints7Test() {
         Delaunay d_ = new Delaunay();
-        EqList<CustPoint> pts_ = new EqList<CustPoint>();
+        CustList<CustPoint> pts_ = new CustList<CustPoint>();
         CustPoint one_= new CustPoint(-2, -5);
         pts_.add(one_);
         CustPoint two_= new CustPoint(-4, -7);

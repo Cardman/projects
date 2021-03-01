@@ -4,10 +4,9 @@ import code.util.StringList;
 import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
 import code.util.ints.Displayable;
-import code.util.ints.Equallable;
 
 
-public final class Rect implements HasEdges, Equallable<Rect>, Displayable {
+public final class Rect implements HasEdges, Displayable {
 
     public static final int NB_POINTS = 4;
     private static final String SEPARATOR = ",";
@@ -157,7 +156,6 @@ public final class Rect implements HasEdges, Equallable<Rect>, Displayable {
         height = _height;
     }
 
-    @Override
     public boolean eq(Rect _obj) {
         if (_obj.left != left) {
             return false;

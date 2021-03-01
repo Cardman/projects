@@ -2,16 +2,15 @@ package code.maths;
 import code.util.StringList;
 import code.util.core.StringUtil;
 import code.util.ints.Displayable;
-import code.util.ints.Equallable;
 
 
-public final class Complex implements Equallable<Complex>, Displayable {
+public final class Complex implements Displayable {
 
     private static final String SEPARATOR = ":";
 
-    private Rate real;
+    private final Rate real;
 
-    private Rate imag;
+    private final Rate imag;
 
     public Complex() {
         this(Rate.zero());
@@ -71,7 +70,7 @@ public final class Complex implements Equallable<Complex>, Displayable {
     public static boolean eq(Complex _tx1,Complex _tx2) {
         return _tx1.eq(_tx2);
     }
-    @Override
+
     public boolean eq(Complex _o) {
         if (!Rate.eq(_o.real, real)) {
             return false;

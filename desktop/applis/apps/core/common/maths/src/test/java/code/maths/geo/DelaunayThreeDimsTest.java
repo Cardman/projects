@@ -3,7 +3,7 @@ package code.maths.geo;
 import code.maths.EquallableMathUtil;
 import org.junit.Test;
 
-import code.util.EqList;
+import code.util.CustList;
 import code.util.IdList;
 
 
@@ -12,7 +12,7 @@ public class DelaunayThreeDimsTest extends EquallableMathUtil {
     @Test
     public void compute0Test() {
         DelaunayThreeDims d_ = new DelaunayThreeDims();
-        EqList<CustPointThreeDims> pts_ = new EqList<CustPointThreeDims>();
+        CustList<CustPointThreeDims> pts_ = new CustList<CustPointThreeDims>();
         d_.compute(pts_);
         IdList<Tetrahedron> ts_ = d_.getTriangles();
         assertEq(0, ts_.size());
@@ -20,7 +20,7 @@ public class DelaunayThreeDimsTest extends EquallableMathUtil {
     @Test
     public void compute1Test() {
         DelaunayThreeDims d_ = new DelaunayThreeDims();
-        EqList<CustPointThreeDims> pts_ = new EqList<CustPointThreeDims>();
+        CustList<CustPointThreeDims> pts_ = new CustList<CustPointThreeDims>();
         pts_.add(new CustPointThreeDims(0, 0, 0));
         pts_.add(new CustPointThreeDims(2, 4, 0));
         pts_.add(new CustPointThreeDims(1, 5, 0));
@@ -37,7 +37,7 @@ public class DelaunayThreeDimsTest extends EquallableMathUtil {
     @Test
     public void compute2Test() {
         DelaunayThreeDims d_ = new DelaunayThreeDims();
-        EqList<CustPointThreeDims> pts_ = new EqList<CustPointThreeDims>();
+        CustList<CustPointThreeDims> pts_ = new CustList<CustPointThreeDims>();
         pts_.add(new CustPointThreeDims(0, 0, 0));
         pts_.add(new CustPointThreeDims(2, 4, 0));
         pts_.add(new CustPointThreeDims(1, 5, 0));
@@ -59,7 +59,7 @@ public class DelaunayThreeDimsTest extends EquallableMathUtil {
     @Test
     public void compute3Test() {
         DelaunayThreeDims d_ = new DelaunayThreeDims();
-        EqList<CustPointThreeDims> pts_ = new EqList<CustPointThreeDims>();
+        CustList<CustPointThreeDims> pts_ = new CustList<CustPointThreeDims>();
         pts_.add(new CustPointThreeDims(2, 4, 0));
         pts_.add(new CustPointThreeDims(0, 0, 0));
         pts_.add(new CustPointThreeDims(1, 5, 0));

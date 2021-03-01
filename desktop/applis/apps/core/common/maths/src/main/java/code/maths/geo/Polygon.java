@@ -2,7 +2,6 @@ package code.maths.geo;
 import java.util.Iterator;
 
 import code.util.CustList;
-import code.util.EqList;
 import code.util.core.IndexConstants;
 import code.util.ints.Displayable;
 
@@ -10,7 +9,7 @@ import code.util.ints.Displayable;
 public final class Polygon implements Iterable<CustPoint>, HasEdges, Displayable {
     private static final String SEPARATOR = ";";
 
-    private EqList<CustPoint> points = new EqList<CustPoint>();
+    private CustList<CustPoint> points = new CustList<CustPoint>();
 
     public Polygon() {
     }
@@ -222,7 +221,16 @@ public final class Polygon implements Iterable<CustPoint>, HasEdges, Displayable
     }
 
     public boolean containsObj(CustPoint _element) {
-        return points.containsObj(_element);
+        return containsObj(_element, points);
+    }
+
+    public static boolean containsObj(CustPoint _element, CustList<CustPoint> _points) {
+        for (CustPoint p: _points) {
+            if (_element.eq(p)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public boolean containsInside(CustPoint _point) {
@@ -249,12 +257,16 @@ public final class Polygon implements Iterable<CustPoint>, HasEdges, Displayable
     public CustList<Triangle> getTriangles2() {
         Polygon copy_ = new Polygon();
         CustPoint cust_ = first();
+        int index_ = 0;
+        int j_ = 0;
         for (CustPoint p: points) {
             if (p.getXcoords() < cust_.getXcoords() || (p.getXcoords() == cust_.getXcoords() && p.getYcoords() < cust_.getYcoords())) {
                 cust_ = p;
+                index_ = j_;
             }
+            j_++;
         }
-        int index_ = points.indexOfObj(cust_);
+//        int index_ = points.indexOfObj(cust_);
         int len_ = size();
         addPoints(copy_, index_, len_);
         CustList<Triangle> triangles_ = new CustList<Triangle>();
@@ -371,7 +383,7 @@ public final class Polygon implements Iterable<CustPoint>, HasEdges, Displayable
         return new VectTwoDims(_b, _a);
     }
 
-    public void setPoints(EqList<CustPoint> _points) {
+    public void setPoints(CustList<CustPoint> _points) {
         points = _points;
     }
 //    static int det(VectTwoDims _a, VectTwoDims _b) {

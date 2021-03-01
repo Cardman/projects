@@ -1,6 +1,5 @@
 package code.maths.geo;
 import code.util.CustList;
-import code.util.EqList;
 import code.util.core.IndexConstants;
 
 
@@ -44,7 +43,7 @@ public final class EdgeThreeDimensions {
                 return false;
             }
         }
-        EqList<CustPointThreeDims> points_ = new EqList<CustPointThreeDims>();
+        CustList<CustPointThreeDims> points_ = new CustList<CustPointThreeDims>();
         points_.add(first);
         points_.add(second);
         points_.add(_e2.first);
@@ -183,10 +182,10 @@ public final class EdgeThreeDimensions {
 //        return false;
     }
 
-    private static boolean loop(EqList<CustPointThreeDims> _points) {
+    private static boolean loop(CustList<CustPointThreeDims> _points) {
         int index_ = IndexConstants.FIRST_INDEX;
         for (CustPointThreeDims p: _points) {
-            EqList<CustPointThreeDims> others_ = new EqList<CustPointThreeDims>();
+            CustList<CustPointThreeDims> others_ = new CustList<CustPointThreeDims>();
             int next_;
             int nextOthOne_;
             int nextOthTwo_;
@@ -219,7 +218,7 @@ public final class EdgeThreeDimensions {
         return Edge.getNext(_index);
     }
 
-    private static CustList<Site> getSites(CustPointThreeDims _p, EqList<CustPointThreeDims> _others, CustPointThreeDims _o) {
+    private static CustList<Site> getSites(CustPointThreeDims _p, CustList<CustPointThreeDims> _others, CustPointThreeDims _o) {
         CustList<Site> sites_ = new CustList<Site>();
         VectThreeDims v_ = new VectThreeDims(_p, _o);
         for (CustPointThreeDims n: _others) {
