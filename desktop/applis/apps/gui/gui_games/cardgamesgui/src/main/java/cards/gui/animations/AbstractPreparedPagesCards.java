@@ -19,27 +19,14 @@ import code.util.core.StringUtil;
 public abstract class AbstractPreparedPagesCards implements PreparedAnalyzed {
     private static final String SEPARATOR_PATH = "/";
     private static final String IMPLICIT_LANGUAGE = "//";
-    private final String conf;
     private final String lg;
     private final BeanNatLgNames beanNatLgNames;
     private ContextEl context;
     private Navigation navigation;
 
-    public AbstractPreparedPagesCards(String _conf, String _lg, BeanNatLgNames _stds) {
-        conf = _conf;
+    public AbstractPreparedPagesCards(String _lg, BeanNatLgNames _stds) {
         lg = _lg;
         beanNatLgNames = _stds;
-    }
-
-    public BeanNatLgNames prepare() {
-        navigation = new Navigation();
-        navigation.setSession(new Configuration());
-        navigation.setLanguage(lg);
-        navigation.setLanguages(Constants.getAvailableLanguages());
-        String content_ = ResourceFiles.ressourceFichier(conf);
-        NativeConfigurationLoader nat_ = new NativeConfigurationLoader(beanNatLgNames, null);
-        DualAnalyzedContext du_ = navigation.loadConfiguration(content_, "", beanNatLgNames, DefaultFileBuilder.newInstance(beanNatLgNames.getContent()), nat_);
-        return common(du_);
     }
 
     public void prepareDoc(Document _doc, AbstractNativeInit _init) {
@@ -52,7 +39,7 @@ public abstract class AbstractPreparedPagesCards implements PreparedAnalyzed {
         common(du_);
     }
 
-    private BeanNatLgNames common(DualAnalyzedContext _du) {
+    protected BeanNatLgNames common(DualAnalyzedContext _du) {
         context = _du.getContext().getContext();
         StringMap<String> files_ = new StringMap<String>();
         Configuration session_ = navigation.getSession();
@@ -80,6 +67,14 @@ public abstract class AbstractPreparedPagesCards implements PreparedAnalyzed {
     @Override
     public Navigation getNavigation() {
         return navigation;
+    }
+
+    protected void setNavigation(Navigation _navigation) {
+        navigation = _navigation;
+    }
+
+    protected String getLg() {
+        return lg;
     }
 
     @Override

@@ -9,8 +9,8 @@ public final class PreparedPagesCards extends AbstractPreparedPagesCards {
     private final Document doc;
     private final AbstractNativeInit init;
 
-    public PreparedPagesCards(Document _doc, String _conf, String _lg, BeanNatLgNames _stds, AbstractNativeInit _init) {
-        super(_conf, _lg, _stds);
+    public PreparedPagesCards(Document _doc, String _lg, BeanNatLgNames _stds, AbstractNativeInit _init) {
+        super(_lg, _stds);
         doc = _doc;
         init = _init;
     }

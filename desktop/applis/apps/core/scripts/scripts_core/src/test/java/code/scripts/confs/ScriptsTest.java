@@ -61,5 +61,6 @@ public final class ScriptsTest extends EquallableExUtil {
     @Test
     public void help() {
         assertNotNull(HelpScriptConfPages.infoLg());
+        assertNotNull(HelpScriptPages.docs());
     }
 }
