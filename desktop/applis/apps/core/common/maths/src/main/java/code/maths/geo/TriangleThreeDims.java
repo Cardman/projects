@@ -41,6 +41,11 @@ public final class TriangleThreeDims implements Displayable {
         return new CompactSpacePoint(x_, y_, z_,NB_POINTS);
     }
 
+    /*a=A-C,b=B-C
+    a x (b x c) = (a.c).b - (a.b).c
+    omega = ((normeCar(a).b - normeCar(b).a) x (a x b))
+    /(2 * (normeCar(a) x normeCar(b) - (a.b) x (a.b)))+C
+    */
     public CompactSpacePoint getCircumCenter() {
         long bpx_ = (long)secondPoint.getXcoords() - firstPoint.getXcoords();
         long cpx_ = (long)thirdPoint.getXcoords() - firstPoint.getXcoords();
