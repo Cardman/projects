@@ -58,4 +58,8 @@ public final class ScriptsTest extends EquallableExUtil {
         PkScriptPages.initAnaProg(d_);
         assertNotNull(d_.getMessagesFolder());
     }
+    @Test
+    public void help() {
+        assertNotNull(HelpScriptConfPages.infoLg());
+    }
 }

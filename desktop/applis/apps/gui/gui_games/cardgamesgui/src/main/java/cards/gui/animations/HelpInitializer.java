@@ -4,9 +4,8 @@ import cards.gui.dialogs.FileConst;
 import cards.gui.dialogs.help.ElementHelp;
 import cards.gui.dialogs.help.HelpIndexes;
 import cards.gui.dialogs.help.beans.GeneralHelpLgNames;
-import code.resources.ResourceFiles;
+import code.scripts.confs.HelpScriptConfPages;
 import code.sml.Document;
-import code.sml.DocumentBuilder;
 import code.sml.Element;
 import code.sml.Node;
 import code.stream.StreamTextFile;
@@ -25,15 +24,12 @@ public final class HelpInitializer implements Runnable {
 
     private static final String TEXTE = "texte";
 
-    private static final String XML_FILE_PATHS = "chemin_acces_aide.xml";
-
-    private StringMap<ObjectMap<HelpIndexes,ElementHelp>> trees = new StringMap<ObjectMap<HelpIndexes, ElementHelp>>();
+    private final StringMap<ObjectMap<HelpIndexes,ElementHelp>> trees = new StringMap<ObjectMap<HelpIndexes, ElementHelp>>();
     @Override
     public void run() {
         for (String l:Constants.getAvailableLanguages()) {
             ObjectMap<HelpIndexes,ElementHelp> tree_ = new ObjectMap<HelpIndexes,ElementHelp>();
-            Document doc_ = DocumentBuilder.parseSax(ResourceFiles.ressourceFichier(StringUtil.concat(FileConst.RESOURCES_HELP,StreamTextFile.SEPARATEUR,l,
-                    StreamTextFile.SEPARATEUR,XML_FILE_PATHS)));
+            Document doc_ = HelpScriptConfPages.infoLg().getVal(l);
             Element element_ = doc_.getDocumentElement();
             CustList<Node> noeudsActuels_ = new CustList<Node>();
             noeudsActuels_.add(element_);
