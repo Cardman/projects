@@ -61,6 +61,7 @@ import aiki.fight.moves.enums.SwitchType;
 import aiki.fight.moves.enums.TargetChoice;
 import aiki.fight.pokemon.PokemonData;
 import aiki.fight.util.LevelMove;
+import code.maths.ComparatorLgInt;
 import code.maths.LgInt;
 import code.maths.Rate;
 import code.util.NatCmpTreeMap;
@@ -121,7 +122,7 @@ public class MoveBean extends CommonBean {
     private Ints effects;
     private short nbPrepaRound;
     private boolean disappearBeforeUse;
-    private NatCmpTreeMap<LgInt,Rate> repeatRoundLaw;
+    private TreeMap<LgInt,Rate> repeatRoundLaw;
     private short rankIncrementNbRound;
     private boolean rechargeRound;
     private boolean constUserChoice;
@@ -341,8 +342,8 @@ public class MoveBean extends CommonBean {
             effects_.add(i);
         }
         effects = effects_;
-        NatCmpTreeMap<LgInt, Rate> repeatRoundLaw_;
-        repeatRoundLaw_ = new NatCmpTreeMap<LgInt, Rate>();
+        TreeMap<LgInt, Rate> repeatRoundLaw_;
+        repeatRoundLaw_ = new TreeMap<LgInt, Rate>(new ComparatorLgInt());
         for (Rate r: moveData_.getRepeatRoundLaw().events()) {
             repeatRoundLaw_.put(r.intPart(), moveData_.getRepeatRoundLaw().normalizedRate(r));
         }
@@ -1129,7 +1130,7 @@ public class MoveBean extends CommonBean {
         return rankIncrementNbRound;
     }
 
-    public NatCmpTreeMap<LgInt,Rate> getRepeatRoundLaw() {
+    public TreeMap<LgInt,Rate> getRepeatRoundLaw() {
         return repeatRoundLaw;
     }
 

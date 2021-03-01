@@ -44,6 +44,7 @@ import aiki.util.Coords;
 import aiki.util.LevelPoint;
 import aiki.util.Point;
 import code.images.BaseSixtyFourUtil;
+import code.maths.ComparatorRate;
 import code.maths.LgInt;
 import code.maths.Rate;
 import code.maths.montecarlo.MonteCarloNumber;
@@ -67,9 +68,9 @@ public class SimulationBean extends CommonBean {
     private Rate winTrainerExp;
     private TreeMap<String, String> damageRates;
     private String damageRatePlayer;
-    private NatCmpTreeMap<Rate,Rate> damageRatePlayerTable;
+    private TreeMap<Rate,Rate> damageRatePlayerTable;
     private String damageRateLawFoe;
-    private NatCmpTreeMap<Rate,Rate> damageRateFoeTable;
+    private TreeMap<Rate,Rate> damageRateFoeTable;
     private boolean endFightIfOneTeamKo;
     private Rate rateWinMoneyBase;
     private Rate rateLooseMoneyWin;
@@ -173,13 +174,13 @@ public class SimulationBean extends CommonBean {
             skipLearningMovesWhileNotGrowingLevel = difficulty.isSkipLearningMovesWhileNotGrowingLevel();
             damageRatePlayer = difficulty.getDamageRatePlayer().name();
             damageRateLawFoe = difficulty.getDamageRateLawFoe().name();
-            damageRatePlayerTable = new NatCmpTreeMap<Rate, Rate>();
+            damageRatePlayerTable = new TreeMap<Rate, Rate>(new ComparatorRate());
             MonteCarloNumber law_;
             law_ = data_.getLawsDamageRate().getVal(PokemonStandards.getModelByName(damageRatePlayer)).getLaw();
             for (Rate e: law_.events()) {
                 damageRatePlayerTable.put(e, law_.normalizedRate(e));
             }
-            damageRateFoeTable = new NatCmpTreeMap<Rate, Rate>();
+            damageRateFoeTable = new TreeMap<Rate, Rate>(new ComparatorRate());
             law_ = data_.getLawsDamageRate().getVal(PokemonStandards.getModelByName(damageRateLawFoe)).getLaw();
             for (Rate e: law_.events()) {
                 damageRateFoeTable.put(e, law_.normalizedRate(e));
@@ -1692,7 +1693,7 @@ public class SimulationBean extends CommonBean {
         damageRatePlayer = _damageRatePlayer;
     }
 
-    public NatCmpTreeMap<Rate,Rate> getDamageRatePlayerTable() {
+    public TreeMap<Rate,Rate> getDamageRatePlayerTable() {
         return damageRatePlayerTable;
     }
 
@@ -1704,7 +1705,7 @@ public class SimulationBean extends CommonBean {
         damageRateLawFoe = _damageRateLawFoe;
     }
 
-    public NatCmpTreeMap<Rate,Rate> getDamageRateFoeTable() {
+    public TreeMap<Rate,Rate> getDamageRateFoeTable() {
         return damageRateFoeTable;
     }
 

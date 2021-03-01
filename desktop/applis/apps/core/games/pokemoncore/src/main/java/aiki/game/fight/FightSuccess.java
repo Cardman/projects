@@ -479,17 +479,17 @@ final class FightSuccess {
         StringMap<String> variables_;
         variables_ = FightValues.calculateValues(_fight,_lanceur,_cible,_import);
         precision_ = _import.evaluateNumericable(fAttaque_.getAccuracy(), variables_, precision_);
-        SortableCustList<Rate> rates_ = new SortableCustList<Rate>();
-        rates_.add(precision_);
-        rates_.add(Rate.zero());
+//        SortableCustList<Rate> rates_ = new SortableCustList<Rate>();
+//        rates_.add(precision_);
+//        rates_.add(Rate.zero());
 //        rates_.sort(new NaturalComparator<Rate>() {
 //            @Override
 //            public int compare(Rate _o1, Rate _o2) {
 //                return _o1.compareTo(_o2);
 //            }
 //        });
-        rates_.sort();
-        if (rates_.last().isZero()) {
+//        rates_.sort();
+        if (precision_.isZeroOrLt()) {
             //en:case negative or zero
             //fr:cas negatif ou nul
             return Rate.zero();
@@ -1289,12 +1289,20 @@ final class FightSuccess {
         Fighter creature_=_fight.getFighter(_combattant);
         LgInt somme_=_loi.sum();
         Rate sommePartielle_=Rate.zero();
-        for(String e:_loi.events()){
-            if(e.isEmpty()){
+        int nb_ = _loi.nbEvents();
+        for (int i = 0; i < nb_; i++) {
+            String e_ = _loi.getEvent(i);
+            if(e_.isEmpty()){
                 continue;
             }
-            sommePartielle_.addNb(new Rate(_loi.rate(e)));
+            sommePartielle_.addNb(new Rate(_loi.getFreq(i)));
         }
+//        for(String e:_loi.events()){
+//            if(e.isEmpty()){
+//                continue;
+//            }
+//            sommePartielle_.addNb(new Rate(_loi.rate(e)));
+//        }
         Rate coeff_=DataBase.defRateProduct();
         if(creature_.capaciteActive()){
             AbilityData fCapac_=creature_.ficheCapaciteActuelle(_import);
@@ -1307,21 +1315,36 @@ final class FightSuccess {
         sommePartielle_.multiplyBy(rate_);
         coeff_.multiplyBy(rate_);
         if(Rate.greaterEq(sommePartielle_,new Rate(somme_))){
-            for(String e:_loi.events()){
-                if(e.isEmpty()){
+            for (int i = 0; i < nb_; i++) {
+                String e_ = _loi.getEvent(i);
+                if(e_.isEmpty()){
                     continue;
                 }
-                retour_.addQuickEvent(e,_loi.rate(e));
+                retour_.addQuickEvent(e_,_loi.getFreq(i));
             }
+//            for(String e:_loi.events()){
+//                if(e.isEmpty()){
+//                    continue;
+//                }
+//                retour_.addQuickEvent(e,_loi.rate(e));
+//            }
             return retour_;
         }
-        for(String e:_loi.events()){
-            if(e.isEmpty()){
-                retour_.addQuickEvent(e,Rate.minus(new Rate(somme_),sommePartielle_).intPart());
+        for (int i = 0; i < nb_; i++) {
+            String e_ = _loi.getEvent(i);
+            if(e_.isEmpty()){
+                retour_.addQuickEvent(e_,Rate.minus(new Rate(somme_),sommePartielle_).intPart());
                 continue;
             }
-            retour_.addQuickEvent(e,LgInt.multiply(_loi.rate(e),coeff_.intPart()));
+            retour_.addQuickEvent(e_,LgInt.multiply(_loi.getFreq(i),coeff_.intPart()));
         }
+//        for(String e:_loi.events()){
+//            if(e.isEmpty()){
+//                retour_.addQuickEvent(e,Rate.minus(new Rate(somme_),sommePartielle_).intPart());
+//                continue;
+//            }
+//            retour_.addQuickEvent(e,LgInt.multiply(_loi.rate(e),coeff_.intPart()));
+//        }
         return retour_;
     }
 

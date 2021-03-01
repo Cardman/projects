@@ -228,17 +228,18 @@ final class FightArtificialIntelligence {
         for(TeamPosition f: FightOrder.fighters(_fight, Fight.CST_PLAYER)){
             Fighter partner_ = _fight.getFighter(f);
             Rate remoteHpPartner_ = partner_.getRemainingHp();
-            SortableCustList<Rate> rates_ = new SortableCustList<Rate>();
-            rates_.add(FightSuccess.accuracy(_fight,_thrower, f, _move, _import));
-            rates_.add(Rate.zero());
+//            SortableCustList<Rate> rates_ = new SortableCustList<Rate>();
+            Rate acc_ = FightSuccess.accuracy(_fight, _thrower, f, _move, _import);
+//            rates_.add(acc_);
+//            rates_.add(Rate.zero());
 //            rates_.sort(new NaturalComparator<Rate>() {
 //                @Override
 //                public int compare(Rate _o1, Rate _o2) {
 //                    return _o1.compareTo(_o2);
 //                }
 //            });
-            rates_.sort();
-            if (rates_.last().isZero()) {
+//            rates_.sort();
+            if (acc_.isZeroOrLt()) {
                 remoteHpLoc_.put(f, remoteHpPartner_);
                 continue;
             }

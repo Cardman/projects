@@ -11,7 +11,7 @@ import code.util.ints.Equallable;
 public final class Polynom implements Equallable<Polynom>, Displayable {
 
     private static final String SEPARATOR = " ";
-    private EqList<Rate> numbers = new EqList<Rate>();
+    private CustList<Rate> numbers = new CustList<Rate>();
 
     public Polynom() {
         this(Rate.zero());
@@ -224,12 +224,12 @@ public final class Polynom implements Equallable<Polynom>, Displayable {
     }
 
     public boolean isEqualTo(Polynom _o) {
-        return numbers.eq(_o.numbers);
+        return Rate.eq(numbers,_o.numbers);
     }
 
     @Override
     public boolean eq(Polynom _o) {
-        return numbers.eq(_o.numbers);
+        return Rate.eq(numbers,_o.numbers);
     }
 
     public int size() {
@@ -348,8 +348,8 @@ public final class Polynom implements Equallable<Polynom>, Displayable {
         for(Rate r:numbers) {
             polEnt_.add(Rate.multiply(r, new Rate(ppcmDenom_)));
         }
-        EqList<LgInt> mainDivs_=polEnt_.get(0).getDividersNumerator();
-        EqList<LgInt> cstDivs_=polEnt_.get((int) deg_).getDividersNumerator();
+        CustList<LgInt> mainDivs_=polEnt_.get(0).getDividersNumerator();
+        CustList<LgInt> cstDivs_=polEnt_.get((int) deg_).getDividersNumerator();
         Polynom pairPol_ = new Polynom();
         Polynom impairPol_ = new Polynom();
         if(deg_%2==0) {
@@ -372,7 +372,7 @@ public final class Polynom implements Equallable<Polynom>, Displayable {
         }
     }
 
-    private static CustList<RootPol> loop(CustList<RootPol> _r, long _deg, EqList<LgInt> _mainDivs, EqList<LgInt> _cstDivs, Polynom _pairPol, Polynom _impairPol) {
+    private static CustList<RootPol> loop(CustList<RootPol> _r, long _deg, CustList<LgInt> _mainDivs, CustList<LgInt> _cstDivs, Polynom _pairPol, Polynom _impairPol) {
         ProcRoot pr_ = new ProcRoot();
         for(LgInt m: _mainDivs) {
             for(LgInt c: _cstDivs) {

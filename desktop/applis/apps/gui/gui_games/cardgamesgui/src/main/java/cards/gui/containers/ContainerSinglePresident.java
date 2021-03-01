@@ -52,7 +52,6 @@ import code.gui.document.RenderedPage;
 import code.maths.Rate;
 import code.stream.StreamTextFile;
 import code.util.CustList;
-import code.util.EqList;
 import code.util.*;
 import code.util.StringList;
 import code.util.TreeMap;
@@ -604,9 +603,9 @@ public class ContainerSinglePresident extends ContainerPresident implements
             if(nombreJoueurs_>9) {
                 couleurs_.add(new Color(128,0,255));
             }
-            Graphic graphique_=new Graphic(getScores(),new Longs(res_.getSums()),new EqList<Rate>(res_.getSigmas()),couleurs_);
+            Graphic graphique_=new Graphic(getScores(),new Longs(res_.getSums()),new CustList<Rate>(res_.getSigmas()),couleurs_);
             Rate derniereMoyenne_=new Rate(res_.getSums().last(),nombreJoueurs_);
-            EqList<Rate> scoresCentresMoyenne_=new EqList<Rate>();
+            CustList<Rate> scoresCentresMoyenne_=new CustList<Rate>();
             for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_<nombreJoueurs_; joueur_++) {
                 scoresCentresMoyenne_.add(Rate.minus(new Rate(getScores().last().get(joueur_)), derniereMoyenne_));
             }

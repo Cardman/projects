@@ -6,13 +6,11 @@ import java.math.RoundingMode;
 
 import code.util.GenericNumbers;
 import code.util.core.IndexConstants;
-import code.util.ints.Cmp;
 import code.util.ints.Displayable;
 
-public final class BigDec implements Cmp<BigDec>, Displayable {
+public final class BigDec implements Displayable {
 
     private static final String DOTTED_TENTH = "0.1";
-    private static final int ROUNDING_MODE = BigDecimal.ROUND_HALF_DOWN;
     private static final int DEFAULT_DIGITS = 64;
     private static final int SCALE = DEFAULT_DIGITS;
 
@@ -39,7 +37,6 @@ public final class BigDec implements Cmp<BigDec>, Displayable {
         return new BigDec(_arg);
     }
 
-    @Override
     public int cmp(BigDec _o) {
         return number.compareTo(_o.number);
     }
@@ -77,7 +74,7 @@ public final class BigDec implements Cmp<BigDec>, Displayable {
     }
 
     public BigDec divide(BigDec _divisor, int _scale, int _roundingMode) {
-        return new BigDec(number.divide(_divisor.number, _scale, _roundingMode));
+        return new BigDec(number.divide(_divisor.number, _scale, RoundingMode.valueOf(_roundingMode)));
     }
 
     public BigDec divide(BigDec _divisor, int _scale,
@@ -86,7 +83,7 @@ public final class BigDec implements Cmp<BigDec>, Displayable {
     }
 
     public BigDec divide(BigDec _divisor, int _roundingMode) {
-        return new BigDec(number.divide(_divisor.number, _roundingMode));
+        return new BigDec(number.divide(_divisor.number, RoundingMode.valueOf(_roundingMode)));
     }
 
     public BigDec divide(BigDec _divisor, RoundingMode _roundingMode) {
@@ -94,7 +91,7 @@ public final class BigDec implements Cmp<BigDec>, Displayable {
     }
 
     public BigDec divide(BigDec _divisor) {
-        return new BigDec(number.divide(_divisor.number));
+        return new BigDec(number.divide(_divisor.number,RoundingMode.UNNECESSARY));
     }
 
     public BigDec divide(BigDec _divisor, MathContext _mc) {
@@ -164,18 +161,18 @@ public final class BigDec implements Cmp<BigDec>, Displayable {
         while (x_.subtract(xPrev_).abs().compareTo(_p) > 0) {
             xPrev_ = x_;
             x_ = cst_.multiply(x_)
-                    .add(number.divide(x_.pow(_n - 1), SCALE, ROUNDING_MODE))
-                    .divide(n_, SCALE, ROUNDING_MODE);
+                    .add(number.divide(x_.pow(_n - 1), SCALE, RoundingMode.HALF_DOWN))
+                    .divide(n_, SCALE, RoundingMode.HALF_DOWN);
         }
         return new BigDec(x_);
     }
 
     public BigDec powInv(int _n) {
-        return new BigDec(BigDecimal.ONE.divide(number.pow(_n)));
+        return new BigDec(BigDecimal.ONE.divide(number.pow(_n),RoundingMode.UNNECESSARY));
     }
 
     public BigDec powInv(int _n, MathContext _mc) {
-        return new BigDec(BigDecimal.ONE.divide(number.pow(_n, _mc)));
+        return new BigDec(BigDecimal.ONE.divide(number.pow(_n, _mc),RoundingMode.UNNECESSARY));
     }
 
     public BigDec pow(int _n) {
@@ -235,11 +232,11 @@ public final class BigDec implements Cmp<BigDec>, Displayable {
     }
 
     public BigDec setScale(int _newScale, int _roundingMode) {
-        return new BigDec(number.setScale(_newScale, _roundingMode));
+        return setScale(_newScale,RoundingMode.valueOf(_roundingMode));
     }
 
     public BigDec setScale(int _newScale) {
-        return new BigDec(number.setScale(_newScale));
+        return setScale(_newScale,RoundingMode.UNNECESSARY);
     }
 
     public BigDec movePointLeft(int _n) {
@@ -258,7 +255,6 @@ public final class BigDec implements Cmp<BigDec>, Displayable {
         return new BigDec(number.stripTrailingZeros());
     }
 
-    @Override
     public boolean eq(BigDec _o) {
         return GenericNumbers.eq(number, _o.number);
     }

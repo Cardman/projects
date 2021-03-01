@@ -3,6 +3,7 @@ import aiki.beans.facade.comparators.ComparatorTrStringStatistic;
 import aiki.db.DataBase;
 import aiki.fight.enums.Statistic;
 import aiki.fight.moves.effects.EffectDamage;
+import code.maths.ComparatorRate;
 import code.maths.Rate;
 import code.util.EnumList;
 import code.util.EnumMap;
@@ -18,7 +19,7 @@ public class EffectDamageBean extends EffectBean {
     private boolean constDamage;
     private NatStringTreeMap< Rate> damageLaw;
     private NatStringTreeMap< Rate> multDamageAgainst;
-    private NatCmpTreeMap<Rate, Rate> chLaw;
+    private TreeMap<Rate, Rate> chLaw;
     private LongTreeMap< Rate> hitsLaw;
     private long nbHits;
     private String power;
@@ -37,7 +38,7 @@ public class EffectDamageBean extends EffectBean {
     public void beforeDisplaying() {
         super.beforeDisplaying();
         EffectDamage effect_ = (EffectDamage) getEffect();
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         StringMap<String> translatedCategories_ = data_.getTranslatedCategories().getVal(getLanguage());
         constDamage = effect_.getConstDamage();
 //        Map<String,String> loc_ = new Map<>();
@@ -94,8 +95,8 @@ public class EffectDamageBean extends EffectBean {
             hitsLaw = new LongTreeMap< Rate>();
         }
         chRate = effect_.getChRate();
-        NatCmpTreeMap<Rate, Rate> chLaw_;
-        chLaw_ = new NatCmpTreeMap<Rate, Rate>();
+        TreeMap<Rate, Rate> chLaw_;
+        chLaw_ = new TreeMap<Rate, Rate>(new ComparatorRate());
         for (Rate e: effect_.getChLaw().events()) {
             chLaw_.put(e, effect_.getChLaw().normalizedRate(e));
         }
@@ -159,19 +160,19 @@ public class EffectDamageBean extends EffectBean {
     }
     public String getTranslatedStatisTarget(int _index) {
         Statistic st_ = ignVarStatTargetPos.get(_index);
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         EnumMap<Statistic,String> translatedStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
         return translatedStatistics_.getVal(st_);
     }
     public String getTranslatedStatisUser(int _index) {
         Statistic st_ = ignVarStatUserNeg.get(_index);
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         EnumMap<Statistic,String> translatedStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
         return translatedStatistics_.getVal(st_);
     }
     public String getTranslatedStatisKo(int _index) {
         Statistic st_ = boostStatisOnceKoFoe.getKey(_index);
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         EnumMap<Statistic,String> translatedStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
         return translatedStatistics_.getVal(st_);
     }
@@ -208,7 +209,7 @@ public class EffectDamageBean extends EffectBean {
         return chRate;
     }
 
-    public NatCmpTreeMap<Rate,Rate> getChLaw() {
+    public TreeMap<Rate,Rate> getChLaw() {
         return chLaw;
     }
 

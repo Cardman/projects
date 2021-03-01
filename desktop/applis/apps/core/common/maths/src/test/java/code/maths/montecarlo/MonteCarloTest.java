@@ -2,6 +2,7 @@ package code.maths.montecarlo;
 
 import code.maths.EquallableMathUtil;
 import code.util.CollCapacity;
+import code.util.CustList;
 import org.junit.Test;
 
 import code.maths.LgInt;
@@ -112,7 +113,7 @@ public class MonteCarloTest extends EquallableMathUtil {
 
     @Test
     public void randomNumber1Test() {
-        EqList<LgInt> list_ = new EqList<LgInt>();
+        CustList<LgInt> list_ = new CustList<LgInt>();
         list_.add(LgInt.zero());
         list_.add(LgInt.zero());
         list_.add(LgInt.zero());
@@ -122,7 +123,7 @@ public class MonteCarloTest extends EquallableMathUtil {
 
     @Test
     public void randomNumber2Test() {
-        EqList<LgInt> list_ = new EqList<LgInt>();
+        CustList<LgInt> list_ = new CustList<LgInt>();
         list_.add(LgInt.zero());
         list_.add(LgInt.zero());
         list_.add(LgInt.one());
@@ -132,7 +133,7 @@ public class MonteCarloTest extends EquallableMathUtil {
 
     @Test
     public void randomNumber3Test() {
-        EqList<LgInt> list_ = new EqList<LgInt>();
+        CustList<LgInt> list_ = new CustList<LgInt>();
         LgInt int_ = new LgInt(Long.MAX_VALUE);
         list_.add(LgInt.zero());
         list_.add(LgInt.zero());

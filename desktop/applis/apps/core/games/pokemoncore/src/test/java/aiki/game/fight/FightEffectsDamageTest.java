@@ -1,5 +1,6 @@
 package aiki.game.fight;
 
+import code.maths.montecarlo.MonteCarloList;
 import code.util.core.StringUtil;
 import org.junit.Test;
 
@@ -1682,7 +1683,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         assertEq(1, laws_.getNumberHits().size());
         MonteCarloNumber law_;
         law_ = laws_.getBase().getVal(thrower_);
-        assertEq(1, law_.nbEvents());
+        assertEq(1, nbEvents(law_));
         assertTrue(law_.containsEvent(new Rate("46/5")));
         law_ = laws_.getRandomRate();
         assertEq(1, law_.nbEvents());
@@ -5552,5 +5553,20 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         assertEq(new Rate("27472/4465"),fight_.getDamageKo());
         assertTrue(fight_.getDamage().isCriticalHit());
         assertTrue(fight_.getAcceptableChoices());
+    }
+    private static int nbEvents(MonteCarloNumber _monte) {
+        CustList<Rate> evts_ = new CustList<Rate>();
+        for (Rate e: _monte.events()) {
+            boolean add_ = true;
+            for (Rate f: evts_) {
+                if (e.eq(f)) {
+                    add_ = false;
+                }
+            }
+            if (add_) {
+                evts_.add(e);
+            }
+        }
+        return evts_.size();
     }
 }

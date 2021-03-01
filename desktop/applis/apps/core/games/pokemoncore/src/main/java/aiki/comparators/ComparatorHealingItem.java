@@ -1,12 +1,6 @@
 package aiki.comparators;
-import aiki.facade.BooleanFieldComparator;
-import aiki.facade.FieldCustComparator;
-import aiki.facade.LongFieldComparator;
-import aiki.facade.Pagination;
-import aiki.facade.StringFieldComparator;
+import aiki.facade.*;
 import aiki.util.SortingHealingItem;
-import code.maths.LgInt;
-import code.maths.Rate;
 import code.util.core.NumberUtil;
 import code.util.core.SortConstants;
 import code.util.ints.Comparing;
@@ -23,13 +17,13 @@ public final class ComparatorHealingItem implements Comparing<SortingHealingItem
 
     private BooleanFieldComparator cmpRelativeRateHp = new BooleanFieldComparator();
 
-    private FieldCustComparator<Rate> cmpHp = new FieldCustComparator<Rate>();
+    private RateFieldComparator cmpHp = new RateFieldComparator();
 
-    private FieldCustComparator<Rate> cmpRateHp = new FieldCustComparator<Rate>();
+    private RateFieldComparator cmpRateHp = new RateFieldComparator();
 
     private BooleanFieldComparator cmpRelativeRatePp = new BooleanFieldComparator();
 
-    private FieldCustComparator<Rate> cmpPp = new FieldCustComparator<Rate>();
+    private RateFieldComparator cmpPp = new RateFieldComparator();
 
     private BooleanFieldComparator cmpHealOneMove = new BooleanFieldComparator();
 
@@ -37,7 +31,7 @@ public final class ComparatorHealingItem implements Comparing<SortingHealingItem
 
     private BooleanFieldComparator cmpKo = new BooleanFieldComparator();
 
-    private FieldCustComparator<LgInt> cmpNumber = new FieldCustComparator<LgInt>();
+    private LgIntFieldComparator cmpNumber = new LgIntFieldComparator();
 
     private final int nbComparators;
 
@@ -50,12 +44,12 @@ public final class ComparatorHealingItem implements Comparing<SortingHealingItem
             LongFieldComparator _cmpPrice,
             LongFieldComparator _cmpNbHealedStatus,
             BooleanFieldComparator _cmpRelativeRateHp,
-            FieldCustComparator<Rate> _cmpHp, FieldCustComparator<Rate> _cmpRateHp,
+            RateFieldComparator _cmpHp, RateFieldComparator _cmpRateHp,
             BooleanFieldComparator _cmpRelativeRatePp,
-            FieldCustComparator<Rate> _cmpPp,
+            RateFieldComparator _cmpPp,
             BooleanFieldComparator _cmpHealOneMove,
             LongFieldComparator _cmpStatistics,
-            BooleanFieldComparator _cmpKo, FieldCustComparator<LgInt> _cmpNumber,
+            BooleanFieldComparator _cmpKo, LgIntFieldComparator _cmpNumber,
             int _nbComparators) {
         cmpName = _cmpName;
         cmpDescription = _cmpDescription;

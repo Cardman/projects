@@ -1,8 +1,5 @@
 package aiki.comparators;
-import aiki.facade.FieldCustComparator;
-import aiki.facade.LongFieldComparator;
-import aiki.facade.Pagination;
-import aiki.facade.StringFieldComparator;
+import aiki.facade.*;
 import aiki.util.SortingItem;
 import code.maths.LgInt;
 import code.util.core.NumberUtil;
@@ -17,7 +14,7 @@ public final class ComparatorItem implements Comparing<SortingItem> {
 
     private StringFieldComparator cmpDescription = new StringFieldComparator();
 
-    private FieldCustComparator<LgInt> cmpNumber = new FieldCustComparator<LgInt>();
+    private LgIntFieldComparator cmpNumber = new LgIntFieldComparator();
 
     private final int nbComparators;
 
@@ -26,9 +23,9 @@ public final class ComparatorItem implements Comparing<SortingItem> {
     }
 
     public ComparatorItem(StringFieldComparator _cmpName,
-            LongFieldComparator _cmpPrice,
-            StringFieldComparator _cmpDescription,
-            FieldCustComparator<LgInt> _cmpNumber, int _nbComparators) {
+                          LongFieldComparator _cmpPrice,
+                          StringFieldComparator _cmpDescription,
+                          LgIntFieldComparator _cmpNumber, int _nbComparators) {
         cmpName = _cmpName;
         cmpPrice = _cmpPrice;
         cmpDescription = _cmpDescription;

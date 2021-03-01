@@ -5,6 +5,7 @@ import aiki.db.DataBase;
 import aiki.fight.enums.Statistic;
 import aiki.fight.moves.effects.EffectCombo;
 import aiki.fight.moves.effects.EffectEndRound;
+import code.maths.ComparatorLgInt;
 import code.maths.LgInt;
 import code.maths.Rate;
 import code.util.EnumMap;
@@ -20,7 +21,7 @@ public class EffectComboBean extends CommonBean {
 
     private EffectCombo effect;
     private Rate multEvtRateSecEff;
-    private NatCmpTreeMap<LgInt,Rate> repeatedRoundsLaw;
+    private TreeMap<LgInt,Rate> repeatedRoundsLaw;
     private short rankIncrementNbRound;
     private boolean endRound;
     private int endRoundRank;
@@ -30,7 +31,7 @@ public class EffectComboBean extends CommonBean {
 
     @Override
     public void beforeDisplaying() {
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         moves = new StringList();
         for (String m: combos.getKey(index)) {
             moves.add(data_.translateMove(m));
@@ -60,15 +61,15 @@ public class EffectComboBean extends CommonBean {
         }
         multEvtRateSecEff = effect.getMultEvtRateSecEff();
         rankIncrementNbRound = effect.getRankIncrementNbRound();
-        NatCmpTreeMap<LgInt,Rate> repeatedRoundsLaw_;
-        repeatedRoundsLaw_ = new NatCmpTreeMap<LgInt, Rate>();
+        TreeMap<LgInt,Rate> repeatedRoundsLaw_;
+        repeatedRoundsLaw_ = new TreeMap<LgInt, Rate>(new ComparatorLgInt());
         for (Rate e: effect.getRepeatedRoundsLaw().events()) {
             repeatedRoundsLaw_.put(e.intPart(), effect.getRepeatedRoundsLaw().normalizedRate(e));
         }
         repeatedRoundsLaw = repeatedRoundsLaw_;
     }
     public String getTrStatistic(int _index) {
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         EnumMap<Statistic,String> translatedStatistics_;
         translatedStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
         Statistic stat_ = multStatisticFoe.getKey(_index);
@@ -120,7 +121,7 @@ public class EffectComboBean extends CommonBean {
         return rankIncrementNbRound;
     }
 
-    public NatCmpTreeMap<LgInt,Rate> getRepeatedRoundsLaw() {
+    public TreeMap<LgInt,Rate> getRepeatedRoundsLaw() {
         return repeatedRoundsLaw;
     }
 

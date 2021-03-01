@@ -2936,10 +2936,10 @@ public final class PokemonStandards extends BeanNatLgNames {
         return arr_;
     }
 
-    public static ArrayStruct getBigNatMap(ContextEl _cont, AbsMap<String, NatCmpTreeMap<Rate, Rate>> _map) {
+    public static ArrayStruct getBigNatMap(ContextEl _cont, AbsMap<String, AbsBasicTreeMap<Rate, Rate>> _map) {
         ArrayStruct arr_ = new ArrayStruct(_map.size(), StringExpUtil.getPrettyArrayType(_cont.getStandards().getCoreNames().getAliasObject()));
         int j_ = 0;
-        for (EntryCust<String, NatCmpTreeMap<Rate, Rate>> e:_map.entryList()) {
+        for (EntryCust<String, AbsBasicTreeMap<Rate, Rate>> e:_map.entryList()) {
             PairStruct p_ = new PairStruct(_cont.getStandards().getCoreNames().getAliasObject(),new StringStruct(e.getKey()),getRateRate(_cont,e.getValue()));
             arr_.set(j_,p_);
             j_++;

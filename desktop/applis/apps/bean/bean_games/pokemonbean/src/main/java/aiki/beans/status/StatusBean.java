@@ -11,6 +11,7 @@ import aiki.fight.status.StatusBeginRoundAutoDamage;
 import aiki.fight.status.StatusType;
 import aiki.fight.status.effects.EffectPartnerStatus;
 import code.images.BaseSixtyFourUtil;
+import code.maths.ComparatorLgInt;
 import code.maths.LgInt;
 import code.maths.Rate;
 import code.util.CustList;
@@ -41,7 +42,7 @@ public class StatusBean extends CommonBean {
     private NatStringTreeMap<String> mapVarsFailEndRound;
     private Rate rateForUsingAMove;
     private boolean notAttack;
-    private NatCmpTreeMap<LgInt,Rate> lawForUsingAMoveNbRound;
+    private TreeMap<LgInt,Rate> lawForUsingAMoveNbRound;
     private Rate rateForUsingAMoveIfFoe;
     private boolean notAttackFoe;
     private Rate rateForFullHealIfMove;
@@ -127,8 +128,8 @@ public class StatusBean extends CommonBean {
             } else {
                 rateForFullHealIfMove = Rate.zero();
             }
-            NatCmpTreeMap<LgInt,Rate> lawForUsingAMoveNbRound_;
-            lawForUsingAMoveNbRound_ = new NatCmpTreeMap<LgInt, Rate>();
+            TreeMap<LgInt,Rate> lawForUsingAMoveNbRound_;
+            lawForUsingAMoveNbRound_ = new TreeMap<LgInt, Rate>(new ComparatorLgInt());
             for (Rate e: statusBegin_.getLawForUsingAMoveNbRound().events()) {
                 lawForUsingAMoveNbRound_.put(e.intPart(), statusBegin_.getLawForUsingAMoveNbRound().normalizedRate(e));
             }
@@ -146,7 +147,7 @@ public class StatusBean extends CommonBean {
             rateForUsingAMove = Rate.zero();
             rateForUsingAMoveIfFoe = Rate.zero();
             rateForFullHealIfMove = Rate.zero();
-            lawForUsingAMoveNbRound = new NatCmpTreeMap<LgInt, Rate>();
+            lawForUsingAMoveNbRound = new TreeMap<LgInt, Rate>(new ComparatorLgInt());
             power = Rate.zero();
         }
     }
@@ -252,7 +253,7 @@ public class StatusBean extends CommonBean {
         return rateForFullHealIfMove;
     }
 
-    public NatCmpTreeMap<LgInt,Rate> getLawForUsingAMoveNbRound() {
+    public TreeMap<LgInt,Rate> getLawForUsingAMoveNbRound() {
         return lawForUsingAMoveNbRound;
     }
 

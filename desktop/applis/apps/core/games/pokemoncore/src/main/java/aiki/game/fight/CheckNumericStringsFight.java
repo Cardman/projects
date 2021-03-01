@@ -579,7 +579,7 @@ public final class CheckNumericStringsFight {
         long defBoost_ = _data.getDefaultBoost();
         long maxBoost_ = _data.getMaxBoost();
         String rateBoost_ = _data.getRateBoost();
-        EqList<Rate> ratesBoost_ = new EqList<Rate>();
+        CustList<Rate> ratesBoost_ = new CustList<Rate>();
         for (long b = minBoost_; b <= maxBoost_; b++) {
             StringMap<String> variables_ = new StringMap<String>();
             variables_.put(StringUtil.concat(DataBase.VAR_PREFIX, Fight.BOOST),
@@ -597,7 +597,7 @@ public final class CheckNumericStringsFight {
         }
         checkIncr(_data, ratesBoost_);
         rateBoost_ = _data.getRateBoostCriticalHit();
-        ratesBoost_ = new EqList<Rate>();
+        ratesBoost_ = new CustList<Rate>();
         for (long b = minBoost_; b <= maxBoost_; b++) {
             StringMap<String> variables_ = new StringMap<String>();
             variables_.put(StringUtil.concat(DataBase.VAR_PREFIX, Fight.BOOST),
@@ -611,12 +611,8 @@ public final class CheckNumericStringsFight {
         checkIncr(_data, ratesBoost_);
     }
 
-    private static void checkIfNeg(DataBase _data, EqList<Rate> _ratesBoost, Rate _res) {
-        SortableCustList<Rate> rates_ = new SortableCustList<Rate>();
-        rates_.add(_res);
-        rates_.add(Rate.zero());
-        rates_.sort();
-        if (rates_.last().isZero()) {
+    private static void checkIfNeg(DataBase _data, CustList<Rate> _ratesBoost, Rate _res) {
+        if (_res.isZeroOrLt()) {
             _data.setError(true);
         }
         _ratesBoost.add(_res);
@@ -629,7 +625,7 @@ public final class CheckNumericStringsFight {
         }
         return _e.getResult();
     }
-    private static void checkIncr(DataBase _data, EqList<Rate> _ratesBoost) {
+    private static void checkIncr(DataBase _data, CustList<Rate> _ratesBoost) {
         int nbRates_ = _ratesBoost.size();
         for (int i = IndexConstants.SECOND_INDEX; i < nbRates_; i++) {
             if (Rate.greaterEq(_ratesBoost.get(i - 1), _ratesBoost.get(i))) {

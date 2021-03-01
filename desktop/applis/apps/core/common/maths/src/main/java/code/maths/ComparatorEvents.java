@@ -1,13 +1,13 @@
 package code.maths;
-import code.util.SortableCustList;
+import code.util.CustList;
 import code.util.core.IndexConstants;
 import code.util.core.SortConstants;
 import code.util.ints.Comparing;
 
-public final class ComparatorEvents implements Comparing<SortableCustList<LgInt>> {
+public final class ComparatorEvents implements Comparing<CustList<LgInt>> {
 
     @Override
-    public int compare(SortableCustList<LgInt> _o1, SortableCustList<LgInt> _o2) {
+    public int compare(CustList<LgInt> _o1, CustList<LgInt> _o2) {
         int res_ = _o1.size() - _o2.size();
         if (res_ != SortConstants.EQ_CMP) {
             return res_;

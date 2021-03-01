@@ -1,14 +1,12 @@
 package code.maths;
 import code.maths.litteral.MathExpUtil;
-import code.util.EqList;
 import code.util.*;
 import code.util.StringList;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
-import code.util.ints.Cmp;
 import code.util.ints.Displayable;
 
-public final class Rate implements Cmp<Rate>, Displayable {
+public final class Rate implements Displayable {
 
     public static final char SEP_NUM_DEN_CHAR = '/';
 
@@ -325,7 +323,7 @@ public final class Rate implements Cmp<Rate>, Displayable {
         return p_;
     }
 
-    public static LgInt getPpcmDens(EqList<Rate> _numbers, int _maxIncludedIndex) {
+    public static LgInt getPpcmDens(CustList<Rate> _numbers, int _maxIncludedIndex) {
         Rate mainRate_=_numbers.first();
         LgInt ppcmDenom_=mainRate_.denominateur;
         for(int i = 1; i<= _maxIncludedIndex; i++) {
@@ -334,6 +332,18 @@ public final class Rate implements Cmp<Rate>, Displayable {
         return ppcmDenom_;
     }
 
+    public static boolean eq(CustList<Rate> _one, CustList<Rate> _two) {
+        if (_one.size() != _two.size()) {
+            return false;
+        }
+        int lenRate_ = _one.size();
+        for (int i = 0; i < lenRate_; i++) {
+            if (!_one.get(i).eq(_two.get(i))) {
+                return false;
+            }
+        }
+        return true;
+    }
     public LgInt getNumeratorCopy() {
         return new LgInt(numerateur);
     }
@@ -342,7 +352,7 @@ public final class Rate implements Cmp<Rate>, Displayable {
         return new LgInt(denominateur);
     }
 
-    public EqList<LgInt> getDividersNumerator() {
+    public CustList<LgInt> getDividersNumerator() {
         return numerateur.getDividers();
     }
 
@@ -626,7 +636,6 @@ public final class Rate implements Cmp<Rate>, Displayable {
         return _tx1.eq(_tx2);
     }
 
-    @Override
     public boolean eq(Rate _autre) {
         if (!numerateur.eq(_autre.numerateur)) {
             return false;
@@ -736,7 +745,6 @@ public final class Rate implements Cmp<Rate>, Displayable {
         return _min.cmp(this) <= 0;
     }
 
-    @Override
     public int cmp(Rate _autre) {
         if (strGreater(this, _autre)) {
             return 1;

@@ -30,31 +30,31 @@ public final class PaginationHealingItem extends
 
     public static final int NB_COMPARATORS = 13;
 
-    private StringFieldComparator cmpName = new StringFieldComparator();
+    private final StringFieldComparator cmpName = new StringFieldComparator();
 
-    private StringFieldComparator cmpDescription = new StringFieldComparator();
+    private final StringFieldComparator cmpDescription = new StringFieldComparator();
 
-    private LongFieldComparator cmpPrice = new LongFieldComparator();
+    private final LongFieldComparator cmpPrice = new LongFieldComparator();
 
-    private LongFieldComparator cmpNbHealedStatus = new LongFieldComparator();
+    private final LongFieldComparator cmpNbHealedStatus = new LongFieldComparator();
 
-    private BooleanFieldComparator cmpRelativeRateHp = new BooleanFieldComparator();
+    private final BooleanFieldComparator cmpRelativeRateHp = new BooleanFieldComparator();
 
-    private FieldCustComparator<Rate> cmpHp = new FieldCustComparator<Rate>();
+    private final RateFieldComparator cmpHp = new RateFieldComparator();
 
-    private FieldCustComparator<Rate> cmpRateHp = new FieldCustComparator<Rate>();
+    private final RateFieldComparator cmpRateHp = new RateFieldComparator();
 
-    private BooleanFieldComparator cmpRelativeRatePp = new BooleanFieldComparator();
+    private final BooleanFieldComparator cmpRelativeRatePp = new BooleanFieldComparator();
 
-    private FieldCustComparator<Rate> cmpPp = new FieldCustComparator<Rate>();
+    private final RateFieldComparator cmpPp = new RateFieldComparator();
 
-    private BooleanFieldComparator cmpHealOneMove = new BooleanFieldComparator();
+    private final BooleanFieldComparator cmpHealOneMove = new BooleanFieldComparator();
 
-    private LongFieldComparator cmpStatistics = new LongFieldComparator();
+    private final LongFieldComparator cmpStatistics = new LongFieldComparator();
 
-    private BooleanFieldComparator cmpKo = new BooleanFieldComparator();
+    private final BooleanFieldComparator cmpKo = new BooleanFieldComparator();
 
-    private FieldCustComparator<LgInt> cmpNumber = new FieldCustComparator<LgInt>();
+    private final LgIntFieldComparator cmpNumber = new LgIntFieldComparator();
 
     private StringMap<String> translatedItem;
 
@@ -69,9 +69,9 @@ public final class PaginationHealingItem extends
     private TreeMap<SortingHealingItem, String> items = new TreeMap<SortingHealingItem, String>(
             new ComparatorHealingItem());
 
-    private CustList<SortingHealingItem> rendered = new CustList<SortingHealingItem>();
+    private final CustList<SortingHealingItem> rendered = new CustList<SortingHealingItem>();
 
-    private CriteriaForSearchingHealingItem criteria;
+    private final CriteriaForSearchingHealingItem criteria;
 
     public PaginationHealingItem() {
         criteria = new CriteriaForSearchingHealingItem();
@@ -327,7 +327,7 @@ public final class PaginationHealingItem extends
         return cmpName;
     }
 
-    public FieldCustComparator<LgInt> getCmpNumber() {
+    public LgIntFieldComparator getCmpNumber() {
         return cmpNumber;
     }
 
@@ -347,11 +347,11 @@ public final class PaginationHealingItem extends
         return cmpRelativeRateHp;
     }
 
-    public FieldCustComparator<Rate> getCmpHp() {
+    public RateFieldComparator getCmpHp() {
         return cmpHp;
     }
 
-    public FieldCustComparator<Rate> getCmpRateHp() {
+    public RateFieldComparator getCmpRateHp() {
         return cmpRateHp;
     }
 
@@ -359,7 +359,7 @@ public final class PaginationHealingItem extends
         return cmpRelativeRatePp;
     }
 
-    public FieldCustComparator<Rate> getCmpPp() {
+    public RateFieldComparator getCmpPp() {
         return cmpPp;
     }
 

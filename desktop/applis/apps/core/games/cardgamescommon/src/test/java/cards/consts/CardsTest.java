@@ -10,7 +10,7 @@ public class CardsTest extends EquallableCardsUtil {
         ResultsGame r_ = new ResultsGame();
         r_.setScores(new CustList<Longs>());
         assertNotNull(r_.getScores());
-        r_.setSigmas(new EqList<Rate>());
+        r_.setSigmas(new CustList<Rate>());
         assertNotNull(r_.getSigmas());
         r_.setSums(new Longs());
         assertNotNull(r_.getSums());

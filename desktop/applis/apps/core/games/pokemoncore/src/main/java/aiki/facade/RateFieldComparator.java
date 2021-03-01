@@ -1,16 +1,16 @@
 package aiki.facade;
 
-import code.util.ints.Cmp;
 import aiki.facade.enums.SelectedBoolean;
+import code.maths.Rate;
 
 
-public final class FieldCustComparator<T extends Cmp<T>> {
+public final class RateFieldComparator {
 
     private SelectedBoolean increasing = SelectedBoolean.YES_AND_NO;
 
     private int priority;
 
-    public int compare(T _o1, T _o2) {
+    public int compare(Rate _o1, Rate _o2) {
         if (increasing == SelectedBoolean.YES) {
             return _o1.cmp(_o2);
         }

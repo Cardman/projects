@@ -30,7 +30,7 @@ public final class ResultsPresidentTest extends EquallablePresidentUtil {
         res_.setScores(new CustList<Longs>());
         res_.setGlobalResultsPageTitle("");
         res_.setDetailResultsTitle("");
-        res_.setSigmas(new EqList<Rate>());
+        res_.setSigmas(new CustList<Rate>());
         res_.setSums(new Longs());
         res_.setNicknames(new StringList());
         res_.setRenderedPages(new StringMap<String>());

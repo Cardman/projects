@@ -264,6 +264,43 @@ public class PaginationItemTest extends InitializationDataBase {
         assertEq(METRONOME_OBJ, itemName_);
     }
 
+
+    @Test
+    public void sort4_Test() {
+        DataBase data_ = initDb();
+        PaginationItem pagination_;
+        pagination_ = new PaginationItem();
+        pagination_.setTranslation(data_, LANGUAGE);
+        SortingItem sorting_;
+        String itemName_;
+        sorting_ = new SortingItem();
+        sorting_.setName(BAIE_ORAN);
+        sorting_.setItemClass(BERRY);
+        sorting_.setPrice(25);
+        sorting_.setIndex(0);
+        sorting_.setNumber(LgInt.zero());
+        itemName_ = BAIE_ORAN;
+        pagination_.getResults().put(sorting_, itemName_);
+        sorting_ = new SortingItem();
+        sorting_.setName(METRONOME_OBJ);
+        sorting_.setItemClass(BATTLE_ITEM);
+        sorting_.setPrice(50);
+        sorting_.setIndex(1);
+        sorting_.setNumber(LgInt.one());
+        itemName_ = METRONOME_OBJ;
+        pagination_.getResults().put(sorting_, itemName_);
+        pagination_.getCmpNumber().setPriority(1);
+        pagination_.getCmpNumber().setIncreasing(SelectedBoolean.NO);
+        pagination_.sort();
+        assertEq(2, pagination_.getResults().size());
+        CustList<SortingItem> sorted_;
+        sorted_ = new CustList<SortingItem>(pagination_.getResults().getKeys());
+        itemName_ = pagination_.getResults().getVal(sorted_.get(0));
+        assertEq(METRONOME_OBJ, itemName_);
+        itemName_ = pagination_.getResults().getVal(sorted_.get(1));
+        assertEq(BAIE_ORAN, itemName_);
+    }
+
     @Test
     public void sort5Test() {
         DataBase data_ = initDb();

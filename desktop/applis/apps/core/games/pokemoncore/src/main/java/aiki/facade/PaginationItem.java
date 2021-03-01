@@ -20,13 +20,13 @@ public final class PaginationItem extends
 
     public static final int NB_CMPARATORS = 4;
 
-    private StringFieldComparator cmpName = new StringFieldComparator();
+    private final StringFieldComparator cmpName = new StringFieldComparator();
 
-    private LongFieldComparator cmpPrice = new LongFieldComparator();
+    private final LongFieldComparator cmpPrice = new LongFieldComparator();
 
-    private StringFieldComparator cmpDescription = new StringFieldComparator();
+    private final StringFieldComparator cmpDescription = new StringFieldComparator();
 
-    private FieldCustComparator<LgInt> cmpNumber = new FieldCustComparator<LgInt>();
+    private final LgIntFieldComparator cmpNumber = new LgIntFieldComparator();
 
     private StringMap<String> translatedItem;
 
@@ -37,9 +37,9 @@ public final class PaginationItem extends
     private TreeMap<SortingItem, String> items = new TreeMap<SortingItem, String>(
             new ComparatorItem());
 
-    private CustList<SortingItem> rendered = new CustList<SortingItem>();
+    private final CustList<SortingItem> rendered = new CustList<SortingItem>();
 
-    private CriteriaForSearchingItem criteria;
+    private final CriteriaForSearchingItem criteria;
 
     public PaginationItem() {
         criteria = new CriteriaForSearchingItem();
@@ -163,7 +163,7 @@ public final class PaginationItem extends
         return cmpDescription;
     }
 
-    public FieldCustComparator<LgInt> getCmpNumber() {
+    public LgIntFieldComparator getCmpNumber() {
         return cmpNumber;
     }
     protected void excludeResults() {

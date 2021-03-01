@@ -1746,8 +1746,8 @@ public class RateTest extends EquallableMathUtil {
     }
     @Test
     public void proba1(){
-        EqList<Rate> probas_ = new EqList<Rate>();
-        CustList<EqList<Rate>> tableProbas_ = new CustList<EqList<Rate>>();
+        CustList<Rate> probas_ = new CustList<Rate>();
+        CustList<CustList<Rate>> tableProbas_ = new CustList<CustList<Rate>>();
         for(long t=1;t<=18;t++) {
             LgInt casFavorables_ = LgInt.zero();
             for(long i=0;i<t;i++) {
@@ -1757,8 +1757,8 @@ public class RateTest extends EquallableMathUtil {
         }
         tableProbas_.add(probas_);
         for(long n=0;n<18;n++) {
-            EqList<Rate> probasLoc_ = tableProbas_.get((int)n);
-            EqList<Rate> probasAjoutees_ = new EqList<Rate>();
+            CustList<Rate> probasLoc_ = tableProbas_.get((int)n);
+            CustList<Rate> probasAjoutees_ = new CustList<Rate>();
             for(int i=0;i<=n;i++) {
                 probasAjoutees_.add(Rate.zero());
             }
@@ -1768,7 +1768,7 @@ public class RateTest extends EquallableMathUtil {
             }
             tableProbas_.add(probasAjoutees_);
         }
-        EqList<Rate> sumColumns_ = new EqList<Rate>();
+        CustList<Rate> sumColumns_ = new CustList<Rate>();
         for(short n=0;n<19;n++) {
             Rate rate_ = Rate.zero();
             for(short p=0;p<19;p++) {
@@ -2090,7 +2090,7 @@ public class RateTest extends EquallableMathUtil {
     }
     @Test
     public void getPpcmDens1Test() {
-        EqList<Rate> r_ = new EqList<Rate>();
+        CustList<Rate> r_ = new CustList<Rate>();
         r_.add(new Rate(2));
         r_.add(new Rate(3));
         assertEq(new LgInt(1), Rate.getPpcmDens(r_,1));
@@ -2110,7 +2110,7 @@ public class RateTest extends EquallableMathUtil {
     @Test
     public void getDividersNumerator1Test() {
         Rate int_ = new Rate(42);
-        EqList<LgInt> div_ = int_.getDividersNumerator();
+        CustList<LgInt> div_ = int_.getDividersNumerator();
         assertEq(8, div_.size());
         assertEq(new LgInt(1), div_.get(0));
         assertEq(new LgInt(42), div_.get(1));
@@ -2128,5 +2128,17 @@ public class RateTest extends EquallableMathUtil {
     @Test
     public void displayTest() {
         assertEq("1",new Rate(1).display());
+    }
+    @Test
+    public void cmp1() {
+        assertEq(1, new ComparatorRate().compare(new Rate("2"),new Rate("1")));
+    }
+    @Test
+    public void cmp2() {
+        assertEq(-1, new ComparatorRate().compare(new Rate("1"),new Rate("2")));
+    }
+    @Test
+    public void cmp3() {
+        assertEq(0, new ComparatorRate().compare(new Rate("1"),new Rate("1")));
     }
 }

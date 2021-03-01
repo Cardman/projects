@@ -61,7 +61,6 @@ import code.maths.Rate;
 import code.stream.StreamTextFile;
 import code.util.CustList;
 import code.util.EnumMap;
-import code.util.EqList;
 import code.util.*;
 import code.util.StringList;
 import code.util.core.IndexConstants;
@@ -732,9 +731,9 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
             if(nombreJoueurs_>9) {
                 couleurs_.add(new Color(128,0,255));
             }
-            Graphic graphique_=new Graphic(res_.getScores(),new Longs(res_.getSums()),new EqList<Rate>(),couleurs_);
+            Graphic graphique_=new Graphic(res_.getScores(),new Longs(res_.getSums()),new CustList<Rate>(),couleurs_);
             Rate derniereMoyenne_=new Rate(res_.getSums().last(),nombreJoueurs_);
-            EqList<Rate> scoresCentresMoyenne_=new EqList<Rate>();
+            CustList<Rate> scoresCentresMoyenne_=new CustList<Rate>();
             for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_<nombreJoueurs_; joueur_++) {
                 scoresCentresMoyenne_.add(Rate.minus(new Rate(res_.getScores().last().get(joueur_)), derniereMoyenne_));
             }

@@ -3,7 +3,7 @@ package code.maths.montecarlo;
 import code.maths.LgInt;
 import code.maths.NumDiffDenNum;
 import code.maths.Rate;
-import code.util.EqList;
+import code.util.CustList;
 import code.util.core.IndexConstants;
 
 public final class MonteCarloUtil {
@@ -32,8 +32,8 @@ public final class MonteCarloUtil {
         return loi_;
     }
 
-    static EqList<LgInt> randomNumbersSeed(LgInt _lgInt, AbstractGenerator _gene) {
-        EqList<LgInt> numbers_ = new EqList<LgInt>();
+    static CustList<LgInt> randomNumbersSeed(LgInt _lgInt, AbstractGenerator _gene) {
+        CustList<LgInt> numbers_ = new CustList<LgInt>();
         for(int i = IndexConstants.FIRST_INDEX; i < NB_RAND; i++){
 //          numbers_.add(MAX_RANDOM.multiply(randomDouble()));
             numbers_.add(randomLgInt(_lgInt, _gene));
@@ -60,14 +60,14 @@ public final class MonteCarloUtil {
     }
 
     static LgInt maxNumber(LgInt _max) {
-        EqList<LgInt> numbers_ = new EqList<LgInt>();
+        CustList<LgInt> numbers_ = new CustList<LgInt>();
         for(int i = IndexConstants.FIRST_INDEX; i< NB_RAND; i++){
             numbers_.add(new LgInt(Long.MAX_VALUE));
         }
         return randomNumberSe(numbers_,_max);
     }
 
-    static LgInt randomNumberSe(EqList<LgInt> _numbers, LgInt _max) {
+    static LgInt randomNumberSe(CustList<LgInt> _numbers, LgInt _max) {
         LgInt alea_=LgInt.zero();
         for(LgInt i: _numbers){
             alea_.multiplyBy(_max);

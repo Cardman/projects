@@ -1651,27 +1651,39 @@ final class FightEffects {
             return throwerDamageLaws_;
         }
         if(!effect_.getDamageLaw().events().isEmpty()){
-            ObjectMap<Rate,LgInt> loiTemp_=new ObjectMap<Rate,LgInt>();
+//            ObjectMap<Rate,LgInt> loiTemp_=new ObjectMap<Rate,LgInt>();
             MonteCarloNumber loiNumerique_=new MonteCarloNumber();
             StringMap<String> values_;
             values_ = FightValues.calculateValues(_fight, _lanceur,_cible,_import);
-            for(String e:effect_.getDamageLaw().events()){
-                LgInt effectif_=LgInt.zero();
+            int nbEvts_ = effect_.getDamageLaw().nbEvents();
+            for (int i = 0; i < nbEvts_; i++) {
+                String e_ = effect_.getDamageLaw().getEvent(i);
                 Rate valeur_;
-                if (!e.isEmpty()) {
-                    valeur_ = _import.evaluatePositiveExp(e, values_, DataBase.getDefaultPower());
+                if (!e_.isEmpty()) {
+                    valeur_ = _import.evaluatePositiveExp(e_, values_, DataBase.getDefaultPower());
                 } else {
                     valeur_ = Rate.zero();
                 }
-                if(loiTemp_.contains(valeur_)){
-                    effectif_=loiTemp_.getVal(valeur_);
-                }
-                effectif_.addNb(effect_.getDamageLaw().rate(e));
-                loiTemp_.put(valeur_,effectif_);
+                loiNumerique_.addQuickEvent(valeur_,effect_.getDamageLaw().getFreq(i));
             }
-            for(Rate c:loiTemp_.getKeys()){
-                loiNumerique_.addQuickEvent(c,loiTemp_.getVal(c));
-            }
+//            for(String e:effect_.getDamageLaw().events()){
+////                LgInt effectif_=LgInt.zero();
+//                Rate valeur_;
+//                if (!e.isEmpty()) {
+//                    valeur_ = _import.evaluatePositiveExp(e, values_, DataBase.getDefaultPower());
+//                } else {
+//                    valeur_ = Rate.zero();
+//                }
+//                loiNumerique_.addQuickEvent(valeur_,effect_.getDamageLaw().rate(e));
+////                if(loiTemp_.contains(valeur_)){
+////                    effectif_=loiTemp_.getVal(valeur_);
+////                }
+////                effectif_.addNb(effect_.getDamageLaw().rate(e));
+////                loiTemp_.put(valeur_,effectif_);
+//            }
+//            for(Rate c:loiTemp_.getKeys()){
+//                loiNumerique_.addQuickEvent(c,loiTemp_.getVal(c));
+//            }
             MonteCarloNumber law_;
             law_ = new MonteCarloNumber();
             law_.addQuickEvent(Rate.one(), LgInt.one());
@@ -2235,11 +2247,18 @@ final class FightEffects {
         Fighter creatureCible_= _fight.getFighter(_cible);
         if(!_effet.getLawBoost().events().isEmpty()){
             MonteCarloEnum<Statistic> loi_ = new MonteCarloEnum<Statistic>();
-            for (Statistic e:_effet.getLawBoost().events()) {
-                if (Statistic.containsStatistic(_statistiques,e)) {
-                    loi_.addQuickEvent(e,_effet.getLawBoost().rate(e));
+            int nbEvts_ = _effet.getLawBoost().nbEvents();
+            for (int i = 0; i < nbEvts_; i++) {
+                Statistic e_ = _effet.getLawBoost().getEvent(i);
+                if (Statistic.containsStatistic(_statistiques,e_)) {
+                    loi_.addQuickEvent(e_,_effet.getLawBoost().getFreq(i));
                 }
             }
+//            for (Statistic e:_effet.getLawBoost().events()) {
+//                if (Statistic.containsStatistic(_statistiques,e)) {
+//                    loi_.addQuickEvent(e,_effet.getLawBoost().rate(e));
+//                }
+//            }
             if (!FightSuccess.isBadSimulation(_fight, loi_)) {
                 Statistic statistique_= FightSuccess.random(_import, loi_);
                 byte delta_=deltaBoostStatistic(_fight,_cible,statistique_,varStatisCran_.getVal(statistique_),_import);
@@ -2594,30 +2613,56 @@ final class FightEffects {
                                                MonteCarloString _statuts,StringMap<String> _echecStatuts,DataBase _import) {
         StringMap<LgInt> loiTmp_=new StringMap<LgInt>();
         MonteCarloString loiGeneree_ = new MonteCarloString();
-        for(String c:_statuts.events()){
-            if(c.isEmpty()){
+        int nb_ = _statuts.nbEvents();
+        for (int i = 0; i < nb_; i++) {
+            String e_ = _statuts.getEvent(i);
+            if(e_.isEmpty()){
                 LgInt proba_ = rateNoStatus(loiTmp_);
-                proba_.addNb(_statuts.rate(c));
+                proba_.addNb(_statuts.getFreq(i));
                 loiTmp_.put(DataBase.EMPTY_STRING,proba_);
                 continue;
             }
-            if(_echecStatuts.contains(c) && !_echecStatuts.getVal(c).isEmpty()){
+            if(_echecStatuts.contains(e_) && !_echecStatuts.getVal(e_).isEmpty()){
                 StringMap<String> values_ = FightValues.calculateValues(_fight,_lanceur,_cible,_import);
-                if (_import.evaluateBoolean(_echecStatuts.getVal(c), values_, false)) {
+                if (_import.evaluateBoolean(_echecStatuts.getVal(e_), values_, false)) {
                     LgInt proba_ = rateNoStatus(loiTmp_);
-                    proba_.addNb(_statuts.rate(c));
+                    proba_.addNb(_statuts.getFreq(i));
                     loiTmp_.put(DataBase.EMPTY_STRING,proba_);
                     continue;
                 }
             }
-            if(FightSuccess.successfulAffectedStatus(_fight,_lanceur,_cible,c,_import)){
-                loiTmp_.put(c,new LgInt(_statuts.rate(c)));
+            if(FightSuccess.successfulAffectedStatus(_fight,_lanceur,_cible,e_,_import)){
+                loiTmp_.put(e_,new LgInt(_statuts.getFreq(i)));
             }else{
                 LgInt proba_ = rateNoStatus(loiTmp_);
-                proba_.addNb(_statuts.rate(c));
+                proba_.addNb(_statuts.getFreq(i));
                 loiTmp_.put(DataBase.EMPTY_STRING,proba_);
             }
         }
+//        for(String c:_statuts.events()){
+//            if(c.isEmpty()){
+//                LgInt proba_ = rateNoStatus(loiTmp_);
+//                proba_.addNb(_statuts.rate(c));
+//                loiTmp_.put(DataBase.EMPTY_STRING,proba_);
+//                continue;
+//            }
+//            if(_echecStatuts.contains(c) && !_echecStatuts.getVal(c).isEmpty()){
+//                StringMap<String> values_ = FightValues.calculateValues(_fight,_lanceur,_cible,_import);
+//                if (_import.evaluateBoolean(_echecStatuts.getVal(c), values_, false)) {
+//                    LgInt proba_ = rateNoStatus(loiTmp_);
+//                    proba_.addNb(_statuts.rate(c));
+//                    loiTmp_.put(DataBase.EMPTY_STRING,proba_);
+//                    continue;
+//                }
+//            }
+//            if(FightSuccess.successfulAffectedStatus(_fight,_lanceur,_cible,c,_import)){
+//                loiTmp_.put(c,new LgInt(_statuts.rate(c)));
+//            }else{
+//                LgInt proba_ = rateNoStatus(loiTmp_);
+//                proba_.addNb(_statuts.rate(c));
+//                loiTmp_.put(DataBase.EMPTY_STRING,proba_);
+//            }
+//        }
         for(String c:loiTmp_.getKeys()){
             loiGeneree_.addQuickEvent(c,loiTmp_.getVal(c));
         }

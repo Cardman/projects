@@ -3,14 +3,11 @@ import code.maths.litteral.MathExpUtil;
 import code.util.CollCapacity;
 import code.util.CustList;
 import code.util.EntryCust;
-import code.util.EqList;
 import code.util.*;
-import code.util.SortableCustList;
 import code.util.TreeMap;
 import code.util.core.IndexConstants;
 import code.util.core.NumberUtil;
 import code.util.core.SortConstants;
-import code.util.ints.Cmp;
 import code.util.ints.Displayable;
 
 /**
@@ -18,7 +15,7 @@ Classe modelisant des entiers longs qui sont une extension du type <i>long</i>.<
 Ces entiers sont decoupes en groupes de chiffres et possedent un signe.<br/>
 Attention a eviter d'utiliser des nombres d'un milliard de chiffres, car la memoire vive est limitee.
  */
-public final class LgInt implements Cmp<LgInt>, Displayable {
+public final class LgInt implements Displayable {
 
 
     static final int BASE_NUMER = 10;
@@ -319,8 +316,8 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
         return new Decomposition(getSignum(), divs_);
     }
 
-    public EqList<LgInt> getDividers() {
-        EqList<LgInt> divs_ = new EqList<LgInt>();
+    public CustList<LgInt> getDividers() {
+        CustList<LgInt> divs_ = new CustList<LgInt>();
         if (isZero()) {
             return divs_;
         }
@@ -355,14 +352,14 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
                 somme fixe
     @return les repartitions possibles ponderees
     */
-    public static AbsMap<SortableCustList<LgInt>,LgInt> seqAmong(
-            EqList<LgInt> _repartitions,
+    public static AbsMap<CustList<LgInt>,LgInt> seqAmong(
+            CustList<LgInt> _repartitions,
             LgInt _sommeTotale) {
         int i_ = IndexConstants.FIRST_INDEX;
         int nbIterations_ = _repartitions.size();
-        CustList<SortableCustList<LgInt>> repartitionsPossibles_ = new CustList<SortableCustList<LgInt>>();
-        repartitionsPossibles_.add(new SortableCustList<LgInt>());
-        CustList<SortableCustList<LgInt>> repartitionsPossiblesLoc_ = new CustList<SortableCustList<LgInt>>();
+        CustList<CustList<LgInt>> repartitionsPossibles_ = new CustList<CustList<LgInt>>();
+        repartitionsPossibles_.add(new CustList<LgInt>());
+        CustList<CustList<LgInt>> repartitionsPossiblesLoc_ = new CustList<CustList<LgInt>>();
         boolean modif_=true;
         while (modif_) {
             if (i_ >= nbIterations_) {
@@ -373,16 +370,16 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
             feedEvents(_repartitions, _sommeTotale, i_, nbIterations_, repartitionsPossibles_, repartitionsPossiblesLoc_);
             if (!repartitionsPossiblesLoc_.isEmpty()) {
                 modif_ = true;
-                repartitionsPossibles_ = new CustList<SortableCustList<LgInt>>(repartitionsPossiblesLoc_);
+                repartitionsPossibles_ = new CustList<CustList<LgInt>>(repartitionsPossiblesLoc_);
             }
             i_++;
         }
         return buildSortedLaw(repartitionsPossibles_);
     }
 
-    private static void feedEvents(EqList<LgInt> _repartitions, LgInt _sommeTotale, int _i, int _nbIterations, CustList<SortableCustList<LgInt>> _repartitionsPossibles, CustList<SortableCustList<LgInt>> _repartitionsPossiblesLoc) {
+    private static void feedEvents(CustList<LgInt> _repartitions, LgInt _sommeTotale, int _i, int _nbIterations, CustList<CustList<LgInt>> _repartitionsPossibles, CustList<CustList<LgInt>> _repartitionsPossiblesLoc) {
         LgInt terme_ = _repartitions.get(_i);
-        for (SortableCustList<LgInt> l: _repartitionsPossibles) {
+        for (CustList<LgInt> l: _repartitionsPossibles) {
             LgInt somme_ = LgInt.zero();
             for (LgInt e: l) {
                 somme_.addNb(e);
@@ -399,31 +396,31 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
         }
     }
 
-    private static void procIncr(LgInt _sommeTotale, int _i, int _nbIterations, CustList<SortableCustList<LgInt>> _repartitionsPossiblesLoc, SortableCustList<LgInt> _l, LgInt _event, LgInt _sommeLoc) {
+    private static void procIncr(LgInt _sommeTotale, int _i, int _nbIterations, CustList<CustList<LgInt>> _repartitionsPossiblesLoc, CustList<LgInt> _l, LgInt _event, LgInt _sommeLoc) {
         if (_i == _nbIterations - 1 && !_sommeLoc.eq(_sommeTotale)) {
             _event.increment();
             return;
         }
-        SortableCustList<LgInt> l_ = new SortableCustList<LgInt>(_l);
+        CustList<LgInt> l_ = new CustList<LgInt>(_l);
         l_.add(new LgInt(_event));
         _repartitionsPossiblesLoc.add(l_);
         _event.increment();
     }
 
-    private static TreeMap<SortableCustList<LgInt>, LgInt> buildSortedLaw(CustList<SortableCustList<LgInt>> _repartitionsPossibles) {
-        for (SortableCustList<LgInt> l: _repartitionsPossibles) {
-            l.sort();
+    private static TreeMap<CustList<LgInt>, LgInt> buildSortedLaw(CustList<CustList<LgInt>> _repartitionsPossibles) {
+        for (CustList<LgInt> l: _repartitionsPossibles) {
+            l.sortElts(new ComparatorLgInt());
         }
         return buildLaw(_repartitionsPossibles);
     }
 
-    private static TreeMap<SortableCustList<LgInt>, LgInt> buildLaw(CustList<SortableCustList<LgInt>> _repartitionsPossibles) {
-        TreeMap<SortableCustList<LgInt>,LgInt> loiProba_ = new TreeMap<SortableCustList<LgInt>,LgInt>(new ComparatorEvents());
+    private static TreeMap<CustList<LgInt>, LgInt> buildLaw(CustList<CustList<LgInt>> _repartitionsPossibles) {
+        TreeMap<CustList<LgInt>,LgInt> loiProba_ = new TreeMap<CustList<LgInt>,LgInt>(new ComparatorEvents());
         LgInt one_ = one();
-        for (SortableCustList<LgInt> l: _repartitionsPossibles) {
+        for (CustList<LgInt> l: _repartitionsPossibles) {
             boolean present_ = false;
-            for (EntryCust<SortableCustList<LgInt>,LgInt> lTwo_: loiProba_.entryList()) {
-                if (l.eq(lTwo_.getKey())) {
+            for (EntryCust<CustList<LgInt>,LgInt> lTwo_: loiProba_.entryList()) {
+                if (eq(l,lTwo_.getKey())) {
                     lTwo_.getValue().increment();
                     present_ = true;
                     break;
@@ -437,6 +434,18 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
         return loiProba_;
     }
 
+    static boolean eq(CustList<LgInt> _one, CustList<LgInt> _two) {
+        if (_one.size() != _two.size()) {
+            return false;
+        }
+        int len_ = _one.size();
+        for (int i = 0; i < len_; i++) {
+            if (!_one.get(i).eq(_two.get(i))) {
+                return false;
+            }
+        }
+        return true;
+    }
     /**
     Cette methode equivaut a l'operateur &gt;.<br/>
 
@@ -1208,7 +1217,6 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
                 un autre entier, s'il est null alors <i>false</i> est toujours retourne
     @return <i>true</i> <==> les deux nombres entiers sont egaux.
     */
-    @Override
     public boolean eq(LgInt _two) {
         if (signum != _two.signum) {
             return false;
@@ -1704,7 +1712,6 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
             0 si l'entier courant vaut _autre,<br/>
             -1 sinon
     */
-    @Override
     public int cmp(LgInt _autre) {
         if (strGreater(this, _autre)) {
             return 1;

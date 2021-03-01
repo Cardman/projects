@@ -2,7 +2,7 @@ package code.maths;
 
 import code.util.EqList;
 import code.util.*;
-import code.util.SortableCustList;
+import code.util.CustList;
 import code.util.TreeMap;
 import org.junit.Test;
 
@@ -339,6 +339,14 @@ public class LgIntTest extends EquallableMathUtil {
         //intOne_.setUnmodified();
         //intTwo_.setUnmodified();
         assertEq(true, intOne_.eq(intTwo_));
+        //assertTrue(!intOne_.isModified());
+        //assertTrue(!intTwo_.isModified());
+    }
+    @Test
+    public void eq8Test(){
+        //intOne_.setUnmodified();
+        //intTwo_.setUnmodified();
+        assertEq(false, LgInt.eq(new CustList<LgInt>(LgInt.one()),new CustList<LgInt>()));
         //assertTrue(!intOne_.isModified());
         //assertTrue(!intTwo_.isModified());
     }
@@ -2143,30 +2151,30 @@ public class LgIntTest extends EquallableMathUtil {
     }
     @Test
     public void seqAmong1(){
-        EqList<LgInt> repartitions_ = new EqList<LgInt>();
+        CustList<LgInt> repartitions_ = new CustList<LgInt>();
         repartitions_.add(new LgInt(8));
         repartitions_.add(new LgInt(8));
         repartitions_.add(new LgInt(8));
         repartitions_.add(new LgInt(8));
         LgInt sommeTotale_ = new LgInt(8);
-        AbsMap<SortableCustList<LgInt>,LgInt> combinatoire_ = LgInt.seqAmong(repartitions_, sommeTotale_);
+        AbsMap<CustList<LgInt>,LgInt> combinatoire_ = LgInt.seqAmong(repartitions_, sommeTotale_);
         assertEq(15,combinatoire_.size());
-        assertTrue(combinatoire_.contains(new SortableCustList<LgInt>(LgInt.zero(),LgInt.zero(),LgInt.zero(),new LgInt(8))));
-        assertTrue(combinatoire_.contains(new SortableCustList<LgInt>(LgInt.zero(),LgInt.zero(),new LgInt(1),new LgInt(7))));
-        assertTrue(combinatoire_.contains(new SortableCustList<LgInt>(LgInt.zero(),LgInt.zero(),new LgInt(2),new LgInt(6))));
-        assertTrue(combinatoire_.contains(new SortableCustList<LgInt>(LgInt.zero(),new LgInt(1),new LgInt(1),new LgInt(6))));
-        assertTrue(combinatoire_.contains(new SortableCustList<LgInt>(LgInt.zero(),LgInt.zero(),new LgInt(3),new LgInt(5))));
-        assertTrue(combinatoire_.contains(new SortableCustList<LgInt>(LgInt.zero(),new LgInt(1),new LgInt(2),new LgInt(5))));
-        assertTrue(combinatoire_.contains(new SortableCustList<LgInt>(new LgInt(1),new LgInt(1),new LgInt(1),new LgInt(5))));
-        assertTrue(combinatoire_.contains(new SortableCustList<LgInt>(LgInt.zero(),LgInt.zero(),new LgInt(4),new LgInt(4))));
-        assertTrue(combinatoire_.contains(new SortableCustList<LgInt>(LgInt.zero(),new LgInt(2),new LgInt(2),new LgInt(4))));
-        assertTrue(combinatoire_.contains(new SortableCustList<LgInt>(LgInt.zero(),new LgInt(1),new LgInt(3),new LgInt(4))));
-        assertTrue(combinatoire_.contains(new SortableCustList<LgInt>(new LgInt(1),new LgInt(1),new LgInt(2),new LgInt(4))));
-        assertTrue(combinatoire_.contains(new SortableCustList<LgInt>(LgInt.zero(),new LgInt(2),new LgInt(3),new LgInt(3))));
-        assertTrue(combinatoire_.contains(new SortableCustList<LgInt>(new LgInt(1),new LgInt(1),new LgInt(3),new LgInt(3))));
-        assertTrue(combinatoire_.contains(new SortableCustList<LgInt>(new LgInt(1),new LgInt(2),new LgInt(2),new LgInt(3))));
-        assertTrue(combinatoire_.contains(new SortableCustList<LgInt>(new LgInt(2),new LgInt(2),new LgInt(2),new LgInt(2))));
-        repartitions_ = new EqList<LgInt>();
+        assertTrue(combinatoire_.contains(new CustList<LgInt>(LgInt.zero(),LgInt.zero(),LgInt.zero(),new LgInt(8))));
+        assertTrue(combinatoire_.contains(new CustList<LgInt>(LgInt.zero(),LgInt.zero(),new LgInt(1),new LgInt(7))));
+        assertTrue(combinatoire_.contains(new CustList<LgInt>(LgInt.zero(),LgInt.zero(),new LgInt(2),new LgInt(6))));
+        assertTrue(combinatoire_.contains(new CustList<LgInt>(LgInt.zero(),new LgInt(1),new LgInt(1),new LgInt(6))));
+        assertTrue(combinatoire_.contains(new CustList<LgInt>(LgInt.zero(),LgInt.zero(),new LgInt(3),new LgInt(5))));
+        assertTrue(combinatoire_.contains(new CustList<LgInt>(LgInt.zero(),new LgInt(1),new LgInt(2),new LgInt(5))));
+        assertTrue(combinatoire_.contains(new CustList<LgInt>(new LgInt(1),new LgInt(1),new LgInt(1),new LgInt(5))));
+        assertTrue(combinatoire_.contains(new CustList<LgInt>(LgInt.zero(),LgInt.zero(),new LgInt(4),new LgInt(4))));
+        assertTrue(combinatoire_.contains(new CustList<LgInt>(LgInt.zero(),new LgInt(2),new LgInt(2),new LgInt(4))));
+        assertTrue(combinatoire_.contains(new CustList<LgInt>(LgInt.zero(),new LgInt(1),new LgInt(3),new LgInt(4))));
+        assertTrue(combinatoire_.contains(new CustList<LgInt>(new LgInt(1),new LgInt(1),new LgInt(2),new LgInt(4))));
+        assertTrue(combinatoire_.contains(new CustList<LgInt>(LgInt.zero(),new LgInt(2),new LgInt(3),new LgInt(3))));
+        assertTrue(combinatoire_.contains(new CustList<LgInt>(new LgInt(1),new LgInt(1),new LgInt(3),new LgInt(3))));
+        assertTrue(combinatoire_.contains(new CustList<LgInt>(new LgInt(1),new LgInt(2),new LgInt(2),new LgInt(3))));
+        assertTrue(combinatoire_.contains(new CustList<LgInt>(new LgInt(2),new LgInt(2),new LgInt(2),new LgInt(2))));
+        repartitions_ = new CustList<LgInt>();
         repartitions_.add(new LgInt(22));
         repartitions_.add(new LgInt(14));
         repartitions_.add(new LgInt(14));
@@ -2176,13 +2184,13 @@ public class LgIntTest extends EquallableMathUtil {
     @Test
     public void seqAmong2(){
         LgInt sommeTotale_ = new LgInt(8);
-        EqList<LgInt> repartitions_ = new EqList<LgInt>();
+        CustList<LgInt> repartitions_ = new CustList<LgInt>();
         repartitions_.add(new LgInt(22));
         repartitions_.add(new LgInt(14));
         repartitions_.add(new LgInt(14));
         repartitions_.add(new LgInt(14));
         repartitions_.add(new LgInt(14));
-        AbsMap<SortableCustList<LgInt>,LgInt> combinatoire_ = LgInt.seqAmong(repartitions_, sommeTotale_);
+        AbsMap<CustList<LgInt>,LgInt> combinatoire_ = LgInt.seqAmong(repartitions_, sommeTotale_);
         assertEq(18,combinatoire_.size());
         assertEq(5,combinatoire_.getKey(0).size());
         assertEq(new LgInt(0),combinatoire_.getKey(0).get(0));
@@ -2314,19 +2322,19 @@ public class LgIntTest extends EquallableMathUtil {
     }
     @Test
     public void seqAmong3(){
-        EqList<LgInt> repartitions_ = new EqList<LgInt>();
+        CustList<LgInt> repartitions_ = new CustList<LgInt>();
         repartitions_.add(new LgInt(-4));
         repartitions_.add(new LgInt(-4));
         repartitions_.add(new LgInt(-4));
         repartitions_.add(new LgInt(-4));
         LgInt sommeTotale_ = new LgInt(8);
-        AbsMap<SortableCustList<LgInt>,LgInt> combinatoire_ = LgInt.seqAmong(repartitions_, sommeTotale_);
+        AbsMap<CustList<LgInt>,LgInt> combinatoire_ = LgInt.seqAmong(repartitions_, sommeTotale_);
         assertEq(1,combinatoire_.size());
         assertEq(0, combinatoire_.firstKey().size());
         assertEq(new LgInt(1), combinatoire_.firstValue());
-        SortableCustList<LgInt> other_ = new SortableCustList<LgInt>();
+        CustList<LgInt> other_ = new CustList<LgInt>();
         other_.add(LgInt.one());
-        assertTrue(new ComparatorEvents().compare(new SortableCustList<LgInt>(),other_) != 0);
+        assertTrue(new ComparatorEvents().compare(new CustList<LgInt>(),other_) != 0);
     }
     @Test
     public void multiplyDouble1Test(){
@@ -2497,7 +2505,7 @@ public class LgIntTest extends EquallableMathUtil {
     @Test
     public void getDividers1Test() {
         LgInt int_ = new LgInt(42);
-        EqList<LgInt> div_ = int_.getDividers();
+        CustList<LgInt> div_ = int_.getDividers();
         assertEq(8, div_.size());
         assertEq(new LgInt(1), div_.get(0));
         assertEq(new LgInt(42), div_.get(1));
@@ -2511,7 +2519,7 @@ public class LgIntTest extends EquallableMathUtil {
     @Test
     public void getDividers2Test() {
         LgInt int_ = new LgInt(0);
-        EqList<LgInt> div_ = int_.getDividers();
+        CustList<LgInt> div_ = int_.getDividers();
         assertEq(0, div_.size());
     }
     @Test
@@ -2725,5 +2733,17 @@ public class LgIntTest extends EquallableMathUtil {
     public void displayTest() {
         LgInt a_ = new LgInt(0);
         assertEq("0",a_.display());
+    }
+    @Test
+    public void cmp1() {
+        assertEq(1, new ComparatorLgInt().compare(new LgInt("2"),new LgInt("1")));
+    }
+    @Test
+    public void cmp2() {
+        assertEq(-1, new ComparatorLgInt().compare(new LgInt("1"),new LgInt("2")));
+    }
+    @Test
+    public void cmp3() {
+        assertEq(0, new ComparatorLgInt().compare(new LgInt("1"),new LgInt("1")));
     }
 }
