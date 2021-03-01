@@ -157,1956 +157,412 @@ public final class HelpScriptPages {
     }
 
     static Document init0(){
-        FullDocument doc_ = DocumentBuilder.newXmlDocument(4);
-        Element elt0_=doc_.createElement("cfg");
-        CustList<Attr> attrs0_=new CustList<Attr>(new CollCapacity(0));
-        elt0_.setAttributes(new NamedNodeMap(attrs0_));
-        Element elt1_=doc_.createElement("java.lang.String");
-        CustList<Attr> attrs1_=new CustList<Attr>(new CollCapacity(3));
-        attrs1_.add(CoreDocument.createAttribute("class","cfg"));
-        attrs1_.add(CoreDocument.createAttribute("field","firstUrl"));
-        attrs1_.add(CoreDocument.createAttribute("value","resources_cards/help//aide_generale.html"));
-        elt1_.setAttributes(new NamedNodeMap(attrs1_));
-        elt0_.appendChild(elt1_);
-        doc_.appendChild(elt0_);
-        return doc_;
+        return common("resources_cards/help//aide_generale.html");
     }
     static Document init1(){
-        FullDocument doc_ = DocumentBuilder.newXmlDocument(4);
-        Element elt0_=doc_.createElement("cfg");
-        CustList<Attr> attrs0_=new CustList<Attr>(new CollCapacity(0));
-        elt0_.setAttributes(new NamedNodeMap(attrs0_));
-        Element elt1_=doc_.createElement("java.lang.String");
-        CustList<Attr> attrs1_=new CustList<Attr>(new CollCapacity(3));
-        attrs1_.add(CoreDocument.createAttribute("class","cfg"));
-        attrs1_.add(CoreDocument.createAttribute("field","firstUrl"));
-        attrs1_.add(CoreDocument.createAttribute("value","resources_cards/help//aide_generale/logiciel.html"));
-        elt1_.setAttributes(new NamedNodeMap(attrs1_));
-        elt0_.appendChild(elt1_);
-        doc_.appendChild(elt0_);
-        return doc_;
+        return common("resources_cards/help//aide_generale/logiciel.html");
     }
     static Document init2(){
-        FullDocument doc_ = DocumentBuilder.newXmlDocument(4);
-        Element elt0_=doc_.createElement("cfg");
-        CustList<Attr> attrs0_=new CustList<Attr>(new CollCapacity(0));
-        elt0_.setAttributes(new NamedNodeMap(attrs0_));
-        Element elt1_=doc_.createElement("java.lang.String");
-        CustList<Attr> attrs1_=new CustList<Attr>(new CollCapacity(3));
-        attrs1_.add(CoreDocument.createAttribute("class","cfg"));
-        attrs1_.add(CoreDocument.createAttribute("field","firstUrl"));
-        attrs1_.add(CoreDocument.createAttribute("value","resources_cards/help//aide_generale/jeux.html"));
-        elt1_.setAttributes(new NamedNodeMap(attrs1_));
-        elt0_.appendChild(elt1_);
-        doc_.appendChild(elt0_);
-        return doc_;
+        return common("resources_cards/help//aide_generale/jeux.html");
     }
     static Document init3(){
-        FullDocument doc_ = DocumentBuilder.newXmlDocument(4);
-        Element elt0_=doc_.createElement("cfg");
-        CustList<Attr> attrs0_=new CustList<Attr>(new CollCapacity(0));
-        elt0_.setAttributes(new NamedNodeMap(attrs0_));
-        Element elt1_=doc_.createElement("java.lang.String");
-        CustList<Attr> attrs1_=new CustList<Attr>(new CollCapacity(3));
-        attrs1_.add(CoreDocument.createAttribute("class","cfg"));
-        attrs1_.add(CoreDocument.createAttribute("field","firstUrl"));
-        attrs1_.add(CoreDocument.createAttribute("value","resources_cards/help//aide_generale/logiciel/menus.html"));
-        elt1_.setAttributes(new NamedNodeMap(attrs1_));
-        elt0_.appendChild(elt1_);
-        doc_.appendChild(elt0_);
-        return doc_;
+        return common("resources_cards/help//aide_generale/logiciel/menus.html");
     }
     static Document init4(){
-        FullDocument doc_ = DocumentBuilder.newXmlDocument(4);
-        Element elt0_=doc_.createElement("cfg");
-        CustList<Attr> attrs0_=new CustList<Attr>(new CollCapacity(0));
-        elt0_.setAttributes(new NamedNodeMap(attrs0_));
-        Element elt1_=doc_.createElement("java.lang.String");
-        CustList<Attr> attrs1_=new CustList<Attr>(new CollCapacity(3));
-        attrs1_.add(CoreDocument.createAttribute("class","cfg"));
-        attrs1_.add(CoreDocument.createAttribute("field","firstUrl"));
-        attrs1_.add(CoreDocument.createAttribute("value","resources_cards/help//aide_generale/logiciel/fin_partie.html"));
-        elt1_.setAttributes(new NamedNodeMap(attrs1_));
-        elt0_.appendChild(elt1_);
-        doc_.appendChild(elt0_);
-        return doc_;
+        return common("resources_cards/help//aide_generale/logiciel/fin_partie.html");
     }
     static Document init5(){
-        FullDocument doc_ = DocumentBuilder.newXmlDocument(4);
-        Element elt0_=doc_.createElement("cfg");
-        CustList<Attr> attrs0_=new CustList<Attr>(new CollCapacity(0));
-        elt0_.setAttributes(new NamedNodeMap(attrs0_));
-        Element elt1_=doc_.createElement("java.lang.String");
-        CustList<Attr> attrs1_=new CustList<Attr>(new CollCapacity(3));
-        attrs1_.add(CoreDocument.createAttribute("class","cfg"));
-        attrs1_.add(CoreDocument.createAttribute("field","firstUrl"));
-        attrs1_.add(CoreDocument.createAttribute("value","resources_cards/help//aide_generale/jeux/belote.html"));
-        elt1_.setAttributes(new NamedNodeMap(attrs1_));
-        elt0_.appendChild(elt1_);
-        doc_.appendChild(elt0_);
-        return doc_;
+        return common("resources_cards/help//aide_generale/jeux/belote.html");
     }
     static Document init6(){
-        FullDocument doc_ = DocumentBuilder.newXmlDocument(4);
-        Element elt0_=doc_.createElement("cfg");
-        CustList<Attr> attrs0_=new CustList<Attr>(new CollCapacity(0));
-        elt0_.setAttributes(new NamedNodeMap(attrs0_));
-        Element elt1_=doc_.createElement("java.lang.String");
-        CustList<Attr> attrs1_=new CustList<Attr>(new CollCapacity(3));
-        attrs1_.add(CoreDocument.createAttribute("class","cfg"));
-        attrs1_.add(CoreDocument.createAttribute("field","firstUrl"));
-        attrs1_.add(CoreDocument.createAttribute("value","resources_cards/help//aide_generale/jeux/president.html"));
-        elt1_.setAttributes(new NamedNodeMap(attrs1_));
-        elt0_.appendChild(elt1_);
-        doc_.appendChild(elt0_);
-        return doc_;
+        return common("resources_cards/help//aide_generale/jeux/president.html");
     }
     static Document init7(){
-        FullDocument doc_ = DocumentBuilder.newXmlDocument(4);
-        Element elt0_=doc_.createElement("cfg");
-        CustList<Attr> attrs0_=new CustList<Attr>(new CollCapacity(0));
-        elt0_.setAttributes(new NamedNodeMap(attrs0_));
-        Element elt1_=doc_.createElement("java.lang.String");
-        CustList<Attr> attrs1_=new CustList<Attr>(new CollCapacity(3));
-        attrs1_.add(CoreDocument.createAttribute("class","cfg"));
-        attrs1_.add(CoreDocument.createAttribute("field","firstUrl"));
-        attrs1_.add(CoreDocument.createAttribute("value","resources_cards/help//aide_generale/jeux/tarot.html"));
-        elt1_.setAttributes(new NamedNodeMap(attrs1_));
-        elt0_.appendChild(elt1_);
-        doc_.appendChild(elt0_);
-        return doc_;
+        return common("resources_cards/help//aide_generale/jeux/tarot.html");
     }
     static Document init8(){
-        FullDocument doc_ = DocumentBuilder.newXmlDocument(4);
-        Element elt0_=doc_.createElement("cfg");
-        CustList<Attr> attrs0_=new CustList<Attr>(new CollCapacity(0));
-        elt0_.setAttributes(new NamedNodeMap(attrs0_));
-        Element elt1_=doc_.createElement("java.lang.String");
-        CustList<Attr> attrs1_=new CustList<Attr>(new CollCapacity(3));
-        attrs1_.add(CoreDocument.createAttribute("class","cfg"));
-        attrs1_.add(CoreDocument.createAttribute("field","firstUrl"));
-        attrs1_.add(CoreDocument.createAttribute("value","resources_cards/help//aide_generale/logiciel/menus/fichier.html"));
-        elt1_.setAttributes(new NamedNodeMap(attrs1_));
-        elt0_.appendChild(elt1_);
-        doc_.appendChild(elt0_);
-        return doc_;
+        return common("resources_cards/help//aide_generale/logiciel/menus/fichier.html");
     }
     static Document init9(){
-        FullDocument doc_ = DocumentBuilder.newXmlDocument(4);
-        Element elt0_=doc_.createElement("cfg");
-        CustList<Attr> attrs0_=new CustList<Attr>(new CollCapacity(0));
-        elt0_.setAttributes(new NamedNodeMap(attrs0_));
-        Element elt1_=doc_.createElement("java.lang.String");
-        CustList<Attr> attrs1_=new CustList<Attr>(new CollCapacity(3));
-        attrs1_.add(CoreDocument.createAttribute("class","cfg"));
-        attrs1_.add(CoreDocument.createAttribute("field","firstUrl"));
-        attrs1_.add(CoreDocument.createAttribute("value","resources_cards/help//aide_generale/logiciel/menus/partie.html"));
-        elt1_.setAttributes(new NamedNodeMap(attrs1_));
-        elt0_.appendChild(elt1_);
-        doc_.appendChild(elt0_);
-        return doc_;
+        return common("resources_cards/help//aide_generale/logiciel/menus/partie.html");
     }
     static Document init10(){
-        FullDocument doc_ = DocumentBuilder.newXmlDocument(4);
-        Element elt0_=doc_.createElement("cfg");
-        CustList<Attr> attrs0_=new CustList<Attr>(new CollCapacity(0));
-        elt0_.setAttributes(new NamedNodeMap(attrs0_));
-        Element elt1_=doc_.createElement("java.lang.String");
-        CustList<Attr> attrs1_=new CustList<Attr>(new CollCapacity(3));
-        attrs1_.add(CoreDocument.createAttribute("class","cfg"));
-        attrs1_.add(CoreDocument.createAttribute("field","firstUrl"));
-        attrs1_.add(CoreDocument.createAttribute("value","resources_cards/help//aide_generale/logiciel/menus/parametres.html"));
-        elt1_.setAttributes(new NamedNodeMap(attrs1_));
-        elt0_.appendChild(elt1_);
-        doc_.appendChild(elt0_);
-        return doc_;
+        return common("resources_cards/help//aide_generale/logiciel/menus/parametres.html");
     }
     static Document init11(){
-        FullDocument doc_ = DocumentBuilder.newXmlDocument(4);
-        Element elt0_=doc_.createElement("cfg");
-        CustList<Attr> attrs0_=new CustList<Attr>(new CollCapacity(0));
-        elt0_.setAttributes(new NamedNodeMap(attrs0_));
-        Element elt1_=doc_.createElement("java.lang.String");
-        CustList<Attr> attrs1_=new CustList<Attr>(new CollCapacity(3));
-        attrs1_.add(CoreDocument.createAttribute("class","cfg"));
-        attrs1_.add(CoreDocument.createAttribute("field","firstUrl"));
-        attrs1_.add(CoreDocument.createAttribute("value","resources_cards/help//aide_generale/logiciel/menus/aide.html"));
-        elt1_.setAttributes(new NamedNodeMap(attrs1_));
-        elt0_.appendChild(elt1_);
-        doc_.appendChild(elt0_);
-        return doc_;
+        return common("resources_cards/help//aide_generale/logiciel/menus/aide.html");
     }
 
     static Document init14(){
-        FullDocument doc_ = DocumentBuilder.newXmlDocument(4);
-        Element elt0_=doc_.createElement("cfg");
-        CustList<Attr> attrs0_=new CustList<Attr>(new CollCapacity(0));
-        elt0_.setAttributes(new NamedNodeMap(attrs0_));
-        Element elt1_=doc_.createElement("java.lang.String");
-        CustList<Attr> attrs1_=new CustList<Attr>(new CollCapacity(3));
-        attrs1_.add(CoreDocument.createAttribute("class","cfg"));
-        attrs1_.add(CoreDocument.createAttribute("field","firstUrl"));
-        attrs1_.add(CoreDocument.createAttribute("value","resources_cards/help//aide_generale/jeux/belote/distribution.html"));
-        elt1_.setAttributes(new NamedNodeMap(attrs1_));
-        elt0_.appendChild(elt1_);
-        doc_.appendChild(elt0_);
-        return doc_;
+        return common("resources_cards/help//aide_generale/jeux/belote/distribution.html");
     }
     static Document init15(){
-        FullDocument doc_ = DocumentBuilder.newXmlDocument(4);
-        Element elt0_=doc_.createElement("cfg");
-        CustList<Attr> attrs0_=new CustList<Attr>(new CollCapacity(0));
-        elt0_.setAttributes(new NamedNodeMap(attrs0_));
-        Element elt1_=doc_.createElement("java.lang.String");
-        CustList<Attr> attrs1_=new CustList<Attr>(new CollCapacity(3));
-        attrs1_.add(CoreDocument.createAttribute("class","cfg"));
-        attrs1_.add(CoreDocument.createAttribute("field","firstUrl"));
-        attrs1_.add(CoreDocument.createAttribute("value","resources_cards/help//aide_generale/jeux/belote/contrat.html"));
-        elt1_.setAttributes(new NamedNodeMap(attrs1_));
-        elt0_.appendChild(elt1_);
-        doc_.appendChild(elt0_);
-        return doc_;
+        return common("resources_cards/help//aide_generale/jeux/belote/contrat.html");
     }
     static Document init16(){
-        FullDocument doc_ = DocumentBuilder.newXmlDocument(4);
-        Element elt0_=doc_.createElement("cfg");
-        CustList<Attr> attrs0_=new CustList<Attr>(new CollCapacity(0));
-        elt0_.setAttributes(new NamedNodeMap(attrs0_));
-        Element elt1_=doc_.createElement("java.lang.String");
-        CustList<Attr> attrs1_=new CustList<Attr>(new CollCapacity(3));
-        attrs1_.add(CoreDocument.createAttribute("class","cfg"));
-        attrs1_.add(CoreDocument.createAttribute("field","firstUrl"));
-        attrs1_.add(CoreDocument.createAttribute("value","resources_cards/help//aide_generale/jeux/belote/annonces.html"));
-        elt1_.setAttributes(new NamedNodeMap(attrs1_));
-        elt0_.appendChild(elt1_);
-        doc_.appendChild(elt0_);
-        return doc_;
+        return common("resources_cards/help//aide_generale/jeux/belote/annonces.html");
     }
     static Document init17(){
-        FullDocument doc_ = DocumentBuilder.newXmlDocument(4);
-        Element elt0_=doc_.createElement("cfg");
-        CustList<Attr> attrs0_=new CustList<Attr>(new CollCapacity(0));
-        elt0_.setAttributes(new NamedNodeMap(attrs0_));
-        Element elt1_=doc_.createElement("java.lang.String");
-        CustList<Attr> attrs1_=new CustList<Attr>(new CollCapacity(3));
-        attrs1_.add(CoreDocument.createAttribute("class","cfg"));
-        attrs1_.add(CoreDocument.createAttribute("field","firstUrl"));
-        attrs1_.add(CoreDocument.createAttribute("value","resources_cards/help//aide_generale/jeux/belote/jeu_des_cartes.html"));
-        elt1_.setAttributes(new NamedNodeMap(attrs1_));
-        elt0_.appendChild(elt1_);
-        doc_.appendChild(elt0_);
-        return doc_;
+        return common("resources_cards/help//aide_generale/jeux/belote/jeu_des_cartes.html");
     }
     static Document init18(){
-        FullDocument doc_ = DocumentBuilder.newXmlDocument(4);
-        Element elt0_=doc_.createElement("cfg");
-        CustList<Attr> attrs0_=new CustList<Attr>(new CollCapacity(0));
-        elt0_.setAttributes(new NamedNodeMap(attrs0_));
-        Element elt1_=doc_.createElement("java.lang.String");
-        CustList<Attr> attrs1_=new CustList<Attr>(new CollCapacity(3));
-        attrs1_.add(CoreDocument.createAttribute("class","cfg"));
-        attrs1_.add(CoreDocument.createAttribute("field","firstUrl"));
-        attrs1_.add(CoreDocument.createAttribute("value","resources_cards/help//aide_generale/jeux/belote/fin_de_la_partie.html"));
-        elt1_.setAttributes(new NamedNodeMap(attrs1_));
-        elt0_.appendChild(elt1_);
-        doc_.appendChild(elt0_);
-        return doc_;
+        return common("resources_cards/help//aide_generale/jeux/belote/fin_de_la_partie.html");
     }
     static Document init19(){
-        FullDocument doc_ = DocumentBuilder.newXmlDocument(4);
-        Element elt0_=doc_.createElement("cfg");
-        CustList<Attr> attrs0_=new CustList<Attr>(new CollCapacity(0));
-        elt0_.setAttributes(new NamedNodeMap(attrs0_));
-        Element elt1_=doc_.createElement("java.lang.String");
-        CustList<Attr> attrs1_=new CustList<Attr>(new CollCapacity(3));
-        attrs1_.add(CoreDocument.createAttribute("class","cfg"));
-        attrs1_.add(CoreDocument.createAttribute("field","firstUrl"));
-        attrs1_.add(CoreDocument.createAttribute("value","resources_cards/help//aide_generale/jeux/belote/variantes.html"));
-        elt1_.setAttributes(new NamedNodeMap(attrs1_));
-        elt0_.appendChild(elt1_);
-        doc_.appendChild(elt0_);
-        return doc_;
+        return common("resources_cards/help//aide_generale/jeux/belote/variantes.html");
     }
 
     static Document init22(){
-        FullDocument doc_ = DocumentBuilder.newXmlDocument(4);
-        Element elt0_=doc_.createElement("cfg");
-        CustList<Attr> attrs0_=new CustList<Attr>(new CollCapacity(0));
-        elt0_.setAttributes(new NamedNodeMap(attrs0_));
-        Element elt1_=doc_.createElement("java.lang.String");
-        CustList<Attr> attrs1_=new CustList<Attr>(new CollCapacity(3));
-        attrs1_.add(CoreDocument.createAttribute("class","cfg"));
-        attrs1_.add(CoreDocument.createAttribute("field","firstUrl"));
-        attrs1_.add(CoreDocument.createAttribute("value","resources_cards/help//aide_generale/jeux/president/distribution.html"));
-        elt1_.setAttributes(new NamedNodeMap(attrs1_));
-        elt0_.appendChild(elt1_);
-        doc_.appendChild(elt0_);
-        return doc_;
+        return common("resources_cards/help//aide_generale/jeux/president/distribution.html");
     }
     static Document init23(){
-        FullDocument doc_ = DocumentBuilder.newXmlDocument(4);
-        Element elt0_=doc_.createElement("cfg");
-        CustList<Attr> attrs0_=new CustList<Attr>(new CollCapacity(0));
-        elt0_.setAttributes(new NamedNodeMap(attrs0_));
-        Element elt1_=doc_.createElement("java.lang.String");
-        CustList<Attr> attrs1_=new CustList<Attr>(new CollCapacity(3));
-        attrs1_.add(CoreDocument.createAttribute("class","cfg"));
-        attrs1_.add(CoreDocument.createAttribute("field","firstUrl"));
-        attrs1_.add(CoreDocument.createAttribute("value","resources_cards/help//aide_generale/jeux/president/jeu_des_cartes.html"));
-        elt1_.setAttributes(new NamedNodeMap(attrs1_));
-        elt0_.appendChild(elt1_);
-        doc_.appendChild(elt0_);
-        return doc_;
+        return common("resources_cards/help//aide_generale/jeux/president/jeu_des_cartes.html");
     }
     static Document init24(){
-        FullDocument doc_ = DocumentBuilder.newXmlDocument(4);
-        Element elt0_=doc_.createElement("cfg");
-        CustList<Attr> attrs0_=new CustList<Attr>(new CollCapacity(0));
-        elt0_.setAttributes(new NamedNodeMap(attrs0_));
-        Element elt1_=doc_.createElement("java.lang.String");
-        CustList<Attr> attrs1_=new CustList<Attr>(new CollCapacity(3));
-        attrs1_.add(CoreDocument.createAttribute("class","cfg"));
-        attrs1_.add(CoreDocument.createAttribute("field","firstUrl"));
-        attrs1_.add(CoreDocument.createAttribute("value","resources_cards/help//aide_generale/jeux/president/variantes.html"));
-        elt1_.setAttributes(new NamedNodeMap(attrs1_));
-        elt0_.appendChild(elt1_);
-        doc_.appendChild(elt0_);
-        return doc_;
+        return common("resources_cards/help//aide_generale/jeux/president/variantes.html");
     }
 
     static Document init27(){
-        FullDocument doc_ = DocumentBuilder.newXmlDocument(4);
-        Element elt0_=doc_.createElement("cfg");
-        CustList<Attr> attrs0_=new CustList<Attr>(new CollCapacity(0));
-        elt0_.setAttributes(new NamedNodeMap(attrs0_));
-        Element elt1_=doc_.createElement("java.lang.String");
-        CustList<Attr> attrs1_=new CustList<Attr>(new CollCapacity(3));
-        attrs1_.add(CoreDocument.createAttribute("class","cfg"));
-        attrs1_.add(CoreDocument.createAttribute("field","firstUrl"));
-        attrs1_.add(CoreDocument.createAttribute("value","resources_cards/help//aide_generale/jeux/tarot/distribution.html"));
-        elt1_.setAttributes(new NamedNodeMap(attrs1_));
-        elt0_.appendChild(elt1_);
-        doc_.appendChild(elt0_);
-        return doc_;
+        return common("resources_cards/help//aide_generale/jeux/tarot/distribution.html");
     }
     static Document init28(){
-        FullDocument doc_ = DocumentBuilder.newXmlDocument(4);
-        Element elt0_=doc_.createElement("cfg");
-        CustList<Attr> attrs0_=new CustList<Attr>(new CollCapacity(0));
-        elt0_.setAttributes(new NamedNodeMap(attrs0_));
-        Element elt1_=doc_.createElement("java.lang.String");
-        CustList<Attr> attrs1_=new CustList<Attr>(new CollCapacity(3));
-        attrs1_.add(CoreDocument.createAttribute("class","cfg"));
-        attrs1_.add(CoreDocument.createAttribute("field","firstUrl"));
-        attrs1_.add(CoreDocument.createAttribute("value","resources_cards/help//aide_generale/jeux/tarot/contrat.html"));
-        elt1_.setAttributes(new NamedNodeMap(attrs1_));
-        elt0_.appendChild(elt1_);
-        doc_.appendChild(elt0_);
-        return doc_;
+        return common("resources_cards/help//aide_generale/jeux/tarot/contrat.html");
     }
     static Document init29(){
-        FullDocument doc_ = DocumentBuilder.newXmlDocument(4);
-        Element elt0_=doc_.createElement("cfg");
-        CustList<Attr> attrs0_=new CustList<Attr>(new CollCapacity(0));
-        elt0_.setAttributes(new NamedNodeMap(attrs0_));
-        Element elt1_=doc_.createElement("java.lang.String");
-        CustList<Attr> attrs1_=new CustList<Attr>(new CollCapacity(3));
-        attrs1_.add(CoreDocument.createAttribute("class","cfg"));
-        attrs1_.add(CoreDocument.createAttribute("field","firstUrl"));
-        attrs1_.add(CoreDocument.createAttribute("value","resources_cards/help//aide_generale/jeux/tarot/chien.html"));
-        elt1_.setAttributes(new NamedNodeMap(attrs1_));
-        elt0_.appendChild(elt1_);
-        doc_.appendChild(elt0_);
-        return doc_;
+        return common("resources_cards/help//aide_generale/jeux/tarot/chien.html");
     }
     static Document init30(){
-        FullDocument doc_ = DocumentBuilder.newXmlDocument(4);
-        Element elt0_=doc_.createElement("cfg");
-        CustList<Attr> attrs0_=new CustList<Attr>(new CollCapacity(0));
-        elt0_.setAttributes(new NamedNodeMap(attrs0_));
-        Element elt1_=doc_.createElement("java.lang.String");
-        CustList<Attr> attrs1_=new CustList<Attr>(new CollCapacity(3));
-        attrs1_.add(CoreDocument.createAttribute("class","cfg"));
-        attrs1_.add(CoreDocument.createAttribute("field","firstUrl"));
-        attrs1_.add(CoreDocument.createAttribute("value","resources_cards/help//aide_generale/jeux/tarot/annonces.html"));
-        elt1_.setAttributes(new NamedNodeMap(attrs1_));
-        elt0_.appendChild(elt1_);
-        doc_.appendChild(elt0_);
-        return doc_;
+        return common("resources_cards/help//aide_generale/jeux/tarot/annonces.html");
     }
     static Document init31(){
-        FullDocument doc_ = DocumentBuilder.newXmlDocument(4);
-        Element elt0_=doc_.createElement("cfg");
-        CustList<Attr> attrs0_=new CustList<Attr>(new CollCapacity(0));
-        elt0_.setAttributes(new NamedNodeMap(attrs0_));
-        Element elt1_=doc_.createElement("java.lang.String");
-        CustList<Attr> attrs1_=new CustList<Attr>(new CollCapacity(3));
-        attrs1_.add(CoreDocument.createAttribute("class","cfg"));
-        attrs1_.add(CoreDocument.createAttribute("field","firstUrl"));
-        attrs1_.add(CoreDocument.createAttribute("value","resources_cards/help//aide_generale/jeux/tarot/jeu_des_cartes.html"));
-        elt1_.setAttributes(new NamedNodeMap(attrs1_));
-        elt0_.appendChild(elt1_);
-        doc_.appendChild(elt0_);
-        return doc_;
+        return common("resources_cards/help//aide_generale/jeux/tarot/jeu_des_cartes.html");
     }
     static Document init32(){
-        FullDocument doc_ = DocumentBuilder.newXmlDocument(4);
-        Element elt0_=doc_.createElement("cfg");
-        CustList<Attr> attrs0_=new CustList<Attr>(new CollCapacity(0));
-        elt0_.setAttributes(new NamedNodeMap(attrs0_));
-        Element elt1_=doc_.createElement("java.lang.String");
-        CustList<Attr> attrs1_=new CustList<Attr>(new CollCapacity(3));
-        attrs1_.add(CoreDocument.createAttribute("class","cfg"));
-        attrs1_.add(CoreDocument.createAttribute("field","firstUrl"));
-        attrs1_.add(CoreDocument.createAttribute("value","resources_cards/help//aide_generale/jeux/tarot/fin_de_la_partie.html"));
-        elt1_.setAttributes(new NamedNodeMap(attrs1_));
-        elt0_.appendChild(elt1_);
-        doc_.appendChild(elt0_);
-        return doc_;
+        return common("resources_cards/help//aide_generale/jeux/tarot/fin_de_la_partie.html");
     }
     static Document init33(){
-        FullDocument doc_ = DocumentBuilder.newXmlDocument(4);
-        Element elt0_=doc_.createElement("cfg");
-        CustList<Attr> attrs0_=new CustList<Attr>(new CollCapacity(0));
-        elt0_.setAttributes(new NamedNodeMap(attrs0_));
-        Element elt1_=doc_.createElement("java.lang.String");
-        CustList<Attr> attrs1_=new CustList<Attr>(new CollCapacity(3));
-        attrs1_.add(CoreDocument.createAttribute("class","cfg"));
-        attrs1_.add(CoreDocument.createAttribute("field","firstUrl"));
-        attrs1_.add(CoreDocument.createAttribute("value","resources_cards/help//aide_generale/jeux/tarot/variantes.html"));
-        elt1_.setAttributes(new NamedNodeMap(attrs1_));
-        elt0_.appendChild(elt1_);
-        doc_.appendChild(elt0_);
-        return doc_;
+        return common("resources_cards/help//aide_generale/jeux/tarot/variantes.html");
     }
     static Document init34(){
-        FullDocument doc_ = DocumentBuilder.newXmlDocument(4);
-        Element elt0_=doc_.createElement("cfg");
-        CustList<Attr> attrs0_=new CustList<Attr>(new CollCapacity(0));
-        elt0_.setAttributes(new NamedNodeMap(attrs0_));
-        Element elt1_=doc_.createElement("java.lang.String");
-        CustList<Attr> attrs1_=new CustList<Attr>(new CollCapacity(3));
-        attrs1_.add(CoreDocument.createAttribute("class","cfg"));
-        attrs1_.add(CoreDocument.createAttribute("field","firstUrl"));
-        attrs1_.add(CoreDocument.createAttribute("value","resources_cards/help//aide_generale/logiciel/menus/fichier/charger.html"));
-        elt1_.setAttributes(new NamedNodeMap(attrs1_));
-        elt0_.appendChild(elt1_);
-        doc_.appendChild(elt0_);
-        return doc_;
+        return common("resources_cards/help//aide_generale/logiciel/menus/fichier/charger.html");
     }
     static Document init35(){
-        FullDocument doc_ = DocumentBuilder.newXmlDocument(4);
-        Element elt0_=doc_.createElement("cfg");
-        CustList<Attr> attrs0_=new CustList<Attr>(new CollCapacity(0));
-        elt0_.setAttributes(new NamedNodeMap(attrs0_));
-        Element elt1_=doc_.createElement("java.lang.String");
-        CustList<Attr> attrs1_=new CustList<Attr>(new CollCapacity(3));
-        attrs1_.add(CoreDocument.createAttribute("class","cfg"));
-        attrs1_.add(CoreDocument.createAttribute("field","firstUrl"));
-        attrs1_.add(CoreDocument.createAttribute("value","resources_cards/help//aide_generale/logiciel/menus/fichier/sauvegarder.html"));
-        elt1_.setAttributes(new NamedNodeMap(attrs1_));
-        elt0_.appendChild(elt1_);
-        doc_.appendChild(elt0_);
-        return doc_;
+        return common("resources_cards/help//aide_generale/logiciel/menus/fichier/sauvegarder.html");
     }
     static Document init36(){
-        FullDocument doc_ = DocumentBuilder.newXmlDocument(4);
-        Element elt0_=doc_.createElement("cfg");
-        CustList<Attr> attrs0_=new CustList<Attr>(new CollCapacity(0));
-        elt0_.setAttributes(new NamedNodeMap(attrs0_));
-        Element elt1_=doc_.createElement("java.lang.String");
-        CustList<Attr> attrs1_=new CustList<Attr>(new CollCapacity(3));
-        attrs1_.add(CoreDocument.createAttribute("class","cfg"));
-        attrs1_.add(CoreDocument.createAttribute("field","firstUrl"));
-        attrs1_.add(CoreDocument.createAttribute("value","resources_cards/help//aide_generale/logiciel/menus/fichier/changer_jeu.html"));
-        elt1_.setAttributes(new NamedNodeMap(attrs1_));
-        elt0_.appendChild(elt1_);
-        doc_.appendChild(elt0_);
-        return doc_;
+        return common("resources_cards/help//aide_generale/logiciel/menus/fichier/changer_jeu.html");
     }
     static Document init37(){
-        FullDocument doc_ = DocumentBuilder.newXmlDocument(4);
-        Element elt0_=doc_.createElement("cfg");
-        CustList<Attr> attrs0_=new CustList<Attr>(new CollCapacity(0));
-        elt0_.setAttributes(new NamedNodeMap(attrs0_));
-        Element elt1_=doc_.createElement("java.lang.String");
-        CustList<Attr> attrs1_=new CustList<Attr>(new CollCapacity(3));
-        attrs1_.add(CoreDocument.createAttribute("class","cfg"));
-        attrs1_.add(CoreDocument.createAttribute("field","firstUrl"));
-        attrs1_.add(CoreDocument.createAttribute("value","resources_cards/help//aide_generale/logiciel/menus/fichier/quitter.html"));
-        elt1_.setAttributes(new NamedNodeMap(attrs1_));
-        elt0_.appendChild(elt1_);
-        doc_.appendChild(elt0_);
-        return doc_;
+        return common("resources_cards/help//aide_generale/logiciel/menus/fichier/quitter.html");
     }
     static Document init38(){
-        FullDocument doc_ = DocumentBuilder.newXmlDocument(4);
-        Element elt0_=doc_.createElement("cfg");
-        CustList<Attr> attrs0_=new CustList<Attr>(new CollCapacity(0));
-        elt0_.setAttributes(new NamedNodeMap(attrs0_));
-        Element elt1_=doc_.createElement("java.lang.String");
-        CustList<Attr> attrs1_=new CustList<Attr>(new CollCapacity(3));
-        attrs1_.add(CoreDocument.createAttribute("class","cfg"));
-        attrs1_.add(CoreDocument.createAttribute("field","firstUrl"));
-        attrs1_.add(CoreDocument.createAttribute("value","resources_cards/help//aide_generale/logiciel/menus/partie/conseil.html"));
-        elt1_.setAttributes(new NamedNodeMap(attrs1_));
-        elt0_.appendChild(elt1_);
-        doc_.appendChild(elt0_);
-        return doc_;
+        return common("resources_cards/help//aide_generale/logiciel/menus/partie/conseil.html");
     }
     static Document init39(){
-        FullDocument doc_ = DocumentBuilder.newXmlDocument(4);
-        Element elt0_=doc_.createElement("cfg");
-        CustList<Attr> attrs0_=new CustList<Attr>(new CollCapacity(0));
-        elt0_.setAttributes(new NamedNodeMap(attrs0_));
-        Element elt1_=doc_.createElement("java.lang.String");
-        CustList<Attr> attrs1_=new CustList<Attr>(new CollCapacity(3));
-        attrs1_.add(CoreDocument.createAttribute("class","cfg"));
-        attrs1_.add(CoreDocument.createAttribute("field","firstUrl"));
-        attrs1_.add(CoreDocument.createAttribute("value","resources_cards/help//aide_generale/logiciel/menus/partie/pause.html"));
-        elt1_.setAttributes(new NamedNodeMap(attrs1_));
-        elt0_.appendChild(elt1_);
-        doc_.appendChild(elt0_);
-        return doc_;
+        return common("resources_cards/help//aide_generale/logiciel/menus/partie/pause.html");
     }
     static Document init40(){
-        FullDocument doc_ = DocumentBuilder.newXmlDocument(4);
-        Element elt0_=doc_.createElement("cfg");
-        CustList<Attr> attrs0_=new CustList<Attr>(new CollCapacity(0));
-        elt0_.setAttributes(new NamedNodeMap(attrs0_));
-        Element elt1_=doc_.createElement("java.lang.String");
-        CustList<Attr> attrs1_=new CustList<Attr>(new CollCapacity(3));
-        attrs1_.add(CoreDocument.createAttribute("class","cfg"));
-        attrs1_.add(CoreDocument.createAttribute("field","firstUrl"));
-        attrs1_.add(CoreDocument.createAttribute("value","resources_cards/help//aide_generale/logiciel/menus/partie/aide_au_jeu.html"));
-        elt1_.setAttributes(new NamedNodeMap(attrs1_));
-        elt0_.appendChild(elt1_);
-        doc_.appendChild(elt0_);
-        return doc_;
+        return common("resources_cards/help//aide_generale/logiciel/menus/partie/aide_au_jeu.html");
     }
     static Document init41(){
-        FullDocument doc_ = DocumentBuilder.newXmlDocument(4);
-        Element elt0_=doc_.createElement("cfg");
-        CustList<Attr> attrs0_=new CustList<Attr>(new CollCapacity(0));
-        elt0_.setAttributes(new NamedNodeMap(attrs0_));
-        Element elt1_=doc_.createElement("java.lang.String");
-        CustList<Attr> attrs1_=new CustList<Attr>(new CollCapacity(3));
-        attrs1_.add(CoreDocument.createAttribute("class","cfg"));
-        attrs1_.add(CoreDocument.createAttribute("field","firstUrl"));
-        attrs1_.add(CoreDocument.createAttribute("value","resources_cards/help//aide_generale/logiciel/menus/partie/mains_plis.html"));
-        elt1_.setAttributes(new NamedNodeMap(attrs1_));
-        elt0_.appendChild(elt1_);
-        doc_.appendChild(elt0_);
-        return doc_;
+        return common("resources_cards/help//aide_generale/logiciel/menus/partie/mains_plis.html");
     }
     static Document init42(){
-        FullDocument doc_ = DocumentBuilder.newXmlDocument(4);
-        Element elt0_=doc_.createElement("cfg");
-        CustList<Attr> attrs0_=new CustList<Attr>(new CollCapacity(0));
-        elt0_.setAttributes(new NamedNodeMap(attrs0_));
-        Element elt1_=doc_.createElement("java.lang.String");
-        CustList<Attr> attrs1_=new CustList<Attr>(new CollCapacity(3));
-        attrs1_.add(CoreDocument.createAttribute("class","cfg"));
-        attrs1_.add(CoreDocument.createAttribute("field","firstUrl"));
-        attrs1_.add(CoreDocument.createAttribute("value","resources_cards/help//aide_generale/logiciel/menus/partie/equipes.html"));
-        elt1_.setAttributes(new NamedNodeMap(attrs1_));
-        elt0_.appendChild(elt1_);
-        doc_.appendChild(elt0_);
-        return doc_;
+        return common("resources_cards/help//aide_generale/logiciel/menus/partie/equipes.html");
     }
     static Document init43(){
-        FullDocument doc_ = DocumentBuilder.newXmlDocument(4);
-        Element elt0_=doc_.createElement("cfg");
-        CustList<Attr> attrs0_=new CustList<Attr>(new CollCapacity(0));
-        elt0_.setAttributes(new NamedNodeMap(attrs0_));
-        Element elt1_=doc_.createElement("java.lang.String");
-        CustList<Attr> attrs1_=new CustList<Attr>(new CollCapacity(3));
-        attrs1_.add(CoreDocument.createAttribute("class","cfg"));
-        attrs1_.add(CoreDocument.createAttribute("field","firstUrl"));
-        attrs1_.add(CoreDocument.createAttribute("value","resources_cards/help//aide_generale/logiciel/menus/partie/editer.html"));
-        elt1_.setAttributes(new NamedNodeMap(attrs1_));
-        elt0_.appendChild(elt1_);
-        doc_.appendChild(elt0_);
-        return doc_;
+        return common("resources_cards/help//aide_generale/logiciel/menus/partie/editer.html");
     }
     static Document init44(){
-        FullDocument doc_ = DocumentBuilder.newXmlDocument(4);
-        Element elt0_=doc_.createElement("cfg");
-        CustList<Attr> attrs0_=new CustList<Attr>(new CollCapacity(0));
-        elt0_.setAttributes(new NamedNodeMap(attrs0_));
-        Element elt1_=doc_.createElement("java.lang.String");
-        CustList<Attr> attrs1_=new CustList<Attr>(new CollCapacity(3));
-        attrs1_.add(CoreDocument.createAttribute("class","cfg"));
-        attrs1_.add(CoreDocument.createAttribute("field","firstUrl"));
-        attrs1_.add(CoreDocument.createAttribute("value","resources_cards/help//aide_generale/logiciel/menus/partie/simulation.html"));
-        elt1_.setAttributes(new NamedNodeMap(attrs1_));
-        elt0_.appendChild(elt1_);
-        doc_.appendChild(elt0_);
-        return doc_;
+        return common("resources_cards/help//aide_generale/logiciel/menus/partie/simulation.html");
     }
     static Document init45(){
-        FullDocument doc_ = DocumentBuilder.newXmlDocument(4);
-        Element elt0_=doc_.createElement("cfg");
-        CustList<Attr> attrs0_=new CustList<Attr>(new CollCapacity(0));
-        elt0_.setAttributes(new NamedNodeMap(attrs0_));
-        Element elt1_=doc_.createElement("java.lang.String");
-        CustList<Attr> attrs1_=new CustList<Attr>(new CollCapacity(3));
-        attrs1_.add(CoreDocument.createAttribute("class","cfg"));
-        attrs1_.add(CoreDocument.createAttribute("field","firstUrl"));
-        attrs1_.add(CoreDocument.createAttribute("value","resources_cards/help//aide_generale/logiciel/menus/partie/entrainement.html"));
-        elt1_.setAttributes(new NamedNodeMap(attrs1_));
-        elt0_.appendChild(elt1_);
-        doc_.appendChild(elt0_);
-        return doc_;
+        return common("resources_cards/help//aide_generale/logiciel/menus/partie/entrainement.html");
     }
     static Document init46(){
-        FullDocument doc_ = DocumentBuilder.newXmlDocument(4);
-        Element elt0_=doc_.createElement("cfg");
-        CustList<Attr> attrs0_=new CustList<Attr>(new CollCapacity(0));
-        elt0_.setAttributes(new NamedNodeMap(attrs0_));
-        Element elt1_=doc_.createElement("java.lang.String");
-        CustList<Attr> attrs1_=new CustList<Attr>(new CollCapacity(3));
-        attrs1_.add(CoreDocument.createAttribute("class","cfg"));
-        attrs1_.add(CoreDocument.createAttribute("field","firstUrl"));
-        attrs1_.add(CoreDocument.createAttribute("value","resources_cards/help//aide_generale/logiciel/menus/partie/arret_multi.html"));
-        elt1_.setAttributes(new NamedNodeMap(attrs1_));
-        elt0_.appendChild(elt1_);
-        doc_.appendChild(elt0_);
-        return doc_;
+        return common("resources_cards/help//aide_generale/logiciel/menus/partie/arret_multi.html");
     }
     static Document init47(){
-        FullDocument doc_ = DocumentBuilder.newXmlDocument(4);
-        Element elt0_=doc_.createElement("cfg");
-        CustList<Attr> attrs0_=new CustList<Attr>(new CollCapacity(0));
-        elt0_.setAttributes(new NamedNodeMap(attrs0_));
-        Element elt1_=doc_.createElement("java.lang.String");
-        CustList<Attr> attrs1_=new CustList<Attr>(new CollCapacity(3));
-        attrs1_.add(CoreDocument.createAttribute("class","cfg"));
-        attrs1_.add(CoreDocument.createAttribute("field","firstUrl"));
-        attrs1_.add(CoreDocument.createAttribute("value","resources_cards/help//aide_generale/logiciel/menus/parametres/belote.html"));
-        elt1_.setAttributes(new NamedNodeMap(attrs1_));
-        elt0_.appendChild(elt1_);
-        doc_.appendChild(elt0_);
-        return doc_;
+        return common("resources_cards/help//aide_generale/logiciel/menus/parametres/belote.html");
     }
     static Document init48(){
-        FullDocument doc_ = DocumentBuilder.newXmlDocument(4);
-        Element elt0_=doc_.createElement("cfg");
-        CustList<Attr> attrs0_=new CustList<Attr>(new CollCapacity(0));
-        elt0_.setAttributes(new NamedNodeMap(attrs0_));
-        Element elt1_=doc_.createElement("java.lang.String");
-        CustList<Attr> attrs1_=new CustList<Attr>(new CollCapacity(3));
-        attrs1_.add(CoreDocument.createAttribute("class","cfg"));
-        attrs1_.add(CoreDocument.createAttribute("field","firstUrl"));
-        attrs1_.add(CoreDocument.createAttribute("value","resources_cards/help//aide_generale/logiciel/menus/parametres/tarot.html"));
-        elt1_.setAttributes(new NamedNodeMap(attrs1_));
-        elt0_.appendChild(elt1_);
-        doc_.appendChild(elt0_);
-        return doc_;
+        return common("resources_cards/help//aide_generale/logiciel/menus/parametres/tarot.html");
     }
     static Document init49(){
-        FullDocument doc_ = DocumentBuilder.newXmlDocument(4);
-        Element elt0_=doc_.createElement("cfg");
-        CustList<Attr> attrs0_=new CustList<Attr>(new CollCapacity(0));
-        elt0_.setAttributes(new NamedNodeMap(attrs0_));
-        Element elt1_=doc_.createElement("java.lang.String");
-        CustList<Attr> attrs1_=new CustList<Attr>(new CollCapacity(3));
-        attrs1_.add(CoreDocument.createAttribute("class","cfg"));
-        attrs1_.add(CoreDocument.createAttribute("field","firstUrl"));
-        attrs1_.add(CoreDocument.createAttribute("value","resources_cards/help//aide_generale/logiciel/menus/parametres/joueurs.html"));
-        elt1_.setAttributes(new NamedNodeMap(attrs1_));
-        elt0_.appendChild(elt1_);
-        doc_.appendChild(elt0_);
-        return doc_;
+        return common("resources_cards/help//aide_generale/logiciel/menus/parametres/joueurs.html");
     }
     static Document init50(){
-        FullDocument doc_ = DocumentBuilder.newXmlDocument(4);
-        Element elt0_=doc_.createElement("cfg");
-        CustList<Attr> attrs0_=new CustList<Attr>(new CollCapacity(0));
-        elt0_.setAttributes(new NamedNodeMap(attrs0_));
-        Element elt1_=doc_.createElement("java.lang.String");
-        CustList<Attr> attrs1_=new CustList<Attr>(new CollCapacity(3));
-        attrs1_.add(CoreDocument.createAttribute("class","cfg"));
-        attrs1_.add(CoreDocument.createAttribute("field","firstUrl"));
-        attrs1_.add(CoreDocument.createAttribute("value","resources_cards/help//aide_generale/logiciel/menus/parametres/lancement.html"));
-        elt1_.setAttributes(new NamedNodeMap(attrs1_));
-        elt0_.appendChild(elt1_);
-        doc_.appendChild(elt0_);
-        return doc_;
+        return common("resources_cards/help//aide_generale/logiciel/menus/parametres/lancement.html");
     }
     static Document init51(){
-        FullDocument doc_ = DocumentBuilder.newXmlDocument(4);
-        Element elt0_=doc_.createElement("cfg");
-        CustList<Attr> attrs0_=new CustList<Attr>(new CollCapacity(0));
-        elt0_.setAttributes(new NamedNodeMap(attrs0_));
-        Element elt1_=doc_.createElement("java.lang.String");
-        CustList<Attr> attrs1_=new CustList<Attr>(new CollCapacity(3));
-        attrs1_.add(CoreDocument.createAttribute("class","cfg"));
-        attrs1_.add(CoreDocument.createAttribute("field","firstUrl"));
-        attrs1_.add(CoreDocument.createAttribute("value","resources_cards/help//aide_generale/logiciel/menus/parametres/temporisation.html"));
-        elt1_.setAttributes(new NamedNodeMap(attrs1_));
-        elt0_.appendChild(elt1_);
-        doc_.appendChild(elt0_);
-        return doc_;
+        return common("resources_cards/help//aide_generale/logiciel/menus/parametres/temporisation.html");
     }
     static Document init52(){
-        FullDocument doc_ = DocumentBuilder.newXmlDocument(4);
-        Element elt0_=doc_.createElement("cfg");
-        CustList<Attr> attrs0_=new CustList<Attr>(new CollCapacity(0));
-        elt0_.setAttributes(new NamedNodeMap(attrs0_));
-        Element elt1_=doc_.createElement("java.lang.String");
-        CustList<Attr> attrs1_=new CustList<Attr>(new CollCapacity(3));
-        attrs1_.add(CoreDocument.createAttribute("class","cfg"));
-        attrs1_.add(CoreDocument.createAttribute("field","firstUrl"));
-        attrs1_.add(CoreDocument.createAttribute("value","resources_cards/help//aide_generale/logiciel/menus/parametres/interaction.html"));
-        elt1_.setAttributes(new NamedNodeMap(attrs1_));
-        elt0_.appendChild(elt1_);
-        doc_.appendChild(elt0_);
-        return doc_;
+        return common("resources_cards/help//aide_generale/logiciel/menus/parametres/interaction.html");
     }
     static Document init53(){
-        FullDocument doc_ = DocumentBuilder.newXmlDocument(4);
-        Element elt0_=doc_.createElement("cfg");
-        CustList<Attr> attrs0_=new CustList<Attr>(new CollCapacity(0));
-        elt0_.setAttributes(new NamedNodeMap(attrs0_));
-        Element elt1_=doc_.createElement("java.lang.String");
-        CustList<Attr> attrs1_=new CustList<Attr>(new CollCapacity(3));
-        attrs1_.add(CoreDocument.createAttribute("class","cfg"));
-        attrs1_.add(CoreDocument.createAttribute("field","firstUrl"));
-        attrs1_.add(CoreDocument.createAttribute("value","resources_cards/help//aide_generale/logiciel/menus/parametres/langue.html"));
-        elt1_.setAttributes(new NamedNodeMap(attrs1_));
-        elt0_.appendChild(elt1_);
-        doc_.appendChild(elt0_);
-        return doc_;
+        return common("resources_cards/help//aide_generale/logiciel/menus/parametres/langue.html");
     }
     static Document init54(){
-        FullDocument doc_ = DocumentBuilder.newXmlDocument(4);
-        Element elt0_=doc_.createElement("cfg");
-        CustList<Attr> attrs0_=new CustList<Attr>(new CollCapacity(0));
-        elt0_.setAttributes(new NamedNodeMap(attrs0_));
-        Element elt1_=doc_.createElement("java.lang.String");
-        CustList<Attr> attrs1_=new CustList<Attr>(new CollCapacity(3));
-        attrs1_.add(CoreDocument.createAttribute("class","cfg"));
-        attrs1_.add(CoreDocument.createAttribute("field","firstUrl"));
-        attrs1_.add(CoreDocument.createAttribute("value","resources_cards/help//aide_generale/logiciel/menus/parametres/affichage.html"));
-        elt1_.setAttributes(new NamedNodeMap(attrs1_));
-        elt0_.appendChild(elt1_);
-        doc_.appendChild(elt0_);
-        return doc_;
+        return common("resources_cards/help//aide_generale/logiciel/menus/parametres/affichage.html");
     }
     static Document init55(){
-        FullDocument doc_ = DocumentBuilder.newXmlDocument(4);
-        Element elt0_=doc_.createElement("cfg");
-        CustList<Attr> attrs0_=new CustList<Attr>(new CollCapacity(0));
-        elt0_.setAttributes(new NamedNodeMap(attrs0_));
-        Element elt1_=doc_.createElement("java.lang.String");
-        CustList<Attr> attrs1_=new CustList<Attr>(new CollCapacity(3));
-        attrs1_.add(CoreDocument.createAttribute("class","cfg"));
-        attrs1_.add(CoreDocument.createAttribute("field","firstUrl"));
-        attrs1_.add(CoreDocument.createAttribute("value","resources_cards/help//aide_generale/logiciel/menus/aide/aide_generale.html"));
-        elt1_.setAttributes(new NamedNodeMap(attrs1_));
-        elt0_.appendChild(elt1_);
-        doc_.appendChild(elt0_);
-        return doc_;
+        return common("resources_cards/help//aide_generale/logiciel/menus/aide/aide_generale.html");
     }
     static Document init56(){
-        FullDocument doc_ = DocumentBuilder.newXmlDocument(4);
-        Element elt0_=doc_.createElement("cfg");
-        CustList<Attr> attrs0_=new CustList<Attr>(new CollCapacity(0));
-        elt0_.setAttributes(new NamedNodeMap(attrs0_));
-        Element elt1_=doc_.createElement("java.lang.String");
-        CustList<Attr> attrs1_=new CustList<Attr>(new CollCapacity(3));
-        attrs1_.add(CoreDocument.createAttribute("class","cfg"));
-        attrs1_.add(CoreDocument.createAttribute("field","firstUrl"));
-        attrs1_.add(CoreDocument.createAttribute("value","resources_cards/help//aide_generale/jeux/belote/variantes/surcontrat.html"));
-        elt1_.setAttributes(new NamedNodeMap(attrs1_));
-        elt0_.appendChild(elt1_);
-        doc_.appendChild(elt0_);
-        return doc_;
+        return common("resources_cards/help//aide_generale/jeux/belote/variantes/surcontrat.html");
     }
     static Document init57(){
-        FullDocument doc_ = DocumentBuilder.newXmlDocument(4);
-        Element elt0_=doc_.createElement("cfg");
-        CustList<Attr> attrs0_=new CustList<Attr>(new CollCapacity(0));
-        elt0_.setAttributes(new NamedNodeMap(attrs0_));
-        Element elt1_=doc_.createElement("java.lang.String");
-        CustList<Attr> attrs1_=new CustList<Attr>(new CollCapacity(3));
-        attrs1_.add(CoreDocument.createAttribute("class","cfg"));
-        attrs1_.add(CoreDocument.createAttribute("field","firstUrl"));
-        attrs1_.add(CoreDocument.createAttribute("value","resources_cards/help//aide_generale/jeux/belote/variantes/fin_de_partie_differente.html"));
-        elt1_.setAttributes(new NamedNodeMap(attrs1_));
-        elt0_.appendChild(elt1_);
-        doc_.appendChild(elt0_);
-        return doc_;
+        return common("resources_cards/help//aide_generale/jeux/belote/variantes/fin_de_partie_differente.html");
     }
     static Document init58(){
-        FullDocument doc_ = DocumentBuilder.newXmlDocument(4);
-        Element elt0_=doc_.createElement("cfg");
-        CustList<Attr> attrs0_=new CustList<Attr>(new CollCapacity(0));
-        elt0_.setAttributes(new NamedNodeMap(attrs0_));
-        Element elt1_=doc_.createElement("java.lang.String");
-        CustList<Attr> attrs1_=new CustList<Attr>(new CollCapacity(3));
-        attrs1_.add(CoreDocument.createAttribute("class","cfg"));
-        attrs1_.add(CoreDocument.createAttribute("field","firstUrl"));
-        attrs1_.add(CoreDocument.createAttribute("value","resources_cards/help//aide_generale/jeux/tarot/variantes/trois_joueurs.html"));
-        elt1_.setAttributes(new NamedNodeMap(attrs1_));
-        elt0_.appendChild(elt1_);
-        doc_.appendChild(elt0_);
-        return doc_;
+        return common("resources_cards/help//aide_generale/jeux/tarot/variantes/trois_joueurs.html");
     }
     static Document init59(){
-        FullDocument doc_ = DocumentBuilder.newXmlDocument(4);
-        Element elt0_=doc_.createElement("cfg");
-        CustList<Attr> attrs0_=new CustList<Attr>(new CollCapacity(0));
-        elt0_.setAttributes(new NamedNodeMap(attrs0_));
-        Element elt1_=doc_.createElement("java.lang.String");
-        CustList<Attr> attrs1_=new CustList<Attr>(new CollCapacity(3));
-        attrs1_.add(CoreDocument.createAttribute("class","cfg"));
-        attrs1_.add(CoreDocument.createAttribute("field","firstUrl"));
-        attrs1_.add(CoreDocument.createAttribute("value","resources_cards/help//aide_generale/jeux/tarot/variantes/quatre_joueurs_rep.html"));
-        elt1_.setAttributes(new NamedNodeMap(attrs1_));
-        elt0_.appendChild(elt1_);
-        doc_.appendChild(elt0_);
-        return doc_;
+        return common("resources_cards/help//aide_generale/jeux/tarot/variantes/quatre_joueurs_rep.html");
     }
     static Document init60(){
-        FullDocument doc_ = DocumentBuilder.newXmlDocument(4);
-        Element elt0_=doc_.createElement("cfg");
-        CustList<Attr> attrs0_=new CustList<Attr>(new CollCapacity(0));
-        elt0_.setAttributes(new NamedNodeMap(attrs0_));
-        Element elt1_=doc_.createElement("java.lang.String");
-        CustList<Attr> attrs1_=new CustList<Attr>(new CollCapacity(3));
-        attrs1_.add(CoreDocument.createAttribute("class","cfg"));
-        attrs1_.add(CoreDocument.createAttribute("field","firstUrl"));
-        attrs1_.add(CoreDocument.createAttribute("value","resources_cards/help//aide_generale/jeux/tarot/variantes/cinq_joueurs.html"));
-        elt1_.setAttributes(new NamedNodeMap(attrs1_));
-        elt0_.appendChild(elt1_);
-        doc_.appendChild(elt0_);
-        return doc_;
+        return common("resources_cards/help//aide_generale/jeux/tarot/variantes/cinq_joueurs.html");
     }
     static Document init61(){
-        FullDocument doc_ = DocumentBuilder.newXmlDocument(4);
-        Element elt0_=doc_.createElement("cfg");
-        CustList<Attr> attrs0_=new CustList<Attr>(new CollCapacity(0));
-        elt0_.setAttributes(new NamedNodeMap(attrs0_));
-        Element elt1_=doc_.createElement("java.lang.String");
-        CustList<Attr> attrs1_=new CustList<Attr>(new CollCapacity(3));
-        attrs1_.add(CoreDocument.createAttribute("class","cfg"));
-        attrs1_.add(CoreDocument.createAttribute("field","firstUrl"));
-        attrs1_.add(CoreDocument.createAttribute("value","resources_cards/help//aide_generale/jeux/tarot/variantes/six_joueurs.html"));
-        elt1_.setAttributes(new NamedNodeMap(attrs1_));
-        elt0_.appendChild(elt1_);
-        doc_.appendChild(elt0_);
-        return doc_;
+        return common("resources_cards/help//aide_generale/jeux/tarot/variantes/six_joueurs.html");
     }
     static Document init62(){
-        FullDocument doc_ = DocumentBuilder.newXmlDocument(4);
-        Element elt0_=doc_.createElement("cfg");
-        CustList<Attr> attrs0_=new CustList<Attr>(new CollCapacity(0));
-        elt0_.setAttributes(new NamedNodeMap(attrs0_));
-        Element elt1_=doc_.createElement("java.lang.String");
-        CustList<Attr> attrs1_=new CustList<Attr>(new CollCapacity(3));
-        attrs1_.add(CoreDocument.createAttribute("class","cfg"));
-        attrs1_.add(CoreDocument.createAttribute("field","firstUrl"));
-        attrs1_.add(CoreDocument.createAttribute("value","resources_cards/help//aide_generale/jeux/tarot/variantes/nouvelles_annonces.html"));
-        elt1_.setAttributes(new NamedNodeMap(attrs1_));
-        elt0_.appendChild(elt1_);
-        doc_.appendChild(elt0_);
-        return doc_;
+        return common("resources_cards/help//aide_generale/jeux/tarot/variantes/nouvelles_annonces.html");
     }
     static Document init63(){
-        FullDocument doc_ = DocumentBuilder.newXmlDocument(4);
-        Element elt0_=doc_.createElement("cfg");
-        CustList<Attr> attrs0_=new CustList<Attr>(new CollCapacity(0));
-        elt0_.setAttributes(new NamedNodeMap(attrs0_));
-        Element elt1_=doc_.createElement("java.lang.String");
-        CustList<Attr> attrs1_=new CustList<Attr>(new CollCapacity(3));
-        attrs1_.add(CoreDocument.createAttribute("class","cfg"));
-        attrs1_.add(CoreDocument.createAttribute("field","firstUrl"));
-        attrs1_.add(CoreDocument.createAttribute("value","resources_cards/help//aide_generale/jeux/tarot/variantes/jeu_de_misere.html"));
-        elt1_.setAttributes(new NamedNodeMap(attrs1_));
-        elt0_.appendChild(elt1_);
-        doc_.appendChild(elt0_);
-        return doc_;
+        return common("resources_cards/help//aide_generale/jeux/tarot/variantes/jeu_de_misere.html");
     }
     static Document init64(){
-        FullDocument doc_ = DocumentBuilder.newXmlDocument(4);
-        Element elt0_=doc_.createElement("cfg");
-        CustList<Attr> attrs0_=new CustList<Attr>(new CollCapacity(0));
-        elt0_.setAttributes(new NamedNodeMap(attrs0_));
-        Element elt1_=doc_.createElement("java.lang.String");
-        CustList<Attr> attrs1_=new CustList<Attr>(new CollCapacity(3));
-        attrs1_.add(CoreDocument.createAttribute("class","cfg"));
-        attrs1_.add(CoreDocument.createAttribute("field","firstUrl"));
-        attrs1_.add(CoreDocument.createAttribute("value","resources_cards/help//aide_generale/jeux/tarot/variantes/jeu_de_chacun_pour_soi.html"));
-        elt1_.setAttributes(new NamedNodeMap(attrs1_));
-        elt0_.appendChild(elt1_);
-        doc_.appendChild(elt0_);
-        return doc_;
+        return common("resources_cards/help//aide_generale/jeux/tarot/variantes/jeu_de_chacun_pour_soi.html");
     }
     static Document init65(){
-        FullDocument doc_ = DocumentBuilder.newXmlDocument(4);
-        Element elt0_=doc_.createElement("cfg");
-        CustList<Attr> attrs0_=new CustList<Attr>(new CollCapacity(0));
-        elt0_.setAttributes(new NamedNodeMap(attrs0_));
-        Element elt1_=doc_.createElement("java.lang.String");
-        CustList<Attr> attrs1_=new CustList<Attr>(new CollCapacity(3));
-        attrs1_.add(CoreDocument.createAttribute("class","cfg"));
-        attrs1_.add(CoreDocument.createAttribute("field","firstUrl"));
-        attrs1_.add(CoreDocument.createAttribute("value","resources_cards/help//aide_generale/logiciel/menus/partie/editer/belote.html"));
-        elt1_.setAttributes(new NamedNodeMap(attrs1_));
-        elt0_.appendChild(elt1_);
-        doc_.appendChild(elt0_);
-        return doc_;
+        return common("resources_cards/help//aide_generale/logiciel/menus/partie/editer/belote.html");
     }
     static Document init66(){
-        FullDocument doc_ = DocumentBuilder.newXmlDocument(4);
-        Element elt0_=doc_.createElement("cfg");
-        CustList<Attr> attrs0_=new CustList<Attr>(new CollCapacity(0));
-        elt0_.setAttributes(new NamedNodeMap(attrs0_));
-        Element elt1_=doc_.createElement("java.lang.String");
-        CustList<Attr> attrs1_=new CustList<Attr>(new CollCapacity(3));
-        attrs1_.add(CoreDocument.createAttribute("class","cfg"));
-        attrs1_.add(CoreDocument.createAttribute("field","firstUrl"));
-        attrs1_.add(CoreDocument.createAttribute("value","resources_cards/help//aide_generale/logiciel/menus/partie/editer/tarot.html"));
-        elt1_.setAttributes(new NamedNodeMap(attrs1_));
-        elt0_.appendChild(elt1_);
-        doc_.appendChild(elt0_);
-        return doc_;
+        return common("resources_cards/help//aide_generale/logiciel/menus/partie/editer/tarot.html");
     }
     static Document init67(){
-        FullDocument doc_ = DocumentBuilder.newXmlDocument(4);
-        Element elt0_=doc_.createElement("cfg");
-        CustList<Attr> attrs0_=new CustList<Attr>(new CollCapacity(0));
-        elt0_.setAttributes(new NamedNodeMap(attrs0_));
-        Element elt1_=doc_.createElement("java.lang.String");
-        CustList<Attr> attrs1_=new CustList<Attr>(new CollCapacity(3));
-        attrs1_.add(CoreDocument.createAttribute("class","cfg"));
-        attrs1_.add(CoreDocument.createAttribute("field","firstUrl"));
-        attrs1_.add(CoreDocument.createAttribute("value","resources_cards/help//aide_generale/logiciel/menus/partie/simulation/belote.html"));
-        elt1_.setAttributes(new NamedNodeMap(attrs1_));
-        elt0_.appendChild(elt1_);
-        doc_.appendChild(elt0_);
-        return doc_;
+        return common("resources_cards/help//aide_generale/logiciel/menus/partie/simulation/belote.html");
     }
     static Document init68(){
-        FullDocument doc_ = DocumentBuilder.newXmlDocument(4);
-        Element elt0_=doc_.createElement("cfg");
-        CustList<Attr> attrs0_=new CustList<Attr>(new CollCapacity(0));
-        elt0_.setAttributes(new NamedNodeMap(attrs0_));
-        Element elt1_=doc_.createElement("java.lang.String");
-        CustList<Attr> attrs1_=new CustList<Attr>(new CollCapacity(3));
-        attrs1_.add(CoreDocument.createAttribute("class","cfg"));
-        attrs1_.add(CoreDocument.createAttribute("field","firstUrl"));
-        attrs1_.add(CoreDocument.createAttribute("value","resources_cards/help//aide_generale/logiciel/menus/partie/simulation/tarot.html"));
-        elt1_.setAttributes(new NamedNodeMap(attrs1_));
-        elt0_.appendChild(elt1_);
-        doc_.appendChild(elt0_);
-        return doc_;
+        return common("resources_cards/help//aide_generale/logiciel/menus/partie/simulation/tarot.html");
     }
     static Document init69(){
-        FullDocument doc_ = DocumentBuilder.newXmlDocument(4);
-        Element elt0_=doc_.createElement("cfg");
-        CustList<Attr> attrs0_=new CustList<Attr>(new CollCapacity(0));
-        elt0_.setAttributes(new NamedNodeMap(attrs0_));
-        Element elt1_=doc_.createElement("java.lang.String");
-        CustList<Attr> attrs1_=new CustList<Attr>(new CollCapacity(3));
-        attrs1_.add(CoreDocument.createAttribute("class","cfg"));
-        attrs1_.add(CoreDocument.createAttribute("field","firstUrl"));
-        attrs1_.add(CoreDocument.createAttribute("value","resources_cards/help//aide_generale/logiciel/menus/parametres/affichage/belote.html"));
-        elt1_.setAttributes(new NamedNodeMap(attrs1_));
-        elt0_.appendChild(elt1_);
-        doc_.appendChild(elt0_);
-        return doc_;
+        return common("resources_cards/help//aide_generale/logiciel/menus/parametres/affichage/belote.html");
     }
     static Document init70(){
-        FullDocument doc_ = DocumentBuilder.newXmlDocument(4);
-        Element elt0_=doc_.createElement("cfg");
-        CustList<Attr> attrs0_=new CustList<Attr>(new CollCapacity(0));
-        elt0_.setAttributes(new NamedNodeMap(attrs0_));
-        Element elt1_=doc_.createElement("java.lang.String");
-        CustList<Attr> attrs1_=new CustList<Attr>(new CollCapacity(3));
-        attrs1_.add(CoreDocument.createAttribute("class","cfg"));
-        attrs1_.add(CoreDocument.createAttribute("field","firstUrl"));
-        attrs1_.add(CoreDocument.createAttribute("value","resources_cards/help//aide_generale/logiciel/menus/parametres/affichage/tarot.html"));
-        elt1_.setAttributes(new NamedNodeMap(attrs1_));
-        elt0_.appendChild(elt1_);
-        doc_.appendChild(elt0_);
-        return doc_;
+        return common("resources_cards/help//aide_generale/logiciel/menus/parametres/affichage/tarot.html");
     }
     static Document init71(){
-        FullDocument doc_ = DocumentBuilder.newXmlDocument(4);
-        Element elt0_=doc_.createElement("cfg");
-        CustList<Attr> attrs0_=new CustList<Attr>(new CollCapacity(0));
-        elt0_.setAttributes(new NamedNodeMap(attrs0_));
-        Element elt1_=doc_.createElement("java.lang.String");
-        CustList<Attr> attrs1_=new CustList<Attr>(new CollCapacity(3));
-        attrs1_.add(CoreDocument.createAttribute("class","cfg"));
-        attrs1_.add(CoreDocument.createAttribute("field","firstUrl"));
-        attrs1_.add(CoreDocument.createAttribute("value","resources_cards/help//aide_generale.html"));
-        elt1_.setAttributes(new NamedNodeMap(attrs1_));
-        elt0_.appendChild(elt1_);
-        doc_.appendChild(elt0_);
-        return doc_;
+        return common("resources_cards/help//aide_generale.html");
     }
     static Document init72(){
-        FullDocument doc_ = DocumentBuilder.newXmlDocument(4);
-        Element elt0_=doc_.createElement("cfg");
-        CustList<Attr> attrs0_=new CustList<Attr>(new CollCapacity(0));
-        elt0_.setAttributes(new NamedNodeMap(attrs0_));
-        Element elt1_=doc_.createElement("java.lang.String");
-        CustList<Attr> attrs1_=new CustList<Attr>(new CollCapacity(3));
-        attrs1_.add(CoreDocument.createAttribute("class","cfg"));
-        attrs1_.add(CoreDocument.createAttribute("field","firstUrl"));
-        attrs1_.add(CoreDocument.createAttribute("value","resources_cards/help//aide_generale/logiciel.html"));
-        elt1_.setAttributes(new NamedNodeMap(attrs1_));
-        elt0_.appendChild(elt1_);
-        doc_.appendChild(elt0_);
-        return doc_;
+        return common("resources_cards/help//aide_generale/logiciel.html");
     }
     static Document init73(){
-        FullDocument doc_ = DocumentBuilder.newXmlDocument(4);
-        Element elt0_=doc_.createElement("cfg");
-        CustList<Attr> attrs0_=new CustList<Attr>(new CollCapacity(0));
-        elt0_.setAttributes(new NamedNodeMap(attrs0_));
-        Element elt1_=doc_.createElement("java.lang.String");
-        CustList<Attr> attrs1_=new CustList<Attr>(new CollCapacity(3));
-        attrs1_.add(CoreDocument.createAttribute("class","cfg"));
-        attrs1_.add(CoreDocument.createAttribute("field","firstUrl"));
-        attrs1_.add(CoreDocument.createAttribute("value","resources_cards/help//aide_generale/jeux.html"));
-        elt1_.setAttributes(new NamedNodeMap(attrs1_));
-        elt0_.appendChild(elt1_);
-        doc_.appendChild(elt0_);
-        return doc_;
+        return common("resources_cards/help//aide_generale/jeux.html");
     }
     static Document init74(){
-        FullDocument doc_ = DocumentBuilder.newXmlDocument(4);
-        Element elt0_=doc_.createElement("cfg");
-        CustList<Attr> attrs0_=new CustList<Attr>(new CollCapacity(0));
-        elt0_.setAttributes(new NamedNodeMap(attrs0_));
-        Element elt1_=doc_.createElement("java.lang.String");
-        CustList<Attr> attrs1_=new CustList<Attr>(new CollCapacity(3));
-        attrs1_.add(CoreDocument.createAttribute("class","cfg"));
-        attrs1_.add(CoreDocument.createAttribute("field","firstUrl"));
-        attrs1_.add(CoreDocument.createAttribute("value","resources_cards/help//aide_generale/logiciel/menus.html"));
-        elt1_.setAttributes(new NamedNodeMap(attrs1_));
-        elt0_.appendChild(elt1_);
-        doc_.appendChild(elt0_);
-        return doc_;
+        return common("resources_cards/help//aide_generale/logiciel/menus.html");
     }
     static Document init75(){
-        FullDocument doc_ = DocumentBuilder.newXmlDocument(4);
-        Element elt0_=doc_.createElement("cfg");
-        CustList<Attr> attrs0_=new CustList<Attr>(new CollCapacity(0));
-        elt0_.setAttributes(new NamedNodeMap(attrs0_));
-        Element elt1_=doc_.createElement("java.lang.String");
-        CustList<Attr> attrs1_=new CustList<Attr>(new CollCapacity(3));
-        attrs1_.add(CoreDocument.createAttribute("class","cfg"));
-        attrs1_.add(CoreDocument.createAttribute("field","firstUrl"));
-        attrs1_.add(CoreDocument.createAttribute("value","resources_cards/help//aide_generale/logiciel/fin_partie.html"));
-        elt1_.setAttributes(new NamedNodeMap(attrs1_));
-        elt0_.appendChild(elt1_);
-        doc_.appendChild(elt0_);
-        return doc_;
+        return common("resources_cards/help//aide_generale/logiciel/fin_partie.html");
     }
     static Document init76(){
-        FullDocument doc_ = DocumentBuilder.newXmlDocument(4);
-        Element elt0_=doc_.createElement("cfg");
-        CustList<Attr> attrs0_=new CustList<Attr>(new CollCapacity(0));
-        elt0_.setAttributes(new NamedNodeMap(attrs0_));
-        Element elt1_=doc_.createElement("java.lang.String");
-        CustList<Attr> attrs1_=new CustList<Attr>(new CollCapacity(3));
-        attrs1_.add(CoreDocument.createAttribute("class","cfg"));
-        attrs1_.add(CoreDocument.createAttribute("field","firstUrl"));
-        attrs1_.add(CoreDocument.createAttribute("value","resources_cards/help//aide_generale/jeux/belote.html"));
-        elt1_.setAttributes(new NamedNodeMap(attrs1_));
-        elt0_.appendChild(elt1_);
-        doc_.appendChild(elt0_);
-        return doc_;
+        return common("resources_cards/help//aide_generale/jeux/belote.html");
     }
     static Document init77(){
-        FullDocument doc_ = DocumentBuilder.newXmlDocument(4);
-        Element elt0_=doc_.createElement("cfg");
-        CustList<Attr> attrs0_=new CustList<Attr>(new CollCapacity(0));
-        elt0_.setAttributes(new NamedNodeMap(attrs0_));
-        Element elt1_=doc_.createElement("java.lang.String");
-        CustList<Attr> attrs1_=new CustList<Attr>(new CollCapacity(3));
-        attrs1_.add(CoreDocument.createAttribute("class","cfg"));
-        attrs1_.add(CoreDocument.createAttribute("field","firstUrl"));
-        attrs1_.add(CoreDocument.createAttribute("value","resources_cards/help//aide_generale/jeux/president.html"));
-        elt1_.setAttributes(new NamedNodeMap(attrs1_));
-        elt0_.appendChild(elt1_);
-        doc_.appendChild(elt0_);
-        return doc_;
+        return common("resources_cards/help//aide_generale/jeux/president.html");
     }
     static Document init78(){
-        FullDocument doc_ = DocumentBuilder.newXmlDocument(4);
-        Element elt0_=doc_.createElement("cfg");
-        CustList<Attr> attrs0_=new CustList<Attr>(new CollCapacity(0));
-        elt0_.setAttributes(new NamedNodeMap(attrs0_));
-        Element elt1_=doc_.createElement("java.lang.String");
-        CustList<Attr> attrs1_=new CustList<Attr>(new CollCapacity(3));
-        attrs1_.add(CoreDocument.createAttribute("class","cfg"));
-        attrs1_.add(CoreDocument.createAttribute("field","firstUrl"));
-        attrs1_.add(CoreDocument.createAttribute("value","resources_cards/help//aide_generale/jeux/tarot.html"));
-        elt1_.setAttributes(new NamedNodeMap(attrs1_));
-        elt0_.appendChild(elt1_);
-        doc_.appendChild(elt0_);
-        return doc_;
+        return common("resources_cards/help//aide_generale/jeux/tarot.html");
     }
     static Document init79(){
-        FullDocument doc_ = DocumentBuilder.newXmlDocument(4);
-        Element elt0_=doc_.createElement("cfg");
-        CustList<Attr> attrs0_=new CustList<Attr>(new CollCapacity(0));
-        elt0_.setAttributes(new NamedNodeMap(attrs0_));
-        Element elt1_=doc_.createElement("java.lang.String");
-        CustList<Attr> attrs1_=new CustList<Attr>(new CollCapacity(3));
-        attrs1_.add(CoreDocument.createAttribute("class","cfg"));
-        attrs1_.add(CoreDocument.createAttribute("field","firstUrl"));
-        attrs1_.add(CoreDocument.createAttribute("value","resources_cards/help//aide_generale/logiciel/menus/fichier.html"));
-        elt1_.setAttributes(new NamedNodeMap(attrs1_));
-        elt0_.appendChild(elt1_);
-        doc_.appendChild(elt0_);
-        return doc_;
+        return common("resources_cards/help//aide_generale/logiciel/menus/fichier.html");
     }
     static Document init80(){
-        FullDocument doc_ = DocumentBuilder.newXmlDocument(4);
-        Element elt0_=doc_.createElement("cfg");
-        CustList<Attr> attrs0_=new CustList<Attr>(new CollCapacity(0));
-        elt0_.setAttributes(new NamedNodeMap(attrs0_));
-        Element elt1_=doc_.createElement("java.lang.String");
-        CustList<Attr> attrs1_=new CustList<Attr>(new CollCapacity(3));
-        attrs1_.add(CoreDocument.createAttribute("class","cfg"));
-        attrs1_.add(CoreDocument.createAttribute("field","firstUrl"));
-        attrs1_.add(CoreDocument.createAttribute("value","resources_cards/help//aide_generale/logiciel/menus/partie.html"));
-        elt1_.setAttributes(new NamedNodeMap(attrs1_));
-        elt0_.appendChild(elt1_);
-        doc_.appendChild(elt0_);
-        return doc_;
+        return common("resources_cards/help//aide_generale/logiciel/menus/partie.html");
     }
     static Document init81(){
-        FullDocument doc_ = DocumentBuilder.newXmlDocument(4);
-        Element elt0_=doc_.createElement("cfg");
-        CustList<Attr> attrs0_=new CustList<Attr>(new CollCapacity(0));
-        elt0_.setAttributes(new NamedNodeMap(attrs0_));
-        Element elt1_=doc_.createElement("java.lang.String");
-        CustList<Attr> attrs1_=new CustList<Attr>(new CollCapacity(3));
-        attrs1_.add(CoreDocument.createAttribute("class","cfg"));
-        attrs1_.add(CoreDocument.createAttribute("field","firstUrl"));
-        attrs1_.add(CoreDocument.createAttribute("value","resources_cards/help//aide_generale/logiciel/menus/parametres.html"));
-        elt1_.setAttributes(new NamedNodeMap(attrs1_));
-        elt0_.appendChild(elt1_);
-        doc_.appendChild(elt0_);
-        return doc_;
+        return common("resources_cards/help//aide_generale/logiciel/menus/parametres.html");
     }
     static Document init82(){
-        FullDocument doc_ = DocumentBuilder.newXmlDocument(4);
-        Element elt0_=doc_.createElement("cfg");
-        CustList<Attr> attrs0_=new CustList<Attr>(new CollCapacity(0));
-        elt0_.setAttributes(new NamedNodeMap(attrs0_));
-        Element elt1_=doc_.createElement("java.lang.String");
-        CustList<Attr> attrs1_=new CustList<Attr>(new CollCapacity(3));
-        attrs1_.add(CoreDocument.createAttribute("class","cfg"));
-        attrs1_.add(CoreDocument.createAttribute("field","firstUrl"));
-        attrs1_.add(CoreDocument.createAttribute("value","resources_cards/help//aide_generale/logiciel/menus/aide.html"));
-        elt1_.setAttributes(new NamedNodeMap(attrs1_));
-        elt0_.appendChild(elt1_);
-        doc_.appendChild(elt0_);
-        return doc_;
+        return common("resources_cards/help//aide_generale/logiciel/menus/aide.html");
     }
 
     static Document init85(){
-        FullDocument doc_ = DocumentBuilder.newXmlDocument(4);
-        Element elt0_=doc_.createElement("cfg");
-        CustList<Attr> attrs0_=new CustList<Attr>(new CollCapacity(0));
-        elt0_.setAttributes(new NamedNodeMap(attrs0_));
-        Element elt1_=doc_.createElement("java.lang.String");
-        CustList<Attr> attrs1_=new CustList<Attr>(new CollCapacity(3));
-        attrs1_.add(CoreDocument.createAttribute("class","cfg"));
-        attrs1_.add(CoreDocument.createAttribute("field","firstUrl"));
-        attrs1_.add(CoreDocument.createAttribute("value","resources_cards/help//aide_generale/jeux/belote/distribution.html"));
-        elt1_.setAttributes(new NamedNodeMap(attrs1_));
-        elt0_.appendChild(elt1_);
-        doc_.appendChild(elt0_);
-        return doc_;
+        return common("resources_cards/help//aide_generale/jeux/belote/distribution.html");
     }
     static Document init86(){
-        FullDocument doc_ = DocumentBuilder.newXmlDocument(4);
-        Element elt0_=doc_.createElement("cfg");
-        CustList<Attr> attrs0_=new CustList<Attr>(new CollCapacity(0));
-        elt0_.setAttributes(new NamedNodeMap(attrs0_));
-        Element elt1_=doc_.createElement("java.lang.String");
-        CustList<Attr> attrs1_=new CustList<Attr>(new CollCapacity(3));
-        attrs1_.add(CoreDocument.createAttribute("class","cfg"));
-        attrs1_.add(CoreDocument.createAttribute("field","firstUrl"));
-        attrs1_.add(CoreDocument.createAttribute("value","resources_cards/help//aide_generale/jeux/belote/contrat.html"));
-        elt1_.setAttributes(new NamedNodeMap(attrs1_));
-        elt0_.appendChild(elt1_);
-        doc_.appendChild(elt0_);
-        return doc_;
+        return common("resources_cards/help//aide_generale/jeux/belote/contrat.html");
     }
     static Document init87(){
-        FullDocument doc_ = DocumentBuilder.newXmlDocument(4);
-        Element elt0_=doc_.createElement("cfg");
-        CustList<Attr> attrs0_=new CustList<Attr>(new CollCapacity(0));
-        elt0_.setAttributes(new NamedNodeMap(attrs0_));
-        Element elt1_=doc_.createElement("java.lang.String");
-        CustList<Attr> attrs1_=new CustList<Attr>(new CollCapacity(3));
-        attrs1_.add(CoreDocument.createAttribute("class","cfg"));
-        attrs1_.add(CoreDocument.createAttribute("field","firstUrl"));
-        attrs1_.add(CoreDocument.createAttribute("value","resources_cards/help//aide_generale/jeux/belote/annonces.html"));
-        elt1_.setAttributes(new NamedNodeMap(attrs1_));
-        elt0_.appendChild(elt1_);
-        doc_.appendChild(elt0_);
-        return doc_;
+        return common("resources_cards/help//aide_generale/jeux/belote/annonces.html");
     }
     static Document init88(){
-        FullDocument doc_ = DocumentBuilder.newXmlDocument(4);
-        Element elt0_=doc_.createElement("cfg");
-        CustList<Attr> attrs0_=new CustList<Attr>(new CollCapacity(0));
-        elt0_.setAttributes(new NamedNodeMap(attrs0_));
-        Element elt1_=doc_.createElement("java.lang.String");
-        CustList<Attr> attrs1_=new CustList<Attr>(new CollCapacity(3));
-        attrs1_.add(CoreDocument.createAttribute("class","cfg"));
-        attrs1_.add(CoreDocument.createAttribute("field","firstUrl"));
-        attrs1_.add(CoreDocument.createAttribute("value","resources_cards/help//aide_generale/jeux/belote/jeu_des_cartes.html"));
-        elt1_.setAttributes(new NamedNodeMap(attrs1_));
-        elt0_.appendChild(elt1_);
-        doc_.appendChild(elt0_);
-        return doc_;
+        return common("resources_cards/help//aide_generale/jeux/belote/jeu_des_cartes.html");
     }
     static Document init89(){
-        FullDocument doc_ = DocumentBuilder.newXmlDocument(4);
-        Element elt0_=doc_.createElement("cfg");
-        CustList<Attr> attrs0_=new CustList<Attr>(new CollCapacity(0));
-        elt0_.setAttributes(new NamedNodeMap(attrs0_));
-        Element elt1_=doc_.createElement("java.lang.String");
-        CustList<Attr> attrs1_=new CustList<Attr>(new CollCapacity(3));
-        attrs1_.add(CoreDocument.createAttribute("class","cfg"));
-        attrs1_.add(CoreDocument.createAttribute("field","firstUrl"));
-        attrs1_.add(CoreDocument.createAttribute("value","resources_cards/help//aide_generale/jeux/belote/fin_de_la_partie.html"));
-        elt1_.setAttributes(new NamedNodeMap(attrs1_));
-        elt0_.appendChild(elt1_);
-        doc_.appendChild(elt0_);
-        return doc_;
+        return common("resources_cards/help//aide_generale/jeux/belote/fin_de_la_partie.html");
     }
     static Document init90(){
-        FullDocument doc_ = DocumentBuilder.newXmlDocument(4);
-        Element elt0_=doc_.createElement("cfg");
-        CustList<Attr> attrs0_=new CustList<Attr>(new CollCapacity(0));
-        elt0_.setAttributes(new NamedNodeMap(attrs0_));
-        Element elt1_=doc_.createElement("java.lang.String");
-        CustList<Attr> attrs1_=new CustList<Attr>(new CollCapacity(3));
-        attrs1_.add(CoreDocument.createAttribute("class","cfg"));
-        attrs1_.add(CoreDocument.createAttribute("field","firstUrl"));
-        attrs1_.add(CoreDocument.createAttribute("value","resources_cards/help//aide_generale/jeux/belote/variantes.html"));
-        elt1_.setAttributes(new NamedNodeMap(attrs1_));
-        elt0_.appendChild(elt1_);
-        doc_.appendChild(elt0_);
-        return doc_;
+        return common("resources_cards/help//aide_generale/jeux/belote/variantes.html");
     }
 
     static Document init93(){
-        FullDocument doc_ = DocumentBuilder.newXmlDocument(4);
-        Element elt0_=doc_.createElement("cfg");
-        CustList<Attr> attrs0_=new CustList<Attr>(new CollCapacity(0));
-        elt0_.setAttributes(new NamedNodeMap(attrs0_));
-        Element elt1_=doc_.createElement("java.lang.String");
-        CustList<Attr> attrs1_=new CustList<Attr>(new CollCapacity(3));
-        attrs1_.add(CoreDocument.createAttribute("class","cfg"));
-        attrs1_.add(CoreDocument.createAttribute("field","firstUrl"));
-        attrs1_.add(CoreDocument.createAttribute("value","resources_cards/help//aide_generale/jeux/president/distribution.html"));
-        elt1_.setAttributes(new NamedNodeMap(attrs1_));
-        elt0_.appendChild(elt1_);
-        doc_.appendChild(elt0_);
-        return doc_;
+        return common("resources_cards/help//aide_generale/jeux/president/distribution.html");
     }
     static Document init94(){
-        FullDocument doc_ = DocumentBuilder.newXmlDocument(4);
-        Element elt0_=doc_.createElement("cfg");
-        CustList<Attr> attrs0_=new CustList<Attr>(new CollCapacity(0));
-        elt0_.setAttributes(new NamedNodeMap(attrs0_));
-        Element elt1_=doc_.createElement("java.lang.String");
-        CustList<Attr> attrs1_=new CustList<Attr>(new CollCapacity(3));
-        attrs1_.add(CoreDocument.createAttribute("class","cfg"));
-        attrs1_.add(CoreDocument.createAttribute("field","firstUrl"));
-        attrs1_.add(CoreDocument.createAttribute("value","resources_cards/help//aide_generale/jeux/president/jeu_des_cartes.html"));
-        elt1_.setAttributes(new NamedNodeMap(attrs1_));
-        elt0_.appendChild(elt1_);
-        doc_.appendChild(elt0_);
-        return doc_;
+        return common("resources_cards/help//aide_generale/jeux/president/jeu_des_cartes.html");
     }
     static Document init95(){
-        FullDocument doc_ = DocumentBuilder.newXmlDocument(4);
-        Element elt0_=doc_.createElement("cfg");
-        CustList<Attr> attrs0_=new CustList<Attr>(new CollCapacity(0));
-        elt0_.setAttributes(new NamedNodeMap(attrs0_));
-        Element elt1_=doc_.createElement("java.lang.String");
-        CustList<Attr> attrs1_=new CustList<Attr>(new CollCapacity(3));
-        attrs1_.add(CoreDocument.createAttribute("class","cfg"));
-        attrs1_.add(CoreDocument.createAttribute("field","firstUrl"));
-        attrs1_.add(CoreDocument.createAttribute("value","resources_cards/help//aide_generale/jeux/president/variantes.html"));
-        elt1_.setAttributes(new NamedNodeMap(attrs1_));
-        elt0_.appendChild(elt1_);
-        doc_.appendChild(elt0_);
-        return doc_;
+        return common("resources_cards/help//aide_generale/jeux/president/variantes.html");
     }
 
     static Document init98(){
-        FullDocument doc_ = DocumentBuilder.newXmlDocument(4);
-        Element elt0_=doc_.createElement("cfg");
-        CustList<Attr> attrs0_=new CustList<Attr>(new CollCapacity(0));
-        elt0_.setAttributes(new NamedNodeMap(attrs0_));
-        Element elt1_=doc_.createElement("java.lang.String");
-        CustList<Attr> attrs1_=new CustList<Attr>(new CollCapacity(3));
-        attrs1_.add(CoreDocument.createAttribute("class","cfg"));
-        attrs1_.add(CoreDocument.createAttribute("field","firstUrl"));
-        attrs1_.add(CoreDocument.createAttribute("value","resources_cards/help//aide_generale/jeux/tarot/distribution.html"));
-        elt1_.setAttributes(new NamedNodeMap(attrs1_));
-        elt0_.appendChild(elt1_);
-        doc_.appendChild(elt0_);
-        return doc_;
+        return common("resources_cards/help//aide_generale/jeux/tarot/distribution.html");
     }
     static Document init99(){
-        FullDocument doc_ = DocumentBuilder.newXmlDocument(4);
-        Element elt0_=doc_.createElement("cfg");
-        CustList<Attr> attrs0_=new CustList<Attr>(new CollCapacity(0));
-        elt0_.setAttributes(new NamedNodeMap(attrs0_));
-        Element elt1_=doc_.createElement("java.lang.String");
-        CustList<Attr> attrs1_=new CustList<Attr>(new CollCapacity(3));
-        attrs1_.add(CoreDocument.createAttribute("class","cfg"));
-        attrs1_.add(CoreDocument.createAttribute("field","firstUrl"));
-        attrs1_.add(CoreDocument.createAttribute("value","resources_cards/help//aide_generale/jeux/tarot/contrat.html"));
-        elt1_.setAttributes(new NamedNodeMap(attrs1_));
-        elt0_.appendChild(elt1_);
-        doc_.appendChild(elt0_);
-        return doc_;
+        return common("resources_cards/help//aide_generale/jeux/tarot/contrat.html");
     }
     static Document init100(){
-        FullDocument doc_ = DocumentBuilder.newXmlDocument(4);
-        Element elt0_=doc_.createElement("cfg");
-        CustList<Attr> attrs0_=new CustList<Attr>(new CollCapacity(0));
-        elt0_.setAttributes(new NamedNodeMap(attrs0_));
-        Element elt1_=doc_.createElement("java.lang.String");
-        CustList<Attr> attrs1_=new CustList<Attr>(new CollCapacity(3));
-        attrs1_.add(CoreDocument.createAttribute("class","cfg"));
-        attrs1_.add(CoreDocument.createAttribute("field","firstUrl"));
-        attrs1_.add(CoreDocument.createAttribute("value","resources_cards/help//aide_generale/jeux/tarot/chien.html"));
-        elt1_.setAttributes(new NamedNodeMap(attrs1_));
-        elt0_.appendChild(elt1_);
-        doc_.appendChild(elt0_);
-        return doc_;
+        return common("resources_cards/help//aide_generale/jeux/tarot/chien.html");
     }
     static Document init101(){
-        FullDocument doc_ = DocumentBuilder.newXmlDocument(4);
-        Element elt0_=doc_.createElement("cfg");
-        CustList<Attr> attrs0_=new CustList<Attr>(new CollCapacity(0));
-        elt0_.setAttributes(new NamedNodeMap(attrs0_));
-        Element elt1_=doc_.createElement("java.lang.String");
-        CustList<Attr> attrs1_=new CustList<Attr>(new CollCapacity(3));
-        attrs1_.add(CoreDocument.createAttribute("class","cfg"));
-        attrs1_.add(CoreDocument.createAttribute("field","firstUrl"));
-        attrs1_.add(CoreDocument.createAttribute("value","resources_cards/help//aide_generale/jeux/tarot/annonces.html"));
-        elt1_.setAttributes(new NamedNodeMap(attrs1_));
-        elt0_.appendChild(elt1_);
-        doc_.appendChild(elt0_);
-        return doc_;
+        return common("resources_cards/help//aide_generale/jeux/tarot/annonces.html");
     }
     static Document init102(){
-        FullDocument doc_ = DocumentBuilder.newXmlDocument(4);
-        Element elt0_=doc_.createElement("cfg");
-        CustList<Attr> attrs0_=new CustList<Attr>(new CollCapacity(0));
-        elt0_.setAttributes(new NamedNodeMap(attrs0_));
-        Element elt1_=doc_.createElement("java.lang.String");
-        CustList<Attr> attrs1_=new CustList<Attr>(new CollCapacity(3));
-        attrs1_.add(CoreDocument.createAttribute("class","cfg"));
-        attrs1_.add(CoreDocument.createAttribute("field","firstUrl"));
-        attrs1_.add(CoreDocument.createAttribute("value","resources_cards/help//aide_generale/jeux/tarot/jeu_des_cartes.html"));
-        elt1_.setAttributes(new NamedNodeMap(attrs1_));
-        elt0_.appendChild(elt1_);
-        doc_.appendChild(elt0_);
-        return doc_;
+        return common("resources_cards/help//aide_generale/jeux/tarot/jeu_des_cartes.html");
     }
     static Document init103(){
-        FullDocument doc_ = DocumentBuilder.newXmlDocument(4);
-        Element elt0_=doc_.createElement("cfg");
-        CustList<Attr> attrs0_=new CustList<Attr>(new CollCapacity(0));
-        elt0_.setAttributes(new NamedNodeMap(attrs0_));
-        Element elt1_=doc_.createElement("java.lang.String");
-        CustList<Attr> attrs1_=new CustList<Attr>(new CollCapacity(3));
-        attrs1_.add(CoreDocument.createAttribute("class","cfg"));
-        attrs1_.add(CoreDocument.createAttribute("field","firstUrl"));
-        attrs1_.add(CoreDocument.createAttribute("value","resources_cards/help//aide_generale/jeux/tarot/fin_de_la_partie.html"));
-        elt1_.setAttributes(new NamedNodeMap(attrs1_));
-        elt0_.appendChild(elt1_);
-        doc_.appendChild(elt0_);
-        return doc_;
+        return common("resources_cards/help//aide_generale/jeux/tarot/fin_de_la_partie.html");
     }
     static Document init104(){
-        FullDocument doc_ = DocumentBuilder.newXmlDocument(4);
-        Element elt0_=doc_.createElement("cfg");
-        CustList<Attr> attrs0_=new CustList<Attr>(new CollCapacity(0));
-        elt0_.setAttributes(new NamedNodeMap(attrs0_));
-        Element elt1_=doc_.createElement("java.lang.String");
-        CustList<Attr> attrs1_=new CustList<Attr>(new CollCapacity(3));
-        attrs1_.add(CoreDocument.createAttribute("class","cfg"));
-        attrs1_.add(CoreDocument.createAttribute("field","firstUrl"));
-        attrs1_.add(CoreDocument.createAttribute("value","resources_cards/help//aide_generale/jeux/tarot/variantes.html"));
-        elt1_.setAttributes(new NamedNodeMap(attrs1_));
-        elt0_.appendChild(elt1_);
-        doc_.appendChild(elt0_);
-        return doc_;
+        return common("resources_cards/help//aide_generale/jeux/tarot/variantes.html");
     }
     static Document init105(){
-        FullDocument doc_ = DocumentBuilder.newXmlDocument(4);
-        Element elt0_=doc_.createElement("cfg");
-        CustList<Attr> attrs0_=new CustList<Attr>(new CollCapacity(0));
-        elt0_.setAttributes(new NamedNodeMap(attrs0_));
-        Element elt1_=doc_.createElement("java.lang.String");
-        CustList<Attr> attrs1_=new CustList<Attr>(new CollCapacity(3));
-        attrs1_.add(CoreDocument.createAttribute("class","cfg"));
-        attrs1_.add(CoreDocument.createAttribute("field","firstUrl"));
-        attrs1_.add(CoreDocument.createAttribute("value","resources_cards/help//aide_generale/logiciel/menus/fichier/charger.html"));
-        elt1_.setAttributes(new NamedNodeMap(attrs1_));
-        elt0_.appendChild(elt1_);
-        doc_.appendChild(elt0_);
-        return doc_;
+        return common("resources_cards/help//aide_generale/logiciel/menus/fichier/charger.html");
     }
     static Document init106(){
-        FullDocument doc_ = DocumentBuilder.newXmlDocument(4);
-        Element elt0_=doc_.createElement("cfg");
-        CustList<Attr> attrs0_=new CustList<Attr>(new CollCapacity(0));
-        elt0_.setAttributes(new NamedNodeMap(attrs0_));
-        Element elt1_=doc_.createElement("java.lang.String");
-        CustList<Attr> attrs1_=new CustList<Attr>(new CollCapacity(3));
-        attrs1_.add(CoreDocument.createAttribute("class","cfg"));
-        attrs1_.add(CoreDocument.createAttribute("field","firstUrl"));
-        attrs1_.add(CoreDocument.createAttribute("value","resources_cards/help//aide_generale/logiciel/menus/fichier/sauvegarder.html"));
-        elt1_.setAttributes(new NamedNodeMap(attrs1_));
-        elt0_.appendChild(elt1_);
-        doc_.appendChild(elt0_);
-        return doc_;
+        return common("resources_cards/help//aide_generale/logiciel/menus/fichier/sauvegarder.html");
     }
     static Document init107(){
-        FullDocument doc_ = DocumentBuilder.newXmlDocument(4);
-        Element elt0_=doc_.createElement("cfg");
-        CustList<Attr> attrs0_=new CustList<Attr>(new CollCapacity(0));
-        elt0_.setAttributes(new NamedNodeMap(attrs0_));
-        Element elt1_=doc_.createElement("java.lang.String");
-        CustList<Attr> attrs1_=new CustList<Attr>(new CollCapacity(3));
-        attrs1_.add(CoreDocument.createAttribute("class","cfg"));
-        attrs1_.add(CoreDocument.createAttribute("field","firstUrl"));
-        attrs1_.add(CoreDocument.createAttribute("value","resources_cards/help//aide_generale/logiciel/menus/fichier/changer_jeu.html"));
-        elt1_.setAttributes(new NamedNodeMap(attrs1_));
-        elt0_.appendChild(elt1_);
-        doc_.appendChild(elt0_);
-        return doc_;
+        return common("resources_cards/help//aide_generale/logiciel/menus/fichier/changer_jeu.html");
     }
     static Document init108(){
-        FullDocument doc_ = DocumentBuilder.newXmlDocument(4);
-        Element elt0_=doc_.createElement("cfg");
-        CustList<Attr> attrs0_=new CustList<Attr>(new CollCapacity(0));
-        elt0_.setAttributes(new NamedNodeMap(attrs0_));
-        Element elt1_=doc_.createElement("java.lang.String");
-        CustList<Attr> attrs1_=new CustList<Attr>(new CollCapacity(3));
-        attrs1_.add(CoreDocument.createAttribute("class","cfg"));
-        attrs1_.add(CoreDocument.createAttribute("field","firstUrl"));
-        attrs1_.add(CoreDocument.createAttribute("value","resources_cards/help//aide_generale/logiciel/menus/fichier/quitter.html"));
-        elt1_.setAttributes(new NamedNodeMap(attrs1_));
-        elt0_.appendChild(elt1_);
-        doc_.appendChild(elt0_);
-        return doc_;
+        return common("resources_cards/help//aide_generale/logiciel/menus/fichier/quitter.html");
     }
     static Document init109(){
-        FullDocument doc_ = DocumentBuilder.newXmlDocument(4);
-        Element elt0_=doc_.createElement("cfg");
-        CustList<Attr> attrs0_=new CustList<Attr>(new CollCapacity(0));
-        elt0_.setAttributes(new NamedNodeMap(attrs0_));
-        Element elt1_=doc_.createElement("java.lang.String");
-        CustList<Attr> attrs1_=new CustList<Attr>(new CollCapacity(3));
-        attrs1_.add(CoreDocument.createAttribute("class","cfg"));
-        attrs1_.add(CoreDocument.createAttribute("field","firstUrl"));
-        attrs1_.add(CoreDocument.createAttribute("value","resources_cards/help//aide_generale/logiciel/menus/partie/conseil.html"));
-        elt1_.setAttributes(new NamedNodeMap(attrs1_));
-        elt0_.appendChild(elt1_);
-        doc_.appendChild(elt0_);
-        return doc_;
+        return common("resources_cards/help//aide_generale/logiciel/menus/partie/conseil.html");
     }
     static Document init110(){
-        FullDocument doc_ = DocumentBuilder.newXmlDocument(4);
-        Element elt0_=doc_.createElement("cfg");
-        CustList<Attr> attrs0_=new CustList<Attr>(new CollCapacity(0));
-        elt0_.setAttributes(new NamedNodeMap(attrs0_));
-        Element elt1_=doc_.createElement("java.lang.String");
-        CustList<Attr> attrs1_=new CustList<Attr>(new CollCapacity(3));
-        attrs1_.add(CoreDocument.createAttribute("class","cfg"));
-        attrs1_.add(CoreDocument.createAttribute("field","firstUrl"));
-        attrs1_.add(CoreDocument.createAttribute("value","resources_cards/help//aide_generale/logiciel/menus/partie/pause.html"));
-        elt1_.setAttributes(new NamedNodeMap(attrs1_));
-        elt0_.appendChild(elt1_);
-        doc_.appendChild(elt0_);
-        return doc_;
+        return common("resources_cards/help//aide_generale/logiciel/menus/partie/pause.html");
     }
     static Document init111(){
-        FullDocument doc_ = DocumentBuilder.newXmlDocument(4);
-        Element elt0_=doc_.createElement("cfg");
-        CustList<Attr> attrs0_=new CustList<Attr>(new CollCapacity(0));
-        elt0_.setAttributes(new NamedNodeMap(attrs0_));
-        Element elt1_=doc_.createElement("java.lang.String");
-        CustList<Attr> attrs1_=new CustList<Attr>(new CollCapacity(3));
-        attrs1_.add(CoreDocument.createAttribute("class","cfg"));
-        attrs1_.add(CoreDocument.createAttribute("field","firstUrl"));
-        attrs1_.add(CoreDocument.createAttribute("value","resources_cards/help//aide_generale/logiciel/menus/partie/aide_au_jeu.html"));
-        elt1_.setAttributes(new NamedNodeMap(attrs1_));
-        elt0_.appendChild(elt1_);
-        doc_.appendChild(elt0_);
-        return doc_;
+        return common("resources_cards/help//aide_generale/logiciel/menus/partie/aide_au_jeu.html");
     }
     static Document init112(){
-        FullDocument doc_ = DocumentBuilder.newXmlDocument(4);
-        Element elt0_=doc_.createElement("cfg");
-        CustList<Attr> attrs0_=new CustList<Attr>(new CollCapacity(0));
-        elt0_.setAttributes(new NamedNodeMap(attrs0_));
-        Element elt1_=doc_.createElement("java.lang.String");
-        CustList<Attr> attrs1_=new CustList<Attr>(new CollCapacity(3));
-        attrs1_.add(CoreDocument.createAttribute("class","cfg"));
-        attrs1_.add(CoreDocument.createAttribute("field","firstUrl"));
-        attrs1_.add(CoreDocument.createAttribute("value","resources_cards/help//aide_generale/logiciel/menus/partie/mains_plis.html"));
-        elt1_.setAttributes(new NamedNodeMap(attrs1_));
-        elt0_.appendChild(elt1_);
-        doc_.appendChild(elt0_);
-        return doc_;
+        return common("resources_cards/help//aide_generale/logiciel/menus/partie/mains_plis.html");
     }
     static Document init113(){
-        FullDocument doc_ = DocumentBuilder.newXmlDocument(4);
-        Element elt0_=doc_.createElement("cfg");
-        CustList<Attr> attrs0_=new CustList<Attr>(new CollCapacity(0));
-        elt0_.setAttributes(new NamedNodeMap(attrs0_));
-        Element elt1_=doc_.createElement("java.lang.String");
-        CustList<Attr> attrs1_=new CustList<Attr>(new CollCapacity(3));
-        attrs1_.add(CoreDocument.createAttribute("class","cfg"));
-        attrs1_.add(CoreDocument.createAttribute("field","firstUrl"));
-        attrs1_.add(CoreDocument.createAttribute("value","resources_cards/help//aide_generale/logiciel/menus/partie/equipes.html"));
-        elt1_.setAttributes(new NamedNodeMap(attrs1_));
-        elt0_.appendChild(elt1_);
-        doc_.appendChild(elt0_);
-        return doc_;
+        return common("resources_cards/help//aide_generale/logiciel/menus/partie/equipes.html");
     }
     static Document init114(){
-        FullDocument doc_ = DocumentBuilder.newXmlDocument(4);
-        Element elt0_=doc_.createElement("cfg");
-        CustList<Attr> attrs0_=new CustList<Attr>(new CollCapacity(0));
-        elt0_.setAttributes(new NamedNodeMap(attrs0_));
-        Element elt1_=doc_.createElement("java.lang.String");
-        CustList<Attr> attrs1_=new CustList<Attr>(new CollCapacity(3));
-        attrs1_.add(CoreDocument.createAttribute("class","cfg"));
-        attrs1_.add(CoreDocument.createAttribute("field","firstUrl"));
-        attrs1_.add(CoreDocument.createAttribute("value","resources_cards/help//aide_generale/logiciel/menus/partie/editer.html"));
-        elt1_.setAttributes(new NamedNodeMap(attrs1_));
-        elt0_.appendChild(elt1_);
-        doc_.appendChild(elt0_);
-        return doc_;
+        return common("resources_cards/help//aide_generale/logiciel/menus/partie/editer.html");
     }
     static Document init115(){
-        FullDocument doc_ = DocumentBuilder.newXmlDocument(4);
-        Element elt0_=doc_.createElement("cfg");
-        CustList<Attr> attrs0_=new CustList<Attr>(new CollCapacity(0));
-        elt0_.setAttributes(new NamedNodeMap(attrs0_));
-        Element elt1_=doc_.createElement("java.lang.String");
-        CustList<Attr> attrs1_=new CustList<Attr>(new CollCapacity(3));
-        attrs1_.add(CoreDocument.createAttribute("class","cfg"));
-        attrs1_.add(CoreDocument.createAttribute("field","firstUrl"));
-        attrs1_.add(CoreDocument.createAttribute("value","resources_cards/help//aide_generale/logiciel/menus/partie/simulation.html"));
-        elt1_.setAttributes(new NamedNodeMap(attrs1_));
-        elt0_.appendChild(elt1_);
-        doc_.appendChild(elt0_);
-        return doc_;
+        return common("resources_cards/help//aide_generale/logiciel/menus/partie/simulation.html");
     }
     static Document init116(){
-        FullDocument doc_ = DocumentBuilder.newXmlDocument(4);
-        Element elt0_=doc_.createElement("cfg");
-        CustList<Attr> attrs0_=new CustList<Attr>(new CollCapacity(0));
-        elt0_.setAttributes(new NamedNodeMap(attrs0_));
-        Element elt1_=doc_.createElement("java.lang.String");
-        CustList<Attr> attrs1_=new CustList<Attr>(new CollCapacity(3));
-        attrs1_.add(CoreDocument.createAttribute("class","cfg"));
-        attrs1_.add(CoreDocument.createAttribute("field","firstUrl"));
-        attrs1_.add(CoreDocument.createAttribute("value","resources_cards/help//aide_generale/logiciel/menus/partie/entrainement.html"));
-        elt1_.setAttributes(new NamedNodeMap(attrs1_));
-        elt0_.appendChild(elt1_);
-        doc_.appendChild(elt0_);
-        return doc_;
+        return common("resources_cards/help//aide_generale/logiciel/menus/partie/entrainement.html");
     }
     static Document init117(){
-        FullDocument doc_ = DocumentBuilder.newXmlDocument(4);
-        Element elt0_=doc_.createElement("cfg");
-        CustList<Attr> attrs0_=new CustList<Attr>(new CollCapacity(0));
-        elt0_.setAttributes(new NamedNodeMap(attrs0_));
-        Element elt1_=doc_.createElement("java.lang.String");
-        CustList<Attr> attrs1_=new CustList<Attr>(new CollCapacity(3));
-        attrs1_.add(CoreDocument.createAttribute("class","cfg"));
-        attrs1_.add(CoreDocument.createAttribute("field","firstUrl"));
-        attrs1_.add(CoreDocument.createAttribute("value","resources_cards/help//aide_generale/logiciel/menus/partie/arret_multi.html"));
-        elt1_.setAttributes(new NamedNodeMap(attrs1_));
-        elt0_.appendChild(elt1_);
-        doc_.appendChild(elt0_);
-        return doc_;
+        return common("resources_cards/help//aide_generale/logiciel/menus/partie/arret_multi.html");
     }
     static Document init118(){
-        FullDocument doc_ = DocumentBuilder.newXmlDocument(4);
-        Element elt0_=doc_.createElement("cfg");
-        CustList<Attr> attrs0_=new CustList<Attr>(new CollCapacity(0));
-        elt0_.setAttributes(new NamedNodeMap(attrs0_));
-        Element elt1_=doc_.createElement("java.lang.String");
-        CustList<Attr> attrs1_=new CustList<Attr>(new CollCapacity(3));
-        attrs1_.add(CoreDocument.createAttribute("class","cfg"));
-        attrs1_.add(CoreDocument.createAttribute("field","firstUrl"));
-        attrs1_.add(CoreDocument.createAttribute("value","resources_cards/help//aide_generale/logiciel/menus/parametres/belote.html"));
-        elt1_.setAttributes(new NamedNodeMap(attrs1_));
-        elt0_.appendChild(elt1_);
-        doc_.appendChild(elt0_);
-        return doc_;
+        return common("resources_cards/help//aide_generale/logiciel/menus/parametres/belote.html");
     }
     static Document init119(){
-        FullDocument doc_ = DocumentBuilder.newXmlDocument(4);
-        Element elt0_=doc_.createElement("cfg");
-        CustList<Attr> attrs0_=new CustList<Attr>(new CollCapacity(0));
-        elt0_.setAttributes(new NamedNodeMap(attrs0_));
-        Element elt1_=doc_.createElement("java.lang.String");
-        CustList<Attr> attrs1_=new CustList<Attr>(new CollCapacity(3));
-        attrs1_.add(CoreDocument.createAttribute("class","cfg"));
-        attrs1_.add(CoreDocument.createAttribute("field","firstUrl"));
-        attrs1_.add(CoreDocument.createAttribute("value","resources_cards/help//aide_generale/logiciel/menus/parametres/tarot.html"));
-        elt1_.setAttributes(new NamedNodeMap(attrs1_));
-        elt0_.appendChild(elt1_);
-        doc_.appendChild(elt0_);
-        return doc_;
+        return common("resources_cards/help//aide_generale/logiciel/menus/parametres/tarot.html");
     }
     static Document init120(){
-        FullDocument doc_ = DocumentBuilder.newXmlDocument(4);
-        Element elt0_=doc_.createElement("cfg");
-        CustList<Attr> attrs0_=new CustList<Attr>(new CollCapacity(0));
-        elt0_.setAttributes(new NamedNodeMap(attrs0_));
-        Element elt1_=doc_.createElement("java.lang.String");
-        CustList<Attr> attrs1_=new CustList<Attr>(new CollCapacity(3));
-        attrs1_.add(CoreDocument.createAttribute("class","cfg"));
-        attrs1_.add(CoreDocument.createAttribute("field","firstUrl"));
-        attrs1_.add(CoreDocument.createAttribute("value","resources_cards/help//aide_generale/logiciel/menus/parametres/joueurs.html"));
-        elt1_.setAttributes(new NamedNodeMap(attrs1_));
-        elt0_.appendChild(elt1_);
-        doc_.appendChild(elt0_);
-        return doc_;
+        return common("resources_cards/help//aide_generale/logiciel/menus/parametres/joueurs.html");
     }
     static Document init121(){
-        FullDocument doc_ = DocumentBuilder.newXmlDocument(4);
-        Element elt0_=doc_.createElement("cfg");
-        CustList<Attr> attrs0_=new CustList<Attr>(new CollCapacity(0));
-        elt0_.setAttributes(new NamedNodeMap(attrs0_));
-        Element elt1_=doc_.createElement("java.lang.String");
-        CustList<Attr> attrs1_=new CustList<Attr>(new CollCapacity(3));
-        attrs1_.add(CoreDocument.createAttribute("class","cfg"));
-        attrs1_.add(CoreDocument.createAttribute("field","firstUrl"));
-        attrs1_.add(CoreDocument.createAttribute("value","resources_cards/help//aide_generale/logiciel/menus/parametres/lancement.html"));
-        elt1_.setAttributes(new NamedNodeMap(attrs1_));
-        elt0_.appendChild(elt1_);
-        doc_.appendChild(elt0_);
-        return doc_;
+        return common("resources_cards/help//aide_generale/logiciel/menus/parametres/lancement.html");
     }
     static Document init122(){
-        FullDocument doc_ = DocumentBuilder.newXmlDocument(4);
-        Element elt0_=doc_.createElement("cfg");
-        CustList<Attr> attrs0_=new CustList<Attr>(new CollCapacity(0));
-        elt0_.setAttributes(new NamedNodeMap(attrs0_));
-        Element elt1_=doc_.createElement("java.lang.String");
-        CustList<Attr> attrs1_=new CustList<Attr>(new CollCapacity(3));
-        attrs1_.add(CoreDocument.createAttribute("class","cfg"));
-        attrs1_.add(CoreDocument.createAttribute("field","firstUrl"));
-        attrs1_.add(CoreDocument.createAttribute("value","resources_cards/help//aide_generale/logiciel/menus/parametres/temporisation.html"));
-        elt1_.setAttributes(new NamedNodeMap(attrs1_));
-        elt0_.appendChild(elt1_);
-        doc_.appendChild(elt0_);
-        return doc_;
+        return common("resources_cards/help//aide_generale/logiciel/menus/parametres/temporisation.html");
     }
     static Document init123(){
-        FullDocument doc_ = DocumentBuilder.newXmlDocument(4);
-        Element elt0_=doc_.createElement("cfg");
-        CustList<Attr> attrs0_=new CustList<Attr>(new CollCapacity(0));
-        elt0_.setAttributes(new NamedNodeMap(attrs0_));
-        Element elt1_=doc_.createElement("java.lang.String");
-        CustList<Attr> attrs1_=new CustList<Attr>(new CollCapacity(3));
-        attrs1_.add(CoreDocument.createAttribute("class","cfg"));
-        attrs1_.add(CoreDocument.createAttribute("field","firstUrl"));
-        attrs1_.add(CoreDocument.createAttribute("value","resources_cards/help//aide_generale/logiciel/menus/parametres/interaction.html"));
-        elt1_.setAttributes(new NamedNodeMap(attrs1_));
-        elt0_.appendChild(elt1_);
-        doc_.appendChild(elt0_);
-        return doc_;
+        return common("resources_cards/help//aide_generale/logiciel/menus/parametres/interaction.html");
     }
     static Document init124(){
-        FullDocument doc_ = DocumentBuilder.newXmlDocument(4);
-        Element elt0_=doc_.createElement("cfg");
-        CustList<Attr> attrs0_=new CustList<Attr>(new CollCapacity(0));
-        elt0_.setAttributes(new NamedNodeMap(attrs0_));
-        Element elt1_=doc_.createElement("java.lang.String");
-        CustList<Attr> attrs1_=new CustList<Attr>(new CollCapacity(3));
-        attrs1_.add(CoreDocument.createAttribute("class","cfg"));
-        attrs1_.add(CoreDocument.createAttribute("field","firstUrl"));
-        attrs1_.add(CoreDocument.createAttribute("value","resources_cards/help//aide_generale/logiciel/menus/parametres/langue.html"));
-        elt1_.setAttributes(new NamedNodeMap(attrs1_));
-        elt0_.appendChild(elt1_);
-        doc_.appendChild(elt0_);
-        return doc_;
+        return common("resources_cards/help//aide_generale/logiciel/menus/parametres/langue.html");
     }
     static Document init125(){
-        FullDocument doc_ = DocumentBuilder.newXmlDocument(4);
-        Element elt0_=doc_.createElement("cfg");
-        CustList<Attr> attrs0_=new CustList<Attr>(new CollCapacity(0));
-        elt0_.setAttributes(new NamedNodeMap(attrs0_));
-        Element elt1_=doc_.createElement("java.lang.String");
-        CustList<Attr> attrs1_=new CustList<Attr>(new CollCapacity(3));
-        attrs1_.add(CoreDocument.createAttribute("class","cfg"));
-        attrs1_.add(CoreDocument.createAttribute("field","firstUrl"));
-        attrs1_.add(CoreDocument.createAttribute("value","resources_cards/help//aide_generale/logiciel/menus/parametres/affichage.html"));
-        elt1_.setAttributes(new NamedNodeMap(attrs1_));
-        elt0_.appendChild(elt1_);
-        doc_.appendChild(elt0_);
-        return doc_;
+        return common("resources_cards/help//aide_generale/logiciel/menus/parametres/affichage.html");
     }
     static Document init126(){
-        FullDocument doc_ = DocumentBuilder.newXmlDocument(4);
-        Element elt0_=doc_.createElement("cfg");
-        CustList<Attr> attrs0_=new CustList<Attr>(new CollCapacity(0));
-        elt0_.setAttributes(new NamedNodeMap(attrs0_));
-        Element elt1_=doc_.createElement("java.lang.String");
-        CustList<Attr> attrs1_=new CustList<Attr>(new CollCapacity(3));
-        attrs1_.add(CoreDocument.createAttribute("class","cfg"));
-        attrs1_.add(CoreDocument.createAttribute("field","firstUrl"));
-        attrs1_.add(CoreDocument.createAttribute("value","resources_cards/help//aide_generale/logiciel/menus/aide/aide_generale.html"));
-        elt1_.setAttributes(new NamedNodeMap(attrs1_));
-        elt0_.appendChild(elt1_);
-        doc_.appendChild(elt0_);
-        return doc_;
+        return common("resources_cards/help//aide_generale/logiciel/menus/aide/aide_generale.html");
     }
     static Document init127(){
-        FullDocument doc_ = DocumentBuilder.newXmlDocument(4);
-        Element elt0_=doc_.createElement("cfg");
-        CustList<Attr> attrs0_=new CustList<Attr>(new CollCapacity(0));
-        elt0_.setAttributes(new NamedNodeMap(attrs0_));
-        Element elt1_=doc_.createElement("java.lang.String");
-        CustList<Attr> attrs1_=new CustList<Attr>(new CollCapacity(3));
-        attrs1_.add(CoreDocument.createAttribute("class","cfg"));
-        attrs1_.add(CoreDocument.createAttribute("field","firstUrl"));
-        attrs1_.add(CoreDocument.createAttribute("value","resources_cards/help//aide_generale/jeux/belote/variantes/surcontrat.html"));
-        elt1_.setAttributes(new NamedNodeMap(attrs1_));
-        elt0_.appendChild(elt1_);
-        doc_.appendChild(elt0_);
-        return doc_;
+        return common("resources_cards/help//aide_generale/jeux/belote/variantes/surcontrat.html");
     }
     static Document init128(){
-        FullDocument doc_ = DocumentBuilder.newXmlDocument(4);
-        Element elt0_=doc_.createElement("cfg");
-        CustList<Attr> attrs0_=new CustList<Attr>(new CollCapacity(0));
-        elt0_.setAttributes(new NamedNodeMap(attrs0_));
-        Element elt1_=doc_.createElement("java.lang.String");
-        CustList<Attr> attrs1_=new CustList<Attr>(new CollCapacity(3));
-        attrs1_.add(CoreDocument.createAttribute("class","cfg"));
-        attrs1_.add(CoreDocument.createAttribute("field","firstUrl"));
-        attrs1_.add(CoreDocument.createAttribute("value","resources_cards/help//aide_generale/jeux/belote/variantes/fin_de_partie_differente.html"));
-        elt1_.setAttributes(new NamedNodeMap(attrs1_));
-        elt0_.appendChild(elt1_);
-        doc_.appendChild(elt0_);
-        return doc_;
+        return common("resources_cards/help//aide_generale/jeux/belote/variantes/fin_de_partie_differente.html");
     }
     static Document init129(){
-        FullDocument doc_ = DocumentBuilder.newXmlDocument(4);
-        Element elt0_=doc_.createElement("cfg");
-        CustList<Attr> attrs0_=new CustList<Attr>(new CollCapacity(0));
-        elt0_.setAttributes(new NamedNodeMap(attrs0_));
-        Element elt1_=doc_.createElement("java.lang.String");
-        CustList<Attr> attrs1_=new CustList<Attr>(new CollCapacity(3));
-        attrs1_.add(CoreDocument.createAttribute("class","cfg"));
-        attrs1_.add(CoreDocument.createAttribute("field","firstUrl"));
-        attrs1_.add(CoreDocument.createAttribute("value","resources_cards/help//aide_generale/jeux/tarot/variantes/trois_joueurs.html"));
-        elt1_.setAttributes(new NamedNodeMap(attrs1_));
-        elt0_.appendChild(elt1_);
-        doc_.appendChild(elt0_);
-        return doc_;
+        return common("resources_cards/help//aide_generale/jeux/tarot/variantes/trois_joueurs.html");
     }
     static Document init130(){
-        FullDocument doc_ = DocumentBuilder.newXmlDocument(4);
-        Element elt0_=doc_.createElement("cfg");
-        CustList<Attr> attrs0_=new CustList<Attr>(new CollCapacity(0));
-        elt0_.setAttributes(new NamedNodeMap(attrs0_));
-        Element elt1_=doc_.createElement("java.lang.String");
-        CustList<Attr> attrs1_=new CustList<Attr>(new CollCapacity(3));
-        attrs1_.add(CoreDocument.createAttribute("class","cfg"));
-        attrs1_.add(CoreDocument.createAttribute("field","firstUrl"));
-        attrs1_.add(CoreDocument.createAttribute("value","resources_cards/help//aide_generale/jeux/tarot/variantes/quatre_joueurs_rep.html"));
-        elt1_.setAttributes(new NamedNodeMap(attrs1_));
-        elt0_.appendChild(elt1_);
-        doc_.appendChild(elt0_);
-        return doc_;
+        return common("resources_cards/help//aide_generale/jeux/tarot/variantes/quatre_joueurs_rep.html");
     }
     static Document init131(){
-        FullDocument doc_ = DocumentBuilder.newXmlDocument(4);
-        Element elt0_=doc_.createElement("cfg");
-        CustList<Attr> attrs0_=new CustList<Attr>(new CollCapacity(0));
-        elt0_.setAttributes(new NamedNodeMap(attrs0_));
-        Element elt1_=doc_.createElement("java.lang.String");
-        CustList<Attr> attrs1_=new CustList<Attr>(new CollCapacity(3));
-        attrs1_.add(CoreDocument.createAttribute("class","cfg"));
-        attrs1_.add(CoreDocument.createAttribute("field","firstUrl"));
-        attrs1_.add(CoreDocument.createAttribute("value","resources_cards/help//aide_generale/jeux/tarot/variantes/cinq_joueurs.html"));
-        elt1_.setAttributes(new NamedNodeMap(attrs1_));
-        elt0_.appendChild(elt1_);
-        doc_.appendChild(elt0_);
-        return doc_;
+        return common("resources_cards/help//aide_generale/jeux/tarot/variantes/cinq_joueurs.html");
     }
     static Document init132(){
-        FullDocument doc_ = DocumentBuilder.newXmlDocument(4);
-        Element elt0_=doc_.createElement("cfg");
-        CustList<Attr> attrs0_=new CustList<Attr>(new CollCapacity(0));
-        elt0_.setAttributes(new NamedNodeMap(attrs0_));
-        Element elt1_=doc_.createElement("java.lang.String");
-        CustList<Attr> attrs1_=new CustList<Attr>(new CollCapacity(3));
-        attrs1_.add(CoreDocument.createAttribute("class","cfg"));
-        attrs1_.add(CoreDocument.createAttribute("field","firstUrl"));
-        attrs1_.add(CoreDocument.createAttribute("value","resources_cards/help//aide_generale/jeux/tarot/variantes/six_joueurs.html"));
-        elt1_.setAttributes(new NamedNodeMap(attrs1_));
-        elt0_.appendChild(elt1_);
-        doc_.appendChild(elt0_);
-        return doc_;
+        return common("resources_cards/help//aide_generale/jeux/tarot/variantes/six_joueurs.html");
     }
     static Document init133(){
-        FullDocument doc_ = DocumentBuilder.newXmlDocument(4);
-        Element elt0_=doc_.createElement("cfg");
-        CustList<Attr> attrs0_=new CustList<Attr>(new CollCapacity(0));
-        elt0_.setAttributes(new NamedNodeMap(attrs0_));
-        Element elt1_=doc_.createElement("java.lang.String");
-        CustList<Attr> attrs1_=new CustList<Attr>(new CollCapacity(3));
-        attrs1_.add(CoreDocument.createAttribute("class","cfg"));
-        attrs1_.add(CoreDocument.createAttribute("field","firstUrl"));
-        attrs1_.add(CoreDocument.createAttribute("value","resources_cards/help//aide_generale/jeux/tarot/variantes/nouvelles_annonces.html"));
-        elt1_.setAttributes(new NamedNodeMap(attrs1_));
-        elt0_.appendChild(elt1_);
-        doc_.appendChild(elt0_);
-        return doc_;
+        return common("resources_cards/help//aide_generale/jeux/tarot/variantes/nouvelles_annonces.html");
     }
     static Document init134(){
-        FullDocument doc_ = DocumentBuilder.newXmlDocument(4);
-        Element elt0_=doc_.createElement("cfg");
-        CustList<Attr> attrs0_=new CustList<Attr>(new CollCapacity(0));
-        elt0_.setAttributes(new NamedNodeMap(attrs0_));
-        Element elt1_=doc_.createElement("java.lang.String");
-        CustList<Attr> attrs1_=new CustList<Attr>(new CollCapacity(3));
-        attrs1_.add(CoreDocument.createAttribute("class","cfg"));
-        attrs1_.add(CoreDocument.createAttribute("field","firstUrl"));
-        attrs1_.add(CoreDocument.createAttribute("value","resources_cards/help//aide_generale/jeux/tarot/variantes/jeu_de_misere.html"));
-        elt1_.setAttributes(new NamedNodeMap(attrs1_));
-        elt0_.appendChild(elt1_);
-        doc_.appendChild(elt0_);
-        return doc_;
+        return common("resources_cards/help//aide_generale/jeux/tarot/variantes/jeu_de_misere.html");
     }
     static Document init135(){
-        FullDocument doc_ = DocumentBuilder.newXmlDocument(4);
-        Element elt0_=doc_.createElement("cfg");
-        CustList<Attr> attrs0_=new CustList<Attr>(new CollCapacity(0));
-        elt0_.setAttributes(new NamedNodeMap(attrs0_));
-        Element elt1_=doc_.createElement("java.lang.String");
-        CustList<Attr> attrs1_=new CustList<Attr>(new CollCapacity(3));
-        attrs1_.add(CoreDocument.createAttribute("class","cfg"));
-        attrs1_.add(CoreDocument.createAttribute("field","firstUrl"));
-        attrs1_.add(CoreDocument.createAttribute("value","resources_cards/help//aide_generale/jeux/tarot/variantes/jeu_de_chacun_pour_soi.html"));
-        elt1_.setAttributes(new NamedNodeMap(attrs1_));
-        elt0_.appendChild(elt1_);
-        doc_.appendChild(elt0_);
-        return doc_;
+        return common("resources_cards/help//aide_generale/jeux/tarot/variantes/jeu_de_chacun_pour_soi.html");
     }
     static Document init136(){
-        FullDocument doc_ = DocumentBuilder.newXmlDocument(4);
-        Element elt0_=doc_.createElement("cfg");
-        CustList<Attr> attrs0_=new CustList<Attr>(new CollCapacity(0));
-        elt0_.setAttributes(new NamedNodeMap(attrs0_));
-        Element elt1_=doc_.createElement("java.lang.String");
-        CustList<Attr> attrs1_=new CustList<Attr>(new CollCapacity(3));
-        attrs1_.add(CoreDocument.createAttribute("class","cfg"));
-        attrs1_.add(CoreDocument.createAttribute("field","firstUrl"));
-        attrs1_.add(CoreDocument.createAttribute("value","resources_cards/help//aide_generale/logiciel/menus/partie/editer/belote.html"));
-        elt1_.setAttributes(new NamedNodeMap(attrs1_));
-        elt0_.appendChild(elt1_);
-        doc_.appendChild(elt0_);
-        return doc_;
+        return common("resources_cards/help//aide_generale/logiciel/menus/partie/editer/belote.html");
     }
     static Document init137(){
-        FullDocument doc_ = DocumentBuilder.newXmlDocument(4);
-        Element elt0_=doc_.createElement("cfg");
-        CustList<Attr> attrs0_=new CustList<Attr>(new CollCapacity(0));
-        elt0_.setAttributes(new NamedNodeMap(attrs0_));
-        Element elt1_=doc_.createElement("java.lang.String");
-        CustList<Attr> attrs1_=new CustList<Attr>(new CollCapacity(3));
-        attrs1_.add(CoreDocument.createAttribute("class","cfg"));
-        attrs1_.add(CoreDocument.createAttribute("field","firstUrl"));
-        attrs1_.add(CoreDocument.createAttribute("value","resources_cards/help//aide_generale/logiciel/menus/partie/editer/tarot.html"));
-        elt1_.setAttributes(new NamedNodeMap(attrs1_));
-        elt0_.appendChild(elt1_);
-        doc_.appendChild(elt0_);
-        return doc_;
+        return common("resources_cards/help//aide_generale/logiciel/menus/partie/editer/tarot.html");
     }
     static Document init138(){
-        FullDocument doc_ = DocumentBuilder.newXmlDocument(4);
-        Element elt0_=doc_.createElement("cfg");
-        CustList<Attr> attrs0_=new CustList<Attr>(new CollCapacity(0));
-        elt0_.setAttributes(new NamedNodeMap(attrs0_));
-        Element elt1_=doc_.createElement("java.lang.String");
-        CustList<Attr> attrs1_=new CustList<Attr>(new CollCapacity(3));
-        attrs1_.add(CoreDocument.createAttribute("class","cfg"));
-        attrs1_.add(CoreDocument.createAttribute("field","firstUrl"));
-        attrs1_.add(CoreDocument.createAttribute("value","resources_cards/help//aide_generale/logiciel/menus/partie/simulation/belote.html"));
-        elt1_.setAttributes(new NamedNodeMap(attrs1_));
-        elt0_.appendChild(elt1_);
-        doc_.appendChild(elt0_);
-        return doc_;
+        return common("resources_cards/help//aide_generale/logiciel/menus/partie/simulation/belote.html");
     }
     static Document init139(){
-        FullDocument doc_ = DocumentBuilder.newXmlDocument(4);
-        Element elt0_=doc_.createElement("cfg");
-        CustList<Attr> attrs0_=new CustList<Attr>(new CollCapacity(0));
-        elt0_.setAttributes(new NamedNodeMap(attrs0_));
-        Element elt1_=doc_.createElement("java.lang.String");
-        CustList<Attr> attrs1_=new CustList<Attr>(new CollCapacity(3));
-        attrs1_.add(CoreDocument.createAttribute("class","cfg"));
-        attrs1_.add(CoreDocument.createAttribute("field","firstUrl"));
-        attrs1_.add(CoreDocument.createAttribute("value","resources_cards/help//aide_generale/logiciel/menus/partie/simulation/tarot.html"));
-        elt1_.setAttributes(new NamedNodeMap(attrs1_));
-        elt0_.appendChild(elt1_);
-        doc_.appendChild(elt0_);
-        return doc_;
+        return common("resources_cards/help//aide_generale/logiciel/menus/partie/simulation/tarot.html");
     }
     static Document init140(){
-        FullDocument doc_ = DocumentBuilder.newXmlDocument(4);
-        Element elt0_=doc_.createElement("cfg");
-        CustList<Attr> attrs0_=new CustList<Attr>(new CollCapacity(0));
-        elt0_.setAttributes(new NamedNodeMap(attrs0_));
-        Element elt1_=doc_.createElement("java.lang.String");
-        CustList<Attr> attrs1_=new CustList<Attr>(new CollCapacity(3));
-        attrs1_.add(CoreDocument.createAttribute("class","cfg"));
-        attrs1_.add(CoreDocument.createAttribute("field","firstUrl"));
-        attrs1_.add(CoreDocument.createAttribute("value","resources_cards/help//aide_generale/logiciel/menus/parametres/affichage/belote.html"));
-        elt1_.setAttributes(new NamedNodeMap(attrs1_));
-        elt0_.appendChild(elt1_);
-        doc_.appendChild(elt0_);
-        return doc_;
+        return common("resources_cards/help//aide_generale/logiciel/menus/parametres/affichage/belote.html");
     }
     static Document init141(){
+        return common("resources_cards/help//aide_generale/logiciel/menus/parametres/affichage/tarot.html");
+    }
+
+    private static Document common(String _s) {
         FullDocument doc_ = DocumentBuilder.newXmlDocument(4);
-        Element elt0_=doc_.createElement("cfg");
-        CustList<Attr> attrs0_=new CustList<Attr>(new CollCapacity(0));
+        Element elt0_ = doc_.createElement("cfg");
+        CustList<Attr> attrs0_ = new CustList<Attr>(new CollCapacity(0));
         elt0_.setAttributes(new NamedNodeMap(attrs0_));
-        Element elt1_=doc_.createElement("java.lang.String");
-        CustList<Attr> attrs1_=new CustList<Attr>(new CollCapacity(3));
-        attrs1_.add(CoreDocument.createAttribute("class","cfg"));
-        attrs1_.add(CoreDocument.createAttribute("field","firstUrl"));
-        attrs1_.add(CoreDocument.createAttribute("value","resources_cards/help//aide_generale/logiciel/menus/parametres/affichage/tarot.html"));
+        Element elt1_ = doc_.createElement("java.lang.String");
+        CustList<Attr> attrs1_ = new CustList<Attr>(new CollCapacity(3));
+        attrs1_.add(CoreDocument.createAttribute("class", "cfg"));
+        attrs1_.add(CoreDocument.createAttribute("field", "firstUrl"));
+        attrs1_.add(CoreDocument.createAttribute("value", _s));
         elt1_.setAttributes(new NamedNodeMap(attrs1_));
         elt0_.appendChild(elt1_);
         doc_.appendChild(elt0_);
