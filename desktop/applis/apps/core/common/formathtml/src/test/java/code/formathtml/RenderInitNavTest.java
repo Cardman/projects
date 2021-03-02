@@ -1255,7 +1255,7 @@ public final class RenderInitNavTest extends CommonRender {
         return _a.getAdvStandards().setupAll(_n, _n.getSession(), _n.getFiles(), dual_).isAllEmptyErrors();
     }
 
-    private static boolean setupRendClassesInit(Navigation _nav, BeanLgNames _stds, DualAnalyzedContext _dual) {
+    private static boolean setupRendClassesInit(Navigation _nav, BeanCustLgNames _stds, DualAnalyzedContext _dual) {
         return _stds.setupAll(_nav, _nav.getSession(), _nav.getFiles(), _dual).isAllEmptyErrors();
     }
 }

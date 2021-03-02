@@ -215,6 +215,7 @@ public final class NativeTest extends EquallableExUtil {
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
         String html_ = "<html c:bean=\"bean_one\"><body>HEAD<a c:command=\"goToNullPage\" href=\"\"/></body></html>";
         String htmlTwo_ = "<html c:bean=\"bean_two\"><body><form action=\"DELETE\" name=\"myform\" c:command=\"go\"><input type='text' name=\"typedString\" c:varValue=\"typedString\"/></form></body></html>";
+        StringMap<Document> docs_ = new StringMap<Document>();
         StringMap<String> files_ = new StringMap<String>();
         BeanNatLgNames lgNames_ = new CustBeanLgNames();
         lgNames_.getValidators().addEntry("my_val",new MyValidator());
@@ -222,6 +223,8 @@ public final class NativeTest extends EquallableExUtil {
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         files_.put("page2.html", htmlTwo_);
+        docs_.addEntry("page1.html",DocumentBuilder.parseSax(html_));
+        docs_.addEntry("page2.html",DocumentBuilder.parseSax(htmlTwo_));
         String xmlConf_ = "<cfg>\n" +
                 "\t<java.lang.String field='firstUrl' value='page2.html'/>\n" +
                 "\t<java.lang.String field='prefix' value='c'/>\n" +
@@ -271,7 +274,7 @@ public final class NativeTest extends EquallableExUtil {
         NativeConfigurationLoader nat_ = new NativeConfigurationLoader(lgNames_, new SampleNativeInit());
         DualAnalyzedContext du_ = n_.loadConfiguration(xmlConf_, "", lgNames_, DefaultFileBuilder.newInstance(lgNames_.getContent()), nat_);
         n_.setFiles(files_);
-        lgNames_.setupAll(n_, n_.getSession(), n_.getFiles(), du_);
+        lgNames_.setupAll(docs_,n_, n_.getSession(), n_.getFiles(), du_);
         n_.initializeRendSession(du_.getContext().getContext(), du_.getStds(), StackCall.newInstance(InitPhase.NOTHING,du_.getContext().getContext()));
         assertEq("<html><body><form action=\"\" name=\"myform\" c:command=\"go\" n-f=\"0\"><input type=\"text\" name=\"bean_two.typedString\" n-i=\"0\" value=\"TYPED_STRING\"/></form></body></html>", n_.getHtmlText());
     }
@@ -284,6 +287,7 @@ public final class NativeTest extends EquallableExUtil {
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
         String html_ = "<html c:bean=\"bean_one\"><body>HEAD<a c:command=\"goToNullPage\" href=\"\"/></body></html>";
         String htmlTwo_ = "<html c:bean=\"bean_two\"><body><form action=\"DELETE\" name=\"myform\" c:command=\"go\"><input type='text' name=\"typedString\" c:varValue=\"typedString\"/></form></body></html>";
+        StringMap<Document> docs_ = new StringMap<Document>();
         StringMap<String> files_ = new StringMap<String>();
         BeanNatLgNames lgNames_ = new CustBeanLgNames();
         lgNames_.getValidators().addEntry("my_val",new MyValidator());
@@ -291,6 +295,8 @@ public final class NativeTest extends EquallableExUtil {
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         files_.put("page2.html", htmlTwo_);
+        docs_.addEntry("page1.html",DocumentBuilder.parseSax(html_));
+        docs_.addEntry("page2.html",DocumentBuilder.parseSax(htmlTwo_));
         String xmlConf_ = "<cfg>\n" +
                 "\t<java.lang.String field='firstUrl' value='page2.html'/>\n" +
                 "\t<java.lang.String field='prefix' value='c'/>\n" +
@@ -340,7 +346,7 @@ public final class NativeTest extends EquallableExUtil {
         NativeConfigurationLoader nat_ = new NativeConfigurationLoader(lgNames_, null);
         DualAnalyzedContext du_ = n_.loadConfiguration(xmlConf_, "", lgNames_, DefaultFileBuilder.newInstance(lgNames_.getContent()), nat_);
         n_.setFiles(files_);
-        lgNames_.setupAll(n_, n_.getSession(), n_.getFiles(), du_);
+        lgNames_.setupAll(docs_,n_, n_.getSession(), n_.getFiles(), du_);
         n_.initializeRendSession(du_.getContext().getContext(), du_.getStds(), StackCall.newInstance(InitPhase.NOTHING,du_.getContext().getContext()));
         assertEq("<html><body><form action=\"\" name=\"myform\" c:command=\"go\" n-f=\"0\"><input type=\"text\" name=\"bean_two.typedString\" n-i=\"0\" value=\"TYPED_STRING\"/></form></body></html>", n_.getHtmlText());
     }
@@ -352,10 +358,13 @@ public final class NativeTest extends EquallableExUtil {
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
         String html_ = "<html c:bean=\"bean_one\"><body>HEAD<a c:command=\"goToNullPage\" href=\"\"/></body></html>";
         String htmlTwo_ = "<html c:bean=\"bean_two\"><body><form action=\"DELETE\" name=\"myform\" c:command=\"go\"><input type='text' name=\"typedString\" c:varValue=\"typedString\"/></form></body></html>";
+        StringMap<Document> docs_ = new StringMap<Document>();
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         files_.put("page2.html", htmlTwo_);
+        docs_.addEntry("page1.html",DocumentBuilder.parseSax(html_));
+        docs_.addEntry("page2.html",DocumentBuilder.parseSax(htmlTwo_));
         Configuration conf_ =  EquallableExUtil.newConfiguration();
         conf_.setPrefix("c");
         NativeAnalyzedTestConfiguration a_ = buildNat(conf_);
@@ -374,7 +383,7 @@ public final class NativeTest extends EquallableExUtil {
         Navigation n_ = new Navigation();
         setSess(conf_, n_);
         n_.setFiles(files_);
-        a_.getAdv().setupAll(n_, n_.getSession(), n_.getFiles(), new DualAnalyzedContext(a_.getAnalyzing(),a_.getAdv(),a_.getDual()));
+        a_.getAdv().setupAll(docs_,n_, n_.getSession(), n_.getFiles(), new DualAnalyzedContext(a_.getAnalyzing(),a_.getAdv(),a_.getDual()));
         a_.setStackCall(StackCall.newInstance(InitPhase.NOTHING,a_.getContext()));
         n_.initializeRendSession(a_.getContext(), a_.getAdv(), a_.getStackCall());
         assertEq("<html><body><form action=\"\" name=\"myform\" c:command=\"go\" n-f=\"0\"><input type=\"text\" name=\"bean_two.typedString\" n-i=\"0\" value=\"TYPED_STRING\"/></form></body></html>", n_.getHtmlText());

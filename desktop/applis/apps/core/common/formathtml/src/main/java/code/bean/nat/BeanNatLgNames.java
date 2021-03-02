@@ -89,21 +89,7 @@ public abstract class BeanNatLgNames extends BeanNatCommonLgNames {
         return new Argument(BooleanStruct.of(simpleItrStruct_.hasNext()));
     }
 
-    public ReportedMessages setupAll(Navigation _nav, Configuration _conf, StringMap<String> _files, DualAnalyzedContext _dual) {
-        AnalyzingDoc analyzingDoc_ = new AnalyzingDoc();
-        analyzingDoc_.setReducingOperations(new NativeReducingOperations());
-        analyzingDoc_.setContent(this);
-        analyzingDoc_.setInputBuilder(new DefaultInputBuilder());
-        analyzingDoc_.setConverterCheck(new NativeConverterCheck(getAliasObject()));
-        AnalyzedPageEl page_ = _dual.getAnalyzed();
-        page_.setForEachFetch(new NativeForEachFetch(this));
-        initInstancesPattern(_nav.getSession(),analyzingDoc_);
-        StringMap<AnaRendDocumentBlock> d_ = _nav.analyzedRenders(page_, this, analyzingDoc_, _dual.getContext());
-        RendForwardInfos.buildExec(analyzingDoc_, d_, new Forwards(), _conf);
-        return page_.getMessages();
-    }
-
-    public ReportedMessages setupAll(StringMap<Document> _docs, Navigation _nav, Configuration _conf, StringMap<String> _files, DualAnalyzedContext _dual) {
+    public void setupAll(StringMap<Document> _docs, Navigation _nav, Configuration _conf, StringMap<String> _files, DualAnalyzedContext _dual) {
         AnalyzingDoc analyzingDoc_ = new AnalyzingDoc();
         analyzingDoc_.setReducingOperations(new NativeReducingOperations());
         analyzingDoc_.setContent(this);
@@ -114,7 +100,6 @@ public abstract class BeanNatLgNames extends BeanNatCommonLgNames {
         initInstancesPattern(_nav.getSession(),analyzingDoc_);
         StringMap<AnaRendDocumentBlock> d_ = _nav.analyzedDocs(_docs,page_, this, analyzingDoc_, _dual.getContext());
         RendForwardInfos.buildExec(analyzingDoc_, d_, new Forwards(), _conf);
-        return page_.getMessages();
     }
     @Override
     public String processString(Argument _arg, ContextEl _ctx, StackCall _stack) {

@@ -404,7 +404,6 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         return ValidatorStandard.tr(_list);
     }
 
-    @Override
     public ReportedMessages setupAll(Navigation _nav, Configuration _conf, StringMap<String> _files, DualAnalyzedContext _dual) {
         Forwards forwards_ = new Forwards();
         AnalyzedPageEl page_ = _dual.getAnalyzed();

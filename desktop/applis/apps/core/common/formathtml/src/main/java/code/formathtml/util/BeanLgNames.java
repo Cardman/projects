@@ -170,8 +170,6 @@ public abstract class BeanLgNames extends LgNames {
         return new StringStruct(_element);
     }
 
-    public abstract ReportedMessages setupAll(Navigation _nav, Configuration _conf, StringMap<String> _files, DualAnalyzedContext _dual);
-
     public abstract boolean setBeanForms(Configuration _conf, Struct _mainBean,
                              RendImport _node, boolean _keepField, String _beanName, ContextEl _ctx, StackCall _stack, RendStackCall _rendStack);
 
