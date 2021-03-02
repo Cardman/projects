@@ -17,8 +17,8 @@ public final class PreparedRenderPagesCards extends AbstractPreparedPagesCards {
 
     private MetaDocument metaDocument;
     private final Document document;
-    public PreparedRenderPagesCards(String _lg, BeanNatLgNames _stds, Document _document) {
-        super(_lg, _stds, new StringMap<Document>());
+    public PreparedRenderPagesCards(String _lg, BeanNatLgNames _stds, Document _document, StringMap<Document> _built) {
+        super(_lg, _stds, _built);
         document = _document;
     }
     @Override

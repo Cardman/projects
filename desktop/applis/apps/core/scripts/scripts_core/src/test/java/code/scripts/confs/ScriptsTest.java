@@ -3,6 +3,7 @@ package code.scripts.confs;
 import code.formathtml.Configuration;
 import code.formathtml.util.DualConfigurationContext;
 import code.scripts.pages.aiki.PagesInit;
+import code.scripts.pages.cards.HelpCards;
 import code.scripts.pages.cards.PageCards;
 import org.junit.Test;
 
@@ -46,6 +47,7 @@ public final class ScriptsTest extends EquallableExUtil {
     @Test
     public void cards(){
         assertNotNull(PageCards.build());
+        assertNotNull(HelpCards.build());
     }
     @Test
     public void pk() {

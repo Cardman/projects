@@ -75,10 +75,13 @@ public abstract class AbstractPreparedPagesCards implements PreparedAnalyzed {
             }
         }
         String realFilePath_ = getRealFilePath(lg, session_.getFirstUrl());
-        files_.put(realFilePath_, ResourceFiles.ressourceFichier(realFilePath_));
+        StringMap<Document> docs_ = new StringMap<Document>();
+        Document doc_ = built.getVal(realFilePath_);
+        docs_.addEntry(realFilePath_,doc_);
+//        files_.put(realFilePath_, ResourceFiles.ressourceFichier(realFilePath_));
         session_.setFirstUrl(realFilePath_);
         navigation.setFiles(files_);
-        beanNatLgNames.setupAll(navigation, navigation.getSession(), navigation.getFiles(), _du);
+        beanNatLgNames.setupAll(docs_,navigation, navigation.getSession(), navigation.getFiles(), _du);
         return beanNatLgNames;
     }
 
