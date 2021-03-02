@@ -23,10 +23,12 @@ public abstract class AbstractPreparedPagesCards implements PreparedAnalyzed {
     private final BeanNatLgNames beanNatLgNames;
     private ContextEl context;
     private Navigation navigation;
+    private final StringMap<Document> built;
 
-    public AbstractPreparedPagesCards(String _lg, BeanNatLgNames _stds) {
+    public AbstractPreparedPagesCards(String _lg, BeanNatLgNames _stds, StringMap<Document> _built) {
         lg = _lg;
         beanNatLgNames = _stds;
+        built = _built;
     }
 
     public void prepareDoc(Document _doc, AbstractNativeInit _init) {
@@ -36,7 +38,26 @@ public abstract class AbstractPreparedPagesCards implements PreparedAnalyzed {
         navigation.setLanguages(Constants.getAvailableLanguages());
         NativeConfigurationLoader nat_ = new NativeConfigurationLoader(beanNatLgNames, _init);
         DualAnalyzedContext du_ = navigation.innerLoad("", beanNatLgNames, DefaultFileBuilder.newInstance(beanNatLgNames.getContent()), nat_,_doc);
-        common(du_);
+        context = du_.getContext().getContext();
+        StringMap<String> files_ = new StringMap<String>();
+        Configuration session_ = navigation.getSession();
+        for (String a : du_.getContext().getAddedFiles()) {
+            files_.put(a, ResourceFiles.ressourceFichier(a));
+        }
+        for (String l : navigation.getLanguages()) {
+            for (String a : du_.getContext().getProperties().values()) {
+                String folder_ = du_.getContext().getMessagesFolder();
+                String fileName_ = ResourcesMessagesUtil.getPropertiesPath(folder_, l, a);
+                files_.put(fileName_, ResourceFiles.ressourceFichier(fileName_));
+            }
+        }
+        String realFilePath_ = session_.getFirstUrl();
+        StringMap<Document> docs_ = new StringMap<Document>();
+        Document doc_ = built.getVal(realFilePath_);
+        docs_.addEntry(realFilePath_,doc_);
+        session_.setFirstUrl(realFilePath_);
+        navigation.setFiles(files_);
+        beanNatLgNames.setupAll(docs_,navigation, navigation.getSession(), navigation.getFiles(), du_);
     }
 
     protected BeanNatLgNames common(DualAnalyzedContext _du) {

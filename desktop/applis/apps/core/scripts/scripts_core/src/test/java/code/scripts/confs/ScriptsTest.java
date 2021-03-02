@@ -3,6 +3,7 @@ package code.scripts.confs;
 import code.formathtml.Configuration;
 import code.formathtml.util.DualConfigurationContext;
 import code.scripts.pages.aiki.PagesInit;
+import code.scripts.pages.cards.PageCards;
 import org.junit.Test;
 
 public final class ScriptsTest extends EquallableExUtil {
@@ -41,6 +42,10 @@ public final class ScriptsTest extends EquallableExUtil {
         DualConfigurationContext d_ = new DualConfigurationContext();
         TarotScriptPages.initAna(d_);
         assertNotNull(d_.getMessagesFolder());
+    }
+    @Test
+    public void cards(){
+        assertNotNull(PageCards.build());
     }
     @Test
     public void pk() {

@@ -316,20 +316,6 @@ public final class PokemonStandards extends BeanNatLgNames {
         getValidators().addEntry("selected_radio",new UnselectedRadio());
     }
 
-    public ReportedMessages setupAll(StringMap<Document> _docs, Navigation _nav, Configuration _conf, StringMap<String> _files, DualAnalyzedContext _dual) {
-        AnalyzingDoc analyzingDoc_ = new AnalyzingDoc();
-        analyzingDoc_.setReducingOperations(new NativeReducingOperations());
-        analyzingDoc_.setContent(this);
-        analyzingDoc_.setInputBuilder(new DefaultInputBuilder());
-        analyzingDoc_.setConverterCheck(new NativeConverterCheck(getAliasObject()));
-        AnalyzedPageEl page_ = _dual.getAnalyzed();
-        page_.setForEachFetch(new NativeForEachFetch(this));
-        initInstancesPattern(_nav.getSession(),analyzingDoc_);
-        StringMap<AnaRendDocumentBlock> d_ = _nav.analyzedDocs(_docs,page_, this, analyzingDoc_, _dual.getContext());
-        RendForwardInfos.buildExec(analyzingDoc_, d_, new Forwards(), _conf);
-        return page_.getMessages();
-    }
-
     @Override
     public void buildOther() {
         buildBeans();

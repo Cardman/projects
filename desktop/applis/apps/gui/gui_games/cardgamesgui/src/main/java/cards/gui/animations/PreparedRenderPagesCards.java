@@ -10,6 +10,7 @@ import code.formathtml.Navigation;
 import code.formathtml.render.MetaDocument;
 import code.formathtml.util.DualAnalyzedContext;
 import code.sml.Document;
+import code.util.StringMap;
 import code.util.consts.Constants;
 
 public final class PreparedRenderPagesCards extends AbstractPreparedPagesCards {
@@ -17,7 +18,7 @@ public final class PreparedRenderPagesCards extends AbstractPreparedPagesCards {
     private MetaDocument metaDocument;
     private final Document document;
     public PreparedRenderPagesCards(String _lg, BeanNatLgNames _stds, Document _document) {
-        super(_lg, _stds);
+        super(_lg, _stds, new StringMap<Document>());
         document = _document;
     }
     @Override
