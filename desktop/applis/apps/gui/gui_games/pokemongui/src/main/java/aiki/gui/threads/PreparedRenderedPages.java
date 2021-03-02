@@ -11,6 +11,7 @@ import code.bean.nat.BeanNatLgNames;
 import code.formathtml.util.DualAnalyzedContext;
 import code.gui.document.PreparedAnalyzed;
 import code.resources.ResourceFiles;
+import code.sml.Document;
 import code.sml.util.ResourcesMessagesUtil;
 import code.util.StringMap;
 import code.util.consts.Constants;
@@ -22,10 +23,12 @@ public final class PreparedRenderedPages implements PreparedAnalyzed {
     private final String relative;
     private BeanNatLgNames beanNatLgNames;
     private ContextEl context;
+    private final StringMap<Document> built;
 
-    public PreparedRenderedPages(String _relative, AbstractNativeInit _init) {
+    public PreparedRenderedPages(String _relative, AbstractNativeInit _init, StringMap<Document> _build) {
         relative = _relative;
         init = _init;
+        built = _build;
     }
 
     @Override
@@ -42,9 +45,15 @@ public final class PreparedRenderedPages implements PreparedAnalyzed {
         context = du_.getContext().getContext();
         StringMap<String> files_ = new StringMap<String>();
         Configuration session_ = navigation.getSession();
+        StringMap<Document> docs_ = new StringMap<Document>();
         for (String a: du_.getContext().getAddedFiles()) {
             String name_ = StringUtil.concat(relative, a);
-            files_.put(a,ResourceFiles.ressourceFichier(name_));
+            Document doc_ = built.getVal(name_);
+            if (doc_ != null) {
+                docs_.addEntry(a,doc_);
+            } else {
+                files_.put(a, ResourceFiles.ressourceFichier(name_));
+            }
         }
         for (String l: navigation.getLanguages()) {
             for (String a: du_.getContext().getProperties().values()) {
@@ -55,9 +64,10 @@ public final class PreparedRenderedPages implements PreparedAnalyzed {
         }
         String realFilePath_ = session_.getFirstUrl();
         String rel_ = StringUtil.concat(relative,realFilePath_);
-        files_.put(realFilePath_,ResourceFiles.ressourceFichier(rel_));
+        docs_.addEntry(realFilePath_,built.getVal(rel_));
+//        files_.put(realFilePath_,ResourceFiles.ressourceFichier(rel_));
         navigation.setFiles(files_);
-        stds_.setupAll(navigation, navigation.getSession(), navigation.getFiles(), du_);
+        stds_.setupAll(docs_,navigation, navigation.getSession(), navigation.getFiles(), du_);
     }
 
     public Navigation getNavigation() {

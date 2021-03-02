@@ -2,6 +2,7 @@ package code.scripts.confs;
 
 import code.formathtml.Configuration;
 import code.formathtml.util.DualConfigurationContext;
+import code.scripts.pages.aiki.PagesInit;
 import org.junit.Test;
 
 public final class ScriptsTest extends EquallableExUtil {
@@ -57,6 +58,7 @@ public final class ScriptsTest extends EquallableExUtil {
         PkScriptPages.initAnaDiff(d_);
         PkScriptPages.initAnaProg(d_);
         assertNotNull(d_.getMessagesFolder());
+        assertNotNull(PagesInit.build());
     }
     @Test
     public void help() {

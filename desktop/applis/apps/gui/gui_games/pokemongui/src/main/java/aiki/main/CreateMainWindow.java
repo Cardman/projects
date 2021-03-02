@@ -8,6 +8,8 @@ import code.gui.CustComponent;
 import code.gui.SoftApplicationCore;
 import code.gui.TopLeftFrame;
 import code.gui.initialize.AbstractProgramInfos;
+import code.scripts.pages.aiki.PagesInit;
+import code.sml.Document;
 import code.util.StringMap;
 
 /**This class thread is used by EDT (invokeLater of SwingUtilities),
@@ -39,12 +41,13 @@ public final class CreateMainWindow implements Runnable {
 
     @Override
     public void run() {
-        PreparedRenderedPages dataWeb_ = new PreparedRenderedPages(Resources.ACCESS_TO_DEFAULT_FILES, new DataGameInit());
-        PreparedRenderedPages fight_ = new PreparedRenderedPages(Resources.ACCESS_TO_DEFAULT_FILES, new FightGameInit());
-        PreparedRenderedPages pk_ = new PreparedRenderedPages(Resources.ACCESS_TO_DEFAULT_FILES, new DetPkGameInit());
-        PreparedRenderedPages pkNet_ = new PreparedRenderedPages(Resources.ACCESS_TO_DEFAULT_FILES, new DetPkGameInit());
-        PreparedRenderedPages diff_ = new PreparedRenderedPages(Resources.ACCESS_TO_DEFAULT_FILES, new DiffGameInit());
-        PreparedRenderedPages prog_ = new PreparedRenderedPages(Resources.ACCESS_TO_DEFAULT_FILES, new ProgGameInit());
+        StringMap<Document> built_ = PagesInit.build();
+        PreparedRenderedPages dataWeb_ = new PreparedRenderedPages(Resources.ACCESS_TO_DEFAULT_FILES, new DataGameInit(), built_);
+        PreparedRenderedPages fight_ = new PreparedRenderedPages(Resources.ACCESS_TO_DEFAULT_FILES, new FightGameInit(), built_);
+        PreparedRenderedPages pk_ = new PreparedRenderedPages(Resources.ACCESS_TO_DEFAULT_FILES, new DetPkGameInit(), built_);
+        PreparedRenderedPages pkNet_ = new PreparedRenderedPages(Resources.ACCESS_TO_DEFAULT_FILES, new DetPkGameInit(), built_);
+        PreparedRenderedPages diff_ = new PreparedRenderedPages(Resources.ACCESS_TO_DEFAULT_FILES, new DiffGameInit(), built_);
+        PreparedRenderedPages prog_ = new PreparedRenderedPages(Resources.ACCESS_TO_DEFAULT_FILES, new ProgGameInit(), built_);
         MainWindow window_ = new MainWindow(lg, list,aikiFactory);
         Thread dataWebThread_ = CustComponent.newThread(dataWeb_);
         dataWebThread_.start();

@@ -3,6 +3,7 @@ package code.formathtml;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.formathtml.analyze.AnalyzingDoc;
+import code.formathtml.analyze.blocks.AnaRendBlock;
 import code.formathtml.analyze.blocks.AnaRendDocumentBlock;
 import code.formathtml.exec.blocks.RendDocumentBlock;
 import code.formathtml.structs.BeanInfo;
@@ -81,12 +82,10 @@ public final class Configuration {
                 AnalyzingDoc.addError(badEl_, _analyzingDoc, _page);
                 continue;
             }
-            AnaRendDocumentBlock anaDoc_ = AnaRendDocumentBlock.newRendDocumentBlock(_analyzingDoc.getPrefix(), document_, file_, _page.getPrimTypes(), link_, _analyzingDoc.getRendKeyWords());
+            AnaRendDocumentBlock anaDoc_ = AnaRendBlock.newRendDocumentBlock(_analyzingDoc.getPrefix(), document_, file_, _page.getPrimTypes(), link_, _analyzingDoc.getRendKeyWords());
             d_.addEntry(link_,anaDoc_);
         }
-        for (AnaRendDocumentBlock v: d_.values()) {
-            v.buildFctInstructions(_analyzingDoc, _page);
-        }
+        buildDocs(_analyzingDoc, _page, d_);
         String currentUrl_ = getFirstUrl();
         String realFilePath_ = getRealFilePath(currentLanguage, currentUrl_);
         if (d_.getVal(realFilePath_) == null) {
@@ -98,6 +97,31 @@ public final class Configuration {
             AnalyzingDoc.addError(badEl_, _analyzingDoc, _page);
         }
         return d_;
+    }
+
+    public StringMap<AnaRendDocumentBlock> analyzedDocs(StringMap<Document> _docs, StringMap<String> _files,AnalyzingDoc _analyzingDoc, AnalyzedPageEl _page, DualConfigurationContext _dual) {
+        renders.clear();
+        setFiles(_files);
+        _analyzingDoc.setup(this, _dual);
+        AnalyzingDoc.setupInts(_page, _analyzingDoc);
+
+
+        StringMap<AnaRendDocumentBlock> d_ = new StringMap<AnaRendDocumentBlock>();
+        for (EntryCust<String, Document> s: _docs.entryList()) {
+            String link_ = s.getKey();
+            Document document_ = s.getValue();
+            String file_ = document_.export();
+            AnaRendDocumentBlock anaDoc_ = AnaRendBlock.newRendDocumentBlock(_analyzingDoc.getPrefix(), document_, file_, _page.getPrimTypes(), link_, _analyzingDoc.getRendKeyWords());
+            d_.addEntry(link_,anaDoc_);
+        }
+        buildDocs(_analyzingDoc, _page, d_);
+        return d_;
+    }
+
+    private static void buildDocs(AnalyzingDoc _analyzingDoc, AnalyzedPageEl _page, StringMap<AnaRendDocumentBlock> _d) {
+        for (AnaRendDocumentBlock v : _d.values()) {
+            v.buildFctInstructions(_analyzingDoc, _page);
+        }
     }
 
     public String getFirstUrl() {

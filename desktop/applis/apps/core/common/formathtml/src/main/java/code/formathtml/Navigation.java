@@ -134,6 +134,14 @@ public final class Navigation {
         return session.analyzedRenders(files, _analyzingDoc, _page, _dual);
     }
 
+    public StringMap<AnaRendDocumentBlock> analyzedDocs(StringMap<Document> _docs, AnalyzedPageEl _page, BeanLgNames _stds, AnalyzingDoc _analyzingDoc, DualConfigurationContext _dual) {
+        _stds.preInitBeans(session);
+        _analyzingDoc.setRendAnalysisMessages(_dual.getAnalysisMessages());
+        _analyzingDoc.setLanguages(languages);
+        session.setCurrentLanguage(language);
+        return session.analyzedDocs(_docs,files, _analyzingDoc, _page, _dual);
+    }
+
     public StringMap<String> getFiles() {
         return files;
     }

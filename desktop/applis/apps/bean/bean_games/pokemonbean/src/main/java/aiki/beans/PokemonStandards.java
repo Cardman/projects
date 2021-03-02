@@ -191,6 +191,8 @@ import code.bean.nat.*;
 import code.bean.validator.Validator;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.analyze.ReportedMessages;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.InitPhase;
@@ -198,17 +200,25 @@ import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.ConstructorId;
 import code.expressionlanguage.functionid.MethodModifier;
+import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.stds.*;
 import code.expressionlanguage.structs.*;
 import code.formathtml.Configuration;
 import code.formathtml.ImportingPage;
+import code.formathtml.Navigation;
+import code.formathtml.analyze.AnalyzingDoc;
+import code.formathtml.analyze.blocks.AnaRendDocumentBlock;
 import code.formathtml.exec.RendStackCall;
 import code.formathtml.exec.blocks.RendBlock;
 import code.formathtml.exec.blocks.RendDocumentBlock;
 import code.formathtml.exec.blocks.RendImport;
+import code.formathtml.fwd.DefaultInputBuilder;
+import code.formathtml.fwd.RendForwardInfos;
 import code.formathtml.structs.BeanInfo;
+import code.formathtml.util.DualAnalyzedContext;
 import code.maths.LgInt;
 import code.maths.Rate;
+import code.sml.Document;
 import code.sml.Element;
 import code.util.*;
 import aiki.facade.enums.SelectedBoolean;
@@ -305,6 +315,21 @@ public final class PokemonStandards extends BeanNatLgNames {
         getValidators().addEntry("short_validator",new ShortValidator());
         getValidators().addEntry("selected_radio",new UnselectedRadio());
     }
+
+    public ReportedMessages setupAll(StringMap<Document> _docs, Navigation _nav, Configuration _conf, StringMap<String> _files, DualAnalyzedContext _dual) {
+        AnalyzingDoc analyzingDoc_ = new AnalyzingDoc();
+        analyzingDoc_.setReducingOperations(new NativeReducingOperations());
+        analyzingDoc_.setContent(this);
+        analyzingDoc_.setInputBuilder(new DefaultInputBuilder());
+        analyzingDoc_.setConverterCheck(new NativeConverterCheck(getAliasObject()));
+        AnalyzedPageEl page_ = _dual.getAnalyzed();
+        page_.setForEachFetch(new NativeForEachFetch(this));
+        initInstancesPattern(_nav.getSession(),analyzingDoc_);
+        StringMap<AnaRendDocumentBlock> d_ = _nav.analyzedDocs(_docs,page_, this, analyzingDoc_, _dual.getContext());
+        RendForwardInfos.buildExec(analyzingDoc_, d_, new Forwards(), _conf);
+        return page_.getMessages();
+    }
+
     @Override
     public void buildOther() {
         buildBeans();
