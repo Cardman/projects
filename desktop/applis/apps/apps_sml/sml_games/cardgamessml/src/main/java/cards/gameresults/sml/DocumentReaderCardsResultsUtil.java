@@ -6,7 +6,6 @@ import code.sml.maths.DocumentReaderMathUtil;
 import code.sml.core.DocumentReaderCoreUtil;
 import code.sml.Element;
 import code.sml.stream.ExtractFromFiles;
-import code.sml.util.ResourcesMessagesUtil;
 import code.util.StringMap;
 import code.util.core.StringUtil;
 
@@ -30,7 +29,7 @@ public final class DocumentReaderCardsResultsUtil {
     public static void setMessages(ResultsBelote _r, String _loc) {
         _r.setLoc(_loc);
         StringMap<String> messages_ = new StringMap<String>();
-        messages_ = getMessagesFromLocaleClass(RESOURCES_CLASS_PATH, _loc, RESULTS_BELOTE);
+        messages_ = ExtractFromFiles.getMessagesFromLocaleClass(RESOURCES_CLASS_PATH, _loc, RESULTS_BELOTE);
         _r.setGlobalResultsPageTitle(messages_.getVal(RESULTS_PAGE));
         _r.setDetailResultsTitle(messages_.getVal(DETAIL_RESULTS_PAGE));
     }
@@ -38,7 +37,7 @@ public final class DocumentReaderCardsResultsUtil {
     public static void setMessages(ResultsPresident _r, String _loc) {
         _r.setLoc(_loc);
         StringMap<String> messages_ = new StringMap<String>();
-        messages_ = getMessagesFromLocaleClass(RESOURCES_CLASS_PATH, _loc, RESULTS_PRESIDENT);
+        messages_ = ExtractFromFiles.getMessagesFromLocaleClass(RESOURCES_CLASS_PATH, _loc, RESULTS_PRESIDENT);
         _r.setGlobalResultsPageTitle(messages_.getVal(RESULTS_PAGE));
         _r.setDetailResultsTitle(messages_.getVal(DETAIL_RESULTS_PAGE));
     }
@@ -46,13 +45,9 @@ public final class DocumentReaderCardsResultsUtil {
     public static void setMessages(ResultsTarot _r, String _loc) {
         _r.setLoc(_loc);
         StringMap<String> messages_ = new StringMap<String>();
-        messages_ = getMessagesFromLocaleClass(RESOURCES_CLASS_PATH, _loc, RESULTS_TAROT);
+        messages_ = ExtractFromFiles.getMessagesFromLocaleClass(RESOURCES_CLASS_PATH, _loc, RESULTS_TAROT);
         _r.setGlobalResultsPageTitle(messages_.getVal(RESULTS_PAGE));
         _r.setDetailResultsTitle(messages_.getVal(DETAIL_RESULTS_PAGE));
-    }
-    private static StringMap<String> getMessagesFromLocaleClass(String _folder, String _loc, String _class) {
-        String fileName_ = ResourcesMessagesUtil.getPropertiesPath(_folder, _loc, _class);
-        return ExtractFromFiles.getMessagesFromLocale(fileName_);
     }
 
     public static void getResultsGame(ResultsBelote _object, String _fieldName, Element _element) {

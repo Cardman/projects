@@ -315,7 +315,8 @@ public final class ElResolverTest extends ProcessMethodCommon {
         assertEq("(", getVal(opers_, 0));
         assertEq(")", getVal(opers_, 4));
         StrTypes values_ = seq_.getValues();
-        assertEq(1, values_.size());
+        assertEq(2, values_.size());
+        assertEq("", getVal(values_, 0));
         assertEq("4+3", getVal(values_, 1));
         assertTrue(seq_.isCall());
     }
@@ -2181,7 +2182,8 @@ public final class ElResolverTest extends ProcessMethodCommon {
         assertEq("(", getVal(opers_, 0));
         assertEq(")", getVal(opers_, 4));
         StrTypes values_ = seq_.getValues();
-        assertEq(1, values_.size());
+        assertEq(2, values_.size());
+        assertEq("", getVal(values_, 0));
         assertEq("a|b", getVal(values_, 1));
     
         assertTrue(seq_.isCall());
@@ -3898,7 +3900,8 @@ public final class ElResolverTest extends ProcessMethodCommon {
         assertEq("(", getVal(opers_, 0));
         assertEq(")", getVal(opers_, 4));
         StrTypes values_ = seq_.getValues();
-        assertEq(1, values_.size());
+        assertEq(2, values_.size());
+        assertEq("", getVal(values_, 0));
         assertEq("(1)", getVal(values_, 1));
         assertEq(ElResolver.FCT_OPER_PRIO,seq_.getPriority());
     }

@@ -1,6 +1,6 @@
 package code.maths.litteral;
 
-public final class VariableInfo {
+public final class MbVariableInfo {
 
     private String name;
 

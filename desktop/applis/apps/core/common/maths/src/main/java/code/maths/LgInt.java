@@ -276,11 +276,11 @@ public final class LgInt implements Displayable {
             QuotModLgInt qr_ = r0_.divisionEuclidienneGeneralise(r1_);
             LgInt q_ = qr_.getQuot();
             LgInt r2_ = qr_.getMod();
-            LgInt u2_ = minus(u0_,multiply(q_,u1_));
-            LgInt v2_ = minus(v0_,multiply(q_,v1_));
             if (r2_.isZeroOrLt()) {
                 break;
             }
+            LgInt u2_ = minus(u0_,multiply(q_,u1_));
+            LgInt v2_ = minus(v0_,multiply(q_,v1_));
             u0_ = u1_;
             v0_ = v1_;
             r0_ = r1_;
@@ -679,14 +679,12 @@ public final class LgInt implements Displayable {
             return LgInt.zero();
         }
         LgInt cardinal_ = LgInt.one();
-        int nombre_;
-        LgInt pgcd_;
         CustList<LgInt> numerateur_ = new CustList<LgInt>();
         CustList<LgInt> denominateur_ = new CustList<LgInt>();
         LgInt diffTotalPartiel_ = minus(_nombreTotalElements, _nombre);
         long absBase_ = _nombre.remainByBase();
         long diffAbsBase_ = diffTotalPartiel_.remainByBase();
-        nombre_ = (int) Math.min(absBase_, diffAbsBase_);
+        int nombre_ = (int) Math.min(absBase_, diffAbsBase_);
         // nombre_ < _nombreTotalElements / 2
         for (int i = IndexConstants.FIRST_INDEX; i < nombre_; i++) {
             LgInt temp_ = new LgInt(i);
@@ -695,12 +693,14 @@ public final class LgInt implements Displayable {
         }
         int nbPgcd_ = nombre_ - 1;
         for (int i = IndexConstants.FIRST_INDEX; i < nbPgcd_; i++) {
-            int j = 0;
-            while (different(denominateur_.get(i), one())) {
-                pgcd_ = pgcd(numerateur_.get(j), denominateur_.get(i));
-                numerateur_.set(j, divide(numerateur_.get(j), pgcd_));
-                denominateur_.set(i, divide(denominateur_.get(i), pgcd_));
-                j++;
+            LgInt den_ = denominateur_.get(i);
+            for (int j = IndexConstants.FIRST_INDEX; j < nbPgcd_; j++) {
+                if (!one().eq(den_)) {
+                    LgInt num_ = numerateur_.get(j);
+                    LgInt pgcd_ = pgcd(num_, den_);
+                    numerateur_.set(j, divide(num_, pgcd_));
+                    den_ = divide(den_, pgcd_);
+                }
             }
         }
         for (int i = IndexConstants.FIRST_INDEX; i < nombre_; i++) {
@@ -1327,18 +1327,17 @@ public final class LgInt implements Displayable {
         LgInt max_ = absoluEnt_;
         // (absoluEnt_+nb1_)/nb2_
         LgInt min_ = LgInt.zero();
-        LgInt moy_;
-        LgInt expo_;
         while (plus(min_, nbOne_).plusPetitQue(max_)) {
-            moy_ = divide(plus(max_, min_), nbTwo_);
-            expo_ = powNb(moy_, _ordre);
-            if (expo_.eq(absoluEnt_)) {
+            LgInt moy_ = divide(plus(max_, min_), nbTwo_);
+            LgInt expo_ = powNb(moy_, _ordre);
+            int res_ = absoluEnt_.quickCmp(expo_);
+            if (res_ == SortConstants.EQ_CMP) {
                 return moy_;
             }
-            if (expo_.plusPetitQue(absoluEnt_)) {
-                min_ = moy_;
-            } else {
+            if (res_ == SortConstants.NO_SWAP_SORT) {
                 max_ = moy_;
+            } else {
+                min_ = moy_;
             }
         }
         return min_;
@@ -1642,16 +1641,15 @@ public final class LgInt implements Displayable {
     }
 
     public boolean inRange(LgInt _min, LgInt _max) {
-        if (_min == null) {
-            if (_max == null) {
-                return true;
-            }
-            return _max.cmp(this) >= 0;
-        }
-        if (_max != null && _max.cmp(this) < 0) {
-            return false;
-        }
-        return _min.cmp(this) <= 0;
+        return matchMin(_min) && matchMax(_max);
+    }
+
+    private boolean matchMax(LgInt _max) {
+        return _max == null || _max.cmp(this) >= 0;
+    }
+
+    private boolean matchMin(LgInt _min) {
+        return _min == null || _min.cmp(this) <= 0;
     }
 
     @Override
@@ -1686,17 +1684,12 @@ public final class LgInt implements Displayable {
                     _chaine.append(ZERO);
                 }
             } else {
-                int puissance_ = 0;
-                long copie_ = _c;
-                while (copie_ > 0) {
-                    copie_ /= BASE_NUMER;
-                    puissance_++;
-                }
-                int nbZeros_ = LgInt.LOG_BASE - puissance_;
+                String ch_ = Long.toString(_c);
+                int nbZeros_ = LgInt.LOG_BASE - ch_.length();
                 for (int i = IndexConstants.FIRST_INDEX; i < nbZeros_; i++) {
                     _chaine.append(ZERO);
                 }
-                _chaine.append(_c);
+                _chaine.append(ch_);
             }
         } else {
             _chaine.append(_c);

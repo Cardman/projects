@@ -384,48 +384,48 @@ public class DataBase {
 
     public EvolvedNumString createNumericableString(
             String _chaineNumerique, StringMap<String> _vars) {
-        return standardMathFactory.createNumericableString(_chaineNumerique,
+        return EvolvedMathFactory.createNumericableString(_chaineNumerique,
                 _vars);
     }
 
     public EvolvedBooleanString createBooleanString(
             String _chaineBooleenne, StringMap<String> _vars) {
-        return standardMathFactory.createBooleanString(_chaineBooleenne, _vars);
+        return EvolvedMathFactory.createBooleanString(_chaineBooleenne, _vars);
     }
 
     public String getTrueString() {
-        return standardMathFactory.getTrueString();
+        return EvolvedMathFactory.getTrueString();
     }
 
     public String getFalseString() {
-        return standardMathFactory.getFalseString();
+        return EvolvedMathFactory.getFalseString();
     }
 
     public char getSepartorSetChar() {
-        return standardMathFactory.getSepartorSetChar();
+        return EvolvedMathFactory.getSepartorSetChar();
     }
 
     public Rate evaluateNumericable(String _numericString,
             StringMap<String> _variables, Rate _default) {
-        return standardMathFactory.evaluateNumericable(_numericString,
+        return EvolvedMathFactory.evaluateNumericable(_numericString,
                 _variables, _default);
     }
 
     public Rate evaluatePositiveOrZeroExp(String _numericString,
             StringMap<String> _variables, Rate _default) {
-        return standardMathFactory.evaluatePositiveOrZeroExp(_numericString,
+        return EvolvedMathFactory.evaluatePositiveOrZeroExp(_numericString,
                 _variables, _default);
     }
 
     public Rate evaluatePositiveExp(String _numericString,
             StringMap<String> _variables, Rate _default) {
-        return standardMathFactory.evaluatePositiveExp(_numericString,
+        return EvolvedMathFactory.evaluatePositiveExp(_numericString,
                 _variables, _default);
     }
 
     public boolean evaluateBoolean(String _booleanString,
-            StringMap<String> _variables, Boolean _default) {
-        return standardMathFactory.evaluateBoolean(_booleanString, _variables,
+            StringMap<String> _variables, boolean _default) {
+        return EvolvedMathFactory.evaluateBoolean(_booleanString, _variables,
                 _default);
     }
 

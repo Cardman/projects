@@ -7,15 +7,15 @@ import code.util.StringMap;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 
-public final class ConstantOperation extends OperationNode {
+public final class ConstantMbOperation extends MbOperationNode {
 
-    public ConstantOperation(int _index, int _indexChild, MethodOperation _m, OperationsSequence _op) {
+    public ConstantMbOperation(int _index, int _indexChild, MethodMbOperation _m, MbOperationsSequence _op) {
         super(_index, _indexChild, _m, _op);
     }
 
     @Override
-    void analyze(StringMap<String> _conf, ErrorStatus _error) {
-        analyzeCalculate(_error);
+    void analyze(StringMap<String> _conf, ErrorStatus _error, MbDelimiters _del) {
+        analyzeCalculate(_error, _del);
         if (getArgument() != null) {
             processConst(_conf);
             return;
@@ -61,16 +61,17 @@ public final class ConstantOperation extends OperationNode {
     @Override
     void calculate(StringMap<String> _conf, ErrorStatus _error) {
         String str_ = getOperations().getValues().getValue(IndexConstants.FIRST_INDEX).trim();
-        Argument a_;
-        a_ = new Argument();
+        String val_ = StringUtil.nullToEmpty(_conf.getVal(str_));
+        MbArgument a_;
+        a_ = new MbArgument();
         a_.setArgClass(getResultClass());
         if (getResultClass() == MathType.RATE) {
-            a_.setObject(new Rate(_conf.getVal(str_)));
+            a_.setObject(new Rate(val_));
         } else if (getResultClass() == MathType.BOOLEAN) {
-            a_.setObject(StringUtil.quickEq(_conf.getVal(str_), TRUE_STRING));
+            a_.setObject(StringUtil.quickEq(val_, TRUE_STRING));
         } else {
             MathList m_ = new MathList();
-            String value_ = _conf.getVal(str_);
+            String value_ = val_;
             value_ = StringUtil.removeChars(value_,DELIMITER_STRING_BEGIN,DELIMITER_STRING_END);
             for (String e: StringUtil.splitChars(value_, DELIMITER_STRING_SEP)) {
                 if (e.isEmpty()) {
@@ -83,30 +84,30 @@ public final class ConstantOperation extends OperationNode {
         setArgument(a_);
     }
 
-    private void analyzeCalculate(ErrorStatus _error) {
-        if (getOperations().getConstType() == ConstType.STRING) {
+    private void analyzeCalculate(ErrorStatus _error, MbDelimiters _delimiter) {
+        if (getOperations().getConstType() == MbConstType.STRING) {
             int begin_ = getOperations().getIndexCst();
-            StringList info_ = getOperations().getDelimiter().getStringInfo().get(begin_);
+            StringList info_ = _delimiter.getStringInfo().get(begin_);
             if (info_.size() == 1 && info_.first().trim().isEmpty()) {
                 MathList m_ = new MathList();
-                Argument a_ = new Argument();
+                MbArgument a_ = new MbArgument();
                 a_.setArgClass(MathType.SET);
                 a_.setObject(m_);
                 setArgument(a_);
                 return;
             }
             MathList m_ = new MathList(info_);
-            Argument a_ = new Argument();
+            MbArgument a_ = new MbArgument();
             a_.setArgClass(MathType.SET);
             a_.setObject(m_);
             setArgument(a_);
             return;
         }
-        if (getOperations().getConstType() == ConstType.NUMBER) {
+        if (getOperations().getConstType() == MbConstType.NUMBER) {
             int begin_ = getOperations().getIndexCst();
-            String nb_ = getOperations().getDelimiter().getNbInfos().get(begin_).toString();
+            String nb_ = _delimiter.getNbInfos().get(begin_).toString();
             if (Rate.isValid(nb_)) {
-                setArgument(Argument.numberToArgument(nb_));
+                setArgument(MbArgument.numberToArgument(nb_));
                 return;
             }
             _error.setString(nb_);
@@ -121,7 +122,7 @@ public final class ConstantOperation extends OperationNode {
             _error.setError(true);
             return;
         }
-        Argument a_ = new Argument();
+        MbArgument a_ = new MbArgument();
         if (StringUtil.quickEq(str_, TRUE_STRING)) {
             a_.setArgClass(MathType.BOOLEAN);
             a_.setObject(true);

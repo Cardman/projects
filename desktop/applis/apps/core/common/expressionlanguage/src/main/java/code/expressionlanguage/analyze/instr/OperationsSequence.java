@@ -1,11 +1,9 @@
 package code.expressionlanguage.analyze.instr;
 import code.expressionlanguage.analyze.blocks.Block;
-import code.expressionlanguage.analyze.blocks.SwitchMethodBlock;
 import code.expressionlanguage.common.*;
 import code.expressionlanguage.analyze.files.ParsedFctHeader;
 import code.maths.litteral.StrTypes;
 import code.util.CustList;
-import code.util.*;
 import code.util.Ints;
 import code.util.core.IndexConstants;
 
@@ -21,8 +19,6 @@ public final class OperationsSequence {
     private StringInfo strInfo;
 
     private String fctName = "";
-
-    private boolean leftParFirstOperator;
 
     private int priority;
 
@@ -164,7 +160,7 @@ public final class OperationsSequence {
             addValueIfNotEmpty(beginValuePart_, str_);
             return;
         }
-        if (priority != ElResolver.UNARY_PRIO && !(fctName.trim().isEmpty() && isLeftParFirstOperator())) {
+        if (priority != ElResolver.UNARY_PRIO) {
             //not unary priority, not identity priority
             str_ = _string.substring(beginValuePart_, endValuePart_);
             values.addEntry(beginValuePart_, str_);
@@ -263,14 +259,6 @@ public final class OperationsSequence {
 
     public void setFctName(String _fctName) {
         fctName = _fctName;
-    }
-
-    public boolean isLeftParFirstOperator() {
-        return leftParFirstOperator;
-    }
-
-    public void setLeftParFirstOperator(boolean _leftParFirstOperator) {
-        leftParFirstOperator = _leftParFirstOperator;
     }
 
     public boolean isCallDbArray() {

@@ -62,7 +62,6 @@ final class AfterUnaryParts {
     private int index;
 
     private boolean enPars = true;
-    private boolean leftParFirstOperator;
     private boolean instOf;
     private String fctName = EMPTY_STRING;
     private boolean enabledId;
@@ -182,7 +181,6 @@ final class AfterUnaryParts {
         if (curChar_ == PAR_LEFT) {
             if (parsBrackets.isEmpty() && prio == ElResolver.FCT_OPER_PRIO) {
                 if (enPars) {
-                    leftParFirstOperator = true;
                     fctName = _string.substring(IndexConstants.FIRST_INDEX, index);
                     operators.addEntry(index, Character.toString(PAR_LEFT));
                 } else if (enabledId) {
@@ -227,7 +225,6 @@ final class AfterUnaryParts {
         if (curChar_ == ANN_ARR_LEFT) {
             if (parsBrackets.isEmpty()) {
                 if (ElResolver.FCT_OPER_PRIO == prio) {
-                    leftParFirstOperator = false;
                     if (instance) {
                         fctName = _string.substring(IndexConstants.FIRST_INDEX, index);
                         if (operators.isEmpty()) {
@@ -258,7 +255,6 @@ final class AfterUnaryParts {
         if (curChar_ == ARR_LEFT) {
             if (parsBrackets.isEmpty()) {
                 if (ElResolver.FCT_OPER_PRIO == prio) {
-                    leftParFirstOperator = false;
 
                     if (instance) {
                         if (operators.isEmpty()) {
@@ -326,7 +322,6 @@ final class AfterUnaryParts {
             if (ternary_) {
                 if (parsBrackets.isEmpty() && prio > ElResolver.TERNARY_PRIO) {
                     operators.clear();
-                    leftParFirstOperator = false;
                     operators.addEntry(index, Character.toString(curChar_));
                 }
                 parsBrackets.addEntry(index, curChar_);
@@ -601,7 +596,6 @@ final class AfterUnaryParts {
             if (_clearOpers) {
                 operators.clear();
             }
-            leftParFirstOperator = false;
             fctName = EMPTY_STRING;
             instance = false;
             instanceStrict = false;
@@ -730,10 +724,6 @@ final class AfterUnaryParts {
 
     boolean isInstOf() {
         return instOf;
-    }
-
-    boolean isLeftParFirstOperator() {
-        return leftParFirstOperator;
     }
 
     Block getBlock() {

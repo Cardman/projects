@@ -317,10 +317,8 @@ public final class Rate implements Displayable {
     }
 
     public NumDiffDenNum getNumDiffDenNum() {
-        NumDiffDenNum p_;
         LgInt diff_ = LgInt.minus(denominateur, numerateur);
-        p_ = new NumDiffDenNum(getNumeratorCopy(), diff_);
-        return p_;
+        return new NumDiffDenNum(getNumeratorCopy(), diff_);
     }
 
     public static LgInt getPpcmDens(CustList<Rate> _numbers, int _maxIncludedIndex) {
@@ -733,18 +731,16 @@ public final class Rate implements Displayable {
     }
 
     public boolean inRange(Rate _min, Rate _max) {
-        if (_min == null) {
-            if (_max == null) {
-                return true;
-            }
-            return _max.cmp(this) >= 0;
-        }
-        if (_max != null && _max.cmp(this) < 0) {
-            return false;
-        }
-        return _min.cmp(this) <= 0;
+        return matchMin(_min) && matchMax(_max);
     }
 
+    private boolean matchMax(Rate _max) {
+        return _max == null || _max.cmp(this) >= 0;
+    }
+
+    private boolean matchMin(Rate _min) {
+        return _min == null || _min.cmp(this) <= 0;
+    }
     public int cmp(Rate _autre) {
         if (strGreater(this, _autre)) {
             return 1;

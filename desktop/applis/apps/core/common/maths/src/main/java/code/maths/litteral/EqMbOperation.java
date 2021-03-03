@@ -3,16 +3,16 @@ import code.util.CustList;
 import code.util.StringMap;
 import code.util.core.StringUtil;
 
-public final class EqOperation extends PrimitiveBoolOperation {
+public final class EqMbOperation extends PrimitiveBoolMbOperation {
 
     private MathType eqType;
-    public EqOperation(int _index,
-                       int _indexChild, MethodOperation _m, OperationsSequence _op) {
+    public EqMbOperation(int _index,
+                         int _indexChild, MethodMbOperation _m, MbOperationsSequence _op) {
         super(_index, _indexChild, _m, _op);
     }
 
-    Argument calculateEq(Argument _a, Argument _b) {
-        Argument a_ = new Argument();
+    MbArgument calculateEq(MbArgument _a, MbArgument _b) {
+        MbArgument a_ = new MbArgument();
         a_.setArgClass(MathType.BOOLEAN);
         if (eqType == MathType.RATE) {
             a_.setObject(_a.getRateVal().eq(_b.getRateVal()));
@@ -26,8 +26,8 @@ public final class EqOperation extends PrimitiveBoolOperation {
     }
 
     @Override
-    void analyze(StringMap<String> _conf, ErrorStatus _error) {
-        CustList<OperationNode> chidren_ = getChildrenNodes();
+    void analyze(StringMap<String> _conf, ErrorStatus _error, MbDelimiters _del) {
+        CustList<MbOperationNode> chidren_ = getChildrenNodes();
         if (chidren_.size() != 2) {
             _error.setError(true);
             _error.setIndex(getIndexInEl());
@@ -46,15 +46,15 @@ public final class EqOperation extends PrimitiveBoolOperation {
 
     @Override
     void calculate(StringMap<String> _conf, ErrorStatus _error) {
-        CustList<OperationNode> chidren_ = getChildrenNodes();
-        Argument first_ = chidren_.first().getArgument();
-        Argument second_ = chidren_.last().getArgument();
+        CustList<MbOperationNode> chidren_ = getChildrenNodes();
+        MbArgument first_ = chidren_.first().getArgument();
+        MbArgument second_ = chidren_.last().getArgument();
         boolean complement_ = false;
         String op_ = getOperations().getOperators().values().first().trim();
         if (StringUtil.quickEq(op_, DIFF)) {
             complement_ = true;
         }
-        Argument arg_ = calculateEq(first_, second_);
+        MbArgument arg_ = calculateEq(first_, second_);
         if (complement_) {
             boolean b_ = arg_.isBoolVal();
             b_ = !b_;

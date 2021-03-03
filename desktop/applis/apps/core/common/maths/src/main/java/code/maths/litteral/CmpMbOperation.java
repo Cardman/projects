@@ -4,29 +4,29 @@ import code.util.CustList;
 import code.util.StringMap;
 import code.util.core.StringUtil;
 
-public final class CmpOperation extends PrimitiveBoolOperation {
+public final class CmpMbOperation extends PrimitiveBoolMbOperation {
 
-    public CmpOperation(int _index,
-                        int _indexChild, MethodOperation _m, OperationsSequence _op) {
+    public CmpMbOperation(int _index,
+                          int _indexChild, MethodMbOperation _m, MbOperationsSequence _op) {
         super(_index, _indexChild, _m, _op);
     }
 
-    static Argument calculateLower(Argument _a, Argument _b) {
-        Argument a_ = new Argument();
+    static MbArgument calculateLower(MbArgument _a, MbArgument _b) {
+        MbArgument a_ = new MbArgument();
         a_.setArgClass(MathType.BOOLEAN);
         a_.setObject(Rate.strLower(_a.getRateVal(), _b.getRateVal()));
         return a_;
     }
 
-    static Argument calculateGreater(Argument _a, Argument _b) {
-        Argument a_ = new Argument();
+    static MbArgument calculateGreater(MbArgument _a, MbArgument _b) {
+        MbArgument a_ = new MbArgument();
         a_.setArgClass(MathType.BOOLEAN);
         a_.setObject(Rate.strGreater(_a.getRateVal(), _b.getRateVal()));
         return a_;
     }
     @Override
-    void analyze(StringMap<String> _conf, ErrorStatus _error) {
-        CustList<OperationNode> chidren_ = getChildrenNodes();
+    void analyze(StringMap<String> _conf, ErrorStatus _error, MbDelimiters _del) {
+        CustList<MbOperationNode> chidren_ = getChildrenNodes();
         if (chidren_.size() != 2) {
             _error.setError(true);
             _error.setIndex(getIndexInEl());
@@ -45,9 +45,9 @@ public final class CmpOperation extends PrimitiveBoolOperation {
     }
     @Override
     void calculate(StringMap<String> _conf, ErrorStatus _error) {
-        CustList<OperationNode> chidren_ = getChildrenNodes();
-        Argument first_ = chidren_.first().getArgument();
-        Argument second_ = chidren_.last().getArgument();
+        CustList<MbOperationNode> chidren_ = getChildrenNodes();
+        MbArgument first_ = chidren_.first().getArgument();
+        MbArgument second_ = chidren_.last().getArgument();
         boolean complement_ = false;
         String op_ = getOperations().getOperators().values().first().trim();
         String useOp_ = op_;
@@ -58,7 +58,7 @@ public final class CmpOperation extends PrimitiveBoolOperation {
             complement_ = true;
             useOp_ = LOWER;
         }
-        Argument arg_;
+        MbArgument arg_;
         if (StringUtil.quickEq(useOp_, LOWER)) {
             arg_ = calculateLower(first_, second_);
         } else {

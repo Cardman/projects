@@ -2075,14 +2075,12 @@ public final class ElResolver {
         int prio_ = af_.getPrio();
         StrTypes operators_;
         operators_ = af_.getOperators();
-        boolean leftParFirstOperator_ = af_.isLeftParFirstOperator();
         boolean is_ = af_.isInstOf();
         String fctName_ = af_.getFctName();
         boolean instance_ = af_.isInstance();
         OperationsSequence op_ = new OperationsSequence();
         op_.setPriority(prio_);
         op_.setOperators(operators_);
-        op_.setLeftParFirstOperator(leftParFirstOperator_);
         op_.setFctName(fctName_);
         op_.setErrorDot(af_.isErrorDot());
         op_.setBlock(af_.getBlock());

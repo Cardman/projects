@@ -4,7 +4,7 @@ import code.util.StringMap;
 public final class EvolvedBooleanString {
 
     private final StringBuilder numericString;
-    private Argument arg;
+    private MbArgument arg;
 
     EvolvedBooleanString(String _chaineNumerique, StringMap<String> _vars) {
         if (_vars.isEmpty()) {

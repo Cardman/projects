@@ -2,7 +2,7 @@ package code.maths.litteral;
 import code.maths.MathList;
 import code.maths.Rate;
 
-public final class Argument {
+public final class MbArgument {
 
     private boolean boolVal;
     private Rate rateVal = Rate.zero();
@@ -11,8 +11,8 @@ public final class Argument {
 
     private MathType mathType;
 
-    public static Argument numberToArgument(String _nb) {
-        Argument a_ = new Argument();
+    public static MbArgument numberToArgument(String _nb) {
+        MbArgument a_ = new MbArgument();
         a_.rateVal = new Rate(_nb);
         a_.mathType = MathType.RATE;
         return a_;

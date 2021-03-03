@@ -1,9 +1,9 @@
 package code.maths.litteral;
 
-public final class OrOperation extends QuickOperation {
+public final class OrMbOperation extends QuickMbOperation {
 
-    public OrOperation(int _index,
-                       int _indexChild, MethodOperation _m, OperationsSequence _op) {
+    public OrMbOperation(int _index,
+                         int _indexChild, MethodMbOperation _m, MbOperationsSequence _op) {
         super(_index, _indexChild, _m, _op);
     }
 

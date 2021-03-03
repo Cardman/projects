@@ -9,20 +9,19 @@ class MathAfUnaryParts {
     private int parsBrackets;
     private int prio = MathResolver.FCT_OPER_PRIO;
     private int index;
-    private boolean useFct;
     private String fctName = "";
-    MathAfUnaryParts(String _string,int _index,int _firstPrintChar, int _lastPrintChar) {
+    MathAfUnaryParts(String _string, int _index, int _lastPrintChar) {
         index = _index;
-        String opUn_ = Character.toString(_string.charAt(_firstPrintChar));
-        if (areUnary(_string, _firstPrintChar)) {
+        String opUn_ = Character.toString(_string.charAt(_index));
+        if (areUnary(_string, _index)) {
             prio = MathResolver.UNARY_PRIO;
-            operators.addEntry(_firstPrintChar, opUn_);
-            index = incrementUnary(_string, _firstPrintChar + 1, _lastPrintChar);
+            operators.addEntry(_index, opUn_);
+            index = incrementUnary(_string, _index + 1, _lastPrintChar);
         }
     }
 
     void loop(int _offset, String _string,
-              Delimiters _d) {
+              MbDelimiters _d) {
         char curChar_ = _string.charAt(index);
         if (!_d.getAllowedOperatorsIndexes().containsObj((long)index+_offset)) {
             index++;
@@ -30,8 +29,7 @@ class MathAfUnaryParts {
         }
 
         if (curChar_ == MathResolver.PAR_LEFT) {
-            if (parsBrackets == 0 && prio == MathResolver.FCT_OPER_PRIO) {
-                useFct = true;
+            if (delFct()) {
                 fctName = _string.substring(IndexConstants.FIRST_INDEX, index);
                 operators.clear();
                 operators.addEntry(index, Character.toString(MathResolver.PAR_LEFT));
@@ -54,10 +52,14 @@ class MathAfUnaryParts {
 
     private void procParRight() {
         parsBrackets--;
-        if (parsBrackets==0 && prio == MathResolver.FCT_OPER_PRIO) {
+        if (delFct()) {
             operators.addEntry(index, Character.toString(MathResolver.PAR_RIGHT));
         }
         index++;
+    }
+
+    private boolean delFct() {
+        return parsBrackets==0 && prio == MathResolver.FCT_OPER_PRIO;
     }
 
     private void procNumOps(String _string, char _curChar) {
@@ -133,7 +135,6 @@ class MathAfUnaryParts {
     private void tryAddOp(StringBuilder _builtOperator, boolean _clearOperators, boolean _foundOperator, int _increment) {
         if (_foundOperator) {
             if (_clearOperators) {
-                useFct = false;
                 fctName = "";
                 operators.clear();
             }
@@ -183,10 +184,6 @@ class MathAfUnaryParts {
 
     String getFctName() {
         return fctName;
-    }
-
-    boolean isUseFct() {
-        return useFct;
     }
 
     int getIndex() {

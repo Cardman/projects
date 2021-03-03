@@ -7,20 +7,20 @@ import code.util.StringMap;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 
-public final class FctOperation extends InvokingOperation {
+public final class FctMbOperation extends InvokingMbOperation {
 
     private static final int THREE_ARGUMENTS = 3;
     private final String methodName;
 
-    public FctOperation(int _index,
-                        int _indexChild, MethodOperation _m, OperationsSequence _op) {
+    public FctMbOperation(int _index,
+                          int _indexChild, MethodMbOperation _m, MbOperationsSequence _op) {
         super(_index, _indexChild, _m, _op);
         methodName = getOperations().getFctName().trim();
     }
 
     @Override
-    void analyze(StringMap<String> _conf, ErrorStatus _error) {
-        CustList<OperationNode> chidren_ = getChildrenNodes();
+    void analyze(StringMap<String> _conf, ErrorStatus _error, MbDelimiters _del) {
+        CustList<MbOperationNode> chidren_ = getChildrenNodes();
         if (checkBinNum()) {
             checkBinary(_error, chidren_, MathType.RATE, MathType.RATE);
             return;
@@ -93,7 +93,7 @@ public final class FctOperation extends InvokingOperation {
         return StringUtil.quickEq(methodName, PUIS) || StringUtil.quickEq(methodName, QUOT) || StringUtil.quickEq(methodName, MOD);
     }
 
-    private void processInterval(ErrorStatus _error, CustList<OperationNode> _chidren) {
+    private void processInterval(ErrorStatus _error, CustList<MbOperationNode> _chidren) {
         if (processSets(_chidren)) {
             _error.setIndex(getIndexInEl());
             _error.setError(true);
@@ -102,13 +102,13 @@ public final class FctOperation extends InvokingOperation {
         setResultClass(MathType.RATE);
     }
 
-    private void processStat(ErrorStatus _error, CustList<OperationNode> _chidren) {
+    private void processStat(ErrorStatus _error, CustList<MbOperationNode> _chidren) {
         if (_chidren.isEmpty()) {
             _error.setIndex(getIndexInEl());
             _error.setError(true);
             return;
         }
-        for (OperationNode a : _chidren) {
+        for (MbOperationNode a : _chidren) {
             if (a.getResultClass() != MathType.RATE) {
                 _error.setIndex(getIndexInEl());
                 _error.setError(true);
@@ -118,7 +118,7 @@ public final class FctOperation extends InvokingOperation {
         setResultClass(MathType.RATE);
     }
 
-    private void checkUnary(ErrorStatus _error, CustList<OperationNode> _chidren, MathType _type) {
+    private void checkUnary(ErrorStatus _error, CustList<MbOperationNode> _chidren, MathType _type) {
         if (unary(_chidren, _type)) {
             _error.setIndex(getIndexInEl());
             _error.setError(true);
@@ -127,7 +127,7 @@ public final class FctOperation extends InvokingOperation {
         setResultClass(MathType.RATE);
     }
 
-    private void checkBinary(ErrorStatus _error, CustList<OperationNode> _chidren, MathType _inType, MathType _outType) {
+    private void checkBinary(ErrorStatus _error, CustList<MbOperationNode> _chidren, MathType _inType, MathType _outType) {
         if (binary(_chidren, _inType)) {
             _error.setIndex(getIndexInEl());
             _error.setError(true);
@@ -136,21 +136,21 @@ public final class FctOperation extends InvokingOperation {
         setResultClass(_outType);
     }
 
-    private static boolean processSets(CustList<OperationNode> _chidren) {
+    private static boolean processSets(CustList<MbOperationNode> _chidren) {
         return _chidren.size() != THREE_ARGUMENTS || _chidren.first().getResultClass() != MathType.RATE || _chidren.get(IndexConstants.SECOND_INDEX).getResultClass() != MathType.RATE || _chidren.last().getResultClass() != MathType.RATE;
     }
 
-    private static boolean unary(CustList<OperationNode> _chidren, MathType _type) {
+    private static boolean unary(CustList<MbOperationNode> _chidren, MathType _type) {
         return _chidren.size() != 1 || _chidren.first().getResultClass() != _type;
     }
 
-    private static boolean binary(CustList<OperationNode> _chidren, MathType _type) {
+    private static boolean binary(CustList<MbOperationNode> _chidren, MathType _type) {
         return _chidren.size() != 2 || _chidren.first().getResultClass() != _type || _chidren.last().getResultClass() != _type;
     }
 
     @Override
     void calculate(StringMap<String> _conf, ErrorStatus _error) {
-        CustList<OperationNode> chidren_ = getChildrenNodes();
+        CustList<MbOperationNode> chidren_ = getChildrenNodes();
         if (StringUtil.quickEq(methodName,PUIS)) {
             procPuiss(_error, chidren_);
             return;
@@ -174,7 +174,7 @@ public final class FctOperation extends InvokingOperation {
         //valeur absolue
         if (StringUtil.quickEq(methodName,ABS)){
             Rate texteArg_= chidren_.first().getArgument().getRateVal();
-            Argument arg_ = new Argument();
+            MbArgument arg_ = new MbArgument();
             arg_.setArgClass(MathType.RATE);
             arg_.setObject(texteArg_.absNb());
             setArgument(arg_);
@@ -183,7 +183,7 @@ public final class FctOperation extends InvokingOperation {
         //partie entiere
         if (StringUtil.quickEq(methodName,ENT)){
             Rate texteArg_= chidren_.first().getArgument().getRateVal();
-            Argument arg_ = new Argument();
+            MbArgument arg_ = new MbArgument();
             arg_.setArgClass(MathType.RATE);
             arg_.setObject(new Rate(texteArg_.intPart()));
             setArgument(arg_);
@@ -195,7 +195,7 @@ public final class FctOperation extends InvokingOperation {
         //troncature(-2)=-2,troncature(-21/10)=-2,troncature(-25/10)=-2,troncature(-26/10)=-2
         if (StringUtil.quickEq(methodName,TRONC)){
             Rate texteArg_= chidren_.first().getArgument().getRateVal();
-            Argument arg_ = new Argument();
+            MbArgument arg_ = new MbArgument();
             arg_.setArgClass(MathType.RATE);
             arg_.setObject(new Rate(texteArg_.toLgInt()));
             setArgument(arg_);
@@ -204,11 +204,11 @@ public final class FctOperation extends InvokingOperation {
         calc2(chidren_);
     }
 
-    private void calc2(CustList<OperationNode> _chidren) {
+    private void calc2(CustList<MbOperationNode> _chidren) {
         //numerateur
         if (StringUtil.quickEq(methodName,NUM)){
             Rate texteArg_= _chidren.first().getArgument().getRateVal();
-            Argument arg_ = new Argument();
+            MbArgument arg_ = new MbArgument();
             arg_.setArgClass(MathType.RATE);
             arg_.setObject(new Rate(texteArg_.getNumeratorCopy()));
             setArgument(arg_);
@@ -217,7 +217,7 @@ public final class FctOperation extends InvokingOperation {
         //denominateur
         if (StringUtil.quickEq(methodName,DEN)){
             Rate texteArg_= _chidren.first().getArgument().getRateVal();
-            Argument arg_ = new Argument();
+            MbArgument arg_ = new MbArgument();
             arg_.setArgClass(MathType.RATE);
             arg_.setObject(new Rate(texteArg_.getDenominatorCopy()));
             setArgument(arg_);
@@ -225,7 +225,7 @@ public final class FctOperation extends InvokingOperation {
         }
         if (StringUtil.quickEq(methodName,SGN)){
             Rate texteArg_= _chidren.first().getArgument().getRateVal();
-            Argument arg_ = new Argument();
+            MbArgument arg_ = new MbArgument();
             arg_.setArgClass(MathType.RATE);
             arg_.setObject(texteArg_.signum());
             setArgument(arg_);
@@ -234,7 +234,7 @@ public final class FctOperation extends InvokingOperation {
         calc(_chidren);
     }
 
-    private void procDiv(ErrorStatus _error, CustList<OperationNode> _chidren) {
+    private void procDiv(ErrorStatus _error, CustList<MbOperationNode> _chidren) {
         Rate rateOne_ = _chidren.first().getArgument().getRateVal();
         Rate rateTwo_ = _chidren.last().getArgument().getRateVal();
         if (rateTwo_.isZero()) {
@@ -243,13 +243,13 @@ public final class FctOperation extends InvokingOperation {
             return;
         }
         Rate res_=Rate.divide(rateOne_, rateTwo_);
-        Argument arg_ = new Argument();
+        MbArgument arg_ = new MbArgument();
         arg_.setArgClass(MathType.RATE);
         arg_.setObject(res_);
         setArgument(arg_);
     }
 
-    private void procModTaux(ErrorStatus _error, CustList<OperationNode> _chidren) {
+    private void procModTaux(ErrorStatus _error, CustList<MbOperationNode> _chidren) {
         Rate rateOne_ = _chidren.first().getArgument().getRateVal();
         Rate rateTwo_ = _chidren.last().getArgument().getRateVal();
         if (rateTwo_.isZero()) {
@@ -258,13 +258,13 @@ public final class FctOperation extends InvokingOperation {
             return;
         }
         Rate res_=Rate.minus(rateOne_,Rate.multiply(new Rate(Rate.divide(rateOne_,rateTwo_).intPart()),rateTwo_));
-        Argument arg_ = new Argument();
+        MbArgument arg_ = new MbArgument();
         arg_.setArgClass(MathType.RATE);
         arg_.setObject(res_);
         setArgument(arg_);
     }
 
-    private void procMod(ErrorStatus _error, CustList<OperationNode> _chidren) {
+    private void procMod(ErrorStatus _error, CustList<MbOperationNode> _chidren) {
         Rate base_= _chidren.first().getArgument().getRateVal();
         Rate exposant_= _chidren.last().getArgument().getRateVal();
         LgInt divisor_ = exposant_.intPart();
@@ -273,13 +273,13 @@ public final class FctOperation extends InvokingOperation {
             _error.setError(true);
             return;
         }
-        Argument arg_ = new Argument();
+        MbArgument arg_ = new MbArgument();
         arg_.setArgClass(MathType.RATE);
         arg_.setObject(new Rate(LgInt.remain(base_.intPart(), divisor_)));
         setArgument(arg_);
     }
 
-    private void procQuot(ErrorStatus _error, CustList<OperationNode> _chidren) {
+    private void procQuot(ErrorStatus _error, CustList<MbOperationNode> _chidren) {
         Rate base_= _chidren.first().getArgument().getRateVal();
         Rate exposant_= _chidren.last().getArgument().getRateVal();
         if (exposant_.isZero()) {
@@ -287,13 +287,13 @@ public final class FctOperation extends InvokingOperation {
             _error.setError(true);
             return;
         }
-        Argument arg_ = new Argument();
+        MbArgument arg_ = new MbArgument();
         arg_.setArgClass(MathType.RATE);
         arg_.setObject(new Rate(LgInt.divide(base_.intPart(), exposant_.intPart())));
         setArgument(arg_);
     }
 
-    private void procPuiss(ErrorStatus _error, CustList<OperationNode> _chidren) {
+    private void procPuiss(ErrorStatus _error, CustList<MbOperationNode> _chidren) {
         Rate base_= _chidren.first().getArgument().getRateVal();
         Rate exposant_= _chidren.last().getArgument().getRateVal();
         if (base_.isZero() && !exposant_.isZeroOrGt()) {
@@ -301,22 +301,22 @@ public final class FctOperation extends InvokingOperation {
             _error.setError(true);
             return;
         }
-        Argument arg_ = new Argument();
+        MbArgument arg_ = new MbArgument();
         arg_.setArgClass(MathType.RATE);
         arg_.setObject(Rate.powNb(base_, exposant_));
         setArgument(arg_);
     }
 
-    private void calc(CustList<OperationNode> _chidren) {
+    private void calc(CustList<MbOperationNode> _chidren) {
         if (StringUtil.quickEq(methodName,MIN)){
             Rate min_= _chidren.first().getArgument().getRateVal();
-            for(OperationNode a: _chidren.mid(IndexConstants.SECOND_INDEX)){
+            for(MbOperationNode a: _chidren.mid(IndexConstants.SECOND_INDEX)){
                 Rate arg_= a.getArgument().getRateVal();
                 if(Rate.strGreater(min_, arg_)){
                     min_=arg_;
                 }
             }
-            Argument arg_ = new Argument();
+            MbArgument arg_ = new MbArgument();
             arg_.setArgClass(MathType.RATE);
             arg_.setObject(min_);
             setArgument(arg_);
@@ -325,13 +325,13 @@ public final class FctOperation extends InvokingOperation {
         //maximum
         if (StringUtil.quickEq(methodName,MAX)){
             Rate min_= _chidren.first().getArgument().getRateVal();
-            for(OperationNode a: _chidren.mid(IndexConstants.SECOND_INDEX)){
+            for(MbOperationNode a: _chidren.mid(IndexConstants.SECOND_INDEX)){
                 Rate arg_= a.getArgument().getRateVal();
                 if(Rate.strLower(min_, arg_)){
                     min_=arg_;
                 }
             }
-            Argument arg_ = new Argument();
+            MbArgument arg_ = new MbArgument();
             arg_.setArgClass(MathType.RATE);
             arg_.setObject(min_);
             setArgument(arg_);
@@ -341,7 +341,7 @@ public final class FctOperation extends InvokingOperation {
         if (StringUtil.quickEq(methodName,MOY)){
             Rate moy_ = getMoy(_chidren);
             moy_.divideBy(new Rate(_chidren.size()));
-            Argument arg_ = new Argument();
+            MbArgument arg_ = new MbArgument();
             arg_.setArgClass(MathType.RATE);
             arg_.setObject(moy_);
             setArgument(arg_);
@@ -350,7 +350,7 @@ public final class FctOperation extends InvokingOperation {
         //variance
         if (StringUtil.quickEq(methodName,VAR)){
             Rate var_ = getVar(_chidren);
-            Argument arg_ = new Argument();
+            MbArgument arg_ = new MbArgument();
             arg_.setArgClass(MathType.RATE);
             arg_.setObject(var_);
             setArgument(arg_);
@@ -359,10 +359,10 @@ public final class FctOperation extends InvokingOperation {
         calcTwoSets2(_chidren);
     }
 
-    private static Rate getVar(CustList<OperationNode> _chidren) {
+    private static Rate getVar(CustList<MbOperationNode> _chidren) {
         Rate var_=Rate.zero();
         Rate moy_=Rate.zero();
-        for(OperationNode a: _chidren){
+        for(MbOperationNode a: _chidren){
             Rate a_ = a.getArgument().getRateVal();
             moy_.addNb(a_);
             var_.addNb(Rate.multiply(a_, a_));
@@ -373,19 +373,19 @@ public final class FctOperation extends InvokingOperation {
         return var_;
     }
 
-    private static Rate getMoy(CustList<OperationNode> _chidren) {
+    private static Rate getMoy(CustList<MbOperationNode> _chidren) {
         Rate moy_=Rate.zero();
-        for(OperationNode a: _chidren){
+        for(MbOperationNode a: _chidren){
             moy_.addNb(a.getArgument().getRateVal());
         }
         return moy_;
     }
 
-    private void calcTwoSets2(CustList<OperationNode> _chidren) {
+    private void calcTwoSets2(CustList<MbOperationNode> _chidren) {
         //segment
         if (StringUtil.quickEq(methodName,CARAC_FERME)){
             Rate res_ = segment(_chidren);
-            Argument arg_ = new Argument();
+            MbArgument arg_ = new MbArgument();
             arg_.setArgClass(MathType.RATE);
             arg_.setObject(res_);
             setArgument(arg_);
@@ -394,7 +394,7 @@ public final class FctOperation extends InvokingOperation {
         //ouvert borne
         if (StringUtil.quickEq(methodName,CARAC_OUVERT)){
             Rate res_ = caracouvert(_chidren);
-            Argument arg_ = new Argument();
+            MbArgument arg_ = new MbArgument();
             arg_.setArgClass(MathType.RATE);
             arg_.setObject(res_);
             setArgument(arg_);
@@ -403,7 +403,7 @@ public final class FctOperation extends InvokingOperation {
         //semi ouvert gauche borne
         if (StringUtil.quickEq(methodName,CARAC_SEMI_OUVERT_G)){
             Rate res_ = caracsemiouvertg(_chidren);
-            Argument arg_ = new Argument();
+            MbArgument arg_ = new MbArgument();
             arg_.setArgClass(MathType.RATE);
             arg_.setObject(res_);
             setArgument(arg_);
@@ -412,7 +412,7 @@ public final class FctOperation extends InvokingOperation {
         //semi ouvert droite borne
         if (StringUtil.quickEq(methodName,CARAC_SEMI_OUVERT_D)){
             Rate res_ = caracsemiouvertd(_chidren);
-            Argument arg_ = new Argument();
+            MbArgument arg_ = new MbArgument();
             arg_.setArgClass(MathType.RATE);
             arg_.setObject(res_);
             setArgument(arg_);
@@ -421,7 +421,7 @@ public final class FctOperation extends InvokingOperation {
         //ouvert droite minore
         if (StringUtil.quickEq(methodName,CARAC_DROITE_OUVERT)){
             Rate res_ = caracdroiteouvert(_chidren);
-            Argument arg_ = new Argument();
+            MbArgument arg_ = new MbArgument();
             arg_.setArgClass(MathType.RATE);
             arg_.setObject(res_);
             setArgument(arg_);
@@ -430,7 +430,7 @@ public final class FctOperation extends InvokingOperation {
         //ferme droite minore
         if (StringUtil.quickEq(methodName,CARAC_DROITE_FERME)){
             Rate res_ = caracdroiteferme(_chidren);
-            Argument arg_ = new Argument();
+            MbArgument arg_ = new MbArgument();
             arg_.setArgClass(MathType.RATE);
             arg_.setObject(res_);
             setArgument(arg_);
@@ -439,7 +439,7 @@ public final class FctOperation extends InvokingOperation {
         //ouvert droite majore
         if (StringUtil.quickEq(methodName,CARAC_GAUCHE_OUVERT)){
             Rate res_ = caracgaucheouvert(_chidren);
-            Argument arg_ = new Argument();
+            MbArgument arg_ = new MbArgument();
             arg_.setArgClass(MathType.RATE);
             arg_.setObject(res_);
             setArgument(arg_);
@@ -448,7 +448,7 @@ public final class FctOperation extends InvokingOperation {
         //ferme gauche majore
         if (StringUtil.quickEq(methodName,CARAC_GAUCHE_FERME)){
             Rate res_ = caracgaucheferme(_chidren);
-            Argument arg_ = new Argument();
+            MbArgument arg_ = new MbArgument();
             arg_.setArgClass(MathType.RATE);
             arg_.setObject(res_);
             setArgument(arg_);
@@ -457,7 +457,7 @@ public final class FctOperation extends InvokingOperation {
         calcTwoSets(_chidren);
     }
 
-    private static Rate caracgaucheferme(CustList<OperationNode> _chidren) {
+    private static Rate caracgaucheferme(CustList<MbOperationNode> _chidren) {
         Rate res_=Rate.zero();
         Rate rateOne_ = _chidren.first().getArgument().getRateVal();
         Rate rateTwo_ = _chidren.last().getArgument().getRateVal();
@@ -467,7 +467,7 @@ public final class FctOperation extends InvokingOperation {
         return res_;
     }
 
-    private static Rate caracgaucheouvert(CustList<OperationNode> _chidren) {
+    private static Rate caracgaucheouvert(CustList<MbOperationNode> _chidren) {
         Rate res_=Rate.zero();
         Rate rateOne_ = _chidren.first().getArgument().getRateVal();
         Rate rateTwo_ = _chidren.last().getArgument().getRateVal();
@@ -477,7 +477,7 @@ public final class FctOperation extends InvokingOperation {
         return res_;
     }
 
-    private static Rate caracdroiteferme(CustList<OperationNode> _chidren) {
+    private static Rate caracdroiteferme(CustList<MbOperationNode> _chidren) {
         Rate res_=Rate.zero();
         Rate rateOne_ = _chidren.first().getArgument().getRateVal();
         Rate rateTwo_ = _chidren.last().getArgument().getRateVal();
@@ -487,7 +487,7 @@ public final class FctOperation extends InvokingOperation {
         return res_;
     }
 
-    private static Rate caracdroiteouvert(CustList<OperationNode> _chidren) {
+    private static Rate caracdroiteouvert(CustList<MbOperationNode> _chidren) {
         Rate res_=Rate.zero();
         Rate rateOne_ = _chidren.first().getArgument().getRateVal();
         Rate rateTwo_ = _chidren.last().getArgument().getRateVal();
@@ -497,7 +497,7 @@ public final class FctOperation extends InvokingOperation {
         return res_;
     }
 
-    private static Rate caracsemiouvertd(CustList<OperationNode> _chidren) {
+    private static Rate caracsemiouvertd(CustList<MbOperationNode> _chidren) {
         Rate res_=Rate.zero();
         Rate rateOne_ = _chidren.first().getArgument().getRateVal();
         Rate rateTwo_ = _chidren.get(IndexConstants.SECOND_INDEX).getArgument().getRateVal();
@@ -508,7 +508,7 @@ public final class FctOperation extends InvokingOperation {
         return res_;
     }
 
-    private static Rate caracsemiouvertg(CustList<OperationNode> _chidren) {
+    private static Rate caracsemiouvertg(CustList<MbOperationNode> _chidren) {
         Rate res_=Rate.zero();
         Rate rateOne_ = _chidren.first().getArgument().getRateVal();
         Rate rateTwo_ = _chidren.get(IndexConstants.SECOND_INDEX).getArgument().getRateVal();
@@ -519,7 +519,7 @@ public final class FctOperation extends InvokingOperation {
         return res_;
     }
 
-    private static Rate caracouvert(CustList<OperationNode> _chidren) {
+    private static Rate caracouvert(CustList<MbOperationNode> _chidren) {
         Rate res_=Rate.zero();
         Rate rateOne_ = _chidren.first().getArgument().getRateVal();
         Rate rateTwo_ = _chidren.get(IndexConstants.SECOND_INDEX).getArgument().getRateVal();
@@ -530,7 +530,7 @@ public final class FctOperation extends InvokingOperation {
         return res_;
     }
 
-    private static Rate segment(CustList<OperationNode> _chidren) {
+    private static Rate segment(CustList<MbOperationNode> _chidren) {
         Rate res_=Rate.zero();
         Rate rateOne_ = _chidren.first().getArgument().getRateVal();
         Rate rateTwo_ = _chidren.get(IndexConstants.SECOND_INDEX).getArgument().getRateVal();
@@ -541,12 +541,12 @@ public final class FctOperation extends InvokingOperation {
         return res_;
     }
 
-    private void calcTwoSets(CustList<OperationNode> _chidren) {
+    private void calcTwoSets(CustList<MbOperationNode> _chidren) {
         if (StringUtil.quickEq(methodName,CARD)){
             MathList texteArg_= _chidren.first().getArgument().getListVal();
             MathList set_ = new MathList(texteArg_);
             set_.removeDuplicates();
-            Argument arg_ = new Argument();
+            MbArgument arg_ = new MbArgument();
             arg_.setArgClass(MathType.RATE);
             arg_.setObject(new Rate(set_.size()));
             setArgument(arg_);
@@ -557,7 +557,7 @@ public final class FctOperation extends InvokingOperation {
             MathList textArgTwo_= _chidren.last().getArgument().getListVal();
             MathList inter_ = new MathList(textArgOne_.intersectStr(textArgTwo_));
             inter_.sort();
-            Argument arg_ = new Argument();
+            MbArgument arg_ = new MbArgument();
             arg_.setArgClass(MathType.SET);
             arg_.setObject(inter_);
             setArgument(arg_);
@@ -570,7 +570,7 @@ public final class FctOperation extends InvokingOperation {
             union_.addAllElts(textArgTwo_);
             union_.sort();
             union_.removeDuplicates();
-            Argument arg_ = new Argument();
+            MbArgument arg_ = new MbArgument();
             arg_.setArgClass(MathType.SET);
             arg_.setObject(union_);
             setArgument(arg_);
@@ -582,7 +582,7 @@ public final class FctOperation extends InvokingOperation {
             MathList res_ = new MathList(textArgTwo_);
             res_.removeAllElements(textArgOne_);
             res_.sort();
-            Argument arg_ = new Argument();
+            MbArgument arg_ = new MbArgument();
             arg_.setArgClass(MathType.SET);
             arg_.setObject(res_);
             setArgument(arg_);
@@ -591,7 +591,7 @@ public final class FctOperation extends InvokingOperation {
         calcTwoSetsRate(_chidren);
     }
 
-    private void calcTwoSetsRate(CustList<OperationNode> _chidren) {
+    private void calcTwoSetsRate(CustList<MbOperationNode> _chidren) {
         if (StringUtil.quickEq(methodName,INCL)){
             MathList textArgOne_= _chidren.first().getArgument().getListVal();
             MathList textArgTwo_= _chidren.last().getArgument().getListVal();
@@ -617,13 +617,13 @@ public final class FctOperation extends InvokingOperation {
 
     private void procBool(boolean _cond) {
         if (_cond) {
-            Argument arg_ = new Argument();
+            MbArgument arg_ = new MbArgument();
             arg_.setArgClass(MathType.RATE);
             arg_.setObject(Rate.one());
             setArgument(arg_);
             return;
         }
-        Argument arg_ = new Argument();
+        MbArgument arg_ = new MbArgument();
         arg_.setArgClass(MathType.RATE);
         arg_.setObject(Rate.zero());
         setArgument(arg_);

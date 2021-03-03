@@ -177,7 +177,12 @@ public final class IdOperation extends AbstractUnaryOperation {
     public boolean isStandard() {
         return standard;
     }
-
+    @Override
+    void calculateChildren() {
+        StrTypes vs_ = getOperations().getValues();
+        vs_.remove(0);
+        getChildren().addAllEntries(vs_);
+    }
     @Override
     boolean isFirstKo() {
         return false;

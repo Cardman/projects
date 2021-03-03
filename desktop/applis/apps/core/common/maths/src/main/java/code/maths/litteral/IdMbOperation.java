@@ -2,16 +2,16 @@ package code.maths.litteral;
 import code.util.CustList;
 import code.util.StringMap;
 
-public final class IdOperation extends MethodOperation {
+public final class IdMbOperation extends MethodMbOperation {
 
-    public IdOperation(int _index,
-                       int _indexChild, MethodOperation _m, OperationsSequence _op) {
+    public IdMbOperation(int _index,
+                         int _indexChild, MethodMbOperation _m, MbOperationsSequence _op) {
         super(_index, _indexChild, _m, _op);
     }
 
     @Override
-    void analyze(StringMap<String> _conf, ErrorStatus _error) {
-        CustList<OperationNode> chidren_ = getChildrenNodes();
+    void analyze(StringMap<String> _conf, ErrorStatus _error, MbDelimiters _del) {
+        CustList<MbOperationNode> chidren_ = getChildrenNodes();
         if (chidren_.size() != 1) {
             _error.setIndex(getIndexInEl());
             _error.setError(true);
@@ -22,13 +22,14 @@ public final class IdOperation extends MethodOperation {
 
     @Override
     void calculate(StringMap<String> _conf, ErrorStatus _error) {
-        CustList<OperationNode> chidren_ = getChildrenNodes();
+        CustList<MbOperationNode> chidren_ = getChildrenNodes();
         setArgument(chidren_.first().getArgument());
     }
 
     @Override
     void calculateChildren() {
         StrTypes vs_ = getOperations().getValues();
+        vs_.remove(0);
         getChildren().addAllEntries(vs_);
     }
 }

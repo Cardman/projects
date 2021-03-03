@@ -9,7 +9,7 @@ final class MathStringState {
     private int index;
     private int parsBrackets;
 
-    boolean exit(StringBuilder _elt,Delimiters _d,char _curChar,String _string, ErrorStatus _error){
+    boolean exit(StringBuilder _elt, MbDelimiters _d, char _curChar, String _string, ErrorStatus _error){
         int len_ = _string.length();
         if (!escapedMeta) {
             if (_curChar == ESCAPE_META_CHAR) {

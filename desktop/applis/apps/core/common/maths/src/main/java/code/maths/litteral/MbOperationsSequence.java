@@ -2,12 +2,10 @@ package code.maths.litteral;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 
-public final class OperationsSequence {
+public final class MbOperationsSequence {
     private static final char NEG_BOOL_CHAR = '!';
 
     private String fctName = "";
-
-    private boolean useFct;
 
     private int priority;
 
@@ -15,9 +13,7 @@ public final class OperationsSequence {
 
     private StrTypes operators;
 
-    private Delimiters delimiter;
-
-    private ConstType constType;
+    private MbConstType constType;
 
     private int indexCst;
 
@@ -76,7 +72,7 @@ public final class OperationsSequence {
     }
 
     private void firstOperand(String _string) {
-        if (priority != MathResolver.UNARY_PRIO && !(fctName.trim().isEmpty() && useFct)) {
+        if (priority != MathResolver.UNARY_PRIO) {
             //not unary priority, not identity priority
             int beginValuePart_ = IndexConstants.FIRST_INDEX;
             int endValuePart_ = operators.firstKey();
@@ -93,24 +89,12 @@ public final class OperationsSequence {
         fctName = _fctName;
     }
 
-    public void setUseFct(boolean _useFct) {
-        useFct = _useFct;
-    }
-
     public int getPriority() {
         return priority;
     }
 
     public void setPriority(int _priority) {
         priority = _priority;
-    }
-
-    public Delimiters getDelimiter() {
-        return delimiter;
-    }
-
-    public void setDelimiter(Delimiters _delimiter) {
-        delimiter = _delimiter;
     }
 
     public StrTypes getOperators() {
@@ -125,11 +109,11 @@ public final class OperationsSequence {
         return values;
     }
 
-    public ConstType getConstType() {
+    public MbConstType getConstType() {
         return constType;
     }
 
-    public void setConstType(ConstType _constType) {
+    public void setConstType(MbConstType _constType) {
         constType = _constType;
     }
 

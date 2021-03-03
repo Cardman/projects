@@ -4,16 +4,16 @@ import code.util.CustList;
 import code.util.StringMap;
 import code.util.core.StringUtil;
 
-public final class UnaryOperation extends PrimitiveBoolOperation {
+public final class UnaryMbOperation extends PrimitiveBoolMbOperation {
 
-    public UnaryOperation(int _index,
-                          int _indexChild, MethodOperation _m, OperationsSequence _op) {
+    public UnaryMbOperation(int _index,
+                            int _indexChild, MethodMbOperation _m, MbOperationsSequence _op) {
         super(_index, _indexChild, _m, _op);
     }
 
     @Override
-    void analyze(StringMap<String> _conf, ErrorStatus _error) {
-        CustList<OperationNode> chidren_ = getChildrenNodes();
+    void analyze(StringMap<String> _conf, ErrorStatus _error, MbDelimiters _del) {
+        CustList<MbOperationNode> chidren_ = getChildrenNodes();
         if (chidren_.first().getResultClass() != MathType.RATE) {
             _error.setIndex(getIndexInEl());
             _error.setError(true);
@@ -24,9 +24,9 @@ public final class UnaryOperation extends PrimitiveBoolOperation {
 
     @Override
     void calculate(StringMap<String> _conf, ErrorStatus _error) {
-        CustList<OperationNode> chidren_ = getChildrenNodes();
-        Argument arg_ = chidren_.first().getArgument();
-        Argument a_ = new Argument();
+        CustList<MbOperationNode> chidren_ = getChildrenNodes();
+        MbArgument arg_ = chidren_.first().getArgument();
+        MbArgument a_ = new MbArgument();
         Rate o_ = arg_.getRateVal();
         a_.setArgClass(MathType.RATE);
         if (StringUtil.quickEq(getOperations().getOperators().firstValue().trim(), UNARY_MINUS)) {

@@ -3,7 +3,7 @@ import code.util.StringMap;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 
-abstract class OperationNode {
+abstract class MbOperationNode {
 
     protected static final char DELIMITER_STRING_BEGIN = '{';
     protected static final char DELIMITER_STRING_SEP = ';';
@@ -98,13 +98,13 @@ abstract class OperationNode {
 
     protected static final String DIV_FCT = "div";
 
-    private final MethodOperation parent;
+    private final MethodMbOperation parent;
 
-    private OperationNode nextSibling;
+    private MbOperationNode nextSibling;
 
-    private Argument argument;
+    private MbArgument argument;
 
-    private final OperationsSequence operations;
+    private final MbOperationsSequence operations;
 
     private final int indexInEl;
 
@@ -115,20 +115,20 @@ abstract class OperationNode {
     private MathType resultClass;
 
 
-    OperationNode(int _indexInEl, int _indexChild, MethodOperation _m, OperationsSequence _op) {
+    MbOperationNode(int _indexInEl, int _indexChild, MethodMbOperation _m, MbOperationsSequence _op) {
         parent = _m;
         indexInEl = _indexInEl;
         operations = _op;
         indexChild = _indexChild;
     }
 
-    abstract void analyze(StringMap<String> _conf, ErrorStatus _error);
+    abstract void analyze(StringMap<String> _conf, ErrorStatus _error, MbDelimiters _del);
     abstract void calculate(StringMap<String> _conf, ErrorStatus _error);
 
-    static OperationNode createOperationNode(int _index,
-                                             int _indexChild, MethodOperation _m, OperationsSequence _op) {
+    static MbOperationNode createOperationNode(int _index,
+                                               int _indexChild, MethodMbOperation _m, MbOperationsSequence _op) {
         if (_op.getOperators().isEmpty()) {
-            return new ConstantOperation(_index, _indexChild, _m, _op);
+            return new ConstantMbOperation(_index, _indexChild, _m, _op);
         }
         if (_op.getPriority() == MathResolver.FCT_OPER_PRIO) {
             return procFct(_index, _indexChild, _m, _op);
@@ -137,51 +137,51 @@ abstract class OperationNode {
             return procUnary(_index, _indexChild, _m, _op);
         }
         if (_op.getPriority() == MathResolver.MULT_PRIO) {
-            return new MultOperation(_index, _indexChild, _m, _op);
+            return new MultMbOperation(_index, _indexChild, _m, _op);
         }
         if (_op.getPriority() == MathResolver.ADD_PRIO) {
-            return new AddOperation(_index, _indexChild, _m, _op);
+            return new AddMbOperation(_index, _indexChild, _m, _op);
         }
         if (_op.getPriority() == MathResolver.CMP_PRIO) {
-            return new CmpOperation(_index, _indexChild, _m, _op);
+            return new CmpMbOperation(_index, _indexChild, _m, _op);
         }
         if (_op.getPriority() == MathResolver.EQ_PRIO) {
-            return new EqOperation(_index, _indexChild, _m, _op);
+            return new EqMbOperation(_index, _indexChild, _m, _op);
         }
         if (_op.getPriority() == MathResolver.AND_PRIO) {
-            return new AndOperation(_index, _indexChild, _m, _op);
+            return new AndMbOperation(_index, _indexChild, _m, _op);
         }
         if (_op.getPriority() == MathResolver.OR_PRIO) {
-            return new OrOperation(_index, _indexChild, _m, _op);
+            return new OrMbOperation(_index, _indexChild, _m, _op);
         }
         return null;
     }
 
-    private static PrimitiveBoolOperation procUnary(int _index, int _indexChild, MethodOperation _m, OperationsSequence _op) {
+    private static PrimitiveBoolMbOperation procUnary(int _index, int _indexChild, MethodMbOperation _m, MbOperationsSequence _op) {
         if (StringUtil.quickEq(_op.getOperators().firstValue().trim(), NEG_BOOL)) {
-            return new UnaryBooleanOperation(_index, _indexChild, _m, _op);
+            return new UnaryBooleanMbOperation(_index, _indexChild, _m, _op);
         }
-        return new UnaryOperation(_index, _indexChild, _m, _op);
+        return new UnaryMbOperation(_index, _indexChild, _m, _op);
     }
 
-    private static MethodOperation procFct(int _index, int _indexChild, MethodOperation _m, OperationsSequence _op) {
+    private static MethodMbOperation procFct(int _index, int _indexChild, MethodMbOperation _m, MbOperationsSequence _op) {
         if (_op.getFctName().trim().isEmpty()) {
-            return new IdOperation(_index, _indexChild, _m, _op);
+            return new IdMbOperation(_index, _indexChild, _m, _op);
         }
-        return new FctOperation(_index, _indexChild, _m, _op);
+        return new FctMbOperation(_index, _indexChild, _m, _op);
     }
 
-    public final OperationNode getNextSibling() {
+    public final MbOperationNode getNextSibling() {
         return nextSibling;
     }
-    final void setNextSibling(OperationNode _nextSibling) {
+    final void setNextSibling(MbOperationNode _nextSibling) {
         nextSibling = _nextSibling;
     }
 
-    static int getNextIndex(OperationNode _operation, boolean _value) {
-        MethodOperation par_ = _operation.getParent();
-        if (par_ instanceof QuickOperation) {
-            QuickOperation q_ = (QuickOperation) par_;
+    static int getNextIndex(MbOperationNode _operation, boolean _value) {
+        MethodMbOperation par_ = _operation.getParent();
+        if (par_ instanceof QuickMbOperation) {
+            QuickMbOperation q_ = (QuickMbOperation) par_;
             boolean bs_ = q_.absorbingStruct();
             if (bs_ == _value) {
                 return par_.getOrder();
@@ -189,11 +189,11 @@ abstract class OperationNode {
         }
         return _operation.getOrder() + 1;
     }
-    public MethodOperation getParent() {
+    public MethodMbOperation getParent() {
         return parent;
     }
 
-    public OperationsSequence getOperations() {
+    public MbOperationsSequence getOperations() {
         return operations;
     }
 
@@ -213,11 +213,11 @@ abstract class OperationNode {
         return indexChild;
     }
 
-    public Argument getArgument() {
+    public MbArgument getArgument() {
         return argument;
     }
 
-    public void setArgument(Argument _argument) {
+    public void setArgument(MbArgument _argument) {
         argument = _argument;
     }
 

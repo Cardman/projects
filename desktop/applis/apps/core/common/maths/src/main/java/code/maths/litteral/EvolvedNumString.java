@@ -5,7 +5,7 @@ import code.util.StringMap;
 public final class EvolvedNumString {
 
     private final StringBuilder numericString;
-    private Argument arg;
+    private MbArgument arg;
 
     EvolvedNumString(String _chaineNumerique, StringMap<String> _vars) {
         if (_vars.isEmpty()) {

@@ -2,15 +2,15 @@ package code.maths.litteral;
 import code.util.core.StringUtil;
 
 
-public final class MultOperation extends NumericOperation {
+public final class MultMbOperation extends NumericMbOperation {
 
-    public MultOperation(int _index,
-                         int _indexChild, MethodOperation _m, OperationsSequence _op) {
+    public MultMbOperation(int _index,
+                           int _indexChild, MethodMbOperation _m, MbOperationsSequence _op) {
         super(_index, _indexChild, _m, _op);
     }
 
     @Override
-    Argument calculateOper(Argument _a, String _op, Argument _b, int _offset, ErrorStatus _error) {
+    MbArgument calculateOper(MbArgument _a, String _op, MbArgument _b, int _offset, ErrorStatus _error) {
         if (StringUtil.quickEq(_op.trim(), MULT)) {
             return calculateMult(_a, _b);
         }
