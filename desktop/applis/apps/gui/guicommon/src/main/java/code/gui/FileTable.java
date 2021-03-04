@@ -3,7 +3,9 @@ import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import code.sml.stream.ExtractFromFiles;
+import code.resources.ResourceFiles;
+import code.scripts.messages.gui.MessGuiGr;
+import code.sml.util.ResourcesMessagesUtil;
 import code.util.CustList;
 import code.util.StringMap;
 import code.util.core.IndexConstants;
@@ -44,9 +46,9 @@ public class FileTable {
 
     private static final int NB_COLS = 4;
 
-    private StringMap<String> messages;
+    private final StringMap<String> messages;
 
-    private CustList<File> files = new CustList<File>();
+    private final CustList<File> files = new CustList<File>();
 
     private String extension;
 
@@ -56,10 +58,12 @@ public class FileTable {
 
     private boolean increasing;
 
-    private TableGui table;
+    private final TableGui table;
 
     public FileTable(String _lg) {
-        messages = ExtractFromFiles.getMessagesFromLocaleClass(GuiConstants.FOLDER_MESSAGES_GUI, _lg,ACCESS);
+        String fileName_ = ResourcesMessagesUtil.getPropertiesPath(GuiConstants.FOLDER_MESSAGES_GUI, _lg, ACCESS);
+        String loadedResourcesMessages_ = MessGuiGr.ms().getVal(fileName_);
+        messages = ResourcesMessagesUtil.getMessagesFromContent(loadedResourcesMessages_);
         String[] cols_ = new String[NB_COLS];
         for (int i = 0; i < NB_COLS; i++) {
             cols_[i] = getColumnName(i);

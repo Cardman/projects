@@ -7,7 +7,8 @@ import javax.swing.WindowConstants;
 import code.gui.events.AnswerEvent;
 import code.gui.events.AnswerTextEvent;
 import code.gui.events.ClosingDialogEvent;
-import code.sml.stream.ExtractFromFiles;
+import code.scripts.messages.gui.MessGuiGr;
+import code.sml.util.ResourcesMessagesUtil;
 import code.util.StringMap;
 
 public final class ConfirmDialog extends Dialog {
@@ -90,7 +91,7 @@ public final class ConfirmDialog extends Dialog {
     }
 
     private void initMessageSingleButton(String _message, String _title, String _language, int _option) {
-        StringMap<String> messages_ = ExtractFromFiles.getMessagesFromLocaleClass(GuiConstants.FOLDER_MESSAGES_GUI, _language, DIALOG_ACCESS);
+        StringMap<String> messages_ = confirm(_language);
         setTitle(_title);
         Panel content_ = Panel.newGrid(0,1);
 //        JLabel message_ = new JLabel(_message);
@@ -119,8 +120,14 @@ public final class ConfirmDialog extends Dialog {
         setVisible(true);
     }
 
+    private static StringMap<String> confirm(String _language) {
+        String fileName_ = ResourcesMessagesUtil.getPropertiesPath(GuiConstants.FOLDER_MESSAGES_GUI, _language, DIALOG_ACCESS);
+        String loadedResourcesMessages_ = MessGuiGr.ms().getVal(fileName_);
+        return ResourcesMessagesUtil.getMessagesFromContent(loadedResourcesMessages_);
+    }
+
     private void initComponentSingleButton(CustComponent _message, String _title, String _language, int _option) {
-        StringMap<String> messages_ = ExtractFromFiles.getMessagesFromLocaleClass(GuiConstants.FOLDER_MESSAGES_GUI, _language, DIALOG_ACCESS);
+        StringMap<String> messages_ = confirm(_language);
         setTitle(_title);
         Panel content_ = Panel.newGrid(0,1);
         content_.add(_message);
@@ -142,7 +149,7 @@ public final class ConfirmDialog extends Dialog {
         setVisible(true);
     }
     private void init(String _message, String _title, String _language, int _option) {
-        StringMap<String> messages_ = ExtractFromFiles.getMessagesFromLocaleClass(GuiConstants.FOLDER_MESSAGES_GUI, _language, DIALOG_ACCESS);
+        StringMap<String> messages_ = confirm(_language);
         setTitle(_title);
         Panel content_ = Panel.newGrid(0,1);
 //        JLabel message_ = new JLabel(_message);
@@ -188,7 +195,7 @@ public final class ConfirmDialog extends Dialog {
     }
 
     private void init(String _message, String _value, String _title, String _language) {
-        StringMap<String> messages_ = ExtractFromFiles.getMessagesFromLocaleClass(GuiConstants.FOLDER_MESSAGES_GUI, _language, DIALOG_ACCESS);
+        StringMap<String> messages_ = confirm(_language);
         setTitle(_title);
         Panel content_ = Panel.newGrid(0,1);
         content_.add(new PreparedLabel(UIManager.getIcon(QUESTION_ICON)));

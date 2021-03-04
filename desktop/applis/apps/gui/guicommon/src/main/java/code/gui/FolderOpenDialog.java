@@ -3,7 +3,9 @@
 package code.gui;
 import code.gui.events.CancelSelectFileEvent;
 import code.gui.events.SubmitMouseEvent;
-import code.sml.stream.ExtractFromFiles;
+import code.resources.ResourceFiles;
+import code.scripts.messages.gui.MessGuiGr;
+import code.sml.util.ResourcesMessagesUtil;
 import code.util.StringMap;
 
 /**
@@ -33,7 +35,9 @@ public final class FolderOpenDialog extends FileDialog implements SingleFileSele
     */
     private void initFolderOpenDialog(GroupFrame _w, String _language,
             boolean _currentFolderRoot) {
-        messages = ExtractFromFiles.getMessagesFromLocaleClass(GuiConstants.FOLDER_MESSAGES_GUI, _w.getLanguageKey(), getAccessFile());
+        String fileName_ = ResourcesMessagesUtil.getPropertiesPath(GuiConstants.FOLDER_MESSAGES_GUI, _w.getLanguageKey(), getAccessFile());
+        String loadedResourcesMessages_ = MessGuiGr.ms().getVal(fileName_);
+        messages = ResourcesMessagesUtil.getMessagesFromContent(loadedResourcesMessages_);
         initByFrame(_w, _language, _currentFolderRoot, false, EMPTY_STRING, EMPTY_STRING,"jre");
         LabelButton action_ = new LabelButton(messages.getVal(OPEN));
         action_.addMouseListener(new SubmitMouseEvent(this));

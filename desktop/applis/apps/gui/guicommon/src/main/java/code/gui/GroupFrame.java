@@ -8,7 +8,9 @@ import javax.swing.*;
 import code.expressionlanguage.filenames.AbstractNameValidating;
 import code.gui.initialize.AbstractProgramInfos;
 import code.maths.montecarlo.AbstractGenerator;
-import code.sml.stream.ExtractFromFiles;
+import code.resources.ResourceFiles;
+import code.scripts.messages.gui.MessGuiGr;
+import code.sml.util.ResourcesMessagesUtil;
 import code.util.StringMap;
 import code.util.core.StringUtil;
 
@@ -25,7 +27,7 @@ public abstract class GroupFrame extends CommonFrame {
 
     private boolean opened;
 
-    private AbstractProgramInfos frames;
+    private final AbstractProgramInfos frames;
     private final FileOpenDialog fileOpenDialog;
     private final FileSaveDialog fileSaveDialog;
     private final FolderOpenDialog folderOpenDialog;
@@ -41,7 +43,7 @@ public abstract class GroupFrame extends CommonFrame {
             folderOpenDialog = new FolderOpenDialog();
             confirmDialog = new ConfirmDialog();
             languageDialog = new LanguageDialog();
-            frames.getFrames().first().messages = ExtractFromFiles.getMessagesFromLocaleClass(GuiConstants.FOLDER_MESSAGES_GUI, _lg,ACCESS);
+            frames.getFrames().first().messages = group(_lg);
         } else {
             fileOpenDialog = frames.getFrames().first().fileOpenDialog;
             fileSaveDialog = frames.getFrames().first().fileSaveDialog;
@@ -135,8 +137,14 @@ public abstract class GroupFrame extends CommonFrame {
     }
 
     public static void changeStaticLanguage(String _language, AbstractProgramInfos _list) {
-        _list.getFrames().first().messages = ExtractFromFiles.getMessagesFromLocaleClass(GuiConstants.FOLDER_MESSAGES_GUI, _language,ACCESS);
+        _list.getFrames().first().messages = group(_language);
         _list.getFrames().first().changeLanguage(_language);
+    }
+
+    private static StringMap<String> group(String _language) {
+        String fileName_ = ResourcesMessagesUtil.getPropertiesPath(GuiConstants.FOLDER_MESSAGES_GUI, _language, ACCESS);
+        String loadedResourcesMessages_ = MessGuiGr.ms().getVal(fileName_);
+        return ResourcesMessagesUtil.getMessagesFromContent(loadedResourcesMessages_);
     }
 
     protected boolean canChangeLanguageAll() {

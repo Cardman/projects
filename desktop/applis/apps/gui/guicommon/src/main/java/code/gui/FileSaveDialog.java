@@ -9,7 +9,9 @@ import code.gui.events.CancelSelectFileEvent;
 import code.gui.events.CreateFolderEvent;
 import code.gui.events.SubmitKeyEvent;
 import code.gui.events.SubmitMouseEvent;
-import code.sml.stream.ExtractFromFiles;
+import code.resources.ResourceFiles;
+import code.scripts.messages.gui.MessGuiGr;
+import code.sml.util.ResourcesMessagesUtil;
 import code.stream.StreamFolderFile;
 import code.stream.StreamTextFile;
 import code.util.StringMap;
@@ -66,7 +68,9 @@ public final class FileSaveDialog extends FileDialog implements SingleFileSelect
 
     private void initSaveDialog(GroupFrame _c, String _homePath) {
         frame =_c;
-        messages = ExtractFromFiles.getMessagesFromLocaleClass(GuiConstants.FOLDER_MESSAGES_GUI, _c.getLanguageKey(), getAccessFile());
+        String fileName_ = ResourcesMessagesUtil.getPropertiesPath(GuiConstants.FOLDER_MESSAGES_GUI, _c.getLanguageKey(), getAccessFile());
+        String loadedResourcesMessages_ = MessGuiGr.ms().getVal(fileName_);
+        messages = ResourcesMessagesUtil.getMessagesFromContent(loadedResourcesMessages_);
         getFileName().addActionListener(new SubmitKeyEvent(this));
         LabelButton action_ = new LabelButton(messages.getVal(SAVE));
         action_.addMouseListener(new SubmitMouseEvent(this));

@@ -11,7 +11,9 @@ import code.gui.events.ClickHeaderEvent;
 import code.gui.events.ClickRowEvent;
 import code.gui.events.DeployTreeEvent;
 import code.gui.initialize.AbstractGraphicStringListGenerator;
-import code.sml.stream.ExtractFromFiles;
+import code.resources.ResourceFiles;
+import code.scripts.messages.gui.MessGuiGr;
+import code.sml.util.ResourcesMessagesUtil;
 import code.stream.StreamFolderFile;
 import code.stream.StreamTextFile;
 import code.stream.comparators.FileNameComparator;
@@ -87,7 +89,9 @@ public abstract class FileDialog extends Dialog {
 
     private void initDialog(String _language, boolean _currentFolderRoot, String... _excludedFolders) {
         String lg_ = superFrame.getLanguageKey();
-        messages = ExtractFromFiles.getMessagesFromLocaleClass(GuiConstants.FOLDER_MESSAGES_GUI, lg_, DIALOG_ACCESS);
+        String fileName_ = ResourcesMessagesUtil.getPropertiesPath(GuiConstants.FOLDER_MESSAGES_GUI, lg_, DIALOG_ACCESS);
+        String loadedResourcesMessages_ = MessGuiGr.ms().getVal(fileName_);
+        messages = ResourcesMessagesUtil.getMessagesFromContent(loadedResourcesMessages_);
         lang = _language;
         currentFolderRoot = _currentFolderRoot;
         selectedPath = EMPTY_STRING;
