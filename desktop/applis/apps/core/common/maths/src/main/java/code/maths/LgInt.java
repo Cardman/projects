@@ -260,25 +260,16 @@ public final class LgInt implements Displayable {
     }
 
     public static IdBezoutNb identiteBezoutPgcdPpcm(LgInt _a,LgInt _b) {
-        if (_a.isZero()) {
-            return new IdBezoutNb(one(),one(),_b,zero());
-        }
-        if (_b.isZero()) {
-            return new IdBezoutNb(one(),one(),_a,zero());
-        }
         LgInt r0_ = _a;
         LgInt r1_ = _b;
         LgInt u0_ = one();
         LgInt u1_ = zero();
         LgInt v0_ = zero();
         LgInt v1_ = one();
-        while (true) {
+        while (!r1_.isZero()) {
             QuotModLgInt qr_ = r0_.divisionEuclidienneGeneralise(r1_);
             LgInt q_ = qr_.getQuot();
             LgInt r2_ = qr_.getMod();
-            if (r2_.isZeroOrLt()) {
-                break;
-            }
             LgInt u2_ = minus(u0_,multiply(q_,u1_));
             LgInt v2_ = minus(v0_,multiply(q_,v1_));
             u0_ = u1_;
@@ -288,7 +279,16 @@ public final class LgInt implements Displayable {
             v1_ = v2_;
             r1_ = r2_;
         }
-        return new IdBezoutNb(u1_,v1_,r1_,multiply(divide(_a, r1_), _b));
+        if (_a.isZero()) {
+            u0_ = one();
+        }
+        if (_b.isZero()) {
+            v0_ = one();
+        }
+        if (r0_.isZero()) {
+            return new IdBezoutNb(u0_,v0_,r0_,zero());
+        }
+        return new IdBezoutNb(u0_,v0_,r0_,multiply(divide(_a, r0_), _b));
     }
 
     public Decomposition decompoPrim() {

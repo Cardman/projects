@@ -2671,6 +2671,16 @@ public class LgIntTest extends EquallableMathUtil {
         assertEq(new LgInt(0),out_.getPpcm());
     }
     @Test
+    public void identiteBezoutPgcdPpcm5Test() {
+        LgInt a_ = new LgInt(0);
+        LgInt b_ = new LgInt(0);
+        IdBezoutNb out_ = LgInt.identiteBezoutPgcdPpcm(a_, b_);
+        assertEq(new LgInt(1),out_.getFirst());
+        assertEq(new LgInt(1),out_.getSecond());
+        assertEq(new LgInt(0),out_.getPgcd());
+        assertEq(new LgInt(0),out_.getPpcm());
+    }
+    @Test
     public void decompoPrim1Test() {
         LgInt a_ = new LgInt(800);
         Decomposition dec_ = a_.decompoPrim();

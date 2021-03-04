@@ -251,27 +251,18 @@ public final class Polynom implements Displayable {
     }
 
     public static IdBezoutPol idBezoutPgcdPpcm(Polynom _a,Polynom _b) {
-        if (_a.isZero()) {
-            return new IdBezoutPol(one(),one(),_b,zero());
-        }
-        if (_b.isZero()) {
-            return new IdBezoutPol(one(),one(),_a,zero());
-        }
         Polynom r0_ = _a;
         Polynom r1_ = _b;
         Polynom u0_ = one();
         Polynom u1_ = zero();
         Polynom v0_ = zero();
         Polynom v1_ = one();
-        while (true) {
+        while (!r1_.isZero()) {
             QuotModPolynom qr_ = r0_.divisionEuclidienne(r1_);
             Polynom q_ = qr_.getQuot();
             Polynom r2_ = qr_.getMod();
             Polynom u2_ = u0_.minusPolynom(q_.multiplyPolynom(u1_));
             Polynom v2_ = v0_.minusPolynom(q_.multiplyPolynom(v1_));
-            if (r2_.isZero()) {
-                break;
-            }
             u0_ = u1_;
             v0_ = v1_;
             r0_ = r1_;
@@ -279,7 +270,16 @@ public final class Polynom implements Displayable {
             v1_ = v2_;
             r1_ = r2_;
         }
-        return new IdBezoutPol(u1_,v1_,r1_,_a.dividePolynom(r1_).multiplyPolynom(_b));
+        if (_a.isZero()) {
+            u0_ = one();
+        }
+        if (_b.isZero()) {
+            v0_ = one();
+        }
+        if (r0_.isZero()) {
+            return new IdBezoutPol(u0_,v0_,r0_,zero());
+        }
+        return new IdBezoutPol(u0_,v0_,r0_,_a.dividePolynom(r0_).multiplyPolynom(_b));
     }
 
     public CustList<Polynom> factor() {
