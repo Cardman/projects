@@ -14,6 +14,7 @@ import code.gui.PaintableLabel;
 import code.gui.images.ConverterGraphicBufferedImage;
 import code.images.BaseSixtyFourUtil;
 import code.resources.ResourceFiles;
+import code.scripts.pages.cards.CardsInit;
 import code.stream.StreamTextFile;
 import code.util.core.StringUtil;
 
@@ -21,7 +22,7 @@ public class GraphicPresidentCard extends PaintableLabel {
     static final String DEFAULT="Default";
 
     private CardPresident card;
-    private boolean fullCard;
+    private final boolean fullCard;
     private boolean peindreCarte=true;
     private BufferedImage bufferedImage;
     private String lg;
@@ -30,8 +31,10 @@ public class GraphicPresidentCard extends PaintableLabel {
         this(_lg, _i,_fullCard);
         peindreCarte=true;
         card=_pc;
-        int[][] file_ = BaseSixtyFourUtil.getImageByString(ResourceFiles.ressourceFichier(StringUtil.concat(FileConst.RESOURCES_IMAGES,StreamTextFile.SEPARATEUR,_lg,
+        int[][] file_ = BaseSixtyFourUtil.getImageByString(CardsInit.ms().getVal(StringUtil.concat(FileConst.RESOURCES_IMAGES,StreamTextFile.SEPARATEUR,_lg,
                 StreamTextFile.SEPARATEUR,card.getImageFileName(FileConst.TXT_EXT))));
+//        int[][] file_ = BaseSixtyFourUtil.getImageByString(ResourceFiles.ressourceFichier(StringUtil.concat(FileConst.RESOURCES_IMAGES,StreamTextFile.SEPARATEUR,_lg,
+//                StreamTextFile.SEPARATEUR,card.getImageFileName(FileConst.TXT_EXT))));
         bufferedImage = ConverterGraphicBufferedImage.decodeToImage(file_);
     }
 
@@ -65,8 +68,10 @@ public class GraphicPresidentCard extends PaintableLabel {
         card=_pc;
         lg=_lg;
         peindreCarte=true;
-        int[][] file_ = BaseSixtyFourUtil.getImageByString(ResourceFiles.ressourceFichier(StringUtil.concat(FileConst.RESOURCES_IMAGES,StreamTextFile.SEPARATEUR,_lg,
+        int[][] file_ = BaseSixtyFourUtil.getImageByString(CardsInit.ms().getVal(StringUtil.concat(FileConst.RESOURCES_IMAGES,StreamTextFile.SEPARATEUR,_lg,
                 StreamTextFile.SEPARATEUR,card.getImageFileName(FileConst.TXT_EXT))));
+//        int[][] file_ = BaseSixtyFourUtil.getImageByString(ResourceFiles.ressourceFichier(StringUtil.concat(FileConst.RESOURCES_IMAGES,StreamTextFile.SEPARATEUR,_lg,
+//                StreamTextFile.SEPARATEUR,card.getImageFileName(FileConst.TXT_EXT))));
         bufferedImage = ConverterGraphicBufferedImage.decodeToImage(file_);
     }
 

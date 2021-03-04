@@ -60,20 +60,21 @@ public abstract class AbstractPreparedPagesCards implements PreparedAnalyzed {
         beanNatLgNames.setupAll(docs_,navigation, navigation.getSession(), navigation.getFiles(), du_);
     }
 
-    protected BeanNatLgNames common(DualAnalyzedContext _du) {
+    protected BeanNatLgNames common(StringMap<String> _ms,DualAnalyzedContext _du) {
         context = _du.getContext().getContext();
         StringMap<String> files_ = new StringMap<String>();
         Configuration session_ = navigation.getSession();
         for (String a : _du.getContext().getAddedFiles()) {
-            files_.put(a, ResourceFiles.ressourceFichier(a));
+            files_.put(a, _ms.getVal(a));
+//            files_.put(a, ResourceFiles.ressourceFichier(a));
         }
-        for (String l : navigation.getLanguages()) {
-            for (String a : _du.getContext().getProperties().values()) {
-                String folder_ = _du.getContext().getMessagesFolder();
-                String fileName_ = ResourcesMessagesUtil.getPropertiesPath(folder_, l, a);
-                files_.put(fileName_, ResourceFiles.ressourceFichier(fileName_));
-            }
-        }
+//        for (String l : navigation.getLanguages()) {
+//            for (String a : _du.getContext().getProperties().values()) {
+//                String folder_ = _du.getContext().getMessagesFolder();
+//                String fileName_ = ResourcesMessagesUtil.getPropertiesPath(folder_, l, a);
+//                files_.put(fileName_, ResourceFiles.ressourceFichier(fileName_));
+//            }
+//        }
         String realFilePath_ = getRealFilePath(lg, session_.getFirstUrl());
         StringMap<Document> docs_ = new StringMap<Document>();
         Document doc_ = built.getVal(realFilePath_);

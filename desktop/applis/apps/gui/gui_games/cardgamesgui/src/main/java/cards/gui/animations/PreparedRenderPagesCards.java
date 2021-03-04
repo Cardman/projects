@@ -15,11 +15,14 @@ import code.util.consts.Constants;
 
 public final class PreparedRenderPagesCards extends AbstractPreparedPagesCards {
 
+    private final StringMap<String> ms;
     private MetaDocument metaDocument;
     private final Document document;
-    public PreparedRenderPagesCards(String _lg, BeanNatLgNames _stds, Document _document, StringMap<Document> _built) {
+
+    public PreparedRenderPagesCards(String _lg, BeanNatLgNames _stds, Document _document, StringMap<Document> _built, StringMap<String> _ms) {
         super(_lg, _stds, _built);
         document = _document;
+        ms = _ms;
     }
     @Override
     public void run() {
@@ -36,7 +39,7 @@ public final class PreparedRenderPagesCards extends AbstractPreparedPagesCards {
         getNavigation().setLanguages(Constants.getAvailableLanguages());
         NativeConfigurationLoader nat_ = new NativeConfigurationLoader(getBeanNatLgNames(), null);
         DualAnalyzedContext du_ = getNavigation().loadConfiguration("", getBeanNatLgNames(), DefaultFileBuilder.newInstance(getBeanNatLgNames().getContent()), nat_,document);
-        return common(du_);
+        return common(ms,du_);
     }
 
     public MetaDocument getMetaDocument() {
