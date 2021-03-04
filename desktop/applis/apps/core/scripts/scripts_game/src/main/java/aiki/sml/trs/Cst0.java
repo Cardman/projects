@@ -2,7 +2,7 @@ package aiki.sml.trs;
 public final class Cst0{
 private Cst0(){}
 static String tr(){
-String f="DEF_PERIODE_APPARITION\t1";
+String f="DEF_PERIODE_APPARITION\t1\n";
 f+="MAX_ATT\t8\n";
 f+="COPAIN_BALL_BONHEUR\t200\n";
 f+="MIN_ATT\t2\n";
