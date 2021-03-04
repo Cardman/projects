@@ -11,6 +11,7 @@ import code.expressionlanguage.filenames.AbstractNameValidating;
 import code.gui.*;
 import code.gui.initialize.AbstractProgramInfos;
 import code.gui.initialize.LoadLanguageUtil;
+import code.resources.ResourceFiles;
 import code.stream.StreamFolderFile;
 import code.stream.StreamTextFile;
 import code.util.StringMap;
@@ -95,7 +96,7 @@ public class LaunchingPokemon extends AdvSoftApplicationCore {
     }
 
     public static BufferedImage getIcon() {
-        return getImage(Resources.RESOURCES_FOLDER, Resources.ICON_TXT);
+        return getImage(ResourceFiles.ressourceFichier(StringUtil.concat(Resources.RESOURCES_FOLDER, StreamTextFile.SEPARATEUR, Resources.ICON_TXT)));
     }
 
     public static String getTempFolderSl(AbstractProgramInfos _tmpUserFolderSl) {

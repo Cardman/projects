@@ -13,6 +13,8 @@ import code.minirts.events.*;
 import code.minirts.rts.Direction;
 import code.minirts.rts.Facade;
 import code.resources.ResourceFiles;
+import code.scripts.messages.gui.MessPlayerGr;
+import code.util.StringMap;
 
 import javax.swing.*;
 import java.awt.*;
@@ -30,31 +32,33 @@ public final class MainWindow extends GroupFrame {
     public static final String FOLDER = "rts_imgs";
 
     private static final String SELECT = "select";
+    private final StringMap<String> messagesFiles = MessPlayerGr.ms();
 
-    private Cursor currentCursor = Cursor.getDefaultCursor();
+    private final Cursor currentCursor = Cursor.getDefaultCursor();
 
-    private PlainButton animate = new PlainButton("Animate");
+    private final PlainButton animate = new PlainButton("Animate");
 
-    private CustCheckBox pause = new CustCheckBox("Pause");
+    private final CustCheckBox pause = new CustCheckBox("Pause");
 
-    private PlainButton stop = new PlainButton("Stop");
+    private final PlainButton stop = new PlainButton("Stop");
 
-    private Facade facade = new Facade();
+    private final Facade facade = new Facade();
 
-    private PanelBattle battleground = new PanelBattle(facade);
-    private AtomicBoolean stopped = new AtomicBoolean();
-    private AtomicBoolean paused = new AtomicBoolean();
-    private AtomicLong count = new AtomicLong();
+    private final PanelBattle battleground = new PanelBattle(facade);
+    private final AtomicBoolean stopped = new AtomicBoolean();
+    private final AtomicBoolean paused = new AtomicBoolean();
+    private final AtomicLong count = new AtomicLong();
     private AnimationUnitSoldier thread = new AnimationUnitSoldier(battleground,this);
     private Thread threadLau = new Thread(thread);
 
-    private CustCheckBox addSoldier = new CustCheckBox("Add soldier");
+    private final CustCheckBox addSoldier = new CustCheckBox("Add soldier");
 
-    private AtomicBoolean dragged = new AtomicBoolean();
+    private final AtomicBoolean dragged = new AtomicBoolean();
 
     private CustPoint first = new CustPoint();
 
     private CustPoint last = new CustPoint();
+    private String noteFile = "";
 
     public MainWindow(String _lg, AbstractProgramInfos _list) {
         super(_lg, _list);
@@ -97,7 +101,8 @@ public final class MainWindow extends GroupFrame {
         stop.addActionListener(new Stop(this));
         buttons_.add(stop);
         Toolkit tool_ = Toolkit.getDefaultToolkit();
-        String note_ = ResourceFiles.ressourceFichier(NOTE_FILE);
+        String note_ = messagesFiles.getVal("resources_player/player.txt");
+        noteFile = note_;
         BufferedImage or_ = ConverterGraphicBufferedImage.decodeToImage(BaseSixtyFourUtil.getImageByString(note_));
         int wCurs_ = or_.getWidth();
         int hCurs_ = or_.getHeight();
@@ -258,4 +263,7 @@ public final class MainWindow extends GroupFrame {
         //
     }
 
+    public String getNoteFile() {
+        return noteFile;
+    }
 }

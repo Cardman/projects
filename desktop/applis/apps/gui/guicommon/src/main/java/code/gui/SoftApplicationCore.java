@@ -10,14 +10,12 @@ import code.gui.stream.DocumentReaderGuiUtil;
 import code.gui.stream.DocumentWriterGuiUtil;
 import code.images.BaseSixtyFourUtil;
 import code.images.IntPoint;
-import code.resources.ResourceFiles;
 import code.sml.Document;
 import code.sml.DocumentBuilder;
 import code.sml.Element;
 import code.sml.Node;
 import code.stream.StreamFolderFile;
 import code.stream.StreamTextFile;
-import code.util.CustList;
 import code.util.StringMap;
 import code.util.consts.Constants;
 import code.util.core.StringUtil;
@@ -73,12 +71,9 @@ public abstract class SoftApplicationCore {
         return new LanguageFrame(_dir, _args, this, _icon);
     }
 
-    protected static BufferedImage getImage(String _folder, String _fileTxt) {
-        BufferedImage image_;
-        String icon_ = ResourceFiles.ressourceFichier(StringUtil.concat(_folder,StreamTextFile.SEPARATEUR,_fileTxt));
-        int[][] file_ = BaseSixtyFourUtil.getImageByString(icon_);
-        image_ = ConverterGraphicBufferedImage.decodeToImage(file_);
-        return image_;
+    protected static BufferedImage getImage(String _icon) {
+        int[][] file_ = BaseSixtyFourUtil.getImageByString(_icon);
+        return ConverterGraphicBufferedImage.decodeToImage(file_);
     }
 
     /**@throws LangueException*/

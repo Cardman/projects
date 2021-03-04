@@ -15,6 +15,7 @@ import code.maths.montecarlo.MonteCarloUtil;
 import code.player.main.LaunchingPlayer;
 import code.resources.ClipStream;
 import code.resources.ResourceFiles;
+import code.scripts.messages.gui.MessPlayerGr;
 import code.sml.Document;
 import code.sml.DocumentBuilder;
 import code.sml.Element;
@@ -79,6 +80,7 @@ public class MainWindow extends GroupFrame {
     private static final byte NB_LETTERS = 26;
     private static final byte NB_LETTERS_UPP_LOW = 52;
     private static final byte NB_DIGITS_LETTERS = 62;
+    private final StringMap<String> messagesFiles = MessPlayerGr.ms();
     private StringMap<String> messages = new StringMap<String>();
 
     private Timer timer;
@@ -167,7 +169,7 @@ public class MainWindow extends GroupFrame {
 
     public void initMessages(String _lg) {
         String fileName_ = ResourcesMessagesUtil.getPropertiesPath(CST_RESOURCES_FOLDER, _lg, ACCESS);
-        String loadedResourcesMessages_ = ResourceFiles.ressourceFichier(fileName_);
+        String loadedResourcesMessages_ = messagesFiles.getVal(fileName_);
         messages = ResourcesMessagesUtil.getMessagesFromContent(loadedResourcesMessages_);
     }
 

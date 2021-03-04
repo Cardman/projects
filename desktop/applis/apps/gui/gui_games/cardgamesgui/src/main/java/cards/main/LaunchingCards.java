@@ -15,6 +15,7 @@ import cards.tarot.sml.DocumentWriterTarotUtil;
 import code.gui.*;
 import code.gui.initialize.AbstractProgramInfos;
 import code.gui.initialize.LoadLanguageUtil;
+import code.resources.ResourceFiles;
 import code.stream.StreamFolderFile;
 import code.stream.StreamTextFile;
 import code.util.StringList;
@@ -78,7 +79,7 @@ public class LaunchingCards extends AdvSoftApplicationCore {
     }
 
     public static BufferedImage getIcon() {
-        return getImage(FileConst.RESOURCES_IMAGES, FileConst.SUITS_TXT);
+        return getImage(ResourceFiles.ressourceFichier(StringUtil.concat(FileConst.RESOURCES_IMAGES, StreamTextFile.SEPARATEUR, FileConst.SUITS_TXT)));
     }
 
     public static String getTempFolderSl(AbstractProgramInfos _tmpUserFolderSl) {

@@ -5,7 +5,11 @@ import code.gui.*;
 import code.gui.initialize.AbstractProgramInfos;
 import code.gui.initialize.LoadLanguageUtil;
 import code.player.gui.CreateMainWindow;
+import code.resources.ResourceFiles;
+import code.scripts.messages.gui.MessPlayerGr;
+import code.stream.StreamTextFile;
 import code.util.StringMap;
+import code.util.core.StringUtil;
 
 import java.awt.image.BufferedImage;
 
@@ -47,7 +51,7 @@ public class LaunchingPlayer extends AdvSoftApplicationCore {
     }
 
     public static BufferedImage getIcon() {
-        return getImage(RESOURCES_FOLDER,ICON);
+        return getImage(MessPlayerGr.ms().getVal(StringUtil.concat(RESOURCES_FOLDER, StreamTextFile.SEPARATEUR, ICON)));
     }
 
 }
