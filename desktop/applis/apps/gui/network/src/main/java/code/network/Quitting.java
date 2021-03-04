@@ -4,7 +4,8 @@ import java.net.Socket;
 import javax.swing.JOptionPane;
 
 import code.gui.ConfirmDialog;
-import code.sml.stream.ExtractFromFiles;
+import code.scripts.messages.gui.MessGuiNetGr;
+import code.sml.util.ResourcesMessagesUtil;
 import code.util.StringMap;
 import code.util.core.StringUtil;
 
@@ -21,15 +22,17 @@ public final class Quitting implements Runnable {
 
     private Exiting bye;
 
-    private NetGroupFrame window;
+    private final NetGroupFrame window;
 
-    private Socket socket;
+    private final Socket socket;
 
     private StringMap<String> messages;
 
     /**This class thread is used by EDT (invokeLater of SwingUtilities)*/
     public Quitting(Exiting _bye, NetGroupFrame _window, Socket _socket) {
-        messages = ExtractFromFiles.getMessagesFromLocaleClass(FOLDER, _window.getLanguageKey(), QUITTING);
+        String fileName_ = ResourcesMessagesUtil.getPropertiesPath(FOLDER, _window.getLanguageKey(), QUITTING);
+        String loadedResourcesMessages_ = MessGuiNetGr.ms().getVal(fileName_);
+        messages = ResourcesMessagesUtil.getMessagesFromContent(loadedResourcesMessages_);
         bye = _bye;
         window = _window;
         socket = _socket;
