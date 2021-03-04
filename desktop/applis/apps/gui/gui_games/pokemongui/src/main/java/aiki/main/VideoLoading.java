@@ -10,6 +10,7 @@ import code.maths.Rate;
 import code.maths.montecarlo.AbstractGenerator;
 import code.maths.montecarlo.MonteCarloNumber;
 import code.resources.ResourceFiles;
+import code.scripts.messages.gui.MessPkVideoGr;
 import code.stream.StreamImageFile;
 import code.util.CustList;
 import code.util.core.IndexConstants;
@@ -23,7 +24,7 @@ public final class VideoLoading {
     private static final String FILE = "link_";
     private final CustList<CustList<BufferedImage>> images = new CustList<CustList<BufferedImage>>();
     private boolean initialized;
-    private LgInt maxRd = LgInt.getMaxLongPlusOne();
+    private final LgInt maxRd = LgInt.getMaxLongPlusOne();
 
     public CustList<BufferedImage> getVideo(AbstractGenerator _abs) {
         if (!initialized) {
@@ -54,7 +55,7 @@ public final class VideoLoading {
                 int i_ = IndexConstants.FIRST_INDEX;
                 while (true) {
                     int[][] txtFile_ = BaseSixtyFourUtil.getImageByString(
-                            ResourceFiles.ressourceFichier(StringUtil.concat(VIDEO_DEFAULT,Long.toString(i_),
+                            MessPkVideoGr.ms().getVal(StringUtil.concat(VIDEO_DEFAULT,Long.toString(i_),
                                     DataBase.IMG_FILES_RES_EXT_TXT)));
                     if (txtFile_.length == 0) {
                         break;

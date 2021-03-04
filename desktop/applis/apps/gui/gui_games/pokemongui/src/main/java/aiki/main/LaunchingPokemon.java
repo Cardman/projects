@@ -12,6 +12,7 @@ import code.gui.*;
 import code.gui.initialize.AbstractProgramInfos;
 import code.gui.initialize.LoadLanguageUtil;
 import code.resources.ResourceFiles;
+import code.scripts.messages.gui.MessPkVideoGr;
 import code.stream.StreamFolderFile;
 import code.stream.StreamTextFile;
 import code.util.StringMap;
@@ -96,7 +97,7 @@ public class LaunchingPokemon extends AdvSoftApplicationCore {
     }
 
     public static BufferedImage getIcon() {
-        return getImage(ResourceFiles.ressourceFichier(StringUtil.concat(Resources.RESOURCES_FOLDER, StreamTextFile.SEPARATEUR, Resources.ICON_TXT)));
+        return getImage(MessPkVideoGr.ms().getVal(StringUtil.concat(Resources.RESOURCES_FOLDER, StreamTextFile.SEPARATEUR, Resources.ICON_TXT)));
     }
 
     public static String getTempFolderSl(AbstractProgramInfos _tmpUserFolderSl) {
