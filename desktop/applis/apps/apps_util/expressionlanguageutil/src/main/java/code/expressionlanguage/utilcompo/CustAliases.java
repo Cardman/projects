@@ -26,6 +26,7 @@ import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.ValidatorStandard;
 import code.expressionlanguage.stds.*;
 import code.expressionlanguage.structs.*;
+import code.scripts.messages.gui.MessCdmBaseGr;
 import code.sml.util.ResourcesMessagesUtil;
 import code.threads.AbstractLock;
 import code.threads.LockFactory;
@@ -420,6 +421,7 @@ public final class CustAliases {
     private String aliasInfoTestCurrentParams;
 
     private String aliasConcurrentError;
+    private final StringMap<String> properties = MessCdmBaseGr.ms();
 
     private final CustAliasParameters custAliasParameters = new CustAliasParameters();
 
@@ -880,7 +882,7 @@ public final class CustAliases {
     }
     public StringMap<String> buildFiles(KeyWords _keyWords, LgNamesContent _content, StringList _predefinedClasses, StringList _predefinedInterfacesInitOrder) {
         StringMap<String> stds_ = new StringMap<String>();
-        String content_ = infos.getReader().read("resources_lg/threads/runnable.txt");
+        String content_ = properties.getVal("resources_lg/threads/runnable.txt");
         StringMap<PrimitiveType> primitiveTypes_ = _content.getPrimTypes().getPrimitiveTypes();
         AliasCore coreNames_ = _content.getCoreNames();
         PrimitiveTypes primTypes_ = _content.getPrimTypes();
@@ -914,7 +916,7 @@ public final class CustAliases {
         _predefinedClasses.add(aliasRunnable);
         stds_.put(aliasRunnable, content_);
         _predefinedInterfacesInitOrder.add(aliasRunnable);
-        content_ = infos.getReader().read("resources_lg/collections/list.txt");
+        content_ = properties.getVal("resources_lg/collections/list.txt");
         map_ = new StringMap<String>();
         map_.put("{public}", public_);
         map_.put("{private}", private_);
@@ -965,7 +967,7 @@ public final class CustAliases {
         stds_.put(aliasList, content_);
         _predefinedInterfacesInitOrder.add(aliasCustIterator);
         _predefinedInterfacesInitOrder.add(aliasList);
-        content_ = infos.getReader().read("resources_lg/collections/table.txt");
+        content_ = properties.getVal("resources_lg/collections/table.txt");
         map_.put("{CustPair}",aliasCustPair);
         map_.put("{Pair}",predefTypes_.getAliasPairType());
         map_.put("{U}",aliasPairVarFirst);
@@ -1026,7 +1028,7 @@ public final class CustAliases {
         _predefinedInterfacesInitOrder.add(aliasCustIterTable);
         _predefinedInterfacesInitOrder.add(aliasTable);
 
-        content_ = infos.getReader().read("resources_lg/tests/run.txt");
+        content_ = properties.getVal("resources_lg/tests/run.txt");
         map_.put("{a}",tr("a", _keyWords, primitiveTypes_, coreNames_,custAliasParameters.getAliasExecute0ExecuteTests0()));
         map_.put("{b}",tr("b", _keyWords, primitiveTypes_, coreNames_,
                 custAliasParameters.getAliasExecute0Run0(),custAliasParameters.getAliasExecute0Run1(),custAliasParameters.getAliasExecute0Run2()
@@ -1427,7 +1429,7 @@ public final class CustAliases {
         _predefinedInterfacesInitOrder.add(aliasExecutedTest);
         _predefinedInterfacesInitOrder.add(aliasResult);
         _predefinedInterfacesInitOrder.add(aliasExecute);
-        content_ = infos.getReader().read("resources_lg/threads/formatting.txt");
+        content_ = properties.getVal("resources_lg/threads/formatting.txt");
         map_.put("{Format}",aliasFormatType);
         map_.put("{int}", int_);
         map_.put("{fo1}", custAliasParameters.getAliasFormatType0Print0());
@@ -1445,7 +1447,7 @@ public final class CustAliases {
     }
     public void messages(AnalysisMessages _mess,String _lang, StringMap<String> _cust) {
         String fileName_ = ResourcesMessagesUtil.getPropertiesPath("resources_lg/aliases",_lang,"messages");
-        String content_ = infos.getReader().read(fileName_);
+        String content_ = properties.getVal(fileName_);
         StringMap<String> util_ = ResourcesMessagesUtil.getMessagesFromContent(content_);
         messages(_mess,util_,_cust);
     }
@@ -1454,7 +1456,7 @@ public final class CustAliases {
     }
     public void keyWord(KeyWords _kw,String _lang, StringMap<String> _cust) {
         String fileName_ = ResourcesMessagesUtil.getPropertiesPath("resources_lg/aliases",_lang,"keywords");
-        String content_ = infos.getReader().read(fileName_);
+        String content_ = properties.getVal(fileName_);
         StringMap<String> util_ = ResourcesMessagesUtil.getMessagesFromContent(content_);
         keyWord(_kw,util_,_cust);
     }
@@ -1463,7 +1465,7 @@ public final class CustAliases {
     }
     public void otherAlias(LgNamesContent _content,String _lang, StringMap<String>_cust) {
         String fileName_ = ResourcesMessagesUtil.getPropertiesPath("resources_lg/aliases",_lang,"types");
-        String content_ = infos.getReader().read(fileName_);
+        String content_ = properties.getVal(fileName_);
         StringMap<String> util_ = ResourcesMessagesUtil.getMessagesFromContent(content_);
         otherAlias(_content,util_,_cust);
     }
@@ -3017,7 +3019,7 @@ public final class CustAliases {
     }
 
     public CustList<CommentDelimiters> defComments() {
-        String content_ = infos.getReader().read("resources_lg/aliases/comments.properties");
+        String content_ = properties.getVal("resources_lg/aliases/comments.properties");
         content_ = content_.substring(content_.indexOf('=')+1);
         return ParseLinesArgUtil.buildComments(content_);
     }
