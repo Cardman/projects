@@ -8,6 +8,7 @@ import cards.president.enumerations.CardPresident;
 import code.gui.Dialog;
 import code.gui.Panel;
 import code.gui.TextLabel;
+import code.sml.stream.ExtractFromFiles;
 import code.util.StringMap;
 import code.util.TreeMap;
 import code.util.core.StringUtil;
@@ -74,7 +75,7 @@ public final class DialogHelpPresident extends Dialog {
 
     private void initMessageName(MainWindow _parent) {
 //        messages = ExtractFromFiles.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, Constants.getLanguage(), getClass());
-        messages = getMessages(_parent,FileConst.FOLDER_MESSAGES_GUI);
+        messages = MainWindow.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, _parent.getLanguageKey(), getAccessFile());
     }
 
 }

@@ -6,10 +6,8 @@ import aiki.sml.Resources;
 import aiki.sml.LoadingGame;
 import aiki.gui.MainWindow;
 import aiki.gui.dialogs.events.ValidateSoftParams;
-import code.gui.CustCheckBox;
-import code.gui.Dialog;
-import code.gui.LabelButton;
-import code.gui.Panel;
+import code.gui.*;
+import code.sml.stream.ExtractFromFiles;
 import code.util.StringMap;
 
 public final class SoftParams extends Dialog {
@@ -58,7 +56,7 @@ public final class SoftParams extends Dialog {
 
     private void init(MainWindow _window, LoadingGame _loading) {
         setDialogIcon(_window);
-        messages = getMessages(_window,Resources.MESSAGES_FOLDER);
+        messages = MainWindow.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, _window.getLanguageKey(), getAccessFile());
         ok = false;
         setTitle(messages.getVal(TITLE));
         setLocationRelativeTo(_window);

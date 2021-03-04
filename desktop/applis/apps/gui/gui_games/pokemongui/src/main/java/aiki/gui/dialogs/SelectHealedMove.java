@@ -12,6 +12,7 @@ import code.gui.Dialog;
 import code.gui.LabelButton;
 import code.gui.Panel;
 import code.gui.events.ClosingDialogEvent;
+import code.sml.stream.ExtractFromFiles;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.core.StringUtil;
@@ -27,7 +28,7 @@ public final class SelectHealedMove extends Dialog {
 
     private FacadeGame facade;
 
-    private Panel movesLearnt = Panel.newPageBox();
+    private final Panel movesLearnt = Panel.newPageBox();
 
     private StringMap<String> messages;
 
@@ -41,7 +42,7 @@ public final class SelectHealedMove extends Dialog {
 
     private void init(MainWindow _parent, FacadeGame _facade) {
         setDialogIcon(_parent);
-        messages = getMessages(_parent,Resources.MESSAGES_FOLDER);
+        messages = MainWindow.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, _parent.getLanguageKey(), getAccessFile());
         setTitle(messages.getVal(TITLE));
         facade = _facade;
         Panel contentPane_ = Panel.newBorder();

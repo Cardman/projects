@@ -137,6 +137,9 @@ import code.network.NetGroupFrame;
 import code.network.SocketResults;
 import code.network.enums.ErrorHostConnectionType;
 import code.network.enums.IpType;
+import code.resources.ResourceFiles;
+import code.sml.stream.ExtractFromFiles;
+import code.sml.util.ResourcesMessagesUtil;
 import code.stream.StreamFolderFile;
 import code.stream.StreamTextFile;
 import code.util.*;
@@ -612,7 +615,11 @@ public final class MainWindow extends NetGroupFrame {
         setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
         addWindowListener(new QuittingEvent(this));
     }
-
+    public static StringMap<String> getMessagesFromLocaleClass(String _folder, String _loc, String _class) {
+        String fileName_ = ResourcesMessagesUtil.getPropertiesPath(_folder, _loc, _class);
+        String loadedResourcesMessages_ = ResourceFiles.ressourceFichier(fileName_);
+        return ResourcesMessagesUtil.getMessagesFromContent(loadedResourcesMessages_);
+    }
     public String getTooManyString() {
         return getMessages().getVal(TOO_MANY);
     }
@@ -1178,7 +1185,7 @@ public final class MainWindow extends NetGroupFrame {
     }
     private void initMessageName() {
 //        messages = ExtractFromFiles.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, Constants.getLanguage(), getClass());
-        messages = getMessages(this,FileConst.FOLDER_MESSAGES_GUI);
+        messages = MainWindow.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, getLanguageKey(), getAccessFile());
     }
     public void loadGameBegin(String _file, Object _deal) {
         containerGame = new ContainerGame(this);

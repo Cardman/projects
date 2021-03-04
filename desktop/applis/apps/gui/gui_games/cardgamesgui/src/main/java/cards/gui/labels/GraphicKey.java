@@ -2,6 +2,7 @@ package cards.gui.labels;
 import java.awt.Color;
 import java.awt.Font;
 
+import cards.gui.MainWindow;
 import cards.gui.dialogs.FileConst;
 import code.gui.CustGraphics;
 import code.gui.PaintableLabel;
@@ -13,13 +14,13 @@ public class GraphicKey extends PaintableLabel {
     private static final String GRAPHIC_KEY = "cards.gui.labels.graphickey";
     private static final String DEFAULT="Default";
     private static final String DELTA = "delta";
-    private CustList<Color> couleurs;
-    private StringList pseudos;
-    private StringMap<String> messages;
+    private final CustList<Color> couleurs;
+    private final StringList pseudos;
+    private final StringMap<String> messages;
     public GraphicKey(StringList _ppseudos,CustList<Color> _pcouleurs, String _lg) {
         pseudos=_ppseudos;
         couleurs=_pcouleurs;
-        messages = ExtractFromFiles.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, _lg, GRAPHIC_KEY);
+        messages = MainWindow.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, _lg, GRAPHIC_KEY);
     }
     @Override
     public void paintComponent(CustGraphics _g) {

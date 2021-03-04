@@ -19,6 +19,7 @@ import code.gui.ScrollPane;
 import code.gui.TextArea;
 import code.gui.events.QuittingEvent;
 import code.gui.initialize.AbstractProgramInfos;
+import code.sml.stream.ExtractFromFiles;
 import code.threads.ThreadUtil;
 import code.util.StringMap;
 import code.util.core.DefaultUniformingString;
@@ -65,7 +66,7 @@ public final class MainWindow extends GroupFrame implements TestableFrame {
     protected MainWindow(String _lg, AbstractProgramInfos _list) {
         super(_lg, _list);
         setAccessFile("unit.mainwindow");
-        unitMessages = getMessages(this,"resources_unit/gui/messages");
+        unitMessages = ExtractFromFiles.getMessagesFromLocaleClass("resources_unit/gui/messages", getLanguageKey(), getAccessFile());
         setTitle(unitMessages.getVal("title"));
         setJMenuBar(new MenuBar());
         menu = new Menu(unitMessages.getVal("file"));

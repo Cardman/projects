@@ -12,6 +12,7 @@ import aiki.map.pokemon.PokemonPlayer;
 import aiki.util.Coords;
 import code.gui.*;
 import code.gui.document.RenderedPage;
+import code.sml.stream.ExtractFromFiles;
 import code.util.EqList;
 import code.util.*;
 import code.util.StringMap;
@@ -47,7 +48,7 @@ public final class ConsultHosts extends Dialog {
     private void init(MainWindow _frame, FacadeGame _facade) {
         setDialogIcon(_frame);
         window = _frame;
-        messages = getMessages(_frame,Resources.MESSAGES_FOLDER);
+        messages = MainWindow.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, _frame.getLanguageKey(), getAccessFile());
         //super(_frame, true);
 //        window = _frame;
         setTitle(messages.getVal(TITLE));

@@ -3,6 +3,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.image.BufferedImage;
 
+import aiki.gui.MainWindow;
 import aiki.sml.Resources;
 import aiki.facade.FacadeGame;
 import aiki.gui.components.Paginator;
@@ -51,7 +52,7 @@ public class HealingItemLabel extends SelectableLabel {
 
     private int sideLength;
 
-    private SortingHealingItem item;
+    private final SortingHealingItem item;
 
     private BufferedImage miniImageItem;
 
@@ -66,7 +67,7 @@ public class HealingItemLabel extends SelectableLabel {
     }
 
     public void initMessages(String _lg) {
-        messages = ExtractFromFiles.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, _lg, HEALING_ITEM_LABEL);
+        messages = MainWindow.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, _lg, HEALING_ITEM_LABEL);
     }
 
     public void setImagesResults(FacadeGame _facade, int _thirdColumn, int _fourthColumn, int _fifthColumn) {

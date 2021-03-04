@@ -9,11 +9,10 @@ import aiki.gui.components.PaginatorPokemon;
 import aiki.gui.dialogs.events.SeePkDetailEvent;
 import aiki.gui.dialogs.events.ValidateSelectionEvent;
 import aiki.map.pokemon.UsablePokemon;
-import code.gui.LabelButton;
-import code.gui.Panel;
-import code.gui.ScrollPane;
+import code.gui.*;
 import code.gui.document.RenderedPage;
 import code.gui.events.ClosingDialogEvent;
+import code.sml.stream.ExtractFromFiles;
 import code.util.StringMap;
 
 public final class SelectPokemon extends SelectDialog {
@@ -50,7 +49,7 @@ public final class SelectPokemon extends SelectDialog {
         //super(_parent, true);
         setDialogIcon(_parent);
         window = _parent;
-        messages = getMessages(_parent,Resources.MESSAGES_FOLDER);
+        messages = MainWindow.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, _parent.getLanguageKey(), getAccessFile());
 //        window = _parent;
         setTitle(messages.getVal(TITLE));
         facade = _facade;

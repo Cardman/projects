@@ -14,6 +14,7 @@ import cards.gui.dialogs.help.NodeHelp;
 import code.gui.*;
 import code.gui.document.RenderedPage;
 import code.gui.events.ClosingChildFrameEvent;
+import code.sml.stream.ExtractFromFiles;
 import code.util.CustList;
 import code.util.ObjectMap;
 import code.util.StringMap;
@@ -81,7 +82,7 @@ public final class FrameGeneralHelp extends ChildFrame {
 //    }
 
     public void initialize(MainWindow _w) {
-        messages = getMessages(_w,FileConst.FOLDER_MESSAGES_GUI);
+        messages = MainWindow.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, _w.getLanguageKey(), getAccessFile());
         String lg_ = _w.getLanguageKey();
         elementsBis = _w.getHelpInitializerTask().getTrees().getVal(lg_);
         setFocusable(true);

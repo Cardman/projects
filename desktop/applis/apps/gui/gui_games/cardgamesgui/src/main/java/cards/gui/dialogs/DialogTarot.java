@@ -18,6 +18,7 @@ import cards.tarot.enumerations.Handfuls;
 import cards.tarot.enumerations.Miseres;
 import cards.tarot.enumerations.ModeTarot;
 import code.gui.*;
+import code.sml.stream.ExtractFromFiles;
 import code.util.*;
 import code.util.ints.Listable;
 
@@ -243,7 +244,7 @@ public abstract class DialogTarot extends DialogCards implements DialogVaryingPl
     }
 
     protected void initMessageName(MainWindow _parent) {
-        setMessages(getMessages(_parent,FileConst.FOLDER_MESSAGES_GUI));
+        setMessages(MainWindow.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, _parent.getLanguageKey(), getAccessFile()));
     }
 
     /**Met en place le contenu de la boite de dialogue

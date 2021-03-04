@@ -53,7 +53,7 @@ public class PanelTricksHandsTarot implements ViewablePanelTricksHands {
         String lg_ = window.getLanguageKey();
         numberPlayers = _numberPlayers;
         displayingTarot = _displayingTarot;
-        messages = ExtractFromFiles.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, lg_, ACCESS);
+        messages = MainWindow.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, lg_, ACCESS);
         parent = _parent;
         tricksHands = _tricksHands;
         DealTarot dealt_ = tricksHands.getDistribution();

@@ -10,6 +10,7 @@ import cards.facade.Games;
 import cards.gui.MainWindow;
 import cards.gui.comboboxes.ComboBoxEnumCards;
 import code.gui.*;
+import code.sml.stream.ExtractFromFiles;
 import code.util.*;
 import code.util.ints.Listable;
 
@@ -152,7 +153,7 @@ public abstract class DialogBelote extends DialogCards {
     Pour les jeux et les joueurs on a besoin d'onglets pour utiliser moins de place sur l'ecran*/
     public abstract void setDialogue(MainWindow _parent);
     protected void initMessageName(MainWindow _parent) {
-        setMessages(getMessages(_parent,FileConst.FOLDER_MESSAGES_GUI));
+        setMessages(MainWindow.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, _parent.getLanguageKey(), getAccessFile()));
     }
     /**Enregistre les informations dans une variable et ferme la boite de dialogue*/
     protected void validateRules() {

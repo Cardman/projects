@@ -18,7 +18,7 @@ public abstract class Dialog implements ChangeableTitle {
 
     private Panel contentPane  = Panel.newLineBox();
 
-    private JDialog dialog = new JDialog();
+    private final JDialog dialog = new JDialog();
     private Ownable owner;
     protected Dialog() {
         dialog.setModal(true);
@@ -63,9 +63,8 @@ public abstract class Dialog implements ChangeableTitle {
         }
     }
 
-    protected StringMap<String> getMessages(CommonFrame _lg,String _messageFolder) {
-        String lg_ = _lg.getLanguageKey();
-        return ExtractFromFiles.getMessagesFromLocaleClass(_messageFolder, lg_, accessFile);
+    protected String getAccessFile() {
+        return accessFile;
     }
 
     protected void setAccessFile(String _accessFile) {

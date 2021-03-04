@@ -12,6 +12,7 @@ import code.gui.events.ClosingDialogEvent;
 import code.gui.events.CreateServerEvent;
 import code.gui.events.JoinServerEvent;
 import code.network.enums.IpType;
+import code.sml.stream.ExtractFromFiles;
 import code.util.EnumList;
 import code.util.EnumMap;
 import code.util.StringList;
@@ -50,7 +51,7 @@ public final class DialogServer extends DialogCards implements AbstractDialogSer
         create = false;
         join = false;
 //        messages = ExtractFromFiles.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, Constants.getLanguage(), getClass());
-        messages = getMessages(_fenetre,FileConst.FOLDER_MESSAGES_GUI);
+        messages = MainWindow.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, _fenetre.getLanguageKey(), getAccessFile());
         messagesIpEnum = new EnumMap<IpType,String>();
         for (IpType i: IpType.values()) {
             messagesIpEnum.put(i, i.toString(_fenetre.getLanguageKey()));

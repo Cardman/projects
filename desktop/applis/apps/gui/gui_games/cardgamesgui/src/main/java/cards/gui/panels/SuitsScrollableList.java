@@ -25,7 +25,7 @@ public class SuitsScrollableList extends ScrollableList {
     private final AbsGraphicList<Suit> liste;
     public SuitsScrollableList(EnumList<Suit> _couleurs, int _nb, MainWindow _window, AbsGraphicList<Suit> _liste) {
         String lg_ = _window.getLanguageKey();
-        messages = ExtractFromFiles.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, lg_, ACCESS);
+        messages = MainWindow.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, lg_, ACCESS);
         TextLabel titrePanneau_ = new TextLabel(messages.getVal(SUITS), SwingConstants.CENTER);
         getContainer().add(titrePanneau_, BorderLayout.NORTH);
 //        suits = _couleurs;

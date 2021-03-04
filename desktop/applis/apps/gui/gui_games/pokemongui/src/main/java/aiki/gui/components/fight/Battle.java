@@ -264,7 +264,7 @@ public class Battle extends ChildFrame {
 
     public void initMessages() {
         String lg_ = window.getLanguageKey();
-        messages = ExtractFromFiles.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, lg_, BATTLE);
+        messages = MainWindow.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, lg_, BATTLE);
     }
 
     public void setMessages() {

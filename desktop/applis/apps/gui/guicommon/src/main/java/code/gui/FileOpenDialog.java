@@ -11,6 +11,7 @@ import code.gui.events.SearchingEvent;
 import code.gui.events.StopSearchingEvent;
 import code.gui.events.SubmitKeyEvent;
 import code.gui.events.SubmitMouseEvent;
+import code.sml.stream.ExtractFromFiles;
 import code.stream.StreamFolderFile;
 import code.util.CustList;
 import code.util.StringMap;
@@ -64,7 +65,7 @@ public final class FileOpenDialog extends FileDialog implements SingleFileSelect
 //    }
     private void initFileOpenDialog(CommonFrame _c) {
         frame = _c;
-        messages = getMessages(_c,GuiConstants.FOLDER_MESSAGES_GUI);
+        messages = ExtractFromFiles.getMessagesFromLocaleClass(GuiConstants.FOLDER_MESSAGES_GUI, _c.getLanguageKey(), getAccessFile());
         getFileName().addActionListener(new SubmitKeyEvent(this));
         LabelButton action_ = new LabelButton(messages.getVal(OPEN));
         action_.addMouseListener(new SubmitMouseEvent(this));

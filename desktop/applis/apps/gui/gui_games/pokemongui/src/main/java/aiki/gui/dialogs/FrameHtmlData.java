@@ -4,13 +4,11 @@ import java.awt.Dimension;
 import javax.swing.WindowConstants;
 
 import aiki.beans.PokemonStandards;
-import aiki.db.DataBase;
 import aiki.facade.FacadeGame;
 import aiki.gui.threads.PreparedRenderedPages;
 import aiki.sml.Resources;
 import aiki.gui.MainWindow;
 import code.gui.*;
-import code.gui.document.PreparedAnalyzed;
 import code.gui.document.RenderedPage;
 import code.gui.events.ClosingChildFrameEvent;
 import code.sml.stream.ExtractFromFiles;
@@ -34,7 +32,7 @@ public final class FrameHtmlData extends ChildFrame {
     public FrameHtmlData(MainWindow _parent, String _title, RenderedPage _session) {
         super(_parent.getLanguageKey());
         setAccessFile(DIALOG_ACCESS);
-        messages = getMessages(_parent,Resources.MESSAGES_FOLDER);
+        messages = MainWindow.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, _parent.getLanguageKey(), getAccessFile());
         setDialogIcon(_parent);
         setLocationRelativeTo(_parent);
         setTitle(_title);
@@ -81,7 +79,7 @@ public final class FrameHtmlData extends ChildFrame {
     public void refresh(MainWindow _window) {
         String key_ = _window.getLanguageKey();
         setLanguageKey(key_);
-        messages = ExtractFromFiles.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, key_, DIALOG_ACCESS);
+        messages = MainWindow.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, key_, DIALOG_ACCESS);
         search.setTextAndSize(messages.getVal(SEARCH_LABEL));
         session.setLanguage(key_);
         session.refresh();

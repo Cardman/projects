@@ -4,6 +4,7 @@ import cards.gui.MainWindow;
 import cards.network.common.select.TeamsPlayers;
 import code.gui.Panel;
 import code.gui.TextLabel;
+import code.sml.stream.ExtractFromFiles;
 import code.util.*;
 import code.util.StringList;
 import code.util.StringMap;
@@ -22,7 +23,7 @@ public final class DialogTeamsPlayers extends DialogCards {
     public static void initDialogTeamsPlayers(MainWindow _fenetre) {
         _fenetre.getDialogTeamsPlayers().setDialogIcon(_fenetre);
 //        DIALOG.messages = ExtractFromFiles.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, Constants.getLanguage(), DIALOG.getClass());
-        _fenetre.getDialogTeamsPlayers().messages = _fenetre.getDialogTeamsPlayers().getMessages(_fenetre,FileConst.FOLDER_MESSAGES_GUI);
+        _fenetre.getDialogTeamsPlayers().messages = MainWindow.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, _fenetre.getLanguageKey(), _fenetre.getDialogTeamsPlayers().getAccessFile());
         _fenetre.getDialogTeamsPlayers().setTitle(_fenetre.getDialogTeamsPlayers().messages.getVal(TITLE));
         _fenetre.getDialogTeamsPlayers().setLocationRelativeTo(_fenetre);
     }

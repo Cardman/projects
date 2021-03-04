@@ -15,7 +15,7 @@ public abstract class CommonFrame extends AbsFrame implements ChangeableTitle {
     private Panel contentPane = Panel.newLineBox();
 
     private Ownable owner;
-    private JFrame frame = new JFrame();
+    private final JFrame frame = new JFrame();
     private MenuBar menuBar;
     private String languageKey;
     protected CommonFrame(String _languageKey) {
@@ -88,9 +88,8 @@ public abstract class CommonFrame extends AbsFrame implements ChangeableTitle {
         frame.setIconImage(_image);
     }
 
-    protected StringMap<String> getMessages(CommonFrame _c,String _messageFolder) {
-        String lg_ = _c.getLanguageKey();
-        return ExtractFromFiles.getMessagesFromLocaleClass(_messageFolder, lg_, accessFile);
+    protected String getAccessFile() {
+        return accessFile;
     }
 
     protected void setAccessFile(String _accessFile) {

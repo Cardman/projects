@@ -10,6 +10,7 @@ import aiki.facade.FacadeGame;
 import aiki.gui.MainWindow;
 import code.gui.*;
 import code.gui.document.RenderedPage;
+import code.sml.stream.ExtractFromFiles;
 import code.util.StringMap;
 
 public final class DialogGameProgess extends Dialog {
@@ -34,7 +35,7 @@ public final class DialogGameProgess extends Dialog {
     private void init(MainWindow _window, String _title, FacadeGame _facade, PreparedRenderedPages _pre) {
         //super(_window, true);
         setDialogIcon(_window);
-        messages = getMessages(_window,Resources.MESSAGES_FOLDER);
+        messages = MainWindow.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, _window.getLanguageKey(), getAccessFile());
         setModal(true);
         setTitle(_title);
         setLocationRelativeTo(_window);

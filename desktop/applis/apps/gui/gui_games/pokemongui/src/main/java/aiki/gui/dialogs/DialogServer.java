@@ -9,6 +9,7 @@ import code.gui.events.ClosingDialogEvent;
 import code.gui.events.CreateServerEvent;
 import code.gui.events.JoinServerEvent;
 import code.network.enums.IpType;
+import code.sml.stream.ExtractFromFiles;
 import code.util.EnumList;
 import code.util.EnumMap;
 import code.util.StringList;
@@ -44,7 +45,7 @@ public final class DialogServer extends Dialog implements AbstractDialogServer{
         setDialogIcon(_fenetre);
         join = false;
         create = false;
-        messages = getMessages(_fenetre,Resources.MESSAGES_FOLDER);
+        messages = MainWindow.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, _fenetre.getLanguageKey(), getAccessFile());
 //        messagesIp = FormatHtml.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, Constants.getLanguage(), IpType.class);
         messagesIpEnum = new EnumMap<IpType,String>();
 //        for (String i: messagesIp.getKeys()) {

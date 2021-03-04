@@ -9,6 +9,7 @@ import code.gui.ScrollPane;
 import code.gui.TextArea;
 import code.gui.events.QuittingEvent;
 import code.gui.initialize.AbstractProgramInfos;
+import code.sml.stream.ExtractFromFiles;
 import code.stream.StreamTextFile;
 import code.util.StringMap;
 
@@ -34,7 +35,7 @@ public final class MainWindow extends GroupFrame {
         super(_lg, _list);
         fact = _guiFactroy;
         setAccessFile("launcher.mainwindow");
-        messages = getMessages(this,"resources_lg_gui/gui/messages");
+        messages = ExtractFromFiles.getMessagesFromLocaleClass("resources_lg_gui/gui/messages", getLanguageKey(), getAccessFile());
         setTitle(messages.getVal("title"));
         setJMenuBar(new MenuBar());
         menu = new Menu(messages.getVal("file"));

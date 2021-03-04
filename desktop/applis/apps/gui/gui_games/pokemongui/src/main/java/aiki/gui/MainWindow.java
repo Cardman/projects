@@ -59,6 +59,9 @@ import code.network.AttemptConnecting;
 import code.network.BasicClient;
 import code.network.Exiting;
 import code.network.NetGroupFrame;
+import code.resources.ResourceFiles;
+import code.sml.stream.ExtractFromFiles;
+import code.sml.util.ResourcesMessagesUtil;
 import code.stream.StreamFolderFile;
 import code.stream.StreamTextFile;
 import code.threads.ThreadUtil;
@@ -299,7 +302,11 @@ public final class MainWindow extends NetGroupFrame {
         initMessages();
         setTitle(messages.getVal(TITLE));
     }
-
+    public static StringMap<String> getMessagesFromLocaleClass(String _folder, String _loc, String _class) {
+        String fileName_ = ResourcesMessagesUtil.getPropertiesPath(_folder, _loc, _class);
+        String loadedResourcesMessages_ = ResourceFiles.ressourceFichier(fileName_);
+        return ResourcesMessagesUtil.getMessagesFromContent(loadedResourcesMessages_);
+    }
     @Override
     public void quit() {
         if (indexInGame != IndexConstants.INDEX_NOT_FOUND_ELT) {
@@ -421,7 +428,7 @@ public final class MainWindow extends NetGroupFrame {
     public void initMessages() {
         facade.getData().setLanguage(facade.getLanguage());
         DocumentReaderAikiCoreUtil.initMessages(facade.getData(),facade.getLanguage());
-        messages = getMessages(this,Resources.MESSAGES_FOLDER);
+        messages = MainWindow.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, getLanguageKey(), getAccessFile());
         file.setText(messages.getVal(CST_FILE));
         zipLoad.setText(messages.getVal(ZIP_LOAD));
         folderLoad.setText(messages.getVal(FOLDER_LOAD));

@@ -9,8 +9,8 @@ import aiki.gui.threads.PreparedRenderedPages;
 import aiki.sml.Resources;
 import aiki.gui.MainWindow;
 import code.gui.*;
-import code.gui.document.PreparedAnalyzed;
 import code.gui.document.RenderedPage;
+import code.sml.stream.ExtractFromFiles;
 import code.util.StringMap;
 
 public final class DialogHtmlData extends Dialog {
@@ -64,13 +64,13 @@ public final class DialogHtmlData extends Dialog {
     }
 
     private void init(MainWindow _window,Dialog _parent, RenderedPage _session) {
-        messages = getMessages(_window,Resources.MESSAGES_FOLDER);
+        messages = MainWindow.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, _window.getLanguageKey(), getAccessFile());
         setLocationRelativeTo(_parent);
         initSession(_session);
     }
 
     private void init(MainWindow _window,MainWindow _parent, RenderedPage _session) {
-        messages = getMessages(_window,Resources.MESSAGES_FOLDER);
+        messages = MainWindow.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, _window.getLanguageKey(), getAccessFile());
         setLocationRelativeTo(_parent);
         initSession(_session);
     }

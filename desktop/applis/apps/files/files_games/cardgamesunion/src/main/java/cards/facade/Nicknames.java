@@ -3,7 +3,7 @@ import cards.belote.enumerations.DealingBelote;
 import cards.facade.sml.DocumentWriterCardsUnionUtil;
 import cards.president.RulesPresident;
 import cards.tarot.enumerations.DealingTarot;
-import code.sml.stream.ExtractFromFiles;
+import code.sml.util.ResourcesMessagesUtil;
 import code.stream.StreamTextFile;
 import code.util.StringList;
 import code.util.StringMap;
@@ -26,7 +26,8 @@ public final class Nicknames {
     }
 
     public Nicknames(String _loc){
-        StringMap<String> messages_ = ExtractFromFiles.getMessagesFromLocaleClass(RESSOURCES_CLASSES, _loc, NICKNAMES);
+        StringMap<String> messages_ = ResourcesMessagesUtil.getMessagesFromContent(nicknames().getVal(_loc));
+//        StringMap<String> messages_ = ExtractFromFiles.getMessagesFromLocaleClass(RESSOURCES_CLASSES, _loc, NICKNAMES);
         pseudo = messages_.getVal(USER);
         String player_ = messages_.getVal(NICKNAME);
         int maxJoueurs_=DealingBelote.values()[IndexConstants.FIRST_INDEX].getNombreJoueurs();
@@ -65,6 +66,12 @@ public final class Nicknames {
         pseudosPresident = _pseudos.pseudosPresident;
     }
 
+    private static StringMap<String> nicknames() {
+        StringMap<String> m = new StringMap<String>();
+        m.addEntry("en","user=Your_nickname\nnickname=Player {0}");
+        m.addEntry("fr","user=Votre_pseudo\nnickname=Joueur {0}");
+        return m;
+    }
     public boolean isValidNicknames() {
         int maxJoueurs_=DealingBelote.values()[IndexConstants.FIRST_INDEX].getNombreJoueurs();
         for(DealingBelote r:DealingBelote.values()){

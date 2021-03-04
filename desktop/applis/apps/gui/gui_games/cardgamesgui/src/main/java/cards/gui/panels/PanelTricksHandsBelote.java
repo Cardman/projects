@@ -54,7 +54,7 @@ public class PanelTricksHandsBelote implements ViewablePanelTricksHands {
         numberPlayers = _numberPlayers;
         displayingBelote = _displayingBelote;
         String lg_ = window.getLanguageKey();
-        messages = ExtractFromFiles.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, lg_,ACCESS);
+        messages = MainWindow.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, lg_,ACCESS);
         parent = _parent;
         tricksHands = _tricksHands;
         DealBelote dealt_ = tricksHands.getDistribution();

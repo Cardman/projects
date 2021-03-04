@@ -8,6 +8,7 @@ import cards.gui.MainWindow;
 import cards.gui.dialogs.events.ListenerChangeSlide;
 import cards.gui.dialogs.events.ListenerParameters;
 import code.gui.*;
+import code.sml.stream.ExtractFromFiles;
 import code.util.EnumList;
 import code.util.EnumMap;
 import code.util.StringList;
@@ -48,7 +49,7 @@ public final class DialogSoft extends DialogCards {
         _fenetre.getDialogSoft().setDialogIcon(_fenetre);
         _fenetre.getDialogSoft().setTitle(_titre);
 //        DIALOG.messages = ExtractFromFiles.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, Constants.getLanguage(), DIALOG.getClass());
-        _fenetre.getDialogSoft().messages = _fenetre.getDialogSoft().getMessages(_fenetre,FileConst.FOLDER_MESSAGES_GUI);
+        _fenetre.getDialogSoft().messages = MainWindow.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, _fenetre.getLanguageKey(), _fenetre.getDialogSoft().getAccessFile());
         _fenetre.getDialogSoft().parametres = _fenetre.getParametresLogiciel();
         _fenetre.getDialogSoft().setLocationRelativeTo(_fenetre);
     }

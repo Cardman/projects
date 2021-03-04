@@ -11,6 +11,7 @@ import cards.gui.dialogs.events.ListenerStacks;
 import cards.president.RulesPresident;
 import cards.president.enumerations.EqualtyPlaying;
 import code.gui.*;
+import code.sml.stream.ExtractFromFiles;
 import code.util.*;
 import code.util.core.StringUtil;
 import code.util.ints.Listable;
@@ -60,7 +61,7 @@ public abstract class DialogPresident extends DialogCards implements DialogVaryi
     public abstract void setDialogue(boolean _enabledChangingNbPlayers,int _nbPlayers, MainWindow _window);
 
     protected void initMessageName(MainWindow _parent) {
-        setMessages(getMessages(_parent,FileConst.FOLDER_MESSAGES_GUI));
+        setMessages(MainWindow.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, _parent.getLanguageKey(), getAccessFile()));
     }
 
     protected void initJt(Spinner _nbGames, boolean _enabledChangingNbPlayers, int _nbPlayers, MainWindow _window) {

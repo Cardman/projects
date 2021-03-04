@@ -12,6 +12,7 @@ import cards.gui.dialogs.events.ValidateDisplayingEvent;
 import cards.gui.panels.SuitsScrollableList;
 import cards.president.DisplayingPresident;
 import code.gui.*;
+import code.sml.stream.ExtractFromFiles;
 import code.util.EnumList;
 import code.util.EnumMap;
 import code.util.StringList;
@@ -58,7 +59,7 @@ public final class DialogDisplayingPresident extends DialogCards implements Dial
 
     private void initMessageName(MainWindow _parent) {
 //        messages = ExtractFromFiles.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, Constants.getLanguage(), getClass());
-        messages = getMessages(_parent,FileConst.FOLDER_MESSAGES_GUI);
+        messages = MainWindow.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, _parent.getLanguageKey(), getAccessFile());
     }
     public static DisplayingPresident getDisplaying(DialogDisplayingPresident _dialog) {
         _dialog.setVisible(true);

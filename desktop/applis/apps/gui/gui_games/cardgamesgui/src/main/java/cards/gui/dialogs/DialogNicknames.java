@@ -9,6 +9,7 @@ import cards.facade.enumerations.GameEnum;
 import cards.gui.MainWindow;
 import cards.gui.dialogs.events.ListenerNicknames;
 import code.gui.*;
+import code.sml.stream.ExtractFromFiles;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
@@ -40,7 +41,7 @@ public final class DialogNicknames extends DialogCards {
         _fenetre.getDialogNicknames().setDialogIcon(_fenetre);
         _fenetre.getDialogNicknames().setTitle(_titre);
 //        DIALOG.messages = ExtractFromFiles.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, Constants.getLanguage(), DIALOG.getClass());
-        _fenetre.getDialogNicknames().messages = _fenetre.getDialogNicknames().getMessages(_fenetre,FileConst.FOLDER_MESSAGES_GUI);
+        _fenetre.getDialogNicknames().messages = MainWindow.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, _fenetre.getLanguageKey(), _fenetre.getDialogNicknames().getAccessFile());
         _fenetre.getDialogNicknames().pseudos = _fenetre.getPseudosJoueurs();
         _fenetre.getDialogNicknames().setMain(_fenetre);
         _fenetre.getDialogNicknames().setLocationRelativeTo(_fenetre);

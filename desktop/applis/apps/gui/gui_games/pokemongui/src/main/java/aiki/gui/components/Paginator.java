@@ -116,9 +116,9 @@ public abstract class Paginator {
 
     protected void initMessages(String _access) {
         String lg_ = main.getLanguageKey();
-        messages = ExtractFromFiles.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, lg_, ACCESS);
-        messages.putAllMap(ExtractFromFiles.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, lg_, _access));
-        StringMap<String> map_ = ExtractFromFiles.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, lg_, ACCESS_SEARCH);
+        messages = MainWindow.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, lg_, ACCESS);
+        messages.putAllMap(MainWindow.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, lg_, _access));
+        StringMap<String> map_ = MainWindow.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, lg_, ACCESS_SEARCH);
         messagesSearchMode.clear();
         for (String k: map_.getKeys()) {
             messagesSearchMode.put(DocumentReaderAikiCoreUtil.getSearchingModeByName(k), map_.getVal(k));

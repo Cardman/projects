@@ -11,6 +11,7 @@ import aiki.gui.MainWindow;
 import aiki.gui.threads.AfterSettingDifficutyThread;
 import code.gui.*;
 import code.gui.document.RenderedPage;
+import code.sml.stream.ExtractFromFiles;
 import code.util.StringMap;
 
 public final class DialogDifficulty extends Dialog {
@@ -41,7 +42,7 @@ public final class DialogDifficulty extends Dialog {
         facade = _facade;
         window = _window;
         //super(_window, true);
-        messages = getMessages(_window, Resources.MESSAGES_FOLDER);
+        messages = MainWindow.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, _window.getLanguageKey(), getAccessFile());
         setModal(true);
         setTitle(_title);
         setLocationRelativeTo(_window);

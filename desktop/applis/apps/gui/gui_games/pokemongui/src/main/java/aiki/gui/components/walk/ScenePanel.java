@@ -376,8 +376,8 @@ public class ScenePanel {
     }
 
     public void initMessages(String _lg) {
-        messages = ExtractFromFiles.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, _lg,SCENE_PANEL);
-        messagesTeamPanel = ExtractFromFiles.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, _lg, TeamPanel.TEAM_PANEL);
+        messages = MainWindow.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, _lg,SCENE_PANEL);
+        messagesTeamPanel = MainWindow.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, _lg, TeamPanel.TEAM_PANEL);
     }
 
     public void setMessages() {
