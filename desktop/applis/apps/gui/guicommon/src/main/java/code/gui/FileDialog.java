@@ -11,7 +11,6 @@ import code.gui.events.ClickHeaderEvent;
 import code.gui.events.ClickRowEvent;
 import code.gui.events.DeployTreeEvent;
 import code.gui.initialize.AbstractGraphicStringListGenerator;
-import code.resources.ResourceFiles;
 import code.scripts.messages.gui.MessGuiGr;
 import code.sml.util.ResourcesMessagesUtil;
 import code.stream.StreamFolderFile;

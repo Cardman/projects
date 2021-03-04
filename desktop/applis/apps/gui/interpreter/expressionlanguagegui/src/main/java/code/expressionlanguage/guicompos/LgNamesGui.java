@@ -12,7 +12,6 @@ import code.expressionlanguage.stds.*;
 import code.expressionlanguage.structs.*;
 import code.expressionlanguage.utilcompo.*;
 import code.expressionlanguage.utilimpl.LgNamesUtils;
-import code.resources.ResourceFiles;
 import code.sml.util.ResourcesMessagesUtil;
 import code.util.CustList;
 import code.util.StringMap;

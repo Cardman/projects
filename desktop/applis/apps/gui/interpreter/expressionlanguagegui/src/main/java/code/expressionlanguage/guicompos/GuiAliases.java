@@ -23,7 +23,6 @@ import code.expressionlanguage.utilcompo.ExecutingBlocks;
 import code.expressionlanguage.utilcompo.RunnableContextEl;
 import code.gui.*;
 import code.gui.initialize.AbstractGraphicComboBoxGenerator;
-import code.resources.ResourceFiles;
 import code.scripts.messages.gui.MessCdmBaseGr;
 import code.scripts.messages.gui.MessCdmGuiGr;
 import code.util.CustList;

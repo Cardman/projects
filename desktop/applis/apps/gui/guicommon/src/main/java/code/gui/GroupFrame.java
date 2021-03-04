@@ -8,7 +8,6 @@ import javax.swing.*;
 import code.expressionlanguage.filenames.AbstractNameValidating;
 import code.gui.initialize.AbstractProgramInfos;
 import code.maths.montecarlo.AbstractGenerator;
-import code.resources.ResourceFiles;
 import code.scripts.messages.gui.MessGuiGr;
 import code.sml.util.ResourcesMessagesUtil;
 import code.util.StringMap;

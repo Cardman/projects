@@ -3,7 +3,6 @@
 package code.gui;
 import code.gui.events.CancelSelectFileEvent;
 import code.gui.events.SubmitMouseEvent;
-import code.resources.ResourceFiles;
 import code.scripts.messages.gui.MessGuiGr;
 import code.sml.util.ResourcesMessagesUtil;
 import code.util.StringMap;

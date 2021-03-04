@@ -5,7 +5,6 @@ import code.gui.*;
 import code.gui.initialize.AbstractProgramInfos;
 import code.gui.initialize.LoadLanguageUtil;
 import code.player.gui.CreateMainWindow;
-import code.resources.ResourceFiles;
 import code.scripts.messages.gui.MessPlayerGr;
 import code.stream.StreamTextFile;
 import code.util.StringMap;

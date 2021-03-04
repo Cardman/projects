@@ -13,7 +13,6 @@ import code.gui.CustGraphics;
 import code.gui.PaintableLabel;
 import code.gui.images.ConverterGraphicBufferedImage;
 import code.images.BaseSixtyFourUtil;
-import code.resources.ResourceFiles;
 import code.scripts.pages.cards.CardsInit;
 import code.stream.StreamTextFile;
 import code.util.core.StringUtil;

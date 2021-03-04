@@ -9,7 +9,6 @@ import code.gui.ScrollPane;
 import code.gui.TextArea;
 import code.gui.events.QuittingEvent;
 import code.gui.initialize.AbstractProgramInfos;
-import code.resources.ResourceFiles;
 import code.scripts.messages.gui.MessCdmGuiGr;
 import code.sml.util.ResourcesMessagesUtil;
 import code.stream.StreamTextFile;

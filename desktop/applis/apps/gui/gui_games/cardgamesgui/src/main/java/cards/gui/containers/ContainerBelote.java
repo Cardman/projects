@@ -22,7 +22,6 @@ import cards.main.LaunchingCards;
 import code.gui.LabelButton;
 import code.gui.Panel;
 import code.gui.initialize.AbstractProgramInfos;
-import code.resources.ResourceFiles;
 import code.scripts.messages.cards.MessagesBeloteBelote;
 import code.stream.StreamTextFile;
 import code.util.CustList;
@@ -247,7 +246,7 @@ public class ContainerBelote extends ContainerGame {
         partieAleatoireJouee = _partieAleatoireJouee;
     }
     public String readResource() {
-        return MessagesBeloteBelote.ms().getVal(StringUtil.concat(BeloteResoucesAccess.NOM_DOSSIER,ResourceFiles.SEPARATEUR,getOwner().getLanguageKey(),ResourceFiles.SEPARATEUR, BeloteResoucesAccess.NOM_FICHIER));
+        return MessagesBeloteBelote.ms().getVal(StringUtil.concat(BeloteResoucesAccess.NOM_DOSSIER, "/",getOwner().getLanguageKey(), "/", BeloteResoucesAccess.NOM_FICHIER));
 //        return ResourceFiles.ressourceFichier(StringUtil.concat(BeloteResoucesAccess.NOM_DOSSIER,ResourceFiles.SEPARATEUR,getOwner().getLanguageKey(),ResourceFiles.SEPARATEUR, BeloteResoucesAccess.NOM_FICHIER));
     }
 

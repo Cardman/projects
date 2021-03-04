@@ -7,7 +7,6 @@ import code.expressionlanguage.utilcompo.FileInfos;
 import code.expressionlanguage.utilfiles.DefaultFileSystem;
 import code.expressionlanguage.utilfiles.DefaultLogger;
 import code.expressionlanguage.utilfiles.DefaultReporter;
-import code.expressionlanguage.utilfiles.DefaultResourcesReader;
 import code.formathtml.util.BeanCustLgNames;
 import code.gui.*;
 import code.gui.Menu;
@@ -166,7 +165,7 @@ public final class MainWindow extends GroupFrame {
             }
         }
         AbstractNameValidating validator_ = getValidator();
-        LgNamesRenderUtils lgNames_ = new LgNamesRenderUtils(new FileInfos(new DefaultResourcesReader(),new DefaultLogger(validator_, null),
+        LgNamesRenderUtils lgNames_ = new LgNamesRenderUtils(new FileInfos(new DefaultLogger(validator_, null),
                 new DefaultFileSystem(app_, validator_), new DefaultReporter(validator_, app_, false), getGenerator()));
         lgNames_.setExecutingOptions(exec_);
         session.initNav();

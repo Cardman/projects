@@ -20,7 +20,6 @@ import code.expressionlanguage.utilcompo.*;
 import code.expressionlanguage.utilfiles.DefaultFileSystem;
 import code.expressionlanguage.utilfiles.DefaultLogger;
 import code.expressionlanguage.utilfiles.DefaultReporter;
-import code.expressionlanguage.utilfiles.DefaultResourcesReader;
 import code.expressionlanguage.utilimpl.CustContextFactory;
 import code.expressionlanguage.utilimpl.RunningTest;
 import code.gui.Clock;
@@ -90,7 +89,7 @@ public final class GuiProcess implements Runnable {
             mainArgs_.add(0, _conf);
         }
         AbstractNameValidating validator_ = _window.getValidator();
-        FileInfos fileInfos_ = new FileInfos(new DefaultResourcesReader(), new DefaultLogger(validator_, null), new DefaultFileSystem(app_, validator_), new DefaultReporter(validator_, app_, false), _window.getGenerator());
+        FileInfos fileInfos_ = new FileInfos(new DefaultLogger(validator_, null), new DefaultFileSystem(app_, validator_), new DefaultReporter(validator_, app_, false), _window.getGenerator());
 
         StringMap<String> list_ = RunningTest.tryGetSrc(archive_, exec_, fileInfos_, result_);
         if (list_ == null) {

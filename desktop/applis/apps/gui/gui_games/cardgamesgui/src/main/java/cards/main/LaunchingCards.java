@@ -15,7 +15,6 @@ import cards.tarot.sml.DocumentWriterTarotUtil;
 import code.gui.*;
 import code.gui.initialize.AbstractProgramInfos;
 import code.gui.initialize.LoadLanguageUtil;
-import code.resources.ResourceFiles;
 import code.scripts.messages.gui.MessCardVideoGr;
 import code.stream.StreamFolderFile;
 import code.stream.StreamTextFile;

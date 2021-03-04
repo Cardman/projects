@@ -8,7 +8,6 @@ import code.expressionlanguage.structs.*;
 import code.expressionlanguage.utilfiles.DefaultFileSystem;
 import code.expressionlanguage.utilfiles.DefaultLogger;
 import code.expressionlanguage.utilfiles.DefaultReporter;
-import code.expressionlanguage.utilfiles.DefaultResourcesReader;
 import code.expressionlanguage.utilimpl.RunningTest;
 import code.gui.*;
 import code.gui.Menu;
@@ -19,7 +18,6 @@ import code.gui.ScrollPane;
 import code.gui.TextArea;
 import code.gui.events.QuittingEvent;
 import code.gui.initialize.AbstractProgramInfos;
-import code.resources.ResourceFiles;
 import code.scripts.messages.gui.MessCdmUnitGr;
 import code.sml.util.ResourcesMessagesUtil;
 import code.threads.ThreadUtil;
@@ -236,7 +234,7 @@ public final class MainWindow extends GroupFrame implements TestableFrame {
 
     public FileInfos getInfos() {
         AbstractNameValidating validator_ = getValidator();
-        return new FileInfos(new DefaultResourcesReader(), buildLogger(validator_),
+        return new FileInfos(buildLogger(validator_),
                 buildSystem(validator_), new DefaultReporter(validator_, uniformingString, memory.isSelected()), getGenerator());
     }
 

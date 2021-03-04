@@ -9,7 +9,6 @@ import code.maths.LgInt;
 import code.maths.Rate;
 import code.maths.montecarlo.AbstractGenerator;
 import code.maths.montecarlo.MonteCarloNumber;
-import code.resources.ResourceFiles;
 import code.scripts.messages.gui.MessPkVideoGr;
 import code.stream.StreamImageFile;
 import code.util.CustList;

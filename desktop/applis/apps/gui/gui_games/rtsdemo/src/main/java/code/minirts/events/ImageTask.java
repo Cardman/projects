@@ -3,7 +3,6 @@ package code.minirts.events;
 import code.gui.images.ConverterGraphicBufferedImage;
 import code.images.BaseSixtyFourUtil;
 import code.minirts.MainWindow;
-import code.resources.ResourceFiles;
 import code.stream.StreamImageFile;
 import code.stream.StreamTextFile;
 import code.util.core.StringUtil;

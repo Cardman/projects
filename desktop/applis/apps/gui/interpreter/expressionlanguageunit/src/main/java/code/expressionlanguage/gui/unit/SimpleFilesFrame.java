@@ -6,7 +6,6 @@ import code.expressionlanguage.filenames.AbstractNameValidating;
 import code.expressionlanguage.structs.*;
 import code.expressionlanguage.utilcompo.FileInfos;
 import code.expressionlanguage.utilcompo.LgNamesWithNewAliases;
-import code.expressionlanguage.utilfiles.DefaultResourcesReader;
 import code.gui.*;
 import code.gui.Menu;
 import code.gui.MenuBar;
@@ -16,7 +15,6 @@ import code.gui.ScrollPane;
 import code.gui.TextArea;
 import code.gui.TextField;
 import code.gui.events.ClosingChildFrameEvent;
-import code.resources.ResourceFiles;
 import code.scripts.messages.gui.MessCdmUnitGr;
 import code.sml.util.ResourcesMessagesUtil;
 import code.stream.StreamBinaryFile;
@@ -224,7 +222,7 @@ public final class SimpleFilesFrame extends ChildFrame implements TestableFrame 
 
     public FileInfos getInfos() {
         AbstractNameValidating validator_ = parent.getValidator();
-        return FileInfos.buildMemoryFromFile(new DefaultResourcesReader(),parent.getGenerator(),
+        return FileInfos.buildMemoryFromFile(parent.getGenerator(),
                 confFile, src,files,
                 validator_,unitIssuer);
     }

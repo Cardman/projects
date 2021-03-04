@@ -9,7 +9,6 @@ import cards.facade.Nicknames;
 import cards.facade.SoftParams;
 import cards.facade.enumerations.GameEnum;
 import cards.gui.MainWindow;
-import cards.gui.animations.PreparedPagesCards;
 import cards.gui.dialogs.FileConst;
 import cards.gui.panels.Carpet;
 import cards.gui.panels.MiniCarpet;
@@ -21,8 +20,6 @@ import cards.tarot.RulesTarot;
 import cards.tarot.enumerations.ChoiceTarot;
 import code.gui.*;
 import code.gui.initialize.AbstractProgramInfos;
-import code.resources.ResourceFiles;
-import code.scripts.messages.cards.MessagesCardsAll;
 import code.scripts.messages.cards.MessagesCommonCommon;
 import code.stream.StreamTextFile;
 import code.util.EnumMap;
@@ -495,7 +492,7 @@ public class ContainerGame implements Containable {
     }
 
     public String readCoreResource() {
-        return MessagesCommonCommon.ms().getVal(StringUtil.concat(CoreResourcesAccess.NOM_DOSSIER,ResourceFiles.SEPARATEUR,getOwner().getLanguageKey(),ResourceFiles.SEPARATEUR,CoreResourcesAccess.NOM_FICHIER));
+        return MessagesCommonCommon.ms().getVal(StringUtil.concat(CoreResourcesAccess.NOM_DOSSIER, "/",getOwner().getLanguageKey(), "/",CoreResourcesAccess.NOM_FICHIER));
 //        return ResourceFiles.ressourceFichier(StringUtil.concat(CoreResourcesAccess.NOM_DOSSIER,ResourceFiles.SEPARATEUR,getOwner().getLanguageKey(),ResourceFiles.SEPARATEUR,CoreResourcesAccess.NOM_FICHIER));
     }
 

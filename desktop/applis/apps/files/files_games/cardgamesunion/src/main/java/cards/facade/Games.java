@@ -18,7 +18,6 @@ import cards.tarot.RulesTarot;
 import cards.tarot.enumerations.*;
 import cards.tarot.sml.DocumentWriterTarotUtil;
 import code.format.Format;
-import code.resources.ResourceFiles;
 import code.scripts.messages.cards.MessBeloteGr;
 import code.scripts.messages.cards.MessPresidentGr;
 import code.scripts.messages.cards.MessTarotGr;
@@ -261,7 +260,7 @@ public final class Games {
     }
 
     private static String tarotFileName(String _loc) {
-        return StringUtil.concat(FOLDER, ResourceFiles.SEPARATEUR, _loc, ResourceFiles.SEPARATEUR, TAROT_FILE_NAME);
+        return StringUtil.concat(FOLDER, "/", _loc, "/", TAROT_FILE_NAME);
     }
 
     public static String autoriseBelote(GameBelote _g,String _loc) {
@@ -339,7 +338,7 @@ public final class Games {
     }
 
     private static String beloteFileName(String _loc) {
-        return StringUtil.concat(FOLDER, ResourceFiles.SEPARATEUR, _loc, ResourceFiles.SEPARATEUR, BELOTE_FILE_NAME);
+        return StringUtil.concat(FOLDER, "/", _loc, "/", BELOTE_FILE_NAME);
     }
 
     public static StringBuilder autorisePresident(GamePresident _g,byte _player, CardPresident _card, byte _nb, String _loc) {
@@ -384,7 +383,7 @@ public final class Games {
     }
 
     private static String presidentFileName(String _loc) {
-        return StringUtil.concat(FOLDER, ResourceFiles.SEPARATEUR, _loc, ResourceFiles.SEPARATEUR, PRESIDENT_FILE_NAME);
+        return StringUtil.concat(FOLDER, "/", _loc, "/", PRESIDENT_FILE_NAME);
     }
 
     public static String autoriseTarot(GameTarot _g, String _loc) {
@@ -465,7 +464,7 @@ public final class Games {
     }
 
     private static String symbolChars(String _loc) {
-        return StringUtil.concat(CoreResourcesAccess.NOM_DOSSIER, ResourceFiles.SEPARATEUR, _loc, ResourceFiles.SEPARATEUR, CoreResourcesAccess.SYMBOL_CARDS_TXT);
+        return StringUtil.concat(CoreResourcesAccess.NOM_DOSSIER, "/", _loc, "/", CoreResourcesAccess.SYMBOL_CARDS_TXT);
     }
 
     public static String toString(CardChar _c,String _loc) {
@@ -476,7 +475,7 @@ public final class Games {
     }
 
     private static String beloteCoreFileName(String _locale) {
-        return StringUtil.concat(BeloteResoucesAccess.NOM_DOSSIER, ResourceFiles.SEPARATEUR, _locale, ResourceFiles.SEPARATEUR, BeloteResoucesAccess.NOM_FICHIER);
+        return StringUtil.concat(BeloteResoucesAccess.NOM_DOSSIER, "/", _locale, "/", BeloteResoucesAccess.NOM_FICHIER);
     }
 
     public static String toString(BidBeloteSuit _b, String _loc) {
@@ -518,7 +517,7 @@ public final class Games {
     }
 
     private static String presidentCoreFileName(String _locale) {
-        return StringUtil.concat(PresidentResoucesAccess.NOM_DOSSIER, ResourceFiles.SEPARATEUR, _locale, ResourceFiles.SEPARATEUR, PresidentResoucesAccess.NOM_FICHIER);
+        return StringUtil.concat(PresidentResoucesAccess.NOM_DOSSIER, "/", _locale, "/", PresidentResoucesAccess.NOM_FICHIER);
     }
 
     public static String toString(ModeTarot _b, String _locale){
@@ -550,7 +549,7 @@ public final class Games {
     }
 
     private static String tarotCoreFileName(String _locale) {
-        return StringUtil.concat(TarotResoucesAccess.NOM_DOSSIER, ResourceFiles.SEPARATEUR, _locale, ResourceFiles.SEPARATEUR, TarotResoucesAccess.NOM_FICHIER);
+        return StringUtil.concat(TarotResoucesAccess.NOM_DOSSIER, "/", _locale, "/", TarotResoucesAccess.NOM_FICHIER);
     }
 
     public static String toString(Suit _b, String _locale) {
@@ -565,7 +564,7 @@ public final class Games {
     }
 
     private static String coreFileName(String _locale) {
-        return StringUtil.concat(CoreResourcesAccess.NOM_DOSSIER, ResourceFiles.SEPARATEUR, _locale, ResourceFiles.SEPARATEUR, CoreResourcesAccess.NOM_FICHIER);
+        return StringUtil.concat(CoreResourcesAccess.NOM_DOSSIER, "/", _locale, "/", CoreResourcesAccess.NOM_FICHIER);
     }
 
     public RulesBelote getRulesBelote() {

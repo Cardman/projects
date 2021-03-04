@@ -12,7 +12,6 @@ import code.maths.geo.CustPoint;
 import code.minirts.events.*;
 import code.minirts.rts.Direction;
 import code.minirts.rts.Facade;
-import code.resources.ResourceFiles;
 import code.scripts.messages.gui.MessPlayerGr;
 import code.util.StringMap;
 

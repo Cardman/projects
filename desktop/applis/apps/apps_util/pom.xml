@@ -13,7 +13,6 @@
 	<packaging>pom</packaging>
 	<modules>
 		<module>streamcore</module>
-		<module>resources</module>
 		<module>threads</module>
 		<module>random</module>
 		<module>stream</module>

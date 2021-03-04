@@ -11,7 +11,6 @@ import code.expressionlanguage.filenames.AbstractNameValidating;
 import code.gui.*;
 import code.gui.initialize.AbstractProgramInfos;
 import code.gui.initialize.LoadLanguageUtil;
-import code.resources.ResourceFiles;
 import code.scripts.messages.gui.MessPkVideoGr;
 import code.stream.StreamFolderFile;
 import code.stream.StreamTextFile;

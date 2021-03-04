@@ -8,7 +8,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 
 public final class ResourceFiles {
-    public static final String SEPARATEUR = "/";
     private static final String EMPTY_STRING = "";
 
     private ResourceFiles() {
