@@ -19,6 +19,9 @@ import cards.tarot.enumerations.*;
 import cards.tarot.sml.DocumentWriterTarotUtil;
 import code.format.Format;
 import code.resources.ResourceFiles;
+import code.scripts.messages.cards.MessBeloteGr;
+import code.scripts.messages.cards.MessPresidentGr;
+import code.scripts.messages.cards.MessTarotGr;
 import code.scripts.messages.cards.MessagesCardsAll;
 import code.stream.StreamTextFile;
 import code.util.CustList;
@@ -113,12 +116,11 @@ public final class Games {
 
     /**@see getConstante
      @return la chaine de caracteres retournee par la methode getConstante qui est formatte avec _variables
-      * @param _file
+      * @param _fichier
      * @param _nomConstante nom de la constante en rapport avec la chaine de caracteres
-     * @param _variables liste de parametres remplacant les expressions comme {0} {1}... */
-    private static String formatter(String _file, String _nomConstante, String... _variables){
-        String fichier_ = ResourceFiles.ressourceFichier(_file);
-        String constante_ = Format.getConstanteLangue(_nomConstante, fichier_);
+     * @param _variables liste de parametres remplacant les expressions comme {0} {1}...    */
+    private static String formatter(String _fichier, String _nomConstante, String... _variables){
+        String constante_ = Format.getConstanteLangue(_nomConstante, _fichier);
         return StringUtil.simpleStringsFormat(constante_, _variables);
     }
 
@@ -195,8 +197,9 @@ public final class Games {
         }
     }
     public static StringBuilder autoriseMessEcartDe(GameTarot _g,ReasonDiscard _r,CardTarot _c, String _loc) {
+        StringMap<String> ms_ = MessTarotGr.ms();
         if(_r == ReasonDiscard.TOO_MUCH) {
-            return new StringBuilder(formatter(tarotFileName(_loc), TAROT_TOO_MANY_CARDS));
+            return new StringBuilder(formatter(ms_.getVal(tarotFileName(_loc)), TAROT_TOO_MANY_CARDS));
         }
         HandTarot m = _g.getDistribution().hand(_g.getPreneur());
         EnumMap<Suit,HandTarot> rep_ = m.couleurs();
@@ -219,41 +222,42 @@ public final class Games {
         StringBuilder m_ = new StringBuilder();
         if (total_ - rois_ - atoutsExcuse_ < nbDog_) {
             if(_c.estUnBout()) {
-                m_.append(formatter(tarotFileName(_loc), TAROT_NO_DISCARDED_OUDLER, toString(_c,_loc))).append(RETURN_LINE);
+                m_.append(formatter(ms_.getVal(tarotFileName(_loc)), TAROT_NO_DISCARDED_OUDLER, toString(_c,_loc))).append(RETURN_LINE);
             }
             if(_c.couleur() == Suit.TRUMP && !_c.estUnBout()) {
-                m_.append(formatter(tarotFileName(_loc), TAROT_DISCARDED_TRUMP, toString(_c,_loc))).append(RETURN_LINE);
+                m_.append(formatter(ms_.getVal(tarotFileName(_loc)), TAROT_DISCARDED_TRUMP, toString(_c,_loc))).append(RETURN_LINE);
             }
             if(_c.getNomFigure() == CardChar.KING) {
-                m_.append(formatter(tarotFileName(_loc), TAROT_NO_DISCARDED_CHARACTER, toString(_c,_loc), toString(CardChar.KING,_loc))).append(RETURN_LINE);
+                m_.append(formatter(ms_.getVal(tarotFileName(_loc)), TAROT_NO_DISCARDED_CHARACTER, toString(_c,_loc), toString(CardChar.KING,_loc))).append(RETURN_LINE);
             }
             return m_;
         } else {
             if(_c.estUnBout()) {
-                m_.append(formatter(tarotFileName(_loc), TAROT_NO_DISCARDED_OUDLER, toString(_c,_loc))).append(RETURN_LINE);
+                m_.append(formatter(ms_.getVal(tarotFileName(_loc)), TAROT_NO_DISCARDED_OUDLER, toString(_c,_loc))).append(RETURN_LINE);
             }
             if(_c.couleur() == Suit.TRUMP) {
-                m_.append(formatter(tarotFileName(_loc), TAROT_NO_DISCARDED_TRUMP, toString(_c,_loc))).append(RETURN_LINE);
+                m_.append(formatter(ms_.getVal(tarotFileName(_loc)), TAROT_NO_DISCARDED_TRUMP, toString(_c,_loc))).append(RETURN_LINE);
             }
             if(_c.getNomFigure() == CardChar.KING) {
-                m_.append(formatter(tarotFileName(_loc), TAROT_NO_DISCARDED_CHARACTER, toString(_c,_loc), toString(CardChar.KING,_loc))).append(RETURN_LINE);
+                m_.append(formatter(ms_.getVal(tarotFileName(_loc)), TAROT_NO_DISCARDED_CHARACTER, toString(_c,_loc), toString(CardChar.KING,_loc))).append(RETURN_LINE);
             }
         }
         return m_;
     }
 
     public static String isValidHandfulMessage(GameTarot _g,Handfuls _h, HandTarot _hand,HandTarot _excludedCards, String _loc) {
+        StringMap<String> ms_ = MessTarotGr.ms();
         int nbTrumps_ = _g.getRules().getPoigneesAutorisees().getVal(_h);
         if (_hand.total()==nbTrumps_&&(!_hand.contient(CardTarot.excuse())||_excludedCards.estVide())) {
             return EMPTY;
         }
         if(_hand.total()>nbTrumps_) {
-            return formatter(tarotFileName(_loc), TAROT_HANDFUL_TOO_MANY_TRUMPS, Long.toString((long)_hand.total()-nbTrumps_));
+            return formatter(ms_.getVal(tarotFileName(_loc)), TAROT_HANDFUL_TOO_MANY_TRUMPS, Long.toString((long)_hand.total()-nbTrumps_));
         }
         if(_hand.total()<nbTrumps_) {
-            return formatter(tarotFileName(_loc), TAROT_HANDFUL_NOT_ENOUGH_TRUMPS, Long.toString((long)nbTrumps_-_hand.total()));
+            return formatter(ms_.getVal(tarotFileName(_loc)), TAROT_HANDFUL_NOT_ENOUGH_TRUMPS, Long.toString((long)nbTrumps_-_hand.total()));
         }
-        return formatter(tarotFileName(_loc), TAROT_HANDFUL_EXCUSE);
+        return formatter(ms_.getVal(tarotFileName(_loc)), TAROT_HANDFUL_EXCUSE);
     }
 
     private static String tarotFileName(String _loc) {
@@ -271,66 +275,67 @@ public final class Games {
         CardBelote carteForte_= _g.getProgressingTrick().carteDuJoueur(ramasseurVirtuel_,_g.getNombreDeJoueurs());
         HandBelote leadingSuit_ = GameBeloteCommon.hand(e_,couleurDemandee_);
         GameBeloteTeamsRelation team_ = _g.getTeamsRelation();
+        StringMap<String> ms_ = MessBeloteGr.ms();
         if(_g.getBid().getCouleurDominante()) {
             HandBelote trumps_ = GameBeloteCommon.hand(e_,couleurAtout_);
             byte valeurForte_=carteForte_.strength(couleurDemandee_, _g.getBid());
             if(couleurAtout_==couleurDemandee_) {
                 //Nombre d'atouts dans la main du joueur
                 if(trumps_.derniereCarte().strength(couleurDemandee_, _g.getBid())>valeurForte_) {
-                    return formatter(beloteFileName(_loc), BELOTE_PLAY_SUIT, toString(couleurDemandee_,_loc));
+                    return formatter(ms_.getVal(beloteFileName(_loc)), BELOTE_PLAY_SUIT, toString(couleurDemandee_,_loc));
                 }
                 if(trumps_.premiereCarte().strength(couleurDemandee_, _g.getBid())<valeurForte_) {
-                    return formatter(beloteFileName(_loc), BELOTE_PLAY_SUIT, toString(couleurDemandee_,_loc));
+                    return formatter(ms_.getVal(beloteFileName(_loc)), BELOTE_PLAY_SUIT, toString(couleurDemandee_,_loc));
                 }
-                return formatter(beloteFileName(_loc), BELOTE_PLAY_STRONGER_CARD, toString(carteForte_,_loc));
+                return formatter(ms_.getVal(beloteFileName(_loc)), BELOTE_PLAY_STRONGER_CARD, toString(carteForte_,_loc));
             }
             if(!leadingSuit_.estVide()) {
-                return formatter(beloteFileName(_loc), BELOTE_PLAY_SUIT, toString(couleurDemandee_,_loc));
+                return formatter(ms_.getVal(beloteFileName(_loc)), BELOTE_PLAY_SUIT, toString(couleurDemandee_,_loc));
             }
             if(team_.memeEquipe(ramasseurVirtuel_, numero_)) {
                 /*Le partenaire est maitre temporairement*/
                 if(team_.surCoupeObligatoirePartenaire()) {
                     if(team_.sousCoupeObligatoirePartenaire()) {
                         if(trumps_.premiereCarte().strength(couleurDemandee_, _g.getBid())<valeurForte_) {
-                            return formatter(beloteFileName(_loc), BELOTE_UNDER_TRUMP_PARTNER, toString(couleurAtout_,_loc));
+                            return formatter(ms_.getVal(beloteFileName(_loc)), BELOTE_UNDER_TRUMP_PARTNER, toString(couleurAtout_,_loc));
                         }
                     }
                     if(trumps_.derniereCarte().strength(couleurDemandee_, _g.getBid())>valeurForte_) {
-                        return formatter(beloteFileName(_loc), BELOTE_OVER_TRUMP_PARTNER, toString(couleurAtout_,_loc));
+                        return formatter(ms_.getVal(beloteFileName(_loc)), BELOTE_OVER_TRUMP_PARTNER, toString(couleurAtout_,_loc));
                     }
                     if(trumps_.premiereCarte().strength(couleurDemandee_, _g.getBid())>valeurForte_) {
-                        return formatter(beloteFileName(_loc), BELOTE_PLAY_STRONGER_CARD, toString(carteForte_,_loc));
+                        return formatter(ms_.getVal(beloteFileName(_loc)), BELOTE_PLAY_STRONGER_CARD, toString(carteForte_,_loc));
                     }
                 }
                 if(team_.sousCoupeObligatoirePartenaire()) {
                     if(trumps_.premiereCarte().strength(couleurDemandee_, _g.getBid())<valeurForte_) {
-                        return formatter(beloteFileName(_loc), BELOTE_UNDER_TRUMP_PARTNER, toString(couleurAtout_,_loc));
+                        return formatter(ms_.getVal(beloteFileName(_loc)), BELOTE_UNDER_TRUMP_PARTNER, toString(couleurAtout_,_loc));
                     }
                 }
             }
             HandBelote trumpsTrick_ = GameBeloteCommon.hand(m.couleurs(_g.getBid()),couleurAtout_);
             if(trumpsTrick_.estVide()) {
                 /*PliBelote non coupe*/
-                return formatter(beloteFileName(_loc), BELOTE_TRUMP_FOE, toString(carteForte_,_loc));
+                return formatter(ms_.getVal(beloteFileName(_loc)), BELOTE_TRUMP_FOE, toString(carteForte_,_loc));
             }
             /*PliBelote coupe par un adversaire*/
             if(trumps_.derniereCarte().strength(couleurDemandee_, _g.getBid())>valeurForte_) {
-                return formatter(beloteFileName(_loc), BELOTE_OVER_TRUMP_FOE, toString(couleurAtout_,_loc));
+                return formatter(ms_.getVal(beloteFileName(_loc)), BELOTE_OVER_TRUMP_FOE, toString(couleurAtout_,_loc));
             }
             if(trumps_.premiereCarte().strength(couleurDemandee_, _g.getBid())>valeurForte_) {
-                return formatter(beloteFileName(_loc), BELOTE_PLAY_STRONGER_CARD, toString(carteForte_,_loc));
+                return formatter(ms_.getVal(beloteFileName(_loc)), BELOTE_PLAY_STRONGER_CARD, toString(carteForte_,_loc));
             }
-            return formatter(beloteFileName(_loc), BELOTE_UNDER_TRUMP_FOE, toString(couleurAtout_,_loc));
+            return formatter(ms_.getVal(beloteFileName(_loc)), BELOTE_UNDER_TRUMP_FOE, toString(couleurAtout_,_loc));
         }
         if(_g.getBid().ordreCouleur()) {
-            return formatter(beloteFileName(_loc), BELOTE_PLAY_SUIT, toString(couleurDemandee_,_loc));
+            return formatter(ms_.getVal(beloteFileName(_loc)), BELOTE_PLAY_SUIT, toString(couleurDemandee_,_loc));
         }
         byte valeurForte_=carteForte_.strength(couleurDemandee_, _g.getBid());
         if(leadingSuit_.derniereCarte().strength(couleurDemandee_, _g.getBid())>valeurForte_
                 ||leadingSuit_.premiereCarte().strength(couleurDemandee_, _g.getBid())<valeurForte_) {
-            return formatter(beloteFileName(_loc), BELOTE_PLAY_SUIT, toString(couleurDemandee_,_loc));
+            return formatter(ms_.getVal(beloteFileName(_loc)), BELOTE_PLAY_SUIT, toString(couleurDemandee_,_loc));
         }
-        return formatter(beloteFileName(_loc), BELOTE_PLAY_STRONGER_CARD, toString(carteForte_,_loc));
+        return formatter(ms_.getVal(beloteFileName(_loc)), BELOTE_PLAY_STRONGER_CARD, toString(carteForte_,_loc));
     }
 
     private static String beloteFileName(String _loc) {
@@ -339,40 +344,42 @@ public final class Games {
 
     public static StringBuilder autorisePresident(GamePresident _g,byte _player, CardPresident _card, byte _nb, String _loc) {
         Playing playing_ = _g.getStatus(_player);
+        StringMap<String> ms_ = MessPresidentGr.ms();
         if (playing_ == Playing.PASS) {
-            return new StringBuilder(formatter(presidentFileName(_loc), PRESIDENT_HAVE_PASSED));
+            return new StringBuilder(formatter(ms_.getVal(presidentFileName(_loc)), PRESIDENT_HAVE_PASSED));
         }
         if (playing_ == Playing.SKIPPED) {
-            return new StringBuilder(formatter(presidentFileName(_loc), PRESIDENT_SKIPPED));
+            return new StringBuilder(formatter(ms_.getVal(presidentFileName(_loc)), PRESIDENT_SKIPPED));
         }
         HandPresident l_ = _g.getProgressingTrick().getBestCards();
         StringBuilder errorPlaying_ = new StringBuilder();
         byte str_ = l_.premiereCarte().strength(_g.isReversed());
         if (playing_ == Playing.HAS_TO_EQUAL) {
             if (_card.strength(_g.isReversed()) != str_) {
-                errorPlaying_.append(formatter(presidentFileName(_loc), PRESIDENT_HAS_TO_EQUAL_OR_SKIP, toString(l_.premiereCarte(),_loc))).append(RETURN_LINE);
+                errorPlaying_.append(formatter(ms_.getVal(presidentFileName(_loc)), PRESIDENT_HAS_TO_EQUAL_OR_SKIP, toString(l_.premiereCarte(),_loc))).append(RETURN_LINE);
             }
         } else if (_g.getRules().getEqualty() == EqualtyPlaying.FORBIDDEN) {
             if (_card.strength(_g.isReversed()) <= str_) {
-                errorPlaying_.append(formatter(presidentFileName(_loc), PRESIDENT_CANNOT_USE_LOWER_OR_EQ, toString(l_.premiereCarte(),_loc))).append(RETURN_LINE);
+                errorPlaying_.append(formatter(ms_.getVal(presidentFileName(_loc)), PRESIDENT_CANNOT_USE_LOWER_OR_EQ, toString(l_.premiereCarte(),_loc))).append(RETURN_LINE);
             }
         } else {
             if (_card.strength(_g.isReversed()) <= str_) {
                 errorPlaying_.append(formatter(
-                        presidentFileName(_loc), PRESIDENT_CANNOT_USE_LOWER, toString(l_.premiereCarte(),_loc))).append(RETURN_LINE);
+                        ms_.getVal(presidentFileName(_loc)), PRESIDENT_CANNOT_USE_LOWER, toString(l_.premiereCarte(),_loc))).append(RETURN_LINE);
             }
         }
         if (_nb != _g.getProgressingTrick().getNombreDeCartesParJoueur()) {
             errorPlaying_.append(formatter(
-                    presidentFileName(_loc), PRESIDENT_HAVE_PLAY_GIVEN_NUMBER_CARDS,
+                    ms_.getVal(presidentFileName(_loc)), PRESIDENT_HAVE_PLAY_GIVEN_NUMBER_CARDS,
                     Long.toString(_g.getProgressingTrick().getNombreDeCartesParJoueur()))).append(RETURN_LINE);
         }
         return errorPlaying_;
     }
 
     public static String canPassMess(GamePresident _g, String _loc) {
+        StringMap<String> ms_ = MessPresidentGr.ms();
         HandPresident b_ = _g.getProgressingTrick().getBestCards();
-        return formatter(presidentFileName(_loc), PRESIDENT_CANNOT_PASS,
+        return formatter(ms_.getVal(presidentFileName(_loc)), PRESIDENT_CANNOT_PASS,
                 toString(b_.premiereCarte(),_loc));
     }
 
@@ -381,16 +388,17 @@ public final class Games {
     }
 
     public static String autoriseTarot(GameTarot _g, String _loc) {
+        StringMap<String> ms_ = MessTarotGr.ms();
         HandTarot main_ = _g.getDistribution().hand(_g.playerHavingToPlay());
         EnumMap<Suit,HandTarot> repartition_ = main_.couleurs();
         Suit couleurDemandee_ = _g.getProgressingTrick().couleurDemandee();
         if (Suit.couleursOrdinaires().containsObj(couleurDemandee_)
                 && !repartition_.getVal(couleurDemandee_).estVide()) {
-            return formatter(tarotFileName(_loc), TAROT_PLAY_SUIT, toString(couleurDemandee_,_loc));
+            return formatter(ms_.getVal(tarotFileName(_loc)), TAROT_PLAY_SUIT, toString(couleurDemandee_,_loc));
         }
         HandTarot atoutsJoues_ = _g.getProgressingTrick().getCartes().couleurs().getVal(Suit.TRUMP);
         if (atoutsJoues_.estVide()) {
-            return formatter(tarotFileName(_loc), TAROT_TRUMP, toString(couleurDemandee_,_loc));
+            return formatter(ms_.getVal(tarotFileName(_loc)), TAROT_TRUMP, toString(couleurDemandee_,_loc));
         }
         byte nombreDeJoueurs_ = _g.getNombreDeJoueurs();
         byte ramasseurVirtuel_ = _g.getProgressingTrick().getRamasseur(nombreDeJoueurs_);
@@ -399,17 +407,17 @@ public final class Games {
         byte valeurForte_ = carteForte_.strength(couleurDemandee_);
         if (repartition_.getVal(Suit.TRUMP).premiereCarte().strength(couleurDemandee_) < valeurForte_) {
             if (Suit.couleursOrdinaires().containsObj(couleurDemandee_)) {
-                return formatter(tarotFileName(_loc), TAROT_UNDERTRUMP, toString(couleurDemandee_,_loc));
+                return formatter(ms_.getVal(tarotFileName(_loc)), TAROT_UNDERTRUMP, toString(couleurDemandee_,_loc));
             }
-            return formatter(tarotFileName(_loc), TAROT_PLAY_SUIT, toString(couleurDemandee_,_loc));
+            return formatter(ms_.getVal(tarotFileName(_loc)), TAROT_PLAY_SUIT, toString(couleurDemandee_,_loc));
         }
         if (valeurForte_ < repartition_.getVal(Suit.TRUMP).derniereCarte().strength(couleurDemandee_)) {
             if (Suit.couleursOrdinaires().containsObj(couleurDemandee_)) {
-                return formatter(tarotFileName(_loc), TAROT_OVERTRUMP, toString(couleurDemandee_,_loc));
+                return formatter(ms_.getVal(tarotFileName(_loc)), TAROT_OVERTRUMP, toString(couleurDemandee_,_loc));
             }
-            return formatter(tarotFileName(_loc), TAROT_PLAY_SUIT, toString(couleurDemandee_,_loc));
+            return formatter(ms_.getVal(tarotFileName(_loc)), TAROT_PLAY_SUIT, toString(couleurDemandee_,_loc));
         }
-        return formatter(tarotFileName(_loc), TAROT_PLAY_STRONGER_CARD, toString(couleurDemandee_,_loc));
+        return formatter(ms_.getVal(tarotFileName(_loc)), TAROT_PLAY_STRONGER_CARD, toString(couleurDemandee_,_loc));
     }
 
     public static String toString(HandBelote _b,String _lg) {

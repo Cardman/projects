@@ -37,5 +37,11 @@
 			<artifactId>tarot</artifactId>
 			<version>1.0-SNAPSHOT</version>
 		</dependency>
-	</dependencies>
+        <dependency>
+            <groupId>scripts_core</groupId>
+            <artifactId>scripts_core</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
+    </dependencies>
 </project>

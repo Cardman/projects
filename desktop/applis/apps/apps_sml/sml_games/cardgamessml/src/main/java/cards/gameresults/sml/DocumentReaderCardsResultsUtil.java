@@ -2,10 +2,13 @@ package cards.gameresults.sml;
 import cards.belote.ResultsBelote;
 import cards.president.ResultsPresident;
 import cards.tarot.ResultsTarot;
+import code.scripts.messages.cards.MessBeloteGr;
+import code.scripts.messages.cards.MessPresidentGr;
+import code.scripts.messages.cards.MessTarotGr;
 import code.sml.maths.DocumentReaderMathUtil;
 import code.sml.core.DocumentReaderCoreUtil;
 import code.sml.Element;
-import code.sml.stream.ExtractFromFiles;
+import code.sml.util.ResourcesMessagesUtil;
 import code.util.StringMap;
 import code.util.core.StringUtil;
 
@@ -28,24 +31,30 @@ public final class DocumentReaderCardsResultsUtil {
 
     public static void setMessages(ResultsBelote _r, String _loc) {
         _r.setLoc(_loc);
-        StringMap<String> messages_ = new StringMap<String>();
-        messages_ = ExtractFromFiles.getMessagesFromLocaleClass(RESOURCES_CLASS_PATH, _loc, RESULTS_BELOTE);
+        String fileName_ = ResourcesMessagesUtil.getPropertiesPath(RESOURCES_CLASS_PATH, _loc, RESULTS_BELOTE);
+        String loadedResourcesMessages_ = MessBeloteGr.ms().getVal(fileName_);
+        StringMap<String> messages_ = ResourcesMessagesUtil.getMessagesFromContent(loadedResourcesMessages_);
+//        StringMap<String> messages_ = ExtractFromFiles.getMessagesFromLocaleClass(RESOURCES_CLASS_PATH, _loc, RESULTS_BELOTE);
         _r.setGlobalResultsPageTitle(messages_.getVal(RESULTS_PAGE));
         _r.setDetailResultsTitle(messages_.getVal(DETAIL_RESULTS_PAGE));
     }
 
     public static void setMessages(ResultsPresident _r, String _loc) {
         _r.setLoc(_loc);
-        StringMap<String> messages_ = new StringMap<String>();
-        messages_ = ExtractFromFiles.getMessagesFromLocaleClass(RESOURCES_CLASS_PATH, _loc, RESULTS_PRESIDENT);
+        String fileName_ = ResourcesMessagesUtil.getPropertiesPath(RESOURCES_CLASS_PATH, _loc, RESULTS_PRESIDENT);
+        String loadedResourcesMessages_ = MessPresidentGr.ms().getVal(fileName_);
+        StringMap<String> messages_ = ResourcesMessagesUtil.getMessagesFromContent(loadedResourcesMessages_);
+//        StringMap<String> messages_ = ExtractFromFiles.getMessagesFromLocaleClass(RESOURCES_CLASS_PATH, _loc, RESULTS_PRESIDENT);
         _r.setGlobalResultsPageTitle(messages_.getVal(RESULTS_PAGE));
         _r.setDetailResultsTitle(messages_.getVal(DETAIL_RESULTS_PAGE));
     }
 
     public static void setMessages(ResultsTarot _r, String _loc) {
         _r.setLoc(_loc);
-        StringMap<String> messages_ = new StringMap<String>();
-        messages_ = ExtractFromFiles.getMessagesFromLocaleClass(RESOURCES_CLASS_PATH, _loc, RESULTS_TAROT);
+        String fileName_ = ResourcesMessagesUtil.getPropertiesPath(RESOURCES_CLASS_PATH, _loc, RESULTS_TAROT);
+        String loadedResourcesMessages_ = MessTarotGr.ms().getVal(fileName_);
+        StringMap<String> messages_ = ResourcesMessagesUtil.getMessagesFromContent(loadedResourcesMessages_);
+//        StringMap<String> messages_ = ExtractFromFiles.getMessagesFromLocaleClass(RESOURCES_CLASS_PATH, _loc, RESULTS_TAROT);
         _r.setGlobalResultsPageTitle(messages_.getVal(RESULTS_PAGE));
         _r.setDetailResultsTitle(messages_.getVal(DETAIL_RESULTS_PAGE));
     }
