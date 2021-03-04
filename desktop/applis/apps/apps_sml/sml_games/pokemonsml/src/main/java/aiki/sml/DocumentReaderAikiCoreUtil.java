@@ -191,13 +191,14 @@ import code.maths.litteral.MathExpUtil;
 import code.maths.montecarlo.AbstractGenerator;
 import code.maths.montecarlo.MonteCarloEnum;
 import code.maths.montecarlo.MonteCarloNumber;
+import code.scripts.messages.aiki.MessPkGr;
 import code.sml.maths.DocumentReaderMathUtil;
 import code.sml.Document;
 import code.sml.DocumentBuilder;
 import code.sml.core.DocumentReaderCoreUtil;
 import code.sml.Element;
 import code.sml.ElementList;
-import code.sml.stream.ExtractFromFiles;
+import code.sml.util.ResourcesMessagesUtil;
 import code.util.*;
 import aiki.facade.enums.SelectedBoolean;
 import code.util.core.IndexConstants;
@@ -1033,12 +1034,18 @@ public final class DocumentReaderAikiCoreUtil {
         _f.setZipName(DataBase.EMPTY_STRING);*/
     }
     public static void initMessages(DataBase _d,String _lg) {
-        _d.setMessagesPokemonPlayer(ExtractFromFiles.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, _lg, PokemonPlayer.POKEMON_PLAYER));
-        _d.setMessagesPlayer(ExtractFromFiles.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, _lg, Player.PLAYER));
-        _d.setMessagesFighter(ExtractFromFiles.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, _lg, Fighter.FIGHTER));
-        _d.setMessagesTeam(ExtractFromFiles.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, _lg, Team.TEAM));
-        _d.setMessagesFight(ExtractFromFiles.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, _lg, Fight.FIGHT));
-        _d.setMessagesGame(ExtractFromFiles.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, _lg, Game.GAME));
+        StringMap<String> map_ = MessPkGr.ms();
+        _d.setMessagesPokemonPlayer(getMessagesFromLocaleClass(map_,Resources.MESSAGES_FOLDER, _lg, PokemonPlayer.POKEMON_PLAYER));
+        _d.setMessagesPlayer(getMessagesFromLocaleClass(map_,Resources.MESSAGES_FOLDER, _lg, Player.PLAYER));
+        _d.setMessagesFighter(getMessagesFromLocaleClass(map_,Resources.MESSAGES_FOLDER, _lg, Fighter.FIGHTER));
+        _d.setMessagesTeam(getMessagesFromLocaleClass(map_,Resources.MESSAGES_FOLDER, _lg, Team.TEAM));
+        _d.setMessagesFight(getMessagesFromLocaleClass(map_,Resources.MESSAGES_FOLDER, _lg, Fight.FIGHT));
+        _d.setMessagesGame(getMessagesFromLocaleClass(map_,Resources.MESSAGES_FOLDER, _lg, Game.GAME));
+    }
+    private static StringMap<String> getMessagesFromLocaleClass(StringMap<String> _map,String _folder, String _loc, String _class) {
+        String fileName_ = ResourcesMessagesUtil.getPropertiesPath(_folder, _loc, _class);
+        String loadedResourcesMessages_ = _map.getVal(fileName_);
+        return ResourcesMessagesUtil.getMessagesFromContent(loadedResourcesMessages_);
     }
     public static void loadRom(DataBase _d,StringMap<String> _files, PerCent _perCentLoading) {
         if (_files == null) {

@@ -44,7 +44,9 @@ import code.gui.*;
 import code.gui.document.RenderedPage;
 import code.gui.events.ClosingChildFrameEvent;
 import code.maths.Rate;
+import code.scripts.messages.aiki.MessPkGr;
 import code.sml.stream.ExtractFromFiles;
+import code.sml.util.ResourcesMessagesUtil;
 import code.util.BooleanList;
 import code.util.CustList;
 import code.util.EnumList;
@@ -1228,7 +1230,9 @@ public class Battle extends ChildFrame {
         actionType.add(new TextLabel(messages.getVal(SELECT_ACTION)));
         actionsLabels.clear();
         EnumList<ActionType> actions_ = facade.getFight().getPossibleActionsCurFighter();
-        StringMap<String> map_ = ExtractFromFiles.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, window.getLanguageKey(), ACTION_TYPE);
+        String fileName_ = ResourcesMessagesUtil.getPropertiesPath(Resources.MESSAGES_FOLDER, window.getLanguageKey(), ACTION_TYPE);
+        String loadedResourcesMessages_ = MessPkGr.ms().getVal(fileName_);
+        StringMap<String> map_ = ResourcesMessagesUtil.getMessagesFromContent(loadedResourcesMessages_);
         int maxWidth_ = 0;
         for (ActionType a: actions_) {
             String txt_ = map_.getVal(a.name());
