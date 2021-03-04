@@ -9,7 +9,6 @@ import code.formathtml.Configuration;
 import code.formathtml.Navigation;
 import code.formathtml.util.DualAnalyzedContext;
 import code.gui.document.PreparedAnalyzed;
-import code.resources.ResourceFiles;
 import code.sml.Document;
 import code.sml.util.ResourcesMessagesUtil;
 import code.util.StringMap;
@@ -31,7 +30,7 @@ public abstract class AbstractPreparedPagesCards implements PreparedAnalyzed {
         built = _built;
     }
 
-    public void prepareDoc(Document _doc, AbstractNativeInit _init) {
+    public void prepareDoc(Document _doc, AbstractNativeInit _init, StringMap<String> _other) {
         navigation = new Navigation();
         navigation.setSession(new Configuration());
         navigation.setLanguage(lg);
@@ -42,13 +41,15 @@ public abstract class AbstractPreparedPagesCards implements PreparedAnalyzed {
         StringMap<String> files_ = new StringMap<String>();
         Configuration session_ = navigation.getSession();
         for (String a : du_.getContext().getAddedFiles()) {
-            files_.put(a, ResourceFiles.ressourceFichier(a));
+            files_.put(a, _other.getVal(a));
+//            files_.put(a, ResourceFiles.ressourceFichier(a));
         }
         for (String l : navigation.getLanguages()) {
             for (String a : du_.getContext().getProperties().values()) {
                 String folder_ = du_.getContext().getMessagesFolder();
                 String fileName_ = ResourcesMessagesUtil.getPropertiesPath(folder_, l, a);
-                files_.put(fileName_, ResourceFiles.ressourceFichier(fileName_));
+//                files_.put(fileName_, ResourceFiles.ressourceFichier(fileName_));
+                files_.put(fileName_, _other.getVal(fileName_));
             }
         }
         String realFilePath_ = session_.getFirstUrl();
