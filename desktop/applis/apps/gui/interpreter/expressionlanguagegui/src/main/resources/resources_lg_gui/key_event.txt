@@ -1,5 +1,0 @@
-{public} {interface} {KeyListener} '{'
- {public} {void} {keyPressed}({KeyEvent} {a});
- {public} {void} {keyTyped}({KeyEvent} {b});
- {public} {void} {keyReleased}({KeyEvent} {c});
-'}'

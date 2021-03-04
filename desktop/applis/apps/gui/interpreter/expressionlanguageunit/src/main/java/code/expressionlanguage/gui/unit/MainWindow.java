@@ -19,7 +19,9 @@ import code.gui.ScrollPane;
 import code.gui.TextArea;
 import code.gui.events.QuittingEvent;
 import code.gui.initialize.AbstractProgramInfos;
-import code.sml.stream.ExtractFromFiles;
+import code.resources.ResourceFiles;
+import code.scripts.messages.gui.MessCdmUnitGr;
+import code.sml.util.ResourcesMessagesUtil;
 import code.threads.ThreadUtil;
 import code.util.StringMap;
 import code.util.core.DefaultUniformingString;
@@ -66,7 +68,9 @@ public final class MainWindow extends GroupFrame implements TestableFrame {
     protected MainWindow(String _lg, AbstractProgramInfos _list) {
         super(_lg, _list);
         setAccessFile("unit.mainwindow");
-        unitMessages = ExtractFromFiles.getMessagesFromLocaleClass("resources_unit/gui/messages", getLanguageKey(), getAccessFile());
+        String fileName_ = ResourcesMessagesUtil.getPropertiesPath("resources_unit/gui/messages", getLanguageKey(), getAccessFile());
+        String loadedResourcesMessages_ = MessCdmUnitGr.ms().getVal(fileName_);
+        unitMessages = ResourcesMessagesUtil.getMessagesFromContent(loadedResourcesMessages_);
         setTitle(unitMessages.getVal("title"));
         setJMenuBar(new MenuBar());
         menu = new Menu(unitMessages.getVal("file"));

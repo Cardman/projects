@@ -1,3 +1,0 @@
-{public} {interface} {ListSelection} '{'
- {public} {void} {valueChanged}({int} {e}, {int} {f});
-'}'

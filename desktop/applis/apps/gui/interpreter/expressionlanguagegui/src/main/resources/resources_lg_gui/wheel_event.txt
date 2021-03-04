@@ -1,3 +1,0 @@
-{public} {interface} {WheelListener} '{'
- {public} {void} {mouseMoveWheel}({MouseWheelEvent} {e});
-'}'

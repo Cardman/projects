@@ -24,6 +24,8 @@ import code.expressionlanguage.utilcompo.RunnableContextEl;
 import code.gui.*;
 import code.gui.initialize.AbstractGraphicComboBoxGenerator;
 import code.resources.ResourceFiles;
+import code.scripts.messages.gui.MessCdmBaseGr;
+import code.scripts.messages.gui.MessCdmGuiGr;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
@@ -840,6 +842,7 @@ public final class GuiAliases {
     private String aliasMenuItemCheckIsSelected;
     private String aliasMenuItemCheckSetSelected;
     private final GuiAliasParameters guiAliasParameters = new GuiAliasParameters();
+    private final StringMap<String> propertiesGui = MessCdmGuiGr.ms();
 
     private static StringList newList(Struct _s) {
         if (!(_s instanceof ArrayStruct)) {
@@ -857,7 +860,7 @@ public final class GuiAliases {
 
     public StringMap<String> buildFiles(KeyWords _keyWords, LgNamesContent _content, StringList _predefinedClasses, StringList _predefinedInterfacesInitOrder) {
         StringMap<String> stds_ = new StringMap<String>();
-        String content_ = ResourceFiles.ressourceFichier("resources_lg_gui/action_event.txt");
+        String content_ = res("resources_lg_gui/action_event.txt");
         PrimitiveTypes primTypes_ = _content.getPrimTypes();
         StringMap<PrimitiveType> pr_ = primTypes_.getPrimitiveTypes();
         AliasCore co_ = _content.getCoreNames();
@@ -893,7 +896,7 @@ public final class GuiAliases {
         _predefinedClasses.add(aliasActionListener);
         stds_.put(aliasActionListener, content_);
         _predefinedInterfacesInitOrder.add(aliasActionListener);
-        content_ = ResourceFiles.ressourceFichier("resources_lg_gui/change_event.txt");
+        content_ = res("resources_lg_gui/change_event.txt");
         map_ = new StringMap<String>();
         map_.put("{public}", public_);
         map_.put("{interface}", interface_);
@@ -904,7 +907,7 @@ public final class GuiAliases {
         _predefinedClasses.add(aliasChangeListener);
         stds_.put(aliasChangeListener, content_);
         _predefinedInterfacesInitOrder.add(aliasChangeListener);
-        content_ = ResourceFiles.ressourceFichier("resources_lg_gui/tree_event.txt");
+        content_ = res("resources_lg_gui/tree_event.txt");
         map_ = new StringMap<String>();
         map_.put("{public}", public_);
         map_.put("{interface}", interface_);
@@ -917,7 +920,7 @@ public final class GuiAliases {
         _predefinedClasses.add(aliasTreeListener);
         stds_.put(aliasTreeListener, content_);
         _predefinedInterfacesInitOrder.add(aliasTreeListener);
-        content_ = ResourceFiles.ressourceFichier("resources_lg_gui/table_event.txt");
+        content_ = res("resources_lg_gui/table_event.txt");
         map_ = new StringMap<String>();
         map_.put("{public}", public_);
         map_.put("{interface}", interface_);
@@ -931,7 +934,7 @@ public final class GuiAliases {
         _predefinedClasses.add(aliasTableListener);
         stds_.put(aliasTableListener, content_);
         _predefinedInterfacesInitOrder.add(aliasTableListener);
-        content_ = ResourceFiles.ressourceFichier("resources_lg_gui/mouse_event.txt");
+        content_ = res("resources_lg_gui/mouse_event.txt");
         map_ = new StringMap<String>();
         map_.put("{public}", public_);
         map_.put("{interface}", interface_);
@@ -956,7 +959,7 @@ public final class GuiAliases {
         _predefinedClasses.add(aliasMouseListener);
         stds_.put(aliasMouseListener, content_);
         _predefinedInterfacesInitOrder.add(aliasMouseListener);
-        content_ = ResourceFiles.ressourceFichier("resources_lg_gui/wheel_event.txt");
+        content_ = res("resources_lg_gui/wheel_event.txt");
         map_ = new StringMap<String>();
         map_.put("{public}", public_);
         map_.put("{interface}", interface_);
@@ -969,7 +972,7 @@ public final class GuiAliases {
         _predefinedClasses.add(aliasWheelListener);
         stds_.put(aliasWheelListener, content_);
         _predefinedInterfacesInitOrder.add(aliasWheelListener);
-        content_ = ResourceFiles.ressourceFichier("resources_lg_gui/key_event.txt");
+        content_ = res("resources_lg_gui/key_event.txt");
         map_ = new StringMap<String>();
         map_.put("{public}", public_);
         map_.put("{interface}", interface_);
@@ -986,7 +989,7 @@ public final class GuiAliases {
         _predefinedClasses.add(aliasKeyListener);
         stds_.put(aliasKeyListener, content_);
         _predefinedInterfacesInitOrder.add(aliasKeyListener);
-        content_ = ResourceFiles.ressourceFichier("resources_lg_gui/window_event.txt");
+        content_ = res("resources_lg_gui/window_event.txt");
         map_ = new StringMap<String>();
         map_.put("{public}", public_);
         map_.put("{interface}", interface_);
@@ -1011,7 +1014,7 @@ public final class GuiAliases {
         _predefinedClasses.add(aliasWindowListener);
         stds_.put(aliasWindowListener, content_);
         _predefinedInterfacesInitOrder.add(aliasWindowListener);
-        content_ = ResourceFiles.ressourceFichier("resources_lg_gui/list_event.txt");
+        content_ = res("resources_lg_gui/list_event.txt");
         map_ = new StringMap<String>();
         map_.put("{public}", public_);
         map_.put("{interface}", interface_);
@@ -1025,7 +1028,7 @@ public final class GuiAliases {
         _predefinedClasses.add(aliasListSelection);
         stds_.put(aliasListSelection, content_);
         _predefinedInterfacesInitOrder.add(aliasListSelection);
-        content_ = ResourceFiles.ressourceFichier("resources_lg_gui/repaint.txt");
+        content_ = res("resources_lg_gui/repaint.txt");
         map_ = new StringMap<String>();
         map_.put("{public}", public_);
         map_.put("{abstract}", abstract_);
@@ -1436,6 +1439,10 @@ public final class GuiAliases {
         stds_.put(aliasPaint, content_);
         _predefinedInterfacesInitOrder.add(aliasPaint);
         return stds_;
+    }
+
+    public String res(String _file) {
+        return propertiesGui.getVal(_file);
     }
 
     public void buildOther(LgNamesContent _content, CustAliases _cust) {

@@ -12,7 +12,8 @@ import code.expressionlanguage.stds.*;
 import code.expressionlanguage.structs.*;
 import code.expressionlanguage.utilcompo.*;
 import code.expressionlanguage.utilimpl.LgNamesUtils;
-import code.sml.stream.ExtractFromFiles;
+import code.resources.ResourceFiles;
+import code.sml.util.ResourcesMessagesUtil;
 import code.util.CustList;
 import code.util.StringMap;
 
@@ -85,7 +86,9 @@ public class LgNamesGui extends LgNamesUtils {
 
     public void otherAlias(String _lang, StringMap<String> _cust) {
         getCustAliases().otherAlias(getContent(),_lang,_cust);
-        StringMap<String> util_ = ExtractFromFiles.getMessagesFromLocaleClass("resources_lg_gui/aliases",_lang,"typesgui");
+        String fileName_ = ResourcesMessagesUtil.getPropertiesPath("resources_lg_gui/aliases", _lang, "typesgui");
+        String loadedResourcesMessages_ = guiAliases.res(fileName_);
+        StringMap<String> util_ = ResourcesMessagesUtil.getMessagesFromContent(loadedResourcesMessages_);
         guiAliases.otherAliasGui(util_,_cust);
     }
 

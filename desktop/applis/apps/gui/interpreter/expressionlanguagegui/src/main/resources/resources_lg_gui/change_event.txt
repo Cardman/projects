@@ -1,3 +1,0 @@
-{public} {interface} {ChangeListener} '{'
- {public} {void} {stateChanged}();
-'}'
