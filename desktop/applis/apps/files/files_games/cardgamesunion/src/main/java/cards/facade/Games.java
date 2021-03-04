@@ -19,6 +19,7 @@ import cards.tarot.enumerations.*;
 import cards.tarot.sml.DocumentWriterTarotUtil;
 import code.format.Format;
 import code.resources.ResourceFiles;
+import code.scripts.messages.cards.MessagesCardsAll;
 import code.stream.StreamTextFile;
 import code.util.CustList;
 import code.util.EnumMap;
@@ -105,7 +106,8 @@ public final class Games {
     private RulesPresident rulesPresident;
 
     public static String getConstanteLangue(String _file, String _group, String _nomConstante) {
-        String fichier_ = ResourceFiles.ressourceFichier(_file);
+        String fichier_ = MessagesCardsAll.ms().getVal(_file);
+//        String fichier_ = ResourceFiles.ressourceFichier(_file);
         return Format.getConstanteLangue(Format.concatParts(_group,_nomConstante), fichier_);
     }
 

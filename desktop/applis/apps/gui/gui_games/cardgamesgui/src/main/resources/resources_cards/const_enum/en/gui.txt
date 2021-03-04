@@ -1,1 +1,0 @@
-cards.enumerations.Launching.WELCOME:Welcome at card games

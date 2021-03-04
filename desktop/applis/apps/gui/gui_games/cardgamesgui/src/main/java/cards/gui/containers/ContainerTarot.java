@@ -18,6 +18,8 @@ import cards.tarot.enumerations.TarotResoucesAccess;
 import cards.tarot.sml.DocumentReaderTarotUtil;
 import code.gui.*;
 import code.gui.initialize.AbstractProgramInfos;
+import code.resources.ResourceFiles;
+import code.scripts.messages.cards.MessagesTarotTarot;
 import code.stream.StreamTextFile;
 import code.util.CustList;
 import code.util.EntryCust;
@@ -286,7 +288,7 @@ public class ContainerTarot extends ContainerGame{
         slamButton = _slamButton;
     }
     public String readResource() {
-        return readResource(TarotResoucesAccess.NOM_DOSSIER,TarotResoucesAccess.NOM_FICHIER);
+        return MessagesTarotTarot.ms().getVal(StringUtil.concat(TarotResoucesAccess.NOM_DOSSIER,ResourceFiles.SEPARATEUR,getOwner().getLanguageKey(),ResourceFiles.SEPARATEUR, TarotResoucesAccess.NOM_FICHIER));
     }
 
     public PreparedPagesCards retrieve(String _conf) {

@@ -17,6 +17,8 @@ import cards.president.sml.DocumentReaderPresidentUtil;
 import code.gui.LabelButton;
 import code.gui.Panel;
 import code.gui.initialize.AbstractProgramInfos;
+import code.resources.ResourceFiles;
+import code.scripts.messages.cards.MessagesPresidentPresident;
 import code.stream.StreamTextFile;
 import code.util.CustList;
 import code.util.*;
@@ -288,7 +290,7 @@ public class ContainerPresident extends ContainerGame {
     }
 
     public String readResource() {
-        return readResource(PresidentResoucesAccess.NOM_DOSSIER,PresidentResoucesAccess.NOM_FICHIER);
+        return MessagesPresidentPresident.ms().getVal(StringUtil.concat(PresidentResoucesAccess.NOM_DOSSIER,ResourceFiles.SEPARATEUR,getOwner().getLanguageKey(),ResourceFiles.SEPARATEUR, PresidentResoucesAccess.NOM_FICHIER));
     }
 
     public PreparedPagesCards retrieve(String _conf) {

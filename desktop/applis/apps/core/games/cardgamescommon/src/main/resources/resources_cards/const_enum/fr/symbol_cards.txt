@@ -1,5 +1,0 @@
-cards.consts.CardChar.EXCUSE:*
-cards.consts.CardChar.KING:R
-cards.consts.CardChar.QUEEN:D
-cards.consts.CardChar.KNIGHT:C
-cards.consts.CardChar.JACK:V
