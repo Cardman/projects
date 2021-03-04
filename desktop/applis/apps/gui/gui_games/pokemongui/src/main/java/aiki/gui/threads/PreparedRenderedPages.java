@@ -10,7 +10,6 @@ import code.formathtml.Navigation;
 import code.bean.nat.BeanNatLgNames;
 import code.formathtml.util.DualAnalyzedContext;
 import code.gui.document.PreparedAnalyzed;
-import code.resources.ResourceFiles;
 import code.sml.Document;
 import code.sml.util.ResourcesMessagesUtil;
 import code.util.StringMap;
@@ -24,11 +23,15 @@ public final class PreparedRenderedPages implements PreparedAnalyzed {
     private BeanNatLgNames beanNatLgNames;
     private ContextEl context;
     private final StringMap<Document> built;
+    private final StringMap<String> builtMessages;
+    private final StringMap<String> builtOther;
 
-    public PreparedRenderedPages(String _relative, AbstractNativeInit _init, StringMap<Document> _build) {
+    public PreparedRenderedPages(String _relative, AbstractNativeInit _init, StringMap<Document> _build, StringMap<String> _builtMessages, StringMap<String> _builtOther) {
         relative = _relative;
         init = _init;
         built = _build;
+        builtMessages = _builtMessages;
+        builtOther = _builtOther;
     }
 
     @Override
@@ -52,14 +55,16 @@ public final class PreparedRenderedPages implements PreparedAnalyzed {
             if (doc_ != null) {
                 docs_.addEntry(a,doc_);
             } else {
-                files_.put(a, ResourceFiles.ressourceFichier(name_));
+                files_.put(a, builtOther.getVal(name_));
+//                files_.put(a, ResourceFiles.ressourceFichier(name_));
             }
         }
         for (String l: navigation.getLanguages()) {
             for (String a: du_.getContext().getProperties().values()) {
                 String folder_ = du_.getContext().getMessagesFolder();
                 String fileName_ = ResourcesMessagesUtil.getPropertiesPath(folder_,l,a);
-                files_.put(fileName_,ResourceFiles.ressourceFichier(StringUtil.concat(relative,fileName_)));
+                files_.put(fileName_,builtMessages.getVal(StringUtil.concat(relative,fileName_)));
+//                files_.put(fileName_,ResourceFiles.ressourceFichier(StringUtil.concat(relative,fileName_)));
             }
         }
         String realFilePath_ = session_.getFirstUrl();

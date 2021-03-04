@@ -8,6 +8,8 @@ import code.gui.CustComponent;
 import code.gui.SoftApplicationCore;
 import code.gui.TopLeftFrame;
 import code.gui.initialize.AbstractProgramInfos;
+import code.scripts.pages.aiki.CssInit;
+import code.scripts.pages.aiki.MessagesInit;
 import code.scripts.pages.aiki.PagesInit;
 import code.sml.Document;
 import code.util.StringMap;
@@ -42,12 +44,14 @@ public final class CreateMainWindow implements Runnable {
     @Override
     public void run() {
         StringMap<Document> built_ = PagesInit.build();
-        PreparedRenderedPages dataWeb_ = new PreparedRenderedPages(Resources.ACCESS_TO_DEFAULT_FILES, new DataGameInit(), built_);
-        PreparedRenderedPages fight_ = new PreparedRenderedPages(Resources.ACCESS_TO_DEFAULT_FILES, new FightGameInit(), built_);
-        PreparedRenderedPages pk_ = new PreparedRenderedPages(Resources.ACCESS_TO_DEFAULT_FILES, new DetPkGameInit(), built_);
-        PreparedRenderedPages pkNet_ = new PreparedRenderedPages(Resources.ACCESS_TO_DEFAULT_FILES, new DetPkGameInit(), built_);
-        PreparedRenderedPages diff_ = new PreparedRenderedPages(Resources.ACCESS_TO_DEFAULT_FILES, new DiffGameInit(), built_);
-        PreparedRenderedPages prog_ = new PreparedRenderedPages(Resources.ACCESS_TO_DEFAULT_FILES, new ProgGameInit(), built_);
+        StringMap<String> builtMessages_ = MessagesInit.ms();
+        StringMap<String> builtOther_ = CssInit.ms();
+        PreparedRenderedPages dataWeb_ = new PreparedRenderedPages(Resources.ACCESS_TO_DEFAULT_FILES, new DataGameInit(), built_, builtMessages_, builtOther_);
+        PreparedRenderedPages fight_ = new PreparedRenderedPages(Resources.ACCESS_TO_DEFAULT_FILES, new FightGameInit(), built_, builtMessages_, builtOther_);
+        PreparedRenderedPages pk_ = new PreparedRenderedPages(Resources.ACCESS_TO_DEFAULT_FILES, new DetPkGameInit(), built_, builtMessages_, builtOther_);
+        PreparedRenderedPages pkNet_ = new PreparedRenderedPages(Resources.ACCESS_TO_DEFAULT_FILES, new DetPkGameInit(), built_, builtMessages_, builtOther_);
+        PreparedRenderedPages diff_ = new PreparedRenderedPages(Resources.ACCESS_TO_DEFAULT_FILES, new DiffGameInit(), built_, builtMessages_, builtOther_);
+        PreparedRenderedPages prog_ = new PreparedRenderedPages(Resources.ACCESS_TO_DEFAULT_FILES, new ProgGameInit(), built_, builtMessages_, builtOther_);
         MainWindow window_ = new MainWindow(lg, list,aikiFactory);
         Thread dataWebThread_ = CustComponent.newThread(dataWeb_);
         dataWebThread_.start();

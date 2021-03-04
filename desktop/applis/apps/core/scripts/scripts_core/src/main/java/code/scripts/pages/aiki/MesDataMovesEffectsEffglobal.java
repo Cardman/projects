@@ -1,0 +1,84 @@
+package code.scripts.pages.aiki;
+final class MesDataMovesEffectsEffglobal{
+private MesDataMovesEffectsEffglobal(){}
+static String en(){
+String f="effect=The effect regards all fighters.<br/>\n";
+f+="is_weather=The effect is deactivable by an ability.<br/>\n";
+f+="is_not_weather=The effect is not deactivable by an ability.<br/>\n";
+f+="cancel_reuse=The effect is cancelled, if the move is reused during the activity of the effect.<br/>\n";
+f+="reverse_speed=The order of acting is inverted for comparison of speed values (A slow pokemon uses a move before a fast pokemon.). The priorities are not affected.<br/>\n";
+f+="unusable_item=The owned items are without effect.<br/>\n";
+f+="putting_ko=All pokemon at the front battle not protected against the move are knocked out at the end of the last round.<br/>\n";
+f+="mult_acc=The accuracy of the moves is muliplied by {0}.<br/>\n";
+f+="mult_love=Damage inflicted by a move used by a loving user of one of its partners is muliplied by {0}.<br/>The healed hp by a move used by a loving user of one of its partners affected by the move are multiplied by {0}.<br/>\n";
+f+="damage_end_round=At the end of the round, the pokemon not protected against the weather loose {0} of their full life.<br/>\n";
+f+="healing_end_round=At the end of the round, the pokemon protected against the weather win {0} of their full life.<br/>\n";
+f+="healing_end_round_ground=At the end of the round, the pokemon not disappeared win {0} of their full life.<br/>\n";
+f+="forbid_status=The following status cannot be enabled:<br/>\n";
+f+="immune_types=The types of the pokemon at the front battle protected against damaging of end of round are the following one:<br/>\n";
+f+="efficiency_table=Here is the table of the efficiency of the types of moves over pokemon types modified by the move:<br/>\n";
+f+="damage_type=Damaging type\n";
+f+="pokemon_type=Defending type\n";
+f+="efficiency=Efficiency\n";
+f+="disable_immu_types=The types of the moves, targetting pokemon often protected against these one, are the following one:<br/>\n";
+f+="disable_immu_abilities=The cancelled abilities often protecting pokemon are the following one:<br/>\n";
+f+="unusable_moves=The following moves cannot be used:<br/>\n";
+f+="cancel_effects=Using this move cancels the effects of the moves:<br/>\n";
+f+="mult_power_type=Here is the table of rates of damage from used moves by a fighter in function by the type:<br/>\n";
+f+="move_type=Type of the move\n";
+f+="rate_damage=Rate of damage\n";
+f+="mult_power_move=Here is the table of damage rates in function by the following moves:<br/>\n";
+f+="move=Move\n";
+f+="cancel_chgt_statis=The variations of the following statistics are cancelled:<br/>\n";
+f+="invoked_move=The move <a c:command=\"$clickInvokedMove\">{0}</a> is invoked while the using of one of the following moves:<br/>\n";
+f+="changing_type_invoked=While a pokemon uses one of the moves that change the type of the user in function by the environment, the pokemon gets the following types (the types are added if an other move of this kind is enabled):<br/>\n";
+f+="changing_type_invoking=The moves that change the type of the user in function by the environment are the following one:<br/>\n";
+f+="mult_stat_type=Here is the rate multiplying statistics in function by the type of the regarded pokemon:<br/>\n";
+f+="pokemon_type_stat=Type of the pokemon\n";
+f+="statistic=Statistic\n";
+f+="rate_pokemon_statistic=Associated rate with dual type - statistic\n";
+f+="mult_damage_type=Here is the table of damaging rate in function by the type of the move against pokemon preparing one the moves:<br/>\n";
+f+="rate=Coefficient\n";
+return f;
+}
+static String fr(){
+String f="effect=L''effet concerne tous les combattants.<br/>\n";
+f+="is_weather=L''effet est d&eacute;sactivable par une capacit&eacute;.<br/>\n";
+f+="is_not_weather=L''effet n''est pas d&eacute;sactivable par une capacit&eacute;.<br/>\n";
+f+="cancel_reuse=L''effet est annul&eacute;, si l''attaque est r&eacute;uitilis&eacute;e pendant l''activit&eacute; de l''effet.<br/>\n";
+f+="reverse_speed=L''ordre de jeu est invers&eacute; pour les comparaisons de vitesses (Un pok&eacute;mon lent attaque avant un pok&eacute;mon rapide.). Les priorit&eacute;s ne sont pas affect&eacute;es.<br/>\n";
+f+="unusable_item=Les objets port&eacute;s sont sans effet.<br/>\n";
+f+="putting_ko=Tous les pok&eacute;mons sur le terrain non immunis&eacute;s &agrave; l''attaque tombent KO &agrave; la fin du dernier tour.<br/>\n";
+f+="mult_acc=La pr&eacute;cision de toutes les attaques est multipli&eacute;e par {0}.<br/>\n";
+f+="mult_love=Les d&eacute;g&acirc;ts caus&eacute;s par une attaque venant d''un lanceur amoueux d''un de ses partenaires sont multipli&eacute;s par {0}.<br/>Les pv soign&eacute;s par une attaque venant d''un lanceur amoueux d''un de ses partenaires affect&eacute; par l''attaque sont multipli&eacute;s par {0}.<br/>\n";
+f+="damage_end_round=&Agrave; la fin du tour, les pokemon non immunis&eacute; au climat perdent {0} de leur vie totale.<br/>\n";
+f+="healing_end_round=&Agrave; la fin du tour, les pokemon immunis&eacute; au climat gagnent {0} de leur vie totale.<br/>\n";
+f+="healing_end_round_ground=&Agrave; la fin du tour, les pokemon non disparus gagnent {0} de leur vie totale.<br/>\n";
+f+="forbid_status=Les statuts suivants ne peuvent pas &ecirc;tre actifs:<br/>\n";
+f+="immune_types=Les types des pok&eacute;mons sur le terrain immunis&eacute;s aux d&eacute;g&acirc;ts de fin tour sont les suivants:<br/>\n";
+f+="efficiency_table=Voici le tableau des efficacit&eacute;s des types d''attaques sur des types de pok&eacute;mons modifi&eacute; par l''attaque:<br/>\n";
+f+="damage_type=Type offensif\n";
+f+="pokemon_type=Type d&eacute;fensif\n";
+f+="efficiency=Efficacit&eacute;\n";
+f+="disable_immu_types=Les types des attaques, touchant les pok&eacute;mons ordinairement immunis&eacute;s &agrave; ceux-ci, sont les suivants:<br/>\n";
+f+="disable_immu_abilities=Les capacit&eacute;s prot&eacute;geant ordinairement les pok&eacute;mons annul&eacute;es sont les suivantes:<br/>\n";
+f+="unusable_moves=Les attaques suivantes ne peuvent pas &ecirc;tre lanc&eacute;es:<br/>\n";
+f+="cancel_effects=Lancer cette attaque annule les effets des attaques:<br/>\n";
+f+="mult_power_type=Voici le tableau des coefficients des d&eacute;g&acirc;ts des attaques utilis&eacute;es par un combattant en fonction du type:<br/>\n";
+f+="move_type=Type de l''attaque\n";
+f+="rate_damage=Coefficient des d&eacute;g&acirc;ts\n";
+f+="mult_power_move=Voici le tableau des coefficient des d&eacute;g&acirc;ts en fonction des attaques suivantes:<br/>\n";
+f+="move=Attaque\n";
+f+="cancel_chgt_statis=Les variations des statistiques suivantes sont annul&eacute;es:<br/>\n";
+f+="invoked_move=L''attaque <a c:command=\"$clickInvokedMove\">{0}</a> est invoqu&eacute;e lors de l''utilisation d''une des attaques suivantes:<br/>\n";
+f+="changing_type_invoked=Lorsqu''un pokemon lance une des attaques qui changent le type du lanceur en fonction de l''environnement, il prend les types suivants (les types sont cumul&eacute;s si une autre attaque de ce genre est active):<br/>\n";
+f+="changing_type_invoking=Les attaques qui changent le type du lanceur en fonction de l''environnement sont les suivantes:<br/>\n";
+f+="mult_stat_type=Voici le coefficient multiplicateur des statistiques en fonction du type du pok&eacute;mon concern&eacute;:<br/>\n";
+f+="pokemon_type_stat=Type du pok&eacute;mon\n";
+f+="statistic=Statistique\n";
+f+="rate_pokemon_statistic=Coefficient associ&eacute; au duo type - statistique\n";
+f+="mult_damage_type=Voici le tableau des coefficient des d&eacute;g&acirc;ts en fonction du type d''attaque sur des pok&eacute;mons pr&eacute;parant une des attaques:<br/>\n";
+f+="rate=Coefficient\n";
+return f;
+}
+}

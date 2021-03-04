@@ -1,0 +1,84 @@
+package code.scripts.pages.aiki;
+final class MesDataEndroundIndividual{
+private MesDataEndroundIndividual(){}
+static String en(){
+String f="A=L''effet appartient &agrave; l''attaque ${ATTAQUE}.<br/>\n";
+f+="O=L''effet appartient &agrave; l''objet ${OBJET}.<br/>\n";
+f+="C=L''effet appartient &agrave; la capacit&eacute; ${CAPACITE}.<br/>\n";
+f+="S=L''effet appartient au statut ${STATUT}.<br/>\n";
+f+="TYPE_RELATION=${RELATION_UNIQUE}${RELATION_POSITION_CIBLE}${INDIVIDUEL}${RELATION_POSITION}${GLOBAL}${ADV}\n";
+f+="TYPE_RELATION__RELATION_UNIQUE=Cet effet concerne le lanceur et la cible. Si le lanceur ou la cible switchent alors l''effet est arr&ecirc;t&eacute;.<br/>\n";
+f+="TYPE_RELATION__RELATION_POSITION_CIBLE=Cet effet tient compte de la position du lanceur et celle de la cible.<br/>\n";
+f+="effect=This effect regards one fighter.<br/>\n";
+f+="TYPE_RELATION__RELATION_POSITION=Cet effet tient compte de la position du lanceur et le remplacant &eacute;ventuel.<br/>\n";
+f+="TYPE_RELATION__GLOBAL=Cet effet concerne tous les combattants.<br/>\n";
+f+="TYPE_RELATION__ADV=Cet effet concerne l''&eacute;quipe adverse du lanceur.<br/>\n";
+f+="ANTICIPE=L''effet de l''attaque a lieu deux tours apr&egrave;s.<br/>L''attaque se base sur les caract&eacute;ristiques de la cible au moment du lancer.<br/>Tant que les deux tours apr&egrave;s lancer ne sont pas pass&eacute;s, aucune attaque du m&ecirc;me genre (${ANTICIPE__LIGNE}) ne peut &ecirc;tre utilis&eacute;e.<br/>\n";
+f+="ANTICIPE__LIGNE=${ATTAQUE}\n";
+f+="ANTICIPE__LIGNE_SEP=, \n";
+f+="ORDRE_FIN_TOUR=Le rang de l''effet est de ${NUMERO}.<br/>\n";
+f+="TAUX_PV_INFLIGES_CIBLE_LOI_PIEGE=Tableau du taux de pv perdus de la cible et des probabilit&eacute;s en fonction du nombre de tour:<br/><table><tr><td>Nombre de tours depuis le d&eacute;but de l''effet</td><td>Taux de vie perdue par la cible</td><td>Probabilit&eacute;</td><td>Probabilit&eacute; en %</td></tr>${TAUX_PV_INFLIGES_CIBLE_LOI_PIEGE__LIGNE}</table><br/>\n";
+f+="TAUX_PV_INFLIGES_CIBLE_LOI_PIEGE__LIGNE=<tr><td>${TOUR}</td><td>${TAUX_PV}</td><td>${PROBA}</td><td><${PROBA_POUR_CENT}/td></tr>\n";
+f+="TAUX_PV_INFLIGE_CIBLE=La cible perd ${TAUX} de ses pv max.<br/>\n";
+f+="TAUX_PV_ABS_CIBLE_VERS_LANCEUR=Le lanceur absorbe ${TAUX} des pv max de la cible.<br/>\n";
+f+="TAUX_PV_RESTAURES=Le taux de pv restaur&eacute;s sur les pv max est de ${TAUX}.<br/>\n";
+f+="SOIN_APRES=L''effet de soin a lieu un tour apr&egrave;s &agrave; l''emplacement du lanceur au moment du lancer.<br/>\n";
+f+="DEGATS_STATUT=Voici le taux de pv perdus en fonction des combinaisons des statuts de l''advsersaire du combattant (les combinaisons de statut non affich&eacute;es n''on aucun effet.):<br/><table><tr><td>Statut poss&eacute;d&eacute;</td><td>Taux de vie perdue par l''advesaire</td></tr>${DEGATS_STATUT__LIGNE}</table><br/>\n";
+f+="DEGATS_STATUT__LIGNE=<tr><td>${STATUT}</td><td>${TAUX}</td></tr>\n";
+f+="mult_damage_status=Here is the rate of restored hp in function by the status of the fighter (the rates are multiplied if the fighter owns some status.):<br/>\n";
+f+="mult_damage_status_key=Owned status\n";
+f+="mult_damage_status_value=Rate of restored health points by the target\n";
+f+="delete_all_status=The rate that the status are deleted is {0}.<br/>\n";
+f+="STATUT_OK_PART=La probabilit&eacute; que les statuts des partenaires du combattant soient supprim&eacute;s est de ${PROBA} soit environ ${PROBA_POUR_CENT} %.<br/>\n";
+f+="recoil_damage=The rate of recoil damage for the fighter is {0}.<br/>\n";
+f+="heal_hp=The fighter restores {0} of its full life.<br/>\n";
+f+="heal_hp_by_owner_types=Here is the variation of the hp of the fighter in function by the owned types,<br/>the variations of life are added in function by owned types:<br/>\n";
+f+="heal_hp_by_owner_types_other=Other owned type(s)\n";
+f+="heal_hp_by_owner_types_key=Owned types\n";
+f+="heal_hp_by_owner_types_value=Variation of the rate of the hp of the fighter\n";
+f+="heal_hp_by_owner_types_value_w=Win of {0} of the full hp\n";
+f+="heal_hp_by_owner_types_value_l=Loss of {0} of the full hp\n";
+f+="user_status=The fighter is affected by the status <a c:command=\"$clickUserStatus({1})\">{0}</a> if not already done.<br/>\n";
+return f;
+}
+static String fr(){
+String f="A=L''effet appartient &agrave; l''attaque ${ATTAQUE}.<br/>\n";
+f+="O=L''effet appartient &agrave; l''objet ${OBJET}.<br/>\n";
+f+="C=L''effet appartient &agrave; la capacit&eacute; ${CAPACITE}.<br/>\n";
+f+="S=L''effet appartient au statut ${STATUT}.<br/>\n";
+f+="TYPE_RELATION=${RELATION_UNIQUE}${RELATION_POSITION_CIBLE}${INDIVIDUEL}${RELATION_POSITION}${GLOBAL}${ADV}\n";
+f+="TYPE_RELATION__RELATION_UNIQUE=Cet effet concerne le lanceur et la cible. Si le lanceur ou la cible switchent alors l''effet est arr&ecirc;t&eacute;.<br/>\n";
+f+="TYPE_RELATION__RELATION_POSITION_CIBLE=Cet effet tient compte de la position du lanceur et celle de la cible.<br/>\n";
+f+="effect=Cet effet concerne un seul combattant.<br/>\n";
+f+="TYPE_RELATION__RELATION_POSITION=Cet effet tient compte de la position du lanceur et le remplacant &eacute;ventuel.<br/>\n";
+f+="TYPE_RELATION__GLOBAL=Cet effet concerne tous les combattants.<br/>\n";
+f+="TYPE_RELATION__ADV=Cet effet concerne l''&eacute;quipe adverse du lanceur.<br/>\n";
+f+="ANTICIPE=L''effet de l''attaque a lieu deux tours apr&egrave;s.<br/>L''attaque se base sur les caract&eacute;ristiques de la cible au moment du lancer.<br/>Tant que les deux tours apr&egrave;s lancer ne sont pas pass&eacute;s, aucune attaque du m&ecirc;me genre (${ANTICIPE__LIGNE}) ne peut &ecirc;tre utilis&eacute;e.<br/>\n";
+f+="ANTICIPE__LIGNE=${ATTAQUE}\n";
+f+="ANTICIPE__LIGNE_SEP=, \n";
+f+="ORDRE_FIN_TOUR=Le rang de l''effet est de ${NUMERO}.<br/>\n";
+f+="TAUX_PV_INFLIGES_CIBLE_LOI_PIEGE=Tableau du taux de pv perdus de la cible et des probabilit&eacute;s en fonction du nombre de tour:<br/><table><tr><td>Nombre de tours depuis le d&eacute;but de l''effet</td><td>Taux de vie perdue par la cible</td><td>Probabilit&eacute;</td><td>Probabilit&eacute; en %</td></tr>${TAUX_PV_INFLIGES_CIBLE_LOI_PIEGE__LIGNE}</table><br/>\n";
+f+="TAUX_PV_INFLIGES_CIBLE_LOI_PIEGE__LIGNE=<tr><td>${TOUR}</td><td>${TAUX_PV}</td><td>${PROBA}</td><td><${PROBA_POUR_CENT}/td></tr>\n";
+f+="TAUX_PV_INFLIGE_CIBLE=La cible perd ${TAUX} de ses pv max.<br/>\n";
+f+="TAUX_PV_ABS_CIBLE_VERS_LANCEUR=Le lanceur absorbe ${TAUX} des pv max de la cible.<br/>\n";
+f+="TAUX_PV_RESTAURES=Le taux de pv restaur&eacute;s sur les pv max est de ${TAUX}.<br/>\n";
+f+="SOIN_APRES=L''effet de soin a lieu un tour apr&egrave;s &agrave; l''emplacement du lanceur au moment du lancer.<br/>\n";
+f+="DEGATS_STATUT=Voici le taux de pv perdus en fonction des combinaisons des statuts de l''advsersaire du combattant (les combinaisons de statut non affich&eacute;es n''on aucun effet.):<br/><table><tr><td>Statut poss&eacute;d&eacute;</td><td>Taux de vie perdue par l''advesaire</td></tr>${DEGATS_STATUT__LIGNE}</table><br/>\n";
+f+="DEGATS_STATUT__LIGNE=<tr><td>${STATUT}</td><td>${TAUX}</td></tr>\n";
+f+="mult_damage_status=Voici le taux de pv restaur&eacute;s en fonction du statut du combattant (les coefficients sont mutlipli&eacute;s si le combattant poss&egrave;de plusieurs statuts.):<br/>\n";
+f+="mult_damage_status_key=Statut poss&eacute;d&eacute;\n";
+f+="mult_damage_status_value=Taux de vie restaur&eacute;e par la cible\n";
+f+="delete_all_status=La probabilit&eacute; que les statuts du combattant soient supprim&eacute;s est de {0}.<br/>\n";
+f+="STATUT_OK_PART=La probabilit&eacute; que les statuts des partenaires du combattant soient supprim&eacute;s est de ${PROBA} soit environ ${PROBA_POUR_CENT} %.<br/>\n";
+f+="recoil_damage=Le taux de d&eacute;g&acirc;ts de recul pour le combattant est de {0}.<br/>\n";
+f+="heal_hp=Le combattant restaure {0} de sa vie totale.<br/>\n";
+f+="heal_hp_by_owner_types=Voici la variation des pv du combattant en fonction des types poss&eacute;d&eacute;s,<br/>les variations de vie sont cumul&eacute;s en fonction des types poss&eacute;d&eacute;s:<br/>\n";
+f+="heal_hp_by_owner_types_other=Autre(s) type(s) poss&eacute;d&eacute;(s)\n";
+f+="heal_hp_by_owner_types_key=Types poss&eacute;d&eacute;s\n";
+f+="heal_hp_by_owner_types_value=Variation du taux de pv du combattant\n";
+f+="heal_hp_by_owner_types_value_w=Gain de {0} du total des pv\n";
+f+="heal_hp_by_owner_types_value_l=Perte de {0} du total des pv\n";
+f+="user_status=Le combattant prend le statut <a c:command=\"$clickUserStatus({1})\">{0}</a> si ce n''est pas d&eacute;j&agrave; fait.<br/>\n";
+return f;
+}
+}
