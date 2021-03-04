@@ -181,6 +181,8 @@ import aiki.map.pokemon.enums.Gender;
 import aiki.map.tree.util.Dims;
 import aiki.map.util.*;
 import aiki.sml.init.*;
+import aiki.sml.imgs.*;
+import aiki.sml.trs.*;
 import aiki.util.*;
 import code.images.BaseSixtyFourUtil;
 import code.maths.LgInt;
@@ -189,7 +191,6 @@ import code.maths.litteral.MathExpUtil;
 import code.maths.montecarlo.AbstractGenerator;
 import code.maths.montecarlo.MonteCarloEnum;
 import code.maths.montecarlo.MonteCarloNumber;
-import code.resources.ResourceFiles;
 import code.sml.maths.DocumentReaderMathUtil;
 import code.sml.Document;
 import code.sml.DocumentBuilder;
@@ -1017,7 +1018,8 @@ public final class DocumentReaderAikiCoreUtil {
         return data_;
     }
     public static void loadResources(AbstractGenerator _gene, FacadeGame _f, PerCent _p,LoadFlag _l) {
-        DataBase data_ = new DataBase(_gene);
+        LoadRes.loadResources(_gene,_f,_p,_l);
+        /*DataBase data_ = new DataBase(_gene);
         data_.setLanguages(_f.getLanguages());
         data_.setDisplayLanguages(_f.getDisplayLanguages());
         _l.set(true);
@@ -1028,7 +1030,7 @@ public final class DocumentReaderAikiCoreUtil {
         }
         _f.setData(data_);
         _f.setLoadedData(true);
-        _f.setZipName(DataBase.EMPTY_STRING);
+        _f.setZipName(DataBase.EMPTY_STRING);*/
     }
     public static void initMessages(DataBase _d,String _lg) {
         _d.setMessagesPokemonPlayer(ExtractFromFiles.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, _lg, PokemonPlayer.POKEMON_PLAYER));
@@ -1854,15 +1856,18 @@ public final class DocumentReaderAikiCoreUtil {
     }
 
 
-    public static void loadResources(DataBase _d,PerCent _perCentLoading, String _lg) {
+    /*public static void loadResources(DataBase _d,PerCent _perCentLoading, String _lg) {
         int delta_ = (100 - _perCentLoading.getPercent()) / 6;
 
         _d.initializeMembers();
         String common_ = Resources.ACCESS_TO_DEFAULT_FILES;
-        StringList tmHm_ = StringUtil.splitChars(ResourceFiles
-                        .ressourceFichier(StringUtil.concat(common_, CT_CS_FILE)),
+		StringMap<String> cts_ = Cst.tr();
+        StringList tmHm_ = StringUtil.splitChars(cts_.getVal(CT_CS_FILE),
                 RETURN_LINE_CHAR);
-        for (String l : tmHm_) {
+        /*StringList tmHm_ = StringUtil.splitChars(ResourceFiles
+                        .ressourceFichier(StringUtil.concat(common_, CT_CS_FILE)),
+                RETURN_LINE_CHAR);*/
+        /*for (String l : tmHm_) {
             if (l.startsWith(CT)) {
                 StringList infos_ = StringUtil.splitChars(l, TAB_CHAR);
                 short cle_ = (short) NumberUtil.parseInt(infos_.first().substring(2));
@@ -1883,7 +1888,16 @@ public final class DocumentReaderAikiCoreUtil {
             }
         }
         _d.setFrontHeros(new ObjectMap<ImageHeroKey, int[][]>());
-        for (String l : StringUtil.splitChars(ResourceFiles
+        StringMap<String> heFr_ = HeFront.im();
+        for (EntryCust<String,String> e:heFr_.entryList()){
+            StringList keyStrings_ = StringUtil.splitStrings(e.getKey(),
+                    SEPARATOR_KEY_HEROS);
+            EnvironmentType env_ = getEnvByName(keyStrings_.first());
+            Sex sex_ = getSexByName(keyStrings_.last());
+            _d.getFrontHeros().addEntry(new ImageHeroKey(env_, sex_),
+                    BaseSixtyFourUtil.getImageByString(e.getValue()));
+        }
+        /*for (String l : StringUtil.splitChars(ResourceFiles
                 .ressourceFichier(StringUtil.concat(common_, HERO_FOLDER,
                         SEPARATOR_FILES, HERO_FRONT)), RETURN_LINE_CHAR)) {
             if (l.isEmpty()) {
@@ -1897,9 +1911,19 @@ public final class DocumentReaderAikiCoreUtil {
             Sex sex_ = getSexByName(keyStrings_.last());
             _d.getFrontHeros().put(new ImageHeroKey(env_, sex_),
                     BaseSixtyFourUtil.getImageByString(infos_.last()));
+        }*/
+        /*_d.setBackHeros(new ObjectMap<ImageHeroKey, int[][]>());
+        StringMap<String> heBk_ = HeBack.im();
+        for (EntryCust<String,String> e:heBk_.entryList()) {
+            StringList keyStrings_ = StringUtil.splitStrings(e.getKey(),
+                    SEPARATOR_KEY_HEROS);
+            EnvironmentType env_ = getEnvByName(keyStrings_
+                    .first());
+            Sex sex_ = getSexByName(keyStrings_.last());
+            _d.getBackHeros().addEntry(new ImageHeroKey(env_, sex_),
+                    BaseSixtyFourUtil.getImageByString(e.getValue()));
         }
-        _d.setBackHeros(new ObjectMap<ImageHeroKey, int[][]>());
-        for (String l : StringUtil.splitChars(ResourceFiles
+        /*for (String l : StringUtil.splitChars(ResourceFiles
                 .ressourceFichier(StringUtil.concat(common_, HERO_FOLDER,
                         SEPARATOR_FILES, HERO_BACK)), RETURN_LINE_CHAR)) {
             if (l.isEmpty()) {
@@ -1913,9 +1937,21 @@ public final class DocumentReaderAikiCoreUtil {
             Sex sex_ = getSexByName(keyStrings_.last());
             _d.getBackHeros().put(new ImageHeroKey(env_, sex_),
                     BaseSixtyFourUtil.getImageByString(infos_.last()));
+        }*/
+        /*_d.setOverWorldHeros(new ObjectMap<ImageHeroKey, int[][]>());
+        StringMap<String> heMi_ = HeMini.im();
+        for (EntryCust<String,String> e:heMi_.entryList()) {
+            StringList keyStrings_ = StringUtil.splitStrings(e.getKey(),
+                    SEPARATOR_KEY_HEROS);
+            EnvironmentType env_ = getEnvByName(keyStrings_
+                    .first());
+            Direction dir_ = Direction.getDirectionByName(keyStrings_
+                    .get(IndexConstants.SECOND_INDEX));
+            Sex sex_ = getSexByName(keyStrings_.last());
+            _d.getOverWorldHeros().addEntry(new ImageHeroKey(env_, dir_, sex_),
+                    BaseSixtyFourUtil.getImageByString(e.getValue()));
         }
-        _d.setOverWorldHeros(new ObjectMap<ImageHeroKey, int[][]>());
-        for (String l : StringUtil.splitChars(ResourceFiles
+        /*for (String l : StringUtil.splitChars(ResourceFiles
                 .ressourceFichier(StringUtil.concat(common_, HERO_FOLDER,
                         SEPARATOR_FILES, HERO_MINI)), RETURN_LINE_CHAR)) {
             if (l.isEmpty()) {
@@ -1931,14 +1967,16 @@ public final class DocumentReaderAikiCoreUtil {
             Sex sex_ = getSexByName(keyStrings_.last());
             _d.getOverWorldHeros().put(new ImageHeroKey(env_, dir_, sex_),
                     BaseSixtyFourUtil.getImageByString(infos_.last()));
-        }
-        _d.setImageTmHm(BaseSixtyFourUtil.getImageByString(ResourceFiles
+        }*/
+        //_d.setImageTmHm(BaseSixtyFourUtil.getImageByString(ImHmTm.im()));
+        /*_d.setImageTmHm(BaseSixtyFourUtil.getImageByString(ResourceFiles
                 .ressourceFichier(StringUtil.concat(common_, IMAGE_TM_HM_FILES,
-                        IMG_FILES_RES_EXT_TXT))));
-        _d.setStorage(BaseSixtyFourUtil.getImageByString(ResourceFiles
+                        IMG_FILES_RES_EXT_TXT))));*/
+        //_d.setStorage(BaseSixtyFourUtil.getImageByString(ImStorage.im()));
+        /*_d.setStorage(BaseSixtyFourUtil.getImageByString(ResourceFiles
                 .ressourceFichier(StringUtil.concat(common_,
-                        IMAGE_STORAGE_FILES, IMG_FILES_RES_EXT_TXT))));
-        _d.setCombos(CoInit.co());
+                        IMAGE_STORAGE_FILES, IMG_FILES_RES_EXT_TXT))));*/
+        /*_d.setCombos(CoInit.co());
 //        _d.setCombos(DocumentReaderAikiCoreUtil.getCombos(ResourceFiles
 //                .ressourceFichier(StringUtil.concat(common_, COMBOS))));
         _d.completeMembersCombos();
@@ -1947,10 +1985,12 @@ public final class DocumentReaderAikiCoreUtil {
 //                .ressourceFichier(StringUtil.concat(common_, MAP_FILE))));
         _perCentLoading.addPercent(delta_);
         _d.setConstNum(new StringMap<Rate>());
-        StringList lines_ = StringUtil.splitChars(ResourceFiles
-                        .ressourceFichier(StringUtil.concat(common_, CONST_NUM)),
+        StringList lines_ = StringUtil.splitChars(cts_.getVal(CONST_NUM),
                 RETURN_LINE_CHAR);
-        for (String l : lines_) {
+        /*StringList lines_ = StringUtil.splitChars(ResourceFiles
+                        .ressourceFichier(StringUtil.concat(common_, CONST_NUM)),
+                RETURN_LINE_CHAR);*/
+        /*for (String l : lines_) {
             if (l.isEmpty()) {
                 continue;
             }
@@ -1958,10 +1998,12 @@ public final class DocumentReaderAikiCoreUtil {
             _d.getConstNum().put(infos_.first(), new Rate(infos_.last()));
         }
 
-        lines_ = StringUtil.splitChars(ResourceFiles
-                        .ressourceFichier(StringUtil.concat(common_, CONST_NOT_NUM)),
+        lines_ = StringUtil.splitChars(cts_.getVal(CONST_NOT_NUM),
                 RETURN_LINE_CHAR);
-        for (String l : lines_) {
+        /*lines_ = StringUtil.splitChars(ResourceFiles
+                        .ressourceFichier(StringUtil.concat(common_, CONST_NOT_NUM)),
+                RETURN_LINE_CHAR);*/
+        /*for (String l : lines_) {
             if (l.isEmpty()) {
                 continue;
             }
@@ -1987,8 +2029,10 @@ public final class DocumentReaderAikiCoreUtil {
 
         }
         _d.setTableTypes(new TypesDuos());
-        StringList linesTableTypes_ = StringUtil.splitChars(ResourceFiles
+        /*StringList linesTableTypes_ = StringUtil.splitChars(ResourceFiles
                         .ressourceFichier(StringUtil.concat(common_, TABLE_TYPES)),
+                RETURN_LINE_CHAR);*/
+        /*StringList linesTableTypes_ = StringUtil.splitChars(cts_.getVal(TABLE_TYPES),
                 RETURN_LINE_CHAR);
         String head_ = linesTableTypes_.first();
         StringList typesOff_ = StringUtil.splitChars(head_, TAB_CHAR);
@@ -2019,8 +2063,10 @@ public final class DocumentReaderAikiCoreUtil {
         }
         _d.initTypesByTable();
         _d.setLawsDamageRate(new EnumMap<DifficultyModelLaw, LawNumber>());
-        StringList laws_ = StringUtil.splitChars(ResourceFiles
+        /*StringList laws_ = StringUtil.splitChars(ResourceFiles
                         .ressourceFichier(StringUtil.concat(common_, LOIS_RANDOM)),
+                RETURN_LINE_CHAR);*/
+        /*StringList laws_ = StringUtil.splitChars(cts_.getVal(LOIS_RANDOM),
                 RETURN_LINE_CHAR);
         for (String l : laws_) {
             if (l.isEmpty()) {
@@ -2060,8 +2106,10 @@ public final class DocumentReaderAikiCoreUtil {
                     new LawNumber(law_, (short) NumberUtil.parseInt(infos_.last())));
         }
         _d.setExpGrowth(new EnumMap<ExpType, String>());
-        StringList courbes_ = StringUtil.splitChars(ResourceFiles
+        /*StringList courbes_ = StringUtil.splitChars(ResourceFiles
                         .ressourceFichier(StringUtil.concat(common_, COURBE_PTS_EXP)),
+                RETURN_LINE_CHAR);*/
+        /*StringList courbes_ = StringUtil.splitChars(cts_.getVal(COURBE_PTS_EXP),
                 RETURN_LINE_CHAR);
         for (String l : courbes_) {
             if (l.isEmpty()) {
@@ -2072,8 +2120,10 @@ public final class DocumentReaderAikiCoreUtil {
                     infos_.get(1));
         }
         _d.setRates(new EnumMap<DifficultyWinPointsFight, String>());
-        StringList rates_ = StringUtil.splitChars(ResourceFiles
+        /*StringList rates_ = StringUtil.splitChars(ResourceFiles
                         .ressourceFichier(StringUtil.concat(common_, RATE_WON_POINTS)),
+                RETURN_LINE_CHAR);*/
+        /*StringList rates_ = StringUtil.splitChars(cts_.getVal(RATE_WON_POINTS),
                 RETURN_LINE_CHAR);
         for (String l : rates_) {
             if (l.isEmpty()) {
@@ -2084,9 +2134,10 @@ public final class DocumentReaderAikiCoreUtil {
                     .first()), infos_.get(1));
         }
         _d.setTypesColors(new StringMap<String>());
-        rates_ = StringUtil.splitChars(ResourceFiles
+        /*rates_ = StringUtil.splitChars(ResourceFiles
                 .ressourceFichier(StringUtil.concat(common_, TYPES_COLOR_CODE,
-                        IMG_FILES_RES_EXT_TXT)), RETURN_LINE_CHAR);
+                        IMG_FILES_RES_EXT_TXT)), RETURN_LINE_CHAR);*/
+        /*rates_ = StringUtil.splitChars(cts_.getVal(TYPES_COLOR_CODE+IMG_FILES_RES_EXT_TXT), RETURN_LINE_CHAR);
         for (String l : rates_) {
             if (l.isEmpty()) {
                 continue;
@@ -2095,11 +2146,207 @@ public final class DocumentReaderAikiCoreUtil {
             String colorStr_ = infos_.get(1);
             _d.getTypesColors().put(infos_.first(), colorStr_);
         }
-        _d.setEndGameImage(BaseSixtyFourUtil.getImageByString(ResourceFiles
+        _d.setEndGameImage(BaseSixtyFourUtil.getImageByString(ImEndGame.im()));
+        /*_d.setEndGameImage(BaseSixtyFourUtil.getImageByString(ResourceFiles
                 .ressourceFichier(StringUtil.concat(common_, END_GAME_IMAGE,
-                        IMG_FILES_RES_EXT_TXT))));
-        _d.initTranslations();
-        for (String l : _d.getLanguages()) {
+                        IMG_FILES_RES_EXT_TXT))));*/
+        /*_d.initTranslations();
+		StringMap<String> trs_ = Trs.tr();
+		for (String l : _d.getLanguages()) {
+			EnumMap<Gender, String> genders_ = new EnumMap<Gender, String>();
+            for (String l2_ : StringUtil.splitChars(trs_.getVal(l+SEPARATOR_FILES+TRANSLATION_GENDERS),
+                    RETURN_LINE_CHAR)) {
+                if (l2_.isEmpty()) {
+                    continue;
+                }
+                StringList infos_ = StringUtil.splitChars(l2_, TAB_CHAR);
+                genders_.put(getGenderByName(infos_.first()),
+                        DocumentBuilder.transformSpecialChars(infos_.last()));
+            }
+            _d.getTranslatedGenders().put(l, genders_);
+			EnumMap<SelectedBoolean, String> booleans_ = new EnumMap<SelectedBoolean, String>();
+            for (String l2_ : StringUtil.splitChars(trs_.getVal(l+SEPARATOR_FILES+TRANSLATION_BOOLEANS),
+                    RETURN_LINE_CHAR)) {
+                if (l2_.isEmpty()) {
+                    continue;
+                }
+                StringList infos_ = StringUtil.splitChars(l2_, TAB_CHAR);
+                booleans_.put(getBoolByName(infos_.first()),
+                        DocumentBuilder.transformSpecialChars(infos_.last()));
+            }
+            _d.getTranslatedBooleans().put(l, booleans_);
+            EnumMap<DifficultyWinPointsFight, String> diffWinPts_ = new EnumMap<DifficultyWinPointsFight, String>();
+            for (String l2_ : StringUtil.splitChars(trs_.getVal(l+SEPARATOR_FILES+TRANSLATION_DIFF_WIN_PTS),
+                    RETURN_LINE_CHAR)) {
+                if (l2_.isEmpty()) {
+                    continue;
+                }
+                StringList infos_ = StringUtil.splitChars(l2_, TAB_CHAR);
+                diffWinPts_.put(
+                        getDiffWonPtsByName(infos_.first()), DocumentBuilder
+                        .transformSpecialChars(infos_.last()));
+            }
+            _d.getTranslatedDiffWinPts().put(l, diffWinPts_);
+            EnumMap<DifficultyModelLaw, String> diffLaw_ = new EnumMap<DifficultyModelLaw, String>();
+            for (String l2_ : StringUtil.splitChars(trs_.getVal(l+SEPARATOR_FILES+TRANSLATION_DIFF_MODEL_LAW),
+                    RETURN_LINE_CHAR)) {
+                if (l2_.isEmpty()) {
+                    continue;
+                }
+                StringList infos_ = StringUtil.splitChars(l2_, TAB_CHAR);
+                diffLaw_.put(getModelByName(infos_.first()),
+                        DocumentBuilder.transformSpecialChars(infos_.last()));
+            }
+            _d.getTranslatedDiffModelLaw().put(l, diffLaw_);
+            EnumMap<EnvironmentType, String> environments_ = new EnumMap<EnvironmentType, String>();
+            for (String l2_ : StringUtil.splitChars(trs_.getVal(l+SEPARATOR_FILES+TRANSLATION_ENVIRONMENTS),
+                    RETURN_LINE_CHAR)) {
+                if (l2_.isEmpty()) {
+                    continue;
+                }
+                StringList infos_ = StringUtil.splitChars(l2_, TAB_CHAR);
+                environments_.put(getEnvByName(infos_.first()),
+                        DocumentBuilder.transformSpecialChars(infos_.last()));
+            }
+            _d.getTranslatedEnvironment().put(l, environments_);
+            EnumMap<Statistic, String> statistics_ = new EnumMap<Statistic, String>();
+            for (String l2_ : StringUtil.splitChars(trs_.getVal(l+SEPARATOR_FILES+TRANSLATION_STATISTICS),
+                    RETURN_LINE_CHAR)) {
+                if (l2_.isEmpty()) {
+                    continue;
+                }
+                StringList infos_ = StringUtil.splitChars(l2_, TAB_CHAR);
+                statistics_.put(Statistic.getStatisticByName(infos_.first()),
+                        DocumentBuilder.transformSpecialChars(infos_.last()));
+            }
+            _d.getTranslatedStatistics().put(l, statistics_);
+            EnumMap<TargetChoice, String> targets_ = new EnumMap<TargetChoice, String>();
+            for (String l2_ : StringUtil.splitChars(trs_.getVal(l+SEPARATOR_FILES+TRANSLATION_TARGETS),
+                    RETURN_LINE_CHAR)) {
+                if (l2_.isEmpty()) {
+                    continue;
+                }
+                StringList infos_ = StringUtil.splitChars(l2_, TAB_CHAR);
+                targets_.put(
+                        getTargetChoiceByName(infos_.first()),
+                        DocumentBuilder.transformSpecialChars(infos_.last()));
+            }
+            _d.getTranslatedTargets().put(l, targets_);
+            StringMap<String> categories_ = new StringMap<String>();
+            for (String l2_ : StringUtil.splitChars(trs_.getVal(l+SEPARATOR_FILES+TRANSLATION_CATEGORIES),
+                    RETURN_LINE_CHAR)) {
+                if (l2_.isEmpty()) {
+                    continue;
+                }
+                StringList infos_ = StringUtil.splitChars(l2_, TAB_CHAR);
+                categories_.put(infos_.first(),
+                        DocumentBuilder.transformSpecialChars(infos_.last()));
+            }
+            _d.getTranslatedCategories().put(l, categories_);
+            StringMap<String> types_ = new StringMap<String>();
+            for (String l2_ : StringUtil.splitChars(trs_.getVal(l+SEPARATOR_FILES+TRANSLATION_TYPES),
+                    RETURN_LINE_CHAR)) {
+                if (l2_.isEmpty()) {
+                    continue;
+                }
+                StringList infos_ = StringUtil.splitChars(l2_, TAB_CHAR);
+                types_.put(infos_.first(),
+                        DocumentBuilder.transformSpecialChars(infos_.last()));
+            }
+            _d.getTranslatedTypes().put(l, types_);
+            StringMap<String> pokemon_ = new StringMap<String>();
+            for (String l2_ : StringUtil.splitChars(trs_.getVal(l+SEPARATOR_FILES+TRANSLATION_POKEMON),
+                    RETURN_LINE_CHAR)) {
+                if (l2_.isEmpty()) {
+                    continue;
+                }
+                StringList infos_ = StringUtil.splitChars(l2_, TAB_CHAR);
+                pokemon_.put(infos_.first(),
+                        DocumentBuilder.transformSpecialChars(infos_.last()));
+            }
+            _d.getTranslatedPokemon().put(l, pokemon_);
+            StringMap<String> moves_ = new StringMap<String>();
+            for (String l2_ : StringUtil.splitChars(trs_.getVal(l+SEPARATOR_FILES+TRANSLATION_MOVES),
+                    RETURN_LINE_CHAR)) {
+                if (l2_.isEmpty()) {
+                    continue;
+                }
+                StringList infos_ = StringUtil.splitChars(l2_, TAB_CHAR);
+                moves_.put(infos_.first(),
+                        DocumentBuilder.transformSpecialChars(infos_.last()));
+            }
+            _d.getTranslatedMoves().put(l, moves_);
+            StringMap<String> items_ = new StringMap<String>();
+            for (String l2_ : StringUtil.splitChars(trs_.getVal(l+SEPARATOR_FILES+TRANSLATION_ITEMS),
+                    RETURN_LINE_CHAR)) {
+                if (l2_.isEmpty()) {
+                    continue;
+                }
+                StringList infos_ = StringUtil.splitChars(l2_, TAB_CHAR);
+                items_.put(infos_.first(),
+                        DocumentBuilder.transformSpecialChars(infos_.last()));
+            }
+            _d.getTranslatedItems().put(l, items_);
+            StringMap<String> abilities_ = new StringMap<String>();
+            for (String l2_ : StringUtil.splitChars(trs_.getVal(l+SEPARATOR_FILES+TRANSLATION_ABILITIES),
+                    RETURN_LINE_CHAR)) {
+                if (l2_.isEmpty()) {
+                    continue;
+                }
+                StringList infos_ = StringUtil.splitChars(l2_, TAB_CHAR);
+                abilities_.put(infos_.first(),
+                        DocumentBuilder.transformSpecialChars(infos_.last()));
+            }
+            _d.getTranslatedAbilities().put(l, abilities_);
+            StringMap<String> status_ = new StringMap<String>();
+            for (String l2_ : StringUtil.splitChars(trs_.getVal(l+SEPARATOR_FILES+TRANSLATION_STATUS),
+                    RETURN_LINE_CHAR)) {
+                if (l2_.isEmpty()) {
+                    continue;
+                }
+                StringList infos_ = StringUtil.splitChars(l2_, TAB_CHAR);
+                status_.put(infos_.first(),
+                        DocumentBuilder.transformSpecialChars(infos_.last()));
+            }
+            _d.getTranslatedStatus().put(l, status_);
+            StringMap<String> fctsMath_ = new StringMap<String>();
+            for (String l2_ : StringUtil.splitChars(trs_.getVal(l+SEPARATOR_FILES+TRANSLATION_MATH),
+                    RETURN_LINE_CHAR)) {
+                if (l2_.isEmpty()) {
+                    continue;
+                }
+                StringList infos_ = StringUtil.splitChars(l2_, TAB_CHAR);
+                fctsMath_.put(infos_.first(),
+                        DocumentBuilder.transformSpecialChars(infos_.last()));
+            }
+            _d.getTranslatedFctMath().put(l, fctsMath_);
+            StringMap<String> descrClasses_ = new StringMap<String>();
+            for (String l2_ : StringUtil.splitChars(trs_.getVal(l+SEPARATOR_FILES+TRANSLATION_CLASSES),
+                    RETURN_LINE_CHAR)) {
+                if (l2_.isEmpty()) {
+                    continue;
+                }
+                StringList infos_ = StringUtil.splitChars(l2_, TAB_CHAR);
+                descrClasses_.put(infos_.first(),
+                        DocumentBuilder.transformSpecialChars(infos_.last()));
+            }
+            _d.getTranslatedClassesDescriptions().put(l, descrClasses_);
+            StringMap<String> litteral_ = new StringMap<String>();
+            for (String l2_ : StringUtil.splitChars(trs_.getVal(l+SEPARATOR_FILES+TRANSLATION_LITTERAL),
+                    RETURN_LINE_CHAR)) {
+                if (l2_.isEmpty()) {
+                    continue;
+                }
+                StringList infos_ = StringUtil.splitChars(l2_, TAB_CHAR);
+                litteral_
+                        .put(infos_.first(), DocumentBuilder
+                                .transformSpecialChars(StringUtil
+                                        .join(infos_.leftMinusOne(
+                                                infos_.size()), TAB)));
+            }
+            _d.getLitterals().put(l, litteral_);
+		}
+        /*for (String l : _d.getLanguages()) {
             String fileName_ = StringUtil.concat(TRANSLATION_FOLDER,
                     SEPARATOR_FILES);
             fileName_ = StringUtil.concat(fileName_, l, SEPARATOR_FILES);
@@ -2362,9 +2609,13 @@ public final class DocumentReaderAikiCoreUtil {
                                                 infos_.size()), TAB)));
             }
             _d.getLitterals().put(l, litteral_);
-        }
-        _perCentLoading.addPercent(delta_);
-        for (Statistic f : _d.getTranslatedStatistics().getVal(_lg)
+        }*/
+        /*_perCentLoading.addPercent(delta_);
+		for(EntryCust<String,String> e: AnStatis.im().entryList()){
+			_d.getAnimStatis().addEntry(e.getKey(), BaseSixtyFourUtil
+                    .getImageByString(e.getValue()));
+		}
+        /*for (Statistic f : _d.getTranslatedStatistics().getVal(_lg)
                 .getKeys()) {
             if (!f.isBoost()) {
                 continue;
@@ -2374,17 +2625,21 @@ public final class DocumentReaderAikiCoreUtil {
             _d.getAnimStatis().put(f.name(), BaseSixtyFourUtil
                     .getImageByString(ResourceFiles.ressourceFichier(StringUtil
                             .concat(common_, f_))));
-        }
-        for (String f : _d.getTranslatedStatus().getVal(_lg)
+        }*/
+		/*for(EntryCust<String,String> e: AnStatus.im().entryList()){
+			_d.getAnimStatus().addEntry(e.getKey(), BaseSixtyFourUtil.getImageByString(e.getValue()));
+		}
+        /*for (String f : _d.getTranslatedStatus().getVal(_lg)
                 .getKeys()) {
             String f_ = StringUtil.concat(ANIM_STATUS, SEPARATOR_FILES, f,
                     IMG_FILES_RES_EXT_TXT);
             _d.getAnimStatus().put(DataBase.toUpperCase(f), BaseSixtyFourUtil.getImageByString(ResourceFiles
                     .ressourceFichier(StringUtil.concat(common_, f_))));
-        }
-        _d.setAnimAbsorb(BaseSixtyFourUtil.getImageByString(ResourceFiles
-                .ressourceFichier(StringUtil.concat(common_, ANIM_ABSORB))));
-        StringList filesNames_;
+        }*/
+        //_d.setAnimAbsorb(BaseSixtyFourUtil.getImageByString(AnAbs.im().firstValue()));
+        /*_d.setAnimAbsorb(BaseSixtyFourUtil.getImageByString(ResourceFiles
+                .ressourceFichier(StringUtil.concat(common_, ANIM_ABSORB))));*/
+        /*StringList filesNames_;
         filesNames_ = new StringList();
         for (EntryCust<String,PokemonData> e: PkInit.pk().entryList()) {
             _d.completeQuickMembers(e.getKey(),e.getValue());
@@ -2488,48 +2743,63 @@ public final class DocumentReaderAikiCoreUtil {
             pk_.getMoveTutors().removeDuplicates();
         }
         _d.setMaxiPkBack(new StringMap<int[][]>());
-        for (String s : _d.getPokedex().getKeys()) {
+        /*for (String s : _d.getPokedex().getKeys()) {
             String n_ = StringUtil.concat(BACK_IMAGES_FOLDER, SEPARATOR_FILES,
                     s, IMG_FILES_RES_EXT_TXT);
             filesNames_.add(n_);
             _d.getMaxiPkBack().put(s, BaseSixtyFourUtil.getImageByString(ResourceFiles
                     .ressourceFichier(StringUtil.concat(common_, n_))));
+        }*/
+		/*for (EntryCust<String,String> e: Bk.im().entryList()) {
+            _d.getMaxiPkBack().addEntry(e.getKey(), BaseSixtyFourUtil.getImageByString(e.getValue()));
         }
         filesNames_.clear();
         _d.setMaxiPkFront(new StringMap<int[][]>());
-        for (String s : _d.getPokedex().getKeys()) {
+        /*for (String s : _d.getPokedex().getKeys()) {
             String n_ = StringUtil.concat(FRONT_IMAGES_FOLDER, SEPARATOR_FILES,
                     s, IMG_FILES_RES_EXT_TXT);
             filesNames_.add(n_);
             _d.getMaxiPkFront().put(s, BaseSixtyFourUtil.getImageByString(ResourceFiles
                     .ressourceFichier(StringUtil.concat(common_, n_))));
+        }*/
+		/*for (EntryCust<String,String> e: Ft.im().entryList()) {
+            _d.getMaxiPkFront().addEntry(e.getKey(), BaseSixtyFourUtil.getImageByString(e.getValue()));
         }
         filesNames_.clear();
         _d.setMiniPk(new StringMap<int[][]>());
-        for (String s : _d.getPokedex().getKeys()) {
+        /*for (String s : _d.getPokedex().getKeys()) {
             String n_ = StringUtil.concat(MINI_IMAGES_FOLDER, SEPARATOR_FILES,
                     s, IMG_FILES_RES_EXT_TXT);
             filesNames_.add(n_);
             _d.getMiniPk().put(s, BaseSixtyFourUtil.getImageByString(ResourceFiles
                     .ressourceFichier(StringUtil.concat(common_, n_))));
+        }*/
+		/*for (EntryCust<String,String> e: Mn.im().entryList()) {
+            _d.getMiniPk().addEntry(e.getKey(), BaseSixtyFourUtil.getImageByString(e.getValue()));
         }
         filesNames_.clear();
         _d.setMiniItems(new StringMap<int[][]>());
-        for (String s : _d.getItems().getKeys()) {
+        /*for (String s : _d.getItems().getKeys()) {
             String n_ = StringUtil.concat(OBJECTS_IMAGES_FOLDER,
                     SEPARATOR_FILES, s, IMG_FILES_RES_EXT_TXT);
             filesNames_.add(n_);
             _d.getMiniItems().put(s, BaseSixtyFourUtil.getImageByString(ResourceFiles
                     .ressourceFichier(StringUtil.concat(common_, n_))));
+        }*/
+		/*for (EntryCust<String,String> e: ItIm.im().entryList()) {
+            _d.getMiniItems().addEntry(e.getKey(), BaseSixtyFourUtil.getImageByString(e.getValue()));
         }
         filesNames_.clear();
         _d.setTypesImages(new StringMap<int[][]>());
-        for (String s : _d.getTypes()) {
+       /* for (String s : _d.getTypes()) {
             String n_ = StringUtil.concat(TYPES_IMAGES_FOLDER, SEPARATOR_FILES,
                     s, IMG_FILES_RES_EXT_TXT);
             filesNames_.add(n_);
             _d.getTypesImages().put(s, BaseSixtyFourUtil.getImageByString(ResourceFiles
                     .ressourceFichier(StringUtil.concat(common_, n_))));
+        }*/
+		/*for (EntryCust<String,String> e: TypeImg.im().entryList()) {
+            _d.getTypesImages().addEntry(e.getKey(), BaseSixtyFourUtil.getImageByString(e.getValue()));
         }
         _perCentLoading.addPercent(delta_);
         filesNames_.clear();
@@ -2543,231 +2813,29 @@ public final class DocumentReaderAikiCoreUtil {
         _d.setImagesTiles(new StringMap<ObjectMap<ScreenCoords, int[][]>>());
         _d.setLinks(new StringMap<int[][]>());
         _d.setMiniMap(new StringMap<int[][]>());
-        for (Place p : _d.getMap().getPlaces()) {
-            if (p instanceof League) {
-                League l_ = (League) p;
-                for (Level l : l_.getLevelsList()) {
-                    LevelLeague lev_ = (LevelLeague) l;
-                    String f_ = lev_.getTrainer().getImageMaxiFileName();
-                    String file_ = StringUtil.concat(TRAINERS_FOLDER,
-                            SEPARATOR_FILES, f_);
-                    _d.getTrainers().put(f_, BaseSixtyFourUtil
-                            .getImageByString(ResourceFiles
-                                    .ressourceFichier(StringUtil.concat(
-                                            common_, file_))));
-                    f_ = lev_.getTrainer().getImageMiniFileName();
-                    file_ = StringUtil.concat(PEOPLE_FOLDER, SEPARATOR_FILES,
-                            f_);
-                    _d.getPeople().put(f_, BaseSixtyFourUtil
-                            .getImageByString(ResourceFiles
-                                    .ressourceFichier(StringUtil.concat(
-                                            common_, file_))));
-                    for (Block b_ : l.getBlocks().values()) {
-                        f_ = b_.getTileFileName();
-                        file_ = StringUtil.concat(IMAGES_FOLDER,
-                                SEPARATOR_FILES, f_);
-                        _d.getImages().put(f_, BaseSixtyFourUtil
-                                .getImageByString(ResourceFiles
-                                        .ressourceFichier(StringUtil.concat(
-                                                common_, file_))));
-                    }
-                    f_ = lev_.getFileName();
-                    file_ = StringUtil
-                            .concat(LINKS_FOLDER, SEPARATOR_FILES, f_);
-                    _d.getLinks().put(f_, BaseSixtyFourUtil
-                            .getImageByString(ResourceFiles
-                                    .ressourceFichier(StringUtil.concat(
-                                            common_, file_))));
-                }
-                String f_ = l_.getFileName();
-                String file_ = StringUtil.concat(LINKS_FOLDER, SEPARATOR_FILES,
-                        f_);
-                _d.getLinks().put(f_, BaseSixtyFourUtil.getImageByString(ResourceFiles
-                        .ressourceFichier(StringUtil.concat(common_, file_))));
-                continue;
-            }
-            if (p instanceof City) {
-                City c_ = (City) p;
-                for (Building b : c_.getBuildings().values()) {
-                    if (b instanceof Gym) {
-                        Gym g_ = (Gym) b;
-                        for (Trainer t : g_.getIndoor().getGymTrainers()
-                                .values()) {
-                            String f_ = t.getImageMaxiFileName();
-                            String file_ = StringUtil.concat(TRAINERS_FOLDER,
-                                    SEPARATOR_FILES, f_);
-                            _d.getTrainers().put(f_, BaseSixtyFourUtil
-                                    .getImageByString(ResourceFiles
-                                            .ressourceFichier(StringUtil
-                                                    .concat(common_, file_))));
-                            f_ = t.getImageMiniFileName();
-                            file_ = StringUtil.concat(PEOPLE_FOLDER,
-                                    SEPARATOR_FILES, f_);
-                            _d.getPeople().put(f_, BaseSixtyFourUtil
-                                    .getImageByString(ResourceFiles
-                                            .ressourceFichier(StringUtil
-                                                    .concat(common_, file_))));
-                        }
-                        String f_ = g_.getIndoor().getGymLeader()
-                                .getImageMaxiFileName();
-                        String file_ = StringUtil.concat(TRAINERS_FOLDER,
-                                SEPARATOR_FILES, f_);
-                        _d.getTrainers().put(f_, BaseSixtyFourUtil
-                                .getImageByString(ResourceFiles
-                                        .ressourceFichier(StringUtil.concat(
-                                                common_, file_))));
-                        f_ = g_.getIndoor().getGymLeader()
-                                .getImageMiniFileName();
-                        file_ = StringUtil.concat(PEOPLE_FOLDER,
-                                SEPARATOR_FILES, f_);
-                        _d.getPeople().put(f_, BaseSixtyFourUtil
-                                .getImageByString(ResourceFiles
-                                        .ressourceFichier(StringUtil.concat(
-                                                common_, file_))));
-                    }
-                    if (b instanceof PokemonCenter) {
-                        PokemonCenter pkCenter_ = (PokemonCenter) b;
-                        for (Person g : pkCenter_.getIndoor().getGerants()
-                                .values()) {
-                            String f_ = g.getImageMiniFileName();
-                            String file_ = StringUtil.concat(PEOPLE_FOLDER,
-                                    SEPARATOR_FILES, f_);
-                            _d.getPeople().put(f_, BaseSixtyFourUtil
-                                    .getImageByString(ResourceFiles
-                                            .ressourceFichier(StringUtil
-                                                    .concat(common_, file_))));
-                        }
-                    }
-                    for (Block b_ : b.getLevel().getBlocks().values()) {
-                        String f_ = b_.getTileFileName();
-                        String file_ = StringUtil.concat(IMAGES_FOLDER,
-                                SEPARATOR_FILES, f_);
-                        _d.getImages().put(f_, BaseSixtyFourUtil
-                                .getImageByString(ResourceFiles
-                                        .ressourceFichier(StringUtil.concat(
-                                                common_, file_))));
-                    }
-                    String f_ = b.getImageFileName();
-                    String file_ = StringUtil.concat(LINKS_FOLDER,
-                            SEPARATOR_FILES, f_);
-                    _d.getLinks().put(f_, BaseSixtyFourUtil
-                            .getImageByString(ResourceFiles
-                                    .ressourceFichier(StringUtil.concat(
-                                            common_, file_))));
-                }
-                for (Block b_ : c_.getLevel().getBlocks().values()) {
-                    String f_ = b_.getTileFileName();
-                    String file_ = StringUtil.concat(IMAGES_FOLDER,
-                            SEPARATOR_FILES, f_);
-                    _d.getImages().put(f_, BaseSixtyFourUtil
-                            .getImageByString(ResourceFiles
-                                    .ressourceFichier(StringUtil.concat(
-                                            common_, file_))));
-                }
-                for (Link k : c_.getLinksWithCaves().values()) {
-                    String f_ = k.getFileName();
-                    String file_ = StringUtil.concat(LINKS_FOLDER,
-                            SEPARATOR_FILES, f_);
-                    _d.getLinks().put(f_, BaseSixtyFourUtil
-                            .getImageByString(ResourceFiles
-                                    .ressourceFichier(StringUtil.concat(
-                                            common_, file_))));
-                }
-                continue;
-            }
-            Campaign c_ = (Campaign) p;
-            for (Level l : c_.getLevelsMap().values()) {
-                LevelWithWildPokemon level_ = (LevelWithWildPokemon) l;
-                for (CharacterInRoadCave c : level_.getCharacters().values()) {
-                    if (c instanceof TrainerMultiFights) {
-                        TrainerMultiFights tr_ = (TrainerMultiFights) c;
-                        String f_ = tr_.getImageMaxiFileName();
-                        String file_ = StringUtil.concat(TRAINERS_FOLDER,
-                                SEPARATOR_FILES, f_);
-                        _d.getTrainers().put(f_, BaseSixtyFourUtil
-                                .getImageByString(ResourceFiles
-                                        .ressourceFichier(StringUtil.concat(
-                                                common_, file_))));
-                        f_ = tr_.getImageMiniFileName();
-                        file_ = StringUtil.concat(PEOPLE_FOLDER,
-                                SEPARATOR_FILES, f_);
-                        _d.getPeople().put(f_, BaseSixtyFourUtil
-                                .getImageByString(ResourceFiles
-                                        .ressourceFichier(StringUtil.concat(
-                                                common_, file_))));
-                    }
-                }
-                for (DualFight d : level_.getDualFights().values()) {
-                    String f_ = d.getFoeTrainer().getImageMaxiFileName();
-                    String file_ = StringUtil.concat(TRAINERS_FOLDER,
-                            SEPARATOR_FILES, f_);
-                    _d.getTrainers().put(f_, BaseSixtyFourUtil
-                            .getImageByString(ResourceFiles
-                                    .ressourceFichier(StringUtil.concat(
-                                            common_, file_))));
-                    f_ = d.getFoeTrainer().getImageMiniFileName();
-                    file_ = StringUtil.concat(PEOPLE_FOLDER, SEPARATOR_FILES,
-                            f_);
-                    _d.getPeople().put(f_, BaseSixtyFourUtil
-                            .getImageByString(ResourceFiles
-                                    .ressourceFichier(StringUtil.concat(
-                                            common_, file_))));
-                    f_ = d.getFoeTrainer().getImageMiniSecondTrainerFileName();
-                    file_ = StringUtil.concat(PEOPLE_FOLDER, SEPARATOR_FILES,
-                            f_);
-                    _d.getPeople().put(f_, BaseSixtyFourUtil
-                            .getImageByString(ResourceFiles
-                                    .ressourceFichier(StringUtil.concat(
-                                            common_, file_))));
-                }
-                for (Block b_ : l.getBlocks().values()) {
-                    String f_ = b_.getTileFileName();
-                    String file_ = StringUtil.concat(IMAGES_FOLDER,
-                            SEPARATOR_FILES, f_);
-                    _d.getImages().put(f_, BaseSixtyFourUtil
-                            .getImageByString(ResourceFiles
-                                    .ressourceFichier(StringUtil.concat(
-                                            common_, file_))));
-                }
-            }
-            if (p instanceof InitializedPlace) {
-                InitializedPlace p_ = (InitializedPlace) p;
-                for (Link k : p_.getLinksWithCaves().values()) {
-                    String f_ = k.getFileName();
-                    String file_ = StringUtil.concat(LINKS_FOLDER,
-                            SEPARATOR_FILES, f_);
-                    _d.getLinks().put(f_, BaseSixtyFourUtil
-                            .getImageByString(ResourceFiles
-                                    .ressourceFichier(StringUtil.concat(
-                                            common_, file_))));
-                }
-            }
-            if (p instanceof Cave) {
-                Cave cave_ = (Cave) p;
-                for (Link k : cave_.getLinksWithOtherPlaces().values()) {
-                    String f_ = k.getFileName();
-                    String file_ = StringUtil.concat(LINKS_FOLDER,
-                            SEPARATOR_FILES, f_);
-                    _d.getLinks().put(f_, BaseSixtyFourUtil
-                            .getImageByString(ResourceFiles
-                                    .ressourceFichier(StringUtil.concat(
-                                            common_, file_))));
-                }
-                for (Level l : cave_.getLevelsMap().values()) {
-                    LevelCave lCave_ = (LevelCave) l;
-                    for (Link k : lCave_.getLinksOtherLevels().values()) {
-                        String f_ = k.getFileName();
-                        String file_ = StringUtil.concat(LINKS_FOLDER,
-                                SEPARATOR_FILES, f_);
-                        _d.getLinks().put(f_, BaseSixtyFourUtil
-                                .getImageByString(ResourceFiles
-                                        .ressourceFichier(StringUtil.concat(
-                                                common_, file_))));
-                    }
-                }
-            }
+		for (EntryCust<String,String> e: TrainerImg.im().entryList()) {
+            _d.getTrainers().addEntry(e.getKey(), BaseSixtyFourUtil.getImageByString(e.getValue()));
         }
+		for (EntryCust<String,String> e: PeopleImg.im().entryList()) {
+            _d.getPeople().addEntry(e.getKey(), BaseSixtyFourUtil.getImageByString(e.getValue()));
+        }
+		for (EntryCust<String,String> e: ImgMap.im().entryList()) {
+            _d.getImages().addEntry(e.getKey(), BaseSixtyFourUtil.getImageByString(e.getValue()));
+        }
+		for (EntryCust<String,String> e: LinkImg.im().entryList()) {
+            _d.getLinks().addEntry(e.getKey(), BaseSixtyFourUtil.getImageByString(e.getValue()));
+        }
+		for (EntryCust<String,String> e: MiniMapImg.im().entryList()) {
+            _d.getLinks().addEntry(e.getKey(), BaseSixtyFourUtil.getImageByString(e.getValue()));
+        }
+		StringMap<String> imMiMap_ = MiniMapImg.im();
         for (TileMiniMap t : _d.getMap().getMiniMap().values()) {
+            String f_ = t.getFile();
+            _d.getMiniMap().addEntry(f_, BaseSixtyFourUtil.getImageByString(imMiMap_.getVal(f_)));
+        }
+        _d.getMiniMap().addEntry(_d.getMap().getUnlockedCity(), BaseSixtyFourUtil
+                .getImageByString(imMiMap_.getVal(_d.getMap().getUnlockedCity())));
+        /*for (TileMiniMap t : _d.getMap().getMiniMap().values()) {
             String f_ = t.getFile();
             String file_ = StringUtil.concat(MINI_MAP_FOLDER, SEPARATOR_FILES,
                     f_);
@@ -2777,8 +2845,8 @@ public final class DocumentReaderAikiCoreUtil {
         _d.getMiniMap().put(_d.getMap().getUnlockedCity(), BaseSixtyFourUtil
                 .getImageByString(ResourceFiles.ressourceFichier(StringUtil
                         .concat(common_, MINI_MAP_FOLDER, SEPARATOR_FILES,
-                                _d.getMap().getUnlockedCity()))));
-        _perCentLoading.addPercent(delta_);
+                                _d.getMap().getUnlockedCity()))));*/
+        /*_perCentLoading.addPercent(delta_);
         _d.initializeWildPokemon();
         _perCentLoading.addPercent(delta_);
 
@@ -2821,14 +2889,14 @@ public final class DocumentReaderAikiCoreUtil {
             for (short x = 0; x < d_.getWidth(); x++) {
                 for (short y = 0; y < d_.getHeight(); y++) {
                     ScreenCoords sc_ = new ScreenCoords(x, y);
-                    tiles_.put(sc_, BaseSixtyFourUtil.clipSixtyFour(img_, x * side_, y
+                    tiles_.addEntry(sc_, BaseSixtyFourUtil.clipSixtyFour(img_, x * side_, y
                             * side_, side_, side_));
                 }
             }
-            _d.getImagesTiles().put(name_, tiles_);
+            _d.getImagesTiles().addEntry(name_, tiles_);
         }
         _perCentLoading.setPercent(100);
-    }
+    }*/
 
     private static boolean isCorrectIdentifier(String _string) {
         if (_string.trim().isEmpty()) {

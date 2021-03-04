@@ -1,5 +1,0 @@
-DECROISSANT	d&eacute;croissant
-CROISSANT	croissant
-CONSTANT_MAX	valeur max
-UNIFORME	uniforme
-CONSTANT_MIN	valeur min

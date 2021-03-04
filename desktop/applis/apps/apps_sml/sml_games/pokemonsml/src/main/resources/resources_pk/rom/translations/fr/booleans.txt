@@ -1,3 +1,0 @@
-YES	OUI
-NO	NON
-YES_AND_NO	 

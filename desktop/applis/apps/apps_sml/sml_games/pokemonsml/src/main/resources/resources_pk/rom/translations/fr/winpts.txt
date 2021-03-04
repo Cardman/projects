@@ -1,4 +1,0 @@
-TRES_DIFFICILE	Tr&egrave;s difficile
-DIFFICILE	Difficile
-TRES_FACILE	Tr&egrave;s facile
-FACILE	Facile

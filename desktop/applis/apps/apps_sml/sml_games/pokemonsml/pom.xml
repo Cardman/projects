@@ -29,5 +29,10 @@
 			<artifactId>images</artifactId>
 			<version>1.0-SNAPSHOT</version>
 		</dependency>
+		<dependency>
+			<groupId>scripts_game</groupId>
+			<artifactId>scripts_game</artifactId>
+			<version>1.0-SNAPSHOT</version>
+		</dependency>
 	</dependencies>
 </project>
