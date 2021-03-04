@@ -138,6 +138,7 @@ import code.network.SocketResults;
 import code.network.enums.ErrorHostConnectionType;
 import code.network.enums.IpType;
 import code.resources.ResourceFiles;
+import code.scripts.messages.gui.MessGuiCardsGr;
 import code.sml.stream.ExtractFromFiles;
 import code.sml.util.ResourcesMessagesUtil;
 import code.stream.StreamFolderFile;
@@ -617,7 +618,7 @@ public final class MainWindow extends NetGroupFrame {
     }
     public static StringMap<String> getMessagesFromLocaleClass(String _folder, String _loc, String _class) {
         String fileName_ = ResourcesMessagesUtil.getPropertiesPath(_folder, _loc, _class);
-        String loadedResourcesMessages_ = ResourceFiles.ressourceFichier(fileName_);
+        String loadedResourcesMessages_ = MessGuiCardsGr.ms().getVal(fileName_);
         return ResourcesMessagesUtil.getMessagesFromContent(loadedResourcesMessages_);
     }
     public String getTooManyString() {

@@ -60,6 +60,7 @@ import code.network.BasicClient;
 import code.network.Exiting;
 import code.network.NetGroupFrame;
 import code.resources.ResourceFiles;
+import code.scripts.messages.gui.MessGuiPkGr;
 import code.sml.stream.ExtractFromFiles;
 import code.sml.util.ResourcesMessagesUtil;
 import code.stream.StreamFolderFile;
@@ -304,7 +305,7 @@ public final class MainWindow extends NetGroupFrame {
     }
     public static StringMap<String> getMessagesFromLocaleClass(String _folder, String _loc, String _class) {
         String fileName_ = ResourcesMessagesUtil.getPropertiesPath(_folder, _loc, _class);
-        String loadedResourcesMessages_ = ResourceFiles.ressourceFichier(fileName_);
+        String loadedResourcesMessages_ = MessGuiPkGr.ms().getVal(fileName_);
         return ResourcesMessagesUtil.getMessagesFromContent(loadedResourcesMessages_);
     }
     @Override
@@ -612,6 +613,9 @@ public final class MainWindow extends NetGroupFrame {
         gameLoad.setEnabledMenu(true);
         gameSave.setEnabledMenu(false);
         if (exporting != null && exporting.isAlive()) {
+            return;
+        }
+        if (loadingConf == null) {
             return;
         }
         AbstractNameValidating def_ = getFrames().getValidator();
