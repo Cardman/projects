@@ -9,7 +9,6 @@ import cards.facade.enumerations.GameEnum;
 import cards.gui.MainWindow;
 import cards.gui.dialogs.events.ListenerNicknames;
 import code.gui.*;
-import code.sml.stream.ExtractFromFiles;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;

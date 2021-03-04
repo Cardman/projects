@@ -4,7 +4,6 @@ import cards.gui.MainWindow;
 import cards.network.common.select.TeamsPlayers;
 import code.gui.Panel;
 import code.gui.TextLabel;
-import code.sml.stream.ExtractFromFiles;
 import code.util.*;
 import code.util.StringList;
 import code.util.StringMap;

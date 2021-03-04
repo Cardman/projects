@@ -10,7 +10,6 @@ import aiki.gui.components.Paginator;
 import aiki.util.SortingHealingItem;
 import code.gui.CustGraphics;
 import code.gui.images.ConverterGraphicBufferedImage;
-import code.sml.stream.ExtractFromFiles;
 import code.util.Ints;
 import code.util.StringList;
 import code.util.StringMap;

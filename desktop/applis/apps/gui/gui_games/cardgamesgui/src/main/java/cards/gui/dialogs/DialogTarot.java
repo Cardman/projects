@@ -18,7 +18,6 @@ import cards.tarot.enumerations.Handfuls;
 import cards.tarot.enumerations.Miseres;
 import cards.tarot.enumerations.ModeTarot;
 import code.gui.*;
-import code.sml.stream.ExtractFromFiles;
 import code.util.*;
 import code.util.ints.Listable;
 

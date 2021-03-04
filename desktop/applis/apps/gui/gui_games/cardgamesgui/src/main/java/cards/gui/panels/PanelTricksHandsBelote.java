@@ -17,7 +17,6 @@ import cards.gui.labels.GraphicBeloteCard;
 import cards.gui.panels.events.ListenerCards;
 import cards.gui.panels.events.ListenerTricks;
 import code.gui.*;
-import code.sml.stream.ExtractFromFiles;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;

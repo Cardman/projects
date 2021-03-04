@@ -14,7 +14,6 @@ import cards.gui.dialogs.help.NodeHelp;
 import code.gui.*;
 import code.gui.document.RenderedPage;
 import code.gui.events.ClosingChildFrameEvent;
-import code.sml.stream.ExtractFromFiles;
 import code.util.CustList;
 import code.util.ObjectMap;
 import code.util.StringMap;

@@ -14,11 +14,12 @@ import code.maths.montecarlo.AbstractGenerator;
 import code.maths.montecarlo.MonteCarloUtil;
 import code.player.main.LaunchingPlayer;
 import code.resources.ClipStream;
+import code.resources.ResourceFiles;
 import code.sml.Document;
 import code.sml.DocumentBuilder;
 import code.sml.Element;
 import code.sml.ElementList;
-import code.sml.stream.ExtractFromFiles;
+import code.sml.util.ResourcesMessagesUtil;
 import code.stream.StreamBinaryFile;
 import code.stream.StreamSoundFile;
 import code.stream.StreamTextFile;
@@ -165,7 +166,9 @@ public class MainWindow extends GroupFrame {
     }
 
     public void initMessages(String _lg) {
-        messages = ExtractFromFiles.getMessagesFromLocaleClass(CST_RESOURCES_FOLDER,_lg, ACCESS);
+        String fileName_ = ResourcesMessagesUtil.getPropertiesPath(CST_RESOURCES_FOLDER, _lg, ACCESS);
+        String loadedResourcesMessages_ = ResourceFiles.ressourceFichier(fileName_);
+        messages = ResourcesMessagesUtil.getMessagesFromContent(loadedResourcesMessages_);
     }
 
     public void playOrPause(boolean _click) {

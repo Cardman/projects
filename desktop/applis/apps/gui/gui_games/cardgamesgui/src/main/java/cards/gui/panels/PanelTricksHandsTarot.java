@@ -17,7 +17,6 @@ import cards.tarot.TrickTarot;
 import cards.tarot.TricksHandsTarot;
 import cards.tarot.enumerations.CardTarot;
 import code.gui.*;
-import code.sml.stream.ExtractFromFiles;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;

@@ -6,7 +6,6 @@ import cards.gui.MainWindow;
 import cards.gui.dialogs.FileConst;
 import code.gui.CustGraphics;
 import code.gui.PaintableLabel;
-import code.sml.stream.ExtractFromFiles;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;

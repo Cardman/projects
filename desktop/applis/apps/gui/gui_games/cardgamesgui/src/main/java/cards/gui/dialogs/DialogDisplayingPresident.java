@@ -12,7 +12,6 @@ import cards.gui.dialogs.events.ValidateDisplayingEvent;
 import cards.gui.panels.SuitsScrollableList;
 import cards.president.DisplayingPresident;
 import code.gui.*;
-import code.sml.stream.ExtractFromFiles;
 import code.util.EnumList;
 import code.util.EnumMap;
 import code.util.StringList;

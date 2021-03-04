@@ -17,7 +17,6 @@ import cards.president.HandPresident;
 import cards.president.TrickPresident;
 import cards.president.TricksHandsPresident;
 import code.gui.*;
-import code.sml.stream.ExtractFromFiles;
 import code.util.CustList;
 import code.util.NatCmpTreeMap;
 import code.util.*;

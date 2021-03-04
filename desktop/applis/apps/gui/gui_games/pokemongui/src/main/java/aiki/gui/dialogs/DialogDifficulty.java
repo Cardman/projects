@@ -11,7 +11,6 @@ import aiki.gui.MainWindow;
 import aiki.gui.threads.AfterSettingDifficutyThread;
 import code.gui.*;
 import code.gui.document.RenderedPage;
-import code.sml.stream.ExtractFromFiles;
 import code.util.StringMap;
 
 public final class DialogDifficulty extends Dialog {

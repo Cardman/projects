@@ -7,7 +7,6 @@ import aiki.sml.LoadingGame;
 import aiki.gui.MainWindow;
 import aiki.gui.dialogs.events.ValidateSoftParams;
 import code.gui.*;
-import code.sml.stream.ExtractFromFiles;
 import code.util.StringMap;
 
 public final class SoftParams extends Dialog {

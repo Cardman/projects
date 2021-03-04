@@ -45,7 +45,6 @@ import code.gui.document.RenderedPage;
 import code.gui.events.ClosingChildFrameEvent;
 import code.maths.Rate;
 import code.scripts.messages.aiki.MessPkGr;
-import code.sml.stream.ExtractFromFiles;
 import code.sml.util.ResourcesMessagesUtil;
 import code.util.BooleanList;
 import code.util.CustList;

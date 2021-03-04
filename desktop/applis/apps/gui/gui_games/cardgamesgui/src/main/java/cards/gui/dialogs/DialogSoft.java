@@ -8,7 +8,6 @@ import cards.gui.MainWindow;
 import cards.gui.dialogs.events.ListenerChangeSlide;
 import cards.gui.dialogs.events.ListenerParameters;
 import code.gui.*;
-import code.sml.stream.ExtractFromFiles;
 import code.util.EnumList;
 import code.util.EnumMap;
 import code.util.StringList;

@@ -10,7 +10,6 @@ import aiki.facade.FacadeGame;
 import aiki.gui.MainWindow;
 import code.gui.*;
 import code.gui.document.RenderedPage;
-import code.sml.stream.ExtractFromFiles;
 import code.util.StringMap;
 
 public final class DialogGameProgess extends Dialog {

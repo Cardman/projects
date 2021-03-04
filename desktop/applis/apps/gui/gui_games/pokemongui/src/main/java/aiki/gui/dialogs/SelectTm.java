@@ -10,7 +10,6 @@ import aiki.gui.components.PaginatorMove;
 import aiki.gui.dialogs.events.ValidateSelectionEvent;
 import code.gui.*;
 import code.gui.events.ClosingDialogEvent;
-import code.sml.stream.ExtractFromFiles;
 import code.util.StringMap;
 import code.util.core.IndexConstants;
 

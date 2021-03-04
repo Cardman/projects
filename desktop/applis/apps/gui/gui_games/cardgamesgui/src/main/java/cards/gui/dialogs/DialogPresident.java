@@ -11,7 +11,6 @@ import cards.gui.dialogs.events.ListenerStacks;
 import cards.president.RulesPresident;
 import cards.president.enumerations.EqualtyPlaying;
 import code.gui.*;
-import code.sml.stream.ExtractFromFiles;
 import code.util.*;
 import code.util.core.StringUtil;
 import code.util.ints.Listable;

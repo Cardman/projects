@@ -9,7 +9,6 @@ import code.gui.events.ClosingDialogEvent;
 import code.gui.events.CreateServerEvent;
 import code.gui.events.JoinServerEvent;
 import code.network.enums.IpType;
-import code.sml.stream.ExtractFromFiles;
 import code.util.EnumList;
 import code.util.EnumMap;
 import code.util.StringList;

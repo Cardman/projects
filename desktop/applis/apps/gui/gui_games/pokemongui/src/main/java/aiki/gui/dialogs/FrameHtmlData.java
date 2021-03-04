@@ -11,7 +11,6 @@ import aiki.gui.MainWindow;
 import code.gui.*;
 import code.gui.document.RenderedPage;
 import code.gui.events.ClosingChildFrameEvent;
-import code.sml.stream.ExtractFromFiles;
 import code.util.StringMap;
 
 public final class FrameHtmlData extends ChildFrame {

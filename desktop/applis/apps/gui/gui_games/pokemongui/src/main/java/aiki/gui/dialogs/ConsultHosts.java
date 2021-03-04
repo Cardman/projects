@@ -12,7 +12,6 @@ import aiki.map.pokemon.PokemonPlayer;
 import aiki.util.Coords;
 import code.gui.*;
 import code.gui.document.RenderedPage;
-import code.sml.stream.ExtractFromFiles;
 import code.util.EqList;
 import code.util.*;
 import code.util.StringMap;

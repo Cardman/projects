@@ -8,7 +8,6 @@ import cards.president.enumerations.CardPresident;
 import code.gui.Dialog;
 import code.gui.Panel;
 import code.gui.TextLabel;
-import code.sml.stream.ExtractFromFiles;
 import code.util.StringMap;
 import code.util.TreeMap;
 import code.util.core.StringUtil;

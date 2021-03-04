@@ -12,7 +12,6 @@ import code.gui.Dialog;
 import code.gui.LabelButton;
 import code.gui.Panel;
 import code.gui.events.ClosingDialogEvent;
-import code.sml.stream.ExtractFromFiles;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.core.StringUtil;

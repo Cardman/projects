@@ -15,7 +15,6 @@ import aiki.gui.components.listeners.PreviousEvent;
 import code.gui.*;
 import code.maths.LgInt;
 import code.maths.Rate;
-import code.sml.stream.ExtractFromFiles;
 import code.util.*;
 import aiki.facade.enums.SearchingMode;
 import code.util.core.IndexConstants;

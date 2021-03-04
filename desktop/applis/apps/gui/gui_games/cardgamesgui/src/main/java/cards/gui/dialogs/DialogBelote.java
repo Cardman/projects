@@ -10,7 +10,6 @@ import cards.facade.Games;
 import cards.gui.MainWindow;
 import cards.gui.comboboxes.ComboBoxEnumCards;
 import code.gui.*;
-import code.sml.stream.ExtractFromFiles;
 import code.util.*;
 import code.util.ints.Listable;
 

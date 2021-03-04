@@ -5,9 +5,6 @@ import java.awt.image.BufferedImage;
 
 import javax.swing.JFrame;
 
-import code.sml.stream.ExtractFromFiles;
-import code.util.StringMap;
-
 public abstract class CommonFrame extends AbsFrame implements ChangeableTitle {
 
     private String accessFile;
