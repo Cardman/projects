@@ -1,7 +1,7 @@
 package cards.president.beans;
 import code.util.Longs;
 
-final class LineDeal {
+final class PresidentLineDeal {
 
     private int number;
 

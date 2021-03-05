@@ -9,7 +9,7 @@ import code.util.core.IndexConstants;
 
 final class DetailsResultsBeloteBean extends BeloteBean {
 
-    private CustList<SumDeclaringPlayer> declaring;
+    private CustList<BeloteSumDeclaringPlayer> declaring;
 
     @Override
     public void beforeDisplaying() {
@@ -20,11 +20,11 @@ final class DetailsResultsBeloteBean extends BeloteBean {
         setUser(res_.getUser());
         setLoc(res_.getLoc());
         BidBeloteSuit bid_ = getGame().getContrat();
-        declaring = new CustList<SumDeclaringPlayer>();
+        declaring = new CustList<BeloteSumDeclaringPlayer>();
         if (bid_.jouerDonne()) {
             byte nombreJoueurs_ = getGame().getNombreDeJoueurs();
             for (byte p = IndexConstants.FIRST_INDEX; p<nombreJoueurs_; p++){
-                SumDeclaringPlayer sumDeclaring_ = new SumDeclaringPlayer();
+                BeloteSumDeclaringPlayer sumDeclaring_ = new BeloteSumDeclaringPlayer();
                 sumDeclaring_.setNickname(getNicknames().get(p));
                 sumDeclaring_.setStatut(toString(getGame().getTeamsRelation().statutDe(p), res_.getRes().getGeneral()));
                 int sum_ = 0;
@@ -56,7 +56,7 @@ final class DetailsResultsBeloteBean extends BeloteBean {
             }
         }
     }
-    CustList<SumDeclaringPlayer> getDeclaring() {
+    CustList<BeloteSumDeclaringPlayer> getDeclaring() {
         return declaring;
     }
 }

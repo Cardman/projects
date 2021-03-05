@@ -255,7 +255,7 @@ public final class MainWindow extends NetGroupFrame {
     private final DialogDifficulty dialogDifficulty = new DialogDifficulty();
     private final DialogGameProgess dialogGameProgess = new DialogGameProgess();
     private final DialogHtmlData dialogHtmlData = new DialogHtmlData();
-    private final SoftParams softParams = new SoftParams();
+    private final DialogSoftParams softParams = new DialogSoftParams();
     private final DialogServer dialogServer = new DialogServer();
     private final AikiFactory aikiFactory;
 
@@ -927,9 +927,9 @@ public final class MainWindow extends NetGroupFrame {
         while (isPaintingScene()) {
             ThreadUtil.sleep(0);
         }
-        SoftParams.setSoftParams(this, loadingConf);
-        SoftParams.setParams(loadingConf, getSoftParams());
-        if (SoftParams.isOk(getSoftParams())) {
+        DialogSoftParams.setSoftParams(this, loadingConf);
+        DialogSoftParams.setParams(loadingConf, getSoftParams());
+        if (DialogSoftParams.isOk(getSoftParams())) {
             StreamTextFile.saveTextFile(StringUtil.concat(LaunchingPokemon.getTempFolderSl(getFrames()),Resources.LOAD_CONFIG_FILE), DocumentWriterAikiCoreUtil.setLoadingGame(loadingConf));
         }
     }
@@ -1717,7 +1717,7 @@ public final class MainWindow extends NetGroupFrame {
         return dialogHtmlData;
     }
 
-    public SoftParams getSoftParams() {
+    public DialogSoftParams getSoftParams() {
         return softParams;
     }
 

@@ -13,7 +13,7 @@ public final class ElseCondition extends BracedBlock implements BlockCondition, 
 
     @Override
     public String getRealLabel() {
-        Block p_ = getPreviousSibling();
+        AbsBk p_ = getPreviousSibling();
         while (!(p_ instanceof IfCondition)) {
             if (p_ == null) {
                 return EMPTY_STRING;
@@ -25,7 +25,7 @@ public final class ElseCondition extends BracedBlock implements BlockCondition, 
 
     @Override
     public int getRealLabelOffset() {
-        Block p_ = getPreviousSibling();
+        AbsBk p_ = getPreviousSibling();
         while (!(p_ instanceof IfCondition)) {
             p_ = p_.getPreviousSibling();
         }
@@ -44,7 +44,7 @@ public final class ElseCondition extends BracedBlock implements BlockCondition, 
 
     @Override
     public void checkTree(AnalyzingEl _anEl, AnalyzedPageEl _page) {
-        Block pBlock_ = getPreviousSibling();
+        AbsBk pBlock_ = getPreviousSibling();
         if (!(pBlock_ instanceof IfCondition)) {
             if (!(pBlock_ instanceof ElseIfCondition)) {
                 FoundErrorInterpret un_ = new FoundErrorInterpret();

@@ -3,18 +3,17 @@ package code.expressionlanguage.analyze.reach.blocks;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.*;
 import code.expressionlanguage.analyze.files.OffsetsBlock;
-import code.util.StringList;
 
 public abstract class ReachBlock {
-    private final Block info;
+    private final AbsBk info;
     private ReachBlock previousSibling;
     private ReachBlock nextSibling;
     private ReachBracedBlock parent;
-    protected ReachBlock(Block _info) {
+    protected ReachBlock(AbsBk _info) {
         info = _info;
     }
 
-    public static ReachBlock newReachBlock(Block _info) {
+    public static ReachBlock newReachBlock(AbsBk _info) {
         if (_info instanceof EmptyInstruction) {
             return new ReachEmptyInstruction(_info);
         }
@@ -123,7 +122,7 @@ public abstract class ReachBlock {
 
     public abstract void abrupt(AnalyzingEl _anEl);
     public abstract ReachBlock getFirstChild();
-    public Block getInfo() {
+    public AbsBk getInfo() {
         return info;
     }
     public OffsetsBlock getOffset() {

@@ -1,7 +1,6 @@
 package cards.president.beans;
 import cards.president.GamePresident;
 import cards.president.ResultsPresident;
-import cards.president.RulesPresident;
 import code.bean.Bean;
 import code.util.CustList;
 import code.util.Longs;
@@ -20,7 +19,7 @@ final class PresidentBean extends Bean {
 
     private String loc;
 
-    private CustList<LineDeal> linesDeal;
+    private CustList<PresidentLineDeal> linesDeal;
 
     private ResultsPresident dataBase;
     public ResultsPresident db() {
@@ -40,10 +39,10 @@ final class PresidentBean extends Bean {
         setUser(res_.getUser());
         setLoc(res_.getLoc());
         byte nombreJoueurs_ = getGame().getNombreDeJoueurs();
-        linesDeal = new CustList<LineDeal>();
+        linesDeal = new CustList<PresidentLineDeal>();
         int nbDeals_ = getScores().size();
         for(int i = IndexConstants.FIRST_INDEX; i<nbDeals_; i++) {
-            LineDeal l_ = new LineDeal();
+            PresidentLineDeal l_ = new PresidentLineDeal();
             l_.setNumber(i);
             Longs scores_ = new Longs();
             for(byte joueur_ = IndexConstants.FIRST_INDEX; joueur_<nombreJoueurs_; joueur_++) {
@@ -94,7 +93,7 @@ final class PresidentBean extends Bean {
         loc = _loc;
     }
 
-    CustList<LineDeal> getLinesDeal() {
+    CustList<PresidentLineDeal> getLinesDeal() {
         return linesDeal;
     }
 

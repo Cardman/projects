@@ -1,14 +1,14 @@
 package cards.belote;
 
 import cards.belote.enumerations.BeloteTrumpPartner;
-import cards.consts.Status;
+import cards.consts.Role;
 import code.util.CustList;
 import code.util.*;
 import code.util.core.IndexConstants;
 
 public final class GameBeloteTeamsRelation {
-    private byte taker;
-    private RulesBelote rules;
+    private final byte taker;
+    private final RulesBelote rules;
 
     public GameBeloteTeamsRelation(byte _taker, RulesBelote _rules) {
         taker = _taker;
@@ -34,14 +34,14 @@ public final class GameBeloteTeamsRelation {
         return partenaires_;
     }
     //methode utilisee pour l'affichage
-    public Status statutDe(byte _numero) {
+    public Role statutDe(byte _numero) {
         if(_numero==taker) {
-            return Status.TAKER;
+            return Role.TAKER;
         }
         if(partenaires(taker).containsObj(_numero)) {
-            return Status.CALLED_PLAYER;
+            return Role.CALLED_PLAYER;
         }
-        return Status.DEFENDER;
+        return Role.DEFENDER;
     }
 
     boolean isSameTeam(Bytes _players) {

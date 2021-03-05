@@ -2,7 +2,7 @@ package code.expressionlanguage.analyze.instr;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.AnonymousResult;
-import code.expressionlanguage.analyze.blocks.Block;
+import code.expressionlanguage.analyze.blocks.AbsBk;
 import code.expressionlanguage.common.Delimiters;
 import code.expressionlanguage.common.ExpPartDelimiters;
 import code.expressionlanguage.common.StackOperators;
@@ -71,7 +71,7 @@ final class AfterUnaryParts {
     private boolean errorDot;
     private final Ints laterIndexesDouble = new Ints();
     private final ExpPartDelimiters del;
-    private Block block;
+    private AbsBk block;
     private int length;
     private CustList<AnonymousResult> anonymousResults = new CustList<AnonymousResult>();
 
@@ -726,7 +726,7 @@ final class AfterUnaryParts {
         return instOf;
     }
 
-    Block getBlock() {
+    AbsBk getBlock() {
         return block;
     }
 

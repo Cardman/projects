@@ -1,7 +1,7 @@
 package code.expressionlanguage.analyze.instr;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.analyze.blocks.Block;
+import code.expressionlanguage.analyze.blocks.AbsBk;
 import code.expressionlanguage.analyze.blocks.FieldBlock;
 import code.expressionlanguage.analyze.blocks.ForLoopPart;
 import code.expressionlanguage.analyze.opers.*;
@@ -291,7 +291,7 @@ public final class ElUtil {
 
     public static void retrieveErrorsAnalyze(OperationNode _current, AnalyzedPageEl _page) {
         analyzeInfer(_current, _page);
-        Block currentBlock_ = _page.getCurrentBlock();
+        AbsBk currentBlock_ = _page.getCurrentBlock();
         if (currentBlock_ instanceof FieldBlock) {
             MethodOperation parent_ = _current.getParent();
             if (parent_ instanceof DeclaringOperation) {
@@ -383,7 +383,7 @@ public final class ElUtil {
     }
 
     public static boolean isDeclaringField(OperationNode _var, AnalyzedPageEl _page) {
-        Block bl_ = _page.getCurrentBlock();
+        AbsBk bl_ = _page.getCurrentBlock();
         if (!(bl_ instanceof FieldBlock)) {
             return false;
         }

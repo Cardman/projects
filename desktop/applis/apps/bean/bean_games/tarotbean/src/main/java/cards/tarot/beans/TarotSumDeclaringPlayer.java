@@ -3,7 +3,7 @@ import cards.tarot.enumerations.Miseres;
 import code.util.StringMap;
 import code.util.TreeMap;
 
-final class SumDeclaringPlayer {
+final class TarotSumDeclaringPlayer {
 
     private String nickname;
 

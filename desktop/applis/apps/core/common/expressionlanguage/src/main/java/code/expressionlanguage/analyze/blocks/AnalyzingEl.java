@@ -35,21 +35,21 @@ public final class AnalyzingEl {
     public boolean canCompleteNormallyGroup(ReachBlock _reach) {
         return canCompleteNormallyGroup(getOrNull(_reach));
     }
-    private static Block getOrNull(ReachBlock _reach) {
+    private static AbsBk getOrNull(ReachBlock _reach) {
         if (_reach == null) {
             return null;
         }
         return _reach.getInfo();
     }
-    public boolean isReachable(Block _reach) {
+    public boolean isReachable(AbsBk _reach) {
         return reachable.getVal(_reach);
     }
 
-    public boolean canCompleteNormally(Block _reach) {
+    public boolean canCompleteNormally(AbsBk _reach) {
         return canCompleteNormally.getVal(_reach);
     }
 
-    public boolean canCompleteNormallyGroup(Block _reach) {
+    public boolean canCompleteNormallyGroup(AbsBk _reach) {
         return canCompleteNormallyGroup.getVal(_reach);
     }
 
@@ -73,17 +73,17 @@ public final class AnalyzingEl {
         putLabel(_reach.getInfo(),_label);
     }
 
-    public void reach(Block _reach) {
+    public void reach(AbsBk _reach) {
         reachable.put(_reach, true);
         canCompleteNormally.put(_reach, true);
         canCompleteNormallyGroup.put(_reach, true);
     }
 
-    public void putLabel(Block _reach) {
+    public void putLabel(AbsBk _reach) {
         labelsMapping.put(_reach,"");
     }
 
-    public void putLabel(Block _reach, String _label) {
+    public void putLabel(AbsBk _reach, String _label) {
         labelsMapping.put(_reach,_label);
     }
 
@@ -102,15 +102,15 @@ public final class AnalyzingEl {
         unreach(_reach.getInfo());
     }
 
-    public void completeAbruptGroup(Block _reach) {
+    public void completeAbruptGroup(AbsBk _reach) {
         completeAbrupt(_reach);
         canCompleteNormallyGroup.put(_reach, false);
     }
-    public void completeAbrupt(Block _reach) {
+    public void completeAbrupt(AbsBk _reach) {
         canCompleteNormally.put(_reach, false);
     }
 
-    public void unreach(Block _reach) {
+    public void unreach(AbsBk _reach) {
         reachable.put(_reach, false);
         canCompleteNormally.put(_reach, false);
         canCompleteNormallyGroup.put(_reach, false);

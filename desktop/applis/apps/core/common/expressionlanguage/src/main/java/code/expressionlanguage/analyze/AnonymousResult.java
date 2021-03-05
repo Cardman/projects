@@ -1,6 +1,6 @@
 package code.expressionlanguage.analyze;
 
-import code.expressionlanguage.analyze.blocks.Block;
+import code.expressionlanguage.analyze.blocks.AbsBk;
 import code.expressionlanguage.analyze.files.ParsedFctHeader;
 
 public final class AnonymousResult {
@@ -9,7 +9,7 @@ public final class AnonymousResult {
     private int until;
     private int length;
     private int next;
-    private Block type;
+    private AbsBk type;
 
     public ParsedFctHeader getResults() {
         return results;
@@ -51,11 +51,11 @@ public final class AnonymousResult {
         this.next = _next;
     }
 
-    public Block getType() {
+    public AbsBk getType() {
         return type;
     }
 
-    public void setType(Block _type) {
+    public void setType(AbsBk _type) {
         this.type = _type;
     }
 }

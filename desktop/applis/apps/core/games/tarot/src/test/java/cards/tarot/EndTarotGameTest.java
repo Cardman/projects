@@ -2,7 +2,7 @@ package cards.tarot;
 
 import cards.consts.EndGameState;
 import cards.consts.GameType;
-import cards.consts.Status;
+import cards.consts.Role;
 import cards.tarot.comparators.MiseresComparator;
 import cards.tarot.enumerations.*;
 import code.maths.Rate;
@@ -3825,10 +3825,10 @@ public final class EndTarotGameTest extends CommonGameTarot {
         CustList<BooleanList> conf_ = getConf(BidTarot.GUARD, r_, 0);
         Bytes called_ = new Bytes();
         GameTarotTeamsRelation g_ = new GameTarotTeamsRelation((byte)0, called_,conf_,r_);
-        AbsMap<Status,Rate> rates_ = EndTarotGame.coefficientsRepartition(g_);
+        AbsMap<Role,Rate> rates_ = EndTarotGame.coefficientsRepartition(g_);
         assertEq(2, rates_.size());
-        assertEq(new Rate(2),rates_.getVal(Status.TAKER));
-        assertEq(new Rate(-1),rates_.getVal(Status.DEFENDER));
+        assertEq(new Rate(2),rates_.getVal(Role.TAKER));
+        assertEq(new Rate(-1),rates_.getVal(Role.DEFENDER));
     }
     @Test
     public void coefficientsRepartition2Test() {
@@ -3837,10 +3837,10 @@ public final class EndTarotGameTest extends CommonGameTarot {
         CustList<BooleanList> conf_ = getConf(BidTarot.GUARD, r_, 0);
         Bytes called_ = new Bytes();
         GameTarotTeamsRelation g_ = new GameTarotTeamsRelation((byte)0, called_,conf_,r_);
-        AbsMap<Status,Rate> rates_ = EndTarotGame.coefficientsRepartition(g_);
+        AbsMap<Role,Rate> rates_ = EndTarotGame.coefficientsRepartition(g_);
         assertEq(2, rates_.size());
-        assertEq(new Rate(3),rates_.getVal(Status.TAKER));
-        assertEq(new Rate(-1),rates_.getVal(Status.DEFENDER));
+        assertEq(new Rate(3),rates_.getVal(Role.TAKER));
+        assertEq(new Rate(-1),rates_.getVal(Role.DEFENDER));
     }
     @Test
     public void coefficientsRepartition3Test() {
@@ -3850,11 +3850,11 @@ public final class EndTarotGameTest extends CommonGameTarot {
         Bytes called_ = new Bytes();
         called_.add((byte)2);
         GameTarotTeamsRelation g_ = new GameTarotTeamsRelation((byte)0, called_,conf_,r_);
-        AbsMap<Status,Rate> rates_ = EndTarotGame.coefficientsRepartition(g_);
+        AbsMap<Role,Rate> rates_ = EndTarotGame.coefficientsRepartition(g_);
         assertEq(3, rates_.size());
-        assertEq(new Rate(1),rates_.getVal(Status.TAKER));
-        assertEq(new Rate(1),rates_.getVal(Status.CALLED_PLAYER));
-        assertEq(new Rate(-1),rates_.getVal(Status.DEFENDER));
+        assertEq(new Rate(1),rates_.getVal(Role.TAKER));
+        assertEq(new Rate(1),rates_.getVal(Role.CALLED_PLAYER));
+        assertEq(new Rate(-1),rates_.getVal(Role.DEFENDER));
     }
     @Test
     public void coefficientsRepartition4Test() {
@@ -3864,11 +3864,11 @@ public final class EndTarotGameTest extends CommonGameTarot {
         Bytes called_ = new Bytes();
         called_.add((byte)1);
         GameTarotTeamsRelation g_ = new GameTarotTeamsRelation((byte)0, called_,conf_,r_);
-        AbsMap<Status,Rate> rates_ = EndTarotGame.coefficientsRepartition(g_);
+        AbsMap<Role,Rate> rates_ = EndTarotGame.coefficientsRepartition(g_);
         assertEq(3, rates_.size());
-        assertEq(new Rate(3,2),rates_.getVal(Status.TAKER));
-        assertEq(new Rate(1,2),rates_.getVal(Status.CALLED_PLAYER));
-        assertEq(new Rate(-1),rates_.getVal(Status.DEFENDER));
+        assertEq(new Rate(3,2),rates_.getVal(Role.TAKER));
+        assertEq(new Rate(1,2),rates_.getVal(Role.CALLED_PLAYER));
+        assertEq(new Rate(-1),rates_.getVal(Role.DEFENDER));
     }
     @Test
     public void coefficientsRepartition5Test() {
@@ -3878,10 +3878,10 @@ public final class EndTarotGameTest extends CommonGameTarot {
         Bytes called_ = new Bytes();
         called_.add((byte)0);
         GameTarotTeamsRelation g_ = new GameTarotTeamsRelation((byte)0, called_,conf_,r_);
-        AbsMap<Status,Rate> rates_ = EndTarotGame.coefficientsRepartition(g_);
+        AbsMap<Role,Rate> rates_ = EndTarotGame.coefficientsRepartition(g_);
         assertEq(2, rates_.size());
-        assertEq(new Rate(3),rates_.getVal(Status.TAKER));
-        assertEq(new Rate(-1),rates_.getVal(Status.DEFENDER));
+        assertEq(new Rate(3),rates_.getVal(Role.TAKER));
+        assertEq(new Rate(-1),rates_.getVal(Role.DEFENDER));
     }
     @Test
     public void coefficientsRepartition6Test() {
@@ -3891,11 +3891,11 @@ public final class EndTarotGameTest extends CommonGameTarot {
         Bytes called_ = new Bytes();
         called_.add((byte)1);
         GameTarotTeamsRelation g_ = new GameTarotTeamsRelation((byte)0, called_,conf_,r_);
-        AbsMap<Status,Rate> rates_ = EndTarotGame.coefficientsRepartition(g_);
+        AbsMap<Role,Rate> rates_ = EndTarotGame.coefficientsRepartition(g_);
         assertEq(3, rates_.size());
-        assertEq(new Rate(2),rates_.getVal(Status.TAKER));
-        assertEq(new Rate(1),rates_.getVal(Status.CALLED_PLAYER));
-        assertEq(new Rate(-1),rates_.getVal(Status.DEFENDER));
+        assertEq(new Rate(2),rates_.getVal(Role.TAKER));
+        assertEq(new Rate(1),rates_.getVal(Role.CALLED_PLAYER));
+        assertEq(new Rate(-1),rates_.getVal(Role.DEFENDER));
     }
     @Test
     public void coefficientsRepartition7Test() {
@@ -3905,10 +3905,10 @@ public final class EndTarotGameTest extends CommonGameTarot {
         Bytes called_ = new Bytes();
         called_.add((byte)0);
         GameTarotTeamsRelation g_ = new GameTarotTeamsRelation((byte)0, called_,conf_,r_);
-        AbsMap<Status,Rate> rates_ = EndTarotGame.coefficientsRepartition(g_);
+        AbsMap<Role,Rate> rates_ = EndTarotGame.coefficientsRepartition(g_);
         assertEq(2, rates_.size());
-        assertEq(new Rate(4),rates_.getVal(Status.TAKER));
-        assertEq(new Rate(-1),rates_.getVal(Status.DEFENDER));
+        assertEq(new Rate(4),rates_.getVal(Role.TAKER));
+        assertEq(new Rate(-1),rates_.getVal(Role.DEFENDER));
     }
     @Test
     public void coefficientsRepartition8Test() {
@@ -3918,11 +3918,11 @@ public final class EndTarotGameTest extends CommonGameTarot {
         Bytes called_ = new Bytes();
         called_.add((byte)3);
         GameTarotTeamsRelation g_ = new GameTarotTeamsRelation((byte)0, called_,conf_,r_);
-        AbsMap<Status,Rate> rates_ = EndTarotGame.coefficientsRepartition(g_);
+        AbsMap<Role,Rate> rates_ = EndTarotGame.coefficientsRepartition(g_);
         assertEq(3, rates_.size());
-        assertEq(new Rate(2),rates_.getVal(Status.TAKER));
-        assertEq(new Rate(2),rates_.getVal(Status.CALLED_PLAYER));
-        assertEq(new Rate(-1),rates_.getVal(Status.DEFENDER));
+        assertEq(new Rate(2),rates_.getVal(Role.TAKER));
+        assertEq(new Rate(2),rates_.getVal(Role.CALLED_PLAYER));
+        assertEq(new Rate(-1),rates_.getVal(Role.DEFENDER));
     }
     @Test
     public void coefficientsRepartition9Test() {
@@ -3932,11 +3932,11 @@ public final class EndTarotGameTest extends CommonGameTarot {
         Bytes called_ = new Bytes();
         called_.add((byte)1);
         GameTarotTeamsRelation g_ = new GameTarotTeamsRelation((byte)0, called_,conf_,r_);
-        AbsMap<Status,Rate> rates_ = EndTarotGame.coefficientsRepartition(g_);
+        AbsMap<Role,Rate> rates_ = EndTarotGame.coefficientsRepartition(g_);
         assertEq(3, rates_.size());
-        assertEq(new Rate(3),rates_.getVal(Status.TAKER));
-        assertEq(new Rate(1),rates_.getVal(Status.CALLED_PLAYER));
-        assertEq(new Rate(-1),rates_.getVal(Status.DEFENDER));
+        assertEq(new Rate(3),rates_.getVal(Role.TAKER));
+        assertEq(new Rate(1),rates_.getVal(Role.CALLED_PLAYER));
+        assertEq(new Rate(-1),rates_.getVal(Role.DEFENDER));
     }
     @Test
     public void coefficientsRepartition10Test() {
@@ -3946,10 +3946,10 @@ public final class EndTarotGameTest extends CommonGameTarot {
         Bytes called_ = new Bytes();
         called_.add((byte)0);
         GameTarotTeamsRelation g_ = new GameTarotTeamsRelation((byte)0, called_,conf_,r_);
-        AbsMap<Status,Rate> rates_ = EndTarotGame.coefficientsRepartition(g_);
+        AbsMap<Role,Rate> rates_ = EndTarotGame.coefficientsRepartition(g_);
         assertEq(2, rates_.size());
-        assertEq(new Rate(5),rates_.getVal(Status.TAKER));
-        assertEq(new Rate(-1),rates_.getVal(Status.DEFENDER));
+        assertEq(new Rate(5),rates_.getVal(Role.TAKER));
+        assertEq(new Rate(-1),rates_.getVal(Role.DEFENDER));
     }
     @Test
     public void calculateScores1Test() {
@@ -3959,7 +3959,7 @@ public final class EndTarotGameTest extends CommonGameTarot {
         Bytes called_ = new Bytes();
         called_.add((byte)1);
         GameTarotTeamsRelation g_ = new GameTarotTeamsRelation((byte)0, called_,conf_,r_);
-        AbsMap<Status,Rate> rates_ = EndTarotGame.coefficientsRepartition(g_);
+        AbsMap<Role,Rate> rates_ = EndTarotGame.coefficientsRepartition(g_);
         Shorts scores_ = EndTarotGame.calculateScores(rates_, (short) 100, (short) 10, g_);
         assertEq(4, scores_.size());
         assertEq(150,scores_.get(0));
@@ -3975,7 +3975,7 @@ public final class EndTarotGameTest extends CommonGameTarot {
         Bytes called_ = new Bytes();
         called_.add((byte)1);
         GameTarotTeamsRelation g_ = new GameTarotTeamsRelation((byte)0, called_,conf_,r_);
-        AbsMap<Status,Rate> rates_ = EndTarotGame.coefficientsRepartition(g_);
+        AbsMap<Role,Rate> rates_ = EndTarotGame.coefficientsRepartition(g_);
         Shorts scores_ = EndTarotGame.calculateScores(rates_, (short) 99, (short) 10, g_);
         assertEq(4, scores_.size());
         assertEq(149,scores_.get(0));
@@ -3991,7 +3991,7 @@ public final class EndTarotGameTest extends CommonGameTarot {
         Bytes called_ = new Bytes();
         called_.add((byte)1);
         GameTarotTeamsRelation g_ = new GameTarotTeamsRelation((byte)0, called_,conf_,r_);
-        AbsMap<Status,Rate> rates_ = EndTarotGame.coefficientsRepartition(g_);
+        AbsMap<Role,Rate> rates_ = EndTarotGame.coefficientsRepartition(g_);
         Shorts scores_ = EndTarotGame.calculateScores(rates_, (short) -100, (short) -10, g_);
         assertEq(4, scores_.size());
         assertEq(-150,scores_.get(0));
@@ -4007,7 +4007,7 @@ public final class EndTarotGameTest extends CommonGameTarot {
         Bytes called_ = new Bytes();
         called_.add((byte)1);
         GameTarotTeamsRelation g_ = new GameTarotTeamsRelation((byte)0, called_,conf_,r_);
-        AbsMap<Status,Rate> rates_ = EndTarotGame.coefficientsRepartition(g_);
+        AbsMap<Role,Rate> rates_ = EndTarotGame.coefficientsRepartition(g_);
         Shorts scores_ = EndTarotGame.calculateScores(rates_, (short) -99, (short) -10, g_);
         assertEq(4, scores_.size());
         assertEq(-149,scores_.get(0));
@@ -4023,7 +4023,7 @@ public final class EndTarotGameTest extends CommonGameTarot {
         Bytes called_ = new Bytes();
         called_.add((byte)1);
         GameTarotTeamsRelation g_ = new GameTarotTeamsRelation((byte)0, called_,conf_,r_);
-        AbsMap<Status,Rate> rates_ = EndTarotGame.coefficientsRepartition(g_);
+        AbsMap<Role,Rate> rates_ = EndTarotGame.coefficientsRepartition(g_);
         Shorts scores_ = EndTarotGame.calculateScores(rates_, (short) 0, (short) 0, g_);
         assertEq(4, scores_.size());
         assertEq(0,scores_.get(0));
@@ -4095,12 +4095,12 @@ public final class EndTarotGameTest extends CommonGameTarot {
         smallBound_.add(false);
         smallBound_.add(false);
         smallBound_.add(false);
-        CustList<Status> st_ = new CustList<Status>();
-        st_.add(Status.TAKER);
-        st_.add(Status.DEFENDER);
-        st_.add(Status.CALLED_PLAYER);
-        st_.add(Status.DEFENDER);
-        st_.add(Status.DEFENDER);
+        CustList<Role> st_ = new CustList<Role>();
+        st_.add(Role.TAKER);
+        st_.add(Role.DEFENDER);
+        st_.add(Role.CALLED_PLAYER);
+        st_.add(Role.DEFENDER);
+        st_.add(Role.DEFENDER);
         assertEq("0",EndTarotGame.scoreSmallBound((byte)5,smallBound_, st_));
     }
     @Test
@@ -4111,12 +4111,12 @@ public final class EndTarotGameTest extends CommonGameTarot {
         smallBound_.add(false);
         smallBound_.add(false);
         smallBound_.add(false);
-        CustList<Status> st_ = new CustList<Status>();
-        st_.add(Status.TAKER);
-        st_.add(Status.DEFENDER);
-        st_.add(Status.CALLED_PLAYER);
-        st_.add(Status.DEFENDER);
-        st_.add(Status.DEFENDER);
+        CustList<Role> st_ = new CustList<Role>();
+        st_.add(Role.TAKER);
+        st_.add(Role.DEFENDER);
+        st_.add(Role.CALLED_PLAYER);
+        st_.add(Role.DEFENDER);
+        st_.add(Role.DEFENDER);
         assertEq("10",EndTarotGame.scoreSmallBound((byte)5,smallBound_, st_));
     }
     @Test
@@ -4127,12 +4127,12 @@ public final class EndTarotGameTest extends CommonGameTarot {
         smallBound_.add(true);
         smallBound_.add(false);
         smallBound_.add(false);
-        CustList<Status> st_ = new CustList<Status>();
-        st_.add(Status.TAKER);
-        st_.add(Status.DEFENDER);
-        st_.add(Status.CALLED_PLAYER);
-        st_.add(Status.DEFENDER);
-        st_.add(Status.DEFENDER);
+        CustList<Role> st_ = new CustList<Role>();
+        st_.add(Role.TAKER);
+        st_.add(Role.DEFENDER);
+        st_.add(Role.CALLED_PLAYER);
+        st_.add(Role.DEFENDER);
+        st_.add(Role.DEFENDER);
         assertEq("10",EndTarotGame.scoreSmallBound((byte)5,smallBound_,st_));
     }
     @Test
@@ -4143,12 +4143,12 @@ public final class EndTarotGameTest extends CommonGameTarot {
         smallBound_.add(false);
         smallBound_.add(false);
         smallBound_.add(false);
-        CustList<Status> st_ = new CustList<Status>();
-        st_.add(Status.TAKER);
-        st_.add(Status.DEFENDER);
-        st_.add(Status.CALLED_PLAYER);
-        st_.add(Status.DEFENDER);
-        st_.add(Status.DEFENDER);
+        CustList<Role> st_ = new CustList<Role>();
+        st_.add(Role.TAKER);
+        st_.add(Role.DEFENDER);
+        st_.add(Role.CALLED_PLAYER);
+        st_.add(Role.DEFENDER);
+        st_.add(Role.DEFENDER);
         assertEq("(-10)",EndTarotGame.scoreSmallBound((byte)5,smallBound_, st_));
     }
     @Test

@@ -8,7 +8,6 @@ import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.expressionlanguage.fwd.opers.AnaSettableOperationContent;
 import code.maths.litteral.StrTypes;
-import code.util.IntTreeMap;
 
 public final class WrappOperation extends AbstractUnaryOperation implements PreAnalyzableOperation {
     private int offset;
@@ -30,7 +29,7 @@ public final class WrappOperation extends AbstractUnaryOperation implements PreA
     public void preAnalyze(AnalyzedPageEl _page) {
         MethodOperation m_ = getParent();
         boolean retRef_ = false;
-        Block cur_ = _page.getCurrentBlock();
+        AbsBk cur_ = _page.getCurrentBlock();
         MemberCallingsBlock f_ = _page.getCurrentFct();
         String type_ = EMPTY_STRING;
         if (m_ == null && f_ instanceof NamedFunctionBlock && cur_ instanceof ReturnMethod) {
@@ -56,7 +55,7 @@ public final class WrappOperation extends AbstractUnaryOperation implements PreA
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+offset, _page);
         MethodOperation m_ = getParent();
         boolean retRef_ = false;
-        Block cur_ = _page.getCurrentBlock();
+        AbsBk cur_ = _page.getCurrentBlock();
         MemberCallingsBlock f_ = _page.getCurrentFct();
         if (m_ == null && f_ instanceof NamedFunctionBlock && cur_ instanceof ReturnMethod) {
             if (((NamedFunctionBlock)f_).isRetRef()) {

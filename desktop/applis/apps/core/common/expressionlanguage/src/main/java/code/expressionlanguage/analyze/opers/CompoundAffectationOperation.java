@@ -13,7 +13,7 @@ import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
 import code.expressionlanguage.analyze.instr.ElUtil;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
-import code.expressionlanguage.analyze.blocks.Block;
+import code.expressionlanguage.analyze.blocks.AbsBk;
 import code.expressionlanguage.analyze.instr.PartOffset;
 import code.expressionlanguage.fwd.opers.AnaOperatorContent;
 import code.expressionlanguage.linkage.LinkageUtil;
@@ -145,7 +145,7 @@ public final class CompoundAffectationOperation extends MethodOperation {
         boolean isString_ = clMatchLeft_.matchClass(stringType_);
         AnaClassArgumentMatching clMatchRight_ = right_.getResultClass();
 
-        if (StringUtil.quickEq(operatorContent.getOper(), Block.PLUS_EQ)) {
+        if (StringUtil.quickEq(operatorContent.getOper(), AbsBk.PLUS_EQ)) {
             if (!AnaTypeUtil.isPureNumberClass(clMatchLeft_, _page)) {
                 if (!isString_) {
                     FoundErrorInterpret cast_ = new FoundErrorInterpret();
@@ -202,7 +202,7 @@ public final class CompoundAffectationOperation extends MethodOperation {
             right_.getResultClass().setUnwrapObject(unwrapped_, _page.getPrimitiveTypes());
             return;
         }
-        if (StringUtil.quickEq(operatorContent.getOper(), Block.AND_EQ) || StringUtil.quickEq(operatorContent.getOper(), Block.OR_EQ) || StringUtil.quickEq(operatorContent.getOper(), Block.XOR_EQ)) {
+        if (StringUtil.quickEq(operatorContent.getOper(), AbsBk.AND_EQ) || StringUtil.quickEq(operatorContent.getOper(), AbsBk.OR_EQ) || StringUtil.quickEq(operatorContent.getOper(), AbsBk.XOR_EQ)) {
             boolean okRes_ = false;
             if (clMatchLeft_.isBoolType(_page) && clMatchRight_.isBoolType(_page)) {
                 okRes_ = true;
@@ -232,8 +232,8 @@ public final class CompoundAffectationOperation extends MethodOperation {
             setBool(right_,_page);
             return;
         }
-        if (StringUtil.quickEq(operatorContent.getOper(), Block.AND_LOG_EQ) || StringUtil.quickEq(operatorContent.getOper(), Block.OR_LOG_EQ)
-                || StringUtil.quickEq(operatorContent.getOper(), Block.AND_LOG_EQ_SHORT) || StringUtil.quickEq(operatorContent.getOper(), Block.OR_LOG_EQ_SHORT)) {
+        if (StringUtil.quickEq(operatorContent.getOper(), AbsBk.AND_LOG_EQ) || StringUtil.quickEq(operatorContent.getOper(), AbsBk.OR_LOG_EQ)
+                || StringUtil.quickEq(operatorContent.getOper(), AbsBk.AND_LOG_EQ_SHORT) || StringUtil.quickEq(operatorContent.getOper(), AbsBk.OR_LOG_EQ_SHORT)) {
             if (!clMatchLeft_.isBoolType(_page) || !clMatchRight_.isBoolType(_page)) {
                 FoundErrorInterpret cast_ = new FoundErrorInterpret();
                 cast_.setFileName(_page.getLocalizer().getCurrentFileName());
@@ -255,7 +255,7 @@ public final class CompoundAffectationOperation extends MethodOperation {
             setBool(right_,_page);
             return;
         }
-        if (StringUtil.quickEq(operatorContent.getOper(), Block.NULL_EQ) || StringUtil.quickEq(operatorContent.getOper(), Block.NULL_EQ_SHORT)) {
+        if (StringUtil.quickEq(operatorContent.getOper(), AbsBk.NULL_EQ) || StringUtil.quickEq(operatorContent.getOper(), AbsBk.NULL_EQ_SHORT)) {
             StringMap<StringList> vars_ = _page.getCurrentConstraints().getCurrentConstraints();
             Mapping mapping_ = new Mapping();
             mapping_.setMapping(vars_);

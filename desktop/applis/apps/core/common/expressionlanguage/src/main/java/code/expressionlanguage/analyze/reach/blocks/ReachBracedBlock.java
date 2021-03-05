@@ -8,7 +8,7 @@ import code.util.IdMap;
 
 public abstract class ReachBracedBlock extends ReachBlock {
     private ReachBlock firstChild;
-    protected ReachBracedBlock(Block _info) {
+    protected ReachBracedBlock(AbsBk _info) {
         super(_info);
     }
 

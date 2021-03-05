@@ -1,5 +1,5 @@
 package cards.gui.animations;
-import cards.consts.Status;
+import cards.consts.Role;
 import cards.facade.Games;
 import cards.gui.MainWindow;
 import cards.gui.containers.ContainerGame;
@@ -16,7 +16,7 @@ import code.util.core.StringUtil;
 Thread safe class*/
 public final class AfterAnimationBidTarot implements Runnable {
 
-    private ContainerSingleTarot container;
+    private final ContainerSingleTarot container;
 
     /**This class thread is used by EDT (invokeLater of SwingUtilities)*/
     public AfterAnimationBidTarot(ContainerSingleTarot _container) {
@@ -40,13 +40,13 @@ public final class AfterAnimationBidTarot implements Runnable {
             }
         } else {
             if(gameTarot_.getContrat().isJouerDonne()) {
-                container.getMini().setStatus(Status.TAKER, gameTarot_.getPreneur());
+                container.getMini().setStatus(Role.TAKER, gameTarot_.getPreneur());
                 CallingCard appel_=gameTarot_.getRegles().getRepartition().getAppel();
                 if(appel_==CallingCard.DEFINED||appel_==CallingCard.WITHOUT) {
                     if(appel_==CallingCard.DEFINED) {
                         gameTarot_.initEquipeDeterminee();
                         for (byte c: gameTarot_.getAppele()) {
-                            container.getMini().setStatus(Status.CALLED_PLAYER, c);
+                            container.getMini().setStatus(Role.CALLED_PLAYER, c);
                         }
                     } else {
                         gameTarot_.initDefense();

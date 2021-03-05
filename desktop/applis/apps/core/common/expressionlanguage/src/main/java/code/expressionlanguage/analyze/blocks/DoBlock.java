@@ -37,7 +37,7 @@ public final class DoBlock extends BracedBlock implements Loop {
 
     @Override
     public void checkTree(AnalyzingEl _anEl, AnalyzedPageEl _page) {
-        Block nextSibling_ = getNextSibling();
+        AbsBk nextSibling_ = getNextSibling();
         if (nextSibling_ == null) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setFileName(getFile().getFileName());

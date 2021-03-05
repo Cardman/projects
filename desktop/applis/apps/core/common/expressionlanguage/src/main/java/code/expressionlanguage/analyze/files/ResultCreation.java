@@ -1,20 +1,20 @@
 package code.expressionlanguage.analyze.files;
 
-import code.expressionlanguage.analyze.blocks.Block;
+import code.expressionlanguage.analyze.blocks.AbsBk;
 
 public final class ResultCreation {
 
     private int nextIndex;
 
-    private Block block;
+    private AbsBk block;
 
     private boolean okType;
 
-    public Block getBlock() {
+    public AbsBk getBlock() {
         return block;
     }
 
-    public void setBlock(Block _block) {
+    public void setBlock(AbsBk _block) {
         block = _block;
     }
 

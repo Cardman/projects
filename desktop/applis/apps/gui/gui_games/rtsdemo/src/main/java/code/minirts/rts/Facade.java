@@ -7,9 +7,9 @@ import code.util.EqList;
 
 public final class Facade {
 
-    private Game game = new Game();
+    private final RtsGame game = new RtsGame();
 
-    private DataBase data = new DataBase();
+    private final RtsDataBase data = new RtsDataBase();
 
     public SoldierPattern getSoldierPattern() {
         return data.getSoldierPattern();

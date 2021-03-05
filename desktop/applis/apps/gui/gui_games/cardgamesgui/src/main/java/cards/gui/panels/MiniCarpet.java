@@ -1,7 +1,7 @@
 package cards.gui.panels;
 import java.awt.Dimension;
 
-import cards.consts.Status;
+import cards.consts.Role;
 import cards.gui.labels.CellPlayer;
 import code.gui.Panel;
 import code.util.*;
@@ -11,7 +11,7 @@ public final class MiniCarpet {
 
     private boolean horaire;
 
-    private IntMap<CellPlayer> cellsPlayers = new IntMap<CellPlayer>();
+    private final IntMap<CellPlayer> cellsPlayers = new IntMap<CellPlayer>();
 
     private Panel container;
 
@@ -209,13 +209,13 @@ public final class MiniCarpet {
             }
         }
         for (CellPlayer c: m_.cellsPlayers.values()) {
-            c.setStatus(Status.DEFENDER);
+            c.setStatus(Role.DEFENDER);
             c.repaintLabel();
         }
         return m_;
     }
 
-    public void setStatus(Status _st, int _player) {
+    public void setStatus(Role _st, int _player) {
         cellsPlayers.getVal(_player).setStatus(_st);
         cellsPlayers.getVal(_player).repaintLabel();
     }

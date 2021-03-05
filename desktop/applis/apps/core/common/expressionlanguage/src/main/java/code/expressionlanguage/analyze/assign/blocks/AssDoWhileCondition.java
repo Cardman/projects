@@ -1,7 +1,7 @@
 package code.expressionlanguage.analyze.assign.blocks;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.analyze.blocks.Condition;
+import code.expressionlanguage.analyze.blocks.ConditionBlock;
 import code.expressionlanguage.analyze.assign.util.AssignedBooleanVariables;
 import code.expressionlanguage.analyze.assign.util.AssignedVariables;
 import code.expressionlanguage.analyze.assign.util.AssignedVariablesBlock;
@@ -13,7 +13,7 @@ import code.util.*;
 import code.util.core.StringUtil;
 
 public final class AssDoWhileCondition extends AssCondition {
-    AssDoWhileCondition(boolean _completeNormally, boolean _completeNormallyGroup, Condition _c) {
+    AssDoWhileCondition(boolean _completeNormally, boolean _completeNormallyGroup, ConditionBlock _c) {
         super(_completeNormally, _completeNormallyGroup, _c);
     }
 

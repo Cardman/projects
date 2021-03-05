@@ -83,8 +83,8 @@ public final class ClassesUtil {
             _page.setImportingTypes(e);
             _page.getMappingLocal().clear();
             _page.getMappingLocal().putAllMap(e.getMappings());
-            for (Block b: getDirectChildren(e)) {
-                if (Block.isOverBlock(b)) {
+            for (AbsBk b: getDirectChildren(e)) {
+                if (AbsBk.isOverBlock(b)) {
                     _page.setCurrentBlock(e);
                     ((NamedCalledFunctionBlock)b).buildTypes(e, _page);
                 }
@@ -729,7 +729,7 @@ public final class ClassesUtil {
         }
         for (EntryCust<String,FileBlock> f: files_.entryList()) {
             FileBlock value_ = f.getValue();
-            for (Block b: getDirectChildren(value_)) {
+            for (AbsBk b: getDirectChildren(value_)) {
                 if (b instanceof RootBlock) {
                     RootBlock r_ = (RootBlock) b;
                     _page.getOuterTypes().add(r_);
@@ -750,7 +750,7 @@ public final class ClassesUtil {
 
     private static void processMapping(AnalyzedPageEl _page) {
         for (RootBlock r: _page.getFoundTypes()) {
-            for (Block b: getDirectChildren(r)) {
+            for (AbsBk b: getDirectChildren(r)) {
                 if (b instanceof MemberCallingsBlock) {
                     MemberCallingsBlock m_ = (MemberCallingsBlock) b;
                     MemberCallingsBlock outerFuntion_ = m_.getStrictOuterFuntion();
@@ -769,7 +769,7 @@ public final class ClassesUtil {
     }
 
     public static void fetchByFile(StringList _basePkgFound, StringList _pkgFound, FileBlock _anaFile, AnalyzedPageEl _page) {
-        for (Block b: getDirectChildren(_anaFile)) {
+        for (AbsBk b: getDirectChildren(_anaFile)) {
             if (b instanceof RootBlock) {
                 RootBlock r_ = (RootBlock) b;
                 processType(_basePkgFound, _pkgFound, r_, _page);
@@ -784,7 +784,7 @@ public final class ClassesUtil {
         }
     }
 
-    private static void processType(StringList _basePkgFound, StringList _pkgFound, Block _r, AnalyzedPageEl _page) {
+    private static void processType(StringList _basePkgFound, StringList _pkgFound, AbsBk _r, AnalyzedPageEl _page) {
         StringList allReservedInnersRoot_ = new StringList();
         boolean addPkg_ = true;
         if (_r instanceof RootBlock) {
@@ -819,7 +819,7 @@ public final class ClassesUtil {
             OperatorBlock r_ = (OperatorBlock) _r;
             allReservedInnersRoot_.addAllElts(r_.getAllReservedInners());
         }
-        Block c_ = _r;
+        AbsBk c_ = _r;
         if (c_.getFirstChild() != null) {
             StringList simpleNames_ = new StringList();
             while (true) {
@@ -943,7 +943,7 @@ public final class ClassesUtil {
                     }
                     ClassesUtil.processBracedClass(addPkg_&&add_, cur_, _page);
                 }
-                Block fc_ = c_.getFirstChild();
+                AbsBk fc_ = c_.getFirstChild();
                 if (fc_ != null) {
                     if (c_ instanceof RootBlock) {
                         String s_ = ((RootBlock)c_).getName();
@@ -954,7 +954,7 @@ public final class ClassesUtil {
                 }
                 boolean end_ = false;
                 while (true) {
-                    Block n_ = c_.getNextSibling();
+                    AbsBk n_ = c_.getNextSibling();
                     if (n_ != null) {
                         c_ = n_;
                         break;
@@ -980,8 +980,8 @@ public final class ClassesUtil {
         }
     }
 
-    private static void addReserved(Block _r, StringList _allReservedInnersRoot) {
-        if (Block.isAnonBlock(_r)) {
+    private static void addReserved(AbsBk _r, StringList _allReservedInnersRoot) {
+        if (AbsBk.isAnonBlock(_r)) {
             NamedCalledFunctionBlock r_ = (NamedCalledFunctionBlock) _r;
             _allReservedInnersRoot.addAllElts(r_.getAllReservedInners());
         }
@@ -989,14 +989,14 @@ public final class ClassesUtil {
 
     private static CustList<RootBlock> inners(MemberCallingsBlock _caller) {
         CustList<RootBlock> list_ = new CustList<RootBlock>();
-        Block c_ = _caller;
+        AbsBk c_ = _caller;
         if (_caller.getFirstChild() != null) {
             while (true) {
                 if (c_ instanceof RootBlock) {
                     RootBlock cur_ = (RootBlock) c_;
                     list_.add(cur_);
                 } else {
-                    Block fc_ = c_.getFirstChild();
+                    AbsBk fc_ = c_.getFirstChild();
                     if (fc_ != null) {
                         c_ = fc_;
                         continue;
@@ -1004,7 +1004,7 @@ public final class ClassesUtil {
                 }
                 boolean end_ = false;
                 while (true) {
-                    Block n_ = c_.getNextSibling();
+                    AbsBk n_ = c_.getNextSibling();
                     if (n_ != null) {
                         c_ = n_;
                         break;
@@ -1024,12 +1024,12 @@ public final class ClassesUtil {
         return list_;
     }
 
-    public static CustList<Block> getDirectChildren(Block _element) {
-        CustList<Block> list_ = new CustList<Block>();
+    public static CustList<AbsBk> getDirectChildren(AbsBk _element) {
+        CustList<AbsBk> list_ = new CustList<AbsBk>();
         if (_element == null) {
             return list_;
         }
-        Block elt_ = _element.getFirstChild();
+        AbsBk elt_ = _element.getFirstChild();
         while (elt_ != null) {
             list_.add(elt_);
             elt_ = elt_.getNextSibling();
@@ -1085,7 +1085,7 @@ public final class ClassesUtil {
                         allPossibleDirectSuperTypes_.add(r.getFullName());
                     }
                 }
-                for (Block m: getDirectChildren(a)) {
+                for (AbsBk m: getDirectChildren(a)) {
                     if (!(m instanceof RootBlock)) {
                         continue;
                     }
@@ -1097,7 +1097,7 @@ public final class ClassesUtil {
                     if (g_ == null) {
                         continue;
                     }
-                    for (Block m: getDirectChildren(g_)) {
+                    for (AbsBk m: getDirectChildren(g_)) {
                         if (!(m instanceof RootBlock)) {
                             continue;
                         }
@@ -1700,7 +1700,7 @@ public final class ClassesUtil {
             _page.setImportingTypes(c);
             _page.getMappingLocal().clear();
             _page.getMappingLocal().putAllMap(c.getMappings());
-            for (Block b: getDirectChildren(c)) {
+            for (AbsBk b: getDirectChildren(c)) {
                 if (b instanceof InternOverrideBlock) {
                     _page.setCurrentBlock(c);
                     ((InternOverrideBlock)b).buildTypes(c, _page);
@@ -1809,7 +1809,7 @@ public final class ClassesUtil {
 
     public static CustList<RootBlock> accessedClassMembers(RootBlock _clOwner) {
         CustList<RootBlock> inners_ = new CustList<RootBlock>();
-        for (Block b: getDirectChildren(_clOwner)) {
+        for (AbsBk b: getDirectChildren(_clOwner)) {
             if (!(b instanceof RootBlock)) {
                 continue;
             }
@@ -1825,7 +1825,7 @@ public final class ClassesUtil {
 
     public static CustList<RootBlock> accessedInnerElements(RootBlock _clOwner) {
         CustList<RootBlock> inners_ = new CustList<RootBlock>();
-        for (Block b: getDirectChildren(_clOwner)) {
+        for (AbsBk b: getDirectChildren(_clOwner)) {
             if (!(b instanceof InnerElementBlock)) {
                 continue;
             }
@@ -1851,8 +1851,8 @@ public final class ClassesUtil {
             _page.getAssignedDeclaredFields().clear();
             _page.getAllDeclaredFields().clear();
             String fullName_ = c.getFullName();
-            CustList<Block> bl_ = getDirectChildren(c);
-            for (Block b: bl_) {
+            CustList<AbsBk> bl_ = getDirectChildren(c);
+            for (AbsBk b: bl_) {
                 if (!(b instanceof InfoBlock)) {
                     continue;
                 }
@@ -1874,7 +1874,7 @@ public final class ClassesUtil {
                     v_++;
                 }
             }
-            for (Block b: bl_) {
+            for (AbsBk b: bl_) {
                 if (b instanceof InnerTypeOrElement) {
                     _page.setGlobalClass(c.getGenericString());
                     _page.setGlobalType(c);
@@ -1927,8 +1927,8 @@ public final class ClassesUtil {
             _page.getInitFields().clear();
             _page.getAssignedDeclaredFields().clear();
             _page.getAllDeclaredFields().clear();
-            CustList<Block> bl_ = getDirectChildren(c);
-            for (Block b: bl_) {
+            CustList<AbsBk> bl_ = getDirectChildren(c);
+            for (AbsBk b: bl_) {
                 if (b instanceof InfoBlock) {
                     InfoBlock method_ = (InfoBlock) b;
                     _page.getAllDeclaredFields().addAllElts(method_.getFieldName());
@@ -1941,7 +1941,7 @@ public final class ClassesUtil {
                     _page.getAssignedDeclaredFields().addAllElts(((FieldBlock)b).getAssignedDeclaredFields());
                 }
             }
-            for (Block b: bl_) {
+            for (AbsBk b: bl_) {
                 if (b instanceof InfoBlock) {
                     InfoBlock method_ = (InfoBlock) b;
                     if (method_.isStaticField()) {
@@ -1976,7 +1976,7 @@ public final class ClassesUtil {
                 }
             }
             processInterfaceCtor(c, bl_, _page);
-            for (Block b: bl_) {
+            for (AbsBk b: bl_) {
                 if (b instanceof ConstructorBlock) {
                     _page.getInitFieldsCtors().clear();
                     _page.getInitFieldsCtors().addAllElts(_page.getInitFields());
@@ -2002,9 +2002,9 @@ public final class ClassesUtil {
             _page.setImporting(c);
             _page.setImportingAcces(new TypeAccessor(c.getFullName()));
             _page.setImportingTypes(c);
-            CustList<Block> bl_ = getDirectChildren(c);
-            for (Block b: bl_) {
-                if (!Block.isOverBlock(b)) {
+            CustList<AbsBk> bl_ = getDirectChildren(c);
+            for (AbsBk b: bl_) {
+                if (!AbsBk.isOverBlock(b)) {
                     continue;
                 }
                 NamedCalledFunctionBlock method_ = (NamedCalledFunctionBlock) b;
@@ -2052,16 +2052,16 @@ public final class ClassesUtil {
             _page.setCurrentPkg(c.getPackageName());
             _page.setCurrentFile(c.getFile());
             _page.setCurrentFct(null);
-            CustList<Block> annotated_ = new CustList<Block>();
+            CustList<AbsBk> annotated_ = new CustList<AbsBk>();
             if (!(c instanceof InnerElementBlock)) {
                 annotated_.add(c);
             }
             annotated_.addAllElts(getDirectChildren(c));
             _page.getMappingLocal().clear();
             _page.getMappingLocal().putAllMap(c.getMappings());
-            for (Block b:annotated_) {
+            for (AbsBk b:annotated_) {
                 _page.setCurrentBlock(b);
-                if (Block.isAnnotBlock(b)) {
+                if (AbsBk.isAnnotBlock(b)) {
                     ((NamedCalledFunctionBlock)b).buildExpressionLanguage(_page);
                 }
                 if (b instanceof NamedFunctionBlock) {
@@ -2124,10 +2124,10 @@ public final class ClassesUtil {
             _page.getAssignedDeclaredFields().clear();
             _page.getAllDeclaredFields().clear();
             String fullName_ = c.getFullName();
-            CustList<Block> bl_ = getDirectChildren(c);
+            CustList<AbsBk> bl_ = getDirectChildren(c);
             StringMap<AssignmentBefore> ass_;
             ass_ = new StringMap<AssignmentBefore>();
-            for (Block b: bl_) {
+            for (AbsBk b: bl_) {
                 if (!(b instanceof InfoBlock)) {
                     continue;
                 }
@@ -2151,7 +2151,7 @@ public final class ClassesUtil {
             StringMap<SimpleAssignment> assAfter_;
             assAfter_ = new StringMap<SimpleAssignment>();
             AssBlock pr_ = null;
-            for (Block b: bl_) {
+            for (AbsBk b: bl_) {
                 AssBlock val_ = _page.getFieldsAssSt().getVal(b);
                 if (val_ instanceof AssInfoBlock) {
                     AssInfoBlock aInfo_ = (AssInfoBlock) val_;
@@ -2203,10 +2203,10 @@ public final class ClassesUtil {
             _page.getAssignedDeclaredFields().clear();
             _page.getAllDeclaredFields().clear();
             String fullName_ = c.getFullName();
-            CustList<Block> bl_ = getDirectChildren(c);
+            CustList<AbsBk> bl_ = getDirectChildren(c);
             StringMap<AssignmentBefore> ass_;
             ass_ = new StringMap<AssignmentBefore>();
-            for (Block b: bl_) {
+            for (AbsBk b: bl_) {
                 if (b instanceof InfoBlock) {
                     InfoBlock method_ = (InfoBlock) b;
                     if (method_.isStaticField()) {
@@ -2230,7 +2230,7 @@ public final class ClassesUtil {
             b_.clear();
             b_.putAllMap(ass_);
             boolean hasCtor_ = false;
-            for (Block b: bl_) {
+            for (AbsBk b: bl_) {
                 if (b instanceof ConstructorBlock) {
                     hasCtor_ = true;
                     break;
@@ -2239,7 +2239,7 @@ public final class ClassesUtil {
             StringMap<SimpleAssignment> assAfter_;
             assAfter_ = new StringMap<SimpleAssignment>();
             AssBlock pr_ = null;
-            for (Block b: bl_) {
+            for (AbsBk b: bl_) {
                 if (b instanceof InfoBlock) {
                     InfoBlock method_ = (InfoBlock) b;
                     if (method_.isStaticField()) {
@@ -2281,7 +2281,7 @@ public final class ClassesUtil {
                         continue;
                     }
                     //error
-                    for (Block b : bl_) {
+                    for (AbsBk b : bl_) {
                         if (b instanceof InfoBlock) {
                             if (StringUtil.contains(((InfoBlock) b).getFieldName(), fieldName_)) {
                                 FoundErrorInterpret un_ = new FoundErrorInterpret();
@@ -2296,7 +2296,7 @@ public final class ClassesUtil {
                 }
             }
             b_.putAllMap(AssignmentsUtil.assignSimpleBefore(assAfter_));
-            for (Block b: bl_) {
+            for (AbsBk b: bl_) {
                 AnalyzingEl anAss_ = null;
                 if (b instanceof NamedFunctionBlock) {
                     anAss_ = _page.getResultsAnaNamed().getVal((MemberCallingsBlock) b);
@@ -2340,8 +2340,8 @@ public final class ClassesUtil {
             _page.setGlobalClass(c.getGenericString());
             _page.setImportingAcces(new TypeAccessor(c.getFullName()));
             _page.setImportingTypes(c);
-            CustList<Block> bl_ = getDirectChildren(c);
-            for (Block b: bl_) {
+            CustList<AbsBk> bl_ = getDirectChildren(c);
+            for (AbsBk b: bl_) {
                 AnalyzingEl anAss_ = null;
                 if (b instanceof NamedFunctionBlock) {
                     anAss_ = _page.getResultsAnaMethod().getVal((MemberCallingsBlock) b);
@@ -2405,8 +2405,8 @@ public final class ClassesUtil {
             _page.getInitFields().clear();
             _page.getAssignedDeclaredFields().clear();
             _page.getAllDeclaredFields().clear();
-            CustList<Block> bl_ = getDirectChildren(c);
-            for (Block b: bl_) {
+            CustList<AbsBk> bl_ = getDirectChildren(c);
+            for (AbsBk b: bl_) {
                 AnalyzingEl anAss_ = null;
                 if (b instanceof MemberCallingsBlock) {
                     anAss_ = _page.getResultsAna().getVal((MemberCallingsBlock) b);
@@ -2429,8 +2429,8 @@ public final class ClassesUtil {
             _page.getInitFields().clear();
             _page.getAssignedDeclaredFields().clear();
             _page.getAllDeclaredFields().clear();
-            CustList<Block> bl_ = getDirectChildren(c);
-            for (Block b: bl_) {
+            CustList<AbsBk> bl_ = getDirectChildren(c);
+            for (AbsBk b: bl_) {
                 AnalyzingEl anAss_ = null;
                 if (b instanceof MemberCallingsBlock) {
                     anAss_ = _page.getResultsAnaInst().getVal((MemberCallingsBlock) b);
@@ -2442,7 +2442,7 @@ public final class ClassesUtil {
                     _page.clearAllLocalVars(assVars_);
                 }
             }
-            for (Block b: bl_) {
+            for (AbsBk b: bl_) {
                 AnalyzingEl anAss_ = null;
                 if (b instanceof NamedFunctionBlock) {
                     anAss_ = _page.getResultsAnaNamed().getVal((MemberCallingsBlock) b);
@@ -2463,8 +2463,8 @@ public final class ClassesUtil {
             _page.setGlobalClass(c.getGenericString());
             _page.setImportingAcces(new TypeAccessor(c.getFullName()));
             _page.setImportingTypes(c);
-            CustList<Block> bl_ = getDirectChildren(c);
-            for (Block b: bl_) {
+            CustList<AbsBk> bl_ = getDirectChildren(c);
+            for (AbsBk b: bl_) {
                 AnalyzingEl anAss_ = null;
                 if (b instanceof NamedFunctionBlock) {
                     anAss_ = _page.getResultsAnaMethod().getVal((MemberCallingsBlock) b);
@@ -2561,9 +2561,9 @@ public final class ClassesUtil {
         }
     }
 
-    private static void processInterfaceCtor(RootBlock _cl, CustList<Block> _blocks, AnalyzedPageEl _page) {
+    private static void processInterfaceCtor(RootBlock _cl, CustList<AbsBk> _blocks, AnalyzedPageEl _page) {
         boolean hasCtor_ = false;
-        for (Block b: _blocks) {
+        for (AbsBk b: _blocks) {
             if (b instanceof ConstructorBlock) {
                 hasCtor_ = true;
                 break;
@@ -2586,7 +2586,7 @@ public final class ClassesUtil {
                 if (!(int_ instanceof InterfaceBlock)) {
                     continue;
                 }
-                for (Block b: getDirectChildren(int_)) {
+                for (AbsBk b: getDirectChildren(int_)) {
                     if (b instanceof NamedFunctionBlock) {
                         continue;
                     }
@@ -2664,9 +2664,9 @@ public final class ClassesUtil {
     private static void initStaticFields(AnalyzedPageEl _page) {
         for (RootBlock c: _page.getFoundTypes()) {
             String fullName_ = c.getFullName();
-            CustList<Block> bl_ = getDirectChildren(c);
+            CustList<AbsBk> bl_ = getDirectChildren(c);
             StringMap<Struct> cl_ = new StringMap<Struct>();
-            for (Block b: bl_) {
+            for (AbsBk b: bl_) {
                 if (!(b instanceof InfoBlock)) {
                     continue;
                 }
@@ -2685,8 +2685,8 @@ public final class ClassesUtil {
             _page.setImporting(c);
             _page.setImportingAcces(new TypeAccessor(c.getFullName()));
             _page.setImportingTypes(c);
-            CustList<Block> bl_ = getDirectChildren(c);
-            for (Block b: bl_) {
+            CustList<AbsBk> bl_ = getDirectChildren(c);
+            for (AbsBk b: bl_) {
                 if (!(b instanceof FieldBlock)) {
                     continue;
                 }

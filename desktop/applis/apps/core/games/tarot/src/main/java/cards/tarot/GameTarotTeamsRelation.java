@@ -1,6 +1,6 @@
 package cards.tarot;
 
-import cards.consts.Status;
+import cards.consts.Role;
 import cards.consts.Suit;
 import cards.tarot.enumerations.CardTarot;
 import code.util.*;
@@ -8,10 +8,10 @@ import code.util.core.IndexConstants;
 
 public final class GameTarotTeamsRelation {
 
-    private byte taker;
-    private Bytes calledPlayers;
-    private CustList<BooleanList> confidence;
-    private RulesTarot rules;
+    private final byte taker;
+    private final Bytes calledPlayers;
+    private final CustList<BooleanList> confidence;
+    private final RulesTarot rules;
 
     public GameTarotTeamsRelation(byte _taker, Bytes _calledPlayers,
                                   CustList<BooleanList> _confidence, RulesTarot _rules) {
@@ -241,15 +241,15 @@ public final class GameTarotTeamsRelation {
     }
 
     public boolean aPourDefenseur(byte _numero) {
-        return _numero != taker && statutDe(_numero) != Status.CALLED_PLAYER;
+        return _numero != taker && statutDe(_numero) != Role.CALLED_PLAYER;
     }
-    public Status statutDe(byte _numero) {
+    public Role statutDe(byte _numero) {
         if (_numero == taker) {
-            return Status.TAKER;
+            return Role.TAKER;
         }
         if (calledPlayers.containsObj(_numero)) {
-            return Status.CALLED_PLAYER;
+            return Role.CALLED_PLAYER;
         }
-        return Status.DEFENDER;
+        return Role.DEFENDER;
     }
 }

@@ -9,7 +9,7 @@ import javax.swing.SwingConstants;
 
 import cards.consts.GameType;
 import cards.consts.Hypothesis;
-import cards.consts.Status;
+import cards.consts.Role;
 import cards.consts.Suit;
 import cards.facade.Games;
 import cards.facade.enumerations.GameEnum;
@@ -272,7 +272,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
             return;
         }
         if (partie_.getContrat().isJouerDonne()) {
-            getMini().setStatus(Status.TAKER, partie_.getPreneur());
+            getMini().setStatus(Role.TAKER, partie_.getPreneur());
         }
         if(partie_.isCallingState()) {
             if (partie_.getRegles().getDiscardAfterCall()) {
@@ -807,8 +807,8 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
             pack();
         }
         if(partie_.getCarteAppelee().contient(_ct)) {
-            getMini().setStatus(Status.CALLED_PLAYER, _joueur);
-            ajouterTexteDansZone(StringUtil.concat(_pseudo,INTRODUCTION_PTS,Games.toString(Status.CALLED_PLAYER,lg_)));
+            getMini().setStatus(Role.CALLED_PLAYER, _joueur);
+            ajouterTexteDansZone(StringUtil.concat(_pseudo,INTRODUCTION_PTS,Games.toString(Role.CALLED_PLAYER,lg_)));
         }
 
     }
@@ -847,8 +847,8 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
             //pack();
         }
         if(partie_.getCarteAppelee().contient(ct_)) {
-            getMini().setStatus(Status.CALLED_PLAYER, _joueur);
-            ThreadInvoker.invokeNow(new AddTextEvents(this, StringUtil.concat(_pseudo,INTRODUCTION_PTS,Games.toString(Status.CALLED_PLAYER,lg_))));
+            getMini().setStatus(Role.CALLED_PLAYER, _joueur);
+            ThreadInvoker.invokeNow(new AddTextEvents(this, StringUtil.concat(_pseudo,INTRODUCTION_PTS,Games.toString(Role.CALLED_PLAYER,lg_))));
 //            ajouterTexteDansZone(_pseudo+INTRODUCTION_PTS+Status.CALLED_PLAYER.toString());
         }
         partie_.ajouterUneCarteDansPliEnCours(_joueur,ct_);
@@ -889,8 +889,8 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         GameTarot partie_=partieTarot();
         String lg_ = getOwner().getLanguageKey();
         if(partie_.getCarteAppelee().contient(_carteJouee)) {
-            getMini().setStatus(Status.CALLED_PLAYER, DealTarot.NUMERO_UTILISATEUR);
-            ajouterTexteDansZone(StringUtil.concat(pseudo(),INTRODUCTION_PTS,Games.toString(Status.CALLED_PLAYER,lg_)));
+            getMini().setStatus(Role.CALLED_PLAYER, DealTarot.NUMERO_UTILISATEUR);
+            ajouterTexteDansZone(StringUtil.concat(pseudo(),INTRODUCTION_PTS,Games.toString(Role.CALLED_PLAYER,lg_)));
         }
         /*L'utilisateur joue sa carte*/
         partie_.ajouterUneCarteDansPliEnCours(DealTarot.NUMERO_UTILISATEUR,_carteJouee);

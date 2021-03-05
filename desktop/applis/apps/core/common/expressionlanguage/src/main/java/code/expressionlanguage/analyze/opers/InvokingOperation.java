@@ -20,7 +20,6 @@ import code.expressionlanguage.stds.StandardConstructor;
 import code.expressionlanguage.stds.StandardType;
 import code.maths.litteral.StrTypes;
 import code.util.CustList;
-import code.util.IntTreeMap;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.core.IndexConstants;
@@ -77,7 +76,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
         String typeAff_ = EMPTY_STRING;
         if (apply_) {
             OperationNode parentMatching_ = getParentMatching(_op);
-            Block cur_ = _page.getCurrentBlock();
+            AbsBk cur_ = _page.getCurrentBlock();
             if (parentMatching_ == null &&cur_ instanceof ReturnMethod) {
                 typeAff_ = tryGetRetType(_page);
             } else {
@@ -675,7 +674,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
 
     protected static void filterByReturnType(String _stCall,boolean _apply, CustList<CustList<MethodInfo>> _methodInfos, AnalyzedPageEl _page, OperationNode _parentMatching) {
         String typeAff_ = EMPTY_STRING;
-        Block cur_ = _page.getCurrentBlock();
+        AbsBk cur_ = _page.getCurrentBlock();
         if (_apply) {
             if (_parentMatching == null &&cur_ instanceof ReturnMethod) {
                 typeAff_ = tryGetRetType(_page);

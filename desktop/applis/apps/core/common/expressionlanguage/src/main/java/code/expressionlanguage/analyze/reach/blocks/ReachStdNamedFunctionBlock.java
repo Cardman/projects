@@ -11,7 +11,7 @@ public final class ReachStdNamedFunctionBlock extends ReachNamedFunctionBlock {
     protected ReachStdNamedFunctionBlock(NamedFunctionBlock _info) {
         super(_info);
         meta = _info;
-        if (Block.isOverBlock(_info)) {
+        if (AbsBk.isOverBlock(_info)) {
             abstractMethod = ((NamedCalledFunctionBlock) _info).isAbstractMethod();
         }
     }

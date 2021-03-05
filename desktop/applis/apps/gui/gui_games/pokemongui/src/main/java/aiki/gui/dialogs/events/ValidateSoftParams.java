@@ -2,13 +2,13 @@ package aiki.gui.dialogs.events;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-import aiki.gui.dialogs.SoftParams;
+import aiki.gui.dialogs.DialogSoftParams;
 
 public class ValidateSoftParams extends MouseAdapter {
 
-    private SoftParams dialog;
+    private final DialogSoftParams dialog;
 
-    public ValidateSoftParams(SoftParams _dialog) {
+    public ValidateSoftParams(DialogSoftParams _dialog) {
         dialog = _dialog;
     }
 

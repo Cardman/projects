@@ -1,10 +1,10 @@
 package code.expressionlanguage.analyze.reach.blocks;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.analyze.blocks.Block;
+import code.expressionlanguage.analyze.blocks.AbsBk;
 
 public final class ReachEmptyInstruction extends ReachLeaf implements ReachBuildableElMethod {
-    protected ReachEmptyInstruction(Block _info) {
+    protected ReachEmptyInstruction(AbsBk _info) {
         super(_info);
     }
 

@@ -3,16 +3,16 @@ import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.errors.custom.GraphicErrorList;
 import code.expressionlanguage.analyze.files.OffsetsBlock;
 
-public abstract class BracedBlock extends Block {
+public abstract class BracedBlock extends AbsBk {
 
-    private Block firstChild;
+    private AbsBk firstChild;
 
-    private GraphicErrorList globalErrorsPars = new GraphicErrorList();
+    private final GraphicErrorList globalErrorsPars = new GraphicErrorList();
     BracedBlock(OffsetsBlock _offset) {
         super(_offset);
     }
 
-    public final void appendChild(Block _child) {
+    public final void appendChild(AbsBk _child) {
         _child.setParent(this);
         FileBlock file_ = getFile();
         if (file_ != null) {
@@ -22,9 +22,9 @@ public abstract class BracedBlock extends Block {
             firstChild = _child;
             return;
         }
-        Block child_ = firstChild;
+        AbsBk child_ = firstChild;
         while (true) {
-            Block sibling_ = child_.getNextSibling();
+            AbsBk sibling_ = child_.getNextSibling();
             if (sibling_ == null) {
                 _child.setPreviousSibling(child_);
                 child_.setNextSibling(_child);
@@ -39,7 +39,7 @@ public abstract class BracedBlock extends Block {
     }
 
     @Override
-    public final Block getFirstChild() {
+    public final AbsBk getFirstChild() {
         return firstChild;
     }
 
@@ -49,7 +49,7 @@ public abstract class BracedBlock extends Block {
     }
 
     public final void removeLocalVars(AnalyzedPageEl _ip) {
-        for (Block s: ClassesUtil.getDirectChildren(this)) {
+        for (AbsBk s: ClassesUtil.getDirectChildren(this)) {
             if (s instanceof DeclareVariable) {
                 for (String v: ((DeclareVariable)s).getVariableNames()) {
                     _ip.getInfosVars().removeKey(v);

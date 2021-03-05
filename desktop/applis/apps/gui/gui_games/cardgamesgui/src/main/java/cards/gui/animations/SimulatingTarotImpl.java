@@ -1,6 +1,6 @@
 package cards.gui.animations;
 
-import cards.consts.Status;
+import cards.consts.Role;
 import cards.facade.Games;
 import cards.gameresults.sml.DocumentReaderCardsResultsUtil;
 import cards.gui.MainWindow;
@@ -350,8 +350,8 @@ public final class SimulatingTarotImpl implements SimulatingTarot {
         String lg_ = container.getOwner().getLanguageKey();
         StringList pseudos_=pseudosSimuleeTarot();
         String mess_ = container.getMessages().getVal(MainWindow.DEMO_ACTION);
-        container.getMini().setStatus(Status.CALLED_PLAYER, _joueur);
-        String event_ = StringUtil.concat(StringUtil.simpleStringsFormat(mess_,pseudos_.get(_joueur),Games.toString(Status.CALLED_PLAYER,lg_)),ContainerGame.RETURN_LINE);
+        container.getMini().setStatus(Role.CALLED_PLAYER, _joueur);
+        String event_ = StringUtil.concat(StringUtil.simpleStringsFormat(mess_,pseudos_.get(_joueur),Games.toString(Role.CALLED_PLAYER,lg_)),ContainerGame.RETURN_LINE);
         ThreadInvoker.invokeNow(new AddTextEvents(container, event_));
     }
 

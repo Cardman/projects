@@ -142,7 +142,7 @@ public final class InnerElementBlock extends RootBlock implements InnerTypeOrEle
 
     private int getIndex() {
         int index_ = 0;
-        Block n_ = getPreviousSibling();
+        AbsBk n_ = getPreviousSibling();
         while (n_ != null) {
             index_++;
             n_ = n_.getPreviousSibling();

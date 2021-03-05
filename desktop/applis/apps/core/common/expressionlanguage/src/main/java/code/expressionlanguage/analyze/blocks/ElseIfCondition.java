@@ -6,9 +6,9 @@ import code.expressionlanguage.analyze.files.OffsetsBlock;
 import code.util.StringList;
 import code.util.core.StringUtil;
 
-public final class ElseIfCondition extends Condition implements BlockCondition {
+public final class ElseIfCondition extends ConditionBlock implements BlockCondition {
 
-    private int delta;
+    private final int delta;
 
     public ElseIfCondition(OffsetStringInfo _condition, OffsetsBlock _offset, int _delta) {
         super(_condition, _offset);
@@ -17,7 +17,7 @@ public final class ElseIfCondition extends Condition implements BlockCondition {
 
     @Override
     public String getRealLabel() {
-        Block p_ = getPreviousSibling();
+        AbsBk p_ = getPreviousSibling();
         while (!(p_ instanceof IfCondition)) {
             if (p_ == null) {
                 return EMPTY_STRING;
@@ -29,7 +29,7 @@ public final class ElseIfCondition extends Condition implements BlockCondition {
 
     @Override
     public int getRealLabelOffset() {
-        Block p_ = getPreviousSibling();
+        AbsBk p_ = getPreviousSibling();
         while (!(p_ instanceof IfCondition)) {
             p_ = p_.getPreviousSibling();
         }
@@ -38,7 +38,7 @@ public final class ElseIfCondition extends Condition implements BlockCondition {
 
     @Override
     public void checkTree(AnalyzingEl _anEl, AnalyzedPageEl _page) {
-        Block pBlock_ = getPreviousSibling();
+        AbsBk pBlock_ = getPreviousSibling();
         if (!(pBlock_ instanceof IfCondition)) {
             if (!(pBlock_ instanceof ElseIfCondition)) {
                 FoundErrorInterpret un_ = new FoundErrorInterpret();

@@ -1,6 +1,6 @@
 package cards.tarot;
 
-import cards.consts.Status;
+import cards.consts.Role;
 import cards.consts.Suit;
 import cards.tarot.comparators.GameSeqLengthTarotComparator;
 import cards.tarot.enumerations.CardTarot;
@@ -17,7 +17,7 @@ public final class GameTarotBeginTrickClassic {
 
     private final HandTarot currentHand;
     private final GameTarotCommonPlaying common;
-    private final Status currentStatus;
+    private final Role currentStatus;
     private final Bytes confidentPlayers;
     private final Bytes notConfidentPlayers;
     private final Bytes notPlayed;
@@ -49,7 +49,7 @@ public final class GameTarotBeginTrickClassic {
         TarotInfoPliEnCours info_ = initInformations();
         EnumMap<Suit,CustList<HandTarot>> cartesPossibles_ = info_.getCartesPossibles();
         if(starter_ == teamsRelation.getTaker()) {
-            if(currentStatus == Status.CALLED_PLAYER) {
+            if(currentStatus == Role.CALLED_PLAYER) {
                 return playAsCalledPlayerOnExc(info_);
             }
             //defenseur entamant sur l'excuse du preneur
@@ -208,7 +208,7 @@ public final class GameTarotBeginTrickClassic {
         if (info_.getCouleursMaitresses().size() == Suit.couleursOrdinaires().size() && info_.isMaitreAtout()) {
             return playWithStrongestHand(info_);
         }
-        if(GameTarotCommonPlaying.maitreAtout(info_) && currentStatus == Status.TAKER) {
+        if(GameTarotCommonPlaying.maitreAtout(info_) && currentStatus == Role.TAKER) {
             CardTarot card_ = playWithStrongestTrumps(info_);
             if (card_ != CardTarot.WHITE) {
                 return card_;
@@ -240,7 +240,7 @@ public final class GameTarotBeginTrickClassic {
         if(teamsRelation.isVirtualTaker(info_.getCurrentPlayer())) {
             return playAsTaker(info_);
         }
-        if(currentStatus == Status.CALLED_PLAYER) {
+        if(currentStatus == Role.CALLED_PLAYER) {
             return playAsCalledPlayer(info_);
         }
         return playAsDefender(info_);
@@ -960,7 +960,7 @@ public final class GameTarotBeginTrickClassic {
             }
             return jeuMainMaitresse(currentHand,cartesJouees_);
         }
-        if(currentStatus == Status.CALLED_PLAYER) {
+        if(currentStatus == Role.CALLED_PLAYER) {
             //Appele
             //existeAppele
             if(teamsRelation.aucunPliAdverse(next_,plisFaits_)) {
@@ -1336,7 +1336,7 @@ public final class GameTarotBeginTrickClassic {
         return false;
     }
 
-    public Status getCurrentStatus() {
+    public Role getCurrentStatus() {
         return currentStatus;
     }
 }

@@ -2,11 +2,10 @@ package code.expressionlanguage.analyze.reach.blocks;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.AnalyzingEl;
-import code.expressionlanguage.analyze.blocks.Block;
-import code.expressionlanguage.analyze.blocks.BracedBlock;
+import code.expressionlanguage.analyze.blocks.AbsBk;
 
 public abstract class ReachLeaf extends ReachBlock {
-    protected ReachLeaf(Block _info) {
+    protected ReachLeaf(AbsBk _info) {
         super(_info);
     }
 

@@ -95,7 +95,7 @@ public final class ForwardInfos {
         for (EntryCust<String,FileBlock> e: _page.getFilesBodies().entryList()) {
             FileBlock fileBlock_ = e.getValue();
             ExecFileBlock exFile_ = files_.getValue(fileBlock_.getNumberFile());
-            for (Block b: ClassesUtil.getDirectChildren(fileBlock_)) {
+            for (AbsBk b: ClassesUtil.getDirectChildren(fileBlock_)) {
                 if (b instanceof OperatorBlock) {
                     OperatorBlock r_ = (OperatorBlock) b;
                     ExecOperatorBlock e_ = new ExecOperatorBlock(r_.isRetRef(), r_.getName(), r_.isVarargs(), r_.getAccess(), r_.getParametersNames(), r_.getOffset().getOffsetTrim(), r_.getImportedParametersTypes(), r_.getParametersRef());
@@ -163,7 +163,7 @@ public final class ForwardInfos {
                             }
                         }
                     }
-                    for (Block b: ClassesUtil.getDirectChildren(superBl_)) {
+                    for (AbsBk b: ClassesUtil.getDirectChildren(superBl_)) {
                         if ((b instanceof FieldBlock)) {
                             if (((FieldBlock)b).isStaticField()) {
                                 continue;
@@ -275,7 +275,7 @@ public final class ForwardInfos {
         for (EntryCust<RootBlock, Members> e: _forwards.getMapMembers().entryList()) {
             RootBlock c = e.getKey();
             Members mem_ = e.getValue();
-            for (Block b: ClassesUtil.getDirectChildren(c)) {
+            for (AbsBk b: ClassesUtil.getDirectChildren(c)) {
                 if (b instanceof RootBlock) {
                     ExecRootBlock val_ = _forwards.getMapMembers().getValue(((RootBlock) b).getNumberAll()).getRootBlock();
                     mem_.getRootBlock().getChildrenTypes().add(val_);
@@ -388,7 +388,7 @@ public final class ForwardInfos {
             Members valueMember_ = e.getValue();
             IdMap<MemberCallingsBlock, ExecMemberCallingsBlock> allFct_ = valueMember_.getAllFct();
             IdMap<InfoBlock, ExecInfoBlock> allFields_ = valueMember_.getAllFields();
-            for (Block b: ClassesUtil.getDirectChildren(root_)) {
+            for (AbsBk b: ClassesUtil.getDirectChildren(root_)) {
                 if (b instanceof MemberCallingsBlock) {
                     MemberCallingsBlock b1_ = (MemberCallingsBlock) b;
                     ExecMemberCallingsBlock value_ = allFct_.getValue(b1_.getNumberFct());
@@ -460,8 +460,8 @@ public final class ForwardInfos {
             ExecRootBlock current_ = r.getValue().getRootBlock();
             RootBlock k_ = r.getKey();
             Members mem_ = r.getValue();
-            for (Block b: ClassesUtil.getDirectChildren(k_)) {
-                if (Block.isOverBlock(b)) {
+            for (AbsBk b: ClassesUtil.getDirectChildren(k_)) {
+                if (AbsBk.isOverBlock(b)) {
                     NamedCalledFunctionBlock ov_ = (NamedCalledFunctionBlock) b;
                     MethodKind kind_ = ov_.getKind();
                     ExecOverridableBlock val_ = new ExecOverridableBlock(ov_.isRetRef(), ov_.getName(), ov_.isVarargs(), ov_.getAccess(), ov_.getParametersNames(), ov_.getModifier(), toExecMethodKind(kind_), b.getOffset().getOffsetTrim(), ov_.getImportedParametersTypes(), ov_.getParametersRef());
@@ -472,7 +472,7 @@ public final class ForwardInfos {
                     mem_.getAllFct().addEntry(ov_,val_);
                     mem_.getAllFctBodies().addEntry(ov_,val_);
                 }
-                if (Block.isAnnotBlock(b)) {
+                if (AbsBk.isAnnotBlock(b)) {
                     NamedCalledFunctionBlock annot_ = (NamedCalledFunctionBlock) b;
                     ExecAnnotationMethodBlock val_ = new ExecAnnotationMethodBlock((annot_).getName(), (annot_).isVarargs(), (annot_).getAccess(), (annot_).getParametersNames(), (annot_).getDefaultValueOffset(), b.getOffset().getOffsetTrim());
                     current_.appendChild(val_);
@@ -562,7 +562,7 @@ public final class ForwardInfos {
         return ExecMethodKind.STD_METHOD;
     }
     private static void processExecFile(FileBlock _anaFile, ExecFileBlock _exeFile, Forwards _forwards) {
-        for (Block b: ClassesUtil.getDirectChildren(_anaFile)) {
+        for (AbsBk b: ClassesUtil.getDirectChildren(_anaFile)) {
             if (b instanceof RootBlock) {
                 RootBlock r_ = (RootBlock) b;
                 processAppend(_exeFile, r_, _forwards);
@@ -615,16 +615,16 @@ public final class ForwardInfos {
     private static void buildExec(MemberCallingsBlock _from, ExecMemberCallingsBlock _dest, Coverage _coverage, Forwards _forwards) {
         ExecBracedBlock blockToWrite_ = _dest;
         ExecFileBlock fileDest_ = _dest.getFile();
-        Block firstChild_ = _from.getFirstChild();
+        AbsBk firstChild_ = _from.getFirstChild();
         ExecDeclareVariable decl_ = null;
         _coverage.putBlockOperations(_from,_dest,_from);
-        Block en_ = _from;
+        AbsBk en_ = _from;
         if (firstChild_ == null) {
             return;
         }
         while (true) {
             _coverage.putBlockOperations(_from,en_);
-            Block n_ = en_.getFirstChild();
+            AbsBk n_ = en_.getFirstChild();
             boolean visit_ = true;
             if (en_ instanceof BreakBlock) {
                 ExecBreakBlock exec_ = new ExecBreakBlock(((BreakBlock) en_).getLabel(), en_.getOffset().getOffsetTrim());
@@ -676,35 +676,35 @@ public final class ForwardInfos {
                 _coverage.putBlockOperations(_from,exec_,en_);
                 blockToWrite_ = exec_;
             } else if (en_ instanceof IfCondition) {
-                CustList<ExecOperationNode> opCondition_ = getExecutableNodes(((Condition)en_).getRoot(), _coverage, _forwards, en_);
-                ExecCondition exec_ = new ExecIfCondition(((Condition) en_).getConditionOffset(), ((IfCondition) en_).getLabel(), opCondition_, en_.getOffset().getOffsetTrim());
+                CustList<ExecOperationNode> opCondition_ = getExecutableNodes(((ConditionBlock)en_).getRoot(), _coverage, _forwards, en_);
+                ExecCondition exec_ = new ExecIfCondition(((ConditionBlock) en_).getConditionOffset(), ((IfCondition) en_).getLabel(), opCondition_, en_.getOffset().getOffsetTrim());
                 exec_.setFile(fileDest_);
                 blockToWrite_.appendChild(exec_);
-                _coverage.putBlockOperationsConditions(_from,(Condition)en_, exec_);
+                _coverage.putBlockOperationsConditions(_from,(ConditionBlock)en_, exec_);
                 _coverage.putBlockOperations(_from,exec_,en_);
                 blockToWrite_ = exec_;
             } else if (en_ instanceof ElseIfCondition) {
-                CustList<ExecOperationNode> opCondition_ = getExecutableNodes(((Condition)en_).getRoot(), _coverage, _forwards, en_);
-                ExecCondition exec_ = new ExecElseIfCondition(((Condition) en_).getConditionOffset(), opCondition_, en_.getOffset().getOffsetTrim());
+                CustList<ExecOperationNode> opCondition_ = getExecutableNodes(((ConditionBlock)en_).getRoot(), _coverage, _forwards, en_);
+                ExecCondition exec_ = new ExecElseIfCondition(((ConditionBlock) en_).getConditionOffset(), opCondition_, en_.getOffset().getOffsetTrim());
                 exec_.setFile(fileDest_);
                 blockToWrite_.appendChild(exec_);
-                _coverage.putBlockOperationsConditions(_from,(Condition)en_, exec_);
+                _coverage.putBlockOperationsConditions(_from,(ConditionBlock)en_, exec_);
                 _coverage.putBlockOperations(_from,exec_,en_);
                 blockToWrite_ = exec_;
             } else if (en_ instanceof WhileCondition) {
-                CustList<ExecOperationNode> opCondition_ = getExecutableNodes(((Condition)en_).getRoot(), _coverage, _forwards, en_);
-                ExecCondition exec_ = new ExecWhileCondition(((Condition) en_).getConditionOffset(), ((WhileCondition) en_).getLabel(), opCondition_, en_.getOffset().getOffsetTrim());
+                CustList<ExecOperationNode> opCondition_ = getExecutableNodes(((ConditionBlock)en_).getRoot(), _coverage, _forwards, en_);
+                ExecCondition exec_ = new ExecWhileCondition(((ConditionBlock) en_).getConditionOffset(), ((WhileCondition) en_).getLabel(), opCondition_, en_.getOffset().getOffsetTrim());
                 exec_.setFile(fileDest_);
                 blockToWrite_.appendChild(exec_);
-                _coverage.putBlockOperationsConditions(_from,(Condition)en_, exec_);
+                _coverage.putBlockOperationsConditions(_from,(ConditionBlock)en_, exec_);
                 _coverage.putBlockOperations(_from,exec_,en_);
                 blockToWrite_ = exec_;
             } else if (en_ instanceof DoWhileCondition) {
-                CustList<ExecOperationNode> opCondition_ = getExecutableNodes(((Condition)en_).getRoot(), _coverage, _forwards, en_);
-                ExecCondition exec_ = new ExecDoWhileCondition(((Condition) en_).getConditionOffset(), opCondition_, en_.getOffset().getOffsetTrim());
+                CustList<ExecOperationNode> opCondition_ = getExecutableNodes(((ConditionBlock)en_).getRoot(), _coverage, _forwards, en_);
+                ExecCondition exec_ = new ExecDoWhileCondition(((ConditionBlock) en_).getConditionOffset(), opCondition_, en_.getOffset().getOffsetTrim());
                 exec_.setFile(fileDest_);
                 blockToWrite_.appendChild(exec_);
-                _coverage.putBlockOperationsConditions(_from,(Condition)en_, exec_);
+                _coverage.putBlockOperationsConditions(_from,(ConditionBlock)en_, exec_);
                 _coverage.putBlockOperations(_from,exec_,en_);
             } else if (en_ instanceof DoBlock) {
                 ExecDoBlock exec_ = new ExecDoBlock(((DoBlock)en_).getLabel(), en_.getOffset().getOffsetTrim());
@@ -872,7 +872,7 @@ public final class ForwardInfos {
                     _coverage.putBlockOperations(_from,exec_,en_);
                 }
             } else if (en_ instanceof SwitchBlock) {
-                Block first_ = en_.getFirstChild();
+                AbsBk first_ = en_.getFirstChild();
                 boolean emp_ = first_ == null;
                 CustList<ExecOperationNode> op_ = getExecutableNodes(((SwitchBlock)en_).getRoot(), _coverage, _forwards, en_);
                 ExecBracedBlock exec_;
@@ -931,10 +931,10 @@ public final class ForwardInfos {
         }
     }
 
-    private static CustList<ExecOperationNode> getExecutableNodes(OperationNode _root, Coverage _coverage, Forwards _forwards, Block _currentBlock) {
+    private static CustList<ExecOperationNode> getExecutableNodes(OperationNode _root, Coverage _coverage, Forwards _forwards, AbsBk _currentBlock) {
         return getExecutableNodes(-1,-1,_root,_coverage,_forwards, PutCoveragePhase.NORMAL, _currentBlock);
     }
-    private static CustList<ExecOperationNode> getExecutableNodes(int _indexAnnotGroup, int _indexAnnot, OperationNode _root, Coverage _coverage, Forwards _forwards, PutCoveragePhase _phase, Block _currentBlock) {
+    private static CustList<ExecOperationNode> getExecutableNodes(int _indexAnnotGroup, int _indexAnnot, OperationNode _root, Coverage _coverage, Forwards _forwards, PutCoveragePhase _phase, AbsBk _currentBlock) {
         OperationNode current_ = _root;
         ExecOperationNode exp_ = createExecOperationNode(current_, _forwards);
         setImplicits(exp_, current_, _forwards);
@@ -1554,7 +1554,7 @@ public final class ForwardInfos {
         int i_ = 0;
         for (OperationNode r: _ana.getRoots()) {
             _coverage.putBlockOperationsAnnotField(_ana);
-            ops_.add(getExecutableNodes(-1,i_,r, _coverage, _forwards, PutCoveragePhase.ANNOTATION, (Block)_ana));
+            ops_.add(getExecutableNodes(-1,i_,r, _coverage, _forwards, PutCoveragePhase.ANNOTATION, (AbsBk)_ana));
             i_++;
         }
         _ann.getAnnotationsOps().addAllElts(ops_);
@@ -1572,9 +1572,9 @@ public final class ForwardInfos {
     }
 
     private static CustList<ExecOperationNode> processField(InfoBlock _ana, ExecBlock _exec, Coverage _coverage, Forwards _forwards, OperationNode _root) {
-        _coverage.putBlockOperationsField((Block)_ana);
-        _coverage.putBlockOperationsField(_exec, (Block)_ana);
-        return getExecutableNodes(0,-1,_root, _coverage, _forwards, PutCoveragePhase.NORMAL, (Block)_ana);
+        _coverage.putBlockOperationsField((AbsBk)_ana);
+        _coverage.putBlockOperationsField(_exec, (AbsBk)_ana);
+        return getExecutableNodes(0,-1,_root, _coverage, _forwards, PutCoveragePhase.NORMAL, (AbsBk)_ana);
     }
     private static void fwdAnnotations(NamedFunctionBlock _ana, ExecNamedFunctionBlock _ex, Coverage _coverage, Forwards _forwards) {
         CustList<CustList<ExecOperationNode>> ops_ = new CustList<CustList<ExecOperationNode>>();

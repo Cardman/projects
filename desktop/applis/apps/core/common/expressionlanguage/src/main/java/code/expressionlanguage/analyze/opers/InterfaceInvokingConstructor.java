@@ -59,7 +59,7 @@ public final class InterfaceInvokingConstructor extends AbstractInvokingConstruc
 
     @Override
     void checkPosition(AnalyzedPageEl _page) {
-        Block curBlock_ = _page.getCurrentBlock();
+        AbsBk curBlock_ = _page.getCurrentBlock();
         Line curLine_ = (Line)curBlock_;
         BracedBlock br_ = curBlock_.getParent();
         if (br_.getParent() instanceof InterfaceBlock) {
@@ -71,7 +71,7 @@ public final class InterfaceInvokingConstructor extends AbstractInvokingConstruc
             _page.addLocError(call_);
             addErr(call_.getBuiltError());
         }
-        Block f_ = br_.getFirstChild();
+        AbsBk f_ = br_.getFirstChild();
         if (f_ != curBlock_) {
             StringList previousInts_ = new StringList();
             if (f_ instanceof Line){
@@ -85,7 +85,7 @@ public final class InterfaceInvokingConstructor extends AbstractInvokingConstruc
                 }
             }
             while (true) {
-                Block n_ = f_.getNextSibling();
+                AbsBk n_ = f_.getNextSibling();
                 if (n_ == curBlock_) {
                     if (!(f_ instanceof Line)) {
                         //error
@@ -133,7 +133,7 @@ public final class InterfaceInvokingConstructor extends AbstractInvokingConstruc
     
     }
 
-    private void checkInherits(StringList _previousInts, Block _n, String _cl, AnalyzedPageEl _page) {
+    private void checkInherits(StringList _previousInts, AbsBk _n, String _cl, AnalyzedPageEl _page) {
         if (!_previousInts.isEmpty()) {
             String sup_ = _previousInts.last();
             RootBlock supType_ = _page.getAnaClassBody(sup_);

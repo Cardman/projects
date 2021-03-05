@@ -9,7 +9,7 @@ import aiki.gui.dialogs.events.ValidateSoftParams;
 import code.gui.*;
 import code.util.StringMap;
 
-public final class SoftParams extends Dialog {
+public final class DialogSoftParams extends Dialog {
     private static final String DIALOG_ACCESS = "aiki.gui.dialogs.softparams";
 
     private static final String TITLE = "title";
@@ -45,7 +45,7 @@ public final class SoftParams extends Dialog {
 
     private boolean ok;
 
-    public SoftParams() {
+    public DialogSoftParams() {
         setAccessFile(DIALOG_ACCESS);
     }
 
@@ -158,11 +158,11 @@ public final class SoftParams extends Dialog {
         closeWindow();
     }
 
-    public static boolean isOk(SoftParams _dialog) {
+    public static boolean isOk(DialogSoftParams _dialog) {
         return _dialog.ok;
     }
 
-    public static void setParams(LoadingGame _loading, SoftParams _dialog) {
+    public static void setParams(LoadingGame _loading, DialogSoftParams _dialog) {
         _dialog.validateParams(_loading);
     }
 

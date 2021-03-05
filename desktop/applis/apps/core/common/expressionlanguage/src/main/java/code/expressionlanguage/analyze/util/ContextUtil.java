@@ -164,7 +164,7 @@ public final class ContextUtil {
         if (_page.isAnnotAnalysis()) {
             return new StringMap<TypeVar>();
         }
-        Block bl_ = _page.getCurrentBlock();
+        AbsBk bl_ = _page.getCurrentBlock();
         AccessedBlock r_ = _page.getImporting();
         StringMap<TypeVar> vars_ = new StringMap<TypeVar>();
 
@@ -203,7 +203,7 @@ public final class ContextUtil {
         }
         AccessedBlock r_ = _page.getImporting();
         int rc_ = _page.getTraceIndex();
-        String curr_ = ((Block)r_).getFile().getRenderFileName();
+        String curr_ = ((AbsBk)r_).getFile().getRenderFileName();
         String ref_ = ((RootBlock) g_).getFile().getRenderFileName();
         String rel_ = LinkageUtil.relativize(curr_,ref_);
         int id_ = ((RootBlock) g_).getIdRowCol();
@@ -239,7 +239,7 @@ public final class ContextUtil {
         String search_ = _classField.getFieldName();
         RootBlock cust_ = _page.getAnaClassBody(fullName_);
         boolean finalField_ = false;
-        for (Block b: ClassesUtil.getDirectChildren(cust_)) {
+        for (AbsBk b: ClassesUtil.getDirectChildren(cust_)) {
             if (!(b instanceof InfoBlock)) {
                 continue;
             }
@@ -255,7 +255,7 @@ public final class ContextUtil {
     public static FieldInfo getFieldInfo(AnaGeneType _anaGeneType, String _fullName, String _fieldName) {
         if (_anaGeneType instanceof RootBlock) {
             RootBlock r_ = (RootBlock) _anaGeneType;
-            for (Block b: ClassesUtil.getDirectChildren(r_)) {
+            for (AbsBk b: ClassesUtil.getDirectChildren(r_)) {
                 if (!(b instanceof InfoBlock)) {
                     continue;
                 }

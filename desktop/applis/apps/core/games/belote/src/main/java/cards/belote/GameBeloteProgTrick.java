@@ -3,7 +3,7 @@ package cards.belote;
 import cards.belote.enumerations.CardBelote;
 import cards.consts.Order;
 import cards.consts.PossibleTrickWinner;
-import cards.consts.Status;
+import cards.consts.Role;
 import cards.consts.Suit;
 import code.util.CustList;
 import code.util.EnumList;
@@ -12,16 +12,16 @@ import code.util.*;
 import code.util.core.IndexConstants;
 
 public final class GameBeloteProgTrick {
-    private GameBeloteTeamsRelation teamsRelation;
-    private GameBeloteTrickInfo info;
-    private TrickBelote progressingTrick;
+    private final GameBeloteTeamsRelation teamsRelation;
+    private final GameBeloteTrickInfo info;
+    private final TrickBelote progressingTrick;
 
-    private HandBelote currentHand;
-    private GameBeloteCommonPlaying common;
-    private Status currentStatus;
-    private HandBelote playableCards;
-    private BidBeloteSuit bid;
-    private byte taker;
+    private final HandBelote currentHand;
+    private final GameBeloteCommonPlaying common;
+    private final Role currentStatus;
+    private final HandBelote playableCards;
+    private final BidBeloteSuit bid;
+    private final byte taker;
 
     public GameBeloteProgTrick(GameBeloteTrickInfo _done, GameBeloteTeamsRelation _teamsRelation, HandBelote _currentHand) {
         teamsRelation = _teamsRelation;
@@ -88,11 +88,11 @@ public final class GameBeloteProgTrick {
             return card_;
         }
         /*Maintenant le joueur peut prendre la GameBeloteCommon.main avec une figure a la couleur demandee*/
-        if(currentStatus == Status.TAKER) {
+        if(currentStatus == Role.TAKER) {
             return followDominantAsTaker(_info);
         }
         /*Appele*/
-        if(currentStatus == Status.CALLED_PLAYER) {
+        if(currentStatus == Role.CALLED_PLAYER) {
             return followDominantAsCalledPlayer(_info);
         }
         return followDominantAsDefender(_info);
@@ -503,11 +503,11 @@ public final class GameBeloteProgTrick {
             return card_;
         }
         /*Maintenant le joueur peut prendre la GameBeloteCommon.main avec une figure a la couleur demandee*/
-        if(currentStatus == Status.TAKER) {
+        if(currentStatus == Role.TAKER) {
             return followNoTrumpAsTaker(_info);
         }
         /*Appele*/
-        if(currentStatus == Status.CALLED_PLAYER) {
+        if(currentStatus == Role.CALLED_PLAYER) {
             return followNoTrumpAsCalledPlayer(_info);
         }
         return followNoTrumpAsDefender(_info);
@@ -945,7 +945,7 @@ public final class GameBeloteProgTrick {
         return GameBeloteCommon.hand(_repartition,couleurs_.first()).derniereCarte();
     }
 
-    Status getCurrentStatus() {
+    Role getCurrentStatus() {
         return currentStatus;
     }
 }

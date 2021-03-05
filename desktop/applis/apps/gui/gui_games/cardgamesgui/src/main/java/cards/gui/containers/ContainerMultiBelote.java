@@ -21,7 +21,7 @@ import cards.belote.enumerations.DealingBelote;
 import cards.belote.enumerations.DeclaresBelote;
 import cards.belote.enumerations.DeclaresBeloteRebelote;
 import cards.consts.GameType;
-import cards.consts.Status;
+import cards.consts.Role;
 import cards.consts.Suit;
 import cards.facade.Games;
 import cards.facade.enumerations.GameEnum;
@@ -468,7 +468,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
             panneau_.add(caseCoche_);
         }
         byte relative_ = relative(_declaration.getTakerIndex());
-        getMini().setStatus(Status.TAKER, relative_);
+        getMini().setStatus(Role.TAKER, relative_);
         pack();
     }
     @Override
@@ -518,7 +518,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
             }
         }
         relative_ = relative(card_.getTakerIndex());
-        getMini().setStatus(Status.TAKER, relative_);
+        getMini().setStatus(Role.TAKER, relative_);
         //PackingWindowAfter.pack(this, true);
         pack();
         PlayerActionGame dealt_ = new PlayerActionGame(PlayerActionGameType.DONE_PLAYING);
@@ -565,7 +565,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
         setCarteSortie(false);
         setCanPlay(false);
         byte relative_ = relative(_cards.getTakerIndex());
-        getMini().setStatus(Status.TAKER, relative_);
+        getMini().setStatus(Role.TAKER, relative_);
 
         /* On place les cartes de l'utilisateur */
 

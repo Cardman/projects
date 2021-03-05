@@ -1,7 +1,7 @@
 package cards.tarot;
 
 import cards.consts.PossibleTrickWinner;
-import cards.consts.Status;
+import cards.consts.Role;
 import cards.consts.Suit;
 import cards.tarot.enumerations.CardTarot;
 import code.maths.Rate;
@@ -20,7 +20,7 @@ final class GameTarotTrickHypothesis {
                                               CustList<TrickTarot> _plisFaits, byte _numero,
                                               EnumMap<Suit, CustList<HandTarot>> _cartesPossibles,
                                               EnumMap<Suit, CustList<HandTarot>> _cartesCertaines) {
-        Status st_ = _teamReal.statutDe(_numero);
+        Role st_ = _teamReal.statutDe(_numero);
         byte nombreJoueurs_ = _teamReal.getNombreDeJoueurs();
         CustList<TrickTarot> fullTricksProg_ = new CustList<TrickTarot>();
         for (TrickTarot t:_plisFaits) {
@@ -35,7 +35,7 @@ final class GameTarotTrickHypothesis {
         Bytes possibleAlly_ = new Bytes();
         possibleAlly_.add(_numero);
         if(appelesTousConnus_) {
-            if (st_ == Status.DEFENDER) {
+            if (st_ == Role.DEFENDER) {
                 for(CardTarot c: _calledCards) {
                     for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_ < nombreJoueurs_; joueur_++) {
                         if (joueur_ == _teamReal.getTaker()) {
@@ -170,7 +170,7 @@ final class GameTarotTrickHypothesis {
                 break;
             }
             //le ramasseur du pli et le joueur du Petit (entameur) sont dans la meme equipe
-            if(st_ == Status.DEFENDER) {
+            if(st_ == Role.DEFENDER) {
                 //confiance de j en ramasseur, qui n'est pas le preneur ni l'appele
                 //car il serait absurde de jouer le Petit en premier sur un joueur dont l'equipe n'est pas connu
                 //de plus numero est un defenseur
@@ -269,7 +269,7 @@ final class GameTarotTrickHypothesis {
             }
 
         }
-        if (st_ == Status.DEFENDER) {
+        if (st_ == Role.DEFENDER) {
             for(CardTarot c: _calledCards) {
                 for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_ < nombreJoueurs_; joueur_++) {
                     if (joueur_ == _teamReal.getTaker()) {
@@ -292,7 +292,7 @@ final class GameTarotTrickHypothesis {
             }
         }
         possibleAlly_.removeDuplicates();
-        if (st_ == Status.DEFENDER) {
+        if (st_ == Role.DEFENDER) {
             joueursNonConfiancePresqueSure_.add(_teamReal.getTaker());
         }
         joueursNonConfiancePresqueSure_.removeObj(_numero);
@@ -307,7 +307,7 @@ final class GameTarotTrickHypothesis {
             for (byte b: joueursNonConfiancePresqueSure_) {
                 _teamReal.faireMefiance(_numero,b);
             }
-        } else if (st_ == Status.DEFENDER) {
+        } else if (st_ == Role.DEFENDER) {
             for (byte b: possibleAlly_) {
                 _teamReal.faireConfiance(_numero,b);
             }
@@ -354,12 +354,12 @@ final class GameTarotTrickHypothesis {
         }
         return l_;
     }
-    private static void res(byte _current, Bytes _possibleAlly, byte _ram, GameTarotTeamsRelation _teamReal, Status _st,
+    private static void res(byte _current, Bytes _possibleAlly, byte _ram, GameTarotTeamsRelation _teamReal, Role _st,
                             Bytes _potentialFoesNearlySure, byte _numero) {
         //ramasseur != j && ramasseur != -1
         byte nbPl_ = _teamReal.getNombreDeJoueurs();
         Bytes all_ = GameTarotTeamsRelation.tousJoueurs(nbPl_);
-        if(_st == Status.DEFENDER) {
+        if(_st == Role.DEFENDER) {
             if(_ram == _teamReal.getTaker() || _current == _teamReal.getTaker()) {
                 all_.removeObj(_current);
                 all_.removeObj(_ram);

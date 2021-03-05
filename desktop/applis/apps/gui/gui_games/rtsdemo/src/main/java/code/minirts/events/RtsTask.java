@@ -4,24 +4,24 @@ import code.gui.CustComponent;
 import code.maths.geo.CustPoint;
 import code.minirts.MainWindow;
 import code.minirts.PanelBattle;
-import code.minirts.rts.Direction;
+import code.minirts.rts.RtsDirection;
 import code.minirts.rts.Facade;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class Task implements ActionListener {
+public class RtsTask implements ActionListener {
 
-    private Facade facade;
+    private final Facade facade;
 
-    private Direction dir;
+    private RtsDirection dir;
 
-    private PanelBattle scene;
+    private final PanelBattle scene;
 
-    private MainWindow window;
+    private final MainWindow window;
 
-    public Task(PanelBattle _scene, MainWindow _window, Facade _facade) {
+    public RtsTask(PanelBattle _scene, MainWindow _window, Facade _facade) {
         scene = _scene;
         window = _window;
         facade = _facade;
@@ -43,26 +43,26 @@ public class Task implements ActionListener {
 //        rel_.y = loc_.y;
         int w_ = par_.getWidth();
         int h_ = par_.getHeight();
-        if (dir == Direction.UP) {
+        if (dir == RtsDirection.UP) {
             rel_.y--;
             window.moveCamera(rel_);
-        } else if (dir == Direction.DOWN) {
+        } else if (dir == RtsDirection.DOWN) {
             rel_.y+=h_+1;
             window.moveCamera(rel_);
-        } else if (dir == Direction.LEFT) {
+        } else if (dir == RtsDirection.LEFT) {
             rel_.x--;
             window.moveCamera(rel_);
-        } else if (dir == Direction.RIGHT) {
+        } else if (dir == RtsDirection.RIGHT) {
             rel_.x+=w_+1;
             window.moveCamera(rel_);
         }
     }
 
-    public Direction getDir() {
+    public RtsDirection getDir() {
         return dir;
     }
 
-    public void setDir(Direction _dir) {
+    public void setDir(RtsDirection _dir) {
         dir = _dir;
     }
 }

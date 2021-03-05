@@ -556,7 +556,7 @@ public final class Games {
         return getConstanteLangue(coreFileName(_locale), CoreResourcesAccess.SUIT, _b.name());
     }
 
-    public static String toString(Status _b, String _locale) {
+    public static String toString(Role _b, String _locale) {
         return getConstanteLangue(coreFileName(_locale), CoreResourcesAccess.STATUS,_b.name());
     }
     public static String toString(MixCardsChoice _b, String _locale) {

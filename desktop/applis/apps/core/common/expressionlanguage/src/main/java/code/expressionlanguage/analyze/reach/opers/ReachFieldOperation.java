@@ -2,7 +2,7 @@ package code.expressionlanguage.analyze.reach.opers;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.analyze.blocks.Block;
+import code.expressionlanguage.analyze.blocks.AbsBk;
 import code.expressionlanguage.analyze.blocks.CaseCondition;
 import code.expressionlanguage.analyze.instr.ElUtil;
 import code.expressionlanguage.analyze.opers.SettableAbstractFieldOperation;
@@ -13,7 +13,7 @@ import code.expressionlanguage.structs.Struct;
 import code.util.StringMap;
 
 public final class ReachFieldOperation extends ReachMethodOperation implements ReachCalculable,ReachPossibleIntermediateDotted {
-    private AnaSettableOperationContent fieldMetaInfo;
+    private final AnaSettableOperationContent fieldMetaInfo;
     private Argument previous;
     ReachFieldOperation(SettableAbstractFieldOperation _info) {
         super(_info);
@@ -55,7 +55,7 @@ public final class ReachFieldOperation extends ReachMethodOperation implements R
     }
 
     private static void trySetDotParent(ReachOperationNode _oper, Argument _arg, AnalyzedPageEl _page) {
-        Block bl_ = _page.getCurrentBlock();
+        AbsBk bl_ = _page.getCurrentBlock();
         if (!(bl_ instanceof CaseCondition)) {
             return;
         }

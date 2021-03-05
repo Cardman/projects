@@ -1,12 +1,12 @@
 package code.minirts.rts;
 
-public final class DataBase {
+public final class RtsDataBase {
 
     public static final String EMPTY_STRING = "";
 
-    private SoldierPattern soldierPattern;
+    private final SoldierPattern soldierPattern;
 
-    public DataBase() {
+    public RtsDataBase() {
         soldierPattern = new SoldierPattern();
         soldierPattern.setHeight(32);
         soldierPattern.setWidth(32);

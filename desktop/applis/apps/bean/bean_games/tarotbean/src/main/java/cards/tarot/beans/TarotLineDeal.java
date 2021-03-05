@@ -1,7 +1,7 @@
-package cards.belote.beans;
+package cards.tarot.beans;
 import code.util.Longs;
 
-final class LineDeal {
+final class TarotLineDeal {
 
     private int number;
 

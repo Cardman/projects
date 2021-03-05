@@ -34,7 +34,7 @@ final class ResultsBeloteBean extends BeloteBean {
 
     private int differenceScoreTaker;
 
-    private CustList<LineDeal> linesDeal;
+    private CustList<BeloteLineDeal> linesDeal;
 
     @Override
     public void beforeDisplaying() {
@@ -67,10 +67,10 @@ final class ResultsBeloteBean extends BeloteBean {
             pointsDefenseDefinitif=end_.scoreDefinitifDefense(pointsAttaqueDefinitif,pointsDefenseTemporaire);
             differenceScoreTaker = res_.getDifferenceScoreTaker();
         }
-        linesDeal = new CustList<LineDeal>();
+        linesDeal = new CustList<BeloteLineDeal>();
         int nbDeals_ = getScores().size();
         for(int i = IndexConstants.FIRST_INDEX; i<nbDeals_; i++) {
-            LineDeal l_ = new LineDeal();
+            BeloteLineDeal l_ = new BeloteLineDeal();
             l_.setNumber(i);
             Longs scores_ = new Longs();
             for(byte joueur_ = IndexConstants.FIRST_INDEX; joueur_<nombreJoueurs_; joueur_++) {
@@ -153,7 +153,7 @@ final class ResultsBeloteBean extends BeloteBean {
         return differenceScoreTaker;
     }
 
-    CustList<LineDeal> getLinesDeal() {
+    CustList<BeloteLineDeal> getLinesDeal() {
         return linesDeal;
     }
 

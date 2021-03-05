@@ -492,10 +492,10 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
         CustList<NamedCalledFunctionBlock> indexersGet_ = new CustList<NamedCalledFunctionBlock>();
         CustList<NamedCalledFunctionBlock> indexersSet_ = new CustList<NamedCalledFunctionBlock>();
         CustList<ConstructorId> idConstructors_ = new CustList<ConstructorId>();
-        CustList<Block> bl_;
+        CustList<AbsBk> bl_;
         bl_ = ClassesUtil.getDirectChildren(this);
         KeyWords keyWords_ = _page.getKeyWords();
-        for (Block b: bl_) {
+        for (AbsBk b: bl_) {
             if (b instanceof InfoBlock) {
                 continue;
             }
@@ -517,7 +517,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
             }
         }
         if (this instanceof RecordBlock) {
-            for (Block b: bl_) {
+            for (AbsBk b: bl_) {
                 if (b instanceof ConstructorBlock) {
                     int where_ = b.getOffset().getOffsetTrim();
                     FoundErrorInterpret unexp_ = new FoundErrorInterpret();
@@ -544,7 +544,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                 }
             }
             for (AnaFormattedRootBlock a:getAllGenericSuperTypesInfo()) {
-                for (Block b: ClassesUtil.getDirectChildren(a.getRootBlock())) {
+                for (AbsBk b: ClassesUtil.getDirectChildren(a.getRootBlock())) {
                     if (b instanceof ConstructorBlock) {
                         FoundErrorInterpret unexp_ = new FoundErrorInterpret();
                         unexp_.setFileName(getFile().getFileName());
@@ -582,7 +582,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
             }
         }
         if (!withoutInstance()) {
-            for (Block b: bl_) {
+            for (AbsBk b: bl_) {
                 if (b instanceof InfoBlock) {
                     continue;
                 }
@@ -612,7 +612,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
         CustList<MethodHeaderInfo> implicitFrom_ = new CustList<MethodHeaderInfo>();
         CustList<MethodHeaderInfo> true_ = new CustList<MethodHeaderInfo>();
         CustList<MethodHeaderInfo> false_ = new CustList<MethodHeaderInfo>();
-        for (Block b: bl_) {
+        for (AbsBk b: bl_) {
             if (!(b instanceof NamedFunctionBlock)) {
                 continue;
             }
@@ -873,7 +873,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                     }
                 }
             }
-            if (Block.isAnnotBlock(method_)) {
+            if (AbsBk.isAnnotBlock(method_)) {
                 NamedCalledFunctionBlock m_ = (NamedCalledFunctionBlock) method_;
                 m_.buildImportedTypes(_page);
                 if (m_.isKo()) {
@@ -966,7 +966,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                     idMethods_.add(id_);
                 }
             }
-            if (Block.isAnnotBlock(method_)) {
+            if (AbsBk.isAnnotBlock(method_)) {
                 MethodId id_ = ((NamedCalledFunctionBlock)method_).getId();
                 for (MethodId m: idMethods_) {
                     if (m.eq(id_)) {
@@ -1102,9 +1102,9 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
         }
     }
 
-    private static void buildFieldInfos(CustList<Block> _bl, AnalyzedPageEl _page) {
+    private static void buildFieldInfos(CustList<AbsBk> _bl, AnalyzedPageEl _page) {
         StringList idsField_ = new StringList();
-        for (Block b: _bl) {
+        for (AbsBk b: _bl) {
             if (!(b instanceof InfoBlock)) {
                 continue;
             }
@@ -1811,7 +1811,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
             return true;
         }
         CustList<ConstructorBlock> ctors_ = new CustList<ConstructorBlock>();
-        for (Block b: ClassesUtil.getDirectChildren(clMeta_)) {
+        for (AbsBk b: ClassesUtil.getDirectChildren(clMeta_)) {
             if (b instanceof ConstructorBlock) {
                 ctors_.add((ConstructorBlock) b);
             }
@@ -1894,7 +1894,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
     }
     public String getWildCardElement() {
         StringList allElements_ = new StringList();
-        for (Block e: ClassesUtil.getDirectChildren(this)) {
+        for (AbsBk e: ClassesUtil.getDirectChildren(this)) {
             if (e instanceof InnerTypeOrElement) {
                 String type_ = ((InnerTypeOrElement)e).getRealImportedClassName();
                 allElements_.add(type_);

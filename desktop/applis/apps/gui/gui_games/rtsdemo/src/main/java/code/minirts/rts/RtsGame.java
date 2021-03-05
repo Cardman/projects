@@ -7,7 +7,7 @@ import code.util.EntryCust;
 import code.util.EqList;
 import code.util.ObjectMap;
 
-public final class Game {
+public final class RtsGame {
 
     private final ObjectMap<UnitMapKey,Soldier> soldiers = new ObjectMap<UnitMapKey,Soldier>();
 
@@ -24,7 +24,7 @@ public final class Game {
 
     private boolean added;
 
-    public void loop(DataBase _data) {
+    public void loop(RtsDataBase _data) {
         for (EntryCust<UnitMapKey,Soldier> u: soldiers.entryList()) {
             Soldier u_ = u.getValue();
             Delta d_ = getDelta(u_);
@@ -98,7 +98,7 @@ public final class Game {
         return d_;
     }
 
-    public void addNewSoldier(int _x, int _y, DataBase _data, long _next) {
+    public void addNewSoldier(int _x, int _y, RtsDataBase _data, long _next) {
         if (!isEmpty(_x, _y, _data)) {
             added = false;
             return;
@@ -112,7 +112,7 @@ public final class Game {
         soldiers.put(new UnitMapKey(_x, _y,_next),soldierLabel_);
     }
 
-    public boolean isEmpty(UnitMapKey _this, int _x, int _y, Delta _d, DataBase _data) {
+    public boolean isEmpty(UnitMapKey _this, int _x, int _y, Delta _d, RtsDataBase _data) {
         Soldier this_ = soldiers.getVal(_this);
         int xThisLeftTop_ = this_.getLocx();
         int yThisLeftTop_ = this_.getLocy();
@@ -134,7 +134,7 @@ public final class Game {
         return true;
     }
 
-    public boolean isEmpty(int _x, int _y, DataBase _data) {
+    public boolean isEmpty(int _x, int _y, RtsDataBase _data) {
         SoldierPattern s_ = _data.getSoldierPattern();
 //        int xThisRightBottom_ = _x + s_.getWidth();
 //        int yThisRightBottom_ = _y + s_.getHeight();
@@ -151,7 +151,7 @@ public final class Game {
         return true;
     }
 
-    boolean isOutside(Rect _p, Soldier _u, int _x, int _y, Delta _d, DataBase _data) {
+    boolean isOutside(Rect _p, Soldier _u, int _x, int _y, Delta _d, RtsDataBase _data) {
         //Polygon
         int xULeftTop_ = _u.getLocx();
         int yULeftTop_ = _u.getLocy();
@@ -170,12 +170,12 @@ public final class Game {
         return !_p.containsInside(new CustPoint(xULeftTop_ - _d.getDx(), yURightBottom_ - _d.getDy()));
     }
 
-    public void selectOrDeselect(CustPoint _first, CustPoint _last, DataBase _data) {
+    public void selectOrDeselect(CustPoint _first, CustPoint _last, RtsDataBase _data) {
 //        setRectangle(_first, _last);
         selectOrDeselectMany(_data);
     }
 
-    public void selectOrDeselect(int _x, int _y, DataBase _data) {
+    public void selectOrDeselect(int _x, int _y, RtsDataBase _data) {
 //        setRectangle(new Point(_x, _y), new Point(_x, _y));
 //        setRectangle(_x, _y);
         selectOrDeselectMany(_data);
@@ -216,7 +216,7 @@ public final class Game {
         _u.setLocy(_y);
     }
 
-    public void selectOrDeselectMany(DataBase _data) {
+    public void selectOrDeselectMany(RtsDataBase _data) {
         SoldierPattern s_ = _data.getSoldierPattern();
         Rect rect_ = getSelection();
         for (EntryCust<UnitMapKey,Soldier> u: soldiers.entryList()) {
@@ -339,7 +339,7 @@ public final class Game {
         yTopLeftScreen += deltay_;
     }
 
-    public EqList<UnitMapKey> getVisibleSoldiers(int _w, int _h, DataBase _data) {
+    public EqList<UnitMapKey> getVisibleSoldiers(int _w, int _h, RtsDataBase _data) {
         SoldierPattern s_ = _data.getSoldierPattern();
 //        Rectangle rect_ = new Rectangle(-xTopLeftScreen, -yTopLeftScreen, _w, _h);
         Rect rect_ = new Rect(xTopLeftScreen, yTopLeftScreen, _w, _h);

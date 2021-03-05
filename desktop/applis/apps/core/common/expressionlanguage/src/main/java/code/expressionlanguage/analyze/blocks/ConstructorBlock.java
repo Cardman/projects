@@ -57,7 +57,7 @@ public final class ConstructorBlock extends NamedFunctionBlock implements Return
     public void setupInstancingStep(AnalyzedPageEl _page) {
         _page.setGlobalOffset(getOffset().getOffsetTrim());
         _page.setOffset(0);
-        Block first_ = getFirstChild();
+        AbsBk first_ = getFirstChild();
         if (!(first_ instanceof Line)) {
             implicitCallSuper = true;
             return;
@@ -101,7 +101,7 @@ public final class ConstructorBlock extends NamedFunctionBlock implements Return
 
 
     public void checkInterfaces(AnalyzedPageEl _page) {
-        Block firstChild_ = getFirstChild();
+        AbsBk firstChild_ = getFirstChild();
         StringList ints_ = new StringList();
         StringList filteredCtor_ = _page.getNeedInterfaces();
         boolean checkThis_ = false;

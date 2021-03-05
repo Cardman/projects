@@ -24,7 +24,7 @@ public class CardsTest extends EquallableCardsUtil {
         r_.setSpecific("");
         assertNotNull(r_.getSpecific());
         assertNotNull(r_.getRenderedPages());
-        assertNotNull(Status.values());
+        assertNotNull(Role.values());
         assertNotNull(PossibleTrickWinner.values());
         assertNotNull(Order.values());
         assertNotNull(MixCardsChoice.values());

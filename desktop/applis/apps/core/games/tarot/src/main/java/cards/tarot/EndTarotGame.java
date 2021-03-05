@@ -1,7 +1,7 @@
 package cards.tarot;
 
 import cards.consts.EndGameState;
-import cards.consts.Status;
+import cards.consts.Role;
 import cards.consts.Suit;
 import cards.tarot.comparators.HandfulComparator;
 import cards.tarot.comparators.MiseresComparator;
@@ -33,20 +33,20 @@ public final class EndTarotGame {
     public static final int ALL_OUDLERS_PTS = 36;
 
     public static final int PTS_BASE = 25;
-    private GameTarotTeamsRelation relations;
-    private CustList<TrickTarot> tricks;
+    private final GameTarotTeamsRelation relations;
+    private final CustList<TrickTarot> tricks;
     /** Ce sont les poignees annoncees par le(s) joueur(s) */
-    private CustList<EnumList<Handfuls>> declaresHandfuls;
+    private final CustList<EnumList<Handfuls>> declaresHandfuls;
     /** Ce sont les miseres annoncees par le(s) joueur(s) */
-    private CustList<EnumList<Miseres>> declaresMiseres;
+    private final CustList<EnumList<Miseres>> declaresMiseres;
     /** Ce sont les primes annoncees par le(s) joueur(s) */
-    private BooleanList declaresSlam;
+    private final BooleanList declaresSlam;
     /** Ce sont les petits au bout par le(s) joueur(s) */
-    private BooleanList smallBound;
-    private CustList<HandTarot> wonPlayersTeam = new CustList<HandTarot>();
-    private Ints firstTrick = new Ints();
-    private Shorts oulderPoints = new Shorts();
-    private byte nombrePointsChien;
+    private final BooleanList smallBound;
+    private final CustList<HandTarot> wonPlayersTeam = new CustList<HandTarot>();
+    private final Ints firstTrick = new Ints();
+    private final Shorts oulderPoints = new Shorts();
+    private final byte nombrePointsChien;
     private boolean slamTaker;
     private boolean slamDefense;
 
@@ -283,12 +283,12 @@ public final class EndTarotGame {
         return scorePreneurSansAnnonces_;
     }
 
-    public Shorts calculateScores(EnumMap<Status,Rate> _coefficientsRepartition,
+    public Shorts calculateScores(EnumMap<Role,Rate> _coefficientsRepartition,
                                 short _sommeTemporaire, short _scorePreneurSansAnnonces) {
         return calculateScores(_coefficientsRepartition, _sommeTemporaire, _scorePreneurSansAnnonces, relations);
     }
 
-    static Shorts calculateScores(AbsMap<Status, Rate> _coefficientsRepartition, short _sommeTemporaire, short _scorePreneurSansAnnonces, GameTarotTeamsRelation _relations) {
+    static Shorts calculateScores(AbsMap<Role, Rate> _coefficientsRepartition, short _sommeTemporaire, short _scorePreneurSansAnnonces, GameTarotTeamsRelation _relations) {
         Shorts scores_ = new Shorts();
         byte nombreJoueurs_ = _relations.getNombreDeJoueurs();
         for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_ < nombreJoueurs_; joueur_++) {
@@ -300,12 +300,12 @@ public final class EndTarotGame {
             }
         } else {
             for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_ < nombreJoueurs_; joueur_++) {
-                Status st_ = _relations.statutDe(joueur_);
+                Role st_ = _relations.statutDe(joueur_);
                 Rate rate_ = _coefficientsRepartition.getVal(st_);
-                if (st_ == Status.DEFENDER) {
+                if (st_ == Role.DEFENDER) {
                     scores_.set(joueur_,
                             (short) Rate.multiply(rate_, new Rate(_sommeTemporaire)).ll());
-                } else if (st_ == Status.CALLED_PLAYER) {
+                } else if (st_ == Role.CALLED_PLAYER) {
                     Rate mult_ = Rate.multiply(new Rate(rate_.getNumeratorCopy()), new Rate(_sommeTemporaire));
                     if (!LgInt.remain(mult_.getNumeratorCopy(),rate_.getDenominatorCopy()).isZero()) {
                         if (_scorePreneurSansAnnonces > 0) {
@@ -334,19 +334,19 @@ public final class EndTarotGame {
     }
 
     String scoreSmallBound(){
-        CustList<Status> st_ = new CustList<Status>();
+        CustList<Role> st_ = new CustList<Role>();
         byte nombreJoueurs_ = relations.getNombreDeJoueurs();
         for (byte p= 0; p < nombreJoueurs_; p++) {
             st_.add(relations.statutDe(p));
         }
         return scoreSmallBound(nombreJoueurs_,smallBound,st_);
     }
-    static String scoreSmallBound(byte _nombreJoueurs, BooleanList _smallBound, CustList<Status> _status) {
+    static String scoreSmallBound(byte _nombreJoueurs, BooleanList _smallBound, CustList<Role> _status) {
         byte p_ = joueurPetitAuBout(_nombreJoueurs, _smallBound);
         if (p_ < 0) {
             return "0";
         }
-        if (_status.get(p_) == Status.DEFENDER) {
+        if (_status.get(p_) == Role.DEFENDER) {
             return StringUtil.concat("(-",Long.toString(BonusTarot.SMALL_BOUND.getPoints()),")");
         }
         return Long.toString(BonusTarot.SMALL_BOUND.getPoints());
@@ -480,41 +480,41 @@ public final class EndTarotGame {
         return 0;
     }
 
-    public EnumMap<Status,Rate> coefficientsRepartition() {
+    public EnumMap<Role,Rate> coefficientsRepartition() {
         return coefficientsRepartition(relations);
     }
 
-    static EnumMap<Status, Rate> coefficientsRepartition(GameTarotTeamsRelation _relations) {
-        EnumMap<Status,Rate> coefficientsRepartition_;
+    static EnumMap<Role, Rate> coefficientsRepartition(GameTarotTeamsRelation _relations) {
+        EnumMap<Role,Rate> coefficientsRepartition_;
         byte nombreJoueurs_ = _relations.getNombreDeJoueurs();
-        coefficientsRepartition_ = new EnumMap<Status,Rate>();
+        coefficientsRepartition_ = new EnumMap<Role,Rate>();
         if (_relations.coequipiers(_relations.getTaker(),GameTarotTeamsRelation.tousJoueurs(nombreJoueurs_)).isEmpty()) {
-            coefficientsRepartition_.put(Status.TAKER,new Rate(nombreJoueurs_ - 1));
-            coefficientsRepartition_.put(Status.DEFENDER,new Rate(-1));
+            coefficientsRepartition_.put(Role.TAKER,new Rate(nombreJoueurs_ - 1));
+            coefficientsRepartition_.put(Role.DEFENDER,new Rate(-1));
         } else {
             if (nombreJoueurs_ == 4) {
                 if (_relations.getRules().getRepartition().getAppel() == CallingCard.DEFINED) {
-                    coefficientsRepartition_.put(Status.TAKER,new Rate(1));
-                    coefficientsRepartition_.put(Status.CALLED_PLAYER,new Rate(1));
-                    coefficientsRepartition_.put(Status.DEFENDER,new Rate(-1));
+                    coefficientsRepartition_.put(Role.TAKER,new Rate(1));
+                    coefficientsRepartition_.put(Role.CALLED_PLAYER,new Rate(1));
+                    coefficientsRepartition_.put(Role.DEFENDER,new Rate(-1));
                 } else {
-                    coefficientsRepartition_.put(Status.TAKER,new Rate(3,2));
-                    coefficientsRepartition_.put(Status.CALLED_PLAYER,new Rate(1,2));
-                    coefficientsRepartition_.put(Status.DEFENDER,new Rate(-1));
+                    coefficientsRepartition_.put(Role.TAKER,new Rate(3,2));
+                    coefficientsRepartition_.put(Role.CALLED_PLAYER,new Rate(1,2));
+                    coefficientsRepartition_.put(Role.DEFENDER,new Rate(-1));
                 }
             } else if (nombreJoueurs_ == 5) {
-                coefficientsRepartition_.put(Status.TAKER,new Rate(2));
-                coefficientsRepartition_.put(Status.CALLED_PLAYER,new Rate(1));
-                coefficientsRepartition_.put(Status.DEFENDER,new Rate(-1));
+                coefficientsRepartition_.put(Role.TAKER,new Rate(2));
+                coefficientsRepartition_.put(Role.CALLED_PLAYER,new Rate(1));
+                coefficientsRepartition_.put(Role.DEFENDER,new Rate(-1));
             } else {
                 if (_relations.getRules().getRepartition().getAppel() == CallingCard.DEFINED) {
-                    coefficientsRepartition_.put(Status.TAKER,new Rate(2));
-                    coefficientsRepartition_.put(Status.CALLED_PLAYER,new Rate(2));
-                    coefficientsRepartition_.put(Status.DEFENDER,new Rate(-1));
+                    coefficientsRepartition_.put(Role.TAKER,new Rate(2));
+                    coefficientsRepartition_.put(Role.CALLED_PLAYER,new Rate(2));
+                    coefficientsRepartition_.put(Role.DEFENDER,new Rate(-1));
                 } else {
-                    coefficientsRepartition_.put(Status.TAKER,new Rate(3));
-                    coefficientsRepartition_.put(Status.CALLED_PLAYER,new Rate(1));
-                    coefficientsRepartition_.put(Status.DEFENDER,new Rate(-1));
+                    coefficientsRepartition_.put(Role.TAKER,new Rate(3));
+                    coefficientsRepartition_.put(Role.CALLED_PLAYER,new Rate(1));
+                    coefficientsRepartition_.put(Role.DEFENDER,new Rate(-1));
                 }
             }
         }

@@ -52,7 +52,7 @@ public final class AnalyzedPageEl {
     private StringMap<String> resources;
     private StringMap<StringMap<Struct>> staticFields;
 
-    private Block currentBlock;
+    private AbsBk currentBlock;
     private ImportForEachLoop currentAnaBlockForEachLoop;
     private ImportForEachTable currentAnaBlockForEachTable;
 
@@ -74,8 +74,8 @@ public final class AnalyzedPageEl {
     private int countInnerEltTypes;
     private int countOperators;
     private int countAnonTypes;
-    private final IdMap<Block,AssBlock> fieldsAssSt = new IdMap<Block,AssBlock>();
-    private final IdMap<Block,AssBlock> fieldsAss = new IdMap<Block,AssBlock>();
+    private final IdMap<AbsBk,AssBlock> fieldsAssSt = new IdMap<AbsBk,AssBlock>();
+    private final IdMap<AbsBk,AssBlock> fieldsAss = new IdMap<AbsBk,AssBlock>();
     private final IdMap<MemberCallingsBlock,AnalyzingEl> resultsAna = new IdMap<MemberCallingsBlock,AnalyzingEl>();
     private final IdMap<MemberCallingsBlock,AnalyzingEl> resultsAnaInst = new IdMap<MemberCallingsBlock,AnalyzingEl>();
     private final IdMap<MemberCallingsBlock,AnalyzingEl> resultsAnaNamed = new IdMap<MemberCallingsBlock,AnalyzingEl>();
@@ -424,11 +424,11 @@ public final class AnalyzedPageEl {
         return globalOffset + getOffset() + translatedOffset;
     }
 
-    public Block getCurrentBlock() {
+    public AbsBk getCurrentBlock() {
         return currentBlock;
     }
 
-    public void setCurrentBlock(Block _currentBlock) {
+    public void setCurrentBlock(AbsBk _currentBlock) {
         currentBlock = _currentBlock;
         if (_currentBlock instanceof ImportForEachTable) {
             setCurrentAnaBlockForEachTable((ImportForEachTable) _currentBlock);
@@ -1227,11 +1227,11 @@ public final class AnalyzedPageEl {
         this.countAnonTypes = _countAnonTypes;
     }
 
-    public IdMap<Block, AssBlock> getFieldsAssSt() {
+    public IdMap<AbsBk, AssBlock> getFieldsAssSt() {
         return fieldsAssSt;
     }
 
-    public IdMap<Block, AssBlock> getFieldsAss() {
+    public IdMap<AbsBk, AssBlock> getFieldsAss() {
         return fieldsAss;
     }
 

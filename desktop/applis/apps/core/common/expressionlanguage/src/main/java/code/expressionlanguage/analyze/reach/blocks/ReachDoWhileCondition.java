@@ -2,12 +2,12 @@ package code.expressionlanguage.analyze.reach.blocks;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.blocks.AnalyzingEl;
-import code.expressionlanguage.analyze.blocks.Condition;
+import code.expressionlanguage.analyze.blocks.ConditionBlock;
 import code.util.EntryCust;
 import code.util.IdMap;
 
 public final class ReachDoWhileCondition extends ReachCondition {
-    protected ReachDoWhileCondition(Condition _info) {
+    protected ReachDoWhileCondition(ConditionBlock _info) {
         super(_info);
     }
 

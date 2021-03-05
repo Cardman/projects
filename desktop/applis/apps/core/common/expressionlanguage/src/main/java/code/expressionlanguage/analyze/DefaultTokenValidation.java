@@ -1,6 +1,6 @@
 package code.expressionlanguage.analyze;
 
-import code.expressionlanguage.analyze.blocks.Block;
+import code.expressionlanguage.analyze.blocks.AbsBk;
 import code.expressionlanguage.analyze.blocks.InfoBlock;
 import code.expressionlanguage.analyze.blocks.MemberCallingsBlock;
 import code.expressionlanguage.analyze.blocks.RootBlock;
@@ -23,7 +23,7 @@ public final class DefaultTokenValidation implements AbstractTokenValidation {
         if (page.isAnnotAnalysis()) {
             return true;
         }
-        Block bl_ = page.getCurrentBlock();
+        AbsBk bl_ = page.getCurrentBlock();
         if (bl_ instanceof InfoBlock) {
             return ((InfoBlock)bl_).isStaticField();
         }

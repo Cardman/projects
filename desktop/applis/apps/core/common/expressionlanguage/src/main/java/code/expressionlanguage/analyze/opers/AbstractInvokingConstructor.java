@@ -17,13 +17,13 @@ import code.util.core.StringUtil;
 
 public abstract class AbstractInvokingConstructor extends InvokingOperation implements PreAnalyzableOperation,RetrieveConstructor {
 
-    private String methodName;
+    private final String methodName;
     private ConstructorId constId;
-    private AnaInvokingConstructorContent invokingConstructorContent;
+    private final AnaInvokingConstructorContent invokingConstructorContent;
 
     private AnaTypeFct constructor;
     private AnaClassArgumentMatching from;
-    private CustList<ConstructorInfo> ctors = new CustList<ConstructorInfo>();
+    private final CustList<ConstructorInfo> ctors = new CustList<ConstructorInfo>();
     private MemberId memberId = new MemberId();
     private RootBlock type;
     public AbstractInvokingConstructor(int _index, int _indexChild,
@@ -110,7 +110,7 @@ public abstract class AbstractInvokingConstructor extends InvokingOperation impl
     }
 
     void checkPositionBasis(AnalyzedPageEl _page) {
-        Block curBlock_ = _page.getCurrentBlock();
+        AbsBk curBlock_ = _page.getCurrentBlock();
         if (getParent() != null) {
             //error
             FoundErrorInterpret call_ = new FoundErrorInterpret();
@@ -145,7 +145,7 @@ public abstract class AbstractInvokingConstructor extends InvokingOperation impl
         }
     }
     void checkPosition(AnalyzedPageEl _page) {
-        Block curBlock_ = _page.getCurrentBlock();
+        AbsBk curBlock_ = _page.getCurrentBlock();
         if (curBlock_.getParent().getFirstChild() != curBlock_) {
             FoundErrorInterpret call_ = new FoundErrorInterpret();
             call_.setFileName(curBlock_.getFile().getFileName());

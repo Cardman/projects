@@ -1,14 +1,14 @@
 package code.expressionlanguage.analyze;
 
-import code.expressionlanguage.analyze.blocks.Block;
+import code.expressionlanguage.analyze.blocks.AbsBk;
 import code.util.BooleanList;
 import code.util.IdList;
 
 public final class BlocksFlags {
-    private IdList<Block> blocks = new IdList<Block>();
-    private BooleanList flags = new BooleanList();
+    private final IdList<AbsBk> blocks = new IdList<AbsBk>();
+    private final BooleanList flags = new BooleanList();
 
-    public boolean getVal(Block _reach) {
+    public boolean getVal(AbsBk _reach) {
         int i_ = index(_reach);
         if (!flags.isValidIndex(i_)) {
             return false;
@@ -16,7 +16,7 @@ public final class BlocksFlags {
         return flags.get(i_);
     }
 
-    public void put(Block _reach, boolean _b) {
+    public void put(AbsBk _reach, boolean _b) {
         int i_ = index(_reach);
         if (i_ < 0) {
             blocks.add(_reach);
@@ -25,7 +25,7 @@ public final class BlocksFlags {
             flags.set(i_,_b);
         }
     }
-    private int index(Block _bl) {
+    private int index(AbsBk _bl) {
         return blocks.indexOfObj(_bl);
     }
 

@@ -95,7 +95,7 @@ public final class Coverage {
         fctRes_.getCoverLoops().addEntry(_exec,new BooleanCoverageResult());
     }
 
-    public void putBlockOperationsConditions(MemberCallingsBlock _mem, Condition _block, ExecBlock _exec) {
+    public void putBlockOperationsConditions(MemberCallingsBlock _mem, ConditionBlock _block, ExecBlock _exec) {
         if (!isCovering()) {
             return;
         }
@@ -155,7 +155,7 @@ public final class Coverage {
         _block.setConditionNb(fctRes_.getCatches().size());
         fctRes_.getCatches().addEntry(_exec,BoolVal.FALSE);
     }
-    public void putBlockOperations(MemberCallingsBlock _mem,Block _block) {
+    public void putBlockOperations(MemberCallingsBlock _mem, AbsBk _block) {
         if (!isCovering()) {
             return;
         }
@@ -165,7 +165,7 @@ public final class Coverage {
         fctRes_.getBlocks().add(new BlockCoverageResult());
     }
 
-    public void putBlockOperations(MemberCallingsBlock _mem,ExecBlock _exec, Block _block) {
+    public void putBlockOperations(MemberCallingsBlock _mem,ExecBlock _exec, AbsBk _block) {
         if (!isCovering()) {
             return;
         }
@@ -173,7 +173,7 @@ public final class Coverage {
             mappingOperators.addEntry(_exec,(MemberCallingsBlock)_block);
             return;
         }
-        if (Block.isAnonBlock(_block)) {
+        if (AbsBk.isAnonBlock(_block)) {
             mappingLambdas.addEntry(_exec,(MemberCallingsBlock)_block);
             return;
         }
@@ -195,7 +195,7 @@ public final class Coverage {
         }
         mappingTypes.addEntry(_exec,_block);
     }
-    public void putBlockOperationsField(Block _block) {
+    public void putBlockOperationsField(AbsBk _block) {
         if (!isCovering()) {
             return;
         }
@@ -203,13 +203,13 @@ public final class Coverage {
         fctRes_.add(new BlockCoverageResult());
     }
 
-    public void putBlockOperationsField(ExecBlock _exec, Block _block) {
+    public void putBlockOperationsField(ExecBlock _exec, AbsBk _block) {
         if (!isCovering()) {
             return;
         }
         types.get(((RootBlock)_block.getParent()).getNumberAll()).getMappingFields().addEntry(_exec, _block);
     }
-    public void putBlockOperationsAnnotMethodField(Block _block) {
+    public void putBlockOperationsAnnotMethodField(AbsBk _block) {
         if (!isCovering()) {
             return;
         }
@@ -219,7 +219,7 @@ public final class Coverage {
         if (!isCovering()) {
             return;
         }
-        CustList<BlockCoverageResult> fctRes_ = getTypeRes((Block)_block);
+        CustList<BlockCoverageResult> fctRes_ = getTypeRes((AbsBk)_block);
         fctRes_.get(_block.getFieldNumber()).getAnnotations().add(new BlockCoverageResult());
     }
     public void putBlockOperationsAnnotType(RootBlock _block) {
@@ -233,7 +233,7 @@ public final class Coverage {
         if (!isCovering()) {
             return;
         }
-        if (Block.isAnnotBlock(_block)) {
+        if (AbsBk.isAnnotBlock(_block)) {
             NamedCalledFunctionBlock mem_ = (NamedCalledFunctionBlock) _block;
             BlockCoverageResult fctRes_ = types.get(((RootBlock)mem_.getParent()).getNumberAll()).getAnnotationsFields().get(mem_.getNameNumber());
             fctRes_.getAnnotations().add(new BlockCoverageResult());
@@ -260,7 +260,7 @@ public final class Coverage {
         FunctionCoverageResult fctRes_;
         if (_mem instanceof OperatorBlock) {
             fctRes_ = operators.get(((OperatorBlock) _mem).getNameNumber());
-        } else if (Block.isAnonBlock(_mem)){
+        } else if (AbsBk.isAnonBlock(_mem)){
             fctRes_ = lambdas.get(((NamedCalledFunctionBlock)_mem).getNumberLambda());
         } else if (_mem instanceof SwitchMethodBlock){
             fctRes_ = switchMethods.get(((SwitchMethodBlock)_mem).getConditionNb());
@@ -270,11 +270,11 @@ public final class Coverage {
         return fctRes_;
     }
 
-    private CustList<BlockCoverageResult> getTypeRes(Block _mem) {
+    private CustList<BlockCoverageResult> getTypeRes(AbsBk _mem) {
         return types.get(((RootBlock)_mem.getParent()).getNumberAll()).getFields();
     }
 
-    private BlockCoverageResult getFieldRes(Block _mem) {
+    private BlockCoverageResult getFieldRes(AbsBk _mem) {
         return types.get(((RootBlock)_mem.getParent()).getNumberAll()).getFields().get(((InfoBlock)_mem).getFieldNumber());
     }
 
@@ -286,7 +286,7 @@ public final class Coverage {
         return types;
     }
 
-    public void putBlockOperation(int _indexAnnotGroup, int _indexAnnot, PutCoveragePhase _phase, Forwards _fwd, Block _block, OperationNode _op, ExecOperationNode _exec) {
+    public void putBlockOperation(int _indexAnnotGroup, int _indexAnnot, PutCoveragePhase _phase, Forwards _fwd, AbsBk _block, OperationNode _op, ExecOperationNode _exec) {
         if (!isCovering()) {
             return;
         }
@@ -321,7 +321,7 @@ public final class Coverage {
         }
         if (_op.getParent() instanceof CompoundAffectationOperation) {
             CompoundAffectationOperation c_ = (CompoundAffectationOperation) _op.getParent();
-            if (StringUtil.quickEq(c_.getOper(),Block.NULL_EQ) || StringUtil.quickEq(c_.getOper(),Block.NULL_EQ_SHORT)) {
+            if (StringUtil.quickEq(c_.getOper(), AbsBk.NULL_EQ) || StringUtil.quickEq(c_.getOper(), AbsBk.NULL_EQ_SHORT)) {
                 if (_op.getResultClass().isBoolType(boolType_,prim_)) {
                     instr_.add(new NullBooleanCoverageResult());
                 } else {
@@ -427,7 +427,7 @@ public final class Coverage {
         }
         AbstractPageEl lastPage_ = _stackCall.getLastPage();
         ExecBlock en_ = lastPage_.getBlock();
-        Block matchBl_;
+        AbsBk matchBl_;
         int indexAnnotGroup_ = -1;
         int indexAnnot_ = -1;
         ExecRootBlock type_;
@@ -545,7 +545,7 @@ public final class Coverage {
     }
     private MemberCallingsBlock getFctBlock(ExecMemberCallingsBlock _block, RootBlock _type) {
         MemberCallingsBlock valLambda_ = mappingLambdas.getVal(_block);
-        if (Block.isAnonBlock(valLambda_)) {
+        if (AbsBk.isAnonBlock(valLambda_)) {
             return valLambda_;
         }
         MemberCallingsBlock valSwitchMethod_ = mappingSwitchMethods.getVal(_block);
@@ -562,16 +562,16 @@ public final class Coverage {
         return files;
     }
 
-    public AbstractCoverageResult getCovers(Block _block, OperationNode _oper, boolean _annot, int _indexAnnotGroup, int _indexAnnot) {
+    public AbstractCoverageResult getCovers(AbsBk _block, OperationNode _oper, boolean _annot, int _indexAnnotGroup, int _indexAnnot) {
         return getResultBlock(_block, _annot, _indexAnnotGroup, _indexAnnot).getCovers().get(_oper.getIndexInExp());
     }
-    private BlockCoverageResult getResultBlock(Block _block, boolean _annot, int _indexAnnotGroup, int _indexAnnot) {
+    private BlockCoverageResult getResultBlock(AbsBk _block, boolean _annot, int _indexAnnotGroup, int _indexAnnot) {
         if (_annot) {
             if (_block instanceof InfoBlock) {
                 BlockCoverageResult fieldRes_ = getFieldRes(_block);
                 return fieldRes_.getAnnotations().get(_indexAnnot);
             }
-            if (Block.isAnnotBlock(_block)) {
+            if (AbsBk.isAnnotBlock(_block)) {
                 NamedCalledFunctionBlock mem_ = (NamedCalledFunctionBlock) _block;
                 BlockCoverageResult fctRes_ = types.get(((RootBlock)mem_.getParent()).getNumberAll()).getAnnotationsFields().get(mem_.getNameNumber());
                 return fctRes_.getAnnotations().get(_indexAnnot);
@@ -587,7 +587,7 @@ public final class Coverage {
             TypeCoverageResult fctRes_ = types.get(((RootBlock)_block).getNumberAll());
             return fctRes_.getAnnotations().get(_indexAnnot);
         }
-        if (Block.isAnnotBlock(_block)) {
+        if (AbsBk.isAnnotBlock(_block)) {
             return types.get(((RootBlock)_block.getParent()).getNumberAll()).getAnnotationsFields().get(((NamedCalledFunctionBlock)_block).getNameNumber());
         }
         if (_block instanceof InfoBlock) {
@@ -598,7 +598,7 @@ public final class Coverage {
         return fctRes_.getBlocks().get(_block.getBlockNb());
     }
 
-    public AbstractCoverageResult getCoversConditions(Condition _exec) {
+    public AbstractCoverageResult getCoversConditions(ConditionBlock _exec) {
         MemberCallingsBlock outerFuntion_ = _exec.getOuterFct();
         FunctionCoverageResult fctRes_ = getFctRes(outerFuntion_);
         return fctRes_.getCoversConditions().getValue(_exec.getConditionNb());

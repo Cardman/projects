@@ -1,6 +1,6 @@
 package code.expressionlanguage.analyze;
 
-import code.expressionlanguage.analyze.blocks.Block;
+import code.expressionlanguage.analyze.blocks.AbsBk;
 import code.expressionlanguage.analyze.opers.AnnotationInstanceOperation;
 import code.expressionlanguage.analyze.opers.AssocationOperation;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
@@ -21,7 +21,7 @@ public final class DefaultAnnotationAnalysis implements AbstractAnnotationAnalys
 
     private static boolean isAnnotAnalysis(AnalyzedPageEl _cont, OperationNode _op, OperationsSequence _seq) {
         boolean ok_ = false;
-        if ((Block.isAnnotBlock(_cont.getCurrentBlock()) && _op == null)
+        if ((AbsBk.isAnnotBlock(_cont.getCurrentBlock()) && _op == null)
                 || _op instanceof AssocationOperation
                 || _op instanceof AnnotationInstanceOperation) {
             ok_ = true;

@@ -1,6 +1,6 @@
 package code.expressionlanguage.fwd.opers;
 
-import code.expressionlanguage.analyze.blocks.Block;
+import code.expressionlanguage.analyze.blocks.AbsBk;
 import code.expressionlanguage.analyze.blocks.NamedCalledFunctionBlock;
 import code.expressionlanguage.analyze.blocks.NamedFunctionBlock;
 import code.expressionlanguage.analyze.opers.util.AnaTypeFct;
@@ -22,7 +22,7 @@ public final class ExecStaticEltContent {
 
     private static MethodAccessKind kind(NamedFunctionBlock _fct) {
         MethodAccessKind kind_;
-        if (Block.isOverBlock(_fct)) {
+        if (AbsBk.isOverBlock(_fct)) {
             kind_ =MethodId.getKind(((NamedCalledFunctionBlock)_fct).getModifier());
         } else {
             kind_ =MethodAccessKind.STATIC;

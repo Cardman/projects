@@ -1,15 +1,15 @@
 package code.minirts.rts;
 
-public enum Direction {
+public enum RtsDirection {
     UP((byte)0,(byte)-1),DOWN((byte)0,(byte)1),LEFT((byte)-1,(byte)0),RIGHT((byte)1,(byte)0);
     private final byte xCoords;
     private final byte yCoords;
-    Direction(byte _x,byte _y) {
+    RtsDirection(byte _x, byte _y) {
         xCoords = _x;
         yCoords = _y;
     }
-    public Direction getOpposite() {
-        for (Direction d: values()) {
+    public RtsDirection getOpposite() {
+        for (RtsDirection d: values()) {
             if (d.getx()+getx() != 0) {
                 continue;
             }

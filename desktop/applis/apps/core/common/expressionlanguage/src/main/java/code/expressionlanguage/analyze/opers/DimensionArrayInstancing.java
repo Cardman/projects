@@ -12,14 +12,13 @@ import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.analyze.instr.PartOffset;
-import code.expressionlanguage.analyze.blocks.Block;
+import code.expressionlanguage.analyze.blocks.AbsBk;
 import code.expressionlanguage.analyze.blocks.ReturnMethod;
 import code.expressionlanguage.linkage.LinkageUtil;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.stds.PrimitiveTypes;
 import code.maths.litteral.StrTypes;
 import code.util.CustList;
-import code.util.IntTreeMap;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.core.StringUtil;
@@ -49,7 +48,7 @@ public final class DimensionArrayInstancing extends
         OperationNode m_ = par_.getOperation();
         int nbParentsInfer_ = par_.getNbParentsInfer();
         String typeAff_;
-        Block cur_ = _page.getCurrentBlock();
+        AbsBk cur_ = _page.getCurrentBlock();
         if (m_ == null && cur_ instanceof ReturnMethod) {
             typeAff_ = tryGetRetType(_page);
         } else {

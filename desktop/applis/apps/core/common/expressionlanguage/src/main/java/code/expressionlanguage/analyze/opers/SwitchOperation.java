@@ -19,7 +19,6 @@ import code.expressionlanguage.options.KeyWords;
 import code.maths.litteral.StrTypes;
 import code.util.CustList;
 import code.util.EntryCust;
-import code.util.IntTreeMap;
 import code.util.StringList;
 import code.util.core.StringUtil;
 
@@ -65,7 +64,7 @@ public final class SwitchOperation extends AbstractUnaryOperation implements Pre
         }
         ParentInferring par_ = ParentInferring.getParentInferring(this);
         OperationNode m_ = par_.getOperation();
-        Block cur_ = _page.getCurrentBlock();
+        AbsBk cur_ = _page.getCurrentBlock();
         if (m_ == null && cur_ instanceof ReturnMethod) {
             retType = InvokingOperation.tryGetRetType(_page);
         } else {
@@ -280,7 +279,7 @@ public final class SwitchOperation extends AbstractUnaryOperation implements Pre
                 switchMethod.getMappings().putAllMap(operator_.getMappings());
             }
         }
-        Block currentBlock_ = _page.getCurrentBlock();
+        AbsBk currentBlock_ = _page.getCurrentBlock();
         if (currentBlock_ instanceof InfoBlock) {
             ((InfoBlock)currentBlock_).getSwitchMethods().add(switchMethod);
         } else if (currentBlock_ instanceof MemberCallingsBlock) {

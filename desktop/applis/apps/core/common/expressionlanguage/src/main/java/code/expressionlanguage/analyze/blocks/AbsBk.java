@@ -7,7 +7,7 @@ import code.expressionlanguage.common.StringExpUtil;
 import code.util.*;
 import code.util.core.StringUtil;
 
-public abstract class Block {
+public abstract class AbsBk {
     public static final String OR_EQ = "|=";
     public static final String AND_EQ = "&=";
     public static final String OR_LOG_EQ = "||=";
@@ -31,9 +31,9 @@ public abstract class Block {
     private FileBlock file;
     private MemberCallingsBlock outerFct;
 
-    private Block nextSibling;
+    private AbsBk nextSibling;
 
-    private Block previousSibling;
+    private AbsBk previousSibling;
 
     private final OffsetsBlock offset;
 
@@ -47,7 +47,7 @@ public abstract class Block {
     private final StringList errorsLabels = new StringList();
     private int blockNb;
 
-    Block(OffsetsBlock _offset) {
+    AbsBk(OffsetsBlock _offset) {
         offset = _offset;
     }
     protected final void setParent(BracedBlock _b) {
@@ -57,19 +57,19 @@ public abstract class Block {
         return offset;
     }
 
-    public static boolean isAnnotBlock(Block _bl) {
+    public static boolean isAnnotBlock(AbsBk _bl) {
         if (_bl instanceof NamedCalledFunctionBlock) {
             return ((NamedCalledFunctionBlock)_bl).getTypeCall() == NameCalledEnum.ANNOTATION;
         }
         return false;
     }
-    public static boolean isAnonBlock(Block _bl) {
+    public static boolean isAnonBlock(AbsBk _bl) {
         if (_bl instanceof NamedCalledFunctionBlock) {
             return ((NamedCalledFunctionBlock)_bl).getTypeCall() == NameCalledEnum.ANONYMOUS;
         }
         return false;
     }
-    public static boolean isOverBlock(Block _bl) {
+    public static boolean isOverBlock(AbsBk _bl) {
         if (_bl instanceof NamedCalledFunctionBlock) {
             return ((NamedCalledFunctionBlock)_bl).getTypeCall() == NameCalledEnum.OVERRIDABLE;
         }
@@ -112,7 +112,7 @@ public abstract class Block {
 
     public abstract void checkTree(AnalyzingEl _anEl, AnalyzedPageEl _page);
 
-    protected static boolean tryBuildExpressionLanguageReadOnly(Block _block, AnalyzedPageEl _page) {
+    protected static boolean tryBuildExpressionLanguageReadOnly(AbsBk _block, AnalyzedPageEl _page) {
         if (_block instanceof BuildableElMethod) {
             ((BuildableElMethod)_block).buildExpressionLanguageReadOnly(_page);
             return true;
@@ -120,7 +120,7 @@ public abstract class Block {
         return processOther(_block, _page);
     }
 
-    private static boolean processOther(Block _block, AnalyzedPageEl _page) {
+    private static boolean processOther(AbsBk _block, AnalyzedPageEl _page) {
         if (_block instanceof UnclassedBracedBlock) {
             return true;
         }
@@ -137,7 +137,7 @@ public abstract class Block {
         return false;
     }
     public final RootBlock retrieveParentType() {
-        Block p_ = this;
+        AbsBk p_ = this;
         while (!(p_ instanceof RootBlock)) {
             if (p_ == null) {
                 return null;
@@ -155,16 +155,16 @@ public abstract class Block {
     }
 
     public MemberCallingsBlock getOuterFuntionInType() {
-        Block p_ = getParent();
+        AbsBk p_ = getParent();
         return getOuterFuntionInType(p_);
     }
     public MemberCallingsBlock getStrictOuterFuntion() {
-        Block p_ = getParent();
+        AbsBk p_ = getParent();
         return getOuterFuntion(p_);
     }
 
-    public static MemberCallingsBlock getOuterFuntionInType(Block _p) {
-        Block p_ = _p;
+    public static MemberCallingsBlock getOuterFuntionInType(AbsBk _p) {
+        AbsBk p_ = _p;
         while (p_ != null) {
             if (p_ instanceof RootBlock) {
                 return null;
@@ -176,8 +176,8 @@ public abstract class Block {
         }
         return null;
     }
-    public static MemberCallingsBlock getOuterFuntion(Block _p) {
-        Block p_ = _p;
+    public static MemberCallingsBlock getOuterFuntion(AbsBk _p) {
+        AbsBk p_ = _p;
         while (p_ != null) {
             if (p_ instanceof MemberCallingsBlock) {
                 return (MemberCallingsBlock)p_;
@@ -186,18 +186,18 @@ public abstract class Block {
         }
         return null;
     }
-    public final Block getPreviousSibling() {
+    public final AbsBk getPreviousSibling() {
         return previousSibling;
     }
-    public abstract Block getFirstChild();
+    public abstract AbsBk getFirstChild();
 
-    public final Block getNextSibling() {
+    public final AbsBk getNextSibling() {
         return nextSibling;
     }
-    final void setNextSibling(Block _nextSibling) {
+    final void setNextSibling(AbsBk _nextSibling) {
         nextSibling = _nextSibling;
     }
-    final void setPreviousSibling(Block _previousSibling) {
+    final void setPreviousSibling(AbsBk _previousSibling) {
         previousSibling = _previousSibling;
     }
 

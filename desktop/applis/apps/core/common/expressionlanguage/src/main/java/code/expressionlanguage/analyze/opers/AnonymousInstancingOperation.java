@@ -200,7 +200,7 @@ public final class AnonymousInstancingOperation extends
                 instancingAnonContent.getBlock().getMappings().putAllMap(operator_.getMappings());
             }
         }
-        Block currentBlock_ = _page.getCurrentBlock();
+        AbsBk currentBlock_ = _page.getCurrentBlock();
         if (currentBlock_ instanceof InfoBlock) {
             ((InfoBlock)currentBlock_).getAnonymous().add(instancingAnonContent.getBlock());
         } else if (currentBlock_ instanceof MemberCallingsBlock) {

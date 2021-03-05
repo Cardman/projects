@@ -175,7 +175,7 @@ public final class FileResolver {
                 g_.setLength(1);
                 _block.getErrorsFiles().getLi().add(g_);
             }
-            Block block_ = res_.getBlock();
+            AbsBk block_ = res_.getBlock();
             if (block_ != null) {
                 _block.appendChild(block_);
             }
@@ -652,7 +652,7 @@ public final class FileResolver {
         BracedBlock currentParent_ = _currentParent;
         FileBlock file_ = _input.getFile();
         int instructionLocation_ = _instructionLocation;
-        Block br_ = null;
+        AbsBk br_ = null;
         String found_ = _instruction.toString();
         String trimmedInstruction_ = found_.trim();
         int instructionRealLocation_ = instructionLocation_;
@@ -1280,12 +1280,12 @@ public final class FileResolver {
                 currentParent_ = currentParent_.getParent();
             }
         } else if (_currentChar != END_BLOCK) {
-            Block bl_ = processInstructionBlock(_offset, instructionLocation_, instructionRealLocation_, _i, currentParent_, trimmedInstruction_, _page);
+            AbsBk bl_ = processInstructionBlock(_offset, instructionLocation_, instructionRealLocation_, _i, currentParent_, trimmedInstruction_, _page);
             if (bl_ == null) {
                 if (_declType) {
                     //Inner types
                     boolean defStatic_;
-                    MemberCallingsBlock outerFuntion_ = Block.getOuterFuntionInType(currentParent_);
+                    MemberCallingsBlock outerFuntion_ = AbsBk.getOuterFuntionInType(currentParent_);
                     AccessEnum defAcc_;
                     if (outerFuntion_ != null) {
                         defAcc_ = _page.getDefaultAccess().getAccessInner(outerFuntion_).getAccLocalTypes();
@@ -1616,14 +1616,14 @@ public final class FileResolver {
         return typeBlock_;
     }
 
-    private static Block processTypeMember(char _currentChar,
+    private static AbsBk processTypeMember(char _currentChar,
                                            StringBuilder _instruction, int _instructionLocation, int _i, int _offset, RootBlock _currentParent, AnalyzedPageEl _page) {
         int instructionLocation_ = _instructionLocation;
         String found_ = _instruction.toString();
         String trimmedInstruction_ = found_.trim();
         int instructionRealLocation_ = instructionLocation_;
         instructionLocation_ += StringUtil.getFirstPrintableCharIndex(found_);
-        Block br_;
+        AbsBk br_;
         AccessEnum accessFct_ = _page.getDefaultAccess().getAccessInner(_currentParent).getAccMember();
         String word_ = EMPTY_STRING;
         int trFound_ = StringUtil.getFirstPrintableCharIndex(found_);
@@ -2101,7 +2101,7 @@ public final class FileResolver {
         return symbol_;
     }
 
-    private static Block processInstructionBlock(int _offset,
+    private static AbsBk processInstructionBlock(int _offset,
                                                  int _instructionLocation,
                                                  int _instructionRealLocation, int _i, BracedBlock _currentParent, String _trimmedInstruction, AnalyzedPageEl _page) {
         KeyWords keyWords_ = _page.getKeyWords();
@@ -2125,7 +2125,7 @@ public final class FileResolver {
         String keyWordThrow_ = keyWords_.getKeyWordThrow();
         String keyWordTry_ = keyWords_.getKeyWordTry();
         String keyWordWhile_ = keyWords_.getKeyWordWhile();
-        Block br_ = null;
+        AbsBk br_ = null;
         if (StringExpUtil.startsWithKeyWord(_trimmedInstruction,keyWordBreak_)) {
             String exp_ = _trimmedInstruction.substring(keyWordBreak_.length());
             String label_ = exp_.trim();
@@ -2215,7 +2215,7 @@ public final class FileResolver {
             return br_;
         }
         if (StringExpUtil.startsWithKeyWord(_trimmedInstruction,keyWordWhile_)) {
-            Block child_ = _currentParent.getFirstChild();
+            AbsBk child_ = _currentParent.getFirstChild();
             if (child_ != null) {
                 while (child_.getNextSibling() != null) {
                     child_ = child_.getNextSibling();
@@ -2250,7 +2250,7 @@ public final class FileResolver {
             if (!ok_) {
                 br_.getBadIndexes().add(_i+_offset);
             }
-            ((Condition)br_).setTestOffset(_i+_offset);
+            ((ConditionBlock)br_).setTestOffset(_i+_offset);
             _currentParent.appendChild(br_);
             return br_;
         }
@@ -2310,7 +2310,7 @@ public final class FileResolver {
             if (!ok_) {
                 br_.getBadIndexes().add(_i+_offset);
             }
-            ((Condition)br_).setTestOffset(_i+_offset);
+            ((ConditionBlock)br_).setTestOffset(_i+_offset);
             br_.setBegin(_instructionLocation+_offset);
             br_.setLengthHeader(keyWordIf_.length());
             _currentParent.appendChild(br_);
@@ -2332,7 +2332,7 @@ public final class FileResolver {
             if (!ok_) {
                 br_.getBadIndexes().add(_i+_offset);
             }
-            ((Condition)br_).setTestOffset(_i+_offset);
+            ((ConditionBlock)br_).setTestOffset(_i+_offset);
             br_.setBegin(_instructionLocation+_offset);
             br_.setLengthHeader(keyWordElseif_.length());
             _currentParent.appendChild(br_);
@@ -2364,7 +2364,7 @@ public final class FileResolver {
                 if (!ok_) {
                     br_.getBadIndexes().add(_i+_offset);
                 }
-                ((Condition)br_).setTestOffset(_i+_offset);
+                ((ConditionBlock)br_).setTestOffset(_i+_offset);
                 br_.setBegin(_instructionLocation+deltaFirst_-keyWordIf_.length()+_offset);
                 br_.setLengthHeader(keyWordIf_.length());
             } else {
@@ -3028,7 +3028,7 @@ public final class FileResolver {
                 && StringExpUtil.nextCharIs(_info, _indexInstr + 2, _instrLen, _del);
     }
 
-    private static boolean canHaveElements(Block _bl) {
+    private static boolean canHaveElements(AbsBk _bl) {
         if (!(_bl instanceof EnumBlock)) {
             return false;
         }

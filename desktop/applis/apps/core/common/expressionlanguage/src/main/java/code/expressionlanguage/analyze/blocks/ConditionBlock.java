@@ -15,16 +15,16 @@ import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.stds.PrimitiveTypes;
 import code.util.core.StringUtil;
 
-public abstract class Condition extends BracedBlock implements BuildableElMethod {
+public abstract class ConditionBlock extends BracedBlock implements BuildableElMethod {
 
-    private String condition;
+    private final String condition;
 
-    private int conditionOffset;
+    private final int conditionOffset;
     private int testOffset;
 
     private Argument argument;
 
-    private ResultExpression res = new ResultExpression();
+    private final ResultExpression res = new ResultExpression();
 
     private String err = "";
 
@@ -33,7 +33,7 @@ public abstract class Condition extends BracedBlock implements BuildableElMethod
 
     private int conditionNb;
 
-    public Condition(OffsetStringInfo _condition, OffsetsBlock _offset) {
+    public ConditionBlock(OffsetStringInfo _condition, OffsetsBlock _offset) {
         super(_offset);
         condition = _condition.getInfo();
         conditionOffset = _condition.getOffset();

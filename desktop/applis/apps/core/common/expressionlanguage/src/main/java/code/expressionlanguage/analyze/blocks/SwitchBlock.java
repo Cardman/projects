@@ -129,9 +129,9 @@ public final class SwitchBlock extends BracedBlock implements BreakableBlock,Bui
         }
     }
     public static void processChildren(BracedBlock _braced,AnalyzedPageEl _page) {
-        Block first_ = _braced.getFirstChild();
+        AbsBk first_ = _braced.getFirstChild();
         while (first_ != null) {
-            Block elt_ = first_;
+            AbsBk elt_ = first_;
             if (elt_ instanceof CaseCondition) {
                 first_ = first_.getNextSibling();
                 continue;

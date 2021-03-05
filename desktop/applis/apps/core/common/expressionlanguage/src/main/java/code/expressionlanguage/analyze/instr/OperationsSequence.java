@@ -1,5 +1,5 @@
 package code.expressionlanguage.analyze.instr;
-import code.expressionlanguage.analyze.blocks.Block;
+import code.expressionlanguage.analyze.blocks.AbsBk;
 import code.expressionlanguage.common.*;
 import code.expressionlanguage.analyze.files.ParsedFctHeader;
 import code.maths.litteral.StrTypes;
@@ -41,7 +41,7 @@ public final class OperationsSequence {
     private final Ints errorParts = new Ints();
     private boolean instance;
     private ParsedFctHeader results;
-    private Block block;
+    private AbsBk block;
     private int length;
     public void setValue(String _string, int _offset) {
         values = new StrTypes();
@@ -387,11 +387,11 @@ public final class OperationsSequence {
         this.results = _results;
     }
 
-    public Block getBlock() {
+    public AbsBk getBlock() {
         return block;
     }
 
-    public void setBlock(Block _block) {
+    public void setBlock(AbsBk _block) {
         block = _block;
     }
 

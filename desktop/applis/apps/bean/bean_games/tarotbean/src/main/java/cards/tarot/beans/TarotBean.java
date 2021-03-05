@@ -1,7 +1,7 @@
 package cards.tarot.beans;
 import cards.consts.CoreResourcesAccess;
 import cards.consts.MixCardsChoice;
-import cards.consts.Status;
+import cards.consts.Role;
 import cards.tarot.GameTarot;
 import cards.tarot.ResultsTarot;
 import cards.tarot.RulesTarot;
@@ -56,7 +56,7 @@ abstract class TarotBean extends Bean {
     protected static String toString(Miseres _b, String _file){
         return Format.getConstanteLangue(_file, TarotResoucesAccess.TAROT_MISERES, _b.name());
     }
-    protected static String toString(Status _b, String _file) {
+    protected static String toString(Role _b, String _file) {
         return Format.getConstanteLangue(_file, CoreResourcesAccess.STATUS,_b.name());
     }
     protected static String toString(MixCardsChoice _b, String _file) {

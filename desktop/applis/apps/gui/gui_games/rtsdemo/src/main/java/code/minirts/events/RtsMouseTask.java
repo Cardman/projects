@@ -1,22 +1,22 @@
 package code.minirts.events;
 
-import code.minirts.rts.Direction;
+import code.minirts.rts.RtsDirection;
 
 import javax.swing.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-public class MouseTask extends MouseAdapter {
+public class RtsMouseTask extends MouseAdapter {
 
-    private Direction dir;
+    private final RtsDirection dir;
 
-    private Task task;
+    private final RtsTask task;
 
-    private Timer timer;
+    private final Timer timer;
 
 //    private MainWindow window;
 
-    public MouseTask(Direction _dir, Task _task, Timer _timer) {
+    public RtsMouseTask(RtsDirection _dir, RtsTask _task, Timer _timer) {
 //    , MainWindow _window
         dir = _dir;
         task = _task;

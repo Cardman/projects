@@ -2,25 +2,24 @@ package cards.belote;
 
 import cards.belote.enumerations.CardBelote;
 import cards.consts.Order;
-import cards.consts.Status;
+import cards.consts.Role;
 import cards.consts.Suit;
 import code.util.CustList;
 import code.util.EnumList;
 import code.util.EnumMap;
-import code.util.EqList;
 import code.util.*;
 
 public final class GameBeloteBeginTrick {
-    private GameBeloteTeamsRelation teamsRelation;
-    private GameBeloteTrickInfo info;
+    private final GameBeloteTeamsRelation teamsRelation;
+    private final GameBeloteTrickInfo info;
 
-    private HandBelote currentHand;
-    private GameBeloteCommonPlaying common;
-    private Status currentStatus;
-    private HandBelote playableCards;
-    private BidBeloteSuit bid;
-    private byte taker;
-    private HandBelote lastSeenHand;
+    private final HandBelote currentHand;
+    private final GameBeloteCommonPlaying common;
+    private final Role currentStatus;
+    private final HandBelote playableCards;
+    private final BidBeloteSuit bid;
+    private final byte taker;
+    private final HandBelote lastSeenHand;
 
     public GameBeloteBeginTrick(GameBeloteTrickInfo _done, GameBeloteTeamsRelation _teamsRelation, HandBelote _currentHand) {
         teamsRelation = _teamsRelation;
@@ -63,11 +62,11 @@ public final class GameBeloteBeginTrick {
             return playWhenAtMostOneNormalSuit(_info);
 
         }
-        if(currentStatus == Status.TAKER) {
+        if(currentStatus == Role.TAKER) {
             return playAsTakerDom(_info);
         }
         //Appele
-        if(currentStatus == Status.CALLED_PLAYER) {
+        if(currentStatus == Role.CALLED_PLAYER) {
             return playAsCalledPlayerDom(_info);
         }
         return playAsDefenderDom(_info);
@@ -308,10 +307,10 @@ public final class GameBeloteBeginTrick {
         if(_info.isMaitreJeu()) {
             return playBestCards(_info);
         }
-        if(currentStatus == Status.TAKER) {
+        if(currentStatus == Role.TAKER) {
             return playAsTaker(_info);
         }
-        if(currentStatus == Status.CALLED_PLAYER) {
+        if(currentStatus == Role.CALLED_PLAYER) {
             return playAsCalledPlayer(_info);
         }
         return playAsDefender(_info);
@@ -466,7 +465,7 @@ public final class GameBeloteBeginTrick {
         return GameBeloteCommon.hand(_repartition,couleurs_.first()).derniereCarte();
     }
 
-    Status getCurrentStatus() {
+    Role getCurrentStatus() {
         return currentStatus;
     }
 }

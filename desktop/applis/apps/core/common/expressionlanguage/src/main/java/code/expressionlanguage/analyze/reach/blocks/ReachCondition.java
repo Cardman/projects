@@ -2,17 +2,17 @@ package code.expressionlanguage.analyze.reach.blocks;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.analyze.blocks.Condition;
+import code.expressionlanguage.analyze.blocks.ConditionBlock;
 import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.analyze.reach.opers.ReachOperationUtil;
 
 public abstract class ReachCondition extends ReachBracedBlock implements ReachBuildableElMethod {
 
-    private Condition meta;
-    private OperationNode root;
-    private int conditionOffset;
+    private final ConditionBlock meta;
+    private final OperationNode root;
+    private final int conditionOffset;
 
-    protected ReachCondition(Condition _info) {
+    protected ReachCondition(ConditionBlock _info) {
         super(_info);
         meta = _info;
         root = _info.getRoot();

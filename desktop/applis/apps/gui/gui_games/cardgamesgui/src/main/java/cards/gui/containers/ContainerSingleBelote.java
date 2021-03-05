@@ -15,7 +15,7 @@ import cards.belote.enumerations.DeclaresBeloteRebelote;
 import cards.belote.sml.DocumentWriterBeloteUtil;
 import cards.consts.GameType;
 import cards.consts.Hypothesis;
-import cards.consts.Status;
+import cards.consts.Role;
 import cards.consts.Suit;
 import cards.facade.Games;
 import cards.facade.enumerations.GameEnum;
@@ -172,8 +172,8 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
                         addButtonsForCoinche(partie_);
                     }
                 } else if(partie_.getContrat().jouerDonne()) {
-                    getMini().setStatus(Status.TAKER, partie_.getPreneur());
-                    getMini().setStatus(Status.CALLED_PLAYER, partie_.getTeamsRelation().partenaires(partie_.getPreneur()).first());
+                    getMini().setStatus(Role.TAKER, partie_.getPreneur());
+                    getMini().setStatus(Role.CALLED_PLAYER, partie_.getTeamsRelation().partenaires(partie_.getPreneur()).first());
                     addButtonNextTrickBelote(getMessages().getVal(MainWindow.GO_CARD_GAME), true);
                 } else {
                     addButtonEndDealBelote(getMessages().getVal(MainWindow.END_DEAL), true);
@@ -198,8 +198,8 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
                 animCarteBelote=new AnimationCardBelote(this);
                 CustComponent.newThread(animCarteBelote).start();
             } else if(partie_.getContrat().jouerDonne()) {
-                getMini().setStatus(Status.TAKER, partie_.getPreneur());
-                getMini().setStatus(Status.CALLED_PLAYER, partie_.getTeamsRelation().partenaires(partie_.getPreneur()).first());
+                getMini().setStatus(Role.TAKER, partie_.getPreneur());
+                getMini().setStatus(Role.CALLED_PLAYER, partie_.getTeamsRelation().partenaires(partie_.getPreneur()).first());
                 addButtonNextTrickBelote(getMessages().getVal(MainWindow.GO_CARD_GAME), true);
                 pack();
             } else {

@@ -2,7 +2,7 @@ package code.expressionlanguage.analyze.types;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.AccessedBlock;
-import code.expressionlanguage.analyze.blocks.Block;
+import code.expressionlanguage.analyze.blocks.AbsBk;
 import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.instr.PartOffset;
@@ -73,7 +73,7 @@ public final class ResolvingTypes {
         AnaGeneType from_ = _page.getAnaGeneType(idFromType_);
         String ref_ = "";
         if (ContextUtil.isFromCustFile(from_)) {
-            ref_ = ((Block)from_).getFile().getRenderFileName();
+            ref_ = ((AbsBk)from_).getFile().getRenderFileName();
         }
         _page.getAvailableVariables().clear();
         if (from_ instanceof RootBlock) {

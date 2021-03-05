@@ -5,7 +5,7 @@ import code.expressionlanguage.analyze.blocks.*;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 
 public abstract class ReachMemberCallingsBlock extends ReachBracedBlock implements FunctionBlock,ReturnableWithSignature {
-    protected ReachMemberCallingsBlock(Block _info) {
+    protected ReachMemberCallingsBlock(AbsBk _info) {
         super(_info);
     }
 
@@ -14,10 +14,10 @@ public abstract class ReachMemberCallingsBlock extends ReachBracedBlock implemen
         if (_list.getFirstChild() == null) {
             return m_;
         }
-        Block c_ = _list;
+        AbsBk c_ = _list;
         ReachBlock ac_ = m_;
         while (c_ != null) {
-            Block f_ = c_.getFirstChild();
+            AbsBk f_ = c_.getFirstChild();
             if (!(c_ instanceof RootBlock)&&ac_ instanceof ReachBracedBlock&&f_ != null) {
                 ReachBlock af_ = ReachBlock.newReachBlock(f_);
                 ((ReachBracedBlock)ac_).appendChild(af_);
@@ -26,7 +26,7 @@ public abstract class ReachMemberCallingsBlock extends ReachBracedBlock implemen
                 continue;
             }
             while (true) {
-                Block n_ = c_.getNextSibling();
+                AbsBk n_ = c_.getNextSibling();
                 if (n_ != null) {
                     ReachBlock af_ = ReachBlock.newReachBlock(n_);
                     ReachBracedBlock par_ = ac_.getParent();

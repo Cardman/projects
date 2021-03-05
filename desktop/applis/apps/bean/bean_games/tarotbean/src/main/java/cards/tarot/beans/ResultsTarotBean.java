@@ -43,7 +43,7 @@ final class ResultsTarotBean extends TarotBean {
 
     private short finalUserPosition;
 
-    private CustList<LineDeal> linesDeal;
+    private CustList<TarotLineDeal> linesDeal;
 
     @Override
     public void beforeDisplaying() {
@@ -59,7 +59,7 @@ final class ResultsTarotBean extends TarotBean {
         Shorts doubledScoresPlayersTricks_ = new Shorts();
         Shorts needlyScoresPlayers_ = new Shorts();
         Shorts doublesDifferencesPlayers_ = new Shorts();
-        linesDeal = new CustList<LineDeal>();
+        linesDeal = new CustList<TarotLineDeal>();
         calledCardsList = new StringList();
         calledPlayers = new StringList();
         if(!getGame().getTricks().isEmpty()) {
@@ -110,10 +110,10 @@ final class ResultsTarotBean extends TarotBean {
                 finalUserPosition = res_.getFinalUserPosition();
             }
         }
-        linesDeal = new CustList<LineDeal>();
+        linesDeal = new CustList<TarotLineDeal>();
         int nbDeals_ = getScores().size();
         for(int i = IndexConstants.FIRST_INDEX; i<nbDeals_; i++) {
-            LineDeal l_ = new LineDeal();
+            TarotLineDeal l_ = new TarotLineDeal();
             l_.setNumber(i);
             Longs scores_ = new Longs();
             for(byte joueur_ = IndexConstants.FIRST_INDEX; joueur_<nombreJoueurs_; joueur_++) {
@@ -250,7 +250,7 @@ final class ResultsTarotBean extends TarotBean {
         return finalUserPosition;
     }
 
-    CustList<LineDeal> getLinesDeal() {
+    CustList<TarotLineDeal> getLinesDeal() {
         return linesDeal;
     }
 }

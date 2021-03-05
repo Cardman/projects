@@ -41,7 +41,7 @@ public final class AnaTypeUtil {
             FormattedMethodId key_ = e.getFormattedMethodId();
             if (!StringUtil.quickEq(key_.getName(),"[]")
                     &&!StringUtil.quickEq(key_.getName(),"[]=")) {
-                for (Block b: ClassesUtil.getDirectChildren(_type)) {
+                for (AbsBk b: ClassesUtil.getDirectChildren(_type)) {
                     if (b instanceof InternOverrideBlock) {
                         for (OverridingMethodDto o: ((InternOverrideBlock) b).getOverrides()) {
                             if (o.getFormattedMethodId().eq(key_)) {
@@ -344,7 +344,7 @@ public final class AnaTypeUtil {
                 if (!(int_ instanceof InterfaceBlock)) {
                     continue;
                 }
-                for (Block b: ClassesUtil.getDirectChildren(int_)) {
+                for (AbsBk b: ClassesUtil.getDirectChildren(int_)) {
                     if (b instanceof NamedFunctionBlock) {
                         continue;
                     }

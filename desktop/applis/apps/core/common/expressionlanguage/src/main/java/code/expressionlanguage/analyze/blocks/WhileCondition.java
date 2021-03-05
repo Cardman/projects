@@ -2,10 +2,10 @@ package code.expressionlanguage.analyze.blocks;
 import code.expressionlanguage.analyze.files.OffsetStringInfo;
 import code.expressionlanguage.analyze.files.OffsetsBlock;
 
-public final class WhileCondition extends Condition implements Loop {
+public final class WhileCondition extends ConditionBlock implements Loop {
 
-    private String label;
-    private int labelOffset;
+    private final String label;
+    private final int labelOffset;
 
     public WhileCondition(OffsetStringInfo _condition, OffsetStringInfo _label, OffsetsBlock _offset) {
         super(_condition, _offset);

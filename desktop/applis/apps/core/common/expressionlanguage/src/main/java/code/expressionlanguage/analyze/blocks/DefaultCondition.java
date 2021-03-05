@@ -56,7 +56,7 @@ public final class DefaultCondition extends SwitchPartBlock {
                 instanceTest_ = s_.getInstanceTest();
             }
             if (instanceTest_.isEmpty()) {
-                Block first_ = b_.getFirstChild();
+                AbsBk first_ = b_.getFirstChild();
                 while (first_ != this) {
                     if (first_ instanceof DefaultCondition) {
                         FoundErrorInterpret un_ = new FoundErrorInterpret();

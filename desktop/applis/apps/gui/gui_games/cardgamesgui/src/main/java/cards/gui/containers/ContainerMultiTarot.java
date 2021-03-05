@@ -8,7 +8,7 @@ import javax.swing.JSplitPane;
 import javax.swing.SwingConstants;
 
 import cards.consts.GameType;
-import cards.consts.Status;
+import cards.consts.Role;
 import cards.facade.Games;
 import cards.facade.enumerations.GameEnum;
 import cards.gui.MainWindow;
@@ -384,7 +384,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
     public void displayCalling(CallableCards _cards) {
         setCanCall(true);
         byte relative_ = relative(_cards.getTakerIndex());
-        getMini().setStatus(Status.TAKER, relative_);
+        getMini().setStatus(Role.TAKER, relative_);
         if (_cards.getCallableCards().estVide()) {
             return;
         }
@@ -408,7 +408,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         //getPanneauBoutonsJeu().validate();
         setDiscardCall(true);
         byte relative_ = relative(_dog.getTakerIndex());
-        getMini().setStatus(Status.TAKER, relative_);
+        getMini().setStatus(Role.TAKER, relative_);
         cardsInDog = _dog.getDog();
         setChienMulti(cardsInDog, false);
         pack();
@@ -431,7 +431,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         }
         //getPanneauBoutonsJeu().validate();
         byte relative_ = relative(_dog.getTakerIndex());
-        getMini().setStatus(Status.TAKER, relative_);
+        getMini().setStatus(Role.TAKER, relative_);
         cardsInDog = _dog.getDog();
         setDiscardCall(_dog.isCallAfter());
         setChienMulti(cardsInDog, false);
@@ -448,7 +448,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         String lg_ = getOwner().getLanguageKey();
         canPlayLabel.setText(EMPTY_STRING);
         byte relative_ = relative(_call.getPlace());
-        getMini().setStatus(Status.TAKER, relative_);
+        getMini().setStatus(Role.TAKER, relative_);
         getEvents().append(StringUtil.concat(getPseudoByPlace(_call.getPlace()),INTRODUCTION_PTS,Games.toString(_call.getCalledCards(),lg_),RETURN_LINE));
 
         PlayerActionGame dealt_ = new PlayerActionGame(PlayerActionGameType.CALLED_CARD_KNOWN);
@@ -505,7 +505,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
     }
     public void displaySlam(PlayerActionGame _bidding) {
         byte relative_ = relative(_bidding.getPlace());
-        getMini().setStatus(Status.TAKER, relative_);
+        getMini().setStatus(Role.TAKER, relative_);
         getEvents().append(StringUtil.concat(getPseudoByPlace(_bidding.getPlace()),INTRODUCTION_PTS,MainWindow.SLAM,RETURN_LINE));
 
         PlayerActionGame dis_ = new PlayerActionGame(PlayerActionGameType.DONE_DISPLAY_SLAM);
@@ -573,7 +573,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         getPanneauBoutonsJeu().add(miseres_);
         //getPanneauBoutonsJeu().validate();
         byte relative_ = relative(_declaration.getTakerIndex());
-        getMini().setStatus(Status.TAKER, relative_);
+        getMini().setStatus(Role.TAKER, relative_);
         pack();
         //PackingWindowAfter.pack(this, true);
     }
@@ -585,8 +585,8 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         tapisTarot().setCarteTarot(lg_,relative_, card_.getPlayedCard());
         String pseudo_ = getPseudoByPlace(card_.getPlace());
         if (_card.isCalledCard()) {
-            getMini().setStatus(Status.CALLED_PLAYER, relative_);
-            ajouterTexteDansZone(StringUtil.concat(pseudo_,INTRODUCTION_PTS,Games.toString(Status.CALLED_PLAYER,lg_)));
+            getMini().setStatus(Role.CALLED_PLAYER, relative_);
+            ajouterTexteDansZone(StringUtil.concat(pseudo_,INTRODUCTION_PTS,Games.toString(Role.CALLED_PLAYER,lg_)));
 
         }
         if (_card.getChoosenHandful() != Handfuls.NO) {
@@ -609,7 +609,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         }
         panelToSet_.validate();
         relative_ = relative(card_.getTakerIndex());
-        getMini().setStatus(Status.TAKER, relative_);
+        getMini().setStatus(Role.TAKER, relative_);
         //pack();
         PlayerActionGame dealt_ = new PlayerActionGame(PlayerActionGameType.DONE_PLAYING);
         dealt_.setPlace(indexInGame);

@@ -13,7 +13,7 @@ public final class FinallyEval extends BracedBlock implements Eval {
 
     @Override
     public String getRealLabel() {
-        Block p_ = getPreviousSibling();
+        AbsBk p_ = getPreviousSibling();
         while (!(p_ instanceof TryEval)) {
             if (p_ == null) {
                 return EMPTY_STRING;
@@ -25,7 +25,7 @@ public final class FinallyEval extends BracedBlock implements Eval {
 
     @Override
     public int getRealLabelOffset() {
-        Block p_ = getPreviousSibling();
+        AbsBk p_ = getPreviousSibling();
         while (!(p_ instanceof TryEval)) {
             p_ = p_.getPreviousSibling();
         }
@@ -43,7 +43,7 @@ public final class FinallyEval extends BracedBlock implements Eval {
 
     @Override
     public void checkTree(AnalyzingEl _anEl, AnalyzedPageEl _page) {
-        Block pBlock_ = getPreviousSibling();
+        AbsBk pBlock_ = getPreviousSibling();
         if (!(pBlock_ instanceof AbstractCatchEval)) {
             if (!(pBlock_ instanceof TryEval)) {
                 FoundErrorInterpret un_ = new FoundErrorInterpret();

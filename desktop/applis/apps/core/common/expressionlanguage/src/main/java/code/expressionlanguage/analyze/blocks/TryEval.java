@@ -43,7 +43,7 @@ public final class TryEval extends BracedBlock implements Eval {
 
     @Override
     public void checkTree(AnalyzingEl _anEl, AnalyzedPageEl _page) {
-        Block nBlock_ = getNextSibling();
+        AbsBk nBlock_ = getNextSibling();
         if (!(nBlock_ instanceof AbstractCatchEval)) {
             if (!(nBlock_ instanceof FinallyEval)) {
                 FoundErrorInterpret un_ = new FoundErrorInterpret();

@@ -1,6 +1,6 @@
 package code.expressionlanguage.exec.coverage;
 
-import code.expressionlanguage.analyze.blocks.Block;
+import code.expressionlanguage.analyze.blocks.AbsBk;
 import code.expressionlanguage.analyze.blocks.MemberCallingsBlock;
 import code.expressionlanguage.exec.blocks.ExecBlock;
 import code.util.CustList;
@@ -9,7 +9,7 @@ import code.util.IdMap;
 public final class TypeCoverageResult {
     private final CustList<FunctionCoverageResult> functions = new CustList<FunctionCoverageResult>();
     private final IdMap<ExecBlock,MemberCallingsBlock> mappingBlocks = new IdMap<ExecBlock,MemberCallingsBlock>();
-    private final IdMap<ExecBlock,Block> mappingFields = new IdMap<ExecBlock,Block>();
+    private final IdMap<ExecBlock, AbsBk> mappingFields = new IdMap<ExecBlock, AbsBk>();
     private final CustList<BlockCoverageResult> fields = new CustList<BlockCoverageResult>();
     private final CustList<BlockCoverageResult> annotationsFields = new CustList<BlockCoverageResult>();
     private final CustList<BlockCoverageResult> annotations = new CustList<BlockCoverageResult>();
@@ -22,7 +22,7 @@ public final class TypeCoverageResult {
         return mappingBlocks;
     }
 
-    public IdMap<ExecBlock, Block> getMappingFields() {
+    public IdMap<ExecBlock, AbsBk> getMappingFields() {
         return mappingFields;
     }
 

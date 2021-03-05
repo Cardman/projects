@@ -384,7 +384,7 @@ final class AnaNamePartType extends AnaLeafPartType {
         if (!_page.isGettingParts()) {
             return;
         }
-        String curr_ = ((Block)_rooted).getFile().getRenderFileName();
+        String curr_ = ((AbsBk)_rooted).getFile().getRenderFileName();
         String imported_ = getAnalyzedType();
         String idCl_ = StringExpUtil.getIdFromAllTypes(imported_);
         AnaGeneType g_ = _page.getAnaGeneType(idCl_);

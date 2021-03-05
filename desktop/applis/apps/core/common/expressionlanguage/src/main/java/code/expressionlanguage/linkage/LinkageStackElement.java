@@ -1,12 +1,12 @@
 package code.expressionlanguage.linkage;
 
-import code.expressionlanguage.analyze.blocks.Block;
+import code.expressionlanguage.analyze.blocks.AbsBk;
 import code.expressionlanguage.analyze.instr.PartOffset;
 import code.expressionlanguage.analyze.opers.OperationNode;
 import code.util.CustList;
 
 public final class LinkageStackElement {
-    private Block block;
+    private AbsBk block;
     private OperationNode current;
     private int indexLoop;
     private int indexAnnotationGroup=-1;
@@ -24,11 +24,11 @@ public final class LinkageStackElement {
         indexAnnotationGroup = _v.indexAnnotationGroup;
     }
 
-    public Block getBlock() {
+    public AbsBk getBlock() {
         return block;
     }
 
-    public void setBlock(Block _v) {
+    public void setBlock(AbsBk _v) {
         this.block = _v;
     }
 

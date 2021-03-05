@@ -1,28 +1,28 @@
 package cards.tarot;
 
 import cards.consts.PossibleTrickWinner;
-import cards.consts.Status;
+import cards.consts.Role;
 import cards.consts.Suit;
 import cards.tarot.enumerations.CardTarot;
 import code.util.*;
 
 public final class GameTarotProgTrickClassic {
 
-    private GameTarotTeamsRelation teamsRelation;
+    private final GameTarotTeamsRelation teamsRelation;
 
-    private GameTarotTrickInfo doneTrickInfo;
-    private HandTarot calledCards;
+    private final GameTarotTrickInfo doneTrickInfo;
+    private final HandTarot calledCards;
 
-    private HandTarot currentHand;
-    private GameTarotCommonPlaying common;
-    private Status currentStatus;
-    private Bytes confidentPlayers;
-    private Bytes notConfidentPlayers;
-    private Bytes played;
-    private Bytes notPlayed;
-    private Bytes notConfidentPlayersNotPlay;
-    private HandTarot playableCards;
-    private HandTarot discarded = new HandTarot();
+    private final HandTarot currentHand;
+    private final GameTarotCommonPlaying common;
+    private final Role currentStatus;
+    private final Bytes confidentPlayers;
+    private final Bytes notConfidentPlayers;
+    private final Bytes played;
+    private final Bytes notPlayed;
+    private final Bytes notConfidentPlayersNotPlay;
+    private final HandTarot playableCards;
+    private final HandTarot discarded = new HandTarot();
     public GameTarotProgTrickClassic(GameTarotTrickInfo _done, GameTarotTeamsRelation _teamsRelation,
                                      HandTarot _calledCards, HandTarot _currentHand) {
         doneTrickInfo = _done;
@@ -103,7 +103,7 @@ public final class GameTarotProgTrickClassic {
             return followAsTaker(_info);
         }
         /* Appele */
-        if (currentStatus == Status.CALLED_PLAYER) {
+        if (currentStatus == Role.CALLED_PLAYER) {
             return followAsCalledPlayer(_info);
 
         }
@@ -1783,7 +1783,7 @@ public final class GameTarotProgTrickClassic {
         return carteLaPlusPetite(_suites.getVal(couleurs_.first()));
     }
 
-    public Status getCurrentStatus() {
+    public Role getCurrentStatus() {
         return currentStatus;
     }
 }

@@ -67,7 +67,7 @@ public final class AnonymousLambdaOperation extends
         OperationNode m_ = par_.getOperation();
         int nbParentsInfer_ = par_.getNbParentsInfer();
         String typeAff_;
-        Block cur_ = _page.getCurrentBlock();
+        AbsBk cur_ = _page.getCurrentBlock();
         if (m_ == null && cur_ instanceof ReturnMethod) {
             typeAff_ = InvokingOperation.tryGetRetType(_page);
         } else {
@@ -306,7 +306,7 @@ public final class AnonymousLambdaOperation extends
             block.buildInternImportedTypes(_page);
         }
         RootBlock.validateParameters(block, _page, _page.getCurrentFile());
-        Block currentBlock_ = _page.getCurrentBlock();
+        AbsBk currentBlock_ = _page.getCurrentBlock();
         if (currentBlock_ instanceof InfoBlock) {
             ((InfoBlock)currentBlock_).getAnonymousFct().add(block);
         } else if (currentBlock_ instanceof MemberCallingsBlock) {

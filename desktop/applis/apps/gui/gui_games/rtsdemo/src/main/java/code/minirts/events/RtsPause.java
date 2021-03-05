@@ -5,11 +5,11 @@ import code.minirts.MainWindow;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class Pause implements ActionListener {
+public class RtsPause implements ActionListener {
 
-    private MainWindow window;
+    private final MainWindow window;
 
-    public Pause(MainWindow _window) {
+    public RtsPause(MainWindow _window) {
         window = _window;
     }
 

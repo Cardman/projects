@@ -25,7 +25,7 @@ public abstract class MemberCallingsBlock extends BracedBlock implements Functio
         super(_offset);
     }
 
-    private static void addPossibleEmpty(Block _en) {
+    private static void addPossibleEmpty(AbsBk _en) {
         if (_en instanceof BracedBlock && _en.getFirstChild() == null) {
             if (!(_en instanceof SwitchBlock) && !(_en instanceof DoWhileCondition) && (_en instanceof BuildableElMethod || _en instanceof UnclassedBracedBlock)) {
                 OffsetsBlock off_ = _en.getOffset();
@@ -35,7 +35,7 @@ public abstract class MemberCallingsBlock extends BracedBlock implements Functio
         }
     }
 
-    private static void removeLabel(Block _en, StringList _labels) {
+    private static void removeLabel(AbsBk _en, StringList _labels) {
         if (_en instanceof BreakableBlock && !((BreakableBlock) _en).getRealLabel().isEmpty()) {
             _labels.removeLast();
         }
@@ -45,14 +45,14 @@ public abstract class MemberCallingsBlock extends BracedBlock implements Functio
         _page.setGlobalOffset(getOffset().getOffsetTrim());
         _page.setOffset(0);
         _page.setVariableIssue(false);
-        Block firstChild_ = getFirstChild();
+        AbsBk firstChild_ = getFirstChild();
         _page.setCurrentBlock(this);
         _page.setCurrentFct(this);
         StringMap<StringList> vars_ = ContextUtil.getCurrentConstraints(_page);
         Mapping mapping_ = new Mapping();
         mapping_.setMapping(vars_);
         AnalyzingEl anEl_ = new AnalyzingEl(mapping_);
-        Block en_ = this;
+        AbsBk en_ = this;
         StringList labels_ = anEl_.getLabels();
         if (firstChild_ == null) {
             checkIndexes(en_, _page);
@@ -68,7 +68,7 @@ public abstract class MemberCallingsBlock extends BracedBlock implements Functio
                 en_.checkLabelReference(anEl_, _page);
             }
             checkIndexes(en_, _page);
-            Block n_ = en_.getFirstChild();
+            AbsBk n_ = en_.getFirstChild();
             addParent(anEl_, en_, n_);
             boolean visit_ = true;
             if (en_ != this) {
@@ -103,7 +103,7 @@ public abstract class MemberCallingsBlock extends BracedBlock implements Functio
         }
     }
 
-    private void checkIndexes(Block _en, AnalyzedPageEl _page) {
+    private void checkIndexes(AbsBk _en, AnalyzedPageEl _page) {
         for (int i:_en.getBadIndexes()) {
             FoundErrorInterpret b_ = new FoundErrorInterpret();
             b_.setFileName(getFile().getFileName());
@@ -115,8 +115,8 @@ public abstract class MemberCallingsBlock extends BracedBlock implements Functio
         }
     }
 
-    private static void addParent(AnalyzingEl _anEl, Block _en,
-                                  Block _n) {
+    private static void addParent(AnalyzingEl _anEl, AbsBk _en,
+                                  AbsBk _n) {
         if (_en instanceof BracedBlock && _n != null) {
             if (_en instanceof BreakableBlock) {
                 _anEl.putLabel(_en,((BreakableBlock)_en).getRealLabel());

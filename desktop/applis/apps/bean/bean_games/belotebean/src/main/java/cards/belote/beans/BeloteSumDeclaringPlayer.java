@@ -2,7 +2,7 @@ package cards.belote.beans;
 import code.util.CustList;
 
 
-final class SumDeclaringPlayer{
+final class BeloteSumDeclaringPlayer {
 
     private String nickname;
 

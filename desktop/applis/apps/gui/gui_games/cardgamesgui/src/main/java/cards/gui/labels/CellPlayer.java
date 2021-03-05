@@ -1,17 +1,17 @@
 package cards.gui.labels;
 import java.awt.Color;
 
-import cards.consts.Status;
+import cards.consts.Role;
 import code.gui.CustGraphics;
 import code.gui.PaintableLabel;
 
 public class CellPlayer extends PaintableLabel {
 
-    private Status st;
+    private Role st;
 
     private String textPlayer = "";
 
-    public void setStatus(Status _st) {
+    public void setStatus(Role _st) {
         st = _st;
     }
 
@@ -21,11 +21,11 @@ public class CellPlayer extends PaintableLabel {
 
     @Override
     public void paintComponent(CustGraphics _arg0) {
-        if (st == Status.TAKER) {
+        if (st == Role.TAKER) {
             _arg0.setColor(Color.RED);
-        } else if (st == Status.CALLED_PLAYER) {
+        } else if (st == Role.CALLED_PLAYER) {
             _arg0.setColor(Color.YELLOW);
-        } else if (st == Status.DEFENDER) {
+        } else if (st == Role.DEFENDER) {
             _arg0.setColor(Color.BLUE);
         } else {
             _arg0.setColor(Color.GREEN);

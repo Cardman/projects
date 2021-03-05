@@ -248,8 +248,8 @@ public final class BeloteStandards extends BeanNatLgNames {
     public ResultErrorStd getOtherResult(ContextEl _cont, ClassField _classField, Struct _instance) {
         ResultErrorStd res_ = new ResultErrorStd();
         String fieldName_ = _classField.getFieldName();
-        if (_instance instanceof LineDealStruct) {
-            LineDeal instance_ = ((LineDealStruct)_instance).getLineDeal();
+        if (_instance instanceof BeloteLineDealStruct) {
+            BeloteLineDeal instance_ = ((BeloteLineDealStruct)_instance).getLineDeal();
             if (StringUtil.quickEq(fieldName_, NUMBER)) {
                 res_.setResult(new IntStruct(instance_.getNumber()));
                 return res_;
@@ -260,8 +260,8 @@ public final class BeloteStandards extends BeanNatLgNames {
             }
             return res_;
         }
-        if (_instance instanceof SumDeclaringPlayerStruct) {
-            SumDeclaringPlayer instance_ = ((SumDeclaringPlayerStruct)_instance).getSumDeclaringPlayer();
+        if (_instance instanceof BeloteSumDeclaringPlayerStruct) {
+            BeloteSumDeclaringPlayer instance_ = ((BeloteSumDeclaringPlayerStruct)_instance).getSumDeclaringPlayer();
             if (StringUtil.quickEq(fieldName_, DECLARING)) {
                 res_.setResult(getDeclaringPlayerValueArray(instance_.getDeclaring()));
                 return res_;
@@ -460,11 +460,11 @@ public final class BeloteStandards extends BeanNatLgNames {
         bean_.setScope(_bean.getScope());
         return strBean_;
     }
-    public static ArrayStruct getSumDeclaringPlayerArray(CustList<SumDeclaringPlayer> _ls) {
+    public static ArrayStruct getSumDeclaringPlayerArray(CustList<BeloteSumDeclaringPlayer> _ls) {
         ArrayStruct arr_ = new ArrayStruct(_ls.size(), StringExpUtil.getPrettyArrayType(TYPE_SUM_DECLARING_PLAYER));
         int j_ = 0;
-        for (SumDeclaringPlayer s:_ls) {
-            arr_.set(j_,new SumDeclaringPlayerStruct(s, TYPE_SUM_DECLARING_PLAYER));
+        for (BeloteSumDeclaringPlayer s:_ls) {
+            arr_.set(j_,new BeloteSumDeclaringPlayerStruct(s, TYPE_SUM_DECLARING_PLAYER));
             j_++;
         }
         return arr_;
@@ -479,11 +479,11 @@ public final class BeloteStandards extends BeanNatLgNames {
         return arr_;
     }
 
-    public static ArrayStruct getLineDealArray(CustList<LineDeal> _ls) {
+    public static ArrayStruct getLineDealArray(CustList<BeloteLineDeal> _ls) {
         ArrayStruct arr_ = new ArrayStruct(_ls.size(), StringExpUtil.getPrettyArrayType(TYPE_LINE_DEAL));
         int j_ = 0;
-        for (LineDeal s:_ls) {
-            arr_.set(j_,new LineDealStruct(s, TYPE_LINE_DEAL));
+        for (BeloteLineDeal s:_ls) {
+            arr_.set(j_,new BeloteLineDealStruct(s, TYPE_LINE_DEAL));
             j_++;
         }
         return arr_;

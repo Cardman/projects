@@ -85,7 +85,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                 OperationNode m_ = par_.getOperation();
                 int nbParentsInfer_ = par_.getNbParentsInfer();
                 String typeAff_;
-                Block cur_ = _page.getCurrentBlock();
+                AbsBk cur_ = _page.getCurrentBlock();
                 if (m_ == null &&cur_ instanceof ReturnMethod) {
                     typeAff_ = InvokingOperation.tryGetRetType(_page);
                 } else {
@@ -2522,8 +2522,8 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         if (StringUtil.quickEq(_realId.getName(),"[]=")) {
             CustList<NamedCalledFunctionBlock> getIndexers_ = new CustList<NamedCalledFunctionBlock>();
             String idCl_ = StringExpUtil.getIdFromAllTypes(_realClass);
-            for (Block b: ClassesUtil.getDirectChildren(_page.getAnaClassBody(idCl_))) {
-                if (!Block.isOverBlock(b)) {
+            for (AbsBk b: ClassesUtil.getDirectChildren(_page.getAnaClassBody(idCl_))) {
+                if (!AbsBk.isOverBlock(b)) {
                     continue;
                 }
                 NamedCalledFunctionBlock i_ = (NamedCalledFunctionBlock) b;

@@ -187,7 +187,7 @@ public final class FieldBlock extends Leaf implements InfoBlock {
         }
     }
 
-    static void checkFieldsNames(Block _bl, StringList _fieldNames, CustList<PartOffsetAffect> _names, AnalyzedPageEl _page) {
+    static void checkFieldsNames(AbsBk _bl, StringList _fieldNames, CustList<PartOffsetAffect> _names, AnalyzedPageEl _page) {
         StringList idsField_ = new StringList(_fieldNames);
         CustList<StringList> found_ = new CustList<StringList>();
         for (PartOffsetAffect n: _names) {

@@ -1,7 +1,7 @@
 package cards.gui.animations;
 import cards.belote.BidBeloteSuit;
 import cards.belote.GameBelote;
-import cards.consts.Status;
+import cards.consts.Role;
 import cards.facade.Games;
 import cards.gui.MainWindow;
 import cards.gui.containers.ContainerSingleBelote;
@@ -10,7 +10,7 @@ import cards.gui.containers.ContainerSingleBelote;
 Thread safe class*/
 public final class AfterAnimationBidBelote implements Runnable {
 
-    private ContainerSingleBelote container;
+    private final ContainerSingleBelote container;
 
     /**This class thread is used by EDT (invokeLater of SwingUtilities)*/
     public AfterAnimationBidBelote(ContainerSingleBelote _container) {
@@ -36,8 +36,8 @@ public final class AfterAnimationBidBelote implements Runnable {
                 container.addButtonsForCoinche(gameBelote_);
             }
         } else if(gameBelote_.getContrat().jouerDonne()) {
-            container.getMini().setStatus(Status.TAKER, gameBelote_.getPreneur());
-            container.getMini().setStatus(Status.CALLED_PLAYER, gameBelote_.getTeamsRelation().partenaires(gameBelote_.getPreneur()).first());
+            container.getMini().setStatus(Role.TAKER, gameBelote_.getPreneur());
+            container.getMini().setStatus(Role.CALLED_PLAYER, gameBelote_.getTeamsRelation().partenaires(gameBelote_.getPreneur()).first());
             container.addButtonNextTrickBelote(container.getMessages().getVal(MainWindow.GO_CARD_GAME), true);
         } else {
             container.addButtonEndDealBelote(container.getMessages().getVal(MainWindow.END_DEAL), true);

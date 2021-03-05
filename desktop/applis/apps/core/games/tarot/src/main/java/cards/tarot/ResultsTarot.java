@@ -1,7 +1,7 @@
 package cards.tarot;
 import cards.consts.EndGameState;
 import cards.consts.GameType;
-import cards.consts.Status;
+import cards.consts.Role;
 import cards.consts.ResultsGame;
 import cards.tarot.enumerations.BidTarot;
 import cards.tarot.enumerations.Handfuls;
@@ -15,7 +15,7 @@ import code.util.core.IndexConstants;
 public final class ResultsTarot {
 
     private static final int FACTOR = 3;
-    private ResultsGame res = new ResultsGame();
+    private final ResultsGame res = new ResultsGame();
 
     private GameTarot game;
 
@@ -48,7 +48,7 @@ public final class ResultsTarot {
         short basePoints_;
         short doubledScoreTaker_;
         short differenceScoreTaker_;
-        EnumMap<Status,Rate> repartitionRate_;
+        EnumMap<Role,Rate> repartitionRate_;
         short additionnalBonusesAttack_;
         short additionnalBonusesDefense_;
         short scoreTakerWithoutDeclaring_;

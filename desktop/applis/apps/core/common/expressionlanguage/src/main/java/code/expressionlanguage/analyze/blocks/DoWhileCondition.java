@@ -5,7 +5,7 @@ import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.files.OffsetStringInfo;
 import code.expressionlanguage.analyze.files.OffsetsBlock;
 
-public final class DoWhileCondition extends Condition {
+public final class DoWhileCondition extends ConditionBlock {
 
     public DoWhileCondition(OffsetStringInfo _condition, OffsetsBlock _offset) {
         super(_condition, _offset);

@@ -40,7 +40,7 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
         if (instancingAnnotContent.getMethodName().trim().isEmpty()) {
             instancingAnnotContent.setArray(true);
             MethodOperation mOp_ = getParent();
-            Block curr_ = _page.getCurrentBlock();
+            AbsBk curr_ = _page.getCurrentBlock();
             instancingAnnotContent.setClassName(_page.getAliasObject());
             if (mOp_ == null) {
                 instancingAnnotContent.setClassName(((NamedCalledFunctionBlock) curr_).getImportedReturnType());
@@ -79,10 +79,10 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
                         instancingAnnotContent.setClassName(_page.getAliasObject());
                         return;
                     }
-                    CustList<Block> bls_ = ClassesUtil.getDirectChildren(type_);
+                    CustList<AbsBk> bls_ = ClassesUtil.getDirectChildren(type_);
                     CustList<NamedCalledFunctionBlock> blsAnn_ = new CustList<NamedCalledFunctionBlock>();
-                    for (Block b: bls_) {
-                        if (!Block.isAnnotBlock(b)) {
+                    for (AbsBk b: bls_) {
+                        if (!AbsBk.isAnnotBlock(b)) {
                             continue;
                         }
                         NamedCalledFunctionBlock a_ = (NamedCalledFunctionBlock) b;
@@ -216,8 +216,8 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
 
         RootBlock g_ = _page.getAnaClassBody(instancingAnnotContent.getClassName());
         StringMap<AnnotationFieldInfo> fields_ = new StringMap<AnnotationFieldInfo>();
-        for (Block b: ClassesUtil.getDirectChildren(g_)) {
-            if (!Block.isAnnotBlock(b)) {
+        for (AbsBk b: ClassesUtil.getDirectChildren(g_)) {
+            if (!AbsBk.isAnnotBlock(b)) {
                 continue;
             }
             NamedCalledFunctionBlock a_ = (NamedCalledFunctionBlock) b;

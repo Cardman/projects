@@ -3,7 +3,7 @@ package cards.belote;
 import cards.belote.enumerations.BidBelote;
 import cards.belote.enumerations.CardBelote;
 import cards.belote.enumerations.DealingBelote;
-import cards.consts.Status;
+import cards.consts.Role;
 import cards.consts.Suit;
 import code.util.CustList;
 import org.junit.Test;
@@ -80,7 +80,7 @@ public final class GameBeloteBeginTrickEqTest extends CommonGameBelote {
         GameBeloteTrickInfo info_ = newGameBeloteTrickInfo(g_);
         GameBeloteBeginTrick gbt_ = newGameBeloteBeginTrickDeal(g_,info_,team_,curHand_);
         BeloteInfoPliEnCours infoTr_ = gbt_.initInformations();
-        assertSame(Status.TAKER,gbt_.getCurrentStatus());
+        assertSame(Role.TAKER,gbt_.getCurrentStatus());
         assertSame(CardBelote.HEART_1, gbt_.playAsTaker(infoTr_));
     }
     @Test
@@ -117,7 +117,7 @@ public final class GameBeloteBeginTrickEqTest extends CommonGameBelote {
         GameBeloteTrickInfo info_ = newGameBeloteTrickInfo(g_);
         GameBeloteBeginTrick gbt_ = newGameBeloteBeginTrickDeal(g_,info_,team_,curHand_);
         BeloteInfoPliEnCours infoTr_ = gbt_.initInformations();
-        assertSame(Status.TAKER,gbt_.getCurrentStatus());
+        assertSame(Role.TAKER,gbt_.getCurrentStatus());
         assertSame(CardBelote.HEART_7, gbt_.playAsTaker(infoTr_));
     }
     @Test
@@ -165,7 +165,7 @@ public final class GameBeloteBeginTrickEqTest extends CommonGameBelote {
         GameBeloteTrickInfo info_ = newGameBeloteTrickInfo(g_);
         GameBeloteBeginTrick gbt_ = newGameBeloteBeginTrickDeal(g_,info_,team_,curHand_);
         BeloteInfoPliEnCours infoTr_ = gbt_.initInformations();
-        assertSame(Status.CALLED_PLAYER, gbt_.getCurrentStatus());
+        assertSame(Role.CALLED_PLAYER, gbt_.getCurrentStatus());
         assertSame(CardBelote.DIAMOND_10, gbt_.playAsCalledPlayer(infoTr_));
     }
     @Test
@@ -213,7 +213,7 @@ public final class GameBeloteBeginTrickEqTest extends CommonGameBelote {
         GameBeloteTrickInfo info_ = newGameBeloteTrickInfo(g_);
         GameBeloteBeginTrick gbt_ = newGameBeloteBeginTrickDeal(g_,info_,team_,curHand_);
         BeloteInfoPliEnCours infoTr_ = gbt_.initInformations();
-        assertSame(Status.CALLED_PLAYER, gbt_.getCurrentStatus());
+        assertSame(Role.CALLED_PLAYER, gbt_.getCurrentStatus());
         assertSame(CardBelote.SPADE_QUEEN, gbt_.playAsCalledPlayer(infoTr_));
     }
     @Test
@@ -261,7 +261,7 @@ public final class GameBeloteBeginTrickEqTest extends CommonGameBelote {
         GameBeloteTrickInfo info_ = newGameBeloteTrickInfo(g_);
         GameBeloteBeginTrick gbt_ = newGameBeloteBeginTrickDeal(g_,info_,team_,curHand_);
         BeloteInfoPliEnCours infoTr_ = gbt_.initInformations();
-        assertSame(Status.CALLED_PLAYER, gbt_.getCurrentStatus());
+        assertSame(Role.CALLED_PLAYER, gbt_.getCurrentStatus());
         assertSame(CardBelote.SPADE_KING, gbt_.playAsCalledPlayer(infoTr_));
     }
     @Test
@@ -309,7 +309,7 @@ public final class GameBeloteBeginTrickEqTest extends CommonGameBelote {
         GameBeloteTrickInfo info_ = newGameBeloteTrickInfo(g_);
         GameBeloteBeginTrick gbt_ = newGameBeloteBeginTrickDeal(g_,info_,team_,curHand_);
         BeloteInfoPliEnCours infoTr_ = gbt_.initInformations();
-        assertSame(Status.CALLED_PLAYER, gbt_.getCurrentStatus());
+        assertSame(Role.CALLED_PLAYER, gbt_.getCurrentStatus());
         assertSame(CardBelote.DIAMOND_KING, gbt_.playAsCalledPlayer(infoTr_));
     }
     @Test
@@ -357,7 +357,7 @@ public final class GameBeloteBeginTrickEqTest extends CommonGameBelote {
         GameBeloteTrickInfo info_ = newGameBeloteTrickInfo(g_);
         GameBeloteBeginTrick gbt_ = newGameBeloteBeginTrickDeal(g_,info_,team_,curHand_);
         BeloteInfoPliEnCours infoTr_ = gbt_.initInformations();
-        assertSame(Status.CALLED_PLAYER, gbt_.getCurrentStatus());
+        assertSame(Role.CALLED_PLAYER, gbt_.getCurrentStatus());
         assertSame(CardBelote.DIAMOND_KING, gbt_.playAsCalledPlayer(infoTr_));
     }
     @Test
@@ -400,7 +400,7 @@ public final class GameBeloteBeginTrickEqTest extends CommonGameBelote {
         GameBeloteTrickInfo info_ = newGameBeloteTrickInfo(g_);
         GameBeloteBeginTrick gbt_ = newGameBeloteBeginTrickDeal(g_,info_,team_,curHand_);
         BeloteInfoPliEnCours infoTr_ = gbt_.initInformations();
-        assertSame(Status.CALLED_PLAYER, gbt_.getCurrentStatus());
+        assertSame(Role.CALLED_PLAYER, gbt_.getCurrentStatus());
         assertSame(CardBelote.DIAMOND_1, gbt_.playAsCalledPlayer(infoTr_));
     }
     @Test
@@ -442,7 +442,7 @@ public final class GameBeloteBeginTrickEqTest extends CommonGameBelote {
         GameBeloteTrickInfo info_ = newGameBeloteTrickInfo(g_);
         GameBeloteBeginTrick gbt_ = newGameBeloteBeginTrickDeal(g_,info_,team_,curHand_);
         BeloteInfoPliEnCours infoTr_ = gbt_.initInformations();
-        assertSame(Status.CALLED_PLAYER, gbt_.getCurrentStatus());
+        assertSame(Role.CALLED_PLAYER, gbt_.getCurrentStatus());
         assertSame(CardBelote.DIAMOND_1, gbt_.playAsCalledPlayer(infoTr_));
     }
     @Test
@@ -480,7 +480,7 @@ public final class GameBeloteBeginTrickEqTest extends CommonGameBelote {
         GameBeloteTrickInfo info_ = newGameBeloteTrickInfo(g_);
         GameBeloteBeginTrick gbt_ = newGameBeloteBeginTrickDeal(g_,info_,team_,curHand_);
         BeloteInfoPliEnCours infoTr_ = gbt_.initInformations();
-        assertSame(Status.DEFENDER, gbt_.getCurrentStatus());
+        assertSame(Role.DEFENDER, gbt_.getCurrentStatus());
         assertSame(CardBelote.SPADE_1, gbt_.playAsDefender(infoTr_));
     }
     @Test
@@ -523,7 +523,7 @@ public final class GameBeloteBeginTrickEqTest extends CommonGameBelote {
         GameBeloteTrickInfo info_ = newGameBeloteTrickInfo(g_);
         GameBeloteBeginTrick gbt_ = newGameBeloteBeginTrickDeal(g_,info_,team_,curHand_);
         BeloteInfoPliEnCours infoTr_ = gbt_.initInformations();
-        assertSame(Status.DEFENDER, gbt_.getCurrentStatus());
+        assertSame(Role.DEFENDER, gbt_.getCurrentStatus());
         assertSame(CardBelote.SPADE_9, gbt_.playAsDefender(infoTr_));
     }
     @Test
@@ -566,7 +566,7 @@ public final class GameBeloteBeginTrickEqTest extends CommonGameBelote {
         GameBeloteTrickInfo info_ = newGameBeloteTrickInfo(g_);
         GameBeloteBeginTrick gbt_ = newGameBeloteBeginTrickDeal(g_,info_,team_,curHand_);
         BeloteInfoPliEnCours infoTr_ = gbt_.initInformations();
-        assertSame(Status.DEFENDER, gbt_.getCurrentStatus());
+        assertSame(Role.DEFENDER, gbt_.getCurrentStatus());
         assertSame(CardBelote.SPADE_QUEEN, gbt_.playAsDefender(infoTr_));
     }
     @Test
@@ -723,7 +723,7 @@ public final class GameBeloteBeginTrickEqTest extends CommonGameBelote {
         GameBeloteTrickInfo info_ = newGameBeloteTrickInfo(g_);
         GameBeloteBeginTrick gbt_ = newGameBeloteBeginTrickDeal(g_,info_,team_,curHand_);
         BeloteInfoPliEnCours infoTr_ = gbt_.initInformations();
-        assertSame(Status.DEFENDER, gbt_.getCurrentStatus());
+        assertSame(Role.DEFENDER, gbt_.getCurrentStatus());
         assertSame(CardBelote.SPADE_1, gbt_.entameSansAtoutToutAtout(infoTr_));
     }
 

@@ -6,7 +6,7 @@ import cards.belote.RulesBelote;
 import cards.belote.enumerations.*;
 import cards.consts.CoreResourcesAccess;
 import cards.consts.MixCardsChoice;
-import cards.consts.Status;
+import cards.consts.Role;
 import cards.consts.Suit;
 import code.bean.Bean;
 import code.format.Format;
@@ -72,7 +72,7 @@ abstract class BeloteBean extends Bean {
     protected static String toString(Suit _b, String _file) {
         return Format.getConstanteLangue(_file, CoreResourcesAccess.SUIT, _b.name());
     }
-    protected static String toString(Status _b, String _file) {
+    protected static String toString(Role _b, String _file) {
         return Format.getConstanteLangue(_file, CoreResourcesAccess.STATUS,_b.name());
     }
     protected static String toString(MixCardsChoice _b, String _file) {

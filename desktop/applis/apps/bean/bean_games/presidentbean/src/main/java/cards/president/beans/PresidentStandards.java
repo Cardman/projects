@@ -142,8 +142,8 @@ public final class PresidentStandards extends BeanNatLgNames {
     public ResultErrorStd getOtherResult(ContextEl _cont, ClassField _classField, Struct _instance) {
         ResultErrorStd res_ = new ResultErrorStd();
         String fieldName_ = _classField.getFieldName();
-        if (_instance instanceof LineDealStruct) {
-            LineDeal instance_ = ((LineDealStruct)_instance).getLineDeal();
+        if (_instance instanceof PresidentLineDealStruct) {
+            PresidentLineDeal instance_ = ((PresidentLineDealStruct)_instance).getLineDeal();
             if (StringUtil.quickEq(fieldName_, SCORES)) {
                 res_.setResult(getLongArray(instance_.getScores()));
                 return res_;
@@ -214,11 +214,11 @@ public final class PresidentStandards extends BeanNatLgNames {
         return res_;
     }
 
-    public static ArrayStruct getLineDealArray(CustList<LineDeal> _ls) {
+    public static ArrayStruct getLineDealArray(CustList<PresidentLineDeal> _ls) {
         ArrayStruct arr_ = new ArrayStruct(_ls.size(), StringExpUtil.getPrettyArrayType(TYPE_LINE_DEAL));
         int j_ = 0;
-        for (LineDeal s:_ls) {
-            arr_.set(j_,new LineDealStruct(s, TYPE_LINE_DEAL));
+        for (PresidentLineDeal s:_ls) {
+            arr_.set(j_,new PresidentLineDealStruct(s, TYPE_LINE_DEAL));
             j_++;
         }
         return arr_;
