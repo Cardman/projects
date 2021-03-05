@@ -270,16 +270,23 @@ public final class Polynom implements Displayable {
             v1_ = v2_;
             r1_ = r2_;
         }
-        if (_a.isZero()) {
-            u0_ = one();
+        u0_ = possibleSetZeroPol(_a, u0_);
+        v0_ = possibleSetZeroPol(_b, v0_);
+        return buildResult(_a, _b, r0_, u0_, v0_);
+    }
+
+    private static IdBezoutPol buildResult(Polynom _a, Polynom _b, Polynom _r0, Polynom _u0, Polynom _v0) {
+        if (_r0.isZero()) {
+            return new IdBezoutPol(_u0, _v0, _r0,zero());
         }
-        if (_b.isZero()) {
-            v0_ = one();
+        return new IdBezoutPol(_u0, _v0, _r0, _a.dividePolynom(_r0).multiplyPolynom(_b));
+    }
+
+    private static Polynom possibleSetZeroPol(Polynom _inPol, Polynom _foundPol) {
+        if (_inPol.isZero()) {
+            return one();
         }
-        if (r0_.isZero()) {
-            return new IdBezoutPol(u0_,v0_,r0_,zero());
-        }
-        return new IdBezoutPol(u0_,v0_,r0_,_a.dividePolynom(r0_).multiplyPolynom(_b));
+        return _foundPol;
     }
 
     public CustList<Polynom> factor() {

@@ -279,16 +279,23 @@ public final class LgInt implements Displayable {
             v1_ = v2_;
             r1_ = r2_;
         }
-        if (_a.isZero()) {
-            u0_ = one();
+        u0_ = possibleSetZero(_a, u0_);
+        v0_ = possibleSetZero(_b, v0_);
+        return buildResult(_a, _b, r0_, u0_, v0_);
+    }
+
+    private static IdBezoutNb buildResult(LgInt _a, LgInt _b, LgInt _r0, LgInt _u0, LgInt _v0) {
+        if (_r0.isZero()) {
+            return new IdBezoutNb(_u0, _v0, _r0,zero());
         }
-        if (_b.isZero()) {
-            v0_ = one();
+        return new IdBezoutNb(_u0, _v0, _r0,multiply(divide(_a, _r0), _b));
+    }
+
+    private static LgInt possibleSetZero(LgInt _in, LgInt _found) {
+        if (_in.isZero()) {
+            return one();
         }
-        if (r0_.isZero()) {
-            return new IdBezoutNb(u0_,v0_,r0_,zero());
-        }
-        return new IdBezoutNb(u0_,v0_,r0_,multiply(divide(_a, r0_), _b));
+        return _found;
     }
 
     public Decomposition decompoPrim() {
