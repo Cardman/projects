@@ -9,7 +9,7 @@ import aiki.game.fight.InitializationDataBase;
 
 public class EggValidationTest extends InitializationDataBase {
 
-    private static final String SEPARATOR = Character.toString(Egg.SEPARATOR);
+    private static final String SEPARATOR = ""+Egg.SEPARATOR;
 
     @Test
     public void isValid1Test() {
