@@ -49,6 +49,8 @@ public abstract class MaOperationNode {
 
     protected static final String DEN = "den";
 
+    protected static final String LG = "lg";
+
 //    protected static final String MIN = "min";
 //
 //    protected static final String MAX = "max";

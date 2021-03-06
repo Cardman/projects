@@ -47,6 +47,9 @@ public final class FctMaOperation extends MethodMaOperation {
         if (StringUtil.quickEq(DEN, _id)) {
             procDen(_error);
         }
+        if (StringUtil.quickEq(LG, _id)) {
+            procLg(_error);
+        }
     }
 
     private void procBinary(MaError _error, String _id) {
@@ -251,6 +254,20 @@ public final class FctMaOperation extends MethodMaOperation {
         }
         _error.setOffset(getIndexExp());
     }
+
+    private void procLg(MaError _error) {
+        CustList<MaStruct> list_ = tryGetAll();
+        if (list_.size() == 1) {
+            if (list_.first() instanceof MaBezoutNbStruct) {
+                setStruct(new MaRateStruct(new Rate(4)));
+                return;
+            }
+            setStruct(new MaRateStruct(new Rate(-1)));
+            return;
+        }
+        _error.setOffset(getIndexExp());
+    }
+
     CustList<MaRateStruct> tryGetRates() {
         CustList<MaRateStruct> rates_ = new CustList<MaRateStruct>();
         int len_ = getChildren().size();
@@ -262,6 +279,15 @@ public final class FctMaOperation extends MethodMaOperation {
         }
         return rates_;
     }
+    CustList<MaStruct> tryGetAll() {
+        CustList<MaStruct> rates_ = new CustList<MaStruct>();
+        int len_ = getChildren().size();
+        for (int i = 0; i < len_; i++) {
+            rates_.add(MaNumParsers.tryGet(this, i));
+        }
+        return rates_;
+    }
+
     @Override
     void calculate() {
         StrTypes vs_ = getOperats().getParts();
