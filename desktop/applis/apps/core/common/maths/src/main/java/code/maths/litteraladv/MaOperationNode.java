@@ -33,6 +33,46 @@ public abstract class MaOperationNode {
 
     protected static final String MOD = "mod";
 
+    protected static final String MODTAUX = "modtaux";
+
+    protected static final String SGN = "sgn";
+
+    protected static final String ABS = "abs";
+
+    protected static final String ENT = "ent";
+
+    protected static final String TRONC = "troncature";
+
+    protected static final String NUM = "num";
+
+    protected static final String DEN = "den";
+
+//    protected static final String MIN = "min";
+//
+//    protected static final String MAX = "max";
+//
+//    protected static final String MOY = "moy";
+//
+//    protected static final String VAR = "var";
+//
+//    protected static final String CARAC_FERME = "caracferme";
+//
+//    protected static final String CARAC_OUVERT = "caracouvert";
+//
+//    protected static final String CARAC_SEMI_OUVERT_G = "caracsemiouvertg";
+//
+//    protected static final String CARAC_SEMI_OUVERT_D = "caracsemiouvertd";
+//
+//    protected static final String CARAC_DROITE_OUVERT = "caracdroiteouvert";
+//
+//    protected static final String CARAC_DROITE_FERME = "caracdroiteferme";
+//
+//    protected static final String CARAC_GAUCHE_OUVERT = "caracgaucheouvert";
+//
+//    protected static final String CARAC_GAUCHE_FERME = "caracgaucheferme";
+//
+//    protected static final String DIV_FCT = "div";
+
     private final MethodMaOperation par;
 
     private MaOperationNode next;

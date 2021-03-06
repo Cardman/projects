@@ -211,7 +211,7 @@ public final class FctMbOperation extends InvokingMbOperation {
             Rate texteArg_= _chidren.first().getArgument().getRateVal();
             MbArgument arg_ = new MbArgument();
             arg_.setArgClass(MathType.RATE);
-            arg_.setObject(new Rate(texteArg_.getNumeratorCopy()));
+            arg_.setObject(new Rate(texteArg_.getNumerator()));
             setArgument(arg_);
             return;
         }
@@ -220,7 +220,7 @@ public final class FctMbOperation extends InvokingMbOperation {
             Rate texteArg_= _chidren.first().getArgument().getRateVal();
             MbArgument arg_ = new MbArgument();
             arg_.setArgClass(MathType.RATE);
-            arg_.setObject(new Rate(texteArg_.getDenominatorCopy()));
+            arg_.setObject(new Rate(texteArg_.getDenominator()));
             setArgument(arg_);
             return;
         }

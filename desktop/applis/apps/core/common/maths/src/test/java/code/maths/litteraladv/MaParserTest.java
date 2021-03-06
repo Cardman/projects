@@ -475,7 +475,94 @@ public final class MaParserTest extends EquallableMathUtil {
     public void evaluateExp116Test(){
         assertEq("#0", noVar("."));
     }
-
+    @Test
+    public void evaluateExp117Test(){
+        assertEq("1", noVar("abs(1)"));
+    }
+    @Test
+    public void evaluateExp118Test(){
+        assertEq("1", noVar("sgn(1)"));
+    }
+    @Test
+    public void evaluateExp119Test(){
+        assertEq("1", noVar("num(1)"));
+    }
+    @Test
+    public void evaluateExp120Test(){
+        assertEq("1", noVar("den(1)"));
+    }
+    @Test
+    public void evaluateExp121Test(){
+        assertEq("1", noVar("ent(1)"));
+    }
+    @Test
+    public void evaluateExp122Test(){
+        assertEq("1", noVar("troncature(1)"));
+    }
+    @Test
+    public void evaluateExp123Test(){
+        assertEq("0", noVar("modtaux(1,1)"));
+    }
+    @Test
+    public void evaluateExp124Test(){
+        assertEq("#0", noVar("modtaux(1,0)"));
+    }
+    @Test
+    public void evaluateExp125Test(){
+        assertEq("#0", noVar("abs(vrai())"));
+    }
+    @Test
+    public void evaluateExp126Test(){
+        assertEq("#0", noVar("sgn(vrai())"));
+    }
+    @Test
+    public void evaluateExp127Test(){
+        assertEq("#0", noVar("num(vrai())"));
+    }
+    @Test
+    public void evaluateExp128Test(){
+        assertEq("#0", noVar("den(vrai())"));
+    }
+    @Test
+    public void evaluateExp129Test(){
+        assertEq("#0", noVar("ent(vrai())"));
+    }
+    @Test
+    public void evaluateExp130Test(){
+        assertEq("#0", noVar("troncature(vrai())"));
+    }
+    @Test
+    public void evaluateExp131Test(){
+        assertEq("#0", noVar("modtaux(1,vrai())"));
+    }
+    @Test
+    public void evaluateExp132Test(){
+        assertEq("#0", noVar("abs(1,1)"));
+    }
+    @Test
+    public void evaluateExp133Test(){
+        assertEq("#0", noVar("sgn(1,1)"));
+    }
+    @Test
+    public void evaluateExp134Test(){
+        assertEq("#0", noVar("num(1,1)"));
+    }
+    @Test
+    public void evaluateExp135Test(){
+        assertEq("#0", noVar("den(1,1)"));
+    }
+    @Test
+    public void evaluateExp136Test(){
+        assertEq("#0", noVar("ent(1,1)"));
+    }
+    @Test
+    public void evaluateExp137Test(){
+        assertEq("#0", noVar("troncature(1,1)"));
+    }
+    @Test
+    public void evaluateExp138Test(){
+        assertEq("#0", noVar("modtaux(1)"));
+    }
     @Test
     public void nullVarTest(){
         assertEq("#", nullVar());
@@ -505,6 +592,8 @@ public final class MaParserTest extends EquallableMathUtil {
         m_.add(0,' ');
         assertEq(0,m_.ind());
         assertEq(' ',m_.oper());
+        assertNotNull(new Rate("1").getNumeratorCopy());
+        assertNotNull(new Rate("1").getDenominatorCopy());
     }
     private static String noVar(String _el) {
         return MaParser.processEl(_el, new CustList<Replacement>());

@@ -116,8 +116,14 @@ public final class MaParser {
         return "";
     }
 
-    private static StringList fcts() {
-        return new StringList("vrai","faux","puis","quot","mod");
+    static StringList fcts() {
+        return new StringList(MaOperationNode.TRUE_STRING,MaOperationNode.FALSE_STRING,
+                MaOperationNode.PUIS,
+                MaOperationNode.QUOT,
+                MaOperationNode.MOD,MaOperationNode.MODTAUX,
+                MaOperationNode.SGN,MaOperationNode.ABS,
+                MaOperationNode.ENT,MaOperationNode.TRONC,
+                MaOperationNode.NUM,MaOperationNode.DEN);
     }
     private static boolean koCoreRepl(Replacement _r) {
         return _r == null || StringUtil.nullToEmpty(_r.getOldString()).isEmpty() || StringUtil.nullToEmpty(_r.getNewString()).isEmpty();

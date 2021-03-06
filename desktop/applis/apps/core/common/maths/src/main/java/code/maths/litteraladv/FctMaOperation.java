@@ -19,27 +19,58 @@ public final class FctMaOperation extends MethodMaOperation {
     @Override
     void calculate(StringMap<MaStruct> _conf, MaError _error, MaDelimiters _del) {
         String id_ = aliasOrId();
-        if (StringUtil.quickEq(TRUE_STRING,id_)) {
-            procTrue(_error);
-            return;
-        }
-        if (StringUtil.quickEq(FALSE_STRING,id_)) {
-            procFalse(_error);
-            return;
-        }
-        if (StringUtil.quickEq(PUIS, id_)) {
-            procPower(_error);
-            return;
-        }
-        if (StringUtil.quickEq(QUOT, id_)) {
-            procQuot(_error);
-            return;
-        }
-        if (StringUtil.quickEq(MOD, id_)) {
-            procMod(_error);
+        if (StringUtil.contains(MaParser.fcts(),id_)) {
+            procUnary(_error, id_);
+            procBinary(_error, id_);
+            procTrFalse(_error, id_);
             return;
         }
         _error.setOffset(getIndexExp());
+    }
+
+    private void procUnary(MaError _error, String _id) {
+        if (StringUtil.quickEq(SGN, _id)) {
+            procSgn(_error);
+        }
+        if (StringUtil.quickEq(ABS, _id)) {
+            procAbs(_error);
+        }
+        if (StringUtil.quickEq(ENT, _id)) {
+            procEnt(_error);
+        }
+        if (StringUtil.quickEq(TRONC, _id)) {
+            procTroncature(_error);
+        }
+        if (StringUtil.quickEq(NUM, _id)) {
+            procNum(_error);
+        }
+        if (StringUtil.quickEq(DEN, _id)) {
+            procDen(_error);
+        }
+    }
+
+    private void procBinary(MaError _error, String _id) {
+        if (StringUtil.quickEq(PUIS, _id)) {
+            procPower(_error);
+        }
+        if (StringUtil.quickEq(QUOT, _id)) {
+            procQuot(_error);
+        }
+        if (StringUtil.quickEq(MOD, _id)) {
+            procMod(_error);
+        }
+        if (StringUtil.quickEq(MODTAUX, _id)) {
+            procModTaux(_error);
+        }
+    }
+
+    private void procTrFalse(MaError _error, String _id) {
+        if (StringUtil.quickEq(TRUE_STRING, _id)) {
+            procTrue(_error);
+        }
+        if (StringUtil.quickEq(FALSE_STRING, _id)) {
+            procFalse(_error);
+        }
     }
 
     private String aliasOrId() {
@@ -110,6 +141,95 @@ public final class FctMaOperation extends MethodMaOperation {
                 } else {
                     setStruct(new MaRateStruct(new Rate(LgInt.remain(quot_,div_))));
                 }
+                return;
+            }
+        }
+        _error.setOffset(getIndexExp());
+    }
+
+    private void procModTaux(MaError _error) {
+        if (getChildren().size() == 2) {
+            CustList<MaRateStruct> rates_ = tryGetRates();
+            if (rates_.size() == 2) {
+                Rate quot_= rates_.first().getRate();
+                Rate div_= rates_.last().getRate();
+                if (div_.isZero()) {
+                    _error.setOffset(getIndexExp());
+                } else {
+                    setStruct(new MaRateStruct(Rate.minus(quot_,Rate.multiply(new Rate(Rate.divide(quot_,div_).intPart()),div_))));
+                }
+                return;
+            }
+        }
+        _error.setOffset(getIndexExp());
+    }
+
+    private void procSgn(MaError _error) {
+        if (getChildren().size() == 1) {
+            CustList<MaRateStruct> rates_ = tryGetRates();
+            if (rates_.size() == 1) {
+                Rate nb_= rates_.first().getRate();
+                setStruct(new MaRateStruct(nb_.signum()));
+                return;
+            }
+        }
+        _error.setOffset(getIndexExp());
+    }
+
+    private void procAbs(MaError _error) {
+        if (getChildren().size() == 1) {
+            CustList<MaRateStruct> rates_ = tryGetRates();
+            if (rates_.size() == 1) {
+                Rate nb_= rates_.first().getRate();
+                setStruct(new MaRateStruct(nb_.absNb()));
+                return;
+            }
+        }
+        _error.setOffset(getIndexExp());
+    }
+
+    private void procEnt(MaError _error) {
+        if (getChildren().size() == 1) {
+            CustList<MaRateStruct> rates_ = tryGetRates();
+            if (rates_.size() == 1) {
+                Rate nb_= rates_.first().getRate();
+                setStruct(new MaRateStruct(new Rate(nb_.intPart())));
+                return;
+            }
+        }
+        _error.setOffset(getIndexExp());
+    }
+
+    private void procTroncature(MaError _error) {
+        if (getChildren().size() == 1) {
+            CustList<MaRateStruct> rates_ = tryGetRates();
+            if (rates_.size() == 1) {
+                Rate nb_= rates_.first().getRate();
+                setStruct(new MaRateStruct(new Rate(nb_.toLgInt())));
+                return;
+            }
+        }
+        _error.setOffset(getIndexExp());
+    }
+
+    private void procNum(MaError _error) {
+        if (getChildren().size() == 1) {
+            CustList<MaRateStruct> rates_ = tryGetRates();
+            if (rates_.size() == 1) {
+                Rate nb_= rates_.first().getRate();
+                setStruct(new MaRateStruct(new Rate(nb_.getNumerator())));
+                return;
+            }
+        }
+        _error.setOffset(getIndexExp());
+    }
+
+    private void procDen(MaError _error) {
+        if (getChildren().size() == 1) {
+            CustList<MaRateStruct> rates_ = tryGetRates();
+            if (rates_.size() == 1) {
+                Rate nb_= rates_.first().getRate();
+                setStruct(new MaRateStruct(new Rate(nb_.getDenominator())));
                 return;
             }
         }
