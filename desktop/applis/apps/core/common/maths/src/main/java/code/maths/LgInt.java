@@ -330,12 +330,16 @@ public final class LgInt implements Displayable {
         LgInt abs_=absNb();
         LgInt init_ = new LgInt(2);
         divs_.add(LgInt.one());
-        divs_.add(abs_);
+        if (!abs_.eq(LgInt.one())) {
+            divs_.add(abs_);
+        }
         while (!LgInt.strGreater(multiply(init_,init_), abs_)) {
             QuotModLgInt qr_ = abs_.divisionEuclidienneGeneralise(init_);
             if (qr_.getMod().isZero()) {
                 divs_.add(new LgInt(init_));
-                divs_.add(qr_.getQuot());
+                if (!init_.eq(qr_.getQuot())) {
+                    divs_.add(qr_.getQuot());
+                }
             }
             init_.increment();
         }
@@ -439,7 +443,7 @@ public final class LgInt implements Displayable {
         return loiProba_;
     }
 
-    static boolean eq(CustList<LgInt> _one, CustList<LgInt> _two) {
+    public static boolean eq(CustList<LgInt> _one, CustList<LgInt> _two) {
         if (_one.size() != _two.size()) {
             return false;
         }

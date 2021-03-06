@@ -53,6 +53,9 @@ public final class FctMaOperation extends MethodMaOperation {
         if (StringUtil.quickEq(PREM, _id)) {
             procPrem(_error);
         }
+        if (StringUtil.quickEq(DIVS, _id)) {
+            procDivs(_error);
+        }
     }
 
     private void procBinary(MaError _error, String _id) {
@@ -265,6 +268,10 @@ public final class FctMaOperation extends MethodMaOperation {
                 setStruct(new MaRateStruct(new Rate(4)));
                 return;
             }
+            if (list_.first() instanceof MaDividersNbStruct) {
+                setStruct(new MaRateStruct(new Rate(((MaDividersNbStruct)list_.first()).getDividers().size())));
+                return;
+            }
             setStruct(new MaRateStruct(new Rate(-1)));
             return;
         }
@@ -278,6 +285,20 @@ public final class FctMaOperation extends MethodMaOperation {
                 Rate nb_= rates_.first().getRate();
                 if (nb_.isInteger()) {
                     setStruct(MaBoolStruct.of(nb_.intPart().isPrime()));
+                    return;
+                }
+            }
+        }
+        _error.setOffset(getIndexExp());
+    }
+
+    private void procDivs(MaError _error) {
+        if (getChildren().size() == 1) {
+            CustList<MaRateStruct> rates_ = tryGetRates();
+            if (rates_.size() == 1) {
+                Rate nb_= rates_.first().getRate();
+                if (nb_.isInteger()) {
+                    setStruct(new MaDividersNbStruct(nb_.intPart().getDividers()));
                     return;
                 }
             }

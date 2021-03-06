@@ -1,8 +1,11 @@
 package code.maths.litteraladv;
 
 import code.maths.IdBezoutNb;
+import code.maths.LgInt;
 import code.maths.Rate;
+import code.util.CollCapacity;
 import code.util.CustList;
+import code.util.StringList;
 import code.util.core.StringUtil;
 
 public final class MaNumParsers {
@@ -22,6 +25,14 @@ public final class MaNumParsers {
             IdBezoutNb idBezout_ = ((MaBezoutNbStruct) _this).getIdBezout();
             return "("+idBezout_.getFirst().toNumberString()+","+idBezout_.getSecond().toNumberString()+","
                     +idBezout_.getPgcd().toNumberString()+","+idBezout_.getPpcm().toNumberString()+")";
+        }
+        if (_this instanceof MaDividersNbStruct) {
+            CustList<LgInt> divs_ = ((MaDividersNbStruct)_this).getDividers();
+            StringList list_ = new StringList(new CollCapacity(divs_.size()));
+            for (LgInt d: divs_) {
+                list_.add(d.toNumberString());
+            }
+            return "("+StringUtil.join(list_,",")+")";
         }
         return toRate(_this).getRate().toNumberString();
     }

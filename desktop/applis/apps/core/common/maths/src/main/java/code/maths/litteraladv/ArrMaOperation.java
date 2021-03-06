@@ -18,6 +18,10 @@ public final class ArrMaOperation extends MethodMaOperation {
             procArr((MaBezoutNbStruct)values_.first(),(MaRateStruct)values_.get(1),_error);
             return;
         }
+        if (values_.size() == 2 && values_.first() instanceof MaDividersNbStruct && values_.get(1) instanceof MaRateStruct && ((MaRateStruct)values_.get(1)).getRate().isInteger()) {
+            procDivs((MaDividersNbStruct)values_.first(),(MaRateStruct)values_.get(1),_error);
+            return;
+        }
         _error.setOffset(getIndexExp());
     }
     private void procArr(MaBezoutNbStruct _bezout,MaRateStruct _index, MaError _error) {
@@ -39,6 +43,19 @@ public final class ArrMaOperation extends MethodMaOperation {
         }
         if (new LgInt(3).eq(lgInt_)) {
             setStruct(new MaRateStruct(new Rate(_bezout.getIdBezout().getPpcm())));
+            return;
+        }
+        _error.setOffset(getIndexExp());
+    }
+    private void procDivs(MaDividersNbStruct _divs,MaRateStruct _index, MaError _error) {
+        LgInt lgInt_ = _index.getRate().intPart();
+        CustList<LgInt> dividers_ = _divs.getDividers();
+        int len_ = dividers_.size();
+        if (!lgInt_.isZeroOrGt()) {
+            lgInt_.addNb(new LgInt(len_));
+        }
+        if (lgInt_.isZeroOrGt() && LgInt.strLower(lgInt_,new LgInt(len_))) {
+            setStruct(new MaRateStruct(new Rate(dividers_.get((int) lgInt_.ll()))));
             return;
         }
         _error.setOffset(getIndexExp());

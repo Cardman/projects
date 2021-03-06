@@ -53,6 +53,8 @@ public abstract class MaOperationNode {
 
     protected static final String PREM = "prem";
 
+    protected static final String DIVS = "divs";
+
 //    protected static final String MIN = "min";
 //
 //    protected static final String MAX = "max";

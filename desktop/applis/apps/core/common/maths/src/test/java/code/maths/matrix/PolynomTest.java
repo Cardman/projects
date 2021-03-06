@@ -762,6 +762,188 @@ public class PolynomTest extends EquallableMathUtil {
         assertEq(0, roots_.size());
     }
     @Test
+    public void racines16Test() {
+        Polynom a_ = new Polynom();
+        a_.add(new Rate(1));
+        a_.add(new Rate(4));
+        a_.add(new Rate(4));
+        CustList<RootPol> roots_ = a_.racines();
+        assertEq(1, roots_.size());
+        assertEq(new Rate(-2), roots_.first().getValue());
+        assertEq(2, roots_.first().getDegree());
+    }
+    @Test
+    public void racines17Test() {
+        Polynom a_ = new Polynom();
+        a_.add(new Rate(1));
+        a_.add(new Rate(0));
+        a_.add(new Rate(-4));
+        CustList<RootPol> roots_ = a_.racines();
+        assertEq(2, roots_.size());
+        assertEq(new Rate(-2), roots_.first().getValue());
+        assertEq(1, roots_.first().getDegree());
+        assertEq(new Rate(2), roots_.last().getValue());
+        assertEq(1, roots_.last().getDegree());
+    }
+    @Test
+    public void racines18Test() {
+        Polynom a_ = new Polynom();
+        a_.add(new Rate(1));
+        a_.add(new Rate(6));
+        a_.add(new Rate(12));
+        a_.add(new Rate(8));
+        CustList<RootPol> roots_ = a_.racines();
+        assertEq(1, roots_.size());
+        assertEq(new Rate(-2), roots_.first().getValue());
+        assertEq(3, roots_.first().getDegree());
+    }
+
+    @Test
+    public void racines19Test() {
+        Polynom a_ = new Polynom();
+        a_.add(new Rate(1));
+        a_.add(new Rate(2));
+        a_.add(new Rate(-4));
+        a_.add(new Rate(-8));
+        CustList<RootPol> roots_ = a_.racines();
+        assertEq(2, roots_.size());
+        assertEq(new Rate(-2), roots_.first().getValue());
+        assertEq(2, roots_.first().getDegree());
+        assertEq(new Rate(2), roots_.last().getValue());
+        assertEq(1, roots_.last().getDegree());
+    }
+    @Test
+    public void racines20Test() {
+        Polynom a_ = new Polynom();
+        a_.add(new Rate(1));
+        a_.add(new Rate(0));
+        a_.add(new Rate(-8));
+        a_.add(new Rate(0));
+        a_.add(new Rate(16));
+        CustList<RootPol> roots_ = a_.racines();
+        assertEq(2, roots_.size());
+        assertEq(new Rate(-2), roots_.first().getValue());
+        assertEq(2, roots_.first().getDegree());
+        assertEq(new Rate(2), roots_.last().getValue());
+        assertEq(2, roots_.last().getDegree());
+    }
+    @Test
+    public void racines21Test() {
+        Polynom a_ = new Polynom();
+        a_.add(new Rate(1));
+        a_.add(new Rate(0));
+        a_.add(new Rate(4));
+        a_.add(new Rate(0));
+        a_.add(new Rate(16));
+        CustList<RootPol> roots_ = a_.racines();
+        assertEq(0, roots_.size());
+    }
+    @Test
+    public void racines22Test() {
+        Polynom a_ = new Polynom();
+        a_.add(new Rate(1));
+        a_.add(new Rate(-2));
+        a_.add(new Rate(-4));
+        a_.add(new Rate(8));
+        CustList<RootPol> roots_ = a_.racines();
+        assertEq(2, roots_.size());
+        assertEq(new Rate(-2), roots_.first().getValue());
+        assertEq(1, roots_.first().getDegree());
+        assertEq(new Rate(2), roots_.last().getValue());
+        assertEq(2, roots_.last().getDegree());
+    }
+    @Test
+    public void racines23Test() {
+        Polynom a_ = new Polynom();
+        a_.add(new Rate(1));
+        a_.add(new Rate(-4));
+        a_.add(new Rate(4));
+        CustList<RootPol> roots_ = a_.racines();
+        assertEq(1, roots_.size());
+        assertEq(new Rate(2), roots_.first().getValue());
+        assertEq(2, roots_.first().getDegree());
+    }
+    @Test
+    public void racines24Test() {
+        Polynom a_ = new Polynom();
+        a_.add(new Rate(1));
+        a_.add(new Rate(0));
+        a_.add(new Rate(0));
+        a_.add(new Rate(0));
+        a_.add(new Rate(-16));
+        CustList<RootPol> roots_ = a_.racines();
+        assertEq(2, roots_.size());
+        assertEq(new Rate(-2), roots_.first().getValue());
+        assertEq(1, roots_.first().getDegree());
+        assertEq(new Rate(2), roots_.last().getValue());
+        assertEq(1, roots_.last().getDegree());
+    }
+    @Test
+    public void racines25Test() {
+        Polynom a_ = new Polynom();
+        a_.add(new Rate(1));
+        a_.add(new Rate(-2));
+        CustList<RootPol> roots_ = a_.racines();
+        assertEq(1, roots_.size());
+        assertEq(new Rate(2), roots_.first().getValue());
+        assertEq(1, roots_.first().getDegree());
+    }
+    @Test
+    public void racines26Test() {
+        Polynom a_ = new Polynom();
+        a_.add(new Rate(1));
+        a_.add(new Rate(2));
+        CustList<RootPol> roots_ = a_.racines();
+        assertEq(1, roots_.size());
+        assertEq(new Rate(-2), roots_.first().getValue());
+        assertEq(1, roots_.first().getDegree());
+    }
+    @Test
+    public void racines27Test() {
+        Polynom a_ = new Polynom();
+        a_.add(new Rate(1));
+        a_.add(new Rate(2));
+        a_.add(new Rate(0));
+        CustList<RootPol> roots_ = a_.racines();
+        assertEq(2, roots_.size());
+        assertEq(new Rate(0), roots_.first().getValue());
+        assertEq(1, roots_.first().getDegree());
+        assertEq(new Rate(-2), roots_.last().getValue());
+        assertEq(1, roots_.last().getDegree());
+    }
+    @Test
+    public void racines28Test() {
+        Polynom a_ = new Polynom();
+        a_.add(new Rate(1));
+        a_.add(new Rate(2));
+        a_.add(new Rate(0));
+        a_.add(new Rate(0));
+        CustList<RootPol> roots_ = a_.racines();
+        assertEq(2, roots_.size());
+        assertEq(new Rate(0), roots_.first().getValue());
+        assertEq(2, roots_.first().getDegree());
+        assertEq(new Rate(-2), roots_.last().getValue());
+        assertEq(1, roots_.last().getDegree());
+    }
+    @Test
+    public void racines29Test() {
+        Polynom a_ = new Polynom();
+        a_.add(new Rate(1));
+        a_.add(new Rate(0));
+        a_.add(new Rate(-4));
+        a_.add(new Rate(0));
+        a_.add(new Rate(0));
+        CustList<RootPol> roots_ = a_.racines();
+        assertEq(3, roots_.size());
+        assertEq(new Rate(0), roots_.first().getValue());
+        assertEq(2, roots_.first().getDegree());
+        assertEq(new Rate(-2), roots_.get(1).getValue());
+        assertEq(1, roots_.get(1).getDegree());
+        assertEq(new Rate(2), roots_.last().getValue());
+        assertEq(1, roots_.last().getDegree());
+    }
+
+    @Test
     public void interpolation1Test() {
         CustList<RateImage> l_ = new CustList<RateImage>();
         l_.add(new RateImage(new Rate(-1), new Rate(0)));

@@ -22,7 +22,7 @@ public class MaBezoutNbStruct implements MaStruct {
         if (!(_other instanceof MaBezoutNbStruct)) {
             return false;
         }
-        IdBezoutNb oth_ = ((MaBezoutNbStruct) _other).getIdBezout();
+        IdBezoutNb oth_ = ((MaBezoutNbStruct) _other).idBezout;
         return _this.idBezout.getFirst().eq(oth_.getFirst())
                 && _this.idBezout.getSecond().eq(oth_.getSecond())
                 && _this.idBezout.getPgcd().eq(oth_.getPgcd())

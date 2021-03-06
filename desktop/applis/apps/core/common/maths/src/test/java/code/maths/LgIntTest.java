@@ -2521,6 +2521,22 @@ public class LgIntTest extends EquallableMathUtil {
         assertEq(0, div_.size());
     }
     @Test
+    public void getDividers3Test() {
+        LgInt int_ = new LgInt(1);
+        CustList<LgInt> div_ = int_.getDividers();
+        assertEq(1, div_.size());
+        assertEq(new LgInt(1), div_.get(0));
+    }
+    @Test
+    public void getDividers4Test() {
+        LgInt int_ = new LgInt(4);
+        CustList<LgInt> div_ = int_.getDividers();
+        assertEq(3, div_.size());
+        assertEq(new LgInt(1), div_.get(0));
+        assertEq(new LgInt(4), div_.get(1));
+        assertEq(new LgInt(2), div_.get(2));
+    }
+    @Test
     public void inRange1(){
         assertTrue(new LgInt(2).inRange(new LgInt(1),new LgInt(3)));
     }
