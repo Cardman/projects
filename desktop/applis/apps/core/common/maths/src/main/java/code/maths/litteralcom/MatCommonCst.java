@@ -13,6 +13,8 @@ public final class MatCommonCst {
     public static final char DOT = '.';
     public static final char PAR_LEFT = '(';
     public static final char PAR_RIGHT = ')';
+    public static final char ARR_LEFT = '[';
+    public static final char ARR_RIGHT = ']';
     public static final char SEP_ARG = ',';
     public static final char NEG_BOOL_CHAR = '!';
     public static final char MULT_CHAR= '*';

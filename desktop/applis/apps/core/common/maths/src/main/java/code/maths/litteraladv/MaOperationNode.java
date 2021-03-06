@@ -158,6 +158,9 @@ public abstract class MaOperationNode {
 
     private static MethodMaOperation procFct(int _index, int _indexChild, MethodMaOperation _m, MaOperationsSequence _op, StringMap<String> _mapping) {
         if (_op.getFct().trim().isEmpty()) {
+            if (StringUtil.quickEq(_op.getOpers().firstValue(),"[")) {
+                return new ArrMaOperation(_index, _indexChild, _m, _op);
+            }
             return new IdMaOperation(_index, _indexChild, _m, _op);
         }
         return new FctMaOperation(_index, _indexChild, _m, _op, _mapping);

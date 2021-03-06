@@ -297,11 +297,18 @@ public final class MaParser {
             return;
         }
         MaStackOperators s_ = _m.getStack();
-        if (curChar_ == MatCommonCst.PAR_LEFT) {
-            s_.add(_m.getIndex(),MatCommonCst.PAR_LEFT);
-        }
+        processLeftDel(_m, curChar_, s_, MatCommonCst.PAR_LEFT);
+        processLeftDel(_m, curChar_, s_, MatCommonCst.ARR_LEFT);
         if (curChar_ == MatCommonCst.PAR_RIGHT) {
-            if (s_.empty()) {
+            if (misMatchDel(s_, MatCommonCst.PAR_LEFT)) {
+                _error.setOffset(_m.getIndex());
+                _m.setIndex(_len);
+                return;
+            }
+            s_.remove();
+        }
+        if (curChar_ == MatCommonCst.ARR_RIGHT) {
+            if (misMatchDel(s_, MatCommonCst.ARR_LEFT)) {
                 _error.setOffset(_m.getIndex());
                 _m.setIndex(_len);
                 return;
@@ -316,14 +323,23 @@ public final class MaParser {
         _m.setIndex(procOper(_d, _m.getIndex(), curChar_));
     }
 
+    private static void processLeftDel(MathState _m, char _curChar, MaStackOperators _s, char _left) {
+        if (_curChar == _left) {
+            _s.add(_m.getIndex(), _left);
+        }
+    }
+
+    private static boolean misMatchDel(MaStackOperators _s, char _left) {
+        return _s.empty() || _s.oper() != _left;
+    }
+
     private static boolean charIsDig(String _string, MathState _m) {
         int index_ = _m.getIndex() + 1;
         return index_ < _string.length() && MathExpUtil.isDigit(_string.charAt(index_));
     }
     private static MaDelimiters redirect(MaError _error, MathState _state, MaDelimiters _d) {
-        if (!_state.getStack().empty()) {
+        if (!_state.getStack().empty() && _error.getOffset() < 0) {
             _error.setOffset(_state.getIndex());
-            return _d;
         }
         return _d;
     }

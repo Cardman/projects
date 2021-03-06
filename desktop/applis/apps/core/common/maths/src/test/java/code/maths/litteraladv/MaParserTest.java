@@ -615,7 +615,74 @@ public final class MaParserTest extends EquallableMathUtil {
     public void evaluateExp151Test(){
         assertEq("#0", noVar("lg()"));
     }
-
+    @Test
+    public void evaluateExp152Test(){
+        assertEq("-1", noVar("bezout(5,3)[-4]"));
+    }
+    @Test
+    public void evaluateExp153Test(){
+        assertEq("2", noVar("bezout(5,3)[-3]"));
+    }
+    @Test
+    public void evaluateExp154Test(){
+        assertEq("1", noVar("bezout(5,3)[-2]"));
+    }
+    @Test
+    public void evaluateExp155Test(){
+        assertEq("15", noVar("bezout(5,3)[-1]"));
+    }
+    @Test
+    public void evaluateExp156Test(){
+        assertEq("-1", noVar("bezout(5,3)[0]"));
+    }
+    @Test
+    public void evaluateExp157Test(){
+        assertEq("2", noVar("bezout(5,3)[1]"));
+    }
+    @Test
+    public void evaluateExp158Test(){
+        assertEq("1", noVar("bezout(5,3)[2]"));
+    }
+    @Test
+    public void evaluateExp159Test(){
+        assertEq("15", noVar("bezout(5,3)[3]"));
+    }
+    @Test
+    public void evaluateExp160Test(){
+        assertEq("#0", noVar("bezout(5,3)[4]"));
+    }
+    @Test
+    public void evaluateExp161Test(){
+        assertEq("#0", noVar("bezout(5,3)[-5]"));
+    }
+    @Test
+    public void evaluateExp162Test(){
+        assertEq("#0", noVar("bezout(5,3)[1/2]"));
+    }
+    @Test
+    public void evaluateExp163Test(){
+        assertEq("#0", noVar("vrai()[0]"));
+    }
+    @Test
+    public void evaluateExp164Test(){
+        assertEq("#0", noVar("bezout(5,3)[1,2]"));
+    }
+    @Test
+    public void evaluateExp165Test(){
+        assertEq("#13", noVar("bezout(5,3)[0)"));
+    }
+    @Test
+    public void evaluateExp166Test(){
+        assertEq("#10", noVar("bezout(5,3]"));
+    }
+    @Test
+    public void evaluateExp167Test(){
+        assertEq("-1", noVar("bezout(5,3)[bezout(5,3)[0]+1]"));
+    }
+    @Test
+    public void evaluateExp168Test(){
+        assertEq("#0", noVar("bezout(5,3)[vrai()]"));
+    }
     @Test
     public void nullVarTest(){
         assertEq("#", nullVar());

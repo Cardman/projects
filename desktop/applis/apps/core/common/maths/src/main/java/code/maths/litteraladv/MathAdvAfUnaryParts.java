@@ -39,12 +39,20 @@ public final class MathAdvAfUnaryParts {
             }
             dels.add(current,curChar_);
         }
-        if (curChar_ == MatCommonCst.SEP_ARG && dels.nb() == 1 && prio == MatCommonCst.FCT_OPER_PRIO) {
+        if (comma(curChar_)) {
             opers.addEntry(current, Character.toString(MatCommonCst.SEP_ARG));
         }
-        if (curChar_ == MatCommonCst.PAR_RIGHT) {
-            procParRight();
+        if (rightDel(curChar_)) {
+            procRight(curChar_);
             return;
+        }
+        if (curChar_ == MatCommonCst.ARR_LEFT) {
+            if (delFct()) {
+                fct = "";
+                opers.clear();
+                opers.addEntry(current, "[");
+            }
+            dels.add(current, curChar_);
         }
         if (!dels.empty()) {
             current++;
@@ -53,10 +61,18 @@ public final class MathAdvAfUnaryParts {
         procNumOps(_string, curChar_);
     }
 
-    private void procParRight() {
+    private boolean comma(char _curChar) {
+        return _curChar == MatCommonCst.SEP_ARG && dels.nb() == 1 && prio == MatCommonCst.FCT_OPER_PRIO;
+    }
+
+    private static boolean rightDel(char _curChar) {
+        return _curChar == MatCommonCst.PAR_RIGHT || _curChar == MatCommonCst.ARR_RIGHT;
+    }
+
+    private void procRight(char _rightPart) {
         dels.remove();
         if (delFct()) {
-            opers.addEntry(current, Character.toString(MatCommonCst.PAR_RIGHT));
+            opers.addEntry(current, Character.toString(_rightPart));
         }
         current++;
     }
