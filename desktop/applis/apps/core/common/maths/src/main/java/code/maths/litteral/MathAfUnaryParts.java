@@ -1,5 +1,7 @@
 package code.maths.litteral;
 
+import code.maths.litteralcom.MatCommonCst;
+import code.maths.litteralcom.StrTypes;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 
@@ -7,14 +9,14 @@ class MathAfUnaryParts {
 
     private final StrTypes operators = new StrTypes();
     private int parsBrackets;
-    private int prio = MathResolver.FCT_OPER_PRIO;
+    private int prio = MatCommonCst.FCT_OPER_PRIO;
     private int index;
     private String fctName = "";
     MathAfUnaryParts(String _string, int _index, int _lastPrintChar) {
         index = _index;
         String opUn_ = Character.toString(_string.charAt(_index));
         if (areUnary(_string, _index)) {
-            prio = MathResolver.UNARY_PRIO;
+            prio = MatCommonCst.UNARY_PRIO;
             operators.addEntry(_index, opUn_);
             index = incrementUnary(_string, _index + 1, _lastPrintChar);
         }
@@ -28,18 +30,18 @@ class MathAfUnaryParts {
             return;
         }
 
-        if (curChar_ == MathResolver.PAR_LEFT) {
+        if (curChar_ == MatCommonCst.PAR_LEFT) {
             if (delFct()) {
                 fctName = _string.substring(IndexConstants.FIRST_INDEX, index);
                 operators.clear();
-                operators.addEntry(index, Character.toString(MathResolver.PAR_LEFT));
+                operators.addEntry(index, Character.toString(MatCommonCst.PAR_LEFT));
             }
             parsBrackets++;
         }
-        if (curChar_ == MathResolver.SEP_ARG && parsBrackets == 1 && prio == MathResolver.FCT_OPER_PRIO) {
-            operators.addEntry(index, Character.toString(MathResolver.SEP_ARG));
+        if (curChar_ == MatCommonCst.SEP_ARG && parsBrackets == 1 && prio == MatCommonCst.FCT_OPER_PRIO) {
+            operators.addEntry(index, Character.toString(MatCommonCst.SEP_ARG));
         }
-        if (curChar_ == MathResolver.PAR_RIGHT) {
+        if (curChar_ == MatCommonCst.PAR_RIGHT) {
             procParRight();
             return;
         }
@@ -53,13 +55,13 @@ class MathAfUnaryParts {
     private void procParRight() {
         parsBrackets--;
         if (delFct()) {
-            operators.addEntry(index, Character.toString(MathResolver.PAR_RIGHT));
+            operators.addEntry(index, Character.toString(MatCommonCst.PAR_RIGHT));
         }
         index++;
     }
 
     private boolean delFct() {
-        return parsBrackets==0 && prio == MathResolver.FCT_OPER_PRIO;
+        return parsBrackets==0 && prio == MatCommonCst.FCT_OPER_PRIO;
     }
 
     private void procNumOps(String _string, char _curChar) {
@@ -69,18 +71,18 @@ class MathAfUnaryParts {
         int increment_ = 1;
         if (cmpEq(_curChar)) {
             builtOperator_.append(_curChar);
-            if (_curChar == MathResolver.NEG_BOOL_CHAR && index + 1 < _string.length()) {
+            if (_curChar == MatCommonCst.NEG_BOOL_CHAR && index + 1 < _string.length()) {
                 char nextChar_ = _string.charAt(index + 1);
-                if (nextChar_ == MathResolver.EQ_CHAR) {
-                    builtOperator_.append(MathResolver.EQ_CHAR);
+                if (nextChar_ == MatCommonCst.EQ_CHAR) {
+                    builtOperator_.append(MatCommonCst.EQ_CHAR);
                     increment_++;
                 }
             }
-            if (prio > MathResolver.EQ_PRIO) {
+            if (prio > MatCommonCst.EQ_PRIO) {
                 clearOperators_ = true;
-                prio = MathResolver.EQ_PRIO;
+                prio = MatCommonCst.EQ_PRIO;
             }
-            if (prio == MathResolver.EQ_PRIO) {
+            if (prio == MatCommonCst.EQ_PRIO) {
                 foundOperator_ = true;
             }
         }
@@ -102,15 +104,15 @@ class MathAfUnaryParts {
         }
         if (cmp(_curChar)) {
             _builtOperator.append(_curChar);
-            if (prio > MathResolver.CMP_PRIO) {
+            if (prio > MatCommonCst.CMP_PRIO) {
                 clearOperators_ = true;
-                prio = MathResolver.CMP_PRIO;
+                prio = MatCommonCst.CMP_PRIO;
             }
-            if (prio == MathResolver.CMP_PRIO) {
+            if (prio == MatCommonCst.CMP_PRIO) {
                 foundOperator_ = true;
             }
             char nextChar_ = _string.charAt(index + 1);
-            if (nextChar_ == MathResolver.EQ_CHAR) {
+            if (nextChar_ == MatCommonCst.EQ_CHAR) {
                 _builtOperator.append(nextChar_);
                 increment_++;
             }
@@ -119,11 +121,11 @@ class MathAfUnaryParts {
     }
 
     private static boolean cmpEq(char _curChar) {
-        return _curChar == MathResolver.NEG_BOOL_CHAR || _curChar == MathResolver.EQ_CHAR;
+        return _curChar == MatCommonCst.NEG_BOOL_CHAR || _curChar == MatCommonCst.EQ_CHAR;
     }
 
     private static boolean cmp(char _curChar) {
-        return _curChar == MathResolver.LOWER_CHAR || _curChar == MathResolver.GREATER_CHAR;
+        return _curChar == MatCommonCst.LOWER_CHAR || _curChar == MatCommonCst.GREATER_CHAR;
     }
 
     private void reducePrio(int _prioOpMult) {
@@ -144,29 +146,17 @@ class MathAfUnaryParts {
     }
 
     private static boolean areUnary(String _string, int _i) {
-        return _string.charAt(_i) == MathResolver.MINUS_CHAR || _string.charAt(_i) == MathResolver.PLUS_CHAR || _string.charAt(_i) == MathResolver.NEG_BOOL_CHAR;
+        return _string.charAt(_i) == MatCommonCst.MINUS_CHAR || _string.charAt(_i) == MatCommonCst.PLUS_CHAR || _string.charAt(_i) == MatCommonCst.NEG_BOOL_CHAR;
     }
 
     private static int getPrio(char _curChar) {
-        int prioOpMult_ = 0;
-        if (_curChar == MathResolver.MINUS_CHAR || _curChar == MathResolver.PLUS_CHAR) {
-            prioOpMult_ = MathResolver.ADD_PRIO;
-        } else if (_curChar == MathResolver.MULT_CHAR || _curChar == MathResolver.DIV_CHAR) {
-            prioOpMult_ = MathResolver.MULT_PRIO;
-        } else if (_curChar == MathResolver.AND_CHAR) {
-            prioOpMult_ = MathResolver.AND_PRIO;
-        } else {
-            if (_curChar == MathResolver.OR_CHAR) {
-                prioOpMult_ = MathResolver.OR_PRIO;
-            }
-        }
-        return prioOpMult_;
+        return MatCommonCst.getPrio(_curChar);
     }
     private static int incrementUnary(String _string, int _from, int _to) {
         int j_ = _from;
         while (j_ <= _to) {
             char ch_ = _string.charAt(j_);
-            if (ch_ != MathResolver.MINUS_CHAR && ch_ != MathResolver.PLUS_CHAR && ch_ != MathResolver.NEG_BOOL_CHAR && !StringUtil.isWhitespace(ch_)) {
+            if (ch_ != MatCommonCst.MINUS_CHAR && ch_ != MatCommonCst.PLUS_CHAR && ch_ != MatCommonCst.NEG_BOOL_CHAR && !StringUtil.isWhitespace(ch_)) {
                 break;
             }
             j_++;

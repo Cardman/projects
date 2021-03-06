@@ -10,7 +10,7 @@ import java.net.SocketException;
 import java.net.UnknownHostException;
 import java.util.Collections;
 
-import code.maths.litteral.MathExpUtil;
+import code.maths.litteralcom.MathExpUtil;
 import code.network.enums.IpType;
 import code.stream.StreamTextFile;
 import code.util.CustList;

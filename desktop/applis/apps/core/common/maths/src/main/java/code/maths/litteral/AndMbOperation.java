@@ -1,5 +1,7 @@
 package code.maths.litteral;
 
+import code.maths.litteralcom.StrTypes;
+
 public final class AndMbOperation extends QuickMbOperation {
 
     public AndMbOperation(int _index,

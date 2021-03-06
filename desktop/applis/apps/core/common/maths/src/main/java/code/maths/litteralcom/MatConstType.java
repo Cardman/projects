@@ -1,6 +1,6 @@
-package code.maths.litteral;
+package code.maths.litteralcom;
 
-public enum MbConstType {
+public enum MatConstType {
     NUMBER,
     STRING,
     LOC_VAR,

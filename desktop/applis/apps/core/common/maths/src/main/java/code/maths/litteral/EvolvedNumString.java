@@ -1,5 +1,6 @@
 package code.maths.litteral;
 import code.maths.Rate;
+import code.maths.litteralcom.MathExpUtil;
 import code.util.StringMap;
 
 public final class EvolvedNumString {

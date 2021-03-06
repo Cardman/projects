@@ -1,4 +1,5 @@
 package code.maths.litteral;
+import code.maths.litteralcom.StrTypes;
 import code.util.CustList;
 
 public abstract class MethodMbOperation extends MbOperationNode {
@@ -10,7 +11,6 @@ public abstract class MethodMbOperation extends MbOperationNode {
     protected MethodMbOperation(int _index, int _indexChild, MethodMbOperation _m, MbOperationsSequence _op) {
         super(_index, _indexChild, _m, _op);
         children = new StrTypes();
-        calculateChildren();
     }
 
     final CustList<MbOperationNode> getChildrenNodes() {

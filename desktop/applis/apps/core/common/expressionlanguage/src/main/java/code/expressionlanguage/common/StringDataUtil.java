@@ -1,6 +1,6 @@
 package code.expressionlanguage.common;
 
-import code.maths.litteral.MathExpUtil;
+import code.maths.litteralcom.MathExpUtil;
 import code.util.core.IndexConstants;
 import code.util.core.NumberUtil;
 

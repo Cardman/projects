@@ -1,6 +1,6 @@
 package code.expressionlanguage.exec.types;
 
-import code.maths.litteral.StrTypes;
+import code.maths.litteralcom.StrTypes;
 import code.expressionlanguage.types.KindPartType;
 import code.util.CustList;
 import code.util.core.StringUtil;

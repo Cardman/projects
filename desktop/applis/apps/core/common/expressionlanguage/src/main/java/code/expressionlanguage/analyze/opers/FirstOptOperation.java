@@ -6,9 +6,8 @@ import code.expressionlanguage.analyze.opers.util.MethodInfo;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
-import code.maths.litteral.StrTypes;
+import code.maths.litteralcom.StrTypes;
 import code.util.CustList;
-import code.util.*;
 
 public final class FirstOptOperation extends AbstractUnaryOperation {
 

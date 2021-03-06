@@ -1,6 +1,6 @@
 package code.expressionlanguage.common;
 
-import code.maths.litteral.AbstractWordSplit;
+import code.maths.litteralcom.AbstractWordSplit;
 
 public final class AdvWordSplit extends AbstractWordSplit {
     @Override

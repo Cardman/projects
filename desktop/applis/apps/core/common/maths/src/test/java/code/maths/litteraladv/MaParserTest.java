@@ -1,0 +1,552 @@
+package code.maths.litteraladv;
+
+import code.maths.EquallableMathUtil;
+import code.maths.Rate;
+import code.util.CustList;
+import code.util.Replacement;
+import code.util.StringList;
+import code.util.StringMap;
+import org.junit.Test;
+
+public final class MaParserTest extends EquallableMathUtil {
+    @Test
+    public void evaluateExp1Test(){
+        assertEq("1", noVar("1"));
+    }
+    @Test
+    public void evaluateExp2Test(){
+        assertEq("-1", noVar("-1"));
+    }
+    @Test
+    public void evaluateExp3Test(){
+        assertEq("1/2", noVar("1/2"));
+    }
+    @Test
+    public void evaluateExp4Test(){
+        assertEq("-1/2", noVar("-1/2"));
+    }
+    @Test
+    public void evaluateExp5Test(){
+        assertEq("3", noVar("1+2"));
+    }
+    @Test
+    public void evaluateExp6Test(){
+        assertEq("-1", noVar("1-2"));
+    }
+    @Test
+    public void evaluateExp7Test(){
+        assertEq("6", noVar("2*3"));
+    }
+    @Test
+    public void evaluateExp8Test(){
+        assertEq("1/2", noVar("1:2"));
+    }
+    @Test
+    public void evaluateExp9Test(){
+        assertEq("7", noVar("1+2*3"));
+    }
+    @Test
+    public void evaluateExp10Test(){
+        assertEq("9", noVar("(1+2)*3"));
+    }
+    @Test
+    public void evaluateExp11Test(){
+        assertEq("1", oneVar("a","a","1"));
+    }
+    @Test
+    public void evaluateExp12Test(){
+        assertEq("9", oneVar("(a+2)*3","a","1"));
+    }
+    @Test
+    public void evaluateExp13Test(){
+        assertEq("21", oneVar("(b+2)*3","b","5"));
+    }
+    @Test
+    public void evaluateExp14Test(){
+        assertEq("21", twoVars("(b+c)*3","b","5","c","2"));
+    }
+    @Test
+    public void evaluateExp15Test(){
+        assertEq("21", twoVars("(c+b)*3","c","4","b","3"));
+    }
+    @Test
+    public void evaluateExp16Test(){
+        assertEq("#0", noVar("1/0"));
+    }
+    @Test
+    public void evaluateExp17Test(){
+        assertEq("#1", noVar("1:0"));
+    }
+    @Test
+    public void evaluateExp18Test(){
+        assertEq("#0", oneVar("a","b","0"));
+    }
+    @Test
+    public void evaluateExp19Test(){
+        assertEq("#-", oneVar("a","a","-"));
+    }
+    @Test
+    public void evaluateExp20Test(){
+        assertEq("8", noVar("puis(2,3)"));
+    }
+    @Test
+    public void evaluateExp21Test(){
+        assertEq("8", oneVar("puis2(2,3)","#puis2","puis"));
+    }
+    @Test
+    public void evaluateExp22Test(){
+        assertEq("9", noVar("puis(3,2)"));
+    }
+    @Test
+    public void evaluateExp23Test(){
+        assertEq("9", oneVar("puis2(3,2)","#puis2","puis"));
+    }
+    @Test
+    public void evaluateExp24Test(){
+        assertEq("1", noVar("1+1=2"));
+    }
+    @Test
+    public void evaluateExp25Test(){
+        assertEq("0", noVar("1+1!2"));
+    }
+    @Test
+    public void evaluateExp26Test(){
+        assertEq("1", noVar("1>0|1:0>0"));
+    }
+    @Test
+    public void evaluateExp27Test(){
+        assertEq("1", noVar("0<1<2"));
+    }
+    @Test
+    public void evaluateExp28Test(){
+        assertEq("1", noVar("0=1-1=2-2"));
+    }
+    @Test
+    public void evaluateExp29Test(){
+        assertEq("1", noVar("0<=1<=2"));
+    }
+    @Test
+    public void evaluateExp30Test(){
+        assertEq("1", noVar("0>-1>-2"));
+    }
+    @Test
+    public void evaluateExp31Test(){
+        assertEq("1", noVar("0>=-1>=-2"));
+    }
+    @Test
+    public void evaluateExp32Test(){
+        assertEq("1", noVar("!(1+1!2)"));
+    }
+    @Test
+    public void evaluateExp33Test(){
+        assertEq("8", noVar("puis(2,3) "));
+    }
+    @Test
+    public void evaluateExp34Test(){
+        assertEq("8", noVar("puis(2, 3)"));
+    }
+    @Test
+    public void evaluateExp35Test(){
+        assertEq("#0", noVar("puis(2,2,3)"));
+    }
+    @Test
+    public void evaluateExp36Test(){
+        assertEq("1", noVar("vrai()"));
+    }
+    @Test
+    public void evaluateExp37Test(){
+        assertEq("#1", noVar("1+vrai()"));
+    }
+    @Test
+    public void evaluateExp38Test(){
+        assertEq("#6", noVar("vrai()+1"));
+    }
+    @Test
+    public void evaluateExp39Test(){
+        assertEq("0", noVar("faux()"));
+    }
+    @Test
+    public void evaluateExp40Test(){
+        assertEq("#1", noVar("1+faux()"));
+    }
+    @Test
+    public void evaluateExp41Test(){
+        assertEq("#6", noVar("faux()+1"));
+    }
+    @Test
+    public void evaluateExp42Test(){
+        assertEq("#0", noVar("puis(vrai(),faux())"));
+    }
+    @Test
+    public void evaluateExp43Test(){
+        assertEq("0", noVar("puis(0,3)"));
+    }
+    @Test
+    public void evaluateExp44Test(){
+        assertEq("1/2", noVar("puis(2,-1)"));
+    }
+    @Test
+    public void evaluateExp45Test(){
+        assertEq("#0", noVar("puis(0,-1)"));
+    }
+    @Test
+    public void evaluateExp46Test(){
+        assertEq("#0", noVar("(0,-1)"));
+    }
+    @Test
+    public void evaluateExp47Test(){
+        assertEq("0", noVar("!(1+1=2)"));
+    }
+    @Test
+    public void evaluateExp48Test(){
+        assertEq("1", noVar("--1"));
+    }
+    @Test
+    public void evaluateExp49Test(){
+        assertEq("1", noVar("+1"));
+    }
+    @Test
+    public void evaluateExp50Test(){
+        assertEq("1", noVar("- -1"));
+    }
+    @Test
+    public void evaluateExp51Test(){
+        assertEq("#2", noVar("--"));
+    }
+    @Test
+    public void evaluateExp52Test(){
+        assertEq("1", noVar("vrai()&1+1=2"));
+    }
+    @Test
+    public void evaluateExp53Test(){
+        assertEq("9", noVar("1+puis(2,3)"));
+    }
+    @Test
+    public void evaluateExp54Test(){
+        assertEq("64", noVar("puis(puis(2,3),2)"));
+    }
+    @Test
+    public void evaluateExp55Test(){
+        assertEq("#0", noVar("puis(3,2)vrai()"));
+    }
+    @Test
+    public void evaluateExp56Test(){
+        assertEq("0", noVar("faux()=vrai()"));
+    }
+    @Test
+    public void evaluateExp57Test(){
+        assertEq("1", noVar("vrai()=vrai()"));
+    }
+    @Test
+    public void evaluateExp58Test(){
+        assertEq("0", noVar("1+1=1"));
+    }
+    @Test
+    public void evaluateExp59Test(){
+        assertEq("1", noVar("faux()!vrai()"));
+    }
+    @Test
+    public void evaluateExp60Test(){
+        assertEq("0", noVar("vrai()!vrai()"));
+    }
+    @Test
+    public void evaluateExp61Test(){
+        assertEq("0", noVar("0>1"));
+    }
+    @Test
+    public void evaluateExp62Test(){
+        assertEq("#1", noVar("0>vrai()"));
+    }
+    @Test
+    public void evaluateExp63Test(){
+        assertEq("#6", noVar("vrai()>0"));
+    }
+    @Test
+    public void evaluateExp64Test(){
+        assertEq("#0", noVar("!0"));
+    }
+    @Test
+    public void evaluateExp65Test(){
+        assertEq("#0", noVar("-vrai()"));
+    }
+    @Test
+    public void evaluateExp66Test(){
+        assertEq("1", noVar("quot(5,3)"));
+    }
+    @Test
+    public void evaluateExp67Test(){
+        assertEq("2", noVar("mod(5,3)"));
+    }
+    @Test
+    public void evaluateExp68Test(){
+        assertEq("#0", noVar("quot(5,0)"));
+    }
+    @Test
+    public void evaluateExp69Test(){
+        assertEq("#0", noVar("mod(5,0)"));
+    }
+    @Test
+    public void evaluateExp70Test(){
+        assertEq("#0", noVar("_"));
+    }
+    @Test
+    public void evaluateExp71Test(){
+        assertEq("0", noVar("1=vrai()"));
+    }
+    @Test
+    public void evaluateExp72Test(){
+        assertEq("0", noVar("vrai()=1"));
+    }
+    @Test
+    public void evaluateExp73Test(){
+        assertEq("#1", noVar("1&2"));
+    }
+    @Test
+    public void evaluateExp74Test(){
+        assertEq("#6", noVar("vrai()&2"));
+    }
+    @Test
+    public void evaluateExp75Test(){
+        assertEq("#-1", noVar("puis(3,2) vrai"));
+    }
+    @Test
+    public void evaluateExp76Test(){
+        assertEq("#0", noVar("\\"));
+    }
+    @Test
+    public void evaluateExp77Test(){
+        assertEq("#0", noVar("quot(5,vrai())"));
+    }
+    @Test
+    public void evaluateExp78Test(){
+        assertEq("#0", noVar("mod(5,vrai())"));
+    }
+    @Test
+    public void evaluateExp79Test(){
+        assertEq("#0", noVar("quot(5,2,5)"));
+    }
+    @Test
+    public void evaluateExp80Test(){
+        assertEq("#0", noVar("mod(5,2,5)"));
+    }
+    @Test
+    public void evaluateExp81Test(){
+        assertEq("#0", noVar("vrai(1)"));
+    }
+    @Test
+    public void evaluateExp82Test(){
+        assertEq("#0", noVar("faux(1)"));
+    }
+    @Test
+    public void evaluateExp83Test(){
+        assertEq("1", noVar("1+1!1"));
+    }
+    @Test
+    public void evaluateExp84Test(){
+        assertEq("#2", noVar("1:"));
+    }
+    @Test
+    public void evaluateExp85Test(){
+        assertEq("#2", noVar("(1"));
+    }
+    @Test
+    public void evaluateExp86Test(){
+        assertEq("#3", noVar("(1))"));
+    }
+    @Test
+    public void evaluateExp87Test(){
+        assertEq("#1", noVar("1,2"));
+    }
+    @Test
+    public void evaluateExp88Test(){
+        assertEq("1/2", noVar(".5"));
+    }
+    @Test
+    public void evaluateExp89Test(){
+        assertEq("1/2", noVar(" .5 "));
+    }
+    @Test
+    public void evaluateExp90Test(){
+        assertEq("#0", noVar(""));
+    }
+    @Test
+    public void evaluateExp91Test(){
+        assertEq("#", dupVar("","a","1"));
+    }
+    @Test
+    public void evaluateExp92Test(){
+        assertEq("#", oneVar("","\\a","1"));
+    }
+    @Test
+    public void evaluateExp93Test(){
+        assertEq("#", oneVar("","#a","a"));
+    }
+    @Test
+    public void evaluateExp94Test(){
+        assertEq("#", oneVar("","#\\a","a"));
+    }
+    @Test
+    public void evaluateExp95Test(){
+        assertEq("#", oneVar("","#a","\\a"));
+    }
+    @Test
+    public void evaluateExp96Test(){
+        assertEq("#", oneVar("","#puis2","puis2"));
+    }
+    @Test
+    public void evaluateExp97Test(){
+        assertEq("#", oneVar("","#\\puis2","puis"));
+    }
+    @Test
+    public void evaluateExp98Test(){
+        assertEq("#", dupVar("","#puis2","puis"));
+    }
+    @Test
+    public void evaluateExp99Test(){
+        assertEq("1", oneVar("vrai2()","#vrai2","vrai"));
+    }
+    @Test
+    public void evaluateExp100Test(){
+        assertEq("0", oneVar("faux2()","#faux2","faux"));
+    }
+    @Test
+    public void evaluateExp101Test(){
+        assertEq("1", oneVar("quot2(5,3)","#quot2","quot"));
+    }
+    @Test
+    public void evaluateExp102Test(){
+        assertEq("2", oneVar("mod2(5,3)","#mod2","mod"));
+    }
+    @Test
+    public void evaluateExp103Test(){
+        assertEq("#", oneVar("","","0"));
+    }
+    @Test
+    public void evaluateExp104Test(){
+        assertEq("#", oneVar("","0",""));
+    }
+    @Test
+    public void evaluateExp105Test(){
+        assertEq("21", twoVars("(c+b)*3","c","4","b","c-1"));
+    }
+
+    @Test
+    public void evaluateExp106Test(){
+        assertEq("21", twoVars("(c+b)*3","c","b+1","b","3"));
+    }
+
+    @Test
+    public void evaluateExp107Test(){
+        assertEq("#1", twoVars("(c+b)*3","c","b","b","c"));
+    }
+    @Test
+    public void evaluateExp108Test(){
+        assertEq("1/2", noVar("0.5"));
+    }
+    @Test
+    public void evaluateExp109Test(){
+        assertEq("1/2", noVar(" 0.5 "));
+    }
+    @Test
+    public void evaluateExp110Test(){
+        assertEq("-1/2", noVar("1/-2"));
+    }
+    @Test
+    public void evaluateExp111Test(){
+        assertEq("1", oneVar("1","1","1/1"));
+    }
+    @Test
+    public void evaluateExp112Test(){
+        assertEq("1", oneVar("1a","1a","1"));
+    }
+    @Test
+    public void evaluateExp113Test(){
+        assertEq("#0", noVar("0 ()"));
+    }
+    @Test
+    public void evaluateExp114Test(){
+        assertEq("#0", noVar(". a"));
+    }
+    @Test
+    public void evaluateExp115Test(){
+        assertEq("#0", noVar(". "));
+    }
+    @Test
+    public void evaluateExp116Test(){
+        assertEq("#0", noVar("."));
+    }
+
+    @Test
+    public void nullVarTest(){
+        assertEq("#", nullVar());
+    }
+    @Test
+    public void nullMapTest(){
+        assertEq("#", nullMap());
+    }
+    @Test
+    public void notAll(){
+        StringMap<String> aliases_ = new StringMap<String>();
+        aliases_.addEntry("vrai","vrai");
+        aliases_.addEntry("faux","vrai");
+        aliases_.addEntry("puis","vrai");
+        aliases_.addEntry("quot","vrai");
+        aliases_.addEntry("mod","vrai");
+        assertEq("#", MaParser.notAll("",aliases_,new StringList("vrai","faux","puis","quot","mod")));
+    }
+    @Test
+    public void test(){
+        assertTrue(MaNumParsers.eqNb(null,null));
+        assertTrue(!MaNumParsers.eqNb(null,new MaRateStruct(Rate.zero())));
+        assertTrue(!MaNumParsers.eqNb(new MaRateStruct(Rate.zero()),null));
+        assertNotNull(MaNumParsers.toRate(null));
+        assertNull(MaNumParsers.tryGet(new CustList<MaOperationNode>(),0));
+        MaStackOperators m_ = new MaStackOperators();
+        m_.add(0,' ');
+        assertEq(0,m_.ind());
+        assertEq(' ',m_.oper());
+    }
+    private static String noVar(String _el) {
+        return MaParser.processEl(_el, new CustList<Replacement>());
+    }
+    private static String nullVar() {
+        CustList<Replacement> conf_ = new CustList<Replacement>();
+        conf_.add(null);
+        return MaParser.processEl("", conf_);
+    }
+    private static String nullMap() {
+        return MaParser.processEl("", null);
+    }
+    private static String oneVar(String _el,String _var,String _value) {
+        CustList<Replacement> conf_ = new CustList<Replacement>();
+        Replacement rep_ = new Replacement();
+        rep_.setOldString(_var);
+        rep_.setNewString(_value);
+        conf_.add(rep_);
+        return MaParser.processEl(_el, conf_);
+    }
+    private static String dupVar(String _el,String _var,String _value) {
+        CustList<Replacement> conf_ = new CustList<Replacement>();
+        Replacement rep_ = new Replacement();
+        rep_.setOldString(_var);
+        rep_.setNewString(_value);
+        conf_.add(rep_);
+        rep_ = new Replacement();
+        rep_.setOldString(_var);
+        rep_.setNewString(_value);
+        conf_.add(rep_);
+        return MaParser.processEl(_el, conf_);
+    }
+    private static String twoVars(String _el,String _var,String _value,String _var2,String _value2) {
+        CustList<Replacement> conf_ = new CustList<Replacement>();
+        Replacement rep_ = new Replacement();
+        rep_.setOldString(_var);
+        rep_.setNewString(_value);
+        conf_.add(rep_);
+        rep_ = new Replacement();
+        rep_.setOldString(_var2);
+        rep_.setNewString(_value2);
+        conf_.add(rep_);
+        return MaParser.processEl(_el, conf_);
+    }
+}

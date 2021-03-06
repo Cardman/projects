@@ -1,4 +1,5 @@
 package code.maths.litteral;
+import code.maths.litteralcom.*;
 import code.util.StringList;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
@@ -6,44 +7,11 @@ import code.util.core.StringUtil;
 
 public final class MathResolver {
 
-    static final int BAD_PRIO = -1;
-    static final int OR_PRIO = 1;
-    static final int AND_PRIO = 2;
-    static final int EQ_PRIO = 3;
-    static final int CMP_PRIO = 4;
-    static final int ADD_PRIO = 5;
-    static final int MULT_PRIO = 6;
-    static final int UNARY_PRIO = 7;
-    static final int FCT_OPER_PRIO = 8;
-
     static final String TRUE = "V";
 
 
     static final String FALSE = "F";
-    static final char DOT = '.';
-    static final char SEP_RATE = '/';
-    static final char PAR_LEFT = '(';
-    static final char PAR_RIGHT = ')';
-    static final char SEP_ARG = ',';
     static final char DELIMITER_STRING_BEGIN = '{';
-
-    static final char NEG_BOOL_CHAR = '!';
-
-    static final char MULT_CHAR= '*';
-    static final char DIV_CHAR= ':';
-    static final char PLUS_CHAR= '+';
-
-    static final char MINUS_CHAR = '-';
-
-    static final char LOWER_CHAR = '<';
-
-    static final char GREATER_CHAR = '>';
-
-    static final char EQ_CHAR = '=';
-
-    static final char AND_CHAR = '&';
-
-    static final char OR_CHAR = '|';
 
     private MathResolver(){
     }
@@ -83,9 +51,9 @@ public final class MathResolver {
             _m.setIndex(processWordChar(_string, _d, _len, _m.getIndex(), curChar_));
             return;
         }
-        if (curChar_ == DOT) {
+        if (curChar_ == MatCommonCst.DOT) {
             int j_ = addNumberInfo(_d, _m.getIndex() + 1, _m.getIndex(), _string);
-            _d.getNbInfos().last().insert(0,DOT);
+            _d.getNbInfos().last().insert(0, MatCommonCst.DOT);
             _m.setIndex(j_);
             return;
         }
@@ -94,10 +62,10 @@ public final class MathResolver {
             _d.getDelStringsChars().add(_m.getIndex());
             _d.getStringInfo().add(new StringList());
         }
-        if (curChar_ == PAR_LEFT) {
+        if (curChar_ == MatCommonCst.PAR_LEFT) {
             _m.setParsBrackets(_m.getParsBrackets()+1);
         }
-        if (curChar_ == PAR_RIGHT) {
+        if (curChar_ == MatCommonCst.PAR_RIGHT) {
             if (_m.getParsBrackets()==0) {
                 _error.setIndex(_m.getIndex());
                 _error.setError(true);
@@ -107,7 +75,7 @@ public final class MathResolver {
             }
             _m.setParsBrackets(_m.getParsBrackets()-1);
         }
-        if (curChar_ == SEP_ARG && _m.getParsBrackets()==0) {
+        if (curChar_ == MatCommonCst.SEP_ARG && _m.getParsBrackets()==0) {
             _error.setIndex(_m.getIndex());
             _error.setError(true);
             _error.setString(_string);
@@ -143,53 +111,33 @@ public final class MathResolver {
         int i_ = _i;
         boolean escapeOpers_ = false;
         boolean addOp_ = true;
-        if (_curChar == PLUS_CHAR || _curChar == MINUS_CHAR || _curChar == NEG_BOOL_CHAR) {
+        if (MathExpUtil.unary(_curChar)) {
             escapeOpers_ = true;
             if (_beginIndex == i_) {
                 addOp_ = false;
             }
         }
-        if (normalOp(_curChar)) {
+        if (MathExpUtil.normalOp(_curChar)) {
             escapeOpers_ = true;
         }
         if (escapeOpers_) {
             return procEscOp(_string, _d, _len, i_, addOp_);
         }
-        if (_curChar == PAR_RIGHT) {
+        if (_curChar == MatCommonCst.PAR_RIGHT) {
             _d.getAllowedOperatorsIndexes().add(i_);
         }
         i_++;
         return i_;
     }
 
-    private static boolean normalOp(char _curChar) {
-        return mult(_curChar) || andOr(_curChar) || cmp(_curChar) || call(_curChar);
-    }
-
-    private static boolean call(char _curChar) {
-        return _curChar == PAR_LEFT || _curChar == SEP_ARG;
-    }
-
-    private static boolean cmp(char _curChar) {
-        return _curChar == LOWER_CHAR || _curChar == GREATER_CHAR || _curChar == EQ_CHAR;
-    }
-
-    private static boolean andOr(char _curChar) {
-        return _curChar == AND_CHAR || _curChar == OR_CHAR;
-    }
-
-    private static boolean mult(char _curChar) {
-        return _curChar == MULT_CHAR || _curChar == DIV_CHAR;
-    }
-
     private static int procEscOp(String _string, MbDelimiters _d, int _len, int _i, boolean _addOp) {
         int j_ = _i + 1;
-        if (j_ < _len && _string.charAt(j_) == EQ_CHAR) {
+        if (j_ < _len && _string.charAt(j_) == MatCommonCst.EQ_CHAR) {
             j_++;
         }
         while (j_ < _len) {
             char curLoc_ = _string.charAt(j_);
-            if (!StringUtil.isWhitespace(curLoc_) && curLoc_ != PLUS_CHAR && curLoc_ != MINUS_CHAR && curLoc_ != NEG_BOOL_CHAR) {
+            if (!StringUtil.isWhitespace(curLoc_) && curLoc_ != MatCommonCst.PLUS_CHAR && curLoc_ != MatCommonCst.MINUS_CHAR && curLoc_ != MatCommonCst.NEG_BOOL_CHAR) {
                 break;
             }
             j_++;
@@ -204,60 +152,22 @@ public final class MathResolver {
         if (MathExpUtil.isDigit(_curChar)) {
             return addNumberInfo(_d, _from, _from, _string);
         }
-        MbVariableInfo var_ = new MbVariableInfo();
+        MatVariableInfo var_ = new MatVariableInfo();
         var_.setFirstChar(_from);
-        StringBuilder name_ = new StringBuilder();
-        int i_ = _from;
-        while (i_ < _len) {
-            char last_ = _string.charAt(i_);
-            if (!MathExpUtil.isWordChar(last_)) {
-                break;
-            }
-            name_.append(last_);
-            i_++;
-        }
+        MatVariableResult res_ = MatVariableResult.build(_string, _len, _from);
+        int i_ = res_.getIndex();
         var_.setLastChar(i_);
-        var_.setName(name_.toString());
+        var_.setName(res_.getName());
         _d.getVariables().add(var_);
         return i_;
     }
 
     private static int addNumberInfo(MbDelimiters _d, int _from, int _begin, String _string) {
-        StringBuilder nbInfo_ = new StringBuilder();
-        int len_ = _string.length();
-        int i_ = _from;
-        boolean stop_ = false;
-        while (i_ < len_) {
-            char cur_ = _string.charAt(i_);
-            if (!MathExpUtil.isDigit(cur_)) {
-                if (cur_ == DOT || cur_ == SEP_RATE) {
-                    nbInfo_.append(cur_);
-                    i_++;
-                } else {
-                    stop_ = true;
-                }
-                break;
-            }
-            nbInfo_.append(cur_);
-            i_++;
-        }
-        if (i_ >= len_ || stop_) {
-            _d.getDelNumbers().add(_begin);
-            _d.getDelNumbers().add(i_);
-            _d.getNbInfos().add(nbInfo_);
-            return i_;
-        }
-        while (i_ < len_) {
-            char cur_ = _string.charAt(i_);
-            if (!MathExpUtil.isDigit(cur_)) {
-                break;
-            }
-            nbInfo_.append(cur_);
-            i_++;
-        }
+        MatNumberResult res_ = MatNumberResult.build(_from, _string);
+        int i_ = res_.getIndex();
         _d.getDelNumbers().add(_begin);
         _d.getDelNumbers().add(i_);
-        _d.getNbInfos().add(nbInfo_);
+        _d.getNbInfos().add(res_.getNbInfo());
         return i_;
     }
     static MbOperationsSequence getOperationsSequence(int _offset, String _string,
@@ -280,7 +190,7 @@ public final class MathResolver {
         if (delimits(begin_, end_)) {
             MbOperationsSequence op_ = new MbOperationsSequence();
             op_.setIndexCst(begin_/2);
-            op_.setConstType(MbConstType.STRING);
+            op_.setConstType(MatConstType.STRING);
             op_.setOperators(new StrTypes());
             op_.setupValue(_string);
             return op_;
@@ -290,7 +200,7 @@ public final class MathResolver {
         if (delimits(begin_, end_)) {
             MbOperationsSequence op_ = new MbOperationsSequence();
             op_.setIndexCst(begin_/2);
-            op_.setConstType(MbConstType.NUMBER);
+            op_.setConstType(MatConstType.NUMBER);
             op_.setOperators(new StrTypes());
             op_.setupValue(_string);
             return op_;
@@ -302,14 +212,14 @@ public final class MathResolver {
             op_.setupValue(_string);
             return op_;
         }
-        for (MbVariableInfo v: _d.getVariables()) {
+        for (MatVariableInfo v: _d.getVariables()) {
             if (v.getFirstChar() == _offset + i_) {
                 int iVar_ = v.getLastChar();
                 if (iVar_ != _offset + lastPrintChar_ + 1) {
                     break;
                 }
                 MbOperationsSequence op_ = new MbOperationsSequence();
-                op_.setConstType(MbConstType.LOC_VAR);
+                op_.setConstType(MatConstType.LOC_VAR);
                 op_.setOperators(new StrTypes());
                 op_.setupValue(v.getName());
                 return op_;

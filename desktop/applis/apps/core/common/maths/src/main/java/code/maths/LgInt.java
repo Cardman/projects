@@ -1,5 +1,5 @@
 package code.maths;
-import code.maths.litteral.MathExpUtil;
+import code.maths.litteralcom.MathExpUtil;
 import code.util.CollCapacity;
 import code.util.CustList;
 import code.util.EntryCust;
@@ -320,7 +320,7 @@ public final class LgInt implements Displayable {
             PrimDivisor p_ = new PrimDivisor(one(),one());
             divs_.add(p_);
         }
-        return new Decomposition(getSignum(), divs_);
+        return new Decomposition(isSignum(), divs_);
     }
 
     public CustList<LgInt> getDividers() {
@@ -814,7 +814,7 @@ public final class LgInt implements Displayable {
         grDigits = _grDigits;
     }
 
-    boolean getSignum() {
+    boolean isSignum() {
         return signum;
     }
 

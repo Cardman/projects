@@ -1,6 +1,7 @@
 package code.maths.litteral;
 import code.maths.MathList;
 import code.maths.Rate;
+import code.maths.litteralcom.MatConstType;
 import code.util.EntryCust;
 import code.util.StringList;
 import code.util.StringMap;
@@ -44,18 +45,23 @@ public final class ConstantMbOperation extends MbOperationNode {
 
         for (EntryCust<String,String> v: _conf.entryList()) {
             if (StringUtil.quickEq(str_, StringUtil.concat(Character.toString(DELIMITER_STRING_BEGIN),v.getKey(),Character.toString(DELIMITER_STRING_END)))) {
-                MathList m_ = new MathList();
-                for (String e: StringUtil.splitChars(v.getValue(), DELIMITER_STRING_SEP)) {
-                    if (e.isEmpty()) {
-                        continue;
-                    }
-                    m_.add(e);
-                }
+                MathList m_ = createList(v);
                 getArgument().setObject(m_);
                 break;
             }
         }
         setResultClass(getArgument().getArgClass());
+    }
+
+    private static MathList createList(EntryCust<String, String> _v) {
+        MathList m_ = new MathList();
+        for (String e: StringUtil.splitChars(_v.getValue(), DELIMITER_STRING_SEP)) {
+            if (e.isEmpty()) {
+                continue;
+            }
+            m_.add(e);
+        }
+        return m_;
     }
 
     @Override
@@ -85,7 +91,7 @@ public final class ConstantMbOperation extends MbOperationNode {
     }
 
     private void analyzeCalculate(ErrorStatus _error, MbDelimiters _delimiter) {
-        if (getOperations().getConstType() == MbConstType.STRING) {
+        if (getOperations().getConstType() == MatConstType.STRING) {
             int begin_ = getOperations().getIndexCst();
             StringList info_ = _delimiter.getStringInfo().get(begin_);
             if (info_.size() == 1 && info_.first().trim().isEmpty()) {
@@ -103,7 +109,7 @@ public final class ConstantMbOperation extends MbOperationNode {
             setArgument(a_);
             return;
         }
-        if (getOperations().getConstType() == MbConstType.NUMBER) {
+        if (getOperations().getConstType() == MatConstType.NUMBER) {
             int begin_ = getOperations().getIndexCst();
             String nb_ = _delimiter.getNbInfos().get(begin_).toString();
             if (Rate.isValid(nb_)) {

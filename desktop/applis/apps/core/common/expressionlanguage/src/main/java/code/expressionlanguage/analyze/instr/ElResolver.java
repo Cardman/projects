@@ -6,7 +6,7 @@ import code.expressionlanguage.analyze.blocks.*;
 import code.expressionlanguage.analyze.types.ResolvingTypes;
 import code.expressionlanguage.common.*;
 import code.expressionlanguage.options.KeyWords;
-import code.maths.litteral.StrTypes;
+import code.maths.litteralcom.StrTypes;
 import code.util.*;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;

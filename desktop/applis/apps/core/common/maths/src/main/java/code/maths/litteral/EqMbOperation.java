@@ -1,4 +1,5 @@
 package code.maths.litteral;
+import code.maths.litteralcom.StrTypes;
 import code.util.CustList;
 import code.util.StringMap;
 import code.util.core.StringUtil;

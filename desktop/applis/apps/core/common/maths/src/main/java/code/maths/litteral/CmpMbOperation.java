@@ -1,5 +1,6 @@
 package code.maths.litteral;
 import code.maths.Rate;
+import code.maths.litteralcom.StrTypes;
 import code.util.CustList;
 import code.util.StringMap;
 import code.util.core.StringUtil;
@@ -54,9 +55,11 @@ public final class CmpMbOperation extends PrimitiveBoolMbOperation {
         if (StringUtil.quickEq(op_, LOWER_EQ)) {
             complement_ = true;
             useOp_ = GREATER;
-        } else if (StringUtil.quickEq(op_, GREATER_EQ)) {
-            complement_ = true;
-            useOp_ = LOWER;
+        } else {
+            if (StringUtil.quickEq(op_, GREATER_EQ)) {
+                complement_ = true;
+                useOp_ = LOWER;
+            }
         }
         MbArgument arg_;
         if (StringUtil.quickEq(useOp_, LOWER)) {

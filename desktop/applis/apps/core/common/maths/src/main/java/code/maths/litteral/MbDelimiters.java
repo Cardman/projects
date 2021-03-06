@@ -1,4 +1,5 @@
 package code.maths.litteral;
+import code.maths.litteralcom.MatVariableInfo;
 import code.util.CustList;
 import code.util.Ints;
 import code.util.StringList;
@@ -10,7 +11,7 @@ public final class MbDelimiters {
     private final Ints delNumbers = new Ints();
     private final CustList<StringList> stringInfo = new CustList<StringList>();
     private final CustList<StringBuilder> nbInfos = new CustList<StringBuilder>();
-    private final CustList<MbVariableInfo> variables = new CustList<MbVariableInfo>();
+    private final CustList<MatVariableInfo> variables = new CustList<MatVariableInfo>();
 
     public Ints getAllowedOperatorsIndexes() {
         return allowedOperatorsIndexes;
@@ -32,7 +33,7 @@ public final class MbDelimiters {
         return nbInfos;
     }
 
-    public CustList<MbVariableInfo> getVariables() {
+    public CustList<MatVariableInfo> getVariables() {
         return variables;
     }
 }

@@ -1,4 +1,7 @@
 package code.maths.litteral;
+import code.maths.litteralcom.MatCommonCst;
+import code.maths.litteralcom.MatConstType;
+import code.maths.litteralcom.StrTypes;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 
@@ -13,7 +16,7 @@ public final class MbOperationsSequence {
 
     private StrTypes operators;
 
-    private MbConstType constType;
+    private MatConstType constType;
 
     private int indexCst;
 
@@ -27,8 +30,8 @@ public final class MbOperationsSequence {
             values.addEntry(IndexConstants.FIRST_INDEX, _string);
             return;
         }
-        if (priority == MathResolver.EQ_PRIO && StringUtil.quickEq(operators.firstValue(), Character.toString(NEG_BOOL_CHAR))) {
-            priority = MathResolver.BAD_PRIO;
+        if (priority == MatCommonCst.EQ_PRIO && StringUtil.quickEq(operators.firstValue(), Character.toString(NEG_BOOL_CHAR))) {
+            priority = MatCommonCst.BAD_PRIO;
             return;
         }
         feedValues(_string);
@@ -37,16 +40,16 @@ public final class MbOperationsSequence {
     private void feedValues(String _string) {
         firstOperand(_string);
         int endValuePart_ = operators.firstKey();
-        if (priority == MathResolver.FCT_OPER_PRIO) {
+        if (priority == MatCommonCst.FCT_OPER_PRIO) {
             int afterLastPar_ = operators.lastKey()+1;
             if (!_string.substring(afterLastPar_).trim().isEmpty()) {
                 operators.clear();
                 operators.addEntry(afterLastPar_, "");
-                priority = MathResolver.BAD_PRIO;
+                priority = MatCommonCst.BAD_PRIO;
                 return;
             }
         }
-        if (priority == MathResolver.FCT_OPER_PRIO && operators.size() == 2) {
+        if (priority == MatCommonCst.FCT_OPER_PRIO && operators.size() == 2) {
             int beginValuePart_ = endValuePart_ + operators.firstValue().length();
             endValuePart_ = operators.getKey(IndexConstants.SECOND_INDEX);
             String str_ = _string.substring(beginValuePart_, endValuePart_);
@@ -64,7 +67,7 @@ public final class MbOperationsSequence {
             values.addEntry(beginValuePart_, str_);
             i_++;
         }
-        if (priority != MathResolver.FCT_OPER_PRIO) {
+        if (priority != MatCommonCst.FCT_OPER_PRIO) {
             int beginValuePart_ = endValuePart_ + operators.lastValue().length();
             String str_ = _string.substring(beginValuePart_);
             values.addEntry(beginValuePart_, str_);
@@ -72,7 +75,7 @@ public final class MbOperationsSequence {
     }
 
     private void firstOperand(String _string) {
-        if (priority != MathResolver.UNARY_PRIO) {
+        if (priority != MatCommonCst.UNARY_PRIO) {
             //not unary priority, not identity priority
             int beginValuePart_ = IndexConstants.FIRST_INDEX;
             int endValuePart_ = operators.firstKey();
@@ -109,11 +112,11 @@ public final class MbOperationsSequence {
         return values;
     }
 
-    public MbConstType getConstType() {
+    public MatConstType getConstType() {
         return constType;
     }
 
-    public void setConstType(MbConstType _constType) {
+    public void setConstType(MatConstType _constType) {
         constType = _constType;
     }
 

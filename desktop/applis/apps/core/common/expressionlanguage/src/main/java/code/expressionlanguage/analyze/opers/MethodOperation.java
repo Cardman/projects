@@ -2,7 +2,7 @@ package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.analyze.instr.PartOffset;
-import code.maths.litteral.StrTypes;
+import code.maths.litteralcom.StrTypes;
 import code.util.CustList;
 import code.util.*;
 

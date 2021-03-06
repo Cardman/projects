@@ -6,7 +6,7 @@ import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.analyze.opers.util.AnaTypeFct;
-import code.maths.litteral.StrTypes;
+import code.maths.litteralcom.StrTypes;
 import code.util.core.StringUtil;
 
 public final class AssocationOperation extends AbstractUnaryOperation {

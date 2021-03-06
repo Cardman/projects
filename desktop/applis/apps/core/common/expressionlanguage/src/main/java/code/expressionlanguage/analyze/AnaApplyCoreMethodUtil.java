@@ -7,7 +7,7 @@ import code.expressionlanguage.functionid.ConstructorId;
 import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.stds.*;
 import code.expressionlanguage.structs.*;
-import code.maths.litteral.MathExpUtil;
+import code.maths.litteralcom.MathExpUtil;
 import code.util.Replacement;
 import code.util.StringList;
 import code.util.core.IndexConstants;

@@ -3,9 +3,8 @@ package code.expressionlanguage.analyze.opers;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
-import code.maths.litteral.StrTypes;
+import code.maths.litteralcom.StrTypes;
 import code.util.CustList;
-import code.util.IntTreeMap;
 
 public abstract class AbstractDotOperation extends MethodOperation {
     public AbstractDotOperation(int _index, int _indexChild, MethodOperation _m, OperationsSequence _op) {

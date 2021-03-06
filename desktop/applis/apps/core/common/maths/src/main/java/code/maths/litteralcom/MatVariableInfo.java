@@ -1,6 +1,6 @@
-package code.maths.litteral;
+package code.maths.litteralcom;
 
-public final class MbVariableInfo {
+public final class MatVariableInfo {
 
     private String name;
 

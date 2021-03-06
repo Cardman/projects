@@ -1,6 +1,6 @@
 package aiki.map.pokemon;
 import aiki.db.DataBase;
-import code.maths.litteral.MathExpUtil;
+import code.maths.litteralcom.MathExpUtil;
 import code.util.StringList;
 import code.util.core.NumberUtil;
 import code.util.core.StringUtil;

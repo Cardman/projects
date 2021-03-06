@@ -1,7 +1,7 @@
 package code.expressionlanguage.exec.types;
 
 import code.expressionlanguage.ContextEl;
-import code.maths.litteral.StrTypes;
+import code.maths.litteralcom.StrTypes;
 import code.util.CustList;
 
 abstract class ExecParentPartType extends ExecPartType {

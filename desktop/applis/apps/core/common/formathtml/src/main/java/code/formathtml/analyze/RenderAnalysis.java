@@ -14,9 +14,8 @@ import code.expressionlanguage.common.Delimiters;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.options.KeyWords;
-import code.maths.litteral.StrTypes;
+import code.maths.litteralcom.StrTypes;
 import code.util.CustList;
-import code.util.IntTreeMap;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 

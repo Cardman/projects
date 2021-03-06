@@ -1,4 +1,5 @@
 package code.maths.litteral;
+import code.maths.litteralcom.MatCommonCst;
 import code.util.StringMap;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
@@ -125,33 +126,40 @@ abstract class MbOperationNode {
     abstract void analyze(StringMap<String> _conf, ErrorStatus _error, MbDelimiters _del);
     abstract void calculate(StringMap<String> _conf, ErrorStatus _error);
 
-    static MbOperationNode createOperationNode(int _index,
+    static MbOperationNode createOperationNodeAndChild(int _index,int _indexChild, MethodMbOperation _m, MbOperationsSequence _op) {
+        MbOperationNode created_ = createOperationNode(_index, _indexChild, _m, _op);
+        if (created_ instanceof MethodMbOperation) {
+            ((MethodMbOperation)created_).calculateChildren();
+        }
+        return created_;
+    }
+    private static MbOperationNode createOperationNode(int _index,
                                                int _indexChild, MethodMbOperation _m, MbOperationsSequence _op) {
         if (_op.getOperators().isEmpty()) {
             return new ConstantMbOperation(_index, _indexChild, _m, _op);
         }
-        if (_op.getPriority() == MathResolver.FCT_OPER_PRIO) {
+        if (_op.getPriority() == MatCommonCst.FCT_OPER_PRIO) {
             return procFct(_index, _indexChild, _m, _op);
         }
-        if (_op.getPriority() == MathResolver.UNARY_PRIO) {
+        if (_op.getPriority() == MatCommonCst.UNARY_PRIO) {
             return procUnary(_index, _indexChild, _m, _op);
         }
-        if (_op.getPriority() == MathResolver.MULT_PRIO) {
+        if (_op.getPriority() == MatCommonCst.MULT_PRIO) {
             return new MultMbOperation(_index, _indexChild, _m, _op);
         }
-        if (_op.getPriority() == MathResolver.ADD_PRIO) {
+        if (_op.getPriority() == MatCommonCst.ADD_PRIO) {
             return new AddMbOperation(_index, _indexChild, _m, _op);
         }
-        if (_op.getPriority() == MathResolver.CMP_PRIO) {
+        if (_op.getPriority() == MatCommonCst.CMP_PRIO) {
             return new CmpMbOperation(_index, _indexChild, _m, _op);
         }
-        if (_op.getPriority() == MathResolver.EQ_PRIO) {
+        if (_op.getPriority() == MatCommonCst.EQ_PRIO) {
             return new EqMbOperation(_index, _indexChild, _m, _op);
         }
-        if (_op.getPriority() == MathResolver.AND_PRIO) {
+        if (_op.getPriority() == MatCommonCst.AND_PRIO) {
             return new AndMbOperation(_index, _indexChild, _m, _op);
         }
-        if (_op.getPriority() == MathResolver.OR_PRIO) {
+        if (_op.getPriority() == MatCommonCst.OR_PRIO) {
             return new OrMbOperation(_index, _indexChild, _m, _op);
         }
         return null;

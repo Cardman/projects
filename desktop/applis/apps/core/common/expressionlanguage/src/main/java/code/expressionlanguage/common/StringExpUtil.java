@@ -5,8 +5,8 @@ import code.expressionlanguage.inherits.Matching;
 import code.expressionlanguage.inherits.MatchingEnum;
 
 import code.expressionlanguage.inherits.Templates;
-import code.maths.litteral.MathExpUtil;
-import code.maths.litteral.StrTypes;
+import code.maths.litteralcom.MathExpUtil;
+import code.maths.litteralcom.StrTypes;
 import code.util.*;
 import code.util.core.IndexConstants;
 import code.util.core.NumberUtil;

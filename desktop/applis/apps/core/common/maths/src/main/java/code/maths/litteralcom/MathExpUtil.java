@@ -1,4 +1,4 @@
-package code.maths.litteral;
+package code.maths.litteralcom;
 
 import code.util.StringList;
 import code.util.core.IndexConstants;
@@ -6,10 +6,37 @@ import code.util.core.StringUtil;
 import code.util.ints.ListableEntries;
 
 public final class MathExpUtil {
+
     private static final char MINUS = '-';
     private static final char CHAR_WORD_OTHER = '_';
 
     private MathExpUtil() {
+    }
+
+    public static boolean allOp(char _curChar) {
+        return _curChar == MatCommonCst.PAR_RIGHT ||unary(_curChar) || normalOp(_curChar);
+    }
+    public static boolean unary(char _curChar) {
+        return _curChar == MatCommonCst.PLUS_CHAR || _curChar == MatCommonCst.MINUS_CHAR || _curChar == MatCommonCst.NEG_BOOL_CHAR;
+    }
+    public static boolean normalOp(char _curChar) {
+        return mult(_curChar) || andOr(_curChar) || cmp(_curChar) || call(_curChar);
+    }
+
+    private static boolean call(char _curChar) {
+        return _curChar == MatCommonCst.PAR_LEFT || _curChar == MatCommonCst.SEP_ARG;
+    }
+
+    private static boolean cmp(char _curChar) {
+        return _curChar == MatCommonCst.LOWER_CHAR || _curChar == MatCommonCst.GREATER_CHAR || _curChar == MatCommonCst.EQ_CHAR;
+    }
+
+    private static boolean andOr(char _curChar) {
+        return _curChar == MatCommonCst.AND_CHAR || _curChar == MatCommonCst.OR_CHAR;
+    }
+
+    private static boolean mult(char _curChar) {
+        return _curChar == MatCommonCst.MULT_CHAR || _curChar == MatCommonCst.DIV_CHAR;
     }
 
     public static boolean isNumber(String _string) {

@@ -2,6 +2,7 @@ package code.maths.litteral;
 import code.maths.LgInt;
 import code.maths.MathList;
 import code.maths.Rate;
+import code.maths.litteralcom.StrTypes;
 import code.util.CustList;
 import code.util.StringMap;
 import code.util.core.IndexConstants;

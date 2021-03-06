@@ -1,5 +1,7 @@
 package code.maths.litteral;
 
+import code.maths.litteralcom.StrTypes;
+
 public final class OrMbOperation extends QuickMbOperation {
 
     public OrMbOperation(int _index,

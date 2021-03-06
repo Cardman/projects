@@ -10,9 +10,8 @@ import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 
 import code.expressionlanguage.stds.PrimitiveTypes;
-import code.maths.litteral.StrTypes;
+import code.maths.litteralcom.StrTypes;
 import code.util.CustList;
-import code.util.*;
 
 public abstract class NumericOperation extends MethodOperation implements MiddleSymbolOperation {
     private String className="";

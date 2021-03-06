@@ -1,4 +1,5 @@
 package code.maths.litteral;
+import code.maths.litteralcom.StrTypes;
 import code.util.CustList;
 import code.util.StringMap;
 import code.util.core.IndexConstants;
@@ -18,7 +19,7 @@ final class MathUtil {
             return arg_;
         }
         MbOperationsSequence opTwo_ = MathResolver.getOperationsSequence(IndexConstants.FIRST_INDEX, _el, d_);
-        MbOperationNode op_ = MbOperationNode.createOperationNode(IndexConstants.FIRST_INDEX, IndexConstants.FIRST_INDEX, null, opTwo_);
+        MbOperationNode op_ = MbOperationNode.createOperationNodeAndChild(IndexConstants.FIRST_INDEX, IndexConstants.FIRST_INDEX, null, opTwo_);
         if (op_ == null) {
             MbArgument arg_ = new MbArgument();
             arg_.setArgClass(MathType.NOTHING);
@@ -121,7 +122,7 @@ final class MathUtil {
         int curKey_ = block_.getChildren().getKey(0);
         int offset_ = block_.getIndexInEl()+curKey_;
         MbOperationsSequence r_ = MathResolver.getOperationsSequence(offset_, value_, _delimiter);
-        MbOperationNode op_ = MbOperationNode.createOperationNode(offset_, IndexConstants.FIRST_INDEX, block_, r_);
+        MbOperationNode op_ = MbOperationNode.createOperationNodeAndChild(offset_, IndexConstants.FIRST_INDEX, block_, r_);
         if (op_ == null) {
             _error.setIndex(offset_);
             _error.setError(true);
@@ -144,7 +145,7 @@ final class MathUtil {
         int curKey_ = children_.getKey(nextIndex_);
         int offset_ = p_.getIndexInEl()+curKey_;
         MbOperationsSequence r_ = MathResolver.getOperationsSequence(offset_, value_, _delimiter);
-        MbOperationNode op_ = MbOperationNode.createOperationNode(offset_, nextIndex_, p_, r_);
+        MbOperationNode op_ = MbOperationNode.createOperationNodeAndChild(offset_, nextIndex_, p_, r_);
         if (op_ == null) {
             _error.setIndex(offset_);
             _error.setError(true);

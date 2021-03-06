@@ -67,7 +67,7 @@ public abstract class EquallableMathUtil {
         Longs expDigits_ = _expected.getGrDigits();
         Longs resDigits_ = _result.getGrDigits();
         int expSize_ = expDigits_.size();
-        Assert.assertEquals(_expected.getSignum(), _result.getSignum());
+        Assert.assertEquals(_expected.isSignum(), _result.isSignum());
         Assert.assertEquals(expSize_, resDigits_.size());
         for (int i = 0; i < expSize_; i++) {
             Assert.assertEquals(expDigits_.get(i),resDigits_.get(i));

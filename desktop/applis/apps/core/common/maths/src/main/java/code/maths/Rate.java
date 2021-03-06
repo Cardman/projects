@@ -1,5 +1,5 @@
 package code.maths;
-import code.maths.litteral.MathExpUtil;
+import code.maths.litteralcom.MathExpUtil;
 import code.util.*;
 import code.util.StringList;
 import code.util.core.IndexConstants;
@@ -263,7 +263,7 @@ public final class Rate implements Displayable {
 
     public Rate inv() {
         Rate inv_ = Rate.zero();
-        inv_.numerateur.setSignum(numerateur.getSignum());
+        inv_.numerateur.setSignum(numerateur.isSignum());
         inv_.numerateur.setGrDigits(new Longs(denominateur.getGrDigits()));
         inv_.denominateur.setSignum(LgInt.SIGNE_POSITIF);
         inv_.denominateur.setGrDigits(new Longs(numerateur.getGrDigits()));
@@ -288,7 +288,7 @@ public final class Rate implements Displayable {
         if (isZero()) {
             return opp_;
         }
-        opp_.numerateur.setSignum(!numerateur.getSignum());
+        opp_.numerateur.setSignum(!numerateur.isSignum());
         opp_.numerateur.setGrDigits(new Longs(numerateur.getGrDigits()));
         opp_.denominateur.setSignum(LgInt.SIGNE_POSITIF);
         opp_.denominateur.setGrDigits(new Longs(denominateur.getGrDigits()));
@@ -354,11 +354,11 @@ public final class Rate implements Displayable {
         return numerateur.getDividers();
     }
 
-    LgInt getNumerator() {
+    public LgInt getNumerator() {
         return numerateur;
     }
 
-    LgInt getDenominator() {
+    public LgInt getDenominator() {
         return denominateur;
     }
 

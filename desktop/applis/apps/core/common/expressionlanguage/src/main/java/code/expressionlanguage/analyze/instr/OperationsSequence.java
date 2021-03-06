@@ -2,7 +2,7 @@ package code.expressionlanguage.analyze.instr;
 import code.expressionlanguage.analyze.blocks.AbsBk;
 import code.expressionlanguage.common.*;
 import code.expressionlanguage.analyze.files.ParsedFctHeader;
-import code.maths.litteral.StrTypes;
+import code.maths.litteralcom.StrTypes;
 import code.util.CustList;
 import code.util.Ints;
 import code.util.core.IndexConstants;

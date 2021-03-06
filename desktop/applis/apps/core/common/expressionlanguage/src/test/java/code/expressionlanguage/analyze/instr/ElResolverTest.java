@@ -8,8 +8,8 @@ import code.expressionlanguage.analyze.blocks.*;
 import code.expressionlanguage.common.*;
 
 import code.expressionlanguage.methods.ProcessMethodCommon;
-import code.maths.litteral.IndexStrPart;
-import code.maths.litteral.StrTypes;
+import code.maths.litteralcom.IndexStrPart;
+import code.maths.litteralcom.StrTypes;
 import code.util.*;
 import code.util.core.StringUtil;
 import org.junit.Test;

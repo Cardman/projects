@@ -1,4 +1,4 @@
-package code.maths.litteral;
+package code.maths.litteralcom;
 
 import code.util.CustList;
 

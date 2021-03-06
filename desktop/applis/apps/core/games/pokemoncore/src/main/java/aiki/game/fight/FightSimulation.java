@@ -37,7 +37,7 @@ import aiki.map.pokemon.PokemonPlayer;
 import aiki.map.pokemon.UsablePokemon;
 import aiki.util.Coords;
 import code.maths.Rate;
-import code.maths.litteral.MathExpUtil;
+import code.maths.litteralcom.MathExpUtil;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.EqList;
@@ -54,19 +54,19 @@ public class FightSimulation {
 
     private static final String SEPARATOR_PK = "/";
 
-    private Game game;
+    private final Game game;
 
     private Coords foeCoords;
 
     private int noFight;
 
-    private Bytes mult;
+    private final Bytes mult;
 
-    private Ints maxActions;
+    private final Ints maxActions;
 
-    private CustList<CustList<PkTrainer>> foeTeams;
+    private final CustList<CustList<PkTrainer>> foeTeams;
 
-    private CustList<PkTrainer> allyTeam = new CustList<PkTrainer>();
+    private final CustList<PkTrainer> allyTeam = new CustList<PkTrainer>();
 
     private boolean freeTeams;
 
@@ -79,52 +79,52 @@ public class FightSimulation {
     initial moves
     initial won points since last growth of level
     initial happiness*/
-    private CustList<PokemonPlayer> team;
+    private final CustList<PokemonPlayer> team;
 
     /**getFirst() index: fight, getSecond() index: initial position*/
-    private CustList<StringList> items;
+    private final CustList<StringList> items;
 
     private CustList<StringMap<Short>> availableEvolutions;
 
-    private CustList<CustList<NameLevel>> evolutions;
+    private final CustList<CustList<NameLevel>> evolutions;
 
     /**for each fight, for each round of fight, positions and possible substitute (position before fight) of front fighters*/
-    private CustList<CustList<ByteMap<Byte>>> frontFighters;
+    private final CustList<CustList<ByteMap<Byte>>> frontFighters;
 
-    private CustList<CustList<NameLevel>> infosRealEvolutions;
+    private final CustList<CustList<NameLevel>> infosRealEvolutions;
 
-    private CustList<CustList<StringList>> usedStones;
+    private final CustList<CustList<StringList>> usedStones;
 
-    private ByteMap<TreeMap<KeyFightRound,StringList>> moves;
+    private final ByteMap<TreeMap<KeyFightRound,StringList>> moves;
 
-    private ByteMap<TreeMap<KeyFightRound,StringList>> abilities;
+    private final ByteMap<TreeMap<KeyFightRound,StringList>> abilities;
 
-    private ByteMap<TreeMap<KeyFightRound,String>> evolutionsWhileFight;
+    private final ByteMap<TreeMap<KeyFightRound,String>> evolutionsWhileFight;
 
     /**position init before fights, fight - stone evolution*/
-    private ByteMap<CustList<CustList<StringList>>> movesBetweenFights;
+    private final ByteMap<CustList<CustList<StringList>>> movesBetweenFights;
 
-    private ByteMap<CustList<CustList<StringList>>> abilitiesBetweenFights;
+    private final ByteMap<CustList<CustList<StringList>>> abilitiesBetweenFights;
 
-    private ByteMap<CustList<StringList>> evolutionsBetweenFights;
+    private final ByteMap<CustList<StringList>> evolutionsBetweenFights;
 
-    private ByteMap<AvailableMovesInfos> availableMoves;
+    private final ByteMap<AvailableMovesInfos> availableMoves;
 
     //private Map<Byte, Pair<Pair<Byte,Byte>, StringList>> availableAbilities;
 
-    private ByteMap<StringMap<Boolean>> availableMovesBetweenFights;
+    private final ByteMap<StringMap<Boolean>> availableMovesBetweenFights;
 
     //private Map<Byte, StringList> availableAbilitiesBetweenFights;
 
-    private ByteMap<TreeMap<KeyFightRound,StringList>> keptMoves;
+    private final ByteMap<TreeMap<KeyFightRound,StringList>> keptMoves;
 
-    private ByteMap<TreeMap<KeyFightRound,String>> keptAbilities;
+    private final ByteMap<TreeMap<KeyFightRound,String>> keptAbilities;
 
-    private ByteMap<CustList<CustList<StringList>>> keptMovesBetweenFights;
+    private final ByteMap<CustList<CustList<StringList>>> keptMovesBetweenFights;
 
-    private ByteMap<CustList<StringList>> keptAbilitiesBetweenFights;
+    private final ByteMap<CustList<StringList>> keptAbilitiesBetweenFights;
 
-    private ByteMap<Byte> currentFights;
+    private final ByteMap<Byte> currentFights;
 
     //private CustList<CustList<Pair<Pair<String,Short>, Pair<StringList,StringList>>>> availableMovesAbilities;
 
@@ -134,13 +134,13 @@ public class FightSimulation {
 
     /**for each fight - round: map of positions at begin of fight and choices of
     evolution, learnt moves, learnt ability at level*/
-    private CustList<CustList<ByteMap<ChoiceOfEvolutionAndMoves>>> movesAbilities;
+    private final CustList<CustList<ByteMap<ChoiceOfEvolutionAndMoves>>> movesAbilities;
 
-    private CustList<CustList<CustList<ActionMove>>> actionsBeforeRound;
+    private final CustList<CustList<CustList<ActionMove>>> actionsBeforeRound;
 
-    private CustList<CustList<CustList<ActionSwitch>>> actionsSubstitutingFront;
+    private final CustList<CustList<CustList<ActionSwitch>>> actionsSubstitutingFront;
 
-    private CustList<CustList<CustList<ActionSwitch>>> actionsSubstitutingBack;
+    private final CustList<CustList<CustList<ActionSwitch>>> actionsSubstitutingBack;
 
     private boolean probleme;
 

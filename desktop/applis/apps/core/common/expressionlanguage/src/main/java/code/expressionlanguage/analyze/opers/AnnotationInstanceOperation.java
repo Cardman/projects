@@ -15,7 +15,7 @@ import code.expressionlanguage.common.AnnotationFieldInfo;
 import code.expressionlanguage.common.AnnotationTypeInfo;
 import code.expressionlanguage.fwd.opers.AnaInstancingAnnotContent;
 import code.expressionlanguage.linkage.LinkageUtil;
-import code.maths.litteral.StrTypes;
+import code.maths.litteralcom.StrTypes;
 import code.util.*;
 import code.util.core.StringUtil;
 

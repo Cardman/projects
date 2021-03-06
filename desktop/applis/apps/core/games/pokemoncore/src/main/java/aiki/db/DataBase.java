@@ -74,7 +74,7 @@ import code.maths.Rate;
 import code.maths.litteral.EvolvedBooleanString;
 import code.maths.litteral.EvolvedMathFactory;
 import code.maths.litteral.EvolvedNumString;
-import code.maths.litteral.MathExpUtil;
+import code.maths.litteralcom.MathExpUtil;
 import code.maths.montecarlo.AbstractGenerator;
 import code.util.CustList;
 import code.util.EntryCust;

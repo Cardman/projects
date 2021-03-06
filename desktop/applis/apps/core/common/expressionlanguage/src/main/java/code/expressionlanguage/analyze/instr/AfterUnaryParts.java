@@ -8,7 +8,7 @@ import code.expressionlanguage.common.ExpPartDelimiters;
 import code.expressionlanguage.common.StackOperators;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.options.KeyWords;
-import code.maths.litteral.StrTypes;
+import code.maths.litteralcom.StrTypes;
 import code.util.CustList;
 import code.util.Ints;
 import code.util.core.IndexConstants;

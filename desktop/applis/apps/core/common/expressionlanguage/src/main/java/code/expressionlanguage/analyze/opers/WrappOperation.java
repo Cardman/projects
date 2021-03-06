@@ -7,7 +7,7 @@ import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.expressionlanguage.fwd.opers.AnaSettableOperationContent;
-import code.maths.litteral.StrTypes;
+import code.maths.litteralcom.StrTypes;
 
 public final class WrappOperation extends AbstractUnaryOperation implements PreAnalyzableOperation {
     private int offset;

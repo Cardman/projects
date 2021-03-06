@@ -11,7 +11,7 @@ import code.expressionlanguage.functionid.ConstructorId;
 import code.expressionlanguage.functionid.MethodModifier;
 import code.expressionlanguage.functionid.StdClassModifier;
 import code.expressionlanguage.structs.*;
-import code.maths.litteral.MathExpUtil;
+import code.maths.litteralcom.MathExpUtil;
 import code.util.*;
 import code.util.core.NumberUtil;
 import code.util.core.StringUtil;

@@ -1,6 +1,7 @@
 package code.maths.litteral;
 
 import code.maths.EquallableMathUtil;
+import code.maths.litteralcom.MathExpUtil;
 import code.util.StringList;
 import code.util.StringMap;
 import org.junit.Test;

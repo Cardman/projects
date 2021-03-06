@@ -16,7 +16,7 @@ import code.expressionlanguage.analyze.variables.AnaNamedLoopVariable;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.fwd.opers.AnaArrContent;
 import code.expressionlanguage.options.KeyWords;
-import code.maths.litteral.StrTypes;
+import code.maths.litteralcom.StrTypes;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.StringList;

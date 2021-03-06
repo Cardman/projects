@@ -1,4 +1,5 @@
 package code.maths.litteral;
+import code.maths.litteralcom.MathExpUtil;
 import code.util.StringMap;
 
 public final class EvolvedBooleanString {
@@ -19,7 +20,7 @@ public final class EvolvedBooleanString {
     }
 
 
-    public boolean getResult() {
+    public boolean isResult() {
         return arg.isBoolVal();
     }
 

@@ -60,7 +60,7 @@ public class EvolvedMathFactoryTest extends EquallableMathUtil {
         EvolvedMathFactory e_ = new EvolvedMathFactory();
         EvolvedBooleanString n_ = EvolvedMathFactory.createBooleanString("F", new StringMap<String>());
         n_.evaluateExp(false);
-        assertEq(false,n_.getResult());
+        assertEq(false,n_.isResult());
         assertEq("F",n_.beforeEvaluated());
         assertEq(true,n_.isValid());
     }
@@ -71,7 +71,7 @@ public class EvolvedMathFactoryTest extends EquallableMathUtil {
         vars_.put("VARIABLE","F");
         EvolvedBooleanString n_ = EvolvedMathFactory.createBooleanString("VARIABLE", vars_);
         n_.evaluateExp(false);
-        assertEq(false,n_.getResult());
+        assertEq(false,n_.isResult());
         assertEq("F",n_.beforeEvaluated());
         assertEq(true,n_.isValid());
     }
