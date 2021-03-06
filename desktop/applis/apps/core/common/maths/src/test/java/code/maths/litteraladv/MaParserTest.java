@@ -684,6 +684,26 @@ public final class MaParserTest extends EquallableMathUtil {
         assertEq("#0", noVar("bezout(5,3)[vrai()]"));
     }
     @Test
+    public void evaluateExp169Test(){
+        assertEq("1", noVar("prem(17)"));
+    }
+    @Test
+    public void evaluateExp170Test(){
+        assertEq("0", noVar("prem(16)"));
+    }
+    @Test
+    public void evaluateExp171Test(){
+        assertEq("#0", noVar("prem(1/6)"));
+    }
+    @Test
+    public void evaluateExp172Test(){
+        assertEq("#0", noVar("prem(vrai())"));
+    }
+    @Test
+    public void evaluateExp173Test(){
+        assertEq("#0", noVar("prem(1,6)"));
+    }
+    @Test
     public void nullVarTest(){
         assertEq("#", nullVar());
     }

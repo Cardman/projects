@@ -327,12 +327,11 @@ public final class LgInt implements Displayable {
         if (isZero()) {
             return divs_;
         }
-        LgInt rootAbs_=rootAbs(new LgInt(2));
         LgInt abs_=absNb();
         LgInt init_ = new LgInt(2);
         divs_.add(LgInt.one());
         divs_.add(abs_);
-        while (!LgInt.strGreater(init_, rootAbs_)) {
+        while (!LgInt.strGreater(multiply(init_,init_), abs_)) {
             QuotModLgInt qr_ = abs_.divisionEuclidienneGeneralise(init_);
             if (qr_.getMod().isZero()) {
                 divs_.add(new LgInt(init_));
