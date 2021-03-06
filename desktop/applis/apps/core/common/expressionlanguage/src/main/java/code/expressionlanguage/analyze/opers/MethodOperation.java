@@ -15,10 +15,9 @@ public abstract class MethodOperation extends OperationNode {
     private final CustList<PartOffset> partOffsetsEnd = new CustList<PartOffset>();
 
 
-    public MethodOperation(int _index, int _indexChild, MethodOperation _m, OperationsSequence _op) {
+    protected MethodOperation(int _index, int _indexChild, MethodOperation _m, OperationsSequence _op) {
         super(_index, _indexChild, _m, _op);
         children = new StrTypes();
-        calculateChildren();
     }
 
     public final void appendChild(OperationNode _child) {

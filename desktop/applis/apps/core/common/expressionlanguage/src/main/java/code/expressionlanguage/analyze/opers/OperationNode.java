@@ -190,6 +190,9 @@ public abstract class OperationNode {
     public static OperationNode createOperationNode(int _index,
                                                     int _indexChild, MethodOperation _m, OperationsSequence _op, AnalyzedPageEl _page) {
         OperationNode res_ = createOperationNodeBis(_index, _indexChild, _m, _op, _page);
+        if (res_ instanceof MethodOperation) {
+            ((MethodOperation)res_).calculateChildren();
+        }
         if (_m instanceof AbstractDotOperation&&_m.getFirstChild() != null && !(res_ instanceof PossibleIntermediateDotted)) {
             return new ErrorPartOperation(_index, _indexChild, _m, _op);
         }
