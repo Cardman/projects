@@ -249,8 +249,7 @@ public final class LgInt implements Displayable {
             return false;
         }
         LgInt nbTwo_ = new LgInt(2);
-        LgInt r_=rootAbs(nbTwo_);
-        while (lowerEq(nbTwo_, r_)) {
+        while (lowerEq(multiply(nbTwo_,nbTwo_), abs_)) {
             if (remain(abs_, nbTwo_).isZero()) {
                 return false;
             }
