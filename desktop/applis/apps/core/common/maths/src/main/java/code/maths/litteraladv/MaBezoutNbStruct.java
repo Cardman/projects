@@ -24,6 +24,7 @@ public class MaBezoutNbStruct implements MaStruct {
         }
         IdBezoutNb oth_ = ((MaBezoutNbStruct) _other).getIdBezout();
         return _this.idBezout.getFirst().eq(oth_.getFirst())
-                && _this.idBezout.getSecond().eq(oth_.getSecond());
+                && _this.idBezout.getSecond().eq(oth_.getSecond())
+                && _this.idBezout.getPgcd().eq(oth_.getPgcd());
     }
 }
