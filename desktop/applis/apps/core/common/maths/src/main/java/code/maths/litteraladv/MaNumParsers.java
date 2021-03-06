@@ -1,5 +1,6 @@
 package code.maths.litteraladv;
 
+import code.maths.IdBezoutNb;
 import code.maths.Rate;
 import code.util.CustList;
 import code.util.core.StringUtil;
@@ -16,6 +17,11 @@ public final class MaNumParsers {
                 return "1";
             }
             return "0";
+        }
+        if (_this instanceof MaBezoutNbStruct) {
+            IdBezoutNb idBezout_ = ((MaBezoutNbStruct) _this).getIdBezout();
+            return "("+idBezout_.getFirst().toNumberString()+","+idBezout_.getSecond().toNumberString()+","
+                    +idBezout_.getPgcd().toNumberString()+","+idBezout_.getPpcm().toNumberString()+")";
         }
         return toRate(_this).getRate().toNumberString();
     }

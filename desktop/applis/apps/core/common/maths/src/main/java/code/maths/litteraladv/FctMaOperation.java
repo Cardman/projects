@@ -62,6 +62,9 @@ public final class FctMaOperation extends MethodMaOperation {
         if (StringUtil.quickEq(MODTAUX, _id)) {
             procModTaux(_error);
         }
+        if (StringUtil.quickEq(BEZOUT, _id)) {
+            procBezout(_error);
+        }
     }
 
     private void procTrFalse(MaError _error, String _id) {
@@ -158,6 +161,19 @@ public final class FctMaOperation extends MethodMaOperation {
                 } else {
                     setStruct(new MaRateStruct(Rate.minus(quot_,Rate.multiply(new Rate(Rate.divide(quot_,div_).intPart()),div_))));
                 }
+                return;
+            }
+        }
+        _error.setOffset(getIndexExp());
+    }
+
+    private void procBezout(MaError _error) {
+        if (getChildren().size() == 2) {
+            CustList<MaRateStruct> rates_ = tryGetRates();
+            if (rates_.size() == 2) {
+                LgInt quot_= rates_.first().getRate().intPart();
+                LgInt div_= rates_.last().getRate().intPart();
+                setStruct(new MaBezoutNbStruct(LgInt.identiteBezoutPgcdPpcm(quot_,div_)));
                 return;
             }
         }

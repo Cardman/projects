@@ -35,6 +35,8 @@ public abstract class MaOperationNode {
 
     protected static final String MODTAUX = "modtaux";
 
+    protected static final String BEZOUT = "bezout";
+
     protected static final String SGN = "sgn";
 
     protected static final String ABS = "abs";

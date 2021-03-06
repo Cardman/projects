@@ -564,6 +564,39 @@ public final class MaParserTest extends EquallableMathUtil {
         assertEq("#0", noVar("modtaux(1)"));
     }
     @Test
+    public void evaluateExp139Test(){
+        assertEq("(-1,2,1,15)", noVar("bezout(5,3)"));
+    }
+    @Test
+    public void evaluateExp140Test(){
+        assertEq("#0", noVar("bezout(5,vrai())"));
+    }
+    @Test
+    public void evaluateExp141Test(){
+        assertEq("#0", noVar("bezout(5)"));
+    }
+    @Test
+    public void evaluateExp142Test(){
+        assertEq("1", noVar("bezout(5,3)=bezout(5,3)"));
+    }
+    @Test
+    public void evaluateExp143Test(){
+        assertEq("0", noVar("bezout(5,3)=bezout(3,5)"));
+    }
+    @Test
+    public void evaluateExp144Test(){
+        assertEq("0", noVar("bezout(5,4)=bezout(5,3)"));
+    }
+    @Test
+    public void evaluateExp145Test(){
+        assertEq("0", noVar("bezout(4,6)=bezout(5,3)"));
+    }
+    @Test
+    public void evaluateExp146Test(){
+        assertEq("0", noVar("bezout(4,6)=3"));
+    }
+
+    @Test
     public void nullVarTest(){
         assertEq("#", nullVar());
     }
