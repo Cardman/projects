@@ -2790,6 +2790,25 @@ public class LgIntTest extends EquallableMathUtil {
         assertEq(new LgInt(2),dec_.getFactors().get(1).getExponent());
     }
     @Test
+    public void decompoPrim10Test() {
+        LgInt a_ = new LgInt(Long.MAX_VALUE);
+        Decomposition dec_ = a_.decompoPrim();
+        assertTrue(dec_.isPositive());
+        assertEq(6,dec_.getFactors().size());
+        assertEq(new LgInt(7),dec_.getFactors().get(0).getPrime());
+        assertEq(new LgInt(2),dec_.getFactors().get(0).getExponent());
+        assertEq(new LgInt(73),dec_.getFactors().get(1).getPrime());
+        assertEq(new LgInt(1),dec_.getFactors().get(1).getExponent());
+        assertEq(new LgInt(127),dec_.getFactors().get(2).getPrime());
+        assertEq(new LgInt(1),dec_.getFactors().get(2).getExponent());
+        assertEq(new LgInt(337),dec_.getFactors().get(3).getPrime());
+        assertEq(new LgInt(1),dec_.getFactors().get(3).getExponent());
+        assertEq(new LgInt(92737),dec_.getFactors().get(4).getPrime());
+        assertEq(new LgInt(1),dec_.getFactors().get(4).getExponent());
+        assertEq(new LgInt(649657),dec_.getFactors().get(5).getPrime());
+        assertEq(new LgInt(1),dec_.getFactors().get(5).getExponent());
+    }
+    @Test
     public void newLgIntStringTest() {
         LgInt a_ = LgInt.newLgInt("0");
         assertEq(new LgInt(0),a_);

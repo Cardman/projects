@@ -318,7 +318,7 @@ public final class LgInt implements Displayable {
             copy_ = tryDiv(init_,copy_,divs_);
             init_ = plus(init_,step_);
         }
-        if (divs_.isEmpty()) {
+        if (divs_.isEmpty() || !copy_.eq(one())) {
             divs_.add(new PrimDivisor(copy_,one()));
         }
         return new Decomposition(isSignum(), divs_);
