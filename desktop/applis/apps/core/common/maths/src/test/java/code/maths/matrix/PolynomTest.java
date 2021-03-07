@@ -942,6 +942,50 @@ public class PolynomTest extends EquallableMathUtil {
         assertEq(new Rate(2), roots_.last().getValue());
         assertEq(1, roots_.last().getDegree());
     }
+    @Test
+    public void racines30Test() {
+        Polynom a_ = new Polynom();
+        a_.add(new Rate(2));
+        a_.add(new Rate(4));
+        a_.add(new Rate(2));
+        CustList<RootPol> roots_ = a_.racines();
+        assertEq(1, roots_.size());
+        assertEq(new Rate(-1), roots_.first().getValue());
+        assertEq(2, roots_.first().getDegree());
+    }
+    @Test
+    public void racines31Test() {
+        Polynom a_ = new Polynom();
+        a_.add(new Rate(2));
+        a_.add(new Rate(-4));
+        a_.add(new Rate(2));
+        CustList<RootPol> roots_ = a_.racines();
+        assertEq(1, roots_.size());
+        assertEq(new Rate(1), roots_.first().getValue());
+        assertEq(2, roots_.first().getDegree());
+    }
+    @Test
+    public void racines32Test() {
+        Polynom a_ = new Polynom();
+        a_.add(new Rate(2));
+        a_.add(new Rate(8));
+        a_.add(new Rate(8));
+        CustList<RootPol> roots_ = a_.racines();
+        assertEq(1, roots_.size());
+        assertEq(new Rate(-2), roots_.first().getValue());
+        assertEq(2, roots_.first().getDegree());
+    }
+    @Test
+    public void racines33Test() {
+        Polynom a_ = new Polynom();
+        a_.add(new Rate(2));
+        a_.add(new Rate(-8));
+        a_.add(new Rate(8));
+        CustList<RootPol> roots_ = a_.racines();
+        assertEq(1, roots_.size());
+        assertEq(new Rate(2), roots_.first().getValue());
+        assertEq(2, roots_.first().getDegree());
+    }
 
     @Test
     public void interpolation1Test() {
