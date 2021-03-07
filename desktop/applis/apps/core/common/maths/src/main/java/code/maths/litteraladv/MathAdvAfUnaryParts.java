@@ -82,63 +82,63 @@ public final class MathAdvAfUnaryParts {
     }
 
     private void procNumOps(String _string, char _curChar) {
-        StringBuilder builtOperator_ = new StringBuilder();
-        boolean clearOperators_ = false;
-        boolean foundOperator_ = false;
+        StringBuilder built_ = new StringBuilder();
+        boolean clear_ = false;
+        boolean found_ = false;
         int increment_ = 1;
         if (MathExpUtil.cmpEq(_curChar)) {
-            builtOperator_.append(_curChar);
+            built_.append(_curChar);
             if (prio > MatCommonCst.EQ_PRIO) {
-                clearOperators_ = true;
+                clear_ = true;
                 prio = MatCommonCst.EQ_PRIO;
             }
             if (prio == MatCommonCst.EQ_PRIO) {
-                foundOperator_ = true;
+                found_ = true;
             }
         }
-        procOp(_string, _curChar, builtOperator_, clearOperators_, foundOperator_, increment_);
+        procOp(_string, _curChar, built_, clear_, found_, increment_);
     }
 
-    private void procOp(String _string, char _curChar, StringBuilder _builtOperator, boolean _clearOperators, boolean _foundOperator, int _increment) {
-        boolean clearOperators_ = _clearOperators;
-        boolean foundOperator_ = _foundOperator;
+    private void procOp(String _string, char _curChar, StringBuilder _built, boolean _clearOperators, boolean _foundOperator, int _increment) {
+        boolean clear_ = _clearOperators;
+        boolean found_ = _foundOperator;
         int increment_ = _increment;
-        int prioOpMult_ = getPrio(_curChar);
-        if (prioOpMult_ > 0) {
-            _builtOperator.append(_curChar);
-            reducePrio(prioOpMult_);
-            if (prio == prioOpMult_) {
-                clearOperators_ = true;
-                foundOperator_ = true;
+        int prioSymbol_ = getPrio(_curChar);
+        if (prioSymbol_ > 0) {
+            _built.append(_curChar);
+            reducePrio(prioSymbol_);
+            if (prio == prioSymbol_) {
+                clear_ = true;
+                found_ = true;
             }
         }
         if (MathExpUtil.cmpStr(_curChar)) {
-            _builtOperator.append(_curChar);
+            _built.append(_curChar);
             if (prio > MatCommonCst.CMP_PRIO) {
-                clearOperators_ = true;
+                clear_ = true;
                 prio = MatCommonCst.CMP_PRIO;
             }
             if (prio == MatCommonCst.CMP_PRIO) {
-                foundOperator_ = true;
+                found_ = true;
             }
             char nextChar_ = _string.charAt(current + 1);
             if (nextChar_ == MatCommonCst.EQ_CHAR) {
-                _builtOperator.append(nextChar_);
+                _built.append(nextChar_);
                 increment_++;
             }
         }
-        tryAddOp(_builtOperator, clearOperators_, foundOperator_, increment_);
+        tryAddOp(_built, clear_, found_, increment_);
     }
 
-    private void reducePrio(int _prioOpMult) {
-        if (prio > _prioOpMult) {
-            prio = _prioOpMult;
+    private void reducePrio(int _prioSymbol) {
+        if (prio > _prioSymbol) {
+            prio = _prioSymbol;
         }
     }
 
-    private void tryAddOp(StringBuilder _builtOperator, boolean _clearOperators, boolean _foundOperator, int _increment) {
-        if (_foundOperator) {
-            if (_clearOperators) {
+    private void tryAddOp(StringBuilder _builtOperator, boolean _clear, boolean _found, int _increment) {
+        if (_found) {
+            if (_clear) {
                 fct = "";
                 opers.clear();
             }
