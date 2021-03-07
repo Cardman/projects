@@ -2645,6 +2645,18 @@ public class LgIntTest extends EquallableMathUtil {
         assertTrue(!new LgInt(6).isPrime());
     }
     @Test
+    public void isPrime7Test() {
+        assertTrue(new LgInt(7).isPrime());
+    }
+    @Test
+    public void isPrime8Test() {
+        assertTrue(!new LgInt(8).isPrime());
+    }
+    @Test
+    public void isPrime9Test() {
+        assertTrue(!new LgInt(9).isPrime());
+    }
+    @Test
     public void identiteBezoutPgcdPpcm1Test() {
         LgInt a_ = new LgInt(27);
         LgInt b_ = new LgInt(15);

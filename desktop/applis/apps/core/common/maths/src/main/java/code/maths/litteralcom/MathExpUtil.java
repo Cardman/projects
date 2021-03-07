@@ -31,7 +31,15 @@ public final class MathExpUtil {
     }
 
     private static boolean cmp(char _curChar) {
-        return _curChar == MatCommonCst.LOWER_CHAR || _curChar == MatCommonCst.GREATER_CHAR || _curChar == MatCommonCst.EQ_CHAR;
+        return cmpStr(_curChar) || _curChar == MatCommonCst.EQ_CHAR;
+    }
+
+    public static boolean cmpStr(char _curChar) {
+        return _curChar == MatCommonCst.LOWER_CHAR || _curChar == MatCommonCst.GREATER_CHAR;
+    }
+
+    public static boolean cmpEq(char _curChar) {
+        return _curChar == MatCommonCst.NEG_BOOL_CHAR || _curChar == MatCommonCst.EQ_CHAR;
     }
 
     private static boolean andOr(char _curChar) {

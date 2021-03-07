@@ -86,7 +86,7 @@ public final class MathAdvAfUnaryParts {
         boolean clearOperators_ = false;
         boolean foundOperator_ = false;
         int increment_ = 1;
-        if (cmpEq(_curChar)) {
+        if (MathExpUtil.cmpEq(_curChar)) {
             builtOperator_.append(_curChar);
             if (prio > MatCommonCst.EQ_PRIO) {
                 clearOperators_ = true;
@@ -112,7 +112,7 @@ public final class MathAdvAfUnaryParts {
                 foundOperator_ = true;
             }
         }
-        if (cmp(_curChar)) {
+        if (MathExpUtil.cmpStr(_curChar)) {
             _builtOperator.append(_curChar);
             if (prio > MatCommonCst.CMP_PRIO) {
                 clearOperators_ = true;
@@ -128,14 +128,6 @@ public final class MathAdvAfUnaryParts {
             }
         }
         tryAddOp(_builtOperator, clearOperators_, foundOperator_, increment_);
-    }
-
-    private static boolean cmpEq(char _curChar) {
-        return _curChar == MatCommonCst.NEG_BOOL_CHAR || _curChar == MatCommonCst.EQ_CHAR;
-    }
-
-    private static boolean cmp(char _curChar) {
-        return _curChar == MatCommonCst.LOWER_CHAR || _curChar == MatCommonCst.GREATER_CHAR;
     }
 
     private void reducePrio(int _prioOpMult) {

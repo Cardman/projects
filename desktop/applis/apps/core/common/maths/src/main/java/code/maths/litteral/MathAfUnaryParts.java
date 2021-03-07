@@ -1,6 +1,7 @@
 package code.maths.litteral;
 
 import code.maths.litteralcom.MatCommonCst;
+import code.maths.litteralcom.MathExpUtil;
 import code.maths.litteralcom.StrTypes;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
@@ -69,7 +70,7 @@ class MathAfUnaryParts {
         boolean clearOperators_ = false;
         boolean foundOperator_ = false;
         int increment_ = 1;
-        if (cmpEq(_curChar)) {
+        if (MathExpUtil.cmpEq(_curChar)) {
             builtOperator_.append(_curChar);
             if (_curChar == MatCommonCst.NEG_BOOL_CHAR && index + 1 < _string.length()) {
                 char nextChar_ = _string.charAt(index + 1);
@@ -102,7 +103,7 @@ class MathAfUnaryParts {
                 foundOperator_ = true;
             }
         }
-        if (cmp(_curChar)) {
+        if (MathExpUtil.cmpStr(_curChar)) {
             _builtOperator.append(_curChar);
             if (prio > MatCommonCst.CMP_PRIO) {
                 clearOperators_ = true;
@@ -118,14 +119,6 @@ class MathAfUnaryParts {
             }
         }
         tryAddOp(_builtOperator, clearOperators_, foundOperator_, increment_);
-    }
-
-    private static boolean cmpEq(char _curChar) {
-        return _curChar == MatCommonCst.NEG_BOOL_CHAR || _curChar == MatCommonCst.EQ_CHAR;
-    }
-
-    private static boolean cmp(char _curChar) {
-        return _curChar == MatCommonCst.LOWER_CHAR || _curChar == MatCommonCst.GREATER_CHAR;
     }
 
     private void reducePrio(int _prioOpMult) {
