@@ -300,24 +300,41 @@ public final class LgInt implements Displayable {
     public Decomposition decompoPrim() {
         LgInt copy_=absNb();
         CustList<PrimDivisor> divs_ = new CustList<PrimDivisor>();
-        for (LgInt d: getDividers()) {
-            if (!d.isPrime()) {
-                continue;
+        if (copy_.isZero()) {
+            return new Decomposition(SIGNE_POSITIF, divs_);
+        }
+        LgInt d_ = new LgInt(2);
+        PrimDivisor p_ = new PrimDivisor(d_,zero());
+        while (true) {
+            QuotModLgInt qr_=copy_.divisionEuclidienneGeneralise(d_);
+            if(!qr_.getMod().isZeroOrLt()) {
+                break;
             }
-            PrimDivisor p_ = new PrimDivisor(d,zero());
+            p_.getExponent().increment();
+            copy_=qr_.getQuot();
+        }
+        if (!p_.getExponent().isZero()) {
+            divs_.add(p_);
+        }
+        LgInt init_ = new LgInt(3);
+        LgInt step_ = new LgInt(2);
+        while (lowerEq(multiply(init_,init_), copy_)) {
+            PrimDivisor q_ = new PrimDivisor(init_,zero());
             while (true) {
-                QuotModLgInt qr_=copy_.divisionEuclidienneGeneralise(d);
+                QuotModLgInt qr_=copy_.divisionEuclidienneGeneralise(init_);
                 if(!qr_.getMod().isZeroOrLt()) {
                     break;
                 }
-                p_.getExponent().increment();
+                q_.getExponent().increment();
                 copy_=qr_.getQuot();
             }
-            divs_.add(p_);
+            if (!q_.getExponent().isZero()) {
+                divs_.add(q_);
+            }
+            init_ = plus(init_,step_);
         }
-        if (absNb().eq(one())) {
-            PrimDivisor p_ = new PrimDivisor(one(),one());
-            divs_.add(p_);
+        if (divs_.isEmpty()) {
+            divs_.add(new PrimDivisor(copy_,one()));
         }
         return new Decomposition(isSignum(), divs_);
     }

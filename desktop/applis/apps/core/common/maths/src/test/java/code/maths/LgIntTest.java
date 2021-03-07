@@ -2749,6 +2749,35 @@ public class LgIntTest extends EquallableMathUtil {
         assertEq(new LgInt(1),dec_.getFactors().get(0).getExponent());
     }
     @Test
+    public void decompoPrim7Test() {
+        LgInt a_ = new LgInt(9);
+        Decomposition dec_ = a_.decompoPrim();
+        assertTrue(dec_.isPositive());
+        assertEq(1,dec_.getFactors().size());
+        assertEq(new LgInt(3),dec_.getFactors().get(0).getPrime());
+        assertEq(new LgInt(2),dec_.getFactors().get(0).getExponent());
+    }
+    @Test
+    public void decompoPrim8Test() {
+        LgInt a_ = new LgInt(121);
+        Decomposition dec_ = a_.decompoPrim();
+        assertTrue(dec_.isPositive());
+        assertEq(1,dec_.getFactors().size());
+        assertEq(new LgInt(11),dec_.getFactors().get(0).getPrime());
+        assertEq(new LgInt(2),dec_.getFactors().get(0).getExponent());
+    }
+    @Test
+    public void decompoPrim9Test() {
+        LgInt a_ = new LgInt(1089);
+        Decomposition dec_ = a_.decompoPrim();
+        assertTrue(dec_.isPositive());
+        assertEq(2,dec_.getFactors().size());
+        assertEq(new LgInt(3),dec_.getFactors().get(0).getPrime());
+        assertEq(new LgInt(2),dec_.getFactors().get(0).getExponent());
+        assertEq(new LgInt(11),dec_.getFactors().get(1).getPrime());
+        assertEq(new LgInt(2),dec_.getFactors().get(1).getExponent());
+    }
+    @Test
     public void newLgIntStringTest() {
         LgInt a_ = LgInt.newLgInt("0");
         assertEq(new LgInt(0),a_);
