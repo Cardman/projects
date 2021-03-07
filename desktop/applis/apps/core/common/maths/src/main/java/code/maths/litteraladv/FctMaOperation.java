@@ -128,7 +128,7 @@ public final class FctMaOperation extends MethodMaOperation {
     private void procQuot(MaError _error) {
         if (getChildren().size() == 2) {
             CustList<MaRateStruct> rates_ = tryGetRates();
-            if (rates_.size() == 2) {
+            if (areTwoIntegers(rates_)) {
                 LgInt quot_= rates_.first().getRate().intPart();
                 LgInt div_= rates_.last().getRate().intPart();
                 if (div_.isZero()) {
@@ -145,7 +145,7 @@ public final class FctMaOperation extends MethodMaOperation {
     private void procMod(MaError _error) {
         if (getChildren().size() == 2) {
             CustList<MaRateStruct> rates_ = tryGetRates();
-            if (rates_.size() == 2) {
+            if (areTwoIntegers(rates_)) {
                 LgInt quot_= rates_.first().getRate().intPart();
                 LgInt div_= rates_.last().getRate().intPart();
                 if (div_.isZero()) {
@@ -179,7 +179,7 @@ public final class FctMaOperation extends MethodMaOperation {
     private void procBezout(MaError _error) {
         if (getChildren().size() == 2) {
             CustList<MaRateStruct> rates_ = tryGetRates();
-            if (rates_.size() == 2) {
+            if (areTwoIntegers(rates_)) {
                 LgInt quot_= rates_.first().getRate().intPart();
                 LgInt div_= rates_.last().getRate().intPart();
                 setStruct(new MaBezoutNbStruct(LgInt.identiteBezoutPgcdPpcm(quot_,div_)));
@@ -189,6 +189,18 @@ public final class FctMaOperation extends MethodMaOperation {
         _error.setOffset(getIndexExp());
     }
 
+    private static boolean areTwoIntegers(CustList<MaRateStruct> _rates) {
+        return _rates.size() == 2&& areAllIntegers(_rates);
+    }
+
+    private static boolean areAllIntegers(CustList<MaRateStruct> _list) {
+        for (MaRateStruct r: _list) {
+            if (!r.getRate().isInteger()) {
+                return false;
+            }
+        }
+        return true;
+    }
     private void procSgn(MaError _error) {
         if (getChildren().size() == 1) {
             CustList<MaRateStruct> rates_ = tryGetRates();

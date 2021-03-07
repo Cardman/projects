@@ -415,10 +415,10 @@ public final class MaParser {
                 nbInfo_.append(cur_);
                 i_++;
                 frac_ = true;
-            } else if (StringUtil.isWhitespace(cur_) || ((cur_ == '-') && frac_)) {
+            } else if (isWhitePart(_string, len_, i_, cur_) || followFrac(frac_, cur_)) {
                 nbInfo_.append(cur_);
                 i_++;
-            } else if (MathExpUtil.isDigit(cur_) || cur_ == MatNumberResult.DOT) {
+            } else if (digOrDot(cur_)) {
                 nbInfo_.append(cur_);
                 i_++;
                 frac_ = false;
@@ -427,6 +427,31 @@ public final class MaParser {
             }
         }
         return new MatNumberResult(nbInfo_,i_);
+    }
+
+    private static boolean isWhitePart(String _string, int _len, int _i, char _cur) {
+        return StringUtil.isWhitespace(_cur) && nbPart(_string, _len, _i);
+    }
+
+    private static boolean nbPart(String _string, int _len, int _current) {
+        int next_ = skipWhite(_string, _len, _current);
+        if (next_ >= _len) {
+            return false;
+        }
+        char ch_ = _string.charAt(next_);
+        return nbPart(ch_);
+    }
+
+    private static boolean nbPart(char _cur) {
+        return _cur == MatNumberResult.SEP_RATE||digOrDot(_cur);
+    }
+
+    private static boolean digOrDot(char _cur) {
+        return MathExpUtil.isDigit(_cur) || _cur == MatNumberResult.DOT;
+    }
+
+    private static boolean followFrac(boolean _frac, char _cur) {
+        return _cur == '-' && _frac;
     }
 
     private static int procOper(MaDelimiters _d, int _i, char _curChar) {
