@@ -43,30 +43,36 @@ public final class MaParser {
     }
 
     private static String feedVars(StringMap<String> _aliases, StringMap<String> _repl, StringMap<MaStruct> _values, StringList _varNames) {
+        String message_;
         while (true) {
-            boolean calculatedValue_ = false;
-            for (EntryCust<String,String> e: _repl.entryList()) {
-                String k_ = e.getKey();
-                if (_values.getVal(k_) != null) {
-                    continue;
-                }
+            Res res_ = res(_aliases, _repl, _values, _varNames);
+            if (!res_.isCalculated()) {
+                message_ = res_.getMessage();
+                break;
+            }
+        }
+        return message_;
+    }
+    private static Res res(StringMap<String> _aliases, StringMap<String> _repl, StringMap<MaStruct> _values, StringList _varNames) {
+        boolean calculatedValue_ = false;
+        int index_ = 0;
+        for (EntryCust<String,String> e: _repl.entryList()) {
+            if (_values.getValue(index_) == null) {
                 String cf_ = e.getValue();
                 MaError err_ = new MaError();
                 MaStruct val_ = analyzeCalculate(cf_, _values, _aliases, err_, true, _varNames);
                 if (val_ != null) {
-                    _values.set(k_,val_);
+                    _values.setValue(index_, val_);
                     calculatedValue_ = true;
                     break;
                 }
                 if (err_.getOffset() > -1) {
-                    return "#" + cf_;
+                    return new Res(false, "#" + cf_);
                 }
             }
-            if (!calculatedValue_) {
-                break;
-            }
+            index_++;
         }
-        return "";
+        return new Res(calculatedValue_,"");
     }
     private static String checkedVariables(String _el, CustList<Replacement> _conf) {
         StringList allVars_ = new StringList();
@@ -364,11 +370,11 @@ public final class MaParser {
         int i_ = _from+1;
         while (i_ < _len) {
             char ch_ = _string.charAt(i_);
-            if (MathExpUtil.isWordChar(ch_)) {
+            if (!MathExpUtil.isWordChar(ch_)) {
+                break;
+            } else {
                 i_++;
-                continue;
             }
-            break;
         }
         int endWord_ = i_;
         i_ = skipWhite(_string, _len, i_);
@@ -384,11 +390,11 @@ public final class MaParser {
         int to_ = _from;
         while (to_ < _len) {
             char ch_ = _string.charAt(to_);
-            if (StringUtil.isWhitespace(ch_)) {
+            if (!StringUtil.isWhitespace(ch_)) {
+                break;
+            } else {
                 to_++;
-                continue;
             }
-            break;
         }
         return to_;
     }
