@@ -709,7 +709,7 @@ public final class MaParserTest extends EquallableMathUtil {
     }
     @Test
     public void evaluateExp175Test(){
-        assertEq("(1,6,2,3)", noVar("divs(6)"));
+        assertEq("(1,2,3,6)", noVar("divs(6)"));
     }
     @Test
     public void evaluateExp176Test(){

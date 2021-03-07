@@ -2113,13 +2113,13 @@ public class RateTest extends EquallableMathUtil {
         CustList<LgInt> div_ = int_.getDividersNumerator();
         assertEq(8, div_.size());
         assertEq(new LgInt(1), div_.get(0));
-        assertEq(new LgInt(42), div_.get(1));
-        assertEq(new LgInt(2), div_.get(2));
-        assertEq(new LgInt(21), div_.get(3));
-        assertEq(new LgInt(3), div_.get(4));
+        assertEq(new LgInt(2), div_.get(1));
+        assertEq(new LgInt(3), div_.get(2));
+        assertEq(new LgInt(6), div_.get(3));
+        assertEq(new LgInt(7), div_.get(4));
         assertEq(new LgInt(14), div_.get(5));
-        assertEq(new LgInt(6), div_.get(6));
-        assertEq(new LgInt(7), div_.get(7));
+        assertEq(new LgInt(21), div_.get(6));
+        assertEq(new LgInt(42), div_.get(7));
     }
     @Test
     public void newRate1Test() {

@@ -333,13 +333,15 @@ public final class LgInt implements Displayable {
         if (!abs_.eq(LgInt.one())) {
             divs_.add(abs_);
         }
+        int index_ = 1;
         while (!LgInt.strGreater(multiply(init_,init_), abs_)) {
             QuotModLgInt qr_ = abs_.divisionEuclidienneGeneralise(init_);
             if (qr_.getMod().isZero()) {
-                divs_.add(new LgInt(init_));
+                divs_.add(index_,new LgInt(init_));
                 if (!init_.eq(qr_.getQuot())) {
-                    divs_.add(qr_.getQuot());
+                    divs_.add(index_+1,qr_.getQuot());
                 }
+                index_++;
             }
             init_.increment();
         }
