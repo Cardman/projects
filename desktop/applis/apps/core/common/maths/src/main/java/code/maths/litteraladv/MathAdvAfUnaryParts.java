@@ -12,9 +12,11 @@ public final class MathAdvAfUnaryParts {
     private final MaStackOperators dels = new MaStackOperators();
     private int prio = MatCommonCst.FCT_OPER_PRIO;
     private int current;
+    private final int lastPrintChar;
     private String fct = "";
     MathAdvAfUnaryParts(String _string, int _index, int _lastPrintChar) {
         current = _index;
+        lastPrintChar = _lastPrintChar;
         String opUn_ = Character.toString(_string.charAt(_index));
         if (MathExpUtil.unary(_string.charAt(_index))) {
             prio = MatCommonCst.UNARY_PRIO;
@@ -86,19 +88,39 @@ public final class MathAdvAfUnaryParts {
         boolean clear_ = false;
         boolean found_ = false;
         int increment_ = 1;
-        if (MathExpUtil.cmpEq(_curChar)) {
+        if (_curChar == '!' && okFact(_string)) {
             built_.append(_curChar);
-            if (prio > MatCommonCst.EQ_PRIO) {
-                clear_ = true;
-                prio = MatCommonCst.EQ_PRIO;
+            if (prio > MatCommonCst.FACT_PRIO) {
+                prio = MatCommonCst.FACT_PRIO;
             }
-            if (prio == MatCommonCst.EQ_PRIO) {
+            if (prio == MatCommonCst.FACT_PRIO) {
+                clear_ = true;
                 found_ = true;
+            }
+        } else {
+            if (MathExpUtil.cmpEq(_curChar)) {
+                built_.append(_curChar);
+                if (prio > MatCommonCst.EQ_PRIO) {
+                    clear_ = true;
+                    prio = MatCommonCst.EQ_PRIO;
+                }
+                if (prio == MatCommonCst.EQ_PRIO) {
+                    found_ = true;
+                }
             }
         }
         procOp(_string, _curChar, built_, clear_, found_, increment_);
     }
 
+    private boolean okFact(String _string) {
+        return current == lastPrintChar || nextPrintIs(_string);
+    }
+
+    private boolean nextPrintIs(String _string) {
+        int next_ = MaParser.skipWhite(_string, lastPrintChar + 1, current + 1);
+        return MaParser.charIs(_string,lastPrintChar + 1,next_,'!')
+                ||MaParser.charIs(_string,lastPrintChar + 1,next_,'=');
+    }
     private void procOp(String _string, char _curChar, StringBuilder _built, boolean _clearOperators, boolean _foundOperator, int _increment) {
         boolean clear_ = _clearOperators;
         boolean found_ = _foundOperator;
@@ -136,13 +158,13 @@ public final class MathAdvAfUnaryParts {
         }
     }
 
-    private void tryAddOp(StringBuilder _builtOperator, boolean _clear, boolean _found, int _increment) {
+    private void tryAddOp(StringBuilder _built, boolean _clear, boolean _found, int _increment) {
         if (_found) {
             if (_clear) {
                 fct = "";
                 opers.clear();
             }
-            opers.addEntry(current, _builtOperator.toString());
+            opers.addEntry(current, _built.toString());
         }
         current += _increment;
     }

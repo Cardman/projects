@@ -234,7 +234,17 @@ public final class Rate implements Displayable {
         }
         return true;
     }
-
+    public Rate fact() {
+        Rate abs_ = absNb();
+        LgInt intPart_ = abs_.intPart();
+        if (abs_.isInteger()) {
+            return new Rate(intPart_.fact());
+        }
+        LgInt prev_ = LgInt.minus(intPart_,LgInt.one());
+        Rate res_ = new Rate(prev_.fact());
+        res_.multiplyBy(abs_);
+        return res_;
+    }
     /**
         This method changes the current rate by affecting it an other rate.
 

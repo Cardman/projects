@@ -791,6 +791,38 @@ public final class MaParserTest extends EquallableMathUtil {
     public void evaluateExp195Test(){
         assertEq("#0", noVar("quot(5/3,0)"));
     }
+    @Test
+    public void evaluateExp196Test(){
+        assertEq("2", noVar("2!"));
+    }
+    @Test
+    public void evaluateExp197Test(){
+        assertEq("2", noVar("2!!"));
+    }
+    @Test
+    public void evaluateExp198Test(){
+        assertEq("-2", noVar("-2!"));
+    }
+    @Test
+    public void evaluateExp199Test(){
+        assertEq("1", noVar("2=2!"));
+    }
+    @Test
+    public void evaluateExp200Test(){
+        assertEq("3", noVar("(2!)+1"));
+    }
+    @Test
+    public void evaluateExp201Test(){
+        assertEq("3", noVar("(2!!)+1"));
+    }
+    @Test
+    public void evaluateExp202Test(){
+        assertEq("1", noVar("2!=2"));
+    }
+    @Test
+    public void evaluateExp203Test(){
+        assertEq("#7", noVar("divs(2)!"));
+    }
 
     @Test
     public void nullVarTest(){

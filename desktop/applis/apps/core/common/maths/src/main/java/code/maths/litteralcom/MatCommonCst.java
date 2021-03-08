@@ -9,7 +9,8 @@ public final class MatCommonCst {
     public static final int ADD_PRIO = 5;
     public static final int MULT_PRIO = 6;
     public static final int UNARY_PRIO = 7;
-    public static final int FCT_OPER_PRIO = 8;
+    public static final int FACT_PRIO = 8;
+    public static final int FCT_OPER_PRIO = 9;
     public static final char DOT = '.';
     public static final char PAR_LEFT = '(';
     public static final char PAR_RIGHT = ')';

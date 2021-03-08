@@ -1325,11 +1325,11 @@ public final class LgInt implements Displayable {
     public LgInt fact() {
         // Attention a 40!
         LgInt res_ = one();
-        LgInt init_ = zero();
-        LgInt incr_ = one();
-        while (!eq(init_)) {
-            init_.addNb(incr_);
+        LgInt init_ = one();
+        LgInt abs_ = absNb();
+        while (lowerEq(init_,abs_)) {
             res_.multiplierParEntierPositif(init_);
+            init_.increment();
         }
         return res_;
     }

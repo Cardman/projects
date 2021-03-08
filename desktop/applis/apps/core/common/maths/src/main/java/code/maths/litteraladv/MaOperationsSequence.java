@@ -44,6 +44,9 @@ public final class MaOperationsSequence {
                 return;
             }
         }
+        if (prio == MatCommonCst.FACT_PRIO) {
+            return;
+        }
         if (prio == MatCommonCst.FCT_OPER_PRIO && opers.size() == 2) {
             int beginValuePart_ = endPart_ + opers.firstValue().length();
             endPart_ = opers.getKey(IndexConstants.SECOND_INDEX);

@@ -387,7 +387,7 @@ public final class MaParser {
         }
         return !StringUtil.contains(_varNames,_string.substring(_from,endWord_));
     }
-    private static int skipWhite(String _string, int _len,int _from) {
+    static int skipWhite(String _string, int _len,int _from) {
         int to_ = _from;
         while (to_ < _len) {
             char ch_ = _string.charAt(to_);
@@ -399,7 +399,7 @@ public final class MaParser {
         }
         return to_;
     }
-    private static boolean charIs(String _string, int _len,int _i, char _ch) {
+    static boolean charIs(String _string, int _len,int _i, char _ch) {
         return _i < _len && _string.charAt(_i) == _ch;
     }
     private static int addNumberInfo(MaDelimiters _d, int _from, int _begin, String _string) {

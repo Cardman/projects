@@ -2130,6 +2130,42 @@ public class RateTest extends EquallableMathUtil {
         assertEq("1",new Rate(1).display());
     }
     @Test
+    public void fact1Test(){
+        Rate int_ = new Rate("1");
+        assertEq(new Rate("1"), int_.fact());
+        assertEq(new Rate("1"), int_);
+    }
+    @Test
+    public void fact2Test(){
+        Rate int_ = new Rate("1/2");
+        assertEq(new Rate("1/2"), int_.fact());
+        assertEq(new Rate("1/2"), int_);
+    }
+    @Test
+    public void fact3Test(){
+        Rate int_ = new Rate("3/2");
+        assertEq(new Rate("3/2"), int_.fact());
+        assertEq(new Rate("3/2"), int_);
+    }
+    @Test
+    public void fact4Test(){
+        Rate int_ = new Rate("5/2");
+        assertEq(new Rate("5/2"), int_.fact());
+        assertEq(new Rate("5/2"), int_);
+    }
+    @Test
+    public void fact5Test(){
+        Rate int_ = new Rate("7/2");
+        assertEq(new Rate("7"), int_.fact());
+        assertEq(new Rate("7/2"), int_);
+    }
+    @Test
+    public void fact6Test(){
+        Rate int_ = new Rate("9/2");
+        assertEq(new Rate("27"), int_.fact());
+        assertEq(new Rate("9/2"), int_);
+    }
+    @Test
     public void cmp1() {
         assertEq(1, new ComparatorRate().compare(new Rate("2"),new Rate("1")));
     }

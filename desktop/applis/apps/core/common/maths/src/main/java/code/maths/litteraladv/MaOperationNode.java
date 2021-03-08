@@ -118,6 +118,13 @@ public abstract class MaOperationNode {
         if (_op.getPrio() == MatCommonCst.FCT_OPER_PRIO) {
             return procFct(_index, _indexChild, _m, _op, _mapping);
         }
+        return procSymbol(_index, _indexChild, _m, _op);
+    }
+
+    private static MethodMaOperation procSymbol(int _index, int _indexChild, MethodMaOperation _m, MaOperationsSequence _op) {
+        if (_op.getPrio() == MatCommonCst.FACT_PRIO) {
+            return new FactMaOperation(_index, _indexChild, _m, _op);
+        }
         if (_op.getPrio() == MatCommonCst.UNARY_PRIO) {
             return procUnary(_index, _indexChild, _m, _op);
         }
