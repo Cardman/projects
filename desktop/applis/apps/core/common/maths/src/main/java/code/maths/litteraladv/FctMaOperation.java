@@ -1,5 +1,6 @@
 package code.maths.litteraladv;
 
+import code.maths.Decomposition;
 import code.maths.LgInt;
 import code.maths.Rate;
 import code.maths.litteralcom.StrTypes;
@@ -50,11 +51,18 @@ public final class FctMaOperation extends MethodMaOperation {
         if (StringUtil.quickEq(LG, _id)) {
             procLg(_error);
         }
+        procUnaryArith(_error, _id);
+    }
+
+    private void procUnaryArith(MaError _error, String _id) {
         if (StringUtil.quickEq(PREM, _id)) {
             procPrem(_error);
         }
         if (StringUtil.quickEq(DIVS, _id)) {
             procDivs(_error);
+        }
+        if (StringUtil.quickEq(DECOMP, _id)) {
+            procDecomp(_error);
         }
     }
 
@@ -73,6 +81,9 @@ public final class FctMaOperation extends MethodMaOperation {
         }
         if (StringUtil.quickEq(BEZOUT, _id)) {
             procBezout(_error);
+        }
+        if (StringUtil.quickEq(PARMI, _id)) {
+            procParmi(_error);
         }
     }
 
@@ -189,24 +200,45 @@ public final class FctMaOperation extends MethodMaOperation {
         _error.setOffset(getIndexExp());
     }
 
-    private static boolean areTwoIntegers(CustList<MaRateStruct> _rates) {
-        return _rates.size() == 2&& areAllIntegers(_rates);
-    }
-
-    private static boolean areAllIntegers(CustList<MaRateStruct> _list) {
-        for (MaRateStruct r: _list) {
-            if (!r.getRate().isInteger()) {
-                return false;
+    private void procParmi(MaError _error) {
+        if (getChildren().size() == 2) {
+            CustList<MaRateStruct> rates_ = tryGetRates();
+            if (areTwoIntegers(rates_)) {
+                Rate nbOne_= rates_.first().getRate();
+                Rate nbTwo_= rates_.last().getRate();
+                if (nbOne_.isZeroOrGt()&&nbTwo_.isZeroOrGt()) {
+                    setStruct(new MaRateStruct(new Rate(LgInt.among(nbOne_.intPart(),nbTwo_.intPart()))));
+                    return;
+                }
             }
         }
-        return true;
+        _error.setOffset(getIndexExp());
     }
+
+    private static boolean areTwoIntegers(CustList<MaRateStruct> _rates) {
+        return areAllIntegersNb(_rates, 2);
+    }
+
     private void procSgn(MaError _error) {
         if (getChildren().size() == 1) {
             CustList<MaRateStruct> rates_ = tryGetRates();
             if (rates_.size() == 1) {
                 Rate nb_= rates_.first().getRate();
                 setStruct(new MaRateStruct(nb_.signum()));
+                return;
+            }
+            CustList<MaDecompositionNbStruct> decomp_ = tryGetDecompNb();
+            if (decomp_.size() == 1) {
+                Decomposition decomposition_ = decomp_.first().getDecomposition();
+                if (decomposition_.getFactors().isEmpty()) {
+                    setStruct(new MaRateStruct(Rate.zero()));
+                    return;
+                }
+                if (decomposition_.isPositive()) {
+                    setStruct(new MaRateStruct(Rate.one()));
+                    return;
+                }
+                setStruct(new MaRateStruct(Rate.minusOne()));
                 return;
             }
         }
@@ -284,6 +316,14 @@ public final class FctMaOperation extends MethodMaOperation {
                 setStruct(new MaRateStruct(new Rate(((MaDividersNbStruct)list_.first()).getDividers().size())));
                 return;
             }
+            if (list_.first() instanceof MaDecompositionNbStruct) {
+                setStruct(new MaRateStruct(new Rate(((MaDecompositionNbStruct)list_.first()).getDecomposition().getFactors().size())));
+                return;
+            }
+            if (list_.first() instanceof MaPrimDivisorNbStruct) {
+                setStruct(new MaRateStruct(new Rate(2)));
+                return;
+            }
             setStruct(new MaRateStruct(new Rate(-1)));
             return;
         }
@@ -293,12 +333,10 @@ public final class FctMaOperation extends MethodMaOperation {
     private void procPrem(MaError _error) {
         if (getChildren().size() == 1) {
             CustList<MaRateStruct> rates_ = tryGetRates();
-            if (rates_.size() == 1) {
+            if (areAllIntegersNb(rates_,1)) {
                 Rate nb_= rates_.first().getRate();
-                if (nb_.isInteger()) {
-                    setStruct(MaBoolStruct.of(nb_.intPart().isPrime()));
-                    return;
-                }
+                setStruct(MaBoolStruct.of(nb_.intPart().isPrime()));
+                return;
             }
         }
         _error.setOffset(getIndexExp());
@@ -307,17 +345,39 @@ public final class FctMaOperation extends MethodMaOperation {
     private void procDivs(MaError _error) {
         if (getChildren().size() == 1) {
             CustList<MaRateStruct> rates_ = tryGetRates();
-            if (rates_.size() == 1) {
+            if (areAllIntegersNb(rates_,1)) {
                 Rate nb_= rates_.first().getRate();
-                if (nb_.isInteger()) {
-                    setStruct(new MaDividersNbStruct(nb_.intPart().getDividers()));
-                    return;
-                }
+                setStruct(new MaDividersNbStruct(nb_.intPart().getDividers()));
+                return;
             }
         }
         _error.setOffset(getIndexExp());
     }
 
+    private void procDecomp(MaError _error) {
+        if (getChildren().size() == 1) {
+            CustList<MaRateStruct> rates_ = tryGetRates();
+            if (areAllIntegersNb(rates_,1)) {
+                Rate nb_= rates_.first().getRate();
+                setStruct(new MaDecompositionNbStruct(nb_.intPart().decompoPrim()));
+                return;
+            }
+        }
+        _error.setOffset(getIndexExp());
+    }
+
+    private static boolean areAllIntegersNb(CustList<MaRateStruct> _rates, int _count) {
+        return _rates.size() == _count && areAllIntegers(_rates);
+    }
+
+    private static boolean areAllIntegers(CustList<MaRateStruct> _list) {
+        for (MaRateStruct r: _list) {
+            if (!r.getRate().isInteger()) {
+                return false;
+            }
+        }
+        return true;
+    }
     CustList<MaRateStruct> tryGetRates() {
         CustList<MaRateStruct> rates_ = new CustList<MaRateStruct>();
         int len_ = getChildren().size();
@@ -325,6 +385,17 @@ public final class FctMaOperation extends MethodMaOperation {
             MaStruct str_ = MaNumParsers.tryGet(this, i);
             if (str_ instanceof MaRateStruct) {
                 rates_.add((MaRateStruct)str_);
+            }
+        }
+        return rates_;
+    }
+    CustList<MaDecompositionNbStruct> tryGetDecompNb() {
+        CustList<MaDecompositionNbStruct> rates_ = new CustList<MaDecompositionNbStruct>();
+        int len_ = getChildren().size();
+        for (int i = 0; i < len_; i++) {
+            MaStruct str_ = MaNumParsers.tryGet(this, i);
+            if (str_ instanceof MaDecompositionNbStruct) {
+                rates_.add((MaDecompositionNbStruct)str_);
             }
         }
         return rates_;

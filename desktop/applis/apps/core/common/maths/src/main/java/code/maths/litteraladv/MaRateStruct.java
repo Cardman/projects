@@ -14,6 +14,11 @@ public final class MaRateStruct implements MaStruct {
         return eqRate(this, _other);
     }
 
+    @Override
+    public String displayRsult() {
+        return rate.toNumberString();
+    }
+
     public static boolean eqRate(MaRateStruct _this, MaStruct _other) {
         if (!(_other instanceof MaRateStruct)) {
             return false;

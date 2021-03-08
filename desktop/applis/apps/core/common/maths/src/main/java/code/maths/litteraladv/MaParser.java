@@ -128,10 +128,11 @@ public final class MaParser {
                 MaOperationNode.QUOT,
                 MaOperationNode.MOD,MaOperationNode.MODTAUX,
                 MaOperationNode.BEZOUT,
+                MaOperationNode.PARMI,
                 MaOperationNode.SGN,MaOperationNode.ABS,
                 MaOperationNode.ENT,MaOperationNode.TRONC,
                 MaOperationNode.NUM,MaOperationNode.DEN,
-                MaOperationNode.LG,MaOperationNode.PREM,MaOperationNode.DIVS);
+                MaOperationNode.LG,MaOperationNode.PREM,MaOperationNode.DIVS,MaOperationNode.DECOMP);
     }
     private static boolean koCoreRepl(Replacement _r) {
         return _r == null || StringUtil.nullToEmpty(_r.getOldString()).isEmpty() || StringUtil.nullToEmpty(_r.getNewString()).isEmpty();

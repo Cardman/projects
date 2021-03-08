@@ -711,7 +711,6 @@ public final class LgInt implements Displayable {
             // <=> this > _nombreTotalElements
             return LgInt.zero();
         }
-        LgInt cardinal_ = LgInt.one();
         CustList<LgInt> numerateur_ = new CustList<LgInt>();
         CustList<LgInt> denominateur_ = new CustList<LgInt>();
         LgInt diffTotalPartiel_ = minus(_nombreTotalElements, _nombre);
@@ -731,13 +730,14 @@ public final class LgInt implements Displayable {
                 if (!one().eq(den_)) {
                     LgInt num_ = numerateur_.get(j);
                     LgInt pgcd_ = pgcd(num_, den_);
-                    numerateur_.set(j, divide(num_, pgcd_));
-                    den_ = divide(den_, pgcd_);
+                    num_.divideBy(pgcd_);
+                    den_.divideBy(pgcd_);
                 }
             }
         }
-        for (int i = IndexConstants.FIRST_INDEX; i < nombre_; i++) {
-            cardinal_.multiplyBy(numerateur_.get(i));
+        LgInt cardinal_ = LgInt.one();
+        for (LgInt n: numerateur_) {
+            cardinal_.multiplyBy(n);
         }
         return cardinal_;
     }

@@ -1,9 +1,12 @@
 package code.maths.litteraladv;
 
 import code.maths.LgInt;
+import code.util.CollCapacity;
 import code.util.CustList;
+import code.util.StringList;
+import code.util.core.StringUtil;
 
-public class MaDividersNbStruct implements MaStruct {
+public final class MaDividersNbStruct implements MaStruct {
     private final CustList<LgInt> dividers;
 
     public MaDividersNbStruct(CustList<LgInt> _idBezout) {
@@ -17,6 +20,15 @@ public class MaDividersNbStruct implements MaStruct {
     @Override
     public boolean sameReference(MaStruct _other) {
         return eqDivs(this, _other);
+    }
+
+    @Override
+    public String displayRsult() {
+        StringList list_ = new StringList(new CollCapacity(dividers.size()));
+        for (LgInt d: dividers) {
+            list_.add(d.toNumberString());
+        }
+        return "("+ StringUtil.join(list_,",")+")";
     }
 
     static boolean eqDivs(MaDividersNbStruct _this, MaStruct _other) {

@@ -15,26 +15,7 @@ public final class MaNumParsers {
         if (_this == null) {
             return _error.display();
         }
-        if (_this instanceof MaBoolStruct) {
-            if (MaBoolStruct.isTrue(_this)) {
-                return "1";
-            }
-            return "0";
-        }
-        if (_this instanceof MaBezoutNbStruct) {
-            IdBezoutNb idBezout_ = ((MaBezoutNbStruct) _this).getIdBezout();
-            return "("+idBezout_.getFirst().toNumberString()+","+idBezout_.getSecond().toNumberString()+","
-                    +idBezout_.getPgcd().toNumberString()+","+idBezout_.getPpcm().toNumberString()+")";
-        }
-        if (_this instanceof MaDividersNbStruct) {
-            CustList<LgInt> divs_ = ((MaDividersNbStruct)_this).getDividers();
-            StringList list_ = new StringList(new CollCapacity(divs_.size()));
-            for (LgInt d: divs_) {
-                list_.add(d.toNumberString());
-            }
-            return "("+StringUtil.join(list_,",")+")";
-        }
-        return toRate(_this).getRate().toNumberString();
+        return _this.displayRsult();
     }
 
     public static MaStruct tryGet(MethodMaOperation _parent, int _index) {
@@ -75,11 +56,5 @@ public final class MaNumParsers {
             return Rate.strGreater(_this.getRate(),_other.getRate());
         }
         return Rate.greaterEq(_this.getRate(),_other.getRate());
-    }
-    public static MaRateStruct toRate(MaStruct _inst) {
-        if (!(_inst instanceof MaRateStruct)) {
-            return new MaRateStruct(Rate.zero());
-        }
-        return (MaRateStruct) _inst;
     }
 }

@@ -55,6 +55,10 @@ public abstract class MaOperationNode {
 
     protected static final String DIVS = "divs";
 
+    protected static final String DECOMP = "decomp";
+
+    protected static final String PARMI = "parmi";
+
 //    protected static final String MIN = "min";
 //
 //    protected static final String MAX = "max";

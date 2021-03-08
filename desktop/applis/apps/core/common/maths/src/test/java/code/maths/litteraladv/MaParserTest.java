@@ -823,6 +823,242 @@ public final class MaParserTest extends EquallableMathUtil {
     public void evaluateExp203Test(){
         assertEq("#7", noVar("divs(2)!"));
     }
+    @Test
+    public void evaluateExp204Test(){
+        assertEq("6", noVar("parmi(2,4)"));
+    }
+    @Test
+    public void evaluateExp205Test(){
+        assertEq("#0", noVar("parmi(-2,4)"));
+    }
+    @Test
+    public void evaluateExp206Test(){
+        assertEq("#0", noVar("parmi(2,-4)"));
+    }
+    @Test
+    public void evaluateExp207Test(){
+        assertEq("#0", noVar("parmi(2,divs(2))"));
+    }
+    @Test
+    public void evaluateExp208Test(){
+        assertEq("#0", noVar("parmi(2)"));
+    }
+    @Test
+    public void evaluateExp209Test(){
+        assertEq("[[2 1]]", noVar("decomp(2)"));
+    }
+    @Test
+    public void evaluateExp210Test(){
+        assertEq("[[2 1][3 1]]", noVar("decomp(6)"));
+    }
+    @Test
+    public void evaluateExp211Test(){
+        assertEq("2", noVar("decomp(162)[0][0]"));
+    }
+    @Test
+    public void evaluateExp212Test(){
+        assertEq("1", noVar("decomp(162)[0][1]"));
+    }
+    @Test
+    public void evaluateExp213Test(){
+        assertEq("3", noVar("decomp(162)[1][0]"));
+    }
+    @Test
+    public void evaluateExp214Test(){
+        assertEq("4", noVar("decomp(162)[1][1]"));
+    }
+    @Test
+    public void evaluateExp215Test(){
+        assertEq("2", noVar("decomp(162)[0,0]"));
+    }
+    @Test
+    public void evaluateExp216Test(){
+        assertEq("1", noVar("decomp(162)[0,1]"));
+    }
+    @Test
+    public void evaluateExp217Test(){
+        assertEq("3", noVar("decomp(162)[1,0]"));
+    }
+    @Test
+    public void evaluateExp218Test(){
+        assertEq("4", noVar("decomp(162)[1,1]"));
+    }
+    @Test
+    public void evaluateExp219Test(){
+        assertEq("[2 1]", noVar("decomp(162)[0]"));
+    }
+    @Test
+    public void evaluateExp220Test(){
+        assertEq("[3 4]", noVar("decomp(162)[1]"));
+    }
+    @Test
+    public void evaluateExp221Test(){
+        assertEq("1", noVar("decomp(2)!decomp(6)"));
+    }
+    @Test
+    public void evaluateExp222Test(){
+        assertEq("1", noVar("decomp(2)!decomp(3)"));
+    }
+    @Test
+    public void evaluateExp224Test(){
+        assertEq("1", noVar("decomp(2)!decomp(4)"));
+    }
+    @Test
+    public void evaluateExp225Test(){
+        assertEq("1", noVar("decomp(2)=decomp(2)"));
+    }
+    @Test
+    public void evaluateExp226Test(){
+        assertEq("2", noVar("decomp(162)[-2][-2]"));
+    }
+    @Test
+    public void evaluateExp227Test(){
+        assertEq("1", noVar("decomp(162)[-2][-1]"));
+    }
+    @Test
+    public void evaluateExp228Test(){
+        assertEq("3", noVar("decomp(162)[-1][-2]"));
+    }
+    @Test
+    public void evaluateExp229Test(){
+        assertEq("4", noVar("decomp(162)[-1][-1]"));
+    }
+    @Test
+    public void evaluateExp230Test(){
+        assertEq("2", noVar("decomp(162)[-2,-2]"));
+    }
+    @Test
+    public void evaluateExp231Test(){
+        assertEq("1", noVar("decomp(162)[-2,-1]"));
+    }
+    @Test
+    public void evaluateExp232Test(){
+        assertEq("3", noVar("decomp(162)[-1,-2]"));
+    }
+    @Test
+    public void evaluateExp233Test(){
+        assertEq("4", noVar("decomp(162)[-1,-1]"));
+    }
+    @Test
+    public void evaluateExp234Test(){
+        assertEq("6", noVar("lg(decomp("+Long.MAX_VALUE+"))"));
+    }
+    @Test
+    public void evaluateExp235Test(){
+        assertEq("2", noVar("lg(decomp("+Long.MAX_VALUE+")[0])"));
+    }
+    @Test
+    public void evaluateExp236Test(){
+        assertEq("1", noVar("sgn(decomp(1))"));
+    }
+    @Test
+    public void evaluateExp237Test(){
+        assertEq("-1", noVar("sgn(decomp(-1))"));
+    }
+    @Test
+    public void evaluateExp238Test(){
+        assertEq("0", noVar("sgn(decomp(0))"));
+    }
+    @Test
+    public void evaluateExp239Test(){
+        assertEq("1", noVar("decomp(2)[0]!decomp(3)[0]"));
+    }
+    @Test
+    public void evaluateExp240Test(){
+        assertEq("1", noVar("decomp(2)[0]!decomp(4)[0]"));
+    }
+    @Test
+    public void evaluateExp241Test(){
+        assertEq("1", noVar("decomp(2)[0]=decomp(2)[0]"));
+    }
+    @Test
+    public void evaluateExp242Test(){
+        assertEq("1", noVar("decomp(2)!decomp(3)[0]"));
+    }
+    @Test
+    public void evaluateExp243Test(){
+        assertEq("1", noVar("decomp(2)[0]!decomp(4)"));
+    }
+    @Test
+    public void evaluateExp244Test(){
+        assertEq("1", noVar("decomp(2)!decomp(-2)"));
+    }
+    @Test
+    public void evaluateExp245Test(){
+        assertEq("-[[2 1]]", noVar("decomp(-2)"));
+    }
+    @Test
+    public void evaluateExp246Test(){
+        assertEq("#0", noVar("decomp(divs(2))"));
+    }
+    @Test
+    public void evaluateExp247Test(){
+        assertEq("#0", noVar("decomp(divs(2),divs(2))"));
+    }
+    @Test
+    public void evaluateExp248Test(){
+        assertEq("#0", noVar("decomp(162)[-1,2]"));
+    }
+    @Test
+    public void evaluateExp249Test(){
+        assertEq("#0", noVar("decomp(162)[-1][2]"));
+    }
+    @Test
+    public void evaluateExp250Test(){
+        assertEq("#0", noVar("decomp(162)[2]"));
+    }
+    @Test
+    public void evaluateExp251Test(){
+        assertEq("#0", noVar("decomp(162)[1/2,1]"));
+    }
+    @Test
+    public void evaluateExp252Test(){
+        assertEq("#0", noVar("decomp(162)[1,1/2]"));
+    }
+    @Test
+    public void evaluateExp253Test(){
+        assertEq("#0", noVar("decomp(162)[1/2][1]"));
+    }
+    @Test
+    public void evaluateExp254Test(){
+        assertEq("#0", noVar("decomp(162)[1][1/2]"));
+    }
+    @Test
+    public void evaluateExp255Test(){
+        assertEq("#0", noVar("decomp(162)[-1,-3]"));
+    }
+    @Test
+    public void evaluateExp256Test(){
+        assertEq("#0", noVar("decomp(162)[-1][-3]"));
+    }
+    @Test
+    public void evaluateExp257Test(){
+        assertEq("#0", noVar("decomp(162)[-3]"));
+    }
+    @Test
+    public void evaluateExp258Test(){
+        assertEq("#0", noVar("decomp(162)[1,divs(2)]"));
+    }
+    @Test
+    public void evaluateExp259Test(){
+        assertEq("#0", noVar("decomp(162)[divs(2),1]"));
+    }
+    @Test
+    public void evaluateExp260Test(){
+        assertEq("#0", noVar("divs(162)[0,0]"));
+    }
+    @Test
+    public void evaluateExp261Test(){
+        assertEq("#0", noVar("divs(162)[0,0,0]"));
+    }
+    @Test
+    public void evaluateExp262Test(){
+        assertEq("#0", noVar("decomp(162)[-3,-1]"));
+    }
+    @Test
+    public void evaluateExp263Test(){
+        assertEq("#0", noVar("decomp(162)[2,-1]"));
+    }
 
     @Test
     public void nullVarTest(){
@@ -847,7 +1083,6 @@ public final class MaParserTest extends EquallableMathUtil {
         assertTrue(MaNumParsers.eqNb(null,null));
         assertTrue(!MaNumParsers.eqNb(null,new MaRateStruct(Rate.zero())));
         assertTrue(!MaNumParsers.eqNb(new MaRateStruct(Rate.zero()),null));
-        assertNotNull(MaNumParsers.toRate(null));
         assertNull(MaNumParsers.tryGet(new CustList<MaOperationNode>(),0));
         MaStackOperators m_ = new MaStackOperators();
         m_.add(0,' ');

@@ -2,7 +2,7 @@ package code.maths.litteraladv;
 
 import code.maths.IdBezoutNb;
 
-public class MaBezoutNbStruct implements MaStruct {
+public final class MaBezoutNbStruct implements MaStruct {
     private final IdBezoutNb idBezout;
 
     public MaBezoutNbStruct(IdBezoutNb _idBezout) {
@@ -16,6 +16,12 @@ public class MaBezoutNbStruct implements MaStruct {
     @Override
     public boolean sameReference(MaStruct _other) {
         return eqBezout(this, _other);
+    }
+
+    @Override
+    public String displayRsult() {
+        return "("+idBezout.getFirst().toNumberString()+","+idBezout.getSecond().toNumberString()+","
+                +idBezout.getPgcd().toNumberString()+","+idBezout.getPpcm().toNumberString()+")";
     }
 
     static boolean eqBezout(MaBezoutNbStruct _this, MaStruct _other) {

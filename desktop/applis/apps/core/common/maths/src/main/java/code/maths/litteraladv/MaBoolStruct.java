@@ -21,12 +21,17 @@ public final class MaBoolStruct implements MaStruct {
         }
         return TRUE;
     }
-    public static boolean isTrue(MaStruct _value) {
-        return sameBool(TRUE, _value);
-    }
     @Override
     public boolean sameReference(MaStruct _other) {
         return sameBool(this, _other);
+    }
+
+    @Override
+    public String displayRsult() {
+        if (this == TRUE) {
+            return "1";
+        }
+        return "0";
     }
 
     public static boolean sameBool(MaStruct _this, MaStruct _other) {
