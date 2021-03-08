@@ -54,10 +54,7 @@ public final class MaDecompositionNbStruct implements MaStruct {
         for (int i = 0; i < len_; i++) {
             PrimDivisor pThis_ = factorsThis_.get(i);
             PrimDivisor pOther_ = factorsOther_.get(i);
-            if (!pThis_.getPrime().eq(pOther_.getPrime())) {
-                return false;
-            }
-            if (!pThis_.getExponent().eq(pOther_.getExponent())) {
+            if (!MaPrimDivisorNbStruct.eqPrimDiv(pThis_,pOther_)) {
                 return false;
             }
         }

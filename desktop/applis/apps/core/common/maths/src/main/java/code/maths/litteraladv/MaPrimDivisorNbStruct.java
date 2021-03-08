@@ -28,9 +28,13 @@ public final class MaPrimDivisorNbStruct implements MaStruct {
             return false;
         }
         PrimDivisor oth_ = ((MaPrimDivisorNbStruct) _other).primDivisor;
-        if (!_this.primDivisor.getPrime().eq(oth_.getPrime())) {
+        return eqPrimDiv(_this.primDivisor, oth_);
+    }
+
+    static boolean eqPrimDiv(PrimDivisor _this, PrimDivisor _oth) {
+        if (!_this.getPrime().eq(_oth.getPrime())) {
             return false;
         }
-        return _this.primDivisor.getExponent().eq(oth_.getExponent());
+        return _this.getExponent().eq(_oth.getExponent());
     }
 }

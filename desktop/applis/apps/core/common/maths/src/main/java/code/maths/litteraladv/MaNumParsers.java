@@ -1,11 +1,7 @@
 package code.maths.litteraladv;
 
-import code.maths.IdBezoutNb;
-import code.maths.LgInt;
 import code.maths.Rate;
-import code.util.CollCapacity;
 import code.util.CustList;
-import code.util.StringList;
 import code.util.core.StringUtil;
 
 public final class MaNumParsers {

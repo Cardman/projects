@@ -1,10 +1,9 @@
 package code.maths;
 import code.maths.litteralcom.MathExpUtil;
+import code.maths.montecarlo.EventFreq;
 import code.util.CollCapacity;
 import code.util.CustList;
-import code.util.EntryCust;
 import code.util.*;
-import code.util.TreeMap;
 import code.util.core.IndexConstants;
 import code.util.core.NumberUtil;
 import code.util.core.SortConstants;
@@ -351,8 +350,9 @@ public final class LgInt implements Displayable {
         }
         LgInt abs_=absNb();
         LgInt init_ = new LgInt(2);
-        divs_.add(LgInt.one());
-        if (!abs_.eq(LgInt.one())) {
+        LgInt firstDiv_ = LgInt.one();
+        divs_.add(firstDiv_);
+        if (!abs_.eq(firstDiv_)) {
             divs_.add(abs_);
         }
         int index_ = 1;
@@ -360,8 +360,9 @@ public final class LgInt implements Displayable {
             QuotModLgInt qr_ = abs_.divisionEuclidienneGeneralise(init_);
             if (qr_.getMod().isZero()) {
                 divs_.add(index_,new LgInt(init_));
-                if (!init_.eq(qr_.getQuot())) {
-                    divs_.add(index_+1,qr_.getQuot());
+                LgInt quot_ = qr_.getQuot();
+                if (!init_.eq(quot_)) {
+                    divs_.add(index_+1, quot_);
                 }
                 index_++;
             }
@@ -385,7 +386,7 @@ public final class LgInt implements Displayable {
                 somme fixe
     @return les repartitions possibles ponderees
     */
-    public static AbsMap<CustList<LgInt>,LgInt> seqAmong(
+    public static CustList<EventFreq<CustList<LgInt>>> seqAmong(
             CustList<LgInt> _repartitions,
             LgInt _sommeTotale) {
         int i_ = IndexConstants.FIRST_INDEX;
@@ -440,21 +441,22 @@ public final class LgInt implements Displayable {
         _event.increment();
     }
 
-    private static TreeMap<CustList<LgInt>, LgInt> buildSortedLaw(CustList<CustList<LgInt>> _repartitionsPossibles) {
+    private static CustList<EventFreq<CustList<LgInt>>> buildSortedLaw(CustList<CustList<LgInt>> _repartitionsPossibles) {
         for (CustList<LgInt> l: _repartitionsPossibles) {
             l.sortElts(new ComparatorLgInt());
         }
+        _repartitionsPossibles.sortElts(new ComparatorEvents());
         return buildLaw(_repartitionsPossibles);
     }
 
-    private static TreeMap<CustList<LgInt>, LgInt> buildLaw(CustList<CustList<LgInt>> _repartitionsPossibles) {
-        TreeMap<CustList<LgInt>,LgInt> loiProba_ = new TreeMap<CustList<LgInt>,LgInt>(new ComparatorEvents());
+    private static CustList<EventFreq<CustList<LgInt>>> buildLaw(CustList<CustList<LgInt>> _repartitionsPossibles) {
+        CustList<EventFreq<CustList<LgInt>>> loiProba_ = new CustList<EventFreq<CustList<LgInt>>>();
         LgInt one_ = one();
         for (CustList<LgInt> l: _repartitionsPossibles) {
             boolean present_ = false;
-            for (EntryCust<CustList<LgInt>,LgInt> lTwo_: loiProba_.entryList()) {
-                if (eq(l,lTwo_.getKey())) {
-                    lTwo_.getValue().increment();
+            for (EventFreq<CustList<LgInt>> lTwo_: loiProba_) {
+                if (eq(l,lTwo_.getEvent())) {
+                    lTwo_.getFreq().increment();
                     present_ = true;
                     break;
                 }
@@ -462,7 +464,7 @@ public final class LgInt implements Displayable {
             if (present_) {
                 continue;
             }
-            loiProba_.put(l, one_);
+            loiProba_.add(new EventFreq<CustList<LgInt>>(l, one_));
         }
         return loiProba_;
     }
