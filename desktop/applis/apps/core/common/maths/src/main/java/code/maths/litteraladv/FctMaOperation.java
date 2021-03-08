@@ -23,6 +23,7 @@ public final class FctMaOperation extends MethodMaOperation {
         if (StringUtil.contains(MaParser.fcts(),id_)) {
             procUnary(_error, id_);
             procBinary(_error, id_);
+            procVariables(_error, id_);
             procTrFalse(_error, id_);
             return;
         }
@@ -87,6 +88,11 @@ public final class FctMaOperation extends MethodMaOperation {
         }
     }
 
+    private void procVariables(MaError _error, String _id) {
+        if (StringUtil.quickEq(REP, _id)) {
+            procRep(_error);
+        }
+    }
     private void procTrFalse(MaError _error, String _id) {
         if (StringUtil.quickEq(TRUE_STRING, _id)) {
             procTrue(_error);
@@ -215,6 +221,23 @@ public final class FctMaOperation extends MethodMaOperation {
         _error.setOffset(getIndexExp());
     }
 
+    private void procRep(MaError _error) {
+        if (getChildren().size() >= 1) {
+            CustList<MaRateStruct> rates_ = tryGetRates();
+            if (areAllIntegers(rates_)) {
+                LgInt nbOne_= rates_.first().getRate().intPart();
+                CustList<LgInt> ints_ = new CustList<LgInt>();
+                int nb_ = rates_.size();
+                for (int i = 1; i < nb_; i++) {
+                    ints_.add(rates_.get(i).getRate().intPart());
+                }
+                setStruct(new MaRepartitionStruct(LgInt.seqAmong(ints_,nbOne_)));
+                return;
+            }
+        }
+        _error.setOffset(getIndexExp());
+    }
+
     private static boolean areTwoIntegers(CustList<MaRateStruct> _rates) {
         return areAllIntegersNb(_rates, 2);
     }
@@ -318,6 +341,10 @@ public final class FctMaOperation extends MethodMaOperation {
             }
             if (list_.first() instanceof MaDecompositionNbStruct) {
                 setStruct(new MaRateStruct(new Rate(((MaDecompositionNbStruct)list_.first()).getDecomposition().getFactors().size())));
+                return;
+            }
+            if (list_.first() instanceof MaRepartitionStruct) {
+                setStruct(new MaRateStruct(new Rate(((MaRepartitionStruct)list_.first()).getEvents().size())));
                 return;
             }
             if (list_.first() instanceof MaPrimDivisorNbStruct) {

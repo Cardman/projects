@@ -128,7 +128,7 @@ public final class MaParser {
                 MaOperationNode.QUOT,
                 MaOperationNode.MOD,MaOperationNode.MODTAUX,
                 MaOperationNode.BEZOUT,
-                MaOperationNode.PARMI,
+                MaOperationNode.PARMI,MaOperationNode.REP,
                 MaOperationNode.SGN,MaOperationNode.ABS,
                 MaOperationNode.ENT,MaOperationNode.TRONC,
                 MaOperationNode.NUM,MaOperationNode.DEN,

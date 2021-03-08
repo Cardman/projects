@@ -4,7 +4,7 @@ import code.maths.litteralcom.StrTypes;
 import code.util.CustList;
 import code.util.StringMap;
 
-public class IdMaOperation extends MethodMaOperation {
+public final class IdMaOperation extends MethodMaOperation {
     public IdMaOperation(int _index, int _indexChild, MethodMaOperation _m, MaOperationsSequence _op) {
         super(_index, _indexChild, _m, _op);
     }

@@ -59,6 +59,8 @@ public abstract class MaOperationNode {
 
     protected static final String PARMI = "parmi";
 
+    protected static final String REP = "rep";
+
 //    protected static final String MIN = "min";
 //
 //    protected static final String MAX = "max";
