@@ -1139,6 +1139,74 @@ public final class MaParserTest extends EquallableMathUtil {
     public void evaluateExp283Test(){
         assertEq("#0", noVar("rep()"));
     }
+    @Test
+    public void evaluateExp284Test(){
+        assertEq("#0", noVar("caracferme(1,0,divs(2))"));
+    }
+    @Test
+    public void evaluateExp285Test(){
+        assertEq("1", noVar("caracferme(1,0,2)"));
+    }
+    @Test
+    public void evaluateExp286Test(){
+        assertEq("#0", noVar("caracferme(1,0)"));
+    }
+    @Test
+    public void evaluateExp287Test(){
+        assertEq("1", noVar("caracouvert(1,0,2)"));
+    }
+    @Test
+    public void evaluateExp288Test(){
+        assertEq("#0", noVar("caracouvert(1,0)"));
+    }
+    @Test
+    public void evaluateExp289Test(){
+        assertEq("1", noVar("caracsemiouvertg(1,0,2)"));
+    }
+    @Test
+    public void evaluateExp290Test(){
+        assertEq("#0", noVar("caracsemiouvertg(1,0)"));
+    }
+    @Test
+    public void evaluateExp291Test(){
+        assertEq("1", noVar("caracsemiouvertd(1,0,2)"));
+    }
+    @Test
+    public void evaluateExp292Test(){
+        assertEq("#0", noVar("caracsemiouvertd(1,0)"));
+    }
+    @Test
+    public void evaluateExp293Test(){
+        assertEq("1", noVar("caracdroiteouvert(1,0)"));
+    }
+    @Test
+    public void evaluateExp294Test(){
+        assertEq("#0", noVar("caracdroiteouvert(1)"));
+    }
+    @Test
+    public void evaluateExp295Test(){
+        assertEq("1", noVar("caracdroiteferme(1,0)"));
+    }
+    @Test
+    public void evaluateExp296Test(){
+        assertEq("#0", noVar("caracdroiteferme(1)"));
+    }
+    @Test
+    public void evaluateExp297Test(){
+        assertEq("1", noVar("caracgaucheouvert(1,2)"));
+    }
+    @Test
+    public void evaluateExp298Test(){
+        assertEq("#0", noVar("caracgaucheouvert(1)"));
+    }
+    @Test
+    public void evaluateExp299Test(){
+        assertEq("1", noVar("caracgaucheferme(1,2)"));
+    }
+    @Test
+    public void evaluateExp300Test(){
+        assertEq("#0", noVar("caracgaucheferme(1)"));
+    }
 
     @Test
     public void nullVarTest(){

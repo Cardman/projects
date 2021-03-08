@@ -69,21 +69,21 @@ public abstract class MaOperationNode {
 //
 //    protected static final String VAR = "var";
 //
-//    protected static final String CARAC_FERME = "caracferme";
-//
-//    protected static final String CARAC_OUVERT = "caracouvert";
-//
-//    protected static final String CARAC_SEMI_OUVERT_G = "caracsemiouvertg";
-//
-//    protected static final String CARAC_SEMI_OUVERT_D = "caracsemiouvertd";
-//
-//    protected static final String CARAC_DROITE_OUVERT = "caracdroiteouvert";
-//
-//    protected static final String CARAC_DROITE_FERME = "caracdroiteferme";
-//
-//    protected static final String CARAC_GAUCHE_OUVERT = "caracgaucheouvert";
-//
-//    protected static final String CARAC_GAUCHE_FERME = "caracgaucheferme";
+    protected static final String CARAC_FERME = "caracferme";
+
+    protected static final String CARAC_OUVERT = "caracouvert";
+
+    protected static final String CARAC_SEMI_OUVERT_G = "caracsemiouvertg";
+
+    protected static final String CARAC_SEMI_OUVERT_D = "caracsemiouvertd";
+
+    protected static final String CARAC_DROITE_OUVERT = "caracdroiteouvert";
+
+    protected static final String CARAC_DROITE_FERME = "caracdroiteferme";
+
+    protected static final String CARAC_GAUCHE_OUVERT = "caracgaucheouvert";
+
+    protected static final String CARAC_GAUCHE_FERME = "caracgaucheferme";
 //
 //    protected static final String DIV_FCT = "div";
 

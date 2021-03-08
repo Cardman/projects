@@ -132,7 +132,11 @@ public final class MaParser {
                 MaOperationNode.SGN,MaOperationNode.ABS,
                 MaOperationNode.ENT,MaOperationNode.TRONC,
                 MaOperationNode.NUM,MaOperationNode.DEN,
-                MaOperationNode.LG,MaOperationNode.PREM,MaOperationNode.DIVS,MaOperationNode.DECOMP);
+                MaOperationNode.LG,MaOperationNode.PREM,MaOperationNode.DIVS,MaOperationNode.DECOMP,
+                MaOperationNode.CARAC_FERME,MaOperationNode.CARAC_OUVERT,
+                MaOperationNode.CARAC_SEMI_OUVERT_G,MaOperationNode.CARAC_SEMI_OUVERT_D,
+                MaOperationNode.CARAC_DROITE_OUVERT,MaOperationNode.CARAC_DROITE_FERME,
+                MaOperationNode.CARAC_GAUCHE_OUVERT,MaOperationNode.CARAC_GAUCHE_FERME);
     }
     private static boolean koCoreRepl(Replacement _r) {
         return _r == null || StringUtil.nullToEmpty(_r.getOldString()).isEmpty() || StringUtil.nullToEmpty(_r.getNewString()).isEmpty();

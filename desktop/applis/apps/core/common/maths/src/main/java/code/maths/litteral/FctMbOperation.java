@@ -2,6 +2,7 @@ package code.maths.litteral;
 import code.maths.LgInt;
 import code.maths.MathList;
 import code.maths.Rate;
+import code.maths.litteralcom.MathExpUtil;
 import code.maths.litteralcom.StrTypes;
 import code.util.CustList;
 import code.util.StringMap;
@@ -459,87 +460,55 @@ public final class FctMbOperation extends InvokingMbOperation {
     }
 
     private static Rate caracgaucheferme(CustList<MbOperationNode> _chidren) {
-        Rate res_=Rate.zero();
         Rate rateOne_ = _chidren.first().getArgument().getRateVal();
         Rate rateTwo_ = _chidren.last().getArgument().getRateVal();
-        if(Rate.lowerEq(rateOne_,rateTwo_)){
-            res_=Rate.one();
-        }
-        return res_;
+        return MathExpUtil.caracgaucheferme(rateOne_, rateTwo_);
     }
 
     private static Rate caracgaucheouvert(CustList<MbOperationNode> _chidren) {
-        Rate res_=Rate.zero();
         Rate rateOne_ = _chidren.first().getArgument().getRateVal();
         Rate rateTwo_ = _chidren.last().getArgument().getRateVal();
-        if(Rate.strLower(rateOne_,rateTwo_)){
-            res_=Rate.one();
-        }
-        return res_;
+        return MathExpUtil.caracgaucheouvert(rateOne_, rateTwo_);
     }
 
     private static Rate caracdroiteferme(CustList<MbOperationNode> _chidren) {
-        Rate res_=Rate.zero();
         Rate rateOne_ = _chidren.first().getArgument().getRateVal();
         Rate rateTwo_ = _chidren.last().getArgument().getRateVal();
-        if(Rate.greaterEq(rateOne_,rateTwo_)){
-            res_=Rate.one();
-        }
-        return res_;
+        return MathExpUtil.caracdroiteferme(rateOne_, rateTwo_);
     }
 
     private static Rate caracdroiteouvert(CustList<MbOperationNode> _chidren) {
-        Rate res_=Rate.zero();
         Rate rateOne_ = _chidren.first().getArgument().getRateVal();
         Rate rateTwo_ = _chidren.last().getArgument().getRateVal();
-        if(Rate.strGreater(rateOne_,rateTwo_)){
-            res_=Rate.one();
-        }
-        return res_;
+        return MathExpUtil.caracdroiteouvert(rateOne_, rateTwo_);
     }
 
     private static Rate caracsemiouvertd(CustList<MbOperationNode> _chidren) {
-        Rate res_=Rate.zero();
         Rate rateOne_ = _chidren.first().getArgument().getRateVal();
         Rate rateTwo_ = _chidren.get(IndexConstants.SECOND_INDEX).getArgument().getRateVal();
         Rate rateThree_ = _chidren.last().getArgument().getRateVal();
-        if(Rate.greaterEq(rateOne_,rateTwo_)&&Rate.strLower(rateOne_,rateThree_)){
-            res_=Rate.one();
-        }
-        return res_;
+        return MathExpUtil.caracsemiouvertd(rateOne_, rateTwo_, rateThree_);
     }
 
     private static Rate caracsemiouvertg(CustList<MbOperationNode> _chidren) {
-        Rate res_=Rate.zero();
         Rate rateOne_ = _chidren.first().getArgument().getRateVal();
         Rate rateTwo_ = _chidren.get(IndexConstants.SECOND_INDEX).getArgument().getRateVal();
         Rate rateThree_ = _chidren.last().getArgument().getRateVal();
-        if(Rate.strGreater(rateOne_,rateTwo_)&&Rate.lowerEq(rateOne_, rateThree_)){
-            res_=Rate.one();
-        }
-        return res_;
+        return MathExpUtil.caracsemiouvertg(rateOne_, rateTwo_, rateThree_);
     }
 
     private static Rate caracouvert(CustList<MbOperationNode> _chidren) {
-        Rate res_=Rate.zero();
         Rate rateOne_ = _chidren.first().getArgument().getRateVal();
         Rate rateTwo_ = _chidren.get(IndexConstants.SECOND_INDEX).getArgument().getRateVal();
         Rate rateThree_ = _chidren.last().getArgument().getRateVal();
-        if(Rate.strGreater(rateOne_,rateTwo_)&&Rate.strLower(rateOne_,rateThree_)){
-            res_=Rate.one();
-        }
-        return res_;
+        return MathExpUtil.caracouvert(rateOne_, rateTwo_, rateThree_);
     }
 
     private static Rate segment(CustList<MbOperationNode> _chidren) {
-        Rate res_=Rate.zero();
         Rate rateOne_ = _chidren.first().getArgument().getRateVal();
         Rate rateTwo_ = _chidren.get(IndexConstants.SECOND_INDEX).getArgument().getRateVal();
         Rate rateThree_ = _chidren.last().getArgument().getRateVal();
-        if(Rate.greaterEq(rateOne_,rateTwo_)&&Rate.lowerEq(rateOne_,rateThree_)){
-            res_=Rate.one();
-        }
-        return res_;
+        return MathExpUtil.segment(rateOne_, rateTwo_, rateThree_);
     }
 
     private void calcTwoSets(CustList<MbOperationNode> _chidren) {

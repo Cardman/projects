@@ -1,5 +1,6 @@
 package code.maths.litteralcom;
 
+import code.maths.Rate;
 import code.util.StringList;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
@@ -166,5 +167,69 @@ public final class MathExpUtil {
             return true;
         }
         return _char >= 160;
+    }
+
+    public static Rate caracgaucheferme(Rate _rateOne, Rate _rateTwo) {
+        Rate res_=Rate.zero();
+        if(Rate.lowerEq(_rateOne, _rateTwo)){
+            res_=Rate.one();
+        }
+        return res_;
+    }
+
+    public static Rate caracgaucheouvert(Rate _rateOne, Rate _rateTwo) {
+        Rate res_=Rate.zero();
+        if(Rate.strLower(_rateOne, _rateTwo)){
+            res_=Rate.one();
+        }
+        return res_;
+    }
+
+    public static Rate caracdroiteferme(Rate _rateOne, Rate _rateTwo) {
+        Rate res_=Rate.zero();
+        if(Rate.greaterEq(_rateOne, _rateTwo)){
+            res_=Rate.one();
+        }
+        return res_;
+    }
+
+    public static Rate caracdroiteouvert(Rate _rateOne, Rate _rateTwo) {
+        Rate res_=Rate.zero();
+        if(Rate.strGreater(_rateOne, _rateTwo)){
+            res_=Rate.one();
+        }
+        return res_;
+    }
+
+    public static Rate caracsemiouvertd(Rate _rateOne, Rate _rateTwo, Rate _rateThree) {
+        Rate res_=Rate.zero();
+        if(Rate.greaterEq(_rateOne, _rateTwo)&&Rate.strLower(_rateOne, _rateThree)){
+            res_=Rate.one();
+        }
+        return res_;
+    }
+
+    public static Rate caracsemiouvertg(Rate _rateOne, Rate _rateTwo, Rate _rateThree) {
+        Rate res_=Rate.zero();
+        if(Rate.strGreater(_rateOne, _rateTwo)&&Rate.lowerEq(_rateOne, _rateThree)){
+            res_=Rate.one();
+        }
+        return res_;
+    }
+
+    public static Rate caracouvert(Rate _rateOne, Rate _rateTwo, Rate _rateThree) {
+        Rate res_=Rate.zero();
+        if(Rate.strGreater(_rateOne, _rateTwo)&&Rate.strLower(_rateOne, _rateThree)){
+            res_=Rate.one();
+        }
+        return res_;
+    }
+
+    public static Rate segment(Rate _rateOne, Rate _rateTwo, Rate _rateThree) {
+        Rate res_=Rate.zero();
+        if(Rate.greaterEq(_rateOne, _rateTwo)&&Rate.lowerEq(_rateOne, _rateThree)){
+            res_=Rate.one();
+        }
+        return res_;
     }
 }

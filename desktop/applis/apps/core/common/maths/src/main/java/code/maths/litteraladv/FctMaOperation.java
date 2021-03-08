@@ -3,6 +3,7 @@ package code.maths.litteraladv;
 import code.maths.Decomposition;
 import code.maths.LgInt;
 import code.maths.Rate;
+import code.maths.litteralcom.MathExpUtil;
 import code.maths.litteralcom.StrTypes;
 import code.util.CustList;
 import code.util.StringMap;
@@ -23,6 +24,7 @@ public final class FctMaOperation extends MethodMaOperation {
         if (StringUtil.contains(MaParser.fcts(),id_)) {
             procUnary(_error, id_);
             procBinary(_error, id_);
+            procCarac(_error, id_);
             procVariables(_error, id_);
             procTrFalse(_error, id_);
             return;
@@ -99,6 +101,116 @@ public final class FctMaOperation extends MethodMaOperation {
         }
         if (StringUtil.quickEq(FALSE_STRING, _id)) {
             procFalse(_error);
+        }
+    }
+    private void procCarac(MaError _error, String _id) {
+        if (StringUtil.quickEq(CARAC_FERME, _id)) {
+            segment(_error);
+        }
+        if (StringUtil.quickEq(CARAC_OUVERT, _id)) {
+            ouvert(_error);
+        }
+        if (StringUtil.quickEq(CARAC_SEMI_OUVERT_G, _id)) {
+            caracsemiouvertg(_error);
+        }
+        if (StringUtil.quickEq(CARAC_SEMI_OUVERT_D, _id)) {
+            caracsemiouvertd(_error);
+        }
+        if (StringUtil.quickEq(CARAC_DROITE_OUVERT, _id)) {
+            caracdroiteouvert(_error);
+        }
+        if (StringUtil.quickEq(CARAC_DROITE_FERME, _id)) {
+            caracdroiteferme(_error);
+        }
+        if (StringUtil.quickEq(CARAC_GAUCHE_OUVERT, _id)) {
+            caracgaucheouvert(_error);
+        }
+        if (StringUtil.quickEq(CARAC_GAUCHE_FERME, _id)) {
+            caracgaucheferme(_error);
+        }
+    }
+
+    private void segment(MaError _error) {
+        CustList<MaRateStruct> values_ = tryGetAllAsRate(3);
+        if (values_ != null) {
+            setStruct(new MaRateStruct(MathExpUtil.segment(values_.get(0).getRate(),
+                    values_.get(1).getRate(),
+                    values_.get(2).getRate())));
+        } else {
+            _error.setOffset(getIndexExp());
+        }
+    }
+
+    private void ouvert(MaError _error) {
+        CustList<MaRateStruct> values_ = tryGetAllAsRate(3);
+        if (values_ != null) {
+            setStruct(new MaRateStruct(MathExpUtil.caracouvert(values_.get(0).getRate(),
+                    values_.get(1).getRate(),
+                    values_.get(2).getRate())));
+        } else {
+            _error.setOffset(getIndexExp());
+        }
+    }
+
+    private void caracsemiouvertg(MaError _error) {
+        CustList<MaRateStruct> values_ = tryGetAllAsRate(3);
+        if (values_ != null) {
+            setStruct(new MaRateStruct(MathExpUtil.caracsemiouvertg(values_.get(0).getRate(),
+                    values_.get(1).getRate(),
+                    values_.get(2).getRate())));
+        } else {
+            _error.setOffset(getIndexExp());
+        }
+    }
+
+    private void caracsemiouvertd(MaError _error) {
+        CustList<MaRateStruct> values_ = tryGetAllAsRate(3);
+        if (values_ != null) {
+            setStruct(new MaRateStruct(MathExpUtil.caracsemiouvertd(values_.get(0).getRate(),
+                    values_.get(1).getRate(),
+                    values_.get(2).getRate())));
+        } else {
+            _error.setOffset(getIndexExp());
+        }
+    }
+
+    private void caracdroiteouvert(MaError _error) {
+        CustList<MaRateStruct> values_ = tryGetAllAsRate(2);
+        if (values_ != null) {
+            setStruct(new MaRateStruct(MathExpUtil.caracdroiteouvert(values_.get(0).getRate(),
+                    values_.get(1).getRate())));
+        } else {
+            _error.setOffset(getIndexExp());
+        }
+    }
+
+    private void caracdroiteferme(MaError _error) {
+        CustList<MaRateStruct> values_ = tryGetAllAsRate(2);
+        if (values_ != null) {
+            setStruct(new MaRateStruct(MathExpUtil.caracdroiteferme(values_.get(0).getRate(),
+                    values_.get(1).getRate())));
+        } else {
+            _error.setOffset(getIndexExp());
+        }
+    }
+
+    private void caracgaucheouvert(MaError _error) {
+        CustList<MaRateStruct> values_ = tryGetAllAsRate(2);
+        if (values_ != null) {
+            setStruct(new MaRateStruct(MathExpUtil.caracgaucheouvert(values_.get(0).getRate(),
+                    values_.get(1).getRate())));
+        } else {
+            _error.setOffset(getIndexExp());
+        }
+    }
+
+    private void caracgaucheferme(MaError _error) {
+        CustList<MaRateStruct> values_ = tryGetAllAsRate(2);
+        if (values_ != null) {
+            setStruct(new MaRateStruct(MathExpUtil.caracgaucheferme(values_.get(0).getRate(),
+                    values_.get(1).getRate())));
+        } else {
+            _error.setOffset(getIndexExp());
         }
     }
 
@@ -243,13 +355,13 @@ public final class FctMaOperation extends MethodMaOperation {
     }
 
     private void procSgn(MaError _error) {
+        CustList<MaRateStruct> valRates_ = tryGetAllAsRate(1);
+        if (valRates_ != null) {
+            Rate nb_= valRates_.first().getRate();
+            setStruct(new MaRateStruct(nb_.signum()));
+            return;
+        }
         if (getChildren().size() == 1) {
-            CustList<MaRateStruct> rates_ = tryGetRates();
-            if (rates_.size() == 1) {
-                Rate nb_= rates_.first().getRate();
-                setStruct(new MaRateStruct(nb_.signum()));
-                return;
-            }
             CustList<MaDecompositionNbStruct> decomp_ = tryGetDecompNb();
             if (decomp_.size() == 1) {
                 Decomposition decomposition_ = decomp_.first().getDecomposition();
@@ -269,61 +381,51 @@ public final class FctMaOperation extends MethodMaOperation {
     }
 
     private void procAbs(MaError _error) {
-        if (getChildren().size() == 1) {
-            CustList<MaRateStruct> rates_ = tryGetRates();
-            if (rates_.size() == 1) {
-                Rate nb_= rates_.first().getRate();
-                setStruct(new MaRateStruct(nb_.absNb()));
-                return;
-            }
+        CustList<MaRateStruct> valRates_ = tryGetAllAsRate(1);
+        if (valRates_ != null) {
+            Rate nb_= valRates_.first().getRate();
+            setStruct(new MaRateStruct(nb_.absNb()));
+            return;
         }
         _error.setOffset(getIndexExp());
     }
 
     private void procEnt(MaError _error) {
-        if (getChildren().size() == 1) {
-            CustList<MaRateStruct> rates_ = tryGetRates();
-            if (rates_.size() == 1) {
-                Rate nb_= rates_.first().getRate();
-                setStruct(new MaRateStruct(new Rate(nb_.intPart())));
-                return;
-            }
+        CustList<MaRateStruct> valRates_ = tryGetAllAsRate(1);
+        if (valRates_ != null) {
+            Rate nb_= valRates_.first().getRate();
+            setStruct(new MaRateStruct(new Rate(nb_.intPart())));
+            return;
         }
         _error.setOffset(getIndexExp());
     }
 
     private void procTroncature(MaError _error) {
-        if (getChildren().size() == 1) {
-            CustList<MaRateStruct> rates_ = tryGetRates();
-            if (rates_.size() == 1) {
-                Rate nb_= rates_.first().getRate();
-                setStruct(new MaRateStruct(new Rate(nb_.toLgInt())));
-                return;
-            }
+        CustList<MaRateStruct> valRates_ = tryGetAllAsRate(1);
+        if (valRates_ != null) {
+            Rate nb_= valRates_.first().getRate();
+            setStruct(new MaRateStruct(new Rate(nb_.toLgInt())));
+            return;
         }
         _error.setOffset(getIndexExp());
     }
 
     private void procNum(MaError _error) {
-        if (getChildren().size() == 1) {
-            CustList<MaRateStruct> rates_ = tryGetRates();
-            if (rates_.size() == 1) {
-                Rate nb_= rates_.first().getRate();
-                setStruct(new MaRateStruct(new Rate(nb_.getNumerator())));
-                return;
-            }
+        CustList<MaRateStruct> valRates_ = tryGetAllAsRate(1);
+        if (valRates_ != null) {
+            Rate nb_= valRates_.first().getRate();
+            setStruct(new MaRateStruct(new Rate(nb_.getNumerator())));
+            return;
         }
         _error.setOffset(getIndexExp());
     }
 
     private void procDen(MaError _error) {
-        if (getChildren().size() == 1) {
-            CustList<MaRateStruct> rates_ = tryGetRates();
-            if (rates_.size() == 1) {
-                Rate nb_= rates_.first().getRate();
-                setStruct(new MaRateStruct(new Rate(nb_.getDenominator())));
-                return;
-            }
+        CustList<MaRateStruct> valRates_ = tryGetAllAsRate(1);
+        if (valRates_ != null) {
+            Rate nb_= valRates_.first().getRate();
+            setStruct(new MaRateStruct(new Rate(nb_.getDenominator())));
+            return;
         }
         _error.setOffset(getIndexExp());
     }
@@ -404,6 +506,21 @@ public final class FctMaOperation extends MethodMaOperation {
             }
         }
         return true;
+    }
+    CustList<MaRateStruct> tryGetAllAsRate(int _count) {
+        int len_ = getChildren().size();
+        if (len_ != _count) {
+            return null;
+        }
+        CustList<MaRateStruct> rates_ = new CustList<MaRateStruct>();
+        for (int i = 0; i < len_; i++) {
+            MaStruct str_ = MaNumParsers.tryGet(this, i);
+            if (!(str_ instanceof MaRateStruct)) {
+                return null;
+            }
+            rates_.add((MaRateStruct)str_);
+        }
+        return rates_;
     }
     CustList<MaRateStruct> tryGetRates() {
         CustList<MaRateStruct> rates_ = new CustList<MaRateStruct>();
