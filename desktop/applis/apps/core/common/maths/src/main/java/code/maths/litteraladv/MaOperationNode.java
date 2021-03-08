@@ -61,6 +61,8 @@ public abstract class MaOperationNode {
 
     protected static final String REP = "rep";
 
+    protected static final String ALEA = "alea";
+
 //    protected static final String MIN = "min";
 //
 //    protected static final String MAX = "max";
@@ -109,7 +111,7 @@ public abstract class MaOperationNode {
     }
 
     static MaOperationNode createOperationNodeAndChild(int _index,
-                                               int _indexChild, MethodMaOperation _m, MaOperationsSequence _op, StringMap<String> _mapping) {
+                                               int _indexChild, MethodMaOperation _m, MaOperationsSequence _op, MaParameters _mapping) {
         MaOperationNode created_ = createOperationNode(_index, _indexChild, _m, _op, _mapping);
         if (created_ instanceof MethodMaOperation) {
             ((MethodMaOperation)created_).calculate();
@@ -117,12 +119,15 @@ public abstract class MaOperationNode {
         return created_;
     }
     private static MaOperationNode createOperationNode(int _index,
-                                               int _indexChild, MethodMaOperation _m, MaOperationsSequence _op, StringMap<String> _mapping) {
+                                               int _indexChild, MethodMaOperation _m, MaOperationsSequence _op, MaParameters _mapping) {
         if (_op.getOpers().isEmpty()) {
             return processLeaf(_index, _indexChild, _m, _op);
         }
         if (_op.getPrio() == MatCommonCst.FCT_OPER_PRIO) {
             return procFct(_index, _indexChild, _m, _op, _mapping);
+        }
+        if (_op.getPrio() == MatCommonCst.ASS_PRIO) {
+            return new EvMaOperation(_index, _indexChild, _m, _op);
         }
         return procSymbol(_index, _indexChild, _m, _op);
     }
@@ -173,7 +178,7 @@ public abstract class MaOperationNode {
         return new UnaryMaOperation(_index, _indexChild, _m, _op);
     }
 
-    private static MethodMaOperation procFct(int _index, int _indexChild, MethodMaOperation _m, MaOperationsSequence _op, StringMap<String> _mapping) {
+    private static MethodMaOperation procFct(int _index, int _indexChild, MethodMaOperation _m, MaOperationsSequence _op, MaParameters _mapping) {
         if (_op.getFct().trim().isEmpty()) {
             if (StringUtil.quickEq(_op.getOpers().firstValue(),"[")) {
                 return new ArrMaOperation(_index, _indexChild, _m, _op);

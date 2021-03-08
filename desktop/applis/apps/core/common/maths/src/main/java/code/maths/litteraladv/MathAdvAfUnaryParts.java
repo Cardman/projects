@@ -124,7 +124,6 @@ public final class MathAdvAfUnaryParts {
     private void procOp(String _string, char _curChar, StringBuilder _built, boolean _clearOperators, boolean _foundOperator, int _increment) {
         boolean clear_ = _clearOperators;
         boolean found_ = _foundOperator;
-        int increment_ = _increment;
         int prioSymbol_ = getPrio(_curChar);
         if (prioSymbol_ > 0) {
             _built.append(_curChar);
@@ -135,23 +134,53 @@ public final class MathAdvAfUnaryParts {
             }
         }
         if (MathExpUtil.cmpStr(_curChar)) {
-            _built.append(_curChar);
-            if (prio > MatCommonCst.CMP_PRIO) {
-                clear_ = true;
-                prio = MatCommonCst.CMP_PRIO;
+            if (MaParser.charIs(_string,lastPrintChar + 1,current+1,'>')) {
+                procEvt(_curChar,_built,_clearOperators,_foundOperator,_increment);
+                return;
             }
-            if (prio == MatCommonCst.CMP_PRIO) {
-                found_ = true;
-            }
-            char nextChar_ = _string.charAt(current + 1);
-            if (nextChar_ == MatCommonCst.EQ_CHAR) {
-                _built.append(nextChar_);
-                increment_++;
-            }
+            procCmp(_string, _curChar, _built, _clearOperators, _foundOperator, _increment);
+            return;
+        }
+        tryAddOp(_built, clear_, found_, _increment);
+    }
+
+    private void procCmp(String _string, char _curChar, StringBuilder _built,
+                         boolean _clearOperators, boolean _foundOperator, int _increment) {
+        boolean clear_ = _clearOperators;
+        boolean found_ = _foundOperator;
+        int increment_ = _increment;
+        _built.append(_curChar);
+        if (prio > MatCommonCst.CMP_PRIO) {
+            clear_ = true;
+            prio = MatCommonCst.CMP_PRIO;
+        }
+        found_ = possibleMod(MatCommonCst.CMP_PRIO,found_);
+        char nextChar_ = _string.charAt(current + 1);
+        if (nextChar_ == MatCommonCst.EQ_CHAR) {
+            _built.append(nextChar_);
+            increment_++;
         }
         tryAddOp(_built, clear_, found_, increment_);
     }
-
+    private void procEvt(char _curChar, StringBuilder _built,
+                         boolean _clearOperators, boolean _foundOperator, int _increment) {
+        boolean clear_ = _clearOperators;
+        boolean found_ = _foundOperator;
+        _built.append(_curChar);
+        _built.append('>');
+        if (prio > MatCommonCst.ASS_PRIO) {
+            clear_ = true;
+            prio = MatCommonCst.ASS_PRIO;
+        }
+        found_ = possibleMod(MatCommonCst.ASS_PRIO,found_);
+        tryAddOp(_built, clear_, found_, _increment+1);
+    }
+    private boolean possibleMod(int _prio, boolean _found) {
+        if (prio == _prio) {
+            return true;
+        }
+        return _found;
+    }
     private void reducePrio(int _prioSymbol) {
         if (prio > _prioSymbol) {
             prio = _prioSymbol;

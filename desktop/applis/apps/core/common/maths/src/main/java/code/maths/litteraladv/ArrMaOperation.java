@@ -37,6 +37,10 @@ public final class ArrMaOperation extends MethodMaOperation {
             procRep((MaRepartitionStruct) _values.first(),(MaRateStruct) _values.get(1),(MaRateStruct) _values.get(2), _error);
             return;
         }
+        if (_values.first() instanceof MaMonteCarloNumberStruct) {
+            procLaw((MaMonteCarloNumberStruct) _values.first(),(MaRateStruct) _values.get(1),(MaRateStruct) _values.get(2), _error);
+            return;
+        }
         _error.setOffset(getIndexExp());
     }
 
@@ -55,6 +59,14 @@ public final class ArrMaOperation extends MethodMaOperation {
         }
         if (_values.first() instanceof MaRepartitionStruct) {
             procRep((MaRepartitionStruct) _values.first(),(MaRateStruct) _values.get(1), _error);
+            return;
+        }
+        if (_values.first() instanceof MaMonteCarloNumberStruct) {
+            procLaw((MaMonteCarloNumberStruct) _values.first(),(MaRateStruct) _values.get(1), _error);
+            return;
+        }
+        if (_values.first() instanceof MaEventFreqStruct) {
+            procEvt((MaEventFreqStruct) _values.first(),(MaRateStruct) _values.get(1),_error);
             return;
         }
         if (_values.first() instanceof MaPrimDivisorNbStruct) {
@@ -205,6 +217,60 @@ public final class ArrMaOperation extends MethodMaOperation {
                 setStruct(new MaRateStruct(new Rate(copy_.get((int)lgIntSec_.ll()))));
                 return;
             }
+        }
+        _error.setOffset(getIndexExp());
+    }
+    private void procLaw(MaMonteCarloNumberStruct _divs,MaRateStruct _index, MaError _error) {
+        LgInt lgInt_ = _index.getRate().intPart();
+        CustList<EventFreq<Rate>> dividers_ = _divs.getLaw().getEvents();
+        int len_ = dividers_.size();
+        if (!lgInt_.isZeroOrGt()) {
+            lgInt_.addNb(new LgInt(len_));
+        }
+        if (validIndex(lgInt_, len_)) {
+            EventFreq<Rate> dual_ = dividers_.get((int) lgInt_.ll());
+            setStruct(new MaEventFreqStruct(dual_));
+            return;
+        }
+        _error.setOffset(getIndexExp());
+    }
+    private void procLaw(MaMonteCarloNumberStruct _divs,MaRateStruct _index,MaRateStruct _indexTwo, MaError _error) {
+        LgInt lgInt_ = _index.getRate().intPart();
+        CustList<EventFreq<Rate>> dividers_ = _divs.getLaw().getEvents();
+        int len_ = dividers_.size();
+        if (!lgInt_.isZeroOrGt()) {
+            lgInt_.addNb(new LgInt(len_));
+        }
+        if (validIndex(lgInt_, len_)) {
+            EventFreq<Rate> dual_ = dividers_.get((int) lgInt_.ll());
+            LgInt lgIntSec_ = _indexTwo.getRate().intPart();
+            if (!lgIntSec_.isZeroOrGt()) {
+                lgIntSec_.addNb(new LgInt(2));
+            }
+            if (lgIntSec_.eq(LgInt.zero())) {
+                setStruct(new MaRateStruct(dual_.getEvent()));
+                return;
+            }
+            if (lgIntSec_.eq(LgInt.one())) {
+                setStruct(new MaRateStruct(new Rate(dual_.getFreq())));
+                return;
+            }
+        }
+        _error.setOffset(getIndexExp());
+    }
+    private void procEvt(MaEventFreqStruct _divs, MaRateStruct _index, MaError _error) {
+        LgInt lgInt_ = _index.getRate().intPart();
+        EventFreq<Rate> dividers_ = _divs.getPair();
+        if (!lgInt_.isZeroOrGt()) {
+            lgInt_.addNb(new LgInt(2));
+        }
+        if (lgInt_.eq(LgInt.zero())) {
+            setStruct(new MaRateStruct(dividers_.getEvent()));
+            return;
+        }
+        if (lgInt_.eq(LgInt.one())) {
+            setStruct(new MaRateStruct(new Rate(dividers_.getFreq())));
+            return;
         }
         _error.setOffset(getIndexExp());
     }

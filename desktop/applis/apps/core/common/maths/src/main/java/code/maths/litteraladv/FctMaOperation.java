@@ -5,14 +5,16 @@ import code.maths.LgInt;
 import code.maths.Rate;
 import code.maths.litteralcom.MathExpUtil;
 import code.maths.litteralcom.StrTypes;
+import code.maths.montecarlo.EventFreq;
+import code.maths.montecarlo.MonteCarloNumber;
 import code.util.CustList;
 import code.util.StringMap;
 import code.util.core.StringUtil;
 
 public final class FctMaOperation extends MethodMaOperation {
     private final String methodName;
-    private final StringMap<String> mapping;
-    public FctMaOperation(int _index, int _indexChild, MethodMaOperation _m, MaOperationsSequence _op, StringMap<String> _mapping) {
+    private final MaParameters mapping;
+    public FctMaOperation(int _index, int _indexChild, MethodMaOperation _m, MaOperationsSequence _op, MaParameters _mapping) {
         super(_index, _indexChild, _m, _op);
         methodName = getOperats().getFct().trim();
         mapping = _mapping;
@@ -93,6 +95,9 @@ public final class FctMaOperation extends MethodMaOperation {
     private void procVariables(MaError _error, String _id) {
         if (StringUtil.quickEq(REP, _id)) {
             procRep(_error);
+        }
+        if (StringUtil.quickEq(ALEA, _id)) {
+            procAlea(_error);
         }
     }
     private void procTrFalse(MaError _error, String _id) {
@@ -215,7 +220,7 @@ public final class FctMaOperation extends MethodMaOperation {
     }
 
     private String aliasOrId() {
-        String res_ = StringUtil.nullToEmpty(mapping.getVal(methodName));
+        String res_ = StringUtil.nullToEmpty(mapping.getMapping().getVal(methodName));
         if (res_.isEmpty()) {
             return methodName;
         }
@@ -350,6 +355,49 @@ public final class FctMaOperation extends MethodMaOperation {
         _error.setOffset(getIndexExp());
     }
 
+    private void procAlea(MaError _error) {
+        CustList<MaStruct> all_ = tryGetAll();
+        if (all_.size() == 2 && all_.first() instanceof MaMonteCarloNumberStruct && all_.last() instanceof MaRateStruct) {
+            MaMonteCarloNumberStruct v_ = (MaMonteCarloNumberStruct) all_.first();
+            MonteCarloNumber law_ = v_.getLaw();
+            MaRateStruct m_ = (MaRateStruct) all_.last();
+            Rate max_ = m_.getRate();
+            if (law_.nbEvents() > 0 && max_.isInteger() && max_.isZeroOrGt()) {
+                setStruct(new MaRateStruct(law_.editNumber(max_.intPart(), mapping.getGenerator())));
+                return;
+            }
+        }
+        if (getChildren().size() == 1 && all_.first() instanceof MaMonteCarloNumberStruct) {
+            MaMonteCarloNumberStruct v_ = (MaMonteCarloNumberStruct) all_.first();
+            MonteCarloNumber law_ = v_.getLaw();
+            if (law_.nbEvents() > 0) {
+                setStruct(new MaRateStruct(law_.editNumber(LgInt.getMaxLongPlusOne(), mapping.getGenerator())));
+                return;
+            }
+        }
+        defAlea(_error);
+    }
+
+    private void defAlea(MaError _error) {
+        int len_ = getChildren().size();
+        MonteCarloNumber law_ = new MonteCarloNumber();
+        boolean allEvts_ = true;
+        for (int i = 0; i < len_; i++) {
+            MaStruct value_ = MaNumParsers.tryGet(this, i);
+            if (!(value_ instanceof MaEventFreqStruct)) {
+                allEvts_ = false;
+                break;
+            }
+            EventFreq<Rate> pair_ = ((MaEventFreqStruct) value_).getPair();
+            law_.addQuickEvent(pair_.getEvent(),pair_.getFreq());
+        }
+        if (allEvts_&&law_.nbEvents() > 0) {
+            setStruct(new MaRateStruct(law_.editNumber(LgInt.getMaxLongPlusOne(), mapping.getGenerator())));
+            return;
+        }
+        _error.setOffset(getIndexExp());
+    }
+
     private static boolean areTwoIntegers(CustList<MaRateStruct> _rates) {
         return areAllIntegersNb(_rates, 2);
     }
@@ -449,8 +497,12 @@ public final class FctMaOperation extends MethodMaOperation {
                 setStruct(new MaRateStruct(new Rate(((MaRepartitionStruct)list_.first()).getEvents().size())));
                 return;
             }
-            if (list_.first() instanceof MaPrimDivisorNbStruct) {
+            if (list_.first() instanceof MaPrimDivisorNbStruct || list_.first() instanceof MaEventFreqStruct) {
                 setStruct(new MaRateStruct(new Rate(2)));
+                return;
+            }
+            if (list_.first() instanceof MaMonteCarloNumberStruct) {
+                setStruct(new MaRateStruct(new Rate(((MaMonteCarloNumberStruct)list_.first()).getLaw().nbEvents())));
                 return;
             }
             setStruct(new MaRateStruct(new Rate(-1)));

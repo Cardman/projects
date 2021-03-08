@@ -1,6 +1,7 @@
 package code.maths.litteraladv;
 
 import code.maths.litteralcom.*;
+import code.maths.montecarlo.AbstractGenerator;
 import code.util.*;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
@@ -9,12 +10,12 @@ public final class MaParser {
     private MaParser() {
     }
 
-    static String processEl(String _el, CustList<Replacement> _conf) {
+    static String processEl(AbstractGenerator _gene, String _el, CustList<Replacement> _conf) {
         if (_conf == null) {
             return "#"+_el;
         }
-        StringMap<String> aliases_ = new StringMap<String>();
-        String outStr_ = checkedAliases(_el, aliases_, _conf);
+        MaParameters aliases_ = new MaParameters(_gene,new StringMap<String>());
+        String outStr_ = checkedAliases(_el, aliases_.getMapping(), _conf);
         if (!outStr_.isEmpty()) {
             return outStr_;
         }
@@ -42,7 +43,7 @@ public final class MaParser {
         return MaNumParsers.toStrNb(out_,err_);
     }
 
-    private static String feedVars(StringMap<String> _aliases, StringMap<String> _repl, StringMap<MaStruct> _values, StringList _varNames) {
+    private static String feedVars(MaParameters _aliases, StringMap<String> _repl, StringMap<MaStruct> _values, StringList _varNames) {
         String message_;
         while (true) {
             Res res_ = res(_aliases, _repl, _values, _varNames);
@@ -53,7 +54,7 @@ public final class MaParser {
         }
         return message_;
     }
-    private static Res res(StringMap<String> _aliases, StringMap<String> _repl, StringMap<MaStruct> _values, StringList _varNames) {
+    private static Res res(MaParameters _aliases, StringMap<String> _repl, StringMap<MaStruct> _values, StringList _varNames) {
         boolean calculatedValue_ = false;
         int index_ = 0;
         for (EntryCust<String,String> e: _repl.entryList()) {
@@ -136,7 +137,8 @@ public final class MaParser {
                 MaOperationNode.CARAC_FERME,MaOperationNode.CARAC_OUVERT,
                 MaOperationNode.CARAC_SEMI_OUVERT_G,MaOperationNode.CARAC_SEMI_OUVERT_D,
                 MaOperationNode.CARAC_DROITE_OUVERT,MaOperationNode.CARAC_DROITE_FERME,
-                MaOperationNode.CARAC_GAUCHE_OUVERT,MaOperationNode.CARAC_GAUCHE_FERME);
+                MaOperationNode.CARAC_GAUCHE_OUVERT,MaOperationNode.CARAC_GAUCHE_FERME,
+                MaOperationNode.ALEA);
     }
     private static boolean koCoreRepl(Replacement _r) {
         return _r == null || StringUtil.nullToEmpty(_r.getOldString()).isEmpty() || StringUtil.nullToEmpty(_r.getNewString()).isEmpty();
@@ -146,7 +148,7 @@ public final class MaParser {
         return StringUtil.contains(fcts(),_key);
     }
 
-    private static MaStruct analyzeCalculate(String _el, StringMap<MaStruct> _conf, StringMap<String> _mapping, MaError _err, boolean _procVar, StringList _varNames) {
+    private static MaStruct analyzeCalculate(String _el, StringMap<MaStruct> _conf, MaParameters _mapping, MaError _err, boolean _procVar, StringList _varNames) {
         MaDelimiters d_ = checkSyntax(_el, _err,_varNames);
         if (_err.getOffset() > -1) {
             return null;
@@ -168,7 +170,7 @@ public final class MaParser {
         return op_.getStruct();
     }
 
-    public static CustList<MaOperationNode> getSortedDescNodes(MaOperationNode _root, MaError _error, MaDelimiters _del, StringMap<String> _mapping) {
+    public static CustList<MaOperationNode> getSortedDescNodes(MaOperationNode _root, MaError _error, MaDelimiters _del, MaParameters _mapping) {
         CustList<MaOperationNode> list_ = new CustList<MaOperationNode>();
         MaOperationNode c_ = _root;
         while (c_ != null) {
@@ -177,7 +179,7 @@ public final class MaParser {
         return list_;
     }
 
-    public static MaOperationNode getAnalyzedNext(MaOperationNode _current, MaOperationNode _root, CustList<MaOperationNode> _sortedNodes, MaError _error, MaDelimiters _del, StringMap<String> _mapping) {
+    public static MaOperationNode getAnalyzedNext(MaOperationNode _current, MaOperationNode _root, CustList<MaOperationNode> _sortedNodes, MaError _error, MaDelimiters _del, MaParameters _mapping) {
         MaOperationNode next_ = createFirstChild(_current, _error, _del, _mapping);
         if (_error.getOffset() > -1) {
             return null;
@@ -215,7 +217,7 @@ public final class MaParser {
         return null;
     }
 
-    private static MaOperationNode createFirstChild(MaOperationNode _block, MaError _error, MaDelimiters _delimiter, StringMap<String> _mapping) {
+    private static MaOperationNode createFirstChild(MaOperationNode _block, MaError _error, MaDelimiters _delimiter, MaParameters _mapping) {
         if (!(_block instanceof MethodMaOperation)) {
             return null;
         }
@@ -235,7 +237,7 @@ public final class MaParser {
         return op_;
     }
 
-    private static MaOperationNode createNextSibling(MaOperationNode _block, MaError _error, MaDelimiters _delimiter, StringMap<String> _mapping) {
+    private static MaOperationNode createNextSibling(MaOperationNode _block, MaError _error, MaDelimiters _delimiter, MaParameters _mapping) {
         MethodMaOperation p_ = _block.getPar();
         if (p_ == null) {
             return null;

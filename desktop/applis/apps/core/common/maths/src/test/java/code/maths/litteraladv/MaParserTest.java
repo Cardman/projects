@@ -2,6 +2,7 @@ package code.maths.litteraladv;
 
 import code.maths.EquallableMathUtil;
 import code.maths.Rate;
+import code.maths.montecarlo.DefaultGenerator;
 import code.util.CustList;
 import code.util.Replacement;
 import code.util.StringList;
@@ -1207,6 +1208,178 @@ public final class MaParserTest extends EquallableMathUtil {
     public void evaluateExp300Test(){
         assertEq("#0", noVar("caracgaucheferme(1)"));
     }
+    @Test
+    public void evaluateExp301Test(){
+        assertEq("1", noVar("alea((1<>1,2<>1))>0"));
+    }
+    @Test
+    public void evaluateExp302Test(){
+        assertEq("1", noVar("alea(1<>1,2<>1)>0"));
+    }
+    @Test
+    public void evaluateExp303Test(){
+        assertEq("3", noVar("lg((1<>2,3<>4,5<>6))"));
+    }
+    @Test
+    public void evaluateExp304Test(){
+        assertEq("2", noVar("lg((1<>2,3<>4,5<>6)[0])"));
+    }
+    @Test
+    public void evaluateExp305Test(){
+        assertEq("4", noVar("(1<>2,3<>4,5<>6)[1][1]"));
+    }
+    @Test
+    public void evaluateExp306Test(){
+        assertEq("4", noVar("(1<>2,3<>4,5<>6)[1,1]"));
+    }
+    @Test
+    public void evaluateExp307Test(){
+        assertEq("1", noVar("alea((1<>1,2<>1),2)>0"));
+    }
+    @Test
+    public void evaluateExp308Test(){
+        assertEq("#0", noVar("alea(vrai(),2<>1)"));
+    }
+    @Test
+    public void evaluateExp309Test(){
+        assertEq("#0", noVar("alea()"));
+    }
+    @Test
+    public void evaluateExp310Test(){
+        assertEq("#0", noVar("1<>2<>3"));
+    }
+    @Test
+    public void evaluateExp311Test(){
+        assertEq("#0", noVar("alea(())"));
+    }
+    @Test
+    public void evaluateExp312Test(){
+        assertEq("#0", noVar("alea((),1)"));
+    }
+    @Test
+    public void evaluateExp313Test(){
+        assertEq("#0", noVar("alea((1<>1),1/2)"));
+    }
+    @Test
+    public void evaluateExp314Test(){
+        assertEq("#0", noVar("alea((1<>1),-1)"));
+    }
+    @Test
+    public void evaluateExp315Test(){
+        assertEq("1", noVar("alea((1<>1,2<>1),0)>0"));
+    }
+    @Test
+    public void evaluateExp316Test(){
+        assertEq("#0", noVar("alea(vrai())"));
+    }
+    @Test
+    public void evaluateExp317Test(){
+        assertEq("#0", noVar("alea((1<>1),vrai())"));
+    }
+    @Test
+    public void evaluateExp318Test(){
+        assertEq("3", noVar("(1<>2,3<>4,5<>6)[1][0]"));
+    }
+    @Test
+    public void evaluateExp319Test(){
+        assertEq("3", noVar("(1<>2,3<>4,5<>6)[1,0]"));
+    }
+    @Test
+    public void evaluateExp320Test(){
+        assertEq("2", noVar("lg((1<>2,3<>4,5<>6)[-3])"));
+    }
+    @Test
+    public void evaluateExp321Test(){
+        assertEq("4", noVar("(1<>2,3<>4,5<>6)[-2][-1]"));
+    }
+    @Test
+    public void evaluateExp322Test(){
+        assertEq("4", noVar("(1<>2,3<>4,5<>6)[-2,-1]"));
+    }
+    @Test
+    public void evaluateExp323Test(){
+        assertEq("3", noVar("(1<>2,3<>4,5<>6)[-2][-2]"));
+    }
+    @Test
+    public void evaluateExp324Test(){
+        assertEq("3", noVar("(1<>2,3<>4,5<>6)[1,-2]"));
+    }
+    @Test
+    public void evaluateExp325Test(){
+        assertEq("#3", noVar("lg((1<>2,3<>4,5<>6)[-4])"));
+    }
+    @Test
+    public void evaluateExp326Test(){
+        assertEq("#0", noVar("(1<>2,3<>4,5<>6)[-2][-3]"));
+    }
+    @Test
+    public void evaluateExp327Test(){
+        assertEq("#0", noVar("(1<>2,3<>4,5<>6)[-4,-1]"));
+    }
+    @Test
+    public void evaluateExp328Test(){
+        assertEq("#0", noVar("(1<>2,3<>4,5<>6)[-3,-3]"));
+    }
+    @Test
+    public void evaluateExp329Test(){
+        assertEq("#8", noVar("(divs(2)<>2)"));
+    }
+    @Test
+    public void evaluateExp330Test(){
+        assertEq("#2", noVar("(2<>divs(2))"));
+    }
+    @Test
+    public void evaluateExp331Test(){
+        assertEq("#2", noVar("(2<>1/2)"));
+    }
+    @Test
+    public void evaluateExp332Test(){
+        assertEq("#2", noVar("(2<>-2)"));
+    }
+    @Test
+    public void evaluateExp333Test(){
+        assertEq("1", noVar("(2<>2)=(2<>2)"));
+    }
+    @Test
+    public void evaluateExp334Test(){
+        assertEq("0", noVar("(2<>2)=(2<>3)"));
+    }
+    @Test
+    public void evaluateExp335Test(){
+        assertEq("0", noVar("(2<>2)=(3<>2)"));
+    }
+    @Test
+    public void evaluateExp336Test(){
+        assertEq("0", noVar("(2<>2)=(3<>2,3<>2)"));
+    }
+    @Test
+    public void evaluateExp337Test(){
+        assertEq("0", noVar("(2<>2)=2"));
+    }
+    @Test
+    public void evaluateExp338Test(){
+        assertEq("0", noVar("(2<>2)[0]=2"));
+    }
+    @Test
+    public void evaluateExp339Test(){
+        assertEq("1", noVar("(2<>2)[0]=(2<>2)[0]"));
+    }
+    @Test
+    public void evaluateExp340Test(){
+        assertEq("0", noVar("(2<>2)[0]=(2<>1)[0]"));
+    }
+    @Test
+    public void evaluateExp341Test(){
+        assertEq("0", noVar("(2<>2)[0]=(1<>2)[0]"));
+    }
+    @Test
+    public void evaluateExp342Test(){
+        assertEq("2<>2", noVar("(2<>2)[0]"));
+    }
+    @Test
+    public void evaluateExp343Test(){
+        assertEq("(2<>2,3<>3)", noVar("(2<>2,3<>3)"));
+    }
 
     @Test
     public void nullVarTest(){
@@ -1240,15 +1413,15 @@ public final class MaParserTest extends EquallableMathUtil {
         assertNotNull(new Rate("1").getDenominatorCopy());
     }
     private static String noVar(String _el) {
-        return MaParser.processEl(_el, new CustList<Replacement>());
+        return processEl(_el, new CustList<Replacement>());
     }
     private static String nullVar() {
         CustList<Replacement> conf_ = new CustList<Replacement>();
         conf_.add(null);
-        return MaParser.processEl("", conf_);
+        return processEl("", conf_);
     }
     private static String nullMap() {
-        return MaParser.processEl("", null);
+        return processEl("", null);
     }
     private static String oneVar(String _el,String _var,String _value) {
         CustList<Replacement> conf_ = new CustList<Replacement>();
@@ -1256,7 +1429,7 @@ public final class MaParserTest extends EquallableMathUtil {
         rep_.setOldString(_var);
         rep_.setNewString(_value);
         conf_.add(rep_);
-        return MaParser.processEl(_el, conf_);
+        return processEl(_el, conf_);
     }
     private static String dupVar(String _el,String _var,String _value) {
         CustList<Replacement> conf_ = new CustList<Replacement>();
@@ -1268,7 +1441,7 @@ public final class MaParserTest extends EquallableMathUtil {
         rep_.setOldString(_var);
         rep_.setNewString(_value);
         conf_.add(rep_);
-        return MaParser.processEl(_el, conf_);
+        return processEl(_el, conf_);
     }
     private static String twoVars(String _el,String _var,String _value,String _var2,String _value2) {
         CustList<Replacement> conf_ = new CustList<Replacement>();
@@ -1280,6 +1453,10 @@ public final class MaParserTest extends EquallableMathUtil {
         rep_.setOldString(_var2);
         rep_.setNewString(_value2);
         conf_.add(rep_);
-        return MaParser.processEl(_el, conf_);
+        return processEl(_el, conf_);
+    }
+
+    private static String processEl(String _el, CustList<Replacement> _conf) {
+        return MaParser.processEl(new DefaultGenerator(),_el, _conf);
     }
 }
