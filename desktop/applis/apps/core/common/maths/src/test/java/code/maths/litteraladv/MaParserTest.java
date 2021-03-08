@@ -307,7 +307,7 @@ public final class MaParserTest extends EquallableMathUtil {
     }
     @Test
     public void evaluateExp75Test(){
-        assertEq("#-1", noVar("puis(3,2) vrai"));
+        assertEq("#0", noVar("puis(3,2) vrai"));
     }
     @Test
     public void evaluateExp76Test(){

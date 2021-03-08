@@ -149,6 +149,7 @@ public final class MaParser {
         MaOperationsSequence opTwo_ = getOperationsSequence(IndexConstants.FIRST_INDEX, _el, d_);
         MaOperationNode op_ = MaOperationNode.createOperationNodeAndChild(IndexConstants.FIRST_INDEX, IndexConstants.FIRST_INDEX, null, opTwo_, _mapping);
         if (op_ == null) {
+            _err.setOffset(0);
             return null;
         }
         CustList<MaOperationNode> all_ = getSortedDescNodes(op_, _err, d_, _mapping);
