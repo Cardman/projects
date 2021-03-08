@@ -310,6 +310,10 @@ public final class LgInt implements Displayable {
         if (copy_.isZero()) {
             return new Decomposition(SIGNE_POSITIF, divs_);
         }
+        if (copy_.eq(one())) {
+            divs_.add(new PrimDivisor(copy_,one()));
+            return new Decomposition(isSignum(), divs_);
+        }
         LgInt d_ = new LgInt(2);
         copy_ = tryDiv(d_,copy_,divs_);
         LgInt init_ = new LgInt(3);
@@ -318,7 +322,7 @@ public final class LgInt implements Displayable {
             copy_ = tryDiv(init_,copy_,divs_);
             init_ = plus(init_,step_);
         }
-        if (divs_.isEmpty() || !copy_.eq(one())) {
+        if (!copy_.eq(one())) {
             divs_.add(new PrimDivisor(copy_,one()));
         }
         return new Decomposition(isSignum(), divs_);
