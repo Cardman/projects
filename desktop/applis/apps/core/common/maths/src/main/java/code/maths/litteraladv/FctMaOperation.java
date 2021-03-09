@@ -7,6 +7,7 @@ import code.maths.litteralcom.MathExpUtil;
 import code.maths.litteralcom.StrTypes;
 import code.maths.montecarlo.EventFreq;
 import code.maths.montecarlo.MonteCarloNumber;
+import code.util.CollCapacity;
 import code.util.CustList;
 import code.util.StringMap;
 import code.util.core.StringUtil;
@@ -98,6 +99,9 @@ public final class FctMaOperation extends MethodMaOperation {
         }
         if (StringUtil.quickEq(ALEA, _id)) {
             procAlea(_error);
+        }
+        if (StringUtil.quickEq(STAT, _id)) {
+            procStat(_error);
         }
     }
     private void procTrFalse(MaError _error, String _id) {
@@ -412,6 +416,66 @@ public final class FctMaOperation extends MethodMaOperation {
         _error.setOffset(getIndexExp());
     }
 
+    private void procStat(MaError _error) {
+        CustList<MaStruct> all_ = tryGetAll();
+        if (all_.size() == 1 && all_.first() instanceof MaMonteCarloNumberStruct) {
+            MaMonteCarloNumberStruct v_ = (MaMonteCarloNumberStruct) all_.first();
+            MonteCarloNumber law_ = v_.getLaw();
+            CustList<Rate> stats_ = new CustList<Rate>(new CollCapacity(4));
+            stats_.add(law_.minimum());
+            stats_.add(law_.maximum());
+            stats_.add(law_.getAvg());
+            stats_.add(law_.getVar());
+            setStruct(new MaRateListStruct(stats_));
+            return;
+        }
+        defStat(_error);
+    }
+
+    private void defStat(MaError _error) {
+        int len_ = getChildren().size();
+        MonteCarloNumber law_ = new MonteCarloNumber();
+        boolean allEvts_ = true;
+        for (int i = 0; i < len_; i++) {
+            MaStruct value_ = MaNumParsers.tryGet(this, i);
+            if (!(value_ instanceof MaEventFreqStruct)) {
+                allEvts_ = false;
+                break;
+            }
+            EventFreq<Rate> pair_ = ((MaEventFreqStruct) value_).getPair();
+            law_.addQuickEvent(pair_.getEvent(),pair_.getFreq());
+        }
+        if (allEvts_) {
+            CustList<Rate> stats_ = new CustList<Rate>(new CollCapacity(4));
+            stats_.add(law_.minimum());
+            stats_.add(law_.maximum());
+            stats_.add(law_.getAvg());
+            stats_.add(law_.getVar());
+            setStruct(new MaRateListStruct(stats_));
+            return;
+        }
+        MonteCarloNumber lawSimple_ = new MonteCarloNumber();
+        allEvts_ = true;
+        for (int i = 0; i < len_; i++) {
+            MaStruct value_ = MaNumParsers.tryGet(this, i);
+            if (!(value_ instanceof MaRateStruct)) {
+                allEvts_ = false;
+                break;
+            }
+            lawSimple_.addQuickEvent(((MaRateStruct)value_).getRate(),LgInt.one());
+        }
+        if (allEvts_) {
+            CustList<Rate> stats_ = new CustList<Rate>(new CollCapacity(4));
+            stats_.add(lawSimple_.minimum());
+            stats_.add(lawSimple_.maximum());
+            stats_.add(lawSimple_.getAvg());
+            stats_.add(lawSimple_.getVar());
+            setStruct(new MaRateListStruct(stats_));
+            return;
+        }
+        _error.setOffset(getIndexExp());
+    }
+
     private static boolean areTwoIntegers(CustList<MaRateStruct> _rates) {
         return areAllIntegersNb(_rates, 2);
     }
@@ -495,34 +559,42 @@ public final class FctMaOperation extends MethodMaOperation {
     private void procLg(MaError _error) {
         CustList<MaStruct> list_ = tryGetAll();
         if (list_.size() == 1) {
-            if (list_.first() instanceof MaBezoutNbStruct) {
-                setStruct(new MaRateStruct(new Rate(4)));
-                return;
-            }
-            if (list_.first() instanceof MaDividersNbStruct) {
-                setStruct(new MaRateStruct(new Rate(((MaDividersNbStruct)list_.first()).getDividers().size())));
-                return;
-            }
-            if (list_.first() instanceof MaDecompositionNbStruct) {
-                setStruct(new MaRateStruct(new Rate(((MaDecompositionNbStruct)list_.first()).getDecomposition().getFactors().size())));
-                return;
-            }
-            if (list_.first() instanceof MaRepartitionStruct) {
-                setStruct(new MaRateStruct(new Rate(((MaRepartitionStruct)list_.first()).getEvents().size())));
-                return;
-            }
-            if (list_.first() instanceof MaPrimDivisorNbStruct || list_.first() instanceof MaEventFreqStruct) {
-                setStruct(new MaRateStruct(new Rate(2)));
-                return;
-            }
-            if (list_.first() instanceof MaMonteCarloNumberStruct) {
-                setStruct(new MaRateStruct(new Rate(((MaMonteCarloNumberStruct)list_.first()).getLaw().nbEvents())));
-                return;
-            }
-            setStruct(new MaRateStruct(new Rate(-1)));
+            applyLg(list_);
             return;
         }
         _error.setOffset(getIndexExp());
+    }
+
+    private void applyLg(CustList<MaStruct> _list) {
+        if (_list.first() instanceof MaBezoutNbStruct) {
+            setStruct(new MaRateStruct(new Rate(4)));
+            return;
+        }
+        if (_list.first() instanceof MaDividersNbStruct) {
+            setStruct(new MaRateStruct(new Rate(((MaDividersNbStruct) _list.first()).getDividers().size())));
+            return;
+        }
+        if (_list.first() instanceof MaDecompositionNbStruct) {
+            setStruct(new MaRateStruct(new Rate(((MaDecompositionNbStruct) _list.first()).getDecomposition().getFactors().size())));
+            return;
+        }
+        if (_list.first() instanceof MaRepartitionStruct) {
+            setStruct(new MaRateStruct(new Rate(((MaRepartitionStruct) _list.first()).getEvents().size())));
+            return;
+        }
+        if (_list.first() instanceof MaPrimDivisorNbStruct || _list.first() instanceof MaEventFreqStruct) {
+            setStruct(new MaRateStruct(new Rate(2)));
+            return;
+        }
+        if (_list.first() instanceof MaMonteCarloNumberStruct) {
+            setStruct(new MaRateStruct(new Rate(((MaMonteCarloNumberStruct) _list.first()).getLaw().nbEvents())));
+            return;
+        }
+        if (_list.first() instanceof MaRateListStruct) {
+            setStruct(new MaRateStruct(new Rate(((MaRateListStruct) _list.first()).getRates().size())));
+            return;
+        }
+        setStruct(new MaRateStruct(new Rate(-1)));
     }
 
     private void procPrem(MaError _error) {

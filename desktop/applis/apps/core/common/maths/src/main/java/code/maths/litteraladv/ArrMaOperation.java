@@ -73,6 +73,10 @@ public final class ArrMaOperation extends MethodMaOperation {
             procPrimDivisor((MaPrimDivisorNbStruct) _values.first(),(MaRateStruct) _values.get(1), _error);
             return;
         }
+        if (_values.first() instanceof MaRateListStruct) {
+            procRateList((MaRateListStruct) _values.first(),(MaRateStruct) _values.get(1), _error);
+            return;
+        }
         _error.setOffset(getIndexExp());
     }
 
@@ -270,6 +274,20 @@ public final class ArrMaOperation extends MethodMaOperation {
         }
         if (lgInt_.eq(LgInt.one())) {
             setStruct(new MaRateStruct(new Rate(dividers_.getFreq())));
+            return;
+        }
+        _error.setOffset(getIndexExp());
+    }
+    private void procRateList(MaRateListStruct _divs,MaRateStruct _index, MaError _error) {
+        LgInt lgInt_ = _index.getRate().intPart();
+        CustList<Rate> dividers_ = _divs.getRates();
+        int len_ = dividers_.size();
+        if (!lgInt_.isZeroOrGt()) {
+            lgInt_.addNb(new LgInt(len_));
+        }
+        if (validIndex(lgInt_, len_)) {
+            Rate dual_ = dividers_.get((int) lgInt_.ll());
+            setStruct(new MaRateStruct(dual_));
             return;
         }
         _error.setOffset(getIndexExp());

@@ -63,6 +63,8 @@ public abstract class MaOperationNode {
 
     protected static final String ALEA = "alea";
 
+    protected static final String STAT = "stat";
+
 //    protected static final String MIN = "min";
 //
 //    protected static final String MAX = "max";

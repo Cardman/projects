@@ -138,7 +138,7 @@ public final class MaParser {
                 MaOperationNode.CARAC_SEMI_OUVERT_G,MaOperationNode.CARAC_SEMI_OUVERT_D,
                 MaOperationNode.CARAC_DROITE_OUVERT,MaOperationNode.CARAC_DROITE_FERME,
                 MaOperationNode.CARAC_GAUCHE_OUVERT,MaOperationNode.CARAC_GAUCHE_FERME,
-                MaOperationNode.ALEA);
+                MaOperationNode.ALEA,MaOperationNode.STAT);
     }
     private static boolean koCoreRepl(Replacement _r) {
         return _r == null || StringUtil.nullToEmpty(_r.getOldString()).isEmpty() || StringUtil.nullToEmpty(_r.getNewString()).isEmpty();

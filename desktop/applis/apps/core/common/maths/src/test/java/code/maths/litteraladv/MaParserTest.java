@@ -1392,6 +1392,86 @@ public final class MaParserTest extends EquallableMathUtil {
     public void evaluateExp346Test(){
         assertEq("1", noVar("alea(1)>0"));
     }
+    @Test
+    public void evaluateExp347Test(){
+        assertEq("(1,3,2,2/3)", noVar("stat(1,2,3)"));
+    }
+    @Test
+    public void evaluateExp348Test(){
+        assertEq("(1,3,2,4/5)", noVar("stat(1<>2,2<>1,3<>2)"));
+    }
+    @Test
+    public void evaluateExp349Test(){
+        assertEq("0", noVar("stat(1,2,3)=stat(1<>2,2<>1,3<>2)"));
+    }
+    @Test
+    public void evaluateExp350Test(){
+        assertEq("0", noVar("stat(1,3,3)=stat(1,1,3)"));
+    }
+    @Test
+    public void evaluateExp351Test(){
+        assertEq("0", noVar("stat(1,3)=stat(1,4)"));
+    }
+    @Test
+    public void evaluateExp352Test(){
+        assertEq("0", noVar("stat(2,4)=stat(1,4)"));
+    }
+    @Test
+    public void evaluateExp353Test(){
+        assertEq("1", noVar("stat(1,2,3)[0]"));
+    }
+    @Test
+    public void evaluateExp354Test(){
+        assertEq("3", noVar("stat(1,2,3)[1]"));
+    }
+    @Test
+    public void evaluateExp355Test(){
+        assertEq("2", noVar("stat(1,2,3)[2]"));
+    }
+    @Test
+    public void evaluateExp356Test(){
+        assertEq("2/3", noVar("stat(1,2,3)[3]"));
+    }
+    @Test
+    public void evaluateExp357Test(){
+        assertEq("1", noVar("stat(1,2,3)[-4]"));
+    }
+    @Test
+    public void evaluateExp358Test(){
+        assertEq("3", noVar("stat(1,2,3)[-3]"));
+    }
+    @Test
+    public void evaluateExp359Test(){
+        assertEq("2", noVar("stat(1,2,3)[-2]"));
+    }
+    @Test
+    public void evaluateExp360Test(){
+        assertEq("2/3", noVar("stat(1,2,3)[-1]"));
+    }
+    @Test
+    public void evaluateExp361Test(){
+        assertEq("#0", noVar("stat(1,2,3)[4]"));
+    }
+    @Test
+    public void evaluateExp362Test(){
+        assertEq("#0", noVar("stat(1,2,3)[-5]"));
+    }
+    @Test
+    public void evaluateExp363Test(){
+        assertEq("#0", noVar("stat(vrai())"));
+    }
+    @Test
+    public void evaluateExp364Test(){
+        assertEq("4", noVar("lg(stat(1,2,3))"));
+    }
+    @Test
+    public void evaluateExp365Test(){
+        assertEq("(1,3,2,2/3)", noVar("stat((1,2,3))"));
+    }
+    @Test
+    public void evaluateExp366Test(){
+        assertEq("0", noVar("stat()=0"));
+    }
 
     @Test
     public void nullVarTest(){
