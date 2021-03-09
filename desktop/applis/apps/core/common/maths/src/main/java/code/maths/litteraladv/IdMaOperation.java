@@ -1,5 +1,6 @@
 package code.maths.litteraladv;
 
+import code.maths.LgInt;
 import code.maths.Rate;
 import code.maths.litteralcom.StrTypes;
 import code.maths.montecarlo.EventFreq;
@@ -29,6 +30,20 @@ public final class IdMaOperation extends MethodMaOperation {
         }
         if (allEvts_) {
             setStruct(new MaMonteCarloNumberStruct(law_));
+            return;
+        }
+        allEvts_ = true;
+        MonteCarloNumber lawSimple_ = new MonteCarloNumber();
+        for (int i = 0; i < len_; i++) {
+            MaStruct value_ = MaNumParsers.tryGet(this, i);
+            if (!(value_ instanceof MaRateStruct)) {
+                allEvts_ = false;
+                break;
+            }
+            lawSimple_.addQuickEvent(((MaRateStruct) value_).getRate(), LgInt.one());
+        }
+        if (allEvts_ && len_ > 1) {
+            setStruct(new MaMonteCarloNumberStruct(lawSimple_));
             return;
         }
         if (len_ != 1) {

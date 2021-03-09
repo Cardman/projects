@@ -192,7 +192,7 @@ public final class MaParserTest extends EquallableMathUtil {
     }
     @Test
     public void evaluateExp46Test(){
-        assertEq("#0", noVar("(0,-1)"));
+        assertEq("#0", noVar("(0,vrai())"));
     }
     @Test
     public void evaluateExp47Test(){
@@ -1379,6 +1379,18 @@ public final class MaParserTest extends EquallableMathUtil {
     @Test
     public void evaluateExp343Test(){
         assertEq("(2<>2,3<>3)", noVar("(2<>2,3<>3)"));
+    }
+    @Test
+    public void evaluateExp344Test(){
+        assertEq("1", noVar("alea((1,2))>0"));
+    }
+    @Test
+    public void evaluateExp345Test(){
+        assertEq("1", noVar("alea(1,2)>0"));
+    }
+    @Test
+    public void evaluateExp346Test(){
+        assertEq("1", noVar("alea(1)>0"));
     }
 
     @Test

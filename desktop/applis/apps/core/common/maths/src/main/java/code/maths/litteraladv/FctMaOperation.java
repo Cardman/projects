@@ -395,6 +395,20 @@ public final class FctMaOperation extends MethodMaOperation {
             setStruct(new MaRateStruct(law_.editNumber(LgInt.getMaxLongPlusOne(), mapping.getGenerator())));
             return;
         }
+        MonteCarloNumber lawSimple_ = new MonteCarloNumber();
+        allEvts_ = true;
+        for (int i = 0; i < len_; i++) {
+            MaStruct value_ = MaNumParsers.tryGet(this, i);
+            if (!(value_ instanceof MaRateStruct)) {
+                allEvts_ = false;
+                break;
+            }
+            lawSimple_.addQuickEvent(((MaRateStruct)value_).getRate(),LgInt.one());
+        }
+        if (allEvts_&&lawSimple_.nbEvents() > 0) {
+            setStruct(new MaRateStruct(lawSimple_.editNumber(LgInt.getMaxLongPlusOne(), mapping.getGenerator())));
+            return;
+        }
         _error.setOffset(getIndexExp());
     }
 
