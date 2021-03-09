@@ -138,9 +138,9 @@ public final class Matrix implements Displayable {
         for(int i=(int) rang_;i<nbLines_;i++) {
             Matrix secondMember_ = new Matrix();
             for(int j=0;j<rang_;j++) {
-                secondMember_.addLineRef(new Vect());
-                secondMember_.lines.last().add(Rate.zero());
-                secondMember_.lines.get(j).set(0, matFree_.cell(j,i).opposNb());
+                Vect v_ = new Vect();
+                v_.add(matFree_.cell(j,i).opposNb());
+                secondMember_.addLineRef(v_);
             }
             Matrix sol_=nearlyInv_.multMatrix(secondMember_);
             int nbLinesTwo_=sol_.nbLines();
