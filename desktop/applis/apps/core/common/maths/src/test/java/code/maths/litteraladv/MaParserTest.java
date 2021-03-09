@@ -606,15 +606,15 @@ public final class MaParserTest extends EquallableMathUtil {
     }
     @Test
     public void evaluateExp149Test(){
-        assertEq("-1", noVar("lg(0)"));
+        assertEq("-1", noVar("0[]"));
     }
     @Test
     public void evaluateExp150Test(){
-        assertEq("4", noVar("lg(bezout(4,6))"));
+        assertEq("4", noVar("bezout(4,6)[]"));
     }
     @Test
     public void evaluateExp151Test(){
-        assertEq("#0", noVar("lg()"));
+        assertEq("0", noVar("()[]"));
     }
     @Test
     public void evaluateExp152Test(){
@@ -758,7 +758,7 @@ public final class MaParserTest extends EquallableMathUtil {
     }
     @Test
     public void evaluateExp187Test(){
-        assertEq("1", noVar("lg(divs(1))"));
+        assertEq("1", noVar("divs(1)[]"));
     }
     @Test
     public void evaluateExp188Test(){
@@ -942,11 +942,11 @@ public final class MaParserTest extends EquallableMathUtil {
     }
     @Test
     public void evaluateExp234Test(){
-        assertEq("6", noVar("lg(decomp("+Long.MAX_VALUE+"))"));
+        assertEq("6", noVar("decomp("+Long.MAX_VALUE+")[]"));
     }
     @Test
     public void evaluateExp235Test(){
-        assertEq("2", noVar("lg(decomp("+Long.MAX_VALUE+")[0])"));
+        assertEq("2", noVar("decomp("+Long.MAX_VALUE+")[0][]"));
     }
     @Test
     public void evaluateExp236Test(){
@@ -1082,7 +1082,7 @@ public final class MaParserTest extends EquallableMathUtil {
     }
     @Test
     public void evaluateExp269Test(){
-        assertEq("15", noVar("lg(rep(8,8,8,8,8))"));
+        assertEq("15", noVar("rep(8,8,8,8,8)[]"));
     }
     @Test
     public void evaluateExp270Test(){
@@ -1218,11 +1218,11 @@ public final class MaParserTest extends EquallableMathUtil {
     }
     @Test
     public void evaluateExp303Test(){
-        assertEq("3", noVar("lg((1<>2,3<>4,5<>6))"));
+        assertEq("3", noVar("(1<>2,3<>4,5<>6)[]"));
     }
     @Test
     public void evaluateExp304Test(){
-        assertEq("2", noVar("lg((1<>2,3<>4,5<>6)[0])"));
+        assertEq("2", noVar("(1<>2,3<>4,5<>6)[0][]"));
     }
     @Test
     public void evaluateExp305Test(){
@@ -1286,7 +1286,7 @@ public final class MaParserTest extends EquallableMathUtil {
     }
     @Test
     public void evaluateExp320Test(){
-        assertEq("2", noVar("lg((1<>2,3<>4,5<>6)[-3])"));
+        assertEq("2", noVar("(1<>2,3<>4,5<>6)[-3][]"));
     }
     @Test
     public void evaluateExp321Test(){
@@ -1306,7 +1306,7 @@ public final class MaParserTest extends EquallableMathUtil {
     }
     @Test
     public void evaluateExp325Test(){
-        assertEq("#3", noVar("lg((1<>2,3<>4,5<>6)[-4])"));
+        assertEq("#0", noVar("(1<>2,3<>4,5<>6)[-4][]"));
     }
     @Test
     public void evaluateExp326Test(){
@@ -1462,7 +1462,7 @@ public final class MaParserTest extends EquallableMathUtil {
     }
     @Test
     public void evaluateExp364Test(){
-        assertEq("4", noVar("lg(stat(1,2,3))"));
+        assertEq("4", noVar("stat(1,2,3)[]"));
     }
     @Test
     public void evaluateExp365Test(){

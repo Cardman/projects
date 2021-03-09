@@ -54,9 +54,6 @@ public final class FctMaOperation extends MethodMaOperation {
         if (StringUtil.quickEq(DEN, _id)) {
             procDen(_error);
         }
-        if (StringUtil.quickEq(LG, _id)) {
-            procLg(_error);
-        }
         procUnaryArith(_error, _id);
     }
 
@@ -554,47 +551,6 @@ public final class FctMaOperation extends MethodMaOperation {
             return;
         }
         _error.setOffset(getIndexExp());
-    }
-
-    private void procLg(MaError _error) {
-        CustList<MaStruct> list_ = tryGetAll();
-        if (list_.size() == 1) {
-            applyLg(list_);
-            return;
-        }
-        _error.setOffset(getIndexExp());
-    }
-
-    private void applyLg(CustList<MaStruct> _list) {
-        if (_list.first() instanceof MaBezoutNbStruct) {
-            setStruct(new MaRateStruct(new Rate(4)));
-            return;
-        }
-        if (_list.first() instanceof MaDividersNbStruct) {
-            setStruct(new MaRateStruct(new Rate(((MaDividersNbStruct) _list.first()).getDividers().size())));
-            return;
-        }
-        if (_list.first() instanceof MaDecompositionNbStruct) {
-            setStruct(new MaRateStruct(new Rate(((MaDecompositionNbStruct) _list.first()).getDecomposition().getFactors().size())));
-            return;
-        }
-        if (_list.first() instanceof MaRepartitionStruct) {
-            setStruct(new MaRateStruct(new Rate(((MaRepartitionStruct) _list.first()).getEvents().size())));
-            return;
-        }
-        if (_list.first() instanceof MaPrimDivisorNbStruct || _list.first() instanceof MaEventFreqStruct) {
-            setStruct(new MaRateStruct(new Rate(2)));
-            return;
-        }
-        if (_list.first() instanceof MaMonteCarloNumberStruct) {
-            setStruct(new MaRateStruct(new Rate(((MaMonteCarloNumberStruct) _list.first()).getLaw().nbEvents())));
-            return;
-        }
-        if (_list.first() instanceof MaRateListStruct) {
-            setStruct(new MaRateStruct(new Rate(((MaRateListStruct) _list.first()).getRates().size())));
-            return;
-        }
-        setStruct(new MaRateStruct(new Rate(-1)));
     }
 
     private void procPrem(MaError _error) {

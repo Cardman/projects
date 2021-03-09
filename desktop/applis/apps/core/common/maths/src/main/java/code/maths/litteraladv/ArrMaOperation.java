@@ -17,6 +17,10 @@ public final class ArrMaOperation extends MethodMaOperation {
     @Override
     void calculate(StringMap<MaStruct> _conf, MaError _error, MaDelimiters _del) {
         CustList<MaStruct> values_ = tryGetAll();
+        if (values_.size() == 1) {
+            applyLg(values_);
+            return;
+        }
         if (values_.size() == 2 && isIndex(values_)) {
             procOneIndex(_error, values_);
             return;
@@ -26,6 +30,38 @@ public final class ArrMaOperation extends MethodMaOperation {
             return;
         }
         _error.setOffset(getIndexExp());
+    }
+
+    private void applyLg(CustList<MaStruct> _list) {
+        if (_list.first() instanceof MaBezoutNbStruct) {
+            setStruct(new MaRateStruct(new Rate(4)));
+            return;
+        }
+        if (_list.first() instanceof MaDividersNbStruct) {
+            setStruct(new MaRateStruct(new Rate(((MaDividersNbStruct) _list.first()).getDividers().size())));
+            return;
+        }
+        if (_list.first() instanceof MaDecompositionNbStruct) {
+            setStruct(new MaRateStruct(new Rate(((MaDecompositionNbStruct) _list.first()).getDecomposition().getFactors().size())));
+            return;
+        }
+        if (_list.first() instanceof MaRepartitionStruct) {
+            setStruct(new MaRateStruct(new Rate(((MaRepartitionStruct) _list.first()).getEvents().size())));
+            return;
+        }
+        if (_list.first() instanceof MaPrimDivisorNbStruct || _list.first() instanceof MaEventFreqStruct) {
+            setStruct(new MaRateStruct(new Rate(2)));
+            return;
+        }
+        if (_list.first() instanceof MaMonteCarloNumberStruct) {
+            setStruct(new MaRateStruct(new Rate(((MaMonteCarloNumberStruct) _list.first()).getLaw().nbEvents())));
+            return;
+        }
+        if (_list.first() instanceof MaRateListStruct) {
+            setStruct(new MaRateStruct(new Rate(((MaRateListStruct) _list.first()).getRates().size())));
+            return;
+        }
+        setStruct(new MaRateStruct(new Rate(-1)));
     }
 
     private void procTwoIndexes(MaError _error, CustList<MaStruct> _values) {
