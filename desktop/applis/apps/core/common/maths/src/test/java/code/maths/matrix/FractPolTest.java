@@ -3,6 +3,7 @@ package code.maths.matrix;
 import code.maths.EquallableMathUtil;
 import code.maths.LgInt;
 import code.maths.Rate;
+import code.util.CustList;
 import org.junit.Test;
 
 public class FractPolTest extends EquallableMathUtil {
@@ -19,24 +20,21 @@ public class FractPolTest extends EquallableMathUtil {
 
     @Test
     public void new_FractPol_1test() {
-        Polynom p_ = new Polynom();
-        p_.add(new Rate(2));
+        Polynom p_ = monom(new Rate(2));
         assertTrue(p_.eq(new FractPol(p_).getNumerator()));
         assertTrue(Polynom.one().eq(new FractPol(p_).getDenominator()));
     }
 
     @Test
     public void new_FractPol_2test() {
-        Polynom p_ = new Polynom();
-        p_.add(new Rate(2));
+        Polynom p_ = monom(new Rate(2));
         assertTrue(p_.eq(new FractPol(p_,Polynom.one()).getNumerator()));
         assertTrue(Polynom.one().eq(new FractPol(p_,Polynom.one()).getDenominator()));
     }
 
     @Test
     public void new_FractPol_3test() {
-        Polynom p_ = new Polynom();
-        p_.add(new Rate(2));
+        Polynom p_ = monom(new Rate(2));
         assertTrue(p_.eq(new FractPol(new FractPol(p_,Polynom.one())).getNumerator()));
         assertTrue(Polynom.one().eq(new FractPol(new FractPol(p_,Polynom.one())).getDenominator()));
     }
@@ -44,12 +42,8 @@ public class FractPolTest extends EquallableMathUtil {
     @Test
     public void new_FractPol_4test() {
         FractPol f_ = FractPol.newFract("1 2//3 4");
-        Polynom n_ = new Polynom();
-        n_.add(new Rate(3,2));
-        n_.add(new Rate(3));
-        Polynom d_ = new Polynom();
-        d_.add(new Rate(9,2));
-        d_.add(new Rate(6));
+        Polynom n_ = binome(new Rate(3,2), 3);
+        Polynom d_ = binome(new Rate(9,2), 6);
         assertTrue(n_.eq(f_.getNumerator()));
         assertTrue(d_.eq(f_.getDenominator()));
     }
@@ -58,12 +52,6 @@ public class FractPolTest extends EquallableMathUtil {
     public void eq1Test() {
         FractPol f_ = FractPol.newFract("1 2//3 4");
         FractPol g_ = FractPol.newFract("1 2//3 4");
-        Polynom n_ = new Polynom();
-        n_.add(new Rate(1));
-        n_.add(new Rate(2));
-        Polynom d_ = new Polynom();
-        d_.add(new Rate(3));
-        d_.add(new Rate(4));
         assertTrue(f_.eq(g_));
         assertTrue(g_.eq(f_));
     }
@@ -151,9 +139,7 @@ public class FractPolTest extends EquallableMathUtil {
     }
     @Test
     public void display2Test() {
-        Polynom d_ = new Polynom();
-        d_.add(Rate.one());
-        d_.add(Rate.zero());
+        Polynom d_ = binome(new Rate(1), 0);
         FractPol f_ = new FractPol(Polynom.one(), d_);
         assertEq("1//1 0",f_.display());
     }
@@ -176,4 +162,13 @@ public class FractPolTest extends EquallableMathUtil {
         f_.affect(g_);
         assertTrue(new FractPol(new Polynom(new Rate(0))).eq(f_));
     }
+
+    private static Polynom monom(Rate _nb) {
+        return new Polynom(new CustList<Rate>(_nb));
+    }
+
+    private static Polynom binome(Rate _one, int _two) {
+        return new Polynom(new CustList<Rate>(_one,new Rate(_two)));
+    }
+
 }

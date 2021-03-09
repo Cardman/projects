@@ -331,10 +331,11 @@ public final class Rate implements Displayable {
         return new NumDiffDenNum(getNumeratorCopy(), diff_);
     }
 
-    public static LgInt getPpcmDens(CustList<Rate> _numbers, int _maxIncludedIndex) {
+    public static LgInt getPpcmDens(CustList<Rate> _numbers) {
         Rate mainRate_=_numbers.first();
         LgInt ppcmDenom_=mainRate_.denominateur;
-        for(int i = 1; i<= _maxIncludedIndex; i++) {
+        int size_ = _numbers.size();
+        for(int i = 1; i< size_; i++) {
             ppcmDenom_=LgInt.ppcm(ppcmDenom_, _numbers.get(i).denominateur);
         }
         return ppcmDenom_;

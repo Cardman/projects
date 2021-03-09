@@ -1,6 +1,7 @@
 package code.maths.matrix;
 import code.maths.LgInt;
 import code.maths.Rate;
+import code.util.CollCapacity;
 import code.util.CustList;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
@@ -43,11 +44,11 @@ public final class Polynom implements Displayable {
 
     
     public static Polynom newPolynom(String _arg) {
-        Polynom v_ = new Polynom();
+        CustList<Rate> rates_ = new CustList<Rate>();
         for (String s: StringUtil.splitStrings(_arg, SEPARATOR)) {
-            v_.add(new Rate(s));
+            rates_.add(new Rate(s));
         }
-        return v_;
+        return new Polynom(rates_);
     }
 
     /**@return the integer 0*/
@@ -57,9 +58,9 @@ public final class Polynom implements Displayable {
 
     /**@return the integer 1*/
     public static Polynom one() {
-        Polynom one_ = new Polynom();
-        one_.add(Rate.one());
-        return one_;
+        CustList<Rate> rates_ = new CustList<Rate>(new CollCapacity(1));
+        rates_.add(Rate.one());
+        return new Polynom(rates_);
     }
 
     public static Polynom interpolation(CustList<RateImage> _imgs) {
@@ -241,8 +242,11 @@ public final class Polynom implements Displayable {
     private static QuotModPolynom polyLongDiv(Polynom _n, Polynom _d) {
         Polynom rem_ = new Polynom(_n);
         Polynom quot_ = new Polynom();
-        while (rem_.dg() >= _d.dg()) {
-            int diff_ = (int) (rem_.dg() - _d.dg());
+        while (rem_.size() >= _d.size()) {
+            if (rem_.isZero()) {
+                break;
+            }
+            int diff_ = rem_.size() - _d.size();
             Rate r_ = Rate.divide(rem_.get(0),_d.get(0));
             Polynom mon_ = one().prodMonom(r_,diff_);
             quot_ = quot_.addPolynom(mon_);
@@ -298,22 +302,23 @@ public final class Polynom implements Displayable {
         CustList<RootPol> roots_=racines();
         CustList<Polynom> polynoms_ = new CustList<Polynom>();
         Polynom copy_= new Polynom(this);
-        Polynom one_= new Polynom(Rate.one());
         for(RootPol r : roots_) {
-            Polynom copyOne_=new Polynom(one_);
-            copyOne_.add(r.getValue().opposNb());
+            CustList<Rate> rates_ = new CustList<Rate>(new CollCapacity(2));
+            rates_.add(Rate.one());
+            rates_.add(r.getValue().opposNb());
+            Polynom copyOne_=new Polynom(rates_);
             for(int i=0;i<r.getDegree();i++) {
                 polynoms_.add(copyOne_);
                 copy_=copy_.divisionEuclidienne(copyOne_).getQuot();
             }
         }
-        if (copy_.dg() > 0) {
+        if (!copy_.isZero() && copy_.notNullDg() > 0) {
             polynoms_.add(copy_);
         }
         return polynoms_;
     }
     public CustList<RootPol> racines() {
-        if(numbers.last().isZero()) {
+        if(!isZero()&&numbers.last().isZero()) {
             return racines2();
         }
         return nonZeroRoots();
@@ -324,7 +329,7 @@ public final class Polynom implements Displayable {
         copy_.numbers.remove(0);
         boolean written_=false;
         int multZero_=0;
-        for(long i=dg();i>-1;i--) {
+        for(long i=notNullDg();i>-1;i--) {
             if(!numbers.get((int) i).isZero()) {
                 written_=true;
             } else {
@@ -338,10 +343,6 @@ public final class Polynom implements Displayable {
         }
         CustList<RootPol> r_ = new CustList<RootPol>();
         r_.add(new RootPol(Rate.zero(),multZero_));
-        if (copy_.numbers.isEmpty()) {
-            r_.clear();
-            copy_.numbers.add(Rate.zero());
-        }
         r_.addAllElts(copy_.nonZeroRoots());
         return r_;
     }
@@ -351,27 +352,30 @@ public final class Polynom implements Displayable {
         if (isZero()) {
             return r_;
         }
-        long deg_=dg();
-        LgInt ppcmDenom_ = Rate.getPpcmDens(numbers, (int) deg_);
-        Polynom polEnt_ = new Polynom();
+        long deg_=notNullDg();
+        LgInt ppcmDenom_ = Rate.getPpcmDens(numbers);
+        CustList<Rate> rates_ = new CustList<Rate>();
         for(Rate r:numbers) {
-            polEnt_.add(Rate.multiply(r, new Rate(ppcmDenom_)));
+            rates_.add(Rate.multiply(r, new Rate(ppcmDenom_)));
         }
+        Polynom polEnt_ = new Polynom(rates_);
         CustList<LgInt> mainDivs_=polEnt_.get(0).getDividersNumerator();
-        CustList<LgInt> cstDivs_=polEnt_.get((int) deg_).getDividersNumerator();
-        Polynom pairPol_ = new Polynom();
-        Polynom impairPol_ = new Polynom();
+        CustList<LgInt> cstDivs_=polEnt_.numbers.last().getDividersNumerator();
+        CustList<Rate> ratesPair_ = new CustList<Rate>();
+        CustList<Rate> ratesImpair_ = new CustList<Rate>();
         if(deg_%2==0) {
-            feedPol(deg_, polEnt_, pairPol_, 0);
-            feedPol(deg_, polEnt_, impairPol_, 1);
+            feedPol(deg_, polEnt_, ratesPair_, 0);
+            feedPol(deg_, polEnt_, ratesImpair_, 1);
         } else {
-            feedPol(deg_, polEnt_, impairPol_, 0);
-            feedPol(deg_, polEnt_, pairPol_, 1);
+            feedPol(deg_, polEnt_, ratesImpair_, 0);
+            feedPol(deg_, polEnt_, ratesPair_, 1);
         }
+        Polynom pairPol_ = new Polynom(ratesPair_);
+        Polynom impairPol_ = new Polynom(ratesImpair_);
         return loop(r_, deg_, mainDivs_, cstDivs_, pairPol_, impairPol_);
     }
 
-    private static void feedPol(long _deg, Polynom _polEnt, Polynom _pol, int _i) {
+    private static void feedPol(long _deg, Polynom _polEnt, CustList<Rate> _pol, int _i) {
         for (int i = _i; i <= _deg; i++) {
             if (i % 2 == _i) {
                 _pol.add(_polEnt.get(i));
@@ -419,10 +423,10 @@ public final class Polynom implements Displayable {
 
     public Rate image(Rate _x) {
         Rate y_ = Rate.zero();
-        long dg_=dg();
-        if (dg_ < 0) {
+        if (isZero()) {
             return y_;
         }
+        long dg_=notNullDg();
         for(int i=0;i<dg_;i++) {
             y_.addNb(get(i));
             y_.multiplyBy(_x);
@@ -432,7 +436,6 @@ public final class Polynom implements Displayable {
     }
 
     public Matrix image(Matrix _m) {
-        long dg_=dg();
         Matrix id_ = new Matrix();
         Vect line_ = new Vect();
         line_.add(Rate.one());
@@ -455,9 +458,10 @@ public final class Polynom implements Displayable {
             }
             m_.addLineRef(line_);
         }
-        if (dg_ < 0) {
+        if (isZero()) {
             return m_;
         }
+        long dg_=notNullDg();
         for(int i=0;i<dg_;i++) {
             m_ = m_.addMatrix(id_.multMatrix(get(i)));
             m_ = m_.multMatrix(_m);
@@ -468,11 +472,22 @@ public final class Polynom implements Displayable {
 
     public Polynom comp(Polynom _o) {
         Polynom p_ = new Polynom();
-        long dg_=dg();
+        if (isZero()) {
+            return p_;
+        }
+        if (_o.isZero()) {
+            Rate rate_ = numbers.last();
+            if (!rate_.isZero()) {
+                p_.addPol(one().prodMonom(rate_,0));
+            }
+            return p_;
+        }
+        long dg_=notNullDg();
         for(int i=0;i<=dg_;i++) {
-            Polynom cst_ = new Polynom();
-            cst_.add(get(i));
-            p_.addPol(cst_.multiplyPolynom(_o.pow(dg_-i)));
+            Rate rate_ = get(i);
+            if (!rate_.isZero()) {
+                p_.addPol(_o.pow(dg_-i).prodMonom(rate_,0));
+            }
         }
         return p_;
     }
@@ -487,12 +502,12 @@ public final class Polynom implements Displayable {
         if(isZero()) {
             return new Polynom();
         }
-        Polynom pol_ = new Polynom();
-        long deg_=dg();
+        CustList<Rate> rates_ = new CustList<Rate>();
+        long deg_=notNullDg();
         for(int i=0;i<deg_;i++) {
-            pol_.add(Rate.multiply(get(i), new Rate(deg_-i)));
+            rates_.add(Rate.multiply(get(i), new Rate(deg_-i)));
         }
-        return pol_;
+        return new Polynom(rates_);
     }
 
     public Polynom dividePolynom(Polynom _o) {
@@ -514,17 +529,16 @@ public final class Polynom implements Displayable {
         if(isZero()||_o.isZero()) {
             return new Polynom();
         }
-        long degOne_=dg();
-        long degTwo_=_o.dg();
-        long degProd_=degOne_+degTwo_;
-        Polynom pol_ = new Polynom(Rate.zero(),(int) (degProd_+1));
-        for(int i=0;i<=degTwo_;i++) {
-            if(!_o.get(i).isZero()) {
-                for(int j=0;j<=degOne_;j++) {
-                    pol_.get(i + j).addNb(Rate.multiply(_o.get(i), get(j)));
-                }
+        int sizeTwo_=_o.size();
+        long dgTwo_ = sizeTwo_ - 1L;
+        Polynom pol_ = new Polynom();
+        for(int i=0;i<sizeTwo_;i++) {
+            Rate rate_ = _o.get(i);
+            if(!rate_.isZero()) {
+                pol_.addPol(prodMonom(rate_,dgTwo_-i));
             }
         }
+        removeBeginZeros(pol_.numbers);
         return pol_;
     }
 
@@ -533,12 +547,12 @@ public final class Polynom implements Displayable {
     }
 
     public Polynom minusPolynom() {
-        Polynom pol_ = new Polynom();
         int len_ = size();
+        CustList<Rate> rates_ = new CustList<Rate>(new CollCapacity(len_));
         for(int i=0;i<len_;i++) {
-            pol_.add(get(i).opposNb());
+            rates_.add(get(i).opposNb());
         }
-        return pol_;
+        return new Polynom(rates_);
     }
 
     public void addPol(Polynom _o) {
@@ -598,28 +612,25 @@ public final class Polynom implements Displayable {
     }
 
     public Polynom prodMonom(Rate _rate, long _deg) {
-        Polynom pol_ = new Polynom();
-        long deg_ = dg();
+        CustList<Rate> rates_ = new CustList<Rate>();
+        long deg_ = notNullDg();
         for(int i=0;i<=deg_;i++) {
-            pol_.add(Rate.multiply(get(i), _rate));
+            rates_.add(Rate.multiply(get(i), _rate));
         }
         for(int i=0;i<_deg;i++) {
-            pol_.add(Rate.zero());
+            rates_.add(Rate.zero());
         }
-        return pol_;
-    }
-
-    public void add(Rate _nb) {
-        if(size()== IndexConstants.ONE_ELEMENT&&numbers.first().isZero()) {
-            numbers.remove(IndexConstants.FIRST_INDEX);
-        }
-        numbers.add(_nb);
+        return new Polynom(rates_);
     }
 
     public long dg(){
         if(size()== IndexConstants.ONE_ELEMENT&&numbers.first().isZero()) {
             return -1L;
         }
+        return notNullDg();
+    }
+
+    private long notNullDg() {
         return numbers.size() - 1L;
     }
 

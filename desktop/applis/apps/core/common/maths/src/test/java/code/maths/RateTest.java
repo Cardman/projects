@@ -3,7 +3,6 @@ package code.maths;
 import org.junit.Test;
 
 import code.util.CustList;
-import code.util.EqList;
 
 
 public class RateTest extends EquallableMathUtil {
@@ -2093,7 +2092,7 @@ public class RateTest extends EquallableMathUtil {
         CustList<Rate> r_ = new CustList<Rate>();
         r_.add(new Rate(2));
         r_.add(new Rate(3));
-        assertEq(new LgInt(1), Rate.getPpcmDens(r_,1));
+        assertEq(new LgInt(1), Rate.getPpcmDens(r_));
     }
     @Test
     public void isZeroOrLt1Test() {
