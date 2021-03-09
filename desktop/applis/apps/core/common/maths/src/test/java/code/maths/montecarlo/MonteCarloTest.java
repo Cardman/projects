@@ -52,6 +52,15 @@ public class MonteCarloTest extends EquallableMathUtil {
     }
 
     @Test
+    public void sum2Test() {
+        MonteCarloList<Long> law_ = new MonteCarloList<Long>();
+        law_.addEvent(2L, new LgInt(1));
+        assertEq(new LgInt(1),law_.sum());
+        law_.addEvent(3L, new LgInt(5));
+        assertEq(new LgInt(6),law_.sum());
+    }
+
+    @Test
     public void rate1Test() {
         MonteCarloNb law_ = new MonteCarloNb();
         law_.addEvent(2L, new LgInt(1));

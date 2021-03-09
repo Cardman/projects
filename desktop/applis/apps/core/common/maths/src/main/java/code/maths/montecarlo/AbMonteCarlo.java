@@ -15,7 +15,11 @@ public abstract class AbMonteCarlo<E> implements IntMonteCarlo {
     }
 
     E editNumberSeed(LgInt _randomNumber) {
-        LgInt sum_ = sum();
+        LgInt sum_ = LgInt.zero();
+        int nbEvts_ = nbEvents();
+        for (int i = 0; i < nbEvts_; i++) {
+            sum_.addNb(getFreq(i));
+        }
         LgInt random_ = LgInt.remain(_randomNumber, sum_);
         sum_.affectZero();
         int i_ = 0;
