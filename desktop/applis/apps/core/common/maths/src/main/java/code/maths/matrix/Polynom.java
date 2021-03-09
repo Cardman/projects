@@ -29,6 +29,11 @@ public final class Polynom implements Displayable {
         affect(_p);
     }
 
+    public Polynom(CustList<Rate> _ls) {
+        numbers = new CustList<Rate>(_ls);
+        removeBeginZeros(numbers);
+    }
+
     public void affect(Polynom _o) {
         numbers.clear();
         for (Rate n: _o.numbers) {
@@ -551,59 +556,41 @@ public final class Polynom implements Displayable {
         if(_o.isZero()) {
             return new Polynom(this);
         }
-        long degSum_ = retDg(_o);
-        if(degSum_<0) {
-            return new Polynom();
-        }
-        return procDefault(_o, degSum_);
+        return procDefault(_o);
     }
 
-    private long retDg(Polynom _o) {
-        long degSum_;
-        if(dg()== _o.dg()||dg()> _o.dg()) {
-            degSum_=dg();
-            if(dg()== _o.dg()) {
-                int len_ = size();
-                for(int i=0;i<len_;i++) {
-                    if(Rate.eq(get(i), _o.get(i).opposNb())) {
-                        degSum_--;
-                    } else {
-                        break;
-                    }
-                }
-            }
-        } else {
-            degSum_= _o.dg();
+    private Polynom procDefault(Polynom _o) {
+        CustList<Rate> numbers_ = new CustList<Rate>();
+        CustList<Rate> numbersOne_ = new CustList<Rate>();
+        CustList<Rate> numbersTwo_ = new CustList<Rate>();
+        int first_ = size();
+        int second_ = _o.size();
+        int dg_ = Math.max(first_, second_);
+        for (int i = 0; i < dg_; i++) {
+            numbers_.add(Rate.zero());
         }
-        return degSum_;
+        for (int i = 0; i < first_; i++) {
+            numbersOne_.add(get(i));
+        }
+        for (int i = 0; i < second_; i++) {
+            numbersTwo_.add(_o.get(i));
+        }
+        for (int i = first_; i< dg_;i++) {
+            numbersOne_.add(0,Rate.zero());
+        }
+        for (int i = second_; i< dg_;i++) {
+            numbersTwo_.add(0,Rate.zero());
+        }
+        for (int i = 0; i < dg_; i++) {
+            numbers_.set(i,Rate.plus(numbersOne_.get(i),numbersTwo_.get(i)));
+        }
+        return new Polynom(numbers_);
     }
 
-    private Polynom procDefault(Polynom _o, long _degSum) {
-        long degOne_=dg();
-        long degTwo_= _o.dg();
-        long m_ = Math.min(degOne_, degTwo_);
-        //m_ est le minimum entre degOne_ et degTwo_
-        Polynom pol_ = new Polynom(Rate.zero(), (int) (_degSum + 1));
-        for(int i=0;i<=m_;i++) {
-            if(i> _degSum) {
-                break;
-            }
-            pol_.set((int) (_degSum -i), Rate.plus(get((int) (degOne_-i)), _o.get((int) (degTwo_-i))));
+    private static void removeBeginZeros(CustList<Rate> _numbers) {
+        while (_numbers.size() > 1 && _numbers.first().isZero()) {
+            _numbers.remove(IndexConstants.FIRST_INDEX);
         }
-        if(degOne_>m_) {
-            for(long i = m_+1; i<= _degSum; i++) {
-                pol_.setNb((int) (_degSum -i), get((int) (degOne_-i)));
-            }
-        } else {
-            for(long i = m_+1; i<= _degSum; i++) {
-                pol_.setNb((int) (_degSum -i), _o.get((int) (degTwo_-i)));
-            }
-        }
-        return pol_;
-    }
-
-    public void setNb(int _index, Rate _nb) {
-        set(_index, new Rate(_nb));
     }
 
     public void set(int _index, Rate _nb) {
