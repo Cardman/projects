@@ -186,7 +186,7 @@ public abstract class MaOperationNode {
         if (_op.getFct().trim().isEmpty()) {
             return procSymb(_index, _indexChild, _m, _op,_mapping);
         }
-        return new FctMaOperation(_index, _indexChild, _m, _op, _mapping);
+        return new FctMaOperation(_index, _indexChild, _m, _op);
     }
 
     private static MethodMaOperation procSymb(int _index, int _indexChild, MethodMaOperation _m, MaOperationsSequence _op, MaParameters _mapping) {

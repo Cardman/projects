@@ -6,11 +6,11 @@ import code.util.core.StringUtil;
 
 public final class FctMaOperation extends MethodMaOperation {
     private final String methodName;
-    private final MaParameters mapping;
-    public FctMaOperation(int _index, int _indexChild, MethodMaOperation _m, MaOperationsSequence _op, MaParameters _mapping) {
+//    private final MaParameters mapping;
+    public FctMaOperation(int _index, int _indexChild, MethodMaOperation _m, MaOperationsSequence _op) {
         super(_index, _indexChild, _m, _op);
         methodName = getOperats().getFct().trim();
-        mapping = _mapping;
+//        mapping = _mapping;
     }
 
     @Override
