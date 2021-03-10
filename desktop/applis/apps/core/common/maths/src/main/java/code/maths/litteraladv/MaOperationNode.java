@@ -2,6 +2,7 @@ package code.maths.litteraladv;
 
 import code.maths.litteralcom.MatCommonCst;
 import code.maths.litteralcom.MatConstType;
+import code.util.CustList;
 import code.util.StringMap;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
@@ -9,8 +10,8 @@ import code.util.core.StringUtil;
 public abstract class MaOperationNode {
     protected static final char PAR_LEFT = '(';
     protected static final char PAR_RIGHT = ')';
-    protected static final String TRUE_STRING = "vrai";
-    protected static final String FALSE_STRING = "faux";
+//    protected static final String TRUE_STRING = "vrai";
+//    protected static final String FALSE_STRING = "faux";
 
     protected static final String NEG_BOOL = "!";
 
@@ -27,41 +28,41 @@ public abstract class MaOperationNode {
     protected static final String DIFF = "!=";
 
     protected static final String OR = "|";
-    protected static final String PUIS = "puis";
-
-    protected static final String QUOT = "quot";
-
-    protected static final String MOD = "mod";
-
-    protected static final String MODTAUX = "modtaux";
-
-    protected static final String BEZOUT = "bezout";
-
-    protected static final String SGN = "sgn";
-
-    protected static final String ABS = "abs";
-
-    protected static final String ENT = "ent";
-
-    protected static final String TRONC = "troncature";
-
-    protected static final String NUM = "num";
-
-    protected static final String DEN = "den";
-
-    protected static final String PREM = "prem";
-
-    protected static final String DIVS = "divs";
-
-    protected static final String DECOMP = "decomp";
-
-    protected static final String PARMI = "parmi";
-
-    protected static final String REP = "rep";
-
-    protected static final String ALEA = "alea";
-
-    protected static final String STAT = "stat";
+//    protected static final String PUIS = "puis";
+//
+//    protected static final String QUOT = "quot";
+//
+//    protected static final String MOD = "mod";
+//
+//    protected static final String MODTAUX = "modtaux";
+//
+//    protected static final String BEZOUT = "bezout";
+//
+//    protected static final String SGN = "sgn";
+//
+//    protected static final String ABS = "abs";
+//
+//    protected static final String ENT = "ent";
+//
+//    protected static final String TRONC = "troncature";
+//
+//    protected static final String NUM = "num";
+//
+//    protected static final String DEN = "den";
+//
+//    protected static final String PREM = "prem";
+//
+//    protected static final String DIVS = "divs";
+//
+//    protected static final String DECOMP = "decomp";
+//
+//    protected static final String PARMI = "parmi";
+//
+//    protected static final String REP = "rep";
+//
+//    protected static final String ALEA = "alea";
+//
+//    protected static final String STAT = "stat";
 
 //    protected static final String MIN = "min";
 //
@@ -71,21 +72,21 @@ public abstract class MaOperationNode {
 //
 //    protected static final String VAR = "var";
 //
-    protected static final String CARAC_FERME = "caracferme";
-
-    protected static final String CARAC_OUVERT = "caracouvert";
-
-    protected static final String CARAC_SEMI_OUVERT_G = "caracsemiouvertg";
-
-    protected static final String CARAC_SEMI_OUVERT_D = "caracsemiouvertd";
-
-    protected static final String CARAC_DROITE_OUVERT = "caracdroiteouvert";
-
-    protected static final String CARAC_DROITE_FERME = "caracdroiteferme";
-
-    protected static final String CARAC_GAUCHE_OUVERT = "caracgaucheouvert";
-
-    protected static final String CARAC_GAUCHE_FERME = "caracgaucheferme";
+//    protected static final String CARAC_FERME = "caracferme";
+//
+//    protected static final String CARAC_OUVERT = "caracouvert";
+//
+//    protected static final String CARAC_SEMI_OUVERT_G = "caracsemiouvertg";
+//
+//    protected static final String CARAC_SEMI_OUVERT_D = "caracsemiouvertd";
+//
+//    protected static final String CARAC_DROITE_OUVERT = "caracdroiteouvert";
+//
+//    protected static final String CARAC_DROITE_FERME = "caracdroiteferme";
+//
+//    protected static final String CARAC_GAUCHE_OUVERT = "caracgaucheouvert";
+//
+//    protected static final String CARAC_GAUCHE_FERME = "caracgaucheferme";
 //
 //    protected static final String DIV_FCT = "div";
 
@@ -165,6 +166,9 @@ public abstract class MaOperationNode {
         if (str_.isEmpty()) {
             return null;
         }
+        if (_op.getType() == MatConstType.ERROR) {
+            return null;
+        }
         if (_op.getType() == MatConstType.LOC_VAR) {
             return new VariableMaOperation(_index, _indexChild, _m, _op);
         }
@@ -180,14 +184,150 @@ public abstract class MaOperationNode {
 
     private static MethodMaOperation procFct(int _index, int _indexChild, MethodMaOperation _m, MaOperationsSequence _op, MaParameters _mapping) {
         if (_op.getFct().trim().isEmpty()) {
-            if (StringUtil.quickEq(_op.getOpers().firstValue(),"[")) {
-                return new ArrMaOperation(_index, _indexChild, _m, _op);
-            }
-            return new IdMaOperation(_index, _indexChild, _m, _op);
+            return procSymb(_index, _indexChild, _m, _op,_mapping);
         }
         return new FctMaOperation(_index, _indexChild, _m, _op, _mapping);
     }
 
+    private static MethodMaOperation procSymb(int _index, int _indexChild, MethodMaOperation _m, MaOperationsSequence _op, MaParameters _mapping) {
+        if (StringUtil.quickEq(_op.getOpers().firstValue(),"[")) {
+            return new ArrMaOperation(_index, _indexChild, _m, _op);
+        }
+        if (_op.getParts().size() == 2 && isAndOr(_op)) {
+            return new SymbGeneMaOperation(_index, _indexChild, _m, _op);
+        }
+        if (_op.getParts().size() >= 2 && isVarSymbol(_op)) {
+            return new SymbVarFctMaOperation(_index, _indexChild, _m, _op,_mapping);
+        }
+         if (_op.getParts().size() == 3 && isUnarySymbol(_op)) {
+            return new SymbUnFctMaOperation(_index, _indexChild, _m, _op);
+        }
+        if (_op.getParts().size() == 4 && isBinSymbol(_op)) {
+            return new SymbBinFctMaOperation(_index, _indexChild, _m, _op);
+        }
+        return defSymb(_index, _indexChild, _m, _op);
+    }
+
+    private static MethodMaOperation defSymb(int _index, int _indexChild, MethodMaOperation _m, MaOperationsSequence _op) {
+        if (_op.getParts().size() == 4 && isPairSymbol(_op)) {
+            return new SymbCaracFctMaOperation(_index, _indexChild, _m, _op);
+        }
+        if (_op.getParts().size() == 6 && areBinarySymbols(_op)) {
+            return new SymbDoubleCaracFctMaOperation(_index, _indexChild, _m, _op);
+        }
+        return new IdMaOperation(_index, _indexChild, _m, _op);
+    }
+
+    protected static boolean areTwoIntegers(CustList<MaRateStruct> _rates) {
+        return areAllIntegersNb(_rates, 2);
+    }
+    protected static boolean areAllIntegersNb(CustList<MaRateStruct> _rates, int _count) {
+        return _rates.size() == _count && areAllIntegers(_rates);
+    }
+    protected static CustList<MaDecompositionNbStruct> tryGetDecompNb(MethodMaOperation _parent) {
+        CustList<MaDecompositionNbStruct> rates_ = new CustList<MaDecompositionNbStruct>();
+        int len_ = _parent.getChildren().size();
+        for (int i = 0; i < len_; i++) {
+            MaStruct str_ = MaNumParsers.tryGet(_parent, i);
+            if (str_ instanceof MaDecompositionNbStruct) {
+                rates_.add((MaDecompositionNbStruct)str_);
+            }
+        }
+        return rates_;
+    }
+    protected static CustList<MaRateStruct> tryGetAllAsRate(MethodMaOperation _current) {
+        int len_ = _current.getChildren().size();
+        CustList<MaRateStruct> rates_ = new CustList<MaRateStruct>();
+        for (int i = 0; i < len_; i++) {
+            MaStruct str_ = MaNumParsers.tryGet(_current, i);
+            if (!(str_ instanceof MaRateStruct)) {
+                return null;
+            }
+            rates_.add((MaRateStruct)str_);
+        }
+        return rates_;
+    }
+    protected static boolean areAllIntegers(CustList<MaRateStruct> _list) {
+        for (MaRateStruct r: _list) {
+            if (!r.getRate().isInteger()) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private static boolean areBinarySymbols(MaOperationsSequence _op) {
+        int size_ = _op.getParts().size();
+        String val_ = _op.getParts().getValue(size_-2).trim();
+        String valTwo_ = _op.getParts().lastValue().trim();
+        return isCmpSymbol(val_)
+                && isCmpSymbol(valTwo_);
+    }
+
+    private static boolean isVarSymbol(MaOperationsSequence _op) {
+        String valTwo_ = _op.getParts().getValue(1).trim();
+        return StringUtil.quickEq(valTwo_,"%")
+                ||StringUtil.quickEq(valTwo_,"?")
+                ||StringUtil.quickEq(valTwo_,"<>-|");
+    }
+    private static boolean isPairSymbol(MaOperationsSequence _op) {
+        String valTwo_ = _op.getParts().lastValue().trim();
+        return StringUtil.quickEq(valTwo_,"<==")
+                ||StringUtil.quickEq(valTwo_,"==>")
+                ||StringUtil.quickEq(valTwo_,"==<")
+                ||StringUtil.quickEq(valTwo_,">==");
+    }
+
+    private static boolean isCmpSymbol(String _val) {
+        return StringUtil.quickEq(_val, "<") || StringUtil.quickEq(_val, "<=");
+    }
+    private static boolean isBinSymbol(MaOperationsSequence _op) {
+        String val_ = _op.getParts().lastValue().trim();
+        return divmod(val_)
+                || StringUtil.quickEq(val_, "^") || StringUtil.quickEq(val_, "<=")
+                || StringUtil.quickEq(val_, "/%");
+    }
+
+    private static boolean divmod(String _val) {
+        return StringUtil.quickEq(_val, "/") || StringUtil.quickEq(_val, "%");
+    }
+    private static boolean isUnarySymbol(MaOperationsSequence _op) {
+        String val_ = _op.getParts().lastValue().trim();
+        return nbPartSymbolSgn(val_)
+                || nbPartSymbol(val_)|| nbDecSymbol(val_)||arith(val_);
+    }
+
+    private static boolean nbPartSymbolSgn(String _val) {
+        return StringUtil.quickEq(_val, "-") || StringUtil.quickEq(_val, "|");
+    }
+    private static boolean nbPartSymbol(String _val) {
+        return StringUtil.quickEq(_val, "/0") || StringUtil.quickEq(_val, "/1");
+    }
+
+    private static boolean nbDecSymbol(String _val) {
+        return StringUtil.quickEq(_val, "0/") || StringUtil.quickEq(_val, "1/");
+    }
+
+    private static boolean arith(String _val) {
+        return StringUtil.quickEq(_val, "/") || StringUtil.quickEq(_val, "||") || StringUtil.quickEq(_val, "&");
+    }
+
+    private static boolean isAndOr(MaOperationsSequence _op) {
+        String val_ = _op.getParts().lastValue().trim();
+        return StringUtil.quickEq(val_,"&") || StringUtil.quickEq(val_,"|");
+    }
+
+    static CustList<MaRateStruct> tryGetRates(MethodMaOperation _current) {
+        CustList<MaRateStruct> rates_ = new CustList<MaRateStruct>();
+        int len_ = _current.getChildren().size();
+        for (int i = 0; i < len_; i++) {
+            MaStruct str_ = MaNumParsers.tryGet(_current, i);
+            if (str_ instanceof MaRateStruct) {
+                rates_.add((MaRateStruct)str_);
+            }
+        }
+        return rates_;
+    }
 
     abstract void calculate(StringMap<MaStruct> _conf, MaError _error, MaDelimiters _del);
 
@@ -200,11 +340,21 @@ public abstract class MaOperationNode {
 
     static int getNextIndex(MaOperationNode _operation, MaStruct _value) {
         MethodMaOperation par_ = _operation.getPar();
+        int index_ = _operation.getChildIndex();
         if (par_ instanceof QuickMaOperation) {
             QuickMaOperation q_ = (QuickMaOperation) par_;
             boolean bs_ = q_.isAbs();
             if (MaBoolStruct.of(bs_).sameReference(_value)) {
                 return par_.getOrder();
+            }
+        }
+        if (par_ instanceof FctMaOperation) {
+            if (index_ == 1) {
+                return par_.getOrder();
+            }
+            MaOperationNode next_ = _operation.getNext();
+            if (index_ == 0 && next_ != null && MaBoolStruct.of(false).sameReference(_value)) {
+                return next_.getOrder() + 1;
             }
         }
         return _operation.getOrder() + 1;

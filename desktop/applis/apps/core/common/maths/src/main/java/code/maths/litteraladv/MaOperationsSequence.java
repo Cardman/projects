@@ -27,6 +27,7 @@ public final class MaOperationsSequence {
         parts = new StrTypes();
         if (opers.isEmpty()) {
             parts.addEntry(IndexConstants.FIRST_INDEX, _string);
+            type = MatConstType.ERROR;
             return;
         }
         feedValues(_string);

@@ -12,9 +12,11 @@ class MathAfUnaryParts {
     private int parsBrackets;
     private int prio = MatCommonCst.FCT_OPER_PRIO;
     private int index;
+    private final int lastPrintChar;
     private String fctName = "";
     MathAfUnaryParts(String _string, int _index, int _lastPrintChar) {
         index = _index;
+        lastPrintChar = _lastPrintChar;
         String opUn_ = Character.toString(_string.charAt(_index));
         if (areUnary(_string, _index)) {
             prio = MatCommonCst.UNARY_PRIO;
@@ -112,9 +114,8 @@ class MathAfUnaryParts {
             if (prio == MatCommonCst.CMP_PRIO) {
                 foundOperator_ = true;
             }
-            char nextChar_ = _string.charAt(index + 1);
-            if (nextChar_ == MatCommonCst.EQ_CHAR) {
-                _builtOperator.append(nextChar_);
+            if (MathExpUtil.charIs(_string,lastPrintChar+1,index+1,MatCommonCst.EQ_CHAR)) {
+                _builtOperator.append(MatCommonCst.EQ_CHAR);
                 increment_++;
             }
         }

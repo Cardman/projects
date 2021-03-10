@@ -232,4 +232,8 @@ public final class MathExpUtil {
         }
         return res_;
     }
+
+    public static boolean charIs(String _string, int _len,int _i, char _ch) {
+        return _i < _len && _string.charAt(_i) == _ch;
+    }
 }

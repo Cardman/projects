@@ -14,8 +14,8 @@ public final class MaParser {
         if (_conf == null) {
             return "#"+_el;
         }
-        MaParameters aliases_ = new MaParameters(_gene,new StringMap<String>());
-        String outStr_ = checkedAliases(_el, aliases_.getMapping(), _conf);
+        MaParameters aliases_ = new MaParameters(_gene);
+        String outStr_ = checkedAliases(_el, _conf);
         if (!outStr_.isEmpty()) {
             return outStr_;
         }
@@ -27,12 +27,16 @@ public final class MaParser {
         StringList varNames_ = new StringList();
         StringMap<String> repl_ = new StringMap<String>();
         for (Replacement r: _conf) {
-            if (!r.getOldString().startsWith("#")) {
-                String user_ = r.getOldString();
-                values_.addEntry(user_,null);
-                varNames_.add(user_);
-                repl_.addEntry(user_,r.getNewString());
-            }
+//            if (!r.getOldString().startsWith("#")) {
+//                String user_ = r.getOldString();
+//                values_.addEntry(user_,null);
+//                varNames_.add(user_);
+//                repl_.addEntry(user_,r.getNewString());
+//            }
+            String user_ = r.getOldString();
+            values_.addEntry(user_,null);
+            varNames_.add(user_);
+            repl_.addEntry(user_,r.getNewString());
         }
         String strValues_ = feedVars(aliases_, repl_, values_, varNames_);
         if (!strValues_.isEmpty()) {
@@ -78,75 +82,89 @@ public final class MaParser {
     private static String checkedVariables(String _el, CustList<Replacement> _conf) {
         StringList allVars_ = new StringList();
         for (Replacement r: _conf) {
-            if (!r.getOldString().startsWith("#")) {
-                String user_ = r.getOldString();
-                if (!MathExpUtil.isWord(user_)) {
-                    return "#" + _el;
-                }
-                allVars_.add(user_);
+//            if (!r.getOldString().startsWith("#")) {
+//                String user_ = r.getOldString();
+//                if (!MathExpUtil.isWord(user_)) {
+//                    return "#" + _el;
+//                }
+//                allVars_.add(user_);
+//            }
+            String user_ = r.getOldString();
+            if (!MathExpUtil.isWord(user_)) {
+                return "#" + _el;
             }
+            allVars_.add(user_);
         }
         if (allVars_.hasDuplicates()) {
             return "#"+_el;
         }
         return "";
     }
-    private static String checkedAliases(String _el, StringMap<String> _aliases, CustList<Replacement> _conf) {
-        StringList allNew_ = new StringList();
-        for (String f: fcts()) {
-            _aliases.addEntry(f,f);
-        }
+    private static String checkedAliases(String _el, CustList<Replacement> _conf) {
         for (Replacement r: _conf) {
             if (koCoreRepl(r)) {
                 return "#" + _el;
             }
-            if (r.getOldString().startsWith("#")) {
-                String user_ = r.getOldString().substring(1);
-                String ref_ = r.getNewString();
-                if (!MathExpUtil.isWord(user_) || !okKey(ref_)) {
-                    return "#" + _el;
-                }
-                allNew_.add(user_);
-                _aliases.put(user_, ref_);
-            }
-        }
-        if (allNew_.hasDuplicates()) {
-            return "#"+_el;
-        }
-        return notAll(_el, _aliases, fcts());
-    }
-
-    static String notAll(String _el, StringMap<String> _aliases, StringList _fcts) {
-        if (!StringUtil.containsAllObj(_aliases.values(),_fcts)) {
-            return "#"+ _el;
         }
         return "";
     }
+//    private static String checkedAliases(String _el, StringMap<String> _aliases, CustList<Replacement> _conf) {
+////        StringList allNew_ = new StringList();
+////        for (String f: fcts()) {
+////            _aliases.addEntry(f,f);
+////        }
+//        for (Replacement r: _conf) {
+//            if (koCoreRepl(r)) {
+//                return "#" + _el;
+//            }
+////            if (r.getOldString().startsWith("#")) {
+////                String user_ = r.getOldString().substring(1);
+////                String ref_ = r.getNewString();
+////                if (!MathExpUtil.isWord(user_) || !okKey(ref_)) {
+////                    return "#" + _el;
+////                }
+////                allNew_.add(user_);
+////                _aliases.put(user_, ref_);
+////            }
+//        }
+////        if (allNew_.hasDuplicates()) {
+////            return "#"+_el;
+////        }
+//        return "";
+////        return notAll(_el, _aliases, fcts());
+//    }
 
-    static StringList fcts() {
-        return new StringList(MaOperationNode.TRUE_STRING,MaOperationNode.FALSE_STRING,
-                MaOperationNode.PUIS,
-                MaOperationNode.QUOT,
-                MaOperationNode.MOD,MaOperationNode.MODTAUX,
-                MaOperationNode.BEZOUT,
-                MaOperationNode.PARMI,MaOperationNode.REP,
-                MaOperationNode.SGN,MaOperationNode.ABS,
-                MaOperationNode.ENT,MaOperationNode.TRONC,
-                MaOperationNode.NUM,MaOperationNode.DEN,
-                MaOperationNode.PREM,MaOperationNode.DIVS,MaOperationNode.DECOMP,
-                MaOperationNode.CARAC_FERME,MaOperationNode.CARAC_OUVERT,
-                MaOperationNode.CARAC_SEMI_OUVERT_G,MaOperationNode.CARAC_SEMI_OUVERT_D,
-                MaOperationNode.CARAC_DROITE_OUVERT,MaOperationNode.CARAC_DROITE_FERME,
-                MaOperationNode.CARAC_GAUCHE_OUVERT,MaOperationNode.CARAC_GAUCHE_FERME,
-                MaOperationNode.ALEA,MaOperationNode.STAT);
-    }
+//    static String notAll(String _el, StringMap<String> _aliases, StringList _fcts) {
+//        if (!StringUtil.containsAllObj(_aliases.values(),_fcts)) {
+//            return "#"+ _el;
+//        }
+//        return "";
+//    }
+
+//    static StringList fcts() {
+//        return new StringList(MaOperationNode.TRUE_STRING,MaOperationNode.FALSE_STRING,
+//                MaOperationNode.PUIS,
+//                MaOperationNode.QUOT,
+//                MaOperationNode.MOD,MaOperationNode.MODTAUX,
+//                MaOperationNode.BEZOUT,
+//                MaOperationNode.PARMI,MaOperationNode.REP,
+//                MaOperationNode.SGN,MaOperationNode.ABS,
+//                MaOperationNode.ENT,MaOperationNode.TRONC,
+//                MaOperationNode.NUM,MaOperationNode.DEN,
+//                MaOperationNode.PREM,MaOperationNode.DIVS,MaOperationNode.DECOMP,
+//                MaOperationNode.CARAC_FERME,MaOperationNode.CARAC_OUVERT,
+//                MaOperationNode.CARAC_SEMI_OUVERT_G,MaOperationNode.CARAC_SEMI_OUVERT_D,
+//                MaOperationNode.CARAC_DROITE_OUVERT,MaOperationNode.CARAC_DROITE_FERME,
+//                MaOperationNode.CARAC_GAUCHE_OUVERT,MaOperationNode.CARAC_GAUCHE_FERME,
+//                MaOperationNode.ALEA,MaOperationNode.STAT);
+//    }
     private static boolean koCoreRepl(Replacement _r) {
         return _r == null || StringUtil.nullToEmpty(_r.getOldString()).isEmpty() || StringUtil.nullToEmpty(_r.getNewString()).isEmpty();
     }
 
-    private static boolean okKey(String _key) {
-        return StringUtil.contains(fcts(),_key);
-    }
+//    private static boolean okKey(String _key) {
+//        return StringUtil.contains(fcts(),_key);
+//    }
 
     private static MaStruct analyzeCalculate(String _el, StringMap<MaStruct> _conf, MaParameters _mapping, MaError _err, boolean _procVar, StringList _varNames) {
         MaDelimiters d_ = checkSyntax(_el, _err,_varNames);
@@ -386,10 +404,10 @@ public final class MaParser {
         }
         int endWord_ = i_;
         i_ = skipWhite(_string, _len, i_);
-        if (charIs(_string, _len, i_, '/') || charIs(_string, _len, i_, '.')) {
+        if (MathExpUtil.charIs(_string, _len, i_, '/') || MathExpUtil.charIs(_string, _len, i_, '.')) {
             return true;
         }
-        if (charIs(_string,_len,i_,'(')) {
+        if (MathExpUtil.charIs(_string,_len,i_,'(')) {
             return false;
         }
         return !StringUtil.contains(_varNames,_string.substring(_from,endWord_));
@@ -406,9 +424,7 @@ public final class MaParser {
         }
         return to_;
     }
-    static boolean charIs(String _string, int _len,int _i, char _ch) {
-        return _i < _len && _string.charAt(_i) == _ch;
-    }
+
     private static int addNumberInfo(MaDelimiters _d, int _from, int _begin, String _string) {
         MatNumberResult res_ = build(_from, _string);
         int i_ = res_.getIndex();
