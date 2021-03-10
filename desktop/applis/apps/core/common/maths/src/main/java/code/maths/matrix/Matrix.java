@@ -53,7 +53,7 @@ public final class Matrix implements Displayable {
         Matrix mat_ = new Matrix();
         CustList<EigenValue> ownValues_=diagTrig().getRates();
         for(EigenValue t: ownValues_) {
-            Matrix ownVects_=ownVects(t.getValue());
+            Matrix ownVects_=ownVects(t.getValue(),t.getDegree());
             for(Vect l: ownVects_.lines) {
                 mat_.addLineRef(l);
             }
@@ -80,7 +80,8 @@ public final class Matrix implements Displayable {
         }
         for(RootPol c:ownValues_) {
             sum_+=c.getDegree();
-            int sp_ = (int) (nbLines_ - minusMatrix(id_.multMatrix(c.getValue())).quickRank());
+            Matrix matrix_ = minusMatrix(id_.multMatrix(c.getValue()));
+            int sp_ = (int) (nbLines_ - matrix_.quickRank());
             ownValuesSpaces_.add(new EigenValue(c.getValue(),c.getDegree(),sp_));
         }
         if(sum_<lines.size()) {
@@ -99,7 +100,7 @@ public final class Matrix implements Displayable {
         return new Trigonal(ownValuesSpaces_, Diagonal.TRIGO);
     }
 
-    public Matrix ownVects(Rate _value) {
+    public Matrix ownVects(Rate _value, int _space) {
         Matrix id_ = new Matrix();
         Vect line_ = new Vect();
         line_.add(Rate.one());
@@ -113,14 +114,15 @@ public final class Matrix implements Displayable {
             line_ = n_;
         }
         Matrix mat_=minusMatrix(id_.multMatrix(_value));
-        long rang_=mat_.quickRank();
+        Matrix res_ = mat_.power(_space);
+        long rang_=res_.quickRank();
         if(rang_ == 0L) {
             return id_;
         }
         Matrix matFree_ = new Matrix();
         for(int i=0;i<nbLines_;i++) {
             Matrix subMat_=new Matrix(matFree_);
-            subMat_.addLineRef(mat_.lines.get(i));
+            subMat_.addLineRef(res_.lines.get(i));
             if(subMat_.quickRank()==subMat_.nbLines()) {
                 matFree_=subMat_;
             }
@@ -156,6 +158,25 @@ public final class Matrix implements Displayable {
         return ownVects_;
     }
 
+    public Matrix power(int _power) {
+        Matrix id_ = new Matrix();
+        Vect line_ = new Vect();
+        line_.add(Rate.one());
+        int nbLines_=nbLines();
+        feedZeros(nbLines_, 1, line_);
+        id_.addLineRef(line_);
+        for(int i=1;i<nbLines_;i++) {
+            Vect n_ = new Vect(line_);
+            n_.swapIndexes(i,i - 1);
+            id_.addLineRef(n_);
+            line_ = n_;
+        }
+        Matrix res_ = new Matrix(id_);
+        for (int i = 0; i < _power; i++) {
+            res_ = res_.multMatrix(this);
+        }
+        return res_;
+    }
     private static void feedZeros(int _i, int _nbLinesTwo, Vect _solCopy) {
         for(int j = _nbLinesTwo; j< _i; j++) {
             _solCopy.add(Rate.zero());

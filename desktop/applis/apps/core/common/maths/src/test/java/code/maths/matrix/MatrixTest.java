@@ -498,7 +498,7 @@ public class MatrixTest extends EquallableMathUtil {
         vect_.add(Rate.zero());
         vect_.add(Rate.one());
         mat_.addLine(vect_);
-        Matrix m_ = mat_.ownVects(Rate.one());
+        Matrix m_ = mat_.ownVects(Rate.one(),2);
         assertEq(2, m_.nbLines());
         assertEq(2, m_.nbCols());
         assertEq(Rate.one(), m_.cell(0, 0));
@@ -517,7 +517,7 @@ public class MatrixTest extends EquallableMathUtil {
         vect_.add(Rate.zero());
         vect_.add(Rate.minusOne());
         mat_.addLine(vect_);
-        Matrix m_ = mat_.ownVects(Rate.one());
+        Matrix m_ = mat_.ownVects(Rate.one(),1);
         assertEq(1, m_.nbLines());
         assertEq(2, m_.nbCols());
         assertEq(Rate.zero(), m_.cell(0, 0));
@@ -534,7 +534,7 @@ public class MatrixTest extends EquallableMathUtil {
         vect_.add(Rate.zero());
         vect_.add(Rate.minusOne());
         mat_.addLine(vect_);
-        Matrix m_ = mat_.ownVects(Rate.minusOne());
+        Matrix m_ = mat_.ownVects(Rate.minusOne(),1);
         assertEq(1, m_.nbLines());
         assertEq(2, m_.nbCols());
     }
