@@ -49,17 +49,17 @@ public final class Matrix implements Displayable {
         return lines.get(_i).get(_j);
     }
 
-    public Matrix passMat() {
-        Matrix mat_ = new Matrix();
-        CustList<EigenValue> ownValues_=diagTrig().getRates();
-        for(EigenValue t: ownValues_) {
-            Matrix ownVects_=ownVects(t.getValue(),t.getDegree());
-            for(Vect l: ownVects_.lines) {
-                mat_.addLineRef(l);
-            }
-        }
-        return mat_;
-    }
+//    public Matrix passMat() {
+//        Matrix mat_ = new Matrix();
+//        CustList<EigenValue> ownValues_=diagTrig().getRates();
+//        for(EigenValue t: ownValues_) {
+//            Matrix ownVects_=ownVects(t.getValue(),t.getDegree());
+//            for(Vect l: ownVects_.lines) {
+//                mat_.addLineRef(l);
+//            }
+//        }
+//        return mat_;
+//    }
 
     public Trigonal diagTrig() {
         CustList<RootPol> ownValues_=polCaract().racines();
@@ -67,17 +67,18 @@ public final class Matrix implements Displayable {
         ownValuesSpaces_ = new CustList<EigenValue>();
         int sum_=0;
         int nbLines_=lines.size();
-        Matrix id_ = new Matrix();
-        Vect line_ = new Vect();
-        line_.add(Rate.one());
-        feedZeros(nbLines_, 1, line_);
-        id_.addLineRef(line_);
-        for(int i=1;i<nbLines_;i++) {
-            Vect n_ = new Vect(line_);
-            n_.swapIndexes(i,i - 1);
-            id_.addLineRef(n_);
-            line_ = n_;
-        }
+//        Matrix id_ = new Matrix();
+//        Vect line_ = new Vect();
+//        line_.add(Rate.one());
+//        feedZeros(nbLines_, 1, line_);
+//        id_.addLineRef(line_);
+//        for(int i=1;i<nbLines_;i++) {
+//            Vect n_ = new Vect(line_);
+//            n_.swapIndexes(i,i - 1);
+//            id_.addLineRef(n_);
+//            line_ = n_;
+//        }
+        Matrix id_ = buildId();
         for(RootPol c:ownValues_) {
             sum_+=c.getDegree();
             Matrix matrix_ = minusMatrix(id_.multMatrix(c.getValue()));
@@ -100,83 +101,93 @@ public final class Matrix implements Displayable {
         return new Trigonal(ownValuesSpaces_, Diagonal.TRIGO);
     }
 
-    public Matrix ownVects(Rate _value, int _space) {
-        Matrix id_ = new Matrix();
-        Vect line_ = new Vect();
-        line_.add(Rate.one());
-        int nbLines_=nbLines();
-        feedZeros(nbLines_, 1, line_);
-        id_.addLineRef(line_);
-        for(int i=1;i<nbLines_;i++) {
-            Vect n_ = new Vect(line_);
-            n_.swapIndexes(i,i - 1);
-            id_.addLineRef(n_);
-            line_ = n_;
-        }
-        Matrix mat_=minusMatrix(id_.multMatrix(_value));
-        Matrix res_ = mat_.power(_space);
-        long rang_=res_.quickRank();
-        if(rang_ == 0L) {
-            return id_;
-        }
-        Matrix matFree_ = new Matrix();
-        for(int i=0;i<nbLines_;i++) {
-            Matrix subMat_=new Matrix(matFree_);
-            subMat_.addLineRef(res_.lines.get(i));
-            if(subMat_.quickRank()==subMat_.nbLines()) {
-                matFree_=subMat_;
-            }
-        }
-        Matrix ownVects_ = new Matrix();
-        Matrix inv_ = new Matrix();
-        for(int i=0;i<rang_;i++) {
-            Vect v_ = new Vect();
-            for(int j=0;j<rang_;j++) {
-                v_.add(matFree_.cell(i,j));
-            }
-            inv_.addLineRef(v_);
-        }
-        Matrix nearlyInv_=inv_.inv();
-        for(int i=(int) rang_;i<nbLines_;i++) {
-            Matrix secondMember_ = new Matrix();
-            for(int j=0;j<rang_;j++) {
-                Vect v_ = new Vect();
-                v_.add(matFree_.cell(j,i).opposNb());
-                secondMember_.addLineRef(v_);
-            }
-            Matrix sol_=nearlyInv_.multMatrix(secondMember_);
-            int nbLinesTwo_=sol_.nbLines();
-            Vect solCopy_ = new Vect();
-            for(int j=0;j<nbLinesTwo_;j++) {
-                solCopy_.add(sol_.cell(j,0));
-            }
-            feedZeros(i, nbLinesTwo_, solCopy_);
-            solCopy_.add(Rate.one());
-            feedZeros(nbLines_, i+1, solCopy_);
-            ownVects_.addLineRef(solCopy_);
-        }
-        return ownVects_;
-    }
+//    public Matrix ownVects(Rate _value, int _space) {
+//        Matrix id_ = new Matrix();
+//        Vect line_ = new Vect();
+//        line_.add(Rate.one());
+//        int nbLines_=nbLines();
+//        feedZeros(nbLines_, 1, line_);
+//        id_.addLineRef(line_);
+//        for(int i=1;i<nbLines_;i++) {
+//            Vect n_ = new Vect(line_);
+//            n_.swapIndexes(i,i - 1);
+//            id_.addLineRef(n_);
+//            line_ = n_;
+//        }
+//        Matrix mat_=minusMatrix(id_.multMatrix(_value));
+//        Matrix res_ = mat_.power(_space);
+//        long rang_=res_.quickRank();
+//        if(rang_ == 0L) {
+//            return id_;
+//        }
+//        return res_.quickRank2();
+////        long rang_=res_.quickRank();
+////        if(rang_ == 0L) {
+////            return id_;
+////        }
+////        Matrix matFree_ = new Matrix();
+////        for(int i=0;i<nbLines_;i++) {
+////            Matrix subMat_=new Matrix(matFree_);
+////            subMat_.addLineRef(res_.lines.get(i));
+////            if(subMat_.quickRank()==subMat_.nbLines()) {
+////                matFree_=subMat_;
+////            }
+////        }
+////        Matrix ownVects_ = new Matrix();
+////        Matrix inv_ = new Matrix();
+////        for(int i=0;i<rang_;i++) {
+////            Vect v_ = new Vect();
+////            for(int j=0;j<rang_;j++) {
+////                v_.add(matFree_.cell(i,j));
+////            }
+////            inv_.addLineRef(v_);
+////        }
+////        Matrix nearlyInv_=inv_.inv();
+////        for(int i=(int) rang_;i<nbLines_;i++) {
+////            Matrix secondMember_ = new Matrix();
+////            for(int j=0;j<rang_;j++) {
+////                Vect v_ = new Vect();
+////                v_.add(matFree_.cell(j,i).opposNb());
+////                secondMember_.addLineRef(v_);
+////            }
+////            Matrix sol_=nearlyInv_.multMatrix(secondMember_);
+////            int nbLinesTwo_=sol_.nbLines();
+////            Vect solCopy_ = new Vect();
+////            for(int j=0;j<nbLinesTwo_;j++) {
+////                solCopy_.add(sol_.cell(j,0));
+////            }
+////            feedZeros(i, nbLinesTwo_, solCopy_);
+////            solCopy_.add(Rate.one());
+////            feedZeros(nbLines_, i+1, solCopy_);
+////            ownVects_.addLineRef(solCopy_);
+////        }
+////        return ownVects_;
+//    }
 
     public Matrix power(int _power) {
-        Matrix id_ = new Matrix();
-        Vect line_ = new Vect();
-        line_.add(Rate.one());
-        int nbLines_=nbLines();
-        feedZeros(nbLines_, 1, line_);
-        id_.addLineRef(line_);
-        for(int i=1;i<nbLines_;i++) {
-            Vect n_ = new Vect(line_);
-            n_.swapIndexes(i,i - 1);
-            id_.addLineRef(n_);
-            line_ = n_;
-        }
-        Matrix res_ = new Matrix(id_);
+        Matrix res_ = buildId();
         for (int i = 0; i < _power; i++) {
             res_ = res_.multMatrix(this);
         }
         return res_;
     }
+
+    private Matrix buildId() {
+        Matrix id_ = new Matrix();
+        Vect line_ = new Vect();
+        line_.add(Rate.one());
+        int nbLines_=nbLines();
+        feedZeros(nbLines_, 1, line_);
+        id_.addLineRef(line_);
+        for(int i=1;i<nbLines_;i++) {
+            Vect n_ = new Vect(line_);
+            n_.swapIndexes(i,i - 1);
+            id_.addLineRef(n_);
+            line_ = n_;
+        }
+        return id_;
+    }
+
     private static void feedZeros(int _i, int _nbLinesTwo, Vect _solCopy) {
         for(int j = _nbLinesTwo; j< _i; j++) {
             _solCopy.add(Rate.zero());
@@ -303,6 +314,34 @@ public final class Matrix implements Displayable {
         }
         return rk_;
     }
+//
+//    public Matrix quickRank2() {
+//        Matrix copy_;
+//        int nbCols_=lines.first().size();
+//        int nbLines_=lines.size();
+//        if(nbLines_<nbCols_) {
+//            copy_ = transposeRef();
+//            int tmp_ = nbCols_;
+//            nbCols_ = nbLines_;
+//            nbLines_ = tmp_;
+//        } else {
+//            copy_ = new Matrix(this);
+//        }
+//        for(int i=0;i<nbCols_;i++) {
+//            swapHelperTest(copy_, nbCols_, nbLines_, i, i + 1);
+//            if(!copy_.cell(i,i).isZero()) {
+//                rankHelper(copy_, nbCols_, nbLines_, i, i + 1);
+//            }
+//        }
+//        Matrix out_ = new Matrix();
+//        for (Vect v: copy_.lines) {
+//            if (v.isZero()) {
+//                continue;
+//            }
+//            out_.lines.add(v);
+//        }
+//        return out_;
+//    }
 
     private static void swapHelperTest(Matrix _copy, int _nbCols, int _nbLines, int _i, int _i2) {
         if (_copy.cell(_i, _i).isZero()) {
