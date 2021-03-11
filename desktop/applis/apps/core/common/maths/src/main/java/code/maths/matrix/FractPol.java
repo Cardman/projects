@@ -79,6 +79,11 @@ public final class FractPol implements Displayable {
         denominateur.affect(Polynom.one());
     }
 
+    public FractPol derivee() {
+        Polynom num_ = numerateur.derivee().multiplyPolynom(denominateur).minusPolynom(denominateur.derivee().multiplyPolynom(numerateur));
+        Polynom den_ = denominateur.pow(2L);
+        return new FractPol(num_,den_);
+    }
     public boolean isInteger() {
         return denominateur.isEqualTo(Polynom.one());
     }

@@ -162,6 +162,12 @@ public class FractPolTest extends EquallableMathUtil {
         f_.affect(g_);
         assertTrue(new FractPol(new Polynom(new Rate(0))).eq(f_));
     }
+    @Test
+    public void derivee() {
+        FractPol f_ = new FractPol(Polynom.one(),new Polynom(new CustList<Rate>(Rate.one(),Rate.zero())));
+        FractPol res_ = new FractPol(Polynom.one().minusPolynom(),new Polynom(new CustList<Rate>(Rate.one(),Rate.zero(),Rate.zero())));
+        assertTrue(res_.eq(f_.derivee()));
+    }
 
     private static Polynom monom(Rate _nb) {
         return new Polynom(new CustList<Rate>(_nb));

@@ -605,6 +605,9 @@ public final class Polynom implements Displayable {
         while (_numbers.size() > 1 && _numbers.first().isZero()) {
             _numbers.remove(IndexConstants.FIRST_INDEX);
         }
+        if (_numbers.isEmpty()) {
+            _numbers.add(Rate.zero());
+        }
     }
 
     public void set(int _index, Rate _nb) {
@@ -635,10 +638,12 @@ public final class Polynom implements Displayable {
     }
 
     public boolean isZero() {
-        return numbers.first().isZero();
+        return getNumbers().first().isZero();
     }
 
-    
+    public CustList<Rate> getNumbers() {
+        return numbers;
+    }
     @Override
     public String display() {
         StringBuilder return_ = new StringBuilder();
