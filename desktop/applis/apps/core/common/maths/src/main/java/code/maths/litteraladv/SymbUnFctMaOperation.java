@@ -43,6 +43,10 @@ public final class SymbUnFctMaOperation extends MethodMaOperation {
         if (StringUtil.quickEq("&", oper)) {
             procDecomp(_error);
         }
+        int count_ = containsOnlySimpleQuotes(oper);
+        if (count_ > 0) {
+            procDerive(_error,count_);
+        }
     }
 
     private void procSgn(MaError _error) {
@@ -174,6 +178,19 @@ public final class SymbUnFctMaOperation extends MethodMaOperation {
         if (areAllPolsNb(fracts_,1)) {
             FractPol nb_= fracts_.first().getFractPol();
             setStruct(new MaDecompositionPolStruct(nb_.intPart().racines()));
+            return;
+        }
+        _error.setOffset(getIndexExp());
+    }
+
+    private void procDerive(MaError _error, int _der) {
+        CustList<MaFractPolStruct> fracts_ = tryGetFracts(this);
+        if (fracts_.size() == 1) {
+            FractPol nb_= fracts_.first().getFractPol();
+            for (int i = 0; i < _der; i++) {
+                nb_ = nb_.derivee();
+            }
+            setStruct(new MaFractPolStruct(nb_));
             return;
         }
         _error.setOffset(getIndexExp());

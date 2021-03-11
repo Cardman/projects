@@ -328,7 +328,22 @@ public abstract class MaOperationNode {
     private static boolean isUnarySymbol(MaOperationsSequence _op) {
         String val_ = _op.getParts().lastValue().trim();
         return nbPartSymbolSgn(val_)
-                || nbPartSymbol(val_)|| nbDecSymbol(val_)||arith(val_);
+                || nbPartSymbol(val_)|| nbDecSymbol(val_)||arith(val_)
+                || containsOnlySimpleQuotes(val_) > 0;
+    }
+
+    protected static int containsOnlySimpleQuotes(String _val) {
+        if (_val.isEmpty()) {
+            return -1;
+        }
+        int count_ = 0;
+        for (char c: _val.toCharArray()) {
+            if (c != '\'') {
+                return -1;
+            }
+            count_++;
+        }
+        return count_;
     }
 
     private static boolean nbPartSymbolSgn(String _val) {
