@@ -98,20 +98,33 @@ public final class MathAdvAfUnaryParts {
                 found_ = true;
             }
         } else {
+            if (_curChar == '=' && MathExpUtil.charIs(_string,lastPrintChar+1,current+1,'>')) {
+                procEvt(_curChar,built_, false, false,increment_);
+                return;
+            }
             if (MathExpUtil.cmpEq(_curChar)) {
-                built_.append(_curChar);
-                if (prio > MatCommonCst.EQ_PRIO) {
-                    clear_ = true;
-                    prio = MatCommonCst.EQ_PRIO;
-                }
-                if (prio == MatCommonCst.EQ_PRIO) {
-                    found_ = true;
-                }
+                procEq(_string,_curChar);
+                return;
             }
         }
         procOp(_string, _curChar, built_, clear_, found_, increment_);
     }
 
+    private void procEq(String _string, char _curChar) {
+        boolean clear_ = false;
+        boolean found_ = false;
+        int increment_ = 1;
+        StringBuilder built_ = new StringBuilder();
+        built_.append(_curChar);
+        if (prio > MatCommonCst.EQ_PRIO) {
+            clear_ = true;
+            prio = MatCommonCst.EQ_PRIO;
+        }
+        if (prio == MatCommonCst.EQ_PRIO) {
+            found_ = true;
+        }
+        procOp(_string, _curChar, built_, clear_, found_, increment_);
+    }
     private boolean okFact(String _string) {
         return current == lastPrintChar || nextPrintIs(_string);
     }

@@ -131,6 +131,9 @@ public abstract class MaOperationNode {
             return procFct(_index, _indexChild, _m, _op, _mapping);
         }
         if (_op.getPrio() == MatCommonCst.ASS_PRIO) {
+            if (_op.getParts().size() == 2 && StringUtil.quickEq(_op.getOpers().firstValue(),"=>")) {
+                return new PolInterMaOperation(_index, _indexChild, _m, _op);
+            }
             if (_m instanceof SymbVarFctMaOperation && StringUtil.quickEq(((SymbVarFctMaOperation)_m).getOper(),";")) {
                 return new PolMemMaOperation(_index, _indexChild, _m, _op);
             }

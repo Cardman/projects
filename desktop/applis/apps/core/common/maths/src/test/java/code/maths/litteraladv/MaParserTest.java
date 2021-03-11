@@ -1973,6 +1973,38 @@ public final class MaParserTest extends EquallableMathUtil {
         assertEq("#0", noVar("((&),')"));
     }
     @Test
+    public void evaluateExp492Test(){
+        assertEq("(;,1,0,-1)", noVar("(;,1=>0,-1=>0,0=>-1)"));
+    }
+    @Test
+    public void evaluateExp493Test(){
+        assertEq("0", noVar("(1=>0)=1"));
+    }
+    @Test
+    public void evaluateExp494Test(){
+        assertEq("0", noVar("(1=>0)=(-1=>0)"));
+    }
+    @Test
+    public void evaluateExp495Test(){
+        assertEq("0", noVar("(1=>0)=(1=>1)"));
+    }
+    @Test
+    public void evaluateExp496Test(){
+        assertEq("1", noVar("(1=>0)=(1=>0)"));
+    }
+    @Test
+    public void evaluateExp497Test(){
+        assertEq("1=>0", noVar("1=>0"));
+    }
+    @Test
+    public void evaluateExp498Test(){
+        assertEq("#15", noVar("(;,1=>0,-1=>0,0=>(1,||))"));
+    }
+    @Test
+    public void evaluateExp499Test(){
+        assertEq("#20", noVar("(;,1=>0,-1=>0,(1,||)=>-1)"));
+    }
+    @Test
     public void nullVarTest(){
         assertEq("#", nullVar());
     }

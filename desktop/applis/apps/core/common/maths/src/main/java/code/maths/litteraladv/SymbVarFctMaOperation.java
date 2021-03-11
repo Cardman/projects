@@ -4,6 +4,7 @@ import code.maths.LgInt;
 import code.maths.Rate;
 import code.maths.litteralcom.StrTypes;
 import code.maths.matrix.Polynom;
+import code.maths.matrix.RateImage;
 import code.maths.montecarlo.EventFreq;
 import code.maths.montecarlo.MonteCarloNumber;
 import code.util.CollCapacity;
@@ -199,6 +200,21 @@ public final class SymbVarFctMaOperation extends MethodMaOperation  {
         }
         if (allRates_) {
             setStruct(new MaPolynomStruct(generated_));
+            return;
+        }
+        allRates_ = true;
+        CustList<RateImage> rateImages_ = new CustList<RateImage>();
+        for (int i = 0; i < len_; i++) {
+            MaStruct value_ = MaNumParsers.tryGet(this, i);
+            if (!(value_ instanceof MaRateImageStruct)) {
+                allRates_ = false;
+                break;
+            }
+            RateImage raIm_ = ((MaRateImageStruct) value_).getRateImage();
+            rateImages_.add(raIm_);
+        }
+        if (allRates_) {
+            setStruct(new MaPolynomStruct(Polynom.interpolation(rateImages_)));
             return;
         }
         _error.setOffset(getIndexExp());

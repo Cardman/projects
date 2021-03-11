@@ -82,11 +82,11 @@ public final class Polynom implements Displayable {
         }
         Matrix nearlyInv_=inv_.inv();
         Matrix solut_=nearlyInv_.multMatrix(vectImg_);
-        Polynom interPol_ = new Polynom(Rate.zero(),dg_+1);
+        CustList<Rate> rates_ = new CustList<Rate>();
         for(int i=0;i<=dg_;i++) {
-            interPol_.set(i, solut_.cell(i,0));
+            rates_.add(solut_.cell(i,0));
         }
-        return interPol_;
+        return new Polynom(rates_);
     }
 
     /**
@@ -631,10 +631,6 @@ public final class Polynom implements Displayable {
         if (_numbers.isEmpty()) {
             _numbers.add(Rate.zero());
         }
-    }
-
-    public void set(int _index, Rate _nb) {
-        numbers.set(_index, _nb);
     }
 
     public Polynom prodMonom(Rate _rate, long _deg) {
