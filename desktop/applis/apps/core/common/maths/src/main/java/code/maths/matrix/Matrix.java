@@ -198,20 +198,11 @@ public final class Matrix implements Displayable {
         CustList<RateImage> antImgs_;
         antImgs_ = new CustList<RateImage>();
         int nbLines_=lines.size();
-        Matrix id_ = new Matrix();
-        Vect line_ = new Vect();
-        line_.add(Rate.one());
-        feedZeros(nbLines_, 1, line_);
-        id_.addLineRef(line_);
-        for(int i=1;i<nbLines_;i++) {
-            Vect v_ = new Vect(line_);
-            v_.swapIndexes(i, i-1);
-            id_.addLineRef(v_);
-            line_ = v_;
-        }
+        Matrix id_ = buildId();
         for(int i=0;i<=nbLines_;i++) {
-            Matrix locMat_ = minusMatrix(id_.multMatrix(new Rate(i)));
-            antImgs_.add(new RateImage(new Rate(i),locMat_.det()));
+            Rate antec_ = new Rate(i);
+            Matrix locMat_ = minusMatrix(id_.multMatrix(antec_));
+            antImgs_.add(new RateImage(antec_,locMat_.det()));
         }
         return Polynom.interpolation(antImgs_);
     }
@@ -254,13 +245,13 @@ public final class Matrix implements Displayable {
         return deter_;
     }
 
-    private static void swap(Rate _deter, Matrix _copy, int _nbLines, int _i) {
-        for(int j = _i +1; j< _nbLines; j++) {
-            if(!_copy.cell(j, _i).isZero()) {
+    private static void swap(Rate _deter, Matrix _copy, int _nbLines, int _after) {
+        for(int j = _after +1; j< _nbLines; j++) {
+            if(!_copy.cell(j, _after).isZero()) {
                 _deter.changeSignum();
-                for(int k = _i; k< _nbLines; k++) {
-                    Rate tmp_= _copy.cell(_i,k);
-                    _copy.lines.get(_i).set(k, _copy.cell(j,k));
+                for(int k = _after; k< _nbLines; k++) {
+                    Rate tmp_= _copy.cell(_after,k);
+                    _copy.lines.get(_after).set(k, _copy.cell(j,k));
                     _copy.lines.get(j).set(k, tmp_);
                 }
                 //permuter les lignes i et j
@@ -269,12 +260,17 @@ public final class Matrix implements Displayable {
         }
     }
 
-    private static void sumVects(Matrix _copy, int _nbLines, int _i) {
-        for(int j = _i +1; j< _nbLines; j++) {
-            if(!_copy.cell(j, _i).isZero()) {
-                Rate coeffPiv_=Rate.divide(_copy.cell(j, _i), _copy.cell(_i, _i)).opposNb();
-                for(int k = _i +1; k< _nbLines; k++) {
-                    _copy.cell(j, k).addNb(Rate.multiply(coeffPiv_, _copy.cell(_i,k)));
+    private static void sumVects(Matrix _copy, int _nbLines, int _after) {
+        Rate piv_ = _copy.cell(_after, _after);
+        if (piv_.isZero()) {
+            return;
+        }
+        for(int j = _after +1; j< _nbLines; j++) {
+            Rate rate_ = _copy.cell(j, _after);
+            if(!rate_.isZero()) {
+                Rate coeffPiv_=Rate.divide(rate_, piv_).opposNb();
+                for(int k = _after +1; k< _nbLines; k++) {
+                    _copy.cell(j, k).addNb(Rate.multiply(coeffPiv_, _copy.cell(_after,k)));
                 }
             }
             //calculer LG = ligne j par coeff_pivot
@@ -437,7 +433,7 @@ public final class Matrix implements Displayable {
     public Matrix transpose() {
         Matrix m_ = new Matrix();
         int nbLines_ = lines.size();
-        int nbCols_ = getNbCols();
+        int nbCols_ = nbCols();
         for (int i = 0; i < nbCols_; i++) {
             addNb(m_, nbLines_, i);
         }
@@ -452,20 +448,11 @@ public final class Matrix implements Displayable {
         _m.lines.add(v_);
     }
 
-    private int getNbCols() {
-        int nbCols_;
-        if (lines.isEmpty()) {
-            nbCols_ = 0;
-        } else {
-            nbCols_ = lines.first().size();
-        }
-        return nbCols_;
-    }
 
     public Matrix transposeRef() {
         Matrix m_ = new Matrix();
         int nbLines_ = lines.size();
-        int nbCols_ = getNbCols();
+        int nbCols_ = nbCols();
         for (int i = 0; i < nbCols_; i++) {
             addRef(m_, nbLines_, i);
         }
@@ -572,7 +559,7 @@ public final class Matrix implements Displayable {
     public Rate trace() {
         Rate trace_ = Rate.zero();
         int nbLines_ = lines.size();
-        int nbCols_ = getNbCols();
+        int nbCols_ = nbCols();
         int min_ = Math.min(nbLines_, nbCols_);
         for (int i = 0; i < min_; i++) {
             trace_.addNb(cell(i,i));
