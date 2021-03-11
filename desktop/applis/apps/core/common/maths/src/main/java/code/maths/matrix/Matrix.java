@@ -339,31 +339,32 @@ public final class Matrix implements Displayable {
 //        return out_;
 //    }
 
-    private static void swapHelperTest(Matrix _copy, int _nbCols, int _nbLines, int _i, int _i2) {
-        if (_copy.cell(_i, _i).isZero()) {
-            swapHelper(_copy, _nbCols, _nbLines, _i, _i2);
+    private static void swapHelperTest(Matrix _copy, int _nbCols, int _untilLines, int _secStart, int _start) {
+        if (_copy.cell(_secStart, _secStart).isZero()) {
+            swapHelper(_copy, _nbCols, _untilLines, _secStart, _start);
         }
     }
 
-    private static void swapHelper(Matrix _copy, int _nbCols, int _nbLines, int _i, int _start) {
-        for (int j = _start; j < _nbLines; j++) {
-            if (!_copy.cell(j, _i).isZero()) {
-                for (int k = _i; k < _nbCols; k++) {
+    private static void swapHelper(Matrix _copy, int _nbCols, int _untilLines, int _secStart, int _start) {
+        for (int j = _start; j < _untilLines; j++) {
+            if (!_copy.cell(j, _secStart).isZero()) {
+                for (int k = _secStart; k < _nbCols; k++) {
                     Rate tmp_ = _copy.cell(j, k);
-                    _copy.lines.get(j).set(k, _copy.cell(_i, k));
-                    _copy.lines.get(_i).set(k, tmp_);
+                    _copy.lines.get(j).set(k, _copy.cell(_secStart, k));
+                    _copy.lines.get(_secStart).set(k, tmp_);
                 }
                 break;
             }
         }
     }
 
-    private static void rankHelper(Matrix _copy, int _nbCols, int _nbLines, int _i, int _start) {
-        for (int j = _start; j < _nbLines; j++) {
-            if (!_copy.cell(j, _i).isZero()) {
-                Rate r_ = Rate.divide(_copy.cell(_i, _i), _copy.cell(j, _i));
-                for (int k = _i; k < _nbCols; k++) {
-                    _copy.lines.get(j).set(k, Rate.minus(Rate.multiply(r_, _copy.cell(j, k)), _copy.cell(_i, k)));
+    private static void rankHelper(Matrix _copy, int _nbCols, int _untilLines, int _secStart, int _start) {
+        for (int j = _start; j < _untilLines; j++) {
+            Rate rate_ = _copy.cell(j, _secStart);
+            if (!rate_.isZero()) {
+                Rate r_ = Rate.divide(_copy.cell(_secStart, _secStart), rate_);
+                for (int k = _secStart; k < _nbCols; k++) {
+                    _copy.lines.get(j).set(k, Rate.minus(Rate.multiply(r_, _copy.cell(j, k)), _copy.cell(_secStart, k)));
                 }
             }
         }
