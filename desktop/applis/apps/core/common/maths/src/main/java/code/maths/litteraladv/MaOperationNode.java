@@ -362,7 +362,18 @@ public abstract class MaOperationNode {
         }
         return rates_;
     }
-
+    static CustList<MaFractPolStruct> tryGetFracts(MethodMaOperation _current) {
+        CustList<MaFractPolStruct> rates_ = new CustList<MaFractPolStruct>();
+        int len_ = _current.getChildren().size();
+        for (int i = 0; i < len_; i++) {
+            MaStruct str_ = MaNumParsers.tryGet(_current, i);
+            MaFractPolStruct f_ = MaFractPolStruct.wrapOrNull(str_);
+            if (f_ != null) {
+                rates_.add(f_);
+            }
+        }
+        return rates_;
+    }
     protected void processRatesPol(MaError _error, MaFractPolStruct _first, MaStruct _second, IndexStrPart _firstOper) {
         if (_first.getFractPol().isInteger() && _second instanceof MaRateStruct) {
             MaRateStruct second_ = (MaRateStruct) _second;

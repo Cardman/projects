@@ -319,12 +319,12 @@ public final class Polynom implements Displayable {
     }
     public CustList<RootPol> racines() {
         if(!isZero()&&numbers.last().isZero()) {
-            return racines2();
+            return withZeroRoots();
         }
         return nonZeroRoots();
     }
 
-    private CustList<RootPol> racines2() {
+    private CustList<RootPol> withZeroRoots() {
         Polynom copy_ = new Polynom();
         copy_.numbers.remove(0);
         boolean written_=false;
@@ -375,9 +375,9 @@ public final class Polynom implements Displayable {
         return loop(r_, deg_, mainDivs_, cstDivs_, pairPol_, impairPol_);
     }
 
-    private static void feedPol(long _deg, Polynom _polEnt, CustList<Rate> _pol, int _i) {
-        for (int i = _i; i <= _deg; i++) {
-            if (i % 2 == _i) {
+    private static void feedPol(long _deg, Polynom _polEnt, CustList<Rate> _pol, int _start) {
+        for (int i = _start; i <= _deg; i++) {
+            if (i % 2 == _start) {
                 _pol.add(_polEnt.get(i));
             } else {
                 _pol.add(Rate.zero());
@@ -406,8 +406,9 @@ public final class Polynom implements Displayable {
             impairPol_ = impairPol_.derivee();
             for(int j = 0; j< _r.size(); j++) {
                 if(_r.get(j).getDegree()==i) {
-                    Rate image_= pairPol_.image(_r.get(j).getValue());
-                    Rate imageTwo_= impairPol_.image(_r.get(j).getValue());
+                    Rate value_ = _r.get(j).getValue();
+                    Rate image_= pairPol_.image(value_);
+                    Rate imageTwo_= impairPol_.image(value_);
                     if(Rate.eq(image_,imageTwo_.opposNb())) {
                         mult_++;
                         _r.get(j).setDegree(_r.get(j).getDegree() + 1);

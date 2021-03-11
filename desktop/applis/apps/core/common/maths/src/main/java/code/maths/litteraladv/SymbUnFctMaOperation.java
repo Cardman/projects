@@ -154,6 +154,12 @@ public final class SymbUnFctMaOperation extends MethodMaOperation {
             setStruct(new MaDividersNbStruct(nb_.intPart().getDividers()));
             return;
         }
+        CustList<MaFractPolStruct> fracts_ = tryGetFracts(this);
+        if (areAllPolsNb(fracts_,1)) {
+            FractPol nb_= fracts_.first().getFractPol();
+            setStruct(new MaDividersPolStruct(nb_.intPart().factor()));
+            return;
+        }
         _error.setOffset(getIndexExp());
     }
 
@@ -162,6 +168,12 @@ public final class SymbUnFctMaOperation extends MethodMaOperation {
         if (areAllIntegersNb(rates_,1)) {
             Rate nb_= rates_.first().getRate();
             setStruct(new MaDecompositionNbStruct(nb_.intPart().decompoPrim()));
+            return;
+        }
+        CustList<MaFractPolStruct> fracts_ = tryGetFracts(this);
+        if (areAllPolsNb(fracts_,1)) {
+            FractPol nb_= fracts_.first().getFractPol();
+            setStruct(new MaDecompositionPolStruct(nb_.intPart().racines()));
             return;
         }
         _error.setOffset(getIndexExp());

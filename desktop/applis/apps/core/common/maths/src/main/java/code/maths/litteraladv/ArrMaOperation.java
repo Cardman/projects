@@ -4,6 +4,8 @@ import code.maths.LgInt;
 import code.maths.PrimDivisor;
 import code.maths.Rate;
 import code.maths.litteralcom.StrTypes;
+import code.maths.matrix.Polynom;
+import code.maths.matrix.RootPol;
 import code.maths.montecarlo.EventFreq;
 import code.util.CollCapacity;
 import code.util.CustList;
@@ -41,15 +43,23 @@ public final class ArrMaOperation extends MethodMaOperation {
             setStruct(new MaRateStruct(new Rate(((MaDividersNbStruct) _list.first()).getDividers().size())));
             return;
         }
+        if (_list.first() instanceof MaDividersPolStruct) {
+            setStruct(new MaRateStruct(new Rate(((MaDividersPolStruct) _list.first()).getDividers().size())));
+            return;
+        }
         if (_list.first() instanceof MaDecompositionNbStruct) {
             setStruct(new MaRateStruct(new Rate(((MaDecompositionNbStruct) _list.first()).getDecomposition().getFactors().size())));
+            return;
+        }
+        if (_list.first() instanceof MaDecompositionPolStruct) {
+            setStruct(new MaRateStruct(new Rate(((MaDecompositionPolStruct) _list.first()).getDecomposition().size())));
             return;
         }
         if (_list.first() instanceof MaRepartitionStruct) {
             setStruct(new MaRateStruct(new Rate(((MaRepartitionStruct) _list.first()).getEvents().size())));
             return;
         }
-        if (_list.first() instanceof MaPrimDivisorNbStruct || _list.first() instanceof MaEventFreqStruct) {
+        if (_list.first() instanceof MaPrimDivisorNbStruct || _list.first() instanceof MaPrimDivisorPolStruct || _list.first() instanceof MaEventFreqStruct) {
             setStruct(new MaRateStruct(new Rate(2)));
             return;
         }
@@ -71,6 +81,10 @@ public final class ArrMaOperation extends MethodMaOperation {
     private void procTwoIndexes(MaError _error, CustList<MaStruct> _values) {
         if (_values.first() instanceof MaDecompositionNbStruct) {
             procDecomp((MaDecompositionNbStruct) _values.first(),(MaRateStruct) _values.get(1),(MaRateStruct) _values.get(2), _error);
+            return;
+        }
+        if (_values.first() instanceof MaDecompositionPolStruct) {
+            procDecomp((MaDecompositionPolStruct) _values.first(),(MaRateStruct) _values.get(1),(MaRateStruct) _values.get(2), _error);
             return;
         }
         if (_values.first() instanceof MaRepartitionStruct) {
@@ -101,6 +115,14 @@ public final class ArrMaOperation extends MethodMaOperation {
             procDecomp((MaDecompositionNbStruct) _values.first(),(MaRateStruct) _values.get(1), _error);
             return;
         }
+        if (_values.first() instanceof MaDividersPolStruct) {
+            procDivs((MaDividersPolStruct) _values.first(),(MaRateStruct) _values.get(1), _error);
+            return;
+        }
+        if (_values.first() instanceof MaDecompositionPolStruct) {
+            procDecomp((MaDecompositionPolStruct) _values.first(),(MaRateStruct) _values.get(1), _error);
+            return;
+        }
         if (_values.first() instanceof MaRepartitionStruct) {
             procRep((MaRepartitionStruct) _values.first(),(MaRateStruct) _values.get(1), _error);
             return;
@@ -115,6 +137,10 @@ public final class ArrMaOperation extends MethodMaOperation {
         }
         if (_values.first() instanceof MaPrimDivisorNbStruct) {
             procPrimDivisor((MaPrimDivisorNbStruct) _values.first(),(MaRateStruct) _values.get(1), _error);
+            return;
+        }
+        if (_values.first() instanceof MaPrimDivisorPolStruct) {
+            procPrimDivisor((MaPrimDivisorPolStruct) _values.first(),(MaRateStruct) _values.get(1), _error);
             return;
         }
         if (_values.first() instanceof MaRateListStruct) {
@@ -197,6 +223,19 @@ public final class ArrMaOperation extends MethodMaOperation {
         }
         _error.setOffset(getIndexExp());
     }
+    private void procDivs(MaDividersPolStruct _divs,MaRateStruct _index, MaError _error) {
+        LgInt lgInt_ = _index.getRate().intPart();
+        CustList<Polynom> dividers_ = _divs.getDividers();
+        int len_ = dividers_.size();
+        if (!lgInt_.isZeroOrGt()) {
+            lgInt_.addNb(new LgInt(len_));
+        }
+        if (validIndex(lgInt_, len_)) {
+            setStruct(new MaPolynomStruct(dividers_.get((int) lgInt_.ll())));
+            return;
+        }
+        _error.setOffset(getIndexExp());
+    }
 
     private static boolean validIndex(LgInt _lgInt, int _len) {
         return _lgInt.isZeroOrGt() && LgInt.strLower(_lgInt, new LgInt(_len));
@@ -251,6 +290,59 @@ public final class ArrMaOperation extends MethodMaOperation {
         }
         if (lgInt_.eq(LgInt.one())) {
             setStruct(new MaRateStruct(new Rate(primDivisor_.getExponent())));
+            return;
+        }
+        _error.setOffset(getIndexExp());
+    }
+    private void procDecomp(MaDecompositionPolStruct _divs,MaRateStruct _index, MaError _error) {
+        LgInt lgInt_ = _index.getRate().intPart();
+        CustList<RootPol> dividers_ = _divs.getDecomposition();
+        int len_ = dividers_.size();
+        if (!lgInt_.isZeroOrGt()) {
+            lgInt_.addNb(new LgInt(len_));
+        }
+        if (validIndex(lgInt_, len_)) {
+            setStruct(new MaPrimDivisorPolStruct(dividers_.get((int) lgInt_.ll())));
+            return;
+        }
+        _error.setOffset(getIndexExp());
+    }
+    private void procDecomp(MaDecompositionPolStruct _divs,MaRateStruct _index,MaRateStruct _indexTwo, MaError _error) {
+        LgInt lgInt_ = _index.getRate().intPart();
+        CustList<RootPol> dividers_ = _divs.getDecomposition();
+        int len_ = dividers_.size();
+        if (!lgInt_.isZeroOrGt()) {
+            lgInt_.addNb(new LgInt(len_));
+        }
+        if (validIndex(lgInt_, len_)) {
+            RootPol primDivisor_ = dividers_.get((int) lgInt_.ll());
+            LgInt lgIntSec_ = _indexTwo.getRate().intPart();
+            if (!lgIntSec_.isZeroOrGt()) {
+                lgIntSec_.addNb(new LgInt(2));
+            }
+            if (lgIntSec_.eq(LgInt.zero())) {
+                setStruct(new MaRateStruct(new Rate(primDivisor_.getValue())));
+                return;
+            }
+            if (lgIntSec_.eq(LgInt.one())) {
+                setStruct(new MaRateStruct(new Rate(primDivisor_.getDegree())));
+                return;
+            }
+        }
+        _error.setOffset(getIndexExp());
+    }
+    private void procPrimDivisor(MaPrimDivisorPolStruct _divs,MaRateStruct _index, MaError _error) {
+        LgInt lgInt_ = _index.getRate().intPart();
+        RootPol primDivisor_ = _divs.getPrimDivisor();
+        if (!lgInt_.isZeroOrGt()) {
+            lgInt_.addNb(new LgInt(2));
+        }
+        if (lgInt_.eq(LgInt.zero())) {
+            setStruct(new MaRateStruct(new Rate(primDivisor_.getValue())));
+            return;
+        }
+        if (lgInt_.eq(LgInt.one())) {
+            setStruct(new MaRateStruct(new Rate(primDivisor_.getDegree())));
             return;
         }
         _error.setOffset(getIndexExp());

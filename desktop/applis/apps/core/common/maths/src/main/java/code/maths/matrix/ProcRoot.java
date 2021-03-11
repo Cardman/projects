@@ -12,34 +12,34 @@ final class ProcRoot {
         Rate imageTwo_= _impairPol.image(cand_);
         if(Rate.eq(image_,imageTwo_)) {
             cand_.changeSignum();
-            boolean ct_ = containsRoot(_r, cand_);
-            if (exitRoots(_deg, mult, ct_)) {
+            boolean ctd_ = containedRoot(_r, cand_);
+            if (exitRoots(_deg, mult, ctd_)) {
                 return true;
             }
-            mult = incr(ct_,mult);
+            mult = incr(ctd_,mult);
         }
         if(Rate.eq(image_,imageTwo_.opposNb())){
             cand_=new Rate(_c,_m);
-            boolean ct_ = containsRoot(_r, cand_);
-            if (exitRoots(_deg, mult, ct_)) {
+            boolean ctd_ = containedRoot(_r, cand_);
+            if (exitRoots(_deg, mult, ctd_)) {
                 return true;
             }
-            mult = incr(ct_,mult);
+            mult = incr(ctd_,mult);
         }
         return false;
     }
 
-    private static int incr(boolean _ct, int _mult) {
-        if(!_ct) {
+    private static int incr(boolean _ctd, int _mult) {
+        if(!_ctd) {
             return _mult + 1;
         }
         return _mult;
     }
-    private static boolean exitRoots(long _deg, int _mult, boolean _ct) {
-        return !_ct && _mult + 1 == _deg;
+    private static boolean exitRoots(long _deg, int _mult, boolean _ctd) {
+        return !_ctd && _mult + 1 == _deg;
     }
 
-    private static boolean containsRoot(CustList<RootPol> _roots, Rate _value) {
+    private static boolean containedRoot(CustList<RootPol> _roots, Rate _value) {
         for (RootPol r: _roots) {
             if (r.getValue().eq(_value)) {
                 return true;
