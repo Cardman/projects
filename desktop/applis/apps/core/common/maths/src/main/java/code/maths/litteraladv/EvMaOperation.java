@@ -6,7 +6,6 @@ import code.maths.litteralcom.IndexStrPart;
 import code.maths.litteralcom.StrTypes;
 import code.maths.montecarlo.EventFreq;
 import code.util.StringMap;
-import code.util.core.IndexConstants;
 
 public final class EvMaOperation extends MethodMaOperation {
     EvMaOperation(int _index, int _indexChild, MethodMaOperation _m, MaOperationsSequence _op) {

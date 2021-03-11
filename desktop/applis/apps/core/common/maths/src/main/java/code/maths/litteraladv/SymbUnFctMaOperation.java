@@ -43,6 +43,10 @@ public final class SymbUnFctMaOperation extends MethodMaOperation {
         if (StringUtil.quickEq("&", oper)) {
             procDecomp(_error);
         }
+        procDerive(_error);
+    }
+
+    private void procDerive(MaError _error) {
         int count_ = containsOnlySimpleQuotes(oper);
         if (count_ > 0) {
             procDerive(_error,count_);

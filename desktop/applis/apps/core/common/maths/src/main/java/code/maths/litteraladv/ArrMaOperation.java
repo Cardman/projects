@@ -35,7 +35,7 @@ public final class ArrMaOperation extends MethodMaOperation {
     }
 
     private void applyLg(CustList<MaStruct> _list) {
-        if (_list.first() instanceof MaBezoutNbStruct||_list.first() instanceof MaBezoutPolStruct) {
+        if (isFour(_list.first())) {
             setStruct(new MaRateStruct(new Rate(4)));
             return;
         }
@@ -59,10 +59,14 @@ public final class ArrMaOperation extends MethodMaOperation {
             setStruct(new MaRateStruct(new Rate(((MaRepartitionStruct) _list.first()).getEvents().size())));
             return;
         }
-        if (_list.first() instanceof MaPrimDivisorNbStruct || _list.first() instanceof MaPrimDivisorPolStruct || _list.first() instanceof MaEventFreqStruct) {
+        if (isDual(_list.first())) {
             setStruct(new MaRateStruct(new Rate(2)));
             return;
         }
+        procDefLg(_list);
+    }
+
+    private void procDefLg(CustList<MaStruct> _list) {
         if (_list.first() instanceof MaMonteCarloNumberStruct) {
             setStruct(new MaRateStruct(new Rate(((MaMonteCarloNumberStruct) _list.first()).getLaw().nbEvents())));
             return;
@@ -76,6 +80,14 @@ public final class ArrMaOperation extends MethodMaOperation {
             return;
         }
         setStruct(new MaRateStruct(new Rate(-1)));
+    }
+
+    private static boolean isFour(MaStruct _first) {
+        return _first instanceof MaBezoutNbStruct || _first instanceof MaBezoutPolStruct;
+    }
+
+    private static boolean isDual(MaStruct _first) {
+        return _first instanceof MaPrimDivisorNbStruct || _first instanceof MaPrimDivisorPolStruct || _first instanceof MaEventFreqStruct;
     }
 
     private void procTwoIndexes(MaError _error, CustList<MaStruct> _values) {
@@ -135,20 +147,24 @@ public final class ArrMaOperation extends MethodMaOperation {
             procEvt((MaEventFreqStruct) _values.first(),(MaRateStruct) _values.get(1),_error);
             return;
         }
-        if (_values.first() instanceof MaPrimDivisorNbStruct) {
-            procPrimDivisor((MaPrimDivisorNbStruct) _values.first(),(MaRateStruct) _values.get(1), _error);
+        procOneIndexDef(_error, _values, _values.first());
+    }
+
+    private void procOneIndexDef(MaError _error, CustList<MaStruct> _values, MaStruct _first) {
+        if (_first instanceof MaPrimDivisorNbStruct) {
+            procPrimDivisor((MaPrimDivisorNbStruct) _first,(MaRateStruct) _values.get(1), _error);
             return;
         }
-        if (_values.first() instanceof MaPrimDivisorPolStruct) {
-            procPrimDivisor((MaPrimDivisorPolStruct) _values.first(),(MaRateStruct) _values.get(1), _error);
+        if (_first instanceof MaPrimDivisorPolStruct) {
+            procPrimDivisor((MaPrimDivisorPolStruct) _first,(MaRateStruct) _values.get(1), _error);
             return;
         }
-        if (_values.first() instanceof MaRateListStruct) {
-            procRateList((MaRateListStruct) _values.first(),(MaRateStruct) _values.get(1), _error);
+        if (_first instanceof MaRateListStruct) {
+            procRateList((MaRateListStruct) _first,(MaRateStruct) _values.get(1), _error);
             return;
         }
-        if (_values.first() instanceof MaPolynomStruct) {
-            procPolynom((MaPolynomStruct) _values.first(),(MaRateStruct) _values.get(1), _error);
+        if (_first instanceof MaPolynomStruct) {
+            procPolynom((MaPolynomStruct) _first,(MaRateStruct) _values.get(1), _error);
             return;
         }
         _error.setOffset(getIndexExp());

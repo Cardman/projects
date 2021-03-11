@@ -2,7 +2,6 @@ package code.maths.litteraladv;
 
 import code.maths.Rate;
 import code.maths.litteralcom.StrTypes;
-import code.maths.matrix.Polynom;
 import code.util.StringMap;
 import code.util.core.StringUtil;
 

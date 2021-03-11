@@ -63,47 +63,63 @@ public final class SymbBinFctMaOperation extends MethodMaOperation {
     private void procMod(MaError _error) {
         CustList<MaRateStruct> rates_ = tryGetRates();
         if (areTwoIntegers(rates_)) {
-            LgInt quot_= rates_.first().getRate().intPart();
-            LgInt div_= rates_.last().getRate().intPart();
-            if (div_.isZero()) {
-                _error.setOffset(getIndexExp());
-            } else {
-                setStruct(new MaRateStruct(new Rate(LgInt.remain(quot_,div_))));
-            }
+            procModInt(_error, rates_);
             return;
         }
         if (rates_.size() == 2) {
-            Rate quot_= rates_.first().getRate();
-            Rate div_= rates_.last().getRate();
-            if (div_.isZero()) {
-                _error.setOffset(getIndexExp());
-            } else {
-                setStruct(new MaRateStruct(Rate.minus(quot_,Rate.multiply(new Rate(Rate.divide(quot_,div_).intPart()),div_))));
-            }
+            procModRate(_error, rates_);
             return;
         }
         CustList<MaFractPolStruct> fractPols_ = tryGetFracPols();
         if (areTwoPols(fractPols_)) {
-            Polynom quot_= fractPols_.first().getFractPol().intPart();
-            Polynom div_= fractPols_.last().getFractPol().intPart();
-            if (div_.isZero()) {
-                _error.setOffset(getIndexExp());
-            } else {
-                setStruct(new MaPolynomStruct(quot_.remainPolynom(div_)));
-            }
+            procModPol(_error, fractPols_);
             return;
         }
         if (fractPols_.size() == 2) {
-            FractPol quot_= fractPols_.first().getFractPol();
-            FractPol div_= fractPols_.last().getFractPol();
-            if (div_.isZero()) {
-                _error.setOffset(getIndexExp());
-            } else {
-                setStruct(new MaFractPolStruct(FractPol.minus(quot_,FractPol.multiply(new FractPol(FractPol.divide(quot_,div_).intPart()),div_))));
-            }
+            procModFract(_error, fractPols_);
             return;
         }
         _error.setOffset(getIndexExp());
+    }
+
+    private void procModInt(MaError _error, CustList<MaRateStruct> _rates) {
+        LgInt quot_= _rates.first().getRate().intPart();
+        LgInt div_= _rates.last().getRate().intPart();
+        if (div_.isZero()) {
+            _error.setOffset(getIndexExp());
+        } else {
+            setStruct(new MaRateStruct(new Rate(LgInt.remain(quot_,div_))));
+        }
+    }
+
+    private void procModRate(MaError _error, CustList<MaRateStruct> _rates) {
+        Rate quot_= _rates.first().getRate();
+        Rate div_= _rates.last().getRate();
+        if (div_.isZero()) {
+            _error.setOffset(getIndexExp());
+        } else {
+            setStruct(new MaRateStruct(Rate.minus(quot_,Rate.multiply(new Rate(Rate.divide(quot_,div_).intPart()),div_))));
+        }
+    }
+
+    private void procModPol(MaError _error, CustList<MaFractPolStruct> _fractPols) {
+        Polynom quot_= _fractPols.first().getFractPol().intPart();
+        Polynom div_= _fractPols.last().getFractPol().intPart();
+        if (div_.isZero()) {
+            _error.setOffset(getIndexExp());
+        } else {
+            setStruct(new MaPolynomStruct(quot_.remainPolynom(div_)));
+        }
+    }
+
+    private void procModFract(MaError _error, CustList<MaFractPolStruct> _fractPols) {
+        FractPol quot_= _fractPols.first().getFractPol();
+        FractPol div_= _fractPols.last().getFractPol();
+        if (div_.isZero()) {
+            _error.setOffset(getIndexExp());
+        } else {
+            setStruct(new MaFractPolStruct(FractPol.minus(quot_,FractPol.multiply(new FractPol(FractPol.divide(quot_,div_).intPart()),div_))));
+        }
     }
 
     private void procPower(MaError _error) {
