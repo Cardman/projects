@@ -2,6 +2,7 @@ package code.maths.litteraladv;
 
 import code.maths.Rate;
 import code.maths.litteralcom.StrTypes;
+import code.maths.matrix.Polynom;
 import code.util.StringMap;
 import code.util.core.StringUtil;
 
@@ -13,6 +14,11 @@ public final class UnaryMaOperation extends MethodMaOperation {
     @Override
     void calculate(StringMap<MaStruct> _conf, MaError _error, MaDelimiters _del) {
         MaStruct value_ = MaNumParsers.tryGet(this, 0);
+        MaFractPolStruct val_ = MaFractPolStruct.wrapOrNull(value_);
+        if (val_ != null && StringUtil.quickEq(getOperats().getOpers().firstValue().trim(), UNARY_MINUS)) {
+            setStruct(new MaFractPolStruct(val_.getFractPol().opposNb()));
+            return;
+        }
         if (!(value_ instanceof MaRateStruct)) {
             _error.setOffset(getIndexExp());
             return;

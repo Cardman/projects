@@ -1,5 +1,8 @@
 package code.maths.litteraladv;
 
+import code.maths.LgInt;
+import code.maths.Rate;
+import code.maths.litteralcom.IndexStrPart;
 import code.maths.litteralcom.MatCommonCst;
 import code.maths.litteralcom.MatConstType;
 import code.util.CustList;
@@ -128,6 +131,9 @@ public abstract class MaOperationNode {
             return procFct(_index, _indexChild, _m, _op, _mapping);
         }
         if (_op.getPrio() == MatCommonCst.ASS_PRIO) {
+            if (_m instanceof SymbVarFctMaOperation && StringUtil.quickEq(((SymbVarFctMaOperation)_m).getOper(),";")) {
+                return new PolMemMaOperation(_index, _indexChild, _m, _op);
+            }
             return new EvMaOperation(_index, _indexChild, _m, _op);
         }
         return procSymbol(_index, _indexChild, _m, _op);
@@ -199,7 +205,7 @@ public abstract class MaOperationNode {
         if (_op.getParts().size() >= 2 && isVarSymbol(_op)) {
             return new SymbVarFctMaOperation(_index, _indexChild, _m, _op,_mapping);
         }
-         if (_op.getParts().size() == 3 && isUnarySymbol(_op)) {
+        if (_op.getParts().size() == 3 && isUnarySymbol(_op)) {
             return new SymbUnFctMaOperation(_index, _indexChild, _m, _op);
         }
         if (_op.getParts().size() == 4 && isBinSymbol(_op)) {
@@ -224,6 +230,12 @@ public abstract class MaOperationNode {
     protected static boolean areAllIntegersNb(CustList<MaRateStruct> _rates, int _count) {
         return _rates.size() == _count && areAllIntegers(_rates);
     }
+    protected static boolean areTwoPols(CustList<MaFractPolStruct> _rates) {
+        return areAllPolsNb(_rates, 2);
+    }
+    protected static boolean areAllPolsNb(CustList<MaFractPolStruct> _rates, int _count) {
+        return _rates.size() == _count && areAllPols(_rates);
+    }
     protected static CustList<MaDecompositionNbStruct> tryGetDecompNb(MethodMaOperation _parent) {
         CustList<MaDecompositionNbStruct> rates_ = new CustList<MaDecompositionNbStruct>();
         int len_ = _parent.getChildren().size();
@@ -247,6 +259,19 @@ public abstract class MaOperationNode {
         }
         return rates_;
     }
+    protected static CustList<MaFractPolStruct> tryGetAllAsFractPol(MethodMaOperation _current) {
+        int len_ = _current.getChildren().size();
+        CustList<MaFractPolStruct> rates_ = new CustList<MaFractPolStruct>();
+        for (int i = 0; i < len_; i++) {
+            MaStruct str_ = MaNumParsers.tryGet(_current, i);
+            MaFractPolStruct fract_ = MaFractPolStruct.wrapOrNull(str_);
+            if (fract_ == null) {
+                return null;
+            }
+            rates_.add(fract_);
+        }
+        return rates_;
+    }
     protected static boolean areAllIntegers(CustList<MaRateStruct> _list) {
         for (MaRateStruct r: _list) {
             if (!r.getRate().isInteger()) {
@@ -256,6 +281,14 @@ public abstract class MaOperationNode {
         return true;
     }
 
+    protected static boolean areAllPols(CustList<MaFractPolStruct> _list) {
+        for (MaFractPolStruct r: _list) {
+            if (!r.getFractPol().isInteger()) {
+                return false;
+            }
+        }
+        return true;
+    }
     private static boolean areBinarySymbols(MaOperationsSequence _op) {
         int size_ = _op.getParts().size();
         String val_ = _op.getParts().getValue(size_-2).trim();
@@ -266,7 +299,8 @@ public abstract class MaOperationNode {
 
     private static boolean isVarSymbol(MaOperationsSequence _op) {
         String valTwo_ = _op.getParts().getValue(1).trim();
-        return StringUtil.quickEq(valTwo_,"%")
+        return StringUtil.quickEq(valTwo_,";")
+                ||StringUtil.quickEq(valTwo_,"%")
                 ||StringUtil.quickEq(valTwo_,"?")
                 ||StringUtil.quickEq(valTwo_,"<>-|");
     }
@@ -327,6 +361,33 @@ public abstract class MaOperationNode {
             }
         }
         return rates_;
+    }
+
+    protected void processRatesPol(MaError _error, MaFractPolStruct _first, MaStruct _second, IndexStrPart _firstOper) {
+        if (_first.getFractPol().isInteger() && _second instanceof MaRateStruct) {
+            MaRateStruct second_ = (MaRateStruct) _second;
+            Rate rateInd_ = second_.getRate();
+            if (!rateInd_.isInteger()) {
+                _error.setOffset(getIndexExp() + _firstOper.getIndex());
+                return;
+            }
+            CustList<Rate> numbers_ = _first.getFractPol().getNumerator().getNumbers();
+            LgInt intInd_ = rateInd_.intPart();
+            if (!intInd_.isZeroOrGt()) {
+                intInd_.addNb(new LgInt(numbers_.size()));
+            }
+            if (!intInd_.isZeroOrGt()) {
+                _error.setOffset(getIndexExp() + _firstOper.getIndex());
+                return;
+            }
+            if (LgInt.strLower(intInd_,new LgInt(numbers_.size()))) {
+                Rate val_ = numbers_.get((int) intInd_.ll());
+                LgInt freq_ = LgInt.minus(new LgInt(numbers_.size()-1L), intInd_);
+                setStruct(new MaPolMemberStruct(val_, freq_));
+                return;
+            }
+        }
+        _error.setOffset(getIndexExp() + _firstOper.getIndex());
     }
 
     abstract void calculate(StringMap<MaStruct> _conf, MaError _error, MaDelimiters _del);

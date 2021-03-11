@@ -3,6 +3,7 @@ package code.maths.litteraladv;
 import code.maths.LgInt;
 import code.maths.Rate;
 import code.maths.litteralcom.StrTypes;
+import code.maths.matrix.Polynom;
 import code.maths.montecarlo.EventFreq;
 import code.maths.montecarlo.MonteCarloNumber;
 import code.util.CollCapacity;
@@ -28,6 +29,9 @@ public final class SymbVarFctMaOperation extends MethodMaOperation  {
         }
         if (StringUtil.quickEq("<>-|", oper)) {
             procStat(_error);
+        }
+        if (StringUtil.quickEq(";", oper)) {
+            procPolynom(_error);
         }
     }
 
@@ -165,6 +169,40 @@ public final class SymbVarFctMaOperation extends MethodMaOperation  {
         _error.setOffset(getIndexExp());
     }
 
+    private void procPolynom(MaError _error) {
+        int len_ = getChildren().size();
+        boolean allRates_ = true;
+        CustList<Rate> rates_ = new CustList<Rate>();
+        for (int i = 0; i < len_; i++) {
+            MaStruct value_ = MaNumParsers.tryGet(this, i);
+            if (!(value_ instanceof MaRateStruct)) {
+                allRates_ = false;
+                break;
+            }
+            rates_.add(((MaRateStruct)value_).getRate());
+        }
+        if (allRates_) {
+            setStruct(new MaPolynomStruct(new Polynom(rates_)));
+            return;
+        }
+        Polynom generated_ = Polynom.zero();
+        allRates_ = true;
+        for (int i = 0; i < len_; i++) {
+            MaStruct value_ = MaNumParsers.tryGet(this, i);
+            if (!(value_ instanceof MaPolMemberStruct)) {
+                allRates_ = false;
+                break;
+            }
+            Rate rate_ = ((MaPolMemberStruct) value_).getRate();
+            LgInt power_ = ((MaPolMemberStruct) value_).getPower();
+            generated_.addPol(Polynom.one().prodMonom(rate_,power_.ll()));
+        }
+        if (allRates_) {
+            setStruct(new MaPolynomStruct(generated_));
+            return;
+        }
+        _error.setOffset(getIndexExp());
+    }
     CustList<MaStruct> tryGetAll() {
         CustList<MaStruct> rates_ = new CustList<MaStruct>();
         int len_ = getChildren().size();
@@ -181,5 +219,9 @@ public final class SymbVarFctMaOperation extends MethodMaOperation  {
         vs_.remove(1);
         vs_.remove(0);
         getChs().addAllEntries(vs_);
+    }
+
+    String getOper() {
+        return oper;
     }
 }

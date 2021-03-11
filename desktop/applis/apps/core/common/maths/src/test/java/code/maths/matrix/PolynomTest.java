@@ -1097,7 +1097,164 @@ public class PolynomTest extends EquallableMathUtil {
         assertTrue(!a_.isEqualTo(b_));
         assertTrue(!b_.isEqualTo(a_));
     }
-
+    @Test
+    public void compo7Test() {
+        Polynom a_ = trinome(1, 0, 1);
+        FractPol b_ = new FractPol(monom(1),binome(1,0));
+        FractPol p_ = a_.comp(b_);
+        Polynom n_ = p_.getNumerator();
+        Polynom d_ = p_.getDenominator();
+        assertEq(3, n_.size());
+        assertEq(new Rate(1), n_.get(0));
+        assertEq(new Rate(0), n_.get(1));
+        assertEq(new Rate(1), n_.get(2));
+        assertEq(3, d_.size());
+        assertEq(new Rate(1), d_.get(0));
+        assertEq(new Rate(0), d_.get(1));
+        assertEq(new Rate(0), d_.get(2));
+    }
+    @Test
+    public void compo8Test() {
+        Polynom a_ = trinome(1, 0, 0);
+        FractPol b_ = new FractPol(monom(1),binome(1,0));
+        FractPol p_ = a_.comp(b_);
+        Polynom n_ = p_.getNumerator();
+        Polynom d_ = p_.getDenominator();
+        assertEq(1, n_.size());
+        assertEq(new Rate(1), n_.get(0));
+        assertEq(3, d_.size());
+        assertEq(new Rate(1), d_.get(0));
+        assertEq(new Rate(0), d_.get(1));
+        assertEq(new Rate(0), d_.get(2));
+    }
+    @Test
+    public void compo9Test() {
+        Polynom a_ = monom(2);
+        FractPol b_ = new FractPol(monom(1),binome(1,0));
+        FractPol p_ = a_.comp(b_);
+        Polynom n_ = p_.getNumerator();
+        Polynom d_ = p_.getDenominator();
+        assertEq(1, n_.size());
+        assertEq(new Rate(2), n_.get(0));
+        assertEq(1, d_.size());
+        assertEq(new Rate(1), d_.get(0));
+    }
+    @Test
+    public void compo10Test() {
+        Polynom a_ = new Polynom();
+        FractPol b_ = new FractPol(monom(1),binome(1,0));
+        FractPol p_ = a_.comp(b_);
+        Polynom n_ = p_.getNumerator();
+        Polynom d_ = p_.getDenominator();
+        assertEq(1, n_.size());
+        assertEq(new Rate(0), n_.get(0));
+        assertEq(1, d_.size());
+        assertEq(new Rate(1), d_.get(0));
+    }
+    @Test
+    public void compo11Test() {
+        Polynom a_ = monom(2);
+        FractPol b_ = new FractPol(Polynom.zero());
+        FractPol p_ = a_.comp(b_);
+        Polynom n_ = p_.getNumerator();
+        Polynom d_ = p_.getDenominator();
+        assertEq(1, n_.size());
+        assertEq(new Rate(2), n_.get(0));
+        assertEq(1, d_.size());
+        assertEq(new Rate(1), d_.get(0));
+    }
+    @Test
+    public void compo12Test() {
+        Polynom a_ = binome(2,0);
+        FractPol b_ = new FractPol(monom(1),binome(1,0));
+        FractPol p_ = a_.comp(b_);
+        Polynom n_ = p_.getNumerator();
+        Polynom d_ = p_.getDenominator();
+        assertEq(1, n_.size());
+        assertEq(new Rate(1), n_.get(0));
+        assertEq(2, d_.size());
+        assertEq(new Rate(1,2), d_.get(0));
+        assertEq(new Rate(0), d_.get(1));
+    }
+    @Test
+    public void compo13Test() {
+        Polynom a_ = binome(2,0);
+        FractPol b_ = new FractPol(Polynom.zero());
+        FractPol p_ = a_.comp(b_);
+        Polynom n_ = p_.getNumerator();
+        Polynom d_ = p_.getDenominator();
+        assertEq(1, n_.size());
+        assertEq(new Rate(0), n_.get(0));
+        assertEq(1, d_.size());
+        assertEq(new Rate(1), d_.get(0));
+    }
+    @Test
+    public void compo14Test() {
+        Polynom a_ = trinome(1, 0, 1);
+        FractPol b_ = new FractPol(monom(1),binome(1,1));
+        FractPol p_ = a_.comp(b_);
+        Polynom n_ = p_.getNumerator();
+        Polynom d_ = p_.getDenominator();
+        assertEq(3, n_.size());
+        assertEq(new Rate(1), n_.get(0));
+        assertEq(new Rate(2), n_.get(1));
+        assertEq(new Rate(2), n_.get(2));
+        assertEq(3, d_.size());
+        assertEq(new Rate(1), d_.get(0));
+        assertEq(new Rate(2), d_.get(1));
+        assertEq(new Rate(1), d_.get(2));
+    }
+    @Test
+    public void compo15Test() {
+        Polynom a_ = trinome(1, 0, 0);
+        FractPol b_ = new FractPol(monom(1),binome(1,1));
+        FractPol p_ = a_.comp(b_);
+        Polynom n_ = p_.getNumerator();
+        Polynom d_ = p_.getDenominator();
+        assertEq(1, n_.size());
+        assertEq(new Rate(1), n_.get(0));
+        assertEq(3, d_.size());
+        assertEq(new Rate(1), d_.get(0));
+        assertEq(new Rate(2), d_.get(1));
+        assertEq(new Rate(1), d_.get(2));
+    }
+    @Test
+    public void compo16Test() {
+        Polynom a_ = monom(2);
+        FractPol b_ = new FractPol(monom(1),binome(1,1));
+        FractPol p_ = a_.comp(b_);
+        Polynom n_ = p_.getNumerator();
+        Polynom d_ = p_.getDenominator();
+        assertEq(1, n_.size());
+        assertEq(new Rate(2), n_.get(0));
+        assertEq(1, d_.size());
+        assertEq(new Rate(1), d_.get(0));
+    }
+    @Test
+    public void compo17Test() {
+        Polynom a_ = new Polynom();
+        FractPol b_ = new FractPol(monom(1),binome(1,1));
+        FractPol p_ = a_.comp(b_);
+        Polynom n_ = p_.getNumerator();
+        Polynom d_ = p_.getDenominator();
+        assertEq(1, n_.size());
+        assertEq(new Rate(0), n_.get(0));
+        assertEq(1, d_.size());
+        assertEq(new Rate(1), d_.get(0));
+    }
+    @Test
+    public void compo18Test() {
+        Polynom a_ = binome(2,0);
+        FractPol b_ = new FractPol(monom(1),binome(1,1));
+        FractPol p_ = a_.comp(b_);
+        Polynom n_ = p_.getNumerator();
+        Polynom d_ = p_.getDenominator();
+        assertEq(1, n_.size());
+        assertEq(new Rate(1), n_.get(0));
+        assertEq(2, d_.size());
+        assertEq(new Rate(1,2), d_.get(0));
+        assertEq(new Rate(1,2), d_.get(1));
+    }
     private static Polynom quadrinom(int _one, int _two, int _three, int _four) {
         return new Polynom(new CustList<Rate>(new Rate(_one),new Rate(_two),new Rate(_three),new Rate(_four)));
     }

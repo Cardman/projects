@@ -3,6 +3,8 @@ package code.maths.litteraladv;
 import code.maths.LgInt;
 import code.maths.Rate;
 import code.maths.litteralcom.StrTypes;
+import code.maths.matrix.FractPol;
+import code.maths.matrix.Polynom;
 import code.util.CustList;
 import code.util.StringMap;
 import code.util.core.StringUtil;
@@ -44,6 +46,17 @@ public final class SymbBinFctMaOperation extends MethodMaOperation {
             }
             return;
         }
+        CustList<MaFractPolStruct> fractPols_ = tryGetFracPols();
+        if (areTwoPols(fractPols_)) {
+            Polynom quot_= fractPols_.first().getFractPol().intPart();
+            Polynom div_= fractPols_.last().getFractPol().intPart();
+            if (div_.isZero()) {
+                _error.setOffset(getIndexExp());
+            } else {
+                setStruct(new MaPolynomStruct(quot_.dividePolynom(div_)));
+            }
+            return;
+        }
         _error.setOffset(getIndexExp());
     }
 
@@ -69,6 +82,27 @@ public final class SymbBinFctMaOperation extends MethodMaOperation {
             }
             return;
         }
+        CustList<MaFractPolStruct> fractPols_ = tryGetFracPols();
+        if (areTwoPols(fractPols_)) {
+            Polynom quot_= fractPols_.first().getFractPol().intPart();
+            Polynom div_= fractPols_.last().getFractPol().intPart();
+            if (div_.isZero()) {
+                _error.setOffset(getIndexExp());
+            } else {
+                setStruct(new MaPolynomStruct(quot_.remainPolynom(div_)));
+            }
+            return;
+        }
+        if (fractPols_.size() == 2) {
+            FractPol quot_= fractPols_.first().getFractPol();
+            FractPol div_= fractPols_.last().getFractPol();
+            if (div_.isZero()) {
+                _error.setOffset(getIndexExp());
+            } else {
+                setStruct(new MaFractPolStruct(FractPol.minus(quot_,FractPol.multiply(new FractPol(FractPol.divide(quot_,div_).intPart()),div_))));
+            }
+            return;
+        }
         _error.setOffset(getIndexExp());
     }
 
@@ -84,6 +118,19 @@ public final class SymbBinFctMaOperation extends MethodMaOperation {
             }
             return;
         }
+        MaStruct val_ = MaNumParsers.tryGet(this, 0);
+        MaStruct power_ = MaNumParsers.tryGet(this, 1);
+        MaFractPolStruct fract_ = MaFractPolStruct.wrapOrNull(val_);
+        if (fract_ != null && power_ instanceof MaRateStruct && ((MaRateStruct)power_).getRate().isInteger()) {
+            FractPol base_= fract_.getFractPol();
+            Rate exposant_= rates_.last().getRate();
+            if (base_.isZero() && !exposant_.isZeroOrGt()) {
+                _error.setOffset(getIndexExp());
+            } else {
+                setStruct(new MaFractPolStruct(base_.powNb(exposant_.intPart())));
+            }
+            return;
+        }
         _error.setOffset(getIndexExp());
     }
 
@@ -93,6 +140,13 @@ public final class SymbBinFctMaOperation extends MethodMaOperation {
             LgInt quot_= rates_.first().getRate().intPart();
             LgInt div_= rates_.last().getRate().intPart();
             setStruct(new MaBezoutNbStruct(LgInt.identiteBezoutPgcdPpcm(quot_,div_)));
+            return;
+        }
+        CustList<MaFractPolStruct> fractPols_ = tryGetFracPols();
+        if (areTwoPols(fractPols_)) {
+            Polynom quot_= fractPols_.first().getFractPol().intPart();
+            Polynom div_= fractPols_.last().getFractPol().intPart();
+            setStruct(new MaBezoutPolStruct(Polynom.idBezoutPgcdPpcm(quot_,div_)));
             return;
         }
         _error.setOffset(getIndexExp());
@@ -117,6 +171,18 @@ public final class SymbBinFctMaOperation extends MethodMaOperation {
             MaStruct str_ = MaNumParsers.tryGet(this, i);
             if (str_ instanceof MaRateStruct) {
                 rates_.add((MaRateStruct)str_);
+            }
+        }
+        return rates_;
+    }
+    CustList<MaFractPolStruct> tryGetFracPols() {
+        CustList<MaFractPolStruct> rates_ = new CustList<MaFractPolStruct>();
+        int len_ = getChildren().size();
+        for (int i = 0; i < len_; i++) {
+            MaStruct str_ = MaNumParsers.tryGet(this, i);
+            MaFractPolStruct wr_ = MaFractPolStruct.wrapOrNull(str_);
+            if (wr_ != null) {
+                rates_.add(wr_);
             }
         }
         return rates_;

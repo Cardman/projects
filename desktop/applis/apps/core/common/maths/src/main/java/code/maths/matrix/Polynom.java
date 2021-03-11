@@ -470,6 +470,28 @@ public final class Polynom implements Displayable {
         return m_;
     }
 
+    public FractPol comp(FractPol _o) {
+        FractPol p_ = new FractPol(zero());
+        if (isZero()) {
+            return p_;
+        }
+        if (_o.isZero()) {
+            Rate rate_ = numbers.last();
+            if (!rate_.isZero()) {
+                p_.addNb(new FractPol(one().prodMonom(rate_,0)));
+            }
+            return p_;
+        }
+        long dg_=notNullDg();
+        for(int i=0;i<=dg_;i++) {
+            Rate rate_ = get(i);
+            if (!rate_.isZero()) {
+                FractPol pw_ = new FractPol(one().prodMonom(rate_, 0));
+                p_.addNb(FractPol.multiply(_o.powNb(new LgInt(dg_-i)),pw_));
+            }
+        }
+        return p_;
+    }
     public Polynom comp(Polynom _o) {
         Polynom p_ = new Polynom();
         if (isZero()) {

@@ -1500,7 +1500,322 @@ public final class MaParserTest extends EquallableMathUtil {
     public void evaluateExp373Test(){
         assertEq("1", noVar("(2,&)!(-2,&)"));
     }
-
+    @Test
+    public void evaluateExp374Test(){
+        assertEq("(;,3,1)", noVar("(;,1,0)+(;,2,1)"));
+    }
+    @Test
+    public void evaluateExp375Test(){
+        assertEq("(;,-2,0):(;,-4,-2)", noVar("(;,1,0):(;,2,1)"));
+    }
+    @Test
+    public void evaluateExp376Test(){
+        assertEq("(;,2)", noVar("((;,2,1),(;,1,0),/)"));
+    }
+    @Test
+    public void evaluateExp377Test(){
+        assertEq("(;,1)", noVar("((;,2,1),(;,1,0),%)"));
+    }
+    @Test
+    public void evaluateExp378Test(){
+        assertEq("(;,3,1)", noVar("(;,3<>1,1<>0)"));
+    }
+    @Test
+    public void evaluateExp379Test(){
+        assertEq("(;,1,0,0)", noVar("(;,1<>2)"));
+    }
+    @Test
+    public void evaluateExp380Test(){
+        assertEq("(;,1):(;,1,0)", noVar("((;,2,1):(;,1,0),(;,1),%)"));
+    }
+    @Test
+    public void evaluateExp381Test(){
+        assertEq("(;,2)", noVar("((;,2,1):(;,1,0),0/)"));
+    }
+    @Test
+    public void evaluateExp382Test(){
+        assertEq("(;,2,1,0)", noVar("(;,1,0)*(;,2,1)"));
+    }
+    @Test
+    public void evaluateExp383Test(){
+        assertEq("(;,-1,-1)", noVar("(;,1,0)-(;,2,1)"));
+    }
+    @Test
+    public void evaluateExp384Test(){
+        assertEq("#7", noVar("(;,1,0):(;,0)"));
+    }
+    @Test
+    public void evaluateExp385Test(){
+        assertEq("(;,0)", noVar("((;,1,1),(;,-1))"));
+    }
+    @Test
+    public void evaluateExp386Test(){
+        assertEq("2", noVar("((;,1,1),1)"));
+    }
+    @Test
+    public void evaluateExp387Test(){
+        assertEq("1", noVar("(;,1,2)[0]"));
+    }
+    @Test
+    public void evaluateExp388Test(){
+        assertEq("2", noVar("(;,1,2)[]"));
+    }
+    @Test
+    public void evaluateExp389Test(){
+        assertEq("1", noVar("(;,1,2)[-2]"));
+    }
+    @Test
+    public void evaluateExp390Test(){
+        assertEq("#0", noVar("(;,1,2)[2]"));
+    }
+    @Test
+    public void evaluateExp391Test(){
+        assertEq("(;,2,1)", noVar("((;,2,1):(;,1,0),/0)"));
+    }
+    @Test
+    public void evaluateExp392Test(){
+        assertEq("(;,1,0)", noVar("((;,2,1):(;,1,0),/1)"));
+    }
+    @Test
+    public void evaluateExp393Test(){
+        assertEq("#0", noVar("((;,1):(;,1,1),(;,-1))"));
+    }
+    @Test
+    public void evaluateExp394Test(){
+        assertEq("#0", noVar("((;,1):(;,1,1),-1)"));
+    }
+    @Test
+    public void evaluateExp395Test(){
+        assertEq("#5", noVar("(;,1)+(1,||)"));
+    }
+    @Test
+    public void evaluateExp396Test(){
+        assertEq("(;,2,0)", noVar("(;,(;,2,1)<>0)"));
+    }
+    @Test
+    public void evaluateExp397Test(){
+        assertEq("2<>1", noVar("(;,2,1)<>0"));
+    }
+    @Test
+    public void evaluateExp398Test(){
+        assertEq("#0", noVar("((;,1):(;,1,1),(1,||))"));
+    }
+    @Test
+    public void evaluateExp399Test(){
+        assertEq("#0", noVar("(;,(1,||))"));
+    }
+    @Test
+    public void evaluateExp400Test(){
+        assertEq("#7", noVar("(;,2,1)<>2"));
+    }
+    @Test
+    public void evaluateExp401Test(){
+        assertEq("#7", noVar("(;,2,1)<>1/2"));
+    }
+    @Test
+    public void evaluateExp402Test(){
+        assertEq("#15", noVar("(;,2,1):(;,1,0)<>2"));
+    }
+    @Test
+    public void evaluateExp403Test(){
+        assertEq("2<>1", noVar("(;,2,1)<>-2"));
+    }
+    @Test
+    public void evaluateExp404Test(){
+        assertEq("0", noVar("((;,2,2)<>-2)=((;,2,2)<>-1)"));
+    }
+    @Test
+    public void evaluateExp405Test(){
+        assertEq("0", noVar("((;,2,2)<>-2)=((;,1,2)<>-2)"));
+    }
+    @Test
+    public void evaluateExp406Test(){
+        assertEq("1", noVar("((;,2,2)<>-2)=((;,2,2)<>-2)"));
+    }
+    @Test
+    public void evaluateExp407Test(){
+        assertEq("0", noVar("((;,2,2)<>-2)=3"));
+    }
+    @Test
+    public void evaluateExp408Test(){
+        assertEq("#7", noVar("(;,2,1)<>-3"));
+    }
+    @Test
+    public void evaluateExp409Test(){
+        assertEq("#7", noVar("(;,2,1)<>(1,||)"));
+    }
+    @Test
+    public void evaluateExp410Test(){
+        assertEq("#4", noVar("(;,1<>(1,||))"));
+    }
+    @Test
+    public void evaluateExp411Test(){
+        assertEq("#4", noVar("(;,1<>1/2)"));
+    }
+    @Test
+    public void evaluateExp412Test(){
+        assertEq("#4", noVar("(;,1<>-2)"));
+    }
+    @Test
+    public void evaluateExp413Test(){
+        assertEq("#3", noVar("(;,1<>2<>3)"));
+    }
+    @Test
+    public void evaluateExp414Test(){
+        assertEq("#0", noVar("((;,1<>2),(;,0),/)"));
+    }
+    @Test
+    public void evaluateExp415Test(){
+        assertEq("#0", noVar("((;,1<>2),(;,0),%)"));
+    }
+    @Test
+    public void evaluateExp416Test(){
+        assertEq("#0", noVar("((;,1<>2):(;,1<>1,1<>0),(;,0),%)"));
+    }
+    @Test
+    public void evaluateExp417Test(){
+        assertEq("(;,1,0,0)", noVar("((;,1<>1),2,^)"));
+    }
+    @Test
+    public void evaluateExp418Test(){
+        assertEq("(;,0)", noVar("((;,0),2,^)"));
+    }
+    @Test
+    public void evaluateExp419Test(){
+        assertEq("(;,1):(;,1,0)", noVar("((;,1<>1),-1,^)"));
+    }
+    @Test
+    public void evaluateExp420Test(){
+        assertEq("#0", noVar("((;,0),-1,^)"));
+    }
+    @Test
+    public void evaluateExp421Test(){
+        assertEq("#0", noVar("((;,1<>1),1/2,^)"));
+    }
+    @Test
+    public void evaluateExp422Test(){
+        assertEq("#0", noVar("((;,1<>1),(1,||),^)"));
+    }
+    @Test
+    public void evaluateExp423Test(){
+        assertEq("((;,-1,0),(;,1),(;,1),(;,1,0,1,0))", noVar("((;,1<>1),(;,1<>2,1<>0),/%)"));
+    }
+    @Test
+    public void evaluateExp424Test(){
+        assertEq("(;,-1,0)", noVar("((;,1<>1),(;,1<>2,1<>0),/%)[0]"));
+    }
+    @Test
+    public void evaluateExp425Test(){
+        assertEq("(;,1)", noVar("((;,1<>1),(;,1<>2,1<>0),/%)[1]"));
+    }
+    @Test
+    public void evaluateExp426Test(){
+        assertEq("(;,1)", noVar("((;,1<>1),(;,1<>2,1<>0),/%)[2]"));
+    }
+    @Test
+    public void evaluateExp427Test(){
+        assertEq("(;,1,0,1,0)", noVar("((;,1<>1),(;,1<>2,1<>0),/%)[3]"));
+    }
+    @Test
+    public void evaluateExp428Test(){
+        assertEq("(;,-1,0)", noVar("((;,1<>1),(;,1<>2,1<>0),/%)[-4]"));
+    }
+    @Test
+    public void evaluateExp429Test(){
+        assertEq("(;,1)", noVar("((;,1<>1),(;,1<>2,1<>0),/%)[-3]"));
+    }
+    @Test
+    public void evaluateExp430Test(){
+        assertEq("(;,1)", noVar("((;,1<>1),(;,1<>2,1<>0),/%)[-2]"));
+    }
+    @Test
+    public void evaluateExp431Test(){
+        assertEq("(;,1,0,1,0)", noVar("((;,1<>1),(;,1<>2,1<>0),/%)[-1]"));
+    }
+    @Test
+    public void evaluateExp432Test(){
+        assertEq("#0", noVar("((;,1<>1),(;,1<>2,1<>0),/%)[4]"));
+    }
+    @Test
+    public void evaluateExp433Test(){
+        assertEq("#0", noVar("((;,1<>1),(;,1<>2,1<>0),/%)[-5]"));
+    }
+    @Test
+    public void evaluateExp434Test(){
+        assertEq("4", noVar("((;,1<>1),(;,1<>2,1<>0),/%)[]"));
+    }
+    @Test
+    public void evaluateExp435Test(){
+        assertEq("0", noVar("(;,1<>1)=(;,1<>2,1<>0)"));
+    }
+    @Test
+    public void evaluateExp436Test(){
+        assertEq("1", noVar("(;,1<>1)=(;,1<>1)"));
+    }
+    @Test
+    public void evaluateExp437Test(){
+        assertEq("0", noVar("(;,1<>1):(;,1<>2)=(;,1<>1)"));
+    }
+    @Test
+    public void evaluateExp438Test(){
+        assertEq("1", noVar("(;,1<>1):(;,1<>2)=(;,1<>1):(;,1<>2)"));
+    }
+    @Test
+    public void evaluateExp439Test(){
+        assertEq("0", noVar("(;,1<>1):(;,1<>2)=(1,||)"));
+    }
+    @Test
+    public void evaluateExp440Test(){
+        assertEq("(;,-1,0)", noVar("-(;,1<>1)"));
+    }
+    @Test
+    public void evaluateExp441Test(){
+        assertEq("#0", noVar("+(;,1<>1)"));
+    }
+    @Test
+    public void evaluateExp442Test(){
+        assertEq("0", noVar("((;,5<>1),(;,3<>1),/%)=((;,3<>1),(;,5<>1),/%)"));
+    }
+    @Test
+    public void evaluateExp443Test(){
+        assertEq("0", noVar("((;,-1<>1),(;,1<>1),/%)=((;,-2<>1),(;,1<>1),/%)"));
+    }
+    @Test
+    public void evaluateExp444Test(){
+        assertEq("0", noVar("((;,1<>1),(;,1<>2,1<>0),/%)=((;,-2<>1),(;,1<>1),/%)"));
+    }
+    @Test
+    public void evaluateExp445Test(){
+        assertEq("0", noVar("((;,1<>1),(;,1<>2,1<>0),/%)=((;,1<>1),(;,1<>2,2<>0),/%)"));
+    }
+    @Test
+    public void evaluateExp446Test(){
+        assertEq("1", noVar("((;,5<>1),(;,3<>1),/%)=((;,5<>1),(;,3<>1),/%)"));
+    }
+    @Test
+    public void evaluateExp447Test(){
+        assertEq("0", noVar("((;,1<>2,1<>0),(;,1<>1),/%)=((;,-2<>1),(;,1<>1),/%)"));
+    }
+    @Test
+    public void evaluateExp448Test(){
+        assertEq("0", noVar("((;,1<>2,1<>0),(;,1<>1),/%)=((;,1<>1),(;,1<>2,2<>0),/%)"));
+    }
+    @Test
+    public void evaluateExp449Test(){
+        assertEq("0", noVar("((;,1<>2,1<>0),(;,1<>1),/%)=((;,1<>1),(;,-2<>1),/%)"));
+    }
+    @Test
+    public void evaluateExp450Test(){
+        assertEq("0", noVar("((;,1<>2,1<>0),(;,1<>1),/%)=((;,1<>2,2<>0),(;,1<>1),/%)"));
+    }
+    @Test
+    public void evaluateExp451Test(){
+        assertEq("0", noVar("((;,1<>2,1<>0),(;,1<>1),/%)=((;,1<>2,1<>0),(;,1<>1,1<>0),/%)"));
+    }
+    @Test
+    public void evaluateExp452Test(){
+        assertEq("0", noVar("((;,1<>2,1<>0),(;,1<>1),/%)=(1,||)"));
+    }
     @Test
     public void nullVarTest(){
         assertEq("#", nullVar());

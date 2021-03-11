@@ -3,6 +3,7 @@ package code.maths.litteraladv;
 import code.maths.Decomposition;
 import code.maths.Rate;
 import code.maths.litteralcom.StrTypes;
+import code.maths.matrix.FractPol;
 import code.util.CustList;
 import code.util.StringMap;
 import code.util.core.StringUtil;
@@ -85,6 +86,12 @@ public final class SymbUnFctMaOperation extends MethodMaOperation {
             setStruct(new MaRateStruct(new Rate(nb_.getNumerator())));
             return;
         }
+        CustList<MaFractPolStruct> valFracts_ = tryGetAllAsFractPol(this);
+        if (valFracts_ != null) {
+            FractPol nb_= valFracts_.first().getFractPol();
+            setStruct(new MaPolynomStruct(nb_.getNumerator()));
+            return;
+        }
         _error.setOffset(getIndexExp());
     }
 
@@ -95,6 +102,12 @@ public final class SymbUnFctMaOperation extends MethodMaOperation {
             setStruct(new MaRateStruct(new Rate(nb_.getDenominator())));
             return;
         }
+        CustList<MaFractPolStruct> valFracts_ = tryGetAllAsFractPol(this);
+        if (valFracts_ != null) {
+            FractPol nb_= valFracts_.first().getFractPol();
+            setStruct(new MaPolynomStruct(nb_.getDenominator()));
+            return;
+        }
         _error.setOffset(getIndexExp());
     }
 
@@ -103,6 +116,12 @@ public final class SymbUnFctMaOperation extends MethodMaOperation {
         if (valRates_ != null) {
             Rate nb_= valRates_.first().getRate();
             setStruct(new MaRateStruct(new Rate(nb_.intPart())));
+            return;
+        }
+        CustList<MaFractPolStruct> valFracts_ = tryGetAllAsFractPol(this);
+        if (valFracts_ != null) {
+            FractPol nb_= valFracts_.first().getFractPol();
+            setStruct(new MaPolynomStruct(nb_.intPart()));
             return;
         }
         _error.setOffset(getIndexExp());

@@ -4,12 +4,10 @@ import code.maths.LgInt;
 import code.maths.Rate;
 import code.maths.litteralcom.IndexStrPart;
 import code.maths.litteralcom.StrTypes;
-import code.maths.montecarlo.EventFreq;
 import code.util.StringMap;
-import code.util.core.IndexConstants;
 
-public final class EvMaOperation extends MethodMaOperation {
-    EvMaOperation(int _index, int _indexChild, MethodMaOperation _m, MaOperationsSequence _op) {
+public final class PolMemMaOperation extends MethodMaOperation {
+    PolMemMaOperation(int _index, int _indexChild, MethodMaOperation _m, MaOperationsSequence _op) {
         super(_index, _indexChild, _m, _op);
     }
 
@@ -23,13 +21,7 @@ public final class EvMaOperation extends MethodMaOperation {
         MaStruct second_ = MaNumParsers.tryGet(this, 1);
         IndexStrPart firstOper_ = getOperats().getOpers().getValues().first();
         if (first_ instanceof MaRateStruct && second_ instanceof MaRateStruct) {
-            if (!((MaRateStruct)second_).getRate().isInteger()||((MaRateStruct)second_).getRate().isZeroOrLt()) {
-                _error.setOffset(getIndexExp()+firstOper_.getIndex());
-                return;
-            }
-            Rate evt_ = ((MaRateStruct) first_).getRate();
-            LgInt freq_ = ((MaRateStruct) second_).getRate().intPart();
-            setStruct(new MaEventFreqStruct(new EventFreq<Rate>(evt_,freq_)));
+            processRates(_error, (MaRateStruct) first_, (MaRateStruct) second_, firstOper_);
             return;
         }
         MaFractPolStruct fract_ = MaFractPolStruct.wrapOrNull(first_);
@@ -37,7 +29,17 @@ public final class EvMaOperation extends MethodMaOperation {
             processRatesPol(_error,fract_,second_,firstOper_);
             return;
         }
-        _error.setOffset(getIndexExp()+firstOper_.getIndex());
+        _error.setOffset(getIndexExp() + firstOper_.getIndex());
+    }
+
+    private void processRates(MaError _error, MaRateStruct _first, MaRateStruct _second, IndexStrPart _firstOper) {
+        if (!_second.getRate().isInteger() || !_second.getRate().isZeroOrGt()) {
+            _error.setOffset(getIndexExp() + _firstOper.getIndex());
+            return;
+        }
+        Rate evt_ = _first.getRate();
+        LgInt freq_ = _second.getRate().intPart();
+        setStruct(new MaPolMemberStruct(evt_, freq_));
     }
 
     @Override

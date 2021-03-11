@@ -33,7 +33,7 @@ public final class ArrMaOperation extends MethodMaOperation {
     }
 
     private void applyLg(CustList<MaStruct> _list) {
-        if (_list.first() instanceof MaBezoutNbStruct) {
+        if (_list.first() instanceof MaBezoutNbStruct||_list.first() instanceof MaBezoutPolStruct) {
             setStruct(new MaRateStruct(new Rate(4)));
             return;
         }
@@ -61,6 +61,10 @@ public final class ArrMaOperation extends MethodMaOperation {
             setStruct(new MaRateStruct(new Rate(((MaRateListStruct) _list.first()).getRates().size())));
             return;
         }
+        if (_list.first() instanceof MaPolynomStruct) {
+            setStruct(new MaRateStruct(new Rate(((MaPolynomStruct) _list.first()).getPolynom().size())));
+            return;
+        }
         setStruct(new MaRateStruct(new Rate(-1)));
     }
 
@@ -83,6 +87,10 @@ public final class ArrMaOperation extends MethodMaOperation {
     private void procOneIndex(MaError _error, CustList<MaStruct> _values) {
         if (_values.first() instanceof MaBezoutNbStruct) {
             procArr((MaBezoutNbStruct) _values.first(),(MaRateStruct) _values.get(1), _error);
+            return;
+        }
+        if (_values.first() instanceof MaBezoutPolStruct) {
+            procArr((MaBezoutPolStruct) _values.first(),(MaRateStruct) _values.get(1), _error);
             return;
         }
         if (_values.first() instanceof MaDividersNbStruct) {
@@ -111,6 +119,10 @@ public final class ArrMaOperation extends MethodMaOperation {
         }
         if (_values.first() instanceof MaRateListStruct) {
             procRateList((MaRateListStruct) _values.first(),(MaRateStruct) _values.get(1), _error);
+            return;
+        }
+        if (_values.first() instanceof MaPolynomStruct) {
+            procPolynom((MaPolynomStruct) _values.first(),(MaRateStruct) _values.get(1), _error);
             return;
         }
         _error.setOffset(getIndexExp());
@@ -144,6 +156,30 @@ public final class ArrMaOperation extends MethodMaOperation {
         }
         if (new LgInt(3).eq(lgInt_)) {
             setStruct(new MaRateStruct(new Rate(_bezout.getIdBezout().getPpcm())));
+            return;
+        }
+        _error.setOffset(getIndexExp());
+    }
+
+    private void procArr(MaBezoutPolStruct _bezout,MaRateStruct _index, MaError _error) {
+        LgInt lgInt_ = _index.getRate().intPart();
+        if (!lgInt_.isZeroOrGt()) {
+            lgInt_.addNb(new LgInt(4));
+        }
+        if (LgInt.zero().eq(lgInt_)) {
+            setStruct(new MaPolynomStruct(_bezout.getIdBezout().getFirst()));
+            return;
+        }
+        if (LgInt.one().eq(lgInt_)) {
+            setStruct(new MaPolynomStruct(_bezout.getIdBezout().getSecond()));
+            return;
+        }
+        if (new LgInt(2).eq(lgInt_)) {
+            setStruct(new MaPolynomStruct(_bezout.getIdBezout().getPgcd()));
+            return;
+        }
+        if (new LgInt(3).eq(lgInt_)) {
+            setStruct(new MaPolynomStruct(_bezout.getIdBezout().getPpcm()));
             return;
         }
         _error.setOffset(getIndexExp());
@@ -328,7 +364,20 @@ public final class ArrMaOperation extends MethodMaOperation {
         }
         _error.setOffset(getIndexExp());
     }
-
+    private void procPolynom(MaPolynomStruct _divs,MaRateStruct _index, MaError _error) {
+        LgInt lgInt_ = _index.getRate().intPart();
+        CustList<Rate> dividers_ = _divs.getPolynom().getNumbers();
+        int len_ = dividers_.size();
+        if (!lgInt_.isZeroOrGt()) {
+            lgInt_.addNb(new LgInt(len_));
+        }
+        if (validIndex(lgInt_, len_)) {
+            Rate dual_ = dividers_.get((int) lgInt_.ll());
+            setStruct(new MaRateStruct(dual_));
+            return;
+        }
+        _error.setOffset(getIndexExp());
+    }
     CustList<MaStruct> tryGetAll() {
         CustList<MaStruct> rates_ = new CustList<MaStruct>();
         int len_ = getChildren().size();
