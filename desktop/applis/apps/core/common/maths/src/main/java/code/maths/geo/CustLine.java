@@ -193,7 +193,19 @@ public final class CustLine {
     }
 
     public RatePoint intersect(CustLine _c) {
-        Matrix vect_;
+        Matrix mat_ = getMatrix(_c);
+        Vect v_;
+        Matrix matTwo_ = new Matrix();
+        v_ = new Vect();
+        v_.add(cst);
+        matTwo_.addLineRef(v_);
+        v_.add(_c.cst);
+        matTwo_.addLineRef(v_);
+        Matrix vect_ = mat_.inv().multMatrix(matTwo_);
+        return new RatePoint(vect_.cell(0,0),vect_.cell(1,0));
+    }
+
+    public Matrix getMatrix(CustLine _c) {
         Matrix mat_ = new Matrix();
         Vect v_ = new Vect();
         v_.add(xRate);
@@ -203,14 +215,7 @@ public final class CustLine {
         v_.add(_c.xRate);
         v_.add(_c.yRate);
         mat_.addLineRef(v_);
-        Matrix matTwo_ = new Matrix();
-        v_ = new Vect();
-        v_.add(cst);
-        matTwo_.addLineRef(v_);
-        v_.add(_c.cst);
-        matTwo_.addLineRef(v_);
-        vect_=mat_.inv().multMatrix(matTwo_);
-        return new RatePoint(vect_.cell(0,0),vect_.cell(1,0));
+        return mat_;
     }
 
     public boolean isDefined() {

@@ -2411,6 +2411,82 @@ public final class MaParserTest extends EquallableMathUtil {
         assertEq("3", noVar("(||,(1,1,.),(3,2,.),(2,4,.))[]"));
     }
     @Test
+    public void evaluateExp602Test(){
+        assertEq("#0", noVar("((||,(1,1,.),(3,2,.)),(||,(1,1,.),(3,2,.)),/)"));
+    }
+    @Test
+    public void evaluateExp603Test(){
+        assertEq("(0,0,.)", noVar("((||,(1,1,.),(-1,-1,.)),(||,(1,-1,.),(-1,1,.)),/)"));
+    }
+    @Test
+    public void evaluateExp604Test(){
+        assertEq("(-3,2,1,-)", noVar("(||,(1,2,.),(5,8,.))"));
+    }
+    @Test
+    public void evaluateExp605Test(){
+        assertEq("0", noVar("(||,(1,2,.),(5,8,.))=0"));
+    }
+    @Test
+    public void evaluateExp606Test(){
+        assertEq("0", noVar("(-3,2,1,-)=(-3,2,2,-)"));
+    }
+    @Test
+    public void evaluateExp607Test(){
+        assertEq("0", noVar("(-3,2,1,-)=(-3,1,1,-)"));
+    }
+    @Test
+    public void evaluateExp608Test(){
+        assertEq("0", noVar("(-3,2,1,-)=(-1,2,1,-)"));
+    }
+    @Test
+    public void evaluateExp609Test(){
+        assertEq("1", noVar("(-3,2,1,-)=(-3,2,1,-)"));
+    }
+    @Test
+    public void evaluateExp610Test(){
+        assertEq("#0", noVar("(||,(1,1,.),(3,2,.),(1,||))"));
+    }
+    @Test
+    public void evaluateExp611Test(){
+        assertEq("-3", noVar("(||,(1,2,.),(5,8,.))[0]"));
+    }
+    @Test
+    public void evaluateExp612Test(){
+        assertEq("2", noVar("(||,(1,2,.),(5,8,.))[1]"));
+    }
+    @Test
+    public void evaluateExp613Test(){
+        assertEq("1", noVar("(||,(1,2,.),(5,8,.))[2]"));
+    }
+    @Test
+    public void evaluateExp614Test(){
+        assertEq("-3", noVar("(||,(1,2,.),(5,8,.))[-3]"));
+    }
+    @Test
+    public void evaluateExp615Test(){
+        assertEq("2", noVar("(||,(1,2,.),(5,8,.))[-2]"));
+    }
+    @Test
+    public void evaluateExp616Test(){
+        assertEq("1", noVar("(||,(1,2,.),(5,8,.))[-1]"));
+    }
+    @Test
+    public void evaluateExp617Test(){
+        assertEq("#0", noVar("(||,(1,2,.),(5,8,.))[3]"));
+    }
+    @Test
+    public void evaluateExp618Test(){
+        assertEq("#0", noVar("(||,(1,2,.),(5,8,.))[-4]"));
+    }
+    @Test
+    public void evaluateExp619Test(){
+        assertEq("3", noVar("(||,(1,2,.),(5,8,.))[]"));
+    }
+    @Test
+    public void evaluateExp620Test(){
+        assertEq("#0", noVar("(-3,2,(1,||),-)"));
+    }
+    @Test
     public void nullVarTest(){
         assertEq("#", nullVar());
     }

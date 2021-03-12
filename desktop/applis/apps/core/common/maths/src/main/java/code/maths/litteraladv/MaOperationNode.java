@@ -227,6 +227,9 @@ public abstract class MaOperationNode {
         if (_op.getParts().size() == 4 && isPairSymbol(_op)) {
             return new SymbCaracFctMaOperation(_index, _indexChild, _m, _op);
         }
+        if (_op.getParts().size() == 5 && StringUtil.quickEq(_op.getParts().lastValue().trim(),"-")){
+            return new SymbTerFctMaOperation(_index, _indexChild, _m, _op);
+        }
         if (_op.getParts().size() == 6 && areBinarySymbols(_op)) {
             return new SymbDoubleCaracFctMaOperation(_index, _indexChild, _m, _op);
         }
@@ -298,6 +301,18 @@ public abstract class MaOperationNode {
                 continue;
             }
             rates_.add((MaPolygonStruct)str_);
+        }
+        return rates_;
+    }
+    protected static CustList<MaCustLineStruct> tryGetAllAsLine(MethodMaOperation _current) {
+        int len_ = _current.getChildren().size();
+        CustList<MaCustLineStruct> rates_ = new CustList<MaCustLineStruct>();
+        for (int i = 0; i < len_; i++) {
+            MaStruct str_ = MaNumParsers.tryGet(_current, i);
+            if (!(str_ instanceof MaCustLineStruct)) {
+                continue;
+            }
+            rates_.add((MaCustLineStruct)str_);
         }
         return rates_;
     }

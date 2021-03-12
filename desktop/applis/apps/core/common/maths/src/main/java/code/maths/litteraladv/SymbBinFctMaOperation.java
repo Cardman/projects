@@ -2,6 +2,7 @@ package code.maths.litteraladv;
 
 import code.maths.LgInt;
 import code.maths.Rate;
+import code.maths.geo.CustLine;
 import code.maths.geo.RatePoint;
 import code.maths.litteralcom.StrTypes;
 import code.maths.matrix.FractPol;
@@ -60,6 +61,17 @@ public final class SymbBinFctMaOperation extends MethodMaOperation {
             } else {
                 setStruct(new MaPolynomStruct(quot_.dividePolynom(div_)));
             }
+            return;
+        }
+        CustList<MaCustLineStruct> lines_ = tryGetAllAsLine(this);
+        if (lines_.size() == 2) {
+            CustLine first_ = lines_.first().getLine();
+            CustLine second_ = lines_.last().getLine();
+            if (!first_.getMatrix(second_).det().isZero()) {
+                setStruct(new MaRatePointStruct(first_.intersect(second_)));
+                return;
+            }
+            _error.setOffset(getIndexExp());
             return;
         }
         _error.setOffset(getIndexExp());

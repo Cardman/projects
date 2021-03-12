@@ -3,6 +3,7 @@ package code.maths.litteraladv;
 import code.maths.LgInt;
 import code.maths.PrimDivisor;
 import code.maths.Rate;
+import code.maths.geo.CustLine;
 import code.maths.geo.Polygon;
 import code.maths.geo.RatePoint;
 import code.maths.litteralcom.StrTypes;
@@ -65,6 +66,10 @@ public final class ArrMaOperation extends MethodMaOperation {
         }
         if (isDual(_list.first())) {
             setStruct(new MaRateStruct(new Rate(2)));
+            return;
+        }
+        if (_list.first() instanceof MaCustLineStruct) {
+            setStruct(new MaRateStruct(new Rate(3)));
             return;
         }
         procDefLg(_list);
@@ -205,6 +210,10 @@ public final class ArrMaOperation extends MethodMaOperation {
         }
         if (_first instanceof MaPolygonStruct) {
             procPolygon((MaPolygonStruct) _first,(MaRateStruct) _values.get(1), _error);
+            return;
+        }
+        if (_first instanceof MaCustLineStruct) {
+            procLine((MaCustLineStruct) _first,(MaRateStruct) _values.get(1), _error);
             return;
         }
         _error.setOffset(getIndexExp());
@@ -625,6 +634,26 @@ public final class ArrMaOperation extends MethodMaOperation {
         if (validIndex(lgInt_, len_)) {
             RatePoint dual_ = matrix_.get((int) lgInt_.ll());
             setStruct(new MaRatePointStruct(dual_));
+            return;
+        }
+        _error.setOffset(getIndexExp());
+    }
+    private void procLine(MaCustLineStruct _divs,MaRateStruct _index, MaError _error) {
+        LgInt lgInt_ = _index.getRate().intPart();
+        CustLine line_ = _divs.getLine();
+        if (!lgInt_.isZeroOrGt()) {
+            lgInt_.addNb(new LgInt(3));
+        }
+        if (lgInt_.eq(LgInt.zero())) {
+            setStruct(new MaRateStruct(line_.getxRate()));
+            return;
+        }
+        if (lgInt_.eq(LgInt.one())) {
+            setStruct(new MaRateStruct(line_.getyRate()));
+            return;
+        }
+        if (lgInt_.eq(new LgInt(2))) {
+            setStruct(new MaRateStruct(line_.getCst()));
             return;
         }
         _error.setOffset(getIndexExp());

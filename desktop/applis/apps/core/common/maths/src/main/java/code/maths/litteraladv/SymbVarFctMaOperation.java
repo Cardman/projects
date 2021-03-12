@@ -2,6 +2,7 @@ package code.maths.litteraladv;
 
 import code.maths.LgInt;
 import code.maths.Rate;
+import code.maths.geo.CustLine;
 import code.maths.geo.Polygon;
 import code.maths.geo.RatePoint;
 import code.maths.litteralcom.StrTypes;
@@ -239,6 +240,10 @@ public final class SymbVarFctMaOperation extends MethodMaOperation  {
         }
         if (rates_.size() > 2 && allRates_) {
             setStruct(new MaPolygonStruct(new Polygon(rates_)));
+            return;
+        }
+        if (rates_.size() == 2 && allRates_) {
+            setStruct(new MaCustLineStruct(new CustLine(rates_.first(),rates_.last())));
             return;
         }
         _error.setOffset(getIndexExp());
