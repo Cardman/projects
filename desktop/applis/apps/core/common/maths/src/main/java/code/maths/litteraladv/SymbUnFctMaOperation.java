@@ -3,6 +3,9 @@ package code.maths.litteraladv;
 import code.maths.Decomposition;
 import code.maths.LgInt;
 import code.maths.Rate;
+import code.maths.geo.Polygon;
+import code.maths.geo.RatePoint;
+import code.maths.geo.Triangle;
 import code.maths.litteralcom.StrTypes;
 import code.maths.matrix.FractPol;
 import code.maths.matrix.Matrix;
@@ -45,8 +48,26 @@ public final class SymbUnFctMaOperation extends MethodMaOperation {
         if (StringUtil.quickEq("&", oper)) {
             procDecomp(_error);
         }
+        procGravCenter(_error);
         procDerive(_error);
         procIdMat(_error);
+    }
+
+    private void procGravCenter(MaError _error) {
+        if (StringUtil.quickEq("*", oper)) {
+            CustList<MaPolygonStruct> pols_ = tryGetAllAsPolygon(this);
+            if (pols_.size() != 1) {
+                _error.setOffset(getIndexExp());
+                return;
+            }
+            CustList<RatePoint> pts_ = pols_.first().getPolygon().getPoints();
+            if (pts_.size() != 3) {
+                _error.setOffset(getIndexExp());
+                return;
+            }
+            Triangle tri_ = new Triangle(pts_.get(0),pts_.get(1),pts_.get(2));
+            setStruct(new MaRatePointStruct(tri_.getGravityCenter()));
+        }
     }
 
     private void procIdMat(MaError _error) {
@@ -60,9 +81,24 @@ public final class SymbUnFctMaOperation extends MethodMaOperation {
                 } else {
                     setStruct(new MaMatrixStruct(Matrix.buildId(val_)));
                 }
-            } else {
-                _error.setOffset(getIndexExp());
+                return;
             }
+            CustList<MaPolygonStruct> polyg_ = tryGetAllAsPolygon(this);
+            if (polyg_.size() == 1){
+                CustList<RatePoint> pts_ = polyg_.first().getPolygon().getPoints();
+                if (pts_.size() != 3) {
+                    _error.setOffset(getIndexExp());
+                    return;
+                }
+                Triangle tri_ = new Triangle(pts_.get(0),pts_.get(1),pts_.get(2));
+                if (tri_.com().isZero()) {
+                    _error.setOffset(getIndexExp());
+                    return;
+                }
+                setStruct(new MaRatePointStruct(tri_.getCircumCenter()));
+                return;
+            }
+            _error.setOffset(getIndexExp());
         }
     }
     private void procDerive(MaError _error) {
@@ -183,7 +219,26 @@ public final class SymbUnFctMaOperation extends MethodMaOperation {
             setStruct(new MaRateStruct(matrix_.trace()));
             return;
         }
+        CustList<MaPolygonStruct> pols_ = tryGetAllAsPolygon(this);
+        if (pols_.size() == 1) {
+            procPolygon(pols_);
+            return;
+        }
         _error.setOffset(getIndexExp());
+    }
+
+    private void procPolygon(CustList<MaPolygonStruct> _pols) {
+        CustList<RatePoint> pts_ = _pols.first().getPolygon().getPoints();
+        if (pts_.size() != 3) {
+            setStruct(MaBoolStruct.of(false));
+            return;
+        }
+        Triangle tri_ = new Triangle(pts_.get(0), pts_.get(1), pts_.get(2));
+        if (tri_.com().isZero()) {
+            setStruct(MaBoolStruct.of(false));
+            return;
+        }
+        setStruct(MaBoolStruct.of(true));
     }
 
     private void procDivs(MaError _error) {
@@ -203,6 +258,12 @@ public final class SymbUnFctMaOperation extends MethodMaOperation {
         if (all_.size() == 1) {
             Matrix matrix_ = all_.first().getMatrix();
             setStruct(new MaRateStruct(new Rate(matrix_.quickRank())));
+            return;
+        }
+        CustList<MaPolygonStruct> polyg_ = tryGetAllAsPolygon(this);
+        if (polyg_.size() == 1) {
+            Polygon polygon_ = polyg_.first().getPolygon();
+            setStruct(new MaPolygonStruct(polygon_.getConvexHull()));
             return;
         }
         _error.setOffset(getIndexExp());

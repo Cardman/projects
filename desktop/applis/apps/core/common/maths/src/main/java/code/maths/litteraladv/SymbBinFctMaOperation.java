@@ -2,6 +2,7 @@ package code.maths.litteraladv;
 
 import code.maths.LgInt;
 import code.maths.Rate;
+import code.maths.geo.RatePoint;
 import code.maths.litteralcom.StrTypes;
 import code.maths.matrix.FractPol;
 import code.maths.matrix.Matrix;
@@ -32,6 +33,9 @@ public final class SymbBinFctMaOperation extends MethodMaOperation {
         }
         if (StringUtil.quickEq(oper,"/%")) {
             procBezout(_error);
+        }
+        if (StringUtil.quickEq(oper,".")) {
+            procPoint(_error);
         }
     }
 
@@ -213,6 +217,18 @@ public final class SymbBinFctMaOperation extends MethodMaOperation {
         }
         _error.setOffset(getIndexExp());
     }
+
+    private void procPoint(MaError _error) {
+        CustList<MaRateStruct> rates_ = tryGetRates();
+        if (rates_.size() == 2) {
+            Rate x_ = rates_.first().getRate();
+            Rate y_ = rates_.last().getRate();
+            setStruct(new MaRatePointStruct(new RatePoint(x_,y_)));
+            return;
+        }
+        _error.setOffset(getIndexExp());
+    }
+
     CustList<MaRateStruct> tryGetRates() {
         CustList<MaRateStruct> rates_ = new CustList<MaRateStruct>();
         int len_ = getChildren().size();

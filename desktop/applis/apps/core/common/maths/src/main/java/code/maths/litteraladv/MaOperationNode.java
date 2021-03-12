@@ -289,6 +289,18 @@ public abstract class MaOperationNode {
         }
         return rates_;
     }
+    protected static CustList<MaPolygonStruct> tryGetAllAsPolygon(MethodMaOperation _current) {
+        int len_ = _current.getChildren().size();
+        CustList<MaPolygonStruct> rates_ = new CustList<MaPolygonStruct>();
+        for (int i = 0; i < len_; i++) {
+            MaStruct str_ = MaNumParsers.tryGet(_current, i);
+            if (!(str_ instanceof MaPolygonStruct)) {
+                continue;
+            }
+            rates_.add((MaPolygonStruct)str_);
+        }
+        return rates_;
+    }
     protected static CustList<MaFractPolStruct> tryGetAllAsFractPol(MethodMaOperation _current) {
         int len_ = _current.getChildren().size();
         CustList<MaFractPolStruct> rates_ = new CustList<MaFractPolStruct>();
@@ -329,11 +341,16 @@ public abstract class MaOperationNode {
 
     private static boolean isVarSymbol(MaOperationsSequence _op) {
         String valTwo_ = _op.getParts().getValue(1).trim();
-        return StringUtil.quickEq(valTwo_,";")
-                ||StringUtil.quickEq(valTwo_,"%")
-                ||StringUtil.quickEq(valTwo_,"?")
-                ||StringUtil.quickEq(valTwo_,"<>-|");
+        return algebreVar(valTwo_)|| StringUtil.quickEq(valTwo_, "||");
     }
+
+    private static boolean algebreVar(String _var) {
+        return StringUtil.quickEq(_var,";")
+                ||StringUtil.quickEq(_var,"%")
+                ||StringUtil.quickEq(_var,"?")
+                ||StringUtil.quickEq(_var,"<>-|");
+    }
+
     private static boolean isPairSymbol(MaOperationsSequence _op) {
         String valTwo_ = _op.getParts().lastValue().trim();
         return StringUtil.quickEq(valTwo_,"<==")
@@ -347,9 +364,13 @@ public abstract class MaOperationNode {
     }
     private static boolean isBinSymbol(MaOperationsSequence _op) {
         String val_ = _op.getParts().lastValue().trim();
-        return divmod(val_)
-                || StringUtil.quickEq(val_, "^") || StringUtil.quickEq(val_, "<=")
-                || StringUtil.quickEq(val_, "/%");
+        return algebreBin(val_)|| StringUtil.quickEq(val_, ".");
+    }
+
+    private static boolean algebreBin(String _val) {
+        return divmod(_val)
+                || StringUtil.quickEq(_val, "^") || StringUtil.quickEq(_val, "<=")
+                || StringUtil.quickEq(_val, "/%");
     }
 
     private static boolean divmod(String _val) {
@@ -357,9 +378,13 @@ public abstract class MaOperationNode {
     }
     private static boolean isUnarySymbol(MaOperationsSequence _op) {
         String val_ = _op.getParts().lastValue().trim();
-        return nbOp(val_) || arith(val_)
-                || containsOnlySimpleQuotes(val_) > 0
-                || StringUtil.quickEq("#", val_);
+        return algebreUn(val_) || StringUtil.quickEq("*", val_);
+    }
+
+    private static boolean algebreUn(String _val) {
+        return nbOp(_val) || arith(_val)
+                || containsOnlySimpleQuotes(_val) > 0
+                || StringUtil.quickEq("#", _val);
     }
 
     private static boolean nbOp(String _val) {

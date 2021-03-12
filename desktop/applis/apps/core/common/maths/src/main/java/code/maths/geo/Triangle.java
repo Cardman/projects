@@ -103,7 +103,7 @@ public final class Triangle implements HasEdges, Displayable {
         Rate yc_ = Rate.divide(y_,dp_);
         return new RatePoint(xc_,yc_);
     }
-    private Rate com() {
+    public Rate com() {
         Rate bpx_ = Rate.minus(secondPoint.getXcoords(), firstPoint.getXcoords());
         Rate cpx_ = Rate.minus(thirdPoint.getXcoords(), firstPoint.getXcoords());
         Rate bpy_ = Rate.minus(secondPoint.getYcoords(), firstPoint.getYcoords());

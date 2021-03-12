@@ -19,6 +19,10 @@ public final class Polygon implements Iterable<RatePoint>, HasEdges, Displayable
         points.addAllElts(_other.points);
     }
 
+    public Polygon(CustList<RatePoint> _other) {
+        points.addAllElts(_other);
+    }
+
     public Polygon(Triangle _triangle) {
         add(_triangle.getFirstPoint());
         add(_triangle.getSecondPoint());
@@ -37,6 +41,19 @@ public final class Polygon implements Iterable<RatePoint>, HasEdges, Displayable
         return points.iterator();
     }
 
+
+    public boolean eq(Polygon _obj) {
+        int len_ = points.size();
+        if (_obj.size() != len_) {
+            return false;
+        }
+        for (int i = 0; i < len_; i++) {
+            if (!points.get(i).eq(_obj.points.get(i))) {
+                return false;
+            }
+        }
+        return true;
+    }
     public boolean intersect(Polygon _other) {
         for (Edge e: getEdges()) {
             for (Edge f: _other.getEdges()) {
@@ -252,10 +269,10 @@ public final class Polygon implements Iterable<RatePoint>, HasEdges, Displayable
         if (size() < Rect.NB_POINTS) {
             return new CustList<Triangle>();
         }
-        return getTriangles2();
+        return getTrianglesGene();
     }
 
-    public CustList<Triangle> getTriangles2() {
+    private CustList<Triangle> getTrianglesGene() {
         Polygon copy_ = new Polygon();
         RatePoint cust_ = first();
         int index_ = 0;

@@ -2,6 +2,8 @@ package code.maths.litteraladv;
 
 import code.maths.LgInt;
 import code.maths.Rate;
+import code.maths.geo.Polygon;
+import code.maths.geo.RatePoint;
 import code.maths.litteralcom.StrTypes;
 import code.maths.matrix.Polynom;
 import code.maths.matrix.RateImage;
@@ -33,6 +35,9 @@ public final class SymbVarFctMaOperation extends MethodMaOperation  {
         }
         if (StringUtil.quickEq(";", oper)) {
             procPolynom(_error);
+        }
+        if (StringUtil.quickEq("||", oper)) {
+            procPolygon(_error);
         }
     }
 
@@ -220,6 +225,24 @@ public final class SymbVarFctMaOperation extends MethodMaOperation  {
         _error.setOffset(getIndexExp());
     }
 
+    private void procPolygon(MaError _error) {
+        int len_ = getChildren().size();
+        boolean allRates_ = true;
+        CustList<RatePoint> rates_ = new CustList<RatePoint>();
+        for (int i = 0; i < len_; i++) {
+            MaStruct value_ = MaNumParsers.tryGet(this, i);
+            if (!(value_ instanceof MaRatePointStruct)) {
+                allRates_ = false;
+                break;
+            }
+            rates_.add(((MaRatePointStruct)value_).getPoint());
+        }
+        if (rates_.size() > 2 && allRates_) {
+            setStruct(new MaPolygonStruct(new Polygon(rates_)));
+            return;
+        }
+        _error.setOffset(getIndexExp());
+    }
     @Override
     void calculate() {
         StrTypes vs_ = getOperats().getParts();

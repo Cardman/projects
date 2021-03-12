@@ -3,6 +3,8 @@ package code.maths.litteraladv;
 import code.maths.LgInt;
 import code.maths.PrimDivisor;
 import code.maths.Rate;
+import code.maths.geo.Polygon;
+import code.maths.geo.RatePoint;
 import code.maths.litteralcom.StrTypes;
 import code.maths.matrix.Matrix;
 import code.maths.matrix.Polynom;
@@ -89,6 +91,10 @@ public final class ArrMaOperation extends MethodMaOperation {
             setStruct(new MaRateStruct(new Rate(((MaVectStruct) _list.first()).getVect().size())));
             return;
         }
+        if (_list.first() instanceof MaPolygonStruct) {
+            setStruct(new MaRateStruct(new Rate(((MaPolygonStruct) _list.first()).getPolygon().size())));
+            return;
+        }
         setStruct(new MaRateStruct(new Rate(-1)));
     }
 
@@ -97,7 +103,7 @@ public final class ArrMaOperation extends MethodMaOperation {
     }
 
     private static boolean isDual(MaStruct _first) {
-        return _first instanceof MaPrimDivisorNbStruct || _first instanceof MaPrimDivisorPolStruct || _first instanceof MaEventFreqStruct;
+        return _first instanceof MaPrimDivisorNbStruct || _first instanceof MaPrimDivisorPolStruct || _first instanceof MaEventFreqStruct || _first instanceof MaRatePointStruct;
     }
 
     private void procTwoIndexes(MaError _error, CustList<MaStruct> _values) {
@@ -119,6 +125,10 @@ public final class ArrMaOperation extends MethodMaOperation {
         }
         if (_values.first() instanceof MaMatrixStruct) {
             procMatrix((MaMatrixStruct)_values.first(),(MaRateStruct) _values.get(1),(MaRateStruct) _values.get(2), _error);
+            return;
+        }
+        if (_values.first() instanceof MaPolygonStruct) {
+            procPolygon((MaPolygonStruct)_values.first(),(MaRateStruct) _values.get(1),(MaRateStruct) _values.get(2), _error);
             return;
         }
         _error.setOffset(getIndexExp());
@@ -173,6 +183,10 @@ public final class ArrMaOperation extends MethodMaOperation {
             procPrimDivisor((MaPrimDivisorPolStruct) _first,(MaRateStruct) _values.get(1), _error);
             return;
         }
+        if (_first instanceof MaRatePointStruct) {
+            procPrimDivisor((MaRatePointStruct) _first,(MaRateStruct) _values.get(1), _error);
+            return;
+        }
         if (_first instanceof MaRateListStruct) {
             procRateList((MaRateListStruct) _first,(MaRateStruct) _values.get(1), _error);
             return;
@@ -187,6 +201,10 @@ public final class ArrMaOperation extends MethodMaOperation {
         }
         if (_first instanceof MaVectStruct) {
             procVect((MaVectStruct) _first,(MaRateStruct) _values.get(1), _error);
+            return;
+        }
+        if (_first instanceof MaPolygonStruct) {
+            procPolygon((MaPolygonStruct) _first,(MaRateStruct) _values.get(1), _error);
             return;
         }
         _error.setOffset(getIndexExp());
@@ -385,6 +403,22 @@ public final class ArrMaOperation extends MethodMaOperation {
         }
         _error.setOffset(getIndexExp());
     }
+    private void procPrimDivisor(MaRatePointStruct _divs,MaRateStruct _index, MaError _error) {
+        LgInt lgInt_ = _index.getRate().intPart();
+        RatePoint primDivisor_ = _divs.getPoint();
+        if (!lgInt_.isZeroOrGt()) {
+            lgInt_.addNb(new LgInt(2));
+        }
+        if (lgInt_.eq(LgInt.zero())) {
+            setStruct(new MaRateStruct(new Rate(primDivisor_.getXcoords())));
+            return;
+        }
+        if (lgInt_.eq(LgInt.one())) {
+            setStruct(new MaRateStruct(new Rate(primDivisor_.getYcoords())));
+            return;
+        }
+        _error.setOffset(getIndexExp());
+    }
     private void procRep(MaRepartitionStruct _divs,MaRateStruct _index, MaError _error) {
         LgInt lgInt_ = _index.getRate().intPart();
         CustList<EventFreq<CustList<LgInt>>> dividers_ = _divs.getEvents();
@@ -485,6 +519,30 @@ public final class ArrMaOperation extends MethodMaOperation {
         }
         _error.setOffset(getIndexExp());
     }
+    private void procPolygon(MaPolygonStruct _divs,MaRateStruct _index,MaRateStruct _indexTwo, MaError _error) {
+        LgInt lgInt_ = _index.getRate().intPart();
+        Polygon polygon_ = _divs.getPolygon();
+        int len_ = polygon_.size();
+        if (!lgInt_.isZeroOrGt()) {
+            lgInt_.addNb(new LgInt(len_));
+        }
+        if (validIndex(lgInt_, len_)) {
+            RatePoint dual_ = polygon_.get((int) lgInt_.ll());
+            LgInt lgIntSec_ = _indexTwo.getRate().intPart();
+            if (!lgIntSec_.isZeroOrGt()) {
+                lgIntSec_.addNb(new LgInt(2));
+            }
+            if (lgIntSec_.eq(LgInt.zero())) {
+                setStruct(new MaRateStruct(new Rate(dual_.getXcoords())));
+                return;
+            }
+            if (lgIntSec_.eq(LgInt.one())) {
+                setStruct(new MaRateStruct(new Rate(dual_.getYcoords())));
+                return;
+            }
+        }
+        _error.setOffset(getIndexExp());
+    }
     private void procEvt(MaEventFreqStruct _divs, MaRateStruct _index, MaError _error) {
         LgInt lgInt_ = _index.getRate().intPart();
         EventFreq<Rate> dividers_ = _divs.getPair();
@@ -553,6 +611,20 @@ public final class ArrMaOperation extends MethodMaOperation {
         if (validIndex(lgInt_, len_)) {
             Rate dual_ = matrix_.get((int) lgInt_.ll());
             setStruct(new MaRateStruct(dual_));
+            return;
+        }
+        _error.setOffset(getIndexExp());
+    }
+    private void procPolygon(MaPolygonStruct _divs,MaRateStruct _index, MaError _error) {
+        LgInt lgInt_ = _index.getRate().intPart();
+        Polygon matrix_ = _divs.getPolygon();
+        int len_ = matrix_.size();
+        if (!lgInt_.isZeroOrGt()) {
+            lgInt_.addNb(new LgInt(len_));
+        }
+        if (validIndex(lgInt_, len_)) {
+            RatePoint dual_ = matrix_.get((int) lgInt_.ll());
+            setStruct(new MaRatePointStruct(dual_));
             return;
         }
         _error.setOffset(getIndexExp());
