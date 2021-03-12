@@ -15,8 +15,13 @@ public final class MathExpUtil {
     }
 
     public static boolean allOp(char _curChar) {
-        return _curChar == MatCommonCst.PAR_RIGHT ||arrOp(_curChar)||matrix(_curChar)||unary(_curChar) || normalOp(_curChar);
+        return _curChar == MatCommonCst.PAR_RIGHT || supplDels(_curChar) ||unary(_curChar) || normalOp(_curChar);
     }
+
+    private static boolean supplDels(char _curChar) {
+        return arrOp(_curChar)||matrix(_curChar);
+    }
+
     private static boolean matrix(char _curChar) {
         return _curChar == MatCommonCst.SEP_ARG_BRA || _curChar == MatCommonCst.BRA_LEFT || _curChar == MatCommonCst.BRA_RIGHT;
     }

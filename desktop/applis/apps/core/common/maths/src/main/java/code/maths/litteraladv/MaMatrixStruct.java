@@ -1,7 +1,6 @@
 package code.maths.litteraladv;
 
 import code.maths.matrix.Matrix;
-import code.maths.matrix.Vect;
 import code.util.CollCapacity;
 import code.util.StringList;
 import code.util.core.StringUtil;
