@@ -2005,6 +2005,146 @@ public final class MaParserTest extends EquallableMathUtil {
         assertEq("#20", noVar("(;,1=>0,-1=>0,(1,||)=>-1)"));
     }
     @Test
+    public void evaluateExp500Test(){
+        assertEq("{1;2;3}", noVar("{1;2;3}"));
+    }
+    @Test
+    public void evaluateExp501Test(){
+        assertEq("{1,2;3,4}", noVar("{1,2;3,4}"));
+    }
+    @Test
+    public void evaluateExp502Test(){
+        assertEq("3", noVar("{1;2;3}[]"));
+    }
+    @Test
+    public void evaluateExp503Test(){
+        assertEq("2", noVar("{1;2;3}[1]"));
+    }
+    @Test
+    public void evaluateExp504Test(){
+        assertEq("2", noVar("{1;2;3}[-2]"));
+    }
+    @Test
+    public void evaluateExp505Test(){
+        assertEq("2", noVar("{1,2;3,4}[]"));
+    }
+    @Test
+    public void evaluateExp506Test(){
+        assertEq("2", noVar("{1,2;3,4}[1][]"));
+    }
+    @Test
+    public void evaluateExp507Test(){
+        assertEq("3,4", noVar("{1,2;3,4}[1]"));
+    }
+    @Test
+    public void evaluateExp508Test(){
+        assertEq("3,4", noVar("{1,2;3,4}[-1]"));
+    }
+    @Test
+    public void evaluateExp509Test(){
+        assertEq("3", noVar("{1,2;3,4}[1][0]"));
+    }
+    @Test
+    public void evaluateExp510Test(){
+        assertEq("3", noVar("{1,2;3,4}[-1][-2]"));
+    }
+    @Test
+    public void evaluateExp511Test(){
+        assertEq("3", noVar("{1,2,3;4,5,6}[0][]"));
+    }
+    @Test
+    public void evaluateExp512Test(){
+        assertEq("#0", noVar("[1;2]"));
+    }
+    @Test
+    public void evaluateExp513Test(){
+        assertEq("#13", noVar("{1,2,3;4,5,6}+{1,2;3,4}"));
+    }
+    @Test
+    public void evaluateExp514Test(){
+        assertEq("#0", noVar("{1;2;3}[3]"));
+    }
+    @Test
+    public void evaluateExp515Test(){
+        assertEq("#0", noVar("{1;2;3}[-4]"));
+    }
+    @Test
+    public void evaluateExp516Test(){
+        assertEq("#0", noVar("{1,2;3,4}[1][2]"));
+    }
+    @Test
+    public void evaluateExp517Test(){
+        assertEq("#0", noVar("{1,2;3,4}[-1][-3]"));
+    }
+    @Test
+    public void evaluateExp518Test(){
+        assertEq("3", noVar("{1,2;3,4}[1,0]"));
+    }
+    @Test
+    public void evaluateExp519Test(){
+        assertEq("3", noVar("{1,2;3,4}[-1,-2]"));
+    }
+    @Test
+    public void evaluateExp520Test(){
+        assertEq("#0", noVar("{1,2;3,4}[1,2]"));
+    }
+    @Test
+    public void evaluateExp521Test(){
+        assertEq("#0", noVar("{1,2;3,4}[2,-2]"));
+    }
+    @Test
+    public void evaluateExp522Test(){
+        assertEq("0", noVar("{1,2;3,4}=2"));
+    }
+    @Test
+    public void evaluateExp523Test(){
+        assertEq("0", noVar("{1,2;3,4}={1,2;3,5}"));
+    }
+    @Test
+    public void evaluateExp524Test(){
+        assertEq("1", noVar("{1,2;3,4}={1,2;3,4}"));
+    }
+    @Test
+    public void evaluateExp525Test(){
+        assertEq("0", noVar("{1,2;3,4}[0]=2"));
+    }
+    @Test
+    public void evaluateExp526Test(){
+        assertEq("0", noVar("{1,2;3,4}[1]={1,2;3,5}[1]"));
+    }
+    @Test
+    public void evaluateExp527Test(){
+        assertEq("1", noVar("{1,2;3,4}[0]={1,2;3,4}[0]"));
+    }
+    @Test
+    public void evaluateExp528Test(){
+        assertEq("#0", noVar("{1;3,4}"));
+    }
+    @Test
+    public void evaluateExp529Test(){
+        assertEq("#0", noVar("{1,2,3;4,5}"));
+    }
+    @Test
+    public void evaluateExp530Test(){
+        assertEq("#0", noVar("{1,2,3;4}"));
+    }
+    @Test
+    public void evaluateExp531Test(){
+        assertEq("#0", noVar("{{1,2}}"));
+    }
+    @Test
+    public void evaluateExp532Test(){
+        assertEq("#0", noVar("{}"));
+    }
+    @Test
+    public void evaluateExp533Test(){
+        assertEq("#1", noVar("{1,{1}}"));
+    }
+    @Test
+    public void evaluateExp534Test(){
+        assertEq("#1", noVar("{;1}"));
+    }
+    @Test
     public void nullVarTest(){
         assertEq("#", nullVar());
     }

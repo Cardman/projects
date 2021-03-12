@@ -18,6 +18,9 @@ public final class Matrix implements Displayable {
         affect(_m);
     }
 
+    public Matrix(CustList<Vect> _m) {
+        lines.addAllElts(_m);
+    }
     public void affect(Matrix _m) {
         lines.clear();
         for (Vect l: _m.lines) {
@@ -568,6 +571,9 @@ public final class Matrix implements Displayable {
         return trace_;
     }
 
+    public Vect get(int _i) {
+        return lines.get(_i);
+    }
     public static boolean eq(Matrix _tx1,Matrix _tx2) {
         return _tx1.eq(_tx2);
     }

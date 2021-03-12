@@ -17,6 +17,10 @@ public final class Vect implements Displayable {
         affect(_v);
     }
 
+    public Vect(CustList<Rate> _nbs) {
+        numbers.addAllElts(_nbs);
+    }
+
     
     public static Vect newVect(String _arg) {
         Vect v_ = new Vect();

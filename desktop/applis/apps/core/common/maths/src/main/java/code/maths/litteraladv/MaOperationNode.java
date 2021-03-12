@@ -130,6 +130,9 @@ public abstract class MaOperationNode {
         if (_op.getPrio() == MatCommonCst.FCT_OPER_PRIO) {
             return procFct(_index, _indexChild, _m, _op, _mapping);
         }
+        if (_op.getPrio() == MatCommonCst.DECL_PRIO) {
+            return new VectMaOperation(_index, _indexChild, _m, _op);
+        }
         if (_op.getPrio() == MatCommonCst.ASS_PRIO) {
             if (_op.getParts().size() == 2 && StringUtil.quickEq(_op.getOpers().firstValue(),"=>")) {
                 return new PolInterMaOperation(_index, _indexChild, _m, _op);
@@ -193,6 +196,9 @@ public abstract class MaOperationNode {
 
     private static MethodMaOperation procFct(int _index, int _indexChild, MethodMaOperation _m, MaOperationsSequence _op, MaParameters _mapping) {
         if (_op.getFct().trim().isEmpty()) {
+            if (StringUtil.quickEq(_op.getOpers().firstValue(),"{")) {
+                return new MatrixMaOperation(_index, _indexChild, _m, _op);
+            }
             return procSymb(_index, _indexChild, _m, _op,_mapping);
         }
         return new FctMaOperation(_index, _indexChild, _m, _op);
@@ -247,6 +253,15 @@ public abstract class MaOperationNode {
             if (str_ instanceof MaDecompositionNbStruct) {
                 rates_.add((MaDecompositionNbStruct)str_);
             }
+        }
+        return rates_;
+    }
+
+    protected static CustList<MaStruct> tryGetAll(MethodMaOperation _this) {
+        CustList<MaStruct> rates_ = new CustList<MaStruct>();
+        int len_ = _this.getChildren().size();
+        for (int i = 0; i < len_; i++) {
+            rates_.add(MaNumParsers.tryGet(_this, i));
         }
         return rates_;
     }

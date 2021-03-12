@@ -4,8 +4,10 @@ import code.maths.LgInt;
 import code.maths.PrimDivisor;
 import code.maths.Rate;
 import code.maths.litteralcom.StrTypes;
+import code.maths.matrix.Matrix;
 import code.maths.matrix.Polynom;
 import code.maths.matrix.RootPol;
+import code.maths.matrix.Vect;
 import code.maths.montecarlo.EventFreq;
 import code.util.CollCapacity;
 import code.util.CustList;
@@ -79,6 +81,14 @@ public final class ArrMaOperation extends MethodMaOperation {
             setStruct(new MaRateStruct(new Rate(((MaPolynomStruct) _list.first()).getPolynom().size())));
             return;
         }
+        if (_list.first() instanceof MaMatrixStruct) {
+            setStruct(new MaRateStruct(new Rate(((MaMatrixStruct) _list.first()).getMatrix().nbLines())));
+            return;
+        }
+        if (_list.first() instanceof MaVectStruct) {
+            setStruct(new MaRateStruct(new Rate(((MaVectStruct) _list.first()).getVect().size())));
+            return;
+        }
         setStruct(new MaRateStruct(new Rate(-1)));
     }
 
@@ -105,6 +115,10 @@ public final class ArrMaOperation extends MethodMaOperation {
         }
         if (_values.first() instanceof MaMonteCarloNumberStruct) {
             procLaw((MaMonteCarloNumberStruct) _values.first(),(MaRateStruct) _values.get(1),(MaRateStruct) _values.get(2), _error);
+            return;
+        }
+        if (_values.first() instanceof MaMatrixStruct) {
+            procMatrix((MaMatrixStruct)_values.first(),(MaRateStruct) _values.get(1),(MaRateStruct) _values.get(2), _error);
             return;
         }
         _error.setOffset(getIndexExp());
@@ -165,6 +179,14 @@ public final class ArrMaOperation extends MethodMaOperation {
         }
         if (_first instanceof MaPolynomStruct) {
             procPolynom((MaPolynomStruct) _first,(MaRateStruct) _values.get(1), _error);
+            return;
+        }
+        if (_first instanceof MaMatrixStruct) {
+            procMatrix((MaMatrixStruct) _first,(MaRateStruct) _values.get(1), _error);
+            return;
+        }
+        if (_first instanceof MaVectStruct) {
+            procVect((MaVectStruct) _first,(MaRateStruct) _values.get(1), _error);
             return;
         }
         _error.setOffset(getIndexExp());
@@ -442,6 +464,27 @@ public final class ArrMaOperation extends MethodMaOperation {
         }
         _error.setOffset(getIndexExp());
     }
+    private void procMatrix(MaMatrixStruct _divs,MaRateStruct _index,MaRateStruct _indexTwo, MaError _error) {
+        LgInt lgInt_ = _index.getRate().intPart();
+        Matrix matrix_ = _divs.getMatrix();
+        int len_ = matrix_.nbLines();
+        if (!lgInt_.isZeroOrGt()) {
+            lgInt_.addNb(new LgInt(len_));
+        }
+        if (validIndex(lgInt_, len_)) {
+            Vect dual_ = matrix_.get((int) lgInt_.ll());
+            int eltLen_ = dual_.size();
+            LgInt lgIntSec_ = _indexTwo.getRate().intPart();
+            if (!lgIntSec_.isZeroOrGt()) {
+                lgIntSec_.addNb(new LgInt(dual_.size()));
+            }
+            if (validIndex(lgIntSec_, eltLen_)) {
+                setStruct(new MaRateStruct(new Rate(dual_.get((int)lgIntSec_.ll()))));
+                return;
+            }
+        }
+        _error.setOffset(getIndexExp());
+    }
     private void procEvt(MaEventFreqStruct _divs, MaRateStruct _index, MaError _error) {
         LgInt lgInt_ = _index.getRate().intPart();
         EventFreq<Rate> dividers_ = _divs.getPair();
@@ -481,6 +524,34 @@ public final class ArrMaOperation extends MethodMaOperation {
         }
         if (validIndex(lgInt_, len_)) {
             Rate dual_ = dividers_.get((int) lgInt_.ll());
+            setStruct(new MaRateStruct(dual_));
+            return;
+        }
+        _error.setOffset(getIndexExp());
+    }
+    private void procMatrix(MaMatrixStruct _divs,MaRateStruct _index, MaError _error) {
+        LgInt lgInt_ = _index.getRate().intPart();
+        Matrix matrix_ = _divs.getMatrix();
+        int len_ = matrix_.nbLines();
+        if (!lgInt_.isZeroOrGt()) {
+            lgInt_.addNb(new LgInt(len_));
+        }
+        if (validIndex(lgInt_, len_)) {
+            Vect dual_ = matrix_.get((int) lgInt_.ll());
+            setStruct(new MaVectStruct(dual_));
+            return;
+        }
+        _error.setOffset(getIndexExp());
+    }
+    private void procVect(MaVectStruct _divs,MaRateStruct _index, MaError _error) {
+        LgInt lgInt_ = _index.getRate().intPart();
+        Vect matrix_ = _divs.getVect();
+        int len_ = matrix_.size();
+        if (!lgInt_.isZeroOrGt()) {
+            lgInt_.addNb(new LgInt(len_));
+        }
+        if (validIndex(lgInt_, len_)) {
+            Rate dual_ = matrix_.get((int) lgInt_.ll());
             setStruct(new MaRateStruct(dual_));
             return;
         }

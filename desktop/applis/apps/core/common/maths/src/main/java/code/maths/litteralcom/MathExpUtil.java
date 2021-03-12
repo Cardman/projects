@@ -15,7 +15,10 @@ public final class MathExpUtil {
     }
 
     public static boolean allOp(char _curChar) {
-        return _curChar == MatCommonCst.PAR_RIGHT ||arrOp(_curChar)||unary(_curChar) || normalOp(_curChar);
+        return _curChar == MatCommonCst.PAR_RIGHT ||arrOp(_curChar)||matrix(_curChar)||unary(_curChar) || normalOp(_curChar);
+    }
+    private static boolean matrix(char _curChar) {
+        return _curChar == MatCommonCst.SEP_ARG_BRA || _curChar == MatCommonCst.BRA_LEFT || _curChar == MatCommonCst.BRA_RIGHT;
     }
     private static boolean arrOp(char _curChar) {
         return _curChar == MatCommonCst.ARR_LEFT || _curChar == MatCommonCst.ARR_RIGHT;

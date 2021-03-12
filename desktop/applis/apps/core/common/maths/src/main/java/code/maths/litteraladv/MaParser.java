@@ -331,25 +331,15 @@ public final class MaParser {
         MaStackOperators s_ = _m.getStack();
         processLeftDel(_m, curChar_, s_, MatCommonCst.PAR_LEFT);
         processLeftDel(_m, curChar_, s_, MatCommonCst.ARR_LEFT);
-        if (curChar_ == MatCommonCst.PAR_RIGHT) {
-            if (misMatchDel(s_, MatCommonCst.PAR_LEFT)) {
-                _error.setOffset(_m.getIndex());
-                _m.setIndex(_len);
-                return;
-            }
-            s_.remove();
-        }
-        if (curChar_ == MatCommonCst.ARR_RIGHT) {
-            if (misMatchDel(s_, MatCommonCst.ARR_LEFT)) {
-                _error.setOffset(_m.getIndex());
-                _m.setIndex(_len);
-                return;
-            }
-            s_.remove();
-        }
+        processLeftDel(_m, curChar_, s_, MatCommonCst.BRA_LEFT);
+        processRightDel(_m, curChar_,_len,_error,MatCommonCst.PAR_LEFT,MatCommonCst.PAR_RIGHT);
+        processRightDel(_m, curChar_,_len,_error,MatCommonCst.ARR_LEFT,MatCommonCst.ARR_RIGHT);
+        processRightDel(_m, curChar_,_len,_error,MatCommonCst.BRA_LEFT,MatCommonCst.BRA_RIGHT);
         if (curChar_ == MatCommonCst.SEP_ARG && s_.empty()) {
             _error.setOffset(_m.getIndex());
             _m.setIndex(_len);
+        }
+        if (_error.getOffset() > -1) {
             return;
         }
         _m.setIndex(procOper(_d, _m.getIndex(), curChar_));
@@ -361,6 +351,17 @@ public final class MaParser {
         }
     }
 
+    private static void processRightDel(MathState _m, char _curChar, int _len, MaError _error, char _leftChar, char _rightChar) {
+        MaStackOperators s_ = _m.getStack();
+        if (_curChar == _rightChar) {
+            if (misMatchDel(s_, _leftChar)) {
+                _error.setOffset(_m.getIndex());
+                _m.setIndex(_len);
+                return;
+            }
+            s_.remove();
+        }
+    }
     private static boolean misMatchDel(MaStackOperators _s, char _left) {
         return _s.empty() || _s.oper() != _left;
     }

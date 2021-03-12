@@ -41,34 +41,59 @@ public final class MathAdvAfUnaryParts {
             }
             dels.add(current,curChar_);
         }
-        if (comma(curChar_)) {
-            opers.addEntry(current, Character.toString(MatCommonCst.SEP_ARG));
+        if (commaExt(curChar_)) {
+            if (prio > MatCommonCst.DECL_PRIO) {
+                opers.clear();
+            }
+            prio = MatCommonCst.DECL_PRIO;
+            opers.addEntry(current, Character.toString(curChar_));
+        }
+        if (comma(curChar_)||commaPt(curChar_)) {
+            opers.addEntry(current, Character.toString(curChar_));
         }
         if (rightDel(curChar_)) {
             procRight(curChar_);
             return;
         }
-        if (curChar_ == MatCommonCst.ARR_LEFT) {
-            if (delFct()) {
-                fct = "";
-                opers.clear();
-                opers.addEntry(current, "[");
-            }
-            dels.add(current, curChar_);
-        }
-        if (!dels.empty()) {
+//        if (curChar_ == MatCommonCst.ARR_LEFT) {
+//            if (delFct()) {
+//                fct = "";
+//                opers.clear();
+//                opers.addEntry(current, "[");
+//            }
+//            dels.add(current, curChar_);
+//        }
+        procLeftNoPar(curChar_,MatCommonCst.ARR_LEFT);
+        procLeftNoPar(curChar_,MatCommonCst.BRA_LEFT);
+        if (!dels.empty()||prio == MatCommonCst.DECL_PRIO) {
             current++;
             return;
         }
         procNumOps(_string, curChar_);
     }
 
+    private void procLeftNoPar(char _curChar, char _leftChar) {
+        if (_curChar == _leftChar) {
+            if (delFct()) {
+                fct = "";
+                opers.clear();
+                opers.addEntry(current, Character.toString(_leftChar));
+            }
+            dels.add(current,_curChar);
+        }
+    }
     private boolean comma(char _curChar) {
-        return _curChar == MatCommonCst.SEP_ARG && dels.nb() == 1 && prio == MatCommonCst.FCT_OPER_PRIO;
+        return _curChar == MatCommonCst.SEP_ARG && dels.nb() == 1 && dels.oper() != '{' && prio == MatCommonCst.FCT_OPER_PRIO;
+    }
+    private boolean commaExt(char _curChar) {
+        return _curChar == MatCommonCst.SEP_ARG && dels.nb() == 0;
     }
 
+    private boolean commaPt(char _curChar) {
+        return _curChar == MatCommonCst.SEP_ARG_BRA && dels.nb() == 1 && dels.oper() == '{' && prio == MatCommonCst.FCT_OPER_PRIO;
+    }
     private static boolean rightDel(char _curChar) {
-        return _curChar == MatCommonCst.PAR_RIGHT || _curChar == MatCommonCst.ARR_RIGHT;
+        return _curChar == MatCommonCst.PAR_RIGHT || _curChar == MatCommonCst.ARR_RIGHT || _curChar == MatCommonCst.BRA_RIGHT;
     }
 
     private void procRight(char _rightPart) {

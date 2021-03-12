@@ -54,7 +54,7 @@ public final class SymbVarFctMaOperation extends MethodMaOperation  {
     }
 
     private void procAlea(MaError _error) {
-        CustList<MaStruct> all_ = tryGetAll();
+        CustList<MaStruct> all_ = tryGetAll(this);
         if (all_.size() == 2 && all_.first() instanceof MaMonteCarloNumberStruct && all_.last() instanceof MaRateStruct) {
             MaMonteCarloNumberStruct v_ = (MaMonteCarloNumberStruct) all_.first();
             MonteCarloNumber law_ = v_.getLaw();
@@ -111,7 +111,7 @@ public final class SymbVarFctMaOperation extends MethodMaOperation  {
     }
 
     private void procStat(MaError _error) {
-        CustList<MaStruct> all_ = tryGetAll();
+        CustList<MaStruct> all_ = tryGetAll(this);
         if (all_.size() == 1 && all_.first() instanceof MaMonteCarloNumberStruct) {
             MaMonteCarloNumberStruct v_ = (MaMonteCarloNumberStruct) all_.first();
             MonteCarloNumber law_ = v_.getLaw();
@@ -218,14 +218,6 @@ public final class SymbVarFctMaOperation extends MethodMaOperation  {
             return;
         }
         _error.setOffset(getIndexExp());
-    }
-    CustList<MaStruct> tryGetAll() {
-        CustList<MaStruct> rates_ = new CustList<MaStruct>();
-        int len_ = getChildren().size();
-        for (int i = 0; i < len_; i++) {
-            rates_.add(MaNumParsers.tryGet(this, i));
-        }
-        return rates_;
     }
 
     @Override
