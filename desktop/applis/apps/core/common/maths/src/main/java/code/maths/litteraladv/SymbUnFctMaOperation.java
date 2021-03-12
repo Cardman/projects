@@ -1,9 +1,11 @@
 package code.maths.litteraladv;
 
 import code.maths.Decomposition;
+import code.maths.LgInt;
 import code.maths.Rate;
 import code.maths.litteralcom.StrTypes;
 import code.maths.matrix.FractPol;
+import code.maths.matrix.Matrix;
 import code.util.CustList;
 import code.util.StringMap;
 import code.util.core.StringUtil;
@@ -44,8 +46,25 @@ public final class SymbUnFctMaOperation extends MethodMaOperation {
             procDecomp(_error);
         }
         procDerive(_error);
+        procIdMat(_error);
     }
 
+    private void procIdMat(MaError _error) {
+        if (StringUtil.quickEq("#", oper)) {
+            CustList<MaRateStruct> rates_ = tryGetRates(this);
+            if (areAllIntegersNb(rates_,1)) {
+                LgInt lgInt_ = rates_.first().getRate().intPart();
+                long val_ = lgInt_.ll();
+                if (val_ <= 0) {
+                    _error.setOffset(getIndexExp());
+                } else {
+                    setStruct(new MaMatrixStruct(Matrix.buildId(val_)));
+                }
+            } else {
+                _error.setOffset(getIndexExp());
+            }
+        }
+    }
     private void procDerive(MaError _error) {
         int count_ = containsOnlySimpleQuotes(oper);
         if (count_ > 0) {

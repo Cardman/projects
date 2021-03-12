@@ -2145,6 +2145,18 @@ public final class MaParserTest extends EquallableMathUtil {
         assertEq("#1", noVar("{;1}"));
     }
     @Test
+    public void evaluateExp535Test(){
+        assertEq("#0", noVar("(1/2,#)"));
+    }
+    @Test
+    public void evaluateExp536Test(){
+        assertEq("#0", noVar("(-2,#)"));
+    }
+    @Test
+    public void evaluateExp537Test(){
+        assertEq("{1,0;0,1}", noVar("(2,#)"));
+    }
+    @Test
     public void nullVarTest(){
         assertEq("#", nullVar());
     }

@@ -176,13 +176,17 @@ public final class Matrix implements Displayable {
     }
 
     private Matrix buildId() {
+        int nbLines_=nbLines();
+        return buildId(nbLines_);
+    }
+
+    public static Matrix buildId(long _nbLines) {
         Matrix id_ = new Matrix();
         Vect line_ = new Vect();
         line_.add(Rate.one());
-        int nbLines_=nbLines();
-        feedZeros(nbLines_, 1, line_);
+        feedZeros(_nbLines, 1, line_);
         id_.addLineRef(line_);
-        for(int i=1;i<nbLines_;i++) {
+        for(int i = 1; i< _nbLines; i++) {
             Vect n_ = new Vect(line_);
             n_.swapIndexes(i,i - 1);
             id_.addLineRef(n_);
@@ -191,8 +195,8 @@ public final class Matrix implements Displayable {
         return id_;
     }
 
-    private static void feedZeros(int _i, int _nbLinesTwo, Vect _solCopy) {
-        for(int j = _nbLinesTwo; j< _i; j++) {
+    private static void feedZeros(long _i, long _nbLinesTwo, Vect _solCopy) {
+        for(long j = _nbLinesTwo; j< _i; j++) {
             _solCopy.add(Rate.zero());
         }
     }

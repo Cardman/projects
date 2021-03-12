@@ -345,8 +345,13 @@ public abstract class MaOperationNode {
     }
     private static boolean isUnarySymbol(MaOperationsSequence _op) {
         String val_ = _op.getParts().lastValue().trim();
-        return nbPart(val_) || nbDecSymbol(val_) || arith(val_)
-                || containsOnlySimpleQuotes(val_) > 0;
+        return nbOp(val_) || arith(val_)
+                || containsOnlySimpleQuotes(val_) > 0
+                || StringUtil.quickEq("#", val_);
+    }
+
+    private static boolean nbOp(String _val) {
+        return nbPart(_val) || nbDecSymbol(_val);
     }
 
     private static boolean nbPart(String _val) {
