@@ -54,7 +54,7 @@ public final class SymbUnFctMaOperation extends MethodMaOperation {
             CustList<MaRateStruct> rates_ = tryGetRates(this);
             if (areAllIntegersNb(rates_,1)) {
                 LgInt lgInt_ = rates_.first().getRate().intPart();
-                long val_ = lgInt_.ll();
+                int val_ = (int) lgInt_.ll();
                 if (val_ <= 0) {
                     _error.setOffset(getIndexExp());
                 } else {

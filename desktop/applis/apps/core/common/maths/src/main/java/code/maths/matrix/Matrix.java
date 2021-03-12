@@ -180,7 +180,7 @@ public final class Matrix implements Displayable {
         return buildId(nbLines_);
     }
 
-    public static Matrix buildId(long _nbLines) {
+    public static Matrix buildId(int _nbLines) {
         Matrix id_ = new Matrix();
         Vect line_ = new Vect();
         line_.add(Rate.one());
