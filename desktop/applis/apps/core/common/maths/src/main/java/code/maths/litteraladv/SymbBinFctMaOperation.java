@@ -154,9 +154,9 @@ public final class SymbBinFctMaOperation extends MethodMaOperation {
             }
         } else if (Rate.eq(Rate.one(),exposant_.absNb())){
             if (!exposant_.isZeroOrGt()) {
-                setStruct(new MaMatrixStruct(matrix_.inv().power(exposant_.absNb().intPart())));
+                setStruct(new MaMatrixStruct(matrix_.inv()));
             } else {
-                setStruct(new MaMatrixStruct(matrix_.power(exposant_.intPart())));
+                setStruct(_val);
             }
         } else {
             _error.setOffset(getIndexExp());
