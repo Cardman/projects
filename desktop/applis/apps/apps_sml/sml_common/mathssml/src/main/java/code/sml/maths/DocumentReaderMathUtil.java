@@ -2,8 +2,8 @@ package code.sml.maths;
 
 import code.maths.LgInt;
 import code.maths.Rate;
-import code.maths.geo.CustPoint;
 import code.maths.geo.Polygon;
+import code.maths.geo.RatePoint;
 import code.maths.geo.Rect;
 import code.maths.montecarlo.EventFreq;
 import code.maths.montecarlo.MonteCarloBoolean;
@@ -210,8 +210,8 @@ public final class DocumentReaderMathUtil {
         return map_;
     }
 
-    public static CustPoint getCustPoint(Element _elt) {
-        return CustPoint.newCustPoint(_elt.getAttribute(ATTR_VALUE));
+    public static RatePoint getCustPoint(Element _elt) {
+        return RatePoint.newCustRatePoint(_elt.getAttribute(ATTR_VALUE));
     }
 
     public static Polygon getPolygon(Element _element) {
@@ -230,11 +230,11 @@ public final class DocumentReaderMathUtil {
         }
     }
 
-    private static CustList<CustPoint> getListCustPoint(Element _elt) {
+    private static CustList<RatePoint> getListCustPoint(Element _elt) {
         ElementList childElements_ = _elt.getChildElements();
         int len_ = childElements_.getLength();
         CollCapacity cap_ = new CollCapacity(len_);
-        CustList<CustPoint> list_ = new CustList<CustPoint>(cap_);
+        CustList<RatePoint> list_ = new CustList<RatePoint>(cap_);
         for (Element c: childElements_) {
             list_.add(getCustPoint(c));
         }

@@ -1,6 +1,8 @@
 package code.minirts.rts;
 
+import code.maths.Rate;
 import code.maths.geo.CustPoint;
+import code.maths.geo.RatePoint;
 import code.maths.geo.Rect;
 import code.util.CustList;
 import code.util.EntryCust;
@@ -122,7 +124,7 @@ public final class RtsGame {
 //        int[] xThis_ = new int[]{xThisLeftTop_, xThisRightBottom_, xThisRightBottom_, xThisLeftTop_};
 //        int[] yThis_ = new int[]{yThisLeftTop_, yThisLeftTop_, yThisRightBottom_, yThisRightBottom_};
 //        Polygon pThis_ = new Polygon(xThis_, yThis_, 4);
-        Rect pThis_ = new Rect(xThisLeftTop_, yThisLeftTop_, s_.getWidth(), s_.getHeight());
+        Rect pThis_ = newRect(xThisLeftTop_, yThisLeftTop_, s_.getWidth(), s_.getHeight());
         for (EntryCust<UnitMapKey,Soldier> u: soldiers.entryList()) {
             if (u.getKey().eq(_this)) {
                 continue;
@@ -141,7 +143,7 @@ public final class RtsGame {
 //        int[] xThis_ = new int[]{xThisLeftTop_, xThisRightBottom_, xThisRightBottom_, xThisLeftTop_};
 //        int[] yThis_ = new int[]{yThisLeftTop_, yThisLeftTop_, yThisRightBottom_, yThisRightBottom_};
 //        Polygon pThis_ = new Polygon(xThis_, yThis_, 4);
-        Rect pThis_ = new Rect(_x, _y, s_.getWidth(), s_.getHeight());
+        Rect pThis_ = newRect(_x, _y, s_.getWidth(), s_.getHeight());
         Delta d_ = new Delta();
         for (EntryCust<UnitMapKey,Soldier> u: soldiers.entryList()) {
             if (!isOutside(pThis_, u.getValue(), _x, _y, d_, _data)) {
@@ -153,21 +155,21 @@ public final class RtsGame {
 
     boolean isOutside(Rect _p, Soldier _u, int _x, int _y, Delta _d, RtsDataBase _data) {
         //Polygon
-        int xULeftTop_ = _u.getLocx();
-        int yULeftTop_ = _u.getLocy();
+        long xULeftTop_ = _u.getLocx();
+        long yULeftTop_ = _u.getLocy();
         SoldierPattern s_ = _data.getSoldierPattern();
-        int xURightBottom_ = _u.getLocx() + s_.getWidth();
-        int yURightBottom_ = _u.getLocy() + s_.getHeight();
-        if (_p.containsInside(new CustPoint(xULeftTop_ - _d.getDx(), yULeftTop_ - _d.getDy()))) {
+        long xURightBottom_ = xULeftTop_ + s_.getWidth();
+        long yURightBottom_ = yULeftTop_ + s_.getHeight();
+        if (_p.containsInside(new RatePoint(new Rate(xULeftTop_ - _d.getDx()), new Rate(yULeftTop_ - _d.getDy())))) {
             return false;
         }
-        if (_p.containsInside(new CustPoint(xURightBottom_ - _d.getDx(), yULeftTop_ - _d.getDy()))) {
+        if (_p.containsInside(new RatePoint(new Rate(xURightBottom_ - _d.getDx()), new Rate(yULeftTop_ - _d.getDy())))) {
             return false;
         }
-        if (_p.containsInside(new CustPoint(xURightBottom_ - _d.getDx(), yURightBottom_ - _d.getDy()))) {
+        if (_p.containsInside(new RatePoint(new Rate(xURightBottom_ - _d.getDx()), new Rate(yURightBottom_ - _d.getDy())))) {
             return false;
         }
-        return !_p.containsInside(new CustPoint(xULeftTop_ - _d.getDx(), yURightBottom_ - _d.getDy()));
+        return !_p.containsInside(new RatePoint(new Rate(xULeftTop_ - _d.getDx()), new Rate(yURightBottom_ - _d.getDy())));
     }
 
     public void selectOrDeselect(CustPoint _first, CustPoint _last, RtsDataBase _data) {
@@ -228,7 +230,7 @@ public final class RtsGame {
 //            int[] xThis_ = new int[]{xThisLeftTop_, xThisRightBottom_, xThisRightBottom_, xThisLeftTop_};
 //            int[] yThis_ = new int[]{yThisLeftTop_, yThisLeftTop_, yThisRightBottom_, yThisRightBottom_};
 //            Polygon pThis_ = new Polygon(xThis_, yThis_, 4);
-            Rect pThis_ = new Rect(xThisLeftTop_, yThisLeftTop_, s_.getWidth(), s_.getHeight());
+            Rect pThis_ = newRect(xThisLeftTop_, yThisLeftTop_, s_.getWidth(), s_.getHeight());
             u_.setSelected(pThis_.intersects(rect_));
         }
     }
@@ -249,7 +251,7 @@ public final class RtsGame {
     }
 
     public Rect getSelection() {
-        return new Rect(xTopLeftSelect, yTopLeftSelect, widthSelect, heightSelect);
+        return newRect(xTopLeftSelect, yTopLeftSelect, widthSelect, heightSelect);
     }
 
     public CustList<UnitMapKey> getSoldierKeys() {
@@ -342,7 +344,7 @@ public final class RtsGame {
     public EqList<UnitMapKey> getVisibleSoldiers(int _w, int _h, RtsDataBase _data) {
         SoldierPattern s_ = _data.getSoldierPattern();
 //        Rectangle rect_ = new Rectangle(-xTopLeftScreen, -yTopLeftScreen, _w, _h);
-        Rect rect_ = new Rect(xTopLeftScreen, yTopLeftScreen, _w, _h);
+        Rect rect_ = newRect(xTopLeftScreen, yTopLeftScreen, _w, _h);
         EqList<UnitMapKey> l_ = new EqList<UnitMapKey>();
         for (EntryCust<UnitMapKey,Soldier> u: soldiers.entryList()) {
             Soldier u_ = u.getValue();
@@ -353,7 +355,7 @@ public final class RtsGame {
 //            int[] xThis_ = new int[]{xThisLeftTop_, xThisRightBottom_, xThisRightBottom_, xThisLeftTop_};
 //            int[] yThis_ = new int[]{yThisLeftTop_, yThisLeftTop_, yThisRightBottom_, yThisRightBottom_};
 //            Polygon pThis_ = new Polygon(xThis_, yThis_, 4);
-            Rect pThis_ = new Rect(xThisLeftTop_, yThisLeftTop_, s_.getWidth(), s_.getHeight());
+            Rect pThis_ = newRect(xThisLeftTop_, yThisLeftTop_, s_.getWidth(), s_.getHeight());
             if (pThis_.intersects(rect_)) {
                 l_.add(u.getKey());
             }
@@ -361,6 +363,9 @@ public final class RtsGame {
         return l_;
     }
 
+    public static Rect newRect(int _one, int _two, int _three, int _four) {
+        return new Rect(new Rate(_one),new Rate(_two),new Rate(_three),new Rate(_four));
+    }
     public void setxTopLeftScreen(int _xTopLeftScreen) {
         xTopLeftScreen = _xTopLeftScreen;
     }

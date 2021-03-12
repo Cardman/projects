@@ -7,11 +7,11 @@ import code.util.ints.Displayable;
 public final class RatePointThreeDims implements Displayable {
 
     private static final String SEPARATOR = ",";
-    private Rate xCoords;
-    private Rate yCoords;
-    private Rate zCoords;
+    private Rate xCoords = Rate.zero();
+    private Rate yCoords = Rate.zero();
+    private Rate zCoords = Rate.zero();
 
-    private RatePointThreeDims() {
+    public RatePointThreeDims() {
     }
 
     public RatePointThreeDims(CustPointThreeDims _r) {

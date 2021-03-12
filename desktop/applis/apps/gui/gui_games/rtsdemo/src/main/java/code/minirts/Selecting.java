@@ -20,6 +20,6 @@ public class Selecting extends PaintableLabel {
     public void paintComponent(CustGraphics _g) {
         Rect r_ = facade.getSelection();
         _g.setColor(Color.BLUE);
-        _g.drawRect(r_.getLeft(), r_.getTop(), r_.getWidth(), r_.getHeight());
+        _g.drawRect((int)r_.getLeft().ll(),(int) r_.getTop().ll(), (int)r_.getWidth().ll(), (int)r_.getHeight().ll());
     }
 }

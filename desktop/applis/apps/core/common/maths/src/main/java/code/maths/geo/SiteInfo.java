@@ -1,5 +1,6 @@
 package code.maths.geo;
 
+import code.maths.Rate;
 import code.util.core.SortConstants;
 
 public final class SiteInfo {
@@ -14,9 +15,9 @@ public final class SiteInfo {
 
     private int number;
 
-    private long scal;
+    private Rate scal;
 
-    private long squareLength;
+    private Rate squareLength;
 
     public static int compare(SiteInfo _one, SiteInfo _two) {
         if (_one.getNumber() < _two.getNumber()) {
@@ -25,20 +26,20 @@ public final class SiteInfo {
         if (_one.getNumber() > _two.getNumber()) {
             return SortConstants.SWAP_SORT;
         }
-        long firstMember_ = _one.getScal() * _one.getScal() * _two.getSquareLength();
-        long secondMember_ = _two.getScal() * _two.getScal() * _one.getSquareLength();
+        Rate firstMember_ = Rate.multiply(Rate.multiply(_one.getScal(), _one.getScal()),_two.getSquareLength());
+        Rate secondMember_ = Rate.multiply(Rate.multiply(_two.getScal(), _two.getScal()),_one.getSquareLength());
         if (_one.getNumber() == QUAD_ONE || _one.getNumber() == QUAD_THREE) {
-            if (firstMember_ > secondMember_) {
+            if (Rate.strGreater(firstMember_, secondMember_)) {
                 return SortConstants.NO_SWAP_SORT;
             }
-            if (firstMember_ < secondMember_) {
+            if (Rate.strLower(firstMember_, secondMember_)) {
                 return SortConstants.SWAP_SORT;
             }
         } else {
-            if (firstMember_ < secondMember_) {
+            if (Rate.strLower(firstMember_, secondMember_)) {
                 return SortConstants.NO_SWAP_SORT;
             }
-            if (firstMember_ > secondMember_) {
+            if (Rate.strGreater(firstMember_, secondMember_)) {
                 return SortConstants.SWAP_SORT;
             }
         }
@@ -53,19 +54,19 @@ public final class SiteInfo {
         number = _number;
     }
 
-    public long getScal() {
+    public Rate getScal() {
         return scal;
     }
 
-    public void setScal(long _scal) {
+    public void setScal(Rate _scal) {
         scal = _scal;
     }
 
-    public long getSquareLength() {
+    public Rate getSquareLength() {
         return squareLength;
     }
 
-    public void setSquareLength(long _squareLength) {
+    public void setSquareLength(Rate _squareLength) {
         squareLength = _squareLength;
     }
 }

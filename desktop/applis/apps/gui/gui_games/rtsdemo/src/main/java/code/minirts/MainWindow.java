@@ -54,9 +54,9 @@ public final class MainWindow extends GroupFrame {
 
     private final AtomicBoolean dragged = new AtomicBoolean();
 
-    private CustPoint first = new CustPoint();
+    private CustPoint first = new CustPoint(0,0);
 
-    private CustPoint last = new CustPoint();
+    private CustPoint last = new CustPoint(0,0);
     private String noteFile = "";
 
     public MainWindow(String _lg, AbstractProgramInfos _list) {

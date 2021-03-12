@@ -9,13 +9,13 @@ public final class Triangle implements HasEdges, Displayable {
 
     private static final String SEPARATOR = ";";
 
-    private final CustPoint firstPoint;
+    private final RatePoint firstPoint;
 
-    private final CustPoint secondPoint;
+    private final RatePoint secondPoint;
 
-    private final CustPoint thirdPoint;
+    private final RatePoint thirdPoint;
 
-    public Triangle(CustPoint _firstPoint, CustPoint _secondPoint, CustPoint _thirdPoint) {
+    public Triangle(RatePoint _firstPoint, RatePoint _secondPoint, RatePoint _thirdPoint) {
         firstPoint = _firstPoint;
         secondPoint = _secondPoint;
         thirdPoint = _thirdPoint;
@@ -31,96 +31,95 @@ public final class Triangle implements HasEdges, Displayable {
     }
 
     @Override
-    public CustList<CustPoint> getPoints() {
-        CustList<CustPoint> l_ = new CustList<CustPoint>();
+    public CustList<RatePoint> getPoints() {
+        CustList<RatePoint> l_ = new CustList<RatePoint>();
         l_.add(firstPoint);
         l_.add(secondPoint);
         l_.add(thirdPoint);
         return l_;
     }
 
-    public boolean isInCircum(CustPoint _point) {
-        CompactPlanePoint omega_;
+    public boolean isInCircum(RatePoint _point) {
+        RatePoint omega_;
         omega_ = getCircumCenter();
-        long x_ = omega_.getXcoords();
-        long y_ = omega_.getYcoords();
-        long den_ = omega_.getCommon();
-        long firstMember_ = (long)firstPoint.getXcoords() - _point.getXcoords();
-        firstMember_ *= 2 * x_ - den_ *(_point.getXcoords() + firstPoint.getXcoords());
-        long secondMember_ = (long)_point.getYcoords() - firstPoint.getYcoords();
-        secondMember_ *= 2 * y_ - den_ *(_point.getYcoords() + firstPoint.getYcoords());
-        if (den_ > 0) {
-            return firstMember_ < secondMember_;
-        }
-        return firstMember_ > secondMember_;
+        Rate distInput_ = omega_.sqDist(_point);
+        Rate distTr_ = omega_.sqDist(firstPoint);
+        return Rate.strLower(distInput_,distTr_);
     }
 
-    public boolean isInCircumBorder(CustPoint _point) {
-        CompactPlanePoint omega_;
+    public boolean isInCircumBorder(RatePoint _point) {
+        RatePoint omega_;
         omega_ = getCircumCenter();
-        long x_ = omega_.getXcoords();
-        long y_ = omega_.getYcoords();
-        long den_ = omega_.getCommon();
-        long firstMember_ = (long)firstPoint.getXcoords() - _point.getXcoords();
-        firstMember_ *= 2 * x_ - den_ *(_point.getXcoords() + firstPoint.getXcoords());
-        long secondMember_ = (long)_point.getYcoords() - firstPoint.getYcoords();
-        secondMember_ *= 2 * y_ - den_ *(_point.getYcoords() + firstPoint.getYcoords());
-        return firstMember_ == secondMember_;
+        Rate distInput_ = omega_.sqDist(_point);
+        Rate distTr_ = omega_.sqDist(firstPoint);
+        return distInput_.eq(distTr_);
     }
 
     public CustLine euler() {
-        CompactPlanePoint g_ = getGravityCenter();
-        CompactPlanePoint c_ = getCircumCenter();
-        long gd_ = g_.getCommon();
-        Rate gx_ = new Rate(g_.getXcoords(), gd_);
-        Rate gy_ = new Rate(g_.getYcoords(), gd_);
-        long cd_ = c_.getCommon();
+        RatePoint g_ = getGravityCenter();
+        Rate gx_ = g_.getXcoords();
+        Rate gy_ = g_.getYcoords();
+        Rate cd_ = com();
         Rate cx_;
         Rate cy_;
-        if (cd_ == 0) {
+        if (cd_.isZero()) {
             cx_ = new Rate(gx_);
             cy_ = new Rate(gy_);
         } else {
-            cx_ = new Rate(c_.getXcoords(), cd_);
-            cy_ = new Rate(c_.getYcoords(), cd_);
+            RatePoint c_ = getCircumCenter();
+            cx_ = c_.getXcoords();
+            cy_ = c_.getYcoords();
         }
         return new CustLine(new RatePoint(gx_, gy_), new RatePoint(cx_, cy_));
     }
 
-    public CompactPlanePoint getGravityCenter() {
-        long x_ = firstPoint.getXcoords();
-        x_ += secondPoint.getXcoords();
-        x_ += thirdPoint.getXcoords();
-        long y_ = firstPoint.getYcoords();
-        y_ += secondPoint.getYcoords();
-        y_ += thirdPoint.getYcoords();
-        return new CompactPlanePoint(x_, y_,NB_POINTS);
+    public RatePoint getGravityCenter() {
+        Rate xg_ = Rate.zero();
+        xg_.addNb(firstPoint.getXcoords());
+        xg_.addNb(secondPoint.getXcoords());
+        xg_.addNb(thirdPoint.getXcoords());
+        xg_.divideBy(new Rate(3));
+        Rate yg_ = Rate.zero();
+        yg_.addNb(firstPoint.getYcoords());
+        yg_.addNb(secondPoint.getYcoords());
+        yg_.addNb(thirdPoint.getYcoords());
+        yg_.divideBy(new Rate(3));
+        return new RatePoint(xg_,yg_);
     }
 
-    public CompactPlanePoint getCircumCenter() {
-        long bpx_ = (long)secondPoint.getXcoords() - firstPoint.getXcoords();
-        long cpx_ = (long)thirdPoint.getXcoords() - firstPoint.getXcoords();
-        long bpy_ = (long)secondPoint.getYcoords() - firstPoint.getYcoords();
-        long cpy_ = (long)thirdPoint.getYcoords() - firstPoint.getYcoords();
-        long dp_ = 2*(bpx_ * cpy_ - bpy_ * cpx_);
-        long x_ = cpy_ * (bpx_ * bpx_ + bpy_ * bpy_);
-        x_ -= bpy_ * (cpx_ * cpx_ + cpy_ * cpy_);
-        long y_ = bpx_ * (cpx_ * cpx_ + cpy_ * cpy_);
-        y_ -= cpx_ * (bpx_ * bpx_ + bpy_ * bpy_);
-        x_ += firstPoint.getXcoords() * dp_;
-        y_ += firstPoint.getYcoords() * dp_;
-        return new CompactPlanePoint(x_, y_,dp_);
+    public RatePoint getCircumCenter() {
+        Rate bpx_ = Rate.minus(secondPoint.getXcoords(), firstPoint.getXcoords());
+        Rate cpx_ = Rate.minus(thirdPoint.getXcoords(), firstPoint.getXcoords());
+        Rate bpy_ = Rate.minus(secondPoint.getYcoords(), firstPoint.getYcoords());
+        Rate cpy_ = Rate.minus(thirdPoint.getYcoords(), firstPoint.getYcoords());
+        Rate dp_ = Rate.multiply(new Rate(2),Rate.minus(Rate.multiply(bpx_, cpy_), Rate.multiply(bpy_, cpx_)));
+        Rate x_ = Rate.multiply(cpy_,Rate.plus(Rate.multiply(bpx_, bpx_),Rate.multiply(bpy_, bpy_)));
+        x_.removeNb(Rate.multiply(bpy_,Rate.plus(Rate.multiply(cpx_,cpx_),Rate.multiply(cpy_,cpy_))));
+        Rate y_ = Rate.multiply(bpx_,Rate.plus(Rate.multiply(cpx_, cpx_),Rate.multiply(cpy_, cpy_)));
+        y_.removeNb(Rate.multiply(cpx_,Rate.plus(Rate.multiply(bpx_,bpx_),Rate.multiply(bpy_,bpy_))));
+        x_.addNb(Rate.multiply(firstPoint.getXcoords(), dp_));
+        y_.addNb(Rate.multiply(firstPoint.getYcoords(), dp_));
+        Rate xc_ = Rate.divide(x_,dp_);
+        Rate yc_ = Rate.divide(y_,dp_);
+        return new RatePoint(xc_,yc_);
+    }
+    private Rate com() {
+        Rate bpx_ = Rate.minus(secondPoint.getXcoords(), firstPoint.getXcoords());
+        Rate cpx_ = Rate.minus(thirdPoint.getXcoords(), firstPoint.getXcoords());
+        Rate bpy_ = Rate.minus(secondPoint.getYcoords(), firstPoint.getYcoords());
+        Rate cpy_ = Rate.minus(thirdPoint.getYcoords(), firstPoint.getYcoords());
+        return Rate.multiply(new Rate(2),Rate.minus(Rate.multiply(bpx_, cpy_), Rate.multiply(bpy_, cpx_)));
     }
 
-    public CustPoint getFirstPoint() {
+    public RatePoint getFirstPoint() {
         return firstPoint;
     }
 
-    public CustPoint getSecondPoint() {
+    public RatePoint getSecondPoint() {
         return secondPoint;
     }
 
-    public CustPoint getThirdPoint() {
+    public RatePoint getThirdPoint() {
         return thirdPoint;
     }
 

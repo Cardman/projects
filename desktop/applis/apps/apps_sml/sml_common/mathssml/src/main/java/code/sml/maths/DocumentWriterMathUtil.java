@@ -2,8 +2,8 @@ package code.sml.maths;
 
 import code.maths.LgInt;
 import code.maths.Rate;
-import code.maths.geo.CustPoint;
 import code.maths.geo.Polygon;
+import code.maths.geo.RatePoint;
 import code.maths.geo.Rect;
 import code.maths.montecarlo.EventFreq;
 import code.maths.montecarlo.MonteCarloBoolean;
@@ -152,7 +152,7 @@ public final class DocumentWriterMathUtil {
         return elt_;
     }
 
-    public static Element setCustPoint(CustPoint _object, String _fieldName, Document _document) {
+    public static Element setCustPoint(RatePoint _object, String _fieldName, Document _document) {
         Element elt_ = _document.createElement(TYPE_CUST_POINT);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
         elt_.setAttribute(ATTR_VALUE, _object.display());
@@ -177,10 +177,10 @@ public final class DocumentWriterMathUtil {
         return elt_;
     }
 
-    private static Element setListCustPoint(CustList<CustPoint> _object, String _fieldName, Document _document) {
+    private static Element setListCustPoint(CustList<RatePoint> _object, String _fieldName, Document _document) {
         Element elt_ = _document.createElement(TYPE_LIST);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
-        for (CustPoint s: _object) {
+        for (RatePoint s: _object) {
             elt_.appendChild(setCustPoint(s,EMPTY_STRING,_document));
         }
         return elt_;

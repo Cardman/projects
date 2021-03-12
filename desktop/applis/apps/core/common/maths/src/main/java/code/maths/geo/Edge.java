@@ -7,11 +7,11 @@ public final class Edge implements Displayable {
 
     private static final String SEPARATOR = " ";
 
-    private CustPoint first;
+    private RatePoint first;
 
-    private CustPoint second;
+    private RatePoint second;
 
-    public Edge(CustPoint _first, CustPoint _second) {
+    public Edge(RatePoint _first, RatePoint _second) {
         first = _first;
         second = _second;
     }
@@ -41,7 +41,7 @@ public final class Edge implements Displayable {
     }
 
     public boolean intersectNotContainsBound(Edge _other) {
-        CustList<CustPoint> points_ = new CustList<CustPoint>();
+        CustList<RatePoint> points_ = new CustList<RatePoint>();
         points_.add(first);
         points_.add(second);
         points_.add(_other.first);
@@ -61,7 +61,7 @@ public final class Edge implements Displayable {
         return procLines(_other, points_);
     }
 
-    private boolean procLines(Edge _other, CustList<CustPoint> _points) {
+    private boolean procLines(Edge _other, CustList<RatePoint> _points) {
         if (containsPoint(_other.second)) {
             return true;
         }
@@ -77,10 +77,10 @@ public final class Edge implements Displayable {
         return lookForIntersectEdges(_points);
     }
 
-    private static boolean lookForIntersectEdges(CustList<CustPoint> _points) {
+    private static boolean lookForIntersectEdges(CustList<RatePoint> _points) {
         int index_ = IndexConstants.FIRST_INDEX;
-        for (CustPoint p: _points) {
-            CustList<CustPoint> others_ = new CustList<CustPoint>();
+        for (RatePoint p: _points) {
+            CustList<RatePoint> others_ = new CustList<RatePoint>();
             int next_;
             int nextOthOne_;
             int nextOthTwo_;
@@ -122,13 +122,13 @@ public final class Edge implements Displayable {
         return next_;
     }
 
-    private static CustList<Site> getSites(CustList<CustPoint> _points, CustPoint _p, CustList<CustPoint> _others, int _next, int _nextOthOne, int _nextOthTwo) {
-        CustPoint o_ = _points.get(_next);
+    private static CustList<Site> getSites(CustList<RatePoint> _points, RatePoint _p, CustList<RatePoint> _others, int _next, int _nextOthOne, int _nextOthTwo) {
+        RatePoint o_ = _points.get(_next);
         _others.add(_points.get(_nextOthOne));
         _others.add(_points.get(_nextOthTwo));
         CustList<Site> sites_ = new CustList<Site>();
         VectTwoDims v_ = new VectTwoDims(_p, o_);
-        for (CustPoint n: _others) {
+        for (RatePoint n: _others) {
             sites_.add(new SitePoint(n, _p, v_));
         }
         sites_.sortElts(new SiteComparing());
@@ -144,7 +144,7 @@ public final class Edge implements Displayable {
     }
 
     private boolean intersectBoundsOpt(Edge _other, boolean _nonStrict) {
-        CustList<CustPoint> points_ = new CustList<CustPoint>();
+        CustList<RatePoint> points_ = new CustList<RatePoint>();
         points_.add(first);
         points_.add(second);
         points_.add(_other.first);
@@ -164,25 +164,25 @@ public final class Edge implements Displayable {
         return lookForIntersectEdges(points_);
     }
 
-    public boolean containsPoint(CustPoint _c) {
+    public boolean containsPoint(RatePoint _c) {
         VectTwoDims one_ = new VectTwoDims(first, _c);
         VectTwoDims two_ = new VectTwoDims(second, _c);
-        return one_.det(two_) == 0 && one_.scal(two_) <= 0;
+        return one_.det(two_).isZero() && one_.scal(two_).isZeroOrLt();
     }
 
-    public CustPoint getFirst() {
+    public RatePoint getFirst() {
         return first;
     }
 
-    public void setFirst(CustPoint _first) {
+    public void setFirst(RatePoint _first) {
         first = _first;
     }
 
-    public CustPoint getSecond() {
+    public RatePoint getSecond() {
         return second;
     }
 
-    public void setSecond(CustPoint _second) {
+    public void setSecond(RatePoint _second) {
         second = _second;
     }
 

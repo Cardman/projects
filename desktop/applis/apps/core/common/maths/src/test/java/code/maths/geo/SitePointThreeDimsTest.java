@@ -1,6 +1,7 @@
 package code.maths.geo;
 
 import code.maths.EquallableMathUtil;
+import code.maths.Rate;
 import org.junit.Test;
 
 
@@ -8,10 +9,10 @@ public class SitePointThreeDimsTest extends EquallableMathUtil {
 
     @Test
     public void new_SitePointThreeDims_1Test() {
-        CustPointThreeDims one_ = new CustPointThreeDims(5, 3, 0);
-        CustPointThreeDims two_ = new CustPointThreeDims(3, 5, 0);
-        CustPointThreeDims three_ = new CustPointThreeDims(2, 3, 0);
-//        CustPointThreeDims four_ = new CustPointThreeDims(4, 2, 0);
+        RatePointThreeDims one_ = pt(5, 3, 0);
+        RatePointThreeDims two_ = pt(3, 5, 0);
+        RatePointThreeDims three_ = pt(2, 3, 0);
+//        RatePointThreeDims four_ = new RatePointThreeDims(4, 2, 0);
         VectThreeDims eOne_ = new VectThreeDims(one_, two_);
         SitePointThreeDims s_ = new SitePointThreeDims(three_, one_, eOne_);
         assertEq(SiteInfo.QUAD_FOUR, s_.getNumber());
@@ -20,10 +21,10 @@ public class SitePointThreeDimsTest extends EquallableMathUtil {
 
     @Test
     public void new_SitePointThreeDims_2Test() {
-        CustPointThreeDims one_ = new CustPointThreeDims(5, 3, -1);
-        CustPointThreeDims two_ = new CustPointThreeDims(3, 5, 1);
-        CustPointThreeDims three_ = new CustPointThreeDims(2, 3, 0);
-//        CustPointThreeDims four_ = new CustPointThreeDims(4, 2, 0);
+        RatePointThreeDims one_ = pt(5, 3, -1);
+        RatePointThreeDims two_ = pt(3, 5, 1);
+        RatePointThreeDims three_ = pt(2, 3, 0);
+//        RatePointThreeDims four_ = new RatePointThreeDims(4, 2, 0);
         VectThreeDims eOne_ = new VectThreeDims(one_, two_);
         SitePointThreeDims s_ = new SitePointThreeDims(three_, one_, eOne_);
         assertEq(SiteInfo.QUAD_FOUR, s_.getNumber());
@@ -31,10 +32,10 @@ public class SitePointThreeDimsTest extends EquallableMathUtil {
 
     @Test
     public void new_SitePointThreeDims_3Test() {
-        CustPointThreeDims one_ = new CustPointThreeDims(5, 3, 0);
-        CustPointThreeDims two_ = new CustPointThreeDims(3, 5, 0);
-        CustPointThreeDims three_ = new CustPointThreeDims(4, 5, 0);
-//        CustPointThreeDims four_ = new CustPointThreeDims(4, 2, 0);
+        RatePointThreeDims one_ = pt(5, 3, 0);
+        RatePointThreeDims two_ = pt(3, 5, 0);
+        RatePointThreeDims three_ = pt(4, 5, 0);
+//        RatePointThreeDims four_ = new RatePointThreeDims(4, 2, 0);
         VectThreeDims eOne_ = new VectThreeDims(one_, two_);
         SitePointThreeDims s_ = new SitePointThreeDims(three_, one_, eOne_);
         assertEq(SiteInfo.QUAD_ONE, s_.getNumber());
@@ -42,10 +43,10 @@ public class SitePointThreeDimsTest extends EquallableMathUtil {
 
     @Test
     public void new_SitePointThreeDims_4Test() {
-        CustPointThreeDims one_ = new CustPointThreeDims(5, 3, -1);
-        CustPointThreeDims two_ = new CustPointThreeDims(3, 5, 1);
-        CustPointThreeDims three_ = new CustPointThreeDims(4, 5, 0);
-//        CustPointThreeDims four_ = new CustPointThreeDims(4, 2, 0);
+        RatePointThreeDims one_ = pt(5, 3, -1);
+        RatePointThreeDims two_ = pt(3, 5, 1);
+        RatePointThreeDims three_ = pt(4, 5, 0);
+//        RatePointThreeDims four_ = new RatePointThreeDims(4, 2, 0);
         VectThreeDims eOne_ = new VectThreeDims(one_, two_);
         SitePointThreeDims s_ = new SitePointThreeDims(three_, one_, eOne_);
         assertEq(SiteInfo.QUAD_ONE, s_.getNumber());
@@ -53,10 +54,10 @@ public class SitePointThreeDimsTest extends EquallableMathUtil {
 
     @Test
     public void new_SitePointThreeDims_5Test() {
-        CustPointThreeDims one_ = new CustPointThreeDims(5, 3, 0);
-        CustPointThreeDims two_ = new CustPointThreeDims(3, 5, 0);
-        CustPointThreeDims three_ = new CustPointThreeDims(8, 3, 0);
-//        CustPointThreeDims four_ = new CustPointThreeDims(4, 2, 0);
+        RatePointThreeDims one_ = pt(5, 3, 0);
+        RatePointThreeDims two_ = pt(3, 5, 0);
+        RatePointThreeDims three_ = pt(8, 3, 0);
+//        RatePointThreeDims four_ = new RatePointThreeDims(4, 2, 0);
         VectThreeDims eOne_ = new VectThreeDims(one_, two_);
         SitePointThreeDims s_ = new SitePointThreeDims(three_, one_, eOne_);
         assertEq(SiteInfo.QUAD_TWO, s_.getNumber());
@@ -64,10 +65,10 @@ public class SitePointThreeDimsTest extends EquallableMathUtil {
 
     @Test
     public void new_SitePointThreeDims_6Test() {
-        CustPointThreeDims one_ = new CustPointThreeDims(5, 3, -1);
-        CustPointThreeDims two_ = new CustPointThreeDims(3, 5, 1);
-        CustPointThreeDims three_ = new CustPointThreeDims(8, 3, 0);
-//        CustPointThreeDims four_ = new CustPointThreeDims(4, 2, 0);
+        RatePointThreeDims one_ = pt(5, 3, -1);
+        RatePointThreeDims two_ = pt(3, 5, 1);
+        RatePointThreeDims three_ = pt(8, 3, 0);
+//        RatePointThreeDims four_ = new RatePointThreeDims(4, 2, 0);
         VectThreeDims eOne_ = new VectThreeDims(one_, two_);
         SitePointThreeDims s_ = new SitePointThreeDims(three_, one_, eOne_);
         assertEq(SiteInfo.QUAD_TWO, s_.getNumber());
@@ -75,10 +76,10 @@ public class SitePointThreeDimsTest extends EquallableMathUtil {
 
     @Test
     public void new_SitePointThreeDims_7Test() {
-        CustPointThreeDims one_ = new CustPointThreeDims(5, 3, 0);
-        CustPointThreeDims two_ = new CustPointThreeDims(3, 5, 0);
-        CustPointThreeDims three_ = new CustPointThreeDims(3, -3, 0);
-//        CustPointThreeDims four_ = new CustPointThreeDims(4, 2, 0);
+        RatePointThreeDims one_ = pt(5, 3, 0);
+        RatePointThreeDims two_ = pt(3, 5, 0);
+        RatePointThreeDims three_ = pt(3, -3, 0);
+//        RatePointThreeDims four_ = new RatePointThreeDims(4, 2, 0);
         VectThreeDims eOne_ = new VectThreeDims(one_, two_);
         SitePointThreeDims s_ = new SitePointThreeDims(three_, one_, eOne_);
         assertEq(SiteInfo.QUAD_THREE, s_.getNumber());
@@ -86,10 +87,10 @@ public class SitePointThreeDimsTest extends EquallableMathUtil {
 
     @Test
     public void new_SitePointThreeDims_8Test() {
-        CustPointThreeDims one_ = new CustPointThreeDims(5, 3, -1);
-        CustPointThreeDims two_ = new CustPointThreeDims(3, 5, 1);
-        CustPointThreeDims three_ = new CustPointThreeDims(3, -3, 0);
-//        CustPointThreeDims four_ = new CustPointThreeDims(4, 2, 0);
+        RatePointThreeDims one_ = pt(5, 3, -1);
+        RatePointThreeDims two_ = pt(3, 5, 1);
+        RatePointThreeDims three_ = pt(3, -3, 0);
+//        RatePointThreeDims four_ = new RatePointThreeDims(4, 2, 0);
         VectThreeDims eOne_ = new VectThreeDims(one_, two_);
         SitePointThreeDims s_ = new SitePointThreeDims(three_, one_, eOne_);
         assertEq(SiteInfo.QUAD_THREE, s_.getNumber());
@@ -97,10 +98,10 @@ public class SitePointThreeDimsTest extends EquallableMathUtil {
 
     @Test
     public void new_SitePointThreeDims_9Test() {
-        CustPointThreeDims one_ = new CustPointThreeDims(5, 0, 3);
-        CustPointThreeDims two_ = new CustPointThreeDims(3, 0, 5);
-        CustPointThreeDims three_ = new CustPointThreeDims(2, 0, 3);
-//        CustPointThreeDims four_ = new CustPointThreeDims(4, 2, 0);
+        RatePointThreeDims one_ = pt(5, 0, 3);
+        RatePointThreeDims two_ = pt(3, 0, 5);
+        RatePointThreeDims three_ = pt(2, 0, 3);
+//        RatePointThreeDims four_ = new RatePointThreeDims(4, 2, 0);
         VectThreeDims eOne_ = new VectThreeDims(one_, two_);
         SitePointThreeDims s_ = new SitePointThreeDims(three_, one_, eOne_);
         assertEq(SiteInfo.QUAD_FOUR, s_.getNumber());
@@ -108,10 +109,10 @@ public class SitePointThreeDimsTest extends EquallableMathUtil {
 
     @Test
     public void new_SitePointThreeDims_10Test() {
-        CustPointThreeDims one_ = new CustPointThreeDims(5, 0, 3);
-        CustPointThreeDims two_ = new CustPointThreeDims(3, 0, 5);
-        CustPointThreeDims three_ = new CustPointThreeDims(4, 0, 5);
-//        CustPointThreeDims four_ = new CustPointThreeDims(4, 2, 0);
+        RatePointThreeDims one_ = pt(5, 0, 3);
+        RatePointThreeDims two_ = pt(3, 0, 5);
+        RatePointThreeDims three_ = pt(4, 0, 5);
+//        RatePointThreeDims four_ = new RatePointThreeDims(4, 2, 0);
         VectThreeDims eOne_ = new VectThreeDims(one_, two_);
         SitePointThreeDims s_ = new SitePointThreeDims(three_, one_, eOne_);
         assertEq(SiteInfo.QUAD_ONE, s_.getNumber());
@@ -119,10 +120,10 @@ public class SitePointThreeDimsTest extends EquallableMathUtil {
 
     @Test
     public void new_SitePointThreeDims_11Test() {
-        CustPointThreeDims one_ = new CustPointThreeDims(5, 0, 3);
-        CustPointThreeDims two_ = new CustPointThreeDims(3, 0, 5);
-        CustPointThreeDims three_ = new CustPointThreeDims(8, 0, 3);
-//        CustPointThreeDims four_ = new CustPointThreeDims(4, 2, 0);
+        RatePointThreeDims one_ = pt(5, 0, 3);
+        RatePointThreeDims two_ = pt(3, 0, 5);
+        RatePointThreeDims three_ = pt(8, 0, 3);
+//        RatePointThreeDims four_ = new RatePointThreeDims(4, 2, 0);
         VectThreeDims eOne_ = new VectThreeDims(one_, two_);
         SitePointThreeDims s_ = new SitePointThreeDims(three_, one_, eOne_);
         assertEq(SiteInfo.QUAD_TWO, s_.getNumber());
@@ -130,20 +131,20 @@ public class SitePointThreeDimsTest extends EquallableMathUtil {
 
     @Test
     public void new_SitePointThreeDims_12Test() {
-        CustPointThreeDims one_ = new CustPointThreeDims(5, 0, 3);
-        CustPointThreeDims two_ = new CustPointThreeDims(3, 0, 5);
-        CustPointThreeDims three_ = new CustPointThreeDims(3, 0, -3);
-//        CustPointThreeDims four_ = new CustPointThreeDims(4, 2, 0);
+        RatePointThreeDims one_ = pt(5, 0, 3);
+        RatePointThreeDims two_ = pt(3, 0, 5);
+        RatePointThreeDims three_ = pt(3, 0, -3);
+//        RatePointThreeDims four_ = new RatePointThreeDims(4, 2, 0);
         VectThreeDims eOne_ = new VectThreeDims(one_, two_);
         SitePointThreeDims s_ = new SitePointThreeDims(three_, one_, eOne_);
         assertEq(SiteInfo.QUAD_THREE, s_.getNumber());
     }
     @Test
     public void new_SitePointThreeDims_13Test() {
-        CustPointThreeDims one_ = new CustPointThreeDims(0, 5, 3);
-        CustPointThreeDims two_ = new CustPointThreeDims(0, 3, 5);
-        CustPointThreeDims three_ = new CustPointThreeDims(0, 2, 3);
-//        CustPointThreeDims four_ = new CustPointThreeDims(4, 2, 0);
+        RatePointThreeDims one_ = pt(0, 5, 3);
+        RatePointThreeDims two_ = pt(0, 3, 5);
+        RatePointThreeDims three_ = pt(0, 2, 3);
+//        RatePointThreeDims four_ = new RatePointThreeDims(4, 2, 0);
         VectThreeDims eOne_ = new VectThreeDims(one_, two_);
         SitePointThreeDims s_ = new SitePointThreeDims(three_, one_, eOne_);
         assertEq(SiteInfo.QUAD_FOUR, s_.getNumber());
@@ -151,10 +152,10 @@ public class SitePointThreeDimsTest extends EquallableMathUtil {
 
     @Test
     public void new_SitePointThreeDims_14Test() {
-        CustPointThreeDims one_ = new CustPointThreeDims(0, 5, 3);
-        CustPointThreeDims two_ = new CustPointThreeDims(0, 3, 5);
-        CustPointThreeDims three_ = new CustPointThreeDims(0, 4, 5);
-//        CustPointThreeDims four_ = new CustPointThreeDims(4, 2, 0);
+        RatePointThreeDims one_ = pt(0, 5, 3);
+        RatePointThreeDims two_ = pt(0, 3, 5);
+        RatePointThreeDims three_ = pt(0, 4, 5);
+//        RatePointThreeDims four_ = new RatePointThreeDims(4, 2, 0);
         VectThreeDims eOne_ = new VectThreeDims(one_, two_);
         SitePointThreeDims s_ = new SitePointThreeDims(three_, one_, eOne_);
         assertEq(SiteInfo.QUAD_ONE, s_.getNumber());
@@ -162,10 +163,10 @@ public class SitePointThreeDimsTest extends EquallableMathUtil {
 
     @Test
     public void new_SitePointThreeDims_15Test() {
-        CustPointThreeDims one_ = new CustPointThreeDims(0, 5, 3);
-        CustPointThreeDims two_ = new CustPointThreeDims(0, 3, 5);
-        CustPointThreeDims three_ = new CustPointThreeDims(0, 8, 3);
-//        CustPointThreeDims four_ = new CustPointThreeDims(4, 2, 0);
+        RatePointThreeDims one_ = pt(0, 5, 3);
+        RatePointThreeDims two_ = pt(0, 3, 5);
+        RatePointThreeDims three_ = pt(0, 8, 3);
+//        RatePointThreeDims four_ = new RatePointThreeDims(4, 2, 0);
         VectThreeDims eOne_ = new VectThreeDims(one_, two_);
         SitePointThreeDims s_ = new SitePointThreeDims(three_, one_, eOne_);
         assertEq(SiteInfo.QUAD_TWO, s_.getNumber());
@@ -173,12 +174,16 @@ public class SitePointThreeDimsTest extends EquallableMathUtil {
 
     @Test
     public void new_SitePointThreeDims_16Test() {
-        CustPointThreeDims one_ = new CustPointThreeDims(0, 5, 3);
-        CustPointThreeDims two_ = new CustPointThreeDims(0, 3, 5);
-        CustPointThreeDims three_ = new CustPointThreeDims(0, 3, -3);
-//        CustPointThreeDims four_ = new CustPointThreeDims(4, 2, 0);
+        RatePointThreeDims one_ = pt(0, 5, 3);
+        RatePointThreeDims two_ = pt(0, 3, 5);
+        RatePointThreeDims three_ = pt(0, 3, -3);
+//        RatePointThreeDims four_ = new RatePointThreeDims(4, 2, 0);
         VectThreeDims eOne_ = new VectThreeDims(one_, two_);
         SitePointThreeDims s_ = new SitePointThreeDims(three_, one_, eOne_);
         assertEq(SiteInfo.QUAD_THREE, s_.getNumber());
+    }
+
+    private static RatePointThreeDims pt(int _x, int _y, int _z) {
+        return new RatePointThreeDims(new Rate(_x), new Rate(_y), new Rate(_z));
     }
 }

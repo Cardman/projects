@@ -1,5 +1,7 @@
 package code.maths;
 
+import code.maths.geo.RatePoint;
+import code.maths.geo.RatePointThreeDims;
 import code.util.core.StringUtil;
 import org.junit.Assert;
 
@@ -96,6 +98,19 @@ public abstract class EquallableMathUtil {
         Assert.assertEquals(_expected.getXcoords(),_result.getXcoords());
         Assert.assertEquals(_expected.getYcoords(),_result.getYcoords());
         Assert.assertEquals(_expected.getZcoords(),_result.getZcoords());
+    }
+
+    public static void assertEq(RatePoint _expected, RatePoint _result) {
+        Assert.assertNotNull(_result);
+        assertEq(_expected.getXcoords(),_result.getXcoords());
+        assertEq(_expected.getYcoords(),_result.getYcoords());
+    }
+
+    public static void assertEq(RatePointThreeDims _expected, RatePointThreeDims _result) {
+        Assert.assertNotNull(_result);
+        assertEq(_expected.getXcoords(),_result.getXcoords());
+        assertEq(_expected.getYcoords(),_result.getYcoords());
+        assertEq(_expected.getZcoords(),_result.getZcoords());
     }
 
 }

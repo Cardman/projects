@@ -1,4 +1,5 @@
 package code.maths.geo;
+import code.maths.Rate;
 import code.util.CustList;
 import code.util.IdList;
 
@@ -32,60 +33,60 @@ public final class DelaunayThreeDims {
       return triangulation*/
 
 
-    public void compute(CustList<CustPointThreeDims> _points) {
+    public void compute(CustList<RatePointThreeDims> _points) {
         triangles.clear();
         if (_points.isEmpty()) {
             return;
         }
-        int xMax_ = _points.first().getXcoords();
-        int xMin_ = _points.first().getXcoords();
-        int yMax_ = _points.first().getYcoords();
-        int yMin_ = _points.first().getYcoords();
-        int zMax_ = _points.first().getZcoords();
-        int zMin_ = _points.first().getZcoords();
-        for (CustPointThreeDims c: _points) {
-            if (c.getXcoords() < xMin_) {
+        Rate xMax_ = _points.first().getXcoords();
+        Rate xMin_ = _points.first().getXcoords();
+        Rate yMax_ = _points.first().getYcoords();
+        Rate yMin_ = _points.first().getYcoords();
+        Rate zMax_ = _points.first().getZcoords();
+        Rate zMin_ = _points.first().getZcoords();
+        for (RatePointThreeDims c: _points) {
+            if (Rate.strLower(c.getXcoords(), xMin_)) {
                 xMin_ = c.getXcoords();
             }
-            if (c.getXcoords() > xMax_) {
+            if (Rate.strGreater(c.getXcoords(), xMax_)) {
                 xMax_ = c.getXcoords();
             }
-            if (c.getYcoords() < yMin_) {
+            if (Rate.strLower(c.getYcoords(), yMin_)) {
                 yMin_ = c.getYcoords();
             }
-            if (c.getYcoords() > yMax_) {
+            if (Rate.strGreater(c.getYcoords(), yMax_)) {
                 yMax_ = c.getYcoords();
             }
-            if (c.getZcoords() < zMin_) {
+            if (Rate.strLower(c.getZcoords(), zMin_)) {
                 zMin_ = c.getZcoords();
             }
-            if (c.getZcoords() > zMax_) {
+            if (Rate.strGreater(c.getZcoords(), zMax_)) {
                 zMax_ = c.getZcoords();
             }
         }
-        xMin_--;
-        yMin_--;
-        zMin_--;
-        xMax_++;
-        yMax_++;
-        zMax_++;
+        xMin_ = Rate.minus(xMin_,Rate.one());
+        yMin_ = Rate.minus(yMin_,Rate.one());
+        zMin_ = Rate.minus(zMin_,Rate.one());
+        xMax_ = Rate.plus(xMax_,Rate.one());
+        yMax_ = Rate.plus(yMax_,Rate.one());
+        zMax_ = Rate.plus(zMax_,Rate.one());
         process(_points, xMax_, xMin_, yMax_, yMin_, zMax_, zMin_);
     }
 
-    private void process(CustList<CustPointThreeDims> _points, int _xMax, int _xMin, int _yMax, int _yMin, int _zMax, int _zMin) {
-        CustPointThreeDims firstPoint_ = new CustPointThreeDims(_xMin, _yMin, _zMin);
-        CustPointThreeDims secondPoint_ = new CustPointThreeDims(_xMax + _xMax - _xMin, _yMin, _zMin);
-        CustPointThreeDims thirdPoint_ = new CustPointThreeDims(_xMin, _yMax + _yMax - _yMin, _zMin);
-        CustPointThreeDims fourthPoint_ = new CustPointThreeDims(_xMin, _yMin, _zMax + _zMax - _zMin);
+    private void process(CustList<RatePointThreeDims> _points, Rate _xMax, Rate _xMin, Rate _yMax, Rate _yMin, Rate _zMax, Rate _zMin) {
+        RatePointThreeDims firstPoint_ = new RatePointThreeDims(_xMin, _yMin, _zMin);
+        RatePointThreeDims secondPoint_ = new RatePointThreeDims(Rate.minus(Rate.plus(_xMax, _xMax),_xMin), _yMin, _zMin);
+        RatePointThreeDims thirdPoint_ = new RatePointThreeDims(_xMin, Rate.minus(Rate.plus(_yMax, _yMax), _yMin), _zMin);
+        RatePointThreeDims fourthPoint_ = new RatePointThreeDims(_xMin, _yMin, Rate.minus(Rate.plus(_zMax, _zMax), _zMin));
         Tetrahedron superTriangle_ = new Tetrahedron(firstPoint_, secondPoint_, thirdPoint_, fourthPoint_);
         triangles.add(superTriangle_);
-        for (CustPointThreeDims c: _points) {
+        for (RatePointThreeDims c: _points) {
             loop(c);
         }
         afterLoop(superTriangle_);
     }
 
-    private void loop(CustPointThreeDims _c) {
+    private void loop(RatePointThreeDims _c) {
         CustList<Tetrahedron> badTriangles_ = new CustList<Tetrahedron>();
         for (Tetrahedron t: triangles) {
             if (t.isInCircum(_c)) {
@@ -121,8 +122,8 @@ public final class DelaunayThreeDims {
 
     private static boolean isRemove(Tetrahedron _superTriangle, Tetrahedron _b) {
         boolean remove_ = false;
-        for (CustPointThreeDims s: _superTriangle.getPoints()) {
-            for (CustPointThreeDims p: _b.getPoints()) {
+        for (RatePointThreeDims s: _superTriangle.getPoints()) {
+            for (RatePointThreeDims p: _b.getPoints()) {
                 if (s == p) {
                     remove_ = true;
                     break;

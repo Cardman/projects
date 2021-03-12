@@ -11,16 +11,16 @@ public final class Tetrahedron implements Displayable {
 
     private static final String SEPARATOR = ";";
 
-    private final CustPointThreeDims firstPoint;
+    private final RatePointThreeDims firstPoint;
 
-    private final CustPointThreeDims secondPoint;
+    private final RatePointThreeDims secondPoint;
 
-    private final CustPointThreeDims thirdPoint;
+    private final RatePointThreeDims thirdPoint;
 
-    private final CustPointThreeDims fourthPoint;
+    private final RatePointThreeDims fourthPoint;
 
-    public Tetrahedron(CustPointThreeDims _firstPoint, CustPointThreeDims _secondPoint,
-            CustPointThreeDims _thirdPoint, CustPointThreeDims _fourthPoint) {
+    public Tetrahedron(RatePointThreeDims _firstPoint, RatePointThreeDims _secondPoint,
+            RatePointThreeDims _thirdPoint, RatePointThreeDims _fourthPoint) {
         firstPoint = _firstPoint;
         secondPoint = _secondPoint;
         thirdPoint = _thirdPoint;
@@ -47,8 +47,8 @@ public final class Tetrahedron implements Displayable {
         return l_;
     }
 
-    public CustList<CustPointThreeDims> getPoints() {
-        CustList<CustPointThreeDims> l_ = new CustList<CustPointThreeDims>();
+    public CustList<RatePointThreeDims> getPoints() {
+        CustList<RatePointThreeDims> l_ = new CustList<RatePointThreeDims>();
         l_.add(firstPoint);
         l_.add(secondPoint);
         l_.add(thirdPoint);
@@ -56,7 +56,7 @@ public final class Tetrahedron implements Displayable {
         return l_;
     }
 
-    public boolean isInCircum(CustPointThreeDims _point) {
+    public boolean isInCircum(RatePointThreeDims _point) {
         RatePointThreeDims omega_;
         omega_ = getCircumCenter();
         if (omega_ == null) {
@@ -70,7 +70,7 @@ public final class Tetrahedron implements Displayable {
         return Rate.strGreater(firstMember_, secondMember_);
     }
 
-    private static Rate square(Rate _x, Rate _y, Rate _z, CustPointThreeDims _point) {
+    private static Rate square(Rate _x, Rate _y, Rate _z, RatePointThreeDims _point) {
         Rate sum_ = Rate.zero();
         sum_.addNb(Rate.powNb(Rate.minus(_x, new Rate(_point.getXcoords())), new Rate(2)));
         sum_.addNb(Rate.powNb(Rate.minus(_y, new Rate(_point.getYcoords())), new Rate(2)));
@@ -93,37 +93,37 @@ public final class Tetrahedron implements Displayable {
 //    }
 
     public RatePointThreeDims getGravityCenter() {
-        long x_ = firstPoint.getXcoords();
-        x_ += secondPoint.getXcoords();
-        x_ += thirdPoint.getXcoords();
-        x_ += fourthPoint.getXcoords();
-        long y_ = firstPoint.getYcoords();
-        y_ += secondPoint.getYcoords();
-        y_ += thirdPoint.getYcoords();
-        y_ += fourthPoint.getYcoords();
-        long z_ = firstPoint.getZcoords();
-        z_ += secondPoint.getZcoords();
-        z_ += thirdPoint.getZcoords();
-        z_ += fourthPoint.getZcoords();
-        Rate xr_ = new Rate(x_, NB_POINTS);
-        Rate yr_ = new Rate(y_, NB_POINTS);
-        Rate zr_ = new Rate(z_, NB_POINTS);
+        Rate x_ = new Rate(firstPoint.getXcoords());
+        x_.addNb(secondPoint.getXcoords());
+        x_.addNb(thirdPoint.getXcoords());
+        x_.addNb(fourthPoint.getXcoords());
+        Rate y_ = new Rate(firstPoint.getYcoords());
+        y_.addNb(secondPoint.getYcoords());
+        y_.addNb(thirdPoint.getYcoords());
+        y_.addNb(fourthPoint.getYcoords());
+        Rate z_ = new Rate(firstPoint.getZcoords());
+        z_.addNb(secondPoint.getZcoords());
+        z_.addNb(thirdPoint.getZcoords());
+        z_.addNb(fourthPoint.getZcoords());
+        Rate xr_ = Rate.divide(x_, new Rate(NB_POINTS));
+        Rate yr_ = Rate.divide(y_, new Rate(NB_POINTS));
+        Rate zr_ = Rate.divide(z_, new Rate(NB_POINTS));
         return new RatePointThreeDims(xr_, yr_, zr_);
     }
 
     public RatePointThreeDims getCircumCenter() {
-        long sumOne_ = (long)firstPoint.getXcoords() * firstPoint.getXcoords();
-        sumOne_ += (long)firstPoint.getYcoords() * firstPoint.getYcoords();
-        sumOne_ += (long)firstPoint.getZcoords() * firstPoint.getZcoords();
-        long sumTwo_ = (long)secondPoint.getXcoords() * secondPoint.getXcoords();
-        sumTwo_ += (long)secondPoint.getYcoords() * secondPoint.getYcoords();
-        sumTwo_ += (long)secondPoint.getZcoords() * secondPoint.getZcoords();
-        long sumThree_ = (long)thirdPoint.getXcoords() * thirdPoint.getXcoords();
-        sumThree_ += (long)thirdPoint.getYcoords() * thirdPoint.getYcoords();
-        sumThree_ += (long)thirdPoint.getZcoords() * thirdPoint.getZcoords();
-        long sumFour_ = (long)fourthPoint.getXcoords() * fourthPoint.getXcoords();
-        sumFour_ += (long)fourthPoint.getYcoords() * fourthPoint.getYcoords();
-        sumFour_ += (long)fourthPoint.getZcoords() * fourthPoint.getZcoords();
+        Rate sumOne_ = Rate.multiply(firstPoint.getXcoords(), firstPoint.getXcoords());
+        sumOne_.addNb(Rate.multiply(firstPoint.getYcoords(), firstPoint.getYcoords()));
+        sumOne_.addNb(Rate.multiply(firstPoint.getZcoords(), firstPoint.getZcoords()));
+        Rate sumTwo_ = Rate.multiply(secondPoint.getXcoords(), secondPoint.getXcoords());
+        sumTwo_.addNb(Rate.multiply(secondPoint.getYcoords(), secondPoint.getYcoords()));
+        sumTwo_.addNb(Rate.multiply(secondPoint.getZcoords(), secondPoint.getZcoords()));
+        Rate sumThree_ = Rate.multiply(thirdPoint.getXcoords(), thirdPoint.getXcoords());
+        sumThree_.addNb(Rate.multiply(thirdPoint.getYcoords(), thirdPoint.getYcoords()));
+        sumThree_.addNb(Rate.multiply(thirdPoint.getZcoords(), thirdPoint.getZcoords()));
+        Rate sumFour_ = Rate.multiply(fourthPoint.getXcoords(), fourthPoint.getXcoords());
+        sumFour_.addNb(Rate.multiply(fourthPoint.getYcoords(), fourthPoint.getYcoords()));
+        sumFour_.addNb(Rate.multiply(fourthPoint.getZcoords(), fourthPoint.getZcoords()));
         Matrix denMatrix_ = new Matrix();
         Vect v_ = new Vect();
         v_.add(new Rate(firstPoint.getXcoords()));
@@ -262,79 +262,79 @@ public final class Tetrahedron implements Displayable {
 //        return new Pair<Pair<Long,Long>,Long>(new Pair<Long,Long>(x_, y_),dp_);
     }
 
-    public static CompactSpacePoint getEq(CustPointThreeDims _one,
-            CustPointThreeDims _two,
-            CustPointThreeDims _three) {
-        long a_ =(long) (_two.getYcoords() - _one.getYcoords()) * (_three.getZcoords() - _two.getZcoords());
-        a_ -= (long)(_two.getZcoords() - _one.getZcoords()) * (_three.getYcoords() - _two.getYcoords());
-        long b_ = (long)-(_two.getXcoords() - _one.getXcoords()) * (_three.getZcoords() - _two.getZcoords());
-        b_ += (long)(_two.getZcoords() - _one.getZcoords()) * (_three.getXcoords() - _two.getXcoords());
-        long c_ = (long)(_two.getXcoords() - _one.getXcoords()) * (_three.getYcoords() - _two.getYcoords());
-        c_ -= (long)(_two.getYcoords() - _one.getYcoords()) * (_three.getXcoords() - _two.getXcoords());
-        long d_ = a_ * _one.getXcoords() + b_ * _one.getYcoords() + c_ * _one.getZcoords();
-        return new CompactSpacePoint(b_, c_, a_,d_);
-    }
-    public static CompactSpacePoint getCircumCenter(CustPointThreeDims _one,
-            CustPointThreeDims _two,
-            CustPointThreeDims _three) {
-        long a_ = (long)(_two.getYcoords() - _one.getYcoords()) * (_three.getZcoords() - _two.getZcoords());
-        a_ -= (long)(_two.getZcoords() - _one.getZcoords()) * (_three.getYcoords() - _two.getYcoords());
-        long b_ = (long)-(_two.getXcoords() - _one.getXcoords()) * (_three.getZcoords() - _two.getZcoords());
-        b_ += (long)(_two.getZcoords() - _one.getZcoords()) * (_three.getXcoords() - _two.getXcoords());
-        long c_ =(long)(_two.getXcoords() - _one.getXcoords()) * (_three.getYcoords() - _two.getYcoords());
-        c_ -= (long)(_two.getYcoords() - _one.getYcoords()) * (_three.getXcoords() - _two.getXcoords());
+//    public static CompactSpacePoint getEq(RatePointThreeDims _one,
+//            RatePointThreeDims _two,
+//            RatePointThreeDims _three) {
+//        long a_ =(long) (_two.getYcoords() - _one.getYcoords()) * (_three.getZcoords() - _two.getZcoords());
+//        a_ -= (long)(_two.getZcoords() - _one.getZcoords()) * (_three.getYcoords() - _two.getYcoords());
+//        long b_ = (long)-(_two.getXcoords() - _one.getXcoords()) * (_three.getZcoords() - _two.getZcoords());
+//        b_ += (long)(_two.getZcoords() - _one.getZcoords()) * (_three.getXcoords() - _two.getXcoords());
+//        long c_ = (long)(_two.getXcoords() - _one.getXcoords()) * (_three.getYcoords() - _two.getYcoords());
+//        c_ -= (long)(_two.getYcoords() - _one.getYcoords()) * (_three.getXcoords() - _two.getXcoords());
 //        long d_ = a_ * _one.getXcoords() + b_ * _one.getYcoords() + c_ * _one.getZcoords();
-        VectThreeDims n_ = new VectThreeDims((int) a_, (int) b_, (int) c_);
-        VectThreeDims eOneTwo_ = new VectThreeDims(_one, _two);
-        long x_;
-        long y_;
-        long z_;
-        x_ = (long)_one.getXcoords() + _two.getXcoords();
-        y_ = (long)_one.getYcoords() + _two.getYcoords();
-        z_ = (long)_one.getZcoords() + _two.getZcoords();
-        CompactSpacePoint midOneTwo_;
-        midOneTwo_ = new CompactSpacePoint(y_, z_, x_,2L);
-        VectThreeDims lOneTwo_ = n_.vectProd(eOneTwo_);
-        VectThreeDims eOneThree_ = new VectThreeDims(_one, _three);
-        x_ = (long)_one.getXcoords() + _three.getXcoords();
-        y_ = (long)_one.getYcoords() + _three.getYcoords();
-        z_ = (long)_one.getZcoords() + _three.getZcoords();
-        CompactSpacePoint midOneThree_;
-        midOneThree_ = new CompactSpacePoint(y_, z_, x_,2L);
-        VectThreeDims lOneThree_ = n_.vectProd(eOneThree_);
-        return intersection(midOneTwo_, lOneTwo_, midOneThree_, lOneThree_);
-    }
+//        return new CompactSpacePoint(b_, c_, a_,d_);
+//    }
+//    public static CompactSpacePoint getCircumCenter(RatePointThreeDims _one,
+//            RatePointThreeDims _two,
+//            RatePointThreeDims _three) {
+//        long a_ = (long)(_two.getYcoords() - _one.getYcoords()) * (_three.getZcoords() - _two.getZcoords());
+//        a_ -= (long)(_two.getZcoords() - _one.getZcoords()) * (_three.getYcoords() - _two.getYcoords());
+//        long b_ = (long)-(_two.getXcoords() - _one.getXcoords()) * (_three.getZcoords() - _two.getZcoords());
+//        b_ += (long)(_two.getZcoords() - _one.getZcoords()) * (_three.getXcoords() - _two.getXcoords());
+//        long c_ =(long)(_two.getXcoords() - _one.getXcoords()) * (_three.getYcoords() - _two.getYcoords());
+//        c_ -= (long)(_two.getYcoords() - _one.getYcoords()) * (_three.getXcoords() - _two.getXcoords());
+////        long d_ = a_ * _one.getXcoords() + b_ * _one.getYcoords() + c_ * _one.getZcoords();
+//        VectThreeDims n_ = new VectThreeDims((int) a_, (int) b_, (int) c_);
+//        VectThreeDims eOneTwo_ = new VectThreeDims(_one, _two);
+//        long x_;
+//        long y_;
+//        long z_;
+//        x_ = (long)_one.getXcoords() + _two.getXcoords();
+//        y_ = (long)_one.getYcoords() + _two.getYcoords();
+//        z_ = (long)_one.getZcoords() + _two.getZcoords();
+//        CompactSpacePoint midOneTwo_;
+//        midOneTwo_ = new CompactSpacePoint(y_, z_, x_,2L);
+//        VectThreeDims lOneTwo_ = n_.vectProd(eOneTwo_);
+//        VectThreeDims eOneThree_ = new VectThreeDims(_one, _three);
+//        x_ = (long)_one.getXcoords() + _three.getXcoords();
+//        y_ = (long)_one.getYcoords() + _three.getYcoords();
+//        z_ = (long)_one.getZcoords() + _three.getZcoords();
+//        CompactSpacePoint midOneThree_;
+//        midOneThree_ = new CompactSpacePoint(y_, z_, x_,2L);
+//        VectThreeDims lOneThree_ = n_.vectProd(eOneThree_);
+//        return intersection(midOneTwo_, lOneTwo_, midOneThree_, lOneThree_);
+//    }
 
-    public static CompactSpacePoint intersection(
-            CompactSpacePoint _ptOne,
-            VectThreeDims _vOne,
-            CompactSpacePoint _ptTwo,
-            VectThreeDims _vTwo) {
-        long n_ = (_ptTwo.getZcoords() - _ptOne.getZcoords()) * _vTwo.getDeltay();
-        n_ -= (_ptTwo.getXcoords() - _ptOne.getXcoords()) * _vTwo.getDeltax();
-        long firstPart_ = (long) _vOne.getDeltax() * _vTwo.getDeltay();
-        long secondPart_ = (long) _vOne.getDeltay() * _vTwo.getDeltax();
-        long d_ = 2 *(firstPart_ - secondPart_);
-        long x_ = _ptOne.getCommon() * n_ * _vOne.getDeltax() + d_ * _ptOne.getZcoords();
-        long y_ = _ptOne.getCommon() * n_ * _vOne.getDeltay() + d_ * _ptOne.getXcoords();
-        long z_ = _ptOne.getCommon() * n_ * _vOne.getDeltaz() + d_ * _ptOne.getYcoords();
-        long dint_ = _ptOne.getCommon() * d_;
-        return new CompactSpacePoint(y_, z_, x_,dint_);
-    }
+//    public static CompactSpacePoint intersection(
+//            CompactSpacePoint _ptOne,
+//            VectThreeDims _vOne,
+//            CompactSpacePoint _ptTwo,
+//            VectThreeDims _vTwo) {
+//        long n_ = (_ptTwo.getZcoords() - _ptOne.getZcoords()) * _vTwo.getDeltay();
+//        n_ -= (_ptTwo.getXcoords() - _ptOne.getXcoords()) * _vTwo.getDeltax();
+//        long firstPart_ = (long) _vOne.getDeltax() * _vTwo.getDeltay();
+//        long secondPart_ = (long) _vOne.getDeltay() * _vTwo.getDeltax();
+//        long d_ = 2 *(firstPart_ - secondPart_);
+//        long x_ = _ptOne.getCommon() * n_ * _vOne.getDeltax() + d_ * _ptOne.getZcoords();
+//        long y_ = _ptOne.getCommon() * n_ * _vOne.getDeltay() + d_ * _ptOne.getXcoords();
+//        long z_ = _ptOne.getCommon() * n_ * _vOne.getDeltaz() + d_ * _ptOne.getYcoords();
+//        long dint_ = _ptOne.getCommon() * d_;
+//        return new CompactSpacePoint(y_, z_, x_,dint_);
+//    }
 
-    public CustPointThreeDims getFirstPoint() {
+    public RatePointThreeDims getFirstPoint() {
         return firstPoint;
     }
 
-    public CustPointThreeDims getSecondPoint() {
+    public RatePointThreeDims getSecondPoint() {
         return secondPoint;
     }
 
-    public CustPointThreeDims getThirdPoint() {
+    public RatePointThreeDims getThirdPoint() {
         return thirdPoint;
     }
 
-    public CustPointThreeDims getFourthPoint() {
+    public RatePointThreeDims getFourthPoint() {
         return fourthPoint;
     }
 

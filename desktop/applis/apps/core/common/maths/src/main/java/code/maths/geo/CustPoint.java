@@ -2,15 +2,12 @@ package code.maths.geo;
 import code.util.StringList;
 import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
-import code.util.ints.Displayable;
 
-public final class CustPoint implements Displayable {
+public final class CustPoint {
 
     private static final String SEPARATOR = ",";
-    private int xCoords;
-    private int yCoords;
-    public CustPoint() {
-    }
+    private final int xCoords;
+    private final int yCoords;
 
     public CustPoint(int _x, int _y) {
         xCoords = _x;
@@ -28,14 +25,9 @@ public final class CustPoint implements Displayable {
     public int getXcoords() {
         return xCoords;
     }
-    public void setXcoords(int _x) {
-        xCoords = _x;
-    }
+
     public int getYcoords() {
         return yCoords;
-    }
-    public void setYcoords(int _y) {
-        yCoords = _y;
     }
 
     public boolean eq(CustPoint _obj) {
@@ -45,13 +37,4 @@ public final class CustPoint implements Displayable {
         return _obj.yCoords == yCoords;
     }
 
-    
-    @Override
-    public String display() {
-        StringBuilder str_ = new StringBuilder();
-        str_.append(xCoords);
-        str_.append(SEPARATOR);
-        str_.append(yCoords);
-        return str_.toString();
-    }
 }

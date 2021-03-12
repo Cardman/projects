@@ -1,6 +1,7 @@
 package code.maths.geo;
 
 import code.maths.EquallableMathUtil;
+import code.maths.Rate;
 import org.junit.Test;
 
 
@@ -8,10 +9,10 @@ public class EdgeTest extends EquallableMathUtil {
 
     @Test
     public void intersect1Test() {
-        CustPoint one_ = new CustPoint(1, 0);
-        CustPoint two_ = new CustPoint(3, 2);
-        CustPoint three_ = new CustPoint(0, 0);
-        CustPoint four_ = new CustPoint(4, 2);
+        RatePoint one_ = newPt(1, 0);
+        RatePoint two_ = newPt(3, 2);
+        RatePoint three_ = newPt(0, 0);
+        RatePoint four_ = newPt(4, 2);
         Edge oneEd_ = new Edge(one_, two_);
         Edge twoEd_ = new Edge(three_, four_);
         assertTrue(twoEd_.intersect(oneEd_));
@@ -19,10 +20,10 @@ public class EdgeTest extends EquallableMathUtil {
 
     @Test
     public void intersect2Test() {
-        CustPoint one_ = new CustPoint(3, 2);
-        CustPoint two_ = new CustPoint(5, 4);
-        CustPoint three_ = new CustPoint(0, 0);
-        CustPoint four_ = new CustPoint(4, 2);
+        RatePoint one_ = newPt(3, 2);
+        RatePoint two_ = newPt(5, 4);
+        RatePoint three_ = newPt(0, 0);
+        RatePoint four_ = newPt(4, 2);
         Edge oneEd_ = new Edge(one_, two_);
         Edge twoEd_ = new Edge(three_, four_);
         assertTrue(!twoEd_.intersect(oneEd_));
@@ -30,10 +31,10 @@ public class EdgeTest extends EquallableMathUtil {
 
     @Test
     public void intersect3Test() {
-        CustPoint one_ = new CustPoint(2, 1);
-        CustPoint two_ = new CustPoint(6, 3);
-        CustPoint three_ = new CustPoint(0, 0);
-        CustPoint four_ = new CustPoint(4, 2);
+        RatePoint one_ = newPt(2, 1);
+        RatePoint two_ = newPt(6, 3);
+        RatePoint three_ = newPt(0, 0);
+        RatePoint four_ = newPt(4, 2);
         Edge oneEd_ = new Edge(one_, two_);
         Edge twoEd_ = new Edge(three_, four_);
         assertTrue(twoEd_.intersect(oneEd_));
@@ -41,10 +42,10 @@ public class EdgeTest extends EquallableMathUtil {
 
     @Test
     public void intersect4Test() {
-        CustPoint one_ = new CustPoint(4, 2);
-        CustPoint two_ = new CustPoint(6, 3);
-        CustPoint three_ = new CustPoint(0, 0);
-        CustPoint four_ = new CustPoint(4, 2);
+        RatePoint one_ = newPt(4, 2);
+        RatePoint two_ = newPt(6, 3);
+        RatePoint three_ = newPt(0, 0);
+        RatePoint four_ = newPt(4, 2);
         Edge oneEd_ = new Edge(one_, two_);
         Edge twoEd_ = new Edge(three_, four_);
         assertTrue(twoEd_.intersect(oneEd_));
@@ -52,10 +53,10 @@ public class EdgeTest extends EquallableMathUtil {
 
     @Test
     public void intersect5Test() {
-        CustPoint one_ = new CustPoint(2, 1);
-        CustPoint two_ = new CustPoint(0, 3);
-        CustPoint three_ = new CustPoint(0, 0);
-        CustPoint four_ = new CustPoint(4, 2);
+        RatePoint one_ = newPt(2, 1);
+        RatePoint two_ = newPt(0, 3);
+        RatePoint three_ = newPt(0, 0);
+        RatePoint four_ = newPt(4, 2);
         Edge oneEd_ = new Edge(one_, two_);
         Edge twoEd_ = new Edge(three_, four_);
         assertTrue(twoEd_.intersect(oneEd_));
@@ -63,10 +64,10 @@ public class EdgeTest extends EquallableMathUtil {
 
     @Test
     public void intersect6Test() {
-        CustPoint one_ = new CustPoint(4, 1);
-        CustPoint two_ = new CustPoint(6, 3);
-        CustPoint three_ = new CustPoint(0, 0);
-        CustPoint four_ = new CustPoint(4, 2);
+        RatePoint one_ = newPt(4, 1);
+        RatePoint two_ = newPt(6, 3);
+        RatePoint three_ = newPt(0, 0);
+        RatePoint four_ = newPt(4, 2);
         Edge oneEd_ = new Edge(one_, two_);
         Edge twoEd_ = new Edge(three_, four_);
         assertTrue(!twoEd_.intersect(oneEd_));
@@ -74,10 +75,10 @@ public class EdgeTest extends EquallableMathUtil {
 
     @Test
     public void intersect7Test() {
-        CustPoint one_ = new CustPoint(0, 0);
-        CustPoint two_ = new CustPoint(4, 2);
-        CustPoint three_ = new CustPoint(2, 1);
-        CustPoint four_ = new CustPoint(6, 3);
+        RatePoint one_ = newPt(0, 0);
+        RatePoint two_ = newPt(4, 2);
+        RatePoint three_ = newPt(2, 1);
+        RatePoint four_ = newPt(6, 3);
         Edge oneEd_ = new Edge(one_, two_);
         Edge twoEd_ = new Edge(three_, four_);
         assertTrue(twoEd_.intersect(oneEd_));
@@ -85,10 +86,10 @@ public class EdgeTest extends EquallableMathUtil {
 
     @Test
     public void intersect8Test() {
-        CustPoint one_ = new CustPoint(4, 2);
-        CustPoint two_ = new CustPoint(0, 0);
-        CustPoint three_ = new CustPoint(4, 2);
-        CustPoint four_ = new CustPoint(6, 3);
+        RatePoint one_ = newPt(4, 2);
+        RatePoint two_ = newPt(0, 0);
+        RatePoint three_ = newPt(4, 2);
+        RatePoint four_ = newPt(6, 3);
         Edge oneEd_ = new Edge(one_, two_);
         Edge twoEd_ = new Edge(three_, four_);
         assertTrue(twoEd_.intersect(oneEd_));
@@ -96,10 +97,10 @@ public class EdgeTest extends EquallableMathUtil {
 
     @Test
     public void intersectNotContainsBound1Test() {
-        CustPoint one_ = new CustPoint(4, 2);
-        CustPoint two_ = new CustPoint(0, 0);
-        CustPoint three_ = new CustPoint(4, 2);
-        CustPoint four_ = new CustPoint(6, 3);
+        RatePoint one_ = newPt(4, 2);
+        RatePoint two_ = newPt(0, 0);
+        RatePoint three_ = newPt(4, 2);
+        RatePoint four_ = newPt(6, 3);
         Edge oneEd_ = new Edge(one_, two_);
         Edge twoEd_ = new Edge(three_, four_);
         assertTrue(!twoEd_.intersectNotContainsBound(oneEd_));
@@ -107,10 +108,10 @@ public class EdgeTest extends EquallableMathUtil {
 
     @Test
     public void intersectNotContainsBound2Test() {
-        CustPoint one_ = new CustPoint(0, 0);
-        CustPoint two_ = new CustPoint(4, 2);
-        CustPoint three_ = new CustPoint(4, 2);
-        CustPoint four_ = new CustPoint(6, 3);
+        RatePoint one_ = newPt(0, 0);
+        RatePoint two_ = newPt(4, 2);
+        RatePoint three_ = newPt(4, 2);
+        RatePoint four_ = newPt(6, 3);
         Edge oneEd_ = new Edge(one_, two_);
         Edge twoEd_ = new Edge(three_, four_);
         assertTrue(!twoEd_.intersectNotContainsBound(oneEd_));
@@ -118,10 +119,10 @@ public class EdgeTest extends EquallableMathUtil {
 
     @Test
     public void intersectNotContainsBound3Test() {
-        CustPoint one_ = new CustPoint(4, 2);
-        CustPoint two_ = new CustPoint(0, 0);
-        CustPoint three_ = new CustPoint(4, 2);
-        CustPoint four_ = new CustPoint(6, 3);
+        RatePoint one_ = newPt(4, 2);
+        RatePoint two_ = newPt(0, 0);
+        RatePoint three_ = newPt(4, 2);
+        RatePoint four_ = newPt(6, 3);
         Edge oneEd_ = new Edge(one_, two_);
         Edge twoEd_ = new Edge(three_, four_);
         assertTrue(!oneEd_.intersectNotContainsBound(twoEd_));
@@ -129,10 +130,10 @@ public class EdgeTest extends EquallableMathUtil {
 
     @Test
     public void intersectNotContainsBound4Test() {
-        CustPoint one_ = new CustPoint(0, 0);
-        CustPoint two_ = new CustPoint(4, 2);
-        CustPoint three_ = new CustPoint(4, 2);
-        CustPoint four_ = new CustPoint(6, 3);
+        RatePoint one_ = newPt(0, 0);
+        RatePoint two_ = newPt(4, 2);
+        RatePoint three_ = newPt(4, 2);
+        RatePoint four_ = newPt(6, 3);
         Edge oneEd_ = new Edge(one_, two_);
         Edge twoEd_ = new Edge(three_, four_);
         assertTrue(!oneEd_.intersectNotContainsBound(twoEd_));
@@ -140,10 +141,10 @@ public class EdgeTest extends EquallableMathUtil {
 
     @Test
     public void intersectNotContainsBound5Test() {
-        CustPoint one_ = new CustPoint(4, 2);
-        CustPoint two_ = new CustPoint(0, 0);
-        CustPoint three_ = new CustPoint(2, 1);
-        CustPoint four_ = new CustPoint(6, 3);
+        RatePoint one_ = newPt(4, 2);
+        RatePoint two_ = newPt(0, 0);
+        RatePoint three_ = newPt(2, 1);
+        RatePoint four_ = newPt(6, 3);
         Edge oneEd_ = new Edge(one_, two_);
         Edge twoEd_ = new Edge(four_, three_);
         assertTrue(oneEd_.intersectNotContainsBound(twoEd_));
@@ -151,10 +152,10 @@ public class EdgeTest extends EquallableMathUtil {
 
     @Test
     public void intersectNotContainsBound6Test() {
-        CustPoint one_ = new CustPoint(4, 2);
-        CustPoint two_ = new CustPoint(0, 0);
-        CustPoint three_ = new CustPoint(6, 3);
-        CustPoint four_ = new CustPoint(2, 1);
+        RatePoint one_ = newPt(4, 2);
+        RatePoint two_ = newPt(0, 0);
+        RatePoint three_ = newPt(6, 3);
+        RatePoint four_ = newPt(2, 1);
         Edge oneEd_ = new Edge(one_, two_);
         Edge twoEd_ = new Edge(three_, four_);
         assertTrue(oneEd_.intersectNotContainsBound(twoEd_));
@@ -162,10 +163,10 @@ public class EdgeTest extends EquallableMathUtil {
 
     @Test
     public void intersectNotContainsBound7Test() {
-        CustPoint one_ = new CustPoint(4, 2);
-        CustPoint two_ = new CustPoint(0, 0);
-        CustPoint three_ = new CustPoint(2, 1);
-        CustPoint four_ = new CustPoint(-2, 1);
+        RatePoint one_ = newPt(4, 2);
+        RatePoint two_ = newPt(0, 0);
+        RatePoint three_ = newPt(2, 1);
+        RatePoint four_ = newPt(-2, 1);
         Edge oneEd_ = new Edge(one_, two_);
         Edge twoEd_ = new Edge(three_, four_);
         assertTrue(oneEd_.intersectNotContainsBound(twoEd_));
@@ -173,10 +174,10 @@ public class EdgeTest extends EquallableMathUtil {
 
     @Test
     public void intersectNotContainsBound8Test() {
-        CustPoint one_ = new CustPoint(0, 0);
-        CustPoint two_ = new CustPoint(4, 2);
-        CustPoint three_ = new CustPoint(0, 0);
-        CustPoint four_ = new CustPoint(4, 2);
+        RatePoint one_ = newPt(0, 0);
+        RatePoint two_ = newPt(4, 2);
+        RatePoint three_ = newPt(0, 0);
+        RatePoint four_ = newPt(4, 2);
         Edge oneEd_ = new Edge(one_, two_);
         Edge twoEd_ = new Edge(three_, four_);
         assertTrue(oneEd_.intersectNotContainsBound(twoEd_));
@@ -184,10 +185,10 @@ public class EdgeTest extends EquallableMathUtil {
 
     @Test
     public void intersectNotContainsBound9Test() {
-        CustPoint one_ = new CustPoint(4, 2);
-        CustPoint two_ = new CustPoint(0, 0);
-        CustPoint three_ = new CustPoint(0, 0);
-        CustPoint four_ = new CustPoint(4, 2);
+        RatePoint one_ = newPt(4, 2);
+        RatePoint two_ = newPt(0, 0);
+        RatePoint three_ = newPt(0, 0);
+        RatePoint four_ = newPt(4, 2);
         Edge oneEd_ = new Edge(one_, two_);
         Edge twoEd_ = new Edge(three_, four_);
         assertTrue(oneEd_.intersectNotContainsBound(twoEd_));
@@ -195,10 +196,10 @@ public class EdgeTest extends EquallableMathUtil {
 
     @Test
     public void intersectNotContains1Test() {
-        CustPoint one_ = new CustPoint(1, 0);
-        CustPoint two_ = new CustPoint(3, 2);
-        CustPoint three_ = new CustPoint(0, 0);
-        CustPoint four_ = new CustPoint(4, 2);
+        RatePoint one_ = newPt(1, 0);
+        RatePoint two_ = newPt(3, 2);
+        RatePoint three_ = newPt(0, 0);
+        RatePoint four_ = newPt(4, 2);
         Edge oneEd_ = new Edge(one_, two_);
         Edge twoEd_ = new Edge(three_, four_);
         assertTrue(twoEd_.intersectNotContains(oneEd_));
@@ -206,10 +207,10 @@ public class EdgeTest extends EquallableMathUtil {
 
     @Test
     public void intersectNotContains2Test() {
-        CustPoint one_ = new CustPoint(3, 2);
-        CustPoint two_ = new CustPoint(5, 4);
-        CustPoint three_ = new CustPoint(0, 0);
-        CustPoint four_ = new CustPoint(4, 2);
+        RatePoint one_ = newPt(3, 2);
+        RatePoint two_ = newPt(5, 4);
+        RatePoint three_ = newPt(0, 0);
+        RatePoint four_ = newPt(4, 2);
         Edge oneEd_ = new Edge(one_, two_);
         Edge twoEd_ = new Edge(three_, four_);
         assertTrue(!twoEd_.intersectNotContains(oneEd_));
@@ -217,10 +218,10 @@ public class EdgeTest extends EquallableMathUtil {
 
     @Test
     public void intersectNotContains3Test() {
-        CustPoint one_ = new CustPoint(2, 1);
-        CustPoint two_ = new CustPoint(6, 3);
-        CustPoint three_ = new CustPoint(0, 0);
-        CustPoint four_ = new CustPoint(4, 2);
+        RatePoint one_ = newPt(2, 1);
+        RatePoint two_ = newPt(6, 3);
+        RatePoint three_ = newPt(0, 0);
+        RatePoint four_ = newPt(4, 2);
         Edge oneEd_ = new Edge(one_, two_);
         Edge twoEd_ = new Edge(three_, four_);
         assertTrue(!twoEd_.intersectNotContains(oneEd_));
@@ -228,10 +229,10 @@ public class EdgeTest extends EquallableMathUtil {
 
     @Test
     public void intersectNotContains4Test() {
-        CustPoint one_ = new CustPoint(4, 2);
-        CustPoint two_ = new CustPoint(6, 3);
-        CustPoint three_ = new CustPoint(0, 0);
-        CustPoint four_ = new CustPoint(4, 2);
+        RatePoint one_ = newPt(4, 2);
+        RatePoint two_ = newPt(6, 3);
+        RatePoint three_ = newPt(0, 0);
+        RatePoint four_ = newPt(4, 2);
         Edge oneEd_ = new Edge(one_, two_);
         Edge twoEd_ = new Edge(three_, four_);
         assertTrue(!twoEd_.intersectNotContains(oneEd_));
@@ -239,10 +240,10 @@ public class EdgeTest extends EquallableMathUtil {
 
     @Test
     public void intersectNotContains5Test() {
-        CustPoint one_ = new CustPoint(2, 1);
-        CustPoint two_ = new CustPoint(0, 3);
-        CustPoint three_ = new CustPoint(0, 0);
-        CustPoint four_ = new CustPoint(4, 2);
+        RatePoint one_ = newPt(2, 1);
+        RatePoint two_ = newPt(0, 3);
+        RatePoint three_ = newPt(0, 0);
+        RatePoint four_ = newPt(4, 2);
         Edge oneEd_ = new Edge(one_, two_);
         Edge twoEd_ = new Edge(three_, four_);
         assertTrue(!twoEd_.intersectNotContains(oneEd_));
@@ -250,10 +251,10 @@ public class EdgeTest extends EquallableMathUtil {
 
     @Test
     public void intersectNotContains6Test() {
-        CustPoint one_ = new CustPoint(4, 1);
-        CustPoint two_ = new CustPoint(6, 3);
-        CustPoint three_ = new CustPoint(0, 0);
-        CustPoint four_ = new CustPoint(4, 2);
+        RatePoint one_ = newPt(4, 1);
+        RatePoint two_ = newPt(6, 3);
+        RatePoint three_ = newPt(0, 0);
+        RatePoint four_ = newPt(4, 2);
         Edge oneEd_ = new Edge(one_, two_);
         Edge twoEd_ = new Edge(three_, four_);
         assertTrue(!twoEd_.intersectNotContains(oneEd_));
@@ -261,10 +262,10 @@ public class EdgeTest extends EquallableMathUtil {
 
     @Test
     public void intersectNotContains7Test() {
-        CustPoint one_ = new CustPoint(0, 0);
-        CustPoint two_ = new CustPoint(4, 2);
-        CustPoint three_ = new CustPoint(2, 1);
-        CustPoint four_ = new CustPoint(6, 3);
+        RatePoint one_ = newPt(0, 0);
+        RatePoint two_ = newPt(4, 2);
+        RatePoint three_ = newPt(2, 1);
+        RatePoint four_ = newPt(6, 3);
         Edge oneEd_ = new Edge(one_, two_);
         Edge twoEd_ = new Edge(three_, four_);
         assertTrue(!twoEd_.intersectNotContains(oneEd_));
@@ -272,23 +273,28 @@ public class EdgeTest extends EquallableMathUtil {
 
     @Test
     public void intersectNotContains8Test() {
-        CustPoint one_ = new CustPoint(4, 2);
-        CustPoint two_ = new CustPoint(0, 0);
-        CustPoint three_ = new CustPoint(4, 2);
-        CustPoint four_ = new CustPoint(6, 3);
+        RatePoint one_ = newPt(4, 2);
+        RatePoint two_ = newPt(0, 0);
+        RatePoint three_ = newPt(4, 2);
+        RatePoint four_ = newPt(6, 3);
         Edge oneEd_ = new Edge(one_, two_);
         Edge twoEd_ = new Edge(three_, four_);
         assertTrue(!twoEd_.intersectNotContains(oneEd_));
     }
     @Test
     public void displayTest() {
-        CustPoint one_ = new CustPoint(4, 2);
-        CustPoint two_ = new CustPoint(0, 0);
+        RatePoint one_ = newPt(4, 2);
+        RatePoint two_ = newPt(0, 0);
         Edge oneEd_ = new Edge(one_, two_);
-        CustPoint three_ = new CustPoint(2, 5);
-        CustPoint four_ = new CustPoint(6, 3);
+        RatePoint three_ = newPt(2, 5);
+        RatePoint four_ = newPt(6, 3);
         oneEd_.setFirst(three_);
         oneEd_.setSecond(four_);
         assertEq("2,5 6,3",oneEd_.display());
     }
+
+    private static RatePoint newPt(int _x, int _y) {
+        return new RatePoint(new Rate(_x), new Rate(_y));
+    }
+
 }

@@ -1,15 +1,16 @@
 package code.maths.geo;
+import code.maths.Rate;
 import code.util.CustList;
 import code.util.core.IndexConstants;
 
 
 public final class EdgeThreeDimensions {
 
-    private CustPointThreeDims first;
+    private RatePointThreeDims first;
 
-    private CustPointThreeDims second;
+    private RatePointThreeDims second;
 
-    public EdgeThreeDimensions(CustPointThreeDims _first, CustPointThreeDims _second) {
+    public EdgeThreeDimensions(RatePointThreeDims _first, RatePointThreeDims _second) {
         first = _first;
         second = _second;
     }
@@ -18,9 +19,9 @@ public final class EdgeThreeDimensions {
         VectThreeDims a_ = new VectThreeDims(getFirst(), getSecond());
         VectThreeDims b_ = new VectThreeDims(_e2.getFirst(), _e2.getSecond());
         VectThreeDims standard_ = a_.vectProd(b_);
-        long det_ = standard_.quickDet(a_, b_);
+        Rate det_ = standard_.quickDet(a_, b_);
 //        boolean linear_ = det_.isZero();
-        boolean linear_ = det_ == 0;
+        boolean linear_ = det_.isZero();
         if (!linear_) {
             VectThreeDims vectStrOne_ = new VectThreeDims(getFirst().getXcoords(),
                 getFirst().getYcoords(),
@@ -28,8 +29,8 @@ public final class EdgeThreeDimensions {
             VectThreeDims vectStrTwo_ = new VectThreeDims(_e2.getFirst().getXcoords(),
                 _e2.getFirst().getYcoords(),
                 _e2.getFirst().getZcoords());
-            long scale_ = vectStrOne_.scal(standard_);
-            if (scale_ != vectStrTwo_.scal(standard_)) {
+            Rate scale_ = vectStrOne_.scal(standard_);
+            if (!scale_.eq(vectStrTwo_.scal(standard_))) {
                 return false;
             }
         } else {
@@ -39,11 +40,11 @@ public final class EdgeThreeDimensions {
 //            if (!det_.isZero()) {
 //                return false;
 //            }
-            if (det_ != 0) {
+            if (!det_.isZero()) {
                 return false;
             }
         }
-        CustList<CustPointThreeDims> points_ = new CustList<CustPointThreeDims>();
+        CustList<RatePointThreeDims> points_ = new CustList<RatePointThreeDims>();
         points_.add(first);
         points_.add(second);
         points_.add(_e2.first);
@@ -182,10 +183,10 @@ public final class EdgeThreeDimensions {
 //        return false;
     }
 
-    private static boolean loop(CustList<CustPointThreeDims> _points) {
+    private static boolean loop(CustList<RatePointThreeDims> _points) {
         int index_ = IndexConstants.FIRST_INDEX;
-        for (CustPointThreeDims p: _points) {
-            CustList<CustPointThreeDims> others_ = new CustList<CustPointThreeDims>();
+        for (RatePointThreeDims p: _points) {
+            CustList<RatePointThreeDims> others_ = new CustList<RatePointThreeDims>();
             int next_;
             int nextOthOne_;
             int nextOthTwo_;
@@ -198,7 +199,7 @@ public final class EdgeThreeDimensions {
                 nextOthOne_ = IndexConstants.FIRST_INDEX;
                 nextOthTwo_ = IndexConstants.SECOND_INDEX;
             }
-            CustPointThreeDims o_ = _points.get(next_);
+            RatePointThreeDims o_ = _points.get(next_);
             others_.add(_points.get(nextOthOne_));
             others_.add(_points.get(nextOthTwo_));
             CustList<Site> sites_ = getSites(p, others_, o_);
@@ -218,10 +219,10 @@ public final class EdgeThreeDimensions {
         return Edge.getNext(_index);
     }
 
-    private static CustList<Site> getSites(CustPointThreeDims _p, CustList<CustPointThreeDims> _others, CustPointThreeDims _o) {
+    private static CustList<Site> getSites(RatePointThreeDims _p, CustList<RatePointThreeDims> _others, RatePointThreeDims _o) {
         CustList<Site> sites_ = new CustList<Site>();
         VectThreeDims v_ = new VectThreeDims(_p, _o);
-        for (CustPointThreeDims n: _others) {
+        for (RatePointThreeDims n: _others) {
             sites_.add(new SitePointThreeDims(n, _p, v_));
         }
         sites_.sortElts(new SiteComparing());
@@ -232,12 +233,12 @@ public final class EdgeThreeDimensions {
         return _sites.first().getInfo().getNumber() >= SiteInfo.QUAD_THREE || _sites.last().getInfo().getNumber() < SiteInfo.QUAD_THREE;
     }
 
-    public boolean containsPoint(CustPointThreeDims _c) {
+    public boolean containsPoint(RatePointThreeDims _c) {
         VectThreeDims one_ = new VectThreeDims(first, _c);
         VectThreeDims two_ = new VectThreeDims(second, _c);
         VectThreeDims standard_ = one_.vectProd(two_);
 //        return standard_.quickDet(one_, two_).isZero() && one_.scal(two_) <= 0;
-        return standard_.quickDet(one_, two_) == 0 && one_.scal(two_) <= 0;
+        return standard_.quickDet(one_, two_).isZero() && one_.scal(two_).isZeroOrLt();
     }
 
 //    public boolean intersect(EdgeThreeDimensions _other) {
@@ -307,19 +308,19 @@ public final class EdgeThreeDimensions {
 //        return one_.det(two_) == 0 && one_.scal(two_) <= 0;
 //    }
 
-    public CustPointThreeDims getFirst() {
+    public RatePointThreeDims getFirst() {
         return first;
     }
 
-    public void setFirst(CustPointThreeDims _first) {
+    public void setFirst(RatePointThreeDims _first) {
         first = _first;
     }
 
-    public CustPointThreeDims getSecond() {
+    public RatePointThreeDims getSecond() {
         return second;
     }
 
-    public void setSecond(CustPointThreeDims _second) {
+    public void setSecond(RatePointThreeDims _second) {
         second = _second;
     }
 }

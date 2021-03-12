@@ -10,22 +10,27 @@ import code.util.ints.Displayable;
 public final class VectThreeDims implements Displayable {
 
     private static final String SEPARATOR = ",";
-    private int deltax;
-    private int deltay;
-    private int deltaz;
+    private Rate deltax = Rate.zero();
+    private Rate deltay = Rate.zero();
+    private Rate deltaz = Rate.zero();
     public VectThreeDims() {
     }
 
     public VectThreeDims(int _deltax, int _deltay, int _deltaz) {
-        deltax = _deltax;
-        deltay = _deltay;
-        deltaz = _deltaz;
+        deltax = new Rate(_deltax);
+        deltay = new Rate(_deltay);
+        deltaz = new Rate(_deltaz);
     }
 
-    public VectThreeDims(CustPointThreeDims _one, CustPointThreeDims _two) {
-        deltax = _two.getXcoords() - _one.getXcoords();
-        deltay = _two.getYcoords() - _one.getYcoords();
-        deltaz = _two.getZcoords() - _one.getZcoords();
+    public VectThreeDims(Rate _deltax, Rate _deltay, Rate _deltaz) {
+        deltax = new Rate(_deltax);
+        deltay = new Rate(_deltay);
+        deltaz = new Rate(_deltaz);
+    }
+    public VectThreeDims(RatePointThreeDims _one, RatePointThreeDims _two) {
+        deltax = Rate.minus(_two.getXcoords(), _one.getXcoords());
+        deltay = Rate.minus(_two.getYcoords(), _one.getYcoords());
+        deltaz = Rate.minus(_two.getZcoords(), _one.getZcoords());
     }
 
     
@@ -37,43 +42,43 @@ public final class VectThreeDims implements Displayable {
         return new VectThreeDims(x_, y_, z_);
     }
 
-    public long squareLength() {
-        return sq(getDeltax()) + sq(getDeltay()) + sq(getDeltaz());
+    public Rate squareLength() {
+        return Rate.plus(Rate.plus(sq(getDeltax()), sq(getDeltay())), sq(getDeltaz()));
     }
-    private static long sq(long _sq) {
-        return _sq * _sq;
+    private static Rate sq(Rate _sq) {
+        return Rate.multiply(_sq,_sq);
     }
 
-    public long scal(VectThreeDims _b) {
-        long f_ = (long)getDeltax() * _b.getDeltax();
-        long s_ = (long)getDeltay() * _b.getDeltay();
-        long t_ = (long)getDeltaz() * _b.getDeltaz();
-        return f_ + s_ + t_;
+    public Rate scal(VectThreeDims _b) {
+        Rate f_ = Rate.multiply(getDeltax(), _b.getDeltax());
+        Rate s_ = Rate.multiply(getDeltay(), _b.getDeltay());
+        Rate t_ = Rate.multiply(getDeltaz(), _b.getDeltaz());
+        return Rate.plus(Rate.plus(f_, s_), t_);
     }
     public VectThreeDims vectProd(VectThreeDims _b) {
-        long f1_ = (long)getDeltay() * _b.getDeltaz();
-        long f2_ = (long)getDeltaz() * _b.getDeltay();
-        long rx_ = f1_ - f2_;
-        long s1_ = (long)-getDeltax() * _b.getDeltaz();
-        long s2_ = (long)getDeltaz() * _b.getDeltax();
-        long ry_ = s1_ + s2_;
-        long t1_ = (long)getDeltax() * _b.getDeltay();
-        long t2_ = (long)getDeltay() * _b.getDeltax();
-        long rz_ = t1_ - t2_;
-        return new VectThreeDims((int)rx_, (int) ry_, (int) rz_);
+        Rate f1_ = Rate.multiply(getDeltay(), _b.getDeltaz());
+        Rate f2_ = Rate.multiply(getDeltaz(), _b.getDeltay());
+        Rate rx_ = Rate.minus(f1_, f2_);
+        Rate s1_ = Rate.multiply(getDeltax(), _b.getDeltaz()).opposNb();
+        Rate s2_ = Rate.multiply(getDeltaz(), _b.getDeltax());
+        Rate ry_ = Rate.plus(s1_,s2_);
+        Rate t1_ = Rate.multiply(getDeltax(), _b.getDeltay());
+        Rate t2_ = Rate.multiply(getDeltay(), _b.getDeltax());
+        Rate rz_ = Rate.minus(t1_, t2_);
+        return new VectThreeDims(rx_, ry_, rz_);
     }
 
-    public long quickDet(VectThreeDims _b, VectThreeDims _c) {
-        long f1_ = (long)_b.getDeltay() * _c.getDeltaz();
-        long f2_ = (long)_b.getDeltaz() * _c.getDeltay();
-        long rx_ = f1_ - f2_;
-        long s1_ = (long)_b.getDeltax() * _c.getDeltaz();
-        long s2_ = (long)_b.getDeltaz() * _c.getDeltax();
-        long ry_ = s1_ - s2_;
-        long t1_ = (long)_b.getDeltax() * _c.getDeltay();
-        long t2_ = (long)_b.getDeltay() * _c.getDeltax();
-        long rz_ = t1_ - t2_;
-        return getDeltax()*rx_ - getDeltay()*ry_ + getDeltaz()*rz_;
+    public Rate quickDet(VectThreeDims _b, VectThreeDims _c) {
+        Rate f1_ = Rate.multiply(_b.getDeltay(), _c.getDeltaz());
+        Rate f2_ = Rate.multiply(_b.getDeltaz(), _c.getDeltay());
+        Rate rx_ = Rate.minus(f1_, f2_);
+        Rate s1_ = Rate.multiply(_b.getDeltax(), _c.getDeltaz());
+        Rate s2_ = Rate.multiply(_b.getDeltaz(), _c.getDeltax());
+        Rate ry_ = Rate.minus(s1_, s2_);
+        Rate t1_ = Rate.multiply(_b.getDeltax(), _c.getDeltay());
+        Rate t2_ = Rate.multiply(_b.getDeltay(), _c.getDeltax());
+        Rate rz_ = Rate.minus(t1_, t2_);
+        return Rate.plus(Rate.minus(Rate.multiply(getDeltax(),rx_), Rate.multiply(getDeltay(),ry_)), Rate.multiply(getDeltaz(),rz_));
     }
 
     public Rate det(VectThreeDims _b, VectThreeDims _c) {
@@ -96,49 +101,49 @@ public final class VectThreeDims implements Displayable {
         return m_.detSquare();
     }
 
-    public int getDeltax() {
+    public Rate getDeltax() {
         return deltax;
     }
 
-    public void setDeltax(int _deltax) {
+    public void setDeltax(Rate _deltax) {
         deltax = _deltax;
     }
 
-    public int getDeltay() {
+    public Rate getDeltay() {
         return deltay;
     }
 
-    public void setDeltay(int _deltay) {
+    public void setDeltay(Rate _deltay) {
         deltay = _deltay;
     }
 
-    public int getDeltaz() {
+    public Rate getDeltaz() {
         return deltaz;
     }
 
-    public void setDeltaz(int _deltaz) {
+    public void setDeltaz(Rate _deltaz) {
         deltaz = _deltaz;
     }
 
     public boolean eq(VectThreeDims _obj) {
-        if (_obj.deltax != deltax) {
+        if (!_obj.deltax.eq(deltax)) {
             return false;
         }
-        if (_obj.deltay != deltay) {
+        if (!_obj.deltay.eq(deltay)) {
             return false;
         }
-        return _obj.deltaz == deltaz;
+        return _obj.deltaz.eq(deltaz);
     }
 
     
     @Override
     public String display() {
         StringBuilder str_ = new StringBuilder();
-        str_.append(deltax);
+        str_.append(deltax.toNumberString());
         str_.append(SEPARATOR);
-        str_.append(deltay);
+        str_.append(deltay.toNumberString());
         str_.append(SEPARATOR);
-        str_.append(deltaz);
+        str_.append(deltaz.toNumberString());
         return str_.toString();
     }
 }

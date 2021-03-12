@@ -7,10 +7,10 @@ import code.util.ints.Displayable;
 public final class RatePoint implements Displayable {
 
     private static final String SEPARATOR = ",";
-    private Rate xCoords;
-    private Rate yCoords;
+    private Rate xCoords = Rate.zero();
+    private Rate yCoords = Rate.zero();
 
-    private RatePoint() {
+    public RatePoint() {
     }
 
     public RatePoint(CustPoint _r) {
@@ -46,6 +46,15 @@ public final class RatePoint implements Displayable {
         return new CustPoint((int)xCoords.intPart().ll(), (int)yCoords.intPart().ll());
     }
 
+    public Rate sqDist(RatePoint _other){
+        Rate ds_ = Rate.zero();
+        ds_.addNb(square(Rate.minus(xCoords,_other.xCoords)));
+        ds_.addNb(square(Rate.minus(yCoords,_other.yCoords)));
+        return ds_;
+    }
+    private static Rate square(Rate _nb) {
+        return Rate.multiply(_nb,_nb);
+    }
     public Rate getXcoords() {
         return xCoords;
     }

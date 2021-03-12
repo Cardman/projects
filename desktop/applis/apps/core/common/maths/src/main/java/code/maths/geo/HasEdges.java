@@ -3,7 +3,7 @@ import code.util.CustList;
 
 public interface HasEdges {
 
-    CustList<CustPoint> getPoints();
+    CustList<RatePoint> getPoints();
 
     CustList<Edge> getEdges();
 }

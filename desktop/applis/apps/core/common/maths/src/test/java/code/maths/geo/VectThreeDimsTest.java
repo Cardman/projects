@@ -8,36 +8,36 @@ public class VectThreeDimsTest extends EquallableMathUtil {
     @Test
     public void eq1Test() {
         VectThreeDims vOne_ =new VectThreeDims();
-        vOne_.setDeltax(1);
-        vOne_.setDeltay(2);
-        vOne_.setDeltaz(3);
+        vOne_.setDeltax(new Rate(1));
+        vOne_.setDeltay(new Rate(2));
+        vOne_.setDeltaz(new Rate(3));
         VectThreeDims vTwo_ =new VectThreeDims(1,2,3);
         assertTrue(vOne_.eq(vTwo_));
     }
     @Test
     public void eq2Test() {
         VectThreeDims vOne_ =new VectThreeDims();
-        vOne_.setDeltax(1);
-        vOne_.setDeltay(2);
-        vOne_.setDeltaz(3);
+        vOne_.setDeltax(new Rate(1));
+        vOne_.setDeltay(new Rate(2));
+        vOne_.setDeltaz(new Rate(3));
         VectThreeDims vTwo_ =new VectThreeDims(1,2,4);
         assertTrue(!vOne_.eq(vTwo_));
     }
     @Test
     public void eq3Test() {
         VectThreeDims vOne_ =new VectThreeDims();
-        vOne_.setDeltax(1);
-        vOne_.setDeltay(2);
-        vOne_.setDeltaz(3);
+        vOne_.setDeltax(new Rate(1));
+        vOne_.setDeltay(new Rate(2));
+        vOne_.setDeltaz(new Rate(3));
         VectThreeDims vTwo_ =new VectThreeDims(1,4,3);
         assertTrue(!vOne_.eq(vTwo_));
     }
     @Test
     public void eq4Test() {
         VectThreeDims vOne_ =new VectThreeDims();
-        vOne_.setDeltax(1);
-        vOne_.setDeltay(2);
-        vOne_.setDeltaz(3);
+        vOne_.setDeltax(new Rate(1));
+        vOne_.setDeltay(new Rate(2));
+        vOne_.setDeltaz(new Rate(3));
         VectThreeDims vTwo_ =new VectThreeDims(4,2,3);
         assertTrue(!vOne_.eq(vTwo_));
     }

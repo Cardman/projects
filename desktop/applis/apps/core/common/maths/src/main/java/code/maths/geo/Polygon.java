@@ -1,15 +1,16 @@
 package code.maths.geo;
 import java.util.Iterator;
 
+import code.maths.Rate;
 import code.util.CustList;
 import code.util.core.IndexConstants;
 import code.util.ints.Displayable;
 
 
-public final class Polygon implements Iterable<CustPoint>, HasEdges, Displayable {
+public final class Polygon implements Iterable<RatePoint>, HasEdges, Displayable {
     private static final String SEPARATOR = ";";
 
-    private CustList<CustPoint> points = new CustList<CustPoint>();
+    private CustList<RatePoint> points = new CustList<RatePoint>();
 
     public Polygon() {
     }
@@ -25,14 +26,14 @@ public final class Polygon implements Iterable<CustPoint>, HasEdges, Displayable
     }
 
     public Polygon(Rect _rect) {
-        add(new CustPoint(_rect.getLeft(), _rect.getTop()));
-        add(new CustPoint(_rect.getLeft(), _rect.getBottom()));
-        add(new CustPoint(_rect.getRight(), _rect.getBottom()));
-        add(new CustPoint(_rect.getRight(), _rect.getTop()));
+        add(new RatePoint(_rect.getLeft(), _rect.getTop()));
+        add(new RatePoint(_rect.getLeft(), _rect.getBottom()));
+        add(new RatePoint(_rect.getRight(), _rect.getBottom()));
+        add(new RatePoint(_rect.getRight(), _rect.getTop()));
     }
 
     @Override
-    public Iterator<CustPoint> iterator() {
+    public Iterator<RatePoint> iterator() {
         return points.iterator();
     }
 
@@ -79,15 +80,15 @@ public final class Polygon implements Iterable<CustPoint>, HasEdges, Displayable
     }
 
     @Override
-    public CustList<CustPoint> getPoints() {
+    public CustList<RatePoint> getPoints() {
         return points;
     }
 
-    public CustPoint first() {
+    public RatePoint first() {
         return points.first();
     }
 
-    public CustPoint last() {
+    public RatePoint last() {
         return points.last();
     }
 
@@ -95,19 +96,19 @@ public final class Polygon implements Iterable<CustPoint>, HasEdges, Displayable
         return points.size();
     }
 
-    public CustPoint get(int _index) {
+    public RatePoint get(int _index) {
         return points.get(_index);
     }
 
-    public void set(int _index, CustPoint _element) {
+    public void set(int _index, RatePoint _element) {
         points.set(_index, _element);
     }
 
-    public void add(CustPoint _e) {
+    public void add(RatePoint _e) {
         points.add(_e);
     }
 
-    public void add(int _i,CustPoint _e) {
+    public void add(int _i,RatePoint _e) {
         points.add(_i, _e);
     }
 
@@ -160,13 +161,13 @@ public final class Polygon implements Iterable<CustPoint>, HasEdges, Displayable
     }
 
     private Polygon getConvexHull(Polygon _p) {
-        CustPoint cust_ = first();
-        for (CustPoint p: getPoints()) {
+        RatePoint cust_ = first();
+        for (RatePoint p: getPoints()) {
             if (hasToRedef(cust_, p)) {
                 cust_ = p;
             }
         }
-        CustPoint endPoint_ = first();
+        RatePoint endPoint_ = first();
         int nbVertices_ = size();
         while (_p.isEmpty() || endPoint_ != _p.first()) {
             _p.add(cust_);
@@ -175,7 +176,7 @@ public final class Polygon implements Iterable<CustPoint>, HasEdges, Displayable
                 if (endPoint_ == cust_) {
                     endPoint_ = get(j);
                 } else {
-                    CustPoint b_ = _p.last();
+                    RatePoint b_ = _p.last();
                     VectTwoDims affineSegment_ = substract(b_, endPoint_);
                     VectTwoDims affinePoint_ = substract(get(j), endPoint_);
                     LinearDirection currentSide_ = getSide(affineSegment_, affinePoint_);
@@ -189,8 +190,8 @@ public final class Polygon implements Iterable<CustPoint>, HasEdges, Displayable
         return _p;
     }
 
-    private static boolean hasToRedef(CustPoint _cust, CustPoint _p) {
-        return _p.getXcoords() < _cust.getXcoords() || (_p.getXcoords() == _cust.getXcoords() && _p.getYcoords() < _cust.getYcoords());
+    private static boolean hasToRedef(RatePoint _cust, RatePoint _p) {
+        return Rate.strLower(_p.getXcoords(), _cust.getXcoords()) || (_p.getXcoords().eq(_cust.getXcoords()) && Rate.strLower(_p.getYcoords(), _cust.getYcoords()));
     }
 
     public Polygon getStrictHull() {
@@ -207,9 +208,9 @@ public final class Polygon implements Iterable<CustPoint>, HasEdges, Displayable
         cp_.add(convexHull_.first());
         Polygon h_ = new Polygon();
         for (int i = 1; i <= len_; i++) {
-            CustPoint p_ = cp_.get(i-1);
-            CustPoint c_ = cp_.get(i);
-            CustPoint n_ = cp_.get(i+1);
+            RatePoint p_ = cp_.get(i-1);
+            RatePoint c_ = cp_.get(i);
+            RatePoint n_ = cp_.get(i+1);
             VectTwoDims affineSegment_ = substract(p_, c_);
             VectTwoDims affinePoint_ = substract(n_, c_);
             LinearDirection currentSide_ = getSide(affineSegment_, affinePoint_);
@@ -220,12 +221,12 @@ public final class Polygon implements Iterable<CustPoint>, HasEdges, Displayable
         return h_;
     }
 
-    public boolean containsObj(CustPoint _element) {
+    public boolean containsObj(RatePoint _element) {
         return containsObj(_element, points);
     }
 
-    public static boolean containsObj(CustPoint _element, CustList<CustPoint> _points) {
-        for (CustPoint p: _points) {
+    public static boolean containsObj(RatePoint _element, CustList<RatePoint> _points) {
+        for (RatePoint p: _points) {
             if (_element.eq(p)) {
                 return true;
             }
@@ -233,7 +234,7 @@ public final class Polygon implements Iterable<CustPoint>, HasEdges, Displayable
         return false;
     }
 
-    public boolean containsInside(CustPoint _point) {
+    public boolean containsInside(RatePoint _point) {
         if (size() < Rect.NB_POINTS) {
             return containsInsideConvexHull(_point);
         }
@@ -256,11 +257,11 @@ public final class Polygon implements Iterable<CustPoint>, HasEdges, Displayable
 
     public CustList<Triangle> getTriangles2() {
         Polygon copy_ = new Polygon();
-        CustPoint cust_ = first();
+        RatePoint cust_ = first();
         int index_ = 0;
         int j_ = 0;
-        for (CustPoint p: points) {
-            if (p.getXcoords() < cust_.getXcoords() || (p.getXcoords() == cust_.getXcoords() && p.getYcoords() < cust_.getYcoords())) {
+        for (RatePoint p: points) {
+            if (Rate.strLower(p.getXcoords(), cust_.getXcoords()) || (p.getXcoords().eq(cust_.getXcoords()) && Rate.strLower(p.getYcoords(), cust_.getYcoords()))) {
                 cust_ = p;
                 index_ = j_;
             }
@@ -277,13 +278,13 @@ public final class Polygon implements Iterable<CustPoint>, HasEdges, Displayable
                 if (i_ >= locLen_) {
                     break;
                 }
-                CustPoint before_ = copy_.get(i_ - 1);
-                CustPoint curr_ = copy_.get(i_);
-                CustPoint after_ = copy_.get((i_ + 1) % locLen_);
+                RatePoint before_ = copy_.get(i_ - 1);
+                RatePoint curr_ = copy_.get(i_);
+                RatePoint after_ = copy_.get((i_ + 1) % locLen_);
                 VectTwoDims prev_ = new VectTwoDims(curr_, before_);
                 VectTwoDims next_ = new VectTwoDims(curr_, after_);
-                long det_ = prev_.det(next_);
-                if (det_ <= 0) {
+                Rate det_ = prev_.det(next_);
+                if (det_.isZeroOrLt()) {
                     procRem(copy_, triangles_, i_, before_, curr_, after_, det_);
                 } else {
                     i_++;
@@ -292,8 +293,8 @@ public final class Polygon implements Iterable<CustPoint>, HasEdges, Displayable
         }
         return triangles_;
     }
-    private static void procRem(Polygon _copy, CustList<Triangle> _triangles, int _i, CustPoint _before, CustPoint _curr, CustPoint _after, long _det) {
-        if (_det < 0) {
+    private static void procRem(Polygon _copy, CustList<Triangle> _triangles, int _i, RatePoint _before, RatePoint _curr, RatePoint _after, Rate _det) {
+        if (!_det.isZeroOrGt()) {
             Triangle t_;
             t_ = new Triangle(_before, _curr, _after);
             _triangles.add(t_);
@@ -316,13 +317,13 @@ public final class Polygon implements Iterable<CustPoint>, HasEdges, Displayable
         }
         int len_ = size();
         for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
-            CustPoint before_ = get(mod(i - 1, len_));
-            CustPoint curr_ = get(i);
-            CustPoint after_ = get((i + 1) % len_);
+            RatePoint before_ = get(mod(i - 1, len_));
+            RatePoint curr_ = get(i);
+            RatePoint after_ = get((i + 1) % len_);
             VectTwoDims prev_ = new VectTwoDims(curr_, before_);
             VectTwoDims next_ = new VectTwoDims(curr_, after_);
-            long det_ = prev_.det(next_);
-            if (det_ <= 0) {
+            Rate det_ = prev_.det(next_);
+            if (det_.isZeroOrLt()) {
                 return false;
             }
         }
@@ -337,7 +338,7 @@ public final class Polygon implements Iterable<CustPoint>, HasEdges, Displayable
         return a_ % _b;
     }
 
-    public boolean containsInsideConvexHull(CustPoint _point) {
+    public boolean containsInsideConvexHull(RatePoint _point) {
         Polygon h_ = getConvexHull();
         if (h_.isEmpty()) {
             return false;
@@ -345,12 +346,12 @@ public final class Polygon implements Iterable<CustPoint>, HasEdges, Displayable
         return containsInside(h_, _point);
     }
 
-    static boolean containsInside(Polygon _h, CustPoint _point) {
+    static boolean containsInside(Polygon _h, RatePoint _point) {
         LinearDirection previousSide_ = LinearDirection.NONE;
         int nbVertices_ = _h.size();
         for (int n = 0; n < nbVertices_; n++) {
-            CustPoint a_ = _h.get(n);
-            CustPoint b_ = _h.get((n+1)%nbVertices_);
+            RatePoint a_ = _h.get(n);
+            RatePoint b_ = _h.get((n+1)%nbVertices_);
             VectTwoDims affineSegment_ = substract(b_, a_);
             VectTwoDims affinePoint_ = substract(_point, a_);
             LinearDirection currentSide_ = getSide(affineSegment_, affinePoint_);
@@ -369,21 +370,21 @@ public final class Polygon implements Iterable<CustPoint>, HasEdges, Displayable
     }
 
     static LinearDirection getSide(VectTwoDims _a,VectTwoDims _b){
-        long x_ = _a.det(_b);
-        if (x_ < 0) {
+        Rate x_ = _a.det(_b);
+        if (x_.isZero()) {
+            return LinearDirection.NONE;
+        }
+        if (x_.isZeroOrLt()) {
             return LinearDirection.LEFT;
         }
-        if (x_ > 0) {
-            return LinearDirection.RIGHT;
-        }
-        return LinearDirection.NONE;
+        return LinearDirection.RIGHT;
     }
 
-    static VectTwoDims substract(CustPoint _a,CustPoint _b){
+    static VectTwoDims substract(RatePoint _a,RatePoint _b){
         return new VectTwoDims(_b, _a);
     }
 
-    public void setPoints(CustList<CustPoint> _points) {
+    public void setPoints(CustList<RatePoint> _points) {
         points = _points;
     }
 //    static int det(VectTwoDims _a, VectTwoDims _b) {

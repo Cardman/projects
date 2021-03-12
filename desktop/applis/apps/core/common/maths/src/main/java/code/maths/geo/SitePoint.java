@@ -1,22 +1,24 @@
 package code.maths.geo;
 
 
+import code.maths.Rate;
+
 public final class SitePoint implements Site {
 
-    private CustPoint point;
+    private final RatePoint point;
 
-    private SiteInfo info = new SiteInfo();
+    private final SiteInfo info = new SiteInfo();
 
-    public SitePoint(CustPoint _point, CustPoint _first, VectTwoDims _vect) {
+    public SitePoint(RatePoint _point, RatePoint _first, VectTwoDims _vect) {
         point = _point;
         VectTwoDims vect_ = new VectTwoDims(_first, point);
-        long det_ = _vect.det(vect_);
-        long scal_ = _vect.scal(vect_);
-        if (scal_ >= 0 && det_ <= 0) {
+        Rate det_ = _vect.det(vect_);
+        Rate scal_ = _vect.scal(vect_);
+        if (scal_.isZeroOrGt() && det_.isZeroOrLt()) {
             info.setNumber(SiteInfo.QUAD_ONE);
-        } else if (scal_ < 0 && det_ <= 0) {
+        } else if (!scal_.isZeroOrGt() && det_.isZeroOrLt()) {
             info.setNumber(SiteInfo.QUAD_TWO);
-        } else if (scal_ <= 0) {
+        } else if (scal_.isZeroOrLt()) {
             //det_ < 0
             info.setNumber(SiteInfo.QUAD_THREE);
         } else {
@@ -26,7 +28,7 @@ public final class SitePoint implements Site {
         info.setScal(scal_);
     }
 
-    public CustPoint getPoint() {
+    public RatePoint getPoint() {
         return point;
     }
 

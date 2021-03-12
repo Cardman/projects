@@ -19,14 +19,14 @@ import java.awt.image.BufferedImage;
 
 public class PanelBattle {
 
-    private ObjectMap<UnitMapKey,UnitSoldier> soldierLabels = new ObjectMap<UnitMapKey,UnitSoldier>();
+    private final ObjectMap<UnitMapKey,UnitSoldier> soldierLabels = new ObjectMap<UnitMapKey,UnitSoldier>();
     private final Facade facade;
 
     private boolean paintSelection;
 
-    private Selecting selecting;
-    private Panel container = Panel.newAbsolute();
-    private Panel content = Panel.newAbsolute();
+    private final Selecting selecting;
+    private final Panel container = Panel.newAbsolute();
+    private final Panel content = Panel.newAbsolute();
 
     public PanelBattle(Facade _facade) {
         facade = _facade;
@@ -69,13 +69,13 @@ public class PanelBattle {
     }
 
     public void repaint(int _x, int _y, int _width, int _height) {
-        Rect gl_ = new Rect(_x,_y,_width,_height);
+        Rect gl_ = RtsGame.newRect(_x,_y,_width,_height);
         for (EntryCust<UnitMapKey, UnitSoldier> e: soldierLabels.entryList()) {
             UnitSoldier u_ = e.getValue();
             int w_ = u_.getWidth();
             int h_ = u_.getHeight();
             Soldier soldier_ = u_.getSoldier();
-            Rect loc_ = new Rect(soldier_.getLocx(),soldier_.getLocy(),w_,h_);
+            Rect loc_ = RtsGame.newRect(soldier_.getLocx(),soldier_.getLocy(),w_,h_);
             if (!gl_.intersects(loc_)) {
                 continue;
             }
@@ -97,7 +97,7 @@ public class PanelBattle {
             gr_.setFont(selecting.getFont());
             Rect r_ = facade.getSelection();
             gr_.setColor(Color.BLUE);
-            gr_.drawRect(r_.getLeft(), r_.getTop(), r_.getWidth(), r_.getHeight());
+            gr_.drawRect((int)r_.getLeft().ll(),(int) r_.getTop().ll(),(int) r_.getWidth().ll(), (int)r_.getHeight().ll());
             selecting.setIcon(img_);
         } else {
             int w_ = selecting.getWidth();
