@@ -156,6 +156,13 @@ public final class SymbBinFctMaOperation extends MethodMaOperation {
             procPowerMatrix(_error, rates_, (MaMatrixStruct) val_);
             return;
         }
+        CustList<MaCustLineStruct> lines_ = tryGetAllAsLine(this);
+        if (lines_.size() == 2) {
+            CustLine first_ = lines_.first().getLine();
+            CustLine second_ = lines_.last().getLine();
+            setStruct(MaBoolStruct.of(!first_.getMatrix(second_).det().isZero()));
+            return;
+        }
         _error.setOffset(getIndexExp());
     }
 

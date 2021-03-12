@@ -2487,6 +2487,14 @@ public final class MaParserTest extends EquallableMathUtil {
         assertEq("#0", noVar("(-3,2,(1,||),-)"));
     }
     @Test
+    public void evaluateExp621Test(){
+        assertEq("0", noVar("((||,(1,1,.),(3,2,.)),(||,(1,1,.),(3,2,.)),^)"));
+    }
+    @Test
+    public void evaluateExp622Test(){
+        assertEq("1", noVar("((||,(1,1,.),(-1,-1,.)),(||,(1,-1,.),(-1,1,.)),^)"));
+    }
+    @Test
     public void nullVarTest(){
         assertEq("#", nullVar());
     }
