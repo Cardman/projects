@@ -437,38 +437,26 @@ public final class Polynom implements Displayable {
     }
 
     public Matrix image(Matrix _m) {
-        Matrix id_ = new Matrix();
-        Vect line_ = new Vect();
-        line_.add(Rate.one());
+        Matrix id_ = _m.buildId();
         int nbLines_=_m.nbLines();
-        for(int i=1;i<nbLines_;i++) {
-            line_.add(Rate.zero());
-        }
-        id_.addLineRef(line_);
-        for(int i=1;i<nbLines_;i++) {
-            Vect n_ = new Vect(line_);
-            n_.swapIndexes(i,i - 1);
-            id_.addLineRef(n_);
-            line_ = n_;
-        }
-        Matrix m_ = new Matrix();
+        Matrix out_ = new Matrix();
         for(int i=0;i<nbLines_;i++) {
-            line_=new Vect();
+            Vect line_=new Vect();
             for(int j=0;j<nbLines_;j++) {
                 line_.add(Rate.zero());
             }
-            m_.addLineRef(line_);
+            out_.addLineRef(line_);
         }
         if (isZero()) {
-            return m_;
+            return out_;
         }
         long dg_=notNullDg();
         for(int i=0;i<dg_;i++) {
-            m_ = m_.addMatrix(id_.multMatrix(get(i)));
-            m_ = m_.multMatrix(_m);
+            out_ = out_.addMatrix(id_.multMatrix(get(i)));
+            out_ = out_.multMatrix(_m);
         }
-        m_ = m_.addMatrix(id_.multMatrix(get((int) dg_)));
-        return m_;
+        out_ = out_.addMatrix(id_.multMatrix(get((int) dg_)));
+        return out_;
     }
 
     public FractPol comp(FractPol _o) {

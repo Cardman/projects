@@ -4,6 +4,7 @@ import code.maths.LgInt;
 import code.maths.Rate;
 import code.maths.litteralcom.StrTypes;
 import code.maths.matrix.FractPol;
+import code.maths.matrix.Matrix;
 import code.maths.matrix.Polynom;
 import code.maths.montecarlo.EventFreq;
 import code.maths.montecarlo.MonteCarloNumber;
@@ -87,6 +88,20 @@ public final class IdMaOperation extends MethodMaOperation {
             Polynom num_ = pols_.getNumerator();
             Rate imageNum_ = num_.image(rate_);
             setStruct(new MaRateStruct(Rate.divide(imageNum_,imageDen_)));
+            return;
+        }
+        if (value_ instanceof MaMatrixStruct) {
+            FractPol pols_ = _fract.getFractPol();
+            Matrix matrix_ = ((MaMatrixStruct) value_).getMatrix();
+            if (!matrix_.isSquare()) {
+                _error.setOffset(getIndexExp());
+                return;
+            }
+            Polynom num_ = pols_.getNumerator();
+            Matrix imageNum_ = num_.image(matrix_);
+            Polynom den_ = pols_.getDenominator();
+            Matrix imageDen_ = den_.image(matrix_);
+            setStruct(new MaMatrixStruct(imageNum_.multMatrix(imageDen_.inv())));
             return;
         }
         MaFractPolStruct wr_ = MaFractPolStruct.wrapOrNull(value_);

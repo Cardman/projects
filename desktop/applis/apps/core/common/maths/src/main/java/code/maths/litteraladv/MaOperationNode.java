@@ -277,6 +277,18 @@ public abstract class MaOperationNode {
         }
         return rates_;
     }
+    protected static CustList<MaMatrixStruct> tryGetAllAsMatrix(MethodMaOperation _current) {
+        int len_ = _current.getChildren().size();
+        CustList<MaMatrixStruct> rates_ = new CustList<MaMatrixStruct>();
+        for (int i = 0; i < len_; i++) {
+            MaStruct str_ = MaNumParsers.tryGet(_current, i);
+            if (!(str_ instanceof MaMatrixStruct)) {
+                continue;
+            }
+            rates_.add((MaMatrixStruct)str_);
+        }
+        return rates_;
+    }
     protected static CustList<MaFractPolStruct> tryGetAllAsFractPol(MethodMaOperation _current) {
         int len_ = _current.getChildren().size();
         CustList<MaFractPolStruct> rates_ = new CustList<MaFractPolStruct>();

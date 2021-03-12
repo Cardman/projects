@@ -177,7 +177,7 @@ public final class Matrix implements Displayable {
         return res_;
     }
 
-    private Matrix buildId() {
+    Matrix buildId() {
         int nbLines_=nbLines();
         return buildId(nbLines_);
     }
@@ -204,6 +204,22 @@ public final class Matrix implements Displayable {
     }
 
     public Polynom polCaract() {
+        int nbCols_=lines.first().size();
+        int nbLines_=lines.size();
+        if(nbCols_!=nbLines_) {
+            Matrix adj_;
+            if(nbCols_<nbLines_) {
+                adj_ = transposeRef().multMatrix(this);
+            } else {
+                adj_ = multMatrix(transposeRef());
+            }
+            return adj_.polCaractSquare();
+        }
+        return polCaractSquare();
+    }
+
+
+    private Polynom polCaractSquare() {
         CustList<RateImage> antImgs_;
         antImgs_ = new CustList<RateImage>();
         int nbLines_=lines.size();
@@ -215,8 +231,6 @@ public final class Matrix implements Displayable {
         }
         return Polynom.interpolation(antImgs_);
     }
-
-
     public Rate detInv() {
         int nbCols_=lines.first().size();
         int nbLines_=lines.size();
@@ -570,6 +584,24 @@ public final class Matrix implements Displayable {
     }
 
     public Rate trace() {
+        int nbLines_=lines.size();
+        if (nbLines_ == 0) {
+            return Rate.zero();
+        }
+        int nbCols_=lines.first().size();
+        if(nbCols_!=nbLines_) {
+            Matrix adj_;
+            if(nbCols_<nbLines_) {
+                adj_ = transposeRef().multMatrix(this);
+            } else {
+                adj_ = multMatrix(transposeRef());
+            }
+            return adj_.traceSquare();
+        }
+        return traceSquare();
+    }
+
+    public Rate traceSquare() {
         Rate trace_ = Rate.zero();
         int nbLines_ = lines.size();
         int nbCols_ = nbCols();
@@ -579,7 +611,6 @@ public final class Matrix implements Displayable {
         }
         return trace_;
     }
-
     public Vect get(int _i) {
         return lines.get(_i);
     }

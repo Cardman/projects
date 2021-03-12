@@ -435,6 +435,32 @@ public class MatrixTest extends EquallableMathUtil {
         assertEq(new Rate(-3), p_.get(2));
     }
     @Test
+    public void polCaract3Test() {
+        Matrix mat_ = new Matrix();
+        Vect vect_ = new Vect();
+        vect_.add(Rate.one());
+        vect_.add(Rate.zero());
+        mat_.addLine(vect_);
+        Polynom p_ = mat_.polCaract();
+        assertEq(2, p_.size());
+        assertEq(new Rate(-1), p_.get(0));
+        assertEq(new Rate(1), p_.get(1));
+    }
+    @Test
+    public void polCaract4Test() {
+        Matrix mat_ = new Matrix();
+        Vect vect_ = new Vect();
+        vect_.add(Rate.one());
+        mat_.addLine(vect_);
+        vect_ = new Vect();
+        vect_.add(Rate.zero());
+        mat_.addLine(vect_);
+        Polynom p_ = mat_.polCaract();
+        assertEq(2, p_.size());
+        assertEq(new Rate(-1), p_.get(0));
+        assertEq(new Rate(1), p_.get(1));
+    }
+    @Test
     public void diagTrig1Test() {
         Matrix mat_ = new Matrix();
         Vect vect_ = new Vect();
@@ -635,6 +661,28 @@ public class MatrixTest extends EquallableMathUtil {
         Matrix mat_ = new Matrix();
         Rate d_ = mat_.trace();
         assertEq(new Rate(0), d_);
+    }
+    @Test
+    public void trace3Test() {
+        Matrix mat_ = new Matrix();
+        Vect vect_ = new Vect();
+        vect_.add(Rate.one());
+        vect_.add(Rate.zero());
+        mat_.addLine(vect_);
+        Rate d_ = mat_.trace();
+        assertEq(new Rate(1), d_);
+    }
+    @Test
+    public void trace4Test() {
+        Matrix mat_ = new Matrix();
+        Vect vect_ = new Vect();
+        vect_.add(Rate.one());
+        mat_.addLine(vect_);
+        vect_ = new Vect();
+        vect_.add(Rate.zero());
+        mat_.addLine(vect_);
+        Rate d_ = mat_.trace();
+        assertEq(new Rate(1), d_);
     }
     @Test
     public void eq1Test() {

@@ -103,6 +103,12 @@ public final class SymbUnFctMaOperation extends MethodMaOperation {
             setStruct(new MaRateStruct(nb_.absNb()));
             return;
         }
+        CustList<MaMatrixStruct> all_ = tryGetAllAsMatrix(this);
+        if (all_.size() == 1) {
+            Matrix matrix_ = all_.first().getMatrix();
+            setStruct(new MaRateStruct(matrix_.det()));
+            return;
+        }
         _error.setOffset(getIndexExp());
     }
 
@@ -171,6 +177,12 @@ public final class SymbUnFctMaOperation extends MethodMaOperation {
             setStruct(MaBoolStruct.of(nb_.intPart().isPrime()));
             return;
         }
+        CustList<MaMatrixStruct> all_ = tryGetAllAsMatrix(this);
+        if (all_.size() == 1) {
+            Matrix matrix_ = all_.first().getMatrix();
+            setStruct(new MaRateStruct(matrix_.trace()));
+            return;
+        }
         _error.setOffset(getIndexExp());
     }
 
@@ -187,6 +199,12 @@ public final class SymbUnFctMaOperation extends MethodMaOperation {
             setStruct(new MaDividersPolStruct(nb_.intPart().factor()));
             return;
         }
+        CustList<MaMatrixStruct> all_ = tryGetAllAsMatrix(this);
+        if (all_.size() == 1) {
+            Matrix matrix_ = all_.first().getMatrix();
+            setStruct(new MaRateStruct(new Rate(matrix_.quickRank())));
+            return;
+        }
         _error.setOffset(getIndexExp());
     }
 
@@ -201,6 +219,12 @@ public final class SymbUnFctMaOperation extends MethodMaOperation {
         if (areAllPolsNb(fracts_,1)) {
             FractPol nb_= fracts_.first().getFractPol();
             setStruct(new MaDecompositionPolStruct(nb_.intPart().racines()));
+            return;
+        }
+        CustList<MaMatrixStruct> all_ = tryGetAllAsMatrix(this);
+        if (all_.size() == 1) {
+            Matrix matrix_ = all_.first().getMatrix();
+            setStruct(new MaPolynomStruct(matrix_.polCaract()));
             return;
         }
         _error.setOffset(getIndexExp());
