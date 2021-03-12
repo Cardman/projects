@@ -167,10 +167,12 @@ public final class Matrix implements Displayable {
 ////        return ownVects_;
 //    }
 
-    public Matrix power(int _power) {
+    public Matrix power(LgInt _power) {
         Matrix res_ = buildId();
-        for (int i = 0; i < _power; i++) {
+        LgInt it_ = LgInt.zero();
+        while (LgInt.strLower(it_,_power)) {
             res_ = res_.multMatrix(this);
+            it_.increment();
         }
         return res_;
     }
@@ -195,8 +197,8 @@ public final class Matrix implements Displayable {
         return id_;
     }
 
-    private static void feedZeros(long _i, long _nbLinesTwo, Vect _solCopy) {
-        for(long j = _nbLinesTwo; j< _i; j++) {
+    private static void feedZeros(long _i, long _start, Vect _solCopy) {
+        for(long j = _start; j< _i; j++) {
             _solCopy.add(Rate.zero());
         }
     }
@@ -390,6 +392,9 @@ public final class Matrix implements Displayable {
         return tr_.intPart().ll();
     }
 
+    public boolean isSquare() {
+        return nbCols() == nbLines();
+    }
     public Matrix inv() {
         Matrix inv_ = new Matrix();
         Rate nbOne_ = Rate.one();

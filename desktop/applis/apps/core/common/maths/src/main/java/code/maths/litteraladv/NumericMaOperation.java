@@ -3,6 +3,7 @@ package code.maths.litteraladv;
 import code.maths.Rate;
 import code.maths.litteralcom.StrTypes;
 import code.maths.matrix.FractPol;
+import code.maths.matrix.Matrix;
 import code.util.StringMap;
 import code.util.core.StringUtil;
 
@@ -24,6 +25,10 @@ public final class NumericMaOperation extends MethodMaOperation {
         MaFractPolStruct wrTwo_ = MaFractPolStruct.wrapOrNull(second_);
         if (wrOne_ != null && wrTwo_ != null) {
             processFracts(_error, oper_, wrOne_,wrTwo_);
+            return;
+        }
+        if (first_ instanceof MaMatrixStruct && second_ instanceof MaMatrixStruct) {
+            processMatrixs(_error, oper_,(MaMatrixStruct)first_,(MaMatrixStruct)second_);
             return;
         }
         _error.setOffset(getIndexExp() + getOperats().getOpers().firstKey());
@@ -68,6 +73,45 @@ public final class NumericMaOperation extends MethodMaOperation {
         }
         setStruct(new MaFractPolStruct(FractPol.divide(_first.getFractPol(),_second.getFractPol())));
     }
+
+    private void processMatrixs(MaError _error, String _oper, MaMatrixStruct _first, MaMatrixStruct _second) {
+        Matrix f_ = _first.getMatrix();
+        Matrix s_ = _second.getMatrix();
+        if (StringUtil.quickEq(_oper, "+")) {
+            if (diffSizes(f_, s_)) {
+                _error.setOffset(getIndexExp() + getOperats().getOpers().firstKey());
+                return;
+            }
+            setStruct(new MaMatrixStruct(f_.addMatrix(s_)));
+            return;
+        }
+        if (StringUtil.quickEq(_oper, "-")) {
+            if (diffSizes(f_, s_)) {
+                _error.setOffset(getIndexExp() + getOperats().getOpers().firstKey());
+                return;
+            }
+            setStruct(new MaMatrixStruct(f_.minusMatrix(s_)));
+            return;
+        }
+        if (StringUtil.quickEq(_oper, "*")) {
+            if (f_.nbCols() != s_.nbLines()) {
+                _error.setOffset(getIndexExp() + getOperats().getOpers().firstKey());
+                return;
+            }
+            setStruct(new MaMatrixStruct(f_.multMatrix(s_)));
+            return;
+        }
+        if (f_.nbCols() != s_.nbCols()) {
+            _error.setOffset(getIndexExp() + getOperats().getOpers().firstKey());
+            return;
+        }
+        setStruct(new MaMatrixStruct(f_.multMatrix(s_.inv())));
+    }
+
+    private static boolean diffSizes(Matrix _f, Matrix _s) {
+        return _f.nbLines() != _s.nbLines() || _f.nbCols() != _s.nbCols();
+    }
+
     @Override
     void calculate() {
         StrTypes vs_ = getOperats().getParts();

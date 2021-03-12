@@ -101,7 +101,7 @@ public class MatrixTest extends EquallableMathUtil {
         vect_.add(Rate.one());
         vect_.add(Rate.zero());
         mat_.addLine(vect_);
-        Matrix t_ = mat_.power(2);
+        Matrix t_ = mat_.power(new LgInt(2));
         assertEq(2, t_.nbCols());
         assertEq(2, t_.nbLines());
         assertEq(Rate.one(), t_.cell(0, 0));

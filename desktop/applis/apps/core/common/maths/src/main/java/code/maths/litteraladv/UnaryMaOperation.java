@@ -18,6 +18,14 @@ public final class UnaryMaOperation extends MethodMaOperation {
             setStruct(new MaFractPolStruct(val_.getFractPol().opposNb()));
             return;
         }
+        if (value_ instanceof MaMatrixStruct) {
+            if (StringUtil.quickEq(getOperats().getOpers().firstValue().trim(), UNARY_MINUS)) {
+                setStruct(new MaMatrixStruct(((MaMatrixStruct)value_).getMatrix().minusMatrix()));
+                return;
+            }
+            setStruct(new MaMatrixStruct(((MaMatrixStruct)value_).getMatrix().transposeRef()));
+            return;
+        }
         if (!(value_ instanceof MaRateStruct)) {
             _error.setOffset(getIndexExp());
             return;

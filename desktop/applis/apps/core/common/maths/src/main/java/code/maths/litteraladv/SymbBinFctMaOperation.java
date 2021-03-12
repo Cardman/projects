@@ -4,6 +4,7 @@ import code.maths.LgInt;
 import code.maths.Rate;
 import code.maths.litteralcom.StrTypes;
 import code.maths.matrix.FractPol;
+import code.maths.matrix.Matrix;
 import code.maths.matrix.Polynom;
 import code.util.CustList;
 import code.util.StringMap;
@@ -125,29 +126,61 @@ public final class SymbBinFctMaOperation extends MethodMaOperation {
     private void procPower(MaError _error) {
         CustList<MaRateStruct> rates_ = tryGetRates();
         if (rates_.size() == 2) {
-            Rate base_= rates_.first().getRate();
-            Rate exposant_= rates_.last().getRate();
-            if (base_.isZero() && !exposant_.isZeroOrGt()) {
-                _error.setOffset(getIndexExp());
-            } else {
-                setStruct(new MaRateStruct(Rate.powNb(base_, exposant_)));
-            }
+            procPowerRate(_error, rates_);
             return;
         }
         MaStruct val_ = MaNumParsers.tryGet(this, 0);
         MaStruct power_ = MaNumParsers.tryGet(this, 1);
         MaFractPolStruct fract_ = MaFractPolStruct.wrapOrNull(val_);
         if (fract_ != null && power_ instanceof MaRateStruct && ((MaRateStruct)power_).getRate().isInteger()) {
-            FractPol base_= fract_.getFractPol();
-            Rate exposant_= rates_.last().getRate();
-            if (base_.isZero() && !exposant_.isZeroOrGt()) {
-                _error.setOffset(getIndexExp());
-            } else {
-                setStruct(new MaFractPolStruct(base_.powNb(exposant_.intPart())));
-            }
+            procPowerFract(_error, rates_, fract_);
+            return;
+        }
+        if (val_ instanceof MaMatrixStruct && power_ instanceof MaRateStruct && ((MaRateStruct)power_).getRate().isInteger()) {
+            procPowerMatrix(_error, rates_, (MaMatrixStruct) val_);
             return;
         }
         _error.setOffset(getIndexExp());
+    }
+
+    private void procPowerMatrix(MaError _error, CustList<MaRateStruct> _rates, MaMatrixStruct _val) {
+        Matrix matrix_ = _val.getMatrix();
+        Rate exposant_= _rates.last().getRate();
+        if (matrix_.isSquare()) {
+            if (!exposant_.isZeroOrGt()) {
+                setStruct(new MaMatrixStruct(matrix_.inv().power(exposant_.absNb().intPart())));
+            } else {
+                setStruct(new MaMatrixStruct(matrix_.power(exposant_.intPart())));
+            }
+        } else if (Rate.eq(Rate.one(),exposant_.absNb())){
+            if (!exposant_.isZeroOrGt()) {
+                setStruct(new MaMatrixStruct(matrix_.inv().power(exposant_.absNb().intPart())));
+            } else {
+                setStruct(new MaMatrixStruct(matrix_.power(exposant_.intPart())));
+            }
+        } else {
+            _error.setOffset(getIndexExp());
+        }
+    }
+
+    private void procPowerFract(MaError _error, CustList<MaRateStruct> _rates, MaFractPolStruct _fract) {
+        FractPol base_= _fract.getFractPol();
+        Rate exposant_= _rates.last().getRate();
+        if (base_.isZero() && !exposant_.isZeroOrGt()) {
+            _error.setOffset(getIndexExp());
+        } else {
+            setStruct(new MaFractPolStruct(base_.powNb(exposant_.intPart())));
+        }
+    }
+
+    private void procPowerRate(MaError _error, CustList<MaRateStruct> _rates) {
+        Rate base_= _rates.first().getRate();
+        Rate exposant_= _rates.last().getRate();
+        if (base_.isZero() && !exposant_.isZeroOrGt()) {
+            _error.setOffset(getIndexExp());
+        } else {
+            setStruct(new MaRateStruct(Rate.powNb(base_, exposant_)));
+        }
     }
 
     private void procBezout(MaError _error) {
