@@ -2751,6 +2751,30 @@ public final class MaParserTest extends EquallableMathUtil {
         assertEq("#0", noVar("((||,(0,0,.),(0,1,.),(1,1,.),(1,2,.),(2,2,.),(2,0,.)),&)[1,3,1,1]"));
     }
     @Test
+    public void evaluateExp687Test(){
+        assertEq("1", noVar("((||,(0,0,.),(0,1,.),(1,1,.),(1,2,.),(2,2,.),(2,0,.)),(3/2,3/2,.),^)"));
+    }
+    @Test
+    public void evaluateExp688Test(){
+        assertEq("0", noVar("((||,(0,0,.),(0,1,.),(1,1,.),(1,2,.),(2,2,.),(2,0,.)),(0,2,.),^)"));
+    }
+    @Test
+    public void evaluateExp689Test(){
+        assertEq("1", noVar("((||,(0,0,.),(0,1,.),(1,1,.),(1,2,.),(2,2,.),(2,0,.)),(3/2,3/2,.),^^)"));
+    }
+    @Test
+    public void evaluateExp690Test(){
+        assertEq("0", noVar("((||,(0,0,.),(0,1,.),(1,1,.),(1,2,.),(2,2,.),(2,0,.)),(0,2,.),^^)"));
+    }
+    @Test
+    public void evaluateExp691Test(){
+        assertEq("#0", noVar("((||,(0,0,.),(0,1,.),(1,1,.),(1,2,.),(2,2,.),(2,0,.)),1,^)"));
+    }
+    @Test
+    public void evaluateExp692Test(){
+        assertEq("#0", noVar("((||,(0,0,.),(0,1,.),(1,1,.),(1,2,.),(2,2,.),(2,0,.)),1,^^)"));
+    }
+    @Test
     public void nullVarTest(){
         assertEq("#", nullVar());
     }

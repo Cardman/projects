@@ -4,6 +4,7 @@ import code.maths.LgInt;
 import code.maths.Rate;
 import code.maths.geo.CustLine;
 import code.maths.geo.Edge;
+import code.maths.geo.Polygon;
 import code.maths.geo.RatePoint;
 import code.maths.litteralcom.StrTypes;
 import code.maths.matrix.FractPol;
@@ -192,6 +193,12 @@ public final class SymbBinFctMaOperation extends MethodMaOperation {
             setStruct(MaBoolStruct.of(line_.containsPoint(point_)));
             return;
         }
+        if (val_ instanceof MaPolygonStruct && power_ instanceof MaRatePointStruct) {
+            Polygon line_ = ((MaPolygonStruct)val_).getPolygon();
+            RatePoint point_ = ((MaRatePointStruct)power_).getPoint();
+            setStruct(MaBoolStruct.of(line_.containsInsideConvexHull(point_)));
+            return;
+        }
         _error.setOffset(getIndexExp());
     }
 
@@ -303,6 +310,14 @@ public final class SymbBinFctMaOperation extends MethodMaOperation {
             Edge first_ = edges_.first().getEdge();
             Edge second_ = edges_.last().getEdge();
             setStruct(MaBoolStruct.of(first_.intersectNotContains(second_)));
+            return;
+        }
+        MaStruct val_ = MaNumParsers.tryGet(this, 0);
+        MaStruct power_ = MaNumParsers.tryGet(this, 1);
+        if (val_ instanceof MaPolygonStruct && power_ instanceof MaRatePointStruct) {
+            Polygon line_ = ((MaPolygonStruct)val_).getPolygon();
+            RatePoint point_ = ((MaRatePointStruct)power_).getPoint();
+            setStruct(MaBoolStruct.of(line_.containsInside(point_)));
             return;
         }
         _error.setOffset(getIndexExp());
