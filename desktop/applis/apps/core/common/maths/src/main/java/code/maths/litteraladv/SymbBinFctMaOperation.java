@@ -3,6 +3,7 @@ package code.maths.litteraladv;
 import code.maths.LgInt;
 import code.maths.Rate;
 import code.maths.geo.CustLine;
+import code.maths.geo.Edge;
 import code.maths.geo.RatePoint;
 import code.maths.litteralcom.StrTypes;
 import code.maths.matrix.FractPol;
@@ -37,6 +38,15 @@ public final class SymbBinFctMaOperation extends MethodMaOperation {
         }
         if (StringUtil.quickEq(oper,".")) {
             procPoint(_error);
+        }
+        if (StringUtil.quickEq(oper,"-")) {
+            procEdge(_error);
+        }
+        if (StringUtil.quickEq(oper,"^^")) {
+            procEdgesNotContains(_error);
+        }
+        if (StringUtil.quickEq(oper,"^^^")) {
+            intersectNotContainsBound(_error);
         }
     }
 
@@ -163,6 +173,19 @@ public final class SymbBinFctMaOperation extends MethodMaOperation {
             setStruct(MaBoolStruct.of(!first_.getMatrix(second_).det().isZero()));
             return;
         }
+        CustList<MaEdgeStruct> edges_ = tryGetAllAsEdge(this);
+        if (edges_.size() == 2) {
+            Edge first_ = edges_.first().getEdge();
+            Edge second_ = edges_.last().getEdge();
+            setStruct(MaBoolStruct.of(first_.intersect(second_)));
+            return;
+        }
+        if (val_ instanceof MaEdgeStruct && power_ instanceof MaRatePointStruct) {
+            Edge edge_ = ((MaEdgeStruct)val_).getEdge();
+            RatePoint point_ = ((MaRatePointStruct)power_).getPoint();
+            setStruct(MaBoolStruct.of(edge_.containsPoint(point_)));
+            return;
+        }
         _error.setOffset(getIndexExp());
     }
 
@@ -248,6 +271,39 @@ public final class SymbBinFctMaOperation extends MethodMaOperation {
         _error.setOffset(getIndexExp());
     }
 
+    private void procEdge(MaError _error) {
+        MaStruct first_ = MaNumParsers.tryGet(this, 0);
+        MaStruct second_ = MaNumParsers.tryGet(this, 1);
+        if (first_ instanceof MaRatePointStruct && second_ instanceof MaRatePointStruct) {
+            RatePoint x_ = ((MaRatePointStruct) first_).getPoint();
+            RatePoint y_ = ((MaRatePointStruct) second_).getPoint();
+            setStruct(new MaEdgeStruct(new Edge(x_,y_)));
+            return;
+        }
+        _error.setOffset(getIndexExp());
+    }
+
+    private void procEdgesNotContains(MaError _error) {
+        CustList<MaEdgeStruct> edges_ = tryGetAllAsEdge(this);
+        if (edges_.size() == 2) {
+            Edge first_ = edges_.first().getEdge();
+            Edge second_ = edges_.last().getEdge();
+            setStruct(MaBoolStruct.of(first_.intersectNotContains(second_)));
+            return;
+        }
+        _error.setOffset(getIndexExp());
+    }
+
+    private void intersectNotContainsBound(MaError _error) {
+        CustList<MaEdgeStruct> edges_ = tryGetAllAsEdge(this);
+        if (edges_.size() == 2) {
+            Edge first_ = edges_.first().getEdge();
+            Edge second_ = edges_.last().getEdge();
+            setStruct(MaBoolStruct.of(first_.intersectNotContainsBound(second_)));
+            return;
+        }
+        _error.setOffset(getIndexExp());
+    }
     CustList<MaRateStruct> tryGetRates() {
         CustList<MaRateStruct> rates_ = new CustList<MaRateStruct>();
         int len_ = getChildren().size();

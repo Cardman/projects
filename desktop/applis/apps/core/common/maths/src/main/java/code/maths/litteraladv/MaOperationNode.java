@@ -316,6 +316,18 @@ public abstract class MaOperationNode {
         }
         return rates_;
     }
+    protected static CustList<MaEdgeStruct> tryGetAllAsEdge(MethodMaOperation _current) {
+        int len_ = _current.getChildren().size();
+        CustList<MaEdgeStruct> rates_ = new CustList<MaEdgeStruct>();
+        for (int i = 0; i < len_; i++) {
+            MaStruct str_ = MaNumParsers.tryGet(_current, i);
+            if (!(str_ instanceof MaEdgeStruct)) {
+                continue;
+            }
+            rates_.add((MaEdgeStruct)str_);
+        }
+        return rates_;
+    }
     protected static CustList<MaFractPolStruct> tryGetAllAsFractPol(MethodMaOperation _current) {
         int len_ = _current.getChildren().size();
         CustList<MaFractPolStruct> rates_ = new CustList<MaFractPolStruct>();
@@ -379,7 +391,14 @@ public abstract class MaOperationNode {
     }
     private static boolean isBinSymbol(MaOperationsSequence _op) {
         String val_ = _op.getParts().lastValue().trim();
-        return algebreBin(val_)|| StringUtil.quickEq(val_, ".");
+        return algebreBin(val_)|| geoBin(val_);
+    }
+
+    private static boolean geoBin(String _val) {
+        return StringUtil.quickEq(_val, ".")
+                ||StringUtil.quickEq(_val, "-")
+                ||StringUtil.quickEq(_val, "^^")
+                ||StringUtil.quickEq(_val, "^^^");
     }
 
     private static boolean algebreBin(String _val) {
