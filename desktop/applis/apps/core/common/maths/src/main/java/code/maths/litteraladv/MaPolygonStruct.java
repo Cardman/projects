@@ -28,7 +28,11 @@ public final class MaPolygonStruct implements MaStruct {
 
     @Override
     public String displayRsult() {
-        CustList<RatePoint> points_ = polygon.getPoints();
+        return displayRsult(polygon);
+    }
+
+    static String displayRsult(Polygon _polygon) {
+        CustList<RatePoint> points_ = _polygon.getPoints();
         StringList parts_ = new StringList(new CollCapacity(points_.size()));
         for (RatePoint r: points_) {
             parts_.add(MaRatePointStruct.displayRsult(r));

@@ -29,12 +29,16 @@ public final class ArrMaOperation extends MethodMaOperation {
             applyLg(values_);
             return;
         }
-        if (values_.size() == 2 && isIndex(values_)) {
+        if (values_.size() == 2 && areAllIndexes(values_)) {
             procOneIndex(_error, values_);
             return;
         }
-        if (values_.size() == 3 && areIndexes(values_)) {
+        if (values_.size() == 3 && areAllIndexes(values_)) {
             procTwoIndexes(_error, values_);
+            return;
+        }
+        if (values_.size() == 4 && areAllIndexes(values_)) {
+            procThreeIndexes(_error, values_);
             return;
         }
         _error.setOffset(getIndexExp());
@@ -101,6 +105,10 @@ public final class ArrMaOperation extends MethodMaOperation {
             setStruct(new MaRateStruct(new Rate(((MaPolygonStruct) _list.first()).getPolygon().size())));
             return;
         }
+        if (_list.first() instanceof MaListPolygonStruct) {
+            setStruct(new MaRateStruct(new Rate(((MaListPolygonStruct) _list.first()).getPolygons().size())));
+            return;
+        }
         setStruct(new MaRateStruct(new Rate(-1)));
     }
 
@@ -137,6 +145,10 @@ public final class ArrMaOperation extends MethodMaOperation {
             procPolygon((MaPolygonStruct)_values.first(),(MaRateStruct) _values.get(1),(MaRateStruct) _values.get(2), _error);
             return;
         }
+        if (_values.first() instanceof MaListPolygonStruct) {
+            procPolygons((MaListPolygonStruct)_values.first(),(MaRateStruct) _values.get(1),(MaRateStruct) _values.get(2), _error);
+            return;
+        }
         if (_values.first() instanceof MaEdgeStruct) {
             procEdge((MaEdgeStruct)_values.first(),(MaRateStruct) _values.get(1),(MaRateStruct) _values.get(2), _error);
             return;
@@ -144,6 +156,13 @@ public final class ArrMaOperation extends MethodMaOperation {
         _error.setOffset(getIndexExp());
     }
 
+    private void procThreeIndexes(MaError _error, CustList<MaStruct> _values) {
+        if (_values.first() instanceof MaListPolygonStruct) {
+            procPolygons((MaListPolygonStruct)_values.first(),(MaRateStruct) _values.get(1),(MaRateStruct) _values.get(2),(MaRateStruct) _values.get(3), _error);
+            return;
+        }
+        _error.setOffset(getIndexExp());
+    }
     private void procOneIndex(MaError _error, CustList<MaStruct> _values) {
         if (_values.first() instanceof MaBezoutNbStruct) {
             procArr((MaBezoutNbStruct) _values.first(),(MaRateStruct) _values.get(1), _error);
@@ -217,6 +236,10 @@ public final class ArrMaOperation extends MethodMaOperation {
             procPolygon((MaPolygonStruct) _first,(MaRateStruct) _values.get(1), _error);
             return;
         }
+        if (_first instanceof MaListPolygonStruct) {
+            procPolygons((MaListPolygonStruct) _first,(MaRateStruct) _values.get(1), _error);
+            return;
+        }
         if (_first instanceof MaCustLineStruct) {
             procLine((MaCustLineStruct) _first,(MaRateStruct) _values.get(1), _error);
             return;
@@ -228,15 +251,17 @@ public final class ArrMaOperation extends MethodMaOperation {
         _error.setOffset(getIndexExp());
     }
 
-    private static boolean isIndex(CustList<MaStruct> _values) {
-        return _values.get(1) instanceof MaRateStruct && ((MaRateStruct) _values.get(1)).getRate().isInteger();
+    private static boolean areAllIndexes(CustList<MaStruct> _values) {
+        for (MaStruct m: _values.mid(1)) {
+            if (!(m instanceof MaRateStruct)) {
+                return false;
+            }
+            if (!((MaRateStruct)m).getRate().isInteger()) {
+                return false;
+            }
+        }
+        return true;
     }
-
-    private static boolean areIndexes(CustList<MaStruct> _values) {
-        return _values.get(1) instanceof MaRateStruct && ((MaRateStruct) _values.get(1)).getRate().isInteger()
-                && _values.get(2) instanceof MaRateStruct && ((MaRateStruct) _values.get(2)).getRate().isInteger();
-    }
-
     private void procArr(MaBezoutNbStruct _bezout,MaRateStruct _index, MaError _error) {
         LgInt lgInt_ = _index.getRate().intPart();
         if (!lgInt_.isZeroOrGt()) {
@@ -281,6 +306,21 @@ public final class ArrMaOperation extends MethodMaOperation {
         if (new LgInt(3).eq(lgInt_)) {
             setStruct(new MaPolynomStruct(_bezout.getIdBezout().getPpcm()));
             return;
+        }
+        _error.setOffset(getIndexExp());
+    }
+    private void procPolygons(MaListPolygonStruct _divs,MaRateStruct _index,MaRateStruct _indexTwo,MaRateStruct _indexThree, MaError _error) {
+        CustList<Polygon> polygon_ = _divs.getPolygons();
+        Polygon pt_ = procPolygon(polygon_, _index);
+        if (pt_ != null) {
+            RatePoint val_ = procPolygonPt(pt_, _indexTwo);
+            if (val_ != null) {
+                MaStruct nb_ = procRatePoint(val_, _indexThree);
+                if (nb_ != null) {
+                    setStruct(nb_);
+                    return;
+                }
+            }
         }
         _error.setOffset(getIndexExp());
     }
@@ -543,21 +583,39 @@ public final class ArrMaOperation extends MethodMaOperation {
         _error.setOffset(getIndexExp());
     }
     private void procPolygon(MaPolygonStruct _divs,MaRateStruct _index,MaRateStruct _indexTwo, MaError _error) {
-        LgInt lgInt_ = _index.getRate().intPart();
         Polygon polygon_ = _divs.getPolygon();
-        int len_ = polygon_.size();
-        if (!lgInt_.isZeroOrGt()) {
-            lgInt_.addNb(new LgInt(len_));
-        }
-        if (validIndex(lgInt_, len_)) {
-            RatePoint dual_ = polygon_.get((int) lgInt_.ll());
-            MaStruct val_ = procRatePoint(dual_, _indexTwo);
+        RatePoint pt_ = procPolygonPt(polygon_, _index);
+        if (pt_ != null) {
+            MaStruct val_ = procRatePoint(pt_, _indexTwo);
             if (val_ != null) {
                 setStruct(val_);
                 return;
             }
         }
         _error.setOffset(getIndexExp());
+    }
+    private void procPolygons(MaListPolygonStruct _divs,MaRateStruct _index,MaRateStruct _indexTwo, MaError _error) {
+        CustList<Polygon> polygon_ = _divs.getPolygons();
+        Polygon pt_ = procPolygon(polygon_, _index);
+        if (pt_ != null) {
+            RatePoint val_ = procPolygonPt(pt_, _indexTwo);
+            if (val_ != null) {
+                setStruct(new MaRatePointStruct(val_));
+                return;
+            }
+        }
+        _error.setOffset(getIndexExp());
+    }
+    private static RatePoint procPolygonPt(Polygon _divs,MaRateStruct _index) {
+        LgInt lgInt_ = _index.getRate().intPart();
+        int len_ = _divs.size();
+        if (!lgInt_.isZeroOrGt()) {
+            lgInt_.addNb(new LgInt(len_));
+        }
+        if (validIndex(lgInt_, len_)) {
+            return _divs.get((int) lgInt_.ll());
+        }
+        return null;
     }
     private void procEdge(MaEdgeStruct _divs,MaRateStruct _index,MaRateStruct _indexTwo, MaError _error) {
         LgInt lgInt_ = _index.getRate().intPart();
@@ -660,18 +718,33 @@ public final class ArrMaOperation extends MethodMaOperation {
         _error.setOffset(getIndexExp());
     }
     private void procPolygon(MaPolygonStruct _divs,MaRateStruct _index, MaError _error) {
-        LgInt lgInt_ = _index.getRate().intPart();
         Polygon matrix_ = _divs.getPolygon();
-        int len_ = matrix_.size();
+        RatePoint pt_ = procPolygonPt(matrix_, _index);
+        if (pt_ != null) {
+            setStruct(new MaRatePointStruct(pt_));
+            return;
+        }
+        _error.setOffset(getIndexExp());
+    }
+    private void procPolygons(MaListPolygonStruct _divs,MaRateStruct _index, MaError _error) {
+        CustList<Polygon> matrix_ = _divs.getPolygons();
+        Polygon pol_ = procPolygon(matrix_, _index);
+        if (pol_ != null) {
+            setStruct(new MaPolygonStruct(pol_));
+            return;
+        }
+        _error.setOffset(getIndexExp());
+    }
+    private static Polygon procPolygon(CustList<Polygon> _divs,MaRateStruct _index) {
+        LgInt lgInt_ = _index.getRate().intPart();
+        int len_ = _divs.size();
         if (!lgInt_.isZeroOrGt()) {
             lgInt_.addNb(new LgInt(len_));
         }
         if (validIndex(lgInt_, len_)) {
-            RatePoint dual_ = matrix_.get((int) lgInt_.ll());
-            setStruct(new MaRatePointStruct(dual_));
-            return;
+            return _divs.get((int) lgInt_.ll());
         }
-        _error.setOffset(getIndexExp());
+        return null;
     }
     private void procLine(MaCustLineStruct _divs,MaRateStruct _index, MaError _error) {
         LgInt lgInt_ = _index.getRate().intPart();
