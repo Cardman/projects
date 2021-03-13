@@ -274,6 +274,14 @@ public final class SymbBinFctMaOperation extends MethodMaOperation {
             setStruct(new MaRatePointStruct(new RatePoint(x_,y_)));
             return;
         }
+        MaStruct first_ = MaNumParsers.tryGet(this, 0);
+        MaStruct second_ = MaNumParsers.tryGet(this, 1);
+        if (first_ instanceof MaRatePointStruct && second_ instanceof MaRatePointStruct) {
+            RatePoint x_ = ((MaRatePointStruct) first_).getPoint();
+            RatePoint y_ = ((MaRatePointStruct) second_).getPoint();
+            setStruct(new MaRateStruct(x_.sqDist(y_)));
+            return;
+        }
         _error.setOffset(getIndexExp());
     }
 
