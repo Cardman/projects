@@ -740,10 +740,14 @@ public final class ArrMaOperation extends MethodMaOperation {
         _error.setOffset(getIndexExp());
     }
     private void procDelaunay(MaDelaunayStruct _divs,MaRateStruct _index, MaError _error) {
-        CustList<Polygon> matrix_ = MaListPolygonStruct.toPolygons(_divs.getDelaunay().getTriangles());
         LgInt lgInt_ = _index.getRate().intPart();
         if (lgInt_.isZero()) {
+            CustList<Polygon> matrix_ = MaListPolygonStruct.toPolygons(_divs.getDelaunay().getTriangles());
             setStruct(new MaListPolygonStruct(matrix_));
+            return;
+        }
+        if (lgInt_.eq(LgInt.one())) {
+            setStruct(new MaPolygonStruct(_divs.getDelaunay().getConvexHull()));
             return;
         }
         _error.setOffset(getIndexExp());

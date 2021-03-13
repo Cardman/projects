@@ -2815,6 +2815,10 @@ public final class MaParserTest extends EquallableMathUtil {
         assertEq("2", noVar("(%%,(0,0,.),(2,4,.),(1,5,.),(3,2,.))[0][]"));
     }
     @Test
+    public void evaluateExp703Test(){
+        assertEq("(||,(0,0,.),(1,5,.),(2,4,.),(3,2,.))", noVar("(%%,(0,0,.),(2,4,.),(1,5,.),(3,2,.))[1]"));
+    }
+    @Test
     public void nullVarTest(){
         assertEq("#", nullVar());
     }
