@@ -240,6 +240,10 @@ public final class ArrMaOperation extends MethodMaOperation {
             procPolygons((MaListPolygonStruct) _first,(MaRateStruct) _values.get(1), _error);
             return;
         }
+        if (_first instanceof MaDelaunayStruct) {
+            procDelaunay((MaDelaunayStruct) _first,(MaRateStruct) _values.get(1), _error);
+            return;
+        }
         if (_first instanceof MaCustLineStruct) {
             procLine((MaCustLineStruct) _first,(MaRateStruct) _values.get(1), _error);
             return;
@@ -731,6 +735,15 @@ public final class ArrMaOperation extends MethodMaOperation {
         Polygon pol_ = procPolygon(matrix_, _index);
         if (pol_ != null) {
             setStruct(new MaPolygonStruct(pol_));
+            return;
+        }
+        _error.setOffset(getIndexExp());
+    }
+    private void procDelaunay(MaDelaunayStruct _divs,MaRateStruct _index, MaError _error) {
+        CustList<Polygon> matrix_ = MaListPolygonStruct.toPolygons(_divs.getDelaunay().getTriangles());
+        LgInt lgInt_ = _index.getRate().intPart();
+        if (lgInt_.isZero()) {
+            setStruct(new MaListPolygonStruct(matrix_));
             return;
         }
         _error.setOffset(getIndexExp());

@@ -306,10 +306,7 @@ public final class SymbUnFctMaOperation extends MethodMaOperation {
         CustList<MaPolygonStruct> pols_ = tryGetAllAsPolygon(this);
         if (pols_.size() == 1) {
             CustList<Triangle> tris_ = pols_.first().getPolygon().getTriangles();
-            CustList<Polygon> conv_ = new CustList<Polygon>();
-            for (Triangle t: tris_) {
-                conv_.add(new Polygon(t));
-            }
+            CustList<Polygon> conv_ = MaListPolygonStruct.toPolygons(tris_);
             setStruct(new MaListPolygonStruct(conv_));
             return;
         }

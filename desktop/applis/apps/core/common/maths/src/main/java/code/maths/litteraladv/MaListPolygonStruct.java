@@ -1,6 +1,7 @@
 package code.maths.litteraladv;
 
 import code.maths.geo.Polygon;
+import code.maths.geo.Triangle;
 import code.util.CollCapacity;
 import code.util.CustList;
 import code.util.StringList;
@@ -23,12 +24,22 @@ public final class MaListPolygonStruct implements MaStruct {
             return false;
         }
         MaListPolygonStruct oth_ = (MaListPolygonStruct) _other;
-        int len_ = polygons.size();
-        if (polygons.size() != oth_.polygons.size()) {
+        return eqPolygons(polygons,oth_.polygons);
+    }
+    static CustList<Polygon> toPolygons(CustList<Triangle> _tris) {
+        CustList<Polygon> list_ = new CustList<Polygon>();
+        for (Triangle t: _tris) {
+            list_.add(new Polygon(t));
+        }
+        return list_;
+    }
+    static boolean eqPolygons(CustList<Polygon> _this, CustList<Polygon> _other) {
+        int len_ = _this.size();
+        if (len_ != _other.size()) {
             return false;
         }
         for (int i = 0; i < len_; i++) {
-            if (!polygons.get(i).eq(oth_.polygons.get(i))) {
+            if (!_this.get(i).eq(_other.get(i))) {
                 return false;
             }
         }
@@ -37,8 +48,12 @@ public final class MaListPolygonStruct implements MaStruct {
 
     @Override
     public String displayRsult() {
-        StringList parts_ = new StringList(new CollCapacity(polygons.size()));
-        for (Polygon r: polygons) {
+        return displayRsult(polygons);
+    }
+
+    static String displayRsult(CustList<Polygon> _polygons) {
+        StringList parts_ = new StringList(new CollCapacity(_polygons.size()));
+        for (Polygon r: _polygons) {
             parts_.add(MaPolygonStruct.displayRsult(r));
         }
         return "("+ StringUtil.join(parts_,",")+")";

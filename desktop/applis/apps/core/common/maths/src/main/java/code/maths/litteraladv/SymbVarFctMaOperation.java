@@ -3,6 +3,7 @@ package code.maths.litteraladv;
 import code.maths.LgInt;
 import code.maths.Rate;
 import code.maths.geo.CustLine;
+import code.maths.geo.Delaunay;
 import code.maths.geo.Polygon;
 import code.maths.geo.RatePoint;
 import code.maths.litteralcom.StrTypes;
@@ -40,6 +41,24 @@ public final class SymbVarFctMaOperation extends MethodMaOperation  {
         if (StringUtil.quickEq("||", oper)) {
             procPolygon(_error);
         }
+        if (StringUtil.quickEq("%%", oper)) {
+            procDelaunay(_error);
+        }
+    }
+
+    private void procDelaunay(MaError _error) {
+        CustList<MaRatePointStruct> points_ = tryGetAllAsPt(this);
+        if (points_ != null) {
+            CustList<RatePoint> pts_ = new CustList<RatePoint>();
+            for (MaRatePointStruct p: points_) {
+                pts_.add(p.getPoint());
+            }
+            Delaunay del_ = new Delaunay();
+            del_.compute(pts_);
+            setStruct(new MaDelaunayStruct(del_));
+            return;
+        }
+        _error.setOffset(getIndexExp());
     }
 
     private void procRep(MaError _error) {

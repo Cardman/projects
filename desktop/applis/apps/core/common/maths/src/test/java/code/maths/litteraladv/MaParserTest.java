@@ -2775,6 +2775,42 @@ public final class MaParserTest extends EquallableMathUtil {
         assertEq("#0", noVar("((||,(0,0,.),(0,1,.),(1,1,.),(1,2,.),(2,2,.),(2,0,.)),1,^^)"));
     }
     @Test
+    public void evaluateExp693Test(){
+        assertEq("((||,(0,0,.),(2,4,.),(1,5,.)),(||,(2,4,.),(0,0,.),(3,2,.)))", noVar("(%%,(0,0,.),(2,4,.),(1,5,.),(3,2,.))"));
+    }
+    @Test
+    public void evaluateExp694Test(){
+        assertEq("((||,(0,0,.),(2,4,.),(1,5,.)),(||,(2,4,.),(0,0,.),(3,2,.)))", noVar("(%%,(0,0,.),(2,4,.),(1,5,.),(3,2,.))[0]"));
+    }
+    @Test
+    public void evaluateExp695Test(){
+        assertEq("#0", noVar("(%%,(0,0,.),(2,4,.),(1,5,.),(3,2,.))[5]"));
+    }
+    @Test
+    public void evaluateExp696Test(){
+        assertEq("#0", noVar("(%%,(0,0,.),(2,4,.),(1,5,.),(3,2,.))[-6]"));
+    }
+    @Test
+    public void evaluateExp697Test(){
+        assertEq("0", noVar("(%%,(0,0,.),(2,4,.),(1,5,.),(3,2,.))=0"));
+    }
+    @Test
+    public void evaluateExp698Test(){
+        assertEq("0", noVar("(%%,(0,0,.),(2,4,.),(1,5,.),(3,2,.))=(%%,(1,1,.),(2,4,.),(0,3,.),(3,2,.))"));
+    }
+    @Test
+    public void evaluateExp699Test(){
+        assertEq("1", noVar("(%%,(0,0,.),(2,4,.),(1,5,.),(3,2,.))=(%%,(0,0,.),(2,4,.),(1,5,.),(3,2,.))"));
+    }
+    @Test
+    public void evaluateExp700Test(){
+        assertEq("#0", noVar("(%%,(1,||))"));
+    }
+    @Test
+    public void evaluateExp701Test(){
+        assertEq("()", noVar("(%%)"));
+    }
+    @Test
     public void nullVarTest(){
         assertEq("#", nullVar());
     }
