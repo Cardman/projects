@@ -192,6 +192,9 @@ public final class CustLine {
         return Rate.divide(Rate.minus(cst, Rate.multiply(_rate.getYcoords(), yRate)), xRate);
     }
 
+    public boolean containsPoint(RatePoint _c) {
+        return Rate.eq(Rate.plus(Rate.multiply(xRate,_c.getXcoords()),Rate.multiply(yRate,_c.getYcoords())),cst);
+    }
     public RatePoint intersect(CustLine _c) {
         Matrix mat_ = getMatrix(_c);
         Vect v_;

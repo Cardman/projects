@@ -186,6 +186,12 @@ public final class SymbBinFctMaOperation extends MethodMaOperation {
             setStruct(MaBoolStruct.of(edge_.containsPoint(point_)));
             return;
         }
+        if (val_ instanceof MaCustLineStruct && power_ instanceof MaRatePointStruct) {
+            CustLine line_ = ((MaCustLineStruct)val_).getLine();
+            RatePoint point_ = ((MaRatePointStruct)power_).getPoint();
+            setStruct(MaBoolStruct.of(line_.containsPoint(point_)));
+            return;
+        }
         _error.setOffset(getIndexExp());
     }
 
