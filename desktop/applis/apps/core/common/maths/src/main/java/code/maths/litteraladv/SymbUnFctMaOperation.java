@@ -316,6 +316,12 @@ public final class SymbUnFctMaOperation extends MethodMaOperation {
             setStruct(new MaFractPolStruct(nb_));
             return;
         }
+        CustList<MaPolygonStruct> polyg_ = tryGetAllAsPolygon(this);
+        if (polyg_.size() == 1) {
+            Polygon polygon_ = polyg_.first().getPolygon();
+            setStruct(new MaPolygonStruct(polygon_.getStrictHull()));
+            return;
+        }
         _error.setOffset(getIndexExp());
     }
     @Override
