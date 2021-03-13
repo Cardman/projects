@@ -145,6 +145,21 @@ public final class SymbUnFctMaOperation extends MethodMaOperation {
             setStruct(new MaRateStruct(matrix_.det()));
             return;
         }
+        CustList<MaPolygonStruct> pols_ = tryGetAllAsPolygon(this);
+        if (pols_.size() == 1) {
+            CustList<RatePoint> pts_ = pols_.first().getPolygon().getPoints();
+            if (pts_.size() != 3) {
+                _error.setOffset(getIndexExp());
+                return;
+            }
+            Triangle tri_ = new Triangle(pts_.get(0), pts_.get(1), pts_.get(2));
+            if (tri_.com().isZero()) {
+                _error.setOffset(getIndexExp());
+                return;
+            }
+            setStruct(new MaCustLineStruct(tri_.euler()));
+            return;
+        }
         _error.setOffset(getIndexExp());
     }
 
