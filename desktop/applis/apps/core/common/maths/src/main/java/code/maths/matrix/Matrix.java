@@ -343,17 +343,7 @@ public final class Matrix implements Displayable {
     }
 
     public Rate det() {
-        int nbCols_=lines.first().size();
-        int nbLines_=lines.size();
-        if(nbCols_!=nbLines_) {
-            if(nbCols_<nbLines_) {
-                Rate det_ = transposeRef().multMatrix(this).detSquare();
-                return Rate.powNb(det_, new Rate(1, 2));
-            }
-            Rate det_ = multMatrix(transposeRef()).detSquare();
-            return Rate.powNb(det_, new Rate(1, 2));
-        }
-        return detSquare();
+        return modif().detSquare();
     }
 
     public Rate detSquare() {
