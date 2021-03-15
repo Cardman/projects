@@ -52,6 +52,105 @@ public final class Matrix implements Displayable {
         return lines.get(_i).get(_j);
     }
 
+    public Matrix passVects() {
+        CustList<Vect> vects_ = modif().passVectsSquare();
+        vects_ = clean(vects_);
+        return new Matrix(vects_).transposeRef();
+    }
+
+    public static CustList<Vect> clean(CustList<Vect> _vects) {
+        if (_vects.isEmpty()) {
+            return new CustList<Vect>(new Vect(new CustList<Rate>(Rate.one())));
+        }
+        int len_ = _vects.first().size();
+        int count_ = _vects.size();
+        for (int i = 1; i < count_; i++) {
+            if (_vects.get(i).size() != len_) {
+                return new CustList<Vect>(new Vect(new CustList<Rate>(Rate.one())));
+            }
+        }
+        return _vects;
+    }
+    public CustList<Vect> passVectsSquare() {
+        CustList<RootPol> ownValues_=polCaract().racines();
+        CustList<Vect> vects_ = new CustList<Vect>();
+        Matrix id_ = buildId();
+        for (RootPol r: ownValues_) {
+            Matrix own_ = minusMatrix(id_.multMatrix(r.getValue()));
+            vects_.addAllElts(own_.ker());
+        }
+        return vects_;
+    }
+    public CustList<Vect> ker() {
+        int nbCols_ = nbCols();
+        Matrix id_ = buildId(nbCols_);
+        Matrix copy_ = new Matrix(this);
+        int nbLines_ = nbLines();
+        int nbLinesId_ = id_.nbLines();
+        for (int i = 0; i < nbLinesId_; i++) {
+            copy_.addLineRef(id_.lines.get(i));
+        }
+        for (int i = 0; i < nbLines_; i++) {
+            int indexNotZero_ = indexNotZero(nbCols_, copy_, i);
+            if (indexNotZero_ > -1){
+                combine(nbCols_, copy_, i, indexNotZero_);
+            }
+        }
+        CustList<Vect> cols_ = new CustList<Vect>();
+        int all_ = copy_.nbLines();
+        for (int i = 0; i < nbCols_; i++) {
+            if (zeroPrev(copy_, nbLines_, i)) {
+                Vect v_ = new Vect();
+                for (int j = nbLines_; j < all_; j++) {
+                    v_.add(copy_.lines.get(j).get(i));
+                }
+                cols_.add(v_);
+            }
+        }
+        return cols_;
+    }
+
+    private static int indexNotZero(int _nbCols, Matrix _copy, int _i) {
+        int indexNotZero_ = -1;
+        for (int j = 0; j < _nbCols; j++) {
+            boolean ok_ = zeroPrev(_copy, _i, j);
+            if (ok_ && !_copy.lines.get(_i).get(j).isZero()) {
+                indexNotZero_ = j;
+                break;
+            }
+        }
+        return indexNotZero_;
+    }
+
+    private static void combine(int _nbCols, Matrix _copy, int _i, int _indexNotZero) {
+        Rate co_ = _copy.lines.get(_i).get(_indexNotZero);
+        for (int j = 0; j < _indexNotZero; j++) {
+            Rate r_ = Rate.divide(_copy.lines.get(_i).get(j), co_).opposNb();
+            _copy.combineCol(r_, _indexNotZero,j);
+        }
+        for (int j = _indexNotZero +1; j < _nbCols; j++) {
+            Rate r_ = Rate.divide(_copy.lines.get(_i).get(j), co_).opposNb();
+            _copy.combineCol(r_, _indexNotZero,j);
+        }
+    }
+
+    private static boolean zeroPrev(Matrix _copy, int _i, int _j) {
+        boolean ok_ = true;
+        for (int k = 0; k < _i; k++) {
+            if (!_copy.lines.get(k).get(_j).isZero()) {
+                ok_ = false;
+                break;
+            }
+        }
+        return ok_;
+    }
+
+    private void combineCol(Rate _rate,int _colOrigin,int _colDest) {
+        int nbLines_ = nbLines();
+        for (int i = 0; i < nbLines_; i++) {
+            lines.get(i).set(_colDest,Rate.plus(lines.get(i).get(_colDest),Rate.multiply(_rate,lines.get(i).get(_colOrigin))));
+        }
+    }
 //    public Matrix passMat() {
 //        Matrix mat_ = new Matrix();
 //        CustList<EigenValue> ownValues_=diagTrig().getRates();
@@ -204,6 +303,10 @@ public final class Matrix implements Displayable {
     }
 
     public Polynom polCaract() {
+        return modif().polCaractSquare();
+    }
+
+    public Matrix modif() {
         int nbCols_=lines.first().size();
         int nbLines_=lines.size();
         if(nbCols_!=nbLines_) {
@@ -213,11 +316,10 @@ public final class Matrix implements Displayable {
             } else {
                 adj_ = multMatrix(transposeRef());
             }
-            return adj_.polCaractSquare();
+            return adj_;
         }
-        return polCaractSquare();
+        return this;
     }
-
 
     private Polynom polCaractSquare() {
         CustList<RateImage> antImgs_;
@@ -588,17 +690,7 @@ public final class Matrix implements Displayable {
         if (nbLines_ == 0) {
             return Rate.zero();
         }
-        int nbCols_=lines.first().size();
-        if(nbCols_!=nbLines_) {
-            Matrix adj_;
-            if(nbCols_<nbLines_) {
-                adj_ = transposeRef().multMatrix(this);
-            } else {
-                adj_ = multMatrix(transposeRef());
-            }
-            return adj_.traceSquare();
-        }
-        return traceSquare();
+        return modif().traceSquare();
     }
 
     public Rate traceSquare() {

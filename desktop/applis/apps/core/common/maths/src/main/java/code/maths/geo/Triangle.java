@@ -60,14 +60,12 @@ public final class Triangle implements HasEdges, Displayable {
         Rate gx_ = g_.getXcoords();
         Rate gy_ = g_.getYcoords();
         Rate cd_ = com();
-        Rate cx_;
-        Rate cy_;
         if (cd_.isZero()) {
             return new CustLine(Rate.zero(),Rate.zero(),Rate.zero());
         }
         RatePoint c_ = getCircumCenter();
-        cx_ = c_.getXcoords();
-        cy_ = c_.getYcoords();
+        Rate cx_ = c_.getXcoords();
+        Rate cy_ = c_.getYcoords();
         return new CustLine(new RatePoint(gx_, gy_), new RatePoint(cx_, cy_));
     }
 

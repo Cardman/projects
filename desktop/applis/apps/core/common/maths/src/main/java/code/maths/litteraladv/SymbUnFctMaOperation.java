@@ -130,6 +130,12 @@ public final class SymbUnFctMaOperation extends MethodMaOperation {
             setStruct(new MaRateStruct(Rate.minusOne()));
             return;
         }
+        CustList<MaMatrixStruct> all_ = tryGetAllAsMatrix(this);
+        if (all_.size() == 1) {
+            Matrix matrix_ = all_.first().getMatrix();
+            setStruct(new MaMatrixStruct(matrix_.passVects()));
+            return;
+        }
         _error.setOffset(getIndexExp());
     }
 

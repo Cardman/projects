@@ -2,6 +2,7 @@ package code.maths.matrix;
 
 import code.maths.EquallableMathUtil;
 import code.maths.LgInt;
+import code.util.CustList;
 import org.junit.Test;
 
 import code.maths.Rate;
@@ -683,6 +684,110 @@ public class MatrixTest extends EquallableMathUtil {
         mat_.addLine(vect_);
         Rate d_ = mat_.trace();
         assertEq(new Rate(1), d_);
+    }
+    @Test
+    public void ker() {
+        Matrix mat_ = new Matrix();
+        Vect vect_ = new Vect(new CustList<Rate>(new Rate(1),new Rate(-1),new Rate(1),new Rate(1)));
+        mat_.addLineRef(vect_);
+        vect_ = new Vect(new CustList<Rate>(new Rate(1),new Rate(0),new Rate(2),new Rate(-1)));
+        mat_.addLineRef(vect_);
+        vect_ = new Vect(new CustList<Rate>(new Rate(1),new Rate(1),new Rate(3),new Rate(-3)));
+        mat_.addLineRef(vect_);
+        CustList<Vect> res_ = mat_.ker();
+        assertEq(2,res_.size());
+        assertEq(4,res_.get(0).size());
+        assertEq(new Rate(-2),res_.get(0).get(0));
+        assertEq(new Rate(-1),res_.get(0).get(1));
+        assertEq(new Rate(1),res_.get(0).get(2));
+        assertEq(new Rate(0),res_.get(0).get(3));
+        assertEq(4,res_.get(1).size());
+        assertEq(new Rate(1),res_.get(1).get(0));
+        assertEq(new Rate(2),res_.get(1).get(1));
+        assertEq(new Rate(0),res_.get(1).get(2));
+        assertEq(new Rate(1),res_.get(1).get(3));
+    }
+    @Test
+    public void ker2() {
+        Matrix mat_ = new Matrix();
+        Vect vect_ = new Vect(new CustList<Rate>(new Rate(1),new Rate(1)));
+        mat_.addLineRef(vect_);
+        vect_ = new Vect(new CustList<Rate>(new Rate(2),new Rate(2)));
+        mat_.addLineRef(vect_);
+        CustList<Vect> res_ = mat_.ker();
+        assertEq(1,res_.size());
+        assertEq(2,res_.get(0).size());
+        assertEq(new Rate(-1),res_.get(0).get(0));
+        assertEq(new Rate(1),res_.get(0).get(1));
+    }
+    @Test
+    public void ker3() {
+        Matrix mat_ = new Matrix();
+        Vect vect_ = new Vect(new CustList<Rate>(new Rate(0),new Rate(0)));
+        mat_.addLineRef(vect_);
+        vect_ = new Vect(new CustList<Rate>(new Rate(2),new Rate(2)));
+        mat_.addLineRef(vect_);
+        CustList<Vect> res_ = mat_.ker();
+        assertEq(1,res_.size());
+        assertEq(2,res_.get(0).size());
+        assertEq(new Rate(-1),res_.get(0).get(0));
+        assertEq(new Rate(1),res_.get(0).get(1));
+    }
+    @Test
+    public void ker4() {
+        Matrix mat_ = new Matrix();
+        Vect vect_ = new Vect(new CustList<Rate>(new Rate(0),new Rate(0)));
+        mat_.addLineRef(vect_);
+        vect_ = new Vect(new CustList<Rate>(new Rate(0),new Rate(0)));
+        mat_.addLineRef(vect_);
+        CustList<Vect> res_ = mat_.ker();
+        assertEq(2,res_.size());
+        assertEq(2,res_.get(0).size());
+        assertEq(new Rate(1),res_.get(0).get(0));
+        assertEq(new Rate(0),res_.get(0).get(1));
+        assertEq(2,res_.get(1).size());
+        assertEq(new Rate(0),res_.get(1).get(0));
+        assertEq(new Rate(1),res_.get(1).get(1));
+    }
+    @Test
+    public void ker5() {
+        Matrix mat_ = new Matrix();
+        Vect vect_ = new Vect(new CustList<Rate>(new Rate(1),new Rate(0)));
+        mat_.addLineRef(vect_);
+        vect_ = new Vect(new CustList<Rate>(new Rate(0),new Rate(1)));
+        mat_.addLineRef(vect_);
+        CustList<Vect> res_ = mat_.ker();
+        assertEq(0,res_.size());
+    }
+    @Test
+    public void passVects() {
+        Matrix mat_ = new Matrix();
+        Vect vect_ = new Vect(new CustList<Rate>(new Rate(1),new Rate(1)));
+        mat_.addLineRef(vect_);
+        vect_ = new Vect(new CustList<Rate>(new Rate(2),new Rate(2)));
+        mat_.addLineRef(vect_);
+        CustList<Vect> res_ = mat_.passVectsSquare();
+        assertEq(2,res_.size());
+        assertEq(2,res_.get(0).size());
+        assertEq(new Rate(-1),res_.get(0).get(0));
+        assertEq(new Rate(1),res_.get(0).get(1));
+        assertEq(2,res_.get(1).size());
+        assertEq(new Rate(1,2),res_.get(1).get(0));
+        assertEq(new Rate(1),res_.get(1).get(1));
+    }
+    @Test
+    public void clean1() {
+        CustList<Vect> mat_ = new CustList<Vect>();
+        assertEq(1,Matrix.clean(mat_).size());
+    }
+    @Test
+    public void clean2() {
+        CustList<Vect> mat_ = new CustList<Vect>();
+        Vect vect_ = new Vect(new CustList<Rate>(new Rate(1),new Rate(1)));
+        mat_.add(vect_);
+        vect_ = new Vect(new CustList<Rate>(new Rate(2)));
+        mat_.add(vect_);
+        assertEq(1,Matrix.clean(mat_).size());
     }
     @Test
     public void eq1Test() {
