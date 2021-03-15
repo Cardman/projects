@@ -19,15 +19,22 @@ public final class MaEdgeStruct implements MaStruct {
             return false;
         }
         MaEdgeStruct oth_ = (MaEdgeStruct) _other;
-        if (!edge.getFirst().eq(oth_.edge.getFirst())) {
-            return false;
-        }
-        return edge.getSecond().eq(oth_.edge.getSecond());
+        return eqEdge(edge,oth_.edge);
     }
 
+    static boolean eqEdge(Edge _this,Edge _oth) {
+        if (!_this.getFirst().eq(_oth.getFirst())) {
+            return false;
+        }
+        return _this.getSecond().eq(_oth.getSecond());
+    }
     @Override
     public String displayRsult() {
-        return "("+MaRatePointStruct.displayRsult(edge.getFirst())+","+MaRatePointStruct.displayRsult(edge.getSecond())+",-)";
+        return displayRsult(edge);
+    }
+
+    static String displayRsult(Edge _edge) {
+        return "(" + MaRatePointStruct.displayRsult(_edge.getFirst()) + "," + MaRatePointStruct.displayRsult(_edge.getSecond()) + ",-)";
     }
 
 }

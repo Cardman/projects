@@ -3,19 +3,14 @@ package code.maths.litteraladv;
 import code.maths.LgInt;
 import code.maths.PrimDivisor;
 import code.maths.Rate;
-import code.maths.geo.CustLine;
-import code.maths.geo.Edge;
-import code.maths.geo.Polygon;
-import code.maths.geo.RatePoint;
+import code.maths.geo.*;
 import code.maths.litteralcom.StrTypes;
 import code.maths.matrix.Matrix;
 import code.maths.matrix.Polynom;
 import code.maths.matrix.RootPol;
 import code.maths.matrix.Vect;
 import code.maths.montecarlo.EventFreq;
-import code.util.CollCapacity;
-import code.util.CustList;
-import code.util.StringMap;
+import code.util.*;
 
 public final class ArrMaOperation extends MethodMaOperation {
     public ArrMaOperation(int _index, int _indexChild, MethodMaOperation _m, MaOperationsSequence _op) {
@@ -109,6 +104,30 @@ public final class ArrMaOperation extends MethodMaOperation {
             setStruct(new MaRateStruct(new Rate(((MaListPolygonStruct) _list.first()).getPolygons().size())));
             return;
         }
+        if (_list.first() instanceof MaDelaunayStruct) {
+            setStruct(new MaRateStruct(new Rate(5)));
+            return;
+        }
+        if (_list.first() instanceof MaMapPointListPointStruct) {
+            setStruct(new MaRateStruct(new Rate(((MaMapPointListPointStruct)_list.first()).getNextPoints().size())));
+            return;
+        }
+        if (_list.first() instanceof MaMapPointEdgeStruct) {
+            setStruct(new MaRateStruct(new Rate(((MaMapPointEdgeStruct)_list.first()).getEdges().size())));
+            return;
+        }
+        if (_list.first() instanceof MaMapPointListPolygonStruct) {
+            setStruct(new MaRateStruct(new Rate(((MaMapPointListPolygonStruct)_list.first()).getNextTriangles().size())));
+            return;
+        }
+        if (_list.first() instanceof MaListPointStruct) {
+            setStruct(new MaRateStruct(new Rate(((MaListPointStruct)_list.first()).getPoints().size())));
+            return;
+        }
+        if (_list.first() instanceof MaListEdgeStruct) {
+            setStruct(new MaRateStruct(new Rate(((MaListEdgeStruct)_list.first()).getEdges().size())));
+            return;
+        }
         setStruct(new MaRateStruct(new Rate(-1)));
     }
 
@@ -117,7 +136,8 @@ public final class ArrMaOperation extends MethodMaOperation {
     }
 
     private static boolean isDual(MaStruct _first) {
-        return _first instanceof MaPrimDivisorNbStruct || _first instanceof MaPrimDivisorPolStruct || _first instanceof MaEventFreqStruct || _first instanceof MaRatePointStruct || _first instanceof MaEdgeStruct;
+        return _first instanceof MaPrimDivisorNbStruct || _first instanceof MaPrimDivisorPolStruct || _first instanceof MaEventFreqStruct || _first instanceof MaRatePointStruct || _first instanceof MaEdgeStruct
+                || _first instanceof MaPairPointStruct;
     }
 
     private void procTwoIndexes(MaError _error, CustList<MaStruct> _values) {
@@ -250,6 +270,38 @@ public final class ArrMaOperation extends MethodMaOperation {
         }
         if (_first instanceof MaEdgeStruct) {
             procEdge((MaEdgeStruct) _first,(MaRateStruct) _values.get(1), _error);
+            return;
+        }
+        if (_first instanceof MaMapPointEdgeStruct) {
+            procMapPointEdge((MaMapPointEdgeStruct) _first,(MaRateStruct) _values.get(1), _error);
+            return;
+        }
+        if (_first instanceof MaMapPointListPointStruct) {
+            procMapPointListPoint((MaMapPointListPointStruct) _first,(MaRateStruct) _values.get(1), _error);
+            return;
+        }
+        if (_first instanceof MaMapPointListPolygonStruct) {
+            procMapPointListPolygon((MaMapPointListPolygonStruct) _first,(MaRateStruct) _values.get(1), _error);
+            return;
+        }
+        if (_first instanceof MaPointListEdgesStruct) {
+            procPointListEdges((MaPointListEdgesStruct) _first,(MaRateStruct) _values.get(1), _error);
+            return;
+        }
+        if (_first instanceof MaPointListPointsStruct) {
+            procPointListPoints((MaPointListPointsStruct) _first,(MaRateStruct) _values.get(1), _error);
+            return;
+        }
+        if (_first instanceof MaPointListPolygonsStruct) {
+            procPointListPolygons((MaPointListPolygonsStruct) _first,(MaRateStruct) _values.get(1), _error);
+            return;
+        }
+        if (_first instanceof MaListEdgeStruct) {
+            procListEdges((MaListEdgeStruct) _first,(MaRateStruct) _values.get(1), _error);
+            return;
+        }
+        if (_first instanceof MaListPointStruct) {
+            procListPoints((MaListPointStruct) _first,(MaRateStruct) _values.get(1), _error);
             return;
         }
         _error.setOffset(getIndexExp());
@@ -739,8 +791,111 @@ public final class ArrMaOperation extends MethodMaOperation {
         }
         _error.setOffset(getIndexExp());
     }
+    private void procMapPointEdge(MaMapPointEdgeStruct _divs,MaRateStruct _index, MaError _error) {
+        IdMap<RatePoint, CustList<Edge>> matrix_ = _divs.getEdges();
+        MaPairPointStruct pol_ = procPointEdge(matrix_, _index);
+        if (pol_ != null) {
+            setStruct(pol_);
+            return;
+        }
+        _error.setOffset(getIndexExp());
+    }
+    private void procMapPointListPoint(MaMapPointListPointStruct _divs,MaRateStruct _index, MaError _error) {
+        IdMap<RatePoint, IdList<RatePoint>> matrix_ = _divs.getNextPoints();
+        MaPairPointStruct pol_ = procPointListPoint(matrix_, _index);
+        if (pol_ != null) {
+            setStruct(pol_);
+            return;
+        }
+        _error.setOffset(getIndexExp());
+    }
+    private void procMapPointListPolygon(MaMapPointListPolygonStruct _divs,MaRateStruct _index, MaError _error) {
+        IdMap<RatePoint, CustList<Triangle>> matrix_ = _divs.getNextTriangles();
+        MaPairPointStruct pol_ = procPointListPolygon(matrix_, _index);
+        if (pol_ != null) {
+            setStruct(pol_);
+            return;
+        }
+        _error.setOffset(getIndexExp());
+    }
+    private void procPointListEdges(MaPointListEdgesStruct _divs,MaRateStruct _index, MaError _error) {
+        LgInt lgInt_ = _index.getRate().intPart();
+        if (!lgInt_.isZeroOrGt()) {
+            lgInt_.addNb(new LgInt(2));
+        }
+        if (lgInt_.isZero()) {
+            setStruct(new MaRatePointStruct(_divs.getPoint()));
+            return;
+        }
+        if (lgInt_.eq(LgInt.one())) {
+            setStruct(new MaListEdgeStruct(_divs.getEdges()));
+            return;
+        }
+        _error.setOffset(getIndexExp());
+    }
+    private void procPointListPoints(MaPointListPointsStruct _divs,MaRateStruct _index, MaError _error) {
+        LgInt lgInt_ = _index.getRate().intPart();
+        if (!lgInt_.isZeroOrGt()) {
+            lgInt_.addNb(new LgInt(2));
+        }
+        if (lgInt_.isZero()) {
+            setStruct(new MaRatePointStruct(_divs.getPoint()));
+            return;
+        }
+        if (lgInt_.eq(LgInt.one())) {
+            setStruct(new MaListPointStruct(_divs.getNextPoints()));
+            return;
+        }
+        _error.setOffset(getIndexExp());
+    }
+    private void procPointListPolygons(MaPointListPolygonsStruct _divs,MaRateStruct _index, MaError _error) {
+        LgInt lgInt_ = _index.getRate().intPart();
+        if (!lgInt_.isZeroOrGt()) {
+            lgInt_.addNb(new LgInt(2));
+        }
+        if (lgInt_.isZero()) {
+            setStruct(new MaRatePointStruct(_divs.getPoint()));
+            return;
+        }
+        if (lgInt_.eq(LgInt.one())) {
+            setStruct(new MaListPolygonStruct(MaListPolygonStruct.toPolygons(_divs.getNextTriangles())));
+            return;
+        }
+        _error.setOffset(getIndexExp());
+    }
+    private void procListEdges(MaListEdgeStruct _divs,MaRateStruct _index, MaError _error) {
+        LgInt lgInt_ = _index.getRate().intPart();
+        CustList<Edge> edges_ = _divs.getEdges();
+        int len_ = edges_.size();
+        if (!lgInt_.isZeroOrGt()) {
+            lgInt_.addNb(new LgInt(len_));
+        }
+        if (validIndex(lgInt_,len_)) {
+            int ind_ = (int) lgInt_.ll();
+            setStruct(new MaEdgeStruct(edges_.get(ind_)));
+            return;
+        }
+        _error.setOffset(getIndexExp());
+    }
+    private void procListPoints(MaListPointStruct _divs,MaRateStruct _index, MaError _error) {
+        LgInt lgInt_ = _index.getRate().intPart();
+        CustList<RatePoint> edges_ = _divs.getPoints();
+        int len_ = edges_.size();
+        if (!lgInt_.isZeroOrGt()) {
+            lgInt_.addNb(new LgInt(len_));
+        }
+        if (validIndex(lgInt_,len_)) {
+            int ind_ = (int) lgInt_.ll();
+            setStruct(new MaRatePointStruct(edges_.get(ind_)));
+            return;
+        }
+        _error.setOffset(getIndexExp());
+    }
     private void procDelaunay(MaDelaunayStruct _divs,MaRateStruct _index, MaError _error) {
         LgInt lgInt_ = _index.getRate().intPart();
+        if (!lgInt_.isZeroOrGt()) {
+            lgInt_.addNb(new LgInt(5));
+        }
         if (lgInt_.isZero()) {
             CustList<Polygon> matrix_ = MaListPolygonStruct.toPolygons(_divs.getDelaunay().getTriangles());
             setStruct(new MaListPolygonStruct(matrix_));
@@ -748,6 +903,18 @@ public final class ArrMaOperation extends MethodMaOperation {
         }
         if (lgInt_.eq(LgInt.one())) {
             setStruct(new MaPolygonStruct(_divs.getDelaunay().getConvexHull()));
+            return;
+        }
+        if (lgInt_.eq(new LgInt(2))) {
+            setStruct(new MaMapPointListPointStruct(_divs.getDelaunay().getNextPoints()));
+            return;
+        }
+        if (lgInt_.eq(new LgInt(3))) {
+            setStruct(new MaMapPointEdgeStruct(_divs.getDelaunay().getEdges()));
+            return;
+        }
+        if (lgInt_.eq(new LgInt(4))) {
+            setStruct(new MaMapPointListPolygonStruct(_divs.getDelaunay().getNextTriangles()));
             return;
         }
         _error.setOffset(getIndexExp());
@@ -760,6 +927,42 @@ public final class ArrMaOperation extends MethodMaOperation {
         }
         if (validIndex(lgInt_, len_)) {
             return _divs.get((int) lgInt_.ll());
+        }
+        return null;
+    }
+    private static MaPairPointStruct procPointEdge(IdMap<RatePoint, CustList<Edge>> _divs,MaRateStruct _index) {
+        LgInt lgInt_ = _index.getRate().intPart();
+        int len_ = _divs.size();
+        if (!lgInt_.isZeroOrGt()) {
+            lgInt_.addNb(new LgInt(len_));
+        }
+        if (validIndex(lgInt_, len_)) {
+            int ind_ = (int) lgInt_.ll();
+            return new MaPointListEdgesStruct(_divs.getKey(ind_),_divs.getValue(ind_));
+        }
+        return null;
+    }
+    private static MaPairPointStruct procPointListPoint(IdMap<RatePoint, IdList<RatePoint>> _divs,MaRateStruct _index) {
+        LgInt lgInt_ = _index.getRate().intPart();
+        int len_ = _divs.size();
+        if (!lgInt_.isZeroOrGt()) {
+            lgInt_.addNb(new LgInt(len_));
+        }
+        if (validIndex(lgInt_, len_)) {
+            int ind_ = (int) lgInt_.ll();
+            return new MaPointListPointsStruct(_divs.getKey(ind_),_divs.getValue(ind_));
+        }
+        return null;
+    }
+    private static MaPairPointStruct procPointListPolygon(IdMap<RatePoint, CustList<Triangle>> _divs,MaRateStruct _index) {
+        LgInt lgInt_ = _index.getRate().intPart();
+        int len_ = _divs.size();
+        if (!lgInt_.isZeroOrGt()) {
+            lgInt_.addNb(new LgInt(len_));
+        }
+        if (validIndex(lgInt_, len_)) {
+            int ind_ = (int) lgInt_.ll();
+            return new MaPointListPolygonsStruct(_divs.getKey(ind_),_divs.getValue(ind_));
         }
         return null;
     }
