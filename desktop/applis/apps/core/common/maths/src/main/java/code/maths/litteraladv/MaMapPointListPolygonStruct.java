@@ -12,7 +12,15 @@ public final class MaMapPointListPolygonStruct implements MaStruct {
     public MaMapPointListPolygonStruct(IdMap<RatePoint,CustList<Triangle>> _nextPoints) {
         this.nextTriangles = _nextPoints;
     }
-
+    public CustList<Triangle> getNextTriangles(RatePoint _point) {
+        CustList<Triangle> edges_ = new CustList<Triangle>();
+        for (EntryCust<RatePoint, CustList<Triangle>> e: nextTriangles.entryList()) {
+            if (_point.eq(e.getKey())) {
+                edges_.addAllElts(e.getValue());
+            }
+        }
+        return edges_;
+    }
     public IdMap<RatePoint,CustList<Triangle>> getNextTriangles() {
         return nextTriangles;
     }

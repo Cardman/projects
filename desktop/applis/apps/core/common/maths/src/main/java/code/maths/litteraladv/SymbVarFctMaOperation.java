@@ -262,8 +262,11 @@ public final class SymbVarFctMaOperation extends MethodMaOperation  {
             return;
         }
         if (rates_.size() == 2 && allRates_) {
-            setStruct(new MaCustLineStruct(new CustLine(rates_.first(),rates_.last())));
-            return;
+            CustLine line_ = new CustLine(rates_.first(), rates_.last());
+            if (line_.isDefined()) {
+                setStruct(new MaCustLineStruct(line_));
+                return;
+            }
         }
         _error.setOffset(getIndexExp());
     }

@@ -15,8 +15,10 @@ public class SymbTerFctMaOperation extends MethodMaOperation {
         CustList<MaRateStruct> rates_ = tryGetRates(this);
         if (rates_.size() == 3) {
             CustLine line_ = new CustLine(rates_.get(0).getRate(), rates_.get(1).getRate(), rates_.get(2).getRate());
-            setStruct(new MaCustLineStruct(line_));
-            return;
+            if (line_.isDefined()) {
+                setStruct(new MaCustLineStruct(line_));
+                return;
+            }
         }
         _error.setOffset(getIndexExp());
     }

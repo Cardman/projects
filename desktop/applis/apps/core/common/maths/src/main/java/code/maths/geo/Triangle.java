@@ -63,13 +63,11 @@ public final class Triangle implements HasEdges, Displayable {
         Rate cx_;
         Rate cy_;
         if (cd_.isZero()) {
-            cx_ = new Rate(gx_);
-            cy_ = new Rate(gy_);
-        } else {
-            RatePoint c_ = getCircumCenter();
-            cx_ = c_.getXcoords();
-            cy_ = c_.getYcoords();
+            return new CustLine(Rate.zero(),Rate.zero(),Rate.zero());
         }
+        RatePoint c_ = getCircumCenter();
+        cx_ = c_.getXcoords();
+        cy_ = c_.getYcoords();
         return new CustLine(new RatePoint(gx_, gy_), new RatePoint(cx_, cy_));
     }
 

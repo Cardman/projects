@@ -3155,6 +3155,30 @@ public final class MaParserTest extends EquallableMathUtil {
         assertEq("0", noVar("(%%,(0,0,.),(2,4,.),(1,5,.),(3,2,.))[2]=0"));
     }
     @Test
+    public void evaluateExp788Test(){
+        assertEq("((1,5,.),(2,4,.),(3,2,.))", noVar("(%%,(0,0,.),(2,4,.),(1,5,.),(3,2,.))[2][(0,0,.)]"));
+    }
+    @Test
+    public void evaluateExp789Test(){
+        assertEq("(((-1/3,8/3,.),(3/4,17/8,.),-),((3/4,17/8,.),(-1/3,8/3,.),-))", noVar("(%%,(0,0,.),(2,4,.),(1,5,.),(3,2,.))[3][(0,0,.)]"));
+    }
+    @Test
+    public void evaluateExp790Test(){
+        assertEq("((||,(0,0,.),(2,4,.),(1,5,.)),(||,(2,4,.),(0,0,.),(3,2,.)))", noVar("(%%,(0,0,.),(2,4,.),(1,5,.),(3,2,.))[4][(0,0,.)]"));
+    }
+    @Test
+    public void evaluateExp791Test(){
+        assertEq("#0", noVar("(%%,(0,0,.),(2,4,.),(1,5,.),(3,2,.))[0][(0,0,.)]"));
+    }
+    @Test
+    public void evaluateExp792Test(){
+        assertEq("#0", noVar("(0,0,0,-)"));
+    }
+    @Test
+    public void evaluateExp793Test(){
+        assertEq("#0", noVar("(||,(2,4,.),(2,4,.))"));
+    }
+    @Test
     public void nullVarTest(){
         assertEq("#", nullVar());
     }

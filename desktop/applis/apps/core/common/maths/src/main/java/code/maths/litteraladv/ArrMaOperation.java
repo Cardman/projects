@@ -36,6 +36,10 @@ public final class ArrMaOperation extends MethodMaOperation {
             procThreeIndexes(_error, values_);
             return;
         }
+        if (isPtIndex(values_)) {
+            procPtIndex(_error, values_);
+            return;
+        }
         _error.setOffset(getIndexExp());
     }
 
@@ -318,11 +322,13 @@ public final class ArrMaOperation extends MethodMaOperation {
         }
         return true;
     }
+
+    private static boolean isPtIndex(CustList<MaStruct> _values) {
+        return _values.size() == 2 && _values.last() instanceof MaRatePointStruct;
+    }
     private void procArr(MaBezoutNbStruct _bezout,MaRateStruct _index, MaError _error) {
         LgInt lgInt_ = _index.getRate().intPart();
-        if (!lgInt_.isZeroOrGt()) {
-            lgInt_.addNb(new LgInt(4));
-        }
+        incr(lgInt_,4);
         if (LgInt.zero().eq(lgInt_)) {
             setStruct(new MaRateStruct(new Rate(_bezout.getIdBezout().getFirst())));
             return;
@@ -344,9 +350,7 @@ public final class ArrMaOperation extends MethodMaOperation {
 
     private void procArr(MaBezoutPolStruct _bezout,MaRateStruct _index, MaError _error) {
         LgInt lgInt_ = _index.getRate().intPart();
-        if (!lgInt_.isZeroOrGt()) {
-            lgInt_.addNb(new LgInt(4));
-        }
+        incr(lgInt_,4);
         if (LgInt.zero().eq(lgInt_)) {
             setStruct(new MaPolynomStruct(_bezout.getIdBezout().getFirst()));
             return;
@@ -384,9 +388,7 @@ public final class ArrMaOperation extends MethodMaOperation {
         LgInt lgInt_ = _index.getRate().intPart();
         CustList<LgInt> dividers_ = _divs.getDividers();
         int len_ = dividers_.size();
-        if (!lgInt_.isZeroOrGt()) {
-            lgInt_.addNb(new LgInt(len_));
-        }
+        incr(lgInt_,len_);
         if (validIndex(lgInt_, len_)) {
             setStruct(new MaRateStruct(new Rate(dividers_.get((int) lgInt_.ll()))));
             return;
@@ -397,9 +399,7 @@ public final class ArrMaOperation extends MethodMaOperation {
         LgInt lgInt_ = _index.getRate().intPart();
         CustList<Polynom> dividers_ = _divs.getDividers();
         int len_ = dividers_.size();
-        if (!lgInt_.isZeroOrGt()) {
-            lgInt_.addNb(new LgInt(len_));
-        }
+        incr(lgInt_,len_);
         if (validIndex(lgInt_, len_)) {
             setStruct(new MaPolynomStruct(dividers_.get((int) lgInt_.ll())));
             return;
@@ -415,9 +415,7 @@ public final class ArrMaOperation extends MethodMaOperation {
         LgInt lgInt_ = _index.getRate().intPart();
         CustList<PrimDivisor> dividers_ = _divs.getDecomposition().getFactors();
         int len_ = dividers_.size();
-        if (!lgInt_.isZeroOrGt()) {
-            lgInt_.addNb(new LgInt(len_));
-        }
+        incr(lgInt_,len_);
         if (validIndex(lgInt_, len_)) {
             setStruct(new MaPrimDivisorNbStruct(dividers_.get((int) lgInt_.ll())));
             return;
@@ -428,15 +426,11 @@ public final class ArrMaOperation extends MethodMaOperation {
         LgInt lgInt_ = _index.getRate().intPart();
         CustList<PrimDivisor> dividers_ = _divs.getDecomposition().getFactors();
         int len_ = dividers_.size();
-        if (!lgInt_.isZeroOrGt()) {
-            lgInt_.addNb(new LgInt(len_));
-        }
+        incr(lgInt_,len_);
         if (validIndex(lgInt_, len_)) {
             PrimDivisor primDivisor_ = dividers_.get((int) lgInt_.ll());
             LgInt lgIntSec_ = _indexTwo.getRate().intPart();
-            if (!lgIntSec_.isZeroOrGt()) {
-                lgIntSec_.addNb(new LgInt(2));
-            }
+            incr(lgIntSec_,2);
             if (lgIntSec_.eq(LgInt.zero())) {
                 setStruct(new MaRateStruct(new Rate(primDivisor_.getPrime())));
                 return;
@@ -451,9 +445,7 @@ public final class ArrMaOperation extends MethodMaOperation {
     private void procPrimDivisor(MaPrimDivisorNbStruct _divs,MaRateStruct _index, MaError _error) {
         LgInt lgInt_ = _index.getRate().intPart();
         PrimDivisor primDivisor_ = _divs.getPrimDivisor();
-        if (!lgInt_.isZeroOrGt()) {
-            lgInt_.addNb(new LgInt(2));
-        }
+        incr(lgInt_,2);
         if (lgInt_.eq(LgInt.zero())) {
             setStruct(new MaRateStruct(new Rate(primDivisor_.getPrime())));
             return;
@@ -468,9 +460,7 @@ public final class ArrMaOperation extends MethodMaOperation {
         LgInt lgInt_ = _index.getRate().intPart();
         CustList<RootPol> dividers_ = _divs.getDecomposition();
         int len_ = dividers_.size();
-        if (!lgInt_.isZeroOrGt()) {
-            lgInt_.addNb(new LgInt(len_));
-        }
+        incr(lgInt_,len_);
         if (validIndex(lgInt_, len_)) {
             setStruct(new MaPrimDivisorPolStruct(dividers_.get((int) lgInt_.ll())));
             return;
@@ -481,15 +471,11 @@ public final class ArrMaOperation extends MethodMaOperation {
         LgInt lgInt_ = _index.getRate().intPart();
         CustList<RootPol> dividers_ = _divs.getDecomposition();
         int len_ = dividers_.size();
-        if (!lgInt_.isZeroOrGt()) {
-            lgInt_.addNb(new LgInt(len_));
-        }
+        incr(lgInt_,len_);
         if (validIndex(lgInt_, len_)) {
             RootPol primDivisor_ = dividers_.get((int) lgInt_.ll());
             LgInt lgIntSec_ = _indexTwo.getRate().intPart();
-            if (!lgIntSec_.isZeroOrGt()) {
-                lgIntSec_.addNb(new LgInt(2));
-            }
+            incr(lgIntSec_,2);
             if (lgIntSec_.eq(LgInt.zero())) {
                 setStruct(new MaRateStruct(new Rate(primDivisor_.getValue())));
                 return;
@@ -504,9 +490,7 @@ public final class ArrMaOperation extends MethodMaOperation {
     private void procPrimDivisor(MaPrimDivisorPolStruct _divs,MaRateStruct _index, MaError _error) {
         LgInt lgInt_ = _index.getRate().intPart();
         RootPol primDivisor_ = _divs.getPrimDivisor();
-        if (!lgInt_.isZeroOrGt()) {
-            lgInt_.addNb(new LgInt(2));
-        }
+        incr(lgInt_,2);
         if (lgInt_.eq(LgInt.zero())) {
             setStruct(new MaRateStruct(new Rate(primDivisor_.getValue())));
             return;
@@ -527,9 +511,7 @@ public final class ArrMaOperation extends MethodMaOperation {
     }
     private static MaStruct procRatePoint(RatePoint _divs,MaRateStruct _index) {
         LgInt lgInt_ = _index.getRate().intPart();
-        if (!lgInt_.isZeroOrGt()) {
-            lgInt_.addNb(new LgInt(2));
-        }
+        incr(lgInt_,2);
         if (lgInt_.eq(LgInt.zero())) {
             return new MaRateStruct(new Rate(_divs.getXcoords()));
         }
@@ -542,9 +524,7 @@ public final class ArrMaOperation extends MethodMaOperation {
         LgInt lgInt_ = _index.getRate().intPart();
         CustList<EventFreq<CustList<LgInt>>> dividers_ = _divs.getEvents();
         int len_ = dividers_.size();
-        if (!lgInt_.isZeroOrGt()) {
-            lgInt_.addNb(new LgInt(len_));
-        }
+        incr(lgInt_,len_);
         if (validIndex(lgInt_, len_)) {
             EventFreq<CustList<LgInt>> dual_ = dividers_.get((int) lgInt_.ll());
             CustList<LgInt> copy_ = new CustList<LgInt>(new CollCapacity(dual_.getEvent().size()+1));
@@ -559,9 +539,7 @@ public final class ArrMaOperation extends MethodMaOperation {
         LgInt lgInt_ = _index.getRate().intPart();
         CustList<EventFreq<CustList<LgInt>>> dividers_ = _divs.getEvents();
         int len_ = dividers_.size();
-        if (!lgInt_.isZeroOrGt()) {
-            lgInt_.addNb(new LgInt(len_));
-        }
+        incr(lgInt_,len_);
         if (validIndex(lgInt_, len_)) {
             EventFreq<CustList<LgInt>> dual_ = dividers_.get((int) lgInt_.ll());
             CustList<LgInt> copy_ = new CustList<LgInt>(new CollCapacity(dual_.getEvent().size()+1));
@@ -569,9 +547,7 @@ public final class ArrMaOperation extends MethodMaOperation {
             copy_.add(dual_.getFreq());
             int eltLen_ = copy_.size();
             LgInt lgIntSec_ = _indexTwo.getRate().intPart();
-            if (!lgIntSec_.isZeroOrGt()) {
-                lgIntSec_.addNb(new LgInt(copy_.size()));
-            }
+            incr(lgIntSec_,copy_.size());
             if (validIndex(lgIntSec_, eltLen_)) {
                 setStruct(new MaRateStruct(new Rate(copy_.get((int)lgIntSec_.ll()))));
                 return;
@@ -583,9 +559,7 @@ public final class ArrMaOperation extends MethodMaOperation {
         LgInt lgInt_ = _index.getRate().intPart();
         CustList<EventFreq<Rate>> dividers_ = _divs.getLaw().getEvents();
         int len_ = dividers_.size();
-        if (!lgInt_.isZeroOrGt()) {
-            lgInt_.addNb(new LgInt(len_));
-        }
+        incr(lgInt_,len_);
         if (validIndex(lgInt_, len_)) {
             EventFreq<Rate> dual_ = dividers_.get((int) lgInt_.ll());
             setStruct(new MaEventFreqStruct(dual_));
@@ -597,15 +571,11 @@ public final class ArrMaOperation extends MethodMaOperation {
         LgInt lgInt_ = _index.getRate().intPart();
         CustList<EventFreq<Rate>> dividers_ = _divs.getLaw().getEvents();
         int len_ = dividers_.size();
-        if (!lgInt_.isZeroOrGt()) {
-            lgInt_.addNb(new LgInt(len_));
-        }
+        incr(lgInt_,len_);
         if (validIndex(lgInt_, len_)) {
             EventFreq<Rate> dual_ = dividers_.get((int) lgInt_.ll());
             LgInt lgIntSec_ = _indexTwo.getRate().intPart();
-            if (!lgIntSec_.isZeroOrGt()) {
-                lgIntSec_.addNb(new LgInt(2));
-            }
+            incr(lgIntSec_,2);
             if (lgIntSec_.eq(LgInt.zero())) {
                 setStruct(new MaRateStruct(dual_.getEvent()));
                 return;
@@ -621,9 +591,7 @@ public final class ArrMaOperation extends MethodMaOperation {
         LgInt lgInt_ = _index.getRate().intPart();
         Matrix matrix_ = _divs.getMatrix();
         int len_ = matrix_.nbLines();
-        if (!lgInt_.isZeroOrGt()) {
-            lgInt_.addNb(new LgInt(len_));
-        }
+        incr(lgInt_,len_);
         if (validIndex(lgInt_, len_)) {
             Vect dual_ = matrix_.get((int) lgInt_.ll());
             int eltLen_ = dual_.size();
@@ -665,48 +633,40 @@ public final class ArrMaOperation extends MethodMaOperation {
     private static RatePoint procPolygonPt(Polygon _divs,MaRateStruct _index) {
         LgInt lgInt_ = _index.getRate().intPart();
         int len_ = _divs.size();
-        if (!lgInt_.isZeroOrGt()) {
-            lgInt_.addNb(new LgInt(len_));
-        }
+        incr(lgInt_,len_);
         if (validIndex(lgInt_, len_)) {
             return _divs.get((int) lgInt_.ll());
         }
         return null;
     }
     private void procEdge(MaEdgeStruct _divs,MaRateStruct _index,MaRateStruct _indexTwo, MaError _error) {
-        LgInt lgInt_ = _index.getRate().intPart();
         Edge polygon_ = _divs.getEdge();
-        if (!lgInt_.isZeroOrGt()) {
-            lgInt_.addNb(new LgInt(2));
-        }
-        if (lgInt_.eq(LgInt.zero())) {
-            RatePoint dual_ = polygon_.getFirst();
-            MaStruct val_ = procRatePoint(dual_, _indexTwo);
+        RatePoint ratePoint_ = procEdgeRatePoint(polygon_, _index);
+        if (ratePoint_ != null) {
+            MaStruct val_ = procRatePoint(ratePoint_, _indexTwo);
             if (val_ != null) {
                 setStruct(val_);
                 return;
             }
-            _error.setOffset(getIndexExp());
-            return;
-        }
-        if (lgInt_.eq(LgInt.one())) {
-            RatePoint dual_ = polygon_.getSecond();
-            MaStruct val_ = procRatePoint(dual_, _indexTwo);
-            if (val_ != null) {
-                setStruct(val_);
-                return;
-            }
-            _error.setOffset(getIndexExp());
-            return;
         }
         _error.setOffset(getIndexExp());
     }
+    private static RatePoint procEdgeRatePoint(Edge _divs, MaRateStruct _index) {
+        LgInt lgInt_ = _index.getRate().intPart();
+        incr(lgInt_,2);
+        if (lgInt_.eq(LgInt.zero())) {
+            return _divs.getFirst();
+        }
+        if (lgInt_.eq(LgInt.one())) {
+            return _divs.getSecond();
+        }
+        return null;
+    }
+
     private void procEvt(MaEventFreqStruct _divs, MaRateStruct _index, MaError _error) {
         LgInt lgInt_ = _index.getRate().intPart();
         EventFreq<Rate> dividers_ = _divs.getPair();
-        if (!lgInt_.isZeroOrGt()) {
-            lgInt_.addNb(new LgInt(2));
-        }
+        incr(lgInt_,2);
         if (lgInt_.eq(LgInt.zero())) {
             setStruct(new MaRateStruct(dividers_.getEvent()));
             return;
@@ -721,9 +681,7 @@ public final class ArrMaOperation extends MethodMaOperation {
         LgInt lgInt_ = _index.getRate().intPart();
         CustList<Rate> dividers_ = _divs.getRates();
         int len_ = dividers_.size();
-        if (!lgInt_.isZeroOrGt()) {
-            lgInt_.addNb(new LgInt(len_));
-        }
+        incr(lgInt_,len_);
         if (validIndex(lgInt_, len_)) {
             Rate dual_ = dividers_.get((int) lgInt_.ll());
             setStruct(new MaRateStruct(dual_));
@@ -735,9 +693,7 @@ public final class ArrMaOperation extends MethodMaOperation {
         LgInt lgInt_ = _index.getRate().intPart();
         CustList<Rate> dividers_ = _divs.getPolynom().getNumbers();
         int len_ = dividers_.size();
-        if (!lgInt_.isZeroOrGt()) {
-            lgInt_.addNb(new LgInt(len_));
-        }
+        incr(lgInt_,len_);
         if (validIndex(lgInt_, len_)) {
             Rate dual_ = dividers_.get((int) lgInt_.ll());
             setStruct(new MaRateStruct(dual_));
@@ -749,9 +705,7 @@ public final class ArrMaOperation extends MethodMaOperation {
         LgInt lgInt_ = _index.getRate().intPart();
         Matrix matrix_ = _divs.getMatrix();
         int len_ = matrix_.nbLines();
-        if (!lgInt_.isZeroOrGt()) {
-            lgInt_.addNb(new LgInt(len_));
-        }
+        incr(lgInt_,len_);
         if (validIndex(lgInt_, len_)) {
             Vect dual_ = matrix_.get((int) lgInt_.ll());
             setStruct(new MaVectStruct(dual_));
@@ -763,9 +717,7 @@ public final class ArrMaOperation extends MethodMaOperation {
         LgInt lgInt_ = _index.getRate().intPart();
         Vect matrix_ = _divs.getVect();
         int len_ = matrix_.size();
-        if (!lgInt_.isZeroOrGt()) {
-            lgInt_.addNb(new LgInt(len_));
-        }
+        incr(lgInt_,len_);
         if (validIndex(lgInt_, len_)) {
             Rate dual_ = matrix_.get((int) lgInt_.ll());
             setStruct(new MaRateStruct(dual_));
@@ -820,9 +772,7 @@ public final class ArrMaOperation extends MethodMaOperation {
     }
     private void procPointListEdges(MaPointListEdgesStruct _divs,MaRateStruct _index, MaError _error) {
         LgInt lgInt_ = _index.getRate().intPart();
-        if (!lgInt_.isZeroOrGt()) {
-            lgInt_.addNb(new LgInt(2));
-        }
+        incr(lgInt_,2);
         if (lgInt_.isZero()) {
             setStruct(new MaRatePointStruct(_divs.getPoint()));
             return;
@@ -835,9 +785,7 @@ public final class ArrMaOperation extends MethodMaOperation {
     }
     private void procPointListPoints(MaPointListPointsStruct _divs,MaRateStruct _index, MaError _error) {
         LgInt lgInt_ = _index.getRate().intPart();
-        if (!lgInt_.isZeroOrGt()) {
-            lgInt_.addNb(new LgInt(2));
-        }
+        incr(lgInt_,2);
         if (lgInt_.isZero()) {
             setStruct(new MaRatePointStruct(_divs.getPoint()));
             return;
@@ -850,9 +798,7 @@ public final class ArrMaOperation extends MethodMaOperation {
     }
     private void procPointListPolygons(MaPointListPolygonsStruct _divs,MaRateStruct _index, MaError _error) {
         LgInt lgInt_ = _index.getRate().intPart();
-        if (!lgInt_.isZeroOrGt()) {
-            lgInt_.addNb(new LgInt(2));
-        }
+        incr(lgInt_,2);
         if (lgInt_.isZero()) {
             setStruct(new MaRatePointStruct(_divs.getPoint()));
             return;
@@ -867,9 +813,7 @@ public final class ArrMaOperation extends MethodMaOperation {
         LgInt lgInt_ = _index.getRate().intPart();
         CustList<Edge> edges_ = _divs.getEdges();
         int len_ = edges_.size();
-        if (!lgInt_.isZeroOrGt()) {
-            lgInt_.addNb(new LgInt(len_));
-        }
+        incr(lgInt_,len_);
         if (validIndex(lgInt_,len_)) {
             int ind_ = (int) lgInt_.ll();
             setStruct(new MaEdgeStruct(edges_.get(ind_)));
@@ -881,9 +825,7 @@ public final class ArrMaOperation extends MethodMaOperation {
         LgInt lgInt_ = _index.getRate().intPart();
         CustList<RatePoint> edges_ = _divs.getPoints();
         int len_ = edges_.size();
-        if (!lgInt_.isZeroOrGt()) {
-            lgInt_.addNb(new LgInt(len_));
-        }
+        incr(lgInt_,len_);
         if (validIndex(lgInt_,len_)) {
             int ind_ = (int) lgInt_.ll();
             setStruct(new MaRatePointStruct(edges_.get(ind_)));
@@ -893,9 +835,7 @@ public final class ArrMaOperation extends MethodMaOperation {
     }
     private void procDelaunay(MaDelaunayStruct _divs,MaRateStruct _index, MaError _error) {
         LgInt lgInt_ = _index.getRate().intPart();
-        if (!lgInt_.isZeroOrGt()) {
-            lgInt_.addNb(new LgInt(5));
-        }
+        incr(lgInt_,5);
         if (lgInt_.isZero()) {
             CustList<Polygon> matrix_ = MaListPolygonStruct.toPolygons(_divs.getDelaunay().getTriangles());
             setStruct(new MaListPolygonStruct(matrix_));
@@ -922,20 +862,19 @@ public final class ArrMaOperation extends MethodMaOperation {
     private static Polygon procPolygon(CustList<Polygon> _divs,MaRateStruct _index) {
         LgInt lgInt_ = _index.getRate().intPart();
         int len_ = _divs.size();
-        if (!lgInt_.isZeroOrGt()) {
-            lgInt_.addNb(new LgInt(len_));
-        }
+        incr(lgInt_,len_);
         if (validIndex(lgInt_, len_)) {
             return _divs.get((int) lgInt_.ll());
         }
         return null;
     }
     private static MaPairPointStruct procPointEdge(IdMap<RatePoint, CustList<Edge>> _divs,MaRateStruct _index) {
+        return procPointEdgeVal(_divs,_index);
+    }
+    private static MaPointListEdgesStruct procPointEdgeVal(IdMap<RatePoint, CustList<Edge>> _divs,MaRateStruct _index) {
         LgInt lgInt_ = _index.getRate().intPart();
         int len_ = _divs.size();
-        if (!lgInt_.isZeroOrGt()) {
-            lgInt_.addNb(new LgInt(len_));
-        }
+        incr(lgInt_,len_);
         if (validIndex(lgInt_, len_)) {
             int ind_ = (int) lgInt_.ll();
             return new MaPointListEdgesStruct(_divs.getKey(ind_),_divs.getValue(ind_));
@@ -945,9 +884,7 @@ public final class ArrMaOperation extends MethodMaOperation {
     private static MaPairPointStruct procPointListPoint(IdMap<RatePoint, IdList<RatePoint>> _divs,MaRateStruct _index) {
         LgInt lgInt_ = _index.getRate().intPart();
         int len_ = _divs.size();
-        if (!lgInt_.isZeroOrGt()) {
-            lgInt_.addNb(new LgInt(len_));
-        }
+        incr(lgInt_,len_);
         if (validIndex(lgInt_, len_)) {
             int ind_ = (int) lgInt_.ll();
             return new MaPointListPointsStruct(_divs.getKey(ind_),_divs.getValue(ind_));
@@ -957,9 +894,7 @@ public final class ArrMaOperation extends MethodMaOperation {
     private static MaPairPointStruct procPointListPolygon(IdMap<RatePoint, CustList<Triangle>> _divs,MaRateStruct _index) {
         LgInt lgInt_ = _index.getRate().intPart();
         int len_ = _divs.size();
-        if (!lgInt_.isZeroOrGt()) {
-            lgInt_.addNb(new LgInt(len_));
-        }
+        incr(lgInt_,len_);
         if (validIndex(lgInt_, len_)) {
             int ind_ = (int) lgInt_.ll();
             return new MaPointListPolygonsStruct(_divs.getKey(ind_),_divs.getValue(ind_));
@@ -969,9 +904,7 @@ public final class ArrMaOperation extends MethodMaOperation {
     private void procLine(MaCustLineStruct _divs,MaRateStruct _index, MaError _error) {
         LgInt lgInt_ = _index.getRate().intPart();
         CustLine line_ = _divs.getLine();
-        if (!lgInt_.isZeroOrGt()) {
-            lgInt_.addNb(new LgInt(3));
-        }
+        incr(lgInt_,3);
         if (lgInt_.eq(LgInt.zero())) {
             setStruct(new MaRateStruct(line_.getxRate()));
             return;
@@ -989,9 +922,7 @@ public final class ArrMaOperation extends MethodMaOperation {
     private void procEdge(MaEdgeStruct _divs,MaRateStruct _index, MaError _error) {
         LgInt lgInt_ = _index.getRate().intPart();
         Edge line_ = _divs.getEdge();
-        if (!lgInt_.isZeroOrGt()) {
-            lgInt_.addNb(new LgInt(2));
-        }
+        incr(lgInt_,2);
         if (lgInt_.eq(LgInt.zero())) {
             setStruct(new MaRatePointStruct(line_.getFirst()));
             return;
@@ -1001,6 +932,29 @@ public final class ArrMaOperation extends MethodMaOperation {
             return;
         }
         _error.setOffset(getIndexExp());
+    }
+    private void procPtIndex(MaError _error, CustList<MaStruct> _values) {
+        if (_values.first() instanceof MaMapPointEdgeStruct) {
+            CustList<Edge> edges_ = ((MaMapPointEdgeStruct) _values.first()).getEdges(((MaRatePointStruct) _values.last()).getPoint());
+            setStruct(new MaListEdgeStruct(edges_));
+            return;
+        }
+        if (_values.first() instanceof MaMapPointListPointStruct) {
+            IdList<RatePoint> edges_ = ((MaMapPointListPointStruct) _values.first()).getNextPoints(((MaRatePointStruct) _values.last()).getPoint());
+            setStruct(new MaListPointStruct(edges_));
+            return;
+        }
+        if (_values.first() instanceof MaMapPointListPolygonStruct) {
+            CustList<Triangle> edges_ = ((MaMapPointListPolygonStruct) _values.first()).getNextTriangles(((MaRatePointStruct) _values.last()).getPoint());
+            setStruct(new MaListPolygonStruct(MaListPolygonStruct.toPolygons(edges_)));
+            return;
+        }
+        _error.setOffset(getIndexExp());
+    }
+    private static void incr(LgInt _int, int _len) {
+        if (!_int.isZeroOrGt()) {
+            _int.addNb(new LgInt(_len));
+        }
     }
     CustList<MaStruct> tryGetAll() {
         CustList<MaStruct> rates_ = new CustList<MaStruct>();

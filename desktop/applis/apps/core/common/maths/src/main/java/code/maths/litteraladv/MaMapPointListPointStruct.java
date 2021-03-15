@@ -10,7 +10,15 @@ public final class MaMapPointListPointStruct implements MaStruct {
     public MaMapPointListPointStruct(IdMap<RatePoint, IdList<RatePoint>> _nextPoints) {
         this.nextPoints = _nextPoints;
     }
-
+    public IdList<RatePoint> getNextPoints(RatePoint _point) {
+        IdList<RatePoint> edges_ = new IdList<RatePoint>();
+        for (EntryCust<RatePoint,IdList<RatePoint>> e: nextPoints.entryList()) {
+            if (_point.eq(e.getKey())) {
+                edges_.addAllElts(e.getValue());
+            }
+        }
+        return edges_;
+    }
     public IdMap<RatePoint, IdList<RatePoint>> getNextPoints() {
         return nextPoints;
     }

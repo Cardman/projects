@@ -760,7 +760,8 @@ public final class Delaunay {
             RatePoint k_ = e.getKey();
             IdList<RatePoint> v_ = e.getValue();
             Polygon p_ = new Polygon();
-            CustList<Edge> edges_ = getEdges(k_, v_, p_);
+            fetchCircumCenters(k_, v_, p_);
+            CustList<Edge> edges_ = new CustList<Edge>();
             int len_;
             len_ = p_.size();
             for (int i = 0; i < len_; i++) {
@@ -790,7 +791,8 @@ public final class Delaunay {
             if (contained_) {
                 p_.add(midOne_);
             }
-            CustList<Edge> edges_ = getEdges(k_, v_, p_);
+            fetchCircumCenters(k_, v_, p_);
+            CustList<Edge> edges_ = new CustList<Edge>();
             int len_;
             x_ =Rate.divide(Rate.plus(v_.last().getXcoords(), k_.getXcoords()),new Rate(2));
             y_ =Rate.divide(Rate.plus(v_.last().getYcoords(), k_.getYcoords()),new Rate(2));
@@ -824,8 +826,7 @@ public final class Delaunay {
         return contained_;
     }
 
-    private CustList<Edge> getEdges(RatePoint _k, IdList<RatePoint> _v, Polygon _p) {
-        CustList<Edge> edges_ = new CustList<Edge>();
+    private void fetchCircumCenters(RatePoint _k, IdList<RatePoint> _v, Polygon _p) {
         int len_ = _v.size();
         for (int i = 0; i < len_; i++) {
             RatePoint one_ = _v.get(i);
@@ -840,7 +841,6 @@ public final class Delaunay {
                 }
             }
         }
-        return edges_;
     }
 
     private static int getNbPoints(RatePoint _k, RatePoint _one, RatePoint _two, Triangle _t) {

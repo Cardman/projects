@@ -27,31 +27,7 @@ public final class CustLine {
     }
 
     public CustLine(CustPoint _one, CustPoint _two) {
-        Matrix m_ = new Matrix();
-        Vect v_ = new Vect();
-        v_.add(new Rate(_one.getXcoords()));
-        v_.add(new Rate(_one.getYcoords()));
-        m_.addLineRef(v_);
-        v_ = new Vect();
-        v_.add(new Rate(_two.getXcoords()));
-        v_.add(new Rate(_two.getYcoords()));
-        m_.addLineRef(v_);
-        Matrix p_ = m_.inv();
-        Matrix i_ = new Matrix();
-        v_ = new Vect();
-        v_.add(Rate.one());
-        i_.addLineRef(v_);
-        v_ = new Vect();
-        v_.add(Rate.one());
-        i_.addLineRef(v_);
-        Matrix res_ = p_.multMatrix(i_);
-        xRate = res_.cell(0, 0);
-        yRate = res_.cell(1, 0);
-        Rate y_ = new Rate(_one.getYcoords());
-        Rate x_ = new Rate(_one.getXcoords());
-        Rate y2_ = new Rate(_two.getYcoords());
-        Rate x2_ = new Rate(_two.getXcoords());
-        def(m_, y_, x_, y2_, x2_, _one.eq(_two));
+        this(new RatePoint(_one),new RatePoint(_two));
     }
 
     public CustLine(RatePoint _one, RatePoint _two) {

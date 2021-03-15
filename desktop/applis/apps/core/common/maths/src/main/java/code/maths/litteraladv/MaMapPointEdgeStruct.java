@@ -12,6 +12,16 @@ public final class MaMapPointEdgeStruct implements MaStruct {
         this.edges = _edges;
     }
 
+    public CustList<Edge> getEdges(RatePoint _point) {
+        CustList<Edge> edges_ = new CustList<Edge>();
+        for (EntryCust<RatePoint,CustList<Edge>> e: edges.entryList()) {
+            if (_point.eq(e.getKey())) {
+                edges_.addAllElts(e.getValue());
+            }
+        }
+        return edges_;
+    }
+
     public IdMap<RatePoint,CustList<Edge>> getEdges() {
         return edges;
     }

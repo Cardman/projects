@@ -3,6 +3,7 @@ package code.maths.litteraladv;
 import code.maths.Decomposition;
 import code.maths.LgInt;
 import code.maths.Rate;
+import code.maths.geo.CustLine;
 import code.maths.geo.Polygon;
 import code.maths.geo.RatePoint;
 import code.maths.geo.Triangle;
@@ -153,11 +154,12 @@ public final class SymbUnFctMaOperation extends MethodMaOperation {
                 return;
             }
             Triangle tri_ = new Triangle(pts_.get(0), pts_.get(1), pts_.get(2));
-            if (tri_.com().isZero()) {
+            CustLine euler_ = tri_.euler();
+            if (!euler_.isDefined()) {
                 _error.setOffset(getIndexExp());
                 return;
             }
-            setStruct(new MaCustLineStruct(tri_.euler()));
+            setStruct(new MaCustLineStruct(euler_));
             return;
         }
         _error.setOffset(getIndexExp());
