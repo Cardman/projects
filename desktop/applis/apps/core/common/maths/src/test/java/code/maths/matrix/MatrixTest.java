@@ -760,6 +760,24 @@ public class MatrixTest extends EquallableMathUtil {
         assertEq(0,res_.size());
     }
     @Test
+    public void ker6() {
+        Matrix mat_ = new Matrix();
+        Vect vect_ = new Vect(new CustList<Rate>(new Rate(1),new Rate(1),new Rate(1)));
+        mat_.addLineRef(vect_);
+        vect_ = new Vect(new CustList<Rate>(new Rate(-1),new Rate(0),new Rate(1)));
+        mat_.addLineRef(vect_);
+        vect_ = new Vect(new CustList<Rate>(new Rate(1),new Rate(2),new Rate(3)));
+        mat_.addLineRef(vect_);
+        vect_ = new Vect(new CustList<Rate>(new Rate(1),new Rate(-1),new Rate(-3)));
+        mat_.addLineRef(vect_);
+        CustList<Vect> res_ = mat_.ker();
+        assertEq(1,res_.size());
+        assertEq(3,res_.get(0).size());
+        assertEq(new Rate(1),res_.get(0).get(0));
+        assertEq(new Rate(-2),res_.get(0).get(1));
+        assertEq(new Rate(1),res_.get(0).get(2));
+    }
+    @Test
     public void passVects() {
         Matrix mat_ = new Matrix();
         Vect vect_ = new Vect(new CustList<Rate>(new Rate(1),new Rate(1)));
