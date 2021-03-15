@@ -181,21 +181,25 @@ public final class SymbBinFctMaOperation extends MethodMaOperation {
             setStruct(MaBoolStruct.of(first_.intersect(second_)));
             return;
         }
-        if (val_ instanceof MaEdgeStruct && power_ instanceof MaRatePointStruct) {
-            Edge edge_ = ((MaEdgeStruct)val_).getEdge();
-            RatePoint point_ = ((MaRatePointStruct)power_).getPoint();
+        procContainsPt(_error, val_, power_);
+    }
+
+    private void procContainsPt(MaError _error, MaStruct _val, MaStruct _power) {
+        if (_val instanceof MaEdgeStruct && _power instanceof MaRatePointStruct) {
+            Edge edge_ = ((MaEdgeStruct) _val).getEdge();
+            RatePoint point_ = ((MaRatePointStruct) _power).getPoint();
             setStruct(MaBoolStruct.of(edge_.containsPoint(point_)));
             return;
         }
-        if (val_ instanceof MaCustLineStruct && power_ instanceof MaRatePointStruct) {
-            CustLine line_ = ((MaCustLineStruct)val_).getLine();
-            RatePoint point_ = ((MaRatePointStruct)power_).getPoint();
+        if (_val instanceof MaCustLineStruct && _power instanceof MaRatePointStruct) {
+            CustLine line_ = ((MaCustLineStruct) _val).getLine();
+            RatePoint point_ = ((MaRatePointStruct) _power).getPoint();
             setStruct(MaBoolStruct.of(line_.containsPoint(point_)));
             return;
         }
-        if (val_ instanceof MaPolygonStruct && power_ instanceof MaRatePointStruct) {
-            Polygon line_ = ((MaPolygonStruct)val_).getPolygon();
-            RatePoint point_ = ((MaRatePointStruct)power_).getPoint();
+        if (_val instanceof MaPolygonStruct && _power instanceof MaRatePointStruct) {
+            Polygon line_ = ((MaPolygonStruct) _val).getPolygon();
+            RatePoint point_ = ((MaRatePointStruct) _power).getPoint();
             setStruct(MaBoolStruct.of(line_.containsInsideConvexHull(point_)));
             return;
         }

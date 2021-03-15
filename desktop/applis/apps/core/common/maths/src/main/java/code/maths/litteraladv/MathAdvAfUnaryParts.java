@@ -55,21 +55,17 @@ public final class MathAdvAfUnaryParts {
             procRight(curChar_);
             return;
         }
-//        if (curChar_ == MatCommonCst.ARR_LEFT) {
-//            if (delFct()) {
-//                fct = "";
-//                opers.clear();
-//                opers.addEntry(current, "[");
-//            }
-//            dels.add(current, curChar_);
-//        }
         procLeftNoPar(curChar_,MatCommonCst.ARR_LEFT);
         procLeftNoPar(curChar_,MatCommonCst.BRA_LEFT);
-        if (!dels.empty()||prio == MatCommonCst.DECL_PRIO) {
+        if (decl()) {
             current++;
             return;
         }
         procNumOps(_string, curChar_);
+    }
+
+    private boolean decl() {
+        return !dels.empty()||prio == MatCommonCst.DECL_PRIO;
     }
 
     private void procLeftNoPar(char _curChar, char _leftChar) {

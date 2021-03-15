@@ -44,10 +44,6 @@ public final class ArrMaOperation extends MethodMaOperation {
     }
 
     private void applyLg(CustList<MaStruct> _list) {
-        if (isFour(_list.first())) {
-            setStruct(new MaRateStruct(new Rate(4)));
-            return;
-        }
         if (_list.first() instanceof MaDividersNbStruct) {
             setStruct(new MaRateStruct(new Rate(((MaDividersNbStruct) _list.first()).getDividers().size())));
             return;
@@ -68,18 +64,6 @@ public final class ArrMaOperation extends MethodMaOperation {
             setStruct(new MaRateStruct(new Rate(((MaRepartitionStruct) _list.first()).getEvents().size())));
             return;
         }
-        if (isDual(_list.first())) {
-            setStruct(new MaRateStruct(new Rate(2)));
-            return;
-        }
-        if (_list.first() instanceof MaCustLineStruct) {
-            setStruct(new MaRateStruct(new Rate(3)));
-            return;
-        }
-        procDefLg(_list);
-    }
-
-    private void procDefLg(CustList<MaStruct> _list) {
         if (_list.first() instanceof MaMonteCarloNumberStruct) {
             setStruct(new MaRateStruct(new Rate(((MaMonteCarloNumberStruct) _list.first()).getLaw().nbEvents())));
             return;
@@ -92,6 +76,10 @@ public final class ArrMaOperation extends MethodMaOperation {
             setStruct(new MaRateStruct(new Rate(((MaPolynomStruct) _list.first()).getPolynom().size())));
             return;
         }
+        procDefLg(_list);
+    }
+
+    private void procDefLg(CustList<MaStruct> _list) {
         if (_list.first() instanceof MaMatrixStruct) {
             setStruct(new MaRateStruct(new Rate(((MaMatrixStruct) _list.first()).getMatrix().nbLines())));
             return;
@@ -106,10 +94,6 @@ public final class ArrMaOperation extends MethodMaOperation {
         }
         if (_list.first() instanceof MaListPolygonStruct) {
             setStruct(new MaRateStruct(new Rate(((MaListPolygonStruct) _list.first()).getPolygons().size())));
-            return;
-        }
-        if (_list.first() instanceof MaDelaunayStruct) {
-            setStruct(new MaRateStruct(new Rate(5)));
             return;
         }
         if (_list.first() instanceof MaMapPointListPointStruct) {
@@ -132,6 +116,26 @@ public final class ArrMaOperation extends MethodMaOperation {
             setStruct(new MaRateStruct(new Rate(((MaListEdgeStruct)_list.first()).getEdges().size())));
             return;
         }
+        procLgConst(_list);
+    }
+
+    private void procLgConst(CustList<MaStruct> _list) {
+        if (isFour(_list.first())) {
+            setStruct(new MaRateStruct(new Rate(4)));
+            return;
+        }
+        if (isDual(_list.first())) {
+            setStruct(new MaRateStruct(new Rate(2)));
+            return;
+        }
+        if (_list.first() instanceof MaCustLineStruct) {
+            setStruct(new MaRateStruct(new Rate(3)));
+            return;
+        }
+        if (_list.first() instanceof MaDelaunayStruct) {
+            setStruct(new MaRateStruct(new Rate(5)));
+            return;
+        }
         setStruct(new MaRateStruct(new Rate(-1)));
     }
 
@@ -140,8 +144,16 @@ public final class ArrMaOperation extends MethodMaOperation {
     }
 
     private static boolean isDual(MaStruct _first) {
-        return _first instanceof MaPrimDivisorNbStruct || _first instanceof MaPrimDivisorPolStruct || _first instanceof MaEventFreqStruct || _first instanceof MaRatePointStruct || _first instanceof MaEdgeStruct
-                || _first instanceof MaPairPointStruct;
+        return algebreDual(_first) ||
+                geoDual(_first);
+    }
+
+    private static boolean geoDual(MaStruct _first) {
+        return _first instanceof MaRatePointStruct || _first instanceof MaEdgeStruct || _first instanceof MaPairPointStruct;
+    }
+
+    private static boolean algebreDual(MaStruct _first) {
+        return _first instanceof MaPrimDivisorNbStruct || _first instanceof MaPrimDivisorPolStruct || _first instanceof MaEventFreqStruct;
     }
 
     private void procTwoIndexes(MaError _error, CustList<MaStruct> _values) {
@@ -264,6 +276,10 @@ public final class ArrMaOperation extends MethodMaOperation {
             procPolygons((MaListPolygonStruct) _first,(MaRateStruct) _values.get(1), _error);
             return;
         }
+        procOneIndexDefGeo(_error, _values, _first);
+    }
+
+    private void procOneIndexDefGeo(MaError _error, CustList<MaStruct> _values, MaStruct _first) {
         if (_first instanceof MaDelaunayStruct) {
             procDelaunay((MaDelaunayStruct) _first,(MaRateStruct) _values.get(1), _error);
             return;
@@ -288,6 +304,10 @@ public final class ArrMaOperation extends MethodMaOperation {
             procMapPointListPolygon((MaMapPointListPolygonStruct) _first,(MaRateStruct) _values.get(1), _error);
             return;
         }
+        procOneIndexDefGeoList(_error, _values, _first);
+    }
+
+    private void procOneIndexDefGeoList(MaError _error, CustList<MaStruct> _values, MaStruct _first) {
         if (_first instanceof MaPointListEdgesStruct) {
             procPointListEdges((MaPointListEdgesStruct) _first,(MaRateStruct) _values.get(1), _error);
             return;
