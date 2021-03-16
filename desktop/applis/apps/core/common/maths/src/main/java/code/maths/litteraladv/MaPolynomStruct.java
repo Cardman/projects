@@ -7,11 +7,16 @@ import code.util.CustList;
 import code.util.StringList;
 import code.util.core.StringUtil;
 
-public final class MaPolynomStruct implements MaStruct {
+public final class MaPolynomStruct extends MaListNbStruct {
     private final Polynom polynom;
 
     public MaPolynomStruct(Polynom _polynom) {
         polynom = _polynom;
+    }
+
+    @Override
+    public CustList<Rate> getNumberList() {
+        return polynom.getNumbers();
     }
 
     @Override

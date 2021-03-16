@@ -32,6 +32,15 @@ public final class MaNumParsers {
         }
         return !eqNb(_this, _other);
     }
+    public static boolean eqMath(MaStruct _this, MaStruct _other) {
+        if (eqNb(_this, _other)) {
+            return true;
+        }
+        if (_this instanceof MaAddonStruct) {
+            return ((MaAddonStruct)_this).sameReferenceMath(_other);
+        }
+        return false;
+    }
     public static boolean eqNb(MaStruct _this, MaStruct _other) {
         if (_this == null) {
             return _other == null;

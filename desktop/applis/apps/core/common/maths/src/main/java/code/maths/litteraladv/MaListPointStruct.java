@@ -6,7 +6,7 @@ import code.util.CustList;
 import code.util.StringList;
 import code.util.core.StringUtil;
 
-public final class MaListPointStruct implements MaStruct {
+public final class MaListPointStruct implements MaAddonStruct {
     private final CustList<RatePoint> points;
 
     public MaListPointStruct(CustList<RatePoint> _points) {
@@ -15,6 +15,15 @@ public final class MaListPointStruct implements MaStruct {
 
     public CustList<RatePoint> getPoints() {
         return points;
+    }
+
+    @Override
+    public boolean sameReferenceMath(MaStruct _other) {
+        if (!(_other instanceof MaListPointStruct)) {
+            return false;
+        }
+        MaListPointStruct oth_ = (MaListPointStruct) _other;
+        return MaRatePointStruct.eqPtsMath(points,oth_.points);
     }
 
     @Override

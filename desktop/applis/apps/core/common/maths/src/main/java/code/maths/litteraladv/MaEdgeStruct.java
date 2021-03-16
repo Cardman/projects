@@ -2,7 +2,7 @@ package code.maths.litteraladv;
 
 import code.maths.geo.Edge;
 
-public final class MaEdgeStruct implements MaStruct {
+public final class MaEdgeStruct implements MaAddonStruct {
     private final Edge edge;
 
     public MaEdgeStruct(Edge _edge) {
@@ -11,6 +11,15 @@ public final class MaEdgeStruct implements MaStruct {
 
     public Edge getEdge() {
         return edge;
+    }
+
+    @Override
+    public boolean sameReferenceMath(MaStruct _other) {
+        if (!(_other instanceof MaEdgeStruct)) {
+            return false;
+        }
+        MaEdgeStruct oth_ = (MaEdgeStruct) _other;
+        return edge.isEqual(oth_.edge);
     }
 
     @Override

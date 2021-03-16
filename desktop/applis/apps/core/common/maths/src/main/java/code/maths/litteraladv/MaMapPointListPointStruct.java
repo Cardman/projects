@@ -4,7 +4,7 @@ import code.maths.geo.RatePoint;
 import code.util.*;
 import code.util.core.StringUtil;
 
-public final class MaMapPointListPointStruct implements MaStruct {
+public final class MaMapPointListPointStruct implements MaAddonStruct {
     private final IdMap<RatePoint, IdList<RatePoint>> nextPoints;
 
     public MaMapPointListPointStruct(IdMap<RatePoint, IdList<RatePoint>> _nextPoints) {
@@ -23,6 +23,21 @@ public final class MaMapPointListPointStruct implements MaStruct {
         return nextPoints;
     }
 
+    @Override
+    public boolean sameReferenceMath(MaStruct _other) {
+        if (!(_other instanceof MaMapPointListPointStruct)) {
+            return false;
+        }
+        MaMapPointListPointStruct oth_ = (MaMapPointListPointStruct) _other;
+        CustList<RatePoint> ptsThis_ = nextPoints.getKeys();
+        CustList<RatePoint> ptsOther_ = oth_.nextPoints.getKeys();
+        for (RatePoint r: ptsThis_) {
+            if (!MaRatePointStruct.eqPtsMath(getNextPoints(r),oth_.getNextPoints(r))){
+                return false;
+            }
+        }
+        return MaRatePointStruct.eqPtsMath(ptsThis_,ptsOther_);
+    }
     @Override
     public boolean sameReference(MaStruct _other) {
         if (!(_other instanceof MaMapPointListPointStruct)) {

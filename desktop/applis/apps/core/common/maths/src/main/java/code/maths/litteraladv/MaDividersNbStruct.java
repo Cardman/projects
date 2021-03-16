@@ -1,12 +1,13 @@
 package code.maths.litteraladv;
 
 import code.maths.LgInt;
+import code.maths.Rate;
 import code.util.CollCapacity;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.core.StringUtil;
 
-public final class MaDividersNbStruct implements MaStruct {
+public final class MaDividersNbStruct extends MaListNbStruct {
     private final CustList<LgInt> dividers;
 
     public MaDividersNbStruct(CustList<LgInt> _idBezout) {
@@ -15,6 +16,15 @@ public final class MaDividersNbStruct implements MaStruct {
 
     public CustList<LgInt> getDividers() {
         return dividers;
+    }
+
+    @Override
+    public CustList<Rate> getNumberList() {
+        CustList<Rate> nbs_ = new CustList<Rate>();
+        for (LgInt d: dividers) {
+            nbs_.add(new Rate(d));
+        }
+        return nbs_;
     }
 
     @Override

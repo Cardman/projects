@@ -5,7 +5,7 @@ import code.maths.geo.RatePoint;
 import code.util.*;
 import code.util.core.StringUtil;
 
-public final class MaMapPointEdgeStruct implements MaStruct {
+public final class MaMapPointEdgeStruct implements MaAddonStruct {
     private final IdMap<RatePoint,CustList<Edge>> edges;
 
     public MaMapPointEdgeStruct(IdMap<RatePoint,CustList<Edge>> _edges) {
@@ -24,6 +24,22 @@ public final class MaMapPointEdgeStruct implements MaStruct {
 
     public IdMap<RatePoint,CustList<Edge>> getEdges() {
         return edges;
+    }
+
+    @Override
+    public boolean sameReferenceMath(MaStruct _other) {
+        if (!(_other instanceof MaMapPointEdgeStruct)) {
+            return false;
+        }
+        MaMapPointEdgeStruct oth_ = (MaMapPointEdgeStruct) _other;
+        CustList<RatePoint> ptsThis_ = edges.getKeys();
+        CustList<RatePoint> ptsOther_ = oth_.edges.getKeys();
+        for (RatePoint r: ptsThis_) {
+            if (!Edge.eqEdgesMath(getEdges(r),oth_.getEdges(r))){
+                return false;
+            }
+        }
+        return MaRatePointStruct.eqPtsMath(ptsThis_,ptsOther_);
     }
 
     @Override

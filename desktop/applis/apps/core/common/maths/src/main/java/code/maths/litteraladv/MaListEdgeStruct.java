@@ -6,7 +6,7 @@ import code.util.CustList;
 import code.util.StringList;
 import code.util.core.StringUtil;
 
-public final class MaListEdgeStruct implements MaStruct {
+public final class MaListEdgeStruct implements MaAddonStruct {
     private final CustList<Edge> edges;
 
     public MaListEdgeStruct(CustList<Edge> _edges) {
@@ -15,6 +15,15 @@ public final class MaListEdgeStruct implements MaStruct {
 
     public CustList<Edge> getEdges() {
         return edges;
+    }
+
+    @Override
+    public boolean sameReferenceMath(MaStruct _other) {
+        if (!(_other instanceof MaListEdgeStruct)) {
+            return false;
+        }
+        MaListEdgeStruct oth_ = (MaListEdgeStruct) _other;
+        return Edge.eqEdgesMath(edges,oth_.edges);
     }
 
     @Override

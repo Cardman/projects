@@ -7,7 +7,7 @@ import code.util.CustList;
 import code.util.StringList;
 import code.util.core.StringUtil;
 
-public final class MaPolygonStruct implements MaStruct {
+public final class MaPolygonStruct implements MaAddonStruct {
     private final Polygon polygon;
 
     public MaPolygonStruct(Polygon _polygon) {
@@ -16,6 +16,14 @@ public final class MaPolygonStruct implements MaStruct {
 
     public Polygon getPolygon() {
         return polygon;
+    }
+
+    @Override
+    public boolean sameReferenceMath(MaStruct _other) {
+        if (!(_other instanceof MaPolygonStruct)) {
+            return false;
+        }
+        return polygon.eqMath(((MaPolygonStruct)_other).polygon);
     }
 
     @Override

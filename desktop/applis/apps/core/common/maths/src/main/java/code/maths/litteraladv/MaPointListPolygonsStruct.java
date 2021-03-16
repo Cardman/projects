@@ -16,6 +16,15 @@ public final class MaPointListPolygonsStruct extends MaPairPointStruct {
     }
 
     @Override
+    public boolean sameValueMath(MaPairPointStruct _other) {
+        if (!(_other instanceof MaPointListPolygonsStruct)) {
+            return false;
+        }
+        CustList<Triangle> edgesOth_ = ((MaPointListPolygonsStruct) _other).nextTriangles;
+        return MaListPolygonStruct.eqPolygonsMath(MaListPolygonStruct.toPolygons(nextTriangles),MaListPolygonStruct.toPolygons(edgesOth_));
+    }
+
+    @Override
     protected boolean sameValue(MaPairPointStruct _other) {
         if (!(_other instanceof MaPointListPolygonsStruct)) {
             return false;

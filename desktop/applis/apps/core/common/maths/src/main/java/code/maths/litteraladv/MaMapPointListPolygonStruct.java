@@ -6,7 +6,7 @@ import code.maths.geo.Triangle;
 import code.util.*;
 import code.util.core.StringUtil;
 
-public final class MaMapPointListPolygonStruct implements MaStruct {
+public final class MaMapPointListPolygonStruct implements MaAddonStruct {
     private final IdMap<RatePoint,CustList<Triangle>> nextTriangles;
 
     public MaMapPointListPolygonStruct(IdMap<RatePoint,CustList<Triangle>> _nextPoints) {
@@ -25,6 +25,21 @@ public final class MaMapPointListPolygonStruct implements MaStruct {
         return nextTriangles;
     }
 
+    @Override
+    public boolean sameReferenceMath(MaStruct _other) {
+        if (!(_other instanceof MaMapPointListPolygonStruct)) {
+            return false;
+        }
+        MaMapPointListPolygonStruct oth_ = (MaMapPointListPolygonStruct) _other;
+        CustList<RatePoint> ptsThis_ = nextTriangles.getKeys();
+        CustList<RatePoint> ptsOther_ = oth_.nextTriangles.getKeys();
+        for (RatePoint r: ptsThis_) {
+            if (!MaListPolygonStruct.eqPolygonsMath(MaListPolygonStruct.toPolygons(getNextTriangles(r)),MaListPolygonStruct.toPolygons(oth_.getNextTriangles(r)))){
+                return false;
+            }
+        }
+        return MaRatePointStruct.eqPtsMath(ptsThis_, ptsOther_);
+    }
     @Override
     public boolean sameReference(MaStruct _other) {
         if (!(_other instanceof MaMapPointListPolygonStruct)) {

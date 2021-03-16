@@ -1,8 +1,10 @@
 package code.maths.litteraladv;
 
 import code.maths.PrimDivisor;
+import code.maths.Rate;
+import code.util.CustList;
 
-public final class MaPrimDivisorNbStruct implements MaStruct {
+public final class MaPrimDivisorNbStruct extends MaListNbStruct {
     private final PrimDivisor primDivisor;
 
     public MaPrimDivisorNbStruct(PrimDivisor _primDivisor) {
@@ -11,6 +13,11 @@ public final class MaPrimDivisorNbStruct implements MaStruct {
 
     public PrimDivisor getPrimDivisor() {
         return primDivisor;
+    }
+
+    @Override
+    public CustList<Rate> getNumberList() {
+        return new CustList<Rate>(new Rate(primDivisor.getExponent()),new Rate(primDivisor.getPrime()));
     }
 
     @Override

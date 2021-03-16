@@ -2,8 +2,9 @@ package code.maths.litteraladv;
 
 import code.maths.Rate;
 import code.maths.montecarlo.EventFreq;
+import code.util.CustList;
 
-public final class MaEventFreqStruct implements MaStruct {
+public final class MaEventFreqStruct extends MaListNbStruct {
     private final EventFreq<Rate> pair;
 
     public MaEventFreqStruct(EventFreq<Rate> _pair) {
@@ -12,6 +13,11 @@ public final class MaEventFreqStruct implements MaStruct {
 
     public EventFreq<Rate> getPair() {
         return pair;
+    }
+
+    @Override
+    public CustList<Rate> getNumberList() {
+        return new CustList<Rate>(pair.getEvent(),new Rate(pair.getFreq()));
     }
 
     @Override

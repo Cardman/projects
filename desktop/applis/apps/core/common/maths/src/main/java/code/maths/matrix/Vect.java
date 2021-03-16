@@ -91,6 +91,10 @@ public final class Vect implements Displayable {
         return true;
     }
 
+    public CustList<Rate> getNumbers() {
+        return numbers;
+    }
+
     public boolean eq(Vect _o) {
         return Rate.eq(numbers,_o.numbers);
     }

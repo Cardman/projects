@@ -1,15 +1,22 @@
 package code.maths.litteraladv;
 
+import code.maths.Rate;
 import code.maths.matrix.Vect;
 import code.util.CollCapacity;
+import code.util.CustList;
 import code.util.StringList;
 import code.util.core.StringUtil;
 
-public final class MaVectStruct implements MaStruct {
+public final class MaVectStruct extends MaListNbStruct {
     private final Vect vect;
 
     public MaVectStruct(Vect _vect) {
         this.vect = _vect;
+    }
+
+    @Override
+    public CustList<Rate> getNumberList() {
+        return vect.getNumbers();
     }
 
     @Override

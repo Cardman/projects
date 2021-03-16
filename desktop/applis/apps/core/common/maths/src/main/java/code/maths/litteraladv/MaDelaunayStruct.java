@@ -4,7 +4,7 @@ import code.maths.geo.Delaunay;
 import code.maths.geo.Polygon;
 import code.util.CustList;
 
-public final class MaDelaunayStruct implements MaStruct {
+public final class MaDelaunayStruct implements MaAddonStruct {
     private final Delaunay delaunay;
     private final boolean withMids;
 
@@ -19,6 +19,19 @@ public final class MaDelaunayStruct implements MaStruct {
 
     public Delaunay getDelaunay() {
         return delaunay;
+    }
+
+    @Override
+    public boolean sameReferenceMath(MaStruct _other) {
+        if (!(_other instanceof MaDelaunayStruct)) {
+            return false;
+        }
+        if (withMids != ((MaDelaunayStruct) _other).withMids) {
+            return false;
+        }
+        CustList<Polygon> this_ = MaListPolygonStruct.toPolygons(delaunay.getTriangles());
+        CustList<Polygon> oth_ = MaListPolygonStruct.toPolygons(((MaDelaunayStruct) _other).delaunay.getTriangles());
+        return MaListPolygonStruct.eqPolygonsMath(this_,oth_);
     }
 
     @Override

@@ -47,8 +47,29 @@ public final class SymbVarFctMaOperation extends MethodMaOperation  {
         if (StringUtil.quickEq("%%%", oper)) {
             procDelaunay(_error,true);
         }
+        if (StringUtil.quickEq("=", oper)) {
+            procEq(_error);
+        }
     }
 
+    private void procEq(MaError _error) {
+        CustList<MaStruct> all_ = tryGetAll(this);
+        int len_ = all_.size();
+        if (len_ < 2) {
+            _error.setOffset(getIndexExp());
+            return;
+        }
+        MaStruct left_ = all_.first();
+        for (int i = 1; i < len_; i++) {
+            MaStruct right_ = all_.get(i);
+            if (!MaNumParsers.eqMath(left_, right_)) {
+                setStruct(MaBoolStruct.of(false));
+                return;
+            }
+            left_ = right_;
+        }
+        setStruct(MaBoolStruct.of(true));
+    }
     private void procDelaunay(MaError _error, boolean _mid) {
         CustList<MaRatePointStruct> points_ = tryGetAllAsPt(this);
         if (points_ != null) {

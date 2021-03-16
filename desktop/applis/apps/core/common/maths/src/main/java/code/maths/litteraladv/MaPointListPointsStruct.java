@@ -15,6 +15,15 @@ public final class MaPointListPointsStruct extends MaPairPointStruct {
     }
 
     @Override
+    protected boolean sameValueMath(MaPairPointStruct _other) {
+        if (!(_other instanceof MaPointListPointsStruct)) {
+            return false;
+        }
+        IdList<RatePoint> edgesOth_ = ((MaPointListPointsStruct) _other).nextPoints;
+        return MaRatePointStruct.eqPtsMath(nextPoints,edgesOth_);
+    }
+
+    @Override
     protected boolean sameValue(MaPairPointStruct _other) {
         if (!(_other instanceof MaPointListPointsStruct)) {
             return false;

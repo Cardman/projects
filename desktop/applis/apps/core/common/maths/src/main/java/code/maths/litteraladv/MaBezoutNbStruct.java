@@ -1,8 +1,10 @@
 package code.maths.litteraladv;
 
 import code.maths.IdBezoutNb;
+import code.maths.Rate;
+import code.util.CustList;
 
-public final class MaBezoutNbStruct implements MaStruct {
+public final class MaBezoutNbStruct extends MaListNbStruct {
     private final IdBezoutNb idBezout;
 
     public MaBezoutNbStruct(IdBezoutNb _idBezout) {
@@ -11,6 +13,14 @@ public final class MaBezoutNbStruct implements MaStruct {
 
     public IdBezoutNb getIdBezout() {
         return idBezout;
+    }
+
+    @Override
+    public CustList<Rate> getNumberList() {
+        return new CustList<Rate>(new Rate(idBezout.getFirst()),
+                new Rate(idBezout.getSecond()),
+                new Rate(idBezout.getPgcd()),
+                new Rate(idBezout.getPpcm()));
     }
 
     @Override

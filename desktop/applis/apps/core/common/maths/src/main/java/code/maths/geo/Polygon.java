@@ -42,18 +42,27 @@ public final class Polygon implements Iterable<RatePoint>, HasEdges, Displayable
     }
 
 
+    public boolean eqMath(Polygon _obj) {
+        return Edge.eqEdgesMath(getEdges(), _obj.getEdges());
+    }
+
     public boolean eq(Polygon _obj) {
-        int len_ = points.size();
-        if (_obj.size() != len_) {
+        return eqList(points, _obj.points);
+    }
+
+    private static boolean eqList(CustList<RatePoint> _points, CustList<RatePoint> _other) {
+        int len_ = _points.size();
+        if (_other.size() != len_) {
             return false;
         }
         for (int i = 0; i < len_; i++) {
-            if (!points.get(i).eq(_obj.points.get(i))) {
+            if (!_points.get(i).eq(_other.get(i))) {
                 return false;
             }
         }
         return true;
     }
+
     public boolean intersect(Polygon _other) {
         for (Edge e: getEdges()) {
             for (Edge f: _other.getEdges()) {
@@ -273,20 +282,7 @@ public final class Polygon implements Iterable<RatePoint>, HasEdges, Displayable
     }
 
     private CustList<Triangle> getTrianglesGene() {
-        Polygon copy_ = new Polygon();
-        RatePoint cust_ = first();
-        int index_ = 0;
-        int j_ = 0;
-        for (RatePoint p: points) {
-            if (Rate.strLower(p.getXcoords(), cust_.getXcoords()) || (p.getXcoords().eq(cust_.getXcoords()) && Rate.strLower(p.getYcoords(), cust_.getYcoords()))) {
-                cust_ = p;
-                index_ = j_;
-            }
-            j_++;
-        }
-//        int index_ = points.indexOfObj(cust_);
-        int len_ = size();
-        addPoints(copy_, index_, len_);
+        Polygon copy_ = normalPolygon();
         CustList<Triangle> triangles_ = new CustList<Triangle>();
         while (!copy_.isConvex()) {
             int i_ = 1;
@@ -310,6 +306,23 @@ public final class Polygon implements Iterable<RatePoint>, HasEdges, Displayable
         }
         return triangles_;
     }
+
+    private Polygon normalPolygon() {
+        Polygon copy_ = new Polygon();
+        RatePoint cust_ = first();
+        int index_ = 0;
+        int j_ = 0;
+        for (RatePoint p: points) {
+            if (Rate.strLower(p.getXcoords(), cust_.getXcoords()) || (p.getXcoords().eq(cust_.getXcoords()) && Rate.strLower(p.getYcoords(), cust_.getYcoords()))) {
+                cust_ = p;
+                index_ = j_;
+            }
+            j_++;
+        }
+        addPoints(copy_, index_);
+        return copy_;
+    }
+
     private static void procRem(Polygon _copy, CustList<Triangle> _triangles, int _i, RatePoint _before, RatePoint _curr, RatePoint _after, Rate _det) {
         if (!_det.isZeroOrGt()) {
             Triangle t_;
@@ -319,8 +332,9 @@ public final class Polygon implements Iterable<RatePoint>, HasEdges, Displayable
         _copy.remove(_i);
     }
 
-    private void addPoints(Polygon _copy, int _index, int _len) {
-        for (int i = _index; i < _len; i++) {
+    private void addPoints(Polygon _copy, int _index) {
+        int len_ = size();
+        for (int i = _index; i < len_; i++) {
             _copy.add(get(i));
         }
         for (int i = IndexConstants.FIRST_INDEX; i < _index; i++) {

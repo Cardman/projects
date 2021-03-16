@@ -2,8 +2,9 @@ package code.maths.litteraladv;
 
 import code.maths.LgInt;
 import code.maths.Rate;
+import code.util.CustList;
 
-public final class MaPolMemberStruct implements MaStruct {
+public final class MaPolMemberStruct extends MaListNbStruct {
     private final Rate rate;
     private final LgInt power;
 
@@ -12,6 +13,10 @@ public final class MaPolMemberStruct implements MaStruct {
         this.power = _power;
     }
 
+    @Override
+    public CustList<Rate> getNumberList() {
+        return new CustList<Rate>(rate,new Rate(power));
+    }
     public Rate getRate() {
         return rate;
     }

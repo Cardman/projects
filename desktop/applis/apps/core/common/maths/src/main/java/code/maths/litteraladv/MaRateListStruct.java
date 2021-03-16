@@ -6,11 +6,16 @@ import code.util.CustList;
 import code.util.StringList;
 import code.util.core.StringUtil;
 
-public final class MaRateListStruct implements MaStruct {
+public final class MaRateListStruct extends MaListNbStruct {
     private final CustList<Rate> rates;
 
     public MaRateListStruct(CustList<Rate> _rates) {
         rates = _rates;
+    }
+
+    @Override
+    public CustList<Rate> getNumberList() {
+        return getRates();
     }
 
     @Override

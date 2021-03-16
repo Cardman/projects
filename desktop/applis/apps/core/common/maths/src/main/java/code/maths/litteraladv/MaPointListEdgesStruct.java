@@ -16,6 +16,15 @@ public final class MaPointListEdgesStruct extends MaPairPointStruct {
     }
 
     @Override
+    protected boolean sameValueMath(MaPairPointStruct _other) {
+        if (!(_other instanceof MaPointListEdgesStruct)) {
+            return false;
+        }
+        CustList<Edge> edgesOth_ = ((MaPointListEdgesStruct) _other).edges;
+        return Edge.eqEdgesMath(edges,edgesOth_);
+    }
+
+    @Override
     protected boolean sameValue(MaPairPointStruct _other) {
         if (!(_other instanceof MaPointListEdgesStruct)) {
             return false;

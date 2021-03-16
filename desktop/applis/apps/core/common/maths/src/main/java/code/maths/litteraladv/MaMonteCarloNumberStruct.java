@@ -8,7 +8,7 @@ import code.util.CustList;
 import code.util.StringList;
 import code.util.core.StringUtil;
 
-public final class MaMonteCarloNumberStruct implements MaStruct {
+public final class MaMonteCarloNumberStruct implements MaAddonStruct {
     private final MonteCarloNumber law;
 
     public MaMonteCarloNumberStruct(MonteCarloNumber _law) {
@@ -17,6 +17,24 @@ public final class MaMonteCarloNumberStruct implements MaStruct {
 
     public MonteCarloNumber getLaw() {
         return law;
+    }
+
+    @Override
+    public boolean sameReferenceMath(MaStruct _other) {
+        if (!(_other instanceof MaMonteCarloNumberStruct)) {
+            return false;
+        }
+        CustList<Rate> evtsThis_ = law.events();
+        CustList<Rate> evtsOth_ = ((MaMonteCarloNumberStruct)_other).law.events();
+        if (!Rate.eqSet(evtsThis_,evtsOth_)) {
+            return false;
+        }
+        for (Rate e: evtsThis_) {
+            if (!law.rate(e).eq(((MaMonteCarloNumberStruct)_other).law.rate(e))) {
+                return false;
+            }
+        }
+        return true;
     }
 
     @Override

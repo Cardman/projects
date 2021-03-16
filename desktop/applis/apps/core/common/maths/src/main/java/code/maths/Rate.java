@@ -341,6 +341,24 @@ public final class Rate implements Displayable {
         return ppcmDenom_;
     }
 
+    public static boolean eqSet(CustList<Rate> _one, CustList<Rate> _two) {
+        return contains(_one, _two)&&contains(_two, _one);
+    }
+    static boolean contains(CustList<Rate> _outer, CustList<Rate> _inner) {
+        for (Rate r: _inner) {
+            boolean cont_ = false;
+            for (Rate s: _outer) {
+                if (r.eq(s)) {
+                    cont_ = true;
+                    break;
+                }
+            }
+            if (!cont_) {
+                return false;
+            }
+        }
+        return true;
+    }
     public static boolean eq(CustList<Rate> _one, CustList<Rate> _two) {
         if (_one.size() != _two.size()) {
             return false;

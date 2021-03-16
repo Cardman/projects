@@ -411,7 +411,8 @@ public abstract class MaOperationNode {
         return StringUtil.quickEq(_var,";")
                 ||StringUtil.quickEq(_var,"&&")
                 ||StringUtil.quickEq(_var,"?")
-                ||StringUtil.quickEq(_var,"<>-|");
+                ||StringUtil.quickEq(_var,"<>-|")
+                ||StringUtil.quickEq(_var,"=");
     }
 
     private static boolean isPairSymbol(MaOperationsSequence _op) {

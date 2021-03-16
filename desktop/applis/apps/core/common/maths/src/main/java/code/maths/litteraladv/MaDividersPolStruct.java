@@ -6,7 +6,7 @@ import code.util.CustList;
 import code.util.StringList;
 import code.util.core.StringUtil;
 
-public final class MaDividersPolStruct implements MaStruct {
+public final class MaDividersPolStruct implements MaAddonStruct {
     private final CustList<Polynom> dividers;
 
     public MaDividersPolStruct(CustList<Polynom> _idBezout) {
@@ -15,6 +15,14 @@ public final class MaDividersPolStruct implements MaStruct {
 
     public CustList<Polynom> getDividers() {
         return dividers;
+    }
+
+    @Override
+    public boolean sameReferenceMath(MaStruct _other) {
+        if (!(_other instanceof MaDividersPolStruct)) {
+            return false;
+        }
+        return eqPols(MaComparePolynom.sorted(dividers),MaComparePolynom.sorted(((MaDividersPolStruct)_other).dividers));
     }
 
     @Override
@@ -36,13 +44,16 @@ public final class MaDividersPolStruct implements MaStruct {
             return false;
         }
         CustList<Polynom> oth_ = ((MaDividersPolStruct) _other).dividers;
-        CustList<Polynom> divThis_ = _this.dividers;
-        int nbThis_ = divThis_.size();
-        if (nbThis_ != oth_.size()) {
+        return eqPols(_this.dividers, oth_);
+    }
+
+    static boolean eqPols(CustList<Polynom> _divThis, CustList<Polynom> _oth) {
+        int nbThis_ = _divThis.size();
+        if (nbThis_ != _oth.size()) {
             return false;
         }
         for (int i = 0; i < nbThis_; i++) {
-            if (!Polynom.eq(divThis_.get(i),oth_.get(i))) {
+            if (!Polynom.eq(_divThis.get(i), _oth.get(i))) {
                 return false;
             }
         }

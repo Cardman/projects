@@ -1,8 +1,10 @@
 package code.maths.litteraladv;
 
+import code.maths.Rate;
 import code.maths.matrix.RateImage;
+import code.util.CustList;
 
-public final class MaRateImageStruct implements MaStruct {
+public final class MaRateImageStruct extends MaListNbStruct {
     private final RateImage rateImage;
 
     public MaRateImageStruct(RateImage _rateImage) {
@@ -11,6 +13,11 @@ public final class MaRateImageStruct implements MaStruct {
 
     public RateImage getRateImage() {
         return rateImage;
+    }
+
+    @Override
+    public CustList<Rate> getNumberList() {
+        return new CustList<Rate>(rateImage.getRate(),rateImage.getValue());
     }
 
     @Override

@@ -1,12 +1,19 @@
 package code.maths.litteraladv;
 
+import code.maths.Rate;
 import code.maths.matrix.RootPol;
+import code.util.CustList;
 
-public final class MaPrimDivisorPolStruct implements MaStruct {
+public final class MaPrimDivisorPolStruct extends MaListNbStruct {
     private final RootPol primDivisor;
 
     public MaPrimDivisorPolStruct(RootPol _primDivisor) {
         this.primDivisor = _primDivisor;
+    }
+
+    @Override
+    public CustList<Rate> getNumberList() {
+        return new CustList<Rate>(primDivisor.getValue(),new Rate(primDivisor.getDegree()));
     }
 
     public RootPol getPrimDivisor() {

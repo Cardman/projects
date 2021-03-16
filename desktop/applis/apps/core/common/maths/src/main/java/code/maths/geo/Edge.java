@@ -16,6 +16,26 @@ public final class Edge implements Displayable {
         second = _second;
     }
 
+    public static boolean eqEdgesMath(CustList<Edge> _this, CustList<Edge> _other) {
+        return contains(_this,_other) && contains(_other, _this);
+    }
+
+    static boolean contains(CustList<Edge> _outer, CustList<Edge> _inner) {
+        for (Edge r: _inner) {
+            boolean cont_ = false;
+            for (Edge s: _outer) {
+                if (r.isEqual(s)) {
+                    cont_ = true;
+                    break;
+                }
+            }
+            if (!cont_) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     public boolean isSame(Edge _other) {
         if (first == _other.first && second == _other.second) {
             return true;

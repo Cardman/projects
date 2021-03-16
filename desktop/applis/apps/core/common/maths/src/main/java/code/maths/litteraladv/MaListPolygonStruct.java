@@ -7,7 +7,7 @@ import code.util.CustList;
 import code.util.StringList;
 import code.util.core.StringUtil;
 
-public final class MaListPolygonStruct implements MaStruct {
+public final class MaListPolygonStruct implements MaAddonStruct {
     private final CustList<Polygon> polygons;
 
     public MaListPolygonStruct(CustList<Polygon> _polygons) {
@@ -16,6 +16,15 @@ public final class MaListPolygonStruct implements MaStruct {
 
     public CustList<Polygon> getPolygons() {
         return polygons;
+    }
+
+    @Override
+    public boolean sameReferenceMath(MaStruct _other) {
+        if (!(_other instanceof MaListPolygonStruct)) {
+            return false;
+        }
+        MaListPolygonStruct oth_ = (MaListPolygonStruct) _other;
+        return eqPolygonsMath(polygons,oth_.polygons);
     }
 
     @Override
@@ -45,7 +54,24 @@ public final class MaListPolygonStruct implements MaStruct {
         }
         return true;
     }
-
+    static boolean eqPolygonsMath(CustList<Polygon> _this, CustList<Polygon> _other) {
+        return contains(_this,_other)&&contains(_other, _this);
+    }
+    static boolean contains(CustList<Polygon> _outer, CustList<Polygon> _inner) {
+        for (Polygon r: _inner) {
+            boolean cont_ = false;
+            for (Polygon s: _outer) {
+                if (r.eqMath(s)) {
+                    cont_ = true;
+                    break;
+                }
+            }
+            if (!cont_) {
+                return false;
+            }
+        }
+        return true;
+    }
     @Override
     public String displayRsult() {
         return displayRsult(polygons);
