@@ -292,6 +292,18 @@ public abstract class MaOperationNode {
         }
         return rates_;
     }
+    protected static CustList<MaDelaunayStruct> tryGetAllAsDelaunay(MethodMaOperation _current) {
+        int len_ = _current.getChildren().size();
+        CustList<MaDelaunayStruct> rates_ = new CustList<MaDelaunayStruct>();
+        for (int i = 0; i < len_; i++) {
+            MaStruct str_ = MaNumParsers.tryGet(_current, i);
+            if (!(str_ instanceof MaDelaunayStruct)) {
+                continue;
+            }
+            rates_.add((MaDelaunayStruct)str_);
+        }
+        return rates_;
+    }
     protected static CustList<MaPolygonStruct> tryGetAllAsPolygon(MethodMaOperation _current) {
         int len_ = _current.getChildren().size();
         CustList<MaPolygonStruct> rates_ = new CustList<MaPolygonStruct>();
@@ -380,7 +392,7 @@ public abstract class MaOperationNode {
 
     private static boolean isVarSymbol(MaOperationsSequence _op) {
         String valTwo_ = _op.getParts().getValue(1).trim();
-        return algebreVar(valTwo_)|| StringUtil.quickEq(valTwo_, "||")|| StringUtil.quickEq(valTwo_, "%%");
+        return algebreVar(valTwo_)|| StringUtil.quickEq(valTwo_, "||")|| StringUtil.quickEq(valTwo_, "%%")|| StringUtil.quickEq(valTwo_, "%%%");
     }
 
     private static boolean algebreVar(String _var) {

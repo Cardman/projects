@@ -123,13 +123,14 @@ public final class Matrix implements Displayable {
     }
 
     private static void combine(int _nbCols, Matrix _copy, int _i, int _indexNotZero) {
-        Rate co_ = _copy.lines.get(_i).get(_indexNotZero);
+        Vect curLine_ = _copy.lines.get(_i);
+        Rate co_ = curLine_.get(_indexNotZero);
         for (int j = 0; j < _indexNotZero; j++) {
-            Rate r_ = Rate.divide(_copy.lines.get(_i).get(j), co_).opposNb();
+            Rate r_ = Rate.divide(curLine_.get(j), co_).opposNb();
             _copy.combineCol(r_, _indexNotZero,j);
         }
         for (int j = _indexNotZero +1; j < _nbCols; j++) {
-            Rate r_ = Rate.divide(_copy.lines.get(_i).get(j), co_).opposNb();
+            Rate r_ = Rate.divide(curLine_.get(j), co_).opposNb();
             _copy.combineCol(r_, _indexNotZero,j);
         }
     }
@@ -148,7 +149,8 @@ public final class Matrix implements Displayable {
     private void combineCol(Rate _rate,int _colOrigin,int _colDest) {
         int nbLines_ = nbLines();
         for (int i = 0; i < nbLines_; i++) {
-            lines.get(i).set(_colDest,Rate.plus(lines.get(i).get(_colDest),Rate.multiply(_rate,lines.get(i).get(_colOrigin))));
+            Vect curLine_ = lines.get(i);
+            curLine_.set(_colDest,Rate.plus(curLine_.get(_colDest),Rate.multiply(_rate, curLine_.get(_colOrigin))));
         }
     }
 //    public Matrix passMat() {
@@ -310,13 +312,10 @@ public final class Matrix implements Displayable {
         int nbCols_=lines.first().size();
         int nbLines_=lines.size();
         if(nbCols_!=nbLines_) {
-            Matrix adj_;
             if(nbCols_<nbLines_) {
-                adj_ = transposeRef().multMatrix(this);
-            } else {
-                adj_ = multMatrix(transposeRef());
+                return transposeRef().multMatrix(this);
             }
-            return adj_;
+            return multMatrix(transposeRef());
         }
         return this;
     }

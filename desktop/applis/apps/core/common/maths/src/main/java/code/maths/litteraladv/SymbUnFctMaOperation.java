@@ -136,6 +136,11 @@ public final class SymbUnFctMaOperation extends MethodMaOperation {
             setStruct(new MaMatrixStruct(matrix_.passVects()));
             return;
         }
+        CustList<MaDelaunayStruct> dels_ = tryGetAllAsDelaunay(this);
+        if (dels_.size() == 1) {
+            setStruct(MaBoolStruct.of(dels_.first().isWithMids()));
+            return;
+        }
         _error.setOffset(getIndexExp());
     }
 

@@ -42,11 +42,14 @@ public final class SymbVarFctMaOperation extends MethodMaOperation  {
             procPolygon(_error);
         }
         if (StringUtil.quickEq("%%", oper)) {
-            procDelaunay(_error);
+            procDelaunay(_error,false);
+        }
+        if (StringUtil.quickEq("%%%", oper)) {
+            procDelaunay(_error,true);
         }
     }
 
-    private void procDelaunay(MaError _error) {
+    private void procDelaunay(MaError _error, boolean _mid) {
         CustList<MaRatePointStruct> points_ = tryGetAllAsPt(this);
         if (points_ != null) {
             CustList<RatePoint> pts_ = new CustList<RatePoint>();
@@ -54,8 +57,8 @@ public final class SymbVarFctMaOperation extends MethodMaOperation  {
                 pts_.add(p.getPoint());
             }
             Delaunay del_ = new Delaunay();
-            del_.compute(pts_);
-            setStruct(new MaDelaunayStruct(del_));
+            del_.compute(pts_,_mid);
+            setStruct(new MaDelaunayStruct(del_,_mid));
             return;
         }
         _error.setOffset(getIndexExp());

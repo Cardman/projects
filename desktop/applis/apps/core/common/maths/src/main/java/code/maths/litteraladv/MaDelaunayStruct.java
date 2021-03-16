@@ -6,9 +6,15 @@ import code.util.CustList;
 
 public final class MaDelaunayStruct implements MaStruct {
     private final Delaunay delaunay;
+    private final boolean withMids;
 
-    public MaDelaunayStruct(Delaunay _delaunay) {
+    public MaDelaunayStruct(Delaunay _delaunay,boolean _withMids) {
         this.delaunay = _delaunay;
+        withMids = _withMids;
+    }
+
+    public boolean isWithMids() {
+        return withMids;
     }
 
     public Delaunay getDelaunay() {
@@ -20,6 +26,9 @@ public final class MaDelaunayStruct implements MaStruct {
         if (!(_other instanceof MaDelaunayStruct)) {
             return false;
         }
+        if (withMids != ((MaDelaunayStruct) _other).withMids) {
+            return false;
+        }
         CustList<Polygon> this_ = MaListPolygonStruct.toPolygons(delaunay.getTriangles());
         CustList<Polygon> oth_ = MaListPolygonStruct.toPolygons(((MaDelaunayStruct) _other).delaunay.getTriangles());
         return MaListPolygonStruct.eqPolygons(this_,oth_);
@@ -28,6 +37,9 @@ public final class MaDelaunayStruct implements MaStruct {
     @Override
     public String displayRsult() {
         CustList<Polygon> this_ = MaListPolygonStruct.toPolygons(delaunay.getTriangles());
+        if (withMids) {
+            return "-"+MaListPolygonStruct.displayRsult(this_);
+        }
         return MaListPolygonStruct.displayRsult(this_);
     }
 }

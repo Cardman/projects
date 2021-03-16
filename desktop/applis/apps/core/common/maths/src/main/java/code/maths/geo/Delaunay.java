@@ -783,24 +783,21 @@ public final class Delaunay {
             IdList<RatePoint> v_ = e.getValue();
             Polygon p_ = new Polygon();
             boolean contained_ = isContainedHull(k_);
-            Rate x_;
-            Rate y_;
-            x_ =Rate.divide(Rate.plus(v_.first().getXcoords(), k_.getXcoords()),new Rate(2));
-            y_ =Rate.divide(Rate.plus(v_.first().getYcoords(), k_.getYcoords()),new Rate(2));
+            Rate x_ = Rate.divide(Rate.plus(v_.first().getXcoords(), k_.getXcoords()), new Rate(2));
+            Rate y_ = Rate.divide(Rate.plus(v_.first().getYcoords(), k_.getYcoords()), new Rate(2));
             RatePoint midOne_ = new RatePoint(x_, y_);
             if (contained_) {
                 p_.add(midOne_);
             }
             fetchCircumCenters(k_, v_, p_);
             CustList<Edge> edges_ = new CustList<Edge>();
-            int len_;
             x_ =Rate.divide(Rate.plus(v_.last().getXcoords(), k_.getXcoords()),new Rate(2));
             y_ =Rate.divide(Rate.plus(v_.last().getYcoords(), k_.getYcoords()),new Rate(2));
             RatePoint midTwo_ = new RatePoint(x_, y_);
             if (contained_) {
                 p_.add(midTwo_);
             }
-            len_ = p_.size();
+            int len_ = p_.size();
             for (int i = 0; i < len_; i++) {
                 RatePoint one_ = p_.get(i);
                 RatePoint two_ = p_.get((i+1)%len_);
@@ -864,19 +861,18 @@ public final class Delaunay {
         id_ = new IdMap<RatePoint,CustList<Triangle>>();
         for (EntryCust<RatePoint, IdList<RatePoint>> e: nextPoints.entryList()) {
             RatePoint k_ = e.getKey();
-            CustList<Triangle> ts_ = getTs(e, k_);
+            CustList<Triangle> ts_ = getTs(k_, e.getValue());
             id_.put(k_, ts_);
         }
         return id_;
     }
 
-    private CustList<Triangle> getTs(EntryCust<RatePoint, IdList<RatePoint>> _e, RatePoint _k) {
-        IdList<RatePoint> v_ = _e.getValue();
-        int len_ = v_.size();
+    private CustList<Triangle> getTs(RatePoint _k, IdList<RatePoint> _nextPts) {
+        int len_ = _nextPts.size();
         CustList<Triangle> ts_ = new CustList<Triangle>();
         for (int i = 0; i < len_; i++) {
-            RatePoint one_ = v_.get(i);
-            RatePoint two_ = v_.get((i + 1) % len_);
+            RatePoint one_ = _nextPts.get(i);
+            RatePoint two_ = _nextPts.get((i + 1) % len_);
             for (Triangle t: triangles) {
                 int nbPoints_ = getNbPoints(_k, one_, two_, t);
                 if (nbPoints_ == Triangle.NB_POINTS) {
