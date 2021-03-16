@@ -11,15 +11,16 @@ public final class MaParser {
     }
 
     public static String processEl(AbstractGenerator _gene, String _el, CustList<Replacement> _conf) {
+        String exp_ = StringUtil.nullToEmpty(_el);
         if (_conf == null) {
-            return "#"+_el;
+            return "#"+exp_;
         }
         MaParameters aliases_ = new MaParameters(_gene);
-        String outStr_ = checkedAliases(_el, _conf);
+        String outStr_ = checkedAliases(exp_, _conf);
         if (!outStr_.isEmpty()) {
             return outStr_;
         }
-        String outVars_ = checkedVariables(_el, _conf);
+        String outVars_ = checkedVariables(exp_, _conf);
         if (!outVars_.isEmpty()) {
             return outVars_;
         }
@@ -43,7 +44,7 @@ public final class MaParser {
             return strValues_;
         }
         MaError err_ = new MaError();
-        MaStruct out_ = analyzeCalculate(_el, values_, aliases_, err_, false, varNames_);
+        MaStruct out_ = analyzeCalculate(exp_, values_, aliases_, err_, false, varNames_);
         return MaNumParsers.toStrNb(out_,err_);
     }
 
@@ -63,7 +64,7 @@ public final class MaParser {
         int index_ = 0;
         for (EntryCust<String,String> e: _repl.entryList()) {
             if (_values.getValue(index_) == null) {
-                String cf_ = e.getValue();
+                String cf_ = StringUtil.nullToEmpty(e.getValue());
                 MaError err_ = new MaError();
                 MaStruct val_ = analyzeCalculate(cf_, _values, _aliases, err_, true, _varNames);
                 if (val_ != null) {
