@@ -408,11 +408,15 @@ public abstract class MaOperationNode {
     }
 
     private static boolean algebreVar(String _var) {
-        return StringUtil.quickEq(_var,";")
-                ||StringUtil.quickEq(_var,"&&")
-                ||StringUtil.quickEq(_var,"?")
-                ||StringUtil.quickEq(_var,"<>-|")
-                ||StringUtil.quickEq(_var,"=");
+        return classicVar(_var)
+                || StringUtil.quickEq(_var, "<>-|")
+                || StringUtil.quickEq(_var, "=");
+    }
+
+    private static boolean classicVar(String _var) {
+        return StringUtil.quickEq(_var, ";")
+                || StringUtil.quickEq(_var, "&&")
+                || StringUtil.quickEq(_var, "?");
     }
 
     private static boolean isPairSymbol(MaOperationsSequence _op) {
