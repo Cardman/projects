@@ -392,12 +392,12 @@ public abstract class MaOperationNode {
 
     private static boolean isVarSymbol(MaOperationsSequence _op) {
         String valTwo_ = _op.getParts().getValue(1).trim();
-        return algebreVar(valTwo_)|| StringUtil.quickEq(valTwo_, "||")|| StringUtil.quickEq(valTwo_, "%%")|| StringUtil.quickEq(valTwo_, "%%%");
+        return algebreVar(valTwo_)|| StringUtil.quickEq(valTwo_, "|||")|| StringUtil.quickEq(valTwo_, "%%")|| StringUtil.quickEq(valTwo_, "%%%");
     }
 
     private static boolean algebreVar(String _var) {
         return StringUtil.quickEq(_var,";")
-                ||StringUtil.quickEq(_var,"%")
+                ||StringUtil.quickEq(_var,"&&")
                 ||StringUtil.quickEq(_var,"?")
                 ||StringUtil.quickEq(_var,"<>-|");
     }

@@ -26,7 +26,7 @@ public final class SymbVarFctMaOperation extends MethodMaOperation  {
 
     @Override
     void calculate(StringMap<MaStruct> _conf, MaError _error, MaDelimiters _del) {
-        if (StringUtil.quickEq("%", oper)) {
+        if (StringUtil.quickEq("&&", oper)) {
             procRep(_error);
         }
         if (StringUtil.quickEq("?", oper)) {
@@ -38,7 +38,7 @@ public final class SymbVarFctMaOperation extends MethodMaOperation  {
         if (StringUtil.quickEq(";", oper)) {
             procPolynom(_error);
         }
-        if (StringUtil.quickEq("||", oper)) {
+        if (StringUtil.quickEq("|||", oper)) {
             procPolygon(_error);
         }
         if (StringUtil.quickEq("%%", oper)) {
