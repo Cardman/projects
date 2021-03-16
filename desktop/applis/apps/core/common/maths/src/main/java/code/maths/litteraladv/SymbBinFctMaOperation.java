@@ -1,5 +1,6 @@
 package code.maths.litteraladv;
 
+import code.maths.Complex;
 import code.maths.LgInt;
 import code.maths.Rate;
 import code.maths.geo.CustLine;
@@ -239,10 +240,14 @@ public final class SymbBinFctMaOperation extends MethodMaOperation {
     private void procPowerRate(MaError _error, CustList<MaRateStruct> _rates) {
         Rate base_= _rates.first().getRate();
         Rate exposant_= _rates.last().getRate();
-        if (base_.isZero() && !exposant_.isZeroOrGt()) {
+        procPowerRate(_error, base_, exposant_);
+    }
+
+    private void procPowerRate(MaError _error, Rate _base, Rate _exposant) {
+        if (_base.isZero() && !_exposant.isZeroOrGt()) {
             _error.setOffset(getIndexExp());
         } else {
-            setStruct(new MaRateStruct(Rate.powNb(base_, exposant_)));
+            setStruct(new MaRateStruct(Rate.powNb(_base, _exposant)));
         }
     }
 
@@ -305,10 +310,22 @@ public final class SymbBinFctMaOperation extends MethodMaOperation {
             setStruct(new MaEdgeStruct(new Edge(x_,y_)));
             return;
         }
+        if (first_ instanceof MaRateStruct && second_ instanceof MaRateStruct) {
+            Rate r_ = ((MaRateStruct)first_).getRate();
+            Rate i_ = ((MaRateStruct)second_).getRate();
+            setStruct(new MaComplexStruct(new Complex(r_,i_)));
+            return;
+        }
         _error.setOffset(getIndexExp());
     }
 
     private void procEdgesNotContains(MaError _error) {
+        MaStruct val_ = MaNumParsers.tryGet(this, 0);
+        MaStruct power_ = MaNumParsers.tryGet(this, 1);
+        if (val_ instanceof MaComplexStruct && power_ instanceof MaRateStruct) {
+            procComplexPower((MaComplexStruct)val_,(MaRateStruct)power_,_error);
+            return;
+        }
         CustList<MaEdgeStruct> edges_ = tryGetAllAsEdge(this);
         if (edges_.size() == 2) {
             Edge first_ = edges_.first().getEdge();
@@ -316,8 +333,6 @@ public final class SymbBinFctMaOperation extends MethodMaOperation {
             setStruct(MaBoolStruct.of(first_.intersectNotContains(second_)));
             return;
         }
-        MaStruct val_ = MaNumParsers.tryGet(this, 0);
-        MaStruct power_ = MaNumParsers.tryGet(this, 1);
         if (val_ instanceof MaPolygonStruct && power_ instanceof MaRatePointStruct) {
             Polygon line_ = ((MaPolygonStruct)val_).getPolygon();
             RatePoint point_ = ((MaRatePointStruct)power_).getPoint();
@@ -327,6 +342,28 @@ public final class SymbBinFctMaOperation extends MethodMaOperation {
         _error.setOffset(getIndexExp());
     }
 
+    private void procComplexPower(MaComplexStruct _base, MaRateStruct _exp,MaError _error) {
+        Complex val_ = _base.getComplex();
+        Rate expo_ = _exp.getRate();
+        if (val_.getImag().isZero()) {
+            procPowerRate(_error,val_.getReal(), expo_);
+            return;
+        }
+        if (!expo_.isInteger()) {
+            _error.setOffset(getIndexExp());
+            return;
+        }
+        LgInt expInt_ = expo_.intPart();
+        if (expInt_.isZero()) {
+            setStruct(new MaComplexStruct(new Complex(Rate.one())));
+            return;
+        }
+        if (expInt_.isZeroOrLt()) {
+            setStruct(new MaComplexStruct(val_.inv().power(expInt_.absNb())));
+            return;
+        }
+        setStruct(new MaComplexStruct(val_.power(expInt_)));
+    }
     private void intersectNotContainsBound(MaError _error) {
         CustList<MaEdgeStruct> edges_ = tryGetAllAsEdge(this);
         if (edges_.size() == 2) {

@@ -21,6 +21,10 @@ public final class NumericMaOperation extends MethodMaOperation {
             processRates(_error, oper_, (MaRateStruct) first_, (MaRateStruct) second_);
             return;
         }
+        if (first_ instanceof MaComplexStruct && second_ instanceof MaComplexStruct) {
+            processComplexes(_error, oper_, (MaComplexStruct) first_, (MaComplexStruct) second_);
+            return;
+        }
         MaFractPolStruct wrOne_ = MaFractPolStruct.wrapOrNull(first_);
         MaFractPolStruct wrTwo_ = MaFractPolStruct.wrapOrNull(second_);
         if (wrOne_ != null && wrTwo_ != null) {
@@ -54,6 +58,25 @@ public final class NumericMaOperation extends MethodMaOperation {
         setStruct(new MaRateStruct(Rate.divide(_first.getRate(), _second.getRate())));
     }
 
+    private void processComplexes(MaError _error, String _oper, MaComplexStruct _first, MaComplexStruct _second) {
+        if (StringUtil.quickEq(_oper, "+")) {
+            setStruct(new MaComplexStruct(_first.getComplex().add(_second.getComplex())));
+            return;
+        }
+        if (StringUtil.quickEq(_oper, "-")) {
+            setStruct(new MaComplexStruct(_first.getComplex().minus(_second.getComplex())));
+            return;
+        }
+        if (StringUtil.quickEq(_oper, "*")) {
+            setStruct(new MaComplexStruct(_first.getComplex().multiply(_second.getComplex())));
+            return;
+        }
+        if (_second.getComplex().isZero()) {
+            _error.setOffset(getIndexExp() + getOperats().getOpers().firstKey());
+            return;
+        }
+        setStruct(new MaComplexStruct(_first.getComplex().divide(_second.getComplex())));
+    }
     private void processFracts(MaError _error, String _oper, MaFractPolStruct _first, MaFractPolStruct _second) {
         if (StringUtil.quickEq(_oper, "+")) {
             setStruct(new MaFractPolStruct(FractPol.plus(_first.getFractPol(),_second.getFractPol())));

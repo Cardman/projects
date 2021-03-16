@@ -304,6 +304,18 @@ public abstract class MaOperationNode {
         }
         return rates_;
     }
+    protected static CustList<MaComplexStruct> tryGetAllAsComplex(MethodMaOperation _current) {
+        int len_ = _current.getChildren().size();
+        CustList<MaComplexStruct> rates_ = new CustList<MaComplexStruct>();
+        for (int i = 0; i < len_; i++) {
+            MaStruct str_ = MaNumParsers.tryGet(_current, i);
+            if (!(str_ instanceof MaComplexStruct)) {
+                continue;
+            }
+            rates_.add((MaComplexStruct)str_);
+        }
+        return rates_;
+    }
     protected static CustList<MaPolygonStruct> tryGetAllAsPolygon(MethodMaOperation _current) {
         int len_ = _current.getChildren().size();
         CustList<MaPolygonStruct> rates_ = new CustList<MaPolygonStruct>();
@@ -480,7 +492,7 @@ public abstract class MaOperationNode {
     }
 
     private static boolean arith(String _val) {
-        return StringUtil.quickEq(_val, "/") || StringUtil.quickEq(_val, "||") || StringUtil.quickEq(_val, "&");
+        return StringUtil.quickEq(_val, "/") || StringUtil.quickEq(_val, "//") || StringUtil.quickEq(_val, "||") || StringUtil.quickEq(_val, "&");
     }
 
     private static boolean isAndOr(MaOperationsSequence _op) {

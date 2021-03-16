@@ -1,4 +1,5 @@
 package code.maths.matrix;
+import code.maths.Complex;
 import code.maths.LgInt;
 import code.maths.Rate;
 import code.util.CollCapacity;
@@ -436,6 +437,19 @@ public final class Polynom implements Displayable {
         return y_;
     }
 
+    public Complex image(Complex _x) {
+        Complex y_ = new Complex(Rate.zero());
+        if (isZero()) {
+            return y_;
+        }
+        long dg_=notNullDg();
+        for(int i=0;i<dg_;i++) {
+            y_=y_.add(new Complex(get(i)));
+            y_=y_.multiply(_x);
+        }
+        y_=y_.add(new Complex(get((int) dg_)));
+        return y_;
+    }
     public Matrix image(Matrix _m) {
         Matrix id_ = _m.buildId();
         int nbLines_=_m.nbLines();

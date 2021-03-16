@@ -540,7 +540,7 @@ public final class MaParserTest extends EquallableMathUtil {
     }
     @Test
     public void evaluateExp133Test(){
-        assertEq("#0", noVar("(1,1,-)"));
+        assertEq("#0", noVar("(1,(1,||),-)"));
     }
     @Test
     public void evaluateExp134Test(){
@@ -3201,6 +3201,110 @@ public final class MaParserTest extends EquallableMathUtil {
     @Test
     public void evaluateExp799Test(){
         assertEq("0", noVar("(%%,(0,0,.),(2,4,.),(1,5,.),(3,2,.))=(%%%,(0,0,.),(2,4,.),(1,5,.),(3,2,.))"));
+    }
+    @Test
+    public void evaluateExp800Test(){
+        assertEq("(-1,-2,-)", noVar("-(1,2,-)"));
+    }
+    @Test
+    public void evaluateExp801Test(){
+        assertEq("(1,-2,-)", noVar("((1,2,-),*)"));
+    }
+    @Test
+    public void evaluateExp802Test(){
+        assertEq("(1/5,-2/5,-)", noVar("((1,2,-),-1,^^)"));
+    }
+    @Test
+    public void evaluateExp803Test(){
+        assertEq("(-3,4,-)", noVar("((1,2,-),2,^^)"));
+    }
+    @Test
+    public void evaluateExp804Test(){
+        assertEq("#0", noVar("((1,2,-),1/2,^^)"));
+    }
+    @Test
+    public void evaluateExp805Test(){
+        assertEq("1", noVar("((1,2,-),0,^^)"));
+    }
+    @Test
+    public void evaluateExp806Test(){
+        assertEq("1", noVar("((1,2,-),0,^^)=1"));
+    }
+    @Test
+    public void evaluateExp807Test(){
+        assertEq("1", noVar("1=((1,2,-),0,^^)"));
+    }
+    @Test
+    public void evaluateExp808Test(){
+        assertEq("9", noVar("((3,0,-),2,^^)"));
+    }
+    @Test
+    public void evaluateExp809Test(){
+        assertEq("(2,4,-)", noVar("(1,2,-)+(1,2,-)"));
+    }
+    @Test
+    public void evaluateExp810Test(){
+        assertEq("(-3,4,-)", noVar("(1,2,-)*(1,2,-)"));
+    }
+    @Test
+    public void evaluateExp811Test(){
+        assertEq("(1,2,-)", noVar("(2,4,-)-(1,2,-)"));
+    }
+    @Test
+    public void evaluateExp812Test(){
+        assertEq("(1/5,-2/5,-)", noVar("(1,0,-):(1,2,-)"));
+    }
+    @Test
+    public void evaluateExp813Test(){
+        assertEq("#7", noVar("(1,0,-):(0,0,-)"));
+    }
+    @Test
+    public void evaluateExp814Test(){
+        assertEq("#7", noVar("(1,0,-):(1,||)"));
+    }
+    @Test
+    public void evaluateExp815Test(){
+        assertEq("(1,2,-)", noVar("+(1,2,-)"));
+    }
+    @Test
+    public void evaluateExp816Test(){
+        assertEq("(1,-2/3,-)", noVar("((;,1,1,1):(;,1,0,1),(0,2,-))"));
+    }
+    @Test
+    public void evaluateExp817Test(){
+        assertEq("#0", noVar("((;,1,1,1):(;,1,0,4),(0,2,-))"));
+    }
+    @Test
+    public void evaluateExp818Test(){
+        assertEq("0", noVar("((;,0),(0,2,-))"));
+    }
+    @Test
+    public void evaluateExp819Test(){
+        assertEq("(0,-1,-)", noVar("(1,0,-):(0,1,-)"));
+    }
+    @Test
+    public void evaluateExp820Test(){
+        assertEq("#0", noVar("((1,2,-),(1,||),^^)"));
+    }
+    @Test
+    public void evaluateExp821Test(){
+        assertEq("(1,2)", noVar("((1,2,-),//)"));
+    }
+    @Test
+    public void evaluateExp822Test(){
+        assertEq("2", noVar("((1,2,-),//)[]"));
+    }
+    @Test
+    public void evaluateExp823Test(){
+        assertEq("1", noVar("((1,2,-),//)[0]"));
+    }
+    @Test
+    public void evaluateExp824Test(){
+        assertEq("2", noVar("((1,2,-),//)[1]"));
+    }
+    @Test
+    public void evaluateExp825Test(){
+        assertEq("#0", noVar("((1,||),//)"));
     }
     @Test
     public void nullVarTest(){

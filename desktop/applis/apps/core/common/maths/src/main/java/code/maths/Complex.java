@@ -39,6 +39,18 @@ public final class Complex implements Displayable {
     public Rate squareMod() {
         return Rate.plus(Rate.multiply(real, real), Rate.multiply(imag, imag));
     }
+    public boolean isZero() {
+        return real.isZero() && imag.isZero();
+    }
+    public Complex power(LgInt _power) {
+        Complex out_ = new Complex(Rate.one());
+        LgInt ind_ = LgInt.zero();
+        while (LgInt.strLower(ind_,_power)) {
+            out_ = out_.multiply(this);
+            ind_.increment();
+        }
+        return out_;
+    }
     public Complex inv() {
         Rate mod_= squareMod();
         return new Complex(Rate.divide(real,mod_),Rate.divide(imag,mod_).opposNb());

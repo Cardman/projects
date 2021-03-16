@@ -1,5 +1,6 @@
 package code.maths.litteraladv;
 
+import code.maths.Complex;
 import code.maths.Rate;
 
 public final class MaRateStruct implements MaStruct {
@@ -20,10 +21,8 @@ public final class MaRateStruct implements MaStruct {
     }
 
     public static boolean eqRate(MaRateStruct _this, MaStruct _other) {
-        if (!(_other instanceof MaRateStruct)) {
-            return false;
-        }
-        return Rate.eq(_this.rate, ((MaRateStruct) _other).rate);
+        MaComplexStruct th_ = new MaComplexStruct(new Complex(_this.getRate()));
+        return MaComplexStruct.eqRate(th_,_other);
     }
 
     public Rate getRate() {

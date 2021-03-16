@@ -1,5 +1,6 @@
 package code.maths.litteraladv;
 
+import code.maths.Complex;
 import code.maths.Rate;
 import code.maths.litteralcom.StrTypes;
 import code.util.StringMap;
@@ -27,6 +28,15 @@ public final class UnaryMaOperation extends MethodMaOperation {
             return;
         }
         if (!(value_ instanceof MaRateStruct)) {
+            if (value_ instanceof MaComplexStruct) {
+                Complex o_ = ((MaComplexStruct)value_).getComplex();
+                if (StringUtil.quickEq(getOperats().getOpers().firstValue().trim(), UNARY_MINUS)) {
+                    setStruct(new MaComplexStruct(o_.opposite()));
+                } else {
+                    setStruct(new MaComplexStruct(o_));
+                }
+                return;
+            }
             _error.setOffset(getIndexExp());
             return;
         }

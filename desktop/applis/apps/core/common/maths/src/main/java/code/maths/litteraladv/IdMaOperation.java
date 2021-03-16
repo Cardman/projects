@@ -1,5 +1,6 @@
 package code.maths.litteraladv;
 
+import code.maths.Complex;
 import code.maths.LgInt;
 import code.maths.Rate;
 import code.maths.litteralcom.StrTypes;
@@ -88,6 +89,20 @@ public final class IdMaOperation extends MethodMaOperation {
             Polynom num_ = pols_.getNumerator();
             Rate imageNum_ = num_.image(rate_);
             setStruct(new MaRateStruct(Rate.divide(imageNum_,imageDen_)));
+            return;
+        }
+        if (value_ instanceof MaComplexStruct) {
+            FractPol pols_ = _fract.getFractPol();
+            Polynom den_ = pols_.getDenominator();
+            Complex rate_ = ((MaComplexStruct) value_).getComplex();
+            Complex imageDen_ = den_.image(rate_);
+            if (imageDen_.isZero()) {
+                _error.setOffset(getIndexExp());
+                return;
+            }
+            Polynom num_ = pols_.getNumerator();
+            Complex imageNum_ = num_.image(rate_);
+            setStruct(new MaComplexStruct(imageNum_.divide(imageDen_)));
             return;
         }
         if (value_ instanceof MaMatrixStruct) {

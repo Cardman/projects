@@ -1,5 +1,6 @@
 package code.maths.litteraladv;
 
+import code.maths.Complex;
 import code.maths.Decomposition;
 import code.maths.LgInt;
 import code.maths.Rate;
@@ -28,6 +29,7 @@ public final class SymbUnFctMaOperation extends MethodMaOperation {
         if (StringUtil.quickEq("|", oper)) {
             procAbs(_error);
         }
+        procComplexParts(_error);
         if (StringUtil.quickEq("/0", oper)) {
             procNum(_error);
         }
@@ -56,6 +58,11 @@ public final class SymbUnFctMaOperation extends MethodMaOperation {
 
     private void procGravCenter(MaError _error) {
         if (StringUtil.quickEq("*", oper)) {
+            CustList<MaComplexStruct> compl_ = tryGetAllAsComplex(this);
+            if (compl_.size() == 1) {
+                setStruct(new MaComplexStruct(compl_.first().getComplex().conjug()));
+                return;
+            }
             CustList<MaPolygonStruct> pols_ = tryGetAllAsPolygon(this);
             if (pols_.size() != 1) {
                 _error.setOffset(getIndexExp());
@@ -176,6 +183,18 @@ public final class SymbUnFctMaOperation extends MethodMaOperation {
         _error.setOffset(getIndexExp());
     }
 
+    private void procComplexParts(MaError _error) {
+        if (!StringUtil.quickEq("//", oper)) {
+            return;
+        }
+        CustList<MaComplexStruct> cpl_ = tryGetAllAsComplex(this);
+        if (cpl_.size() == 1) {
+            Complex complex_ = cpl_.first().getComplex();
+            setStruct(new MaRateListStruct(new CustList<Rate>(complex_.getReal(),complex_.getImag())));
+            return;
+        }
+        _error.setOffset(getIndexExp());
+    }
     private void procNum(MaError _error) {
         CustList<MaRateStruct> valRates_ = tryGetAllAsRate(this);
         if (valRates_ != null) {
