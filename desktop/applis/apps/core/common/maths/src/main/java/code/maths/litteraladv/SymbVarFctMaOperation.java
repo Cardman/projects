@@ -276,8 +276,8 @@ public final class SymbVarFctMaOperation extends MethodMaOperation  {
     @Override
     void calculate() {
         StrTypes vs_ = getOperats().getParts();
-        oper = vs_.getValue(1);
-        vs_.remove(1);
+        oper = vs_.lastValue();
+        vs_.remove(vs_.size()-1);
         vs_.remove(0);
         getChs().addAllEntries(vs_);
     }

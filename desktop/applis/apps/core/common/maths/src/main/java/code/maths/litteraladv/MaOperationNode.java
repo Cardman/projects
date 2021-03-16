@@ -403,7 +403,7 @@ public abstract class MaOperationNode {
     }
 
     private static boolean isVarSymbol(MaOperationsSequence _op) {
-        String valTwo_ = _op.getParts().getValue(1).trim();
+        String valTwo_ = _op.getParts().lastValue().trim();
         return algebreVar(valTwo_)|| StringUtil.quickEq(valTwo_, "|||")|| StringUtil.quickEq(valTwo_, "%%")|| StringUtil.quickEq(valTwo_, "%%%");
     }
 

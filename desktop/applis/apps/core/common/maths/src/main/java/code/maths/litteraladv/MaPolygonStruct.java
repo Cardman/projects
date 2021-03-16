@@ -37,6 +37,6 @@ public final class MaPolygonStruct implements MaStruct {
         for (RatePoint r: points_) {
             parts_.add(MaRatePointStruct.displayRsult(r));
         }
-        return "(|||,"+ StringUtil.join(parts_,",")+")";
+        return "("+ StringUtil.join(parts_,",")+",|||)";
     }
 }

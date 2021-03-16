@@ -27,10 +27,10 @@ public final class MaPolynomStruct implements MaStruct {
     static String displayRsult(Polynom _polynom) {
         CustList<Rate> rates_ = _polynom.getNumbers();
         StringList list_ = new StringList(new CollCapacity(rates_.size()+1));
-        list_.add(";");
         for (Rate r: rates_) {
             list_.add(r.toNumberString());
         }
+        list_.add(";");
         return "("+ StringUtil.join(list_,",")+")";
     }
 
