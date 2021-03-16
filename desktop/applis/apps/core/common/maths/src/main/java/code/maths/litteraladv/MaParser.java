@@ -10,7 +10,7 @@ public final class MaParser {
     private MaParser() {
     }
 
-    static String processEl(AbstractGenerator _gene, String _el, CustList<Replacement> _conf) {
+    public static String processEl(AbstractGenerator _gene, String _el, CustList<Replacement> _conf) {
         if (_conf == null) {
             return "#"+_el;
         }
