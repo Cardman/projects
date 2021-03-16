@@ -3,6 +3,8 @@ package code.expressionlanguage.common;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.methods.ProcessMethodCommon;
+import code.expressionlanguage.structs.ArrayStruct;
+import code.expressionlanguage.structs.StringStruct;
 import code.util.Ints;
 import code.util.StringList;
 import code.util.StringMap;
@@ -163,6 +165,16 @@ public final class StringExpUtilTest extends ProcessMethodCommon {
     public void getQuickComponentType1Test() {
         AnaClassArgumentMatching arg_ = new AnaClassArgumentMatching("$int");
         assertTrue(AnaTypeUtil.getQuickComponentType(arg_).getNames().isEmpty());
+    }
+    @Test
+    public void getReplValue1() {
+        assertNull(NumParsers.getReplValue(null));
+    }
+    @Test
+    public void getReplValue2() {
+        ArrayStruct seps_ = new ArrayStruct(1, "");
+        seps_.set(0,new StringStruct("0"));
+        assertNull(NumParsers.getReplValue(seps_).first());
     }
     @Test
     public void getAllSepCommaTypes1Test(){

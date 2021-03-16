@@ -22,6 +22,8 @@ import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.MethodModifier;
 import code.expressionlanguage.structs.*;
+import code.maths.litteraladv.MaNumParsers;
+import code.maths.litteraladv.MaParser;
 import code.maths.montecarlo.AbstractGenerator;
 import code.maths.montecarlo.MonteCarloUtil;
 import code.util.*;
@@ -57,6 +59,7 @@ public final class AliasMath {
     private String aliasRotateRight;
     private String aliasRandom;
     private String aliasNativeRandom;
+    private String aliasEval;
     private String aliasSeed;
     private String aliasSeedSpecGenerator;
     private String aliasSeedSpecDoubleGenerator;
@@ -336,6 +339,9 @@ public final class AliasMath {
         params_ = new StringList();
         method_ = new StandardMethod(aliasSeedSpecDoubleGenerator, params_, _stds.getContent().getPredefTypes().getAliasSeedDoubleGenerator(), false, MethodModifier.STATIC);
         methods_.add( method_);
+        params_ = new StringList(_stds.getContent().getCharSeq().getAliasString(),_stds.getContent().getCharSeq().getAliasReplacement());
+        method_ = new StandardMethod(aliasEval, params_, _stds.getContent().getCharSeq().getAliasString(), true, MethodModifier.STATIC);
+        methods_.add( method_);
     }
     public static ResultErrorStd invokeStdMethod(ContextEl _cont, ClassMethodId _method, StackCall _stackCall, Argument... _args) {
         ResultErrorStd result_ = new ResultErrorStd();
@@ -583,6 +589,10 @@ public final class AliasMath {
             result_.setResult(NullStruct.NULL_VALUE);
             return result_;
         }
+        if (StringUtil.quickEq(_method.getConstraints().getName(), lgNames_.getContent().getMathRef().getAliasEval())) {
+            eval(args_[0],args_[1],result_,_cont);
+            return result_;
+        }
         if (StringUtil.quickEq(_method.getConstraints().getName(), lgNames_.getContent().getMathRef().getAliasNativeRandom())) {
             AbstractGenerator generator_ = lgNames_.getGenerator();
             if (paramList_.isEmpty()) {
@@ -602,6 +612,13 @@ public final class AliasMath {
         return new ErrorStruct(_cont, _cont.getStandards().getContent().getCoreNames().getAliasDivisionZero(), _stackCall);
     }
 
+    private static void eval(Struct _st, Struct _seps, ResultErrorStd _res, ContextEl _context) {
+        LgNames lgNames_ = _context.getStandards();
+        AbstractGenerator generator_ = lgNames_.getGenerator();
+        String val_ = NumParsers.getStringValue(_st);
+        CustList<Replacement> repls_ = NumParsers.getReplValue(_seps);
+        _res.setResult(new StringStruct(MaParser.processEl(generator_,val_,repls_)));
+    }
     private static ResultErrorStd random(ContextEl _cont, ResultErrorStd _result, StackCall _stackCall) {
         LgNames lgNames_ = _cont.getStandards();
         Struct seedSpec_ = _stackCall.getSeedSpecDoubleGenerator();
@@ -894,6 +911,14 @@ public final class AliasMath {
 
     public void setAliasNativeRandom(String _aliasNativeRandom) {
         this.aliasNativeRandom = _aliasNativeRandom;
+    }
+
+    public String getAliasEval() {
+        return aliasEval;
+    }
+
+    public void setAliasEval(String _aliasEval) {
+        this.aliasEval = _aliasEval;
     }
 
     public String getAliasSeed() {

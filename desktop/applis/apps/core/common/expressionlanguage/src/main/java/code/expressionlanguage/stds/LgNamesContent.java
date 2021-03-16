@@ -254,6 +254,7 @@ public final class LgNamesContent {
     private static final String MULT = "Mult";
     private static final String RANDOM = "Random";
     private static final String NATIVE_RANDOM = "NativeRandom";
+    private static final String EVAL = "Eval";
     private static final String SEED = "Seed";
     private static final String SEED_SPEC_GENERATOR = "SeedSpecGenerator";
     private static final String SEED_SPEC_DOUBLE_GENERATOR = "SeedSpecDoubleGenerator";
@@ -606,6 +607,7 @@ public final class LgNamesContent {
         getMathRef().setAliasMult(get(_util,_cust, MULT));
         getMathRef().setAliasRandom(get(_util,_cust, RANDOM));
         getMathRef().setAliasNativeRandom(get(_util,_cust, NATIVE_RANDOM));
+        getMathRef().setAliasEval(get(_util,_cust, EVAL));
         getMathRef().setAliasSeed(get(_util,_cust, SEED));
         getMathRef().setAliasSeedSpecGenerator(get(_util,_cust, SEED_SPEC_GENERATOR));
         getMathRef().setAliasSeedSpecDoubleGenerator(get(_util,_cust, SEED_SPEC_DOUBLE_GENERATOR));
@@ -999,6 +1001,8 @@ public final class LgNamesContent {
         getMathRef().getParams().setAliasMath0Seed0(get(_util,_cust, AliasParamMath.MATH_0_SEED_0));
         getMathRef().getParams().setAliasMath0SeedSpecGenerator0(get(_util,_cust, AliasParamMath.MATH_0_SEED_SPEC_GENERATOR_0));
         getMathRef().getParams().setAliasMath0SeedSpecDoubleGenerator0(get(_util,_cust, AliasParamMath.MATH_0_SEED_SPEC_DOUBLE_GENERATOR_0));
+        getMathRef().getParams().setAliasMath0Eval0(get(_util,_cust, AliasParamMath.MATH_0_EVAL_0));
+        getMathRef().getParams().setAliasMath0Eval1(get(_util,_cust, AliasParamMath.MATH_0_EVAL_1));
         getNbAlias().getParams().setAliasBoolean0Compare0(get(_util,_cust, AliasParamNumber.BOOLEAN_0_COMPARE_0));
         getNbAlias().getParams().setAliasBoolean0Compare1(get(_util,_cust, AliasParamNumber.BOOLEAN_0_COMPARE_1));
         getNbAlias().getParams().setAliasBoolean0CompareTo0(get(_util,_cust, AliasParamNumber.BOOLEAN_0_COMPARE_TO_0));
@@ -1567,6 +1571,7 @@ public final class LgNamesContent {
                 new KeyValueMemberName(ROTATE_RIGHT,getMathRef().getAliasRotateRight()),
                 new KeyValueMemberName(RANDOM,getMathRef().getAliasRandom()),
                 new KeyValueMemberName(NATIVE_RANDOM,getMathRef().getAliasNativeRandom()),
+                new KeyValueMemberName(EVAL,getMathRef().getAliasEval()),
                 new KeyValueMemberName(SEED,getMathRef().getAliasSeed()),
                 new KeyValueMemberName(SEED_SPEC_GENERATOR,getMathRef().getAliasSeedSpecGenerator()),
                 new KeyValueMemberName(SEED_SPEC_DOUBLE_GENERATOR,getMathRef().getAliasSeedSpecDoubleGenerator())));
@@ -1997,6 +2002,7 @@ public final class LgNamesContent {
         map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamMath.MATH_0_SEED_0, getMathRef().getParams().getAliasMath0Seed0())));
         map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamMath.MATH_0_SEED_SPEC_GENERATOR_0, getMathRef().getParams().getAliasMath0SeedSpecGenerator0())));
         map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamMath.MATH_0_SEED_SPEC_DOUBLE_GENERATOR_0, getMathRef().getParams().getAliasMath0SeedSpecDoubleGenerator0())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamMath.MATH_0_EVAL_0, getMathRef().getParams().getAliasMath0Eval0()),new KeyValueMemberName(AliasParamMath.MATH_0_EVAL_1, getMathRef().getParams().getAliasMath0Eval1())));
         map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.BOOLEAN_0_COMPARE_0, getNbAlias().getParams().getAliasBoolean0Compare0()),new KeyValueMemberName(AliasParamNumber.BOOLEAN_0_COMPARE_1, getNbAlias().getParams().getAliasBoolean0Compare1())));
         map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.BOOLEAN_0_COMPARE_TO_0, getNbAlias().getParams().getAliasBoolean0CompareTo0())));
         map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.BOOLEAN_0_EQUALS_0, getNbAlias().getParams().getAliasBoolean0Equals0())));

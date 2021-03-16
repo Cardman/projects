@@ -849,6 +849,7 @@ f+="FileWriteBin=writeBin\n";
 f+="FileDelete=delete\n";
 f+="FileRename=renameTo\n";
 f+="FileDir=dir\n";
+f+="Eval=eval\n";
 f+="DefaultPkg=$core\n";
 f+="FalseString=false\n";
 f+="TrueString=true\n";
@@ -1567,6 +1568,8 @@ f+="Assert6AssertAssertNotArr1=b\n";
 f+="FormatType0Print0=a\n";
 f+="FormatType1Print0=a\n";
 f+="FormatType1Print1=b\n";
+f+="Math0Eval0=a\n";
+f+="Math0Eval1=b\n";
 return f;
 }
 static String resourcesLgAliasesFrKeywords(){
@@ -2396,6 +2399,7 @@ f+="FileWriteBin=ecrireBin\n";
 f+="FileDelete=suppr\n";
 f+="FileRename=renommer\n";
 f+="FileDir=dos\n";
+f+="Eval=eval\n";
 f+="DefaultPkg=$coeur\n";
 f+="FalseString=faux\n";
 f+="TrueString=vrai\n";
@@ -3114,6 +3118,8 @@ f+="Assert6AssertAssertNotArr1=b\n";
 f+="FormatType0Print0=a\n";
 f+="FormatType1Print0=a\n";
 f+="FormatType1Print1=b\n";
+f+="Math0Eval0=a\n";
+f+="Math0Eval1=b\n";
 return f;
 }
 static String resourcesLgCollectionsList(){

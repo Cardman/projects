@@ -2010,6 +2010,8 @@ public class LgNamesTest extends ProcessMethodCommon {
         lgName_.getMathRef().getParams().setAliasMath0Seed0("");
         lgName_.getMathRef().getParams().setAliasMath0SeedSpecGenerator0("");
         lgName_.getMathRef().getParams().setAliasMath0SeedSpecDoubleGenerator0("");
+        lgName_.getMathRef().getParams().setAliasMath0Eval0("");
+        lgName_.getMathRef().getParams().setAliasMath0Eval1("");
 
         lgName_.getNbAlias().getParams().setAliasBoolean0Compare0("");
         lgName_.getNbAlias().getParams().setAliasBoolean0Compare1("");

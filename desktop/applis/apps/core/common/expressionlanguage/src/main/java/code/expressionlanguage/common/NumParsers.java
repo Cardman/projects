@@ -1189,6 +1189,25 @@ public final class NumParsers {
         return _one < 0 || _two < 0 || _one + _two > _arr.length;
     }
 
+    public static CustList<Replacement> getReplValue(Struct _seps) {
+        CustList<Replacement> repls_;
+        if (!(_seps instanceof ArrayStruct)) {
+            repls_ = null;
+        } else {
+            repls_ = new CustList<Replacement>();
+            ArrayStruct arrSep_ = (ArrayStruct) _seps;
+            int lenSeps_ = arrSep_.getLength();
+            for (int i = 0; i < lenSeps_; i++) {
+                Struct curSep_ = arrSep_.get(i);
+                if (!(curSep_ instanceof ReplacementStruct)) {
+                    repls_.add(null);
+                } else {
+                    repls_.add(((ReplacementStruct)curSep_).getInstance());
+                }
+            }
+        }
+        return repls_;
+    }
     public static String getStringValue(Struct _oldChar) {
         String old_;
         if (_oldChar instanceof StringStruct) {
