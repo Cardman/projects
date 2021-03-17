@@ -17,6 +17,7 @@ import code.util.core.StringUtil;
 
 public final class SymbUnFctMaOperation extends MethodMaOperation {
     private String oper = "";
+    private int operOff;
     protected SymbUnFctMaOperation(int _index, int _indexChild, MethodMaOperation _m, MaOperationsSequence _op) {
         super(_index, _indexChild, _m, _op);
     }
@@ -65,12 +66,12 @@ public final class SymbUnFctMaOperation extends MethodMaOperation {
             }
             CustList<MaPolygonStruct> pols_ = tryGetAllAsPolygon(this);
             if (pols_.size() != 1) {
-                _error.setOffset(getIndexExp());
+                _error.setOffset(getIndexExp()+operOff);
                 return;
             }
             CustList<RatePoint> pts_ = pols_.first().getPolygon().getPoints();
             if (pts_.size() != 3) {
-                _error.setOffset(getIndexExp());
+                _error.setOffset(getIndexExp()+operOff);
                 return;
             }
             Triangle tri_ = new Triangle(pts_.get(0),pts_.get(1),pts_.get(2));
@@ -85,7 +86,7 @@ public final class SymbUnFctMaOperation extends MethodMaOperation {
                 LgInt lgInt_ = rates_.first().getRate().intPart();
                 int val_ = (int) lgInt_.ll();
                 if (val_ <= 0) {
-                    _error.setOffset(getIndexExp());
+                    _error.setOffset(getIndexExp()+operOff);
                 } else {
                     setStruct(new MaMatrixStruct(Matrix.buildId(val_)));
                 }
@@ -95,18 +96,18 @@ public final class SymbUnFctMaOperation extends MethodMaOperation {
             if (polyg_.size() == 1){
                 CustList<RatePoint> pts_ = polyg_.first().getPolygon().getPoints();
                 if (pts_.size() != 3) {
-                    _error.setOffset(getIndexExp());
+                    _error.setOffset(getIndexExp()+operOff);
                     return;
                 }
                 Triangle tri_ = new Triangle(pts_.get(0),pts_.get(1),pts_.get(2));
                 if (tri_.com().isZero()) {
-                    _error.setOffset(getIndexExp());
+                    _error.setOffset(getIndexExp()+operOff);
                     return;
                 }
                 setStruct(new MaRatePointStruct(tri_.getCircumCenter()));
                 return;
             }
-            _error.setOffset(getIndexExp());
+            _error.setOffset(getIndexExp()+operOff);
         }
     }
     private void procDerive(MaError _error) {
@@ -148,7 +149,7 @@ public final class SymbUnFctMaOperation extends MethodMaOperation {
             setStruct(MaBoolStruct.of(dels_.first().isWithMids()));
             return;
         }
-        _error.setOffset(getIndexExp());
+        _error.setOffset(getIndexExp()+operOff);
     }
 
     private void procAbs(MaError _error) {
@@ -168,19 +169,19 @@ public final class SymbUnFctMaOperation extends MethodMaOperation {
         if (pols_.size() == 1) {
             CustList<RatePoint> pts_ = pols_.first().getPolygon().getPoints();
             if (pts_.size() != 3) {
-                _error.setOffset(getIndexExp());
+                _error.setOffset(getIndexExp()+operOff);
                 return;
             }
             Triangle tri_ = new Triangle(pts_.get(0), pts_.get(1), pts_.get(2));
             CustLine euler_ = tri_.euler();
             if (!euler_.isDefined()) {
-                _error.setOffset(getIndexExp());
+                _error.setOffset(getIndexExp()+operOff);
                 return;
             }
             setStruct(new MaCustLineStruct(euler_));
             return;
         }
-        _error.setOffset(getIndexExp());
+        _error.setOffset(getIndexExp()+operOff);
     }
 
     private void procComplexParts(MaError _error) {
@@ -193,7 +194,7 @@ public final class SymbUnFctMaOperation extends MethodMaOperation {
             setStruct(new MaRateListStruct(new CustList<Rate>(complex_.getReal(),complex_.getImag())));
             return;
         }
-        _error.setOffset(getIndexExp());
+        _error.setOffset(getIndexExp()+operOff);
     }
     private void procNum(MaError _error) {
         CustList<MaRateStruct> valRates_ = tryGetAllAsRate(this);
@@ -208,7 +209,7 @@ public final class SymbUnFctMaOperation extends MethodMaOperation {
             setStruct(new MaPolynomStruct(nb_.getNumerator()));
             return;
         }
-        _error.setOffset(getIndexExp());
+        _error.setOffset(getIndexExp()+operOff);
     }
 
     private void procDen(MaError _error) {
@@ -224,7 +225,7 @@ public final class SymbUnFctMaOperation extends MethodMaOperation {
             setStruct(new MaPolynomStruct(nb_.getDenominator()));
             return;
         }
-        _error.setOffset(getIndexExp());
+        _error.setOffset(getIndexExp()+operOff);
     }
 
     private void procEnt(MaError _error) {
@@ -240,7 +241,7 @@ public final class SymbUnFctMaOperation extends MethodMaOperation {
             setStruct(new MaPolynomStruct(nb_.intPart()));
             return;
         }
-        _error.setOffset(getIndexExp());
+        _error.setOffset(getIndexExp()+operOff);
     }
 
     private void procTroncature(MaError _error) {
@@ -250,7 +251,7 @@ public final class SymbUnFctMaOperation extends MethodMaOperation {
             setStruct(new MaRateStruct(new Rate(nb_.toLgInt())));
             return;
         }
-        _error.setOffset(getIndexExp());
+        _error.setOffset(getIndexExp()+operOff);
     }
 
     private void procPrem(MaError _error) {
@@ -271,7 +272,7 @@ public final class SymbUnFctMaOperation extends MethodMaOperation {
             procPolygon(pols_);
             return;
         }
-        _error.setOffset(getIndexExp());
+        _error.setOffset(getIndexExp()+operOff);
     }
 
     private void procPolygon(CustList<MaPolygonStruct> _pols) {
@@ -313,7 +314,7 @@ public final class SymbUnFctMaOperation extends MethodMaOperation {
             setStruct(new MaPolygonStruct(polygon_.getConvexHull()));
             return;
         }
-        _error.setOffset(getIndexExp());
+        _error.setOffset(getIndexExp()+operOff);
     }
 
     private void procDecomp(MaError _error) {
@@ -342,7 +343,7 @@ public final class SymbUnFctMaOperation extends MethodMaOperation {
             setStruct(new MaListPolygonStruct(conv_));
             return;
         }
-        _error.setOffset(getIndexExp());
+        _error.setOffset(getIndexExp()+operOff);
     }
 
     private void procDerive(MaError _error, int _der) {
@@ -361,11 +362,12 @@ public final class SymbUnFctMaOperation extends MethodMaOperation {
             setStruct(new MaPolygonStruct(polygon_.getStrictHull()));
             return;
         }
-        _error.setOffset(getIndexExp());
+        _error.setOffset(getIndexExp()+operOff);
     }
     @Override
     void calculate() {
         StrTypes vs_ = getOperats().getParts();
+        operOff = vs_.lastKey();
         oper = vs_.lastValue();
         vs_.remove(vs_.size()-1);
         vs_.remove(0);

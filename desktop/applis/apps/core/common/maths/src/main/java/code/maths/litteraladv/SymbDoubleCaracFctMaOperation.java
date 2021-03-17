@@ -9,6 +9,7 @@ import code.util.core.StringUtil;
 public final class SymbDoubleCaracFctMaOperation extends MethodMaOperation {
     private String firstOper ="";
     private String secondOper ="";
+    private int operOff;
     protected SymbDoubleCaracFctMaOperation(int _index, int _indexChild, MethodMaOperation _m, MaOperationsSequence _op) {
         super(_index, _indexChild, _m, _op);
     }
@@ -36,7 +37,7 @@ public final class SymbDoubleCaracFctMaOperation extends MethodMaOperation {
                     values_.get(1).getRate(),
                     values_.get(2).getRate())));
         } else {
-            _error.setOffset(getIndexExp());
+            _error.setOffset(getIndexExp()+operOff);
         }
     }
 
@@ -47,7 +48,7 @@ public final class SymbDoubleCaracFctMaOperation extends MethodMaOperation {
                     values_.get(1).getRate(),
                     values_.get(2).getRate())));
         } else {
-            _error.setOffset(getIndexExp());
+            _error.setOffset(getIndexExp()+operOff);
         }
     }
 
@@ -58,7 +59,7 @@ public final class SymbDoubleCaracFctMaOperation extends MethodMaOperation {
                     values_.get(1).getRate(),
                     values_.get(2).getRate())));
         } else {
-            _error.setOffset(getIndexExp());
+            _error.setOffset(getIndexExp()+operOff);
         }
     }
 
@@ -69,7 +70,7 @@ public final class SymbDoubleCaracFctMaOperation extends MethodMaOperation {
                     values_.get(1).getRate(),
                     values_.get(2).getRate())));
         } else {
-            _error.setOffset(getIndexExp());
+            _error.setOffset(getIndexExp()+operOff);
         }
     }
 
@@ -79,6 +80,7 @@ public final class SymbDoubleCaracFctMaOperation extends MethodMaOperation {
         secondOper = vs_.lastValue();
         vs_.remove(vs_.size()-1);
         firstOper = vs_.lastValue();
+        operOff = vs_.lastKey();
         vs_.remove(vs_.size()-1);
         vs_.remove(0);
         getChs().addAllEntries(vs_);

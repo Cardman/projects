@@ -8,6 +8,7 @@ import code.util.core.StringUtil;
 
 public final class SymbCaracFctMaOperation extends MethodMaOperation {
     private String oper="";
+    private int operOff;
     protected SymbCaracFctMaOperation(int _index, int _indexChild, MethodMaOperation _m, MaOperationsSequence _op) {
         super(_index, _indexChild, _m, _op);
     }
@@ -35,7 +36,7 @@ public final class SymbCaracFctMaOperation extends MethodMaOperation {
             setStruct(new MaRateStruct(MathExpUtil.caracdroiteouvert(values_.get(0).getRate(),
                     values_.get(1).getRate())));
         } else {
-            _error.setOffset(getIndexExp());
+            _error.setOffset(getIndexExp()+operOff);
         }
     }
 
@@ -45,7 +46,7 @@ public final class SymbCaracFctMaOperation extends MethodMaOperation {
             setStruct(new MaRateStruct(MathExpUtil.caracdroiteferme(values_.get(0).getRate(),
                     values_.get(1).getRate())));
         } else {
-            _error.setOffset(getIndexExp());
+            _error.setOffset(getIndexExp()+operOff);
         }
     }
 
@@ -55,7 +56,7 @@ public final class SymbCaracFctMaOperation extends MethodMaOperation {
             setStruct(new MaRateStruct(MathExpUtil.caracgaucheouvert(values_.get(0).getRate(),
                     values_.get(1).getRate())));
         } else {
-            _error.setOffset(getIndexExp());
+            _error.setOffset(getIndexExp()+operOff);
         }
     }
 
@@ -65,12 +66,13 @@ public final class SymbCaracFctMaOperation extends MethodMaOperation {
             setStruct(new MaRateStruct(MathExpUtil.caracgaucheferme(values_.get(0).getRate(),
                     values_.get(1).getRate())));
         } else {
-            _error.setOffset(getIndexExp());
+            _error.setOffset(getIndexExp()+operOff);
         }
     }
     @Override
     void calculate() {
         StrTypes vs_ = getOperats().getParts();
+        operOff = vs_.lastKey();
         oper = vs_.lastValue();
         vs_.remove(vs_.size()-1);
         vs_.remove(0);

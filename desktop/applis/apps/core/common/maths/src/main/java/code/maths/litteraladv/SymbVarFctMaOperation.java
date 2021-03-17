@@ -18,6 +18,7 @@ import code.util.core.StringUtil;
 
 public final class SymbVarFctMaOperation extends MethodMaOperation  {
     private String oper = "";
+    private int operOff;
     private final MaParameters mapping;
     protected SymbVarFctMaOperation(int _index, int _indexChild, MethodMaOperation _m, MaOperationsSequence _op, MaParameters _mapping) {
         super(_index, _indexChild, _m, _op);
@@ -56,7 +57,7 @@ public final class SymbVarFctMaOperation extends MethodMaOperation  {
         CustList<MaStruct> all_ = tryGetAll(this);
         int len_ = all_.size();
         if (len_ < 2) {
-            _error.setOffset(getIndexExp());
+            _error.setOffset(getIndexExp()+operOff);
             return;
         }
         MaStruct left_ = all_.first();
@@ -82,7 +83,7 @@ public final class SymbVarFctMaOperation extends MethodMaOperation  {
             setStruct(new MaDelaunayStruct(del_,_mid));
             return;
         }
-        _error.setOffset(getIndexExp());
+        _error.setOffset(getIndexExp()+operOff);
     }
 
     private void procRep(MaError _error) {
@@ -99,7 +100,7 @@ public final class SymbVarFctMaOperation extends MethodMaOperation  {
                 return;
             }
         }
-        _error.setOffset(getIndexExp());
+        _error.setOffset(getIndexExp()+operOff);
     }
 
     private void procAlea(MaError _error) {
@@ -156,7 +157,7 @@ public final class SymbVarFctMaOperation extends MethodMaOperation  {
             setStruct(new MaRateStruct(lawSimple_.editNumber(LgInt.getMaxLongPlusOne(), mapping.getGenerator())));
             return;
         }
-        _error.setOffset(getIndexExp());
+        _error.setOffset(getIndexExp()+operOff);
     }
 
     private void procStat(MaError _error) {
@@ -216,7 +217,7 @@ public final class SymbVarFctMaOperation extends MethodMaOperation  {
             setStruct(new MaRateListStruct(stats_));
             return;
         }
-        _error.setOffset(getIndexExp());
+        _error.setOffset(getIndexExp()+operOff);
     }
 
     private void procPolynom(MaError _error) {
@@ -266,7 +267,7 @@ public final class SymbVarFctMaOperation extends MethodMaOperation  {
             setStruct(new MaPolynomStruct(Polynom.interpolation(rateImages_)));
             return;
         }
-        _error.setOffset(getIndexExp());
+        _error.setOffset(getIndexExp()+operOff);
     }
 
     private void procPolygon(MaError _error) {
@@ -292,12 +293,13 @@ public final class SymbVarFctMaOperation extends MethodMaOperation  {
                 return;
             }
         }
-        _error.setOffset(getIndexExp());
+        _error.setOffset(getIndexExp()+operOff);
     }
     @Override
     void calculate() {
         StrTypes vs_ = getOperats().getParts();
         oper = vs_.lastValue();
+        operOff = vs_.lastKey();
         vs_.remove(vs_.size()-1);
         vs_.remove(0);
         getChs().addAllEntries(vs_);

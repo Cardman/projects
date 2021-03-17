@@ -17,6 +17,8 @@ import code.util.core.StringUtil;
 
 public final class SymbBinFctMaOperation extends MethodMaOperation {
     private String oper = "";
+    private int operOff;
+
     public SymbBinFctMaOperation(int _index, int _indexChild, MethodMaOperation _m, MaOperationsSequence _op) {
         super(_index, _indexChild, _m, _op);
     }
@@ -58,7 +60,7 @@ public final class SymbBinFctMaOperation extends MethodMaOperation {
             LgInt quot_= rates_.first().getRate().intPart();
             LgInt div_= rates_.last().getRate().intPart();
             if (div_.isZero()) {
-                _error.setOffset(getIndexExp());
+                _error.setOffset(getIndexExp()+operOff);
             } else {
                 setStruct(new MaRateStruct(new Rate(LgInt.divide(quot_,div_))));
             }
@@ -69,7 +71,7 @@ public final class SymbBinFctMaOperation extends MethodMaOperation {
             Polynom quot_= fractPols_.first().getFractPol().intPart();
             Polynom div_= fractPols_.last().getFractPol().intPart();
             if (div_.isZero()) {
-                _error.setOffset(getIndexExp());
+                _error.setOffset(getIndexExp()+operOff);
             } else {
                 setStruct(new MaPolynomStruct(quot_.dividePolynom(div_)));
             }
@@ -83,10 +85,10 @@ public final class SymbBinFctMaOperation extends MethodMaOperation {
                 setStruct(new MaRatePointStruct(first_.intersect(second_)));
                 return;
             }
-            _error.setOffset(getIndexExp());
+            _error.setOffset(getIndexExp()+operOff);
             return;
         }
-        _error.setOffset(getIndexExp());
+        _error.setOffset(getIndexExp()+operOff);
     }
 
     private void procMod(MaError _error) {
@@ -108,14 +110,14 @@ public final class SymbBinFctMaOperation extends MethodMaOperation {
             procModFract(_error, fractPols_);
             return;
         }
-        _error.setOffset(getIndexExp());
+        _error.setOffset(getIndexExp()+operOff);
     }
 
     private void procModInt(MaError _error, CustList<MaRateStruct> _rates) {
         LgInt quot_= _rates.first().getRate().intPart();
         LgInt div_= _rates.last().getRate().intPart();
         if (div_.isZero()) {
-            _error.setOffset(getIndexExp());
+            _error.setOffset(getIndexExp()+operOff);
         } else {
             setStruct(new MaRateStruct(new Rate(LgInt.remain(quot_,div_))));
         }
@@ -125,7 +127,7 @@ public final class SymbBinFctMaOperation extends MethodMaOperation {
         Rate quot_= _rates.first().getRate();
         Rate div_= _rates.last().getRate();
         if (div_.isZero()) {
-            _error.setOffset(getIndexExp());
+            _error.setOffset(getIndexExp()+operOff);
         } else {
             setStruct(new MaRateStruct(Rate.minus(quot_,Rate.multiply(new Rate(Rate.divide(quot_,div_).intPart()),div_))));
         }
@@ -135,7 +137,7 @@ public final class SymbBinFctMaOperation extends MethodMaOperation {
         Polynom quot_= _fractPols.first().getFractPol().intPart();
         Polynom div_= _fractPols.last().getFractPol().intPart();
         if (div_.isZero()) {
-            _error.setOffset(getIndexExp());
+            _error.setOffset(getIndexExp()+operOff);
         } else {
             setStruct(new MaPolynomStruct(quot_.remainPolynom(div_)));
         }
@@ -145,7 +147,7 @@ public final class SymbBinFctMaOperation extends MethodMaOperation {
         FractPol quot_= _fractPols.first().getFractPol();
         FractPol div_= _fractPols.last().getFractPol();
         if (div_.isZero()) {
-            _error.setOffset(getIndexExp());
+            _error.setOffset(getIndexExp()+operOff);
         } else {
             setStruct(new MaFractPolStruct(FractPol.minus(quot_,FractPol.multiply(new FractPol(FractPol.divide(quot_,div_).intPart()),div_))));
         }
@@ -204,7 +206,7 @@ public final class SymbBinFctMaOperation extends MethodMaOperation {
             setStruct(MaBoolStruct.of(line_.containsInsideConvexHull(point_)));
             return;
         }
-        _error.setOffset(getIndexExp());
+        _error.setOffset(getIndexExp()+operOff);
     }
 
     private void procPowerMatrix(MaError _error, CustList<MaRateStruct> _rates, MaMatrixStruct _val) {
@@ -223,7 +225,7 @@ public final class SymbBinFctMaOperation extends MethodMaOperation {
                 setStruct(_val);
             }
         } else {
-            _error.setOffset(getIndexExp());
+            _error.setOffset(getIndexExp()+operOff);
         }
     }
 
@@ -231,7 +233,7 @@ public final class SymbBinFctMaOperation extends MethodMaOperation {
         FractPol base_= _fract.getFractPol();
         Rate exposant_= _rates.last().getRate();
         if (base_.isZero() && !exposant_.isZeroOrGt()) {
-            _error.setOffset(getIndexExp());
+            _error.setOffset(getIndexExp()+operOff);
         } else {
             setStruct(new MaFractPolStruct(base_.powNb(exposant_.intPart())));
         }
@@ -245,7 +247,7 @@ public final class SymbBinFctMaOperation extends MethodMaOperation {
 
     private void procPowerRate(MaError _error, Rate _base, Rate _exposant) {
         if (_base.isZero() && !_exposant.isZeroOrGt()) {
-            _error.setOffset(getIndexExp());
+            _error.setOffset(getIndexExp()+operOff);
         } else {
             setStruct(new MaRateStruct(Rate.powNb(_base, _exposant)));
         }
@@ -266,7 +268,7 @@ public final class SymbBinFctMaOperation extends MethodMaOperation {
             setStruct(new MaBezoutPolStruct(Polynom.idBezoutPgcdPpcm(quot_,div_)));
             return;
         }
-        _error.setOffset(getIndexExp());
+        _error.setOffset(getIndexExp()+operOff);
     }
 
     private void procParmi(MaError _error) {
@@ -279,7 +281,7 @@ public final class SymbBinFctMaOperation extends MethodMaOperation {
                 return;
             }
         }
-        _error.setOffset(getIndexExp());
+        _error.setOffset(getIndexExp()+operOff);
     }
 
     private void procPoint(MaError _error) {
@@ -298,7 +300,7 @@ public final class SymbBinFctMaOperation extends MethodMaOperation {
             setStruct(new MaRateStruct(x_.sqDist(y_)));
             return;
         }
-        _error.setOffset(getIndexExp());
+        _error.setOffset(getIndexExp()+operOff);
     }
 
     private void procEdge(MaError _error) {
@@ -316,7 +318,7 @@ public final class SymbBinFctMaOperation extends MethodMaOperation {
             setStruct(new MaComplexStruct(new Complex(r_,i_)));
             return;
         }
-        _error.setOffset(getIndexExp());
+        _error.setOffset(getIndexExp()+operOff);
     }
 
     private void procEdgesNotContains(MaError _error) {
@@ -339,7 +341,7 @@ public final class SymbBinFctMaOperation extends MethodMaOperation {
             setStruct(MaBoolStruct.of(line_.containsInside(point_)));
             return;
         }
-        _error.setOffset(getIndexExp());
+        _error.setOffset(getIndexExp()+operOff);
     }
 
     private void procComplexPower(MaComplexStruct _base, MaRateStruct _exp,MaError _error) {
@@ -350,7 +352,7 @@ public final class SymbBinFctMaOperation extends MethodMaOperation {
             return;
         }
         if (!expo_.isInteger()) {
-            _error.setOffset(getIndexExp());
+            _error.setOffset(getIndexExp()+operOff);
             return;
         }
         LgInt expInt_ = expo_.intPart();
@@ -372,7 +374,7 @@ public final class SymbBinFctMaOperation extends MethodMaOperation {
             setStruct(MaBoolStruct.of(first_.intersectNotContainsBound(second_)));
             return;
         }
-        _error.setOffset(getIndexExp());
+        _error.setOffset(getIndexExp()+operOff);
     }
     CustList<MaRateStruct> tryGetRates() {
         CustList<MaRateStruct> rates_ = new CustList<MaRateStruct>();
@@ -401,6 +403,7 @@ public final class SymbBinFctMaOperation extends MethodMaOperation {
     @Override
     void calculate() {
         StrTypes vs_ = getOperats().getParts();
+        operOff = vs_.lastKey();
         oper = vs_.lastValue();
         vs_.remove(vs_.size()-1);
         vs_.remove(0);
