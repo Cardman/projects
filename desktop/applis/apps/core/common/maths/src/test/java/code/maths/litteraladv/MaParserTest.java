@@ -3,6 +3,7 @@ package code.maths.litteraladv;
 import code.maths.EquallableMathUtil;
 import code.maths.Rate;
 import code.maths.geo.*;
+import code.maths.litteralcom.StrTypes;
 import code.maths.montecarlo.DefaultGenerator;
 import code.util.CustList;
 import code.util.IdList;
@@ -2139,7 +2140,7 @@ public final class MaParserTest extends EquallableMathUtil {
     }
     @Test
     public void evaluateExp533Test(){
-        assertEq("#1", noVar("{1,{1}}"));
+        assertEq("#3", noVar("{1,{1}}"));
     }
     @Test
     public void evaluateExp534Test(){
@@ -3639,6 +3640,7 @@ public final class MaParserTest extends EquallableMathUtil {
         edgesOne_.addEntry(new RatePoint(Rate.one(),Rate.one()),new CustList<Edge>());
         IdMap<RatePoint, CustList<Edge>> edgesTwo_ = new IdMap<RatePoint,CustList<Edge>>();
         assertTrue(!Edge.eqEdgesMath(edgesOne_,edgesTwo_));
+        assertEq(0,VectMaOperation.offset(new StrTypes(),0));
     }
     private static String noVar(String _el) {
         return processEl(_el, new CustList<Replacement>());
