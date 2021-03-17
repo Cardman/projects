@@ -290,7 +290,7 @@ public final class MaParser {
                 return;
             }
             MaStruct res_ = o.getStruct();
-            fr_ = MaOperationNode.getNextIndex(o, res_);
+            fr_ = MaOperationNode.getNextIndex(o, res_,fr_+1);
         }
     }
     private static MaDelimiters checkSyntax(String _string, MaError _error, StringList _varNames) {

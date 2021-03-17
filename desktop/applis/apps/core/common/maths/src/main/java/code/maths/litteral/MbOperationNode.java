@@ -186,16 +186,16 @@ abstract class MbOperationNode {
         nextSibling = _nextSibling;
     }
 
-    static int getNextIndex(MbOperationNode _operation, boolean _value) {
+    static int getNextIndex(MbOperationNode _operation, boolean _value, int _least) {
         MethodMbOperation par_ = _operation.getParent();
         if (par_ instanceof QuickMbOperation) {
             QuickMbOperation q_ = (QuickMbOperation) par_;
             boolean bs_ = q_.absorbingStruct();
             if (bs_ == _value) {
-                return par_.getOrder();
+                return Math.max(_least, par_.getOrder());
             }
         }
-        return _operation.getOrder() + 1;
+        return Math.max(_least, _operation.getOrder() + 1);
     }
     public MethodMbOperation getParent() {
         return parent;

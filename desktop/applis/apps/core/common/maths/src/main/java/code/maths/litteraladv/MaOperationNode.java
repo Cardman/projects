@@ -564,26 +564,26 @@ public abstract class MaOperationNode {
         next = _nextSibling;
     }
 
-    static int getNextIndex(MaOperationNode _operation, MaStruct _value) {
+    static int getNextIndex(MaOperationNode _operation, MaStruct _value, int _least) {
         MethodMaOperation par_ = _operation.getPar();
         int index_ = _operation.getChildIndex();
         if (par_ instanceof QuickMaOperation) {
             QuickMaOperation q_ = (QuickMaOperation) par_;
             boolean bs_ = q_.isAbs();
             if (MaBoolStruct.of(bs_).sameReference(_value)) {
-                return par_.getOrder();
+                return Math.max(_least, par_.getOrder());
             }
         }
         if (par_ instanceof FctMaOperation) {
             if (index_ == 1) {
-                return par_.getOrder();
+                return Math.max(_least, par_.getOrder());
             }
             MaOperationNode next_ = _operation.getNext();
             if (index_ == 0 && next_ != null && MaBoolStruct.of(false).sameReference(_value)) {
-                return next_.getOrder() + 1;
+                return Math.max(_least, next_.getOrder() + 1);
             }
         }
-        return _operation.getOrder() + 1;
+        return Math.max(_least, _operation.getOrder() + 1);
     }
     public MethodMaOperation getPar() {
         return par;

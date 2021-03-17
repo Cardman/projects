@@ -31,7 +31,7 @@ final class MathUtil {
             MbArgument arg_ = new MbArgument();
             arg_.setArgClass(MathType.NOTHING);
             arg_.setObject(err_);
-            op_.setArgument(arg_);
+            return arg_;
         }
         if (!_onlycheckSyntax) {
             calculate(all_, _conf, err_);
@@ -39,7 +39,7 @@ final class MathUtil {
                 MbArgument arg_ = new MbArgument();
                 arg_.setArgClass(MathType.NOTHING);
                 arg_.setObject(err_);
-                op_.setArgument(arg_);
+                return arg_;
             }
             return op_.getArgument();
         }
@@ -159,8 +159,10 @@ final class MathUtil {
         int len_ = _nodes.size();
         while (fr_ < len_) {
             MbOperationNode o = _nodes.get(fr_);
-            if (o.getArgument() != null) {
-                fr_++;
+            MbArgument pre_ = o.getArgument();
+            if (pre_ != null) {
+                boolean st_ = pre_.isBoolVal();
+                fr_ = MbOperationNode.getNextIndex(o, st_,fr_+1);
                 continue;
             }
             o.calculate(_context, _error);
@@ -169,7 +171,7 @@ final class MathUtil {
             }
             MbArgument res_ = o.getArgument();
             boolean st_ = res_.isBoolVal();
-            fr_ = MbOperationNode.getNextIndex(o, st_);
+            fr_ = MbOperationNode.getNextIndex(o, st_,fr_+1);
         }
     }
 }
