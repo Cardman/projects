@@ -13,14 +13,14 @@ public final class MaParser {
     public static String processEl(AbstractGenerator _gene, String _el, CustList<Replacement> _conf) {
         String exp_ = StringUtil.nullToEmpty(_el);
         if (_conf == null) {
-            return "#"+exp_;
+            return "#####"+exp_;
         }
         MaParameters aliases_ = new MaParameters(_gene);
         String outStr_ = checkedAliases(exp_, _conf);
         if (!outStr_.isEmpty()) {
             return outStr_;
         }
-        String outVars_ = checkedVariables(exp_, _conf);
+        String outVars_ = checkedVariables(_conf);
         if (!outVars_.isEmpty()) {
             return outVars_;
         }
@@ -73,14 +73,14 @@ public final class MaParser {
                     break;
                 }
                 if (err_.getOffset() > -1) {
-                    return new Res(false, "#" + cf_);
+                    return new Res(false, "#" + e.getKey()+"#"+err_.getOffset());
                 }
             }
             index_++;
         }
         return new Res(calculatedValue_,"");
     }
-    private static String checkedVariables(String _el, CustList<Replacement> _conf) {
+    private static String checkedVariables(CustList<Replacement> _conf) {
         StringList allVars_ = new StringList();
         for (Replacement r: _conf) {
 //            if (!r.getOldString().startsWith("#")) {
@@ -92,19 +92,19 @@ public final class MaParser {
 //            }
             String user_ = r.getOldString();
             if (!MathExpUtil.isWord(user_)) {
-                return "#" + _el;
+                return "###"+user_+"#"+r.getNewString();
+            }
+            if (StringUtil.contains(allVars_,user_)) {
+                return "##"+user_+"#"+r.getNewString();
             }
             allVars_.add(user_);
-        }
-        if (allVars_.hasDuplicates()) {
-            return "#"+_el;
         }
         return "";
     }
     private static String checkedAliases(String _el, CustList<Replacement> _conf) {
         for (Replacement r: _conf) {
             if (koCoreRepl(r)) {
-                return "#" + _el;
+                return "####" + _el;
             }
         }
         return "";

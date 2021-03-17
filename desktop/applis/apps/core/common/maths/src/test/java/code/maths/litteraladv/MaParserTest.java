@@ -86,7 +86,7 @@ public final class MaParserTest extends EquallableMathUtil {
     }
     @Test
     public void evaluateExp19Test(){
-        assertEq("#-", oneVar("a","a","-"));
+        assertEq("#a#1", oneVar("a","a","-"));
     }
     @Test
     public void evaluateExp20Test(){
@@ -374,35 +374,35 @@ public final class MaParserTest extends EquallableMathUtil {
     }
     @Test
     public void evaluateExp91Test(){
-        assertEq("#", dupVar("","a","1"));
+        assertEq("##a#1", dupVar("","a","1"));
     }
     @Test
     public void evaluateExp92Test(){
-        assertEq("#", oneVar("","\\a","1"));
+        assertEq("###\\a#1", oneVar("","\\a","1"));
     }
     @Test
     public void evaluateExp93Test(){
-        assertEq("#", oneVar("","#a","a"));
+        assertEq("####a#a", oneVar("","#a","a"));
     }
     @Test
     public void evaluateExp94Test(){
-        assertEq("#", oneVar("","#\\a","a"));
+        assertEq("####\\a#a", oneVar("","#\\a","a"));
     }
     @Test
     public void evaluateExp95Test(){
-        assertEq("#", oneVar("","#a","\\a"));
+        assertEq("####a#\\a", oneVar("","#a","\\a"));
     }
     @Test
     public void evaluateExp96Test(){
-        assertEq("#", oneVar("","#puis2","puis2"));
+        assertEq("####puis2#puis2", oneVar("","#puis2","puis2"));
     }
     @Test
     public void evaluateExp97Test(){
-        assertEq("#", oneVar("","#\\puis2","puis"));
+        assertEq("####\\puis2#puis", oneVar("","#\\puis2","puis"));
     }
     @Test
     public void evaluateExp98Test(){
-        assertEq("#", dupVar("","#puis2","puis"));
+        assertEq("####puis2#puis", dupVar("","#puis2","puis"));
     }
     @Test
     public void evaluateExp99Test(){
@@ -422,11 +422,11 @@ public final class MaParserTest extends EquallableMathUtil {
     }
     @Test
     public void evaluateExp103Test(){
-        assertEq("#", oneVar("","","0"));
+        assertEq("####", oneVar("","","0"));
     }
     @Test
     public void evaluateExp104Test(){
-        assertEq("#", oneVar("","0",""));
+        assertEq("####", oneVar("","0",""));
     }
     @Test
     public void evaluateExp105Test(){
@@ -3640,11 +3640,11 @@ public final class MaParserTest extends EquallableMathUtil {
     }
     @Test
     public void nullVarTest(){
-        assertEq("#", nullVar());
+        assertEq("####", nullVar());
     }
     @Test
     public void nullMapTest(){
-        assertEq("#", nullMap());
+        assertEq("#####", nullMap());
     }
 //    @Test
 //    public void notAll(){
