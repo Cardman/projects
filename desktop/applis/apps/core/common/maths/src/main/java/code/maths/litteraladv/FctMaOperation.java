@@ -16,13 +16,14 @@ public final class FctMaOperation extends MethodMaOperation {
     @Override
     void calculate(StringMap<MaStruct> _conf, MaError _error, MaDelimiters _del) {
         if (StringUtil.quickEq("3",methodName)) {
+            int index_ = Math.min(getOperats().getOpers().size()-1,3);
             if (getChildren().size() != 3) {
-                _error.setOffset(getIndexExp());
+                _error.setOffset(getIndexExp()+getOperats().getOpers().getKey(index_));
                 return;
             }
             MaStruct valBool_ = MaNumParsers.tryGet(this, 0);
             if (!(valBool_ instanceof MaBoolStruct)) {
-                _error.setOffset(getIndexExp());
+                _error.setOffset(getIndexExp()+getOperats().getParts().getKey(0));
                 return;
             }
             MaBoolStruct v_ = (MaBoolStruct) valBool_;
