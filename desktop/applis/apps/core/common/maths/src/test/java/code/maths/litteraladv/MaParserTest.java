@@ -193,7 +193,7 @@ public final class MaParserTest extends EquallableMathUtil {
     }
     @Test
     public void evaluateExp46Test(){
-        assertEq("#0", noVar("(0,(&))"));
+        assertEq("#2", noVar("(0,(&))"));
     }
     @Test
     public void evaluateExp47Test(){
@@ -1579,11 +1579,11 @@ public final class MaParserTest extends EquallableMathUtil {
     }
     @Test
     public void evaluateExp393Test(){
-        assertEq("#0", noVar("((1,;):(1,1,;),(-1,;))"));
+        assertEq("#15", noVar("((1,;):(1,1,;),(-1,;))"));
     }
     @Test
     public void evaluateExp394Test(){
-        assertEq("#0", noVar("((1,;):(1,1,;),-1)"));
+        assertEq("#15", noVar("((1,;):(1,1,;),-1)"));
     }
     @Test
     public void evaluateExp395Test(){
@@ -1599,7 +1599,7 @@ public final class MaParserTest extends EquallableMathUtil {
     }
     @Test
     public void evaluateExp398Test(){
-        assertEq("#0", noVar("((1,;):(1,1,;),(1,||))"));
+        assertEq("#15", noVar("((1,;):(1,1,;),(1,||))"));
     }
     @Test
     public void evaluateExp399Test(){
@@ -2255,7 +2255,7 @@ public final class MaParserTest extends EquallableMathUtil {
     }
     @Test
     public void evaluateExp562Test(){
-        assertEq("#0", noVar("((1,2,3,;),{1,0})"));
+        assertEq("#11", noVar("((1,2,3,;),{1,0})"));
     }
     @Test
     public void evaluateExp563Test(){
@@ -3275,7 +3275,7 @@ public final class MaParserTest extends EquallableMathUtil {
     }
     @Test
     public void evaluateExp817Test(){
-        assertEq("#0", noVar("((1,1,1,;):(1,0,4,;),(0,2,-))"));
+        assertEq("#21", noVar("((1,1,1,;):(1,0,4,;),(0,2,-))"));
     }
     @Test
     public void evaluateExp818Test(){
