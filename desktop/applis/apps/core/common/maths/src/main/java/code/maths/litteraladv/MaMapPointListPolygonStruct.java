@@ -13,13 +13,7 @@ public final class MaMapPointListPolygonStruct implements MaAddonStruct {
         this.nextTriangles = _nextPoints;
     }
     public CustList<Triangle> getNextTriangles(RatePoint _point) {
-        CustList<Triangle> edges_ = new CustList<Triangle>();
-        for (EntryCust<RatePoint, CustList<Triangle>> e: nextTriangles.entryList()) {
-            if (_point.eq(e.getKey())) {
-                edges_.addAllElts(e.getValue());
-            }
-        }
-        return edges_;
+        return Polygon.getNextTriangles(nextTriangles,_point);
     }
     public IdMap<RatePoint,CustList<Triangle>> getNextTriangles() {
         return nextTriangles;
@@ -31,14 +25,7 @@ public final class MaMapPointListPolygonStruct implements MaAddonStruct {
             return false;
         }
         MaMapPointListPolygonStruct oth_ = (MaMapPointListPolygonStruct) _other;
-        CustList<RatePoint> ptsThis_ = nextTriangles.getKeys();
-        CustList<RatePoint> ptsOther_ = oth_.nextTriangles.getKeys();
-        for (RatePoint r: ptsThis_) {
-            if (!Polygon.eqPolygonsMath(MaListPolygonStruct.toPolygons(getNextTriangles(r)),MaListPolygonStruct.toPolygons(oth_.getNextTriangles(r)))){
-                return false;
-            }
-        }
-        return RatePoint.eqPtsMath(ptsThis_, ptsOther_);
+        return Polygon.eqPolygonsMath(nextTriangles, oth_.nextTriangles);
     }
     @Override
     public boolean sameReference(MaStruct _other) {
@@ -58,8 +45,8 @@ public final class MaMapPointListPolygonStruct implements MaAddonStruct {
             if (!_this.getKey(i).eq(_other.getKey(i))) {
                 return false;
             }
-            CustList<Polygon> polsThis_ = MaListPolygonStruct.toPolygons(_this.getValue(i));
-            CustList<Polygon> polsOther_ = MaListPolygonStruct.toPolygons(_other.getValue(i));
+            CustList<Polygon> polsThis_ = Polygon.toPolygons(_this.getValue(i));
+            CustList<Polygon> polsOther_ = Polygon.toPolygons(_other.getValue(i));
             if (!MaListPolygonStruct.eqPolygons(polsThis_,polsOther_)) {
                 return false;
             }
@@ -74,7 +61,7 @@ public final class MaMapPointListPolygonStruct implements MaAddonStruct {
     static String displayRsult(IdMap<RatePoint,CustList<Triangle>> _edges) {
         StringList edges_ = new StringList(new CollCapacity(_edges.size()));
         for (EntryCust<RatePoint,CustList<Triangle>> e: _edges.entryList()) {
-            CustList<Polygon> pols_ = MaListPolygonStruct.toPolygons(e.getValue());
+            CustList<Polygon> pols_ = Polygon.toPolygons(e.getValue());
             edges_.add(MaRatePointStruct.displayRsult(e.getKey())+":"+MaListPolygonStruct.displayRsult(pols_));
         }
         return "("+ StringUtil.join(edges_,",")+")";

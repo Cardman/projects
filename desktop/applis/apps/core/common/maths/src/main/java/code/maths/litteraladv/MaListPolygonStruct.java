@@ -35,13 +35,7 @@ public final class MaListPolygonStruct implements MaAddonStruct {
         MaListPolygonStruct oth_ = (MaListPolygonStruct) _other;
         return eqPolygons(polygons,oth_.polygons);
     }
-    static CustList<Polygon> toPolygons(CustList<Triangle> _tris) {
-        CustList<Polygon> list_ = new CustList<Polygon>();
-        for (Triangle t: _tris) {
-            list_.add(new Polygon(t));
-        }
-        return list_;
-    }
+
     static boolean eqPolygons(CustList<Polygon> _this, CustList<Polygon> _other) {
         int len_ = _this.size();
         if (len_ != _other.size()) {

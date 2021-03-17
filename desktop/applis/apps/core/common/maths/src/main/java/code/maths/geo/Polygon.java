@@ -3,6 +3,8 @@ import java.util.Iterator;
 
 import code.maths.Rate;
 import code.util.CustList;
+import code.util.EntryCust;
+import code.util.IdMap;
 import code.util.core.IndexConstants;
 import code.util.ints.Displayable;
 
@@ -34,6 +36,37 @@ public final class Polygon implements Iterable<RatePoint>, HasEdges, Displayable
         add(new RatePoint(_rect.getLeft(), _rect.getBottom()));
         add(new RatePoint(_rect.getRight(), _rect.getBottom()));
         add(new RatePoint(_rect.getRight(), _rect.getTop()));
+    }
+
+    public static boolean eqPolygonsMath(IdMap<RatePoint,CustList<Triangle>> _this, IdMap<RatePoint,CustList<Triangle>> _other) {
+        CustList<RatePoint> ptsThis_ = _this.getKeys();
+        CustList<RatePoint> ptsOther_ = _other.getKeys();
+        if (!RatePoint.eqPtsMath(ptsThis_, ptsOther_)) {
+            return false;
+        }
+        for (RatePoint r: ptsThis_) {
+            if (!eqPolygonsMath(toPolygons(getNextTriangles(_this,r)), toPolygons(getNextTriangles(_other,r)))){
+                return false;
+            }
+        }
+        return true;
+    }
+    public static CustList<Triangle> getNextTriangles(IdMap<RatePoint,CustList<Triangle>> _map,RatePoint _point) {
+        CustList<Triangle> edges_ = new CustList<Triangle>();
+        for (EntryCust<RatePoint, CustList<Triangle>> e: _map.entryList()) {
+            if (_point.eq(e.getKey())) {
+                edges_.addAllElts(e.getValue());
+            }
+        }
+        return edges_;
+    }
+
+    public static CustList<Polygon> toPolygons(CustList<Triangle> _tris) {
+        CustList<Polygon> list_ = new CustList<Polygon>();
+        for (Triangle t: _tris) {
+            list_.add(new Polygon(t));
+        }
+        return list_;
     }
 
     public static boolean eqPolygonsMath(RatePoint _keyThis, CustList<Polygon> _this, RatePoint _keyOther, CustList<Polygon> _other) {

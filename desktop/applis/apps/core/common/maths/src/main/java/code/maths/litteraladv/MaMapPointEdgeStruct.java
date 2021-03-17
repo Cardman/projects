@@ -13,13 +13,7 @@ public final class MaMapPointEdgeStruct implements MaAddonStruct {
     }
 
     public CustList<Edge> getEdges(RatePoint _point) {
-        CustList<Edge> edges_ = new CustList<Edge>();
-        for (EntryCust<RatePoint,CustList<Edge>> e: edges.entryList()) {
-            if (_point.eq(e.getKey())) {
-                edges_.addAllElts(e.getValue());
-            }
-        }
-        return edges_;
+        return Edge.getEdges(edges,_point);
     }
 
     public IdMap<RatePoint,CustList<Edge>> getEdges() {
@@ -32,14 +26,7 @@ public final class MaMapPointEdgeStruct implements MaAddonStruct {
             return false;
         }
         MaMapPointEdgeStruct oth_ = (MaMapPointEdgeStruct) _other;
-        CustList<RatePoint> ptsThis_ = edges.getKeys();
-        CustList<RatePoint> ptsOther_ = oth_.edges.getKeys();
-        for (RatePoint r: ptsThis_) {
-            if (!Edge.eqEdgesMath(getEdges(r),oth_.getEdges(r))){
-                return false;
-            }
-        }
-        return RatePoint.eqPtsMath(ptsThis_,ptsOther_);
+        return Edge.eqEdgesMath(edges,oth_.edges);
     }
 
     @Override

@@ -824,7 +824,7 @@ public final class ArrMaOperation extends MethodMaOperation {
             return;
         }
         if (lgInt_.eq(LgInt.one())) {
-            setStruct(new MaListPolygonStruct(MaListPolygonStruct.toPolygons(_divs.getNextTriangles())));
+            setStruct(new MaListPolygonStruct(Polygon.toPolygons(_divs.getNextTriangles())));
             return;
         }
         _error.setOffset(getIndexExp());
@@ -857,7 +857,7 @@ public final class ArrMaOperation extends MethodMaOperation {
         LgInt lgInt_ = _index.getRate().intPart();
         incr(lgInt_,5);
         if (lgInt_.isZero()) {
-            CustList<Polygon> matrix_ = MaListPolygonStruct.toPolygons(_divs.getDelaunay().getTriangles());
+            CustList<Polygon> matrix_ = Polygon.toPolygons(_divs.getDelaunay().getTriangles());
             setStruct(new MaListPolygonStruct(matrix_));
             return;
         }
@@ -966,7 +966,7 @@ public final class ArrMaOperation extends MethodMaOperation {
         }
         if (_values.first() instanceof MaMapPointListPolygonStruct) {
             CustList<Triangle> edges_ = ((MaMapPointListPolygonStruct) _values.first()).getNextTriangles(((MaRatePointStruct) _values.last()).getPoint());
-            setStruct(new MaListPolygonStruct(MaListPolygonStruct.toPolygons(edges_)));
+            setStruct(new MaListPolygonStruct(Polygon.toPolygons(edges_)));
             return;
         }
         _error.setOffset(getIndexExp());

@@ -1,7 +1,6 @@
 package code.maths.geo;
 import code.maths.Rate;
-import code.util.CustList;
-import code.util.StringList;
+import code.util.*;
 import code.util.core.StringUtil;
 import code.util.ints.Displayable;
 
@@ -43,6 +42,28 @@ public final class RatePoint implements Displayable {
         return r_;
     }
 
+    public static boolean eqPtsMath(IdMap<RatePoint,IdList<RatePoint>> _this, IdMap<RatePoint,IdList<RatePoint>> _other) {
+        CustList<RatePoint> ptsThis_ = _this.getKeys();
+        CustList<RatePoint> ptsOther_ = _other.getKeys();
+        if (!eqPtsMath(ptsThis_,ptsOther_)) {
+            return false;
+        }
+        for (RatePoint r: ptsThis_) {
+            if (!eqPtsMath(getNextPoints(_this,r),getNextPoints(_other,r))){
+                return false;
+            }
+        }
+        return true;
+    }
+    public static IdList<RatePoint> getNextPoints(IdMap<RatePoint,IdList<RatePoint>> _map,RatePoint _point) {
+        IdList<RatePoint> edges_ = new IdList<RatePoint>();
+        for (EntryCust<RatePoint,IdList<RatePoint>> e: _map.entryList()) {
+            if (_point.eq(e.getKey())) {
+                edges_.addAllElts(e.getValue());
+            }
+        }
+        return edges_;
+    }
     public static boolean eqPtsMath(RatePoint _keyThis, CustList<RatePoint> _this, RatePoint _keyOther, CustList<RatePoint> _other) {
         if (!_keyThis.eq(_keyOther)) {
             return false;

@@ -29,8 +29,8 @@ public final class MaDelaunayStruct implements MaAddonStruct {
         if (withMids != ((MaDelaunayStruct) _other).withMids) {
             return false;
         }
-        CustList<Polygon> this_ = MaListPolygonStruct.toPolygons(delaunay.getTriangles());
-        CustList<Polygon> oth_ = MaListPolygonStruct.toPolygons(((MaDelaunayStruct) _other).delaunay.getTriangles());
+        CustList<Polygon> this_ = Polygon.toPolygons(delaunay.getTriangles());
+        CustList<Polygon> oth_ = Polygon.toPolygons(((MaDelaunayStruct) _other).delaunay.getTriangles());
         return Polygon.eqPolygonsMath(this_,oth_);
     }
 
@@ -42,14 +42,14 @@ public final class MaDelaunayStruct implements MaAddonStruct {
         if (withMids != ((MaDelaunayStruct) _other).withMids) {
             return false;
         }
-        CustList<Polygon> this_ = MaListPolygonStruct.toPolygons(delaunay.getTriangles());
-        CustList<Polygon> oth_ = MaListPolygonStruct.toPolygons(((MaDelaunayStruct) _other).delaunay.getTriangles());
+        CustList<Polygon> this_ = Polygon.toPolygons(delaunay.getTriangles());
+        CustList<Polygon> oth_ = Polygon.toPolygons(((MaDelaunayStruct) _other).delaunay.getTriangles());
         return MaListPolygonStruct.eqPolygons(this_,oth_);
     }
 
     @Override
     public String displayRsult() {
-        CustList<Polygon> this_ = MaListPolygonStruct.toPolygons(delaunay.getTriangles());
+        CustList<Polygon> this_ = Polygon.toPolygons(delaunay.getTriangles());
         if (withMids) {
             return "-"+MaListPolygonStruct.displayRsult(this_);
         }

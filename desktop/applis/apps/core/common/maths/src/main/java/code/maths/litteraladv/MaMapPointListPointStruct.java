@@ -11,13 +11,7 @@ public final class MaMapPointListPointStruct implements MaAddonStruct {
         this.nextPoints = _nextPoints;
     }
     public IdList<RatePoint> getNextPoints(RatePoint _point) {
-        IdList<RatePoint> edges_ = new IdList<RatePoint>();
-        for (EntryCust<RatePoint,IdList<RatePoint>> e: nextPoints.entryList()) {
-            if (_point.eq(e.getKey())) {
-                edges_.addAllElts(e.getValue());
-            }
-        }
-        return edges_;
+        return RatePoint.getNextPoints(nextPoints,_point);
     }
     public IdMap<RatePoint, IdList<RatePoint>> getNextPoints() {
         return nextPoints;
@@ -29,14 +23,7 @@ public final class MaMapPointListPointStruct implements MaAddonStruct {
             return false;
         }
         MaMapPointListPointStruct oth_ = (MaMapPointListPointStruct) _other;
-        CustList<RatePoint> ptsThis_ = nextPoints.getKeys();
-        CustList<RatePoint> ptsOther_ = oth_.nextPoints.getKeys();
-        for (RatePoint r: ptsThis_) {
-            if (!RatePoint.eqPtsMath(getNextPoints(r),oth_.getNextPoints(r))){
-                return false;
-            }
-        }
-        return RatePoint.eqPtsMath(ptsThis_,ptsOther_);
+        return RatePoint.eqPtsMath(nextPoints, oth_.nextPoints);
     }
     @Override
     public boolean sameReference(MaStruct _other) {

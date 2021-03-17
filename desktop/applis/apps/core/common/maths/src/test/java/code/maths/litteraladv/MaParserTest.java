@@ -2,12 +2,11 @@ package code.maths.litteraladv;
 
 import code.maths.EquallableMathUtil;
 import code.maths.Rate;
-import code.maths.geo.Edge;
-import code.maths.geo.Polygon;
-import code.maths.geo.RatePoint;
-import code.maths.geo.Rect;
+import code.maths.geo.*;
 import code.maths.montecarlo.DefaultGenerator;
 import code.util.CustList;
+import code.util.IdList;
+import code.util.IdMap;
 import code.util.Replacement;
 import org.junit.Test;
 
@@ -3626,6 +3625,20 @@ public final class MaParserTest extends EquallableMathUtil {
         assertTrue(!Edge.eqEdgesMath(new RatePoint(Rate.one(),Rate.one()),new CustList<Edge>(new Edge(new RatePoint(Rate.one(),Rate.one()),new RatePoint(Rate.one(),Rate.one()))),new RatePoint(Rate.one(),Rate.one()),new CustList<Edge>()));
         assertTrue(!Polygon.eqPolygonsMath(new RatePoint(Rate.one(), Rate.one()), new CustList<Polygon>(new Polygon(new Rect(Rate.one(),Rate.one(),Rate.one(),Rate.one()))), new RatePoint(Rate.one(), Rate.one()), new CustList<Polygon>()));
         assertTrue(!RatePoint.eqPtsMath(new RatePoint(Rate.one(),Rate.one()),new CustList<RatePoint>(new RatePoint(Rate.one(),Rate.one())),new RatePoint(Rate.one(),Rate.one()),new CustList<RatePoint>()));
+        IdMap<RatePoint, IdList<RatePoint>> ptsOne_ = new IdMap<RatePoint,IdList<RatePoint>>();
+        ptsOne_.addEntry(new RatePoint(Rate.one(),Rate.one()),new IdList<RatePoint>());
+        IdMap<RatePoint, IdList<RatePoint>> ptsTwo_ = new IdMap<RatePoint,IdList<RatePoint>>();
+        ptsTwo_.addEntry(new RatePoint(Rate.one(),Rate.one()),new IdList<RatePoint>(new RatePoint(Rate.one(),Rate.one())));
+        assertTrue(!RatePoint.eqPtsMath(ptsOne_,ptsTwo_));
+        IdMap<RatePoint, CustList<Triangle>> polsOne_ = new IdMap<RatePoint,CustList<Triangle>>();
+        polsOne_.addEntry(new RatePoint(Rate.one(),Rate.one()),new CustList<Triangle>());
+        IdMap<RatePoint, CustList<Triangle>> polsTwo_ = new IdMap<RatePoint,CustList<Triangle>>();
+        polsTwo_.addEntry(new RatePoint(Rate.one(),Rate.one()),new CustList<Triangle>(new Triangle(new RatePoint(Rate.zero(),Rate.zero()),new RatePoint(Rate.zero(),Rate.one()),new RatePoint(Rate.one(),Rate.one()))));
+        assertTrue(!Polygon.eqPolygonsMath(polsOne_,polsTwo_));
+        IdMap<RatePoint, CustList<Edge>> edgesOne_ = new IdMap<RatePoint,CustList<Edge>>();
+        edgesOne_.addEntry(new RatePoint(Rate.one(),Rate.one()),new CustList<Edge>());
+        IdMap<RatePoint, CustList<Edge>> edgesTwo_ = new IdMap<RatePoint,CustList<Edge>>();
+        assertTrue(!Edge.eqEdgesMath(edgesOne_,edgesTwo_));
     }
     private static String noVar(String _el) {
         return processEl(_el, new CustList<Replacement>());

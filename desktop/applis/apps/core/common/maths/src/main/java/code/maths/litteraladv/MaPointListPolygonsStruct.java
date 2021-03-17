@@ -22,8 +22,8 @@ public final class MaPointListPolygonsStruct extends MaPairPointStruct {
             return false;
         }
         CustList<Triangle> edgesOth_ = ((MaPointListPolygonsStruct) _other).nextTriangles;
-        return Polygon.eqPolygonsMath(getPoint(),MaListPolygonStruct.toPolygons(nextTriangles),
-                ((MaPointListPolygonsStruct) _other).getPoint(),MaListPolygonStruct.toPolygons(edgesOth_));
+        return Polygon.eqPolygonsMath(getPoint(), Polygon.toPolygons(nextTriangles),
+                ((MaPointListPolygonsStruct) _other).getPoint(), Polygon.toPolygons(edgesOth_));
     }
 
     @Override
@@ -32,11 +32,11 @@ public final class MaPointListPolygonsStruct extends MaPairPointStruct {
             return false;
         }
         CustList<Triangle> edgesOth_ = ((MaPointListPolygonsStruct) _other).nextTriangles;
-        return MaListPolygonStruct.eqPolygons(MaListPolygonStruct.toPolygons(nextTriangles),MaListPolygonStruct.toPolygons(edgesOth_));
+        return MaListPolygonStruct.eqPolygons(Polygon.toPolygons(nextTriangles), Polygon.toPolygons(edgesOth_));
     }
 
     @Override
     protected String displayValue() {
-        return MaListPolygonStruct.displayRsult(MaListPolygonStruct.toPolygons(nextTriangles));
+        return MaListPolygonStruct.displayRsult(Polygon.toPolygons(nextTriangles));
     }
 }

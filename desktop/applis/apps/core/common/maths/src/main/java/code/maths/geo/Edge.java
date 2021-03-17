@@ -1,5 +1,7 @@
 package code.maths.geo;
 import code.util.CustList;
+import code.util.EntryCust;
+import code.util.IdMap;
 import code.util.core.IndexConstants;
 import code.util.ints.Displayable;
 
@@ -16,6 +18,29 @@ public final class Edge implements Displayable {
         second = _second;
     }
 
+    public static boolean eqEdgesMath(IdMap<RatePoint,CustList<Edge>> _this, IdMap<RatePoint,CustList<Edge>> _other) {
+        CustList<RatePoint> ptsThis_ = _this.getKeys();
+        CustList<RatePoint> ptsOther_ = _other.getKeys();
+        if (!RatePoint.eqPtsMath(ptsThis_,ptsOther_)) {
+            return false;
+        }
+        for (RatePoint r: ptsThis_) {
+            if (!eqEdgesMath(getEdges(_this,r),getEdges(_other,r))){
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public static CustList<Edge> getEdges(IdMap<RatePoint, CustList<Edge>> _map, RatePoint _point) {
+        CustList<Edge> edges_ = new CustList<Edge>();
+        for (EntryCust<RatePoint,CustList<Edge>> e: _map.entryList()) {
+            if (_point.eq(e.getKey())) {
+                edges_.addAllElts(e.getValue());
+            }
+        }
+        return edges_;
+    }
     public static boolean eqEdgesMath(RatePoint _keyThis,CustList<Edge> _this, RatePoint _keyOther,CustList<Edge> _other) {
         if (!_keyThis.eq(_keyOther)) {
             return false;
