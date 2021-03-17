@@ -221,19 +221,15 @@ public final class MaParser {
             }
             MaOperationNode par_ = current_.getPar();
             if (par_ == _root) {
-                return processRoot(_sortedNodes, par_);
+                par_.setOrder(_sortedNodes.size());
+                _sortedNodes.add(par_);
+                return null;
             }
             if (par_ == null) {
                 return null;
             }
             current_ = par_;
         }
-    }
-
-    private static MaOperationNode processRoot(CustList<MaOperationNode> _sortedNodes, MaOperationNode _par) {
-        _par.setOrder(_sortedNodes.size());
-        _sortedNodes.add(_par);
-        return null;
     }
 
     private static MaOperationNode createFirstChild(MaOperationNode _block, MaError _error, MaDelimiters _delimiter, MaParameters _mapping) {
