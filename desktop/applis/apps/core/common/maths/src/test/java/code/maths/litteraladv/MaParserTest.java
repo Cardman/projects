@@ -2119,19 +2119,19 @@ public final class MaParserTest extends EquallableMathUtil {
     }
     @Test
     public void evaluateExp528Test(){
-        assertEq("#0", noVar("{1;3,4}"));
+        assertEq("#3", noVar("{1;3,4}"));
     }
     @Test
     public void evaluateExp529Test(){
-        assertEq("#0", noVar("{1,2,3;4,5}"));
+        assertEq("#7", noVar("{1,2,3;4,5}"));
     }
     @Test
     public void evaluateExp530Test(){
-        assertEq("#0", noVar("{1,2,3;4}"));
+        assertEq("#7", noVar("{1,2,3;4}"));
     }
     @Test
     public void evaluateExp531Test(){
-        assertEq("#0", noVar("{{1,2}}"));
+        assertEq("#1", noVar("{{1,2}}"));
     }
     @Test
     public void evaluateExp532Test(){

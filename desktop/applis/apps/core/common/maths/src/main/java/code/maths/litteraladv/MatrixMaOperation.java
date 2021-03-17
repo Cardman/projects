@@ -27,7 +27,7 @@ public final class MatrixMaOperation extends MethodMaOperation {
             procVects(_error, val_, count_);
             return;
         }
-        _error.setOffset(getIndexExp());
+        _error.setOffset(getIndexExp()+getOperats().getParts().getKey(0));
     }
 
     private void procVects(MaError _error, CustList<MaStruct> _val, int _count) {
@@ -37,12 +37,12 @@ public final class MatrixMaOperation extends MethodMaOperation {
         int nbElts_ = ref_.size();
         for (int i = 1; i < _count; i++) {
             if (!(_val.get(i) instanceof MaVectStruct)) {
-                _error.setOffset(getIndexExp());
+                _error.setOffset(getIndexExp()+getOperats().getParts().getKey(i));
                 return;
             }
             Vect vect_ = ((MaVectStruct) _val.get(i)).getVect();
             if (vect_.size() != nbElts_) {
-                _error.setOffset(getIndexExp());
+                _error.setOffset(getIndexExp()+getOperats().getParts().getKey(i));
                 return;
             }
             vects_.add(vect_);
@@ -57,7 +57,7 @@ public final class MatrixMaOperation extends MethodMaOperation {
         vects_.add(dir_);
         for (int i = 1; i < _count; i++) {
             if (!(_val.get(i) instanceof MaRateStruct)) {
-                _error.setOffset(getIndexExp());
+                _error.setOffset(getIndexExp()+getOperats().getParts().getKey(i));
                 return;
             }
             Vect dirTwo_ = new Vect();
