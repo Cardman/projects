@@ -2,11 +2,14 @@ package code.maths.litteraladv;
 
 import code.util.StringMap;
 import code.util.core.IndexConstants;
+import code.util.core.StringUtil;
 
 public final class VariableMaOperation extends LeafMaOperation {
     private final String varName;
+    private final int varOffset;
     public VariableMaOperation(int _indexInEl, int _indexChild, MethodMaOperation _m, MaOperationsSequence _op) {
         super(_indexInEl, _indexChild, _m, _op);
+        varOffset = _op.getOffset();
         varName = getOperats().getParts().getValue(IndexConstants.FIRST_INDEX).trim();
     }
 
@@ -17,7 +20,7 @@ public final class VariableMaOperation extends LeafMaOperation {
             setStruct(val_);
             return;
         }
-        _error.setOffset(getIndexExp());
+        _error.setOffset(getIndexExp()+varOffset);
     }
 
     String getVarName() {

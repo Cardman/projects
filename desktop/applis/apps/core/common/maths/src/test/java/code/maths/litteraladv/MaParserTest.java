@@ -3591,6 +3591,54 @@ public final class MaParserTest extends EquallableMathUtil {
         assertEq("0", noVar("((1,2,;)<>0,((2,1,;),&)[0],=)"));
     }
     @Test
+    public void evaluateExp896Test(){
+        assertEq("#1", noVar(" !0"));
+    }
+    @Test
+    public void evaluateExp897Test(){
+        assertEq("#1", noVar(" -(&)"));
+    }
+    @Test
+    public void evaluateExp898Test(){
+        assertEq("#4", noVar("1+( !0)"));
+    }
+    @Test
+    public void evaluateExp899Test(){
+        assertEq("#4", noVar("1+( -(&))"));
+    }
+    @Test
+    public void evaluateExp900Test(){
+        assertEq("#1", noVar(" _"));
+    }
+    @Test
+    public void evaluateExp901Test(){
+        assertEq("#1", noVar(" 1/0"));
+    }
+    @Test
+    public void evaluateExp902Test(){
+        assertEq("#3", noVar("1+ _"));
+    }
+    @Test
+    public void evaluateExp903Test(){
+        assertEq("#3", noVar("1+ 1/0"));
+    }
+    @Test
+    public void evaluateExp904Test(){
+        assertEq("#5", noVar("((&) !)"));
+    }
+    @Test
+    public void evaluateExp905Test(){
+        assertEq("#8", noVar("1+ ((&) !)"));
+    }
+    @Test
+    public void evaluateExp906Test(){
+        assertEq("#1", noVar(" 0()"));
+    }
+    @Test
+    public void evaluateExp907Test(){
+        assertEq("#3", noVar("1+ 0()"));
+    }
+    @Test
     public void nullVarTest(){
         assertEq("#", nullVar());
     }

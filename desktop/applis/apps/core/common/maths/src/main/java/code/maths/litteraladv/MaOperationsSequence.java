@@ -17,11 +17,14 @@ public final class MaOperationsSequence {
 
     private MatConstType type;
 
+    private int offset;
+
     private int cst;
 
-    public void setupValue(String _string) {
+    public void setupValue(String _string, int _offset) {
         parts = new StrTypes();
         parts.addEntry(IndexConstants.FIRST_INDEX, _string);
+        offset = _offset;
     }
     public void setupValues(String _string) {
         parts = new StrTypes();
@@ -81,6 +84,10 @@ public final class MaOperationsSequence {
             String str_ = _string.substring(beginValuePart_, endValuePart_);
             parts.addEntry(beginValuePart_, str_);
         }
+    }
+
+    public int getOffset() {
+        return offset;
     }
 
     public String getFct() {

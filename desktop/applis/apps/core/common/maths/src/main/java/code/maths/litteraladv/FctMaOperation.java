@@ -38,7 +38,7 @@ public final class FctMaOperation extends MethodMaOperation {
 //            procVariables(_error, id_);
 //            return;
 //        }
-        _error.setOffset(getIndexExp());
+        _error.setOffset(getIndexExp()+StringUtil.getFirstPrintableCharIndex(getOperats().getFct()));
     }
 
     @Override

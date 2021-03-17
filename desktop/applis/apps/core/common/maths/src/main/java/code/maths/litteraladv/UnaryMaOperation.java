@@ -37,7 +37,7 @@ public final class UnaryMaOperation extends MethodMaOperation {
                 }
                 return;
             }
-            _error.setOffset(getIndexExp());
+            _error.setOffset(getIndexExp()+getOperats().getOpers().firstKey());
             return;
         }
         Rate o_ = ((MaRateStruct)value_).getRate();

@@ -495,7 +495,7 @@ public final class MaParser {
         if (i_ < 0) {
             MaOperationsSequence op_ = new MaOperationsSequence();
             op_.setOpers(new StrTypes());
-            op_.setupValue(_string);
+            op_.setupValue(_string,0);
             return op_;
         }
         int lastPrintChar_ = len_ - 1;
@@ -512,7 +512,7 @@ public final class MaParser {
                 MaOperationsSequence op_ = new MaOperationsSequence();
                 op_.setType(MatConstType.LOC_VAR);
                 op_.setOpers(new StrTypes());
-                op_.setupValue(v.getName());
+                op_.setupValue(v.getName(),i_);
                 return op_;
             }
         }
@@ -523,7 +523,7 @@ public final class MaParser {
             op_.setCst(begin_/2);
             op_.setType(MatConstType.NUMBER);
             op_.setOpers(new StrTypes());
-            op_.setupValue(_string);
+            op_.setupValue(_string,i_);
             return op_;
         }
         
