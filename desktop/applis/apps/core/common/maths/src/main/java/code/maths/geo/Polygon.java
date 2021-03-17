@@ -36,6 +36,33 @@ public final class Polygon implements Iterable<RatePoint>, HasEdges, Displayable
         add(new RatePoint(_rect.getRight(), _rect.getTop()));
     }
 
+    public static boolean eqPolygonsMath(RatePoint _keyThis, CustList<Polygon> _this, RatePoint _keyOther, CustList<Polygon> _other) {
+        if (!_keyThis.eq(_keyOther)) {
+            return false;
+        }
+        return eqPolygonsMath(_this, _other);
+    }
+
+    public static boolean eqPolygonsMath(CustList<Polygon> _this, CustList<Polygon> _other) {
+        return contains(_this,_other)&&contains(_other, _this);
+    }
+
+    static boolean contains(CustList<Polygon> _outer, CustList<Polygon> _inner) {
+        for (Polygon r: _inner) {
+            boolean cont_ = false;
+            for (Polygon s: _outer) {
+                if (r.eqMath(s)) {
+                    cont_ = true;
+                    break;
+                }
+            }
+            if (!cont_) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     @Override
     public Iterator<RatePoint> iterator() {
         return points.iterator();

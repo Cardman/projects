@@ -39,7 +39,7 @@ public final class MaMapPointEdgeStruct implements MaAddonStruct {
                 return false;
             }
         }
-        return MaRatePointStruct.eqPtsMath(ptsThis_,ptsOther_);
+        return RatePoint.eqPtsMath(ptsThis_,ptsOther_);
     }
 
     @Override

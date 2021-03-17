@@ -32,11 +32,11 @@ public final class MaMapPointListPointStruct implements MaAddonStruct {
         CustList<RatePoint> ptsThis_ = nextPoints.getKeys();
         CustList<RatePoint> ptsOther_ = oth_.nextPoints.getKeys();
         for (RatePoint r: ptsThis_) {
-            if (!MaRatePointStruct.eqPtsMath(getNextPoints(r),oth_.getNextPoints(r))){
+            if (!RatePoint.eqPtsMath(getNextPoints(r),oth_.getNextPoints(r))){
                 return false;
             }
         }
-        return MaRatePointStruct.eqPtsMath(ptsThis_,ptsOther_);
+        return RatePoint.eqPtsMath(ptsThis_,ptsOther_);
     }
     @Override
     public boolean sameReference(MaStruct _other) {

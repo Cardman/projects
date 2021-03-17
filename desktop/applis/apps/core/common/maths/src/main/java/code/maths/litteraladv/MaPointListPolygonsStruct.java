@@ -1,5 +1,6 @@
 package code.maths.litteraladv;
 
+import code.maths.geo.Polygon;
 import code.maths.geo.RatePoint;
 import code.maths.geo.Triangle;
 import code.util.CustList;
@@ -16,12 +17,13 @@ public final class MaPointListPolygonsStruct extends MaPairPointStruct {
     }
 
     @Override
-    public boolean sameValueMath(MaPairPointStruct _other) {
+    public boolean sameReferenceMath(MaStruct _other) {
         if (!(_other instanceof MaPointListPolygonsStruct)) {
             return false;
         }
         CustList<Triangle> edgesOth_ = ((MaPointListPolygonsStruct) _other).nextTriangles;
-        return MaListPolygonStruct.eqPolygonsMath(MaListPolygonStruct.toPolygons(nextTriangles),MaListPolygonStruct.toPolygons(edgesOth_));
+        return Polygon.eqPolygonsMath(getPoint(),MaListPolygonStruct.toPolygons(nextTriangles),
+                ((MaPointListPolygonsStruct) _other).getPoint(),MaListPolygonStruct.toPolygons(edgesOth_));
     }
 
     @Override

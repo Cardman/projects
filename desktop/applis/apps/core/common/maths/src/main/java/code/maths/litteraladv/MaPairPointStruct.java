@@ -10,16 +10,6 @@ public abstract class MaPairPointStruct implements MaAddonStruct {
     }
 
     @Override
-    public boolean sameReferenceMath(MaStruct _other) {
-        MaPairPointStruct conv_ = conv(_other);
-        boolean same_ = sameValueMath(convWide(_other));
-        if (conv_ == null) {
-            return false;
-        }
-        return same_;
-    }
-
-    @Override
     public boolean sameReference(MaStruct _other) {
         MaPairPointStruct conv_ = conv(_other);
         if (conv_ == null) {
@@ -45,7 +35,7 @@ public abstract class MaPairPointStruct implements MaAddonStruct {
         }
         return (MaPairPointStruct) _other;
     }
-    protected abstract boolean sameValueMath(MaPairPointStruct _other);
+
     protected abstract boolean sameValue(MaPairPointStruct _other);
 
     @Override

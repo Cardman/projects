@@ -31,7 +31,7 @@ public final class MaDelaunayStruct implements MaAddonStruct {
         }
         CustList<Polygon> this_ = MaListPolygonStruct.toPolygons(delaunay.getTriangles());
         CustList<Polygon> oth_ = MaListPolygonStruct.toPolygons(((MaDelaunayStruct) _other).delaunay.getTriangles());
-        return MaListPolygonStruct.eqPolygonsMath(this_,oth_);
+        return Polygon.eqPolygonsMath(this_,oth_);
     }
 
     @Override

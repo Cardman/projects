@@ -23,7 +23,7 @@ public final class MaListPointStruct implements MaAddonStruct {
             return false;
         }
         MaListPointStruct oth_ = (MaListPointStruct) _other;
-        return MaRatePointStruct.eqPtsMath(points,oth_.points);
+        return RatePoint.eqPtsMath(points,oth_.points);
     }
 
     @Override

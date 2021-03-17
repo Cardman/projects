@@ -11,26 +11,6 @@ public final class MaRatePointStruct extends MaListNbStruct {
         this.point = _point;
     }
 
-    public static boolean eqPtsMath(CustList<RatePoint> _this, CustList<RatePoint> _other) {
-        return contains(_this,_other) &&contains(_other, _this);
-    }
-
-    static boolean contains(CustList<RatePoint> _outer, CustList<RatePoint> _inner) {
-        for (RatePoint r: _inner) {
-            boolean cont_ = false;
-            for (RatePoint s: _outer) {
-                if (r.eq(s)) {
-                    cont_ = true;
-                    break;
-                }
-            }
-            if (!cont_) {
-                return false;
-            }
-        }
-        return true;
-    }
-
     public RatePoint getPoint() {
         return point;
     }

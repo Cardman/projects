@@ -1,5 +1,6 @@
 package code.maths.geo;
 import code.maths.Rate;
+import code.util.CustList;
 import code.util.StringList;
 import code.util.core.StringUtil;
 import code.util.ints.Displayable;
@@ -40,6 +41,33 @@ public final class RatePoint implements Displayable {
         r_.xCoords = _x;
         r_.yCoords = _y;
         return r_;
+    }
+
+    public static boolean eqPtsMath(RatePoint _keyThis, CustList<RatePoint> _this, RatePoint _keyOther, CustList<RatePoint> _other) {
+        if (!_keyThis.eq(_keyOther)) {
+            return false;
+        }
+        return eqPtsMath(_this, _other);
+    }
+
+    public static boolean eqPtsMath(CustList<RatePoint> _this, CustList<RatePoint> _other) {
+        return contains(_this,_other) &&contains(_other, _this);
+    }
+
+    static boolean contains(CustList<RatePoint> _outer, CustList<RatePoint> _inner) {
+        for (RatePoint r: _inner) {
+            boolean cont_ = false;
+            for (RatePoint s: _outer) {
+                if (r.eq(s)) {
+                    cont_ = true;
+                    break;
+                }
+            }
+            if (!cont_) {
+                return false;
+            }
+        }
+        return true;
     }
 
     public CustPoint toCustPoint() {

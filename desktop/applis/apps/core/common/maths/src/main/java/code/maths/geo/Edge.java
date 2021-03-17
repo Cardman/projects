@@ -16,6 +16,12 @@ public final class Edge implements Displayable {
         second = _second;
     }
 
+    public static boolean eqEdgesMath(RatePoint _keyThis,CustList<Edge> _this, RatePoint _keyOther,CustList<Edge> _other) {
+        if (!_keyThis.eq(_keyOther)) {
+            return false;
+        }
+        return eqEdgesMath(_this, _other);
+    }
     public static boolean eqEdgesMath(CustList<Edge> _this, CustList<Edge> _other) {
         return contains(_this,_other) && contains(_other, _this);
     }

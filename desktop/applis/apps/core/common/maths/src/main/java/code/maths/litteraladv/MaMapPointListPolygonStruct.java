@@ -34,11 +34,11 @@ public final class MaMapPointListPolygonStruct implements MaAddonStruct {
         CustList<RatePoint> ptsThis_ = nextTriangles.getKeys();
         CustList<RatePoint> ptsOther_ = oth_.nextTriangles.getKeys();
         for (RatePoint r: ptsThis_) {
-            if (!MaListPolygonStruct.eqPolygonsMath(MaListPolygonStruct.toPolygons(getNextTriangles(r)),MaListPolygonStruct.toPolygons(oth_.getNextTriangles(r)))){
+            if (!Polygon.eqPolygonsMath(MaListPolygonStruct.toPolygons(getNextTriangles(r)),MaListPolygonStruct.toPolygons(oth_.getNextTriangles(r)))){
                 return false;
             }
         }
-        return MaRatePointStruct.eqPtsMath(ptsThis_, ptsOther_);
+        return RatePoint.eqPtsMath(ptsThis_, ptsOther_);
     }
     @Override
     public boolean sameReference(MaStruct _other) {
