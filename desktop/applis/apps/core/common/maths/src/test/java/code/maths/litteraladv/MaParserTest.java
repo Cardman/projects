@@ -5,6 +5,7 @@ import code.maths.Rate;
 import code.maths.geo.Edge;
 import code.maths.geo.Polygon;
 import code.maths.geo.RatePoint;
+import code.maths.geo.Rect;
 import code.maths.montecarlo.DefaultGenerator;
 import code.util.CustList;
 import code.util.Replacement;
@@ -3622,6 +3623,9 @@ public final class MaParserTest extends EquallableMathUtil {
         assertTrue(Edge.eqEdgesMath(new RatePoint(Rate.one(),Rate.one()),new CustList<Edge>(),new RatePoint(Rate.one(),Rate.one()),new CustList<Edge>()));
         assertTrue(Polygon.eqPolygonsMath(new RatePoint(Rate.one(), Rate.one()), new CustList<Polygon>(), new RatePoint(Rate.one(), Rate.one()), new CustList<Polygon>()));
         assertTrue(RatePoint.eqPtsMath(new RatePoint(Rate.one(),Rate.one()),new CustList<RatePoint>(),new RatePoint(Rate.one(),Rate.one()),new CustList<RatePoint>()));
+        assertTrue(!Edge.eqEdgesMath(new RatePoint(Rate.one(),Rate.one()),new CustList<Edge>(new Edge(new RatePoint(Rate.one(),Rate.one()),new RatePoint(Rate.one(),Rate.one()))),new RatePoint(Rate.one(),Rate.one()),new CustList<Edge>()));
+        assertTrue(!Polygon.eqPolygonsMath(new RatePoint(Rate.one(), Rate.one()), new CustList<Polygon>(new Polygon(new Rect(Rate.one(),Rate.one(),Rate.one(),Rate.one()))), new RatePoint(Rate.one(), Rate.one()), new CustList<Polygon>()));
+        assertTrue(!RatePoint.eqPtsMath(new RatePoint(Rate.one(),Rate.one()),new CustList<RatePoint>(new RatePoint(Rate.one(),Rate.one())),new RatePoint(Rate.one(),Rate.one()),new CustList<RatePoint>()));
     }
     private static String noVar(String _el) {
         return processEl(_el, new CustList<Replacement>());
