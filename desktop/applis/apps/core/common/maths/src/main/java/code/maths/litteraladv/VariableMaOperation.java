@@ -2,7 +2,6 @@ package code.maths.litteraladv;
 
 import code.util.StringMap;
 import code.util.core.IndexConstants;
-import code.util.core.StringUtil;
 
 public final class VariableMaOperation extends LeafMaOperation {
     private final String varName;

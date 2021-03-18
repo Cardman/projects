@@ -1,7 +1,6 @@
 package code.maths.litteraladv;
 
 import code.maths.geo.Polygon;
-import code.maths.geo.Triangle;
 import code.util.CollCapacity;
 import code.util.CustList;
 import code.util.StringList;
