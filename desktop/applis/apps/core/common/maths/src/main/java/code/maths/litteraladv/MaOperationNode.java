@@ -174,17 +174,13 @@ public abstract class MaOperationNode {
     }
 
     private static LeafMaOperation processLeaf(int _index, int _indexChild, MethodMaOperation _m, MaOperationsSequence _op) {
-        String str_ = _op.getParts().getValue(IndexConstants.FIRST_INDEX).trim();
-        if (str_.isEmpty()) {
-            return null;
-        }
-        if (_op.getType() == MatConstType.ERROR) {
-            return null;
-        }
         if (_op.getType() == MatConstType.LOC_VAR) {
             return new VariableMaOperation(_index, _indexChild, _m, _op);
         }
-        return new ConstantMaOperation(_index, _indexChild, _m, _op);
+        if (_op.getType() == MatConstType.NUMBER) {
+            return new ConstantMaOperation(_index, _indexChild, _m, _op);
+        }
+        return null;
     }
 
     private static MethodMaOperation procUnary(int _index, int _indexChild, MethodMaOperation _m, MaOperationsSequence _op) {
