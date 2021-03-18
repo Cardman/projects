@@ -4,6 +4,21 @@ import code.util.CustList;
 
 public final class StrTypes {
     private final CustList<IndexStrPart> values = new CustList<IndexStrPart>();
+
+    public static int offset(StrTypes _off, int _index) {
+        if (_off.getValues().isValidIndex(_index)) {
+            return _off.getKey(_index);
+        }
+        return 0;
+    }
+
+    public static String value(StrTypes _off, int _index) {
+        if (_off.getValues().isValidIndex(_index)) {
+            return _off.getValue(_index);
+        }
+        return "";
+    }
+
     public boolean isEmpty() {
         return values.isEmpty();
     }

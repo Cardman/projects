@@ -1,5 +1,6 @@
 package code.maths.litteraladv;
 
+import code.maths.litteralcom.StrTypes;
 import code.util.StringMap;
 import code.util.core.IndexConstants;
 
@@ -9,7 +10,7 @@ public final class VariableMaOperation extends LeafMaOperation {
     public VariableMaOperation(int _indexInEl, int _indexChild, MethodMaOperation _m, MaOperationsSequence _op) {
         super(_indexInEl, _indexChild, _m, _op);
         varOffset = _op.getOffset();
-        varName = getOperats().getParts().getValue(IndexConstants.FIRST_INDEX).trim();
+        varName = StrTypes.value(getOperats().getParts(),IndexConstants.FIRST_INDEX).trim();
     }
 
     @Override

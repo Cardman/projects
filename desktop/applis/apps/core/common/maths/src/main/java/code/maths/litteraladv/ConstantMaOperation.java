@@ -1,6 +1,7 @@
 package code.maths.litteraladv;
 
 import code.maths.Rate;
+import code.maths.litteralcom.StrTypes;
 import code.util.CustList;
 import code.util.StringMap;
 import code.util.core.StringUtil;
@@ -24,6 +25,6 @@ public final class ConstantMaOperation extends LeafMaOperation {
             setStruct(new MaRateStruct(Rate.newRate(nb_)));
             return;
         }
-        _error.setOffset(StringUtil.getFirstPrintableCharIndex(getOperats().getParts().firstValue()) + getIndexExp());
+        _error.setOffset(StringUtil.getFirstPrintableCharIndex(StrTypes.value(getOperats().getParts(),0)) + getIndexExp());
     }
 }

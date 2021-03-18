@@ -21,7 +21,7 @@ public final class VectMaOperation extends MethodMaOperation {
             rates_ = new CustList<MaRateStruct>();
         }
         if (rates_.isEmpty()) {
-            _error.setOffset(getIndexExp()+offset(getOperats().getParts(),firstIndex_));
+            _error.setOffset(getIndexExp()+ StrTypes.offset(getOperats().getParts(),firstIndex_));
             return;
         }
         CustList<Rate> val_ = new CustList<Rate>(new CollCapacity(rates_.size()));
@@ -29,13 +29,6 @@ public final class VectMaOperation extends MethodMaOperation {
             val_.add(r.getRate());
         }
         setStruct(new MaVectStruct(new Vect(val_)));
-    }
-
-    static int offset(StrTypes _off,int _index) {
-        if (_off.getValues().isValidIndex(_index)) {
-            return _off.getKey(_index);
-        }
-        return 0;
     }
 
     CustList<MaStruct> tryGetAll() {

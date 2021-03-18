@@ -3688,7 +3688,8 @@ public final class MaParserTest extends EquallableMathUtil {
         edgesOne_.addEntry(new RatePoint(Rate.one(),Rate.one()),new CustList<Edge>());
         IdMap<RatePoint, CustList<Edge>> edgesTwo_ = new IdMap<RatePoint,CustList<Edge>>();
         assertTrue(!Edge.eqEdgesMath(edgesOne_,edgesTwo_));
-        assertEq(0,VectMaOperation.offset(new StrTypes(),0));
+        assertEq(0, StrTypes.offset(new StrTypes(),0));
+        assertEq("", StrTypes.value(new StrTypes(),0));
         assertEq("",ConstantMaOperation.nb(new CustList<StringBuilder>(),0));
     }
     private static String noVar(String _el) {
