@@ -18,12 +18,12 @@ public final class FctMaOperation extends MethodMaOperation {
         if (StringUtil.quickEq("3",methodName)) {
             int index_ = Math.min(getOperats().getOpers().size()-1,3);
             if (getChildren().size() != 3) {
-                _error.setOffset(getIndexExp()+getOperats().getOpers().getKey(index_));
+                _error.setOffset(getIndexExp()+StrTypes.offset(getOperats().getOpers(),index_));
                 return;
             }
             MaStruct valBool_ = MaNumParsers.tryGet(this, 0);
             if (!(valBool_ instanceof MaBoolStruct)) {
-                _error.setOffset(getIndexExp()+getOperats().getParts().getKey(0));
+                _error.setOffset(getIndexExp()+StrTypes.offset(getOperats().getParts(),0));
                 return;
             }
             MaBoolStruct v_ = (MaBoolStruct) valBool_;

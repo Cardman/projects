@@ -14,7 +14,7 @@ public final class VectMaOperation extends MethodMaOperation {
 
     @Override
     void calculate(StringMap<MaStruct> _conf, MaError _error, MaDelimiters _del) {
-        CustList<MaStruct> values_ = tryGetAll();
+        CustList<MaStruct> values_ = tryGetAll(this);
         int firstIndex_ = firstIndex(values_);
         CustList<MaRateStruct> rates_ = tryGetAllAsRate(this);
         if (rates_ == null) {
@@ -31,14 +31,6 @@ public final class VectMaOperation extends MethodMaOperation {
         setStruct(new MaVectStruct(new Vect(val_)));
     }
 
-    CustList<MaStruct> tryGetAll() {
-        CustList<MaStruct> rates_ = new CustList<MaStruct>();
-        int len_ = getChildren().size();
-        for (int i = 0; i < len_; i++) {
-            rates_.add(MaNumParsers.tryGet(this, i));
-        }
-        return rates_;
-    }
     private static int firstIndex(CustList<MaStruct> _values) {
         int index_ = -1;
         int ind_ = 0;

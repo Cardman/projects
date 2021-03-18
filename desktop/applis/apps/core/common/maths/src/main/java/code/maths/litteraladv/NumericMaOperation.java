@@ -14,7 +14,7 @@ public final class NumericMaOperation extends MethodMaOperation {
 
     @Override
     void calculate(StringMap<MaStruct> _conf, MaError _error, MaDelimiters _del) {
-        String oper_ = getOperats().getOpers().firstValue().trim();
+        String oper_ = StrTypes.value(getOperats().getOpers(),0).trim();
         MaStruct first_ = MaNumParsers.tryGet(this, 0);
         MaStruct second_ = MaNumParsers.tryGet(this, 1);
         if (first_ instanceof MaRateStruct && second_ instanceof MaRateStruct) {
@@ -35,7 +35,7 @@ public final class NumericMaOperation extends MethodMaOperation {
             processMatrixs(_error, oper_,(MaMatrixStruct)first_,(MaMatrixStruct)second_);
             return;
         }
-        _error.setOffset(getIndexExp() + getOperats().getOpers().firstKey());
+        _error.setOffset(getIndexExp() + StrTypes.offset(getOperats().getOpers(),0));
     }
 
     private void processRates(MaError _error, String _oper, MaRateStruct _first, MaRateStruct _second) {
@@ -52,7 +52,7 @@ public final class NumericMaOperation extends MethodMaOperation {
             return;
         }
         if (_second.getRate().isZero()) {
-            _error.setOffset(getIndexExp() + getOperats().getOpers().firstKey());
+            _error.setOffset(getIndexExp() + StrTypes.offset(getOperats().getOpers(),0));
             return;
         }
         setStruct(new MaRateStruct(Rate.divide(_first.getRate(), _second.getRate())));
@@ -91,7 +91,7 @@ public final class NumericMaOperation extends MethodMaOperation {
             return;
         }
         if (_second.getFractPol().isZero()) {
-            _error.setOffset(getIndexExp() + getOperats().getOpers().firstKey());
+            _error.setOffset(getIndexExp() + StrTypes.offset(getOperats().getOpers(),0));
             return;
         }
         setStruct(new MaFractPolStruct(FractPol.divide(_first.getFractPol(),_second.getFractPol())));
@@ -102,7 +102,7 @@ public final class NumericMaOperation extends MethodMaOperation {
         Matrix s_ = _second.getMatrix();
         if (StringUtil.quickEq(_oper, "+")) {
             if (diffSizes(f_, s_)) {
-                _error.setOffset(getIndexExp() + getOperats().getOpers().firstKey());
+                _error.setOffset(getIndexExp() + StrTypes.offset(getOperats().getOpers(),0));
                 return;
             }
             setStruct(new MaMatrixStruct(f_.addMatrix(s_)));
@@ -110,7 +110,7 @@ public final class NumericMaOperation extends MethodMaOperation {
         }
         if (StringUtil.quickEq(_oper, "-")) {
             if (diffSizes(f_, s_)) {
-                _error.setOffset(getIndexExp() + getOperats().getOpers().firstKey());
+                _error.setOffset(getIndexExp() + StrTypes.offset(getOperats().getOpers(),0));
                 return;
             }
             setStruct(new MaMatrixStruct(f_.minusMatrix(s_)));
@@ -118,14 +118,14 @@ public final class NumericMaOperation extends MethodMaOperation {
         }
         if (StringUtil.quickEq(_oper, "*")) {
             if (f_.nbCols() != s_.nbLines()) {
-                _error.setOffset(getIndexExp() + getOperats().getOpers().firstKey());
+                _error.setOffset(getIndexExp() + StrTypes.offset(getOperats().getOpers(),0));
                 return;
             }
             setStruct(new MaMatrixStruct(f_.multMatrix(s_)));
             return;
         }
         if (f_.nbCols() != s_.nbCols()) {
-            _error.setOffset(getIndexExp() + getOperats().getOpers().firstKey());
+            _error.setOffset(getIndexExp() + StrTypes.offset(getOperats().getOpers(),0));
             return;
         }
         setStruct(new MaMatrixStruct(f_.multMatrix(s_.inv())));

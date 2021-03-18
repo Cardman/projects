@@ -12,7 +12,7 @@ public final class UnaryBooleanMaOperation extends MethodMaOperation {
     void calculate(StringMap<MaStruct> _conf, MaError _error, MaDelimiters _del) {
         MaStruct value_ = MaNumParsers.tryGet(this, 0);
         if (!(value_ instanceof MaBoolStruct)) {
-            _error.setOffset(getIndexExp()+getOperats().getOpers().firstKey());
+            _error.setOffset(getIndexExp()+StrTypes.offset(getOperats().getOpers(),0));
             return;
         }
         setStruct(((MaBoolStruct)value_).neg());
