@@ -2,7 +2,6 @@ package code.maths.litteraladv;
 
 import code.maths.LgInt;
 import code.maths.Rate;
-import code.maths.litteralcom.IndexStrPart;
 import code.maths.litteralcom.StrTypes;
 import code.maths.montecarlo.EventFreq;
 import code.util.StringMap;
@@ -14,16 +13,12 @@ public final class EvMaOperation extends MethodMaOperation {
 
     @Override
     void calculate(StringMap<MaStruct> _conf, MaError _error, MaDelimiters _del) {
-        if (getChildren().size() != 2) {
-            _error.setOffset(getIndexExp());
-            return;
-        }
         MaStruct first_ = MaNumParsers.tryGet(this, 0);
         MaStruct second_ = MaNumParsers.tryGet(this, 1);
-        IndexStrPart firstOper_ = getOperats().getOpers().getValues().first();
+        int index_ = StrTypes.offset(getOperats().getOpers(),0);
         if (first_ instanceof MaRateStruct && second_ instanceof MaRateStruct) {
             if (!((MaRateStruct)second_).getRate().isInteger()||((MaRateStruct)second_).getRate().isZeroOrLt()) {
-                _error.setOffset(getIndexExp()+firstOper_.getIndex());
+                _error.setOffset(getIndexExp()+ index_);
                 return;
             }
             Rate evt_ = ((MaRateStruct) first_).getRate();
@@ -33,10 +28,10 @@ public final class EvMaOperation extends MethodMaOperation {
         }
         MaFractPolStruct fract_ = MaFractPolStruct.wrapOrNull(first_);
         if (fract_ != null) {
-            processRatesPol(_error,fract_,second_,firstOper_);
+            processRatesPol(_error,fract_,second_, index_);
             return;
         }
-        _error.setOffset(getIndexExp()+firstOper_.getIndex());
+        _error.setOffset(getIndexExp()+ index_);
     }
 
     @Override

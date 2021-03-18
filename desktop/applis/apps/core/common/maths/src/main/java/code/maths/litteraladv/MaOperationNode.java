@@ -2,7 +2,6 @@ package code.maths.litteraladv;
 
 import code.maths.LgInt;
 import code.maths.Rate;
-import code.maths.litteralcom.IndexStrPart;
 import code.maths.litteralcom.MatCommonCst;
 import code.maths.litteralcom.MatConstType;
 import code.util.CustList;
@@ -137,10 +136,12 @@ public abstract class MaOperationNode {
             if (_op.getParts().size() == 2 && StringUtil.quickEq(_op.getOpers().firstValue(),"=>")) {
                 return new PolInterMaOperation(_index, _indexChild, _m, _op);
             }
-            if (_m instanceof SymbVarFctMaOperation && StringUtil.quickEq(((SymbVarFctMaOperation)_m).getOper(),";")) {
-                return new PolMemMaOperation(_index, _indexChild, _m, _op);
+            if (_op.getParts().size() == 2) {
+                if (_m instanceof SymbVarFctMaOperation && StringUtil.quickEq(((SymbVarFctMaOperation)_m).getOper(),";")) {
+                    return new PolMemMaOperation(_index, _indexChild, _m, _op);
+                }
+                return new EvMaOperation(_index, _indexChild, _m, _op);
             }
-            return new EvMaOperation(_index, _indexChild, _m, _op);
         }
         return procSymbol(_index, _indexChild, _m, _op);
     }
@@ -524,12 +525,12 @@ public abstract class MaOperationNode {
         }
         return rates_;
     }
-    protected void processRatesPol(MaError _error, MaFractPolStruct _first, MaStruct _second, IndexStrPart _firstOper) {
+    protected void processRatesPol(MaError _error, MaFractPolStruct _first, MaStruct _second, int _index) {
         if (_first.getFractPol().isInteger() && _second instanceof MaRateStruct) {
             MaRateStruct second_ = (MaRateStruct) _second;
             Rate rateInd_ = second_.getRate();
             if (!rateInd_.isInteger()) {
-                _error.setOffset(getIndexExp() + _firstOper.getIndex());
+                _error.setOffset(getIndexExp() + _index);
                 return;
             }
             CustList<Rate> numbers_ = _first.getFractPol().getNumerator().getNumbers();
@@ -538,7 +539,7 @@ public abstract class MaOperationNode {
                 intInd_.addNb(new LgInt(numbers_.size()));
             }
             if (!intInd_.isZeroOrGt()) {
-                _error.setOffset(getIndexExp() + _firstOper.getIndex());
+                _error.setOffset(getIndexExp() + _index);
                 return;
             }
             if (LgInt.strLower(intInd_,new LgInt(numbers_.size()))) {
@@ -548,7 +549,7 @@ public abstract class MaOperationNode {
                 return;
             }
         }
-        _error.setOffset(getIndexExp() + _firstOper.getIndex());
+        _error.setOffset(getIndexExp() + _index);
     }
 
     abstract void calculate(StringMap<MaStruct> _conf, MaError _error, MaDelimiters _del);
