@@ -368,7 +368,8 @@ public final class Polygon implements Iterable<RatePoint>, HasEdges, Displayable
                 VectTwoDims next_ = new VectTwoDims(curr_, after_);
                 Rate det_ = prev_.det(next_);
                 if (det_.isZeroOrLt()) {
-                    procRem(copy_, triangles_, i_, before_, curr_, after_, det_);
+                    tryAddTiangle(triangles_, before_, curr_, after_, det_);
+                    copy_.remove(i_);
                 } else {
                     i_++;
                 }
@@ -393,13 +394,11 @@ public final class Polygon implements Iterable<RatePoint>, HasEdges, Displayable
         return copy_;
     }
 
-    private static void procRem(Polygon _copy, CustList<Triangle> _triangles, int _i, RatePoint _before, RatePoint _curr, RatePoint _after, Rate _det) {
+    private static void tryAddTiangle(CustList<Triangle> _triangles, RatePoint _before, RatePoint _curr, RatePoint _after, Rate _det) {
         if (!_det.isZeroOrGt()) {
-            Triangle t_;
-            t_ = new Triangle(_before, _curr, _after);
+            Triangle t_ = new Triangle(_before, _curr, _after);
             _triangles.add(t_);
         }
-        _copy.remove(_i);
     }
 
     private void addPoints(Polygon _copy, int _index) {
