@@ -7,16 +7,13 @@ import code.maths.geo.CustLine;
 import code.maths.geo.Edge;
 import code.maths.geo.Polygon;
 import code.maths.geo.RatePoint;
-import code.maths.litteralcom.StrTypes;
 import code.maths.matrix.FractPol;
 import code.maths.matrix.Matrix;
 import code.maths.matrix.Polynom;
 import code.util.StringMap;
 import code.util.core.StringUtil;
 
-public final class SymbBinFctMaOperation extends MethodMaOperation {
-    private String oper = "";
-    private int operOff;
+public final class SymbBinFctMaOperation extends AbsSymbFixMaOperation {
 
     public SymbBinFctMaOperation(int _index, int _indexChild, MethodMaOperation _m, MaOperationsSequence _op) {
         super(_index, _indexChild, _m, _op);
@@ -24,31 +21,31 @@ public final class SymbBinFctMaOperation extends MethodMaOperation {
 
     @Override
     void calculate(StringMap<MaStruct> _conf, MaError _error, MaDelimiters _del) {
-        if (StringUtil.quickEq(oper, QUOT)) {
+        if (StringUtil.quickEq(getOper(), QUOT)) {
             procQuot(_error);
         }
-        if (StringUtil.quickEq(oper, MOD)) {
+        if (StringUtil.quickEq(getOper(), MOD)) {
             procMod(_error);
         }
-        if (StringUtil.quickEq(oper, POW)) {
+        if (StringUtil.quickEq(getOper(), POW)) {
             procPower(_error);
         }
-        if (StringUtil.quickEq(oper, PARMI)) {
+        if (StringUtil.quickEq(getOper(), PARMI)) {
             procParmi(_error);
         }
-        if (StringUtil.quickEq(oper, BEZOUT)) {
+        if (StringUtil.quickEq(getOper(), BEZOUT)) {
             procBezout(_error);
         }
-        if (StringUtil.quickEq(oper, POINT)) {
+        if (StringUtil.quickEq(getOper(), POINT)) {
             procPoint(_error);
         }
-        if (StringUtil.quickEq(oper, EDGE)) {
+        if (StringUtil.quickEq(getOper(), EDGE)) {
             procEdge(_error);
         }
-        if (StringUtil.quickEq(oper, FIRST_INTER)) {
+        if (StringUtil.quickEq(getOper(), FIRST_INTER)) {
             procEdgesNotContains(_error);
         }
-        if (StringUtil.quickEq(oper, SECOND_INTER)) {
+        if (StringUtil.quickEq(getOper(), SECOND_INTER)) {
             intersectNotContainsBound(_error);
         }
     }
@@ -62,7 +59,7 @@ public final class SymbBinFctMaOperation extends MethodMaOperation {
             LgInt quot_= firstInt_.getRate().intPart();
             LgInt div_= secondInt_.getRate().intPart();
             if (div_.isZero()) {
-                _error.setOffset(getIndexExp()+operOff);
+                _error.setOffset(getIndexExp()+getOperOff());
             } else {
                 setStruct(new MaRateStruct(new Rate(LgInt.divide(quot_,div_))));
             }
@@ -74,7 +71,7 @@ public final class SymbBinFctMaOperation extends MethodMaOperation {
             Polynom quot_= firstPol_.getFractPol().intPart();
             Polynom div_= secondPol_.getFractPol().intPart();
             if (div_.isZero()) {
-                _error.setOffset(getIndexExp()+operOff);
+                _error.setOffset(getIndexExp()+getOperOff());
             } else {
                 setStruct(new MaPolynomStruct(quot_.dividePolynom(div_)));
             }
@@ -89,10 +86,10 @@ public final class SymbBinFctMaOperation extends MethodMaOperation {
                 setStruct(new MaRatePointStruct(first_.intersect(second_)));
                 return;
             }
-            _error.setOffset(getIndexExp()+operOff);
+            _error.setOffset(getIndexExp()+getOperOff());
             return;
         }
-        _error.setOffset(getIndexExp()+operOff);
+        _error.setOffset(getIndexExp()+getOperOff());
     }
 
     private void procMod(MaError _error) {
@@ -122,14 +119,14 @@ public final class SymbBinFctMaOperation extends MethodMaOperation {
             procModFract(_error, firstFract_, secondFract_);
             return;
         }
-        _error.setOffset(getIndexExp()+operOff);
+        _error.setOffset(getIndexExp()+getOperOff());
     }
 
     private void procModInt(MaError _error, MaRateStruct _first, MaRateStruct _second) {
         LgInt quot_= _first.getRate().intPart();
         LgInt div_= _second.getRate().intPart();
         if (div_.isZero()) {
-            _error.setOffset(getIndexExp()+operOff);
+            _error.setOffset(getIndexExp()+getOperOff());
         } else {
             setStruct(new MaRateStruct(new Rate(LgInt.remain(quot_,div_))));
         }
@@ -139,7 +136,7 @@ public final class SymbBinFctMaOperation extends MethodMaOperation {
         Rate quot_= _first.getRate();
         Rate div_= _second.getRate();
         if (div_.isZero()) {
-            _error.setOffset(getIndexExp()+operOff);
+            _error.setOffset(getIndexExp()+getOperOff());
         } else {
             setStruct(new MaRateStruct(Rate.minus(quot_,Rate.multiply(new Rate(Rate.divide(quot_,div_).intPart()),div_))));
         }
@@ -149,7 +146,7 @@ public final class SymbBinFctMaOperation extends MethodMaOperation {
         Polynom quot_= _first.getFractPol().intPart();
         Polynom div_= _second.getFractPol().intPart();
         if (div_.isZero()) {
-            _error.setOffset(getIndexExp()+operOff);
+            _error.setOffset(getIndexExp()+getOperOff());
         } else {
             setStruct(new MaPolynomStruct(quot_.remainPolynom(div_)));
         }
@@ -159,7 +156,7 @@ public final class SymbBinFctMaOperation extends MethodMaOperation {
         FractPol quot_= _first.getFractPol();
         FractPol div_= _second.getFractPol();
         if (div_.isZero()) {
-            _error.setOffset(getIndexExp()+operOff);
+            _error.setOffset(getIndexExp()+getOperOff());
         } else {
             setStruct(new MaFractPolStruct(FractPol.minus(quot_,FractPol.multiply(new FractPol(FractPol.divide(quot_,div_).intPart()),div_))));
         }
@@ -226,7 +223,7 @@ public final class SymbBinFctMaOperation extends MethodMaOperation {
             setStruct(MaBoolStruct.of(line_.containsInsideConvexHull(point_)));
             return;
         }
-        _error.setOffset(getIndexExp()+operOff);
+        _error.setOffset(getIndexExp()+getOperOff());
     }
 
     private void procPowerMatrix(MaError _error, MaMatrixStruct _val, MaRateStruct _second) {
@@ -245,7 +242,7 @@ public final class SymbBinFctMaOperation extends MethodMaOperation {
                 setStruct(_val);
             }
         } else {
-            _error.setOffset(getIndexExp()+operOff);
+            _error.setOffset(getIndexExp()+getOperOff());
         }
     }
 
@@ -253,7 +250,7 @@ public final class SymbBinFctMaOperation extends MethodMaOperation {
         FractPol base_= _fract.getFractPol();
         Rate exposant_= _second.getRate();
         if (base_.isZero() && !exposant_.isZeroOrGt()) {
-            _error.setOffset(getIndexExp()+operOff);
+            _error.setOffset(getIndexExp()+getOperOff());
         } else {
             setStruct(new MaFractPolStruct(base_.powNb(exposant_.intPart())));
         }
@@ -267,7 +264,7 @@ public final class SymbBinFctMaOperation extends MethodMaOperation {
 
     private void procPowerRate(MaError _error, Rate _base, Rate _exposant) {
         if (_base.isZero() && !_exposant.isZeroOrGt()) {
-            _error.setOffset(getIndexExp()+operOff);
+            _error.setOffset(getIndexExp()+getOperOff());
         } else {
             setStruct(new MaRateStruct(Rate.powNb(_base, _exposant)));
         }
@@ -292,7 +289,7 @@ public final class SymbBinFctMaOperation extends MethodMaOperation {
             setStruct(new MaBezoutPolStruct(Polynom.idBezoutPgcdPpcm(quot_,div_)));
             return;
         }
-        _error.setOffset(getIndexExp()+operOff);
+        _error.setOffset(getIndexExp()+getOperOff());
     }
 
     private void procParmi(MaError _error) {
@@ -308,7 +305,7 @@ public final class SymbBinFctMaOperation extends MethodMaOperation {
                 return;
             }
         }
-        _error.setOffset(getIndexExp()+operOff);
+        _error.setOffset(getIndexExp()+getOperOff());
     }
 
     private void procPoint(MaError _error) {
@@ -328,7 +325,7 @@ public final class SymbBinFctMaOperation extends MethodMaOperation {
             setStruct(new MaRateStruct(x_.sqDist(y_)));
             return;
         }
-        _error.setOffset(getIndexExp()+operOff);
+        _error.setOffset(getIndexExp()+getOperOff());
     }
 
     private void procEdge(MaError _error) {
@@ -346,7 +343,7 @@ public final class SymbBinFctMaOperation extends MethodMaOperation {
             setStruct(new MaComplexStruct(new Complex(r_,i_)));
             return;
         }
-        _error.setOffset(getIndexExp()+operOff);
+        _error.setOffset(getIndexExp()+getOperOff());
     }
 
     private void procEdgesNotContains(MaError _error) {
@@ -370,7 +367,7 @@ public final class SymbBinFctMaOperation extends MethodMaOperation {
             setStruct(MaBoolStruct.of(line_.containsInside(point_)));
             return;
         }
-        _error.setOffset(getIndexExp()+operOff);
+        _error.setOffset(getIndexExp()+getOperOff());
     }
 
     private void procComplexPower(MaComplexStruct _base, MaRateStruct _exp,MaError _error) {
@@ -381,7 +378,7 @@ public final class SymbBinFctMaOperation extends MethodMaOperation {
             return;
         }
         if (!expo_.isInteger()) {
-            _error.setOffset(getIndexExp()+operOff);
+            _error.setOffset(getIndexExp()+getOperOff());
             return;
         }
         LgInt expInt_ = expo_.intPart();
@@ -406,16 +403,6 @@ public final class SymbBinFctMaOperation extends MethodMaOperation {
             setStruct(MaBoolStruct.of(first_.intersectNotContainsBound(second_)));
             return;
         }
-        _error.setOffset(getIndexExp()+operOff);
-    }
-
-    @Override
-    void calculate() {
-        StrTypes vs_ = getOperats().getParts();
-        operOff = vs_.lastKey();
-        oper = vs_.lastValue();
-        vs_.remove(vs_.size()-1);
-        vs_.remove(0);
-        getChs().addAllEntries(vs_);
+        _error.setOffset(getIndexExp()+getOperOff());
     }
 }
