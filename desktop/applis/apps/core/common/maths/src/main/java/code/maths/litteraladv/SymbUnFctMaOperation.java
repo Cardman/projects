@@ -59,9 +59,10 @@ public final class SymbUnFctMaOperation extends MethodMaOperation {
 
     private void procGravCenter(MaError _error) {
         if (StringUtil.quickEq("*", oper)) {
-            CustList<MaComplexStruct> compl_ = tryGetAllAsComplex(this);
-            if (compl_.size() == 1) {
-                setStruct(new MaComplexStruct(compl_.first().getComplex().conjug()));
+            MaStruct val_ = MaNumParsers.tryGet(this, 0);
+            MaComplexStruct cp_ = asComplex(val_);
+            if (cp_ != null) {
+                setStruct(new MaComplexStruct(cp_.getComplex().conjug()));
                 return;
             }
             CustList<MaPolygonStruct> pols_ = tryGetAllAsPolygon(this);
@@ -126,9 +127,9 @@ public final class SymbUnFctMaOperation extends MethodMaOperation {
             setStruct(new MaRateStruct(nb_.signum()));
             return;
         }
-        CustList<MaDecompositionNbStruct> decomp_ = tryGetDecompNb(this);
-        if (decomp_.size() == 1) {
-            Decomposition decomposition_ = decomp_.first().getDecomposition();
+        MaDecompositionNbStruct dec_ = asDecompositionNb(val_);
+        if (dec_ != null) {
+            Decomposition decomposition_ = dec_.getDecomposition();
             if (decomposition_.getFactors().isEmpty()) {
                 setStruct(new MaRateStruct(Rate.zero()));
                 return;
@@ -140,9 +141,9 @@ public final class SymbUnFctMaOperation extends MethodMaOperation {
             setStruct(new MaRateStruct(Rate.minusOne()));
             return;
         }
-        CustList<MaMatrixStruct> all_ = tryGetAllAsMatrix(this);
-        if (all_.size() == 1) {
-            Matrix matrix_ = all_.first().getMatrix();
+        MaMatrixStruct mt_ = asMatrix(val_);
+        if (mt_ != null) {
+            Matrix matrix_ = mt_.getMatrix();
             setStruct(new MaMatrixStruct(matrix_.passVects()));
             return;
         }
@@ -162,9 +163,9 @@ public final class SymbUnFctMaOperation extends MethodMaOperation {
             setStruct(new MaRateStruct(nb_.absNb()));
             return;
         }
-        CustList<MaMatrixStruct> all_ = tryGetAllAsMatrix(this);
-        if (all_.size() == 1) {
-            Matrix matrix_ = all_.first().getMatrix();
+        MaMatrixStruct mt_ = asMatrix(val_);
+        if (mt_ != null) {
+            Matrix matrix_ = mt_.getMatrix();
             setStruct(new MaRateStruct(matrix_.det()));
             return;
         }
@@ -191,9 +192,10 @@ public final class SymbUnFctMaOperation extends MethodMaOperation {
         if (!StringUtil.quickEq("//", oper)) {
             return;
         }
-        CustList<MaComplexStruct> cpl_ = tryGetAllAsComplex(this);
-        if (cpl_.size() == 1) {
-            Complex complex_ = cpl_.first().getComplex();
+        MaStruct val_ = MaNumParsers.tryGet(this, 0);
+        MaComplexStruct cp_ = asComplex(val_);
+        if (cp_ != null) {
+            Complex complex_ = cp_.getComplex();
             setStruct(new MaRateListStruct(new CustList<Rate>(complex_.getReal(),complex_.getImag())));
             return;
         }
@@ -269,9 +271,9 @@ public final class SymbUnFctMaOperation extends MethodMaOperation {
             setStruct(MaBoolStruct.of(nb_.intPart().isPrime()));
             return;
         }
-        CustList<MaMatrixStruct> all_ = tryGetAllAsMatrix(this);
-        if (all_.size() == 1) {
-            Matrix matrix_ = all_.first().getMatrix();
+        MaMatrixStruct mt_ = asMatrix(valop_);
+        if (mt_ != null) {
+            Matrix matrix_ = mt_.getMatrix();
             setStruct(new MaRateStruct(matrix_.trace()));
             return;
         }
@@ -311,9 +313,9 @@ public final class SymbUnFctMaOperation extends MethodMaOperation {
             setStruct(new MaDividersPolStruct(nb_.intPart().factor()));
             return;
         }
-        CustList<MaMatrixStruct> all_ = tryGetAllAsMatrix(this);
-        if (all_.size() == 1) {
-            Matrix matrix_ = all_.first().getMatrix();
+        MaMatrixStruct mt_ = asMatrix(val_);
+        if (mt_ != null) {
+            Matrix matrix_ = mt_.getMatrix();
             setStruct(new MaRateStruct(new Rate(matrix_.quickRank())));
             return;
         }
@@ -340,9 +342,9 @@ public final class SymbUnFctMaOperation extends MethodMaOperation {
             setStruct(new MaDecompositionPolStruct(nb_.intPart().racines()));
             return;
         }
-        CustList<MaMatrixStruct> all_ = tryGetAllAsMatrix(this);
-        if (all_.size() == 1) {
-            Matrix matrix_ = all_.first().getMatrix();
+        MaMatrixStruct mt_ = asMatrix(val_);
+        if (mt_ != null) {
+            Matrix matrix_ = mt_.getMatrix();
             setStruct(new MaPolynomStruct(matrix_.polCaract()));
             return;
         }

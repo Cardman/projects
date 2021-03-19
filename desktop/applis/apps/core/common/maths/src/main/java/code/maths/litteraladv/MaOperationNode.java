@@ -1,5 +1,6 @@
 package code.maths.litteraladv;
 
+import code.maths.Complex;
 import code.maths.LgInt;
 import code.maths.Rate;
 import code.maths.litteralcom.MatCommonCst;
@@ -264,18 +265,28 @@ public abstract class MaOperationNode {
         return MaFractPolStruct.wrapOrNull(_str);
     }
 
-    protected static CustList<MaDecompositionNbStruct> tryGetDecompNb(MethodMaOperation _parent) {
-        CustList<MaDecompositionNbStruct> rates_ = new CustList<MaDecompositionNbStruct>();
-        int len_ = _parent.getChildren().size();
-        for (int i = 0; i < len_; i++) {
-            MaStruct str_ = MaNumParsers.tryGet(_parent, i);
-            if (str_ instanceof MaDecompositionNbStruct) {
-                rates_.add((MaDecompositionNbStruct)str_);
-            }
+    protected static MaDecompositionNbStruct asDecompositionNb(MaStruct _str) {
+        if (!(_str instanceof MaDecompositionNbStruct)) {
+            return null;
         }
-        return rates_;
+        return (MaDecompositionNbStruct)_str;
     }
 
+    protected static MaMatrixStruct asMatrix(MaStruct _str) {
+        if (!(_str instanceof MaMatrixStruct)) {
+            return null;
+        }
+        return (MaMatrixStruct)_str;
+    }
+    protected static MaComplexStruct asComplex(MaStruct _str) {
+        if (_str instanceof MaRateStruct) {
+            return new MaComplexStruct(new Complex(((MaRateStruct)_str).getRate()));
+        }
+        if (!(_str instanceof MaComplexStruct)) {
+            return null;
+        }
+        return (MaComplexStruct)_str;
+    }
     protected static CustList<MaStruct> tryGetAll(MethodMaOperation _this) {
         CustList<MaStruct> rates_ = new CustList<MaStruct>();
         int len_ = _this.getChildren().size();
@@ -285,18 +296,6 @@ public abstract class MaOperationNode {
         return rates_;
     }
 
-    protected static CustList<MaMatrixStruct> tryGetAllAsMatrix(MethodMaOperation _current) {
-        int len_ = _current.getChildren().size();
-        CustList<MaMatrixStruct> rates_ = new CustList<MaMatrixStruct>();
-        for (int i = 0; i < len_; i++) {
-            MaStruct str_ = MaNumParsers.tryGet(_current, i);
-            if (!(str_ instanceof MaMatrixStruct)) {
-                continue;
-            }
-            rates_.add((MaMatrixStruct)str_);
-        }
-        return rates_;
-    }
     protected static CustList<MaDelaunayStruct> tryGetAllAsDelaunay(MethodMaOperation _current) {
         int len_ = _current.getChildren().size();
         CustList<MaDelaunayStruct> rates_ = new CustList<MaDelaunayStruct>();
@@ -309,18 +308,7 @@ public abstract class MaOperationNode {
         }
         return rates_;
     }
-    protected static CustList<MaComplexStruct> tryGetAllAsComplex(MethodMaOperation _current) {
-        int len_ = _current.getChildren().size();
-        CustList<MaComplexStruct> rates_ = new CustList<MaComplexStruct>();
-        for (int i = 0; i < len_; i++) {
-            MaStruct str_ = MaNumParsers.tryGet(_current, i);
-            if (!(str_ instanceof MaComplexStruct)) {
-                continue;
-            }
-            rates_.add((MaComplexStruct)str_);
-        }
-        return rates_;
-    }
+
     protected static CustList<MaPolygonStruct> tryGetAllAsPolygon(MethodMaOperation _current) {
         int len_ = _current.getChildren().size();
         CustList<MaPolygonStruct> rates_ = new CustList<MaPolygonStruct>();
