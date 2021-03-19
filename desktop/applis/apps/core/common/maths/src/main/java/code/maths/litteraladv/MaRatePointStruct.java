@@ -36,6 +36,6 @@ public final class MaRatePointStruct extends MaListNbStruct {
     static String displayRsult(RatePoint _point) {
         String x_ = _point.getXcoords().display();
         String y_ = _point.getYcoords().display();
-        return "("+x_+","+y_+",.)";
+        return "("+x_+","+y_+","+MaOperationNode.POINT+")";
     }
 }
