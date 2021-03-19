@@ -174,13 +174,14 @@ public final class SymbBinFctMaOperation extends MethodMaOperation {
             procPowerRate(_error, firstRate_, secondRate_);
             return;
         }
+        MaRateStruct pwInt_ = asInt(power_);
         MaFractPolStruct fract_ = MaFractPolStruct.wrapOrNull(val_);
-        if (fract_ != null && power_ instanceof MaRateStruct && ((MaRateStruct)power_).getRate().isInteger()) {
-            procPowerFract(_error, fract_, (MaRateStruct)power_);
+        if (fract_ != null && pwInt_ != null) {
+            procPowerFract(_error, fract_, pwInt_);
             return;
         }
-        if (val_ instanceof MaMatrixStruct && power_ instanceof MaRateStruct && ((MaRateStruct)power_).getRate().isInteger()) {
-            procPowerMatrix(_error, (MaMatrixStruct) val_, (MaRateStruct)power_);
+        if (val_ instanceof MaMatrixStruct && pwInt_ != null) {
+            procPowerMatrix(_error, (MaMatrixStruct) val_, pwInt_);
             return;
         }
         CustList<MaCustLineStruct> lines_ = tryGetAllAsLine(this);
