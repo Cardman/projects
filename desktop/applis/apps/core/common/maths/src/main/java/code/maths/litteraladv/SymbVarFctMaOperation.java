@@ -142,22 +142,21 @@ public final class SymbVarFctMaOperation extends MethodMaOperation  {
     private void defAlea(MaError _error) {
         int len_ = getChildren().size();
         MonteCarloNumber law_ = new MonteCarloNumber();
-        boolean allEvts_ = true;
         for (int i = 0; i < len_; i++) {
             MaStruct value_ = MaNumParsers.tryGet(this, i);
             if (!(value_ instanceof MaEventFreqStruct)) {
-                allEvts_ = false;
+                law_.getEvents().clear();
                 break;
             }
             EventFreq<Rate> pair_ = ((MaEventFreqStruct) value_).getPair();
             law_.addQuickEvent(pair_.getEvent(),pair_.getFreq());
         }
-        if (allEvts_&&law_.nbEvents() > 0) {
+        if (law_.nbEvents() > 0) {
             setStruct(new MaRateStruct(law_.editNumber(LgInt.getMaxLongPlusOne(), mapping.getGenerator())));
             return;
         }
         MonteCarloNumber lawSimple_ = new MonteCarloNumber();
-        allEvts_ = true;
+        boolean allEvts_ = true;
         for (int i = 0; i < len_; i++) {
             MaStruct value_ = MaNumParsers.tryGet(this, i);
             if (!(value_ instanceof MaRateStruct)) {

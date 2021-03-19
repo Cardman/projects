@@ -30,22 +30,14 @@ public final class TriangleThreeDims implements Displayable {
     }
 
     public RatePointThreeDims getGravityCenter() {
-        Rate xg_ = Rate.zero();
-        xg_.addNb(firstPoint.getXcoords());
-        xg_.addNb(secondPoint.getXcoords());
-        xg_.addNb(thirdPoint.getXcoords());
-        xg_.divideBy(new Rate(3));
-        Rate yg_ = Rate.zero();
-        yg_.addNb(firstPoint.getYcoords());
-        yg_.addNb(secondPoint.getYcoords());
-        yg_.addNb(thirdPoint.getYcoords());
-        yg_.divideBy(new Rate(3));
-        Rate zg_ = Rate.zero();
-        zg_.addNb(firstPoint.getZcoords());
-        zg_.addNb(secondPoint.getZcoords());
-        zg_.addNb(thirdPoint.getZcoords());
-        zg_.divideBy(new Rate(3));
+        Rate xg_ = fetchAvg(firstPoint.getXcoords(), secondPoint.getXcoords(), thirdPoint.getXcoords());
+        Rate yg_ = fetchAvg(firstPoint.getYcoords(), secondPoint.getYcoords(), thirdPoint.getYcoords());
+        Rate zg_ = fetchAvg(firstPoint.getZcoords(), secondPoint.getZcoords(), thirdPoint.getZcoords());
         return new RatePointThreeDims(xg_, yg_, zg_);
+    }
+
+    private static Rate fetchAvg(Rate _first, Rate _second, Rate _third) {
+        return Triangle.fetchAvg(_first, _second, _third);
     }
 
     /*a=A-C,b=B-C

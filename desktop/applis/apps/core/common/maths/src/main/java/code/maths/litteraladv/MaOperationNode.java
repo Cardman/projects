@@ -176,16 +176,14 @@ public abstract class MaOperationNode {
         if (_op.getPrio() == MatCommonCst.DECL_PRIO) {
             return new VectMaOperation(_index, _indexChild, _m, _op);
         }
-        if (_op.getPrio() == MatCommonCst.ASS_PRIO) {
-            if (_op.getParts().size() == 2 && StringUtil.quickEq(_op.getOpers().firstValue(), ASSOC)) {
+        if (_op.getPrio() == MatCommonCst.ASS_PRIO && _op.getParts().size() == 2) {
+            if (StringUtil.quickEq(_op.getOpers().firstValue(), ASSOC)) {
                 return new PolInterMaOperation(_index, _indexChild, _m, _op);
             }
-            if (_op.getParts().size() == 2) {
-                if (_m instanceof SymbVarFctMaOperation && StringUtil.quickEq(((SymbVarFctMaOperation)_m).getOper(),POLYNOM_SYMB)) {
-                    return new PolMemMaOperation(_index, _indexChild, _m, _op);
-                }
-                return new EvMaOperation(_index, _indexChild, _m, _op);
+            if (_m instanceof SymbVarFctMaOperation && StringUtil.quickEq(((SymbVarFctMaOperation) _m).getOper(), POLYNOM_SYMB)) {
+                return new PolMemMaOperation(_index, _indexChild, _m, _op);
             }
+            return new EvMaOperation(_index, _indexChild, _m, _op);
         }
         return procSymbol(_index, _indexChild, _m, _op);
     }

@@ -70,17 +70,18 @@ public final class Triangle implements HasEdges, Displayable {
     }
 
     public RatePoint getGravityCenter() {
-        Rate xg_ = Rate.zero();
-        xg_.addNb(firstPoint.getXcoords());
-        xg_.addNb(secondPoint.getXcoords());
-        xg_.addNb(thirdPoint.getXcoords());
-        xg_.divideBy(new Rate(3));
-        Rate yg_ = Rate.zero();
-        yg_.addNb(firstPoint.getYcoords());
-        yg_.addNb(secondPoint.getYcoords());
-        yg_.addNb(thirdPoint.getYcoords());
-        yg_.divideBy(new Rate(3));
+        Rate xg_ = fetchAvg(firstPoint.getXcoords(), secondPoint.getXcoords(), thirdPoint.getXcoords());
+        Rate yg_ = fetchAvg(firstPoint.getYcoords(), secondPoint.getYcoords(), thirdPoint.getYcoords());
         return new RatePoint(xg_,yg_);
+    }
+
+    static Rate fetchAvg(Rate _first, Rate _second, Rate _third) {
+        Rate xg_ = Rate.zero();
+        xg_.addNb(_first);
+        xg_.addNb(_second);
+        xg_.addNb(_third);
+        xg_.divideBy(new Rate(3));
+        return xg_;
     }
 
     public RatePoint getCircumCenter() {
