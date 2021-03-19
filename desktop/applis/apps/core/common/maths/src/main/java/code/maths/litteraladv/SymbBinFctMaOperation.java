@@ -166,20 +166,21 @@ public final class SymbBinFctMaOperation extends MethodMaOperation {
     }
 
     private void procPower(MaError _error) {
-        CustList<MaRateStruct> rates_ = tryGetRates();
-        if (rates_.size() == 2) {
-            procPowerRate(_error, rates_);
-            return;
-        }
         MaStruct val_ = MaNumParsers.tryGet(this, 0);
         MaStruct power_ = MaNumParsers.tryGet(this, 1);
+        MaRateStruct firstRate_ = asRate(val_);
+        MaRateStruct secondRate_ = asRate(power_);
+        if (firstRate_ != null && secondRate_ != null) {
+            procPowerRate(_error, firstRate_, secondRate_);
+            return;
+        }
         MaFractPolStruct fract_ = MaFractPolStruct.wrapOrNull(val_);
         if (fract_ != null && power_ instanceof MaRateStruct && ((MaRateStruct)power_).getRate().isInteger()) {
-            procPowerFract(_error, rates_, fract_);
+            procPowerFract(_error, fract_, (MaRateStruct)power_);
             return;
         }
         if (val_ instanceof MaMatrixStruct && power_ instanceof MaRateStruct && ((MaRateStruct)power_).getRate().isInteger()) {
-            procPowerMatrix(_error, rates_, (MaMatrixStruct) val_);
+            procPowerMatrix(_error, (MaMatrixStruct) val_, (MaRateStruct)power_);
             return;
         }
         CustList<MaCustLineStruct> lines_ = tryGetAllAsLine(this);
@@ -221,9 +222,9 @@ public final class SymbBinFctMaOperation extends MethodMaOperation {
         _error.setOffset(getIndexExp()+operOff);
     }
 
-    private void procPowerMatrix(MaError _error, CustList<MaRateStruct> _rates, MaMatrixStruct _val) {
+    private void procPowerMatrix(MaError _error, MaMatrixStruct _val, MaRateStruct _second) {
         Matrix matrix_ = _val.getMatrix();
-        Rate exposant_= _rates.last().getRate();
+        Rate exposant_= _second.getRate();
         if (matrix_.isSquare()) {
             if (!exposant_.isZeroOrGt()) {
                 setStruct(new MaMatrixStruct(matrix_.inv().power(exposant_.absNb().intPart())));
@@ -241,9 +242,9 @@ public final class SymbBinFctMaOperation extends MethodMaOperation {
         }
     }
 
-    private void procPowerFract(MaError _error, CustList<MaRateStruct> _rates, MaFractPolStruct _fract) {
+    private void procPowerFract(MaError _error, MaFractPolStruct _fract, MaRateStruct _second) {
         FractPol base_= _fract.getFractPol();
-        Rate exposant_= _rates.last().getRate();
+        Rate exposant_= _second.getRate();
         if (base_.isZero() && !exposant_.isZeroOrGt()) {
             _error.setOffset(getIndexExp()+operOff);
         } else {
@@ -251,9 +252,9 @@ public final class SymbBinFctMaOperation extends MethodMaOperation {
         }
     }
 
-    private void procPowerRate(MaError _error, CustList<MaRateStruct> _rates) {
-        Rate base_= _rates.first().getRate();
-        Rate exposant_= _rates.last().getRate();
+    private void procPowerRate(MaError _error, MaRateStruct _first, MaRateStruct _second) {
+        Rate base_= _first.getRate();
+        Rate exposant_= _second.getRate();
         procPowerRate(_error, base_, exposant_);
     }
 
@@ -304,15 +305,16 @@ public final class SymbBinFctMaOperation extends MethodMaOperation {
     }
 
     private void procPoint(MaError _error) {
-        CustList<MaRateStruct> rates_ = tryGetRates();
-        if (rates_.size() == 2) {
-            Rate x_ = rates_.first().getRate();
-            Rate y_ = rates_.last().getRate();
+        MaStruct first_ = MaNumParsers.tryGet(this, 0);
+        MaStruct second_ = MaNumParsers.tryGet(this, 1);
+        MaRateStruct firstRate_ = asRate(first_);
+        MaRateStruct secondRate_ = asRate(second_);
+        if (firstRate_ != null && secondRate_ != null) {
+            Rate x_ = firstRate_.getRate();
+            Rate y_ = secondRate_.getRate();
             setStruct(new MaRatePointStruct(new RatePoint(x_,y_)));
             return;
         }
-        MaStruct first_ = MaNumParsers.tryGet(this, 0);
-        MaStruct second_ = MaNumParsers.tryGet(this, 1);
         if (first_ instanceof MaRatePointStruct && second_ instanceof MaRatePointStruct) {
             RatePoint x_ = ((MaRatePointStruct) first_).getPoint();
             RatePoint y_ = ((MaRatePointStruct) second_).getPoint();
@@ -394,17 +396,6 @@ public final class SymbBinFctMaOperation extends MethodMaOperation {
             return;
         }
         _error.setOffset(getIndexExp()+operOff);
-    }
-    CustList<MaRateStruct> tryGetRates() {
-        CustList<MaRateStruct> rates_ = new CustList<MaRateStruct>();
-        int len_ = getChildren().size();
-        for (int i = 0; i < len_; i++) {
-            MaStruct str_ = MaNumParsers.tryGet(this, i);
-            if (str_ instanceof MaRateStruct) {
-                rates_.add((MaRateStruct)str_);
-            }
-        }
-        return rates_;
     }
 
     @Override
