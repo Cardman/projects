@@ -72,18 +72,23 @@ public final class SymbVarFctMaOperation extends MethodMaOperation  {
         setStruct(MaBoolStruct.of(true));
     }
     private void procDelaunay(MaError _error, boolean _mid) {
-        CustList<MaRatePointStruct> points_ = tryGetAllAsPt(this);
-        if (points_ != null) {
-            CustList<RatePoint> pts_ = new CustList<RatePoint>();
-            for (MaRatePointStruct p: points_) {
-                pts_.add(p.getPoint());
+        int len_ = getChildren().size();
+        CustList<MaRatePointStruct> rates_ = new CustList<MaRatePointStruct>();
+        for (int i = 0; i < len_; i++) {
+            MaStruct str_ = MaNumParsers.tryGet(this, i);
+            if (!(str_ instanceof MaRatePointStruct)) {
+                _error.setOffset(getIndexExp()+operOff);
+                return;
             }
-            Delaunay del_ = new Delaunay();
-            del_.compute(pts_,_mid);
-            setStruct(new MaDelaunayStruct(del_,_mid));
-            return;
+            rates_.add((MaRatePointStruct) str_);
         }
-        _error.setOffset(getIndexExp()+operOff);
+        CustList<RatePoint> pts_ = new CustList<RatePoint>();
+        for (MaRatePointStruct p: rates_) {
+            pts_.add(p.getPoint());
+        }
+        Delaunay del_ = new Delaunay();
+        del_.compute(pts_,_mid);
+        setStruct(new MaDelaunayStruct(del_,_mid));
     }
 
     private void procRep(MaError _error) {

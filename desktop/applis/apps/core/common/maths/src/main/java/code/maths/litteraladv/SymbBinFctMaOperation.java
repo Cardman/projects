@@ -11,7 +11,6 @@ import code.maths.litteralcom.StrTypes;
 import code.maths.matrix.FractPol;
 import code.maths.matrix.Matrix;
 import code.maths.matrix.Polynom;
-import code.util.CustList;
 import code.util.StringMap;
 import code.util.core.StringUtil;
 
@@ -81,10 +80,11 @@ public final class SymbBinFctMaOperation extends MethodMaOperation {
             }
             return;
         }
-        CustList<MaCustLineStruct> lines_ = tryGetAllAsLine(this);
-        if (lines_.size() == 2) {
-            CustLine first_ = lines_.first().getLine();
-            CustLine second_ = lines_.last().getLine();
+        MaCustLineStruct lineFirst_ = asLine(firstVal_);
+        MaCustLineStruct lineSecond_ = asLine(secondVal_);
+        if (lineFirst_ != null && lineSecond_ != null) {
+            CustLine first_ = lineFirst_.getLine();
+            CustLine second_ = lineSecond_.getLine();
             if (!first_.getMatrix(second_).det().isZero()) {
                 setStruct(new MaRatePointStruct(first_.intersect(second_)));
                 return;
@@ -184,21 +184,27 @@ public final class SymbBinFctMaOperation extends MethodMaOperation {
             procPowerMatrix(_error, (MaMatrixStruct) val_, pwInt_);
             return;
         }
-        CustList<MaCustLineStruct> lines_ = tryGetAllAsLine(this);
-        if (lines_.size() == 2) {
-            CustLine first_ = lines_.first().getLine();
-            CustLine second_ = lines_.last().getLine();
+        procGeo(_error, val_, power_);
+    }
+
+    private void procGeo(MaError _error, MaStruct _first, MaStruct _second) {
+        MaCustLineStruct lineFirst_ = asLine(_first);
+        MaCustLineStruct lineSecond_ = asLine(_second);
+        if (lineFirst_ != null && lineSecond_ != null) {
+            CustLine first_ = lineFirst_.getLine();
+            CustLine second_ = lineSecond_.getLine();
             setStruct(MaBoolStruct.of(!first_.getMatrix(second_).det().isZero()));
             return;
         }
-        CustList<MaEdgeStruct> edges_ = tryGetAllAsEdge(this);
-        if (edges_.size() == 2) {
-            Edge first_ = edges_.first().getEdge();
-            Edge second_ = edges_.last().getEdge();
+        MaEdgeStruct edgeFirst_ = asEdge(_first);
+        MaEdgeStruct edgeSecond_ = asEdge(_second);
+        if (edgeFirst_ != null && edgeSecond_ != null) {
+            Edge first_ = edgeFirst_.getEdge();
+            Edge second_ = edgeSecond_.getEdge();
             setStruct(MaBoolStruct.of(first_.intersect(second_)));
             return;
         }
-        procContainsPt(_error, val_, power_);
+        procContainsPt(_error, _first, _second);
     }
 
     private void procContainsPt(MaError _error, MaStruct _val, MaStruct _power) {
@@ -350,10 +356,11 @@ public final class SymbBinFctMaOperation extends MethodMaOperation {
             procComplexPower((MaComplexStruct)val_,(MaRateStruct)power_,_error);
             return;
         }
-        CustList<MaEdgeStruct> edges_ = tryGetAllAsEdge(this);
-        if (edges_.size() == 2) {
-            Edge first_ = edges_.first().getEdge();
-            Edge second_ = edges_.last().getEdge();
+        MaEdgeStruct edgeFirst_ = asEdge(val_);
+        MaEdgeStruct edgeSecond_ = asEdge(power_);
+        if (edgeFirst_ != null && edgeSecond_ != null) {
+            Edge first_ = edgeFirst_.getEdge();
+            Edge second_ = edgeSecond_.getEdge();
             setStruct(MaBoolStruct.of(first_.intersectNotContains(second_)));
             return;
         }
@@ -389,10 +396,13 @@ public final class SymbBinFctMaOperation extends MethodMaOperation {
         setStruct(new MaComplexStruct(val_.power(expInt_)));
     }
     private void intersectNotContainsBound(MaError _error) {
-        CustList<MaEdgeStruct> edges_ = tryGetAllAsEdge(this);
-        if (edges_.size() == 2) {
-            Edge first_ = edges_.first().getEdge();
-            Edge second_ = edges_.last().getEdge();
+        MaStruct val_ = MaNumParsers.tryGet(this, 0);
+        MaStruct power_ = MaNumParsers.tryGet(this, 1);
+        MaEdgeStruct edgeFirst_ = asEdge(val_);
+        MaEdgeStruct edgeSecond_ = asEdge(power_);
+        if (edgeFirst_ != null && edgeSecond_ != null) {
+            Edge first_ = edgeFirst_.getEdge();
+            Edge second_ = edgeSecond_.getEdge();
             setStruct(MaBoolStruct.of(first_.intersectNotContainsBound(second_)));
             return;
         }

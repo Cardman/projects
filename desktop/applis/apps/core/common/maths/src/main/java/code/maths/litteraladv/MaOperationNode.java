@@ -287,6 +287,18 @@ public abstract class MaOperationNode {
         }
         return (MaComplexStruct)_str;
     }
+    protected static MaEdgeStruct asEdge(MaStruct _str) {
+        if (!(_str instanceof MaEdgeStruct)) {
+            return null;
+        }
+        return (MaEdgeStruct)_str;
+    }
+    protected static MaCustLineStruct asLine(MaStruct _str) {
+        if (!(_str instanceof MaCustLineStruct)) {
+            return null;
+        }
+        return (MaCustLineStruct)_str;
+    }
     protected static CustList<MaStruct> tryGetAll(MethodMaOperation _this) {
         CustList<MaStruct> rates_ = new CustList<MaStruct>();
         int len_ = _this.getChildren().size();
@@ -318,43 +330,6 @@ public abstract class MaOperationNode {
                 continue;
             }
             rates_.add((MaPolygonStruct)str_);
-        }
-        return rates_;
-    }
-    protected static CustList<MaCustLineStruct> tryGetAllAsLine(MethodMaOperation _current) {
-        int len_ = _current.getChildren().size();
-        CustList<MaCustLineStruct> rates_ = new CustList<MaCustLineStruct>();
-        for (int i = 0; i < len_; i++) {
-            MaStruct str_ = MaNumParsers.tryGet(_current, i);
-            if (!(str_ instanceof MaCustLineStruct)) {
-                continue;
-            }
-            rates_.add((MaCustLineStruct)str_);
-        }
-        return rates_;
-    }
-    protected static CustList<MaEdgeStruct> tryGetAllAsEdge(MethodMaOperation _current) {
-        int len_ = _current.getChildren().size();
-        CustList<MaEdgeStruct> rates_ = new CustList<MaEdgeStruct>();
-        for (int i = 0; i < len_; i++) {
-            MaStruct str_ = MaNumParsers.tryGet(_current, i);
-            if (!(str_ instanceof MaEdgeStruct)) {
-                continue;
-            }
-            rates_.add((MaEdgeStruct)str_);
-        }
-        return rates_;
-    }
-
-    protected static CustList<MaRatePointStruct> tryGetAllAsPt(MethodMaOperation _current) {
-        int len_ = _current.getChildren().size();
-        CustList<MaRatePointStruct> rates_ = new CustList<MaRatePointStruct>();
-        for (int i = 0; i < len_; i++) {
-            MaStruct str_ = MaNumParsers.tryGet(_current, i);
-            if (!(str_ instanceof MaRatePointStruct)) {
-                return null;
-            }
-            rates_.add((MaRatePointStruct) str_);
         }
         return rates_;
     }

@@ -3727,6 +3727,14 @@ public final class MaParserTest extends EquallableMathUtil {
         assertEq("-1", noVar("(-1,*)"));
     }
     @Test
+    public void evaluateExp930Test(){
+        assertEq("#13", noVar("((1,1,1,-),0,/)"));
+    }
+    @Test
+    public void evaluateExp931Test(){
+        assertEq("#23", noVar("(((1,1,.),(1,0,.),.),0,^^^)"));
+    }
+    @Test
     public void nullVarTest(){
         assertEq("####", nullVar());
     }
