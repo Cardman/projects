@@ -65,12 +65,12 @@ public final class SymbUnFctMaOperation extends MethodMaOperation {
                 setStruct(new MaComplexStruct(cp_.getComplex().conjug()));
                 return;
             }
-            CustList<MaPolygonStruct> pols_ = tryGetAllAsPolygon(this);
-            if (pols_.size() != 1) {
+            MaPolygonStruct polyg_ = asPolygon(val_);
+            if (polyg_ == null) {
                 _error.setOffset(getIndexExp()+operOff);
                 return;
             }
-            CustList<RatePoint> pts_ = pols_.first().getPolygon().getPoints();
+            CustList<RatePoint> pts_ = polyg_.getPolygon().getPoints();
             if (pts_.size() != 3) {
                 _error.setOffset(getIndexExp()+operOff);
                 return;
@@ -94,9 +94,9 @@ public final class SymbUnFctMaOperation extends MethodMaOperation {
                 }
                 return;
             }
-            CustList<MaPolygonStruct> polyg_ = tryGetAllAsPolygon(this);
-            if (polyg_.size() == 1){
-                CustList<RatePoint> pts_ = polyg_.first().getPolygon().getPoints();
+            MaPolygonStruct polyg_ = asPolygon(valop_);
+            if (polyg_ != null){
+                CustList<RatePoint> pts_ = polyg_.getPolygon().getPoints();
                 if (pts_.size() != 3) {
                     _error.setOffset(getIndexExp()+operOff);
                     return;
@@ -147,9 +147,9 @@ public final class SymbUnFctMaOperation extends MethodMaOperation {
             setStruct(new MaMatrixStruct(matrix_.passVects()));
             return;
         }
-        CustList<MaDelaunayStruct> dels_ = tryGetAllAsDelaunay(this);
-        if (dels_.size() == 1) {
-            setStruct(MaBoolStruct.of(dels_.first().isWithMids()));
+        MaDelaunayStruct del_ = asDelaunay(val_);
+        if (del_ != null) {
+            setStruct(MaBoolStruct.of(del_.isWithMids()));
             return;
         }
         _error.setOffset(getIndexExp()+operOff);
@@ -169,9 +169,9 @@ public final class SymbUnFctMaOperation extends MethodMaOperation {
             setStruct(new MaRateStruct(matrix_.det()));
             return;
         }
-        CustList<MaPolygonStruct> pols_ = tryGetAllAsPolygon(this);
-        if (pols_.size() == 1) {
-            CustList<RatePoint> pts_ = pols_.first().getPolygon().getPoints();
+        MaPolygonStruct polyg_ = asPolygon(val_);
+        if (polyg_ != null) {
+            CustList<RatePoint> pts_ = polyg_.getPolygon().getPoints();
             if (pts_.size() != 3) {
                 _error.setOffset(getIndexExp()+operOff);
                 return;
@@ -277,16 +277,16 @@ public final class SymbUnFctMaOperation extends MethodMaOperation {
             setStruct(new MaRateStruct(matrix_.trace()));
             return;
         }
-        CustList<MaPolygonStruct> pols_ = tryGetAllAsPolygon(this);
-        if (pols_.size() == 1) {
-            procPolygon(pols_);
+        MaPolygonStruct polyg_ = asPolygon(valop_);
+        if (polyg_ != null) {
+            procPolygon(polyg_);
             return;
         }
         _error.setOffset(getIndexExp()+operOff);
     }
 
-    private void procPolygon(CustList<MaPolygonStruct> _pols) {
-        CustList<RatePoint> pts_ = _pols.first().getPolygon().getPoints();
+    private void procPolygon(MaPolygonStruct _first) {
+        CustList<RatePoint> pts_ = _first.getPolygon().getPoints();
         if (pts_.size() != 3) {
             setStruct(MaBoolStruct.of(false));
             return;
@@ -319,9 +319,9 @@ public final class SymbUnFctMaOperation extends MethodMaOperation {
             setStruct(new MaRateStruct(new Rate(matrix_.quickRank())));
             return;
         }
-        CustList<MaPolygonStruct> polyg_ = tryGetAllAsPolygon(this);
-        if (polyg_.size() == 1) {
-            Polygon polygon_ = polyg_.first().getPolygon();
+        MaPolygonStruct polyg_ = asPolygon(val_);
+        if (polyg_ != null) {
+            Polygon polygon_ = polyg_.getPolygon();
             setStruct(new MaPolygonStruct(polygon_.getConvexHull()));
             return;
         }
@@ -348,9 +348,9 @@ public final class SymbUnFctMaOperation extends MethodMaOperation {
             setStruct(new MaPolynomStruct(matrix_.polCaract()));
             return;
         }
-        CustList<MaPolygonStruct> pols_ = tryGetAllAsPolygon(this);
-        if (pols_.size() == 1) {
-            CustList<Triangle> tris_ = pols_.first().getPolygon().getTriangles();
+        MaPolygonStruct polyg_ = asPolygon(val_);
+        if (polyg_ != null) {
+            CustList<Triangle> tris_ = polyg_.getPolygon().getTriangles();
             CustList<Polygon> conv_ = Polygon.toPolygons(tris_);
             setStruct(new MaListPolygonStruct(conv_));
             return;
@@ -369,9 +369,9 @@ public final class SymbUnFctMaOperation extends MethodMaOperation {
             setStruct(new MaFractPolStruct(nb_));
             return;
         }
-        CustList<MaPolygonStruct> polyg_ = tryGetAllAsPolygon(this);
-        if (polyg_.size() == 1) {
-            Polygon polygon_ = polyg_.first().getPolygon();
+        MaPolygonStruct polyg_ = asPolygon(val_);
+        if (polyg_ != null) {
+            Polygon polygon_ = polyg_.getPolygon();
             setStruct(new MaPolygonStruct(polygon_.getStrictHull()));
             return;
         }

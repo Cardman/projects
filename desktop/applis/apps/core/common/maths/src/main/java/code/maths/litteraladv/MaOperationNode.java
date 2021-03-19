@@ -299,37 +299,23 @@ public abstract class MaOperationNode {
         }
         return (MaCustLineStruct)_str;
     }
+    protected static MaPolygonStruct asPolygon(MaStruct _str) {
+        if (!(_str instanceof MaPolygonStruct)) {
+            return null;
+        }
+        return (MaPolygonStruct)_str;
+    }
+    protected static MaDelaunayStruct asDelaunay(MaStruct _str) {
+        if (!(_str instanceof MaDelaunayStruct)) {
+            return null;
+        }
+        return (MaDelaunayStruct)_str;
+    }
     protected static CustList<MaStruct> tryGetAll(MethodMaOperation _this) {
         CustList<MaStruct> rates_ = new CustList<MaStruct>();
         int len_ = _this.getChildren().size();
         for (int i = 0; i < len_; i++) {
             rates_.add(MaNumParsers.tryGet(_this, i));
-        }
-        return rates_;
-    }
-
-    protected static CustList<MaDelaunayStruct> tryGetAllAsDelaunay(MethodMaOperation _current) {
-        int len_ = _current.getChildren().size();
-        CustList<MaDelaunayStruct> rates_ = new CustList<MaDelaunayStruct>();
-        for (int i = 0; i < len_; i++) {
-            MaStruct str_ = MaNumParsers.tryGet(_current, i);
-            if (!(str_ instanceof MaDelaunayStruct)) {
-                continue;
-            }
-            rates_.add((MaDelaunayStruct)str_);
-        }
-        return rates_;
-    }
-
-    protected static CustList<MaPolygonStruct> tryGetAllAsPolygon(MethodMaOperation _current) {
-        int len_ = _current.getChildren().size();
-        CustList<MaPolygonStruct> rates_ = new CustList<MaPolygonStruct>();
-        for (int i = 0; i < len_; i++) {
-            MaStruct str_ = MaNumParsers.tryGet(_current, i);
-            if (!(str_ instanceof MaPolygonStruct)) {
-                continue;
-            }
-            rates_.add((MaPolygonStruct)str_);
         }
         return rates_;
     }
