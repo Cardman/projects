@@ -19,7 +19,7 @@ public final class ArrMaOperation extends MethodMaOperation {
 
     @Override
     void calculate(StringMap<MaStruct> _conf, MaError _error, MaDelimiters _del) {
-        CustList<MaStruct> values_ = tryGetAll();
+        CustList<MaStruct> values_ = tryGetAll(this);
         if (values_.size() == 1) {
             applyLg(values_);
             return;
@@ -1015,14 +1015,6 @@ public final class ArrMaOperation extends MethodMaOperation {
         if (!_int.isZeroOrGt()) {
             _int.addNb(new LgInt(_len));
         }
-    }
-    CustList<MaStruct> tryGetAll() {
-        CustList<MaStruct> rates_ = new CustList<MaStruct>();
-        int len_ = getChildren().size();
-        for (int i = 0; i < len_; i++) {
-            rates_.add(MaNumParsers.tryGet(this, i));
-        }
-        return rates_;
     }
     @Override
     void calculate() {

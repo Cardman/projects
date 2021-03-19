@@ -2,7 +2,6 @@ package code.maths.litteraladv;
 
 import code.maths.geo.CustLine;
 import code.maths.litteralcom.StrTypes;
-import code.util.CustList;
 import code.util.StringMap;
 
 public final class SymbTerFctMaOperation extends MethodMaOperation {
@@ -13,9 +12,14 @@ public final class SymbTerFctMaOperation extends MethodMaOperation {
 
     @Override
     void calculate(StringMap<MaStruct> _conf, MaError _error, MaDelimiters _del) {
-        CustList<MaRateStruct> rates_ = tryGetRates(this);
-        if (rates_.size() == 3) {
-            CustLine line_ = new CustLine(rates_.get(0).getRate(), rates_.get(1).getRate(), rates_.get(2).getRate());
+        MaStruct firstVal_ = MaNumParsers.tryGet(this, 0);
+        MaStruct secondVal_ = MaNumParsers.tryGet(this, 1);
+        MaStruct thirdVal_ = MaNumParsers.tryGet(this, 2);
+        MaRateStruct firstInt_ = asRate(firstVal_);
+        MaRateStruct secondInt_ = asRate(secondVal_);
+        MaRateStruct thirdInt_ = asRate(thirdVal_);
+        if (firstInt_ != null && secondInt_ != null && thirdInt_ != null) {
+            CustLine line_ = new CustLine(firstInt_.getRate(), secondInt_.getRate(), thirdInt_.getRate());
             if (line_.isDefined()) {
                 setStruct(new MaCustLineStruct(line_));
                 return;

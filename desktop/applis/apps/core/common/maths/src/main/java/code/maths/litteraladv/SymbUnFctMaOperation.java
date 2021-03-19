@@ -81,9 +81,10 @@ public final class SymbUnFctMaOperation extends MethodMaOperation {
 
     private void procIdMat(MaError _error) {
         if (StringUtil.quickEq("#", oper)) {
-            CustList<MaRateStruct> rates_ = tryGetRates(this);
-            if (areAllIntegersNb(rates_,1)) {
-                LgInt lgInt_ = rates_.first().getRate().intPart();
+            MaStruct valop_ = MaNumParsers.tryGet(this, 0);
+            MaRateStruct intVal_ = asInt(valop_);
+            if (intVal_ != null) {
+                LgInt lgInt_ = intVal_.getRate().intPart();
                 int val_ = (int) lgInt_.ll();
                 if (val_ <= 0) {
                     _error.setOffset(getIndexExp()+operOff);
@@ -255,9 +256,10 @@ public final class SymbUnFctMaOperation extends MethodMaOperation {
     }
 
     private void procPrem(MaError _error) {
-        CustList<MaRateStruct> rates_ = tryGetRates(this);
-        if (areAllIntegersNb(rates_,1)) {
-            Rate nb_= rates_.first().getRate();
+        MaStruct valop_ = MaNumParsers.tryGet(this, 0);
+        MaRateStruct intVal_ = asInt(valop_);
+        if (intVal_ != null) {
+            Rate nb_= intVal_.getRate();
             setStruct(MaBoolStruct.of(nb_.intPart().isPrime()));
             return;
         }
@@ -290,9 +292,10 @@ public final class SymbUnFctMaOperation extends MethodMaOperation {
     }
 
     private void procDivs(MaError _error) {
-        CustList<MaRateStruct> rates_ = tryGetRates(this);
-        if (areAllIntegersNb(rates_,1)) {
-            Rate nb_= rates_.first().getRate();
+        MaStruct val_ = MaNumParsers.tryGet(this, 0);
+        MaRateStruct intVal_ = asInt(val_);
+        if (intVal_ != null) {
+            Rate nb_= intVal_.getRate();
             setStruct(new MaDividersNbStruct(nb_.intPart().getDividers()));
             return;
         }
@@ -318,9 +321,10 @@ public final class SymbUnFctMaOperation extends MethodMaOperation {
     }
 
     private void procDecomp(MaError _error) {
-        CustList<MaRateStruct> rates_ = tryGetRates(this);
-        if (areAllIntegersNb(rates_,1)) {
-            Rate nb_= rates_.first().getRate();
+        MaStruct val_ = MaNumParsers.tryGet(this, 0);
+        MaRateStruct intVal_ = asInt(val_);
+        if (intVal_ != null) {
+            Rate nb_= intVal_.getRate();
             setStruct(new MaDecompositionNbStruct(nb_.intPart().decompoPrim()));
             return;
         }

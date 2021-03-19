@@ -55,10 +55,13 @@ public final class SymbBinFctMaOperation extends MethodMaOperation {
     }
 
     private void procQuot(MaError _error) {
-        CustList<MaRateStruct> rates_ = tryGetRates();
-        if (areTwoIntegers(rates_)) {
-            LgInt quot_= rates_.first().getRate().intPart();
-            LgInt div_= rates_.last().getRate().intPart();
+        MaStruct firstVal_ = MaNumParsers.tryGet(this, 0);
+        MaStruct secondVal_ = MaNumParsers.tryGet(this, 1);
+        MaRateStruct firstInt_ = asInt(firstVal_);
+        MaRateStruct secondInt_ = asInt(secondVal_);
+        if (firstInt_ != null && secondInt_ != null) {
+            LgInt quot_= firstInt_.getRate().intPart();
+            LgInt div_= secondInt_.getRate().intPart();
             if (div_.isZero()) {
                 _error.setOffset(getIndexExp()+operOff);
             } else {
@@ -92,13 +95,18 @@ public final class SymbBinFctMaOperation extends MethodMaOperation {
     }
 
     private void procMod(MaError _error) {
-        CustList<MaRateStruct> rates_ = tryGetRates();
-        if (areTwoIntegers(rates_)) {
-            procModInt(_error, rates_);
+        MaStruct firstVal_ = MaNumParsers.tryGet(this, 0);
+        MaStruct secondVal_ = MaNumParsers.tryGet(this, 1);
+        MaRateStruct firstInt_ = asInt(firstVal_);
+        MaRateStruct secondInt_ = asInt(secondVal_);
+        if (firstInt_ != null && secondInt_ != null) {
+            procModInt(_error, firstInt_, secondInt_);
             return;
         }
-        if (rates_.size() == 2) {
-            procModRate(_error, rates_);
+        MaRateStruct firstRate_ = asRate(firstVal_);
+        MaRateStruct secondRate_ = asRate(secondVal_);
+        if (firstRate_ != null && secondRate_ != null) {
+            procModRate(_error, firstRate_, secondRate_);
             return;
         }
         CustList<MaFractPolStruct> fractPols_ = tryGetFracPols();
@@ -113,9 +121,9 @@ public final class SymbBinFctMaOperation extends MethodMaOperation {
         _error.setOffset(getIndexExp()+operOff);
     }
 
-    private void procModInt(MaError _error, CustList<MaRateStruct> _rates) {
-        LgInt quot_= _rates.first().getRate().intPart();
-        LgInt div_= _rates.last().getRate().intPart();
+    private void procModInt(MaError _error, MaRateStruct _first, MaRateStruct _second) {
+        LgInt quot_= _first.getRate().intPart();
+        LgInt div_= _second.getRate().intPart();
         if (div_.isZero()) {
             _error.setOffset(getIndexExp()+operOff);
         } else {
@@ -123,9 +131,9 @@ public final class SymbBinFctMaOperation extends MethodMaOperation {
         }
     }
 
-    private void procModRate(MaError _error, CustList<MaRateStruct> _rates) {
-        Rate quot_= _rates.first().getRate();
-        Rate div_= _rates.last().getRate();
+    private void procModRate(MaError _error, MaRateStruct _first, MaRateStruct _second) {
+        Rate quot_= _first.getRate();
+        Rate div_= _second.getRate();
         if (div_.isZero()) {
             _error.setOffset(getIndexExp()+operOff);
         } else {
@@ -254,10 +262,13 @@ public final class SymbBinFctMaOperation extends MethodMaOperation {
     }
 
     private void procBezout(MaError _error) {
-        CustList<MaRateStruct> rates_ = tryGetRates();
-        if (areTwoIntegers(rates_)) {
-            LgInt quot_= rates_.first().getRate().intPart();
-            LgInt div_= rates_.last().getRate().intPart();
+        MaStruct firstVal_ = MaNumParsers.tryGet(this, 0);
+        MaStruct secondVal_ = MaNumParsers.tryGet(this, 1);
+        MaRateStruct firstInt_ = asInt(firstVal_);
+        MaRateStruct secondInt_ = asInt(secondVal_);
+        if (firstInt_ != null && secondInt_ != null) {
+            LgInt quot_= firstInt_.getRate().intPart();
+            LgInt div_= secondInt_.getRate().intPart();
             setStruct(new MaBezoutNbStruct(LgInt.identiteBezoutPgcdPpcm(quot_,div_)));
             return;
         }
@@ -272,10 +283,13 @@ public final class SymbBinFctMaOperation extends MethodMaOperation {
     }
 
     private void procParmi(MaError _error) {
-        CustList<MaRateStruct> rates_ = tryGetRates();
-        if (areTwoIntegers(rates_)) {
-            Rate nbOne_= rates_.first().getRate();
-            Rate nbTwo_= rates_.last().getRate();
+        MaStruct firstVal_ = MaNumParsers.tryGet(this, 0);
+        MaStruct secondVal_ = MaNumParsers.tryGet(this, 1);
+        MaRateStruct firstInt_ = asInt(firstVal_);
+        MaRateStruct secondInt_ = asInt(secondVal_);
+        if (firstInt_ != null && secondInt_ != null) {
+            Rate nbOne_= firstInt_.getRate();
+            Rate nbTwo_= secondInt_.getRate();
             if (nbOne_.isZeroOrGt()&&nbTwo_.isZeroOrGt()) {
                 setStruct(new MaRateStruct(new Rate(LgInt.among(nbOne_.intPart(),nbTwo_.intPart()))));
                 return;

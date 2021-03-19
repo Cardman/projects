@@ -87,18 +87,26 @@ public final class SymbVarFctMaOperation extends MethodMaOperation  {
     }
 
     private void procRep(MaError _error) {
-        if (getChildren().size() >= 1) {
-            CustList<MaRateStruct> rates_ = tryGetRates(this);
-            if (areAllIntegers(rates_)) {
-                LgInt nbOne_= rates_.first().getRate().intPart();
-                CustList<LgInt> ints_ = new CustList<LgInt>();
-                int nb_ = rates_.size();
-                for (int i = 1; i < nb_; i++) {
-                    ints_.add(rates_.get(i).getRate().intPart());
-                }
-                setStruct(new MaRepartitionStruct(LgInt.seqAmong(ints_,nbOne_)));
+        CustList<MaRateStruct> rates_ = new CustList<MaRateStruct>();
+        int len_ = getChildren().size();
+        for (int i = 0; i < len_; i++) {
+            MaStruct str_ = MaNumParsers.tryGet(this, i);
+            MaRateStruct intVal_ = asInt(str_);
+            if (intVal_ == null) {
+                _error.setOffset(getIndexExp()+operOff);
                 return;
             }
+            rates_.add(intVal_);
+        }
+        if (rates_.size() >= 1) {
+            LgInt nbOne_= rates_.first().getRate().intPart();
+            CustList<LgInt> ints_ = new CustList<LgInt>();
+            int nb_ = rates_.size();
+            for (int i = 1; i < nb_; i++) {
+                ints_.add(rates_.get(i).getRate().intPart());
+            }
+            setStruct(new MaRepartitionStruct(LgInt.seqAmong(ints_,nbOne_)));
+            return;
         }
         _error.setOffset(getIndexExp()+operOff);
     }

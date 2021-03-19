@@ -233,12 +233,23 @@ public abstract class MaOperationNode {
         return new IdMaOperation(_index, _indexChild, _m, _op);
     }
 
-    protected static boolean areTwoIntegers(CustList<MaRateStruct> _rates) {
-        return areAllIntegersNb(_rates, 2);
+    protected static MaRateStruct asInt(MaStruct _str) {
+        MaRateStruct rate_ = asRate(_str);
+        if (rate_ == null) {
+            return null;
+        }
+        if (!rate_.getRate().isInteger()) {
+            return null;
+        }
+        return rate_;
     }
-    protected static boolean areAllIntegersNb(CustList<MaRateStruct> _rates, int _count) {
-        return _rates.size() == _count && areAllIntegers(_rates);
+    protected static MaRateStruct asRate(MaStruct _str) {
+        if (!(_str instanceof MaRateStruct)) {
+            return null;
+        }
+        return (MaRateStruct)_str;
     }
+
     protected static boolean areTwoPols(CustList<MaFractPolStruct> _rates) {
         return areAllPolsNb(_rates, 2);
     }
@@ -374,14 +385,6 @@ public abstract class MaOperationNode {
         }
         return rates_;
     }
-    protected static boolean areAllIntegers(CustList<MaRateStruct> _list) {
-        for (MaRateStruct r: _list) {
-            if (!r.getRate().isInteger()) {
-                return false;
-            }
-        }
-        return true;
-    }
 
     protected static boolean areAllPols(CustList<MaFractPolStruct> _list) {
         for (MaFractPolStruct r: _list) {
@@ -502,17 +505,6 @@ public abstract class MaOperationNode {
         return StringUtil.quickEq(val_,"&") || StringUtil.quickEq(val_,"|");
     }
 
-    static CustList<MaRateStruct> tryGetRates(MethodMaOperation _current) {
-        CustList<MaRateStruct> rates_ = new CustList<MaRateStruct>();
-        int len_ = _current.getChildren().size();
-        for (int i = 0; i < len_; i++) {
-            MaStruct str_ = MaNumParsers.tryGet(_current, i);
-            if (str_ instanceof MaRateStruct) {
-                rates_.add((MaRateStruct)str_);
-            }
-        }
-        return rates_;
-    }
     static CustList<MaFractPolStruct> tryGetFracts(MethodMaOperation _current) {
         CustList<MaFractPolStruct> rates_ = new CustList<MaFractPolStruct>();
         int len_ = _current.getChildren().size();
