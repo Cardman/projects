@@ -349,7 +349,7 @@ public final class Polygon implements Iterable<RatePoint>, HasEdges, Displayable
         VectTwoDims prevFirst_ = new VectTwoDims(currFirst_, beforeFirst_);
         VectTwoDims nextFirst_ = new VectTwoDims(currFirst_, afterFirst_);
         if (prevFirst_.det(nextFirst_).isZeroOrLt()) {
-            CustList<RatePoint> pts_ = new CustList<RatePoint>(copy_.get(0));
+            CustList<RatePoint> pts_ = new CustList<RatePoint>(currFirst_);
             pts_.addAllElts(copy_.points.mid(1).getReverse());
             copy_ = new Polygon(pts_);
         }
