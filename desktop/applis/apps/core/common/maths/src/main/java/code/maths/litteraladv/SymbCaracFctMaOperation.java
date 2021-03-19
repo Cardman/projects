@@ -14,16 +14,16 @@ public final class SymbCaracFctMaOperation extends MethodMaOperation {
 
     @Override
     void calculate(StringMap<MaStruct> _conf, MaError _error, MaDelimiters _del) {
-        if (StringUtil.quickEq("==<",oper)) {
+        if (StringUtil.quickEq(RIGHT_OPEN,oper)) {
             caracdroiteouvert(_error);
         }
-        if (StringUtil.quickEq("==>",oper)) {
+        if (StringUtil.quickEq(RIGHT_CLOSE,oper)) {
             caracdroiteferme(_error);
         }
-        if (StringUtil.quickEq(">==",oper)) {
+        if (StringUtil.quickEq(LEFT_OPEN,oper)) {
             caracgaucheouvert(_error);
         }
-        if (StringUtil.quickEq("<==",oper)) {
+        if (StringUtil.quickEq(LEFT_CLOSE,oper)) {
             caracgaucheferme(_error);
         }
 

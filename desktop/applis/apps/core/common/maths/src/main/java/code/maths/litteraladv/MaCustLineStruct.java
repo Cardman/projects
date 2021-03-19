@@ -45,6 +45,6 @@ public final class MaCustLineStruct implements MaAddonStruct {
         return "("+line.getxRate().toNumberString()+","
                 +line.getyRate().toNumberString()+","
                 +line.getCst().toNumberString()+","
-                +"-)";
+                +MaOperationNode.LINE_THREE+")";
     }
 }

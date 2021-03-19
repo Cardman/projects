@@ -24,32 +24,32 @@ public final class SymbUnFctMaOperation extends MethodMaOperation {
 
     @Override
     void calculate(StringMap<MaStruct> _conf, MaError _error, MaDelimiters _del) {
-        if (StringUtil.quickEq("-", oper)) {
+        if (StringUtil.quickEq(SGN, oper)) {
             procSgn(_error);
         }
-        if (StringUtil.quickEq("|", oper)) {
+        if (StringUtil.quickEq(ABS, oper)) {
             procAbs(_error);
         }
         procComplexParts(_error);
-        if (StringUtil.quickEq("/0", oper)) {
+        if (StringUtil.quickEq(NUM, oper)) {
             procNum(_error);
         }
-        if (StringUtil.quickEq("/1", oper)) {
+        if (StringUtil.quickEq(DEN, oper)) {
             procDen(_error);
         }
-        if (StringUtil.quickEq("0/", oper)) {
+        if (StringUtil.quickEq(ENT, oper)) {
             procEnt(_error);
         }
-        if (StringUtil.quickEq("1/", oper)) {
+        if (StringUtil.quickEq(TRONC, oper)) {
             procTroncature(_error);
         }
-        if (StringUtil.quickEq("/", oper)) {
+        if (StringUtil.quickEq(PREM, oper)) {
             procPrem(_error);
         }
-        if (StringUtil.quickEq("||", oper)) {
+        if (StringUtil.quickEq(DIVS, oper)) {
             procDivs(_error);
         }
-        if (StringUtil.quickEq("&", oper)) {
+        if (StringUtil.quickEq(DECOMP, oper)) {
             procDecomp(_error);
         }
         procGravCenter(_error);
@@ -58,7 +58,7 @@ public final class SymbUnFctMaOperation extends MethodMaOperation {
     }
 
     private void procGravCenter(MaError _error) {
-        if (StringUtil.quickEq("*", oper)) {
+        if (StringUtil.quickEq(GRAV, oper)) {
             MaStruct val_ = MaNumParsers.tryGet(this, 0);
             MaComplexStruct cp_ = asComplex(val_);
             if (cp_ != null) {
@@ -81,7 +81,7 @@ public final class SymbUnFctMaOperation extends MethodMaOperation {
     }
 
     private void procIdMat(MaError _error) {
-        if (StringUtil.quickEq("#", oper)) {
+        if (StringUtil.quickEq(ID_MAT, oper)) {
             MaStruct valop_ = MaNumParsers.tryGet(this, 0);
             MaRateStruct intVal_ = asInt(valop_);
             if (intVal_ != null) {
@@ -189,7 +189,7 @@ public final class SymbUnFctMaOperation extends MethodMaOperation {
     }
 
     private void procComplexParts(MaError _error) {
-        if (!StringUtil.quickEq("//", oper)) {
+        if (!StringUtil.quickEq(COMPLEX, oper)) {
             return;
         }
         MaStruct val_ = MaNumParsers.tryGet(this, 0);

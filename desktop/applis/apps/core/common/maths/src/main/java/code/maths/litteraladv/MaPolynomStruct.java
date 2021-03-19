@@ -35,7 +35,7 @@ public final class MaPolynomStruct extends MaListNbStruct {
         for (Rate r: rates_) {
             list_.add(r.toNumberString());
         }
-        list_.add(";");
+        list_.add(MaOperationNode.POLYNOM_SYMB);
         return "("+ StringUtil.join(list_,",")+")";
     }
 

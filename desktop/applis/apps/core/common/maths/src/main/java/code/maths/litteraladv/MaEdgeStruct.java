@@ -43,7 +43,7 @@ public final class MaEdgeStruct implements MaAddonStruct {
     }
 
     static String displayRsult(Edge _edge) {
-        return "(" + MaRatePointStruct.displayRsult(_edge.getFirst()) + "," + MaRatePointStruct.displayRsult(_edge.getSecond()) + ",-)";
+        return "(" + MaRatePointStruct.displayRsult(_edge.getFirst()) + "," + MaRatePointStruct.displayRsult(_edge.getSecond()) +","+MaOperationNode.EDGE+")";
     }
 
 }

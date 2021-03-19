@@ -21,7 +21,7 @@ public final class MaComplexStruct implements MaStruct {
         if (imag_.isZero()) {
             return complex.getReal().toNumberString();
         }
-        return "("+complex.getReal().toNumberString()+","+ imag_.toNumberString()+",-)";
+        return "("+complex.getReal().toNumberString()+","+ imag_.toNumberString()+","+MaOperationNode.EDGE+")";
     }
 
     static MaComplexStruct wrapOrNull(MaStruct _cur) {

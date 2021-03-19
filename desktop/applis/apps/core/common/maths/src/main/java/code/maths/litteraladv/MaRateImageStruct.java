@@ -39,6 +39,6 @@ public final class MaRateImageStruct extends MaListNbStruct {
     }
 
     static String exportStr(RateImage _rateThis) {
-        return _rateThis.getRate().toNumberString() + "=>" + _rateThis.getValue().toNumberString();
+        return _rateThis.getRate().toNumberString() + MaOperationNode.ASSOC + _rateThis.getValue().toNumberString();
     }
 }

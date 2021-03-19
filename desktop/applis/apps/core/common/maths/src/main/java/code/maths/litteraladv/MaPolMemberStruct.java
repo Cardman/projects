@@ -43,6 +43,6 @@ public final class MaPolMemberStruct extends MaListNbStruct {
     }
 
     static String exportStr(Rate _rateThis, LgInt _powerThis) {
-        return _rateThis.toNumberString() + "<>" + _powerThis.toNumberString();
+        return _rateThis.toNumberString() + MaOperationNode.EVT + _powerThis.toNumberString();
     }
 }

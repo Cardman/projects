@@ -15,16 +15,16 @@ public final class SymbDoubleCaracFctMaOperation extends MethodMaOperation {
 
     @Override
     void calculate(StringMap<MaStruct> _conf, MaError _error, MaDelimiters _del) {
-        if (StringUtil.quickEq("<=", firstOper)&&StringUtil.quickEq("<=", secondOper)) {
+        if (StringUtil.quickEq(WIDE_BOUND, firstOper)&&StringUtil.quickEq(WIDE_BOUND, secondOper)) {
             segment(_error);
         }
-        if (StringUtil.quickEq("<", firstOper)&&StringUtil.quickEq("<", secondOper)) {
+        if (StringUtil.quickEq(STRICT_BOUND, firstOper)&&StringUtil.quickEq(STRICT_BOUND, secondOper)) {
             ouvert(_error);
         }
-        if (StringUtil.quickEq("<", firstOper)&&StringUtil.quickEq("<=", secondOper)) {
+        if (StringUtil.quickEq(STRICT_BOUND, firstOper)&&StringUtil.quickEq(WIDE_BOUND, secondOper)) {
             caracsemiouvertg(_error);
         }
-        if (StringUtil.quickEq("<=", firstOper)&&StringUtil.quickEq("<", secondOper)) {
+        if (StringUtil.quickEq(WIDE_BOUND, firstOper)&&StringUtil.quickEq(STRICT_BOUND, secondOper)) {
             caracsemiouvertd(_error);
         }
     }

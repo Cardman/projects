@@ -37,6 +37,6 @@ public final class MaEventFreqStruct extends MaListNbStruct {
     }
 
     static String exportStr(EventFreq<Rate> _pair) {
-        return _pair.getEvent().toNumberString() + "<>" + _pair.getFreq().toNumberString();
+        return _pair.getEvent().toNumberString() + MaOperationNode.EVT + _pair.getFreq().toNumberString();
     }
 }

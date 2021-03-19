@@ -31,6 +31,49 @@ public abstract class MaOperationNode {
     protected static final String DIFF = "!=";
 
     protected static final String OR = "|";
+    protected static final String REP = "&&";
+    protected static final String RAND = "?";
+    protected static final String STAT = "<>-|";
+    protected static final String POLYNOM_SYMB = ";";
+    protected static final String POLYGON_SYMBOL = "|||";
+    protected static final String FIRST_DELAUNAY = "%%";
+    protected static final String SECOND_DELAUNAY = "%%%";
+    protected static final String EQ_VAR = "=";
+    protected static final char DERIVE = '\'';
+    protected static final String SGN = "-";
+    protected static final String ABS = "|";
+    protected static final String COMPLEX = "//";
+    protected static final String NUM = "/0";
+    protected static final String DEN = "/1";
+    protected static final String ENT = "0/";
+    protected static final String TRONC = "1/";
+    protected static final String PREM = "/";
+    protected static final String DIVS = "||";
+    protected static final String DECOMP = "&";
+    protected static final String GRAV = "*";
+    protected static final String ID_MAT = "#";
+    protected static final String TRUE = "&";
+    protected static final String FALSE = "|";
+    protected static final String WIDE_BOUND = "<=";
+    protected static final String STRICT_BOUND = "<";
+    protected static final String RIGHT_OPEN = "==<";
+    protected static final String RIGHT_CLOSE = "==>";
+    protected static final String LEFT_OPEN = ">==";
+    protected static final String LEFT_CLOSE = "<==";
+    protected static final String QUOT = "/";
+    protected static final String MOD = "%";
+    protected static final String POW = "^";
+    protected static final String PARMI = "<=";
+    protected static final String BEZOUT = "/%";
+    protected static final String POINT = ".";
+    protected static final String EDGE = "-";
+    protected static final String FIRST_INTER = "^^";
+    protected static final String SECOND_INTER = "^^^";
+    protected static final String LINE_THREE = "-";
+    protected static final String ARR = "[";
+    protected static final String MATRIX = "{";
+    protected static final String ASSOC = "=>";
+    protected static final String EVT = "<>";
 //    protected static final String PUIS = "puis";
 //
 //    protected static final String QUOT = "quot";
@@ -134,11 +177,11 @@ public abstract class MaOperationNode {
             return new VectMaOperation(_index, _indexChild, _m, _op);
         }
         if (_op.getPrio() == MatCommonCst.ASS_PRIO) {
-            if (_op.getParts().size() == 2 && StringUtil.quickEq(_op.getOpers().firstValue(),"=>")) {
+            if (_op.getParts().size() == 2 && StringUtil.quickEq(_op.getOpers().firstValue(), ASSOC)) {
                 return new PolInterMaOperation(_index, _indexChild, _m, _op);
             }
             if (_op.getParts().size() == 2) {
-                if (_m instanceof SymbVarFctMaOperation && StringUtil.quickEq(((SymbVarFctMaOperation)_m).getOper(),";")) {
+                if (_m instanceof SymbVarFctMaOperation && StringUtil.quickEq(((SymbVarFctMaOperation)_m).getOper(),POLYNOM_SYMB)) {
                     return new PolMemMaOperation(_index, _indexChild, _m, _op);
                 }
                 return new EvMaOperation(_index, _indexChild, _m, _op);
@@ -194,7 +237,7 @@ public abstract class MaOperationNode {
 
     private static MethodMaOperation procFct(int _index, int _indexChild, MethodMaOperation _m, MaOperationsSequence _op, MaParameters _mapping) {
         if (_op.getFct().trim().isEmpty()) {
-            if (StringUtil.quickEq(_op.getOpers().firstValue(),"{")) {
+            if (StringUtil.quickEq(_op.getOpers().firstValue(), MATRIX)) {
                 return new MatrixMaOperation(_index, _indexChild, _m, _op);
             }
             return procSymb(_index, _indexChild, _m, _op,_mapping);
@@ -203,7 +246,7 @@ public abstract class MaOperationNode {
     }
 
     private static MethodMaOperation procSymb(int _index, int _indexChild, MethodMaOperation _m, MaOperationsSequence _op, MaParameters _mapping) {
-        if (StringUtil.quickEq(_op.getOpers().firstValue(),"[")) {
+        if (StringUtil.quickEq(_op.getOpers().firstValue(), ARR)) {
             return new ArrMaOperation(_index, _indexChild, _m, _op);
         }
         if (_op.getParts().size() == 2 && isAndOr(_op)) {
@@ -225,7 +268,7 @@ public abstract class MaOperationNode {
         if (_op.getParts().size() == 4 && isPairSymbol(_op)) {
             return new SymbCaracFctMaOperation(_index, _indexChild, _m, _op);
         }
-        if (_op.getParts().size() == 5 && StringUtil.quickEq(_op.getParts().lastValue().trim(),"-")){
+        if (_op.getParts().size() == 5 && StringUtil.quickEq(_op.getParts().lastValue().trim(), LINE_THREE)){
             return new SymbTerFctMaOperation(_index, _indexChild, _m, _op);
         }
         if (_op.getParts().size() == 6 && areBinarySymbols(_op)) {
@@ -330,31 +373,31 @@ public abstract class MaOperationNode {
 
     private static boolean isVarSymbol(MaOperationsSequence _op) {
         String valTwo_ = _op.getParts().lastValue().trim();
-        return algebreVar(valTwo_)|| StringUtil.quickEq(valTwo_, "|||")|| StringUtil.quickEq(valTwo_, "%%")|| StringUtil.quickEq(valTwo_, "%%%");
+        return algebreVar(valTwo_)|| StringUtil.quickEq(valTwo_, POLYGON_SYMBOL)|| StringUtil.quickEq(valTwo_, FIRST_DELAUNAY)|| StringUtil.quickEq(valTwo_, SECOND_DELAUNAY);
     }
 
     private static boolean algebreVar(String _var) {
         return classicVar(_var)
-                || StringUtil.quickEq(_var, "<>-|")
-                || StringUtil.quickEq(_var, "=");
+                || StringUtil.quickEq(_var, STAT)
+                || StringUtil.quickEq(_var, EQ_VAR);
     }
 
     private static boolean classicVar(String _var) {
-        return StringUtil.quickEq(_var, ";")
-                || StringUtil.quickEq(_var, "&&")
-                || StringUtil.quickEq(_var, "?");
+        return StringUtil.quickEq(_var, POLYNOM_SYMB)
+                || StringUtil.quickEq(_var, REP)
+                || StringUtil.quickEq(_var, RAND);
     }
 
     private static boolean isPairSymbol(MaOperationsSequence _op) {
         String valTwo_ = _op.getParts().lastValue().trim();
-        return StringUtil.quickEq(valTwo_,"<==")
-                ||StringUtil.quickEq(valTwo_,"==>")
-                ||StringUtil.quickEq(valTwo_,"==<")
-                ||StringUtil.quickEq(valTwo_,">==");
+        return StringUtil.quickEq(valTwo_,LEFT_OPEN)
+                ||StringUtil.quickEq(valTwo_,LEFT_CLOSE)
+                ||StringUtil.quickEq(valTwo_,RIGHT_OPEN)
+                ||StringUtil.quickEq(valTwo_,RIGHT_CLOSE);
     }
 
     private static boolean isCmpSymbol(String _val) {
-        return StringUtil.quickEq(_val, "<") || StringUtil.quickEq(_val, "<=");
+        return StringUtil.quickEq(_val, STRICT_BOUND) || StringUtil.quickEq(_val, WIDE_BOUND);
     }
     private static boolean isBinSymbol(MaOperationsSequence _op) {
         String val_ = _op.getParts().lastValue().trim();
@@ -362,30 +405,30 @@ public abstract class MaOperationNode {
     }
 
     private static boolean geoBin(String _val) {
-        return StringUtil.quickEq(_val, ".")
-                ||StringUtil.quickEq(_val, "-")
-                ||StringUtil.quickEq(_val, "^^")
-                ||StringUtil.quickEq(_val, "^^^");
+        return StringUtil.quickEq(_val, POINT)
+                ||StringUtil.quickEq(_val, EDGE)
+                ||StringUtil.quickEq(_val, FIRST_INTER)
+                ||StringUtil.quickEq(_val, SECOND_INTER);
     }
 
     private static boolean algebreBin(String _val) {
         return divmod(_val)
-                || StringUtil.quickEq(_val, "^") || StringUtil.quickEq(_val, "<=")
-                || StringUtil.quickEq(_val, "/%");
+                || StringUtil.quickEq(_val, POW) || StringUtil.quickEq(_val, PARMI)
+                || StringUtil.quickEq(_val, BEZOUT);
     }
 
     private static boolean divmod(String _val) {
-        return StringUtil.quickEq(_val, "/") || StringUtil.quickEq(_val, "%");
+        return StringUtil.quickEq(_val, QUOT) || StringUtil.quickEq(_val, MOD);
     }
     private static boolean isUnarySymbol(MaOperationsSequence _op) {
         String val_ = _op.getParts().lastValue().trim();
-        return algebreUn(val_) || StringUtil.quickEq("*", val_);
+        return algebreUn(val_) || StringUtil.quickEq(GRAV, val_);
     }
 
     private static boolean algebreUn(String _val) {
         return nbOp(_val) || arith(_val)
                 || containsOnlySimpleQuotes(_val) > 0
-                || StringUtil.quickEq("#", _val);
+                || StringUtil.quickEq(ID_MAT, _val);
     }
 
     private static boolean nbOp(String _val) {
@@ -403,7 +446,7 @@ public abstract class MaOperationNode {
         }
         int count_ = 0;
         for (char c: _val.toCharArray()) {
-            if (c != '\'') {
+            if (c != DERIVE) {
                 return -1;
             }
             count_++;
@@ -412,23 +455,23 @@ public abstract class MaOperationNode {
     }
 
     private static boolean nbPartSymbolSgn(String _val) {
-        return StringUtil.quickEq(_val, "-") || StringUtil.quickEq(_val, "|");
+        return StringUtil.quickEq(_val, SGN) || StringUtil.quickEq(_val, ABS);
     }
     private static boolean nbPartSymbol(String _val) {
-        return StringUtil.quickEq(_val, "/0") || StringUtil.quickEq(_val, "/1");
+        return StringUtil.quickEq(_val, NUM) || StringUtil.quickEq(_val, DEN);
     }
 
     private static boolean nbDecSymbol(String _val) {
-        return StringUtil.quickEq(_val, "0/") || StringUtil.quickEq(_val, "1/");
+        return StringUtil.quickEq(_val, ENT) || StringUtil.quickEq(_val, TRONC);
     }
 
     private static boolean arith(String _val) {
-        return StringUtil.quickEq(_val, "/") || StringUtil.quickEq(_val, "//") || StringUtil.quickEq(_val, "||") || StringUtil.quickEq(_val, "&");
+        return StringUtil.quickEq(_val, PREM) || StringUtil.quickEq(_val, COMPLEX) || StringUtil.quickEq(_val, DIVS) || StringUtil.quickEq(_val, DECOMP);
     }
 
     private static boolean isAndOr(MaOperationsSequence _op) {
         String val_ = _op.getParts().lastValue().trim();
-        return StringUtil.quickEq(val_,"&") || StringUtil.quickEq(val_,"|");
+        return StringUtil.quickEq(val_,TRUE) || StringUtil.quickEq(val_,FALSE);
     }
 
     protected void processRatesPol(MaError _error, MaFractPolStruct _first, MaStruct _second, int _index) {

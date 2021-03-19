@@ -24,31 +24,31 @@ public final class SymbBinFctMaOperation extends MethodMaOperation {
 
     @Override
     void calculate(StringMap<MaStruct> _conf, MaError _error, MaDelimiters _del) {
-        if (StringUtil.quickEq(oper,"/")) {
+        if (StringUtil.quickEq(oper, QUOT)) {
             procQuot(_error);
         }
-        if (StringUtil.quickEq(oper,"%")) {
+        if (StringUtil.quickEq(oper, MOD)) {
             procMod(_error);
         }
-        if (StringUtil.quickEq(oper,"^")) {
+        if (StringUtil.quickEq(oper, POW)) {
             procPower(_error);
         }
-        if (StringUtil.quickEq(oper,"<=")) {
+        if (StringUtil.quickEq(oper, PARMI)) {
             procParmi(_error);
         }
-        if (StringUtil.quickEq(oper,"/%")) {
+        if (StringUtil.quickEq(oper, BEZOUT)) {
             procBezout(_error);
         }
-        if (StringUtil.quickEq(oper,".")) {
+        if (StringUtil.quickEq(oper, POINT)) {
             procPoint(_error);
         }
-        if (StringUtil.quickEq(oper,"-")) {
+        if (StringUtil.quickEq(oper, EDGE)) {
             procEdge(_error);
         }
-        if (StringUtil.quickEq(oper,"^^")) {
+        if (StringUtil.quickEq(oper, FIRST_INTER)) {
             procEdgesNotContains(_error);
         }
-        if (StringUtil.quickEq(oper,"^^^")) {
+        if (StringUtil.quickEq(oper, SECOND_INTER)) {
             intersectNotContainsBound(_error);
         }
     }

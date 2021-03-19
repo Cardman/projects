@@ -45,6 +45,6 @@ public final class MaPolygonStruct implements MaAddonStruct {
         for (RatePoint r: points_) {
             parts_.add(MaRatePointStruct.displayRsult(r));
         }
-        return "("+ StringUtil.join(parts_,",")+",|||)";
+        return "("+ StringUtil.join(parts_,",")+","+MaOperationNode.POLYGON_SYMBOL+")";
     }
 }

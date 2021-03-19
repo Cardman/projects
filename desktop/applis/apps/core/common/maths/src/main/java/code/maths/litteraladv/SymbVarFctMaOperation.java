@@ -27,28 +27,28 @@ public final class SymbVarFctMaOperation extends MethodMaOperation  {
 
     @Override
     void calculate(StringMap<MaStruct> _conf, MaError _error, MaDelimiters _del) {
-        if (StringUtil.quickEq("&&", oper)) {
+        if (StringUtil.quickEq(REP, oper)) {
             procRep(_error);
         }
-        if (StringUtil.quickEq("?", oper)) {
+        if (StringUtil.quickEq(RAND, oper)) {
             procAlea(_error);
         }
-        if (StringUtil.quickEq("<>-|", oper)) {
+        if (StringUtil.quickEq(STAT, oper)) {
             procStat(_error);
         }
-        if (StringUtil.quickEq(";", oper)) {
+        if (StringUtil.quickEq(POLYNOM_SYMB, oper)) {
             procPolynom(_error);
         }
-        if (StringUtil.quickEq("|||", oper)) {
+        if (StringUtil.quickEq(POLYGON_SYMBOL, oper)) {
             procPolygon(_error);
         }
-        if (StringUtil.quickEq("%%", oper)) {
+        if (StringUtil.quickEq(FIRST_DELAUNAY, oper)) {
             procDelaunay(_error,false);
         }
-        if (StringUtil.quickEq("%%%", oper)) {
+        if (StringUtil.quickEq(SECOND_DELAUNAY, oper)) {
             procDelaunay(_error,true);
         }
-        if (StringUtil.quickEq("=", oper)) {
+        if (StringUtil.quickEq(EQ_VAR, oper)) {
             procEq(_error);
         }
     }
