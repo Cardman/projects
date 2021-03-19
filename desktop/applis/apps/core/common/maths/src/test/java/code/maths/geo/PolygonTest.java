@@ -403,6 +403,35 @@ public class PolygonTest extends EquallableMathUtil {
     }
 
     @Test
+    public void getTriangles7Test() {
+        Polygon p_ = new Polygon();
+        p_.add(pt(0, 0));
+        p_.add(pt(2, 0));
+        p_.add(pt(1, 1));
+        p_.add(pt(2, 2));
+        p_.add(pt(0, 2));
+        CustList<Triangle> t_ = p_.getTriangles();
+        assertEq(1, t_.size());
+        assertEq(pt(2, 2), t_.get(0).getFirstPoint());
+        assertEq(pt(1, 1), t_.get(0).getSecondPoint());
+        assertEq(pt(2, 0), t_.get(0).getThirdPoint());
+    }
+
+    @Test
+    public void getTriangles8Test() {
+        Polygon p_ = new Polygon();
+        p_.add(pt(0, 0));
+        p_.add(pt(0, 2));
+        p_.add(pt(2, 2));
+        p_.add(pt(1, 1));
+        p_.add(pt(2, 0));
+        CustList<Triangle> t_ = p_.getTriangles();
+        assertEq(1, t_.size());
+        assertEq(pt(2, 2), t_.get(0).getFirstPoint());
+        assertEq(pt(1, 1), t_.get(0).getSecondPoint());
+        assertEq(pt(2, 0), t_.get(0).getThirdPoint());
+    }
+    @Test
     public void containsInside1Test() {
         Polygon p_ = new Polygon();
         p_.add(pt(0, 0));
