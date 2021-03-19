@@ -250,12 +250,20 @@ public abstract class MaOperationNode {
         return (MaRateStruct)_str;
     }
 
-    protected static boolean areTwoPols(CustList<MaFractPolStruct> _rates) {
-        return areAllPolsNb(_rates, 2);
+    protected static MaFractPolStruct asPol(MaStruct _str) {
+        MaFractPolStruct rate_ = asFract(_str);
+        if (rate_ == null) {
+            return null;
+        }
+        if (!rate_.getFractPol().isInteger()) {
+            return null;
+        }
+        return rate_;
     }
-    protected static boolean areAllPolsNb(CustList<MaFractPolStruct> _rates, int _count) {
-        return _rates.size() == _count && areAllPols(_rates);
+    protected static MaFractPolStruct asFract(MaStruct _str) {
+        return MaFractPolStruct.wrapOrNull(_str);
     }
+
     protected static CustList<MaDecompositionNbStruct> tryGetDecompNb(MethodMaOperation _parent) {
         CustList<MaDecompositionNbStruct> rates_ = new CustList<MaDecompositionNbStruct>();
         int len_ = _parent.getChildren().size();
@@ -276,18 +284,7 @@ public abstract class MaOperationNode {
         }
         return rates_;
     }
-    protected static CustList<MaRateStruct> tryGetAllAsRate(MethodMaOperation _current) {
-        int len_ = _current.getChildren().size();
-        CustList<MaRateStruct> rates_ = new CustList<MaRateStruct>();
-        for (int i = 0; i < len_; i++) {
-            MaStruct str_ = MaNumParsers.tryGet(_current, i);
-            if (!(str_ instanceof MaRateStruct)) {
-                return null;
-            }
-            rates_.add((MaRateStruct)str_);
-        }
-        return rates_;
-    }
+
     protected static CustList<MaMatrixStruct> tryGetAllAsMatrix(MethodMaOperation _current) {
         int len_ = _current.getChildren().size();
         CustList<MaMatrixStruct> rates_ = new CustList<MaMatrixStruct>();
@@ -360,19 +357,7 @@ public abstract class MaOperationNode {
         }
         return rates_;
     }
-    protected static CustList<MaFractPolStruct> tryGetAllAsFractPol(MethodMaOperation _current) {
-        int len_ = _current.getChildren().size();
-        CustList<MaFractPolStruct> rates_ = new CustList<MaFractPolStruct>();
-        for (int i = 0; i < len_; i++) {
-            MaStruct str_ = MaNumParsers.tryGet(_current, i);
-            MaFractPolStruct fract_ = MaFractPolStruct.wrapOrNull(str_);
-            if (fract_ == null) {
-                return null;
-            }
-            rates_.add(fract_);
-        }
-        return rates_;
-    }
+
     protected static CustList<MaRatePointStruct> tryGetAllAsPt(MethodMaOperation _current) {
         int len_ = _current.getChildren().size();
         CustList<MaRatePointStruct> rates_ = new CustList<MaRatePointStruct>();
@@ -386,14 +371,6 @@ public abstract class MaOperationNode {
         return rates_;
     }
 
-    protected static boolean areAllPols(CustList<MaFractPolStruct> _list) {
-        for (MaFractPolStruct r: _list) {
-            if (!r.getFractPol().isInteger()) {
-                return false;
-            }
-        }
-        return true;
-    }
     private static boolean areBinarySymbols(MaOperationsSequence _op) {
         int size_ = _op.getParts().size();
         String val_ = _op.getParts().getValue(size_-2).trim();
@@ -505,18 +482,6 @@ public abstract class MaOperationNode {
         return StringUtil.quickEq(val_,"&") || StringUtil.quickEq(val_,"|");
     }
 
-    static CustList<MaFractPolStruct> tryGetFracts(MethodMaOperation _current) {
-        CustList<MaFractPolStruct> rates_ = new CustList<MaFractPolStruct>();
-        int len_ = _current.getChildren().size();
-        for (int i = 0; i < len_; i++) {
-            MaStruct str_ = MaNumParsers.tryGet(_current, i);
-            MaFractPolStruct f_ = MaFractPolStruct.wrapOrNull(str_);
-            if (f_ != null) {
-                rates_.add(f_);
-            }
-        }
-        return rates_;
-    }
     protected void processRatesPol(MaError _error, MaFractPolStruct _first, MaStruct _second, int _index) {
         if (_first.getFractPol().isInteger() && _second instanceof MaRateStruct) {
             MaRateStruct second_ = (MaRateStruct) _second;

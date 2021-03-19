@@ -2,7 +2,6 @@ package code.maths.litteraladv;
 
 import code.maths.litteralcom.MathExpUtil;
 import code.maths.litteralcom.StrTypes;
-import code.util.CustList;
 import code.util.StringMap;
 import code.util.core.StringUtil;
 
@@ -31,40 +30,52 @@ public final class SymbCaracFctMaOperation extends MethodMaOperation {
     }
 
     private void caracdroiteouvert(MaError _error) {
-        CustList<MaRateStruct> values_ = tryGetAllAsRate(this);
-        if (values_ != null) {
-            setStruct(new MaRateStruct(MathExpUtil.caracdroiteouvert(values_.get(0).getRate(),
-                    values_.get(1).getRate())));
+        MaStruct firstVal_ = MaNumParsers.tryGet(this, 0);
+        MaStruct secondVal_ = MaNumParsers.tryGet(this, 1);
+        MaRateStruct firstRate_ = asRate(firstVal_);
+        MaRateStruct secondRate_ = asRate(secondVal_);
+        if (firstRate_ != null&&secondRate_!=null) {
+            setStruct(new MaRateStruct(MathExpUtil.caracdroiteouvert(firstRate_.getRate(),
+                    secondRate_.getRate())));
         } else {
             _error.setOffset(getIndexExp()+operOff);
         }
     }
 
     private void caracdroiteferme(MaError _error) {
-        CustList<MaRateStruct> values_ = tryGetAllAsRate(this);
-        if (values_ != null) {
-            setStruct(new MaRateStruct(MathExpUtil.caracdroiteferme(values_.get(0).getRate(),
-                    values_.get(1).getRate())));
+        MaStruct firstVal_ = MaNumParsers.tryGet(this, 0);
+        MaStruct secondVal_ = MaNumParsers.tryGet(this, 1);
+        MaRateStruct firstRate_ = asRate(firstVal_);
+        MaRateStruct secondRate_ = asRate(secondVal_);
+        if (firstRate_ != null&&secondRate_!=null) {
+            setStruct(new MaRateStruct(MathExpUtil.caracdroiteferme(firstRate_.getRate(),
+                    secondRate_.getRate())));
         } else {
             _error.setOffset(getIndexExp()+operOff);
         }
     }
 
     private void caracgaucheouvert(MaError _error) {
-        CustList<MaRateStruct> values_ = tryGetAllAsRate(this);
-        if (values_ != null) {
-            setStruct(new MaRateStruct(MathExpUtil.caracgaucheouvert(values_.get(0).getRate(),
-                    values_.get(1).getRate())));
+        MaStruct firstVal_ = MaNumParsers.tryGet(this, 0);
+        MaStruct secondVal_ = MaNumParsers.tryGet(this, 1);
+        MaRateStruct firstRate_ = asRate(firstVal_);
+        MaRateStruct secondRate_ = asRate(secondVal_);
+        if (firstRate_ != null&&secondRate_!=null) {
+            setStruct(new MaRateStruct(MathExpUtil.caracgaucheouvert(firstRate_.getRate(),
+                    secondRate_.getRate())));
         } else {
             _error.setOffset(getIndexExp()+operOff);
         }
     }
 
     private void caracgaucheferme(MaError _error) {
-        CustList<MaRateStruct> values_ = tryGetAllAsRate(this);
-        if (values_ != null) {
-            setStruct(new MaRateStruct(MathExpUtil.caracgaucheferme(values_.get(0).getRate(),
-                    values_.get(1).getRate())));
+        MaStruct firstVal_ = MaNumParsers.tryGet(this, 0);
+        MaStruct secondVal_ = MaNumParsers.tryGet(this, 1);
+        MaRateStruct firstRate_ = asRate(firstVal_);
+        MaRateStruct secondRate_ = asRate(secondVal_);
+        if (firstRate_ != null&&secondRate_!=null) {
+            setStruct(new MaRateStruct(MathExpUtil.caracgaucheferme(firstRate_.getRate(),
+                    secondRate_.getRate())));
         } else {
             _error.setOffset(getIndexExp()+operOff);
         }

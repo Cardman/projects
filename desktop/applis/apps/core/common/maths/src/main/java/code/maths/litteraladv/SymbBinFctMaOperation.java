@@ -69,10 +69,11 @@ public final class SymbBinFctMaOperation extends MethodMaOperation {
             }
             return;
         }
-        CustList<MaFractPolStruct> fractPols_ = tryGetFracPols();
-        if (areTwoPols(fractPols_)) {
-            Polynom quot_= fractPols_.first().getFractPol().intPart();
-            Polynom div_= fractPols_.last().getFractPol().intPart();
+        MaFractPolStruct firstPol_ = asPol(firstVal_);
+        MaFractPolStruct secondPol_ = asPol(secondVal_);
+        if (firstPol_ != null && secondPol_ != null) {
+            Polynom quot_= firstPol_.getFractPol().intPart();
+            Polynom div_= secondPol_.getFractPol().intPart();
             if (div_.isZero()) {
                 _error.setOffset(getIndexExp()+operOff);
             } else {
@@ -109,13 +110,16 @@ public final class SymbBinFctMaOperation extends MethodMaOperation {
             procModRate(_error, firstRate_, secondRate_);
             return;
         }
-        CustList<MaFractPolStruct> fractPols_ = tryGetFracPols();
-        if (areTwoPols(fractPols_)) {
-            procModPol(_error, fractPols_);
+        MaFractPolStruct firstPol_ = asPol(firstVal_);
+        MaFractPolStruct secondPol_ = asPol(secondVal_);
+        if (firstPol_ != null && secondPol_ != null) {
+            procModPol(_error, firstPol_, secondPol_);
             return;
         }
-        if (fractPols_.size() == 2) {
-            procModFract(_error, fractPols_);
+        MaFractPolStruct firstFract_ = asFract(firstVal_);
+        MaFractPolStruct secondFract_ = asFract(secondVal_);
+        if (firstFract_ != null && secondFract_ != null) {
+            procModFract(_error, firstFract_, secondFract_);
             return;
         }
         _error.setOffset(getIndexExp()+operOff);
@@ -141,9 +145,9 @@ public final class SymbBinFctMaOperation extends MethodMaOperation {
         }
     }
 
-    private void procModPol(MaError _error, CustList<MaFractPolStruct> _fractPols) {
-        Polynom quot_= _fractPols.first().getFractPol().intPart();
-        Polynom div_= _fractPols.last().getFractPol().intPart();
+    private void procModPol(MaError _error, MaFractPolStruct _first, MaFractPolStruct _second) {
+        Polynom quot_= _first.getFractPol().intPart();
+        Polynom div_= _second.getFractPol().intPart();
         if (div_.isZero()) {
             _error.setOffset(getIndexExp()+operOff);
         } else {
@@ -151,9 +155,9 @@ public final class SymbBinFctMaOperation extends MethodMaOperation {
         }
     }
 
-    private void procModFract(MaError _error, CustList<MaFractPolStruct> _fractPols) {
-        FractPol quot_= _fractPols.first().getFractPol();
-        FractPol div_= _fractPols.last().getFractPol();
+    private void procModFract(MaError _error, MaFractPolStruct _first, MaFractPolStruct _second) {
+        FractPol quot_= _first.getFractPol();
+        FractPol div_= _second.getFractPol();
         if (div_.isZero()) {
             _error.setOffset(getIndexExp()+operOff);
         } else {
@@ -272,10 +276,11 @@ public final class SymbBinFctMaOperation extends MethodMaOperation {
             setStruct(new MaBezoutNbStruct(LgInt.identiteBezoutPgcdPpcm(quot_,div_)));
             return;
         }
-        CustList<MaFractPolStruct> fractPols_ = tryGetFracPols();
-        if (areTwoPols(fractPols_)) {
-            Polynom quot_= fractPols_.first().getFractPol().intPart();
-            Polynom div_= fractPols_.last().getFractPol().intPart();
+        MaFractPolStruct firstPol_ = asPol(firstVal_);
+        MaFractPolStruct secondPol_ = asPol(secondVal_);
+        if (firstPol_ != null && secondPol_ != null) {
+            Polynom quot_= firstPol_.getFractPol().intPart();
+            Polynom div_= secondPol_.getFractPol().intPart();
             setStruct(new MaBezoutPolStruct(Polynom.idBezoutPgcdPpcm(quot_,div_)));
             return;
         }
@@ -397,18 +402,6 @@ public final class SymbBinFctMaOperation extends MethodMaOperation {
             MaStruct str_ = MaNumParsers.tryGet(this, i);
             if (str_ instanceof MaRateStruct) {
                 rates_.add((MaRateStruct)str_);
-            }
-        }
-        return rates_;
-    }
-    CustList<MaFractPolStruct> tryGetFracPols() {
-        CustList<MaFractPolStruct> rates_ = new CustList<MaFractPolStruct>();
-        int len_ = getChildren().size();
-        for (int i = 0; i < len_; i++) {
-            MaStruct str_ = MaNumParsers.tryGet(this, i);
-            MaFractPolStruct wr_ = MaFractPolStruct.wrapOrNull(str_);
-            if (wr_ != null) {
-                rates_.add(wr_);
             }
         }
         return rates_;

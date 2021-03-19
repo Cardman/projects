@@ -14,14 +14,20 @@ public final class VectMaOperation extends MethodMaOperation {
 
     @Override
     void calculate(StringMap<MaStruct> _conf, MaError _error, MaDelimiters _del) {
-        CustList<MaStruct> values_ = tryGetAll(this);
-        int firstIndex_ = firstIndex(values_);
-        CustList<MaRateStruct> rates_ = tryGetAllAsRate(this);
-        if (rates_ == null) {
-            rates_ = new CustList<MaRateStruct>();
+        int len_ = getChildren().size();
+        CustList<MaRateStruct> rates_ = new CustList<MaRateStruct>();
+        int index_ = -1;
+        for (int i = 0; i < len_; i++) {
+            MaStruct str_ = MaNumParsers.tryGet(this, i);
+            if (!(str_ instanceof MaRateStruct)) {
+                index_ = i;
+                rates_.clear();
+                break;
+            }
+            rates_.add((MaRateStruct)str_);
         }
         if (rates_.isEmpty()) {
-            _error.setOffset(getIndexExp()+ StrTypes.offset(getOperats().getParts(),firstIndex_));
+            _error.setOffset(getIndexExp()+ StrTypes.offset(getOperats().getParts(),index_));
             return;
         }
         CustList<Rate> val_ = new CustList<Rate>(new CollCapacity(rates_.size()));
@@ -29,23 +35,6 @@ public final class VectMaOperation extends MethodMaOperation {
             val_.add(r.getRate());
         }
         setStruct(new MaVectStruct(new Vect(val_)));
-    }
-
-    private static int firstIndex(CustList<MaStruct> _values) {
-        int index_ = -1;
-        int ind_ = 0;
-        for (MaStruct m: _values) {
-            if (koNb(m)) {
-                index_ = ind_;
-                break;
-            }
-            ind_++;
-        }
-        return index_;
-    }
-
-    private static boolean koNb(MaStruct _m) {
-        return !(_m instanceof MaRateStruct);
     }
 
     @Override

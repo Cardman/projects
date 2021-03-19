@@ -119,9 +119,10 @@ public final class SymbUnFctMaOperation extends MethodMaOperation {
     }
 
     private void procSgn(MaError _error) {
-        CustList<MaRateStruct> valRates_ = tryGetAllAsRate(this);
-        if (valRates_ != null) {
-            Rate nb_= valRates_.first().getRate();
+        MaStruct val_ = MaNumParsers.tryGet(this, 0);
+        MaRateStruct rt_ = asRate(val_);
+        if (rt_ != null) {
+            Rate nb_= rt_.getRate();
             setStruct(new MaRateStruct(nb_.signum()));
             return;
         }
@@ -154,9 +155,10 @@ public final class SymbUnFctMaOperation extends MethodMaOperation {
     }
 
     private void procAbs(MaError _error) {
-        CustList<MaRateStruct> valRates_ = tryGetAllAsRate(this);
-        if (valRates_ != null) {
-            Rate nb_= valRates_.first().getRate();
+        MaStruct val_ = MaNumParsers.tryGet(this, 0);
+        MaRateStruct rt_ = asRate(val_);
+        if (rt_ != null) {
+            Rate nb_= rt_.getRate();
             setStruct(new MaRateStruct(nb_.absNb()));
             return;
         }
@@ -198,15 +200,16 @@ public final class SymbUnFctMaOperation extends MethodMaOperation {
         _error.setOffset(getIndexExp()+operOff);
     }
     private void procNum(MaError _error) {
-        CustList<MaRateStruct> valRates_ = tryGetAllAsRate(this);
-        if (valRates_ != null) {
-            Rate nb_= valRates_.first().getRate();
+        MaStruct val_ = MaNumParsers.tryGet(this, 0);
+        MaRateStruct rt_ = asRate(val_);
+        if (rt_ != null) {
+            Rate nb_= rt_.getRate();
             setStruct(new MaRateStruct(new Rate(nb_.getNumerator())));
             return;
         }
-        CustList<MaFractPolStruct> valFracts_ = tryGetAllAsFractPol(this);
-        if (valFracts_ != null) {
-            FractPol nb_= valFracts_.first().getFractPol();
+        MaFractPolStruct fract_ = asFract(val_);
+        if (fract_ != null) {
+            FractPol nb_= fract_.getFractPol();
             setStruct(new MaPolynomStruct(nb_.getNumerator()));
             return;
         }
@@ -214,15 +217,16 @@ public final class SymbUnFctMaOperation extends MethodMaOperation {
     }
 
     private void procDen(MaError _error) {
-        CustList<MaRateStruct> valRates_ = tryGetAllAsRate(this);
-        if (valRates_ != null) {
-            Rate nb_= valRates_.first().getRate();
+        MaStruct val_ = MaNumParsers.tryGet(this, 0);
+        MaRateStruct rt_ = asRate(val_);
+        if (rt_ != null) {
+            Rate nb_= rt_.getRate();
             setStruct(new MaRateStruct(new Rate(nb_.getDenominator())));
             return;
         }
-        CustList<MaFractPolStruct> valFracts_ = tryGetAllAsFractPol(this);
-        if (valFracts_ != null) {
-            FractPol nb_= valFracts_.first().getFractPol();
+        MaFractPolStruct fract_ = asFract(val_);
+        if (fract_ != null) {
+            FractPol nb_= fract_.getFractPol();
             setStruct(new MaPolynomStruct(nb_.getDenominator()));
             return;
         }
@@ -230,15 +234,16 @@ public final class SymbUnFctMaOperation extends MethodMaOperation {
     }
 
     private void procEnt(MaError _error) {
-        CustList<MaRateStruct> valRates_ = tryGetAllAsRate(this);
-        if (valRates_ != null) {
-            Rate nb_= valRates_.first().getRate();
+        MaStruct val_ = MaNumParsers.tryGet(this, 0);
+        MaRateStruct rt_ = asRate(val_);
+        if (rt_ != null) {
+            Rate nb_= rt_.getRate();
             setStruct(new MaRateStruct(new Rate(nb_.intPart())));
             return;
         }
-        CustList<MaFractPolStruct> valFracts_ = tryGetAllAsFractPol(this);
-        if (valFracts_ != null) {
-            FractPol nb_= valFracts_.first().getFractPol();
+        MaFractPolStruct fract_ = asFract(val_);
+        if (fract_ != null) {
+            FractPol nb_= fract_.getFractPol();
             setStruct(new MaPolynomStruct(nb_.intPart()));
             return;
         }
@@ -246,9 +251,10 @@ public final class SymbUnFctMaOperation extends MethodMaOperation {
     }
 
     private void procTroncature(MaError _error) {
-        CustList<MaRateStruct> valRates_ = tryGetAllAsRate(this);
-        if (valRates_ != null) {
-            Rate nb_= valRates_.first().getRate();
+        MaStruct val_ = MaNumParsers.tryGet(this, 0);
+        MaRateStruct rt_ = asRate(val_);
+        if (rt_ != null) {
+            Rate nb_= rt_.getRate();
             setStruct(new MaRateStruct(new Rate(nb_.toLgInt())));
             return;
         }
@@ -299,9 +305,9 @@ public final class SymbUnFctMaOperation extends MethodMaOperation {
             setStruct(new MaDividersNbStruct(nb_.intPart().getDividers()));
             return;
         }
-        CustList<MaFractPolStruct> fracts_ = tryGetFracts(this);
-        if (areAllPolsNb(fracts_,1)) {
-            FractPol nb_= fracts_.first().getFractPol();
+        MaFractPolStruct polVal_ = asPol(val_);
+        if (polVal_ != null) {
+            FractPol nb_= polVal_.getFractPol();
             setStruct(new MaDividersPolStruct(nb_.intPart().factor()));
             return;
         }
@@ -328,9 +334,9 @@ public final class SymbUnFctMaOperation extends MethodMaOperation {
             setStruct(new MaDecompositionNbStruct(nb_.intPart().decompoPrim()));
             return;
         }
-        CustList<MaFractPolStruct> fracts_ = tryGetFracts(this);
-        if (areAllPolsNb(fracts_,1)) {
-            FractPol nb_= fracts_.first().getFractPol();
+        MaFractPolStruct polVal_ = asPol(val_);
+        if (polVal_ != null) {
+            FractPol nb_= polVal_.getFractPol();
             setStruct(new MaDecompositionPolStruct(nb_.intPart().racines()));
             return;
         }
@@ -351,9 +357,10 @@ public final class SymbUnFctMaOperation extends MethodMaOperation {
     }
 
     private void procDerive(MaError _error, int _der) {
-        CustList<MaFractPolStruct> fracts_ = tryGetFracts(this);
-        if (fracts_.size() == 1) {
-            FractPol nb_= fracts_.first().getFractPol();
+        MaStruct val_ = MaNumParsers.tryGet(this, 0);
+        MaFractPolStruct fract_ = asFract(val_);
+        if (fract_ != null) {
+            FractPol nb_= fract_.getFractPol();
             for (int i = 0; i < _der; i++) {
                 nb_ = nb_.derivee();
             }

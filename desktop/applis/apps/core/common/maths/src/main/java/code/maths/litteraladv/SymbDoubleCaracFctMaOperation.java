@@ -2,7 +2,6 @@ package code.maths.litteraladv;
 
 import code.maths.litteralcom.MathExpUtil;
 import code.maths.litteralcom.StrTypes;
-import code.util.CustList;
 import code.util.StringMap;
 import code.util.core.StringUtil;
 
@@ -31,44 +30,64 @@ public final class SymbDoubleCaracFctMaOperation extends MethodMaOperation {
     }
 
     private void segment(MaError _error) {
-        CustList<MaRateStruct> values_ = tryGetAllAsRate(this);
-        if (values_ != null) {
-            setStruct(new MaRateStruct(MathExpUtil.segment(values_.get(0).getRate(),
-                    values_.get(1).getRate(),
-                    values_.get(2).getRate())));
+        MaStruct firstVal_ = MaNumParsers.tryGet(this, 0);
+        MaStruct secondVal_ = MaNumParsers.tryGet(this, 1);
+        MaStruct thirdVal_ = MaNumParsers.tryGet(this, 2);
+        MaRateStruct firstInt_ = asRate(firstVal_);
+        MaRateStruct secondInt_ = asRate(secondVal_);
+        MaRateStruct thirdInt_ = asRate(thirdVal_);
+        if (firstInt_ != null && secondInt_ != null && thirdInt_ != null) {
+            setStruct(new MaRateStruct(MathExpUtil.segment(firstInt_.getRate(),
+                    secondInt_.getRate(),
+                    thirdInt_.getRate())));
         } else {
             _error.setOffset(getIndexExp()+operOff);
         }
     }
 
     private void ouvert(MaError _error) {
-        CustList<MaRateStruct> values_ = tryGetAllAsRate(this);
-        if (values_ != null) {
-            setStruct(new MaRateStruct(MathExpUtil.caracouvert(values_.get(0).getRate(),
-                    values_.get(1).getRate(),
-                    values_.get(2).getRate())));
+        MaStruct firstVal_ = MaNumParsers.tryGet(this, 0);
+        MaStruct secondVal_ = MaNumParsers.tryGet(this, 1);
+        MaStruct thirdVal_ = MaNumParsers.tryGet(this, 2);
+        MaRateStruct firstInt_ = asRate(firstVal_);
+        MaRateStruct secondInt_ = asRate(secondVal_);
+        MaRateStruct thirdInt_ = asRate(thirdVal_);
+        if (firstInt_ != null && secondInt_ != null && thirdInt_ != null) {
+            setStruct(new MaRateStruct(MathExpUtil.caracouvert(firstInt_.getRate(),
+                    secondInt_.getRate(),
+                    thirdInt_.getRate())));
         } else {
             _error.setOffset(getIndexExp()+operOff);
         }
     }
 
     private void caracsemiouvertg(MaError _error) {
-        CustList<MaRateStruct> values_ = tryGetAllAsRate(this);
-        if (values_ != null) {
-            setStruct(new MaRateStruct(MathExpUtil.caracsemiouvertg(values_.get(0).getRate(),
-                    values_.get(1).getRate(),
-                    values_.get(2).getRate())));
+        MaStruct firstVal_ = MaNumParsers.tryGet(this, 0);
+        MaStruct secondVal_ = MaNumParsers.tryGet(this, 1);
+        MaStruct thirdVal_ = MaNumParsers.tryGet(this, 2);
+        MaRateStruct firstInt_ = asRate(firstVal_);
+        MaRateStruct secondInt_ = asRate(secondVal_);
+        MaRateStruct thirdInt_ = asRate(thirdVal_);
+        if (firstInt_ != null && secondInt_ != null && thirdInt_ != null) {
+            setStruct(new MaRateStruct(MathExpUtil.caracsemiouvertg(firstInt_.getRate(),
+                    secondInt_.getRate(),
+                    thirdInt_.getRate())));
         } else {
             _error.setOffset(getIndexExp()+operOff);
         }
     }
 
     private void caracsemiouvertd(MaError _error) {
-        CustList<MaRateStruct> values_ = tryGetAllAsRate(this);
-        if (values_ != null) {
-            setStruct(new MaRateStruct(MathExpUtil.caracsemiouvertd(values_.get(0).getRate(),
-                    values_.get(1).getRate(),
-                    values_.get(2).getRate())));
+        MaStruct firstVal_ = MaNumParsers.tryGet(this, 0);
+        MaStruct secondVal_ = MaNumParsers.tryGet(this, 1);
+        MaStruct thirdVal_ = MaNumParsers.tryGet(this, 2);
+        MaRateStruct firstInt_ = asRate(firstVal_);
+        MaRateStruct secondInt_ = asRate(secondVal_);
+        MaRateStruct thirdInt_ = asRate(thirdVal_);
+        if (firstInt_ != null && secondInt_ != null && thirdInt_ != null) {
+            setStruct(new MaRateStruct(MathExpUtil.caracsemiouvertd(firstInt_.getRate(),
+                    secondInt_.getRate(),
+                    thirdInt_.getRate())));
         } else {
             _error.setOffset(getIndexExp()+operOff);
         }
