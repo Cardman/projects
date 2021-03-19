@@ -342,17 +342,7 @@ public final class Polygon implements Iterable<RatePoint>, HasEdges, Displayable
     }
 
     private CustList<Triangle> getTrianglesGene() {
-        Polygon copy_ = normalPolygon();
-        RatePoint beforeFirst_ = copy_.last();
-        RatePoint currFirst_ = copy_.get(0);
-        RatePoint afterFirst_ = copy_.get(1);
-        VectTwoDims prevFirst_ = new VectTwoDims(currFirst_, beforeFirst_);
-        VectTwoDims nextFirst_ = new VectTwoDims(currFirst_, afterFirst_);
-        if (prevFirst_.det(nextFirst_).isZeroOrLt()) {
-            CustList<RatePoint> pts_ = new CustList<RatePoint>(currFirst_);
-            pts_.addAllElts(copy_.points.mid(1).getReverse());
-            copy_ = new Polygon(pts_);
-        }
+        Polygon copy_ = adjustedPolygon();
         CustList<Triangle> triangles_ = new CustList<Triangle>();
         while (!copy_.isConvex()) {
             int i_ = 1;
@@ -376,6 +366,21 @@ public final class Polygon implements Iterable<RatePoint>, HasEdges, Displayable
             }
         }
         return triangles_;
+    }
+
+    private Polygon adjustedPolygon() {
+        Polygon copy_ = normalPolygon();
+        RatePoint beforeFirst_ = copy_.last();
+        RatePoint currFirst_ = copy_.get(0);
+        RatePoint afterFirst_ = copy_.get(1);
+        VectTwoDims prevFirst_ = new VectTwoDims(currFirst_, beforeFirst_);
+        VectTwoDims nextFirst_ = new VectTwoDims(currFirst_, afterFirst_);
+        if (prevFirst_.det(nextFirst_).isZeroOrLt()) {
+            CustList<RatePoint> pts_ = new CustList<RatePoint>(currFirst_);
+            pts_.addAllElts(copy_.points.mid(1).getReverse());
+            return new Polygon(pts_);
+        }
+        return copy_;
     }
 
     private Polygon normalPolygon() {
