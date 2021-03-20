@@ -167,11 +167,11 @@ public final class MathAdvAfUnaryParts {
                 found_ = true;
             }
         }
+        if (_curChar == '<'&&MathExpUtil.charIs(_string,lastPrintChar + 1,current+1,'>')) {
+            procEvt(_curChar,_built,_clearOperators,_foundOperator,_increment);
+            return;
+        }
         if (MathExpUtil.cmpStr(_curChar)) {
-            if (MathExpUtil.charIs(_string,lastPrintChar + 1,current+1,'>')) {
-                procEvt(_curChar,_built,_clearOperators,_foundOperator,_increment);
-                return;
-            }
             procCmp(_string, _curChar, _built, _clearOperators, _foundOperator, _increment);
             return;
         }
