@@ -6,7 +6,7 @@ import code.maths.litteralcom.StrTypes;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 
-class MathAfUnaryParts {
+final class MathAfUnaryParts {
 
     private final StrTypes operators = new StrTypes();
     private int parsBrackets;

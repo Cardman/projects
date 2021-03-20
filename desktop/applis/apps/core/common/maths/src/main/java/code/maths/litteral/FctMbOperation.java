@@ -175,7 +175,7 @@ public final class FctMbOperation extends InvokingMbOperation {
         }
         //valeur absolue
         if (StringUtil.quickEq(methodName,ABS)){
-            Rate texteArg_= chidren_.first().getArgument().getRateVal();
+            Rate texteArg_= MbNumParsers.tryGet(this,0).getRateVal();
             MbArgument arg_ = new MbArgument();
             arg_.setArgClass(MathType.RATE);
             arg_.setObject(texteArg_.absNb());
@@ -184,7 +184,7 @@ public final class FctMbOperation extends InvokingMbOperation {
         }
         //partie entiere
         if (StringUtil.quickEq(methodName,ENT)){
-            Rate texteArg_= chidren_.first().getArgument().getRateVal();
+            Rate texteArg_= MbNumParsers.tryGet(this,0).getRateVal();
             MbArgument arg_ = new MbArgument();
             arg_.setArgClass(MathType.RATE);
             arg_.setObject(new Rate(texteArg_.intPart()));
@@ -196,7 +196,7 @@ public final class FctMbOperation extends InvokingMbOperation {
         //troncature(32/10)=3,troncature(35/10)=3,troncature(37/10)=3,troncature(4)=4
         //troncature(-2)=-2,troncature(-21/10)=-2,troncature(-25/10)=-2,troncature(-26/10)=-2
         if (StringUtil.quickEq(methodName,TRONC)){
-            Rate texteArg_= chidren_.first().getArgument().getRateVal();
+            Rate texteArg_= MbNumParsers.tryGet(this,0).getRateVal();
             MbArgument arg_ = new MbArgument();
             arg_.setArgClass(MathType.RATE);
             arg_.setObject(new Rate(texteArg_.toLgInt()));
@@ -209,7 +209,7 @@ public final class FctMbOperation extends InvokingMbOperation {
     private void calc2(CustList<MbOperationNode> _chidren) {
         //numerateur
         if (StringUtil.quickEq(methodName,NUM)){
-            Rate texteArg_= _chidren.first().getArgument().getRateVal();
+            Rate texteArg_= MbNumParsers.tryGet(this,0).getRateVal();
             MbArgument arg_ = new MbArgument();
             arg_.setArgClass(MathType.RATE);
             arg_.setObject(new Rate(texteArg_.getNumerator()));
@@ -218,7 +218,7 @@ public final class FctMbOperation extends InvokingMbOperation {
         }
         //denominateur
         if (StringUtil.quickEq(methodName,DEN)){
-            Rate texteArg_= _chidren.first().getArgument().getRateVal();
+            Rate texteArg_= MbNumParsers.tryGet(this,0).getRateVal();
             MbArgument arg_ = new MbArgument();
             arg_.setArgClass(MathType.RATE);
             arg_.setObject(new Rate(texteArg_.getDenominator()));
@@ -226,7 +226,7 @@ public final class FctMbOperation extends InvokingMbOperation {
             return;
         }
         if (StringUtil.quickEq(methodName,SGN)){
-            Rate texteArg_= _chidren.first().getArgument().getRateVal();
+            Rate texteArg_= MbNumParsers.tryGet(this,0).getRateVal();
             MbArgument arg_ = new MbArgument();
             arg_.setArgClass(MathType.RATE);
             arg_.setObject(texteArg_.signum());
@@ -237,8 +237,8 @@ public final class FctMbOperation extends InvokingMbOperation {
     }
 
     private void procDiv(ErrorStatus _error, CustList<MbOperationNode> _chidren) {
-        Rate rateOne_ = _chidren.first().getArgument().getRateVal();
-        Rate rateTwo_ = _chidren.last().getArgument().getRateVal();
+        Rate rateOne_ = MbNumParsers.tryGet(_chidren,0).getRateVal();
+        Rate rateTwo_ = MbNumParsers.tryGet(_chidren,1).getRateVal();
         if (rateTwo_.isZero()) {
             _error.setIndex(getIndexInEl());
             _error.setError(true);
@@ -252,8 +252,8 @@ public final class FctMbOperation extends InvokingMbOperation {
     }
 
     private void procModTaux(ErrorStatus _error, CustList<MbOperationNode> _chidren) {
-        Rate rateOne_ = _chidren.first().getArgument().getRateVal();
-        Rate rateTwo_ = _chidren.last().getArgument().getRateVal();
+        Rate rateOne_ = MbNumParsers.tryGet(_chidren,0).getRateVal();
+        Rate rateTwo_ = MbNumParsers.tryGet(_chidren,1).getRateVal();
         if (rateTwo_.isZero()) {
             _error.setIndex(getIndexInEl());
             _error.setError(true);
@@ -267,8 +267,8 @@ public final class FctMbOperation extends InvokingMbOperation {
     }
 
     private void procMod(ErrorStatus _error, CustList<MbOperationNode> _chidren) {
-        Rate base_= _chidren.first().getArgument().getRateVal();
-        Rate exposant_= _chidren.last().getArgument().getRateVal();
+        Rate base_= MbNumParsers.tryGet(_chidren,0).getRateVal();
+        Rate exposant_= MbNumParsers.tryGet(_chidren,1).getRateVal();
         LgInt divisor_ = exposant_.intPart();
         if (divisor_.isZero()) {
             _error.setIndex(getIndexInEl());
@@ -282,8 +282,8 @@ public final class FctMbOperation extends InvokingMbOperation {
     }
 
     private void procQuot(ErrorStatus _error, CustList<MbOperationNode> _chidren) {
-        Rate base_= _chidren.first().getArgument().getRateVal();
-        Rate exposant_= _chidren.last().getArgument().getRateVal();
+        Rate base_= MbNumParsers.tryGet(_chidren,0).getRateVal();
+        Rate exposant_= MbNumParsers.tryGet(_chidren,1).getRateVal();
         if (exposant_.isZero()) {
             _error.setIndex(getIndexInEl());
             _error.setError(true);
@@ -296,8 +296,8 @@ public final class FctMbOperation extends InvokingMbOperation {
     }
 
     private void procPuiss(ErrorStatus _error, CustList<MbOperationNode> _chidren) {
-        Rate base_= _chidren.first().getArgument().getRateVal();
-        Rate exposant_= _chidren.last().getArgument().getRateVal();
+        Rate base_= MbNumParsers.tryGet(_chidren,0).getRateVal();
+        Rate exposant_= MbNumParsers.tryGet(_chidren,1).getRateVal();
         if (base_.isZero() && !exposant_.isZeroOrGt()) {
             _error.setIndex(getIndexInEl());
             _error.setError(true);
@@ -311,9 +311,9 @@ public final class FctMbOperation extends InvokingMbOperation {
 
     private void calc(CustList<MbOperationNode> _chidren) {
         if (StringUtil.quickEq(methodName,MIN)){
-            Rate min_= _chidren.first().getArgument().getRateVal();
+            Rate min_= MbNumParsers.tryGet(this,0).getRateVal();
             for(MbOperationNode a: _chidren.mid(IndexConstants.SECOND_INDEX)){
-                Rate arg_= a.getArgument().getRateVal();
+                Rate arg_= MbArgument.ofNullable(a.getArgument()).getRateVal();
                 if(Rate.strGreater(min_, arg_)){
                     min_=arg_;
                 }
@@ -326,9 +326,9 @@ public final class FctMbOperation extends InvokingMbOperation {
         }
         //maximum
         if (StringUtil.quickEq(methodName,MAX)){
-            Rate min_= _chidren.first().getArgument().getRateVal();
+            Rate min_= MbNumParsers.tryGet(this,0).getRateVal();
             for(MbOperationNode a: _chidren.mid(IndexConstants.SECOND_INDEX)){
-                Rate arg_= a.getArgument().getRateVal();
+                Rate arg_= MbArgument.ofNullable(a.getArgument()).getRateVal();
                 if(Rate.strLower(min_, arg_)){
                     min_=arg_;
                 }
@@ -365,7 +365,7 @@ public final class FctMbOperation extends InvokingMbOperation {
         Rate var_=Rate.zero();
         Rate moy_=Rate.zero();
         for(MbOperationNode a: _chidren){
-            Rate a_ = a.getArgument().getRateVal();
+            Rate a_ = MbArgument.ofNullable(a.getArgument()).getRateVal();
             moy_.addNb(a_);
             var_.addNb(Rate.multiply(a_, a_));
         }
@@ -378,7 +378,7 @@ public final class FctMbOperation extends InvokingMbOperation {
     private static Rate getMoy(CustList<MbOperationNode> _chidren) {
         Rate moy_=Rate.zero();
         for(MbOperationNode a: _chidren){
-            moy_.addNb(a.getArgument().getRateVal());
+            moy_.addNb(MbArgument.ofNullable(a.getArgument()).getRateVal());
         }
         return moy_;
     }
@@ -456,64 +456,64 @@ public final class FctMbOperation extends InvokingMbOperation {
             setArgument(arg_);
             return;
         }
-        calcTwoSets(_chidren);
+        calcTwoSets();
     }
 
     private static Rate caracgaucheferme(CustList<MbOperationNode> _chidren) {
-        Rate rateOne_ = _chidren.first().getArgument().getRateVal();
-        Rate rateTwo_ = _chidren.last().getArgument().getRateVal();
+        Rate rateOne_ = MbNumParsers.tryGet(_chidren,0).getRateVal();
+        Rate rateTwo_ = MbNumParsers.tryGet(_chidren,1).getRateVal();
         return MathExpUtil.caracgaucheferme(rateOne_, rateTwo_);
     }
 
     private static Rate caracgaucheouvert(CustList<MbOperationNode> _chidren) {
-        Rate rateOne_ = _chidren.first().getArgument().getRateVal();
-        Rate rateTwo_ = _chidren.last().getArgument().getRateVal();
+        Rate rateOne_ = MbNumParsers.tryGet(_chidren,0).getRateVal();
+        Rate rateTwo_ = MbNumParsers.tryGet(_chidren,1).getRateVal();
         return MathExpUtil.caracgaucheouvert(rateOne_, rateTwo_);
     }
 
     private static Rate caracdroiteferme(CustList<MbOperationNode> _chidren) {
-        Rate rateOne_ = _chidren.first().getArgument().getRateVal();
-        Rate rateTwo_ = _chidren.last().getArgument().getRateVal();
+        Rate rateOne_ = MbNumParsers.tryGet(_chidren,0).getRateVal();
+        Rate rateTwo_ = MbNumParsers.tryGet(_chidren,1).getRateVal();
         return MathExpUtil.caracdroiteferme(rateOne_, rateTwo_);
     }
 
     private static Rate caracdroiteouvert(CustList<MbOperationNode> _chidren) {
-        Rate rateOne_ = _chidren.first().getArgument().getRateVal();
-        Rate rateTwo_ = _chidren.last().getArgument().getRateVal();
+        Rate rateOne_ = MbNumParsers.tryGet(_chidren,0).getRateVal();
+        Rate rateTwo_ = MbNumParsers.tryGet(_chidren,1).getRateVal();
         return MathExpUtil.caracdroiteouvert(rateOne_, rateTwo_);
     }
 
     private static Rate caracsemiouvertd(CustList<MbOperationNode> _chidren) {
-        Rate rateOne_ = _chidren.first().getArgument().getRateVal();
-        Rate rateTwo_ = _chidren.get(IndexConstants.SECOND_INDEX).getArgument().getRateVal();
-        Rate rateThree_ = _chidren.last().getArgument().getRateVal();
+        Rate rateOne_ = MbNumParsers.tryGet(_chidren,0).getRateVal();
+        Rate rateTwo_ = MbNumParsers.tryGet(_chidren,1).getRateVal();
+        Rate rateThree_ = MbNumParsers.tryGet(_chidren,2).getRateVal();
         return MathExpUtil.caracsemiouvertd(rateOne_, rateTwo_, rateThree_);
     }
 
     private static Rate caracsemiouvertg(CustList<MbOperationNode> _chidren) {
-        Rate rateOne_ = _chidren.first().getArgument().getRateVal();
-        Rate rateTwo_ = _chidren.get(IndexConstants.SECOND_INDEX).getArgument().getRateVal();
-        Rate rateThree_ = _chidren.last().getArgument().getRateVal();
+        Rate rateOne_ = MbNumParsers.tryGet(_chidren,0).getRateVal();
+        Rate rateTwo_ = MbNumParsers.tryGet(_chidren,1).getRateVal();
+        Rate rateThree_ = MbNumParsers.tryGet(_chidren,2).getRateVal();
         return MathExpUtil.caracsemiouvertg(rateOne_, rateTwo_, rateThree_);
     }
 
     private static Rate caracouvert(CustList<MbOperationNode> _chidren) {
-        Rate rateOne_ = _chidren.first().getArgument().getRateVal();
-        Rate rateTwo_ = _chidren.get(IndexConstants.SECOND_INDEX).getArgument().getRateVal();
-        Rate rateThree_ = _chidren.last().getArgument().getRateVal();
+        Rate rateOne_ = MbNumParsers.tryGet(_chidren,0).getRateVal();
+        Rate rateTwo_ = MbNumParsers.tryGet(_chidren,1).getRateVal();
+        Rate rateThree_ = MbNumParsers.tryGet(_chidren,2).getRateVal();
         return MathExpUtil.caracouvert(rateOne_, rateTwo_, rateThree_);
     }
 
     private static Rate segment(CustList<MbOperationNode> _chidren) {
-        Rate rateOne_ = _chidren.first().getArgument().getRateVal();
-        Rate rateTwo_ = _chidren.get(IndexConstants.SECOND_INDEX).getArgument().getRateVal();
-        Rate rateThree_ = _chidren.last().getArgument().getRateVal();
+        Rate rateOne_ = MbNumParsers.tryGet(_chidren,0).getRateVal();
+        Rate rateTwo_ = MbNumParsers.tryGet(_chidren,1).getRateVal();
+        Rate rateThree_ = MbNumParsers.tryGet(_chidren,2).getRateVal();
         return MathExpUtil.segment(rateOne_, rateTwo_, rateThree_);
     }
 
-    private void calcTwoSets(CustList<MbOperationNode> _chidren) {
+    private void calcTwoSets() {
         if (StringUtil.quickEq(methodName,CARD)){
-            MathList texteArg_= _chidren.first().getArgument().getListVal();
+            MathList texteArg_= MbNumParsers.tryGet(this,0).getListVal();
             MathList set_ = new MathList(texteArg_);
             set_.removeDuplicates();
             MbArgument arg_ = new MbArgument();
@@ -523,8 +523,8 @@ public final class FctMbOperation extends InvokingMbOperation {
             return;
         }
         if (StringUtil.quickEq(methodName,INTER)){
-            MathList textArgOne_= _chidren.first().getArgument().getListVal();
-            MathList textArgTwo_= _chidren.last().getArgument().getListVal();
+            MathList textArgOne_= MbNumParsers.tryGet(this,0).getListVal();
+            MathList textArgTwo_= MbNumParsers.tryGet(this,1).getListVal();
             MathList inter_ = new MathList(textArgOne_.intersectStr(textArgTwo_));
             inter_.sort();
             MbArgument arg_ = new MbArgument();
@@ -534,8 +534,8 @@ public final class FctMbOperation extends InvokingMbOperation {
             return;
         }
         if (StringUtil.quickEq(methodName,UNION)){
-            MathList textArgOne_= _chidren.first().getArgument().getListVal();
-            MathList textArgTwo_= _chidren.last().getArgument().getListVal();
+            MathList textArgOne_= MbNumParsers.tryGet(this,0).getListVal();
+            MathList textArgTwo_= MbNumParsers.tryGet(this,1).getListVal();
             MathList union_ = new MathList(textArgOne_);
             union_.addAllElts(textArgTwo_);
             union_.sort();
@@ -547,8 +547,8 @@ public final class FctMbOperation extends InvokingMbOperation {
             return;
         }
         if (StringUtil.quickEq(methodName,COMPL)){
-            MathList textArgOne_= _chidren.first().getArgument().getListVal();
-            MathList textArgTwo_= _chidren.last().getArgument().getListVal();
+            MathList textArgOne_= MbNumParsers.tryGet(this,0).getListVal();
+            MathList textArgTwo_= MbNumParsers.tryGet(this,1).getListVal();
             MathList res_ = new MathList(textArgTwo_);
             res_.removeAllElements(textArgOne_);
             res_.sort();
@@ -558,30 +558,30 @@ public final class FctMbOperation extends InvokingMbOperation {
             setArgument(arg_);
             return;
         }
-        calcTwoSetsRate(_chidren);
+        calcTwoSetsRate();
     }
 
-    private void calcTwoSetsRate(CustList<MbOperationNode> _chidren) {
+    private void calcTwoSetsRate() {
         if (StringUtil.quickEq(methodName,INCL)){
-            MathList textArgOne_= _chidren.first().getArgument().getListVal();
-            MathList textArgTwo_= _chidren.last().getArgument().getListVal();
+            MathList textArgOne_= MbNumParsers.tryGet(this,0).getListVal();
+            MathList textArgTwo_= MbNumParsers.tryGet(this,1).getListVal();
             procBool(textArgTwo_.containsAllObj(textArgOne_));
             return;
         }
         if (StringUtil.quickEq(methodName,NON_INCL)){
-            MathList textArgOne_= _chidren.first().getArgument().getListVal();
-            MathList textArgTwo_= _chidren.last().getArgument().getListVal();
+            MathList textArgOne_= MbNumParsers.tryGet(this,0).getListVal();
+            MathList textArgTwo_= MbNumParsers.tryGet(this,1).getListVal();
             procBool(!textArgTwo_.containsAllObj(textArgOne_));
             return;
         }
         if (StringUtil.quickEq(methodName,EQ_NUM)){
-            MathList textArgOne_= _chidren.first().getArgument().getListVal();
-            MathList textArgTwo_= _chidren.last().getArgument().getListVal();
+            MathList textArgOne_= MbNumParsers.tryGet(this,0).getListVal();
+            MathList textArgTwo_= MbNumParsers.tryGet(this,1).getListVal();
             procBool(textArgOne_.eq(textArgTwo_));
             return;
         }
-        MathList textArgOne_= _chidren.first().getArgument().getListVal();
-        MathList textArgTwo_= _chidren.last().getArgument().getListVal();
+        MathList textArgOne_= MbNumParsers.tryGet(this,0).getListVal();
+        MathList textArgTwo_= MbNumParsers.tryGet(this,1).getListVal();
         procBool(!textArgOne_.eq(textArgTwo_));
     }
 

@@ -11,6 +11,12 @@ public final class MbArgument {
 
     private MathType mathType;
 
+    public static MbArgument ofNullable(MbArgument _arg) {
+        if (_arg != null) {
+            return _arg;
+        }
+        return new MbArgument();
+    }
     public static MbArgument numberToArgument(String _nb) {
         MbArgument a_ = new MbArgument();
         a_.rateVal = new Rate(_nb);

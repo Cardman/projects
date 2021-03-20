@@ -23,8 +23,7 @@ public final class IdMbOperation extends MethodMbOperation {
 
     @Override
     void calculate(StringMap<String> _conf, ErrorStatus _error) {
-        CustList<MbOperationNode> chidren_ = getChildrenNodes();
-        setArgument(chidren_.first().getArgument());
+        setArgument(MbNumParsers.tryGet(this,0));
     }
 
     @Override

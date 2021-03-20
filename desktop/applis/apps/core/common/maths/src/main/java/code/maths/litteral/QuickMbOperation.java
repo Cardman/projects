@@ -25,26 +25,20 @@ public abstract class QuickMbOperation extends PrimitiveBoolMbOperation implemen
 
     @Override
     void calculate(StringMap<String> _conf, ErrorStatus _error) {
-        CustList<MbOperationNode> chidren_ = getChildrenNodes();
-        MbOperationNode first_ = chidren_.first();
-        MbArgument f_ = first_.getArgument();
+        MbArgument f_ = MbNumParsers.tryGet(this,0);
         boolean abs_ = f_.isBoolVal();
         if (abs_ == absorbingStruct()) {
             setArgument(f_);
             return;
         }
-        MbOperationNode last_ = chidren_.last();
-        MbArgument a_ = last_.getArgument();
+        MbArgument a_ = MbNumParsers.tryGet(this,1);
         setArgument(a_);
     }
 
     @Override
     public void tryCalculateNode(StringMap<String> _conf, ErrorStatus _error) {
-        CustList<MbOperationNode> chidren_ = getChildrenNodes();
-        MbOperationNode first_ = chidren_.first();
-        MbOperationNode last_ = chidren_.last();
-        MbArgument f_ = first_.getArgument();
-        MbArgument s_ = last_.getArgument();
+        MbArgument f_ = MbNumParsers.tryGet(this,0);
+        MbArgument s_ = MbNumParsers.tryGet(this,1);
         if (f_ == null) {
             return;
         }

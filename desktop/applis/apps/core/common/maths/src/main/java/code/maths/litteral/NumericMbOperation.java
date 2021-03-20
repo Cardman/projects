@@ -69,13 +69,12 @@ public abstract class NumericMbOperation extends MethodMbOperation {
 
     @Override
     void calculate(StringMap<String> _conf, ErrorStatus _error) {
-        CustList<MbOperationNode> chidren_ = getChildrenNodes();
-        MbArgument a_ = chidren_.first().getArgument();
+        MbArgument a_ =  MbNumParsers.tryGet(this,0);
         MbArgument r_;
         int i_ = IndexConstants.SECOND_INDEX;
         for (IndexStrPart e: getOperations().getOperators().getValues()) {
-            MbArgument c_ = chidren_.get(i_).getArgument();
-            r_ = calculateOper(a_, e.getPart(), c_, chidren_.get(i_).getIndexInEl(), _error);
+            MbArgument c_ =  MbNumParsers.tryGet(this,i_);
+            r_ = calculateOper(a_, e.getPart(), c_, e.getIndex(), _error);
             if (_error.isError()) {
                 return;
             }

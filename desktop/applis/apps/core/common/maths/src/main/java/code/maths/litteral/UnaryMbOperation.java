@@ -25,8 +25,7 @@ public final class UnaryMbOperation extends PrimitiveBoolMbOperation {
 
     @Override
     void calculate(StringMap<String> _conf, ErrorStatus _error) {
-        CustList<MbOperationNode> chidren_ = getChildrenNodes();
-        MbArgument arg_ = chidren_.first().getArgument();
+        MbArgument arg_ = MbNumParsers.tryGet(this,0);
         MbArgument a_ = new MbArgument();
         Rate o_ = arg_.getRateVal();
         a_.setArgClass(MathType.RATE);

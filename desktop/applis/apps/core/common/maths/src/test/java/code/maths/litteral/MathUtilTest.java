@@ -1,6 +1,7 @@
 package code.maths.litteral;
 
 import code.maths.EquallableMathUtil;
+import code.util.CustList;
 import org.junit.Test;
 
 import code.maths.Rate;
@@ -8,6 +9,11 @@ import code.util.StringMap;
 
 
 public class MathUtilTest extends EquallableMathUtil {
+    @Test
+    public void tryGet(){
+        assertNotNull(MbNumParsers.tryGet(new CustList<MbOperationNode>(),0));
+        assertNotNull(MbArgument.ofNullable(null));
+    }
     @Test
     public void evaluateExp1Test(){
         MbArgument a_ = MathUtil.processEl("1", false, new StringMap<String>());

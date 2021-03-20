@@ -22,8 +22,7 @@ public final class UnaryBooleanMbOperation extends PrimitiveBoolMbOperation {
     }
     @Override
     void calculate(StringMap<String> _conf, ErrorStatus _error) {
-        CustList<MbOperationNode> chidren_ = getChildrenNodes();
-        MbArgument arg_ = chidren_.first().getArgument();
+        MbArgument arg_ = MbNumParsers.tryGet(this,0);
         boolean b_ = arg_.isBoolVal();
         b_ = !b_;
         MbArgument a_ = new MbArgument();

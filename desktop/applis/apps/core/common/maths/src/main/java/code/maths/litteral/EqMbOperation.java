@@ -47,9 +47,8 @@ public final class EqMbOperation extends PrimitiveBoolMbOperation {
 
     @Override
     void calculate(StringMap<String> _conf, ErrorStatus _error) {
-        CustList<MbOperationNode> chidren_ = getChildrenNodes();
-        MbArgument first_ = chidren_.first().getArgument();
-        MbArgument second_ = chidren_.last().getArgument();
+        MbArgument first_ = MbNumParsers.tryGet(this,0);
+        MbArgument second_ = MbNumParsers.tryGet(this,1);
         boolean complement_ = false;
         String op_ = getOperations().getOperators().values().first().trim();
         if (StringUtil.quickEq(op_, DIFF)) {

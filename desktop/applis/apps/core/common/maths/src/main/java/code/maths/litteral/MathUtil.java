@@ -41,7 +41,7 @@ final class MathUtil {
                 arg_.setObject(err_);
                 return arg_;
             }
-            return op_.getArgument();
+            return MbArgument.ofNullable(op_.getArgument());
         }
         MbArgument a_ = new MbArgument();
         a_.setArgClass(op_.getResultClass());
@@ -169,7 +169,7 @@ final class MathUtil {
             if (_error.isError()) {
                 return;
             }
-            MbArgument res_ = o.getArgument();
+            MbArgument res_ = MbArgument.ofNullable(o.getArgument());
             boolean st_ = res_.isBoolVal();
             fr_ = MbOperationNode.getNextIndex(o, st_,fr_+1);
         }
