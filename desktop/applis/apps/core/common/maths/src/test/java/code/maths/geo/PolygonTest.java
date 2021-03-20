@@ -205,6 +205,38 @@ public class PolygonTest extends EquallableMathUtil {
         assertEq(pt(2, 2), h_.get(2));
         assertEq(pt(2, 0), h_.get(3));
     }
+
+    @Test
+    public void getConvexHull11Test() {
+        Polygon p_ = new Polygon();
+        p_.add(pt(2, 2));
+        p_.add(pt(1, 1));
+        p_.add(pt(2, 0));
+        p_.add(pt(0, 0));
+        p_.add(pt(0, 2));
+        Polygon h_ = p_.getConvexHull();
+        assertEq(4, h_.size());
+        assertEq(pt(0, 0), h_.get(0));
+        assertEq(pt(0, 2), h_.get(1));
+        assertEq(pt(2, 2), h_.get(2));
+        assertEq(pt(2, 0), h_.get(3));
+    }
+
+    @Test
+    public void getConvexHull12Test() {
+        Polygon p_ = new Polygon();
+        p_.add(pt(1, 1));
+        p_.add(pt(2, 2));
+        p_.add(pt(0, 2));
+        p_.add(pt(0, 0));
+        p_.add(pt(2, 0));
+        Polygon h_ = p_.getConvexHull();
+        assertEq(4, h_.size());
+        assertEq(pt(0, 0), h_.get(0));
+        assertEq(pt(0, 2), h_.get(1));
+        assertEq(pt(2, 2), h_.get(2));
+        assertEq(pt(2, 0), h_.get(3));
+    }
     @Test
     public void getStrictHull1Test() {
         Polygon p_ = new Polygon();
