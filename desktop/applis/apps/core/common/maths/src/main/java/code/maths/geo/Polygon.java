@@ -389,7 +389,7 @@ public final class Polygon implements Iterable<RatePoint>, HasEdges, Displayable
         int index_ = 0;
         int j_ = 0;
         for (RatePoint p: points) {
-            if (Rate.strLower(p.getXcoords(), cust_.getXcoords()) || (p.getXcoords().eq(cust_.getXcoords()) && Rate.strLower(p.getYcoords(), cust_.getYcoords()))) {
+            if (hasToRedef(cust_,p)) {
                 cust_ = p;
                 index_ = j_;
             }
