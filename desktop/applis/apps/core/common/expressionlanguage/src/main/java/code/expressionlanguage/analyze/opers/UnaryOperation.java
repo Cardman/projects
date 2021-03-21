@@ -16,7 +16,7 @@ import code.util.core.StringUtil;
 
 public final class UnaryOperation extends AbstractUnaryOperation implements SymbolOperation {
     private String className="";
-    private String oper;
+    private final String oper;
     private int opOffset;
     private boolean okNum;
     private MemberId memberId = new MemberId();
@@ -59,7 +59,7 @@ public final class UnaryOperation extends AbstractUnaryOperation implements Symb
                 return;
             }
         }
-        setRelativeOffsetPossibleAnalyzable(getIndexInEl(), _page);
+        setRelativeOffsetPossibleAnalyzable(getIndexInEl()+opOffset, _page);
         if (!AnaTypeUtil.isPureNumberClass(clMatch_, _page)) {
             _page.setOkNumOp(false);
             String exp_ = _page.getAliasNumber();

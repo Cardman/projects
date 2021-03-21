@@ -7,8 +7,6 @@ import code.expressionlanguage.analyze.opers.util.OperatorConverter;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
-import code.expressionlanguage.functionid.ClassMethodId;
-import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.stds.PrimitiveTypes;
 import code.util.core.StringUtil;
@@ -43,7 +41,7 @@ public final class UnaryBooleanOperation extends AbstractUnaryOperation implemen
             }
             return;
         }
-        setRelativeOffsetPossibleAnalyzable(getIndexInEl(), _page);
+        setRelativeOffsetPossibleAnalyzable(getIndexInEl()+opOffset, _page);
         if (!clMatch_.isBoolType(_page)) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());

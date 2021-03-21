@@ -40,7 +40,7 @@ public final class UnaryBinOperation extends AbstractUnaryOperation implements S
             return;
         }
         int order_ = AnaTypeUtil.getIntOrderClass(clMatch_, _page);
-        setRelativeOffsetPossibleAnalyzable(getIndexInEl(), _page);
+        setRelativeOffsetPossibleAnalyzable(getIndexInEl()+opOffset, _page);
         if (order_ == 0) {
             _page.setOkNumOp(false);
             String exp_ = _page.getAliasNumber();
