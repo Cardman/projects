@@ -259,8 +259,9 @@ public final class Polygon implements Iterable<RatePoint>, HasEdges, Displayable
             _p.add(cust_);
             endPoint_ = first();
             for (int j = IndexConstants.SECOND_INDEX; j < nbVertices_; j++) {
-                if (endPoint_ == cust_ || isLeft(cust_, endPoint_, j)) {
-                    endPoint_ = get(j);
+                RatePoint cur_ = get(j);
+                if (endPoint_ == cust_ || isLeft(cust_, endPoint_, cur_)) {
+                    endPoint_ = cur_;
                 }
             }
             cust_ = endPoint_;
@@ -268,9 +269,9 @@ public final class Polygon implements Iterable<RatePoint>, HasEdges, Displayable
         return _p;
     }
 
-    private boolean isLeft(RatePoint _cust, RatePoint _endPoint, int _indexPt) {
+    private static boolean isLeft(RatePoint _cust, RatePoint _endPoint, RatePoint _currentPt) {
         VectTwoDims affineSegment_ = substract(_cust, _endPoint);
-        VectTwoDims affinePoint_ = substract(get(_indexPt), _endPoint);
+        VectTwoDims affinePoint_ = substract(_currentPt, _endPoint);
         LinearDirection currentSide_ = getSide(affineSegment_, affinePoint_);
         return currentSide_ == LinearDirection.LEFT;
     }
