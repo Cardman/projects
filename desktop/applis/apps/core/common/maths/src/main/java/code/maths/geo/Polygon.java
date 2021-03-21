@@ -422,7 +422,7 @@ public final class Polygon implements Iterable<RatePoint>, HasEdges, Displayable
         }
         int len_ = size();
         for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
-            RatePoint before_ = get(mod(i - 1, len_));
+            RatePoint before_ = get((i + len_ - 1) % len_);
             RatePoint curr_ = get(i);
             RatePoint after_ = get((i + 1) % len_);
             VectTwoDims prev_ = new VectTwoDims(curr_, before_);
@@ -433,14 +433,6 @@ public final class Polygon implements Iterable<RatePoint>, HasEdges, Displayable
             }
         }
         return true;
-    }
-
-    private static int mod(int _a, int _b) {
-        int a_ = _a;
-        while (a_ < 0) {
-            a_ += _b;
-        }
-        return a_ % _b;
     }
 
     public boolean containsInsideConvexHull(RatePoint _point) {
