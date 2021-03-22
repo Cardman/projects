@@ -7,7 +7,7 @@ import cards.belote.enumerations.DeclaresBeloteRebelote;
 import code.util.CustList;
 import code.util.core.IndexConstants;
 
-final class DetailsResultsBeloteBean extends BeloteBean {
+public final class DetailsResultsBeloteBean extends BeloteBean {
 
     private CustList<BeloteSumDeclaringPlayer> declaring;
 
@@ -56,7 +56,7 @@ final class DetailsResultsBeloteBean extends BeloteBean {
             }
         }
     }
-    CustList<BeloteSumDeclaringPlayer> getDeclaring() {
+    public CustList<BeloteSumDeclaringPlayer> getDeclaring() {
         return declaring;
     }
 }

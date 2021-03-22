@@ -134,7 +134,7 @@ public abstract class BeanNatLgNames extends BeanNatCommonLgNames {
     public abstract ResultErrorStd getOtherResultBean(ContextEl _cont, Struct _instance,
                                              ClassMethodId _method, Struct... _args);
 
-    ContextEl setupNative(AnalyzedPageEl _page) {
+    public ContextEl setupNative(AnalyzedPageEl _page) {
         AnalysisMessages a_ = new AnalysisMessages();
         KeyWords kw_ = new KeyWords();
         Options options_ = new Options();

@@ -9,7 +9,7 @@ import code.util.*;
 import code.util.StringList;
 import code.util.core.IndexConstants;
 
-final class ResultsTarotBean extends TarotBean {
+public final class ResultsTarotBean extends TarotBean {
 
     private short basePoints;
 
@@ -124,44 +124,44 @@ final class ResultsTarotBean extends TarotBean {
         }
     }
 
-    boolean win() {
+    public boolean win() {
         return winEqualityLoose == EndGameState.WIN;
     }
 
-    boolean equality() {
+    public boolean equality() {
         return winEqualityLoose == EndGameState.EQUALLITY;
     }
 
-    boolean loose() {
+    public boolean loose() {
         return winEqualityLoose == EndGameState.LOOSE;
     }
 
-    boolean successfulBid() {
+    public boolean successfulBid() {
         return differenceScoreTaker > 0;
     }
 
-    boolean midBid() {
+    public boolean midBid() {
         return differenceScoreTaker == 0;
     }
 
-    boolean failedBid() {
+    public boolean failedBid() {
         return differenceScoreTaker < 0;
     }
 
-    int absoluteDiff() {
+    public int absoluteDiff() {
         return Math.abs(differenceScoreTaker);
     }
 
-    String bidString() {
+    public String bidString() {
         ResultsTarot res_ = getResults();
         return toString(getBid(), res_.getRes().getSpecific());
     }
 
-    boolean successfulDeclaredSlamAttack() {
+    public boolean successfulDeclaredSlamAttack() {
         return additionnalBonusesAttack == BonusTarot.SLAM.getPoints();
     }
 
-    boolean successfulNoDeclaredSlamAttack() {
+    public boolean successfulNoDeclaredSlamAttack() {
         return additionnalBonusesAttack != BonusTarot.SLAM.getPoints()
                 && additionnalBonusesAttack > 0;
     }
@@ -170,19 +170,19 @@ final class ResultsTarotBean extends TarotBean {
         return additionnalBonusesAttack > 0;
     }
 
-    boolean failedSlamAttack() {
+    public boolean failedSlamAttack() {
         return additionnalBonusesAttack < 0;
     }
 
-    boolean noSlamAttack() {
+    public boolean noSlamAttack() {
         return additionnalBonusesAttack == 0;
     }
 
-    boolean noSlamDefense() {
+    public boolean noSlamDefense() {
         return additionnalBonusesDefense == 0;
     }
 
-    boolean slamDefense() {
+    public boolean slamDefense() {
         return additionnalBonusesDefense > 0;
     }
 
@@ -190,39 +190,39 @@ final class ResultsTarotBean extends TarotBean {
         return basePoints;
     }
 
-    short getScoreTaker() {
+    public short getScoreTaker() {
         return scoreTaker;
     }
 
-    short getDifferenceScoreTaker() {
+    public short getDifferenceScoreTaker() {
         return differenceScoreTaker;
     }
 
-    String getTaker() {
+    public String getTaker() {
         return taker;
     }
 
-    short getAdditionnalBonusesAttack() {
+    public short getAdditionnalBonusesAttack() {
         return additionnalBonusesAttack;
     }
 
-    short getAdditionnalBonusesDefense() {
+    public short getAdditionnalBonusesDefense() {
         return additionnalBonusesDefense;
     }
 
-    short getScoreTakerWithoutDeclaring() {
+    public short getScoreTakerWithoutDeclaring() {
         return scoreTakerWithoutDeclaring;
     }
 
-    short getNeedlyScoresTaker() {
+    public short getNeedlyScoresTaker() {
         return needlyScoresTaker;
     }
 
-    short getMaxDoubledDifference() {
+    public short getMaxDoubledDifference() {
         return maxDoubledDifference;
     }
 
-    short getMaxDifference() {
+    public short getMaxDifference() {
         return maxDifference;
     }
 
@@ -230,27 +230,27 @@ final class ResultsTarotBean extends TarotBean {
         return winEqualityLoose;
     }
 
-    byte getNumberOudlersTaker() {
+    public byte getNumberOudlersTaker() {
         return numberOudlersTaker;
     }
 
-    StringList getCalledPlayers() {
+    public StringList getCalledPlayers() {
         return calledPlayers;
     }
 
-    StringList getCalledCardsList() {
+    public StringList getCalledCardsList() {
         return calledCardsList;
     }
 
-    short getInitialUserPosition() {
+    public short getInitialUserPosition() {
         return initialUserPosition;
     }
 
-    short getFinalUserPosition() {
+    public short getFinalUserPosition() {
         return finalUserPosition;
     }
 
-    CustList<TarotLineDeal> getLinesDeal() {
+    public CustList<TarotLineDeal> getLinesDeal() {
         return linesDeal;
     }
 }

@@ -8,7 +8,7 @@ import code.util.StringList;
 import code.util.core.IndexConstants;
 
 
-final class ResultsBeloteBean extends BeloteBean {
+public final class ResultsBeloteBean extends BeloteBean {
 
     private int capotAttaque;
 
@@ -81,79 +81,79 @@ final class ResultsBeloteBean extends BeloteBean {
         }
     }
 
-    boolean win() {
+    public boolean win() {
         return winEqualityLoose == EndGameState.WIN;
     }
 
-    boolean equality() {
+    public boolean equality() {
         return winEqualityLoose == EndGameState.EQUALLITY;
     }
 
-    boolean loose() {
+    public boolean loose() {
         return winEqualityLoose == EndGameState.LOOSE;
     }
 
-    boolean successfulBid() {
+    public boolean successfulBid() {
         return differenceScoreTaker > 0;
     }
 
-    boolean midBid() {
+    public boolean midBid() {
         return differenceScoreTaker == 0;
     }
 
-    boolean failedBid() {
+    public boolean failedBid() {
         return differenceScoreTaker < 0;
     }
 
-    int absoluteDiff() {
+    public int absoluteDiff() {
         return Math.abs(differenceScoreTaker);
     }
 
-    boolean slam() {
+    public boolean slam() {
         return capotAttaque > 0;
     }
 
-    int getPointsAttaqueSansPrime() {
+    public int getPointsAttaqueSansPrime() {
         return pointsAttaqueSansPrime;
     }
 
-    int getPointsAttaqueTemporaire() {
+    public int getPointsAttaqueTemporaire() {
         return pointsAttaqueTemporaire;
     }
 
-    int getPointsAttaqueDefinitif() {
+    public int getPointsAttaqueDefinitif() {
         return pointsAttaqueDefinitif;
     }
 
-    int getPointsDefenseSansPrime() {
+    public int getPointsDefenseSansPrime() {
         return pointsDefenseSansPrime;
     }
 
-    int getPointsDefenseTemporaire() {
+    public int getPointsDefenseTemporaire() {
         return pointsDefenseTemporaire;
     }
 
-    int getPointsDefenseDefinitif() {
+    public int getPointsDefenseDefinitif() {
         return pointsDefenseDefinitif;
     }
 
-    String getTakerNickname() {
+    public String getTakerNickname() {
         return takerNickname;
     }
 
-    StringList getCalledPlayersList() {
+    public StringList getCalledPlayersList() {
         return calledPlayersList;
     }
 
-    String getBidString() {
+    public String getBidString() {
         return bidString;
     }
 
-    int getDifferenceScoreTaker() {
+    public int getDifferenceScoreTaker() {
         return differenceScoreTaker;
     }
 
-    CustList<BeloteLineDeal> getLinesDeal() {
+    public CustList<BeloteLineDeal> getLinesDeal() {
         return linesDeal;
     }
 

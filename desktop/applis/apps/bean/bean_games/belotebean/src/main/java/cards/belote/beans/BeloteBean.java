@@ -13,7 +13,7 @@ import code.format.Format;
 import code.util.*;
 import code.util.StringList;
 
-abstract class BeloteBean extends Bean {
+public abstract class BeloteBean extends Bean {
     private static final String SPACE = " ";
     private BidBeloteSuit bid;
 
@@ -78,7 +78,7 @@ abstract class BeloteBean extends Bean {
     protected static String toString(MixCardsChoice _b, String _file) {
         return Format.getConstanteLangue(_file, CoreResourcesAccess.MIX,_b.name());
     }
-    protected final boolean playGame() {
+    public boolean playGame() {
         return getBid().jouerDonne();
     }
 
@@ -90,7 +90,7 @@ abstract class BeloteBean extends Bean {
         game = _game;
     }
 
-    protected final StringList getNicknames() {
+    public StringList getNicknames() {
         return nicknames;
     }
 
@@ -98,7 +98,7 @@ abstract class BeloteBean extends Bean {
         nicknames = _nicknames;
     }
 
-    protected final CustList<Longs> getScores() {
+    public CustList<Longs> getScores() {
         return scores;
     }
 

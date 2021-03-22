@@ -50,35 +50,35 @@ public final class RulesTarotBean extends TarotBean {
         discardAfterCall = rules_.getDiscardAfterCall();
     }
 
-    String getCartesBattues() {
+    public String getCartesBattues() {
         return cartesBattues;
     }
 
-    StringList getMiseres() {
+    public StringList getMiseres() {
         return miseres;
     }
 
-    StringList getContrats() {
+    public StringList getContrats() {
         return contrats;
     }
 
-    String getMode() {
+    public String getMode() {
         return mode;
     }
 
-    String getRepartition() {
+    public String getRepartition() {
         return repartition;
     }
 
-    StringMap<Integer> getPoigneesAutorisees() {
+    public StringMap<Integer> getPoigneesAutorisees() {
         return poigneesAutorisees;
     }
 
-    String getFinPartieTarot() {
+    public String getFinPartieTarot() {
         return finPartieTarot;
     }
 
-    boolean isDiscardAfterCall() {
+    public boolean isDiscardAfterCall() {
         return discardAfterCall;
     }
 

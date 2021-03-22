@@ -1,7 +1,7 @@
 package cards.tarot.beans;
 import code.maths.Rate;
 
-final class ScoresPlayers {
+public final class ScoresPlayers {
 
     private String nickname;
 
@@ -9,27 +9,27 @@ final class ScoresPlayers {
 
     private short score;
 
-    String getNickname() {
+    public String getNickname() {
         return nickname;
     }
 
-    void setNickname(String _nickname) {
+    public void setNickname(String _nickname) {
         nickname = _nickname;
     }
 
-    Rate getRate() {
+    public Rate getRate() {
         return rate;
     }
 
-    void setRate(Rate _rate) {
+    public void setRate(Rate _rate) {
         rate = _rate;
     }
 
-    short getScore() {
+    public short getScore() {
         return score;
     }
 
-    void setScore(short _score) {
+    public void setScore(short _score) {
         score = _score;
     }
 

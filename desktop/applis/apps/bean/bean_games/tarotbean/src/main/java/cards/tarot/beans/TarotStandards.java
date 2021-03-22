@@ -127,6 +127,7 @@ public final class TarotStandards extends BeanNatLgNames {
         fields_ = new CustList<StandardField>();
         constructors_ = new CustList<StandardConstructor>();
         std_ = new StandardClass(TYPE_TAROT_BEAN, fields_, constructors_, methods_, TYPE_BEAN, MethodModifier.ABSTRACT);
+        fields_.add( new StandardField(NICKNAMES, TYPE_LIST, false, false, std_));
         StringList params_;
         params_ = new StringList();
         method_ = new StandardMethod(PLAY_CLASSIC_GAME, params_, getAliasPrimBoolean(), false, MethodModifier.NORMAL);
@@ -280,7 +281,6 @@ public final class TarotStandards extends BeanNatLgNames {
         fields_.add( new StandardField(TAKER, getAliasString(), false, false, std_));
         fields_.add( new StandardField(ALONE_TRUMP_ACE_PLAYER, getAliasString(), false, false, std_));
         fields_.add( new StandardField(CALLED_PLAYERS, TYPE_LIST, false, false, std_));
-        fields_.add( new StandardField(NICKNAMES, TYPE_LIST, false, false, std_));
         fields_.add( new StandardField(CALLED_CARDS_LIST, TYPE_LIST, false, false, std_));
         fields_.add( new StandardField(LINES_DEAL, TYPE_LIST, false, false, std_));
         getStandards().addEntry(TYPE_RESULTS_TAROT_BEAN, std_);

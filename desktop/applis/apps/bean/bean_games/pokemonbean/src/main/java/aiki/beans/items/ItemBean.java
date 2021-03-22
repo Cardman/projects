@@ -48,11 +48,11 @@ public abstract class ItemBean extends CommonBean {
         return data_.getItem(name);
     }
 
-    protected String getName() {
+    public String getName() {
         return name;
     }
 
-    protected void setName(String _name) {
+    public void setName(String _name) {
         name = _name;
     }
 

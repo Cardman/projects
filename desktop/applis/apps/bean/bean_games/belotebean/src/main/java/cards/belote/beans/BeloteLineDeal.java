@@ -1,25 +1,25 @@
 package cards.belote.beans;
 import code.util.Longs;
 
-final class BeloteLineDeal {
+public final class BeloteLineDeal {
 
     private int number;
 
     private Longs scores;
 
-    int getNumber() {
+    public int getNumber() {
         return number;
     }
 
-    void setNumber(int _number) {
+    public void setNumber(int _number) {
         number = _number;
     }
 
-    Longs getScores() {
+    public Longs getScores() {
         return scores;
     }
 
-    void setScores(Longs _scores) {
+    public void setScores(Longs _scores) {
         scores = _scores;
     }
 

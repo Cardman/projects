@@ -18,7 +18,7 @@ public class EvolutionBean extends CommonBean {
 
     @Override
     public void beforeDisplaying() {
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         StringMap<String> translationsPokemon_;
         translationsPokemon_ = data_.getTranslatedPokemon().getVal(getLanguage());
         evo = data_.getPokemon(base).getEvolutions().getVal(name);
@@ -30,7 +30,7 @@ public class EvolutionBean extends CommonBean {
         return evo;
     }
     public String clickEvo(int _index) {
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         PokemonData pk_ = data_.getPokemon(base);
         StringList evolutions_ = new StringList(pk_.getEvolutions().getKeys());
         StringMap<String> translationsPokemon_;
@@ -40,7 +40,7 @@ public class EvolutionBean extends CommonBean {
         return CST_POKEMON;
     }
 
-    protected String getBase() {
+    public String getBase() {
         return base;
     }
 

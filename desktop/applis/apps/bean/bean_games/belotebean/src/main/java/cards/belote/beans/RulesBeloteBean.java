@@ -4,7 +4,7 @@ import cards.belote.enumerations.BidBelote;
 import cards.belote.enumerations.DeclaresBelote;
 import code.util.StringList;
 
-final class RulesBeloteBean extends BeloteBean {
+public final class RulesBeloteBean extends BeloteBean {
 
     private String cartesBattues;
 
@@ -41,35 +41,35 @@ final class RulesBeloteBean extends BeloteBean {
         comptePointsClassique = rules_.getComptePointsClassique();
     }
 
-    String getCartesBattues() {
+    public String getCartesBattues() {
         return cartesBattues;
     }
 
-    boolean isDealAll() {
+    public boolean isDealAll() {
         return dealAll;
     }
 
-    StringList getAnnoncesAutorisees() {
+    public StringList getAnnoncesAutorisees() {
         return annoncesAutorisees;
     }
 
-    boolean isSousCoupeAdv() {
+    public boolean isSousCoupeAdv() {
         return sousCoupeAdv;
     }
 
-    String getGestionCoupePartenaire() {
+    public String getGestionCoupePartenaire() {
         return gestionCoupePartenaire;
     }
 
-    StringList getEncheresAutorisees() {
+    public StringList getEncheresAutorisees() {
         return encheresAutorisees;
     }
 
-    String getRepartition() {
+    public String getRepartition() {
         return repartition;
     }
 
-    boolean isComptePointsClassique() {
+    public boolean isComptePointsClassique() {
         return comptePointsClassique;
     }
 }

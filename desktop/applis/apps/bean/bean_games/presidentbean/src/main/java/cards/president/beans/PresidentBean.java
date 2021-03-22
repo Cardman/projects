@@ -7,7 +7,7 @@ import code.util.Longs;
 import code.util.StringList;
 import code.util.core.IndexConstants;
 
-final class PresidentBean extends Bean {
+public final class PresidentBean extends Bean {
 
     private GamePresident game;
 
@@ -53,27 +53,27 @@ final class PresidentBean extends Bean {
         }
     }
 
-    GamePresident getGame() {
+    public GamePresident getGame() {
         return game;
     }
 
-    void setGame(GamePresident _game) {
+    public void setGame(GamePresident _game) {
         game = _game;
     }
 
-    StringList getNicknames() {
+    public StringList getNicknames() {
         return nicknames;
     }
 
-    void setNicknames(StringList _nicknames) {
+    public void setNicknames(StringList _nicknames) {
         nicknames = _nicknames;
     }
 
-    CustList<Longs> getScores() {
+    public CustList<Longs> getScores() {
         return scores;
     }
 
-    void setScores(CustList<Longs> _scores) {
+    public void setScores(CustList<Longs> _scores) {
         scores = _scores;
     }
 
@@ -93,11 +93,11 @@ final class PresidentBean extends Bean {
         loc = _loc;
     }
 
-    CustList<PresidentLineDeal> getLinesDeal() {
+    public CustList<PresidentLineDeal> getLinesDeal() {
         return linesDeal;
     }
 
-    ResultsPresident getResults() {
+    public ResultsPresident getResults() {
         return db();
     }
 }

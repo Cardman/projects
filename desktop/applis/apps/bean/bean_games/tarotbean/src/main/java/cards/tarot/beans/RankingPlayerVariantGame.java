@@ -1,7 +1,7 @@
 package cards.tarot.beans;
 
 
-final class RankingPlayerVariantGame {
+public final class RankingPlayerVariantGame {
 
     private String nickname;
 
@@ -15,51 +15,51 @@ final class RankingPlayerVariantGame {
 
     private short finalPosition;
 
-    String getNickname() {
+    public String getNickname() {
         return nickname;
     }
 
-    void setNickname(String _nickname) {
+    public void setNickname(String _nickname) {
         nickname = _nickname;
     }
 
-    short getPositionDiff() {
+    public short getPositionDiff() {
         return positionDiff;
     }
 
-    void setPositionDiff(short _positionDiff) {
+    public void setPositionDiff(short _positionDiff) {
         positionDiff = _positionDiff;
     }
 
-    short getPositionOudlers() {
+    public short getPositionOudlers() {
         return positionOudlers;
     }
 
-    void setPositionOudlers(short _positionOudlers) {
+    public void setPositionOudlers(short _positionOudlers) {
         positionOudlers = _positionOudlers;
     }
 
-    short getPositionCharacters() {
+    public short getPositionCharacters() {
         return positionCharacters;
     }
 
-    void setPositionCharacters(short _positionCharacters) {
+    public void setPositionCharacters(short _positionCharacters) {
         positionCharacters = _positionCharacters;
     }
 
-    short getPositionStrengthCharacters() {
+    public short getPositionStrengthCharacters() {
         return positionStrengthCharacters;
     }
 
-    void setPositionStrengthCharacters(short _positionStrengthCharacters) {
+    public void setPositionStrengthCharacters(short _positionStrengthCharacters) {
         positionStrengthCharacters = _positionStrengthCharacters;
     }
 
-    short getFinalPosition() {
+    public short getFinalPosition() {
         return finalPosition;
     }
 
-    void setFinalPosition(short _finalPosition) {
+    public void setFinalPosition(short _finalPosition) {
         finalPosition = _finalPosition;
     }
 

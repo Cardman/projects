@@ -8,7 +8,7 @@ import cards.president.enumerations.PresidentResoucesAccess;
 import code.bean.Bean;
 import code.format.Format;
 
-final class RulesPresidentBean extends Bean {
+public final class RulesPresidentBean extends Bean {
 
     private String cartesBattues;
 
@@ -66,51 +66,51 @@ final class RulesPresidentBean extends Bean {
     static String toString(EqualtyPlaying _b, String _file){
         return Format.getConstanteLangue(_file, PresidentResoucesAccess.PRESIDENT_EQUAL_PLAY,_b.name());
     }
-    boolean sameAmount() {
+    public boolean sameAmount() {
         return nbCardsPerPlayerMin == nbCardsPerPlayerMax;
     }
 
-    String getCartesBattues() {
+    public String getCartesBattues() {
         return cartesBattues;
     }
 
-    int getNbPlayers() {
+    public int getNbPlayers() {
         return nbPlayers;
     }
 
-    int getNbStacks() {
+    public int getNbStacks() {
         return nbStacks;
     }
 
-    String getEqualty() {
+    public String getEqualty() {
         return equalty;
     }
 
-    boolean isPossibleReversing() {
+    public boolean isPossibleReversing() {
         return possibleReversing;
     }
 
-    boolean isHasToPlay() {
+    public boolean isHasToPlay() {
         return hasToPlay;
     }
 
-    boolean isLoosingIfFinishByBestCards() {
+    public boolean isLoosingIfFinishByBestCards() {
         return loosingIfFinishByBestCards;
     }
 
-    boolean isSwitchCards() {
+    public boolean isSwitchCards() {
         return switchCards;
     }
 
-    boolean isLooserStartsFirst() {
+    public boolean isLooserStartsFirst() {
         return looserStartsFirst;
     }
 
-    byte getNbCardsPerPlayerMin() {
+    public byte getNbCardsPerPlayerMin() {
         return nbCardsPerPlayerMin;
     }
 
-    byte getNbCardsPerPlayerMax() {
+    public byte getNbCardsPerPlayerMax() {
         return nbCardsPerPlayerMax;
     }
 

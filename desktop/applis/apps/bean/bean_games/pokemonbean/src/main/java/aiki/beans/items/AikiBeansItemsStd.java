@@ -186,6 +186,7 @@ public final class AikiBeansItemsStd {
         buildHealingItemBean(_std);
         buildHealingPpBean(_std);
         buildHealingStatusBean(_std);
+        buildHealingHpStatusBean(_std);
         buildItemBean(_std);
         buildItemForBattleBean(_std);
         buildItemsBean(_std);
@@ -425,6 +426,12 @@ public final class AikiBeansItemsStd {
         method_ = new StandardMethod(GET_TR_STATUS,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
         _std.getStandards().addEntry(TYPE_HEALING_STATUS_BEAN, type_);
+    }
+    private static void buildHealingHpStatusBean(PokemonStandards _std) {
+        StandardClass type_;
+        CustList<StandardField> fields_;
+        CustList<StandardConstructor> constructors_;
+        CustList<StandardMethod> methods_;
         methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();

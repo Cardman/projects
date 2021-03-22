@@ -1,7 +1,7 @@
 package cards.tarot.beans;
 import code.maths.Rate;
 
-final class PointsPlayerVariantGame {
+public final class PointsPlayerVariantGame {
 
     private String nickname;
 
@@ -15,51 +15,51 @@ final class PointsPlayerVariantGame {
 
     private short score;
 
-    String getNickname() {
+    public String getNickname() {
         return nickname;
     }
 
-    void setNickname(String _nickname) {
+    public void setNickname(String _nickname) {
         nickname = _nickname;
     }
 
-    Rate getPointsTricks() {
+    public Rate getPointsTricks() {
         return pointsTricks;
     }
 
-    void setPointsTricks(Rate _pointsTricks) {
+    public void setPointsTricks(Rate _pointsTricks) {
         pointsTricks = _pointsTricks;
     }
 
-    short getMinimumPoints() {
+    public short getMinimumPoints() {
         return minimumPoints;
     }
 
-    void setMinimumPoints(short _minimumPoints) {
+    public void setMinimumPoints(short _minimumPoints) {
         minimumPoints = _minimumPoints;
     }
 
-    Rate getDifferenceScore() {
+    public Rate getDifferenceScore() {
         return differenceScore;
     }
 
-    void setDifferenceScore(Rate _differenceScore) {
+    public void setDifferenceScore(Rate _differenceScore) {
         differenceScore = _differenceScore;
     }
 
-    short getRate() {
+    public short getRate() {
         return rate;
     }
 
-    void setRate(short _rate) {
+    public void setRate(short _rate) {
         rate = _rate;
     }
 
-    short getScore() {
+    public short getScore() {
         return score;
     }
 
-    void setScore(short _score) {
+    public void setScore(short _score) {
         score = _score;
     }
 

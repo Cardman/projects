@@ -11,7 +11,7 @@ import code.format.Format;
 import code.util.*;
 import code.util.StringList;
 
-abstract class TarotBean extends Bean {
+public abstract class TarotBean extends Bean {
     private BidTarot bid;
 
     private GameTarot game;
@@ -62,11 +62,11 @@ abstract class TarotBean extends Bean {
     protected static String toString(MixCardsChoice _b, String _file) {
         return Format.getConstanteLangue(_file, CoreResourcesAccess.MIX,_b.name());
     }
-    protected final boolean playClassicGame() {
+    public final boolean playClassicGame() {
         return getBid().isJouerDonne();
     }
 
-    protected final boolean playVariantModeGame() {
+    public final boolean playVariantModeGame() {
         return !getBid().isJouerDonne() && !game.unionPlis().isEmpty();
     }
 
@@ -78,7 +78,7 @@ abstract class TarotBean extends Bean {
         game = _game;
     }
 
-    protected final StringList getNicknames() {
+    public final StringList getNicknames() {
         return nicknames;
     }
 
@@ -86,7 +86,7 @@ abstract class TarotBean extends Bean {
         nicknames = _nicknames;
     }
 
-    protected final CustList<Longs> getScores() {
+    public final CustList<Longs> getScores() {
         return scores;
     }
 

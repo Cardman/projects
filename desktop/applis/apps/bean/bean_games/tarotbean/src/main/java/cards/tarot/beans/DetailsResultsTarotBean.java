@@ -17,7 +17,7 @@ import code.util.TreeMap;
 import code.util.core.IndexConstants;
 
 
-final class DetailsResultsTarotBean extends TarotBean {
+public final class DetailsResultsTarotBean extends TarotBean {
 
     private static final String EMPTY_STRING = "";
 
@@ -230,63 +230,63 @@ final class DetailsResultsTarotBean extends TarotBean {
         }
     }
 
-    short getDifferenceScoreTaker() {
+    public short getDifferenceScoreTaker() {
         return differenceScoreTaker;
     }
 
-    short getBasePoints() {
+    public short getBasePoints() {
         return basePoints;
     }
 
-    int getRate() {
+    public int getRate() {
         return rate;
     }
 
-    String getSmall() {
+    public String getSmall() {
         return small;
     }
 
-    String getPlayerSmall() {
+    public String getPlayerSmall() {
         return playerSmall;
     }
 
-    int getMultipliedTmp() {
+    public int getMultipliedTmp() {
         return multipliedTmp;
     }
 
-    int getSumPlayers() {
+    public int getSumPlayers() {
         return sumPlayers;
     }
 
-    CustList<TarotSumDeclaringPlayer> getLinesDeclaring() {
+    public CustList<TarotSumDeclaringPlayer> getLinesDeclaring() {
         return linesDeclaring;
     }
 
-    CustList<ScoresPlayers> getPlayersScores() {
+    public CustList<ScoresPlayers> getPlayersScores() {
         return playersScores;
     }
 
-    int getAdditionnalBonusesAttack() {
+    public int getAdditionnalBonusesAttack() {
         return additionnalBonusesAttack;
     }
 
-    int getAdditionnalBonusesDefense() {
+    public int getAdditionnalBonusesDefense() {
         return additionnalBonusesDefense;
     }
 
-    int getDiffAttackDefenseBonuses() {
+    public int getDiffAttackDefenseBonuses() {
         return diffAttackDefenseBonuses;
     }
 
-    CustList<RankingPlayerVariantGame> getOrderedPlayers() {
+    public CustList<RankingPlayerVariantGame> getOrderedPlayers() {
         return orderedPlayers;
     }
 
-    CustList<PointsPlayerVariantGame> getPointsPlayers() {
+    public CustList<PointsPlayerVariantGame> getPointsPlayers() {
         return pointsPlayers;
     }
 
-    CustList<BonusesPlayers> getBonuses() {
+    public CustList<BonusesPlayers> getBonuses() {
         return bonuses;
     }
 

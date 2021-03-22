@@ -19,7 +19,7 @@ public class EffectBean extends CommonBean {
 
     @Override
     public void beforeDisplaying() {
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         MoveData move_ = data_.getMove(move);
         effect = move_.getEffects().get(index);
         reasons = getFormattedReasons(data_, getFailReasons(), getLanguage());
@@ -32,12 +32,12 @@ public class EffectBean extends CommonBean {
     }
 
     protected Effect getEffect(int _indexEffect) {
-        DataBase data_ = (DataBase) getDataBase();
+        DataBase data_ = getDataBase();
         MoveData move_ = data_.getMove(getMove());
         return move_.getEffet(_indexEffect);
     }
 
-    protected String getMove() {
+    public String getMove() {
         return move;
     }
 

@@ -2,7 +2,7 @@ package cards.belote.beans;
 import code.util.CustList;
 
 
-final class BeloteSumDeclaringPlayer {
+public final class BeloteSumDeclaringPlayer {
 
     private String nickname;
 
@@ -12,35 +12,35 @@ final class BeloteSumDeclaringPlayer {
 
     private int sum;
 
-    String getNickname() {
+    public String getNickname() {
         return nickname;
     }
 
-    void setNickname(String _nickname) {
+    public void setNickname(String _nickname) {
         nickname = _nickname;
     }
 
-    String getStatut() {
+    public String getStatut() {
         return statut;
     }
 
-    void setStatut(String _statut) {
+    public void setStatut(String _statut) {
         statut = _statut;
     }
 
-    CustList<DeclaringPlayerValue> getDeclaring() {
+    public CustList<DeclaringPlayerValue> getDeclaring() {
         return declaring;
     }
 
-    void setDeclaring(CustList<DeclaringPlayerValue> _declaring) {
+    public void setDeclaring(CustList<DeclaringPlayerValue> _declaring) {
         declaring = _declaring;
     }
 
-    int getSum() {
+    public int getSum() {
         return sum;
     }
 
-    void setSum(int _sum) {
+    public void setSum(int _sum) {
         sum = _sum;
     }
 

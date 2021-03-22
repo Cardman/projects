@@ -3,7 +3,7 @@ import cards.tarot.enumerations.Miseres;
 import code.util.StringMap;
 import code.util.TreeMap;
 
-final class TarotSumDeclaringPlayer {
+public final class TarotSumDeclaringPlayer {
 
     private String nickname;
 
@@ -15,43 +15,43 @@ final class TarotSumDeclaringPlayer {
 
     private int sum;
 
-    String getNickname() {
+    public String getNickname() {
         return nickname;
     }
 
-    void setNickname(String _nickname) {
+    public void setNickname(String _nickname) {
         nickname = _nickname;
     }
 
-    String getStatus() {
+    public String getStatus() {
         return status;
     }
 
-    void setStatus(String _statut) {
+    public void setStatus(String _statut) {
         status = _statut;
     }
 
-    StringMap<Short> getHandfuls() {
+    public StringMap<Short> getHandfuls() {
         return handfuls;
     }
 
-    void setHandfuls(StringMap<Short> _handfuls) {
+    public void setHandfuls(StringMap<Short> _handfuls) {
         handfuls = _handfuls;
     }
 
-    StringMap<Short> getMiseres() {
+    public StringMap<Short> getMiseres() {
         return miseres;
     }
 
-    void setMiseres(StringMap<Short> _miseres) {
+    public void setMiseres(StringMap<Short> _miseres) {
         miseres = _miseres;
     }
 
-    int getSum() {
+    public int getSum() {
         return sum;
     }
 
-    void setSum(int _sum) {
+    public void setSum(int _sum) {
         sum = _sum;
     }
 
