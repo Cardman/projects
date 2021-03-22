@@ -26,20 +26,20 @@ public final class SplitExpressionUtil {
         for (RootBlock c: allInit_) {
             processType(_page, int_, c);
         }
-        for (OperatorBlock o: _page.getFoundOperators()) {
+        for (OperatorBlock o: _page.getAllOperators()) {
             _page.setGlobalType(null);
             _page.setCurrentPkg(_page.getDefaultPkg());
             _page.setCurrentFile(o.getFile());
             processFunction(_page,int_,o, null);
         }
-        for (OperatorBlock o: _page.getFoundOperators()) {
+        for (OperatorBlock o: _page.getAllOperators()) {
             _page.setGlobalType(null);
             _page.setCurrentPkg(_page.getDefaultPkg());
             _page.setCurrentFile(o.getFile());
             processAnnotFct(_page, int_, o, null);
         }
         allInit_ = new CustList<RootBlock>();
-        for (OperatorBlock c: _page.getFoundOperators()) {
+        for (OperatorBlock c: _page.getAllOperators()) {
             allInit_.addAllElts(walkType(c));
         }
         for (RootBlock c: allInit_) {

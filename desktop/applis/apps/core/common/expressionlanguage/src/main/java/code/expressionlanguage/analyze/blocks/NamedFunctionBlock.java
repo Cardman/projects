@@ -66,7 +66,6 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
     private final StringList nameErrors = new StringList();
     private final CustList<StringList> paramErrors = new CustList<StringList>();
     private final CustList<StringList> paramWarns = new CustList<StringList>();
-    private int nameNumber;
     private boolean matchParamNames = true;
     private boolean retRef;
     private boolean usedRefMethod;
@@ -359,14 +358,6 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
 
     public CustList<StringList> getParamWarns() {
         return paramWarns;
-    }
-
-    public int getNameNumber() {
-        return nameNumber;
-    }
-
-    public void setNameNumber(int _nameNumber) {
-        this.nameNumber = _nameNumber;
     }
 
     public boolean isMatchParamNames() {

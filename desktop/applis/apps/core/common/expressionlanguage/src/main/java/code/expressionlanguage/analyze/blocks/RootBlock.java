@@ -659,12 +659,12 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                               || StringUtil.quickEq(m_.getName(),"!=")) {
                                 if (StringUtil.quickEq(m_.getImportedParametersTypes().first(),getGenericString())) {
                                     if (StringUtil.quickEq(m_.getImportedParametersTypes().last(),getGenericString())) {
-                                        binaryAll_.add(new MethodHeaderInfo(this, m_, m_.getId(), getNumberAll(), method_.getNameNumber(),m_.getImportedReturnType(), m_.getAccess()));
+                                        binaryAll_.add(new MethodHeaderInfo(this, m_, m_.getId(), getNumberAll(), m_.getNameNumber(),m_.getImportedReturnType(), m_.getAccess()));
                                     } else {
-                                        binaryFirst_.add(new MethodHeaderInfo(this, m_, m_.getId(), getNumberAll(), method_.getNameNumber(),m_.getImportedReturnType(), m_.getAccess()));
+                                        binaryFirst_.add(new MethodHeaderInfo(this, m_, m_.getId(), getNumberAll(), m_.getNameNumber(),m_.getImportedReturnType(), m_.getAccess()));
                                     }
                                 } else if (StringUtil.quickEq(m_.getImportedParametersTypes().last(),getGenericString())) {
-                                    binarySecond_.add(new MethodHeaderInfo(this, m_, m_.getId(), getNumberAll(), method_.getNameNumber(),m_.getImportedReturnType(), m_.getAccess()));
+                                    binarySecond_.add(new MethodHeaderInfo(this, m_, m_.getId(), getNumberAll(), m_.getNameNumber(),m_.getImportedReturnType(), m_.getAccess()));
                                 }
                             }
                         }
@@ -676,7 +676,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                               || StringUtil.quickEq(m_.getName(),"--")
                               || StringUtil.quickEq(m_.getName(),"~")) {
                                 if (StringUtil.quickEq(m_.getImportedParametersTypes().first(),getGenericString())) {
-                                    unary_.add(new MethodHeaderInfo(this, m_, m_.getId(), getNumberAll(), method_.getNameNumber(),m_.getImportedReturnType(), m_.getAccess()));
+                                    unary_.add(new MethodHeaderInfo(this, m_, m_.getId(), getNumberAll(), m_.getNameNumber(),m_.getImportedReturnType(), m_.getAccess()));
                                 }
                             }
                         }
@@ -737,9 +737,9 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                         m_.addNameErrors(badMeth_);
                     } else {
                         if (m_.getKind() == MethodKind.TRUE_OPERATOR) {
-                            true_.add(new MethodHeaderInfo(this, m_, m_.getId(), getNumberAll(), method_.getNameNumber(),m_.getImportedReturnType(), m_.getAccess()));
+                            true_.add(new MethodHeaderInfo(this, m_, m_.getId(), getNumberAll(), m_.getNameNumber(),m_.getImportedReturnType(), m_.getAccess()));
                         } else {
-                            false_.add(new MethodHeaderInfo(this, m_, m_.getId(), getNumberAll(), method_.getNameNumber(),m_.getImportedReturnType(), m_.getAccess()));
+                            false_.add(new MethodHeaderInfo(this, m_, m_.getId(), getNumberAll(), m_.getNameNumber(),m_.getImportedReturnType(), m_.getAccess()));
                         }
                     }
                 } else if (m_.getKind() == MethodKind.EXPLICIT_CAST || m_.getKind() == MethodKind.IMPLICIT_CAST) {
@@ -787,19 +787,19 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                     } else {
                         if (m_.getKind() == MethodKind.EXPLICIT_CAST) {
                             if (StringUtil.quickEq(m_.getImportedParametersTypes().first(),m_.getImportedReturnType())) {
-                                explicitId_.add(new MethodHeaderInfo(this, m_, m_.getId(), getNumberAll(), method_.getNameNumber(),m_.getImportedReturnType(), m_.getAccess()));
+                                explicitId_.add(new MethodHeaderInfo(this, m_, m_.getId(), getNumberAll(), m_.getNameNumber(),m_.getImportedReturnType(), m_.getAccess()));
                             } else if (StringUtil.quickEq(m_.getImportedReturnType(),getGenericString())){
-                                explicit_.add(new MethodHeaderInfo(this, m_, m_.getId(), getNumberAll(), method_.getNameNumber(),m_.getImportedReturnType(), m_.getAccess()));
+                                explicit_.add(new MethodHeaderInfo(this, m_, m_.getId(), getNumberAll(), m_.getNameNumber(),m_.getImportedReturnType(), m_.getAccess()));
                             } else {
-                                explicitFrom_.add(new MethodHeaderInfo(this, m_, m_.getId(), getNumberAll(), method_.getNameNumber(),m_.getImportedReturnType(), m_.getAccess()));
+                                explicitFrom_.add(new MethodHeaderInfo(this, m_, m_.getId(), getNumberAll(), m_.getNameNumber(),m_.getImportedReturnType(), m_.getAccess()));
                             }
                         } else {
                             if (StringUtil.quickEq(m_.getImportedParametersTypes().first(),m_.getImportedReturnType())) {
-                                implicitId_.add(new MethodHeaderInfo(this, m_, m_.getId(), getNumberAll(), method_.getNameNumber(),m_.getImportedReturnType(), m_.getAccess()));
+                                implicitId_.add(new MethodHeaderInfo(this, m_, m_.getId(), getNumberAll(), m_.getNameNumber(),m_.getImportedReturnType(), m_.getAccess()));
                             } else if (StringUtil.quickEq(m_.getImportedReturnType(),getGenericString())){
-                                implicit_.add(new MethodHeaderInfo(this, m_, m_.getId(), getNumberAll(), method_.getNameNumber(),m_.getImportedReturnType(), m_.getAccess()));
+                                implicit_.add(new MethodHeaderInfo(this, m_, m_.getId(), getNumberAll(), m_.getNameNumber(),m_.getImportedReturnType(), m_.getAccess()));
                             } else {
-                                implicitFrom_.add(new MethodHeaderInfo(this, m_, m_.getId(), getNumberAll(), method_.getNameNumber(),m_.getImportedReturnType(), m_.getAccess()));
+                                implicitFrom_.add(new MethodHeaderInfo(this, m_, m_.getId(), getNumberAll(), m_.getNameNumber(),m_.getImportedReturnType(), m_.getAccess()));
                             }
                         }
                     }

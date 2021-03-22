@@ -223,7 +223,7 @@ public final class AnonymousLambdaOperation extends
             block.getAllReservedInners().addAllElts(globalType_.getAllReservedInners());
         }
         if (operator_ != null) {
-            lambdaAnoContent.setOperatorNumber(operator_.getNameNumber());
+            lambdaAnoContent.setOperatorNumber(operator_.getOperatorNumber());
             block.getAllReservedInners().addAllElts(operator_.getAllReservedInners());
         }
         MemberCallingsBlock currentFct_ = _page.getCurrentFct();

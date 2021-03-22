@@ -2013,7 +2013,7 @@ public final class FileResolver {
                 ((ConstructorBlock)br_).setNumberBodyFct(bodyFctNb_);
                 _currentParent.setCountBodyFct(bodyFctNb_+1);
                 int countName_ = _currentParent.getCountName();
-                ((ConstructorBlock)br_).setNameNumber(countName_);
+                ((ConstructorBlock)br_).setCtorNumber(countName_);
                 _currentParent.setCountName(countName_+1);
                 _currentParent.getConstructorBlocks().add((ConstructorBlock)br_);
                 if (parametersType_.isEmpty()) {

@@ -65,6 +65,7 @@ public final class NamedCalledFunctionBlock extends NamedFunctionBlock {
     private final int defaultValueOffset;
     private final int rightPar;
     private boolean ko;
+    private int nameNumber;
 
     public NamedCalledFunctionBlock(boolean _retRef, OffsetAccessInfo _access, OffsetStringInfo _retType, OffsetStringInfo _defaultValue,OffsetStringInfo _fctName, StringList _paramTypes, Ints _paramTypesOffset, StringList _paramNames, Ints _paramNamesOffset, OffsetsBlock _offset, BooleanList _refParams, int _rightPar) {
         super(_retRef, _access, _retType, _fctName, _paramTypes, _paramTypesOffset, _paramNames, _paramNamesOffset, _offset, _refParams);
@@ -399,6 +400,14 @@ public final class NamedCalledFunctionBlock extends NamedFunctionBlock {
             res.getRoot().getResultClass().setUnwrapObject(getImportedReturnType(), _page.getPrimitiveTypes());
         }
         ReachOperationUtil.tryCalculate(res.getRoot(), _page);
+    }
+
+    public int getNameNumber() {
+        return nameNumber;
+    }
+
+    public void setNameNumber(int _nameNumber) {
+        this.nameNumber = _nameNumber;
     }
 
     public ResultExpression getRes() {

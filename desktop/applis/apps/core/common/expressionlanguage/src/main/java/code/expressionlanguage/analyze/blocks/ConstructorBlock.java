@@ -22,6 +22,7 @@ public final class ConstructorBlock extends NamedFunctionBlock implements Return
     private final int leftPar;
 
     private String ctorName = "";
+    private int ctorNumber;
 
     public ConstructorBlock(OffsetAccessInfo _access,
                             OffsetStringInfo _retType, OffsetStringInfo _fctName,
@@ -163,6 +164,14 @@ public final class ConstructorBlock extends NamedFunctionBlock implements Return
                 addNameErrors(undef_);
             }
         }
+    }
+
+    public int getCtorNumber() {
+        return ctorNumber;
+    }
+
+    public void setCtorNumber(int _ctorNumber) {
+        this.ctorNumber = _ctorNumber;
     }
 
     public String getCtorName() {

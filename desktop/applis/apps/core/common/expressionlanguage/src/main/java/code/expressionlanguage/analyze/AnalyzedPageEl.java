@@ -88,7 +88,6 @@ public final class AnalyzedPageEl {
     private CustList<IntermediaryResults> nextResults = new CustList<IntermediaryResults>();
     private final NatStringTreeMap<RootBlock> sorted = new NatStringTreeMap<RootBlock>();
     private final CustList<RootBlock> allFoundTypes = new CustList<RootBlock>();
-    private final CustList<OperatorBlock> foundOperators = new CustList<OperatorBlock>();
     private final CustList<OperatorBlock> allOperators = new CustList<OperatorBlock>();
     private final CustList<OperatorBlock> sortedOperators = new CustList<OperatorBlock>();
     private final CustList<RootBlock> prevFoundTypes = new CustList<RootBlock>();
@@ -854,10 +853,6 @@ public final class AnalyzedPageEl {
 
     public NatStringTreeMap<RootBlock> getSorted() {
         return sorted;
-    }
-
-    public CustList<OperatorBlock> getFoundOperators() {
-        return foundOperators;
     }
 
     public CustList<OperatorBlock> getAllOperators() {

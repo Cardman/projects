@@ -19,6 +19,7 @@ public final class OperatorBlock extends NamedFunctionBlock implements AccessedB
     private final StringList imports = new StringList();
 
     private final Ints importsOffset = new Ints();
+    private int operatorNumber;
 
     public OperatorBlock(boolean _retRef, OffsetStringInfo _retType, OffsetStringInfo _fctName,
                          StringList _paramTypes, Ints _paramTypesOffset,
@@ -79,6 +80,14 @@ public final class OperatorBlock extends NamedFunctionBlock implements AccessedB
 
     public void setCountsAnonFct(int _countsAnonFct) {
         this.countsAnonFct = _countsAnonFct;
+    }
+
+    public int getOperatorNumber() {
+        return operatorNumber;
+    }
+
+    public void setOperatorNumber(int _operatorNumber) {
+        this.operatorNumber = _operatorNumber;
     }
 
     @Override

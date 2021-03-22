@@ -1,6 +1,7 @@
 package code.expressionlanguage.analyze.files;
 
 import code.expressionlanguage.AnalyzedTestContext;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.*;
 
@@ -9817,6 +9818,31 @@ public final class FileResolverTest extends ProcessMethodCommon {
         parseFile(file_, context_, "my_file", false);
         assertTrue(isEmptyErrors(context_));
     }
+    protected static void parseFile(StringBuilder _file, AnalyzedTestContext _context, String _myFile, boolean _predefined) {
+        String content_ = _file.toString();
+        parseFile(_context, _myFile, _predefined, content_, _context.getAnalyzing());
+    }
+
+    public static void parseFile(AnalyzedTestContext _context, String _fileName, boolean _predefined, String _file) {
+        parseFile(_context,_fileName,_predefined,_file, _context.getAnalyzing());
+    }
+
+    protected static void parseFile(AnalyzedTestContext _context, String _fileName, boolean _predefined, String _file, AnalyzedPageEl _page) {
+        FileBlock fileBlock_ = new FileBlock(new OffsetsBlock(),_predefined, _fileName);
+        _page.putFileBlock(_fileName, fileBlock_);
+        ContextEl ctx_ = _context.getContext();
+        ctx_.getCoverage().putFile(fileBlock_);
+        _page.getErrors().putFile(fileBlock_, _context.getAnalyzing());
+        fileBlock_.processLinesTabsWithError(_file, _context.getAnalyzing());
+        FileResolver.parseFile(fileBlock_, _fileName, _file, _context.getAnalyzing());
+        StringList basePkgFound_ = _page.getBasePackagesFound();
+        basePkgFound_.addAllElts(fileBlock_.getAllBasePackages());
+        StringList pkgFound_ = _page.getPackagesFound();
+        pkgFound_.addAllElts(fileBlock_.getAllPackages());
+        ClassesUtil.fetchByFile(basePkgFound_,pkgFound_,fileBlock_, _context.getAnalyzing());
+        ClassesUtil.fetchOuterTypesCountOpers(_context.getAnalyzing(),fileBlock_);
+    }
+
 
     private static int countCustomTypes(AnalyzedTestContext _cont) {
         int count_ = 0;

@@ -263,7 +263,7 @@ public final class SwitchOperation extends AbstractUnaryOperation implements Pre
             switchMethod.getAllReservedInners().addAllElts(globalType_.getAllReservedInners());
         }
         if (operator_ != null) {
-            operatorNumber = operator_.getNameNumber();
+            operatorNumber = operator_.getOperatorNumber();
             switchMethod.getAllReservedInners().addAllElts(operator_.getAllReservedInners());
         }
         MemberCallingsBlock currentFct_ = _page.getCurrentFct();

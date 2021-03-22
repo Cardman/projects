@@ -259,7 +259,7 @@ public final class Coverage {
     public FunctionCoverageResult getFctRes(MemberCallingsBlock _mem) {
         FunctionCoverageResult fctRes_;
         if (_mem instanceof OperatorBlock) {
-            fctRes_ = operators.get(((OperatorBlock) _mem).getNameNumber());
+            fctRes_ = operators.get(((OperatorBlock) _mem).getOperatorNumber());
         } else if (AbsBk.isAnonBlock(_mem)){
             fctRes_ = lambdas.get(((NamedCalledFunctionBlock)_mem).getNumberLambda());
         } else if (_mem instanceof SwitchMethodBlock){

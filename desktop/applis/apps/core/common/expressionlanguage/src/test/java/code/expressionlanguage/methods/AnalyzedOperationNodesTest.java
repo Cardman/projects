@@ -4591,7 +4591,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
 
     private static ConstructorIdVarArg getConstId4(StringMap<String> _files) {
         AnalyzedTestContext contAna_ = quickValidate(_files);
-        OperatorBlock r_ = contAna_.getAnalyzing().getFoundOperators().first();
+        OperatorBlock r_ = contAna_.getAnalyzing().getAllOperators().first();
         Line f_ = (Line) r_.getFirstChild();
         return getCtorAna(f_);
     }

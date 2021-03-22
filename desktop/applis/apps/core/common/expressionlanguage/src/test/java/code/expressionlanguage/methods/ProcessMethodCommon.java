@@ -658,30 +658,6 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
         return cont_;
     }
 
-    protected static void parseFile(StringBuilder _file, AnalyzedTestContext _context, String _myFile, boolean _predefined) {
-        String content_ = _file.toString();
-        parseFile(_context, _myFile, _predefined, content_, _context.getAnalyzing());
-    }
-
-    protected static void parseFile(AnalyzedTestContext _context, String _fileName, boolean _predefined, String _file) {
-        parseFile(_context,_fileName,_predefined,_file, _context.getAnalyzing());
-    }
-
-    protected static void parseFile(AnalyzedTestContext _context, String _fileName, boolean _predefined, String _file, AnalyzedPageEl _page) {
-        FileBlock fileBlock_ = new FileBlock(new OffsetsBlock(),_predefined, _fileName);
-        _page.putFileBlock(_fileName, fileBlock_);
-        ContextEl ctx_ = _context.getContext();
-        ctx_.getCoverage().putFile(fileBlock_);
-        _page.getErrors().putFile(fileBlock_, _context.getAnalyzing());
-        fileBlock_.processLinesTabsWithError(_file, _context.getAnalyzing());
-        FileResolver.parseFile(fileBlock_, _fileName, _file, _context.getAnalyzing());
-        StringList basePkgFound_ = _page.getBasePackagesFound();
-        basePkgFound_.addAllElts(fileBlock_.getAllBasePackages());
-        StringList pkgFound_ = _page.getPackagesFound();
-        pkgFound_.addAllElts(fileBlock_.getAllPackages());
-        ClassesUtil.fetchByFile(basePkgFound_,pkgFound_,fileBlock_, _context.getAnalyzing());
-    }
-
     protected static AnalyzedTestContext simpleCtxComment() {
         Options opt_ = newOptions();
         opt_.getComments().add(new CommentDelimiters("\\\\",new StringList("\r\n","\r","\n")));
@@ -715,7 +691,7 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
         for (EntryCust<String, String> e: page_.buildFiles().entryList()) {
             String name_ = e.getKey();
             String content_ = e.getValue();
-            parseFile(_cont, name_, true, content_);
+            FileResolverTest.parseFile(_cont, name_, true, content_);
         }
     }
 

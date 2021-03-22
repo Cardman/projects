@@ -92,21 +92,15 @@ public final class ForwardInfos {
             String fullName_ = e.getFullName();
             classes_.getClassesBodies().addEntry(fullName_, e_);
         }
-        for (EntryCust<String,FileBlock> e: _page.getFilesBodies().entryList()) {
-            FileBlock fileBlock_ = e.getValue();
-            ExecFileBlock exFile_ = files_.getValue(fileBlock_.getNumberFile());
-            for (AbsBk b: ClassesUtil.getDirectChildren(fileBlock_)) {
-                if (b instanceof OperatorBlock) {
-                    OperatorBlock r_ = (OperatorBlock) b;
-                    ExecOperatorBlock e_ = new ExecOperatorBlock(r_.isRetRef(), r_.getName(), r_.isVarargs(), r_.getAccess(), r_.getParametersNames(), r_.getOffset().getOffsetTrim(), r_.getImportedParametersTypes(), r_.getParametersRef());
-                    e_.setFile(exFile_);
-                    _forwards.getMapOperators().addEntry(r_,e_);
-                    coverage_.putOperator(r_);
-                }
-            }
+        for (OperatorBlock o: _page.getAllOperators()){
+            ExecFileBlock exFile_ = files_.getValue(o.getFile().getNumberFile());
+            ExecOperatorBlock e_ = new ExecOperatorBlock(o.isRetRef(), o.getName(), o.isVarargs(), o.getAccess(), o.getParametersNames(), o.getOffset().getOffsetTrim(), o.getImportedParametersTypes(), o.getParametersRef());
+            e_.setFile(exFile_);
+            _forwards.getMapOperators().addEntry(o,e_);
+            coverage_.putOperator(o);
         }
         for (OperatorBlock o: _page.getSortedOperators()) {
-            classes_.getSortedOperators().add(_forwards.getMapOperators().getValue(o.getNameNumber()));
+            classes_.getSortedOperators().add(_forwards.getMapOperators().getValue(o.getOperatorNumber()));
         }
         for (EntryCust<String,FileBlock> e: _page.getFilesBodies().entryList()) {
             FileBlock fileBlock_ = e.getValue();
@@ -209,7 +203,7 @@ public final class ForwardInfos {
             ConstructorBlock emptyCtor_ = i.getEmptyCtor();
             ExecNamedFunctionBlock fct_ = null;
             if (emptyCtor_ != null) {
-                fct_ = FetchMemberUtil.fetchFunction(mem_, emptyCtor_.getNameNumber());
+                fct_ = FetchMemberUtil.fetchFunction(mem_, emptyCtor_.getCtorNumber());
             }
             mem_.getRootBlock().emptyCtorPair(fct_);
         }
@@ -569,7 +563,7 @@ public final class ForwardInfos {
             }
             if (b instanceof OperatorBlock) {
                 OperatorBlock r_ = (OperatorBlock) b;
-                ExecOperatorBlock e_ = _forwards.getMapOperators().getValue(r_.getNameNumber());
+                ExecOperatorBlock e_ = _forwards.getMapOperators().getValue(r_.getOperatorNumber());
                 _exeFile.appendChild(e_);
             }
         }

@@ -251,7 +251,7 @@ public final class ClassesUtil {
         validateOverridingInherit(_page);
         validateEl(_page);
         AnaTypeUtil.checkInterfaces(_page);
-        _page.getSortedOperators().addAllElts(_page.getFoundOperators());
+        _page.getSortedOperators().addAllElts(_page.getAllOperators());
         _page.getSortedOperators().sortElts(new AnaOperatorCmp());
         for (OperatorBlock o: _page.getSortedOperators()) {
             for (RootBlock c: o.getAnonymousTypes()) {
@@ -281,7 +281,7 @@ public final class ClassesUtil {
         _page.getFoundTypes().clear();
         StringList basePkgFound_ = _page.getBasePackagesFound();
         StringList pkgFound_ = _page.getPackagesFound();
-        for (OperatorBlock o: _page.getFoundOperators()) {
+        for (OperatorBlock o: _page.getAllOperators()) {
             processType(basePkgFound_,pkgFound_,o,_page);
         }
         processMapping(_page);
@@ -293,13 +293,13 @@ public final class ClassesUtil {
         _page.getPrevFoundTypes().addAllElts(_page.getFoundTypes());
         _page.getFoundTypes().clear();
         CustList<BracedBlock> brBl_ = new CustList<BracedBlock>();
-        for (OperatorBlock c: _page.getFoundOperators()) {
+        for (OperatorBlock c: _page.getAllOperators()) {
             brBl_.add(c);
         }
         procBadIndexes(_page, brBl_);
         _page.setGlobalType(null);
         _page.setGlobalClass("");
-        for (OperatorBlock o: _page.getFoundOperators()) {
+        for (OperatorBlock o: _page.getAllOperators()) {
             _page.setImporting(o);
             _page.setImportingAcces(new OperatorAccessor());
             _page.setImportingTypes(o);
@@ -319,7 +319,7 @@ public final class ClassesUtil {
         _page.setGlobalClass("");
         _page.setGlobalType(null);
         _page.setCurrentFct(null);
-        for (OperatorBlock o: _page.getFoundOperators()) {
+        for (OperatorBlock o: _page.getAllOperators()) {
             _page.setCurrentPkg(_page.getDefaultPkg());
             _page.setCurrentFile(o.getFile());
             _page.setImporting(o);
@@ -729,16 +729,7 @@ public final class ClassesUtil {
         }
         for (EntryCust<String,FileBlock> f: files_.entryList()) {
             FileBlock value_ = f.getValue();
-            for (AbsBk b: getDirectChildren(value_)) {
-                if (b instanceof RootBlock) {
-                    RootBlock r_ = (RootBlock) b;
-                    _page.getOuterTypes().add(r_);
-                }
-                if (b instanceof OperatorBlock) {
-                    OperatorBlock r_ = (OperatorBlock) b;
-                    _page.getFoundOperators().add(r_);
-                }
-            }
+            fetchOuterTypesCountOpers(_page, value_);
         }
         _page.setNextResults(SplitExpressionUtil.getNextResults(_page));
         for (EntryCust<String,FileBlock> f: files_.entryList()) {
@@ -746,6 +737,22 @@ public final class ClassesUtil {
             fetchByFile(basePkgFound_, pkgFound_, value_, _page);
         }
         processMapping(_page);
+    }
+
+    public static void fetchOuterTypesCountOpers(AnalyzedPageEl _page, FileBlock _value) {
+        for (AbsBk b: getDirectChildren(_value)) {
+            if (b instanceof RootBlock) {
+                RootBlock r_ = (RootBlock) b;
+                _page.getOuterTypes().add(r_);
+            }
+            if (b instanceof OperatorBlock) {
+                OperatorBlock r_ = (OperatorBlock) b;
+                _page.getAllOperators().add(r_);
+                int c_ = _page.getCountOperators();
+                r_.setOperatorNumber(c_);
+                _page.setCountOperators(c_+1);
+            }
+        }
     }
 
     private static void processMapping(AnalyzedPageEl _page) {
@@ -773,13 +780,6 @@ public final class ClassesUtil {
             if (b instanceof RootBlock) {
                 RootBlock r_ = (RootBlock) b;
                 processType(_basePkgFound, _pkgFound, r_, _page);
-            }
-            if (b instanceof OperatorBlock) {
-                OperatorBlock r_ = (OperatorBlock) b;
-                _page.getAllOperators().add(r_);
-                int c_ = _page.getCountOperators();
-                r_.setNameNumber(c_);
-                _page.setCountOperators(c_+1);
             }
         }
     }
@@ -1713,7 +1713,7 @@ public final class ClassesUtil {
         CustList<MethodId> idMethods_ = new CustList<MethodId>();
         _page.setGlobalClass("");
         _page.setGlobalType(null);
-        for (OperatorBlock o: _page.getFoundOperators()) {
+        for (OperatorBlock o: _page.getAllOperators()) {
             String name_ = o.getName();
             _page.setImporting(o);
             _page.setImportingAcces(new OperatorAccessor());
