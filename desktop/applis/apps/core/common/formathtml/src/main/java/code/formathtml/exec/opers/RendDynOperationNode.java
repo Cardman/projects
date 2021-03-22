@@ -9,6 +9,7 @@ import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.inherits.Parameters;
 import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.exec.util.ImplicitMethods;
+import code.expressionlanguage.exec.variables.AbstractWrapper;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.fwd.opers.*;
 import code.expressionlanguage.exec.ProcessMethod;
@@ -258,8 +259,9 @@ public abstract class RendDynOperationNode {
 
 
     public final void setSimpleArgument(ArgumentWrapper _argument, IdMap<RendDynOperationNode, ArgumentsPair> _nodes, ContextEl _context, StackCall _stackCall, RendStackCall _rendStackCall) {
-        if (_argument.getWrapper() != null) {
-            getArgumentPair(_nodes,this).setWrapper(_argument.getWrapper());
+        AbstractWrapper wrapper_ = _argument.getWrapper();
+        if (wrapper_ != null) {
+            getArgumentPair(_nodes,this).setWrapper(wrapper_);
         }
         setQuickConvertSimpleArgument(_argument.getValue(), _nodes, _context, _stackCall);
         setNextSiblingsArg(_nodes, _context, _stackCall, _rendStackCall);

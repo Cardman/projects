@@ -1,6 +1,7 @@
 package code.formathtml.exec.opers;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.exec.ExecHelper;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
@@ -23,7 +24,7 @@ public abstract class RendAbstractDotOperation extends RendMethodOperation imple
         }
         ArgumentsPair pairCh_ = getArgumentPair(_nodes, last_);
         ArgumentsPair pair_ = getArgumentPair(_nodes, this);
-        pair_.setWrapper(pairCh_.getWrapper());
+        ExecHelper.fwdWrapper(pair_,pairCh_);
         if (simple_) {
             setQuickNoConvertSimpleArgument(getArgument(_nodes,last_), _nodes, _context, _stackCall);
         } else {

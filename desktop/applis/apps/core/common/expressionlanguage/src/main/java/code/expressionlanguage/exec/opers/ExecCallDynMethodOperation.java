@@ -48,10 +48,11 @@ public final class ExecCallDynMethodOperation extends ExecSettableCallFctOperati
                 continue;
             }
             ArgumentsPair a_ = new ArgumentsPair();
+            ArgumentsPair argumentPair_ = ExecHelper.getArgumentPair(_nodes, o);
             if (o instanceof ExecWrappOperation) {
-                a_.setWrapper(ExecHelper.getArgumentPair(_nodes,o).getWrapper());
+                ExecHelper.fwdWrapper(a_,argumentPair_);
             } else {
-                a_.setArgument(ExecHelper.getArgumentPair(_nodes,o).getArgument());
+                ExecHelper.fwdArg(a_,argumentPair_);
             }
             out_.add(a_);
         }

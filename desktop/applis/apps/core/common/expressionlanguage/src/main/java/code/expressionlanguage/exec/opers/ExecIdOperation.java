@@ -26,7 +26,7 @@ public final class ExecIdOperation extends ExecAbstractUnaryOperation {
         }
         ArgumentsPair pairCh_ = ExecHelper.getArgumentPair(_nodes, o_);
         ArgumentsPair pair_ = ExecHelper.getArgumentPair(_nodes, this);
-        pair_.setWrapper(pairCh_.getWrapper());
+        ExecHelper.fwdWrapper(pair_,pairCh_);
         if (simple_) {
             setQuickNoConvertSimpleArgument(a_, _conf, _nodes, _stack);
         } else {

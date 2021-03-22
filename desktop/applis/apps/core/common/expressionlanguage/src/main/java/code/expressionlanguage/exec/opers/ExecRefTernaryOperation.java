@@ -28,9 +28,10 @@ public final class ExecRefTernaryOperation extends ExecMethodOperation implement
     public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes,
                           ContextEl _conf, StackCall _stack) {
         setRelOffsetPossibleLastPage(offsetLocal, _stack);
-        AbstractWrapper res_ = getWrapper(_nodes);
+        ArgumentsPair ch_ = getChosenArgumentsPair(_nodes);
+        AbstractWrapper res_ = ch_.getWrapper();
         ArgumentsPair pair_ = ExecHelper.getArgumentPair(_nodes, this);
-        pair_.setWrapper(res_);
+        ExecHelper.fwdWrapper(pair_,ch_);
         Argument arg_ = ExecTemplates.getArgValue(res_, _conf, _stack);
         if (resultCanBeSet()) {
             setQuickNoConvertSimpleArgument(arg_, _conf, _nodes, _stack);
@@ -39,12 +40,12 @@ public final class ExecRefTernaryOperation extends ExecMethodOperation implement
         setSimpleArgument(arg_, _conf, _nodes, _stack);
     }
 
-    private AbstractWrapper getWrapper(IdMap<ExecOperationNode, ArgumentsPair> _nodes) {
-        AbstractWrapper arg_;
+    private ArgumentsPair getChosenArgumentsPair(IdMap<ExecOperationNode, ArgumentsPair> _nodes) {
+        ArgumentsPair arg_;
         if (BooleanStruct.isTrue(ExecHelper.getArgumentPair(_nodes, ExecHelper.getNode(getChildrenNodes(),0)).getArgument().getStruct())) {
-            arg_ = ExecHelper.getArgumentPair(_nodes, ExecHelper.getNode(getChildrenNodes(),1)).getWrapper();
+            arg_ = ExecHelper.getArgumentPair(_nodes, ExecHelper.getNode(getChildrenNodes(),1));
         } else {
-            arg_ = ExecHelper.getArgumentPair(_nodes, ExecHelper.getNode(getChildrenNodes(),2)).getWrapper();
+            arg_ = ExecHelper.getArgumentPair(_nodes, ExecHelper.getNode(getChildrenNodes(),2));
         }
         return arg_;
     }

@@ -3,6 +3,7 @@ package code.formathtml.exec.opers;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ArgumentWrapper;
+import code.expressionlanguage.exec.ExecHelper;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.exec.opers.ExecInvokingOperation;
@@ -56,10 +57,11 @@ public final class RendCallDynMethodOperation extends RendSettableCallFctOperati
                 continue;
             }
             ArgumentsPair a_ = new ArgumentsPair();
+            ArgumentsPair argumentPair_ = getArgumentPair(_nodes, o);
             if (o instanceof RendWrappOperation) {
-                a_.setWrapper(getArgumentPair(_nodes,o).getWrapper());
+                ExecHelper.fwdWrapper(a_,argumentPair_);
             } else {
-                a_.setArgument(getArgumentPair(_nodes,o).getArgument());
+                ExecHelper.fwdArg(a_,argumentPair_);
             }
             out_.add(a_);
         }

@@ -16,6 +16,13 @@ public final class ExecHelper {
     private ExecHelper() {
     }
 
+    public static void fwdWrapper(ArgumentsPair _to,ArgumentsPair _from) {
+        _to.setWrapper(_from.getWrapper());
+    }
+
+    public static void fwdArg(ArgumentsPair _to,ArgumentsPair _from) {
+        _to.setArgument(_from.getArgument());
+    }
     public static Struct[] getObjects(Argument... _args) {
         int len_ = _args.length;
         Struct[] classes_ = new Struct[len_];

@@ -24,7 +24,7 @@ public final class RendFinalVariableOperation extends RendLeafOperation implemen
     @Override
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, BeanLgNames _advStandards, ContextEl _context, StackCall _stack, RendStackCall _rendStack) {
         setRelativeOffsetPossibleLastPage(getIndexInEl()+ variableContent.getOff(), _rendStack);
-        Argument arg_ = ExecTemplates.getIndexLoop(_context, variableContent.getVariableName(), variableContent.getDeep(), _rendStack.getPageEl().getCache(), _rendStack.getPageEl().getVars(), _stack);
+        Argument arg_ = ExecTemplates.getIndexLoop(_context, variableContent, _rendStack.getPageEl().getCache(), _rendStack.getPageEl().getVars(), _stack);
         setSimpleArgument(arg_, _nodes, _context, _stack, _rendStack);
     }
 

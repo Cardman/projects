@@ -427,7 +427,6 @@ public final class Coverage {
         }
         AbstractPageEl lastPage_ = _stackCall.getLastPage();
         ExecBlock en_ = lastPage_.getBlock();
-        AbsBk matchBl_;
         int indexAnnotGroup_ = -1;
         int indexAnnot_ = -1;
         ExecRootBlock type_;
@@ -456,6 +455,7 @@ public final class Coverage {
             type_ = lastPage_.getBlockRootType();
         }
         RootBlock typeAna_ = mappingTypes.getVal(type_);
+        AbsBk matchBl_;
         if (lastPage_ instanceof ReflectAnnotationPageEl) {
             ReflectAnnotationPageEl annotRet_ = (ReflectAnnotationPageEl)lastPage_;
             AnnotatedStruct annotated_ = annotRet_.getAnnotated();

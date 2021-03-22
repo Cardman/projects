@@ -69,7 +69,7 @@ public final class RendStdRefVariableOperation extends RendLeafOperation impleme
 
     @Override
     public Argument calculateCompoundSetting(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, String _op, Argument _right, ExecClassArgumentMatching _cl, byte _cast, BeanLgNames _advStandards, ContextEl _context, StackCall _stack, RendStackCall _rendStack) {
-        Struct store_ = ExecTemplates.getWrapValue(_context,getVariableName(),variableContent.getDeep(), _rendStack.getLastPage().getPageEl().getCache(), _rendStack.getLastPage().getPageEl().getRefParams(), _stack).getStruct();
+        Struct store_ = ExecTemplates.getWrapValue(_context,variableContent,_rendStack.getLastPage().getPageEl().getCache(), _rendStack.getLastPage().getPageEl().getRefParams(), _stack);
         Argument left_ = new Argument(store_);
         Argument res_ = RendNumericOperation.calculateAffect(left_, _right, _op, variableContent.isCatString(), _cl.getNames(), _cast, _context, _stack);
         return trySetArgument(_context, res_, _stack, _rendStack);
@@ -77,7 +77,7 @@ public final class RendStdRefVariableOperation extends RendLeafOperation impleme
 
     @Override
     public Argument calculateSemiSetting(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, String _op, boolean _post, Argument _stored, byte _cast, BeanLgNames _advStandards, ContextEl _context, StackCall _stack, RendStackCall _rendStack) {
-        Struct store_ = ExecTemplates.getWrapValue(_context,getVariableName(),variableContent.getDeep(), _rendStack.getLastPage().getPageEl().getCache(), _rendStack.getLastPage().getPageEl().getRefParams(), _stack).getStruct();
+        Struct store_ = ExecTemplates.getWrapValue(_context,variableContent, _rendStack.getLastPage().getPageEl().getCache(), _rendStack.getLastPage().getPageEl().getRefParams(), _stack);
         Argument left_ = new Argument(store_);
         Argument res_ = ExecNumericOperation.calculateIncrDecr(left_, _op, _cast);
         trySetArgument(_context, res_, _stack, _rendStack);
@@ -96,7 +96,7 @@ public final class RendStdRefVariableOperation extends RendLeafOperation impleme
     }
 
     private Argument trySetArgument(ContextEl _conf, Argument _res, StackCall _stackCall, RendStackCall _rendStackCall) {
-        return ExecTemplates.setWrapValue(_conf,variableContent.getVariableName(), _res,variableContent.getDeep(), _rendStackCall.getLastPage().getPageEl().getCache(), _rendStackCall.getLastPage().getPageEl().getRefParams(), _stackCall);
+        return ExecTemplates.setWrapValue(_conf,variableContent, _res, _rendStackCall.getLastPage().getPageEl().getCache(), _rendStackCall.getLastPage().getPageEl().getRefParams(), _stackCall);
     }
 
     public boolean isDeclare() {

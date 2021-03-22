@@ -3,7 +3,6 @@ package code.expressionlanguage.exec.opers;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.StackCall;
-import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
@@ -31,12 +30,11 @@ public final class ExecStdVariableOperation extends ExecLeafOperation implements
     public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes,
                           ContextEl _conf, StackCall _stack) {
         setRelOffsetPossibleLastPage(variableContent.getOff(), _stack);
-        AbstractPageEl ip_ = _stack.getLastPage();
         Argument arg_;
         if (resultCanBeSet()) {
             arg_ = Argument.createVoid();
         } else {
-            arg_ = ExecTemplates.getWrapValue(_conf, variableContent.getVariableName(), variableContent.getDeep(), ip_.getCache(), ip_.getRefParams(), _stack);
+            arg_ = ExecTemplates.getWrapArgument(_conf, variableContent, _stack);
         }
         if (resultCanBeSet()) {
             setQuickNoConvertSimpleArgument(arg_, _conf, _nodes, _stack);
@@ -49,7 +47,7 @@ public final class ExecStdVariableOperation extends ExecLeafOperation implements
     public Argument calculateSetting(
             IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf,
             Argument _right, StackCall _stack) {
-        return setVar(_conf, variableContent.getVariableName(), _right, variableContent.getDeep(), _stack);
+        return ExecTemplates.setWrapValue(_conf,variableContent,_right,_stack);
     }
 
     @Override
@@ -60,7 +58,7 @@ public final class ExecStdVariableOperation extends ExecLeafOperation implements
         Struct store_ = a_.getStruct();
         Argument left_ = new Argument(store_);
         Argument res_ = ExecNumericOperation.calculateAffect(left_, _conf, _right, _op, variableContent.isCatString(), _cl.getNames(), _cast, _stack);
-        return setVar(_conf, variableContent.getVariableName(), res_, variableContent.getDeep(), _stack);
+        return ExecTemplates.setWrapValue(_conf,variableContent,res_,_stack);
     }
 
     @Override
@@ -71,25 +69,20 @@ public final class ExecStdVariableOperation extends ExecLeafOperation implements
         Struct store_ = a_.getStruct();
         Argument left_ = new Argument(store_);
         Argument res_ = ExecNumericOperation.calculateIncrDecr(left_, _op, _cast);
-        setVar(_conf, variableContent.getVariableName(), res_, variableContent.getDeep(), _stack);
+        ExecTemplates.setWrapValue(_conf,variableContent,res_,_stack);
         return ExecSemiAffectationOperation.getPrePost(_post, left_, res_);
     }
     @Override
     public Argument endCalculate(ContextEl _conf, IdMap<ExecOperationNode, ArgumentsPair> _nodes, Argument _right, StackCall _stack) {
-        return setVar(_conf, variableContent.getVariableName(), _right, variableContent.getDeep(), _stack);
+        return ExecTemplates.setWrapValue(_conf,variableContent,_right,_stack);
     }
 
     @Override
     public Argument endCalculate(ContextEl _conf,
                                  IdMap<ExecOperationNode, ArgumentsPair> _nodes, boolean _post,
                                  Argument _stored, Argument _right, StackCall _stack) {
-        setVar(_conf, variableContent.getVariableName(), _right, variableContent.getDeep(), _stack);
+        ExecTemplates.setWrapValue(_conf,variableContent,_right,_stack);
         return ExecSemiAffectationOperation.getPrePost(_post, _stored, _right);
-    }
-
-    private static Argument setVar(ContextEl _conf, String _variableName, Argument _value, int _deep, StackCall _stackCall) {
-        AbstractPageEl ip_ = _stackCall.getLastPage();
-        return ExecTemplates.setWrapValue(_conf,_variableName, _value,_deep, ip_.getCache(), ip_.getRefParams(), _stackCall);
     }
 
     public ExecVariableContent getVariableContent() {

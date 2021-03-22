@@ -4,7 +4,6 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ExecHelper;
 import code.expressionlanguage.exec.StackCall;
-import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.variables.*;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
@@ -20,9 +19,7 @@ public final class ExecWrappOperation extends ExecAbstractUnaryOperation {
     public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, StackCall _stack) {
         if (getFirstChild() instanceof ExecStdRefVariableOperation) {
             ExecStdRefVariableOperation ch_ = (ExecStdRefVariableOperation) getFirstChild();
-            String variableName_ = ch_.getVariableContent().getVariableName();
-            AbstractPageEl ip_ = _stack.getLastPage();
-            AbstractWrapper val_ = ExecTemplates.getWrapper(variableName_,ch_.getVariableContent().getDeep(), ip_.getCache(), _stack.getLastPage().getRefParams());
+            AbstractWrapper val_ = ExecTemplates.getWrapper(ch_.getVariableContent(), _stack);
             ArgumentsPair pair_ = ExecHelper.getArgumentPair(_nodes, this);
             pair_.setWrapper(val_);
             setQuickNoConvertSimpleArgument(Argument.createVoid(),_conf,_nodes, _stack);
@@ -30,9 +27,7 @@ public final class ExecWrappOperation extends ExecAbstractUnaryOperation {
         }
         if (getFirstChild() instanceof ExecStdVariableOperation) {
             ExecStdVariableOperation ch_ = (ExecStdVariableOperation) getFirstChild();
-            String variableName_ = ch_.getVariableContent().getVariableName();
-            AbstractPageEl ip_ = _stack.getLastPage();
-            AbstractWrapper val_ = ip_.getRefParams().getVal(variableName_);
+            AbstractWrapper val_ = ExecTemplates.getWrapper(ch_.getVariableContent(), _stack);
             ArgumentsPair pair_ = ExecHelper.getArgumentPair(_nodes, this);
             pair_.setWrapper(val_);
             setQuickNoConvertSimpleArgument(Argument.createVoid(),_conf,_nodes, _stack);
@@ -72,7 +67,7 @@ public final class ExecWrappOperation extends ExecAbstractUnaryOperation {
         }
         ArgumentsPair pairCh_ = ExecHelper.getArgumentPair(_nodes, getFirstChild());
         ArgumentsPair pair_ = ExecHelper.getArgumentPair(_nodes, this);
-        pair_.setWrapper(pairCh_.getWrapper());
+        ExecHelper.fwdWrapper(pair_,pairCh_);
         setQuickNoConvertSimpleArgument(Argument.createVoid(),_conf,_nodes, _stack);
     }
 }

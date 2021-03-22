@@ -29,7 +29,7 @@ public abstract class ExecAbstractDotOperation extends ExecMethodOperation imple
             simple_ = false;
         }
         ArgumentsPair pair_ = ExecHelper.getArgumentPair(_nodes, this);
-        pair_.setWrapper(pairCh_.getWrapper());
+        ExecHelper.fwdWrapper(pair_,pairCh_);
         if (simple_) {
             setQuickNoConvertSimpleArgument(a_, _conf, _nodes, _stackCall);
         } else {

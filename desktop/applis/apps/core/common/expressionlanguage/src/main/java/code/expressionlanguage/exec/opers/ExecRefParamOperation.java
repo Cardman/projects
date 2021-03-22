@@ -4,7 +4,6 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ExecHelper;
 import code.expressionlanguage.exec.StackCall;
-import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.expressionlanguage.exec.variables.AbstractWrapper;
@@ -25,8 +24,7 @@ public final class ExecRefParamOperation extends ExecLeafOperation implements
 
     @Override
     public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, StackCall _stack) {
-        AbstractPageEl ip_ = _stack.getLastPage();
-        AbstractWrapper val_ = ExecTemplates.getWrapper(variableContent.getVariableName(),variableContent.getDeep(), ip_.getCache(), _stack.getLastPage().getRefParams());
+        AbstractWrapper val_ = ExecTemplates.getWrapper(variableContent, _stack);
         ArgumentsPair pair_ = ExecHelper.getArgumentPair(_nodes, this);
         pair_.setWrapper(val_);
         if (resultCanBeSet()) {
@@ -43,7 +41,7 @@ public final class ExecRefParamOperation extends ExecLeafOperation implements
 
 
     public Argument calculateCompoundSetting(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, String _op, Argument _right, ExecClassArgumentMatching _cl, byte _cast, StackCall _stack) {
-        Struct store_ = ExecTemplates.getWrapValue(_conf,variableContent.getVariableName(),variableContent.getDeep(), _stack.getLastPage().getCache(), _stack.getLastPage().getRefParams(), _stack).getStruct();
+        Struct store_ = ExecTemplates.getWrapValue(_conf,variableContent, _stack);
         Argument left_ = new Argument(store_);
         Argument res_ = ExecNumericOperation.calculateAffect(left_, _conf, _right, _op, variableContent.isCatString(), _cl.getNames(), _cast, _stack);
         return trySetArgument(_conf, res_, _stack);
@@ -51,7 +49,7 @@ public final class ExecRefParamOperation extends ExecLeafOperation implements
 
 
     public Argument calculateSemiSetting(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, String _op, boolean _post, byte _cast, StackCall _stack) {
-        Struct store_ = ExecTemplates.getWrapValue(_conf,variableContent.getVariableName(),variableContent.getDeep(), _stack.getLastPage().getCache(), _stack.getLastPage().getRefParams(), _stack).getStruct();
+        Struct store_ = ExecTemplates.getWrapValue(_conf,variableContent, _stack);
         Argument left_ = new Argument(store_);
         Argument res_ = ExecNumericOperation.calculateIncrDecr(left_, _op, _cast);
         trySetArgument(_conf, res_, _stack);
@@ -75,7 +73,7 @@ public final class ExecRefParamOperation extends ExecLeafOperation implements
     }
 
     private Argument trySetArgument(ContextEl _conf, Argument _res, StackCall _stackCall) {
-        return ExecTemplates.setWrapValue(_conf,variableContent.getVariableName(), _res,variableContent.getDeep(), _stackCall.getLastPage().getCache(), _stackCall.getLastPage().getRefParams(), _stackCall);
+        return ExecTemplates.setWrapValue(_conf,variableContent, _res, _stackCall);
     }
 }
 

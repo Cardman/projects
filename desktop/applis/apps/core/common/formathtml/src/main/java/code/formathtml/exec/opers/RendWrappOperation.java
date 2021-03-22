@@ -2,13 +2,13 @@ package code.formathtml.exec.opers;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.exec.ExecHelper;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.variables.*;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.fwd.opers.ExecSettableOperationContent;
 import code.formathtml.Configuration;
-import code.formathtml.SimplePageEl;
 import code.formathtml.exec.RendStackCall;
 import code.formathtml.util.BeanLgNames;
 import code.util.IdMap;
@@ -32,8 +32,7 @@ public final class RendWrappOperation extends RendAbstractUnaryOperation {
         if (getFirstChild() instanceof RendStdVariableOperation) {
             RendStdVariableOperation ch_ = (RendStdVariableOperation) getFirstChild();
             String variableName_ = ch_.getVariableContent().getVariableName();
-            SimplePageEl ip_ = _rendStack.getPageEl();
-            AbstractWrapper val_ = ip_.getRefParams().getVal(variableName_);
+            AbstractWrapper val_ = _rendStack.getLastPage().getRefParams().getVal(variableName_);
             ArgumentsPair pair_ = getArgumentPair(_nodes, this);
             pair_.setWrapper(val_);
             setQuickNoConvertSimpleArgument(Argument.createVoid(),_nodes,_context, _stack);
@@ -73,7 +72,7 @@ public final class RendWrappOperation extends RendAbstractUnaryOperation {
         }
         ArgumentsPair pairCh_ = getArgumentPair(_nodes, getFirstChild());
         ArgumentsPair pair_ = getArgumentPair(_nodes, this);
-        pair_.setWrapper(pairCh_.getWrapper());
+        ExecHelper.fwdWrapper(pair_,pairCh_);
         setQuickNoConvertSimpleArgument(Argument.createVoid(),_nodes,_context, _stack);
     }
 }

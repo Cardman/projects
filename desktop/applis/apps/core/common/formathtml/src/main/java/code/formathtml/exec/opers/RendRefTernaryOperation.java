@@ -2,6 +2,7 @@ package code.formathtml.exec.opers;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.exec.ExecHelper;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.opers.ExecNumericOperation;
@@ -11,7 +12,6 @@ import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecArrContent;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.structs.BooleanStruct;
-import code.expressionlanguage.structs.Struct;
 import code.formathtml.Configuration;
 import code.formathtml.exec.RendStackCall;
 import code.formathtml.util.BeanLgNames;
@@ -31,9 +31,10 @@ public final class RendRefTernaryOperation extends RendMethodOperation implement
     @Override
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, BeanLgNames _advStandards, ContextEl _context, StackCall _stack, RendStackCall _rendStack) {
         setRelativeOffsetPossibleLastPage(getIndexInEl()+offsetLocal, _rendStack);
-        AbstractWrapper res_ = getWrapper(_nodes);
+        ArgumentsPair ch_ = getChosenArgumentsPair(_nodes);
+        AbstractWrapper res_ = ch_.getWrapper();
         ArgumentsPair pair_ = getArgumentPair(_nodes, this);
-        pair_.setWrapper(res_);
+        ExecHelper.fwdWrapper(pair_,ch_);
         Argument arg_ = ExecTemplates.getArgValue(res_, _context, _stack);
         if (resultCanBeSet()) {
             setQuickNoConvertSimpleArgument(arg_, _nodes,_context, _stack);
@@ -42,12 +43,12 @@ public final class RendRefTernaryOperation extends RendMethodOperation implement
         setSimpleArgument(arg_, _nodes,_context, _stack,_rendStack);
     }
 
-    private AbstractWrapper getWrapper(IdMap<RendDynOperationNode, ArgumentsPair> _nodes) {
-        AbstractWrapper arg_;
+    private ArgumentsPair getChosenArgumentsPair(IdMap<RendDynOperationNode, ArgumentsPair> _nodes) {
+        ArgumentsPair arg_;
         if (BooleanStruct.isTrue(getArgumentPair(_nodes,getNode(getChildrenNodes(),0)).getArgument().getStruct())) {
-            arg_ = getArgumentPair(_nodes, getNode(getChildrenNodes(),1)).getWrapper();
+            arg_ = getArgumentPair(_nodes, getNode(getChildrenNodes(),1));
         } else {
-            arg_ = getArgumentPair(_nodes,getNode(getChildrenNodes(),2)).getWrapper();
+            arg_ = getArgumentPair(_nodes,getNode(getChildrenNodes(),2));
         }
         return arg_;
     }

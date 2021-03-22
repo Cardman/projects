@@ -24,7 +24,7 @@ public final class ExecNamedArgumentOperation extends ExecAbstractUnaryOperation
         if (getFirstChild() instanceof ExecWrappOperation) {
             ArgumentsPair pairCh_ = ExecHelper.getArgumentPair(_nodes, getFirstChild());
             ArgumentsPair pair_ = ExecHelper.getArgumentPair(_nodes, this);
-            pair_.setWrapper(pairCh_.getWrapper());
+            ExecHelper.fwdWrapper(pair_,pairCh_);
             setQuickNoConvertSimpleArgument(Argument.createVoid(), _conf, _nodes, _stack);
             return;
         }

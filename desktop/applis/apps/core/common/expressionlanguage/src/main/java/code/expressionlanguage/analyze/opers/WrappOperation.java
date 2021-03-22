@@ -209,19 +209,7 @@ public final class WrappOperation extends AbstractUnaryOperation implements PreA
         }
         MutableLoopVariableOperation v_ = (MutableLoopVariableOperation)firstChild_;
         AnaLocalVariable var_ = _page.getInfosVars().getVal(v_.getVariableName());
-        if (var_ == null || var_.isFinalVariable()) {
-            FoundErrorInterpret varg_ = new FoundErrorInterpret();
-            varg_.setFileName(_page.getLocalizer().getCurrentFileName());
-            varg_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
-            //key word len
-            varg_.buildError(_page.getAnalysisMessages().getUnexpectedLeaf(),
-                    _page.getKeyWords().getKeyWordThat());
-            _page.getLocalizer().addError(varg_);
-            addErr(varg_.getBuiltError());
-            setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
-            return;
-        }
-        setResultClass(new AnaClassArgumentMatching(var_.getClassName()));
+        processErrorVar(_page, var_);
     }
 
     public void processErrorVar(AnalyzedPageEl _page, AnaLocalVariable _var) {
@@ -238,7 +226,6 @@ public final class WrappOperation extends AbstractUnaryOperation implements PreA
             return;
         }
         setResultClass(new AnaClassArgumentMatching(_var.getClassName()));
-        return;
     }
 
     public int getDelta() {

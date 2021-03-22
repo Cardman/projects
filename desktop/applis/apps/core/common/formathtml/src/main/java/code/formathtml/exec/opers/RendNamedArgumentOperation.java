@@ -26,7 +26,7 @@ public final class RendNamedArgumentOperation extends RendAbstractUnaryOperation
         if (getFirstChild() instanceof RendWrappOperation) {
             ArgumentsPair pairCh_ = getArgumentPair(_nodes, getFirstChild());
             ArgumentsPair pair_ = getArgumentPair(_nodes, this);
-            pair_.setWrapper(pairCh_.getWrapper());
+            ExecHelper.fwdWrapper(pair_,pairCh_);
             setQuickNoConvertSimpleArgument(Argument.createVoid(), _nodes,_context, _stack);
             return;
         }

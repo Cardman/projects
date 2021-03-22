@@ -34,7 +34,7 @@ public final class RendStdVariableOperation  extends RendLeafOperation implement
         if (resultCanBeSet()) {
             arg_ = Argument.createVoid();
         } else {
-            arg_ = ExecTemplates.getWrapValue(_context, variableContent.getVariableName(), variableContent.getDeep(), ip_.getCache(), ip_.getRefParams(), _stack);
+            arg_ = ExecTemplates.getWrapArgument(_context, variableContent, ip_.getCache(), ip_.getRefParams(), _stack);
         }
         if (resultCanBeSet()) {
             setQuickNoConvertSimpleArgument(arg_, _nodes, _context, _stack);
@@ -85,7 +85,7 @@ public final class RendStdVariableOperation  extends RendLeafOperation implement
 
     private Argument processVariable(Argument _right, ContextEl _context, StackCall _stackCall, RendStackCall _rendStackCall) {
         SimplePageEl ip_ = _rendStackCall.getPageEl();
-        return ExecTemplates.setWrapValue(_context, variableContent.getVariableName(), _right, variableContent.getDeep(), ip_.getCache(), ip_.getRefParams(), _stackCall);
+        return ExecTemplates.setWrapValue(_context, variableContent, _right, ip_.getCache(), ip_.getRefParams(), _stackCall);
     }
 
     public ExecVariableContent getVariableContent() {
