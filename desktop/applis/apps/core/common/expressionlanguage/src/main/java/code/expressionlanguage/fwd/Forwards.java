@@ -2,6 +2,7 @@ package code.expressionlanguage.fwd;
 
 import code.expressionlanguage.analyze.blocks.*;
 import code.expressionlanguage.exec.blocks.*;
+import code.util.EntryCust;
 import code.util.IdMap;
 
 public final class Forwards {
@@ -13,39 +14,85 @@ public final class Forwards {
     private final IdMap<NamedCalledFunctionBlock,ExecAnonymousFunctionBlock> mapAnonLambda = new IdMap<NamedCalledFunctionBlock,ExecAnonymousFunctionBlock>();
     private final IdMap<SwitchMethodBlock,ExecAbstractSwitchMethod> mapSwitchMethods = new IdMap<SwitchMethodBlock,ExecAbstractSwitchMethod>();
     private final IdMap<AnonymousTypeBlock,ExecAnonymousTypeBlock> mapAnonTypes = new IdMap<AnonymousTypeBlock,ExecAnonymousTypeBlock>();
-    private final IdMap<MemberCallingsBlock,ExecMemberCallingsBlock> allFct = new IdMap<MemberCallingsBlock,ExecMemberCallingsBlock>();
     private final IdMap<MemberCallingsBlock,ExecMemberCallingsBlock> allFctBodies = new IdMap<MemberCallingsBlock,ExecMemberCallingsBlock>();
 
-    public IdMap<AnonymousTypeBlock, ExecAnonymousTypeBlock> getMapAnonTypes() {
-        return mapAnonTypes;
+    public void addMember(RootBlock _type, Members _mem) {
+        mapMembers.addEntry(_type, _mem);
+    }
+    public boolean isMember(int _root) {
+        return mapMembers.isValidIndex(_root);
+    }
+    public Members getMember(RootBlock _root) {
+        return getMember(_root.getNumberAll());
+    }
+    public Members getMember(int _root) {
+        return mapMembers.getValue(_root);
     }
 
-    public IdMap<MemberCallingsBlock, ExecMemberCallingsBlock> getAllFct() {
-        return allFct;
+    public Iterable<EntryCust<RootBlock, Members>> getMembers() {
+        return mapMembers.entryList();
+    }
+    public void addOperator(OperatorBlock _type, ExecOperatorBlock _mem) {
+        mapOperators.addEntry(_type, _mem);
+    }
+    public boolean isOperator(int _root) {
+        return mapOperators.isValidIndex(_root);
+    }
+    public ExecOperatorBlock getOperator(OperatorBlock _root) {
+        return getOperator(_root.getOperatorNumber());
+    }
+    public ExecOperatorBlock getOperator(int _root) {
+        return mapOperators.getValue(_root);
     }
 
-    public IdMap<MemberCallingsBlock, ExecMemberCallingsBlock> getAllFctBodies() {
-        return allFctBodies;
+    public Iterable<EntryCust<OperatorBlock, ExecOperatorBlock>> getOperators() {
+        return mapOperators.entryList();
     }
 
-    public IdMap<NamedCalledFunctionBlock, ExecAnonymousFunctionBlock> getMapAnonLambda() {
-        return mapAnonLambda;
+    public void addAnonType(AnonymousTypeBlock _type, ExecAnonymousTypeBlock _mem) {
+        mapAnonTypes.addEntry(_type, _mem);
+    }
+    public ExecAnonymousTypeBlock getAnonType(AnonymousTypeBlock _root) {
+        return mapAnonTypes.getValue(_root.getNumberAnonType());
     }
 
-    public IdMap<SwitchMethodBlock, ExecAbstractSwitchMethod> getMapSwitchMethods() {
-        return mapSwitchMethods;
+    public void addFctBody(MemberCallingsBlock _type, ExecMemberCallingsBlock _mem) {
+        allFctBodies.addEntry(_type, _mem);
     }
 
-    public IdMap<OperatorBlock, ExecOperatorBlock> getMapOperators() {
-        return mapOperators;
+    public Iterable<EntryCust<MemberCallingsBlock, ExecMemberCallingsBlock>> getFctBodies() {
+        return allFctBodies.entryList();
+    }
+    public void addAnonLambda(NamedCalledFunctionBlock _type, ExecAnonymousFunctionBlock _mem) {
+        mapAnonLambda.addEntry(_type, _mem);
+    }
+    public ExecAnonymousFunctionBlock getAnonLambda(NamedCalledFunctionBlock _root) {
+        return mapAnonLambda.getValue(_root.getNumberLambda());
+    }
+    public int countAnonLambda(){
+        return mapAnonLambda.size();
+    }
+    public Iterable<EntryCust<NamedCalledFunctionBlock, ExecAnonymousFunctionBlock>> getAnonLambdas() {
+        return mapAnonLambda.entryList();
+    }
+    public void addSwitchMethod(SwitchMethodBlock _type, ExecAbstractSwitchMethod _mem) {
+        mapSwitchMethods.addEntry(_type, _mem);
+    }
+    public ExecAbstractSwitchMethod getSwitchMethod(SwitchMethodBlock _root) {
+        return mapSwitchMethods.getValue(_root.getConditionNb());
+    }
+    public int countSwitchMethod(){
+        return mapSwitchMethods.size();
+    }
+    public Iterable<EntryCust<SwitchMethodBlock, ExecAbstractSwitchMethod>> getSwitchMethods() {
+        return mapSwitchMethods.entryList();
     }
 
-    public IdMap<InnerElementBlock, ExecInnerElementBlock> getMapInnerEltTypes() {
-        return mapInnerEltTypes;
+    public void addInnerEltType(InnerElementBlock _type, ExecInnerElementBlock _mem) {
+        mapInnerEltTypes.addEntry(_type, _mem);
     }
-
-    public IdMap<RootBlock, Members> getMapMembers() {
-        return mapMembers;
+    public ExecInnerElementBlock getInnerEltType(InnerElementBlock _root) {
+        return mapInnerEltTypes.getValue(_root.getNumberInner());
     }
 
     public String getAliasBoolean() {

@@ -9,7 +9,6 @@ import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.expressionlanguage.exec.util.ImplicitMethods;
 import code.expressionlanguage.functionid.ClassMethodId;
-import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.fwd.Members;
 import code.util.CustList;
@@ -60,16 +59,16 @@ public final class FetchMemberUtil {
     }
 
     public static ExecRootBlock fetchType(int _nbRoot, Forwards _forwards) {
-        if (_forwards.getMapMembers().isValidIndex(_nbRoot)) {
-            return _forwards.getMapMembers().getValue(_nbRoot).getRootBlock();
+        if (_forwards.isMember(_nbRoot)) {
+            return _forwards.getMember(_nbRoot).getRootBlock();
         }
         return null;
     }
 
     public static ExecRootBlock fetchType(MemberId _id, Forwards _forwards) {
         int rootNumber_ = _id.getRootNumber();
-        if (_forwards.getMapMembers().isValidIndex(rootNumber_)) {
-            return _forwards.getMapMembers().getValue(rootNumber_).getRootBlock();
+        if (_forwards.isMember(rootNumber_)) {
+            return _forwards.getMember(rootNumber_).getRootBlock();
         }
         return null;
     }
@@ -77,10 +76,8 @@ public final class FetchMemberUtil {
     public static ExecInfoBlock fetchField(MemberId _id, Forwards _forwards) {
         int rootNumber_ = _id.getRootNumber();
         int memberNumber_ = _id.getMemberNumber();
-        if (_forwards.getMapMembers().isValidIndex(rootNumber_)) {
-            if (_forwards.getMapMembers().getValue(rootNumber_).getAllFields().isValidIndex(memberNumber_)) {
-                return _forwards.getMapMembers().getValue(rootNumber_).getAllFields().getValue(memberNumber_);
-            }
+        if (_forwards.isMember(rootNumber_) && _forwards.getMember(rootNumber_).getAllFields().isValidIndex(memberNumber_)) {
+            return _forwards.getMember(rootNumber_).getAllFields().getValue(memberNumber_);
         }
         return null;
     }
@@ -90,9 +87,9 @@ public final class FetchMemberUtil {
     }
 
     private static ExecNamedFunctionBlock fetchFunctionOrOp(int _rootNumber, int _memberNumber, int _operatorNumber, Forwards _forwards) {
-        if (_forwards.getMapMembers().isValidIndex(_rootNumber)) {
-            if (_forwards.getMapMembers().getValue(_rootNumber).getAllNamed().isValidIndex(_memberNumber)) {
-                return _forwards.getMapMembers().getValue(_rootNumber).getAllNamed().getValue(_memberNumber);
+        if (_forwards.isMember(_rootNumber)) {
+            if (_forwards.getMember(_rootNumber).getAllNamed().isValidIndex(_memberNumber)) {
+                return _forwards.getMember(_rootNumber).getAllNamed().getValue(_memberNumber);
             }
             return null;
         }
@@ -100,8 +97,8 @@ public final class FetchMemberUtil {
     }
 
     public static ExecOperatorBlock fetchOperator(int _operatorNumber, Forwards _forwards) {
-        if (_forwards.getMapOperators().isValidIndex(_operatorNumber)) {
-            return _forwards.getMapOperators().getValue(_operatorNumber);
+        if (_forwards.isOperator(_operatorNumber)) {
+            return _forwards.getOperator(_operatorNumber);
         }
         return null;
     }
@@ -116,8 +113,8 @@ public final class FetchMemberUtil {
     public static ExecTypeFunction fetchTypeFunction(MemberId _id, Forwards _forwards) {
         int rootNumber_ = _id.getRootNumber();
         int memberNumber_ = _id.getMemberNumber();
-        if (_forwards.getMapMembers().isValidIndex(rootNumber_)) {
-            Members mem_ = _forwards.getMapMembers().getValue(rootNumber_);
+        if (_forwards.isMember(rootNumber_)) {
+            Members mem_ = _forwards.getMember(rootNumber_);
             if (mem_.getAllNamed().isValidIndex(memberNumber_)) {
                 return new ExecTypeFunction(mem_.getRootBlock(),mem_.getAllNamed().getValue(memberNumber_));
             }
@@ -128,8 +125,8 @@ public final class FetchMemberUtil {
     public static ExecTypeFunction fetchTypeCtor(MemberId _id, Forwards _forwards) {
         int rootNumber_ = _id.getRootNumber();
         int memberNumber_ = _id.getMemberNumber();
-        if (_forwards.getMapMembers().isValidIndex(rootNumber_)) {
-            Members mem_ = _forwards.getMapMembers().getValue(rootNumber_);
+        if (_forwards.isMember(rootNumber_)) {
+            Members mem_ = _forwards.getMember(rootNumber_);
             return new ExecTypeFunction(mem_.getRootBlock(),fetchFunction(mem_,memberNumber_));
         }
         return null;

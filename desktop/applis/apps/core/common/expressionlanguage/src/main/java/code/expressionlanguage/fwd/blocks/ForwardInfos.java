@@ -49,7 +49,7 @@ public final class ForwardInfos {
                 ExecAnonymousTypeBlock e_ = new ExecAnonymousTypeBlock(r.getOffset().getOffsetTrim(), new ExecRootBlockContent(r.getRootBlockContent()), r.getAccess());
                 e_.setFile(exFile_);
                 v_.setRootBlock(e_);
-                _forwards.getMapAnonTypes().addEntry((AnonymousTypeBlock)r, e_);
+                _forwards.addAnonType((AnonymousTypeBlock)r, e_);
             }
             if (r instanceof ClassBlock) {
                 ExecClassBlock e_ = new ExecClassBlock(r.getOffset().getOffsetTrim(), new ExecRootBlockContent(r.getRootBlockContent()), r.getAccess(), new ExecClassContent(((ClassBlock) r).getClassContent()));
@@ -75,7 +75,7 @@ public final class ForwardInfos {
                 ExecInnerElementBlock e_ = new ExecInnerElementBlock(r.getOffset().getOffsetTrim(), new ExecRootBlockContent(r.getRootBlockContent()), r.getAccess(), new ExecElementContent(((InnerElementBlock) r).getElementContent()), ((InnerElementBlock) r).getTrOffset());
                 e_.setFile(exFile_);
                 v_.setRootBlock(e_);
-                _forwards.getMapInnerEltTypes().addEntry((InnerElementBlock) r, e_);
+                _forwards.addInnerEltType((InnerElementBlock) r, e_);
             }
             if (r instanceof RecordBlock) {
                 ExecRecordBlock e_ = new ExecRecordBlock(((RecordBlock)r).isMutable(),r.getOffset().getOffsetTrim(), new ExecRootBlockContent(r.getRootBlockContent()), r.getAccess());
@@ -83,12 +83,12 @@ public final class ForwardInfos {
                 v_.setRootBlock(e_);
             }
             coverage_.putType(r);
-            _forwards.getMapMembers().addEntry(r, v_);
+            _forwards.addMember(r, v_);
         }
         innerFetchExecEnd(_forwards);
         Classes classes_ = _context.getClasses();
         for (RootBlock e: _page.getSorted().values()) {
-            ExecRootBlock e_ = _forwards.getMapMembers().getValue(e.getNumberAll()).getRootBlock();
+            ExecRootBlock e_ = _forwards.getMember(e).getRootBlock();
             String fullName_ = e.getFullName();
             classes_.getClassesBodies().addEntry(fullName_, e_);
         }
@@ -96,11 +96,11 @@ public final class ForwardInfos {
             ExecFileBlock exFile_ = files_.getValue(o.getFile().getNumberFile());
             ExecOperatorBlock e_ = new ExecOperatorBlock(o.isRetRef(), o.getName(), o.isVarargs(), o.getAccess(), o.getParametersNames(), o.getOffset().getOffsetTrim(), o.getImportedParametersTypes(), o.getParametersRef());
             e_.setFile(exFile_);
-            _forwards.getMapOperators().addEntry(o,e_);
+            _forwards.addOperator(o,e_);
             coverage_.putOperator(o);
         }
         for (OperatorBlock o: _page.getSortedOperators()) {
-            classes_.getSortedOperators().add(_forwards.getMapOperators().getValue(o.getOperatorNumber()));
+            classes_.getSortedOperators().add(_forwards.getOperator(o));
         }
         for (EntryCust<String,FileBlock> e: _page.getFilesBodies().entryList()) {
             FileBlock fileBlock_ = e.getValue();
@@ -114,7 +114,7 @@ public final class ForwardInfos {
             toStringMethodsToCallBodies_.addEntry(fullName_,FetchMemberUtil.fetchTypeFunction(resDyn_.getMemberId(), _forwards));
             coverage_.putToStringOwner(fullName_);
         }
-        for (EntryCust<RootBlock, Members> e: _forwards.getMapMembers().entryList()) {
+        for (EntryCust<RootBlock, Members> e: _forwards.getMembers()) {
             RootBlock root_ = e.getKey();
             Members mem_ = e.getValue();
             ClassMethodIdOverrides redirections_ = mem_.getRootBlock().getRedirections();
@@ -131,14 +131,13 @@ public final class ForwardInfos {
                 ClassMethodIdOverride override_ = new ClassMethodIdOverride(FetchMemberUtil.fetchFunction(mem_, o.getNameNumber()));
                 for (EntryCust<String,GeneStringOverridable> g: map_.entryList()) {
                     GeneStringOverridable value_ = g.getValue();
-                    int numberAll_ = value_.getType().getNumberAll();
-                    Members memTarget_ = _forwards.getMapMembers().getValue(numberAll_);
+                    Members memTarget_ = _forwards.getMember(value_.getType());
                     override_.put(g.getKey(), value_.getGeneString(), new ExecTypeFunction(memTarget_.getRootBlock(),memTarget_.getAllNamed().getValue(value_.getBlock().getNameNumber())));
                 }
                 redirections_.add(override_);
             }
         }
-        for (EntryCust<RootBlock, Members> e: _forwards.getMapMembers().entryList()) {
+        for (EntryCust<RootBlock, Members> e: _forwards.getMembers()) {
             RootBlock root_ = e.getKey();
             if (!root_.mustImplement()) {
                 CustList<AnaFormattedRootBlock> allSuperClass_ = new CustList<AnaFormattedRootBlock>(new AnaFormattedRootBlock(root_,root_.getGenericString()));
@@ -148,7 +147,7 @@ public final class ForwardInfos {
                     RootBlock superBl_ = s.getRootBlock();
                     for (NamedCalledFunctionBlock b: superBl_.getOverridableBlocks()) {
                         if (b.isAbstractMethod()) {
-                            Members mem_ = _forwards.getMapMembers().getValue(superBl_.getNumberAll());
+                            Members mem_ = _forwards.getMember(superBl_);
                             ExecRootBlock ex_ = mem_.getRootBlock();
                             ExecOverrideInfo val_ = ex_.getRedirections().getVal(FetchMemberUtil.fetchFunction(mem_, b.getNameNumber()), root_.getFullName());
                             if (val_ == null) {
@@ -175,11 +174,11 @@ public final class ForwardInfos {
                 e.getValue().getRootBlock().setWithInstanceElements(instEltCount_);
             }
         }
-        for (EntryCust<RootBlock, Members> e: _forwards.getMapMembers().entryList()) {
+        for (EntryCust<RootBlock, Members> e: _forwards.getMembers()) {
             e.getValue().getRootBlock().getAllSuperTypes().addAllElts(e.getKey().getAllSuperTypes());
             e.getValue().getRootBlock().getStaticInitImportedInterfaces().addAllElts(e.getKey().getStaticInitImportedInterfaces());
         }
-        for (EntryCust<RootBlock, Members> e: _forwards.getMapMembers().entryList()) {
+        for (EntryCust<RootBlock, Members> e: _forwards.getMembers()) {
             RootBlock root_ = e.getKey();
             RootBlock parentType_ = root_.getParentType();
             int index_ = -1;
@@ -190,10 +189,10 @@ public final class ForwardInfos {
             ExecRootBlock e_ = e.getValue().getRootBlock();
             e_.setParentType(execParentType_);
         }
-        for (EntryCust<RootBlock, Members> e: _forwards.getMapMembers().entryList()) {
+        for (EntryCust<RootBlock, Members> e: _forwards.getMembers()) {
             updateExec(e.getValue().getRootBlock(), e.getKey());
         }
-        for (EntryCust<RootBlock, Members> e: _forwards.getMapMembers().entryList()) {
+        for (EntryCust<RootBlock, Members> e: _forwards.getMembers()) {
             RootBlock i = e.getKey();
             CustList<AnaFormattedRootBlock> genericClasses_ = i.getAllGenericClassesInfo();
             Members mem_ = e.getValue();
@@ -207,51 +206,45 @@ public final class ForwardInfos {
             }
             mem_.getRootBlock().emptyCtorPair(fct_);
         }
-        for (EntryCust<RootBlock, Members> e: _forwards.getMapMembers().entryList()) {
+        for (EntryCust<RootBlock, Members> e: _forwards.getMembers()) {
             CustList<AnaFormattedRootBlock> allGenericSuperTypes_ = e.getKey().getAllGenericSuperTypesInfo();
             CustList<ExecFormattedRootBlock> l_ = new CustList<ExecFormattedRootBlock>();
             for (AnaFormattedRootBlock s: allGenericSuperTypes_) {
-                l_.add(new ExecFormattedRootBlock(_forwards.getMapMembers().getValue(s.getRootBlock().getNumberAll()).getRootBlock(),s.getFormatted()));
+                l_.add(new ExecFormattedRootBlock(_forwards.getMember(s.getRootBlock()).getRootBlock(),s.getFormatted()));
             }
             e.getValue().getRootBlock().getAllGenericSuperTypes().addAllElts(l_);
         }
-        for (EntryCust<RootBlock, Members> e: _forwards.getMapMembers().entryList()) {
+        for (EntryCust<RootBlock, Members> e: _forwards.getMembers()) {
             validateIds(e.getValue());
         }
-        for (EntryCust<OperatorBlock, ExecOperatorBlock> e: _forwards.getMapOperators().entryList()) {
+        for (EntryCust<OperatorBlock, ExecOperatorBlock> e: _forwards.getOperators()) {
             OperatorBlock o = e.getKey();
             ExecOperatorBlock value_ = e.getValue();
             value_.setImportedReturnType(o.getImportedReturnType());
         }
-        for (EntryCust<RootBlock, Members> e: _forwards.getMapMembers().entryList()) {
+        for (EntryCust<RootBlock, Members> e: _forwards.getMembers()) {
             RootBlock c = e.getKey();
             Members mem_ = e.getValue();
             for (EntryCust<MemberCallingsBlock, ExecMemberCallingsBlock> f: mem_.getAllFctBodies().entryList()) {
                 MemberCallingsBlock method_ =  f.getKey();
                 coverage_.putCalls(c);
-                _forwards.getAllFctBodies().addEntry(method_,f.getValue());
-            }
-            for (EntryCust<MemberCallingsBlock, ExecMemberCallingsBlock> f: mem_.getAllFct().entryList()) {
-                MemberCallingsBlock method_ =  f.getKey();
-                _forwards.getAllFct().addEntry(method_,f.getValue());
+                _forwards.addFctBody(method_,f.getValue());
             }
             for (EntryCust<ConstructorBlock, ExecConstructorBlock> f: mem_.getAllCtors().entryList()) {
                 ConstructorBlock method_ = f.getKey();
                 fwdInstancingStep(method_, f.getValue());
             }
         }
-        for (EntryCust<OperatorBlock, ExecOperatorBlock> e: _forwards.getMapOperators().entryList()) {
+        for (EntryCust<OperatorBlock, ExecOperatorBlock> e: _forwards.getOperators()) {
             OperatorBlock o = e.getKey();
             ExecOperatorBlock value_ = e.getValue();
-            _forwards.getAllFct().addEntry(o,value_);
-            _forwards.getAllFctBodies().addEntry(o,value_);
+            _forwards.addFctBody(o,value_);
         }
         for (AnonymousLambdaOperation e: _page.getAllAnonymousLambda()) {
             NamedCalledFunctionBlock method_ = e.getBlock();
             coverage_.putCallsAnon();
             ExecNamedFunctionBlock function_ = buildExecAnonymousLambdaOperation(e, _forwards);
-            _forwards.getAllFct().addEntry(method_, function_);
-            _forwards.getAllFctBodies().addEntry(method_, function_);
+            _forwards.addFctBody(method_, function_);
             int numberFile_ = method_.getFile().getNumberFile();
             ExecFileBlock value_ = files_.getValue(numberFile_);
             function_.setFile(value_);
@@ -260,18 +253,17 @@ public final class ForwardInfos {
             SwitchMethodBlock method_ = e.getSwitchMethod();
             coverage_.putCallsSwitchMethod();
             ExecAbstractSwitchMethod function_ = buildExecSwitchOperation(e, _forwards);
-            _forwards.getAllFct().addEntry(method_, function_);
-            _forwards.getAllFctBodies().addEntry(method_, function_);
+            _forwards.addFctBody(method_, function_);
             int numberFile_ = method_.getFile().getNumberFile();
             ExecFileBlock value_ = files_.getValue(numberFile_);
             function_.setFile(value_);
         }
-        for (EntryCust<RootBlock, Members> e: _forwards.getMapMembers().entryList()) {
+        for (EntryCust<RootBlock, Members> e: _forwards.getMembers()) {
             RootBlock c = e.getKey();
             Members mem_ = e.getValue();
             for (AbsBk b: ClassesUtil.getDirectChildren(c)) {
                 if (b instanceof RootBlock) {
-                    ExecRootBlock val_ = _forwards.getMapMembers().getValue(((RootBlock) b).getNumberAll()).getRootBlock();
+                    ExecRootBlock val_ = _forwards.getMember((RootBlock) b).getRootBlock();
                     mem_.getRootBlock().getChildrenTypes().add(val_);
                 } else {
                     if (b instanceof InfoBlock) {
@@ -307,7 +299,7 @@ public final class ForwardInfos {
                 }
             }
         }
-        for (EntryCust<RootBlock, Members> e: _forwards.getMapMembers().entryList()) {
+        for (EntryCust<RootBlock, Members> e: _forwards.getMembers()) {
             Members mem_ = e.getValue();
             for (EntryCust<InnerTypeOrElement, ExecInnerTypeOrElement> f: mem_.getAllElementFields().entryList()) {
                 InnerTypeOrElement method_ = f.getKey();
@@ -320,10 +312,10 @@ public final class ForwardInfos {
                 f.getValue().setOpValue(exNodes_);
             }
         }
-        for (EntryCust<MemberCallingsBlock, ExecMemberCallingsBlock> e: _forwards.getAllFctBodies().entryList()) {
+        for (EntryCust<MemberCallingsBlock, ExecMemberCallingsBlock> e: _forwards.getFctBodies()) {
             buildExec(e.getKey(),e.getValue(), coverage_, _forwards);
         }
-        for (EntryCust<RootBlock, Members> e: _forwards.getMapMembers().entryList()) {
+        for (EntryCust<RootBlock, Members> e: _forwards.getMembers()) {
             RootBlock c = e.getKey();
             Members mem_ = e.getValue();
             coverage_.putBlockOperationsType(mem_.getRootBlock(),c);
@@ -335,7 +327,7 @@ public final class ForwardInfos {
                 fwd(b,d, coverage_, _forwards);
             }
         }
-        for (EntryCust<RootBlock, Members> e: _forwards.getMapMembers().entryList()) {
+        for (EntryCust<RootBlock, Members> e: _forwards.getMembers()) {
             RootBlock c = e.getKey();
             Members mem_ = e.getValue();
             for (EntryCust<NamedFunctionBlock, ExecNamedFunctionBlock> a: mem_.getAllNamed().entryList()) {
@@ -359,25 +351,25 @@ public final class ForwardInfos {
                 fwdAnnotations(c, d, coverage_, _forwards);
             }
         }
-        for (EntryCust<OperatorBlock, ExecOperatorBlock> e: _forwards.getMapOperators().entryList()) {
+        for (EntryCust<OperatorBlock, ExecOperatorBlock> e: _forwards.getOperators()) {
             OperatorBlock o = e.getKey();
             ExecOperatorBlock value_ = e.getValue();
             fwdAnnotations(o, value_, coverage_, _forwards);
             fwdAnnotationsParameters(o, value_, coverage_, _forwards);
         }
-        for (EntryCust<NamedCalledFunctionBlock, ExecAnonymousFunctionBlock> a: _forwards.getMapAnonLambda().entryList()) {
+        for (EntryCust<NamedCalledFunctionBlock, ExecAnonymousFunctionBlock> a: _forwards.getAnonLambdas()) {
             NamedCalledFunctionBlock key_ = a.getKey();
             ExecAnonymousFunctionBlock value_ = a.getValue();
             fwdAnnotations(key_, value_, coverage_, _forwards);
             fwdAnnotationsParameters(key_, value_, coverage_, _forwards);
         }
-        for (EntryCust<SwitchMethodBlock, ExecAbstractSwitchMethod> a: _forwards.getMapSwitchMethods().entryList()) {
+        for (EntryCust<SwitchMethodBlock, ExecAbstractSwitchMethod> a: _forwards.getSwitchMethods()) {
             SwitchMethodBlock key_ = a.getKey();
             ExecAbstractSwitchMethod value_ = a.getValue();
             fwdAnnotationsSw(key_, value_, coverage_, _forwards);
             fwdAnnotationsParametersSw(key_, value_, coverage_, _forwards);
         }
-        for (EntryCust<RootBlock, Members> e: _forwards.getMapMembers().entryList()) {
+        for (EntryCust<RootBlock, Members> e: _forwards.getMembers()) {
             RootBlock root_ = e.getKey();
             Members valueMember_ = e.getValue();
             IdMap<MemberCallingsBlock, ExecMemberCallingsBlock> allFct_ = valueMember_.getAllFct();
@@ -391,38 +383,38 @@ public final class ForwardInfos {
                 if (b instanceof InfoBlock) {
                     ExecInfoBlock value_ = allFields_.getValue(((InfoBlock)b).getFieldNumber());
                     for (AnonymousTypeBlock a: ((InfoBlock)b).getAnonymous()) {
-                        value_.getAnonymous().add(_forwards.getMapAnonTypes().getValue(a.getNumberAnonType()));
+                        value_.getAnonymous().add(_forwards.getAnonType(a));
                     }
                     for (SwitchMethodBlock a: ((InfoBlock)b).getSwitchMethods()) {
-                        value_.getSwitchMethods().add(_forwards.getMapSwitchMethods().getValue(a.getConditionNb()));
+                        value_.getSwitchMethods().add(_forwards.getSwitchMethod(a));
                     }
                     for (NamedCalledFunctionBlock a: ((InfoBlock)b).getAnonymousFct()) {
-                        value_.getAnonymousLambda().add(_forwards.getMapAnonLambda().getValue(a.getNumberLambda()));
+                        value_.getAnonymousLambda().add(_forwards.getAnonLambda(a));
                     }
                 }
             }
             ExecRootBlock value_ = e.getValue().getRootBlock();
             for (NamedCalledFunctionBlock a: root_.getAnonymousRootFct()) {
-                value_.getAnonymousRootLambda().add(_forwards.getMapAnonLambda().getValue(a.getNumberLambda()));
+                value_.getAnonymousRootLambda().add(_forwards.getAnonLambda(a));
             }
             for (SwitchMethodBlock a: root_.getSwitchMethods()) {
-                value_.getSwitchMethodsRoot().add(_forwards.getMapSwitchMethods().getValue(a.getConditionNb()));
+                value_.getSwitchMethodsRoot().add(_forwards.getSwitchMethod(a));
             }
             for (AnonymousTypeBlock a: root_.getAnonymousRoot()) {
-                value_.getAnonymousRoot().add(_forwards.getMapAnonTypes().getValue(a.getNumberAnonType()));
+                value_.getAnonymousRoot().add(_forwards.getAnonType(a));
             }
         }
-        for (EntryCust<OperatorBlock, ExecOperatorBlock> e: _forwards.getMapOperators().entryList()) {
+        for (EntryCust<OperatorBlock, ExecOperatorBlock> e: _forwards.getOperators()) {
             OperatorBlock key_ = e.getKey();
             ExecOperatorBlock value_ = e.getValue();
             feedFct(key_, value_, _forwards);
         }
-        for (EntryCust<NamedCalledFunctionBlock, ExecAnonymousFunctionBlock> a: _forwards.getMapAnonLambda().entryList()) {
+        for (EntryCust<NamedCalledFunctionBlock, ExecAnonymousFunctionBlock> a: _forwards.getAnonLambdas()) {
             NamedCalledFunctionBlock key_ = a.getKey();
             ExecAnonymousFunctionBlock value_ = a.getValue();
             feedFct(key_, value_, _forwards);
         }
-        for (EntryCust<SwitchMethodBlock, ExecAbstractSwitchMethod> a: _forwards.getMapSwitchMethods().entryList()) {
+        for (EntryCust<SwitchMethodBlock, ExecAbstractSwitchMethod> a: _forwards.getSwitchMethods()) {
             SwitchMethodBlock key_ = a.getKey();
             ExecAbstractSwitchMethod value_ = a.getValue();
             feedFct(key_, value_, _forwards);
@@ -431,26 +423,26 @@ public final class ForwardInfos {
 
     private static void feedFct(MemberCallingsBlock _b1, ExecMemberCallingsBlock _value, Forwards _forwards) {
         for (SwitchMethodBlock a: _b1.getSwitchMethods()) {
-            _value.getSwitchMethods().add(_forwards.getMapSwitchMethods().getValue(a.getConditionNb()));
+            _value.getSwitchMethods().add(_forwards.getSwitchMethod(a));
         }
         for (NamedCalledFunctionBlock a: _b1.getAnonymousFct()) {
-            _value.getAnonymousLambda().add(_forwards.getMapAnonLambda().getValue(a.getNumberLambda()));
+            _value.getAnonymousLambda().add(_forwards.getAnonLambda(a));
         }
         for (AnonymousTypeBlock a: _b1.getAnonymous()) {
-            _value.getAnonymous().add(_forwards.getMapAnonTypes().getValue(a.getNumberAnonType()));
+            _value.getAnonymous().add(_forwards.getAnonType(a));
         }
         for (RootBlock a: _b1.getReserved()) {
-            _value.getReserved().add(_forwards.getMapMembers().getValue(a.getNumberAll()).getRootBlock());
+            _value.getReserved().add(_forwards.getMember(a).getRootBlock());
         }
     }
 
     private static void processAppend(ExecFileBlock _exFile, RootBlock _root, Forwards _forwards) {
-        ExecRootBlock e_ = _forwards.getMapMembers().getValue(_root.getNumberAll()).getRootBlock();
+        ExecRootBlock e_ = _forwards.getMember(_root).getRootBlock();
         _exFile.appendChild(e_);
     }
 
     private static void innerFetchExecEnd(Forwards _forwards) {
-        for (EntryCust<RootBlock, Members> r: _forwards.getMapMembers().entryList()) {
+        for (EntryCust<RootBlock, Members> r: _forwards.getMembers()) {
             ExecRootBlock current_ = r.getValue().getRootBlock();
             RootBlock k_ = r.getKey();
             Members mem_ = r.getValue();
@@ -476,7 +468,7 @@ public final class ForwardInfos {
                     mem_.getAllFct().addEntry(annot_,val_);
                 }
                 if (b instanceof InnerElementBlock) {
-                    ExecInnerElementBlock val_ = _forwards.getMapInnerEltTypes().getValue(((InnerElementBlock) b).getNumberInner());
+                    ExecInnerElementBlock val_ = _forwards.getInnerEltType((InnerElementBlock) b);
                     current_.appendChild(val_);
                     mem_.getAllFields().addEntry((InfoBlock) b,val_);
                     mem_.getAllInnerElementFields().addEntry((InnerElementBlock) b,val_);
@@ -563,7 +555,7 @@ public final class ForwardInfos {
             }
             if (b instanceof OperatorBlock) {
                 OperatorBlock r_ = (OperatorBlock) b;
-                ExecOperatorBlock e_ = _forwards.getMapOperators().getValue(r_.getOperatorNumber());
+                ExecOperatorBlock e_ = _forwards.getOperator(r_);
                 _exeFile.appendChild(e_);
             }
         }
@@ -573,18 +565,18 @@ public final class ForwardInfos {
         ExecRootBlock declaring_ = FetchMemberUtil.fetchType(_s.getRootNumber(),_forwards);
 //        ExecRootBlock declaring_ = _forwards.getMapMembers().getValue(_s.getRootNumber()).getRootBlock();
         NamedCalledFunctionBlock block_ = _s.getBlock();
-        block_.setNumberLambda(_forwards.getMapAnonLambda().size());
+        block_.setNumberLambda(_forwards.countAnonLambda());
         ExecAnonymousFunctionBlock fct_ = new ExecAnonymousFunctionBlock(block_.isRetRef(),block_.getName(), block_.isVarargs(), block_.getAccess(), block_.getParametersNames(), block_.getModifier(), block_.getOffset().getOffsetTrim(), new ExecAnonFctContent(block_.getAnaAnonFctContent()), block_.getImportedParametersTypes(), block_.getParametersRef());
         fct_.setParentType(declaring_);
         fct_.setOperator(FetchMemberUtil.fetchOperator(_s.getOperatorNumber(),_forwards));
-        _forwards.getMapAnonLambda().addEntry(block_,fct_);
+        _forwards.addAnonLambda(block_,fct_);
         fct_.setImportedReturnType(block_.getImportedReturnType());
         return fct_;
     }
 
     private static ExecAbstractSwitchMethod buildExecSwitchOperation(SwitchOperation _s, Forwards _forwards) {
         SwitchMethodBlock block_ = _s.getSwitchMethod();
-        block_.setConditionNb(_forwards.getMapSwitchMethods().size());
+        block_.setConditionNb(_forwards.countSwitchMethod());
         String parType_ = block_.getResult().getSingleNameOrEmpty();
         boolean retRef_ = block_.isRetRef();
         String name_ = block_.getName();
@@ -602,7 +594,7 @@ public final class ForwardInfos {
         ExecRootBlock declaring_ = FetchMemberUtil.fetchType(_s.getRootNumber(),_forwards);
         fct_.setParentType(declaring_);
         fct_.setOperator(FetchMemberUtil.fetchOperator(_s.getOperatorNumber(),_forwards));
-        _forwards.getMapSwitchMethods().addEntry(block_,fct_);
+        _forwards.addSwitchMethod(block_,fct_);
         return fct_;
     }
 
@@ -1108,7 +1100,7 @@ public final class ForwardInfos {
         if (_anaNode instanceof SwitchOperation) {
             SwitchOperation s_ = (SwitchOperation) _anaNode;
             SwitchMethodBlock switchMethod_ = s_.getSwitchMethod();
-            ExecAbstractSwitchMethod r_ = _forwards.getMapSwitchMethods().getValue(switchMethod_.getConditionNb());
+            ExecAbstractSwitchMethod r_ = _forwards.getSwitchMethod(switchMethod_);
             ExecRootBlock type_ = FetchMemberUtil.fetchType(s_.getRootNumber(), _forwards);
             return new ExecSwitchOperation(new ExecOperationContent(s_.getContent()),type_,r_, new ExecArrContent(s_.getArrContent()));
         }
@@ -1190,7 +1182,7 @@ public final class ForwardInfos {
             AnonymousLambdaOperation s_ = (AnonymousLambdaOperation) _anaNode;
 
             NamedCalledFunctionBlock method_ = s_.getBlock();
-            ExecAnonymousFunctionBlock r_ = _forwards.getMapAnonLambda().getValue(method_.getNumberLambda());
+            ExecAnonymousFunctionBlock r_ = _forwards.getAnonLambda(method_);
             ExecTypeFunction pair_ = new ExecTypeFunction(FetchMemberUtil.fetchType(s_.getRootNumber(),_forwards), r_);
 //            ExecTypeFunction pair_ = new ExecTypeFunction(_forwards.getMapMembers().getValue(s_.getRootNumber()).getRootBlock(), r_);
             return new ExecAnonymousLambdaOperation(new ExecOperationContent(s_.getContent()), new ExecLambdaCommonContent(s_.getLambdaCommonContent()), new ExecLambdaAnoContent(s_.getLambdaAnoContent()), pair_);
