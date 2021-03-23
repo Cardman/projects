@@ -26,9 +26,10 @@ public final class ExecLambdaMethodContent {
         directCast = _meth.isDirectCast();
         expCast = _meth.isExpCast();
         clonedMethod = _meth.isClonedMethod();
-        pair = FetchMemberUtil.fetchTypeFunction(_id, _forwards);
-        function = FetchMemberUtil.fetchFunctionOp(_id, _forwards);
-        declaring = FetchMemberUtil.fetchType(_id, _forwards);
+        ExecRootBlock decl_ = FetchMemberUtil.fetchType(_id, _forwards);
+        pair = FetchMemberUtil.fetchTypeFunction(decl_,_id, _forwards);
+        function = FetchMemberUtil.fetchFunctionOp(decl_,_id, _forwards);
+        declaring = decl_;
     }
 
     public ExecTypeFunction getPair() {

@@ -273,7 +273,7 @@ public final class ResolvingImportTypes {
                     ClassMethodId clMet_ = new ClassMethodId(s, e.getId());
                     ImportedMethod value_ = new ImportedMethod(e.getImportedReturnType(), clMet_);
                     value_.setFileName(e.getFile().getFileName());
-                    value_.memberId(t_.getNumberAll(),e.getNameNumber());
+                    value_.memberId(t_.getNumberAll(),e.getNameOverrideNumber());
                     value_.setCustMethod(e);
                     value_.setType(t_);
                     addImportMethod(_methods, value_);

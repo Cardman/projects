@@ -2659,7 +2659,6 @@ public abstract class OperationNode {
         MethodInfo mloc_ = new MethodInfo();
         mloc_.setOriginalReturnType(_importedReturnType);
         mloc_.setFileName(_m.getFile().getFileName());
-        mloc_.memberId(_r.getNumberAll(),_m.getNameNumber());
         if (_m.isMatchParamNames()) {
             mloc_.setParametersNames(_m.getParametersNames());
         }
@@ -2669,6 +2668,9 @@ public abstract class OperationNode {
         if (AbsBk.isOverBlock(_m)) {
             mloc_.setAbstractMethod(_m.isAbstractMethod());
             mloc_.setFinalMethod(_m.isFinalMethod());
+            mloc_.memberId(_r.getNumberAll(),_m.getNameOverrideNumber());
+        } else {
+            mloc_.memberId(_r.getNumberAll(),_m.getNameNumber());
         }
         mloc_.setConstraints(_id);
         mloc_.setParameters(p_);

@@ -1912,9 +1912,6 @@ public final class FileResolver {
                 int bodyFctNb_ = _currentParent.getCountBodyFct();
                 ov_.setNumberBodyFct(bodyFctNb_);
                 _currentParent.setCountBodyFct(bodyFctNb_+1);
-                int countName_ = _currentParent.getCountName();
-                ov_.setNameNumber(countName_);
-                _currentParent.setCountName(countName_+1);
                 int countOv_ = _currentParent.getCountOv();
                 ov_.setNameOverrideNumber(countOv_);
                 _currentParent.setCountOv(countOv_+1);
@@ -1993,9 +1990,6 @@ public final class FileResolver {
                 int bodyFctNb_ = _currentParent.getCountBodyFct();
                 ov_.setNumberBodyFct(bodyFctNb_);
                 _currentParent.setCountBodyFct(bodyFctNb_+1);
-                int countName_ = _currentParent.getCountName();
-                ov_.setNameNumber(countName_);
-                _currentParent.setCountName(countName_+1);
                 int countOv_ = _currentParent.getCountOv();
                 ov_.setNameOverrideNumber(countOv_);
                 _currentParent.setCountOv(countOv_+1);
@@ -2012,9 +2006,7 @@ public final class FileResolver {
                 int bodyFctNb_ = _currentParent.getCountBodyFct();
                 ((ConstructorBlock)br_).setNumberBodyFct(bodyFctNb_);
                 _currentParent.setCountBodyFct(bodyFctNb_+1);
-                int countName_ = _currentParent.getCountName();
-                ((ConstructorBlock)br_).setCtorNumber(countName_);
-                _currentParent.setCountName(countName_+1);
+                ((ConstructorBlock)br_).setCtorNumber(_currentParent.getConstructorBlocks().size());
                 _currentParent.getConstructorBlocks().add((ConstructorBlock)br_);
                 if (parametersType_.isEmpty()) {
                     _currentParent.setEmptyCtor((ConstructorBlock) br_);

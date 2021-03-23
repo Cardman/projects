@@ -16,6 +16,7 @@ public final class Members {
     private final IdMap<InnerTypeOrElement,ExecInnerTypeOrElement> allElementFields = new IdMap<InnerTypeOrElement,ExecInnerTypeOrElement>();
     private final IdMap<ElementBlock,ExecElementBlock> allSimpleElementFields = new IdMap<ElementBlock,ExecElementBlock>();
     private final IdMap<NamedFunctionBlock,ExecNamedFunctionBlock> allNamed = new IdMap<NamedFunctionBlock,ExecNamedFunctionBlock>();
+    private final IdMap<NamedFunctionBlock,ExecNamedFunctionBlock> allOvNamed = new IdMap<NamedFunctionBlock,ExecNamedFunctionBlock>();
     private final IdMap<MemberCallingsBlock,ExecMemberCallingsBlock> allFct = new IdMap<MemberCallingsBlock,ExecMemberCallingsBlock>();
     private final IdMap<MemberCallingsBlock,ExecMemberCallingsBlock> allFctBodies = new IdMap<MemberCallingsBlock,ExecMemberCallingsBlock>();
 
@@ -36,6 +37,12 @@ public final class Members {
     }
     public void addCtor(ConstructorBlock _key, ExecConstructorBlock _value) {
         allCtors.addEntry(_key, _value);
+    }
+    public boolean isCtor(int _key) {
+        return allCtors.isValidIndex(_key);
+    }
+    public ExecConstructorBlock getCtor(int _key) {
+        return allCtors.getValue(_key);
     }
     public Iterable<EntryCust<ConstructorBlock, ExecConstructorBlock>> getCtors() {
         return allCtors.entryList();
@@ -83,17 +90,27 @@ public final class Members {
     public void addNamed(NamedFunctionBlock _key, ExecNamedFunctionBlock _value) {
         allNamed.addEntry(_key, _value);
     }
-    public boolean isNamed(int _key) {
-        return allNamed.isValidIndex(_key);
-    }
-    public ExecNamedFunctionBlock getNamed(NamedCalledFunctionBlock _key) {
-        return getNamed(_key.getNameNumber());
-    }
+
     public ExecNamedFunctionBlock getNamed(int _key) {
         return allNamed.getValue(_key);
     }
     public Iterable<EntryCust<NamedFunctionBlock, ExecNamedFunctionBlock>> getNamed() {
         return allNamed.entryList();
+    }
+    public void addOvNamed(NamedFunctionBlock _key, ExecNamedFunctionBlock _value) {
+        allOvNamed.addEntry(_key, _value);
+    }
+    public boolean isOvNamed(int _key) {
+        return allOvNamed.isValidIndex(_key);
+    }
+    public ExecNamedFunctionBlock getOvNamed(NamedCalledFunctionBlock _key) {
+        return getOvNamed(_key.getNameOverrideNumber());
+    }
+    public ExecNamedFunctionBlock getOvNamed(int _key) {
+        return allOvNamed.getValue(_key);
+    }
+    public Iterable<EntryCust<NamedFunctionBlock, ExecNamedFunctionBlock>> getOvNamed() {
+        return allOvNamed.entryList();
     }
     public void addFct(MemberCallingsBlock _key, ExecMemberCallingsBlock _value) {
         allFct.addEntry(_key, _value);

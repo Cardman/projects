@@ -2,10 +2,7 @@ package code.expressionlanguage.fwd.blocks;
 
 import code.expressionlanguage.analyze.opers.util.MemberId;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
-import code.expressionlanguage.exec.blocks.ExecInfoBlock;
-import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
-import code.expressionlanguage.exec.blocks.ExecOperatorBlock;
-import code.expressionlanguage.exec.blocks.ExecRootBlock;
+import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.expressionlanguage.exec.util.ImplicitMethods;
 import code.expressionlanguage.functionid.ClassMethodId;
@@ -23,7 +20,7 @@ public final class FetchMemberUtil {
         ExecTypeFunction conv_ = null;
         if (!implicits_.isEmpty()) {
             owner_ = implicits_.first().getClassName();
-            conv_ = fetchTypeFunction(_ana.getMemberId(), _forwards);
+            conv_ = fetchOvTypeFunction(_ana.getMemberId(), _forwards);
         }
         if (conv_ != null) {
             _implicitsOp.getConverter().add(conv_);
@@ -34,7 +31,7 @@ public final class FetchMemberUtil {
         ExecTypeFunction convTest_ = null;
         if (!implicitsTest_.isEmpty()) {
             ownerTest_ = implicitsTest_.first().getClassName();
-            convTest_ = fetchTypeFunction(_ana.getMemberIdTest(), _forwards);
+            convTest_ = fetchOvTypeFunction(_ana.getMemberIdTest(), _forwards);
         }
         if (convTest_ != null) {
             _implicitsTestOp.getConverter().add(convTest_);
@@ -47,7 +44,7 @@ public final class FetchMemberUtil {
         String converterClass_ = "";
         if (_clMet != null) {
             converterClass_ = _clMet.getClassName();
-            conv_ = fetchTypeFunction(_id, _forwards);
+            conv_ = fetchOvTypeFunction(_id, _forwards);
         }
         if (conv_ != null) {
             ImplicitMethods converter_ = new ImplicitMethods();
@@ -82,14 +79,17 @@ public final class FetchMemberUtil {
         return null;
     }
 
-    public static ExecNamedFunctionBlock fetchFunctionOp(MemberId _id, Forwards _forwards) {
-        return fetchFunctionOrOp(_id.getRootNumber(),_id.getMemberNumber(),_id.getMemberNumber(), _forwards);
+    public static ExecNamedFunctionBlock fetchFunctionOp(ExecRootBlock _declaring,MemberId _id, Forwards _forwards) {
+        return fetchFunctionOrOp(_declaring,_id.getRootNumber(),_id.getMemberNumber(),_id.getMemberNumber(), _forwards);
     }
 
-    private static ExecNamedFunctionBlock fetchFunctionOrOp(int _rootNumber, int _memberNumber, int _operatorNumber, Forwards _forwards) {
+    private static ExecNamedFunctionBlock fetchFunctionOrOp(ExecRootBlock _declaring,int _rootNumber, int _memberNumber, int _operatorNumber, Forwards _forwards) {
         if (_forwards.isMember(_rootNumber)) {
-            if (_forwards.getMember(_rootNumber).isNamed(_memberNumber)) {
+            if (_declaring instanceof ExecAnnotationBlock) {
                 return _forwards.getMember(_rootNumber).getNamed(_memberNumber);
+            }
+            if (_forwards.getMember(_rootNumber).isOvNamed(_memberNumber)) {
+                return _forwards.getMember(_rootNumber).getOvNamed(_memberNumber);
             }
             return null;
         }
@@ -103,20 +103,35 @@ public final class FetchMemberUtil {
         return null;
     }
 
-    public static ExecNamedFunctionBlock fetchFunction(Members _member, int _nbMember) {
-        if (_member.isNamed(_nbMember)) {
-            return _member.getNamed(_nbMember);
+    public static ExecNamedFunctionBlock fetchCtorFunction(Members _member, int _nbMember) {
+        if (_member.isCtor(_nbMember)) {
+            return _member.getCtor(_nbMember);
         }
         return null;
     }
 
-    public static ExecTypeFunction fetchTypeFunction(MemberId _id, Forwards _forwards) {
+    public static ExecTypeFunction fetchTypeFunction(ExecRootBlock _declaring,MemberId _id, Forwards _forwards) {
         int rootNumber_ = _id.getRootNumber();
         int memberNumber_ = _id.getMemberNumber();
         if (_forwards.isMember(rootNumber_)) {
             Members mem_ = _forwards.getMember(rootNumber_);
-            if (mem_.isNamed(memberNumber_)) {
+            if (_declaring instanceof ExecAnnotationBlock) {
                 return new ExecTypeFunction(mem_.getRootBlock(),mem_.getNamed(memberNumber_));
+            }
+            if (mem_.isOvNamed(memberNumber_)) {
+                return new ExecTypeFunction(mem_.getRootBlock(),mem_.getOvNamed(memberNumber_));
+            }
+        }
+        return null;
+    }
+
+    public static ExecTypeFunction fetchOvTypeFunction(MemberId _id, Forwards _forwards) {
+        int rootNumber_ = _id.getRootNumber();
+        int memberNumber_ = _id.getMemberNumber();
+        if (_forwards.isMember(rootNumber_)) {
+            Members mem_ = _forwards.getMember(rootNumber_);
+            if (mem_.isOvNamed(memberNumber_)) {
+                return new ExecTypeFunction(mem_.getRootBlock(),mem_.getOvNamed(memberNumber_));
             }
         }
         return null;
@@ -127,7 +142,7 @@ public final class FetchMemberUtil {
         int memberNumber_ = _id.getMemberNumber();
         if (_forwards.isMember(rootNumber_)) {
             Members mem_ = _forwards.getMember(rootNumber_);
-            return new ExecTypeFunction(mem_.getRootBlock(),fetchFunction(mem_,memberNumber_));
+            return new ExecTypeFunction(mem_.getRootBlock(),fetchCtorFunction(mem_,memberNumber_));
         }
         return null;
     }
