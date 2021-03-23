@@ -3735,6 +3735,78 @@ public final class MaParserTest extends EquallableMathUtil {
         assertEq("#23", noVar("(((1,1,.),(1,0,.),.),0,^^^)"));
     }
     @Test
+    public void evaluateExp932Test(){
+        assertEq("{-1;1}", noVar("({1,1;1,1},<)"));
+    }
+    @Test
+    public void evaluateExp933Test(){
+        assertEq("{1;1}", noVar("({1,1;1,1},>)"));
+    }
+    @Test
+    public void evaluateExp934Test(){
+        assertEq("{-1,1;1,1}", noVar("({1,1;1,1},<>)"));
+    }
+    @Test
+    public void evaluateExp935Test(){
+        assertEq("{1,-1;1,1}", noVar("({1,1;1,1},><)"));
+    }
+    @Test
+    public void evaluateExp936Test(){
+        assertEq("{0;0}", noVar("({1,0;0,1;0,0},<)"));
+    }
+    @Test
+    public void evaluateExp937Test(){
+        assertEq("{1,0;0,1;0,0}", noVar("({1,0;0,1;0,0},>)"));
+    }
+    @Test
+    public void evaluateExp938Test(){
+        assertEq("{0;0;1}", noVar("({1,0,0;0,1,0},<)"));
+    }
+    @Test
+    public void evaluateExp939Test(){
+        assertEq("{1,0;0,1}", noVar("({1,0,0;0,1,0},>)"));
+    }
+    @Test
+    public void evaluateExp940Test(){
+        assertEq("{1,0;0,1}", noVar("({0,0;0,0;0,0},<)"));
+    }
+    @Test
+    public void evaluateExp941Test(){
+        assertEq("{0;0;0}", noVar("({0,0;0,0;0,0},>)"));
+    }
+    @Test
+    public void evaluateExp942Test(){
+        assertEq("{1,0,0;0,1,0;0,0,1}", noVar("({0,0,0;0,0,0},<)"));
+    }
+    @Test
+    public void evaluateExp943Test(){
+        assertEq("{0;0}", noVar("({0,0,0;0,0,0},>)"));
+    }
+    @Test
+    public void evaluateExp944Test(){
+        assertEq("#8", noVar("((1,||),<)"));
+    }
+    @Test
+    public void evaluateExp945Test(){
+        assertEq("#8", noVar("((1,||),>)"));
+    }
+    @Test
+    public void evaluateExp946Test(){
+        assertEq("#15", noVar("({0,0,0;0,0,0},<>)"));
+    }
+    @Test
+    public void evaluateExp947Test(){
+        assertEq("#15", noVar("({0,0;0,0;0,0},><)"));
+    }
+    @Test
+    public void evaluateExp948Test(){
+        assertEq("#8", noVar("((1,||),<>)"));
+    }
+    @Test
+    public void evaluateExp949Test(){
+        assertEq("#8", noVar("((1,||),><)"));
+    }
+    @Test
     public void nullVarTest(){
         assertEq("####", nullVar());
     }

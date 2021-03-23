@@ -686,7 +686,7 @@ public class MatrixTest extends EquallableMathUtil {
         assertEq(new Rate(1), d_);
     }
     @Test
-    public void ker() {
+    public void ker1() {
         Matrix mat_ = new Matrix();
         Vect vect_ = new Vect(new CustList<Rate>(new Rate(1),new Rate(-1),new Rate(1),new Rate(1)));
         mat_.addLineRef(vect_);
@@ -776,6 +776,102 @@ public class MatrixTest extends EquallableMathUtil {
         assertEq(new Rate(1),res_.get(0).get(0));
         assertEq(new Rate(-2),res_.get(0).get(1));
         assertEq(new Rate(1),res_.get(0).get(2));
+    }
+    @Test
+    public void im1() {
+        Matrix mat_ = new Matrix();
+        Vect vect_ = new Vect(new CustList<Rate>(new Rate(1),new Rate(-1),new Rate(1),new Rate(1)));
+        mat_.addLineRef(vect_);
+        vect_ = new Vect(new CustList<Rate>(new Rate(1),new Rate(0),new Rate(2),new Rate(-1)));
+        mat_.addLineRef(vect_);
+        vect_ = new Vect(new CustList<Rate>(new Rate(1),new Rate(1),new Rate(3),new Rate(-3)));
+        mat_.addLineRef(vect_);
+        CustList<Vect> res_ = mat_.im();
+        assertEq(2,res_.size());
+        assertEq(3,res_.get(0).size());
+        assertEq(new Rate(1),res_.get(0).get(0));
+        assertEq(new Rate(0),res_.get(0).get(1));
+        assertEq(new Rate(-1),res_.get(0).get(2));
+        assertEq(3,res_.get(1).size());
+        assertEq(new Rate(0),res_.get(1).get(0));
+        assertEq(new Rate(1),res_.get(1).get(1));
+        assertEq(new Rate(2),res_.get(1).get(2));
+    }
+    @Test
+    public void im2() {
+        Matrix mat_ = new Matrix();
+        Vect vect_ = new Vect(new CustList<Rate>(new Rate(1),new Rate(1)));
+        mat_.addLineRef(vect_);
+        vect_ = new Vect(new CustList<Rate>(new Rate(2),new Rate(2)));
+        mat_.addLineRef(vect_);
+        CustList<Vect> res_ = mat_.im();
+        assertEq(1,res_.size());
+        assertEq(2,res_.get(0).size());
+        assertEq(new Rate(1),res_.get(0).get(0));
+        assertEq(new Rate(2),res_.get(0).get(1));
+    }
+    @Test
+    public void im3() {
+        Matrix mat_ = new Matrix();
+        Vect vect_ = new Vect(new CustList<Rate>(new Rate(0),new Rate(0)));
+        mat_.addLineRef(vect_);
+        vect_ = new Vect(new CustList<Rate>(new Rate(2),new Rate(2)));
+        mat_.addLineRef(vect_);
+        CustList<Vect> res_ = mat_.im();
+        assertEq(1,res_.size());
+        assertEq(2,res_.get(0).size());
+        assertEq(new Rate(0),res_.get(0).get(0));
+        assertEq(new Rate(2),res_.get(0).get(1));
+    }
+    @Test
+    public void im4() {
+        Matrix mat_ = new Matrix();
+        Vect vect_ = new Vect(new CustList<Rate>(new Rate(0),new Rate(0)));
+        mat_.addLineRef(vect_);
+        vect_ = new Vect(new CustList<Rate>(new Rate(0),new Rate(0)));
+        mat_.addLineRef(vect_);
+        CustList<Vect> res_ = mat_.im();
+        assertEq(0,res_.size());
+    }
+    @Test
+    public void im5() {
+        Matrix mat_ = new Matrix();
+        Vect vect_ = new Vect(new CustList<Rate>(new Rate(1),new Rate(0)));
+        mat_.addLineRef(vect_);
+        vect_ = new Vect(new CustList<Rate>(new Rate(0),new Rate(1)));
+        mat_.addLineRef(vect_);
+        CustList<Vect> res_ = mat_.im();
+        assertEq(2,res_.size());
+        assertEq(2,res_.get(0).size());
+        assertEq(new Rate(1),res_.get(0).get(0));
+        assertEq(new Rate(0),res_.get(0).get(1));
+        assertEq(2,res_.get(1).size());
+        assertEq(new Rate(0),res_.get(1).get(0));
+        assertEq(new Rate(1),res_.get(1).get(1));
+    }
+    @Test
+    public void im6() {
+        Matrix mat_ = new Matrix();
+        Vect vect_ = new Vect(new CustList<Rate>(new Rate(1),new Rate(1),new Rate(1)));
+        mat_.addLineRef(vect_);
+        vect_ = new Vect(new CustList<Rate>(new Rate(-1),new Rate(0),new Rate(1)));
+        mat_.addLineRef(vect_);
+        vect_ = new Vect(new CustList<Rate>(new Rate(1),new Rate(2),new Rate(3)));
+        mat_.addLineRef(vect_);
+        vect_ = new Vect(new CustList<Rate>(new Rate(1),new Rate(-1),new Rate(-3)));
+        mat_.addLineRef(vect_);
+        CustList<Vect> res_ = mat_.im();
+        assertEq(2,res_.size());
+        assertEq(4,res_.get(0).size());
+        assertEq(new Rate(1),res_.get(0).get(0));
+        assertEq(new Rate(0),res_.get(0).get(1));
+        assertEq(new Rate(2),res_.get(0).get(2));
+        assertEq(new Rate(-1),res_.get(0).get(3));
+        assertEq(4,res_.get(1).size());
+        assertEq(new Rate(0),res_.get(1).get(0));
+        assertEq(new Rate(1),res_.get(1).get(1));
+        assertEq(new Rate(1),res_.get(1).get(2));
+        assertEq(new Rate(-2),res_.get(1).get(3));
     }
     @Test
     public void passVects() {

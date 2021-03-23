@@ -74,6 +74,10 @@ public abstract class MaOperationNode {
     protected static final String MATRIX = "{";
     protected static final String ASSOC = "=>";
     protected static final String EVT = "<>";
+    protected static final String KER = "<";
+    protected static final String IM = ">";
+    protected static final String KERIM = "<>";
+    protected static final String IMKER = "><";
 //    protected static final String PUIS = "puis";
 //
 //    protected static final String QUOT = "quot";
@@ -424,11 +428,19 @@ public abstract class MaOperationNode {
     }
 
     private static boolean algebreUn(String _val) {
-        return nbOp(_val) || arith(_val)
+        return classicUn(_val)
                 || containsOnlySimpleQuotes(_val) > 0
                 || StringUtil.quickEq(ID_MAT, _val);
     }
 
+    private static boolean classicUn(String _val) {
+        return nbOp(_val) || arith(_val) || matrixAddon(_val);
+    }
+
+    private static boolean matrixAddon(String _val) {
+        return StringUtil.quickEq(_val,IM) || StringUtil.quickEq(_val,KER)
+                ||StringUtil.quickEq(_val,IMKER) || StringUtil.quickEq(_val,KERIM);
+    }
     private static boolean nbOp(String _val) {
         return nbPart(_val) || nbDecSymbol(_val);
     }

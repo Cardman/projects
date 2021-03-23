@@ -10,6 +10,7 @@ import code.maths.geo.RatePoint;
 import code.maths.geo.Triangle;
 import code.maths.matrix.FractPol;
 import code.maths.matrix.Matrix;
+import code.maths.matrix.Vect;
 import code.util.CustList;
 import code.util.StringMap;
 import code.util.core.StringUtil;
@@ -53,6 +54,7 @@ public final class SymbUnFctMaOperation extends AbsSymbFixMaOperation {
         procGravCenter(_error);
         procDerive(_error);
         procIdMat(_error);
+        procPasses(_error);
     }
 
     private void procGravCenter(MaError _error) {
@@ -372,6 +374,72 @@ public final class SymbUnFctMaOperation extends AbsSymbFixMaOperation {
             Polygon polygon_ = polyg_.getPolygon();
             setStruct(new MaPolygonStruct(polygon_.getStrictHull()));
             return;
+        }
+        _error.setOffset(getIndexExp()+getOperOff());
+    }
+    private void procPasses(MaError _error) {
+        if (StringUtil.quickEq(KER, getOper())) {
+            procKer(_error);
+        }
+        if (StringUtil.quickEq(IM, getOper())) {
+            procIm(_error);
+        }
+        if (StringUtil.quickEq(KERIM, getOper())) {
+            procKerIm(_error);
+        }
+        if (StringUtil.quickEq(IMKER, getOper())) {
+            procImKer(_error);
+        }
+    }
+    private void procKer(MaError _error) {
+        MaStruct val_ = MaNumParsers.tryGet(this, 0);
+        MaMatrixStruct mt_ = asMatrix(val_);
+        if (mt_ != null) {
+            Matrix matrix_ = mt_.getMatrix();
+            setStruct(new MaMatrixStruct(matrix_.matrixKer()));
+            return;
+        }
+        _error.setOffset(getIndexExp()+getOperOff());
+    }
+
+    private void procIm(MaError _error) {
+        MaStruct val_ = MaNumParsers.tryGet(this, 0);
+        MaMatrixStruct mt_ = asMatrix(val_);
+        if (mt_ != null) {
+            Matrix matrix_ = mt_.getMatrix();
+            setStruct(new MaMatrixStruct(matrix_.matrixIm()));
+            return;
+        }
+        _error.setOffset(getIndexExp()+getOperOff());
+    }
+    private void procKerIm(MaError _error) {
+        MaStruct val_ = MaNumParsers.tryGet(this, 0);
+        MaMatrixStruct mt_ = asMatrix(val_);
+        if (mt_ != null) {
+            Matrix matrix_ = mt_.getMatrix();
+            if (matrix_.isSquare()) {
+                CustList<Vect> lines_ = new CustList<Vect>();
+                lines_.addAllElts(matrix_.ker());
+                lines_.addAllElts(matrix_.im());
+                setStruct(new MaMatrixStruct(new Matrix(lines_).transposeRef()));
+                return;
+            }
+        }
+        _error.setOffset(getIndexExp()+getOperOff());
+    }
+
+    private void procImKer(MaError _error) {
+        MaStruct val_ = MaNumParsers.tryGet(this, 0);
+        MaMatrixStruct mt_ = asMatrix(val_);
+        if (mt_ != null) {
+            Matrix matrix_ = mt_.getMatrix();
+            if (matrix_.isSquare()) {
+                CustList<Vect> lines_ = new CustList<Vect>();
+                lines_.addAllElts(matrix_.im());
+                lines_.addAllElts(matrix_.ker());
+                setStruct(new MaMatrixStruct(new Matrix(lines_).transposeRef()));
+                return;
+            }
         }
         _error.setOffset(getIndexExp()+getOperOff());
     }

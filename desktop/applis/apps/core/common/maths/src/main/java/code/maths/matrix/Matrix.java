@@ -81,33 +81,79 @@ public final class Matrix implements Displayable {
         }
         return vects_;
     }
-    public CustList<Vect> ker() {
+    public Matrix matrixKer(){
+        CustList<Vect> vects_ = ker();
+        if (vects_.isEmpty()) {
+            int nbLines_ = nbCols();
+            return zeroMatrix(nbLines_).transposeRef();
+        }
+        return new Matrix(vects_).transposeRef();
+    }
+    public Matrix matrixIm(){
+        CustList<Vect> vects_ = im();
+        if (vects_.isEmpty()) {
+            int nbLines_ = nbLines();
+            return zeroMatrix(nbLines_).transposeRef();
+        }
+        return new Matrix(vects_).transposeRef();
+    }
+
+    private static Matrix zeroMatrix(int _count) {
+        Vect v_ = new Vect();
+        for (int j = 0; j < _count; j++) {
+            v_.add(Rate.zero());
+        }
+        return new Matrix(new CustList<Vect>(v_));
+    }
+
+    public CustList<Vect> im() {
         int nbCols_ = nbCols();
-        Matrix id_ = buildId(nbCols_);
         Matrix copy_ = new Matrix(this);
         int nbLines_ = nbLines();
-        int nbLinesId_ = id_.nbLines();
-        for (int i = 0; i < nbLinesId_; i++) {
-            copy_.addLineRef(id_.lines.get(i));
-        }
-        for (int i = 0; i < nbLines_; i++) {
-            int indexNotZero_ = indexNotZero(nbCols_, copy_, i);
-            if (indexNotZero_ > -1){
-                combine(nbCols_, copy_, i, indexNotZero_);
+        grouped(nbCols_,nbLines_,copy_);
+        CustList<Vect> cols_ = new CustList<Vect>();
+        for (int i = 0; i < nbCols_; i++) {
+            if (!zeroPrev(copy_, nbLines_, i)) {
+                addCol(copy_, 0, cols_, nbLines_, i);
             }
         }
+        return cols_;
+    }
+    public CustList<Vect> ker() {
+        int nbCols_ = nbCols();
+        Matrix copy_ = new Matrix(this);
+        int nbLines_ = nbLines();
+        grouped(nbCols_,nbLines_,copy_);
         CustList<Vect> cols_ = new CustList<Vect>();
         int all_ = copy_.nbLines();
         for (int i = 0; i < nbCols_; i++) {
             if (zeroPrev(copy_, nbLines_, i)) {
-                Vect v_ = new Vect();
-                for (int j = nbLines_; j < all_; j++) {
-                    v_.add(copy_.lines.get(j).get(i));
-                }
-                cols_.add(v_);
+                addCol(copy_, nbLines_, cols_, all_, i);
             }
         }
         return cols_;
+    }
+
+    private static void addCol(Matrix _copy, int _from, CustList<Vect> _cols, int _to, int _i) {
+        Vect v_ = new Vect();
+        for (int j = _from; j < _to; j++) {
+            v_.add(_copy.lines.get(j).get(_i));
+        }
+        _cols.add(v_);
+    }
+
+    private static void grouped(int _nbCols, int _nbLines, Matrix _copy) {
+        Matrix id_ = buildId(_nbCols);
+        int nbLinesId_ = id_.nbLines();
+        for (int i = 0; i < nbLinesId_; i++) {
+            _copy.addLineRef(id_.lines.get(i));
+        }
+        for (int i = 0; i < _nbLines; i++) {
+            int indexNotZero_ = indexNotZero(_nbCols, _copy, i);
+            if (indexNotZero_ > -1){
+                combine(_nbCols, _copy, i, indexNotZero_);
+            }
+        }
     }
 
     private static int indexNotZero(int _nbCols, Matrix _copy, int _i) {
