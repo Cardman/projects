@@ -132,7 +132,7 @@ public final class ForwardInfos {
                 for (EntryCust<String,GeneStringOverridable> g: map_.entryList()) {
                     GeneStringOverridable value_ = g.getValue();
                     Members memTarget_ = _forwards.getMember(value_.getType());
-                    override_.put(g.getKey(), value_.getGeneString(), new ExecTypeFunction(memTarget_.getRootBlock(),memTarget_.getAllNamed().getValue(value_.getBlock().getNameNumber())));
+                    override_.put(g.getKey(), value_.getGeneString(), new ExecTypeFunction(memTarget_.getRootBlock(),memTarget_.getNamed(value_.getBlock())));
                 }
                 redirections_.add(override_);
             }
@@ -151,7 +151,7 @@ public final class ForwardInfos {
                             ExecRootBlock ex_ = mem_.getRootBlock();
                             ExecOverrideInfo val_ = ex_.getRedirections().getVal(FetchMemberUtil.fetchFunction(mem_, b.getNameNumber()), root_.getFullName());
                             if (val_ == null) {
-                                ExecOverridableBlock value_ = mem_.getAllMethods().getValue(b.getNameOverrideNumber());
+                                ExecOverridableBlock value_ = mem_.getMethod(b);
                                 e.getValue().getRootBlock().getFunctionalBodies().add(new ExecFunctionalInfo(s.getFormatted(),value_));
                             }
                         }
@@ -225,12 +225,12 @@ public final class ForwardInfos {
         for (EntryCust<RootBlock, Members> e: _forwards.getMembers()) {
             RootBlock c = e.getKey();
             Members mem_ = e.getValue();
-            for (EntryCust<MemberCallingsBlock, ExecMemberCallingsBlock> f: mem_.getAllFctBodies().entryList()) {
+            for (EntryCust<MemberCallingsBlock, ExecMemberCallingsBlock> f: mem_.getFctBodies()) {
                 MemberCallingsBlock method_ =  f.getKey();
                 coverage_.putCalls(c);
                 _forwards.addFctBody(method_,f.getValue());
             }
-            for (EntryCust<ConstructorBlock, ExecConstructorBlock> f: mem_.getAllCtors().entryList()) {
+            for (EntryCust<ConstructorBlock, ExecConstructorBlock> f: mem_.getCtors()) {
                 ConstructorBlock method_ = f.getKey();
                 fwdInstancingStep(method_, f.getValue());
             }
@@ -267,31 +267,31 @@ public final class ForwardInfos {
                     mem_.getRootBlock().getChildrenTypes().add(val_);
                 } else {
                     if (b instanceof InfoBlock) {
-                        ExecInfoBlock elt_ = mem_.getAllFields().getValue(((InfoBlock) b).getFieldNumber());
+                        ExecInfoBlock elt_ = mem_.getField((InfoBlock) b);
                         mem_.getRootBlock().getChildrenOthers().add((ExecBlock) elt_);
                     }
                     if (b instanceof MemberCallingsBlock) {
-                        ExecMemberCallingsBlock elt_ = mem_.getAllFct().getValue(((MemberCallingsBlock) b).getNumberFct());
+                        ExecMemberCallingsBlock elt_ = mem_.getFct((MemberCallingsBlock) b);
                         mem_.getRootBlock().getChildrenOthers().add(elt_);
                     }
                 }
             }
-            for (EntryCust<NamedCalledFunctionBlock, ExecAnnotationMethodBlock> f: mem_.getAllAnnotMethods().entryList()) {
+            for (EntryCust<NamedCalledFunctionBlock, ExecAnnotationMethodBlock> f: mem_.getAnnotMethods()) {
                 mem_.getRootBlock().getAnnotationsFields().add(f.getValue());
             }
-            for (EntryCust<InnerTypeOrElement, ExecInnerTypeOrElement> f: mem_.getAllElementFields().entryList()) {
+            for (EntryCust<InnerTypeOrElement, ExecInnerTypeOrElement> f: mem_.getElementFields()) {
                 ExecInnerTypeOrElement val_ = f.getValue();
                 mem_.getRootBlock().getEnumElements().add(val_);
             }
-            for (EntryCust<InfoBlock, ExecInfoBlock> f: mem_.getAllFields().entryList()) {
+            for (EntryCust<InfoBlock, ExecInfoBlock> f: mem_.getFields()) {
                 ExecInfoBlock val_ = f.getValue();
                 mem_.getRootBlock().getAllFields().add(val_);
             }
-            for (EntryCust<MemberCallingsBlock, ExecMemberCallingsBlock> f: mem_.getAllFct().entryList()) {
+            for (EntryCust<MemberCallingsBlock, ExecMemberCallingsBlock> f: mem_.getFcts()) {
                 ExecMemberCallingsBlock val_ = f.getValue();
                 mem_.getRootBlock().getAllFct().add(val_);
             }
-            for (EntryCust<FieldBlock, ExecFieldBlock> f: mem_.getAllExplicitFields().entryList()) {
+            for (EntryCust<FieldBlock, ExecFieldBlock> f: mem_.getExplicitFields()) {
                 FieldBlock method_ = f.getKey();
                 ExecFieldBlock exp_ = f.getValue();
                 if (!method_.isStaticField()) {
@@ -301,12 +301,12 @@ public final class ForwardInfos {
         }
         for (EntryCust<RootBlock, Members> e: _forwards.getMembers()) {
             Members mem_ = e.getValue();
-            for (EntryCust<InnerTypeOrElement, ExecInnerTypeOrElement> f: mem_.getAllElementFields().entryList()) {
+            for (EntryCust<InnerTypeOrElement, ExecInnerTypeOrElement> f: mem_.getElementFields()) {
                 InnerTypeOrElement method_ = f.getKey();
                 CustList<ExecOperationNode> exNodes_ = processField(method_, (ExecBlock) f.getValue(), coverage_, _forwards, method_.getRoot());
                 f.getValue().setOpValue(exNodes_);
             }
-            for (EntryCust<FieldBlock, ExecFieldBlock> f: mem_.getAllExplicitFields().entryList()) {
+            for (EntryCust<FieldBlock, ExecFieldBlock> f: mem_.getExplicitFields()) {
                 FieldBlock method_ = f.getKey();
                 CustList<ExecOperationNode> exNodes_ = processField(method_, f.getValue(), coverage_, _forwards, method_.getRoot());
                 f.getValue().setOpValue(exNodes_);
@@ -319,7 +319,7 @@ public final class ForwardInfos {
             RootBlock c = e.getKey();
             Members mem_ = e.getValue();
             coverage_.putBlockOperationsType(mem_.getRootBlock(),c);
-            for (EntryCust<NamedCalledFunctionBlock, ExecAnnotationMethodBlock> a: mem_.getAllAnnotMethods().entryList()) {
+            for (EntryCust<NamedCalledFunctionBlock, ExecAnnotationMethodBlock> a: mem_.getAnnotMethods()) {
                 NamedCalledFunctionBlock b = a.getKey();
                 ExecAnnotationMethodBlock d = a.getValue();
                 coverage_.putBlockOperationsField(d, b);
@@ -330,18 +330,18 @@ public final class ForwardInfos {
         for (EntryCust<RootBlock, Members> e: _forwards.getMembers()) {
             RootBlock c = e.getKey();
             Members mem_ = e.getValue();
-            for (EntryCust<NamedFunctionBlock, ExecNamedFunctionBlock> a: mem_.getAllNamed().entryList()) {
+            for (EntryCust<NamedFunctionBlock, ExecNamedFunctionBlock> a: mem_.getNamed()) {
                 NamedFunctionBlock b = a.getKey();
                 ExecNamedFunctionBlock d = a.getValue();
                 fwdAnnotations(b, d, coverage_, _forwards);
                 fwdAnnotationsParameters(b, d, coverage_, _forwards);
             }
-            for (EntryCust<InnerTypeOrElement, ExecInnerTypeOrElement> a: mem_.getAllElementFields().entryList()) {
+            for (EntryCust<InnerTypeOrElement, ExecInnerTypeOrElement> a: mem_.getElementFields()) {
                 InnerTypeOrElement b = a.getKey();
                 ExecInnerTypeOrElement d = a.getValue();
                 fwdAnnotations(b, d, coverage_, _forwards);
             }
-            for (EntryCust<FieldBlock, ExecFieldBlock> a: mem_.getAllExplicitFields().entryList()) {
+            for (EntryCust<FieldBlock, ExecFieldBlock> a: mem_.getExplicitFields()) {
                 FieldBlock b = a.getKey();
                 ExecFieldBlock d = a.getValue();
                 fwdAnnotations(b, d, coverage_, _forwards);
@@ -372,16 +372,14 @@ public final class ForwardInfos {
         for (EntryCust<RootBlock, Members> e: _forwards.getMembers()) {
             RootBlock root_ = e.getKey();
             Members valueMember_ = e.getValue();
-            IdMap<MemberCallingsBlock, ExecMemberCallingsBlock> allFct_ = valueMember_.getAllFct();
-            IdMap<InfoBlock, ExecInfoBlock> allFields_ = valueMember_.getAllFields();
             for (AbsBk b: ClassesUtil.getDirectChildren(root_)) {
                 if (b instanceof MemberCallingsBlock) {
                     MemberCallingsBlock b1_ = (MemberCallingsBlock) b;
-                    ExecMemberCallingsBlock value_ = allFct_.getValue(b1_.getNumberFct());
+                    ExecMemberCallingsBlock value_ = valueMember_.getFct(b1_);
                     feedFct(b1_, value_, _forwards);
                 }
                 if (b instanceof InfoBlock) {
-                    ExecInfoBlock value_ = allFields_.getValue(((InfoBlock)b).getFieldNumber());
+                    ExecInfoBlock value_ = valueMember_.getField((InfoBlock)b);
                     for (AnonymousTypeBlock a: ((InfoBlock)b).getAnonymous()) {
                         value_.getAnonymous().add(_forwards.getAnonType(a));
                     }
@@ -452,67 +450,65 @@ public final class ForwardInfos {
                     MethodKind kind_ = ov_.getKind();
                     ExecOverridableBlock val_ = new ExecOverridableBlock(ov_.isRetRef(), ov_.getName(), ov_.isVarargs(), ov_.getAccess(), ov_.getParametersNames(), ov_.getModifier(), toExecMethodKind(kind_), b.getOffset().getOffsetTrim(), ov_.getImportedParametersTypes(), ov_.getParametersRef());
                     val_.setFile(current_.getFile());
-                    mem_.getAllMethods().addEntry(ov_,val_);
-                    mem_.getAllNamed().addEntry(ov_,val_);
-                    mem_.getAllFct().addEntry(ov_,val_);
-                    mem_.getAllFctBodies().addEntry(ov_,val_);
+                    mem_.addMethod(ov_,val_);
+                    mem_.addNamed(ov_,val_);
+                    mem_.addFct(ov_,val_);
+                    mem_.addFctBody(ov_,val_);
                 }
                 if (AbsBk.isAnnotBlock(b)) {
                     NamedCalledFunctionBlock annot_ = (NamedCalledFunctionBlock) b;
                     ExecAnnotationMethodBlock val_ = new ExecAnnotationMethodBlock((annot_).getName(), (annot_).isVarargs(), (annot_).getAccess(), (annot_).getParametersNames(), (annot_).getDefaultValueOffset(), b.getOffset().getOffsetTrim());
                     val_.setFile(current_.getFile());
-                    mem_.getAllAnnotMethods().addEntry(annot_,val_);
-                    mem_.getAllNamed().addEntry(annot_,val_);
-                    mem_.getAllFct().addEntry(annot_,val_);
+                    mem_.addAnnotMethod(annot_,val_);
+                    mem_.addNamed(annot_,val_);
+                    mem_.addFct(annot_,val_);
                     procAnnotMember(current_, annot_, val_);
                 }
                 if (b instanceof InnerElementBlock) {
                     ExecInnerElementBlock val_ = _forwards.getInnerEltType((InnerElementBlock) b);
-                    mem_.getAllFields().addEntry((InfoBlock) b,val_);
-                    mem_.getAllInnerElementFields().addEntry((InnerElementBlock) b,val_);
-                    mem_.getAllElementFields().addEntry((InnerElementBlock) b,val_);
+                    mem_.addField((InfoBlock) b,val_);
+                    mem_.addInnerElementField((InnerElementBlock) b,val_);
+                    mem_.addElementField((InnerElementBlock) b,val_);
                     current_.getAllStaticMembers().add(val_);
                 }
                 if (b instanceof ElementBlock) {
                     ExecElementBlock val_ = new ExecElementBlock(b.getOffset().getOffsetTrim(), new ExecElementContent(((ElementBlock) b).getElementContent()), ((ElementBlock) b).getTrOffset());
                     val_.setFile(current_.getFile());
-                    mem_.getAllFields().addEntry((InfoBlock) b,val_);
-                    mem_.getAllSimpleElementFields().addEntry((ElementBlock) b,val_);
-                    mem_.getAllElementFields().addEntry((ElementBlock) b,val_);
+                    mem_.addField((InfoBlock) b,val_);
+                    mem_.addSimpleElementField((ElementBlock) b,val_);
+                    mem_.addElementField((ElementBlock) b,val_);
                     current_.getAllStaticMembers().add(val_);
                 }
                 if (b instanceof FieldBlock) {
                     ExecFieldBlock val_ = new ExecFieldBlock(b.getOffset().getOffsetTrim(), ((FieldBlock) b).getFieldContent());
                     val_.setFile(current_.getFile());
-                    mem_.getAllFields().addEntry((InfoBlock) b,val_);
-                    mem_.getAllExplicitFields().addEntry((FieldBlock) b,val_);
+                    mem_.addField((InfoBlock) b,val_);
+                    mem_.addExplicitField((FieldBlock) b,val_);
                     chooseForField(current_, val_);
                 }
                 if (b instanceof ConstructorBlock) {
                     ExecConstructorBlock val_ = new ExecConstructorBlock(((ConstructorBlock)b).getName(), ((ConstructorBlock)b).isVarargs(), ((ConstructorBlock)b).getAccess(), ((ConstructorBlock)b).getParametersNames(), b.getOffset().getOffsetTrim(), ((ConstructorBlock)b).getImportedParametersTypes(), ((ConstructorBlock)b).getParametersRef());
                     val_.setFile(current_.getFile());
-                    mem_.getAllCtors().addEntry((ConstructorBlock) b,val_);
-                    mem_.getAllNamed().addEntry((ConstructorBlock) b,val_);
-                    mem_.getAllFct().addEntry((MemberCallingsBlock)b,val_);
-                    mem_.getAllFctBodies().addEntry((MemberCallingsBlock)b,val_);
+                    mem_.addCtor((ConstructorBlock) b,val_);
+                    mem_.addNamed((ConstructorBlock) b,val_);
+                    mem_.addFct((MemberCallingsBlock)b,val_);
+                    mem_.addFctBody((MemberCallingsBlock)b,val_);
                 }
                 if (b instanceof InstanceBlock) {
                     ExecInstanceBlock val_ = new ExecInstanceBlock(b.getOffset().getOffsetTrim());
                     val_.setFile(current_.getFile());
-                    val_.setNumber(mem_.getAllInits().size());
-                    mem_.getAllInits().put((InitBlock) b,val_);
-                    mem_.getAllFct().addEntry((MemberCallingsBlock)b,val_);
-                    mem_.getAllFctBodies().addEntry((MemberCallingsBlock)b,val_);
+                    val_.setNumber(((InitBlock) b).getNumber());
+                    mem_.addFct((MemberCallingsBlock)b,val_);
+                    mem_.addFctBody((MemberCallingsBlock)b,val_);
                     current_.getAllInstanceMembers().add(val_);
                     current_.getAllInstanceInits().add(val_);
                 }
                 if (b instanceof StaticBlock) {
                     ExecStaticBlock val_ = new ExecStaticBlock(b.getOffset().getOffsetTrim());
                     val_.setFile(current_.getFile());
-                    val_.setNumber(mem_.getAllInits().size());
-                    mem_.getAllInits().put((InitBlock) b,val_);
-                    mem_.getAllFct().addEntry((MemberCallingsBlock)b,val_);
-                    mem_.getAllFctBodies().addEntry((MemberCallingsBlock)b,val_);
+                    val_.setNumber(((InitBlock) b).getNumber());
+                    mem_.addFct((MemberCallingsBlock)b,val_);
+                    mem_.addFctBody((MemberCallingsBlock)b,val_);
                     current_.getAllStaticMembers().add(val_);
                     current_.getAllStaticInits().add(val_);
                 }
@@ -1470,28 +1466,28 @@ public final class ForwardInfos {
     }
 
     private static void validateIds(Members _mem) {
-        for (EntryCust<NamedCalledFunctionBlock,ExecOverridableBlock> e: _mem.getAllMethods().entryList()) {
+        for (EntryCust<NamedCalledFunctionBlock,ExecOverridableBlock> e: _mem.getMethods()) {
             e.getValue().setImportedReturnType(e.getKey().getImportedReturnType());
             String returnTypeGet_ = e.getKey().getReturnTypeGet();
             if (!returnTypeGet_.isEmpty()) {
                 e.getValue().setImportedReturnType(returnTypeGet_);
             }
         }
-        for (EntryCust<ConstructorBlock,ExecConstructorBlock> e: _mem.getAllCtors().entryList()) {
+        for (EntryCust<ConstructorBlock,ExecConstructorBlock> e: _mem.getCtors()) {
             e.getValue().setImportedReturnType(e.getKey().getImportedReturnType());
         }
-        for (EntryCust<NamedCalledFunctionBlock, ExecAnnotationMethodBlock> e: _mem.getAllAnnotMethods().entryList()) {
+        for (EntryCust<NamedCalledFunctionBlock, ExecAnnotationMethodBlock> e: _mem.getAnnotMethods()) {
             NamedCalledFunctionBlock key1_ = e.getKey();
             e.getValue().setImportedReturnType(key1_.getImportedReturnType());
             e.getValue().getImportedParametersTypes().addAllElts(key1_.getImportedParametersTypes());
         }
-        for (EntryCust<InnerElementBlock, ExecInnerElementBlock> e: _mem.getAllInnerElementFields().entryList()) {
+        for (EntryCust<InnerElementBlock, ExecInnerElementBlock> e: _mem.getInnerElementFields()) {
             buildImportedTypes(e.getValue(),e.getKey());
         }
-        for (EntryCust<ElementBlock, ExecElementBlock> e: _mem.getAllSimpleElementFields().entryList()) {
+        for (EntryCust<ElementBlock, ExecElementBlock> e: _mem.getSimpleElementFields()) {
             buildImportedTypes(e.getValue(),e.getKey());
         }
-        for (EntryCust<FieldBlock, ExecFieldBlock> e: _mem.getAllExplicitFields().entryList()) {
+        for (EntryCust<FieldBlock, ExecFieldBlock> e: _mem.getExplicitFields()) {
             buildImportedTypes(e.getValue(),e.getKey());
         }
     }

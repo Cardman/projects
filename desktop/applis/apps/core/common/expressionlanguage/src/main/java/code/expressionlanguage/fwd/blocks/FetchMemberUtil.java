@@ -76,8 +76,8 @@ public final class FetchMemberUtil {
     public static ExecInfoBlock fetchField(MemberId _id, Forwards _forwards) {
         int rootNumber_ = _id.getRootNumber();
         int memberNumber_ = _id.getMemberNumber();
-        if (_forwards.isMember(rootNumber_) && _forwards.getMember(rootNumber_).getAllFields().isValidIndex(memberNumber_)) {
-            return _forwards.getMember(rootNumber_).getAllFields().getValue(memberNumber_);
+        if (_forwards.isMember(rootNumber_) && _forwards.getMember(rootNumber_).isField(memberNumber_)) {
+            return _forwards.getMember(rootNumber_).getField(memberNumber_);
         }
         return null;
     }
@@ -88,8 +88,8 @@ public final class FetchMemberUtil {
 
     private static ExecNamedFunctionBlock fetchFunctionOrOp(int _rootNumber, int _memberNumber, int _operatorNumber, Forwards _forwards) {
         if (_forwards.isMember(_rootNumber)) {
-            if (_forwards.getMember(_rootNumber).getAllNamed().isValidIndex(_memberNumber)) {
-                return _forwards.getMember(_rootNumber).getAllNamed().getValue(_memberNumber);
+            if (_forwards.getMember(_rootNumber).isNamed(_memberNumber)) {
+                return _forwards.getMember(_rootNumber).getNamed(_memberNumber);
             }
             return null;
         }
@@ -104,8 +104,8 @@ public final class FetchMemberUtil {
     }
 
     public static ExecNamedFunctionBlock fetchFunction(Members _member, int _nbMember) {
-        if (_member.getAllNamed().isValidIndex(_nbMember)) {
-            return _member.getAllNamed().getValue(_nbMember);
+        if (_member.isNamed(_nbMember)) {
+            return _member.getNamed(_nbMember);
         }
         return null;
     }
@@ -115,8 +115,8 @@ public final class FetchMemberUtil {
         int memberNumber_ = _id.getMemberNumber();
         if (_forwards.isMember(rootNumber_)) {
             Members mem_ = _forwards.getMember(rootNumber_);
-            if (mem_.getAllNamed().isValidIndex(memberNumber_)) {
-                return new ExecTypeFunction(mem_.getRootBlock(),mem_.getAllNamed().getValue(memberNumber_));
+            if (mem_.isNamed(memberNumber_)) {
+                return new ExecTypeFunction(mem_.getRootBlock(),mem_.getNamed(memberNumber_));
             }
         }
         return null;
