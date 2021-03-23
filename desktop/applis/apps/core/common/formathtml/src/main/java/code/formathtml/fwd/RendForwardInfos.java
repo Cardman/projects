@@ -518,6 +518,9 @@ public final class RendForwardInfos {
                     return new RendStdFctOperation(new ExecOperationContent(i_.getContent()), i_.isIntermediateDottedOperation(), new ExecStdFctContent(a_.getCallFctContent(), a_.isStaticMethod()));
                 }
                 ExecRootBlock rootBlock_ = FetchMemberUtil.fetchType(a_.getMemberId(), _forwards);
+                if (rootBlock_ instanceof ExecAnnotationBlock) {
+                    return new RendAnnotationMethodOperation(new ExecOperationContent(i_.getContent()), i_.isIntermediateDottedOperation(), new ExecCallFctAnnotContent(a_.getCallFctContent()));
+                }
                 ExecTypeFunction pair_ = FetchMemberUtil.fetchTypeFunction(a_.getMemberId(), _forwards);
                 pair_ = FetchMemberUtil.defPair(rootBlock_,pair_);
                 if (a_.isTrueFalse()) {
@@ -527,9 +530,6 @@ public final class RendForwardInfos {
                 if (a_.isStaticMethod()) {
                     return new RendStaticFctOperation(pair_,
                             new ExecOperationContent(i_.getContent()), i_.isIntermediateDottedOperation(), new ExecStaticFctContent(a_.getFunction(),a_.getCallFctContent()), new ExecArrContent(a_.getArrContent()));
-                }
-                if (rootBlock_ instanceof ExecAnnotationBlock) {
-                    return new RendAnnotationMethodOperation(new ExecOperationContent(i_.getContent()), i_.isIntermediateDottedOperation(), new ExecCallFctAnnotContent(a_.getCallFctContent()));
                 }
             }
         }

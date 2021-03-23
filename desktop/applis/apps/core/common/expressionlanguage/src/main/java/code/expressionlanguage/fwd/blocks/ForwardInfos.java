@@ -466,7 +466,6 @@ public final class ForwardInfos {
                 }
                 if (b instanceof InnerElementBlock) {
                     ExecInnerElementBlock val_ = _forwards.getInnerEltType((InnerElementBlock) b);
-                    mem_.addField((InfoBlock) b,val_);
                     mem_.addInnerElementField((InnerElementBlock) b,val_);
                     mem_.addElementField((InnerElementBlock) b,val_);
                     current_.getAllStaticMembers().add(val_);
@@ -474,7 +473,6 @@ public final class ForwardInfos {
                 if (b instanceof ElementBlock) {
                     ExecElementBlock val_ = new ExecElementBlock(b.getOffset().getOffsetTrim(), new ExecElementContent(((ElementBlock) b).getElementContent()), ((ElementBlock) b).getTrOffset());
                     val_.setFile(current_.getFile());
-                    mem_.addField((InfoBlock) b,val_);
                     mem_.addSimpleElementField((ElementBlock) b,val_);
                     mem_.addElementField((ElementBlock) b,val_);
                     current_.getAllStaticMembers().add(val_);
@@ -482,7 +480,6 @@ public final class ForwardInfos {
                 if (b instanceof FieldBlock) {
                     ExecFieldBlock val_ = new ExecFieldBlock(b.getOffset().getOffsetTrim(), ((FieldBlock) b).getFieldContent());
                     val_.setFile(current_.getFile());
-                    mem_.addField((InfoBlock) b,val_);
                     mem_.addExplicitField((FieldBlock) b,val_);
                     chooseForField(current_, val_);
                 }
@@ -513,6 +510,16 @@ public final class ForwardInfos {
                     current_.getAllStaticInits().add(val_);
                 }
             }
+            addFields(mem_);
+        }
+    }
+
+    private static void addFields(Members _mem) {
+        for (EntryCust<InnerTypeOrElement, ExecInnerTypeOrElement> e: _mem.getElementFields()) {
+            _mem.addField(e.getKey(),e.getValue());
+        }
+        for (EntryCust<FieldBlock, ExecFieldBlock> e: _mem.getExplicitFields()) {
+            _mem.addField(e.getKey(),e.getValue());
         }
     }
 
@@ -1030,11 +1037,11 @@ public final class ForwardInfos {
                 return new ExecStdFctOperation(new ExecOperationContent(i_.getContent()), i_.isIntermediateDottedOperation(), new ExecStdFctContent(a_.getCallFctContent(), a_.isStaticMethod()));
             }
             ExecRootBlock ex_ = FetchMemberUtil.fetchType(a_.getMemberId(), _forwards);
-            ExecTypeFunction pair_ = FetchMemberUtil.fetchTypeFunction(a_.getMemberId(), _forwards);
-            pair_ = FetchMemberUtil.defPair(ex_, pair_);
             if (ex_ instanceof ExecAnnotationBlock) {
                 return new ExecAnnotationMethodOperation(new ExecOperationContent(i_.getContent()), i_.isIntermediateDottedOperation(), new ExecCallFctAnnotContent(a_.getCallFctContent()));
             }
+            ExecTypeFunction pair_ = FetchMemberUtil.fetchTypeFunction(a_.getMemberId(), _forwards);
+            pair_ = FetchMemberUtil.defPair(ex_, pair_);
             if (a_.isTrueFalse()) {
                 return new ExecExplicitOperation(
                         pair_,
