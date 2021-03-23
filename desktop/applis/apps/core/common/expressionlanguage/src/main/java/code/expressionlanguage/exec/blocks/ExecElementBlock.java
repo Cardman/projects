@@ -100,7 +100,7 @@ public final class ExecElementBlock extends ExecLeaf implements ExecInnerTypeOrE
             }
             ip_.clearCurrentEls();
         }
-        processBlock(_cont, _stack);
+        processMemberBlock(_stack);
     }
 
     @Override

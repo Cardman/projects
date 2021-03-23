@@ -67,7 +67,7 @@ public final class ExecAnnotationMethodBlock extends ExecNamedFunctionBlock impl
             }
             ip_.clearCurrentEls();
         }
-        processBlock(_cont, _stack);
+        processMemberBlock(_stack);
     }
 
     private void setValue(ContextEl _cont, Argument _arg, ExecRootBlock _type, StackCall _stackCall) {

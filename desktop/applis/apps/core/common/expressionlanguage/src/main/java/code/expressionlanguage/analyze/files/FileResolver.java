@@ -1623,7 +1623,6 @@ public final class FileResolver {
         String trimmedInstruction_ = found_.trim();
         int instructionRealLocation_ = instructionLocation_;
         instructionLocation_ += StringUtil.getFirstPrintableCharIndex(found_);
-        AbsBk br_;
         AccessEnum accessFct_ = _page.getDefaultAccess().getAccessInner(_currentParent).getAccMember();
         String word_ = EMPTY_STRING;
         int trFound_ = StringUtil.getFirstPrintableCharIndex(found_);
@@ -1767,6 +1766,7 @@ public final class FileResolver {
                 meth_ = true;
             }
         }
+        AbsBk br_;
         if (meth_|| oper_||ctor_||_currentChar == '{') {
 
             //constructors or methods or types

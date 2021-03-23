@@ -43,7 +43,7 @@ public final class StaticInitPageEl extends AbstractPageEl {
             return;
         }
         if (en_ instanceof ExecNamedFunctionBlock) {
-            en_.processBlock(_context, _stack);
+            en_.processMemberBlock(_stack);
             return;
         }
         if (en_ instanceof ExecStaticBlock) {
@@ -53,11 +53,11 @@ public final class StaticInitPageEl extends AbstractPageEl {
                 _stack.setCallingState(cust_);
                 return;
             }
-            en_.processBlock(_context, _stack);
+            en_.processMemberBlock(_stack);
             return;
         }
         if (en_ instanceof ExecInstanceBlock) {
-            en_.processBlock(_context, _stack);
+            en_.processMemberBlock(_stack);
             return;
         }
         setNullReadWrite();

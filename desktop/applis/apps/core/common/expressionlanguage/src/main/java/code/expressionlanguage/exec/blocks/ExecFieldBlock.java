@@ -95,7 +95,7 @@ public final class ExecFieldBlock extends ExecLeaf implements ExecInfoBlock {
             }
             ip_.clearCurrentEls();
         }
-        processBlock(_cont, _stack);
+        processMemberBlock(_stack);
     }
 
     public void setOpValue(CustList<ExecOperationNode> _opValue) {

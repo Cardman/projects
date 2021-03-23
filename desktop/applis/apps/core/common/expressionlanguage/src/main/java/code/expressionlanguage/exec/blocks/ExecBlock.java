@@ -39,6 +39,15 @@ public abstract class ExecBlock {
         ExecHelperBlocks.processBlockAndRemove(_conf,this, _stackCall);
     }
 
+    public final void processMemberBlock(StackCall _stackCall) {
+        ExecBlock n_ = getNextSibling();
+        AbstractPageEl ip_ = _stackCall.getLastPage();
+        if (n_ != null) {
+            ip_.setBlock(n_);
+            return;
+        }
+        ip_.setNullReadWrite();
+    }
     public final void processBlock(ContextEl _conf, StackCall _stackCall) {
         ExecBlock n_ = getNextSibling();
         AbstractPageEl ip_ = _stackCall.getLastPage();

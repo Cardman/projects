@@ -97,7 +97,7 @@ public final class ExecInnerElementBlock extends ExecRootBlock implements ExecIn
             }
             ip_.clearCurrentEls();
         }
-        processBlock(_cont, _stack);
+        processMemberBlock(_stack);
     }
 
     @Override
