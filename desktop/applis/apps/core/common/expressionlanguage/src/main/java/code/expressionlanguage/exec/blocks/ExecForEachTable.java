@@ -22,7 +22,7 @@ import code.util.CustList;
 import code.util.StringMap;
 import code.util.core.IndexConstants;
 
-public final class ExecForEachTable extends ExecBracedBlock implements ExecLoop, WithNotEmptyEl {
+public final class ExecForEachTable extends ExecBracedBlock implements ExecLoop, WithNotEmptyEl,BuildingEl {
 
     private final String label;
 

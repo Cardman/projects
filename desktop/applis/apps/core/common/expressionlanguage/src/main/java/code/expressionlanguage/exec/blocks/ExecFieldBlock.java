@@ -2,9 +2,7 @@ package code.expressionlanguage.exec.blocks;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.StackCall;
-import code.expressionlanguage.exec.calls.AbstractPageEl;
-import code.expressionlanguage.exec.calls.FieldInitPageEl;
-import code.expressionlanguage.exec.calls.StaticInitPageEl;
+import code.expressionlanguage.exec.calls.AbstractInitPageEl;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.common.AccessEnum;
 import code.expressionlanguage.exec.ExpressionLanguage;
@@ -75,27 +73,16 @@ public final class ExecFieldBlock extends ExecLeaf implements ExecInfoBlock {
         return new ExpressionLanguage(opValue);
     }
 
-    @Override
-    public void processEl(ContextEl _cont, StackCall _stack) {
-        AbstractPageEl ip_ = _stack.getLastPage();
-        boolean static_ = isStaticField();
-        boolean in_ = false;
-        if (ip_ instanceof FieldInitPageEl && !static_) {
-            in_ = true;
-        } else if (ip_ instanceof StaticInitPageEl && static_) {
-            in_ = true;
+    public void processEl(ContextEl _cont, StackCall _stack, AbstractInitPageEl _last) {
+        _last.setGlobalOffset(fieldContent.getValueOffset());
+        _last.setOffset(0);
+        ExpressionLanguage el_ = _last.getCurrentEl(_cont,this, IndexConstants.FIRST_INDEX, IndexConstants.FIRST_INDEX);
+        ExpressionLanguage.tryToCalculate(_cont,el_,0, _stack);
+        if (_cont.callsOrException(_stack)) {
+            return;
         }
-        if (in_) {
-            ip_.setGlobalOffset(fieldContent.getValueOffset());
-            ip_.setOffset(0);
-            ExpressionLanguage el_ = ip_.getCurrentEl(_cont,this, IndexConstants.FIRST_INDEX, IndexConstants.FIRST_INDEX);
-            ExpressionLanguage.tryToCalculate(_cont,el_,0, _stack);
-            if (_cont.callsOrException(_stack)) {
-                return;
-            }
-            ip_.clearCurrentEls();
-        }
-        processMemberBlock(_stack);
+        _last.clearCurrentEls();
+        processMemberBlock(_last);
     }
 
     public void setOpValue(CustList<ExecOperationNode> _opValue) {

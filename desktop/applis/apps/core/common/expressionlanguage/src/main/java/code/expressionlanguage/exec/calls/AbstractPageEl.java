@@ -141,7 +141,7 @@ public abstract class AbstractPageEl {
     public abstract boolean checkCondition(ContextEl _context, StackCall _stack);
 
 
-    public ExpressionLanguage getCurrentEl(ContextEl _context, WithNotEmptyEl _block, int _index, int _indexProcess) {
+    public ExpressionLanguage getCurrentEl(ContextEl _context, BuildingEl _block, int _index, int _indexProcess) {
         ExpressionLanguage el_ = getNullableExp(_index);
         if (el_ == null) {
             el_ = _block.getEl(_context, _indexProcess);

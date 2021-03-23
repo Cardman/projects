@@ -6538,7 +6538,7 @@ public final class ExpressionLanguageTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", file());
         ContextEl cont_ = contextEl(files_);
         Struct fresh_ = cont_.getInit().processInit(cont_, NullStruct.NULL_VALUE, _className,cont_.getClasses().getClassBody(_className), "", -1);
-        ExecFieldBlock f_ = (ExecFieldBlock)cont_.getClasses().getClassBody(_className).getFirstChild();
+        ExecFieldBlock f_ = fetchField(cont_.getClasses().getClassBody(_className));
         StackCall stackCall_ = StackCall.newInstance(InitPhase.NOTHING,cont_);
         addImportingPage(cont_, stackCall_);
         LocalVariable lv_ = new LocalVariable();
@@ -6558,7 +6558,7 @@ public final class ExpressionLanguageTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", file());
         ContextEl cont_ = contextEl(files_);
         Struct fresh_ = cont_.getInit().processInit(cont_, NullStruct.NULL_VALUE, _className,cont_.getClasses().getClassBody(_className), "", -1);
-        ExecFieldBlock f_ = (ExecFieldBlock)cont_.getClasses().getClassBody(_className).getFirstChild();
+        ExecFieldBlock f_ = fetchField(cont_.getClasses().getClassBody(_className));
         StackCall stackCall_ = StackCall.newInstance(InitPhase.NOTHING,cont_);
         addImportingPage(cont_, stackCall_);
         LocalVariable lv_ = new LocalVariable();
@@ -6579,7 +6579,7 @@ public final class ExpressionLanguageTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", file());
         ContextEl cont_ = contextEl(files_);
         Struct fresh_ = cont_.getInit().processInit(cont_, NullStruct.NULL_VALUE, _className,cont_.getClasses().getClassBody(_className), "", -1);
-        ExecFieldBlock f_ = (ExecFieldBlock)cont_.getClasses().getClassBody(_className).getFirstChild();
+        ExecFieldBlock f_ = fetchField(cont_.getClasses().getClassBody(_className));
         StackCall stackCall_ = StackCall.newInstance(InitPhase.NOTHING,cont_);
         addImportingPage(cont_, stackCall_);
         LocalVariable lv_ = new LocalVariable();
@@ -6596,9 +6596,19 @@ public final class ExpressionLanguageTest extends ProcessMethodCommon {
     private static Argument tryCalculate(ContextEl _context, StackCall _stackCall) {
         ExecRootBlock cl_ = _context.getClasses().getClassBody("code.formathtml.classes.Apply");
         _stackCall.getLastPage().setGlobalClass("code.formathtml.classes.Apply");
-        ExecFieldBlock f_ = (ExecFieldBlock) cl_.getFirstChild();
+        ExecFieldBlock f_ = fetchField(cl_);
         ExpressionLanguage el_ = f_.getEl(_context,0);
         return ExpressionLanguage.tryToCalculate(_context,el_,0, _stackCall);
+    }
+
+    private static ExecFieldBlock fetchField(ExecRootBlock _cl) {
+        ExecFieldBlock f_;
+        if (!_cl.getAllInstanceMembers().isEmpty()) {
+            f_ = (ExecFieldBlock) _cl.getAllInstanceMembers().first();
+        } else {
+            f_ = (ExecFieldBlock) _cl.getAllStaticMembers().first();
+        }
+        return f_;
     }
 
     private static String addonFileStaticResult(String _el) {

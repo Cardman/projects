@@ -10,7 +10,7 @@ import code.expressionlanguage.exec.stacks.SwitchBlockStack;
 import code.util.CustList;
 import code.util.core.IndexConstants;
 
-public abstract class ExecAbstractSwitchBlock extends ExecBracedBlock implements StackableBlock, WithNotEmptyEl {
+public abstract class ExecAbstractSwitchBlock extends ExecBracedBlock implements StackableBlock, WithNotEmptyEl,BuildingEl {
     private final String label;
 
     private final int valueOffset;

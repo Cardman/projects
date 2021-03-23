@@ -13,7 +13,7 @@ import code.expressionlanguage.exec.ExpressionLanguage;
 import code.util.CustList;
 import code.util.core.IndexConstants;
 
-public final class ExecLine extends ExecLeaf implements StackableBlock, WithNotEmptyEl {
+public final class ExecLine extends ExecLeaf implements StackableBlock, WithNotEmptyEl,BuildingEl {
 
     private final int expressionOffset;
 

@@ -3,8 +3,7 @@ package code.expressionlanguage.exec.blocks;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.AccessEnum;
 import code.expressionlanguage.exec.StackCall;
-import code.expressionlanguage.exec.calls.AbstractPageEl;
-import code.expressionlanguage.exec.calls.StaticInitPageEl;
+import code.expressionlanguage.exec.calls.AbstractInitPageEl;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.exec.ExpressionLanguage;
 import code.expressionlanguage.fwd.blocks.ExecElementContent;
@@ -84,20 +83,16 @@ public final class ExecInnerElementBlock extends ExecRootBlock implements ExecIn
         return new ExpressionLanguage(opValue);
     }
 
-    @Override
-    public void processEl(ContextEl _cont, StackCall _stack) {
-        AbstractPageEl ip_ = _stack.getLastPage();
-        if (ip_ instanceof StaticInitPageEl) {
-            ip_.setGlobalOffset(elementContent.getFieldNameOffest());
-            ip_.setOffset(0);
-            ExpressionLanguage el_ = ip_.getCurrentEl(_cont, this, IndexConstants.FIRST_INDEX, IndexConstants.FIRST_INDEX);
-            ExpressionLanguage.tryToCalculate(_cont,el_, trOffset, _stack);
-            if (_cont.callsOrException(_stack)) {
-                return;
-            }
-            ip_.clearCurrentEls();
+    public void processEl(ContextEl _cont, StackCall _stack, AbstractInitPageEl _last) {
+        _last.setGlobalOffset(elementContent.getFieldNameOffest());
+        _last.setOffset(0);
+        ExpressionLanguage el_ = _last.getCurrentEl(_cont, this, IndexConstants.FIRST_INDEX, IndexConstants.FIRST_INDEX);
+        ExpressionLanguage.tryToCalculate(_cont,el_, trOffset, _stack);
+        if (_cont.callsOrException(_stack)) {
+            return;
         }
-        processMemberBlock(_stack);
+        _last.clearCurrentEls();
+        processMemberBlock(_last);
     }
 
     @Override

@@ -7,13 +7,18 @@ import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.exec.calls.util.CustomFoundBlock;
 
+import code.util.CustList;
 import code.util.IdMap;
 import code.util.core.BoolVal;
 
-public final class StaticInitPageEl extends AbstractPageEl {
+public final class StaticInitPageEl extends AbstractInitPageEl {
 
     private Argument fwd;
     private final IdMap<ExecInitBlock, BoolVal> processedBlocks = new IdMap<ExecInitBlock, BoolVal>();
+
+    public StaticInitPageEl(CustList<ExecBlock> _visited) {
+        super(_visited);
+    }
 
     @Override
     public boolean checkCondition(ContextEl _context, StackCall _stack) {
@@ -38,26 +43,26 @@ public final class StaticInitPageEl extends AbstractPageEl {
     public void tryProcessEl(ContextEl _context, StackCall _stack) {
         //initializing static fields in the type walk through
         ExecBlock en_ = getBlock();
-        if (en_ instanceof WithEl) {
-            ((WithEl)en_).processEl(_context, _stack);
+        if (en_ instanceof ExecElementBlock) {
+            ((ExecElementBlock)en_).processEl(_context,_stack,this);
             return;
         }
-        if (en_ instanceof ExecNamedFunctionBlock) {
-            en_.processMemberBlock(_stack);
+        if (en_ instanceof ExecInnerElementBlock) {
+            ((ExecInnerElementBlock)en_).processEl(_context,_stack,this);
             return;
         }
-        if (en_ instanceof ExecStaticBlock) {
-            if (processedBlocks.getVal((ExecInitBlock)en_) == BoolVal.FALSE) {
-                processedBlocks.put((ExecInitBlock)en_, BoolVal.TRUE);
-                CustomFoundBlock cust_ = new CustomFoundBlock(getGlobalClass(), getGlobalArgument(),getBlockRootType(), (ExecInitBlock)en_);
-                _stack.setCallingState(cust_);
-                return;
-            }
-            en_.processMemberBlock(_stack);
+        if (en_ instanceof ExecFieldBlock) {
+            ((ExecFieldBlock)en_).processEl(_context,_stack,this);
             return;
         }
-        if (en_ instanceof ExecInstanceBlock) {
-            en_.processMemberBlock(_stack);
+        if (en_ instanceof ExecStaticBlock && processedBlocks.getVal((ExecInitBlock) en_) == BoolVal.FALSE) {
+            processedBlocks.put((ExecInitBlock) en_, BoolVal.TRUE);
+            CustomFoundBlock cust_ = new CustomFoundBlock(getGlobalClass(), getGlobalArgument(), getBlockRootType(), (ExecInitBlock) en_);
+            _stack.setCallingState(cust_);
+            return;
+        }
+        if (en_ != null) {
+            en_.processMemberBlock(this);
             return;
         }
         setNullReadWrite();

@@ -4,8 +4,8 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.AccessEnum;
 import code.expressionlanguage.exec.StackCall;
+import code.expressionlanguage.exec.calls.AbstractInitPageEl;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
-import code.expressionlanguage.exec.calls.FieldInitPageEl;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.opers.ExecAnnotationMethodOperation;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
@@ -19,7 +19,7 @@ import code.util.StringList;
 import code.util.core.IndexConstants;
 
 public final class ExecAnnotationMethodBlock extends ExecNamedFunctionBlock implements
-        WithNotEmptyEl {
+        BuildingEl {
 
     private final int defaultValueOffset;
 
@@ -53,21 +53,17 @@ public final class ExecAnnotationMethodBlock extends ExecNamedFunctionBlock impl
         return new ExpressionLanguage(opValue);
     }
 
-    @Override
-    public void processEl(ContextEl _cont, StackCall _stack) {
-        AbstractPageEl ip_ = _stack.getLastPage();
-        if (ip_ instanceof FieldInitPageEl && !opValue.isEmpty()) {
-            ip_.setGlobalOffset(defaultValueOffset);
-            ip_.setOffset(0);
-            ExpressionLanguage el_ = ip_.getCurrentEl(_cont,this, IndexConstants.FIRST_INDEX, IndexConstants.FIRST_INDEX);
-            Argument arg_ = ExpressionLanguage.tryToCalculate(_cont,el_,0, _stack);
-            setValue(_cont,arg_, ip_.getBlockRootType(), _stack);
-            if (_cont.callsOrException(_stack)) {
-                return;
-            }
-            ip_.clearCurrentEls();
+    public void processEl(ContextEl _cont, StackCall _stack, AbstractInitPageEl _last) {
+        _last.setGlobalOffset(defaultValueOffset);
+        _last.setOffset(0);
+        ExpressionLanguage el_ = _last.getCurrentEl(_cont,this, IndexConstants.FIRST_INDEX, IndexConstants.FIRST_INDEX);
+        Argument arg_ = ExpressionLanguage.tryToCalculate(_cont,el_,0, _stack);
+        setValue(_cont,arg_, _last.getBlockRootType(), _stack);
+        if (_cont.callsOrException(_stack)) {
+            return;
         }
-        processMemberBlock(_stack);
+        _last.clearCurrentEls();
+        processMemberBlock(_last);
     }
 
     private void setValue(ContextEl _cont, Argument _arg, ExecRootBlock _type, StackCall _stackCall) {

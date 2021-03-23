@@ -65,24 +65,31 @@ public final class ExecutingUtil {
     }
     public static AbstractPageEl createInstancingClass(ExecRootBlock _rootBlock, String _class, Argument _fwd, StackCall _stackCall) {
         _stackCall.setCallingState(null);
-        ExecBlock firstChild_ = _rootBlock.getFirstChild();
-        StaticInitPageEl page_ = new StaticInitPageEl();
+//        ExecBlock firstChild_ = _rootBlock.getFirstChild();
+        CustList<ExecBlock> visit_ = _rootBlock.getAllStaticMembers();
+        StaticInitPageEl page_ = new StaticInitPageEl(visit_);
         Argument argGl_ = new Argument();
         page_.setGlobalClass(_class);
         page_.setFwd(_fwd);
         page_.setGlobalArgument(argGl_);
         page_.setReturnedArgument(argGl_);
         ReadWrite rw_ = new ReadWrite();
-        rw_.setBlock(firstChild_);
+        for (ExecStaticBlock i: _rootBlock.getAllStaticInits()) {
+            page_.getProcessedBlocks().addEntry(i, BoolVal.FALSE);
+        }
+        if (!visit_.isEmpty()) {
+            rw_.setBlock(visit_.first());
+        }
+//        rw_.setBlock(firstChild_);
         page_.setReadWrite(rw_);
         page_.setBlockRootType(_rootBlock);
         page_.setBlockRoot(_rootBlock);
-        while (firstChild_ != null) {
-            if (firstChild_ instanceof ExecStaticBlock) {
-                page_.getProcessedBlocks().put((ExecInitBlock) firstChild_, BoolVal.FALSE);
-            }
-            firstChild_ = firstChild_.getNextSibling();
-        }
+//        while (firstChild_ != null) {
+//            if (firstChild_ instanceof ExecStaticBlock) {
+//                page_.getProcessedBlocks().put((ExecInitBlock) firstChild_, BoolVal.FALSE);
+//            }
+//            firstChild_ = firstChild_.getNextSibling();
+//        }
         page_.setFile(_rootBlock.getFile());
         return page_;
     }
@@ -253,20 +260,27 @@ public final class ExecutingUtil {
     }
     public static FieldInitPageEl createInitFields(ExecRootBlock _type, String _class, Argument _current, StackCall _stackCall) {
         _stackCall.setCallingState(null);
-        FieldInitPageEl page_ = new FieldInitPageEl();
+        CustList<ExecBlock> visit_ = _type.getAllInstanceMembers();
+        FieldInitPageEl page_ = new FieldInitPageEl(visit_);
         page_.setGlobalClass(_class);
         page_.setGlobalArgument(_current);
         page_.setReturnedArgument(_current);
         page_.setBlockRootType(_type);
         ReadWrite rw_ = new ReadWrite();
-        ExecBlock firstChild_ = _type.getFirstChild();
-        rw_.setBlock(firstChild_);
-        while (firstChild_ != null) {
-            if (firstChild_ instanceof ExecInstanceBlock) {
-                page_.getProcessedBlocks().put((ExecInitBlock) firstChild_, BoolVal.FALSE);
-            }
-            firstChild_ = firstChild_.getNextSibling();
+        for (ExecInstanceBlock i: _type.getAllInstanceInits()) {
+            page_.getProcessedBlocks().addEntry(i, BoolVal.FALSE);
         }
+        if (!visit_.isEmpty()) {
+            rw_.setBlock(visit_.first());
+        }
+//        ExecBlock firstChild_ = _type.getFirstChild();
+//        rw_.setBlock(firstChild_);
+//        while (firstChild_ != null) {
+//            if (firstChild_ instanceof ExecInstanceBlock) {
+//                page_.getProcessedBlocks().put((ExecInitBlock) firstChild_, BoolVal.FALSE);
+//            }
+//            firstChild_ = firstChild_.getNextSibling();
+//        }
         page_.setReadWrite(rw_);
         page_.setBlockRoot(_type);
         page_.setFile(_type.getFile());

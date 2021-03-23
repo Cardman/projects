@@ -4,10 +4,12 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ExecHelperBlocks;
 import code.expressionlanguage.exec.ExecutingUtil;
 import code.expressionlanguage.exec.StackCall;
+import code.expressionlanguage.exec.calls.AbstractInitPageEl;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.stacks.*;
 import code.expressionlanguage.structs.Struct;
+import code.util.CustList;
 
 public abstract class ExecBlock {
 
@@ -39,14 +41,21 @@ public abstract class ExecBlock {
         ExecHelperBlocks.processBlockAndRemove(_conf,this, _stackCall);
     }
 
-    public final void processMemberBlock(StackCall _stackCall) {
-        ExecBlock n_ = getNextSibling();
-        AbstractPageEl ip_ = _stackCall.getLastPage();
-        if (n_ != null) {
-            ip_.setBlock(n_);
+    public final void processMemberBlock(AbstractInitPageEl _lastPage) {
+        int cur_ = _lastPage.getMember();
+        int next_ = cur_ + 1;
+        CustList<ExecBlock> visited_ = _lastPage.getVisited();
+        if (visited_.isValidIndex(next_)) {
+            _lastPage.setMember(next_);
+            _lastPage.setBlock(visited_.get(next_));
             return;
         }
-        ip_.setNullReadWrite();
+//        ExecBlock n_ = getNextSibling();
+//        if (n_ != null) {
+//            _lastPage.setBlock(n_);
+//            return;
+//        }
+        _lastPage.setNullReadWrite();
     }
     public final void processBlock(ContextEl _conf, StackCall _stackCall) {
         ExecBlock n_ = getNextSibling();

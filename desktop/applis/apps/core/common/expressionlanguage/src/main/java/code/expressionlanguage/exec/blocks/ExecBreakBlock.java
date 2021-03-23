@@ -6,7 +6,7 @@ import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.stacks.AbstractStask;
 
-public final class ExecBreakBlock extends ExecLeaf implements MethodCallingFinally {
+public final class ExecBreakBlock extends ExecLeaf implements MethodCallingFinally,WithEl {
 
     private final String label;
     public ExecBreakBlock(String _label, int _offsetTrim) {

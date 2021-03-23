@@ -4,7 +4,7 @@ import code.expressionlanguage.common.AccessEnum;
 import code.util.CustList;
 import code.util.StringList;
 
-public interface ExecInfoBlock extends WithNotEmptyEl, ExecAnnotableBlock {
+public interface ExecInfoBlock extends ExecAnnotableBlock,BuildingEl {
 
     boolean isStaticField();
     StringList getFieldName();

@@ -11,7 +11,7 @@ import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 import code.util.core.IndexConstants;
 
-public final class ExecThrowing extends ExecLeaf implements WithNotEmptyEl {
+public final class ExecThrowing extends ExecLeaf implements WithNotEmptyEl,BuildingEl {
 
 
     private final int expressionOffset;

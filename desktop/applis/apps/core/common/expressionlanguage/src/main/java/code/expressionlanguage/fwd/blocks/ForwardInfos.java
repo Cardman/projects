@@ -451,7 +451,6 @@ public final class ForwardInfos {
                     NamedCalledFunctionBlock ov_ = (NamedCalledFunctionBlock) b;
                     MethodKind kind_ = ov_.getKind();
                     ExecOverridableBlock val_ = new ExecOverridableBlock(ov_.isRetRef(), ov_.getName(), ov_.isVarargs(), ov_.getAccess(), ov_.getParametersNames(), ov_.getModifier(), toExecMethodKind(kind_), b.getOffset().getOffsetTrim(), ov_.getImportedParametersTypes(), ov_.getParametersRef());
-                    current_.appendChild(val_);
                     val_.setFile(current_.getFile());
                     mem_.getAllMethods().addEntry(ov_,val_);
                     mem_.getAllNamed().addEntry(ov_,val_);
@@ -461,37 +460,36 @@ public final class ForwardInfos {
                 if (AbsBk.isAnnotBlock(b)) {
                     NamedCalledFunctionBlock annot_ = (NamedCalledFunctionBlock) b;
                     ExecAnnotationMethodBlock val_ = new ExecAnnotationMethodBlock((annot_).getName(), (annot_).isVarargs(), (annot_).getAccess(), (annot_).getParametersNames(), (annot_).getDefaultValueOffset(), b.getOffset().getOffsetTrim());
-                    current_.appendChild(val_);
                     val_.setFile(current_.getFile());
                     mem_.getAllAnnotMethods().addEntry(annot_,val_);
                     mem_.getAllNamed().addEntry(annot_,val_);
                     mem_.getAllFct().addEntry(annot_,val_);
+                    procAnnotMember(current_, annot_, val_);
                 }
                 if (b instanceof InnerElementBlock) {
                     ExecInnerElementBlock val_ = _forwards.getInnerEltType((InnerElementBlock) b);
-                    current_.appendChild(val_);
                     mem_.getAllFields().addEntry((InfoBlock) b,val_);
                     mem_.getAllInnerElementFields().addEntry((InnerElementBlock) b,val_);
                     mem_.getAllElementFields().addEntry((InnerElementBlock) b,val_);
+                    current_.getAllStaticMembers().add(val_);
                 }
                 if (b instanceof ElementBlock) {
                     ExecElementBlock val_ = new ExecElementBlock(b.getOffset().getOffsetTrim(), new ExecElementContent(((ElementBlock) b).getElementContent()), ((ElementBlock) b).getTrOffset());
-                    current_.appendChild(val_);
                     val_.setFile(current_.getFile());
                     mem_.getAllFields().addEntry((InfoBlock) b,val_);
                     mem_.getAllSimpleElementFields().addEntry((ElementBlock) b,val_);
                     mem_.getAllElementFields().addEntry((ElementBlock) b,val_);
+                    current_.getAllStaticMembers().add(val_);
                 }
                 if (b instanceof FieldBlock) {
                     ExecFieldBlock val_ = new ExecFieldBlock(b.getOffset().getOffsetTrim(), ((FieldBlock) b).getFieldContent());
-                    current_.appendChild(val_);
                     val_.setFile(current_.getFile());
                     mem_.getAllFields().addEntry((InfoBlock) b,val_);
                     mem_.getAllExplicitFields().addEntry((FieldBlock) b,val_);
+                    chooseForField(current_, val_);
                 }
                 if (b instanceof ConstructorBlock) {
                     ExecConstructorBlock val_ = new ExecConstructorBlock(((ConstructorBlock)b).getName(), ((ConstructorBlock)b).isVarargs(), ((ConstructorBlock)b).getAccess(), ((ConstructorBlock)b).getParametersNames(), b.getOffset().getOffsetTrim(), ((ConstructorBlock)b).getImportedParametersTypes(), ((ConstructorBlock)b).getParametersRef());
-                    current_.appendChild(val_);
                     val_.setFile(current_.getFile());
                     mem_.getAllCtors().addEntry((ConstructorBlock) b,val_);
                     mem_.getAllNamed().addEntry((ConstructorBlock) b,val_);
@@ -500,23 +498,40 @@ public final class ForwardInfos {
                 }
                 if (b instanceof InstanceBlock) {
                     ExecInstanceBlock val_ = new ExecInstanceBlock(b.getOffset().getOffsetTrim());
-                    current_.appendChild(val_);
                     val_.setFile(current_.getFile());
                     val_.setNumber(mem_.getAllInits().size());
                     mem_.getAllInits().put((InitBlock) b,val_);
                     mem_.getAllFct().addEntry((MemberCallingsBlock)b,val_);
                     mem_.getAllFctBodies().addEntry((MemberCallingsBlock)b,val_);
+                    current_.getAllInstanceMembers().add(val_);
+                    current_.getAllInstanceInits().add(val_);
                 }
                 if (b instanceof StaticBlock) {
                     ExecStaticBlock val_ = new ExecStaticBlock(b.getOffset().getOffsetTrim());
-                    current_.appendChild(val_);
                     val_.setFile(current_.getFile());
                     val_.setNumber(mem_.getAllInits().size());
                     mem_.getAllInits().put((InitBlock) b,val_);
                     mem_.getAllFct().addEntry((MemberCallingsBlock)b,val_);
                     mem_.getAllFctBodies().addEntry((MemberCallingsBlock)b,val_);
+                    current_.getAllStaticMembers().add(val_);
+                    current_.getAllStaticInits().add(val_);
                 }
             }
+        }
+    }
+
+    private static void procAnnotMember(ExecRootBlock _current, NamedCalledFunctionBlock _annot, ExecAnnotationMethodBlock _val) {
+        OperationNode root_ = _annot.getRoot();
+        if (root_ != null) {
+            _current.getAllInstanceMembers().add(_val);
+        }
+    }
+
+    private static void chooseForField(ExecRootBlock _current, ExecFieldBlock _val) {
+        if (_val.isStaticField()) {
+            _current.getAllStaticMembers().add(_val);
+        } else {
+            _current.getAllInstanceMembers().add(_val);
         }
     }
 

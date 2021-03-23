@@ -12,7 +12,7 @@ import code.expressionlanguage.structs.BooleanStruct;
 import code.util.CustList;
 import code.util.core.IndexConstants;
 
-public abstract class ExecCondition extends ExecBracedBlock implements WithNotEmptyEl {
+public abstract class ExecCondition extends ExecBracedBlock implements WithNotEmptyEl,BuildingEl {
 
 
     private final int conditionOffset;

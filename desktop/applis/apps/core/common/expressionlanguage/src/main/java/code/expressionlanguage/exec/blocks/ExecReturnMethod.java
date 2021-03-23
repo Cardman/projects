@@ -13,7 +13,7 @@ import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.util.CustList;
 import code.util.core.IndexConstants;
 
-public final class ExecReturnMethod extends ExecLeaf implements MethodCallingFinally,WithNotEmptyEl {
+public final class ExecReturnMethod extends ExecLeaf implements MethodCallingFinally,WithNotEmptyEl,BuildingEl {
 
 
     private final int expressionOffset;

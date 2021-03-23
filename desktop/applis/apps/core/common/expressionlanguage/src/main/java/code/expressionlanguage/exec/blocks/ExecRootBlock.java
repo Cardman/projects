@@ -40,6 +40,10 @@ public abstract class ExecRootBlock extends ExecBracedBlock implements GeneType,
     private boolean withInstanceElements;
     private final CustList<ExecInfoBlock> allFields = new CustList<ExecInfoBlock>();
     private final CustList<ExecMemberCallingsBlock> allFct = new CustList<ExecMemberCallingsBlock>();
+    private final CustList<ExecBlock> allInstanceMembers = new CustList<ExecBlock>();
+    private final CustList<ExecBlock> allStaticMembers = new CustList<ExecBlock>();
+    private final CustList<ExecInstanceBlock> allInstanceInits = new CustList<ExecInstanceBlock>();
+    private final CustList<ExecStaticBlock> allStaticInits = new CustList<ExecStaticBlock>();
 
     ExecRootBlock(int _offsetTrim, ExecRootBlockContent _rootBlockContent, AccessEnum _access) {
         super(_offsetTrim);
@@ -216,5 +220,21 @@ public abstract class ExecRootBlock extends ExecBracedBlock implements GeneType,
 
     public CustList<ExecMemberCallingsBlock> getAllFct() {
         return allFct;
+    }
+
+    public CustList<ExecBlock> getAllInstanceMembers() {
+        return allInstanceMembers;
+    }
+
+    public CustList<ExecBlock> getAllStaticMembers() {
+        return allStaticMembers;
+    }
+
+    public CustList<ExecInstanceBlock> getAllInstanceInits() {
+        return allInstanceInits;
+    }
+
+    public CustList<ExecStaticBlock> getAllStaticInits() {
+        return allStaticInits;
     }
 }
