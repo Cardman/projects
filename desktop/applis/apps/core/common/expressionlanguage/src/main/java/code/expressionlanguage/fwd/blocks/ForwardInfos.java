@@ -471,6 +471,25 @@ public final class ForwardInfos {
             ExecRootBlock current_ = r.getValue().getRootBlock();
             RootBlock k_ = r.getKey();
             Members mem_ = r.getValue();
+            for (InfoBlock i: k_.getFieldsBlocks()) {
+                if (i instanceof InnerElementBlock) {
+                    ExecInnerElementBlock val_ = _forwards.getInnerEltType((InnerElementBlock) i);
+                    mem_.addElementField((InnerElementBlock) i,val_);
+                    buildImportedTypes(val_, i);
+                }
+                if (i instanceof ElementBlock) {
+                    ExecElementBlock val_ = new ExecElementBlock(((ElementBlock) i).getOffset().getOffsetTrim(), new ExecElementContent(((ElementBlock) i).getElementContent()), ((ElementBlock) i).getTrOffset());
+                    val_.setFile(current_.getFile());
+                    mem_.addElementField((ElementBlock) i,val_);
+                    buildImportedTypes(val_, i);
+                }
+                if (i instanceof FieldBlock) {
+                    ExecFieldBlock val_ = new ExecFieldBlock(((FieldBlock) i).getOffset().getOffsetTrim(), ((FieldBlock) i).getFieldContent());
+                    val_.setFile(current_.getFile());
+                    mem_.addExplicitField((FieldBlock) i,val_);
+                    buildImportedTypes(val_, i);
+                }
+            }
             for (AbsBk b: ClassesUtil.getDirectChildren(k_)) {
                 if (AbsBk.isOverBlock(b)) {
                     NamedCalledFunctionBlock ov_ = (NamedCalledFunctionBlock) b;
@@ -486,22 +505,6 @@ public final class ForwardInfos {
                     val_.setFile(current_.getFile());
                     mem_.addAnnotMethod(annot_,val_);
                     mem_.addNamed(annot_,val_);
-                }
-                if (b instanceof InnerElementBlock) {
-                    ExecInnerElementBlock val_ = _forwards.getInnerEltType((InnerElementBlock) b);
-                    mem_.addInnerElementField((InnerElementBlock) b,val_);
-                    mem_.addElementField((InnerElementBlock) b,val_);
-                }
-                if (b instanceof ElementBlock) {
-                    ExecElementBlock val_ = new ExecElementBlock(b.getOffset().getOffsetTrim(), new ExecElementContent(((ElementBlock) b).getElementContent()), ((ElementBlock) b).getTrOffset());
-                    val_.setFile(current_.getFile());
-                    mem_.addSimpleElementField((ElementBlock) b,val_);
-                    mem_.addElementField((ElementBlock) b,val_);
-                }
-                if (b instanceof FieldBlock) {
-                    ExecFieldBlock val_ = new ExecFieldBlock(b.getOffset().getOffsetTrim(), ((FieldBlock) b).getFieldContent());
-                    val_.setFile(current_.getFile());
-                    mem_.addExplicitField((FieldBlock) b,val_);
                 }
                 if (b instanceof ConstructorBlock) {
                     ExecConstructorBlock val_ = new ExecConstructorBlock(((ConstructorBlock)b).getName(), ((ConstructorBlock)b).isVarargs(), ((ConstructorBlock)b).getAccess(), ((ConstructorBlock)b).getParametersNames(), b.getOffset().getOffsetTrim(), ((ConstructorBlock)b).getImportedParametersTypes(), ((ConstructorBlock)b).getParametersRef());
@@ -1625,15 +1628,6 @@ public final class ForwardInfos {
             NamedCalledFunctionBlock key1_ = e.getKey();
             e.getValue().setImportedReturnType(key1_.getImportedReturnType());
             e.getValue().getImportedParametersTypes().addAllElts(key1_.getImportedParametersTypes());
-        }
-        for (EntryCust<InnerElementBlock, ExecInnerElementBlock> e: _mem.getInnerElementFields()) {
-            buildImportedTypes(e.getValue(),e.getKey());
-        }
-        for (EntryCust<ElementBlock, ExecElementBlock> e: _mem.getSimpleElementFields()) {
-            buildImportedTypes(e.getValue(),e.getKey());
-        }
-        for (EntryCust<FieldBlock, ExecFieldBlock> e: _mem.getExplicitFields()) {
-            buildImportedTypes(e.getValue(),e.getKey());
         }
     }
 

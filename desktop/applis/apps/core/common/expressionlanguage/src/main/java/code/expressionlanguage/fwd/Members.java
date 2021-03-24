@@ -11,9 +11,7 @@ public final class Members {
     private final IdMap<ConstructorBlock,ExecConstructorBlock> allCtors = new IdMap<ConstructorBlock,ExecConstructorBlock>();
     private final IdMap<InfoBlock,ExecInfoBlock> allFields = new IdMap<InfoBlock,ExecInfoBlock>();
     private final IdMap<FieldBlock,ExecFieldBlock> allExplicitFields = new IdMap<FieldBlock,ExecFieldBlock>();
-    private final IdMap<InnerElementBlock,ExecInnerElementBlock> allInnerElementFields = new IdMap<InnerElementBlock,ExecInnerElementBlock>();
     private final IdMap<InnerTypeOrElement,ExecInnerTypeOrElement> allElementFields = new IdMap<InnerTypeOrElement,ExecInnerTypeOrElement>();
-    private final IdMap<ElementBlock,ExecElementBlock> allSimpleElementFields = new IdMap<ElementBlock,ExecElementBlock>();
     private final IdMap<NamedFunctionBlock,ExecNamedFunctionBlock> allNamed = new IdMap<NamedFunctionBlock,ExecNamedFunctionBlock>();
     private final IdMap<NamedCalledFunctionBlock,ExecOverridableBlock> allOvNamed = new IdMap<NamedCalledFunctionBlock,ExecOverridableBlock>();
     private final IdMap<MemberCallingsBlock,ExecMemberCallingsBlock> allFct = new IdMap<MemberCallingsBlock,ExecMemberCallingsBlock>();
@@ -60,18 +58,6 @@ public final class Members {
     }
     public Iterable<EntryCust<FieldBlock, ExecFieldBlock>> getExplicitFields() {
         return allExplicitFields.entryList();
-    }
-    public void addSimpleElementField(ElementBlock _key, ExecElementBlock _value) {
-        allSimpleElementFields.addEntry(_key, _value);
-    }
-    public Iterable<EntryCust<ElementBlock, ExecElementBlock>> getSimpleElementFields() {
-        return allSimpleElementFields.entryList();
-    }
-    public void addInnerElementField(InnerElementBlock _key, ExecInnerElementBlock _value) {
-        allInnerElementFields.addEntry(_key, _value);
-    }
-    public Iterable<EntryCust<InnerElementBlock, ExecInnerElementBlock>> getInnerElementFields() {
-        return allInnerElementFields.entryList();
     }
     public void addElementField(InnerTypeOrElement _key, ExecInnerTypeOrElement _value) {
         allElementFields.addEntry(_key, _value);
