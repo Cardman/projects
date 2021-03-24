@@ -102,7 +102,6 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
     private final CustList<InstanceBlock> instanceBlocks = new CustList<InstanceBlock>();
     private final CustList<StaticBlock> staticBlocks = new CustList<StaticBlock>();
     private int countFct;
-    private int countBodyFct;
     private int countField;
     private int countInit;
     private int countName;
@@ -2112,14 +2111,6 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
 
     public void setCountFct(int _countFct) {
         this.countFct = _countFct;
-    }
-
-    public int getCountBodyFct() {
-        return countBodyFct;
-    }
-
-    public void setCountBodyFct(int _countBodyFct) {
-        countBodyFct = _countBodyFct;
     }
 
     public int getCountField() {

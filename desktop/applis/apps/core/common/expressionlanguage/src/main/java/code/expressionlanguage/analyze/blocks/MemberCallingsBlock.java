@@ -20,7 +20,6 @@ public abstract class MemberCallingsBlock extends BracedBlock implements Functio
     private final CustList<NamedCalledFunctionBlock> anonymousFct = new CustList<NamedCalledFunctionBlock>();
     private final CustList<SwitchMethodBlock> switchMethods = new CustList<SwitchMethodBlock>();
     private int numberFct;
-    private int numberBodyFct;
     MemberCallingsBlock(OffsetsBlock _offset) {
         super(_offset);
     }
@@ -154,11 +153,4 @@ public abstract class MemberCallingsBlock extends BracedBlock implements Functio
         this.numberFct = _numberFct;
     }
 
-    public int getNumberBodyFct() {
-        return numberBodyFct;
-    }
-
-    public void setNumberBodyFct(int _numberBodyFct) {
-        numberBodyFct = _numberBodyFct;
-    }
 }

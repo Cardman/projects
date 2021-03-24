@@ -151,7 +151,7 @@ public final class ForwardInfos {
                             ExecRootBlock ex_ = mem_.getRootBlock();
                             ExecOverrideInfo val_ = ex_.getRedirections().getVal(mem_.getOvNamed(b), root_.getFullName());
                             if (val_ == null) {
-                                ExecOverridableBlock value_ = mem_.getMethod(b);
+                                ExecOverridableBlock value_ = mem_.getOvNamed(b);
                                 e.getValue().getRootBlock().getFunctionalBodies().add(new ExecFunctionalInfo(s.getFormatted(),value_));
                             }
                         }
@@ -351,7 +351,7 @@ public final class ForwardInfos {
                 fwdAnnotations(b, d, coverage_, _forwards);
                 fwdAnnotationsParameters(b, d, coverage_, _forwards);
             }
-            for (EntryCust<NamedFunctionBlock, ExecNamedFunctionBlock> a: mem_.getOvNamed()) {
+            for (EntryCust<NamedCalledFunctionBlock,ExecOverridableBlock> a: mem_.getOvNamed()) {
                 NamedFunctionBlock b = a.getKey();
                 ExecNamedFunctionBlock d = a.getValue();
                 fwdAnnotations(b, d, coverage_, _forwards);
@@ -477,7 +477,6 @@ public final class ForwardInfos {
                     MethodKind kind_ = ov_.getKind();
                     ExecOverridableBlock val_ = new ExecOverridableBlock(ov_.isRetRef(), ov_.getName(), ov_.isVarargs(), ov_.getAccess(), ov_.getParametersNames(), ov_.getModifier(), toExecMethodKind(kind_), b.getOffset().getOffsetTrim(), ov_.getImportedParametersTypes(), ov_.getParametersRef());
                     val_.setFile(current_.getFile());
-                    mem_.addMethod(ov_,val_);
                     mem_.addOvNamed(ov_,val_);
                     mem_.addFctBody(ov_,val_);
                 }
@@ -526,7 +525,7 @@ public final class ForwardInfos {
             }
             IdMap<MemberCallingsBlock,ExecMemberCallingsBlock> ovNamed_;
             ovNamed_ = new IdMap<MemberCallingsBlock,ExecMemberCallingsBlock>();
-            for(EntryCust<NamedFunctionBlock, ExecNamedFunctionBlock> e: mem_.getOvNamed()) {
+            for(EntryCust<NamedCalledFunctionBlock,ExecOverridableBlock> e: mem_.getOvNamed()) {
                 ovNamed_.addEntry(e.getKey(),e.getValue());
             }
             IdMap<MemberCallingsBlock,ExecMemberCallingsBlock> named_;
@@ -1612,7 +1611,7 @@ public final class ForwardInfos {
     }
 
     private static void validateIds(Members _mem) {
-        for (EntryCust<NamedCalledFunctionBlock,ExecOverridableBlock> e: _mem.getMethods()) {
+        for (EntryCust<NamedCalledFunctionBlock,ExecOverridableBlock> e: _mem.getOvNamed()) {
             e.getValue().setImportedReturnType(e.getKey().getImportedReturnType());
             String returnTypeGet_ = e.getKey().getReturnTypeGet();
             if (!returnTypeGet_.isEmpty()) {

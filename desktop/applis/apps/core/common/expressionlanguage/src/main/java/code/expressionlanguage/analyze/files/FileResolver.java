@@ -1908,9 +1908,6 @@ public final class FileResolver {
                 int countFct_ = _currentParent.getCountFct();
                 ov_.setNumberFct(countFct_);
                 _currentParent.setCountFct(countFct_+1);
-                int bodyFctNb_ = _currentParent.getCountBodyFct();
-                ov_.setNumberBodyFct(bodyFctNb_);
-                _currentParent.setCountBodyFct(bodyFctNb_+1);
                 int countOv_ = _currentParent.getCountOv();
                 ov_.setNameOverrideNumber(countOv_);
                 _currentParent.setCountOv(countOv_+1);
@@ -1986,9 +1983,6 @@ public final class FileResolver {
                 int countFct_ = _currentParent.getCountFct();
                 ov_.setNumberFct(countFct_);
                 _currentParent.setCountFct(countFct_+1);
-                int bodyFctNb_ = _currentParent.getCountBodyFct();
-                ov_.setNumberBodyFct(bodyFctNb_);
-                _currentParent.setCountBodyFct(bodyFctNb_+1);
                 int countOv_ = _currentParent.getCountOv();
                 ov_.setNameOverrideNumber(countOv_);
                 _currentParent.setCountOv(countOv_+1);

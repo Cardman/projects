@@ -285,7 +285,7 @@ public final class Coverage {
             } else if (_mem instanceof ConstructorBlock) {
                 fctRes_ = type_.getFunctionsCtor().get(((ConstructorBlock)_mem).getCtorNumber());
             } else {
-                fctRes_ = type_.getFunctions().get(_mem.getNumberBodyFct());
+                fctRes_ = type_.getFunctions().get(((NamedCalledFunctionBlock)_mem).getNameOverrideNumber());
             }
         }
         return fctRes_;
