@@ -230,6 +230,11 @@ public final class ForwardInfos {
                 coverage_.putCalls(c,method_);
                 _forwards.addFctBody(method_,f.getValue());
             }
+            for (EntryCust<ConstructorBlock, ExecConstructorBlock> f: mem_.getCtors()) {
+                MemberCallingsBlock method_ =  f.getKey();
+                coverage_.putCalls(c,method_);
+                _forwards.addFctBody(method_,f.getValue());
+            }
             for (EntryCust<InstanceBlock, ExecInstanceBlock> f: mem_.getInstInitBodies()) {
                 InstanceBlock method_ =  f.getKey();
                 coverage_.putCalls(c,method_);
@@ -510,7 +515,6 @@ public final class ForwardInfos {
                     val_.setFile(current_.getFile());
                     mem_.addCtor((ConstructorBlock) b,val_);
                     mem_.addFct((MemberCallingsBlock)b,val_);
-                    mem_.addFctBody((MemberCallingsBlock)b,val_);
                 }
                 if (b instanceof InstanceBlock) {
                     ExecInstanceBlock val_ = new ExecInstanceBlock(b.getOffset().getOffsetTrim());

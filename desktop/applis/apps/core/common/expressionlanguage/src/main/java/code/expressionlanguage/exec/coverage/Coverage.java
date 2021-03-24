@@ -80,6 +80,10 @@ public final class Coverage {
             types.get(_type.getNumberAll()).getFunctionsStat().add(new FunctionCoverageResult());
             return;
         }
+        if (_call instanceof ConstructorBlock) {
+            types.get(_type.getNumberAll()).getFunctionsCtor().add(new FunctionCoverageResult());
+            return;
+        }
         types.get(_type.getNumberAll()).getFunctions().add(new FunctionCoverageResult());
     }
     public void putCallsAnon() {
@@ -278,6 +282,8 @@ public final class Coverage {
                 fctRes_ = type_.getFunctionsInst().get(((InstanceBlock)_mem).getInstanceNb());
             } else if (_mem instanceof StaticBlock) {
                 fctRes_ = type_.getFunctionsStat().get(((StaticBlock)_mem).getStaticNb());
+            } else if (_mem instanceof ConstructorBlock) {
+                fctRes_ = type_.getFunctionsCtor().get(((ConstructorBlock)_mem).getCtorNumber());
             } else {
                 fctRes_ = type_.getFunctions().get(_mem.getNumberBodyFct());
             }

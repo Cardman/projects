@@ -8,6 +8,7 @@ import code.util.IdMap;
 
 public final class TypeCoverageResult {
     private final CustList<FunctionCoverageResult> functions = new CustList<FunctionCoverageResult>();
+    private final CustList<FunctionCoverageResult> functionsCtor = new CustList<FunctionCoverageResult>();
     private final CustList<FunctionCoverageResult> functionsInst = new CustList<FunctionCoverageResult>();
     private final CustList<FunctionCoverageResult> functionsStat = new CustList<FunctionCoverageResult>();
     private final IdMap<ExecBlock,MemberCallingsBlock> mappingBlocks = new IdMap<ExecBlock,MemberCallingsBlock>();
@@ -18,6 +19,10 @@ public final class TypeCoverageResult {
 
     public CustList<FunctionCoverageResult> getFunctions() {
         return functions;
+    }
+
+    public CustList<FunctionCoverageResult> getFunctionsCtor() {
+        return functionsCtor;
     }
 
     public CustList<FunctionCoverageResult> getFunctionsInst() {

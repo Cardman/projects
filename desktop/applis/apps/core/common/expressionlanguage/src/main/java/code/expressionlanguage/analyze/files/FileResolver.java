@@ -2002,9 +2002,6 @@ public final class FileResolver {
                 int countFct_ = _currentParent.getCountFct();
                 ((ConstructorBlock)br_).setNumberFct(countFct_);
                 _currentParent.setCountFct(countFct_+1);
-                int bodyFctNb_ = _currentParent.getCountBodyFct();
-                ((ConstructorBlock)br_).setNumberBodyFct(bodyFctNb_);
-                _currentParent.setCountBodyFct(bodyFctNb_+1);
                 ((ConstructorBlock)br_).setCtorNumber(_currentParent.getConstructorBlocks().size());
                 _currentParent.getConstructorBlocks().add((ConstructorBlock)br_);
                 if (parametersType_.isEmpty()) {
