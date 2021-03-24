@@ -479,7 +479,6 @@ public final class ForwardInfos {
                     val_.setFile(current_.getFile());
                     mem_.addMethod(ov_,val_);
                     mem_.addOvNamed(ov_,val_);
-                    mem_.addFct(ov_,val_);
                     mem_.addFctBody(ov_,val_);
                 }
                 if (AbsBk.isAnnotBlock(b)) {
@@ -488,7 +487,6 @@ public final class ForwardInfos {
                     val_.setFile(current_.getFile());
                     mem_.addAnnotMethod(annot_,val_);
                     mem_.addNamed(annot_,val_);
-                    mem_.addFct(annot_,val_);
                     procAnnotMember(current_, annot_, val_);
                 }
                 if (b instanceof InnerElementBlock) {
@@ -514,13 +512,11 @@ public final class ForwardInfos {
                     ExecConstructorBlock val_ = new ExecConstructorBlock(((ConstructorBlock)b).getName(), ((ConstructorBlock)b).isVarargs(), ((ConstructorBlock)b).getAccess(), ((ConstructorBlock)b).getParametersNames(), b.getOffset().getOffsetTrim(), ((ConstructorBlock)b).getImportedParametersTypes(), ((ConstructorBlock)b).getParametersRef());
                     val_.setFile(current_.getFile());
                     mem_.addCtor((ConstructorBlock) b,val_);
-                    mem_.addFct((MemberCallingsBlock)b,val_);
                 }
                 if (b instanceof InstanceBlock) {
                     ExecInstanceBlock val_ = new ExecInstanceBlock(b.getOffset().getOffsetTrim());
                     val_.setFile(current_.getFile());
                     val_.setNumber(((InitBlock) b).getNumber());
-                    mem_.addFct((MemberCallingsBlock)b,val_);
                     mem_.addInstInitBody((InstanceBlock)b,val_);
                     current_.getAllInstanceMembers().add(val_);
                     current_.getAllInstanceInits().add(val_);
@@ -529,14 +525,80 @@ public final class ForwardInfos {
                     ExecStaticBlock val_ = new ExecStaticBlock(b.getOffset().getOffsetTrim());
                     val_.setFile(current_.getFile());
                     val_.setNumber(((InitBlock) b).getNumber());
-                    mem_.addFct((MemberCallingsBlock)b,val_);
                     mem_.addStatInitBody((StaticBlock)b,val_);
                     current_.getAllStaticMembers().add(val_);
                     current_.getAllStaticInits().add(val_);
                 }
             }
+            IdMap<MemberCallingsBlock,ExecMemberCallingsBlock> ovNamed_;
+            ovNamed_ = new IdMap<MemberCallingsBlock,ExecMemberCallingsBlock>();
+            for(EntryCust<NamedFunctionBlock, ExecNamedFunctionBlock> e: mem_.getOvNamed()) {
+                ovNamed_.addEntry(e.getKey(),e.getValue());
+            }
+            IdMap<MemberCallingsBlock,ExecMemberCallingsBlock> named_;
+            named_ = new IdMap<MemberCallingsBlock,ExecMemberCallingsBlock>();
+            for(EntryCust<NamedFunctionBlock, ExecNamedFunctionBlock> e: mem_.getNamed()) {
+                named_.addEntry(e.getKey(),e.getValue());
+            }
+            IdMap<MemberCallingsBlock,ExecMemberCallingsBlock> ctors_;
+            ctors_ = new IdMap<MemberCallingsBlock,ExecMemberCallingsBlock>();
+            for(EntryCust<ConstructorBlock, ExecConstructorBlock> e: mem_.getCtors()) {
+                ctors_.addEntry(e.getKey(),e.getValue());
+            }
+            IdMap<MemberCallingsBlock,ExecMemberCallingsBlock> instInit_;
+            instInit_ = new IdMap<MemberCallingsBlock,ExecMemberCallingsBlock>();
+            for(EntryCust<InstanceBlock, ExecInstanceBlock> e: mem_.getInstInitBodies()) {
+                instInit_.addEntry(e.getKey(),e.getValue());
+            }
+            IdMap<MemberCallingsBlock,ExecMemberCallingsBlock> statInit_;
+            statInit_ = new IdMap<MemberCallingsBlock,ExecMemberCallingsBlock>();
+            for(EntryCust<StaticBlock, ExecStaticBlock> e: mem_.getStatInitBodies()) {
+                statInit_.addEntry(e.getKey(),e.getValue());
+            }
+            IdMap<MemberCallingsBlock,ExecMemberCallingsBlock> mergedFct_;
+            mergedFct_ = new IdMap<MemberCallingsBlock,ExecMemberCallingsBlock>();
+            mergedFct_ = merge(mergedFct_,ovNamed_);
+            mergedFct_ = merge(mergedFct_,named_);
+            mergedFct_ = merge(mergedFct_,ctors_);
+            mergedFct_ = merge(mergedFct_,instInit_);
+            mergedFct_ = merge(mergedFct_,statInit_);
+            for(EntryCust<MemberCallingsBlock, ExecMemberCallingsBlock> e: mergedFct_.entryList()) {
+                mem_.addFct(e.getKey(),e.getValue());
+            }
             addFields(mem_);
         }
+    }
+
+    private static IdMap<MemberCallingsBlock,ExecMemberCallingsBlock> merge(IdMap<MemberCallingsBlock,ExecMemberCallingsBlock> _firstList,
+                              IdMap<MemberCallingsBlock,ExecMemberCallingsBlock> _secondList){
+        IdMap<MemberCallingsBlock,ExecMemberCallingsBlock> out_ = new IdMap<MemberCallingsBlock,ExecMemberCallingsBlock>();
+        int i_ = 0;
+        int j_ = 0;
+        int firstLen_ = _firstList.size();
+        int secondLen_ = _secondList.size();
+        while (i_ < firstLen_ && j_ < secondLen_){
+            MemberCallingsBlock first_ = _firstList.getKey(i_);
+            MemberCallingsBlock second_ = _secondList.getKey(j_);
+            int firstOff_ = first_.getOffset().getOffsetTrim();
+            int secondOff_ = second_.getOffset().getOffsetTrim();
+            if (firstOff_ < secondOff_) {
+                out_.addEntry(first_,_firstList.getValue(i_));
+                i_++;
+            } else {
+                out_.addEntry(second_,_secondList.getValue(j_));
+                j_++;
+            }
+        }
+        if (i_ < _firstList.size()){
+            for (int k = i_; k < firstLen_; k++){
+                out_.addEntry(_firstList.getKey(k),_firstList.getValue(k));
+            }
+        } else {
+            for (int k = j_; k < secondLen_; k++){
+                out_.addEntry(_secondList.getKey(k),_secondList.getValue(k));
+            }
+        }
+        return out_;
     }
 
     private static void addFields(Members _mem) {
