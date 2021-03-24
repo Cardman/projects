@@ -487,26 +487,22 @@ public final class ForwardInfos {
                     val_.setFile(current_.getFile());
                     mem_.addAnnotMethod(annot_,val_);
                     mem_.addNamed(annot_,val_);
-                    procAnnotMember(current_, annot_, val_);
                 }
                 if (b instanceof InnerElementBlock) {
                     ExecInnerElementBlock val_ = _forwards.getInnerEltType((InnerElementBlock) b);
                     mem_.addInnerElementField((InnerElementBlock) b,val_);
                     mem_.addElementField((InnerElementBlock) b,val_);
-                    current_.getAllStaticMembers().add(val_);
                 }
                 if (b instanceof ElementBlock) {
                     ExecElementBlock val_ = new ExecElementBlock(b.getOffset().getOffsetTrim(), new ExecElementContent(((ElementBlock) b).getElementContent()), ((ElementBlock) b).getTrOffset());
                     val_.setFile(current_.getFile());
                     mem_.addSimpleElementField((ElementBlock) b,val_);
                     mem_.addElementField((ElementBlock) b,val_);
-                    current_.getAllStaticMembers().add(val_);
                 }
                 if (b instanceof FieldBlock) {
                     ExecFieldBlock val_ = new ExecFieldBlock(b.getOffset().getOffsetTrim(), ((FieldBlock) b).getFieldContent());
                     val_.setFile(current_.getFile());
                     mem_.addExplicitField((FieldBlock) b,val_);
-                    chooseForField(current_, val_);
                 }
                 if (b instanceof ConstructorBlock) {
                     ExecConstructorBlock val_ = new ExecConstructorBlock(((ConstructorBlock)b).getName(), ((ConstructorBlock)b).isVarargs(), ((ConstructorBlock)b).getAccess(), ((ConstructorBlock)b).getParametersNames(), b.getOffset().getOffsetTrim(), ((ConstructorBlock)b).getImportedParametersTypes(), ((ConstructorBlock)b).getParametersRef());
@@ -518,7 +514,6 @@ public final class ForwardInfos {
                     val_.setFile(current_.getFile());
                     val_.setNumber(((InitBlock) b).getNumber());
                     mem_.addInstInitBody((InstanceBlock)b,val_);
-                    current_.getAllInstanceMembers().add(val_);
                     current_.getAllInstanceInits().add(val_);
                 }
                 if (b instanceof StaticBlock) {
@@ -526,7 +521,6 @@ public final class ForwardInfos {
                     val_.setFile(current_.getFile());
                     val_.setNumber(((InitBlock) b).getNumber());
                     mem_.addStatInitBody((StaticBlock)b,val_);
-                    current_.getAllStaticMembers().add(val_);
                     current_.getAllStaticInits().add(val_);
                 }
             }
@@ -565,6 +559,42 @@ public final class ForwardInfos {
             for(EntryCust<MemberCallingsBlock, ExecMemberCallingsBlock> e: mergedFct_.entryList()) {
                 mem_.addFct(e.getKey(),e.getValue());
             }
+            CustList<ExecBlock> instField_ = new CustList<ExecBlock>();
+            CustList<ExecBlock> statField_ = new CustList<ExecBlock>();
+            for(EntryCust<InnerTypeOrElement, ExecInnerTypeOrElement> e: mem_.getElementFields()) {
+                statField_.add((ExecBlock)e.getValue());
+            }
+            for (EntryCust<FieldBlock, ExecFieldBlock> e:mem_.getExplicitFields()) {
+                if (e.getValue().isStaticField()) {
+                    statField_.add(e.getValue());
+                } else {
+                    instField_.add(e.getValue());
+                }
+            }
+            for(EntryCust<NamedFunctionBlock, ExecNamedFunctionBlock> e: mem_.getNamed()) {
+                OperationNode root_ = ((NamedCalledFunctionBlock)e.getKey()).getRoot();
+                if (root_ != null) {
+                    instField_.add(e.getValue());
+                }
+            }
+            CustList<ExecBlock> instInitExec_ = new CustList<ExecBlock>();
+            for(EntryCust<InstanceBlock, ExecInstanceBlock> e: mem_.getInstInitBodies()) {
+                instInitExec_.add(e.getValue());
+            }
+            CustList<ExecBlock> statInitExec_ = new CustList<ExecBlock>();
+            for(EntryCust<StaticBlock, ExecStaticBlock> e: mem_.getStatInitBodies()) {
+                statInitExec_.add(e.getValue());
+            }
+            CustList<ExecBlock> mergedExecInst_;
+            mergedExecInst_ = new CustList<ExecBlock>();
+            mergedExecInst_ = mergeExec(mergedExecInst_,instField_);
+            mergedExecInst_ = mergeExec(mergedExecInst_,instInitExec_);
+            CustList<ExecBlock> mergedExecStat_;
+            mergedExecStat_ = new CustList<ExecBlock>();
+            mergedExecStat_ = mergeExec(mergedExecStat_,statField_);
+            mergedExecStat_ = mergeExec(mergedExecStat_,statInitExec_);
+            current_.getAllInstanceMembers().addAllElts(mergedExecInst_);
+            current_.getAllStaticMembers().addAllElts(mergedExecStat_);
             addFields(mem_);
         }
     }
@@ -601,27 +631,43 @@ public final class ForwardInfos {
         return out_;
     }
 
+    private static CustList<ExecBlock> mergeExec(CustList<ExecBlock> _firstList,
+                                                 CustList<ExecBlock> _secondList){
+        CustList<ExecBlock> out_ = new CustList<ExecBlock>();
+        int i_ = 0;
+        int j_ = 0;
+        int firstLen_ = _firstList.size();
+        int secondLen_ = _secondList.size();
+        while (i_ < firstLen_ && j_ < secondLen_){
+            ExecBlock first_ = _firstList.get(i_);
+            ExecBlock second_ = _secondList.get(j_);
+            int firstOff_ = first_.getOffsetTrim();
+            int secondOff_ = second_.getOffsetTrim();
+            if (firstOff_ < secondOff_) {
+                out_.add(first_);
+                i_++;
+            } else {
+                out_.add(second_);
+                j_++;
+            }
+        }
+        if (i_ < _firstList.size()){
+            for (int k = i_; k < firstLen_; k++){
+                out_.add(_firstList.get(k));
+            }
+        } else {
+            for (int k = j_; k < secondLen_; k++){
+                out_.add(_secondList.get(k));
+            }
+        }
+        return out_;
+    }
     private static void addFields(Members _mem) {
         for (EntryCust<InnerTypeOrElement, ExecInnerTypeOrElement> e: _mem.getElementFields()) {
             _mem.addField(e.getKey(),e.getValue());
         }
         for (EntryCust<FieldBlock, ExecFieldBlock> e: _mem.getExplicitFields()) {
             _mem.addField(e.getKey(),e.getValue());
-        }
-    }
-
-    private static void procAnnotMember(ExecRootBlock _current, NamedCalledFunctionBlock _annot, ExecAnnotationMethodBlock _val) {
-        OperationNode root_ = _annot.getRoot();
-        if (root_ != null) {
-            _current.getAllInstanceMembers().add(_val);
-        }
-    }
-
-    private static void chooseForField(ExecRootBlock _current, ExecFieldBlock _val) {
-        if (_val.isStaticField()) {
-            _current.getAllStaticMembers().add(_val);
-        } else {
-            _current.getAllInstanceMembers().add(_val);
         }
     }
 
