@@ -18,6 +18,8 @@ public final class Members {
     private final IdMap<NamedFunctionBlock,ExecNamedFunctionBlock> allNamed = new IdMap<NamedFunctionBlock,ExecNamedFunctionBlock>();
     private final IdMap<NamedFunctionBlock,ExecNamedFunctionBlock> allOvNamed = new IdMap<NamedFunctionBlock,ExecNamedFunctionBlock>();
     private final IdMap<MemberCallingsBlock,ExecMemberCallingsBlock> allFct = new IdMap<MemberCallingsBlock,ExecMemberCallingsBlock>();
+    private final IdMap<InstanceBlock,ExecInstanceBlock> allInstInitBodies = new IdMap<InstanceBlock,ExecInstanceBlock>();
+    private final IdMap<StaticBlock,ExecStaticBlock> allStatInitBodies = new IdMap<StaticBlock,ExecStaticBlock>();
     private final IdMap<MemberCallingsBlock,ExecMemberCallingsBlock> allFctBodies = new IdMap<MemberCallingsBlock,ExecMemberCallingsBlock>();
 
     public void addMethod(NamedCalledFunctionBlock _key, ExecOverridableBlock _value) {
@@ -120,6 +122,20 @@ public final class Members {
     }
     public Iterable<EntryCust<MemberCallingsBlock, ExecMemberCallingsBlock>> getFcts() {
         return allFct.entryList();
+    }
+    public void addInstInitBody(InstanceBlock _key, ExecInstanceBlock _value) {
+        allInstInitBodies.addEntry(_key, _value);
+    }
+
+    public Iterable<EntryCust<InstanceBlock, ExecInstanceBlock>> getInstInitBodies() {
+        return allInstInitBodies.entryList();
+    }
+    public void addStatInitBody(StaticBlock _key, ExecStaticBlock _value) {
+        allStatInitBodies.addEntry(_key, _value);
+    }
+
+    public Iterable<EntryCust<StaticBlock, ExecStaticBlock>> getStatInitBodies() {
+        return allStatInitBodies.entryList();
     }
     public void addFctBody(MemberCallingsBlock _key, ExecMemberCallingsBlock _value) {
         allFctBodies.addEntry(_key, _value);

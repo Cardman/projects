@@ -1162,12 +1162,11 @@ public final class FileResolver {
                     int initNb_ = ((RootBlock)currentParent_).getCountInit();
                     ((InitBlock) br_).setNumber(initNb_);
                     ((RootBlock)currentParent_).setCountInit(initNb_+1);
+                    ((StaticBlock) br_).setStaticNb(((RootBlock)currentParent_).getStaticBlocks().size());
+                    ((RootBlock)currentParent_).getStaticBlocks().add((StaticBlock) br_);
                     int fctNb_ = ((RootBlock)currentParent_).getCountFct();
                     ((InitBlock) br_).setNumberFct(fctNb_);
                     ((RootBlock)currentParent_).setCountFct(fctNb_+1);
-                    int bodyFctNb_ = ((RootBlock)currentParent_).getCountBodyFct();
-                    ((InitBlock) br_).setNumberBodyFct(bodyFctNb_);
-                    ((RootBlock)currentParent_).setCountBodyFct(bodyFctNb_+1);
                     br_.setBegin(_i+_offset);
                     br_.setLengthHeader(1);
                     currentParent_.appendChild(br_);
@@ -2787,12 +2786,11 @@ public final class FileResolver {
                 int initNb_ = ((RootBlock)_currentParent).getCountInit();
                 ((InitBlock) br_).setNumber(initNb_);
                 ((RootBlock)_currentParent).setCountInit(initNb_+1);
+                ((StaticBlock) br_).setStaticNb(((RootBlock)_currentParent).getStaticBlocks().size());
+                ((RootBlock)_currentParent).getStaticBlocks().add((StaticBlock) br_);
                 int fctNb_ = ((RootBlock)_currentParent).getCountFct();
                 ((InitBlock) br_).setNumberFct(fctNb_);
                 ((RootBlock)_currentParent).setCountFct(fctNb_+1);
-                int bodyFctNb_ = ((RootBlock)_currentParent).getCountBodyFct();
-                ((InitBlock) br_).setNumberBodyFct(bodyFctNb_);
-                ((RootBlock)_currentParent).setCountBodyFct(bodyFctNb_+1);
             }
             br_.setBegin(_instructionLocation+_offset);
             br_.setLengthHeader(keyWordStatic_.length());
@@ -2804,12 +2802,11 @@ public final class FileResolver {
                 int initNb_ = ((RootBlock)_currentParent).getCountInit();
                 ((InitBlock) br_).setNumber(initNb_);
                 ((RootBlock)_currentParent).setCountInit(initNb_+1);
+                ((InstanceBlock) br_).setInstanceNb(((RootBlock)_currentParent).getInstanceBlocks().size());
+                ((RootBlock)_currentParent).getInstanceBlocks().add((InstanceBlock) br_);
                 int fctNb_ = ((RootBlock)_currentParent).getCountFct();
                 ((InitBlock) br_).setNumberFct(fctNb_);
                 ((RootBlock)_currentParent).setCountFct(fctNb_+1);
-                int bodyFctNb_ = ((RootBlock)_currentParent).getCountBodyFct();
-                ((InitBlock) br_).setNumberBodyFct(bodyFctNb_);
-                ((RootBlock)_currentParent).setCountBodyFct(bodyFctNb_+1);
             } else {
                 br_ = new UnclassedBracedBlock(new OffsetsBlock(_instructionRealLocation+_offset, _instructionLocation+_offset));
             }

@@ -822,13 +822,13 @@ public final class CoverageTest extends ProcessMethodCommon {
     private static IdMap<ExecBlock, BooleanCoverageResult> getCoverLoops2(ContextEl _cont) {
 
         CustList<TypeCoverageResult> types_ = _cont.getCoverage().getTypes();
-        return types_.get(types_.size()-3).getFunctions().first().getCoverLoops();
+        return types_.get(types_.size()-3).getFunctionsStat().first().getCoverLoops();
     }
 
     private static IdMap<ExecBlock, BooleanCoverageResult> getCoverLoops5(ContextEl _cont) {
 
         CustList<TypeCoverageResult> types_ = _cont.getCoverage().getTypes();
-        return types_.get(types_.size()-6).getFunctions().first().getCoverLoops();
+        return types_.get(types_.size()-6).getFunctionsStat().first().getCoverLoops();
     }
     private static CustList<CustList<AbstractCoverageResult>> getCovers(ContextEl _cont) {
         CustList<TypeCoverageResult> types_ = _cont.getCoverage().getTypes();

@@ -99,6 +99,8 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
     private final CustList<NamedCalledFunctionBlock> annotationsMethodsBlocks = new CustList<NamedCalledFunctionBlock>();
     private final CustList<ConstructorBlock> constructorBlocks = new CustList<ConstructorBlock>();
     private final CustList<InfoBlock> fieldsBlocks = new CustList<InfoBlock>();
+    private final CustList<InstanceBlock> instanceBlocks = new CustList<InstanceBlock>();
+    private final CustList<StaticBlock> staticBlocks = new CustList<StaticBlock>();
     private int countFct;
     private int countBodyFct;
     private int countField;
@@ -2150,5 +2152,13 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
 
     public void setCountOv(int _countOv) {
         this.countOv = _countOv;
+    }
+
+    public CustList<InstanceBlock> getInstanceBlocks(){
+        return instanceBlocks;
+    }
+
+    public CustList<StaticBlock> getStaticBlocks(){
+        return staticBlocks;
     }
 }

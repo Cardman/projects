@@ -68,8 +68,16 @@ public final class Coverage {
         refOperators.add(_type);
         operators.add(new FunctionCoverageResult());
     }
-    public void putCalls(RootBlock _type) {
+    public void putCalls(RootBlock _type, MemberCallingsBlock _call) {
         if (!isCovering()) {
+            return;
+        }
+        if (_call instanceof InstanceBlock) {
+            types.get(_type.getNumberAll()).getFunctionsInst().add(new FunctionCoverageResult());
+            return;
+        }
+        if (_call instanceof StaticBlock) {
+            types.get(_type.getNumberAll()).getFunctionsStat().add(new FunctionCoverageResult());
             return;
         }
         types.get(_type.getNumberAll()).getFunctions().add(new FunctionCoverageResult());
@@ -265,7 +273,14 @@ public final class Coverage {
         } else if (_mem instanceof SwitchMethodBlock){
             fctRes_ = switchMethods.get(((SwitchMethodBlock)_mem).getConditionNb());
         } else {
-            fctRes_ = types.get(((RootBlock)_mem.getParent()).getNumberAll()).getFunctions().get(_mem.getNumberBodyFct());
+            TypeCoverageResult type_ = types.get(((RootBlock) _mem.getParent()).getNumberAll());
+            if (_mem instanceof InstanceBlock) {
+                fctRes_ = type_.getFunctionsInst().get(((InstanceBlock)_mem).getInstanceNb());
+            } else if (_mem instanceof StaticBlock) {
+                fctRes_ = type_.getFunctionsStat().get(((StaticBlock)_mem).getStaticNb());
+            } else {
+                fctRes_ = type_.getFunctions().get(_mem.getNumberBodyFct());
+            }
         }
         return fctRes_;
     }

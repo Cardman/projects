@@ -227,7 +227,17 @@ public final class ForwardInfos {
             Members mem_ = e.getValue();
             for (EntryCust<MemberCallingsBlock, ExecMemberCallingsBlock> f: mem_.getFctBodies()) {
                 MemberCallingsBlock method_ =  f.getKey();
-                coverage_.putCalls(c);
+                coverage_.putCalls(c,method_);
+                _forwards.addFctBody(method_,f.getValue());
+            }
+            for (EntryCust<InstanceBlock, ExecInstanceBlock> f: mem_.getInstInitBodies()) {
+                InstanceBlock method_ =  f.getKey();
+                coverage_.putCalls(c,method_);
+                _forwards.addFctBody(method_,f.getValue());
+            }
+            for (EntryCust<StaticBlock, ExecStaticBlock> f: mem_.getStatInitBodies()) {
+                StaticBlock method_ =  f.getKey();
+                coverage_.putCalls(c,method_);
                 _forwards.addFctBody(method_,f.getValue());
             }
             for (EntryCust<ConstructorBlock, ExecConstructorBlock> f: mem_.getCtors()) {
@@ -507,7 +517,7 @@ public final class ForwardInfos {
                     val_.setFile(current_.getFile());
                     val_.setNumber(((InitBlock) b).getNumber());
                     mem_.addFct((MemberCallingsBlock)b,val_);
-                    mem_.addFctBody((MemberCallingsBlock)b,val_);
+                    mem_.addInstInitBody((InstanceBlock)b,val_);
                     current_.getAllInstanceMembers().add(val_);
                     current_.getAllInstanceInits().add(val_);
                 }
@@ -516,7 +526,7 @@ public final class ForwardInfos {
                     val_.setFile(current_.getFile());
                     val_.setNumber(((InitBlock) b).getNumber());
                     mem_.addFct((MemberCallingsBlock)b,val_);
-                    mem_.addFctBody((MemberCallingsBlock)b,val_);
+                    mem_.addStatInitBody((StaticBlock)b,val_);
                     current_.getAllStaticMembers().add(val_);
                     current_.getAllStaticInits().add(val_);
                 }
