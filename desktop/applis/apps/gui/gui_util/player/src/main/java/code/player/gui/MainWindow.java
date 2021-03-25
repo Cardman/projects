@@ -93,6 +93,7 @@ public class MainWindow extends GroupFrame {
     private final LabelButton playPrevious = new LabelButton(CST_PREVIOUS);
     private final LabelButton playNext = new LabelButton(CST_NEXT);
     private final LabelButton stop = new LabelButton(CST_STOP);
+    private final TextLabel currentNoSong = new TextLabel(EMPTY);
     private final TextLabel currentSong = new TextLabel(EMPTY);
     private final ScrollPane scroll;
     private final TextLabel elapsedTime = new TextLabel(EMPTY);
@@ -131,8 +132,9 @@ public class MainWindow extends GroupFrame {
         actions_.add(stop);
         pane_.add(actions_);
         scroll = new ScrollPane(songRend);
-        scroll.setPreferredSize(new Dimension(100, 60));
+        scroll.setPreferredSize(new Dimension(256, 352));
         pane_.add(scroll);
+        pane_.add(currentNoSong);
         pane_.add(currentSong);
         pane_.add(elapsedTime);
         pane_.add(new Clock());
@@ -320,6 +322,7 @@ public class MainWindow extends GroupFrame {
             clipStream.getClip().start();
             clipStream.getClip().addLineListener(new SpeakingEvent(this));
             play.setTextAndSize(CST_PAUSE);
+            currentNoSong.setText(noSong+"/"+songsList.size());
             currentSong.setText(songsList.get(noSong));
             String strBegin_ = getStringTime(0);
             elapsedTime.setText(strBegin_+REL_SEP+getStringTime(clipStream.getClip().getMicrosecondLength()));
