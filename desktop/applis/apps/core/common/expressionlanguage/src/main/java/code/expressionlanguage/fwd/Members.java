@@ -92,9 +92,6 @@ public final class Members {
     public void addFct(MemberCallingsBlock _key, ExecMemberCallingsBlock _value) {
         allFct.addEntry(_key, _value);
     }
-    public ExecMemberCallingsBlock getFct(MemberCallingsBlock _key) {
-        return allFct.getValue(_key.getNumberFct());
-    }
     public Iterable<EntryCust<MemberCallingsBlock, ExecMemberCallingsBlock>> getFcts() {
         return allFct.entryList();
     }

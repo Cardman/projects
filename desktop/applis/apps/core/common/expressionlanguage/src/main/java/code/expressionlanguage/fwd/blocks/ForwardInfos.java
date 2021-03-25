@@ -378,24 +378,20 @@ public final class ForwardInfos {
         for (EntryCust<RootBlock, Members> e: _forwards.getMembers()) {
             RootBlock root_ = e.getKey();
             Members valueMember_ = e.getValue();
-            for (AbsBk b: ClassesUtil.getDirectChildren(root_)) {
-                if (b instanceof MemberCallingsBlock) {
-                    MemberCallingsBlock b1_ = (MemberCallingsBlock) b;
-                    ExecMemberCallingsBlock value_ = valueMember_.getFct(b1_);
-                    feedFct(b1_, value_, _forwards);
+            for (InfoBlock b: root_.getFieldsBlocks()) {
+                ExecInfoBlock value_ = valueMember_.getField(b);
+                for (AnonymousTypeBlock a: b.getAnonymous()) {
+                    value_.getAnonymous().add(_forwards.getAnonType(a));
                 }
-                if (b instanceof InfoBlock) {
-                    ExecInfoBlock value_ = valueMember_.getField((InfoBlock)b);
-                    for (AnonymousTypeBlock a: ((InfoBlock)b).getAnonymous()) {
-                        value_.getAnonymous().add(_forwards.getAnonType(a));
-                    }
-                    for (SwitchMethodBlock a: ((InfoBlock)b).getSwitchMethods()) {
-                        value_.getSwitchMethods().add(_forwards.getSwitchMethod(a));
-                    }
-                    for (NamedCalledFunctionBlock a: ((InfoBlock)b).getAnonymousFct()) {
-                        value_.getAnonymousLambda().add(_forwards.getAnonLambda(a));
-                    }
+                for (SwitchMethodBlock a: b.getSwitchMethods()) {
+                    value_.getSwitchMethods().add(_forwards.getSwitchMethod(a));
                 }
+                for (NamedCalledFunctionBlock a: b.getAnonymousFct()) {
+                    value_.getAnonymousLambda().add(_forwards.getAnonLambda(a));
+                }
+            }
+            for (EntryCust<MemberCallingsBlock, ExecMemberCallingsBlock> f:valueMember_.getFcts()) {
+                feedFct(f.getKey(), f.getValue(), _forwards);
             }
             ExecRootBlock value_ = e.getValue().getRootBlock();
             for (NamedCalledFunctionBlock a: root_.getAnonymousRootFct()) {

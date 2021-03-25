@@ -102,8 +102,6 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
     private final CustList<InstanceBlock> instanceBlocks = new CustList<InstanceBlock>();
     private final CustList<StaticBlock> staticBlocks = new CustList<StaticBlock>();
     private final CustList<RootBlock> childrenRootBlocks = new CustList<RootBlock>();
-    private int countFct;
-    private int countInit;
     RootBlock(int _idRowCol,
               String _packageName, OffsetAccessInfo _access, String _templateDef,
               IntMap<String> _directSuperTypes, OffsetsBlock _offset, String _name) {
@@ -2103,20 +2101,8 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
         return fieldsBlocks;
     }
 
-    public int getCountFct() {
-        return countFct;
-    }
-
-    public void setCountFct(int _countFct) {
-        this.countFct = _countFct;
-    }
-
     public int getCountInit() {
-        return countInit;
-    }
-
-    public void setCountInit(int _countInit) {
-        this.countInit = _countInit;
+        return getInstanceBlocks().size()+getStaticBlocks().size();
     }
 
     public CustList<InstanceBlock> getInstanceBlocks(){
