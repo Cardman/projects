@@ -1103,9 +1103,7 @@ public final class FileResolver {
                                 new OffsetsBlock(instructionRealLocation_+_offset, instructionLocation_+_offset));
                         field_.getAnnotations().addAllElts(annotations_);
                         field_.getAnnotationsIndexes().addAllElts(annotationsIndexes_);
-                        int fieldNb_ = ((RootBlock)currentParent_).getCountField();
-                        field_.setFieldNumber(fieldNb_);
-                        ((RootBlock)currentParent_).setCountField(fieldNb_+1);
+                        field_.setFieldNumber(((RootBlock)currentParent_).getFieldsBlocks().size());
                         ((RootBlock)currentParent_).getFieldsBlocks().add(field_);
                         br_ = field_;
                     } else {
@@ -1138,6 +1136,7 @@ public final class FileResolver {
                                 new OffsetStringInfo(fieldOffest_+_offset, fieldName_.trim()),
                                 new StringList(), new Ints(), new StringList(), new Ints(),
                                 new OffsetsBlock(instructionRealLocation_+_offset, instructionLocation_+_offset),new BooleanList(),rightPar_);
+                        annMeth_.setNameNumber(((RootBlock)currentParent_).getAnnotationsMethodsBlocks().size());
                         ((RootBlock)currentParent_).getAnnotationsMethodsBlocks().add(annMeth_);
                         if (rightPar_ < indexBeginCalling_ || !found_.substring(indexBeginCalling_ + 1, rightPar_).trim().isEmpty()) {
                             annMeth_.setKo();
@@ -1147,9 +1146,6 @@ public final class FileResolver {
                         int fctNb_ = ((RootBlock)currentParent_).getCountFct();
                         annMeth_.setNumberFct(fctNb_);
                         ((RootBlock)currentParent_).setCountFct(fctNb_+1);
-                        int nameNb_ = ((RootBlock)currentParent_).getCountName();
-                        annMeth_.setNameNumber(nameNb_);
-                        ((RootBlock)currentParent_).setCountName(nameNb_+1);
                         br_ = annMeth_;
                     }
                     br_.setBegin(_i+_offset);
@@ -1259,9 +1255,7 @@ public final class FileResolver {
                     elt_.getAnnotationsIndexes().addAllElts(annotationsIndexes_);
                     br_ = elt_;
                 }
-                int fieldNb_ = ((RootBlock)currentParent_).getCountField();
-                ((InfoBlock)br_).setFieldNumber(fieldNb_);
-                ((RootBlock)currentParent_).setCountField(fieldNb_+1);
+                ((InfoBlock)br_).setFieldNumber(((RootBlock)currentParent_).getFieldsBlocks().size());
                 ((RootBlock)currentParent_).getFieldsBlocks().add((InfoBlock)br_);
                 if (!ok_) {
                     br_.getBadIndexes().add(indexBeginCalling_ + 1+_offset);
@@ -1909,13 +1903,11 @@ public final class FileResolver {
                         parametersName_, offestsParams_, new OffsetStringInfo(modifierOffest_+_offset, modifier_),
                         new OffsetsBlock(instructionRealLocation_+_offset, instructionLocation_+_offset), _page, parametersRef_);
                 ov_.setKind(kind_);
+                ov_.setNameOverrideNumber(_currentParent.getOverridableBlocks().size());
                 _currentParent.getOverridableBlocks().add(ov_);
                 int countFct_ = _currentParent.getCountFct();
                 ov_.setNumberFct(countFct_);
                 _currentParent.setCountFct(countFct_+1);
-                int countOv_ = _currentParent.getCountOv();
-                ov_.setNameOverrideNumber(countOv_);
-                _currentParent.setCountOv(countOv_+1);
                 br_ = ov_;
             } else if (meth_) {
                 String retType_ = declaringType_.trim();
@@ -1984,13 +1976,11 @@ public final class FileResolver {
                     ov_.setDefinitionOffset(offsetLast_);
                 }
                 ov_.setKind(kind_);
+                ov_.setNameOverrideNumber(_currentParent.getOverridableBlocks().size());
                 _currentParent.getOverridableBlocks().add(ov_);
                 int countFct_ = _currentParent.getCountFct();
                 ov_.setNumberFct(countFct_);
                 _currentParent.setCountFct(countFct_+1);
-                int countOv_ = _currentParent.getCountOv();
-                ov_.setNameOverrideNumber(countOv_);
-                _currentParent.setCountOv(countOv_+1);
                 br_ = ov_;
             } else {
                 br_ = new ConstructorBlock(new OffsetAccessInfo(accessOffest_+_offset, accessFct_),
@@ -2061,9 +2051,7 @@ public final class FileResolver {
                     new OffsetsBlock(instructionRealLocation_+_offset, instructionLocation_+_offset));
             ((FieldBlock)br_).getAnnotations().addAllElts(annotations_);
             ((FieldBlock)br_).getAnnotationsIndexes().addAllElts(annotationsIndexes_);
-            int fieldNb_ = _currentParent.getCountField();
-            ((FieldBlock)br_).setFieldNumber(fieldNb_);
-            _currentParent.setCountField(fieldNb_+1);
+            ((FieldBlock)br_).setFieldNumber(_currentParent.getFieldsBlocks().size());
             _currentParent.getFieldsBlocks().add((FieldBlock)br_);
             br_.setBegin(_i+_offset);
             br_.setLengthHeader(1);
