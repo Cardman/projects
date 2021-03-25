@@ -101,6 +101,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
     private final CustList<InfoBlock> fieldsBlocks = new CustList<InfoBlock>();
     private final CustList<InstanceBlock> instanceBlocks = new CustList<InstanceBlock>();
     private final CustList<StaticBlock> staticBlocks = new CustList<StaticBlock>();
+    private final CustList<RootBlock> childrenRootBlocks = new CustList<RootBlock>();
     private int countFct;
     private int countField;
     private int countInit;
@@ -2151,5 +2152,8 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
 
     public CustList<StaticBlock> getStaticBlocks(){
         return staticBlocks;
+    }
+    public CustList<RootBlock> getChildrenRootBlocks() {
+        return childrenRootBlocks;
     }
 }

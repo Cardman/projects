@@ -1038,6 +1038,7 @@ public final class FileResolver {
                             _page.getDefaultAccess().getAccessInner(currentParent_).getAccInners(), _page);
                     currentParent_.appendChild(built_);
                     built_.setParentType((AnnotationBlock)currentParent_);
+                    ((AnnotationBlock)currentParent_).getChildrenRootBlocks().add(built_);
                     br_ = built_;
                 } else {
                     Ints annotationsIndexes_ = new Ints();
@@ -1298,7 +1299,11 @@ public final class FileResolver {
                             found_,
                             trimmedInstruction_,
                             defAcc_, _page);
-                    built_.setParentType(currentParent_.retrieveParentType());
+                    RootBlock retrieve_ = currentParent_.retrieveParentType();
+                    built_.setParentType(retrieve_);
+                    if (retrieve_ != null) {
+                        retrieve_.getChildrenRootBlocks().add(built_);
+                    }
                     currentParent_.appendChild(built_);
                     br_ = built_;
                 } else if (currentParent_ instanceof RootBlock) {

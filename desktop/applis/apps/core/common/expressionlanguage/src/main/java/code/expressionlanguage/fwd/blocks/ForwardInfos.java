@@ -102,11 +102,6 @@ public final class ForwardInfos {
         for (OperatorBlock o: _page.getSortedOperators()) {
             classes_.getSortedOperators().add(_forwards.getOperator(o));
         }
-        for (EntryCust<String,FileBlock> e: _page.getFilesBodies().entryList()) {
-            FileBlock fileBlock_ = e.getValue();
-            ExecFileBlock exFile_ = files_.getValue(fileBlock_.getNumberFile());
-            processExecFile(fileBlock_,exFile_, _forwards);
-        }
         StringMap<ExecTypeFunction> toStringMethodsToCallBodies_ = _context.getClasses().getToStringMethodsToCallBodies();
         for (EntryCust<RootBlock, ClassMethodIdReturn> e: _page.getToStr().entryList()) {
             ClassMethodIdReturn resDyn_ = e.getValue();
@@ -276,20 +271,15 @@ public final class ForwardInfos {
         for (EntryCust<RootBlock, Members> e: _forwards.getMembers()) {
             RootBlock c = e.getKey();
             Members mem_ = e.getValue();
-            for (AbsBk b: ClassesUtil.getDirectChildren(c)) {
-                if (b instanceof RootBlock) {
-                    ExecRootBlock val_ = _forwards.getMember((RootBlock) b).getRootBlock();
-                    mem_.getRootBlock().getChildrenTypes().add(val_);
-                } else {
-                    if (b instanceof InfoBlock) {
-                        ExecInfoBlock elt_ = mem_.getField((InfoBlock) b);
-                        mem_.getRootBlock().getChildrenOthers().add((ExecBlock) elt_);
-                    }
-                    if (b instanceof MemberCallingsBlock) {
-                        ExecMemberCallingsBlock elt_ = mem_.getFct((MemberCallingsBlock) b);
-                        mem_.getRootBlock().getChildrenOthers().add(elt_);
-                    }
-                }
+            for (RootBlock b:c.getChildrenRootBlocks()){
+                ExecRootBlock val_ = _forwards.getMember(b).getRootBlock();
+                mem_.getRootBlock().getChildrenTypes().add(val_);
+            }
+            for (EntryCust<ConstructorBlock, ExecConstructorBlock> b:mem_.getCtors()) {
+                mem_.getRootBlock().getChildrenOthers().add(b.getValue());
+            }
+            for (EntryCust<NamedCalledFunctionBlock,ExecOverridableBlock> b:mem_.getOvNamed()) {
+                mem_.getRootBlock().getChildrenOthers().add(b.getValue());
             }
             for (EntryCust<NamedCalledFunctionBlock, ExecAnnotationMethodBlock> f: mem_.getAnnotMethods()) {
                 mem_.getRootBlock().getAnnotationsFields().add(f.getValue());
@@ -459,11 +449,6 @@ public final class ForwardInfos {
         for (RootBlock a: _b1.getReserved()) {
             _value.getReserved().add(_forwards.getMember(a).getRootBlock());
         }
-    }
-
-    private static void processAppend(ExecFileBlock _exFile, RootBlock _root, Forwards _forwards) {
-        ExecRootBlock e_ = _forwards.getMember(_root).getRootBlock();
-        _exFile.appendChild(e_);
     }
 
     private static void innerFetchExecEnd(Forwards _forwards) {
@@ -697,19 +682,6 @@ public final class ForwardInfos {
             return ExecMethodKind.OPERATOR;
         }
         return ExecMethodKind.STD_METHOD;
-    }
-    private static void processExecFile(FileBlock _anaFile, ExecFileBlock _exeFile, Forwards _forwards) {
-        for (AbsBk b: ClassesUtil.getDirectChildren(_anaFile)) {
-            if (b instanceof RootBlock) {
-                RootBlock r_ = (RootBlock) b;
-                processAppend(_exeFile, r_, _forwards);
-            }
-            if (b instanceof OperatorBlock) {
-                OperatorBlock r_ = (OperatorBlock) b;
-                ExecOperatorBlock e_ = _forwards.getOperator(r_);
-                _exeFile.appendChild(e_);
-            }
-        }
     }
 
     private static ExecAnonymousFunctionBlock buildExecAnonymousLambdaOperation(AnonymousLambdaOperation _s, Forwards _forwards) {
