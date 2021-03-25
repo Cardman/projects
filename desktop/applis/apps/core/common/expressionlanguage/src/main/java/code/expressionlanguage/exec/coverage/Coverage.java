@@ -375,8 +375,7 @@ public final class Coverage {
         if (!isCovering()) {
             return;
         }
-        AbstractPageEl lastPage_ = _stackCall.getLastPage();
-        FunctionCoverageResult fctRes_ = getFctRes(lastPage_);
+        FunctionCoverageResult fctRes_ = getFctRes(_stackCall);
         BooleanCoverageResult covTwo_ = fctRes_.getCoverLoops().getVal(_loop);
         covTwo_.setInit(_stackCall.getInitializingTypeInfos().isWideInitEnums());
         covTwo_.cover(_value);
@@ -385,8 +384,7 @@ public final class Coverage {
         if (!isCovering()) {
             return;
         }
-        AbstractPageEl lastPage_ = _stackCall.getLastPage();
-        FunctionCoverageResult fctRes_ = getFctRes(lastPage_);
+        FunctionCoverageResult fctRes_ = getFctRes(_stackCall);
         BooleanCoverageResult covTwo_ = fctRes_.getCoversConditions().getVal(_condition);
         covTwo_.setInit(_stackCall.getInitializingTypeInfos().isWideInitEnums());
         if (_exec.getArgument() != null) {
@@ -399,8 +397,7 @@ public final class Coverage {
         if (!isCovering()) {
             return;
         }
-        AbstractPageEl lastPage_ = _stackCall.getLastPage();
-        FunctionCoverageResult fctRes_ = getFctRes(lastPage_);
+        FunctionCoverageResult fctRes_ = getFctRes(_stackCall);
         BooleanCoverageResult covTwo_ = fctRes_.getCoversConditionsForMutable().getVal(_condition);
         covTwo_.setInit(_stackCall.getInitializingTypeInfos().isWideInitEnums());
         if (_exec.getArgument() != null) {
@@ -413,8 +410,7 @@ public final class Coverage {
         if (!isCovering()) {
             return;
         }
-        AbstractPageEl lastPage_ = _stackCall.getLastPage();
-        FunctionCoverageResult fctRes_ = getFctRes(lastPage_);
+        FunctionCoverageResult fctRes_ = getFctRes(_stackCall);
         StandardCoverageResult covTwo_ = fctRes_.getCoverSwitchs().getVal(_parent).getChildren().getVal(_child);
         covTwo_.setInit(_stackCall.getInitializingTypeInfos().isWideInitEnums());
         covTwo_.cover(_value);
@@ -423,8 +419,7 @@ public final class Coverage {
         if (!isCovering()) {
             return;
         }
-        AbstractPageEl lastPage_ = _stackCall.getLastPage();
-        FunctionCoverageResult fctRes_ = getFctRes(lastPage_);
+        FunctionCoverageResult fctRes_ = getFctRes(_stackCall);
         StandardCoverageResult covTwo_ = fctRes_.getCoverSwitchs().getVal(_parent).getResultNoDef();
         covTwo_.setInit(_stackCall.getInitializingTypeInfos().isWideInitEnums());
         covTwo_.cover(_value);
@@ -433,8 +428,7 @@ public final class Coverage {
         if (!isCovering()) {
             return;
         }
-        AbstractPageEl lastPage_ = _stackCall.getLastPage();
-        FunctionCoverageResult fctRes_ = getFctRes(lastPage_);
+        FunctionCoverageResult fctRes_ = getFctRes(_stackCall);
         StandardCoverageResult covTwo_ = fctRes_.getCoverSwitchsMethod().getChildren().getVal(_child);
         covTwo_.setInit(_stackCall.getInitializingTypeInfos().isWideInitEnums());
         covTwo_.cover(_value);
@@ -564,11 +558,11 @@ public final class Coverage {
         }
         getFctRes(_page).setCalled(true);
     }
-    private FunctionCoverageResult getFctRes(AbstractPageEl _page) {
-        return getFctRes(_page.getBlockRootType(), (ExecMemberCallingsBlock) _page.getBlockRoot());
+    private FunctionCoverageResult getFctRes(StackCall _stackCall) {
+        return getFctRes(_stackCall.getLastPage());
     }
-    private FunctionCoverageResult getFctRes(ExecRootBlock _type, ExecMemberCallingsBlock _block) {
-        return getFctRes(getFctBlock(_block, mappingTypes.getVal(_type)));
+    private FunctionCoverageResult getFctRes(AbstractPageEl _page) {
+        return getFctRes(getFctBlock((ExecMemberCallingsBlock) _page.getBlockRoot(), mappingTypes.getVal(_page.getBlockRootType())));
     }
     private MemberCallingsBlock getFctBlock(ExecMemberCallingsBlock _block, RootBlock _type) {
         MemberCallingsBlock valLambda_ = mappingLambdas.getVal(_block);
@@ -647,8 +641,7 @@ public final class Coverage {
         return fctRes_.getCoverSwitchs().getValue(_sw.getConditionNb()).getChildren();
     }
     public StandardCoverageResult getCoverSwitchsMethod(MemberCallingsBlock _sw, SwitchPartBlock _child) {
-        FunctionCoverageResult fctRes_ = getFctRes(_sw);
-        return fctRes_.getCoverSwitchsMethod().getChildren().getValue(_child.getConditionNb());
+        return getCoverSwitchsMethod(_sw).getValue(_child.getConditionNb());
     }
     public  IdMap<ExecBlock, StandardCoverageResult> getCoverSwitchsMethod(MemberCallingsBlock _sw) {
         FunctionCoverageResult fctRes_ = getFctRes(_sw);
