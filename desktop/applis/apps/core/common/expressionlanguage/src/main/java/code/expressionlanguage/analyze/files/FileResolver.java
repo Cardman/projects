@@ -1301,8 +1301,8 @@ public final class FileResolver {
                             defAcc_, _page);
                     RootBlock retrieve_ = currentParent_.retrieveParentType();
                     built_.setParentType(retrieve_);
-                    if (retrieve_ != null) {
-                        retrieve_.getChildrenRootBlocks().add(built_);
+                    if (currentParent_ instanceof RootBlock) {
+                        ((RootBlock)currentParent_).getChildrenRootBlocks().add(built_);
                     }
                     currentParent_.appendChild(built_);
                     br_ = built_;
