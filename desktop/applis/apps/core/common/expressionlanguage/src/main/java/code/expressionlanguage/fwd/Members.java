@@ -17,7 +17,6 @@ public final class Members {
     private final IdMap<MemberCallingsBlock,ExecMemberCallingsBlock> allFct = new IdMap<MemberCallingsBlock,ExecMemberCallingsBlock>();
     private final IdMap<InstanceBlock,ExecInstanceBlock> allInstInitBodies = new IdMap<InstanceBlock,ExecInstanceBlock>();
     private final IdMap<StaticBlock,ExecStaticBlock> allStatInitBodies = new IdMap<StaticBlock,ExecStaticBlock>();
-    private final IdMap<MemberCallingsBlock,ExecMemberCallingsBlock> allFctBodies = new IdMap<MemberCallingsBlock,ExecMemberCallingsBlock>();
 
     public void addAnnotMethod(NamedCalledFunctionBlock _key, ExecAnnotationMethodBlock _value) {
         allAnnotMethods.addEntry(_key, _value);
@@ -112,13 +111,6 @@ public final class Members {
 
     public Iterable<EntryCust<StaticBlock, ExecStaticBlock>> getStatInitBodies() {
         return allStatInitBodies.entryList();
-    }
-    public void addFctBody(MemberCallingsBlock _key, ExecMemberCallingsBlock _value) {
-        allFctBodies.addEntry(_key, _value);
-    }
-
-    public Iterable<EntryCust<MemberCallingsBlock, ExecMemberCallingsBlock>> getFctBodies() {
-        return allFctBodies.entryList();
     }
 
     public ExecRootBlock getRootBlock() {

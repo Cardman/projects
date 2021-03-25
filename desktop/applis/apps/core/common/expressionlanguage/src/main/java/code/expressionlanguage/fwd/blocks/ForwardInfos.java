@@ -95,6 +95,7 @@ public final class ForwardInfos {
         for (OperatorBlock o: _page.getAllOperators()){
             ExecFileBlock exFile_ = files_.getValue(o.getFile().getNumberFile());
             ExecOperatorBlock e_ = new ExecOperatorBlock(o.isRetRef(), o.getName(), o.isVarargs(), o.getAccess(), o.getParametersNames(), o.getOffset().getOffsetTrim(), o.getImportedParametersTypes(), o.getParametersRef());
+            e_.setImportedReturnType(o.getImportedReturnType());
             e_.setFile(exFile_);
             _forwards.addOperator(o,e_);
             coverage_.putOperator(o);
@@ -210,23 +211,15 @@ public final class ForwardInfos {
             e.getValue().getRootBlock().getAllGenericSuperTypes().addAllElts(l_);
         }
         for (EntryCust<RootBlock, Members> e: _forwards.getMembers()) {
-            validateIds(e.getValue());
-        }
-        for (EntryCust<OperatorBlock, ExecOperatorBlock> e: _forwards.getOperators()) {
-            OperatorBlock o = e.getKey();
-            ExecOperatorBlock value_ = e.getValue();
-            value_.setImportedReturnType(o.getImportedReturnType());
-        }
-        for (EntryCust<RootBlock, Members> e: _forwards.getMembers()) {
             RootBlock c = e.getKey();
             Members mem_ = e.getValue();
-            for (EntryCust<MemberCallingsBlock, ExecMemberCallingsBlock> f: mem_.getFctBodies()) {
-                MemberCallingsBlock method_ =  f.getKey();
+            for (EntryCust<NamedCalledFunctionBlock,ExecOverridableBlock> f: mem_.getOvNamed()) {
+                NamedCalledFunctionBlock method_ =  f.getKey();
                 coverage_.putCalls(c,method_);
                 _forwards.addFctBody(method_,f.getValue());
             }
             for (EntryCust<ConstructorBlock, ExecConstructorBlock> f: mem_.getCtors()) {
-                MemberCallingsBlock method_ =  f.getKey();
+                ConstructorBlock method_ =  f.getKey();
                 coverage_.putCalls(c,method_);
                 _forwards.addFctBody(method_,f.getValue());
             }
@@ -239,10 +232,6 @@ public final class ForwardInfos {
                 StaticBlock method_ =  f.getKey();
                 coverage_.putCalls(c,method_);
                 _forwards.addFctBody(method_,f.getValue());
-            }
-            for (EntryCust<ConstructorBlock, ExecConstructorBlock> f: mem_.getCtors()) {
-                ConstructorBlock method_ = f.getKey();
-                fwdInstancingStep(method_, f.getValue());
             }
         }
         for (EntryCust<OperatorBlock, ExecOperatorBlock> e: _forwards.getOperators()) {
@@ -481,7 +470,11 @@ public final class ForwardInfos {
                 ExecOverridableBlock val_ = new ExecOverridableBlock(ov_.isRetRef(), ov_.getName(), ov_.isVarargs(), ov_.getAccess(), ov_.getParametersNames(), ov_.getModifier(), toExecMethodKind(kind_), b.getOffset().getOffsetTrim(), ov_.getImportedParametersTypes(), ov_.getParametersRef());
                 val_.setFile(current_.getFile());
                 mem_.addOvNamed(ov_,val_);
-                mem_.addFctBody(ov_,val_);
+                val_.setImportedReturnType(ov_.getImportedReturnType());
+                String returnTypeGet_ = ov_.getReturnTypeGet();
+                if (!returnTypeGet_.isEmpty()) {
+                    val_.setImportedReturnType(returnTypeGet_);
+                }
             }
             for (NamedCalledFunctionBlock b: k_.getAnnotationsMethodsBlocks()) {
                 NamedCalledFunctionBlock annot_ = b;
@@ -489,11 +482,15 @@ public final class ForwardInfos {
                 val_.setFile(current_.getFile());
                 mem_.addAnnotMethod(annot_,val_);
                 mem_.addNamed(annot_,val_);
+                val_.setImportedReturnType(annot_.getImportedReturnType());
+                val_.getImportedParametersTypes().addAllElts(annot_.getImportedParametersTypes());
             }
             for (ConstructorBlock b: k_.getConstructorBlocks()) {
                 ExecConstructorBlock val_ = new ExecConstructorBlock(b.getName(), b.isVarargs(), b.getAccess(), b.getParametersNames(), b.getOffset().getOffsetTrim(), b.getImportedParametersTypes(), b.getParametersRef());
                 val_.setFile(current_.getFile());
                 mem_.addCtor(b,val_);
+                fwdInstancingStep(b, val_);
+                val_.setImportedReturnType(b.getImportedReturnType());
             }
             for (InstanceBlock b: k_.getInstanceBlocks()) {
                 ExecInstanceBlock val_ = new ExecInstanceBlock(b.getOffset().getOffsetTrim());
@@ -1581,24 +1578,6 @@ public final class ForwardInfos {
         }
         CustList<ExecOperationNode> ops_ = getExecutableNodes(0,0,root_, _coverage, _forwards, PutCoveragePhase.NORMAL, _ana);
         _exec.setOpValue(ops_);
-    }
-
-    private static void validateIds(Members _mem) {
-        for (EntryCust<NamedCalledFunctionBlock,ExecOverridableBlock> e: _mem.getOvNamed()) {
-            e.getValue().setImportedReturnType(e.getKey().getImportedReturnType());
-            String returnTypeGet_ = e.getKey().getReturnTypeGet();
-            if (!returnTypeGet_.isEmpty()) {
-                e.getValue().setImportedReturnType(returnTypeGet_);
-            }
-        }
-        for (EntryCust<ConstructorBlock,ExecConstructorBlock> e: _mem.getCtors()) {
-            e.getValue().setImportedReturnType(e.getKey().getImportedReturnType());
-        }
-        for (EntryCust<NamedCalledFunctionBlock, ExecAnnotationMethodBlock> e: _mem.getAnnotMethods()) {
-            NamedCalledFunctionBlock key1_ = e.getKey();
-            e.getValue().setImportedReturnType(key1_.getImportedReturnType());
-            e.getValue().getImportedParametersTypes().addAllElts(key1_.getImportedParametersTypes());
-        }
     }
 
     private static void buildImportedTypes(ExecFieldBlock _field, InfoBlock _key) {
