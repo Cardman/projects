@@ -322,7 +322,7 @@ public class MainWindow extends GroupFrame {
             clipStream.getClip().start();
             clipStream.getClip().addLineListener(new SpeakingEvent(this));
             play.setTextAndSize(CST_PAUSE);
-            currentNoSong.setText(noSong+"/"+songsList.size());
+            currentNoSong.setText((noSong+1)+"/"+songsList.size());
             currentSong.setText(songsList.get(noSong));
             String strBegin_ = getStringTime(0);
             elapsedTime.setText(strBegin_+REL_SEP+getStringTime(clipStream.getClip().getMicrosecondLength()));
