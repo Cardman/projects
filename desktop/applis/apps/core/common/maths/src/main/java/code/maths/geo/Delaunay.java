@@ -69,12 +69,7 @@ public final class Delaunay {
             return;
         }
         if (_points.size() == Triangle.NB_POINTS) {
-            VectTwoDims vOne_ = new VectTwoDims(_points.get(0), _points.get(1));
-            VectTwoDims vTwo_ = new VectTwoDims(_points.get(0), _points.get(2));
-            if (vOne_.det(vTwo_).isZero()) {
-                return;
-            }
-            triangles.add(new Triangle(_points.get(0), _points.get(1), _points.get(2)));
+            tryAddTriangle(_points.get(0), _points.get(1), _points.get(2));
             return;
         }
         Edge extendedEdge_ = getExtendedEdge(_points);
@@ -100,7 +95,7 @@ public final class Delaunay {
                 triangles.removeObj(t);
             }
             for (Edge e: edges_) {
-                triangles.add(new Triangle(e.getFirst(), e.getSecond(), c));
+                tryAddTriangle(e.getFirst(), e.getSecond(), c);
             }
         }
         CustList<Triangle> badTriangles_ = filterTriangles(superTriangle_);
@@ -109,6 +104,14 @@ public final class Delaunay {
         }
     }
 
+    private void tryAddTriangle(RatePoint _first, RatePoint _second, RatePoint _third) {
+        VectTwoDims vOne_ = new VectTwoDims(_first, _second);
+        VectTwoDims vTwo_ = new VectTwoDims(_first,_third);
+        if (vOne_.det(vTwo_).isZero()) {
+            return;
+        }
+        triangles.add(new Triangle(_first, _second, _third));
+    }
     private CustList<Triangle> filterTriangles2(RatePoint _c) {
         CustList<Triangle> badTriangles_ = new CustList<Triangle>();
         for (Triangle t: triangles) {
