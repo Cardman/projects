@@ -912,7 +912,7 @@ public final class Delaunay {
                 SitePoint sOne_ = new SitePoint(eOne_, p, v_);
                 v_ = new VectTwoDims(p, eOne_);
                 SitePoint sTwo_ = new SitePoint(eTwo_, p, v_);
-                if (new SiteComparing().compare(sOne_,sTwo_) == SortConstants.NO_SWAP_SORT) {
+                if (SiteInfo.compare(sOne_.getInfo(),sTwo_.getInfo()) == SortConstants.NO_SWAP_SORT) {
                     first_ = eTwo_;
                 } else {
                     first_ = eOne_;
