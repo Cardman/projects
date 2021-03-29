@@ -91,14 +91,8 @@ public final class ExecAffectationOperation extends ExecMethodOperation implemen
     static Argument calculateChSetting(ExecOperationNode _set,
                                        IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, Argument _right, StackCall _stackCall){
         Argument arg_ = null;
-        if (_set instanceof ExecStdVariableOperation) {
-            arg_ = ((ExecStdVariableOperation)_set).calculateSetting(_nodes, _conf, _right, _stackCall);
-        }
         if (_set instanceof ExecStdRefVariableOperation) {
             arg_ = ((ExecStdRefVariableOperation)_set).calculateSetting(_nodes, _conf, _right, _stackCall);
-        }
-        if (_set instanceof ExecRefParamOperation) {
-            arg_ = ((ExecRefParamOperation)_set).calculateSetting(_nodes, _conf, _right, _stackCall);
         }
         if (_set instanceof ExecSettableFieldOperation) {
             arg_ = ((ExecSettableFieldOperation)_set).calculateSetting(_nodes, _conf, _right, _stackCall);

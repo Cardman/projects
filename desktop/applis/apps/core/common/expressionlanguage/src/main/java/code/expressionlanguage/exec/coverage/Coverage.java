@@ -566,11 +566,11 @@ public final class Coverage {
     }
     private MemberCallingsBlock getFctBlock(ExecMemberCallingsBlock _block, RootBlock _type) {
         MemberCallingsBlock valLambda_ = mappingLambdas.getVal(_block);
-        if (AbsBk.isAnonBlock(valLambda_)) {
+        if (valLambda_ != null) {
             return valLambda_;
         }
         MemberCallingsBlock valSwitchMethod_ = mappingSwitchMethods.getVal(_block);
-        if (valSwitchMethod_ instanceof SwitchMethodBlock) {
+        if (valSwitchMethod_ != null) {
             return valSwitchMethod_;
         }
         if (_type == null) {

@@ -17,22 +17,6 @@ public final class ExecWrappOperation extends ExecAbstractUnaryOperation {
 
     @Override
     public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, StackCall _stack) {
-        if (getFirstChild() instanceof ExecStdRefVariableOperation) {
-            ExecStdRefVariableOperation ch_ = (ExecStdRefVariableOperation) getFirstChild();
-            AbstractWrapper val_ = ExecTemplates.getWrapper(ch_.getVariableContent(), _stack);
-            ArgumentsPair pair_ = ExecHelper.getArgumentPair(_nodes, this);
-            pair_.setWrapper(val_);
-            setQuickNoConvertSimpleArgument(Argument.createVoid(),_conf,_nodes, _stack);
-            return;
-        }
-        if (getFirstChild() instanceof ExecStdVariableOperation) {
-            ExecStdVariableOperation ch_ = (ExecStdVariableOperation) getFirstChild();
-            AbstractWrapper val_ = ExecTemplates.getWrapper(ch_.getVariableContent(), _stack);
-            ArgumentsPair pair_ = ExecHelper.getArgumentPair(_nodes, this);
-            pair_.setWrapper(val_);
-            setQuickNoConvertSimpleArgument(Argument.createVoid(),_conf,_nodes, _stack);
-            return;
-        }
         ExecOperationNode chFirst_ = getFirstChild();
         if (chFirst_ instanceof ExecDotOperation) {
             chFirst_ = ExecHelper.getLastNode((ExecMethodOperation) chFirst_);

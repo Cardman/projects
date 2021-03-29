@@ -63,7 +63,7 @@ public final class NatInputBuilder implements AbstractInputBuilder {
             gene_.setClassMethodId(new ClassMethodId(classMethodId_.getClassName(),new MethodId(MethodAccessKind.INSTANCE,constraints_.getName(),new StringList(cl_))));
             gene_.setClassName(callFctContent_.getClassName());
             RendStdFctOperation rendStd_ = new RendStdFctOperation(new ExecOperationContent(0, pr_, 1),false,new ExecStdFctContent(gene_,false));
-            RendStdVariableOperation rendVar_ = new RendStdVariableOperation(new ExecOperationContent(0, clResField_, 0), new ExecVariableContent(generateVariable(_resultInput.getVarNames().last())));
+            RendStdRefVariableOperation rendVar_ = new RendStdRefVariableOperation(new ExecOperationContent(0, clResField_, 0), new ExecVariableContent(generateVariable(_resultInput.getVarNames().last())));
             rendStd_.appendChild(rendVar_);
             w_.add(rendVar_);
             w_.add(rendStd_);
@@ -77,13 +77,13 @@ public final class NatInputBuilder implements AbstractInputBuilder {
         gene_.setClassName(callFctContent_.getClassName());
         RendStdFctOperation rendStd_ = new RendStdFctOperation(new ExecOperationContent(0, pr_, 2),true,new ExecStdFctContent(gene_,false));
         RendDotOperation rendDot_ = new RendDotOperation(new ExecOperationContent(0, clResField_, 3));
-        RendStdVariableOperation rendPrevVar_ = new RendStdVariableOperation(new ExecOperationContent(0, pr_, 0), new ExecVariableContent(generateVariable(_resultInput.getVarNames().first())));
+        RendStdRefVariableOperation rendPrevVar_ = new RendStdRefVariableOperation(new ExecOperationContent(0, pr_, 0), new ExecVariableContent(generateVariable(_resultInput.getVarNames().first())));
         AnaFieldOperationContent cont_ = new AnaFieldOperationContent(0);
         cont_.setIntermediate(true);
         rendPrevVar_.setSiblingSet(rendStd_);
         rendDot_.appendChild(rendPrevVar_);
         rendDot_.appendChild(rendStd_);
-        RendStdVariableOperation rendVar_ = new RendStdVariableOperation(new ExecOperationContent(0, clResField_, 1), new ExecVariableContent(generateVariable(_resultInput.getVarNames().last())));
+        RendStdRefVariableOperation rendVar_ = new RendStdRefVariableOperation(new ExecOperationContent(0, clResField_, 1), new ExecVariableContent(generateVariable(_resultInput.getVarNames().last())));
         rendStd_.appendChild(rendVar_);
         w_.add(rendPrevVar_);
         w_.add(rendVar_);

@@ -820,18 +820,11 @@ public final class ForwardInfos {
                 blockToWrite_.appendChild(exec_);
                 _coverage.putBlockOperations(_from,exec_,en_);
             } else if (en_ instanceof DeclareVariable) {
-                if (((DeclareVariable) en_).isRefVariable()) {
-                    ExecRefDeclareVariable exec_ = new ExecRefDeclareVariable(en_.getOffset().getOffsetTrim(), ((DeclareVariable)en_).getVariableNames());
-                    exec_.setFile(fileDest_);
-                    blockToWrite_.appendChild(exec_);
-                    _coverage.putBlockOperations(_from,exec_,en_);
-                } else {
-                    ExecDeclareVariable exec_ = new ExecDeclareVariable(((DeclareVariable) en_).getImportedClassName(),((DeclareVariable)en_).getVariableNames(), en_.getOffset().getOffsetTrim());
-                    decl_ = exec_;
-                    exec_.setFile(fileDest_);
-                    blockToWrite_.appendChild(exec_);
-                    _coverage.putBlockOperations(_from,exec_,en_);
-                }
+                ExecDeclareVariable exec_ = new ExecDeclareVariable(((DeclareVariable) en_).getImportedClassName(),((DeclareVariable)en_).getVariableNames(), en_.getOffset().getOffsetTrim());
+                decl_ = exec_;
+                exec_.setFile(fileDest_);
+                blockToWrite_.appendChild(exec_);
+                _coverage.putBlockOperations(_from,exec_,en_);
             } else if (en_ instanceof DefaultCondition) {
                 ExecBracedBlock exec_;
                 String instanceTest_ = ((DefaultCondition)en_).getInstanceTest();
@@ -1372,11 +1365,11 @@ public final class ForwardInfos {
         }
         if (_anaNode instanceof MutableLoopVariableOperation) {
             MutableLoopVariableOperation m_ = (MutableLoopVariableOperation) _anaNode;
-            return new ExecStdVariableOperation(new ExecOperationContent(m_.getContent()), new ExecVariableContent(m_.getVariableContent()));
+            return new ExecStdRefVariableOperation(new ExecOperationContent(m_.getContent()), new ExecVariableContent(m_.getVariableContent()));
         }
         if (_anaNode instanceof VariableOperation) {
             VariableOperation m_ = (VariableOperation) _anaNode;
-            return new ExecStdVariableOperation(new ExecOperationContent(m_.getContent()), new ExecVariableContent(m_.getVariableContent()));
+            return new ExecStdRefVariableOperation(new ExecOperationContent(m_.getContent()), new ExecVariableContent(m_.getVariableContent()));
         }
         if (_anaNode instanceof RefVariableOperation) {
             RefVariableOperation m_ = (RefVariableOperation) _anaNode;
@@ -1384,14 +1377,14 @@ public final class ForwardInfos {
         }
         if (_anaNode instanceof RefParamOperation) {
             RefParamOperation m_ = (RefParamOperation) _anaNode;
-            return new ExecRefParamOperation(new ExecOperationContent(m_.getContent()), new ExecVariableContent(m_.getVariableContent()));
+            return new ExecStdRefVariableOperation(new ExecOperationContent(m_.getContent()), new ExecVariableContent(m_.getVariableContent()));
         }
         if (_anaNode instanceof FinalVariableOperation) {
             FinalVariableOperation m_ = (FinalVariableOperation) _anaNode;
             if (m_.getType() == ConstType.LOOP_INDEX) {
                 return new ExecFinalVariableOperation(new ExecOperationContent(m_.getContent()), new ExecVariableContent(m_.getVariableContent()));
             }
-            return new ExecStdVariableOperation(new ExecOperationContent(m_.getContent()), new ExecVariableContent(m_.getVariableContent()));
+            return new ExecStdRefVariableOperation(new ExecOperationContent(m_.getContent()), new ExecVariableContent(m_.getVariableContent()));
         }
         if (_anaNode instanceof DotOperation) {
             DotOperation m_ = (DotOperation) _anaNode;

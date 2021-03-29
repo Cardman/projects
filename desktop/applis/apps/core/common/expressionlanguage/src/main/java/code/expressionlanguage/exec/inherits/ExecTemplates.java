@@ -484,7 +484,7 @@ public final class ExecTemplates {
             }
             Struct struct_ = a.getStruct();
             LocalVariable lv_ = LocalVariable.newLocalVariable(struct_,param_);
-            p_.getParameters().addEntry(params_.getNames().get(i_),lv_);
+            p_.getRefParameters().addEntry(params_.getNames().get(i_),new VariableWrapper(lv_));
             i_++;
         }
         i_ = IndexConstants.FIRST_INDEX;
@@ -527,7 +527,7 @@ public final class ExecTemplates {
             }
             p_.setRight(_right);
             LocalVariable lv_ = LocalVariable.newLocalVariable(_right.getStruct(),type_);
-            p_.getParameters().addEntry(_conf.getClasses().getKeyWordValue(),lv_);
+            p_.getRefParameters().addEntry(_conf.getClasses().getKeyWordValue(),new VariableWrapper(lv_));
         }
         return p_;
     }
@@ -545,7 +545,7 @@ public final class ExecTemplates {
             return p_;
         }
         LocalVariable lv_ = LocalVariable.newLocalVariable(_value.getStruct(),_conf.getStandards().getCoreNames().getAliasObject());
-        p_.getParameters().addEntry("",lv_);
+        p_.getRefParameters().addEntry("",new VariableWrapper(lv_));
         return p_;
     }
 
@@ -976,20 +976,7 @@ public final class ExecTemplates {
         }
         locVar_.setIndex(locVar_.getIndex() + 1);
     }
-    public static Struct getWrapValue(ContextEl _context, ExecVariableContent _varCont, StackCall _stackCall) {
-        return getWrapValue(_context,_varCont, _stackCall.getLastPage().getCache(), _stackCall.getLastPage().getRefParams(), _stackCall);
-    }
 
-    public static Struct getWrapValue(ContextEl _context, ExecVariableContent _varCont, Cache _cache, StringMap<AbstractWrapper> _vars, StackCall _stackCall) {
-        return getWrapArgument(_context,_varCont, _cache, _vars, _stackCall).getStruct();
-    }
-    public static Argument getWrapArgument(ContextEl _context, ExecVariableContent _varCont, StackCall _stackCall) {
-        return getWrapArgument(_context,_varCont, _stackCall.getLastPage().getCache(), _stackCall.getLastPage().getRefParams(), _stackCall);
-    }
-
-    public static Argument getWrapArgument(ContextEl _context, ExecVariableContent _varCont, Cache _cache, StringMap<AbstractWrapper> _vars, StackCall _stackCall) {
-        return getWrapValue(_context,_varCont.getVariableName(),_varCont.getDeep(), _cache, _vars, _stackCall);
-    }
     public static Argument getWrapValue(ContextEl _context, String _val, int _deep, Cache _cache, StringMap<AbstractWrapper> _refParams, StackCall _stackCall) {
         AbstractWrapper wrapper_ = getWrapper(_val, _deep, _cache, _refParams);
         return new Argument(getValue(wrapper_, _context, _stackCall));

@@ -156,9 +156,6 @@ public final class RendForwardInfos {
         }
         if (_current instanceof AnaRendDeclareVariable){
             AnaRendDeclareVariable f_ = (AnaRendDeclareVariable) _current;
-            if (f_.isRefVariable()) {
-                return new RendRefDeclareVariable(_current.getOffset().getOffsetTrim(),f_.getVariableNames());
-            }
             return new RendDeclareVariable(_current.getOffset().getOffsetTrim(),f_.getImportedClassName(),f_.getClassNameOffset(),f_.getVariableNames());
         }
         if (_current instanceof AnaRendLine){
@@ -690,7 +687,7 @@ public final class RendForwardInfos {
         }
         if (_anaNode instanceof MutableLoopVariableOperation) {
             MutableLoopVariableOperation m_ = (MutableLoopVariableOperation) _anaNode;
-            return new RendStdVariableOperation(new ExecOperationContent(m_.getContent()), new ExecVariableContent(m_.getVariableContent()));
+            return new RendStdRefVariableOperation(new ExecOperationContent(m_.getContent()), new ExecVariableContent(m_.getVariableContent()));
         }
         if (_anaNode instanceof RefVariableOperation) {
             RefVariableOperation m_ = (RefVariableOperation) _anaNode;
@@ -698,14 +695,14 @@ public final class RendForwardInfos {
         }
         if (_anaNode instanceof VariableOperation) {
             VariableOperation m_ = (VariableOperation) _anaNode;
-            return new RendStdVariableOperation(new ExecOperationContent(m_.getContent()), new ExecVariableContent(m_.getVariableContent()));
+            return new RendStdRefVariableOperation(new ExecOperationContent(m_.getContent()), new ExecVariableContent(m_.getVariableContent()));
         }
         if (_anaNode instanceof FinalVariableOperation) {
             FinalVariableOperation m_ = (FinalVariableOperation) _anaNode;
             if (m_.getType() == ConstType.LOOP_INDEX) {
                 return new RendFinalVariableOperation(new ExecOperationContent(m_.getContent()), new ExecVariableContent(m_.getVariableContent()));
             }
-            return new RendStdVariableOperation(new ExecOperationContent(m_.getContent()), new ExecVariableContent(m_.getVariableContent()));
+            return new RendStdRefVariableOperation(new ExecOperationContent(m_.getContent()), new ExecVariableContent(m_.getVariableContent()));
         }
         if (_anaNode instanceof DotOperation) {
             DotOperation m_ = (DotOperation) _anaNode;
@@ -866,13 +863,13 @@ public final class RendForwardInfos {
         RendAffectationOperation rendAff_ = new RendAffectationOperation(new ExecOperationContent(0, pr_, 4+childrenNodes_.size()));
         ExecClassArgumentMatching clResField_ = new ExecClassArgumentMatching(cl_);
         RendDotOperation rendDot_ = new RendDotOperation(new ExecOperationContent(0, clResField_, 2+childrenNodes_.size()));
-        RendStdVariableOperation rendPrevVar_ = new RendStdVariableOperation(new ExecOperationContent(0, pr_, 0), new ExecVariableContent(generateVariable(_resultInput.getVarNames().first())));
+        RendStdRefVariableOperation rendPrevVar_ = new RendStdRefVariableOperation(new ExecOperationContent(0, pr_, 0), new ExecVariableContent(generateVariable(_resultInput.getVarNames().first())));
         RendArrOperation arr_ = new RendArrOperation(true, new ExecOperationContent(1, pr_, childrenNodes_.size() + 1), new ExecArrContent(generareArrContent()));
         int i_ = 1;
         CustList<RendDynOperationNode> list_ = new CustList<RendDynOperationNode>();
         for (OperationNode o: childrenNodes_) {
             String varParam_ = _resultInput.getVarNames().get(i_);
-            RendStdVariableOperation rendVar_ = new RendStdVariableOperation(new ExecOperationContent(i_-1, FetchMemberUtil.toExec(o.getResultClass()), i_), new ExecVariableContent(generateVariable(varParam_)));
+            RendStdRefVariableOperation rendVar_ = new RendStdRefVariableOperation(new ExecOperationContent(i_-1, FetchMemberUtil.toExec(o.getResultClass()), i_), new ExecVariableContent(generateVariable(varParam_)));
             arr_.appendChild(rendVar_);
             list_.add(rendVar_);
             i_++;
@@ -882,7 +879,7 @@ public final class RendForwardInfos {
         rendDot_.appendChild(rendPrevVar_);
         rendDot_.appendChild(arr_);
         rendAff_.appendChild(rendDot_);
-        RendStdVariableOperation rendVar_ = new RendStdVariableOperation(new ExecOperationContent(0, clResField_, childrenNodes_.size() + 3), new ExecVariableContent(generateVariable(varLoc_)));
+        RendStdRefVariableOperation rendVar_ = new RendStdRefVariableOperation(new ExecOperationContent(0, clResField_, childrenNodes_.size() + 3), new ExecVariableContent(generateVariable(varLoc_)));
         rendAff_.appendChild(rendVar_);
         rendAff_.setup();
         w_.add(rendPrevVar_);
@@ -901,7 +898,7 @@ public final class RendForwardInfos {
         String cl_ = NumParsers.getSingleNameOrEmpty(_resultInput.getResult().getNames());
         ExecClassArgumentMatching pr_ = FetchMemberUtil.toExec(_resultInput.getPreviousResult());
         ExecClassArgumentMatching clResField_ = new ExecClassArgumentMatching(cl_);
-        RendStdVariableOperation rendPrevVar_ = new RendStdVariableOperation(new ExecOperationContent(0, pr_, 0), new ExecVariableContent(generateVariable(_resultInput.getVarNames().first())));
+        RendStdRefVariableOperation rendPrevVar_ = new RendStdRefVariableOperation(new ExecOperationContent(0, pr_, 0), new ExecVariableContent(generateVariable(_resultInput.getVarNames().first())));
         AnaCallFctContent callFctContent_ = new AnaCallFctContent("");
         callFctContent_.setClassName(_settable.getCallFctContent().getClassName());
         ExecInstFctContent instFctContent_ = new ExecInstFctContent(callFctContent_, _settable.getAnc(), _settable.isStaticChoiceMethod());
@@ -921,7 +918,7 @@ public final class RendForwardInfos {
         for (int i = 0; i < nbParam_; i++) {
             String varParam_ = varNames_.get(i);
             if (constraints_.getParametersRef(i)) {
-                RendStdRefVariableOperation rendVar_ = new RendStdRefVariableOperation(new ExecOperationContent(i, FetchMemberUtil.toExec(new AnaClassArgumentMatching("")), order_), new ExecVariableContent(generateVariable(varParam_)),false);
+                RendStdRefVariableOperation rendVar_ = new RendStdRefVariableOperation(new ExecOperationContent(i, FetchMemberUtil.toExec(new AnaClassArgumentMatching("")), order_), new ExecVariableContent(generateVariable(varParam_)));
                 order_++;
                 RendWrappOperation wr_ = new RendWrappOperation(new ExecOperationContent(i, FetchMemberUtil.toExec(new AnaClassArgumentMatching("")), order_));
                 wr_.appendChild(rendVar_);
@@ -930,7 +927,7 @@ public final class RendForwardInfos {
                 list_.add(wr_);
                 order_++;
             } else {
-                RendStdVariableOperation rendVar_ = new RendStdVariableOperation(new ExecOperationContent(i, FetchMemberUtil.toExec(new AnaClassArgumentMatching("")), order_), new ExecVariableContent(generateVariable(varParam_)));
+                RendStdRefVariableOperation rendVar_ = new RendStdRefVariableOperation(new ExecOperationContent(i, FetchMemberUtil.toExec(new AnaClassArgumentMatching("")), order_), new ExecVariableContent(generateVariable(varParam_)));
                 arr_.appendChild(rendVar_);
                 list_.add(rendVar_);
                 order_++;
@@ -943,7 +940,7 @@ public final class RendForwardInfos {
         rendDot_.appendChild(rendPrevVar_);
         rendDot_.appendChild(arr_);
         rendAff_.appendChild(rendDot_);
-        RendStdVariableOperation rendVar_ = new RendStdVariableOperation(new ExecOperationContent(0, clResField_, refCount_+nbParam_ + 3), new ExecVariableContent(generateVariable(varLoc_)));
+        RendStdRefVariableOperation rendVar_ = new RendStdRefVariableOperation(new ExecOperationContent(0, clResField_, refCount_+nbParam_ + 3), new ExecVariableContent(generateVariable(varLoc_)));
         rendAff_.appendChild(rendVar_);
         rendAff_.setup();
         w_.add(rendPrevVar_);
@@ -969,7 +966,7 @@ public final class RendForwardInfos {
         RendAffectationOperation rendAff_ = new RendAffectationOperation(new ExecOperationContent(0, pr_, 4));
         ExecClassArgumentMatching clResField_ = new ExecClassArgumentMatching(cl_);
         RendDotOperation rendDot_ = new RendDotOperation(new ExecOperationContent(0, clResField_, 2));
-        RendStdVariableOperation rendPrevVar_ = new RendStdVariableOperation(new ExecOperationContent(0, pr_, 0), new ExecVariableContent(generateVariable(_resultInput.getVarNames().first())));
+        RendStdRefVariableOperation rendPrevVar_ = new RendStdRefVariableOperation(new ExecOperationContent(0, pr_, 0), new ExecVariableContent(generateVariable(_resultInput.getVarNames().first())));
         ExecRootBlock rootBlock_ = FetchMemberUtil.fetchType(_settable.getMemberId(), _forwards);
         AnaFieldOperationContent cont_ = new AnaFieldOperationContent(0);
         cont_.setIntermediate(true);
@@ -979,7 +976,7 @@ public final class RendForwardInfos {
         rendDot_.appendChild(rendPrevVar_);
         rendDot_.appendChild(rendField_);
         rendAff_.appendChild(rendDot_);
-        RendStdVariableOperation rendVar_ = new RendStdVariableOperation(new ExecOperationContent(0, clResField_, 3), new ExecVariableContent(generateVariable(_resultInput.getVarNames().last())));
+        RendStdRefVariableOperation rendVar_ = new RendStdRefVariableOperation(new ExecOperationContent(0, clResField_, 3), new ExecVariableContent(generateVariable(_resultInput.getVarNames().last())));
         rendAff_.appendChild(rendVar_);
         rendAff_.setup();
 

@@ -9,7 +9,7 @@ import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.blocks.ExecOverridableBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.inherits.Parameters;
-import code.expressionlanguage.exec.variables.LocalVariable;
+import code.expressionlanguage.exec.variables.*;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.structs.IntStruct;
@@ -2068,7 +2068,7 @@ public final class ProcessMethodExplicitTest extends ProcessMethodCommon {
         ExecOverridableBlock method_ = getDeepMethodBodiesById(cont_, "pkg.ExClass", id_).first();
         Parameters p_ = new Parameters();
         LocalVariable lv_ = LocalVariable.newLocalVariable(new IntStruct(5),cont_);
-        p_.getParameters().addEntry(method_.getParametersName(0),lv_);
+        p_.getRefParameters().addEntry(method_.getParametersName(0),new VariableWrapper(lv_));
         StackCall stackCall_ = StackCall.newInstance(InitPhase.NOTHING,cont_);
         Argument ret_ = ProcessMethod.castArgument("pkg.ExClass", new ExecTypeFunction(classBody_, method_),p_,cont_, stackCall_).getValue();
 

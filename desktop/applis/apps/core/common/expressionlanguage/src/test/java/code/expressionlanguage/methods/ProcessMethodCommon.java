@@ -12,7 +12,7 @@ import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.exec.calls.util.CallingState;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.inherits.Parameters;
-import code.expressionlanguage.exec.variables.LocalVariable;
+import code.expressionlanguage.exec.variables.*;
 import code.expressionlanguage.functionid.ConstructorId;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
@@ -109,7 +109,7 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
         int i_ = IndexConstants.FIRST_INDEX;
         for (Argument a : _args) {
             LocalVariable lv_ = LocalVariable.newLocalVariable(a.getStruct(), _cont);
-            _p.getParameters().addEntry(_ctor.getParametersName(i_), lv_);
+            _p.getRefParameters().addEntry(_ctor.getParametersName(i_), new VariableWrapper(lv_));
             i_++;
         }
     }

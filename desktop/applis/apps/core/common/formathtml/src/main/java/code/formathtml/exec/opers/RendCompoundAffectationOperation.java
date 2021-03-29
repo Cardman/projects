@@ -108,9 +108,6 @@ public final class RendCompoundAffectationOperation extends RendMethodOperation 
 
     private static Argument endCalculateCh(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, Argument _res, RendDynOperationNode _settable, BeanLgNames _advStandards, ContextEl _context, StackCall _stackCall, RendStackCall _rendStackCall) {
         Argument arg_ = null;
-        if (_settable instanceof RendStdVariableOperation) {
-            arg_ = ((RendStdVariableOperation)_settable).endCalculate(_nodes, _conf, _res, _advStandards, _context, _stackCall, _rendStackCall);
-        }
         if (_settable instanceof RendStdRefVariableOperation) {
             arg_ = ((RendStdRefVariableOperation)_settable).endCalculate(_nodes, _conf, _res, _advStandards, _context, _stackCall, _rendStackCall);
         }
@@ -134,9 +131,6 @@ public final class RendCompoundAffectationOperation extends RendMethodOperation 
 
     private Argument calculateCompoundChSetting(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, Argument _rightArg, BeanLgNames _advStandards, ContextEl _context, StackCall _stackCall, RendStackCall _rendStackCall) {
         Argument arg_ = null;
-        if (settable instanceof RendStdVariableOperation) {
-            arg_ = ((RendStdVariableOperation)settable).calculateCompoundSetting(_nodes, _conf, operatorContent.getOper(), _rightArg, getResultClass(), getResultClass().getUnwrapObjectNb(), _advStandards, _context, _stackCall, _rendStackCall);
-        }
         if (settable instanceof RendStdRefVariableOperation) {
             arg_ = ((RendStdRefVariableOperation)settable).calculateCompoundSetting(_nodes, _conf, operatorContent.getOper(), _rightArg, getResultClass(), getResultClass().getUnwrapObjectNb(), _advStandards, _context, _stackCall, _rendStackCall);
         }

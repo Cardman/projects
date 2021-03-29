@@ -108,7 +108,7 @@ public abstract class AbstractRefectMethodPageEl extends AbstractRefectCommonMet
                 return Argument.createVoid();
             }
             Parameters parameters_ = formatted_.getParameters();
-            _stack.setCallingState(new CustomFoundSwitch(_instance,formatted_.getFormattedClass(),getPair().getType(),(ExecAbstractSwitchMethod) callee,parameters_.getCache(),new Argument(parameters_.getParameters().firstValue().getStruct())));
+            _stack.setCallingState(new CustomFoundSwitch(_instance,formatted_.getFormattedClass(),getPair().getType(),(ExecAbstractSwitchMethod) callee,parameters_.getCache(),new Argument(parameters_.getRefParameters().firstValue().getValue(_stack,_context))));
             return Argument.createVoid();
         }
         ArgumentListCall l_ = ExecTemplates.wrapAndCallDirect(getPair(),_className,_instance,_args,_context, getAccessKind());

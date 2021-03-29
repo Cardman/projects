@@ -20,24 +20,6 @@ public final class RendWrappOperation extends RendAbstractUnaryOperation {
 
     @Override
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, BeanLgNames _advStandards, ContextEl _context, StackCall _stack, RendStackCall _rendStack) {
-        if (getFirstChild() instanceof RendStdRefVariableOperation) {
-            RendStdRefVariableOperation ch_ = (RendStdRefVariableOperation) getFirstChild();
-            String variableName_ = ch_.getVariableContent().getVariableName();
-            AbstractWrapper val_ = _rendStack.getLastPage().getRefParams().getVal(variableName_);
-            ArgumentsPair pair_ = getArgumentPair(_nodes, this);
-            pair_.setWrapper(val_);
-            setQuickNoConvertSimpleArgument(Argument.createVoid(),_nodes,_context, _stack);
-            return;
-        }
-        if (getFirstChild() instanceof RendStdVariableOperation) {
-            RendStdVariableOperation ch_ = (RendStdVariableOperation) getFirstChild();
-            String variableName_ = ch_.getVariableContent().getVariableName();
-            AbstractWrapper val_ = _rendStack.getLastPage().getRefParams().getVal(variableName_);
-            ArgumentsPair pair_ = getArgumentPair(_nodes, this);
-            pair_.setWrapper(val_);
-            setQuickNoConvertSimpleArgument(Argument.createVoid(),_nodes,_context, _stack);
-            return;
-        }
         RendDynOperationNode chFirst_ = getFirstChild();
         if (chFirst_ instanceof RendDotOperation) {
             chFirst_ = getLastNode((RendMethodOperation) chFirst_);

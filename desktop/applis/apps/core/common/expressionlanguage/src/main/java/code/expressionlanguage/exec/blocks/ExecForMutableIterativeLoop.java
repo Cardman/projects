@@ -110,21 +110,13 @@ public final class ExecForMutableIterativeLoop extends ExecBracedBlock implement
         ip_.setOffset(0);
         int index_ = 0;
         if (ip_.isEmptyEl()) {
-            if (refVariable) {
-                for (String v: variableNames) {
-                    LoopVariable lv_ = new LoopVariable();
-                    lv_.setIndexClassName(importedClassIndexName);
-                    ip_.getVars().put(v, lv_);
-                }
-            } else {
-                String formatted_ = _stack.formatVarType(importedClassName);
-                Struct struct_ = ExecClassArgumentMatching.defaultValue(formatted_, _cont);
-                for (String v: variableNames) {
-                    LoopVariable lv_ = new LoopVariable();
-                    lv_.setIndexClassName(importedClassIndexName);
-                    ip_.getVars().put(v, lv_);
-                    ip_.putValueVar(v, LocalVariable.newLocalVariable(struct_,formatted_));
-                }
+            String formatted_ = _stack.formatVarType(importedClassName);
+            Struct struct_ = ExecClassArgumentMatching.defaultValue(formatted_, _cont);
+            for (String v: variableNames) {
+                LoopVariable lv_ = new LoopVariable();
+                lv_.setIndexClassName(importedClassIndexName);
+                ip_.getVars().put(v, lv_);
+                ip_.putValueVar(v, LocalVariable.newLocalVariable(struct_,formatted_));
             }
         }
         if (!opInit.isEmpty()) {

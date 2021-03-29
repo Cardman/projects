@@ -84,14 +84,8 @@ public final class ExecSemiAffectationOperation extends ExecAbstractUnaryOperati
 
     private Argument calculateSemiChSetting(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, StackCall _stackCall) {
         Argument arg_ = null;
-        if (settable instanceof ExecStdVariableOperation) {
-            arg_ = ((ExecStdVariableOperation)settable).calculateSemiSetting(_nodes, _conf, operatorContent.getOper(), staticPostEltContent.isPost(), getResultClass().getUnwrapObjectNb(), _stackCall);
-        }
         if (settable instanceof ExecStdRefVariableOperation) {
             arg_ = ((ExecStdRefVariableOperation)settable).calculateSemiSetting(_nodes, _conf, operatorContent.getOper(), staticPostEltContent.isPost(), getResultClass().getUnwrapObjectNb(), _stackCall);
-        }
-        if (settable instanceof ExecRefParamOperation) {
-            arg_ = ((ExecRefParamOperation)settable).calculateSemiSetting(_nodes, _conf, operatorContent.getOper(), staticPostEltContent.isPost(), getResultClass().getUnwrapObjectNb(), _stackCall);
         }
         if (settable instanceof ExecSettableFieldOperation) {
             arg_ = ((ExecSettableFieldOperation)settable).calculateSemiSetting(_nodes, _conf, operatorContent.getOper(), staticPostEltContent.isPost(), getResultClass().getUnwrapObjectNb(), _stackCall);
@@ -166,14 +160,8 @@ public final class ExecSemiAffectationOperation extends ExecAbstractUnaryOperati
 
     private static Argument endCalculate(ContextEl _conf, IdMap<ExecOperationNode, ArgumentsPair> _nodes, Argument _right, Argument _stored, ExecOperationNode _settable, ExecStaticPostEltContent _staticPostEltContent, StackCall _stackCall) {
         Argument arg_ = null;
-        if (_settable instanceof ExecStdVariableOperation) {
-            arg_ = ((ExecStdVariableOperation)_settable).endCalculate(_conf, _nodes, _staticPostEltContent.isPost(), _stored, _right, _stackCall);
-        }
         if (_settable instanceof ExecStdRefVariableOperation) {
             arg_ = ((ExecStdRefVariableOperation)_settable).endCalculate(_conf, _nodes, _staticPostEltContent.isPost(), _stored, _right, _stackCall);
-        }
-        if (_settable instanceof ExecRefParamOperation) {
-            arg_ = ((ExecRefParamOperation)_settable).endCalculate(_conf, _nodes, _staticPostEltContent.isPost(), _stored, _right, _stackCall);
         }
         if (_settable instanceof ExecSettableFieldOperation) {
             arg_ = ((ExecSettableFieldOperation)_settable).endCalculate(_conf, _nodes, _staticPostEltContent.isPost(), _stored, _right, _stackCall);

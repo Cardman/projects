@@ -137,7 +137,7 @@ public abstract class AbstractRefectCommonMethodPageEl extends AbstractReflectPa
         if (parameters_.getError() != null) {
             return Argument.createVoid();
         }
-        _stackCall.setCallingState(new CustomFoundSwitch(Argument.createVoid(),_paramName,_type,_sw,_cache,new Argument(parameters_.getParameters().firstValue().getStruct())));
+        _stackCall.setCallingState(new CustomFoundSwitch(Argument.createVoid(),_paramName,_type,_sw,_cache,new Argument(parameters_.getRefParameters().firstValue().getValue(_stackCall,_conf))));
         return Argument.createVoid();
     }
     boolean initType(ContextEl _cont, boolean _direct, StackCall _stackCall){

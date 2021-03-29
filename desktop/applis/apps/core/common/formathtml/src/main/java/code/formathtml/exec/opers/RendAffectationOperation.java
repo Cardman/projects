@@ -95,9 +95,6 @@ public final class RendAffectationOperation extends RendMethodOperation implemen
     static Argument calculateChSetting(RendDynOperationNode _set,
                                        IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, Argument _right, BeanLgNames _advStandards, ContextEl _context, StackCall _stackCall, RendStackCall _rendStackCall){
         Argument arg_ = null;
-        if (_set instanceof RendStdVariableOperation) {
-            arg_ = ((RendStdVariableOperation)_set).calculateSetting(_nodes, _conf, _right, _advStandards, _context, _stackCall, _rendStackCall);
-        }
         if (_set instanceof RendStdRefVariableOperation) {
             arg_ = ((RendStdRefVariableOperation)_set).calculateSetting(_nodes, _conf, _right, _advStandards, _context, _stackCall, _rendStackCall);
         }

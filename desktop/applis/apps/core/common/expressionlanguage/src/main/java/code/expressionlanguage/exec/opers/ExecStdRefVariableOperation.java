@@ -22,32 +22,29 @@ public class ExecStdRefVariableOperation extends ExecLeafOperation implements
         variableContent = _variableContent;
         declare = _declare;
     }
+    public ExecStdRefVariableOperation(ExecOperationContent _l, ExecVariableContent _variableContent) {
+        super(_l);
+        variableContent = _variableContent;
+        declare = false;
+    }
 
     @Override
     public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, StackCall _stack) {
+        setRelOffsetPossibleLastPage(variableContent.getOff(), _stack);
+        AbstractWrapper val_ = ExecTemplates.getWrapper(variableContent, _stack);
+        ArgumentsPair pair_ = ExecHelper.getArgumentPair(_nodes, this);
+        pair_.setWrapper(val_);
+        Argument arg_ = ExecTemplates.getArgValue(val_, _conf, _stack);
         if (resultCanBeSet()) {
-            if (!declare) {
-                AbstractWrapper val_ = ExecTemplates.getWrapper(variableContent, _stack);
-                ArgumentsPair pair_ = ExecHelper.getArgumentPair(_nodes, this);
-                pair_.setWrapper(val_);
-                setQuickNoConvertSimpleArgument(ExecTemplates.getArgValue(val_,_conf, _stack), _conf, _nodes, _stack);
-            } else {
-                setQuickNoConvertSimpleArgument(new Argument(), _conf, _nodes, _stack);
-            }
+            setQuickNoConvertSimpleArgument(arg_, _conf, _nodes, _stack);
         } else {
-            AbstractWrapper val_ = ExecTemplates.getWrapper(variableContent, _stack);
-            ArgumentsPair pair_ = ExecHelper.getArgumentPair(_nodes, this);
-            pair_.setWrapper(val_);
-            setSimpleArgument(ExecTemplates.getArgValue(val_,_conf, _stack), _conf, _nodes, _stack);
+            setSimpleArgument(arg_, _conf, _nodes, _stack);
         }
+
     }
 
     public String getVariableName() {
         return variableContent.getVariableName();
-    }
-
-    public ExecVariableContent getVariableContent() {
-        return variableContent;
     }
 
     @Override
@@ -57,7 +54,8 @@ public class ExecStdRefVariableOperation extends ExecLeafOperation implements
 
     @Override
     public Argument calculateCompoundSetting(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, String _op, Argument _right, ExecClassArgumentMatching _cl, byte _cast, StackCall _stack) {
-        Struct store_ = ExecTemplates.getWrapValue(_conf,variableContent, _stack);
+        Argument a_ = getArgument(_nodes,this);
+        Struct store_ = a_.getStruct();
         Argument left_ = new Argument(store_);
         Argument res_ = ExecNumericOperation.calculateAffect(left_, _conf, _right, _op, variableContent.isCatString(), _cl.getNames(), _cast, _stack);
         return trySetArgument(_conf, res_, _stack);
@@ -65,7 +63,8 @@ public class ExecStdRefVariableOperation extends ExecLeafOperation implements
 
     @Override
     public Argument calculateSemiSetting(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, String _op, boolean _post, byte _cast, StackCall _stack) {
-        Struct store_ = ExecTemplates.getWrapValue(_conf,variableContent, _stack);
+        Argument a_ = getArgument(_nodes,this);
+        Struct store_ = a_.getStruct();
         Argument left_ = new Argument(store_);
         Argument res_ = ExecNumericOperation.calculateIncrDecr(left_, _op, _cast);
         trySetArgument(_conf, res_, _stack);

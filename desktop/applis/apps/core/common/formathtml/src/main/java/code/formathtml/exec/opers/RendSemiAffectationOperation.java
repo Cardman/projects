@@ -90,9 +90,6 @@ public final class RendSemiAffectationOperation extends RendAbstractUnaryOperati
 
     private static Argument getNullArgument(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, RendDynOperationNode _settable) {
         Argument arg_ = null;
-        if (_settable instanceof RendStdVariableOperation) {
-            arg_ = getArgument(_nodes, _settable);
-        }
         if (_settable instanceof RendStdRefVariableOperation) {
             arg_ = getArgument(_nodes, _settable);
         }
@@ -113,9 +110,6 @@ public final class RendSemiAffectationOperation extends RendAbstractUnaryOperati
 
     private static Argument endCalculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, Argument _stored, Argument _res, RendDynOperationNode _settable, ExecStaticPostEltContent _staticPostEltContent, BeanLgNames _advStandards, ContextEl _context, StackCall _stackCall, RendStackCall _rendStackCall) {
         Argument arg_ = null;
-        if (_settable instanceof RendStdVariableOperation) {
-            arg_ = ((RendStdVariableOperation)_settable).endCalculate(_nodes,_conf, _staticPostEltContent.isPost(), _stored, _res, _advStandards, _context, _stackCall, _rendStackCall);
-        }
         if (_settable instanceof RendStdRefVariableOperation) {
             arg_ = ((RendStdRefVariableOperation)_settable).endCalculate(_nodes,_conf, _staticPostEltContent.isPost(), _stored, _res, _advStandards, _context, _stackCall, _rendStackCall);
         }
@@ -139,9 +133,6 @@ public final class RendSemiAffectationOperation extends RendAbstractUnaryOperati
 
     private Argument calculateSemiChSetting(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, Argument _stored, BeanLgNames _advStandards, ContextEl _context, StackCall _stackCall, RendStackCall _rendStackCall) {
         Argument arg_ = null;
-        if (settable instanceof RendStdVariableOperation) {
-            arg_ = ((RendStdVariableOperation)settable).calculateSemiSetting(_nodes, _conf, operatorContent.getOper(), staticPostEltContent.isPost(),_stored, getResultClass().getUnwrapObjectNb(), _advStandards, _context, _stackCall, _rendStackCall);
-        }
         if (settable instanceof RendStdRefVariableOperation) {
             arg_ = ((RendStdRefVariableOperation)settable).calculateSemiSetting(_nodes, _conf, operatorContent.getOper(), staticPostEltContent.isPost(),_stored, getResultClass().getUnwrapObjectNb(), _advStandards, _context, _stackCall, _rendStackCall);
         }

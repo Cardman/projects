@@ -26,34 +26,28 @@ public final class RendStdRefVariableOperation extends RendLeafOperation impleme
         variableContent = _variableContent;
         declare = _declare;
     }
+    public RendStdRefVariableOperation(ExecOperationContent _l, ExecVariableContent _variableContent) {
+        super(_l);
+        variableContent = _variableContent;
+        declare = false;
+    }
 
     @Override
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, BeanLgNames _advStandards, ContextEl _context, StackCall _stack, RendStackCall _rendStack) {
         setRelativeOffsetPossibleLastPage(getIndexInEl()+ variableContent.getOff(), _rendStack);
+        ImportingPage ip_ = _rendStack.getLastPage();
+        AbstractWrapper val_ = ip_.getRefParams().getVal(getVariableName());
+        ArgumentsPair pair_ = getArgumentPair(_nodes, this);
+        pair_.setWrapper(val_);
+        Argument arg_ = ExecTemplates.getArgValue(val_, _context, _stack);
         if (resultCanBeSet()) {
-            if (!declare) {
-                ImportingPage ip_ = _rendStack.getLastPage();
-                AbstractWrapper val_ = ip_.getRefParams().getVal(getVariableName());
-                ArgumentsPair pair_ = getArgumentPair(_nodes, this);
-                pair_.setWrapper(val_);
-                setQuickNoConvertSimpleArgument(ExecTemplates.getArgValue(val_,_context, _stack), _nodes, _context, _stack);
-            } else {
-                setQuickNoConvertSimpleArgument(new Argument(), _nodes, _context, _stack);
-            }
+            setQuickNoConvertSimpleArgument(arg_, _nodes, _context, _stack);
         } else {
-            ImportingPage ip_ = _rendStack.getLastPage();
-            AbstractWrapper val_ = ip_.getRefParams().getVal(getVariableName());
-            ArgumentsPair pair_ = getArgumentPair(_nodes, this);
-            pair_.setWrapper(val_);
-            setSimpleArgument(ExecTemplates.getArgValue(val_,_context, _stack), _nodes, _context, _stack, _rendStack);
+            setSimpleArgument(arg_, _nodes, _context, _stack,_rendStack);
         }
     }
     public String getVariableName() {
         return variableContent.getVariableName();
-    }
-
-    public ExecVariableContent getVariableContent() {
-        return variableContent;
     }
 
 
@@ -69,7 +63,8 @@ public final class RendStdRefVariableOperation extends RendLeafOperation impleme
 
     @Override
     public Argument calculateCompoundSetting(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, String _op, Argument _right, ExecClassArgumentMatching _cl, byte _cast, BeanLgNames _advStandards, ContextEl _context, StackCall _stack, RendStackCall _rendStack) {
-        Struct store_ = ExecTemplates.getWrapValue(_context,variableContent,_rendStack.getLastPage().getPageEl().getCache(), _rendStack.getLastPage().getPageEl().getRefParams(), _stack);
+        Argument a_ = getArgument(_nodes,this);
+        Struct store_ = a_.getStruct();
         Argument left_ = new Argument(store_);
         Argument res_ = RendNumericOperation.calculateAffect(left_, _right, _op, variableContent.isCatString(), _cl.getNames(), _cast, _context, _stack);
         return trySetArgument(_context, res_, _stack, _rendStack);
@@ -77,7 +72,8 @@ public final class RendStdRefVariableOperation extends RendLeafOperation impleme
 
     @Override
     public Argument calculateSemiSetting(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, String _op, boolean _post, Argument _stored, byte _cast, BeanLgNames _advStandards, ContextEl _context, StackCall _stack, RendStackCall _rendStack) {
-        Struct store_ = ExecTemplates.getWrapValue(_context,variableContent, _rendStack.getLastPage().getPageEl().getCache(), _rendStack.getLastPage().getPageEl().getRefParams(), _stack);
+        Argument a_ = getArgument(_nodes,this);
+        Struct store_ = a_.getStruct();
         Argument left_ = new Argument(store_);
         Argument res_ = ExecNumericOperation.calculateIncrDecr(left_, _op, _cast);
         trySetArgument(_context, res_, _stack, _rendStack);

@@ -140,9 +140,6 @@ public final class ExecutingUtil {
         _page.setBlockRootType(type_);
         _page.setBlockRoot(fct_);
         _context.getCoverage().passCalls(_page);
-        for (EntryCust<String, LocalVariable> e: _args.getParameters().entryList()) {
-            _page.getRefParams().addEntry(e.getKey(),new VariableWrapper(e.getValue()));
-        }
         _page.getRefParams().addAllEntries(_args.getRefParameters());
         _page.setCache(_args.getCache());
         ReadWrite rwLoc_ = new ReadWrite();
@@ -248,9 +245,6 @@ public final class ExecutingUtil {
         _page.setBlockRoot(ctor_);
         if (ctor_ != null) {
             _context.getCoverage().passCalls(_page);
-            for (EntryCust<String, LocalVariable> e: _args.getParameters().entryList()) {
-                _page.getRefParams().addEntry(e.getKey(),new VariableWrapper(e.getValue()));
-            }
             _page.getRefParams().addAllEntries(_args.getRefParameters());
             ExecBlock firstChild_ = ctor_.getFirstChild();
             rw_.setBlock(firstChild_);

@@ -105,14 +105,8 @@ public final class ExecCompoundAffectationOperation extends ExecMethodOperation 
 
     private Argument calculateCompoundSetting(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, Argument _rightArg, StackCall _stackCall) {
         Argument arg_ = null;
-        if (settable instanceof ExecStdVariableOperation) {
-            arg_ = ((ExecStdVariableOperation)settable).calculateCompoundSetting(_nodes, _conf, operatorContent.getOper(), _rightArg, getResultClass(), getResultClass().getUnwrapObjectNb(), _stackCall);
-        }
         if (settable instanceof ExecStdRefVariableOperation) {
             arg_ = ((ExecStdRefVariableOperation)settable).calculateCompoundSetting(_nodes, _conf, operatorContent.getOper(), _rightArg, getResultClass(), getResultClass().getUnwrapObjectNb(), _stackCall);
-        }
-        if (settable instanceof ExecRefParamOperation) {
-            arg_ = ((ExecRefParamOperation)settable).calculateCompoundSetting(_nodes, _conf, operatorContent.getOper(), _rightArg, getResultClass(), getResultClass().getUnwrapObjectNb(), _stackCall);
         }
         if (settable instanceof ExecSettableFieldOperation) {
             arg_ = ((ExecSettableFieldOperation)settable).calculateCompoundSetting(_nodes, _conf, operatorContent.getOper(), _rightArg, getResultClass(), getResultClass().getUnwrapObjectNb(), _stackCall);
@@ -156,14 +150,8 @@ public final class ExecCompoundAffectationOperation extends ExecMethodOperation 
     private static Argument endCalculateCh(ExecOperationNode _set,
                                            IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, Argument _right, StackCall _stackCall){
         Argument arg_ = null;
-        if (_set instanceof ExecStdVariableOperation) {
-            arg_ = ((ExecStdVariableOperation)_set).endCalculate(_conf, _nodes, _right, _stackCall);
-        }
         if (_set instanceof ExecStdRefVariableOperation) {
             arg_ = ((ExecStdRefVariableOperation)_set).endCalculate(_conf, _nodes, _right, _stackCall);
-        }
-        if (_set instanceof ExecRefParamOperation) {
-            arg_ = ((ExecRefParamOperation)_set).endCalculate(_conf, _nodes, _right, _stackCall);
         }
         if (_set instanceof ExecSettableFieldOperation) {
             arg_ = ((ExecSettableFieldOperation)_set).endCalculate(_conf, _nodes, _right, _stackCall);
