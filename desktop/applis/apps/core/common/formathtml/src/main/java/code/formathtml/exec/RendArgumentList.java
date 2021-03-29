@@ -1,19 +1,22 @@
 package code.formathtml.exec;
 
 import code.expressionlanguage.exec.util.ArgumentListCall;
-import code.formathtml.exec.opers.RendDynOperationNode;
-import code.util.CustList;
 
 public final class RendArgumentList {
     private final ArgumentListCall arguments = new ArgumentListCall();
-    private final CustList<RendDynOperationNode> filter = new CustList<RendDynOperationNode>();
+    private int naturalVararg = -1;
 
     public ArgumentListCall getArguments() {
         return arguments;
     }
 
-    public CustList<RendDynOperationNode> getFilter() {
-        return filter;
+
+    public int getNaturalVararg() {
+        return naturalVararg;
+    }
+
+    public void setNaturalVararg(int _naturalVararg) {
+        naturalVararg=_naturalVararg;
     }
 
 }

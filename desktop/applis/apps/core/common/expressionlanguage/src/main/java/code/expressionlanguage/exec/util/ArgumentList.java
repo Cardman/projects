@@ -1,17 +1,18 @@
 package code.expressionlanguage.exec.util;
 
-import code.expressionlanguage.exec.opers.ExecOperationNode;
-import code.util.CustList;
-
 public final class ArgumentList {
     private final ArgumentListCall arguments = new ArgumentListCall();
-    private final CustList<ExecOperationNode> filter = new CustList<ExecOperationNode>();
+    private int naturalVararg = -1;
 
     public ArgumentListCall getArguments() {
         return arguments;
     }
 
-    public CustList<ExecOperationNode> getFilter() {
-        return filter;
+    public int getNaturalVararg() {
+        return naturalVararg;
+    }
+
+    public void setNaturalVararg(int _naturalVararg) {
+        naturalVararg=_naturalVararg;
     }
 }

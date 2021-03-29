@@ -36,11 +36,10 @@ public abstract class RendInvokingOperation extends RendMethodOperation implemen
     }
     public ArgumentListCall fectchArgs(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, String _lastType, int _naturalVararg, RendStackCall _rendStackCall) {
         CustList<RendDynOperationNode> chidren_ = getChildrenNodes();
-        RendArgumentList argumentList_ = listNamedArguments(_nodes, chidren_);
+        RendArgumentList argumentList_ = listNamedArguments(_nodes, chidren_,_naturalVararg);
         ArgumentListCall fetchArgs_ = argumentList_.getArguments();
         CustList<Argument> first_ = fetchArgs_.getArguments();
-        CustList<RendDynOperationNode> filter_ = argumentList_.getFilter();
-        CustList<Argument> res_ = listArguments(filter_, _naturalVararg, _lastType, first_);
+        CustList<Argument> res_ = listArguments(argumentList_.getNaturalVararg(), _lastType, first_);
         first_.clear();
         first_.addAllElts(res_);
         ArgumentListCall list_ = _rendStackCall.getLastPage().getList();
@@ -51,21 +50,22 @@ public abstract class RendInvokingOperation extends RendMethodOperation implemen
         return fetchArgs_;
     }
 
-    private static RendArgumentList listNamedArguments(IdMap<RendDynOperationNode, ArgumentsPair> _all, CustList<RendDynOperationNode> _children) {
+    private static RendArgumentList listNamedArguments(IdMap<RendDynOperationNode, ArgumentsPair> _all, CustList<RendDynOperationNode> _children, int _naturalVararg) {
         RendArgumentList out_ = new RendArgumentList();
+        out_.setNaturalVararg(_naturalVararg);
         CustList<Argument> args_ = out_.getArguments().getArguments();
         CustList<AbstractWrapper> wrappers_ = out_.getArguments().getWrappers();
-        CustList<RendDynOperationNode> filter_ = out_.getFilter();
         CustList<RendNamedArgumentOperation> named_ = new CustList<RendNamedArgumentOperation>();
         for (RendDynOperationNode c: _children) {
+            if (RendConstLeafOperation.isFilter(c)) {
+                continue;
+            }
             if (c instanceof RendNamedArgumentOperation) {
                 if (!(c.getFirstChild() instanceof RendWrappOperation)) {
                     named_.add((RendNamedArgumentOperation)c);
-                    filter_.add(c);
                 }
             } else if (!(c instanceof RendWrappOperation)){
                 args_.add(getArgument(_all,c));
-                filter_.add(c);
             }
         }
         while (!named_.isEmpty()) {
@@ -109,19 +109,14 @@ public abstract class RendInvokingOperation extends RendMethodOperation implemen
         }
         return out_;
     }
-    private static CustList<Argument> listArguments(CustList<RendDynOperationNode> _children, int _natVararg, String _lastType, CustList<Argument> _nodes) {
+    private static CustList<Argument> listArguments(int _natVararg, String _lastType, CustList<Argument> _nodes) {
         if (_natVararg > -1) {
             CustList<Argument> firstArgs_ = new CustList<Argument>();
             CustList<Struct> optArgs_ = new CustList<Struct>();
-            int lenCh_ = _children.size();
-            int natVararg_ = _natVararg;
+            int lenCh_ = _nodes.size();
             for (int i = IndexConstants.FIRST_INDEX; i < lenCh_; i++) {
-                if (RendConstLeafOperation.isFilter(_children.get(i))) {
-                    natVararg_++;
-                    continue;
-                }
                 Argument a_ = _nodes.get(i);
-                if (i >= natVararg_) {
+                if (i >= _natVararg) {
                     optArgs_.add(a_.getStruct());
                 } else {
                     firstArgs_.add(a_);
@@ -134,11 +129,8 @@ public abstract class RendInvokingOperation extends RendMethodOperation implemen
             return firstArgs_;
         }
         CustList<Argument> firstArgs_ = new CustList<Argument>();
-        int lenCh_ = _children.size();
+        int lenCh_ = _nodes.size();
         for (int i = IndexConstants.FIRST_INDEX; i < lenCh_; i++) {
-            if (RendConstLeafOperation.isFilter(_children.get(i))) {
-                continue;
-            }
             Argument a_ = _nodes.get(i);
             firstArgs_.add(a_);
         }

@@ -57,29 +57,29 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
 
     protected ArgumentListCall fectchArgs(IdMap<ExecOperationNode, ArgumentsPair> _nodes, String _lastType, int _naturalVararg) {
         CustList<ExecOperationNode> chidren_ = getChildrenNodes();
-        ArgumentList argumentList_ = listNamedArguments(_nodes, chidren_);
+        ArgumentList argumentList_ = listNamedArguments(_nodes, chidren_,_naturalVararg);
         CustList<Argument> first_ = argumentList_.getArguments().getArguments();
-        CustList<ExecOperationNode> filter_ = argumentList_.getFilter();
-        CustList<Argument> res_ = listArguments(filter_, _naturalVararg, _lastType, first_);
+        CustList<Argument> res_ = listArguments(argumentList_.getNaturalVararg(), _lastType, first_);
         first_.clear();
         first_.addAllElts(res_);
         return argumentList_.getArguments();
     }
-    private static ArgumentList listNamedArguments(IdMap<ExecOperationNode, ArgumentsPair> _all, CustList<ExecOperationNode> _children) {
+    private static ArgumentList listNamedArguments(IdMap<ExecOperationNode, ArgumentsPair> _all, CustList<ExecOperationNode> _children, int _naturalVararg) {
         ArgumentList out_ = new ArgumentList();
+        out_.setNaturalVararg(_naturalVararg);
         CustList<Argument> args_ = out_.getArguments().getArguments();
         CustList<AbstractWrapper> wrappers_ = out_.getArguments().getWrappers();
-        CustList<ExecOperationNode> filter_ = out_.getFilter();
         CustList<ExecNamedArgumentOperation> named_ = new CustList<ExecNamedArgumentOperation>();
         for (ExecOperationNode c: _children) {
+            if (ExecConstLeafOperation.isFilter(c)) {
+                continue;
+            }
             if (c instanceof ExecNamedArgumentOperation) {
                 if (!(c.getFirstChild() instanceof ExecWrappOperation)) {
                     named_.add((ExecNamedArgumentOperation)c);
-                    filter_.add(c);
                 }
             } else if (!(c instanceof ExecWrappOperation)){
                 args_.add(getArgument(_all,c));
-                filter_.add(c);
             }
         }
         while (!named_.isEmpty()) {
@@ -123,19 +123,14 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         }
         return out_;
     }
-    private static CustList<Argument> listArguments(CustList<ExecOperationNode> _children, int _natVararg, String _lastType, CustList<Argument> _nodes) {
+    private static CustList<Argument> listArguments(int _natVararg, String _lastType, CustList<Argument> _nodes) {
         if (_natVararg > -1) {
             CustList<Argument> firstArgs_ = new CustList<Argument>();
             CustList<Struct> optArgs_ = new CustList<Struct>();
-            int lenCh_ = _children.size();
-            int natVarArg_ = _natVararg;
+            int lenCh_ = _nodes.size();
             for (int i = IndexConstants.FIRST_INDEX; i < lenCh_; i++) {
-                if (ExecConstLeafOperation.isFilter(_children.get(i))) {
-                    natVarArg_++;
-                    continue;
-                }
                 Argument a_ = _nodes.get(i);
-                if (i >= natVarArg_) {
+                if (i >= _natVararg) {
                     optArgs_.add(a_.getStruct());
                 } else {
                     firstArgs_.add(a_);
@@ -148,11 +143,8 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
             return firstArgs_;
         }
         CustList<Argument> firstArgs_ = new CustList<Argument>();
-        int lenCh_ = _children.size();
+        int lenCh_ = _nodes.size();
         for (int i = IndexConstants.FIRST_INDEX; i < lenCh_; i++) {
-            if (ExecConstLeafOperation.isFilter(_children.get(i))) {
-                continue;
-            }
             Argument a_ = _nodes.get(i);
             firstArgs_.add(a_);
         }
