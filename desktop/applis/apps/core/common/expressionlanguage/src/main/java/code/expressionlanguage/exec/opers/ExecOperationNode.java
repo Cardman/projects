@@ -224,16 +224,6 @@ public abstract class ExecOperationNode {
                 return par_.getOrder();
             }
         }
-        if (par_ instanceof ExecTernaryOperation) {
-            if (index_ == 1) {
-                return par_.getOrder();
-            }
-            if (index_ == 0) {
-                if (BooleanStruct.isFalse(_value)) {
-                    return ExecHelper.getOrder(_operation.getNextSibling()) + 1;
-                }
-            }
-        }
         if (par_ instanceof ExecRefTernaryOperation) {
             if (index_ == 1) {
                 return par_.getOrder();
@@ -303,7 +293,7 @@ public abstract class ExecOperationNode {
                 before_ = Argument.getNullableValue(pair_.getArgumentBeforeTest());
             }
             ExecMethodOperation parent_ = getParent();
-            if (parent_ == null||parent_ instanceof ExecTernaryOperation||parent_ instanceof ExecRefTernaryOperation) {
+            if (parent_ == null||parent_ instanceof ExecRefTernaryOperation) {
                 calcArg(_possiblePartial, _conf, _nodes, _argument, _stackCall);
                 return;
             }

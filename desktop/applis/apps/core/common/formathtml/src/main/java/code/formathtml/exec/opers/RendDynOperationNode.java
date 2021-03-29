@@ -218,16 +218,6 @@ public abstract class RendDynOperationNode {
                 return par_.getOrder();
             }
         }
-        if (par_ instanceof RendTernaryOperation) {
-            if (index_ == 1) {
-                return par_.getOrder();
-            }
-            if (index_ == 0) {
-                if (BooleanStruct.isFalse(_value)) {
-                    return getOrder(_operation.getNextSibling()) + 1;
-                }
-            }
-        }
         if (par_ instanceof RendRefTernaryOperation) {
             if (index_ == 1) {
                 return par_.getOrder();
@@ -294,7 +284,7 @@ public abstract class RendDynOperationNode {
             Struct nRes_ = Argument.getNull(res_.getStruct());
             pair_.setArgumentTest(BooleanStruct.isTrue(nRes_));
             RendMethodOperation parent_ = getParent();
-            if (parent_ == null || parent_ instanceof RendTernaryOperation || parent_ instanceof RendRefTernaryOperation) {
+            if (parent_ == null || parent_ instanceof RendRefTernaryOperation) {
                 calcArg(_nodes,new Argument(nRes_));
                 return;
             }

@@ -31,13 +31,17 @@ public final class ExecRefTernaryOperation extends ExecMethodOperation implement
         ArgumentsPair ch_ = getChosenArgumentsPair(_nodes);
         AbstractWrapper res_ = ch_.getWrapper();
         ArgumentsPair pair_ = ExecHelper.getArgumentPair(_nodes, this);
-        ExecHelper.fwdWrapper(pair_,ch_);
-        Argument arg_ = ExecTemplates.getArgValue(res_, _conf, _stack);
-        if (resultCanBeSet()) {
-            setQuickNoConvertSimpleArgument(arg_, _conf, _nodes, _stack);
-            return;
+        if (res_ != null) {
+            ExecHelper.fwdWrapper(pair_,ch_);
+            Argument arg_ = ExecTemplates.getArgValue(res_, _conf, _stack);
+            if (resultCanBeSet()) {
+                setQuickNoConvertSimpleArgument(arg_, _conf, _nodes, _stack);
+                return;
+            }
+            setSimpleArgument(arg_, _conf, _nodes, _stack);
+        } else {
+            setSimpleArgument(ch_.getArgument(), _conf, _nodes, _stack);
         }
-        setSimpleArgument(arg_, _conf, _nodes, _stack);
     }
 
     private ArgumentsPair getChosenArgumentsPair(IdMap<ExecOperationNode, ArgumentsPair> _nodes) {

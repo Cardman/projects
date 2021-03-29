@@ -1230,7 +1230,7 @@ public final class ForwardInfos {
         }
         if (_anaNode instanceof AbstractTernaryOperation) {
             AbstractTernaryOperation t_ = (AbstractTernaryOperation) _anaNode;
-            return new ExecTernaryOperation(new ExecOperationContent(t_.getContent()), t_.getOffsetLocal());
+            return new ExecRefTernaryOperation(new ExecOperationContent(t_.getContent()), t_.getOffsetLocal(),new ExecArrContent(false,false));
         }
         if (_anaNode instanceof AbstractRefTernaryOperation) {
             AbstractRefTernaryOperation t_ = (AbstractRefTernaryOperation) _anaNode;

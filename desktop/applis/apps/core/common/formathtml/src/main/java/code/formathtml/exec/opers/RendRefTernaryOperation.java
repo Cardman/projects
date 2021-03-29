@@ -33,14 +33,19 @@ public final class RendRefTernaryOperation extends RendMethodOperation implement
         setRelativeOffsetPossibleLastPage(getIndexInEl()+offsetLocal, _rendStack);
         ArgumentsPair ch_ = getChosenArgumentsPair(_nodes);
         AbstractWrapper res_ = ch_.getWrapper();
-        ArgumentsPair pair_ = getArgumentPair(_nodes, this);
-        ExecHelper.fwdWrapper(pair_,ch_);
-        Argument arg_ = ExecTemplates.getArgValue(res_, _context, _stack);
-        if (resultCanBeSet()) {
-            setQuickNoConvertSimpleArgument(arg_, _nodes,_context, _stack);
-            return;
+        if (res_ != null) {
+            ArgumentsPair pair_ = getArgumentPair(_nodes, this);
+            ExecHelper.fwdWrapper(pair_,ch_);
+            Argument arg_ = ExecTemplates.getArgValue(res_, _context, _stack);
+            if (resultCanBeSet()) {
+                setQuickNoConvertSimpleArgument(arg_, _nodes,_context, _stack);
+                return;
+            }
+            setSimpleArgument(arg_, _nodes,_context, _stack,_rendStack);
+        } else {
+            setSimpleArgument(ch_.getArgument(), _nodes,_context, _stack,_rendStack);
         }
-        setSimpleArgument(arg_, _nodes,_context, _stack,_rendStack);
+
     }
 
     private ArgumentsPair getChosenArgumentsPair(IdMap<RendDynOperationNode, ArgumentsPair> _nodes) {

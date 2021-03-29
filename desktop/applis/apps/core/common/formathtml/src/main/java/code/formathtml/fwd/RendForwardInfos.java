@@ -595,7 +595,7 @@ public final class RendForwardInfos {
         }
         if (_anaNode instanceof AbstractTernaryOperation) {
             AbstractTernaryOperation t_ = (AbstractTernaryOperation) _anaNode;
-            return new RendTernaryOperation(new ExecOperationContent(t_.getContent()), t_.getOffsetLocal());
+            return new RendRefTernaryOperation(new ExecOperationContent(t_.getContent()), t_.getOffsetLocal(),new ExecArrContent(false,false));
         }
         if (_anaNode instanceof AbstractRefTernaryOperation) {
             AbstractRefTernaryOperation t_ = (AbstractRefTernaryOperation) _anaNode;
