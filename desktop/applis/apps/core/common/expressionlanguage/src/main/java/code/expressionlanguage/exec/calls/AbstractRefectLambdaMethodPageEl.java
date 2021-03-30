@@ -20,8 +20,14 @@ public abstract class AbstractRefectLambdaMethodPageEl extends AbstractRefectCom
         array = _array;
         rightArg = _right;
     }
-
     @Override
+    public void processTagsBase(ContextEl _context, StackCall _stack) {
+        if (!checkCondition(_context, _stack)) {
+            return;
+        }
+        setNullReadWrite();
+    }
+
     public boolean checkCondition(ContextEl _context, StackCall _stack) {
         if (!keep(_context, _stack)) {
             return false;

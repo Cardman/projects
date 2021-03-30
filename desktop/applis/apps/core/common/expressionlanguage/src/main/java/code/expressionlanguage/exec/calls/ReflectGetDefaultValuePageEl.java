@@ -23,8 +23,13 @@ public final class ReflectGetDefaultValuePageEl extends AbstractReflectPageEl {
         setGlobalArgumentStruct(_metaInfo);
         metaInfo = _metaInfo;
     }
-
     @Override
+    public void processTagsBase(ContextEl _context, StackCall _stack) {
+        if (!checkCondition(_context, _stack)) {
+            return;
+        }
+        setNullReadWrite();
+    }
     public boolean checkCondition(ContextEl _context, StackCall _stack) {
         ExecAnnotableBlock annotableBlock_ = metaInfo.getAnnotableBlock();
         if (!(annotableBlock_ instanceof ExecAnnotationMethodBlock)) {

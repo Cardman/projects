@@ -21,41 +21,44 @@ public final class StaticInitPageEl extends AbstractInitPageEl {
     }
 
     @Override
-    public boolean checkCondition(ContextEl _context, StackCall _stack) {
-
+    public void processTagsBase(ContextEl _context, StackCall _stack){
         ExecRootBlock blockRoot_ = getBlockRootType();
         //Super interfaces have no super classes
         String gene_ = blockRoot_.getImportedDirectGenericSuperClass();
         String superClass_ = StringExpUtil.getIdFromAllTypes(gene_);
         //initialize the super class first
         if (_context.getExiting().hasToExit(_stack, superClass_)) {
-            return false;
+            return;
         }
         for (String i: blockRoot_.getStaticInitImportedInterfaces()) {
             //then initialize the additional super interfaces (not provided by the super class)
             if (_context.getExiting().hasToExit(_stack, i)) {
-                return false;
+                return;
             }
         }
-        return true;
-    }
-    @Override
-    public void tryProcessEl(ContextEl _context, StackCall _stack) {
         //initializing static fields in the type walk through
         ExecBlock en_ = getBlock();
         if (en_ instanceof ExecElementBlock) {
+            setGlobalOffset(en_.getOffsetTrim());
+            setOffset(0);
             ((ExecElementBlock)en_).processEl(_context,_stack,this);
             return;
         }
         if (en_ instanceof ExecInnerElementBlock) {
+            setGlobalOffset(en_.getOffsetTrim());
+            setOffset(0);
             ((ExecInnerElementBlock)en_).processEl(_context,_stack,this);
             return;
         }
         if (en_ instanceof ExecFieldBlock) {
+            setGlobalOffset(en_.getOffsetTrim());
+            setOffset(0);
             ((ExecFieldBlock)en_).processEl(_context,_stack,this);
             return;
         }
         if (en_ instanceof ExecStaticBlock && processedBlocks.getVal((ExecInitBlock) en_) == BoolVal.FALSE) {
+            setGlobalOffset(en_.getOffsetTrim());
+            setOffset(0);
             processedBlocks.put((ExecInitBlock) en_, BoolVal.TRUE);
             CustomFoundBlock cust_ = new CustomFoundBlock(getGlobalClass(), getGlobalArgument(), getBlockRootType(), (ExecInitBlock) en_);
             _stack.setCallingState(cust_);

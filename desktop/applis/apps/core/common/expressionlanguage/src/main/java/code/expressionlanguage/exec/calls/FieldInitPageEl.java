@@ -18,23 +18,24 @@ public final class FieldInitPageEl extends AbstractInitPageEl {
     }
 
     @Override
-    public boolean checkCondition(ContextEl _context, StackCall _stack) {
-        return true;
-    }
-
-    @Override
-    public void tryProcessEl(ContextEl _context, StackCall _stack) {
+    public void processTagsBase(ContextEl _context, StackCall _stack){
         //initializing instance fields in the type walk through
         ExecBlock en_ = getBlock();
         if (en_ instanceof ExecFieldBlock) {
+            setGlobalOffset(en_.getOffsetTrim());
+            setOffset(0);
             ((ExecFieldBlock)en_).processEl(_context,_stack,this);
             return;
         }
         if (en_ instanceof ExecAnnotationMethodBlock) {
+            setGlobalOffset(en_.getOffsetTrim());
+            setOffset(0);
             ((ExecAnnotationMethodBlock)en_).processEl(_context,_stack,this);
             return;
         }
         if (en_ instanceof ExecInstanceBlock && processedBlocks.getVal((ExecInitBlock) en_) == BoolVal.FALSE) {
+            setGlobalOffset(en_.getOffsetTrim());
+            setOffset(0);
             processedBlocks.put((ExecInitBlock) en_, BoolVal.TRUE);
             CustomFoundBlock cust_ = new CustomFoundBlock(getGlobalClass(), getGlobalArgument(), getBlockRootType(), (ExecInitBlock) en_);
             _stack.setCallingState(cust_);
@@ -46,7 +47,6 @@ public final class FieldInitPageEl extends AbstractInitPageEl {
         }
         setNullReadWrite();
     }
-
 
     public IdMap<ExecInitBlock, BoolVal> getProcessedBlocks() {
         return processedBlocks;

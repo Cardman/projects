@@ -38,19 +38,6 @@ public final class ExecutingUtil {
         }
     }
 
-    static void processTagsBase(ContextEl _context, StackCall _stackCall) {
-        AbstractPageEl ip_ = _stackCall.getLastPage();
-        if (!ip_.checkCondition(_context, _stackCall)) {
-            return;
-        }
-        ExecBlock en_ = ip_.getBlock();
-        if (en_ != null) {
-            ip_.setGlobalOffset(en_.getOffsetTrim());
-            ip_.setOffset(0);
-        }
-        ip_.tryProcessEl(_context, _stackCall);
-    }
-
     static AbstractPageEl processAfterOperation(ContextEl _context, StackCall _stackCall) {
         CallingState callingState_ = _stackCall.getCallingState();
         if (callingState_ != null) {

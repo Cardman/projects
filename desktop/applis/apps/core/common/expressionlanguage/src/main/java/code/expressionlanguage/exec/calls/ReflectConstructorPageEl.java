@@ -31,8 +31,14 @@ public final class ReflectConstructorPageEl extends AbstractReflectConstructorPa
         metaInfo = _metaInfo;
         setGlobalArgumentStruct(_metaInfo);
     }
-
     @Override
+    public void processTagsBase(ContextEl _context, StackCall _stack) {
+        if (!checkCondition(_context, _stack)) {
+            return;
+        }
+        setNullReadWrite();
+    }
+
     public boolean checkCondition(ContextEl _context, StackCall _stack) {
         if (!keep(_context, _stack)) {
             return false;

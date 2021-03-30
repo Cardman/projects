@@ -17,7 +17,10 @@ public final class NewRecordPageEl extends AbstractCallingInstancingPageEl {
         args = _args;
     }
     @Override
-    public void tryProcessEl(ContextEl _context, StackCall _stack) {
+    public void processTagsBase(ContextEl _context, StackCall _stack) {
+        if (!checkCondition(_context, _stack)) {
+            return;
+        }
         //set fields for annotation after calculating default one
         int len_ = Math.min(names.size(),args.size());
         Argument gl_ = getGlobalArgument();

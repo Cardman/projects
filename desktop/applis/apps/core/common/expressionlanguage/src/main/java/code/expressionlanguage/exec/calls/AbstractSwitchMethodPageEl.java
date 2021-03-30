@@ -5,6 +5,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.blocks.ExecAbstractSwitchMethod;
 import code.expressionlanguage.exec.blocks.ExecBlock;
+import code.expressionlanguage.exec.blocks.WithEl;
 import code.expressionlanguage.exec.stacks.SwitchBlockStack;
 
 public abstract class AbstractSwitchMethodPageEl extends AbstractCommonMethodPageEl {
@@ -15,15 +16,16 @@ public abstract class AbstractSwitchMethodPageEl extends AbstractCommonMethodPag
     }
 
     @Override
-    public boolean checkCondition(ContextEl _context, StackCall _stack) {
-        AbstractPageEl ip_ = _stack.getLastPage();
-        ExecBlock en_ = ip_.getBlock();
+    public void processTagsBase(ContextEl _context, StackCall _stack){
+        //method walk through
+        ExecBlock en_ = getBlock();
         if (en_ instanceof ExecAbstractSwitchMethod) {
             SwitchBlockStack st_ = new SwitchBlockStack();
             st_.setLabel("");
-            ip_.setBlock(((ExecAbstractSwitchMethod)en_).processCase(_context,st_,value,_stack));
+            setBlock(((ExecAbstractSwitchMethod)en_).processCase(_context,st_,value,_stack));
+            return;
         }
-        return true;
+        processTagsBase(_context,_stack,en_);
     }
 
 }

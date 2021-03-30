@@ -4,6 +4,8 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.blocks.ExecAnnotationMethodBlock;
+import code.expressionlanguage.exec.blocks.ExecBlock;
+import code.expressionlanguage.exec.blocks.WithEl;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.common.AnnotationTypeInfo;
 import code.expressionlanguage.structs.ArrayStruct;
@@ -20,7 +22,10 @@ public final class NewAnnotationPageEl extends AbstractCallingInstancingPageEl {
         args = _args;
     }
     @Override
-    public void tryProcessEl(ContextEl _context, StackCall _stack) {
+    public void processTagsBase(ContextEl _context, StackCall _stack) {
+        if (!checkCondition(_context, _stack)) {
+            return;
+        }
         //set fields for annotation after calculating default one
         int len_ = Math.min(names.size(),args.size());
         Struct str_ = getGlobalStruct();

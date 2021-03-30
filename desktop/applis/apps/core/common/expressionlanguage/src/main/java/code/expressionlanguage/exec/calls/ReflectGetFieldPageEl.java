@@ -21,8 +21,13 @@ public final class ReflectGetFieldPageEl extends AbstractReflectPageEl {
         setGlobalArgumentStruct(_metaInfo);
         metaInfo = _metaInfo;
     }
-
     @Override
+    public void processTagsBase(ContextEl _context, StackCall _stack) {
+        if (!checkCondition(_context, _stack)) {
+            return;
+        }
+        setNullReadWrite();
+    }
     public boolean checkCondition(ContextEl _context, StackCall _stack) {
         LgNames stds_ = _context.getStandards();
         if (!initClass) {

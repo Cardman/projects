@@ -90,7 +90,7 @@ public class DefaultInitializer implements Initializer {
                 rw_ = null;
             }
             if (rw_ != null) {
-                ExecutingUtil.processTagsBase(_owner, _stackCall);
+                _stackCall.getLastPage().processTagsBase(_owner, _stackCall);
             }
             if (exitAfterCall(_owner, _stackCall)) {
                 break;

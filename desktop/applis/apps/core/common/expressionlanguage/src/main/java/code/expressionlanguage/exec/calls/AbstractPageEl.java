@@ -138,7 +138,7 @@ public abstract class AbstractPageEl {
         return translatedOffset;
     }
 
-    public abstract boolean checkCondition(ContextEl _context, StackCall _stack);
+    public abstract void processTagsBase(ContextEl _context, StackCall _stack);
 
 
     public ExpressionLanguage getCurrentEl(ContextEl _context, BuildingEl _block, int _index, int _indexProcess) {
@@ -277,8 +277,6 @@ public abstract class AbstractPageEl {
         readWrite = _readWrite;
         execBlock = _readWrite.getBlock();
     }
-
-    public abstract void tryProcessEl(ContextEl _context, StackCall _stack);
 
     public ExecBlock getBlockRoot() {
         return blockRoot;

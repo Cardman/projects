@@ -3,6 +3,7 @@ package code.expressionlanguage.exec.blocks;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ExecHelperBlocks;
 import code.expressionlanguage.exec.ExecutingUtil;
+import code.expressionlanguage.exec.LocalThrowing;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.AbstractInitPageEl;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
@@ -158,7 +159,7 @@ public abstract class ExecBlock {
                         } else {
                             Struct exception_ = ((TryBlockStack)lastStack_).getException();
                             _stackCall.setCallingState(new CustomFoundExc(exception_));
-                            ExecutingUtil.processGeneException(_conf, _stackCall);
+                            LocalThrowing.removeBlockFinally(_conf, exception_, _stackCall);
                         }
                     }
                 }

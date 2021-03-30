@@ -24,8 +24,14 @@ public final class ReflectRecordConstructorPageEl extends AbstractReflectConstru
         id = _id;
         className = _className;
     }
-
     @Override
+    public void processTagsBase(ContextEl _context, StackCall _stack) {
+        if (!checkCondition(_context, _stack)) {
+            return;
+        }
+        setNullReadWrite();
+    }
+
     public boolean checkCondition(ContextEl _context, StackCall _stack) {
         if (!keep(_context, _stack)) {
             return false;

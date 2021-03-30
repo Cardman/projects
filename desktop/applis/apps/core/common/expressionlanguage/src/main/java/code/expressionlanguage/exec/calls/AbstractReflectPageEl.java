@@ -12,11 +12,6 @@ public abstract class AbstractReflectPageEl extends AbstractPageEl implements Fo
     private boolean lambda;
 
     @Override
-    public void tryProcessEl(ContextEl _context, StackCall _stack) {
-        setNullReadWrite();
-    }
-
-    @Override
     public void receive(AbstractWrapper _wrap, Argument _argument, ContextEl _context, StackCall _stack) {
         setWrapper(_wrap);
         setReturnedArgument(_argument);
