@@ -14,8 +14,7 @@ import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.structs.*;
-import code.formathtml.exec.RendArgumentList;
-import code.formathtml.exec.RendStackCall;
+import code.formathtml.exec.*;
 import code.util.CustList;
 import code.util.IdMap;
 import code.util.core.IndexConstants;
@@ -59,33 +58,26 @@ public abstract class RendInvokingOperation extends RendMethodOperation implemen
             ArgumentsPair calc_ = getArgumentPair(_all,c);
             if (c instanceof RendNamedArgumentOperation) {
                 named_.add((RendNamedArgumentOperation)c);
-            } else if (!(c instanceof RendWrappOperation)){
-                wrappers_.add(new ArgumentWrapper(calc_.getArgument(),null));
             } else {
-                wrappers_.add(new ArgumentWrapper(null,calc_.getWrapper()));
+                addToWrappers(c,calc_,wrappers_);
             }
         }
         while (!named_.isEmpty()) {
-            int minIndex_ = named_.first().getIndex();
-            int size_ = named_.size();
-            int i_ = 0;
-            for (int i = 1; i < size_; i++) {
-                int index_ = named_.get(i).getIndex();
-                if (index_ < minIndex_) {
-                    minIndex_ = index_;
-                    i_ = i;
-                }
-            }
+            RendOperationIndexer indexer_ = new RendOperationIndexer(named_);
+            int i_ = indexer_.getIndex();
             RendNamedArgumentOperation n_ = named_.get(i_);
             ArgumentsPair calc_ = getArgumentPair(_all,n_);
-            if (!(n_.getFirstChild() instanceof RendWrappOperation)) {
-                wrappers_.add(new ArgumentWrapper(calc_.getArgument(),null));
-            } else {
-                wrappers_.add(new ArgumentWrapper(null,calc_.getWrapper()));
-            }
+            addToWrappers(n_.getFirstChild(),calc_,wrappers_);
             named_.remove(i_);
         }
         return out_;
+    }
+    private static void addToWrappers(RendDynOperationNode _node,ArgumentsPair _pair,CustList<ArgumentWrapper> _wrappers){
+        if (!(_node instanceof RendWrappOperation)) {
+            _wrappers.add(new ArgumentWrapper(_pair.getArgument(),null));
+        } else {
+            _wrappers.add(new ArgumentWrapper(null,_pair.getWrapper()));
+        }
     }
 
     @Override

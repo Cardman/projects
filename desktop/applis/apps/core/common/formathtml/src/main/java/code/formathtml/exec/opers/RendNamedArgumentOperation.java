@@ -36,7 +36,7 @@ public final class RendNamedArgumentOperation extends RendAbstractUnaryOperation
         setSimpleArgument(argres_, _nodes, _context, _stack, _rendStack);
     }
 
-    int getIndex() {
+    public int getIndex() {
         return namedContent.getIndex();
     }
 }

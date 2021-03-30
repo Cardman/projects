@@ -6,7 +6,7 @@ import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.opers.AbstractCallFctOperation;
 import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.analyze.opers.StandardInstancingOperation;
-import code.expressionlanguage.analyze.reach.opers.util.AnaArgumentList;
+import code.expressionlanguage.analyze.reach.opers.util.*;
 import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.functionid.ClassMethodId;
@@ -60,17 +60,8 @@ public abstract class ReachInvokingOperation extends ReachMethodOperation implem
             }
         }
         while (!named_.isEmpty()) {
-            int minIndex_ = named_.first().getIndex();
-            int size_ = named_.size();
-            int i_ = 0;
-            for (int i = 1; i < size_; i++) {
-                ReachNamedArgumentOperation elt_ = named_.get(i);
-                int index_ = elt_.getIndex();
-                if (index_ < minIndex_) {
-                    minIndex_ = index_;
-                    i_ = i;
-                }
-            }
+            ReachOperationIndexer indexer_ = new ReachOperationIndexer(named_);
+            int i_ = indexer_.getIndex();
             args_.add(named_.get(i_).getArgument());
             named_.remove(i_);
         }

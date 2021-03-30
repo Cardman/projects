@@ -7,10 +7,7 @@ import code.expressionlanguage.exec.*;
 import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.exec.calls.util.*;
 import code.expressionlanguage.exec.inherits.*;
-import code.expressionlanguage.exec.util.ArgumentList;
-import code.expressionlanguage.exec.util.ArgumentListCall;
-import code.expressionlanguage.exec.util.Cache;
-import code.expressionlanguage.exec.util.ExecOverrideInfo;
+import code.expressionlanguage.exec.util.*;
 import code.expressionlanguage.exec.variables.AbstractWrapper;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.exec.variables.LocalVariable;
@@ -74,33 +71,26 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
             ArgumentsPair calc_ = ExecHelper.getArgumentPair(_all,c);
             if (c instanceof ExecNamedArgumentOperation) {
                 named_.add((ExecNamedArgumentOperation)c);
-            } else if (!(c instanceof ExecWrappOperation)){
-                wrappers_.add(new ArgumentWrapper(calc_.getArgument(),null));
             } else {
-                wrappers_.add(new ArgumentWrapper(null,calc_.getWrapper()));
+                addToWrappers(c,calc_,wrappers_);
             }
         }
         while (!named_.isEmpty()) {
-            int minIndex_ = named_.first().getIndex();
-            int size_ = named_.size();
-            int i_ = 0;
-            for (int i = 1; i < size_; i++) {
-                int index_ = named_.get(i).getIndex();
-                if (index_ < minIndex_) {
-                    minIndex_ = index_;
-                    i_ = i;
-                }
-            }
+            ExecOperationIndexer indexer_ = new ExecOperationIndexer(named_);
+            int i_ = indexer_.getIndex();
             ExecNamedArgumentOperation n_ = named_.get(i_);
             ArgumentsPair calc_ = ExecHelper.getArgumentPair(_all,n_);
-            if (!(n_.getFirstChild() instanceof ExecWrappOperation)) {
-                wrappers_.add(new ArgumentWrapper(calc_.getArgument(),null));
-            } else {
-                wrappers_.add(new ArgumentWrapper(null,calc_.getWrapper()));
-            }
+            addToWrappers(n_.getFirstChild(),calc_,wrappers_);
             named_.remove(i_);
         }
         return out_;
+    }
+    private static void addToWrappers(ExecOperationNode _node, ArgumentsPair _pair,CustList<ArgumentWrapper> _wrappers) {
+        if (!(_node instanceof ExecWrappOperation)) {
+            _wrappers.add(new ArgumentWrapper(_pair.getArgument(),null));
+        } else {
+            _wrappers.add(new ArgumentWrapper(null,_pair.getWrapper()));
+        }
     }
     public static void listArguments(int _natVararg, String _lastType, CustList<ArgumentWrapper> _nodes) {
         if (_natVararg <= -1) {
