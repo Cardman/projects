@@ -134,11 +134,12 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
     }
 
     public static Argument instancePrepareStd(ContextEl _conf, ConstructorId _constId,
-                                              CustList<Argument> _arguments, StackCall _stackCall) {
-        if (ExecTemplates.okArgsSet(_constId, _arguments, _conf, _stackCall) != null) {
+                                              ArgumentListCall _arguments, StackCall _stackCall) {
+        CustList<Argument> args_ = _arguments.getArguments();
+        if (ExecTemplates.okArgsSet(_constId, args_, _conf, _stackCall) != null) {
             return new Argument();
         }
-        ResultErrorStd res_ = ApplyCoreMethodUtil.newInstance(_conf, _constId, _stackCall, Argument.toArgArray(_arguments));
+        ResultErrorStd res_ = ApplyCoreMethodUtil.newInstance(_conf, _constId, _stackCall, Argument.toArgArray(args_));
         return new Argument(res_.getResult());
     }
 
@@ -204,15 +205,16 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         }
         return new ExecOverrideInfo(type_.getGenericString(),_named);
     }
-    public static Argument callStd(AbstractExiting _exit, ContextEl _cont, String _classNameFound, MethodId _methodId, Argument _previous, CustList<Argument> _firstArgs, StackCall _stackCall) {
-        ExecTemplates.checkParams(_cont, _classNameFound, _methodId, _previous, _firstArgs, _stackCall);
+    public static Argument callStd(AbstractExiting _exit, ContextEl _cont, String _classNameFound, MethodId _methodId, Argument _previous, ArgumentListCall _firstArgs, StackCall _stackCall) {
+        CustList<Argument> args_ = _firstArgs.getArguments();
+        ExecTemplates.checkParams(_cont, _classNameFound, _methodId, _previous, args_, _stackCall);
         if (_cont.callsOrException(_stackCall)) {
             return Argument.createVoid();
         }
         String idClassNameFound_ = StringExpUtil.getIdFromAllTypes(_classNameFound);
 
         ClassMethodId dyn_ = new ClassMethodId(idClassNameFound_, _methodId);
-        ResultErrorStd res_ = LgNames.invokeMethod(_cont, dyn_, _previous.getStruct(), _exit, _stackCall, Argument.toArgArray(_firstArgs));
+        ResultErrorStd res_ = LgNames.invokeMethod(_cont, dyn_, _previous.getStruct(), _exit, _stackCall, Argument.toArgArray(args_));
         return new Argument(res_.getResult());
     }
 

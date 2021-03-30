@@ -67,8 +67,7 @@ public final class StaticCallMethodPageEl extends AbstractRefectMethodPageEl {
                                             String _className, ContextEl _conf, StackCall _stackCall) {
         String paramName_ = _stackCall.formatVarType(_className);
         if (_callee instanceof ExecAbstractSwitchMethod) {
-            ArgumentListCall l_ = ExecTemplates.wrapAndCallDirectSw(_arguments);
-            return checkStaticCallSw(_pair.getType(), (ExecAbstractSwitchMethod)_callee,_cache, _conf, paramName_, l_, _stackCall);
+            return checkStaticCallSw(_pair.getType(), (ExecAbstractSwitchMethod)_callee,_cache, _conf, paramName_, _stackCall, _arguments);
         }
         ArgumentListCall l_ = ExecTemplates.wrapAndCallDirect(_pair,paramName_,Argument.createVoid(),_arguments,_conf, MethodAccessKind.STATIC_CALL);
         return checkStaticCall(_pair, _cache, _conf, paramName_, l_, _stackCall);

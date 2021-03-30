@@ -110,7 +110,7 @@ public abstract class AbstractRefectCommonMethodPageEl extends AbstractReflectPa
     Argument getInstance() {
         return instance;
     }
-    Argument prepareCast(ContextEl _context, String _className, CustList<Argument> _args, boolean _direct, StackCall _stackCall) {
+    Argument prepareCast(ContextEl _context, String _className, boolean _direct, StackCall _stackCall, ArgumentListCall _list) {
         String res_ = ExecTemplates.correctClassPartsDynamicNotWildCard(_className, _context);
         if (res_.isEmpty()) {
             String null_;
@@ -118,7 +118,7 @@ public abstract class AbstractRefectCommonMethodPageEl extends AbstractReflectPa
             _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_context, _className, null_, _stackCall)));
             return Argument.createVoid();
         }
-        return ExecExplicitOperation.prepare(_context.getExiting(),getPair(), _direct,_args,res_,res_,_context, _stackCall);
+        return ExecExplicitOperation.prepare(_context.getExiting(),getPair(), _direct, res_,res_,_context, _stackCall, _list);
     }
 
     static Argument checkStaticCall(ExecTypeFunction _pair, Cache _cache, ContextEl _conf, String _paramName, ArgumentListCall _list, StackCall _stackCall) {
@@ -132,8 +132,8 @@ public abstract class AbstractRefectCommonMethodPageEl extends AbstractReflectPa
         return Argument.createVoid();
     }
 
-    static Argument checkStaticCallSw(ExecRootBlock _type, ExecAbstractSwitchMethod _sw, Cache _cache, ContextEl _conf, String _paramName, ArgumentListCall _list, StackCall _stackCall) {
-        Parameters parameters_ = ExecTemplates.okArgsSetSw(_type, _sw, _paramName, _cache, _conf, _stackCall,_list);
+    static Argument checkStaticCallSw(ExecRootBlock _type, ExecAbstractSwitchMethod _sw, Cache _cache, ContextEl _conf, String _paramName, StackCall _stackCall, CustList<Argument> _arguments) {
+        Parameters parameters_ = ExecTemplates.okArgsSetSw(_type, _sw, _paramName, _cache, _conf, _stackCall, _arguments);
         if (parameters_.getError() != null) {
             return Argument.createVoid();
         }

@@ -42,7 +42,7 @@ public final class ReflectLambdaConstructorPageEl extends AbstractReflectConstru
                 arg_ = ExecInvokingOperation.instancePrepareCust(_context, res_, pair_, argument, array, "", -1, _stack);
             }
             if (metaInfo.getStandardType() != null) {
-                arg_ = ExecInvokingOperation.instancePrepareStd(_context, mid_, array.getArguments(), _stack);
+                arg_ = ExecInvokingOperation.instancePrepareStd(_context, mid_, array, _stack);
             }
             if (_context.callsOrException(_stack)) {
                 setWrapException(_stack.calls());

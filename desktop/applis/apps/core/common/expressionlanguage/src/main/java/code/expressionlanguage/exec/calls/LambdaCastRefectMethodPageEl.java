@@ -31,7 +31,7 @@ public final class LambdaCastRefectMethodPageEl extends AbstractRefectLambdaMeth
 
     @Override
     Argument prepare(ContextEl _context, String _className, Argument _instance, Argument _right, ArgumentListCall _list, StackCall _stack) {
-        return prepareCast(_context, _className, _list.getArguments(), direct, _stack);
+        return prepareCast(_context, _className, direct, _stack, _list);
     }
 
     @Override

@@ -4,6 +4,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.opers.ExecInvokingOperation;
+import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.structs.MethodMetaInfo;
 import code.util.CustList;
@@ -31,6 +32,8 @@ public final class DirectStdRefectMethodPageEl extends AbstractRefectMethodPageE
 
     @Override
     Argument prepare(ContextEl _context, String _className, MethodId _mid, Argument _instance, CustList<Argument> _args, Argument _right, StackCall _stack) {
-        return ExecInvokingOperation.callStd(_context.getExiting(), _context, _className, _mid, _instance, _args, _stack);
+        ArgumentListCall l_ = new ArgumentListCall();
+        l_.addAllArgs(_args);
+        return ExecInvokingOperation.callStd(_context.getExiting(), _context, _className, _mid, _instance, l_, _stack);
     }
 }

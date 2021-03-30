@@ -102,8 +102,7 @@ public abstract class AbstractRefectMethodPageEl extends AbstractRefectCommonMet
 
     Argument prepare(ContextEl _context, String _className, MethodId _mid, Argument _instance, CustList<Argument> _args, Argument _right, StackCall _stack) {
         if (callee instanceof ExecAbstractSwitchMethod) {
-            ArgumentListCall l_ = ExecTemplates.wrapAndCallDirectSw(_args);
-            FormattedParameters formatted_ = ExecTemplates.checkParamsSw(_context, _className, getPair().getType(), (ExecAbstractSwitchMethod) callee, _instance, getMetaInfo().getCache(), l_, getAccessKind(), _stack);
+            FormattedParameters formatted_ = ExecTemplates.checkParamsSw(_context, _className, getPair().getType(), (ExecAbstractSwitchMethod) callee, _instance, getMetaInfo().getCache(), getAccessKind(), _stack, _args);
             if (_context.callsOrException(_stack)) {
                 return Argument.createVoid();
             }

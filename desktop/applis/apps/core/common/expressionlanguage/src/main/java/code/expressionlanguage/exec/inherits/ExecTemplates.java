@@ -344,8 +344,8 @@ public final class ExecTemplates {
     }
 
     public static FormattedParameters checkParamsSw(ContextEl _conf, String _classNameFound, ExecRootBlock _rootBlock, ExecAbstractSwitchMethod _methodId,
-                                                    Argument _previous, Cache _cache, ArgumentListCall _firstArgs,
-                                                    MethodAccessKind _kind, StackCall _stackCall) {
+                                                    Argument _previous, Cache _cache,
+                                                    MethodAccessKind _kind, StackCall _stackCall, CustList<Argument> _arguments) {
         LgNames stds_ = _conf.getStandards();
         String cast_ = stds_.getContent().getCoreNames().getAliasCastType();
         String classFormat_ = _classNameFound;
@@ -358,7 +358,7 @@ public final class ExecTemplates {
                 return f_;
             }
         }
-        Parameters parameters_ = okArgsSetSw(_rootBlock, _methodId, classFormat_, _cache, _conf, _stackCall,_firstArgs);
+        Parameters parameters_ = okArgsSetSw(_rootBlock, _methodId, classFormat_, _cache, _conf, _stackCall, _arguments);
         if (parameters_.getError() != null) {
             return f_;
         }
@@ -383,8 +383,8 @@ public final class ExecTemplates {
         return ex_;
     }
 
-    public static Parameters okArgsSetSw(ExecRootBlock _rootBlock, ExecAbstractSwitchMethod _id, String _classNameFound, Cache _cache, ContextEl _conf, StackCall _stackCall, ArgumentListCall _list) {
-        CustList<Argument> arguments_ = _list.getArguments();
+    public static Parameters okArgsSetSw(ExecRootBlock _rootBlock, ExecAbstractSwitchMethod _id, String _classNameFound, Cache _cache, ContextEl _conf, StackCall _stackCall, CustList<Argument> _arguments) {
+        CustList<Argument> arguments_ = _arguments;
         if (arguments_.isEmpty()) {
             Parameters p_ = new Parameters();
             LgNames stds_ = _conf.getStandards();
@@ -695,11 +695,6 @@ public final class ExecTemplates {
         return out_;
     }
 
-    public static ArgumentListCall wrapAndCallDirectSw(CustList<Argument> _firstArgs) {
-        ArgumentListCall out_ = new ArgumentListCall();
-        out_.addAllArgs(_firstArgs);
-        return out_;
-    }
     public static Parameters wrapAndCall(ExecTypeFunction _pair, String _formatted, Argument _previous, ContextEl _conf, StackCall _stackCall, ArgumentListCall _argList, Argument _right) {
         ExecNamedFunctionBlock fct_ = _pair.getFct();
         ExecRootBlock type_ = _pair.getType();

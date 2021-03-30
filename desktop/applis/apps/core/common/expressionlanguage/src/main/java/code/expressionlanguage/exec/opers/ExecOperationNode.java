@@ -11,6 +11,7 @@ import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.calls.util.CustomFoundMethod;
 import code.expressionlanguage.exec.inherits.ExecInherits;
 import code.expressionlanguage.exec.inherits.Parameters;
+import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.exec.util.ExecOverrideInfo;
 import code.expressionlanguage.exec.util.ImplicitMethods;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
@@ -58,8 +59,10 @@ public abstract class ExecOperationNode {
     static int processConverter(ContextEl _conf, Argument _right, ImplicitMethods _implicits, int _indexImplicit, StackCall _stackCall) {
         ExecTypeFunction c = _implicits.get(_indexImplicit);
         AbstractExiting ex_ = _conf.getExiting();
-        CustList<Argument> args_ = new CustList<Argument>(Argument.getNullableValue(_right));
-        if (ExecExplicitOperation.checkFormattedCustomOper(ex_,c, args_, _implicits.getOwnerClass(), _conf,_right, _stackCall)) {
+        CustList<Argument> args_ = new CustList<Argument>();
+        ArgumentListCall l_ = new ArgumentListCall();
+        l_.addArg(Argument.getNullableValue(_right));
+        if (ExecExplicitOperation.checkFormattedCustomOper(ex_,c, _implicits.getOwnerClass(), _conf,_right, _stackCall, l_)) {
             return _indexImplicit;
         }
         return _indexImplicit +1;
