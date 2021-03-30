@@ -89,23 +89,7 @@ public final class RendSemiAffectationOperation extends RendAbstractUnaryOperati
     }
 
     private static Argument getNullArgument(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, RendDynOperationNode _settable) {
-        Argument arg_ = null;
-        if (_settable instanceof RendStdRefVariableOperation) {
-            arg_ = getArgument(_nodes, _settable);
-        }
-        if (_settable instanceof RendSettableFieldOperation) {
-            arg_ = getArgument(_nodes, _settable);
-        }
-        if (_settable instanceof RendCustArrOperation) {
-            arg_ = getArgument(_nodes, _settable);
-        }
-        if (_settable instanceof RendArrOperation) {
-            arg_ = getArgument(_nodes, _settable);
-        }
-        if (_settable instanceof RendSettableCallFctOperation) {
-            arg_ = getArgument(_nodes, _settable);
-        }
-        return Argument.getNullableValue(arg_);
+        return getArgument(_nodes, _settable);
     }
 
     private static Argument endCalculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, Argument _stored, Argument _res, RendDynOperationNode _settable, ExecStaticPostEltContent _staticPostEltContent, BeanLgNames _advStandards, ContextEl _context, StackCall _stackCall, RendStackCall _rendStackCall) {
