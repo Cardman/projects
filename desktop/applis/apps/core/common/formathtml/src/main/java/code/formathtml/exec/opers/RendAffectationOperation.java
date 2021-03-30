@@ -110,9 +110,6 @@ public final class RendAffectationOperation extends RendMethodOperation implemen
         if (_set instanceof RendSettableCallFctOperation) {
             arg_ = ((RendSettableCallFctOperation)_set).calculateSetting(_nodes, _conf, _right, _advStandards, _context, _stackCall, _rendStackCall);
         }
-        if (_set instanceof RendRefTernaryOperation) {
-            arg_ = ((RendRefTernaryOperation)_set).calculateSetting(_nodes, _conf, _right, _advStandards, _context, _stackCall, _rendStackCall);
-        }
         return Argument.getNullableValue(arg_);
     }
 }

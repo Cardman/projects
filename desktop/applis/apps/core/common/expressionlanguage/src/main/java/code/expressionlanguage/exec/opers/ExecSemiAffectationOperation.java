@@ -99,12 +99,6 @@ public final class ExecSemiAffectationOperation extends ExecAbstractUnaryOperati
         if (settable instanceof ExecSettableCallFctOperation) {
             arg_ = ((ExecSettableCallFctOperation)settable).calculateSemiSetting(_nodes, _conf, operatorContent.getOper(), staticPostEltContent.isPost(), getResultClass().getUnwrapObjectNb(), _stackCall);
         }
-        if (settable instanceof ExecSwitchOperation) {
-            arg_ = ((ExecSwitchOperation)settable).calculateSemiSetting(_nodes, _conf, operatorContent.getOper(), staticPostEltContent.isPost(), getResultClass().getUnwrapObjectNb(), _stackCall);
-        }
-        if (settable instanceof ExecRefTernaryOperation) {
-            arg_ = ((ExecRefTernaryOperation)settable).calculateSemiSetting(_nodes, _conf, operatorContent.getOper(), staticPostEltContent.isPost(), getResultClass().getUnwrapObjectNb(), _stackCall);
-        }
         return Argument.getNullableValue(arg_);
     }
 
@@ -174,12 +168,6 @@ public final class ExecSemiAffectationOperation extends ExecAbstractUnaryOperati
         }
         if (_settable instanceof ExecSettableCallFctOperation) {
             arg_ = ((ExecSettableCallFctOperation)_settable).endCalculate(_conf, _nodes, _staticPostEltContent.isPost(), _stored, _right, _stackCall);
-        }
-        if (_settable instanceof ExecSwitchOperation) {
-            arg_ = ((ExecSwitchOperation)_settable).endCalculate(_conf, _nodes, _staticPostEltContent.isPost(), _stored, _right, _stackCall);
-        }
-        if (_settable instanceof ExecRefTernaryOperation) {
-            arg_ = ((ExecRefTernaryOperation)_settable).endCalculate(_conf, _nodes, _staticPostEltContent.isPost(), _stored, _right, _stackCall);
         }
         return Argument.getNullableValue(arg_);
     }

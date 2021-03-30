@@ -17,15 +17,13 @@ import code.formathtml.exec.RendStackCall;
 import code.formathtml.util.BeanLgNames;
 import code.util.IdMap;
 
-public final class RendRefTernaryOperation extends RendMethodOperation implements RendCalculableOperation, RendSettableElResult {
+public final class RendRefTernaryOperation extends RendSettableCallFctOperation implements RendCalculableOperation {
 
     private final int offsetLocal;
-    private final ExecArrContent arrContent;
 
     public RendRefTernaryOperation(ExecOperationContent _content, int _offsetLocal,ExecArrContent _arrContent) {
-        super(_content);
+        super(_content,false,_arrContent);
         offsetLocal = _offsetLocal;
-        arrContent = _arrContent;
     }
 
     @Override
@@ -58,46 +56,4 @@ public final class RendRefTernaryOperation extends RendMethodOperation implement
         return arg_;
     }
 
-    @Override
-    public boolean resultCanBeSet() {
-        return arrContent.isVariable();
-    }
-
-    @Override
-    public Argument calculateSetting(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, Argument _right, BeanLgNames _advStandards, ContextEl _context, StackCall _stack, RendStackCall _rendStack) {
-        return trySetArgument(_nodes,_context,_right,_stack);
-    }
-
-    @Override
-    public Argument calculateCompoundSetting(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, String _op, Argument _right, ExecClassArgumentMatching _cl, byte _cast, BeanLgNames _advStandards, ContextEl _context, StackCall _stack, RendStackCall _rendStack) {
-        ArgumentsPair pair_ = getArgumentPair(_nodes, this);
-        Argument left_ = ExecTemplates.getArgValue(pair_.getWrapper(), _context, _stack);
-        Argument res_ = RendNumericOperation.calculateAffect(left_, _right, _op, arrContent.isCatString(), _cl.getNames(), _cast, _context,_stack);
-        return trySetArgument(_nodes,_context,res_,_stack);
-    }
-
-    @Override
-    public Argument calculateSemiSetting(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, String _op, boolean _post, Argument _stored, byte _cast, BeanLgNames _advStandards, ContextEl _context, StackCall _stack, RendStackCall _rendStack) {
-        ArgumentsPair pair_ = getArgumentPair(_nodes, this);
-        Argument left_ = ExecTemplates.getArgValue(pair_.getWrapper(), _context, _stack);
-        Argument res_ = ExecNumericOperation.calculateIncrDecr(left_, _op, _cast);
-        trySetArgument(_nodes, _context, res_, _stack);
-        return RendSemiAffectationOperation.getPrePost(_post, left_, res_);
-    }
-
-    @Override
-    public Argument endCalculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, Argument _right, BeanLgNames _advStandards, ContextEl _context, StackCall _stack, RendStackCall _rendStack) {
-        return trySetArgument(_nodes,_context,_right,_stack);
-    }
-
-    @Override
-    public Argument endCalculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, boolean _post, Argument _stored, Argument _right, BeanLgNames _advStandards, ContextEl _context, StackCall _stack, RendStackCall _rendStack) {
-        trySetArgument(_nodes,_context,_right,_stack);
-        return RendSemiAffectationOperation.getPrePost(_post, _stored, _right);
-    }
-
-    private Argument trySetArgument(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, ContextEl _conf, Argument _res, StackCall _stackCall) {
-        ArgumentsPair pair_ = getArgumentPair(_nodes, this);
-        return ExecTemplates.trySetArgument(_conf, _res, pair_, _stackCall);
-    }
 }
