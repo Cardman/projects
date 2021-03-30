@@ -37,11 +37,7 @@ public final class ExecStaticFctOperation extends ExecSettableCallFctOperation {
             String lastType_ = ClassMethodId.formatType(pair.getType(), classNameFound_, staticFctContent.getLastType(), staticFctContent.getKind());
             res_ = callPrepare(_conf.getExiting(), _conf, classNameFound_, pair, prev_, null, fectchArgs(_nodes, lastType_, staticFctContent.getNaturalVararg()), null, staticFctContent.getKind(), "", _stack);
         }
-        if (resultCanBeSet()) {
-            setQuickNoConvertSimpleArgument(res_, _conf, _nodes, _stack);
-            return;
-        }
-        setSimpleArgument(res_, _conf, _nodes, _stack);
+        setResult(res_, _conf, _nodes, _stack);
     }
 
 

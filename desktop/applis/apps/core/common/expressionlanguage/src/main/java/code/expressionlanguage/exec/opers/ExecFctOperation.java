@@ -54,11 +54,7 @@ public final class ExecFctOperation extends ExecSettableCallFctOperation {
             classNameFound_ = polymorph_.getClassName();
             res_ = callPrepare(_conf.getExiting(), _conf, classNameFound_, pair_, prev_, null, fetchFormattedArgs(_nodes, _conf, pr_, getClassName(), pair.getType(), instFctContent.getLastType(), instFctContent.getNaturalVararg()), null, MethodAccessKind.INSTANCE, "", _stack);
         }
-        if (resultCanBeSet()) {
-            setQuickNoConvertSimpleArgument(res_, _conf, _nodes, _stack);
-            return;
-        }
-        setSimpleArgument(res_, _conf, _nodes, _stack);
+        setResult(res_, _conf, _nodes, _stack);
     }
 
     public String getClassName() {

@@ -23,6 +23,13 @@ public abstract class ExecSettableCallFctOperation extends ExecInvokingOperation
         arrContent = _execArr;
     }
 
+    protected void setResult(Argument _res, ContextEl _conf, IdMap<ExecOperationNode, ArgumentsPair> _nodes, StackCall _stack) {
+        if (resultCanBeSet()) {
+            setQuickNoConvertSimpleArgument(_res, _conf, _nodes, _stack);
+            return;
+        }
+        setSimpleArgument(_res, _conf, _nodes, _stack);
+    }
     @Override
     public Argument calculateSetting(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, Argument _right, StackCall _stack) {
         return trySetArgument(_nodes, _conf, _right, _stack);

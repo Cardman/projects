@@ -68,25 +68,25 @@ public final class Coverage {
         refOperators.add(_type);
         operators.add(new FunctionCoverageResult());
     }
-    public void putCalls(RootBlock _type, InstanceBlock _call) {
+    public void putCallsInstanceBlock(RootBlock _type) {
         if (!isCovering()) {
             return;
         }
         types.get(_type.getNumberAll()).getFunctionsInst().add(new FunctionCoverageResult());
     }
-    public void putCalls(RootBlock _type, StaticBlock _call) {
+    public void putCallsStaticBlock(RootBlock _type) {
         if (!isCovering()) {
             return;
         }
         types.get(_type.getNumberAll()).getFunctionsStat().add(new FunctionCoverageResult());
     }
-    public void putCalls(RootBlock _type, ConstructorBlock _call) {
+    public void putCallsConstructorBlock(RootBlock _type) {
         if (!isCovering()) {
             return;
         }
         types.get(_type.getNumberAll()).getFunctionsCtor().add(new FunctionCoverageResult());
     }
-    public void putCalls(RootBlock _type, NamedCalledFunctionBlock _call) {
+    public void putCallsNamedCalledFunctionBlock(RootBlock _type) {
         if (!isCovering()) {
             return;
         }

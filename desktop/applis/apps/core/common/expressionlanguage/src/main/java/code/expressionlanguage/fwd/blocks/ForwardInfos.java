@@ -215,22 +215,22 @@ public final class ForwardInfos {
             Members mem_ = e.getValue();
             for (EntryCust<NamedCalledFunctionBlock,ExecOverridableBlock> f: mem_.getOvNamed()) {
                 NamedCalledFunctionBlock method_ =  f.getKey();
-                coverage_.putCalls(c,method_);
+                coverage_.putCallsNamedCalledFunctionBlock(c);
                 _forwards.addFctBody(method_,f.getValue());
             }
             for (EntryCust<ConstructorBlock, ExecConstructorBlock> f: mem_.getCtors()) {
                 ConstructorBlock method_ =  f.getKey();
-                coverage_.putCalls(c,method_);
+                coverage_.putCallsConstructorBlock(c);
                 _forwards.addFctBody(method_,f.getValue());
             }
             for (EntryCust<InstanceBlock, ExecInstanceBlock> f: mem_.getInstInitBodies()) {
                 InstanceBlock method_ =  f.getKey();
-                coverage_.putCalls(c,method_);
+                coverage_.putCallsInstanceBlock(c);
                 _forwards.addFctBody(method_,f.getValue());
             }
             for (EntryCust<StaticBlock, ExecStaticBlock> f: mem_.getStatInitBodies()) {
                 StaticBlock method_ =  f.getKey();
-                coverage_.putCalls(c,method_);
+                coverage_.putCallsStaticBlock(c);
                 _forwards.addFctBody(method_,f.getValue());
             }
         }

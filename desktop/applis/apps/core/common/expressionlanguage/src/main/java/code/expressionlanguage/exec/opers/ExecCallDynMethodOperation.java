@@ -57,11 +57,7 @@ public final class ExecCallDynMethodOperation extends ExecSettableCallFctOperati
             out_.add(a_);
         }
         Argument res_ = prepareCallDynNormal(previous_, out_, _conf, _stack);
-        if (resultCanBeSet()) {
-            setQuickNoConvertSimpleArgument(res_, _conf, _nodes, _stack);
-            return;
-        }
-        setSimpleArgument(res_, _conf, _nodes, _stack);
+        setResult(res_, _conf, _nodes, _stack);
     }
 
     private static ExecOperationNode getLast(CustList<ExecOperationNode> _list) {
