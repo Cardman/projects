@@ -16,8 +16,8 @@ import code.util.CustList;
 import code.util.core.IndexConstants;
 
 public abstract class ReachInvokingOperation extends ReachMethodOperation implements ReachCalculable {
-    private int naturalVararg;
-    private String lastType;
+    private final int naturalVararg;
+    private final String lastType;
     ReachInvokingOperation(AbstractCallFctOperation _meta, OperationNode _info) {
         super(_info);
         naturalVararg = _meta.getCallFctContent().getNaturalVararg();
@@ -42,22 +42,21 @@ public abstract class ReachInvokingOperation extends ReachMethodOperation implem
     CustList<Argument> getArguments() {
         CustList<ReachOperationNode> chidren_ = getChildrenNodes();
         AnaArgumentList list_ = listNamedArguments(chidren_);
-        CustList<ReachOperationNode> filterCh_ = list_.getFilter();
-        return quickListArguments(filterCh_, naturalVararg, lastType, list_.getArguments());
+        return quickListArguments(naturalVararg, lastType, list_.getArguments());
     }
 
     private static AnaArgumentList listNamedArguments(CustList<ReachOperationNode> _children) {
         AnaArgumentList out_ = new AnaArgumentList();
         CustList<Argument> args_ = out_.getArguments();
-        CustList<ReachOperationNode> filter_ = out_.getFilter();
         CustList<ReachNamedArgumentOperation> named_ = new CustList<ReachNamedArgumentOperation>();
         for (ReachOperationNode c: _children) {
+            if (c instanceof ReachNoopOperation) {
+                continue;
+            }
             if (c instanceof ReachNamedArgumentOperation) {
                 named_.add((ReachNamedArgumentOperation)c);
-                filter_.add(c);
             } else {
                 args_.add(c.getArgument());
-                filter_.add(c);
             }
         }
         while (!named_.isEmpty()) {
@@ -77,39 +76,25 @@ public abstract class ReachInvokingOperation extends ReachMethodOperation implem
         }
         return out_;
     }
-    private static CustList<Argument> quickListArguments(CustList<ReachOperationNode> _children, int _natVararg, String _lastType, CustList<Argument> _nodes) {
-        if (_natVararg > -1) {
-            CustList<Argument> firstArgs_ = new CustList<Argument>();
-            CustList<Struct> optArgs_ = new CustList<Struct>();
-            int lenCh_ = _children.size();
-            int natVarArg_ = _natVararg;
-            for (int i = IndexConstants.FIRST_INDEX; i < lenCh_; i++) {
-                if (_children.get(i) instanceof ReachNoopOperation) {
-                    natVarArg_++;
-                    continue;
-                }
-                Argument a_ = _nodes.get(i);
-                if (i >= natVarArg_) {
-                    optArgs_.add(a_.getStruct());
-                } else {
-                    firstArgs_.add(a_);
-                }
-            }
-            String clArr_ = StringExpUtil.getPrettyArrayType(_lastType);
-            ArrayStruct str_ = NumParsers.setElements(optArgs_,clArr_);
-            Argument argRem_ = new Argument(str_);
-            firstArgs_.add(argRem_);
-            return firstArgs_;
+    private static CustList<Argument> quickListArguments(int _natVararg, String _lastType, CustList<Argument> _nodes) {
+        if (_natVararg <= -1) {
+            return _nodes;
         }
         CustList<Argument> firstArgs_ = new CustList<Argument>();
-        int lenCh_ = _children.size();
+        CustList<Struct> optArgs_ = new CustList<Struct>();
+        int lenCh_ = _nodes.size();
         for (int i = IndexConstants.FIRST_INDEX; i < lenCh_; i++) {
-            if (_children.get(i) instanceof ReachNoopOperation) {
-                continue;
-            }
             Argument a_ = _nodes.get(i);
-            firstArgs_.add(a_);
+            if (i >= _natVararg) {
+                optArgs_.add(a_.getStruct());
+            } else {
+                firstArgs_.add(a_);
+            }
         }
+        String clArr_ = StringExpUtil.getPrettyArrayType(_lastType);
+        ArrayStruct str_ = NumParsers.setElements(optArgs_,clArr_);
+        Argument argRem_ = new Argument(str_);
+        firstArgs_.add(argRem_);
         return firstArgs_;
     }
 
