@@ -441,67 +441,8 @@ public final class ForwardInfos {
             ExecRootBlock current_ = r.getValue().getRootBlock();
             RootBlock k_ = r.getKey();
             Members mem_ = r.getValue();
-            for (InfoBlock i: k_.getFieldsBlocks()) {
-                if (i instanceof InnerElementBlock) {
-                    ExecInnerElementBlock val_ = _forwards.getInnerEltType((InnerElementBlock) i);
-                    mem_.addElementField((InnerElementBlock) i,val_);
-                    buildImportedTypes(val_, i);
-                }
-                if (i instanceof ElementBlock) {
-                    ExecElementBlock val_ = new ExecElementBlock(((ElementBlock) i).getOffset().getOffsetTrim(), new ExecElementContent(((ElementBlock) i).getElementContent()), ((ElementBlock) i).getTrOffset());
-                    val_.setFile(current_.getFile());
-                    mem_.addElementField((ElementBlock) i,val_);
-                    buildImportedTypes(val_, i);
-                }
-                if (i instanceof FieldBlock) {
-                    ExecFieldBlock val_ = new ExecFieldBlock(((FieldBlock) i).getOffset().getOffsetTrim(), ((FieldBlock) i).getFieldContent());
-                    val_.setFile(current_.getFile());
-                    mem_.addExplicitField((FieldBlock) i,val_);
-                    buildImportedTypes(val_, i);
-                }
-            }
-            for (NamedCalledFunctionBlock b: k_.getOverridableBlocks()) {
-                NamedCalledFunctionBlock ov_ = b;
-                MethodKind kind_ = ov_.getKind();
-                ExecOverridableBlock val_ = new ExecOverridableBlock(ov_.isRetRef(), ov_.getName(), ov_.isVarargs(), ov_.getAccess(), ov_.getParametersNames(), ov_.getModifier(), toExecMethodKind(kind_), b.getOffset().getOffsetTrim(), ov_.getImportedParametersTypes(), ov_.getParametersRef());
-                val_.setFile(current_.getFile());
-                mem_.addOvNamed(ov_,val_);
-                val_.setImportedReturnType(ov_.getImportedReturnType());
-                String returnTypeGet_ = ov_.getReturnTypeGet();
-                if (!returnTypeGet_.isEmpty()) {
-                    val_.setImportedReturnType(returnTypeGet_);
-                }
-            }
-            for (NamedCalledFunctionBlock b: k_.getAnnotationsMethodsBlocks()) {
-                NamedCalledFunctionBlock annot_ = b;
-                ExecAnnotationMethodBlock val_ = new ExecAnnotationMethodBlock((annot_).getName(), (annot_).isVarargs(), (annot_).getAccess(), (annot_).getParametersNames(), (annot_).getDefaultValueOffset(), b.getOffset().getOffsetTrim());
-                val_.setFile(current_.getFile());
-                mem_.addAnnotMethod(annot_,val_);
-                mem_.addNamed(annot_,val_);
-                val_.setImportedReturnType(annot_.getImportedReturnType());
-                val_.getImportedParametersTypes().addAllElts(annot_.getImportedParametersTypes());
-            }
-            for (ConstructorBlock b: k_.getConstructorBlocks()) {
-                ExecConstructorBlock val_ = new ExecConstructorBlock(b.getName(), b.isVarargs(), b.getAccess(), b.getParametersNames(), b.getOffset().getOffsetTrim(), b.getImportedParametersTypes(), b.getParametersRef());
-                val_.setFile(current_.getFile());
-                mem_.addCtor(b,val_);
-                fwdInstancingStep(b, val_);
-                val_.setImportedReturnType(b.getImportedReturnType());
-            }
-            for (InstanceBlock b: k_.getInstanceBlocks()) {
-                ExecInstanceBlock val_ = new ExecInstanceBlock(b.getOffset().getOffsetTrim());
-                val_.setFile(current_.getFile());
-                val_.setNumber(b.getNumber());
-                mem_.addInstInitBody(b,val_);
-                current_.getAllInstanceInits().add(val_);
-            }
-            for (StaticBlock b: k_.getStaticBlocks()) {
-                ExecStaticBlock val_ = new ExecStaticBlock(b.getOffset().getOffsetTrim());
-                val_.setFile(current_.getFile());
-                val_.setNumber(b.getNumber());
-                mem_.addStatInitBody(b,val_);
-                current_.getAllStaticInits().add(val_);
-            }
+            buildFieldInfos(_forwards, current_, k_, mem_);
+            buildFctInfos(current_, k_, mem_);
             IdMap<MemberCallingsBlock,ExecMemberCallingsBlock> ovNamed_;
             ovNamed_ = new IdMap<MemberCallingsBlock,ExecMemberCallingsBlock>();
             for(EntryCust<NamedCalledFunctionBlock,ExecOverridableBlock> e: mem_.getOvNamed()) {
@@ -574,6 +515,73 @@ public final class ForwardInfos {
             current_.getAllInstanceMembers().addAllElts(mergedExecInst_);
             current_.getAllStaticMembers().addAllElts(mergedExecStat_);
             addFields(mem_);
+        }
+    }
+
+    private static void buildFctInfos(ExecRootBlock _current, RootBlock _k, Members _mem) {
+        for (NamedCalledFunctionBlock b: _k.getOverridableBlocks()) {
+            NamedCalledFunctionBlock ov_ = b;
+            MethodKind kind_ = ov_.getKind();
+            ExecOverridableBlock val_ = new ExecOverridableBlock(ov_.isRetRef(), ov_.getName(), ov_.isVarargs(), ov_.getAccess(), ov_.getParametersNames(), ov_.getModifier(), toExecMethodKind(kind_), b.getOffset().getOffsetTrim(), ov_.getImportedParametersTypes(), ov_.getParametersRef());
+            val_.setFile(_current.getFile());
+            _mem.addOvNamed(ov_,val_);
+            val_.setImportedReturnType(ov_.getImportedReturnType());
+            String returnTypeGet_ = ov_.getReturnTypeGet();
+            if (!returnTypeGet_.isEmpty()) {
+                val_.setImportedReturnType(returnTypeGet_);
+            }
+        }
+        for (NamedCalledFunctionBlock b: _k.getAnnotationsMethodsBlocks()) {
+            NamedCalledFunctionBlock annot_ = b;
+            ExecAnnotationMethodBlock val_ = new ExecAnnotationMethodBlock((annot_).getName(), (annot_).isVarargs(), (annot_).getAccess(), (annot_).getParametersNames(), (annot_).getDefaultValueOffset(), b.getOffset().getOffsetTrim());
+            val_.setFile(_current.getFile());
+            _mem.addAnnotMethod(annot_,val_);
+            _mem.addNamed(annot_,val_);
+            val_.setImportedReturnType(annot_.getImportedReturnType());
+            val_.getImportedParametersTypes().addAllElts(annot_.getImportedParametersTypes());
+        }
+        for (ConstructorBlock b: _k.getConstructorBlocks()) {
+            ExecConstructorBlock val_ = new ExecConstructorBlock(b.getName(), b.isVarargs(), b.getAccess(), b.getParametersNames(), b.getOffset().getOffsetTrim(), b.getImportedParametersTypes(), b.getParametersRef());
+            val_.setFile(_current.getFile());
+            _mem.addCtor(b,val_);
+            fwdInstancingStep(b, val_);
+            val_.setImportedReturnType(b.getImportedReturnType());
+        }
+        for (InstanceBlock b: _k.getInstanceBlocks()) {
+            ExecInstanceBlock val_ = new ExecInstanceBlock(b.getOffset().getOffsetTrim());
+            val_.setFile(_current.getFile());
+            val_.setNumber(b.getNumber());
+            _mem.addInstInitBody(b,val_);
+            _current.getAllInstanceInits().add(val_);
+        }
+        for (StaticBlock b: _k.getStaticBlocks()) {
+            ExecStaticBlock val_ = new ExecStaticBlock(b.getOffset().getOffsetTrim());
+            val_.setFile(_current.getFile());
+            val_.setNumber(b.getNumber());
+            _mem.addStatInitBody(b,val_);
+            _current.getAllStaticInits().add(val_);
+        }
+    }
+
+    private static void buildFieldInfos(Forwards _forwards, ExecRootBlock _current, RootBlock _k, Members _mem) {
+        for (InfoBlock i: _k.getFieldsBlocks()) {
+            if (i instanceof InnerElementBlock) {
+                ExecInnerElementBlock val_ = _forwards.getInnerEltType((InnerElementBlock) i);
+                _mem.addElementField((InnerElementBlock) i,val_);
+                buildImportedTypes(val_, i);
+            }
+            if (i instanceof ElementBlock) {
+                ExecElementBlock val_ = new ExecElementBlock(((ElementBlock) i).getOffset().getOffsetTrim(), new ExecElementContent(((ElementBlock) i).getElementContent()), ((ElementBlock) i).getTrOffset());
+                val_.setFile(_current.getFile());
+                _mem.addElementField((ElementBlock) i,val_);
+                buildImportedTypes(val_, i);
+            }
+            if (i instanceof FieldBlock) {
+                ExecFieldBlock val_ = new ExecFieldBlock(((FieldBlock) i).getOffset().getOffsetTrim(), ((FieldBlock) i).getFieldContent());
+                val_.setFile(_current.getFile());
+                _mem.addExplicitField((FieldBlock) i,val_);
+                buildImportedTypes(val_, i);
+            }
         }
     }
 
