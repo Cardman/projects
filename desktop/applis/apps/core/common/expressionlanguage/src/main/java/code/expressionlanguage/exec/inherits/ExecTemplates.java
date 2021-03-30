@@ -384,8 +384,7 @@ public final class ExecTemplates {
     }
 
     public static Parameters okArgsSetSw(ExecRootBlock _rootBlock, ExecAbstractSwitchMethod _id, String _classNameFound, Cache _cache, ContextEl _conf, StackCall _stackCall, CustList<Argument> _arguments) {
-        CustList<Argument> arguments_ = _arguments;
-        if (arguments_.isEmpty()) {
+        if (_arguments.isEmpty()) {
             Parameters p_ = new Parameters();
             LgNames stds_ = _conf.getStandards();
             String cast_ = stds_.getContent().getCoreNames().getAliasBadArgNumber();
@@ -395,7 +394,7 @@ public final class ExecTemplates {
             p_.setError(error_);
             return p_;
         }
-        Parameters ex_ = okArgsExSw(_rootBlock,_id, _classNameFound,_cache, _conf, _stackCall, arguments_.first());
+        Parameters ex_ = okArgsExSw(_rootBlock,_id, _classNameFound,_cache, _conf, _stackCall, _arguments.first());
         if (ex_.getError() != null) {
             _stackCall.setCallingState(new CustomFoundExc(ex_.getError()));
         }
