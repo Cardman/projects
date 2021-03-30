@@ -448,23 +448,36 @@ public final class ExecTemplates {
         if (p_.getError() != null) {
             return p_;
         }
-        CustList<Argument> args_ = _firstArgs.getArguments();
-        CustList<AbstractWrapper> wrappers_ = _firstArgs.getWrappers();
+        CustList<ArgumentWrapper> argumentWrappers_ = _firstArgs.getArgumentWrappers();
+//        CustList<Argument> args_ = _firstArgs.getArguments();
+//        CustList<AbstractWrapper> wrappers_ = _firstArgs.getWrappers();
         if (_id == null) {
-            if (wrappers_.size()+args_.size() != 0) {
+            if (argumentWrappers_.size() != 0) {
                 LgNames stds_ = _conf.getStandards();
                 String cast_ = stds_.getContent().getCoreNames().getAliasBadArgNumber();
-                StringBuilder mess_ = countDiff(wrappers_.size()+args_.size(), 0);
+                StringBuilder mess_ = countDiff(argumentWrappers_.size(), 0);
                 p_.setError(new ErrorStruct(_conf,mess_.toString(),cast_, _stackCall));
                 return p_;
             }
             return p_;
         }
         ParametersTypes params_ = fetchParamTypes(_rootBlock, _id, _classNameFound, _hasFormat);
+//        for (Sizes s: new CustList<Sizes>(
+//                new Sizes(args_.size(), params_.getTypes().size()),
+//                new Sizes(wrappers_.size(), params_.getTypesRef().size())
+//                )) {
+//            if (s.getArg() != s.getParam()) {
+//                LgNames stds_ = _conf.getStandards();
+//                String cast_ = stds_.getContent().getCoreNames().getAliasBadArgNumber();
+//                StringBuilder mess_ = countDiff(s.getArg(), s.getParam());
+//                p_.setError(new ErrorStruct(_conf,mess_.toString(),cast_, _stackCall));
+//                return p_;
+//            }
+//
+//        }
         for (Sizes s: new CustList<Sizes>(
-                new Sizes(args_.size(), params_.getTypes().size()),
-                new Sizes(wrappers_.size(), params_.getTypesRef().size())
-                )) {
+                new Sizes(argumentWrappers_.size(), params_.getTypesAll().size())
+        )) {
             if (s.getArg() != s.getParam()) {
                 LgNames stds_ = _conf.getStandards();
                 String cast_ = stds_.getContent().getCoreNames().getAliasBadArgNumber();
@@ -475,37 +488,68 @@ public final class ExecTemplates {
 
         }
         int i_ = IndexConstants.FIRST_INDEX;
-        for (Argument a: args_) {
-            String param_ = params_.getTypes().get(i_);
-            Struct ex_ = checkObjectEx(param_, a, _conf, _stackCall);
-            if (ex_ != null) {
-                p_.setError(ex_);
-                return p_;
+        CustList<Struct> values_ = new CustList<Struct>();
+        for (ArgumentWrapper a:argumentWrappers_) {
+            String param_ = params_.getTypesAll().get(i_);
+            Argument a_ = a.getValue();
+            if (a_ != null) {
+                Struct ex_ = checkObjectEx(param_, a_, _conf, _stackCall);
+                if (ex_ != null) {
+                    p_.setError(ex_);
+                    return p_;
+                }
+                Struct struct_ = a_.getStruct();
+                values_.add(struct_);
+                LocalVariable lv_ = LocalVariable.newLocalVariable(struct_,param_);
+                p_.getRefParameters().addEntry(params_.getNamesAll().get(i_),new VariableWrapper(lv_));
+            } else {
+                AbstractWrapper w_ = a.getWrapper();
+                Struct value_ = getValue(w_, _conf, _stackCall);
+                values_.add(value_);
+                Struct ex_ = checkObjectEx(param_, new Argument(value_), _conf, _stackCall);
+                if (ex_ != null) {
+                    p_.setError(ex_);
+                    return p_;
+                }
+                p_.getRefParameters().addEntry(params_.getNamesAll().get(i_),getWrap(w_));
             }
-            Struct struct_ = a.getStruct();
-            LocalVariable lv_ = LocalVariable.newLocalVariable(struct_,param_);
-            p_.getRefParameters().addEntry(params_.getNames().get(i_),new VariableWrapper(lv_));
             i_++;
         }
-        i_ = IndexConstants.FIRST_INDEX;
-        for (AbstractWrapper w: wrappers_) {
-            String param_ = params_.getTypesRef().get(i_);
-            Struct value_ = getValue(w, _conf, _stackCall);
-            Struct ex_ = checkObjectEx(param_, new Argument(value_), _conf, _stackCall);
-            if (ex_ != null) {
-                p_.setError(ex_);
-                return p_;
-            }
-            p_.getRefParameters().addEntry(params_.getNamesRef().get(i_),getWrap(w));
-            i_++;
-        }
+//        i_ = IndexConstants.FIRST_INDEX;
+//        for (Argument a: args_) {
+//            String param_ = params_.getTypes().get(i_);
+//            Struct ex_ = checkObjectEx(param_, a, _conf, _stackCall);
+//            if (ex_ != null) {
+//                p_.setError(ex_);
+//                return p_;
+//            }
+//            Struct struct_ = a.getStruct();
+//            LocalVariable lv_ = LocalVariable.newLocalVariable(struct_,param_);
+//            p_.getRefParameters().addEntry(params_.getNames().get(i_),new VariableWrapper(lv_));
+//            i_++;
+//        }
+//        i_ = IndexConstants.FIRST_INDEX;
+//        for (AbstractWrapper w: wrappers_) {
+//            String param_ = params_.getTypesRef().get(i_);
+//            Struct value_ = getValue(w, _conf, _stackCall);
+//            Struct ex_ = checkObjectEx(param_, new Argument(value_), _conf, _stackCall);
+//            if (ex_ != null) {
+//                p_.setError(ex_);
+//                return p_;
+//            }
+//            p_.getRefParameters().addEntry(params_.getNamesRef().get(i_),getWrap(w));
+//            i_++;
+//        }
         Struct str_ = null;
-        if (!args_.isEmpty()&&params_.isVararg()) {
-            str_ = args_.last().getStruct();
+        if (!values_.isEmpty()&&params_.isVarargAll()) {
+            str_ = values_.last();
         }
-        if (!wrappers_.isEmpty()&&params_.isVarargRef()) {
-            str_ = getValue(wrappers_.last(), _conf, _stackCall);
-        }
+//        if (!args_.isEmpty()&&params_.isVararg()) {
+//            str_ = args_.last().getStruct();
+//        }
+//        if (!wrappers_.isEmpty()&&params_.isVarargRef()) {
+//            str_ = getValue(wrappers_.last(), _conf, _stackCall);
+//        }
         if (str_ instanceof ArrayStruct) {
             ArrayStruct arr_ = (ArrayStruct) str_;
             for (Struct s: arr_.list()) {
@@ -585,11 +629,8 @@ public final class ExecTemplates {
 
     private static ParametersTypes fetchParamTypes(ExecRootBlock _rootBlock, ExecNamedFunctionBlock _id, String _classNameFound, boolean _hasFormat) {
         ParametersTypes parametersTypes_ = new ParametersTypes();
-        StringList params_ = new StringList();
-        StringList names_ = new StringList();
-        StringList paramsRef_ = new StringList();
-        StringList namesRef_ = new StringList();
-        boolean lastRef_ = false;
+        StringList paramsAll_ = new StringList();
+        StringList namesAll_ = new StringList();
         int i_ = 0;
         if (_hasFormat) {
             for (String c: _id.getImportedParametersTypes()) {
@@ -598,16 +639,8 @@ public final class ExecTemplates {
                 if (i_ + 1 == _id.getImportedParametersTypes().size() && _id.isVarargs()) {
                     c_ = StringExpUtil.getPrettyArrayType(c_);
                 }
-                if (_id.getParametersRef(i_)) {
-                    if (i_ + 1 == _id.getImportedParametersTypes().size()) {
-                        lastRef_ = true;
-                    }
-                    paramsRef_.add(c_);
-                    namesRef_.add(_id.getParametersName(i_));
-                } else {
-                    params_.add(c_);
-                    names_.add(_id.getParametersName(i_));
-                }
+                paramsAll_.add(c_);
+                namesAll_.add(_id.getParametersName(i_));
                 i_++;
             }
         } else {
@@ -616,29 +649,15 @@ public final class ExecTemplates {
                 if (i_ + 1 == _id.getImportedParametersTypes().size() && _id.isVarargs()) {
                     c_ = StringExpUtil.getPrettyArrayType(c_);
                 }
-                if (_id.getParametersRef(i_)) {
-                    if (i_ + 1 == _id.getImportedParametersTypes().size()) {
-                        lastRef_ = true;
-                    }
-                    paramsRef_.add(c_);
-                    namesRef_.add(_id.getParametersName(i_));
-                } else {
-                    params_.add(c_);
-                    names_.add(_id.getParametersName(i_));
-                }
+                paramsAll_.add(c_);
+                namesAll_.add(_id.getParametersName(i_));
                 i_++;
             }
         }
-        parametersTypes_.setNames(names_);
-        parametersTypes_.setTypes(params_);
-        parametersTypes_.setNamesRef(namesRef_);
-        parametersTypes_.setTypesRef(paramsRef_);
+        parametersTypes_.setNamesAll(namesAll_);
+        parametersTypes_.setTypesAll(paramsAll_);
         if (_id.isVarargs()) {
-            if (lastRef_) {
-                parametersTypes_.setVarargRef(true);
-            } else {
-                parametersTypes_.setVararg(true);
-            }
+            parametersTypes_.setVarargAll(true);
         }
         return parametersTypes_;
     }
@@ -665,9 +684,11 @@ public final class ExecTemplates {
                 Struct struct_ = _firstArgs.get(i_).getStruct();
                 LocalVariable local_ = LocalVariable.newLocalVariable(struct_, c_);
                 VariableWrapper v_ = new VariableWrapper(local_);
-                out_.getWrappers().add(v_);
+//                out_.getWrappers().add(v_);
+                out_.getArgumentWrappers().add(new ArgumentWrapper(null,v_));
             } else {
-                out_.getArguments().add(_firstArgs.get(i_));
+//                out_.getArguments().add(_firstArgs.get(i_));
+                out_.getArgumentWrappers().add(new ArgumentWrapper(_firstArgs.get(i_),null));
             }
             i_++;
         }
@@ -676,7 +697,7 @@ public final class ExecTemplates {
 
     public static ArgumentListCall wrapAndCallDirectSw(CustList<Argument> _firstArgs) {
         ArgumentListCall out_ = new ArgumentListCall();
-        out_.getArguments().addAllElts(_firstArgs);
+        out_.addAllArgs(_firstArgs);
         return out_;
     }
     public static Parameters wrapAndCall(ExecTypeFunction _pair, String _formatted, Argument _previous, ContextEl _conf, StackCall _stackCall, ArgumentListCall _argList, Argument _right) {

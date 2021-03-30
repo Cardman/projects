@@ -3,10 +3,7 @@ package code.expressionlanguage.stds;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.NumParsers;
-import code.expressionlanguage.exec.Classes;
-import code.expressionlanguage.exec.ErrorType;
-import code.expressionlanguage.exec.ExecHelper;
-import code.expressionlanguage.exec.StackCall;
+import code.expressionlanguage.exec.*;
 import code.expressionlanguage.exec.blocks.ExecOverridableBlock;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.calls.util.CustomFoundMethod;
@@ -696,7 +693,7 @@ public final class AliasMath {
                 return _result;
             }
             ArgumentListCall argList_ = new ArgumentListCall();
-            argList_.getArguments().addAllElts(argsToPass_);
+            argList_.addAllArgs(argsToPass_);
             ExecTemplates.wrapAndCall(p_, cl_,argSeedSpec_, _cont, _stackCall, argList_, null);
             return _result;
         }
@@ -721,7 +718,7 @@ public final class AliasMath {
                 return _result;
             }
             ArgumentListCall argList_ = new ArgumentListCall();
-            argList_.getArguments().addAllElts(argsToPass_);
+            argList_.addAllArgs(argsToPass_);
             ExecTemplates.wrapAndCall(p_, cl_,argSeed_, _cont, _stackCall, argList_, null);
             return _result;
         }

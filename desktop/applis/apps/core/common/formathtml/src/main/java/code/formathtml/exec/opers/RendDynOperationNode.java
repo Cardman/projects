@@ -347,7 +347,7 @@ public abstract class RendDynOperationNode {
         Parameters parameters_ = new Parameters();
         if (!_context.callsOrException(_stackCall)) {
             ArgumentListCall l_ = new ArgumentListCall();
-            l_.getArguments().addAllElts(args_);
+            l_.addAllArgs(args_);
             parameters_ = ExecTemplates.okArgsSet(_c.getType(), _c.getFct(), _owner,null, l_, _context, null, true, _stackCall);
         }
         if (_context.callsOrException(_stackCall)) {

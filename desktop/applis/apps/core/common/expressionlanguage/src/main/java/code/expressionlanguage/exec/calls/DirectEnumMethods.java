@@ -2,6 +2,7 @@ package code.expressionlanguage.exec.calls;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.exec.ArgumentWrapper;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.opers.ExecInvokingOperation;
 import code.expressionlanguage.exec.util.ArgumentListCall;
@@ -33,7 +34,7 @@ public final class DirectEnumMethods extends AbstractRefectMethodPageEl {
     Argument prepare(ContextEl _context, String _className, MethodId _mid, Argument _instance, CustList<Argument> _args, Argument _right, StackCall _stack) {
         MethodMetaInfo method_ = getMetaInfo();
         ArgumentListCall l_ = new ArgumentListCall();
-        l_.getArguments().addAllElts(_args);
+        l_.addAllArgs(_args);
         return ExecInvokingOperation.callPrepare(_context.getExiting(), _context, _className,method_.getPair(), _instance,method_.getCache(), l_, _right, getAccessKind(),getMethodName(), _stack);
     }
 }

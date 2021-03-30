@@ -5,6 +5,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.exec.ConditionReturn;
 import code.expressionlanguage.exec.StackCall;
+import code.expressionlanguage.exec.ArgumentWrapper;
 import code.expressionlanguage.exec.calls.util.CallingState;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
@@ -325,23 +326,32 @@ public abstract class RendBlock {
             objClasses_ = new StringList(NumParsers.getSingleNameOrEmpty(settable_.getResultClass().getNames()));
             arg_ = Argument.getNullableValue(pair_.getArgument());
             indexer_ = true;
-            for (Argument a: _rendStackCall.getLastPage().getList().getArguments()) {
-                obj_.add(a.getStruct());
-            }
+//            for (Argument a: _rendStackCall.getLastPage().getList().getArguments()) {
+//                obj_.add(a.getStruct());
+//            }
             for (String p: _f.getVarNames().getVarTypes()) {
                 objClasses_.add(p);
             }
-            for (AbstractWrapper a: _rendStackCall.getLastPage().getList().getWrappers()) {
-                wrap_.add(a);
+//            for (AbstractWrapper a: _rendStackCall.getLastPage().getList().getWrappers()) {
+//                wrap_.add(a);
+//            }
+            CustList<Argument> argsVal_ = new CustList<Argument>();
+            for (ArgumentWrapper a: _rendStackCall.getLastPage().getList().getArgumentWrappers()) {
+                if (a.getValue() != null) {
+                    argsVal_.add(a.getValue());
+                    obj_.add(a.getValue().getStruct());
+                } else {
+                    wrap_.add(a.getWrapper());
+                }
             }
             int argIndex_ = 0;
             int wrapIndex_ = 0;
             for (boolean p: _f.getVarNames().getRefs()) {
                 if (p) {
-                    allObj_.add(ExecTemplates.getValue(_rendStackCall.getLastPage().getList().getWrappers().get(wrapIndex_),_ctx, _stackCall));
+                    allObj_.add(ExecTemplates.getValue(wrap_.get(wrapIndex_),_ctx, _stackCall));
                     wrapIndex_++;
                 } else {
-                    allObj_.add(_rendStackCall.getLastPage().getList().getArguments().get(argIndex_).getStruct());
+                    allObj_.add(argsVal_.get(argIndex_).getStruct());
                     argIndex_++;
                 }
             }

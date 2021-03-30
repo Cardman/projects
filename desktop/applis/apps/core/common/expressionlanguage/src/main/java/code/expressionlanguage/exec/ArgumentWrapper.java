@@ -12,6 +12,13 @@ public final class ArgumentWrapper {
         this.wrapper = _wrapper;
     }
 
+    public static Argument helpArg(ArgumentWrapper _wrap) {
+        if (_wrap == null){
+            return Argument.createVoid();
+        }
+        return Argument.getNullableValue(_wrap.value);
+    }
+
     public Argument getValue() {
         return value;
     }

@@ -129,7 +129,7 @@ public final class AdvGraphicListPainter extends AbsAdvGraphicListPainter {
         ExecTypeFunction pair_ = ((LgNamesGui) _r.getStandards()).getGuiExecutingBlocks().getPairPaintRefresh();
         LgNamesGui stds_ = (LgNamesGui) _r.getStandards();
         ArgumentListCall argList_ = new ArgumentListCall();
-        argList_.getArguments().addAllElts(_args);
+        argList_.addAllArgs(_args);
         RunnableStruct.invoke(arg_, stds_.getGuiAliases().getAliasPaint(), _r,pair_, StackCall.newInstance(InitPhase.NOTHING,_r), argList_, null);
     }
     private GuiContextEl newCtx() {

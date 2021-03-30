@@ -58,28 +58,26 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
     protected ArgumentListCall fectchArgs(IdMap<ExecOperationNode, ArgumentsPair> _nodes, String _lastType, int _naturalVararg) {
         CustList<ExecOperationNode> chidren_ = getChildrenNodes();
         ArgumentList argumentList_ = listNamedArguments(_nodes, chidren_,_naturalVararg);
-        CustList<Argument> first_ = argumentList_.getArguments().getArguments();
-        CustList<Argument> res_ = listArguments(argumentList_.getNaturalVararg(), _lastType, first_);
-        first_.clear();
-        first_.addAllElts(res_);
+        CustList<ArgumentWrapper> first_ = argumentList_.getArguments().getArgumentWrappers();
+        listArguments(argumentList_.getNaturalVararg(), _lastType, first_);
         return argumentList_.getArguments();
     }
     private static ArgumentList listNamedArguments(IdMap<ExecOperationNode, ArgumentsPair> _all, CustList<ExecOperationNode> _children, int _naturalVararg) {
         ArgumentList out_ = new ArgumentList();
         out_.setNaturalVararg(_naturalVararg);
-        CustList<Argument> args_ = out_.getArguments().getArguments();
-        CustList<AbstractWrapper> wrappers_ = out_.getArguments().getWrappers();
+        CustList<ArgumentWrapper> wrappers_ = out_.getArguments().getArgumentWrappers();
         CustList<ExecNamedArgumentOperation> named_ = new CustList<ExecNamedArgumentOperation>();
         for (ExecOperationNode c: _children) {
             if (ExecConstLeafOperation.isFilter(c)) {
                 continue;
             }
+            ArgumentsPair calc_ = ExecHelper.getArgumentPair(_all,c);
             if (c instanceof ExecNamedArgumentOperation) {
-                if (!(c.getFirstChild() instanceof ExecWrappOperation)) {
-                    named_.add((ExecNamedArgumentOperation)c);
-                }
+                named_.add((ExecNamedArgumentOperation)c);
             } else if (!(c instanceof ExecWrappOperation)){
-                args_.add(getArgument(_all,c));
+                wrappers_.add(new ArgumentWrapper(calc_.getArgument(),null));
+            } else {
+                wrappers_.add(new ArgumentWrapper(null,calc_.getWrapper()));
             }
         }
         while (!named_.isEmpty()) {
@@ -93,62 +91,42 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
                     i_ = i;
                 }
             }
-            args_.add(getArgument(_all,named_.get(i_)));
-            named_.remove(i_);
-        }
-        for (ExecOperationNode c: _children) {
-            if (c instanceof ExecNamedArgumentOperation) {
-                if (c.getFirstChild() instanceof ExecWrappOperation) {
-                    named_.add((ExecNamedArgumentOperation)c);
-                }
-            } else if (c instanceof ExecWrappOperation){
-                ArgumentsPair pair_ = ExecHelper.getArgumentPair(_all, c);
-                wrappers_.add(pair_.getWrapper());
+            ExecNamedArgumentOperation n_ = named_.get(i_);
+            ArgumentsPair calc_ = ExecHelper.getArgumentPair(_all,n_);
+            if (!(n_.getFirstChild() instanceof ExecWrappOperation)) {
+                wrappers_.add(new ArgumentWrapper(calc_.getArgument(),null));
+            } else {
+                wrappers_.add(new ArgumentWrapper(null,calc_.getWrapper()));
             }
-        }
-        while (!named_.isEmpty()) {
-            int minIndex_ = named_.first().getIndex();
-            int size_ = named_.size();
-            int i_ = 0;
-            for (int i = 1; i < size_; i++) {
-                int index_ = named_.get(i).getIndex();
-                if (index_ < minIndex_) {
-                    minIndex_ = index_;
-                    i_ = i;
-                }
-            }
-            ArgumentsPair pair_ = ExecHelper.getArgumentPair(_all, named_.get(i_).getFirstChild());
-            wrappers_.add(pair_.getWrapper());
             named_.remove(i_);
         }
         return out_;
     }
-    private static CustList<Argument> listArguments(int _natVararg, String _lastType, CustList<Argument> _nodes) {
-        if (_natVararg > -1) {
-            CustList<Argument> firstArgs_ = new CustList<Argument>();
-            CustList<Struct> optArgs_ = new CustList<Struct>();
-            int lenCh_ = _nodes.size();
-            for (int i = IndexConstants.FIRST_INDEX; i < lenCh_; i++) {
-                Argument a_ = _nodes.get(i);
-                if (i >= _natVararg) {
-                    optArgs_.add(a_.getStruct());
-                } else {
-                    firstArgs_.add(a_);
-                }
-            }
-            String clArr_ = StringExpUtil.getPrettyArrayType(_lastType);
-            ArrayStruct str_ = NumParsers.setElements(optArgs_,clArr_);
-            Argument argRem_ = new Argument(str_);
-            firstArgs_.add(argRem_);
-            return firstArgs_;
+    public static void listArguments(int _natVararg, String _lastType, CustList<ArgumentWrapper> _nodes) {
+        if (_natVararg <= -1) {
+            return;
         }
-        CustList<Argument> firstArgs_ = new CustList<Argument>();
+        CustList<Struct> optArgs_ = new CustList<Struct>();
+        CustList<ArgumentWrapper> reord_ = new CustList<ArgumentWrapper>();
         int lenCh_ = _nodes.size();
         for (int i = IndexConstants.FIRST_INDEX; i < lenCh_; i++) {
-            Argument a_ = _nodes.get(i);
-            firstArgs_.add(a_);
+            ArgumentWrapper aw_ = _nodes.get(i);
+            Argument a_ = aw_.getValue();
+            if (a_ == null) {
+                reord_.add(aw_);
+                continue;
+            }
+            if (i >= _natVararg) {
+                optArgs_.add(a_.getStruct());
+            } else {
+                reord_.add(aw_);
+            }
         }
-        return firstArgs_;
+        String clArr_ = StringExpUtil.getPrettyArrayType(_lastType);
+        ArrayStruct str_ = NumParsers.setElements(optArgs_,clArr_);
+        reord_.add(new ArgumentWrapper(new Argument(str_),null));
+        _nodes.clear();
+        _nodes.addAllElts(reord_);
     }
     @Override
     public final boolean isIntermediateDottedOperation() {
@@ -269,10 +247,11 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
             }
             //static enum methods
             LgNames stds_ = _cont.getStandards();
-            if (_firstArgs.getArguments().size() != 1) {
+            CustList<Argument> args_ = _firstArgs.getArguments();
+            if (args_.size() != 1) {
                 return tryGetEnumValues(_exit,_cont,type_,  ClassCategory.ENUM, _stackCall);
             }
-            Argument arg_ = _firstArgs.getArguments().first();
+            Argument arg_ = args_.first();
             Struct ex_ = ExecTemplates.checkObjectEx(stds_.getContent().getCharSeq().getAliasString(), arg_, _cont, _stackCall);
             if (ex_ != null) {
                 _stackCall.setCallingState(new CustomFoundExc(ex_));
@@ -315,7 +294,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
                                                 IdMap<ExecOperationNode, ArgumentsPair> _nodes, ExecMethodOperation _meth, String _className, MethodAccessKind _kind, StackCall _stackCall) {
         CustList<Argument> arguments_ = getArguments(_nodes, _meth);
         ArgumentListCall l_ = new ArgumentListCall();
-        l_.getArguments().addAllElts(arguments_);
+        l_.addAllArgs(arguments_);
         checkParametersOperators(_exit, _conf, _named, l_, _className, _kind, _stackCall);
     }
     public static void checkParametersOperators(AbstractExiting _exit, ContextEl _conf, ExecTypeFunction _named,
@@ -423,9 +402,11 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
                 Struct struct_ = values_.get(i_).getStruct();
                 LocalVariable local_ = LocalVariable.newLocalVariable(struct_, c.substring(1));
                 VariableWrapper v_ = new VariableWrapper(local_);
-                argumentListCall_.getWrappers().add(v_);
+//                argumentListCall_.getWrappers().add(v_);
+                argumentListCall_.getArgumentWrappers().add(new ArgumentWrapper(null,v_));
             } else {
-                argumentListCall_.getArguments().add(values_.get(i_));
+//                argumentListCall_.getArguments().add(values_.get(i_));
+                argumentListCall_.getArgumentWrappers().add(new ArgumentWrapper(values_.get(i_),null));
             }
             i_++;
         }
@@ -441,25 +422,29 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
             ParametersTypes pars_ = new ParametersTypes();
             StringList typesRef_ = new StringList();
             StringList types_ = new StringList();
+            StringList typesAll_ = new StringList();
             int parNb_ = paramsFct_.size();
             for (int i = 0; i < parNb_; i++) {
                 String param_ = paramsFct_.get(i);
                 if (param_.startsWith("~")) {
                     typesRef_.add(param_.substring(1));
+                    typesAll_.add(param_.substring(1));
                 } else {
                     types_.add(param_);
+                    typesAll_.add(param_);
                 }
             }
-            pars_.setTypes(types_);
-            pars_.setTypesRef(typesRef_);
+            CustList<ArgumentWrapper> pairs_ = new CustList<ArgumentWrapper>();
             CustList<Argument> values_ = new CustList<Argument>();
             CustList<AbstractWrapper> wrappers_ = new CustList<AbstractWrapper>();
             for (ArgumentsPair a: _values) {
                 Argument arg_ = a.getArgument();
                 if (arg_ != null) {
                     values_.add(arg_);
+                    pairs_.add(new ArgumentWrapper(arg_,null));
                 } else {
                     wrappers_.add(a.getWrapper());
+                    pairs_.add(new ArgumentWrapper(null,a.getWrapper()));
                 }
             }
             if (_values.size() != parNb_) {
@@ -470,8 +455,8 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
                 return new Argument();
             }
             for (Sizes s: new CustList<Sizes>(
-                    new Sizes(values_.size(), pars_.getTypes().size()),
-                    new Sizes(wrappers_.size(), pars_.getTypesRef().size())
+                    new Sizes(values_.size(), types_.size()),
+                    new Sizes(wrappers_.size(), typesRef_.size())
             )) {
                 if (s.getArg() != s.getParam()) {
                     LgNames stds_ = _conf.getStandards();
@@ -503,24 +488,22 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
                 i_++;
             }
             i_ = IndexConstants.FIRST_INDEX;
-            for (Argument a: values_) {
-                String param_ = pars_.getTypes().get(i_);
-                if (!ExecTemplates.checkQuick(param_, a, _conf, _stackCall)) {
-                    return new Argument();
+            for (ArgumentWrapper a:pairs_) {
+                Argument val_ = a.getValue();
+                String param_ = typesAll_.get(i_);
+                if (val_ != null) {
+                    if (!ExecTemplates.checkQuick(param_, val_, _conf, _stackCall)) {
+                        return new Argument();
+                    }
+                } else {
+                    Struct value_ = ExecTemplates.getValue(a.getWrapper(), _conf, _stackCall);
+                    if (!ExecTemplates.checkQuick(param_, new Argument(value_), _conf, _stackCall)) {
+                        return new Argument();
+                    }
                 }
                 i_++;
             }
-            i_ = IndexConstants.FIRST_INDEX;
-            for (AbstractWrapper w: wrappers_) {
-                String param_ = pars_.getTypesRef().get(i_);
-                Struct value_ = ExecTemplates.getValue(w, _conf, _stackCall);
-                if (!ExecTemplates.checkQuick(param_, new Argument(value_), _conf, _stackCall)) {
-                    return new Argument();
-                }
-                i_++;
-            }
-            call_.getArguments().addAllElts(values_);
-            call_.getWrappers().addAllElts(wrappers_);
+            call_.getArgumentWrappers().addAllElts(pairs_);
         }
         return prepareCallDyn(_previous,call_,_conf, _stackCall);
     }
@@ -528,10 +511,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         return StringUtil.concat(_className, RETURN_LINE, _classNameFound, RETURN_LINE);
     }
     public static Argument prepareCallDyn(Argument _previous, ArgumentListCall _values, ContextEl _conf, StackCall _stackCall) {
-        CustList<Argument> values_ = new CustList<Argument>();
-        for (Argument v: _values.getArguments()) {
-            values_.add(Argument.getNullableValue(v));
-        }
+        CustList<Argument> values_ = _values.getArguments();
         Struct ls_ = Argument.getNullableValue(_previous).getStruct();
         LgNames lgNames_ = _conf.getStandards();
         if (ls_ instanceof LambdaRecordConstructorStruct) {
@@ -565,18 +545,18 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
             }
             ConstructorMetaInfo meta_ = NumParsers.getCtor(metaInfo_);
             ArgumentListCall call_ = new ArgumentListCall();
-            call_.getWrappers().addAllElts(_values.getWrappers());
             if (!l_.isShiftInstance()) {
                 ExecRootBlock type_ = meta_.getPair().getType();
+                CustList<ArgumentWrapper> argumentWrappers_ = _values.getArgumentWrappers();
                 if (type_ != null && !type_.withoutInstance()) {
-                    instance_ = ExecHelper.getFirstArgument(values_);
-                    values_ = values_.mid(1);
+                    instance_ = ArgumentWrapper.helpArg(ExecHelper.getFirstArgumentWrapper(argumentWrappers_));
+                    argumentWrappers_ = argumentWrappers_.mid(1);
                 }
-                call_.getArguments().addAllElts(values_);
+                call_.getArgumentWrappers().addAllElts(argumentWrappers_);
                 _stackCall.setCallingState(new CustomReflectLambdaConstructor(meta_, instance_.getStruct(),call_, true));
                 return new Argument();
             }
-            call_.getArguments().addAllElts(values_);
+            call_.getArgumentWrappers().addAllElts(_values.getArgumentWrappers());
             _stackCall.setCallingState(new CustomReflectLambdaConstructor(meta_, instance_.getStruct(),call_, true));
             return new Argument();
         }
@@ -589,7 +569,8 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
                 if (!l_.isShiftInstance()) {
                     realInstance_ = instance_;
                 } else {
-                    realInstance_ = ExecHelper.getFirstArgument(values_);
+                    CustList<ArgumentWrapper> argumentWrappers_ = _values.getArgumentWrappers();
+                    realInstance_ = ArgumentWrapper.helpArg(ExecHelper.getFirstArgumentWrapper(argumentWrappers_));
                 }
                 Struct struct_ = realInstance_.getStruct();
                 if (StringUtil.quickEq(l_.getReturnFieldType(), lgNames_.getContent().getPrimTypes().getAliasPrimBoolean())) {
@@ -614,7 +595,8 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
                 if (!l_.isShiftInstance()) {
                     value_ = instance_.getStruct();
                 } else {
-                    value_ = ExecHelper.getFirstArgument(values_).getStruct();
+                    CustList<ArgumentWrapper> argumentWrappers_ = _values.getArgumentWrappers();
+                    value_ = ArgumentWrapper.helpArg(ExecHelper.getFirstArgumentWrapper(argumentWrappers_)).getStruct();
                 }
                 realInstance_ = new Argument(ExecTemplates.getParent(nbAncestors_, clName_, value_, _conf, _stackCall));
                 if (_conf.callsOrException(_stackCall)) {
@@ -628,7 +610,8 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
             FieldMetaInfo method_ = NumParsers.getField(metaInfo_);
             if (aff_) {
                 type_ = ReflectingType.SET_FIELD;
-                _stackCall.setCallingState(new CustomReflectSetField(type_, method_, realInstance_, ExecHelper.getLastArgument(values_), true));
+                CustList<ArgumentWrapper> argumentWrappers_ = _values.getArgumentWrappers();
+                _stackCall.setCallingState(new CustomReflectSetField(type_, method_, realInstance_, ArgumentWrapper.helpArg(ExecHelper.getLastArgumentWrapper(argumentWrappers_)), true));
                 return new Argument();
             }
             type_ = ReflectingType.GET_FIELD;
@@ -652,17 +635,17 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
                 return new Argument(ExecClassArgumentMatching.defaultValue(last_,_conf));
             }
             MethodMetaInfo method_ = NumParsers.getMethod(metaInfo_);
-            CustList<Argument> formal_;
+            CustList<ArgumentWrapper> argumentWrappers_ = _values.getArgumentWrappers();
+            CustList<ArgumentWrapper> formal_;
             Argument right_;
             if (StringUtil.quickEq(l_.getMethodName(),"[]=")) {
-                formal_ = values_.left(values_.size()-1);
-                right_ = ExecHelper.getLastArgument(values_);
+                formal_ = argumentWrappers_.left(argumentWrappers_.size()-1);
+                right_ = ArgumentWrapper.helpArg(ExecHelper.getLastArgumentWrapper(argumentWrappers_));
             } else {
-                formal_ = values_;
+                formal_ = argumentWrappers_;
                 right_ = null;
             }
             ArgumentListCall call_ = new ArgumentListCall();
-            call_.getWrappers().addAllElts(_values.getWrappers());
             if (!l_.isShiftInstance()) {
                 Argument instance_;
                 if (!static_) {
@@ -673,23 +656,23 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
                 } else {
                     instance_ = new Argument(instanceStruct_);
                 }
-                call_.getArguments().addAllElts(formal_);
+                call_.getArgumentWrappers().addAllElts(formal_);
                 return redirect(_conf, l_,instance_, call_, right_, method_, _stackCall);
             }
             if (FunctionIdUtil.isOperatorName(l_.getMethodName())) {
-                formal_.add(0,new Argument(instanceStruct_));
-                call_.getArguments().addAllElts(formal_);
+                formal_.add(0,new ArgumentWrapper(new Argument(instanceStruct_),null));
+                call_.getArgumentWrappers().addAllElts(formal_);
                 _stackCall.setCallingState(new CustomReflectLambdaMethod(ReflectingType.DIRECT, method_, new Argument(),call_,right_, true));
                 return new Argument();
             }
             int len_ = Math.max(0, formal_.size() - 1);
-            CustList<Argument> arr_ = formal_.leftMinusOne(len_);
-            Struct value_ = ExecHelper.getFirstArgument(formal_).getStruct();
+            CustList<ArgumentWrapper> arr_ = formal_.leftMinusOne(len_);
+            Struct value_ = ArgumentWrapper.helpArg(ExecHelper.getFirstArgumentWrapper(formal_)).getStruct();
             Argument firstValue_ = new Argument(ExecTemplates.getParent(nbAncestors_, id_, value_, _conf, _stackCall));
             if (_conf.callsOrException(_stackCall)) {
                 return new Argument();
             }
-            call_.getArguments().addAllElts(arr_);
+            call_.getArgumentWrappers().addAllElts(arr_);
             return redirect(_conf, l_, firstValue_, call_, right_, method_, _stackCall);
         }
         String null_;
@@ -699,9 +682,9 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
     }
 
     private static Argument redirect(ContextEl _conf, LambdaMethodStruct _l, Argument _instance, ArgumentListCall _call, Argument _right, MethodMetaInfo _method, StackCall _stackCall) {
-        CustList<Argument> arguments_ = _call.getArguments();
         String name_ = _l.getMethodName();
         if (StringUtil.nullToEmpty(_l.getFormClassName()).startsWith(StringExpUtil.ARR_CLASS) && name_.startsWith("[]")) {
+            CustList<Argument> arguments_ = _call.getArguments();
             Struct arr_ = _instance.getStruct();
             int lastIndex_ = arguments_.size() - 1;
             if (lastIndex_ < 0) {

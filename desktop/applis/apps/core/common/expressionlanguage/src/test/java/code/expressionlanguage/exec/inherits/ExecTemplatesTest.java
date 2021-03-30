@@ -601,7 +601,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         args_.add(new Argument(arr_));
         ArgumentListCall l_ = new ArgumentListCall();
-        l_.getArguments().addAllElts(args_);
+        l_.addAllArgs(args_);
         ExecRootBlock classBody_ = cont_.getClasses().getClassBody("pkg.Ex");
         ExecTemplates.okArgsSet(classBody_, ExecClassesUtil.getMethodBodiesById(classBody_,id_).first(), "pkg.Ex<$int>", null, l_, cont_.getContext(), null, true, cont_.getStackCall());
         assertNotNull(getTrueException(cont_));
@@ -617,7 +617,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         MethodId id_ = new MethodId(MethodAccessKind.INSTANCE,"get", new StringList("$int"),true);
         CustList<Argument> args_ = new CustList<Argument>();
         ArgumentListCall l_ = new ArgumentListCall();
-        l_.getArguments().addAllElts(args_);
+        l_.addAllArgs(args_);
         ExecRootBlock classBody_ = cont_.getClasses().getClassBody("pkg.Ex");
         ExecTemplates.okArgsSet(classBody_, ExecClassesUtil.getMethodBodiesById(classBody_,id_).first(), "pkg.Ex<$int>", null, l_, cont_.getContext(), null, true, cont_.getStackCall());
         assertNotNull(getTrueException(cont_));
@@ -633,7 +633,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         args_.add(Argument.createVoid());
         ArgumentListCall l_ = new ArgumentListCall();
-        l_.getArguments().addAllElts(args_);
+        l_.addAllArgs(args_);
         ExecTemplates.okArgsSet(cont_.getClasses().getClassBody("pkg.Ex"), null, "pkg.Ex<$int>", null, l_, cont_.getContext(), null, true, cont_.getStackCall());
         assertNotNull(getTrueException(cont_));
     }
@@ -647,7 +647,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         AnalyzedTestContext cont_ = validated(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         ArgumentListCall l_ = new ArgumentListCall();
-        l_.getArguments().addAllElts(args_);
+        l_.addAllArgs(args_);
         StackCall stackCall_ = cont_.getStackCall();
         ExecTemplates.okArgsSet(cont_.getClasses().getClassBody("pkg.Ex"), null, "pkg.Ex", null, l_, cont_.getContext(), null,true, stackCall_);
         assertNull(stackCall_.getCallingState());
@@ -1220,7 +1220,9 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
 
     private void wrapAndCall(AnalyzedTestContext _cont, ExecRootBlock _classBody, ExecNamedFunctionBlock _first) {
         ArgumentListCall argList_ = new ArgumentListCall();
-        argList_.getArguments().add(new Argument());
+        argList_.addArg(new Argument());
+        ArgumentWrapper.helpArg(null);
+        ExecHelper.getArgumentWrapper(new CustList<ArgumentWrapper>(),0);
         ExecTemplates.wrapAndCall(new ExecTypeFunction(_classBody, _first), "pkg.Ex",Argument.createVoid(), _cont.getContext(), _cont.getStackCall(), argList_, null);
     }
 

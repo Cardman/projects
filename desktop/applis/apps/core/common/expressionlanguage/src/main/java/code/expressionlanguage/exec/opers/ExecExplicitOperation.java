@@ -4,6 +4,7 @@ import code.expressionlanguage.AbstractExiting;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.StringExpUtil;
+import code.expressionlanguage.exec.ArgumentWrapper;
 import code.expressionlanguage.exec.ExecHelper;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
@@ -68,7 +69,7 @@ public final class ExecExplicitOperation extends ExecAbstractUnaryOperation {
         ExecNamedFunctionBlock fct_ = _rootBlock.getFct();
         ExecRootBlock type_ = _rootBlock.getType();
         ArgumentListCall l_ = new ArgumentListCall();
-        l_.getArguments().addAllElts(_arguments);
+        l_.addAllArgs(_arguments);
         Parameters parameters_ = ExecTemplates.okArgsSet(type_, fct_, _paramNameOwner, null, l_, _conf, null, true, _stackCall);
         if (parameters_.getError() != null) {
             return true;

@@ -46,7 +46,7 @@ public final class DefSpecSelectionStruct implements SpecSelectionStruct {
         ExecTypeFunction pair_ = ((LgNamesGui) _r.getStandards()).getGuiExecutingBlocks().getPairPaintRefreshOne();
         LgNamesGui stds_ = (LgNamesGui) _r.getStandards();
         ArgumentListCall argList_ = new ArgumentListCall();
-        argList_.getArguments().addAllElts(_args);
+        argList_.addAllArgs(_args);
         return RunnableStruct.invoke(arg_, stds_.getGuiAliases().getAliasPaint(), _r,pair_, StackCall.newInstance(InitPhase.NOTHING,_r), argList_, null);
     }
     private static GuiContextEl newCtx(CommonExecutionInfos _executionInfos) {

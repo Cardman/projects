@@ -307,7 +307,7 @@ public final class EventStruct implements WithParentStruct,EnumerableStruct,
 
     private void invoke(RunnableContextEl _r, ExecRootBlock _typeName, ExecNamedFunctionBlock _methName, CustList<Argument> _args) {
         ArgumentListCall argList_ = new ArgumentListCall();
-        argList_.getArguments().addAllElts(_args);
+        argList_.addAllArgs(_args);
         RunnableStruct.invoke(this,_r,_typeName,_methName, argList_, null);
     }
     private GuiContextEl newCtx() {

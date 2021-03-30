@@ -49,11 +49,26 @@ public final class ExecHelper {
         return getArgument(_list,_list.size()-1);
     }
 
+    public static ArgumentWrapper getFirstArgumentWrapper(CustList<ArgumentWrapper> _list) {
+        return getArgumentWrapper(_list,0);
+    }
+
+    public static ArgumentWrapper getLastArgumentWrapper(CustList<ArgumentWrapper> _list) {
+        return getArgumentWrapper(_list,_list.size()-1);
+    }
+
     public static Argument getArgument(CustList<Argument> _list, int _index) {
         if (_list.isValidIndex(_index)) {
             return Argument.getNullableValue(_list.get(_index));
         }
         return Argument.createVoid();
+    }
+
+    public static ArgumentWrapper getArgumentWrapper(CustList<ArgumentWrapper> _list, int _index) {
+        if (_list.isValidIndex(_index)) {
+            return _list.get(_index);
+        }
+        return new ArgumentWrapper(Argument.createVoid(),null);
     }
 
     public static ExecMethodOperation getParentOrNull(ExecOperationNode _node) {

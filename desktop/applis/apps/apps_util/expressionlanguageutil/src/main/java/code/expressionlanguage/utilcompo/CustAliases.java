@@ -2941,7 +2941,7 @@ public final class CustAliases {
                 String className_ = aliasFormatType;
                 Argument arg_ = new Argument(_args[0]);
                 ArgumentListCall argList_ = new ArgumentListCall();
-                argList_.getArguments().addAllElts(new CustList<Argument>(arg_));
+                argList_.addAllArgs(new CustList<Argument>(arg_));
                 ExecTemplates.wrapAndCall(_execBlocks.getFormatObjectPair(), className_,Argument.createVoid(), _cont, _stackCall, argList_, null);
                 return;
             }
@@ -2951,7 +2951,7 @@ public final class CustAliases {
             Argument arg_ = new Argument(_args[0]);
             Argument argArr_ = new Argument(_args[1]);
             ArgumentListCall argList_ = new ArgumentListCall();
-            argList_.getArguments().addAllElts(new CustList<Argument>(arg_,argArr_));
+            argList_.addAllArgs(new CustList<Argument>(arg_,argArr_));
             ExecTemplates.wrapAndCall(_execBlocks.getFormatObjectTwoPair(), className_,Argument.createVoid(), _cont, _stackCall, argList_, null);
             return;
         }
