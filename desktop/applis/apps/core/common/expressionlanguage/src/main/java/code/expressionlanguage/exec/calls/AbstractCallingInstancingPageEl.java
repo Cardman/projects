@@ -9,6 +9,7 @@ import code.expressionlanguage.exec.calls.util.InstancingStep;
 import code.expressionlanguage.exec.calls.util.NotInitializedFields;
 
 import code.expressionlanguage.exec.inherits.Parameters;
+import code.expressionlanguage.exec.variables.AbstractWrapper;
 
 
 public abstract class AbstractCallingInstancingPageEl extends AbstractPageEl implements ForwardPageEl {
@@ -18,7 +19,9 @@ public abstract class AbstractCallingInstancingPageEl extends AbstractPageEl imp
     private boolean firstField;
 
     private ExecRootBlock blockRootSuperType;
-
+    public void receive(AbstractWrapper _wrap, Argument _argument, ContextEl _context, StackCall _stack) {
+        basicReceive(_wrap, _argument,_context, _stack);
+    }
     public boolean isFirstField() {
         return firstField;
     }

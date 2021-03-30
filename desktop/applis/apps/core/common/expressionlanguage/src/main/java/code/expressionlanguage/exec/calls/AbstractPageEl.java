@@ -90,9 +90,7 @@ public abstract class AbstractPageEl {
     public final void forwardTo(AbstractPageEl _page, ContextEl _context, StackCall _stack) {
         _page.receive(wrapper, returnedArgument, _context, _stack);
     }
-    public void receive(AbstractWrapper _wrap, Argument _argument, ContextEl _context, StackCall _stack) {
-        basicReceive(_wrap, _argument,_context, _stack);
-    }
+    public abstract void receive(AbstractWrapper _wrap, Argument _argument, ContextEl _context, StackCall _stack);
     public String formatVarType(String _varType) {
         if (getGlobalArgument().isNull()) {
             return _varType;
@@ -100,7 +98,7 @@ public abstract class AbstractPageEl {
         return ExecInherits.quickFormat(blockRootType, globalClass, _varType);
     }
 
-    void basicReceive(AbstractWrapper _wrap, Argument _argument, ContextEl _context, StackCall _stackCall) {
+    protected void basicReceive(AbstractWrapper _wrap, Argument _argument, ContextEl _context, StackCall _stackCall) {
         if (isEmptyEl()) {
             return;
         }

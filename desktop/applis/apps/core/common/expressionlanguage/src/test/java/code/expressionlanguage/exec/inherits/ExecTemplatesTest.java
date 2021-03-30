@@ -25,6 +25,7 @@ import code.expressionlanguage.methods.ProcessMethodCommon;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.structs.*;
+import code.expressionlanguage.exec.calls.*;
 import code.util.*;
 import org.junit.Test;
 
@@ -1224,6 +1225,8 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         ArgumentWrapper.helpArg(null);
         ExecHelper.getArgumentWrapper(new CustList<ArgumentWrapper>(),0);
         ExecTemplates.wrapAndCall(new ExecTypeFunction(_classBody, _first), "pkg.Ex",Argument.createVoid(), _cont.getContext(), _cont.getStackCall(), argList_, null);
+        new ReflectGetFieldPageEl(null,null).receive(null,null,_cont.getContext(), _cont.getStackCall());
+        new ReflectSetFieldPageEl(null,null,null).receive(null,null,_cont.getContext(), _cont.getStackCall());
     }
 
     private static String getFullTypeByBases(AnalyzedTestContext _context, String _first, String _second) {

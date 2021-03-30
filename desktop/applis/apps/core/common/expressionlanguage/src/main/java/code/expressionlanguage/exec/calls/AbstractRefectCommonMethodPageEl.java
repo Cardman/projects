@@ -17,6 +17,7 @@ import code.expressionlanguage.exec.opers.ExecInvokingOperation;
 import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.exec.util.Cache;
 import code.expressionlanguage.exec.util.ExecOverrideInfo;
+import code.expressionlanguage.exec.variables.AbstractWrapper;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.stds.LgNames;
@@ -41,6 +42,11 @@ public abstract class AbstractRefectCommonMethodPageEl extends AbstractReflectPa
         instance = _instance;
         setGlobalArgumentStruct(_metaInfo);
         metaInfo = _metaInfo;
+    }
+    @Override
+    public void receive(AbstractWrapper _wrap, Argument _argument, ContextEl _context, StackCall _stack) {
+        setWrapper(_wrap);
+        setReturnedArgument(_argument);
     }
 
     protected boolean initDefault(ContextEl _cont, StackCall _stackCall) {

@@ -1,6 +1,10 @@
 package code.expressionlanguage.exec.calls;
 
+import code.expressionlanguage.Argument;
+import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.blocks.ExecBlock;
+import code.expressionlanguage.exec.variables.AbstractWrapper;
 import code.util.CustList;
 
 public abstract class AbstractInitPageEl extends AbstractPageEl {
@@ -11,7 +15,9 @@ public abstract class AbstractInitPageEl extends AbstractPageEl {
     protected AbstractInitPageEl(CustList<ExecBlock> _visited) {
         this.visited = _visited;
     }
-
+    public void receive(AbstractWrapper _wrap, Argument _argument, ContextEl _context, StackCall _stack) {
+        basicReceive(_wrap, _argument,_context, _stack);
+    }
     public CustList<ExecBlock> getVisited() {
         return visited;
     }
