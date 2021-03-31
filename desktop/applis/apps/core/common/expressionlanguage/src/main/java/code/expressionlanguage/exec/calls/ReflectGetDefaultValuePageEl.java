@@ -18,6 +18,7 @@ public final class ReflectGetDefaultValuePageEl extends AbstractReflectPageEl {
     private boolean init;
     private CustList<ExecOperationNode> ops = new CustList<ExecOperationNode>();
     private final MethodMetaInfo metaInfo;
+    private ExecAnnotationMethodBlock annotMethod;
 
     public ReflectGetDefaultValuePageEl(MethodMetaInfo _metaInfo) {
         setGlobalArgumentStruct(_metaInfo);
@@ -46,6 +47,7 @@ public final class ReflectGetDefaultValuePageEl extends AbstractReflectPageEl {
                 setReturnedArgument(out_);
                 return true;
             }
+            annotMethod = ann_;
             init = true;
         }
         ExpressionLanguage el_ = getCurrentEl(0,ops);
@@ -63,6 +65,9 @@ public final class ReflectGetDefaultValuePageEl extends AbstractReflectPageEl {
         basicReceive(_wrap, _argument,_context, _stack);
     }
 
+    public ExecAnnotationMethodBlock getAnnotMethod() {
+        return annotMethod;
+    }
     public MethodMetaInfo getMetaInfo() {
         return metaInfo;
     }

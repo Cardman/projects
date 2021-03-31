@@ -434,11 +434,11 @@ public final class Coverage {
         covTwo_.cover(_value);
     }
 
-    public void passCatches(AbstractPageEl _page,ExecBlock _block) {
+    public void passCatches(ExecBlock _block,StackCall _stackCall) {
         if (!isCovering()) {
             return;
         }
-        FunctionCoverageResult fctRes_ = getFctRes(_page);
+        FunctionCoverageResult fctRes_ = getFctRes(_stackCall);
         fctRes_.getCatches().set(_block,BoolVal.TRUE);
     }
 
@@ -495,8 +495,7 @@ public final class Coverage {
             }
         } else if (lastPage_ instanceof ReflectGetDefaultValuePageEl) {
             ReflectGetDefaultValuePageEl annotRet_ = (ReflectGetDefaultValuePageEl)lastPage_;
-            ExecTypeFunction pair_ = annotRet_.getMetaInfo().getPair();
-            ExecAnnotationMethodBlock annotMeth_ = (ExecAnnotationMethodBlock) pair_.getFct();
+            ExecAnnotationMethodBlock annotMeth_ = annotRet_.getAnnotMethod();
             matchBl_ = types.get(typeAna_.getNumberAll()).getMappingFields().getVal(annotMeth_);
         } else {
             if (en_ instanceof ExecInfoBlock || en_ instanceof ExecAnnotationMethodBlock) {
