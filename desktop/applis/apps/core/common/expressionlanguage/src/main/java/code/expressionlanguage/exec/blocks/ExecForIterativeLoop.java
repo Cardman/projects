@@ -170,7 +170,6 @@ public final class ExecForIterativeLoop extends ExecBracedBlock implements ExecL
         LoopBlockStack l_ = new LoopBlockStack();
         l_.setLabel(label);
         l_.setFinished(finished_);
-        l_.setExecBlock(this);
         l_.setExecLoop(this);
         l_.setCurrentVisitedBlock(this);
         l_.setEq(eq);

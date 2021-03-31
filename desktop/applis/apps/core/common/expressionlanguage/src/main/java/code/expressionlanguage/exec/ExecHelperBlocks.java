@@ -20,28 +20,39 @@ public final class ExecHelperBlocks {
         }
         AbstractStask bl_ = _ip.getLastStack();
         if (_label.isEmpty()) {
-            if (bl_ instanceof LoopBlockStack || bl_ instanceof SwitchBlockStack) {
-                ExecBlock forLoopLoc_ = bl_.getLastBlock();
+            if (bl_ instanceof LoopBlockStack) {
+                ExecBlock forLoopLoc_ = bl_.getCurrentVisitedBlock();
                 _ip.setBlock(forLoopLoc_);
-                if (bl_ instanceof LoopBlockStack) {
-                    _ip.setLastLoop((LoopBlockStack) bl_);
-                    ((LoopBlockStack)bl_).setFinished(true);
-                }
+                _ip.setLastLoop((LoopBlockStack) bl_);
+                ((LoopBlockStack)bl_).setFinished(true);
+                return false;
+            }
+            if (bl_ instanceof SwitchBlockStack) {
+                ExecBlock forLoopLoc_ = ((SwitchBlockStack)bl_).getBlock();
+                _ip.setBlock(forLoopLoc_);
                 return false;
             }
         } else {
             if (StringUtil.quickEq(_label, bl_.getLabel())){
-                ExecBlock forLoopLoc_ = bl_.getLastBlock();
-                _ip.setBlock(forLoopLoc_);
                 if (bl_ instanceof LoopBlockStack) {
+                    ExecBlock forLoopLoc_ = bl_.getCurrentVisitedBlock();
+                    _ip.setBlock(forLoopLoc_);
                     _ip.setLastLoop((LoopBlockStack) bl_);
                     ((LoopBlockStack)bl_).setFinished(true);
                 }
                 if (bl_ instanceof IfBlockStack) {
+                    ExecBlock forLoopLoc_ = ((IfBlockStack)bl_).getLastBlock();
+                    _ip.setBlock(forLoopLoc_);
                     _ip.setLastIf((IfBlockStack) bl_);
                 }
                 if (bl_ instanceof TryBlockStack) {
+                    ExecBlock forLoopLoc_ = ((TryBlockStack)bl_).getLastBlock();
+                    _ip.setBlock(forLoopLoc_);
                     _ip.setLastTry((TryBlockStack) bl_);
+                }
+                if (bl_ instanceof SwitchBlockStack) {
+                    ExecBlock forLoopLoc_ = ((SwitchBlockStack)bl_).getBlock();
+                    _ip.setBlock(forLoopLoc_);
                 }
                 return false;
             }
@@ -56,7 +67,7 @@ public final class ExecHelperBlocks {
         }
         AbstractStask bl_ = _ip.getLastStack();
         if (bl_ instanceof LoopBlockStack) {
-            ExecBracedBlock br_ = bl_.getBlock();
+            ExecBracedBlock br_ = bl_.getCurrentVisitedBlock();
             if (_label.isEmpty()) {
                 LoopBlockStack lSt_;
                 lSt_ = (LoopBlockStack) bl_;

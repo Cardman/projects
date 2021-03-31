@@ -10,6 +10,7 @@ import code.expressionlanguage.exec.calls.util.NotInitializedFields;
 
 import code.expressionlanguage.exec.inherits.Parameters;
 import code.expressionlanguage.exec.variables.AbstractWrapper;
+import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 
 
 public abstract class AbstractCallingInstancingPageEl extends AbstractPageEl implements ForwardPageEl {
@@ -79,6 +80,10 @@ public abstract class AbstractCallingInstancingPageEl extends AbstractPageEl imp
         return true;
     }
 
+    public void blockRootTypes(ExecTypeFunction _pair) {
+        setBlockRootTypes(_pair.getType());
+        setBlockRoot(_pair.getFct());
+    }
     public void setBlockRootTypes(ExecRootBlock _blockRootType) {
         setBlockRootType(_blockRootType);
         if (getBlockRootType() instanceof ExecUniqueRootedBlock) {

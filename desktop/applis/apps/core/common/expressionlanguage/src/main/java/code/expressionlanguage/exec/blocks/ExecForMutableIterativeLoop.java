@@ -130,7 +130,6 @@ public final class ExecForMutableIterativeLoop extends ExecBracedBlock implement
         }
         LoopBlockStack l_ = new LoopBlockStack();
         l_.setLabel(label);
-        l_.setExecBlock(this);
         l_.setExecLoop(this);
         l_.setCurrentVisitedBlock(this);
         boolean finished_ = res_ == ConditionReturn.NO;

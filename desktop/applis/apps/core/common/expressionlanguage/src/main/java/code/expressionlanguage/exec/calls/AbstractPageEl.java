@@ -13,6 +13,7 @@ import code.expressionlanguage.exec.util.Cache;
 import code.expressionlanguage.exec.variables.AbstractWrapper;
 import code.expressionlanguage.exec.variables.LoopVariable;
 import code.expressionlanguage.exec.variables.VariableWrapper;
+import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.exec.variables.LocalVariable;
 import code.util.CustList;
@@ -50,6 +51,16 @@ public abstract class AbstractPageEl {
     private IfBlockStack lastIf;
     private TryBlockStack lastTry;
     private final PageElContent content = new PageElContent();
+
+    public void blockRootType(ExecTypeFunction _pair) {
+        setBlockRootType(_pair.getType());
+        setBlockRoot(_pair.getFct());
+    }
+
+    public void blockRoot(ExecRootBlock _type) {
+        setBlockRootType(_type);
+        setBlockRoot(_type);
+    }
     public Struct getGlobalStruct() {
         return content.getGlobalStruct();
     }
@@ -114,7 +125,7 @@ public abstract class AbstractPageEl {
             _next.processBlockAndRemove(_context, _stackCall);
             return;
         }
-        setBlock(_l.getBlock().getFirstChild());
+        setBlock(_l.getCurrentVisitedBlock().getFirstChild());
     }
     public void setTranslatedOffset(int _translatedOffset) {
         translatedOffset = _translatedOffset;
@@ -174,7 +185,7 @@ public abstract class AbstractPageEl {
                 c_ = (LoopBlockStack) lastStack_;
             }
         }
-        if (c_ != null && c_.getBlock() == _bl) {
+        if (c_ != null && c_.getCurrentVisitedBlock() == _bl) {
             return c_;
         }
         return null;
@@ -183,7 +194,21 @@ public abstract class AbstractPageEl {
         if (!hasBlock()) {
             return false;
         }
-        return _bl == getLastStack().getBlock();
+        AbstractStask last_ = getLastStack();
+        if (!(last_ instanceof SwitchBlockStack)) {
+            return false;
+        }
+        return _bl == ((SwitchBlockStack)last_).getBlock();
+    }
+    public boolean matchIfStatement(ExecBlock _bl) {
+        if (!hasBlock()) {
+            return false;
+        }
+        AbstractStask last_ = getLastStack();
+        if (!(last_ instanceof IfBlockStack)) {
+            return false;
+        }
+        return _bl == ((IfBlockStack)last_).getBlock();
     }
 
     public AbstractStask getLastStack() {

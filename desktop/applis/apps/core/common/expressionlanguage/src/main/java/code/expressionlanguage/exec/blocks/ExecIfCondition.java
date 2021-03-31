@@ -20,7 +20,7 @@ public final class ExecIfCondition extends ExecCondition implements StackableBlo
     @Override
     public void processEl(ContextEl _cont, StackCall _stack) {
         AbstractPageEl ip_ = _stack.getLastPage();
-        if (ip_.matchStatement(this)) {
+        if (ip_.matchIfStatement(this)) {
             processBlockAndRemove(_cont, _stack);
             return;
         }

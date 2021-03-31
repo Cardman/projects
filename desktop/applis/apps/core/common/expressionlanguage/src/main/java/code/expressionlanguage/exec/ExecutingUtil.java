@@ -69,8 +69,7 @@ public final class ExecutingUtil {
         }
 //        rw_.setBlock(firstChild_);
         page_.setReadWrite(rw_);
-        page_.setBlockRootType(_rootBlock);
-        page_.setBlockRoot(_rootBlock);
+        page_.blockRoot(_rootBlock);
 //        while (firstChild_ != null) {
 //            if (firstChild_ instanceof ExecStaticBlock) {
 //                page_.getProcessedBlocks().put((ExecInitBlock) firstChild_, BoolVal.FALSE);
@@ -123,9 +122,7 @@ public final class ExecutingUtil {
     }
     private static void setMethodInfos(ContextEl _context, AbstractPageEl _page, ExecTypeFunction _block, Parameters _args) {
         ExecNamedFunctionBlock fct_ = _block.getFct();
-        ExecRootBlock type_ = _block.getType();
-        _page.setBlockRootType(type_);
-        _page.setBlockRoot(fct_);
+        _page.blockRootType(_block);
         _context.getCoverage().passCalls(_page);
         _page.getRefParams().addAllEntries(_args.getRefParameters());
         _page.setCache(_args.getCache());
@@ -159,9 +156,7 @@ public final class ExecutingUtil {
         ExecFileBlock file_ = type_.getFile();
         page_.setGlobalClass(cl_);
         ReadWrite rw_ = new ReadWrite();
-        page_.setBlockRootTypes(type_);
-        ExecMemberCallingsBlock ctor_ = _e.getPair().getFct();
-        page_.setBlockRoot(ctor_);
+        page_.blockRootTypes(_e.getPair());
         page_.setReadWrite(rw_);
         page_.setFile(file_);
         return page_;
@@ -227,9 +222,8 @@ public final class ExecutingUtil {
         ExecFileBlock file_ = type_.getFile();
         _page.setGlobalClass(_class);
         ReadWrite rw_ = new ReadWrite();
-        _page.setBlockRootTypes(type_);
+        _page.blockRootTypes(_pair);
         ExecMemberCallingsBlock ctor_ = _pair.getFct();
-        _page.setBlockRoot(ctor_);
         if (ctor_ != null) {
             _context.getCoverage().passCalls(_page);
             _page.getRefParams().addAllEntries(_args.getRefParameters());
@@ -246,7 +240,6 @@ public final class ExecutingUtil {
         page_.setGlobalClass(_class);
         page_.setGlobalArgument(_current);
         page_.setReturnedArgument(_current);
-        page_.setBlockRootType(_type);
         ReadWrite rw_ = new ReadWrite();
         for (ExecInstanceBlock i: _type.getAllInstanceInits()) {
             page_.getProcessedBlocks().addEntry(i, BoolVal.FALSE);
@@ -263,7 +256,7 @@ public final class ExecutingUtil {
 //            firstChild_ = firstChild_.getNextSibling();
 //        }
         page_.setReadWrite(rw_);
-        page_.setBlockRoot(_type);
+        page_.blockRoot(_type);
         page_.setFile(_type.getFile());
         return page_;
     }

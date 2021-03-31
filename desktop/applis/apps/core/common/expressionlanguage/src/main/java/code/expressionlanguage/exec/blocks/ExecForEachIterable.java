@@ -52,7 +52,6 @@ public final class ExecForEachIterable extends ExecAbstractForEachLoop {
         LoopBlockStack l_ = new LoopBlockStack();
         l_.setLabel(_label);
         l_.setIndex(-1);
-        l_.setExecBlock(this);
         l_.setExecLoop(this);
         l_.setCurrentVisitedBlock(this);
         l_.setStructIterator(iterStr_);

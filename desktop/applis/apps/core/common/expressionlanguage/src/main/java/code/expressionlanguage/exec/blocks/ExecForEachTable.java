@@ -121,7 +121,6 @@ public final class ExecForEachTable extends ExecBracedBlock implements ExecLoop,
         l_.setLabel(label);
         l_.setIndex(-1);
         l_.setFinished(false);
-        l_.setExecBlock(this);
         l_.setExecLoop(this);
         l_.setCurrentVisitedBlock(this);
         l_.setStructIterator(iterStr_);

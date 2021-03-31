@@ -30,7 +30,6 @@ public final class ExecDoBlock extends ExecBracedBlock implements ExecLoop {
         }
         LoopBlockStack l_ = new LoopBlockStack();
         l_.setLabel(label);
-        l_.setExecBlock(this);
         l_.setExecLoop(this);
         l_.setCurrentVisitedBlock(this);
         ip_.addBlock(l_);

@@ -44,7 +44,6 @@ public final class ExecForEachArray extends ExecAbstractForEachLoop {
         l_.setLabel(_label);
         l_.setIndex(-1);
         l_.setFinished(finished_);
-        l_.setExecBlock(this);
         l_.setExecLoop(this);
         l_.setCurrentVisitedBlock(this);
         l_.setMaxIteration(length_);

@@ -9,7 +9,6 @@ public final class SwitchBlockStack extends AbstractStask {
 
     private ExecBracedBlock execCurrentVisitedBlock;
 
-    @Override
     public ExecBracedBlock getBlock() {
         return execBlock;
     }
@@ -21,11 +20,6 @@ public final class SwitchBlockStack extends AbstractStask {
     @Override
     public void setCurrentVisitedBlock(ExecBracedBlock _execCurrentVisitedBlock) {
         this.execCurrentVisitedBlock = _execCurrentVisitedBlock;
-    }
-
-    @Override
-    public ExecBracedBlock getLastBlock() {
-        return execBlock;
     }
 
     @Override

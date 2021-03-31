@@ -7,8 +7,6 @@ public final class TryBlockStack extends AbstractStask {
     private AbruptCallingFinally calling;
     private Struct exception;
 
-    private ExecBracedBlock execBlock;
-
     private ExecBracedBlock execLastBlock;
 
     private ExecBracedBlock execCurrentBlock;
@@ -23,16 +21,6 @@ public final class TryBlockStack extends AbstractStask {
         visitedFinally = _visitedFinally;
     }
 
-    @Override
-    public ExecBracedBlock getBlock() {
-        return execBlock;
-    }
-
-    public void setExecBlock(ExecBracedBlock _execBlock) {
-        execBlock = _execBlock;
-    }
-
-    @Override
     public ExecBracedBlock getLastBlock() {
         return execLastBlock;
     }

@@ -92,15 +92,6 @@ public final class LoopBlockStack extends AbstractStask {
         index = _index;
     }
 
-    @Override
-    public ExecBracedBlock getBlock() {
-        return execBlock;
-    }
-
-    public void setExecBlock(ExecBracedBlock _execBlock) {
-        execBlock = _execBlock;
-    }
-
     public ExecLoop getExecLoop() {
         return execLoop;
     }
@@ -115,11 +106,6 @@ public final class LoopBlockStack extends AbstractStask {
 
     public void setEvaluatingKeepLoop(boolean _evaluatingKeepLoop) {
         evaluatingKeepLoop = _evaluatingKeepLoop;
-    }
-
-    @Override
-    public ExecBracedBlock getLastBlock() {
-        return execBlock;
     }
 
     @Override

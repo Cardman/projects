@@ -72,69 +72,57 @@ public abstract class ExecBlock {
             if (lastStack_ instanceof LoopBlockStack) {
                 if (par_ instanceof ExecDoBlock) {
                     par_.removeLocalVars(ip_);
-                    ip_.setBlock(par_);
                     ((ExecDoBlock)par_).processLastElementLoop(_conf, (LoopBlockStack) lastStack_, _stackCall);
                 }
                 if (par_ instanceof ExecForEachArray) {
                     par_.removeLocalVars(ip_);
-                    ip_.setBlock(par_);
                     ((ExecForEachArray)par_).processLastElementLoop(_conf, (LoopBlockStack) lastStack_, _stackCall);
                 }
                 if (par_ instanceof ExecForEachRefArray) {
                     par_.removeLocalVars(ip_);
-                    ip_.setBlock(par_);
                     ((ExecForEachRefArray)par_).processLastElementLoop(_conf, (LoopBlockStack) lastStack_, _stackCall);
                 }
                 if (par_ instanceof ExecForEachIterable) {
                     par_.removeLocalVars(ip_);
-                    ip_.setBlock(par_);
                     ((ExecForEachIterable)par_).processLastElementLoop(_conf, (LoopBlockStack) lastStack_, _stackCall);
                 }
                 if (par_ instanceof ExecForIterativeLoop) {
                     par_.removeLocalVars(ip_);
-                    ip_.setBlock(par_);
                     ((ExecForIterativeLoop)par_).processLastElementLoop(_conf, (LoopBlockStack) lastStack_, _stackCall);
                 }
                 if (par_ instanceof ExecForMutableIterativeLoop) {
                     par_.removeLocalVars(ip_);
-                    ip_.setBlock(par_);
                     ((ExecForMutableIterativeLoop)par_).processLastElementLoop(_conf, (LoopBlockStack) lastStack_, _stackCall);
                 }
                 if (par_ instanceof ExecForEachTable) {
                     par_.removeLocalVars(ip_);
-                    ip_.setBlock(par_);
                     ((ExecForEachTable)par_).processLastElementLoop(_conf, (LoopBlockStack) lastStack_, _stackCall);
                 }
                 if (par_ instanceof ExecWhileCondition) {
                     par_.removeLocalVars(ip_);
-                    ip_.setBlock(par_);
                     ((ExecWhileCondition)par_).processLastElementLoop(_conf, (LoopBlockStack) lastStack_, _stackCall);
                 }
             }
             if (lastStack_ instanceof IfBlockStack) {
                 if (par_ instanceof ExecIfCondition) {
                     par_.removeAllVars(ip_);
-                    ip_.setBlock(par_);
-                    if (lastStack_.getLastBlock() != par_) {
+                    if (((IfBlockStack)lastStack_).getLastBlock() != par_) {
                         ip_.setBlock(par_.getNextSibling());
                         ip_.setLastIf((IfBlockStack) lastStack_);
                     }
                 }
                 if (par_ instanceof ExecElseIfCondition) {
                     par_.removeAllVars(ip_);
-                    ip_.setBlock(par_);
-                    if (lastStack_.getLastBlock() != par_) {
+                    if (((IfBlockStack)lastStack_).getLastBlock() != par_) {
                         ip_.setBlock(par_.getNextSibling());
                         ip_.setLastIf((IfBlockStack) lastStack_);
                     }
                 }
                 if (par_ instanceof ExecElseCondition) {
                     par_.removeAllVars(ip_);
-                    ip_.setBlock(par_);
                 }
                 if (par_ instanceof ExecUnclassedBracedBlock) {
                     par_.removeAllVars(ip_);
-                    ip_.setBlock(par_);
                 }
             }
             if (lastStack_ instanceof TryBlockStack) {
@@ -145,12 +133,10 @@ public abstract class ExecBlock {
                 }
                 if (par_ instanceof ExecAbstractCatchEval) {
                     par_.removeAllVars(ip_);
-                    ip_.setBlock(par_);
                     ip_.setLastTry((TryBlockStack)lastStack_);
                 }
                 if (par_ instanceof ExecFinallyEval) {
                     par_.removeAllVars(ip_);
-                    ip_.setBlock(par_);
                     AbruptCallingFinally call_ = ((TryBlockStack)lastStack_).getCalling();
                     if (call_ != null) {
                         MethodCallingFinally callingFinally_ = call_.getCallingFinally();
