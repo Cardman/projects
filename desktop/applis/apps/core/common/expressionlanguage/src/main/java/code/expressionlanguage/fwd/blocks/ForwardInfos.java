@@ -980,7 +980,7 @@ public final class ForwardInfos {
                 CustList<ExecOperationNode> op_ = getExecutableNodes(((SwitchBlock)en_).getRoot(), _coverage, _forwards, en_);
                 ExecBracedBlock exec_;
                 if (!((SwitchBlock) en_).getInstanceTest().isEmpty()) {
-                    exec_ = new ExecInstanceSwitchBlock(((SwitchBlock) en_).getLabel(), ((SwitchBlock) en_).getValueOffset(), op_, en_.getOffset().getOffsetTrim());
+                    exec_ = new ExecInstanceSwitchBlock(((SwitchBlock) en_).getInstanceTest(),((SwitchBlock) en_).getLabel(), ((SwitchBlock) en_).getValueOffset(), op_, en_.getOffset().getOffsetTrim());
                 } else if (((SwitchBlock) en_).isEnumTest()) {
                     exec_ = new ExecEnumSwitchBlock(((SwitchBlock) en_).getLabel(), ((SwitchBlock) en_).getValueOffset(), op_, en_.getOffset().getOffsetTrim());
                 } else {

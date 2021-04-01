@@ -13,17 +13,19 @@ import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 
 public final class ExecInstanceSwitchBlock extends ExecAbstractSwitchBlock {
-    public ExecInstanceSwitchBlock(String _label, int _valueOffset, CustList<ExecOperationNode> _opValue, int _offsetTrim) {
+    private final String instanceTest;
+    public ExecInstanceSwitchBlock(String _instanceTest,String _label, int _valueOffset, CustList<ExecOperationNode> _opValue, int _offsetTrim) {
         super(_label, _valueOffset, _opValue, _offsetTrim);
+        instanceTest = _instanceTest;
     }
 
     @Override
     protected void processCase(ContextEl _cont, SwitchBlockStack _if, Argument _arg, StackCall _stack) {
-        ExecBracedBlock found_ = innerProcess(this,_cont, _if, _arg, _stack);
+        ExecBracedBlock found_ = innerProcess(this,instanceTest,_cont, _if, _arg, _stack);
         addStack(_cont, _if, _arg, _stack, found_);
     }
 
-    public static ExecBracedBlock innerProcess(ExecBracedBlock _braced, ContextEl _cont, SwitchBlockStack _if, Argument _arg, StackCall _stack) {
+    public static ExecBracedBlock innerProcess(ExecBracedBlock _braced,String _instanceTest, ContextEl _cont, SwitchBlockStack _if, Argument _arg, StackCall _stack) {
         ExecBlock n_ = _braced.getFirstChild();
         CustList<ExecBracedBlock> children_;
         children_ = new CustList<ExecBracedBlock>();
@@ -49,12 +51,10 @@ public final class ExecInstanceSwitchBlock extends ExecAbstractSwitchBlock {
                 }
             }
         }
-        if (found_ == null) {
-            for (ExecBracedBlock b: children_) {
-                if (b instanceof ExecAbstractInstanceTypeCaseCondition && !((ExecAbstractInstanceTypeCaseCondition)b).isSpecific()) {
-                    ExecAbstractInstanceTypeCaseCondition b_ = (ExecAbstractInstanceTypeCaseCondition) b;
-                    found_ = fetch(_cont, _if, _arg,found_,b_, _stack);
-                }
+        for (ExecBracedBlock b: children_) {
+            if (b instanceof ExecAbstractInstanceTypeCaseCondition && !((ExecAbstractInstanceTypeCaseCondition)b).isSpecific()) {
+                ExecAbstractInstanceTypeCaseCondition b_ = (ExecAbstractInstanceTypeCaseCondition) b;
+                found_ = fetchDef(_instanceTest, _if, _arg,found_,b_, _stack);
             }
         }
         return found_;
@@ -76,5 +76,19 @@ public final class ExecInstanceSwitchBlock extends ExecAbstractSwitchBlock {
             return _s;
         }
         return null;
+    }
+
+    private static ExecBracedBlock fetchDef(String _instanceTest, SwitchBlockStack _if, Argument _arg,
+                                            ExecBracedBlock _found, ExecAbstractInstanceTypeCaseCondition _s, StackCall _stackCall) {
+        if (_found != null) {
+            return _found;
+        }
+        AbstractPageEl ip_ = _stackCall.getLastPage();
+        String type_ = _stackCall.formatVarType(_instanceTest);
+        Struct struct_ = _arg.getStruct();
+        String var_ = _s.getVariableName();
+        ip_.putValueVar(var_,LocalVariable.newLocalVariable(struct_,type_));
+        _if.setExecLastVisitedBlock(_s);
+        return _s;
     }
 }

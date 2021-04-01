@@ -103,9 +103,9 @@ public abstract class AbstractPageEl {
     }
     public abstract void receive(AbstractWrapper _wrap, Argument _argument, ContextEl _context, StackCall _stack);
     public String formatVarType(String _varType) {
-        if (getGlobalArgument().isNull()) {
-            return _varType;
-        }
+//        if (getGlobalArgument().isNull()) {
+//            return _varType;
+//        }
         return ExecInherits.quickFormat(blockRootType, globalClass, _varType);
     }
 

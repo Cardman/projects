@@ -9,6 +9,7 @@ import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.calls.util.CustomFoundMethod;
+import code.expressionlanguage.exec.calls.util.CustomFoundSwitch;
 import code.expressionlanguage.exec.opers.ExecArrayFieldOperation;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.expressionlanguage.exec.types.ExecPartTypeUtil;
@@ -383,6 +384,12 @@ public final class ExecTemplates {
         return ex_;
     }
 
+    public static void okArgsSetSwCall(Argument _previous,ExecRootBlock _rootBlock, ExecAbstractSwitchMethod _id, String _classNameFound, Cache _cache, ContextEl _conf, StackCall _stackCall, Argument _argument) {
+        Parameters out_ = okArgsSetSw(_rootBlock, _id, _classNameFound, _cache, _conf, _stackCall, new CustList<Argument>(_argument));
+        if (out_.getError() == null) {
+            _stackCall.setCallingState(new CustomFoundSwitch(_previous,_classNameFound,_rootBlock,_id, out_.getCache(),_argument));
+        }
+    }
     public static Parameters okArgsSetSw(ExecRootBlock _rootBlock, ExecAbstractSwitchMethod _id, String _classNameFound, Cache _cache, ContextEl _conf, StackCall _stackCall, CustList<Argument> _arguments) {
         if (_arguments.isEmpty()) {
             Parameters p_ = new Parameters();

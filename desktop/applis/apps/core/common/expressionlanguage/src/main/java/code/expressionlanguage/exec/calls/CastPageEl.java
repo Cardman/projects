@@ -8,8 +8,8 @@ public final class CastPageEl extends AbstractMethodPageEl {
         super(_gl,_glClass);
     }
 
-    @Override
-    public String formatVarType(String _varType) {
-        return ExecInherits.quickFormat(getBlockRootType(),getGlobalClass(),_varType);
-    }
+//    @Override
+//    public String formatVarType(String _varType) {
+//        return ExecInherits.quickFormat(getBlockRootType(),getGlobalClass(),_varType);
+//    }
 }

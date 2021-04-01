@@ -10,6 +10,8 @@ import code.expressionlanguage.exec.annotation.ExportAnnotationUtil;
 import code.expressionlanguage.exec.blocks.ExecAnnotationMethodBlock;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
+import code.expressionlanguage.exec.blocks.ExecSwitchInstanceMethod;
+import code.expressionlanguage.fwd.blocks.*;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.calls.util.CallingState;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
@@ -499,6 +501,15 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         AnalyzedTestContext cont_ = validated(files_);
         StackCall stackCall_ = StackCall.newInstance(InitPhase.NOTHING, cont_.getContext());
         assertNotNull(ExecTemplates.okArgsSetSw(null,null, "", null, cont_.getContext(), stackCall_, new CustList<Argument>()).getError());
+        assertNotNull(getTrueException(stackCall_));
+    }
+    @Test
+    public void okArgsSetSwCall() {
+        StringMap<String> files_ = new StringMap<String>();
+        AnalyzedTestContext cont_ = validated(files_);
+        StackCall stackCall_ = StackCall.newInstance(InitPhase.NOTHING, cont_.getContext());
+        ExecSwitchInstanceMethod ex_ = new ExecSwitchInstanceMethod(false,"",null,"",0,"",new ExecAnonFctContent(new AnaAnonFctContent()));
+        ExecTemplates.okArgsSetSwCall(null,null, ex_, "",null, cont_.getContext(), stackCall_, Argument.createVoid());
         assertNotNull(getTrueException(stackCall_));
     }
     @Test

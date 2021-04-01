@@ -8,9 +8,9 @@ public final class SwitchCastPageEl extends AbstractSwitchMethodPageEl {
         super(_gl, _glClass, _value);
     }
 
-    @Override
-    public String formatVarType(String _varType) {
-        return ExecInherits.quickFormat(getBlockRootType(),getGlobalClass(),_varType);
-    }
+//    @Override
+//    public String formatVarType(String _varType) {
+//        return ExecInherits.quickFormat(getBlockRootType(),getGlobalClass(),_varType);
+//    }
 
 }
