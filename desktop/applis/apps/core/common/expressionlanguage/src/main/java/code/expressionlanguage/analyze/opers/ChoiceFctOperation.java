@@ -7,6 +7,7 @@ import code.expressionlanguage.analyze.types.ResolvingTypes;
 import code.expressionlanguage.analyze.util.ClassMethodIdAncestor;
 import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
+import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.functionid.*;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.analyze.instr.PartOffset;
@@ -173,16 +174,20 @@ public final class ChoiceFctOperation extends InvokingOperation implements PreAn
             _page.getLocalizer().addError(abs_);
             addErr(abs_.getBuiltError());
         }
-        callFctContent.setClassMethodId(clMeth_.getId());
-        callFctContent.setClassName(clMeth_.getId().getClassName());
-        MethodId realId_ = clMeth_.getRealId();
+        String foundClass_ = clMeth_.getRealClass();
+        MethodId id_ = clMeth_.getRealId();
+        if (id_.getKind() != MethodAccessKind.STATIC_CALL) {
+            foundClass_ = StringExpUtil.getIdFromAllTypes(foundClass_);
+        }
+        callFctContent.setClassMethodId(new ClassMethodId(foundClass_, id_));
+        callFctContent.setClassName(foundClass_);
         if (clMeth_.isVarArgToCall()) {
-            StringList paramtTypes_ = realId_.getParametersTypes();
+            StringList paramtTypes_ = id_.getParametersTypes();
             callFctContent.setNaturalVararg(paramtTypes_.size() - 1);
             callFctContent.setLastType(paramtTypes_.last());
         }
-        staticMethod = realId_.getKind() != MethodAccessKind.INSTANCE;
-        unwrapArgsFct(realId_, callFctContent.getNaturalVararg(), callFctContent.getLastType(), name_.getAll(), _page);
+        staticMethod = id_.getKind() != MethodAccessKind.INSTANCE;
+        unwrapArgsFct(id_, callFctContent.getNaturalVararg(), callFctContent.getLastType(), name_.getAll(), _page);
         setResultClass(voidToObject(new AnaClassArgumentMatching(clMeth_.getReturnType(), _page.getPrimitiveTypes()), _page));
     }
 
