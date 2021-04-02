@@ -144,11 +144,4 @@ public final class FetchMemberUtil {
                 _cl.isCheckOnlyNullPe(),_cl.isConvertToString());
     }
 
-    public static ExecTypeFunction defPair(ExecRootBlock _ex, ExecTypeFunction _pair) {
-        ExecTypeFunction pair_ = _pair;
-        if (pair_ == null) {
-            pair_ = new ExecTypeFunction(_ex,null);
-        }
-        return pair_;
-    }
 }

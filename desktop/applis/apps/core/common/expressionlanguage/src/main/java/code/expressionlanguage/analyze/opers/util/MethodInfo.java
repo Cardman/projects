@@ -1,5 +1,7 @@
 package code.expressionlanguage.analyze.opers.util;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.analyze.ImportedMethod;
+import code.expressionlanguage.analyze.MethodHeaderInfo;
 import code.expressionlanguage.analyze.blocks.NamedFunctionBlock;
 import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.expressionlanguage.analyze.inherits.AnaInherits;
@@ -53,6 +55,27 @@ public final class MethodInfo implements Parametrable {
 
     public AnaTypeFct getPair() {
         return pair;
+    }
+    public void pairMemberId(ImportedMethod _m) {
+        pair(_m.getType(),_m.getCustMethod());
+        memberId = _m.getMemberId();
+        setFileName(_m.getFileName());
+        setReturnType(_m.getReturnType());
+        setOriginalReturnType(_m.getReturnType());
+        trySetParamNames(this, _m.getCustMethod());
+        setStandardMethod(_m.getStandardMethod());
+        setCustMethod(_m.getCustMethod());
+    }
+    public void pairMemberId(MethodHeaderInfo _m) {
+        setFileName(_m.getRoot().getFile().getFileName());
+        pair(_m.getRoot(),_m.getFunction());
+        memberId(_m.getRootNumber(),_m.getNameNumber());
+    }
+
+    private static void trySetParamNames(MethodInfo _mloc, NamedFunctionBlock _custMethod) {
+        if (_custMethod != null) {
+            _mloc.setParametersNames(_custMethod.getParametersNames());
+        }
     }
     public void pair(RootBlock _root, NamedFunctionBlock _fct) {
         pair = new AnaTypeFct();
@@ -236,10 +259,6 @@ public final class MethodInfo implements Parametrable {
 
     public MemberId getMemberId() {
         return memberId;
-    }
-
-    public void setMemberId(MemberId _memberId) {
-        memberId = _memberId;
     }
 
     public void memberId(int _rootNumber, int _memberNumber) {

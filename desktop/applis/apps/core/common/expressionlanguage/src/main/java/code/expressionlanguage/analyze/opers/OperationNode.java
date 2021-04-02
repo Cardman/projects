@@ -2288,14 +2288,7 @@ public abstract class OperationNode {
                     mloc_.setConstraints(id_);
                     mloc_.setParameters(p_);
                     mloc_.format(true, _page);
-                    mloc_.setReturnType(e.getReturnType());
-                    mloc_.setOriginalReturnType(e.getReturnType());
-                    mloc_.setFileName(e.getFileName());
-                    mloc_.setMemberId(e.getMemberId());
-                    trySetParamNames(mloc_, e.getCustMethod());
-                    mloc_.setStandardMethod(e.getStandardMethod());
-                    mloc_.setCustMethod(e.getCustMethod());
-                    mloc_.pair(e.getType(),e.getCustMethod());
+                    mloc_.pairMemberId(e);
                     m_.add(mloc_);
                 }
                 methods_.add(m_);
@@ -2319,26 +2312,13 @@ public abstract class OperationNode {
                     mloc_.setParameters(p_);
                     mloc_.setFormattedFilter(_formattedFilter);
                     mloc_.format(id_.getKind() == MethodAccessKind.STATIC, _page);
-                    mloc_.setReturnType(e.getReturnType());
-                    mloc_.setOriginalReturnType(e.getReturnType());
-                    mloc_.setFileName(e.getFileName());
-                    mloc_.setMemberId(e.getMemberId());
-                    mloc_.setStandardMethod(e.getStandardMethod());
-                    trySetParamNames(mloc_, e.getCustMethod());
-                    mloc_.setCustMethod(e.getCustMethod());
-                    mloc_.pair(e.getType(),e.getCustMethod());
+                    mloc_.pairMemberId(e);
                     m_.add(mloc_);
                 }
                 methods_.add(m_);
             }
         }
         return methods_;
-    }
-
-    private static void trySetParamNames(MethodInfo _mloc, NamedFunctionBlock _custMethod) {
-        if (_custMethod != null) {
-            _mloc.setParametersNames(_custMethod.getParametersNames());
-        }
     }
 
     protected static boolean isCandidateMethod(ClassMethodIdAncestor _uniqueId, int _ancestor,String _clName, MethodId _id) {
@@ -2711,11 +2691,9 @@ public abstract class OperationNode {
         MethodId id_ = _m.getId();
         MethodInfo mloc_ = new MethodInfo();
         mloc_.setOriginalReturnType(importedReturnType_);
-        mloc_.setFileName(_m.getRoot().getFile().getFileName());
-        mloc_.memberId(_m.getRootNumber(),_m.getNameNumber());
         mloc_.setClassName(_formattedClass);
         mloc_.setConstraints(id_);
-        mloc_.pair(_m.getRoot(),_m.getFunction());
+        mloc_.pairMemberId(_m);
         mloc_.setParameters(p_);
         mloc_.setReturnType(ret_);
         mloc_.setAncestor(0);
@@ -2740,11 +2718,10 @@ public abstract class OperationNode {
         MethodInfo mloc_ = new MethodInfo();
         mloc_.setClassName(_formattedClass);
         mloc_.setConstraints(id_);
-        mloc_.pair(_m.getRoot(),_m.getFunction());
+        mloc_.pairMemberId(_m);
         mloc_.setParameters(p_);
         mloc_.setReturnType(ret_);
         mloc_.setAncestor(0);
-        mloc_.memberId(_m.getRootNumber(),_m.getNameNumber());
         mloc_.format(false, _page);
         return mloc_;
     }

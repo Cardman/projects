@@ -1145,8 +1145,10 @@ public final class ForwardInfos {
                         pair_,
                         new ExecOperationContent(i_.getContent()), new ExecExplicitContent(a_.getCallFctContent()));
             }
-            pair_ = FetchMemberUtil.defPair(ex_, pair_);
             if (a_.isStaticMethod()) {
+                if (pair_ == null) {
+                    return new ExecEnumMethOperation(new ExecOperationContent(i_.getContent()), i_.isIntermediateDottedOperation(), new ExecStaticFctContent(a_.getFunction(),a_.getCallFctContent()), new ExecArrContent(a_.getArrContent()),ex_);
+                }
                 return new ExecStaticFctOperation(pair_, new ExecOperationContent(i_.getContent()), i_.isIntermediateDottedOperation(), new ExecStaticFctContent(a_.getFunction(),a_.getCallFctContent()), new ExecArrContent(a_.getArrContent()));
             }
         }

@@ -524,8 +524,10 @@ public final class RendForwardInfos {
                     return new RendExplicitOperation(pair_,
                             new ExecOperationContent(i_.getContent()), new ExecExplicitContent(a_.getCallFctContent()));
                 }
-                pair_ = FetchMemberUtil.defPair(rootBlock_,pair_);
                 if (a_.isStaticMethod()) {
+                    if (pair_ == null) {
+                        return new RendEnumMethOperation(new ExecOperationContent(i_.getContent()), i_.isIntermediateDottedOperation(), new ExecStaticFctContent(a_.getFunction(),a_.getCallFctContent()), new ExecArrContent(a_.getArrContent()),rootBlock_);
+                    }
                     return new RendStaticFctOperation(pair_,
                             new ExecOperationContent(i_.getContent()), i_.isIntermediateDottedOperation(), new ExecStaticFctContent(a_.getFunction(),a_.getCallFctContent()), new ExecArrContent(a_.getArrContent()));
                 }

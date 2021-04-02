@@ -35,6 +35,6 @@ public final class DirectEnumMethods extends AbstractRefectMethodPageEl {
         MethodMetaInfo method_ = getMetaInfo();
         ArgumentListCall l_ = new ArgumentListCall();
         l_.addAllArgs(_args);
-        return ExecInvokingOperation.callPrepare(_context.getExiting(), _context, _className,method_.getPair(), _instance,method_.getCache(), l_, _right, getAccessKind(),getMethodName(), _stack);
+        return ExecInvokingOperation.processEnums(_context.getExiting(), _context, l_, _stack, method_.getPairType());
     }
 }

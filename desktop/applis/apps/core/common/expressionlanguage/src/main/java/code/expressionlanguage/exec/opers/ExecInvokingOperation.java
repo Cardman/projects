@@ -229,27 +229,12 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         ExecRootBlock type_ = _rootBlock.getType();
         ExecNamedFunctionBlock fct_ = _rootBlock.getFct();
         if (!(fct_ instanceof ExecOverridableBlock)&&!(fct_ instanceof ExecAnonymousFunctionBlock)) {
-            if (fct_ instanceof ExecOperatorBlock) {
-                FormattedParameters classFound_ = checkParameters(_cont, _classNameFound, _rootBlock, _previous, _cache,_firstArgs, CallPrepareState.METHOD,null, _right, _kind, _stackCall);
-                if (_cont.callsOrException(_stackCall)) {
-                    return Argument.createVoid();
-                }
-                _stackCall.setCallingState(new CustomFoundMethod(_previous, classFound_.getFormattedClass(), _rootBlock, classFound_.getParameters()));
+            FormattedParameters classFound_ = checkParameters(_cont, _classNameFound, _rootBlock, _previous, _cache,_firstArgs, CallPrepareState.METHOD,null, _right, _kind, _stackCall);
+            if (_cont.callsOrException(_stackCall)) {
                 return Argument.createVoid();
             }
-            //static enum methods
-            LgNames stds_ = _cont.getStandards();
-            CustList<Argument> args_ = _firstArgs.getArguments();
-            if (args_.size() != 1) {
-                return tryGetEnumValues(_exit,_cont,type_,  ClassCategory.ENUM, _stackCall);
-            }
-            Argument arg_ = args_.first();
-            Struct ex_ = ExecTemplates.checkObjectEx(stds_.getContent().getCharSeq().getAliasString(), arg_, _cont, _stackCall);
-            if (ex_ != null) {
-                _stackCall.setCallingState(new CustomFoundExc(ex_));
-                return Argument.createVoid();
-            }
-            return tryGetEnumValue(_exit,_cont,type_, ClassCategory.ENUM, arg_, _stackCall);
+            _stackCall.setCallingState(new CustomFoundMethod(_previous, classFound_.getFormattedClass(), _rootBlock, classFound_.getParameters()));
+            return Argument.createVoid();
         }
         if (FunctionIdUtil.isOperatorName(_name)) {
             FormattedParameters classFound_ = checkParameters(_cont, _classNameFound, _rootBlock, _previous,_cache, _firstArgs, CallPrepareState.METHOD,null, _right, _kind, _stackCall);
@@ -276,6 +261,22 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         }
         _stackCall.setCallingState(new CustomFoundMethod(_previous, classFound_.getFormattedClass(), _rootBlock, classFound_.getParameters()));
         return Argument.createVoid();
+    }
+
+    public static Argument processEnums(AbstractExiting _exit, ContextEl _cont, ArgumentListCall _firstArgs, StackCall _stackCall, ExecRootBlock _type) {
+        //static enum methods
+        LgNames stds_ = _cont.getStandards();
+        CustList<Argument> args_ = _firstArgs.getArguments();
+        if (args_.size() != 1) {
+            return tryGetEnumValues(_exit, _cont, _type,  ClassCategory.ENUM, _stackCall);
+        }
+        Argument arg_ = args_.first();
+        Struct ex_ = ExecTemplates.checkObjectEx(stds_.getContent().getCharSeq().getAliasString(), arg_, _cont, _stackCall);
+        if (ex_ != null) {
+            _stackCall.setCallingState(new CustomFoundExc(ex_));
+            return Argument.createVoid();
+        }
+        return tryGetEnumValue(_exit, _cont, _type, ClassCategory.ENUM, arg_, _stackCall);
     }
 
     private static boolean isNotEnumType(ExecRootBlock _r, ClassCategory _category) {
