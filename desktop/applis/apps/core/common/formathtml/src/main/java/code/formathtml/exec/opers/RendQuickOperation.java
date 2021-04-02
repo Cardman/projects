@@ -21,10 +21,10 @@ public abstract class RendQuickOperation extends RendMethodOperation implements 
     private final ExecTypeFunction pair;
     private final ExecStaticEltContent staticEltContent;
     private final ImplicitMethods converter;
-    public RendQuickOperation(ExecOperationContent _content, ExecStaticEltContent _staticEltContent, ExecNamedFunctionBlock _named, ExecRootBlock _rootBlock, ImplicitMethods _converter) {
+    public RendQuickOperation(ExecOperationContent _content, ExecStaticEltContent _staticEltContent, ExecTypeFunction _pair, ImplicitMethods _converter) {
         super(_content);
         staticEltContent = _staticEltContent;
-        pair = new ExecTypeFunction(_rootBlock,_named);
+        pair = _pair;
         converter = _converter;
     }
 

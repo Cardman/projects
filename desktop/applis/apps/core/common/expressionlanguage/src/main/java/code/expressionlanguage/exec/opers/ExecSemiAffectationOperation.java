@@ -27,11 +27,11 @@ public final class ExecSemiAffectationOperation extends ExecAbstractUnaryOperati
     private final ImplicitMethods converterFrom;
     private final ImplicitMethods converterTo;
 
-    public ExecSemiAffectationOperation(ExecOperationContent _opCont, ExecStaticPostEltContent _staticPostEltContent, ExecOperatorContent _operatorContent, ExecNamedFunctionBlock _named, ExecRootBlock _rootBlock, ImplicitMethods _converterFrom, ImplicitMethods _converterTo) {
+    public ExecSemiAffectationOperation(ExecOperationContent _opCont, ExecStaticPostEltContent _staticPostEltContent, ExecOperatorContent _operatorContent, ExecTypeFunction _pair, ImplicitMethods _converterFrom, ImplicitMethods _converterTo) {
         super(_opCont);
         staticPostEltContent = _staticPostEltContent;
         operatorContent = _operatorContent;
-        pair = new ExecTypeFunction(_rootBlock,_named);
+        pair = _pair;
         converterFrom = _converterFrom;
         converterTo = _converterTo;
     }

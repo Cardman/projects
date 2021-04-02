@@ -29,11 +29,11 @@ public final class ExecCompoundAffectationOperation extends ExecMethodOperation 
     private final ImplicitMethods converter;
 
 
-    public ExecCompoundAffectationOperation(ExecOperationContent _opCont, ExecOperatorContent _operatorContent, ExecStaticEltContent _staticEltContent, ExecNamedFunctionBlock _named, ExecRootBlock _rootBlock, ImplicitMethods _converter) {
+    public ExecCompoundAffectationOperation(ExecOperationContent _opCont, ExecOperatorContent _operatorContent, ExecStaticEltContent _staticEltContent, ExecTypeFunction _pair, ImplicitMethods _converter) {
         super(_opCont);
         operatorContent = _operatorContent;
         staticEltContent = _staticEltContent;
-        pair = new ExecTypeFunction(_rootBlock,_named);
+        pair = _pair;
         converter = _converter;
     }
 

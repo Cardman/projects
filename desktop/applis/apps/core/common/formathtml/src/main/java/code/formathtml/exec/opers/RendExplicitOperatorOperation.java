@@ -22,10 +22,10 @@ public final class RendExplicitOperatorOperation extends RendSettableCallFctOper
     private final ExecTypeFunction pair;
     private final ExecStaticFctContent staticFctContent;
     private final int offsetOper;
-    public RendExplicitOperatorOperation(ExecOperationContent _content, boolean _intermediateDottedOperation, ExecStaticFctContent _staticFctContent, ExecNamedFunctionBlock _named, ExecRootBlock _rootBlock, int _offsetOper, ExecArrContent _arrContent) {
+    public RendExplicitOperatorOperation(ExecOperationContent _content, boolean _intermediateDottedOperation, ExecStaticFctContent _staticFctContent, ExecTypeFunction _pair, int _offsetOper, ExecArrContent _arrContent) {
         super(_content, _intermediateDottedOperation, _arrContent);
         staticFctContent = _staticFctContent;
-        pair = new ExecTypeFunction(_rootBlock,_named);
+        pair = _pair;
         offsetOper = _offsetOper;
     }
 

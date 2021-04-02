@@ -15,10 +15,10 @@ public final class ExecCustNumericOperation extends ExecNumericOperation {
     private final ExecStaticEltContent staticEltContent;
     private final ExecTypeFunction pair;
 
-    public ExecCustNumericOperation(ExecNamedFunctionBlock _named, ExecRootBlock _rootBlock, ExecOperationContent _opCont, int _opOffset, ExecStaticEltContent _staticEltContent) {
+    public ExecCustNumericOperation(ExecTypeFunction _pair, ExecOperationContent _opCont, int _opOffset, ExecStaticEltContent _staticEltContent) {
         super(_opCont, _opOffset);
         staticEltContent = _staticEltContent;
-        pair = new ExecTypeFunction(_rootBlock,_named);
+        pair = _pair;
     }
     @Override
     public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes,

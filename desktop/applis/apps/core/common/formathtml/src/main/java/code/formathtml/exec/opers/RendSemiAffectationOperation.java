@@ -29,11 +29,11 @@ public final class RendSemiAffectationOperation extends RendAbstractUnaryOperati
     private final ImplicitMethods converterFrom;
     private final ImplicitMethods converterTo;
 
-    public RendSemiAffectationOperation(ExecOperationContent _content, ExecStaticPostEltContent _staticPostEltContent, ExecOperatorContent _operatorContent, ExecNamedFunctionBlock _named, ExecRootBlock _rootBlock, ImplicitMethods _converterFrom, ImplicitMethods _converterTo) {
+    public RendSemiAffectationOperation(ExecOperationContent _content, ExecStaticPostEltContent _staticPostEltContent, ExecOperatorContent _operatorContent, ExecTypeFunction _pair, ImplicitMethods _converterFrom, ImplicitMethods _converterTo) {
         super(_content);
         staticPostEltContent = _staticPostEltContent;
         operatorContent = _operatorContent;
-        pair = new ExecTypeFunction(_rootBlock,_named);
+        pair = _pair;
         converterFrom = _converterFrom;
         converterTo = _converterTo;
     }

@@ -79,17 +79,24 @@ public final class FetchMemberUtil {
         return null;
     }
 
+    public static ExecTypeFunction fetchFunctionOpPair(MemberId _id, Forwards _forwards) {
+        ExecRootBlock decl_ = fetchType(_id,_forwards);
+        ExecNamedFunctionBlock fct_ = fetchFunctionOp(decl_,_id, _forwards);
+        return new ExecTypeFunction(decl_,fct_);
+    }
+
     public static ExecNamedFunctionBlock fetchFunctionOp(ExecRootBlock _declaring,MemberId _id, Forwards _forwards) {
         return fetchFunctionOrOp(_declaring,_id.getRootNumber(),_id.getMemberNumber(),_id.getMemberNumber(), _forwards);
     }
 
     private static ExecNamedFunctionBlock fetchFunctionOrOp(ExecRootBlock _declaring,int _rootNumber, int _memberNumber, int _operatorNumber, Forwards _forwards) {
         if (_forwards.isMember(_rootNumber)) {
+            Members mem_ = _forwards.getMember(_rootNumber);
             if (_declaring instanceof ExecAnnotationBlock) {
-                return _forwards.getMember(_rootNumber).getNamed(_memberNumber);
+                return mem_.getNamed(_memberNumber);
             }
-            if (_forwards.getMember(_rootNumber).isOvNamed(_memberNumber)) {
-                return _forwards.getMember(_rootNumber).getOvNamed(_memberNumber);
+            if (mem_.isOvNamed(_memberNumber)) {
+                return mem_.getOvNamed(_memberNumber);
             }
             return null;
         }
@@ -106,21 +113,6 @@ public final class FetchMemberUtil {
     public static ExecNamedFunctionBlock fetchCtorFunction(Members _member, int _nbMember) {
         if (_member.isCtor(_nbMember)) {
             return _member.getCtor(_nbMember);
-        }
-        return null;
-    }
-
-    public static ExecTypeFunction fetchTypeFunction(ExecRootBlock _declaring,MemberId _id, Forwards _forwards) {
-        int rootNumber_ = _id.getRootNumber();
-        int memberNumber_ = _id.getMemberNumber();
-        if (_forwards.isMember(rootNumber_)) {
-            Members mem_ = _forwards.getMember(rootNumber_);
-            if (_declaring instanceof ExecAnnotationBlock) {
-                return new ExecTypeFunction(mem_.getRootBlock(),mem_.getNamed(memberNumber_));
-            }
-            if (mem_.isOvNamed(memberNumber_)) {
-                return new ExecTypeFunction(mem_.getRootBlock(),mem_.getOvNamed(memberNumber_));
-            }
         }
         return null;
     }

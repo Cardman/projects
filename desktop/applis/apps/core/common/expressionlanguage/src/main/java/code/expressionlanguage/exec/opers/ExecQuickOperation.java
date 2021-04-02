@@ -21,10 +21,10 @@ public abstract class ExecQuickOperation extends ExecMethodOperation implements 
     private final int opOffset;
     private final ExecTypeFunction pair;
 
-    protected ExecQuickOperation(ExecOperationContent _opCont, ExecStaticEltContent _staticEltContent, ExecNamedFunctionBlock _named, ExecRootBlock _rootBlock, ImplicitMethods _converter, int _opOffset) {
+    protected ExecQuickOperation(ExecOperationContent _opCont, ExecStaticEltContent _staticEltContent, ExecTypeFunction _pair, ImplicitMethods _converter, int _opOffset) {
         super(_opCont);
         staticEltContent = _staticEltContent;
-        pair = new ExecTypeFunction(_rootBlock,_named);
+        pair = _pair;
         converter = _converter;
         opOffset = _opOffset;
     }

@@ -21,7 +21,7 @@ public final class RendSafeDotOperation extends RendAbstractDotOperation {
         RendDynOperationNode o_ = getFirstNode(this);
         RendDynOperationNode l_ = getLastNode(this);
         Argument a_ = getArgument(_nodes,o_);
-        if (a_.isNull()&&!(l_ instanceof RendLambdaOperation)) {
+        if (a_.isNull()&&!(l_ instanceof RendAbstractLambdaOperation)) {
             a_ = new Argument(ExecClassArgumentMatching.convert(NullStruct.NULL_VALUE, _context, getResultClass().getNames()));
             setQuickConvertSimpleArgument(a_, _nodes, _context, _stack);
             return;

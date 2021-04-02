@@ -185,7 +185,7 @@ public abstract class RendDynOperationNode {
             if (_value == NullStruct.NULL_VALUE) {
                 RendDynOperationNode last_ = par_.getChildrenNodes().last();
                 boolean skip_ = true;
-                if (last_ instanceof RendLambdaOperation) {
+                if (last_ instanceof RendAbstractLambdaOperation) {
                     skip_ = false;
                 }
                 if (skip_) {

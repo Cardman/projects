@@ -21,10 +21,12 @@ import code.util.IdMap;
 public final class ExecOperatorMethodLambdaOperation extends ExecAbstractLambdaOperation {
 
     private final ExecLambdaMethodContent lambdaMethodContent;
+    private final ExecNamedFunctionBlock function;
 
-    public ExecOperatorMethodLambdaOperation(ExecOperationContent _opCont, ExecLambdaCommonContent _lamCont, ExecLambdaMethodContent _lambdaMethodContent) {
+    public ExecOperatorMethodLambdaOperation(ExecOperationContent _opCont, ExecLambdaCommonContent _lamCont, ExecLambdaMethodContent _lambdaMethodContent, ExecNamedFunctionBlock _function) {
         super(_opCont, _lamCont);
         lambdaMethodContent = _lambdaMethodContent;
+        function = _function;
     }
 
     @Override
@@ -32,7 +34,7 @@ public final class ExecOperatorMethodLambdaOperation extends ExecAbstractLambdaO
                           ContextEl _conf, StackCall _stack) {
         Argument previous_ = getPreviousArg(this, _nodes, _stack);
         String clArg_ = getResultClass().getSingleNameOrEmpty();
-        Argument res_ = new Argument(newLambda(previous_, getFoundClass(), getReturnFieldType(), getAncestor(), lambdaMethodContent.isPolymorph(), lambdaMethodContent.isAbstractMethod(), isShiftArgument(), isSafeInstance(), clArg_, getFileName(), lambdaMethodContent.getMethod().getConstraints(), lambdaMethodContent.getFunction()));
+        Argument res_ = new Argument(newLambda(previous_, getFoundClass(), getReturnFieldType(), getAncestor(), lambdaMethodContent.isPolymorph(), lambdaMethodContent.isAbstractMethod(), isShiftArgument(), isSafeInstance(), clArg_, getFileName(), lambdaMethodContent.getMethod().getConstraints(), function));
         setSimpleArgument(res_, _conf, _nodes, _stack);
     }
 

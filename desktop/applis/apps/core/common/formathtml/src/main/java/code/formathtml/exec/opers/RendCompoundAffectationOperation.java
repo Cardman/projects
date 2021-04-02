@@ -30,11 +30,11 @@ public final class RendCompoundAffectationOperation extends RendMethodOperation 
     private final ExecStaticEltContent staticEltContent;
     private final ImplicitMethods converter;
 
-    public RendCompoundAffectationOperation(ExecOperationContent _content, ExecOperatorContent _operatorContent, ExecStaticEltContent _staticEltContent, ExecNamedFunctionBlock _named, ExecRootBlock _rootBlock, ImplicitMethods _converter) {
+    public RendCompoundAffectationOperation(ExecOperationContent _content, ExecOperatorContent _operatorContent, ExecStaticEltContent _staticEltContent, ExecTypeFunction _pair, ImplicitMethods _converter) {
         super(_content);
         operatorContent = _operatorContent;
         staticEltContent = _staticEltContent;
-        pair = new ExecTypeFunction(_rootBlock,_named);
+        pair = _pair;
         converter = _converter;
     }
 

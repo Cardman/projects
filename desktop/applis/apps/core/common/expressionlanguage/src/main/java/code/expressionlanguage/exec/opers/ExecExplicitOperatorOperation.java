@@ -19,11 +19,11 @@ public final class ExecExplicitOperatorOperation extends ExecSettableCallFctOper
 
     private final int offsetOper;
 
-    public ExecExplicitOperatorOperation(ExecOperationContent _opCont, boolean _intermediateDottedOperation, ExecStaticFctContent _staticFctContent, int _offsetOper, ExecNamedFunctionBlock _named, ExecRootBlock _rootBlock, ExecArrContent _exArr) {
+    public ExecExplicitOperatorOperation(ExecOperationContent _opCont, boolean _intermediateDottedOperation, ExecStaticFctContent _staticFctContent, int _offsetOper, ExecTypeFunction _pair, ExecArrContent _exArr) {
         super(_opCont, _intermediateDottedOperation,_exArr);
         staticFctContent = _staticFctContent;
         offsetOper = _offsetOper;
-        pair = new ExecTypeFunction(_rootBlock,_named);
+        pair = _pair;
     }
 
     @Override

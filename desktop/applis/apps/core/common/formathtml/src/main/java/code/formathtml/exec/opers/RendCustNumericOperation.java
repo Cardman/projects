@@ -18,10 +18,10 @@ public final class RendCustNumericOperation extends RendNumericOperation {
 
     private final ExecTypeFunction pair;
     private final ExecStaticEltContent staticEltContent;
-    public RendCustNumericOperation(ExecNamedFunctionBlock _named, ExecRootBlock _rootBlock, ExecOperationContent _content, int _opOffset, ExecStaticEltContent _staticEltContent) {
+    public RendCustNumericOperation(ExecTypeFunction _pair, ExecOperationContent _content, int _opOffset, ExecStaticEltContent _staticEltContent) {
         super(_content, _opOffset);
         staticEltContent = _staticEltContent;
-        pair = new ExecTypeFunction(_rootBlock,_named);
+        pair = _pair;
     }
 
     @Override
