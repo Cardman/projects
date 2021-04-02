@@ -469,14 +469,13 @@ public final class Coverage {
             if (annotated_ instanceof FieldMetaInfo) {
                 type_ = ((FieldMetaInfo)annotated_).getDeclaring();
             } else if (annotated_ instanceof AnnotatedParamStruct){
-                type_ = ((AnnotatedParamStruct) annotated_).getPair().getType();
+                type_ = ((AnnotatedParamStruct) annotated_).getPairType();
             } else {
                 type_ = ((ClassMetaInfo) annotated_).getRootBlock();
             }
         } else if (lastPage_ instanceof ReflectGetDefaultValuePageEl) {
             ReflectGetDefaultValuePageEl annotRet_ = (ReflectGetDefaultValuePageEl)lastPage_;
-            ExecTypeFunction pair_ = annotRet_.getMetaInfo().getPair();
-            type_ = pair_.getType();
+            type_ = annotRet_.getMetaInfo().getPairType();
         } else {
             type_ = lastPage_.getBlockRootType();
         }

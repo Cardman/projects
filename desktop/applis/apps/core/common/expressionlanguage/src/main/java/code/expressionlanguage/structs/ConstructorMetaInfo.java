@@ -55,6 +55,10 @@ public final class ConstructorMetaInfo extends WithoutParentStruct implements An
         return pair.getFct();
     }
 
+    public ExecRootBlock getPairType() {
+        return pair.getType();
+    }
+
     public ExecTypeFunction getPair() {
         return pair;
     }

@@ -113,6 +113,14 @@ public final class MethodMetaInfo extends WithoutParentStruct implements Annotat
         this.callee = _callee;
     }
 
+    public ExecRootBlock getPairType() {
+        return pair.getType();
+    }
+
+    public ExecNamedFunctionBlock getPairFct() {
+        return pair.getFct();
+    }
+
     public ExecTypeFunction getPair() {
         return pair;
     }

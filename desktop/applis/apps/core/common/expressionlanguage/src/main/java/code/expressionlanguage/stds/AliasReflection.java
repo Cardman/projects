@@ -876,7 +876,15 @@ public final class AliasReflection {
                     _stackCall.setCallingState(new CustomReflectMethod(ReflectingType.STD_FCT, method_, new Argument(_args[0]),new Argument(_args[1]), false));
                     return result_;
                 }
-                ExecRootBlock e_ = method_.getPair().getType();
+                if (method_.getPairFct() instanceof ExecAnonymousFunctionBlock) {
+                    if (method_.isStaticCall()) {
+                        _stackCall.setCallingState(new CustomReflectMethod(ReflectingType.STATIC_CALL, method_, new Argument(_args[0]),new Argument(_args[1]), false));
+                        return result_;
+                    }
+                    _stackCall.setCallingState(new CustomReflectMethod(ReflectingType.DIRECT, method_, new Argument(_args[0]),new Argument(_args[1]), false));
+                    return result_;
+                }
+                ExecRootBlock e_ = method_.getPairType();
                 if (e_ instanceof ExecAnnotationBlock) {
                     _stackCall.setCallingState(new CustomReflectMethod(ReflectingType.ANNOT_FCT, method_, new Argument(_args[0]),new Argument(_args[1]), false));
                     return result_;
@@ -896,7 +904,7 @@ public final class AliasReflection {
                 _stackCall.setCallingState(new CustomFoundExc(getNonInvokableError(_cont, method_, _stackCall)));
                 return result_;
             }
-            if (method_.getPair().getFct() != null) {
+            if (method_.getPairFct() != null) {
                 if (method_.isExpCast()) {
                     _stackCall.setCallingState(new CustomReflectMethod(ReflectingType.CAST, method_, new Argument(_args[0]),new Argument(_args[1]), false));
                     return result_;
@@ -914,7 +922,7 @@ public final class AliasReflection {
                 _stackCall.setCallingState(new CustomFoundExc(getNonInvokableError(_cont, method_, _stackCall)));
                 return result_;
             }
-            if (method_.getPair().getFct() != null) {
+            if (method_.getPairFct() != null) {
                 if (method_.isExpCast()) {
                     _stackCall.setCallingState(new CustomReflectMethod(ReflectingType.CAST_DIRECT, method_, new Argument(_args[0]),new Argument(_args[1]), false));
                     return result_;
@@ -928,7 +936,7 @@ public final class AliasReflection {
             }
         }
         if (invoke_ || invokeDirect_) {
-            ExecRootBlock e_ = method_.getPair().getType();
+            ExecRootBlock e_ = method_.getPairType();
             if (e_ != null) {
                 _stackCall.setCallingState(new CustomReflectMethod(ReflectingType.ENUM_METHODS, method_, new Argument(_args[0]),new Argument(_args[1]),false));
                 return result_;

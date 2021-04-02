@@ -538,7 +538,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
             ConstructorMetaInfo meta_ = NumParsers.getCtor(metaInfo_);
             ArgumentListCall call_ = new ArgumentListCall();
             if (!l_.isShiftInstance()) {
-                ExecRootBlock type_ = meta_.getPair().getType();
+                ExecRootBlock type_ = meta_.getPairType();
                 CustList<ArgumentWrapper> argumentWrappers_ = _values.getArgumentWrappers();
                 if (type_ != null && !type_.withoutInstance()) {
                     instance_ = ArgumentWrapper.helpArg(ExecHelper.getFirstArgumentWrapper(argumentWrappers_));
@@ -715,7 +715,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
             _stackCall.setCallingState(new CustomReflectLambdaMethod(ReflectingType.STD_FCT, _method, _instance,_call,_right, true));
             return new Argument();
         }
-        if (_method.getPair().getFct() instanceof ExecAnonymousFunctionBlock) {
+        if (_method.getPairFct() instanceof ExecAnonymousFunctionBlock) {
             if (_method.isStaticCall()) {
                 _stackCall.setCallingState(new CustomReflectLambdaMethod(ReflectingType.STATIC_CALL, _method, _instance,_call,_right, true));
                 return new Argument();
@@ -723,12 +723,12 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
             _stackCall.setCallingState(new CustomReflectLambdaMethod(ReflectingType.DIRECT, _method, _instance,_call,_right, true));
             return new Argument();
         }
-        ExecRootBlock e_ = _method.getPair().getType();
+        ExecRootBlock e_ = _method.getPairType();
         if (e_ instanceof ExecAnnotationBlock) {
             _stackCall.setCallingState(new CustomReflectLambdaMethod(ReflectingType.ANNOT_FCT, _method, _instance,_call,_right, true));
             return new Argument();
         }
-        if (_method.getPair().getFct() != null) {
+        if (_method.getPairFct() != null) {
             if (_method.isExpCast()) {
                 _stackCall.setCallingState(new CustomReflectLambdaMethod(ReflectingType.CAST, _method, _instance,_call,_right, true));
                 return new Argument();
