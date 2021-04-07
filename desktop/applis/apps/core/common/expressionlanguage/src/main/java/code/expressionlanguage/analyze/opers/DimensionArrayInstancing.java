@@ -375,10 +375,7 @@ public final class DimensionArrayInstancing extends
             if (!resCh_.isNumericInt(_page)) {
                 ClassMethodIdReturn res_ = OperationNode.tryGetDeclaredImplicitCast(_page.getAliasPrimInteger(), resCh_, _page);
                 if (res_.isFoundMethod()) {
-                    ClassMethodId cl_ = new ClassMethodId(res_.getId().getClassName(),res_.getRealId());
-                    resCh_.getImplicits().add(cl_);
-                    resCh_.setMemberId(res_.getMemberId());
-                    resCh_.setFunction(res_.getPair());
+                    resCh_.implicitInfos(res_);
                 } else {
                     FoundErrorInterpret un_ = new FoundErrorInterpret();
                     int i_ = _page.getLocalizer().getCurrentLocationIndex();

@@ -2,7 +2,10 @@ package code.expressionlanguage.analyze.types;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.opers.util.AnaTypeFct;
+import code.expressionlanguage.analyze.opers.util.ImplicitInfos;
 import code.expressionlanguage.analyze.opers.util.MemberId;
+import code.expressionlanguage.analyze.opers.util.OperatorConverter;
+import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
 import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.inherits.ClassArgumentMatching;
@@ -23,8 +26,8 @@ public final class AnaClassArgumentMatching {
 
     private boolean checkOnlyNullPe;
     private boolean convertToString;
-    private CustList<ClassMethodId> implicits = new CustList<ClassMethodId>();
-    private CustList<ClassMethodId> implicitsTest = new CustList<ClassMethodId>();
+    private final CustList<ClassMethodId> implicits = new CustList<ClassMethodId>();
+    private final CustList<ClassMethodId> implicitsTest = new CustList<ClassMethodId>();
     private MemberId memberId = new MemberId();
     private AnaTypeFct function;
     private MemberId memberIdTest = new MemberId();
@@ -167,6 +170,31 @@ public final class AnaClassArgumentMatching {
         }
     }
 
+    public void implicitInfos(ImplicitInfos _info) {
+        getImplicits().add(_info.getIdMethod());
+        setMemberId(_info.getMemberId());
+        setFunction(_info.getFunction());
+    }
+    public void implicitInfos(ClassMethodIdReturn _info) {
+        implicitInfosCore(_info);
+        setFunction(_info.getPair());
+    }
+
+    public void implicitInfosCore(ClassMethodIdReturn _info) {
+        ClassMethodId cl_ = new ClassMethodId(_info.getId().getClassName(),_info.getRealId());
+        getImplicits().add(cl_);
+        setMemberId(_info.getMemberId());
+    }
+    public void implicitInfosTest(ClassMethodIdReturn _info) {
+        ClassMethodId cl_ = new ClassMethodId(_info.getId().getClassName(),_info.getRealId());
+        getImplicitsTest().add(cl_);
+        setMemberIdTest(_info.getMemberId());
+    }
+    public void implicitInfosTest(OperatorConverter _info) {
+        ClassMethodId cl_ = _info.getTest();
+        getImplicitsTest().add(cl_);
+        setMemberIdTest(_info.getMemberIdTest());
+    }
     public byte getUnwrapObjectNb() {
         return unwrapObjectNb;
     }

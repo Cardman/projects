@@ -3,6 +3,7 @@ package code.expressionlanguage.analyze.opers;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.inherits.AnaInherits;
 import code.expressionlanguage.analyze.opers.util.AnaTypeFct;
+import code.expressionlanguage.analyze.opers.util.ClassMethodIdMemberIdTypeFct;
 import code.expressionlanguage.analyze.opers.util.MemberId;
 import code.expressionlanguage.analyze.opers.util.OperatorConverter;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
@@ -25,12 +26,8 @@ public final class CompoundAffectationOperation extends MethodOperation {
 
     private SettableElResult settable;
     private final AnaOperatorContent operatorContent;
-    private AnaTypeFct function;
-    private String className="";
-    private MemberId memberId = new MemberId();
-    private ClassMethodId converter;
-    private MemberId memberIdConv = new MemberId();
-    private AnaTypeFct functionImpl;
+    private final ClassMethodIdMemberIdTypeFct fct = new ClassMethodIdMemberIdTypeFct();
+    private final ClassMethodIdMemberIdTypeFct conv = new ClassMethodIdMemberIdTypeFct();
     private AnaTypeFct functionTest;
 
     private boolean rightBool;
@@ -102,27 +99,20 @@ public final class CompoundAffectationOperation extends MethodOperation {
         }
         AnaClassArgumentMatching clMatchLeft_ = elt_.getResultClass();
         OperatorConverter cl_ = getBinaryOperatorOrMethod(this,(OperationNode) elt_,right_, op_, _page);
-        if (cl_.getSymbol() != null) {
+        if (cl_ != null) {
             ClassMethodId test_ = cl_.getTest();
             if (test_ != null) {
-                clMatchLeft_.getImplicitsTest().add(test_);
-                clMatchLeft_.setMemberIdTest(cl_.getMemberIdTest());
+                clMatchLeft_.implicitInfosTest(cl_);
                 functionTest = cl_.getFunctionTest();
             }
-            if (!AnaTypeUtil.isPrimitive(cl_.getSymbol().getClassName(), _page)) {
-                className = cl_.getSymbol().getClassName();
-                memberId = cl_.getMemberId();
-                function = cl_.getFunction();
-            }
+            fct.infos(cl_,_page);
             Mapping map_ = new Mapping();
             map_.setArg(getResultClass());
             map_.setParam(elt_.getResultClass());
             if (!AnaInherits.isCorrectOrNumbers(map_, _page)) {
                 ClassMethodIdReturn res_ = tryGetDeclaredImplicitCast(elt_.getResultClass().getSingleNameOrEmpty(), getResultClass(), _page);
                 if (res_.isFoundMethod()) {
-                    converter = new ClassMethodId(res_.getId().getClassName(),res_.getRealId());
-                    memberIdConv = res_.getMemberId();
-                    functionImpl = res_.getPair();
+                    conv.infos(res_);
                 } else {
                     FoundErrorInterpret cast_ = new FoundErrorInterpret();
                     cast_.setFileName(_page.getLocalizer().getCurrentFileName());
@@ -264,10 +254,7 @@ public final class CompoundAffectationOperation extends MethodOperation {
             if (!AnaInherits.isCorrectOrNumbers(mapping_, _page)) {
                 ClassMethodIdReturn res_ = tryGetDeclaredImplicitCast(clMatchLeft_.getSingleNameOrEmpty(), clMatchRight_, _page);
                 if (res_.isFoundMethod()) {
-                    ClassMethodId clImpl_ = new ClassMethodId(res_.getId().getClassName(),res_.getRealId());
-                    clMatchRight_.getImplicits().add(clImpl_);
-                    clMatchRight_.setMemberId(res_.getMemberId());
-                    clMatchRight_.setFunction(res_.getPair());
+                    clMatchRight_.implicitInfos(res_);
                 } else {
                     FoundErrorInterpret cast_ = new FoundErrorInterpret();
                     cast_.setFileName(_page.getLocalizer().getCurrentFileName());
@@ -316,11 +303,14 @@ public final class CompoundAffectationOperation extends MethodOperation {
     }
 
     public AnaTypeFct getFunction() {
-        return function;
+        return fct.getFunction();
     }
 
+    public ClassMethodIdMemberIdTypeFct getConv() {
+        return conv;
+    }
     public AnaTypeFct getFunctionImpl() {
-        return functionImpl;
+        return conv.getFunction();
     }
 
     public AnaTypeFct getFunctionTest() {
@@ -328,11 +318,7 @@ public final class CompoundAffectationOperation extends MethodOperation {
     }
 
     public String getClassName() {
-        return className;
-    }
-
-    public ClassMethodId getConverter() {
-        return converter;
+        return fct.getClassName();
     }
 
     public SettableElResult getSettable() {
@@ -340,11 +326,7 @@ public final class CompoundAffectationOperation extends MethodOperation {
     }
 
     public MemberId getMemberId() {
-        return memberId;
-    }
-
-    public MemberId getMemberIdConv() {
-        return memberIdConv;
+        return fct.getMemberId();
     }
 
     public boolean isRightBool() {

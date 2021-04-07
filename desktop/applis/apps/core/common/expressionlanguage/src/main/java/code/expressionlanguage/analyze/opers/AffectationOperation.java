@@ -202,10 +202,7 @@ public final class AffectationOperation extends MethodOperation {
         if (!AnaInherits.isCorrectOrNumbers(mapping_, _page)) {
             ClassMethodIdReturn res_ = tryGetDeclaredImplicitCast(clMatchLeft_.getSingleNameOrEmpty(), clMatchRight_, _page);
             if (res_.isFoundMethod()) {
-                ClassMethodId cl_ = new ClassMethodId(res_.getId().getClassName(),res_.getRealId());
-                clMatchRight_.getImplicits().add(cl_);
-                clMatchRight_.setMemberId(res_.getMemberId());
-                clMatchRight_.setFunction(res_.getPair());
+                clMatchRight_.implicitInfos(res_);
             } else {
                 FoundErrorInterpret cast_ = new FoundErrorInterpret();
                 cast_.setFileName(_page.getLocalizer().getCurrentFileName());

@@ -46,16 +46,12 @@ public abstract class AbstractTernaryOperation extends MethodOperation {
         if (!clMatch_.isBoolType(_page)) {
             ClassMethodIdReturn res_ = OperationNode.tryGetDeclaredImplicitCast(_page.getAliasPrimBoolean(), clMatch_, _page);
             if (res_.isFoundMethod()) {
-                ClassMethodId cl_ = new ClassMethodId(res_.getId().getClassName(),res_.getRealId());
-                clMatch_.getImplicits().add(cl_);
-                clMatch_.setMemberId(res_.getMemberId());
+                clMatch_.implicitInfosCore(res_);
                 implFct = res_.getPair();
             } else {
                 ClassMethodIdReturn trueOp_ = OperationNode.fetchTrueOperator(clMatch_, _page);
                 if (trueOp_.isFoundMethod()) {
-                    ClassMethodId test_ = new ClassMethodId(trueOp_.getId().getClassName(),trueOp_.getRealId());
-                    clMatch_.getImplicitsTest().add(test_);
-                    clMatch_.setMemberIdTest(trueOp_.getMemberId());
+                    clMatch_.implicitInfosTest(trueOp_);
                     testFct = trueOp_.getPair();
                 } else {
                     setRelativeOffsetPossibleAnalyzable(getIndexInEl()+getOperations().getOperators().firstKey(), _page);

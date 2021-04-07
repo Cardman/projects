@@ -1,10 +1,7 @@
 package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.analyze.opers.util.AnaTypeFct;
-import code.expressionlanguage.analyze.opers.util.MemberId;
-import code.expressionlanguage.analyze.opers.util.OperatorConverter;
-import code.expressionlanguage.analyze.opers.util.ResultOperand;
+import code.expressionlanguage.analyze.opers.util.*;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
@@ -14,12 +11,10 @@ import code.maths.litteralcom.StrTypes;
 import code.util.CustList;
 
 public abstract class NumericOperation extends MethodOperation implements MiddleSymbolOperation {
-    private String className="";
+    private final ClassMethodIdMemberIdTypeFct fct = new ClassMethodIdMemberIdTypeFct();
     private final String op;
     private final int opOffset;
     private boolean okNum;
-    private MemberId memberId = new MemberId();
-    private AnaTypeFct function;
 
     public NumericOperation(int _index,
             int _indexChild, MethodOperation _m, OperationsSequence _op) {
@@ -67,12 +62,8 @@ public abstract class NumericOperation extends MethodOperation implements Middle
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ops_.firstKey(), _page);
         okNum = true;
         OperatorConverter cl_ = getBinaryOperatorOrMethod(this,l_,r_, ops_.firstValue(), _page);
-        if (cl_.getSymbol() != null) {
-            if (!AnaTypeUtil.isPrimitive(cl_.getSymbol().getClassName(), _page)) {
-                memberId = cl_.getMemberId();
-                function = cl_.getFunction();
-                className = cl_.getSymbol().getClassName();
-            }
+        if (cl_ != null) {
+            fct.infos(cl_,_page);
             return;
         }
         ResultOperand res_ = analyzeOper(a_, ops_.firstValue(), c_, _page);
@@ -90,12 +81,12 @@ public abstract class NumericOperation extends MethodOperation implements Middle
     }
 
     public AnaTypeFct getFunction() {
-        return function;
+        return fct.getFunction();
     }
 
     @Override
     public String getClassName() {
-        return className;
+        return fct.getClassName();
     }
 
     @Override
@@ -114,7 +105,7 @@ public abstract class NumericOperation extends MethodOperation implements Middle
     }
 
     public MemberId getMemberId() {
-        return memberId;
+        return fct.getMemberId();
     }
 
 }

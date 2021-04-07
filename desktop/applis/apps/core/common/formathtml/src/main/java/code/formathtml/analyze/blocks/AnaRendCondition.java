@@ -15,9 +15,9 @@ import code.util.core.StringUtil;
 
 public abstract class AnaRendCondition extends AnaRendParentBlock {
 
-    private String condition;
+    private final String condition;
 
-    private int conditionOffset;
+    private final int conditionOffset;
 
     private OperationNode root;
     AnaRendCondition(OffsetStringInfo _condition, OffsetsBlock _offset) {
@@ -40,15 +40,11 @@ public abstract class AnaRendCondition extends AnaRendParentBlock {
         if (!exp_.isBoolType(_page)) {
             ClassMethodIdReturn res_ = OperationNode.tryGetDeclaredImplicitCast(_page.getAliasPrimBoolean(), exp_, _page);
             if (res_.isFoundMethod()) {
-                ClassMethodId cl_ = new ClassMethodId(res_.getId().getClassName(),res_.getRealId());
-                exp_.getImplicits().add(cl_);
-                exp_.setMemberId(res_.getMemberId());
+                exp_.implicitInfosCore(res_);
             } else {
                 ClassMethodIdReturn trueOp_ = OperationNode.fetchTrueOperator(exp_, _page);
                 if (trueOp_.isFoundMethod()) {
-                    ClassMethodId cl_ = new ClassMethodId(trueOp_.getId().getClassName(),trueOp_.getRealId());
-                    exp_.getImplicitsTest().add(cl_);
-                    exp_.setMemberIdTest(trueOp_.getMemberId());
+                    exp_.implicitInfosTest(trueOp_);
                 } else {
                     FoundErrorInterpret un_ = new FoundErrorInterpret();
                     un_.setFileName(_anaDoc.getFileName());

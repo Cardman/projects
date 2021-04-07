@@ -2,6 +2,7 @@ package code.expressionlanguage.analyze.opers;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.opers.util.AnaTypeFct;
+import code.expressionlanguage.analyze.opers.util.ClassMethodIdMemberIdTypeFct;
 import code.expressionlanguage.analyze.opers.util.MemberId;
 import code.expressionlanguage.analyze.opers.util.OperatorConverter;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
@@ -15,12 +16,10 @@ import code.expressionlanguage.structs.Struct;
 import code.util.core.StringUtil;
 
 public final class UnaryOperation extends AbstractUnaryOperation implements SymbolOperation {
-    private String className="";
+    private final ClassMethodIdMemberIdTypeFct fct = new ClassMethodIdMemberIdTypeFct();
     private final String oper;
     private int opOffset;
     private boolean okNum;
-    private MemberId memberId = new MemberId();
-    private AnaTypeFct function;
 
     public UnaryOperation(int _index,
             int _indexChild, MethodOperation _m, OperationsSequence _op) {
@@ -37,11 +36,7 @@ public final class UnaryOperation extends AbstractUnaryOperation implements Symb
         String oper_ = getOperations().getOperators().firstValue();
         OperatorConverter clId_ = getUnaryOperatorOrMethod(this,child_, oper_, _page);
         if (clId_ != null) {
-            if (!AnaTypeUtil.isPrimitive(clId_.getSymbol().getClassName(), _page)) {
-                className = clId_.getSymbol().getClassName();
-                memberId = clId_.getMemberId();
-                function = clId_.getFunction();
-            }
+            fct.infos(clId_,_page);
             return;
         }
         AnaClassArgumentMatching cl_ = AnaTypeUtil.toPrimitive(clMatch_, _page);
@@ -90,12 +85,12 @@ public final class UnaryOperation extends AbstractUnaryOperation implements Symb
     }
 
     public AnaTypeFct getFunction() {
-        return function;
+        return fct.getFunction();
     }
 
     @Override
     public String getClassName() {
-        return className;
+        return fct.getClassName();
     }
 
     public String getOper() {
@@ -113,7 +108,7 @@ public final class UnaryOperation extends AbstractUnaryOperation implements Symb
     }
 
     public MemberId getMemberId() {
-        return memberId;
+        return fct.getMemberId();
     }
 
 }

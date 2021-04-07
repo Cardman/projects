@@ -337,10 +337,7 @@ public final class StandardInstancingOperation extends
                         if (!res_.isFoundMethod()) {
                             continue;
                         }
-                        ClassMethodId cl_ = new ClassMethodId(res_.getId().getClassName(),res_.getRealId());
-                        o.getResultClass().getImplicits().add(cl_);
-                        o.getResultClass().setMemberId(res_.getMemberId());
-                        o.getResultClass().setFunction(res_.getPair());
+                        o.getResultClass().implicitInfos(res_);
                     }
                     contained_ = true;
                     break;

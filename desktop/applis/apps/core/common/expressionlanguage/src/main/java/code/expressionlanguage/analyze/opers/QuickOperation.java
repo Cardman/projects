@@ -5,6 +5,7 @@ import code.expressionlanguage.analyze.inherits.Mapping;
 import code.expressionlanguage.analyze.opers.util.AnaTypeFct;
 import code.expressionlanguage.analyze.opers.util.MemberId;
 import code.expressionlanguage.analyze.opers.util.OperatorConverter;
+import code.expressionlanguage.analyze.opers.util.ClassMethodIdMemberIdTypeFct;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
@@ -22,13 +23,9 @@ import code.util.core.StringUtil;
 public abstract class QuickOperation extends MethodOperation {
 
     private boolean okNum;
-    private String className="";
-    private MemberId memberId = new MemberId();
-    private AnaTypeFct function;
-    private AnaTypeFct convert;
+    private final ClassMethodIdMemberIdTypeFct fct = new ClassMethodIdMemberIdTypeFct();
+    private final ClassMethodIdMemberIdTypeFct conv = new ClassMethodIdMemberIdTypeFct();
     private AnaTypeFct functionTest;
-    private MemberId memberConverter = new MemberId();
-    private ClassMethodId converter;
     private final StringList errFirst = new StringList();
     private final StringList errSecond = new StringList();
 
@@ -55,29 +52,22 @@ public abstract class QuickOperation extends MethodOperation {
         AnaClassArgumentMatching rightRes_ = right_.getResultClass();
         String oper_ = getOperations().getOperators().firstValue();
         OperatorConverter opConv_ = getBinaryOperatorOrMethod(this, left_, right_, oper_, _page);
-        if (opConv_.getSymbol() != null) {
-            if (!AnaTypeUtil.isPrimitive(opConv_.getSymbol().getClassName(), _page)) {
-                className = opConv_.getSymbol().getClassName();
-                memberId = opConv_.getMemberId();
-                function = opConv_.getFunction();
-            }
+        if (opConv_ != null) {
+            fct.infos(opConv_,_page);
             okNum = true;
             ClassMethodId test_ = opConv_.getTest();
             if (test_ == null) {
                 return;
             }
             functionTest = opConv_.getFunctionTest();
-            leftRes_.getImplicitsTest().add(test_);
-            leftRes_.setMemberIdTest(opConv_.getMemberIdTest());
+            leftRes_.implicitInfosTest(opConv_);
             Mapping map_ = new Mapping();
             map_.setArg(getResultClass());
             map_.setParam(leftRes_);
             if (!AnaInherits.isCorrectOrNumbers(map_, _page)) {
                 ClassMethodIdReturn res_ = tryGetDeclaredImplicitCast(leftRes_.getSingleNameOrEmpty(), getResultClass(), _page);
                 if (res_.isFoundMethod()) {
-                    converter = new ClassMethodId(res_.getId().getClassName(),res_.getRealId());
-                    memberConverter = res_.getMemberId();
-                    convert = res_.getPair();
+                    conv.infos(res_);
                 } else {
                     setRelativeOffsetPossibleAnalyzable(getIndexInEl()+getOperations().getOperators().firstKey(), _page);
                     FoundErrorInterpret cast_ = new FoundErrorInterpret();
@@ -138,19 +128,19 @@ public abstract class QuickOperation extends MethodOperation {
     }
 
     public String getClassName() {
-        return className;
+        return fct.getClassName();
     }
 
-    public ClassMethodId getConverter() {
-        return converter;
+    public ClassMethodIdMemberIdTypeFct getConv() {
+        return conv;
     }
 
     public AnaTypeFct getFunction() {
-        return function;
+        return fct.getFunction();
     }
 
     public MemberId getMemberId() {
-        return memberId;
+        return fct.getMemberId();
     }
 
     public AnaTypeFct getFunctionTest() {
@@ -158,11 +148,7 @@ public abstract class QuickOperation extends MethodOperation {
     }
 
     public AnaTypeFct getConvert() {
-        return convert;
-    }
-
-    public MemberId getMemberConverter() {
-        return memberConverter;
+        return conv.getFunction();
     }
 
     public int getOpOffset() {

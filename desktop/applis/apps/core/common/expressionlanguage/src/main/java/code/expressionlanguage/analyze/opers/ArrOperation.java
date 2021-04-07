@@ -233,10 +233,7 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
         if (!indexClass_.isNumericInt(_page)) {
             ClassMethodIdReturn res_ = OperationNode.tryGetDeclaredImplicitCast(_page.getAliasPrimInteger(), indexClass_, _page);
             if (res_.isFoundMethod()) {
-                ClassMethodId cl_ = new ClassMethodId(res_.getId().getClassName(),res_.getRealId());
-                indexClass_.getImplicits().add(cl_);
-                indexClass_.setMemberId(res_.getMemberId());
-                indexClass_.setFunction(res_.getPair());
+                indexClass_.implicitInfos(res_);
             } else {
                 FoundErrorInterpret un_ = new FoundErrorInterpret();
                 un_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());

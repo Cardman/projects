@@ -146,10 +146,7 @@ public final class ReturnMethod extends AbruptBlock {
             //look for implicit casts
             ClassMethodIdReturn res_ = OperationNode.tryGetDeclaredImplicitCast(_retType, ret_, _page);
             if (res_.isFoundMethod()) {
-                ClassMethodId cl_ = new ClassMethodId(res_.getId().getClassName(),res_.getRealId());
-                ret_.getImplicits().add(cl_);
-                ret_.setMemberId(res_.getMemberId());
-                ret_.setFunction(res_.getPair());
+                ret_.implicitInfos(res_);
             } else {
                 FoundErrorInterpret cast_ = new FoundErrorInterpret();
                 cast_.setFileName(getFile().getFileName());

@@ -155,9 +155,7 @@ public final class AnaRendForIterativeLoop extends AnaRendParentBlock implements
         if (!AnaInherits.isCorrectOrNumbers(m_, _page)) {
             ClassMethodIdReturn res_ = OperationNode.tryGetDeclaredImplicitCast(_result, resCl_, _page);
             if (res_.isFoundMethod()) {
-                ClassMethodId cl_ = new ClassMethodId(res_.getId().getClassName(),res_.getRealId());
-                resCl_.getImplicits().add(cl_);
-                resCl_.setMemberId(res_.getMemberId());
+                resCl_.implicitInfosCore(res_);
             } else {
                 FoundErrorInterpret cast_ = new FoundErrorInterpret();
                 cast_.setFileName(_anaDoc.getFileName());

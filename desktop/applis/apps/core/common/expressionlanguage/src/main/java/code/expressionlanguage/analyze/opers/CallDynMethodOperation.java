@@ -442,10 +442,7 @@ public final class CallDynMethodOperation extends InvokingOperation implements P
                     } else if (!AnaInherits.isCorrectOrNumbers(m_, _page)) {
                         ClassMethodIdReturn res_ = tryGetDeclaredImplicitCast(pa_, a_, _page);
                         if (res_.isFoundMethod()) {
-                            ClassMethodId cl_ = new ClassMethodId(res_.getId().getClassName(),res_.getRealId());
-                            a_.getImplicits().add(cl_);
-                            a_.setMemberId(res_.getMemberId());
-                            a_.setFunction(res_.getPair());
+                            a_.implicitInfos(res_);
                         } else {
                             FoundErrorInterpret cast_ = new FoundErrorInterpret();
                             cast_.setFileName(_page.getLocalizer().getCurrentFileName());

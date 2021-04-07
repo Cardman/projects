@@ -1,6 +1,7 @@
 package code.expressionlanguage.analyze.opers;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.opers.util.AnaTypeFct;
+import code.expressionlanguage.analyze.opers.util.ClassMethodIdMemberIdTypeFct;
 import code.expressionlanguage.analyze.opers.util.MemberId;
 import code.expressionlanguage.analyze.opers.util.OperatorConverter;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
@@ -16,10 +17,8 @@ import code.util.core.StringUtil;
 public final class EqOperation extends MethodOperation implements MiddleSymbolOperation {
 
     private final String oper;
-    private String className="";
-    private AnaTypeFct function;
+    private final ClassMethodIdMemberIdTypeFct fct = new ClassMethodIdMemberIdTypeFct();
     private final int opOffset;
-    private MemberId memberId = new MemberId();
     public EqOperation(int _index,
             int _indexChild, MethodOperation _m, OperationsSequence _op) {
         super(_index, _indexChild, _m, _op);
@@ -49,10 +48,8 @@ public final class EqOperation extends MethodOperation implements MiddleSymbolOp
         OperationNode l_ = chidren_.first();
         OperationNode r_ = chidren_.last();
         OperatorConverter cl_ = getBinaryOperatorOrMethod(this,l_,r_, custOp_, _page);
-        if (cl_.getSymbol() != null) {
-            className = cl_.getSymbol().getClassName();
-            memberId = cl_.getMemberId();
-            function = cl_.getFunction();
+        if (cl_ != null) {
+            fct.infos(cl_,_page);
             return;
         }
         setResultClass(new AnaClassArgumentMatching(_page.getAliasPrimBoolean(),PrimitiveTypes.BOOL_WRAP));
@@ -69,12 +66,12 @@ public final class EqOperation extends MethodOperation implements MiddleSymbolOp
     }
 
     public AnaTypeFct getFunction() {
-        return function;
+        return fct.getFunction();
     }
 
     @Override
     public String getClassName() {
-        return className;
+        return fct.getClassName();
     }
 
     @Override
@@ -95,7 +92,7 @@ public final class EqOperation extends MethodOperation implements MiddleSymbolOp
     }
 
     public MemberId getMemberId() {
-        return memberId;
+        return fct.getMemberId();
     }
 
 }

@@ -1,6 +1,7 @@
 package code.expressionlanguage.analyze.opers;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.opers.util.AnaTypeFct;
+import code.expressionlanguage.analyze.opers.util.ClassMethodIdMemberIdTypeFct;
 import code.expressionlanguage.analyze.opers.util.MemberId;
 import code.expressionlanguage.analyze.opers.util.OperatorConverter;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
@@ -12,11 +13,9 @@ import code.util.core.StringUtil;
 
 public final class UnaryBinOperation extends AbstractUnaryOperation implements SymbolOperation {
 
-    private String className="";
+    private final ClassMethodIdMemberIdTypeFct fct = new ClassMethodIdMemberIdTypeFct();
     private int opOffset;
     private boolean okNum;
-    private MemberId memberId = new MemberId();
-    private AnaTypeFct function;
 
     public UnaryBinOperation(int _index,
             int _indexChild, MethodOperation _m, OperationsSequence _op) {
@@ -32,11 +31,7 @@ public final class UnaryBinOperation extends AbstractUnaryOperation implements S
         String oper_ = getOperations().getOperators().firstValue();
         OperatorConverter clId_ = getUnaryOperatorOrMethod(this,child_, oper_, _page);
         if (clId_ != null) {
-            if (!AnaTypeUtil.isPrimitive(clId_.getSymbol().getClassName(), _page)) {
-                memberId = clId_.getMemberId();
-                function = clId_.getFunction();
-                className = clId_.getSymbol().getClassName();
-            }
+            fct.infos(clId_,_page);
             return;
         }
         int order_ = AnaTypeUtil.getIntOrderClass(clMatch_, _page);
@@ -70,11 +65,11 @@ public final class UnaryBinOperation extends AbstractUnaryOperation implements S
 
     @Override
     public String getClassName() {
-        return className;
+        return fct.getClassName();
     }
 
     public AnaTypeFct getFunction() {
-        return function;
+        return fct.getFunction();
     }
 
     @Override
@@ -88,7 +83,7 @@ public final class UnaryBinOperation extends AbstractUnaryOperation implements S
     }
 
     public MemberId getMemberId() {
-        return memberId;
+        return fct.getMemberId();
     }
 
 }

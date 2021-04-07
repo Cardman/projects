@@ -963,24 +963,12 @@ public abstract class OperationNode {
             return out_;
         }
         ConstructorId ctor_ = cInfo_.getConstraints();
-        int len_ = cInfo_.getImplicits().size();
-        for (int i = 0; i < len_; i++) {
-            CustList<ImplicitInfos> implicitInfos_ = cInfo_.getImplicits().get(i);
-            for (ImplicitInfos j: implicitInfos_) {
-                cInfo_.getAllOps().get(i).getResultClass().getImplicits().add(j.getIdMethod());
-                cInfo_.getAllOps().get(i).getResultClass().setMemberId(j.getMemberId());
-                cInfo_.getAllOps().get(i).getResultClass().setFunction(j.getFunction());
-            }
-        }
-        int parNameLen_ = cInfo_.getNameParametersFilterIndexes().size();
-        for (int i = 0; i < parNameLen_; i++) {
-            NamedArgumentOperation namedArgument_ = _filter.getParameterFilter().get(i);
-            NamedFunctionBlock custMethod_ = cInfo_.getCustomCtor();
-            if (custMethod_ != null) {
-                namedArgument_.getCustomMethod().add(custMethod_);
-            }
-            namedArgument_.setIndex(cInfo_.getNameParametersFilterIndexes().get(i));
-        }
+        CustList<CustList<ImplicitInfos>> implicits_ = cInfo_.getImplicits();
+        CustList<OperationNode> allOps_ = cInfo_.getAllOps();
+        feedImplicitsInfos(implicits_, allOps_);
+        Ints nameParametersFilterIndexes_ = cInfo_.getNameParametersFilterIndexes();
+        NamedFunctionBlock custMethod_ = cInfo_.getCustomCtor();
+        feedNamedParams(_filter, nameParametersFilterIndexes_, custMethod_);
         ConstrustorIdVarArg out_;
         out_ = new ConstrustorIdVarArg();
         if (cInfo_.isVarArgWrap()) {
@@ -993,6 +981,28 @@ public abstract class OperationNode {
         out_.setStandardType(cInfo_.getStandardType());
         out_.setMemberId(cInfo_.getMemberId());
         return out_;
+    }
+
+    private static void feedNamedParams(NameParametersFilter _filter, Ints _nameParametersFilterIndexes, NamedFunctionBlock _custMethod) {
+        int parNameLen_ = _nameParametersFilterIndexes.size();
+        for (int i = 0; i < parNameLen_; i++) {
+            NamedArgumentOperation namedArgument_ = _filter.getParameterFilter().get(i);
+            if (_custMethod != null) {
+                namedArgument_.getCustomMethod().add(_custMethod);
+            }
+            namedArgument_.setIndex(_nameParametersFilterIndexes.get(i));
+        }
+    }
+
+    private static void feedImplicitsInfos(CustList<CustList<ImplicitInfos>> _implicits, CustList<OperationNode> _allOps) {
+        int len_ = _implicits.size();
+        for (int i = 0; i < len_; i++) {
+            CustList<ImplicitInfos> implicitInfos_ = _implicits.get(i);
+            AnaClassArgumentMatching resultClass_ = _allOps.get(i).getResultClass();
+            for (ImplicitInfos j : implicitInfos_) {
+                resultClass_.implicitInfos(j);
+            }
+        }
     }
 
     static ConstrustorIdVarArg getDeclaredCustConstructorLambda(OperationNode _op, int _varargOnly, AnaClassArgumentMatching _class,
@@ -1314,11 +1324,7 @@ public abstract class OperationNode {
         } else {
             res_ = fetchFalseOperator(_classes,_argsClass[0],_uniqueId, _page, cmp_);
         }
-        if (res_.isFoundMethod()) {
-            ClassMethodId id_ = res_.getId();
-            MethodId cts_ = id_.getConstraints();
-            res_.setId(new ClassMethodId(id_.getClassName(),new MethodId(cts_.getKind(),cts_.getName(),cts_.shiftFirst(),cts_.isVararg())));
-        }
+        possibleAdjust(res_);
         return res_;
     }
     protected static ClassMethodIdReturn tryGetDeclaredCustIncrDecrMethod(StringList _classes, String _name,
@@ -1344,8 +1350,8 @@ public abstract class OperationNode {
             if (!to_.isFoundMethod()) {
                 continue;
             }
-            ClassMethodId clFrom_ = new ClassMethodId(from_.getId().getClassName(),from_.getRealId());
-            ClassMethodId clTo_ = new ClassMethodId(to_.getId().getClassName(),to_.getRealId());
+            ClassMethodId clFrom_ = toClassMethodId(from_);
+            ClassMethodId clTo_ = toClassMethodId(to_);
             return new ReversibleConversion(clFrom_, from_.getMemberId(),from_.getPair(),
                     clTo_, to_.getMemberId(),to_.getPair());
         }
@@ -1443,11 +1449,7 @@ public abstract class OperationNode {
         AbstractComparer cmp_ = new DefaultComparer();
         methods_ = getDeclaredCustCast(_classes, _uniqueId, cl_, _page, cmp_);
         ClassMethodIdReturn res_ = getCustCastResult(methods_, cl_, _page, _page.getCurrentConstraints().getCurrentConstraints(), cmp_);
-        if (res_.isFoundMethod()) {
-            ClassMethodId id_ = res_.getId();
-            MethodId cts_ = id_.getConstraints();
-            res_.setId(new ClassMethodId(id_.getClassName(),new MethodId(cts_.getKind(),cts_.getName(),cts_.shiftFirst(),cts_.isVararg())));
-        }
+        possibleAdjust(res_);
         return res_;
     }
     protected static ClassMethodIdReturn tryGetDeclaredImplicitCast(String _classes, ClassMethodId _uniqueId, AnaClassArgumentMatching[] _argsClass, AnalyzedPageEl _page) {
@@ -1461,13 +1463,18 @@ public abstract class OperationNode {
         AbstractComparer cmp_ = new DefaultComparer();
         methods_ = getDeclaredCustImplicitCast(_classes, _uniqueId, cl_, _page, cmp_);
         ClassMethodIdReturn res_ = getCustCastResult(methods_, cl_, _page, _page.getCurrentConstraints().getCurrentConstraints(), cmp_);
-        if (res_.isFoundMethod()) {
-            ClassMethodId id_ = res_.getId();
-            MethodId cts_ = id_.getConstraints();
-            res_.setId(new ClassMethodId(id_.getClassName(),new MethodId(cts_.getKind(),cts_.getName(),cts_.shiftFirst(),cts_.isVararg())));
-        }
+        possibleAdjust(res_);
         return res_;
     }
+
+    private static void possibleAdjust(ClassMethodIdReturn _res) {
+        if (_res.isFoundMethod()) {
+            ClassMethodId id_ = _res.getId();
+            MethodId cts_ = id_.getConstraints();
+            _res.setId(new ClassMethodId(id_.getClassName(), new MethodId(cts_.getKind(), cts_.getName(), cts_.shiftFirst(), cts_.isVararg())));
+        }
+    }
+
     public static ClassMethodIdReturn tryGetDeclaredImplicitCast(String _classes, AnaClassArgumentMatching _arg, AnalyzedPageEl _page) {
         StringMap<StringList> vars_ = _page.getCurrentConstraints().getCurrentConstraints();
         return tryGetDeclaredImplicitCast(_classes, _arg, _page, vars_, new DefaultComparer());
@@ -1494,12 +1501,7 @@ public abstract class OperationNode {
         if (isNativeUnaryOperator(operand_,_op, _page)) {
             return null;
         }
-        CustList<CustList<MethodInfo>> listsUnary_ = new CustList<CustList<MethodInfo>>();
-        CustList<MethodInfo> listUnary_ = new CustList<MethodInfo>();
-        for (String n:operand_.getNames()) {
-            fetchUnary(listUnary_,n, _page);
-        }
-        listsUnary_.add(listUnary_);
+        CustList<CustList<MethodInfo>> listsUnary_ = addUnaries(_page, operand_);
         ClassMethodIdReturn clMethImp_ = getCustResult(false, -1, listsUnary_, _op, "", single_, _page);
         if (clMethImp_.isFoundMethod()) {
             CustList<OperationNode> chidren_ = _node.getChildrenNodes();
@@ -1569,6 +1571,16 @@ public abstract class OperationNode {
         return null;
     }
 
+    private static CustList<CustList<MethodInfo>> addUnaries(AnalyzedPageEl _page, AnaClassArgumentMatching _operand) {
+        CustList<CustList<MethodInfo>> listsUnary_ = new CustList<CustList<MethodInfo>>();
+        CustList<MethodInfo> listUnary_ = new CustList<MethodInfo>();
+        for (String n : _operand.getNames()) {
+            fetchUnary(listUnary_, n, _page);
+        }
+        listsUnary_.add(listUnary_);
+        return listsUnary_;
+    }
+
     private static void addVirtual(String _op, AnalyzedPageEl _page, CustList<MethodInfo> _list,String _className, String _returnType, StringList _params) {
         MethodInfo mloc_ = new MethodInfo();
         MethodId id_ = new MethodId(MethodAccessKind.STATIC, _op, _params);
@@ -1586,12 +1598,7 @@ public abstract class OperationNode {
         if (isNativeUnaryOperator(operand_,_op, _page)) {
             return null;
         }
-        CustList<CustList<MethodInfo>> listsUnary_ = new CustList<CustList<MethodInfo>>();
-        CustList<MethodInfo> listUnary_ = new CustList<MethodInfo>();
-        for (String n:operand_.getNames()) {
-            fetchUnary(listUnary_,n, _page);
-        }
-        listsUnary_.add(listUnary_);
+        CustList<CustList<MethodInfo>> listsUnary_ = addUnaries(_page, operand_);
         ClassMethodIdReturn clMethImp_ = getCustResult(false, -1, listsUnary_, _op, "", single_, _page);
         if (clMethImp_.isFoundMethod()) {
             CustList<OperationNode> chidren_ = _node.getChildrenNodes();
@@ -1609,10 +1616,9 @@ public abstract class OperationNode {
         AnaClassArgumentMatching right_ = _right.getResultClass();
         CustList<OperationNode> pair_ = new CustList<OperationNode>(_left,_right);
         if (isNativeBinaryOperator(left_,right_,_op, _page)) {
-            return new OperatorConverter();
+            return null;
         }
         CustList<CustList<MethodInfo>> listsBinary_ = new CustList<CustList<MethodInfo>>();
-        CustList<MethodInfo> listBinary_ = new CustList<MethodInfo>();
         ClassMethodId convert_ = null;
         AnaTypeFct convertTest_ = null;
         MemberId idTest_ = new MemberId();
@@ -1626,13 +1632,8 @@ public abstract class OperationNode {
             if (clMethImp_.isFoundMethod()) {
                 idTest_ = clMethImp_.getMemberId();
                 convertTest_ = clMethImp_.getPair();
-                convert_ = new ClassMethodId(clMethImp_.getId().getClassName(),clMethImp_.getRealId());
-                for (String n:left_.getNames()) {
-                    for (String o:right_.getNames()) {
-                        fetchBinary(listBinary_,n,o, _page);
-                    }
-                }
-                listsBinary_.add(listBinary_);
+                convert_ = toClassMethodId(clMethImp_);
+                addBinaries(_page, left_, right_, listsBinary_);
             }
         } else if (StringUtil.quickEq(_op,"||")) {
             CustList<MethodInfo> listTrue_ = new CustList<MethodInfo>();
@@ -1643,21 +1644,11 @@ public abstract class OperationNode {
             if (clMethImp_.isFoundMethod()) {
                 idTest_ = clMethImp_.getMemberId();
                 convertTest_ = clMethImp_.getPair();
-                convert_ = new ClassMethodId(clMethImp_.getId().getClassName(),clMethImp_.getRealId());
-                for (String n:left_.getNames()) {
-                    for (String o:right_.getNames()) {
-                        fetchBinary(listBinary_,n,o, _page);
-                    }
-                }
-                listsBinary_.add(listBinary_);
+                convert_ = toClassMethodId(clMethImp_);
+                addBinaries(_page, left_, right_, listsBinary_);
             }
         } else {
-            for (String n:left_.getNames()) {
-                for (String o:right_.getNames()) {
-                    fetchBinary(listBinary_,n,o, _page);
-                }
-            }
-            listsBinary_.add(listBinary_);
+            addBinaries(_page, left_, right_, listsBinary_);
         }
         ClassMethodIdReturn clMethImp_ = getCustResult(false, -1, listsBinary_, _op, "", pair_, _page);
         if (clMethImp_.isFoundMethod()) {
@@ -1761,8 +1752,23 @@ public abstract class OperationNode {
                 return op_;
             }
         }
-        return new OperatorConverter();
+        return null;
     }
+
+    private static void addBinaries(AnalyzedPageEl _page, AnaClassArgumentMatching _left, AnaClassArgumentMatching _right, CustList<CustList<MethodInfo>> _listsBinary) {
+        CustList<MethodInfo> listBinary_ = new CustList<MethodInfo>();
+        for (String n : _left.getNames()) {
+            for (String o : _right.getNames()) {
+                fetchBinary(listBinary_, n, o, _page);
+            }
+        }
+        _listsBinary.add(listBinary_);
+    }
+
+    private static ClassMethodId toClassMethodId(ClassMethodIdReturn _res) {
+        return new ClassMethodId(_res.getId().getClassName(), _res.getRealId());
+    }
+
     private static ClassMethodIdReturn getCustomOperatorOrMethod(MethodOperation _node, String _op, AnalyzedPageEl _page) {
         StringList bounds_ = _page.getTypesWithInnerOperators();
         CustList<OperationNode> chidren_ = _node.getChildrenNodes();
@@ -2973,24 +2979,12 @@ public abstract class OperationNode {
                 ContextUtil.appendTitlePartsAbs(staticCallOp_.getLt(), staticCallOp_.getGt(), m_.getClassName(), staticCallOp_.getStCallSolved(), _page);
             }
         }
-        int len_ = m_.getImplicits().size();
-        for (int i = 0; i < len_; i++) {
-            CustList<ImplicitInfos> implicitInfos_ = m_.getImplicits().get(i);
-            for (ImplicitInfos j: implicitInfos_) {
-                m_.getAllOps().get(i).getResultClass().getImplicits().add(j.getIdMethod());
-                m_.getAllOps().get(i).getResultClass().setMemberId(j.getMemberId());
-                m_.getAllOps().get(i).getResultClass().setFunction(j.getFunction());
-            }
-        }
-        int parNameLen_ = m_.getNameParametersFilterIndexes().size();
-        for (int i = 0; i < parNameLen_; i++) {
-            NamedArgumentOperation namedArgument_ = _filter.getParameterFilter().get(i);
-            NamedFunctionBlock custMethod_ = m_.getCustMethod();
-            if (custMethod_ != null) {
-                namedArgument_.getCustomMethod().add(custMethod_);
-            }
-            namedArgument_.setIndex(m_.getNameParametersFilterIndexes().get(i));
-        }
+        CustList<CustList<ImplicitInfos>> implicits_ = m_.getImplicits();
+        CustList<OperationNode> allOps_ = m_.getAllOps();
+        feedImplicitsInfos(implicits_, allOps_);
+        Ints nameParametersFilterIndexes_ = m_.getNameParametersFilterIndexes();
+        NamedFunctionBlock custMethod_ = m_.getCustMethod();
+        feedNamedParams(_filter, nameParametersFilterIndexes_, custMethod_);
         MethodId constraints_ = m_.getConstraints();
         String baseClassName_ = m_.getClassName();
         ClassMethodIdReturn res_ = new ClassMethodIdReturn(true);
@@ -3286,12 +3280,7 @@ public abstract class OperationNode {
                 ClassMethodIdReturn res_ = OperationNode.tryGetDeclaredImplicitCast(wc_, arg_, _page);
                 if (res_.isFoundMethod()) {
                     implicit_ = true;
-                    ImplicitInfos imp_ = new ImplicitInfos();
-                    ClassMethodId cl_ = new ClassMethodId(res_.getId().getClassName(),res_.getRealId());
-                    imp_.setIdMethod(cl_);
-                    imp_.setMemberId(res_.getMemberId());
-                    imp_.setFunction(res_.getPair());
-                    l_.add(imp_);
+                    addImplicitInfos(l_, res_);
                     continue;
                 }
                 return false;
@@ -3366,12 +3355,7 @@ public abstract class OperationNode {
             if (res_.isFoundMethod()) {
                 _id.setInvocation(InvocationMethod.ALL);
                 _id.setVarArgWrap(true);
-                ImplicitInfos imp_ = new ImplicitInfos();
-                ClassMethodId cl_ = new ClassMethodId(res_.getId().getClassName(),res_.getRealId());
-                imp_.setIdMethod(cl_);
-                imp_.setMemberId(res_.getMemberId());
-                imp_.setFunction(res_.getPair());
-                l_.add(imp_);
+                addImplicitInfos(l_, res_);
                 return true;
             }
             return false;
@@ -3399,12 +3383,7 @@ public abstract class OperationNode {
                 ClassMethodIdReturn res_ = OperationNode.tryGetDeclaredImplicitCast(wc_, a_, _page);
                 if (res_.isFoundMethod()) {
                     implicit_ = true;
-                    ImplicitInfos imp_ = new ImplicitInfos();
-                    ClassMethodId cl_ = new ClassMethodId(res_.getId().getClassName(),res_.getRealId());
-                    imp_.setIdMethod(cl_);
-                    imp_.setMemberId(res_.getMemberId());
-                    imp_.setFunction(res_.getPair());
-                    l_.add(imp_);
+                    addImplicitInfos(l_, res_);
                     continue;
                 }
                 return false;
@@ -3413,6 +3392,15 @@ public abstract class OperationNode {
         setVarargOrImplicit(_id, implicit_);
         _id.setVarArgWrap(true);
         return true;
+    }
+
+    private static void addImplicitInfos(CustList<ImplicitInfos> _list, ClassMethodIdReturn _res) {
+        ImplicitInfos imp_ = new ImplicitInfos();
+        ClassMethodId cl_ = toClassMethodId(_res);
+        imp_.setIdMethod(cl_);
+        imp_.setMemberId(_res.getMemberId());
+        imp_.setFunction(_res.getPair());
+        _list.add(imp_);
     }
 
     private static boolean isWrapp(OperationNode _op) {

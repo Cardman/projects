@@ -2,6 +2,7 @@ package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.opers.util.AnaTypeFct;
+import code.expressionlanguage.analyze.opers.util.ClassMethodIdMemberIdTypeFct;
 import code.expressionlanguage.analyze.opers.util.MemberId;
 import code.expressionlanguage.analyze.opers.util.OperatorConverter;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
@@ -20,11 +21,9 @@ import code.util.core.StringUtil;
 public final class CmpOperation extends MethodOperation implements MiddleSymbolOperation {
 
     private boolean stringCompare;
-    private String className="";
+    private final ClassMethodIdMemberIdTypeFct fct = new ClassMethodIdMemberIdTypeFct();
     private final AnaOperatorContent operatorContent;
     private boolean okNum;
-    private MemberId memberId = new MemberId();
-    private AnaTypeFct function;
 
     public CmpOperation(int _index,
             int _indexChild, MethodOperation _m, OperationsSequence _op) {
@@ -71,12 +70,8 @@ public final class CmpOperation extends MethodOperation implements MiddleSymbolO
         AnaClassArgumentMatching second_ = r_.getResultClass();
         String op_ = getOperations().getOperators().firstValue().trim();
         OperatorConverter cl_ = getBinaryOperatorOrMethod(this,l_,r_, op_, _page);
-        if (cl_.getSymbol() != null) {
-            if (!AnaTypeUtil.isPrimitive(cl_.getSymbol().getClassName(), _page)) {
-                className = cl_.getSymbol().getClassName();
-                memberId = cl_.getMemberId();
-                function = cl_.getFunction();
-            }
+        if (cl_ != null) {
+            fct.infos(cl_,_page);
             return;
         }
         String stringType_ = _page.getAliasString();
@@ -136,12 +131,12 @@ public final class CmpOperation extends MethodOperation implements MiddleSymbolO
     }
 
     public AnaTypeFct getFunction() {
-        return function;
+        return fct.getFunction();
     }
 
     @Override
     public String getClassName() {
-        return className;
+        return fct.getClassName();
     }
 
     @Override
@@ -160,7 +155,7 @@ public final class CmpOperation extends MethodOperation implements MiddleSymbolO
     }
 
     public MemberId getMemberId() {
-        return memberId;
+        return fct.getMemberId();
     }
 
     public AnaOperatorContent getOperatorContent() {

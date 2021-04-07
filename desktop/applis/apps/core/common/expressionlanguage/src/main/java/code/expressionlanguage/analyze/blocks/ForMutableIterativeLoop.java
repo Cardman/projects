@@ -274,16 +274,12 @@ public final class ForMutableIterativeLoop extends BracedBlock implements
         if (!exp_.isBoolType(_page)) {
             ClassMethodIdReturn res_ = OperationNode.tryGetDeclaredImplicitCast(_page.getAliasPrimBoolean(), exp_, _page);
             if (res_.isFoundMethod()) {
-                ClassMethodId cl_ = new ClassMethodId(res_.getId().getClassName(),res_.getRealId());
-                exp_.getImplicits().add(cl_);
-                exp_.setMemberId(res_.getMemberId());
+                exp_.implicitInfosCore(res_);
                 functionImpl = res_.getPair();
             } else {
                 ClassMethodIdReturn trueOp_ = OperationNode.fetchTrueOperator(exp_, _page);
                 if (trueOp_.isFoundMethod()) {
-                    ClassMethodId cl_ = new ClassMethodId(trueOp_.getId().getClassName(),trueOp_.getRealId());
-                    exp_.getImplicitsTest().add(cl_);
-                    exp_.setMemberIdTest(trueOp_.getMemberId());
+                    exp_.implicitInfosTest(trueOp_);
                     function = trueOp_.getPair();
                 } else {
                     FoundErrorInterpret un_ = new FoundErrorInterpret();

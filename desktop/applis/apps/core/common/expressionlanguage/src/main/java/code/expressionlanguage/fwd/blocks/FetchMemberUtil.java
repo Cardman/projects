@@ -1,6 +1,7 @@
 package code.expressionlanguage.fwd.blocks;
 
 import code.expressionlanguage.analyze.opers.util.MemberId;
+import code.expressionlanguage.analyze.opers.util.ClassMethodIdMemberIdTypeFct;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
@@ -39,6 +40,9 @@ public final class FetchMemberUtil {
         }
     }
 
+    public static ImplicitMethods fetchImplicits(ClassMethodIdMemberIdTypeFct _id, Forwards _forwards) {
+        return fetchImplicits(_id.getImplicit(),_id.getMemberId(),_forwards);
+    }
     public static ImplicitMethods fetchImplicits(ClassMethodId _clMet, MemberId _id, Forwards _forwards) {
         ExecTypeFunction conv_ = null;
         String converterClass_ = "";

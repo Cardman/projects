@@ -2,6 +2,7 @@ package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.opers.util.AnaTypeFct;
+import code.expressionlanguage.analyze.opers.util.ClassMethodIdMemberIdTypeFct;
 import code.expressionlanguage.analyze.opers.util.MemberId;
 import code.expressionlanguage.analyze.opers.util.ReversibleConversion;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
@@ -24,12 +25,8 @@ public final class SemiAffectationOperation extends AbstractUnaryOperation  {
     private String className="";
     private MemberId memberId = new MemberId();
     private AnaTypeFct function;
-    private AnaTypeFct functionFrom;
-    private MemberId memberIdFrom = new MemberId();
-    private ClassMethodId converterFrom;
-    private AnaTypeFct functionTo;
-    private MemberId memberIdTo = new MemberId();
-    private ClassMethodId converterTo;
+    private final ClassMethodIdMemberIdTypeFct convFrom = new ClassMethodIdMemberIdTypeFct();
+    private final ClassMethodIdMemberIdTypeFct convTo = new ClassMethodIdMemberIdTypeFct();
 
     public SemiAffectationOperation(int _index, int _indexChild,
             MethodOperation _m, OperationsSequence _op, boolean _post) {
@@ -88,12 +85,8 @@ public final class SemiAffectationOperation extends AbstractUnaryOperation  {
         if (!AnaTypeUtil.isPureNumberClass(clMatchLeft_, _page)) {
             ReversibleConversion reversibleConversion_ = tryGetPair(clMatchLeft_, _page);
             if (reversibleConversion_ != null) {
-                memberIdFrom = reversibleConversion_.getMemberIdFrom();
-                converterFrom = reversibleConversion_.getFrom();
-                functionFrom = reversibleConversion_.getFunctionFrom();
-                memberIdTo = reversibleConversion_.getMemberIdTo();
-                converterTo = reversibleConversion_.getTo();
-                functionTo = reversibleConversion_.getFunctionTo();
+                convFrom.infos(reversibleConversion_.getFrom(),reversibleConversion_.getMemberIdFrom(),reversibleConversion_.getFunctionFrom());
+                convTo.infos(reversibleConversion_.getTo(),reversibleConversion_.getMemberIdTo(),reversibleConversion_.getFunctionTo());
             } else {
                 Mapping mapping_ = new Mapping();
                 mapping_.setArg(clMatchLeft_);
@@ -124,12 +117,12 @@ public final class SemiAffectationOperation extends AbstractUnaryOperation  {
         return className;
     }
 
-    public ClassMethodId getConverterFrom() {
-        return converterFrom;
+    public ClassMethodIdMemberIdTypeFct getConvFrom() {
+        return convFrom;
     }
 
-    public ClassMethodId getConverterTo() {
-        return converterTo;
+    public ClassMethodIdMemberIdTypeFct getConvTo() {
+        return convTo;
     }
 
     public int getOpOffset() {
@@ -144,20 +137,12 @@ public final class SemiAffectationOperation extends AbstractUnaryOperation  {
         return memberId;
     }
 
-    public MemberId getMemberIdFrom() {
-        return memberIdFrom;
-    }
-
     public AnaTypeFct getFunctionFrom() {
-        return functionFrom;
-    }
-
-    public MemberId getMemberIdTo() {
-        return memberIdTo;
+        return convFrom.getFunction();
     }
 
     public AnaTypeFct getFunctionTo() {
-        return functionTo;
+        return convTo.getFunction();
     }
 
     public AnaOperatorContent getOperatorContent() {
