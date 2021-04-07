@@ -17,10 +17,10 @@ import code.util.StringList;
 public final class MethodInfo implements Parametrable {
 
     private MethodId constraints;
-    private AnaTypeFct pair = new AnaTypeFct();
+    private final AnaTypeFct pair = new AnaTypeFct();
     private MethodId formatted;
 
-    private ParametersGroup parameters;
+    private final ParametersGroup parameters = new ParametersGroup();
 
     private String className = "";
 
@@ -49,12 +49,12 @@ public final class MethodInfo implements Parametrable {
         return constraints;
     }
 
-    public void setConstraints(MethodId _constraints) {
-        constraints = _constraints;
-    }
-
     public AnaTypeFct getPair() {
         return pair;
+    }
+    public void classMethodId(ImportedMethod _e) {
+        ClassMethodId m_ = _e.getId();
+        classMethodId(m_.getClassName(),m_.getConstraints());
     }
     public void pairMemberId(ImportedMethod _m) {
         pair(_m.getType(),_m.getCustMethod());
@@ -66,23 +66,34 @@ public final class MethodInfo implements Parametrable {
         setStandardMethod(_m.getStandardMethod());
         setCustMethod(_m.getCustMethod());
     }
-    public void pairMemberId(MethodHeaderInfo _m) {
+    public void pairMemberId(String _formattedClass, AnalyzedPageEl _page,MethodHeaderInfo _m) {
+        types(_formattedClass,_page,_m.getImportedReturnType());
+        classMethodId(_formattedClass,_m.getId());
         setFileName(_m.getRoot().getFile().getFileName());
         pair(_m.getRoot(),_m.getFunction());
         memberId(_m.getRootNumber(),_m.getNameNumber());
     }
 
+    public void classMethodId(String _className, MethodId _id) {
+        className = _className;
+        constraints = _id;
+    }
     private static void trySetParamNames(MethodInfo _mloc, NamedFunctionBlock _custMethod) {
         if (_custMethod != null) {
             _mloc.setParametersNames(_custMethod.getParametersNames());
         }
     }
     public void pair(RootBlock _root, NamedFunctionBlock _fct) {
-        pair = new AnaTypeFct();
         pair.setType(_root);
         pair.setFunction(_fct);
     }
 
+    public void types(String _formattedClass, AnalyzedPageEl _page, String _originalReturnType) {
+        String ret_ = _originalReturnType;
+        ret_ = AnaInherits.wildCardFormatReturn(_formattedClass, ret_, _page);
+        originalReturnType = _originalReturnType;
+        returnType = ret_;
+    }
     @Override
     public String getReturnType() {
         return returnType;
@@ -113,17 +124,9 @@ public final class MethodInfo implements Parametrable {
         return parameters;
     }
 
-    public void setParameters(ParametersGroup _parameters) {
-        parameters = _parameters;
-    }
-
     @Override
     public String getClassName() {
         return className;
-    }
-
-    public void setClassName(String _className) {
-        className = _className;
     }
 
     @Override
@@ -162,10 +165,7 @@ public final class MethodInfo implements Parametrable {
     public void reformat(String _foundType,AnalyzedPageEl _page) {
         AnaGeneType type_ = _page.getAnaGeneType(StringExpUtil.getIdFromAllTypes(_foundType));
         className = AnaInherits.getOverridingFullTypeByBases(type_,_foundType,className,_page);
-        StringList params_ = new StringList();
-        for (String p: constraints.getParametersTypes()) {
-            params_.add(AnaInherits.wildCardFormatParam(className,p, _page));
-        }
+        StringList params_ = AnaInherits.wildCardFormatParams(className, constraints.getParametersTypes(), _page);
         formattedParams = params_;
         formatted = buildFormatted(MethodId.getKind(false), params_, constraints);
         returnType = AnaInherits.wildCardFormatReturn(className,originalReturnType,_page);
@@ -185,10 +185,7 @@ public final class MethodInfo implements Parametrable {
             formatted = buildFormatted(MethodId.getKind(_keepParams), params_, constraints);
             return;
         }
-        StringList params_ = new StringList();
-        for (String p: constraints.getParametersTypes()) {
-            params_.add(AnaInherits.wildCardFormatParam(className,p, _page));
-        }
+        StringList params_ = AnaInherits.wildCardFormatParams(className, constraints.getParametersTypes(), _page);
         formattedParams = params_;
         formatted = buildFormatted(MethodId.getKind(_keepParams), params_, constraints);
     }

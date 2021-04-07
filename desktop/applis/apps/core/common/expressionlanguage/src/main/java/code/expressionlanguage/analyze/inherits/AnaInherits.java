@@ -78,6 +78,13 @@ public final class AnaInherits {
         return StringExpUtil.getWildCardFormattedTypeReturn(_second, varTypes_);
     }
 
+    public static StringList wildCardFormatParams(String _first, StringList _params, AnalyzedPageEl _page) {
+        StringList params_ = new StringList();
+        for (String s: _params) {
+            params_.add(wildCardFormatParam(_first,s,_page));
+        }
+        return params_;
+    }
     public static String wildCardFormatParam(String _first, String _second, AnalyzedPageEl _page) {
         if (!_second.contains(PREFIX_VAR_TYPE)) {
             return _second;

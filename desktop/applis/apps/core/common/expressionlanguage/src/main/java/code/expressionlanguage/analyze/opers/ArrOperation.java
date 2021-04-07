@@ -181,13 +181,12 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
             MethodId id_ = clMeth_.getRealId();
             callFctContent.setClassMethodId(new ClassMethodId(foundClass_, id_));
             callFctContent.setClassName(foundClass_);
-            MethodId realId_ = clMeth_.getRealId();
             if (clMeth_.isVarArgToCall()) {
-                StringList paramtTypes_ = clMeth_.getRealId().getParametersTypes();
+                StringList paramtTypes_ = id_.getParametersTypes();
                 callFctContent.setNaturalVararg(paramtTypes_.size() - 1);
                 callFctContent.setLastType(paramtTypes_.last());
             }
-            unwrapArgsFct(realId_, callFctContent.getNaturalVararg(), callFctContent.getLastType(), name_.getAll(), _page);
+            unwrapArgsFct(id_, callFctContent.getNaturalVararg(), callFctContent.getLastType(), name_.getAll(), _page);
             setResultClass(new AnaClassArgumentMatching(clMeth_.getReturnType(), _page.getPrimitiveTypes()));
             return;
         }

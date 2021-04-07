@@ -210,12 +210,8 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
         if (_anaGeneType instanceof StandardType) {
             for (StandardConstructor e: ((StandardType)_anaGeneType).getConstructors()) {
                 ConstructorId ctor_ = e.getId().copy(base_);
-                ParametersGroup pg_ = new ParametersGroup();
                 ConstructorInfo mloc_ = new ConstructorInfo();
-                mloc_.setConstraints(ctor_);
-                mloc_.setParametersNames(e.getParametersNames());
-                mloc_.setParameters(pg_);
-                mloc_.setClassName(_typeInfer);
+                initCtorInfo((StandardType)_anaGeneType,_typeInfer,e,ctor_,mloc_);
                 mloc_.format(_page);
                 _ctors.add(mloc_);
             }
@@ -226,13 +222,8 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
                 if (excludeCust((RootBlock) _anaGeneType, null,-1, e, _page)) {
                     continue;
                 }
-                ParametersGroup pg_ = new ParametersGroup();
                 ConstructorInfo mloc_ = new ConstructorInfo();
-                mloc_.setConstraints(ctor_);
-                mloc_.pair((RootBlock) _anaGeneType,e);
-                mloc_.setParametersNames(e.getParametersNames());
-                mloc_.setParameters(pg_);
-                mloc_.setClassName(_typeInfer);
+                initCtorInfo((RootBlock) _anaGeneType,_typeInfer,e,ctor_,mloc_);
                 mloc_.format(_page);
                 _ctors.add(mloc_);
             }

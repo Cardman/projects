@@ -67,13 +67,10 @@ public final class CallDynMethodOperation extends InvokingOperation implements P
                     param_ = all_.leftMinusOne(all_.size() - 2);
                 }
                 m_ = new MethodInfo();
-                ParametersGroup p_ = new ParametersGroup();
                 m_.setOriginalReturnType(_page.getAliasObject());
                 m_.setStandardMethod(e);
                 m_.setParametersNames(e.getParametersNames());
-                m_.setClassName(fct_);
-                m_.setConstraints(id_);
-                m_.setParameters(p_);
+                m_.classMethodId(fct_,id_);
                 String retBase_;
                 boolean refRet_;
                 if (StringUtil.quickEq(ret_, Templates.SUB_TYPE)) {
@@ -105,7 +102,7 @@ public final class CallDynMethodOperation extends InvokingOperation implements P
                 m_.format(new MethodId(refRet_, MethodAccessKind.INSTANCE,
                         name_,cls_,refs_,false));
             } else {
-                m_ = OperationNode.getMethodInfo(e,false,0,fct_,_page,id_,e.getImportedReturnType(),e.getImportedReturnType(), new FormattedFilter());
+                m_ = OperationNode.getMethodInfo(e,false,0,fct_,_page,id_,e.getImportedReturnType(), new FormattedFilter());
             }
             methodInfos_.add(m_);
         }

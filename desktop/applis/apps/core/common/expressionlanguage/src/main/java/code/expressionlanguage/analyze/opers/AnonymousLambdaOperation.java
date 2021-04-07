@@ -318,11 +318,8 @@ public final class AnonymousLambdaOperation extends
         MethodId idC_ = block.getId();
         lambdaCommonContent.setReturnFieldType(importedReturnType_);
         String found_ = lambdaCommonContent.getFoundClass();
-        MethodInfo mloc_ = new MethodInfo();
-        mloc_.setClassName(found_);
-        mloc_.setConstraints(idC_);
-        mloc_.format(idC_.getKind() == MethodAccessKind.STATIC, _page);
-        MethodId id_ = mloc_.getFormatted();
+        StringList params_ = AnaInherits.wildCardFormatParams(found_, idC_.getParametersTypes(), _page);
+        MethodId id_ = MethodId.to(idC_.getKind(),params_,idC_);
         String foundClass_ = found_;
         if (idC_.getKind() != MethodAccessKind.STATIC_CALL) {
             foundClass_ = StringExpUtil.getIdFromAllTypes(foundClass_);

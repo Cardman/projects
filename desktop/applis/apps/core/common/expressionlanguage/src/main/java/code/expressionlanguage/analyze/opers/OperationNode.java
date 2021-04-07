@@ -870,13 +870,8 @@ public abstract class OperationNode {
                 if (exclude(_uniqueId,varargOnly_, s)) {
                     continue;
                 }
-                ParametersGroup pg_ = new ParametersGroup();
                 ConstructorInfo mloc_ = new ConstructorInfo();
-                mloc_.setStandardType((StandardType)_type);
-                mloc_.setParametersNames(s.getParametersNames());
-                mloc_.setConstraints(ctor_);
-                mloc_.setParameters(pg_);
-                mloc_.setClassName(clCurName_);
+                initCtorInfo((StandardType) _type, clCurName_, s, ctor_, mloc_);
                 mloc_.format(_page);
                 if (!isPossibleMethod(uniq_, varargOnly_, mloc_, _param,_filter, _page)) {
                     continue;
@@ -890,16 +885,8 @@ public abstract class OperationNode {
                 if (excludeCust((RootBlock) _type, _uniqueId,varargOnly_, b, _page)) {
                     continue;
                 }
-                ParametersGroup pg_ = new ParametersGroup();
                 ConstructorInfo mloc_ = new ConstructorInfo();
-                mloc_.setCustomCtor(b);
-                mloc_.setFileName(((AbsBk)_type).getFile().getFileName());
-                mloc_.memberId(((RootBlock)_type).getNumberAll(),b.getCtorNumber());
-                mloc_.setParametersNames(b.getParametersNames());
-                mloc_.setConstraints(ctor_);
-                mloc_.pair((RootBlock) _type,b);
-                mloc_.setParameters(pg_);
-                mloc_.setClassName(clCurName_);
+                initCtorInfo((AbsBk) _type, clCurName_, b, ctor_, mloc_);
                 mloc_.format(_page);
                 if (!isPossibleMethod(uniq_, varargOnly_, mloc_, _param,_filter, _page)) {
                     continue;
@@ -908,6 +895,21 @@ public abstract class OperationNode {
             }
         }
         return getConstrustorId(_oper, _filter, _page, clCurName_, signatures_);
+    }
+
+    protected static void initCtorInfo(StandardType _type, String _clCurName, StandardConstructor _s, ConstructorId _ctor, ConstructorInfo _mloc) {
+        _mloc.setStandardType(_type);
+        _mloc.setParametersNames(_s.getParametersNames());
+        _mloc.constructorId(_clCurName,_ctor);
+    }
+
+    protected static void initCtorInfo(AbsBk _type, String _clCurName, ConstructorBlock _b, ConstructorId _ctor, ConstructorInfo _mloc) {
+        _mloc.setCustomCtor(_b);
+        _mloc.setFileName(_type.getFile().getFileName());
+        _mloc.memberId(((RootBlock) _type).getNumberAll(), _b.getCtorNumber());
+        _mloc.setParametersNames(_b.getParametersNames());
+        _mloc.constructorId(_clCurName,_ctor);
+        _mloc.pair((RootBlock) _type, _b);
     }
 
     protected static boolean noCtor(AnaGeneType _type) {
@@ -1015,13 +1017,8 @@ public abstract class OperationNode {
                 if (exclude(_uniqueId,varargOnly_, s)) {
                     continue;
                 }
-                ParametersGroup pg_ = new ParametersGroup();
                 ConstructorInfo mloc_ = new ConstructorInfo();
-                mloc_.setStandardType((StandardType)_type);
-                mloc_.setParametersNames(s.getParametersNames());
-                mloc_.setConstraints(ctor_);
-                mloc_.setParameters(pg_);
-                mloc_.setClassName(clCurName_);
+                initCtorInfo((StandardType) _type, clCurName_, s, ctor_, mloc_);
                 mloc_.format(_page);
                 if (!isPossibleMethodLambda(mloc_, _page, _args)) {
                     continue;
@@ -1036,16 +1033,8 @@ public abstract class OperationNode {
                 if (excludeCust((RootBlock) _type, _uniqueId,varargOnly_, b, _page)) {
                     continue;
                 }
-                ParametersGroup pg_ = new ParametersGroup();
                 ConstructorInfo mloc_ = new ConstructorInfo();
-                mloc_.setCustomCtor(b);
-                mloc_.setFileName(((AbsBk)_type).getFile().getFileName());
-                mloc_.memberId(((RootBlock)_type).getNumberAll(),b.getCtorNumber());
-                mloc_.setParametersNames(b.getParametersNames());
-                mloc_.setConstraints(ctor_);
-                mloc_.pair((RootBlock) _type,b);
-                mloc_.setParameters(pg_);
-                mloc_.setClassName(clCurName_);
+                initCtorInfo((AbsBk) _type, clCurName_, b, ctor_, mloc_);
                 mloc_.format(_page);
                 if (!isPossibleMethodLambda(mloc_, _page, _args)) {
                     continue;
@@ -1071,13 +1060,8 @@ public abstract class OperationNode {
         if (_type instanceof StandardType) {
             for (StandardConstructor s: ((StandardType)_type).getConstructors()) {
                 ConstructorId ctor_ = s.getId().copy(_id);
-                ParametersGroup pg_ = new ParametersGroup();
                 ConstructorInfo mloc_ = new ConstructorInfo();
-                mloc_.setStandardType((StandardType)_type);
-                mloc_.setParametersNames(s.getParametersNames());
-                mloc_.setConstraints(ctor_);
-                mloc_.setParameters(pg_);
-                mloc_.setClassName(_clCurName);
+                initCtorInfo((StandardType) _type, _clCurName, s, ctor_, mloc_);
                 mloc_.setStCall(_stCall);
                 mloc_.format(_page);
                 signatures_.add(mloc_);
@@ -1090,16 +1074,8 @@ public abstract class OperationNode {
                 if (excludeQuick((RootBlock) _type, b, _page)) {
                     continue;
                 }
-                ParametersGroup pg_ = new ParametersGroup();
                 ConstructorInfo mloc_ = new ConstructorInfo();
-                mloc_.setCustomCtor(b);
-                mloc_.setFileName(((AbsBk)_type).getFile().getFileName());
-                mloc_.memberId(((RootBlock)_type).getNumberAll(),b.getCtorNumber());
-                mloc_.setParametersNames(b.getParametersNames());
-                mloc_.setConstraints(ctor_);
-                mloc_.pair((RootBlock) _type,b);
-                mloc_.setParameters(pg_);
-                mloc_.setClassName(_clCurName);
+                initCtorInfo((AbsBk) _type, _clCurName, b, ctor_, mloc_);
                 mloc_.setStCall(_stCall);
                 mloc_.format(_page);
                 signatures_.add(mloc_);
@@ -1530,8 +1506,7 @@ public abstract class OperationNode {
             _node.setResultClass(voidToObject(new AnaClassArgumentMatching(clMethImp_.getReturnType(), _page.getPrimitiveTypes()), _page));
             String foundClass_ = clMethImp_.getRealClass();
             MethodId id_ = clMethImp_.getRealId();
-            MethodId realId_ = clMethImp_.getRealId();
-            InvokingOperation.unwrapArgsFct(realId_, -1, EMPTY_STRING, chidren_, _page);
+            InvokingOperation.unwrapArgsFct(id_, -1, EMPTY_STRING, chidren_, _page);
             OperatorConverter op_ = new OperatorConverter();
             op_.setSymbol(new ClassMethodId(foundClass_, id_));
             op_.setMemberId(clMethImp_.getMemberId());
@@ -1574,15 +1549,7 @@ public abstract class OperationNode {
             CustList<CustList<MethodInfo>> lists_ = new CustList<CustList<MethodInfo>>();
             CustList<MethodInfo> list_ = new CustList<MethodInfo>();
             for (String p:g) {
-                ParametersGroup p_ = new ParametersGroup();
-                MethodInfo mloc_ = new MethodInfo();
-                MethodId id_ = new MethodId(MethodAccessKind.STATIC,_op,new StringList(p));
-                mloc_.setClassName(p);
-                mloc_.setConstraints(id_);
-                mloc_.setParameters(p_);
-                mloc_.setReturnType(p);
-                mloc_.format(true, _page);
-                list_.add(mloc_);
+                addVirtual(_op, _page, list_,p, p, new StringList(p));
             }
             lists_.add(list_);
             ClassMethodIdReturn clMeth_ = getCustResult(false, -1, lists_, _op, "", single_, _page);
@@ -1591,8 +1558,7 @@ public abstract class OperationNode {
                 _node.setResultClass(voidToObject(new AnaClassArgumentMatching(clMeth_.getReturnType(), _page.getPrimitiveTypes()), _page));
                 String foundClass_ = clMeth_.getRealClass();
                 MethodId id_ = clMeth_.getRealId();
-                MethodId realId_ = clMeth_.getRealId();
-                InvokingOperation.unwrapArgsFct(realId_, -1, EMPTY_STRING, chidren_, _page);
+                InvokingOperation.unwrapArgsFct(id_, -1, EMPTY_STRING, chidren_, _page);
                 OperatorConverter op_ = new OperatorConverter();
                 op_.setSymbol(new ClassMethodId(foundClass_, id_));
                 op_.setMemberId(clMeth_.getMemberId());
@@ -1601,6 +1567,15 @@ public abstract class OperationNode {
             }
         }
         return null;
+    }
+
+    private static void addVirtual(String _op, AnalyzedPageEl _page, CustList<MethodInfo> _list,String _className, String _returnType, StringList _params) {
+        MethodInfo mloc_ = new MethodInfo();
+        MethodId id_ = new MethodId(MethodAccessKind.STATIC, _op, _params);
+        mloc_.classMethodId(_className,id_);
+        mloc_.setReturnType(_returnType);
+        mloc_.format(true, _page);
+        _list.add(mloc_);
     }
 
     static ClassMethodIdReturn getIncrDecrOperatorOrMethod(MethodOperation _node,
@@ -1690,8 +1665,7 @@ public abstract class OperationNode {
             _node.setResultClass(voidToObject(new AnaClassArgumentMatching(clMethImp_.getReturnType(), _page.getPrimitiveTypes()), _page));
             String foundClass_ = clMethImp_.getRealClass();
             MethodId id_ = clMethImp_.getRealId();
-            MethodId realId_ = clMethImp_.getRealId();
-            InvokingOperation.unwrapArgsFct(realId_, -1, EMPTY_STRING, chidren_, _page);
+            InvokingOperation.unwrapArgsFct(id_, -1, EMPTY_STRING, chidren_, _page);
             OperatorConverter op_ = new OperatorConverter();
             op_.setSymbol(new ClassMethodId(foundClass_, id_));
             op_.setMemberId(clMethImp_.getMemberId());
@@ -1770,16 +1744,7 @@ public abstract class OperationNode {
             CustList<CustList<MethodInfo>> lists_ = new CustList<CustList<MethodInfo>>();
             CustList<MethodInfo> list_ = new CustList<MethodInfo>();
             for (ParamReturn p:g) {
-                ParametersGroup p_ = new ParametersGroup();
-                MethodInfo mloc_ = new MethodInfo();
-                String paramType_ = p.getParamType();
-                MethodId id_ = new MethodId(MethodAccessKind.STATIC,_op,new StringList(paramType_,paramType_));
-                mloc_.setClassName(paramType_);
-                mloc_.setConstraints(id_);
-                mloc_.setParameters(p_);
-                mloc_.setReturnType(p.getReturnType());
-                mloc_.format(true, _page);
-                list_.add(mloc_);
+                addVirtual(_op,_page,list_,p.getParamType(),p.getReturnType(),new StringList(p.getParamType(),p.getParamType()));
             }
             lists_.add(list_);
             ClassMethodIdReturn clMeth_ = getCustResult(false, -1, lists_, _op, "", pair_, _page);
@@ -1788,8 +1753,7 @@ public abstract class OperationNode {
                 _node.setResultClass(voidToObject(new AnaClassArgumentMatching(clMeth_.getReturnType(), _page.getPrimitiveTypes()), _page));
                 String foundClass_ = clMeth_.getRealClass();
                 MethodId id_ = clMeth_.getRealId();
-                MethodId realId_ = clMeth_.getRealId();
-                InvokingOperation.unwrapArgsFct(realId_, -1, EMPTY_STRING, chidren_, _page);
+                InvokingOperation.unwrapArgsFct(id_, -1, EMPTY_STRING, chidren_, _page);
                 OperatorConverter op_ = new OperatorConverter();
                 op_.setSymbol(new ClassMethodId(foundClass_, id_));
                 op_.setMemberId(clMeth_.getMemberId());
@@ -2019,12 +1983,9 @@ public abstract class OperationNode {
                     continue;
                 }
             }
-            ParametersGroup p_ = new ParametersGroup();
             MethodInfo mloc_ = new MethodInfo();
-            mloc_.setClassName("");
-            mloc_.setConstraints(id_);
+            mloc_.classMethodId("",id_);
             mloc_.pair(null,e);
-            mloc_.setParameters(p_);
             mloc_.setReturnType(ret_);
             mloc_.setOriginalReturnType(ret_);
             mloc_.memberId(-1,e.getOperatorNumber());
@@ -2282,11 +2243,8 @@ public abstract class OperationNode {
                     if (isCandidateMethod(_sc.getId(),0, clName_, id_)) {
                         continue;
                     }
-                    ParametersGroup p_ = new ParametersGroup();
                     MethodInfo mloc_ = new MethodInfo();
-                    mloc_.setClassName(clName_);
-                    mloc_.setConstraints(id_);
-                    mloc_.setParameters(p_);
+                    mloc_.classMethodId(e);
                     mloc_.format(true, _page);
                     mloc_.pairMemberId(e);
                     m_.add(mloc_);
@@ -2305,11 +2263,8 @@ public abstract class OperationNode {
                     if (isCandidateMethod(_sc.getId(),0, clName_, id_)) {
                         continue;
                     }
-                    ParametersGroup p_ = new ParametersGroup();
                     MethodInfo mloc_ = new MethodInfo();
-                    mloc_.setClassName(clName_);
-                    mloc_.setConstraints(id_);
-                    mloc_.setParameters(p_);
+                    mloc_.classMethodId(e);
                     mloc_.setFormattedFilter(_formattedFilter);
                     mloc_.format(id_.getKind() == MethodAccessKind.STATIC, _page);
                     mloc_.pairMemberId(e);
@@ -2633,18 +2588,15 @@ public abstract class OperationNode {
     }
 
     private static MethodInfo buildMethodInfoCust(RootBlock _r, NamedCalledFunctionBlock _m, boolean _keepParams, int _anc, String _formattedClass, AnalyzedPageEl _page, MethodId _id, String _importedReturnType, FormattedFilter _formatted) {
-        String ret_ = _importedReturnType;
-        ret_ = AnaInherits.wildCardFormatReturn(_formattedClass, ret_, _page);
-        ParametersGroup p_ = new ParametersGroup();
         MethodInfo mloc_ = new MethodInfo();
-        mloc_.setOriginalReturnType(_importedReturnType);
+        mloc_.types(_formattedClass,_page,_importedReturnType);
         mloc_.setFileName(_m.getFile().getFileName());
         if (_m.isMatchParamNames()) {
             mloc_.setParametersNames(_m.getParametersNames());
         }
         mloc_.pair(_r,_m);
         mloc_.setCustMethod(_m);
-        mloc_.setClassName(_formattedClass);
+        mloc_.classMethodId(_formattedClass,_id);
         if (AbsBk.isOverBlock(_m)) {
             mloc_.setAbstractMethod(_m.isAbstractMethod());
             mloc_.setFinalMethod(_m.isFinalMethod());
@@ -2652,9 +2604,6 @@ public abstract class OperationNode {
         } else {
             mloc_.memberId(_r.getNumberAll(),_m.getNameNumber());
         }
-        mloc_.setConstraints(_id);
-        mloc_.setParameters(p_);
-        mloc_.setReturnType(ret_);
         mloc_.setAncestor(_anc);
         mloc_.setFormattedFilter(_formatted);
         mloc_.format(_keepParams, _page);
@@ -2662,21 +2611,15 @@ public abstract class OperationNode {
     }
 
     private static MethodInfo buildMethodInfo(StandardMethod _m, boolean _keepParams, int _anc, String _formattedClass, AnalyzedPageEl _page, MethodId _id, String _importedReturnType, FormattedFilter _formatted) {
-        String ret_ = _importedReturnType;
-        ret_ = AnaInherits.wildCardFormatReturn(_formattedClass, ret_, _page);
-        return getMethodInfo(_m, _keepParams, _anc, _formattedClass, _page, _id, _importedReturnType, ret_, _formatted);
+        return getMethodInfo(_m, _keepParams, _anc, _formattedClass, _page, _id, _importedReturnType, _formatted);
     }
 
-    public static MethodInfo getMethodInfo(StandardMethod _m, boolean _keepParams, int _anc, String _formattedClass, AnalyzedPageEl _page, MethodId _id, String _importedReturnType, String _ret, FormattedFilter _formatted) {
-        ParametersGroup p_ = new ParametersGroup();
+    public static MethodInfo getMethodInfo(StandardMethod _m, boolean _keepParams, int _anc, String _formattedClass, AnalyzedPageEl _page, MethodId _id, String _importedReturnType, FormattedFilter _formatted) {
         MethodInfo mloc_ = new MethodInfo();
-        mloc_.setOriginalReturnType(_importedReturnType);
+        mloc_.types(_formattedClass,_page,_importedReturnType);
         mloc_.setStandardMethod(_m);
         mloc_.setParametersNames(_m.getParametersNames());
-        mloc_.setClassName(_formattedClass);
-        mloc_.setConstraints(_id);
-        mloc_.setParameters(p_);
-        mloc_.setReturnType(_ret);
+        mloc_.classMethodId(_formattedClass,_id);
         mloc_.setAncestor(_anc);
         mloc_.setFormattedFilter(_formatted);
         mloc_.format(_keepParams, _page);
@@ -2684,23 +2627,10 @@ public abstract class OperationNode {
     }
 
     private static MethodInfo buildCastMethodInfo(MethodHeaderInfo _m, ClassMethodIdAncestor _uniqueId, String _returnType, String _formattedClass, AnalyzedPageEl _page, StringMap<StringList> _vars, AbstractComparer _cmp) {
-        String importedReturnType_ = _m.getImportedReturnType();
-        String ret_ = importedReturnType_;
-        ret_ = AnaInherits.wildCardFormatReturn(_formattedClass, ret_, _page);
-        ParametersGroup p_ = new ParametersGroup();
-        MethodId id_ = _m.getId();
-        MethodInfo mloc_ = new MethodInfo();
-        mloc_.setOriginalReturnType(importedReturnType_);
-        mloc_.setClassName(_formattedClass);
-        mloc_.setConstraints(id_);
-        mloc_.pairMemberId(_m);
-        mloc_.setParameters(p_);
-        mloc_.setReturnType(ret_);
-        mloc_.setAncestor(0);
-        mloc_.format(false, _page);
+        MethodInfo mloc_ = getOperatorMethod(_m, _formattedClass, _page);
         if (_uniqueId == null) {
             Mapping map_ = new Mapping();
-            map_.setArg(ret_);
+            map_.setArg(mloc_.getReturnType());
             map_.setParam(_returnType);
             map_.setMapping(_vars);
             if (!_cmp.isCorrectOrNumbers(map_, _page)) {
@@ -2711,16 +2641,12 @@ public abstract class OperationNode {
     }
 
     private static MethodInfo buildImproveOperatorInfo(MethodHeaderInfo _m, String _formattedClass, AnalyzedPageEl _page) {
-        String ret_ = _m.getImportedReturnType();
-        ret_ = AnaInherits.wildCardFormatReturn(_formattedClass, ret_, _page);
-        ParametersGroup p_ = new ParametersGroup();
-        MethodId id_ = _m.getId();
+        return getOperatorMethod(_m, _formattedClass, _page);
+    }
+
+    private static MethodInfo getOperatorMethod(MethodHeaderInfo _m, String _formattedClass, AnalyzedPageEl _page) {
         MethodInfo mloc_ = new MethodInfo();
-        mloc_.setClassName(_formattedClass);
-        mloc_.setConstraints(id_);
-        mloc_.pairMemberId(_m);
-        mloc_.setParameters(p_);
-        mloc_.setReturnType(ret_);
+        mloc_.pairMemberId(_formattedClass,_page,_m);
         mloc_.setAncestor(0);
         mloc_.format(false, _page);
         return mloc_;
@@ -2737,28 +2663,22 @@ public abstract class OperationNode {
         String wildCardForm_ = r_.getWildCardString();
         String string_ = _page.getAliasString();
         String returnType_ = wildCardForm_;
-        ParametersGroup p_ = new ParametersGroup();
         String valueOf_ = _page.getAliasEnumPredValueOf();
         MethodId realId_ = new MethodId(MethodAccessKind.STATIC, valueOf_, new StringList(string_));
         MethodInfo mloc_ = new MethodInfo();
-        mloc_.setClassName(idClass_);
         mloc_.setFileName(r_.getFile().getFileName());
-        mloc_.setConstraints(realId_);
-        mloc_.setParameters(p_);
+        mloc_.classMethodId(idClass_,realId_);
         mloc_.format(true, _page);
         mloc_.setReturnType(returnType_);
         mloc_.setOriginalReturnType(returnType_);
         mloc_.setAncestor(_ancestor);
         mloc_.memberId(r_.getNumberAll(),-1);
         methods_.add(mloc_);
-        p_ = new ParametersGroup();
         String values_ = _page.getAliasEnumValues();
         realId_ = new MethodId(MethodAccessKind.STATIC, values_, new StringList());
         mloc_ = new MethodInfo();
-        mloc_.setClassName(idClass_);
         mloc_.setFileName(r_.getFile().getFileName());
-        mloc_.setConstraints(realId_);
-        mloc_.setParameters(p_);
+        mloc_.classMethodId(idClass_,realId_);
         mloc_.format(true, _page);
         returnType_ = StringExpUtil.getPrettyArrayType(returnType_);
         mloc_.setReturnType(returnType_);

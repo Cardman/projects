@@ -205,4 +205,42 @@ public final class ProcessMethodInstanceGenericTest extends ProcessMethodCommon 
         assertEq(INTEGER, subSubField_.getClassName(cont_));
         assertEq(2, ((NumberStruct)subSubField_).intStruct());
     }
+    @Test
+    public void instanceArgument99Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public pkg.ExTwo<java.lang.Number> inst=$new pkg.ExTwo<java.lang.Number>();\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo<T> {\n");
+        xml_.append(" $public $int inst;\n");
+        xml_.append(" ExTwo(){\n");
+        xml_.append("  inst = $new ExThree<T>().inst;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExThree<S> {\n");
+        xml_.append(" $public $int inst=2i;\n");
+        xml_.append(" ExThree(S...args){\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = ctxOk(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        ConstructorId id_ = getConstructorId("pkg.Ex");
+
+        Argument ret_;
+        ret_ = instanceNormal("pkg.Ex", null, id_, cont_);
+        assertTrue(isInitialized(cont_, "pkg.Ex"));
+        Struct str_ = ret_.getStruct();
+        assertEq("pkg.Ex", str_.getClassName(cont_));
+        Struct field_;
+        field_ = getField(str_, new ClassField("pkg.Ex", "inst"));
+        assertEq("pkg.ExTwo<java.lang.Number>", field_.getClassName(cont_));
+        Struct subField_;
+        subField_ = getField(field_, new ClassField("pkg.ExTwo", "inst"));
+        assertEq(INTEGER, subField_.getClassName(cont_));
+        assertEq(2, ((NumberStruct)subField_).intStruct());
+    }
 }

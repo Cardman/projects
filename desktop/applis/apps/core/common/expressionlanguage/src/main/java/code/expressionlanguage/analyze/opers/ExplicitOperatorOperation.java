@@ -159,10 +159,10 @@ public final class ExplicitOperatorOperation extends InvokingOperation implement
         }
         callFctContent.setMemberId(cust_.getMemberId());
         function = cust_.getPair();
-        callFctContent.setClassMethodId(new ClassMethodId(foundClass_, cust_.getRealId()));
+        callFctContent.setClassMethodId(new ClassMethodId(foundClass_, realId_));
         callFctContent.setClassName(foundClass_);
         if (cust_.isVarArgToCall()) {
-            StringList paramtTypes_ = cust_.getRealId().getParametersTypes();
+            StringList paramtTypes_ = realId_.getParametersTypes();
             callFctContent.setNaturalVararg(paramtTypes_.size() - 1);
             callFctContent.setLastType(paramtTypes_.last());
         }

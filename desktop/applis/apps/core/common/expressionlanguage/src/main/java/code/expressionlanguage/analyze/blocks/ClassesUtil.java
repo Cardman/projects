@@ -229,15 +229,12 @@ public final class ClassesUtil {
 
     private static MethodInfo buildMethodToStringInfo(ToStringMethodHeader _m, String _formattedClass) {
         String ret_ = _m.getImportedReturnType();
-        ParametersGroup p_ = new ParametersGroup();
         MethodId id_ = _m.getId();
         MethodInfo mloc_ = new MethodInfo();
         mloc_.memberId(_m.getNumberRoot(),_m.getNumberAll());
-        mloc_.setClassName(_formattedClass);
         mloc_.setAbstractMethod(_m.isAbstractMethod());
         mloc_.setFinalMethod(_m.isFinalMethod());
-        mloc_.setConstraints(id_);
-        mloc_.setParameters(p_);
+        mloc_.classMethodId(_formattedClass,id_);
         mloc_.setReturnType(ret_);
         mloc_.setAncestor(0);
         mloc_.formatWithoutParams();
