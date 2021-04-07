@@ -130,13 +130,8 @@ public final class CmpOperation extends MethodOperation implements MiddleSymbolO
         getChildren().addAllEntries(vs_);
     }
 
-    public AnaTypeFct getFunction() {
-        return fct.getFunction();
-    }
-
-    @Override
-    public String getClassName() {
-        return fct.getClassName();
+    public ClassMethodIdMemberIdTypeFct getFct() {
+        return fct;
     }
 
     @Override
@@ -152,10 +147,6 @@ public final class CmpOperation extends MethodOperation implements MiddleSymbolO
     @Override
     public int getOpOffset() {
         return operatorContent.getOpOffset();
-    }
-
-    public MemberId getMemberId() {
-        return fct.getMemberId();
     }
 
     public AnaOperatorContent getOperatorContent() {

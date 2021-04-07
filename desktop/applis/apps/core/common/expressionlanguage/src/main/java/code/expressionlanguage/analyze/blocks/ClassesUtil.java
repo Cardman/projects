@@ -150,19 +150,8 @@ public final class ClassesUtil {
             return new ClassMethodIdReturn(false);
         }
         MethodInfo m_ = (MethodInfo) found_;
-        MethodId constraints_ = m_.getConstraints();
-        String baseClassName_ = m_.getClassName();
-        ClassMethodIdReturn res_ = new ClassMethodIdReturn(true);
         MethodId id_ = m_.getFormatted();
-        res_.setId(new ClassMethodId(baseClassName_, id_));
-        res_.setRealId(constraints_);
-        res_.setRealClass(baseClassName_);
-        res_.setReturnType(m_.getReturnType());
-        res_.setAncestor(m_.getAncestor());
-        res_.setStandardMethod(m_.getStandardMethod());
-        res_.setMemberId(m_.getMemberId());
-        res_.setAbstractMethod(m_.isAbstractMethod());
-        return res_;
+        return OperationNode.buildResult(m_,id_);
     }
 
     private static Parametrable getFoundMethodExec(CustList<MethodInfo> _fct, AnalyzedPageEl _page) {
@@ -231,7 +220,7 @@ public final class ClassesUtil {
         String ret_ = _m.getImportedReturnType();
         MethodId id_ = _m.getId();
         MethodInfo mloc_ = new MethodInfo();
-        mloc_.memberId(_m.getNumberRoot(),_m.getNumberAll());
+        mloc_.memberId(_m);
         mloc_.setAbstractMethod(_m.isAbstractMethod());
         mloc_.setFinalMethod(_m.isFinalMethod());
         mloc_.classMethodId(_formattedClass,id_);

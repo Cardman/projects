@@ -3589,7 +3589,7 @@ public final class LinkageUtil {
         }
         _parts.addAllElts(((LambdaOperation)_val).getPartOffsets());
         _parts.addAllElts(((LambdaOperation)_val).getPartOffsetsEnd());
-        if (((LambdaOperation)_val).isRecordType()) {
+        if (((LambdaOperation)_val).getRecordType() >= 0) {
             int len_ = ((LambdaOperation)_val).getNamed().size();
             for (int i = 0; i < len_; i++) {
                 int ref_ = ((LambdaOperation) _val).getRefs().get(i);
@@ -3650,7 +3650,7 @@ public final class LinkageUtil {
     }
 
     private static void processUnaryLeftOperationsCoversReport(VariablesOffsets _vars, int _sum, OperationNode _val, AbstractCoverageResult _result, CustList<PartOffset> _parts) {
-        if (_val instanceof UnaryBooleanOperation && ((UnaryBooleanOperation)_val).getFunction() == null && _result.isStrictPartialCovered()) {
+        if (_val instanceof UnaryBooleanOperation && ((UnaryBooleanOperation)_val).getFct().getFunction() == null && _result.isStrictPartialCovered()) {
             int offsetOp_ = _val.getOperations().getOperators().firstKey();
             safeReport(_vars,_result, _sum + _val.getIndexInEl() + offsetOp_,_parts,1);
         }
@@ -3659,7 +3659,7 @@ public final class LinkageUtil {
     private static void processUnaryLeftOperationsLinks(VariablesOffsets _vars, String _currentFileName, int _sum, OperationNode _val, CustList<PartOffset> _parts) {
         if (_val instanceof SymbolOperation && _val.getFirstChild().getNextSibling() == null) {
             SymbolOperation par_ = (SymbolOperation) _val;
-            AnaTypeFct function_ = par_.getFunction();
+            AnaTypeFct function_ = par_.getFct().getFunction();
             if (function_ != null) {
                 addParts(_vars, _currentFileName, function_,
                         _sum + _val.getIndexInEl() + par_.getOpOffset(), function_.getFunction().getName().length(),
@@ -3708,7 +3708,7 @@ public final class LinkageUtil {
             int offsetOp_ = par_.getOpOffset();
             if(!par_.isPost()) {
                 boolean err_ = true;
-                AnaTypeFct function_ = par_.getFunction();
+                AnaTypeFct function_ = par_.getFct().getFunction();
                 if (function_ != null) {
                     addParts(_vars, _currentFileName, function_,
                             _sum + _val.getIndexInEl()+offsetOp_,1,
@@ -3985,7 +3985,7 @@ public final class LinkageUtil {
             StringList title_ = new StringList();
             addParts(_vars, _currentFileName, functionTest_,_offsetEnd,1, errs_,title_,_parts);
             errs_ = q_.getErrSecond();
-            AnaTypeFct function_ = q_.getFunction();
+            AnaTypeFct function_ = q_.getFct().getFunction();
             addParts(_vars, _currentFileName, function_,_offsetEnd+1,1, errs_,title_,_parts);
             if (_vars.isImplicit()) {
                 _parts.add(mergeParts(_vars,_currentFileName,q_.getConvert(),_offsetEnd+2,new StringList(),new StringList()));
@@ -4011,7 +4011,7 @@ public final class LinkageUtil {
                                               OperationNode _nextSiblingOp,MethodOperation _parentOp, CustList<PartOffset> _parts) {
         if (_parentOp instanceof MiddleSymbolOperation) {
             MiddleSymbolOperation par_ = (MiddleSymbolOperation) _parentOp;
-            AnaTypeFct function_ = par_.getFunction();
+            AnaTypeFct function_ = par_.getFct().getFunction();
             if (function_ != null) {
                 addParts(_vars, _currentFileName, function_,_offsetEnd,par_.getOp().length(),_parentOp.getErrs(),_parentOp.getErrs(),_parts);
             } else if (_parentOp instanceof AddOperation && ((AddOperation)_parentOp).isCatString() && canCallToString(_vars, _curOp, _nextSiblingOp)) {
@@ -4047,7 +4047,7 @@ public final class LinkageUtil {
         if (isWideCmp(_parent)) {
 
             int length_ = ((MiddleSymbolOperation)_parent) .getOp().length();
-            if (((SymbolOperation)_parent).getFunction() == null) {
+            if (((SymbolOperation)_parent).getFct().getFunction() == null) {
                 AbstractCoverageResult resultLoc_ = getCovers(_block, _parent, _cov, _annot, _indexAnnotGroup, _indexAnnot);
                 safeReport(_vars, resultLoc_, _offsetEnd,_parts,length_);
             }
@@ -4063,7 +4063,7 @@ public final class LinkageUtil {
             return;
         }
         CompoundAffectationOperation par_ = (CompoundAffectationOperation) _parentOp;
-        AnaTypeFct function_ = par_.getFunction();
+        AnaTypeFct function_ = par_.getFct().getFunction();
         int opDelta_ = par_.getOper().length() - 1;
         AnaTypeFct functionTest_ = par_.getFunctionTest();
         int begin_ = _offsetEnd;
@@ -4092,7 +4092,7 @@ public final class LinkageUtil {
             return;
         }
         CompoundAffectationOperation par_ = (CompoundAffectationOperation) _parentOp;
-        AnaTypeFct function_ = par_.getFunction();
+        AnaTypeFct function_ = par_.getFct().getFunction();
         int opDelta_ = par_.getOper().length() - 1;
         AnaTypeFct functionTest_ = par_.getFunctionTest();
         int begin_ = _offsetEnd;
@@ -4181,7 +4181,7 @@ public final class LinkageUtil {
         } else {
             safeReport(_vars, resultFirst_, _offsetEnd,_parts,1);
         }
-        AnaTypeFct function_ = q_.getFunction();
+        AnaTypeFct function_ = q_.getFct().getFunction();
         if (function_ != null) {
             StringList title_ = new StringList();
             title_.addAllElts(getCoversFoundReport(_vars, resultLast_));
@@ -4248,7 +4248,7 @@ public final class LinkageUtil {
                     _parts.add(mergeParts(_vars, _currentFileName, par_.getFunctionTo(), _offsetEnd, new StringList(), new StringList()));
                 }
                 boolean err_ = true;
-                AnaTypeFct function_ = par_.getFunction();
+                AnaTypeFct function_ = par_.getFct().getFunction();
                 if (function_ != null) {
                     addParts(_vars, _currentFileName, function_,_offsetEnd,1,_parent.getErrs(),_parent.getErrs(),_parts);
                     err_ = false;

@@ -492,7 +492,7 @@ public final class Coverage {
                 if (annotableBlock_ instanceof ExecAnnotationMethodBlock){
                     matchBl_ = types.get(typeAna_.getNumberAll()).getMappingFields().getVal((ExecBlock) annotableBlock_);
                 } else {
-                    matchBl_ = getFctBlock((ExecMemberCallingsBlock) ((AnnotatedParamStruct) annotated_).getAnnotableBlockParam(), typeAna_);
+                    matchBl_ = getFctBlock((ExecMemberCallingsBlock) annotableBlock_, typeAna_);
                 }
             } else {
                 matchBl_ = typeAna_;

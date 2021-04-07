@@ -22,9 +22,7 @@ public final class SemiAffectationOperation extends AbstractUnaryOperation  {
     private SettableElResult settable;
     private final AnaOperatorContent operatorContent;
     private final boolean post;
-    private String className="";
-    private MemberId memberId = new MemberId();
-    private AnaTypeFct function;
+    private final ClassMethodIdMemberIdTypeFct fct = new ClassMethodIdMemberIdTypeFct();
     private final ClassMethodIdMemberIdTypeFct convFrom = new ClassMethodIdMemberIdTypeFct();
     private final ClassMethodIdMemberIdTypeFct convTo = new ClassMethodIdMemberIdTypeFct();
 
@@ -75,9 +73,7 @@ public final class SemiAffectationOperation extends AbstractUnaryOperation  {
         String op_ = ops_.firstValue();
         ClassMethodIdReturn cl_ = getIncrDecrOperatorOrMethod(this,leftEl_, op_, _page);
         if (cl_ != null) {
-            memberId = cl_.getMemberId();
-            function = cl_.getPair();
-            className = cl_.getRealClass();
+            fct.infos(cl_);
             return;
         }
         AnaClassArgumentMatching clMatchLeft_ = leftEl_.getResultClass();
@@ -105,18 +101,13 @@ public final class SemiAffectationOperation extends AbstractUnaryOperation  {
         clMatchLeft_.setUnwrapObject(AnaTypeUtil.toPrimitive(clMatchLeft_, _page), _page.getPrimitiveTypes());
     }
 
-    public AnaTypeFct getFunction() {
-        return function;
-    }
-
     public boolean isPost() {
         return post;
     }
 
-    public String getClassName() {
-        return className;
+    public ClassMethodIdMemberIdTypeFct getFct() {
+        return fct;
     }
-
     public ClassMethodIdMemberIdTypeFct getConvFrom() {
         return convFrom;
     }
@@ -131,10 +122,6 @@ public final class SemiAffectationOperation extends AbstractUnaryOperation  {
 
     public SettableElResult getSettable() {
         return settable;
-    }
-
-    public MemberId getMemberId() {
-        return memberId;
     }
 
     public AnaTypeFct getFunctionFrom() {

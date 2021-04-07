@@ -360,7 +360,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
     public void processEl126Test() {
         String g_ = StringUtil.concat(MY_GENE_CLASS,"<java.lang.Integer>");
         ClassMethodIdVarArg cid_ = getClassMethodId3("myvar.sample(1)", "myvar", g_);
-        assertEq("myimpl.MyGeneIntOne", cid_.getClassName());
+        assertEq("myimpl.MyGeneIntOne<java.lang.Integer>", cid_.getClassName());
         MethodId id_ = cid_.getConstraints();
         assertEq("sample", id_.getName());
         StringList params_ = id_.getParametersTypes();
@@ -373,7 +373,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
     public void processEl127Test() {
         String g_ = StringUtil.concat(MY_GENE_CLASS,"<java.lang.Integer>");
         ClassMethodIdVarArg cid_ = getClassMethodId3("myvar.sampleTwo(1)", "myvar", g_);
-        assertEq("myimpl.MyGeneIntTwo", cid_.getClassName());
+        assertEq("myimpl.MyGeneIntTwo<java.lang.Integer>", cid_.getClassName());
         MethodId id_ = cid_.getConstraints();
         assertEq("sampleTwo", id_.getName());
         StringList params_ = id_.getParametersTypes();
@@ -400,7 +400,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
     public void processEl129Test() {
         String g_ = StringUtil.concat(MY_GENE_CLASS,"<W>");
         ClassMethodIdVarArg cid_ = getFct4(g_, "myvar.sample($null)");
-        assertEq("myimpl.MyGeneIntOne", cid_.getClassName());
+        assertEq("myimpl.MyGeneIntOne<#W>", cid_.getClassName());
         MethodId id_ = cid_.getConstraints();
         assertEq("sample", id_.getName());
         StringList params_ = id_.getParametersTypes();
@@ -413,7 +413,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
     public void processEl130Test() {
         String g_ = StringUtil.concat(MY_GENE_CLASS,"<W>");
         ClassMethodIdVarArg cid_ = getFct4(g_, "myvar.sampleTwo($null)");
-        assertEq("myimpl.MyGeneIntTwo", cid_.getClassName());
+        assertEq("myimpl.MyGeneIntTwo<#W>", cid_.getClassName());
         MethodId id_ = cid_.getConstraints();
         assertEq("sampleTwo", id_.getName());
         StringList params_ = id_.getParametersTypes();
@@ -426,7 +426,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
     public void processEl131Test() {
         String g_ = StringUtil.concat(MY_GENE_CLASS,"<W>");
         ClassMethodIdVarArg cid_ = getFct4(g_, "myvar.sample((W)$null)");
-        assertEq("myimpl.MyGeneIntOne", cid_.getClassName());
+        assertEq("myimpl.MyGeneIntOne<#W>", cid_.getClassName());
         MethodId id_ = cid_.getConstraints();
         assertEq("sample", id_.getName());
         StringList params_ = id_.getParametersTypes();
@@ -439,7 +439,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
     public void processEl132Test() {
         String g_ = StringUtil.concat(MY_GENE_CLASS,"<W>");
         ClassMethodIdVarArg cid_ = getFct4(g_, "myvar.sampleTwo((W)$null)");
-        assertEq("myimpl.MyGeneIntTwo", cid_.getClassName());
+        assertEq("myimpl.MyGeneIntTwo<#W>", cid_.getClassName());
         MethodId id_ = cid_.getConstraints();
         assertEq("sampleTwo", id_.getName());
         StringList params_ = id_.getParametersTypes();
@@ -895,7 +895,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         String g_ = StringUtil.concat("pkg.ExTwo<?>");
         ClassMethodIdVarArg cid_ = getFct6(xml_, g_);
-        assertEq("pkg.ExTwo", cid_.getClassName());
+        assertEq("pkg.ExTwo<?>", cid_.getClassName());
         MethodId id_ = cid_.getConstraints();
         assertEq("get", id_.getName());
         StringList params_ = id_.getParametersTypes();
@@ -919,7 +919,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         String g_ = StringUtil.concat("pkg.ExTwo<?>");
         ClassMethodIdVarArg cid_ = getFct3(xml_, g_, "myvar.get($null)");
-        assertEq("pkg.ExTwo", cid_.getClassName());
+        assertEq("pkg.ExTwo<?>", cid_.getClassName());
         MethodId id_ = cid_.getConstraints();
         assertEq("get", id_.getName());
         StringList params_ = id_.getParametersTypes();
@@ -942,7 +942,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         String g_ = StringUtil.concat("pkg.ExTwo<java.lang.Number>");
         ClassMethodIdVarArg cid_ = getFct3(xml_, g_, "myvar.get(0)");
-        assertEq("pkg.ExTwo", cid_.getClassName());
+        assertEq("pkg.ExTwo<java.lang.Number>", cid_.getClassName());
         MethodId id_ = cid_.getConstraints();
         assertEq("get", id_.getName());
         StringList params_ = id_.getParametersTypes();
@@ -1183,7 +1183,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         String g_ = StringUtil.concat("pkg.ExTwo<java.lang.Number>");
         ClassMethodIdVarArg cid_ = getFct3(xml_, g_, "myvar.get(0)");
-        assertEq("pkg.ExTwo", cid_.getClassName());
+        assertEq("pkg.ExTwo<java.lang.Number>", cid_.getClassName());
         MethodId id_ = cid_.getConstraints();
         assertEq("get", id_.getName());
         StringList params_ = id_.getParametersTypes();
@@ -2645,7 +2645,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ClassMethodIdVarArg id_ = getStaticFctSuper(files_, "pkgtwo.Apply");
         MethodId m_  =id_.getConstraints();
-        assertEq("pkg.ExTwo", id_.getClassName());
+        assertEq("pkg.ExTwo<?>", id_.getClassName());
         assertEq("m", m_.getName());
         StringList params_ = m_.getParametersTypes();
         assertEq(0, params_.size());
@@ -2666,7 +2666,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ClassMethodIdVarArg id_ = getStaticFctSuper(files_, "pkgtwo.Apply");
         MethodId m_  =id_.getConstraints();
-        assertEq("pkg.ExTwo", id_.getClassName());
+        assertEq("pkg.ExTwo<?>", id_.getClassName());
         assertEq("m", m_.getName());
         StringList params_ = m_.getParametersTypes();
         assertEq(0, params_.size());

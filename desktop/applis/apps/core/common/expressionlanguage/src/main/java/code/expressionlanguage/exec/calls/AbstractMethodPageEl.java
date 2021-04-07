@@ -7,6 +7,7 @@ import code.expressionlanguage.exec.blocks.ExecAbstractSwitchMethod;
 import code.expressionlanguage.exec.blocks.ExecBlock;
 import code.expressionlanguage.exec.blocks.WithEl;
 import code.expressionlanguage.exec.stacks.SwitchBlockStack;
+import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 
 public abstract class AbstractMethodPageEl extends AbstractCommonMethodPageEl {
 
@@ -20,6 +21,10 @@ public abstract class AbstractMethodPageEl extends AbstractCommonMethodPageEl {
         }
     }
 
+    public void blockRootType(ExecTypeFunction _pair) {
+        setBlockRootType(_pair.getType());
+        setBlockRoot(_pair.getFct());
+    }
     @Override
     public void processTagsBase(ContextEl _context, StackCall _stack){
         //method walk through

@@ -2,10 +2,10 @@ package code.expressionlanguage.analyze.opers.util;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.ImportedMethod;
 import code.expressionlanguage.analyze.MethodHeaderInfo;
-import code.expressionlanguage.analyze.blocks.NamedFunctionBlock;
-import code.expressionlanguage.analyze.blocks.RootBlock;
+import code.expressionlanguage.analyze.blocks.*;
 import code.expressionlanguage.analyze.inherits.AnaInherits;
 import code.expressionlanguage.analyze.opers.OperationNode;
+import code.expressionlanguage.analyze.util.ToStringMethodHeader;
 import code.expressionlanguage.common.AnaGeneType;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.functionid.*;
@@ -27,7 +27,7 @@ public final class MethodInfo implements Parametrable {
     private String returnType = "";
     private String originalReturnType = "";
     private String fileName = "";
-    private MemberId memberId = new MemberId();
+    private final MemberId memberId = new MemberId();
     private StringList formattedParams;
 
     private boolean finalMethod;
@@ -58,7 +58,8 @@ public final class MethodInfo implements Parametrable {
     }
     public void pairMemberId(ImportedMethod _m) {
         pair(_m.getType(),_m.getCustMethod());
-        memberId = _m.getMemberId();
+        MemberId memberId_ = _m.getMemberId();
+        memberId(memberId_.getRootNumber(),memberId_.getMemberNumber());
         setFileName(_m.getFileName());
         setReturnType(_m.getReturnType());
         setOriginalReturnType(_m.getReturnType());
@@ -256,6 +257,26 @@ public final class MethodInfo implements Parametrable {
 
     public MemberId getMemberId() {
         return memberId;
+    }
+
+    public void memberId(RootBlock _type) {
+        memberId(_type.getNumberAll(),-1);
+    }
+    public void memberId(RootBlock _r, NamedCalledFunctionBlock _m) {
+        if (AbsBk.isOverBlock(_m)) {
+            setAbstractMethod(_m.isAbstractMethod());
+            setFinalMethod(_m.isFinalMethod());
+            memberId(_r.getNumberAll(),_m.getNameOverrideNumber());
+        } else {
+            memberId(_r.getNumberAll(),_m.getNameNumber());
+        }
+    }
+    public void memberId(OperatorBlock _oper) {
+        pair(null,_oper);
+        memberId(-1,_oper.getOperatorNumber());
+    }
+    public void memberId(ToStringMethodHeader _toString) {
+        memberId(_toString.getNumberRoot(),_toString.getNumberAll());
     }
 
     public void memberId(int _rootNumber, int _memberNumber) {

@@ -1,7 +1,12 @@
 package code.expressionlanguage.fwd.opers;
 
 import code.expressionlanguage.analyze.opers.util.MemberId;
+import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
+import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.functionid.ClassMethodId;
+import code.expressionlanguage.functionid.MethodAccessKind;
+import code.expressionlanguage.functionid.MethodId;
+import code.util.StringList;
 
 public final class AnaCallFctContent {
 
@@ -17,6 +22,19 @@ public final class AnaCallFctContent {
 
     public AnaCallFctContent(String _methodName) {
         this.methodName = _methodName;
+    }
+
+    public void update(ClassMethodIdReturn _res) {
+        String foundClass_ = _res.getRealClass();
+        MethodId realId_ = _res.getRealId();
+        setMemberId(_res.getMemberId());
+        setClassMethodId(new ClassMethodId(foundClass_, realId_));
+        setClassName(foundClass_);
+        if (_res.isVarArgToCall()) {
+            StringList paramtTypes_ = realId_.getParametersTypes();
+            setNaturalVararg(paramtTypes_.size() - 1);
+            setLastType(paramtTypes_.last());
+        }
     }
 
     public String getMethodName() {

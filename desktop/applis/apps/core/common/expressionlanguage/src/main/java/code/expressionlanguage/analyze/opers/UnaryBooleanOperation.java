@@ -54,13 +54,8 @@ public final class UnaryBooleanOperation extends AbstractUnaryOperation implemen
         setResultClass(new AnaClassArgumentMatching(booleanPrimType_,PrimitiveTypes.BOOL_WRAP));
     }
 
-    @Override
-    public String getClassName() {
-        return fct.getClassName();
-    }
-
-    public AnaTypeFct getFunction() {
-        return fct.getFunction();
+    public ClassMethodIdMemberIdTypeFct getFct() {
+        return fct;
     }
 
     @Override
@@ -71,10 +66,6 @@ public final class UnaryBooleanOperation extends AbstractUnaryOperation implemen
     @Override
     public boolean isOkNum() {
         return okNum;
-    }
-
-    public MemberId getMemberId() {
-        return fct.getMemberId();
     }
 
 }

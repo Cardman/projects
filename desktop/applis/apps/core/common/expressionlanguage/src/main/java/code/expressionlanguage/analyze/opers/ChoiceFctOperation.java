@@ -140,13 +140,10 @@ public final class ChoiceFctOperation extends InvokingOperation implements PreAn
                 setResultClass(voidToObject(new AnaClassArgumentMatching(clMeth_.getReturnType()), _page));
                 return;
             }
-            callFctContent.setMemberId(clMeth_.getMemberId());
+            callFctContent.update(clMeth_);
             function = clMeth_.getPair();
             trueFalse = true;
-            String foundClass_ = clMeth_.getRealClass();
             MethodId id_ = clMeth_.getRealId();
-            callFctContent.setClassMethodId(new ClassMethodId(foundClass_, id_));
-            callFctContent.setClassName(foundClass_);
             staticMethod = true;
             unwrapArgsFct(id_, callFctContent.getNaturalVararg(), callFctContent.getLastType(), name_.getPositional(), _page);
             setResultClass(voidToObject(new AnaClassArgumentMatching(clMeth_.getReturnType(), _page.getPrimitiveTypes()), _page));
@@ -158,8 +155,8 @@ public final class ChoiceFctOperation extends InvokingOperation implements PreAn
             setResultClass(voidToObject(new AnaClassArgumentMatching(clMeth_.getReturnType()), _page));
             return;
         }
+        callFctContent.update(clMeth_);
         standardMethod = clMeth_.getStandardMethod();
-        callFctContent.setMemberId(clMeth_.getMemberId());
         function = clMeth_.getPair();
         if (clMeth_.isAbstractMethod()) {
             setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _page);
@@ -174,18 +171,7 @@ public final class ChoiceFctOperation extends InvokingOperation implements PreAn
             _page.getLocalizer().addError(abs_);
             addErr(abs_.getBuiltError());
         }
-        String foundClass_ = clMeth_.getRealClass();
         MethodId id_ = clMeth_.getRealId();
-        if (id_.getKind() != MethodAccessKind.STATIC_CALL) {
-            foundClass_ = StringExpUtil.getIdFromAllTypes(foundClass_);
-        }
-        callFctContent.setClassMethodId(new ClassMethodId(foundClass_, id_));
-        callFctContent.setClassName(foundClass_);
-        if (clMeth_.isVarArgToCall()) {
-            StringList paramtTypes_ = id_.getParametersTypes();
-            callFctContent.setNaturalVararg(paramtTypes_.size() - 1);
-            callFctContent.setLastType(paramtTypes_.last());
-        }
         staticMethod = id_.getKind() != MethodAccessKind.INSTANCE;
         unwrapArgsFct(id_, callFctContent.getNaturalVararg(), callFctContent.getLastType(), name_.getAll(), _page);
         setResultClass(voidToObject(new AnaClassArgumentMatching(clMeth_.getReturnType(), _page.getPrimitiveTypes()), _page));

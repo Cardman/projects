@@ -174,18 +174,8 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
             }
             staticChoiceMethod = staticChoiceMethod_;
             anc = clMeth_.getAncestor();
-            String foundClass_ = clMeth_.getRealClass();
-            if (!staticChoiceMethod_) {
-                foundClass_ = StringExpUtil.getIdFromAllTypes(foundClass_);
-            }
+            callFctContent.update(clMeth_);
             MethodId id_ = clMeth_.getRealId();
-            callFctContent.setClassMethodId(new ClassMethodId(foundClass_, id_));
-            callFctContent.setClassName(foundClass_);
-            if (clMeth_.isVarArgToCall()) {
-                StringList paramtTypes_ = id_.getParametersTypes();
-                callFctContent.setNaturalVararg(paramtTypes_.size() - 1);
-                callFctContent.setLastType(paramtTypes_.last());
-            }
             unwrapArgsFct(id_, callFctContent.getNaturalVararg(), callFctContent.getLastType(), name_.getAll(), _page);
             setResultClass(new AnaClassArgumentMatching(clMeth_.getReturnType(), _page.getPrimitiveTypes()));
             return;

@@ -152,20 +152,9 @@ public final class ExplicitOperatorOperation extends InvokingOperation implement
             return;
         }
         setResultClass(new AnaClassArgumentMatching(cust_.getReturnType(), _page.getPrimitiveTypes()));
-        String foundClass_ = cust_.getRealClass();
-        MethodId realId_ = cust_.getRealId();
-        if (realId_.getKind() != MethodAccessKind.STATIC_CALL) {
-            foundClass_ = StringExpUtil.getIdFromAllTypes(foundClass_);
-        }
-        callFctContent.setMemberId(cust_.getMemberId());
+        callFctContent.update(cust_);
         function = cust_.getPair();
-        callFctContent.setClassMethodId(new ClassMethodId(foundClass_, realId_));
-        callFctContent.setClassName(foundClass_);
-        if (cust_.isVarArgToCall()) {
-            StringList paramtTypes_ = realId_.getParametersTypes();
-            callFctContent.setNaturalVararg(paramtTypes_.size() - 1);
-            callFctContent.setLastType(paramtTypes_.last());
-        }
+        MethodId realId_ = cust_.getRealId();
         unwrapArgsFct(realId_, callFctContent.getNaturalVararg(), callFctContent.getLastType(), name_.getAll(), _page);
     }
 

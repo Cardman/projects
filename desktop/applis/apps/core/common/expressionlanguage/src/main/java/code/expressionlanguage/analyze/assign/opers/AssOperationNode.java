@@ -14,14 +14,14 @@ public abstract class AssOperationNode {
 
     private AssOperationNode nextSibling;
 
-    private Argument argument;
+    private final Argument argument;
 
-    private int indexInEl;
-    private int indexBegin;
+    private final int indexInEl;
+    private final int indexBegin;
 
     private final int indexChild;
 
-    private AnaClassArgumentMatching resultClass;
+    private final AnaClassArgumentMatching resultClass;
 
     AssOperationNode(OperationNode _ex) {
         indexInEl = _ex.getIndexInEl();
@@ -41,7 +41,7 @@ public abstract class AssOperationNode {
         }
         if (_anaNode instanceof SymbolOperation) {
             SymbolOperation n_ = (SymbolOperation) _anaNode;
-            if (n_.getFunction() == null) {
+            if (n_.getFct().getFunction() == null) {
                 if (_anaNode instanceof UnaryBooleanOperation) {
                     UnaryBooleanOperation a_ = (UnaryBooleanOperation) _anaNode;
                     return new AssUnaryBooleanOperation(a_);

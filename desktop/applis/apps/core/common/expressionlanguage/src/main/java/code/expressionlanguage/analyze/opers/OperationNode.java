@@ -1373,43 +1373,19 @@ public abstract class OperationNode {
         CustList<MethodInfo> methods_;
         methods_ = new CustList<MethodInfo>();
         fetchTrue(methods_,_classes, null, _page, new DefaultComparer());
-        CustList<MethodInfo> candidates_ = new CustList<MethodInfo>();
-        for (MethodInfo m: methods_) {
-            if (StringUtil.quickEq(
-                    StringExpUtil.getIdFromAllTypes(m.getClassName()),
-                    StringExpUtil.getIdFromAllTypes(_classes))){
-                candidates_.add(m);
-            }
-        }
-        if (candidates_.size() == 1) {
-            MethodInfo m_ = candidates_.first();
-            MethodId constraints_ = m_.getConstraints();
-            String baseClassName_ = m_.getClassName();
-            ClassMethodIdReturn res_ = new ClassMethodIdReturn(true);
-            MethodId id_ = m_.getFormatted();
-            ClassMethodId idForm_ = new ClassMethodId(baseClassName_, id_);
-            res_.setId(idForm_);
-            res_.setRealId(constraints_);
-            res_.setRealClass(baseClassName_);
-            res_.setReturnType(m_.getReturnType());
-            res_.setOriginalReturnType(m_.getOriginalReturnType());
-            res_.setFileName(m_.getFileName());
-            setIds(m_, res_);
-            res_.setAncestor(m_.getAncestor());
-            res_.setAbstractMethod(m_.isAbstractMethod());
-            MethodId cts_ = idForm_.getConstraints();
-            res_.setId(new ClassMethodId(idForm_.getClassName(),new MethodId(cts_.getKind(),cts_.getName(),cts_.shiftFirst(),cts_.isVararg())));
-            return res_;
-        }
-        return new ClassMethodIdReturn(false);
+        return tryGetDeclaredTrueFalse(_classes, methods_);
     }
 
     protected static ClassMethodIdReturn tryGetDeclaredFalse(String _classes, AnalyzedPageEl _page) {
         CustList<MethodInfo> methods_;
         methods_ = new CustList<MethodInfo>();
         fetchFalse(methods_,_classes, null, _page, new DefaultComparer());
+        return tryGetDeclaredTrueFalse(_classes, methods_);
+    }
+
+    private static ClassMethodIdReturn tryGetDeclaredTrueFalse(String _classes, CustList<MethodInfo> _methods) {
         CustList<MethodInfo> candidates_ = new CustList<MethodInfo>();
-        for (MethodInfo m: methods_) {
+        for (MethodInfo m : _methods) {
             if (StringUtil.quickEq(
                     StringExpUtil.getIdFromAllTypes(m.getClassName()),
                     StringExpUtil.getIdFromAllTypes(_classes))){
@@ -1418,23 +1394,10 @@ public abstract class OperationNode {
         }
         if (candidates_.size() == 1) {
             MethodInfo m_ = candidates_.first();
-            MethodId constraints_ = m_.getConstraints();
             String baseClassName_ = m_.getClassName();
-            ClassMethodIdReturn res_ = new ClassMethodIdReturn(true);
             MethodId id_ = m_.getFormatted();
-            ClassMethodId idForm_ = new ClassMethodId(baseClassName_, id_);
-            res_.setId(idForm_);
-            res_.setRealId(constraints_);
-            res_.setRealClass(baseClassName_);
-            res_.setReturnType(m_.getReturnType());
-            res_.setOriginalReturnType(m_.getOriginalReturnType());
-            res_.setFileName(m_.getFileName());
-            setIds(m_, res_);
-            res_.setAncestor(m_.getAncestor());
-            res_.setAbstractMethod(m_.isAbstractMethod());
-            MethodId cts_ = idForm_.getConstraints();
-            res_.setId(new ClassMethodId(idForm_.getClassName(),new MethodId(cts_.getKind(),cts_.getName(),cts_.shiftFirst(),cts_.isVararg())));
-            return res_;
+            MethodId extract_ = new MethodId(id_.getKind(), id_.getName(), id_.shiftFirst(), id_.isVararg());
+            return buildResult(m_, extract_);
         }
         return new ClassMethodIdReturn(false);
     }
@@ -1991,10 +1954,9 @@ public abstract class OperationNode {
             }
             MethodInfo mloc_ = new MethodInfo();
             mloc_.classMethodId("",id_);
-            mloc_.pair(null,e);
             mloc_.setReturnType(ret_);
             mloc_.setOriginalReturnType(ret_);
-            mloc_.memberId(-1,e.getOperatorNumber());
+            mloc_.memberId(e);
             mloc_.setFileName(e.getFile().getFileName());
             mloc_.format(true, _page);
             methods_.add(mloc_);
@@ -2603,13 +2565,7 @@ public abstract class OperationNode {
         mloc_.pair(_r,_m);
         mloc_.setCustMethod(_m);
         mloc_.classMethodId(_formattedClass,_id);
-        if (AbsBk.isOverBlock(_m)) {
-            mloc_.setAbstractMethod(_m.isAbstractMethod());
-            mloc_.setFinalMethod(_m.isFinalMethod());
-            mloc_.memberId(_r.getNumberAll(),_m.getNameOverrideNumber());
-        } else {
-            mloc_.memberId(_r.getNumberAll(),_m.getNameNumber());
-        }
+        mloc_.memberId(_r,_m);
         mloc_.setAncestor(_anc);
         mloc_.setFormattedFilter(_formatted);
         mloc_.format(_keepParams, _page);
@@ -2678,7 +2634,7 @@ public abstract class OperationNode {
         mloc_.setReturnType(returnType_);
         mloc_.setOriginalReturnType(returnType_);
         mloc_.setAncestor(_ancestor);
-        mloc_.memberId(r_.getNumberAll(),-1);
+        mloc_.memberId(r_);
         methods_.add(mloc_);
         String values_ = _page.getAliasEnumValues();
         realId_ = new MethodId(MethodAccessKind.STATIC, values_, new StringList());
@@ -2690,7 +2646,7 @@ public abstract class OperationNode {
         mloc_.setReturnType(returnType_);
         mloc_.setOriginalReturnType(returnType_);
         mloc_.setAncestor(_ancestor);
-        mloc_.memberId(r_.getNumberAll(),-1);
+        mloc_.memberId(r_);
         methods_.add(mloc_);
         return methods_;
     }
@@ -2719,56 +2675,21 @@ public abstract class OperationNode {
             }
             signatures_.add(m_);
         }
-        StringMap<StringList> map_;
-        map_ = _page.getCurrentConstraints().getCurrentConstraints();
-        ArgumentsGroup gr_ = new ArgumentsGroup(_page, map_);
-        Parametrable found_ = sortFct(signatures_, gr_);
-        if (!(found_ instanceof MethodInfo)) {
-            return new ClassMethodIdReturn(false);
-        }
-        MethodInfo m_ = (MethodInfo) found_;
-        MethodId constraints_ = m_.getConstraints();
-        String baseClassName_ = m_.getClassName();
-        ClassMethodIdReturn res_ = new ClassMethodIdReturn(true);
-        MethodId id_ = m_.getFormatted();
-        res_.setId(new ClassMethodId(baseClassName_, id_));
-        res_.setRealId(constraints_);
-        res_.setRealClass(baseClassName_);
-        res_.setReturnType(m_.getReturnType());
-        res_.setOriginalReturnType(m_.getOriginalReturnType());
-        res_.setFileName(m_.getFileName());
-        setIds(m_, res_);
-        res_.setAncestor(m_.getAncestor());
-        res_.setAbstractMethod(m_.isAbstractMethod());
-        return res_;
+        return tryGetLambdaResult(_page, signatures_);
     }
 
     protected static ClassMethodIdReturn getCustResultLambdaInfer(CustList<CustList<MethodInfo>> _methods,
                                                                 String _name, AnalyzedPageEl _page, String _stCall, StringList _argsClass, String _retType) {
         CustList<CustList<MethodInfo>> next_ = filterInferredMethods(_methods, _name, _page, _stCall, _argsClass, _retType);
 
+        return tryGetLambdaResult(_page, next_);
+    }
+
+    private static ClassMethodIdReturn tryGetLambdaResult(AnalyzedPageEl _page, CustList<CustList<MethodInfo>> _next) {
         StringMap<StringList> map_;
         map_ = _page.getCurrentConstraints().getCurrentConstraints();
         ArgumentsGroup gr_ = new ArgumentsGroup(_page, map_);
-        Parametrable found_ = sortFct(next_, gr_);
-        if (!(found_ instanceof MethodInfo)) {
-            return new ClassMethodIdReturn(false);
-        }
-        MethodInfo m_ = (MethodInfo) found_;
-        MethodId constraints_ = m_.getConstraints();
-        String baseClassName_ = m_.getClassName();
-        ClassMethodIdReturn res_ = new ClassMethodIdReturn(true);
-        MethodId id_ = m_.getFormatted();
-        res_.setId(new ClassMethodId(baseClassName_, id_));
-        res_.setRealId(constraints_);
-        res_.setRealClass(baseClassName_);
-        res_.setReturnType(m_.getReturnType());
-        res_.setOriginalReturnType(m_.getOriginalReturnType());
-        res_.setFileName(m_.getFileName());
-        setIds(m_, res_);
-        res_.setAncestor(m_.getAncestor());
-        res_.setAbstractMethod(m_.isAbstractMethod());
-        return res_;
+        return tryGetResult(gr_, _next);
     }
 
     protected static CustList<CustList<MethodInfo>> filterInferredMethods(CustList<CustList<MethodInfo>> _methods, String _name, AnalyzedPageEl _page, String _stCall, StringList _argsClass, String _retType) {
@@ -2985,21 +2906,8 @@ public abstract class OperationNode {
         Ints nameParametersFilterIndexes_ = m_.getNameParametersFilterIndexes();
         NamedFunctionBlock custMethod_ = m_.getCustMethod();
         feedNamedParams(_filter, nameParametersFilterIndexes_, custMethod_);
-        MethodId constraints_ = m_.getConstraints();
-        String baseClassName_ = m_.getClassName();
-        ClassMethodIdReturn res_ = new ClassMethodIdReturn(true);
         MethodId id_ = m_.getFormatted();
-        res_.setId(new ClassMethodId(baseClassName_, id_));
-        if (m_.isVarArgWrap()) {
-            res_.setVarArgToCall(true);
-        }
-        res_.setRealId(constraints_);
-        res_.setRealClass(baseClassName_);
-        setIds(m_, res_);
-        res_.setReturnType(m_.getReturnType());
-        res_.setAncestor(m_.getAncestor());
-        res_.setAbstractMethod(m_.isAbstractMethod());
-        return res_;
+        return buildResult(m_, id_);
     }
     private static ClassMethodIdReturn getCustIncrDecrResult(CustList<CustList<MethodInfo>> _methods,
                                                              String _name, AnaClassArgumentMatching _argsClass, AnalyzedPageEl _page) {
@@ -3028,23 +2936,7 @@ public abstract class OperationNode {
         StringMap<StringList> map_;
         map_ = _page.getCurrentConstraints().getCurrentConstraints();
         ArgumentsGroup gr_ = new ArgumentsGroup(_page, map_);
-        Parametrable found_ = sortFct(signatures_, gr_);
-        if (!(found_ instanceof MethodInfo)) {
-            return new ClassMethodIdReturn(false);
-        }
-        MethodInfo m_ = (MethodInfo) found_;
-        MethodId constraints_ = m_.getConstraints();
-        String baseClassName_ = m_.getClassName();
-        ClassMethodIdReturn res_ = new ClassMethodIdReturn(true);
-        MethodId id_ = m_.getFormatted();
-        res_.setId(new ClassMethodId(baseClassName_, id_));
-        res_.setRealId(constraints_);
-        res_.setRealClass(baseClassName_);
-        res_.setReturnType(m_.getReturnType());
-        res_.setAncestor(m_.getAncestor());
-        setIds(m_, res_);
-        res_.setAbstractMethod(m_.isAbstractMethod());
-        return res_;
+        return tryGetResult(gr_,signatures_);
     }
     private static boolean isPossibleMethodLambda(Parametrable _id, AnalyzedPageEl _page,
                                                   StringList _argsClass) {
@@ -3471,24 +3363,35 @@ public abstract class OperationNode {
         ArgumentsGroup gr_ = new ArgumentsGroup(_page, _vars, _cmp);
         CustList<CustList<MethodInfo>> c_ = new CustList<CustList<MethodInfo>>();
         c_.add(signatures_);
-        Parametrable found_ = sortFct(c_, gr_);
+        return tryGetResult(gr_, c_);
+    }
+
+    private static ClassMethodIdReturn tryGetResult(ArgumentsGroup _gr, CustList<CustList<MethodInfo>> _list) {
+        Parametrable found_ = sortFct(_list, _gr);
         if (!(found_ instanceof MethodInfo)) {
             return new ClassMethodIdReturn(false);
         }
         MethodInfo m_ = (MethodInfo) found_;
-        MethodId constraints_ = m_.getConstraints();
-        String baseClassName_ = m_.getClassName();
-        ClassMethodIdReturn res_ = new ClassMethodIdReturn(true);
         MethodId id_ = m_.getFormatted();
-        res_.setId(new ClassMethodId(baseClassName_, id_));
+        return buildResult(m_, id_);
+    }
+
+    public static ClassMethodIdReturn buildResult(MethodInfo _m, MethodId _id) {
+        ClassMethodIdReturn res_ = new ClassMethodIdReturn(true);
+        if (_m.isVarArgWrap()) {
+            res_.setVarArgToCall(true);
+        }
+        MethodId constraints_ = _m.getConstraints();
+        String baseClassName_ = _m.getClassName();
+        res_.setId(new ClassMethodId(baseClassName_, _id));
         res_.setRealId(constraints_);
         res_.setRealClass(baseClassName_);
-        res_.setReturnType(m_.getReturnType());
-        res_.setOriginalReturnType(m_.getOriginalReturnType());
-        res_.setFileName(m_.getFileName());
-        setIds(m_, res_);
-        res_.setAncestor(m_.getAncestor());
-        res_.setAbstractMethod(m_.isAbstractMethod());
+        res_.setReturnType(_m.getReturnType());
+        res_.setOriginalReturnType(_m.getOriginalReturnType());
+        res_.setFileName(_m.getFileName());
+        setIds(_m, res_);
+        res_.setAncestor(_m.getAncestor());
+        res_.setAbstractMethod(_m.isAbstractMethod());
         return res_;
     }
 

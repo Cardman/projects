@@ -4,7 +4,6 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.blocks.ExecRecordBlock;
-import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.calls.util.CustomFoundRecordConstructor;
 import code.expressionlanguage.exec.inherits.ExecInherits;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
@@ -31,9 +30,9 @@ public final class RendStandardInstancingOperation extends RendInvokingOperation
         instancingStdContent = _instancingStdContent;
     }
 
-    public RendStandardInstancingOperation(ExecRootBlock _rootBlock, ExecOperationContent _content, ExecInstancingCommonContent _instancingCommonContent, ExecInstancingStdContent _instancingStdContent) {
+    public RendStandardInstancingOperation(ExecOperationContent _content, ExecInstancingCommonContent _instancingCommonContent, ExecInstancingStdContent _instancingStdContent, ExecTypeFunction _pair) {
         super(_content,false);
-        pair = new ExecTypeFunction(_rootBlock,null);
+        pair = _pair;
         instancingCommonContent = _instancingCommonContent;
         instancingStdContent = _instancingStdContent;
     }

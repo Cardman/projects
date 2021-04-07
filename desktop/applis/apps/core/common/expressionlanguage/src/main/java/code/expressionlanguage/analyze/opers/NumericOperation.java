@@ -80,13 +80,8 @@ public abstract class NumericOperation extends MethodOperation implements Middle
         getChildren().addAllEntries(vs_);
     }
 
-    public AnaTypeFct getFunction() {
-        return fct.getFunction();
-    }
-
-    @Override
-    public String getClassName() {
-        return fct.getClassName();
+    public ClassMethodIdMemberIdTypeFct getFct() {
+        return fct;
     }
 
     @Override
@@ -102,10 +97,6 @@ public abstract class NumericOperation extends MethodOperation implements Middle
     @Override
     public boolean isOkNum() {
         return okNum;
-    }
-
-    public MemberId getMemberId() {
-        return fct.getMemberId();
     }
 
 }

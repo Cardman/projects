@@ -95,10 +95,6 @@ public final class MethodMetaInfo extends WithoutParentStruct implements Annotat
     }
 
     public ExecAnnotableBlock getAnnotableBlock() {
-        return getAnnotableBlockParam();
-    }
-
-    public ExecAnnotableParamBlock getAnnotableBlockParam() {
         if (callee instanceof ExecAnnotableParamBlock) {
             return (ExecAnnotableParamBlock)callee;
         }

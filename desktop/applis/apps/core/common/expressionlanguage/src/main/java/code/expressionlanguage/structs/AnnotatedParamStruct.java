@@ -8,5 +8,4 @@ import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 public interface AnnotatedParamStruct extends AnnotatedMemberStruct {
     ExecTypeFunction getPair();
     ExecRootBlock getPairType();
-    ExecAnnotableParamBlock getAnnotableBlockParam();
 }

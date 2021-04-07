@@ -20,7 +20,7 @@ public abstract class ReachOperationNode {
     protected static final String EMPTY_STRING = "";
 
 
-    private OperationNode info;
+    private final OperationNode info;
     private ReachMethodOperation parent;
 
     private ReachOperationNode nextSibling;
@@ -56,7 +56,7 @@ public abstract class ReachOperationNode {
             if (!s_.isOkNum()) {
                 return new ReachStdOperation(_oper);
             }
-            if (s_.getFunction() != null) {
+            if (s_.getFct().getFunction() != null) {
                 return new ReachStdOperation(_oper);
             }
         }
@@ -65,7 +65,7 @@ public abstract class ReachOperationNode {
             if (!s_.isOkNum()) {
                 return new ReachStdOperation(_oper);
             }
-            if (s_.getFunction() != null) {
+            if (s_.getFct().getFunction() != null) {
                 return new ReachStdOperation(_oper);
             }
         }

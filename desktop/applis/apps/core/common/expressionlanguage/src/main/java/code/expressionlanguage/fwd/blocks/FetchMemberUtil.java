@@ -83,6 +83,10 @@ public final class FetchMemberUtil {
         return null;
     }
 
+    public static ExecTypeFunction fetchFunctionOpPair(ClassMethodIdMemberIdTypeFct _id, Forwards _forwards) {
+        return fetchFunctionOpPair(_id.getMemberId(),_forwards);
+    }
+
     public static ExecTypeFunction fetchFunctionOpPair(MemberId _id, Forwards _forwards) {
         ExecRootBlock decl_ = fetchType(_id,_forwards);
         ExecNamedFunctionBlock fct_ = fetchFunctionOp(decl_,_id, _forwards);

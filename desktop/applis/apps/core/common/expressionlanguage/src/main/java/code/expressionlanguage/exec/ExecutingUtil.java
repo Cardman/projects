@@ -120,7 +120,7 @@ public final class ExecutingUtil {
         setMethodInfos(_context, pageLoc_, _method, _args);
         return pageLoc_;
     }
-    private static void setMethodInfos(ContextEl _context, AbstractPageEl _page, ExecTypeFunction _block, Parameters _args) {
+    private static void setMethodInfos(ContextEl _context, AbstractMethodPageEl _page, ExecTypeFunction _block, Parameters _args) {
         ExecNamedFunctionBlock fct_ = _block.getFct();
         _page.blockRootType(_block);
         _context.getCoverage().passCalls(_page);

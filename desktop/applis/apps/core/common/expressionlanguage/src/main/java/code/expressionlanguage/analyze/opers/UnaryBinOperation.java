@@ -63,13 +63,8 @@ public final class UnaryBinOperation extends AbstractUnaryOperation implements S
         setResultClass(AnaClassArgumentMatching.copy(cl_, _page.getPrimitiveTypes()));
     }
 
-    @Override
-    public String getClassName() {
-        return fct.getClassName();
-    }
-
-    public AnaTypeFct getFunction() {
-        return fct.getFunction();
+    public ClassMethodIdMemberIdTypeFct getFct() {
+        return fct;
     }
 
     @Override
@@ -80,10 +75,6 @@ public final class UnaryBinOperation extends AbstractUnaryOperation implements S
     @Override
     public boolean isOkNum() {
         return okNum;
-    }
-
-    public MemberId getMemberId() {
-        return fct.getMemberId();
     }
 
 }

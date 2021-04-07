@@ -46,7 +46,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
     private final Ints offsets = new Ints();
     private final StringList named = new StringList();
     private final Ints refs = new Ints();
-    private boolean recordType;
+    private int recordType = -1;
     private RootBlock fieldType;
     private AnaTypeFct function;
     private ClassField fieldId;
@@ -1503,7 +1503,8 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                     offsetArg_ += arg_.length()+1;
                 }
                 lambdaMemberNumberContentId = new MemberId();
-                lambdaMemberNumberContentId.setRootNumber(((RecordBlock)h_).getNumberAll());
+                recordType = ((RecordBlock)h_).getNumberAll();
+                lambdaMemberNumberContentId.setRootNumber(recordType);
                 lambdaCommonContent.setFoundClass(clFrom_);
                 types_.add(clFrom_);
                 fieldType = (RootBlock) h_;
@@ -1512,7 +1513,6 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                 fct_.append(StringUtil.join(types_, Templates.TEMPLATE_SEP));
                 fct_.append(Templates.TEMPLATE_END);
                 setResultClass(new AnaClassArgumentMatching(fct_.toString()));
-                recordType = true;
                 return;
             }
         }
@@ -2671,7 +2671,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         return standardType;
     }
 
-    public boolean isRecordType() {
+    public int getRecordType() {
         return recordType;
     }
 

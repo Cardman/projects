@@ -52,15 +52,6 @@ public abstract class AbstractPageEl {
     private TryBlockStack lastTry;
     private final PageElContent content = new PageElContent();
 
-    public void blockRootType(ExecTypeFunction _pair) {
-        setBlockRootType(_pair.getType());
-        setBlockRoot(_pair.getFct());
-    }
-
-    public void blockRoot(ExecRootBlock _type) {
-        setBlockRootType(_type);
-        setBlockRoot(_type);
-    }
     public Struct getGlobalStruct() {
         return content.getGlobalStruct();
     }

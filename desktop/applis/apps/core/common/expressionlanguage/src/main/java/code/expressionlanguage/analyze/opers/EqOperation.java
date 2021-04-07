@@ -65,13 +65,8 @@ public final class EqOperation extends MethodOperation implements MiddleSymbolOp
         return getOp();
     }
 
-    public AnaTypeFct getFunction() {
-        return fct.getFunction();
-    }
-
-    @Override
-    public String getClassName() {
-        return fct.getClassName();
+    public ClassMethodIdMemberIdTypeFct getFct() {
+        return fct;
     }
 
     @Override
@@ -89,10 +84,6 @@ public final class EqOperation extends MethodOperation implements MiddleSymbolOp
     @Override
     public boolean isOkNum() {
         return true;
-    }
-
-    public MemberId getMemberId() {
-        return fct.getMemberId();
     }
 
 }

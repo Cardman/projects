@@ -106,7 +106,7 @@ public final class ExecClassesUtil {
         String id_ = StringExpUtil.getIdFromAllTypes(_id.getClassName());
         ExecRootBlock classBody_ = _classes.getClassBody(id_);
         ExecNamedFunctionBlock fct_ = getMethodBodiesById(classBody_, _id.getConstraints()).first();
-        ExecFctOperation f_ = new ExecFctOperation(new ExecClassArgumentMatching(_res),_id,1,1,fct_,classBody_, new ExecArrContent(false,false));
+        ExecFctOperation f_ = new ExecFctOperation(new ExecClassArgumentMatching(_res),_id,1,1, new ExecArrContent(false,false), new ExecTypeFunction(classBody_, fct_));
         dot_.appendChild(f_);
         r_.setSiblingSet(f_);
         ops_.add(f_);

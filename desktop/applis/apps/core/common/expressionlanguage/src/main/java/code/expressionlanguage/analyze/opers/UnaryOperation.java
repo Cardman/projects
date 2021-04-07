@@ -84,13 +84,8 @@ public final class UnaryOperation extends AbstractUnaryOperation implements Symb
         setResultClass(AnaClassArgumentMatching.copy(cl_, _page.getPrimitiveTypes()));
     }
 
-    public AnaTypeFct getFunction() {
-        return fct.getFunction();
-    }
-
-    @Override
-    public String getClassName() {
-        return fct.getClassName();
+    public ClassMethodIdMemberIdTypeFct getFct() {
+        return fct;
     }
 
     public String getOper() {
@@ -105,10 +100,6 @@ public final class UnaryOperation extends AbstractUnaryOperation implements Symb
     @Override
     public boolean isOkNum() {
         return okNum;
-    }
-
-    public MemberId getMemberId() {
-        return fct.getMemberId();
     }
 
 }

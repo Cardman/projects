@@ -302,10 +302,6 @@ public final class CompoundAffectationOperation extends MethodOperation {
         return operatorContent.getOper();
     }
 
-    public AnaTypeFct getFunction() {
-        return fct.getFunction();
-    }
-
     public ClassMethodIdMemberIdTypeFct getConv() {
         return conv;
     }
@@ -317,18 +313,13 @@ public final class CompoundAffectationOperation extends MethodOperation {
         return functionTest;
     }
 
-    public String getClassName() {
-        return fct.getClassName();
-    }
-
     public SettableElResult getSettable() {
         return settable;
     }
 
-    public MemberId getMemberId() {
-        return fct.getMemberId();
+    public ClassMethodIdMemberIdTypeFct getFct() {
+        return fct;
     }
-
     public boolean isRightBool() {
         return rightBool;
     }

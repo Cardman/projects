@@ -12,7 +12,9 @@ public final class ClassMethodIdMemberIdTypeFct {
     private AnaTypeFct function;
 
     public void infos(ClassMethodIdReturn _id) {
-        implicit = new ClassMethodId(_id.getId().getClassName(),_id.getRealId());
+        String className_ = _id.getId().getClassName();
+        className = className_;
+        implicit = new ClassMethodId(className_,_id.getRealId());
         memberId = _id.getMemberId();
         function = _id.getPair();
     }

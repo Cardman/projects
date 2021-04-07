@@ -127,22 +127,13 @@ public abstract class QuickOperation extends MethodOperation {
         return errSecond;
     }
 
-    public String getClassName() {
-        return fct.getClassName();
-    }
-
     public ClassMethodIdMemberIdTypeFct getConv() {
         return conv;
     }
 
-    public AnaTypeFct getFunction() {
-        return fct.getFunction();
+    public ClassMethodIdMemberIdTypeFct getFct() {
+        return fct;
     }
-
-    public MemberId getMemberId() {
-        return fct.getMemberId();
-    }
-
     public AnaTypeFct getFunctionTest() {
         return functionTest;
     }

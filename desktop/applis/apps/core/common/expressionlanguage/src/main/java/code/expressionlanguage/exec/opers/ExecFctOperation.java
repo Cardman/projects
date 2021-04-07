@@ -2,8 +2,6 @@ package code.expressionlanguage.exec.opers;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.exec.StackCall;
-import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
-import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.util.ExecOverrideInfo;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
@@ -31,10 +29,10 @@ public final class ExecFctOperation extends ExecSettableCallFctOperation {
 
     public ExecFctOperation(ExecClassArgumentMatching _res,
                             ClassMethodId _classMethodId,
-                            int _child, int _order, ExecNamedFunctionBlock _named, ExecRootBlock _rootBlock, ExecArrContent _arrContent) {
+                            int _child, int _order, ExecArrContent _arrContent, ExecTypeFunction _pair) {
         super(_child,_res,_order,true,_arrContent);
         instFctContent = new ExecInstFctContent(_classMethodId);
-        pair = new ExecTypeFunction(_rootBlock,_named);
+        pair = _pair;
     }
     @Override
     public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, StackCall _stack) {
