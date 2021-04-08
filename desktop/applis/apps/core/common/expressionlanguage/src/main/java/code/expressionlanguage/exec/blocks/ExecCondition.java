@@ -12,7 +12,7 @@ import code.expressionlanguage.structs.BooleanStruct;
 import code.util.CustList;
 import code.util.core.IndexConstants;
 
-public abstract class ExecCondition extends ExecBracedBlock implements WithNotEmptyEl,BuildingEl {
+public abstract class ExecCondition extends ExecBracedBlock implements WithNotEmptyEl {
 
 
     private final int conditionOffset;
@@ -43,9 +43,9 @@ public abstract class ExecCondition extends ExecBracedBlock implements WithNotEm
     }
 
     @Override
-    public ExpressionLanguage getEl(ContextEl _context,
+    public CustList<ExecOperationNode> getEl(ContextEl _context,
                                     int _indexProcess) {
-        return new ExpressionLanguage(opCondition);
+        return opCondition;
     }
 
 }

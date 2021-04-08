@@ -3,6 +3,7 @@ package code.expressionlanguage.structs;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.AccessEnum;
 import code.expressionlanguage.exec.blocks.*;
+import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.functionid.ConstructorId;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.stds.StandardType;
@@ -10,7 +11,7 @@ import code.util.CustList;
 import code.util.StringList;
 import code.util.core.StringUtil;
 
-public final class ConstructorMetaInfo extends WithoutParentStruct implements AnnotatedParamStruct {
+public final class ConstructorMetaInfo extends AbsAnnotatedStruct implements AnnotatedParamStruct {
 
     private static final String EMPTY_STRING = "";
 
@@ -47,7 +48,22 @@ public final class ConstructorMetaInfo extends WithoutParentStruct implements An
         pair = new ExecTypeFunction(null,null);
     }
 
-    public ExecAnnotableBlock getAnnotableBlock() {
+    public CustList<CustList<ExecOperationNode>> getAnnotationsOps(){
+        ExecNamedFunctionBlock fct_ = pair.getFct();
+        if (fct_ != null) {
+            return fct_.getAnnotationsOps();
+        }
+        return new CustList<CustList<ExecOperationNode>>();
+    }
+    public CustList<CustList<CustList<ExecOperationNode>>> getAnnotationsOpsParams(){
+        ExecNamedFunctionBlock fct_ = pair.getFct();
+        if (fct_ != null) {
+            return fct_.getAnnotationsOpsParams();
+        }
+        return new CustList<CustList<CustList<ExecOperationNode>>>();
+    }
+
+    public ExecMemberCallingsBlock getCallee() {
         return pair.getFct();
     }
 
@@ -61,10 +77,12 @@ public final class ConstructorMetaInfo extends WithoutParentStruct implements An
 
     public void pair(ExecRootBlock _type, ExecNamedFunctionBlock _fct) {
         pair = new ExecTypeFunction(_type, _fct);
+        setOwner(_type);
     }
 
     public void setPair(ExecTypeFunction _pair) {
         pair = _pair;
+        setOwner(_pair.getType());
     }
 
     public StandardType getStandardType() {

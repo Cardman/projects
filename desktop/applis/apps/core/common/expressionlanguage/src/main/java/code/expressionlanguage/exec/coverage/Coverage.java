@@ -466,13 +466,7 @@ public final class Coverage {
                 indexAnnot_ = annotRet_.getAnnotationsIndexes().get(indexAnnotation_);
             }
             AnnotatedStruct annotated_ = annotRet_.getAnnotated();
-            if (annotated_ instanceof FieldMetaInfo) {
-                type_ = ((FieldMetaInfo)annotated_).getDeclaring();
-            } else if (annotated_ instanceof AnnotatedParamStruct){
-                type_ = ((AnnotatedParamStruct) annotated_).getPairType();
-            } else {
-                type_ = ((ClassMetaInfo) annotated_).getRootBlock();
-            }
+            type_ = annotated_.getOwner();
         } else if (lastPage_ instanceof ReflectGetDefaultValuePageEl) {
             ReflectGetDefaultValuePageEl annotRet_ = (ReflectGetDefaultValuePageEl)lastPage_;
             type_ = annotRet_.getMetaInfo().getPairType();
@@ -484,15 +478,16 @@ public final class Coverage {
         if (lastPage_ instanceof ReflectAnnotationPageEl) {
             ReflectAnnotationPageEl annotRet_ = (ReflectAnnotationPageEl)lastPage_;
             AnnotatedStruct annotated_ = annotRet_.getAnnotated();
-            ExecAnnotableBlock annotableBlock_ = annotated_.getAnnotableBlock();
             if (annotated_ instanceof FieldMetaInfo) {
+                ExecInfoBlock annotableBlock_ = ((FieldMetaInfo)annotated_).getAnnotableBlock();
                 TypeCoverageResult val_ = types.get(typeAna_.getNumberAll());
                 matchBl_ = val_.getMappingFields().getVal((ExecBlock) annotableBlock_);
             } else if (annotated_ instanceof AnnotatedParamStruct){
+                ExecMemberCallingsBlock annotableBlock_ = ((AnnotatedParamStruct)annotated_).getCallee();
                 if (annotableBlock_ instanceof ExecAnnotationMethodBlock){
-                    matchBl_ = types.get(typeAna_.getNumberAll()).getMappingFields().getVal((ExecBlock) annotableBlock_);
+                    matchBl_ = types.get(typeAna_.getNumberAll()).getMappingFields().getVal(annotableBlock_);
                 } else {
-                    matchBl_ = getFctBlock((ExecMemberCallingsBlock) annotableBlock_, typeAna_);
+                    matchBl_ = getFctBlock(annotableBlock_, typeAna_);
                 }
             } else {
                 matchBl_ = typeAna_;

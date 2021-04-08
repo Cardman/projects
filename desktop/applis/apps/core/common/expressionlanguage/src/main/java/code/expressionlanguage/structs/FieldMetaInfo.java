@@ -4,11 +4,12 @@ package code.expressionlanguage.structs;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.AccessEnum;
 import code.expressionlanguage.exec.blocks.*;
+import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.util.CustList;
 import code.util.core.StringUtil;
 
 
-public final class FieldMetaInfo extends WithoutParentStruct implements AnnotatedMemberStruct {
+public final class FieldMetaInfo extends AbsAnnotatedStruct implements AnnotatedMemberStruct {
 
     private static final String EMPTY_STRING = "";
     private final AccessEnum access;
@@ -23,7 +24,7 @@ public final class FieldMetaInfo extends WithoutParentStruct implements Annotate
     private final boolean finalField;
     private final boolean invokable;
     private String fileName = EMPTY_STRING;
-    private ExecAnnotableBlock annotableBlock;
+    private ExecInfoBlock annotableBlock;
     private ExecRootBlock declaring;
     public FieldMetaInfo() {
         invokable = false;
@@ -50,11 +51,17 @@ public final class FieldMetaInfo extends WithoutParentStruct implements Annotate
         formDeclaringClass = StringUtil.nullToEmpty(_formDeclaringClass);
     }
 
-    public ExecAnnotableBlock getAnnotableBlock() {
+    public CustList<CustList<ExecOperationNode>> getAnnotationsOps(){
+        if (annotableBlock != null) {
+            return annotableBlock.getAnnotationsOps();
+        }
+        return new CustList<CustList<ExecOperationNode>>();
+    }
+    public ExecInfoBlock getAnnotableBlock() {
         return annotableBlock;
     }
 
-    public void setAnnotableBlock(ExecAnnotableBlock _annotableBlock) {
+    public void setAnnotableBlock(ExecInfoBlock _annotableBlock) {
         this.annotableBlock = _annotableBlock;
     }
 
@@ -64,6 +71,7 @@ public final class FieldMetaInfo extends WithoutParentStruct implements Annotate
 
     public void setDeclaring(ExecRootBlock _declaring) {
         this.declaring = _declaring;
+        setOwner(_declaring);
     }
 
     @Override
@@ -114,7 +122,7 @@ public final class FieldMetaInfo extends WithoutParentStruct implements Annotate
     @Override
     public CustList<ExecAnonymousFunctionBlock> getAnonymousLambda() {
         if (annotableBlock instanceof ExecInfoBlock) {
-            return (((ExecInfoBlock)annotableBlock).getAnonymousLambda());
+            return (annotableBlock.getAnonymousLambda());
         }
         return new CustList<ExecAnonymousFunctionBlock>();
     }
@@ -122,7 +130,7 @@ public final class FieldMetaInfo extends WithoutParentStruct implements Annotate
     @Override
     public CustList<ExecAbstractSwitchMethod> getSwitchMethods() {
         if (annotableBlock instanceof ExecInfoBlock) {
-            return ((ExecInfoBlock)annotableBlock).getSwitchMethods();
+            return annotableBlock.getSwitchMethods();
         }
         return new CustList<ExecAbstractSwitchMethod>();
     }

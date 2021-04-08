@@ -79,8 +79,8 @@ public final class ExecInnerElementBlock extends ExecRootBlock implements ExecIn
     }
 
     @Override
-    public ExpressionLanguage getEl(ContextEl _context, int _indexProcess) {
-        return new ExpressionLanguage(opValue);
+    public CustList<ExecOperationNode> getEl(ContextEl _context, int _indexProcess) {
+        return opValue;
     }
 
     public void processEl(ContextEl _cont, StackCall _stack, AbstractInitPageEl _last) {

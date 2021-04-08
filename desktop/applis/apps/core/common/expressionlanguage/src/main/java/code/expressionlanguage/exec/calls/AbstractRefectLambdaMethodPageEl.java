@@ -49,7 +49,5 @@ public abstract class AbstractRefectLambdaMethodPageEl extends AbstractRefectCom
         return true;
     }
 
-    Argument prepare(ContextEl _context, String _className, Argument _instance, Argument _right, ArgumentListCall _list, StackCall _stack) {
-        return ExecInvokingOperation.callPrepare(_context.getExiting(), _context, _className, getPair(), _instance, getMetaInfo().getCache(), _list, _right, getAccessKind(), getMethodName(), _stack);
-    }
+    abstract Argument prepare(ContextEl _context, String _className, Argument _instance, Argument _right, ArgumentListCall _list, StackCall _stack);
 }

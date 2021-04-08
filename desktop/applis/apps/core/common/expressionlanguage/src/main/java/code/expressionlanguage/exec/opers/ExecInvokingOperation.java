@@ -708,10 +708,6 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
             Struct ind_ = arguments_.get(lastIndex_).getStruct();
             return new Argument(ExecTemplates.getElement(arr_,ind_,_conf, _stackCall));
         }
-        if (_method.isDirectCast()) {
-            _stackCall.setCallingState(new CustomReflectLambdaMethod(ReflectingType.CAST_DIRECT, _method, _instance,_call,_right, true));
-            return new Argument();
-        }
         if (_method.getStdCallee() != null) {
             _stackCall.setCallingState(new CustomReflectLambdaMethod(ReflectingType.STD_FCT, _method, _instance,_call,_right, true));
             return new Argument();
@@ -747,6 +743,10 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         }
         if (e_ != null) {
             _stackCall.setCallingState(new CustomReflectLambdaMethod(ReflectingType.ENUM_METHODS, _method, _instance,_call,_right, true));
+            return new Argument();
+        }
+        if (_method.isDirectCast()) {
+            _stackCall.setCallingState(new CustomReflectLambdaMethod(ReflectingType.CAST_DIRECT, _method, _instance,_call,_right, true));
             return new Argument();
         }
         _stackCall.setCallingState(new CustomReflectLambdaMethod(ReflectingType.CLONE_FCT, _method, _instance,_call,_right, true));

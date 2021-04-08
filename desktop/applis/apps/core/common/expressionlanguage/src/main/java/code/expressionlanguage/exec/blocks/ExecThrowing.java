@@ -11,7 +11,7 @@ import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 import code.util.core.IndexConstants;
 
-public final class ExecThrowing extends ExecLeaf implements WithNotEmptyEl,BuildingEl {
+public final class ExecThrowing extends ExecLeaf implements WithNotEmptyEl {
 
 
     private final int expressionOffset;
@@ -24,8 +24,8 @@ public final class ExecThrowing extends ExecLeaf implements WithNotEmptyEl,Build
     }
 
     @Override
-    public ExpressionLanguage getEl(ContextEl _context, int _indexProcess) {
-        return new ExpressionLanguage(opThrow);
+    public CustList<ExecOperationNode> getEl(ContextEl _context, int _indexProcess) {
+        return opThrow;
     }
 
     @Override

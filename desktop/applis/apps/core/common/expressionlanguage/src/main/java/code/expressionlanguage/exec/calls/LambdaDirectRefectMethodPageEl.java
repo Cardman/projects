@@ -3,6 +3,7 @@ package code.expressionlanguage.exec.calls;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.StackCall;
+import code.expressionlanguage.exec.opers.ExecInvokingOperation;
 import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.structs.MethodMetaInfo;
 
@@ -27,4 +28,9 @@ public final class LambdaDirectRefectMethodPageEl extends AbstractRefectLambdaMe
     boolean isPolymorph(ContextEl _cont, StackCall _stack) {
         return false;
     }
+
+    Argument prepare(ContextEl _context, String _className, Argument _instance, Argument _right, ArgumentListCall _list, StackCall _stack) {
+        return ExecInvokingOperation.callPrepare(_context.getExiting(), _context, _className, getPair(), _instance, getMetaInfo().getCache(), _list, _right, getAccessKind(), getMethodName(), _stack);
+    }
+
 }

@@ -3,8 +3,8 @@ package code.expressionlanguage.exec.calls;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.StackCall;
-import code.expressionlanguage.exec.blocks.ExecAnnotableBlock;
 import code.expressionlanguage.exec.blocks.ExecAnnotationMethodBlock;
+import code.expressionlanguage.exec.blocks.ExecMemberCallingsBlock;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.expressionlanguage.exec.ExpressionLanguage;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
@@ -32,7 +32,7 @@ public final class ReflectGetDefaultValuePageEl extends AbstractReflectPageEl {
         setNullReadWrite();
     }
     public boolean checkCondition(ContextEl _context, StackCall _stack) {
-        ExecAnnotableBlock annotableBlock_ = metaInfo.getAnnotableBlock();
+        ExecMemberCallingsBlock annotableBlock_ = metaInfo.getCallee();
         if (!(annotableBlock_ instanceof ExecAnnotationMethodBlock)) {
             setReturnedArgument(new Argument());
             return true;

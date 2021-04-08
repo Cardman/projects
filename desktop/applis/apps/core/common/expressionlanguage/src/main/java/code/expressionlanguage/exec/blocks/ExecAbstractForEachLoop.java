@@ -17,7 +17,7 @@ import code.util.CustList;
 import code.util.StringMap;
 import code.util.core.IndexConstants;
 
-public abstract class ExecAbstractForEachLoop extends ExecBracedBlock implements ExecLoop, WithNotEmptyEl,BuildingEl {
+public abstract class ExecAbstractForEachLoop extends ExecBracedBlock implements ExecLoop, WithNotEmptyEl {
 
     private final String label;
 

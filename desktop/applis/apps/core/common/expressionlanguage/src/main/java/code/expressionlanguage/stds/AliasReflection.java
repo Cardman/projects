@@ -833,10 +833,10 @@ public final class AliasReflection {
             return result_;
         }
         if (StringUtil.quickEq(name_, ref_.aliasGetDeclaredAnonymousTypes)) {
-            ExecAnnotableBlock annotableBlock_ = field_.getAnnotableBlock();
+            ExecInfoBlock annotableBlock_ = field_.getAnnotableBlock();
             StringList methods_ = new StringList();
-            if (annotableBlock_ instanceof ExecInfoBlock) {
-                for (ExecRootBlock c: ((ExecInfoBlock)annotableBlock_).getAnonymous()) {
+            if (annotableBlock_ != null) {
+                for (ExecRootBlock c: annotableBlock_.getAnonymous()) {
                     methods_.add(c.getFullName());
                 }
             }
@@ -868,10 +868,6 @@ public final class AliasReflection {
         boolean invokeDirect_ = StringUtil.quickEq(aliasInvokeDirect_, name_);
         if (invoke_ || invokeDirect_) {
             if (method_.isInvokable()) {
-                if (method_.isDirectCast()) {
-                    _stackCall.setCallingState(new CustomReflectMethod(ReflectingType.CAST_DIRECT, method_, new Argument(_args[0]),new Argument(_args[1]), false));
-                    return result_;
-                }
                 if (method_.getStdCallee() != null) {
                     _stackCall.setCallingState(new CustomReflectMethod(ReflectingType.STD_FCT, method_, new Argument(_args[0]),new Argument(_args[1]), false));
                     return result_;
@@ -939,6 +935,10 @@ public final class AliasReflection {
             ExecRootBlock e_ = method_.getPairType();
             if (e_ != null) {
                 _stackCall.setCallingState(new CustomReflectMethod(ReflectingType.ENUM_METHODS, method_, new Argument(_args[0]),new Argument(_args[1]),false));
+                return result_;
+            }
+            if (method_.isDirectCast()) {
+                _stackCall.setCallingState(new CustomReflectMethod(ReflectingType.CAST_DIRECT, method_, new Argument(_args[0]),new Argument(_args[1]), false));
                 return result_;
             }
             _stackCall.setCallingState(new CustomReflectMethod(ReflectingType.CLONE_FCT, method_, new Argument(_args[0]),new Argument(_args[1]),false));
@@ -1934,7 +1934,7 @@ public final class AliasReflection {
         }
         if (StringUtil.quickEq(name_, ref_.aliasGetDeclaredAnonymousTypes)) {
             StringList methods_ = new StringList();
-            ExecRootBlock callee_ = instanceClass_.getRootBlock();
+            ExecRootBlock callee_ = instanceClass_.getOwner();
             fetchAnonymous(methods_, callee_);
             String className_= StringExpUtil.getPrettyArrayType(aliasClass_);
             ArrayStruct str_ = getTypes(_cont, methods_, className_);

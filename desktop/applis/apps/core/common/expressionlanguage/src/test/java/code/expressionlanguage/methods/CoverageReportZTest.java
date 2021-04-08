@@ -10952,6 +10952,58 @@ public final class CoverageReportZTest extends ProcessMethodCommon {
                 "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
+    public void coverage647Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $annotation pkg.MyAnnot {\n");
+        xml_.append(" $int field()1;\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" @MyAnnot\n");
+        xml_.append(" $public Ex(){}\n");
+        xml_.append(" $public $static $int catching(){\n");
+        xml_.append("  $Annotation[] arr = $class(Ex).getDeclaredConstructors()[0].getAnnotations();\n");
+        xml_.append("  $if (arr.length != 1i){\n");
+        xml_.append("   $return 3i;\n");
+        xml_.append("  }\n");
+        xml_.append("  $if ($static($Class).getClass(arr) != $class($Annotation[])){\n");
+        xml_.append("   $return 2i;\n");
+        xml_.append("  }\n");
+        xml_.append("  $if ($static($Class).getClass(arr[0i]) != $class(MyAnnot)){\n");
+        xml_.append("   $return 1i;\n");
+        xml_.append("  }\n");
+        xml_.append("  $return 0i;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("src/pkg/Ex", xml_.toString());
+        ContextEl cont_ = cov(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("catching");
+        calculateNormal("pkg.Ex", id_, args_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $annotation <a name=\"m20\">pkg.MyAnnot</a> {\n" +
+                " $int <a name=\"m40\">field</a>()<span class=\"f2\">1</span>;\n" +
+                "}\n" +
+                "$public $class <a name=\"m67\">pkg.Ex</a> {\n" +
+                " <span class=\"f2\">@<a title=\"pkg.MyAnnot\" href=\"#m20\">MyAnnot</a></span>\n" +
+                " <a name=\"m87\">$public Ex(</a>){}\n" +
+                " $public $static $int <a name=\"m124\">catching</a>(){\n" +
+                "  $Annotation[] <span class=\"f\"><span class=\"f\"><a name=\"m152\">arr</a> </span>=<span class=\"f\"><span class=\"f\"><span class=\"f\"><span class=\"f\"> $class(<a title=\"pkg.Ex\" href=\"#m67\">Ex</a>)</span>.<span class=\"f\">getDeclaredConstructors()</span></span><span class=\"f\">[<span class=\"f\">0</span>]</span></span>.<span class=\"f\">getAnnotations()</span></span></span>;\n" +
+                "  <span class=\"p\">$if</span> (<span class=\"p\"><span class=\"f\"><span class=\"f\"><a href=\"#m152\">arr</a></span>.<span class=\"f\"><b>length</b> </span></span><a title=\"false\">!=</a><span class=\"f\"> 1i</span></span>){\n" +
+                "   $return <span class=\"n\">3i</span>;\n" +
+                "  }\n" +
+                "  <span class=\"p\">$if</span> (<span class=\"p\"><span class=\"f\"><span class=\"f\">$static($Class)</span>.<span class=\"f\">getClass(<span class=\"f\"><a href=\"#m152\">arr</a></span>) </span></span><a title=\"false\">!=</a><span class=\"f\"> $class($Annotation[])</span></span>){\n" +
+                "   $return <span class=\"n\">2i</span>;\n" +
+                "  }\n" +
+                "  <span class=\"p\">$if</span> (<span class=\"p\"><span class=\"f\"><span class=\"f\">$static($Class)</span>.<span class=\"f\">getClass(<span class=\"f\"><span class=\"f\"><a href=\"#m152\">arr</a></span><span class=\"f\">[<span class=\"f\">0i</span>]</span></span>) </span></span><a title=\"false\">!=</a><span class=\"f\"> $class(<a title=\"pkg.MyAnnot\" href=\"#m20\">MyAnnot</a>)</span></span>){\n" +
+                "   $return <span class=\"n\">1i</span>;\n" +
+                "  }\n" +
+                "  $return <span class=\"f\">0i</span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
     public void coverageComment17Test() {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;

@@ -3,7 +3,16 @@ package code.expressionlanguage.exec.calls;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.StackCall;
+import code.expressionlanguage.exec.blocks.ExecAbstractSwitchMethod;
+import code.expressionlanguage.exec.calls.util.CustomFoundSwitch;
+import code.expressionlanguage.exec.inherits.ExecTemplates;
+import code.expressionlanguage.exec.inherits.FormattedParameters;
+import code.expressionlanguage.exec.inherits.Parameters;
+import code.expressionlanguage.exec.opers.ExecInvokingOperation;
+import code.expressionlanguage.exec.util.ArgumentListCall;
+import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.structs.MethodMetaInfo;
+import code.util.CustList;
 
 public final class PolymorphRefectMethodPageEl extends AbstractRefectMethodPageEl {
 
@@ -26,4 +35,10 @@ public final class PolymorphRefectMethodPageEl extends AbstractRefectMethodPageE
         MethodMetaInfo method_ = getMetaInfo();
         return method_.isInstanceMethod();
     }
+
+    Argument prepare(ContextEl _context, String _className, MethodId _mid, Argument _instance, CustList<Argument> _args, Argument _right, StackCall _stack) {
+        ArgumentListCall l_ = ExecTemplates.wrapAndCallDirect(getPair(),_className,_instance,_args,_context, getAccessKind());
+        return ExecInvokingOperation.callPrepare(_context.getExiting(), _context, _className, getPair(), _instance, getMetaInfo().getCache(), l_, _right, getAccessKind(), getMethodName(), _stack);
+    }
+
 }

@@ -13,7 +13,7 @@ import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.util.*;
 import code.util.core.StringUtil;
 
-public abstract class ExecRootBlock extends ExecBracedBlock implements GeneType, ExecAnnotableBlock {
+public abstract class ExecRootBlock extends ExecBracedBlock implements GeneType {
     private final ExecRootBlockContent rootBlockContent;
 
     private final AccessEnum access;
@@ -106,7 +106,6 @@ public abstract class ExecRootBlock extends ExecBracedBlock implements GeneType,
         return rootBlockContent.getSelfAndParentTypes();
     }
 
-    @Override
     public CustList<CustList<ExecOperationNode>> getAnnotationsOps() {
         return annotationsOps;
     }

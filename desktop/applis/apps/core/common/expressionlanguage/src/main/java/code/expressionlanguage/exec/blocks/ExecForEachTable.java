@@ -22,7 +22,7 @@ import code.util.CustList;
 import code.util.StringMap;
 import code.util.core.IndexConstants;
 
-public final class ExecForEachTable extends ExecBracedBlock implements ExecLoop, WithNotEmptyEl,BuildingEl {
+public final class ExecForEachTable extends ExecBracedBlock implements ExecLoop, WithNotEmptyEl {
 
     private final String label;
 
@@ -75,24 +75,24 @@ public final class ExecForEachTable extends ExecBracedBlock implements ExecLoop,
     }
 
     @Override
-    public ExpressionLanguage getEl(ContextEl _context, int _indexProcess) {
+    public CustList<ExecOperationNode> getEl(ContextEl _context, int _indexProcess) {
         if (_indexProcess == 0) {
-            return new ExpressionLanguage(opList);
+            return opList;
         }
         Classes cls_ = _context.getClasses();
         if (_indexProcess == 1) {
-            return new ExpressionLanguage(cls_.getExpsIteratorTableCust());
+            return cls_.getExpsIteratorTableCust();
         }
         if (_indexProcess == 2) {
-            return new ExpressionLanguage(cls_.getExpsHasNextPairCust());
+            return cls_.getExpsHasNextPairCust();
         }
         if (_indexProcess == 3) {
-            return new ExpressionLanguage(cls_.getExpsNextPairCust());
+            return cls_.getExpsNextPairCust();
         }
         if (_indexProcess == 4) {
-            return new ExpressionLanguage(cls_.getExpsFirstCust());
+            return cls_.getExpsFirstCust();
         }
-        return new ExpressionLanguage(cls_.getExpsSecondCust());
+        return cls_.getExpsSecondCust();
     }
 
     @Override

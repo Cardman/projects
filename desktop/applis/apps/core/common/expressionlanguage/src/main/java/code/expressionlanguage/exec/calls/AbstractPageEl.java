@@ -144,7 +144,7 @@ public abstract class AbstractPageEl {
     public ExpressionLanguage getCurrentEl(ContextEl _context, BuildingEl _block, int _index, int _indexProcess) {
         ExpressionLanguage el_ = getNullableExp(_index);
         if (el_ == null) {
-            el_ = _block.getEl(_context, _indexProcess);
+            el_ = new ExpressionLanguage(_block.getEl(_context, _indexProcess));
             currentEls.add(el_);
         }
         return el_;

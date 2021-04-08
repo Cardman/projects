@@ -2,7 +2,7 @@ package code.expressionlanguage.fwd.opers;
 
 import code.expressionlanguage.analyze.opers.util.MemberId;
 import code.expressionlanguage.common.ClassField;
-import code.expressionlanguage.exec.blocks.ExecAnnotableBlock;
+import code.expressionlanguage.exec.blocks.ExecInfoBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.fwd.blocks.FetchMemberUtil;
@@ -13,7 +13,7 @@ public final class ExecLambdaFieldContent {
     private final boolean finalField;
     private final boolean affField;
     private final ExecRootBlock rootBlock;
-    private final ExecAnnotableBlock infoBlock;
+    private final ExecInfoBlock infoBlock;
     public ExecLambdaFieldContent(ClassField _classField, AnaLambdaFieldContent _field, MemberId _id, Forwards _forwards) {
         classField = _classField;
         staticField = _field.isStaticField();
@@ -43,7 +43,7 @@ public final class ExecLambdaFieldContent {
         return rootBlock;
     }
 
-    public ExecAnnotableBlock getInfoBlock() {
+    public ExecInfoBlock getInfoBlock() {
         return infoBlock;
     }
 }

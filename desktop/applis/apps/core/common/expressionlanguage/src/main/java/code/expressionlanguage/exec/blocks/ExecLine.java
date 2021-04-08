@@ -13,7 +13,7 @@ import code.expressionlanguage.exec.ExpressionLanguage;
 import code.util.CustList;
 import code.util.core.IndexConstants;
 
-public final class ExecLine extends ExecLeaf implements StackableBlock, WithNotEmptyEl,BuildingEl {
+public final class ExecLine extends ExecLeaf implements StackableBlock, WithNotEmptyEl {
 
     private final int expressionOffset;
 
@@ -34,8 +34,8 @@ public final class ExecLine extends ExecLeaf implements StackableBlock, WithNotE
     }
 
     @Override
-    public ExpressionLanguage getEl(ContextEl _context, int _indexProcess) {
-        return new ExpressionLanguage(opExp);
+    public CustList<ExecOperationNode> getEl(ContextEl _context, int _indexProcess) {
+        return opExp;
     }
 
     @Override

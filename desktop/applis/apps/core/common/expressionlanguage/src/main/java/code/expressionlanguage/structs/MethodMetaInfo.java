@@ -4,6 +4,7 @@ package code.expressionlanguage.structs;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.AccessEnum;
 import code.expressionlanguage.exec.blocks.*;
+import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.exec.util.Cache;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
@@ -15,7 +16,7 @@ import code.util.StringList;
 import code.util.core.StringUtil;
 
 
-public final class MethodMetaInfo extends WithoutParentStruct implements AnnotatedParamStruct {
+public final class MethodMetaInfo extends AbsAnnotatedStruct implements AnnotatedParamStruct {
 
     private static final String EMPTY_STRING = "";
     private final String declaringClass;
@@ -94,13 +95,18 @@ public final class MethodMetaInfo extends WithoutParentStruct implements Annotat
         return declaringClass;
     }
 
-    public ExecAnnotableBlock getAnnotableBlock() {
+    public CustList<CustList<ExecOperationNode>> getAnnotationsOps(){
         if (callee instanceof ExecAnnotableParamBlock) {
-            return (ExecAnnotableParamBlock)callee;
+            return ((ExecAnnotableParamBlock)callee).getAnnotationsOps();
         }
-        return null;
+        return new CustList<CustList<ExecOperationNode>>();
     }
-
+    public CustList<CustList<CustList<ExecOperationNode>>> getAnnotationsOpsParams(){
+        if (callee instanceof ExecAnnotableParamBlock) {
+            return ((ExecAnnotableParamBlock)callee).getAnnotationsOpsParams();
+        }
+        return new CustList<CustList<CustList<ExecOperationNode>>>();
+    }
     public ExecMemberCallingsBlock getCallee() {
         return callee;
     }
@@ -123,10 +129,12 @@ public final class MethodMetaInfo extends WithoutParentStruct implements Annotat
 
     public void pair(ExecRootBlock _type, ExecNamedFunctionBlock _fct) {
         pair = new ExecTypeFunction(_type, _fct);
+        setOwner(_type);
     }
 
     public void setPair(ExecTypeFunction _pair) {
         pair = _pair;
+        setOwner(_pair.getType());
     }
 
     public StandardMethod getStdCallee() {

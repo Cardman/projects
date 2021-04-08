@@ -10,7 +10,7 @@ import code.expressionlanguage.exec.stacks.SwitchBlockStack;
 import code.util.CustList;
 import code.util.core.IndexConstants;
 
-public abstract class ExecAbstractSwitchBlock extends ExecBracedBlock implements StackableBlock, WithNotEmptyEl,BuildingEl {
+public abstract class ExecAbstractSwitchBlock extends ExecBracedBlock implements StackableBlock, WithNotEmptyEl {
     private final String label;
 
     private final int valueOffset;
@@ -25,8 +25,8 @@ public abstract class ExecAbstractSwitchBlock extends ExecBracedBlock implements
     }
 
     @Override
-    public ExpressionLanguage getEl(ContextEl _context, int _indexProcess) {
-        return new ExpressionLanguage(opValue);
+    public CustList<ExecOperationNode> getEl(ContextEl _context, int _indexProcess) {
+        return opValue;
     }
 
     @Override

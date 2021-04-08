@@ -23,7 +23,7 @@ import code.util.CustList;
 import code.util.StringMap;
 import code.util.core.IndexConstants;
 
-public final class ExecForIterativeLoop extends ExecBracedBlock implements ExecLoop, WithNotEmptyEl,BuildingEl {
+public final class ExecForIterativeLoop extends ExecBracedBlock implements ExecLoop, WithNotEmptyEl {
 
     private final String label;
 
@@ -79,14 +79,14 @@ public final class ExecForIterativeLoop extends ExecBracedBlock implements ExecL
     }
 
     @Override
-    public ExpressionLanguage getEl(ContextEl _context, int _indexProcess) {
+    public CustList<ExecOperationNode> getEl(ContextEl _context, int _indexProcess) {
         if (_indexProcess == 0) {
-            return new ExpressionLanguage(opInit);
+            return opInit;
         }
         if (_indexProcess == 1) {
-            return new ExpressionLanguage(opExp);
+            return opExp;
         }
-        return new ExpressionLanguage(opStep);
+        return opStep;
     }
 
     @Override

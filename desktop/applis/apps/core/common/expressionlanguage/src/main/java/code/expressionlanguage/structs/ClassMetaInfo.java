@@ -5,10 +5,10 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.blocks.ExecAbstractSwitchMethod;
-import code.expressionlanguage.exec.blocks.ExecAnnotableBlock;
 import code.expressionlanguage.exec.blocks.ExecAnonymousFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.opers.ExecCastOperation;
+import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.expressionlanguage.exec.util.ExecTypeVar;
 import code.expressionlanguage.inherits.Templates;
@@ -18,7 +18,7 @@ import code.util.CustList;
 import code.util.StringList;
 import code.util.core.StringUtil;
 
-public final class ClassMetaInfo extends WithoutParentStruct implements AnnotatedStruct,AnaDisplayableStruct {
+public final class ClassMetaInfo extends AbsAnnotatedStruct implements AnnotatedStruct,AnaDisplayableStruct {
 
     private static final String EMPTY_STRING = "";
 
@@ -223,19 +223,20 @@ public final class ClassMetaInfo extends WithoutParentStruct implements Annotate
         _dest.explicitsInfos.addAllElts(_src.explicitsInfos);
         _dest.fileName = _src.fileName;
         _dest.rootBlock = _src.rootBlock;
+        _dest.setOwner(_src.getOwner());
         _dest.blocsInfos.addAllElts(_src.blocsInfos);
     }
 
-    public ExecAnnotableBlock getAnnotableBlock() {
-        return rootBlock;
-    }
-
-    public ExecRootBlock getRootBlock() {
-        return rootBlock;
+    public CustList<CustList<ExecOperationNode>> getAnnotationsOps(){
+        if (rootBlock != null) {
+            return rootBlock.getAnnotationsOps();
+        }
+        return new CustList<CustList<ExecOperationNode>>();
     }
 
     public void setRootBlock(ExecRootBlock _rootBlock) {
         this.rootBlock = _rootBlock;
+        setOwner(_rootBlock);
     }
 
     @Override

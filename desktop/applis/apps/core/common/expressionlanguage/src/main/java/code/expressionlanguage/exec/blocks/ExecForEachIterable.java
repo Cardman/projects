@@ -75,17 +75,17 @@ public final class ExecForEachIterable extends ExecAbstractForEachLoop {
     }
 
     @Override
-    public ExpressionLanguage getEl(ContextEl _context, int _indexProcess) {
+    public CustList<ExecOperationNode> getEl(ContextEl _context, int _indexProcess) {
         if (_indexProcess == 0) {
-            return new ExpressionLanguage(getOpList());
+            return getOpList();
         }
         if (_indexProcess == 1) {
-            return new ExpressionLanguage(_context.getClasses().getExpsIteratorCust());
+            return _context.getClasses().getExpsIteratorCust();
         }
         if (_indexProcess == 2) {
-            return new ExpressionLanguage(_context.getClasses().getExpsHasNextCust());
+            return _context.getClasses().getExpsHasNextCust();
         }
-        return new ExpressionLanguage(_context.getClasses().getExpsNextCust());
+        return _context.getClasses().getExpsNextCust();
     }
     private ConditionReturn iteratorHasNext(ContextEl _conf, LoopBlockStack _l, StackCall _stackCall) {
         String locName_ = _conf.getClasses().getHasNextVarCust();

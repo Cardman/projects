@@ -106,19 +106,7 @@ public abstract class AbstractRefectMethodPageEl extends AbstractRefectCommonMet
         return true;
     }
 
-    Argument prepare(ContextEl _context, String _className, MethodId _mid, Argument _instance, CustList<Argument> _args, Argument _right, StackCall _stack) {
-        if (callee instanceof ExecAbstractSwitchMethod) {
-            FormattedParameters formatted_ = ExecTemplates.checkParamsSw(_context, _className, getPair().getType(), (ExecAbstractSwitchMethod) callee, _instance, getMetaInfo().getCache(), getAccessKind(), _stack, _args);
-            if (_context.callsOrException(_stack)) {
-                return Argument.createVoid();
-            }
-            Parameters parameters_ = formatted_.getParameters();
-            _stack.setCallingState(new CustomFoundSwitch(_instance,formatted_.getFormattedClass(),getPair().getType(),(ExecAbstractSwitchMethod) callee,parameters_.getCache(),new Argument(parameters_.getRefParameters().firstValue().getValue(_stack,_context))));
-            return Argument.createVoid();
-        }
-        ArgumentListCall l_ = ExecTemplates.wrapAndCallDirect(getPair(),_className,_instance,_args,_context, getAccessKind());
-        return ExecInvokingOperation.callPrepare(_context.getExiting(), _context, _className, getPair(), _instance, getMetaInfo().getCache(), l_, _right, getAccessKind(), getMethodName(), _stack);
-    }
+    abstract Argument prepare(ContextEl _context, String _className, MethodId _mid, Argument _instance, CustList<Argument> _args, Argument _right, StackCall _stack);
 
     Argument getArray() {
         return array;

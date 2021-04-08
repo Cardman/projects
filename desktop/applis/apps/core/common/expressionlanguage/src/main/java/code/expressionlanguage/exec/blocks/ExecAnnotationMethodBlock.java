@@ -49,8 +49,8 @@ public final class ExecAnnotationMethodBlock extends ExecNamedFunctionBlock impl
     }
 
     @Override
-    public ExpressionLanguage getEl(ContextEl _context, int _indexProcess) {
-        return new ExpressionLanguage(opValue);
+    public CustList<ExecOperationNode> getEl(ContextEl _context, int _indexProcess) {
+        return getOpValue();
     }
 
     public void processEl(ContextEl _cont, StackCall _stack, AbstractInitPageEl _last) {

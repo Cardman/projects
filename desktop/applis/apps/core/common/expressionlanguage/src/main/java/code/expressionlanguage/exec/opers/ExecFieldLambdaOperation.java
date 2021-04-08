@@ -7,7 +7,7 @@ import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.MetaInfoUtil;
 import code.expressionlanguage.exec.StackCall;
-import code.expressionlanguage.exec.blocks.ExecAnnotableBlock;
+import code.expressionlanguage.exec.blocks.ExecInfoBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecLambdaCommonContent;
@@ -45,7 +45,7 @@ public final class ExecFieldLambdaOperation extends ExecAbstractLambdaOperation 
     public static Struct newLambda(Argument _previous, String _ownerType, String _returnFieldType, ClassField _fieldId, int _ancestor,
                                    boolean _affField, boolean _staticField, boolean _finalField, boolean _shiftArgument, boolean _safeInstance,
                                    String _clArg, String _fileName,
-                                   ExecRootBlock _rootBlock, ExecAnnotableBlock _infoBlock, String _formatType, String _formCl) {
+                                   ExecRootBlock _rootBlock, ExecInfoBlock _infoBlock, String _formatType, String _formCl) {
         LambdaFieldStruct l_ = new LambdaFieldStruct(_clArg,_ownerType, _fieldId, _shiftArgument, _ancestor, _affField, _formatType);
         l_.setInstanceCall(_previous);
         l_.setStaticField(_staticField);

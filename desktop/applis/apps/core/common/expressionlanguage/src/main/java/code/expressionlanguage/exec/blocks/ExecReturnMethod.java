@@ -13,7 +13,7 @@ import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.util.CustList;
 import code.util.core.IndexConstants;
 
-public final class ExecReturnMethod extends ExecLeaf implements MethodCallingFinally,WithNotEmptyEl,BuildingEl {
+public final class ExecReturnMethod extends ExecLeaf implements MethodCallingFinally,WithNotEmptyEl {
 
 
     private final int expressionOffset;
@@ -40,8 +40,8 @@ public final class ExecReturnMethod extends ExecLeaf implements MethodCallingFin
     }
 
     @Override
-    public ExpressionLanguage getEl(ContextEl _context, int _indexProcess) {
-        return new ExpressionLanguage(opRet);
+    public CustList<ExecOperationNode> getEl(ContextEl _context, int _indexProcess) {
+        return opRet;
     }
 
     @Override

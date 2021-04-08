@@ -75,7 +75,7 @@ public final class ExecForEachRefArray extends ExecAbstractForEachLoop {
     }
 
     @Override
-    public ExpressionLanguage getEl(ContextEl _context, int _indexProcess) {
-        return new ExpressionLanguage(getOpList());
+    public CustList<ExecOperationNode> getEl(ContextEl _context, int _indexProcess) {
+        return getOpList();
     }
 }
