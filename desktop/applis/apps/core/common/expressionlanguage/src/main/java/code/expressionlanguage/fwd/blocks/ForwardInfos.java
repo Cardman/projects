@@ -729,7 +729,7 @@ public final class ForwardInfos {
         ExecFileBlock fileDest_ = _dest.getFile();
         AbsBk firstChild_ = _from.getFirstChild();
         ExecDeclareVariable decl_ = null;
-        _coverage.putBlockOperationsCaller(_from,_dest,_from);
+        _coverage.putBlockOperationsCaller(_dest,_from);
         AbsBk en_ = _from;
         if (firstChild_ == null) {
             return;
@@ -1582,7 +1582,7 @@ public final class ForwardInfos {
             _exec.setOpValue(new CustList<ExecOperationNode>());
             return;
         }
-        CustList<ExecOperationNode> ops_ = getExecutableNodes(0,0,root_, _coverage, _forwards, PutCoveragePhase.NORMAL, _ana);
+        CustList<ExecOperationNode> ops_ = getExecutableNodes(-1,-1,root_, _coverage, _forwards, PutCoveragePhase.NORMAL, _ana);
         _exec.setOpValue(ops_);
     }
 
@@ -1665,7 +1665,7 @@ public final class ForwardInfos {
     private static CustList<ExecOperationNode> processField(InfoBlock _ana, ExecBlock _exec, Coverage _coverage, Forwards _forwards, OperationNode _root) {
         _coverage.putBlockOperationsField((AbsBk)_ana);
         _coverage.putBlockOperationsField(_exec, (AbsBk)_ana);
-        return getExecutableNodes(0,-1,_root, _coverage, _forwards, PutCoveragePhase.NORMAL, (AbsBk)_ana);
+        return getExecutableNodes(-1,-1,_root, _coverage, _forwards, PutCoveragePhase.NORMAL, (AbsBk)_ana);
     }
     private static void fwdAnnotations(NamedFunctionBlock _ana, ExecNamedFunctionBlock _ex, Coverage _coverage, Forwards _forwards) {
         CustList<CustList<ExecOperationNode>> ops_ = new CustList<CustList<ExecOperationNode>>();

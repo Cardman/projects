@@ -15,7 +15,6 @@ import code.expressionlanguage.exec.opers.*;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.fwd.PutCoveragePhase;
-import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.structs.*;
 import code.util.CustList;
@@ -191,7 +190,7 @@ public final class Coverage {
         fctRes_.getMappingBlocks().addEntry(_exec, _block);
     }
 
-    public void putBlockOperationsCaller(MemberCallingsBlock _mem,ExecBlock _exec, MemberCallingsBlock _block) {
+    public void putBlockOperationsCaller(ExecBlock _exec, MemberCallingsBlock _block) {
         if (!isCovering()) {
             return;
         }
@@ -207,7 +206,7 @@ public final class Coverage {
             mappingSwitchMethods.addEntry(_exec,_block);
             return;
         }
-        types.get(((RootBlock)_mem.getParent()).getNumberAll()).getMappingBlocks().addEntry(_exec, _block);
+        types.get(((RootBlock)_block.getParent()).getNumberAll()).getMappingBlocks().addEntry(_exec, _block);
     }
     public void putBlockOperationsType(ExecBlock _exec, RootBlock _block) {
         if (!isCovering()) {
@@ -331,41 +330,56 @@ public final class Coverage {
         CustList<AbstractCoverageResult> instr_ = _blr.getCovers();
         _op.setIndexInExp(instr_.size());
         mapping_.addEntry(_exec, _op);
-        if (_op.getParent() instanceof SafeDotOperation) {
-            if (_op.getParent().getFirstChild() == _op) {
-                instr_.add(new NullCoverageResult());
-                return;
-            }
+        if (isFirstSafeDot(_op)) {
+            instr_.add(new NullCoverageResult());
+            return;
         }
         String prim_ = _fwd.getAliasPrimBoolean();
         String boolType_ = _fwd.getAliasBoolean();
         if (_op.getParent() instanceof NullSafeOperation) {
-            if (_op.getArgument() == null) {
-                if (_op.getResultClass().isBoolType(boolType_,prim_)) {
-                    instr_.add(new NullBooleanCoverageResult());
-                } else {
-                    instr_.add(new NullCoverageResult());
-                }
-            } else {
-                instr_.add(new StandardCoverageResult());
-            }
+            nullSafe(_fwd,_op, instr_);
             return;
         }
         if (_op.getParent() instanceof CompoundAffectationOperation) {
             CompoundAffectationOperation c_ = (CompoundAffectationOperation) _op.getParent();
-            if (StringUtil.quickEq(c_.getOper(), AbsBk.NULL_EQ) || StringUtil.quickEq(c_.getOper(), AbsBk.NULL_EQ_SHORT)) {
-                if (_op.getResultClass().isBoolType(boolType_,prim_)) {
-                    instr_.add(new NullBooleanCoverageResult());
-                } else {
-                    instr_.add(new NullCoverageResult());
-                }
+            if (isLogicEq(c_.getOper(), AbsBk.NULL_EQ, AbsBk.NULL_EQ_SHORT)) {
+                nullSafeCore(_fwd,_op, instr_);
                 return;
             }
         }
-        if ((_op.getResultClass().matchClass(prim_) || !_op.getResultClass().getImplicitsTest().isEmpty())&& _op.getArgument() == null) {
-            instr_.add(new BooleanCoverageResult());
+        standardCoverage(_fwd,_op, instr_);
+    }
+
+    private static void nullSafe(Forwards _fwd, OperationNode _op, CustList<AbstractCoverageResult> _instr) {
+        String prim_ = _fwd.getAliasPrimBoolean();
+        String boolType_ = _fwd.getAliasBoolean();
+        if (_op.getArgument() == null) {
+            nullSafeCore(_fwd,_op, _instr);
         } else {
-            instr_.add(new StandardCoverageResult());
+            _instr.add(new StandardCoverageResult());
+        }
+    }
+
+    private static void nullSafeCore(Forwards _fwd, OperationNode _op, CustList<AbstractCoverageResult> _instr) {
+        String prim_ = _fwd.getAliasPrimBoolean();
+        String boolType_ = _fwd.getAliasBoolean();
+        if (_op.getResultClass().isBoolType(boolType_, prim_)) {
+            _instr.add(new NullBooleanCoverageResult());
+        } else {
+            _instr.add(new NullCoverageResult());
+        }
+    }
+
+    private static boolean isFirstSafeDot(OperationNode _op) {
+        return _op.getParent() instanceof SafeDotOperation && _op.getParent().getFirstChild() == _op;
+    }
+
+    private static void standardCoverage(Forwards _fwd, OperationNode _op, CustList<AbstractCoverageResult> _instr) {
+        String prim_ = _fwd.getAliasPrimBoolean();
+        if ((_op.getResultClass().matchClass(prim_) || !_op.getResultClass().getImplicitsTest().isEmpty())&& _op.getArgument() == null) {
+            _instr.add(new BooleanCoverageResult());
+        } else {
+            _instr.add(new StandardCoverageResult());
         }
     }
 
@@ -452,10 +466,8 @@ public final class Coverage {
             return;
         }
         AbstractPageEl lastPage_ = _stackCall.getLastPage();
-        ExecBlock en_ = lastPage_.getBlock();
         int indexAnnotGroup_ = -1;
         int indexAnnot_ = -1;
-        ExecRootBlock type_;
         if (lastPage_ instanceof ReflectAnnotationPageEl) {
             ReflectAnnotationPageEl annotRet_ = (ReflectAnnotationPageEl)lastPage_;
             int indexAnnotation_ = annotRet_.getIndexAnnotation();
@@ -465,45 +477,10 @@ public final class Coverage {
             } else {
                 indexAnnot_ = annotRet_.getAnnotationsIndexes().get(indexAnnotation_);
             }
-            AnnotatedStruct annotated_ = annotRet_.getAnnotated();
-            type_ = annotated_.getOwner();
-        } else if (lastPage_ instanceof ReflectGetDefaultValuePageEl) {
-            ReflectGetDefaultValuePageEl annotRet_ = (ReflectGetDefaultValuePageEl)lastPage_;
-            type_ = annotRet_.getMetaInfo().getPairType();
-        } else {
-            type_ = lastPage_.getBlockRootType();
         }
+        ExecRootBlock type_ = matchType(lastPage_);
         RootBlock typeAna_ = mappingTypes.getVal(type_);
-        AbsBk matchBl_;
-        if (lastPage_ instanceof ReflectAnnotationPageEl) {
-            ReflectAnnotationPageEl annotRet_ = (ReflectAnnotationPageEl)lastPage_;
-            AnnotatedStruct annotated_ = annotRet_.getAnnotated();
-            if (annotated_ instanceof FieldMetaInfo) {
-                ExecInfoBlock annotableBlock_ = ((FieldMetaInfo)annotated_).getAnnotableBlock();
-                TypeCoverageResult val_ = types.get(typeAna_.getNumberAll());
-                matchBl_ = val_.getMappingFields().getVal((ExecBlock) annotableBlock_);
-            } else if (annotated_ instanceof AnnotatedParamStruct){
-                ExecMemberCallingsBlock annotableBlock_ = ((AnnotatedParamStruct)annotated_).getCallee();
-                if (annotableBlock_ instanceof ExecAnnotationMethodBlock){
-                    matchBl_ = types.get(typeAna_.getNumberAll()).getMappingFields().getVal(annotableBlock_);
-                } else {
-                    matchBl_ = getFctBlock(annotableBlock_, typeAna_);
-                }
-            } else {
-                matchBl_ = typeAna_;
-            }
-        } else if (lastPage_ instanceof ReflectGetDefaultValuePageEl) {
-            ReflectGetDefaultValuePageEl annotRet_ = (ReflectGetDefaultValuePageEl)lastPage_;
-            ExecAnnotationMethodBlock annotMeth_ = annotRet_.getAnnotMethod();
-            matchBl_ = types.get(typeAna_.getNumberAll()).getMappingFields().getVal(annotMeth_);
-        } else {
-            if (en_ instanceof ExecInfoBlock || en_ instanceof ExecAnnotationMethodBlock) {
-                matchBl_ = types.get(typeAna_.getNumberAll()).getMappingFields().getVal(en_);
-            } else {
-                FunctionCoverageResult fctRes_ = getFctRes(lastPage_);
-                matchBl_ = fctRes_.getMappingBlocks().getVal(en_);
-            }
-        }
+        AbsBk matchBl_ = matchBl(typeAna_,lastPage_);
         BlockCoverageResult blRes_ = getResultBlock(matchBl_, lastPage_ instanceof ReflectAnnotationPageEl, indexAnnotGroup_, indexAnnot_);
         OperationNode ana_ = blRes_.getMapping().getVal(_exec);
         CustList<AbstractCoverageResult> instr_ = blRes_.getCovers();
@@ -520,34 +497,82 @@ public final class Coverage {
         }
     }
 
+    private ExecRootBlock matchType(AbstractPageEl _lastPage) {
+        ExecRootBlock type_;
+        if (_lastPage instanceof ReflectAnnotationPageEl) {
+            ReflectAnnotationPageEl annotRet_ = (ReflectAnnotationPageEl) _lastPage;
+            AnnotatedStruct annotated_ = annotRet_.getAnnotated();
+            type_ = annotated_.getOwner();
+        } else if (_lastPage instanceof ReflectGetDefaultValuePageEl) {
+            ReflectGetDefaultValuePageEl annotRet_ = (ReflectGetDefaultValuePageEl) _lastPage;
+            type_ = annotRet_.getMetaInfo().getPairType();
+        } else {
+            type_ = _lastPage.getBlockRootType();
+        }
+        return type_;
+    }
+
+    private AbsBk matchBl(RootBlock _rootBlock, AbstractPageEl _lastPage) {
+        ExecBlock en_ = _lastPage.getBlock();
+        AbsBk matchBl_;
+        if (_lastPage instanceof ReflectAnnotationPageEl) {
+            ReflectAnnotationPageEl annotRet_ = (ReflectAnnotationPageEl)_lastPage;
+            AnnotatedStruct annotated_ = annotRet_.getAnnotated();
+            if (annotated_ instanceof FieldMetaInfo) {
+                ExecInfoBlock annotableBlock_ = ((FieldMetaInfo)annotated_).getAnnotableBlock();
+                TypeCoverageResult val_ = types.get(_rootBlock.getNumberAll());
+                matchBl_ = val_.getMappingFields().getVal((ExecBlock) annotableBlock_);
+            } else if (annotated_ instanceof AnnotatedParamStruct){
+                ExecMemberCallingsBlock annotableBlock_ = ((AnnotatedParamStruct)annotated_).getCallee();
+                if (annotableBlock_ instanceof ExecAnnotationMethodBlock){
+                    matchBl_ = types.get(_rootBlock.getNumberAll()).getMappingFields().getVal(annotableBlock_);
+                } else {
+                    matchBl_ = getFctBlock(annotableBlock_, _rootBlock);
+                }
+            } else {
+                matchBl_ = _rootBlock;
+            }
+        } else if (_lastPage instanceof ReflectGetDefaultValuePageEl) {
+            ReflectGetDefaultValuePageEl annotRet_ = (ReflectGetDefaultValuePageEl)_lastPage;
+            ExecAnnotationMethodBlock annotMeth_ = annotRet_.getAnnotMethod();
+            matchBl_ = types.get(_rootBlock.getNumberAll()).getMappingFields().getVal(annotMeth_);
+        } else {
+            if (en_ instanceof ExecInfoBlock || en_ instanceof ExecAnnotationMethodBlock) {
+                matchBl_ = types.get(_rootBlock.getNumberAll()).getMappingFields().getVal(en_);
+            } else {
+                FunctionCoverageResult fctRes_ = getFctRes(_lastPage);
+                matchBl_ = fctRes_.getMappingBlocks().getVal(en_);
+            }
+        }
+        return matchBl_;
+    }
     private static Struct getValueStruct(ExecOperationNode _oper, OperationNode _ana, ArgumentsPair _v) {
         Argument res_ = Argument.getNullableValue(_v.getArgument());
         Struct v_ = res_.getStruct();
-        if (_oper.getNextSibling() != null&&!_ana.getResultClass().getImplicitsTest().isEmpty()){
-            ExecMethodOperation par_ = _oper.getParent();
-            if (par_ instanceof ExecAndOperation){
+        if (_oper.getNextSibling() == null || _ana.getResultClass().getImplicitsTest().isEmpty()) {
+            return v_;
+        }
+        ExecMethodOperation par_ = _oper.getParent();
+        if (par_ instanceof ExecAndOperation){
+            v_ = BooleanStruct.of(!_v.isArgumentTest());
+        }
+        if (par_ instanceof ExecOrOperation){
+            v_ = BooleanStruct.of(_v.isArgumentTest());
+        }
+        if (par_ instanceof ExecCompoundAffectationOperation){
+            ExecCompoundAffectationOperation p_ = (ExecCompoundAffectationOperation) par_;
+            if (isLogicEq(p_.getOper(), "&&=", "&&&=")) {
                 v_ = BooleanStruct.of(!_v.isArgumentTest());
             }
-            if (par_ instanceof ExecOrOperation){
+            if (isLogicEq(p_.getOper(), "||=", "|||=")) {
                 v_ = BooleanStruct.of(_v.isArgumentTest());
-            }
-            if (par_ instanceof ExecCompoundAffectationOperation){
-                ExecCompoundAffectationOperation p_ = (ExecCompoundAffectationOperation) par_;
-                if (StringUtil.quickEq(p_.getOper(),"&&=")) {
-                    v_ = BooleanStruct.of(!_v.isArgumentTest());
-                }
-                if (StringUtil.quickEq(p_.getOper(),"&&&=")) {
-                    v_ = BooleanStruct.of(!_v.isArgumentTest());
-                }
-                if (StringUtil.quickEq(p_.getOper(),"||=")) {
-                    v_ = BooleanStruct.of(_v.isArgumentTest());
-                }
-                if (StringUtil.quickEq(p_.getOper(),"|||=")) {
-                    v_ = BooleanStruct.of(_v.isArgumentTest());
-                }
             }
         }
         return v_;
+    }
+
+    private static boolean isLogicEq(String _oper, String _opEq, String _opShEq) {
+        return StringUtil.quickEq(_oper, _opEq) || StringUtil.quickEq(_oper, _opShEq);
     }
 
     public void passCalls(AbstractPageEl _page) {
