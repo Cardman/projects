@@ -493,7 +493,7 @@ public final class Coverage {
         }
     }
 
-    private ExecRootBlock matchType(AbstractPageEl _lastPage) {
+    private static ExecRootBlock matchType(AbstractPageEl _lastPage) {
         ExecRootBlock type_;
         if (_lastPage instanceof ReflectAnnotationPageEl) {
             ReflectAnnotationPageEl annotRet_ = (ReflectAnnotationPageEl) _lastPage;
