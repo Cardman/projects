@@ -334,8 +334,6 @@ public final class Coverage {
             instr_.add(new NullCoverageResult());
             return;
         }
-        String prim_ = _fwd.getAliasPrimBoolean();
-        String boolType_ = _fwd.getAliasBoolean();
         if (_op.getParent() instanceof NullSafeOperation) {
             nullSafe(_fwd,_op, instr_);
             return;
@@ -351,8 +349,6 @@ public final class Coverage {
     }
 
     private static void nullSafe(Forwards _fwd, OperationNode _op, CustList<AbstractCoverageResult> _instr) {
-        String prim_ = _fwd.getAliasPrimBoolean();
-        String boolType_ = _fwd.getAliasBoolean();
         if (_op.getArgument() == null) {
             nullSafeCore(_fwd,_op, _instr);
         } else {
