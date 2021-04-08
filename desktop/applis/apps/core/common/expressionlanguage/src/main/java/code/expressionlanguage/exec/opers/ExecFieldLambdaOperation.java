@@ -55,8 +55,7 @@ public final class ExecFieldLambdaOperation extends ExecAbstractLambdaOperation 
             String clName_ = _fieldId.getClassName();
             FieldMetaInfo f_ = new FieldMetaInfo(clName_, name_, _returnFieldType, _staticField, _finalField, AccessEnum.PUBLIC, _formCl);
             f_.setFileName(_fileName);
-            f_.setAnnotableBlock(_infoBlock);
-            f_.setDeclaring(_rootBlock);
+            f_.pair(_rootBlock,_infoBlock);
             l_.setMetaInfo(f_);
         }
         return l_;

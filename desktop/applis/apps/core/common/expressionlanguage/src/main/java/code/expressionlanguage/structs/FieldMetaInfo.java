@@ -57,21 +57,17 @@ public final class FieldMetaInfo extends AbsAnnotatedStruct implements Annotated
         }
         return new CustList<CustList<ExecOperationNode>>();
     }
+    public void pair(ExecRootBlock _declaring,ExecInfoBlock _annotableBlock){
+        this.declaring = _declaring;
+        this.annotableBlock = _annotableBlock;
+        setOwner(_declaring);
+    }
     public ExecInfoBlock getAnnotableBlock() {
         return annotableBlock;
     }
 
-    public void setAnnotableBlock(ExecInfoBlock _annotableBlock) {
-        this.annotableBlock = _annotableBlock;
-    }
-
     public ExecRootBlock getDeclaring() {
         return declaring;
-    }
-
-    public void setDeclaring(ExecRootBlock _declaring) {
-        this.declaring = _declaring;
-        setOwner(_declaring);
     }
 
     @Override

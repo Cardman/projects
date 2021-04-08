@@ -73,8 +73,7 @@ public final class MetaInfoUtil {
             for (String f: b.getFieldName()) {
                 FieldMetaInfo met_ = new FieldMetaInfo(_name, f, ret_, staticElement_, finalElement_, b.getAccess(), formCl_);
                 met_.setFileName(fileName_);
-                met_.setAnnotableBlock(b);
-                met_.setDeclaring(_type);
+                met_.pair(_type,b);
                 infosFields_.add(met_);
             }
         }
@@ -227,7 +226,6 @@ public final class MetaInfoUtil {
                     infosFields_, infosExplicits_,infosImplicits_,infosTrues_,infosFalses_,infos_, infosConst_, ClassCategory.INTERFACE, st_, acc_);
             cl_.setFileName(fileName_);
             cl_.setRootBlock(_type);
-            cl_.setOwner(_type);
             cl_.getBlocsInfos().addAllElts(infosBlock_);
             return cl_;
         }
@@ -236,7 +234,6 @@ public final class MetaInfoUtil {
                     infosFields_, infosExplicits_,infosImplicits_,infosTrues_,infosFalses_,infos_, infosConst_, ClassCategory.ANNOTATION, st_, acc_);
             cl_.setFileName(fileName_);
             cl_.setRootBlock(_type);
-            cl_.setOwner(_type);
             cl_.getBlocsInfos().addAllElts(infosBlock_);
             return cl_;
         }
@@ -263,7 +260,6 @@ public final class MetaInfoUtil {
                 infosFields_, infosExplicits_,infosImplicits_,infosTrues_,infosFalses_,infos_, infosConst_, cat_, abs_, st_, final_, acc_);
         cl_.setFileName(fileName_);
         cl_.setRootBlock(_type);
-        cl_.setOwner(_type);
         cl_.getBlocsInfos().addAllElts(infosBlock_);
         return cl_;
     }
