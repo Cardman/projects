@@ -1,7 +1,6 @@
 package code.expressionlanguage.analyze.blocks;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.analyze.files.OffsetsBlock;
 import code.expressionlanguage.functionid.MethodId;
 import code.util.StringList;
 
@@ -9,7 +8,7 @@ public abstract class InitBlock extends MemberCallingsBlock {
 
     private int number;
 
-    public InitBlock(OffsetsBlock _offset) {
+    public InitBlock(int _offset) {
         super(_offset);
     }
 

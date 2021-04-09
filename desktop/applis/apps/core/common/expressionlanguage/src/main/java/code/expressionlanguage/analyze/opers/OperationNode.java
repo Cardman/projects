@@ -304,7 +304,7 @@ public abstract class OperationNode {
             }
             AbsBk block_ = _op.getBlock();
             if (block_ instanceof SwitchMethodBlock) {
-                ((SwitchMethodBlock)block_).setIndexEnd(block_.getOffset().getOffsetTrim()+_op.getLength());
+                ((SwitchMethodBlock)block_).setIndexEnd(block_.getOffset()+_op.getLength());
                 return new SwitchOperation(_index, _indexChild, _m, _op,(SwitchMethodBlock)block_,delta_);
             }
             if (fctName_.isEmpty()) {

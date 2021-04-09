@@ -8,7 +8,6 @@ import code.expressionlanguage.analyze.TokenErrorMessage;
 import code.expressionlanguage.analyze.blocks.*;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.files.OffsetStringInfo;
-import code.expressionlanguage.analyze.files.OffsetsBlock;
 import code.expressionlanguage.analyze.inherits.AnaInherits;
 import code.expressionlanguage.analyze.inherits.Mapping;
 import code.expressionlanguage.analyze.instr.ElResolver;
@@ -38,7 +37,7 @@ public final class AnaRendCaseCondition extends AnaRendSwitchPartCondition {
     private final int variableOffset;
     private final int valueOffset;
     private Argument argument;
-    AnaRendCaseCondition(OffsetStringInfo _className, OffsetStringInfo _variable, OffsetStringInfo _value, OffsetsBlock _offset) {
+    AnaRendCaseCondition(OffsetStringInfo _className, OffsetStringInfo _variable, OffsetStringInfo _value, int _offset) {
         super(_offset);
         classNameOffset = _className.getOffset();
         className = _className.getInfo();
@@ -55,11 +54,11 @@ public final class AnaRendCaseCondition extends AnaRendSwitchPartCondition {
         _anaDoc.setAttribute(_anaDoc.getRendKeyWords().getAttrValue());
         AnaRendParentBlock par_ = getParent();
         if (!(par_ instanceof AnaRendSwitchBlock)) {
-            _page.setGlobalOffset(getOffset().getOffsetTrim());
+            _page.setGlobalOffset(getOffset());
             _page.setOffset(0);
             FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setFileName(_anaDoc.getFileName());
-            un_.setIndexFile(getOffset().getOffsetTrim());
+            un_.setIndexFile(getOffset());
             un_.buildError(_page.getAnalysisMessages().getUnexpectedCaseDef(),
                     _page.getKeyWords().getKeyWordCase(),
                     value,
@@ -176,7 +175,7 @@ public final class AnaRendCaseCondition extends AnaRendSwitchPartCondition {
                     if (_arg.getStruct().sameReference(a_.getStruct())) {
                         FoundErrorInterpret un_ = new FoundErrorInterpret();
                         un_.setFileName(_anaDoc.getFileName());
-                        un_.setIndexFile(getValueOffset()+ getOffset().getOffsetTrim());
+                        un_.setIndexFile(getValueOffset()+ getOffset());
                         un_.buildError(_page.getAnalysisMessages().getUnexpectedCaseDup(),
                                 _page.getKeyWords().getKeyWordCase(),
                                 AnaApplyCoreMethodUtil.getString(_arg, _page),
@@ -199,7 +198,7 @@ public final class AnaRendCaseCondition extends AnaRendSwitchPartCondition {
                 if (StringUtil.quickEq(v_, value.trim())) {
                     FoundErrorInterpret un_ = new FoundErrorInterpret();
                     un_.setFileName(_anaDoc.getFileName());
-                    un_.setIndexFile(getValueOffset()+ getOffset().getOffsetTrim());
+                    un_.setIndexFile(getValueOffset()+ getOffset());
                     un_.buildError(_page.getAnalysisMessages().getUnexpectedCaseDup(),
                             _page.getKeyWords().getKeyWordCase(),
                             value.trim(),

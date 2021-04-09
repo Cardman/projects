@@ -48,7 +48,7 @@ public abstract class ReachMemberCallingsBlock extends ReachBracedBlock implemen
     }
 
     public final void buildFctInstructionsReadOnly(AnalyzedPageEl _page, AnalyzingEl _anEl) {
-        _page.setGlobalOffset(getOffset().getOffsetTrim());
+        _page.setGlobalOffset(getOffset());
         _page.setOffset(0);
         ReachBlock firstChild_ = getFirstChild();
         _page.setMerged(false);
@@ -140,7 +140,7 @@ public abstract class ReachMemberCallingsBlock extends ReachBracedBlock implemen
             //error
             FoundErrorInterpret deadCode_ = new FoundErrorInterpret();
             deadCode_.setFileName(getFile().getFileName());
-            deadCode_.setIndexFile(_en.getOffset().getOffsetTrim());
+            deadCode_.setIndexFile(_en.getOffset());
             //all header expression
             deadCode_.buildError(_page.getAnalysisMessages().getDeadCode(),
                     getPseudoSignature(_page));

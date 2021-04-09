@@ -36,7 +36,7 @@ public final class RendForwardInfos {
     private static RendDocumentBlock build(AnaRendDocumentBlock _ana, Forwards _forwards, AnalyzingDoc _anaDoc) {
         AbstractInputBuilder inputBuilder_ = _anaDoc.getInputBuilder();
         AbstractConverterCheck converterCheck_ = _anaDoc.getConverterCheck();
-        RendDocumentBlock rendDoc_ = new RendDocumentBlock(_ana.getOffset().getOffsetTrim(), _ana.getElt(), _ana.getFile(), _ana.getFileName(), _ana.getBeanName());
+        RendDocumentBlock rendDoc_ = new RendDocumentBlock(_ana.getOffset(), _ana.getElt(), _ana.getFile(), _ana.getFileName(), _ana.getBeanName());
         RendParentBlock curPar_ = rendDoc_;
         AnaRendBlock en_ = _ana;
         while (en_ != null) {
@@ -77,12 +77,12 @@ public final class RendForwardInfos {
     }
     private static RendBlock newRendBlock(AbstractConverterCheck _conv,AnaRendBlock _current, Forwards _forwards, AbstractInputBuilder _inputBuilder) {
         if (_current instanceof AnaRendEmptyText){
-            return new RendEmptyText(_current.getOffset().getOffsetTrim(),((AnaRendEmptyText)_current).getExpression(),((AnaRendEmptyText)_current).isAdd());
+            return new RendEmptyText(_current.getOffset(),((AnaRendEmptyText)_current).getExpression(),((AnaRendEmptyText)_current).isAdd());
         }
         if (_current instanceof AnaRendText){
             AnaRendText t_ = (AnaRendText) _current;
             ExecTextPart part_ = toExecPartExt(t_.getRoots(),t_.getTexts(), _forwards);
-            return new RendText(_current.getOffset().getOffsetTrim(),part_,t_.getExpressionOffset());
+            return new RendText(_current.getOffset(),part_,t_.getExpressionOffset());
         }
         if (_current instanceof AnaRendForEachLoop){
             AnaRendForEachLoop f_ = (AnaRendForEachLoop) _current;
@@ -90,20 +90,20 @@ public final class RendForwardInfos {
             if (f_.getRoot().getResultClass().isArray()) {
                 if (f_.isRefVar()) {
                     return new RendForEachRefArray(f_.getImportedClassName(),f_.getVariableName(),
-                            f_.getExpressionOffset(),f_.getImportedClassIndexName(),f_.getRealLabel(),f_.getOffset().getOffsetTrim(),op_);
+                            f_.getExpressionOffset(),f_.getImportedClassIndexName(),f_.getRealLabel(),f_.getOffset(),op_);
                 }
                 return new RendForEachArray(_conv.convertType(f_.getImportedClassName()),f_.getVariableName(),
-                        f_.getExpressionOffset(),f_.getImportedClassIndexName(),f_.getRealLabel(),f_.getOffset().getOffsetTrim(),op_);
+                        f_.getExpressionOffset(),f_.getImportedClassIndexName(),f_.getRealLabel(),f_.getOffset(),op_);
             }
             return new RendForEachIterable(_conv.convertType(f_.getImportedClassName()),f_.getVariableName(),
-                    f_.getExpressionOffset(),f_.getImportedClassIndexName(),f_.getRealLabel(),f_.getOffset().getOffsetTrim(),op_);
+                    f_.getExpressionOffset(),f_.getImportedClassIndexName(),f_.getRealLabel(),f_.getOffset(),op_);
         }
         if (_current instanceof AnaRendForEachTable){
             AnaRendForEachTable f_ = (AnaRendForEachTable) _current;
             CustList<RendDynOperationNode> op_ = getExecutableNodes(f_.getRoot(), _forwards);
             return new RendForEachTable(_conv.convertType(f_.getImportedClassNameFirst()),f_.getVariableNameFirst(),
                     _conv.convertType(f_.getImportedClassNameSecond()),f_.getVariableNameSecond(),
-                    f_.getExpressionOffset(),f_.getImportedClassIndexName(),f_.getRealLabel(),f_.getOffset().getOffsetTrim(),op_);
+                    f_.getExpressionOffset(),f_.getImportedClassIndexName(),f_.getRealLabel(),f_.getOffset(),op_);
         }
         if (_current instanceof AnaRendForIterativeLoop){
             AnaRendForIterativeLoop f_ = (AnaRendForIterativeLoop) _current;
@@ -112,7 +112,7 @@ public final class RendForwardInfos {
             CustList<RendDynOperationNode> opStep_ = getExecutableNodes(f_.getRootStep(), _forwards);
             return new RendForIterativeLoop(f_.getImportedClassName(),f_.getVariableName(),
                     f_.getInitOffset(),f_.getExpressionOffset(),f_.isEq(),f_.getStepOffset(),
-                    f_.getImportedClassIndexName(),f_.getRealLabel(),f_.getOffset().getOffsetTrim(),
+                    f_.getImportedClassIndexName(),f_.getRealLabel(),f_.getOffset(),
                     opInit_,opExp_,opStep_);
         }
         if (_current instanceof AnaRendForMutableIterativeLoop){
@@ -123,99 +123,99 @@ public final class RendForwardInfos {
             return new RendForMutableIterativeLoop(f_.isRefVariable(),f_.getImportedClassName(),
                     f_.getInitOffset(),f_.getExpressionOffset(),f_.getStepOffset(),
                     f_.getVariableNames(),
-                    f_.getImportedClassIndexName(),f_.getRealLabel(),f_.getOffset().getOffsetTrim(),
+                    f_.getImportedClassIndexName(),f_.getRealLabel(),f_.getOffset(),
                     opInit_,opExp_,opStep_);
         }
         if (_current instanceof AnaRendWhileCondition){
             AnaRendWhileCondition f_ = (AnaRendWhileCondition) _current;
             CustList<RendDynOperationNode> op_ = getExecutableNodes(f_.getRoot(), _forwards);
-            return new RendWhileCondition(_current.getOffset().getOffsetTrim(),op_,f_.getConditionOffset(),f_.getRealLabel());
+            return new RendWhileCondition(_current.getOffset(),op_,f_.getConditionOffset(),f_.getRealLabel());
         }
         if (_current instanceof AnaRendDoBlock){
             AnaRendDoBlock f_ = (AnaRendDoBlock) _current;
-            return new RendDoBlock(_current.getOffset().getOffsetTrim(),f_.getRealLabel());
+            return new RendDoBlock(_current.getOffset(),f_.getRealLabel());
         }
         if (_current instanceof AnaRendDoWhileCondition){
             AnaRendDoWhileCondition f_ = (AnaRendDoWhileCondition) _current;
             CustList<RendDynOperationNode> op_ = getExecutableNodes(f_.getRoot(), _forwards);
-            return new RendDoWhileCondition(_current.getOffset().getOffsetTrim(),op_,f_.getConditionOffset());
+            return new RendDoWhileCondition(_current.getOffset(),op_,f_.getConditionOffset());
         }
         if (_current instanceof AnaRendReturnMehod){
-            return new RendReturnMehod(_current.getOffset().getOffsetTrim());
+            return new RendReturnMehod(_current.getOffset());
         }
         if (_current instanceof AnaRendBreakBlock){
             AnaRendBreakBlock f_ = (AnaRendBreakBlock) _current;
-            return new RendBreakBlock(_current.getOffset().getOffsetTrim(),f_.getLabel());
+            return new RendBreakBlock(_current.getOffset(),f_.getLabel());
         }
         if (_current instanceof AnaRendContinueBlock){
             AnaRendContinueBlock f_ = (AnaRendContinueBlock) _current;
-            return new RendContinueBlock(_current.getOffset().getOffsetTrim(),f_.getLabel());
+            return new RendContinueBlock(_current.getOffset(),f_.getLabel());
         }
         if (_current instanceof AnaRendThrowing){
             AnaRendThrowing f_ = (AnaRendThrowing) _current;
             CustList<RendDynOperationNode> op_ = getExecutableNodes(f_.getRoot(), _forwards);
-            return new RendThrowing(_current.getOffset().getOffsetTrim(),op_,f_.getExpressionOffset());
+            return new RendThrowing(_current.getOffset(),op_,f_.getExpressionOffset());
         }
         if (_current instanceof AnaRendDeclareVariable){
             AnaRendDeclareVariable f_ = (AnaRendDeclareVariable) _current;
-            return new RendDeclareVariable(_current.getOffset().getOffsetTrim(),f_.getImportedClassName(),f_.getClassNameOffset(),f_.getVariableNames());
+            return new RendDeclareVariable(_current.getOffset(),f_.getImportedClassName(),f_.getClassNameOffset(),f_.getVariableNames());
         }
         if (_current instanceof AnaRendLine){
             AnaRendLine f_ = (AnaRendLine) _current;
             CustList<RendDynOperationNode> op_ = getExecutableNodes(f_.getRoot(), _forwards);
-            return new RendLine(_current.getOffset().getOffsetTrim(),op_,f_.getExpressionOffset());
+            return new RendLine(_current.getOffset(),op_,f_.getExpressionOffset());
         }
         if (_current instanceof AnaRendIfCondition){
             AnaRendIfCondition f_ = (AnaRendIfCondition) _current;
             CustList<RendDynOperationNode> op_ = getExecutableNodes(f_.getRoot(), _forwards);
-            return new RendIfCondition(_current.getOffset().getOffsetTrim(),op_,f_.getConditionOffset(),f_.getRealLabel());
+            return new RendIfCondition(_current.getOffset(),op_,f_.getConditionOffset(),f_.getRealLabel());
         }
         if (_current instanceof AnaRendElseIfCondition){
             AnaRendElseIfCondition f_ = (AnaRendElseIfCondition) _current;
             CustList<RendDynOperationNode> op_ = getExecutableNodes(f_.getRoot(), _forwards);
-            return new RendElseIfCondition(_current.getOffset().getOffsetTrim(),op_,f_.getConditionOffset());
+            return new RendElseIfCondition(_current.getOffset(),op_,f_.getConditionOffset());
         }
         if (_current instanceof AnaRendElseCondition){
-            return new RendElseCondition(_current.getOffset().getOffsetTrim());
+            return new RendElseCondition(_current.getOffset());
         }
         if (_current instanceof AnaRendTryEval){
             AnaRendTryEval f_ = (AnaRendTryEval) _current;
-            return new RendTryEval(f_.getRealLabel(), _current.getOffset().getOffsetTrim());
+            return new RendTryEval(f_.getRealLabel(), _current.getOffset());
         }
         if (_current instanceof AnaRendCatchEval){
             AnaRendCatchEval f_ = (AnaRendCatchEval) _current;
-            return new RendCatchEval(f_.getImportedClassName(),f_.getVariableName(),_current.getOffset().getOffsetTrim());
+            return new RendCatchEval(f_.getImportedClassName(),f_.getVariableName(),_current.getOffset());
         }
         if (_current instanceof AnaRendNullCatchEval){
-            return new RendNullCatchEval(_current.getOffset().getOffsetTrim());
+            return new RendNullCatchEval(_current.getOffset());
         }
         if (_current instanceof AnaRendFinallyEval){
-            return new RendFinallyEval(_current.getOffset().getOffsetTrim());
+            return new RendFinallyEval(_current.getOffset());
         }
         if (_current instanceof AnaRendSwitchBlock){
             AnaRendSwitchBlock f_ = (AnaRendSwitchBlock) _current;
             CustList<RendDynOperationNode> op_ = getExecutableNodes(f_.getRoot(), _forwards);
-            return new RendSwitchBlock(_current.getOffset().getOffsetTrim(),f_.getRealLabel(),f_.getValueOffset(),op_,f_.isEnumTest(),f_.getInstanceTest());
+            return new RendSwitchBlock(_current.getOffset(),f_.getRealLabel(),f_.getValueOffset(),op_,f_.isEnumTest(),f_.getInstanceTest());
         }
         if (_current instanceof AnaRendCaseCondition){
             AnaRendCaseCondition f_ = (AnaRendCaseCondition) _current;
-            return new RendCaseCondition(_current.getOffset().getOffsetTrim(),f_.getImportedClassName(),f_.getVariableName(),f_.getValue(),f_.getArgument());
+            return new RendCaseCondition(_current.getOffset(),f_.getImportedClassName(),f_.getVariableName(),f_.getValue(),f_.getArgument());
         }
         if (_current instanceof AnaRendDefaultCondition){
             AnaRendDefaultCondition f_ = (AnaRendDefaultCondition) _current;
-            return new RendDefaultCondition(_current.getOffset().getOffsetTrim(),f_.getImportedClassName(),f_.getVariableName());
+            return new RendDefaultCondition(_current.getOffset(),f_.getImportedClassName(),f_.getVariableName());
         }
         if (_current instanceof AnaRendImport){
             AnaRendImport f_ = (AnaRendImport) _current;
             ExecTextPart part_ = toExecPartExt(f_.getRoots(),f_.getTexts(), _forwards);
-            return new RendImport(_current.getOffset().getOffsetTrim(),f_.getElt(),part_,f_.getPageOffset());
+            return new RendImport(_current.getOffset(),f_.getElt(),part_,f_.getPageOffset());
         }
         if (_current instanceof AnaRendSubmit){
             AnaRendSubmit f_ = (AnaRendSubmit) _current;
             StringMap<ExecTextPart> part_ = toExecPartExt(f_.getAttributes(), _forwards);
             StringMap<ExecTextPart> partText_ = toExecPartExt(f_.getAttributesText(), _forwards);
             StringMap<ExecTextPart> partSub_ = toExecPartExt(f_.getOpExp(), _forwards);
-            return new RendSubmit(_current.getOffset().getOffsetTrim(),f_.getRead(),part_,partText_,partSub_,f_.getPreformatted());
+            return new RendSubmit(_current.getOffset(),f_.getRead(),part_,partText_,partSub_,f_.getPreformatted());
         }
         if (_current instanceof AnaRendAnchor){
             AnaRendAnchor f_ = (AnaRendAnchor) _current;
@@ -223,36 +223,36 @@ public final class RendForwardInfos {
             StringMap<ExecTextPart> partText_ = toExecPartExt(f_.getAttributesText(), _forwards);
             ExecTextPart partSub_ = toExecPartExt(f_.getRoots(),f_.getTexts(), _forwards);
             CustList<RendDynOperationNode> op_ = getExecutableNodes(f_.getRoot(), _forwards);
-            return new RendAnchor(_current.getOffset().getOffsetTrim(),f_.getRead(),part_,partText_,op_, f_.getVarNames(),partSub_);
+            return new RendAnchor(_current.getOffset(),f_.getRead(),part_,partText_,op_, f_.getVarNames(),partSub_);
         }
         if (_current instanceof AnaRendImg){
             AnaRendImg f_ = (AnaRendImg) _current;
             StringMap<ExecTextPart> part_ = toExecPartExt(f_.getAttributes(), _forwards);
             StringMap<ExecTextPart> partText_ = toExecPartExt(f_.getAttributesText(), _forwards);
             ExecTextPart partSub_ = toExecPartExt(f_.getRoots(),f_.getTexts(), _forwards);
-            return new RendImg(_current.getOffset().getOffsetTrim(),f_.getRead(),part_,partText_, partSub_);
+            return new RendImg(_current.getOffset(),f_.getRead(),part_,partText_, partSub_);
         }
         if (_current instanceof AnaRendLink){
             AnaRendLink f_ = (AnaRendLink) _current;
             StringMap<ExecTextPart> part_ = toExecPartExt(f_.getAttributes(), _forwards);
             StringMap<ExecTextPart> partText_ = toExecPartExt(f_.getAttributesText(), _forwards);
             StringMap<ExecTextPart> partSub_ = toExecPartExt(f_.getOpExpTitle(), _forwards);
-            return new RendLink(_current.getOffset().getOffsetTrim(),f_.getRead(),part_,partText_,f_.getContent(),partSub_);
+            return new RendLink(_current.getOffset(),f_.getRead(),part_,partText_,f_.getContent(),partSub_);
         }
         if (_current instanceof AnaRendStyle){
             AnaRendStyle f_ = (AnaRendStyle) _current;
             StringMap<ExecTextPart> part_ = toExecPartExt(f_.getAttributes(), _forwards);
             StringMap<ExecTextPart> partText_ = toExecPartExt(f_.getAttributesText(), _forwards);
-            return new RendStyle(_current.getOffset().getOffsetTrim(),f_.getRead(),part_,partText_);
+            return new RendStyle(_current.getOffset(),f_.getRead(),part_,partText_);
         }
         if (_current instanceof AnaRendEscImg){
             AnaRendEscImg f_ = (AnaRendEscImg) _current;
             StringMap<ExecTextPart> part_ = toExecPartExt(f_.getAttributes(), _forwards);
             StringMap<ExecTextPart> partText_ = toExecPartExt(f_.getAttributesText(), _forwards);
-            return new RendEscImg(_current.getOffset().getOffsetTrim(),f_.getRead(),part_,partText_);
+            return new RendEscImg(_current.getOffset(),f_.getRead(),part_,partText_);
         }
         if (_current instanceof AnaRendPackage){
-            return new RendPackage(_current.getOffset().getOffsetTrim());
+            return new RendPackage(_current.getOffset());
         }
         if (_current instanceof AnaRendForm){
             AnaRendForm f_ = (AnaRendForm) _current;
@@ -260,26 +260,26 @@ public final class RendForwardInfos {
             StringMap<ExecTextPart> partText_ = toExecPartExt(f_.getAttributesText(), _forwards);
             CustList<RendDynOperationNode> opForm_ = getExecutableNodes(f_.getRoot(), _forwards);
             ExecTextPart partSub_ = toExecPartExt(f_.getRoots(),f_.getTexts(), _forwards);
-            return new RendForm(_current.getOffset().getOffsetTrim(),f_.getRead(),part_,partText_,opForm_,f_.getVarNames(),partSub_);
+            return new RendForm(_current.getOffset(),f_.getRead(),part_,partText_,opForm_,f_.getVarNames(),partSub_);
         }
         if (_current instanceof AnaRendImportForm){
             AnaRendImportForm f_ = (AnaRendImportForm) _current;
-            return new RendImportForm(_current.getOffset().getOffsetTrim(),f_.getName());
+            return new RendImportForm(_current.getOffset(),f_.getName());
         }
         if (_current instanceof AnaRendClass){
             AnaRendClass f_ = (AnaRendClass) _current;
-            return new RendClass(_current.getOffset().getOffsetTrim(),f_.getFullName());
+            return new RendClass(_current.getOffset(),f_.getFullName());
         }
         if (_current instanceof AnaRendField){
             AnaRendField f_ = (AnaRendField) _current;
             CustList<RendDynOperationNode> op_ = getExecutableNodes(f_.getRoot(), _forwards);
-            return new RendField(_current.getOffset().getOffsetTrim(),op_,f_.getPrepareOffset());
+            return new RendField(_current.getOffset(),op_,f_.getPrepareOffset());
         }
         if (_current instanceof AnaRendMessage){
             AnaRendMessage f_ = (AnaRendMessage) _current;
             CustList<CustList<RendDynOperationNode>> partSub_ = toExecPartExt(f_.getRoots(), _forwards);
             StringMap<CustList<CustList<RendDynOperationNode>>> map_ = toExecPartMapExt(f_.getCallsRoots(), _forwards);
-            return new RendMessage(_current.getOffset().getOffsetTrim(),f_.getElt(),partSub_,
+            return new RendMessage(_current.getOffset(),f_.getElt(),partSub_,
                     f_.getPreformatted(),f_.getQuoted(),f_.getEscaped(),map_,
                     f_.getArgs(),f_.getLocDoc(),
                     f_.getVarNames());
@@ -297,7 +297,7 @@ public final class RendForwardInfos {
             CustList<RendDynOperationNode> opValue_ = getExecutableNodes(f_.getRootValue(), _forwards);
             StringMap<ExecTextPart> part_ = toExecPartExt(f_.getAttributes(), _forwards);
             StringMap<ExecTextPart> partText_ = toExecPartExt(f_.getAttributesText(), _forwards);
-            return new RendSelect(_current.getOffset().getOffsetTrim(),opRead_,opValue_,opsWrite_,opMap_,opDefault_,opConverter_,opConverterField_,opConverterFieldValue_
+            return new RendSelect(_current.getOffset(),opRead_,opValue_,opsWrite_,opMap_,opDefault_,opConverter_,opConverterField_,opConverterFieldValue_
             ,partText_,part_,f_.getVarName(),f_.getId(),f_.getIdClass(),f_.getIdName(),f_.getElt(),f_.isMultiple(),f_.getVarNameConverter(),f_.getVarNameConverterField(),
                     f_.getVarNameConverterFieldValue(),f_.getClassName(),f_.isArrayConverter(), f_.getVarNames());
         }
@@ -312,7 +312,7 @@ public final class RendForwardInfos {
             CustList<RendDynOperationNode> opValue_ = getExecutableNodes(f_.getRootValue(), _forwards);
             StringMap<ExecTextPart> part_ = toExecPartExt(f_.getAttributes(), _forwards);
             StringMap<ExecTextPart> partText_ = toExecPartExt(f_.getAttributesText(), _forwards);
-            return new RendRadio(_current.getOffset().getOffsetTrim(),f_.getRead(),part_,partText_,opRead_,opValue_,opsWrite_,opConverter_,opConverterField_
+            return new RendRadio(_current.getOffset(),f_.getRead(),part_,partText_,opRead_,opValue_,opsWrite_,opConverter_,opConverterField_
                     ,f_.getVarName(),f_.getVarNameConverter(),f_.getVarNameConverterField(),f_.getId(),f_.getIdClass(),f_.getIdName(),f_.getClassName(),opConverterFieldValue_,
                     f_.getVarNameConverterFieldValue(),f_.getVarNames());
         }
@@ -326,7 +326,7 @@ public final class RendForwardInfos {
             CustList<RendDynOperationNode> opValue_ = getExecutableNodes(f_.getRootValue(), _forwards);
             StringMap<ExecTextPart> part_ = toExecPartExt(f_.getAttributes(), _forwards);
             StringMap<ExecTextPart> partText_ = toExecPartExt(f_.getAttributesText(), _forwards);
-            return new RendStdInput(_current.getOffset().getOffsetTrim(),f_.getRead(),part_,partText_,opRead_,opValue_,opsWrite_,opConverter_,opConverterField_
+            return new RendStdInput(_current.getOffset(),f_.getRead(),part_,partText_,opRead_,opValue_,opsWrite_,opConverter_,opConverterField_
                     ,f_.getVarName(),f_.getVarNameConverter(),f_.getVarNameConverterField(),f_.getId(),f_.getIdClass(),f_.getIdName(),f_.getClassName(),f_.getVarNames());
         }
         if (_current instanceof AnaRendTextArea){
@@ -339,7 +339,7 @@ public final class RendForwardInfos {
             CustList<RendDynOperationNode> opValue_ = getExecutableNodes(f_.getRootValue(), _forwards);
             StringMap<ExecTextPart> part_ = toExecPartExt(f_.getAttributes(), _forwards);
             StringMap<ExecTextPart> partText_ = toExecPartExt(f_.getAttributesText(), _forwards);
-            return new RendTextArea(_current.getOffset().getOffsetTrim(),opRead_,opValue_,opsWrite_,opConverter_,opConverterField_
+            return new RendTextArea(_current.getOffset(),opRead_,opValue_,opsWrite_,opConverter_,opConverterField_
                     ,partText_,part_,f_.getVarNameConverter(),f_.getVarNameConverterField(),f_.getVarName(),f_.getId(),f_.getIdClass(),f_.getIdName(),f_.getClassName(),f_.getElt(),f_.getVarNames());
         }
         if (_current instanceof AnaRendSpan){
@@ -347,7 +347,7 @@ public final class RendForwardInfos {
             StringMap<ExecTextPart> part_ = toExecPartExt(f_.getAttributes(), _forwards);
             StringMap<ExecTextPart> partText_ = toExecPartExt(f_.getAttributesText(), _forwards);
             ExecTextPart partSub_ = toExecPartExt(f_.getRoots(),f_.getTexts(), _forwards);
-            return new RendSpan(_current.getOffset().getOffsetTrim(),f_.getRead(),part_,partText_,partSub_,f_.getFormatted());
+            return new RendSpan(_current.getOffset(),f_.getRead(),part_,partText_,partSub_,f_.getFormatted());
         }
         if (_current instanceof AnaRendTitledAnchor){
             AnaRendTitledAnchor f_ = (AnaRendTitledAnchor) _current;
@@ -356,16 +356,16 @@ public final class RendForwardInfos {
             ExecTextPart partSub_ = toExecPartExt(f_.getRoots(),f_.getTexts(), _forwards);
             StringMap<ExecTextPart> title_ = toExecPartExt(f_.getOpExpTitle(), _forwards);
             CustList<RendDynOperationNode> opAnc_ = getExecutableNodes(f_.getRoot(), _forwards);
-            return new RendTitledAnchor(_current.getOffset().getOffsetTrim(),f_.getRead(),part_,partText_,opAnc_,f_.getVarNames(),title_,f_.getPreformatted(),partSub_);
+            return new RendTitledAnchor(_current.getOffset(),f_.getRead(),part_,partText_,opAnc_,f_.getVarNames(),title_,f_.getPreformatted(),partSub_);
         }
         if (_current instanceof AnaRendEmptyInstruction){
-            return new RendEmptyInstruction(_current.getOffset().getOffsetTrim());
+            return new RendEmptyInstruction(_current.getOffset());
         }
         if (_current instanceof AnaRendStdElement) {
             AnaRendStdElement f_ = (AnaRendStdElement) _current;
             StringMap<ExecTextPart> part_ = toExecPartExt(f_.getAttributes(), _forwards);
             StringMap<ExecTextPart> partText_ = toExecPartExt(f_.getAttributesText(), _forwards);
-            return new RendStdElement(_current.getOffset().getOffsetTrim(), f_.getRead(), part_, partText_);
+            return new RendStdElement(_current.getOffset(), f_.getRead(), part_, partText_);
         }
         return null;
     }
@@ -570,10 +570,7 @@ public final class RendForwardInfos {
             ArrOperation a_ = (ArrOperation) _anaNode;
             ExecTypeFunction get_ = FetchMemberUtil.fetchOvTypeFunction(a_.getMemberIdGet(), _forwards);
             ExecTypeFunction set_ = FetchMemberUtil.fetchOvTypeFunction(a_.getMemberIdSet(), _forwards);
-            boolean cust_ = true;
-            if (get_ == null) {
-                cust_ = false;
-            }
+            boolean cust_ = get_ != null;
             if (set_ == null) {
                 cust_ = false;
             }

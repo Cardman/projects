@@ -11,7 +11,6 @@ import code.expressionlanguage.analyze.inherits.*;
 import code.expressionlanguage.analyze.opers.AnonymousInstancingOperation;
 import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.analyze.opers.util.MethodInfo;
-import code.expressionlanguage.analyze.opers.util.ParametersGroup;
 import code.expressionlanguage.analyze.opers.util.Parametrable;
 import code.expressionlanguage.analyze.reach.opers.ReachOperationUtil;
 import code.expressionlanguage.analyze.syntax.IntermediaryResults;
@@ -25,7 +24,6 @@ import code.expressionlanguage.common.*;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.errors.custom.GraphicErrorInterpret;
 import code.expressionlanguage.analyze.files.FileResolver;
-import code.expressionlanguage.analyze.files.OffsetsBlock;
 import code.expressionlanguage.functionid.*;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.stds.StandardClass;
@@ -688,7 +686,7 @@ public final class ClassesUtil {
         for (EntryCust<String,String> f: _files.entryList()) {
             String file_ = f.getKey();
             String content_ = f.getValue();
-            FileBlock fileBlock_ = new FileBlock(new OffsetsBlock(),_predefined, file_);
+            FileBlock fileBlock_ = new FileBlock(0,_predefined, file_);
             fileBlock_.setNumberFile(_page.getFilesBodies().size());
             _page.putFileBlock(file_, fileBlock_);
             fileBlock_.processLinesTabsWithError(content_, _page);
@@ -1721,7 +1719,7 @@ public final class ClassesUtil {
                 if (m.eq(id_)) {
                     FoundErrorInterpret duplicate_;
                     duplicate_ = new FoundErrorInterpret();
-                    duplicate_.setIndexFile(o.getOffset().getOffsetTrim());
+                    duplicate_.setIndexFile(o.getOffset());
                     duplicate_.setFileName(_page.getCurrentBlock().getFile().getFileName());
                     //key word len
                     duplicate_.buildError(_page.getAnalysisMessages().getDuplicateOperator(),
@@ -1742,7 +1740,7 @@ public final class ClassesUtil {
                     FoundErrorInterpret b_;
                     b_ = new FoundErrorInterpret();
                     b_.setFileName(_page.getCurrentBlock().getFile().getFileName());
-                    b_.setIndexFile(o.getOffset().getOffsetTrim());
+                    b_.setIndexFile(o.getOffset());
                     //param name len
                     b_.setBuiltError(res_.getMessage());
                     _page.addLocError(b_);
@@ -1752,7 +1750,7 @@ public final class ClassesUtil {
                     FoundErrorInterpret b_;
                     b_ = new FoundErrorInterpret();
                     b_.setFileName(_page.getCurrentBlock().getFile().getFileName());
-                    b_.setIndexFile(o.getOffset().getOffsetTrim());
+                    b_.setIndexFile(o.getOffset());
                     //param name len
                     b_.buildError(_page.getAnalysisMessages().getDuplicatedParamName(),
                             v);
@@ -2170,7 +2168,7 @@ public final class ClassesUtil {
                     //error
                     FoundErrorInterpret un_ = new FoundErrorInterpret();
                     un_.setFileName(c.getFile().getFileName());
-                    un_.setIndexFile(c.getOffset().getOffsetTrim());
+                    un_.setIndexFile(c.getOffset());
                     un_.buildError(_page.getAnalysisMessages().getUnassignedFinalField(),
                             key_,fullName_);
                     _page.addLocError(un_);
@@ -2637,7 +2635,7 @@ public final class ClassesUtil {
                 //ERROR
                 FoundErrorInterpret un_ = new FoundErrorInterpret();
                 un_.setFileName(_cl.getFile().getFileName());
-                un_.setIndexFile(_cl.getOffset().getOffsetTrim());
+                un_.setIndexFile(_cl.getOffset());
                 //field name len
                 un_.buildError(_page.getAnalysisMessages().getUnassignedFinalField(),
                         _field,_clName);

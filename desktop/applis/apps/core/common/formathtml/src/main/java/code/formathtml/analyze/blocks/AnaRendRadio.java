@@ -2,7 +2,6 @@ package code.formathtml.analyze.blocks;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
-import code.expressionlanguage.analyze.files.OffsetsBlock;
 import code.expressionlanguage.analyze.inherits.AnaInherits;
 import code.expressionlanguage.analyze.inherits.Mapping;
 import code.expressionlanguage.analyze.opers.OperationNode;
@@ -16,7 +15,7 @@ import code.util.core.StringUtil;
 public final class AnaRendRadio extends AnaRendInput {
     private OperationNode rootConverterFieldValue;
     private String varNameConverterFieldValue = EMPTY_STRING;
-    AnaRendRadio(Element _elt, OffsetsBlock _offset) {
+    AnaRendRadio(Element _elt, int _offset) {
         super(_elt, _offset);
     }
 

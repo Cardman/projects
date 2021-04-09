@@ -5,7 +5,6 @@ import code.expressionlanguage.analyze.ManageTokens;
 import code.expressionlanguage.analyze.TokenErrorMessage;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.files.OffsetStringInfo;
-import code.expressionlanguage.analyze.files.OffsetsBlock;
 import code.expressionlanguage.analyze.types.ResolvingTypes;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.expressionlanguage.common.ConstType;
@@ -19,12 +18,12 @@ public final class AnaRendCatchEval extends AnaRendAbstractCatchEval {
 
     private String importedClassName;
 
-    private int classNameOffset;
+    private final int classNameOffset;
 
     private final String variableName;
 
-    private int variableNameOffset;
-    AnaRendCatchEval(OffsetStringInfo _className, OffsetStringInfo _variable, OffsetsBlock _offset) {
+    private final int variableNameOffset;
+    AnaRendCatchEval(OffsetStringInfo _className, OffsetStringInfo _variable, int _offset) {
         super(_offset);
         className = _className.getInfo();
         classNameOffset = _className.getOffset();
@@ -57,7 +56,7 @@ public final class AnaRendCatchEval extends AnaRendAbstractCatchEval {
                 if (!isPossibleEmpty(pBlock_)) {
                     FoundErrorInterpret un_ = new FoundErrorInterpret();
                     un_.setFileName(_anaDoc.getFileName());
-                    un_.setIndexFile(getOffset().getOffsetTrim());
+                    un_.setIndexFile(getOffset());
                     un_.buildError(_page.getAnalysisMessages().getUnexpectedCatchElseFinally(),
                             _page.getKeyWords().getKeyWordCatch(),
                             StringUtil.join(
@@ -71,7 +70,7 @@ public final class AnaRendCatchEval extends AnaRendAbstractCatchEval {
                     if (!(pBlock_.getPreviousSibling() instanceof AnaRendTryEval)) {
                         FoundErrorInterpret un_ = new FoundErrorInterpret();
                         un_.setFileName(_anaDoc.getFileName());
-                        un_.setIndexFile(getOffset().getOffsetTrim());
+                        un_.setIndexFile(getOffset());
                         un_.buildError(_page.getAnalysisMessages().getUnexpectedCatchElseFinally(),
                                 _page.getKeyWords().getKeyWordCatch(),
                                 StringUtil.join(

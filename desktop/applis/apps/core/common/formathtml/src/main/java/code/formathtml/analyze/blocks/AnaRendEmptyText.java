@@ -2,7 +2,6 @@ package code.formathtml.analyze.blocks;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.files.OffsetStringInfo;
-import code.expressionlanguage.analyze.files.OffsetsBlock;
 import code.formathtml.analyze.AnalyzingDoc;
 
 public final class AnaRendEmptyText extends AnaRendLeaf {
@@ -10,7 +9,7 @@ public final class AnaRendEmptyText extends AnaRendLeaf {
     private final String expression;
 
     private boolean add = true;
-    AnaRendEmptyText(OffsetStringInfo _left, OffsetsBlock _offset) {
+    AnaRendEmptyText(OffsetStringInfo _left, int _offset) {
         super(_offset);
         expression = _left.getInfo();
     }

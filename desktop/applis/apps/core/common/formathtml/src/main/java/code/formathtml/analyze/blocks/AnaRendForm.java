@@ -2,7 +2,6 @@ package code.formathtml.analyze.blocks;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
-import code.expressionlanguage.analyze.files.OffsetsBlock;
 import code.expressionlanguage.analyze.inherits.AnaInherits;
 import code.expressionlanguage.analyze.inherits.Mapping;
 import code.expressionlanguage.analyze.opers.OperationNode;
@@ -21,7 +20,7 @@ public final class AnaRendForm extends AnaRendElement {
 
     private StringList texts = new StringList();
     private StringList varNames = new StringList();
-    AnaRendForm(Element _elt, OffsetsBlock _offset) {
+    AnaRendForm(Element _elt, int _offset) {
         super(_elt, _offset);
     }
 

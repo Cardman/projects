@@ -2,7 +2,6 @@ package code.formathtml.analyze.blocks;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
-import code.expressionlanguage.analyze.files.OffsetsBlock;
 import code.expressionlanguage.analyze.inherits.AnaInherits;
 import code.expressionlanguage.analyze.inherits.Mapping;
 import code.expressionlanguage.analyze.opers.OperationNode;
@@ -29,7 +28,7 @@ public abstract class AnaRendInput extends AnaRendElement {
     private String idName = EMPTY_STRING;
     private String className = EMPTY_STRING;
     private ResultInput resultInput;
-    AnaRendInput(Element _elt, OffsetsBlock _offset) {
+    AnaRendInput(Element _elt, int _offset) {
         super(_elt, _offset);
     }
 

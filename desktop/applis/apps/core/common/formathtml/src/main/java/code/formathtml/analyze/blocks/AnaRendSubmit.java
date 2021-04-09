@@ -1,7 +1,6 @@
 package code.formathtml.analyze.blocks;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.analyze.files.OffsetsBlock;
 import code.formathtml.analyze.ResultText;
 import code.formathtml.analyze.AnalyzingDoc;
 import code.sml.DocumentBuilder;
@@ -17,7 +16,7 @@ public final class AnaRendSubmit extends AnaRendElement {
     private StringMap<ResultText> opExp;
 
     private StringMap<String> preformatted;
-    AnaRendSubmit(Element _elt, OffsetsBlock _offset) {
+    AnaRendSubmit(Element _elt, int _offset) {
         super(_elt, _offset);
     }
 

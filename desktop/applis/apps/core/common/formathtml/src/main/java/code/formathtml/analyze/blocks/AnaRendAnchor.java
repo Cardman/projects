@@ -1,7 +1,6 @@
 package code.formathtml.analyze.blocks;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.analyze.files.OffsetsBlock;
 import code.expressionlanguage.analyze.opers.OperationNode;
 import code.formathtml.analyze.ResultText;
 import code.formathtml.analyze.AnalyzingDoc;
@@ -16,7 +15,7 @@ public final class AnaRendAnchor extends AnaRendElement {
     private StringList varNames = new StringList();
     private CustList<OperationNode> roots;
 
-    AnaRendAnchor(Element _elt, OffsetsBlock _offset) {
+    AnaRendAnchor(Element _elt, int _offset) {
         super(_elt, _offset);
     }
 

@@ -6,8 +6,6 @@ import code.expressionlanguage.analyze.syntax.ResultExpression;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.files.OffsetStringInfo;
-import code.expressionlanguage.analyze.files.OffsetsBlock;
-import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
 import code.expressionlanguage.analyze.instr.ElUtil;
 import code.expressionlanguage.analyze.opers.Calculation;
@@ -33,7 +31,7 @@ public abstract class ConditionBlock extends BracedBlock implements BuildableElM
 
     private int conditionNb;
 
-    public ConditionBlock(OffsetStringInfo _condition, OffsetsBlock _offset) {
+    public ConditionBlock(OffsetStringInfo _condition, int _offset) {
         super(_offset);
         condition = _condition.getInfo();
         conditionOffset = _condition.getOffset();

@@ -2,7 +2,6 @@ package code.formathtml.analyze.blocks;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
-import code.expressionlanguage.analyze.files.OffsetsBlock;
 import code.expressionlanguage.analyze.inherits.AnaInherits;
 import code.expressionlanguage.analyze.inherits.Mapping;
 import code.expressionlanguage.analyze.opers.OperationNode;
@@ -36,7 +35,7 @@ public final class AnaRendTextArea extends AnaRendParentBlock {
     private final Element elt;
     private ResultInput resultInput;
 
-    protected AnaRendTextArea(Element _elt, OffsetsBlock _offset) {
+    protected AnaRendTextArea(Element _elt, int _offset) {
         super(_offset);
         elt = _elt;
     }
@@ -63,7 +62,7 @@ public final class AnaRendTextArea extends AnaRendParentBlock {
                 if (converterValue_.trim().isEmpty()) {
                     FoundErrorInterpret badEl_ = new FoundErrorInterpret();
                     badEl_.setFileName(_anaDoc.getFileName());
-                    badEl_.setIndexFile(getOffset().getOffsetTrim());
+                    badEl_.setIndexFile(getOffset());
                     badEl_.buildError(_anaDoc.getRendAnalysisMessages().getEmptyAttr(),
                             StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrConvertValue()));
                     AnalyzingDoc.addError(badEl_, _anaDoc, _page);

@@ -1,14 +1,13 @@
 package code.expressionlanguage.analyze.blocks;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.errors.custom.GraphicErrorList;
-import code.expressionlanguage.analyze.files.OffsetsBlock;
 
 public abstract class BracedBlock extends AbsBk {
 
     private AbsBk firstChild;
 
     private final GraphicErrorList globalErrorsPars = new GraphicErrorList();
-    BracedBlock(OffsetsBlock _offset) {
+    BracedBlock(int _offset) {
         super(_offset);
     }
 

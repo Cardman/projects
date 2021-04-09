@@ -1,11 +1,10 @@
 package code.expressionlanguage.analyze.blocks;
-import code.expressionlanguage.analyze.files.OffsetsBlock;
 import code.expressionlanguage.functionid.MethodAccessKind;
 
 public final class StaticBlock extends InitBlock {
 
     private int staticNb;
-    public StaticBlock(OffsetsBlock _offset) {
+    public StaticBlock(int _offset) {
         super(_offset);
     }
 

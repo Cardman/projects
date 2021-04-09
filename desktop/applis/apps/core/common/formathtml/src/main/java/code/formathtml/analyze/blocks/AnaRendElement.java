@@ -1,7 +1,6 @@
 package code.formathtml.analyze.blocks;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.analyze.files.OffsetsBlock;
 import code.formathtml.analyze.ResultText;
 import code.formathtml.analyze.AnalyzingDoc;
 import code.sml.Element;
@@ -11,10 +10,10 @@ import code.util.StringMap;
 import code.util.core.StringUtil;
 
 public abstract class AnaRendElement extends AnaRendParentBlock {
-    private Element read;
-    private StringMap<ResultText> attributes = new StringMap<ResultText>();
-    private StringMap<ResultText> attributesText = new StringMap<ResultText>();
-    AnaRendElement(Element _elt, OffsetsBlock _offset) {
+    private final Element read;
+    private final StringMap<ResultText> attributes = new StringMap<ResultText>();
+    private final StringMap<ResultText> attributesText = new StringMap<ResultText>();
+    AnaRendElement(Element _elt, int _offset) {
         super(_offset);
         read = _elt;
     }

@@ -134,7 +134,7 @@ public final class ReachCaseCondition extends ReachSwitchPartBlock {
                     if (_arg.getStruct().sameReference(a_.getStruct())) {
                         FoundErrorInterpret un_ = new FoundErrorInterpret();
                         un_.setFileName(getFile().getFileName());
-                        un_.setIndexFile(getValueOffset()+ getOffset().getOffsetTrim());
+                        un_.setIndexFile(getValueOffset()+ getOffset());
                         //key word len
                         un_.buildError(_page.getAnalysisMessages().getUnexpectedCaseDup(),
                                 _page.getKeyWords().getKeyWordCase(),
@@ -159,7 +159,7 @@ public final class ReachCaseCondition extends ReachSwitchPartBlock {
                 if (StringUtil.quickEq(v_, value.trim())) {
                     FoundErrorInterpret un_ = new FoundErrorInterpret();
                     un_.setFileName(getFile().getFileName());
-                    un_.setIndexFile(getValueOffset()+ getOffset().getOffsetTrim());
+                    un_.setIndexFile(getValueOffset()+ getOffset());
                     //key word len
                     un_.buildError(_page.getAnalysisMessages().getUnexpectedCaseDup(),
                             _page.getKeyWords().getKeyWordCase(),

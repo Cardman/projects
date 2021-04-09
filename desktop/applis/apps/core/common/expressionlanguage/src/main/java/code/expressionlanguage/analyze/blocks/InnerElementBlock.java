@@ -9,7 +9,6 @@ import code.expressionlanguage.common.AccessEnum;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.analyze.files.OffsetAccessInfo;
 import code.expressionlanguage.analyze.files.OffsetStringInfo;
-import code.expressionlanguage.analyze.files.OffsetsBlock;
 import code.expressionlanguage.analyze.instr.ElUtil;
 import code.expressionlanguage.analyze.instr.PartOffset;
 import code.expressionlanguage.analyze.instr.PartOffsetAffect;
@@ -46,7 +45,7 @@ public final class InnerElementBlock extends RootBlock implements InnerTypeOrEle
     private final CustList<SwitchMethodBlock> switchMethods = new CustList<SwitchMethodBlock>();
     public InnerElementBlock(EnumBlock _m, String _pkgName,OffsetStringInfo _fieldName,
                              OffsetStringInfo _type,
-                             OffsetStringInfo _value, OffsetsBlock _offset) {
+                             OffsetStringInfo _value, int _offset) {
         super(_fieldName.getOffset(), _pkgName, new OffsetAccessInfo(0,AccessEnum.PUBLIC), "", new IntMap< String>(), _offset, _fieldName.getInfo());
         parentEnum = _m;
         elementContent.setFieldNameOffest(_fieldName.getOffset());

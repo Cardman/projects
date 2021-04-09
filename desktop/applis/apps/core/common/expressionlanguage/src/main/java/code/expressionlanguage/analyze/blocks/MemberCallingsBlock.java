@@ -5,7 +5,6 @@ import code.expressionlanguage.analyze.reach.blocks.ReachMemberCallingsBlock;
 import code.expressionlanguage.analyze.util.ContextUtil;
 import code.expressionlanguage.analyze.util.MappingLocalType;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
-import code.expressionlanguage.analyze.files.OffsetsBlock;
 import code.expressionlanguage.analyze.inherits.Mapping;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.util.CustList;
@@ -19,18 +18,8 @@ public abstract class MemberCallingsBlock extends BracedBlock implements Functio
     private final CustList<AnonymousTypeBlock> anonymous = new CustList<AnonymousTypeBlock>();
     private final CustList<NamedCalledFunctionBlock> anonymousFct = new CustList<NamedCalledFunctionBlock>();
     private final CustList<SwitchMethodBlock> switchMethods = new CustList<SwitchMethodBlock>();
-    MemberCallingsBlock(OffsetsBlock _offset) {
+    MemberCallingsBlock(int _offset) {
         super(_offset);
-    }
-
-    private static void addPossibleEmpty(AbsBk _en) {
-        if (_en instanceof BracedBlock && _en.getFirstChild() == null) {
-            if (!(_en instanceof SwitchBlock) && !(_en instanceof DoWhileCondition) && (_en instanceof BuildableElMethod || _en instanceof UnclassedBracedBlock)) {
-                OffsetsBlock off_ = _en.getOffset();
-                EmptyInstruction empty_ = new EmptyInstruction(off_);
-                ((BracedBlock) _en).appendChild(empty_);
-            }
-        }
     }
 
     private static void removeLabel(AbsBk _en, StringList _labels) {
@@ -40,7 +29,7 @@ public abstract class MemberCallingsBlock extends BracedBlock implements Functio
     }
 
     public final void buildFctInstructionsReadOnly(AnalyzedPageEl _page) {
-        _page.setGlobalOffset(getOffset().getOffsetTrim());
+        _page.setGlobalOffset(getOffset());
         _page.setOffset(0);
         _page.setVariableIssue(false);
         AbsBk firstChild_ = getFirstChild();
@@ -61,7 +50,6 @@ public abstract class MemberCallingsBlock extends BracedBlock implements Functio
         while (true) {
             _page.setCurrentBlock(en_);
             anEl_.putLabel(this);
-            addPossibleEmpty(en_);
             if (en_ != this) {
                 en_.checkLabelReference(anEl_, _page);
             }

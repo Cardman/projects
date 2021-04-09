@@ -14,7 +14,6 @@ import code.expressionlanguage.common.ConstType;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.analyze.errors.custom.*;
 import code.expressionlanguage.analyze.files.OffsetStringInfo;
-import code.expressionlanguage.analyze.files.OffsetsBlock;
 import code.expressionlanguage.analyze.inherits.Mapping;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.inherits.Templates;
@@ -75,7 +74,7 @@ public final class ForEachTable extends AbstractForLoop implements Loop,ImportFo
 
     public ForEachTable(OffsetStringInfo _className, OffsetStringInfo _variable,
                         OffsetStringInfo _classNameSec, OffsetStringInfo _variableSec,
-                        OffsetStringInfo _expression, OffsetStringInfo _classIndex, OffsetStringInfo _label, OffsetsBlock _offset, int _sepOffset, AnalyzedPageEl _page, boolean _refVariable) {
+                        OffsetStringInfo _expression, OffsetStringInfo _classIndex, OffsetStringInfo _label, int _offset, int _sepOffset, AnalyzedPageEl _page, boolean _refVariable) {
         super(_offset);
         classNameFirst = _className.getInfo();
         classNameOffsetFirst = _className.getOffset();

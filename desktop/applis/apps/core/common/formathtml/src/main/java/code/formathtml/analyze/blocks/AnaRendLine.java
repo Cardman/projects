@@ -3,7 +3,6 @@ package code.formathtml.analyze.blocks;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.Line;
 import code.expressionlanguage.analyze.files.OffsetStringInfo;
-import code.expressionlanguage.analyze.files.OffsetsBlock;
 import code.expressionlanguage.analyze.opers.*;
 import code.formathtml.analyze.RenderAnalysis;
 import code.formathtml.analyze.AnalyzingDoc;
@@ -13,10 +12,10 @@ public final class AnaRendLine extends AnaRendLeaf {
 
     private final String expression;
 
-    private int expressionOffset;
+    private final int expressionOffset;
 
     private OperationNode root;
-    AnaRendLine(OffsetStringInfo _left, OffsetsBlock _offset) {
+    AnaRendLine(OffsetStringInfo _left, int _offset) {
         super(_offset);
         expression = _left.getInfo();
         expressionOffset = _left.getOffset();

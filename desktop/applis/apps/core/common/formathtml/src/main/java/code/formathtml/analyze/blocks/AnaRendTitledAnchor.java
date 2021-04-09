@@ -1,7 +1,6 @@
 package code.formathtml.analyze.blocks;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.analyze.files.OffsetsBlock;
 import code.expressionlanguage.analyze.opers.OperationNode;
 import code.formathtml.analyze.ResultText;
 import code.formathtml.analyze.AnalyzingDoc;
@@ -23,7 +22,7 @@ public final class AnaRendTitledAnchor extends AnaRendElement {
     private StringMap<ResultText> opExpTitle;
 
     private StringMap<String> preformatted;
-    AnaRendTitledAnchor(Element _elt, OffsetsBlock _offset) {
+    AnaRendTitledAnchor(Element _elt, int _offset) {
         super(_elt, _offset);
     }
 

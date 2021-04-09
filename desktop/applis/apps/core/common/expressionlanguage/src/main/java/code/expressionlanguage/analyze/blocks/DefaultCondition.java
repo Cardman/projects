@@ -5,7 +5,6 @@ import code.expressionlanguage.analyze.TokenErrorMessage;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.expressionlanguage.common.ConstType;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
-import code.expressionlanguage.analyze.files.OffsetsBlock;
 import code.util.StringList;
 
 public final class DefaultCondition extends SwitchPartBlock {
@@ -15,11 +14,11 @@ public final class DefaultCondition extends SwitchPartBlock {
     private int variableOffset;
     private String instanceTest = "";
 
-    public DefaultCondition(OffsetsBlock _offset) {
+    public DefaultCondition(int _offset) {
         super(_offset);
     }
 
-    public DefaultCondition(OffsetsBlock _offset, String _variableName, int _variableOffset) {
+    public DefaultCondition(int _offset, String _variableName, int _variableOffset) {
         super(_offset);
         variableName = _variableName;
         variableOffset = _variableOffset;
@@ -32,11 +31,11 @@ public final class DefaultCondition extends SwitchPartBlock {
     private void checkDefault(AnalyzedPageEl _page) {
         BracedBlock b_ = getParent();
         if (!(b_ instanceof SwitchBlock)&&!(b_ instanceof SwitchMethodBlock)) {
-            _page.setGlobalOffset(getOffset().getOffsetTrim());
+            _page.setGlobalOffset(getOffset());
             _page.setOffset(0);
             FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setFileName(getFile().getFileName());
-            un_.setIndexFile(getOffset().getOffsetTrim());
+            un_.setIndexFile(getOffset());
             //key word len
             un_.buildError(_page.getAnalysisMessages().getUnexpectedCaseDef(),
                     _page.getKeyWords().getKeyWordDefault(),
@@ -61,7 +60,7 @@ public final class DefaultCondition extends SwitchPartBlock {
                     if (first_ instanceof DefaultCondition) {
                         FoundErrorInterpret un_ = new FoundErrorInterpret();
                         un_.setFileName(getFile().getFileName());
-                        un_.setIndexFile(getOffset().getOffsetTrim());
+                        un_.setIndexFile(getOffset());
                         //key word len
                         un_.buildError(_page.getAnalysisMessages().getUnexpectedDefDup(),
                                 _page.getKeyWords().getKeyWordDefault(),
@@ -78,7 +77,7 @@ public final class DefaultCondition extends SwitchPartBlock {
             if (getNextSibling() != null){
                 FoundErrorInterpret un_ = new FoundErrorInterpret();
                 un_.setFileName(getFile().getFileName());
-                un_.setIndexFile(getOffset().getOffsetTrim());
+                un_.setIndexFile(getOffset());
                 //key word len
                 un_.buildError(_page.getAnalysisMessages().getUnexpectedDefDup(),
                         _page.getKeyWords().getKeyWordDefault(),

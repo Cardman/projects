@@ -13,9 +13,7 @@ import code.expressionlanguage.common.ConstType;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.files.OffsetBooleanInfo;
 import code.expressionlanguage.analyze.files.OffsetStringInfo;
-import code.expressionlanguage.analyze.files.OffsetsBlock;
 import code.expressionlanguage.analyze.inherits.Mapping;
-import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.analyze.instr.ElUtil;
@@ -59,7 +57,7 @@ public final class ForIterativeLoop extends AbstractForLoop implements Loop {
     private final StringList nameErrors = new StringList();
     public ForIterativeLoop(OffsetStringInfo _className, OffsetStringInfo _variable,
                             OffsetStringInfo _from,
-                            OffsetStringInfo _to, OffsetBooleanInfo _eq, OffsetStringInfo _step, OffsetStringInfo _classIndex, OffsetStringInfo _label, OffsetsBlock _offset, AnalyzedPageEl _page) {
+                            OffsetStringInfo _to, OffsetBooleanInfo _eq, OffsetStringInfo _step, OffsetStringInfo _classIndex, OffsetStringInfo _label, int _offset, AnalyzedPageEl _page) {
         super(_offset);
         className = _className.getInfo();
         classNameOffset = _className.getOffset();

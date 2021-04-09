@@ -7,7 +7,6 @@ import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.expressionlanguage.common.ConstType;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.files.OffsetStringInfo;
-import code.expressionlanguage.analyze.files.OffsetsBlock;
 import code.expressionlanguage.analyze.instr.PartOffset;
 import code.util.CustList;
 import code.util.StringList;
@@ -18,17 +17,17 @@ public final class CatchEval extends AbstractCatchEval {
 
     private String importedClassName;
 
-    private int classNameOffset;
+    private final int classNameOffset;
 
-    private CustList<PartOffset> partOffsets = new CustList<PartOffset>();
+    private final CustList<PartOffset> partOffsets = new CustList<PartOffset>();
 
     private final String variableName;
 
-    private int variableNameOffset;
+    private final int variableNameOffset;
 
     private final StringList nameErrors = new StringList();
 
-    public CatchEval(OffsetStringInfo _className, OffsetStringInfo _variable, OffsetsBlock _offset) {
+    public CatchEval(OffsetStringInfo _className, OffsetStringInfo _variable, int _offset) {
         super(_offset);
         className = _className.getInfo();
         classNameOffset = _className.getOffset();

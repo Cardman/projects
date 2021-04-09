@@ -3,7 +3,6 @@ import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.opers.*;
 import code.expressionlanguage.analyze.files.OffsetStringInfo;
-import code.expressionlanguage.analyze.files.OffsetsBlock;
 import code.expressionlanguage.analyze.instr.ElUtil;
 import code.expressionlanguage.analyze.syntax.ResultExpression;
 import code.expressionlanguage.functionid.ConstructorId;
@@ -14,17 +13,17 @@ public final class Line extends Leaf implements BuildableElMethod {
 
     private final String expression;
 
-    private int expressionOffset;
+    private final int expressionOffset;
 
     private ConstructorId constId;
     private boolean callSuper;
     private boolean callThis;
     private boolean callInts;
     private boolean callFromCtorToCtor;
-    private ResultExpression res = new ResultExpression();
+    private final ResultExpression res = new ResultExpression();
     private String importedClass;
 
-    public Line(OffsetStringInfo _left, OffsetsBlock _offset) {
+    public Line(OffsetStringInfo _left, int _offset) {
         super(_offset);
         expression = _left.getInfo();
         expressionOffset = _left.getOffset();

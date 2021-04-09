@@ -2,7 +2,6 @@ package code.expressionlanguage.analyze.blocks;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
-import code.expressionlanguage.analyze.files.OffsetsBlock;
 import code.util.StringList;
 import code.util.core.StringUtil;
 
@@ -10,7 +9,7 @@ public abstract class AbstractCatchEval extends BracedBlock implements Eval {
 
     private int conditionNb;
 
-    protected AbstractCatchEval(OffsetsBlock _offset) {
+    protected AbstractCatchEval(int _offset) {
         super(_offset);
     }
 
@@ -42,7 +41,7 @@ public abstract class AbstractCatchEval extends BracedBlock implements Eval {
             if (!(pBlock_ instanceof TryEval)) {
                 FoundErrorInterpret un_ = new FoundErrorInterpret();
                 un_.setFileName(getFile().getFileName());
-                un_.setIndexFile(getOffset().getOffsetTrim());
+                un_.setIndexFile(getOffset());
                 un_.buildError(_page.getAnalysisMessages().getUnexpectedCatchElseFinally(),
                         _page.getKeyWords().getKeyWordCatch(),
                         StringUtil.join(

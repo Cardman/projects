@@ -3,18 +3,15 @@ package code.formathtml.analyze.blocks;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.ForLoopPart;
 import code.expressionlanguage.analyze.blocks.ForMutableIterativeLoop;
-import code.expressionlanguage.analyze.blocks.Line;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.files.OffsetBooleanInfo;
 import code.expressionlanguage.analyze.files.OffsetStringInfo;
-import code.expressionlanguage.analyze.files.OffsetsBlock;
 import code.expressionlanguage.analyze.opers.AffectationOperation;
 import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.analyze.types.ResolvingTypes;
 import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
-import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.stds.PrimitiveTypes;
 import code.formathtml.analyze.RenderAnalysis;
@@ -56,7 +53,7 @@ public final class AnaRendForMutableIterativeLoop extends AnaRendParentBlock imp
     private final boolean refVariable;
     AnaRendForMutableIterativeLoop(OffsetBooleanInfo _refVar, OffsetStringInfo _className,
                                    OffsetStringInfo _from,
-                                   OffsetStringInfo _to, OffsetStringInfo _step, OffsetStringInfo _classIndex, OffsetStringInfo _label, OffsetsBlock _offset, PrimitiveTypes _primTypes) {
+                                   OffsetStringInfo _to, OffsetStringInfo _step, OffsetStringInfo _classIndex, OffsetStringInfo _label, int _offset, PrimitiveTypes _primTypes) {
         super(_offset);
         refVariable = _refVar.isInfo();
         className = _className.getInfo();

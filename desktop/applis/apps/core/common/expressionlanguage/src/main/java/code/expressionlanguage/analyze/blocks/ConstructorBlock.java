@@ -5,7 +5,6 @@ import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.files.OffsetAccessInfo;
 import code.expressionlanguage.analyze.files.OffsetStringInfo;
-import code.expressionlanguage.analyze.files.OffsetsBlock;
 import code.expressionlanguage.functionid.ConstructorId;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.stds.DisplayedStrings;
@@ -27,7 +26,7 @@ public final class ConstructorBlock extends NamedFunctionBlock implements Return
     public ConstructorBlock(OffsetAccessInfo _access,
                             OffsetStringInfo _retType, OffsetStringInfo _fctName,
                             StringList _paramTypes, Ints _paramTypesOffset,
-                            StringList _paramNames, Ints _paramNamesOffset, int _leftPar, OffsetsBlock _offset, BooleanList _refParams) {
+                            StringList _paramNames, Ints _paramNamesOffset, int _leftPar, int _offset, BooleanList _refParams) {
         super(false, _access, _retType, _fctName, _paramTypes, _paramTypesOffset, _paramNames, _paramNamesOffset, _offset, _refParams);
         leftPar = _leftPar;
     }
@@ -56,7 +55,7 @@ public final class ConstructorBlock extends NamedFunctionBlock implements Return
     }
 
     public void setupInstancingStep(AnalyzedPageEl _page) {
-        _page.setGlobalOffset(getOffset().getOffsetTrim());
+        _page.setGlobalOffset(getOffset());
         _page.setOffset(0);
         AbsBk first_ = getFirstChild();
         if (!(first_ instanceof Line)) {

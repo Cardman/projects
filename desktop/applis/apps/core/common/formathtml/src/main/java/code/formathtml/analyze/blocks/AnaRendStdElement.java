@@ -1,14 +1,13 @@
 package code.formathtml.analyze.blocks;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.analyze.files.OffsetsBlock;
 import code.formathtml.analyze.AnalyzingDoc;
 import code.sml.Element;
 import code.util.StringList;
 import code.util.core.StringUtil;
 
 public final class AnaRendStdElement extends AnaRendElement {
-    AnaRendStdElement(Element _elt, OffsetsBlock _offset) {
+    AnaRendStdElement(Element _elt, int _offset) {
         super(_elt, _offset);
     }
 

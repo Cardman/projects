@@ -11,7 +11,6 @@ import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.files.OffsetAccessInfo;
 import code.expressionlanguage.analyze.files.OffsetBooleanInfo;
 import code.expressionlanguage.analyze.files.OffsetStringInfo;
-import code.expressionlanguage.analyze.files.OffsetsBlock;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.analyze.instr.ElUtil;
 import code.expressionlanguage.analyze.instr.PartOffset;
@@ -60,7 +59,7 @@ public final class FieldBlock extends Leaf implements InfoBlock {
     private int fieldNumber;
     public FieldBlock(OffsetAccessInfo _access,
                       OffsetBooleanInfo _static, OffsetBooleanInfo _final,
-                      OffsetStringInfo _type, OffsetStringInfo _value, OffsetsBlock _offset) {
+                      OffsetStringInfo _type, OffsetStringInfo _value, int _offset) {
         super(_offset);
         fieldContent.setAccess(_access.getInfo());
         accessOffset = _access.getOffset();
@@ -162,7 +161,7 @@ public final class FieldBlock extends Leaf implements InfoBlock {
             FoundErrorInterpret b_;
             b_ = new FoundErrorInterpret();
             b_.setFileName(getFile().getFileName());
-            b_.setIndexFile(getOffset().getOffsetTrim());
+            b_.setIndexFile(getOffset());
             //value len
             b_.buildError(_page.getAnalysisMessages().getNotRetrievedFields());
             _page.addLocError(b_);
@@ -199,7 +198,7 @@ public final class FieldBlock extends Leaf implements InfoBlock {
                 FoundErrorInterpret b_;
                 b_ = new FoundErrorInterpret();
                 b_.setFileName(_bl.getFile().getFileName());
-                b_.setIndexFile(_bl.getOffset().getOffsetTrim());
+                b_.setIndexFile(_bl.getOffset());
                 //trName_ len
                 b_.setBuiltError(mess_.getMessage());
                 _page.addLocError(b_);
@@ -207,7 +206,7 @@ public final class FieldBlock extends Leaf implements InfoBlock {
             }
             for (String m: idsField_) {
                 if (StringUtil.quickEq(m, trName_)) {
-                    int r_ = _bl.getOffset().getOffsetTrim();
+                    int r_ = _bl.getOffset();
                     FoundErrorInterpret duplicate_;
                     duplicate_ = new FoundErrorInterpret();
                     duplicate_.setIndexFile(r_);

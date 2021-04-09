@@ -8,9 +8,7 @@ import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.files.OffsetStringInfo;
-import code.expressionlanguage.analyze.files.OffsetsBlock;
 import code.expressionlanguage.analyze.inherits.Mapping;
-import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.analyze.instr.ElUtil;
@@ -28,7 +26,7 @@ public final class ReturnMethod extends AbruptBlock {
     private boolean implicit;
     private String returnType = "";
 
-    public ReturnMethod(OffsetStringInfo _expression, OffsetsBlock _offset) {
+    public ReturnMethod(OffsetStringInfo _expression, int _offset) {
         super(_offset);
         expression = _expression.getInfo();
         expressionOffset = _expression.getOffset();

@@ -1,10 +1,8 @@
 package code.expressionlanguage.analyze.blocks;
 
-import code.expressionlanguage.analyze.files.OffsetsBlock;
-
 public abstract class AbstractForLoop extends BracedBlock {
     private int conditionNb;
-    protected AbstractForLoop(OffsetsBlock _offset) {
+    protected AbstractForLoop(int _offset) {
         super(_offset);
     }
 

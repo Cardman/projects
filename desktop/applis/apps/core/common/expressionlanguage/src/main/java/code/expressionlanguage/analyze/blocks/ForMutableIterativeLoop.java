@@ -11,10 +11,8 @@ import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.files.OffsetBooleanInfo;
 import code.expressionlanguage.analyze.files.OffsetStringInfo;
-import code.expressionlanguage.analyze.files.OffsetsBlock;
 import code.expressionlanguage.analyze.types.ResolvingTypes;
 import code.expressionlanguage.common.Delimiters;
-import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.analyze.instr.ElUtil;
@@ -74,7 +72,7 @@ public final class ForMutableIterativeLoop extends BracedBlock implements
     public ForMutableIterativeLoop(OffsetBooleanInfo _final,
                                    OffsetStringInfo _className,
                                    OffsetStringInfo _from,
-                                   OffsetStringInfo _to, OffsetStringInfo _step, OffsetStringInfo _classIndex, OffsetStringInfo _label, OffsetsBlock _offset, AnalyzedPageEl _page,boolean _refVariable) {
+                                   OffsetStringInfo _to, OffsetStringInfo _step, OffsetStringInfo _classIndex, OffsetStringInfo _label, int _offset, AnalyzedPageEl _page,boolean _refVariable) {
         super(_offset);
         className = _className.getInfo();
         classNameOffset = _className.getOffset();

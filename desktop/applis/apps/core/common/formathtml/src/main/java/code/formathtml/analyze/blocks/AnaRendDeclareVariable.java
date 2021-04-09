@@ -3,7 +3,6 @@ package code.formathtml.analyze.blocks;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.files.OffsetBooleanInfo;
 import code.expressionlanguage.analyze.files.OffsetStringInfo;
-import code.expressionlanguage.analyze.files.OffsetsBlock;
 import code.expressionlanguage.analyze.types.ResolvingTypes;
 import code.expressionlanguage.options.KeyWords;
 import code.formathtml.analyze.AnalyzingDoc;
@@ -18,9 +17,9 @@ public final class AnaRendDeclareVariable extends AnaRendLeaf {
 
     private String importedClassName;
 
-    private int classNameOffset;
-    private boolean refVariable;
-    AnaRendDeclareVariable(OffsetBooleanInfo _refVar, OffsetStringInfo _className, OffsetsBlock _offset) {
+    private final int classNameOffset;
+    private final boolean refVariable;
+    AnaRendDeclareVariable(OffsetBooleanInfo _refVar, OffsetStringInfo _className, int _offset) {
         super(_offset);
         refVariable = _refVar.isInfo();
         className = _className.getInfo();

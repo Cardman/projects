@@ -2,7 +2,6 @@ package code.formathtml.analyze.blocks;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.files.OffsetStringInfo;
-import code.expressionlanguage.analyze.files.OffsetsBlock;
 import code.expressionlanguage.analyze.opers.OperationNode;
 import code.formathtml.analyze.ResultText;
 import code.formathtml.analyze.AnalyzingDoc;
@@ -11,14 +10,14 @@ import code.util.CustList;
 import code.util.StringList;
 
 public final class AnaRendImport extends AnaRendParentBlock {
-    private Element elt;
+    private final Element elt;
 
     private CustList<OperationNode> roots;
 
     private StringList texts = new StringList();
 
-    private int pageOffset;
-    AnaRendImport(Element _elt, OffsetStringInfo _page, OffsetsBlock _offset) {
+    private final int pageOffset;
+    AnaRendImport(Element _elt, OffsetStringInfo _page, int _offset) {
         super(_offset);
         pageOffset = _page.getOffset();
         elt = _elt;

@@ -1,7 +1,5 @@
 package code.expressionlanguage.analyze.blocks;
 
-import code.expressionlanguage.analyze.files.OffsetsBlock;
-
 public abstract class SwitchPartBlock extends BracedBlock implements
         BuildableElMethod {
 
@@ -11,7 +9,7 @@ public abstract class SwitchPartBlock extends BracedBlock implements
 
     private int conditionNb;
 
-    protected SwitchPartBlock(OffsetsBlock _offset) {
+    protected SwitchPartBlock(int _offset) {
         super(_offset);
     }
 

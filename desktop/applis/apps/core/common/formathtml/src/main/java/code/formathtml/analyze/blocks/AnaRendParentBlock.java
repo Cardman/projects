@@ -1,12 +1,11 @@
 package code.formathtml.analyze.blocks;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.analyze.files.OffsetsBlock;
 
 public abstract class AnaRendParentBlock extends AnaRendBlock {
 
     private AnaRendBlock firstChild;
-    AnaRendParentBlock(OffsetsBlock _offset) {
+    AnaRendParentBlock(int _offset) {
         super(_offset);
     }
 

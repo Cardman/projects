@@ -2,7 +2,6 @@ package code.formathtml.analyze.blocks;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
-import code.expressionlanguage.analyze.files.OffsetsBlock;
 import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.formathtml.analyze.RenderAnalysis;
@@ -17,18 +16,18 @@ import code.util.core.StringUtil;
 
 public final class AnaRendMessage extends AnaRendParentBlock {
 
-    private Element elt;
+    private final Element elt;
     private CustList<OperationNode> roots;
 
     private StringMap<String> preformatted;
-    private BooleanList quoted = new BooleanList();
-    private BooleanList escaped = new BooleanList();
-    private StringMap<CustList<OperationNode>> callsRoots = new StringMap<CustList<OperationNode>>();
-    private StringList args = new StringList();
-    private StringMap<Document> locDoc = new StringMap<Document>();
+    private final BooleanList quoted = new BooleanList();
+    private final BooleanList escaped = new BooleanList();
+    private final StringMap<CustList<OperationNode>> callsRoots = new StringMap<CustList<OperationNode>>();
+    private final StringList args = new StringList();
+    private final StringMap<Document> locDoc = new StringMap<Document>();
     private StringList varNames = new StringList();
 
-    AnaRendMessage(Element _elt, OffsetsBlock _offset) {
+    AnaRendMessage(Element _elt, int _offset) {
         super(_offset);
         elt = _elt;
     }

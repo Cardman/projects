@@ -2,7 +2,6 @@ package code.expressionlanguage.analyze.blocks;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.files.OffsetAccessInfo;
-import code.expressionlanguage.analyze.files.OffsetsBlock;
 import code.util.IntMap;
 
 public final class AnonymousTypeBlock extends RootBlock implements UniqueRootedBlock {
@@ -10,7 +9,7 @@ public final class AnonymousTypeBlock extends RootBlock implements UniqueRootedB
     private int indexEnd;
     private int numberAnonType = -1;
 
-    public AnonymousTypeBlock(int _idRowCol, String _packageName, OffsetAccessInfo _access, String _templateDef, IntMap<String> _directSuperTypes, OffsetsBlock _offset, String _name) {
+    public AnonymousTypeBlock(int _idRowCol, String _packageName, OffsetAccessInfo _access, String _templateDef, IntMap<String> _directSuperTypes, int _offset, String _name) {
         super(_idRowCol, _packageName, _access, _templateDef, _directSuperTypes, _offset,_name);
     }
 

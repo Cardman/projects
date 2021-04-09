@@ -2,7 +2,6 @@ package code.expressionlanguage.analyze.blocks;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.files.OffsetAccessInfo;
-import code.expressionlanguage.analyze.files.OffsetsBlock;
 import code.util.IntMap;
 
 public final class RecordBlock extends RootBlock {
@@ -10,7 +9,7 @@ public final class RecordBlock extends RootBlock {
     private final boolean mutable;
     public RecordBlock(boolean _mutable,int _idRowCol, String _name, String _packageName, OffsetAccessInfo _access,
                        String _templateDef, IntMap<String> _directSuperTypes,
-                       OffsetsBlock _offset) {
+                       int _offset) {
         super(_idRowCol, _packageName, _access, _templateDef, _directSuperTypes, _offset, _name);
         mutable = _mutable;
     }

@@ -1,7 +1,6 @@
 package code.expressionlanguage.analyze.blocks;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.analyze.files.OffsetsBlock;
 import code.expressionlanguage.analyze.instr.ElUtil;
 import code.expressionlanguage.analyze.opers.Calculation;
 import code.expressionlanguage.analyze.opers.OperationNode;
@@ -47,7 +46,7 @@ public final class SwitchMethodBlock extends MemberCallingsBlock implements Anal
     private boolean retRef;
     private String name;
     private final AnaAnonFctContent anaAnonFctContent = new AnaAnonFctContent();
-    public SwitchMethodBlock(OffsetsBlock _offset, AnalyzedPageEl _page) {
+    public SwitchMethodBlock(int _offset, AnalyzedPageEl _page) {
         super(_offset);
         kind = _page.getStaticContext();
     }

@@ -4,7 +4,6 @@ import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.EnumBlock;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.files.OffsetStringInfo;
-import code.expressionlanguage.analyze.files.OffsetsBlock;
 import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
@@ -18,18 +17,18 @@ import code.util.core.StringUtil;
 
 public final class AnaRendSwitchBlock  extends AnaRendParentBlock implements AnaRendLocBreakableBlock {
 
-    private String label;
-    private int labelOffset;
+    private final String label;
+    private final int labelOffset;
 
     private final String value;
-    private int valueOffset;
+    private final int valueOffset;
 
     private OperationNode root;
     private AnaClassArgumentMatching result;
 
     private boolean enumTest;
     private String instanceTest = "";
-    AnaRendSwitchBlock(OffsetStringInfo _value, OffsetStringInfo _label, OffsetsBlock _offset) {
+    AnaRendSwitchBlock(OffsetStringInfo _value, OffsetStringInfo _label, int _offset) {
         super(_offset);
         value = _value.getInfo();
         valueOffset = _value.getOffset();
@@ -96,11 +95,11 @@ public final class AnaRendSwitchBlock  extends AnaRendParentBlock implements Ana
                 first_ = first_.getNextSibling();
                 continue;
             }
-            _page.setGlobalOffset(getOffset().getOffsetTrim());
+            _page.setGlobalOffset(getOffset());
             _page.setOffset(0);
             FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setFileName(_anaDoc.getFileName());
-            un_.setIndexFile(getOffset().getOffsetTrim());
+            un_.setIndexFile(getOffset());
             un_.buildError(_page.getAnalysisMessages().getUnexpectedSwitch(),
                     _page.getKeyWords().getKeyWordSwitch(),
                     StringUtil.join(

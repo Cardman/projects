@@ -45,7 +45,7 @@ public final class ReachSwitchMethodBlock extends ReachMemberCallingsBlock imple
         if (_anEl.canCompleteNormally(this)) {
             //error
             FoundErrorInterpret miss_ = new FoundErrorInterpret();
-            miss_.setIndexFile(getOffset().getOffsetTrim());
+            miss_.setIndexFile(getOffset());
             miss_.setFileName(getFile().getFileName());
             //return type len
             miss_.buildError(_page.getAnalysisMessages().getMissingAbrupt(),

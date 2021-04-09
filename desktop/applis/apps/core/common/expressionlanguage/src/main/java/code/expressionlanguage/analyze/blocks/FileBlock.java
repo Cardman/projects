@@ -5,7 +5,6 @@ import code.expressionlanguage.common.FileMetrics;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.errors.custom.GraphicErrorInterpret;
 import code.expressionlanguage.analyze.errors.custom.GraphicErrorList;
-import code.expressionlanguage.analyze.files.OffsetsBlock;
 import code.expressionlanguage.common.FileMetricsCore;
 import code.expressionlanguage.linkage.LinkageUtil;
 import code.util.*;
@@ -16,29 +15,29 @@ public final class FileBlock extends BracedBlock implements ImportingBlock {
     private static final char LINE_RETURN = '\n';
     private static final char CARR_RETURN = '\r';
     private static final char TAB = '\t';
-    private Ints binChars = new Ints();
+    private final Ints binChars = new Ints();
     private final FileMetricsCore metricsCore;
 
-    private Ints beginComments = new Ints();
-    private Ints endComments = new Ints();
+    private final Ints beginComments = new Ints();
+    private final Ints endComments = new Ints();
 
-    private StringList imports = new StringList();
+    private final StringList imports = new StringList();
 
-    private Ints importsOffset = new Ints();
+    private final Ints importsOffset = new Ints();
 
     private final String fileName;
 
-    private boolean predefined;
+    private final boolean predefined;
 
-    private GraphicErrorList errorsFiles = new GraphicErrorList();
+    private final GraphicErrorList errorsFiles = new GraphicErrorList();
 
     private String content;
-    private StringList basePackages = new StringList();
-    private StringList packages = new StringList();
+    private final StringList basePackages = new StringList();
+    private final StringList packages = new StringList();
     private int length;
     private int numberFile;
 
-    public FileBlock(OffsetsBlock _offset, boolean _predefined, String _fileName) {
+    public FileBlock(int _offset, boolean _predefined, String _fileName) {
         super(_offset);
         metricsCore = new FileMetricsCore(new Ints(),new Ints());
         predefined = _predefined;

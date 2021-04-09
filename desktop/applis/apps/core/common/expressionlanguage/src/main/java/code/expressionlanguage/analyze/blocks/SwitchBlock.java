@@ -9,7 +9,6 @@ import code.expressionlanguage.common.AnaGeneType;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.files.OffsetStringInfo;
-import code.expressionlanguage.analyze.files.OffsetsBlock;
 import code.expressionlanguage.analyze.instr.ElUtil;
 import code.expressionlanguage.analyze.opers.Calculation;
 import code.expressionlanguage.analyze.opers.OperationNode;
@@ -35,7 +34,7 @@ public final class SwitchBlock extends BracedBlock implements BreakableBlock,Bui
 
     private int conditionNb;
 
-    public SwitchBlock(OffsetStringInfo _value, OffsetStringInfo _label, OffsetsBlock _offset) {
+    public SwitchBlock(OffsetStringInfo _value, OffsetStringInfo _label, int _offset) {
         super(_offset);
         value = _value.getInfo();
         valueOffset = _value.getOffset();
@@ -142,7 +141,7 @@ public final class SwitchBlock extends BracedBlock implements BreakableBlock,Bui
             }
             FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setFileName(_braced.getFile().getFileName());
-            un_.setIndexFile(_braced.getOffset().getOffsetTrim());
+            un_.setIndexFile(_braced.getOffset());
             //key word len
             un_.buildError(_page.getAnalysisMessages().getUnexpectedSwitch(),
                     _page.getKeyWords().getKeyWordSwitch(),

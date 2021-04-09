@@ -4,7 +4,6 @@ import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.accessing.Accessed;
 import code.expressionlanguage.analyze.blocks.*;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
-import code.expressionlanguage.analyze.files.OffsetsBlock;
 import code.expressionlanguage.common.AccessEnum;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.functionid.MethodAccessKind;
@@ -23,7 +22,7 @@ public final class AnaRendDocumentBlock extends AnaRendParentBlock implements Ac
     private String beanName;
     private final CustList<AnaRendBlock> bodies = new CustList<AnaRendBlock>();
     private StringList imports = new StringList();
-    AnaRendDocumentBlock(Element _elt, String _file, OffsetsBlock _offset, String _fileName) {
+    AnaRendDocumentBlock(Element _elt, String _file, int _offset, String _fileName) {
         super(_offset);
         elt = _elt;
         file = _file;
@@ -33,7 +32,7 @@ public final class AnaRendDocumentBlock extends AnaRendParentBlock implements Ac
     public void buildFctInstructions(AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
         beanName = elt.getAttribute(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrBean()));
         imports = StringUtil.splitChar(elt.getAttribute(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrAlias())),';');
-        _page.setGlobalOffset(getOffset().getOffsetTrim());
+        _page.setGlobalOffset(getOffset());
         _page.setOffset(0);
         _page.setAccessStaticContext(MethodAccessKind.STATIC);
         _page.setCurrentPkg("");
@@ -79,7 +78,7 @@ public final class AnaRendDocumentBlock extends AnaRendParentBlock implements Ac
             if (en_ instanceof AnaRendParentBlock) {
                 AnaRendBlock first_ = en_.getFirstChild();
                 if (first_ == null) {
-                    OffsetsBlock off_ = en_.getOffset();
+                    int off_ = en_.getOffset();
                     AnaRendEmptyInstruction empty_ = new AnaRendEmptyInstruction(off_);
                     ((AnaRendParentBlock)en_).appendChild(empty_);
                 }

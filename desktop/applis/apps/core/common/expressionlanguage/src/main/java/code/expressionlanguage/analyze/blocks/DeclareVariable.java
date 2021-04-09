@@ -2,7 +2,6 @@ package code.expressionlanguage.analyze.blocks;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.files.OffsetBooleanInfo;
 import code.expressionlanguage.analyze.files.OffsetStringInfo;
-import code.expressionlanguage.analyze.files.OffsetsBlock;
 import code.expressionlanguage.analyze.instr.PartOffset;
 import code.expressionlanguage.analyze.types.ResolvingTypes;
 import code.expressionlanguage.options.KeyWords;
@@ -18,16 +17,16 @@ public final class DeclareVariable extends Leaf implements BuildableElMethod {
 
     private String importedClassName;
 
-    private int classNameOffset;
+    private final int classNameOffset;
 
-    private boolean finalVariable;
+    private final boolean finalVariable;
 
-    private int finalVariableOffset;
-    private CustList<PartOffset> partOffsets = new CustList<PartOffset>();
+    private final int finalVariableOffset;
+    private final CustList<PartOffset> partOffsets = new CustList<PartOffset>();
     private String errInf = EMPTY_STRING;
-    private boolean refVariable;
+    private final boolean refVariable;
 
-    public DeclareVariable(OffsetBooleanInfo _finalVar, OffsetStringInfo _className, OffsetsBlock _offset, boolean _refVariable) {
+    public DeclareVariable(OffsetBooleanInfo _finalVar, OffsetStringInfo _className, int _offset, boolean _refVariable) {
         super(_offset);
         finalVariable = _finalVar.isInfo();
         finalVariableOffset = _finalVar.getOffset();

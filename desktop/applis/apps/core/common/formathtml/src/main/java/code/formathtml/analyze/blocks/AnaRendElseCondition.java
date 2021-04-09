@@ -2,13 +2,12 @@ package code.formathtml.analyze.blocks;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
-import code.expressionlanguage.analyze.files.OffsetsBlock;
 import code.formathtml.analyze.AnalyzingDoc;
 import code.util.StringList;
 import code.util.core.StringUtil;
 
 public final class AnaRendElseCondition extends AnaRendParentBlock implements AnaRendBreakableBlock {
-    AnaRendElseCondition(OffsetsBlock _offset) {
+    AnaRendElseCondition(int _offset) {
         super(_offset);
     }
 
@@ -20,7 +19,7 @@ public final class AnaRendElseCondition extends AnaRendParentBlock implements An
                 if (!isPossibleEmpty(pBlock_)) {
                     FoundErrorInterpret un_ = new FoundErrorInterpret();
                     un_.setFileName(_anaDoc.getFileName());
-                    un_.setIndexFile(getOffset().getOffsetTrim());
+                    un_.setIndexFile(getOffset());
                     un_.buildError(_page.getAnalysisMessages().getUnexpectedCatchElseFinally(),
                             _page.getKeyWords().getKeyWordElse(),
                             StringUtil.join(
@@ -34,7 +33,7 @@ public final class AnaRendElseCondition extends AnaRendParentBlock implements An
                     if (!(pBlock_.getPreviousSibling() instanceof AnaRendElseIfCondition)){
                         FoundErrorInterpret un_ = new FoundErrorInterpret();
                         un_.setFileName(_anaDoc.getFileName());
-                        un_.setIndexFile(getOffset().getOffsetTrim());
+                        un_.setIndexFile(getOffset());
                         un_.buildError(_page.getAnalysisMessages().getUnexpectedCatchElseFinally(),
                                 _page.getKeyWords().getKeyWordElse(),
                                 StringUtil.join(

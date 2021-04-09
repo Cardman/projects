@@ -4,7 +4,6 @@ import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.common.AccessEnum;
 import code.expressionlanguage.analyze.files.OffsetAccessInfo;
 import code.expressionlanguage.analyze.files.OffsetStringInfo;
-import code.expressionlanguage.analyze.files.OffsetsBlock;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.stds.DisplayedStrings;
@@ -24,7 +23,7 @@ public final class OperatorBlock extends NamedFunctionBlock implements AccessedB
     public OperatorBlock(boolean _retRef, OffsetStringInfo _retType, OffsetStringInfo _fctName,
                          StringList _paramTypes, Ints _paramTypesOffset,
                          StringList _paramNames, Ints _paramNamesOffset,
-                         OffsetsBlock _offset, BooleanList _refParams) {
+                         int _offset, BooleanList _refParams) {
         super(_retRef, new OffsetAccessInfo(0, AccessEnum.PUBLIC),
                 _retType, _fctName, _paramTypes, _paramTypesOffset, _paramNames, _paramNamesOffset, _offset, _refParams);
     }

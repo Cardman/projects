@@ -8,7 +8,6 @@ import code.expressionlanguage.analyze.types.ResolvingTypes;
 import code.expressionlanguage.common.AccessEnum;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.analyze.files.OffsetStringInfo;
-import code.expressionlanguage.analyze.files.OffsetsBlock;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.analyze.instr.ElUtil;
 import code.expressionlanguage.analyze.instr.PartOffset;
@@ -51,7 +50,7 @@ public final class ElementBlock extends Leaf implements InnerTypeOrElement{
 
     public ElementBlock(EnumBlock _m, OffsetStringInfo _fieldName,
                         OffsetStringInfo _type,
-                        OffsetStringInfo _value, OffsetsBlock _offset) {
+                        OffsetStringInfo _value, int _offset) {
         super(_offset);
         parentEnum = _m;
         elementContent.setFieldNameOffest(_fieldName.getOffset());

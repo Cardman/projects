@@ -734,7 +734,7 @@ public final class ElRetrieverAnonymous {
             String part_ = _string.substring(indAfterArrow_,k_);
             int begAnon_ = dash_ + instrLoc_;
             int begImplRet_ = indAfterArrow_ + instrLoc_;
-            NamedCalledFunctionBlock block_ = new NamedCalledFunctionBlock(begAnon_,new OffsetsBlock(begImplRet_, begImplRet_), _page);
+            NamedCalledFunctionBlock block_ = new NamedCalledFunctionBlock(begAnon_, begImplRet_, _page);
             block_.getAnnotations().addAllElts(parse_.getAnnotations());
             block_.getAnnotationsIndexes().addAllElts(parse_.getAnnotationsIndexes());
             block_.getAnnotationsParams().addAllElts(parse_.getAnnotationsParams());
@@ -743,7 +743,7 @@ public final class ElRetrieverAnonymous {
             block_.setLengthHeader(1);
             block_.setFile(_file);
             String tr_ = part_.trim();
-            ReturnMethod ret_ = new ReturnMethod(new OffsetStringInfo(begImplRet_, tr_),new OffsetsBlock(begImplRet_, begImplRet_));
+            ReturnMethod ret_ = new ReturnMethod(new OffsetStringInfo(begImplRet_, tr_), begImplRet_);
             ret_.setImplicit(true);
             ret_.setBegin(begAnon_);
             ret_.setLengthHeader(2);
@@ -1077,7 +1077,7 @@ public final class ElRetrieverAnonymous {
                     }
                     int k_ = stack(_string, indAfterArrow_, _page, _packageName, _file);
                     String part_ = _string.substring(indAfterArrow_,k_);
-                    NamedCalledFunctionBlock block_ = new NamedCalledFunctionBlock(indBeforeArrow_ +instrLoc_,new OffsetsBlock(indAfterArrow_ +instrLoc_, indAfterArrow_ +instrLoc_), _page);
+                    NamedCalledFunctionBlock block_ = new NamedCalledFunctionBlock(indBeforeArrow_ +instrLoc_, indAfterArrow_ +instrLoc_, _page);
                     block_.getAnnotations().addAllElts(parse_.getAnnotations());
                     block_.getAnnotationsIndexes().addAllElts(parse_.getAnnotationsIndexes());
                     block_.getAnnotationsParams().addAllElts(parse_.getAnnotationsParams());
@@ -1086,7 +1086,7 @@ public final class ElRetrieverAnonymous {
                     block_.setLengthHeader(1);
                     block_.setFile(_file);
                     String trim_ = part_.trim();
-                    ReturnMethod ret_ = new ReturnMethod(new OffsetStringInfo(indAfterArrow_ +instrLoc_, trim_),new OffsetsBlock(indAfterArrow_ +instrLoc_, indAfterArrow_ +instrLoc_));
+                    ReturnMethod ret_ = new ReturnMethod(new OffsetStringInfo(indAfterArrow_ +instrLoc_, trim_), indAfterArrow_ +instrLoc_);
                     ret_.setImplicit(true);
                     ret_.setBegin(indBeforeArrow_ +instrLoc_);
                     ret_.setLengthHeader(2);

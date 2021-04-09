@@ -1,13 +1,12 @@
 package code.expressionlanguage.analyze.blocks;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
-import code.expressionlanguage.analyze.files.OffsetsBlock;
 import code.util.StringList;
 import code.util.core.StringUtil;
 
 public final class ElseCondition extends BracedBlock implements BlockCondition, BuildableElMethod {
 
-    public ElseCondition(OffsetsBlock _offset) {
+    public ElseCondition(int _offset) {
         super(_offset);
     }
 
@@ -49,7 +48,7 @@ public final class ElseCondition extends BracedBlock implements BlockCondition, 
             if (!(pBlock_ instanceof ElseIfCondition)) {
                 FoundErrorInterpret un_ = new FoundErrorInterpret();
                 un_.setFileName(getFile().getFileName());
-                un_.setIndexFile(getOffset().getOffsetTrim());
+                un_.setIndexFile(getOffset());
                 un_.buildError(_page.getAnalysisMessages().getUnexpectedCatchElseFinally(),
                         _page.getKeyWords().getKeyWordElse(),
                         StringUtil.join(

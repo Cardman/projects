@@ -3,11 +3,9 @@ package code.formathtml.analyze.blocks;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.files.OffsetStringInfo;
-import code.expressionlanguage.analyze.files.OffsetsBlock;
 import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
-import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.stds.PrimitiveTypes;
 import code.formathtml.analyze.RenderAnalysis;
 import code.formathtml.analyze.AnalyzingDoc;
@@ -20,7 +18,7 @@ public abstract class AnaRendCondition extends AnaRendParentBlock {
     private final int conditionOffset;
 
     private OperationNode root;
-    AnaRendCondition(OffsetStringInfo _condition, OffsetsBlock _offset) {
+    AnaRendCondition(OffsetStringInfo _condition, int _offset) {
         super(_offset);
         condition = _condition.getInfo();
         conditionOffset = _condition.getOffset();

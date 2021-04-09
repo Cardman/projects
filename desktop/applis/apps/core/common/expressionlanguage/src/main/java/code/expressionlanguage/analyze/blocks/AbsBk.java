@@ -2,7 +2,6 @@ package code.expressionlanguage.analyze.blocks;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
-import code.expressionlanguage.analyze.files.OffsetsBlock;
 import code.expressionlanguage.common.StringExpUtil;
 import code.util.*;
 import code.util.core.StringUtil;
@@ -35,7 +34,7 @@ public abstract class AbsBk {
 
     private AbsBk previousSibling;
 
-    private final OffsetsBlock offset;
+    private final int offset;
 
     private int begin;
 
@@ -47,13 +46,13 @@ public abstract class AbsBk {
     private final StringList errorsLabels = new StringList();
     private int blockNb;
 
-    AbsBk(OffsetsBlock _offset) {
+    AbsBk(int _offset) {
         offset = _offset;
     }
     protected final void setParent(BracedBlock _b) {
         parent = _b;
     }
-    public final OffsetsBlock getOffset() {
+    public final int getOffset() {
         return offset;
     }
 
@@ -129,7 +128,7 @@ public abstract class AbsBk {
         }
         FoundErrorInterpret un_ = new FoundErrorInterpret();
         un_.setFileName(_block.getFile().getFileName());
-        un_.setIndexFile(_block.getOffset().getOffsetTrim());
+        un_.setIndexFile(_block.getOffset());
         //defined len first key words
         un_.buildError(_page.getAnalysisMessages().getUnexpectedBlockExp());
         _page.addLocError(un_);

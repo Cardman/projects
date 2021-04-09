@@ -2,7 +2,6 @@ package code.expressionlanguage.analyze.reach.blocks;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.*;
-import code.expressionlanguage.analyze.files.OffsetsBlock;
 
 public abstract class ReachBlock {
     private final AbsBk info;
@@ -125,7 +124,7 @@ public abstract class ReachBlock {
     public AbsBk getInfo() {
         return info;
     }
-    public OffsetsBlock getOffset() {
+    public int getOffset() {
         return info.getOffset();
     }
     public FileBlock getFile() {

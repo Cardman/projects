@@ -2,18 +2,17 @@ package code.expressionlanguage.analyze.blocks;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.files.OffsetStringInfo;
-import code.expressionlanguage.analyze.files.OffsetsBlock;
 import code.util.StringList;
 import code.util.core.StringUtil;
 
 public final class ContinueBlock extends AbruptBlock {
 
-    private String label;
-    private int labelOffset;
+    private final String label;
+    private final int labelOffset;
     private int labelOffsetRef;
-    private StringList errorsRefLabels = new StringList();
+    private final StringList errorsRefLabels = new StringList();
 
-    public ContinueBlock(OffsetStringInfo _label, OffsetsBlock _offset) {
+    public ContinueBlock(OffsetStringInfo _label, int _offset) {
         super(_offset);
         label = _label.getInfo();
         labelOffset = _label.getOffset();
@@ -54,11 +53,11 @@ public final class ContinueBlock extends AbruptBlock {
             b_ = b_.getParent();
         }
         if (!childOfLoop_) {
-            _page.setGlobalOffset(getOffset().getOffsetTrim());
+            _page.setGlobalOffset(getOffset());
             _page.setOffset(0);
             FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setFileName(getFile().getFileName());
-            un_.setIndexFile(getOffset().getOffsetTrim());
+            un_.setIndexFile(getOffset());
             if (label.isEmpty()) {
                 //key word len
                 un_.buildError(_page.getAnalysisMessages().getUnexpectedAbrupt(),

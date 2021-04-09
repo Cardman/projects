@@ -1,7 +1,6 @@
 package code.formathtml.analyze.blocks;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.analyze.files.OffsetsBlock;
 import code.formathtml.analyze.ResultText;
 import code.formathtml.analyze.AnalyzingDoc;
 import code.sml.Element;
@@ -13,7 +12,7 @@ import code.util.core.StringUtil;
 public final class AnaRendLink extends AnaRendElement {
     private String content;
     private StringMap<ResultText> opExpTitle;
-    AnaRendLink(Element _elt, OffsetsBlock _offset) {
+    AnaRendLink(Element _elt, int _offset) {
         super(_elt, _offset);
     }
 

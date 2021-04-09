@@ -1,13 +1,12 @@
 package code.expressionlanguage.analyze.blocks;
 import code.expressionlanguage.analyze.files.OffsetStringInfo;
-import code.expressionlanguage.analyze.files.OffsetsBlock;
 
 public final class WhileCondition extends ConditionBlock implements Loop {
 
     private final String label;
     private final int labelOffset;
 
-    public WhileCondition(OffsetStringInfo _condition, OffsetStringInfo _label, OffsetsBlock _offset) {
+    public WhileCondition(OffsetStringInfo _condition, OffsetStringInfo _label, int _offset) {
         super(_condition, _offset);
         label = _label.getInfo();
         labelOffset = _label.getOffset();

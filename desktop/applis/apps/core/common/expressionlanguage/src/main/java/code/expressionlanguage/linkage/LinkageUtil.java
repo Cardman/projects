@@ -628,7 +628,7 @@ public final class LinkageUtil {
             } else {
                 tag_ = "<span class=\"n\">";
             }
-            int off_ = _cond.getOffset().getOffsetTrim();
+            int off_ = _cond.getOffset();
             _parts.add(new PartOffset(tag_, off_));
             tag_ = "</span>";
             _parts.add(new PartOffset(tag_, off_ + _vars.getKeyWords().getKeyWordIf().length()));
@@ -659,7 +659,7 @@ public final class LinkageUtil {
             } else {
                 tag_ = "<span class=\"n\">";
             }
-            int off_ = _cond.getOffset().getOffsetTrim();
+            int off_ = _cond.getOffset();
             _parts.add(new PartOffset(tag_, off_));
             tag_ = "</span>";
             _parts.add(new PartOffset(tag_, off_ + _cond.getDelta()));
@@ -678,7 +678,7 @@ public final class LinkageUtil {
             } else {
                 tag_ = "<span class=\"n\">";
             }
-            int off_ = _cond.getOffset().getOffsetTrim();
+            int off_ = _cond.getOffset();
             _parts.add(new PartOffset(tag_, off_));
             tag_ = "</span>";
             _parts.add(new PartOffset(tag_, off_ + _vars.getKeyWords().getKeyWordWhile().length()));
@@ -721,7 +721,7 @@ public final class LinkageUtil {
                 } else {
                     tag_ = "<span class=\"n\">";
                 }
-                int off_ = _cond.getOffset().getOffsetTrim();
+                int off_ = _cond.getOffset();
                 _parts.add(new PartOffset(tag_, off_));
                 tag_ = "</span>";
                 _parts.add(new PartOffset(tag_, off_ + _vars.getKeyWords().getKeyWordFor().length()));
@@ -847,7 +847,7 @@ public final class LinkageUtil {
             } else {
                 tag_ = "<span class=\"n\">";
             }
-            int off_ = _cond.getOffset().getOffsetTrim();
+            int off_ = _cond.getOffset();
             _parts.add(new PartOffset(tag_ + "<a title=\"" + count_ + "/" + full_ + "\">", off_));
             tag_ = "</span>";
             _parts.add(new PartOffset("</a>" + tag_, off_ + _vars.getKeyWords().getKeyWordSwitch().length()));
@@ -960,7 +960,7 @@ public final class LinkageUtil {
             result_ = _cov.getCoverSwitchsMethod(_cond.getSwitchMethod(),_cond);
         }
         String tag_ = getCaseDefaultTag(result_);
-        int off_ = _cond.getOffset().getOffsetTrim();
+        int off_ = _cond.getOffset();
         _parts.add(new PartOffset(tag_,off_));
         tag_ = "</span>";
         _parts.add(new PartOffset(tag_,off_+ _vars.getKeyWords().getKeyWordDefault().length()));
@@ -1011,7 +1011,7 @@ public final class LinkageUtil {
             } else {
                 tag_ = "<span class=\"n\">";
             }
-            int off_ = _cond.getOffset().getOffsetTrim();
+            int off_ = _cond.getOffset();
             _parts.add(new PartOffset(tag_, off_));
             tag_ = "</span>";
             _parts.add(new PartOffset(tag_, off_ + _vars.getKeyWords().getKeyWordWhile().length()));
@@ -1056,7 +1056,7 @@ public final class LinkageUtil {
         } else {
             tag_ = "<span class=\"n\">";
         }
-        int off_ = _cond.getOffset().getOffsetTrim();
+        int off_ = _cond.getOffset();
         _parts.add(new PartOffset(tag_,off_));
         tag_ = "</span>";
         _parts.add(new PartOffset(tag_,off_+ _vars.getKeyWords().getKeyWordCatch().length()));
@@ -1208,7 +1208,7 @@ public final class LinkageUtil {
             } else {
                 tag_ = "<span class=\"n\">";
             }
-            int off_ = _cond.getOffset().getOffsetTrim();
+            int off_ = _cond.getOffset();
             _parts.add(new PartOffset(tag_,off_));
             tag_ = "</span>";
             _parts.add(new PartOffset(tag_,off_+ _vars.getKeyWords().getKeyWordIter().length()));
@@ -1303,7 +1303,7 @@ public final class LinkageUtil {
             } else {
                 tagCov_ = "<span class=\"n\">";
             }
-            int off_ = _cond.getOffset().getOffsetTrim();
+            int off_ = _cond.getOffset();
             _parts.add(new PartOffset(tagCov_, off_));
             appendVars(_vars,_cond, _parts);
             String tag_;
@@ -1378,7 +1378,7 @@ public final class LinkageUtil {
             } else {
                 tagCov_ = "<span class=\"n\">";
             }
-            int off_ = _cond.getOffset().getOffsetTrim();
+            int off_ = _cond.getOffset();
             _parts.add(new PartOffset(tagCov_, off_));
             KeyWords keyWords_ = _vars.getKeyWords();
             String keyWordVar_ = keyWords_.getKeyWordVar();

@@ -9,7 +9,6 @@ import code.expressionlanguage.common.AccessEnum;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.files.OffsetAccessInfo;
 import code.expressionlanguage.analyze.files.OffsetStringInfo;
-import code.expressionlanguage.analyze.files.OffsetsBlock;
 import code.expressionlanguage.analyze.instr.ElUtil;
 import code.expressionlanguage.analyze.instr.PartOffset;
 import code.expressionlanguage.analyze.opers.Calculation;
@@ -74,7 +73,7 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
                               OffsetStringInfo _retType, OffsetStringInfo _fctName,
                               StringList _paramTypes, Ints _paramTypesOffset,
                               StringList _paramNames, Ints _paramNamesOffset,
-                              OffsetsBlock _offset, BooleanList _refParams) {
+                              int _offset, BooleanList _refParams) {
         super(_offset);
         retRef = _retRef;
         importedParametersTypes = new StringList();
@@ -94,7 +93,7 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
     }
 
     public NamedFunctionBlock(int _fctName,
-                              OffsetsBlock _offset, AnalyzedPageEl _page) {
+                              int _offset, AnalyzedPageEl _page) {
         super(_offset);
         retRef = false;
         importedParametersTypes = new StringList();

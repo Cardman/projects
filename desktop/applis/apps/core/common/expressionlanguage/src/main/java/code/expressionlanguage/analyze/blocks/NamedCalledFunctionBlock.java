@@ -4,7 +4,6 @@ import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.files.OffsetAccessInfo;
 import code.expressionlanguage.analyze.files.OffsetStringInfo;
-import code.expressionlanguage.analyze.files.OffsetsBlock;
 import code.expressionlanguage.analyze.inherits.AnaInherits;
 import code.expressionlanguage.analyze.inherits.Mapping;
 import code.expressionlanguage.analyze.instr.ElUtil;
@@ -67,7 +66,7 @@ public final class NamedCalledFunctionBlock extends NamedFunctionBlock {
     private boolean ko;
     private int nameNumber;
 
-    public NamedCalledFunctionBlock(boolean _retRef, OffsetAccessInfo _access, OffsetStringInfo _retType, OffsetStringInfo _defaultValue,OffsetStringInfo _fctName, StringList _paramTypes, Ints _paramTypesOffset, StringList _paramNames, Ints _paramNamesOffset, OffsetsBlock _offset, BooleanList _refParams, int _rightPar) {
+    public NamedCalledFunctionBlock(boolean _retRef, OffsetAccessInfo _access, OffsetStringInfo _retType, OffsetStringInfo _defaultValue,OffsetStringInfo _fctName, StringList _paramTypes, Ints _paramTypesOffset, StringList _paramNames, Ints _paramNamesOffset, int _offset, BooleanList _refParams, int _rightPar) {
         super(_retRef, _access, _retType, _fctName, _paramTypes, _paramTypesOffset, _paramNames, _paramNamesOffset, _offset, _refParams);
         normalMethod = false;
         abstractMethod = false;
@@ -84,7 +83,7 @@ public final class NamedCalledFunctionBlock extends NamedFunctionBlock {
                             OffsetStringInfo _retType, OffsetStringInfo _fctName,
                             StringList _paramTypes, Ints _paramTypesOffset,
                             StringList _paramNames, Ints _paramNamesOffset,
-                            OffsetStringInfo _modifier, OffsetsBlock _offset, AnalyzedPageEl _page, BooleanList _refParams) {
+                            OffsetStringInfo _modifier, int _offset, AnalyzedPageEl _page, BooleanList _refParams) {
         super(_retRef, _access, _retType, _fctName, _paramTypes, _paramTypesOffset, _paramNames, _paramNamesOffset, _offset, _refParams);
         modifierOffset = _modifier.getOffset();
         String modifier_ = _modifier.getInfo();
@@ -104,7 +103,7 @@ public final class NamedCalledFunctionBlock extends NamedFunctionBlock {
         defaultValueOffset = 0;
         rightPar = 0;
     }
-    public NamedCalledFunctionBlock(int _fctName, OffsetsBlock _offset, AnalyzedPageEl _page) {
+    public NamedCalledFunctionBlock(int _fctName, int _offset, AnalyzedPageEl _page) {
         super(_fctName, _offset, _page);
         normalMethod = false;
         abstractMethod = false;

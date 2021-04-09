@@ -10,7 +10,6 @@ import code.expressionlanguage.analyze.types.ResolvingTypes;
 import code.expressionlanguage.common.ExtractedParts;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
-import code.expressionlanguage.analyze.files.OffsetsBlock;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.analyze.util.FormattedMethodId;
 import code.expressionlanguage.functionid.MethodAccessKind;
@@ -28,7 +27,7 @@ public final class InternOverrideBlock extends Leaf {
     private final String definition;
     private final int definitionOffset;
     private final CustList<PartOffsetsClassMethodIdList> allPartsTypes = new CustList<PartOffsetsClassMethodIdList>();
-    public InternOverrideBlock(OffsetsBlock _offset, String _definition, int _definitionOffset) {
+    public InternOverrideBlock(int _offset, String _definition, int _definitionOffset) {
         super(_offset);
         definition = _definition;
         definitionOffset = _definitionOffset;

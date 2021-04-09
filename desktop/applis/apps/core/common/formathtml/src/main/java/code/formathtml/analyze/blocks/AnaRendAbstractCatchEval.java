@@ -1,9 +1,7 @@
 package code.formathtml.analyze.blocks;
 
-import code.expressionlanguage.analyze.files.OffsetsBlock;
-
 public abstract class AnaRendAbstractCatchEval extends AnaRendParentBlock implements AnaRendEval {
-    AnaRendAbstractCatchEval(OffsetsBlock _offset) {
+    AnaRendAbstractCatchEval(int _offset) {
         super(_offset);
     }
 

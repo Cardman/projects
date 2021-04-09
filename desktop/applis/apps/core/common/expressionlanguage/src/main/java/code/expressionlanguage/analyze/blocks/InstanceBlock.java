@@ -1,11 +1,10 @@
 package code.expressionlanguage.analyze.blocks;
-import code.expressionlanguage.analyze.files.OffsetsBlock;
 import code.expressionlanguage.functionid.MethodAccessKind;
 
 public final class InstanceBlock extends InitBlock {
 
     private int instanceNb;
-    public InstanceBlock(OffsetsBlock _offset) {
+    public InstanceBlock(int _offset) {
         super(_offset);
     }
 

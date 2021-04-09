@@ -10,7 +10,6 @@ import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.expressionlanguage.common.*;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.files.OffsetStringInfo;
-import code.expressionlanguage.analyze.files.OffsetsBlock;
 import code.expressionlanguage.analyze.files.ParsedType;
 import code.expressionlanguage.analyze.instr.*;
 import code.expressionlanguage.analyze.opers.Calculation;
@@ -48,7 +47,7 @@ public final class CaseCondition extends SwitchPartBlock {
     private int fieldNameOffset=-1;
     private EnumBlock enumBlock;
 
-    public CaseCondition(OffsetStringInfo _value, OffsetsBlock _offset) {
+    public CaseCondition(OffsetStringInfo _value, int _offset) {
         super(_offset);
         value = _value.getInfo();
         valueOffset = _value.getOffset();
@@ -70,11 +69,11 @@ public final class CaseCondition extends SwitchPartBlock {
         BracedBlock par_ = getParent();
         MethodAccessKind stCtx_ = f_.getStaticContext();
         if (!(par_ instanceof SwitchBlock)&&!(par_ instanceof SwitchMethodBlock)) {
-            _page.setGlobalOffset(getOffset().getOffsetTrim());
+            _page.setGlobalOffset(getOffset());
             _page.setOffset(0);
             FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setFileName(getFile().getFileName());
-            un_.setIndexFile(getOffset().getOffsetTrim());
+            un_.setIndexFile(getOffset());
             un_.buildError(_page.getAnalysisMessages().getUnexpectedCaseDef(),
                     _page.getKeyWords().getKeyWordCase(),
                     value,

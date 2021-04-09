@@ -2571,7 +2571,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertEq("f", catch_.getVariableName());
         assertEq(117, catch_.getClassNameOffset());
         assertEq(124, catch_.getVariableNameOffset());
-        assertNull(instr_.getFirstChild());
+        assertTrue(instr_.getFirstChild() instanceof EmptyInstruction);
         instr_ = instr_.getNextSibling();
         assertTrue(instr_ instanceof FinallyEval);
         instrCond_ = instr_.getFirstChild();
@@ -2634,7 +2634,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertTrue(instr_ instanceof CatchEval);
         assertEq("$extwo", catch_.getClassName());
         assertEq("f", catch_.getVariableName());
-        assertNull(instr_.getFirstChild());
+        assertTrue(instr_.getFirstChild() instanceof EmptyInstruction);
         instr_ = instr_.getNextSibling();
         assertTrue(instr_ instanceof FinallyEval);
         instrCond_ = instr_.getFirstChild();
@@ -2696,7 +2696,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertTrue(instr_ instanceof CatchEval);
         assertEq("$extwo", catch_.getClassName());
         assertEq("f", catch_.getVariableName());
-        assertNull(instr_.getFirstChild());
+        assertTrue(instr_.getFirstChild() instanceof EmptyInstruction);
         instr_ = instr_.getNextSibling();
         assertTrue(instr_ instanceof FinallyEval);
         instrCond_ = instr_.getFirstChild();
@@ -2758,7 +2758,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertTrue(instr_ instanceof CatchEval);
         assertEq("$extwo", catch_.getClassName());
         assertEq("f", catch_.getVariableName());
-        assertNull(instr_.getFirstChild());
+        assertTrue(instr_.getFirstChild() instanceof EmptyInstruction);
         instr_ = instr_.getNextSibling();
         assertTrue(instr_ instanceof FinallyEval);
         instrCond_ = instr_.getFirstChild();
@@ -2861,7 +2861,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertTrue(case_ instanceof CaseCondition);
         assertEq("(1)",((CaseCondition)case_).getValue());
         assertEq(82,((CaseCondition)case_).getValueOffset());
-        assertNull(case_.getFirstChild());
+        assertTrue(case_.getFirstChild() instanceof EmptyInstruction);
         case_ = case_.getNextSibling();
         assertTrue(case_ instanceof CaseCondition);
         assertEq("(2)",((CaseCondition)case_).getValue());
@@ -3403,7 +3403,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         instr_ = instr_.getNextSibling();
         catch_ = (NullCatchEval) instr_;
         assertTrue(instr_ instanceof NullCatchEval);
-        assertNull(instr_.getFirstChild());
+        assertTrue(instr_.getFirstChild() instanceof EmptyInstruction);
         instr_ = instr_.getNextSibling();
         assertTrue(instr_ instanceof FinallyEval);
         instrCond_ = instr_.getFirstChild();
@@ -3650,7 +3650,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertEq("f", catch_.getVariableName());
         assertEq(122, catch_.getClassNameOffset());
         assertEq(129, catch_.getVariableNameOffset());
-        assertNull(instr_.getFirstChild());
+        assertTrue(instr_.getFirstChild() instanceof EmptyInstruction);
         instr_ = instr_.getNextSibling();
         assertTrue(instr_ instanceof FinallyEval);
         instrCond_ = instr_.getFirstChild();
@@ -3702,7 +3702,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertTrue(case_ instanceof CaseCondition);
         assertEq("(1)",((CaseCondition)case_).getValue());
         assertEq(87,((CaseCondition)case_).getValueOffset());
-        assertNull(case_.getFirstChild());
+        assertTrue(case_.getFirstChild() instanceof EmptyInstruction);
         case_ = case_.getNextSibling();
         assertTrue(case_ instanceof CaseCondition);
         assertEq("(2)",((CaseCondition)case_).getValue());
@@ -3975,7 +3975,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertTrue(case_ instanceof CaseCondition);
         assertEq("(1)",((CaseCondition)case_).getValue());
         assertEq(82,((CaseCondition)case_).getValueOffset());
-        assertNull(case_.getFirstChild());
+        assertTrue(case_.getFirstChild() instanceof EmptyInstruction);
         case_ = case_.getNextSibling();
         assertTrue(case_ instanceof CaseCondition);
         assertEq("(2)",((CaseCondition)case_).getValue());
@@ -5171,8 +5171,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertTrue(op_.isStaticMethod());
         AbsBk b_ = op_.getFirstChild();
         assertTrue(b_ instanceof ReturnMethod);
-        assertEq(37, b_.getOffset().getOffset());
-        assertEq(39, b_.getOffset().getOffsetTrim());
+        assertEq(39, b_.getOffset());
         ReturnMethod r_ = (ReturnMethod) b_;
         assertEq("plus(a;.;,b;.;)", r_.getExpression());
         assertEq(47, r_.getExpressionOffset());
@@ -5214,8 +5213,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertEq(42, op_.getParametersNamesOffset().get(1));
         AbsBk b_ = op_.getFirstChild();
         assertTrue(b_ instanceof ReturnMethod);
-        assertEq(46, b_.getOffset().getOffset());
-        assertEq(48, b_.getOffset().getOffsetTrim());
+        assertEq(48, b_.getOffset());
         ReturnMethod r_ = (ReturnMethod) b_;
         assertEq("plus(a;.;,b;.;)", r_.getExpression());
         assertEq(56, r_.getExpressionOffset());
@@ -5255,8 +5253,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertEq(42, op_.getParametersNamesOffset().get(1));
         AbsBk b_ = op_.getFirstChild();
         assertTrue(b_ instanceof ReturnMethod);
-        assertEq(46, b_.getOffset().getOffset());
-        assertEq(48, b_.getOffset().getOffsetTrim());
+        assertEq(48, b_.getOffset());
         ReturnMethod r_ = (ReturnMethod) b_;
         assertEq("plus(a;.;,b;.;)", r_.getExpression());
         assertEq(56, r_.getExpressionOffset());
@@ -7031,7 +7028,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertTrue(switch_ instanceof SwitchBlock);
         AbsBk case_ = switch_.getFirstChild();
         assertTrue(case_ instanceof CaseCondition);
-        assertNull(case_.getFirstChild());
+        assertTrue(case_.getFirstChild() instanceof EmptyInstruction);
         CaseCondition info_ = (CaseCondition) case_;
         assertEq("0", info_.getValue());
         assertNull(case_.getNextSibling());
@@ -7066,12 +7063,12 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertTrue(case_ instanceof CaseCondition);
         CaseCondition info_ = (CaseCondition) case_;
         assertEq("0", info_.getValue());
-        assertNull(case_.getFirstChild());
+        assertTrue(case_.getFirstChild() instanceof EmptyInstruction);
         assertTrue(case_.getNextSibling() instanceof CaseCondition);
         case_ = case_.getNextSibling();
         info_ = (CaseCondition) case_;
         assertEq("1", info_.getValue());
-        assertNull(case_.getFirstChild());
+        assertTrue(case_.getFirstChild() instanceof EmptyInstruction);
         assertNull(case_.getNextSibling());
         assertNull(switch_.getNextSibling());
         assertNull(first_.getNextSibling());
@@ -7112,7 +7109,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertTrue(case_.getNextSibling() instanceof CaseCondition);
         case_ = case_.getNextSibling();
         info_ = (CaseCondition) case_;
-        assertNull(case_.getFirstChild());
+        assertTrue(case_.getFirstChild() instanceof EmptyInstruction);
         assertEq("1", info_.getValue());
         assertNull(case_.getNextSibling());
         assertNull(switch_.getNextSibling());
@@ -7158,7 +7155,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertTrue(case_.getNextSibling() instanceof CaseCondition);
         case_ = case_.getNextSibling();
         info_ = (CaseCondition) case_;
-        assertNull(case_.getFirstChild());
+        assertTrue(case_.getFirstChild() instanceof EmptyInstruction);
         assertEq("1", info_.getValue());
         assertNull(case_.getNextSibling());
         assertNull(switch_.getNextSibling());
@@ -7194,7 +7191,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertTrue(case_ instanceof CaseCondition);
         CaseCondition info_ = (CaseCondition) case_;
         assertEq("0", info_.getValue());
-        assertNull(case_.getFirstChild());
+        assertTrue(case_.getFirstChild() instanceof EmptyInstruction);
         assertTrue(case_.getNextSibling() instanceof CaseCondition);
         case_ = case_.getNextSibling();
         info_ = (CaseCondition) case_;
@@ -7241,7 +7238,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertTrue(case_ instanceof CaseCondition);
         CaseCondition info_ = (CaseCondition) case_;
         assertEq("0", info_.getValue());
-        assertNull(case_.getFirstChild());
+        assertTrue(case_.getFirstChild() instanceof EmptyInstruction);
         assertTrue(case_.getNextSibling() instanceof CaseCondition);
         case_ = case_.getNextSibling();
         info_ = (CaseCondition) case_;
@@ -7300,7 +7297,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertTrue(case_.getNextSibling() instanceof CaseCondition);
         case_ = case_.getNextSibling();
         info_ = (CaseCondition) case_;
-        assertNull(case_.getFirstChild());
+        assertTrue(case_.getFirstChild() instanceof EmptyInstruction);
         assertEq("1", info_.getValue());
         assertNull(case_.getNextSibling());
         assertTrue(switch_.getNextSibling() instanceof ReturnMethod);
@@ -7374,7 +7371,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         case_ = case_.getNextSibling();
         info_ = (CaseCondition) case_;
         assertEq("1", info_.getValue());
-        assertNull(case_.getFirstChild());
+        assertTrue(case_.getFirstChild() instanceof EmptyInstruction);
         assertNull(case_.getNextSibling());
         assertNull(switch_.getNextSibling());
         assertNull(first_.getNextSibling());
@@ -7417,7 +7414,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertTrue(case_.getNextSibling() instanceof CaseCondition);
         case_ = case_.getNextSibling();
         info_ = (CaseCondition) case_;
-        assertNull(case_.getFirstChild());
+        assertTrue(case_.getFirstChild() instanceof EmptyInstruction);
         assertEq("1", info_.getValue());
         assertNull(case_.getNextSibling());
         assertNull(switch_.getNextSibling());
@@ -7465,7 +7462,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertTrue(case_.getNextSibling() instanceof CaseCondition);
         case_ = case_.getNextSibling();
         info_ = (CaseCondition) case_;
-        assertNull(case_.getFirstChild());
+        assertTrue(case_.getFirstChild() instanceof EmptyInstruction);
         assertEq("1", info_.getValue());
         assertNull(case_.getNextSibling());
         assertNull(switch_.getNextSibling());
@@ -7502,7 +7499,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertTrue(case_ instanceof CaseCondition);
         CaseCondition info_ = (CaseCondition) case_;
         assertEq("0", info_.getValue());
-        assertNull(case_.getFirstChild());
+        assertTrue(case_.getFirstChild() instanceof EmptyInstruction);
         assertTrue(case_.getNextSibling() instanceof CaseCondition);
         case_ = case_.getNextSibling();
         info_ = (CaseCondition) case_;
@@ -7544,7 +7541,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertTrue(switch_ instanceof SwitchBlock);
         AbsBk case_ = switch_.getFirstChild();
         assertTrue(case_ instanceof DefaultCondition);
-        assertNull(case_.getFirstChild());
+        assertTrue(case_.getFirstChild() instanceof EmptyInstruction);
         assertNull(case_.getNextSibling());
         assertNull(switch_.getNextSibling());
         assertNull(first_.getNextSibling());
@@ -7577,10 +7574,10 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertTrue(case_ instanceof CaseCondition);
         CaseCondition info_ = (CaseCondition) case_;
         assertEq("0", info_.getValue());
-        assertNull(case_.getFirstChild());
+        assertTrue(case_.getFirstChild() instanceof EmptyInstruction);
         assertTrue(case_.getNextSibling() instanceof DefaultCondition);
         case_ = case_.getNextSibling();
-        assertNull(case_.getFirstChild());
+        assertTrue(case_.getFirstChild() instanceof EmptyInstruction);
         assertNull(case_.getNextSibling());
         assertNull(switch_.getNextSibling());
         assertNull(first_.getNextSibling());
@@ -7620,7 +7617,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertNull(line_.getNextSibling());
         assertTrue(case_.getNextSibling() instanceof DefaultCondition);
         case_ = case_.getNextSibling();
-        assertNull(case_.getFirstChild());
+        assertTrue(case_.getFirstChild() instanceof EmptyInstruction);
         assertNull(case_.getNextSibling());
         assertNull(switch_.getNextSibling());
         assertNull(first_.getNextSibling());
@@ -7655,7 +7652,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertTrue(case_ instanceof CaseCondition);
         CaseCondition info_ = (CaseCondition) case_;
         assertEq("0", info_.getValue());
-        assertNull(case_.getFirstChild());
+        assertTrue(case_.getFirstChild() instanceof EmptyInstruction);
         assertTrue(case_.getNextSibling() instanceof DefaultCondition);
         case_ = case_.getNextSibling();
         assertTrue(case_.getFirstChild() instanceof Line);
@@ -7709,7 +7706,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertTrue(case_.getNextSibling() instanceof CaseCondition);
         case_ = case_.getNextSibling();
         info_ = (CaseCondition) case_;
-        assertNull(case_.getFirstChild());
+        assertTrue(case_.getFirstChild() instanceof EmptyInstruction);
         assertEq("1", info_.getValue());
         assertNull(case_.getNextSibling());
         assertNull(switch_.getNextSibling());
@@ -7753,7 +7750,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertNull(ret_.getNextSibling());
         assertTrue(case_.getNextSibling() instanceof CaseCondition);
         case_ = case_.getNextSibling();
-        assertNull(case_.getFirstChild());
+        assertTrue(case_.getFirstChild() instanceof EmptyInstruction);
         assertEq("1", ((CaseCondition) case_).getValue());
         assertNull(case_.getNextSibling());
         assertNull(switch_.getNextSibling());
@@ -7798,7 +7795,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertNull(ret_.getNextSibling());
         assertTrue(case_.getNextSibling() instanceof DefaultCondition);
         case_ = case_.getNextSibling();
-        assertNull(case_.getFirstChild());
+        assertTrue(case_.getFirstChild() instanceof EmptyInstruction);
         assertNull(case_.getNextSibling());
         assertNull(switch_.getNextSibling());
         assertNull(first_.getNextSibling());
@@ -7876,12 +7873,12 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertTrue(case_ instanceof CaseCondition);
         CaseCondition info_ = (CaseCondition) case_;
         assertEq("0", info_.getValue());
-        assertNull(case_.getFirstChild());
+        assertTrue(case_.getFirstChild() instanceof EmptyInstruction);
         assertTrue(case_.getNextSibling() instanceof CaseCondition);
         case_ = case_.getNextSibling();
         info_ = (CaseCondition) case_;
         assertEq("1", info_.getValue());
-        assertNull(case_.getFirstChild());
+        assertTrue(case_.getFirstChild() instanceof EmptyInstruction);
         assertNull(case_.getNextSibling());
         assertNull(switch_.getNextSibling());
         assertNull(first_.getNextSibling());
@@ -7927,7 +7924,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertTrue(case_.getNextSibling() instanceof CaseCondition);
         case_ = case_.getNextSibling();
         info_ = (CaseCondition) case_;
-        assertNull(case_.getFirstChild());
+        assertTrue(case_.getFirstChild() instanceof EmptyInstruction);
         assertEq("1", info_.getValue());
         assertNull(case_.getNextSibling());
         assertNull(switch_.getNextSibling());
@@ -8547,7 +8544,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertTrue(case_.getNextSibling() instanceof CaseCondition);
         case_ = case_.getNextSibling();
         info_ = (CaseCondition) case_;
-        assertNull(case_.getFirstChild());
+        assertTrue(case_.getFirstChild() instanceof EmptyInstruction);
         assertEq("1", info_.getValue());
         assertNull(case_.getNextSibling());
         assertNull(switch_.getNextSibling());
@@ -8594,7 +8591,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertTrue(case_.getNextSibling() instanceof CaseCondition);
         case_ = case_.getNextSibling();
         info_ = (CaseCondition) case_;
-        assertNull(case_.getFirstChild());
+        assertTrue(case_.getFirstChild() instanceof EmptyInstruction);
         assertEq("1", info_.getValue());
         assertNull(case_.getNextSibling());
         assertNull(switch_.getNextSibling());
@@ -8641,7 +8638,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertTrue(case_.getNextSibling() instanceof CaseCondition);
         case_ = case_.getNextSibling();
         info_ = (CaseCondition) case_;
-        assertNull(case_.getFirstChild());
+        assertTrue(case_.getFirstChild() instanceof EmptyInstruction);
         assertEq("1", info_.getValue());
         assertNull(case_.getNextSibling());
         assertNull(switch_.getNextSibling());
@@ -8688,7 +8685,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertTrue(case_.getNextSibling() instanceof CaseCondition);
         case_ = case_.getNextSibling();
         info_ = (CaseCondition) case_;
-        assertNull(case_.getFirstChild());
+        assertTrue(case_.getFirstChild() instanceof EmptyInstruction);
         assertEq("1", info_.getValue());
         assertNull(case_.getNextSibling());
         assertNull(switch_.getNextSibling());
@@ -9828,7 +9825,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
     }
 
     protected static void parseFile(AnalyzedTestContext _context, String _fileName, boolean _predefined, String _file, AnalyzedPageEl _page) {
-        FileBlock fileBlock_ = new FileBlock(new OffsetsBlock(),_predefined, _fileName);
+        FileBlock fileBlock_ = new FileBlock(0,_predefined, _fileName);
         _page.putFileBlock(_fileName, fileBlock_);
         ContextEl ctx_ = _context.getContext();
         ctx_.getCoverage().putFile(fileBlock_);

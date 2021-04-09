@@ -2,7 +2,6 @@ package code.formathtml.analyze.blocks;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
-import code.expressionlanguage.analyze.files.OffsetsBlock;
 import code.expressionlanguage.analyze.inherits.AnaInherits;
 import code.expressionlanguage.analyze.inherits.Mapping;
 import code.expressionlanguage.analyze.opers.OperationNode;
@@ -43,7 +42,7 @@ public final class AnaRendSelect extends AnaRendParentBlock {
     private boolean arrayConverter;
     private ResultInput resultInput;
 
-    AnaRendSelect(Element _elt, OffsetsBlock _offset) {
+    AnaRendSelect(Element _elt, int _offset) {
         super(_offset);
         elt = _elt;
     }
@@ -86,7 +85,7 @@ public final class AnaRendSelect extends AnaRendParentBlock {
             if (converterValue_.trim().isEmpty()) {
                 FoundErrorInterpret badEl_ = new FoundErrorInterpret();
                 badEl_.setFileName(_anaDoc.getFileName());
-                badEl_.setIndexFile(getOffset().getOffsetTrim());
+                badEl_.setIndexFile(getOffset());
                 badEl_.buildError(_anaDoc.getRendAnalysisMessages().getEmptyAttr(),
                         _anaDoc.getRendKeyWords().getAttrConvertValue());
                 AnalyzingDoc.addError(badEl_, _anaDoc, _page);
@@ -124,7 +123,7 @@ public final class AnaRendSelect extends AnaRendParentBlock {
                 if (!AnaInherits.isCorrectOrNumbers(m_, _page)) {
                     FoundErrorInterpret badEl_ = new FoundErrorInterpret();
                     badEl_.setFileName(_anaDoc.getFileName());
-                    badEl_.setIndexFile(getOffset().getOffsetTrim());
+                    badEl_.setIndexFile(getOffset());
                     badEl_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
                             StringUtil.join(rootConverter.getResultClass().getNames(),AND_ERR),
                             StringUtil.join(rootRead.getResultClass().getNames(),AND_ERR));
@@ -139,7 +138,7 @@ public final class AnaRendSelect extends AnaRendParentBlock {
                 if (converterValue_.trim().isEmpty()) {
                     FoundErrorInterpret badEl_ = new FoundErrorInterpret();
                     badEl_.setFileName(_anaDoc.getFileName());
-                    badEl_.setIndexFile(getOffset().getOffsetTrim());
+                    badEl_.setIndexFile(getOffset());
                     badEl_.buildError(_anaDoc.getRendAnalysisMessages().getEmptyAttr(),
                             _anaDoc.getRendKeyWords().getAttrConvertValue());
                     AnalyzingDoc.addError(badEl_, _anaDoc, _page);
@@ -261,7 +260,7 @@ public final class AnaRendSelect extends AnaRendParentBlock {
             if (mName_.trim().isEmpty()) {
                 FoundErrorInterpret badEl_ = new FoundErrorInterpret();
                 badEl_.setFileName(_anaDoc.getFileName());
-                badEl_.setIndexFile(getOffset().getOffsetTrim());
+                badEl_.setIndexFile(getOffset());
                 badEl_.buildError(_anaDoc.getRendAnalysisMessages().getEmptyAttr(),
                         _anaDoc.getRendKeyWords().getAttrConvert());
                 AnalyzingDoc.addError(badEl_, _anaDoc, _page);
