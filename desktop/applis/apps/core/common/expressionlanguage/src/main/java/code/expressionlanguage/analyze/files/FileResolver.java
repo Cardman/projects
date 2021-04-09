@@ -673,10 +673,6 @@ public final class FileResolver {
                 after_.setIndex(_i);
                 return after_;
             }
-            String afterAccessType_ = found_;
-            Ints annotationsIndexesTypes_ = new Ints();
-            StringList annotationsTypes_ = new StringList();
-            Ints badIndexes_ = _input.getBadIndexes();
             if (_input.getType() == OuterBlockEnum.SWITCH_METHOD) {
                 SwitchMethodBlock typeBlock_ = new SwitchMethodBlock(instructionTrimLocation_ +_offset, _page);
                 typeBlock_.setBegin(instructionTrimLocation_ +_offset);
@@ -715,16 +711,21 @@ public final class FileResolver {
                 _out.setBlock(typeBlock_);
                 currentParent_ = typeBlock_;
             } else {
-                String trimType_ = afterAccessType_.trim();
+                Ints annotationsIndexesTypes_ = new Ints();
+                StringList annotationsTypes_ = new StringList();
+                Ints badIndexes_ = _input.getBadIndexes();
+                String afterAccessType_;
                 int accessOffsetType_ = instructionTrimLocation_;
-                if (ParsedAnnotations.startsWithAnnot(trimType_, keyWords_.getKeyWordClass(),keyWords_.getKeyWordInterface())) {
+                if (ParsedAnnotations.startsWithAnnot(trimmedInstruction_, keyWords_.getKeyWordClass(),keyWords_.getKeyWordInterface())) {
                     // accessOffesType_ == nextIndex_ == i_ + 1;
-                    ParsedAnnotations par_ = new ParsedAnnotations(trimType_, instructionTrimLocation_ + _offset);
+                    ParsedAnnotations par_ = new ParsedAnnotations(trimmedInstruction_, instructionTrimLocation_ + _offset);
                     par_.parse(keyWords_.getKeyWordClass(),keyWords_.getKeyWordInterface());
                     annotationsIndexesTypes_ = par_.getAnnotationsIndexes();
                     annotationsTypes_ = par_.getAnnotations();
                     afterAccessType_ = par_.getAfter();
                     accessOffsetType_ = par_.getIndex() - _offset;
+                } else {
+                    afterAccessType_ = trimmedInstruction_;
                 }
                 int nextIndex_ = accessOffsetType_;
                 String keyWordOperator_ = keyWords_.getKeyWordOperator();
@@ -1053,6 +1054,8 @@ public final class FileResolver {
                         annotations_ = par_.getAnnotations();
                         found_ = par_.getAfter();
                         typeOffset_ = par_.getIndex()-_offset;
+                    } else {
+                        found_ = trimmedInstruction_;
                     }
                     String infoModifiers_ = found_.trim();
                     int finalOff_ = 0;
@@ -1295,7 +1298,7 @@ public final class FileResolver {
                     br_ = built_;
                 } else if (currentParent_ instanceof RootBlock) {
                     //fields, constructors or methods
-                    br_ = processTypeMember(_currentChar, _instruction, instructionTrimLocation_, _i, _offset, (RootBlock)currentParent_, _page);
+                    br_ = processTypeMember(_currentChar, trimmedInstruction_, instructionTrimLocation_, _i, _offset, (RootBlock)currentParent_, _page);
                 } else {
                     String keyWordThat_ = keyWords_.getKeyWordThat();
                     boolean ok_ = false;
@@ -1306,14 +1309,13 @@ public final class FileResolver {
                         String declaringType_ = "";
                         int delta_ = StringUtil.getFirstPrintableCharIndex(found_) + thatLength_;
                         int deltaAfterTrim_ = thatLength_;
-                        deltaAfterTrim_ += StringUtil.getFirstPrintableCharIndex(found_.substring(delta_));
                         String foundAfter_ = found_.substring(delta_);
+                        deltaAfterTrim_ += StringUtil.getFirstPrintableCharIndex(foundAfter_);
                         if (next_ > -1 && StringExpUtil.isTypeLeafChar(substring_.charAt(next_))) {
                             declaringType_ = getDeclaringTypeInstr(foundAfter_,keyWords_);
                         }
                         if (!declaringType_.trim().isEmpty()) {
                             String info_ = foundAfter_.substring(declaringType_.length());
-                            found_ = foundAfter_;
                             int realTypeOffset_ = instructionTrimLocation_ + deltaAfterTrim_;
                             int varNameOffset_ = instructionTrimLocation_ + thatLength_;
                             varNameOffset_ += declaringType_.length();
@@ -1626,8 +1628,8 @@ public final class FileResolver {
     }
 
     private static AbsBk processTypeMember(char _currentChar,
-                                           StringBuilder _instruction, int _instructionTrimLocation, int _i, int _offset, RootBlock _currentParent, AnalyzedPageEl _page) {
-        String trimmedInstruction_ = _instruction.toString().trim();
+                                           String _trimmedInstruction, int _instructionTrimLocation, int _i, int _offset, RootBlock _currentParent, AnalyzedPageEl _page) {
+        String trimmedInstruction_ = _trimmedInstruction;
         AccessEnum accessFct_ = _page.getDefaultAccess().getAccessInner(_currentParent).getAccMember();
         String word_ = EMPTY_STRING;
         Ints annotationsIndexes_ = new Ints();
