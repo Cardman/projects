@@ -76,6 +76,7 @@ public abstract class AnaRendBlock {
                 curNode_ = firstChild_;
                 continue;
             }
+            tryAppendEmptyBlock(curWrite_);
             while (true) {
                 Node nextSibling_ = curNode_.getNextSibling();
                 AnaRendParentBlock par_ = curWrite_.getParent();
@@ -88,11 +89,7 @@ public abstract class AnaRendBlock {
                     break;
                 }
                 Element parentNode_ = curNode_.getParentNode();
-                if (parentNode_ == null) {
-                    curWrite_ = null;
-                    break;
-                }
-                if (parentNode_ == documentElement_) {
+                if (parentNode_ == null || parentNode_ == documentElement_) {
                     curWrite_ = null;
                     break;
                 }
@@ -101,6 +98,14 @@ public abstract class AnaRendBlock {
             }
         }
         return out_;
+    }
+
+    private static void tryAppendEmptyBlock(AnaRendBlock _curWrite) {
+        if (_curWrite instanceof AnaRendParentBlock) {
+            int off_ = _curWrite.getOffset();
+            AnaRendEmptyInstruction empty_ = new AnaRendEmptyInstruction(off_);
+            ((AnaRendParentBlock) _curWrite).appendChild(empty_);
+        }
     }
 
     private static AnaRendBlock newRendBlockEsc(int _begin, AnaRendParentBlock _curParent, String _prefix, Node _elt, String _docText, PrimitiveTypes _primTypes, RendKeyWords _rendKeyWords) {

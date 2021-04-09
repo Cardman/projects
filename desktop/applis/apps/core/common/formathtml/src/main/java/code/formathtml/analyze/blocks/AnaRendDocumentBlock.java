@@ -76,12 +76,6 @@ public final class AnaRendDocumentBlock extends AnaRendParentBlock implements Ac
             }
             checkBreakable(en_, labels_, _anaDoc, _page);
             if (en_ instanceof AnaRendParentBlock) {
-                AnaRendBlock first_ = en_.getFirstChild();
-                if (first_ == null) {
-                    int off_ = en_.getOffset();
-                    AnaRendEmptyInstruction empty_ = new AnaRendEmptyInstruction(off_);
-                    ((AnaRendParentBlock)en_).appendChild(empty_);
-                }
                 if (en_ instanceof AnaRendLocBreakableBlock) {
                     parentsBreakables_.add((AnaRendLocBreakableBlock) en_);
                 }
