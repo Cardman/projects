@@ -68,7 +68,7 @@ public abstract class AnaRendBlock {
         out_.appendChild(curWrite_);
         while (curWrite_ != null) {
             Node firstChild_ = curNode_.getFirstChild();
-            if (firstChild_ != null) {
+            if (curWrite_ instanceof AnaRendParentBlock&&firstChild_ != null) {
                 indexGlobal_ = indexOfBeginNode(firstChild_, _docText, indexGlobal_);
                 AnaRendBlock rendBlock_ = newRendBlockEsc(indexGlobal_,(AnaRendParentBlock) curWrite_, _prefix, firstChild_,_docText, _primTypes, _rendKeyWords);
                 ((AnaRendParentBlock) curWrite_).appendChild(rendBlock_);
