@@ -830,11 +830,11 @@ public final class LinkageUtil {
         if (_vars.getStack().last().getCurrent() == null) {
             int full_ = 0;
             int count_ = 0;
-            for (StandardCoverageResult e : _cov.getCoverSwitchs(_cond).values()) {
+            for (AbstractCoverageResult e : _cov.getCoverSwitchs(_cond).values()) {
                 count_ += e.getCovered();
                 full_ += e.getFull();
             }
-            StandardCoverageResult noDef_ = _cov.getCoverNoDefSwitchs(_cond);
+            AbstractCoverageResult noDef_ = _cov.getCoverNoDefSwitchs(_cond);
             if (noDef_ != null) {
                 count_ += noDef_.getCovered();
                 full_ += noDef_.getFull();
@@ -2986,7 +2986,7 @@ public final class LinkageUtil {
             SwitchMethodBlock switchMethod_ = ((SwitchOperation) _val).getSwitchMethod();
             int full_ = 0;
             int count_ = 0;
-            for (StandardCoverageResult e : _cov.getCoverSwitchsMethod(switchMethod_).values()) {
+            for (AbstractCoverageResult e : _cov.getCoverSwitchsMethod(switchMethod_).values()) {
                 count_ += e.getCovered();
                 full_ += e.getFull();
             }
@@ -4279,55 +4279,7 @@ public final class LinkageUtil {
     }
 
     private static StringList getCoversFoundReport(VariablesOffsets _vars, AbstractCoverageResult _res) {
-        StringList founds_ = new StringList();
-        if (_res.isStrictPartialCovered()) {
-            if (_res instanceof BooleanCoverageResult) {
-                founds_ = getCoversLogicalAndOrReport(_vars,(BooleanCoverageResult)_res);
-            }
-            if (_res instanceof NullCoverageResult) {
-                founds_ = getCoversNullSafeReport(_vars,(NullCoverageResult)_res);
-            }
-            if (_res instanceof NullBooleanCoverageResult){
-                founds_ = getCoversNullBooleanSafeReport(_vars,(NullBooleanCoverageResult)_res);
-            }
-        }
-        return founds_;
-    }
-
-    private static StringList getCoversLogicalAndOrReport(VariablesOffsets _vars, BooleanCoverageResult _res) {
-        StringList founds_ = new StringList();
-        if (_res.isCoverTrue()) {
-            founds_.add(_vars.getDisplayedStrings().getTrueString());
-        }
-        if (_res.isCoverFalse()) {
-            founds_.add(_vars.getDisplayedStrings().getFalseString());
-        }
-        return founds_;
-    }
-
-    private static StringList getCoversNullBooleanSafeReport(VariablesOffsets _vars, NullBooleanCoverageResult _res) {
-        StringList founds_ = new StringList();
-        if (_res.isCoverNull()) {
-            founds_.add(_vars.getDisplayedStrings().getNullCoverString());
-        }
-        if (_res.isCoverTrue()) {
-            founds_.add(_vars.getDisplayedStrings().getTrueString());
-        }
-        if (_res.isCoverFalse()) {
-            founds_.add(_vars.getDisplayedStrings().getFalseString());
-        }
-        return founds_;
-    }
-
-    private static StringList getCoversNullSafeReport(VariablesOffsets _vars, NullCoverageResult _res) {
-        StringList founds_ = new StringList();
-        if (_res.isCoverNull()) {
-            founds_.add(_vars.getDisplayedStrings().getNullCoverString());
-        }
-        if (_res.isCoverNotNull()) {
-            founds_.add(_vars.getDisplayedStrings().getNotNullCoverString());
-        }
-        return founds_;
+        return _res.getCoversFoundReport(_vars);
     }
 
     private static void basicValue(int _offsetEnd, CustList<PartOffset> _parts, int _delta, StringList _founds) {

@@ -225,38 +225,15 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
     }
 
 
-    public static Argument callPrepare(ContextEl _cont, String _classNameFound, ExecTypeFunction _rootBlock, Argument _previous, Cache _cache, ArgumentListCall _firstArgs, Argument _right, MethodAccessKind _kind, String _name, StackCall _stackCall) {
-        ExecNamedFunctionBlock fct_ = _rootBlock.getFct();
-        if (!(fct_ instanceof ExecOverridableBlock)&&!(fct_ instanceof ExecAnonymousFunctionBlock)) {
-            FormattedParameters classFound_ = checkParameters(_cont, _classNameFound, _rootBlock, _previous, _cache,_firstArgs, CallPrepareState.METHOD,null, _right, _kind, _stackCall);
-            if (_cont.callsOrException(_stackCall)) {
-                return Argument.createVoid();
-            }
-            _stackCall.setCallingState(new CustomFoundMethod(_previous, classFound_.getFormattedClass(), _rootBlock, classFound_.getParameters()));
-            return Argument.createVoid();
-        }
-        if (FunctionIdUtil.isOperatorName(_name)) {
-            FormattedParameters classFound_ = checkParameters(_cont, _classNameFound, _rootBlock, _previous,_cache, _firstArgs, CallPrepareState.METHOD,null, _right, _kind, _stackCall);
-            if (_cont.callsOrException(_stackCall)) {
-                return Argument.createVoid();
-            }
-            _stackCall.setCallingState(new CustomFoundMethod(_previous, classFound_.getFormattedClass(), _rootBlock, classFound_.getParameters()));
-            return Argument.createVoid();
-        }
+    public static Argument callPrepare(ContextEl _cont, String _classNameFound, ExecTypeFunction _rootBlock, Argument _previous, Cache _cache, ArgumentListCall _firstArgs, Argument _right, MethodAccessKind _kind, StackCall _stackCall) {
         FormattedParameters classFound_ = checkParameters(_cont, _classNameFound, _rootBlock, _previous, _cache,_firstArgs, CallPrepareState.METHOD,null, _right, _kind, _stackCall);
         if (_cont.callsOrException(_stackCall)) {
             return Argument.createVoid();
         }
         Struct prev_ =_previous.getStruct();
-        if (fct_ instanceof ExecOverridableBlock&&prev_ instanceof AbstractFunctionalInstance) {
-            if (((AbstractFunctionalInstance)prev_).getNamed() == fct_) {
-                Argument fctInst_ = new Argument(((AbstractFunctionalInstance)prev_).getFunctional());
-                return prepareCallDyn(fctInst_, _firstArgs, _cont, _stackCall);
-            }
-        }
-        if (_kind == MethodAccessKind.STATIC_CALL) {
-            _stackCall.setCallingState(new CustomFoundMethod(classFound_.getFormattedClass(), _rootBlock, classFound_.getParameters()));
-            return Argument.createVoid();
+        if (prev_ instanceof AbstractFunctionalInstance && ((AbstractFunctionalInstance) prev_).getNamed() == _rootBlock.getFct()) {
+            Argument fctInst_ = new Argument(((AbstractFunctionalInstance) prev_).getFunctional());
+            return prepareCallDyn(fctInst_, _firstArgs, _cont, _stackCall);
         }
         _stackCall.setCallingState(new CustomFoundMethod(_previous, classFound_.getFormattedClass(), _rootBlock, classFound_.getParameters()));
         return Argument.createVoid();

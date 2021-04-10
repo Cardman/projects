@@ -35,7 +35,6 @@ public abstract class AbstractRefectCommonMethodPageEl extends AbstractReflectPa
     private final Argument instance;
 
     private MethodAccessKind accessKind;
-    private String methodName = "";
     private final MethodMetaInfo metaInfo;
 
     public AbstractRefectCommonMethodPageEl(Argument _instance, MethodMetaInfo _metaInfo) {
@@ -88,7 +87,6 @@ public abstract class AbstractRefectCommonMethodPageEl extends AbstractReflectPa
                 pair = metaInfo.getPair();
             }
             accessKind = metaInfo.getRealId().getKind();
-            methodName = metaInfo.getRealId().getName();
         }
         return true;
     }
@@ -103,10 +101,6 @@ public abstract class AbstractRefectCommonMethodPageEl extends AbstractReflectPa
 
     MethodAccessKind getAccessKind() {
         return accessKind;
-    }
-
-    String getMethodName() {
-        return methodName;
     }
 
     ExecTypeFunction getPair() {

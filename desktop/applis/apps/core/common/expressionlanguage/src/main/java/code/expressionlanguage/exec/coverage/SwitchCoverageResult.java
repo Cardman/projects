@@ -4,17 +4,17 @@ import code.expressionlanguage.exec.blocks.ExecBlock;
 import code.util.IdMap;
 
 public final class SwitchCoverageResult {
-    private final IdMap<ExecBlock,StandardCoverageResult> children = new IdMap<ExecBlock, StandardCoverageResult>();
-    private final StandardCoverageResult resultNoDef = new StandardCoverageResult();
+    private final IdMap<ExecBlock,AbstractCoverageResult> children = new IdMap<ExecBlock, AbstractCoverageResult>();
+    private final AbstractCoverageResult resultNoDef = new StandardCoverageResult();
     private boolean defCase;
-    public StandardCoverageResult noDefault() {
+    public AbstractCoverageResult noDefault() {
         if (defCase) {
             return null;
         }
         return resultNoDef;
     }
 
-    public IdMap<ExecBlock, StandardCoverageResult> getChildren() {
+    public IdMap<ExecBlock, AbstractCoverageResult> getChildren() {
         return children;
     }
 
@@ -22,7 +22,7 @@ public final class SwitchCoverageResult {
         defCase = _defCase;
     }
 
-    public StandardCoverageResult getResultNoDef() {
+    public AbstractCoverageResult getResultNoDef() {
         return resultNoDef;
     }
 }

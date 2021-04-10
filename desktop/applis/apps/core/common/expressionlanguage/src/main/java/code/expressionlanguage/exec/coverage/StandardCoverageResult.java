@@ -1,9 +1,17 @@
 package code.expressionlanguage.exec.coverage;
 
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.linkage.VariablesOffsets;
+import code.util.StringList;
 
 public final class StandardCoverageResult extends AbstractCoverageResult {
     private boolean covered;
+
+    @Override
+    public StringList getCoversFoundReport(VariablesOffsets _vars) {
+        return new StringList();
+    }
+
     @Override
     public int getCovered() {
         if (covered) {

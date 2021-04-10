@@ -1,6 +1,8 @@
 package code.expressionlanguage.exec.coverage;
 
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.linkage.VariablesOffsets;
+import code.util.StringList;
 
 public abstract class AbstractCoverageResult {
     private boolean init;
@@ -15,6 +17,7 @@ public abstract class AbstractCoverageResult {
         }
     }
 
+    public abstract StringList getCoversFoundReport(VariablesOffsets _vars);
     public boolean isStrictPartialCovered() {
         return !isFullCovered() && isPartialCovered();
     }
