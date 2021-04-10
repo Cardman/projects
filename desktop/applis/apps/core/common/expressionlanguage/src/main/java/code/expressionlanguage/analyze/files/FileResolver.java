@@ -246,7 +246,6 @@ public final class FileResolver {
         FileBlock fileBlock_ = _input.getFile();
         int braces_ = 0;
         int parentheses_ = 0;
-        boolean declType_ = false;
         BracedBlock currentParent_ = null;
 
         int i_ = _input.getNextIndex();
@@ -265,6 +264,7 @@ public final class FileResolver {
                 continue;
             }
             boolean endInstruction_ = false;
+            boolean declType_ = false;
             if (parentheses_ == 0) {
                 if (currentChar_ == END_LINE) {
                     endInstruction_ = true;
@@ -324,7 +324,6 @@ public final class FileResolver {
                 i_ = after_.getIndex();
                 packageName_ = after_.getPackageName();
                 instructionLocation_ = i_;
-                declType_ = false;
                 if (braces_ == 0) {
                     okType_ = true;
                     break;
