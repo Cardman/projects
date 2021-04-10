@@ -263,33 +263,26 @@ public final class FileResolver {
                 instructionLocation_ = parse_.getInstructionLocation();
                 continue;
             }
-            boolean endInstruction_ = false;
-            boolean declType_ = false;
+            EndInstruction endInstr_ = EndInstruction.NONE;
             if (parentheses_ == 0) {
                 if (currentChar_ == END_LINE) {
-                    endInstruction_ = true;
+                    endInstr_ = EndInstruction.NO_DECLARE_TYPE;
                 }
                 if (currentChar_ == ':') {
                     String str_ = instruction_.toString().trim();
                     if (isCaseDefault(str_, keyWordCase_, keyWordDefault_)) {
-                        endInstruction_ = true;
+                        endInstr_ = EndInstruction.NO_DECLARE_TYPE;
                     }
-                    if (endInstruction_ && currentParent_ instanceof SwitchPartBlock) {
+                    if (endInstr_ != EndInstruction.NONE && currentParent_ instanceof SwitchPartBlock) {
                         addPossibleEmpty(currentParent_);
                         currentParent_ = currentParent_.getParent();
                     }
                 }
                 if (currentChar_ == END_BLOCK) {
-                    endInstruction_ = true;
+                    endInstr_ = EndInstruction.NO_DECLARE_TYPE;
                 }
                 if (currentChar_ == BEGIN_BLOCK) {
-                    EndInstruction end_ = endInstruction(currentParent_, instruction_, _page);
-                    if (end_ != EndInstruction.NONE) {
-                        endInstruction_ = true;
-                        if (end_ == EndInstruction.DECLARE_TYPE) {
-                            declType_ = true;
-                        }
-                    }
+                    endInstr_ = endInstruction(currentParent_, instruction_, _page);
                 }
                 if (canHaveElements(currentParent_)) {
                     if (currentChar_ == BEGIN_TEMPLATE) {
@@ -299,27 +292,27 @@ public final class FileResolver {
                         ((EnumBlock)currentParent_).setLtGt(((EnumBlock)currentParent_).getLtGt()-1);
                     }
                     if (currentChar_ == SEP_ENUM_CONST && ((EnumBlock)currentParent_).getLtGt() == 0) {
-                        endInstruction_ = true;
+                        endInstr_ = EndInstruction.NO_DECLARE_TYPE;
                     }
                 }
                 //End line
             }
-            if (!endInstruction_) {
+            if (endInstr_ == EndInstruction.NONE) {
                 instructionLocation_ = setInstLocation(instruction_, instructionLocation_, i_);
                 instruction_.append(currentChar_);
             }
             ParseDelimitersState parsPars_ = new ParseDelimitersState(braces_,parentheses_);
-            parsPars_.parse(currentChar_,endInstruction_);
+            parsPars_.parse(currentChar_,endInstr_ != EndInstruction.NONE);
             if (parsPars_.isExitLoop()) {
                 FileResolver.addBadIndex(_input, currentParent_, out_, i_+_offset);
                 break;
             }
             braces_ = parsPars_.getBraces();
             parentheses_ = parsPars_.getParentheses();
-            if (endInstruction_) {
+            if (endInstr_ != EndInstruction.NONE) {
                 after_ = processInstruction(out_,_input, packageName_, currentChar_, currentParent_,
                         instructionLocation_,
-                        instruction_, declType_, i_,_offset, _page);
+                        instruction_, endInstr_ == EndInstruction.DECLARE_TYPE, i_,_offset, _page);
                 currentParent_ = after_.getParent();
                 i_ = after_.getIndex();
                 packageName_ = after_.getPackageName();
@@ -935,15 +928,14 @@ public final class FileResolver {
                     String substring_ = afterImports_;
                     InterfacesPart interfacesPart_ = new InterfacesPart(substring_,nextIndex_);
                     interfacesPart_.parse(_page.getKeyWords(),nextIndex_,_offset);
+                    int intsOff_ = nextIndex_ + _offset;
                     StringList staticInitInterfaces_ = interfacesPart_.getStaticInitInterfaces();
                     Ints staticInitInterfacesOffset_ = interfacesPart_.getStaticInitInterfacesOffset();
                     boolean okType_ = interfacesPart_.isOk();
                     int afterInterfaces_ = interfacesPart_.getLocIndex();
                     int delta_ = afterInterfaces_ - nextIndex_;
                     nextIndex_ = afterInterfaces_;
-                    String part_;
-                    int bad_ = -1;
-                    part_ =  substring_.substring(delta_);
+                    String part_ = substring_.substring(delta_);
                     InheritingPart inh_ = new InheritingPart(nextIndex_,part_);
                     inh_.parse(nextIndex_,_offset);
                     IntMap<String> superTypes_ = inh_.getSuperTypes();
@@ -965,6 +957,7 @@ public final class FileResolver {
                     if (!okCat_) {
                         typeBlock_ = new RootErrorBlock(beginDefinition_+_offset, baseName_, packageName_,
                                 new OffsetAccessInfo(accessOffsetType_+_offset, access_) , tempDef_, superTypes_, instructionTrimLocation_ +_offset);
+                        ((RootErrorBlock)typeBlock_).setCategoryOffset(categoryOffset_+_offset);
                     } else if (StringUtil.quickEq(type_, keyWordEnum_)) {
                         typeBlock_ = new EnumBlock(beginDefinition_+_offset, baseName_, packageName_,
                                 new OffsetAccessInfo(accessOffsetType_+_offset, access_) , tempDef_, superTypes_,  instructionTrimLocation_ +_offset);
@@ -993,10 +986,9 @@ public final class FileResolver {
                     if (typeBlock_ instanceof RootErrorBlock) {
                         typeBlock_.setBegin(_i);
                         typeBlock_.setLengthHeader(1);
-                        typeBlock_.getBadIndexes().add(bad_);
                     }
                     if (!okType_) {
-                        typeBlock_.getBadIndexes().add(bad_);
+                        typeBlock_.getBadIndexes().add(intsOff_);
                     }
                     typeBlock_.getImports().addAllElts(importedTypes_);
                     typeBlock_.getImportsOffset().addAllElts(offsetsImports_);

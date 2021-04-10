@@ -633,6 +633,15 @@ public final class ClassesUtil {
             _root.addNameErrors(d_);
             ok_ = false;
         }
+        if (_root instanceof RootErrorBlock) {
+            FoundErrorInterpret b_ = new FoundErrorInterpret();
+            b_.setFileName(_root.getFile().getFileName());
+            b_.setIndexFile(((RootErrorBlock)_root).getCategoryOffset());
+            //underline index char
+            b_.buildError(_page.getAnalysisMessages().getBadIndexInParser());
+            _page.addLocError(b_);
+            _root.addErrorBlock(b_.getBuiltError());
+        }
         _page.getFoundTypes().add(_root);
         _page.getAllFoundTypes().add(_root);
         _page.getSorted().put(_root.getFullName(),_root);
