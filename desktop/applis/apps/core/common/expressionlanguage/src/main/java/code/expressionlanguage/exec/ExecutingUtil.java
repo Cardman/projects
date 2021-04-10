@@ -9,8 +9,6 @@ import code.expressionlanguage.exec.calls.util.*;
 import code.expressionlanguage.exec.inherits.Parameters;
 import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.exec.util.Cache;
-import code.expressionlanguage.exec.variables.LocalVariable;
-import code.expressionlanguage.exec.variables.VariableWrapper;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 
@@ -91,36 +89,24 @@ public final class ExecutingUtil {
         String cl_ = _e.getClassName();
         Argument gl_ = _e.getGl();
         _stackCall.setCallingState(null);
-        AbstractSwitchMethodPageEl pageLoc_;
+        CommonSwitchMethodPageEl pageLoc_;
         if (_e.getSwitchMethod().getKind() == MethodAccessKind.STATIC_CALL) {
-            pageLoc_ = new SwitchCastPageEl(Argument.createVoid(),cl_, _e.getValue());
+            pageLoc_ = new CommonSwitchMethodPageEl(Argument.createVoid(),cl_, _e.getValue());
         } else {
-            pageLoc_ = new SwitchMethodPageEl(gl_,cl_, _e.getValue());
+            pageLoc_ = new CommonSwitchMethodPageEl(gl_,cl_, _e.getValue());
         }
         setSwitchInfos(_context, pageLoc_, _e.getType(),_e.getSwitchMethod(),_e.getCache());
         return pageLoc_;
     }
     public static AbstractPageEl createCallingMethod(ContextEl _context, Argument _gl, String _class, ExecTypeFunction _method, Parameters _args, StackCall _stackCall) {
         _stackCall.setCallingState(null);
-        MethodPageEl pageLoc_ = new MethodPageEl(_gl,_class);
+        CommonMethodPageEl pageLoc_ = new CommonMethodPageEl(_gl,_class);
         pageLoc_.initReturnType(_args.getRight());
         setMethodInfos(_context, pageLoc_, _method, _args);
         return pageLoc_;
     }
 
-    public static AbstractPageEl createCallingCast(ContextEl _context, CustomFoundCast _e, StackCall _stackCall) {
-        String cl_ = _e.getClassName();
-        Parameters args_ = _e.getArguments();
-        return createCallingCast(_context,cl_,_e.getPair(), args_, _stackCall);
-    }
-    public static AbstractPageEl createCallingCast(ContextEl _context, String _class, ExecTypeFunction _method, Parameters _args, StackCall _stackCall) {
-        _stackCall.setCallingState(null);
-        CastPageEl pageLoc_ = new CastPageEl(Argument.createVoid(),_class);
-        pageLoc_.initReturnType(_args.getRight());
-        setMethodInfos(_context, pageLoc_, _method, _args);
-        return pageLoc_;
-    }
-    private static void setMethodInfos(ContextEl _context, AbstractMethodPageEl _page, ExecTypeFunction _block, Parameters _args) {
+    private static void setMethodInfos(ContextEl _context, CommonMethodPageEl _page, ExecTypeFunction _block, Parameters _args) {
         ExecNamedFunctionBlock fct_ = _block.getFct();
         _page.blockRootType(_block);
         _context.getCoverage().passCalls(_page);
@@ -131,7 +117,7 @@ public final class ExecutingUtil {
         _page.setReadWrite(rwLoc_);
         _page.setFile(fct_.getFile());
     }
-    private static void setSwitchInfos(ContextEl _context, AbstractSwitchMethodPageEl _page, ExecRootBlock _type, ExecAbstractSwitchMethod _block, Cache _cache) {
+    private static void setSwitchInfos(ContextEl _context, CommonSwitchMethodPageEl _page, ExecRootBlock _type, ExecAbstractSwitchMethod _block, Cache _cache) {
         _page.setBlockRootType(_type);
         _page.setBlockRoot(_block);
         _context.getCoverage().passCalls(_page);

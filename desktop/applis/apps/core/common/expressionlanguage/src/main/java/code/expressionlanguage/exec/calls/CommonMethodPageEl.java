@@ -3,15 +3,12 @@ package code.expressionlanguage.exec.calls;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.StackCall;
-import code.expressionlanguage.exec.blocks.ExecAbstractSwitchMethod;
 import code.expressionlanguage.exec.blocks.ExecBlock;
-import code.expressionlanguage.exec.blocks.WithEl;
-import code.expressionlanguage.exec.stacks.SwitchBlockStack;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 
-public abstract class AbstractMethodPageEl extends AbstractCommonMethodPageEl {
+public final class CommonMethodPageEl extends AbstractCommonMethodPageEl {
 
-    protected AbstractMethodPageEl(Argument _gl, String _glClass) {
+    public CommonMethodPageEl(Argument _gl, String _glClass) {
         super(_gl, _glClass);
     }
 

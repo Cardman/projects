@@ -102,7 +102,7 @@ public final class ExecCustArrOperation extends ExecInvokingOperation implements
         ExecOverrideInfo polymorph_ = polymorphOrSuper(instFctContent.isStaticChoiceMethod(), _conf,pr_, instFctContent.getClassName(),fct_);
         fct_ = polymorph_.getPair();
         String classNameFound_ = polymorph_.getClassName();
-        return callPrepare(_conf.getExiting(), _conf, classNameFound_, fct_, prev_,null, fetchFormattedArgs(_nodes, _conf, pr_, instFctContent.getClassName(), fct_.getType(), instFctContent.getLastType(), instFctContent.getNaturalVararg()), _right, MethodAccessKind.INSTANCE, "", _stackCall);
+        return callPrepare(_conf, classNameFound_, fct_, prev_,null, fetchFormattedArgs(_nodes, _conf, pr_, instFctContent.getClassName(), fct_.getType(), instFctContent.getLastType(), instFctContent.getNaturalVararg()), _right, MethodAccessKind.INSTANCE, "", _stackCall);
     }
 
 }

@@ -69,9 +69,6 @@ public abstract class RendDynOperationNode {
         } else if (callingState_ instanceof AbstractReflectElement) {
             AbstractReflectElement ref_ = (AbstractReflectElement) callingState_;
             res_ = ProcessMethod.reflectArgument(_context,ref_, _stackCall);
-        } else if (callingState_ instanceof CustomFoundCast) {
-            CustomFoundCast cast_ = (CustomFoundCast) callingState_;
-            res_ = ProcessMethod.castArgument(cast_.getClassName(),cast_.getPair(), cast_.getArguments(), _context, _stackCall);
         } else {
             res_ = new ArgumentWrapper(_res,null);
         }
@@ -184,10 +181,7 @@ public abstract class RendDynOperationNode {
         if (par_ instanceof RendSafeDotOperation) {
             if (_value == NullStruct.NULL_VALUE) {
                 RendDynOperationNode last_ = par_.getChildrenNodes().last();
-                boolean skip_ = true;
-                if (last_ instanceof RendAbstractLambdaOperation) {
-                    skip_ = false;
-                }
+                boolean skip_ = !(last_ instanceof RendAbstractLambdaOperation);
                 if (skip_) {
                     RendMethodOperation p_ = par_;
                     while (p_ != null) {
@@ -353,7 +347,7 @@ public abstract class RendDynOperationNode {
         if (_context.callsOrException(_stackCall)) {
             return null;
         }
-        Argument out_ = ProcessMethod.castArgument(_owner,_c, parameters_, _context, _stackCall).getValue();
+        Argument out_ = ProcessMethod.calculateArgument(Argument.createVoid(),_owner,_c, parameters_, _context, _stackCall).getValue();
         if (_context.callsOrException(_stackCall)) {
             return null;
         }

@@ -7,8 +7,8 @@ import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.blocks.ExecAbstractSwitchMethod;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
-import code.expressionlanguage.exec.calls.util.CustomFoundCast;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
+import code.expressionlanguage.exec.calls.util.CustomFoundMethod;
 import code.expressionlanguage.exec.calls.util.CustomFoundSwitch;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.inherits.Parameters;
@@ -134,7 +134,7 @@ public abstract class AbstractRefectCommonMethodPageEl extends AbstractReflectPa
         if (parameters_.getError() != null) {
             return Argument.createVoid();
         }
-        _stackCall.setCallingState(new CustomFoundCast(_paramName, _pair, parameters_));
+        _stackCall.setCallingState(new CustomFoundMethod(_paramName, _pair, parameters_));
         return Argument.createVoid();
     }
 

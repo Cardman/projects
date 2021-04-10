@@ -17,6 +17,10 @@ public final class CustomFoundMethod implements CallingState {
 
     private final Parameters arguments;
 
+    public CustomFoundMethod(String _className, ExecTypeFunction _pair, Parameters _arguments) {
+        this(Argument.createVoid(),_className,_pair,_arguments);
+    }
+
     public CustomFoundMethod(Argument _gl, String _className, ExecTypeFunction _pair, Parameters _arguments) {
         gl = _gl;
         className = _className;

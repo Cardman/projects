@@ -5,7 +5,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.blocks.ExecFieldBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
-import code.expressionlanguage.exec.calls.MethodPageEl;
+import code.expressionlanguage.exec.calls.CommonMethodPageEl;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.variables.VariableWrapper;
 import code.expressionlanguage.methods.ProcessMethodCommon;
@@ -6635,7 +6635,7 @@ public final class ExpressionLanguageTest extends ProcessMethodCommon {
     }
 
     private static void addImportingPage(ContextEl _conf, StackCall _stackCall) {
-        ExecutingUtil.addPage(_conf,new MethodPageEl(Argument.createVoid(),""), _stackCall);
+        ExecutingUtil.addPage(_conf,new CommonMethodPageEl(Argument.createVoid(),""), _stackCall);
     }
 
     private static ContextEl contextEl(StringMap<String> _files) {

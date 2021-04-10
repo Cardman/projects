@@ -49,7 +49,7 @@ public final class DirectRefectMethodPageEl extends AbstractRefectMethodPageEl {
             return Argument.createVoid();
         }
         ArgumentListCall l_ = ExecTemplates.wrapAndCallDirect(getPair(),_className,_instance,_args,_context, getAccessKind());
-        return ExecInvokingOperation.callPrepare(_context.getExiting(), _context, _className, getPair(), _instance, getMetaInfo().getCache(), l_, _right, getAccessKind(), getMethodName(), _stack);
+        return ExecInvokingOperation.callPrepare(_context, _className, getPair(), _instance, getMetaInfo().getCache(), l_, _right, getAccessKind(), getMethodName(), _stack);
     }
 
 }

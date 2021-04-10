@@ -225,8 +225,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
     }
 
 
-    public static Argument callPrepare(AbstractExiting _exit, ContextEl _cont, String _classNameFound, ExecTypeFunction _rootBlock, Argument _previous, Cache _cache, ArgumentListCall _firstArgs, Argument _right, MethodAccessKind _kind, String _name, StackCall _stackCall) {
-        ExecRootBlock type_ = _rootBlock.getType();
+    public static Argument callPrepare(ContextEl _cont, String _classNameFound, ExecTypeFunction _rootBlock, Argument _previous, Cache _cache, ArgumentListCall _firstArgs, Argument _right, MethodAccessKind _kind, String _name, StackCall _stackCall) {
         ExecNamedFunctionBlock fct_ = _rootBlock.getFct();
         if (!(fct_ instanceof ExecOverridableBlock)&&!(fct_ instanceof ExecAnonymousFunctionBlock)) {
             FormattedParameters classFound_ = checkParameters(_cont, _classNameFound, _rootBlock, _previous, _cache,_firstArgs, CallPrepareState.METHOD,null, _right, _kind, _stackCall);
@@ -256,7 +255,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
             }
         }
         if (_kind == MethodAccessKind.STATIC_CALL) {
-            _stackCall.setCallingState(new CustomFoundCast(classFound_.getFormattedClass(), _rootBlock, classFound_.getParameters()));
+            _stackCall.setCallingState(new CustomFoundMethod(classFound_.getFormattedClass(), _rootBlock, classFound_.getParameters()));
             return Argument.createVoid();
         }
         _stackCall.setCallingState(new CustomFoundMethod(_previous, classFound_.getFormattedClass(), _rootBlock, classFound_.getParameters()));
@@ -330,11 +329,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
             _stackCall.setCallingState(new CustomFoundConstructor(_classNameFound, _methodId, EMPTY_STRING, -1, _previous, parameters_, _kindCall));
             return classFormat_;
         }
-        if (type_ == null) {
-            _stackCall.setCallingState(new CustomFoundMethod(Argument.createVoid(), _classNameFound, _methodId, parameters_));
-            return classFormat_;
-        }
-        _stackCall.setCallingState(new CustomFoundCast(_classNameFound, _methodId, parameters_));
+        _stackCall.setCallingState(new CustomFoundMethod(_classNameFound, _methodId, parameters_));
         return classFormat_;
     }
 
@@ -412,7 +407,6 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
             String typeFct_ = ls_.getClassName(_conf);
             StringList parts_ = StringExpUtil.getAllTypes(typeFct_);
             CustList<String> paramsFct_ = parts_.leftMinusOne(parts_.size() - 2);
-            ParametersTypes pars_ = new ParametersTypes();
             StringList typesRef_ = new StringList();
             StringList types_ = new StringList();
             StringList typesAll_ = new StringList();
