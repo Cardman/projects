@@ -550,23 +550,28 @@ public final class Coverage {
         }
         ExecMethodOperation par_ = _oper.getParent();
         if (par_ instanceof ExecAndOperation){
-            v_ = BooleanStruct.of(!_v.isArgumentTest());
+            return BooleanStruct.of(!_v.isArgumentTest());
         }
         if (par_ instanceof ExecOrOperation){
-            v_ = BooleanStruct.of(_v.isArgumentTest());
+            return BooleanStruct.of(_v.isArgumentTest());
         }
         if (par_ instanceof ExecCompoundAffectationOperation){
             ExecCompoundAffectationOperation p_ = (ExecCompoundAffectationOperation) par_;
-            if (isLogicEq(p_.getOper(), "&&=", "&&&=")) {
-                v_ = BooleanStruct.of(!_v.isArgumentTest());
-            }
-            if (isLogicEq(p_.getOper(), "||=", "|||=")) {
-                v_ = BooleanStruct.of(_v.isArgumentTest());
-            }
+            return compound(v_,p_,_v);
         }
         return v_;
     }
 
+    private static Struct compound(Struct _before,ExecCompoundAffectationOperation _par, ArgumentsPair _v) {
+        Struct v_ = _before;
+        if (isLogicEq(_par.getOper(), "&&=", "&&&=")) {
+            v_ = BooleanStruct.of(!_v.isArgumentTest());
+        }
+        if (isLogicEq(_par.getOper(), "||=", "|||=")) {
+            v_ = BooleanStruct.of(_v.isArgumentTest());
+        }
+        return v_;
+    }
     private static boolean isLogicEq(String _oper, String _opEq, String _opShEq) {
         return StringUtil.quickEq(_oper, _opEq) || StringUtil.quickEq(_oper, _opShEq);
     }

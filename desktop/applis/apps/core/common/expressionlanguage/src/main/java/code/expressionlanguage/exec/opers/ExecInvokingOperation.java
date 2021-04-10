@@ -649,8 +649,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
             if (FunctionIdUtil.isOperatorName(l_.getMethodName())) {
                 formal_.add(0,new ArgumentWrapper(new Argument(instanceStruct_),null));
                 call_.getArgumentWrappers().addAllElts(formal_);
-                _stackCall.setCallingState(new CustomReflectLambdaMethod(ReflectingType.DIRECT, method_, new Argument(),call_,right_, true));
-                return new Argument();
+                return redirect(_conf, l_, Argument.createVoid(), call_, right_, method_, _stackCall);
             }
             int len_ = Math.max(0, formal_.size() - 1);
             CustList<ArgumentWrapper> arr_ = formal_.leftMinusOne(len_);
