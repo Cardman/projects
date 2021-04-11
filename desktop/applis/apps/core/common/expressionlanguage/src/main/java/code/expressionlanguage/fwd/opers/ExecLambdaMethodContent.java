@@ -24,7 +24,7 @@ public final class ExecLambdaMethodContent {
     }
 
     public boolean isStaticCall() {
-        return method.getConstraints().getKind() == MethodAccessKind.STATIC_CALL || directCast || expCast;
+        return method.getConstraints().getKind() == MethodAccessKind.STATIC_CALL || expCast;
     }
     public ClassMethodId getMethod() {
         return method;
