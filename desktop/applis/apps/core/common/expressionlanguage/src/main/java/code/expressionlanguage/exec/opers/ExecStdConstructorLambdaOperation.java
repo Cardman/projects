@@ -2,9 +2,6 @@ package code.expressionlanguage.exec.opers;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.common.AccessEnum;
-import code.expressionlanguage.common.StringExpUtil;
-import code.expressionlanguage.exec.MetaInfoUtil;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.functionid.ConstructorId;
@@ -41,11 +38,7 @@ public final class ExecStdConstructorLambdaOperation extends ExecAbstractLambdaO
 
     public static Struct newLambda(ExecLambdaCommonContent _common, Argument _previous, ContextEl _conf, String _ownerType, ConstructorId _realId,
                                    String _clArg, StandardType _standardType) {
-        String className_ = StringExpUtil.getIdFromAllTypes(_ownerType);
-        ConstructorId fid_ = MetaInfoUtil.tryFormatId(_ownerType, _conf, _realId);
-        ConstructorMetaInfo met_ = new ConstructorMetaInfo(_ownerType,AccessEnum.PUBLIC, _realId, _common.getReturnFieldType(), fid_, className_);
-        met_.setFileName(_common.getFileName());
-        met_.setStandardType(_standardType);
+        ConstructorMetaInfo met_ = new ConstructorMetaInfo(_standardType,_conf,_common,_ownerType, _realId);
         return new LambdaConstructorStruct(met_,_previous,_common,_clArg, _ownerType);
     }
 

@@ -2,12 +2,9 @@ package code.expressionlanguage.exec.opers;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.common.AccessEnum;
 import code.expressionlanguage.common.StringExpUtil;
-import code.expressionlanguage.exec.MetaInfoUtil;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
-import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.functionid.MethodModifier;
 import code.expressionlanguage.fwd.opers.ExecLambdaCommonContent;
 import code.expressionlanguage.fwd.opers.ExecLambdaMethodContent;
@@ -40,13 +37,9 @@ public final class ExecCloneMethodLambdaOperation extends ExecAbstractLambdaOper
 
     public static Struct newLambda(ExecLambdaCommonContent _common, ExecLambdaMethodContent _meth, Argument _previous, ContextEl _conf, String _ownerType,
                                    String _clArg) {
-        MethodId fid_ = MetaInfoUtil.tryFormatId(_ownerType, _conf, _meth.getMethod().getConstraints());
         String from_ = StringExpUtil.getPrettyArrayType(_conf.getStandards().getContent().getCoreNames().getAliasObject());
-        String idCl_ = StringExpUtil.getIdFromAllTypes(_ownerType);
-        String formCl_ = MetaInfoUtil.tryFormatType(idCl_, _ownerType, _conf);
         MethodModifier met_ = MethodModifier.NORMAL;
-        MethodMetaInfo metaInfo_ = new MethodMetaInfo(_ownerType,AccessEnum.PUBLIC, from_, _meth.getMethod().getConstraints(), met_, _common.getReturnFieldType(), fid_, formCl_);
-        metaInfo_.setFileName(_common.getFileName());
+        MethodMetaInfo metaInfo_ = new MethodMetaInfo(_conf,_common,_ownerType,from_, _meth.getMethod().getConstraints(), met_,false);
         return new LambdaMethodStruct(metaInfo_,_previous,_common,_meth,_clArg, _ownerType);
     }
 

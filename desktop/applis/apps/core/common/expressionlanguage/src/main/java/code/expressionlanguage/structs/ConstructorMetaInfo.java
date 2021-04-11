@@ -2,18 +2,20 @@ package code.expressionlanguage.structs;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.AccessEnum;
+import code.expressionlanguage.common.StringExpUtil;
+import code.expressionlanguage.exec.MetaInfoUtil;
 import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.functionid.ConstructorId;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
+import code.expressionlanguage.fwd.opers.ExecLambdaCommonContent;
+import code.expressionlanguage.stds.StandardConstructor;
 import code.expressionlanguage.stds.StandardType;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.core.StringUtil;
 
 public final class ConstructorMetaInfo extends AbsAnnotatedStruct implements AnnotatedParamStruct {
-
-    private static final String EMPTY_STRING = "";
 
     private final String declaringClass;
     private final String formDeclaringClass;
@@ -22,9 +24,9 @@ public final class ConstructorMetaInfo extends AbsAnnotatedStruct implements Ann
     private final ConstructorId fid;
     private final String returnType;
     private final boolean invokable;
-    private String fileName = EMPTY_STRING;
-    private ExecTypeFunction pair;
-    private StandardType standardType;
+    private final String fileName;
+    private final ExecTypeFunction pair;
+    private final StandardType standardType;
 
     public ConstructorMetaInfo(){
         invokable = false;
@@ -35,17 +37,81 @@ public final class ConstructorMetaInfo extends AbsAnnotatedStruct implements Ann
         access = AccessEnum.PRIVATE;
         returnType = "";
         pair = new ExecTypeFunction(null,null);
+        fileName = "";
+        standardType = null;
     }
-    public ConstructorMetaInfo(String _declaringClass, AccessEnum _access, ConstructorId _realId, String _returnType,
-                               ConstructorId _fid, String _formDeclaringClass) {
+    public ConstructorMetaInfo(ExecTypeFunction _pair,ContextEl _conf, ExecLambdaCommonContent _common, String _declaringClass, ConstructorId _realId) {
+        String className_ = StringExpUtil.getIdFromAllTypes(_declaringClass);
+        ConstructorId fid_ = MetaInfoUtil.tryFormatId(_declaringClass, _conf, _realId);
         invokable = true;
         declaringClass = StringUtil.nullToEmpty(_declaringClass);
-        access = _access;
+        access = AccessEnum.PUBLIC;
         realId = _realId;
-        returnType = StringUtil.nullToEmpty(_returnType);
-        fid = _fid;
-        formDeclaringClass = StringUtil.nullToEmpty(_formDeclaringClass);
+        returnType = StringUtil.nullToEmpty(_common.getReturnFieldType());
+        fid = fid_;
+        formDeclaringClass = StringUtil.nullToEmpty(className_);
+        pair = _pair;
+        setOwner(_pair.getType());
+        fileName = _common.getFileName();
+        standardType = null;
+    }
+    public ConstructorMetaInfo(StandardType _standardType,ContextEl _conf, ExecLambdaCommonContent _common, String _declaringClass, ConstructorId _realId) {
+        standardType = _standardType;
+        String className_ = StringExpUtil.getIdFromAllTypes(_declaringClass);
+        ConstructorId fid_ = MetaInfoUtil.tryFormatId(_declaringClass, _conf, _realId);
+        invokable = true;
+        declaringClass = StringUtil.nullToEmpty(_declaringClass);
+        access = AccessEnum.PUBLIC;
+        realId = _realId;
+        returnType = StringUtil.nullToEmpty(_common.getReturnFieldType());
+        fid = fid_;
+        formDeclaringClass = StringUtil.nullToEmpty(className_);
         pair = new ExecTypeFunction(null,null);
+        fileName = _common.getFileName();
+    }
+    public ConstructorMetaInfo(ExecRootBlock _type, ExecConstructorBlock _ctor, ContextEl _context, String _declaringClass) {
+        ConstructorId id_ = new ConstructorId(_declaringClass, new StringList(), false);
+        AccessEnum acc_ = _type.getAccess();
+        String ret_ = _context.getStandards().getContent().getCoreNames().getAliasVoid();
+        ConstructorId fid_ = id_;
+        String idType_ = _type.getFullName();
+        String formCl_ = MetaInfoUtil.tryFormatType(idType_, _declaringClass, _context);
+        if (_ctor != null) {
+            id_ = _ctor.getGenericId(_type.getGenericString());
+            ret_ = _ctor.getImportedReturnType();
+            acc_ = _ctor.getAccess();
+            fid_ = MetaInfoUtil.tryFormatId(_declaringClass, _context, id_);
+        }
+        invokable = true;
+        declaringClass = StringUtil.nullToEmpty(_declaringClass);
+        access = acc_;
+        realId = id_;
+        returnType = StringUtil.nullToEmpty(ret_);
+        fid = fid_;
+        formDeclaringClass = StringUtil.nullToEmpty(formCl_);
+        pair = new ExecTypeFunction(_type,_ctor);
+        setOwner(_type);
+        fileName = _type.getFile().getFileName();
+        standardType = null;
+    }
+    public ConstructorMetaInfo(ContextEl _context, StandardType _std, StandardConstructor _ctor, String _declaringClass) {
+        ConstructorId id_ = new ConstructorId(_declaringClass, new StringList(), false);
+        String ret_ = _context.getStandards().getContent().getCoreNames().getAliasVoid();
+        if (_ctor != null) {
+            id_ = new ConstructorId(_declaringClass, _ctor.getImportedParametersTypes(), _ctor.isVarargs());
+            ret_ = _ctor.getImportedReturnType();
+        }
+        String decl_ = _std.getFullName();
+        standardType = _std;
+        invokable = true;
+        declaringClass = StringUtil.nullToEmpty(_declaringClass);
+        access = AccessEnum.PUBLIC;
+        realId = id_;
+        returnType = StringUtil.nullToEmpty(ret_);
+        fid = id_;
+        formDeclaringClass = StringUtil.nullToEmpty(decl_);
+        pair = new ExecTypeFunction(null,null);
+        fileName = "";
     }
 
     public CustList<CustList<ExecOperationNode>> getAnnotationsOps(){
@@ -75,31 +141,13 @@ public final class ConstructorMetaInfo extends AbsAnnotatedStruct implements Ann
         return pair;
     }
 
-    public void pair(ExecRootBlock _type, ExecNamedFunctionBlock _fct) {
-        pair = new ExecTypeFunction(_type, _fct);
-        setOwner(_type);
-    }
-
-    public void setPair(ExecTypeFunction _pair) {
-        pair = _pair;
-        setOwner(_pair.getType());
-    }
-
     public StandardType getStandardType() {
         return standardType;
-    }
-
-    public void setStandardType(StandardType _standardType) {
-        standardType = _standardType;
     }
 
     @Override
     public String getFileName() {
         return fileName;
-    }
-
-    public void setFileName(String _fileName) {
-        fileName = StringUtil.nullToEmpty(_fileName);
     }
 
     public ConstructorId getRealId() {

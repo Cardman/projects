@@ -3,15 +3,18 @@ package code.expressionlanguage.structs;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.AccessEnum;
+import code.expressionlanguage.common.ClassField;
+import code.expressionlanguage.exec.MetaInfoUtil;
 import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
+import code.expressionlanguage.fwd.opers.ExecLambdaCommonContent;
+import code.expressionlanguage.fwd.opers.ExecLambdaFieldContent;
 import code.util.CustList;
 import code.util.core.StringUtil;
 
 
 public final class FieldMetaInfo extends AbsAnnotatedStruct implements AnnotatedMemberStruct {
 
-    private static final String EMPTY_STRING = "";
     private final AccessEnum access;
     private final String declaringClass;
     private final String formDeclaringClass;
@@ -23,9 +26,9 @@ public final class FieldMetaInfo extends AbsAnnotatedStruct implements Annotated
 
     private final boolean finalField;
     private final boolean invokable;
-    private String fileName = EMPTY_STRING;
-    private ExecInfoBlock annotableBlock;
-    private ExecRootBlock declaring;
+    private final String fileName;
+    private final ExecInfoBlock annotableBlock;
+    private final ExecRootBlock declaring;
     public FieldMetaInfo() {
         invokable = false;
         declaringClass = "";
@@ -35,20 +38,58 @@ public final class FieldMetaInfo extends AbsAnnotatedStruct implements Annotated
         staticField = false;
         finalField = false;
         formDeclaringClass = "";
+        fileName = "";
+        annotableBlock = null;
+        declaring = null;
+    }
+    public FieldMetaInfo(ExecLambdaCommonContent _common, ExecLambdaFieldContent _field,
+                         ClassField _id,
+                         String _formDeclaringClass) {
+        invokable = true;
+        declaringClass = StringUtil.nullToEmpty(_id.getClassName());
+        name = StringUtil.nullToEmpty(_id.getFieldName());
+        type = StringUtil.nullToEmpty(_common.getReturnFieldType());
+        staticField = _field.isStaticField();
+        finalField = _field.isFinalField();
+        access = AccessEnum.PUBLIC;
+        formDeclaringClass = StringUtil.nullToEmpty(_formDeclaringClass);
+        fileName = _common.getFileName();
+        declaring = _field.getRootBlock();
+        annotableBlock = _field.getInfoBlock();
+        setOwner(_field.getRootBlock());
+    }
+    public FieldMetaInfo(ContextEl _context, ExecRootBlock _type, ExecInfoBlock _info, String _declaringClass,
+                         String _name) {
+        String idType_ = _type.getFullName();
+        String formCl_ = MetaInfoUtil.tryFormatType(idType_, _declaringClass, _context);
+        invokable = true;
+        declaringClass = StringUtil.nullToEmpty(_declaringClass);
+        name = StringUtil.nullToEmpty(_name);
+        type = StringUtil.nullToEmpty(_info.getImportedClassName());
+        staticField = _info.isStaticField();
+        finalField = _info.isFinalField();
+        access = _info.getAccess();
+        formDeclaringClass = StringUtil.nullToEmpty(formCl_);
+        declaring = _type;
+        annotableBlock = _info;
+        fileName = _type.getFile().getFileName();
+        setOwner(_type);
     }
     public FieldMetaInfo(String _declaringClass,
                          String _name,
-                         String _returnType, boolean _static,
-                         boolean _finalField,
-                         AccessEnum _access, String _formDeclaringClass) {
+                         String _returnType,
+                         String _formDeclaringClass) {
         invokable = true;
         declaringClass = StringUtil.nullToEmpty(_declaringClass);
         name = StringUtil.nullToEmpty(_name);
         type = StringUtil.nullToEmpty(_returnType);
-        staticField = _static;
-        finalField = _finalField;
-        access = _access;
+        staticField = true;
+        finalField = true;
+        access = AccessEnum.PUBLIC;
         formDeclaringClass = StringUtil.nullToEmpty(_formDeclaringClass);
+        fileName = "";
+        annotableBlock = null;
+        declaring = null;
     }
 
     public CustList<CustList<ExecOperationNode>> getAnnotationsOps(){
@@ -57,11 +98,7 @@ public final class FieldMetaInfo extends AbsAnnotatedStruct implements Annotated
         }
         return new CustList<CustList<ExecOperationNode>>();
     }
-    public void pair(ExecRootBlock _declaring,ExecInfoBlock _annotableBlock){
-        this.declaring = _declaring;
-        this.annotableBlock = _annotableBlock;
-        setOwner(_declaring);
-    }
+
     public ExecInfoBlock getAnnotableBlock() {
         return annotableBlock;
     }
@@ -73,10 +110,6 @@ public final class FieldMetaInfo extends AbsAnnotatedStruct implements Annotated
     @Override
     public String getFileName() {
         return fileName;
-    }
-
-    public void setFileName(String _fileName) {
-        fileName = StringUtil.nullToEmpty(_fileName);
     }
 
     public boolean isPublic() {
@@ -117,7 +150,7 @@ public final class FieldMetaInfo extends AbsAnnotatedStruct implements Annotated
 
     @Override
     public CustList<ExecAnonymousFunctionBlock> getAnonymousLambda() {
-        if (annotableBlock instanceof ExecInfoBlock) {
+        if (annotableBlock != null) {
             return (annotableBlock.getAnonymousLambda());
         }
         return new CustList<ExecAnonymousFunctionBlock>();
@@ -125,7 +158,7 @@ public final class FieldMetaInfo extends AbsAnnotatedStruct implements Annotated
 
     @Override
     public CustList<ExecAbstractSwitchMethod> getSwitchMethods() {
-        if (annotableBlock instanceof ExecInfoBlock) {
+        if (annotableBlock != null) {
             return annotableBlock.getSwitchMethods();
         }
         return new CustList<ExecAbstractSwitchMethod>();

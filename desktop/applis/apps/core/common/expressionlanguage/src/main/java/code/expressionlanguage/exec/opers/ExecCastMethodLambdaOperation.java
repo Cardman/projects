@@ -2,9 +2,6 @@ package code.expressionlanguage.exec.opers;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.common.AccessEnum;
-import code.expressionlanguage.common.StringExpUtil;
-import code.expressionlanguage.exec.MetaInfoUtil;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.functionid.MethodModifier;
@@ -39,12 +36,8 @@ public final class ExecCastMethodLambdaOperation extends ExecAbstractLambdaOpera
 
     public static Struct newLambda(ExecLambdaCommonContent _common, ExecLambdaMethodContent _meth, Argument _previous, ContextEl _conf, String _ownerType,
                                    String _clArg) {
-        String idCl_ = StringExpUtil.getIdFromAllTypes(_ownerType);
-        String formCl_ = MetaInfoUtil.tryFormatType(idCl_, _ownerType, _conf);
         MethodModifier met_ = MethodModifier.STATIC;
-        MethodMetaInfo metaInfo_ = new MethodMetaInfo(_ownerType,AccessEnum.PUBLIC, _ownerType, _meth.getMethod().getConstraints(), met_, _common.getReturnFieldType(), _meth.getMethod().getConstraints(), formCl_);
-        metaInfo_.setDirectCast(true);
-        metaInfo_.setFileName(_common.getFileName());
+        MethodMetaInfo metaInfo_ = new MethodMetaInfo(_conf,_common,_ownerType, _ownerType, _meth.getMethod().getConstraints(), met_,true);
         return new LambdaMethodStruct(metaInfo_,_previous,_common,_meth,_clArg, _ownerType);
     }
 

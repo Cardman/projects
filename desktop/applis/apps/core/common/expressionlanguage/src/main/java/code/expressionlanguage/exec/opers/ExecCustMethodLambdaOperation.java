@@ -2,16 +2,12 @@ package code.expressionlanguage.exec.opers;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.common.AccessEnum;
-import code.expressionlanguage.common.StringExpUtil;
-import code.expressionlanguage.exec.MetaInfoUtil;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.util.Cache;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
-import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
-import code.expressionlanguage.functionid.MethodModifier;
+import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.fwd.opers.ExecLambdaAnoContent;
 import code.expressionlanguage.fwd.opers.ExecLambdaCommonContent;
 import code.expressionlanguage.fwd.opers.ExecLambdaMethodContent;
@@ -44,11 +40,7 @@ public final class ExecCustMethodLambdaOperation extends ExecAbstractLambdaOpera
 
     public static Struct newLambda(ExecLambdaCommonContent _common, ExecLambdaMethodContent _meth, Argument _previous, ContextEl _conf, String _ownerType,
                                    String _clArg) {
-        MethodMetaInfo metaInfo_ = buildMetaInfo(_common, _conf, _ownerType, _meth.getMethod().getConstraints(), _meth.isStaticCall(), _meth.isAbstractMethod());
-        metaInfo_.setExpCast(_meth.isExpCast());
-        metaInfo_.setFileName(_common.getFileName());
-        metaInfo_.setCallee(_meth.getPair().getFct());
-        metaInfo_.setPair(_meth.getPair());
+        MethodMetaInfo metaInfo_ = buildMetaInfo(_common,_meth, _conf,null, _ownerType, _meth.getMethod().getConstraints(), _meth.getPair());
         return new LambdaMethodStruct(metaInfo_,_previous,_common,_meth,_clArg, _ownerType);
     }
 
@@ -58,37 +50,12 @@ public final class ExecCustMethodLambdaOperation extends ExecAbstractLambdaOpera
         String ownerType_ = _common.getFoundClass();
         ownerType_ = _stackCall.formatVarType(ownerType_);
         clArg_ = _stackCall.formatVarType(clArg_);
-        MethodMetaInfo metaInfo_ = buildMetaInfo(_common, _conf, ownerType_, _anonCont.getMethod().getConstraints(), _anonCont.getMethod().getConstraints().getKind() == MethodAccessKind.STATIC_CALL, false);
-        metaInfo_.setExpCast(false);
-        metaInfo_.setFileName(_common.getFileName());
-        metaInfo_.setCallee(_anonCont.getPair().getFct());
-        metaInfo_.setPair(_anonCont.getPair());
-        metaInfo_.setCache(new Cache(_lastPage));
+        MethodMetaInfo metaInfo_ = buildMetaInfo(_common,null, _conf,new Cache(_lastPage), ownerType_, _anonCont.getMethod().getConstraints(), _anonCont.getPair());
         return new LambdaMethodStruct(metaInfo_,_previous,_common,_anonCont,clArg_, ownerType_);
     }
 
-    private static MethodMetaInfo buildMetaInfo(ExecLambdaCommonContent _common, ContextEl _conf, String _ownerType, MethodId _id, boolean _staticCall, boolean _abstractMethod) {
-        MethodId fid_ = MetaInfoUtil.tryFormatId(_ownerType, _conf, _id);
-        String className_;
-        if (_staticCall) {
-            className_ = _ownerType;
-        } else {
-            className_ = StringExpUtil.getIdFromAllTypes(_ownerType);
-        }
-        String from_ = className_;
-        String idCl_ = StringExpUtil.getIdFromAllTypes(_ownerType);
-        String formCl_ = MetaInfoUtil.tryFormatType(idCl_, _ownerType, _conf);
-        MethodModifier met_;
-        if (_abstractMethod) {
-            met_ = MethodModifier.ABSTRACT;
-        } else if (fid_.getKind() == MethodAccessKind.STATIC) {
-            met_ = MethodModifier.STATIC;
-        } else if (fid_.getKind() == MethodAccessKind.STATIC_CALL) {
-            met_ = MethodModifier.STATIC_CALL;
-        } else {
-            met_ = MethodModifier.NORMAL;
-        }
-        return new MethodMetaInfo(_ownerType,AccessEnum.PUBLIC, from_, _id, met_, _common.getReturnFieldType(), fid_, formCl_);
+    private static MethodMetaInfo buildMetaInfo(ExecLambdaCommonContent _common, ExecLambdaMethodContent _meth, ContextEl _conf, Cache _cache, String _ownerType, MethodId _id, ExecTypeFunction _pair) {
+        return new MethodMetaInfo(_conf,_cache,_common,_meth,_ownerType, _id, _pair);
     }
 
 

@@ -2,7 +2,6 @@ package code.expressionlanguage.exec.opers;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.common.AccessEnum;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.MetaInfoUtil;
@@ -45,11 +44,7 @@ public final class ExecFieldLambdaOperation extends ExecAbstractLambdaOperation 
         if (classField_ == null) {
             return new LambdaFieldStruct(NullStruct.NULL_VALUE,_previous,_common,_field,_clArg,_ownerType);
         }
-        String name_ = classField_.getFieldName();
-        String clName_ = classField_.getClassName();
-        FieldMetaInfo f_ = new FieldMetaInfo(clName_, name_, _common.getReturnFieldType(), _field.isStaticField(), _field.isFinalField(), AccessEnum.PUBLIC, formCl_);
-        f_.setFileName(_common.getFileName());
-        f_.pair(_field.getRootBlock(),_field.getInfoBlock());
+        FieldMetaInfo f_ = new FieldMetaInfo(_common,_field,classField_, formCl_);
         return new LambdaFieldStruct(f_,_previous,_common,_field,_clArg,_ownerType);
     }
 

@@ -1,7 +1,6 @@
 package code.expressionlanguage.fwd.opers;
 
 import code.expressionlanguage.functionid.ClassMethodId;
-import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 
 public final class ExecLambdaMethodContent {
@@ -23,9 +22,6 @@ public final class ExecLambdaMethodContent {
         pair = _pair;
     }
 
-    public boolean isStaticCall() {
-        return method.getConstraints().getKind() == MethodAccessKind.STATIC_CALL || expCast;
-    }
     public ClassMethodId getMethod() {
         return method;
     }

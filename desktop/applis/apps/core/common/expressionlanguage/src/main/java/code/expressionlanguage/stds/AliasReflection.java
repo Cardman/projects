@@ -677,37 +677,14 @@ public final class AliasReflection {
         CustList<MethodMetaInfo> methods_ = new CustList<MethodMetaInfo>();
         String declaringClass_ = _annot.getDeclaringClass();
         for (ExecAnonymousFunctionBlock f: _annot.getAnonymousLambda()) {
-            MethodId id_ = f.getId();
             ExecRootBlock type_ = f.getParentType();
             if (type_ != null) {
-                String ret_ = f.getImportedReturnType();
-                boolean param_ = id_.getKind() == MethodAccessKind.STATIC_CALL;
-                MethodId fid_ = MetaInfoUtil.tryFormatId(declaringClass_, _cont, id_);
-                String idType_ = type_.getFullName();
-                String formCl_ = MetaInfoUtil.tryFormatType(idType_, declaringClass_, _cont);
-                String idCl_ = type_.getFullName();
-                if (param_) {
-                    idCl_ = declaringClass_;
-                }
-                MethodMetaInfo met_ = new MethodMetaInfo(declaringClass_,f.getAccess(), idCl_, id_, f.getModifier(), ret_, fid_, formCl_);
-                met_.setCache(new Cache(f, standards_.getContent().getCoreNames().getAliasObject()));
-                met_.setCallee(f);
-                met_.pair(type_,f);
-                met_.setFileName(f.getFile().getFileName());
+                MethodMetaInfo met_ = buildAnon(_cont, declaringClass_, f, type_);
                 methods_.add(met_);
             }
             ExecOperatorBlock operator_ = f.getOperator();
             if (operator_ != null) {
-                String ret_ = f.getImportedReturnType();
-                MethodId fid_ = MetaInfoUtil.tryFormatId(declaringClass_, _cont, id_);
-                String idType_ = "";
-                String formCl_ = MetaInfoUtil.tryFormatType(idType_, declaringClass_, _cont);
-                String idCl_ = "";
-                MethodMetaInfo met_ = new MethodMetaInfo(declaringClass_,f.getAccess(), idCl_, id_, f.getModifier(), ret_, fid_, formCl_);
-                met_.setCache(new Cache(f, standards_.getContent().getCoreNames().getAliasObject()));
-                met_.setCallee(f);
-                met_.pair(null,f);
-                met_.setFileName(f.getFile().getFileName());
+                MethodMetaInfo met_ = buildAnon(_cont, declaringClass_, f, null);
                 methods_.add(met_);
             }
         }
@@ -720,6 +697,10 @@ public final class AliasReflection {
         return getMethodsMeta(className_, candidates_);
     }
 
+    private static MethodMetaInfo buildAnon(ContextEl _cont, String _declaringClass, ExecAnonymousFunctionBlock _f, ExecRootBlock _type) {
+        return new MethodMetaInfo(_cont,_f,_type,_declaringClass);
+    }
+
     private static ArrayStruct fetchSwitchMethod(ContextEl _cont, AnnotatedStruct _annot, Struct... _args) {
         LgNames standards_ = _cont.getStandards();
         String aliasMethod_ = standards_.getContent().getReflect().getAliasMethod();
@@ -729,34 +710,12 @@ public final class AliasReflection {
             MethodId id_ = f.getId();
             ExecRootBlock type_ = f.getParentType();
             if (type_ != null) {
-                String ret_ = f.getRetType();
-                MethodId fid_ = MetaInfoUtil.tryFormatId(declaringClass_, _cont, id_);
-                boolean param_ = id_.getKind() == MethodAccessKind.STATIC_CALL;
-                String idType_ = type_.getFullName();
-                String formCl_ = MetaInfoUtil.tryFormatType(idType_, declaringClass_, _cont);
-                String idCl_ = type_.getFullName();
-                if (param_) {
-                    idCl_ = declaringClass_;
-                }
-                MethodMetaInfo met_ = new MethodMetaInfo(declaringClass_, idCl_, id_, f.getModifier(), ret_, fid_, formCl_);
-                met_.setCache(new Cache(f, standards_.getContent().getCoreNames().getAliasObject()));
-                met_.setCallee(f);
-                met_.pair(type_,null);
-                met_.setFileName(f.getFile().getFileName());
+                MethodMetaInfo met_ = buildSwitch(_cont, declaringClass_, f, type_);
                 methods_.add(met_);
             }
             ExecOperatorBlock operator_ = f.getOperator();
             if (operator_ != null) {
-                String ret_ = f.getRetType();
-                MethodId fid_ = MetaInfoUtil.tryFormatId(declaringClass_, _cont, id_);
-                String idType_ = "";
-                String formCl_ = MetaInfoUtil.tryFormatType(idType_, declaringClass_, _cont);
-                String idCl_ = "";
-                MethodMetaInfo met_ = new MethodMetaInfo(declaringClass_, idCl_, id_, f.getModifier(), ret_, fid_, formCl_);
-                met_.setCache(new Cache(f, standards_.getContent().getCoreNames().getAliasObject()));
-                met_.setCallee(f);
-                met_.pair(null,null);
-                met_.setFileName(f.getFile().getFileName());
+                MethodMetaInfo met_ = buildSwitch(_cont, declaringClass_, f, null);
                 methods_.add(met_);
             }
         }
@@ -767,6 +726,10 @@ public final class AliasReflection {
         CustList<MethodMetaInfo> candidates_ = filterMethods(_cont, methods_, declaringClass_, _args[0], _args[1], _args[2], _args[3]);
         String className_= StringExpUtil.getPrettyArrayType(aliasMethod_);
         return getMethodsMeta(className_, candidates_);
+    }
+
+    private static MethodMetaInfo buildSwitch(ContextEl _cont, String _declaringClass, ExecAbstractSwitchMethod _f, ExecRootBlock _type) {
+        return new MethodMetaInfo(_cont,_f,_type,_declaringClass);
     }
 
     public static ResultErrorStd invokeFieldInfo(ContextEl _cont, ClassMethodId _method, Struct _struct, Struct[] _args, StackCall _stackCall) {
@@ -1646,14 +1609,11 @@ public final class AliasReflection {
             if (_args.length == 0) {
                 if (instanceClass_.isTypeArray()) {
                     String instClassName_ = instanceClass_.getName();
-                    String realInstClassName_ = StringExpUtil.getPrettyArrayType(lgNames_.getContent().getCoreNames().getAliasObject());
                     MethodId id_ = new MethodId(MethodAccessKind.INSTANCE, lgNames_.getContent().getCoreNames().getAliasClone(), new StringList());
-                    AccessEnum acc_ = AccessEnum.PUBLIC;
                     String idCl_ = StringExpUtil.getIdFromAllTypes(instClassName_);
-                    String idRealCl_ = StringExpUtil.getIdFromAllTypes(realInstClassName_);
                     String ret_ = getReturnTypeClone(_cont, instClassName_, idCl_);
                     ArrayStruct str_ = new ArrayStruct(1, className_);
-                    str_.set(0, new MethodMetaInfo(instClassName_,acc_, idRealCl_, id_, MethodModifier.FINAL, ret_, id_, instClassName_));
+                    str_.set(0, new MethodMetaInfo(_cont,instClassName_, id_, ret_));
                     result_.setResult(str_);
                     return result_;
                 }
@@ -1670,13 +1630,10 @@ public final class AliasReflection {
                     return result_;
                 }
                 String instClassName_ = instanceClass_.getName();
-                String realInstClassName_ = StringExpUtil.getPrettyArrayType(lgNames_.getContent().getCoreNames().getAliasObject());
-                AccessEnum acc_ = AccessEnum.PUBLIC;
                 String idCl_ = StringExpUtil.getIdFromAllTypes(instClassName_);
-                String idRealCl_ = StringExpUtil.getIdFromAllTypes(realInstClassName_);
                 String ret_ = getReturnTypeClone(_cont, instClassName_, idCl_);
                 ArrayStruct str_ = new ArrayStruct(1, className_);
-                str_.set(0, new MethodMetaInfo(instClassName_,acc_, idRealCl_, id_, MethodModifier.FINAL, ret_, id_, instClassName_));
+                str_.set(0, new MethodMetaInfo(_cont,instClassName_, id_, ret_));
                 result_.setResult(str_);
                 return result_;
             }
@@ -1963,14 +1920,7 @@ public final class AliasReflection {
     }
 
     private static MethodMetaInfo feedOperator(ExecOperatorBlock _operator) {
-        MethodId id_ = _operator.getId();
-        String ret_ = _operator.getImportedReturnType();
-        AccessEnum acc_ = _operator.getAccess();
-        MethodMetaInfo met_ = new MethodMetaInfo("",acc_, "", id_, MethodModifier.STATIC, ret_, id_, "");
-        met_.setFileName(_operator.getFile().getFileName());
-        met_.setCallee(_operator);
-        met_.pair(null,_operator);
-        return met_;
+        return new MethodMetaInfo(_operator);
     }
 
     private static ResultErrorStd getWildCardBounds(ContextEl _cont, ResultErrorStd _result, ClassMetaInfo _cl, StringList _bounds) {
