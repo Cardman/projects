@@ -7,34 +7,18 @@ public abstract class RendAbstractLambdaOperation extends RendLeafOperation impl
 
     private final ExecLambdaCommonContent lambdaCommonContent;
 
-    public RendAbstractLambdaOperation(ExecOperationContent _opCont, ExecLambdaCommonContent _lamCont) {
+    protected RendAbstractLambdaOperation(ExecOperationContent _opCont, ExecLambdaCommonContent _lamCont) {
         super(_opCont);
         lambdaCommonContent = _lamCont;
     }
 
     @Override
     public boolean isIntermediateDottedOperation() {
-        return lambdaCommonContent.isIntermediate();
+        return getLambdaCommonContent().isIntermediate();
     }
 
-    public boolean isSafeInstance() {
-        return lambdaCommonContent.isSafeInstance();
-    }
-
-    public String getReturnFieldType() {
-        return lambdaCommonContent.getReturnFieldType();
-    }
-
-    public boolean isShiftArgument() {
-        return lambdaCommonContent.isShiftArgument();
-    }
-
-    public String getFileName() {
-        return lambdaCommonContent.getFileName();
-    }
-
-    public int getAncestor() {
-        return lambdaCommonContent.getAncestor();
+    public ExecLambdaCommonContent getLambdaCommonContent() {
+        return lambdaCommonContent;
     }
 
     public String getFoundClass() {

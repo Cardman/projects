@@ -23,17 +23,13 @@ public final class ExecConstructorLambdaOperation extends ExecAbstractLambdaOper
         String ownerType_ = getFoundClass();
         ownerType_ = _stack.formatVarType(ownerType_);
         clArg_ = _stack.formatVarType(clArg_);
-        Argument res_ = new Argument(newLambda(previous_, ownerType_, isShiftArgument(), isSafeInstance(), clArg_));
+        Argument res_ = new Argument(newLambda(getLambdaCommonContent(),previous_, ownerType_, clArg_));
         setSimpleArgument(res_, _conf, _nodes, _stack);
     }
 
-    public static Struct newLambda(Argument _previous, String _ownerType,
-                                   boolean _shiftArgument, boolean _safeInstance,
+    public static Struct newLambda(ExecLambdaCommonContent _comm, Argument _previous, String _ownerType,
                                    String _clArg) {
-        LambdaConstructorStruct l_ = new LambdaConstructorStruct(_clArg, _ownerType, _shiftArgument);
-        l_.setInstanceCall(_previous);
-        l_.setSafeInstance(_safeInstance);
-        return l_;
+        return new LambdaConstructorStruct(NullStruct.NULL_VALUE,_previous,_comm,_clArg, _ownerType);
     }
 
 }

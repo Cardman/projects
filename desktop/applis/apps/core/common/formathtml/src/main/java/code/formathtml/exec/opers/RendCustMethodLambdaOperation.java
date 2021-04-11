@@ -3,9 +3,7 @@ package code.formathtml.exec.opers;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.StackCall;
-import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
-import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.fwd.opers.ExecLambdaCommonContent;
 import code.expressionlanguage.fwd.opers.ExecLambdaMethodContent;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
@@ -18,12 +16,10 @@ import code.util.IdMap;
 public final class RendCustMethodLambdaOperation extends RendAbstractLambdaOperation {
 
     private final ExecLambdaMethodContent lambdaMethodContent;
-    private final ExecTypeFunction pair;
 
-    public RendCustMethodLambdaOperation(ExecOperationContent _opCont, ExecLambdaCommonContent _lamCont, ExecLambdaMethodContent _lambdaMethodContent, ExecTypeFunction _pair) {
+    public RendCustMethodLambdaOperation(ExecOperationContent _opCont, ExecLambdaCommonContent _lamCont, ExecLambdaMethodContent _lambdaMethodContent) {
         super(_opCont, _lamCont);
         lambdaMethodContent = _lambdaMethodContent;
-        pair = _pair;
     }
 
     @Override
@@ -31,7 +27,7 @@ public final class RendCustMethodLambdaOperation extends RendAbstractLambdaOpera
         Argument previous_ = getPreviousArg(this, _nodes, _rendStack);
         String clArg_ = getResultClass().getSingleNameOrEmpty();
         String ownerType_ = getFoundClass();
-        Argument res_ = new Argument(ExecCustMethodLambdaOperation.newLambda(previous_, _context, ownerType_, getReturnFieldType(), getAncestor(), lambdaMethodContent.isDirectCast(), lambdaMethodContent.isPolymorph(), lambdaMethodContent.isAbstractMethod(), lambdaMethodContent.isExpCast(), isShiftArgument(), isSafeInstance(), clArg_, getFileName(), lambdaMethodContent.getMethod().getConstraints(), pair));
+        Argument res_ = new Argument(ExecCustMethodLambdaOperation.newLambda(getLambdaCommonContent(),lambdaMethodContent,previous_, _context, ownerType_, clArg_));
         setSimpleArgument(res_, _nodes, _context, _stack, _rendStack);
     }
 }

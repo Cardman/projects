@@ -2,24 +2,27 @@ package code.expressionlanguage.structs;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.fwd.opers.ExecLambdaCommonContent;
 import code.util.core.StringUtil;
 
 public final class LambdaConstructorStruct extends WithoutParentIdStruct implements LambdaStruct {
 
-    private Argument instanceCall = Argument.createVoid();
+    private final Argument instanceCall;
 
     private final String className;
     private final String formClassName;
 
     private final boolean shiftInstance;
-    private boolean safeInstance;
-    private Struct metaInfo = NullStruct.NULL_VALUE;
+    private final boolean safeInstance;
+    private final Struct metaInfo;
 
-    public LambdaConstructorStruct(String _className, String _formClassName,
-                                   boolean _shiftInstance) {
+    public LambdaConstructorStruct(Struct _metaInfo,Argument _previous, ExecLambdaCommonContent _common, String _className, String _formClassName) {
+        metaInfo = _metaInfo;
+        instanceCall = Argument.getNullableValue(_previous);
         className = StringUtil.nullToEmpty(_className);
         formClassName = StringUtil.nullToEmpty(_formClassName);
-        shiftInstance = _shiftInstance;
+        shiftInstance = _common.isShiftArgument();
+        safeInstance = _common.isSafeInstance();
     }
 
     public String getFormClassName() {
@@ -29,16 +32,8 @@ public final class LambdaConstructorStruct extends WithoutParentIdStruct impleme
         return instanceCall;
     }
 
-    public void setInstanceCall(Argument _instanceCall) {
-        instanceCall = Argument.getNullableValue(_instanceCall);
-    }
-
     public Struct getMetaInfo() {
         return metaInfo;
-    }
-
-    public void setMetaInfo(Struct _metaInfo) {
-        this.metaInfo = _metaInfo;
     }
 
     public boolean isShiftInstance() {
@@ -47,10 +42,6 @@ public final class LambdaConstructorStruct extends WithoutParentIdStruct impleme
 
     public boolean isSafeInstance() {
         return safeInstance;
-    }
-
-    public void setSafeInstance(boolean _safeInstance) {
-        safeInstance = _safeInstance;
     }
 
     @Override

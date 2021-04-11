@@ -3,11 +3,13 @@ package code.expressionlanguage.structs;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ClassField;
+import code.expressionlanguage.fwd.opers.ExecLambdaCommonContent;
+import code.expressionlanguage.fwd.opers.ExecLambdaFieldContent;
 import code.util.core.StringUtil;
 
 public final class LambdaFieldStruct extends WithoutParentIdStruct implements LambdaStruct {
 
-    private Argument instanceCall = Argument.createVoid();
+    private final Argument instanceCall;
 
     private final String className;
     private final String ownerType;
@@ -18,20 +20,23 @@ public final class LambdaFieldStruct extends WithoutParentIdStruct implements La
 
     private final int ancestor;
     private final boolean affect;
-    private boolean staticField;
-    private boolean safeInstance;
-    private final String returnFieldType;
-    private Struct metaInfo = NullStruct.NULL_VALUE;
+    private final boolean staticField;
+    private final boolean safeInstance;
+    private final boolean instanceField;
+    private final Struct metaInfo;
 
-    public LambdaFieldStruct(String _className, String _ownerType,ClassField _fid,
-                             boolean _shiftInstance, int _ancestor, boolean _affect, String _returnFieldType) {
+    public LambdaFieldStruct(Struct _metaInfo,Argument _previous, ExecLambdaCommonContent _common, ExecLambdaFieldContent _field, String _className, String _ownerType) {
+        metaInfo = _metaInfo;
+        instanceCall =  Argument.getNullableValue(_previous);
         className = StringUtil.nullToEmpty(_className);
         ownerType = StringUtil.nullToEmpty(_ownerType);
-        fid = _fid;
-        shiftInstance = _shiftInstance;
-        ancestor = _ancestor;
-        affect = _affect;
-        returnFieldType = StringUtil.nullToEmpty(_returnFieldType);
+        fid = _field.getClassField();
+        shiftInstance = _common.isShiftArgument();
+        ancestor = _common.getAncestor();
+        affect = _field.isAffField();
+        staticField = _field.isStaticField();
+        instanceField = _field.isInstanceField();
+        safeInstance = _common.isSafeInstance();
     }
 
     public Argument getInstanceCall() {
@@ -42,32 +47,20 @@ public final class LambdaFieldStruct extends WithoutParentIdStruct implements La
         return staticField;
     }
 
-    public void setStaticField(boolean _staticField) {
-        this.staticField = _staticField;
-    }
-
     public boolean isSafeInstance() {
         return safeInstance;
-    }
-
-    public void setSafeInstance(boolean _safeInstance) {
-        safeInstance = _safeInstance;
-    }
-
-    public void setInstanceCall(Argument _instanceCall) {
-        instanceCall =  Argument.getNullableValue(_instanceCall);
     }
 
     public Struct getMetaInfo() {
         return metaInfo;
     }
 
-    public void setMetaInfo(Struct _metaInfo) {
-        this.metaInfo = _metaInfo;
-    }
-
     public ClassField getFid() {
         return fid;
+    }
+
+    public boolean isInstanceField() {
+        return instanceField;
     }
 
     public boolean isShiftInstance() {
@@ -79,9 +72,6 @@ public final class LambdaFieldStruct extends WithoutParentIdStruct implements La
     }
     public boolean isAffect() {
         return affect;
-    }
-    public String getReturnFieldType() {
-        return returnFieldType;
     }
 
     @Override

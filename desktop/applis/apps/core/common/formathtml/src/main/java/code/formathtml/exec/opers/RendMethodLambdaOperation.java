@@ -3,7 +3,6 @@ package code.formathtml.exec.opers;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.StackCall;
-import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecLambdaCommonContent;
 import code.expressionlanguage.fwd.opers.ExecLambdaMethodContent;
@@ -28,7 +27,7 @@ public final class RendMethodLambdaOperation extends RendAbstractLambdaOperation
         Argument previous_ = getPreviousArg(this, _nodes, _rendStack);
         String clArg_ = getResultClass().getSingleNameOrEmpty();
         String ownerType_ = getFoundClass();
-        Argument res_ = new Argument(ExecMethodLambdaOperation.newLambda(previous_, ownerType_, getAncestor(), lambdaMethodContent.isPolymorph(), lambdaMethodContent.isAbstractMethod(), isShiftArgument(), isSafeInstance(), clArg_, lambdaMethodContent.getMethod().getConstraints()));
+        Argument res_ = new Argument(ExecMethodLambdaOperation.newLambda(getLambdaCommonContent(),lambdaMethodContent,previous_, ownerType_, clArg_));
         setSimpleArgument(res_, _nodes, _context, _stack, _rendStack);
     }
 }

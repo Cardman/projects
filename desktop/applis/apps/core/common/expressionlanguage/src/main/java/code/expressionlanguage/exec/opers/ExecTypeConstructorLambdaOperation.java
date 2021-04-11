@@ -8,7 +8,6 @@ import code.expressionlanguage.exec.MetaInfoUtil;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.functionid.ConstructorId;
-import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.fwd.opers.ExecLambdaCommonContent;
 import code.expressionlanguage.fwd.opers.ExecLambdaConstructorContent;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
@@ -20,12 +19,10 @@ import code.util.IdMap;
 public final class ExecTypeConstructorLambdaOperation extends ExecAbstractLambdaOperation {
 
     private final ExecLambdaConstructorContent lambdaConstructorContent;
-    private final ExecTypeFunction pair;
 
-    public ExecTypeConstructorLambdaOperation(ExecOperationContent _opCont, ExecLambdaCommonContent _lamCont, ExecLambdaConstructorContent _lambdaConstructorContent, ExecTypeFunction _pair) {
+    public ExecTypeConstructorLambdaOperation(ExecOperationContent _opCont, ExecLambdaCommonContent _lamCont, ExecLambdaConstructorContent _lambdaConstructorContent) {
         super(_opCont, _lamCont);
         lambdaConstructorContent = _lambdaConstructorContent;
-        pair = _pair;
     }
 
     @Override
@@ -36,24 +33,18 @@ public final class ExecTypeConstructorLambdaOperation extends ExecAbstractLambda
         String ownerType_ = getFoundClass();
         ownerType_ = _stack.formatVarType(ownerType_);
         clArg_ = _stack.formatVarType(clArg_);
-        Argument res_ = new Argument(newLambda(previous_, _conf, ownerType_, lambdaConstructorContent.getRealId(), getReturnFieldType(), isShiftArgument(), isSafeInstance(), clArg_, getFileName(), pair));
+        Argument res_ = new Argument(newLambda(getLambdaCommonContent(),lambdaConstructorContent,previous_, _conf, ownerType_, clArg_));
         setSimpleArgument(res_, _conf, _nodes, _stack);
     }
 
-    public static Struct newLambda(Argument _previous, ContextEl _conf, String _ownerType, ConstructorId _realId, String _returnFieldType,
-                                    boolean _shiftArgument, boolean _safeInstance,
-                                    String _clArg, String _fileName,
-                                    ExecTypeFunction _pair) {
-        LambdaConstructorStruct l_ = new LambdaConstructorStruct(_clArg, _ownerType, _shiftArgument);
-        l_.setInstanceCall(_previous);
-        l_.setSafeInstance(_safeInstance);
+    public static Struct newLambda(ExecLambdaCommonContent _common, ExecLambdaConstructorContent _ctor, Argument _previous, ContextEl _conf, String _ownerType,
+                                   String _clArg) {
         String className_ = StringExpUtil.getIdFromAllTypes(_ownerType);
-        ConstructorId fid_ = MetaInfoUtil.tryFormatId(_ownerType, _conf, _realId);
-        ConstructorMetaInfo met_ = new ConstructorMetaInfo(_ownerType,AccessEnum.PUBLIC, _realId, _returnFieldType, fid_, className_);
-        met_.setFileName(_fileName);
-        met_.setPair(_pair);
-        l_.setMetaInfo(met_);
-        return l_;
+        ConstructorId fid_ = MetaInfoUtil.tryFormatId(_ownerType, _conf, _ctor.getRealId());
+        ConstructorMetaInfo met_ = new ConstructorMetaInfo(_ownerType,AccessEnum.PUBLIC, _ctor.getRealId(), _common.getReturnFieldType(), fid_, className_);
+        met_.setFileName(_common.getFileName());
+        met_.setPair(_ctor.getPair());
+        return new LambdaConstructorStruct(met_,_previous,_common,_clArg, _ownerType);
     }
 
 }

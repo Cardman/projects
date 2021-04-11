@@ -7,8 +7,6 @@ import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.MetaInfoUtil;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
-import code.expressionlanguage.functionid.MethodAccessKind;
-import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.functionid.MethodModifier;
 import code.expressionlanguage.fwd.opers.ExecLambdaCommonContent;
 import code.expressionlanguage.fwd.opers.ExecLambdaMethodContent;
@@ -35,27 +33,19 @@ public final class ExecCastMethodLambdaOperation extends ExecAbstractLambdaOpera
         String ownerType_ = getFoundClass();
         ownerType_ = _stack.formatVarType(ownerType_);
         clArg_ = _stack.formatVarType(clArg_);
-        Argument res_ = new Argument(newLambda(previous_, _conf, ownerType_, getReturnFieldType(), getAncestor(), lambdaMethodContent.isPolymorph(), lambdaMethodContent.isAbstractMethod(), isShiftArgument(), isSafeInstance(), clArg_, getFileName(), lambdaMethodContent.getMethod().getConstraints()));
+        Argument res_ = new Argument(newLambda(getLambdaCommonContent(),lambdaMethodContent,previous_, _conf, ownerType_, clArg_));
         setSimpleArgument(res_, _conf, _nodes, _stack);
     }
 
-    public static Struct newLambda(Argument _previous, ContextEl _conf, String _ownerType, String _returnFieldType,
-                                   int _ancestor, boolean _polymorph, boolean _abstractMethod, boolean _shiftArgument, boolean _safeInstance,
-                                   String _clArg, String _fileName, MethodId _constraints) {
-        LambdaMethodStruct l_ = new LambdaMethodStruct(_clArg, _ownerType, _polymorph, _shiftArgument, _ancestor, _abstractMethod);
-        l_.setInstanceCall(_previous);
-        l_.setDirectCast(true);
-        l_.setSafeInstance(_safeInstance);
-        l_.setMethodName(_constraints.getName());
-        l_.setKind(MethodAccessKind.STATIC);
+    public static Struct newLambda(ExecLambdaCommonContent _common, ExecLambdaMethodContent _meth, Argument _previous, ContextEl _conf, String _ownerType,
+                                   String _clArg) {
         String idCl_ = StringExpUtil.getIdFromAllTypes(_ownerType);
         String formCl_ = MetaInfoUtil.tryFormatType(idCl_, _ownerType, _conf);
         MethodModifier met_ = MethodModifier.STATIC;
-        MethodMetaInfo metaInfo_ = new MethodMetaInfo(_ownerType,AccessEnum.PUBLIC, _ownerType, _constraints, met_, _returnFieldType, _constraints, formCl_);
+        MethodMetaInfo metaInfo_ = new MethodMetaInfo(_ownerType,AccessEnum.PUBLIC, _ownerType, _meth.getMethod().getConstraints(), met_, _common.getReturnFieldType(), _meth.getMethod().getConstraints(), formCl_);
         metaInfo_.setDirectCast(true);
-        metaInfo_.setFileName(_fileName);
-        l_.setMetaInfo(metaInfo_);
-        return l_;
+        metaInfo_.setFileName(_common.getFileName());
+        return new LambdaMethodStruct(metaInfo_,_previous,_common,_meth,_clArg, _ownerType);
     }
 
 

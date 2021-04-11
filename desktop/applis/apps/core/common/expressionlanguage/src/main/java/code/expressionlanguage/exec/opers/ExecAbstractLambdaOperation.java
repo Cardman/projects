@@ -5,36 +5,20 @@ import code.expressionlanguage.fwd.opers.ExecOperationContent;
 
 public abstract class ExecAbstractLambdaOperation extends ExecLeafOperation implements AtomicExecCalculableOperation,ExecPossibleIntermediateDotted {
 
-    private ExecLambdaCommonContent lambdaCommonContent;
+    private final ExecLambdaCommonContent lambdaCommonContent;
 
-    public ExecAbstractLambdaOperation(ExecOperationContent _opCont, ExecLambdaCommonContent _lamCont) {
+    protected ExecAbstractLambdaOperation(ExecOperationContent _opCont, ExecLambdaCommonContent _lamCont) {
         super(_opCont);
         lambdaCommonContent = _lamCont;
     }
 
     @Override
     public boolean isIntermediateDottedOperation() {
-        return lambdaCommonContent.isIntermediate();
+        return getLambdaCommonContent().isIntermediate();
     }
 
-    public boolean isSafeInstance() {
-        return lambdaCommonContent.isSafeInstance();
-    }
-
-    public String getReturnFieldType() {
-        return lambdaCommonContent.getReturnFieldType();
-    }
-
-    public boolean isShiftArgument() {
-        return lambdaCommonContent.isShiftArgument();
-    }
-
-    public String getFileName() {
-        return lambdaCommonContent.getFileName();
-    }
-
-    public int getAncestor() {
-        return lambdaCommonContent.getAncestor();
+    public ExecLambdaCommonContent getLambdaCommonContent() {
+        return lambdaCommonContent;
     }
 
     public String getFoundClass() {

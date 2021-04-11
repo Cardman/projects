@@ -4,6 +4,7 @@ public final class AnaLambdaFieldContent {
     private boolean staticField;
     private boolean finalField;
     private boolean affField;
+    private boolean instanceField;
 
     public boolean isStaticField() {
         return staticField;
@@ -27,5 +28,13 @@ public final class AnaLambdaFieldContent {
 
     public void setAffField(boolean _affField) {
         this.affField = _affField;
+    }
+
+    public boolean isInstanceField() {
+        return instanceField;
+    }
+
+    public void setInstanceField(boolean _instanceField) {
+        instanceField = _instanceField;
     }
 }

@@ -26,7 +26,7 @@ public final class RendCloneMethodLambdaOperation extends RendAbstractLambdaOper
         Argument previous_ = getPreviousArg(this, _nodes, _rendStack);
         String clArg_ = getResultClass().getSingleNameOrEmpty();
         String ownerType_ = getFoundClass();
-        Argument res_ = new Argument(ExecCloneMethodLambdaOperation.newLambda(previous_, _context, ownerType_, getReturnFieldType(), getAncestor(), lambdaMethodContent.isPolymorph(), lambdaMethodContent.isAbstractMethod(), isShiftArgument(), isSafeInstance(), clArg_, getFileName(), lambdaMethodContent.getMethod().getConstraints()));
+        Argument res_ = new Argument(ExecCloneMethodLambdaOperation.newLambda(getLambdaCommonContent(),lambdaMethodContent,previous_, _context, ownerType_, clArg_));
         setSimpleArgument(res_, _nodes, _context, _stack, _rendStack);
     }
 }

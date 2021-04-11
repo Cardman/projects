@@ -1777,6 +1777,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             String keyWordInstanceof_ = keyWords_.getKeyWordInstanceof();
             if (StringUtil.quickEq(fieldName_, keyWordInstanceof_)) {
                 lambdaFieldContent.setFinalField(true);
+                lambdaFieldContent.setInstanceField(true);
                 lambdaCommonContent.setReturnFieldType(_page.getAliasPrimBoolean());
                 lambdaCommonContent.setFoundClass(resolved_);
                 lambdaCommonContent.setShiftArgument(true);
@@ -1955,6 +1956,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         }
         if (StringUtil.quickEq(fieldName_, keyWordInstanceof_)) {
             lambdaFieldContent.setFinalField(true);
+            lambdaFieldContent.setInstanceField(true);
             lambdaCommonContent.setReturnFieldType(_page.getAliasPrimBoolean());
             lambdaCommonContent.setFoundClass(resolved_);
             String fct_ = StringUtil.concat(_page.getAliasFct(),"<", lambdaCommonContent.getReturnFieldType(),">");

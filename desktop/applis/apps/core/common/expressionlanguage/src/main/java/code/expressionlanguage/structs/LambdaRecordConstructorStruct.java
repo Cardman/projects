@@ -8,7 +8,7 @@ import code.util.core.StringUtil;
 
 public final class LambdaRecordConstructorStruct extends WithoutParentIdStruct implements LambdaStruct {
 
-    private Argument instanceCall = Argument.createVoid();
+    private final Argument instanceCall = Argument.createVoid();
 
     private final ExecRootBlock root;
     private final String className;

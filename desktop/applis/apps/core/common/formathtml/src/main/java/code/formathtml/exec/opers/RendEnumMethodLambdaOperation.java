@@ -27,7 +27,7 @@ public final class RendEnumMethodLambdaOperation extends RendAbstractLambdaOpera
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, BeanLgNames _advStandards, ContextEl _context, StackCall _stack, RendStackCall _rendStack) {
         Argument previous_ = getPreviousArg(this, _nodes, _rendStack);
         String clArg_ = getResultClass().getSingleNameOrEmpty();
-        Argument res_ = new Argument(ExecEnumMethodLambdaOperation.newLambda(previous_, getFoundClass(), getReturnFieldType(), getAncestor(), lambdaMethodContent.isPolymorph(), lambdaMethodContent.isAbstractMethod(), isShiftArgument(), isSafeInstance(), clArg_, getFileName(), lambdaMethodContent.getMethod().getConstraints(), declaring));
+        Argument res_ = new Argument(ExecEnumMethodLambdaOperation.newLambda(getLambdaCommonContent(),lambdaMethodContent,previous_, clArg_, declaring));
         setSimpleArgument(res_, _nodes, _context, _stack, _rendStack);
     }
 }

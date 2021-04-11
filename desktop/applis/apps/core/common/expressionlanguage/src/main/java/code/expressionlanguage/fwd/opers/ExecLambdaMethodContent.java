@@ -1,7 +1,8 @@
 package code.expressionlanguage.fwd.opers;
 
-import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.functionid.ClassMethodId;
+import code.expressionlanguage.functionid.MethodAccessKind;
+import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 
 public final class ExecLambdaMethodContent {
     private final ClassMethodId method;
@@ -10,16 +11,21 @@ public final class ExecLambdaMethodContent {
     private final boolean directCast;
     private final boolean expCast;
     private final boolean clonedMethod;
+    private final ExecTypeFunction pair;
 
-    public ExecLambdaMethodContent(ClassMethodId _method, AnaLambdaMethodContent _meth) {
+    public ExecLambdaMethodContent(ClassMethodId _method, AnaLambdaMethodContent _meth, ExecTypeFunction _pair) {
         method = _method;
         polymorph = _meth.isPolymorph();
         abstractMethod = _meth.isAbstractMethod();
         directCast = _meth.isDirectCast();
         expCast = _meth.isExpCast();
         clonedMethod = _meth.isClonedMethod();
+        pair = _pair;
     }
 
+    public boolean isStaticCall() {
+        return method.getConstraints().getKind() == MethodAccessKind.STATIC_CALL || directCast || expCast;
+    }
     public ClassMethodId getMethod() {
         return method;
     }
@@ -44,4 +50,7 @@ public final class ExecLambdaMethodContent {
         return clonedMethod;
     }
 
+    public ExecTypeFunction getPair() {
+        return pair;
+    }
 }

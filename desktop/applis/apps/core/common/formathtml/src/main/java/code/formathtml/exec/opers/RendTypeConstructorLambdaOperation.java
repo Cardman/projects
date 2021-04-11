@@ -3,9 +3,7 @@ package code.formathtml.exec.opers;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.StackCall;
-import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
-import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.fwd.opers.ExecLambdaCommonContent;
 import code.expressionlanguage.fwd.opers.ExecLambdaConstructorContent;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
@@ -18,12 +16,10 @@ import code.util.IdMap;
 public final class RendTypeConstructorLambdaOperation extends RendAbstractLambdaOperation {
 
     private final ExecLambdaConstructorContent lambdaConstructorContent;
-    private final ExecTypeFunction pair;
 
-    public RendTypeConstructorLambdaOperation(ExecOperationContent _opCont, ExecLambdaCommonContent _lamCont, ExecLambdaConstructorContent _lambdaConstructorContent, ExecTypeFunction _pair) {
+    public RendTypeConstructorLambdaOperation(ExecOperationContent _opCont, ExecLambdaCommonContent _lamCont, ExecLambdaConstructorContent _lambdaConstructorContent) {
         super(_opCont, _lamCont);
         lambdaConstructorContent = _lambdaConstructorContent;
-        pair = _pair;
     }
 
     @Override
@@ -31,7 +27,7 @@ public final class RendTypeConstructorLambdaOperation extends RendAbstractLambda
         Argument previous_ = getPreviousArg(this, _nodes, _rendStack);
         String clArg_ = getResultClass().getSingleNameOrEmpty();
         String ownerType_ = getFoundClass();
-        Argument res_ = new Argument(ExecTypeConstructorLambdaOperation.newLambda(previous_, _context, ownerType_, lambdaConstructorContent.getRealId(), getReturnFieldType(), isShiftArgument(), isSafeInstance(), clArg_, getFileName(), pair));
+        Argument res_ = new Argument(ExecTypeConstructorLambdaOperation.newLambda(getLambdaCommonContent(),lambdaConstructorContent,previous_, _context, ownerType_, clArg_));
         setSimpleArgument(res_, _nodes, _context, _stack, _rendStack);
     }
 }

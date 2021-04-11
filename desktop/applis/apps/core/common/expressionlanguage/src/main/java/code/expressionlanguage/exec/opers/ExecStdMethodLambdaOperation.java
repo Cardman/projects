@@ -37,19 +37,12 @@ public final class ExecStdMethodLambdaOperation extends ExecAbstractLambdaOperat
         String ownerType_ = getFoundClass();
         ownerType_ = _stack.formatVarType(ownerType_);
         clArg_ = _stack.formatVarType(clArg_);
-        Argument res_ = new Argument(newLambda(previous_, _conf, ownerType_, getReturnFieldType(), isShiftArgument(), isSafeInstance(), clArg_, function, method.getConstraints()));
+        Argument res_ = new Argument(newLambda(getLambdaCommonContent(),previous_, _conf, ownerType_, clArg_, function, method.getConstraints()));
         setSimpleArgument(res_, _conf, _nodes, _stack);
     }
 
-    public static Struct newLambda(Argument _previous, ContextEl _conf, String _ownerType,
-                                   String _returnFieldType,
-                                   boolean _shiftArgument, boolean _safeInstance,
+    public static Struct newLambda(ExecLambdaCommonContent _common, Argument _previous, ContextEl _conf, String _ownerType,
                                    String _clArg, StandardMethod _function, MethodId _constraints) {
-        LambdaMethodStruct l_ = new LambdaMethodStruct(_clArg, _ownerType, false, _shiftArgument, 0, false);
-        l_.setInstanceCall(_previous);
-        l_.setSafeInstance(_safeInstance);
-        l_.setMethodName(_constraints.getName());
-        l_.setKind(_constraints.getKind());
         MethodId fid_ = MetaInfoUtil.tryFormatId(_ownerType, _conf, _constraints);
         String className_;
         className_ = StringExpUtil.getIdFromAllTypes(_ownerType);
@@ -57,10 +50,9 @@ public final class ExecStdMethodLambdaOperation extends ExecAbstractLambdaOperat
         String idCl_ = StringExpUtil.getIdFromAllTypes(_ownerType);
         String formCl_ = MetaInfoUtil.tryFormatType(idCl_, _ownerType, _conf);
         MethodModifier met_ = _function.getModifier();
-        MethodMetaInfo metaInfo_ = new MethodMetaInfo(_ownerType,AccessEnum.PUBLIC, from_, _constraints, met_, _returnFieldType, fid_, formCl_);
+        MethodMetaInfo metaInfo_ = new MethodMetaInfo(_ownerType,AccessEnum.PUBLIC, from_, _constraints, met_, _common.getReturnFieldType(), fid_, formCl_);
         metaInfo_.setStdCallee(_function);
-        l_.setMetaInfo(metaInfo_);
-        return l_;
+        return new LambdaMethodStruct(metaInfo_,_previous,_common,_constraints,_clArg, _ownerType);
     }
 
 

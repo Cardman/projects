@@ -12,6 +12,7 @@ public final class ExecLambdaFieldContent {
     private final boolean staticField;
     private final boolean finalField;
     private final boolean affField;
+    private final boolean instanceField;
     private final ExecRootBlock rootBlock;
     private final ExecInfoBlock infoBlock;
     public ExecLambdaFieldContent(ClassField _classField, AnaLambdaFieldContent _field, MemberId _id, Forwards _forwards) {
@@ -19,6 +20,7 @@ public final class ExecLambdaFieldContent {
         staticField = _field.isStaticField();
         finalField = _field.isFinalField();
         affField = _field.isAffField();
+        instanceField = _field.isInstanceField();
         rootBlock = FetchMemberUtil.fetchType(_id, _forwards);
         infoBlock = FetchMemberUtil.fetchField(_id, _forwards);
     }
@@ -37,6 +39,10 @@ public final class ExecLambdaFieldContent {
 
     public boolean isAffField() {
         return affField;
+    }
+
+    public boolean isInstanceField() {
+        return instanceField;
     }
 
     public ExecRootBlock getRootBlock() {

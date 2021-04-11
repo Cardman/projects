@@ -3,11 +3,15 @@ package code.expressionlanguage.structs;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.functionid.MethodAccessKind;
+import code.expressionlanguage.functionid.MethodId;
+import code.expressionlanguage.fwd.opers.ExecLambdaAnoContent;
+import code.expressionlanguage.fwd.opers.ExecLambdaCommonContent;
+import code.expressionlanguage.fwd.opers.ExecLambdaMethodContent;
 import code.util.core.StringUtil;
 
 public final class LambdaMethodStruct extends WithoutParentIdStruct implements LambdaStruct {
 
-    private Argument instanceCall = Argument.createVoid();
+    private final Argument instanceCall;
 
     private final String className;
     private final String formClassName;
@@ -18,38 +22,63 @@ public final class LambdaMethodStruct extends WithoutParentIdStruct implements L
 
     private final int ancestor;
 
-    private final boolean abstractMethod;
+    private final boolean directCast;
+    private final boolean safeInstance;
+    private final boolean expCast;
+    private final MethodAccessKind kind;
+    private final String methodName;
+    private final Struct metaInfo;
 
-    private boolean directCast;
-    private boolean safeInstance;
-    private boolean expCast;
-    private MethodAccessKind kind;
-    private String methodName = "";
-    private Struct metaInfo = NullStruct.NULL_VALUE;
-    public LambdaMethodStruct(String _className, String _formClassName,
-                              boolean _polymorph, boolean _shiftInstance, int _ancestor, boolean _abstractMethod) {
+    public LambdaMethodStruct(Struct _metaInfo,Argument _previous, ExecLambdaCommonContent _common, ExecLambdaMethodContent _meth, String _className, String _formClassName) {
+        metaInfo = _metaInfo;
+        instanceCall = Argument.getNullableValue(_previous);
         className = StringUtil.nullToEmpty(_className);
         formClassName = StringUtil.nullToEmpty(_formClassName);
-        polymorph = _polymorph;
-        shiftInstance = _shiftInstance;
-        ancestor = _ancestor;
-        abstractMethod = _abstractMethod;
+        polymorph = _meth.isPolymorph();
+        shiftInstance = _common.isShiftArgument();
+        ancestor = _common.getAncestor();
+        safeInstance = _common.isSafeInstance();
+        methodName = StringUtil.nullToEmpty(_meth.getMethod().getConstraints().getName());
+        kind = _meth.getMethod().getConstraints().getKind();
+        directCast = _meth.isDirectCast();
+        expCast = _meth.isExpCast();
     }
 
+    public LambdaMethodStruct(Struct _metaInfo,Argument _previous, ExecLambdaCommonContent _common, ExecLambdaAnoContent _meth, String _className, String _formClassName) {
+        metaInfo = _metaInfo;
+        instanceCall = Argument.getNullableValue(_previous);
+        className = StringUtil.nullToEmpty(_className);
+        formClassName = StringUtil.nullToEmpty(_formClassName);
+        polymorph = false;
+        shiftInstance = _common.isShiftArgument();
+        ancestor = _common.getAncestor();
+        safeInstance = _common.isSafeInstance();
+        methodName = StringUtil.nullToEmpty(_meth.getMethod().getConstraints().getName());
+        kind = _meth.getMethod().getConstraints().getKind();
+        directCast = false;
+        expCast = false;
+    }
+
+    public LambdaMethodStruct(Struct _metaInfo,Argument _previous, ExecLambdaCommonContent _common, MethodId _meth, String _className, String _formClassName) {
+        metaInfo = _metaInfo;
+        instanceCall = Argument.getNullableValue(_previous);
+        className = StringUtil.nullToEmpty(_className);
+        formClassName = StringUtil.nullToEmpty(_formClassName);
+        polymorph = false;
+        shiftInstance = _common.isShiftArgument();
+        ancestor = _common.getAncestor();
+        safeInstance = _common.isSafeInstance();
+        methodName = StringUtil.nullToEmpty(_meth.getName());
+        kind = _meth.getKind();
+        directCast = false;
+        expCast = false;
+    }
     public Argument getInstanceCall() {
         return instanceCall;
     }
 
-    public void setInstanceCall(Argument _instanceCall) {
-        instanceCall = Argument.getNullableValue(_instanceCall);
-    }
-
     public Struct getMetaInfo() {
         return metaInfo;
-    }
-
-    public void setMetaInfo(Struct _metaInfo) {
-        this.metaInfo = _metaInfo;
     }
 
     public String getFormClassName() {
@@ -60,16 +89,8 @@ public final class LambdaMethodStruct extends WithoutParentIdStruct implements L
         return kind;
     }
 
-    public void setKind(MethodAccessKind _staticMethod) {
-        this.kind = _staticMethod;
-    }
-
     public String getMethodName() {
         return methodName;
-    }
-
-    public void setMethodName(String _methodName) {
-        methodName = StringUtil.nullToEmpty(_methodName);
     }
 
     public boolean isPolymorph() {
@@ -84,27 +105,12 @@ public final class LambdaMethodStruct extends WithoutParentIdStruct implements L
         return safeInstance;
     }
 
-    public void setSafeInstance(boolean _safeInstance) {
-        safeInstance = _safeInstance;
-    }
-
     public int getAncestor() {
         return ancestor;
-    }
-    public boolean isAbstractMethod() {
-        return abstractMethod;
     }
 
     public boolean isStaticCall() {
         return kind == MethodAccessKind.STATIC_CALL || directCast || expCast;
-    }
-
-    public void setDirectCast(boolean _directCast) {
-        directCast = _directCast;
-    }
-
-    public void setExpCast(boolean _expCast) {
-        expCast = _expCast;
     }
 
     @Override

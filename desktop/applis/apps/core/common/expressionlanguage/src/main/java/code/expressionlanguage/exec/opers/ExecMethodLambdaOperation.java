@@ -4,7 +4,6 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
-import code.expressionlanguage.functionid.*;
 import code.expressionlanguage.fwd.opers.ExecLambdaCommonContent;
 import code.expressionlanguage.fwd.opers.ExecLambdaMethodContent;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
@@ -28,19 +27,13 @@ public final class ExecMethodLambdaOperation extends ExecAbstractLambdaOperation
         String ownerType_ = getFoundClass();
         ownerType_ = _stack.formatVarType(ownerType_);
         clArg_ = _stack.formatVarType(clArg_);
-        Argument res_ = new Argument(newLambda(previous_, ownerType_, getAncestor(), lambdaMethodContent.isPolymorph(), lambdaMethodContent.isAbstractMethod(), isShiftArgument(), isSafeInstance(), clArg_, lambdaMethodContent.getMethod().getConstraints()));
+        Argument res_ = new Argument(newLambda(getLambdaCommonContent(),lambdaMethodContent,previous_, ownerType_, clArg_));
         setSimpleArgument(res_, _conf, _nodes, _stack);
     }
 
-    public static Struct newLambda(Argument _previous, String _ownerType,
-                                   int _ancestor, boolean _polymorph, boolean _abstractMethod, boolean _shiftArgument, boolean _safeInstance,
-                                   String _clArg, MethodId _constraints) {
-        LambdaMethodStruct l_ = new LambdaMethodStruct(_clArg, _ownerType, _polymorph, _shiftArgument, _ancestor, _abstractMethod);
-        l_.setInstanceCall(_previous);
-        l_.setSafeInstance(_safeInstance);
-        l_.setMethodName(_constraints.getName());
-        l_.setKind(MethodAccessKind.INSTANCE);
-        return l_;
+    public static Struct newLambda(ExecLambdaCommonContent _common, ExecLambdaMethodContent _meth, Argument _previous, String _ownerType,
+                                   String _clArg) {
+        return new LambdaMethodStruct(NullStruct.NULL_VALUE,_previous,_common,_meth,_clArg, _ownerType);
     }
 
 

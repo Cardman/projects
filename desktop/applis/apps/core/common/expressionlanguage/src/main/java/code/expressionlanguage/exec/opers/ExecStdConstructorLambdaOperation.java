@@ -35,23 +35,18 @@ public final class ExecStdConstructorLambdaOperation extends ExecAbstractLambdaO
         String ownerType_ = getFoundClass();
         ownerType_ = _stack.formatVarType(ownerType_);
         clArg_ = _stack.formatVarType(clArg_);
-        Argument res_ = new Argument(newLambda(previous_, _conf, ownerType_, realId, getReturnFieldType(), isShiftArgument(), isSafeInstance(), clArg_, getFileName(), standardType));
+        Argument res_ = new Argument(newLambda(getLambdaCommonContent(),previous_, _conf, ownerType_, realId, clArg_, standardType));
         setSimpleArgument(res_, _conf, _nodes, _stack);
     }
 
-    public static Struct newLambda(Argument _previous, ContextEl _conf, String _ownerType, ConstructorId _realId, String _returnFieldType,
-                                   boolean _shiftArgument, boolean _safeInstance,
-                                   String _clArg, String _fileName, StandardType _standardType) {
-        LambdaConstructorStruct l_ = new LambdaConstructorStruct(_clArg, _ownerType, _shiftArgument);
-        l_.setInstanceCall(_previous);
-        l_.setSafeInstance(_safeInstance);
+    public static Struct newLambda(ExecLambdaCommonContent _common, Argument _previous, ContextEl _conf, String _ownerType, ConstructorId _realId,
+                                   String _clArg, StandardType _standardType) {
         String className_ = StringExpUtil.getIdFromAllTypes(_ownerType);
         ConstructorId fid_ = MetaInfoUtil.tryFormatId(_ownerType, _conf, _realId);
-        ConstructorMetaInfo met_ = new ConstructorMetaInfo(_ownerType,AccessEnum.PUBLIC, _realId, _returnFieldType, fid_, className_);
-        met_.setFileName(_fileName);
+        ConstructorMetaInfo met_ = new ConstructorMetaInfo(_ownerType,AccessEnum.PUBLIC, _realId, _common.getReturnFieldType(), fid_, className_);
+        met_.setFileName(_common.getFileName());
         met_.setStandardType(_standardType);
-        l_.setMetaInfo(met_);
-        return l_;
+        return new LambdaConstructorStruct(met_,_previous,_common,_clArg, _ownerType);
     }
 
 }
