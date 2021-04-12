@@ -2193,10 +2193,9 @@ public final class FileResolver {
             String afterElse_ = _trimmedInstruction.substring(keyWordElse_.length());
             String exp_ = afterElse_.trim();
             if (StringExpUtil.startsWithKeyWord(exp_,keyWordIf_)) {
-                int deltaFirst_ = keyWordElse_.length();
+                int beforeFirst_ = keyWordElse_.length();
                 int firstPr_ = StringUtil.getFirstPrintableCharIndex(afterElse_);
-                deltaFirst_ += firstPr_;
-                deltaFirst_ += keyWordIf_.length();
+                beforeFirst_ += firstPr_;
                 exp_ = exp_.substring(keyWordIf_.length());
                 int conditionOffest_ = _instructionTrimLocation;
                 conditionOffest_ += keyWordElse_.length();
@@ -2211,12 +2210,12 @@ public final class FileResolver {
                     conditionOffest_ += StringUtil.getFirstPrintableCharIndex(exp_);
                     ok_ = true;
                 }
-                br_ = new ElseIfCondition(new OffsetStringInfo(conditionOffest_+_offset, exp_.trim()),  _instructionTrimLocation+_offset,deltaFirst_);
+                br_ = new ElseIfCondition(new OffsetStringInfo(conditionOffest_+_offset, exp_.trim()),  _instructionTrimLocation+_offset,keyWordIf_.length()+beforeFirst_);
                 if (!ok_) {
                     br_.getBadIndexes().add(_i+_offset);
                 }
                 ((ConditionBlock)br_).setTestOffset(_i+_offset);
-                br_.setBegin(_instructionTrimLocation+deltaFirst_-keyWordIf_.length()+_offset);
+                br_.setBegin(_instructionTrimLocation+beforeFirst_+_offset);
                 br_.setLengthHeader(keyWordIf_.length());
             } else {
                 br_ = new ElseCondition( _instructionTrimLocation+_offset);
@@ -2274,9 +2273,6 @@ public final class FileResolver {
                 labelOff_ += StringUtil.getFirstPrintableCharIndex(label_);
             }
             int typeOffset_ = _instructionTrimLocation + _trimmedInstruction.indexOf(BEGIN_CALLING) + 1;
-            if (!exp_.trim().isEmpty()) {
-                indexClassOffest_ += StringUtil.getFirstPrintableCharIndex(exp_) + 1;
-            }
             boolean ok_ = true;
             String indexClassName_ = EMPTY_STRING;
             if (exp_.trim().indexOf(BEGIN_ARRAY) == 0) {
@@ -2284,10 +2280,14 @@ public final class FileResolver {
                 if (endArr_ < 0) {
                     ok_ = false;
                 } else {
-                    indexClassName_ = exp_.substring(0, endArr_);
+                    int begin_ = exp_.indexOf(BEGIN_ARRAY);
+                    indexClassName_ = exp_.substring(begin_ +1, endArr_);
+                    indexClassOffest_ += begin_+1;
                     indexClassOffest_ += StringUtil.getFirstPrintableCharIndex(indexClassName_);
                     exp_ = exp_.substring(endArr_ + 1);
                 }
+            } else {
+                indexClassOffest_ += StringUtil.getFirstPrintableCharIndex(exp_) + 1;
             }
             String afterIndex_ = exp_.substring(exp_.indexOf(BEGIN_CALLING) + 1);
             typeOffset_ += StringUtil.getFirstPrintableCharIndex(afterIndex_);
@@ -2302,6 +2302,8 @@ public final class FileResolver {
                 deltaAfter_ += StringExpUtil.getOffset(afterDelta_);
                 typeOffset_ += deltaAfter_;
                 exp_ = exp_.substring(deltaAfter_);
+            } else {
+                exp_ = exp_.trim();
             }
             String declaringType_ = getFoundType(exp_);
             int varOffset_ = typeOffset_ + declaringType_.length();
@@ -2316,8 +2318,7 @@ public final class FileResolver {
             } else {
                 variable_ = exp_.substring(0, forBlocks_);
                 varOffset_ += StringUtil.getFirstPrintableCharIndex(variable_);
-                expOffset_ = varOffset_;
-                expOffset_ += forBlocks_;
+                expOffset_ += forBlocks_+1;
                 setOff_ = expOffset_-1;
                 exp_ = exp_.substring(forBlocks_ + 1, endIndex_);
                 expOffset_ += StringUtil.getFirstPrintableCharIndex(exp_);
@@ -2368,9 +2369,6 @@ public final class FileResolver {
             int labelOff_ = indexClassOffest_ + lastPar_+ 1;
             String label_ = exp_;
             int typeOffset_ = _instructionTrimLocation + _trimmedInstruction.indexOf(BEGIN_CALLING) + 1;
-            if (!exp_.trim().isEmpty()) {
-                indexClassOffest_ += StringUtil.getFirstPrintableCharIndex(exp_) + 1;
-            }
             String indexClassName_ = EMPTY_STRING;
             boolean ok_ = true;
             if (exp_.trim().indexOf(BEGIN_ARRAY) == 0) {
@@ -2378,9 +2376,14 @@ public final class FileResolver {
                 if (endArr_ < 0) {
                     ok_ = false;
                 } else {
-                    indexClassName_ = exp_.substring(0, endArr_);
+                    int begin_ = exp_.indexOf(BEGIN_ARRAY);
+                    indexClassName_ = exp_.substring(begin_ +1, endArr_);
+                    indexClassOffest_ += begin_+1;
+                    indexClassOffest_ += StringUtil.getFirstPrintableCharIndex(indexClassName_);
                     exp_ = exp_.substring(endArr_ + 1);
                 }
+            } else {
+                indexClassOffest_ += StringUtil.getFirstPrintableCharIndex(exp_) + 1;
             }
             int begCall_ = exp_.indexOf(BEGIN_CALLING);
             int endIndex_ = exp_.lastIndexOf(END_CALLING);
@@ -2390,7 +2393,8 @@ public final class FileResolver {
                 exp_ = exp_.substring(begCall_ + 1, endIndex_);
             }
             String declaringType_ = getFoundType(exp_);
-            int varOffset_ = typeOffset_ + declaringType_.length();
+            int aftTypeOffset_ = typeOffset_ + declaringType_.length();
+            int varOffset_ = aftTypeOffset_;
             typeOffset_ += StringExpUtil.getOffset(exp_);
             exp_ = exp_.substring(declaringType_.length());
             int eqIndex_ = exp_.indexOf(PART_SEPARATOR);
@@ -2405,7 +2409,8 @@ public final class FileResolver {
                 exp_ = exp_.substring(eqIndex_ + 1);
             }
             int nextElt_ = getIndex(exp_);
-            int initOff_ = varOffset_ + variable_.length()-firstOff_+1;
+            int aftVarOffset_ = aftTypeOffset_ + variable_.length()+1;
+            int initOff_ = aftVarOffset_;
             String init_ = "";
             int secondOff_ = 0;
             if (nextElt_ < 0) {
@@ -2417,7 +2422,8 @@ public final class FileResolver {
                 exp_ = exp_.substring(nextElt_+1);
             }
             nextElt_ = getIndex(exp_);
-            int toOff_ = initOff_ + init_.length()-secondOff_+1;
+            int afToOffset_ = aftVarOffset_ + init_.length()+1;
+            int toOff_ = afToOffset_;
             String to_ = "";
             int thirdOff_ = 0;
             if (nextElt_ < 0) {
@@ -2428,7 +2434,7 @@ public final class FileResolver {
                 toOff_ += thirdOff_;
             }
             boolean eq_ = false;
-            int expOff_ = toOff_ + to_.length()-thirdOff_;
+            int expOff_ = afToOffset_ + to_.length();
             int stepOff_ = expOff_ + 1;
             if (nextElt_ + 1 >= exp_.length()) {
                 ok_ = false;
@@ -2466,9 +2472,6 @@ public final class FileResolver {
             int labelOff_ = indexClassOffest_ + lastPar_+ 1;
             String label_ = exp_;
             int typeOffset_ = _instructionTrimLocation + _trimmedInstruction.indexOf(BEGIN_CALLING) + 1;
-            if (!exp_.trim().isEmpty()) {
-                indexClassOffest_ += StringUtil.getFirstPrintableCharIndex(exp_) + 1;
-            }
             String indexClassName_ = EMPTY_STRING;
             boolean okIndex_ = true;
             if (exp_.trim().indexOf(BEGIN_ARRAY) == 0) {
@@ -2476,9 +2479,14 @@ public final class FileResolver {
                 if (endArr_ < 0) {
                     okIndex_ = false;
                 } else {
-                    indexClassName_ = exp_.substring(0, endArr_);
+                    int begin_ = exp_.indexOf(BEGIN_ARRAY);
+                    indexClassName_ = exp_.substring(begin_ +1, endArr_);
+                    indexClassOffest_ += begin_+1;
+                    indexClassOffest_ += StringUtil.getFirstPrintableCharIndex(indexClassName_);
                     exp_ = exp_.substring(endArr_ + 1);
                 }
+            } else {
+                indexClassOffest_ += StringUtil.getFirstPrintableCharIndex(exp_) + 1;
             }
             int begCall_ = exp_.indexOf(BEGIN_CALLING);
             int endCall_ = exp_.lastIndexOf(END_CALLING);
