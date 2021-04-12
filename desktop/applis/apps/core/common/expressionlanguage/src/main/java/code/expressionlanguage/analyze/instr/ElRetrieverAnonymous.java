@@ -621,7 +621,6 @@ public final class ElRetrieverAnonymous {
             }
             i_++;
         }
-        String word_ = _string.substring(beginWord_, i_);
         int nextPar_ = StringExpUtil.nextPrintCharIs(i_, len_, _string, ElResolver.PAR_LEFT);
         if (nextPar_ > -1) {
             _stack.getCallings().add(nextPar_);
@@ -635,18 +634,15 @@ public final class ElRetrieverAnonymous {
         if (dash_ > -1 && StringExpUtil.nextCharIs(_string,dash_+1, len_,'>')) {
             String afterArrow_ = _string.substring(dash_+"->".length());
             String after_ = afterArrow_.trim();
-            int off_ = 0;
-            int deltaArr_ = off_;
-            off_ += StringUtil.getFirstPrintableCharIndex(afterArrow_);
+            int off_ = StringUtil.getFirstPrintableCharIndex(afterArrow_);
             if (after_.startsWith("{")) {
                 int instrLoc_ = _page.getLocalizer().getCurrentLocationIndex();
-                int j_ = beginWord_+word_.length()+(dash_-i_) + off_+2;
-                int jBef_ = beginWord_+word_.length()+(dash_-i_) + deltaArr_;
+                int j_ = dash_ + off_+2;
                 InputTypeCreation input_ = new InputTypeCreation();
                 input_.setType(OuterBlockEnum.ANON_FCT);
                 input_.setFile(_file);
                 input_.setNextIndex(j_);
-                input_.setNextIndexBef(jBef_);
+                input_.setNextIndexBef(dash_);
                 ResultCreation res_ = FileResolver.processOuterTypeBody(input_, _packageName, instrLoc_, _string, _page);
                 int k_ = res_.getNextIndex() - 1;
                 return k_+1;
@@ -777,7 +773,6 @@ public final class ElRetrieverAnonymous {
                 parse_.parseAnonymous(i_,_string,instrLoc_,keyWords_.getKeyWordThat());
                 int rightPar_ = parse_.getNextIndex();
                 if (rightPar_ > i_) {
-                    String substring_ = _string.substring(i_+1,rightPar_+1);
                     String info_ = _string.substring(rightPar_+1);
                     int off_ = StringUtil.getFirstPrintableCharIndex(info_);
                     String afterArrow_ = parse_.getAfterArrow();
@@ -785,8 +780,8 @@ public final class ElRetrieverAnonymous {
                     int deltaArr_ = off_;
                     off_ += StringUtil.getFirstPrintableCharIndex(afterArrow_);
                     if (after_.startsWith("{")) {
-                        int j_ = i_+1 + substring_.length()+off_+2;
-                        int jBef_ = i_+1 + substring_.length()+deltaArr_;
+                        int j_ = rightPar_+1+off_+2;
+                        int jBef_ = rightPar_+1+deltaArr_;
                         InputTypeCreation input_ = new InputTypeCreation();
                         input_.setType(OuterBlockEnum.ANON_FCT);
                         input_.setFile(_file);

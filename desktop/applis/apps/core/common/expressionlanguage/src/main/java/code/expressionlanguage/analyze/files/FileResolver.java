@@ -74,6 +74,7 @@ public final class FileResolver {
             ParseDelimitersState parsPars_ = new ParseDelimitersState(braces_,parentheses_);
             parsPars_.parse(currentChar_,false);
             if (parsPars_.isExitLoop()) {
+                badIndexes_.add(i_);
                 break;
             }
             braces_ = parsPars_.getBraces();
@@ -196,6 +197,16 @@ public final class FileResolver {
                 ParseDelimitersState parsPars_ = new ParseDelimitersState(braces_,parentheses_);
                 parsPars_.parse(currentChar_,false);
                 if (parsPars_.isExitLoop()) {
+                    FoundErrorInterpret b_ = new FoundErrorInterpret();
+                    b_.setFileName(_fileName);
+                    b_.setIndexFile(Math.max(0,Math.min(_block.getLength()-1,i_)));
+                    //if empty file => add underlined space
+                    //else underline last char
+                    b_.buildError(_page.getAnalysisMessages().getBadIndexInParser());
+                    _page.addLocError(b_);
+                    GraphicErrorInterpret g_ = new GraphicErrorInterpret(b_);
+                    g_.setLength(1);
+                    _block.getErrorsFiles().getLi().add(g_);
                     break;
                 }
                 braces_ = parsPars_.getBraces();
