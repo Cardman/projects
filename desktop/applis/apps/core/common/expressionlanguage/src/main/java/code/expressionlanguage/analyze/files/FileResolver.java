@@ -1055,9 +1055,9 @@ public final class FileResolver {
                         meth_ = false;
                         typeOffset_ += deltaFinal_;
                     }
-                    String declaringType_ = getFoundType(found_);
+                    String declaringType_ = getFoundType(found_).trim();
                     found_ = found_.substring(declaringType_.length());
-                    String realFound_ = found_;
+                    int offAfterType_ = StringExpUtil.getOffset(found_);
                     found_ = found_.trim();
                     int lenAfterModifiers_ = found_.length();
                     int indexMod_ = 0;
@@ -1078,14 +1078,14 @@ public final class FileResolver {
                     if (found_.indexOf(BEGIN_CALLING, indexMod_) != indexMod_) {
                         meth_ = false;
                     }
+                    int fieldNameOffest_ = typeOffset_+declaringType_.length() + offAfterType_;
                     if (!meth_) {
-                        int fieldNameOffest_ = StringUtil.getFirstPrintableCharIndex(realFound_) +declaringType_.trim().length() + typeOffset_;
                         FieldBlock field_ = new FieldBlock(
                                 new OffsetAccessInfo(-1, AccessEnum.PUBLIC),
                                 new OffsetBooleanInfo(-1, true),
                                 new OffsetBooleanInfo(finalOff_+_offset, final_),
-                                new OffsetStringInfo(typeOffset_+_offset, declaringType_.trim()),
-                                new OffsetStringInfo(fieldNameOffest_+_offset, realFound_.trim()),
+                                new OffsetStringInfo(typeOffset_+_offset, declaringType_),
+                                new OffsetStringInfo(fieldNameOffest_+_offset, found_),
                                  instructionTrimLocation_+_offset);
                         field_.getAnnotations().addAllElts(annotations_);
                         field_.getAnnotationsIndexes().addAllElts(annotationsIndexes_);
@@ -1093,35 +1093,29 @@ public final class FileResolver {
                         ((RootBlock)currentParent_).getFieldsBlocks().add(field_);
                         br_ = field_;
                     } else {
-                        found_ = realFound_;
-                        int fieldOffest_ = typeOffset_;
-                        fieldOffest_ += declaringType_.trim().length();
-                        int offFound_ = StringUtil.getFirstPrintableCharIndex(found_);
-                        fieldOffest_ += offFound_;
                         int indexBeginCalling_ = found_.indexOf(BEGIN_CALLING);
                         NamedCalledFunctionBlock annMeth_;
-                        int rightPar_;
                         String fieldName_ = found_.substring(0, indexBeginCalling_);
-                        rightPar_ = found_.indexOf(END_CALLING,indexBeginCalling_);
+                        int rightPar_ = found_.indexOf(END_CALLING, indexBeginCalling_);
                         int expressionOffest_;
                         String expression_;
                         if (rightPar_ > -1) {
                             expression_ = found_.substring(rightPar_ + 1);
-                            expressionOffest_ = fieldOffest_ - offFound_ + rightPar_ + 1;
+                            expressionOffest_ = fieldNameOffest_ + rightPar_ + 1;
                         } else {
                             expression_ = found_.substring(fieldName_.length());
-                            expressionOffest_ = fieldOffest_ + fieldName_.trim().length();
+                            expressionOffest_ = fieldNameOffest_ + fieldName_.length();
                         }
                         if (!expression_.trim().isEmpty()) {
                             expressionOffest_ += StringUtil.getFirstPrintableCharIndex(expression_);
                         }
                         annMeth_ = new NamedCalledFunctionBlock(
                                 false, new OffsetAccessInfo(0, AccessEnum.PUBLIC),
-                                new OffsetStringInfo(typeOffset_+_offset, declaringType_.trim()),
+                                new OffsetStringInfo(typeOffset_+_offset, declaringType_),
                                 new OffsetStringInfo(expressionOffest_+_offset, expression_.trim()),
-                                new OffsetStringInfo(fieldOffest_+_offset, fieldName_.trim()),
+                                new OffsetStringInfo(fieldNameOffest_ +_offset, fieldName_.trim()),
                                 new StringList(), new Ints(), new StringList(), new Ints(),
-                                 instructionTrimLocation_+_offset,new BooleanList(),rightPar_);
+                                 instructionTrimLocation_+_offset,new BooleanList(),rightPar_-offAfterType_);
                         annMeth_.setNameNumber(((RootBlock)currentParent_).getAnnotationsMethodsBlocks().size());
                         ((RootBlock)currentParent_).getAnnotationsMethodsBlocks().add(annMeth_);
                         if (rightPar_ < indexBeginCalling_ || !found_.substring(indexBeginCalling_ + 1, rightPar_).trim().isEmpty()) {
@@ -1150,11 +1144,7 @@ public final class FileResolver {
             }
             if (_currentChar == END_BLOCK) {
                 if (!trimmedInstruction_.isEmpty()) {
-                    int affectOffset_;
-                    int afterDeclareOffset_;
-                    affectOffset_ = instructionTrimLocation_;
-                    afterDeclareOffset_ = affectOffset_;
-                    br_ = new Line(new OffsetStringInfo(afterDeclareOffset_+_offset, trimmedInstruction_),  instructionTrimLocation_+_offset);
+                    br_ = new Line(new OffsetStringInfo(instructionTrimLocation_ +_offset, trimmedInstruction_),  instructionTrimLocation_+_offset);
                     br_.getBadIndexes().add(_i+_offset);
                     br_.setBegin(_i+_offset);
                     br_.setLengthHeader(1);
@@ -1203,8 +1193,7 @@ public final class FileResolver {
                 } else {
                     fieldName_ = found_;
                     expressionOffest_ = fieldOffest_;
-                    expressionOffest_ += fieldName_.trim().length();
-                    expressionOffest_ += fieldName_.length() - StringUtil.getLastPrintableCharIndex(fieldName_) - 1;
+                    expressionOffest_ += fieldName_.length();
                 }
                 int indexTmp_ = fieldName_.indexOf(Templates.TEMPLATE_BEGIN);
                 String tmpPart_ = EMPTY_STRING;
@@ -1288,25 +1277,19 @@ public final class FileResolver {
                         String substring_ = trimmedInstruction_.substring(thatLength_);
                         int next_ = StringExpUtil.nextPrintChar(0, substring_.length(), substring_);
                         String declaringType_ = "";
-                        int delta_ = StringUtil.getFirstPrintableCharIndex(found_) + thatLength_;
-                        int deltaAfterTrim_ = thatLength_;
-                        String foundAfter_ = found_.substring(delta_);
-                        deltaAfterTrim_ += StringUtil.getFirstPrintableCharIndex(foundAfter_);
                         if (next_ > -1 && StringExpUtil.isTypeLeafChar(substring_.charAt(next_))) {
-                            declaringType_ = getDeclaringTypeInstr(foundAfter_,keyWords_);
+                            declaringType_ = getDeclaringTypeInstr(substring_,keyWords_);
                         }
                         if (!declaringType_.trim().isEmpty()) {
-                            String info_ = foundAfter_.substring(declaringType_.length());
-                            int realTypeOffset_ = instructionTrimLocation_ + deltaAfterTrim_;
-                            int varNameOffset_ = instructionTrimLocation_ + thatLength_;
-                            varNameOffset_ += declaringType_.length();
-                            varNameOffset_ += StringUtil.getFirstPrintableCharIndex(info_);
-                            int afterDeclareOffset_ = varNameOffset_;
+                            String info_ = substring_.substring(declaringType_.length());
+                            int afterThat_ = instructionTrimLocation_ + thatLength_;
+                            int realTypeOffset_ = afterThat_ + next_;
+                            int varNameOffset_ = afterThat_ + declaringType_.length() + StringUtil.getFirstPrintableCharIndex(info_);
                             br_ = new DeclareVariable(new OffsetBooleanInfo(0,false),
                                     new OffsetStringInfo(realTypeOffset_+_offset, declaringType_.trim()),
                                      instructionTrimLocation_+_offset,true);
                             currentParent_.appendChild(br_);
-                            br_ = new Line(new OffsetStringInfo(afterDeclareOffset_+_offset, info_.trim()), instructionTrimLocation_+_offset);
+                            br_ = new Line(new OffsetStringInfo(varNameOffset_+_offset, info_.trim()), instructionTrimLocation_+_offset);
                             br_.setBegin(_i+_offset);
                             br_.setLengthHeader(1);
                             currentParent_.appendChild(br_);
@@ -1318,8 +1301,7 @@ public final class FileResolver {
                         int deltaAfterTrim_;
                         if (finalLocalVar_) {
                             int deltaAfter_ = keyWordFinal_.length();
-                            int delta_ = StringUtil.getFirstPrintableCharIndex(found_) + deltaAfter_;
-                            found_ = found_.substring(delta_);
+                            found_ = trimmedInstruction_.substring(deltaAfter_);
                             int delSec_ = StringUtil.getFirstPrintableCharIndex(found_);
                             deltaAfterTrim_ = deltaAfter_+delSec_;
                             if (delSec_ >= 0) {
@@ -1327,8 +1309,7 @@ public final class FileResolver {
                             }
                         } else {
                             deltaAfterTrim_ = 0;
-                            int delta_ = StringUtil.getFirstPrintableCharIndex(found_);
-                            found_ = found_.substring(delta_);
+                            found_ = trimmedInstruction_;
                         }
                         String declaringType_ = getDeclaringTypeInstr(found_,keyWords_);
                         boolean typeDeclaring_ = !declaringType_.trim().isEmpty();
@@ -1336,14 +1317,11 @@ public final class FileResolver {
                         int afterDeclareOffset_;
                         String info_;
                         if (typeDeclaring_) {
-                            int varNameOffset_ = realTypeOffset_;
-                            varNameOffset_ += declaringType_.length();
                             info_ = found_.substring(declaringType_.length());
-                            varNameOffset_ += StringUtil.getFirstPrintableCharIndex(info_);
-                            afterDeclareOffset_ = varNameOffset_;
+                            afterDeclareOffset_ = realTypeOffset_ + declaringType_.length() + StringUtil.getFirstPrintableCharIndex(info_);
                         } else {
-                            afterDeclareOffset_ = realTypeOffset_;
                             info_ = found_;
+                            afterDeclareOffset_ = realTypeOffset_;
                         }
                         if (typeDeclaring_) {
                             br_ = new DeclareVariable(new OffsetBooleanInfo(instructionTrimLocation_+_offset, finalLocalVar_),
@@ -1368,11 +1346,7 @@ public final class FileResolver {
         } else {
             //currentChar_ == END_BLOCK
             if (!trimmedInstruction_.isEmpty()) {
-                int affectOffset_;
-                int afterDeclareOffset_;
-                affectOffset_ = instructionTrimLocation_;
-                afterDeclareOffset_ = affectOffset_;
-                br_ = new Line(new OffsetStringInfo(afterDeclareOffset_+_offset, trimmedInstruction_),  instructionTrimLocation_+_offset);
+                br_ = new Line(new OffsetStringInfo(instructionTrimLocation_ +_offset, trimmedInstruction_),  instructionTrimLocation_+_offset);
                 br_.getBadIndexes().add(_i+_offset);
                 br_.setBegin(_i+_offset);
                 br_.setLengthHeader(1);
@@ -1416,12 +1390,6 @@ public final class FileResolver {
                                                AccessEnum _defAccess, AnalyzedPageEl _page) {
         //Inner types
         KeyWords keyWords_ = _page.getKeyWords();
-        AccessEnum accessFct_ = _defAccess;
-        String word_ = EMPTY_STRING;
-        String keyWordPackage_ = keyWords_.getKeyWordPackage();
-        String keyWordPrivate_ = keyWords_.getKeyWordPrivate();
-        String keyWordProtected_ = keyWords_.getKeyWordProtected();
-        String keyWordPublic_ = keyWords_.getKeyWordPublic();
         String trimmedInstruction_ = _trimmedInstruction;
         Ints annotationsIndexes_ = new Ints();
         StringList annotations_ = new StringList();
@@ -1434,33 +1402,17 @@ public final class FileResolver {
             trimmedInstruction_ = par_.getAfter();
             typeOffset_ = par_.getIndex()-_offset;
         }
-        if (StringExpUtil.startsWithKeyWord(trimmedInstruction_,keyWordPrivate_)) {
-            accessFct_ = AccessEnum.PRIVATE;
-            word_ = keyWordPrivate_;
-        } else {
-            if (StringExpUtil.startsWithKeyWord(trimmedInstruction_,keyWordPackage_)) {
-                accessFct_ = AccessEnum.PACKAGE;
-                word_ = keyWordPackage_;
-            } else {
-                if (StringExpUtil.startsWithKeyWord(trimmedInstruction_,keyWordProtected_)) {
-                    accessFct_ = AccessEnum.PROTECTED;
-                    word_ = keyWordProtected_;
-                } else {
-                    if (StringExpUtil.startsWithKeyWord(trimmedInstruction_,keyWordPublic_)) {
-                        accessFct_ = AccessEnum.PUBLIC;
-                        word_ = keyWordPublic_;
-                    }
-                }
-            }
+        AccessEnum accessFct_ = getAccess(trimmedInstruction_, keyWords_);
+        String word_ = getWord(accessFct_, keyWords_);
+        if (accessFct_ == null) {
+            accessFct_ = _defAccess;
         }
         String afterAccess_ = trimmedInstruction_.substring(word_.length());
-        int locIndex_ = typeOffset_ + word_.length();
-        locIndex_ += StringUtil.getFirstPrintableCharIndex(afterAccess_);
+        int locIndex_ = typeOffset_ + word_.length() + StringUtil.getFirstPrintableCharIndex(afterAccess_);
         boolean staticType_ = _defStatic;
         boolean abstractType_ = false;
         boolean finalType_ = false;
         String keyWordAbstract_ = keyWords_.getKeyWordAbstract();
-        String keyWordAnnotation_ = keyWords_.getKeyWordAnnotation();
         String keyWordClass_ = keyWords_.getKeyWordClass();
         String keyWordEnum_ = keyWords_.getKeyWordEnum();
         String keyWordFinal_ = keyWords_.getKeyWordFinal();
@@ -1488,135 +1440,143 @@ public final class FileResolver {
             locIndex_ += keyWordFinal_.length();
             locIndex_ += StringUtil.getFirstPrintableCharIndex(sub_);
         }
-        String type_;
+        String type_ = getType(beforeQu_,keyWords_);
         int categoryOffset_ = locIndex_;
-        String infoModifiers_ = beforeQu_;
-        if (StringExpUtil.startsWithKeyWord(infoModifiers_,keyWordClass_)) {
-            type_ = keyWordClass_;
-            locIndex_ += keyWordClass_.length();
-        } else if (StringExpUtil.startsWithArobaseKeyWord(infoModifiers_,keyWordClass_)) {
-            type_ = "@"+keyWordClass_;
-            locIndex_ += keyWordClass_.length()+1;
-        } else if (StringExpUtil.startsWithArobaseKeyWord(infoModifiers_,keyWordInterface_)) {
-            type_ = "@"+keyWordInterface_;
-            locIndex_ += keyWordInterface_.length()+1;
-        } else if (StringExpUtil.startsWithKeyWord(infoModifiers_,keyWordEnum_)) {
-            type_ = keyWordEnum_;
-            locIndex_ += keyWordEnum_.length();
-        } else if (StringExpUtil.startsWithKeyWord(infoModifiers_,keyWordInterface_)) {
-            type_ = keyWordInterface_;
-            locIndex_ += keyWordInterface_.length();
-        } else {
-            type_ = keyWordAnnotation_;
-            locIndex_ += keyWordAnnotation_.length();
-        }
+        locIndex_ += type_.length();
         String sub_ = beforeQu_.substring(type_.length());
         beforeQu_ = sub_.trim();
         locIndex_ += StringUtil.getFirstPrintableCharIndex(sub_);
 
-        return tryBuiltTypeWithInfos(keyWords_,_offset,beforeQu_, _instructionTrimLocation, _pkgName,
-                accessFct_, annotationsIndexes_, annotations_, typeOffset_,
-                locIndex_, staticType_, abstractType_, finalType_,
-                type_, categoryOffset_);
-    }
-
-    private static RootBlock tryBuiltTypeWithInfos(KeyWords _keyWords, int _offset, String _infoPart, int _instructionTrimLocation, String _pkgName, AccessEnum _accessFct,
-                                                   Ints _annotationsIndexes, StringList _annotations, int _typeOffset, int _locIndex,
-                                                   boolean _staticType, boolean _abstractType, boolean _finalType,
-                                                   String _type,
-                                                   int _categoryOffset) {
-        ParsedImportedTypes p_ = new ParsedImportedTypes(_locIndex,_offset, _infoPart);
+        ParsedImportedTypes p_ = new ParsedImportedTypes(locIndex_, _offset, beforeQu_);
         StringList importedTypes_ = p_.getImportedTypes();
         Ints offsetsImports_ = p_.getOffsetsImports();
-        int locIndex_ = p_.getOffset();
+        locIndex_ = p_.getOffset();
         //insert interfaces static initialization for class and enums
         String infoPart_ = p_.getNextPart();
-        InterfacesPart interfacesPart_ = new InterfacesPart(infoPart_,locIndex_);
-        interfacesPart_.parse(_keyWords,locIndex_,_offset);
+        InterfacesPart interfacesPart_ = new InterfacesPart(infoPart_, locIndex_);
+        interfacesPart_.parse(keyWords_, locIndex_, _offset);
         locIndex_ = interfacesPart_.getLocIndex();
         infoPart_ = interfacesPart_.getPart();
         StringList staticInitInterfaces_ = interfacesPart_.getStaticInitInterfaces();
         Ints staticInitInterfacesOffset_ = interfacesPart_.getStaticInitInterfacesOffset();
         boolean ok_ = interfacesPart_.isOk();
-        RootBlock r_ = tryBuildType(_keyWords,_offset,infoPart_, _instructionTrimLocation, _pkgName,
-                _accessFct, _annotationsIndexes,
-                _annotations, _typeOffset, locIndex_, _staticType, _abstractType, _finalType,
-                _type, _categoryOffset, importedTypes_,
-                offsetsImports_, staticInitInterfaces_, staticInitInterfacesOffset_);
-        if (!ok_) {
-            r_.getBadIndexes().add(locIndex_+_offset);
-        }
-        return r_;
-    }
-
-    private static RootBlock tryBuildType(KeyWords _keyWords, int _offset, String _infoPart, int _instructionTrimLocation, String _pkgName,
-                                          AccessEnum _accessFct, Ints _annotationsIndexes, StringList _annotations, int _typeOffset, int _locIndex,
-                                          boolean _staticType, boolean _abstractType, boolean _finalType,
-                                          String _type, int _categoryOffset, StringList _importedTypes,
-                                          Ints _offsetsImports, StringList _staticInitInterfaces, Ints _staticInitInterfacesOffset) {
-        InheritingPart inh_ = new InheritingPart(_locIndex,_infoPart);
+        InheritingPart inh_ = new InheritingPart(locIndex_, infoPart_);
         inh_.parse(_offset);
+        String typeName_ = inh_.getTypeName();
         IntMap<String> superTypes_ = inh_.getSuperTypes();
         String tempDef_ = inh_.getTempDef();
-        String typeName_ = inh_.getTypeName();
         int beginDefinition_ = inh_.getBeginDefinition();
-
-        String keyWordClass_ = _keyWords.getKeyWordClass();
-        String keyWordEnum_ = _keyWords.getKeyWordEnum();
-        String keyWordInterface_ = _keyWords.getKeyWordInterface();
         RootBlock typeBlock_;
-        if (StringUtil.quickEq(_type, keyWordEnum_)) {
+        if (StringUtil.quickEq(type_, keyWordEnum_)) {
             typeBlock_ = new EnumBlock(beginDefinition_, typeName_, _pkgName,
-                    new OffsetAccessInfo(_typeOffset - 1+_offset, _accessFct) , tempDef_, superTypes_,
+                    new OffsetAccessInfo(typeOffset_ - 1+ _offset, accessFct_) , tempDef_, superTypes_,
                    _instructionTrimLocation + _offset);
-        } else if (StringUtil.quickEq(_type, keyWordClass_)) {
+        } else if (StringUtil.quickEq(type_, keyWordClass_)) {
             typeBlock_ = new ClassBlock(beginDefinition_, typeName_, _pkgName,
-                    new OffsetAccessInfo(_typeOffset - 1+_offset, _accessFct), tempDef_, superTypes_, _finalType, _abstractType, _staticType,
+                    new OffsetAccessInfo(typeOffset_ - 1+ _offset, accessFct_), tempDef_, superTypes_, finalType_, abstractType_, staticType_,
                      _instructionTrimLocation + _offset);
-        } else if (StringUtil.quickEq(_type, "@"+keyWordClass_)) {
+        } else if (StringUtil.quickEq(type_, "@"+ keyWordClass_)) {
             typeBlock_ = new RecordBlock(false,beginDefinition_, typeName_, _pkgName,
-                    new OffsetAccessInfo(_typeOffset - 1+_offset, _accessFct), tempDef_, superTypes_,
+                    new OffsetAccessInfo(typeOffset_ - 1+ _offset, accessFct_), tempDef_, superTypes_,
                      _instructionTrimLocation + _offset);
-        } else if (StringUtil.quickEq(_type, "@"+keyWordInterface_)) {
+        } else if (StringUtil.quickEq(type_, "@"+ keyWordInterface_)) {
             typeBlock_ = new RecordBlock(true,beginDefinition_, typeName_, _pkgName,
-                    new OffsetAccessInfo(_typeOffset - 1+_offset, _accessFct), tempDef_, superTypes_,
+                    new OffsetAccessInfo(typeOffset_ - 1+ _offset, accessFct_), tempDef_, superTypes_,
                      _instructionTrimLocation + _offset);
-        } else if (StringUtil.quickEq(_type, keyWordInterface_)) {
+        } else if (StringUtil.quickEq(type_, keyWordInterface_)) {
             typeBlock_ = new InterfaceBlock(beginDefinition_, typeName_, _pkgName,
-                    new OffsetAccessInfo(_typeOffset - 1+_offset, _accessFct) , tempDef_, superTypes_, _staticType,
+                    new OffsetAccessInfo(typeOffset_ - 1+ _offset, accessFct_) , tempDef_, superTypes_, staticType_,
                      _instructionTrimLocation + _offset);
         } else {
             typeBlock_ = new AnnotationBlock(beginDefinition_, typeName_, _pkgName,
-                    new OffsetAccessInfo(_typeOffset - 1+_offset, _accessFct) , tempDef_, superTypes_,
+                    new OffsetAccessInfo(typeOffset_ - 1+ _offset, accessFct_) , tempDef_, superTypes_,
                      _instructionTrimLocation + _offset);
         }
-        typeBlock_.setBegin(_categoryOffset+_offset);
-        typeBlock_.setLengthHeader(_type.length());
+        typeBlock_.setBegin(categoryOffset_ + _offset);
+        typeBlock_.setLengthHeader(type_.length());
         typeBlock_.setupOffsets(typeName_,"");
-        typeBlock_.getImports().addAllElts(_importedTypes);
-        typeBlock_.getImportsOffset().addAllElts(_offsetsImports);
-        typeBlock_.getStaticInitInterfaces().addAllElts(_staticInitInterfaces);
-        typeBlock_.getStaticInitInterfacesOffset().addAllElts(_staticInitInterfacesOffset);
-        typeBlock_.getAnnotations().addAllElts(_annotations);
-        typeBlock_.getAnnotationsIndexes().addAllElts(_annotationsIndexes);
+        typeBlock_.getImports().addAllElts(importedTypes_);
+        typeBlock_.getImportsOffset().addAllElts(offsetsImports_);
+        typeBlock_.getStaticInitInterfaces().addAllElts(staticInitInterfaces_);
+        typeBlock_.getStaticInitInterfacesOffset().addAllElts(staticInitInterfacesOffset_);
+        typeBlock_.getAnnotations().addAllElts(annotations_);
+        typeBlock_.getAnnotationsIndexes().addAllElts(annotationsIndexes_);
+        if (!ok_) {
+            typeBlock_.getBadIndexes().add(locIndex_ + _offset);
+        }
         return typeBlock_;
     }
 
+    private static AccessEnum getAccess(String _inst, KeyWords _keyWords) {
+        String keyWordPackage_ = _keyWords.getKeyWordPackage();
+        String keyWordPrivate_ = _keyWords.getKeyWordPrivate();
+        String keyWordProtected_ = _keyWords.getKeyWordProtected();
+        String keyWordPublic_ = _keyWords.getKeyWordPublic();
+        if (StringExpUtil.startsWithKeyWord(_inst,keyWordPrivate_)) {
+            return AccessEnum.PRIVATE;
+        }
+        if (StringExpUtil.startsWithKeyWord(_inst,keyWordPackage_)) {
+            return AccessEnum.PACKAGE;
+        }
+        if (StringExpUtil.startsWithKeyWord(_inst,keyWordProtected_)) {
+            return AccessEnum.PROTECTED;
+        }
+        if (StringExpUtil.startsWithKeyWord(_inst,keyWordPublic_)) {
+            return AccessEnum.PUBLIC;
+        }
+        return null;
+    }
+
+    private static String getWord(AccessEnum _access, KeyWords _keyWords) {
+        String keyWordPackage_ = _keyWords.getKeyWordPackage();
+        String keyWordPrivate_ = _keyWords.getKeyWordPrivate();
+        String keyWordProtected_ = _keyWords.getKeyWordProtected();
+        String keyWordPublic_ = _keyWords.getKeyWordPublic();
+        if (_access == AccessEnum.PRIVATE) {
+            return keyWordPrivate_;
+        }
+        if (_access == AccessEnum.PACKAGE) {
+            return keyWordPackage_;
+        }
+        if (_access == AccessEnum.PROTECTED) {
+            return keyWordProtected_;
+        }
+        if (_access == AccessEnum.PUBLIC) {
+            return keyWordPublic_;
+        }
+        return "";
+    }
+    private static String getType(String _beforeQu,KeyWords _keyWords) {
+        String keyWordAnnotation_ = _keyWords.getKeyWordAnnotation();
+        String keyWordClass_ = _keyWords.getKeyWordClass();
+        String keyWordEnum_ = _keyWords.getKeyWordEnum();
+        String keyWordInterface_ = _keyWords.getKeyWordInterface();
+        String type_;
+        if (StringExpUtil.startsWithKeyWord(_beforeQu,keyWordClass_)) {
+            type_ = keyWordClass_;
+        } else if (StringExpUtil.startsWithArobaseKeyWord(_beforeQu,keyWordClass_)) {
+            type_ = "@"+keyWordClass_;
+        } else if (StringExpUtil.startsWithArobaseKeyWord(_beforeQu,keyWordInterface_)) {
+            type_ = "@"+keyWordInterface_;
+        } else if (StringExpUtil.startsWithKeyWord(_beforeQu,keyWordEnum_)) {
+            type_ = keyWordEnum_;
+        } else if (StringExpUtil.startsWithKeyWord(_beforeQu,keyWordInterface_)) {
+            type_ = keyWordInterface_;
+        } else {
+            type_ = keyWordAnnotation_;
+        }
+        return type_;
+    }
     private static AbsBk processTypeMember(char _currentChar,
                                            String _trimmedInstruction, int _instructionTrimLocation, int _i, int _offset, RootBlock _currentParent, AnalyzedPageEl _page) {
         String trimmedInstruction_ = _trimmedInstruction;
         AccessEnum accessFct_ = _page.getDefaultAccess().getAccessInner(_currentParent).getAccMember();
-        String word_ = EMPTY_STRING;
         Ints annotationsIndexes_ = new Ints();
         StringList annotations_ = new StringList();
         KeyWords keyWords_ = _page.getKeyWords();
         String keyWordAbstract_ = keyWords_.getKeyWordAbstract();
         String keyWordFinal_ = keyWords_.getKeyWordFinal();
         String keyWordNormal_ = keyWords_.getKeyWordNormal();
-        String keyWordPackage_ = keyWords_.getKeyWordPackage();
-        String keyWordPrivate_ = keyWords_.getKeyWordPrivate();
-        String keyWordProtected_ = keyWords_.getKeyWordProtected();
-        String keyWordPublic_ = keyWords_.getKeyWordPublic();
         String keyWordStatic_ = keyWords_.getKeyWordStatic();
         String keyWordStaticCall_ = keyWords_.getKeyWordStaticCall();
         int accessOffest_ = _instructionTrimLocation;
@@ -1628,24 +1588,10 @@ public final class FileResolver {
             trimmedInstruction_ = par_.getAfter();
             accessOffest_ = par_.getIndex()-_offset;
         }
-        if (StringExpUtil.startsWithKeyWord(trimmedInstruction_,keyWordPrivate_)) {
-            accessFct_ = AccessEnum.PRIVATE;
-            word_ = keyWordPrivate_;
-        } else {
-            if (StringExpUtil.startsWithKeyWord(trimmedInstruction_,keyWordPackage_)) {
-                accessFct_ = AccessEnum.PACKAGE;
-                word_ = keyWordPackage_;
-            } else {
-                if (StringExpUtil.startsWithKeyWord(trimmedInstruction_,keyWordProtected_)) {
-                    accessFct_ = AccessEnum.PROTECTED;
-                    word_ = keyWordProtected_;
-                } else {
-                    if (StringExpUtil.startsWithKeyWord(trimmedInstruction_,keyWordPublic_)) {
-                        accessFct_ = AccessEnum.PUBLIC;
-                        word_ = keyWordPublic_;
-                    }
-                }
-            }
+        AccessEnum access_ = getAccess(trimmedInstruction_, keyWords_);
+        String word_ = getWord(access_, keyWords_);
+        if (access_ != null) {
+            accessFct_ = access_;
         }
         String afterAccess_ = trimmedInstruction_.substring(word_.length());
         String trimmedAfterAccess_ = afterAccess_.trim();
@@ -1680,46 +1626,8 @@ public final class FileResolver {
             oper_ = true;
         } else if (!field_ && !ctor_) {
             infoModifiers_ = trimmedAfterAccess_;
-            String otherModifier_;
-            if (StringExpUtil.startsWithKeyWord(infoModifiers_,keyWordNormal_)) {
-                otherModifier_ = keyWordNormal_;
-                int lenLoc_ = otherModifier_.length();
-                String sub_ = infoModifiers_.substring(lenLoc_);
-                int delta_ = StringUtil.getFirstPrintableCharIndex(sub_);
-                infoModifiers_ = sub_.substring(delta_);
-            } else {
-                if (StringExpUtil.startsWithKeyWord(infoModifiers_,keyWordAbstract_)) {
-                    otherModifier_ = keyWordAbstract_;
-                    int lenLoc_ = otherModifier_.length();
-                    String sub_ = infoModifiers_.substring(lenLoc_);
-                    int delta_ = StringUtil.getFirstPrintableCharIndex(sub_);
-                    infoModifiers_ = sub_.substring(delta_);
-                } else {
-                    if (StringExpUtil.startsWithKeyWord(infoModifiers_,keyWordStatic_)) {
-                        otherModifier_ = keyWordStatic_;
-                        int lenLoc_ = otherModifier_.length();
-                        String sub_ = infoModifiers_.substring(lenLoc_);
-                        int delta_ = StringUtil.getFirstPrintableCharIndex(sub_);
-                        infoModifiers_ = sub_.substring(delta_);
-                    } else {
-                        if (StringExpUtil.startsWithKeyWord(infoModifiers_,keyWordStaticCall_)) {
-                            otherModifier_ = keyWordStaticCall_;
-                            int lenLoc_ = otherModifier_.length();
-                            String sub_ = infoModifiers_.substring(lenLoc_);
-                            int delta_ = StringUtil.getFirstPrintableCharIndex(sub_);
-                            infoModifiers_ = sub_.substring(delta_);
-                        } else {
-                            if (StringExpUtil.startsWithKeyWord(infoModifiers_,keyWordFinal_)) {
-                                otherModifier_ = keyWordFinal_;
-                                int lenLoc_ = otherModifier_.length();
-                                String sub_ = infoModifiers_.substring(lenLoc_);
-                                int delta_ = StringUtil.getFirstPrintableCharIndex(sub_);
-                                infoModifiers_ = sub_.substring(delta_);
-                            }
-                        }
-                    }
-                }
-            }
+            String mod_ = getModifier(infoModifiers_,keyWords_);
+            infoModifiers_ = infoModifiers_.substring(mod_.length()).trim();
             String keyWordThat_ = keyWords_.getKeyWordThat();
             if (StringExpUtil.startsWithKeyWord(infoModifiers_,keyWordThat_)) {
                 infoModifiers_ = infoModifiers_.substring(keyWordThat_.length()).trim();
@@ -1750,8 +1658,7 @@ public final class FileResolver {
         if (meth_|| oper_||ctor_||_currentChar == '{') {
 
             //constructors or methods or types
-            int modifierOffest_ = accessOffest_ + word_.length();
-            modifierOffest_ += StringUtil.getFirstPrintableCharIndex(afterAccess_);
+            int modifierOffest_ = accessOffest_ + word_.length() + StringUtil.getFirstPrintableCharIndex(afterAccess_);
             String info_ = afterAccess_.trim();
             int methodNameOffest_ = -1;
             int typeOffset_ = -1;
@@ -1759,36 +1666,12 @@ public final class FileResolver {
             String methodName_ = EMPTY_STRING;
             String declaringType_ = EMPTY_STRING;
             String modifier_ = EMPTY_STRING;
-            String prefModifier_ = EMPTY_STRING;
             int leftPar_=0;
             boolean retRef_ = false;
             if (meth_) {
-                if (StringExpUtil.startsWithKeyWord(info_,keyWordNormal_)) {
-                    modifier_ = keyWordNormal_;
-                    prefModifier_ = modifier_;
-                } else {
-                    if (StringExpUtil.startsWithKeyWord(info_,keyWordAbstract_)) {
-                        modifier_ = keyWordAbstract_;
-                        prefModifier_ = modifier_;
-                    } else {
-                        if (StringExpUtil.startsWithKeyWord(info_,keyWordStatic_)) {
-                            modifier_ = keyWordStatic_;
-                            prefModifier_ = modifier_;
-                        } else {
-                            if (StringExpUtil.startsWithKeyWord(info_,keyWordStaticCall_)) {
-                                modifier_ = keyWordStaticCall_;
-                                prefModifier_ = modifier_;
-                            } else {
-                                if (StringExpUtil.startsWithKeyWord(info_,keyWordFinal_)) {
-                                    modifier_ = keyWordFinal_;
-                                    prefModifier_ = modifier_;
-                                }
-                            }
-                        }
-                    }
-                }
-                String afterModifier_ = info_.substring(prefModifier_.length());
-                typeOffset_ = modifierOffest_ + prefModifier_.length();
+                modifier_ = getModifier(info_,keyWords_);
+                String afterModifier_ = info_.substring(modifier_.length());
+                typeOffset_ = modifierOffest_ + modifier_.length();
                 if (modifier_.isEmpty()) {
                     if (_currentParent instanceof InterfaceBlock) {
                         modifier_ = keyWordAbstract_;
@@ -1820,7 +1703,7 @@ public final class FileResolver {
             } else if (oper_){
                 accessFct_ = AccessEnum.PUBLIC;
                 modifier_ = keyWordStatic_;
-                prefModifier_ = keyWords_.getKeyWordOperator();
+                String prefModifier_ = keyWords_.getKeyWordOperator();
                 String afterModifier_ = info_.substring(prefModifier_.length());
                 methodNameOffest_ = modifierOffest_ + prefModifier_.length();
                 methodNameOffest_ += StringUtil.getFirstPrintableCharIndex(afterModifier_);
@@ -1983,28 +1866,26 @@ public final class FileResolver {
         } else {
 
             //fields
-            int delta_ = word_.length();
-            delta_ += accessOffest_ - _instructionTrimLocation;
-            delta_ += StringUtil.getFirstPrintableCharIndex(afterAccess_);
+            int typeOffest_ = accessOffest_ + word_.length() + StringUtil.getFirstPrintableCharIndex(afterAccess_);
             String info_ = afterAccess_.trim();
             int staticOffest_ = -1;
             int finalOffest_ = -1;
             boolean static_ = false;
             boolean final_ = false;
             if (StringExpUtil.startsWithKeyWord(info_, keyWordStatic_)) {
-                staticOffest_ = _instructionTrimLocation + delta_;
+                staticOffest_ = typeOffest_;
                 static_ = true;
                 String afterStatic_ = info_.substring(keyWordStatic_.length());
-                delta_ += keyWordStatic_.length();
-                delta_ += StringUtil.getFirstPrintableCharIndex(afterStatic_);
+                typeOffest_ += keyWordStatic_.length();
+                typeOffest_ += StringUtil.getFirstPrintableCharIndex(afterStatic_);
                 info_ = afterStatic_.trim();
             }
             if (StringExpUtil.startsWithKeyWord(info_,keyWordFinal_)) {
-                finalOffest_ = _instructionTrimLocation + delta_;
+                finalOffest_ = typeOffest_;
                 final_ = true;
                 String afterFinal_ = info_.substring(keyWordFinal_.length());
-                delta_ += keyWordFinal_.length();
-                delta_ += StringUtil.getFirstPrintableCharIndex(afterFinal_);
+                typeOffest_ += keyWordFinal_.length();
+                typeOffest_ += StringUtil.getFirstPrintableCharIndex(afterFinal_);
                 info_ = afterFinal_.trim();
             }
             if (!static_) {
@@ -2012,7 +1893,6 @@ public final class FileResolver {
                     final_ = true;
                 }
             }
-            int typeOffest_ = _instructionTrimLocation + delta_;
             String declaringType_ = getFoundType(info_);
             String afterType_ = info_.substring(declaringType_.length());
             int fieldNameOffest_ = StringUtil.getFirstPrintableCharIndex(afterType_) +declaringType_.length() + typeOffest_;
@@ -2033,6 +1913,29 @@ public final class FileResolver {
         return br_;
     }
 
+    private static String getModifier(String _inst, KeyWords _keyWords) {
+        String keyWordAbstract_ = _keyWords.getKeyWordAbstract();
+        String keyWordFinal_ = _keyWords.getKeyWordFinal();
+        String keyWordNormal_ = _keyWords.getKeyWordNormal();
+        String keyWordStatic_ = _keyWords.getKeyWordStatic();
+        String keyWordStaticCall_ = _keyWords.getKeyWordStaticCall();
+        if (StringExpUtil.startsWithKeyWord(_inst,keyWordNormal_)) {
+            return keyWordNormal_;
+        }
+        if (StringExpUtil.startsWithKeyWord(_inst,keyWordAbstract_)) {
+            return keyWordAbstract_;
+        }
+        if (StringExpUtil.startsWithKeyWord(_inst,keyWordStatic_)) {
+            return keyWordStatic_;
+        }
+        if (StringExpUtil.startsWithKeyWord(_inst,keyWordStaticCall_)) {
+            return keyWordStaticCall_;
+        }
+        if (StringExpUtil.startsWithKeyWord(_inst,keyWordFinal_)) {
+            return keyWordFinal_;
+        }
+        return "";
+    }
     private static StringBuilder fetchSymbol(String _afterModifier) {
         int len_ = _afterModifier.length();
         int j_ = 0;
