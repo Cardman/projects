@@ -2399,12 +2399,11 @@ public final class FileResolver {
             exp_ = exp_.substring(declaringType_.length());
             int eqIndex_ = exp_.indexOf(PART_SEPARATOR);
             String variable_ = "";
-            int firstOff_ = 0;
             if (eqIndex_ < 0) {
                 ok_ = false;
             } else {
                 variable_ = exp_.substring(0, eqIndex_);
-                firstOff_ = StringExpUtil.getOffset(variable_);
+                int firstOff_ = StringExpUtil.getOffset(variable_);
                 varOffset_ += firstOff_;
                 exp_ = exp_.substring(eqIndex_ + 1);
             }
@@ -2412,12 +2411,11 @@ public final class FileResolver {
             int aftVarOffset_ = aftTypeOffset_ + variable_.length()+1;
             int initOff_ = aftVarOffset_;
             String init_ = "";
-            int secondOff_ = 0;
             if (nextElt_ < 0) {
                 ok_ = false;
             } else {
                 init_ = exp_.substring(0, nextElt_);
-                secondOff_ = StringExpUtil.getOffset(init_);
+                int secondOff_ = StringExpUtil.getOffset(init_);
                 initOff_ += secondOff_;
                 exp_ = exp_.substring(nextElt_+1);
             }
@@ -2425,12 +2423,11 @@ public final class FileResolver {
             int afToOffset_ = aftVarOffset_ + init_.length()+1;
             int toOff_ = afToOffset_;
             String to_ = "";
-            int thirdOff_ = 0;
             if (nextElt_ < 0) {
                 ok_ = false;
             } else {
                 to_ = exp_.substring(0, nextElt_);
-                thirdOff_ = StringExpUtil.getOffset(to_);
+                int thirdOff_ = StringExpUtil.getOffset(to_);
                 toOff_ += thirdOff_;
             }
             boolean eq_ = false;
