@@ -28,6 +28,7 @@ public final class ParsedAnnotations {
     public void parse(String... _keyWordClass) {
         int lenInst_ = instruction.length();
         int j_ = 0;
+        int indexArobase_ = 0;
         int nbPars_ = 0;
         StringBuilder annotation_ = new StringBuilder();
         boolean quoted_ = false;
@@ -165,9 +166,10 @@ public final class ParsedAnnotations {
                     String after_ = instruction.substring(j_+1);
                     if (after_.isEmpty() || !isPart(after_.charAt(0))) {
                         String afterTrim_ = after_.trim();
-                        if (afterTrim_.isEmpty() || afterTrim_.charAt(0) != '.' && !startsWithAnnotFilter(afterTrim_,_keyWordClass) && afterTrim_.charAt(0) != BEGIN_CALLING) {
+                        if (afterTrim_.isEmpty() || afterTrim_.charAt(0) != '.' && !startsWithAnnot(afterTrim_,_keyWordClass) && afterTrim_.charAt(0) != BEGIN_CALLING) {
                             annotation_.append(cur_);
                             annotations.add(annotation_.toString());
+                            annotationsIndexes.add(indexArobase_ + instructionLocation);
                             index = j_ + instructionLocation;
                             index++;
                             j_++;
@@ -186,9 +188,10 @@ public final class ParsedAnnotations {
                 }
                 if (cur_ == END_CALLING) {
                     String after_ = instruction.substring(j_+1).trim();
-                    if (after_.isEmpty() || !startsWithAnnotFilter(after_,_keyWordClass)) {
+                    if (after_.isEmpty() || !startsWithAnnot(after_,_keyWordClass)) {
                         annotation_.append(cur_);
                         annotations.add(annotation_.toString());
+                        annotationsIndexes.add(indexArobase_ + instructionLocation);
                         index = j_ + instructionLocation;
                         index++;
                         j_++;
@@ -208,10 +211,10 @@ public final class ParsedAnnotations {
                     //Add annotation
                     if (!annotation_.toString().trim().isEmpty()) {
                         annotations.add(annotation_.toString());
+                        annotationsIndexes.add(indexArobase_ + instructionLocation);
                     }
                     annotation_.delete(0, annotation_.length());
-
-                    annotationsIndexes.add(j_ + instructionLocation);
+                    indexArobase_ = j_;
                 }
             }
             annotation_.append(cur_);
@@ -248,12 +251,7 @@ public final class ParsedAnnotations {
     public int getIndex() {
         return index;
     }
-    private static boolean startsWithAnnotFilter(String _trimmedInstruction, String... _keyWordClass) {
-        if (_keyWordClass.length == 0) {
-            return _trimmedInstruction.charAt(0) == ANNOT;
-        }
-        return startsWithAnnot(_trimmedInstruction, _keyWordClass);
-    }
+
     static boolean startsWithAnnot(String _trimmedInstruction, String... _keyWordClass) {
         if (!StringExpUtil.nextCharIs(_trimmedInstruction,0,_trimmedInstruction.length(),ANNOT)) {
             return false;
