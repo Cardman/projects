@@ -10,8 +10,8 @@ public final class InterfacesPart {
     private static final char BEGIN_CALLING = '(';
     private static final char SEP_CALLING = ',';
     private static final char END_CALLING = ')';
-    private StringList staticInitInterfaces = new StringList();
-    private Ints staticInitInterfacesOffset = new Ints();
+    private final StringList staticInitInterfaces = new StringList();
+    private final Ints staticInitInterfacesOffset = new Ints();
     private boolean ok = true;
     private String part;
     private int locIndex;

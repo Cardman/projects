@@ -6,16 +6,18 @@ public final class InheritingPart {
     private static final char INHERIT = ':';
     private static final char BEGIN_TEMPLATE = '<';
     private static final char END_TEMPLATE = '>';
-    private IntMap<String> superTypes = new IntMap< String>();
+    private final IntMap<String> superTypes = new IntMap< String>();
     private String tempDef = "";
     private String typeName = "";
     private int beginDefinition;
-    private String part;
-    InheritingPart(int _beginDefinition,String _part) {
-        beginDefinition = _beginDefinition;
+    private final int offset;
+    private final String part;
+    InheritingPart(int _offset,String _part) {
+        beginDefinition = _offset;
+        offset = _offset;
         part = _part;
     }
-    void parse(int _offset, int _globalOffset) {
+    void parse(int _globalOffset) {
         int locIndex_ = 0;
         StringBuilder str_ = new StringBuilder();
         StringBuilder typeNamePref_ = new StringBuilder();
@@ -36,7 +38,7 @@ public final class InheritingPart {
                 if (templateDef_.length() == 0
                         && !foundInherit_ && locChar_ != INHERIT) {
                     if (typeNamePref_.length() == 0) {
-                        beginDefinition = locIndex_+_offset;
+                        beginDefinition = locIndex_+offset+_globalOffset;
                     }
                     typeNamePref_.append(locChar_);
                 }
@@ -52,7 +54,7 @@ public final class InheritingPart {
                 foundInherit_ = true;
 
                 locIndex_ = locIndex_ + 1;
-                inheritIndex_ = locIndex_+_offset;
+                inheritIndex_ = locIndex_+offset;
                 continue;
             }
             if (foundInherit_) {

@@ -47,7 +47,7 @@ public final class ParsedFctHeader {
             offsetLast++;
             String sub_ = _info.substring(1);
             offsetLast += StringUtil.getFirstPrintableCharIndex(sub_);
-            info = sub_;
+            info = sub_.trim();
             return;
         }
         int len_ = _info.length();

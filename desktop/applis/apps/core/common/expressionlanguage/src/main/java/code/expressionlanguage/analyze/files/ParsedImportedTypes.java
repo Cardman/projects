@@ -12,32 +12,32 @@ public final class ParsedImportedTypes {
 
     private final StringList importedTypes = new StringList();
     private final Ints offsetsImports = new Ints();
-    private int offset;
-    private int nextIndex;
-    private boolean skip;
+    private final int offset;
+    private final String nextPart;
 
     public ParsedImportedTypes(int _nextIndex,int _offset, String _part) {
-        nextIndex = _nextIndex;
+        int nextIndex_ = _nextIndex;
         if (_part.isEmpty()) {
-            skip = true;
+            offset = _nextIndex;
+            nextPart = _part;
             return;
         }
         if (_part.charAt(0) != BEGIN_BLOCK) {
-            skip = true;
+            offset = _nextIndex;
+            nextPart = _part;
             return;
         }
 
-        nextIndex = nextIndex + 1;
+        nextIndex_++;
         int indexImport_ = 0;
         int len_ = _part.length();
         StringBuilder str_ = new StringBuilder();
-        int current_ = 0;
-        current_++;
+        int current_ = 1;
         while (current_ < len_) {
             char currentChar_ = _part.charAt(current_);
             if (currentChar_ == END_BLOCK) {
 
-                nextIndex = nextIndex + 1;
+                nextIndex_++;
                 current_++;
                 break;
             }
@@ -46,24 +46,19 @@ public final class ParsedImportedTypes {
                 offsetsImports.add(indexImport_+_offset);
                 str_.delete(0, str_.length());
             } else {
-                if (!StringUtil.isWhitespace(currentChar_)) {
-                    if (str_.length() == 0) {
-                        indexImport_ = nextIndex;
-                    }
+                if (!StringUtil.isWhitespace(currentChar_) && str_.length() == 0) {
+                    indexImport_ = nextIndex_;
                 }
                 str_.append(currentChar_);
             }
 
-            nextIndex = nextIndex + 1;
+            nextIndex_++;
             current_++;
         }
         int offsetAfter_ = StringExpUtil.getOffset(_part.substring(current_));
-        offset = nextIndex+ offsetAfter_;
-        nextIndex = current_ + offsetAfter_;
-    }
-
-    public boolean isSkip() {
-        return skip;
+        offset = nextIndex_ + offsetAfter_;
+        nextIndex_ = current_ + offsetAfter_;
+        nextPart = _part.substring(nextIndex_);
     }
 
     public StringList getImportedTypes() {
@@ -77,8 +72,7 @@ public final class ParsedImportedTypes {
         return offset;
     }
 
-    public int getNextIndex() {
-        return nextIndex;
+    public String getNextPart() {
+        return nextPart;
     }
-
 }

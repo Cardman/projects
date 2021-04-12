@@ -11004,6 +11004,60 @@ public final class CoverageReportZTest extends ProcessMethodCommon {
                 "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
+    public void coverage648Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("operator+ pkg.Ex(pkg.Ex a, pkg.Ex b) {\n");
+        xml_.append(" return new pkg.Ex(a.f+b.f+switch[int](0){\n");
+        xml_.append("  default:\n");
+        xml_.append("   public class Loc : pkg.Int {public int field(){return 0;}}\n");
+        xml_.append("   return new Loc(){public int field(){return 0;}}.field();\n");
+        xml_.append(" });\n");
+        xml_.append("}\n");
+        xml_.append("public interface pkg.Int {\n");
+        xml_.append(" int field();\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public int f;\n");
+        xml_.append(" public Ex(int p){\n");
+        xml_.append("  f = p;\n");
+        xml_.append(" }\n");
+        xml_.append(" public static int exmeth(){\n");
+        xml_.append("  Ex e = new Ex(5);\n");
+        xml_.append("  Ex g = new Ex(7);\n");
+        xml_.append("  return (e+g).f;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("src/pkg/Ex", xml_.toString());
+        ContextEl cont_ = covEn(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        calculateNormal("pkg.Ex", id_, args_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">operator<a name=\"m8\">+</a> <a title=\"pkg.Ex\" href=\"#m278\">pkg.Ex</a>(<a title=\"pkg.Ex\" href=\"#m278\">pkg.Ex</a> <a name=\"m24\">a</a>, <a title=\"pkg.Ex\" href=\"#m278\">pkg.Ex</a> <a name=\"m34\">b</a>) {\n" +
+                " return <span class=\"f\"><a title=\"pkg.Ex.pkg.Ex(int)\" href=\"#m303\">new</a> <a title=\"pkg.Ex\" href=\"#m278\">pkg.Ex</a>(<span class=\"f\"><span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m24\">a</a></span>.<span class=\"f\"><a title=\"pkg.Ex.f\" href=\"#m299\">f</a></span></span>+<span class=\"f\"><span class=\"f\"><a href=\"#m34\">b</a></span>.<span class=\"f\"><a title=\"pkg.Ex.f\" href=\"#m299\">f</a></span></span></span>+<span class=\"f\"><span class=\"f\"><a title=\"1/1\">switch</a></span>[int](<span class=\"f\">0</span>)<span class=\"t\">{\n" +
+                "  <span class=\"f\">default</span>:\n" +
+                "   public class <a name=\"m109\">Loc</a> : <a title=\"pkg.Int\" href=\"#m239\">pkg.Int</a> {public int <a name=\"m135\">field</a>(){return <span class=\"n\">0</span>;}}\n" +
+                "   return <span class=\"f\"><span class=\"f\">new <a title=\"$core.Loc+1\" href=\"#m109\">Loc</a>()<span class=\"t\"><a name=\"m174\">{</a>public int <a name=\"m186\">field</a>(){return <span class=\"f\">0</span>;}}</span></span>.<span class=\"f\"><a title=\"$core.Loc+1.field()\" href=\"#m135\">field</a>()</span></span>;\n" +
+                " }</span></span></span>)</span>;\n" +
+                "}\n" +
+                "public interface <a name=\"m239\">pkg.Int</a> {\n" +
+                " int <a name=\"m254\">field</a>();\n" +
+                "}\n" +
+                "public class <a name=\"m278\">pkg.Ex</a> {\n" +
+                " public int <span class=\"f\"><a name=\"m299\">f</a></span>;\n" +
+                " <a name=\"m303\">public Ex(</a>int <a name=\"m317\">p</a>){\n" +
+                "  <span class=\"f\"><span class=\"f\"><a title=\"pkg.Ex.f\" href=\"#m299\">f</a> </span>=<span class=\"f\"> <a href=\"#m317\">p</a></span></span>;\n" +
+                " }\n" +
+                " public static int <a name=\"m352\">exmeth</a>(){\n" +
+                "  <a title=\"pkg.Ex\" href=\"#m278\">Ex</a> <span class=\"f\"><span class=\"f\"><a name=\"m367\">e</a> </span>=<span class=\"f\"> <a title=\"pkg.Ex.pkg.Ex(int)\" href=\"#m303\">new</a> <a title=\"pkg.Ex\" href=\"#m278\">Ex</a>(<span class=\"f\">5</span>)</span></span>;\n" +
+                "  <a title=\"pkg.Ex\" href=\"#m278\">Ex</a> <span class=\"f\"><span class=\"f\"><a name=\"m387\">g</a> </span>=<span class=\"f\"> <a title=\"pkg.Ex.pkg.Ex(int)\" href=\"#m303\">new</a> <a title=\"pkg.Ex\" href=\"#m278\">Ex</a>(<span class=\"f\">7</span>)</span></span>;\n" +
+                "  return <span class=\"f\"><span class=\"f\">(<span class=\"f\"><span class=\"f\"><a href=\"#m367\">e</a></span><a title=\"static +(pkg.Ex,pkg.Ex)\" href=\"#m8\">+</a><span class=\"f\"><a href=\"#m387\">g</a></span></span>)</span>.<span class=\"f\"><a title=\"pkg.Ex.f\" href=\"#m299\">f</a></span></span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
     public void coverageComment17Test() {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;

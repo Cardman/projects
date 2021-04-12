@@ -16,7 +16,7 @@ public final class ParsedAnnotations {
     private static final char ANNOT = '@';
     private final Ints annotationsIndexes = new Ints();
     private final StringList annotations = new StringList();
-    private String instruction = "";
+    private final String instruction;
     private String after = "";
     private int index;
     private final int instructionLocation;

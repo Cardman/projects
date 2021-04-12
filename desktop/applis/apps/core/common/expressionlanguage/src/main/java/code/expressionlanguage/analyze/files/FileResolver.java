@@ -737,10 +737,9 @@ public final class FileResolver {
                     String afterOper_ = afterAccessType_.substring(keyWordOperator_.length());
                     int offAfterOper_ = StringUtil.getFirstPrintableCharIndex(afterOper_);
                     nextIndex_ += offAfterOper_;
-                    StringBuilder symbol_;
                     int symbolIndex_ = nextIndex_;
                     String trAfterOper_ = afterOper_.trim();
-                    symbol_ = fetchSymbol(trAfterOper_);
+                    StringBuilder symbol_ = fetchSymbol(trAfterOper_);
                     nextIndex_ += symbol_.length();
                     String afterSymbol_ = trAfterOper_.substring(symbol_.length());
                     int offAfterSymbol_ = StringUtil.getFirstPrintableCharIndex(afterSymbol_);
@@ -749,20 +748,10 @@ public final class FileResolver {
                     ParsedImportedTypes p_ = new ParsedImportedTypes(nextIndex_,_offset, trAfterSymbol_);
                     StringList importedTypes_ = p_.getImportedTypes();
                     Ints offsetsImports_ = p_.getOffsetsImports();
-                    String afterImports_;
-                    int locIndex_ = p_.getNextIndex();
-                    if (!p_.isSkip()) {
-                        nextIndex_ = p_.getOffset();
-                        afterImports_ = trAfterSymbol_.substring(locIndex_);
-                    } else {
-                        afterImports_ = afterSymbol_;
-                    }
+                    String afterImports_ = p_.getNextPart();
+                    nextIndex_ = p_.getOffset();
                     String info_ = afterImports_;
                     int typeOffset_ = nextIndex_;
-                    int paramOffest_;
-                    String declaringType_;
-                    String afterModifier_ = info_;
-                    info_ = afterModifier_.trim();
                     String keyWordThat_ = keyWords_.getKeyWordThat();
                     boolean retRef_ = false;
                     if (StringExpUtil.startsWithKeyWord(info_,keyWordThat_)) {
@@ -772,7 +761,7 @@ public final class FileResolver {
                         info_ = info_.trim();
                         retRef_ = true;
                     }
-                    declaringType_ = getFoundType(info_);
+                    String declaringType_ = getFoundType(info_);
                     int declTypeLen_ = declaringType_.length();
                     String afterType_ = info_.substring(declTypeLen_);
                     int afterTypeOff_ = StringUtil.getFirstPrintableCharIndex(afterType_);
@@ -782,8 +771,7 @@ public final class FileResolver {
                         badIndexes_.add(nextIndex_);
                     }
                     String afterMethodName_ = info_.substring(leftParIndex_ + 1);
-                    paramOffest_ = afterTypeOff_ + typeOffset_ + declTypeLen_ + 1;
-                    paramOffest_ += StringUtil.getFirstPrintableCharIndex(afterMethodName_);
+                    int paramOffest_ = typeOffset_ + declTypeLen_ + afterTypeOff_ + 1 + StringUtil.getFirstPrintableCharIndex(afterMethodName_);
                     info_ = afterMethodName_.trim();
                     ParsedFctHeader parseHeader_ = new ParsedFctHeader();
                     parseHeader_.parse(info_, _page, paramOffest_ + _offset);
@@ -927,17 +915,10 @@ public final class FileResolver {
                     ParsedImportedTypes p_ = new ParsedImportedTypes(nextIndex_,_offset, beforeQu_);
                     StringList importedTypes_ = p_.getImportedTypes();
                     Ints offsetsImports_ = p_.getOffsetsImports();
-                    String afterImports_;
-                    int locIndex_ = p_.getNextIndex();
-                    if (!p_.isSkip()) {
-                        nextIndex_ = p_.getOffset();
-                        afterImports_ = beforeQu_.substring(locIndex_);
-                    } else {
-                        afterImports_ = beforeQu_;
-                    }
+                    String afterImports_ = p_.getNextPart();
+                    nextIndex_ = p_.getOffset();
                     //insert interfaces static initialization for class and enums
-                    String substring_ = afterImports_;
-                    InterfacesPart interfacesPart_ = new InterfacesPart(substring_,nextIndex_);
+                    InterfacesPart interfacesPart_ = new InterfacesPart(afterImports_,nextIndex_);
                     interfacesPart_.parse(_page.getKeyWords(),nextIndex_,_offset);
                     int intsOff_ = nextIndex_ + _offset;
                     StringList staticInitInterfaces_ = interfacesPart_.getStaticInitInterfaces();
@@ -946,9 +927,9 @@ public final class FileResolver {
                     int afterInterfaces_ = interfacesPart_.getLocIndex();
                     int delta_ = afterInterfaces_ - nextIndex_;
                     nextIndex_ = afterInterfaces_;
-                    String part_ = substring_.substring(delta_);
+                    String part_ = afterImports_.substring(delta_);
                     InheritingPart inh_ = new InheritingPart(nextIndex_,part_);
-                    inh_.parse(nextIndex_,_offset);
+                    inh_.parse(_offset);
                     IntMap<String> superTypes_ = inh_.getSuperTypes();
                     String tempDef_ = inh_.getTempDef();
                     String typeName_ = inh_.getTypeName();
@@ -966,29 +947,29 @@ public final class FileResolver {
                     }
                     RootBlock typeBlock_;
                     if (!okCat_) {
-                        typeBlock_ = new RootErrorBlock(beginDefinition_+_offset, baseName_, packageName_,
+                        typeBlock_ = new RootErrorBlock(beginDefinition_, baseName_, packageName_,
                                 new OffsetAccessInfo(accessOffsetType_+_offset, access_) , tempDef_, superTypes_, instructionTrimLocation_ +_offset);
                         ((RootErrorBlock)typeBlock_).setCategoryOffset(categoryOffset_+_offset);
                     } else if (StringUtil.quickEq(type_, keyWordEnum_)) {
-                        typeBlock_ = new EnumBlock(beginDefinition_+_offset, baseName_, packageName_,
+                        typeBlock_ = new EnumBlock(beginDefinition_, baseName_, packageName_,
                                 new OffsetAccessInfo(accessOffsetType_+_offset, access_) , tempDef_, superTypes_,  instructionTrimLocation_ +_offset);
                     } else if (StringUtil.quickEq(type_, keyWordClass_)) {
-                        typeBlock_ = new ClassBlock(beginDefinition_+_offset, baseName_, packageName_,
+                        typeBlock_ = new ClassBlock(beginDefinition_, baseName_, packageName_,
                                 new OffsetAccessInfo(accessOffsetType_+_offset, access_), tempDef_, superTypes_, finalType_, abstractType_, true,
                                  instructionTrimLocation_ +_offset);
                     } else if (StringUtil.quickEq(type_, "@"+keyWordClass_)) {
-                        typeBlock_ = new RecordBlock(false,beginDefinition_+_offset, baseName_, packageName_,
+                        typeBlock_ = new RecordBlock(false,beginDefinition_, baseName_, packageName_,
                                 new OffsetAccessInfo(accessOffsetType_+_offset, access_), tempDef_, superTypes_,
                                  instructionTrimLocation_ +_offset);
                     } else if (StringUtil.quickEq(type_, "@"+keyWordInterface_)) {
-                        typeBlock_ = new RecordBlock(true,beginDefinition_+_offset, baseName_, packageName_,
+                        typeBlock_ = new RecordBlock(true,beginDefinition_, baseName_, packageName_,
                                 new OffsetAccessInfo(accessOffsetType_+_offset, access_), tempDef_, superTypes_,
                                  instructionTrimLocation_ +_offset);
                     } else if (StringUtil.quickEq(type_, keyWordInterface_)) {
-                        typeBlock_ = new InterfaceBlock(beginDefinition_+_offset, baseName_, packageName_,
+                        typeBlock_ = new InterfaceBlock(beginDefinition_, baseName_, packageName_,
                                 new OffsetAccessInfo(accessOffsetType_+_offset, access_) , tempDef_, superTypes_, true, instructionTrimLocation_ +_offset);
                     } else {
-                        typeBlock_ = new AnnotationBlock(beginDefinition_+_offset, baseName_, packageName_,
+                        typeBlock_ = new AnnotationBlock(beginDefinition_, baseName_, packageName_,
                                 new OffsetAccessInfo(accessOffsetType_+_offset, access_) , tempDef_, superTypes_, instructionTrimLocation_ +_offset);
                     }
                     typeBlock_.setupOffsets(baseName_,packageName_);
@@ -1063,13 +1044,11 @@ public final class FileResolver {
                     int finalOff_ = 0;
                     boolean final_ = false;
                     boolean meth_ = true;
-                    int deltaFinal_;
                     if (StringExpUtil.startsWithKeyWord(infoModifiers_,keyWordFinal_)) {
                         int lenLoc_ = keyWordFinal_.length();
-                        deltaFinal_ = lenLoc_;
                         String sub_ = infoModifiers_.substring(lenLoc_);
                         int deltaSec_ = StringUtil.getFirstPrintableCharIndex(sub_);
-                        deltaFinal_ += deltaSec_;
+                        int deltaFinal_ = lenLoc_ + deltaSec_;
                         finalOff_ = typeOffset_;
                         found_ = sub_.substring(deltaSec_);
                         final_ = true;
@@ -1549,15 +1528,9 @@ public final class FileResolver {
         ParsedImportedTypes p_ = new ParsedImportedTypes(_locIndex,_offset, _infoPart);
         StringList importedTypes_ = p_.getImportedTypes();
         Ints offsetsImports_ = p_.getOffsetsImports();
-        int locIndex_ = p_.getNextIndex();
+        int locIndex_ = p_.getOffset();
         //insert interfaces static initialization for class and enums
-        String infoPart_ = _infoPart;
-        if (!p_.isSkip()) {
-            infoPart_ = infoPart_.substring(locIndex_);
-            locIndex_ = p_.getOffset();
-        } else {
-            locIndex_ = _locIndex;
-        }
+        String infoPart_ = p_.getNextPart();
         InterfacesPart interfacesPart_ = new InterfacesPart(infoPart_,locIndex_);
         interfacesPart_.parse(_keyWords,locIndex_,_offset);
         locIndex_ = interfacesPart_.getLocIndex();
@@ -1582,7 +1555,7 @@ public final class FileResolver {
                                           String _type, int _categoryOffset, StringList _importedTypes,
                                           Ints _offsetsImports, StringList _staticInitInterfaces, Ints _staticInitInterfacesOffset) {
         InheritingPart inh_ = new InheritingPart(_locIndex,_infoPart);
-        inh_.parse(_locIndex,_offset);
+        inh_.parse(_offset);
         IntMap<String> superTypes_ = inh_.getSuperTypes();
         String tempDef_ = inh_.getTempDef();
         String typeName_ = inh_.getTypeName();
