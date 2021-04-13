@@ -6,78 +6,78 @@ import code.expressionlanguage.structs.BooleanStruct;
 import code.util.StringList;
 
 public final class NullBooleanCoverageResult extends AbstractCoverageResult {
-    private boolean coverTrue;
-    private boolean coverFalse;
-    private boolean coverNull;
+    private boolean coverNbcTrue;
+    private boolean coverNbcFalse;
+    private boolean coverNbcNull;
 
     @Override
     public StringList getCoversFoundReport(VariablesOffsets _vars) {
-        StringList founds_ = new StringList();
+        StringList foundsNbc_ = new StringList();
         if (!isStrictPartialCovered()) {
-            return founds_;
+            return foundsNbc_;
         }
-        if (isCoverNull()) {
-            founds_.add(_vars.getDisplayedStrings().getNullCoverString());
+        if (isCoverNbcNull()) {
+            foundsNbc_.add(_vars.getDisplayedStrings().getNullCoverString());
         }
-        if (isCoverTrue()) {
-            founds_.add(_vars.getDisplayedStrings().getTrueString());
+        if (isCoverNbcTrue()) {
+            foundsNbc_.add(_vars.getDisplayedStrings().getTrueString());
         }
-        if (isCoverFalse()) {
-            founds_.add(_vars.getDisplayedStrings().getFalseString());
+        if (isCoverNbcFalse()) {
+            foundsNbc_.add(_vars.getDisplayedStrings().getFalseString());
         }
-        return founds_;
+        return foundsNbc_;
     }
 
     @Override
     public int getCovered() {
-        int c_ = 0;
-        if (coverTrue) {
-            c_++;
+        int nbc_ = 0;
+        if (coverNbcTrue) {
+            nbc_++;
         }
-        if (coverFalse) {
-            c_++;
+        if (coverNbcFalse) {
+            nbc_++;
         }
-        if (coverNull) {
-            c_++;
+        if (coverNbcNull) {
+            nbc_++;
         }
-        return c_;
+        return nbc_;
     }
 
     @Override
     public int getFull() {
-        return 3;
+        return THREE;
     }
 
     @Override
-    public void cover(Argument _arg) {
-        if (_arg.isNull()) {
-            coverNull = true;
+    public void cover(Argument _nbc) {
+        if (_nbc.isNull()) {
+            coverNbcNull = true;
         }
-        if (BooleanStruct.isTrue(_arg.getStruct())) {
-            coverTrue = true;
+        if (BooleanStruct.isTrue(_nbc.getStruct())) {
+            coverNbcTrue = true;
         }
-        if (BooleanStruct.isFalse(_arg.getStruct())) {
-            coverFalse = true;
+        if (BooleanStruct.isFalse(_nbc.getStruct())) {
+            coverNbcFalse = true;
         }
 
     }
 
     @Override
     public void fullCover() {
-        coverNull = true;
-        coverTrue = true;
-        coverFalse = true;
+        coverNbcNull = true;
+        coverNbcTrue = true;
+        coverNbcFalse = true;
     }
 
-    public boolean isCoverFalse() {
-        return coverFalse;
+    public boolean isCoverNbcFalse() {
+        return coverNbcFalse;
     }
 
-    public boolean isCoverTrue() {
-        return coverTrue;
+    public boolean isCoverNbcTrue() {
+        return coverNbcTrue;
     }
 
-    public boolean isCoverNull() {
-        return coverNull;
+    public boolean isCoverNbcNull() {
+        return coverNbcNull;
     }
 }

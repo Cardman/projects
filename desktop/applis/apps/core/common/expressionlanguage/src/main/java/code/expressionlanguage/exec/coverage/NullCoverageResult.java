@@ -5,61 +5,61 @@ import code.expressionlanguage.linkage.VariablesOffsets;
 import code.util.StringList;
 
 public final class NullCoverageResult extends AbstractCoverageResult {
-    private boolean coverNotNull;
-    private boolean coverNull;
+    private boolean coverNcNotNull;
+    private boolean coverNcNull;
 
     @Override
     public StringList getCoversFoundReport(VariablesOffsets _vars) {
-        StringList founds_ = new StringList();
+        StringList foundsNc_ = new StringList();
         if (!isStrictPartialCovered()) {
-            return founds_;
+            return foundsNc_;
         }
-        if (isCoverNull()) {
-            founds_.add(_vars.getDisplayedStrings().getNullCoverString());
+        if (isCoverNcNull()) {
+            foundsNc_.add(_vars.getDisplayedStrings().getNullCoverString());
         }
-        if (isCoverNotNull()) {
-            founds_.add(_vars.getDisplayedStrings().getNotNullCoverString());
+        if (isCoverNcNotNull()) {
+            foundsNc_.add(_vars.getDisplayedStrings().getNotNullCoverString());
         }
-        return founds_;
+        return foundsNc_;
     }
 
     @Override
     public int getCovered() {
-        int c_ = 0;
-        if (coverNotNull) {
-            c_++;
+        int nc_ = 0;
+        if (coverNcNotNull) {
+            nc_++;
         }
-        if (coverNull) {
-            c_++;
+        if (coverNcNull) {
+            nc_++;
         }
-        return c_;
+        return nc_;
     }
 
     @Override
     public int getFull() {
-        return 2;
+        return TWO;
     }
 
     @Override
-    public void cover(Argument _arg) {
-        if (_arg.isNull()) {
-            coverNull = true;
+    public void cover(Argument _nc) {
+        if (_nc.isNull()) {
+            coverNcNull = true;
         } else {
-            coverNotNull = true;
+            coverNcNotNull = true;
         }
     }
 
     @Override
     public void fullCover() {
-        coverNull = true;
-        coverNotNull = true;
+        coverNcNull = true;
+        coverNcNotNull = true;
     }
 
-    public boolean isCoverNotNull() {
-        return coverNotNull;
+    public boolean isCoverNcNotNull() {
+        return coverNcNotNull;
     }
 
-    public boolean isCoverNull() {
-        return coverNull;
+    public boolean isCoverNcNull() {
+        return coverNcNull;
     }
 }

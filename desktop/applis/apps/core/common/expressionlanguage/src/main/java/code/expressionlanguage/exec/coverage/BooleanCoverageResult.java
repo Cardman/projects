@@ -6,62 +6,62 @@ import code.expressionlanguage.structs.BooleanStruct;
 import code.util.StringList;
 
 public final class BooleanCoverageResult extends AbstractCoverageResult {
-    private boolean coverTrue;
-    private boolean coverFalse;
+    private boolean coverBcTrue;
+    private boolean coverBcFalse;
 
     @Override
     public StringList getCoversFoundReport(VariablesOffsets _vars) {
-        StringList founds_ = new StringList();
+        StringList foundsBc_ = new StringList();
         if (!isStrictPartialCovered()) {
-            return founds_;
+            return foundsBc_;
         }
-        if (isCoverTrue()) {
-            founds_.add(_vars.getDisplayedStrings().getTrueString());
+        if (isCoverBcTrue()) {
+            foundsBc_.add(_vars.getDisplayedStrings().getTrueString());
         }
-        if (isCoverFalse()) {
-            founds_.add(_vars.getDisplayedStrings().getFalseString());
+        if (isCoverBcFalse()) {
+            foundsBc_.add(_vars.getDisplayedStrings().getFalseString());
         }
-        return founds_;
+        return foundsBc_;
     }
 
     @Override
     public int getCovered() {
-        int c_ = 0;
-        if (coverTrue) {
-            c_++;
+        int bc_ = 0;
+        if (coverBcTrue) {
+            bc_++;
         }
-        if (coverFalse) {
-            c_++;
+        if (coverBcFalse) {
+            bc_++;
         }
-        return c_;
+        return bc_;
     }
 
     @Override
     public int getFull() {
-        return 2;
+        return TWO;
     }
 
     @Override
-    public void cover(Argument _arg) {
-        if (BooleanStruct.isTrue(_arg.getStruct())) {
-            coverTrue = true;
+    public void cover(Argument _bc) {
+        if (BooleanStruct.isTrue(_bc.getStruct())) {
+            coverBcTrue = true;
         }
-        if (BooleanStruct.isFalse(_arg.getStruct())) {
-            coverFalse = true;
+        if (BooleanStruct.isFalse(_bc.getStruct())) {
+            coverBcFalse = true;
         }
     }
 
     @Override
     public void fullCover() {
-        coverTrue = true;
-        coverFalse = true;
+        coverBcTrue = true;
+        coverBcFalse = true;
     }
 
-    public boolean isCoverFalse() {
-        return coverFalse;
+    public boolean isCoverBcFalse() {
+        return coverBcFalse;
     }
 
-    public boolean isCoverTrue() {
-        return coverTrue;
+    public boolean isCoverBcTrue() {
+        return coverBcTrue;
     }
 }

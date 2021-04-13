@@ -5,6 +5,8 @@ import code.expressionlanguage.linkage.VariablesOffsets;
 import code.util.StringList;
 
 public abstract class AbstractCoverageResult {
+    protected static final int TWO = 2;
+    protected static final int THREE = 3;
     private boolean init;
 
     public boolean isInit() {
