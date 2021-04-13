@@ -416,18 +416,7 @@ public final class FileResolver {
             par_.parse(keyWords_.getKeyWordClass(),keyWords_.getKeyWordInterface());
             tr_ = par_.getAfter();
         }
-        String word_ = EMPTY_STRING;
-        if (StringExpUtil.startsWithKeyWord(tr_,keyWords_.getKeyWordPrivate())) {
-            word_ = keyWords_.getKeyWordPrivate();
-        } else if (StringExpUtil.startsWithKeyWord(tr_,keyWords_.getKeyWordPackage())) {
-            word_ = keyWords_.getKeyWordPackage();
-        } else if (StringExpUtil.startsWithKeyWord(tr_,keyWords_.getKeyWordProtected())) {
-            word_ = keyWords_.getKeyWordProtected();
-        } else {
-            if (StringExpUtil.startsWithKeyWord(tr_,keyWords_.getKeyWordPublic())) {
-                word_ = keyWords_.getKeyWordPublic();
-            }
-        }
+        String word_ = getWord(getAccess(tr_,keyWords_),keyWords_);
         String afterAccess_ = tr_.substring(word_.length()).trim();
         String keyWordAbstract_ = keyWords_.getKeyWordAbstract();
         String keyWordAnnotation_ = keyWords_.getKeyWordAnnotation();
@@ -550,24 +539,8 @@ public final class FileResolver {
         if (StringExpUtil.startsWithKeyWord(tr_,keyWords_.getKeyWordOperator())) {
             return EndInstruction.NO_DECLARE_TYPE;
         }
-        word_ = EMPTY_STRING;
-        if (StringExpUtil.startsWithKeyWord(tr_,keyWords_.getKeyWordPrivate())) {
-            word_ = keyWords_.getKeyWordPrivate();
-        } else {
-            if (StringExpUtil.startsWithKeyWord(tr_,keyWords_.getKeyWordPackage())) {
-                word_ = keyWords_.getKeyWordPackage();
-            } else {
-                if (StringExpUtil.startsWithKeyWord(tr_,keyWords_.getKeyWordProtected())) {
-                    word_ = keyWords_.getKeyWordProtected();
-                } else {
-                    if (StringExpUtil.startsWithKeyWord(tr_,keyWords_.getKeyWordPublic())) {
-                        word_ = keyWords_.getKeyWordPublic();
-                    }
-                }
-            }
-        }
-        afterAccess_ = tr_.substring(word_.length());
-        String trimmedAfterAccess_ = afterAccess_.trim();
+        word_ = getWord(getAccess(tr_,keyWords_),keyWords_);
+        String trimmedAfterAccess_ = tr_.substring(word_.length()).trim();
         boolean ctor_ = false;
         if (trimmedAfterAccess_.startsWith("(")) {
             ctor_ = true;
