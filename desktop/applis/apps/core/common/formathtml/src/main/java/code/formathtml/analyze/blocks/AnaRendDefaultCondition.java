@@ -23,7 +23,7 @@ public final class AnaRendDefaultCondition extends AnaRendSwitchPartCondition {
         AnaRendParentBlock b_ = getParent();
         if (!(b_ instanceof AnaRendSwitchBlock)) {
             _page.setGlobalOffset(getOffset());
-            _page.setOffset(0);
+            _page.zeroOffset();
             FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setFileName(_anaDoc.getFileName());
             un_.setIndexFile(getOffset());

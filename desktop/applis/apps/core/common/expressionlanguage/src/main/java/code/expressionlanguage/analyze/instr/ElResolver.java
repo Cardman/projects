@@ -347,7 +347,7 @@ public final class ElResolver {
             resOpers_.getDoubleDotted().setNextIndex(i_);
             resOpers_.getDoubleDotted().setLastDoubleDot(lastDoubleDot_);
             resOpers_.getDoubleDotted().setCallCtor(ctorCall_);
-            processOperators(beginIndex_,_minIndex,_string, delimiters_, _d, resOpers_, _page);
+            processOperators(beginIndex_, _string, delimiters_, _d, resOpers_, _page);
             if (_d.getBadOffset() >= 0) {
                 return _d;
             }
@@ -389,7 +389,6 @@ public final class ElResolver {
             return _d;
         }
         if (!partOfString_) {
-            _d.setIndexBegin(_minIndex);
             return _d;
         }
         _d.setBadOffset(i_);
@@ -1218,7 +1217,7 @@ public final class ElResolver {
         _out.setNextIndex(i_);
     }
 
-    private static void processOperators(int _beginIndex, int _minIndex, String _string, boolean _delimiters,
+    private static void processOperators(int _beginIndex, String _string, boolean _delimiters,
                                          Delimiters _dout, ResultAfterOperators _out, AnalyzedPageEl _page) {
         StackOperators parsBrackets_;
         parsBrackets_ = _out.getParsBrackets();
@@ -1356,7 +1355,6 @@ public final class ElResolver {
             if (parsBrackets_.isEmpty()) {
                 if (_delimiters) {
                     _out.setPartOfString(false);
-                    _dout.setIndexBegin(_minIndex);
                     _dout.setIndexEnd(i_-1);
                     doubleDotted_.setNextIndex(len_);
                     return;
@@ -1652,10 +1650,7 @@ public final class ElResolver {
             doubleDotted_.setNextIndex(i_);
             return;
         }
-        boolean idOp_ = false;
-        if (curChar_ == ANN_ARR_RIGHT) {
-            idOp_ = true;
-        }
+        boolean idOp_ = curChar_ == ANN_ARR_RIGHT;
         if (curChar_ == ARR_RIGHT) {
             idOp_ = true;
         }
@@ -1757,10 +1752,7 @@ public final class ElResolver {
             return infos_;
         }
         if (unicode_ > 0) {
-            boolean ok_ = false;
-            if (StringExpUtil.isDigit(curChar_)) {
-                ok_ = true;
-            }
+            boolean ok_ = StringExpUtil.isDigit(curChar_);
             if (curChar_ >= MIN_ENCODE_LOW_LETTER && curChar_ <= MAX_ENCODE_LOW_LETTER) {
                 ok_ = true;
             }
@@ -1944,10 +1936,7 @@ public final class ElResolver {
         }
         infos_.getTextInfo().setLastSpace(-1);
         if (unicode_ > 0) {
-            boolean ok_ = false;
-            if (StringExpUtil.isDigit(curChar_)) {
-                ok_ = true;
-            }
+            boolean ok_ = StringExpUtil.isDigit(curChar_);
             if (curChar_ >= MIN_ENCODE_LOW_LETTER && curChar_ <= MAX_ENCODE_LOW_LETTER) {
                 ok_ = true;
             }

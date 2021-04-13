@@ -164,7 +164,7 @@ public final class ForEachLoop extends AbstractForLoop implements Loop,ImportFor
             okVar = false;
         }
         _page.setGlobalOffset(classNameOffset);
-        _page.setOffset(0);
+        _page.zeroOffset();
         KeyWords keyWords_ = _page.getKeyWords();
         String keyWordVar_ = keyWords_.getKeyWordVar();
         if (!StringUtil.quickEq(className.trim(), keyWordVar_)) {
@@ -174,7 +174,7 @@ public final class ForEachLoop extends AbstractForLoop implements Loop,ImportFor
             importedClassName = "";
         }
         _page.setGlobalOffset(expressionOffset);
-        _page.setOffset(0);
+        _page.zeroOffset();
         return f_.getStaticContext();
     }
 

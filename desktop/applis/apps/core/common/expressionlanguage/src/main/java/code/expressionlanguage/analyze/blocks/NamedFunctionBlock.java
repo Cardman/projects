@@ -139,7 +139,7 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
         for (int i = 0; i < len_; i++) {
             int begin_ = annotationsIndexes.get(i);
             _page.setGlobalOffset(begin_);
-            _page.setOffset(0);
+            _page.zeroOffset();
             Calculation c_ = Calculation.staticCalculation(MethodAccessKind.STATIC);
             OperationNode r_ = ElUtil.getRootAnalyzedOperationsReadOnly(resList.get(i), annotations.get(i).trim(), c_, _page);
             ReachOperationUtil.tryCalculate(r_, _page);
@@ -158,7 +158,7 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
             for (int i = 0; i < len_; i++) {
                 int begin_ = l.get(i);
                 _page.setGlobalOffset(begin_);
-                _page.setOffset(0);
+                _page.zeroOffset();
                 Calculation c_ = Calculation.staticCalculation(MethodAccessKind.STATIC);
                 OperationNode r_ = ElUtil.getRootAnalyzedOperationsReadOnly(resLists.get(j_).get(i), list_.get(i).trim(), c_, _page);
                 ReachOperationUtil.tryCalculate(r_, _page);
@@ -233,7 +233,7 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
     public final String buildInternParam(int _offset, String _param, AnalyzedPageEl _page) {
         CustList<PartOffset> partOffsets_ = new CustList<PartOffset>();
         _page.setGlobalOffset(_offset);
-        _page.setOffset(0);
+        _page.zeroOffset();
         String res_ = ResolvingTypes.resolveCorrectType(_param, _page);
         partOffsets_.addAllElts(_page.getCurrentParts());
         partOffsetsParams.add(partOffsets_);
@@ -250,7 +250,7 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
     }
     public final String buildInternRet(int _offset, String _param, AnalyzedPageEl _page) {
         _page.setGlobalOffset(_offset);
-        _page.setOffset(0);
+        _page.zeroOffset();
         String res_ = ResolvingTypes.resolveCorrectType(_param, _page);
         partOffsetsReturn.addAllElts(_page.getCurrentParts());
         return res_;

@@ -77,7 +77,7 @@ public final class AnaRendForMutableIterativeLoop extends AnaRendParentBlock imp
     @Override
     public void buildExpressionLanguage(AnaRendDocumentBlock _doc, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
         _page.setGlobalOffset(classIndexNameOffset);
-        _page.setOffset(0);
+        _page.zeroOffset();
         importedClassIndexName = ResolvingTypes.resolveCorrectType(classIndexName, _page);
         if (!AnaTypeUtil.isIntOrderClass(new AnaClassArgumentMatching(importedClassIndexName), _page)) {
             FoundErrorInterpret cast_ = new FoundErrorInterpret();
@@ -88,7 +88,7 @@ public final class AnaRendForMutableIterativeLoop extends AnaRendParentBlock imp
             AnalyzingDoc.addError(cast_, _anaDoc, _page);
         }
         _page.setGlobalOffset(classNameOffset);
-        _page.setOffset(0);
+        _page.zeroOffset();
         if (!className.isEmpty()) {
             KeyWords keyWords_ = _page.getKeyWords();
             String keyWordVar_ = keyWords_.getKeyWordVar();
@@ -108,7 +108,7 @@ public final class AnaRendForMutableIterativeLoop extends AnaRendParentBlock imp
         _page.getVariablesNames().clear();
         _page.getVariablesNamesToInfer().clear();
         _page.setGlobalOffset(initOffset);
-        _page.setOffset(0);
+        _page.zeroOffset();
         _anaDoc.setAttribute(_anaDoc.getRendKeyWords().getAttrInit());
         _page.setForLoopPartState(ForLoopPart.INIT);
         _page.setAcceptCommaInstr(true);
@@ -128,7 +128,7 @@ public final class AnaRendForMutableIterativeLoop extends AnaRendParentBlock imp
         _page.setRefVariable(false);
         _page.setAcceptCommaInstr(false);
         _page.setGlobalOffset(expressionOffset);
-        _page.setOffset(0);
+        _page.zeroOffset();
         _anaDoc.setAttribute(_anaDoc.getRendKeyWords().getAttrCondition());
         _page.setForLoopPartState(ForLoopPart.CONDITION);
         if (!expression.trim().isEmpty()) {
@@ -162,7 +162,7 @@ public final class AnaRendForMutableIterativeLoop extends AnaRendParentBlock imp
     private void buildIncrementPart(AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
         _page.setMerged(false);
         _page.setGlobalOffset(stepOffset);
-        _page.setOffset(0);
+        _page.zeroOffset();
         _page.setForLoopPartState(ForLoopPart.STEP);
         _page.setMerged(true);
         _page.setAcceptCommaInstr(true);

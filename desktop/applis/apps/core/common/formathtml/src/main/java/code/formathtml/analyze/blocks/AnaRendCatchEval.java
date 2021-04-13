@@ -34,7 +34,7 @@ public final class AnaRendCatchEval extends AnaRendAbstractCatchEval {
     @Override
     public void buildExpressionLanguage(AnaRendDocumentBlock _doc, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
         _page.setGlobalOffset(variableNameOffset);
-        _page.setOffset(0);
+        _page.zeroOffset();
         TokenErrorMessage res_ = ManageTokens.partVar(_page).checkTokenVar(variableName, _page);
         if (res_.isError()) {
             FoundErrorInterpret b_ = new FoundErrorInterpret();

@@ -32,7 +32,7 @@ public final class DefaultCondition extends SwitchPartBlock {
         BracedBlock b_ = getParent();
         if (!(b_ instanceof SwitchBlock)&&!(b_ instanceof SwitchMethodBlock)) {
             _page.setGlobalOffset(getOffset());
-            _page.setOffset(0);
+            _page.zeroOffset();
             FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setFileName(getFile().getFileName());
             un_.setIndexFile(getOffset());

@@ -32,7 +32,7 @@ public final class AnaRendField extends AnaRendParentBlock {
             String intern_ = cl_.getFullName();
             _anaDoc.setInternGlobalClass(intern_);
             _page.setGlobalOffset(prepareOffset);
-            _page.setOffset(0);
+            _page.zeroOffset();
             _anaDoc.setAttribute(_anaDoc.getRendKeyWords().getAttrPrepare());
             root = RenderAnalysis.getRootAnalyzedOperations(prepare, 0, _anaDoc, _page);
             _anaDoc.setInternGlobalClass(EMPTY_STRING);

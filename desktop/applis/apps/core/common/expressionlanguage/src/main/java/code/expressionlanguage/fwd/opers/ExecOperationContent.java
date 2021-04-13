@@ -8,14 +8,12 @@ public final class ExecOperationContent {
     private final int indexInEl;
     private final int indexChild;
     private final ExecClassArgumentMatching resultClass;
-    private final int indexBegin;
     private final Argument argument;
     private int order;
     public ExecOperationContent(AnaOperationContent _cont) {
         indexInEl = _cont.getIndexInEl();
         indexChild = _cont.getIndexChild();
         resultClass = FetchMemberUtil.toExec(_cont.getResultClass());
-        indexBegin = _cont.getIndexBegin();
         argument = _cont.getArgument();
         order = _cont.getOrder();
     }
@@ -23,7 +21,6 @@ public final class ExecOperationContent {
         indexInEl = 0;
         indexChild = _indexChild;
         resultClass = _res;
-        indexBegin = 0;
         argument = null;
         order = _order;
     }
@@ -38,10 +35,6 @@ public final class ExecOperationContent {
 
     public ExecClassArgumentMatching getResultClass() {
         return resultClass;
-    }
-
-    public int getIndexBegin() {
-        return indexBegin;
     }
 
     public Argument getArgument() {

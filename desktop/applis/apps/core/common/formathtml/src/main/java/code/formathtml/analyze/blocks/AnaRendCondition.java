@@ -31,7 +31,7 @@ public abstract class AnaRendCondition extends AnaRendParentBlock {
 
     protected void buildConditions(AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
         _page.setGlobalOffset(conditionOffset);
-        _page.setOffset(0);
+        _page.zeroOffset();
         _anaDoc.setAttribute(_anaDoc.getRendKeyWords().getAttrCondition());
         root = RenderAnalysis.getRootAnalyzedOperations(condition, 0, _anaDoc, _page);
         AnaClassArgumentMatching exp_ = root.getResultClass();

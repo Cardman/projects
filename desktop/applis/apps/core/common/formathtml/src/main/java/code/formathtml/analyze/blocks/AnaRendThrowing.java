@@ -21,7 +21,7 @@ public final class AnaRendThrowing extends AnaRendLeaf {
 
     @Override
     public void buildExpressionLanguage(AnaRendDocumentBlock _doc, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
-        _page.setOffset(0);
+        _page.zeroOffset();
         _page.setGlobalOffset(expressionOffset);
         _anaDoc.setAttribute(_anaDoc.getRendKeyWords().getAttrValue());
         root = RenderAnalysis.getRootAnalyzedOperations(expression, 0, _anaDoc, _page);

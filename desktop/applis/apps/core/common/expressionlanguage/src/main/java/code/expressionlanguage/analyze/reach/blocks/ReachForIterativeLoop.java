@@ -7,8 +7,8 @@ import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.analyze.reach.opers.ReachOperationUtil;
 
 public class ReachForIterativeLoop extends ReachBracedBlock implements ReachLoop {
-    private ForIterativeLoop meta;
-    private String label;
+    private final ForIterativeLoop meta;
+    private final String label;
     protected ReachForIterativeLoop(ForIterativeLoop _info) {
         super(_info);
         meta = _info;
@@ -23,15 +23,15 @@ public class ReachForIterativeLoop extends ReachBracedBlock implements ReachLoop
     @Override
     public void buildExpressionLanguageReadOnly(AnalyzedPageEl _page) {
         _page.setGlobalOffset(meta.getInitOffset());
-        _page.setOffset(0);
+        _page.zeroOffset();
         OperationNode rInit_ = meta.getRootInit();
         ReachOperationUtil.tryCalculate(rInit_, _page);
         _page.setGlobalOffset(meta.getExpressionOffset());
-        _page.setOffset(0);
+        _page.zeroOffset();
         OperationNode rExp_ = meta.getRootExp();
         ReachOperationUtil.tryCalculate(rExp_, _page);
         _page.setGlobalOffset(meta.getStepOffset());
-        _page.setOffset(0);
+        _page.zeroOffset();
         OperationNode rStep_ = meta.getRootStep();
         ReachOperationUtil.tryCalculate(rStep_, _page);
     }

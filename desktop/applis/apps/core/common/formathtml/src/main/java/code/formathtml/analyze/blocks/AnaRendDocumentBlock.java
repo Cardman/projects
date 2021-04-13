@@ -33,7 +33,7 @@ public final class AnaRendDocumentBlock extends AnaRendParentBlock implements Ac
         beanName = elt.getAttribute(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrBean()));
         imports = StringUtil.splitChar(elt.getAttribute(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrAlias())),';');
         _page.setGlobalOffset(getOffset());
-        _page.setOffset(0);
+        _page.zeroOffset();
         _page.setAccessStaticContext(MethodAccessKind.STATIC);
         _page.setCurrentPkg("");
         _page.setCurrentFile(null);

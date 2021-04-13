@@ -9,8 +9,8 @@ import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.analyze.reach.opers.ReachOperationUtil;
 
 public final class ReachForEachLoop extends ReachBracedBlock implements ReachLoop {
-    private ForEachLoop meta;
-    private String label;
+    private final ForEachLoop meta;
+    private final String label;
     protected ReachForEachLoop(ForEachLoop _info) {
         super(_info);
         meta = _info;
@@ -25,7 +25,7 @@ public final class ReachForEachLoop extends ReachBracedBlock implements ReachLoo
     @Override
     public void buildExpressionLanguageReadOnly(AnalyzedPageEl _page) {
         _page.setGlobalOffset(meta.getExpressionOffset());
-        _page.setOffset(0);
+        _page.zeroOffset();
         OperationNode root_ = meta.getRoot();
         Argument argument_ =  ReachOperationUtil.tryCalculate(root_, _page);
         if (Argument.isNullValue(argument_)) {

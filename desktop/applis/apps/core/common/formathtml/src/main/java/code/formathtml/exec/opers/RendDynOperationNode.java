@@ -76,15 +76,11 @@ public abstract class RendDynOperationNode {
     }
 
     public final void setRelativeOffsetPossibleLastPage(int _offset, RendStackCall _rendStackCall) {
-        _rendStackCall.setOpOffset(content.getIndexBegin() +_offset);
+        _rendStackCall.setOpOffset(_offset);
     }
 
     public final void setRelativeOffsetPossibleLastPage(RendStackCall _rendStackCall) {
-        _rendStackCall.setOpOffset(content.getIndexBegin() +getIndexInEl());
-    }
-
-    public int getIndexBegin() {
-        return content.getIndexBegin();
+        _rendStackCall.setOpOffset(getIndexInEl());
     }
 
     public final RendDynOperationNode getNextSibling() {

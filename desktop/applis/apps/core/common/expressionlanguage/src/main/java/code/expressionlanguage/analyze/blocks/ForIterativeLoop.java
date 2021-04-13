@@ -168,20 +168,20 @@ public final class ForIterativeLoop extends AbstractForLoop implements Loop {
         MemberCallingsBlock f_ = _page.getCurrentFct();
         String cl_ = importedClassName;
         _page.setGlobalOffset(initOffset);
-        _page.setOffset(0);
+        _page.zeroOffset();
         MethodAccessKind static_ = f_.getStaticContext();
         resInit.setRoot(ElUtil.getRootAnalyzedOperationsReadOnly(resInit, init, Calculation.staticCalculation(static_), _page));
 //        rootInit = _page.getCurrentRoot();
 //        ExecOperationNode initEl_ = init_.last();
         checkType(cl_, initOffset, resInit.getRoot(), _page);
         _page.setGlobalOffset(expressionOffset);
-        _page.setOffset(0);
+        _page.zeroOffset();
         resExp.setRoot(ElUtil.getRootAnalyzedOperationsReadOnly(resExp, expression, Calculation.staticCalculation(static_), _page));
 //        rootExp = _page.getCurrentRoot();
 //        ExecOperationNode expressionEl_ = exp_.last();
         checkType(cl_, expressionOffset, resExp.getRoot(), _page);
         _page.setGlobalOffset(stepOffset);
-        _page.setOffset(0);
+        _page.zeroOffset();
         resStep.setRoot(ElUtil.getRootAnalyzedOperationsReadOnly(resStep, step, Calculation.staticCalculation(static_), _page));
 //        rootStep = _page.getCurrentRoot();
 //        ExecOperationNode stepEl_ = step_.last();
@@ -233,7 +233,7 @@ public final class ForIterativeLoop extends AbstractForLoop implements Loop {
 
     private boolean processVariableNames(AnalyzedPageEl _page) {
         _page.setGlobalOffset(classIndexNameOffset);
-        _page.setOffset(0);
+        _page.zeroOffset();
         importedClassIndexName = ResolvingTypes.resolveCorrectType(classIndexName, _page);
         if (!AnaTypeUtil.isIntOrderClass(new AnaClassArgumentMatching(importedClassIndexName), _page)) {
             FoundErrorInterpret cast_ = new FoundErrorInterpret();
@@ -246,7 +246,7 @@ public final class ForIterativeLoop extends AbstractForLoop implements Loop {
             addErrorBlock(cast_.getBuiltError());
         }
         _page.setGlobalOffset(classNameOffset);
-        _page.setOffset(0);
+        _page.zeroOffset();
         importedClassName = ResolvingTypes.resolveCorrectType(className, _page);
         String cl_ = importedClassName;
         AnaClassArgumentMatching elementClass_ = new AnaClassArgumentMatching(cl_);
@@ -261,7 +261,7 @@ public final class ForIterativeLoop extends AbstractForLoop implements Loop {
             addErrorBlock(cast_.getBuiltError());
         }
         _page.setGlobalOffset(variableNameOffset);
-        _page.setOffset(0);
+        _page.zeroOffset();
         TokenErrorMessage res_ = ManageTokens.partVar(_page).checkTokenVar(variableName, _page);
         if (res_.isError()) {
             FoundErrorInterpret b_ = new FoundErrorInterpret();

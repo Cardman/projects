@@ -45,7 +45,7 @@ public final class ExecDimensionArrayInstancing extends
         for (ExecOperationNode o: filter_) {
             Argument arg_ = getArgument(_nodes, o);
             NumberStruct n_ = NumParsers.convertToNumber(arg_.getStruct());
-            int offset_ = getIndexBegin()+o.getIndexInEl() + off_;
+            int offset_ = o.getIndexInEl() + off_;
             offs_.add(offset_);
             _stack.setOffset(offset_);
             int dim_ = n_.intStruct();

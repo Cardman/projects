@@ -255,7 +255,7 @@ public final class AnaTypeUtil {
                 int offset_ = c.getStaticInitInterfacesOffset().get(i);
                 _page.setCurrentBlock(c);
                 _page.setGlobalOffset(offset_);
-                _page.setOffset(0);
+                _page.zeroOffset();
                 _page.getMappingLocal().clear();
                 _page.getMappingLocal().putAllMap(c.getMappings());
                 String base_ = ResolvingTypes.resolveAccessibleIdType(0, ints_.get(i), _page);
@@ -284,7 +284,7 @@ public final class AnaTypeUtil {
                 _page.setGlobalClass(c.getGenericString());
                 _page.setGlobalType(c);
                 _page.setGlobalOffset(offsetSup_);
-                _page.setOffset(0);
+                _page.zeroOffset();
                 String sup_ = ResolvingTypes.resolveAccessibleIdType(0, ints_.get(i), _page);
                 RootBlock rs_ = _page.getAnaClassBody(sup_);
                 if (rs_ == null) {
@@ -297,7 +297,7 @@ public final class AnaTypeUtil {
                     _page.setGlobalClass(c.getGenericString());
                     _page.setGlobalType(c);
                     _page.setGlobalOffset(offsetSub_);
-                    _page.setOffset(0);
+                    _page.zeroOffset();
                     String sub_ = ResolvingTypes.resolveAccessibleIdType(0, ints_.get(j), _page);
                     rs_ = _page.getAnaClassBody(sub_);
                     if (rs_ == null) {

@@ -35,7 +35,7 @@ public final class AnaRendContinueBlock extends AnaRendLeaf {
         }
         if (!childOfLoop_) {
             _page.setGlobalOffset(getOffset());
-            _page.setOffset(0);
+            _page.zeroOffset();
             FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setFileName(_anaDoc.getFileName());
             un_.setIndexFile(labelOffset);

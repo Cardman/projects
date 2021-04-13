@@ -27,7 +27,7 @@ public final class AnaRendImport extends AnaRendParentBlock {
     public void buildExpressionLanguage(AnaRendDocumentBlock _doc, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
         ResultText res_ = new ResultText();
         _page.setGlobalOffset(pageOffset);
-        _page.setOffset(0);
+        _page.zeroOffset();
         String pageName_ = elt.getAttribute(_anaDoc.getRendKeyWords().getAttrPage());
         int rowsGrId_ = getAttributeDelimiter(_anaDoc.getRendKeyWords().getAttrPage());
         res_.buildAna(pageName_, rowsGrId_, _anaDoc, _page);

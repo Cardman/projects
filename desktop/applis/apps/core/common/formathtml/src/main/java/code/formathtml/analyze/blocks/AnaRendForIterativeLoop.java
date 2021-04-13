@@ -83,7 +83,7 @@ public final class AnaRendForIterativeLoop extends AnaRendParentBlock implements
     @Override
     public void buildExpressionLanguage(AnaRendDocumentBlock _doc, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
         _page.setGlobalOffset(classIndexNameOffset);
-        _page.setOffset(0);
+        _page.zeroOffset();
         importedClassIndexName = ResolvingTypes.resolveCorrectType(classIndexName, _page);
         if (!AnaTypeUtil.isIntOrderClass(new AnaClassArgumentMatching(importedClassIndexName), _page)) {
             Mapping mapping_ = new Mapping();
@@ -97,7 +97,7 @@ public final class AnaRendForIterativeLoop extends AnaRendParentBlock implements
             AnalyzingDoc.addError(cast_, _anaDoc, _page);
         }
         _page.setGlobalOffset(classNameOffset);
-        _page.setOffset(0);
+        _page.zeroOffset();
         importedClassName = ResolvingTypes.resolveCorrectType(className, _page);
         String cl_ = importedClassName;
         AnaClassArgumentMatching elementClass_ = new AnaClassArgumentMatching(cl_);
@@ -110,7 +110,7 @@ public final class AnaRendForIterativeLoop extends AnaRendParentBlock implements
             AnalyzingDoc.addError(cast_, _anaDoc, _page);
         }
         _page.setGlobalOffset(variableNameOffset);
-        _page.setOffset(0);
+        _page.zeroOffset();
         TokenErrorMessage res_ = ManageTokens.partVar(_page).checkTokenVar(variableName, _page);
         if (res_.isError()) {
             FoundErrorInterpret b_ = new FoundErrorInterpret();
@@ -120,17 +120,17 @@ public final class AnaRendForIterativeLoop extends AnaRendParentBlock implements
             AnalyzingDoc.addError(b_, _anaDoc, _page);
         }
         _page.setGlobalOffset(initOffset);
-        _page.setOffset(0);
+        _page.zeroOffset();
         _anaDoc.setAttribute(_anaDoc.getRendKeyWords().getAttrFrom());
         rootInit = RenderAnalysis.getRootAnalyzedOperations(init, 0, _anaDoc, _page);
         checkResult(_anaDoc, _page, cl_, initOffset, rootInit);
         _page.setGlobalOffset(expressionOffset);
-        _page.setOffset(0);
+        _page.zeroOffset();
         _anaDoc.setAttribute(_anaDoc.getRendKeyWords().getAttrTo());
         rootExp = RenderAnalysis.getRootAnalyzedOperations(expression, 0, _anaDoc, _page);
         checkResult(_anaDoc, _page, cl_, expressionOffset, rootExp);
         _page.setGlobalOffset(stepOffset);
-        _page.setOffset(0);
+        _page.zeroOffset();
         _anaDoc.setAttribute(_anaDoc.getRendKeyWords().getAttrStep());
         rootStep = RenderAnalysis.getRootAnalyzedOperations(step, 0, _anaDoc, _page);
         checkResult(_anaDoc, _page, cl_, stepOffset, rootStep);

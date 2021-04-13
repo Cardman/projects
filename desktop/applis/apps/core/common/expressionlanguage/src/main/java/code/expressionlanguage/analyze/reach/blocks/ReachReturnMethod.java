@@ -6,8 +6,8 @@ import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.analyze.reach.opers.ReachOperationUtil;
 
 public final class ReachReturnMethod extends ReachAbruptBlock {
-    private OperationNode root;
-    private int expressionOffset;
+    private final OperationNode root;
+    private final int expressionOffset;
 
     protected ReachReturnMethod(ReturnMethod _info) {
         super(_info);
@@ -21,7 +21,7 @@ public final class ReachReturnMethod extends ReachAbruptBlock {
             return;
         }
         _page.setGlobalOffset(expressionOffset);
-        _page.setOffset(0);
+        _page.zeroOffset();
         ReachOperationUtil.tryCalculate(root, _page);
     }
 

@@ -7,7 +7,6 @@ import code.util.StringList;
 public final class Delimiters {
 
     private int badOffset=-1;
-    private int indexBegin;
     private int indexEnd;
     private int length;
     private boolean partOfString;
@@ -147,12 +146,6 @@ public final class Delimiters {
         return stack;
     }
 
-    public int getIndexBegin() {
-        return indexBegin;
-    }
-    public void setIndexBegin(int _indexBegin) {
-        indexBegin = _indexBegin;
-    }
     public int getIndexEnd() {
         return indexEnd;
     }

@@ -202,7 +202,7 @@ public final class ForEachTable extends AbstractForLoop implements Loop,ImportFo
         KeyWords keyWords_ = _page.getKeyWords();
         String keyWordVar_ = keyWords_.getKeyWordVar();
         _page.setGlobalOffset(classNameOffsetFirst);
-        _page.setOffset(0);
+        _page.zeroOffset();
         if (!StringUtil.quickEq(classNameFirst.trim(), keyWordVar_)) {
             importedClassNameFirst = ResolvingTypes.resolveCorrectType(classNameFirst, _page);
             partOffsetsFirst.addAllElts(_page.getCurrentParts());
@@ -210,7 +210,7 @@ public final class ForEachTable extends AbstractForLoop implements Loop,ImportFo
             importedClassNameFirst = "";
         }
         _page.setGlobalOffset(classNameOffsetSecond);
-        _page.setOffset(0);
+        _page.zeroOffset();
         if (!StringUtil.quickEq(classNameSecond.trim(), keyWordVar_)) {
             importedClassNameSecond = ResolvingTypes.resolveCorrectType(classNameSecond, _page);
             partOffsetsSecond.addAllElts(_page.getCurrentParts());
@@ -218,7 +218,7 @@ public final class ForEachTable extends AbstractForLoop implements Loop,ImportFo
             importedClassNameSecond = "";
         }
         _page.setGlobalOffset(expressionOffset);
-        _page.setOffset(0);
+        _page.zeroOffset();
         MethodAccessKind static_ = f_.getStaticContext();
 //        _page.getCoverage().putBlockOperationsLoops(this);
         return static_;

@@ -54,7 +54,7 @@ public final class ReturnMethod extends AbruptBlock {
         }
         MethodAccessKind stCtx_ = f_.getStaticContext();
         _page.setGlobalOffset(expressionOffset);
-        _page.setOffset(0);
+        _page.zeroOffset();
         res.setRoot(ElUtil.getRootAnalyzedOperationsReadOnly(res, expression, Calculation.staticCalculation(stCtx_), _page));
         if (!_page.getCurrentEmptyPartErr().isEmpty()) {
             addErrorBlock(_page.getCurrentEmptyPartErr());

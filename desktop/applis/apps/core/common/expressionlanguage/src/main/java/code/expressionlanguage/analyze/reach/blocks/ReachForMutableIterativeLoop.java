@@ -11,8 +11,8 @@ import code.util.IdMap;
 
 public final class ReachForMutableIterativeLoop extends ReachBracedBlock implements ReachLoop {
 
-    private ForMutableIterativeLoop meta;
-    private String label;
+    private final ForMutableIterativeLoop meta;
+    private final String label;
     protected ReachForMutableIterativeLoop(ForMutableIterativeLoop _info) {
         super(_info);
         meta = _info;
@@ -27,13 +27,13 @@ public final class ReachForMutableIterativeLoop extends ReachBracedBlock impleme
     @Override
     public void buildExpressionLanguageReadOnly(AnalyzedPageEl _page) {
         _page.setGlobalOffset(meta.getInitOffset());
-        _page.setOffset(0);
+        _page.zeroOffset();
         OperationNode rInit_ = meta.getRootInit();
         if (rInit_ != null) {
             ReachOperationUtil.tryCalculate(rInit_, _page);
         }
         _page.setGlobalOffset(meta.getExpressionOffset());
-        _page.setOffset(0);
+        _page.zeroOffset();
         OperationNode rExp_ = meta.getRootExp();
         if (rExp_ == null) {
             meta.setAlwaysTrue(true);
@@ -41,7 +41,7 @@ public final class ReachForMutableIterativeLoop extends ReachBracedBlock impleme
             meta.setArgument(ReachOperationUtil.tryCalculate(rExp_, _page));
         }
         _page.setGlobalOffset(meta.getStepOffset());
-        _page.setOffset(0);
+        _page.zeroOffset();
         OperationNode rStep_ = meta.getRootStep();
         if (rStep_ != null) {
             ReachOperationUtil.tryCalculate(rStep_, _page);

@@ -6,8 +6,8 @@ import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.analyze.reach.opers.ReachOperationUtil;
 
 public final class ReachThrowing extends ReachAbruptBlock {
-    private Throwing meta;
-    private OperationNode root;
+    private final Throwing meta;
+    private final OperationNode root;
     protected ReachThrowing(Throwing _info) {
         super(_info);
         meta = _info;
@@ -16,7 +16,7 @@ public final class ReachThrowing extends ReachAbruptBlock {
 
     @Override
     public void buildExpressionLanguageReadOnly(AnalyzedPageEl _page) {
-        _page.setOffset(0);
+        _page.zeroOffset();
         _page.setGlobalOffset(meta.getExpressionOffset());
         ReachOperationUtil.tryCalculate(root, _page);
     }

@@ -41,7 +41,7 @@ public final class Line extends Leaf implements BuildableElMethod {
         MemberCallingsBlock f_ = _page.getCurrentFct();
         MethodAccessKind st_ = f_.getStaticContext();
         _page.setGlobalOffset(expressionOffset);
-        _page.setOffset(0);
+        _page.zeroOffset();
         String import_ = _page.getAliasObject();
         importedClass = import_;
         res.setRoot(ElUtil.getRootAnalyzedOperationsReadOnly(res, expression, Calculation.staticCalculation(st_), _page));

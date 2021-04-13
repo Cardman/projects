@@ -73,19 +73,15 @@ public abstract class ExecOperationNode {
     }
 
     public final void setRelOffsetPossibleLastPage(int _offset, StackCall _stackCall) {
-        _stackCall.setOffset(getIndexBegin()+getIndexInEl()+_offset);
+        _stackCall.setOffset(getIndexInEl()+_offset);
     }
 
     public final void setRelativeOffsetPossibleLastPage(StackCall _stackCall) {
-        _stackCall.setOffset(getIndexBegin()+getIndexInEl());
+        _stackCall.setOffset(getIndexInEl());
     }
 
     public final void setRelativeOffsetPossibleLastPage(int _offset, StackCall _stackCall) {
-        _stackCall.setOffset(getIndexBegin()+_offset);
-    }
-
-    public final int getIndexBegin() {
-        return content.getIndexBegin();
+        _stackCall.setOffset(_offset);
     }
 
     public abstract ExecOperationNode getFirstChild();
@@ -192,10 +188,7 @@ public abstract class ExecOperationNode {
         if (par_ instanceof ExecSafeDotOperation) {
             if (_value == NullStruct.NULL_VALUE) {
                 ExecOperationNode last_ = ExecHelper.getLastNode(par_);
-                boolean skip_ = true;
-                if (last_ instanceof ExecAbstractLambdaOperation) {
-                    skip_ = false;
-                }
+                boolean skip_ = !(last_ instanceof ExecAbstractLambdaOperation);
                 if (skip_) {
                     ExecMethodOperation p_ = par_;
                     while (p_ != null) {

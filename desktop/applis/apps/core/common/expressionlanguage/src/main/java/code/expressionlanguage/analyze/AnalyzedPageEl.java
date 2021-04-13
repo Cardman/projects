@@ -561,6 +561,9 @@ public final class AnalyzedPageEl {
         return offset;
     }
 
+    public void zeroOffset() {
+        setOffset(0);
+    }
     public void setOffset(int _offset) {
         offset = _offset;
     }

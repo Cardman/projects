@@ -91,7 +91,7 @@ public abstract class OperationNode {
 //    private AnaClassArgumentMatching resultClass;
 
     OperationNode(int _indexInEl, int _indexChild, MethodOperation _m, OperationsSequence _op) {
-        content = new AnaOperationContent(_indexInEl,_indexChild,_op);
+        content = new AnaOperationContent(_indexInEl,_indexChild);
         parent = _m;
 //        indexInEl = _indexInEl;
         operations = _op;
@@ -184,7 +184,7 @@ public abstract class OperationNode {
     }
 
     public final void setRelativeOffsetPossibleAnalyzable(int _offset, AnalyzedPageEl _page) {
-        _page.setOffset(operations.getDelimiter().getIndexBegin()+_offset);
+        _page.setOffset(_offset);
     }
 
     public static OperationNode createOperationNode(int _index,
@@ -3989,7 +3989,7 @@ public abstract class OperationNode {
     public final int getFullIndexInEl() {
         String meth_ = getOperations().getFctName();
         int off_ = StringUtil.getFirstPrintableCharIndex(meth_);
-        return off_+operations.getDelimiter().getIndexBegin()+ content.getIndexInEl();
+        return off_+ content.getIndexInEl();
     }
 
     public final int getIndexInEl() {
@@ -4018,10 +4018,6 @@ public abstract class OperationNode {
 
     public AnaOperationContent getContent() {
         return content;
-    }
-
-    public final int getIndexBegin() {
-        return operations.getDelimiter().getIndexBegin();
     }
 
     protected void processEmptyErrorChild() {

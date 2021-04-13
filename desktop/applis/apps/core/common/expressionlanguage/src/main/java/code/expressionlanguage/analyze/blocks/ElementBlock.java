@@ -117,7 +117,7 @@ public final class ElementBlock extends Leaf implements InnerTypeOrElement{
     @Override
     public void buildImportedType(AnalyzedPageEl _page) {
         _page.setGlobalOffset(tempClassOffset);
-        _page.setOffset(0);
+        _page.zeroOffset();
         _page.setCurrentBlock(this);
         int i_ = 1;
         StringList j_ = new StringList();
@@ -153,7 +153,7 @@ public final class ElementBlock extends Leaf implements InnerTypeOrElement{
 
     public void buildExpressionLanguageReadOnly(AnalyzedPageEl _page) {
         _page.setGlobalOffset(elementContent.getFieldNameOffest());
-        _page.setOffset(0);
+        _page.zeroOffset();
         KeyWords keyWords_ = _page.getKeyWords();
         String newKeyWord_ = keyWords_.getKeyWordNew();
         String fullInstance_ = buildVirtualCreate(newKeyWord_);
@@ -191,7 +191,7 @@ public final class ElementBlock extends Leaf implements InnerTypeOrElement{
         for (int i = 0; i < len_; i++) {
             int begin_ = annotationsIndexes.get(i);
             _page.setGlobalOffset(begin_);
-            _page.setOffset(0);
+            _page.zeroOffset();
             Calculation c_ = Calculation.staticCalculation(MethodAccessKind.STATIC);
             OperationNode r_ = ElUtil.getRootAnalyzedOperationsReadOnly(resList.get(i), annotations.get(i).trim(), c_, _page);
             ReachOperationUtil.tryCalculate(r_, _page);

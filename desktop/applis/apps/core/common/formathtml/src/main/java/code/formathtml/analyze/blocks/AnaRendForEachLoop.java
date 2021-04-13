@@ -119,14 +119,14 @@ public final class AnaRendForEachLoop extends AnaRendParentBlock implements AnaR
             AnalyzingDoc.addError(b_, _anaDoc, _page);
         }
         _page.setGlobalOffset(classNameOffset);
-        _page.setOffset(0);
+        _page.zeroOffset();
         if (!toInfer(_page)) {
             importedClassName = ResolvingTypes.resolveCorrectType(className, _page);
         } else {
             importedClassName = EMPTY_STRING;
         }
         _page.setGlobalOffset(expressionOffset);
-        _page.setOffset(0);
+        _page.zeroOffset();
         _anaDoc.setAttribute(_anaDoc.getRendKeyWords().getAttrList());
         root = RenderAnalysis.getRootAnalyzedOperations(expression, 0, _anaDoc, _page);
         return root;

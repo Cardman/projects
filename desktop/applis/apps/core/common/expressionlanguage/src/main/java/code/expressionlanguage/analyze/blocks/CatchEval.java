@@ -52,7 +52,7 @@ public final class CatchEval extends AbstractCatchEval {
     @Override
     public void buildExpressionLanguageReadOnly(AnalyzedPageEl _page) {
         _page.setGlobalOffset(classNameOffset);
-        _page.setOffset(0);
+        _page.zeroOffset();
         importedClassName = ResolvingTypes.resolveCorrectType(className, _page);
         partOffsets.addAllElts(_page.getCurrentParts());
         processVariable(_page);
@@ -66,7 +66,7 @@ public final class CatchEval extends AbstractCatchEval {
     private void processVariable(AnalyzedPageEl _page) {
 //        _page.getCoverage().putCatches(this);
         _page.setGlobalOffset(variableNameOffset);
-        _page.setOffset(0);
+        _page.zeroOffset();
         TokenErrorMessage res_ = ManageTokens.partVar(_page).checkTokenVar(variableName, _page);
         if (res_.isError()) {
             FoundErrorInterpret d_ = new FoundErrorInterpret();

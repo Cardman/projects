@@ -49,7 +49,7 @@ public final class RendDimensionArrayInstancing extends
         Ints offs_ = new Ints();
         for (RendDynOperationNode o: filter_) {
             NumberStruct n_ = NumParsers.convertToNumber(arguments_.get(i_).getStruct());
-            int offset_ = getIndexBegin()+ o.getIndexInEl() + off_;
+            int offset_ = o.getIndexInEl() + off_;
             offs_.add(offset_);
             _rendStack.setOpOffset(offset_);
             int dim_ = n_.intStruct();

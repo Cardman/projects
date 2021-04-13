@@ -141,7 +141,7 @@ public final class FieldBlock extends Leaf implements InfoBlock {
     @Override
     public void buildImportedType(AnalyzedPageEl _page) {
         _page.setGlobalOffset(getClassNameOffset());
-        _page.setOffset(0);
+        _page.zeroOffset();
         _page.setCurrentBlock(this);
         importedClassName = ResolvingTypes.resolveCorrectType(className, _page);
         partOffsets.addAllElts(_page.getCurrentParts());
@@ -154,7 +154,7 @@ public final class FieldBlock extends Leaf implements InfoBlock {
     @Override
     public void retrieveNames(StringList _fieldNames, AnalyzedPageEl _page) {
         _page.setGlobalOffset(fieldContent.getValueOffset());
-        _page.setOffset(0);
+        _page.zeroOffset();
         Calculation calcul_ = Calculation.staticCalculation(fieldContent.isStaticField());
         CustList<PartOffsetAffect> names_ = ElUtil.getFieldNames(res,fieldContent.getValueOffset(),value, calcul_, _page);
         if (names_.isEmpty()) {
@@ -232,7 +232,7 @@ public final class FieldBlock extends Leaf implements InfoBlock {
 
     public void buildExpressionLanguageReadOnly(AnalyzedPageEl _page) {
         _page.setGlobalOffset(fieldContent.getValueOffset());
-        _page.setOffset(0);
+        _page.zeroOffset();
         _page.setIndexBlock(0);
         res.setRoot(ElUtil.getRootAnalyzedOperationsReadOnly(res, value, Calculation.staticCalculation(fieldContent.isStaticField()), _page));
         ReachOperationUtil.tryCalculate(res.getRoot(), _page);
@@ -240,7 +240,7 @@ public final class FieldBlock extends Leaf implements InfoBlock {
 
     public CustList<OperationNode> buildExpressionLanguageQuickly(AnalyzedPageEl _page) {
         _page.setGlobalOffset(fieldContent.getValueOffset());
-        _page.setOffset(0);
+        _page.zeroOffset();
         _page.setIndexBlock(0);
         return ElUtil.getAnalyzedOperationsQucikly(res,value, Calculation.staticCalculation(fieldContent.isStaticField()), _page);
     }
@@ -251,7 +251,7 @@ public final class FieldBlock extends Leaf implements InfoBlock {
         for (int i = 0; i < len_; i++) {
             int begin_ = annotationsIndexes.get(i);
             _page.setGlobalOffset(begin_);
-            _page.setOffset(0);
+            _page.zeroOffset();
             Calculation c_ = Calculation.staticCalculation(MethodAccessKind.STATIC);
             OperationNode r_ = ElUtil.getRootAnalyzedOperationsReadOnly(resList.get(i), annotations.get(i).trim(), c_, _page);
             ReachOperationUtil.tryCalculate(r_, _page);

@@ -4861,7 +4861,6 @@ public final class ElResolverTest extends ProcessMethodCommon {
         assertEq(2, d_.getDelStringsChars().size());
         assertEq(4, d_.getDelStringsChars().first());
         assertEq(11, d_.getDelStringsChars().last());
-        assertEq(1, d_.getIndexBegin());
         assertEq(14, d_.getIndexEnd());
     }
 
@@ -4874,7 +4873,6 @@ public final class ElResolverTest extends ProcessMethodCommon {
         assertEq(2, d_.getDelStringsChars().size());
         assertEq(4, d_.getDelStringsChars().first());
         assertEq(11, d_.getDelStringsChars().last());
-        assertEq(1, d_.getIndexBegin());
         assertEq(14, d_.getIndexEnd());
     }
 
@@ -4887,7 +4885,6 @@ public final class ElResolverTest extends ProcessMethodCommon {
         assertEq(2, d_.getDelStringsChars().size());
         assertEq(4, d_.getDelStringsChars().first());
         assertEq(6, d_.getDelStringsChars().last());
-        assertEq(1, d_.getIndexBegin());
         assertEq(9, d_.getIndexEnd());
     }
 
@@ -4900,7 +4897,6 @@ public final class ElResolverTest extends ProcessMethodCommon {
         assertEq(2, d_.getDelStringsChars().size());
         assertEq(4, d_.getDelStringsChars().first());
         assertEq(6, d_.getDelStringsChars().last());
-        assertEq(1, d_.getIndexBegin());
         assertEq(9, d_.getIndexEnd());
     }
 
@@ -4913,7 +4909,6 @@ public final class ElResolverTest extends ProcessMethodCommon {
         assertEq(2, d_.getDelStringsChars().size());
         assertEq(5, d_.getDelStringsChars().first());
         assertEq(12, d_.getDelStringsChars().last());
-        assertEq(2, d_.getIndexBegin());
         assertEq(15, d_.getIndexEnd());
     }
 
@@ -4926,7 +4921,6 @@ public final class ElResolverTest extends ProcessMethodCommon {
         assertEq(2, d_.getDelStringsChars().size());
         assertEq(5, d_.getDelStringsChars().first());
         assertEq(8, d_.getDelStringsChars().last());
-        assertEq(2, d_.getIndexBegin());
         assertEq(11, d_.getIndexEnd());
     }
 
@@ -4940,7 +4934,6 @@ public final class ElResolverTest extends ProcessMethodCommon {
         assertEq(13, d_.getAllowedOperatorsIndexes().first());
         assertEq(16, d_.getAllowedOperatorsIndexes().get(1));
         assertEq(19, d_.getAllowedOperatorsIndexes().last());
-        assertEq(2, d_.getIndexBegin());
         assertEq(19, d_.getIndexEnd());
     }
     @Test
@@ -4973,7 +4966,6 @@ public final class ElResolverTest extends ProcessMethodCommon {
         assertEq(2, d_.getDelStringsChars().size());
         assertEq(4, d_.getDelStringsChars().first());
         assertEq(11, d_.getDelStringsChars().last());
-        assertEq(1, d_.getIndexBegin());
         assertEq(14, d_.getIndexEnd());
     }
     @Test
@@ -4985,7 +4977,6 @@ public final class ElResolverTest extends ProcessMethodCommon {
         assertEq(2, d_.getDelStringsChars().size());
         assertEq(4, d_.getDelStringsChars().first());
         assertEq(18, d_.getDelStringsChars().last());
-        assertEq(1, d_.getIndexBegin());
         assertEq(21, d_.getIndexEnd());
     }
     @Test

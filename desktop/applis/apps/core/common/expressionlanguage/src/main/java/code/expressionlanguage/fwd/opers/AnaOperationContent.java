@@ -11,13 +11,11 @@ public final class AnaOperationContent {
     private final int indexInEl;
     private final int indexChild;
     private AnaClassArgumentMatching resultClass;
-    private final int indexBegin;
     private Argument argument;
     private int order = IndexConstants.INDEX_NOT_FOUND_ELT;
 
-    public AnaOperationContent(int _indexInEl, int _indexChild, OperationsSequence _op) {
+    public AnaOperationContent(int _indexInEl, int _indexChild) {
         indexInEl = _indexInEl;
-        indexBegin = _op.getDelimiter().getIndexBegin();
         indexChild = _indexChild;
         resultClass = new AnaClassArgumentMatching(EMPTY_STRING);
     }
@@ -36,10 +34,6 @@ public final class AnaOperationContent {
 
     public void setResultClass(AnaClassArgumentMatching _resultClass) {
         this.resultClass = _resultClass;
-    }
-
-    public int getIndexBegin() {
-        return indexBegin;
     }
 
     public Argument getArgument() {

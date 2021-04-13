@@ -169,12 +169,12 @@ public final class ForMutableIterativeLoop extends BracedBlock implements
         processVariables(_page);
         MemberCallingsBlock f_ = _page.getCurrentFct();
         _page.setGlobalOffset(classNameOffset);
-        _page.setOffset(0);
+        _page.zeroOffset();
         MethodAccessKind static_ = f_.getStaticContext();
         _page.getVariablesNames().clear();
         _page.getVariablesNamesToInfer().clear();
         _page.setGlobalOffset(initOffset);
-        _page.setOffset(0);
+        _page.zeroOffset();
         _page.setAcceptCommaInstr(true);
         _page.setForLoopPartState(ForLoopPart.INIT);
         if (!init.trim().isEmpty()) {
@@ -182,7 +182,7 @@ public final class ForMutableIterativeLoop extends BracedBlock implements
         }
         addVars(_page);
         _page.setGlobalOffset(expressionOffset);
-        _page.setOffset(0);
+        _page.zeroOffset();
         _page.setForLoopPartState(ForLoopPart.CONDITION);
         if (expression.trim().isEmpty()) {
             alwaysTrue = true;
@@ -192,7 +192,7 @@ public final class ForMutableIterativeLoop extends BracedBlock implements
         }
         _page.setMerged(false);
         _page.setGlobalOffset(stepOffset);
-        _page.setOffset(0);
+        _page.zeroOffset();
         _page.setForLoopPartState(ForLoopPart.STEP);
         _page.setMerged(true);
         _page.setAcceptCommaInstr(true);
@@ -235,7 +235,7 @@ public final class ForMutableIterativeLoop extends BracedBlock implements
 
     private void processVariables(AnalyzedPageEl _page) {
         _page.setGlobalOffset(classIndexNameOffset);
-        _page.setOffset(0);
+        _page.zeroOffset();
         importedClassIndexName = ResolvingTypes.resolveCorrectType(classIndexName, _page);
         if (!AnaTypeUtil.isIntOrderClass(new AnaClassArgumentMatching(importedClassIndexName), _page)) {
             FoundErrorInterpret cast_ = new FoundErrorInterpret();
@@ -248,7 +248,7 @@ public final class ForMutableIterativeLoop extends BracedBlock implements
             addErrorBlock(cast_.getBuiltError());
         }
         _page.setGlobalOffset(classNameOffset);
-        _page.setOffset(0);
+        _page.zeroOffset();
         if (!className.isEmpty()) {
             KeyWords keyWords_ = _page.getKeyWords();
             String keyWordVar_ = keyWords_.getKeyWordVar();

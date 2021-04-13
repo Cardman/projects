@@ -116,7 +116,7 @@ public final class InnerElementBlock extends RootBlock implements InnerTypeOrEle
 
     public void buildExpressionLanguageReadOnly(AnalyzedPageEl _page) {
         _page.setGlobalOffset(elementContent.getFieldNameOffest());
-        _page.setOffset(0);
+        _page.zeroOffset();
         KeyWords keyWords_ = _page.getKeyWords();
         String newKeyWord_ = keyWords_.getKeyWordNew();
         String fullInstance_ = buildVirtualCreate(newKeyWord_);
@@ -167,7 +167,7 @@ public final class InnerElementBlock extends RootBlock implements InnerTypeOrEle
     @Override
     public void buildImportedType(AnalyzedPageEl _page) {
         _page.setGlobalOffset(tempClassOffset);
-        _page.setOffset(0);
+        _page.zeroOffset();
         _page.setCurrentBlock(this);
         int i_ = 1;
         StringList j_ = new StringList();

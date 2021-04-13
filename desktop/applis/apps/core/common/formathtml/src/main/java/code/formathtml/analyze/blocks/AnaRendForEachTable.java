@@ -149,21 +149,21 @@ public final class AnaRendForEachTable extends AnaRendParentBlock implements Ana
             okVarSecond = false;
         }
         _page.setGlobalOffset(classNameOffsetFirst);
-        _page.setOffset(0);
+        _page.zeroOffset();
         if (!toInferFirst(_page)) {
             importedClassNameFirst = ResolvingTypes.resolveCorrectType(classNameFirst, _page);
         } else {
             importedClassNameFirst = EMPTY_STRING;
         }
         _page.setGlobalOffset(classNameOffsetSecond);
-        _page.setOffset(0);
+        _page.zeroOffset();
         if (!toInferSecond(_page)) {
             importedClassNameSecond = ResolvingTypes.resolveCorrectType(classNameSecond, _page);
         } else {
             importedClassNameSecond = EMPTY_STRING;
         }
         _page.setGlobalOffset(expressionOffset);
-        _page.setOffset(0);
+        _page.zeroOffset();
         _anaDoc.setAttribute(_anaDoc.getRendKeyWords().getAttrMap());
         root = RenderAnalysis.getRootAnalyzedOperations(expression, 0, _anaDoc, _page);
     }

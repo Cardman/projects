@@ -197,7 +197,7 @@ public abstract class ReachOperationNode {
     }
 
     public final void setRelativeOffsetPossibleAnalyzable(AnalyzedPageEl _page) {
-        _page.setOffset(info.getOperations().getDelimiter().getIndexBegin()+info.getIndexInEl());
+        _page.setOffset(info.getIndexInEl());
     }
 
     public abstract ReachOperationNode getFirstChild();

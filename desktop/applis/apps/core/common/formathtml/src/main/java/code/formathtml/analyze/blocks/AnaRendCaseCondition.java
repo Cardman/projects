@@ -50,12 +50,12 @@ public final class AnaRendCaseCondition extends AnaRendSwitchPartCondition {
     @Override
     public void buildExpressionLanguage(AnaRendDocumentBlock _doc, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
         _page.setGlobalOffset(valueOffset);
-        _page.setOffset(0);
+        _page.zeroOffset();
         _anaDoc.setAttribute(_anaDoc.getRendKeyWords().getAttrValue());
         AnaRendParentBlock par_ = getParent();
         if (!(par_ instanceof AnaRendSwitchBlock)) {
             _page.setGlobalOffset(getOffset());
-            _page.setOffset(0);
+            _page.zeroOffset();
             FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setFileName(_anaDoc.getFileName());
             un_.setIndexFile(getOffset());

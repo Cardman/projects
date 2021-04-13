@@ -175,10 +175,6 @@ public final class ConstructorMetaInfo extends AbsAnnotatedStruct implements Ann
     public String getFormDeclaringClass() {
         return formDeclaringClass;
     }
-    
-    public String getName() {
-        return formDeclaringClass;
-    }
 
     @Override
     public CustList<ExecAnonymousFunctionBlock> getAnonymousLambda() {

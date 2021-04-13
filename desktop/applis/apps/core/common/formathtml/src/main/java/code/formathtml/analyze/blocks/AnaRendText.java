@@ -25,7 +25,8 @@ public final class AnaRendText extends AnaRendLeaf {
 
     @Override
     public void buildExpressionLanguage(AnaRendDocumentBlock _doc, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
-        _page.setOffset(expressionOffset);
+        _page.setGlobalOffset(expressionOffset);
+        _page.zeroOffset();
         ResultText res_ = new ResultText();
         res_.buildAna(expression, expressionOffset, _anaDoc, _page);
         roots = res_.getOpExpRoot();

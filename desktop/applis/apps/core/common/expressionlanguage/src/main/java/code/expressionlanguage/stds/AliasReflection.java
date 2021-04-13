@@ -2105,7 +2105,7 @@ public final class AliasReflection {
             return result_;
         }
         if (StringUtil.quickEq(name_, ref_.aliasGetName)) {
-            result_.setResult(new StringStruct(ctor_.getName()));
+            result_.setResult(new StringStruct(ctor_.getFormDeclaringClass()));
             return result_;
         }
         if (StringUtil.quickEq(name_, ref_.aliasGetDeclaredAnonymousTypes)) {

@@ -375,7 +375,7 @@ public final class NamedCalledFunctionBlock extends NamedFunctionBlock {
             return;
         }
         _page.setGlobalOffset(defaultValueOffset);
-        _page.setOffset(0);
+        _page.zeroOffset();
         res.setRoot(ElUtil.getRootAnalyzedOperationsReadOnly(res, defaultValue, Calculation.staticCalculation(MethodAccessKind.STATIC), _page));
         String import_ = getImportedReturnType();
         StringMap<StringList> vars_ = new StringMap<StringList>();

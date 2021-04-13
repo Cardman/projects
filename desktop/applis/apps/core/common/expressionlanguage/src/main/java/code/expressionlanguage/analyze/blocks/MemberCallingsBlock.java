@@ -30,7 +30,7 @@ public abstract class MemberCallingsBlock extends BracedBlock implements Functio
 
     public final void buildFctInstructionsReadOnly(AnalyzedPageEl _page) {
         _page.setGlobalOffset(getOffset());
-        _page.setOffset(0);
+        _page.zeroOffset();
         _page.setVariableIssue(false);
         AbsBk firstChild_ = getFirstChild();
         _page.setCurrentBlock(this);

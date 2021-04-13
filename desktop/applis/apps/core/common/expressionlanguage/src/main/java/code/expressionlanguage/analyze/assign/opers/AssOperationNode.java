@@ -17,7 +17,6 @@ public abstract class AssOperationNode {
     private final Argument argument;
 
     private final int indexInEl;
-    private final int indexBegin;
 
     private final int indexChild;
 
@@ -25,7 +24,6 @@ public abstract class AssOperationNode {
 
     AssOperationNode(OperationNode _ex) {
         indexInEl = _ex.getIndexInEl();
-        indexBegin = _ex.getIndexBegin();
         indexChild = _ex.getIndexChild();
         resultClass = _ex.getResultClass();
         argument = _ex.getArgument();
@@ -143,7 +141,7 @@ public abstract class AssOperationNode {
         return new AssSimStdUnaryMethodOperation(_anaNode);
     }
     public final void setRelativeOffsetPossibleAnalyzable(AnalyzedPageEl _page) {
-        _page.setOffset(indexBegin+indexInEl);
+        _page.setOffset(indexInEl);
     }
     public final void tryAnalyzeAssignmentAfter(AssBlock _ass, AssignedVariablesBlock _a, AnalyzedPageEl _page) {
         analyzeAssignmentAfter(_ass,_a, _page);

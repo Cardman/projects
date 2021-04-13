@@ -45,10 +45,9 @@ public final class RenderAnalysis {
             _anaDoc.setNextIndex(_el.length());
             return e_;
         }
-        int beg_ = d_.getIndexBegin();
         int end_ = d_.getIndexEnd();
         _anaDoc.setNextIndex(end_+2);
-        String el_ = _el.substring(beg_,end_+1);
+        String el_ = _el.substring(_minIndex,end_+1);
         OperationsSequence opTwo_ = getOperationsSequence(_minIndex, el_, d_, _anaDoc, _page);
         OperationNode op_ = createOperationNode(_minIndex, IndexConstants.FIRST_INDEX, null, opTwo_, _anaDoc, _page);
         getSortedDescNodes(op_, _anaDoc, _page);

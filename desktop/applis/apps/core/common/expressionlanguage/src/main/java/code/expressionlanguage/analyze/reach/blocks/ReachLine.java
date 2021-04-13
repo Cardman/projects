@@ -6,8 +6,8 @@ import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.analyze.reach.opers.ReachOperationUtil;
 
 public final class ReachLine extends ReachLeaf implements ReachBuildableElMethod {
-    private int expressionOffset;
-    private OperationNode root;
+    private final int expressionOffset;
+    private final OperationNode root;
 
     protected ReachLine(Line _info) {
         super(_info);
@@ -18,7 +18,7 @@ public final class ReachLine extends ReachLeaf implements ReachBuildableElMethod
     @Override
     public void buildExpressionLanguageReadOnly(AnalyzedPageEl _page) {
         _page.setGlobalOffset(expressionOffset);
-        _page.setOffset(0);
+        _page.zeroOffset();
         ReachOperationUtil.tryCalculate(root, _page);
 //        CustList<ExecOperationNode> op_ = ElUtil.getExecutableNodes(_page, root);
 //        ExecDeclareVariable ex_ = _page.getExecDeclareVariable();

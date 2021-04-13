@@ -53,7 +53,7 @@ public final class DeclareVariable extends Leaf implements BuildableElMethod {
     @Override
     public void buildExpressionLanguageReadOnly(AnalyzedPageEl _page) {
         _page.setGlobalOffset(classNameOffset);
-        _page.setOffset(0);
+        _page.zeroOffset();
         KeyWords keyWords_ = _page.getKeyWords();
         String keyWordVar_ = keyWords_.getKeyWordVar();
         if (StringUtil.quickEq(className.trim(), keyWordVar_)) {

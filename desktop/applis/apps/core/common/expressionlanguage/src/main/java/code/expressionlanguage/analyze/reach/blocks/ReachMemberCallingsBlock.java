@@ -49,7 +49,7 @@ public abstract class ReachMemberCallingsBlock extends ReachBracedBlock implemen
 
     public final void buildFctInstructionsReadOnly(AnalyzedPageEl _page, AnalyzingEl _anEl) {
         _page.setGlobalOffset(getOffset());
-        _page.setOffset(0);
+        _page.zeroOffset();
         ReachBlock firstChild_ = getFirstChild();
         _page.setMerged(false);
         _page.setCurrentBlock(getInfo());

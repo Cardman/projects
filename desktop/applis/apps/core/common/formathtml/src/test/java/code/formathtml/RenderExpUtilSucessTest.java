@@ -5835,10 +5835,9 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         setupAnalyzing(context_);
         Delimiters d1_ = checkDel(_s, 2, context_);
         assertTrue(d1_.getBadOffset() < 0);
-        int beg1_ = d1_.getIndexBegin();
         int end1_ = d1_.getIndexEnd();
         analyzingDoc_.setNextIndex(end1_ +2);
-        String el1_ = _s.substring(beg1_, end1_ +1);
+        String el1_ = _s.substring(2, end1_ +1);
         OperationsSequence opTwo1_ = rendOpSeq(context_, d1_, el1_, 2);
         OperationNode op1_ = rendOp(context_, opTwo1_);
         CustList<OperationNode> all1_ = getSortedDescNodes(context_, op1_);
@@ -5852,10 +5851,9 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         setupAnalyzing(context_);
         Delimiters d_ = checkDel(_s, _i, context_);
         assertTrue(d_.getBadOffset() < 0);
-        int beg_ = d_.getIndexBegin();
         int end_ = d_.getIndexEnd();
         analyzingDoc_.setNextIndex(end_+2);
-        String el_ = _s.substring(beg_,end_+1);
+        String el_ = _s.substring(_i,end_+1);
         OperationsSequence opTwo_ = rendOpSeq(_i, context_, d_, el_);
         OperationNode op_ = rendOp(_i, context_, opTwo_);
         CustList<OperationNode> all_ = getSortedDescNodes(context_, op_);
@@ -5924,10 +5922,9 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         setupAnalyzing(context_);
         Delimiters d_ = checkDel(_s, 2, context_);
         assertTrue(d_.getBadOffset() < 0);
-        int beg_ = d_.getIndexBegin();
         int end_ = d_.getIndexEnd();
         analyzingDoc_.setNextIndex(end_+2);
-        String el_ = _s.substring(beg_,end_+1);
+        String el_ = _s.substring(2,end_+1);
         OperationsSequence opTwo_ = rendOpSeq(context_, d_, el_, 2);
         OperationNode op_ = rendOp(context_, opTwo_);
         CustList<OperationNode> all_ = getSortedDescNodes(context_, op_);
