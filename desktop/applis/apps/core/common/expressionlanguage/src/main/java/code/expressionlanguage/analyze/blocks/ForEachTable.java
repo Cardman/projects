@@ -162,6 +162,8 @@ public final class ForEachTable extends AbstractForLoop implements Loop,ImportFo
     }
 
     private MethodAccessKind processVarTypes(AnalyzedPageEl _page) {
+        _page.setGlobalOffset(classIndexNameOffset);
+        _page.zeroOffset();
         MemberCallingsBlock f_ = _page.getCurrentFct();
         importedClassIndexName = ResolvingTypes.resolveCorrectType(classIndexName, _page);
         if (!AnaTypeUtil.isIntOrderClass(new AnaClassArgumentMatching(importedClassIndexName), _page)) {

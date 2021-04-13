@@ -285,7 +285,7 @@ public final class SwitchOperation extends AbstractUnaryOperation implements Pre
         } else if (currentBlock_ instanceof MemberCallingsBlock) {
             ((MemberCallingsBlock)currentBlock_).getSwitchMethods().add(switchMethod);
         } else if (currentBlock_ instanceof RootBlock) {
-            ((RootBlock)currentBlock_).getSwitchMethods().add(switchMethod);
+            ((RootBlock)currentBlock_).getSwitchMethodRoots().add(switchMethod);
         }
     }
     private static String tryParamFormatEmp(NameParametersFilter _filter, Parametrable _param, String _name, int _nbParentsInfer) {

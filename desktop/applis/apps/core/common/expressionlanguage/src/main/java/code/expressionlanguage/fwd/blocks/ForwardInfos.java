@@ -399,7 +399,7 @@ public final class ForwardInfos {
             for (NamedCalledFunctionBlock a: root_.getAnonymousRootFct()) {
                 value_.getAnonymousRootLambda().add(_forwards.getAnonLambda(a));
             }
-            for (SwitchMethodBlock a: root_.getSwitchMethods()) {
+            for (SwitchMethodBlock a: root_.getSwitchMethodRoots()) {
                 value_.getSwitchMethodsRoot().add(_forwards.getSwitchMethod(a));
             }
             for (AnonymousTypeBlock a: root_.getAnonymousRoot()) {

@@ -1962,7 +1962,7 @@ public final class ProcessMethodSwitchExpTest extends ProcessMethodCommon {
         xml_.append("  }\n");
         xml_.append(" ){ONE(int i){super(i);}};MyEnum(int t){}}\n");
         xml_.append(" public static int exmeth(){\n");
-        xml_.append("  return class(MyEnum..ONE).getDeclaredSwitchMethods().length;\n");
+        xml_.append("  return class(MyEnum).getDeclaredFields(\"ONE\")[0].getDeclaredSwitchMethods().length;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
@@ -1993,7 +1993,7 @@ public final class ProcessMethodSwitchExpTest extends ProcessMethodCommon {
         xml_.append("  ONE{}\n");
         xml_.append(" }\n");
         xml_.append(" public static int exmeth(){\n");
-        xml_.append("  return class(MyEnum..ONE).getDeclaredSwitchMethods().length;\n");
+        xml_.append("  return class(MyEnum).getDeclaredFields(\"ONE\")[0].getDeclaredSwitchMethods().length;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
