@@ -142,8 +142,8 @@ public final class CoverageBisTest extends ProcessMethodCommon {
         AbstractCoverageResult value_ = getCovers(cont_).get(4).first();
         assertTrue(value_ instanceof BooleanCoverageResult);
         assertTrue(!value_.isFullCovered());
-        assertTrue(!((BooleanCoverageResult)value_).isCoverTrue());
-        assertTrue(((BooleanCoverageResult)value_).isCoverFalse());
+        assertTrue(!((BooleanCoverageResult)value_).isCoverBcTrue());
+        assertTrue(((BooleanCoverageResult)value_).isCoverBcFalse());
     }
     @Test
     public void coverage14Test() {
@@ -172,8 +172,8 @@ public final class CoverageBisTest extends ProcessMethodCommon {
         AbstractCoverageResult value_ = getCovers(cont_).get(4).first();
         assertTrue(value_ instanceof BooleanCoverageResult);
         assertTrue(!value_.isFullCovered());
-        assertTrue(((BooleanCoverageResult)value_).isCoverTrue());
-        assertTrue(!((BooleanCoverageResult)value_).isCoverFalse());
+        assertTrue(((BooleanCoverageResult)value_).isCoverBcTrue());
+        assertTrue(!((BooleanCoverageResult)value_).isCoverBcFalse());
     }
     @Test
     public void coverage20Test() {

@@ -47,8 +47,8 @@ public final class CoverageTest extends ProcessMethodCommon {
         assertTrue(value_ instanceof AbstractCoverageResult);
         assertTrue(!value_.isFullCovered());
         assertTrue(value_.isPartialCovered());
-        assertTrue(((BooleanCoverageResult)value_).isCoverTrue());
-        assertTrue(!((BooleanCoverageResult)value_).isCoverFalse());
+        assertTrue(((BooleanCoverageResult)value_).isCoverBcTrue());
+        assertTrue(!((BooleanCoverageResult)value_).isCoverBcFalse());
     }
     @Test
     public void coverage3Test() {
@@ -78,8 +78,8 @@ public final class CoverageTest extends ProcessMethodCommon {
         assertTrue(value_ instanceof AbstractCoverageResult);
         assertTrue(!value_.isFullCovered());
         assertTrue(value_.isPartialCovered());
-        assertTrue(!((BooleanCoverageResult)value_).isCoverTrue());
-        assertTrue(((BooleanCoverageResult)value_).isCoverFalse());
+        assertTrue(!((BooleanCoverageResult)value_).isCoverBcTrue());
+        assertTrue(((BooleanCoverageResult)value_).isCoverBcFalse());
     }
     @Test
     public void coverage4Test() {
@@ -113,8 +113,8 @@ public final class CoverageTest extends ProcessMethodCommon {
         assertTrue(value_ instanceof AbstractCoverageResult);
         assertTrue(value_.isFullCovered());
         assertTrue(value_.isPartialCovered());
-        assertTrue(((BooleanCoverageResult)value_).isCoverTrue());
-        assertTrue(((BooleanCoverageResult)value_).isCoverFalse());
+        assertTrue(((BooleanCoverageResult)value_).isCoverBcTrue());
+        assertTrue(((BooleanCoverageResult)value_).isCoverBcFalse());
     }
     @Test
     public void coverage5Test() {
@@ -140,8 +140,8 @@ public final class CoverageTest extends ProcessMethodCommon {
         AbstractCoverageResult value_ = getCoverLoops(cont_).firstValue();
         assertTrue(value_.isFullCovered());
         assertTrue(value_.isPartialCovered());
-        assertTrue(((BooleanCoverageResult)value_).isCoverTrue());
-        assertTrue(((BooleanCoverageResult)value_).isCoverFalse());
+        assertTrue(((BooleanCoverageResult)value_).isCoverBcTrue());
+        assertTrue(((BooleanCoverageResult)value_).isCoverBcFalse());
     }
     @Test
     public void coverage6Test() {
@@ -168,8 +168,8 @@ public final class CoverageTest extends ProcessMethodCommon {
         AbstractCoverageResult value_ = getCoverLoops(cont_).firstValue();
         assertTrue(!value_.isFullCovered());
         assertTrue(value_.isPartialCovered());
-        assertTrue(((BooleanCoverageResult)value_).isCoverTrue());
-        assertTrue(!((BooleanCoverageResult)value_).isCoverFalse());
+        assertTrue(((BooleanCoverageResult)value_).isCoverBcTrue());
+        assertTrue(!((BooleanCoverageResult)value_).isCoverBcFalse());
     }
     @Test
     public void coverage7Test() {
@@ -195,8 +195,8 @@ public final class CoverageTest extends ProcessMethodCommon {
         AbstractCoverageResult value_ = getCoverLoops(cont_).firstValue();
         assertTrue(!value_.isFullCovered());
         assertTrue(value_.isPartialCovered());
-        assertTrue(!((BooleanCoverageResult)value_).isCoverTrue());
-        assertTrue(((BooleanCoverageResult)value_).isCoverFalse());
+        assertTrue(!((BooleanCoverageResult)value_).isCoverBcTrue());
+        assertTrue(((BooleanCoverageResult)value_).isCoverBcFalse());
     }
     @Test
     public void coverage8Test() {
@@ -447,8 +447,8 @@ public final class CoverageTest extends ProcessMethodCommon {
         assertEq(1, getCoverLoops2(cont_).size());
         AbstractCoverageResult value_ = getCoverLoops2(cont_).firstValue();
         assertTrue(value_.isFullCovered());
-        assertTrue(((BooleanCoverageResult)value_).isCoverTrue());
-        assertTrue(((BooleanCoverageResult)value_).isCoverFalse());
+        assertTrue(((BooleanCoverageResult)value_).isCoverBcTrue());
+        assertTrue(((BooleanCoverageResult)value_).isCoverBcFalse());
     }
     @Test
     public void coverage41Test() {
@@ -481,8 +481,8 @@ public final class CoverageTest extends ProcessMethodCommon {
         AbstractCoverageResult value_ = getCoverLoops2(cont_).firstValue();
         assertTrue(!value_.isFullCovered());
         assertTrue(value_.isPartialCovered());
-        assertTrue(((BooleanCoverageResult)value_).isCoverTrue());
-        assertTrue(!((BooleanCoverageResult)value_).isCoverFalse());
+        assertTrue(((BooleanCoverageResult)value_).isCoverBcTrue());
+        assertTrue(!((BooleanCoverageResult)value_).isCoverBcFalse());
     }
     @Test
     public void coverage42Test() {
@@ -511,8 +511,8 @@ public final class CoverageTest extends ProcessMethodCommon {
         AbstractCoverageResult value_ = getCoverLoops2(cont_).firstValue();
         assertTrue(!value_.isFullCovered());
         assertTrue(value_.isPartialCovered());
-        assertTrue(!((BooleanCoverageResult)value_).isCoverTrue());
-        assertTrue(((BooleanCoverageResult)value_).isCoverFalse());
+        assertTrue(!((BooleanCoverageResult)value_).isCoverBcTrue());
+        assertTrue(((BooleanCoverageResult)value_).isCoverBcFalse());
     }
     @Test
     public void coverage43Test() {
@@ -544,8 +544,8 @@ public final class CoverageTest extends ProcessMethodCommon {
         AbstractCoverageResult value_ = getCoverLoops2(cont_).firstValue();
         assertTrue(!value_.isFullCovered());
         assertTrue(!value_.isPartialCovered());
-        assertTrue(!((BooleanCoverageResult)value_).isCoverTrue());
-        assertTrue(!((BooleanCoverageResult)value_).isCoverFalse());
+        assertTrue(!((BooleanCoverageResult)value_).isCoverBcTrue());
+        assertTrue(!((BooleanCoverageResult)value_).isCoverBcFalse());
     }
     @Test
     public void coverage44Test() {
@@ -579,8 +579,8 @@ public final class CoverageTest extends ProcessMethodCommon {
         assertEq(1, getCoverLoops5(cont_).size());
         AbstractCoverageResult value_ = getCoverLoops5(cont_).firstValue();
         assertTrue(value_.isFullCovered());
-        assertTrue(((BooleanCoverageResult)value_).isCoverTrue());
-        assertTrue(((BooleanCoverageResult)value_).isCoverFalse());
+        assertTrue(((BooleanCoverageResult)value_).isCoverBcTrue());
+        assertTrue(((BooleanCoverageResult)value_).isCoverBcFalse());
     }
 
     @Test
@@ -617,8 +617,8 @@ public final class CoverageTest extends ProcessMethodCommon {
         AbstractCoverageResult value_ = getCoverLoops5(cont_).firstValue();
         assertTrue(!value_.isFullCovered());
         assertTrue(value_.isPartialCovered());
-        assertTrue(((BooleanCoverageResult)value_).isCoverTrue());
-        assertTrue(!((BooleanCoverageResult)value_).isCoverFalse());
+        assertTrue(((BooleanCoverageResult)value_).isCoverBcTrue());
+        assertTrue(!((BooleanCoverageResult)value_).isCoverBcFalse());
     }
 
     @Test
@@ -651,8 +651,8 @@ public final class CoverageTest extends ProcessMethodCommon {
         AbstractCoverageResult value_ = getCoverLoops5(cont_).firstValue();
         assertTrue(!value_.isFullCovered());
         assertTrue(value_.isPartialCovered());
-        assertTrue(!((BooleanCoverageResult)value_).isCoverTrue());
-        assertTrue(((BooleanCoverageResult)value_).isCoverFalse());
+        assertTrue(!((BooleanCoverageResult)value_).isCoverBcTrue());
+        assertTrue(((BooleanCoverageResult)value_).isCoverBcFalse());
     }
 
     @Test
@@ -688,8 +688,8 @@ public final class CoverageTest extends ProcessMethodCommon {
         AbstractCoverageResult value_ = getCoverLoops5(cont_).firstValue();
         assertTrue(!value_.isFullCovered());
         assertTrue(!value_.isPartialCovered());
-        assertTrue(!((BooleanCoverageResult)value_).isCoverTrue());
-        assertTrue(!((BooleanCoverageResult)value_).isCoverFalse());
+        assertTrue(!((BooleanCoverageResult)value_).isCoverBcTrue());
+        assertTrue(!((BooleanCoverageResult)value_).isCoverBcFalse());
     }
     @Test
     public void coverage48Test() {
@@ -716,8 +716,8 @@ public final class CoverageTest extends ProcessMethodCommon {
         AbstractCoverageResult value_ = getCoverLoops(cont_).firstValue();
         assertTrue(value_.isFullCovered());
         assertTrue(value_.isPartialCovered());
-        assertTrue(((BooleanCoverageResult)value_).isCoverTrue());
-        assertTrue(((BooleanCoverageResult)value_).isCoverFalse());
+        assertTrue(((BooleanCoverageResult)value_).isCoverBcTrue());
+        assertTrue(((BooleanCoverageResult)value_).isCoverBcFalse());
     }
     @Test
     public void coverage49Test() {
@@ -745,8 +745,8 @@ public final class CoverageTest extends ProcessMethodCommon {
         AbstractCoverageResult value_ = getCoverLoops(cont_).firstValue();
         assertTrue(!value_.isFullCovered());
         assertTrue(value_.isPartialCovered());
-        assertTrue(((BooleanCoverageResult)value_).isCoverTrue());
-        assertTrue(!((BooleanCoverageResult)value_).isCoverFalse());
+        assertTrue(((BooleanCoverageResult)value_).isCoverBcTrue());
+        assertTrue(!((BooleanCoverageResult)value_).isCoverBcFalse());
     }
     @Test
     public void coverage50Test() {
@@ -773,8 +773,8 @@ public final class CoverageTest extends ProcessMethodCommon {
         AbstractCoverageResult value_ = getCoverLoops(cont_).firstValue();
         assertTrue(!value_.isFullCovered());
         assertTrue(value_.isPartialCovered());
-        assertTrue(!((BooleanCoverageResult)value_).isCoverTrue());
-        assertTrue(((BooleanCoverageResult)value_).isCoverFalse());
+        assertTrue(!((BooleanCoverageResult)value_).isCoverBcTrue());
+        assertTrue(((BooleanCoverageResult)value_).isCoverBcFalse());
     }
     @Test
     public void coverage51Test() {
@@ -804,8 +804,8 @@ public final class CoverageTest extends ProcessMethodCommon {
         AbstractCoverageResult value_ = getCoverLoops(cont_).firstValue();
         assertTrue(!value_.isFullCovered());
         assertTrue(!value_.isPartialCovered());
-        assertTrue(!((BooleanCoverageResult)value_).isCoverTrue());
-        assertTrue(!((BooleanCoverageResult)value_).isCoverFalse());
+        assertTrue(!((BooleanCoverageResult)value_).isCoverBcTrue());
+        assertTrue(!((BooleanCoverageResult)value_).isCoverBcFalse());
     }
 
     private static IdMap<ExecBlock, SwitchCoverageResult> getCoverSwitchs(ContextEl _cont) {
