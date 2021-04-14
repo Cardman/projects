@@ -51,7 +51,7 @@ public abstract class AbstractRefTernaryOperation extends MethodOperation implem
     @Override
     public final void analyze(AnalyzedPageEl _page) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
-        setRelativeOffsetPossibleAnalyzable(getIndexInEl()+offsetLocal, _page);
+        setRelativeOffsetPossibleAnalyzable(getIndexInEl()+getOperations().getOperators().firstKey(), _page);
         OperationNode opOne_ = chidren_.first();
         AnaClassArgumentMatching clMatch_ = opOne_.getResultClass();
         if (!clMatch_.isBoolType(_page)) {
@@ -65,7 +65,6 @@ public abstract class AbstractRefTernaryOperation extends MethodOperation implem
                     clMatch_.implicitInfosTest(trueOp_);
                     testFct = trueOp_.getPair();
                 } else {
-                    setRelativeOffsetPossibleAnalyzable(getIndexInEl()+getOperations().getOperators().firstKey(), _page);
                     FoundErrorInterpret un_ = new FoundErrorInterpret();
                     un_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
                     un_.setFileName(_page.getLocalizer().getCurrentFileName());

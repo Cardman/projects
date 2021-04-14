@@ -68,8 +68,7 @@ public final class ElementArrayInstancing extends AbstractArrayInstancingOperati
         DimComp dim_ = AnaInherits.getComponentForm(className_);
         String inferForm_ = AnaTemplates.getInferForm(dim_.getComponent());
         if (inferForm_ == null) {
-            int loc_ = StringUtil.getFirstPrintableCharIndex(className_);
-            String res_ = ResolvingTypes.resolveCorrectTypeWithoutErrors(new_.length()+loc_,className_,true,partOffsets_, _page);
+            String res_ = ResolvingTypes.resolveCorrectTypeWithoutErrors(new_.length()+local_,className_,true,partOffsets_, _page);
             String comp_ = StringExpUtil.getQuickComponentType(res_);
             if (comp_ != null) {
                 partOffsets.addAllElts(partOffsets_);

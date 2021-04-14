@@ -11057,6 +11057,80 @@ public final class CoverageReportZTest extends ProcessMethodCommon {
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
     }
+
+    @Test
+    public void coverage649Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("pkgtwo.OuterTwo;\n");
+        xml_.append("public class pkg.Outer<C>: OuterTwo<C> {\n");
+        xml_.append(" public class Inner {\n");
+        xml_.append(" }\n");
+        xml_.append(" public class InnerTwo:OuterTwo<C>.InnerThree<C> {\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("public class pkgtwo.OuterTwo<B>:OuterThree<B> {\n");
+        xml_.append(" public class InnerThree<F>:OuterThree<B>.InnerFive<F> {\n");
+        xml_.append(" }\n");
+        xml_.append(" public class InnerFour:InnerThree<B> {\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("public class pkgtwo.OuterThree<A> {\n");
+        xml_.append(" public class InnerFive<E> {\n");
+        xml_.append("  public class InnerInner<G> {\n");
+        xml_.append("  }\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("public class pkgtwo.ExFour {\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static int method(){\n");
+        xml_.append("  var v = new Outer<pkgtwo.ExFour>().new InnerThree<pkgtwo.ExFour>().new InnerInner<pkgtwo.ExFour>();\n");
+        xml_.append("  if (static(Class).getClass(v).getName() != \"pkgtwo.OuterThree<pkgtwo.ExFour>..InnerFive<pkgtwo.ExFour>..InnerInner<pkgtwo.ExFour>\") {\n");
+        xml_.append("   return 1i;\n");
+        xml_.append("  }\n");
+        xml_.append("  return 0i;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("src/pkg/Ex", xml_.toString());
+        ContextEl cont_ = covEn(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("method");
+        calculateNormal("pkg.Ex", id_, args_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\"><span class=\"i\">pkgtwo.OuterTwo</span>;\n" +
+                "public class <a name=\"m30\">pkg.Outer</a>&lt;<a name=\"m40\">C</a>&gt;: <a title=\"pkgtwo.OuterTwo\" href=\"#m152\">OuterTwo</a>&lt;<a href=\"#m40\">C</a>&gt; {\n" +
+                " public class <a name=\"m72\">Inner</a> {\n" +
+                " }\n" +
+                " public class <a name=\"m97\">InnerTwo</a>:<a title=\"pkgtwo.OuterTwo\" href=\"#m152\">OuterTwo</a>&lt;<a href=\"#m40\">C</a>&gt;.<a title=\"pkgtwo.OuterTwo..InnerThree\" href=\"#m201\">InnerThree</a>&lt;<a href=\"#m40\">C</a>&gt; {\n" +
+                " }\n" +
+                "}\n" +
+                "public class <a name=\"m152\">pkgtwo.OuterTwo</a>&lt;<a name=\"m168\">B</a>&gt;:<a title=\"pkgtwo.OuterThree\" href=\"#m305\">OuterThree</a>&lt;<a href=\"#m168\">B</a>&gt; {\n" +
+                " public class <a name=\"m201\">InnerThree</a>&lt;<a name=\"m212\">F</a>&gt;:<a title=\"pkgtwo.OuterThree\" href=\"#m305\">OuterThree</a>&lt;<a href=\"#m168\">B</a>&gt;.<a title=\"pkgtwo.OuterThree..InnerFive\" href=\"#m342\">InnerFive</a>&lt;<a href=\"#m212\">F</a>&gt; {\n" +
+                " }\n" +
+                " public class <a name=\"m261\">InnerFour</a>:<a title=\"pkgtwo.OuterTwo..InnerThree\" href=\"#m201\">InnerThree</a>&lt;<a href=\"#m168\">B</a>&gt; {\n" +
+                " }\n" +
+                "}\n" +
+                "public class <a name=\"m305\">pkgtwo.OuterThree</a>&lt;<a name=\"m323\">A</a>&gt; {\n" +
+                " public class <a name=\"m342\">InnerFive</a>&lt;<a name=\"m352\">E</a>&gt; {\n" +
+                "  public class <a name=\"m372\">InnerInner</a>&lt;<a name=\"m383\">G</a>&gt; {\n" +
+                "  }\n" +
+                " }\n" +
+                "}\n" +
+                "public class <a name=\"m410\">pkgtwo.ExFour</a> {\n" +
+                "}\n" +
+                "public class <a name=\"m441\">pkg.Ex</a> {\n" +
+                " public static int <a name=\"m469\">method</a>(){\n" +
+                "  <b title=\"pkgtwo.OuterThree&lt;pkgtwo.ExFour&gt;..InnerFive&lt;pkgtwo.ExFour&gt;..InnerInner&lt;pkgtwo.ExFour&gt;\">var</b> <span class=\"f\"><span class=\"f\"><a name=\"m485\">v</a> </span>=<span class=\"f\"><span class=\"f\"><span class=\"f\"> new <a title=\"pkg.Outer\" href=\"#m30\">Outer</a>&lt;<a title=\"pkgtwo.ExFour\" href=\"#m410\">pkgtwo.ExFour</a>&gt;()</span>.<span class=\"f\">new <a title=\"pkgtwo.OuterTwo..InnerThree\" href=\"#m201\">InnerThree</a>&lt;<a title=\"pkgtwo.ExFour\" href=\"#m410\">pkgtwo.ExFour</a>&gt;()</span></span>.<span class=\"f\">new <a title=\"pkgtwo.OuterThree..InnerFive..InnerInner\" href=\"#m372\">InnerInner</a>&lt;<a title=\"pkgtwo.ExFour\" href=\"#m410\">pkgtwo.ExFour</a>&gt;()</span></span></span>;\n" +
+                "  <span class=\"p\">if</span> (<span class=\"p\"><span class=\"f\"><span class=\"f\"><span class=\"f\">static(Class)</span>.<span class=\"f\">getClass(<span class=\"f\"><a href=\"#m485\">v</a></span>)</span></span>.<span class=\"f\">getName() </span></span><a title=\"false\">!=</a><span class=\"f\"> <span class=\"s\">\"pkgtwo.OuterThree&lt;pkgtwo.ExFour&gt;..InnerFive&lt;pkgtwo.ExFour&gt;..InnerInner&lt;pkgtwo.ExFour&gt;\"</span></span></span>) {\n" +
+                "   return <span class=\"n\">1i</span>;\n" +
+                "  }\n" +
+                "  return <span class=\"f\">0i</span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
     @Test
     public void coverageComment17Test() {
         StringMap<String> files_ = new StringMap<String>();

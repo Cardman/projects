@@ -7891,7 +7891,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> filesExp_ = ctxErrReadOnly(files_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MyCl</a> {\n" +
                 " {\n" +
-                "  $new <a title=\"pkg.MyCl\" href=\"#m15\">MyCl</a>().<a title=\"The type pkg.MyCl..Inner is not parameterized correctly.\" class=\"e\">$new</a> Inner();\n" +
+                "  $new <a title=\"pkg.MyCl\" href=\"#m15\">MyCl</a>().<a title=\"The type pkg.MyCl..Inner is not parameterized correctly.\" class=\"e\">$new</a> <a title=\"pkg.MyCl..Inner\" href=\"#m76\">Inner</a>();\n" +
                 " }\n" +
                 " $public $class <a name=\"m76\">Inner</a>&lt;<a name=\"m82\">T</a>&gt;{\n" +
                 " }\n" +

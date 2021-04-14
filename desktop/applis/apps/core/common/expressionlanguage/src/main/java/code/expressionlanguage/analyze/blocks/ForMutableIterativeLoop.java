@@ -168,8 +168,6 @@ public final class ForMutableIterativeLoop extends BracedBlock implements
     public void buildExpressionLanguageReadOnly(AnalyzedPageEl _page) {
         processVariables(_page);
         MemberCallingsBlock f_ = _page.getCurrentFct();
-        _page.setGlobalOffset(classNameOffset);
-        _page.zeroOffset();
         MethodAccessKind static_ = f_.getStaticContext();
         _page.getVariablesNames().clear();
         _page.getVariablesNamesToInfer().clear();

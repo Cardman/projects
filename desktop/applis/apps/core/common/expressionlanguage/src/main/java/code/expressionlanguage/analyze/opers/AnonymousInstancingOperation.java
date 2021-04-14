@@ -71,7 +71,7 @@ public final class AnonymousInstancingOperation extends
             local_ += StringExpUtil.getOffset(realClassName_);
         }
         realClassName_ = realClassName_.trim();
-        setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _page);
+        setRelativeOffsetPossibleAnalyzable(getIndexInEl()+newKeyWord_.length()+off_+local_, _page);
         if (!StringExpUtil.isDollarWord(instancingAnonContent.getBlock().getName())) {
             FoundErrorInterpret static_ = new FoundErrorInterpret();
             static_.setFileName(_page.getLocalizer().getCurrentFileName());
@@ -87,7 +87,7 @@ public final class AnonymousInstancingOperation extends
             if (!getTypeInfer().isEmpty()) {
                 realClassName_ = getTypeInfer();
             } else  {
-                realClassName_ = ResolvingTypes.resolveCorrectType(newKeyWord_.length()+local_,realClassName_, _page);
+                realClassName_ = ResolvingTypes.resolveCorrectType(0,realClassName_, _page);
                 getPartOffsets().addAllElts(_page.getCurrentParts());
             }
             type = realClassName_;

@@ -90,7 +90,7 @@ public final class StandardInstancingOperation extends
         ints_.parse(_page.getKeyWords(),0,newKeyWord_.length()+local_+ _page.getLocalizer().getCurrentLocationIndex());
         local_ = ints_.getLocIndex();
         realClassName_ = ints_.getPart();
-        setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _page);
+        setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_+newKeyWord_.length()+local_, _page);
         CustList<OperationNode> filter_ =  getChildrenNodes();
         String varargParam_ = getVarargParam(filter_);
         if (!isIntermediateDottedOperation()) {
@@ -98,7 +98,7 @@ public final class StandardInstancingOperation extends
             if (!getTypeInfer().isEmpty()) {
                 realClassName_ = getTypeInfer();
             } else if (!hasFieldName) {
-                realClassName_ = ResolvingTypes.resolveCorrectType(newKeyWord_.length()+local_,realClassName_, _page);
+                realClassName_ = ResolvingTypes.resolveCorrectType(0,realClassName_, _page);
                 getPartOffsets().addAllElts(_page.getCurrentParts());
             } else {
                 realClassName_ = realClassName_.trim();
@@ -111,7 +111,6 @@ public final class StandardInstancingOperation extends
             analyzeCtor(getTypeInfer(), varargParam_, _page);
             return;
         }
-        int offset_ = StringUtil.getFirstPrintableCharIndex(realClassName_);
         realClassName_ = realClassName_.trim();
         AnaClassArgumentMatching arg_ = getPreviousResultClass();
         if (arg_.isArray()) {
@@ -128,7 +127,7 @@ public final class StandardInstancingOperation extends
         }
         StringMap<String> ownersMap_ = new StringMap<String>();
         String idClass_ = StringExpUtil.getIdFromAllTypes(realClassName_);
-        offset_ += idClass_.length() + 1;
+        int offset_ = idClass_.length() + 1;
         for (String o: arg_.getNames()) {
             boolean ok_ = true;
             for (String p: StringExpUtil.getWildCards(o)) {
@@ -169,6 +168,7 @@ public final class StandardInstancingOperation extends
         }
         String sup_ = ownersMap_.values().first();
         StringList partsArgs_ = new StringList();
+        ContextUtil.appendParts(0,idClass_.length(),StringExpUtil.getIdFromAllTypes(StringUtil.concat(sup_, "..", idClass_)),getPartOffsets(),_page);
         for (String a: StringExpUtil.getAllTypes(realClassName_).mid(1)) {
             int loc_ = StringUtil.getFirstPrintableCharIndex(a);
             partsArgs_.add(ResolvingTypes.resolveCorrectType(offset_+loc_,a, _page));

@@ -100,7 +100,7 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
             int off_ = StringUtil.getFirstPrintableCharIndex(instancingAnnotContent.getMethodName());
             setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _page);
             String realClassName_ = instancingAnnotContent.getMethodName().trim().substring(AROBASE.length());
-            realClassName_ = ResolvingTypes.resolveCorrectType(1,realClassName_, _page);
+            realClassName_ = ResolvingTypes.resolveCorrectType(1+StringExpUtil.getOffset(realClassName_),realClassName_, _page);
             partOffsets.addAllElts(_page.getCurrentParts());
             RootBlock g_ = _page.getAnaClassBody(realClassName_);
             if (!(g_ instanceof AnnotationBlock)) {
@@ -122,7 +122,7 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
     public void analyze(AnalyzedPageEl _page) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         if (instancingAnnotContent.isArray()) {
-            setRelativeOffsetPossibleAnalyzable(getIndexInEl(), _page);
+            setRelativeOffsetPossibleAnalyzable(getIndexInEl()+getOperations().getOperators().firstKey(), _page);
         } else {
             int off_ = StringUtil.getFirstPrintableCharIndex(instancingAnnotContent.getMethodName());
             setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _page);
@@ -146,10 +146,8 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
             map_ = new StringMap<StringList>();
             String eltType_ = StringExpUtil.getQuickComponentType(instancingAnnotContent.getClassName());
             if (eltType_ == null) {
-                StrTypes operators_ = getOperations().getOperators();
-                int offFirstOp_ = operators_.firstKey();
                 FoundErrorInterpret un_ = new FoundErrorInterpret();
-                int i_ = _page.getLocalizer().getCurrentLocationIndex()+offFirstOp_;
+                int i_ = _page.getLocalizer().getCurrentLocationIndex();
                 un_.setIndexFile(i_);
                 un_.setFileName(_page.getLocalizer().getCurrentFileName());
                 //first separator char

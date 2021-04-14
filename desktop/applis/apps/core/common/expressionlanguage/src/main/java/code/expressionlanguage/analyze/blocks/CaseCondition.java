@@ -69,8 +69,6 @@ public final class CaseCondition extends SwitchPartBlock {
         BracedBlock par_ = getParent();
         MethodAccessKind stCtx_ = f_.getStaticContext();
         if (!(par_ instanceof SwitchBlock)&&!(par_ instanceof SwitchMethodBlock)) {
-            _page.setGlobalOffset(getOffset());
-            _page.zeroOffset();
             FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setFileName(getFile().getFileName());
             un_.setIndexFile(getOffset());

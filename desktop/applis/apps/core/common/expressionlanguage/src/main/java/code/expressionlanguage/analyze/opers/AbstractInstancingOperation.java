@@ -274,7 +274,7 @@ public abstract class AbstractInstancingOperation extends InvokingOperation {
                 int begin_ = offset_;
                 className_ = className_.trim();
                 String idClass_ = StringExpUtil.getIdFromAllTypes(className_);
-                ContextUtil.appendParts(begin_,begin_ + idClass_.length(), StringUtil.concat(sup_, "..", idClass_),partOffsets_, _page);
+                ContextUtil.appendParts(begin_,begin_ + idClass_.length(), StringExpUtil.getIdFromAllTypes(StringUtil.concat(sup_, "..", idClass_)),partOffsets_, _page);
                 offset_ += idClass_.length() + 1;
                 StringList partsArgs_ = new StringList();
                 for (String a: StringExpUtil.getAllTypes(className_).mid(1)) {
