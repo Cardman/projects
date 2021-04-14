@@ -5,6 +5,7 @@ import code.expressionlanguage.analyze.blocks.AccessedBlock;
 import code.expressionlanguage.analyze.blocks.AbsBk;
 import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
+import code.expressionlanguage.analyze.inherits.AnaInherits;
 import code.expressionlanguage.analyze.instr.PartOffset;
 import code.expressionlanguage.analyze.util.ContextUtil;
 import code.expressionlanguage.analyze.util.MappingLocalType;
@@ -276,7 +277,7 @@ public final class ResolvingTypes {
         String tr_ = _in.trim();
         String void_ = _page.getAliasVoid();
         AccessedBlock r_ = _page.getCurrentGlobalBlock().getCurrentGlobalBlock();
-        StringList inners_ = ResolvingImportTypes.getParts(_in, _page);
+        StringList inners_ = AnaInherits.getAllInnerTypes(_in, _page);
         String firstFull_ = inners_.first();
         int firstOff_ = StringUtil.getFirstPrintableCharIndex(firstFull_);
         String base_ = firstFull_.trim();

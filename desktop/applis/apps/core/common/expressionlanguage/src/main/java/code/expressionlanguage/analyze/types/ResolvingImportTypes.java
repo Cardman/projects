@@ -366,7 +366,7 @@ public final class ResolvingImportTypes {
     }
 
     public static String resolveCandidate(String _c, AnalyzedPageEl _page) {
-        StringList allInnerTypes_ = getParts(_c, _page);
+        StringList allInnerTypes_ = AnaInherits.getAllInnerTypes(_c, _page);
         String owner_ = allInnerTypes_.first();
         AnaGeneType cl_ = _page.getAnaGeneType(owner_);
         String res_ = owner_;
@@ -384,12 +384,6 @@ public final class ResolvingImportTypes {
             }
         }
         return res_;
-    }
-
-    public static StringList getParts(String _c, AnalyzedPageEl _page) {
-        StringList allInnerTypes_;
-        allInnerTypes_ = AnaInherits.getAllInnerTypes(_c, _page);
-        return allInnerTypes_;
     }
 
     private static void fetchImportStaticFieldsTmp(String _glClass, String _method, StringMap<ImportedField> _methods, int _import, String _typeLoc, StringList _typesLoc, AnalyzedPageEl _page) {
