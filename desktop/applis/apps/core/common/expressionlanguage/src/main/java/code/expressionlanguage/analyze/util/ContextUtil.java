@@ -197,7 +197,7 @@ public final class ContextUtil {
         if (!_page.isGettingParts()) {
             return;
         }
-        AnaGeneType g_ = _page.getAnaGeneType(_in);
+        AnaGeneType g_ = _page.getAnaGeneType(StringExpUtil.getIdFromAllTypes(_in));
         if (!isFromCustFile(g_)) {
             return;
         }
