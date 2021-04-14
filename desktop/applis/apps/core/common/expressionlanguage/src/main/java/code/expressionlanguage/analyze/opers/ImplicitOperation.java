@@ -55,7 +55,7 @@ public final class ImplicitOperation extends AbstractUnaryOperation {
         }
         String res_;
         int leftPar_ = explicitContent.getClassName().indexOf(PAR_LEFT);
-        res_ = ResolvingTypes.resolveCorrectType(leftPar_ +1,types_.first(), _page);
+        res_ = ResolvingTypes.resolveCorrectType(leftPar_ +1+StringExpUtil.getOffset(types_.first()),types_.first(), _page);
         explicitContent.setClassName(res_);
         explicitContent.setClassNameOwner(res_);
         partOffsets = new CustList<PartOffset>(_page.getCurrentParts());

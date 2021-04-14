@@ -58,7 +58,7 @@ public final class StaticCallAccessOperation extends LeafOperation {
                     partOffsets = new CustList<PartOffset>();
                 }
             } else {
-                classStr_ = ResolvingTypes.resolveCorrectType(str_.indexOf(PAR_LEFT)+1,realCl_, _page);
+                classStr_ = ResolvingTypes.resolveCorrectType(str_.indexOf(PAR_LEFT)+1+StringExpUtil.getOffset(realCl_),realCl_, _page);
                 partOffsets = new CustList<PartOffset>(_page.getCurrentParts());
             }
         } else {

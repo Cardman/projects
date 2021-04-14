@@ -177,7 +177,7 @@ public final class FullFieldRetriever implements FieldRetriever {
             nextOff_ += inns_.first().length() + 1;
         } else {
             CustList<PartOffset> currentParts_ = _page.getCurrentParts();
-            start_ = ResolvingTypes.resolveCorrectTypeWithoutErrors(_from,inns_.first(), false, currentParts_, _page);
+            start_ = ResolvingTypes.resolveCorrectTypeWithoutErrors(_from+StringExpUtil.getOffset(inns_.first()),trim_, false, currentParts_, _page);
             if (start_.isEmpty()) {
                 currentParts_.clear();
             }

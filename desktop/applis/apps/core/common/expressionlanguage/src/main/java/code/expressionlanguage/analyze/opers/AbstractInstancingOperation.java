@@ -279,7 +279,7 @@ public abstract class AbstractInstancingOperation extends InvokingOperation {
                 StringList partsArgs_ = new StringList();
                 for (String a: StringExpUtil.getAllTypes(className_).mid(1)) {
                     int loc_ = StringUtil.getFirstPrintableCharIndex(a);
-                    partsArgs_.add(ResolvingTypes.resolveCorrectTypeWithoutErrors(offset_+loc_,a,true,partOffsets_, _page));
+                    partsArgs_.add(ResolvingTypes.resolveCorrectTypeWithoutErrors(offset_+loc_,a.trim(),true,partOffsets_, _page));
                     offset_ += a.length() + 1;
                 }
                 StringMap<StringList> currVars_ = _page.getCurrentConstraints().getCurrentConstraints();

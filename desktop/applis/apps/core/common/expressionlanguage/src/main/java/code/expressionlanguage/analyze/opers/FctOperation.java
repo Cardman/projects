@@ -84,7 +84,7 @@ public final class FctOperation extends InvokingOperation implements PreAnalyzab
             className_ = className_.substring(lenPref_);
             int loc_ = StringUtil.getFirstPrintableCharIndex(className_);
             CustList<PartOffset> partOffsets_ = new CustList<PartOffset>();
-            className_ = ResolvingTypes.resolveCorrectTypeWithoutErrors(lenPref_+loc_,className_,true,partOffsets_, _page);
+            className_ = ResolvingTypes.resolveCorrectTypeWithoutErrors(lenPref_+loc_,className_.trim(),true,partOffsets_, _page);
             if (!className_.isEmpty()) {
                 partOffsets.addAllElts(partOffsets_);
                 typeInfer = className_;

@@ -186,7 +186,7 @@ public final class SwitchOperation extends AbstractUnaryOperation implements Pre
         int offDelta_ = StringUtil.getFirstPrintableCharIndex(methodName);
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+offDelta_, _page);
         if (afterSwitch_.trim().startsWith("[")) {
-            int delta_ = StringExpUtil.getOffset(afterSwitch_) + 1;
+            int delta_ = 0;
             int start_ = afterSwitch_.indexOf('[') + 1;
             int k_ = start_;
             int len_ = afterSwitch_.length();
@@ -218,7 +218,7 @@ public final class SwitchOperation extends AbstractUnaryOperation implements Pre
                         if (suppType_.trim().isEmpty()) {
                             defined_ = true;
                         }
-                        delta_ += StringExpUtil.getOffset(suppType_);
+                        delta_ = StringExpUtil.getOffset(suppType_);
                         k_ = len_;
                         continue;
                     }
@@ -230,7 +230,7 @@ public final class SwitchOperation extends AbstractUnaryOperation implements Pre
                         if (suppType_.trim().isEmpty()) {
                             defined_ = true;
                         }
-                        delta_ += StringExpUtil.getOffset(suppType_);
+                        delta_ = StringExpUtil.getOffset(suppType_);
                         k_ = len_;
                         continue;
                     }
@@ -238,7 +238,7 @@ public final class SwitchOperation extends AbstractUnaryOperation implements Pre
                 k_++;
             }
             if (!defined_) {
-                String res_ = ResolvingTypes.resolveCorrectType(switchWord_.length()+delta_,suppType_.trim(), _page);
+                String res_ = ResolvingTypes.resolveCorrectType(switchWord_.length()+start_+delta_,suppType_, _page);
                 partOffsets.addAllElts(_page.getCurrentParts());
                 retType = res_;
             }

@@ -111,7 +111,8 @@ public final class ResolvingTypes {
 
     public static String resolveCorrectTypeWithoutErrors(int _loc, String _in, boolean _exact, CustList<PartOffset> _partOffsets, AnalyzedPageEl _page) {
         String void_ = _page.getAliasVoid();
-        if (StringUtil.quickEq(_in.trim(), void_)) {
+        String tr_ = _in.trim();
+        if (StringUtil.quickEq(tr_, void_)) {
             return "";
         }
         AccessedBlock r_ = _page.getCurrentGlobalBlock().getCurrentGlobalBlock();
@@ -123,9 +124,9 @@ public final class ResolvingTypes {
         _page.getCurrentBadIndexes().clear();
         AnaResultPartType resType_;
         if (_exact) {
-            resType_ = AnaPartTypeUtil.processAnalyze(_in, false,gl_, a_,r_, rc_, _partOffsets, _page);
+            resType_ = AnaPartTypeUtil.processAnalyze(tr_, false,gl_, a_,r_, rc_, _partOffsets, _page);
         } else {
-            resType_ = AnaPartTypeUtil.processAnalyzeLine(_in, false, gl_, a_,r_, rc_, _partOffsets, _page);
+            resType_ = AnaPartTypeUtil.processAnalyzeLine(tr_, false, gl_, a_,r_, rc_, _partOffsets, _page);
         }
         if (resType_.getResult().trim().isEmpty()) {
             return "";

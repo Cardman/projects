@@ -7,13 +7,14 @@ import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.analyze.instr.PartOffset;
 import code.expressionlanguage.analyze.types.ResolvingTypes;
+import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.fwd.opers.AnaTypeCheckContent;
 import code.util.CustList;
 
 public final class CastOperation extends AbstractUnaryOperation implements PreAnalyzableOperation {
 
-    private String originalClassName;
-    private AnaTypeCheckContent typeCheckContent;
+    private final String originalClassName;
+    private final AnaTypeCheckContent typeCheckContent;
     private int beginType;
     private CustList<PartOffset> partOffsets;
     private boolean found;
@@ -53,7 +54,7 @@ public final class CastOperation extends AbstractUnaryOperation implements PreAn
                 return;
             }
             CustList<PartOffset> currentParts_ = _page.getCurrentParts();
-            res_ = ResolvingTypes.resolveCorrectTypeWithoutErrors(typeCheckContent.getClassName().indexOf(PAR_LEFT)+1,res_,true, currentParts_, _page);
+            res_ = ResolvingTypes.resolveCorrectTypeWithoutErrors(typeCheckContent.getClassName().indexOf(PAR_LEFT)+1+ StringExpUtil.getOffset(res_),res_.trim(),true, currentParts_, _page);
             if (!res_.isEmpty()) {
                 typeCheckContent.setClassName(res_);
             } else {
