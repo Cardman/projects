@@ -594,7 +594,7 @@ public final class AnaPartTypeUtil {
                             _offs.add(par_.getEndOps().get(index_));
                         }
                     }
-                    if (par_ instanceof AnaInnerPartType) {
+                    if (par_ instanceof AnaInnerPartType && next_.getNextSibling() == null) {
                         appendIntern(_offs, par_);
                     }
                     current_ = next_;

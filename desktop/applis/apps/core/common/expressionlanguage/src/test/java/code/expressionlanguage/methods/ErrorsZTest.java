@@ -5616,5 +5616,30 @@ public final class ErrorsZTest extends ProcessMethodCommon {
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
     }
-
+    @Test
+    public void report839Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.MySub {\n");
+        xml_.append(" pkg.MyCont.MyClass<String>.Inner v;\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.MyCont{\n");
+        xml_.append(" $public $static $class MyClass<T>{\n");
+        xml_.append("  $public $static $class Inner{\n");
+        xml_.append("  }\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("src/pkg/Ex", xml_.toString());
+        StringMap<String> filesExp_ = ctxErrReadOnly(files_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
+                " <a title=\"pkg.MyCont\" href=\"#m81\">pkg.MyCont</a>.<a title=\"pkg.MyCont..MyClass\" href=\"#m117\">MyClass</a>&lt;String&gt;<a title=\"The type pkg.MyCont..MyClass&lt;java.lang.String&gt;..Inner is not parameterized correctly.\" class=\"e\">.</a><a title=\"pkg.MyCont..MyClass..Inner\" href=\"#m154\">Inner</a> <a name=\"m61\">v</a>;\n" +
+                "}\n" +
+                "$public $class <a name=\"m81\">pkg.MyCont</a>{\n" +
+                " $public $static $class <a name=\"m117\">MyClass</a>&lt;<a name=\"m125\">T</a>&gt;{\n" +
+                "  $public $static $class <a name=\"m154\">Inner</a>{\n" +
+                "  }\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
 }
