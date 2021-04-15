@@ -41,7 +41,7 @@ final class AnaTemplatePartType extends AnaBinaryType {
     }
     @Override
     void analyze(String _globalType, AccessedBlock _local, AccessedBlock _rooted, AnalyzedPageEl _page) {
-        analyzeLine(null, _local,_rooted, null);
+        anaTmp();
     }
 
     @Override

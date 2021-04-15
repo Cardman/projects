@@ -16,19 +16,20 @@ final class AnaVariablePartType extends AnaLeafPartType {
 
     @Override
     void analyze(String _globalType, AccessedBlock _local, AccessedBlock _rooted, AnalyzedPageEl _page) {
-        analyzeLine(null, _local,_rooted, null);
+        anaVar();
     }
 
     @Override
     void analyzeLine(ReadyTypes _ready, AccessedBlock _local, AccessedBlock _rooted, AnalyzedPageEl _page) {
-        String type_ = getTypeName();
-        String t_ = StringUtil.removeAllSpaces(type_);
-        t_ = StringUtil.concat(AnaInherits.PREFIX_VAR_TYPE,t_);
-        setAnalyzedType(t_);
+        anaVar();
     }
 
     @Override
     void analyzeAccessibleId(AccessedBlock _rooted, AnalyzedPageEl _page) {
+        anaVar();
+    }
+
+    private void anaVar() {
         String type_ = getTypeName();
         String t_ = StringUtil.removeAllSpaces(type_);
         t_ = StringUtil.concat(AnaInherits.PREFIX_VAR_TYPE,t_);

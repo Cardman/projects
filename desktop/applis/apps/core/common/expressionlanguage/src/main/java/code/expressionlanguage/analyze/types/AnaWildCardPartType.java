@@ -19,7 +19,7 @@ final class AnaWildCardPartType extends AnaParentPartType {
 
     @Override
     void analyze(String _globalType, AccessedBlock _local, AccessedBlock _rooted, AnalyzedPageEl _page) {
-        analyzeLine(null, _local,_rooted, _page);
+        anaWild(_page);
     }
 
     @Override

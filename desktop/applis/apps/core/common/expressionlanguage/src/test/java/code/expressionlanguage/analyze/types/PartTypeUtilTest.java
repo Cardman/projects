@@ -1079,6 +1079,119 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
         assertEq("pkgthree.OuterFour..OuterThree<pkgthree.OuterFour>", solved_);
     }
     @Test
+    public void processLine3Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("pkgtwo.OuterTwo;\n");
+        xml_.append("pkgtwo.OuterThree;\n");
+        xml_.append("pkgthree.OuterFour;\n");
+        xml_.append("$public $class pkg.Outer: OuterTwo {\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkgtwo.OuterTwo {\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkgtwo.OuterThree<T> {\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkgthree.OuterFour {\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExThree", xml_.toString());
+        AnalyzedTestContext context_ = unfullValidateInheriting(files_);
+
+        RootBlock root_ = context_.getAnalyzing().getAnaClassBody("pkg.Outer");
+        String solved_ = processAnalyzeLine("OuterThree<?OuterFour>", context_, root_);
+        assertTrue( isEmptyErrors(context_));
+        assertEq("pkgtwo.OuterThree<?pkgthree.OuterFour>", solved_);
+    }
+    @Test
+    public void processLine4Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("pkgtwo.OuterTwo;\n");
+        xml_.append("pkgtwo.OuterThree;\n");
+        xml_.append("pkgthree.OuterFour;\n");
+        xml_.append("$public $class pkg.Outer: OuterTwo {\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkgtwo.OuterTwo {\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkgtwo.OuterThree<T> {\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkgthree.OuterFour {\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExThree", xml_.toString());
+        AnalyzedTestContext context_ = unfullValidateInheriting(files_);
+
+        RootBlock root_ = context_.getAnalyzing().getAnaClassBody("pkg.Outer");
+        String solved_ = processAnalyzeLine("OuterThree<?>", context_, root_);
+        assertTrue( isEmptyErrors(context_));
+        assertEq("pkgtwo.OuterThree<?>", solved_);
+    }
+    @Test
+    public void processLine5Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("pkgtwo.OuterTwo;\n");
+        xml_.append("pkgtwo.OuterThree;\n");
+        xml_.append("pkgthree.OuterFour;\n");
+        xml_.append("$public $class pkg.Outer: OuterTwo {\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkgtwo.OuterTwo {\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkgtwo.OuterThree<T> {\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkgthree.OuterFour {\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExThree", xml_.toString());
+        AnalyzedTestContext context_ = unfullValidateInheriting(files_);
+        context_.getAnalyzing().getAvailableVariables().clear();
+        context_.getAnalyzing().getAvailableVariables().addEntry("T",0);
+        RootBlock root_ = context_.getAnalyzing().getAnaClassBody("pkg.Outer");
+        String solved_ = processAnalyzeLine("OuterThree<T>", context_, root_);
+        assertTrue( isEmptyErrors(context_));
+        assertEq("pkgtwo.OuterThree<#T>", solved_);
+    }
+    @Test
+    public void processLine6Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("pkgtwo.OuterTwo;\n");
+        xml_.append("pkgtwo.OuterThree;\n");
+        xml_.append("pkgthree.OuterFour;\n");
+        xml_.append("$public $class pkg.Outer: OuterTwo {\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkgtwo.OuterTwo {\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkgtwo.OuterThree<T> {\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkgthree.OuterFour {\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExThree", xml_.toString());
+        AnalyzedTestContext context_ = unfullValidateInheriting(files_);
+
+        RootBlock root_ = context_.getAnalyzing().getAnaClassBody("pkg.Outer");
+        String solved_ = processAnalyzeLine("$Fct<~OuterFour>", context_, root_);
+        assertTrue( isEmptyErrors(context_));
+        assertEq("java.lang.$Fct<~pkgthree.OuterFour>", solved_);
+    }
+    @Test
     public void processLine1FailTest() {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
