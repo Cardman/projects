@@ -1090,7 +1090,7 @@ public final class StringExpUtil {
                     return ArrayResult.ERROR;
                 }
                 _values.addEntry(IndexConstants.FIRST_INDEX, str_);
-                _operators.addEntry(last_, _string.substring(j_));
+                _operators.addEntry(j_, _string.substring(j_));
                 return ArrayResult.OK;
             }
             return ArrayResult.ERROR;
