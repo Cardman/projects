@@ -188,7 +188,6 @@ public final class FieldBlock extends Leaf implements InfoBlock {
 
     static void checkFieldsNames(AbsBk _bl, StringList _fieldNames, CustList<PartOffsetAffect> _names, AnalyzedPageEl _page) {
         StringList idsField_ = new StringList(_fieldNames);
-        CustList<StringList> found_ = new CustList<StringList>();
         for (PartOffsetAffect n: _names) {
             PartOffset p_ = n.getPartOffset();
             String trName_ = p_.getPart();
@@ -219,7 +218,6 @@ public final class FieldBlock extends Leaf implements InfoBlock {
                 }
             }
             n.getErrs().addAllElts(err_);
-            found_.add(err_);
             idsField_.add(trName_);
             _fieldNames.add(trName_);
         }

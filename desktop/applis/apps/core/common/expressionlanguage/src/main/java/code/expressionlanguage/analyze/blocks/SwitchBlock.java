@@ -131,11 +131,7 @@ public final class SwitchBlock extends BracedBlock implements BreakableBlock,Bui
         AbsBk first_ = _braced.getFirstChild();
         while (first_ != null) {
             AbsBk elt_ = first_;
-            if (elt_ instanceof CaseCondition) {
-                first_ = first_.getNextSibling();
-                continue;
-            }
-            if (elt_ instanceof DefaultCondition) {
+            if (elt_ instanceof CaseCondition || elt_ instanceof DefaultCondition) {
                 first_ = first_.getNextSibling();
                 continue;
             }

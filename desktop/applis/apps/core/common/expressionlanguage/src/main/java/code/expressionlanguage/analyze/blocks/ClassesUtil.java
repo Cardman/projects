@@ -1850,19 +1850,20 @@ public final class ClassesUtil {
                     continue;
                 }
                 InfoBlock f_ = (InfoBlock) b;
-                _page.getAllDeclaredFields().addAllElts(f_.getFieldName());
+                StringList fieldNames_ = f_.getFieldName();
+                _page.getAllDeclaredFields().addAllElts(fieldNames_);
                 if (!f_.isStaticField()) {
                     continue;
                 }
-                if (f_ instanceof FieldBlock) {
-                    _page.getAssignedDeclaredFields().addAllElts(((FieldBlock)f_).getAssignedDeclaredFields());
+                if (!(f_ instanceof FieldBlock)) {
+                    _page.getAssignedDeclaredFields().addAllElts(fieldNames_);
+                    continue;
                 }
-                if (f_ instanceof InnerTypeOrElement) {
-                    _page.getAssignedDeclaredFields().addAllElts(f_.getFieldName());
-                }
+                FieldBlock field_ = (FieldBlock) f_;
+                _page.getAssignedDeclaredFields().addAllElts(field_.getAssignedDeclaredFields());
                 int v_ = 0;
-                for (String f: f_.getFieldName()) {
-                    StringList err_ = getErFields(f_, v_);
+                for (String f: fieldNames_) {
+                    StringList err_ = field_.getCstErrorsFields().get(v_);
                     checkConstField(err_,c, fullName_, f, _page);
                     v_++;
                 }
@@ -2514,14 +2515,6 @@ public final class ClassesUtil {
             return new StringMap<SimpleAssignment>();
         }
         return val_.getFieldsRoot();
-    }
-
-    private static StringList getErFields(InfoBlock _f, int _v) {
-        StringList errs_ = new StringList();
-        if (_f instanceof FieldBlock) {
-            errs_ = ((FieldBlock)_f).getCstErrorsFields().get(_v);
-        }
-        return errs_;
     }
 
     private static boolean isStdOrExplicit(NamedCalledFunctionBlock _method) {
