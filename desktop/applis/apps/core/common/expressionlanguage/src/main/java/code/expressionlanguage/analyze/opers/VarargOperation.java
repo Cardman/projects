@@ -63,7 +63,7 @@ public final class VarargOperation extends LeafOperation {
         int afterLeftPar_ = className.indexOf(PAR_LEFT) + 1;
         String str_ = className.substring(afterLeftPar_, className.lastIndexOf(PAR_RIGHT));
         int off_ = StringUtil.getFirstPrintableCharIndex(str_);
-        str_ = ResolvingTypes.resolveCorrectTypeAccessible(afterLeftPar_+off_,str_, _page);
+        str_ = ResolvingTypes.resolveCorrectTypeAccessible(afterLeftPar_+off_,str_.trim(), _page);
         partOffsets.addAllElts(_page.getCurrentParts());
         setResultClass(new AnaClassArgumentMatching(str_));
         className = str_;

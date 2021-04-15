@@ -192,7 +192,7 @@ public final class IdFctOperation extends LeafOperation {
                     return null;
                 }
                 vararg_ = len_- _from;
-                type_ = arg_.substring(0, arg_.length()-VARARG_SUFFIX.length());
+                type_ = arg_.substring(0, arg_.length()-VARARG_SUFFIX.length()).trim();
             } else {
                 type_ = arg_;
             }

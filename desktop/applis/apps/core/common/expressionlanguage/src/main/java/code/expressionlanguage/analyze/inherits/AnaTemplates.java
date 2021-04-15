@@ -95,7 +95,7 @@ public final class AnaTemplates {
         if (!tr_.endsWith(TEMPLATE_BEGIN)) {
             return null;
         }
-        tr_ = tr_.substring(0, tr_.length() - 1);
+        tr_ = tr_.substring(0, tr_.length() - 1).trim();
         for (String p: StringUtil.splitChars(tr_,'.')) {
             if (p.isEmpty()) {
                 continue;

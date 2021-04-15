@@ -371,7 +371,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                     int i_ = 0;
                     for (String c: t.getConstraints()) {
                         int d_ = ints_.get(i_);
-                        AnaResultPartType res_ = ResolvingSuperTypes.resolveTypeMapping(c, this, 1 + d_, _page);
+                        AnaResultPartType res_ = ResolvingSuperTypes.resolveTypeMapping(c.trim(), this, 1 + d_, _page);
                         results_.add(res_);
                         const_.add(res_.getResult());
                         i_++;

@@ -3588,7 +3588,6 @@ public final class LinkageUtil {
             }
         }
         _parts.addAllElts(((LambdaOperation)_val).getPartOffsets());
-        _parts.addAllElts(((LambdaOperation)_val).getPartOffsetsEnd());
         if (((LambdaOperation)_val).getRecordType() >= 0) {
             int len_ = ((LambdaOperation)_val).getNamed().size();
             for (int i = 0; i < len_; i++) {
