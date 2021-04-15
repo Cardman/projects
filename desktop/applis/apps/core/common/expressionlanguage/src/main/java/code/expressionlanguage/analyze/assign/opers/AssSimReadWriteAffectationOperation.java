@@ -12,7 +12,7 @@ import code.util.core.StringUtil;
 
 public final class AssSimReadWriteAffectationOperation extends AssMethodOperation {
     private AssOperationNode settable;
-    private OperationNode analyzed;
+    private final OperationNode analyzed;
     AssSimReadWriteAffectationOperation(OperationNode _ex) {
         super(_ex);
         analyzed = _ex;
@@ -40,7 +40,7 @@ public final class AssSimReadWriteAffectationOperation extends AssMethodOperatio
                             un_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
                             un_.buildError(_page.getAnalysisMessages().getFinalField(),
                                     str_);
-                            _page.addLocError(un_);
+                            _page.getLocalizer().addError(un_);
                             analyzed.addErr(un_.getBuiltError());
                         }
                     }
@@ -53,7 +53,7 @@ public final class AssSimReadWriteAffectationOperation extends AssMethodOperatio
                 un_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
                 un_.buildError(_page.getAnalysisMessages().getFinalField(),
                         str_);
-                _page.addLocError(un_);
+                _page.getLocalizer().addError(un_);
                 analyzed.addErr(un_.getBuiltError());
             }
         }

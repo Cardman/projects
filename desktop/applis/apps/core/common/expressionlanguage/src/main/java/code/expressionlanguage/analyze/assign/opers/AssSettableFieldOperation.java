@@ -16,9 +16,9 @@ import code.util.StringMap;
 import code.util.core.StringUtil;
 
 public final class AssSettableFieldOperation extends AssLeafOperation {
-    private AnaSettableOperationContent fieldMetaInfo;
-    private boolean declare;
-    private RootBlock rootBlock;
+    private final AnaSettableOperationContent fieldMetaInfo;
+    private final boolean declare;
+    private final RootBlock rootBlock;
     AssSettableFieldOperation(SettableAbstractFieldOperation _ex) {
         super(_ex);
         fieldMetaInfo = _ex.getSettableFieldContent();
@@ -82,7 +82,7 @@ public final class AssSettableFieldOperation extends AssLeafOperation {
                         un_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
                         un_.buildError(_page.getAnalysisMessages().getFinalField(),
                                 cl_.getFieldName());
-                        _page.addLocError(un_);
+                        _page.getLocalizer().addError(un_);
                     }
                 }
             }

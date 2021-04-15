@@ -12,9 +12,9 @@ import code.util.core.StringUtil;
 
 public final class AssStdVariableOperation extends AssLeafOperation {
 
-    private String variableName;
-    private boolean declare;
-    private boolean finalVariable;
+    private final String variableName;
+    private final boolean declare;
+    private final boolean finalVariable;
 
     AssStdVariableOperation(VariableOperation _ex) {
         super(_ex);
@@ -67,7 +67,7 @@ public final class AssStdVariableOperation extends AssLeafOperation {
                     un_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
                     un_.buildError(_page.getAnalysisMessages().getFinalField(),
                             varName_);
-                    _page.addLocError(un_);
+                    _page.getLocalizer().addError(un_);
                 }
             }
         }

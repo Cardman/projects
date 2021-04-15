@@ -50,7 +50,7 @@ public final class AssCompoundAffectationOperation extends AssMultMethodOperatio
                             un_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
                             un_.buildError(_page.getAnalysisMessages().getFinalField(),
                                     str_);
-                            _page.addLocError(un_);
+                            _page.getLocalizer().addError(un_);
                         }
                     }
                 }
@@ -76,7 +76,7 @@ public final class AssCompoundAffectationOperation extends AssMultMethodOperatio
                     un_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
                     un_.buildError(_page.getAnalysisMessages().getFinalField(),
                             cl_.getFieldName());
-                    _page.addLocError(un_);
+                    _page.getLocalizer().addError(un_);
                 }
             }
         }

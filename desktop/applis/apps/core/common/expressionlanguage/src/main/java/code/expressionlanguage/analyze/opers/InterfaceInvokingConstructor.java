@@ -36,7 +36,7 @@ public final class InterfaceInvokingConstructor extends AbstractInvokingConstruc
             call_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
             //type len
             call_.buildError(_page.getAnalysisMessages().getCallCtorIntFromSuperInt());
-            _page.addLocError(call_);
+            _page.getLocalizer().addError(call_);
             addErr(call_.getBuiltError());
             return null;
         }
@@ -49,7 +49,7 @@ public final class InterfaceInvokingConstructor extends AbstractInvokingConstruc
             call_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
             //type len
             call_.buildError(_page.getAnalysisMessages().getCallCtorIntFromSuperInt());
-            _page.addLocError(call_);
+            _page.getLocalizer().addError(call_);
             addErr(call_.getBuiltError());
             return null;
         }
@@ -68,7 +68,7 @@ public final class InterfaceInvokingConstructor extends AbstractInvokingConstruc
             call_.setIndexFile(getFullIndexInEl()+ curLine_.getExpressionOffset());
             //key word len
             call_.buildError(_page.getAnalysisMessages().getCallCtorIntNotFromInt());
-            _page.addLocError(call_);
+            _page.getLocalizer().addError(call_);
             addErr(call_.getBuiltError());
         }
         AbsBk f_ = br_.getFirstChild();
@@ -94,7 +94,7 @@ public final class InterfaceInvokingConstructor extends AbstractInvokingConstruc
                         call_.setIndexFile(getFullIndexInEl()+ curLine_.getExpressionOffset());
                         //key word len
                         call_.buildError(_page.getAnalysisMessages().getCallCtorIntAfterSuperThis());
-                        _page.addLocError(call_);
+                        _page.getLocalizer().addError(call_);
                         addErr(call_.getBuiltError());
                     } else {
                         if (!((Line)f_).isCallFromCtorToCtor()|| ((Line)f_).isCallThis()) {
@@ -104,7 +104,7 @@ public final class InterfaceInvokingConstructor extends AbstractInvokingConstruc
                             call_.setIndexFile(getFullIndexInEl()+ curLine_.getExpressionOffset());
                             //key word len
                             call_.buildError(_page.getAnalysisMessages().getCallCtorIntAfterSuperThis());
-                            _page.addLocError(call_);
+                            _page.getLocalizer().addError(call_);
                             addErr(call_.getBuiltError());
                         }
                     }
@@ -147,7 +147,7 @@ public final class InterfaceInvokingConstructor extends AbstractInvokingConstruc
                         sup_,
                         _cl
                 );
-                _page.addLocError(undef_);
+                _page.getLocalizer().addError(undef_);
                 addErr(undef_.getBuiltError());
             }
         }

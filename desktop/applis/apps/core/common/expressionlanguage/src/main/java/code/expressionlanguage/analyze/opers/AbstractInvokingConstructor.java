@@ -118,7 +118,7 @@ public abstract class AbstractInvokingConstructor extends InvokingOperation impl
             call_.setIndexFile(getFullIndexInEl());
             //key word len
             call_.buildError(_page.getAnalysisMessages().getCallCtorEnd());
-            _page.addLocError(call_);
+            _page.getLocalizer().addError(call_);
             addErr(call_.getBuiltError());
         } else {
             if (!(curBlock_.getParent() instanceof ConstructorBlock)) {
@@ -128,7 +128,7 @@ public abstract class AbstractInvokingConstructor extends InvokingOperation impl
                 call_.setIndexFile(getFullIndexInEl());
                 //key word len
                 call_.buildError(_page.getAnalysisMessages().getCallCtor());
-                _page.addLocError(call_);
+                _page.getLocalizer().addError(call_);
                 addErr(call_.getBuiltError());
             } else if (!(curBlock_ instanceof Line)) {
                 //error
@@ -137,7 +137,7 @@ public abstract class AbstractInvokingConstructor extends InvokingOperation impl
                 call_.setIndexFile(getFullIndexInEl());
                 //key word len
                 call_.buildError(_page.getAnalysisMessages().getCallCtorBeforeBlock());
-                _page.addLocError(call_);
+                _page.getLocalizer().addError(call_);
                 addErr(call_.getBuiltError());
             } else {
                 checkPosition(_page);
@@ -152,7 +152,7 @@ public abstract class AbstractInvokingConstructor extends InvokingOperation impl
             call_.setIndexFile(getFullIndexInEl());
             //key word len
             call_.buildError(_page.getAnalysisMessages().getCallCtorFirstLine());
-            _page.addLocError(call_);
+            _page.getLocalizer().addError(call_);
             addErr(call_.getBuiltError());
         }
     }

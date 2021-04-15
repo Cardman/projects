@@ -68,7 +68,7 @@ public final class AssAffectationOperation extends AssMultMethodOperation {
                         un_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
                         un_.buildError(_page.getAnalysisMessages().getFinalField(),
                                 str_);
-                        _page.addLocError(un_);
+                        _page.getLocalizer().addError(un_);
                     }
                 }
                 variablesAfter_.put(e.getKey(),Assignment.assign(str_,e.getKey(),isBool_, e.getValue()));
@@ -94,7 +94,7 @@ public final class AssAffectationOperation extends AssMultMethodOperation {
                     un_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
                     un_.buildError(_page.getAnalysisMessages().getFinalField(),
                             cl_.getFieldName());
-                    _page.addLocError(un_);
+                    _page.getLocalizer().addError(un_);
                 }
             }
         }

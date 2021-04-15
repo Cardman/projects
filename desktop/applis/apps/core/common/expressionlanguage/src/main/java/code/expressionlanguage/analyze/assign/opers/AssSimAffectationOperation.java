@@ -13,7 +13,7 @@ import code.util.core.StringUtil;
 
 public final class AssSimAffectationOperation extends AssSimMultMethodOperation {
     private AssOperationNode settableOp;
-    private AffectationOperation analyzed;
+    private final AffectationOperation analyzed;
     AssSimAffectationOperation(AffectationOperation _ex) {
         super(_ex);
         analyzed = _ex;
@@ -59,7 +59,7 @@ public final class AssSimAffectationOperation extends AssSimMultMethodOperation 
                                 un_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
                                 un_.buildError(_page.getAnalysisMessages().getFinalField(),
                                         str_);
-                                _page.addLocError(un_);
+                                _page.getLocalizer().addError(un_);
                                 if (analyzed.getPartOffsetsChildren().isEmpty()) {
                                     int opLocat_ = analyzed.getFoundOffset();
                                     CustList<PartOffset> err_ = new CustList<PartOffset>();
@@ -78,7 +78,7 @@ public final class AssSimAffectationOperation extends AssSimMultMethodOperation 
                 un_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
                 un_.buildError(_page.getAnalysisMessages().getFinalField(),
                         str_);
-                _page.addLocError(un_);
+                _page.getLocalizer().addError(un_);
                 if (analyzed.getPartOffsetsChildren().isEmpty()) {
                     int opLocat_ = analyzed.getFoundOffset();
                     CustList<PartOffset> err_ = new CustList<PartOffset>();
