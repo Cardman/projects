@@ -1525,7 +1525,7 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
     private static String processAnalyze(String _input, String _globalType, AnalyzedTestContext _an, RootBlock _rooted) {
         AnalyzedPageEl page_ = _an.getAnalyzing();
         page_.setImportingTypes(_rooted);
-        AnaResultPartType anaResultPartType_ = AnaPartTypeUtil.processAnalyze(_input, false, _globalType, _rooted, _rooted, 0, new CustList<PartOffset>(), page_);
+        AnaResultPartType anaResultPartType_ = AnaPartTypeUtil.processAnalyze(_input, _globalType, _rooted, _rooted, 0, new CustList<PartOffset>(), page_);
         AnaPartType partType_ = anaResultPartType_.getPartType();
         if (partType_ == null) {
             return "";
@@ -1539,6 +1539,6 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
     private static String processAnalyzeLine(String _input, AnalyzedTestContext _an, RootBlock _rooted) {
         AnalyzedPageEl page_ = _an.getAnalyzing();
         page_.setImportingTypes(_rooted);
-        return AnaPartTypeUtil.processAnalyzeLine(_input,false,"", _rooted, _rooted, 0,new CustList<PartOffset>(), page_).getResult();
+        return AnaPartTypeUtil.processAnalyzeLine(_input, "", _rooted, _rooted, 0,new CustList<PartOffset>(), page_).getResult();
     }
 }

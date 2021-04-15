@@ -10540,7 +10540,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         if (_exact) {
             resType_ = AnaPartTypeUtil.processAccessAnalyze(_className, false,"", null,null, -1,new CustList<PartOffset>(), page_);
         } else {
-            resType_ = AnaPartTypeUtil.processAnalyzeLine(_className,false,"", null,null, -1,new CustList<PartOffset>(), page_);
+            resType_ = AnaPartTypeUtil.processAnalyzeLine(_className, "", null,null, -1,new CustList<PartOffset>(), page_);
         }
         assertTrue(!resType_.getResult().isEmpty());
         return AnaPartTypeUtil.processAnalyzeConstraints(resType_, _t, _exact,page_);

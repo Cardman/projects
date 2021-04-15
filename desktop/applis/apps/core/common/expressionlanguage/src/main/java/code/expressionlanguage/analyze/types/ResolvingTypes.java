@@ -124,9 +124,9 @@ public final class ResolvingTypes {
         _page.getCurrentBadIndexes().clear();
         AnaResultPartType resType_;
         if (_exact) {
-            resType_ = AnaPartTypeUtil.processAnalyze(tr_, false,gl_, a_,r_, rc_, _partOffsets, _page);
+            resType_ = AnaPartTypeUtil.processAnalyze(tr_, gl_, a_,r_, rc_, _partOffsets, _page);
         } else {
-            resType_ = AnaPartTypeUtil.processAnalyzeLine(tr_, false, gl_, a_,r_, rc_, _partOffsets, _page);
+            resType_ = AnaPartTypeUtil.processAnalyzeLine(tr_, gl_, a_,r_, rc_, _partOffsets, _page);
         }
         if (resType_.getResult().trim().isEmpty()) {
             return "";
@@ -185,9 +185,9 @@ public final class ResolvingTypes {
         AnaResultPartType resType_;
         _page.getCurrentBadIndexes().clear();
         if (_exact) {
-            resType_ = AnaPartTypeUtil.processAnalyze(tr_, false,gl_, a_,r_, rc_,partOffsets_, _page);
+            resType_ = AnaPartTypeUtil.processAnalyze(tr_, gl_, a_,r_, rc_,partOffsets_, _page);
         } else {
-            resType_ = AnaPartTypeUtil.processAnalyzeLine(tr_,false, gl_, a_,r_, rc_,partOffsets_, _page);
+            resType_ = AnaPartTypeUtil.processAnalyzeLine(tr_, gl_, a_,r_, rc_,partOffsets_, _page);
         }
         for (InaccessibleType i: _page.getCurrentBadIndexes()) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
@@ -245,7 +245,7 @@ public final class ResolvingTypes {
         String gl_ = _page.getGlobalClass();
         AnaResultPartType resType_;
         _page.getCurrentBadIndexes().clear();
-        resType_ = AnaPartTypeUtil.processAccAnalyze(tr_, false,gl_, a_,r_, rc_,partOffsets_, _page);
+        resType_ = AnaPartTypeUtil.processAccAnalyze(tr_, gl_, a_,r_, rc_,partOffsets_, _page);
         return checkResType(_in, true, rc_, varsCt_, resType_,partOffsets_, _page);
     }
 
