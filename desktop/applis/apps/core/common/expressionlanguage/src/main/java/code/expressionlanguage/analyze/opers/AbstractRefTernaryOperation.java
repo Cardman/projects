@@ -9,6 +9,7 @@ import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.fwd.opers.AnaArrContent;
+import code.expressionlanguage.linkage.ExportCst;
 import code.expressionlanguage.linkage.LinkageUtil;
 import code.expressionlanguage.stds.PrimitiveTypes;
 import code.util.CustList;
@@ -80,8 +81,8 @@ public abstract class AbstractRefTernaryOperation extends MethodOperation implem
         if (!deep_.isEmpty()) {
             int i_ = _page.getLocalizer().getCurrentLocationIndex();
             CustList<PartOffset> list_ = new CustList<PartOffset>();
-            list_.add(new PartOffset("<a title=\""+LinkageUtil.transform(StringUtil.join(deep_,"\n\n")) +"\" class=\"e\">",i_));
-            list_.add(new PartOffset("</a>",i_+1));
+            list_.add(new PartOffset(ExportCst.anchorErr(StringUtil.join(deep_,"\n\n")),i_));
+            list_.add(new PartOffset(ExportCst.END_ANCHOR,i_+1));
             getPartOffsetsChildren().add(list_);
         }
         opOne_.getResultClass().setUnwrapObjectNb(PrimitiveTypes.BOOL_WRAP);

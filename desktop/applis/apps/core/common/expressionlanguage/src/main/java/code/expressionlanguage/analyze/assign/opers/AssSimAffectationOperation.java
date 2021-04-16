@@ -7,6 +7,7 @@ import code.expressionlanguage.analyze.assign.blocks.AssBlock;
 import code.expressionlanguage.analyze.assign.util.*;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.instr.PartOffset;
+import code.expressionlanguage.linkage.ExportCst;
 import code.expressionlanguage.linkage.LinkageUtil;
 import code.util.*;
 import code.util.core.StringUtil;
@@ -63,8 +64,8 @@ public final class AssSimAffectationOperation extends AssSimMultMethodOperation 
                                 if (analyzed.getPartOffsetsChildren().isEmpty()) {
                                     int opLocat_ = analyzed.getFoundOffset();
                                     CustList<PartOffset> err_ = new CustList<PartOffset>();
-                                    err_.add(new PartOffset("<a title=\"" + LinkageUtil.transform(un_.getBuiltError()) + "\" class=\"e\">", opLocat_));
-                                    err_.add(new PartOffset("</a>", opLocat_ + 1));
+                                    err_.add(new PartOffset(ExportCst.anchorErr(un_.getBuiltError()), opLocat_));
+                                    err_.add(new PartOffset(ExportCst.END_ANCHOR, opLocat_ + 1));
                                     analyzed.getPartOffsetsChildren().add(err_);
                                 }
                             }
@@ -82,8 +83,8 @@ public final class AssSimAffectationOperation extends AssSimMultMethodOperation 
                 if (analyzed.getPartOffsetsChildren().isEmpty()) {
                     int opLocat_ = analyzed.getFoundOffset();
                     CustList<PartOffset> err_ = new CustList<PartOffset>();
-                    err_.add(new PartOffset("<a title=\"" + LinkageUtil.transform(un_.getBuiltError()) + "\" class=\"e\">", opLocat_));
-                    err_.add(new PartOffset("</a>", opLocat_ + 1));
+                    err_.add(new PartOffset(ExportCst.anchorErr(un_.getBuiltError()), opLocat_));
+                    err_.add(new PartOffset(ExportCst.END_ANCHOR, opLocat_ + 1));
                     analyzed.getPartOffsetsChildren().add(err_);
                 }
             }

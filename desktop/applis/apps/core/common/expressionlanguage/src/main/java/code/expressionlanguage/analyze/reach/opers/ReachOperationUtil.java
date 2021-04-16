@@ -5,6 +5,7 @@ import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.FieldBlock;
 import code.expressionlanguage.analyze.instr.PartOffset;
 import code.expressionlanguage.analyze.opers.*;
+import code.expressionlanguage.linkage.ExportCst;
 import code.expressionlanguage.linkage.LinkageUtil;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.NullStruct;
@@ -107,8 +108,8 @@ public final class ReachOperationUtil {
                 int offLoc_ = info_.getOperations().getOperators().firstKey();
                 int i_ = offLoc_ + _page.getLocalizer().getCurrentLocationIndex();
                 CustList<PartOffset> list_ = new CustList<PartOffset>();
-                list_.add(new PartOffset("<a title=\""+ LinkageUtil.transform(StringUtil.join(deep_,"\n\n")) +"\" class=\"w\">",i_));
-                list_.add(new PartOffset("</a>",i_+1));
+                list_.add(new PartOffset(ExportCst.anchorWar(StringUtil.join(deep_,"\n\n")),i_));
+                list_.add(new PartOffset(ExportCst.END_ANCHOR,i_+1));
                 ((MethodOperation)info_).getPartOffsetsChildren().add(list_);
             }
         }

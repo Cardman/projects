@@ -13,6 +13,7 @@ import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.functionid.*;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.analyze.instr.PartOffset;
+import code.expressionlanguage.linkage.ExportCst;
 import code.expressionlanguage.linkage.LinkageUtil;
 import code.util.BooleanList;
 import code.util.CustList;
@@ -47,8 +48,8 @@ public final class IdFctOperation extends LeafOperation {
             varg_.buildError(_page.getAnalysisMessages().getUnexpectedLeaf(),
                     _page.getKeyWords().getKeyWordId());
             _page.getLocalizer().addError(varg_);
-            partOffsets.add(new PartOffset("<a title=\""+LinkageUtil.transform(varg_.getBuiltError()) +"\" class=\"e\">",i_));
-            partOffsets.add(new PartOffset("</a>",i_+ _page.getKeyWords().getKeyWordId().length()));
+            partOffsets.add(new PartOffset(ExportCst.anchorErr(varg_.getBuiltError()),i_));
+            partOffsets.add(new PartOffset(ExportCst.END_ANCHOR,i_+ _page.getKeyWords().getKeyWordId().length()));
             setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
             return;
         }
@@ -61,8 +62,8 @@ public final class IdFctOperation extends LeafOperation {
             varg_.buildError(_page.getAnalysisMessages().getUnexpectedLeaf(),
                     _page.getKeyWords().getKeyWordId());
             _page.getLocalizer().addError(varg_);
-            partOffsets.add(new PartOffset("<a title=\""+LinkageUtil.transform(varg_.getBuiltError()) +"\" class=\"e\">",i_));
-            partOffsets.add(new PartOffset("</a>",i_+ _page.getKeyWords().getKeyWordId().length()));
+            partOffsets.add(new PartOffset(ExportCst.anchorErr(varg_.getBuiltError()),i_));
+            partOffsets.add(new PartOffset(ExportCst.END_ANCHOR,i_+ _page.getKeyWords().getKeyWordId().length()));
             setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
             return;
         }
@@ -187,8 +188,8 @@ public final class IdFctOperation extends LeafOperation {
                     //three dots
                     varg_.buildError(_page.getAnalysisMessages().getUnexpectedVararg());
                     _page.getLocalizer().addError(varg_);
-                    _partOffsets.add(new PartOffset("<a title=\""+LinkageUtil.transform(varg_.getBuiltError()) +"\" class=\"e\">",i_));
-                    _partOffsets.add(new PartOffset("</a>",i_+3));
+                    _partOffsets.add(new PartOffset(ExportCst.anchorErr(varg_.getBuiltError()),i_));
+                    _partOffsets.add(new PartOffset(ExportCst.END_ANCHOR,i_+3));
                     return null;
                 }
                 vararg_ = len_- _from;

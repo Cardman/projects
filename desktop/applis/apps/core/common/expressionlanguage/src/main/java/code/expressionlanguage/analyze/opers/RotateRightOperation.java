@@ -7,6 +7,7 @@ import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.analyze.opers.util.ResultOperand;
 import code.expressionlanguage.analyze.instr.PartOffset;
+import code.expressionlanguage.linkage.ExportCst;
 import code.expressionlanguage.linkage.LinkageUtil;
 import code.util.CustList;
 import code.util.StringList;
@@ -45,8 +46,8 @@ public final class RotateRightOperation extends NumericOperation {
                 getOp());
         _page.getLocalizer().addError(un_);
         CustList<PartOffset> err_ = new CustList<PartOffset>();
-        err_.add(new PartOffset("<a title=\""+LinkageUtil.transform(un_.getBuiltError()) +"\" class=\"e\">",index_));
-        err_.add(new PartOffset("</a>",index_+getOp().length()));
+        err_.add(new PartOffset(ExportCst.anchorErr(un_.getBuiltError()),index_));
+        err_.add(new PartOffset(ExportCst.END_ANCHOR,index_+getOp().length()));
         getPartOffsetsChildren().add(err_);
         AnaClassArgumentMatching arg_ = new AnaClassArgumentMatching(exp_);
         res_.setResult(arg_);

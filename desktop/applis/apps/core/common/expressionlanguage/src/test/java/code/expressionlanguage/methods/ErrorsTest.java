@@ -2520,7 +2520,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " $public $void <a name=\"m42\">method</a>() {\n" +
                 "  $if($true)<a name=\"m65\">lab</a>{\n" +
-                "   $break <a href=\"#65\">lab</a>;\n" +
+                "   $break <a href=\"#m65\">lab</a>;\n" +
                 "  }\n" +
                 "  <a title=\"The $continue block must be inner of the blocks $for|$foreach|$do|$iter|$while.\" class=\"e\">$continue</a>;\n" +
                 " }\n" +
@@ -2580,7 +2580,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " $public $void <a name=\"m42\">method</a>() {\n" +
                 "  $iter($int <a name=\"m66\">i</a>=0;1;1)<a name=\"m74\">lab</a>{\n" +
-                "   $continue <a href=\"#74\">lab</a>;\n" +
+                "   $continue <a href=\"#m74\">lab</a>;\n" +
                 "  }\n" +
                 "  <a title=\"The $break block must be inner of the blocks $switch|$for|$foreach|$do|$iter|$while.\" class=\"e\">$break</a>;\n" +
                 " }\n" +

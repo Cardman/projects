@@ -4,6 +4,7 @@ import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.inherits.AnaInherits;
 import code.expressionlanguage.common.AnaGeneType;
 import code.expressionlanguage.common.DimComp;
+import code.expressionlanguage.linkage.ExportCst;
 import code.maths.litteralcom.StrTypes;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
@@ -146,9 +147,8 @@ final class AnaTemplatePartType extends AnaBinaryType {
         for (int i: indexesChildConstraints) {
             int begin_ = _page.getLocalInType() + getIndexInType() + getOperators().getKey(i);
             int len_ = getOperators().getValue(i).length();
-            String err_ = LinkageUtil.transform(StringUtil.join(getErrsList().get(i),"\n\n"));
-            getBeginOps().set(i,new PartOffset("<a title=\""+err_+"\" class=\"e\">",begin_));
-            getEndOps().set(i,new PartOffset("</a>",begin_+len_));
+            getBeginOps().set(i,new PartOffset(ExportCst.anchorErr(StringUtil.join(getErrsList().get(i),"\n\n")),begin_));
+            getEndOps().set(i,new PartOffset(ExportCst.END_ANCHOR,begin_+len_));
         }
     }
 
@@ -159,9 +159,8 @@ final class AnaTemplatePartType extends AnaBinaryType {
         if (errLen_.isEmpty()) {
             return;
         }
-        String err_ = LinkageUtil.transform(StringUtil.join(errLen_,"\n\n"));
-        lastPartBegin=(new PartOffset("<a title=\""+err_+"\" class=\"e\">",begin_));
-        lastPartEnd=(new PartOffset("</a>",begin_+len_));
+        lastPartBegin=(new PartOffset(ExportCst.anchorErr(StringUtil.join(errLen_,"\n\n")),begin_));
+        lastPartEnd=(new PartOffset(ExportCst.END_ANCHOR,begin_+len_));
     }
 
     private String fetchTemplate() {

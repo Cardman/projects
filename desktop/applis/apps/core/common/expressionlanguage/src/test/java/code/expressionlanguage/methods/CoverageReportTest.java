@@ -6426,7 +6426,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  <span class=\"p\">for (int <a name=\"m90\">j</a></span>:<span class=\"f\">{<span class=\"f\">0</span>,<span class=\"f\">1</span>}</span>) <a name=\"m99\">lab</a> {\n" +
                 "   int[] <span class=\"f\"><span class=\"f\"><a name=\"m114\">t</a> </span>=<span class=\"f\"><span class=\"p\"><span class=\"f\"> <a href=\"#m57\">s</a> </span><a title=\"false\">==</a><span class=\"f\"> <a href=\"#m90\">j</a> </span></span>?<span class=\"n\">{<span class=\"n\">4i</span>}</span>:<span class=\"f\">{<span class=\"f\">6i</span>}</span></span></span>;\n" +
                 "   <span class=\"f\"><span class=\"f\"><a href=\"#m70\">sum</a> </span>+=<span class=\"f\"><span class=\"f\"> <a href=\"#m114\">t</a></span><span class=\"f\">[<span class=\"f\">0</span>]</span></span></span>;\n" +
-                "   break <a href=\"#99\">lab</a>;\n" +
+                "   break <a href=\"#m99\">lab</a>;\n" +
                 "  }\n" +
                 "  return <span class=\"f\"><a href=\"#m70\">sum</a></span>;\n" +
                 " }\n" +
@@ -6462,7 +6462,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  <span class=\"f\">for (int <a name=\"m90\">j</a></span>:<span class=\"f\">{<span class=\"f\">0</span>,<span class=\"f\">1</span>}</span>) <a name=\"m99\">lab</a> {\n" +
                 "   int[] <span class=\"f\"><span class=\"f\"><a name=\"m114\">t</a> </span>=<span class=\"f\"><span class=\"f\"><span class=\"f\"> <a href=\"#m57\">s</a> </span>==<span class=\"f\"> <a href=\"#m90\">j</a> </span></span>?<span class=\"f\">{<span class=\"f\">4i</span>}</span>:<span class=\"f\">{<span class=\"f\">6i</span>}</span></span></span>;\n" +
                 "   <span class=\"f\"><span class=\"f\"><a href=\"#m70\">sum</a> </span>+=<span class=\"f\"><span class=\"f\"> <a href=\"#m114\">t</a></span><span class=\"f\">[<span class=\"f\">0</span>]</span></span></span>;\n" +
-                "   continue <a href=\"#99\">lab</a>;\n" +
+                "   continue <a href=\"#m99\">lab</a>;\n" +
                 "  }\n" +
                 "  return <span class=\"f\"><a href=\"#m70\">sum</a></span>;\n" +
                 " }\n" +

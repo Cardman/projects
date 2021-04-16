@@ -12,6 +12,7 @@ import code.expressionlanguage.analyze.util.MappingLocalType;
 import code.expressionlanguage.analyze.util.TypeVar;
 import code.expressionlanguage.common.AnaGeneType;
 import code.expressionlanguage.common.StringExpUtil;
+import code.expressionlanguage.linkage.ExportCst;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
@@ -46,9 +47,9 @@ public final class ResolvingTypes {
             CustList<PartOffset> partOffsets_ = _page.getCurrentParts();
             partOffsets_.clear();
             String err_ = un_.getBuiltError();
-            String pref_ = "<a title=\""+err_+"\" class=\"e\">";
+            String pref_ = ExportCst.anchorErr(err_);
             partOffsets_.add(new PartOffset(pref_,rc_));
-            partOffsets_.add(new PartOffset("</a>",rc_+1));
+            partOffsets_.add(new PartOffset(ExportCst.END_ANCHOR,rc_+1));
             return _page.getAliasObject();
         }
         String void_ = _page.getAliasVoid();
@@ -63,9 +64,9 @@ public final class ResolvingTypes {
             CustList<PartOffset> partOffsets_ = _page.getCurrentParts();
             partOffsets_.clear();
             String err_ = un_.getBuiltError();
-            String pref_ = "<a title=\""+err_+"\" class=\"e\">";
+            String pref_ = ExportCst.anchorErr(err_);
             partOffsets_.add(new PartOffset(pref_,rc_));
-            partOffsets_.add(new PartOffset("</a>",rc_+void_.length()));
+            partOffsets_.add(new PartOffset(ExportCst.END_ANCHOR,rc_+void_.length()));
             return _page.getAliasObject();
         }
         AccessedBlock r_ = _page.getCurrentGlobalBlock().getCurrentGlobalBlock();
@@ -153,9 +154,9 @@ public final class ResolvingTypes {
             CustList<PartOffset> partOffsets_ = _page.getCurrentParts();
             partOffsets_.clear();
             String err_ = un_.getBuiltError();
-            String pref_ = "<a title=\""+err_+"\" class=\"e\">";
+            String pref_ = ExportCst.anchorErr(err_);
             partOffsets_.add(new PartOffset(pref_,rc_));
-            partOffsets_.add(new PartOffset("</a>",rc_+1));
+            partOffsets_.add(new PartOffset(ExportCst.END_ANCHOR,rc_+1));
             return _page.getAliasObject();
         }
         String void_ = _page.getAliasVoid();
@@ -170,9 +171,9 @@ public final class ResolvingTypes {
             CustList<PartOffset> partOffsets_ = _page.getCurrentParts();
             partOffsets_.clear();
             String err_ = un_.getBuiltError();
-            String pref_ = "<a title=\""+err_+"\" class=\"e\">";
+            String pref_ = ExportCst.anchorErr(err_);
             partOffsets_.add(new PartOffset(pref_,rc_));
-            partOffsets_.add(new PartOffset("</a>",rc_+void_.length()));
+            partOffsets_.add(new PartOffset(ExportCst.END_ANCHOR,rc_+void_.length()));
             return _page.getAliasObject();
         }
         AccessedBlock r_ = _page.getCurrentGlobalBlock().getCurrentGlobalBlock();
@@ -215,9 +216,9 @@ public final class ResolvingTypes {
             CustList<PartOffset> partOffsets_ = _page.getCurrentParts();
             partOffsets_.clear();
             String err_ = un_.getBuiltError();
-            String pref_ = "<a title=\""+err_+"\" class=\"e\">";
+            String pref_ = ExportCst.anchorErr(err_);
             partOffsets_.add(new PartOffset(pref_,rc_));
-            partOffsets_.add(new PartOffset("</a>",rc_+1));
+            partOffsets_.add(new PartOffset(ExportCst.END_ANCHOR,rc_+1));
             return _page.getAliasObject();
         }
         if (StringUtil.quickEq(tr_, void_)) {
@@ -231,9 +232,9 @@ public final class ResolvingTypes {
             CustList<PartOffset> partOffsets_ = _page.getCurrentParts();
             partOffsets_.clear();
             String err_ = un_.getBuiltError();
-            String pref_ = "<a title=\""+err_+"\" class=\"e\">";
+            String pref_ = ExportCst.anchorErr(err_);
             partOffsets_.add(new PartOffset(pref_,rc_));
-            partOffsets_.add(new PartOffset("</a>",rc_+void_.length()));
+            partOffsets_.add(new PartOffset(ExportCst.END_ANCHOR,rc_+void_.length()));
             return _page.getAliasObject();
         }
         AccessedBlock r_ = _page.getCurrentGlobalBlock().getCurrentGlobalBlock();
@@ -300,9 +301,9 @@ public final class ResolvingTypes {
                     void_);
             _page.getLocalizer().addError(un_);
             String err_ = un_.getBuiltError();
-            String pref_ = "<a title=\""+err_+"\" class=\"e\">";
+            String pref_ = ExportCst.anchorErr(err_);
             partOffsets_.add(new PartOffset(pref_,rc_+firstOff_+_loc));
-            partOffsets_.add(new PartOffset("</a>",rc_+firstOff_+_loc+void_.length()));
+            partOffsets_.add(new PartOffset(ExportCst.END_ANCHOR,rc_+firstOff_+_loc+void_.length()));
             return "";
         }
         if (tr_.isEmpty()) {
@@ -313,9 +314,9 @@ public final class ResolvingTypes {
             un_.buildError(_page.getAnalysisMessages().getEmptyType());
             _page.getLocalizer().addError(un_);
             String err_ = un_.getBuiltError();
-            String pref_ = "<a title=\""+err_+"\" class=\"e\">";
+            String pref_ = ExportCst.anchorErr(err_);
             partOffsets_.add(new PartOffset(pref_,rc_+firstOff_+_loc));
-            partOffsets_.add(new PartOffset("</a>",rc_+firstOff_+_loc+1));
+            partOffsets_.add(new PartOffset(ExportCst.END_ANCHOR,rc_+firstOff_+_loc+1));
             return "";
         }
         RootBlock b_ = _page.getAnaClassBody(res_);
@@ -336,9 +337,9 @@ public final class ResolvingTypes {
                             _in);
                     _page.getLocalizer().addError(undef_);
                     String err_ = undef_.getBuiltError();
-                    String pref_ = "<a title=\""+err_+"\" class=\"e\">";
+                    String pref_ = ExportCst.anchorErr(err_);
                     partOffsets_.add(new PartOffset(pref_,rc_+firstOff_+_loc));
-                    partOffsets_.add(new PartOffset("</a>",rc_+firstOff_+_loc + base_.length()));
+                    partOffsets_.add(new PartOffset(ExportCst.END_ANCHOR,rc_+firstOff_+_loc + base_.length()));
                     return "";
                 }
                 ContextUtil.appendParts(firstOff_+_loc,firstOff_+_loc + base_.length(),id_,partOffsets_, _page);
@@ -372,9 +373,9 @@ public final class ResolvingTypes {
                         _in);
                 _page.getLocalizer().addError(undef_);
                 String err_ = undef_.getBuiltError();
-                String pref_ = "<a title=\""+err_+"\" class=\"e\">";
+                String pref_ = ExportCst.anchorErr(err_);
                 partOffsets_.add(new PartOffset(pref_,rc_+offset_+delta_));
-                partOffsets_.add(new PartOffset("</a>",rc_+offset_+delta_ + i_.trim().length()));
+                partOffsets_.add(new PartOffset(ExportCst.END_ANCHOR,rc_+offset_+delta_ + i_.trim().length()));
                 return "";
             }
             ContextUtil.appendParts(offset_+delta_,offset_+delta_ + i_.trim().length(),resId_,partOffsets_, _page);

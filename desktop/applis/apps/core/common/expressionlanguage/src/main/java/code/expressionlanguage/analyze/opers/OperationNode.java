@@ -24,6 +24,7 @@ import code.expressionlanguage.analyze.instr.ElUtil;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.analyze.instr.PartOffset;
 import code.expressionlanguage.fwd.opers.AnaOperationContent;
+import code.expressionlanguage.linkage.ExportCst;
 import code.expressionlanguage.linkage.LinkageUtil;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.analyze.types.ResolvingImportTypes;
@@ -665,8 +666,8 @@ public abstract class OperationNode {
                 _name,
                 StringUtil.join(_class.getNames(),"&"));
         _page.getLocalizer().addError(access_);
-        _parts.add(new PartOffset("<a title=\""+LinkageUtil.transform(access_.getBuiltError()) +"\" class=\"e\">",i_));
-        _parts.add(new PartOffset("</a>",i_+Math.max(1, _name.length())));
+        _parts.add(new PartOffset(ExportCst.anchorErr(access_.getBuiltError()),i_));
+        _parts.add(new PartOffset(ExportCst.END_ANCHOR,i_+Math.max(1, _name.length())));
         return fr_;
     }
     public static FieldResult resolveDeclaredCustField(boolean _staticContext, AnaClassArgumentMatching _class,

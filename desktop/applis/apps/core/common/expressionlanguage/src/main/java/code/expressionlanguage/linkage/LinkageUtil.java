@@ -11,11 +11,7 @@ import code.expressionlanguage.analyze.util.ContextUtil;
 import code.expressionlanguage.common.*;
 import code.expressionlanguage.analyze.errors.custom.GraphicErrorInterpret;
 import code.expressionlanguage.exec.coverage.AbstractCoverageResult;
-import code.expressionlanguage.exec.coverage.BooleanCoverageResult;
 import code.expressionlanguage.exec.coverage.Coverage;
-import code.expressionlanguage.exec.coverage.NullBooleanCoverageResult;
-import code.expressionlanguage.exec.coverage.NullCoverageResult;
-import code.expressionlanguage.exec.coverage.StandardCoverageResult;
 import code.expressionlanguage.functionid.*;
 import code.expressionlanguage.analyze.instr.*;
 import code.expressionlanguage.options.KeyWords;
@@ -28,6 +24,24 @@ import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 
 public final class LinkageUtil {
+
+    public static final String BEGIN_HEAD = "<head>";
+    public static final String END_HEAD = "</head>";
+    public static final String BEGIN = "<html>";
+    public static final String BEGIN_BODY = "<body>";
+    public static final String BEGIN_BODY_PRE = BEGIN_BODY+"<pre>";
+    public static final String END_BODY = "</body>";
+    public static final String END_BODY_PRE = "</pre>"+END_BODY;
+    public static final String END = "</html>";
+    public static final String CSS = "css/style.css";
+    public static final String TR = "<tr>";
+    public static final String TD = "<td>";
+    public static final String ETD = "</td>";
+    public static final String ETR = "</tr>";
+    public static final String LT = "&lt;";
+    public static final String GT = "&gt;";
+    public static final String AMP = "&amp;";
+    public static final String QUOT = "&quot;";
 
     private LinkageUtil(){
     }
@@ -42,14 +56,14 @@ public final class LinkageUtil {
                 continue;
             }
             String value_ = f.getContent();
-            String fileExp_ = f.getFileName() + ".html";
+            String fileExp_ = f.getFileName() +ExportCst.EXT;
             CustList<PartOffset> listStr_ = processError(toStringOwners_,f,fileExp_, keyWords_, displayedStrings_, implicit_);
             StringBuilder xml_ = build(f, value_, listStr_);
-            String rel_ = relativize(fileExp_,"css/style.css");
-            String cssPart_ = "<head>" +encode(_analyzing.isEncodeHeader())+
-                    "<link href=\""+rel_+"\" rel=\"stylesheet\" type=\"text/css\"/>" +
-                    "</head>";
-            files_.addEntry(fileExp_,"<html>"+cssPart_+"<body><pre><span class=\"t\">"+xml_+"</span></pre></body></html>");
+            String rel_ = relativize(fileExp_, CSS);
+            String cssPart_ = BEGIN_HEAD + encode(_analyzing.isEncodeHeader()) +
+                    link(rel_) +
+                    END_HEAD;
+            files_.addEntry(fileExp_, BEGIN +cssPart_+ BEGIN_BODY_PRE +ExportCst.span("t")+xml_+ExportCst.END_SPAN+ END_BODY_PRE+END);
         }
         String cssContent_ = ".e{background-color:red;}\n";
         cssContent_ += ".w{background-color:yellow;}\n";
@@ -57,7 +71,7 @@ public final class LinkageUtil {
         cssContent_ += ".c{color:grey;background-color:white;}\n";
         cssContent_ += ".i{color:red;}\n";
         cssContent_ += ".t{background-color:white;}\n";
-        files_.addEntry("css/style.css",cssContent_);
+        files_.addEntry(CSS,cssContent_);
         return files_;
     }
 
@@ -74,14 +88,14 @@ public final class LinkageUtil {
                 continue;
             }
             String value_ = f.getContent();
-            String fileExp_ = f.getFileName() + ".html";
+            String fileExp_ = f.getFileName() +ExportCst.EXT;
             CustList<PartOffset> listStr_ = processReport(toStringOwners_,f,fileExp_, cov_, keyWords_, standards_);
             StringBuilder xml_ = build(f, value_, listStr_);
-            String rel_ = relativize(fileExp_,"css/style.css");
-            String cssPart_ = "<head>" +encode(cov_.isDisplayEncode())+
-                    "<link href=\""+rel_+"\" rel=\"stylesheet\" type=\"text/css\"/>" +
-                    "</head>";
-            files_.addEntry(fileExp_,"<html>"+cssPart_+"<body><pre><span class=\"t\">"+xml_+"</span></pre></body></html>");
+            String rel_ = relativize(fileExp_, CSS);
+            String cssPart_ = BEGIN_HEAD +encode(cov_.isDisplayEncode())+
+                    link(rel_) +
+                    END_HEAD;
+            files_.addEntry(fileExp_, BEGIN +cssPart_+ BEGIN_BODY_PRE +ExportCst.span("t")+xml_+ExportCst.END_SPAN+ END_BODY_PRE+END);
         }
         IdMap<RootBlock,String> types_ = new IdMap<RootBlock,String>();
         for (RootBlock t: refFoundTypes_) {
@@ -111,35 +125,35 @@ public final class LinkageUtil {
                 calledOps_++;
             }
         }
-        String callTable_ = "calls.html";
-        StringBuilder table_ = new StringBuilder("<html>");
-        table_.append("<head>");
+        String callTable_ = "calls"+ExportCst.EXT;
+        StringBuilder table_ = new StringBuilder(BEGIN);
+        table_.append(BEGIN_HEAD);
         table_.append(encode(cov_.isDisplayEncode()));
-        table_.append("</head>");
-        table_.append("<body>");
+        table_.append(END_HEAD);
+        table_.append(BEGIN_BODY);
         table_.append("<table>");
-        table_.append("<tr>");
-        table_.append("<td>");
-        table_.append("</td>");
-        table_.append("<td>");
+        table_.append(TR);
+        table_.append(TD);
+        table_.append(ETD);
+        table_.append(TD);
         table_.append(calledOps_);
         table_.append("/");
         table_.append(operators_.size());
-        table_.append("</td>");
-        table_.append("</tr>");
+        table_.append(ETD);
+        table_.append(ETR);
         for (EntryCust<RootBlock,String> e: types_.entryList()) {
-            table_.append("<tr>");
-            table_.append("<td>");
+            table_.append(TR);
+            table_.append(TD);
             table_.append(e.getKey().getFullName());
-            table_.append("</td>");
-            table_.append("<td>");
+            table_.append(ETD);
+            table_.append(TD);
             table_.append(e.getValue());
-            table_.append("</td>");
-            table_.append("</tr>");
+            table_.append(ETD);
+            table_.append(ETR);
         }
         table_.append("</table>");
-        table_.append("</body>");
-        table_.append("</html>");
+        table_.append(END_BODY);
+        table_.append(END);
         files_.addEntry(callTable_,table_.toString());
         String cssContent_ = ".f{background-color:green;}\n";
         cssContent_ += ".g{background-color:lightgreen;}\n";
@@ -155,8 +169,12 @@ public final class LinkageUtil {
         cssContent_ += ".p2{background-color:gold;}\n";
         cssContent_ += ".q2{background-color:orange;}\n";
         cssContent_ += ".n2{background-color:silver;}\n";
-        files_.addEntry("css/style.css",cssContent_);
+        files_.addEntry(CSS,cssContent_);
         return files_;
+    }
+
+    private static String link(String _rel) {
+        return "<link href=\"" + _rel + "\" rel=\"stylesheet\" type=\"text/css\"/>";
     }
 
     private static String encode(boolean _encode) {
@@ -197,11 +215,11 @@ public final class LinkageUtil {
         String tr_ = transformText(_ch);
         if (_ex.getBeginComments().containsObj(_index)) {
             _xml.insert(0, tr_);
-            _xml.insert(0, "<span class=\"c\">");
+            _xml.insert(0, ExportCst.span("c"));
             return;
         }
         if (_ex.getEndComments().containsObj(_index)) {
-            _xml.insert(0, "</span>");
+            _xml.insert(0, ExportCst.END_SPAN);
             _xml.insert(0, tr_);
             return;
         }
@@ -215,13 +233,13 @@ public final class LinkageUtil {
             return processSpace(_ch);
         }
         if (_ch == '<') {
-            return("&lt;");
+            return LT;
         }
         if (_ch == '>') {
-            return("&gt;");
+            return GT;
         }
         if (_ch == '&') {
-            return("&amp;");
+            return AMP;
         }
         return Character.toString(_ch);
     }
@@ -270,8 +288,8 @@ public final class LinkageUtil {
                         String err_ = StringUtil.join(child_.getErrorsBlock(),"\n\n");
                         int off_ = child_.getBegin();
                         int l_ = child_.getLengthHeader();
-                        list_.add(new PartOffset("<a title=\""+err_+"\" class=\"e\">",off_));
-                        list_.add(new PartOffset("</a>",off_+l_));
+                        list_.add(new PartOffset(ExportCst.anchorErr(err_),off_));
+                        list_.add(new PartOffset(ExportCst.END_ANCHOR,off_+l_));
                     }
                 }
             }
@@ -378,8 +396,8 @@ public final class LinkageUtil {
                     String err_ = StringUtil.join(child_.getErrorsBlock(),"\n\n");
                     int off_ = child_.getBegin();
                     int l_ = child_.getLengthHeader();
-                    list_.add(new PartOffset("<a title=\""+err_+"\" class=\"e\">",off_));
-                    list_.add(new PartOffset("</a>",off_+l_));
+                    list_.add(new PartOffset(ExportCst.anchorErr(err_),off_));
+                    list_.add(new PartOffset(ExportCst.END_ANCHOR,off_+l_));
                 }
             }
             if (vars_.getStack().last().isStopVisit()) {
@@ -392,7 +410,7 @@ public final class LinkageUtil {
                 int indexEnd_ = vars_.getStack().last().getIndexEnd();
                 vars_.getStack().removeQuicklyLast();
                 if (!vars_.getStack().isEmpty()) {
-                    list_.add(new PartOffset("</span>",indexEnd_));
+                    list_.add(new PartOffset(ExportCst.END_SPAN,indexEnd_));
                 }
                 child_ = redirect(vars_);
             }
@@ -415,15 +433,15 @@ public final class LinkageUtil {
     private static void processFileBlockError(FileBlock _cond, CustList<PartOffset> _parts) {
         for (GraphicErrorInterpret g: _cond.getErrorsFiles().getLi()) {
             int index_ = g.getIndexFile();
-            _parts.add(new PartOffset("<a title=\""+g.getBuiltError()+"\" class=\"e\">", index_));
-            _parts.add(new PartOffset("</a>", index_+ g.getLength()));
+            _parts.add(new PartOffset(ExportCst.anchorErr(g.getBuiltError()), index_));
+            _parts.add(new PartOffset(ExportCst.END_ANCHOR, index_+ g.getLength()));
         }
     }
     private static void processGlobalRootBlockError(BracedBlock _cond, CustList<PartOffset> _parts) {
         for (GraphicErrorInterpret g: _cond.getGlobalErrorsPars().getLi()) {
             int index_ = g.getIndexFile();
-            _parts.add(new PartOffset("<a title=\""+g.getBuiltError()+"\" class=\"e\">", index_));
-            _parts.add(new PartOffset("</a>", index_+ g.getLength()));
+            _parts.add(new PartOffset(ExportCst.anchorErr(g.getBuiltError()), index_));
+            _parts.add(new PartOffset(ExportCst.END_ANCHOR, index_+ g.getLength()));
         }
     }
     private static CustList<PartOffset> processReport(StringList _toStringOwers, FileBlock _ex, String _fileExp, Coverage _coverage, KeyWords _keyWords, LgNames _standards){
@@ -550,7 +568,7 @@ public final class LinkageUtil {
                 int indexEnd_ = vars_.getStack().last().getIndexEnd();
                 vars_.getStack().removeQuicklyLast();
                 if (!vars_.getStack().isEmpty()) {
-                    list_.add(new PartOffset("</span>", indexEnd_));
+                    list_.add(new PartOffset(ExportCst.END_SPAN, indexEnd_));
                 }
                 child_ = redirect(vars_);
             }
@@ -622,16 +640,15 @@ public final class LinkageUtil {
             AbstractCoverageResult result_ = _cov.getCoversConditions(_cond);
             String tag_;
             if (result_.isFullCovered()) {
-                tag_ = "<span class=\"f\">";
+                tag_ = ExportCst.span("f");
             } else if (result_.isPartialCovered()) {
-                tag_ = "<span class=\"p\">";
+                tag_ = ExportCst.span("p");
             } else {
-                tag_ = "<span class=\"n\">";
+                tag_ = ExportCst.span("n");
             }
             int off_ = _cond.getOffset();
             _parts.add(new PartOffset(tag_, off_));
-            tag_ = "</span>";
-            _parts.add(new PartOffset(tag_, off_ + _vars.getKeyWords().getKeyWordIf().length()));
+            _parts.add(new PartOffset(ExportCst.END_SPAN, off_ + _vars.getKeyWords().getKeyWordIf().length()));
         }
         processConditionReport(_cond,_vars, _parts, _cov);
         refLabel(_vars, _parts, _cond.getLabel(), _cond.getLabelOffset());
@@ -653,16 +670,15 @@ public final class LinkageUtil {
             AbstractCoverageResult result_ = _cov.getCoversConditions(_cond);
             String tag_;
             if (result_.isFullCovered()) {
-                tag_ = "<span class=\"f\">";
+                tag_ = ExportCst.span("f");
             } else if (result_.isPartialCovered()) {
-                tag_ = "<span class=\"p\">";
+                tag_ = ExportCst.span("p");
             } else {
-                tag_ = "<span class=\"n\">";
+                tag_ = ExportCst.span("n");
             }
             int off_ = _cond.getOffset();
             _parts.add(new PartOffset(tag_, off_));
-            tag_ = "</span>";
-            _parts.add(new PartOffset(tag_, off_ + _cond.getDelta()));
+            _parts.add(new PartOffset(ExportCst.END_SPAN, off_ + _cond.getDelta()));
         }
         processConditionReport(_cond,_vars, _parts, _cov);
         processTestCondition(_vars, _cond, _parts);
@@ -672,16 +688,15 @@ public final class LinkageUtil {
             AbstractCoverageResult result_ = _cov.getCoversConditions(_cond);
             String tag_;
             if (result_.isFullCovered()) {
-                tag_ = "<span class=\"f\">";
+                tag_ = ExportCst.span("f");
             } else if (result_.isPartialCovered()) {
-                tag_ = "<span class=\"p\">";
+                tag_ = ExportCst.span("p");
             } else {
-                tag_ = "<span class=\"n\">";
+                tag_ = ExportCst.span("n");
             }
             int off_ = _cond.getOffset();
             _parts.add(new PartOffset(tag_, off_));
-            tag_ = "</span>";
-            _parts.add(new PartOffset(tag_, off_ + _vars.getKeyWords().getKeyWordWhile().length()));
+            _parts.add(new PartOffset(ExportCst.END_SPAN, off_ + _vars.getKeyWords().getKeyWordWhile().length()));
         }
         processConditionReport(_cond,_vars, _parts, _cov);
         refLabel(_vars, _parts, _cond.getLabel(), _cond.getLabelOffset());
@@ -715,16 +730,15 @@ public final class LinkageUtil {
                 AbstractCoverageResult result_ = _cov.getCoversConditionsForMutable(_cond);
                 String tag_;
                 if (result_.isFullCovered()) {
-                    tag_ = "<span class=\"f\">";
+                    tag_ = ExportCst.span("f");
                 } else if (result_.isPartialCovered()) {
-                    tag_ = "<span class=\"p\">";
+                    tag_ = ExportCst.span("p");
                 } else {
-                    tag_ = "<span class=\"n\">";
+                    tag_ = ExportCst.span("n");
                 }
                 int off_ = _cond.getOffset();
                 _parts.add(new PartOffset(tag_, off_));
-                tag_ = "</span>";
-                _parts.add(new PartOffset(tag_, off_ + _vars.getKeyWords().getKeyWordFor().length()));
+                _parts.add(new PartOffset(ExportCst.END_SPAN, off_ + _vars.getKeyWords().getKeyWordFor().length()));
             }
             appendVars(_vars,_cond, _parts);
         }
@@ -841,16 +855,15 @@ public final class LinkageUtil {
             }
             String tag_;
             if (count_ == full_) {
-                tag_ = "<span class=\"f\">";
+                tag_ = ExportCst.span("f");
             } else if (count_ > 0) {
-                tag_ = "<span class=\"p\">";
+                tag_ = ExportCst.span("p");
             } else {
-                tag_ = "<span class=\"n\">";
+                tag_ = ExportCst.span("n");
             }
             int off_ = _cond.getOffset();
-            _parts.add(new PartOffset(tag_ + "<a title=\"" + count_ + "/" + full_ + "\">", off_));
-            tag_ = "</span>";
-            _parts.add(new PartOffset("</a>" + tag_, off_ + _vars.getKeyWords().getKeyWordSwitch().length()));
+            _parts.add(new PartOffset(tag_ + ExportCst.anchor(count_ + "/" + full_), off_));
+            _parts.add(new PartOffset(ExportCst.END_ANCHOR + ExportCst.END_SPAN, off_ + _vars.getKeyWords().getKeyWordSwitch().length()));
         }
         int off_ = _cond.getValueOffset();
         int offsetEndBlock_ = off_ + _cond.getValue().length();
@@ -862,8 +875,8 @@ public final class LinkageUtil {
         int off_ = _cond.getValueOffset();
         if (_vars.getStack().last().getCurrent() == null) {
             if (!_cond.getErr().isEmpty()) {
-                _parts.add(new PartOffset("<a title=\"" + _cond.getErr() + "\" class=\"e\">", off_));
-                _parts.add(new PartOffset("</a>", off_ + 1));
+                _parts.add(new PartOffset(ExportCst.anchorErr(_cond.getErr()), off_));
+                _parts.add(new PartOffset(ExportCst.END_ANCHOR, off_ + 1));
             }
         }
         OperationNode root_ = _cond.getRoot();
@@ -887,10 +900,8 @@ public final class LinkageUtil {
             _parts.addAllElts(_cond.getPartOffsets());
             String variableName_ = _cond.getVariableName();
             int variableOffset_ = _cond.getVariableOffset();
-            tag_ = "<a name=\"m"+variableOffset_+"\">";
-            _parts.add(new PartOffset(tag_,variableOffset_));
-            tag_ = "</a>";
-            _parts.add(new PartOffset(tag_,variableOffset_+ variableName_.trim().length()));
+            _parts.add(new PartOffset(ExportCst.anchorName(variableOffset_),variableOffset_));
+            _parts.add(new PartOffset(ExportCst.END_ANCHOR,variableOffset_+ variableName_.trim().length()));
         } else if (_cond.isBuiltEnum()) {
             int delta_ = _cond.getFieldNameOffset();
             String typeEnum_ = _cond.getTypeEnum();
@@ -902,7 +913,7 @@ public final class LinkageUtil {
             buildCoverageReport(_vars, _cond, -1, _parts, _cov, 0, off_, offsetEndBlock_, root_, 0, 0, "", false);
         }
         if (_vars.getState() == null) {
-            tag_ = "</span>";
+            tag_ = ExportCst.END_SPAN;
             _parts.add(new PartOffset(tag_,off_+ _cond.getValue().length()));
         }
     }
@@ -910,9 +921,9 @@ public final class LinkageUtil {
     private static String getCaseDefaultTag(AbstractCoverageResult _result) {
         String tag_;
         if (_result.isFullCovered()) {
-            tag_ = "<span class=\"f\">";
+            tag_ = ExportCst.span("f");
         } else {
-            tag_ = "<span class=\"n\">";
+            tag_ = ExportCst.span("n");
         }
         return tag_;
     }
@@ -926,16 +937,11 @@ public final class LinkageUtil {
             if (!variableName_.isEmpty()) {
                 StringList errs_ = _cond.getNameErrors();
                 if (!errs_.isEmpty()) {
-                    String err_ = transform(StringUtil.join(errs_,"\n\n"));
-                    String tag_ = "<a name=\"m"+variableOffset_ +"\" title=\""+err_+"\" class=\"e\">";
-                    _parts.add(new PartOffset(tag_, variableOffset_));
-                    tag_ = "</a>";
-                    _parts.add(new PartOffset(tag_, variableOffset_ + variableName_.trim().length()));
+                    _parts.add(new PartOffset(ExportCst.anchorNameErr(variableOffset_,StringUtil.join(errs_,"\n\n")), variableOffset_));
+                    _parts.add(new PartOffset(ExportCst.END_ANCHOR, variableOffset_ + variableName_.trim().length()));
                 } else {
-                    String tag_ = "<a name=\"m"+variableOffset_+"\">";
-                    _parts.add(new PartOffset(tag_,variableOffset_));
-                    tag_ = "</a>";
-                    _parts.add(new PartOffset(tag_,variableOffset_+ variableName_.trim().length()));
+                    _parts.add(new PartOffset(ExportCst.anchorName(variableOffset_),variableOffset_));
+                    _parts.add(new PartOffset(ExportCst.END_ANCHOR,variableOffset_+ variableName_.trim().length()));
                 }
             }
         } else if (_cond.isBuiltEnum()) {
@@ -962,14 +968,12 @@ public final class LinkageUtil {
         String tag_ = getCaseDefaultTag(result_);
         int off_ = _cond.getOffset();
         _parts.add(new PartOffset(tag_,off_));
-        tag_ = "</span>";
+        tag_ = ExportCst.END_SPAN;
         _parts.add(new PartOffset(tag_,off_+ _vars.getKeyWords().getKeyWordDefault().length()));
         if (!_cond.getVariableName().trim().isEmpty()) {
             off_ = _cond.getVariableOffset();
-            tag_ = "<a title=\""+transform(_cond.getInstanceTest())+"\" name=\"m"+off_+"\">";
-            _parts.add(new PartOffset(tag_,off_));
-            tag_ = "</a>";
-            _parts.add(new PartOffset(tag_,off_+_cond.getVariableName().length()));
+            _parts.add(new PartOffset(ExportCst.anchorName(off_,_cond.getInstanceTest()),off_));
+            _parts.add(new PartOffset(ExportCst.END_ANCHOR,off_+_cond.getVariableName().length()));
         }
     }
 
@@ -977,18 +981,15 @@ public final class LinkageUtil {
         if (!_cond.getVariableName().trim().isEmpty()) {
             StringList errs_ = _cond.getNameErrors();
             if (!errs_.isEmpty()) {
-                String err_ = transform(StringUtil.join(errs_,"\n\n"));
                 int off_ = _cond.getVariableOffset();
-                String tag_ = "<a name=\"m"+off_ +"\" title=\""+err_+"\" class=\"e\">";
+                String tag_ = ExportCst.anchorNameErr(off_ ,StringUtil.join(errs_,"\n\n"));
                 _parts.add(new PartOffset(tag_, off_));
-                tag_ = "</a>";
-                _parts.add(new PartOffset(tag_, off_ + _cond.getVariableName().trim().length()));
+                _parts.add(new PartOffset(ExportCst.END_ANCHOR, off_ + _cond.getVariableName().trim().length()));
             } else {
                 int off_ = _cond.getVariableOffset();
-                String tag_ = "<a title=\""+transform(_cond.getInstanceTest())+"\" name=\"m"+off_+"\">";
+                String tag_ = ExportCst.anchorName(off_,_cond.getInstanceTest());
                 _parts.add(new PartOffset(tag_,off_));
-                tag_ = "</a>";
-                _parts.add(new PartOffset(tag_,off_+_cond.getVariableName().length()));
+                _parts.add(new PartOffset(ExportCst.END_ANCHOR,off_+_cond.getVariableName().length()));
             }
         }
     }
@@ -1005,16 +1006,15 @@ public final class LinkageUtil {
             AbstractCoverageResult result_ = _cov.getCoversConditions(_cond);
             String tag_;
             if (result_.isFullCovered()) {
-                tag_ = "<span class=\"f\">";
+                tag_ = ExportCst.span("f");
             } else if (result_.isPartialCovered()) {
-                tag_ = "<span class=\"p\">";
+                tag_ = ExportCst.span("p");
             } else {
-                tag_ = "<span class=\"n\">";
+                tag_ = ExportCst.span("n");
             }
             int off_ = _cond.getOffset();
             _parts.add(new PartOffset(tag_, off_));
-            tag_ = "</span>";
-            _parts.add(new PartOffset(tag_, off_ + _vars.getKeyWords().getKeyWordWhile().length()));
+            _parts.add(new PartOffset(ExportCst.END_SPAN, off_ + _vars.getKeyWords().getKeyWordWhile().length()));
         }
         processConditionReport(_cond,_vars, _parts, _cov);
         processTestCondition(_vars, _cond, _parts);
@@ -1028,47 +1028,44 @@ public final class LinkageUtil {
     private static void processCatchEvalReport(VariablesOffsets _vars, CatchEval _cond, CustList<PartOffset> _parts, Coverage _cov) {
         processAbstractCatchEvalReport(_vars,_cond, _parts, _cov);
         _parts.addAllElts(_cond.getPartOffsets());
-        String tag_ = "<a name=\"m"+ _cond.getVariableNameOffset() +"\">";
+        String tag_ = ExportCst.anchorName(_cond.getVariableNameOffset());
         _parts.add(new PartOffset(tag_, _cond.getVariableNameOffset()));
-        tag_ = "</a>";
+        tag_ = ExportCst.END_ANCHOR;
         _parts.add(new PartOffset(tag_, _cond.getVariableNameOffset() + _cond.getVariableName().length()));
     }
     private static void processCatchEvalError(CatchEval _cond, CustList<PartOffset> _parts) {
         _parts.addAllElts(_cond.getPartOffsets());
         StringList errs_ = _cond.getNameErrors();
         if (!errs_.isEmpty()) {
-            String err_ = transform(StringUtil.join(errs_,"\n\n"));
-            String tag_ = "<a name=\"m"+ _cond.getVariableNameOffset() +"\" title=\""+err_+"\" class=\"e\">";
+            String tag_ = ExportCst.anchorNameErr(_cond.getVariableNameOffset(),StringUtil.join(errs_,"\n\n"));
             _parts.add(new PartOffset(tag_, _cond.getVariableNameOffset()));
-            tag_ = "</a>";
+            tag_ = ExportCst.END_ANCHOR;
             _parts.add(new PartOffset(tag_, _cond.getVariableNameOffset() + _cond.getVariableName().length()));
             return;
         }
-        String tag_ = "<a name=\"m"+ _cond.getVariableNameOffset() +"\">";
+        String tag_ = ExportCst.anchorName(_cond.getVariableNameOffset());
         _parts.add(new PartOffset(tag_, _cond.getVariableNameOffset()));
-        tag_ = "</a>";
+        tag_ = ExportCst.END_ANCHOR;
         _parts.add(new PartOffset(tag_, _cond.getVariableNameOffset() + _cond.getVariableName().length()));
     }
     private static void processAbstractCatchEvalReport(VariablesOffsets _vars, AbstractCatchEval _cond, CustList<PartOffset> _parts, Coverage _cov) {
         String tag_;
         if (_cov.getCatches(_cond)) {
-            tag_ = "<span class=\"f\">";
+            tag_ = ExportCst.span("f");
         } else {
-            tag_ = "<span class=\"n\">";
+            tag_ = ExportCst.span("n");
         }
         int off_ = _cond.getOffset();
         _parts.add(new PartOffset(tag_,off_));
-        tag_ = "</span>";
-        _parts.add(new PartOffset(tag_,off_+ _vars.getKeyWords().getKeyWordCatch().length()));
+        _parts.add(new PartOffset(ExportCst.END_SPAN,off_+ _vars.getKeyWords().getKeyWordCatch().length()));
     }
     private static void processDeclareVariableReport(VariablesOffsets _vars, DeclareVariable _cond, CustList<PartOffset> _parts) {
         KeyWords keyWords_ = _vars.getKeyWords();
         String keyWordVar_ = keyWords_.getKeyWordVar();
         if (StringUtil.quickEq(_cond.getClassName().trim(), keyWordVar_)) {
-            String tag_ = "<b title=\""+transform(_cond.getImportedClassName())+"\">";
+            String tag_ = ExportCst.bold(_cond.getImportedClassName());
             _parts.add(new PartOffset(tag_, _cond.getClassNameOffset()));
-            tag_ = "</b>";
-            _parts.add(new PartOffset(tag_, _cond.getClassNameOffset() + keyWordVar_.length()));
+            _parts.add(new PartOffset(ExportCst.END_BOLD, _cond.getClassNameOffset() + keyWordVar_.length()));
         } else {
             _parts.addAllElts(_cond.getPartOffsets());
         }
@@ -1088,13 +1085,12 @@ public final class LinkageUtil {
         if (StringUtil.quickEq(_clName, _keyWordVar)) {
             String tag_;
             if (_errInf.isEmpty()) {
-                tag_ = "<b title=\"" + transform(_importedClassName) + "\">";
-                _parts.add(new PartOffset(tag_, _classNameOffset));
-                tag_ = "</b>";
+                _parts.add(new PartOffset(ExportCst.bold(_importedClassName), _classNameOffset));
+                tag_ = ExportCst.END_BOLD;
             } else {
-                tag_ = "<a title=\"" + transform(_errInf) + "\" class=\"e\">";
+                tag_ = ExportCst.anchorErr(_errInf);
                 _parts.add(new PartOffset(tag_, _classNameOffset));
-                tag_ = "</a>";
+                tag_ = ExportCst.END_ANCHOR;
             }
             _parts.add(new PartOffset(tag_, _classNameOffset + _keyWordVar.length()));
         } else {
@@ -1117,10 +1113,8 @@ public final class LinkageUtil {
         if (_cond.getLabel().isEmpty()) {
             return;
         }
-        String tag_ = "<a href=\"#"+ _cond.getLabelOffsetRef() +"\">";
-        _parts.add(new PartOffset(tag_, _cond.getLabelOffset()));
-        tag_ = "</a>";
-        _parts.add(new PartOffset(tag_, _cond.getLabelOffset() +_cond.getLabel().length()));
+        _parts.add(new PartOffset(ExportCst.anchorRef("",_cond.getLabelOffsetRef()), _cond.getLabelOffset()));
+        _parts.add(new PartOffset(ExportCst.END_ANCHOR, _cond.getLabelOffset() +_cond.getLabel().length()));
     }
     private static void processBreakBlockError(BreakBlock _cond, CustList<PartOffset> _parts) {
         if (_cond.getLabel().isEmpty()) {
@@ -1128,26 +1122,19 @@ public final class LinkageUtil {
         }
         StringList errs_ = _cond.getErrorsRefLabels();
         if (!errs_.isEmpty()) {
-            String err_ = transform(StringUtil.join(errs_,"\n\n"));
-            String tag_ = "<a title=\""+ err_ +"\" class=\"e\">";
-            _parts.add(new PartOffset(tag_, _cond.getLabelOffset()));
-            tag_ = "</a>";
-            _parts.add(new PartOffset(tag_, _cond.getLabelOffset() +_cond.getLabel().length()));
+            _parts.add(new PartOffset(ExportCst.anchorErr(StringUtil.join(errs_,"\n\n")), _cond.getLabelOffset()));
+            _parts.add(new PartOffset(ExportCst.END_ANCHOR, _cond.getLabelOffset() +_cond.getLabel().length()));
             return;
         }
-        String tag_ = "<a href=\"#"+ _cond.getLabelOffsetRef() +"\">";
-        _parts.add(new PartOffset(tag_, _cond.getLabelOffset()));
-        tag_ = "</a>";
-        _parts.add(new PartOffset(tag_, _cond.getLabelOffset() +_cond.getLabel().length()));
+        _parts.add(new PartOffset(ExportCst.anchorRef("",_cond.getLabelOffsetRef()), _cond.getLabelOffset()));
+        _parts.add(new PartOffset(ExportCst.END_ANCHOR, _cond.getLabelOffset() +_cond.getLabel().length()));
     }
     private static void processContinueBlockReport(ContinueBlock _cond, CustList<PartOffset> _parts) {
         if (_cond.getLabel().isEmpty()) {
             return;
         }
-        String tag_ = "<a href=\"#"+ _cond.getLabelOffsetRef() +"\">";
-        _parts.add(new PartOffset(tag_, _cond.getLabelOffset()));
-        tag_ = "</a>";
-        _parts.add(new PartOffset(tag_, _cond.getLabelOffset() +_cond.getLabel().length()));
+        _parts.add(new PartOffset(ExportCst.anchorRef("",_cond.getLabelOffsetRef()), _cond.getLabelOffset()));
+        _parts.add(new PartOffset(ExportCst.END_ANCHOR, _cond.getLabelOffset() +_cond.getLabel().length()));
     }
     private static void processContinueBlockError(ContinueBlock _cond, CustList<PartOffset> _parts) {
         if (_cond.getLabel().isEmpty()) {
@@ -1155,17 +1142,12 @@ public final class LinkageUtil {
         }
         StringList errs_ = _cond.getErrorsRefLabels();
         if (!errs_.isEmpty()) {
-            String err_ = transform(StringUtil.join(errs_,"\n\n"));
-            String tag_ = "<a title=\""+ err_ +"\" class=\"e\">";
-            _parts.add(new PartOffset(tag_, _cond.getLabelOffset()));
-            tag_ = "</a>";
-            _parts.add(new PartOffset(tag_, _cond.getLabelOffset() +_cond.getLabel().length()));
+            _parts.add(new PartOffset(ExportCst.anchorErr(StringUtil.join(errs_,"\n\n")), _cond.getLabelOffset()));
+            _parts.add(new PartOffset(ExportCst.END_ANCHOR, _cond.getLabelOffset() +_cond.getLabel().length()));
             return;
         }
-        String tag_ = "<a href=\"#"+ _cond.getLabelOffsetRef() +"\">";
-        _parts.add(new PartOffset(tag_, _cond.getLabelOffset()));
-        tag_ = "</a>";
-        _parts.add(new PartOffset(tag_, _cond.getLabelOffset() +_cond.getLabel().length()));
+        _parts.add(new PartOffset(ExportCst.anchorRef("",_cond.getLabelOffsetRef()), _cond.getLabelOffset()));
+        _parts.add(new PartOffset(ExportCst.END_ANCHOR, _cond.getLabelOffset() +_cond.getLabel().length()));
     }
     private static void processReturnMethodReport(VariablesOffsets _vars, ReturnMethod _cond, CustList<PartOffset> _parts, Coverage _cov) {
         if (_cond.isEmpty()) {
@@ -1202,20 +1184,17 @@ public final class LinkageUtil {
             AbstractCoverageResult result_ = _cov.getCoverLoops(_cond);
             String tag_;
             if (result_.isFullCovered()) {
-                tag_ = "<span class=\"f\">";
+                tag_ = ExportCst.span("f");
             } else if (result_.isPartialCovered()) {
-                tag_ = "<span class=\"p\">";
+                tag_ = ExportCst.span("p");
             } else {
-                tag_ = "<span class=\"n\">";
+                tag_ = ExportCst.span("n");
             }
             int off_ = _cond.getOffset();
             _parts.add(new PartOffset(tag_,off_));
-            tag_ = "</span>";
-            _parts.add(new PartOffset(tag_,off_+ _vars.getKeyWords().getKeyWordIter().length()));
-            tag_ = "<a name=\"m"+ _cond.getVariableNameOffset() +"\">";
-            _parts.add(new PartOffset(tag_, _cond.getVariableNameOffset()));
-            tag_ = "</a>";
-            _parts.add(new PartOffset(tag_, _cond.getVariableNameOffset() + _cond.getVariableName().length()));
+            _parts.add(new PartOffset(ExportCst.END_SPAN,off_+ _vars.getKeyWords().getKeyWordIter().length()));
+            _parts.add(new PartOffset(ExportCst.anchorName(_cond.getVariableNameOffset()), _cond.getVariableNameOffset()));
+            _parts.add(new PartOffset(ExportCst.END_ANCHOR, _cond.getVariableNameOffset() + _cond.getVariableName().length()));
         }
         int off_ = _cond.getInitOffset();
         int offsetEndBlock_ = off_ + _cond.getInit().length();
@@ -1251,18 +1230,11 @@ public final class LinkageUtil {
         if (_vars.getStack().last().getCurrent() == null) {
             StringList errs_ = _cond.getNameErrors();
             if (!errs_.isEmpty()) {
-                String err_ = transform(StringUtil.join(errs_, "\n\n"));
-                String tag_;
-                tag_ = "<a title=\"" + err_ + "\" class=\"e\">";
-                _parts.add(new PartOffset(tag_, _cond.getVariableNameOffset()));
-                tag_ = "</a>";
-                _parts.add(new PartOffset(tag_, _cond.getVariableNameOffset() + _cond.getVariableName().length()));
+                _parts.add(new PartOffset(ExportCst.anchorErr(StringUtil.join(errs_, "\n\n")), _cond.getVariableNameOffset()));
+                _parts.add(new PartOffset(ExportCst.END_ANCHOR, _cond.getVariableNameOffset() + _cond.getVariableName().length()));
             } else {
-                String tag_;
-                tag_ = "<a name=\"m" + _cond.getVariableNameOffset() + "\">";
-                _parts.add(new PartOffset(tag_, _cond.getVariableNameOffset()));
-                tag_ = "</a>";
-                _parts.add(new PartOffset(tag_, _cond.getVariableNameOffset() + _cond.getVariableName().length()));
+                _parts.add(new PartOffset(ExportCst.anchorName(_cond.getVariableNameOffset()), _cond.getVariableNameOffset()));
+                _parts.add(new PartOffset(ExportCst.END_ANCHOR, _cond.getVariableNameOffset() + _cond.getVariableName().length()));
             }
         }
         int off_ = _cond.getInitOffset();
@@ -1297,21 +1269,19 @@ public final class LinkageUtil {
             AbstractCoverageResult result_ = _cov.getCoverLoops(_cond);
             String tagCov_;
             if (result_.isFullCovered()) {
-                tagCov_ = "<span class=\"f\">";
+                tagCov_ = ExportCst.span("f");
             } else if (result_.isPartialCovered()) {
-                tagCov_ = "<span class=\"p\">";
+                tagCov_ = ExportCst.span("p");
             } else {
-                tagCov_ = "<span class=\"n\">";
+                tagCov_ = ExportCst.span("n");
             }
             int off_ = _cond.getOffset();
             _parts.add(new PartOffset(tagCov_, off_));
             appendVars(_vars,_cond, _parts);
             String tag_;
-            tag_ = "<a name=\"m" + _cond.getVariableNameOffset() + "\">";
-            _parts.add(new PartOffset(tag_, _cond.getVariableNameOffset()));
-            tag_ = "</a>";
-            _parts.add(new PartOffset(tag_, _cond.getVariableNameOffset() + _cond.getVariableName().length()));
-            tag_ = "</span>";
+            _parts.add(new PartOffset(ExportCst.anchorName(_cond.getVariableNameOffset()), _cond.getVariableNameOffset()));
+            _parts.add(new PartOffset(ExportCst.END_ANCHOR, _cond.getVariableNameOffset() + _cond.getVariableName().length()));
+            tag_ = ExportCst.END_SPAN;
             _parts.add(new PartOffset(tag_, _cond.getVariableNameOffset() + _cond.getVariableName().length()));
         }
         int off_ = _cond.getExpressionOffset();
@@ -1325,26 +1295,15 @@ public final class LinkageUtil {
             appendVars(_vars,_cond, _parts);
             StringList errs_ = _cond.getNameErrors();
             if (!errs_.isEmpty()) {
-                String err_ = transform(StringUtil.join(errs_,"\n\n"));
-                String tag_;
-                tag_ = "<a title=\""+err_+"\" class=\"e\">";
-                _parts.add(new PartOffset(tag_, _cond.getVariableNameOffset()));
-                tag_ = "</a>";
-                _parts.add(new PartOffset(tag_, _cond.getVariableNameOffset() + _cond.getVariableName().length()));
+                _parts.add(new PartOffset(ExportCst.anchorErr(StringUtil.join(errs_,"\n\n")), _cond.getVariableNameOffset()));
+                _parts.add(new PartOffset(ExportCst.END_ANCHOR, _cond.getVariableNameOffset() + _cond.getVariableName().length()));
             } else {
-                String tag_;
-                tag_ = "<a name=\"m"+ _cond.getVariableNameOffset() +"\">";
-                _parts.add(new PartOffset(tag_, _cond.getVariableNameOffset()));
-                tag_ = "</a>";
-                _parts.add(new PartOffset(tag_, _cond.getVariableNameOffset() + _cond.getVariableName().length()));
+                _parts.add(new PartOffset(ExportCst.anchorName(_cond.getVariableNameOffset()), _cond.getVariableNameOffset()));
+                _parts.add(new PartOffset(ExportCst.END_ANCHOR, _cond.getVariableNameOffset() + _cond.getVariableName().length()));
             }
             if (!_cond.getSepErrors().isEmpty()) {
-                String err_ = transform(StringUtil.join(_cond.getSepErrors(),"\n\n"));
-                String tag_;
-                tag_ = "<a title=\""+err_+"\" class=\"e\">";
-                _parts.add(new PartOffset(tag_, _cond.getSepOffset()));
-                tag_ = "</a>";
-                _parts.add(new PartOffset(tag_, _cond.getSepOffset() + 1));
+                _parts.add(new PartOffset(ExportCst.anchorErr(StringUtil.join(_cond.getSepErrors(),"\n\n")), _cond.getSepOffset()));
+                _parts.add(new PartOffset(ExportCst.END_ANCHOR, _cond.getSepOffset() + 1));
             }
         }
         int off_ = _cond.getExpressionOffset();
@@ -1358,10 +1317,9 @@ public final class LinkageUtil {
         String keyWordVar_ = keyWords_.getKeyWordVar();
         if (StringUtil.quickEq(_cond.getClassName().trim(), keyWordVar_)) {
             String tag_;
-            tag_ = "<b title=\""+transform(_cond.getImportedClassName())+"\">";
+            tag_ = ExportCst.bold(_cond.getImportedClassName());
             _parts.add(new PartOffset(tag_, _cond.getClassNameOffset()));
-            tag_ = "</b>";
-            _parts.add(new PartOffset(tag_, _cond.getClassNameOffset() + keyWordVar_.length()));
+            _parts.add(new PartOffset(ExportCst.END_BOLD, _cond.getClassNameOffset() + keyWordVar_.length()));
         } else {
             _parts.addAllElts(_cond.getPartOffsets());
         }
@@ -1372,29 +1330,24 @@ public final class LinkageUtil {
             AbstractCoverageResult result_ = _cov.getCoverLoops(_cond);
             String tagCov_;
             if (result_.isFullCovered()) {
-                tagCov_ = "<span class=\"f\">";
+                tagCov_ = ExportCst.span("f");
             } else if (result_.isPartialCovered()) {
-                tagCov_ = "<span class=\"p\">";
+                tagCov_ = ExportCst.span("p");
             } else {
-                tagCov_ = "<span class=\"n\">";
+                tagCov_ = ExportCst.span("n");
             }
             int off_ = _cond.getOffset();
             _parts.add(new PartOffset(tagCov_, off_));
             KeyWords keyWords_ = _vars.getKeyWords();
             String keyWordVar_ = keyWords_.getKeyWordVar();
             appendFirstVar(_cond, _parts, keyWordVar_);
-            String tagVar_;
-            tagVar_ = "<a name=\"m" + _cond.getVariableNameOffsetFirst() + "\">";
-            _parts.add(new PartOffset(tagVar_, _cond.getVariableNameOffsetFirst()));
-            tagVar_ = "</a>";
-            _parts.add(new PartOffset(tagVar_, _cond.getVariableNameOffsetFirst() + _cond.getVariableNameFirst().length()));
+            _parts.add(new PartOffset(ExportCst.anchorName(_cond.getVariableNameOffsetFirst()), _cond.getVariableNameOffsetFirst()));
+            _parts.add(new PartOffset(ExportCst.END_ANCHOR, _cond.getVariableNameOffsetFirst() + _cond.getVariableNameFirst().length()));
             appendSecondVar(_cond, _parts, keyWordVar_);
             String tag_;
-            tag_ = "<a name=\"m" + _cond.getVariableNameOffsetSecond() + "\">";
-            _parts.add(new PartOffset(tag_, _cond.getVariableNameOffsetSecond()));
-            tag_ = "</a>";
-            _parts.add(new PartOffset(tag_, _cond.getVariableNameOffsetSecond() + _cond.getVariableNameSecond().length()));
-            tag_ = "</span>";
+            _parts.add(new PartOffset(ExportCst.anchorName(_cond.getVariableNameOffsetSecond()), _cond.getVariableNameOffsetSecond()));
+            _parts.add(new PartOffset(ExportCst.END_ANCHOR, _cond.getVariableNameOffsetSecond() + _cond.getVariableNameSecond().length()));
+            tag_ = ExportCst.END_SPAN;
             _parts.add(new PartOffset(tag_, _cond.getVariableNameOffsetSecond() + _cond.getVariableNameSecond().length()));
         }
         int off_ = _cond.getExpressionOffset();
@@ -1407,10 +1360,9 @@ public final class LinkageUtil {
     private static void appendSecondVar(ForEachTable _cond, CustList<PartOffset> _parts, String _keyWordVar) {
         if (StringUtil.quickEq(_cond.getClassNameSecond().trim(), _keyWordVar)) {
             String tag_;
-            tag_ = "<b title=\""+transform(_cond.getImportedClassNameSecond())+"\">";
+            tag_ = ExportCst.bold(_cond.getImportedClassNameSecond());
             _parts.add(new PartOffset(tag_, _cond.getClassNameOffsetSecond()));
-            tag_ = "</b>";
-            _parts.add(new PartOffset(tag_, _cond.getClassNameOffsetSecond() + _keyWordVar.length()));
+            _parts.add(new PartOffset(ExportCst.END_BOLD, _cond.getClassNameOffsetSecond() + _keyWordVar.length()));
         } else {
             _parts.addAllElts(_cond.getPartOffsetsSecond());
         }
@@ -1423,42 +1375,24 @@ public final class LinkageUtil {
             appendFirstVar(_cond, _parts, keyWordVar_);
             StringList errs_ = _cond.getNameErrorsFirst();
             if (!errs_.isEmpty()) {
-                String err_ = transform(StringUtil.join(errs_, "\n\n"));
-                String tagVar_;
-                tagVar_ = "<a title=\"" + err_ + "\" class=\"e\">";
-                _parts.add(new PartOffset(tagVar_, _cond.getVariableNameOffsetFirst()));
-                tagVar_ = "</a>";
-                _parts.add(new PartOffset(tagVar_, _cond.getVariableNameOffsetFirst() + _cond.getVariableNameFirst().length()));
+                _parts.add(new PartOffset(ExportCst.anchorErr(StringUtil.join(errs_, "\n\n")), _cond.getVariableNameOffsetFirst()));
+                _parts.add(new PartOffset(ExportCst.END_ANCHOR, _cond.getVariableNameOffsetFirst() + _cond.getVariableNameFirst().length()));
             } else {
-                String tagVar_;
-                tagVar_ = "<a name=\"m" + _cond.getVariableNameOffsetFirst() + "\">";
-                _parts.add(new PartOffset(tagVar_, _cond.getVariableNameOffsetFirst()));
-                tagVar_ = "</a>";
-                _parts.add(new PartOffset(tagVar_, _cond.getVariableNameOffsetFirst() + _cond.getVariableNameFirst().length()));
+                _parts.add(new PartOffset(ExportCst.anchorName(_cond.getVariableNameOffsetFirst()), _cond.getVariableNameOffsetFirst()));
+                _parts.add(new PartOffset(ExportCst.END_ANCHOR, _cond.getVariableNameOffsetFirst() + _cond.getVariableNameFirst().length()));
             }
             appendSecondVar(_cond, _parts, keyWordVar_);
             errs_ = _cond.getNameErrorsSecond();
             if (!errs_.isEmpty()) {
-                String err_ = transform(StringUtil.join(errs_, "\n\n"));
-                String tag_;
-                tag_ = "<a title=\"" + err_ + "\" class=\"e\">";
-                _parts.add(new PartOffset(tag_, _cond.getVariableNameOffsetSecond()));
-                tag_ = "</a>";
-                _parts.add(new PartOffset(tag_, _cond.getVariableNameOffsetSecond() + _cond.getVariableNameSecond().length()));
+                _parts.add(new PartOffset(ExportCst.anchorErr(StringUtil.join(errs_, "\n\n")), _cond.getVariableNameOffsetSecond()));
+                _parts.add(new PartOffset(ExportCst.END_ANCHOR, _cond.getVariableNameOffsetSecond() + _cond.getVariableNameSecond().length()));
             } else {
-                String tag_;
-                tag_ = "<a name=\"m" + _cond.getVariableNameOffsetSecond() + "\">";
-                _parts.add(new PartOffset(tag_, _cond.getVariableNameOffsetSecond()));
-                tag_ = "</a>";
-                _parts.add(new PartOffset(tag_, _cond.getVariableNameOffsetSecond() + _cond.getVariableNameSecond().length()));
+                _parts.add(new PartOffset(ExportCst.anchorName(_cond.getVariableNameOffsetSecond()), _cond.getVariableNameOffsetSecond()));
+                _parts.add(new PartOffset(ExportCst.END_ANCHOR, _cond.getVariableNameOffsetSecond() + _cond.getVariableNameSecond().length()));
             }
             if (!_cond.getSepErrors().isEmpty()) {
-                String err_ = transform(StringUtil.join(_cond.getSepErrors(), "\n\n"));
-                String tag_;
-                tag_ = "<a title=\"" + err_ + "\" class=\"e\">";
-                _parts.add(new PartOffset(tag_, _cond.getSepOffset()));
-                tag_ = "</a>";
-                _parts.add(new PartOffset(tag_, _cond.getSepOffset() + 1));
+                _parts.add(new PartOffset(ExportCst.anchorErr(StringUtil.join(_cond.getSepErrors(), "\n\n")), _cond.getSepOffset()));
+                _parts.add(new PartOffset(ExportCst.END_ANCHOR, _cond.getSepOffset() + 1));
             }
         }
         int off_ = _cond.getExpressionOffset();
@@ -1470,10 +1404,9 @@ public final class LinkageUtil {
     private static void appendFirstVar(ForEachTable _cond, CustList<PartOffset> _parts, String _keyWordVar) {
         if (StringUtil.quickEq(_cond.getClassNameFirst().trim(), _keyWordVar)) {
             String tag_;
-            tag_ = "<b title=\""+transform(_cond.getImportedClassNameFirst())+"\">";
+            tag_ = ExportCst.bold(_cond.getImportedClassNameFirst());
             _parts.add(new PartOffset(tag_, _cond.getClassNameOffsetFirst()));
-            tag_ = "</b>";
-            _parts.add(new PartOffset(tag_, _cond.getClassNameOffsetFirst() + _keyWordVar.length()));
+            _parts.add(new PartOffset(ExportCst.END_BOLD, _cond.getClassNameOffsetFirst() + _keyWordVar.length()));
         } else {
             _parts.addAllElts(_cond.getPartOffsetsFirst());
         }
@@ -1506,10 +1439,8 @@ public final class LinkageUtil {
                 int fieldNameOffest_ = _cond.getFieldNameOffest();
                 addParts(_vars, fileName_, ctor_, fieldNameOffest_, uniqueFieldName_.length(), list_, list_, _parts, fieldNameOffest_);
             } else {
-                String tag_ = "<a name=\"m" + _cond.getFieldNameOffest() + "\">";
-                _parts.add(new PartOffset(tag_, _cond.getFieldNameOffest()));
-                tag_ = "</a>";
-                _parts.add(new PartOffset(tag_, _cond.getFieldNameOffest() + uniqueFieldName_.length()));
+                _parts.add(new PartOffset(ExportCst.anchorName(_cond.getFieldNameOffest()), _cond.getFieldNameOffest()));
+                _parts.add(new PartOffset(ExportCst.END_ANCHOR, _cond.getFieldNameOffest() + uniqueFieldName_.length()));
             }
             _parts.addAllElts(_cond.getTypePartOffsets());
         }
@@ -1554,20 +1485,18 @@ public final class LinkageUtil {
             StringList list_ = new StringList(_cond.getNameErrors());
             if (uniqueFieldName_.trim().isEmpty()) {
                 String err_ = getLineErr(list_);
-                String tag_ = "<a name=\"m" + _cond.getFieldNameOffest() + "\" title=\"" + err_ + "\" class=\"e\">";
+                String tag_ = ExportCst.anchorNameErr(_cond.getFieldNameOffest(), err_);
                 _parts.add(new PartOffset(tag_, _cond.getFieldNameOffest()));
-                tag_ = "</a>";
-                _parts.add(new PartOffset(tag_, _cond.getFieldNameOffest() + 1));
+                _parts.add(new PartOffset(ExportCst.END_ANCHOR, _cond.getFieldNameOffest() + 1));
                 _vars.getStack().last().setIndexAnnotationGroup(-1);
                 return;
             }
             if (inst_ == null) {
                 list_.addAllElts(_cond.getRoot().getErrs());
                 String err_ = getLineErr(list_);
-                String tag_ = "<a name=\"m" + _cond.getFieldNameOffest() + "\" title=\"" + err_ + "\" class=\"e\">";
+                String tag_ = ExportCst.anchorNameErr(_cond.getFieldNameOffest(), err_);
                 _parts.add(new PartOffset(tag_, _cond.getFieldNameOffest()));
-                tag_ = "</a>";
-                _parts.add(new PartOffset(tag_, _cond.getFieldNameOffest() + uniqueFieldName_.trim().length()));
+                _parts.add(new PartOffset(ExportCst.END_ANCHOR, _cond.getFieldNameOffest() + uniqueFieldName_.trim().length()));
                 _vars.getStack().last().setIndexAnnotationGroup(-1);
                 return;
             }
@@ -1580,13 +1509,12 @@ public final class LinkageUtil {
             } else {
                 String tag_;
                 if (!list_.isEmpty()) {
-                    tag_ = "<a name=\"m" + _cond.getFieldNameOffest() + "\" title=\"" + err_ + "\" class=\"e\">";
+                    tag_ = ExportCst.anchorNameErr(_cond.getFieldNameOffest(), err_);
                 } else {
-                    tag_ = "<a name=\"m" + _cond.getFieldNameOffest() + "\">";
+                    tag_ = ExportCst.anchorName(_cond.getFieldNameOffest());
                 }
                 _parts.add(new PartOffset(tag_, _cond.getFieldNameOffest()));
-                tag_ = "</a>";
-                _parts.add(new PartOffset(tag_, _cond.getFieldNameOffest() + uniqueFieldName_.length()));
+                _parts.add(new PartOffset(ExportCst.END_ANCHOR, _cond.getFieldNameOffest() + uniqueFieldName_.length()));
             }
             _parts.addAllElts(_cond.getTypePartOffsets());
         }
@@ -1635,9 +1563,9 @@ public final class LinkageUtil {
                 if (_cond.getValue().trim().isEmpty()) {
                     blOffset_ = _cond.getClassNameOffset() + _cond.getClassName().length();
                 }
-                _parts.add(new PartOffset("<a title=\"" + err_ + "\" class=\"e\">", blOffset_));
+                _parts.add(new PartOffset(ExportCst.anchorErr(err_), blOffset_));
                 int endBl_ = blOffset_ + Math.max(1, _cond.getValue().length());
-                _parts.add(new PartOffset("</a>", endBl_));
+                _parts.add(new PartOffset(ExportCst.END_ANCHOR, endBl_));
                 _vars.getStack().last().setIndexAnnotationGroup(-1);
                 return;
             }
@@ -1689,8 +1617,8 @@ public final class LinkageUtil {
             _vars.getStack().last().setIndexAnnotationGroup(0);
             k_ = _vars.getStack().last().getIndexAnnotationGroup();
             int begName_ = _cond.getNameOffset();
-            _parts.add(new PartOffset("<a name=\"m"+begName_+"\">",begName_));
-            _parts.add(new PartOffset("</a>", _cond.getLeftPar()));
+            _parts.add(new PartOffset(ExportCst.anchorName(begName_),begName_));
+            _parts.add(new PartOffset(ExportCst.END_ANCHOR, _cond.getLeftPar()));
         }
         int len_ = _cond.getParametersNamesOffset().size();
         for (int i = k_; i < len_; i++) {
@@ -1702,8 +1630,8 @@ public final class LinkageUtil {
             _parts.addAllElts(_cond.getPartOffsetsParams().get(i));
             Integer off_ = _cond.getParametersNamesOffset().get(i);
             String param_ = _cond.getParametersNames().get(i);
-            _parts.add(new PartOffset("<a name=\"m"+off_+"\">",off_));
-            _parts.add(new PartOffset("</a>",off_+param_.length()));
+            _parts.add(new PartOffset(ExportCst.anchorName(off_),off_));
+            _parts.add(new PartOffset(ExportCst.END_ANCHOR,off_+param_.length()));
         }
         _vars.getStack().last().setIndexAnnotationGroup(-1);
     }
@@ -1719,12 +1647,11 @@ public final class LinkageUtil {
             int begName_ = _cond.getNameOffset();
             StringList errsName_ = _cond.getNameErrors();
             if (errsName_.isEmpty()) {
-                _parts.add(new PartOffset("<a name=\"m"+begName_+"\">",begName_));
+                _parts.add(new PartOffset(ExportCst.anchorName(begName_),begName_));
             } else {
-                String err_ = transform(StringUtil.join(errsName_,"\n\n"));
-                _parts.add(new PartOffset("<a name=\"m"+begName_+"\" title=\""+err_+"\" class=\"e\">",begName_));
+                _parts.add(new PartOffset(ExportCst.anchorNameErr(begName_,StringUtil.join(errsName_,"\n\n")),begName_));
             }
-            _parts.add(new PartOffset("</a>", _cond.getLeftPar()));
+            _parts.add(new PartOffset(ExportCst.END_ANCHOR, _cond.getLeftPar()));
         }
         int len_ = _cond.getParametersNamesOffset().size();
         for (int i = k_; i < len_; i++) {
@@ -1738,12 +1665,11 @@ public final class LinkageUtil {
             String param_ = _cond.getParametersNames().get(i);
             StringList errs_ = _cond.getParamErrors().get(i);
             if (errs_.isEmpty()) {
-                _parts.add(new PartOffset("<a name=\"m"+off_+"\">",off_));
+                _parts.add(new PartOffset(ExportCst.anchorName(off_),off_));
             } else {
-                String err_ = transform(StringUtil.join(errs_,"\n\n"));
-                _parts.add(new PartOffset("<a name=\"m"+off_+"\" title=\""+err_+"\" class=\"e\">",off_));
+                _parts.add(new PartOffset(ExportCst.anchorNameErr(off_,StringUtil.join(errs_,"\n\n")),off_));
             }
-            _parts.add(new PartOffset("</a>",off_+param_.length()));
+            _parts.add(new PartOffset(ExportCst.END_ANCHOR,off_+param_.length()));
         }
         _vars.getStack().last().setIndexAnnotationGroup(-1);
     }
@@ -1764,8 +1690,8 @@ public final class LinkageUtil {
                     OperatorBlock op_ = (OperatorBlock) _cond;
                     int lenImp_ = op_.getImports().size();
                     for (int i = 0; i < lenImp_; i++) {
-                        _parts.add(new PartOffset("<span class=\"i\">", op_.getImportsOffset().get(i)));
-                        _parts.add(new PartOffset("</span>", op_.getImportsOffset().get(i) + op_.getImports().get(i).length()));
+                        _parts.add(new PartOffset(ExportCst.span("i"), op_.getImportsOffset().get(i)));
+                        _parts.add(new PartOffset(ExportCst.END_SPAN, op_.getImportsOffset().get(i) + op_.getImports().get(i).length()));
                     }
                 }
                 _parts.addAllElts(_cond.getPartOffsetsReturn());
@@ -1835,7 +1761,7 @@ public final class LinkageUtil {
             _vars.getStack().last().setStopVisit(true);
             return;
         }
-        _parts.add(new PartOffset("<span class=\"t\">", _cond.getBegin()));
+        _parts.add(new PartOffset(ExportCst.span("t"), _cond.getBegin()));
     }
 
 
@@ -1856,8 +1782,8 @@ public final class LinkageUtil {
                     OperatorBlock op_ = (OperatorBlock) _cond;
                     int lenImp_ = op_.getImports().size();
                     for (int i = 0; i < lenImp_; i++) {
-                        _parts.add(new PartOffset("<span class=\"i\">", op_.getImportsOffset().get(i)));
-                        _parts.add(new PartOffset("</span>", op_.getImportsOffset().get(i) + op_.getImports().get(i).length()));
+                        _parts.add(new PartOffset(ExportCst.span("i"), op_.getImportsOffset().get(i)));
+                        _parts.add(new PartOffset(ExportCst.END_SPAN, op_.getImportsOffset().get(i) + op_.getImports().get(i).length()));
                     }
                 }
                 _parts.addAllElts(_cond.getPartOffsetsReturn());
@@ -1946,7 +1872,7 @@ public final class LinkageUtil {
             _vars.getStack().last().setStopVisit(true);
             return;
         }
-        _parts.add(new PartOffset("<span class=\"t\">", _cond.getBegin()));
+        _parts.add(new PartOffset(ExportCst.span("t"), _cond.getBegin()));
     }
 
     private static void processAnnotationMethodBlockReport(VariablesOffsets _vars, NamedCalledFunctionBlock _cond, CustList<PartOffset> _parts, Coverage _cov) {
@@ -2011,14 +1937,13 @@ public final class LinkageUtil {
         errs_.addAllElts(_list);
         if (errs_.isEmpty()) {
             int endName_ = _begName + _len;
-            _parts.add(new PartOffset("<a name=\"m"+_begName+"\">",_begName));
-            _parts.add(new PartOffset("</a>",endName_));
+            _parts.add(new PartOffset(ExportCst.anchorName(_begName),_begName));
+            _parts.add(new PartOffset(ExportCst.END_ANCHOR,endName_));
             return;
         }
-        String err_ = transform(StringUtil.join(errs_,"\n\n"));
         int endName_ = _begName + Math.max(_len,1);
-        _parts.add(new PartOffset("<a name=\"m"+_begName+"\" title=\""+err_+"\" class=\"e\">",_begName));
-        _parts.add(new PartOffset("</a>",endName_));
+        _parts.add(new PartOffset(ExportCst.anchorNameErr(_begName,StringUtil.join(errs_,"\n\n")),_begName));
+        _parts.add(new PartOffset(ExportCst.END_ANCHOR,endName_));
     }
     private static void processInnerElementBlockReport(VariablesOffsets _vars, InnerElementBlock _cond, CustList<PartOffset> _parts, Coverage _cov) {
         AbstractInstancingOperation inst_ = (AbstractInstancingOperation) _cond.getRoot().getFirstChild().getNextSibling();
@@ -2037,10 +1962,8 @@ public final class LinkageUtil {
                 int fieldNameOffest_ = _cond.getFieldNameOffest();
                 addParts(_vars, fileName_, ctor_, fieldNameOffest_, uniqueFieldName_.length(), list_, list_, _parts, fieldNameOffest_);
             } else {
-                String tag_ = "<a name=\"m" + _cond.getFieldNameOffest() + "\">";
-                _parts.add(new PartOffset(tag_, _cond.getFieldNameOffest()));
-                tag_ = "</a>";
-                _parts.add(new PartOffset(tag_, _cond.getFieldNameOffest() + uniqueFieldName_.length()));
+                _parts.add(new PartOffset(ExportCst.anchorName(_cond.getFieldNameOffest()), _cond.getFieldNameOffest()));
+                _parts.add(new PartOffset(ExportCst.END_ANCHOR, _cond.getFieldNameOffest() + uniqueFieldName_.length()));
             }
             _parts.addAllElts(_cond.getTypePartOffsets());
             _vars.getStack().last().setIndexAnnotationGroup(0);
@@ -2082,20 +2005,18 @@ public final class LinkageUtil {
             StringList list_ = new StringList(_cond.getNameErrors());
             if (uniqueFieldName_.trim().isEmpty()) {
                 String err_ = getLineErr(list_);
-                String tag_ = "<a name=\"m" + _cond.getFieldNameOffest() + "\" title=\"" + err_ + "\" class=\"e\">";
+                String tag_ = ExportCst.anchorNameErr(_cond.getFieldNameOffest(), err_);
                 _parts.add(new PartOffset(tag_, _cond.getFieldNameOffest()));
-                tag_ = "</a>";
-                _parts.add(new PartOffset(tag_, _cond.getFieldNameOffest() + 1));
+                _parts.add(new PartOffset(ExportCst.END_ANCHOR, _cond.getFieldNameOffest() + 1));
                 return;
             }
             if (inst_ == null) {
                 errs_.addAllElts(_cond.getRoot().getErrs());
                 list_.addAllElts(errs_);
                 String err_ = getLineErr(list_);
-                String tag_ = "<a name=\"m" + _cond.getFieldNameOffest() + "\" title=\"" + err_ + "\" class=\"e\">";
+                String tag_ = ExportCst.anchorNameErr(_cond.getFieldNameOffest(), err_);
                 _parts.add(new PartOffset(tag_, _cond.getFieldNameOffest()));
-                tag_ = "</a>";
-                _parts.add(new PartOffset(tag_, _cond.getFieldNameOffest() + uniqueFieldName_.trim().length()));
+                _parts.add(new PartOffset(ExportCst.END_ANCHOR, _cond.getFieldNameOffest() + uniqueFieldName_.trim().length()));
                 return;
             }
             list_.addAllElts(inst_.getErrs());
@@ -2107,13 +2028,12 @@ public final class LinkageUtil {
             } else {
                 String tag_;
                 if (!list_.isEmpty()) {
-                    tag_ = "<a name=\"m" + _cond.getFieldNameOffest() + "\" title=\"" + err_ + "\" class=\"e\">";
+                    tag_ = ExportCst.anchorNameErr(_cond.getFieldNameOffest(),err_);
                 } else {
-                    tag_ = "<a name=\"m" + _cond.getFieldNameOffest() + "\">";
+                    tag_ = ExportCst.anchorName(_cond.getFieldNameOffest());
                 }
                 _parts.add(new PartOffset(tag_, _cond.getFieldNameOffest()));
-                tag_ = "</a>";
-                _parts.add(new PartOffset(tag_, _cond.getFieldNameOffest() + uniqueFieldName_.length()));
+                _parts.add(new PartOffset(ExportCst.END_ANCHOR, _cond.getFieldNameOffest() + uniqueFieldName_.length()));
             }
             _parts.addAllElts(_cond.getTypePartOffsets());
             _vars.getStack().last().setIndexAnnotationGroup(0);
@@ -2129,11 +2049,7 @@ public final class LinkageUtil {
     }
 
     private static String getLineErr(StringList _list) {
-        String err_="";
-        if (!_list.isEmpty()) {
-            err_ = LinkageUtil.transform(StringUtil.join(_list,"\n\n"));
-        }
-        return err_;
+        return StringUtil.join(_list,"\n\n");
     }
 
     private static void processRootBlockReport(VariablesOffsets _vars, RootBlock _cond, CustList<PartOffset> _parts, Coverage _cov) {
@@ -2147,7 +2063,7 @@ public final class LinkageUtil {
             return;
         }
         if (_cond instanceof AnonymousTypeBlock) {
-            _parts.add(new PartOffset("<span class=\"t\">", _cond.getBegin()));
+            _parts.add(new PartOffset(ExportCst.span("t"), _cond.getBegin()));
         } else {
             processAnnotationReport(_vars, _cond, _parts, _cov);
         }
@@ -2156,13 +2072,13 @@ public final class LinkageUtil {
         }
         int len_ = _cond.getImports().size();
         for (int i = 0; i < len_; i++) {
-            _parts.add(new PartOffset("<span class=\"i\">", _cond.getImportsOffset().get(i)));
-            _parts.add(new PartOffset("</span>", _cond.getImportsOffset().get(i)+ _cond.getImports().get(i).length()));
+            _parts.add(new PartOffset(ExportCst.span("i"), _cond.getImportsOffset().get(i)));
+            _parts.add(new PartOffset(ExportCst.END_SPAN, _cond.getImportsOffset().get(i)+ _cond.getImports().get(i).length()));
         }
         processInterfaceInit(_cond, _parts);
         int idRowCol_ = _cond.getIdRowCol();
-        _parts.add(new PartOffset("<a name=\"m"+ idRowCol_ +"\">", idRowCol_));
-        _parts.add(new PartOffset("</a>", idRowCol_ + _cond.getNameLength()));
+        _parts.add(new PartOffset(ExportCst.anchorName(idRowCol_), idRowCol_));
+        _parts.add(new PartOffset(ExportCst.END_ANCHOR, idRowCol_ + _cond.getNameLength()));
         for (PartOffset p: _cond.getConstraintsParts()) {
             _parts.add(p);
         }
@@ -2183,7 +2099,7 @@ public final class LinkageUtil {
             return;
         }
         if (_cond instanceof AnonymousTypeBlock) {
-            _parts.add(new PartOffset("<span class=\"t\">", _cond.getBegin()));
+            _parts.add(new PartOffset(ExportCst.span("t"), _cond.getBegin()));
         } else {
             processAnnotationError(_vars, _cond, _parts);
         }
@@ -2195,8 +2111,8 @@ public final class LinkageUtil {
         }
         int len_ = _cond.getImports().size();
         for (int i = 0; i < len_; i++) {
-            _parts.add(new PartOffset("<span class=\"i\">", _cond.getImportsOffset().get(i)));
-            _parts.add(new PartOffset("</span>", _cond.getImportsOffset().get(i)+ _cond.getImports().get(i).length()));
+            _parts.add(new PartOffset(ExportCst.span("i"), _cond.getImportsOffset().get(i)));
+            _parts.add(new PartOffset(ExportCst.END_SPAN, _cond.getImportsOffset().get(i)+ _cond.getImports().get(i).length()));
         }
         processInterfaceInit(_cond, _parts);
         int nameLength_ = _cond.getNameLength();
@@ -2204,11 +2120,11 @@ public final class LinkageUtil {
             StringList list_ = _cond.getNameErrors();
             int idRowCol_ = _cond.getIdRowCol();
             if (!list_.isEmpty()) {
-                _parts.add(new PartOffset("<a name=\"m"+ idRowCol_ +"\" title=\""+ LinkageUtil.transform(StringUtil.join(list_,"\n\n"))+"\" class=\"e\">", idRowCol_));
+                _parts.add(new PartOffset(ExportCst.anchorNameErr(idRowCol_,StringUtil.join(list_,"\n\n")), idRowCol_));
             } else {
-                _parts.add(new PartOffset("<a name=\"m"+ idRowCol_ +"\">", idRowCol_));
+                _parts.add(new PartOffset(ExportCst.anchorName(idRowCol_), idRowCol_));
             }
-            _parts.add(new PartOffset("</a>", idRowCol_ + nameLength_));
+            _parts.add(new PartOffset(ExportCst.END_ANCHOR, idRowCol_ + nameLength_));
         }
         for (PartOffset p: _cond.getConstraintsParts()) {
             _parts.add(p);
@@ -2225,8 +2141,8 @@ public final class LinkageUtil {
     private static void processRootHeaderError(RootBlock _cond, CustList<PartOffset> _parts) {
         if (!_cond.getErrorsBlock().isEmpty()) {
             StringList listCat_ = _cond.getErrorsBlock();
-            _parts.add(new PartOffset("<a title=\"" + LinkageUtil.transform(StringUtil.join(listCat_, "\n\n")) + "\" class=\"e\">", _cond.getBegin()));
-            _parts.add(new PartOffset("</a>", _cond.getBegin() + _cond.getLengthHeader()));
+            _parts.add(new PartOffset(ExportCst.anchorErr(StringUtil.join(listCat_, "\n\n")), _cond.getBegin()));
+            _parts.add(new PartOffset(ExportCst.END_ANCHOR, _cond.getBegin() + _cond.getLengthHeader()));
         }
     }
 
@@ -2242,8 +2158,8 @@ public final class LinkageUtil {
     private static void processFileBlockReport(FileBlock _cond, CustList<PartOffset> _parts) {
         int len_ = _cond.getImports().size();
         for (int i = 0; i < len_; i++) {
-            _parts.add(new PartOffset("<span class=\"i\">", _cond.getImportsOffset().get(i)));
-            _parts.add(new PartOffset("</span>", _cond.getImportsOffset().get(i)+ _cond.getImports().get(i).length()));
+            _parts.add(new PartOffset(ExportCst.span("i"), _cond.getImportsOffset().get(i)));
+            _parts.add(new PartOffset(ExportCst.END_SPAN, _cond.getImportsOffset().get(i)+ _cond.getImports().get(i).length()));
         }
     }
     private static void processAnnotationReport(VariablesOffsets _vars, RootBlock _cond, CustList<PartOffset> _parts, Coverage _cov) {
@@ -2410,8 +2326,8 @@ public final class LinkageUtil {
             _parts.addAllElts(_cond.getPartOffsetsParams().get(i));
             Integer off_ = _cond.getParametersNamesOffset().get(i);
             String param_ = _cond.getParametersNames().get(i);
-            _parts.add(new PartOffset("<a name=\"m"+off_+"\">",off_));
-            _parts.add(new PartOffset("</a>",off_+param_.length()));
+            _parts.add(new PartOffset(ExportCst.anchorName(off_),off_));
+            _parts.add(new PartOffset(ExportCst.END_ANCHOR,off_+param_.length()));
         }
         _vars.getStack().last().setIndexAnnotationGroup(-1);
     }
@@ -2444,16 +2360,14 @@ public final class LinkageUtil {
             if (errs_.isEmpty()) {
                 StringList warns_ = _cond.getParamWarns().get(i);
                 if (!warns_.isEmpty()) {
-                    String warn_ = transform(StringUtil.join(warns_,"\n\n"));
-                    _parts.add(new PartOffset("<a title=\""+warn_+"\" name=\"m"+off_+"\" class=\"w\">",off_));
+                    _parts.add(new PartOffset(ExportCst.anchorNameWar(off_,StringUtil.join(warns_,"\n\n")),off_));
                 } else {
-                    _parts.add(new PartOffset("<a name=\"m"+off_+"\">",off_));
+                    _parts.add(new PartOffset(ExportCst.anchorName(off_),off_));
                 }
-                _parts.add(new PartOffset("</a>",off_+param_.length()));
+                _parts.add(new PartOffset(ExportCst.END_ANCHOR,off_+param_.length()));
             } else {
-                String err_ = transform(StringUtil.join(errs_,"\n\n"));
-                _parts.add(new PartOffset("<a title=\""+err_+"\" class=\"e\">",off_));
-                _parts.add(new PartOffset("</a>",off_+Math.max(1,param_.length())));
+                _parts.add(new PartOffset(ExportCst.anchorErr(StringUtil.join(errs_,"\n\n")),off_));
+                _parts.add(new PartOffset(ExportCst.END_ANCHOR,off_+Math.max(1,param_.length())));
             }
         }
         _vars.getStack().last().setIndexAnnotationGroup(-1);
@@ -2482,8 +2396,8 @@ public final class LinkageUtil {
         int off_ =  _cond.getConditionOffset();
         if (_vars.getStack().last().getCurrent() == null) {
             if (!_cond.getErr().isEmpty()) {
-                _parts.add(new PartOffset("<a title=\"" + _cond.getErr() + "\" class=\"e\">", off_));
-                _parts.add(new PartOffset("</a>", off_ + 1));
+                _parts.add(new PartOffset(ExportCst.anchorErr(_cond.getErr()), off_));
+                _parts.add(new PartOffset(ExportCst.END_ANCHOR, off_ + 1));
             }
         }
         OperationNode root_ = _cond.getRoot();
@@ -2541,7 +2455,7 @@ public final class LinkageUtil {
                     NamedCalledFunctionBlock block_ = ((AnonymousLambdaOperation) val_).getBlock();
                     state_.setBlock(block_);
                     int begin_ = sum_ + val_.getIndexInEl();
-                    _parts.add(new PartOffset("<span class=\"t\">", begin_));
+                    _parts.add(new PartOffset(ExportCst.span("t"), begin_));
                     state_.setIndexEnd(block_.getIndexEnd());
                     state_.setIndexAnnotationGroup(0);
                     _vars.setState(state_);
@@ -2680,7 +2594,7 @@ public final class LinkageUtil {
                     state_.setIndexEnd(block_.getIndexEnd());
                     state_.setIndexAnnotationGroup(0);
                     int begin_ = sum_ + val_.getIndexInEl();
-                    _parts.add(new PartOffset("<span class=\"t\">", begin_));
+                    _parts.add(new PartOffset(ExportCst.span("t"), begin_));
                     _vars.setState(state_);
                     _vars.getStack().last().setCurrent(val_);
                     _vars.getStack().last().element(_element);
@@ -2774,16 +2688,15 @@ public final class LinkageUtil {
     }
 
     private static void getEnd(CustList<PartOffset> _parts, String _fieldName, boolean _addCover, int _offset) {
-        String tag_ = "</span>";
         if (_addCover && _fieldName.isEmpty()) {
-            _parts.add(new PartOffset(tag_, _offset));
+            _parts.add(new PartOffset(ExportCst.END_SPAN, _offset));
         }
     }
 
     private static String getEndTag(boolean _addCover, OperationNode _val, OperationNode _root, String _fieldName) {
         String tag_;
         if (addTag(_fieldName,_root,_val,_addCover)) {
-            tag_ = "</span>";
+            tag_ = ExportCst.END_SPAN;
         } else {
             tag_ = "";
         }
@@ -2837,7 +2750,7 @@ public final class LinkageUtil {
                     tag_ = getFullInitReport(resultPar_, fullInit_, full_);
                     return tag_;
                 }
-                tag_ = "<span class=\""+none_+"\">";
+                tag_ = ExportCst.span(none_);
                 return tag_;
             }
             if (before_.getIndexChild() > 0) {
@@ -2865,37 +2778,37 @@ public final class LinkageUtil {
                         tag_ = getFullInitReport(resultPar_, fullInit_, full_);
                         return tag_;
                     }
-                    tag_ = "<span class=\""+none_+"\">";
+                    tag_ = ExportCst.span(none_);
                     return tag_;
                 }
                 if (parentBefore_ instanceof OrOperation) {
                     if (BooleanStruct.isTrue(Argument.getNullableValue(firstArg_).getStruct())) {
-                        tag_ = "<span class=\""+none_+"\">";
+                        tag_ = ExportCst.span(none_);
                         return tag_;
                     }
                 }
                 if (parentBefore_ instanceof AndOperation) {
                     if (BooleanStruct.isFalse(Argument.getNullableValue(firstArg_).getStruct())) {
-                        tag_ = "<span class=\""+none_+"\">";
+                        tag_ = ExportCst.span(none_);
                         return tag_;
                     }
                 }
                 if (parentBefore_ instanceof NullSafeOperation) {
                     if (!Argument.getNullableValue(firstArg_).isNull()) {
-                        tag_ = "<span class=\""+none_+"\">";
+                        tag_ = ExportCst.span(none_);
                         return tag_;
                     }
                 }
                 if (parentBefore_ instanceof AbstractTernaryOperation) {
                     if (BooleanStruct.isTrue(Argument.getNullableValue(firstArg_).getStruct())) {
                         if (before_.getIndexChild() == 2) {
-                            tag_ = "<span class=\""+none_+"\">";
+                            tag_ = ExportCst.span(none_);
                             return tag_;
                         }
                     }
                     if (BooleanStruct.isFalse(Argument.getNullableValue(firstArg_).getStruct())) {
                         if (before_.getIndexChild() == 1) {
-                            tag_ = "<span class=\""+none_+"\">";
+                            tag_ = ExportCst.span(none_);
                             return tag_;
                         }
                     }
@@ -2906,7 +2819,7 @@ public final class LinkageUtil {
                 tag_ = getFullInitReport(resultPar_, fullInit_, full_);
                 return tag_;
             }
-            tag_ = "<span class=\""+none_+"\">";
+            tag_ = ExportCst.span(none_);
             return tag_;
         }
         if (_result.isFullCovered()) {
@@ -2916,7 +2829,7 @@ public final class LinkageUtil {
         if (_result.isPartialCovered()) {
             return getPartialInitReport(_val, _result, fullInit_, full_, partialInit_, partial_);
         }
-        tag_ = "<span class=\""+none_+"\">";
+        tag_ = ExportCst.span(none_);
         return tag_;
     }
 
@@ -2927,19 +2840,19 @@ public final class LinkageUtil {
             return tag_;
         }
         if (_result.isInit()) {
-            tag_ = "<span class=\""+ _partialInit +"\">";
+            tag_ = ExportCst.span(_partialInit);
             return tag_;
         }
-        tag_ = "<span class=\""+ _partial +"\">";
+        tag_ = ExportCst.span(_partial);
         return tag_;
     }
 
     private static String getFullInitReport(AbstractCoverageResult _resultPar, String _fullInit, String _full) {
         String tag_;
         if (_resultPar.isInit()) {
-            tag_ = "<span class=\""+ _fullInit +"\">";
+            tag_ = ExportCst.span(_fullInit);
         } else {
-            tag_ = "<span class=\""+ _full +"\">";
+            tag_ = ExportCst.span(_full);
         }
         return tag_;
     }
@@ -2992,16 +2905,15 @@ public final class LinkageUtil {
             }
             String tag_;
             if (count_ == full_) {
-                tag_ = "<span class=\"f\">";
+                tag_ = ExportCst.span("f");
             } else if (count_ > 0) {
-                tag_ = "<span class=\"p\">";
+                tag_ = ExportCst.span("p");
             } else {
-                tag_ = "<span class=\"n\">";
+                tag_ = ExportCst.span("n");
             }
             int off_ = _sum + _val.getIndexInEl() + ((SwitchOperation)_val).getDelta();
-            _parts.add(new PartOffset(tag_ + "<a title=\"" + count_ + "/" + full_ + "\">", off_));
-            tag_ = "</span>";
-            _parts.add(new PartOffset("</a>" + tag_, off_ + _vars.getKeyWords().getKeyWordSwitch().length()));
+            _parts.add(new PartOffset(tag_ + ExportCst.anchor(count_ + "/" + full_), off_));
+            _parts.add(new PartOffset(ExportCst.END_ANCHOR + ExportCst.END_SPAN, off_ + _vars.getKeyWords().getKeyWordSwitch().length()));
             _parts.addAllElts(((SwitchOperation)_val).getPartOffsets());
         }
         processUnaryLeftOperationsLinks(_vars, _currentFileName, _sum, _val, _parts);
@@ -3023,8 +2935,8 @@ public final class LinkageUtil {
                 int off_ = _val.getOperations().getOffset();
                 int begin_ = _sum + off_ + _val.getIndexInEl();
                 processNullParent(_vars, _val, _parts, _currentFileName, begin_);
-                _parts.add(new PartOffset("<a title=\""+transform(StringUtil.join(errEmpt_,"\n\n"))+"\" class=\"e\">",begin_));
-                _parts.add(new PartOffset("</a>",begin_+_val.getOperations().getDelimiter().getLength()));
+                _parts.add(new PartOffset(ExportCst.anchorErr(StringUtil.join(errEmpt_,"\n\n")),begin_));
+                _parts.add(new PartOffset(ExportCst.END_ANCHOR,begin_+_val.getOperations().getDelimiter().getLength()));
             } else {
                 int s_ = _sum + _val.getIndexInEl();
                 processNullParent(_vars, _val, _parts, _currentFileName, s_);
@@ -3037,8 +2949,8 @@ public final class LinkageUtil {
                 if (!l_.isEmpty()) {
                     int s_ = _sum + par_.getIndexInEl() + operators_.getKey(indexChild_);
                     int len_ = operators_.getValue(indexChild_).length();
-                    _parts.add(new PartOffset("<a title=\""+LinkageUtil.transform(StringUtil.join(l_,"\n\n")) +"\" class=\"e\">",s_));
-                    _parts.add(new PartOffset("</a>",s_+Math.max(len_,1)));
+                    _parts.add(new PartOffset(ExportCst.anchorErr(StringUtil.join(l_,"\n\n")),s_));
+                    _parts.add(new PartOffset(ExportCst.END_ANCHOR,s_+Math.max(len_,1)));
                 } else {
                     appendPossibleParts(_parts, par_, indexChild_);
                 }
@@ -3088,8 +3000,8 @@ public final class LinkageUtil {
             all_.addAllElts(switchMethod_.getErrorsBlock());
             if (!all_.isEmpty()) {
                 int begin_ = _sum + _val.getIndexInEl() + ((SwitchOperation)_val).getDelta();
-                _parts.add(new PartOffset("<a title=\""+LinkageUtil.transform(StringUtil.join(all_,"\n\n")) +"\" class=\"e\">",begin_));
-                _parts.add(new PartOffset("</a>",begin_+ _vars.getKeyWords().getKeyWordSwitch().length()));
+                _parts.add(new PartOffset(ExportCst.anchorErr(StringUtil.join(all_,"\n\n")),begin_));
+                _parts.add(new PartOffset(ExportCst.END_ANCHOR,begin_+ _vars.getKeyWords().getKeyWordSwitch().length()));
             }
             _parts.addAllElts(((SwitchOperation)_val).getPartOffsets());
         }
@@ -3102,12 +3014,11 @@ public final class LinkageUtil {
         if (_val.getParent() instanceof CallDynMethodOperation) {
             CallDynMethodOperation c_ = (CallDynMethodOperation) _val.getParent();
             if (!c_.getSepErr().isEmpty()&&c_.getIndexCh() == indexChild_) {
-                String tag_ = "<a title=\""+transform(c_.getSepErr())+"\" class=\"e\">";
+                String tag_ = ExportCst.anchorErr(c_.getSepErr());
                 int rightPar_ = c_.getOperations().getOperators().getKey(c_.getIndexCh()+1);
                 int beg_ = _sum + c_.getIndexInEl() + rightPar_;
                 _parts.add(new PartOffset(tag_, beg_));
-                tag_ = "</a>";
-                _parts.add(new PartOffset(tag_,beg_+1));
+                _parts.add(new PartOffset(ExportCst.END_ANCHOR,beg_+1));
             }
         }
     }
@@ -3134,11 +3045,11 @@ public final class LinkageUtil {
             String str_ = originalStr_.trim();
             int begin_ = _sum + relativeOff_ + _val.getIndexInEl();
             if (!aField_.getErrs().isEmpty()) {
-                _parts.add(new PartOffset("<a title=\""+transform(StringUtil.join(aField_.getErrs(),"\n\n"))+"\" class=\"e\">",begin_));
-                _parts.add(new PartOffset("</a>",begin_+str_.length()));
+                _parts.add(new PartOffset(ExportCst.anchorErr(StringUtil.join(aField_.getErrs(),"\n\n")),begin_));
+                _parts.add(new PartOffset(ExportCst.END_ANCHOR,begin_+str_.length()));
             } else {
-                _parts.add(new PartOffset("<b>",begin_));
-                _parts.add(new PartOffset("</b>",begin_+str_.length()));
+                _parts.add(new PartOffset(ExportCst.HEAD_BOLD,begin_));
+                _parts.add(new PartOffset(ExportCst.END_BOLD,begin_+str_.length()));
             }
         }
     }
@@ -3148,47 +3059,37 @@ public final class LinkageUtil {
             int off_ = _val.getOperations().getOffset();
             int begCst_ = _sum + off_ + _val.getIndexInEl();
             if (_val.getOperations().getConstType() == ConstType.TEXT_BLOCK) {
-                String tag_ = "<span class=\"s\">";
-                _parts.add(new PartOffset(tag_, begCst_));
+                _parts.add(new PartOffset(ExportCst.span("s"), begCst_));
                 if (!_val.getErrs().isEmpty()) {
-                    tag_ = "<a title=\""+transform(StringUtil.join(_val.getErrs(),"\n\n"))+"\" class=\"e\">";
+                    String tag_ = ExportCst.anchorErr(StringUtil.join(_val.getErrs(), "\n\n"));
                     _parts.add(new PartOffset(tag_, begCst_));
-                    tag_ = "</a>";
-                    _parts.add(new PartOffset(tag_, begCst_ + ((ConstantOperation)_val).getBlockLength()));
+                    _parts.add(new PartOffset(ExportCst.END_ANCHOR, begCst_ + ((ConstantOperation)_val).getBlockLength()));
                 }
-                tag_ = "</span>";
-                _parts.add(new PartOffset(tag_, begCst_ + ((ConstantOperation)_val).getBlockLength()));
+                _parts.add(new PartOffset(ExportCst.END_SPAN, begCst_ + ((ConstantOperation)_val).getBlockLength()));
             }
             if (_val.getOperations().getConstType() == ConstType.STRING) {
-                String tag_ = "<span class=\"s\">";
-                _parts.add(new PartOffset(tag_, begCst_));
+                _parts.add(new PartOffset(ExportCst.span("s"), begCst_));
                 if (!_val.getErrs().isEmpty()) {
-                    tag_ = "<a title=\""+transform(StringUtil.join(_val.getErrs(),"\n\n"))+"\" class=\"e\">";
+                    String tag_ = ExportCst.anchorErr(StringUtil.join(_val.getErrs(), "\n\n"));
                     _parts.add(new PartOffset(tag_, begCst_));
-                    tag_ = "</a>";
-                    _parts.add(new PartOffset(tag_, begCst_ + ((ConstantOperation)_val).getLength()));
+                    _parts.add(new PartOffset(ExportCst.END_ANCHOR, begCst_ + ((ConstantOperation)_val).getLength()));
                 }
-                tag_ = "</span>";
-                _parts.add(new PartOffset(tag_, begCst_ + ((ConstantOperation)_val).getLength()));
+                _parts.add(new PartOffset(ExportCst.END_SPAN, begCst_ + ((ConstantOperation)_val).getLength()));
             }
             if (_val.getOperations().getConstType() == ConstType.CHARACTER) {
-                String tag_ = "<span class=\"s\">";
-                _parts.add(new PartOffset(tag_, begCst_));
+                _parts.add(new PartOffset(ExportCst.span("s"), begCst_));
                 if (!_val.getErrs().isEmpty()) {
-                    tag_ = "<a title=\""+transform(StringUtil.join(_val.getErrs(),"\n\n"))+"\" class=\"e\">";
+                    String tag_ = ExportCst.anchorErr(StringUtil.join(_val.getErrs(), "\n\n"));
                     _parts.add(new PartOffset(tag_, begCst_));
-                    tag_ = "</a>";
-                    _parts.add(new PartOffset(tag_, begCst_ + ((ConstantOperation)_val).getLength()));
+                    _parts.add(new PartOffset(ExportCst.END_ANCHOR, begCst_ + ((ConstantOperation)_val).getLength()));
                 }
-                tag_ = "</span>";
-                _parts.add(new PartOffset(tag_, begCst_ + ((ConstantOperation)_val).getLength()));
+                _parts.add(new PartOffset(ExportCst.END_SPAN, begCst_ + ((ConstantOperation)_val).getLength()));
             }
             if (_val.getOperations().getConstType() == ConstType.NUMBER) {
                 if (!_val.getErrs().isEmpty()) {
-                    String tag_ = "<a title=\""+transform(StringUtil.join(_val.getErrs(),"\n\n"))+"\" class=\"e\">";
+                    String tag_ = ExportCst.anchorErr(StringUtil.join(_val.getErrs(),"\n\n"));
                     _parts.add(new PartOffset(tag_, begCst_));
-                    tag_ = "</a>";
-                    _parts.add(new PartOffset(tag_, begCst_ +((ConstantOperation)_val).getNbLength()));
+                    _parts.add(new PartOffset(ExportCst.END_ANCHOR, begCst_ +((ConstantOperation)_val).getNbLength()));
                 }
             }
         }
@@ -3200,30 +3101,28 @@ public final class LinkageUtil {
             String tag_;
             int begFct_ = _sum + _val.getIndexInEl();
             if (_val.getErrs().isEmpty()) {
-                tag_ = "<b>";
+                tag_ = ExportCst.HEAD_BOLD;
                 _parts.add(new PartOffset(tag_, begFct_));
-                tag_ = "</b>";
+                tag_ = ExportCst.END_BOLD;
             } else {
-                tag_ = "<a title=\"" + transform(StringUtil.join(_val.getErrs(), "\n\n")) + "\" class=\"e\">";
+                tag_ = ExportCst.anchorErr(StringUtil.join(_val.getErrs(), "\n\n"));
                 _parts.add(new PartOffset(tag_, begFct_));
-                tag_ = "</a>";
+                tag_ = ExportCst.END_ANCHOR;
             }
             _parts.add(new PartOffset(tag_,begFct_+ length_));
             if (((CallDynMethodOperation) _val).isNoNeed()) {
-                tag_ = "<a title=\""+transform(((CallDynMethodOperation) _val).getSepErr())+"\" class=\"e\">";
+                tag_ = ExportCst.anchorErr(((CallDynMethodOperation) _val).getSepErr());
                 int leftPar_ = _val.getOperations().getOperators().firstKey();
                 int beg_ = _sum + _val.getIndexInEl() + leftPar_;
                 _parts.add(new PartOffset(tag_, beg_));
-                tag_ = "</a>";
-                _parts.add(new PartOffset(tag_,beg_+1));
+                _parts.add(new PartOffset(ExportCst.END_ANCHOR,beg_+1));
             }
             if (_val.getFirstChild() == null&&!((CallDynMethodOperation) _val).getSepErr().isEmpty()) {
-                tag_ = "<a title=\""+transform(((CallDynMethodOperation) _val).getSepErr())+"\" class=\"e\">";
+                tag_ = ExportCst.anchorErr(((CallDynMethodOperation) _val).getSepErr());
                 int rightPar_ = _val.getOperations().getOperators().lastKey();
                 int beg_ = _sum + _val.getIndexInEl() + rightPar_;
                 _parts.add(new PartOffset(tag_, beg_));
-                tag_ = "</a>";
-                _parts.add(new PartOffset(tag_,beg_+1));
+                _parts.add(new PartOffset(ExportCst.END_ANCHOR,beg_+1));
             }
         }
     }
@@ -3241,8 +3140,8 @@ public final class LinkageUtil {
             if (function_ != null) {
                 addParts(_vars, _currentFileName, function_, beg_,1,_val.getErrs(),_val.getErrs(),_parts);
             } else if (!_val.getErrs().isEmpty()) {
-                _parts.add(new PartOffset("<a title=\""+LinkageUtil.transform(StringUtil.join(_val.getErrs(),"\n\n")) +"\" class=\"e\">", beg_));
-                _parts.add(new PartOffset("</a>", beg_ +1));
+                _parts.add(new PartOffset(ExportCst.anchorErr(StringUtil.join(_val.getErrs(),"\n\n")), beg_));
+                _parts.add(new PartOffset(ExportCst.END_ANCHOR, beg_ +1));
             }
         }
     }
@@ -3259,8 +3158,8 @@ public final class LinkageUtil {
             );
             if (!a_.getErrAff().isEmpty()) {
                 int begin_ = _sum + a_.getOffEq() + _val.getIndexInEl();
-                _parts.add(new PartOffset("<a title=\""+transform(a_.getErrAff())+"\" class=\"e\">", begin_));
-                _parts.add(new PartOffset("</a>", begin_+1));
+                _parts.add(new PartOffset(ExportCst.anchorErr(a_.getErrAff()), begin_));
+                _parts.add(new PartOffset(ExportCst.END_ANCHOR, begin_+1));
             }
         }
     }
@@ -3274,9 +3173,9 @@ public final class LinkageUtil {
                 int begFct_ = _sum + delta_ + _val.getIndexInEl();
                 if (((FctOperation)_val).isClonedMethod()&&_val.getErrs().isEmpty()) {
                     String tag_;
-                    tag_ = "<b>";
+                    tag_ = ExportCst.HEAD_BOLD;
                     _parts.add(new PartOffset(tag_, begFct_));
-                    tag_ = "</b>";
+                    tag_ = ExportCst.END_BOLD;
                     _parts.add(new PartOffset(tag_, begFct_ +l_));
                 } else {
                     AnaTypeFct function_ = ((FctOperation) _val).getFunction();
@@ -3318,10 +3217,8 @@ public final class LinkageUtil {
             RootBlock fieldType_ = ((SettableAbstractFieldOperation) _val).getFieldType();
             if (_block instanceof FieldBlock && ElUtil.isDeclaringField(_val)) {
                 int idValueOffset_ = ((SettableAbstractFieldOperation)_val).getValueOffset();
-                String tag_ = "<a name=\"m"+idValueOffset_+"\">";
-                _parts.add(new PartOffset(tag_,begin_));
-                tag_ = "</a>";
-                _parts.add(new PartOffset(tag_,begin_+((SettableAbstractFieldOperation) _val).getFieldNameLength()));
+                _parts.add(new PartOffset(ExportCst.anchorName(idValueOffset_),begin_));
+                _parts.add(new PartOffset(ExportCst.END_ANCHOR,begin_+((SettableAbstractFieldOperation) _val).getFieldNameLength()));
             } else {
                 int id_ = ((SettableAbstractFieldOperation)_val).getValueOffset();
                 _parts.addAllElts(((SettableAbstractFieldOperation) _val).getPartOffsets());
@@ -3347,20 +3244,16 @@ public final class LinkageUtil {
                 }
                 if (errs_.isEmpty()) {
                     if (errCst_.isEmpty()) {
-                        String tag_ = "<a name=\"m"+idValueOffset_+"\">";
-                        _parts.add(new PartOffset(tag_,begin_));
+                        _parts.add(new PartOffset(ExportCst.anchorName(idValueOffset_),begin_));
                     } else {
                         String err_ = StringUtil.join(errCst_,"\n\n");
-                        String tag_ = "<a name=\"m"+idValueOffset_+"\" title=\""+err_+"\" class=\"e\">";
-                        _parts.add(new PartOffset(tag_,begin_));
+                        _parts.add(new PartOffset(ExportCst.anchorNameErr(idValueOffset_,err_),begin_));
                     }
                 } else {
                     String err_ = StringUtil.join(errs_,"\n\n");
-                    String tag_ = "<a title=\""+err_+"\" class=\"e\">";
-                    _parts.add(new PartOffset(tag_,begin_));
+                    _parts.add(new PartOffset(ExportCst.anchorErr(err_),begin_));
                 }
-                String tag_ = "</a>";
-                _parts.add(new PartOffset(tag_,begin_+((SettableAbstractFieldOperation) _val).getFieldNameLength()));
+                _parts.add(new PartOffset(ExportCst.END_ANCHOR,begin_+((SettableAbstractFieldOperation) _val).getFieldNameLength()));
             } else {
                 int id_ = ((SettableAbstractFieldOperation)_val).getValueOffset();
                 _parts.addAllElts(((SettableAbstractFieldOperation) _val).getPartOffsets());
@@ -3379,23 +3272,16 @@ public final class LinkageUtil {
             if (((RefVariableOperation) _val).isDeclare()) {
                 StringList errs_ = ((RefVariableOperation) _val).getNameErrors();
                 if (!errs_.isEmpty()) {
-                    String err_ = transform(StringUtil.join(errs_,"\n\n"));
-                    String tag_ = "<a title=\""+err_+"\" class=\"e\">";
-                    _parts.add(new PartOffset(tag_, begVar_));
-                    tag_ = "</a>";
-                    _parts.add(new PartOffset(tag_, endVar_));
+                    _parts.add(new PartOffset(ExportCst.anchorErr(StringUtil.join(errs_,"\n\n")), begVar_));
+                    _parts.add(new PartOffset(ExportCst.END_ANCHOR, endVar_));
                 } else {
-                    String tag_ = "<a name=\"m"+ id_ +"\">";
-                    _parts.add(new PartOffset(tag_, begVar_));
-                    tag_ = "</a>";
-                    _parts.add(new PartOffset(tag_, endVar_));
+                    _parts.add(new PartOffset(ExportCst.anchorName(id_), begVar_));
+                    _parts.add(new PartOffset(ExportCst.END_ANCHOR, endVar_));
                 }
 
             } else {
-                String tag_ = "<a href=\"#m"+id_+"\">";
-                _parts.add(new PartOffset(tag_, begVar_));
-                tag_ = "</a>";
-                _parts.add(new PartOffset(tag_, endVar_));
+                _parts.add(new PartOffset(ExportCst.anchorRef("",id_), begVar_));
+                _parts.add(new PartOffset(ExportCst.END_ANCHOR, endVar_));
             }
         }
         if (_val instanceof VariableOperation) {
@@ -3407,23 +3293,16 @@ public final class LinkageUtil {
             if (((VariableOperation) _val).isDeclare()) {
                 StringList errs_ = ((VariableOperation) _val).getNameErrors();
                 if (!errs_.isEmpty()) {
-                    String err_ = transform(StringUtil.join(errs_,"\n\n"));
-                    String tag_ = "<a title=\""+err_+"\" class=\"e\">";
-                    _parts.add(new PartOffset(tag_, begVar_));
-                    tag_ = "</a>";
-                    _parts.add(new PartOffset(tag_, endVar_));
+                    _parts.add(new PartOffset(ExportCst.anchorErr(StringUtil.join(errs_,"\n\n")), begVar_));
+                    _parts.add(new PartOffset(ExportCst.END_ANCHOR, endVar_));
                 } else {
-                    String tag_ = "<a name=\"m"+ id_ +"\">";
-                    _parts.add(new PartOffset(tag_, begVar_));
-                    tag_ = "</a>";
-                    _parts.add(new PartOffset(tag_, endVar_));
+                    _parts.add(new PartOffset(ExportCst.anchorName(id_), begVar_));
+                    _parts.add(new PartOffset(ExportCst.END_ANCHOR, endVar_));
                 }
 
             } else {
-                String tag_ = "<a href=\"#m"+id_+"\">";
-                _parts.add(new PartOffset(tag_, begVar_));
-                tag_ = "</a>";
-                _parts.add(new PartOffset(tag_, endVar_));
+                _parts.add(new PartOffset(ExportCst.anchorRef("",id_), begVar_));
+                _parts.add(new PartOffset(ExportCst.END_ANCHOR, endVar_));
             }
         }
         if (_val instanceof MutableLoopVariableOperation) {
@@ -3435,35 +3314,26 @@ public final class LinkageUtil {
             if (((MutableLoopVariableOperation) _val).isDeclare()) {
                 StringList errs_ = ((MutableLoopVariableOperation) _val).getNameErrors();
                 if (!errs_.isEmpty()) {
-                    String err_ = transform(StringUtil.join(errs_,"\n\n"));
-                    String tag_ = "<a title=\""+err_+"\" class=\"e\">";
-                    _parts.add(new PartOffset(tag_, begVar_));
-                    tag_ = "</a>";
-                    _parts.add(new PartOffset(tag_, endVar_));
+                    _parts.add(new PartOffset(ExportCst.anchorErr(StringUtil.join(errs_,"\n\n")), begVar_));
+                    _parts.add(new PartOffset(ExportCst.END_ANCHOR, endVar_));
                 } else {
-                    String tag_ = "<a name=\"m"+ id_ +"\">";
-                    _parts.add(new PartOffset(tag_, begVar_));
-                    tag_ = "</a>";
-                    _parts.add(new PartOffset(tag_, endVar_));
+                    _parts.add(new PartOffset(ExportCst.anchorName(id_), begVar_));
+                    _parts.add(new PartOffset(ExportCst.END_ANCHOR, endVar_));
                 }
 
             } else {
-                String tag_ = "<a href=\"#m"+id_+"\">";
-                _parts.add(new PartOffset(tag_, begVar_));
-                tag_ = "</a>";
-                _parts.add(new PartOffset(tag_, endVar_));
+                _parts.add(new PartOffset(ExportCst.anchorRef("",id_), begVar_));
+                _parts.add(new PartOffset(ExportCst.END_ANCHOR, endVar_));
             }
         }
         if (_val instanceof RefParamOperation) {
             String varName_ = ((RefParamOperation) _val).getRealVariableName();
             int delta_ = ((RefParamOperation) _val).getOff();
             int id_ = ((RefParamOperation) _val).getRef();
-            String tag_ = "<a href=\"#m" + id_ + "\">";
             int begVar_ = delta_ + _sum + _val.getIndexInEl();
             int endVar_ = begVar_ + varName_.length();
-            _parts.add(new PartOffset(tag_, begVar_));
-            tag_ = "</a>";
-            _parts.add(new PartOffset(tag_, endVar_));
+            _parts.add(new PartOffset(ExportCst.anchorRef("",id_), begVar_));
+            _parts.add(new PartOffset(ExportCst.END_ANCHOR, endVar_));
         }
         if (_val instanceof FinalVariableOperation) {
             String varName_ = ((FinalVariableOperation) _val).getRealVariableName();
@@ -3472,23 +3342,18 @@ public final class LinkageUtil {
             int begVar_ = deltaLoc_ + delta_ + _sum + _val.getIndexInEl();
             int endVar_ = begVar_ + varName_.length();
             if (!_val.getErrs().isEmpty()) {
-                String err_ = transform(StringUtil.join(_val.getErrs(),"\n\n"));
-                String tag_ = "<a title=\""+err_+"\" class=\"e\">";
-                _parts.add(new PartOffset(tag_, begVar_));
-                tag_ = "</a>";
-                _parts.add(new PartOffset(tag_, endVar_));
+                _parts.add(new PartOffset(ExportCst.anchorErr(StringUtil.join(_val.getErrs(),"\n\n")), begVar_));
+                _parts.add(new PartOffset(ExportCst.END_ANCHOR, endVar_));
             } else {
                 if (((FinalVariableOperation) _val).isKeyWord()) {
-                    String tag_ = "<b>";
+                    String tag_ = ExportCst.HEAD_BOLD;
                     _parts.add(new PartOffset(tag_, begVar_));
-                    tag_ = "</b>";
+                    tag_ = ExportCst.END_BOLD;
                     _parts.add(new PartOffset(tag_, endVar_));
                 } else {
                     int id_ = ((FinalVariableOperation) _val).getRef();
-                    String tag_ = "<a href=\"#m" + id_ + "\">";
-                    _parts.add(new PartOffset(tag_, begVar_));
-                    tag_ = "</a>";
-                    _parts.add(new PartOffset(tag_, endVar_));
+                    _parts.add(new PartOffset(ExportCst.anchorRef("",id_), begVar_));
+                    _parts.add(new PartOffset(ExportCst.END_ANCHOR, endVar_));
                 }
             }
         }
@@ -3528,8 +3393,8 @@ public final class LinkageUtil {
             ForwardOperation f_ = (ForwardOperation) _val;
             if (!_val.getErrs().isEmpty()) {
                 int begin_ = _sum + _val.getIndexInEl();
-                _parts.add(new PartOffset("<a title=\""+LinkageUtil.transform(StringUtil.join(_val.getErrs(),"\n\n")) +"\" class=\"e\">",begin_));
-                _parts.add(new PartOffset("</a>",begin_+ f_.getLength()));
+                _parts.add(new PartOffset(ExportCst.anchorErr(StringUtil.join(_val.getErrs(),"\n\n")),begin_));
+                _parts.add(new PartOffset(ExportCst.END_ANCHOR,begin_+ f_.getLength()));
             }
             _parts.addAllElts(((ForwardOperation)_val).getPartOffsets());
         }
@@ -3542,16 +3407,16 @@ public final class LinkageUtil {
         if (_val instanceof StaticAccessOperation) {
             if (!_val.getErrs().isEmpty()) {
                 int begin_ = _sum + _val.getIndexInEl();
-                _parts.add(new PartOffset("<a title=\""+LinkageUtil.transform(StringUtil.join(_val.getErrs(),"\n\n")) +"\" class=\"e\">",begin_));
-                _parts.add(new PartOffset("</a>",begin_+ _vars.getKeyWords().getKeyWordStatic().length()));
+                _parts.add(new PartOffset(ExportCst.anchorErr(StringUtil.join(_val.getErrs(),"\n\n")),begin_));
+                _parts.add(new PartOffset(ExportCst.END_ANCHOR,begin_+ _vars.getKeyWords().getKeyWordStatic().length()));
             }
             _parts.addAllElts(((StaticAccessOperation)_val).getPartOffsets());
         }
         if (_val instanceof StaticCallAccessOperation) {
             if (!_val.getErrs().isEmpty()) {
                 int begin_ = _sum + _val.getIndexInEl();
-                _parts.add(new PartOffset("<a title=\""+LinkageUtil.transform(StringUtil.join(_val.getErrs(),"\n\n")) +"\" class=\"e\">",begin_));
-                _parts.add(new PartOffset("</a>",begin_+ _vars.getKeyWords().getKeyWordStaticCall().length()));
+                _parts.add(new PartOffset(ExportCst.anchorErr(StringUtil.join(_val.getErrs(),"\n\n")),begin_));
+                _parts.add(new PartOffset(ExportCst.END_ANCHOR,begin_+ _vars.getKeyWords().getKeyWordStaticCall().length()));
             }
             _parts.addAllElts(((StaticCallAccessOperation)_val).getPartOffsets());
             _parts.addAllElts(((StaticCallAccessOperation)_val).getStCallSolved());
@@ -3559,8 +3424,8 @@ public final class LinkageUtil {
         if (_val instanceof ThisOperation) {
             if (!_val.getErrs().isEmpty()) {
                 int begin_ = _sum + _val.getIndexInEl();
-                _parts.add(new PartOffset("<a title=\""+LinkageUtil.transform(StringUtil.join(_val.getErrs(),"\n\n")) +"\" class=\"e\">",begin_));
-                _parts.add(new PartOffset("</a>",begin_+ _vars.getKeyWords().getKeyWordThis().length()));
+                _parts.add(new PartOffset(ExportCst.anchorErr(StringUtil.join(_val.getErrs(),"\n\n")),begin_));
+                _parts.add(new PartOffset(ExportCst.END_ANCHOR,begin_+ _vars.getKeyWords().getKeyWordThis().length()));
             }
         }
     }
@@ -3583,8 +3448,8 @@ public final class LinkageUtil {
             if (fieldId_ != null) {
                 updateFieldAnchor(fieldType_, _val.getErrs(),_parts,fieldId_, beginLambda_, lambdaLen_, _currentFileName,((LambdaOperation) _val).getValueOffset());
             } else if (!_val.getErrs().isEmpty()) {
-                _parts.add(new PartOffset("<a title=\""+LinkageUtil.transform(StringUtil.join(_val.getErrs(),"\n\n")) +"\" class=\"e\">", beginLambda_));
-                _parts.add(new PartOffset("</a>", beginLambda_ + lambdaLen_));
+                _parts.add(new PartOffset(ExportCst.anchorErr(StringUtil.join(_val.getErrs(),"\n\n")), beginLambda_));
+                _parts.add(new PartOffset(ExportCst.END_ANCHOR, beginLambda_ + lambdaLen_));
             }
         }
         _parts.addAllElts(((LambdaOperation)_val).getPartOffsets());
@@ -3609,16 +3474,16 @@ public final class LinkageUtil {
         if (_val instanceof EnumValueOfOperation) {
             if (!_val.getErrs().isEmpty()) {
                 int begin_ = _sum + _val.getIndexInEl();
-                _parts.add(new PartOffset("<a title=\""+LinkageUtil.transform(StringUtil.join(_val.getErrs(),"\n\n")) +"\" class=\"e\">",begin_));
-                _parts.add(new PartOffset("</a>",begin_+ _vars.getKeyWords().getKeyWordValueOf().length()));
+                _parts.add(new PartOffset(ExportCst.anchorErr(StringUtil.join(_val.getErrs(),"\n\n")),begin_));
+                _parts.add(new PartOffset(ExportCst.END_ANCHOR,begin_+ _vars.getKeyWords().getKeyWordValueOf().length()));
             }
             _parts.addAllElts(((EnumValueOfOperation)_val).getPartOffsets());
         }
         if (_val instanceof ValuesOperation) {
             if (!_val.getErrs().isEmpty()) {
                 int begin_ = _sum + _val.getIndexInEl();
-                _parts.add(new PartOffset("<a title=\""+LinkageUtil.transform(StringUtil.join(_val.getErrs(),"\n\n")) +"\" class=\"e\">",begin_));
-                _parts.add(new PartOffset("</a>",begin_+ _vars.getKeyWords().getKeyWordValues().length()));
+                _parts.add(new PartOffset(ExportCst.anchorErr(StringUtil.join(_val.getErrs(),"\n\n")),begin_));
+                _parts.add(new PartOffset(ExportCst.END_ANCHOR,begin_+ _vars.getKeyWords().getKeyWordValues().length()));
             }
             _parts.addAllElts(((ValuesOperation)_val).getPartOffsets());
         }
@@ -3665,8 +3530,8 @@ public final class LinkageUtil {
                         _val.getErrs(),_val.getErrs(),_parts);
             } else if (!_val.getErrs().isEmpty()){
                 int i_ = _sum + _val.getIndexInEl() + par_.getOpOffset();
-                _parts.add(new PartOffset("<a title=\""+LinkageUtil.transform(StringUtil.join(_val.getErrs(),"\n\n")) +"\" class=\"e\">",i_));
-                _parts.add(new PartOffset("</a>",i_+1));
+                _parts.add(new PartOffset(ExportCst.anchorErr(StringUtil.join(_val.getErrs(),"\n\n")),i_));
+                _parts.add(new PartOffset(ExportCst.END_ANCHOR,i_+1));
             }
         }
         if (_val instanceof CastOperation) {
@@ -3679,8 +3544,8 @@ public final class LinkageUtil {
                 l_ = _vars.getKeyWords().getKeyWordCast().length();
             }
             if (!_val.getErrs().isEmpty()) {
-                _parts.add(new PartOffset("<a title=\""+LinkageUtil.transform(StringUtil.join(_val.getErrs(),"\n\n")) +"\" class=\"e\">",i_));
-                _parts.add(new PartOffset("</a>",i_+l_));
+                _parts.add(new PartOffset(ExportCst.anchorErr(StringUtil.join(_val.getErrs(),"\n\n")),i_));
+                _parts.add(new PartOffset(ExportCst.END_ANCHOR,i_+l_));
             }
             _parts.addAllElts(((CastOperation)_val).getPartOffsets());
         }
@@ -3725,8 +3590,8 @@ public final class LinkageUtil {
                 if (err_) {
                     if (!par_.getErrs().isEmpty()) {
                         int begin_ = par_.getOpOffset()+_sum + par_.getIndexInEl();
-                        _parts.add(new PartOffset("<a title=\""+LinkageUtil.transform(StringUtil.join(par_.getErrs(),"\n\n")) +"\" class=\"e\">",begin_));
-                        _parts.add(new PartOffset("</a>",begin_+ 2));
+                        _parts.add(new PartOffset(ExportCst.anchorErr(StringUtil.join(par_.getErrs(),"\n\n")),begin_));
+                        _parts.add(new PartOffset(ExportCst.END_ANCHOR,begin_+ 2));
                     }
                 }
                 OperationNode ch_ = null;
@@ -3745,22 +3610,22 @@ public final class LinkageUtil {
         if (_val instanceof IdOperation) {
             if (!_val.getErrs().isEmpty()) {
                 int begin_ = _sum + _val.getIndexInEl() + ((IdOperation)_val).getDelta();
-                _parts.add(new PartOffset("<a title=\""+LinkageUtil.transform(StringUtil.join(_val.getErrs(),"\n\n")) +"\" class=\"e\">",begin_));
-                _parts.add(new PartOffset("</a>",begin_+ 1));
+                _parts.add(new PartOffset(ExportCst.anchorErr(StringUtil.join(_val.getErrs(),"\n\n")),begin_));
+                _parts.add(new PartOffset(ExportCst.END_ANCHOR,begin_+ 1));
             }
         }
         if (_val instanceof FirstOptOperation) {
             if (!_val.getErrs().isEmpty()) {
                 int begin_ = _sum + _val.getIndexInEl() + ((FirstOptOperation)_val).getDelta();
-                _parts.add(new PartOffset("<a title=\""+LinkageUtil.transform(StringUtil.join(_val.getErrs(),"\n\n")) +"\" class=\"e\">",begin_));
-                _parts.add(new PartOffset("</a>",begin_+ _vars.getKeyWords().getKeyWordFirstopt().length()));
+                _parts.add(new PartOffset(ExportCst.anchorErr(StringUtil.join(_val.getErrs(),"\n\n")),begin_));
+                _parts.add(new PartOffset(ExportCst.END_ANCHOR,begin_+ _vars.getKeyWords().getKeyWordFirstopt().length()));
             }
         }
         if (_val instanceof WrappOperation) {
             if (!_val.getErrs().isEmpty()) {
                 int begin_ = _sum + _val.getIndexInEl() + ((WrappOperation)_val).getDelta();
-                _parts.add(new PartOffset("<a title=\""+LinkageUtil.transform(StringUtil.join(_val.getErrs(),"\n\n")) +"\" class=\"e\">",begin_));
-                _parts.add(new PartOffset("</a>",begin_+ _vars.getKeyWords().getKeyWordThat().length()));
+                _parts.add(new PartOffset(ExportCst.anchorErr(StringUtil.join(_val.getErrs(),"\n\n")),begin_));
+                _parts.add(new PartOffset(ExportCst.END_ANCHOR,begin_+ _vars.getKeyWords().getKeyWordThat().length()));
             }
         }
         if (_val instanceof NamedArgumentOperation) {
@@ -3823,29 +3688,29 @@ public final class LinkageUtil {
             }
             if (!_val.getErrs().isEmpty()) {
                 int begin_ = _sum + _val.getIndexInEl()+firstOff_;
-                _parts.add(new PartOffset("<a title=\""+LinkageUtil.transform(StringUtil.join(_val.getErrs(),"\n\n")) +"\" class=\"e\">",begin_));
-                _parts.add(new PartOffset("</a>",begin_+ n_.getName().length()));
+                _parts.add(new PartOffset(ExportCst.anchorErr(StringUtil.join(_val.getErrs(),"\n\n")),begin_));
+                _parts.add(new PartOffset(ExportCst.END_ANCHOR,begin_+ n_.getName().length()));
             } else {
                 if (refOne_ != -1){
                     int begin_ = _sum + _val.getIndexInEl()+firstOff_;
-                    String rel_ = relativize(_currentFileName, relFileOne_ + "#m" + refOne_);
-                    _parts.add(new PartOffset("<a href=\""+rel_ +"\">",begin_));
-                    _parts.add(new PartOffset("</a>",begin_+ n_.getName().length()));
+                    String rel_ = relativize(_currentFileName, ExportCst.href(relFileOne_, refOne_));
+                    _parts.add(new PartOffset(ExportCst.anchorRef(rel_),begin_));
+                    _parts.add(new PartOffset(ExportCst.END_ANCHOR,begin_+ n_.getName().length()));
                 }
                 if (refTwo_ != -1){
                     StrTypes vs_ = _val.getOperations().getOperators();
                     int begin_ = _sum + _val.getIndexInEl()+vs_.firstKey();
-                    String rel_ = relativize(_currentFileName, relFileTwo_ + "#m" + refTwo_);
-                    _parts.add(new PartOffset("<a href=\""+rel_ +"\">",begin_));
-                    _parts.add(new PartOffset("</a>",begin_+ vs_.firstValue().length()));
+                    String rel_ = relativize(_currentFileName, ExportCst.href(relFileTwo_, refTwo_));
+                    _parts.add(new PartOffset(ExportCst.anchorRef(rel_),begin_));
+                    _parts.add(new PartOffset(ExportCst.END_ANCHOR,begin_+ vs_.firstValue().length()));
                 }
             }
         }
         if (_val instanceof DefaultOperation) {
             if (!_val.getErrs().isEmpty()) {
                 int begin_ = _sum + _val.getIndexInEl() + ((DefaultOperation)_val).getDelta();
-                _parts.add(new PartOffset("<a title=\""+LinkageUtil.transform(StringUtil.join(_val.getErrs(),"\n\n")) +"\" class=\"e\">",begin_));
-                _parts.add(new PartOffset("</a>",begin_+ _vars.getKeyWords().getKeyWordDefault().length()));
+                _parts.add(new PartOffset(ExportCst.anchorErr(StringUtil.join(_val.getErrs(),"\n\n")),begin_));
+                _parts.add(new PartOffset(ExportCst.END_ANCHOR,begin_+ _vars.getKeyWords().getKeyWordDefault().length()));
             }
         }
         if (_val instanceof TernaryOperation) {
@@ -3882,8 +3747,8 @@ public final class LinkageUtil {
             }
             if (!addedErr_&&!t_.getChildrenErrors().isEmpty()) {
                 int begin_ = _sum + _val.getIndexInEl();
-                _parts.add(new PartOffset("<a title=\""+LinkageUtil.transform(StringUtil.join(t_.getChildrenErrors(),"\n\n")) +"\" class=\"e\">", begin_));
-                _parts.add(new PartOffset("</a>", begin_ +_vars.getKeyWords().getKeyWordBool().length()));
+                _parts.add(new PartOffset(ExportCst.anchorErr(StringUtil.join(t_.getChildrenErrors(),"\n\n")), begin_));
+                _parts.add(new PartOffset(ExportCst.END_ANCHOR, begin_ +_vars.getKeyWords().getKeyWordBool().length()));
             }
         }
     }
@@ -3971,8 +3836,8 @@ public final class LinkageUtil {
                 addParts(_vars, _currentFileName, testFct_,_offsetEnd,1,l_,l_,_parts);
             } else if (!l_.isEmpty()) {
                 int len_ = operators_.getValue(index_).length();
-                _parts.add(new PartOffset("<a title=\""+LinkageUtil.transform(StringUtil.join(l_,"\n\n")) +"\" class=\"e\">", _offsetEnd));
-                _parts.add(new PartOffset("</a>", _offsetEnd +Math.max(len_,1)));
+                _parts.add(new PartOffset(ExportCst.anchorErr(StringUtil.join(l_,"\n\n")), _offsetEnd));
+                _parts.add(new PartOffset(ExportCst.END_ANCHOR, _offsetEnd +Math.max(len_,1)));
             } else {
                 appendPossibleParts(_parts, _parent, index_);
             }
@@ -4014,10 +3879,8 @@ public final class LinkageUtil {
             if (function_ != null) {
                 addParts(_vars, _currentFileName, function_,_offsetEnd,par_.getOp().length(),_parentOp.getErrs(),_parentOp.getErrs(),_parts);
             } else if (_parentOp instanceof AddOperation && ((AddOperation)_parentOp).isCatString() && canCallToString(_vars, _curOp, _nextSiblingOp)) {
-                String tag_ = "<i>";
-                _parts.add(new PartOffset(tag_, _offsetEnd));
-                tag_ = "</i>";
-                _parts.add(new PartOffset(tag_, _offsetEnd + 1));
+                _parts.add(new PartOffset(ExportCst.HEAD_ITALIC, _offsetEnd));
+                _parts.add(new PartOffset(ExportCst.FOOT_ITALIC, _offsetEnd + 1));
             }
 
         }
@@ -4075,10 +3938,8 @@ public final class LinkageUtil {
         if (function_ != null) {
             addParts(_vars, _currentFileName, function_,begin_,len_,_parentOp.getErrs(),_parentOp.getErrs(),_parts);
         } else if (hasToCallStringConver(_vars, _nextSiblingOp)){
-            String tag_ = "<i>";
-            _parts.add(new PartOffset(tag_, begin_));
-            tag_ = "</i>";
-            _parts.add(new PartOffset(tag_,begin_+len_));
+            _parts.add(new PartOffset(ExportCst.HEAD_ITALIC, begin_));
+            _parts.add(new PartOffset(ExportCst.FOOT_ITALIC,begin_+len_));
         }
     }
 
@@ -4134,10 +3995,8 @@ public final class LinkageUtil {
         if (function_ != null) {
             addParts(_vars, _currentFileName, function_,begin_,len_,_parentOp.getErrs(),_parentOp.getErrs(),_parts);
         } else if (hasToCallStringConver(_vars, _nextSiblingOp)){
-            String tag_ = "<i>";
-            _parts.add(new PartOffset(tag_, begin_));
-            tag_ = "</i>";
-            _parts.add(new PartOffset(tag_,begin_+len_));
+            _parts.add(new PartOffset(ExportCst.HEAD_ITALIC, begin_));
+            _parts.add(new PartOffset(ExportCst.FOOT_ITALIC,begin_+len_));
         } else if (StringUtil.quickEq(par_.getOper(),"??=") || StringUtil.quickEq(par_.getOper(),"???=")){
             AbstractCoverageResult resultLast_ = getCovers(_block, _nextSiblingOp, _cov, _annot, _indexAnnotGroup, _indexAnnot);
             safeReport(_vars, resultLast_, begin_,_parts, 1);
@@ -4230,8 +4089,8 @@ public final class LinkageUtil {
         if (_curOp.getIndexChild() == 0 &&_parent instanceof InstanceOfOperation) {
             if (!_parent.getErrs().isEmpty()) {
                 int begin_ = ((InstanceOfOperation)_parent).getOffset()+_sum + _parent.getIndexInEl();
-                _parts.add(new PartOffset("<a title=\""+LinkageUtil.transform(StringUtil.join(_parent.getErrs(),"\n\n")) +"\" class=\"e\">",begin_));
-                _parts.add(new PartOffset("</a>",begin_+_vars.getKeyWords().getKeyWordInstanceof().length()));
+                _parts.add(new PartOffset(ExportCst.anchorErr(StringUtil.join(_parent.getErrs(),"\n\n")),begin_));
+                _parts.add(new PartOffset(ExportCst.END_ANCHOR,begin_+_vars.getKeyWords().getKeyWordInstanceof().length()));
             }
             _parts.addAllElts(((InstanceOfOperation)_parent).getPartOffsets());
         }
@@ -4261,8 +4120,8 @@ public final class LinkageUtil {
                 if (err_) {
                     if (!_parent.getErrs().isEmpty()) {
                         int begin_ = ((SemiAffectationOperation)_parent).getOpOffset()+_sum + _parent.getIndexInEl();
-                        _parts.add(new PartOffset("<a title=\""+LinkageUtil.transform(StringUtil.join(_parent.getErrs(),"\n\n")) +"\" class=\"e\">",begin_));
-                        _parts.add(new PartOffset("</a>",begin_+2));
+                        _parts.add(new PartOffset(ExportCst.anchorErr(StringUtil.join(_parent.getErrs(),"\n\n")),begin_));
+                        _parts.add(new PartOffset(ExportCst.END_ANCHOR,begin_+2));
                     }
                 }
             }
@@ -4282,10 +4141,8 @@ public final class LinkageUtil {
     }
 
     private static void basicValue(int _offsetEnd, CustList<PartOffset> _parts, int _delta, StringList _founds) {
-        String tag_ = "<a title=\""+ transform(StringUtil.join(_founds,","))+"\">";
-        _parts.add(new PartOffset(tag_, _offsetEnd));
-        tag_ = "</a>";
-        _parts.add(new PartOffset(tag_,_offsetEnd+ _delta));
+        _parts.add(new PartOffset(ExportCst.anchor(StringUtil.join(_founds,",")), _offsetEnd));
+        _parts.add(new PartOffset(ExportCst.END_ANCHOR,_offsetEnd+ _delta));
     }
     private static PartOffset mergeParts(VariablesOffsets _vars, String _currentFileName,
                                          AnaTypeFct _id, int _begin,
@@ -4296,7 +4153,7 @@ public final class LinkageUtil {
         if (parts_.isEmpty()) {
             return new PartOffset("",_begin);
         }
-        return new PartOffset(parts_.first().getPart()+" "+parts_.last().getPart(),_begin);
+        return new PartOffset(parts_.first().getPart()+ExportCst.IMPLICIT+parts_.last().getPart(),_begin);
     }
     private static void addParts(VariablesOffsets _vars, String _currentFileName,
                                  AnaTypeFct _id, int _begin, int _length,
@@ -4332,45 +4189,36 @@ public final class LinkageUtil {
         String rel_ = getRelativize(_currentFileName, _id);
         if (rel_.isEmpty()) {
             if (!_errors.isEmpty()) {
-                String tag_;
-                tag_ = "<a title=\""+ transform(StringUtil.join(_errors,"\n\n"))+"\" class=\"e\">";
-                _parts.add(new PartOffset(tag_,_begin));
-                tag_ = "</a>";
-                _parts.add(new PartOffset(tag_,_begin+_length));
+                _parts.add(new PartOffset(ExportCst.anchorErr(StringUtil.join(_errors,"\n\n")),_begin));
+                _parts.add(new PartOffset(ExportCst.END_ANCHOR,_begin+_length));
             }
             return;
         }
         NamedFunctionBlock function_ = _id.getFunction();
         String tag_;
         if (function_ instanceof OperatorBlock) {
-            tag_ = "<a"+name(_name)+"title=\""+ merge(_title,function_.getSignature(_dis))+"\" href=\""+rel_+"\""+classErr(_errors)+">";
+            tag_ = ExportCst.BEGIN_ANCHOR+name(_name)+ ExportCst.title(_title,function_.getSignature(_dis))+ExportCst.SEP_ATTR
+                    +ExportCst.href(rel_)+classErr(_errors)+ExportCst.END;
         } else {
             String cl_ = _id.getType().getFullName();
-            tag_ = "<a"+name(_name)+"title=\""+ merge(_title,cl_ +"."+ function_.getSignature(_dis))+"\" href=\""+rel_+"\""+classErr(_errors)+">";
+            tag_ = ExportCst.BEGIN_ANCHOR+name(_name)+ ExportCst.title(_title,cl_ +"."+ function_.getSignature(_dis))+ExportCst.SEP_ATTR
+                    +ExportCst.href(rel_)+classErr(_errors)+ExportCst.END;
         }
         _parts.add(new PartOffset(tag_,_begin));
-        tag_ = "</a>";
-        _parts.add(new PartOffset(tag_,_begin+_length));
-    }
-
-    private static String merge(StringList _errors, String _link) {
-        StringList list_ = new StringList();
-        list_.addAllElts(_errors);
-        list_.add(_link);
-        return transform(StringUtil.join(list_,"\n\n"));
+        _parts.add(new PartOffset(ExportCst.END_ANCHOR,_begin+_length));
     }
 
     private static String name(int _name) {
         if (_name < 0) {
-            return " ";
+            return ExportCst.SEP_ATTR;
         }
-        return " name=\"m"+_name+"\" ";
+        return ExportCst.SEP_ATTR+ExportCst.name(_name)+ExportCst.SEP_ATTR;
     }
     private static String classErr(StringList _errors) {
         if (_errors.isEmpty()) {
             return "";
         }
-        return " class=\"e\"";
+        return ExportCst.SEP_ATTR+ExportCst.CLASS_ERR;
     }
 
     private static String getRelativize(String _currentFileName, AnaTypeFct _id) {
@@ -4380,12 +4228,12 @@ public final class LinkageUtil {
         NamedFunctionBlock function_ = _id.getFunction();
         if (function_ instanceof OperatorBlock) {
             String file_ = function_.getFile().getRenderFileName();
-            return relativize(_currentFileName, file_ + "#m" + function_.getNameOffset());
+            return relativize(_currentFileName, ExportCst.href(file_, function_.getNameOffset()));
         }
         if (!ContextUtil.isFromCustFile(_id.getType())) {
             return "";
         }
-        return relativize(_currentFileName, function_.getFile().getRenderFileName() + "#m" + function_.getNameOffset());
+        return relativize(_currentFileName, ExportCst.href(function_.getFile().getRenderFileName(), function_.getNameOffset()));
     }
 
     private static AbstractCoverageResult getCovers(AbsBk _block, OperationNode _oper, Coverage _cov, boolean _annot, int _indexAnnotGroup, int _indexAnnot) {
@@ -4397,18 +4245,17 @@ public final class LinkageUtil {
         className_ = StringExpUtil.getIdFromAllTypes(className_);
         if (!ContextUtil.isFromCustFile(_type)) {
             if (!_errs.isEmpty()) {
-                String err_ = transform(StringUtil.join(_errs,"\n\n"));
-                _parts.add(new PartOffset("<a title=\""+err_+"\" class=\"e\">",_begin));
-                _parts.add(new PartOffset("</a>",_begin+_length));
+                _parts.add(new PartOffset(ExportCst.anchorErr(StringUtil.join(_errs,"\n\n")),_begin));
+                _parts.add(new PartOffset(ExportCst.END_ANCHOR,_begin+_length));
             }
             return;
         }
         String file_ = _type.getFile().getRenderFileName();
-        String rel_ = relativize(_currentFileName,file_+"#m"+_offset);
-        String tag_ = "<a title=\""+merge(_errs,className_ +"."+ _id.getFieldName())+"\" href=\""+rel_+"\""+classErr(_errs)+">";
-        _parts.add(new PartOffset(tag_,_begin));
-        tag_ = "</a>";
-        _parts.add(new PartOffset(tag_,_begin+_length));
+        String rel_ = relativize(_currentFileName,ExportCst.href(file_,_offset));
+        _parts.add(new PartOffset(ExportCst.BEGIN_ANCHOR+ExportCst.SEP_ATTR
+                +ExportCst.title(_errs,className_ +"."+ _id.getFieldName())+ExportCst.SEP_ATTR
+                +ExportCst.href(rel_)+classErr(_errs)+ExportCst.END,_begin));
+        _parts.add(new PartOffset(ExportCst.END_ANCHOR,_begin+_length));
     }
     public static String relativize(String _currentFile,String _refFile) {
         int diffFirst_ = -1;
@@ -4449,13 +4296,13 @@ public final class LinkageUtil {
                 str_.append((int)c);
                 str_.append(";");
             } else if (c == '<') {
-                str_.append("&lt;");
+                str_.append(LT);
             } else if (c == '>') {
-                str_.append("&gt;");
+                str_.append(GT);
             } else if (c == '&') {
-                str_.append("&amp;");
+                str_.append(AMP);
             } else if (c == '\"') {
-                str_.append("&quot;");
+                str_.append(QUOT);
             } else if (c < ' ') {
                 str_.append(processSpace(c));
             } else {
@@ -4484,8 +4331,8 @@ public final class LinkageUtil {
         if (_vars.getState() != null) {
             return;
         }
-        _parts.add(new PartOffset("<a name=\"m"+_offset+"\">",_offset));
-        _parts.add(new PartOffset("</a>",_offset+_label.length()));
+        _parts.add(new PartOffset(ExportCst.anchorName(_offset),_offset));
+        _parts.add(new PartOffset(ExportCst.END_ANCHOR,_offset+_label.length()));
     }
 
     private static void refLabelError(VariablesOffsets _vars, AbsBk _bl, CustList<PartOffset> _parts, String _label, int _offset) {
@@ -4497,12 +4344,11 @@ public final class LinkageUtil {
         }
         StringList errs_ = _bl.getErrorsLabels();
         if (!errs_.isEmpty()) {
-            String err_ = transform(StringUtil.join(errs_,"\n\n"));
-            _parts.add(new PartOffset("<a name=\"m"+_offset+"\" title=\""+err_+"\" class=\"e\">",_offset));
+            _parts.add(new PartOffset(ExportCst.anchorNameErr(_offset,StringUtil.join(errs_,"\n\n")),_offset));
         } else {
-            _parts.add(new PartOffset("<a name=\"m"+_offset+"\">",_offset));
+            _parts.add(new PartOffset(ExportCst.anchorName(_offset),_offset));
         }
-        _parts.add(new PartOffset("</a>",_offset+_label.length()));
+        _parts.add(new PartOffset(ExportCst.END_ANCHOR,_offset+_label.length()));
     }
     private static boolean leftOperNotUnary(OperationNode _op) {
         if (_op instanceof TernaryOperation) {

@@ -13,6 +13,7 @@ import code.expressionlanguage.analyze.instr.ElUtil;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 
 import code.expressionlanguage.analyze.instr.PartOffset;
+import code.expressionlanguage.linkage.ExportCst;
 import code.expressionlanguage.linkage.LinkageUtil;
 import code.maths.litteralcom.StrTypes;
 import code.util.*;
@@ -68,8 +69,8 @@ public final class AffectationOperation extends MethodOperation {
             _page.getLocalizer().addError(un_);
             int opLocat_ = _page.getLocalizer().getCurrentLocationIndex();
             CustList<PartOffset> err_ = new CustList<PartOffset>();
-            err_.add(new PartOffset("<a title=\""+LinkageUtil.transform(un_.getBuiltError()) +"\" class=\"e\">",opLocat_));
-            err_.add(new PartOffset("</a>",opLocat_+1));
+            err_.add(new PartOffset(ExportCst.anchorErr(un_.getBuiltError()),opLocat_));
+            err_.add(new PartOffset(ExportCst.END_ANCHOR,opLocat_+1));
             getPartOffsetsChildren().add(err_);
             setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
             return;
@@ -121,8 +122,8 @@ public final class AffectationOperation extends MethodOperation {
                     _page.getLocalizer().addError(cast_);
                     int opLocat_ = _page.getLocalizer().getCurrentLocationIndex();
                     CustList<PartOffset> err_ = new CustList<PartOffset>();
-                    err_.add(new PartOffset("<a title=\""+LinkageUtil.transform(cast_.getBuiltError()) +"\" class=\"e\">",opLocat_));
-                    err_.add(new PartOffset("</a>",opLocat_+1));
+                    err_.add(new PartOffset(ExportCst.anchorErr(cast_.getBuiltError()),opLocat_));
+                    err_.add(new PartOffset(ExportCst.END_ANCHOR,opLocat_+1));
                     getPartOffsetsChildren().add(err_);
                 } else {
                     foundOffset = _page.getLocalizer().getCurrentLocationIndex();
@@ -164,8 +165,8 @@ public final class AffectationOperation extends MethodOperation {
                 _page.getLocalizer().addError(un_);
                 int opLocat_ = _page.getLocalizer().getCurrentLocationIndex();
                 CustList<PartOffset> err_ = new CustList<PartOffset>();
-                err_.add(new PartOffset("<a title=\""+LinkageUtil.transform(un_.getBuiltError()) +"\" class=\"e\">",opLocat_));
-                err_.add(new PartOffset("</a>",opLocat_+1));
+                err_.add(new PartOffset(ExportCst.anchorErr(un_.getBuiltError()),opLocat_));
+                err_.add(new PartOffset(ExportCst.END_ANCHOR,opLocat_+1));
                 getPartOffsetsChildren().add(err_);
                 return;
             }
@@ -189,8 +190,8 @@ public final class AffectationOperation extends MethodOperation {
             _page.getLocalizer().addError(cast_);
             int opLocat_ = _page.getLocalizer().getCurrentLocationIndex();
             CustList<PartOffset> err_ = new CustList<PartOffset>();
-            err_.add(new PartOffset("<a title=\""+LinkageUtil.transform(cast_.getBuiltError()) +"\" class=\"e\">",opLocat_));
-            err_.add(new PartOffset("</a>",opLocat_+1));
+            err_.add(new PartOffset(ExportCst.anchorErr(cast_.getBuiltError()),opLocat_));
+            err_.add(new PartOffset(ExportCst.END_ANCHOR,opLocat_+1));
             getPartOffsetsChildren().add(err_);
             return;
         }
@@ -214,8 +215,8 @@ public final class AffectationOperation extends MethodOperation {
                 _page.getLocalizer().addError(cast_);
                 int opLocat_ = _page.getLocalizer().getCurrentLocationIndex();
                 CustList<PartOffset> err_ = new CustList<PartOffset>();
-                err_.add(new PartOffset("<a title=\""+LinkageUtil.transform(cast_.getBuiltError()) +"\" class=\"e\">",opLocat_));
-                err_.add(new PartOffset("</a>",opLocat_+1));
+                err_.add(new PartOffset(ExportCst.anchorErr(cast_.getBuiltError()),opLocat_));
+                err_.add(new PartOffset(ExportCst.END_ANCHOR,opLocat_+1));
                 getPartOffsetsChildren().add(err_);
             }
         }

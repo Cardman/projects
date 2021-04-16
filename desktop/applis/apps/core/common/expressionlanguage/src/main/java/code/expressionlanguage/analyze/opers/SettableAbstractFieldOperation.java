@@ -18,7 +18,7 @@ import code.util.CustList;
 public abstract class SettableAbstractFieldOperation extends
         AbstractFieldOperation implements SettableElResult {
 
-    private AnaSettableOperationContent settableFieldContent;
+    private final AnaSettableOperationContent settableFieldContent;
     private MethodAccessKind staticAccess;
     private int valueOffset = -1;
     private int fieldNameLength;
@@ -38,7 +38,7 @@ public abstract class SettableAbstractFieldOperation extends
         OperationsSequence op_ = getOperations();
         int relativeOff_ = op_.getOffset();
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+relativeOff_, _page);
-        if (this instanceof StandardFieldOperation&&ElUtil.isDeclaringField(this, _page)) {
+        if (ElUtil.isDeclaringField(this, _page)) {
             indexBlock = _page.getIndexBlock();
             _page.setIndexBlock(indexBlock+1);
             declare = true;

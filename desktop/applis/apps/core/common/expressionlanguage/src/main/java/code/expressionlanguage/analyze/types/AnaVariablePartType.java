@@ -4,6 +4,7 @@ import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.AbsBk;
 import code.expressionlanguage.analyze.inherits.AnaInherits;
 import code.expressionlanguage.analyze.blocks.AccessedBlock;
+import code.expressionlanguage.linkage.ExportCst;
 import code.expressionlanguage.linkage.LinkageUtil;
 import code.util.core.StringUtil;
 
@@ -45,6 +46,6 @@ final class AnaVariablePartType extends AnaLeafPartType {
         if (!_page.getRefFileName().isEmpty()) {
             rel_ = LinkageUtil.relativize(curr_, _page.getRefFileName());
         }
-        setHref(rel_+"#m"+value);
+        setHref(ExportCst.href(rel_,value));
     }
 }

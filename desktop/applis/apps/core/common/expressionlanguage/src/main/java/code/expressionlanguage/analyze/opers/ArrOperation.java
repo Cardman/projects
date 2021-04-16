@@ -12,6 +12,7 @@ import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.analyze.instr.PartOffset;
 import code.expressionlanguage.fwd.opers.AnaArrContent;
 import code.expressionlanguage.fwd.opers.AnaCallFctContent;
+import code.expressionlanguage.linkage.ExportCst;
 import code.expressionlanguage.linkage.LinkageUtil;
 import code.maths.litteralcom.StrTypes;
 import code.util.CustList;
@@ -145,10 +146,7 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
         ClassMethodIdReturn clMethSet_ = tryGetDeclaredCustMethod(varargOnly_, isStaticAccess(),
                 bounds_, trimMethSet_, false,
                 varargParam_, name_, _page, new ScopeFilter(feedSet_, accessFromSuper_, accessSuperTypes_, false, _page.getGlobalClass()));
-        boolean found_ = true;
-        if (!clMeth_.isFoundMethod()) {
-            found_ = false;
-        }
+        boolean found_ = clMeth_.isFoundMethod();
         if (!clMethSet_.isFoundMethod()) {
             found_ = false;
         }
@@ -196,8 +194,8 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
             );
             _page.getLocalizer().addError(badNb_);
             CustList<PartOffset> list_ = new CustList<PartOffset>();
-            list_.add(new PartOffset("<a title=\""+LinkageUtil.transform(badNb_.getBuiltError()) +"\" class=\"e\">",i_));
-            list_.add(new PartOffset("</a>",i_+ 1));
+            list_.add(new PartOffset(ExportCst.anchorErr(badNb_.getBuiltError()),i_));
+            list_.add(new PartOffset(ExportCst.END_ANCHOR,i_+ 1));
             getPartOffsetsChildren().add(list_);
             setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
             return;

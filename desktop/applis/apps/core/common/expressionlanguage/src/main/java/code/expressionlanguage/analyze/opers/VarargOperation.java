@@ -11,6 +11,7 @@ import code.expressionlanguage.analyze.types.ResolvingTypes;
 import code.expressionlanguage.functionid.*;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.analyze.instr.PartOffset;
+import code.expressionlanguage.linkage.ExportCst;
 import code.expressionlanguage.linkage.LinkageUtil;
 import code.util.CustList;
 import code.util.core.StringUtil;
@@ -39,8 +40,8 @@ public final class VarargOperation extends LeafOperation {
             varg_.buildError(_page.getAnalysisMessages().getUnexpectedLeaf(),
                     _page.getKeyWords().getKeyWordVararg());
             _page.getLocalizer().addError(varg_);
-            partOffsets.add(new PartOffset("<a title=\""+LinkageUtil.transform(varg_.getBuiltError()) +"\" class=\"e\">",i_));
-            partOffsets.add(new PartOffset("</a>",i_+ _page.getKeyWords().getKeyWordVararg().length()));
+            partOffsets.add(new PartOffset(ExportCst.anchorErr(varg_.getBuiltError()),i_));
+            partOffsets.add(new PartOffset(ExportCst.END_ANCHOR,i_+ _page.getKeyWords().getKeyWordVararg().length()));
             setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
             setSimpleArgument(new Argument());
             return;
@@ -54,8 +55,8 @@ public final class VarargOperation extends LeafOperation {
             varg_.buildError(_page.getAnalysisMessages().getUnexpectedLeaf(),
                     _page.getKeyWords().getKeyWordVararg());
             _page.getLocalizer().addError(varg_);
-            partOffsets.add(new PartOffset("<a title=\""+LinkageUtil.transform(varg_.getBuiltError()) +"\" class=\"e\">",i_));
-            partOffsets.add(new PartOffset("</a>",i_+ _page.getKeyWords().getKeyWordVararg().length()));
+            partOffsets.add(new PartOffset(ExportCst.anchorErr(varg_.getBuiltError()),i_));
+            partOffsets.add(new PartOffset(ExportCst.END_ANCHOR,i_+ _page.getKeyWords().getKeyWordVararg().length()));
             setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
             setSimpleArgument(new Argument());
             return;

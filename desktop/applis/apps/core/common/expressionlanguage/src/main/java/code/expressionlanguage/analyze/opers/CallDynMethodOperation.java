@@ -19,6 +19,7 @@ import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
 import code.expressionlanguage.analyze.instr.PartOffset;
+import code.expressionlanguage.linkage.ExportCst;
 import code.expressionlanguage.linkage.LinkageUtil;
 import code.expressionlanguage.stds.StandardMethod;
 import code.expressionlanguage.stds.StandardType;
@@ -423,8 +424,8 @@ public final class CallDynMethodOperation extends InvokingOperation implements P
                                 StringUtil.join(a_.getNames(),"&"),
                                 pa_);
                         _page.getLocalizer().addError(cast_);
-                        parts_.add(new PartOffset("<a title=\""+LinkageUtil.transform(cast_.getBuiltError()) +"\" class=\"e\">",i_));
-                        parts_.add(new PartOffset("</a>",i_+1));
+                        parts_.add(new PartOffset(ExportCst.anchorErr(cast_.getBuiltError()),i_));
+                        parts_.add(new PartOffset(ExportCst.END_ANCHOR,i_+1));
                     }
                 } else if (!StringUtil.quickEq("?", pa_)) {
                     if (chidren_.get(i) instanceof WrappOperation) {
@@ -437,8 +438,8 @@ public final class CallDynMethodOperation extends InvokingOperation implements P
                                 StringUtil.join(a_.getNames(),"&"),
                                 pa_);
                         _page.getLocalizer().addError(cast_);
-                        parts_.add(new PartOffset("<a title=\""+LinkageUtil.transform(cast_.getBuiltError()) +"\" class=\"e\">",i_));
-                        parts_.add(new PartOffset("</a>",i_+1));
+                        parts_.add(new PartOffset(ExportCst.anchorErr(cast_.getBuiltError()),i_));
+                        parts_.add(new PartOffset(ExportCst.END_ANCHOR,i_+1));
                     } else if (!AnaInherits.isCorrectOrNumbers(m_, _page)) {
                         ClassMethodIdReturn res_ = tryGetDeclaredImplicitCast(pa_, a_, _page);
                         if (res_.isFoundMethod()) {
@@ -453,8 +454,8 @@ public final class CallDynMethodOperation extends InvokingOperation implements P
                                     StringUtil.join(a_.getNames(),"&"),
                                     pa_);
                             _page.getLocalizer().addError(cast_);
-                            parts_.add(new PartOffset("<a title=\""+LinkageUtil.transform(cast_.getBuiltError()) +"\" class=\"e\">",i_));
-                            parts_.add(new PartOffset("</a>",i_+1));
+                            parts_.add(new PartOffset(ExportCst.anchorErr(cast_.getBuiltError()),i_));
+                            parts_.add(new PartOffset(ExportCst.END_ANCHOR,i_+1));
                         }
                     }
                 }

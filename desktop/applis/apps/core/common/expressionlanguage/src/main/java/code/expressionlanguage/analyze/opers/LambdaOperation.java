@@ -24,6 +24,7 @@ import code.expressionlanguage.fwd.opers.AnaLambdaMethodContent;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.analyze.instr.PartOffset;
+import code.expressionlanguage.linkage.ExportCst;
 import code.expressionlanguage.linkage.LinkageUtil;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.stds.StandardMethod;
@@ -207,8 +208,8 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                         );
                         _page.getLocalizer().addError(badCall_);
                         int i_ = _page.getLocalizer().getCurrentLocationIndex()+className.lastIndexOf(')');
-                        partOffsets.add(new PartOffset("<a title=\""+LinkageUtil.transform(badCall_.getBuiltError()) +"\" class=\"e\">",i_));
-                        partOffsets.add(new PartOffset("</a>",i_+1));
+                        partOffsets.add(new PartOffset(ExportCst.anchorErr(badCall_.getBuiltError()),i_));
+                        partOffsets.add(new PartOffset(ExportCst.END_ANCHOR,i_+1));
                         setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
                         return;
                     }
@@ -244,8 +245,8 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                             );
                             _page.getLocalizer().addError(badCall_);
                             int i_ = _page.getLocalizer().getCurrentLocationIndex()+className.lastIndexOf(')');
-                            partOffsets.add(new PartOffset("<a title=\""+LinkageUtil.transform(badCall_.getBuiltError()) +"\" class=\"e\">",i_));
-                            partOffsets.add(new PartOffset("</a>",i_+1));
+                            partOffsets.add(new PartOffset(ExportCst.anchorErr(badCall_.getBuiltError()),i_));
+                            partOffsets.add(new PartOffset(ExportCst.END_ANCHOR,i_+1));
                             setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
                             return;
                         }
@@ -353,8 +354,8 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                         );
                         _page.getLocalizer().addError(badCall_);
                         int i_ = _page.getLocalizer().getCurrentLocationIndex()+className.lastIndexOf(')');
-                        partOffsets.add(new PartOffset("<a title=\""+LinkageUtil.transform(badCall_.getBuiltError()) +"\" class=\"e\">",i_));
-                        partOffsets.add(new PartOffset("</a>",i_+1));
+                        partOffsets.add(new PartOffset(ExportCst.anchorErr(badCall_.getBuiltError()),i_));
+                        partOffsets.add(new PartOffset(ExportCst.END_ANCHOR,i_+1));
                         setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
                         return;
                     }
@@ -375,8 +376,8 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                             );
                             _page.getLocalizer().addError(badCall_);
                             int i_ = _page.getLocalizer().getCurrentLocationIndex()+className.lastIndexOf(')');
-                            partOffsets.add(new PartOffset("<a title=\""+LinkageUtil.transform(badCall_.getBuiltError()) +"\" class=\"e\">",i_));
-                            partOffsets.add(new PartOffset("</a>",i_+1));
+                            partOffsets.add(new PartOffset(ExportCst.anchorErr(badCall_.getBuiltError()),i_));
+                            partOffsets.add(new PartOffset(ExportCst.END_ANCHOR,i_+1));
                             setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
                             return;
                         }
@@ -474,8 +475,8 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                             );
                             _page.getLocalizer().addError(badCall_);
                             int i_ = _page.getLocalizer().getCurrentLocationIndex()+className.lastIndexOf(')');
-                            partOffsets.add(new PartOffset("<a title=\""+LinkageUtil.transform(badCall_.getBuiltError()) +"\" class=\"e\">",i_));
-                            partOffsets.add(new PartOffset("</a>",i_+1));
+                            partOffsets.add(new PartOffset(ExportCst.anchorErr(badCall_.getBuiltError()),i_));
+                            partOffsets.add(new PartOffset(ExportCst.END_ANCHOR,i_+1));
                             setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
                             return;
                         }
@@ -548,8 +549,8 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             );
             _page.getLocalizer().addError(badCall_);
             int i_ = _page.getLocalizer().getCurrentLocationIndex()+className.lastIndexOf(')');
-            partOffsets.add(new PartOffset("<a title=\""+LinkageUtil.transform(badCall_.getBuiltError()) +"\" class=\"e\">",i_));
-            partOffsets.add(new PartOffset("</a>",i_+1));
+            partOffsets.add(new PartOffset(ExportCst.anchorErr(badCall_.getBuiltError()),i_));
+            partOffsets.add(new PartOffset(ExportCst.END_ANCHOR,i_+1));
             setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
             return;
         }
@@ -1749,8 +1750,8 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             );
             _page.getLocalizer().addError(badCall_);
             int i_ = _page.getLocalizer().getCurrentLocationIndex();
-            partOffsets.add(new PartOffset("<a title=\""+LinkageUtil.transform(badCall_.getBuiltError()) +"\" class=\"e\">",i_));
-            partOffsets.add(new PartOffset("</a>",i_+ _page.getKeyWords().getKeyWordLambda().length()));
+            partOffsets.add(new PartOffset(ExportCst.anchorErr(badCall_.getBuiltError()),i_));
+            partOffsets.add(new PartOffset(ExportCst.END_ANCHOR,i_+ _page.getKeyWords().getKeyWordLambda().length()));
             setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
             return;
         }
@@ -2134,8 +2135,8 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                     StringUtil.join(previousResultClass.getNames(),"&"));
             _page.getLocalizer().addError(un_);
             int i_ = _page.getLocalizer().getCurrentLocationIndex();
-            partOffsets.add(new PartOffset("<a title=\""+LinkageUtil.transform(un_.getBuiltError()) +"\" class=\"e\">",i_));
-            partOffsets.add(new PartOffset("</a>",i_+ _page.getKeyWords().getKeyWordLambda().length()));
+            partOffsets.add(new PartOffset(ExportCst.anchorErr(un_.getBuiltError()),i_));
+            partOffsets.add(new PartOffset(ExportCst.END_ANCHOR,i_+ _page.getKeyWords().getKeyWordLambda().length()));
             setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
             return;
         }
@@ -2180,8 +2181,8 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             if (!displayErr_) {
                 lenErr_ = 1;
             }
-            partOffsets.add(new PartOffset("<a title=\"" + LinkageUtil.transform(badMeth_.getBuiltError()) + "\" class=\"e\">", j_));
-            partOffsets.add(new PartOffset("</a>", j_ + lenErr_));
+            partOffsets.add(new PartOffset(ExportCst.anchorErr(badMeth_.getBuiltError()), j_));
+            partOffsets.add(new PartOffset(ExportCst.END_ANCHOR, j_ + lenErr_));
             setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
             return;
         }
@@ -2248,8 +2249,8 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                         new MethodId(MethodAccessKind.STATIC, "", methodTypes_).getSignature(_page));
                 _page.getLocalizer().addError(undefined_);
                 int k_ = _page.getLocalizer().getCurrentLocationIndex()+sum_+1;
-                partOffsets.add(count_,new PartOffset("</a>",k_+Math.max(1,operator_.length())));
-                partOffsets.add(count_,new PartOffset("<a title=\""+LinkageUtil.transform(undefined_.getBuiltError()) +"\" class=\"e\">",k_));
+                partOffsets.add(count_,new PartOffset(ExportCst.END_ANCHOR,k_+Math.max(1,operator_.length())));
+                partOffsets.add(count_,new PartOffset(ExportCst.anchorErr(undefined_.getBuiltError()),k_));
                 setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
                 return;
             }
@@ -2278,8 +2279,8 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                     new MethodId(MethodAccessKind.STATIC, "", methodTypes_).getSignature(_page));
             _page.getLocalizer().addError(undefined_);
             int k_ = _page.getLocalizer().getCurrentLocationIndex()+sum_+1;
-            partOffsets.add(count_,new PartOffset("</a>",k_+Math.max(1,operator_.length())));
-            partOffsets.add(count_,new PartOffset("<a title=\""+LinkageUtil.transform(undefined_.getBuiltError()) +"\" class=\"e\">",k_));
+            partOffsets.add(count_,new PartOffset(ExportCst.END_ANCHOR,k_+Math.max(1,operator_.length())));
+            partOffsets.add(count_,new PartOffset(ExportCst.anchorErr(undefined_.getBuiltError()),k_));
             setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
             return;
         }
@@ -2400,8 +2401,8 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                     varg_.buildError(_page.getAnalysisMessages().getUnexpectedVararg());
                     _page.getLocalizer().addError(varg_);
                     setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
-                    partOffsets.add(new PartOffset("<a title=\""+LinkageUtil.transform(varg_.getBuiltError()) +"\" class=\"e\">",i_));
-                    partOffsets.add(new PartOffset("</a>",i_+3));
+                    partOffsets.add(new PartOffset(ExportCst.anchorErr(varg_.getBuiltError()),i_));
+                    partOffsets.add(new PartOffset(ExportCst.END_ANCHOR,i_+3));
                     return null;
                 }
                 vararg_ = len_- _from;
@@ -2456,8 +2457,8 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                     varg_.buildError(_page.getAnalysisMessages().getUnexpectedVararg());
                     _page.getLocalizer().addError(varg_);
                     setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
-                    partOffsets.add(new PartOffset("<a title=\""+LinkageUtil.transform(varg_.getBuiltError()) +"\" class=\"e\">",i_));
-                    partOffsets.add(new PartOffset("</a>",i_+3));
+                    partOffsets.add(new PartOffset(ExportCst.anchorErr(varg_.getBuiltError()),i_));
+                    partOffsets.add(new PartOffset(ExportCst.END_ANCHOR,i_+3));
                     return null;
                 }
                 wrap_ = true;

@@ -23,6 +23,7 @@ import code.expressionlanguage.analyze.instr.ElUtil;
 import code.expressionlanguage.analyze.instr.PartOffset;
 import code.expressionlanguage.analyze.opers.Calculation;
 import code.expressionlanguage.analyze.opers.OperationNode;
+import code.expressionlanguage.linkage.ExportCst;
 import code.expressionlanguage.options.KeyWords;
 import code.util.*;
 import code.util.core.StringUtil;
@@ -361,12 +362,13 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                     CustList<AnaResultPartType> results_ = new CustList<AnaResultPartType>();
                     Ints ints_ = paramTypesConstraintsOffset.get(j_);
                     if (t.getErrors().isEmpty()) {
-                        constraintsParts.add(new PartOffset("<a name=\"m"+t.getOffset()+"\">",t.getOffset()));
+                        constraintsParts.add(new PartOffset(ExportCst.anchorName(t.getOffset()),
+                                t.getOffset()));
                     } else {
                         String err_ = StringUtil.join(t.getErrors(),"\n\n");
-                        constraintsParts.add(new PartOffset("<a name=\"m"+t.getOffset()+"\" title=\""+err_+"\" class=\"e\">",t.getOffset()));
+                        constraintsParts.add(new PartOffset(ExportCst.anchorNameErr(t.getOffset(),err_),t.getOffset()));
                     }
-                    constraintsParts.add(new PartOffset("</a>",t.getOffset()+t.getLength()));
+                    constraintsParts.add(new PartOffset(ExportCst.END_ANCHOR,t.getOffset()+t.getLength()));
                     _page.getCurrentParts().clear();
                     int i_ = 0;
                     for (String c: t.getConstraints()) {

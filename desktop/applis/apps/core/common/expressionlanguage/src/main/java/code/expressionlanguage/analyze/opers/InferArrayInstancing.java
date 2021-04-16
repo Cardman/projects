@@ -16,6 +16,7 @@ import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
 import code.expressionlanguage.analyze.instr.PartOffset;
+import code.expressionlanguage.linkage.ExportCst;
 import code.expressionlanguage.linkage.LinkageUtil;
 import code.expressionlanguage.options.KeyWords;
 import code.maths.litteralcom.StrTypes;
@@ -128,8 +129,8 @@ public final class InferArrayInstancing extends AbstractArrayInstancingOperation
             un_.buildError(_page.getAnalysisMessages().getUnexpectedType(),
                     type_);
             _page.getLocalizer().addError(un_);
-            partOffsetsErr.add(new PartOffset("<a title=\""+un_.getBuiltError()+"\" class=\"e\">",i_));
-            partOffsetsErr.add(new PartOffset("</a>",i_+1));
+            partOffsetsErr.add(new PartOffset(ExportCst.anchorErr(un_.getBuiltError()),i_));
+            partOffsetsErr.add(new PartOffset(ExportCst.END_ANCHOR,i_+1));
             setResultClass(new AnaClassArgumentMatching(StringExpUtil.getPrettyArrayType(_page.getAliasObject())));
             return;
         }
@@ -146,8 +147,8 @@ public final class InferArrayInstancing extends AbstractArrayInstancingOperation
             un_.buildError(_page.getAnalysisMessages().getUnexpectedType(),
                     n_);
             _page.getLocalizer().addError(un_);
-            partOffsetsErr.add(new PartOffset("<a title=\""+un_.getBuiltError()+"\" class=\"e\">",i_));
-            partOffsetsErr.add(new PartOffset("</a>",i_+1));
+            partOffsetsErr.add(new PartOffset(ExportCst.anchorErr(un_.getBuiltError()),i_));
+            partOffsetsErr.add(new PartOffset(ExportCst.END_ANCHOR,i_+1));
             setResultClass(new AnaClassArgumentMatching(StringExpUtil.getPrettyArrayType(_page.getAliasObject())));
             return;
         }
@@ -163,8 +164,8 @@ public final class InferArrayInstancing extends AbstractArrayInstancingOperation
             un_.buildError(_page.getAnalysisMessages().getUnexpectedType(),
                     cp_);
             _page.getLocalizer().addError(un_);
-            partOffsetsErr.add(new PartOffset("<a title=\""+un_.getBuiltError()+"\" class=\"e\">",i_));
-            partOffsetsErr.add(new PartOffset("</a>",i_+1));
+            partOffsetsErr.add(new PartOffset(ExportCst.anchorErr(un_.getBuiltError()),i_));
+            partOffsetsErr.add(new PartOffset(ExportCst.END_ANCHOR,i_+1));
             setResultClass(new AnaClassArgumentMatching(StringExpUtil.getPrettyArrayType(_page.getAliasObject())));
             return;
         }
@@ -195,8 +196,8 @@ public final class InferArrayInstancing extends AbstractArrayInstancingOperation
                             StringUtil.join(argType_.getNames(),"&"),
                             classNameFinal_);
                     _page.getLocalizer().addError(cast_);
-                    parts_.add(new PartOffset("<a title=\""+LinkageUtil.transform(cast_.getBuiltError()) +"\" class=\"e\">",i_));
-                    parts_.add(new PartOffset("</a>",i_+1));
+                    parts_.add(new PartOffset(ExportCst.anchorErr(cast_.getBuiltError()),i_));
+                    parts_.add(new PartOffset(ExportCst.END_ANCHOR,i_+1));
                 }
             }
             if (AnaTypeUtil.isPrimitive(classNameFinal_, _page)) {

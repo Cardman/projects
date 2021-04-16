@@ -6,6 +6,7 @@ import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.errors.custom.GraphicErrorInterpret;
 import code.expressionlanguage.analyze.errors.custom.GraphicErrorList;
 import code.expressionlanguage.common.FileMetricsCore;
+import code.expressionlanguage.linkage.ExportCst;
 import code.expressionlanguage.linkage.LinkageUtil;
 import code.util.*;
 import code.util.core.IndexConstants;
@@ -154,7 +155,7 @@ public final class FileBlock extends BracedBlock implements ImportingBlock {
     }
 
     public String getRenderFileName() {
-        return fileName+".html";
+        return fileName+ ExportCst.EXT;
     }
 
     public StringList getAllPackages() {

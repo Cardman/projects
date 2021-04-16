@@ -10,6 +10,7 @@ import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.common.*;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.analyze.instr.PartOffset;
+import code.expressionlanguage.linkage.ExportCst;
 import code.expressionlanguage.linkage.LinkageUtil;
 import code.expressionlanguage.stds.*;
 import code.util.*;
@@ -207,8 +208,8 @@ public final class ContextUtil {
         String ref_ = ((RootBlock) g_).getFile().getRenderFileName();
         String rel_ = LinkageUtil.relativize(curr_,ref_);
         int id_ = ((RootBlock) g_).getIdRowCol();
-        _parts.add(new PartOffset("<a title=\""+g_.getFullName()+"\" href=\""+rel_+"#m"+id_+"\">",rc_+_begin));
-        _parts.add(new PartOffset("</a>",rc_+_end));
+        _parts.add(new PartOffset(ExportCst.anchorRef(g_.getFullName(),rel_,id_),rc_+_begin));
+        _parts.add(new PartOffset(ExportCst.END_ANCHOR,rc_+_end));
     }
 
     public static void appendTitleParts(int _begin, int _end, String _in, CustList<PartOffset> _parts, AnalyzedPageEl _page) {
@@ -216,16 +217,16 @@ public final class ContextUtil {
             return;
         }
         int rc_ = _page.getTraceIndex();
-        _parts.add(new PartOffset("<a title=\""+LinkageUtil.transform(_in)+"\">",rc_+_begin));
-        _parts.add(new PartOffset("</a>",rc_+_end));
+        _parts.add(new PartOffset(ExportCst.anchor(_in),rc_+_begin));
+        _parts.add(new PartOffset(ExportCst.END_ANCHOR,rc_+_end));
     }
 
     public static void appendTitlePartsAbs(int _begin, int _end, String _in, CustList<PartOffset> _parts, AnalyzedPageEl _page) {
         if (!_page.isGettingParts()) {
             return;
         }
-        _parts.add(new PartOffset("<a title=\""+LinkageUtil.transform(_in)+"\">",_begin));
-        _parts.add(new PartOffset("</a>",_end));
+        _parts.add(new PartOffset(ExportCst.anchor(_in),_begin));
+        _parts.add(new PartOffset(ExportCst.END_ANCHOR,_end));
     }
 
     public static boolean isFromCustFile(AnaGeneType _g) {

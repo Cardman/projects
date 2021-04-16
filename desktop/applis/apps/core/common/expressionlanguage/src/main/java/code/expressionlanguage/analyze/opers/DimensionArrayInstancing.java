@@ -14,6 +14,7 @@ import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.analyze.instr.PartOffset;
 import code.expressionlanguage.analyze.blocks.AbsBk;
 import code.expressionlanguage.analyze.blocks.ReturnMethod;
+import code.expressionlanguage.linkage.ExportCst;
 import code.expressionlanguage.linkage.LinkageUtil;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.stds.PrimitiveTypes;
@@ -385,8 +386,8 @@ public final class DimensionArrayInstancing extends
                     un_.buildError(_page.getAnalysisMessages().getUnexpectedType(),
                             StringUtil.join(resCh_.getNames(),"&"));
                     _page.getLocalizer().addError(un_);
-                    parts_.add(new PartOffset("<a title=\""+LinkageUtil.transform(un_.getBuiltError()) +"\" class=\"e\">",i_));
-                    parts_.add(new PartOffset("</a>",i_+1));
+                    parts_.add(new PartOffset(ExportCst.anchorErr(un_.getBuiltError()),i_));
+                    parts_.add(new PartOffset(ExportCst.END_ANCHOR,i_+1));
                 }
             }
             resCh_.setUnwrapObjectNb(PrimitiveTypes.INT_WRAP);

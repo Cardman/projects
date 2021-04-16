@@ -9,6 +9,7 @@ import code.expressionlanguage.analyze.util.MappingLocalType;
 import code.expressionlanguage.common.AnaGeneType;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
+import code.expressionlanguage.linkage.ExportCst;
 import code.expressionlanguage.linkage.LinkageUtil;
 import code.util.*;
 import code.util.core.StringUtil;
@@ -393,7 +394,7 @@ final class AnaNamePartType extends AnaLeafPartType {
             String rel_ = LinkageUtil.relativize(curr_,ref_);
             int id_ = ((RootBlock) g_).getIdRowCol();
             setTitleRef(idCl_);
-            setHref(rel_+"#m"+id_);
+            setHref(ExportCst.href(rel_,id_));
         }
     }
     void processInaccessibleOffsets(String _gl, AnalyzedPageEl _page) {

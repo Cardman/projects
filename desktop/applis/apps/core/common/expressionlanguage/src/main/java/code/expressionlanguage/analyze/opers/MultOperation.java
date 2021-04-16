@@ -6,6 +6,7 @@ import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.analyze.opers.util.ResultOperand;
 import code.expressionlanguage.analyze.instr.PartOffset;
+import code.expressionlanguage.linkage.ExportCst;
 import code.expressionlanguage.linkage.LinkageUtil;
 import code.util.CustList;
 import code.util.StringList;
@@ -53,8 +54,8 @@ public final class MultOperation extends NumericOperation {
         AnaClassArgumentMatching arg_ = new AnaClassArgumentMatching(exp_);
         res_.setResult(arg_);
         CustList<PartOffset> err_ = new CustList<PartOffset>();
-        err_.add(new PartOffset("<a title=\""+LinkageUtil.transform(un_.getBuiltError()) +"\" class=\"e\">",index_));
-        err_.add(new PartOffset("</a>",index_+1));
+        err_.add(new PartOffset(ExportCst.anchorErr(un_.getBuiltError()),index_));
+        err_.add(new PartOffset(ExportCst.END_ANCHOR,index_+1));
         getPartOffsetsChildren().add(err_);
         return res_;
     }

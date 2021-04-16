@@ -78,7 +78,7 @@ public abstract class QuickOperation extends MethodOperation {
                             StringUtil.join(getResultClass().getNames(),"&"),
                             StringUtil.join(leftRes_.getNames(),"&"));
                     _page.getLocalizer().addError(cast_);
-                    errFirst.add(LinkageUtil.transform(cast_.getBuiltError()));
+                    errFirst.add(cast_.getBuiltError());
                     okNum = false;
                 }
                 setResultClass(AnaClassArgumentMatching.copy(AnaTypeUtil.toPrimitive(leftRes_, _page), _page.getPrimitiveTypes()));
@@ -95,7 +95,7 @@ public abstract class QuickOperation extends MethodOperation {
             un_.buildError(_page.getAnalysisMessages().getUnexpectedType(),
                     StringUtil.join(leftRes_.getNames(),"&"));
             _page.getLocalizer().addError(un_);
-            errFirst.add(LinkageUtil.transform(un_.getBuiltError()));
+            errFirst.add(un_.getBuiltError());
             okNum = false;
         }
         if (!rightRes_.isBoolType(_page)) {
@@ -107,7 +107,7 @@ public abstract class QuickOperation extends MethodOperation {
             un_.buildError(_page.getAnalysisMessages().getUnexpectedType(),
                     StringUtil.join(rightRes_.getNames(),"&"));
             _page.getLocalizer().addError(un_);
-            errSecond.add(LinkageUtil.transform(un_.getBuiltError()));
+            errSecond.add(un_.getBuiltError());
             okNum = false;
         }
         leftRes_.setUnwrapObjectNb(PrimitiveTypes.BOOL_WRAP);

@@ -20,6 +20,7 @@ import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.analyze.instr.PartOffset;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
+import code.expressionlanguage.linkage.ExportCst;
 import code.expressionlanguage.linkage.LinkageUtil;
 import code.expressionlanguage.options.KeyWords;
 import code.maths.litteralcom.StrTypes;
@@ -271,8 +272,8 @@ public final class ElementArrayInstancing extends AbstractArrayInstancingOperati
             StrTypes operators_ = getOperations().getOperators();
             setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ operators_.firstKey(), _page);
             int i_ = _page.getLocalizer().getCurrentLocationIndex();
-            partOffsetsErr.add(new PartOffset("<a title=\""+un_.getBuiltError()+"\" class=\"e\">",i_));
-            partOffsetsErr.add(new PartOffset("</a>",i_+1));
+            partOffsetsErr.add(new PartOffset(ExportCst.anchorErr(un_.getBuiltError()),i_));
+            partOffsetsErr.add(new PartOffset(ExportCst.END_ANCHOR,i_+1));
             String obj_ = _page.getAliasObject();
             obj_ = StringExpUtil.getPrettyArrayType(obj_);
             AnaClassArgumentMatching class_ = new AnaClassArgumentMatching(obj_);
@@ -305,8 +306,8 @@ public final class ElementArrayInstancing extends AbstractArrayInstancingOperati
                             StringUtil.join(argType_.getNames(),"&"),
                             eltType_);
                     _page.getLocalizer().addError(cast_);
-                    parts_.add(new PartOffset("<a title=\""+LinkageUtil.transform(cast_.getBuiltError()) +"\" class=\"e\">",i_));
-                    parts_.add(new PartOffset("</a>",i_+1));
+                    parts_.add(new PartOffset(ExportCst.anchorErr(cast_.getBuiltError()),i_));
+                    parts_.add(new PartOffset(ExportCst.END_ANCHOR,i_+1));
                 }
             }
             if (AnaTypeUtil.isPrimitive(eltType_, _page)) {

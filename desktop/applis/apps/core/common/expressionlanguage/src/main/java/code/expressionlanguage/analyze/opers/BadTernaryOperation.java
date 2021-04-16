@@ -5,6 +5,7 @@ import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.analyze.instr.PartOffset;
+import code.expressionlanguage.linkage.ExportCst;
 import code.expressionlanguage.linkage.LinkageUtil;
 import code.maths.litteralcom.StrTypes;
 import code.util.CustList;
@@ -34,8 +35,8 @@ public final class BadTernaryOperation extends MethodOperation {
         addErr(badNb_.getBuiltError());
         StringList deep_ = getErrs();
         int i_ = _page.getLocalizer().getCurrentLocationIndex();
-        getPartOffsetsEnd().add(new PartOffset("<a title=\""+LinkageUtil.transform(StringUtil.join(deep_,"\n\n")) +"\" class=\"e\">",i_));
-        getPartOffsetsEnd().add(new PartOffset("</a>",i_+ _page.getKeyWords().getKeyWordBool().length()));
+        getPartOffsetsEnd().add(new PartOffset(ExportCst.anchorErr(StringUtil.join(deep_,"\n\n")),i_));
+        getPartOffsetsEnd().add(new PartOffset(ExportCst.END_ANCHOR,i_+ _page.getKeyWords().getKeyWordBool().length()));
         setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
     }
 

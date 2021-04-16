@@ -11,6 +11,7 @@ import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.analyze.instr.PartOffset;
 import code.expressionlanguage.fwd.opers.AnaOperatorContent;
+import code.expressionlanguage.linkage.ExportCst;
 import code.expressionlanguage.linkage.LinkageUtil;
 import code.expressionlanguage.stds.PrimitiveTypes;
 import code.maths.litteralcom.StrTypes;
@@ -57,8 +58,8 @@ public final class CmpOperation extends MethodOperation implements MiddleSymbolO
                 getPartOffsetsChildren().add(err_);
             }
             CustList<PartOffset> err_ = new CustList<PartOffset>();
-            err_.add(new PartOffset("<a title=\""+LinkageUtil.transform(badNb_.getBuiltError()) +"\" class=\"e\">",index_));
-            err_.add(new PartOffset("</a>",index_+getOperations().getOperators().getValue(in_).length()));
+            err_.add(new PartOffset(ExportCst.anchorErr(badNb_.getBuiltError()),index_));
+            err_.add(new PartOffset(ExportCst.END_ANCHOR,index_+getOperations().getOperators().getValue(in_).length()));
             getPartOffsetsChildren().add(err_);
             setResultClass(new AnaClassArgumentMatching(_page.getAliasPrimBoolean(),PrimitiveTypes.BOOL_WRAP));
             return;
@@ -115,8 +116,8 @@ public final class CmpOperation extends MethodOperation implements MiddleSymbolO
                 getOp());
         _page.getLocalizer().addError(un_);
         CustList<PartOffset> err_ = new CustList<PartOffset>();
-        err_.add(new PartOffset("<a title=\""+LinkageUtil.transform(un_.getBuiltError()) +"\" class=\"e\">",index_));
-        err_.add(new PartOffset("</a>",index_+ operatorContent.getOper().length()));
+        err_.add(new PartOffset(ExportCst.anchorErr(un_.getBuiltError()),index_));
+        err_.add(new PartOffset(ExportCst.END_ANCHOR,index_+ operatorContent.getOper().length()));
         getPartOffsetsChildren().add(err_);
         setResultClass(new AnaClassArgumentMatching(res_, _page.getPrimitiveTypes()));
     }

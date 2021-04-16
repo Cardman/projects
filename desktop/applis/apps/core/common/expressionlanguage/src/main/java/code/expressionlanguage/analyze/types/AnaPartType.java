@@ -1,6 +1,7 @@
 package code.expressionlanguage.analyze.types;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.linkage.ExportCst;
 import code.maths.litteralcom.StrTypes;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.blocks.AccessedBlock;
@@ -154,20 +155,17 @@ abstract class AnaPartType {
         buildOffsetPart(begin_,Math.max(1, length));
     }
     void buildOffsetPart(int _offset,int _len) {
-        StringBuilder pref_ = new StringBuilder("<a");
+        StringBuilder pref_ = new StringBuilder(ExportCst.BEGIN_ANCHOR);
         boolean add_ = false;
+        appendTitleRef(pref_, ExportCst.SEP_ATTR+ExportCst.title(errs,titleRef));
+        appendHref(pref_);
+        if (!errs.isEmpty()) {
+            pref_.append(ExportCst.SEP_ATTR+ExportCst.CLASS_ERR+ExportCst.END);
+        } else {
+            pref_.append(ExportCst.END);
+        }
         if (!errs.isEmpty()) {
             add_ = true;
-            pref_.append(" title=\"");
-            pref_.append(LinkageUtil.transform(StringUtil.join(errs,"\n\n")));
-            appendTitleRef(pref_, "\n\n"+titleRef);
-            pref_.append("\"");
-            appendHref(pref_);
-            pref_.append(" class=\"e\">");
-        } else {
-            appendTitleRef(pref_, " title=\"" + titleRef + "\"");
-            appendHref(pref_);
-            pref_.append(">");
         }
         if (!titleRef.isEmpty()) {
             add_ = true;
@@ -179,18 +177,18 @@ abstract class AnaPartType {
             return;
         }
         setBeginOffset(new PartOffset(pref_.toString(),_offset));
-        setEndOffset(new PartOffset("</a>",_offset+_len));
+        setEndOffset(new PartOffset(ExportCst.END_ANCHOR,_offset+_len));
     }
 
     private void appendTitleRef(StringBuilder _pref, String _str) {
-        if (!titleRef.isEmpty()) {
+        if (!errs.isEmpty()||!titleRef.isEmpty()) {
             _pref.append(_str);
         }
     }
 
     private void appendHref(StringBuilder _pref) {
         if (!href.isEmpty()) {
-            _pref.append(" href=\"").append(href).append("\"");
+            _pref.append(ExportCst.SEP_ATTR).append(ExportCst.href(href));
         }
     }
 

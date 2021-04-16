@@ -3,6 +3,7 @@ package code.expressionlanguage.analyze.types;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.inherits.AnaInherits;
 import code.expressionlanguage.common.AnaGeneType;
+import code.expressionlanguage.linkage.ExportCst;
 import code.maths.litteralcom.StrTypes;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
@@ -120,10 +121,9 @@ public final class AnaPartTypeUtil {
         String inputTr_ = _input.trim();
         Ints indexes_ = ParserType.getIndexes(inputTr_, _page);
         if (indexes_ == null) {
-            String err_ = LinkageUtil.transform(FoundErrorInterpret.buildARError(_page.getAnalysisMessages().getUnknownType(), _input));
-            String pref_ = "<a title=\""+err_+"\" class=\"e\">";
+            String pref_ = ExportCst.anchorErr(FoundErrorInterpret.buildARError(_page.getAnalysisMessages().getUnknownType(), _input));
             _offs.add(new PartOffset(pref_, _loc));
-            _offs.add(new PartOffset("</a>", _loc + _input.length()));
+            _offs.add(new PartOffset(ExportCst.END_ANCHOR, _loc + _input.length()));
             return new AnaResultPartType("",null);
         }
         AnalyzingType loc_ = ParserType.analyzeLocal(0, inputTr_, indexes_);
@@ -413,10 +413,9 @@ public final class AnaPartTypeUtil {
         String inputTr_ = _input.trim();
         Ints indexes_ = ParserType.getIndexes(inputTr_, _page);
         if (indexes_ == null) {
-            String err_ = LinkageUtil.transform(FoundErrorInterpret.buildARError(_page.getAnalysisMessages().getUnknownType(), _input));
-            String pref_ = "<a title=\""+err_+"\" class=\"e\">";
+            String pref_ = ExportCst.anchorErr(FoundErrorInterpret.buildARError(_page.getAnalysisMessages().getUnknownType(), _input));
             _offs.add(new PartOffset(pref_,_loc));
-            _offs.add(new PartOffset("</a>",_loc+_input.length()));
+            _offs.add(new PartOffset(ExportCst.END_ANCHOR,_loc+_input.length()));
             return null;
         }
         AnalyzingType loc_ = ParserType.analyzeLocal(0, inputTr_, indexes_);
@@ -498,10 +497,9 @@ public final class AnaPartTypeUtil {
         _page.setRefFileName(_refFileName);
         Ints indexes_ = ParserType.getIndexes(_input.trim(), _page);
         if (indexes_ == null) {
-            String err_ = LinkageUtil.transform(FoundErrorInterpret.buildARError(_page.getAnalysisMessages().getUnknownType(), _input));
-            String pref_ = "<a title=\""+err_+"\" class=\"e\">";
+            String pref_ = ExportCst.anchorErr(FoundErrorInterpret.buildARError(_page.getAnalysisMessages().getUnknownType(), _input));
             _offs.add(new PartOffset(pref_,_loc));
-            _offs.add(new PartOffset("</a>",_loc+_input.length()));
+            _offs.add(new PartOffset(ExportCst.END_ANCHOR,_loc+_input.length()));
             return new AnaResultPartType("",null);
         }
         AnalyzingType loc_ = ParserType.analyzeLocalId(0, _input.trim(), indexes_);

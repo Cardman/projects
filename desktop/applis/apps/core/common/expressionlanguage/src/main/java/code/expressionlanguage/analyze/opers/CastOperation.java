@@ -9,6 +9,7 @@ import code.expressionlanguage.analyze.instr.PartOffset;
 import code.expressionlanguage.analyze.types.ResolvingTypes;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.fwd.opers.AnaTypeCheckContent;
+import code.expressionlanguage.linkage.ExportCst;
 import code.util.CustList;
 
 public final class CastOperation extends AbstractUnaryOperation implements PreAnalyzableOperation {
@@ -46,9 +47,9 @@ public final class CastOperation extends AbstractUnaryOperation implements PreAn
                 un_.buildError(_page.getAnalysisMessages().getEmptyType());
                 CustList<PartOffset> partOffsets_ = new CustList<PartOffset>();
                 String err_ = un_.getBuiltError();
-                String pref_ = "<a title=\""+err_+"\" class=\"e\">";
+                String pref_ = ExportCst.anchorErr(err_);
                 partOffsets_.add(new PartOffset(pref_,rc_));
-                partOffsets_.add(new PartOffset("</a>",rc_+1));
+                partOffsets_.add(new PartOffset(ExportCst.END_ANCHOR,rc_+1));
                 typeCheckContent.setClassName(EMPTY_STRING);
                 partOffsets = partOffsets_;
                 return;

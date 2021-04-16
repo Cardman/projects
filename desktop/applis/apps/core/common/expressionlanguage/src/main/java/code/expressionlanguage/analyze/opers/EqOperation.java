@@ -8,6 +8,7 @@ import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.analyze.instr.PartOffset;
+import code.expressionlanguage.linkage.ExportCst;
 import code.expressionlanguage.linkage.LinkageUtil;
 import code.expressionlanguage.stds.PrimitiveTypes;
 import code.maths.litteralcom.StrTypes;
@@ -39,8 +40,8 @@ public final class EqOperation extends MethodOperation implements MiddleSymbolOp
                     oper.trim());
             _page.getLocalizer().addError(badEl_);
             CustList<PartOffset> err_ = new CustList<PartOffset>();
-            err_.add(new PartOffset("<a title=\""+LinkageUtil.transform(badEl_.getBuiltError()) +"\" class=\"e\">",index_));
-            err_.add(new PartOffset("</a>",index_+1));
+            err_.add(new PartOffset(ExportCst.anchorErr(badEl_.getBuiltError()),index_));
+            err_.add(new PartOffset(ExportCst.END_ANCHOR,index_+1));
             getPartOffsetsChildren().add(err_);
         }
         String custOp_ = oper.trim();

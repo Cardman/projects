@@ -14,6 +14,7 @@ import code.expressionlanguage.analyze.instr.PartOffset;
 import code.expressionlanguage.common.AnnotationFieldInfo;
 import code.expressionlanguage.common.AnnotationTypeInfo;
 import code.expressionlanguage.fwd.opers.AnaInstancingAnnotContent;
+import code.expressionlanguage.linkage.ExportCst;
 import code.expressionlanguage.linkage.LinkageUtil;
 import code.maths.litteralcom.StrTypes;
 import code.util.*;
@@ -136,8 +137,8 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
             un_.buildError(_page.getAnalysisMessages().getUnexpectedType(),
                     _page.getAliasObject());
             _page.getLocalizer().addError(un_);
-            partOffsetsErr.add(new PartOffset("<a title=\""+un_.getBuiltError()+"\" class=\"e\">",i_));
-            partOffsetsErr.add(new PartOffset("</a>",i_+1));
+            partOffsetsErr.add(new PartOffset(ExportCst.anchorErr(un_.getBuiltError()),i_));
+            partOffsetsErr.add(new PartOffset(ExportCst.END_ANCHOR,i_+1));
             setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
             return;
         }
@@ -154,8 +155,8 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
                 un_.buildError(_page.getAnalysisMessages().getUnexpectedType(),
                         instancingAnnotContent.getClassName());
                 _page.getLocalizer().addError(un_);
-                partOffsetsErr.add(new PartOffset("<a title=\""+un_.getBuiltError()+"\" class=\"e\">",i_));
-                partOffsetsErr.add(new PartOffset("</a>",i_+1));
+                partOffsetsErr.add(new PartOffset(ExportCst.anchorErr(un_.getBuiltError()),i_));
+                partOffsetsErr.add(new PartOffset(ExportCst.END_ANCHOR,i_+1));
                 setResultClass(new AnaClassArgumentMatching(instancingAnnotContent.getClassName()));
                 return;
             }
@@ -179,8 +180,8 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
                             StringUtil.join(argType_.getNames(),"&"),
                             eltType_);
                     _page.getLocalizer().addError(cast_);
-                    parts_.add(new PartOffset("<a title=\""+LinkageUtil.transform(cast_.getBuiltError()) +"\" class=\"e\">",i_));
-                    parts_.add(new PartOffset("</a>",i_+1));
+                    parts_.add(new PartOffset(ExportCst.anchorErr(cast_.getBuiltError()),i_));
+                    parts_.add(new PartOffset(ExportCst.END_ANCHOR,i_+1));
                 }
                 if (AnaTypeUtil.isPrimitive(eltType_, _page)) {
                     o.getResultClass().setUnwrapObject(eltType_, _page.getPrimitiveTypes());
@@ -206,8 +207,8 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
             call_.buildError(_page.getAnalysisMessages().getIllegalCtorAnnotation(),
                     instancingAnnotContent.getMethodName().trim().substring(AROBASE.length()).trim());
             _page.getLocalizer().addError(call_);
-            partOffsetsErr.add(new PartOffset("<a title=\""+call_.getBuiltError()+"\" class=\"e\">",i_));
-            partOffsetsErr.add(new PartOffset("</a>",i_+1));
+            partOffsetsErr.add(new PartOffset(ExportCst.anchorErr(call_.getBuiltError()),i_));
+            partOffsetsErr.add(new PartOffset(ExportCst.END_ANCHOR,i_+1));
             setResultClass(new AnaClassArgumentMatching(instancingAnnotContent.getClassName()));
             return;
         }
@@ -264,8 +265,8 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
                     addErr(cast_.getBuiltError());
                     StringList deep_ = getErrs();
                     int i_ = _page.getLocalizer().getCurrentLocationIndex()+k_;
-                    partOffsetsErrPar.add(new PartOffset("<a title=\""+LinkageUtil.transform(StringUtil.join(deep_,"\n\n")) +"\" class=\"e\">",i_));
-                    partOffsetsErrPar.add(new PartOffset("</a>",i_+1));
+                    partOffsetsErrPar.add(new PartOffset(ExportCst.anchorErr(StringUtil.join(deep_,"\n\n")),i_));
+                    partOffsetsErrPar.add(new PartOffset(ExportCst.END_ANCHOR,i_+1));
                 }
                 AnnotationTypeInfo i_ = new AnnotationTypeInfo();
                 i_.setType(paramName_);
@@ -284,8 +285,8 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
             addErr(cast_.getBuiltError());
             StringList deep_ = getErrs();
             int i_ = _page.getLocalizer().getCurrentLocationIndex()+k_;
-            getPartOffsetsEnd().add(new PartOffset("<a title=\""+LinkageUtil.transform(StringUtil.join(deep_,"\n\n")) +"\" class=\"e\">",i_));
-            getPartOffsetsEnd().add(new PartOffset("</a>",i_+1));
+            getPartOffsetsEnd().add(new PartOffset(ExportCst.anchorErr(StringUtil.join(deep_,"\n\n")),i_));
+            getPartOffsetsEnd().add(new PartOffset(ExportCst.END_ANCHOR,i_+1));
             setResultClass(new AnaClassArgumentMatching(instancingAnnotContent.getClassName()));
             return;
         }
@@ -364,12 +365,12 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
             if (!operators_.isEmpty()) {
                 int k_ = operators_.lastKey();
                 int i_ = _page.getLocalizer().getCurrentLocationIndex()+k_;
-                getPartOffsetsEnd().add(new PartOffset("<a title=\""+LinkageUtil.transform(StringUtil.join(deep_,"\n\n")) +"\" class=\"e\">",i_));
-                getPartOffsetsEnd().add(new PartOffset("</a>",i_+1));
+                getPartOffsetsEnd().add(new PartOffset(ExportCst.anchorErr(StringUtil.join(deep_,"\n\n")),i_));
+                getPartOffsetsEnd().add(new PartOffset(ExportCst.END_ANCHOR,i_+1));
             } else {
                 int i_ = _page.getLocalizer().getCurrentLocationIndex();
-                partOffsetsErr.add(new PartOffset("<a title=\""+LinkageUtil.transform(StringUtil.join(deep_,"\n\n"))+"\" class=\"e\">",i_));
-                partOffsetsErr.add(new PartOffset("</a>",i_+1));
+                partOffsetsErr.add(new PartOffset(ExportCst.anchorErr(StringUtil.join(deep_,"\n\n")),i_));
+                partOffsetsErr.add(new PartOffset(ExportCst.END_ANCHOR,i_+1));
             }
         }
         for (AssocationOperation e: suppliedFields_) {
