@@ -160,7 +160,7 @@ abstract class AnaPartType {
         appendTitleRef(pref_, ExportCst.SEP_ATTR+ExportCst.title(errs,titleRef));
         appendHref(pref_);
         if (!errs.isEmpty()) {
-            pref_.append(ExportCst.SEP_ATTR+ExportCst.CLASS_ERR+ExportCst.END);
+            pref_.append(ExportCst.SEP_ATTR_CLASS_ERR+ExportCst.END);
         } else {
             pref_.append(ExportCst.END);
         }

@@ -1297,8 +1297,8 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             cast_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
             //key word len
             cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
-                    StringUtil.join(bounds_,"&"),
-                    StringUtil.join(str_,"&"));
+                    StringUtil.join(bounds_,ExportCst.JOIN_TYPES),
+                    StringUtil.join(str_,ExportCst.JOIN_TYPES));
             _page.getLocalizer().addError(cast_);
             addErr(cast_.getBuiltError());
             setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
@@ -1395,7 +1395,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             //_name len
             undefined_.buildError(_page.getAnalysisMessages().getArrayCloneOnly(),
                     _page.getAliasClone(),
-                    StringUtil.join(_str,"&"));
+                    StringUtil.join(_str,ExportCst.JOIN_TYPES));
             _page.getLocalizer().addError(undefined_);
             addErr(undefined_.getBuiltError());
             return true;
@@ -1978,8 +1978,8 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                 cast_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
                 //key word len
                 cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
-                        StringUtil.join(bounds_,"&"),
-                        StringUtil.join(str_,"&"));
+                        StringUtil.join(bounds_,ExportCst.JOIN_TYPES),
+                        StringUtil.join(str_,ExportCst.JOIN_TYPES));
                 _page.getLocalizer().addError(cast_);
                 addErr(cast_.getBuiltError());
                 setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
@@ -2031,8 +2031,8 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             cast_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
             //key word len
             cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
-                    StringUtil.join(bounds_,"&"),
-                    StringUtil.join(str_,"&"));
+                    StringUtil.join(bounds_,ExportCst.JOIN_TYPES),
+                    StringUtil.join(str_,ExportCst.JOIN_TYPES));
             _page.getLocalizer().addError(cast_);
             addErr(cast_.getBuiltError());
             setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
@@ -2132,7 +2132,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             un_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
             //key word len
             un_.buildError(_page.getAnalysisMessages().getUnexpectedType(),
-                    StringUtil.join(previousResultClass.getNames(),"&"));
+                    StringUtil.join(previousResultClass.getNames(),ExportCst.JOIN_TYPES));
             _page.getLocalizer().addError(un_);
             int i_ = _page.getLocalizer().getCurrentLocationIndex();
             partOffsets.add(new PartOffset(ExportCst.anchorErr(un_.getBuiltError()),i_));

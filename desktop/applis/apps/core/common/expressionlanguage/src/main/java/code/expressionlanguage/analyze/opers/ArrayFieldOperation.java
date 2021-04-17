@@ -4,6 +4,7 @@ import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
+import code.expressionlanguage.linkage.ExportCst;
 import code.expressionlanguage.stds.PrimitiveTypes;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
@@ -34,7 +35,7 @@ public final class ArrayFieldOperation extends AbstractFieldOperation {
         //str_ len
         und_.buildError(_page.getAnalysisMessages().getUndefinedAccessibleField(),
                 str_,
-                StringUtil.join(cl_.getNames(), "&"));
+                StringUtil.join(cl_.getNames(), ExportCst.JOIN_TYPES));
         _page.getLocalizer().addError(und_);
         addErr(und_.getBuiltError());
         setResultClass(new AnaClassArgumentMatching(_page.getAliasPrimInteger(),PrimitiveTypes.INT_WRAP));

@@ -210,7 +210,7 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
             un_.setFileName(_page.getLocalizer().getCurrentFileName());
             //first separator char
             un_.buildError(_page.getAnalysisMessages().getUnexpectedType(),
-                    StringUtil.join(class_.getNames(),"&"));
+                    StringUtil.join(class_.getNames(),ExportCst.JOIN_TYPES));
             _page.getLocalizer().addError(un_);
             addErr(un_.getBuiltError());
             class_ = new AnaClassArgumentMatching(_page.getAliasObject());
@@ -228,7 +228,7 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
                 un_.setFileName(_page.getLocalizer().getCurrentFileName());
                 //first separator char
                 un_.buildError(_page.getAnalysisMessages().getUnexpectedType(),
-                        StringUtil.join(indexClass_.getNames(),"&"));
+                        StringUtil.join(indexClass_.getNames(),ExportCst.JOIN_TYPES));
                 _page.getLocalizer().addError(un_);
                 nbErr = un_.getBuiltError();
             }
@@ -239,7 +239,7 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
             un_.setFileName(_page.getLocalizer().getCurrentFileName());
             //first separator char
             un_.buildError(_page.getAnalysisMessages().getUnexpectedType(),
-                    StringUtil.join(class_.getNames(),"&"));
+                    StringUtil.join(class_.getNames(),ExportCst.JOIN_TYPES));
             _page.getLocalizer().addError(un_);
             addErr(un_.getBuiltError());
             class_ = new AnaClassArgumentMatching(_page.getAliasObject());

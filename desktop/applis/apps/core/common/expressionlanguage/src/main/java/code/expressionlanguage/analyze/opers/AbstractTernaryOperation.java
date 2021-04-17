@@ -60,7 +60,7 @@ public abstract class AbstractTernaryOperation extends MethodOperation {
                     un_.setFileName(_page.getLocalizer().getCurrentFileName());
                     //after first arg separator len
                     un_.buildError(_page.getAnalysisMessages().getUnexpectedType(),
-                            StringUtil.join(clMatch_.getNames(),"&"));
+                            StringUtil.join(clMatch_.getNames(),ExportCst.JOIN_TYPES));
                     _page.getLocalizer().addError(un_);
                     addErr(un_.getBuiltError());
                 }
@@ -70,7 +70,7 @@ public abstract class AbstractTernaryOperation extends MethodOperation {
         if (!deep_.isEmpty()) {
             int i_ = _page.getLocalizer().getCurrentLocationIndex();
             CustList<PartOffset> list_ = new CustList<PartOffset>();
-            list_.add(new PartOffset(ExportCst.anchorErr(StringUtil.join(deep_,"\n\n")),i_));
+            list_.add(new PartOffset(ExportCst.anchorErr(StringUtil.join(deep_,ExportCst.JOIN_ERR)),i_));
             list_.add(new PartOffset(ExportCst.END_ANCHOR,i_+1));
             getPartOffsetsChildren().add(list_);
         }

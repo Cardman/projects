@@ -384,7 +384,7 @@ public final class DimensionArrayInstancing extends
                     un_.setFileName(_page.getLocalizer().getCurrentFileName());
                     //first part child bracket
                     un_.buildError(_page.getAnalysisMessages().getUnexpectedType(),
-                            StringUtil.join(resCh_.getNames(),"&"));
+                            StringUtil.join(resCh_.getNames(),ExportCst.JOIN_TYPES));
                     _page.getLocalizer().addError(un_);
                     parts_.add(new PartOffset(ExportCst.anchorErr(un_.getBuiltError()),i_));
                     parts_.add(new PartOffset(ExportCst.END_ANCHOR,i_+1));

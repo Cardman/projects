@@ -1,6 +1,7 @@
 package code.expressionlanguage.analyze.blocks;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
+import code.expressionlanguage.linkage.ExportCst;
 import code.util.StringList;
 import code.util.core.StringUtil;
 
@@ -56,7 +57,7 @@ public final class ElseCondition extends BracedBlock implements BlockCondition, 
                                         _page.getKeyWords().getKeyWordIf(),
                                         _page.getKeyWords().getKeyWordElseif()
                                 ),
-                                "|"));
+                                ExportCst.JOIN_BLOCK));
                 //key word len
                 addErrorBlock(un_.getBuiltError());
                 _page.addLocError(un_);

@@ -88,7 +88,7 @@ public final class FileBlock extends BracedBlock implements ImportingBlock {
             }
             //first bad character
             d_.buildError(_page.getAnalysisMessages().getIllegalCharacter(),
-                    StringUtil.join(badCharsStr_,","));
+                    StringUtil.join(badCharsStr_,ExportCst.SEP_CHAR));
             _page.addLocError(d_);
             for (int i: getBinChars()) {
                 d_.setIndexFile(i);

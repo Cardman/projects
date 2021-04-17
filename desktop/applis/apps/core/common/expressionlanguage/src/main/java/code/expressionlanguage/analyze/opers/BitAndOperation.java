@@ -48,9 +48,9 @@ public final class BitAndOperation extends NumericOperation {
         //oper
         un_.buildError(_page.getAnalysisMessages().getUnexpectedOperandTypes(),
                 StringUtil.join(new StringList(
-                        StringUtil.join(_a.getNames(),"&"),
-                        StringUtil.join(_b.getNames(),"&")
-                ),";"),
+                        StringUtil.join(_a.getNames(),ExportCst.JOIN_TYPES),
+                        StringUtil.join(_b.getNames(),ExportCst.JOIN_TYPES)
+                ),ExportCst.JOIN_OPERANDS),
                 getOp());
         _page.getLocalizer().addError(un_);
         CustList<PartOffset> err_ = new CustList<PartOffset>();

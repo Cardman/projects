@@ -12,6 +12,7 @@ import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
+import code.expressionlanguage.linkage.ExportCst;
 import code.expressionlanguage.linkage.LinkageUtil;
 import code.expressionlanguage.stds.PrimitiveTypes;
 import code.maths.litteralcom.StrTypes;
@@ -75,8 +76,8 @@ public abstract class QuickOperation extends MethodOperation {
                     cast_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
                     //oper len
                     cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
-                            StringUtil.join(getResultClass().getNames(),"&"),
-                            StringUtil.join(leftRes_.getNames(),"&"));
+                            StringUtil.join(getResultClass().getNames(),ExportCst.JOIN_TYPES),
+                            StringUtil.join(leftRes_.getNames(),ExportCst.JOIN_TYPES));
                     _page.getLocalizer().addError(cast_);
                     errFirst.add(cast_.getBuiltError());
                     okNum = false;
@@ -93,7 +94,7 @@ public abstract class QuickOperation extends MethodOperation {
             un_.setFileName(_page.getLocalizer().getCurrentFileName());
             //first operator char or second operator char
             un_.buildError(_page.getAnalysisMessages().getUnexpectedType(),
-                    StringUtil.join(leftRes_.getNames(),"&"));
+                    StringUtil.join(leftRes_.getNames(),ExportCst.JOIN_TYPES));
             _page.getLocalizer().addError(un_);
             errFirst.add(un_.getBuiltError());
             okNum = false;
@@ -105,7 +106,7 @@ public abstract class QuickOperation extends MethodOperation {
             un_.setFileName(_page.getLocalizer().getCurrentFileName());
             //first operator char or second operator char
             un_.buildError(_page.getAnalysisMessages().getUnexpectedType(),
-                    StringUtil.join(rightRes_.getNames(),"&"));
+                    StringUtil.join(rightRes_.getNames(), ExportCst.JOIN_TYPES));
             _page.getLocalizer().addError(un_);
             errSecond.add(un_.getBuiltError());
             okNum = false;

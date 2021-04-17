@@ -20,6 +20,7 @@ import code.expressionlanguage.analyze.instr.PartOffset;
 import code.expressionlanguage.analyze.opers.AffectationOperation;
 import code.expressionlanguage.analyze.opers.Calculation;
 import code.expressionlanguage.analyze.opers.OperationNode;
+import code.expressionlanguage.linkage.ExportCst;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.stds.PrimitiveTypes;
 import code.util.*;
@@ -283,7 +284,7 @@ public final class ForMutableIterativeLoop extends BracedBlock implements
                     un_.setIndexFile(expressionOffset);
                     //second ; char
                     un_.buildError(_page.getAnalysisMessages().getUnexpectedType(),
-                            StringUtil.join(exp_.getNames(),"&"));
+                            StringUtil.join(exp_.getNames(), ExportCst.JOIN_TYPES));
                     _page.addLocError(un_);
                     addErrorBlock(un_.getBuiltError());
                 }

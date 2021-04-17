@@ -564,10 +564,10 @@ public final class Coverage {
 
     private static Struct compound(Struct _before,ExecCompoundAffectationOperation _par, ArgumentsPair _v) {
         Struct v_ = _before;
-        if (isLogicEq(_par.getOper(), "&&=", "&&&=")) {
+        if (isLogicEq(_par.getOper(), AbsBk.AND_LOG_EQ, AbsBk.AND_LOG_EQ_SHORT)) {
             v_ = BooleanStruct.of(!_v.isArgumentTest());
         }
-        if (isLogicEq(_par.getOper(), "||=", "|||=")) {
+        if (isLogicEq(_par.getOper(), AbsBk.OR_LOG_EQ, AbsBk.OR_LOG_EQ_SHORT)) {
             v_ = BooleanStruct.of(_v.isArgumentTest());
         }
         return v_;

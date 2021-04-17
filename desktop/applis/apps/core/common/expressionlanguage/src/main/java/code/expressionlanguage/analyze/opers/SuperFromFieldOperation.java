@@ -8,6 +8,7 @@ import code.expressionlanguage.analyze.inherits.Mapping;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.analyze.instr.PartOffset;
 import code.expressionlanguage.analyze.types.ResolvingTypes;
+import code.expressionlanguage.linkage.ExportCst;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
@@ -51,7 +52,7 @@ public final class SuperFromFieldOperation extends
             cast_.setFileName(_page.getLocalizer().getCurrentFileName());
             //type len
             cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
-                    StringUtil.join(clCur_.getNames(),"&"),
+                    StringUtil.join(clCur_.getNames(), ExportCst.JOIN_TYPES),
                     className_);
             _page.getLocalizer().addError(cast_);
             addErr(cast_.getBuiltError());

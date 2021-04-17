@@ -2,6 +2,7 @@ package code.expressionlanguage.exec.opers;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.blocks.AbsBk;
 import code.expressionlanguage.exec.ExecHelper;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
@@ -63,7 +64,7 @@ public final class ExecCompoundAffectationOperation extends ExecMethodOperation 
         ArgumentsPair argumentPair_ = ExecHelper.getArgumentPair(_nodes, getFirstChild());
         if (argumentPair_.isArgumentTest()){
             pair_.setIndexImplicitCompound(-1);
-            if (StringUtil.quickEq(operatorContent.getOper(), "&&&=") || StringUtil.quickEq(operatorContent.getOper(), "|||=")) {
+            if (StringUtil.quickEq(operatorContent.getOper(), AbsBk.AND_LOG_EQ_SHORT) || StringUtil.quickEq(operatorContent.getOper(), AbsBk.OR_LOG_EQ_SHORT)) {
                 pair_.setEndCalculate(true);
                 setSimpleArgument(leftArg_, _conf, _nodes, _stack);
                 return;
@@ -78,7 +79,7 @@ public final class ExecCompoundAffectationOperation extends ExecMethodOperation 
             ExecInvokingOperation.checkParametersOperators(_conf.getExiting(),_conf, pair, _nodes,this, staticEltContent.getClassName(), staticEltContent.getKind(), _stack);
             return;
         }
-        if (StringUtil.quickEq(operatorContent.getOper(), "???=")) {
+        if (StringUtil.quickEq(operatorContent.getOper(), AbsBk.NULL_EQ_SHORT)) {
             if (!leftArg_.isNull()) {
                 pair_.setIndexImplicitCompound(-1);
                 pair_.setEndCalculate(true);

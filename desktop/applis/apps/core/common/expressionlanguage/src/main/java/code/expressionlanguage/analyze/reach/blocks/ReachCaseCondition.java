@@ -12,6 +12,7 @@ import code.expressionlanguage.analyze.reach.opers.ReachOperationUtil;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.common.AnaGeneType;
 import code.expressionlanguage.common.StringExpUtil;
+import code.expressionlanguage.linkage.ExportCst;
 import code.util.StringList;
 import code.util.core.StringUtil;
 
@@ -116,7 +117,7 @@ public final class ReachCaseCondition extends ReachSwitchPartBlock {
                 un_.buildError(_page.getAnalysisMessages().getUnexpectedCaseValue(),
                         _page.getKeyWords().getKeyWordCase(),
                         AnaApplyCoreMethodUtil.getString(meta.getArgument(), _page),
-                        StringUtil.join(_resSwitch.getNames(),"&"));
+                        StringUtil.join(_resSwitch.getNames(), ExportCst.JOIN_TYPES));
                 _page.addLocError(un_);
                 addErrorBlock(un_.getBuiltError());
             }

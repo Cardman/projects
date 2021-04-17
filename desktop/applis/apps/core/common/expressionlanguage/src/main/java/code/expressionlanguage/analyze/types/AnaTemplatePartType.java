@@ -147,7 +147,7 @@ final class AnaTemplatePartType extends AnaBinaryType {
         for (int i: indexesChildConstraints) {
             int begin_ = _page.getLocalInType() + getIndexInType() + getOperators().getKey(i);
             int len_ = getOperators().getValue(i).length();
-            getBeginOps().set(i,new PartOffset(ExportCst.anchorErr(StringUtil.join(getErrsList().get(i),"\n\n")),begin_));
+            getBeginOps().set(i,new PartOffset(ExportCst.anchorErr(StringUtil.join(getErrsList().get(i),ExportCst.JOIN_ERR)),begin_));
             getEndOps().set(i,new PartOffset(ExportCst.END_ANCHOR,begin_+len_));
         }
     }
@@ -159,7 +159,7 @@ final class AnaTemplatePartType extends AnaBinaryType {
         if (errLen_.isEmpty()) {
             return;
         }
-        lastPartBegin=(new PartOffset(ExportCst.anchorErr(StringUtil.join(errLen_,"\n\n")),begin_));
+        lastPartBegin=(new PartOffset(ExportCst.anchorErr(StringUtil.join(errLen_,ExportCst.JOIN_ERR)),begin_));
         lastPartEnd=(new PartOffset(ExportCst.END_ANCHOR,begin_+len_));
     }
 

@@ -17,6 +17,7 @@ import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.fwd.opers.AnaExplicitContent;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.analyze.instr.PartOffset;
+import code.expressionlanguage.linkage.ExportCst;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.core.StringUtil;
@@ -156,7 +157,7 @@ public final class ExplicitOperation extends AbstractUnaryOperation {
     private void buildError(AnaClassArgumentMatching[] _argsClass, AnalyzedPageEl _page) {
         StringList classesNames_ = new StringList();
         for (AnaClassArgumentMatching c: _argsClass) {
-            classesNames_.add(StringUtil.join(c.getNames(), "&"));
+            classesNames_.add(StringUtil.join(c.getNames(), ExportCst.JOIN_TYPES));
         }
         FoundErrorInterpret undefined_ = new FoundErrorInterpret();
         undefined_.setFileName(_page.getLocalizer().getCurrentFileName());

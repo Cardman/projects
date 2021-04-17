@@ -120,8 +120,8 @@ public final class CompoundAffectationOperation extends MethodOperation {
                     cast_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
                     //oper len
                     cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
-                            StringUtil.join(getResultClass().getNames(),"&"),
-                            StringUtil.join(elt_.getResultClass().getNames(),"&"));
+                            StringUtil.join(getResultClass().getNames(),ExportCst.JOIN_TYPES),
+                            StringUtil.join(elt_.getResultClass().getNames(),ExportCst.JOIN_TYPES));
                     _page.getLocalizer().addError(cast_);
                     addErr(cast_.getBuiltError());
                 }
@@ -144,8 +144,8 @@ public final class CompoundAffectationOperation extends MethodOperation {
                     cast_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
                     //oper len
                     cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
-                            StringUtil.join(clMatchRight_.getNames(),"&"),
-                            StringUtil.join(clMatchLeft_.getNames(),"&"));
+                            StringUtil.join(clMatchRight_.getNames(),ExportCst.JOIN_TYPES),
+                            StringUtil.join(clMatchLeft_.getNames(),ExportCst.JOIN_TYPES));
                     _page.getLocalizer().addError(cast_);
                     CustList<PartOffset> err_ = new CustList<PartOffset>();
                     err_.add(new PartOffset(ExportCst.anchorErr(cast_.getBuiltError()),opLocat_));
@@ -163,8 +163,8 @@ public final class CompoundAffectationOperation extends MethodOperation {
                 cast_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
                 //oper len
                 cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
-                        StringUtil.join(clMatchRight_.getNames(),"&"),
-                        StringUtil.join(clMatchLeft_.getNames(),"&"));
+                        StringUtil.join(clMatchRight_.getNames(),ExportCst.JOIN_TYPES),
+                        StringUtil.join(clMatchLeft_.getNames(),ExportCst.JOIN_TYPES));
                 _page.getLocalizer().addError(cast_);
                 CustList<PartOffset> err_ = new CustList<PartOffset>();
                 err_.add(new PartOffset(ExportCst.anchorErr(cast_.getBuiltError()),opLocat_));
@@ -180,8 +180,8 @@ public final class CompoundAffectationOperation extends MethodOperation {
                 cast_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
                 //oper len
                 cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
-                        StringUtil.join(clMatchRight_.getNames(),"&"),
-                        StringUtil.join(clMatchLeft_.getNames(),"&"));
+                        StringUtil.join(clMatchRight_.getNames(),ExportCst.JOIN_TYPES),
+                        StringUtil.join(clMatchLeft_.getNames(),ExportCst.JOIN_TYPES));
                 _page.getLocalizer().addError(cast_);
                 CustList<PartOffset> err_ = new CustList<PartOffset>();
                 err_.add(new PartOffset(ExportCst.anchorErr(cast_.getBuiltError()),opLocat_));
@@ -208,8 +208,8 @@ public final class CompoundAffectationOperation extends MethodOperation {
                 cast_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
                 //oper len
                 cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
-                        StringUtil.join(clMatchRight_.getNames(),"&"),
-                        StringUtil.join(clMatchLeft_.getNames(),"&"));
+                        StringUtil.join(clMatchRight_.getNames(),ExportCst.JOIN_TYPES),
+                        StringUtil.join(clMatchLeft_.getNames(),ExportCst.JOIN_TYPES));
                 _page.getLocalizer().addError(cast_);
                 CustList<PartOffset> err_ = new CustList<PartOffset>();
                 err_.add(new PartOffset(ExportCst.anchorErr(cast_.getBuiltError()),opLocat_));
@@ -231,8 +231,8 @@ public final class CompoundAffectationOperation extends MethodOperation {
                 cast_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
                 //oper len
                 cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
-                        StringUtil.join(clMatchRight_.getNames(),"&"),
-                        StringUtil.join(clMatchLeft_.getNames(),"&"));
+                        StringUtil.join(clMatchRight_.getNames(),ExportCst.JOIN_TYPES),
+                        StringUtil.join(clMatchLeft_.getNames(),ExportCst.JOIN_TYPES));
                 _page.getLocalizer().addError(cast_);
                 CustList<PartOffset> err_ = new CustList<PartOffset>();
                 err_.add(new PartOffset(ExportCst.anchorErr(cast_.getBuiltError()),opLocat_));
@@ -262,8 +262,8 @@ public final class CompoundAffectationOperation extends MethodOperation {
                     cast_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
                     //oper
                     cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
-                            StringUtil.join(clMatchRight_.getNames(),"&"),
-                            StringUtil.join(clMatchLeft_.getNames(),"&"));
+                            StringUtil.join(clMatchRight_.getNames(),ExportCst.JOIN_TYPES),
+                            StringUtil.join(clMatchLeft_.getNames(),ExportCst.JOIN_TYPES));
                     _page.getLocalizer().addError(cast_);
                     CustList<PartOffset> err_ = new CustList<PartOffset>();
                     err_.add(new PartOffset(ExportCst.anchorErr(cast_.getBuiltError()),opLocat_));
@@ -281,8 +281,8 @@ public final class CompoundAffectationOperation extends MethodOperation {
             cast_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
             //oper len
             cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
-                    StringUtil.join(clMatchRight_.getNames(),"&"),
-                    StringUtil.join(clMatchLeft_.getNames(),"&"));
+                    StringUtil.join(clMatchRight_.getNames(),ExportCst.JOIN_TYPES),
+                    StringUtil.join(clMatchLeft_.getNames(),ExportCst.JOIN_TYPES));
             _page.getLocalizer().addError(cast_);
             CustList<PartOffset> err_ = new CustList<PartOffset>();
             err_.add(new PartOffset(ExportCst.anchorErr(cast_.getBuiltError()),opLocat_));

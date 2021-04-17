@@ -21,6 +21,7 @@ import code.expressionlanguage.analyze.instr.ElUtil;
 import code.expressionlanguage.analyze.instr.PartOffset;
 import code.expressionlanguage.analyze.opers.Calculation;
 import code.expressionlanguage.analyze.opers.OperationNode;
+import code.expressionlanguage.linkage.ExportCst;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.analyze.util.IterableAnalysisResult;
 import code.util.*;
@@ -207,7 +208,7 @@ public final class ForEachLoop extends AbstractForLoop implements Loop,ImportFor
                         cast_.setIndexFile(expressionOffset);
                         //separator char
                         cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
-                                StringUtil.join(compo_.getNames(),"&"),
+                                StringUtil.join(compo_.getNames(), ExportCst.JOIN_TYPES),
                                 importedClassName);
                         _page.addLocError(cast_);
                         sepErrors.add(cast_.getBuiltError());
@@ -223,7 +224,7 @@ public final class ForEachLoop extends AbstractForLoop implements Loop,ImportFor
                         cast_.setIndexFile(expressionOffset);
                         //separator char
                         cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
-                                StringUtil.join(compo_.getNames(),"&"),
+                                StringUtil.join(compo_.getNames(),ExportCst.JOIN_TYPES),
                                 importedClassName);
                         _page.addLocError(cast_);
                         sepErrors.add(cast_.getBuiltError());

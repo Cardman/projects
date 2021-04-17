@@ -35,7 +35,7 @@ public final class BadTernaryOperation extends MethodOperation {
         addErr(badNb_.getBuiltError());
         StringList deep_ = getErrs();
         int i_ = _page.getLocalizer().getCurrentLocationIndex();
-        getPartOffsetsEnd().add(new PartOffset(ExportCst.anchorErr(StringUtil.join(deep_,"\n\n")),i_));
+        getPartOffsetsEnd().add(new PartOffset(ExportCst.anchorErr(StringUtil.join(deep_,ExportCst.JOIN_ERR)),i_));
         getPartOffsetsEnd().add(new PartOffset(ExportCst.END_ANCHOR,i_+ _page.getKeyWords().getKeyWordBool().length()));
         setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
     }

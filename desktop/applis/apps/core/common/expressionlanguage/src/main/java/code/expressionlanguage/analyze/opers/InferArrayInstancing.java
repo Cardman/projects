@@ -193,7 +193,7 @@ public final class InferArrayInstancing extends AbstractArrayInstancingOperation
                     cast_.setIndexFile(i_);
                     //first separator char child
                     cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
-                            StringUtil.join(argType_.getNames(),"&"),
+                            StringUtil.join(argType_.getNames(),ExportCst.JOIN_TYPES),
                             classNameFinal_);
                     _page.getLocalizer().addError(cast_);
                     parts_.add(new PartOffset(ExportCst.anchorErr(cast_.getBuiltError()),i_));

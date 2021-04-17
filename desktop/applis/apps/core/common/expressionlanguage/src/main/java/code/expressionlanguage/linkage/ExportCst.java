@@ -5,6 +5,14 @@ import code.util.core.StringUtil;
 
 public final class ExportCst {
     public static final String EXT = ".html";
+    public static final String JOIN_ERR = "\n\n";
+    public static final String JOIN_TYPES = "&";
+    public static final String JOIN_BLOCK = "|";
+    public static final String JOIN_OPERANDS = ";";
+    public static final String SEP_TYPE_MEMBER = ".";
+    public static final String SEP_CHAR = ",";
+    public static final String FOUND_COVERAGE = ",";
+    public static final String RATIO_COVERAGE = "/";
     public static final String IMPLICIT = " ";
     public static final String BEGIN_TAG = "<";
     public static final String END = ">";
@@ -29,6 +37,7 @@ public final class ExportCst {
     public static final String SPAN = "span";
     public static final String END_SPAN = END_PARENT+SPAN+END;
     public static final String CLASS_ERR = CLASS_ATTR+DEL_ATTR+"e"+DEL_ATTR;
+    public static final String SEP_ATTR_CLASS_ERR = SEP_ATTR+CLASS_ERR;
     public static final String CLASS_WAR = CLASS_ATTR+DEL_ATTR+"w"+DEL_ATTR;
     private ExportCst() {
     }
@@ -37,8 +46,8 @@ public final class ExportCst {
     }
     public static String anchorNameErr(int _offset,String _title) {
         return BEGIN_ANCHOR+SEP_ATTR+name(_offset)+SEP_ATTR
-                +title(_title)+SEP_ATTR
-                +CLASS_ERR+END;
+                +title(_title)
+                +SEP_ATTR_CLASS_ERR+END;
     }
     public static String anchorNameWar(int _offset,String _title) {
         return BEGIN_ANCHOR+SEP_ATTR+title(_title)+SEP_ATTR
@@ -53,8 +62,8 @@ public final class ExportCst {
     }
     public static String anchorErr(String _title) {
         return BEGIN_ANCHOR+SEP_ATTR
-                +title(_title)+SEP_ATTR
-                +CLASS_ERR+END;
+                +title(_title)
+                +SEP_ATTR_CLASS_ERR+END;
     }
     public static String anchorWar(String _title) {
         return BEGIN_ANCHOR+SEP_ATTR
@@ -75,6 +84,9 @@ public final class ExportCst {
         return BEGIN_ANCHOR+SEP_ATTR
                 +title(_title)+SEP_ATTR
                 +href(href(_file,_ref))+END;
+    }
+    public static String anchorRef(int _ref) {
+        return anchorRef("",_ref);
     }
     public static String anchorRef(String _file, int _ref) {
         return BEGIN_ANCHOR+SEP_ATTR
@@ -104,6 +116,6 @@ public final class ExportCst {
         if (!_link.isEmpty()) {
             list_.add(_link);
         }
-        return title(StringUtil.join(list_,"\n\n"));
+        return title(StringUtil.join(list_,JOIN_ERR));
     }
 }

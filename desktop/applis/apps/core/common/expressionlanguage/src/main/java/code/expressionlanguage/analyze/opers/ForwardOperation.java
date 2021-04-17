@@ -10,6 +10,7 @@ import code.expressionlanguage.analyze.inherits.Mapping;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.analyze.instr.PartOffset;
 import code.expressionlanguage.functionid.MethodAccessKind;
+import code.expressionlanguage.linkage.ExportCst;
 import code.expressionlanguage.options.KeyWords;
 import code.util.CustList;
 import code.util.StringList;
@@ -80,7 +81,7 @@ public final class ForwardOperation extends LeafOperation implements PossibleInt
                 cast_.setFileName(_page.getLocalizer().getCurrentFileName());
                 //type len
                 cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
-                        StringUtil.join(getResultClass().getNames(),"&"),
+                        StringUtil.join(getResultClass().getNames(),ExportCst.JOIN_TYPES),
                         classType);
                 _page.getLocalizer().addError(cast_);
                 addErr(cast_.getBuiltError());
@@ -119,7 +120,7 @@ public final class ForwardOperation extends LeafOperation implements PossibleInt
                 cast_.setFileName(_page.getLocalizer().getCurrentFileName());
                 //type len
                 cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
-                        StringUtil.join(getResultClass().getNames(),"&"),
+                        StringUtil.join(getResultClass().getNames(), ExportCst.JOIN_TYPES),
                         classType);
                 _page.getLocalizer().addError(cast_);
                 addErr(cast_.getBuiltError());

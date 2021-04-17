@@ -108,7 +108,7 @@ public final class ReachOperationUtil {
                 int offLoc_ = info_.getOperations().getOperators().firstKey();
                 int i_ = offLoc_ + _page.getLocalizer().getCurrentLocationIndex();
                 CustList<PartOffset> list_ = new CustList<PartOffset>();
-                list_.add(new PartOffset(ExportCst.anchorWar(StringUtil.join(deep_,"\n\n")),i_));
+                list_.add(new PartOffset(ExportCst.anchorWar(StringUtil.join(deep_,ExportCst.JOIN_ERR)),i_));
                 list_.add(new PartOffset(ExportCst.END_ANCHOR,i_+1));
                 ((MethodOperation)info_).getPartOffsetsChildren().add(list_);
             }

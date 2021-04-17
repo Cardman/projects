@@ -12,6 +12,7 @@ import code.expressionlanguage.analyze.files.OffsetStringInfo;
 import code.expressionlanguage.analyze.instr.ElUtil;
 import code.expressionlanguage.analyze.opers.Calculation;
 import code.expressionlanguage.analyze.opers.OperationNode;
+import code.expressionlanguage.linkage.ExportCst;
 import code.util.*;
 import code.util.core.StringUtil;
 
@@ -146,7 +147,7 @@ public final class SwitchBlock extends BracedBlock implements BreakableBlock,Bui
                                     _page.getKeyWords().getKeyWordCase(),
                                     _page.getKeyWords().getKeyWordDefault()
                             ),
-                            "|"));
+                            ExportCst.JOIN_BLOCK));
             _page.addLocError(un_);
             first_.addErrorBlock(un_.getBuiltError());
             first_ = first_.getNextSibling();

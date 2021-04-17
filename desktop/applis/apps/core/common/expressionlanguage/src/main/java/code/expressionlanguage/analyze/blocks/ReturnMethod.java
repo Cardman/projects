@@ -14,6 +14,7 @@ import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.analyze.instr.ElUtil;
 import code.expressionlanguage.analyze.opers.Calculation;
 import code.expressionlanguage.analyze.opers.OperationNode;
+import code.expressionlanguage.linkage.ExportCst;
 import code.util.*;
 import code.util.core.StringUtil;
 
@@ -69,7 +70,7 @@ public final class ReturnMethod extends AbruptBlock {
                     cast_.setIndexFile(expressionOffset);
                     //original type
                     cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
-                            StringUtil.join(ret_.getNames(), "&"),
+                            StringUtil.join(ret_.getNames(), ExportCst.JOIN_TYPES),
                             retType_);
                     _page.addLocError(cast_);
                     addErrorBlock(cast_.getBuiltError());
@@ -86,7 +87,7 @@ public final class ReturnMethod extends AbruptBlock {
                     cast_.setIndexFile(expressionOffset);
                     //original type
                     cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
-                            StringUtil.join(ret_.getNames(), "&"),
+                            StringUtil.join(ret_.getNames(), ExportCst.JOIN_TYPES),
                             retType_);
                     _page.addLocError(cast_);
                     addErrorBlock(cast_.getBuiltError());
@@ -151,7 +152,7 @@ public final class ReturnMethod extends AbruptBlock {
                 cast_.setIndexFile(expressionOffset);
                 //original type
                 cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
-                        StringUtil.join(ret_.getNames(), "&"),
+                        StringUtil.join(ret_.getNames(), ExportCst.JOIN_TYPES),
                         _retType);
                 _page.addLocError(cast_);
                 addErrorBlock(cast_.getBuiltError());

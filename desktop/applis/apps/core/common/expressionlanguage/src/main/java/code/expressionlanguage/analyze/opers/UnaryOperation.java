@@ -9,6 +9,7 @@ import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
+import code.expressionlanguage.linkage.ExportCst;
 import code.expressionlanguage.stds.PrimitiveTypes;
 import code.expressionlanguage.structs.ByteStruct;
 import code.expressionlanguage.structs.ShortStruct;
@@ -63,7 +64,7 @@ public final class UnaryOperation extends AbstractUnaryOperation implements Symb
             un_.setFileName(_page.getLocalizer().getCurrentFileName());
             //oper
             un_.buildError(_page.getAnalysisMessages().getUnexpectedOperandTypes(),
-                    StringUtil.join(clMatch_.getNames(),"&"),
+                    StringUtil.join(clMatch_.getNames(), ExportCst.JOIN_TYPES),
                     oper_);
             _page.getLocalizer().addError(un_);
             if (!MethodOperation.isEmptyError(getFirstChild())){

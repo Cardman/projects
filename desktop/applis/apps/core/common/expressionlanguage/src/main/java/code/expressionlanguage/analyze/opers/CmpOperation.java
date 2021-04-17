@@ -110,9 +110,9 @@ public final class CmpOperation extends MethodOperation implements MiddleSymbolO
         //oper
         un_.buildError(_page.getAnalysisMessages().getUnexpectedOperandTypes(),
                 StringUtil.join(new StringList(
-                        StringUtil.join(first_.getNames(),"&"),
-                        StringUtil.join(second_.getNames(),"&")
-                ),";"),
+                        StringUtil.join(first_.getNames(),ExportCst.JOIN_TYPES),
+                        StringUtil.join(second_.getNames(),ExportCst.JOIN_TYPES)
+                ),ExportCst.JOIN_OPERANDS),
                 getOp());
         _page.getLocalizer().addError(un_);
         CustList<PartOffset> err_ = new CustList<PartOffset>();

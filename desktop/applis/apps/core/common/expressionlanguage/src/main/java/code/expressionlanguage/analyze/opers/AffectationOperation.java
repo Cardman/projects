@@ -117,8 +117,8 @@ public final class AffectationOperation extends MethodOperation {
                     cast_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
                     //oper
                     cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
-                            StringUtil.join(clMatchRight_.getNames(),"&"),
-                            StringUtil.join(clMatchLeftPoss_.getNames(),"&"));
+                            StringUtil.join(clMatchRight_.getNames(),ExportCst.JOIN_TYPES),
+                            StringUtil.join(clMatchLeftPoss_.getNames(),ExportCst.JOIN_TYPES));
                     _page.getLocalizer().addError(cast_);
                     int opLocat_ = _page.getLocalizer().getCurrentLocationIndex();
                     CustList<PartOffset> err_ = new CustList<PartOffset>();
@@ -185,8 +185,8 @@ public final class AffectationOperation extends MethodOperation {
             cast_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
             //oper
             cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
-                    StringUtil.join(clMatchRight_.getNames(),"&"),
-                    StringUtil.join(clMatchLeft_.getNames(),"&"));
+                    StringUtil.join(clMatchRight_.getNames(),ExportCst.JOIN_TYPES),
+                    StringUtil.join(clMatchLeft_.getNames(),ExportCst.JOIN_TYPES));
             _page.getLocalizer().addError(cast_);
             int opLocat_ = _page.getLocalizer().getCurrentLocationIndex();
             CustList<PartOffset> err_ = new CustList<PartOffset>();
@@ -210,8 +210,8 @@ public final class AffectationOperation extends MethodOperation {
                 cast_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
                 //oper
                 cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
-                        StringUtil.join(clMatchRight_.getNames(),"&"),
-                        StringUtil.join(clMatchLeft_.getNames(),"&"));
+                        StringUtil.join(clMatchRight_.getNames(),ExportCst.JOIN_TYPES),
+                        StringUtil.join(clMatchLeft_.getNames(),ExportCst.JOIN_TYPES));
                 _page.getLocalizer().addError(cast_);
                 int opLocat_ = _page.getLocalizer().getCurrentLocationIndex();
                 CustList<PartOffset> err_ = new CustList<PartOffset>();
@@ -235,7 +235,7 @@ public final class AffectationOperation extends MethodOperation {
             //'var' len
             un_.buildError(_page.getAnalysisMessages().getUnassignedInferingType(),
                     _import,
-                    StringUtil.join(vars_,"&"));
+                    StringUtil.join(vars_,ExportCst.JOIN_TYPES));
             _page.getLocalizer().addError(un_);
             return un_.getBuiltError();
         }

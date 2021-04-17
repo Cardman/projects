@@ -421,7 +421,7 @@ public final class CallDynMethodOperation extends InvokingOperation implements P
                         cast_.setIndexFile(i_);
                         //character before
                         cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
-                                StringUtil.join(a_.getNames(),"&"),
+                                StringUtil.join(a_.getNames(),ExportCst.JOIN_TYPES),
                                 pa_);
                         _page.getLocalizer().addError(cast_);
                         parts_.add(new PartOffset(ExportCst.anchorErr(cast_.getBuiltError()),i_));
@@ -435,7 +435,7 @@ public final class CallDynMethodOperation extends InvokingOperation implements P
                         cast_.setIndexFile(i_);
                         //character before
                         cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
-                                StringUtil.join(a_.getNames(),"&"),
+                                StringUtil.join(a_.getNames(),ExportCst.JOIN_TYPES),
                                 pa_);
                         _page.getLocalizer().addError(cast_);
                         parts_.add(new PartOffset(ExportCst.anchorErr(cast_.getBuiltError()),i_));
@@ -451,7 +451,7 @@ public final class CallDynMethodOperation extends InvokingOperation implements P
                             cast_.setIndexFile(i_);
                             //character before
                             cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
-                                    StringUtil.join(a_.getNames(),"&"),
+                                    StringUtil.join(a_.getNames(),ExportCst.JOIN_TYPES),
                                     pa_);
                             _page.getLocalizer().addError(cast_);
                             parts_.add(new PartOffset(ExportCst.anchorErr(cast_.getBuiltError()),i_));

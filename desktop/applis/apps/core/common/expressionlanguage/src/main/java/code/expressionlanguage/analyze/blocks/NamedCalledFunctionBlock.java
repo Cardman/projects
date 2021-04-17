@@ -29,6 +29,7 @@ import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.functionid.MethodModifier;
 import code.expressionlanguage.fwd.blocks.AnaAnonFctContent;
 import code.expressionlanguage.inherits.Templates;
+import code.expressionlanguage.linkage.ExportCst;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.stds.DisplayedStrings;
 import code.util.*;
@@ -390,7 +391,7 @@ public final class NamedCalledFunctionBlock extends NamedFunctionBlock {
             cast_.setIndexFile(defaultValueOffset);
             //parentheses
             cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
-                    StringUtil.join(arg_.getNames(),"&"),
+                    StringUtil.join(arg_.getNames(), ExportCst.JOIN_TYPES),
                     import_);
             _page.addLocError(cast_);
             addNameErrors(cast_);

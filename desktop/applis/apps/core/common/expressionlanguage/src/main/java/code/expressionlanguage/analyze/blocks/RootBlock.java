@@ -365,7 +365,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                         constraintsParts.add(new PartOffset(ExportCst.anchorName(t.getOffset()),
                                 t.getOffset()));
                     } else {
-                        String err_ = StringUtil.join(t.getErrors(),"\n\n");
+                        String err_ = StringUtil.join(t.getErrors(),ExportCst.JOIN_ERR);
                         constraintsParts.add(new PartOffset(ExportCst.anchorNameErr(t.getOffset(),err_),t.getOffset()));
                     }
                     constraintsParts.add(new PartOffset(ExportCst.END_ANCHOR,t.getOffset()+t.getLength()));
@@ -1356,8 +1356,8 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
             //original id len
             err_.buildError(_page.getAnalysisMessages().getReturnTypes(),
                     e.getClassMethodId().getClassMethodId().getSignature(_page),
-                    StringUtil.join(types_,"&"),
-                    StringUtil.join(retClasses_,"&"));
+                    StringUtil.join(types_,ExportCst.JOIN_TYPES),
+                    StringUtil.join(retClasses_,ExportCst.JOIN_TYPES));
             _page.addLocError(err_);
             addNameErrors(err_);
         }
@@ -1406,8 +1406,8 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
             //original id len
             err_.buildError(_page.getAnalysisMessages().getTwoReturnTypes(),
                     e.getClassMethodId().getClassMethodId().getSignature(_page),
-                    StringUtil.join(types_,"&"),
-                    StringUtil.join(retClasses_,"&"));
+                    StringUtil.join(types_,ExportCst.JOIN_TYPES),
+                    StringUtil.join(retClasses_,ExportCst.JOIN_TYPES));
             _page.addLocError(err_);
             addNameErrors(err_);
         }
@@ -1778,7 +1778,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                     cyclic_.setIndexFile(getOffset());
                     //original contructor id len
                     cyclic_.buildError(_page.getAnalysisMessages().getCyclicCtorCall(),
-                            StringUtil.join(c_,"&"),
+                            StringUtil.join(c_,ExportCst.JOIN_TYPES),
                             getFullName());
                     _page.addLocError(cyclic_);
                     found_.addNameErrors(cyclic_);

@@ -644,7 +644,7 @@ public abstract class OperationNode {
         //_name len
         access_.buildError(_page.getAnalysisMessages().getUndefinedAccessibleField(),
                 _name,
-                StringUtil.join(_class.getNames(),"&"));
+                StringUtil.join(_class.getNames(),ExportCst.JOIN_TYPES));
         _page.getLocalizer().addError(access_);
         _op.addErr(access_.getBuiltError());
         return fr_;
@@ -664,7 +664,7 @@ public abstract class OperationNode {
         //_name len
         access_.buildError(_page.getAnalysisMessages().getUndefinedAccessibleField(),
                 _name,
-                StringUtil.join(_class.getNames(),"&"));
+                StringUtil.join(_class.getNames(),ExportCst.JOIN_TYPES));
         _page.getLocalizer().addError(access_);
         _parts.add(new PartOffset(ExportCst.anchorErr(access_.getBuiltError()),i_));
         _parts.add(new PartOffset(ExportCst.END_ANCHOR,i_+Math.max(1, _name.length())));
@@ -946,10 +946,10 @@ public abstract class OperationNode {
         if (cInfo_ == null) {
             StringList classesNames_ = new StringList();
             for (OperationNode c: _filter.getPositional()) {
-                classesNames_.add(StringUtil.join(c.getResultClass().getNames(), "&"));
+                classesNames_.add(StringUtil.join(c.getResultClass().getNames(), ExportCst.JOIN_TYPES));
             }
             for (NamedArgumentOperation c: _filter.getParameterFilter()) {
-                classesNames_.add(StringUtil.join(c.getResultClass().getNames(), "&"));
+                classesNames_.add(StringUtil.join(c.getResultClass().getNames(), ExportCst.JOIN_TYPES));
             }
             FoundErrorInterpret undefined_ = new FoundErrorInterpret();
             undefined_.setFileName(_page.getLocalizer().getCurrentFileName());
@@ -1213,10 +1213,10 @@ public abstract class OperationNode {
         }
         StringList classesNames_ = new StringList();
         for (OperationNode c: _filter.getPositional()) {
-            classesNames_.add(StringUtil.join(c.getResultClass().getNames(), "&"));
+            classesNames_.add(StringUtil.join(c.getResultClass().getNames(), ExportCst.JOIN_TYPES));
         }
         for (NamedArgumentOperation c: _filter.getParameterFilter()) {
-            classesNames_.add(StringUtil.join(c.getResultClass().getNames(), "&"));
+            classesNames_.add(StringUtil.join(c.getResultClass().getNames(), ExportCst.JOIN_TYPES));
         }
         FoundErrorInterpret undefined_ = new FoundErrorInterpret();
         undefined_.setFileName(_page.getLocalizer().getCurrentFileName());
@@ -1240,7 +1240,7 @@ public abstract class OperationNode {
         }
         StringList classesNames_ = new StringList();
         for (AnaClassArgumentMatching c: _argsClass) {
-            classesNames_.add(StringUtil.join(c.getNames(), "&"));
+            classesNames_.add(StringUtil.join(c.getNames(), ExportCst.JOIN_TYPES));
         }
         FoundErrorInterpret undefined_ = new FoundErrorInterpret();
         undefined_.setFileName(_page.getLocalizer().getCurrentFileName());

@@ -1,6 +1,7 @@
 package code.expressionlanguage.exec;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.blocks.AbsBk;
 import code.expressionlanguage.exec.blocks.ExecInnerElementBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
@@ -201,16 +202,16 @@ public final class ExpressionLanguage {
             }
             if (par_ instanceof ExecCompoundAffectationOperation){
                 ExecCompoundAffectationOperation p_ = (ExecCompoundAffectationOperation) par_;
-                if (StringUtil.quickEq(p_.getOper(),"&&=")) {
+                if (StringUtil.quickEq(p_.getOper(),AbsBk.AND_LOG_EQ)) {
                     v_ = BooleanStruct.of(false);
                 }
-                if (StringUtil.quickEq(p_.getOper(),"&&&=")) {
+                if (StringUtil.quickEq(p_.getOper(),AbsBk.AND_LOG_EQ_SHORT)) {
                     v_ = BooleanStruct.of(false);
                 }
-                if (StringUtil.quickEq(p_.getOper(),"||=")) {
+                if (StringUtil.quickEq(p_.getOper(),AbsBk.OR_LOG_EQ)) {
                     v_ = BooleanStruct.of(true);
                 }
-                if (StringUtil.quickEq(p_.getOper(),"|||=")) {
+                if (StringUtil.quickEq(p_.getOper(),AbsBk.OR_LOG_EQ_SHORT)) {
                     v_ = BooleanStruct.of(true);
                 }
             }

@@ -10,6 +10,7 @@ import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
 import code.expressionlanguage.analyze.instr.ElUtil;
 import code.expressionlanguage.analyze.opers.Calculation;
 import code.expressionlanguage.analyze.opers.OperationNode;
+import code.expressionlanguage.linkage.ExportCst;
 import code.expressionlanguage.stds.PrimitiveTypes;
 import code.util.core.StringUtil;
 
@@ -70,7 +71,7 @@ public abstract class ConditionBlock extends BracedBlock implements BuildableElM
                     un_.setIndexFile(conditionOffset);
                     //key word len
                     un_.buildError(_page.getAnalysisMessages().getUnexpectedType(),
-                            StringUtil.join(resultClass_.getNames(),"&"));
+                            StringUtil.join(resultClass_.getNames(), ExportCst.JOIN_TYPES));
                     _page.addLocError(un_);
                     addErrorBlock(un_.getBuiltError());
                 }

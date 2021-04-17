@@ -19,6 +19,7 @@ import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.analyze.instr.ElUtil;
 import code.expressionlanguage.analyze.opers.Calculation;
 import code.expressionlanguage.analyze.opers.OperationNode;
+import code.expressionlanguage.linkage.ExportCst;
 import code.util.*;
 import code.util.core.StringUtil;
 
@@ -222,7 +223,7 @@ public final class ForIterativeLoop extends AbstractForLoop implements Loop {
                 cast_.setIndexFile(_offset);
                 //char before expression
                 cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
-                        StringUtil.join(arg_.getNames(),"&"),
+                        StringUtil.join(arg_.getNames(), ExportCst.JOIN_TYPES),
                         _elementClass);
                 _page.addLocError(cast_);
                 addErrorBlock(cast_.getBuiltError());

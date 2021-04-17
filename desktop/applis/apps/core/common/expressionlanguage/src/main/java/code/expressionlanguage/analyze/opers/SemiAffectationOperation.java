@@ -14,6 +14,7 @@ import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
 import code.expressionlanguage.analyze.instr.ElUtil;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.fwd.opers.AnaOperatorContent;
+import code.expressionlanguage.linkage.ExportCst;
 import code.maths.litteralcom.StrTypes;
 import code.util.*;
 import code.util.core.StringUtil;
@@ -92,7 +93,7 @@ public final class SemiAffectationOperation extends AbstractUnaryOperation  {
                 cast_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
                 //operator
                 cast_.buildError(_page.getAnalysisMessages().getUnexpectedType(),
-                        StringUtil.join(clMatchLeft_.getNames(),"&"));
+                        StringUtil.join(clMatchLeft_.getNames(), ExportCst.JOIN_TYPES));
                 _page.getLocalizer().addError(cast_);
                 addErr(cast_.getBuiltError());
             }

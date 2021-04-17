@@ -15,6 +15,7 @@ import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.analyze.instr.PartOffset;
 import code.expressionlanguage.fwd.opers.AnaArrContent;
 import code.expressionlanguage.fwd.opers.AnaCallFctContent;
+import code.expressionlanguage.linkage.ExportCst;
 import code.expressionlanguage.stds.StandardMethod;
 import code.util.CustList;
 import code.util.StringList;
@@ -120,7 +121,7 @@ public final class SuperFctOperation extends InvokingOperation implements PreAna
             cast_.setFileName(_page.getLocalizer().getCurrentFileName());
             //type len
             cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
-                    StringUtil.join(clCur_.getNames(),"&"),
+                    StringUtil.join(clCur_.getNames(), ExportCst.JOIN_TYPES),
                     className_);
             _page.getLocalizer().addError(cast_);
             addErr(cast_.getBuiltError());

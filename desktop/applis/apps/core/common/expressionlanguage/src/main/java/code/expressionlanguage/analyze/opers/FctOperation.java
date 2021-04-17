@@ -15,6 +15,7 @@ import code.expressionlanguage.fwd.opers.AnaArrContent;
 import code.expressionlanguage.fwd.opers.AnaCallFctContent;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.analyze.instr.PartOffset;
+import code.expressionlanguage.linkage.ExportCst;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.stds.StandardMethod;
 import code.util.CustList;
@@ -167,7 +168,7 @@ public final class FctOperation extends InvokingOperation implements PreAnalyzab
                 cast_.setFileName(_page.getLocalizer().getCurrentFileName());
                 //type len
                 cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
-                        StringUtil.join(clCur_.getNames(),"&"),
+                        StringUtil.join(clCur_.getNames(),ExportCst.JOIN_TYPES),
                         className_);
                 _page.getLocalizer().addError(cast_);
                 addErr(cast_.getBuiltError());
@@ -200,7 +201,7 @@ public final class FctOperation extends InvokingOperation implements PreAnalyzab
                 //trimMeth_ len
                 undefined_.buildError(_page.getAnalysisMessages().getArrayCloneOnly(),
                         _page.getAliasClone(),
-                        StringUtil.join(arrayBounds_,"&"));
+                        StringUtil.join(arrayBounds_, ExportCst.JOIN_TYPES));
                 _page.getLocalizer().addError(undefined_);
                 addErr(undefined_.getBuiltError());
                 return;

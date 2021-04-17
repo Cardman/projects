@@ -13,6 +13,7 @@ import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.analyze.instr.PartOffset;
 import code.expressionlanguage.fwd.opers.AnaArrContent;
 import code.expressionlanguage.fwd.opers.AnaCallFctContent;
+import code.expressionlanguage.linkage.ExportCst;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.core.StringUtil;
@@ -142,7 +143,7 @@ public final class ExplicitOperatorOperation extends InvokingOperation implement
             //_name len
             StringList classesNames_ = new StringList();
             for (OperationNode c: name_.getAll()) {
-                classesNames_.add(StringUtil.join(c.getResultClass().getNames(), "&"));
+                classesNames_.add(StringUtil.join(c.getResultClass().getNames(), ExportCst.JOIN_TYPES));
             }
             undefined_.buildError(_page.getAnalysisMessages().getUndefinedMethod(),
                     new MethodId(MethodAccessKind.STATIC, cl_, classesNames_).getSignature(_page));

@@ -26,6 +26,7 @@ import code.expressionlanguage.analyze.errors.custom.GraphicErrorInterpret;
 import code.expressionlanguage.analyze.files.FileResolver;
 import code.expressionlanguage.functionid.*;
 import code.expressionlanguage.inherits.Templates;
+import code.expressionlanguage.linkage.ExportCst;
 import code.expressionlanguage.stds.StandardClass;
 import code.expressionlanguage.stds.StandardType;
 import code.expressionlanguage.structs.Struct;
@@ -1632,7 +1633,7 @@ public final class ClassesUtil {
                 duplicate_.setIndexFile(_s.getIdRowCol());
                 //type var len => at def
                 duplicate_.buildError(_page.getAnalysisMessages().getDuplicatedGenericSuperTypes(),
-                        StringUtil.join(e.getValue(),"&"));
+                        StringUtil.join(e.getValue(), ExportCst.JOIN_TYPES));
                 _page.addLocError(duplicate_);
                 _s.addNameErrors(duplicate_);
             }
