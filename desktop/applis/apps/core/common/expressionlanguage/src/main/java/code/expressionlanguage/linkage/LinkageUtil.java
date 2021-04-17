@@ -298,25 +298,27 @@ public final class LinkageUtil {
         }
         AbsBk child_ = _ex;
         while (child_ != null) {
-            vars_.getLastStackElt().setBlock(child_);
-            processFileHeader(list_, child_);
-            if (isOuterBlock(child_)) {
-                processGlobalRootBlockError((BracedBlock) child_, list_);
-                if (!((BracedBlock) child_).getGlobalErrorsPars().getLi().isEmpty()) {
-                    child_ = nextSkip(child_, _ex);
-                    continue;
-                }
-            }
-            processBlockError(list_, vars_, child_);
-            if (vars_.goesToProcess()) {
-                vars_.addStackElt();
-                child_ = vars_.getLastStackElt().getBlock();
-                continue;
-            }
-            processEndBlockError(list_, child_);
-            child_ = afterBlock(_ex, list_, vars_, child_);
+            child_ = loopErr(_ex, list_, vars_, child_);
         }
         return list_;
+    }
+
+    private static AbsBk loopErr(FileBlock _ex, CustList<PartOffset> _list, VariablesOffsets _vars, AbsBk _child) {
+        _vars.getLastStackElt().setBlock(_child);
+        processFileHeader(_list, _child);
+        if (isOuterBlock(_child)) {
+            processGlobalRootBlockError((BracedBlock) _child, _list);
+            if (!((BracedBlock) _child).getGlobalErrorsPars().getLi().isEmpty()) {
+                return nextSkip(_child, _ex);
+            }
+        }
+        processBlockError(_list, _vars, _child);
+        if (_vars.goesToProcess()) {
+            _vars.addStackElt();
+            return _vars.getLastStackElt().getBlock();
+        }
+        processEndBlockError(_list, _child);
+        return afterBlock(_ex, _list, _vars, _child);
     }
 
     private static void processFileHeader(CustList<PartOffset> _list, AbsBk _child) {
@@ -493,16 +495,19 @@ public final class LinkageUtil {
         AbsBk child_ = _ex;
         vars_.getLastStackElt().setBlock(child_);
         while (child_ != null) {
-            vars_.getLastStackElt().setBlock(child_);
-            processBlockReport(_coverage, list_, vars_, child_);
-            if (vars_.goesToProcess()) {
-                vars_.addStackElt();
-                child_ = vars_.getLastStackElt().getBlock();
-                continue;
-            }
-            child_ = afterBlock(_ex, list_, vars_, child_);
+            child_ = loopReport(_ex, _coverage, list_, vars_, child_);
         }
         return list_;
+    }
+
+    private static AbsBk loopReport(FileBlock _ex, Coverage _coverage, CustList<PartOffset> _list, VariablesOffsets _vars, AbsBk _child) {
+        _vars.getLastStackElt().setBlock(_child);
+        processBlockReport(_coverage, _list, _vars, _child);
+        if (_vars.goesToProcess()) {
+            _vars.addStackElt();
+            return _vars.getLastStackElt().getBlock();
+        }
+        return afterBlock(_ex, _list, _vars, _child);
     }
 
     private static AbsBk afterBlock(FileBlock _ex, CustList<PartOffset> _list, VariablesOffsets _vars, AbsBk _child) {
@@ -761,7 +766,7 @@ public final class LinkageUtil {
             if (rootInit_ != null) {
                 int off_ = _cond.getInitOffset();
                 int offsetEndBlock_ = off_ + _cond.getInit().length();
-                buildCoverageReport(_vars, _cond, -1, _parts, _cov, 0, off_, offsetEndBlock_, rootInit_, 0, 0, EMPTY, false);
+                buildNormalReport(_vars, _cond, _parts, _cov, -1, rootInit_, off_, offsetEndBlock_, 0);
                 if (_vars.goesToProcess()) {
                     return;
                 }
@@ -772,7 +777,7 @@ public final class LinkageUtil {
             if (rootExp_ != null) {
                 int off_ = _cond.getExpressionOffset();
                 int offsetEndBlock_ = off_ + _cond.getExpression().length();
-                buildCoverageReport(_vars, _cond, -1, _parts, _cov, 0, off_, offsetEndBlock_, rootExp_, 1, 0, EMPTY, false);
+                buildNormalReport(_vars, _cond, _parts, _cov, -1, rootExp_, off_, offsetEndBlock_, 1);
                 if (_vars.goesToProcess()) {
                     return;
                 }
@@ -783,7 +788,7 @@ public final class LinkageUtil {
         if (rootStep_ != null) {
             int off_ = _cond.getStepOffset();
             int offsetEndBlock_ = off_ + _cond.getStep().length();
-            buildCoverageReport(_vars, _cond, -1, _parts, _cov, 0, off_, offsetEndBlock_, rootStep_, 2, 0, EMPTY, false);
+            buildNormalReport(_vars, _cond, _parts, _cov, -1, rootStep_, off_, offsetEndBlock_, 2);
             if (_vars.goesToProcess()) {
                 return;
             }
@@ -800,7 +805,7 @@ public final class LinkageUtil {
             OperationNode rootInit_ = _cond.getRootInit();
             if (rootInit_ != null) {
                 int off_ = _cond.getInitOffset();
-                buildErrorReport(_vars, _cond, -1, _parts, 0, off_, rootInit_, 0, 0, EMPTY);
+                buildNormErr(_vars, _cond, _parts, -1, rootInit_, off_, 0);
                 if (_vars.goesToProcess()) {
                     return;
                 }
@@ -811,7 +816,7 @@ public final class LinkageUtil {
             OperationNode rootExp_ = _cond.getRootExp();
             if (rootExp_ != null) {
                 int off_ = _cond.getExpressionOffset();
-                buildErrorReport(_vars, _cond, -1, _parts, 0, off_, rootExp_, 1, 0, EMPTY);
+                buildNormErr(_vars, _cond, _parts, -1, rootExp_, off_, 1);
                 if (_vars.goesToProcess()) {
                     return;
                 }
@@ -821,7 +826,7 @@ public final class LinkageUtil {
         OperationNode rootStep_ = _cond.getRootStep();
         if (rootStep_ != null) {
             int off_ = _cond.getStepOffset();
-            buildErrorReport(_vars, _cond, -1, _parts, 0, off_, rootStep_, 2, 0, EMPTY);
+            buildNormErr(_vars, _cond, _parts, -1, rootStep_, off_, 2);
             if (_vars.goesToProcess()) {
                 return;
             }
@@ -875,7 +880,7 @@ public final class LinkageUtil {
         int off_ = _cond.getValueOffset();
         int offsetEndBlock_ = off_ + _cond.getValue().length();
         OperationNode root_ = _cond.getRoot();
-        buildCoverageReport(_vars, _cond, -1, _parts, _cov, 0, off_, offsetEndBlock_, root_, 0, 0, EMPTY, false);
+        buildNormalReport(_vars, _cond, _parts, _cov, -1, root_, off_, offsetEndBlock_, 0);
         refLabel(_vars, _parts, _cond.getLabel(), _cond.getLabelOffset());
     }
     private static void processSwitchBlockError(VariablesOffsets _vars, SwitchBlock _cond, CustList<PartOffset> _parts) {
@@ -885,7 +890,7 @@ public final class LinkageUtil {
             _parts.add(new PartOffset(ExportCst.END_ANCHOR, off_ + 1));
         }
         OperationNode root_ = _cond.getRoot();
-        buildErrorReport(_vars, _cond, -1, _parts, 0, off_, root_, 0, 0, EMPTY);
+        buildNormErr(_vars, _cond, _parts, -1, root_, off_, 0);
         refLabelError(_vars, _cond,_parts, _cond.getLabel(), _cond.getLabelOffset());
     }
     private static void processCaseConditionReport(VariablesOffsets _vars, CaseCondition _cond, CustList<PartOffset> _parts, Coverage _cov) {
@@ -915,11 +920,10 @@ public final class LinkageUtil {
         } else {
             int offsetEndBlock_ = off_ + _cond.getValue().length();
             OperationNode root_ = _cond.getRoot();
-            buildCoverageReport(_vars, _cond, -1, _parts, _cov, 0, off_, offsetEndBlock_, root_, 0, 0, EMPTY, false);
+            buildNormalReport(_vars, _cond, _parts, _cov, -1, root_, off_, offsetEndBlock_, 0);
         }
         if (!_vars.goesToProcess()) {
-            tag_ = ExportCst.END_SPAN;
-            _parts.add(new PartOffset(tag_,off_+ _cond.getValue().length()));
+            _parts.add(new PartOffset(ExportCst.END_SPAN,off_+ _cond.getValue().length()));
         }
     }
 
@@ -957,7 +961,7 @@ public final class LinkageUtil {
         } else {
             off_ = _cond.getValueOffset();
             OperationNode root_ = _cond.getRoot();
-            buildErrorReport(_vars, _cond, -1, _parts, 0, off_, root_, 0, 0, EMPTY);
+            buildNormErr(_vars, _cond, _parts, -1, root_, off_, 0);
         }
     }
 
@@ -972,8 +976,7 @@ public final class LinkageUtil {
         String tag_ = getCaseDefaultTag(result_);
         int off_ = _cond.getOffset();
         _parts.add(new PartOffset(tag_,off_));
-        tag_ = ExportCst.END_SPAN;
-        _parts.add(new PartOffset(tag_,off_+ _vars.getKeyWords().getKeyWordDefault().length()));
+        _parts.add(new PartOffset(ExportCst.END_SPAN,off_+ _vars.getKeyWords().getKeyWordDefault().length()));
         if (!_cond.getVariableName().trim().isEmpty()) {
             off_ = _cond.getVariableOffset();
             _parts.add(new PartOffset(ExportCst.anchorName(off_,_cond.getInstanceTest()),off_));
@@ -1027,8 +1030,7 @@ public final class LinkageUtil {
         _parts.addAllElts(_cond.getPartOffsets());
         String tag_ = ExportCst.anchorName(_cond.getVariableNameOffset());
         _parts.add(new PartOffset(tag_, _cond.getVariableNameOffset()));
-        tag_ = ExportCst.END_ANCHOR;
-        _parts.add(new PartOffset(tag_, _cond.getVariableNameOffset() + _cond.getVariableName().length()));
+        _parts.add(new PartOffset(ExportCst.END_ANCHOR, _cond.getVariableNameOffset() + _cond.getVariableName().length()));
     }
     private static void processCatchEvalError(CatchEval _cond, CustList<PartOffset> _parts) {
         _parts.addAllElts(_cond.getPartOffsets());
@@ -1096,12 +1098,12 @@ public final class LinkageUtil {
         int blOffset_ = _cond.getExpressionOffset();
         int endBl_ = blOffset_ + _cond.getExpression().length();
         OperationNode root_ = _cond.getRoot();
-        buildCoverageReport(_vars, _cond, -1, _parts, _cov, 0, blOffset_, endBl_, root_, 0, 0, EMPTY, false);
+        buildNormalReport(_vars, _cond, _parts, _cov, -1, root_, blOffset_, endBl_, 0);
     }
     private static void processLineError(VariablesOffsets _vars, Line _cond, CustList<PartOffset> _parts) {
         int blOffset_ = _cond.getExpressionOffset();
         OperationNode root_ = _cond.getRoot();
-        buildErrorReport(_vars, _cond, -1, _parts, 0, blOffset_, root_, 0, 0, EMPTY);
+        buildNormErr(_vars, _cond, _parts, -1, root_, blOffset_, 0);
     }
     private static void processBreakBlockReport(BreakBlock _cond, CustList<PartOffset> _parts) {
         if (_cond.getLabel().isEmpty()) {
@@ -1150,7 +1152,7 @@ public final class LinkageUtil {
         int off_ = _cond.getExpressionOffset();
         int offsetEndBlock_ = off_ + _cond.getExpression().length();
         OperationNode root_ = _cond.getRoot();
-        buildCoverageReport(_vars, _cond, -1, _parts, _cov, 0, off_, offsetEndBlock_, root_, 0, 0, EMPTY, false);
+        buildNormalReport(_vars, _cond, _parts, _cov, -1, root_, off_, offsetEndBlock_, 0);
     }
 
     private static void processReturnMethodError(VariablesOffsets _vars, ReturnMethod _cond, CustList<PartOffset> _parts) {
@@ -1159,19 +1161,19 @@ public final class LinkageUtil {
         }
         int off_ = _cond.getExpressionOffset();
         OperationNode root_ = _cond.getRoot();
-        buildErrorReport(_vars, _cond, -1, _parts, 0, off_, root_, 0, 0, EMPTY);
+        buildNormErr(_vars, _cond, _parts, -1, root_, off_, 0);
     }
     private static void processThrowingReport(VariablesOffsets _vars, Throwing _cond, CustList<PartOffset> _parts, Coverage _cov) {
         int off_ = _cond.getExpressionOffset();
         int offsetEndBlock_ = off_ + _cond.getExpression().length();
         OperationNode root_ = _cond.getRoot();
-        buildCoverageReport(_vars, _cond, -1, _parts, _cov, 0, off_, offsetEndBlock_, root_, 0, 0, EMPTY, false);
+        buildNormalReport(_vars, _cond, _parts, _cov, -1, root_, off_, offsetEndBlock_, 0);
     }
 
     private static void processThrowingError(VariablesOffsets _vars, Throwing _cond, CustList<PartOffset> _parts) {
         int off_ = _cond.getExpressionOffset();
         OperationNode root_ = _cond.getRoot();
-        buildErrorReport(_vars, _cond, -1, _parts, 0, off_, root_, 0, 0, EMPTY);
+        buildNormErr(_vars, _cond, _parts, -1, root_, off_, 0);
     }
     private static void processForIterativeLoopReport(VariablesOffsets _vars, ForIterativeLoop _cond, CustList<PartOffset> _parts, Coverage _cov) {
         if (_vars.getLastStackElt().noVisited()) {
@@ -1187,7 +1189,7 @@ public final class LinkageUtil {
         int offsetEndBlock_ = off_ + _cond.getInit().length();
         if (_vars.getLastStackElt().getIndexLoop() == 0) {
             OperationNode rootInit_ = _cond.getRootInit();
-            buildCoverageReport(_vars, _cond, -1, _parts, _cov, 0, off_, offsetEndBlock_, rootInit_, 0, 0, EMPTY, false);
+            buildNormalReport(_vars, _cond, _parts, _cov, -1, rootInit_, off_, offsetEndBlock_, 0);
             if (_vars.goesToProcess()) {
                 return;
             }
@@ -1197,7 +1199,7 @@ public final class LinkageUtil {
         offsetEndBlock_ = off_ + _cond.getExpression().length();
         if (_vars.getLastStackElt().getIndexLoop() == 1) {
             OperationNode rootExp_ = _cond.getRootExp();
-            buildCoverageReport(_vars, _cond, -1, _parts, _cov, 0, off_, offsetEndBlock_, rootExp_, 1, 0, EMPTY, false);
+            buildNormalReport(_vars, _cond, _parts, _cov, -1, rootExp_, off_, offsetEndBlock_, 1);
             if (_vars.goesToProcess()) {
                 return;
             }
@@ -1206,7 +1208,7 @@ public final class LinkageUtil {
         off_ = _cond.getStepOffset();
         offsetEndBlock_ = off_ + _cond.getStep().length();
         OperationNode rootStep_ = _cond.getRootStep();
-        buildCoverageReport(_vars, _cond, -1, _parts, _cov, 0, off_, offsetEndBlock_, rootStep_, 2, 0, EMPTY, false);
+        buildNormalReport(_vars, _cond, _parts, _cov, -1, rootStep_, off_, offsetEndBlock_, 2);
         if (_vars.goesToProcess()) {
             return;
         }
@@ -1226,7 +1228,7 @@ public final class LinkageUtil {
         int off_ = _cond.getInitOffset();
         if (_vars.getLastStackElt().getIndexLoop() == 0) {
             OperationNode rootInit_ = _cond.getRootInit();
-            buildErrorReport(_vars, _cond, -1, _parts, 0, off_, rootInit_, 0, 0, EMPTY);
+            buildNormErr(_vars, _cond, _parts, -1, rootInit_, off_, 0);
             if (_vars.goesToProcess()) {
                 return;
             }
@@ -1235,7 +1237,7 @@ public final class LinkageUtil {
         off_ = _cond.getExpressionOffset();
         if (_vars.getLastStackElt().getIndexLoop() == 1) {
             OperationNode rootExp_ = _cond.getRootExp();
-            buildErrorReport(_vars, _cond, -1, _parts, 0, off_, rootExp_, 1, 0, EMPTY);
+            buildNormErr(_vars, _cond, _parts, -1, rootExp_, off_, 1);
             if (_vars.goesToProcess()) {
                 return;
             }
@@ -1243,7 +1245,7 @@ public final class LinkageUtil {
         }
         off_ = _cond.getStepOffset();
         OperationNode rootStep_ = _cond.getRootStep();
-        buildErrorReport(_vars, _cond, -1, _parts, 0, off_, rootStep_, 2, 0, EMPTY);
+        buildNormErr(_vars, _cond, _parts, -1, rootStep_, off_, 2);
         if (_vars.goesToProcess()) {
             return;
         }
@@ -1266,7 +1268,7 @@ public final class LinkageUtil {
         int off_ = _cond.getExpressionOffset();
         int offsetEndBlock_ = off_ + _cond.getExpression().length();
         OperationNode root_ = _cond.getRoot();
-        buildCoverageReport(_vars, _cond, -1, _parts, _cov, 0, off_, offsetEndBlock_, root_, 0, 0, EMPTY, false);
+        buildNormalReport(_vars, _cond, _parts, _cov, -1, root_, off_, offsetEndBlock_, 0);
         refLabel(_vars, _parts, _cond.getLabel(), _cond.getLabelOffset());
     }
     private static void processForEachLoopError(VariablesOffsets _vars, ForEachLoop _cond, CustList<PartOffset> _parts) {
@@ -1286,7 +1288,7 @@ public final class LinkageUtil {
         }
         int off_ = _cond.getExpressionOffset();
         OperationNode root_ = _cond.getRoot();
-        buildErrorReport(_vars, _cond, -1, _parts, 0, off_, root_, 0, 0, EMPTY);
+        buildNormErr(_vars, _cond, _parts, -1, root_, off_, 0);
         refLabelError(_vars, _cond,_parts, _cond.getLabel(), _cond.getLabelOffset());
     }
 
@@ -1315,16 +1317,14 @@ public final class LinkageUtil {
             _parts.add(new PartOffset(ExportCst.anchorName(_cond.getVariableNameOffsetFirst()), _cond.getVariableNameOffsetFirst()));
             _parts.add(new PartOffset(ExportCst.END_ANCHOR, _cond.getVariableNameOffsetFirst() + _cond.getVariableNameFirst().length()));
             appendSecondVar(_cond, _parts, keyWordVar_);
-            String tag_;
             _parts.add(new PartOffset(ExportCst.anchorName(_cond.getVariableNameOffsetSecond()), _cond.getVariableNameOffsetSecond()));
             _parts.add(new PartOffset(ExportCst.END_ANCHOR, _cond.getVariableNameOffsetSecond() + _cond.getVariableNameSecond().length()));
-            tag_ = ExportCst.END_SPAN;
-            _parts.add(new PartOffset(tag_, _cond.getVariableNameOffsetSecond() + _cond.getVariableNameSecond().length()));
+            _parts.add(new PartOffset(ExportCst.END_SPAN, _cond.getVariableNameOffsetSecond() + _cond.getVariableNameSecond().length()));
         }
         int off_ = _cond.getExpressionOffset();
         int offsetEndBlock_ = off_ + _cond.getExpression().length();
         OperationNode root_ = _cond.getRoot();
-        buildCoverageReport(_vars, _cond, -1, _parts, _cov, 0, off_, offsetEndBlock_, root_, 0, 0, EMPTY, false);
+        buildNormalReport(_vars, _cond, _parts, _cov, -1, root_, off_, offsetEndBlock_, 0);
         refLabel(_vars, _parts, _cond.getLabel(), _cond.getLabelOffset());
     }
 
@@ -1366,7 +1366,7 @@ public final class LinkageUtil {
         }
         int off_ = _cond.getExpressionOffset();
         OperationNode root_ = _cond.getRoot();
-        buildErrorReport(_vars, _cond, -1, _parts, 0, off_, root_, 0, 0, EMPTY);
+        buildNormErr(_vars, _cond, _parts, -1, root_, off_, 0);
         refLabelError(_vars, _cond,_parts, _cond.getLabel(), _cond.getLabelOffset());
     }
 
@@ -1386,74 +1386,55 @@ public final class LinkageUtil {
         int k_ = _vars.getLastStackElt().getIndexAnnotationGroup();
         String uniqueFieldName_ = _cond.getUniqueFieldName();
         if (k_ == -1) {
-            int len_ = _cond.getAnnotationsIndexes().size();
-            int j_ = _vars.getLastStackElt().getIndexAnnotation();
-            for (int i = j_; i < len_; i++) {
-                int begin_ = _cond.getAnnotationsIndexes().get(i);
-                int end_ = begin_ + _cond.getAnnotations().get(i).trim().length();
-                OperationNode root_ = _cond.getRoots().get(i);
-                buildCoverageReport(_vars, _cond, -1, _parts, _cov, i, begin_, end_, root_, 0, 0, EMPTY, true);
-                if (_vars.goesToProcess()) {
-                    return;
-                }
-                _vars.getLastStackElt().setIndexAnnotation(i+1);
+            annotReport(_vars, _cond, _parts, _cov, _cond.getAnnotationsIndexes(), _cond.getAnnotations(), _cond.getRoots());
+            if (_vars.goesToProcess()) {
+                return;
             }
-            _vars.getLastStackElt().setIndexAnnotation(0);
             _vars.getLastStackElt().setIndexAnnotationGroup(0);
             k_ = 0;
-            String fileName_ = _vars.getCurrentFileName();
-            AnaTypeFct ctor_ = inst_.getConstructor();
-            if (ctor_ != null) {
-                StringList list_ = new StringList();
-                int fieldNameOffest_ = _cond.getFieldNameOffest();
-                addParts(_vars, fileName_, ctor_, fieldNameOffest_, uniqueFieldName_.length(), list_, list_, _parts, fieldNameOffest_);
-            } else {
-                _parts.add(new PartOffset(ExportCst.anchorName(_cond.getFieldNameOffest()), _cond.getFieldNameOffest()));
-                _parts.add(new PartOffset(ExportCst.END_ANCHOR, _cond.getFieldNameOffest() + uniqueFieldName_.length()));
-            }
+            nameIdReport(_vars, _parts, inst_, uniqueFieldName_, _cond.getFieldNameOffest());
             _parts.addAllElts(_cond.getTypePartOffsets());
         }
         int blOffset_ = _cond.getValueOffest();
         int endBl_ = _cond.getValueOffest() + _cond.getValue().length();
         int tr_ = _cond.getTrOffset() - 1;
-        buildCoverageReport(_vars, _cond, k_, _parts, _cov, 0, blOffset_, endBl_, inst_, 0, tr_, uniqueFieldName_, false);
+        buildEnumEltReport(_vars, _cond, _parts, _cov, inst_, k_, uniqueFieldName_, blOffset_, endBl_, tr_);
         if (_vars.goesToProcess()) {
             return;
         }
         _vars.getLastStackElt().setIndexAnnotationGroup(-1);
     }
 
+    private static void nameIdReport(VariablesOffsets _vars, CustList<PartOffset> _parts, AbstractInstancingOperation _inst, String _uniqueFieldName, int _fieldNameOffest) {
+        String fileName_ = _vars.getCurrentFileName();
+        AnaTypeFct ctor_ = _inst.getConstructor();
+        if (ctor_ != null) {
+            StringList list_ = new StringList();
+            addParts(_vars, fileName_, ctor_, _fieldNameOffest, _uniqueFieldName.length(), list_, list_, _parts, _fieldNameOffest);
+        } else {
+            _parts.add(new PartOffset(ExportCst.anchorName(_fieldNameOffest), _fieldNameOffest));
+            _parts.add(new PartOffset(ExportCst.END_ANCHOR, _fieldNameOffest + _uniqueFieldName.length()));
+        }
+    }
+
     private static void processElementBlockError(VariablesOffsets _vars, ElementBlock _cond, CustList<PartOffset> _parts) {
         OperationNode firstChild_ = _cond.getRoot().getFirstChild();
-        OperationNode next_ = null;
-        if (firstChild_ != null) {
-            next_ = firstChild_.getNextSibling();
-        }
-        AbstractInstancingOperation inst_ = null;
-        if (next_ instanceof AbstractInstancingOperation) {
-            inst_ = (AbstractInstancingOperation) next_;
-        }
+        StringList errs_ = new StringList();
+        OperationNode next_ = fetchNext(firstChild_, errs_);
+        addNextErrs(errs_, next_);
+        AbstractInstancingOperation inst_ = asInstancing(next_);
         String uniqueFieldName_ = _cond.getUniqueFieldName();
         int k_ = _vars.getLastStackElt().getIndexAnnotationGroup();
         if (k_ == -1) {
-            int len_ = _cond.getAnnotationsIndexes().size();
-            int j_ = _vars.getLastStackElt().getIndexAnnotation();
-            for (int i = j_; i < len_; i++) {
-                int begin_ = _cond.getAnnotationsIndexes().get(i);
-                OperationNode root_ = _cond.getRoots().get(i);
-                buildErrorReport(_vars, _cond, -1, _parts, i, begin_, root_, 0, 0, EMPTY);
-                if (_vars.goesToProcess()) {
-                    return;
-                }
-                _vars.getLastStackElt().setIndexAnnotation(i+1);
+            annotError(_vars, _cond, _parts, _cond.getAnnotationsIndexes(), _cond.getRoots());
+            if (_vars.goesToProcess()) {
+                return;
             }
-            _vars.getLastStackElt().setIndexAnnotation(0);
             _vars.getLastStackElt().setIndexAnnotationGroup(0);
             k_ = 0;
-            String fileName_ = _vars.getCurrentFileName();
-            StringList list_ = new StringList(_cond.getNameErrors());
+            StringList mergedErrs_ = new StringList(_cond.getNameErrors());
             if (uniqueFieldName_.trim().isEmpty()) {
-                String err_ = getLineErr(list_);
+                String err_ = getLineErr(mergedErrs_);
                 String tag_ = ExportCst.anchorNameErr(_cond.getFieldNameOffest(), err_);
                 _parts.add(new PartOffset(tag_, _cond.getFieldNameOffest()));
                 _parts.add(new PartOffset(ExportCst.END_ANCHOR, _cond.getFieldNameOffest() + 1));
@@ -1461,40 +1442,67 @@ public final class LinkageUtil {
                 return;
             }
             if (inst_ == null) {
-                list_.addAllElts(_cond.getRoot().getErrs());
-                String err_ = getLineErr(list_);
+                errs_.addAllElts(_cond.getRoot().getErrs());
+                mergedErrs_.addAllElts(errs_);
+                String err_ = getLineErr(mergedErrs_);
                 String tag_ = ExportCst.anchorNameErr(_cond.getFieldNameOffest(), err_);
                 _parts.add(new PartOffset(tag_, _cond.getFieldNameOffest()));
                 _parts.add(new PartOffset(ExportCst.END_ANCHOR, _cond.getFieldNameOffest() + uniqueFieldName_.trim().length()));
                 _vars.getLastStackElt().setIndexAnnotationGroup(-1);
                 return;
             }
-            list_.addAllElts(inst_.getErrs());
-            String err_ = getLineErr(list_);
-            AnaTypeFct ctor_ = inst_.getConstructor();
-            if (ctor_ != null) {
-                int fieldNameOffest_ = _cond.getFieldNameOffest();
-                addParts(_vars, fileName_, ctor_, fieldNameOffest_, uniqueFieldName_.length(), list_, list_, _parts, fieldNameOffest_);
-            } else {
-                String tag_;
-                if (!list_.isEmpty()) {
-                    tag_ = ExportCst.anchorNameErr(_cond.getFieldNameOffest(), err_);
-                } else {
-                    tag_ = ExportCst.anchorName(_cond.getFieldNameOffest());
-                }
-                _parts.add(new PartOffset(tag_, _cond.getFieldNameOffest()));
-                _parts.add(new PartOffset(ExportCst.END_ANCHOR, _cond.getFieldNameOffest() + uniqueFieldName_.length()));
-            }
+            mergedErrs_.addAllElts(inst_.getErrs());
+            nameIdError(_vars, _parts, inst_, uniqueFieldName_, mergedErrs_, _cond.getFieldNameOffest());
             _parts.addAllElts(_cond.getTypePartOffsets());
         }
         int blOffset_ = _cond.getValueOffest();
         int tr_ = _cond.getTrOffset() - 1;
-        buildErrorReport(_vars, _cond, k_, _parts, 0, blOffset_, inst_, 0, tr_, uniqueFieldName_);
+        buildEnumEltError(_vars, _cond, _parts, inst_, uniqueFieldName_, k_, blOffset_, tr_);
         if (_vars.goesToProcess()) {
             return;
         }
         _vars.getLastStackElt().setIndexAnnotationGroup(-1);
     }
+
+    private static void buildEnumEltError(VariablesOffsets _vars, AbsBk _cond, CustList<PartOffset> _parts, AbstractInstancingOperation _inst, String _uniqueFieldName, int _k, int _blOffset, int _tr) {
+        buildErrorReport(_vars, _cond, _k, _parts, 0, _blOffset, _inst, 0, _tr, _uniqueFieldName);
+    }
+
+    private static AbstractInstancingOperation asInstancing(OperationNode _next) {
+        AbstractInstancingOperation inst_ = null;
+        if (_next instanceof AbstractInstancingOperation) {
+            inst_ = (AbstractInstancingOperation) _next;
+        }
+        return inst_;
+    }
+
+    private static OperationNode fetchNext(OperationNode _firstChild, StringList _errs) {
+        OperationNode next_ = null;
+        if (_firstChild != null) {
+            _errs.addAllElts(_firstChild.getErrs());
+            next_ = _firstChild.getNextSibling();
+        }
+        return next_;
+    }
+
+    private static void nameIdError(VariablesOffsets _vars, CustList<PartOffset> _parts, AbstractInstancingOperation _inst, String _uniqueFieldName, StringList _errs, int _fieldNameOffest) {
+        String fileName_ = _vars.getCurrentFileName();
+        String err_ = getLineErr(_errs);
+        AnaTypeFct ctor_ = _inst.getConstructor();
+        if (ctor_ != null) {
+            addParts(_vars, fileName_, ctor_, _fieldNameOffest, _uniqueFieldName.length(), _errs, _errs, _parts, _fieldNameOffest);
+        } else {
+            String tag_;
+            if (!_errs.isEmpty()) {
+                tag_ = ExportCst.anchorNameErr(_fieldNameOffest, err_);
+            } else {
+                tag_ = ExportCst.anchorName(_fieldNameOffest);
+            }
+            _parts.add(new PartOffset(tag_, _fieldNameOffest));
+            _parts.add(new PartOffset(ExportCst.END_ANCHOR, _fieldNameOffest + _uniqueFieldName.length()));
+        }
+    }
+
     private static void processFieldBlockReport(VariablesOffsets _vars, FieldBlock _cond, CustList<PartOffset> _parts, Coverage _cov) {
         int k_ = _vars.getLastStackElt().getIndexAnnotationGroup();
         if (k_ == -1) {
@@ -1509,7 +1517,7 @@ public final class LinkageUtil {
         int blOffset_ = _cond.getValueOffset();
         int endBl_ = blOffset_ + _cond.getValue().length();
         OperationNode root_ = _cond.getRoot();
-        buildCoverageReport(_vars, _cond, k_, _parts, _cov, 0, blOffset_, endBl_, root_, 0, 0, EMPTY, false);
+        buildNormalReport(_vars, _cond, _parts, _cov, k_, root_, blOffset_, endBl_, 0);
         if (_vars.goesToProcess()) {
             return;
         }
@@ -1540,7 +1548,7 @@ public final class LinkageUtil {
             }
         }
         OperationNode root_ = _cond.getRoot();
-        buildErrorReport(_vars, _cond, k_, _parts, 0, blOffset_, root_, 0, 0, EMPTY);
+        buildNormErr(_vars, _cond, _parts, k_, root_, blOffset_, 0);
         if (_vars.goesToProcess()) {
             return;
         }
@@ -1548,27 +1556,22 @@ public final class LinkageUtil {
     }
 
     private static void buildAnnotField(VariablesOffsets _vars, FieldBlock _cond, CustList<PartOffset> _parts, Coverage _cov) {
-        int len_ = _cond.getAnnotationsIndexes().size();
-        int j_ = _vars.getLastStackElt().getIndexAnnotation();
-        for (int i = j_; i < len_; i++) {
-            int begin_ = _cond.getAnnotationsIndexes().get(i);
-            int end_ = begin_ + _cond.getAnnotations().get(i).trim().length();
-            OperationNode root_ = _cond.getRoots().get(i);
-            buildCoverageReport(_vars, _cond, -1, _parts, _cov, i, begin_, end_, root_, 0, 0, EMPTY, true);
-            if (_vars.goesToProcess()) {
-                return;
-            }
-            _vars.getLastStackElt().setIndexAnnotation(i+1);
-        }
-        _vars.getLastStackElt().setIndexAnnotation(0);
+        Ints annotationsIndexes_ = _cond.getAnnotationsIndexes();
+        StringList annotations_ = _cond.getAnnotations();
+        CustList<OperationNode> roots_ = _cond.getRoots();
+        annotReport(_vars, _cond, _parts, _cov, annotationsIndexes_, annotations_, roots_);
     }
     private static void buildAnnotFieldErr(VariablesOffsets _vars, FieldBlock _cond, CustList<PartOffset> _parts) {
-        int len_ = _cond.getAnnotationsIndexes().size();
+        Ints annotationsIndexes_ = _cond.getAnnotationsIndexes();
+        CustList<OperationNode> roots_ = _cond.getRoots();
+        annotError(_vars, _cond, _parts, annotationsIndexes_, roots_);
+    }
+
+    private static void annotError(VariablesOffsets _vars, AbsBk _cond, CustList<PartOffset> _parts, Ints _annotationsIndexes, CustList<OperationNode> _roots) {
+        int len_ = _annotationsIndexes.size();
         int j_ = _vars.getLastStackElt().getIndexAnnotation();
         for (int i = j_; i < len_; i++) {
-            int begin_ = _cond.getAnnotationsIndexes().get(i);
-            OperationNode root_ = _cond.getRoots().get(i);
-            buildErrorReport(_vars, _cond, -1, _parts, i, begin_, root_, 0, 0, EMPTY);
+            buildAnnotErr(_vars, _cond, -1, _parts, _annotationsIndexes, _roots, i);
             if (_vars.goesToProcess()) {
                 return;
             }
@@ -1576,6 +1579,7 @@ public final class LinkageUtil {
         }
         _vars.getLastStackElt().setIndexAnnotation(0);
     }
+
     private static void processConstructorBlockReport(VariablesOffsets _vars, ConstructorBlock _cond, CustList<PartOffset> _parts, Coverage _cov) {
         int k_ = _vars.getLastStackElt().getIndexAnnotationGroup();
         if (k_ == -1) {
@@ -1861,12 +1865,16 @@ public final class LinkageUtil {
         if (root_ != null) {
             int blOffset_ = _cond.getDefaultValueOffset();
             int endBl_ = blOffset_ + _cond.getDefaultValue().length();
-            buildCoverageReport(_vars, _cond, k_, _parts, _cov, 0, blOffset_, endBl_, root_, 0, 0, EMPTY, false);
+            buildNormalReport(_vars, _cond, _parts, _cov, k_, root_, blOffset_, endBl_, 0);
             if (_vars.goesToProcess()) {
                 return;
             }
         }
         _vars.getLastStackElt().setIndexAnnotationGroup(-1);
+    }
+
+    private static void buildNormalReport(VariablesOffsets _vars, AbsBk _cond, CustList<PartOffset> _parts, Coverage _cov, int _k, OperationNode _root, int _blOffset, int _endBl, int _indexLoop) {
+        buildCoverageReport(_vars, _cond, _k, _parts, _cov, 0, _blOffset, _endBl, _root, _indexLoop, 0, EMPTY, false);
     }
 
     private static void processAnnotationMethodBlockError(VariablesOffsets _vars, NamedCalledFunctionBlock _cond, CustList<PartOffset> _parts) {
@@ -1890,12 +1898,16 @@ public final class LinkageUtil {
         OperationNode root_ = _cond.getRoot();
         if (root_ != null) {
             int blOffset_ = _cond.getDefaultValueOffset();
-            buildErrorReport(_vars, _cond, k_, _parts, 0, blOffset_, root_, 0, 0, EMPTY);
+            buildNormErr(_vars, _cond, _parts, k_, root_, blOffset_, 0);
             if (_vars.goesToProcess()) {
                 return;
             }
         }
         _vars.getLastStackElt().setIndexAnnotationGroup(-1);
+    }
+
+    private static void buildNormErr(VariablesOffsets _vars, AbsBk _cond, CustList<PartOffset> _parts, int _k, OperationNode _root, int _blOffset, int _indexLoop) {
+        buildErrorReport(_vars, _cond, _k, _parts, 0, _blOffset, _root, _indexLoop, 0, EMPTY);
     }
 
     private static void addNameParts(NamedFunctionBlock _named,CustList<PartOffset> _parts, int _begName, int _len) {
@@ -1923,17 +1935,7 @@ public final class LinkageUtil {
             if (_vars.goesToProcess()) {
                 return;
             }
-            String fileName_ = _vars.getCurrentFileName();
-            AnaTypeFct ctor_ = inst_.getConstructor();
-
-            if (ctor_ != null) {
-                StringList list_ = new StringList();
-                int fieldNameOffest_ = _cond.getFieldNameOffest();
-                addParts(_vars, fileName_, ctor_, fieldNameOffest_, uniqueFieldName_.length(), list_, list_, _parts, fieldNameOffest_);
-            } else {
-                _parts.add(new PartOffset(ExportCst.anchorName(_cond.getFieldNameOffest()), _cond.getFieldNameOffest()));
-                _parts.add(new PartOffset(ExportCst.END_ANCHOR, _cond.getFieldNameOffest() + uniqueFieldName_.length()));
-            }
+            nameIdReport(_vars, _parts, inst_, uniqueFieldName_, _cond.getFieldNameOffest());
             _parts.addAllElts(_cond.getTypePartOffsets());
             _vars.getLastStackElt().setIndexAnnotationGroup(0);
             k_ = 0;
@@ -1941,28 +1943,23 @@ public final class LinkageUtil {
         int blOffset_ = _cond.getValueOffest();
         int endBl_ = _cond.getValueOffest() + _cond.getValue().length();
         int tr_ = _cond.getTrOffset() - 1;
-        buildCoverageReport(_vars, _cond, k_, _parts, _cov, 0, blOffset_, endBl_, inst_, 0, tr_, uniqueFieldName_, false);
+        buildEnumEltReport(_vars, _cond, _parts, _cov, inst_, k_, uniqueFieldName_, blOffset_, endBl_, tr_);
         if (_vars.goesToProcess()) {
             return;
         }
         _vars.getLastStackElt().setIndexAnnotationGroup(-1);
     }
 
+    private static void buildEnumEltReport(VariablesOffsets _vars, AbsBk _cond, CustList<PartOffset> _parts, Coverage _cov, AbstractInstancingOperation _inst, int _k, String _uniqueFieldName, int _blOffset, int _endBl, int _tr) {
+        buildCoverageReport(_vars, _cond, _k, _parts, _cov, 0, _blOffset, _endBl, _inst, 0, _tr, _uniqueFieldName, false);
+    }
+
     private static void processInnerElementBlockError(VariablesOffsets _vars, InnerElementBlock _cond, CustList<PartOffset> _parts) {
         OperationNode firstChild_ = _cond.getRoot().getFirstChild();
         StringList errs_ = new StringList();
-        OperationNode next_ = null;
-        if (firstChild_ != null) {
-            errs_.addAllElts(firstChild_.getErrs());
-            next_ = firstChild_.getNextSibling();
-        }
-        AbstractInstancingOperation inst_ = null;
-        if (next_ != null) {
-            errs_.addAllElts(next_.getErrs());
-        }
-        if (next_ instanceof AbstractInstancingOperation) {
-            inst_ = (AbstractInstancingOperation) next_;
-        }
+        OperationNode next_ = fetchNext(firstChild_, errs_);
+        addNextErrs(errs_, next_);
+        AbstractInstancingOperation inst_ = asInstancing(next_);
         int k_ = _vars.getLastStackElt().getIndexAnnotationGroup();
         String uniqueFieldName_ = _cond.getUniqueFieldName();
         if (k_ == -1) {
@@ -1970,10 +1967,9 @@ public final class LinkageUtil {
             if (_vars.goesToProcess()) {
                 return;
             }
-            String fileName_ = _vars.getCurrentFileName();
-            StringList list_ = new StringList(_cond.getNameErrors());
+            StringList mergedErrs_ = new StringList(_cond.getNameErrors());
             if (uniqueFieldName_.trim().isEmpty()) {
-                String err_ = getLineErr(list_);
+                String err_ = getLineErr(mergedErrs_);
                 String tag_ = ExportCst.anchorNameErr(_cond.getFieldNameOffest(), err_);
                 _parts.add(new PartOffset(tag_, _cond.getFieldNameOffest()));
                 _parts.add(new PartOffset(ExportCst.END_ANCHOR, _cond.getFieldNameOffest() + 1));
@@ -1981,40 +1977,32 @@ public final class LinkageUtil {
             }
             if (inst_ == null) {
                 errs_.addAllElts(_cond.getRoot().getErrs());
-                list_.addAllElts(errs_);
-                String err_ = getLineErr(list_);
+                mergedErrs_.addAllElts(errs_);
+                String err_ = getLineErr(mergedErrs_);
                 String tag_ = ExportCst.anchorNameErr(_cond.getFieldNameOffest(), err_);
                 _parts.add(new PartOffset(tag_, _cond.getFieldNameOffest()));
                 _parts.add(new PartOffset(ExportCst.END_ANCHOR, _cond.getFieldNameOffest() + uniqueFieldName_.trim().length()));
                 return;
             }
-            list_.addAllElts(inst_.getErrs());
-            String err_ = getLineErr(list_);
-            AnaTypeFct ctor_ = inst_.getConstructor();
-            if (ctor_ != null) {
-                int fieldNameOffest_ = _cond.getFieldNameOffest();
-                addParts(_vars, fileName_, ctor_, fieldNameOffest_, uniqueFieldName_.length(), list_, list_, _parts, fieldNameOffest_);
-            } else {
-                String tag_;
-                if (!list_.isEmpty()) {
-                    tag_ = ExportCst.anchorNameErr(_cond.getFieldNameOffest(),err_);
-                } else {
-                    tag_ = ExportCst.anchorName(_cond.getFieldNameOffest());
-                }
-                _parts.add(new PartOffset(tag_, _cond.getFieldNameOffest()));
-                _parts.add(new PartOffset(ExportCst.END_ANCHOR, _cond.getFieldNameOffest() + uniqueFieldName_.length()));
-            }
+            mergedErrs_.addAllElts(inst_.getErrs());
+            nameIdError(_vars, _parts, inst_, uniqueFieldName_, mergedErrs_, _cond.getFieldNameOffest());
             _parts.addAllElts(_cond.getTypePartOffsets());
             _vars.getLastStackElt().setIndexAnnotationGroup(0);
             k_ = 0;
         }
         int blOffset_ = _cond.getValueOffest();
         int tr_ = _cond.getTrOffset() - 1;
-        buildErrorReport(_vars, _cond, k_, _parts, 0, blOffset_, inst_, 0, tr_, uniqueFieldName_);
+        buildEnumEltError(_vars, _cond, _parts, inst_, uniqueFieldName_, k_, blOffset_, tr_);
         if (_vars.goesToProcess()) {
             return;
         }
         _vars.getLastStackElt().setIndexAnnotationGroup(-1);
+    }
+
+    private static void addNextErrs(StringList _errs, OperationNode _next) {
+        if (_next != null) {
+            _errs.addAllElts(_next.getErrs());
+        }
     }
 
     private static String getLineErr(StringList _list) {
@@ -2039,21 +2027,29 @@ public final class LinkageUtil {
         if (_vars.goesToProcess()) {
             return;
         }
-        int len_ = _cond.getImports().size();
-        for (int i = 0; i < len_; i++) {
-            _parts.add(new PartOffset(ExportCst.span(IMPORT), _cond.getImportsOffset().get(i)));
-            _parts.add(new PartOffset(ExportCst.END_SPAN, _cond.getImportsOffset().get(i)+ _cond.getImports().get(i).length()));
-        }
+        appendImportPart(_cond, _parts);
         processInterfaceInit(_cond, _parts);
         int idRowCol_ = _cond.getIdRowCol();
         _parts.add(new PartOffset(ExportCst.anchorName(idRowCol_), idRowCol_));
         _parts.add(new PartOffset(ExportCst.END_ANCHOR, idRowCol_ + _cond.getNameLength()));
-        for (PartOffset p: _cond.getConstraintsParts()) {
+        appendInhHeaders(_cond, _parts);
+    }
+
+    private static void appendInhHeaders(RootBlock _cond, CustList<PartOffset> _parts) {
+        for (PartOffset p : _cond.getConstraintsParts()) {
             _parts.add(p);
         }
 
-        for (PartOffset p: _cond.getSuperTypesParts()) {
+        for (PartOffset p : _cond.getSuperTypesParts()) {
             _parts.add(p);
+        }
+    }
+
+    private static void appendImportPart(RootBlock _cond, CustList<PartOffset> _parts) {
+        int len_ = _cond.getImports().size();
+        for (int i = 0; i < len_; i++) {
+            _parts.add(new PartOffset(ExportCst.span(IMPORT), _cond.getImportsOffset().get(i)));
+            _parts.add(new PartOffset(ExportCst.END_SPAN, _cond.getImportsOffset().get(i)+ _cond.getImports().get(i).length()));
         }
     }
 
@@ -2078,11 +2074,7 @@ public final class LinkageUtil {
         if (!(_cond instanceof RootErrorBlock)) {
             processRootHeaderError(_cond, _parts);
         }
-        int len_ = _cond.getImports().size();
-        for (int i = 0; i < len_; i++) {
-            _parts.add(new PartOffset(ExportCst.span(IMPORT), _cond.getImportsOffset().get(i)));
-            _parts.add(new PartOffset(ExportCst.END_SPAN, _cond.getImportsOffset().get(i)+ _cond.getImports().get(i).length()));
-        }
+        appendImportPart(_cond, _parts);
         processInterfaceInit(_cond, _parts);
         int nameLength_ = _cond.getNameLength();
         if (nameLength_ > 0) {
@@ -2095,13 +2087,7 @@ public final class LinkageUtil {
             }
             _parts.add(new PartOffset(ExportCst.END_ANCHOR, idRowCol_ + nameLength_));
         }
-        for (PartOffset p: _cond.getConstraintsParts()) {
-            _parts.add(p);
-        }
-
-        for (PartOffset p: _cond.getSuperTypesParts()) {
-            _parts.add(p);
-        }
+        appendInhHeaders(_cond, _parts);
         if ((_cond instanceof RootErrorBlock)) {
             processRootHeaderError(_cond, _parts);
         }
@@ -2132,156 +2118,116 @@ public final class LinkageUtil {
         }
     }
     private static void processAnnotationReport(VariablesOffsets _vars, RootBlock _cond, CustList<PartOffset> _parts, Coverage _cov) {
-        int len_ = _cond.getAnnotationsIndexes().size();
+        Ints annotationsIndexes_ = _cond.getAnnotationsIndexes();
+        StringList annotations_ = _cond.getAnnotations();
+        CustList<OperationNode> roots_ = _cond.getRoots();
+        annotReport(_vars, _cond, _parts, _cov, annotationsIndexes_, annotations_, roots_);
+    }
+
+    private static void annotReport(VariablesOffsets _vars, AbsBk _cond, CustList<PartOffset> _parts, Coverage _cov, Ints _annotationsIndexes, StringList _annotations, CustList<OperationNode> _roots) {
+        int len_ = _annotationsIndexes.size();
         int j_ = _vars.getLastStackElt().getIndexAnnotation();
         for (int i = j_; i < len_; i++) {
-            int begin_ = _cond.getAnnotationsIndexes().get(i);
-            int end_ = begin_ + _cond.getAnnotations().get(i).trim().length();
-            OperationNode root_ = _cond.getRoots().get(i);
-            buildCoverageReport(_vars, _cond, -1, _parts, _cov, i, begin_, end_, root_, 0, 0, EMPTY, true);
+            buildAnnotReport(_vars, _cond, -1, _parts, _cov, _annotationsIndexes, _annotations, _roots, i);
             if (_vars.goesToProcess()) {
                 return;
             }
-            _vars.getLastStackElt().setIndexAnnotation(i+1);
+            _vars.getLastStackElt().setIndexAnnotation(i + 1);
         }
         _vars.getLastStackElt().setIndexAnnotation(0);
     }
+
     private static void buildAnnotationsReport(VariablesOffsets _vars, NamedFunctionBlock _cond, CustList<PartOffset> _parts, Coverage _cov) {
-        int len_ = _cond.getAnnotationsIndexes().size();
-        int j_ = _vars.getLastStackElt().getIndexAnnotation();
-        for (int i = j_; i < len_; i++) {
-            int begin_ = _cond.getAnnotationsIndexes().get(i);
-            int end_ = begin_ + _cond.getAnnotations().get(i).trim().length();
-            OperationNode root_ = _cond.getRoots().get(i);
-            buildCoverageReport(_vars, _cond, -1, _parts, _cov, i, begin_, end_, root_, 0, 0, EMPTY, true);
-            if (_vars.goesToProcess()) {
-                return;
-            }
-            _vars.getLastStackElt().setIndexAnnotation(i+1);
-        }
-        _vars.getLastStackElt().setIndexAnnotation(0);
+        Ints annotationsIndexes_ = _cond.getAnnotationsIndexes();
+        StringList annotations_ = _cond.getAnnotations();
+        CustList<OperationNode> roots_ = _cond.getRoots();
+        annotReport(_vars, _cond, _parts, _cov, annotationsIndexes_, annotations_, roots_);
     }
     private static void buildAnnotationsReport(VariablesOffsets _vars, NamedFunctionBlock _cond, int _index, CustList<PartOffset> _parts, Coverage _cov) {
-        int len_ = _cond.getAnnotationsIndexesParams().get(_index).size();
-        StringList list_ = _cond.getAnnotationsParams().get(_index);
-        int j_ = _vars.getLastStackElt().getIndexAnnotation();
-        for (int i = j_; i < len_; i++) {
-            int begin_ = _cond.getAnnotationsIndexesParams().get(_index).get(i);
-            int end_ = begin_ + list_.get(i).trim().length();
-            OperationNode root_ = _cond.getRootsList().get(_index).get(i);
-            buildCoverageReport(_vars, _cond, _index, _parts, _cov, i, begin_, end_, root_, 0, 0, EMPTY, true);
-            if (_vars.goesToProcess()) {
-                return;
-            }
-            _vars.getLastStackElt().setIndexAnnotation(i+1);
-        }
-        _vars.getLastStackElt().setIndexAnnotation(0);
-        _vars.getLastStackElt().setIndexAnnotationGroup(_index+1);
+        Ints annotationsIndexes_ = _cond.getAnnotationsIndexesParams().get(_index);
+        StringList annotations_ = _cond.getAnnotationsParams().get(_index);
+        CustList<OperationNode> roots_ = _cond.getRootsList().get(_index);
+        annotMethReport(_vars, _cond, _index, _parts, _cov, annotationsIndexes_, annotations_, roots_);
     }
     private static void buildAnnotationsReport(VariablesOffsets _vars, SwitchMethodBlock _cond, CustList<PartOffset> _parts, Coverage _cov) {
-        int len_ = _cond.getAnnotationsIndexes().size();
-        int j_ = _vars.getLastStackElt().getIndexAnnotation();
-        for (int i = j_; i < len_; i++) {
-            int begin_ = _cond.getAnnotationsIndexes().get(i);
-            int end_ = begin_ + _cond.getAnnotations().get(i).trim().length();
-            OperationNode root_ = _cond.getRoots().get(i);
-            buildCoverageReport(_vars, _cond, -1, _parts, _cov, i, begin_, end_, root_, 0, 0, EMPTY, true);
-            if (_vars.goesToProcess()) {
-                return;
-            }
-            _vars.getLastStackElt().setIndexAnnotation(i+1);
-        }
-        _vars.getLastStackElt().setIndexAnnotation(0);
+        Ints annotationsIndexes_ = _cond.getAnnotationsIndexes();
+        StringList annotations_ = _cond.getAnnotations();
+        CustList<OperationNode> roots_ = _cond.getRoots();
+        annotReport(_vars, _cond, _parts, _cov, annotationsIndexes_, annotations_, roots_);
     }
     private static void buildAnnotationsReport(VariablesOffsets _vars, SwitchMethodBlock _cond, int _index, CustList<PartOffset> _parts, Coverage _cov) {
-        int len_ = _cond.getAnnotationsIndexesParams().get(_index).size();
-        StringList list_ = _cond.getAnnotationsParams().get(_index);
+        Ints annotationsIndexes_ = _cond.getAnnotationsIndexesParams().get(_index);
+        StringList annotations_ = _cond.getAnnotationsParams().get(_index);
+        CustList<OperationNode> roots_ = _cond.getRootsList().get(_index);
+        annotMethReport(_vars, _cond, _index, _parts, _cov, annotationsIndexes_, annotations_, roots_);
+    }
+
+    private static void annotMethReport(VariablesOffsets _vars, AbsBk _cond, int _index, CustList<PartOffset> _parts, Coverage _cov, Ints _annotationsIndexes, StringList _annotations, CustList<OperationNode> _roots) {
+        int len_ = _annotationsIndexes.size();
         int j_ = _vars.getLastStackElt().getIndexAnnotation();
         for (int i = j_; i < len_; i++) {
-            int begin_ = _cond.getAnnotationsIndexesParams().get(_index).get(i);
-            int end_ = begin_ + list_.get(i).trim().length();
-            OperationNode root_ = _cond.getRootsList().get(_index).get(i);
-            buildCoverageReport(_vars, _cond, _index, _parts, _cov, i, begin_, end_, root_, 0, 0, EMPTY, true);
+            buildAnnotReport(_vars, _cond, _index, _parts, _cov, _annotationsIndexes, _annotations, _roots, i);
             if (_vars.goesToProcess()) {
                 return;
             }
-            _vars.getLastStackElt().setIndexAnnotation(i+1);
+            _vars.getLastStackElt().setIndexAnnotation(i + 1);
         }
         _vars.getLastStackElt().setIndexAnnotation(0);
-        _vars.getLastStackElt().setIndexAnnotationGroup(_index+1);
+        _vars.getLastStackElt().setIndexAnnotationGroup(_index + 1);
+    }
+
+    private static void buildAnnotReport(VariablesOffsets _vars, AbsBk _cond, int _index, CustList<PartOffset> _parts, Coverage _cov, Ints _annotationsIndexes, StringList _annotations, CustList<OperationNode> _roots, int _i) {
+        int begin_ = _annotationsIndexes.get(_i);
+        int end_ = begin_ + _annotations.get(_i).trim().length();
+        OperationNode root_ = _roots.get(_i);
+        buildCoverageReport(_vars, _cond, _index, _parts, _cov, _i, begin_, end_, root_, 0, 0, EMPTY, true);
     }
 
     private static void processAnnotationError(VariablesOffsets _vars, RootBlock _cond, CustList<PartOffset> _parts) {
-        int len_ = _cond.getAnnotationsIndexes().size();
-        int j_ = _vars.getLastStackElt().getIndexAnnotation();
-        for (int i = j_; i < len_; i++) {
-            int begin_ = _cond.getAnnotationsIndexes().get(i);
-            OperationNode root_ = _cond.getRoots().get(i);
-            buildErrorReport(_vars, _cond, -1, _parts, i, begin_, root_, 0, 0, EMPTY);
-            if (_vars.goesToProcess()) {
-                return;
-            }
-            _vars.getLastStackElt().setIndexAnnotation(i+1);
-        }
-        _vars.getLastStackElt().setIndexAnnotation(0);
+        Ints annotationsIndexes_ = _cond.getAnnotationsIndexes();
+        CustList<OperationNode> roots_ = _cond.getRoots();
+        annotError(_vars, _cond, _parts, annotationsIndexes_, roots_);
     }
     private static void buildAnnotationsError(VariablesOffsets _vars, NamedFunctionBlock _cond, CustList<PartOffset> _parts) {
-        int len_ = _cond.getAnnotationsIndexes().size();
-        int j_ = _vars.getLastStackElt().getIndexAnnotation();
-        for (int i = j_; i < len_; i++) {
-            int begin_ = _cond.getAnnotationsIndexes().get(i);
-            OperationNode root_ = _cond.getRoots().get(i);
-            buildErrorReport(_vars, _cond, -1, _parts, i, begin_, root_, 0, 0, EMPTY);
-            if (_vars.goesToProcess()) {
-                return;
-            }
-            _vars.getLastStackElt().setIndexAnnotation(i+1);
-        }
-        _vars.getLastStackElt().setIndexAnnotation(0);
+        Ints annotationsIndexes_ = _cond.getAnnotationsIndexes();
+        CustList<OperationNode> roots_ = _cond.getRoots();
+        annotError(_vars, _cond, _parts, annotationsIndexes_, roots_);
     }
     private static void buildAnnotationsError(VariablesOffsets _vars, NamedFunctionBlock _cond, int _index, CustList<PartOffset> _parts) {
-        int len_ = _cond.getAnnotationsIndexesParams().get(_index).size();
-        int j_ = _vars.getLastStackElt().getIndexAnnotation();
-        for (int i = j_; i < len_; i++) {
-            int begin_ = _cond.getAnnotationsIndexesParams().get(_index).get(i);
-            OperationNode root_ = _cond.getRootsList().get(_index).get(i);
-            buildErrorReport(_vars, _cond, _index, _parts, i, begin_, root_, 0, 0, EMPTY);
-            if (_vars.goesToProcess()) {
-                return;
-            }
-            _vars.getLastStackElt().setIndexAnnotation(i+1);
-        }
-        _vars.getLastStackElt().setIndexAnnotation(0);
-        _vars.getLastStackElt().setIndexAnnotationGroup(_index+1);
+        Ints annotationsIndexes_ = _cond.getAnnotationsIndexesParams().get(_index);
+        CustList<OperationNode> roots_ = _cond.getRootsList().get(_index);
+        annotMethError(_vars, _cond, _index, _parts, annotationsIndexes_, roots_);
     }
-    private static void buildAnnotationsError(VariablesOffsets _vars, SwitchMethodBlock _cond, CustList<PartOffset> _parts) {
-        int len_ = _cond.getAnnotationsIndexes().size();
+
+    private static void annotMethError(VariablesOffsets _vars, AbsBk _cond, int _index, CustList<PartOffset> _parts, Ints _annotationsIndexes, CustList<OperationNode> _roots) {
+        int len_ = _annotationsIndexes.size();
         int j_ = _vars.getLastStackElt().getIndexAnnotation();
         for (int i = j_; i < len_; i++) {
-            int begin_ = _cond.getAnnotationsIndexes().get(i);
-            OperationNode root_ = _cond.getRoots().get(i);
-            buildErrorReport(_vars, _cond, -1, _parts, i, begin_, root_, 0, 0, EMPTY);
+            buildAnnotErr(_vars, _cond, _index, _parts, _annotationsIndexes, _roots, i);
             if (_vars.goesToProcess()) {
                 return;
             }
-            _vars.getLastStackElt().setIndexAnnotation(i+1);
+            _vars.getLastStackElt().setIndexAnnotation(i + 1);
         }
         _vars.getLastStackElt().setIndexAnnotation(0);
+        _vars.getLastStackElt().setIndexAnnotationGroup(_index + 1);
+    }
+
+    private static void buildAnnotErr(VariablesOffsets _vars, AbsBk _cond, int _index, CustList<PartOffset> _parts, Ints _annotationsIndexes, CustList<OperationNode> _roots, int _i) {
+        int begin_ = _annotationsIndexes.get(_i);
+        OperationNode root_ = _roots.get(_i);
+        buildErrorReport(_vars, _cond, _index, _parts, _i, begin_, root_, 0, 0, EMPTY);
+    }
+
+    private static void buildAnnotationsError(VariablesOffsets _vars, SwitchMethodBlock _cond, CustList<PartOffset> _parts) {
+        Ints annotationsIndexes_ = _cond.getAnnotationsIndexes();
+        CustList<OperationNode> roots_ = _cond.getRoots();
+        annotError(_vars, _cond, _parts, annotationsIndexes_, roots_);
     }
     private static void buildAnnotationsError(VariablesOffsets _vars, SwitchMethodBlock _cond, int _index, CustList<PartOffset> _parts) {
-        int len_ = _cond.getAnnotationsIndexesParams().get(_index).size();
-        int j_ = _vars.getLastStackElt().getIndexAnnotation();
-        for (int i = j_; i < len_; i++) {
-            int begin_ = _cond.getAnnotationsIndexesParams().get(_index).get(i);
-            OperationNode root_ = _cond.getRootsList().get(_index).get(i);
-            buildErrorReport(_vars, _cond, _index, _parts, i, begin_, root_, 0, 0, EMPTY);
-            if (_vars.goesToProcess()) {
-                return;
-            }
-            _vars.getLastStackElt().setIndexAnnotation(i+1);
-        }
-        _vars.getLastStackElt().setIndexAnnotation(0);
-        _vars.getLastStackElt().setIndexAnnotationGroup(_index+1);
+        Ints annotationsIndexes_ = _cond.getAnnotationsIndexesParams().get(_index);
+        CustList<OperationNode> roots_ = _cond.getRootsList().get(_index);
+        annotMethError(_vars, _cond, _index, _parts, annotationsIndexes_, roots_);
     }
     private static void refParams(VariablesOffsets _vars, NamedFunctionBlock _cond, CustList<PartOffset> _parts, Coverage _cov) {
         int len_ = _cond.getParametersNamesOffset().size();
@@ -2359,7 +2305,7 @@ public final class LinkageUtil {
         int off_ =  _cond.getConditionOffset();
         int offsetEndBlock_ = off_ + _cond.getCondition().length();
         OperationNode root_ = _cond.getRoot();
-        buildCoverageReport(_vars, _cond, -1, _parts, _cov, 0, off_, offsetEndBlock_, root_, 0, 0, EMPTY, false);
+        buildNormalReport(_vars, _cond, _parts, _cov, -1, root_, off_, offsetEndBlock_, 0);
     }
     private static void processConditionError(ConditionBlock _cond, VariablesOffsets _vars, CustList<PartOffset> _parts) {
         int off_ =  _cond.getConditionOffset();
@@ -2370,7 +2316,7 @@ public final class LinkageUtil {
             }
         }
         OperationNode root_ = _cond.getRoot();
-        buildErrorReport(_vars, _cond, -1, _parts, 0, off_, root_, 0, 0, EMPTY);
+        buildNormErr(_vars, _cond, _parts, -1, root_, off_, 0);
     }
 
     private static void buildCoverageReport(VariablesOffsets _vars, AbsBk _cond, int _index, CustList<PartOffset> _parts, Coverage _cov, int _indexAnnotation, int _begin, int _end, OperationNode _root, int _indexLoop, int _tr, String _field, boolean _annot) {
@@ -4207,8 +4153,6 @@ public final class LinkageUtil {
     }
 
     private static void updateFieldAnchor(RootBlock _type, StringList _errs, CustList<PartOffset> _parts, ClassField _id, int _begin, int _length, String _currentFileName, int _offset) {
-        String className_ = _id.getClassName();
-        className_ = StringExpUtil.getIdFromAllTypes(className_);
         if (!ContextUtil.isFromCustFile(_type)) {
             if (!_errs.isEmpty()) {
                 _parts.add(new PartOffset(ExportCst.anchorErr(StringUtil.join(_errs,ExportCst.JOIN_ERR)),_begin));
@@ -4219,7 +4163,7 @@ public final class LinkageUtil {
         String file_ = _type.getFile().getRenderFileName();
         String rel_ = relativize(_currentFileName,ExportCst.href(file_,_offset));
         _parts.add(new PartOffset(ExportCst.BEGIN_ANCHOR+ExportCst.SEP_ATTR
-                +ExportCst.title(_errs,className_ +ExportCst.SEP_TYPE_MEMBER+ _id.getFieldName())+ExportCst.SEP_ATTR
+                +ExportCst.title(_errs,StringExpUtil.getIdFromAllTypes(_id.getClassName()) +ExportCst.SEP_TYPE_MEMBER+ _id.getFieldName())+ExportCst.SEP_ATTR
                 +ExportCst.href(rel_)+classErr(_errs)+ExportCst.END,_begin));
         _parts.add(new PartOffset(ExportCst.END_ANCHOR,_begin+_length));
     }
@@ -4339,10 +4283,8 @@ public final class LinkageUtil {
         if (_op instanceof RefShortTernaryOperation) {
             return true;
         }
-        if (_op instanceof AbstractDotOperation) {
-            if (!_op.getOperations().getOperators().firstValue().isEmpty()) {
-                return true;
-            }
+        if (_op instanceof AbstractDotOperation && !_op.getOperations().getOperators().firstValue().isEmpty()) {
+            return true;
         }
         if (_op instanceof AffectationOperation) {
             return true;
