@@ -18,6 +18,30 @@ public final class VariablesOffsets {
     private StringList toStringOwners;
     private boolean implicit;
 
+    public boolean hasEltStack() {
+        return !stack.isEmpty();
+    }
+
+    public void removeLastStackElt() {
+        stack.removeQuicklyLast();
+    }
+
+    public void addStackElt() {
+        addStackElt(state);
+        state = null;
+    }
+
+    public void addStackElt(LinkageStackElement _elt) {
+        stack.add(_elt);
+    }
+    public LinkageStackElement getLastStackElt() {
+        return stack.last();
+    }
+
+    public boolean goesToProcess() {
+        return state != null;
+    }
+
     public String getCurrentFileName() {
         return currentFileName;
     }
@@ -32,14 +56,6 @@ public final class VariablesOffsets {
 
     public IdList<OperationNode> getVisitedAnnotations() {
         return visitedAnnotations;
-    }
-
-    public CustList<LinkageStackElement> getStack() {
-        return stack;
-    }
-
-    public LinkageStackElement getState() {
-        return state;
     }
 
     public void setState(LinkageStackElement _v) {

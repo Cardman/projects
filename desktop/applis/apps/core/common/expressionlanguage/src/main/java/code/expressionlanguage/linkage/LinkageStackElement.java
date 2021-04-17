@@ -11,12 +11,28 @@ public final class LinkageStackElement {
     private int indexLoop;
     private int indexAnnotationGroup=-1;
     private int indexAnnotation;
-    private int indexEnd;
-    private boolean annotationMode;
+    private final int indexEnd;
+    private final boolean annotationMode;
     private boolean stopVisit;
     private final CustList<PartOffset> partsAfter = new CustList<PartOffset>();
     private boolean visitedParams;
 
+    public LinkageStackElement() {
+        this(false,0);
+    }
+
+    public LinkageStackElement(int _indexEnd) {
+        this(false,_indexEnd);
+    }
+
+    public LinkageStackElement(boolean _annotationMode, int _indexEnd) {
+        annotationMode = _annotationMode;
+        indexEnd = _indexEnd;
+    }
+    public void element(OperationNode _oper,LinkageStackElement _v) {
+        current = _oper;
+        element(_v);
+    }
     public void element(LinkageStackElement _v) {
         block = _v.block;
         indexLoop = _v.indexLoop;
@@ -24,6 +40,12 @@ public final class LinkageStackElement {
         indexAnnotationGroup = _v.indexAnnotationGroup;
     }
 
+    public boolean noVisited() {
+        return current == null;
+    }
+    public void setNullCurrent() {
+        this.current = null;
+    }
     public AbsBk getBlock() {
         return block;
     }
@@ -34,10 +56,6 @@ public final class LinkageStackElement {
 
     public OperationNode getCurrent() {
         return current;
-    }
-
-    public void setCurrent(OperationNode _v) {
-        this.current = _v;
     }
 
     public int getIndexLoop() {
@@ -68,16 +86,8 @@ public final class LinkageStackElement {
         return indexEnd;
     }
 
-    public void setIndexEnd(int _v) {
-        this.indexEnd = _v;
-    }
-
     public boolean isAnnotationMode() {
         return annotationMode;
-    }
-
-    public void setAnnotationMode(boolean _annotationMode) {
-        this.annotationMode = _annotationMode;
     }
 
     public boolean isStopVisit() {
