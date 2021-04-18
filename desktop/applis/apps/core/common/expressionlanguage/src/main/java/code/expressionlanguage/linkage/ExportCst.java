@@ -17,10 +17,10 @@ public final class ExportCst {
     public static final String BEGIN_TAG = "<";
     public static final String END = ">";
     public static final String END_PARENT = BEGIN_TAG+"/";
-    public static final String ANCHOR = "a";
-    public static final String BOLD = "b";
-    public static final String BEGIN_ANCHOR = BEGIN_TAG+ANCHOR;
-    public static final String BEGIN_BOLD = BEGIN_TAG+BOLD;
+    public static final String CST_ANCHOR = "a";
+    public static final String CST_BOLD = "b";
+    public static final String BEGIN_ANCHOR = BEGIN_TAG+ CST_ANCHOR;
+    public static final String BEGIN_BOLD = BEGIN_TAG+ CST_BOLD;
     public static final String HEAD_BOLD = BEGIN_BOLD+END;
     public static final String HEAD_ITALIC = "<i>";
     public static final String FOOT_ITALIC = "</i>";
@@ -32,17 +32,17 @@ public final class ExportCst {
     public static final String LOC_REF = "#";
     public static final String CLASS_ATTR = "class=";
     public static final String DEL_ATTR = "\"";
-    public static final String END_ANCHOR = END_PARENT+ANCHOR+END;
-    public static final String END_BOLD = END_PARENT+BOLD+END;
-    public static final String SPAN = "span";
-    public static final String END_SPAN = END_PARENT+SPAN+END;
+    public static final String END_ANCHOR = END_PARENT+ CST_ANCHOR +END;
+    public static final String END_BOLD = END_PARENT+ CST_BOLD +END;
+    public static final String CST_SPAN = "span";
+    public static final String END_SPAN = END_PARENT+ CST_SPAN +END;
     public static final String CLASS_ERR = CLASS_ATTR+DEL_ATTR+"e"+DEL_ATTR;
     public static final String SEP_ATTR_CLASS_ERR = SEP_ATTR+CLASS_ERR;
     public static final String CLASS_WAR = CLASS_ATTR+DEL_ATTR+"w"+DEL_ATTR;
     private ExportCst() {
     }
     public static String span(String _cl) {
-        return BEGIN_TAG+SPAN+SEP_ATTR+CLASS_ATTR+DEL_ATTR+_cl+DEL_ATTR+END;
+        return BEGIN_TAG+ CST_SPAN +SEP_ATTR+CLASS_ATTR+DEL_ATTR+_cl+DEL_ATTR+END;
     }
     public static String anchorNameErr(int _offset,String _title) {
         return BEGIN_ANCHOR+SEP_ATTR+name(_offset)+SEP_ATTR

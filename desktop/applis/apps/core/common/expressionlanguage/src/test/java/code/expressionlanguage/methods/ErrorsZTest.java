@@ -792,7 +792,7 @@ public final class ErrorsZTest extends ProcessMethodCommon {
         StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
                 " static int <a name=\"m28\">m</a>(){\n" +
-                "  return <span class=\"t\">(int <a name=\"m47\">a</a>,int <a title=\"The parameter function name a is duplicated.\" class=\"e\">a</a>:int)<a name=\"m59\">-&gt;</a>{return 0;}</span>.<b>call</b>(3,4);\n" +
+                "  return <span class=\"t\">(int <a name=\"m47\">a</a>,int <a name=\"m53\" title=\"The parameter function name a is duplicated.\" class=\"e\">a</a>:int)<a name=\"m59\">-&gt;</a>{return 0;}</span>.<b>call</b>(3,4);\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());

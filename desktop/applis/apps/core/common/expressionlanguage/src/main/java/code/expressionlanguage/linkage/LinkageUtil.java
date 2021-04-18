@@ -1593,20 +1593,7 @@ public final class LinkageUtil {
             _parts.add(new PartOffset(ExportCst.anchorName(begName_),begName_));
             _parts.add(new PartOffset(ExportCst.END_ANCHOR, _cond.getLeftPar()));
         }
-        int len_ = _cond.getParametersNamesOffset().size();
-        for (int i = k_; i < len_; i++) {
-            buildAnnotationsReport(_vars,_cond,i, _parts, _cov);
-            if (_vars.goesToProcess()) {
-                return;
-            }
-            _vars.getLastStackElt().setIndexAnnotationGroup(i+1);
-            _parts.addAllElts(_cond.getPartOffsetsParams().get(i));
-            Integer off_ = _cond.getParametersNamesOffset().get(i);
-            String param_ = _cond.getParametersNames().get(i);
-            _parts.add(new PartOffset(ExportCst.anchorName(off_),off_));
-            _parts.add(new PartOffset(ExportCst.END_ANCHOR,off_+param_.length()));
-        }
-        _vars.getLastStackElt().setIndexAnnotationGroup(-1);
+        refPar(_vars, _cond, _parts, _cov, k_);
     }
     private static void processConstructorBlockError(VariablesOffsets _vars, ConstructorBlock _cond, CustList<PartOffset> _parts) {
         int k_ = _vars.getLastStackElt().getIndexAnnotationGroup();
@@ -1626,25 +1613,7 @@ public final class LinkageUtil {
             }
             _parts.add(new PartOffset(ExportCst.END_ANCHOR, _cond.getLeftPar()));
         }
-        int len_ = _cond.getParametersNamesOffset().size();
-        for (int i = k_; i < len_; i++) {
-            buildAnnotationsError(_vars,_cond,i, _parts);
-            if (_vars.goesToProcess()) {
-                return;
-            }
-            _vars.getLastStackElt().setIndexAnnotationGroup(i+1);
-            _parts.addAllElts(_cond.getPartOffsetsParams().get(i));
-            Integer off_ = _cond.getParametersNamesOffset().get(i);
-            String param_ = _cond.getParametersNames().get(i);
-            StringList errs_ = _cond.getParamErrors().get(i);
-            if (errs_.isEmpty()) {
-                _parts.add(new PartOffset(ExportCst.anchorName(off_),off_));
-            } else {
-                _parts.add(new PartOffset(ExportCst.anchorNameErr(off_,StringUtil.join(errs_,ExportCst.JOIN_ERR)),off_));
-            }
-            _parts.add(new PartOffset(ExportCst.END_ANCHOR,off_+param_.length()));
-        }
-        _vars.getLastStackElt().setIndexAnnotationGroup(-1);
+        refParError(_vars,_cond,_parts,k_);
     }
     private static void processOverridableBlockReport(VariablesOffsets _vars, NamedFunctionBlock _cond, CustList<PartOffset> _parts, Coverage _cov) {
         int k_ = _vars.getLastStackElt().getIndexAnnotationGroup();
@@ -1659,14 +1628,7 @@ public final class LinkageUtil {
         if (!AbsBk.isOverBlock(_cond) || ((NamedCalledFunctionBlock)_cond).getKind() == MethodKind.OPERATOR) {
             if (k_ == -1) {
                 addNameParts(_cond, _parts, begName_, _cond.getName().length());
-                if (_cond instanceof OperatorBlock) {
-                    OperatorBlock op_ = (OperatorBlock) _cond;
-                    int lenImp_ = op_.getImports().size();
-                    for (int i = 0; i < lenImp_; i++) {
-                        _parts.add(new PartOffset(ExportCst.span(IMPORT), op_.getImportsOffset().get(i)));
-                        _parts.add(new PartOffset(ExportCst.END_SPAN, op_.getImportsOffset().get(i) + op_.getImports().get(i).length()));
-                    }
-                }
+                appendOperImports(_cond, _parts);
                 _parts.addAllElts(_cond.getPartOffsetsReturn());
             }
             refParams(_vars,_cond, _parts, _cov);
@@ -1751,14 +1713,7 @@ public final class LinkageUtil {
         if (!AbsBk.isOverBlock(_cond) || ((NamedCalledFunctionBlock)_cond).getKind() == MethodKind.OPERATOR) {
             if (k_ == -1) {
                 addNameParts(_cond, _parts, begName_, _cond.getName().length());
-                if (_cond instanceof OperatorBlock) {
-                    OperatorBlock op_ = (OperatorBlock) _cond;
-                    int lenImp_ = op_.getImports().size();
-                    for (int i = 0; i < lenImp_; i++) {
-                        _parts.add(new PartOffset(ExportCst.span(IMPORT), op_.getImportsOffset().get(i)));
-                        _parts.add(new PartOffset(ExportCst.END_SPAN, op_.getImportsOffset().get(i) + op_.getImports().get(i).length()));
-                    }
-                }
+                appendOperImports(_cond, _parts);
                 _parts.addAllElts(_cond.getPartOffsetsReturn());
             }
             refParamsError(_vars,_cond, _parts);
@@ -1790,6 +1745,17 @@ public final class LinkageUtil {
             return;
         }
         processOverridableRedef(_vars,m_,_parts);
+    }
+
+    private static void appendOperImports(NamedFunctionBlock _cond, CustList<PartOffset> _parts) {
+        if (_cond instanceof OperatorBlock) {
+            OperatorBlock op_ = (OperatorBlock) _cond;
+            int lenImp_ = op_.getImports().size();
+            for (int i = 0; i < lenImp_; i++) {
+                _parts.add(new PartOffset(ExportCst.span(IMPORT), op_.getImportsOffset().get(i)));
+                _parts.add(new PartOffset(ExportCst.END_SPAN, op_.getImportsOffset().get(i) + op_.getImports().get(i).length()));
+            }
+        }
     }
 
     private static void processOverridableRedef(VariablesOffsets _vars, NamedCalledFunctionBlock _cond, CustList<PartOffset> _parts) {
@@ -2230,9 +2196,13 @@ public final class LinkageUtil {
         annotMethError(_vars, _cond, _index, _parts, annotationsIndexes_, roots_);
     }
     private static void refParams(VariablesOffsets _vars, NamedFunctionBlock _cond, CustList<PartOffset> _parts, Coverage _cov) {
-        int len_ = _cond.getParametersNamesOffset().size();
         int k_ = _vars.getLastStackElt().getIndexAnnotationGroup();
-        for (int i = k_; i < len_; i++) {
+        refPar(_vars, _cond, _parts, _cov, k_);
+    }
+
+    private static void refPar(VariablesOffsets _vars, NamedFunctionBlock _cond, CustList<PartOffset> _parts, Coverage _cov, int _k) {
+        int len_ = _cond.getParametersNamesOffset().size();
+        for (int i = _k; i < len_; i++) {
             buildAnnotationsReport(_vars,_cond,i, _parts, _cov);
             if (_vars.goesToProcess()) {
                 return;
@@ -2260,9 +2230,13 @@ public final class LinkageUtil {
     }
 
     private static void refParamsError(VariablesOffsets _vars, NamedFunctionBlock _cond, CustList<PartOffset> _parts) {
-        int len_ = _cond.getParametersNamesOffset().size();
         int k_ = _vars.getLastStackElt().getIndexAnnotationGroup();
-        for (int i = k_; i < len_; i++) {
+        refParError(_vars, _cond, _parts, k_);
+    }
+
+    private static void refParError(VariablesOffsets _vars, NamedFunctionBlock _cond, CustList<PartOffset> _parts, int _k) {
+        int len_ = _cond.getParametersNamesOffset().size();
+        for (int i = _k; i < len_; i++) {
             buildAnnotationsError(_vars,_cond,i, _parts);
             if (_vars.goesToProcess()) {
                 return;
@@ -2281,7 +2255,7 @@ public final class LinkageUtil {
                 }
                 _parts.add(new PartOffset(ExportCst.END_ANCHOR,off_+param_.length()));
             } else {
-                _parts.add(new PartOffset(ExportCst.anchorErr(StringUtil.join(errs_,ExportCst.JOIN_ERR)),off_));
+                _parts.add(new PartOffset(ExportCst.anchorNameErr(off_,StringUtil.join(errs_,ExportCst.JOIN_ERR)),off_));
                 _parts.add(new PartOffset(ExportCst.END_ANCHOR,off_+Math.max(1,param_.length())));
             }
         }

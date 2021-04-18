@@ -796,7 +796,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrReadOnly(files_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
-                " $public $void <a name=\"m42\">method</a>($int <a title=\"The parameter method name #t is not valid. It must be a word.\" class=\"e\">#t</a>){\n" +
+                " $public $void <a name=\"m42\">method</a>($int <a name=\"m54\" title=\"The parameter method name #t is not valid. It must be a word.\" class=\"e\">#t</a>){\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
@@ -892,7 +892,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrReadOnly(files_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
-                " $public $void <a name=\"m42\">method</a>($int <a name=\"m54\">t</a>,$int <a title=\"The parameter function name t is duplicated.\" class=\"e\">t</a>){\n" +
+                " $public $void <a name=\"m42\">method</a>($int <a name=\"m54\">t</a>,$int <a name=\"m61\" title=\"The parameter function name t is duplicated.\" class=\"e\">t</a>){\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
@@ -1014,9 +1014,9 @@ public final class ErrorsTest extends ProcessMethodCommon {
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrReadOnly(files_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
-                " $public $void <a name=\"m42\">$this</a>($int <a name=\"m53\">i</a>,$int <a title=\"The parameter function name i is duplicated.\" class=\"e\">i</a>){\n" +
+                " $public $void <a name=\"m42\">$this</a>($int <a name=\"m53\">i</a>,$int <a name=\"m60\" title=\"The parameter function name i is duplicated.\" class=\"e\">i</a>){\n" +
                 " }\n" +
-                " $public $int <a name=\"m81\" title=\"A $throw block or a $return block is missing for the method []($int,$int).\" class=\"e\">$this</a>($int <a name=\"m92\">i</a>,$int <a title=\"The parameter function name i is duplicated.\" class=\"e\">i</a>){\n" +
+                " $public $int <a name=\"m81\" title=\"A $throw block or a $return block is missing for the method []($int,$int).\" class=\"e\">$this</a>($int <a name=\"m92\">i</a>,$int <a name=\"m99\" title=\"The parameter function name i is duplicated.\" class=\"e\">i</a>){\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
@@ -1867,7 +1867,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$operator<a name=\"m9\" title=\"A $throw block or a $return block is missing for the method $static +($int).\" class=\"e\">+</a> $int($int <a title=\"The parameter method name #i is not valid. It must be a word.\" class=\"e\">#i</a>){\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$operator<a name=\"m9\" title=\"A $throw block or a $return block is missing for the method $static +($int).\" class=\"e\">+</a> $int($int <a name=\"m21\" title=\"The parameter method name #i is not valid. It must be a word.\" class=\"e\">#i</a>){\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
     }
@@ -1879,7 +1879,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$operator<a name=\"m9\" title=\"A $throw block or a $return block is missing for the method $static +($int,$int).\" class=\"e\">+</a> $int($int <a name=\"m21\">i</a>,$int <a title=\"The parameter function name i is duplicated.\" class=\"e\">i</a>){\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$operator<a name=\"m9\" title=\"A $throw block or a $return block is missing for the method $static +($int,$int).\" class=\"e\">+</a> $int($int <a name=\"m21\">i</a>,$int <a name=\"m28\" title=\"The parameter function name i is duplicated.\" class=\"e\">i</a>){\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
     }
@@ -8059,7 +8059,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrReadOnly(files_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
-                " $public $void <a name=\"m42\">method</a>($int <a title=\"The parameter method name #i is not valid. It must be a word.\" class=\"e\">#i</a>,$int... <a name=\"m65\">j</a>) {\n" +
+                " $public $void <a name=\"m42\">method</a>($int <a name=\"m54\" title=\"The parameter method name #i is not valid. It must be a word.\" class=\"e\">#i</a>,$int... <a name=\"m65\">j</a>) {\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
@@ -8075,7 +8075,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrReadOnly(files_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
-                " $public $void <a name=\"m42\">method</a>($int <a name=\"m54\">i</a>,$int... <a title=\"The parameter method name #j is not valid. It must be a word.\" class=\"e\">#j</a>) {\n" +
+                " $public $void <a name=\"m42\">method</a>($int <a name=\"m54\">i</a>,$int... <a name=\"m64\" title=\"The parameter method name #j is not valid. It must be a word.\" class=\"e\">#j</a>) {\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
