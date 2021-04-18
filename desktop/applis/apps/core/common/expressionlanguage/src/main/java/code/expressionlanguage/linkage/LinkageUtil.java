@@ -2385,6 +2385,7 @@ public final class LinkageUtil {
                     break;
                 }
                 if (parent_ == null) {
+                    getEnd(_parts, fieldLength_, addCover_, endBlock_);
                     _vars.getLastStackElt().setNullCurrent();
                     return;
                 }
@@ -2569,9 +2570,6 @@ public final class LinkageUtil {
     }
 
     private static int getOffsetEnd(int _sum, OperationNode _val, MethodOperation _parent) {
-        if (_parent == null) {
-            return 0;
-        }
         int indexChild_ = _val.getIndexChild();
         StrTypes children_ = _parent.getChildren();
         return _sum + _val.getIndexInEl() + children_.getValue(indexChild_).length();
