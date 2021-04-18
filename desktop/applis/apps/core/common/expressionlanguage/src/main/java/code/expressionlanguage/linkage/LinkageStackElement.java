@@ -29,15 +29,17 @@ public final class LinkageStackElement {
         annotationMode = _annotationMode;
         indexEnd = _indexEnd;
     }
-    public void element(OperationNode _oper,LinkageStackElement _v) {
+
+    public void element(OperationNode _oper,LinkageStackElementIn _v) {
         current = _oper;
         element(_v);
     }
-    public void element(LinkageStackElement _v) {
-        block = _v.block;
-        indexLoop = _v.indexLoop;
-        indexAnnotation = _v.indexAnnotation;
-        indexAnnotationGroup = _v.indexAnnotationGroup;
+
+    public void element(LinkageStackElementIn _v) {
+        block = _v.getBlock();
+        indexLoop = _v.getIndexLoop();
+        indexAnnotation = _v.getIndexAnnotation();
+        indexAnnotationGroup = _v.getIndexAnnotationGroup();
     }
 
     public boolean noVisited() {
