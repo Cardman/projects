@@ -199,7 +199,7 @@ public final class WarningReportTest extends ProcessMethodCommon {
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxWarnStdReadOnly(files_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
-                " public static void <a name=\"m42\">exmeth</a>(int <a title=\"The parameter function name int is not valid. It must not a primitive type.\" class=\"e\">int</a>,int <a title=\"The parameter u is unused.\" name=\"m61\" class=\"w\">u</a>){\n" +
+                " public static void <a name=\"m42\">exmeth</a>(int <a name=\"m53\" title=\"The parameter function name int is not valid. It must not a primitive type.\" class=\"e\">int</a>,int <a title=\"The parameter u is unused.\" name=\"m61\" class=\"w\">u</a>){\n" +
                 " }\n" +
                 "}</span></pre></body></html>", filesExp_.firstValue());
     }
