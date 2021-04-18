@@ -2361,44 +2361,17 @@ public final class LinkageUtil {
                     getBeginOpReport(bl_, _parts, fieldLength_, _root, val_, sum_, addCover_, result_, _cov, _annot, indexAnnotationGroup_, indexAnnotation_);
                     leftReport(_vars, bl_,sum_,val_, _cov,result_, _parts, currentFileName_);
                 }
-                if (val_ instanceof AnonymousLambdaOperation) {
-                    NamedCalledFunctionBlock block_ = ((AnonymousLambdaOperation) val_).getBlock();
-                    setAnonState(_vars, block_);
-                    int begin_ = sum_ + val_.getIndexInEl();
-                    _parts.add(new PartOffset(ExportCst.span(TYPE), begin_));
-                    _vars.getLastStackElt().element(val_, _in);
-                    _vars.getVisited().add(val_);
-                    break;
+                OperationNode visit_ = visit(_vars, val_, _parts, sum_, _in);
+                if (_vars.goesToProcess()) {
+                    return;
                 }
-                if (isInner(val_)) {
-                    if (!_vars.getVisitedAnnotations().containsObj(val_)) {
-                        setAnnotState(_vars, val_);
-                        _vars.getLastStackElt().element(val_, _in);
-                        _vars.getVisitedAnnotations().add(val_);
-                        break;
-                    }
-                }
-                OperationNode firstChildOp_ = val_.getFirstChild();
-                if (firstChildOp_ != null) {
-                    val_ = firstChildOp_;
+                if (visit_ != null) {
+                    val_ = visit_;
                     continue;
                 }
-                if (isInner(val_)) {
-                    setInnerState(_vars, val_);
-                    _vars.getLastStackElt().element(val_, _in);
-                    _vars.getVisited().add(val_);
-                    break;
-                }
             }
-            boolean stopOp_ = false;
             while (true) {
                 MethodOperation parent_ = val_.getParent();
-                if (parent_ == null) {
-                    stopOp_ = true;
-                    getEnd(_parts, fieldLength_, addCover_, endBlock_);
-                    _vars.getLastStackElt().setNullCurrent();
-                    break;
-                }
                 int offsetEnd_ = getOffsetEnd(sum_, val_, parent_);
                 processImplicit(_vars,currentFileName_,offsetEnd_,val_, parent_, _parts);
                 String tag_ = getEndTag(addCover_, val_, _root, fieldLength_);
@@ -2411,26 +2384,19 @@ public final class LinkageUtil {
                     val_=nextSiblingOp_;
                     break;
                 }
-                if (isInner(parent_)) {
-                    setInnerState(_vars, parent_);
-                    _vars.getLastStackElt().element(parent_, _in);
-                    _vars.getVisited().add(parent_);
-                    stopOp_ = true;
-                    break;
-                }
-                boolean st_ = end(_vars, parent_, currentFileName_, offsetEnd_, _parts, _root);
-                if (st_) {
-                    stopOp_ = true;
-                }
-                if (stopOp_) {
-                    getEnd(_parts, fieldLength_, addCover_, endBlock_);
+                if (parent_ == null) {
                     _vars.getLastStackElt().setNullCurrent();
-                    break;
+                    return;
+                }
+                int st_ = end(_vars, parent_, currentFileName_, offsetEnd_, _parts, _root,_in);
+                if (st_ > 0) {
+                    if (st_ == 1) {
+                        getEnd(_parts, fieldLength_, addCover_, endBlock_);
+                        _vars.getLastStackElt().setNullCurrent();
+                    }
+                    return;
                 }
                 val_ = parent_;
-            }
-            if (stopOp_) {
-                break;
             }
         }
     }
@@ -2498,44 +2464,17 @@ public final class LinkageUtil {
                 if (!_vars.getVisitedAnnotations().containsObj(val_)) {
                     leftError(_vars, bl_,sum_,val_, _parts, currentFileName_);
                 }
-                if (val_ instanceof AnonymousLambdaOperation) {
-                    NamedCalledFunctionBlock block_ = ((AnonymousLambdaOperation) val_).getBlock();
-                    setAnonState(_vars, block_);
-                    int begin_ = sum_ + val_.getIndexInEl();
-                    _parts.add(new PartOffset(ExportCst.span(TYPE), begin_));
-                    _vars.getLastStackElt().element(val_, _in);
-                    _vars.getVisited().add(val_);
-                    break;
+                OperationNode visit_ = visit(_vars, val_, _parts, sum_, _in);
+                if (_vars.goesToProcess()) {
+                    return;
                 }
-                if (isInner(val_)) {
-                    if (!_vars.getVisitedAnnotations().containsObj(val_)) {
-                        setAnnotState(_vars, val_);
-                        _vars.getLastStackElt().element(val_, _in);
-                        _vars.getVisitedAnnotations().add(val_);
-                        break;
-                    }
-                }
-                OperationNode firstChildOp_ = val_.getFirstChild();
-                if (firstChildOp_ != null) {
-                    val_ = firstChildOp_;
+                if (visit_ != null) {
+                    val_ = visit_;
                     continue;
                 }
-                if (isInner(val_)) {
-                    setInnerState(_vars, val_);
-                    _vars.getLastStackElt().element(val_, _in);
-                    _vars.getVisited().add(val_);
-                    break;
-                }
-
             }
-            boolean stopOp_ = false;
             while (true) {
                 MethodOperation parent_ = val_.getParent();
-                if (parent_ == null) {
-                    stopOp_ = true;
-                    _vars.getLastStackElt().setNullCurrent();
-                    break;
-                }
                 int offsetEnd_ = getOffsetEnd(sum_, val_, parent_);
                 processImplicit(_vars,currentFileName_,offsetEnd_,val_, parent_,_parts);
                 OperationNode nextSiblingOp_ = val_.getNextSibling();
@@ -2546,36 +2485,61 @@ public final class LinkageUtil {
                     val_=nextSiblingOp_;
                     break;
                 }
-                if (isInner(parent_)) {
-                    setInnerState(_vars, parent_);
-                    _vars.getLastStackElt().element(parent_, _in);
-                    _vars.getVisited().add(parent_);
-                    stopOp_ = true;
-                    break;
-                }
-                boolean st_ = end(_vars, parent_, currentFileName_, offsetEnd_, _parts, _root);
-                if (st_) {
-                    stopOp_ = true;
-                }
-                if (stopOp_) {
+                if (parent_ == null) {
                     _vars.getLastStackElt().setNullCurrent();
-                    break;
+                    return;
+                }
+                int st_ = end(_vars, parent_, currentFileName_, offsetEnd_, _parts, _root,_in);
+                if (st_ > 0) {
+                    if (st_ == 1) {
+                        _vars.getLastStackElt().setNullCurrent();
+                    }
+                    return;
                 }
                 val_ = parent_;
-            }
-            if (stopOp_) {
-                break;
             }
         }
     }
 
-    private static boolean end(VariablesOffsets _vars, MethodOperation _parent, String _currentFileName, int _offsetEnd, CustList<PartOffset> _parts, OperationNode _r) {
-        boolean stopOp_ = false;
+    private static OperationNode visit(VariablesOffsets _vars, OperationNode _val, CustList<PartOffset> _parts, int _sum, LinkageStackElementIn _in) {
+        if (_val instanceof AnonymousLambdaOperation) {
+            NamedCalledFunctionBlock block_ = ((AnonymousLambdaOperation) _val).getBlock();
+            setAnonState(_vars, block_);
+            int begin_ = _sum + _val.getIndexInEl();
+            _parts.add(new PartOffset(ExportCst.span(TYPE), begin_));
+            _vars.getLastStackElt().element(_val, _in);
+            _vars.getVisited().add(_val);
+            return null;
+        }
+        if (isInner(_val) && !_vars.getVisitedAnnotations().containsObj(_val)) {
+            setAnnotState(_vars, _val);
+            _vars.getLastStackElt().element(_val, _in);
+            _vars.getVisitedAnnotations().add(_val);
+            return null;
+        }
+        OperationNode firstChildOp_ = _val.getFirstChild();
+        if (firstChildOp_ != null) {
+            return firstChildOp_;
+        }
+        if (isInner(_val)) {
+            setInnerState(_vars, _val);
+            _vars.getLastStackElt().element(_val, _in);
+            _vars.getVisited().add(_val);
+        }
+        return null;
+    }
+    private static int end(VariablesOffsets _vars, MethodOperation _parent, String _currentFileName, int _offsetEnd, CustList<PartOffset> _parts, OperationNode _r, LinkageStackElementIn _in) {
+        if (isInner(_parent)) {
+            setInnerState(_vars, _parent);
+            _vars.getLastStackElt().element(_parent, _in);
+            _vars.getVisited().add(_parent);
+            return 2;
+        }
         right(_vars,_currentFileName, _offsetEnd, _parent,_parts);
         if (_parent == _r) {
-            stopOp_ = true;
+            return 1;
         }
-        return stopOp_;
+        return 0;
     }
     private static void getBeginOpReport(AbsBk _block, CustList<PartOffset> _parts, int _fieldName, OperationNode _root, OperationNode _curOp, int _sum, boolean _addCover, AbstractCoverageResult _result, Coverage _cov, boolean _annot, int _indexAnnotGroup, int _indexAnnot) {
         if (addTag(_fieldName, _root, _curOp, _addCover)) {
@@ -2592,7 +2556,7 @@ public final class LinkageUtil {
 
     private static String getEndTag(boolean _addCover, OperationNode _val, OperationNode _root, int _fieldName) {
         String tag_;
-        if (addTag(_fieldName,_root,_val,_addCover)) {
+        if (_val.getParent() != null && addTag(_fieldName,_root,_val,_addCover)) {
             tag_ = ExportCst.END_SPAN;
         } else {
             tag_ = EMPTY;
@@ -2605,6 +2569,9 @@ public final class LinkageUtil {
     }
 
     private static int getOffsetEnd(int _sum, OperationNode _val, MethodOperation _parent) {
+        if (_parent == null) {
+            return 0;
+        }
         int indexChild_ = _val.getIndexChild();
         StrTypes children_ = _parent.getChildren();
         return _sum + _val.getIndexInEl() + children_.getValue(indexChild_).length();
