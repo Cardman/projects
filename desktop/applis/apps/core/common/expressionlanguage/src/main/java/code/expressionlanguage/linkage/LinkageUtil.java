@@ -2571,6 +2571,9 @@ public final class LinkageUtil {
 
     private static int getOffsetEnd(int _sum, OperationNode _val, MethodOperation _parent) {
         int indexChild_ = _val.getIndexChild();
+        if (_parent == null) {
+            return 0;
+        }
         StrTypes children_ = _parent.getChildren();
         return _sum + _val.getIndexInEl() + children_.getValue(indexChild_).length();
     }
