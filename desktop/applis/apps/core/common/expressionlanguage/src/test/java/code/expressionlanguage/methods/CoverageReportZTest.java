@@ -11132,6 +11132,78 @@ public final class CoverageReportZTest extends ProcessMethodCommon {
                 "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
+    public void coverage650Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public enum pkg.ExEnum {\n");
+        xml_.append(" ONE (5);\n");
+        xml_.append(" public int field;\n");
+        xml_.append(" ExEnum(int param){\n");
+        xml_.append("  field=param;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static int exmeth(){\n");
+        xml_.append("  return ExEnum.ONE.ordinal();\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("src/pkg/Ex", xml_.toString());
+        ContextEl cont_ = covEn(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        calculateNormal("pkg.Ex", id_, args_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public enum <a name=\"m12\">pkg.ExEnum</a> {\n" +
+                " <a name=\"m26\" title=\"pkg.ExEnum.pkg.ExEnum(int)\" href=\"#m55\">ONE</a> (<span class=\"g\">5</span>);\n" +
+                " public int <span class=\"g\"><a name=\"m47\">field</a></span>;\n" +
+                " <a name=\"m55\">ExEnum(</a>int <a name=\"m66\">param</a>){\n" +
+                "  <span class=\"g\"><span class=\"g\"><a title=\"pkg.ExEnum.field\" href=\"#m47\">field</a></span>=<span class=\"g\"><a href=\"#m66\">param</a></span></span>;\n" +
+                " }\n" +
+                "}\n" +
+                "public class <a name=\"m107\">pkg.Ex</a> {\n" +
+                " public static int <a name=\"m135\">exmeth</a>(){\n" +
+                "  return <span class=\"f\"><span class=\"f\"><span class=\"f\"><a title=\"pkg.ExEnum\" href=\"#m12\">ExEnum</a></span>.<span class=\"f\"><a title=\"pkg.ExEnum.ONE\" href=\"#m26\">ONE</a></span></span>.<span class=\"f\">ordinal()</span></span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void coverage651Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public enum pkg.ExEnum<T> {\n");
+        xml_.append(" ONE < Ex > (5);\n");
+        xml_.append(" public int field;\n");
+        xml_.append(" ExEnum(int param){\n");
+        xml_.append("  field=param;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static int exmeth(){\n");
+        xml_.append("  return ExEnum.ONE.ordinal();\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("src/pkg/Ex", xml_.toString());
+        ContextEl cont_ = covEn(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        calculateNormal("pkg.Ex", id_, args_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public enum <a name=\"m12\">pkg.ExEnum</a>&lt;<a name=\"m23\">T</a>&gt; {\n" +
+                " <a name=\"m29\" title=\"pkg.ExEnum.pkg.ExEnum(int)\" href=\"#m65\">ONE</a> &lt; <a title=\"pkg.Ex\" href=\"#m117\">Ex</a> &gt; (<span class=\"g\">5</span>);\n" +
+                " public int <span class=\"g\"><a name=\"m57\">field</a></span>;\n" +
+                " <a name=\"m65\">ExEnum(</a>int <a name=\"m76\">param</a>){\n" +
+                "  <span class=\"g\"><span class=\"g\"><a title=\"pkg.ExEnum.field\" href=\"#m57\">field</a></span>=<span class=\"g\"><a href=\"#m76\">param</a></span></span>;\n" +
+                " }\n" +
+                "}\n" +
+                "public class <a name=\"m117\">pkg.Ex</a> {\n" +
+                " public static int <a name=\"m145\">exmeth</a>(){\n" +
+                "  return <span class=\"f\"><span class=\"f\"><span class=\"f\"><a title=\"pkg.ExEnum\" href=\"#m12\">ExEnum</a></span>.<span class=\"f\"><a title=\"pkg.ExEnum.ONE\" href=\"#m29\">ONE</a></span></span>.<span class=\"f\">ordinal()</span></span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
     public void coverageComment17Test() {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;

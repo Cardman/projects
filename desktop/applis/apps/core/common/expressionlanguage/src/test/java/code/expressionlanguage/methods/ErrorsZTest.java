@@ -5642,4 +5642,67 @@ public final class ErrorsZTest extends ProcessMethodCommon {
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
     }
+    @Test
+    public void report840Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("interface pkg.Int {\n");
+        xml_.append(" int field();\n");
+        xml_.append("}\n");
+        xml_.append("enum pkg.Ext {\n");
+        xml_.append(" ONE (new Int(1){\n");
+        xml_.append("  static int extField;\n");
+        xml_.append("  public int field;\n");
+        xml_.append("  public Int(int p){\n");
+        xml_.append("   field = p;\n");
+        xml_.append("  }\n");
+        xml_.append("  public int field(){\n");
+        xml_.append("   return field;\n");
+        xml_.append("  }\n");
+        xml_.append(" }){\n");
+        xml_.append("  ONE(Int p){\n");
+        xml_.append("   super(p);\n");
+        xml_.append("  }\n");
+        xml_.append(" };\n");
+        xml_.append(" Int inner;\n");
+        xml_.append(" Ext(Int p){\n");
+        xml_.append("  inner = p;\n");
+        xml_.append(" }\n");
+        xml_.append(" static int m(){\n");
+        xml_.append("  return 0;\n");
+        xml_.append("  return ONE.inner.field();\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("src/pkg/Ex", xml_.toString());
+        StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">interface <a name=\"m10\">pkg.Int</a> {\n" +
+                " int <a name=\"m25\">field</a>();\n" +
+                "}\n" +
+                "enum <a name=\"m41\">pkg.Ext</a> {\n" +
+                " <a name=\"m52\" title=\"pkg.Ext-ONE.pkg.Ext-ONE(pkg.Int)\" href=\"#m201\">ONE</a> (<a title=\"pkg.Ext..Int*1.pkg.Ext..Int*1(int)\" href=\"#m114\">new</a> <a title=\"pkg.Int\" href=\"#m10\">Int</a>(1)<span class=\"t\"><a name=\"m67\">{</a>\n" +
+                "  static int <a name=\"m82\">extField</a>;\n" +
+                "  public int <a name=\"m105\">field</a>;\n" +
+                "  <a name=\"m114\">public Int(</a>int <a name=\"m129\">p</a>){\n" +
+                "   <a title=\"pkg.Ext..Int*1.field\" href=\"#m105\">field</a> = <a href=\"#m129\">p</a>;\n" +
+                "  }\n" +
+                "  public int <a name=\"m164\">field</a>(){\n" +
+                "   return <a title=\"pkg.Ext..Int*1.field\" href=\"#m105\">field</a>;\n" +
+                "  }\n" +
+                " }</span>){\n" +
+                "  <a name=\"m201\">ONE(</a><a title=\"pkg.Int\" href=\"#m10\">Int</a> <a name=\"m209\">p</a>){\n" +
+                "   <a title=\"pkg.Ext.pkg.Ext(pkg.Int)\" href=\"#m247\">super</a>(<a href=\"#m209\">p</a>);\n" +
+                "  }\n" +
+                " };\n" +
+                " <a title=\"pkg.Int\" href=\"#m10\">Int</a> <a name=\"m239\">inner</a>;\n" +
+                " <a name=\"m247\">Ext(</a><a title=\"pkg.Int\" href=\"#m10\">Int</a> <a name=\"m255\">p</a>){\n" +
+                "  <a title=\"pkg.Ext.inner\" href=\"#m239\">inner</a> = <a href=\"#m255\">p</a>;\n" +
+                " }\n" +
+                " static int <a name=\"m287\">m</a>(){\n" +
+                "  return 0;\n" +
+                "  <a title=\"The code is unreachable in the function static m()\" class=\"e\">return</a> <a title=\"pkg.Ext.ONE\" href=\"#m52\">ONE</a>.<a title=\"pkg.Ext.inner\" href=\"#m239\">inner</a>.<a title=\"pkg.Int.field()\" href=\"#m25\">field</a>();\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
 }

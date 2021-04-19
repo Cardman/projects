@@ -135,7 +135,11 @@ public final class InnerElementBlock extends RootBlock implements InnerTypeOrEle
     }
 
     public int retrieveTr(String _newKeyWord) {
-        return valueOffest  -1 - elementContent.getFieldName().length()- elementContent.getFieldNameOffest() - 1 - _newKeyWord.length();
+        return valueOffest - elementContent.getFieldNameOffest() + diffTr(_newKeyWord);
+    }
+
+    public int diffTr(String _newKeyWord) {
+        return -elementContent.getFieldName().length() - 1 - _newKeyWord.length() - 1;
     }
 
 

@@ -766,7 +766,7 @@ public final class LinkageUtil {
             if (rootInit_ != null) {
                 int off_ = _cond.getInitOffset();
                 int offsetEndBlock_ = off_ + _cond.getInit().length();
-                LinkageStackElementIn in_ = buildLinkageRep(_cond, off_, offsetEndBlock_, 0, -1, 0, 0);
+                LinkageStackElementIn in_ = buildLinkageRep(_cond, off_, offsetEndBlock_, 0, -1, 0);
                 buildNormalReport(_vars, _parts, _cov, rootInit_, in_);
                 if (_vars.goesToProcess()) {
                     return;
@@ -778,7 +778,7 @@ public final class LinkageUtil {
             if (rootExp_ != null) {
                 int off_ = _cond.getExpressionOffset();
                 int offsetEndBlock_ = off_ + _cond.getExpression().length();
-                LinkageStackElementIn in_ = buildLinkageRep(_cond, off_, offsetEndBlock_, 1, -1, 0, 0);
+                LinkageStackElementIn in_ = buildLinkageRep(_cond, off_, offsetEndBlock_, 1, -1, 0);
                 buildNormalReport(_vars, _parts, _cov, rootExp_, in_);
                 if (_vars.goesToProcess()) {
                     return;
@@ -790,7 +790,7 @@ public final class LinkageUtil {
         if (rootStep_ != null) {
             int off_ = _cond.getStepOffset();
             int offsetEndBlock_ = off_ + _cond.getStep().length();
-            LinkageStackElementIn in_ = buildLinkageRep(_cond, off_, offsetEndBlock_, 2, -1, 0, 0);
+            LinkageStackElementIn in_ = buildLinkageRep(_cond, off_, offsetEndBlock_, 2, -1, 0);
             buildNormalReport(_vars, _parts, _cov, rootStep_, in_);
             if (_vars.goesToProcess()) {
                 return;
@@ -883,7 +883,7 @@ public final class LinkageUtil {
         int off_ = _cond.getValueOffset();
         int offsetEndBlock_ = off_ + _cond.getValue().length();
         OperationNode root_ = _cond.getRoot();
-        LinkageStackElementIn in_ = buildLinkageRep(_cond, off_, offsetEndBlock_, 0, -1, 0, 0);
+        LinkageStackElementIn in_ = buildLinkageRep(_cond, off_, offsetEndBlock_, 0, -1, 0);
         buildNormalReport(_vars, _parts, _cov, root_, in_);
         refLabel(_vars, _parts, _cond.getLabel(), _cond.getLabelOffset());
     }
@@ -924,7 +924,7 @@ public final class LinkageUtil {
         } else {
             int offsetEndBlock_ = off_ + _cond.getValue().length();
             OperationNode root_ = _cond.getRoot();
-            LinkageStackElementIn in_ = buildLinkageRep(_cond, off_, offsetEndBlock_, 0, -1, 0, 0);
+            LinkageStackElementIn in_ = buildLinkageRep(_cond, off_, offsetEndBlock_, 0, -1, 0);
             buildNormalReport(_vars, _parts, _cov, root_, in_);
         }
         if (!_vars.goesToProcess()) {
@@ -1103,7 +1103,7 @@ public final class LinkageUtil {
         int blOffset_ = _cond.getExpressionOffset();
         int endBl_ = blOffset_ + _cond.getExpression().length();
         OperationNode root_ = _cond.getRoot();
-        LinkageStackElementIn in_ = buildLinkageRep(_cond, blOffset_, endBl_, 0, -1, 0, 0);
+        LinkageStackElementIn in_ = buildLinkageRep(_cond, blOffset_, endBl_, 0, -1, 0);
         buildNormalReport(_vars, _parts, _cov, root_, in_);
     }
     private static void processLineError(VariablesOffsets _vars, Line _cond, CustList<PartOffset> _parts) {
@@ -1158,7 +1158,7 @@ public final class LinkageUtil {
         int off_ = _cond.getExpressionOffset();
         int offsetEndBlock_ = off_ + _cond.getExpression().length();
         OperationNode root_ = _cond.getRoot();
-        LinkageStackElementIn in_ = buildLinkageRep(_cond, off_, offsetEndBlock_, 0, -1, 0, 0);
+        LinkageStackElementIn in_ = buildLinkageRep(_cond, off_, offsetEndBlock_, 0, -1, 0);
         buildNormalReport(_vars, _parts, _cov, root_, in_);
     }
 
@@ -1174,7 +1174,7 @@ public final class LinkageUtil {
         int off_ = _cond.getExpressionOffset();
         int offsetEndBlock_ = off_ + _cond.getExpression().length();
         OperationNode root_ = _cond.getRoot();
-        LinkageStackElementIn in_ = buildLinkageRep(_cond, off_, offsetEndBlock_, 0, -1, 0, 0);
+        LinkageStackElementIn in_ = buildLinkageRep(_cond, off_, offsetEndBlock_, 0, -1, 0);
         buildNormalReport(_vars, _parts, _cov, root_, in_);
     }
 
@@ -1197,7 +1197,7 @@ public final class LinkageUtil {
         int offsetEndBlock_ = off_ + _cond.getInit().length();
         if (_vars.getLastStackElt().getIndexLoop() == 0) {
             OperationNode rootInit_ = _cond.getRootInit();
-            LinkageStackElementIn in_ = buildLinkageRep(_cond, off_, offsetEndBlock_, 0, -1, 0, 0);
+            LinkageStackElementIn in_ = buildLinkageRep(_cond, off_, offsetEndBlock_, 0, -1, 0);
             buildNormalReport(_vars, _parts, _cov, rootInit_, in_);
             if (_vars.goesToProcess()) {
                 return;
@@ -1208,7 +1208,7 @@ public final class LinkageUtil {
         offsetEndBlock_ = off_ + _cond.getExpression().length();
         if (_vars.getLastStackElt().getIndexLoop() == 1) {
             OperationNode rootExp_ = _cond.getRootExp();
-            LinkageStackElementIn in_ = buildLinkageRep(_cond, off_, offsetEndBlock_, 1, -1, 0, 0);
+            LinkageStackElementIn in_ = buildLinkageRep(_cond, off_, offsetEndBlock_, 1, -1, 0);
             buildNormalReport(_vars, _parts, _cov, rootExp_, in_);
             if (_vars.goesToProcess()) {
                 return;
@@ -1218,7 +1218,7 @@ public final class LinkageUtil {
         off_ = _cond.getStepOffset();
         offsetEndBlock_ = off_ + _cond.getStep().length();
         OperationNode rootStep_ = _cond.getRootStep();
-        LinkageStackElementIn in_ = buildLinkageRep(_cond, off_, offsetEndBlock_, 2, -1, 0, 0);
+        LinkageStackElementIn in_ = buildLinkageRep(_cond, off_, offsetEndBlock_, 2, -1, 0);
         buildNormalReport(_vars, _parts, _cov, rootStep_, in_);
         if (_vars.goesToProcess()) {
             return;
@@ -1279,7 +1279,7 @@ public final class LinkageUtil {
         int off_ = _cond.getExpressionOffset();
         int offsetEndBlock_ = off_ + _cond.getExpression().length();
         OperationNode root_ = _cond.getRoot();
-        LinkageStackElementIn in_ = buildLinkageRep(_cond, off_, offsetEndBlock_, 0, -1, 0, 0);
+        LinkageStackElementIn in_ = buildLinkageRep(_cond, off_, offsetEndBlock_, 0, -1, 0);
         buildNormalReport(_vars, _parts, _cov, root_, in_);
         refLabel(_vars, _parts, _cond.getLabel(), _cond.getLabelOffset());
     }
@@ -1336,7 +1336,7 @@ public final class LinkageUtil {
         int off_ = _cond.getExpressionOffset();
         int offsetEndBlock_ = off_ + _cond.getExpression().length();
         OperationNode root_ = _cond.getRoot();
-        LinkageStackElementIn in_ = buildLinkageRep(_cond, off_, offsetEndBlock_, 0, -1, 0, 0);
+        LinkageStackElementIn in_ = buildLinkageRep(_cond, off_, offsetEndBlock_, 0, -1, 0);
         buildNormalReport(_vars, _parts, _cov, root_, in_);
         refLabel(_vars, _parts, _cond.getLabel(), _cond.getLabelOffset());
     }
@@ -1408,10 +1408,11 @@ public final class LinkageUtil {
             nameIdReport(_vars, _parts, inst_, uniqueFieldName_, _cond.getFieldNameOffest());
             _parts.addAllElts(_cond.getTypePartOffsets());
         }
-        int blOffset_ = _cond.getValueOffest();
-        int endBl_ = _cond.getValueOffest() + _cond.getValue().length();
-        int tr_ = _cond.getTrOffset() - 1;
-        LinkageStackElementIn in_ = buildLinkageRep(_cond, blOffset_, endBl_, 0, k_, tr_, uniqueFieldName_.length());
+        int tr_ = _cond.diffTr(_vars.getKeyWords().getKeyWordNew());
+//        int tr_ = _cond.getTrOffset() - 1 - uniqueFieldName_.length();
+        int blOffset_ = _cond.getValueOffest() + tr_;
+        int endBl_ = _cond.getValueOffest() + _cond.getValue().length() + tr_;
+        LinkageStackElementIn in_ = buildLinkageRep(_cond, blOffset_, endBl_, 0, k_, uniqueFieldName_.length());
         buildNormalReport(_vars, _parts, _cov, inst_, in_);
         if (_vars.goesToProcess()) {
             return;
@@ -1469,9 +1470,9 @@ public final class LinkageUtil {
             nameIdError(_vars, _parts, inst_, uniqueFieldName_, mergedErrs_, _cond.getFieldNameOffest());
             _parts.addAllElts(_cond.getTypePartOffsets());
         }
-        int blOffset_ = _cond.getValueOffest();
-        int tr_ = _cond.getTrOffset() - 1;
-        buildEnumEltError(_vars, _cond, _parts, inst_, k_, tr_ + blOffset_ - uniqueFieldName_.length());
+        int tr_ = _cond.diffTr(_vars.getKeyWords().getKeyWordNew());
+        int endBl_ = _cond.getValueOffest() + tr_;
+        buildEnumEltError(_vars, _cond, _parts, inst_, k_, endBl_);
         if (_vars.goesToProcess()) {
             return;
         }
@@ -1532,7 +1533,7 @@ public final class LinkageUtil {
         int blOffset_ = _cond.getValueOffset();
         int endBl_ = blOffset_ + _cond.getValue().length();
         OperationNode root_ = _cond.getRoot();
-        LinkageStackElementIn in_ = buildLinkageRep(_cond, blOffset_, endBl_, 0, k_, 0, 0);
+        LinkageStackElementIn in_ = buildLinkageRep(_cond, blOffset_, endBl_, 0, k_, 0);
         buildNormalReport(_vars, _parts, _cov, root_, in_);
         if (_vars.goesToProcess()) {
             return;
@@ -1847,7 +1848,7 @@ public final class LinkageUtil {
         if (root_ != null) {
             int blOffset_ = _cond.getDefaultValueOffset();
             int endBl_ = blOffset_ + _cond.getDefaultValue().length();
-            LinkageStackElementIn in_ = buildLinkageRep(_cond, blOffset_, endBl_, 0, k_, 0, 0);
+            LinkageStackElementIn in_ = buildLinkageRep(_cond, blOffset_, endBl_, 0, k_, 0);
             buildNormalReport(_vars, _parts, _cov, root_, in_);
             if (_vars.goesToProcess()) {
                 return;
@@ -1920,10 +1921,11 @@ public final class LinkageUtil {
             _vars.getLastStackElt().setIndexAnnotationGroup(0);
             k_ = 0;
         }
-        int blOffset_ = _cond.getValueOffest();
-        int endBl_ = _cond.getValueOffest() + _cond.getValue().length();
-        int tr_ = _cond.getTrOffset() - 1;
-        LinkageStackElementIn in_ = buildLinkageRep(_cond, blOffset_, endBl_, 0, k_, tr_, uniqueFieldName_.length());
+        int tr_ = _cond.diffTr(_vars.getKeyWords().getKeyWordNew());
+//        int tr_ = _cond.getTrOffset() - 1 - uniqueFieldName_.length();
+        int blOffset_ = _cond.getValueOffest() + tr_;
+        int endBl_ = _cond.getValueOffest() + _cond.getValue().length() + tr_;
+        LinkageStackElementIn in_ = buildLinkageRep(_cond, blOffset_, endBl_, 0, k_, uniqueFieldName_.length());
         buildNormalReport(_vars, _parts, _cov, inst_, in_);
         if (_vars.goesToProcess()) {
             return;
@@ -1968,8 +1970,9 @@ public final class LinkageUtil {
             k_ = 0;
         }
         int blOffset_ = _cond.getValueOffest();
-        int tr_ = _cond.getTrOffset() - 1;
-        buildEnumEltError(_vars, _cond, _parts, inst_, k_, tr_ + blOffset_ - uniqueFieldName_.length());
+        int tr_ = _cond.diffTr(_vars.getKeyWords().getKeyWordNew());
+        int endBl_ = _cond.getValueOffest() + tr_;
+        buildEnumEltError(_vars, _cond, _parts, inst_, k_, endBl_);
         if (_vars.goesToProcess()) {
             return;
         }
@@ -2164,7 +2167,7 @@ public final class LinkageUtil {
         int begin_ = _annotationsIndexes.get(_i);
         int end_ = begin_ + _annotations.get(_i).trim().length();
         LinkageStackElementIn in_ = new LinkageStackElementIn(_cond, 0, _index, _i);
-        adjust(begin_, end_, 0, 0, in_);
+        adjust(begin_, end_, 0, in_);
         return in_;
     }
 
@@ -2299,13 +2302,13 @@ public final class LinkageUtil {
         int off_ =  _cond.getConditionOffset();
         int offsetEndBlock_ = off_ + _cond.getCondition().length();
         OperationNode root_ = _cond.getRoot();
-        LinkageStackElementIn in_ = buildLinkageRep(_cond, off_, offsetEndBlock_, 0, -1, 0, 0);
+        LinkageStackElementIn in_ = buildLinkageRep(_cond, off_, offsetEndBlock_, 0, -1, 0);
         buildNormalReport(_vars, _parts, _cov, root_, in_);
     }
 
-    private static LinkageStackElementIn buildLinkageRep(AbsBk _cond, int _off, int _offsetEndBlock, int _indexLoop, int _indexAnnotationGroup, int _tr, int _length) {
+    private static LinkageStackElementIn buildLinkageRep(AbsBk _cond, int _begin, int _end, int _indexLoop, int _indexAnnotationGroup, int _length) {
         LinkageStackElementIn in_ = new LinkageStackElementIn(_cond, _indexLoop, _indexAnnotationGroup, 0);
-        adjust(_off, _offsetEndBlock, _tr, _length, in_);
+        adjust(_begin, _end, _length, in_);
         return in_;
     }
 
@@ -2325,8 +2328,8 @@ public final class LinkageUtil {
         buildNormErr(_vars, _cond, _parts, -1, root_, off_, 0);
     }
 
-    private static void adjust(int _begin, int _end, int _tr, int _length, LinkageStackElementIn _in) {
-        _in.offsets(_begin + _tr - _length, _end + _tr, _length);
+    private static void adjust(int _begin, int _end, int _length, LinkageStackElementIn _in) {
+        _in.offsets(_begin, _end, _length);
     }
 
     private static LinkageStackElementIn buildLinkageErr(AbsBk _cond, int _index, int _indexAnnotation, int _indexLoop, int _sum) {
@@ -3086,11 +3089,8 @@ public final class LinkageUtil {
                 int l_ = ((FctOperation) _val).getLengthMethod();
                 int begFct_ = _sum + delta_ + _val.getIndexInEl();
                 if (((FctOperation)_val).isClonedMethod()&&_val.getErrs().isEmpty()) {
-                    String tag_;
-                    tag_ = ExportCst.HEAD_BOLD;
-                    _parts.add(new PartOffset(tag_, begFct_));
-                    tag_ = ExportCst.END_BOLD;
-                    _parts.add(new PartOffset(tag_, begFct_ +l_));
+                    _parts.add(new PartOffset(ExportCst.HEAD_BOLD, begFct_));
+                    _parts.add(new PartOffset(ExportCst.END_BOLD, begFct_ +l_));
                 } else {
                     AnaTypeFct function_ = ((FctOperation) _val).getFunction();
                     addParts(_vars, _currentFileName, function_,
