@@ -14,12 +14,6 @@ public final class LinkageStackElementIn {
     private int fieldLength;
 
     public LinkageStackElementIn(AbsBk _block, int _indexLoop,
-                        int _indexAnnotationGroup, int _indexAnnotation,
-                                 int _indexAnnotationLook) {
-        this(_block,_indexLoop,_indexAnnotationGroup,_indexAnnotationGroup,_indexAnnotation,_indexAnnotationLook);
-    }
-
-    public LinkageStackElementIn(AbsBk _block, int _indexLoop,
                                  int _indexAnnotationGroup,
                                  int _indexAnnotationGroupLook,
                                  int _indexAnnotation,
@@ -57,7 +51,7 @@ public final class LinkageStackElementIn {
     }
 
     public int getIndexAnnotationGroup() {
-        return indexAnnotationGroup+getIndexAnnotationGroupLook()-getIndexAnnotationGroupLook();
+        return indexAnnotationGroup;
     }
 
     public void setIndexAnnotationGroup(int _v) {
