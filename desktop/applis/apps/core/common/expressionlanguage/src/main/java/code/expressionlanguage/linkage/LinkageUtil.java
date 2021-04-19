@@ -92,7 +92,7 @@ public final class LinkageUtil {
             String cssPart_ = BEGIN_HEAD + encode(_analyzing.isEncodeHeader()) +
                     link(rel_) +
                     END_HEAD;
-            files_.addEntry(fileExp_, BEGIN +cssPart_+ BEGIN_BODY_PRE +ExportCst.span(TYPE)+xml_+ExportCst.END_SPAN+ END_BODY_PRE+END);
+            files_.addEntry(fileExp_, BEGIN +cssPart_+ BEGIN_BODY_PRE +xml_+ END_BODY_PRE+END);
         }
         String cssContent_ = ".e{background-color:red;}\n";
         cssContent_ += ".w{background-color:yellow;}\n";
@@ -124,7 +124,7 @@ public final class LinkageUtil {
             String cssPart_ = BEGIN_HEAD +encode(cov_.isDisplayEncode())+
                     link(rel_) +
                     END_HEAD;
-            files_.addEntry(fileExp_, BEGIN +cssPart_+ BEGIN_BODY_PRE +ExportCst.span(TYPE)+xml_+ExportCst.END_SPAN+ END_BODY_PRE+END);
+            files_.addEntry(fileExp_, BEGIN +cssPart_+ BEGIN_BODY_PRE +xml_+END_BODY_PRE+END);
         }
         IdMap<RootBlock,String> types_ = new IdMap<RootBlock,String>();
         for (RootBlock t: refFoundTypes_) {
@@ -232,11 +232,6 @@ public final class LinkageUtil {
             }
             xml_.insert(0, part_);
         }
-        while (i_ >= 0) {
-            char ch_ = value_.charAt(i_);
-            insertTr(_fileBlock,xml_, ch_,i_);
-            i_--;
-        }
         return xml_;
     }
 
@@ -285,8 +280,9 @@ public final class LinkageUtil {
 
     private static CustList<PartOffset> processError(StringList _toStringOwers, FileBlock _ex, String _fileExp, KeyWords _keyWords, DisplayedStrings _displayedStrings, boolean _implicit){
         CustList<PartOffset> list_ = new CustList<PartOffset>();
+        list_.add(new PartOffset(ExportCst.span(TYPE),0));
         VariablesOffsets vars_ = new VariablesOffsets();
-        vars_.addStackElt(new LinkageStackElement());
+        vars_.addStackElt(new LinkageStackElement(_ex.getLength()));
         vars_.setKeyWords(_keyWords);
         vars_.setImplicit(_implicit);
         vars_.setDisplayedStrings(_displayedStrings);
@@ -294,6 +290,7 @@ public final class LinkageUtil {
         vars_.setCurrentFileName(_fileExp);
         if (_ex.getFirstChild() == null || !_ex.getErrorsFiles().getLi().isEmpty()) {
             processFileBlockError(_ex,list_);
+            list_.add(new PartOffset(ExportCst.END_SPAN,Math.max(1, _ex.getLength())));
             return list_;
         }
         AbsBk child_ = _ex;
@@ -309,7 +306,7 @@ public final class LinkageUtil {
         if (isOuterBlock(_child)) {
             processGlobalRootBlockError((BracedBlock) _child, _list);
             if (!((BracedBlock) _child).getGlobalErrorsPars().getLi().isEmpty()) {
-                return nextSkip(_child, _ex);
+                return nextSkip(_vars,_list,_child, _ex);
             }
         }
         processBlockError(_list, _vars, _child);
@@ -485,8 +482,9 @@ public final class LinkageUtil {
     }
     private static CustList<PartOffset> processReport(StringList _toStringOwers, FileBlock _ex, String _fileExp, Coverage _coverage, KeyWords _keyWords, LgNames _standards){
         CustList<PartOffset> list_ = new CustList<PartOffset>();
+        list_.add(new PartOffset(ExportCst.span(TYPE),0));
         VariablesOffsets vars_ = new VariablesOffsets();
-        vars_.addStackElt(new LinkageStackElement());
+        vars_.addStackElt(new LinkageStackElement(_ex.getLength()));
         vars_.setKeyWords(_keyWords);
         vars_.setImplicit(_coverage.isImplicit());
         vars_.setDisplayedStrings(_standards.getDisplayedStrings());
@@ -515,13 +513,9 @@ public final class LinkageUtil {
             _vars.removeLastStackElt();
             return redirect(_vars);
         }
-        AbsBk child_ = next(_child, _ex);
+        AbsBk child_ = next(_vars,_list,_child, _ex);
         if (child_ == null) {
-            int indexEnd_ = _vars.getLastStackElt().getIndexEnd();
             _vars.removeLastStackElt();
-            if (_vars.hasEltStack()) {
-                _list.add(new PartOffset(ExportCst.END_SPAN, indexEnd_));
-            }
             child_ = redirect(_vars);
         }
         return child_;
@@ -641,14 +635,14 @@ public final class LinkageUtil {
         }
         return null;
     }
-    private static AbsBk next(AbsBk _current, AbsBk _ex) {
+    private static AbsBk next(VariablesOffsets _vars, CustList<PartOffset> _list,AbsBk _current, AbsBk _ex) {
         AbsBk firstChild_ = _current.getFirstChild();
         if (firstChild_ != null) {
             return firstChild_;
         }
-        return nextSkip(_current,_ex);
+        return nextSkip(_vars,_list,_current,_ex);
     }
-    private static AbsBk nextSkip(AbsBk _current, AbsBk _ex) {
+    private static AbsBk nextSkip(VariablesOffsets _vars, CustList<PartOffset> _list,AbsBk _current, AbsBk _ex) {
         AbsBk child_ = _current;
         while (true) {
             AbsBk nextSibling_ = child_.getNextSibling();
@@ -657,6 +651,8 @@ public final class LinkageUtil {
             }
             BracedBlock parent_ = child_.getParent();
             if (parent_ == _ex || parent_ == null) {
+                int indexEnd_ = _vars.getLastStackElt().getIndexEnd();
+                _list.add(new PartOffset(ExportCst.END_SPAN, indexEnd_));
                 return null;
             }
             child_ = parent_;
@@ -2160,10 +2156,10 @@ public final class LinkageUtil {
         buildCoverageReport(_vars, _parts, _cov, root_, true, _in);
     }
 
-    private static LinkageStackElementIn buildAnnotLinkage(AbsBk _cond, int _index, Ints _annotationsIndexes, StringList _annotations, int _i) {
-        int begin_ = _annotationsIndexes.get(_i);
-        int end_ = begin_ + _annotations.get(_i).trim().length();
-        LinkageStackElementIn in_ = new LinkageStackElementIn(_cond, 0, _index, _i);
+    private static LinkageStackElementIn buildAnnotLinkage(AbsBk _cond, int _indexAnnotationGroup, Ints _annotationsIndexes, StringList _annotations, int _indexAnnotation) {
+        int begin_ = _annotationsIndexes.get(_indexAnnotation);
+        int end_ = begin_ + _annotations.get(_indexAnnotation).trim().length();
+        LinkageStackElementIn in_ = new LinkageStackElementIn(_cond, 0, _indexAnnotationGroup, _indexAnnotation);
         adjust(begin_, end_, 0, in_);
         return in_;
     }

@@ -17,10 +17,6 @@ public final class LinkageStackElement {
     private final CustList<PartOffset> partsAfter = new CustList<PartOffset>();
     private boolean visitedParams;
 
-    public LinkageStackElement() {
-        this(false,0);
-    }
-
     public LinkageStackElement(int _indexEnd) {
         this(false,_indexEnd);
     }
