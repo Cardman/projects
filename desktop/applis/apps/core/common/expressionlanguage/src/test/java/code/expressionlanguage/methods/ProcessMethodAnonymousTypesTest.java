@@ -351,6 +351,38 @@ public final class ProcessMethodAnonymousTypesTest extends ProcessMethodCommon {
         assertEq(1, getNumber(ret_));
     }
     @Test
+    public void calculate11_() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("interface pkg.Int {\n");
+        xml_.append(" int field();\n");
+        xml_.append("}\n");
+        xml_.append("enum pkg.Ext {\n");
+        xml_.append(" ONE(new Int(){\n");
+        xml_.append("  static int extField;\n");
+        xml_.append("  public int field=1;\n");
+        xml_.append("  public int field(){\n");
+        xml_.append("   return field;\n");
+        xml_.append("  }\n");
+        xml_.append(" }){public ONE(Int q){super(q);}};\n");
+        xml_.append(" Int inner;\n");
+        xml_.append(" Ext(Int p){\n");
+        xml_.append("  inner = p;\n");
+        xml_.append(" }\n");
+        xml_.append(" static int m(){\n");
+        xml_.append("  return class(Ext..ONE).getDeclaredAnonymousTypes().length;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxLgOk("en", files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("m");
+        Argument ret_ = new Argument();
+        ret_ = calculateNormal("pkg.Ext", id_, args_, cont_);
+        assertEq(1, getNumber(ret_));
+    }
+    @Test
     public void calculate12() {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;

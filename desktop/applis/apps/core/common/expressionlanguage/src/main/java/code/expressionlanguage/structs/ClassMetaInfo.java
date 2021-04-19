@@ -6,6 +6,7 @@ import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.blocks.ExecAbstractSwitchMethod;
 import code.expressionlanguage.exec.blocks.ExecAnonymousFunctionBlock;
+import code.expressionlanguage.exec.blocks.ExecInfoBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.opers.ExecCastOperation;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
@@ -366,6 +367,9 @@ public final class ClassMetaInfo extends AbsAnnotatedStruct implements Annotated
 
     @Override
     public CustList<ExecAnonymousFunctionBlock> getAnonymousLambda() {
+        if (rootBlock instanceof ExecInfoBlock) {
+            return ((ExecInfoBlock)rootBlock).getAnonymousLambda();
+        }
         if (rootBlock != null) {
             return rootBlock.getAnonymousRootLambda();
         }
@@ -374,6 +378,9 @@ public final class ClassMetaInfo extends AbsAnnotatedStruct implements Annotated
 
     @Override
     public CustList<ExecAbstractSwitchMethod> getSwitchMethods() {
+        if (rootBlock instanceof ExecInfoBlock) {
+            return ((ExecInfoBlock)rootBlock).getSwitchMethods();
+        }
         if (rootBlock != null) {
             return rootBlock.getSwitchMethodsRoot();
         }

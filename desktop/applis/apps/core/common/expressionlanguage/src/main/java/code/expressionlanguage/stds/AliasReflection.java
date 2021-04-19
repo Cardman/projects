@@ -2158,7 +2158,11 @@ public final class AliasReflection {
     }
 
     private static void fetchAnonymous(StringList _methods, ExecRootBlock _callee) {
-        if (_callee != null) {
+        if (_callee instanceof ExecInfoBlock) {
+            for (ExecRootBlock c: ((ExecInfoBlock)_callee).getAnonymous()) {
+                _methods.add(c.getFullName());
+            }
+        } else if (_callee != null) {
             for (ExecRootBlock c: _callee.getAnonymousRoot()) {
                 _methods.add(c.getFullName());
             }

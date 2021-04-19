@@ -617,7 +617,36 @@ public final class ProcessMethodAnonymousFctTest extends ProcessMethodCommon {
         assertEq(12, getNumber(ret_));
     }
 
-
+    @Test
+    public void calculate23_() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("class pkg.Ext {\n");
+        xml_.append(" enum Intern{\n");
+        xml_.append("  PLUS_ONE((int b:int) -> {return b+1;}){\n");
+        xml_.append("   PLUS_ONE(Fct<int,int> p){\n");
+        xml_.append("    super(p);\n");
+        xml_.append("   }\n");
+        xml_.append("  },\n");
+        xml_.append("  MULT_TWO((int b:int) -> {return b*2;});\n");
+        xml_.append("  Fct<int,int> fct;\n");
+        xml_.append("  Intern(Fct<int,int> p){\n");
+        xml_.append("   fct = p;\n");
+        xml_.append("  }\n");
+        xml_.append(" }\n");
+        xml_.append(" static int m(){\n");
+        xml_.append("  return class(Intern..PLUS_ONE).getDeclaredAnonymousLambda().length;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxLgReadOnlyOk("en", files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("m");
+        Argument ret_ = new Argument();
+        ret_ = calculateNormal("pkg.Ext", id_, args_, cont_);
+        assertEq(1, getNumber(ret_));
+    }
     @Test
     public void calculate24() {
         StringMap<String> files_ = new StringMap<String>();
