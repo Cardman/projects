@@ -230,7 +230,7 @@ public final class LinkageUtil {
                 insertTr(_fileBlock,xml_, ch_,i_);
                 i_--;
             }
-            xml_.insert(0, part_);
+            prepend(xml_, part_);
         }
         return xml_;
     }
@@ -238,17 +238,22 @@ public final class LinkageUtil {
     private static void insertTr(FileBlock _ex,StringBuilder _xml, char _ch, int _index) {
         String tr_ = transformText(_ch);
         if (_ex.getBeginComments().containsObj(_index)) {
-            _xml.insert(0, tr_);
-            _xml.insert(0, ExportCst.span(COMMENT));
+            prepend(_xml, tr_);
+            prepend(_xml, ExportCst.span(COMMENT));
             return;
         }
         if (_ex.getEndComments().containsObj(_index)) {
-            _xml.insert(0, ExportCst.END_SPAN);
-            _xml.insert(0, tr_);
+            prepend(_xml, ExportCst.END_SPAN);
+            prepend(_xml, tr_);
             return;
         }
-        _xml.insert(0, tr_);
+        prepend(_xml, tr_);
     }
+
+    private static void prepend(StringBuilder _xml, String _tr) {
+        _xml.insert(0, _tr);
+    }
+
     private static String transformText(char _ch) {
         if (_ch > 126) {
             return escapeNum(_ch);
@@ -1475,8 +1480,7 @@ public final class LinkageUtil {
     }
 
     private static void buildEnumEltError(VariablesOffsets _vars, AbsBk _cond, CustList<PartOffset> _parts, AbstractInstancingOperation _inst, int _k, int _begin) {
-        LinkageStackElementIn in_ = buildLinkageErr(_cond, _k, 0, 0, _begin);
-        buildErrorReport(_vars, _parts, _inst, in_);
+        buildNormalError(_vars, _cond, _parts, _k, _inst, _begin, 0);
     }
 
     private static AbstractInstancingOperation asInstancing(OperationNode _next) {
@@ -1882,7 +1886,11 @@ public final class LinkageUtil {
     }
 
     private static void buildNormErr(VariablesOffsets _vars, AbsBk _cond, CustList<PartOffset> _parts, int _k, OperationNode _root, int _begin, int _indexLoop) {
-        LinkageStackElementIn in_ = buildLinkageErr(_cond, _k, 0, _indexLoop, _begin);
+        buildNormalError(_vars, _cond, _parts, _k, _root, _begin, _indexLoop);
+    }
+
+    private static void buildNormalError(VariablesOffsets _vars, AbsBk _cond, CustList<PartOffset> _parts, int _k, OperationNode _root, int _begin, int _indexLoop) {
+        LinkageStackElementIn in_ = buildLinkageErr(_cond, _k, 0, _indexLoop, _begin, -1);
         buildErrorReport(_vars, _parts, _root, in_);
     }
 
@@ -2101,7 +2109,7 @@ public final class LinkageUtil {
         int len_ = _annotationsIndexes.size();
         int j_ = _vars.getLastStackElt().getIndexAnnotation();
         for (int i = j_; i < len_; i++) {
-            LinkageStackElementIn in_ = buildAnnotLinkage(_cond, -1, _annotationsIndexes, _annotations, i);
+            LinkageStackElementIn in_ = buildAnnotLinkageReport(_cond, -1, _annotationsIndexes, _annotations, i);
             buildAnnotReport(_vars, _parts, _cov, _roots, i, in_);
             if (_vars.goesToProcess()) {
                 return;
@@ -2140,7 +2148,7 @@ public final class LinkageUtil {
         int len_ = _annotationsIndexes.size();
         int j_ = _vars.getLastStackElt().getIndexAnnotation();
         for (int i = j_; i < len_; i++) {
-            LinkageStackElementIn in_ = buildAnnotLinkage(_cond, _index, _annotationsIndexes, _annotations, i);
+            LinkageStackElementIn in_ = buildAnnotLinkageReport(_cond, _index, _annotationsIndexes, _annotations, i);
             buildAnnotReport(_vars, _parts, _cov, _roots, i, in_);
             if (_vars.goesToProcess()) {
                 return;
@@ -2153,13 +2161,13 @@ public final class LinkageUtil {
 
     private static void buildAnnotReport(VariablesOffsets _vars, CustList<PartOffset> _parts, Coverage _cov, CustList<OperationNode> _roots, int _i, LinkageStackElementIn _in) {
         OperationNode root_ = _roots.get(_i);
-        buildCoverageReport(_vars, _parts, _cov, root_, true, _in);
+        buildCoverageReport(_vars, _parts, _cov, root_, _in);
     }
 
-    private static LinkageStackElementIn buildAnnotLinkage(AbsBk _cond, int _indexAnnotationGroup, Ints _annotationsIndexes, StringList _annotations, int _indexAnnotation) {
+    private static LinkageStackElementIn buildAnnotLinkageReport(AbsBk _cond, int _indexAnnotationGroup, Ints _annotationsIndexes, StringList _annotations, int _indexAnnotation) {
         int begin_ = _annotationsIndexes.get(_indexAnnotation);
         int end_ = begin_ + _annotations.get(_indexAnnotation).trim().length();
-        LinkageStackElementIn in_ = new LinkageStackElementIn(_cond, 0, _indexAnnotationGroup, _indexAnnotation);
+        LinkageStackElementIn in_ = new LinkageStackElementIn(_cond, 0, _indexAnnotationGroup, _indexAnnotation,_indexAnnotation);
         adjust(begin_, end_, 0, in_);
         return in_;
     }
@@ -2194,10 +2202,10 @@ public final class LinkageUtil {
         _vars.getLastStackElt().setIndexAnnotationGroup(_index + 1);
     }
 
-    private static void buildAnnotErr(VariablesOffsets _vars, AbsBk _cond, int _index, CustList<PartOffset> _parts, Ints _annotationsIndexes, CustList<OperationNode> _roots, int _i) {
-        int begin_ = _annotationsIndexes.get(_i);
-        OperationNode root_ = _roots.get(_i);
-        LinkageStackElementIn in_ = buildLinkageErr(_cond, _index, _i, 0, begin_);
+    private static void buildAnnotErr(VariablesOffsets _vars, AbsBk _cond, int _indexAnnotationGroup, CustList<PartOffset> _parts, Ints _annotationsIndexes, CustList<OperationNode> _roots, int _indexAnnotation) {
+        int begin_ = _annotationsIndexes.get(_indexAnnotation);
+        OperationNode root_ = _roots.get(_indexAnnotation);
+        LinkageStackElementIn in_ = buildLinkageErr(_cond, _indexAnnotationGroup, _indexAnnotation, 0, begin_, _indexAnnotation);
         buildErrorReport(_vars, _parts, root_, in_);
     }
 
@@ -2300,13 +2308,13 @@ public final class LinkageUtil {
     }
 
     private static LinkageStackElementIn buildLinkageRep(AbsBk _cond, int _begin, int _end, int _indexLoop, int _indexAnnotationGroup, int _length) {
-        LinkageStackElementIn in_ = new LinkageStackElementIn(_cond, _indexLoop, _indexAnnotationGroup, 0);
+        LinkageStackElementIn in_ = new LinkageStackElementIn(_cond, _indexLoop, _indexAnnotationGroup, 0,-1);
         adjust(_begin, _end, _length, in_);
         return in_;
     }
 
     private static void buildNormalReport(VariablesOffsets _vars, CustList<PartOffset> _parts, Coverage _cov, OperationNode _root, LinkageStackElementIn _in) {
-        buildCoverageReport(_vars, _parts, _cov, _root, false, _in);
+        buildCoverageReport(_vars, _parts, _cov, _root, _in);
     }
 
     private static void processConditionError(ConditionBlock _cond, VariablesOffsets _vars, CustList<PartOffset> _parts) {
@@ -2325,8 +2333,8 @@ public final class LinkageUtil {
         _in.offsets(_begin, _end, _length);
     }
 
-    private static LinkageStackElementIn buildLinkageErr(AbsBk _cond, int _index, int _indexAnnotation, int _indexLoop, int _begin) {
-        LinkageStackElementIn in_ = new LinkageStackElementIn(_cond, _indexLoop, _index, _indexAnnotation);
+    private static LinkageStackElementIn buildLinkageErr(AbsBk _cond, int _indexAnnotationGroup, int _indexAnnotation, int _indexLoop, int _begin, int _indexAnnotationLook) {
+        LinkageStackElementIn in_ = new LinkageStackElementIn(_cond, _indexLoop, _indexAnnotationGroup, _indexAnnotation, _indexAnnotationLook);
         in_.offsets(_begin);
         return in_;
     }
@@ -2339,21 +2347,20 @@ public final class LinkageUtil {
         return current_;
     }
 
-    private static void buildCoverageReport(VariablesOffsets _vars, CustList<PartOffset> _parts, Coverage _cov, OperationNode _root, boolean _annot, LinkageStackElementIn _in) {
+    private static void buildCoverageReport(VariablesOffsets _vars, CustList<PartOffset> _parts, Coverage _cov, OperationNode _root, LinkageStackElementIn _in) {
         OperationNode current_ = getCurrent(_vars, _root);
         int sum_ = _in.getBeginBlock();
         int fieldLength_ = _in.getFieldLength();
         String currentFileName_ = _vars.getCurrentFileName();
         AbsBk bl_ = _in.getBlock();
-        int indexAnnotation_ = _in.getIndexAnnotation();
         int indexAnnotationGroup_ = _in.getIndexAnnotationGroup();
         boolean addCover_ = !(bl_ instanceof CaseCondition);
         OperationNode val_ = current_;
         while (true) {
             if (!_vars.getVisited().containsObj(val_)) {
-                AbstractCoverageResult result_ = getCovers(bl_, val_, _cov, _annot, indexAnnotationGroup_, indexAnnotation_);
+                AbstractCoverageResult result_ = getCovers(_in,bl_, val_, _cov, indexAnnotationGroup_);
                 if (!_vars.getVisitedAnnotations().containsObj(val_)) {
-                    getBeginOpReport(bl_, _parts, fieldLength_, _root, val_, sum_, addCover_, result_, _cov, _annot, indexAnnotationGroup_, indexAnnotation_);
+                    getBeginOpReport(_in,bl_, _parts, fieldLength_, _root, val_, sum_, addCover_, result_, _cov, indexAnnotationGroup_);
                     leftReport(_vars, bl_,sum_,val_, _cov,result_, _parts, currentFileName_);
                 }
                 OperationNode visitRep_ = visit(_vars, val_, _parts, sum_, _in);
@@ -2365,7 +2372,7 @@ public final class LinkageUtil {
                     continue;
                 }
             }
-            OperationNode nextRep_ = loopReport(val_, _vars, _parts, _cov, _root, _annot, _in);
+            OperationNode nextRep_ = loopReport(val_, _vars, _parts, _cov, _root, _in);
             if (nextRep_ == null) {
                 return;
             }
@@ -2373,13 +2380,12 @@ public final class LinkageUtil {
         }
     }
 
-    private static OperationNode loopReport(OperationNode _val, VariablesOffsets _vars, CustList<PartOffset> _parts, Coverage _cov, OperationNode _root, boolean _annot, LinkageStackElementIn _in) {
+    private static OperationNode loopReport(OperationNode _val, VariablesOffsets _vars, CustList<PartOffset> _parts, Coverage _cov, OperationNode _root, LinkageStackElementIn _in) {
         int sum_ = _in.getBeginBlock();
         int endBlock_ = _in.getEndBlock();
         int fieldLength_ = _in.getFieldLength();
         String currentFileName_ = _vars.getCurrentFileName();
         AbsBk bl_ = _in.getBlock();
-        int indexAnnotation_ = _in.getIndexAnnotation();
         int indexAnnotationGroup_ = _in.getIndexAnnotationGroup();
         boolean addCover_ = !(bl_ instanceof CaseCondition);
         OperationNode val_ = _val;
@@ -2392,8 +2398,8 @@ public final class LinkageUtil {
                 String tag_ = getEndTag(addCover_, val_, _root, fieldLength_);
                 _parts.add(new PartOffset(tag_,offsetEnd_));
                 processUnaryRightOperations(_vars, currentFileName_, sum_, offsetEnd_, val_,parent_, _parts);
-                middleReport(_vars,currentFileName_,bl_, offsetEnd_,val_,nextSiblingOp_,
-                        parent_, _parts, _cov, _annot, indexAnnotationGroup_, indexAnnotation_);
+                middleReport(_in,_vars,currentFileName_,bl_, offsetEnd_,val_,nextSiblingOp_,
+                        parent_, _parts, _cov, indexAnnotationGroup_);
                 val_=nextSiblingOp_;
                 break;
             }
@@ -2573,9 +2579,9 @@ public final class LinkageUtil {
         }
         return 0;
     }
-    private static void getBeginOpReport(AbsBk _block, CustList<PartOffset> _parts, int _fieldName, OperationNode _root, OperationNode _curOp, int _sum, boolean _addCover, AbstractCoverageResult _result, Coverage _cov, boolean _annot, int _indexAnnotGroup, int _indexAnnot) {
+    private static void getBeginOpReport(LinkageStackElementIn _in, AbsBk _block, CustList<PartOffset> _parts, int _fieldName, OperationNode _root, OperationNode _curOp, int _sum, boolean _addCover, AbstractCoverageResult _result, Coverage _cov, int _indexAnnotGroup) {
         if (addTag(_fieldName, _root, _curOp, _addCover)) {
-            String tag_ = getBeginReport(_block, _root, _curOp, _result, _cov, _annot, _indexAnnotGroup, _indexAnnot);
+            String tag_ = getBeginReport(_in,_block, _root, _curOp, _result, _cov, _indexAnnotGroup);
             _parts.add(new PartOffset(tag_,_sum + _curOp.getIndexInEl()));
         }
     }
@@ -2606,14 +2612,14 @@ public final class LinkageUtil {
         return _sum + _val.getIndexInEl() + children_.getValue(indexChild_).length();
     }
 
-    private static String getBeginReport(AbsBk _block, OperationNode _root, OperationNode _val, AbstractCoverageResult _result, Coverage _cov, boolean _annot, int _indexAnnotGroup, int _indexAnnot) {
+    private static String getBeginReport(LinkageStackElementIn _in, AbsBk _block, OperationNode _root, OperationNode _val, AbstractCoverageResult _result, Coverage _cov, int _indexAnnotGroup) {
         String tag_;
         String full_;
         String fullInit_;
         String partial_;
         String partialInit_;
         String none_;
-        if (_annot || AbsBk.isAnnotBlock(_block)) {
+        if (_in.getIndexAnnotationLook() >= 0 || AbsBk.isAnnotBlock(_block)) {
             full_ = FULL_2;
             fullInit_ = FULL_INIT_2;
             partial_ = PARTIAL_2;
@@ -2638,7 +2644,7 @@ public final class LinkageUtil {
             }
             MethodOperation parentBefore_ = before_.getParent();
             if (parentBefore_ == null){
-                AbstractCoverageResult resultPar_ = getCovers(_block, par_, _cov, _annot, _indexAnnotGroup, _indexAnnot);
+                AbstractCoverageResult resultPar_ = getCovers(_in,_block, par_, _cov, _indexAnnotGroup);
                 if (resultPar_.isPartialCovered()) {
                     tag_ = getFullInitReport(resultPar_, fullInit_, full_);
                     return tag_;
@@ -2666,7 +2672,7 @@ public final class LinkageUtil {
                             par_ = before_;
                         }
                     }
-                    AbstractCoverageResult resultPar_ = getCovers(_block, par_, _cov, _annot, _indexAnnotGroup, _indexAnnot);
+                    AbstractCoverageResult resultPar_ = getCovers(_in,_block, par_, _cov, _indexAnnotGroup);
                     if (resultPar_.isPartialCovered()) {
                         tag_ = getFullInitReport(resultPar_, fullInit_, full_);
                         return tag_;
@@ -2707,7 +2713,7 @@ public final class LinkageUtil {
                     }
                 }
             }
-            AbstractCoverageResult resultPar_ = getCovers(_block, par_, _cov, _annot, _indexAnnotGroup, _indexAnnot);
+            AbstractCoverageResult resultPar_ = getCovers(_in,_block, par_, _cov, _indexAnnotGroup);
             if (resultPar_.isPartialCovered()) {
                 tag_ = getFullInitReport(resultPar_, fullInit_, full_);
                 return tag_;
@@ -3652,14 +3658,14 @@ public final class LinkageUtil {
         }
     }
 
-    private static void middleReport(VariablesOffsets _vars,
+    private static void middleReport(LinkageStackElementIn _in, VariablesOffsets _vars,
                                      String _currentFileName,
                                      AbsBk _block,
                                      int _offsetEnd,
                                      OperationNode _curOp,
                                      OperationNode _nextSiblingOp,
                                      MethodOperation _parent,
-                                     CustList<PartOffset> _parts, Coverage _cov, boolean _annot, int _indexAnnotGroup, int _indexAnnot) {
+                                     CustList<PartOffset> _parts, Coverage _cov, int _indexAnnotGroup) {
         if (_parent instanceof ShortTernaryOperation) {
             ShortTernaryOperation sh_ = (ShortTernaryOperation) _parent;
             int index_ = _curOp.getIndexChild();
@@ -3691,13 +3697,13 @@ public final class LinkageUtil {
             }
         }
         processCustomOperator(_vars, _currentFileName, _offsetEnd,_curOp,_nextSiblingOp, _parent, _parts);
-        processCompoundAffLeftOpReport(_vars, _block, _currentFileName, _offsetEnd, _curOp,_nextSiblingOp, _parent, _parts, _cov, _annot, _indexAnnotGroup, _indexAnnot);
+        processCompoundAffLeftOpReport(_in,_vars, _block, _currentFileName, _offsetEnd, _curOp,_nextSiblingOp, _parent, _parts, _cov, _indexAnnotGroup);
         processCompoundAffRightOp(_vars, _currentFileName, _offsetEnd, _parent, _parts);
 
-        processCompareReport(_vars, _block, _offsetEnd, _parent, _parts, _cov, _annot, _indexAnnotGroup, _indexAnnot);
-        processDotSafeReport(_vars, _block, _offsetEnd, _curOp, _parent, _parts, _cov, _annot, _indexAnnotGroup, _indexAnnot);
-        processNullSafeReport(_vars, _block, _offsetEnd, _curOp, _nextSiblingOp, _parent, _parts, _cov, _annot, _indexAnnotGroup, _indexAnnot);
-        processLogicAndOrOperationReport(_vars, _currentFileName,_block, _offsetEnd, _curOp, _nextSiblingOp, _parent, _parts, _cov, _annot, _indexAnnotGroup, _indexAnnot);
+        processCompareReport(_in,_vars, _block, _offsetEnd, _parent, _parts, _cov, _indexAnnotGroup);
+        processDotSafeReport(_in,_vars, _block, _offsetEnd, _curOp, _parent, _parts, _cov, _indexAnnotGroup);
+        processNullSafeReport(_in,_vars, _block, _offsetEnd, _curOp, _nextSiblingOp, _parent, _parts, _cov, _indexAnnotGroup);
+        processLogicAndOrOperationReport(_in,_vars, _currentFileName,_block, _offsetEnd, _curOp, _nextSiblingOp, _parent, _parts, _cov, _indexAnnotGroup);
     }
 
     private static void middleError(VariablesOffsets _vars,
@@ -3788,28 +3794,28 @@ public final class LinkageUtil {
     private static boolean canCallToString(VariablesOffsets _vars, OperationNode _curOp, OperationNode _nextSiblingOp) {
         return canCallToString(_vars,_curOp.getResultClass()) || canCallToString(_vars,_nextSiblingOp.getResultClass());
     }
-    private static void processDotSafeReport(VariablesOffsets _vars, AbsBk _block, int _offsetEnd, OperationNode _curOp, MethodOperation _parentOp, CustList<PartOffset> _parts, Coverage _cov, boolean _annot, int _indexAnnotGroup, int _indexAnnot) {
+    private static void processDotSafeReport(LinkageStackElementIn _in, VariablesOffsets _vars, AbsBk _block, int _offsetEnd, OperationNode _curOp, MethodOperation _parentOp, CustList<PartOffset> _parts, Coverage _cov, int _indexAnnotGroup) {
         if (_parentOp instanceof SafeDotOperation) {
-            AbstractCoverageResult resultFirst_ = getCovers(_block, _curOp, _cov, _annot, _indexAnnotGroup, _indexAnnot);
+            AbstractCoverageResult resultFirst_ = getCovers(_in,_block, _curOp, _cov, _indexAnnotGroup);
             safeReport(_vars, resultFirst_, _offsetEnd,_parts, 1);
         }
     }
-    private static void processNullSafeReport(VariablesOffsets _vars, AbsBk _block, int _offsetEnd, OperationNode _curOp, OperationNode _nextSiblingOp, MethodOperation _parentOp, CustList<PartOffset> _parts, Coverage _cov, boolean _annot, int _indexAnnotGroup, int _indexAnnot) {
+    private static void processNullSafeReport(LinkageStackElementIn _in, VariablesOffsets _vars, AbsBk _block, int _offsetEnd, OperationNode _curOp, OperationNode _nextSiblingOp, MethodOperation _parentOp, CustList<PartOffset> _parts, Coverage _cov, int _indexAnnotGroup) {
         if (_parentOp instanceof NullSafeOperation) {
-            AbstractCoverageResult resultFirst_ = getCovers(_block, _curOp, _cov, _annot, _indexAnnotGroup, _indexAnnot);
-            AbstractCoverageResult resultLast_ = getCovers(_block, _nextSiblingOp, _cov, _annot, _indexAnnotGroup, _indexAnnot);
+            AbstractCoverageResult resultFirst_ = getCovers(_in,_block, _curOp, _cov, _indexAnnotGroup);
+            AbstractCoverageResult resultLast_ = getCovers(_in,_block, _nextSiblingOp, _cov, _indexAnnotGroup);
             safeReport(_vars, resultFirst_, _offsetEnd,_parts, 1);
             safeReport(_vars, resultLast_, _offsetEnd+1,_parts, 1);
         }
     }
 
-    private static void processCompareReport(VariablesOffsets _vars, AbsBk _block, int _offsetEnd,
-                                             MethodOperation _parent, CustList<PartOffset> _parts, Coverage _cov, boolean _annot, int _indexAnnotGroup, int _indexAnnot) {
+    private static void processCompareReport(LinkageStackElementIn _in, VariablesOffsets _vars, AbsBk _block, int _offsetEnd,
+                                             MethodOperation _parent, CustList<PartOffset> _parts, Coverage _cov, int _indexAnnotGroup) {
         if (isWideCmp(_parent)) {
 
             int length_ = ((MiddleSymbolOperation)_parent) .getOp().length();
             if (((SymbolOperation)_parent).getFct().getFunction() == null) {
-                AbstractCoverageResult resultLoc_ = getCovers(_block, _parent, _cov, _annot, _indexAnnotGroup, _indexAnnot);
+                AbstractCoverageResult resultLoc_ = getCovers(_in,_block, _parent, _cov, _indexAnnotGroup);
                 safeReport(_vars, resultLoc_, _offsetEnd,_parts,length_);
             }
         }
@@ -3846,7 +3852,7 @@ public final class LinkageUtil {
         return _nextSiblingOp.getResultClass().isConvertToString() && canCallToString(_vars,_nextSiblingOp.getResultClass());
     }
 
-    private static void processCompoundAffLeftOpReport(VariablesOffsets _vars, AbsBk _block, String _currentFileName, int _offsetEnd, OperationNode _curOp, OperationNode _nextSiblingOp, MethodOperation _parentOp, CustList<PartOffset> _parts, Coverage _cov, boolean _annot, int _indexAnnotGroup, int _indexAnnot) {
+    private static void processCompoundAffLeftOpReport(LinkageStackElementIn _in, VariablesOffsets _vars, AbsBk _block, String _currentFileName, int _offsetEnd, OperationNode _curOp, OperationNode _nextSiblingOp, MethodOperation _parentOp, CustList<PartOffset> _parts, Coverage _cov, int _indexAnnotGroup) {
         if (!(_parentOp instanceof CompoundAffectationOperation)) {
             return;
         }
@@ -3858,7 +3864,7 @@ public final class LinkageUtil {
         int len_ = opDelta_;
         if (functionTest_ != null) {
             StringList title_ = new StringList();
-            AbstractCoverageResult resultFirst_ = getCovers(_block, _curOp, _cov, _annot, _indexAnnotGroup, _indexAnnot);
+            AbstractCoverageResult resultFirst_ = getCovers(_in,_block, _curOp, _cov, _indexAnnotGroup);
             title_.addAllElts(getCoversFoundReport(_vars, resultFirst_));
             addParts(_vars, _currentFileName, functionTest_,begin_,1, _parentOp.getErrs(),title_,_parts);
             begin_++;
@@ -3870,23 +3876,23 @@ public final class LinkageUtil {
             }
         } else if (StringUtil.quickEq(par_.getOper(),AbsBk.AND_LOG_EQ)
                 || StringUtil.quickEq(par_.getOper(),AbsBk.OR_LOG_EQ)){
-            AbstractCoverageResult resultFirst_ = getCovers(_block, _curOp, _cov, _annot, _indexAnnotGroup, _indexAnnot);
+            AbstractCoverageResult resultFirst_ = getCovers(_in,_block, _curOp, _cov, _indexAnnotGroup);
             safeReport(_vars, resultFirst_, begin_,_parts,1);
             begin_++;
             len_--;
         } else if (StringUtil.quickEq(par_.getOper(),AbsBk.AND_LOG_EQ_SHORT)
                 || StringUtil.quickEq(par_.getOper(),AbsBk.OR_LOG_EQ_SHORT)){
-            AbstractCoverageResult resultFirst_ = getCovers(_block, _curOp, _cov, _annot, _indexAnnotGroup, _indexAnnot);
+            AbstractCoverageResult resultFirst_ = getCovers(_in,_block, _curOp, _cov, _indexAnnotGroup);
             safeReport(_vars, resultFirst_, begin_,_parts,1);
             begin_+=2;
             len_-=2;
         } else if (StringUtil.quickEq(par_.getOper(),AbsBk.NULL_EQ)){
-            AbstractCoverageResult resultFirst_ = getCovers(_block, _curOp, _cov, _annot, _indexAnnotGroup, _indexAnnot);
+            AbstractCoverageResult resultFirst_ = getCovers(_in,_block, _curOp, _cov, _indexAnnotGroup);
             safeReport(_vars, resultFirst_, begin_,_parts,1);
             begin_++;
             len_--;
         } else if (StringUtil.quickEq(par_.getOper(),AbsBk.NULL_EQ_SHORT)){
-            AbstractCoverageResult resultFirst_ = getCovers(_block, _curOp, _cov, _annot, _indexAnnotGroup, _indexAnnot);
+            AbstractCoverageResult resultFirst_ = getCovers(_in,_block, _curOp, _cov, _indexAnnotGroup);
             safeReport(_vars, resultFirst_, begin_,_parts,1);
             begin_+=2;
             len_-=2;
@@ -3897,11 +3903,11 @@ public final class LinkageUtil {
             _parts.add(new PartOffset(ExportCst.HEAD_ITALIC, begin_));
             _parts.add(new PartOffset(ExportCst.FOOT_ITALIC,begin_+len_));
         } else if (StringUtil.quickEq(par_.getOper(),AbsBk.NULL_EQ) || StringUtil.quickEq(par_.getOper(),AbsBk.NULL_EQ_SHORT)){
-            AbstractCoverageResult resultLast_ = getCovers(_block, _nextSiblingOp, _cov, _annot, _indexAnnotGroup, _indexAnnot);
+            AbstractCoverageResult resultLast_ = getCovers(_in,_block, _nextSiblingOp, _cov, _indexAnnotGroup);
             safeReport(_vars, resultLast_, begin_,_parts, 1);
         } else {
             if (par_.isRightBool()) {
-                AbstractCoverageResult resultLast_ = getCovers(_block, _nextSiblingOp, _cov, _annot, _indexAnnotGroup, _indexAnnot);
+                AbstractCoverageResult resultLast_ = getCovers(_in,_block, _nextSiblingOp, _cov, _indexAnnotGroup);
                 safeReport(_vars, resultLast_, begin_,_parts,1);
             }
         }
@@ -3922,13 +3928,13 @@ public final class LinkageUtil {
             _parts.add(mergeParts(_vars,_currentFileName,par_.getFunctionImpl(),opDelta_+_offsetEnd+1,new StringList(),new StringList()));
         }
     }
-    private static void processLogicAndOrOperationReport(VariablesOffsets _vars, String _currentFileName, AbsBk _block, int _offsetEnd, OperationNode _curOp, OperationNode _nextSiblingOp, MethodOperation _parentOp, CustList<PartOffset> _parts, Coverage _cov, boolean _annot, int _indexAnnotGroup, int _indexAnnot) {
+    private static void processLogicAndOrOperationReport(LinkageStackElementIn _in, VariablesOffsets _vars, String _currentFileName, AbsBk _block, int _offsetEnd, OperationNode _curOp, OperationNode _nextSiblingOp, MethodOperation _parentOp, CustList<PartOffset> _parts, Coverage _cov, int _indexAnnotGroup) {
         if (!(_parentOp instanceof QuickOperation)) {
             return;
         }
         QuickOperation q_ = (QuickOperation) _parentOp;
-        AbstractCoverageResult resultFirst_ = getCovers(_block, _curOp, _cov, _annot, _indexAnnotGroup, _indexAnnot);
-        AbstractCoverageResult resultLast_ = getCovers(_block, _nextSiblingOp, _cov, _annot, _indexAnnotGroup, _indexAnnot);
+        AbstractCoverageResult resultFirst_ = getCovers(_in,_block, _curOp, _cov, _indexAnnotGroup);
+        AbstractCoverageResult resultLast_ = getCovers(_in,_block, _nextSiblingOp, _cov, _indexAnnotGroup);
         StringList errs_ = q_.getErrs();
         AnaTypeFct functionTest_ = q_.getFunctionTest();
         if (functionTest_ != null) {
@@ -4135,8 +4141,8 @@ public final class LinkageUtil {
         return relativize(_currentFileName, ExportCst.href(function_.getFile().getRenderFileName(), function_.getNameOffset()));
     }
 
-    private static AbstractCoverageResult getCovers(AbsBk _block, OperationNode _oper, Coverage _cov, boolean _annot, int _indexAnnotGroup, int _indexAnnot) {
-        return _cov.getCovers(_block,_oper, _annot, _indexAnnotGroup, _indexAnnot);
+    private static AbstractCoverageResult getCovers(LinkageStackElementIn _in, AbsBk _block, OperationNode _oper, Coverage _cov, int _indexAnnotGroup) {
+        return _cov.getCovers(_block,_oper, _indexAnnotGroup, _in.getIndexAnnotationLook());
     }
 
     private static void updateFieldAnchor(RootBlock _type, StringList _errs, CustList<PartOffset> _parts, ClassField _id, int _begin, int _length, String _currentFileName, int _offset) {

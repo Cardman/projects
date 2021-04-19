@@ -22,7 +22,6 @@ import code.expressionlanguage.exec.opers.*;
 import code.expressionlanguage.exec.util.*;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.fwd.Forwards;
-import code.expressionlanguage.fwd.PutCoveragePhase;
 import code.expressionlanguage.fwd.opers.*;
 import code.util.*;
 
@@ -1037,20 +1036,20 @@ public final class ForwardInfos {
     }
 
     private static CustList<ExecOperationNode> getExecutableNodes(OperationNode _root, Coverage _coverage, Forwards _forwards, AbsBk _currentBlock) {
-        return getExecutableNodes(-1,-1,_root,_coverage,_forwards, PutCoveragePhase.NORMAL, _currentBlock);
+        return getExecutableNodes(-1,-1,_root,_coverage,_forwards, _currentBlock);
     }
-    private static CustList<ExecOperationNode> getExecutableNodes(int _indexAnnotGroup, int _indexAnnot, OperationNode _root, Coverage _coverage, Forwards _forwards, PutCoveragePhase _phase, AbsBk _currentBlock) {
+    private static CustList<ExecOperationNode> getExecutableNodes(int _indexAnnotGroup, int _indexAnnot, OperationNode _root, Coverage _coverage, Forwards _forwards, AbsBk _currentBlock) {
         OperationNode current_ = _root;
         ExecOperationNode exp_ = createExecOperationNode(current_, _forwards);
         setImplicits(exp_, current_, _forwards);
         ExecOperationNode expRoot_ = exp_;
-        _coverage.putBlockOperation(_indexAnnotGroup, _indexAnnot, _phase, _forwards, _currentBlock, current_,exp_);
+        _coverage.putBlockOperation(_indexAnnotGroup, _indexAnnot, _forwards, _currentBlock, current_,exp_);
         while (current_ != null) {
             OperationNode op_ = current_.getFirstChild();
             if (hasToCreateExec(exp_, op_)) {
                 ExecOperationNode loc_ = createExecOperationNode(op_, _forwards);
                 setImplicits(loc_, op_, _forwards);
-                _coverage.putBlockOperation(_indexAnnotGroup, _indexAnnot, _phase, _forwards, _currentBlock, op_,loc_);
+                _coverage.putBlockOperation(_indexAnnotGroup, _indexAnnot, _forwards, _currentBlock, op_,loc_);
                 ((ExecMethodOperation)exp_).appendChild(loc_);
                 exp_ = loc_;
                 current_ = op_;
@@ -1063,7 +1062,7 @@ public final class ForwardInfos {
                 if (hasToCreateExec(par_, op_)) {
                     ExecOperationNode loc_ = createExecOperationNode(op_, _forwards);
                     setImplicits(loc_, op_, _forwards);
-                    _coverage.putBlockOperation(_indexAnnotGroup, _indexAnnot, _phase, _forwards, _currentBlock, op_,loc_);
+                    _coverage.putBlockOperation(_indexAnnotGroup, _indexAnnot, _forwards, _currentBlock, op_,loc_);
                     par_.appendChild(loc_);
                     tryInitIntermediate(exp_, op_, loc_);
                     exp_ = loc_;
@@ -1579,7 +1578,7 @@ public final class ForwardInfos {
             _exec.setOpValue(new CustList<ExecOperationNode>());
             return;
         }
-        CustList<ExecOperationNode> ops_ = getExecutableNodes(-1,-1,root_, _coverage, _forwards, PutCoveragePhase.NORMAL, _ana);
+        CustList<ExecOperationNode> ops_ = getExecutableNodes(-1,-1,root_, _coverage, _forwards, _ana);
         _exec.setOpValue(ops_);
     }
 
@@ -1610,7 +1609,7 @@ public final class ForwardInfos {
             int j_ = 0;
             for (OperationNode r: l) {
                 _coverage.putBlockOperationsAnnotMethod(_ana,i_);
-                annotation_.add(getExecutableNodes(i_,j_,r, _coverage, _forwards, PutCoveragePhase.ANNOTATION, _ana));
+                annotation_.add(getExecutableNodes(i_,j_,r, _coverage, _forwards, _ana));
                 j_++;
             }
             ops_.add(annotation_);
@@ -1628,7 +1627,7 @@ public final class ForwardInfos {
             int j_ = 0;
             for (OperationNode r: l) {
                 _coverage.putBlockOperationsAnnotMethod(_ana,i_);
-                annotation_.add(getExecutableNodes(i_,j_,r, _coverage, _forwards, PutCoveragePhase.ANNOTATION, _ana));
+                annotation_.add(getExecutableNodes(i_,j_,r, _coverage, _forwards, _ana));
                 j_++;
             }
             ops_.add(annotation_);
@@ -1642,7 +1641,7 @@ public final class ForwardInfos {
         int i_ = 0;
         for (OperationNode r: _ana.getRoots()) {
             _coverage.putBlockOperationsAnnotField(_ana);
-            ops_.add(getExecutableNodes(-1,i_,r, _coverage, _forwards, PutCoveragePhase.ANNOTATION, (AbsBk)_ana));
+            ops_.add(getExecutableNodes(-1,i_,r, _coverage, _forwards, (AbsBk)_ana));
             i_++;
         }
         _ann.getAnnotationsOps().addAllElts(ops_);
@@ -1653,7 +1652,7 @@ public final class ForwardInfos {
         int i_ = 0;
         for (OperationNode r: _ana.getRoots()) {
             _coverage.putBlockOperationsAnnotField(_ana);
-            ops_.add(getExecutableNodes(-1,i_,r, _coverage, _forwards, PutCoveragePhase.ANNOTATION, _ana));
+            ops_.add(getExecutableNodes(-1,i_,r, _coverage, _forwards, _ana));
             i_++;
         }
         _ann.getAnnotationsOps().addAllElts(ops_);
@@ -1662,14 +1661,14 @@ public final class ForwardInfos {
     private static CustList<ExecOperationNode> processField(InfoBlock _ana, ExecBlock _exec, Coverage _coverage, Forwards _forwards, OperationNode _root) {
         _coverage.putBlockOperationsField((AbsBk)_ana);
         _coverage.putBlockOperationsField(_exec, (AbsBk)_ana);
-        return getExecutableNodes(-1,-1,_root, _coverage, _forwards, PutCoveragePhase.NORMAL, (AbsBk)_ana);
+        return getExecutableNodes(-1,-1,_root, _coverage, _forwards, (AbsBk)_ana);
     }
     private static void fwdAnnotations(NamedFunctionBlock _ana, ExecNamedFunctionBlock _ex, Coverage _coverage, Forwards _forwards) {
         CustList<CustList<ExecOperationNode>> ops_ = new CustList<CustList<ExecOperationNode>>();
         int i_ = 0;
         for (OperationNode r: _ana.getRoots()) {
             _coverage.putBlockOperationsAnnotMethod(_ana);
-            ops_.add(getExecutableNodes(-1,i_,r, _coverage, _forwards, PutCoveragePhase.ANNOTATION, _ana));
+            ops_.add(getExecutableNodes(-1,i_,r, _coverage, _forwards, _ana));
             i_++;
         }
         _ex.getAnnotationsOps().addAllElts(ops_);
@@ -1679,7 +1678,7 @@ public final class ForwardInfos {
         int i_ = 0;
         for (OperationNode r: _ana.getRoots()) {
             _coverage.putBlockOperationsAnnotMethod(_ana);
-            ops_.add(getExecutableNodes(-1,i_,r, _coverage, _forwards, PutCoveragePhase.ANNOTATION, _ana));
+            ops_.add(getExecutableNodes(-1,i_,r, _coverage, _forwards, _ana));
             i_++;
         }
         _ex.getAnnotationsOps().addAllElts(ops_);
@@ -1690,7 +1689,7 @@ public final class ForwardInfos {
         int i_ = 0;
         for (OperationNode r: _ana.getRoots()) {
             _coverage.putBlockOperationsAnnotType(_ana);
-            ops_.add(getExecutableNodes(-1,i_,r, _coverage, _forwards, PutCoveragePhase.ANNOTATION, _ana));
+            ops_.add(getExecutableNodes(-1,i_,r, _coverage, _forwards, _ana));
             i_++;
         }
         _ann.getAnnotationsOps().clear();

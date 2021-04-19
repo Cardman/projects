@@ -14,7 +14,6 @@ import code.expressionlanguage.exec.calls.ReflectGetDefaultValuePageEl;
 import code.expressionlanguage.exec.opers.*;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.Forwards;
-import code.expressionlanguage.fwd.PutCoveragePhase;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.structs.*;
 import code.util.CustList;
@@ -317,11 +316,11 @@ public final class Coverage {
         return types;
     }
 
-    public void putBlockOperation(int _indexAnnotGroup, int _indexAnnot, PutCoveragePhase _phase, Forwards _fwd, AbsBk _block, OperationNode _op, ExecOperationNode _exec) {
+    public void putBlockOperation(int _indexAnnotGroup, int _indexAnnot, Forwards _fwd, AbsBk _block, OperationNode _op, ExecOperationNode _exec) {
         if (!isCovering()) {
             return;
         }
-        BlockCoverageResult blr_ =  getResultBlock(_block,_phase == PutCoveragePhase.ANNOTATION,_indexAnnotGroup,_indexAnnot);
+        BlockCoverageResult blr_ =  getResultBlock(_block, _indexAnnotGroup,_indexAnnot);
         putBlockOperation(_fwd, blr_, _op, _exec);
     }
 
@@ -477,7 +476,7 @@ public final class Coverage {
         ExecRootBlock type_ = matchType(lastPage_);
         RootBlock typeAna_ = mappingTypes.getVal(type_);
         AbsBk matchBl_ = matchBl(typeAna_,lastPage_);
-        BlockCoverageResult blRes_ = getResultBlock(matchBl_, lastPage_ instanceof ReflectAnnotationPageEl, indexAnnotGroup_, indexAnnot_);
+        BlockCoverageResult blRes_ = getResultBlock(matchBl_, indexAnnotGroup_, indexAnnot_);
         OperationNode ana_ = blRes_.getMapping().getVal(_exec);
         CustList<AbstractCoverageResult> instr_ = blRes_.getCovers();
         if (ana_ == null) {
@@ -607,11 +606,11 @@ public final class Coverage {
         return files;
     }
 
-    public AbstractCoverageResult getCovers(AbsBk _block, OperationNode _oper, boolean _annot, int _indexAnnotGroup, int _indexAnnot) {
-        return getResultBlock(_block, _annot, _indexAnnotGroup, _indexAnnot).getCovers().get(_oper.getIndexInExp());
+    public AbstractCoverageResult getCovers(AbsBk _block, OperationNode _oper, int _indexAnnotGroup, int _indexAnnot) {
+        return getResultBlock(_block, _indexAnnotGroup, _indexAnnot).getCovers().get(_oper.getIndexInExp());
     }
-    private BlockCoverageResult getResultBlock(AbsBk _block, boolean _annot, int _indexAnnotGroup, int _indexAnnot) {
-        if (_annot) {
+    private BlockCoverageResult getResultBlock(AbsBk _block, int _indexAnnotGroup, int _indexAnnot) {
+        if (_indexAnnot >= 0) {
             if (_block instanceof InfoBlock) {
                 BlockCoverageResult fieldRes_ = getFieldRes(_block);
                 return fieldRes_.getAnnotations().get(_indexAnnot);
