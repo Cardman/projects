@@ -24,8 +24,8 @@ public final class LinkageStackElementIn {
         setFieldLength(_fieldLength);
     }
 
-    public void offsets(int _end) {
-        setEndBlock(_end);
+    public void offsets(int _begin) {
+        setBeginBlock(_begin);
     }
     public AbsBk getBlock() {
         return block;

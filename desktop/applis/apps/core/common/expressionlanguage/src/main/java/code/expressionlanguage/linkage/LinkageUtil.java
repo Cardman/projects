@@ -1409,7 +1409,6 @@ public final class LinkageUtil {
             _parts.addAllElts(_cond.getTypePartOffsets());
         }
         int tr_ = _cond.diffTr(_vars.getKeyWords().getKeyWordNew());
-//        int tr_ = _cond.getTrOffset() - 1 - uniqueFieldName_.length();
         int blOffset_ = _cond.getValueOffest() + tr_;
         int endBl_ = _cond.getValueOffest() + _cond.getValue().length() + tr_;
         LinkageStackElementIn in_ = buildLinkageRep(_cond, blOffset_, endBl_, 0, k_, uniqueFieldName_.length());
@@ -1471,16 +1470,16 @@ public final class LinkageUtil {
             _parts.addAllElts(_cond.getTypePartOffsets());
         }
         int tr_ = _cond.diffTr(_vars.getKeyWords().getKeyWordNew());
-        int endBl_ = _cond.getValueOffest() + tr_;
-        buildEnumEltError(_vars, _cond, _parts, inst_, k_, endBl_);
+        int begin_ = _cond.getValueOffest() + tr_;
+        buildEnumEltError(_vars, _cond, _parts, inst_, k_, begin_);
         if (_vars.goesToProcess()) {
             return;
         }
         _vars.getLastStackElt().setIndexAnnotationGroup(-1);
     }
 
-    private static void buildEnumEltError(VariablesOffsets _vars, AbsBk _cond, CustList<PartOffset> _parts, AbstractInstancingOperation _inst, int _k, int _sum) {
-        LinkageStackElementIn in_ = buildLinkageErr(_cond, _k, 0, 0, _sum);
+    private static void buildEnumEltError(VariablesOffsets _vars, AbsBk _cond, CustList<PartOffset> _parts, AbstractInstancingOperation _inst, int _k, int _begin) {
+        LinkageStackElementIn in_ = buildLinkageErr(_cond, _k, 0, 0, _begin);
         buildErrorReport(_vars, _parts, _inst, in_);
     }
 
@@ -1886,8 +1885,8 @@ public final class LinkageUtil {
         _vars.getLastStackElt().setIndexAnnotationGroup(-1);
     }
 
-    private static void buildNormErr(VariablesOffsets _vars, AbsBk _cond, CustList<PartOffset> _parts, int _k, OperationNode _root, int _blOffset, int _indexLoop) {
-        LinkageStackElementIn in_ = buildLinkageErr(_cond, _k, 0, _indexLoop, _blOffset);
+    private static void buildNormErr(VariablesOffsets _vars, AbsBk _cond, CustList<PartOffset> _parts, int _k, OperationNode _root, int _begin, int _indexLoop) {
+        LinkageStackElementIn in_ = buildLinkageErr(_cond, _k, 0, _indexLoop, _begin);
         buildErrorReport(_vars, _parts, _root, in_);
     }
 
@@ -1922,7 +1921,6 @@ public final class LinkageUtil {
             k_ = 0;
         }
         int tr_ = _cond.diffTr(_vars.getKeyWords().getKeyWordNew());
-//        int tr_ = _cond.getTrOffset() - 1 - uniqueFieldName_.length();
         int blOffset_ = _cond.getValueOffest() + tr_;
         int endBl_ = _cond.getValueOffest() + _cond.getValue().length() + tr_;
         LinkageStackElementIn in_ = buildLinkageRep(_cond, blOffset_, endBl_, 0, k_, uniqueFieldName_.length());
@@ -1969,10 +1967,9 @@ public final class LinkageUtil {
             _vars.getLastStackElt().setIndexAnnotationGroup(0);
             k_ = 0;
         }
-        int blOffset_ = _cond.getValueOffest();
         int tr_ = _cond.diffTr(_vars.getKeyWords().getKeyWordNew());
-        int endBl_ = _cond.getValueOffest() + tr_;
-        buildEnumEltError(_vars, _cond, _parts, inst_, k_, endBl_);
+        int begin_ = _cond.getValueOffest() + tr_;
+        buildEnumEltError(_vars, _cond, _parts, inst_, k_, begin_);
         if (_vars.goesToProcess()) {
             return;
         }
@@ -2332,9 +2329,9 @@ public final class LinkageUtil {
         _in.offsets(_begin, _end, _length);
     }
 
-    private static LinkageStackElementIn buildLinkageErr(AbsBk _cond, int _index, int _indexAnnotation, int _indexLoop, int _sum) {
+    private static LinkageStackElementIn buildLinkageErr(AbsBk _cond, int _index, int _indexAnnotation, int _indexLoop, int _begin) {
         LinkageStackElementIn in_ = new LinkageStackElementIn(_cond, _indexLoop, _index, _indexAnnotation);
-        in_.offsets(_sum);
+        in_.offsets(_begin);
         return in_;
     }
 
@@ -2481,7 +2478,7 @@ public final class LinkageUtil {
             return;
         }
         AbsBk bl_ = _in.getBlock();
-        int sum_ = _in.getEndBlock();
+        int sum_ = _in.getBeginBlock();
         String currentFileName_ = _vars.getCurrentFileName();
         OperationNode val_ = current_;
         while (true) {
@@ -2507,7 +2504,7 @@ public final class LinkageUtil {
     }
 
     private static OperationNode loopError(OperationNode _val, VariablesOffsets _vars, CustList<PartOffset> _parts, OperationNode _root, LinkageStackElementIn _in) {
-        int sum_ = _in.getEndBlock();
+        int sum_ = _in.getBeginBlock();
         String currentFileName_ = _vars.getCurrentFileName();
         OperationNode val_ = _val;
         while (true) {
