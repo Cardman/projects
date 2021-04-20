@@ -1461,6 +1461,12 @@ public final class NumParsers {
         return new CharStruct((char)0);
     }
 
+    public static RangeStruct convertToRange(Struct _arg) {
+        if (_arg instanceof RangeStruct) {
+            return (RangeStruct) _arg;
+        }
+        return new RangeStruct(0,0);
+    }
     public static NumberStruct convertToNumber(Struct _arg) {
         if (_arg instanceof NumberStruct) {
             return (NumberStruct) _arg;

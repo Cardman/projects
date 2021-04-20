@@ -5,6 +5,8 @@ public final class AliasParamCore {
     public static final String ERROR_0_TO_STRING_METHOD_0="Error0ToStringMethod0";
     public static final String ENUMS_0_NAME_0="Enums0Name0";
     public static final String ENUMS_0_ORDINAL_0="Enums0Ordinal0";
+    public static final String RANGE_0_RANGE_0="Range0Range0";
+    public static final String RANGE_0_RANGE_1="Range0Range1";
     public static final String OBJECTS_UTIL_0_SAME_REF_0="ObjectsUtil0SameRef0";
     public static final String OBJECTS_UTIL_0_SAME_REF_1="ObjectsUtil0SameRef1";
     public static final String OBJECTS_UTIL_0_GET_PARENT_0="ObjectsUtil0GetParent0";
@@ -18,6 +20,8 @@ public final class AliasParamCore {
     private String aliasError0ToStringMethod0="a";
     private String aliasEnums0Name0="a";
     private String aliasEnums0Ordinal0="a";
+    private String aliasRange0Range0="a";
+    private String aliasRange0Range1="b";
     private String aliasObjectsUtil0SameRef0="a";
     private String aliasObjectsUtil0SameRef1="b";
     private String aliasObjectsUtil0GetParent0="a";
@@ -58,6 +62,22 @@ public final class AliasParamCore {
 
     public void setAliasEnums0Ordinal0(String _v) {
         this.aliasEnums0Ordinal0 =_v;
+    }
+
+    public String getAliasRange0Range0() {
+        return aliasRange0Range0;
+    }
+
+    public void setAliasRange0Range0(String _v) {
+        this.aliasRange0Range0 = _v;
+    }
+
+    public String getAliasRange0Range1() {
+        return aliasRange0Range1;
+    }
+
+    public void setAliasRange0Range1(String _v) {
+        this.aliasRange0Range1 = _v;
     }
 
     public String getAliasObjectsUtil0SameRef0() {

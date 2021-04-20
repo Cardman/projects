@@ -22,17 +22,18 @@ public final class ElResolver {
     public static final int NULL_SAFE_PRIO = 5;
     public static final int OR_PRIO = 6;
     public static final int AND_PRIO = 7;
-    public static final int BIT_OR_PRIO = 8;
-    public static final int BIT_XOR_PRIO = 9;
-    public static final int BIT_AND_PRIO = 10;
-    public static final int EQ_PRIO = 11;
-    public static final int CMP_PRIO = 12;
-    public static final int SHIFT_PRIO = 13;
-    public static final int ADD_PRIO = 14;
-    public static final int MULT_PRIO = 15;
-    public static final int UNARY_PRIO = 16;
-    public static final int POST_INCR_PRIO = 17;
-    public static final int FCT_OPER_PRIO = 18;
+    public static final int RANGE = 8;
+    public static final int BIT_OR_PRIO = 9;
+    public static final int BIT_XOR_PRIO = 10;
+    public static final int BIT_AND_PRIO = 11;
+    public static final int EQ_PRIO = 12;
+    public static final int CMP_PRIO = 13;
+    public static final int SHIFT_PRIO = 14;
+    public static final int ADD_PRIO = 15;
+    public static final int MULT_PRIO = 16;
+    public static final int UNARY_PRIO = 17;
+    public static final int POST_INCR_PRIO = 18;
+    public static final int FCT_OPER_PRIO = 19;
     static final byte UNICODE_SIZE = 4;
 
     static final String EMPTY_STRING = "";
@@ -1532,11 +1533,7 @@ public final class ElResolver {
                 j_++;
             }
             if (nullSafe_ && j_ < len_ && _string.charAt(j_) == curChar_) {
-                if (j_+1 < len_ && _string.charAt(j_+1) == EQ_CHAR) {
-                    j_++;
-                } else {
-                    addOp_ = false;
-                }
+                j_++;
             }
             if (j_ < len_ && _string.charAt(j_) == EQ_CHAR) {
                 j_++;

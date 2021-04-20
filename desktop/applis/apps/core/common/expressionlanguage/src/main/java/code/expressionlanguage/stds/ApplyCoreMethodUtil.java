@@ -35,6 +35,9 @@ public final class ApplyCoreMethodUtil {
         if (StringUtil.quickEq(type_, lgNames_.getContent().getCoreNames().getAliasObjectsUtil())) {
             return processObjectsUtil(_cont, _method, args_, _stackCall);
         }
+        if (StringUtil.quickEq(type_, lgNames_.getContent().getCoreNames().getAliasRange())) {
+            return processRange(_cont, _method,_struct);
+        }
         if (StringUtil.quickEq(type_, replType_)) {
             ResultErrorStd result_ = new ResultErrorStd();
             AliasCharSequence.calculate(_cont, result_, _method, _struct);
@@ -158,6 +161,12 @@ public final class ApplyCoreMethodUtil {
         String floatType_ = lgNames_.getContent().getNbAlias().getAliasFloat();
         String doubleType_ = lgNames_.getContent().getNbAlias().getAliasDouble();
         String replType_ = lgNames_.getContent().getCharSeq().getAliasReplacement();
+        String rangeType_ = lgNames_.getContent().getCoreNames().getAliasRange();
+        if (StringUtil.quickEq(type_, rangeType_)) {
+            Argument range_ = range(_cont, _stackCall, args_);
+            result_.setResult(range_.getStruct());
+            return result_;
+        }
         if (StringUtil.quickEq(type_, replType_)) {
             AliasCharSequence.instantiate(result_, args_);
             return result_;
@@ -183,6 +192,32 @@ public final class ApplyCoreMethodUtil {
         }
         result_ = lgNames_.getOtherResult(_stackCall, _cont, _method, args_);
         return result_;
+    }
+
+    public static Argument range(ContextEl _conf, StackCall _stack,Struct... _args) {
+        int lower_ = NumParsers.convertToNumber(_args[0]).intStruct();
+        if (lower_ < 0) {
+            _stack.setCallingState(new CustomFoundExc(getBadIndex(_conf, getBeginMessage(lower_), _stack)));
+            return Argument.createVoid();
+        }
+        int upper_ = NumParsers.convertToNumber(_args[1]).intStruct();
+        if (upper_ < lower_) {
+            _stack.setCallingState(new CustomFoundExc(getBadIndex(_conf, getEndMessage(lower_, ">", upper_), _stack)));
+            return Argument.createVoid();
+        }
+        return new Argument(new RangeStruct(lower_, upper_));
+    }
+
+    private static ErrorStruct getBadIndex(ContextEl _context, String _message, StackCall _stackCall) {
+        return new ErrorStruct(_context, _message, _context.getStandards().getContent().getCoreNames().getAliasBadIndex(), _stackCall);
+    }
+
+    private static String getEndMessage(int _end, String _s, int _length) {
+        return StringUtil.concat(Long.toString(_end), _s, Long.toString(_length));
+    }
+
+    private static String getBeginMessage(int _begin) {
+        return StringUtil.concat(Long.toString(_begin), "<0");
     }
 
     public static ResultErrorStd getOtherResultBase(ContextEl _cont, ClassMethodId _method, Struct[] _args, StackCall _stackCall) {
@@ -251,6 +286,18 @@ public final class ApplyCoreMethodUtil {
         return result_;
     }
 
+    private static ResultErrorStd processRange(ContextEl _cont, ClassMethodId _method, Struct _struct) {
+        ResultErrorStd result_ = new ResultErrorStd();
+        LgNames lgNames_ = _cont.getStandards();
+        String name_ = _method.getConstraints().getName();
+        RangeStruct rangeStruct_ = NumParsers.convertToRange(_struct);
+        if (StringUtil.quickEq(name_, lgNames_.getContent().getCoreNames().getAliasRangeLower())) {
+            result_.setResult(new IntStruct(rangeStruct_.getLower()));
+            return result_;
+        }
+        result_.setResult(new IntStruct(rangeStruct_.getUpper()));
+        return result_;
+    }
     private static ResultErrorStd processObjectsUtil(ContextEl _cont, ClassMethodId _method, Struct[] _args, StackCall _stackCall) {
         ResultErrorStd result_ = new ResultErrorStd();
         LgNames lgNames_ = _cont.getStandards();

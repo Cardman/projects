@@ -646,12 +646,25 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
 
     private static Argument redirect(ContextEl _conf, LambdaMethodStruct _l, Argument _instance, ArgumentListCall _call, Argument _right, MethodMetaInfo _method, StackCall _stackCall) {
         String name_ = _l.getMethodName();
-        if (StringUtil.nullToEmpty(_l.getFormClassName()).startsWith(StringExpUtil.ARR_CLASS) && name_.startsWith("[]")) {
+        if (StringUtil.nullToEmpty(_l.getFormClassName()).startsWith(StringExpUtil.ARR_CLASS) && (name_.startsWith("[]")||StringUtil.quickEq(name_,"[:]"))) {
             CustList<Argument> arguments_ = _call.getArguments();
             Struct arr_ = _instance.getStruct();
             int lastIndex_ = arguments_.size() - 1;
             if (lastIndex_ < 0) {
                 return new Argument(new IntStruct(ExecArrayFieldOperation.getLength(arr_,_conf)));
+            }
+            if (StringUtil.quickEq(name_,"[:]")) {
+                Struct lower_ = arguments_.get(lastIndex_).getStruct();
+                Struct upper_ = new IntStruct(ExecArrayFieldOperation.getLength(arr_,_conf));
+                Argument range_ = ApplyCoreMethodUtil.range(_conf, _stackCall, lower_, upper_);
+                if (_conf.callsOrException(_stackCall)) {
+                    return new Argument();
+                }
+                return new Argument(ExecTemplates.getRange(arr_,range_.getStruct(),_conf,_stackCall));
+            }
+            Struct range_ = arguments_.get(lastIndex_).getStruct();
+            if (range_ instanceof RangeStruct) {
+                return new Argument(ExecTemplates.getRange(arr_,range_,_conf,_stackCall));
             }
             if (StringUtil.quickEq(name_,"[]=")) {
                 for (int i = 0; i < lastIndex_; i++) {

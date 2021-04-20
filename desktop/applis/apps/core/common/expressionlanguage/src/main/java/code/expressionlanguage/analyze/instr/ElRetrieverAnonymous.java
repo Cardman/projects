@@ -999,9 +999,7 @@ public final class ElRetrieverAnonymous {
                 j_++;
             }
             if (nullSafe_ && j_ < len_ && _string.charAt(j_) == _curChar) {
-                if (j_+1 < len_ && _string.charAt(j_+1) == ElResolver.EQ_CHAR) {
-                    j_++;
-                }
+                j_++;
             }
             if (j_ < len_ && _string.charAt(j_) == ElResolver.EQ_CHAR) {
                 j_++;
@@ -1314,9 +1312,7 @@ public final class ElRetrieverAnonymous {
                 j_++;
             }
             if (nullSafe_ && j_ < len_ && _string.charAt(j_) == _curChar) {
-                if (j_+1 < len_ && _string.charAt(j_+1) == ElResolver.EQ_CHAR) {
-                    j_++;
-                }
+                j_++;
             }
             if (j_ < len_ && _string.charAt(j_) == ElResolver.EQ_CHAR) {
                 j_++;

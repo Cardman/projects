@@ -29,7 +29,7 @@ public final class RendWrappOperation extends RendAbstractUnaryOperation {
             ExecSettableOperationContent settableFieldContent_ = ch_.getSettableFieldContent();
             Argument previous_;
             if (!settableFieldContent_.isStaticField()) {
-                Argument previousArgument_ = getPreviousArg(ch_,_nodes, _rendStack);
+                Argument previousArgument_ = ch_.getPreviousArg(ch_,_nodes, _rendStack);
                 String className_ = settableFieldContent_.getClassField().getClassName();
                 previous_ = new Argument(ExecTemplates.getParent(settableFieldContent_.getAnc(), className_, previousArgument_.getStruct(), _context, _stack));
             } else {
@@ -44,7 +44,7 @@ public final class RendWrappOperation extends RendAbstractUnaryOperation {
         }
         if (chFirst_ instanceof RendArrOperation) {
             RendArrOperation ch_ = (RendArrOperation)chFirst_;
-            Argument previousArgument_ = getPreviousArg(ch_,_nodes, _rendStack);
+            Argument previousArgument_ = ch_.getPreviousArg(ch_,_nodes, _rendStack);
             ArgumentsPair pairIndex_ = getArgumentPair(_nodes, ch_.getFirstChild());
             ArgumentsPair pair_ = getArgumentPair(_nodes, this);
             ArrayWrapper a_ = new ArrayWrapper(previousArgument_.getStruct(),pairIndex_.getArgument().getStruct());

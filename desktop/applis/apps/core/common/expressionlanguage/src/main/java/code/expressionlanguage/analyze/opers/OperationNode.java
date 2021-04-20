@@ -434,6 +434,9 @@ public abstract class OperationNode {
         if (_op.getPriority() == ElResolver.BIT_OR_PRIO) {
             return new BitOrOperation(_index, _indexChild, _m, _op);
         }
+        if (_op.getPriority() == ElResolver.RANGE) {
+            return new RangeOperation(_index,_indexChild, _m, _op);
+        }
         if (_op.getPriority() == ElResolver.AND_PRIO) {
             return new AndOperation(_index, _indexChild, _m, _op);
         }

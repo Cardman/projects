@@ -529,13 +529,26 @@ final class AfterUnaryParts {
                 }
                 builtOperator_.append(EQ_CHAR);
             } else if (StringExpUtil.nextCharIs(_string, index + 2, len_, _curChar)) {
-                if (isGreaterThanAff(prio)) {
-                    clearOperators_ = true;
-                    prio = ElResolver.AFF_PRIO;
-                    foundOperator_ = true;
+                if (StringExpUtil.nextCharIs(_string, index + 3, len_, EQ_CHAR)) {
+                    if (isGreaterThanAff(prio)) {
+                        clearOperators_ = true;
+                        prio = ElResolver.AFF_PRIO;
+                        foundOperator_ = true;
+                    }
+                    builtOperator_.append(_curChar);
+                    builtOperator_.append(EQ_CHAR);
+                } else {
+                    if (prio > ElResolver.RANGE) {
+                        clearOperators_ = true;
+                        prio = ElResolver.RANGE;
+                    }
+                    if (prio == ElResolver.RANGE) {
+                        //Event if there is a previous operator, add the current operator
+                        //Sample: 1<2<3 produces an error
+                        foundOperator_ = true;
+                    }
+                    builtOperator_.append(_curChar);
                 }
-                builtOperator_.append(_curChar);
-                builtOperator_.append(EQ_CHAR);
             } else {
                 if (prio > ElResolver.NULL_SAFE_PRIO) {
                     prio = ElResolver.NULL_SAFE_PRIO;

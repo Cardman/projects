@@ -109,10 +109,10 @@ public abstract class RendDynOperationNode {
         }
     }
 
-    protected static Argument getPreviousArg(RendPossibleIntermediateDotted _possible, IdMap<RendDynOperationNode, ArgumentsPair> _nodes, RendStackCall _rendStackCall) {
+    protected Argument getPreviousArg(RendPossibleIntermediateDotted _possible, IdMap<RendDynOperationNode, ArgumentsPair> _nodes, RendStackCall _rendStackCall) {
         Argument previous_;
         if (_possible.isIntermediateDottedOperation()) {
-            previous_ = getPreviousArgument(_nodes, _possible);
+            previous_ = getPreviousArgument(_nodes, this);
         } else {
             previous_ = _rendStackCall.getLastPage().getGlobalArgument();
         }
@@ -128,7 +128,7 @@ public abstract class RendDynOperationNode {
     protected static Argument getArgument(IdMap<RendDynOperationNode,ArgumentsPair> _nodes, RendDynOperationNode _node) {
         return Argument.getNullableValue(getArgumentPair(_nodes,_node).getArgument());
     }
-    protected static Argument getPreviousArgument(IdMap<RendDynOperationNode,ArgumentsPair> _nodes, RendPossibleIntermediateDotted _node) {
+    protected static Argument getPreviousArgument(IdMap<RendDynOperationNode,ArgumentsPair> _nodes, RendDynOperationNode _node) {
         return Argument.getNullableValue(_nodes.getValue(_node.getOrder()).getPreviousArgument());
     }
 

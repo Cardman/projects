@@ -51,6 +51,13 @@ public abstract class ReachOperationNode {
         if (_oper instanceof DefaultValueOperation) {
             return new ReachDefaultValueOperation((DefaultValueOperation) _oper);
         }
+        if (_oper instanceof RangeOperation) {
+            RangeOperation r_ = (RangeOperation) _oper;
+            if (r_.isOkNum()) {
+                return new ReachRangeOperation(_oper);
+            }
+            return new ReachStdOperation(_oper);
+        }
         if (_oper instanceof SymbolOperation) {
             SymbolOperation s_ = (SymbolOperation) _oper;
             if (!s_.isOkNum()) {

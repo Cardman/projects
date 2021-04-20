@@ -7,6 +7,7 @@ import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecArrContent;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
+import code.expressionlanguage.structs.RangeStruct;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.util.CustList;
@@ -38,7 +39,11 @@ public final class ExecArrOperation extends ExecInvokingOperation implements Exe
             Struct o_ = getArgument(_nodes,op_).getStruct();
             int indexEl_ = op_.getIndexInEl();
             setRelativeOffsetPossibleLastPage(indexEl_, _stack);
-            array_ = ExecTemplates.getElement(array_, o_, _conf, _stack);
+            if (o_ instanceof RangeStruct) {
+                array_ = ExecTemplates.getRange(array_, o_, _conf, _stack);
+            } else {
+                array_ = ExecTemplates.getElement(array_, o_, _conf, _stack);
+            }
             if (_conf.callsOrException(_stack)) {
                 a_ = new Argument();
                 break;

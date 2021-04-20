@@ -5,6 +5,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.AnnotationTypeInfo;
 import code.expressionlanguage.common.StringExpUtil;
+import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.exec.*;
 import code.expressionlanguage.exec.annotation.ExportAnnotationUtil;
 import code.expressionlanguage.exec.blocks.ExecAnnotationMethodBlock;
@@ -691,6 +692,30 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         AnalyzedTestContext cont_ = validated(files_);
         ArrayStruct arr_ = defaultArray();
         assertSame(NullStruct.NULL_VALUE, ExecTemplates.getElement(arr_, new StringStruct(""),cont_.getContext(), cont_.getStackCall()));
+    }
+    @Test
+    public void getErrorWhenRange1Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        AnalyzedTestContext cont_ = validated(files_);
+        assertSame(NullStruct.NULL_VALUE, ExecTemplates.getRange(new StringStruct(""), NullStruct.NULL_VALUE,cont_.getContext(), cont_.getStackCall()));
+    }
+    @Test
+    public void getErrorWhenRange2Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        AnalyzedTestContext cont_ = validated(files_);
+        ArrayStruct arr_ = defaultArray();
+        assertSame(NullStruct.NULL_VALUE, ExecTemplates.getRange(arr_, NullStruct.NULL_VALUE,cont_.getContext(), cont_.getStackCall()));
+    }
+    @Test
+    public void getErrorWhenRange3Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        AnalyzedTestContext cont_ = validated(files_);
+        ArrayStruct arr_ = defaultArray();
+        assertSame(NullStruct.NULL_VALUE, ExecTemplates.getRange(arr_, new StringStruct(""),cont_.getContext(), cont_.getStackCall()));
+    }
+    @Test
+    public void getErrorWhenRange4Test() {
+        assertNotNull(NumParsers.convertToRange(null));
     }
     @Test
     public void getIndexLoop() {

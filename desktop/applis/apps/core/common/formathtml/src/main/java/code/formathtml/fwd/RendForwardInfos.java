@@ -833,6 +833,10 @@ public final class RendForwardInfos {
             RotateRightOperation m_ = (RotateRightOperation) _anaNode;
             return new RendRotateRightOperation(new ExecOperationContent(m_.getContent()), m_.getOpOffset(), m_.getOp());
         }
+        if (_anaNode instanceof RangeOperation) {
+            RangeOperation c_ = (RangeOperation) _anaNode;
+            return new RendRangeOperation(new ExecOperationContent(c_.getContent()), c_.getOpOffset());
+        }
         if (_anaNode instanceof CmpOperation) {
             CmpOperation c_ = (CmpOperation) _anaNode;
             return new RendAbstractCmpOperation(new ExecOperationContent(c_.getContent()), new ExecOperatorContent(c_.getOperatorContent()), c_.isStringCompare());

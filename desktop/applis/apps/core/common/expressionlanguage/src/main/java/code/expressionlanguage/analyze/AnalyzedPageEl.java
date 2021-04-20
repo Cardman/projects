@@ -288,6 +288,10 @@ public final class AnalyzedPageEl {
         return content.getCoreNames().getAliasClone();
     }
 
+    public String getAliasRange() {
+        return content.getCoreNames().getAliasRange();
+    }
+
     public String getAliasFct() {
         return content.getReflect().getAliasFct();
     }

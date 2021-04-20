@@ -39,7 +39,9 @@ public final class AliasCore {
     private String aliasName;
     private String aliasOrdinal;
     private String aliasErrorInitClass;
-
+    private String aliasRange;
+    private String aliasRangeLower;
+    private String aliasRangeUpper;
     private String aliasObjectsUtil;
     private String aliasSameRef;
     private String aliasGetParent;
@@ -197,6 +199,20 @@ public final class AliasCore {
         method_ = new StandardMethod(aliasOrdinal, params_, _lgNames.getContent().getPrimTypes().getAliasPrimInteger(), false, MethodModifier.STATIC,new StringList(params.getAliasEnums0Ordinal0()));
         methods_.add( method_);
         standards_.addEntry(aliasEnums, stdcl_);
+        methods_ = new CustList<StandardMethod>();
+        constructors_ = new CustList<StandardConstructor>();
+        fields_ = new CustList<StandardField>();
+        stdcl_ = new StandardClass(aliasRange, fields_, constructors_, methods_, aliasObject, MethodModifier.FINAL);
+        params_ = new StringList(_lgNames.getPrimTypes().getAliasPrimInteger(),_lgNames.getPrimTypes().getAliasPrimInteger());
+        StandardConstructor ctor_ = new StandardConstructor(params_, false, new StringList(params.getAliasRange0Range0(),params.getAliasRange0Range1()));
+        constructors_.add( ctor_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasRangeLower, params_, _lgNames.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL);
+        methods_.add( method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasRangeUpper, params_, _lgNames.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL);
+        methods_.add( method_);
+        standards_.addEntry(aliasRange, stdcl_);
         methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
@@ -431,6 +447,30 @@ public final class AliasCore {
 
     public void setAliasErrorInitClass(String _aliasErrorInitClass) {
         aliasErrorInitClass = _aliasErrorInitClass;
+    }
+
+    public String getAliasRange() {
+        return aliasRange;
+    }
+
+    public void setAliasRange(String _aliasRange) {
+        this.aliasRange = _aliasRange;
+    }
+
+    public String getAliasRangeLower() {
+        return aliasRangeLower;
+    }
+
+    public void setAliasRangeLower(String _aliasRangeLower) {
+        this.aliasRangeLower = _aliasRangeLower;
+    }
+
+    public String getAliasRangeUpper() {
+        return aliasRangeUpper;
+    }
+
+    public void setAliasRangeUpper(String _aliasRangeUpper) {
+        this.aliasRangeUpper = _aliasRangeUpper;
     }
 
     public String getAliasObjectsUtil() {

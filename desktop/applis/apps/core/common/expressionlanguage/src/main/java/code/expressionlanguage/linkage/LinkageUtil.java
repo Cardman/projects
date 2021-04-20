@@ -3987,6 +3987,16 @@ public final class LinkageUtil {
             }
             _parts.addAllElts(((InstanceOfOperation)_parent).getPartOffsets());
         }
+        if (_parent instanceof RangeOperation && _parent.getChildrenNodes().size() == 1) {
+            StringList l_ = new StringList();
+            MethodOperation.processEmptyError(_curOp,l_);
+            if (!l_.isEmpty()) {
+                _parts.add(new PartOffset(ExportCst.anchorErr(StringUtil.join(l_,ExportCst.JOIN_ERR)), _offsetEnd));
+                _parts.add(new PartOffset(ExportCst.END_ANCHOR, _offsetEnd +3));
+            } else {
+                appendPossibleParts(_parts, _parent, 0);
+            }
+        }
         processPostIncr(_vars, _currentFileName, _sum, _offsetEnd, _curOp,_parent, _parts);
     }
 
@@ -4274,6 +4284,9 @@ public final class LinkageUtil {
             return true;
         }
         if (_op instanceof EqOperation) {
+            return true;
+        }
+        if (_op instanceof RangeOperation) {
             return true;
         }
         if (_op instanceof CompoundAffectationOperation) {

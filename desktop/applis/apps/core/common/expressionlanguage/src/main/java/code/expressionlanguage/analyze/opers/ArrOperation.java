@@ -19,7 +19,7 @@ import code.util.CustList;
 import code.util.StringList;
 import code.util.core.StringUtil;
 
-public final class ArrOperation extends InvokingOperation implements SettableElResult,PreAnalyzableOperation,RetrieveMethod {
+public final class ArrOperation extends InvokingOperation implements SettableElResult,PreAnalyzableOperation,RetrieveMethod,AbstractCallLeftOperation {
 
     private boolean getAndSet;
 
@@ -35,6 +35,7 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
     private MemberId memberIdSet = new MemberId();
     private AnaTypeFct functionGet;
     private AnaTypeFct functionSet;
+    private boolean errLeftValue;
 
     public ArrOperation(int _index,
             int _indexChild, MethodOperation _m, OperationsSequence _op) {
@@ -218,6 +219,24 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
             return;
         }
         AnaClassArgumentMatching indexClass_ = right_.getResultClass();
+        if (indexClass_.matchClass(_page.getAliasRange())) {
+            errLeftValue = true;
+            if (!class_.isArray()) {
+                FoundErrorInterpret un_ = new FoundErrorInterpret();
+                un_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+                un_.setFileName(_page.getLocalizer().getCurrentFileName());
+                //first separator char
+                un_.buildError(_page.getAnalysisMessages().getUnexpectedType(),
+                        StringUtil.join(class_.getNames(),ExportCst.JOIN_TYPES));
+                _page.getLocalizer().addError(un_);
+                addErr(un_.getBuiltError());
+                class_ = new AnaClassArgumentMatching(_page.getAliasObject());
+                setResultClass(class_);
+                return;
+            }
+            setResultClass(class_);
+            return;
+        }
         if (!indexClass_.isNumericInt(_page)) {
             ClassMethodIdReturn res_ = OperationNode.tryGetDeclaredImplicitCast(_page.getAliasPrimInteger(), indexClass_, _page);
             if (res_.isFoundMethod()) {
@@ -295,6 +314,11 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
     @Override
     public void setCatenizeStrings() {
         arrContent.setCatString(true);
+    }
+
+    @Override
+    public boolean isErrLeftValue() {
+        return errLeftValue;
     }
 
     public AnaArrContent getArrContent() {

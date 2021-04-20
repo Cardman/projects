@@ -1487,6 +1487,10 @@ public final class ForwardInfos {
             }
             return new ExecStrCmpOperation(new ExecOperationContent(c_.getContent()), new ExecOperatorContent(c_.getOperatorContent()));
         }
+        if (_anaNode instanceof RangeOperation) {
+            RangeOperation c_ = (RangeOperation) _anaNode;
+            return new ExecRangeOperation(new ExecOperationContent(c_.getContent()), c_.getOpOffset());
+        }
         if (_anaNode instanceof InstanceOfOperation) {
             InstanceOfOperation c_ = (InstanceOfOperation) _anaNode;
             return new ExecInstanceOfOperation(new ExecOperationContent(c_.getContent()), new ExecTypeCheckContent(c_.getTypeCheckContent()));

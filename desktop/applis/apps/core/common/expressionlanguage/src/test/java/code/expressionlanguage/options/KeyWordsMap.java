@@ -400,6 +400,9 @@ public final class KeyWordsMap {
         _lgNames.getContent().getReflect().setAliasGetEnclosingType("getEnclosingType");
         _lgNames.getContent().getReflect().setAliasGetDeclaredClasses("getDeclaredClasses");
         _lgNames.getContent().getReflect().setAliasForName("forName");
+        _lgNames.getContent().getCoreNames().setAliasRange("$core.Range");
+        _lgNames.getContent().getCoreNames().setAliasRangeLower("lower");
+        _lgNames.getContent().getCoreNames().setAliasRangeUpper("upper");
         _lgNames.getContent().getCoreNames().setAliasObjectsUtil("$core.ObjectsUtil");
         _lgNames.getContent().getCoreNames().setAliasStringUtil("$core.StringUtil");
         _lgNames.getContent().getCoreNames().setAliasStringUtilValueOf("valueOf");
@@ -743,6 +746,9 @@ public final class KeyWordsMap {
         _lgNames.getContent().getReflect().setAliasGetEnclosingType("valTypeContenant");
         _lgNames.getContent().getReflect().setAliasGetDeclaredClasses("valClassesDeclarees");
         _lgNames.getContent().getReflect().setAliasForName("parNom");
+        _lgNames.getContent().getCoreNames().setAliasRange("$coeur.Rang");
+        _lgNames.getContent().getCoreNames().setAliasRangeLower("inf");
+        _lgNames.getContent().getCoreNames().setAliasRangeUpper("sup");
         _lgNames.getContent().getCoreNames().setAliasObjectsUtil("$coeur.ObjetsUtil");
         _lgNames.getContent().getCoreNames().setAliasStringUtil("$coeur.ChaineUtil");
         _lgNames.getContent().getCoreNames().setAliasStringUtilValueOf("valeurDe");

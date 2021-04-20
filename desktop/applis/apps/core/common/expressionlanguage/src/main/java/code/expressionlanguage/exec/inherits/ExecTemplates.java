@@ -733,6 +733,15 @@ public final class ExecTemplates {
         return elt_;
     }
 
+    public static Struct getRange(Struct _struct, Struct _index, ContextEl _conf, StackCall _stackCall) {
+        Struct elt_ = gearErrorWhenRange(_struct, _index, _conf, _stackCall);
+        if (elt_ instanceof ArrayStruct) {
+            for (Struct s:((ArrayStruct)elt_).list()){
+                _stackCall.getInitializingTypeInfos().addSensibleField(_struct, s);
+            }
+        }
+        return elt_;
+    }
     public static ErrorType setElement(Struct _struct, Struct _index, Struct _value, ContextEl _conf, StackCall _stackCall) {
         return gearErrorWhenContain(_struct, _index, _value, _conf, _stackCall);
     }
@@ -801,7 +810,58 @@ public final class ExecTemplates {
         String param_ = StringUtil.nullToEmpty(StringExpUtil.getQuickComponentType(arrType_));
         return ExecInherits.safeObject(ErrorType.STORE,param_,_value,_context);
     }
+    private static Struct gearErrorWhenRange(Struct _array, Struct _index, ContextEl _context, StackCall _stackCall) {
+        ErrorType err_ = getErrorWhenRange(_array, _index);
+        LgNames stds_ = _context.getStandards();
+        if (err_ == ErrorType.NOTHING) {
+            RangeStruct ind_ = (RangeStruct) _index;
+            ArrayStruct arr_ = (ArrayStruct) _array;
+            int lower_ = ind_.getLower();
+            int upper_ = ind_.getUpper();
+            ArrayStruct sub_ = new ArrayStruct(upper_ - lower_,arr_.getClassName());
+            for (int i = lower_; i < upper_; i++) {
+                sub_.set(i-lower_, arr_.get(i));
+            }
+            return sub_;
+        }
+        if (err_ == ErrorType.NPE) {
+            String npe_ = stds_.getContent().getCoreNames().getAliasNullPe();
+            _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_context, npe_, _stackCall)));
+            return NullStruct.NULL_VALUE;
+        }
+        if (err_ == ErrorType.BAD_INDEX) {
+            String cast_ = stds_.getContent().getCoreNames().getAliasBadIndex();
+            ArrayStruct arr_ = (ArrayStruct) _array;
+            StringBuilder mess_ = getIndexMessage(_index, arr_);
+            _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_context, mess_.toString(), cast_, _stackCall)));
+            return NullStruct.NULL_VALUE;
+        }
+        String cast_ = stds_.getContent().getCoreNames().getAliasCastType();
+        String type_ = _array.getClassName(_context);
+        _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_context, type_, cast_, _stackCall)));
+        return NullStruct.NULL_VALUE;
+    }
 
+    private static ErrorType getErrorWhenRange(Struct _array, Struct _index) {
+        if (_array == NullStruct.NULL_VALUE) {
+            return ErrorType.NPE;
+        }
+        if (!(_array instanceof ArrayStruct)) {
+            return ErrorType.CAST;
+        }
+        if (_index == NullStruct.NULL_VALUE) {
+            return ErrorType.NPE;
+        }
+        if (!(_index instanceof RangeStruct)) {
+            return ErrorType.CAST;
+        }
+        RangeStruct ind_ = (RangeStruct) _index;
+        ArrayStruct arr_ = (ArrayStruct) _array;
+        if (ind_.getUpper() > arr_.getLength()) {
+            return ErrorType.BAD_INDEX;
+        }
+        return ErrorType.NOTHING;
+    }
     private static Struct gearErrorWhenIndex(Struct _array, Struct _index, ContextEl _context, StackCall _stackCall) {
         ErrorType err_ = getErrorWhenIndex(_array, _index);
         LgNames stds_ = _context.getStandards();

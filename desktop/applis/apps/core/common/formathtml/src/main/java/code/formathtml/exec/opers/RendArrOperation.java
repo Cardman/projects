@@ -7,6 +7,7 @@ import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.exec.opers.ExecNumericOperation;
 import code.expressionlanguage.fwd.opers.ExecArrContent;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
+import code.expressionlanguage.structs.RangeStruct;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.formathtml.Configuration;
@@ -39,7 +40,11 @@ public final class RendArrOperation extends RendInvokingOperation implements Ren
             Struct o_ = getArgument(_nodes, chidren_.get(i)).getStruct();
             int indexEl_ = chidren_.get(i).getIndexInEl();
             setRelativeOffsetPossibleLastPage(indexEl_, _rendStack);
-            array_ = ExecTemplates.getElement(array_, o_, _context, _stack);
+            if (o_ instanceof RangeStruct) {
+                array_ = ExecTemplates.getRange(array_, o_, _context, _stack);
+            } else {
+                array_ = ExecTemplates.getElement(array_, o_, _context, _stack);
+            }
             if (_context.callsOrException(_stack)) {
                 a_ = new Argument();
                 break;

@@ -38,6 +38,15 @@ public final class AnaApplyCoreMethodUtil {
             }
             return result_;
         }
+        if (StringUtil.quickEq(type_, _page.getCoreNames().getAliasRange())) {
+            RangeStruct rangeStruct_ = NumParsers.convertToRange(_struct);
+            if (StringUtil.quickEq(name_, _page.getCoreNames().getAliasRangeLower())) {
+                result_ = new IntStruct(rangeStruct_.getLower());
+            } else {
+                result_ = new IntStruct(rangeStruct_.getUpper());
+            }
+            return result_;
+        }
         if (StringUtil.quickEq(type_, _page.getCoreNames().getAliasObjectsUtil())) {
             if (StringUtil.quickEq(name_, _page.getCoreNames().getAliasSameRef())) {
                 result_= BooleanStruct.of(args_[0].sameReference(args_[1]));
@@ -79,6 +88,9 @@ public final class AnaApplyCoreMethodUtil {
         if (StringUtil.quickEq(type_, replType_)) {
             return instantiate(args_);
         }
+        if (StringUtil.quickEq(type_, _page.getCoreNames().getAliasRange())) {
+            return range(args_);
+        }
         if (StringUtil.quickEq(type_, stringType_)) {
             StringList list_ = _method.getParametersTypes();
             if (list_.size() == 0) {
@@ -99,6 +111,17 @@ public final class AnaApplyCoreMethodUtil {
         return null;
     }
 
+    public static Struct range(Struct... _args) {
+        int lower_ = NumParsers.convertToNumber(_args[0]).intStruct();
+        if (lower_ < 0) {
+            return null;
+        }
+        int upper_ = NumParsers.convertToNumber(_args[1]).intStruct();
+        if (upper_ < lower_) {
+            return null;
+        }
+        return new RangeStruct(lower_, upper_);
+    }
     private static Struct[] getObjects(Argument... _args) {
         int len_ = _args.length;
         Struct[] classes_ = new Struct[len_];
@@ -119,6 +142,9 @@ public final class AnaApplyCoreMethodUtil {
             return (AnaDisplayableStruct) _value;
         }
         if (_value instanceof NullStruct) {
+            return (AnaDisplayableStruct) _value;
+        }
+        if (_value instanceof RangeStruct) {
             return (AnaDisplayableStruct) _value;
         }
         return NumParsers.getString(_value);
