@@ -3117,15 +3117,14 @@ public final class LinkageUtil {
             int delta_ = ((SettableAbstractFieldOperation) _val).getOff();
             int begin_ = _sum + delta_ + _val.getIndexInEl() + ((SettableAbstractFieldOperation) _val).getDelta();
             RootBlock fieldType_ = ((SettableAbstractFieldOperation) _val).getFieldType();
+            int idValueOffset_ = ((SettableAbstractFieldOperation)_val).getValueOffset();
             if (_block instanceof FieldBlock && ElUtil.isDeclaringField(_val)) {
-                int idValueOffset_ = ((SettableAbstractFieldOperation)_val).getValueOffset();
                 _parts.add(new PartOffset(ExportCst.anchorName(idValueOffset_),begin_));
                 _parts.add(new PartOffset(ExportCst.END_ANCHOR,begin_+((SettableAbstractFieldOperation) _val).getFieldNameLength()));
             } else {
-                int id_ = ((SettableAbstractFieldOperation)_val).getValueOffset();
                 _parts.addAllElts(((SettableAbstractFieldOperation) _val).getPartOffsets());
                 ClassField c_ = ((SettableAbstractFieldOperation)_val).getFieldIdReadOnly();
-                updateFieldAnchor(fieldType_, _val.getErrs(),_parts,c_, begin_,((SettableAbstractFieldOperation) _val).getFieldNameLength(), _currentFileName,id_);
+                updateFieldAnchor(fieldType_, _val.getErrs(),_parts,c_, begin_,((SettableAbstractFieldOperation) _val).getFieldNameLength(), _currentFileName,idValueOffset_);
             }
         }
     }
@@ -3136,9 +3135,19 @@ public final class LinkageUtil {
             int delta_ = ((SettableAbstractFieldOperation) _val).getOff();
             RootBlock fieldType_ = ((SettableAbstractFieldOperation) _val).getFieldType();
             int begin_ = _sum + delta_ + _val.getIndexInEl() + ((SettableAbstractFieldOperation) _val).getDelta();
+            int idValueOffset_ = ((SettableAbstractFieldOperation)_val).getValueOffset();
+            boolean decl_ = false;
             if (_block instanceof FieldBlock && ElUtil.isDeclaringField(_val)) {
                 StringList errs_ = ((FieldBlock) _block).getNameErrorsFields().get(indexBlock_);
-                int idValueOffset_ = ((SettableAbstractFieldOperation)_val).getValueOffset();
+                if (!errs_.isEmpty()) {
+                    decl_ = true;
+                }
+                if (idValueOffset_ > -1) {
+                    decl_ = true;
+                }
+            }
+            if (decl_) {
+                StringList errs_ = ((FieldBlock) _block).getNameErrorsFields().get(indexBlock_);
                 int id_ = ((FieldBlock) _block).getValuesOffset().indexOf(idValueOffset_);
                 StringList errCst_ = new StringList();
                 if (id_ > -1) {
@@ -3157,10 +3166,9 @@ public final class LinkageUtil {
                 }
                 _parts.add(new PartOffset(ExportCst.END_ANCHOR,begin_+((SettableAbstractFieldOperation) _val).getFieldNameLength()));
             } else {
-                int id_ = ((SettableAbstractFieldOperation)_val).getValueOffset();
                 _parts.addAllElts(((SettableAbstractFieldOperation) _val).getPartOffsets());
                 ClassField c_ = ((SettableAbstractFieldOperation)_val).getFieldIdReadOnly();
-                updateFieldAnchor(fieldType_, _val.getErrs(),_parts,c_, begin_,((SettableAbstractFieldOperation) _val).getFieldNameLength(), _currentFileName,id_);
+                updateFieldAnchor(fieldType_, _val.getErrs(),_parts,c_, begin_,((SettableAbstractFieldOperation) _val).getFieldNameLength(), _currentFileName,idValueOffset_);
             }
         }
     }
