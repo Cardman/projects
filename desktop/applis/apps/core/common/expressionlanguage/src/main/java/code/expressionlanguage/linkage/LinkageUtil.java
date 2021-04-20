@@ -3130,48 +3130,54 @@ public final class LinkageUtil {
     }
 
     private static void processFieldsError(AbsBk _block, int _sum, OperationNode _val, CustList<PartOffset> _parts, String _currentFileName) {
-        if (_val instanceof SettableAbstractFieldOperation) {
-            int indexBlock_ = ((SettableAbstractFieldOperation) _val).getIndexBlock();
-            int delta_ = ((SettableAbstractFieldOperation) _val).getOff();
-            RootBlock fieldType_ = ((SettableAbstractFieldOperation) _val).getFieldType();
-            int begin_ = _sum + delta_ + _val.getIndexInEl() + ((SettableAbstractFieldOperation) _val).getDelta();
-            int idValueOffset_ = ((SettableAbstractFieldOperation)_val).getValueOffset();
-            boolean decl_ = false;
-            if (_block instanceof FieldBlock && ElUtil.isDeclaringField(_val)) {
-                StringList errs_ = ((FieldBlock) _block).getNameErrorsFields().get(indexBlock_);
-                if (!errs_.isEmpty()) {
-                    decl_ = true;
-                }
-                if (idValueOffset_ > -1) {
-                    decl_ = true;
-                }
+        if (!(_val instanceof SettableAbstractFieldOperation)) {
+            return;
+        }
+        int indexBlock_ = ((SettableAbstractFieldOperation) _val).getIndexBlock();
+        int delta_ = ((SettableAbstractFieldOperation) _val).getOff();
+        RootBlock fieldType_ = ((SettableAbstractFieldOperation) _val).getFieldType();
+        int begin_ = _sum + delta_ + _val.getIndexInEl() + ((SettableAbstractFieldOperation) _val).getDelta();
+        int idValueOffset_ = ((SettableAbstractFieldOperation)_val).getValueOffset();
+        if (isDecl(_block, _val, indexBlock_, idValueOffset_)) {
+            StringList errs_ = ((FieldBlock) _block).getNameErrorsFields().get(indexBlock_);
+            int id_ = ((FieldBlock) _block).getValuesOffset().indexOf(idValueOffset_);
+            StringList errCst_ = new StringList();
+            if (id_ > -1) {
+                errCst_.addAllElts(((FieldBlock) _block).getCstErrorsFields().get(id_));
             }
-            if (decl_) {
-                StringList errs_ = ((FieldBlock) _block).getNameErrorsFields().get(indexBlock_);
-                int id_ = ((FieldBlock) _block).getValuesOffset().indexOf(idValueOffset_);
-                StringList errCst_ = new StringList();
-                if (id_ > -1) {
-                    errCst_.addAllElts(((FieldBlock) _block).getCstErrorsFields().get(id_));
-                }
-                if (errs_.isEmpty()) {
-                    if (errCst_.isEmpty()) {
-                        _parts.add(new PartOffset(ExportCst.anchorName(idValueOffset_),begin_));
-                    } else {
-                        String err_ = StringUtil.join(errCst_,ExportCst.JOIN_ERR);
-                        _parts.add(new PartOffset(ExportCst.anchorNameErr(idValueOffset_,err_),begin_));
-                    }
+            if (errs_.isEmpty()) {
+                if (errCst_.isEmpty()) {
+                    _parts.add(new PartOffset(ExportCst.anchorName(idValueOffset_),begin_));
                 } else {
-                    String err_ = StringUtil.join(errs_,ExportCst.JOIN_ERR);
-                    _parts.add(new PartOffset(ExportCst.anchorErr(err_),begin_));
+                    String err_ = StringUtil.join(errCst_,ExportCst.JOIN_ERR);
+                    _parts.add(new PartOffset(ExportCst.anchorNameErr(idValueOffset_,err_),begin_));
                 }
-                _parts.add(new PartOffset(ExportCst.END_ANCHOR,begin_+((SettableAbstractFieldOperation) _val).getFieldNameLength()));
             } else {
-                _parts.addAllElts(((SettableAbstractFieldOperation) _val).getPartOffsets());
-                ClassField c_ = ((SettableAbstractFieldOperation)_val).getFieldIdReadOnly();
-                updateFieldAnchor(fieldType_, _val.getErrs(),_parts,c_, begin_,((SettableAbstractFieldOperation) _val).getFieldNameLength(), _currentFileName,idValueOffset_);
+                String err_ = StringUtil.join(errs_,ExportCst.JOIN_ERR);
+                _parts.add(new PartOffset(ExportCst.anchorErr(err_),begin_));
             }
+            _parts.add(new PartOffset(ExportCst.END_ANCHOR,begin_+((SettableAbstractFieldOperation) _val).getFieldNameLength()));
+        } else {
+            _parts.addAllElts(((SettableAbstractFieldOperation) _val).getPartOffsets());
+            ClassField c_ = ((SettableAbstractFieldOperation)_val).getFieldIdReadOnly();
+            updateFieldAnchor(fieldType_, _val.getErrs(),_parts,c_, begin_,((SettableAbstractFieldOperation) _val).getFieldNameLength(), _currentFileName,idValueOffset_);
         }
     }
+
+    private static boolean isDecl(AbsBk _block, OperationNode _val, int _indexBlock, int _idValueOffset) {
+        boolean decl_ = false;
+        if (_block instanceof FieldBlock && ElUtil.isDeclaringField(_val)) {
+            StringList errs_ = ((FieldBlock) _block).getNameErrorsFields().get(_indexBlock);
+            if (!errs_.isEmpty()) {
+                decl_ = true;
+            }
+            if (_idValueOffset > -1) {
+                decl_ = true;
+            }
+        }
+        return decl_;
+    }
+
     private static void processVariables(int _sum, OperationNode _val, CustList<PartOffset> _parts) {
         if (_val instanceof RefVariableOperation) {
             String varName_ = ((RefVariableOperation) _val).getRealVariableName();
