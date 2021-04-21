@@ -5829,4 +5829,19 @@ public final class ErrorsZTest extends ProcessMethodCommon {
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
     }
+    @Test
+    public void reportSpecTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("enum pkg.Ext {\n");
+        xml_.append(" static Object m(){\n");
+        xml_.append("  int[] t = {};\n");
+        xml_.append("  return t[1???2???3???4];\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("src/pkg/Ex", xml_.toString());
+        StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
+        assertTrue(filesExp_.firstValue().contains("class=\"e\""));
+    }
 }
