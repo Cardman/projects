@@ -11204,6 +11204,50 @@ public final class CoverageReportZTest extends ProcessMethodCommon {
                 "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
+    public void coverage652Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static int[] exmeth(){\n");
+        xml_.append("  return new int[]{2,4,6,8}[0??????1];\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("src/pkg/Ex", xml_.toString());
+        ContextEl cont_ = covEn(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        calculateNormal("pkg.Ex", id_, args_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
+                " public static int[] <a name=\"m43\">exmeth</a>(){\n" +
+                "  return <span class=\"f\"><span class=\"f\">new int[]{<span class=\"f\">2</span>,<span class=\"f\">4</span>,<span class=\"f\">6</span>,<span class=\"f\">8</span>}</span><span class=\"f\">[<span class=\"f\"><span class=\"f\">0</span>??????<span class=\"f\">1</span></span>]</span></span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void coverage653Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static int[] exmeth(){\n");
+        xml_.append("  return new int[]{2,4,6,8}[0??? ???1];\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("src/pkg/Ex", xml_.toString());
+        ContextEl cont_ = covEn(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        calculateNormal("pkg.Ex", id_, args_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
+                " public static int[] <a name=\"m43\">exmeth</a>(){\n" +
+                "  return <span class=\"f\"><span class=\"f\">new int[]{<span class=\"f\">2</span>,<span class=\"f\">4</span>,<span class=\"f\">6</span>,<span class=\"f\">8</span>}</span><span class=\"f\">[<span class=\"f\"><span class=\"f\">0</span>??? ???<span class=\"f\">1</span></span>]</span></span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
     public void coverageComment17Test() {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
