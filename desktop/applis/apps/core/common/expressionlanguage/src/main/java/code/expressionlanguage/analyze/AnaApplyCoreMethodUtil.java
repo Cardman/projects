@@ -134,7 +134,7 @@ public final class AnaApplyCoreMethodUtil {
             return null;
         }
         int step_ = NumParsers.convertToNumber(_args[2]).intStruct();
-        if (step_ <= 0) {
+        if (step_ == 0) {
             return null;
         }
         return new RangeStruct(lower_, upper_, step_);
@@ -145,7 +145,7 @@ public final class AnaApplyCoreMethodUtil {
             return null;
         }
         int step_ = NumParsers.convertToNumber(_args[1]).intStruct();
-        if (step_ <= 0) {
+        if (step_ == 0) {
             return null;
         }
         return new RangeStruct(lower_, -1, step_);

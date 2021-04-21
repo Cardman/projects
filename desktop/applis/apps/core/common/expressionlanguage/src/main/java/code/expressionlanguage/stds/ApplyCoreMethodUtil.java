@@ -215,7 +215,7 @@ public final class ApplyCoreMethodUtil {
             return Argument.createVoid();
         }
         int step_ = NumParsers.convertToNumber(_args[2]).intStruct();
-        if (step_ <= 0) {
+        if (step_ == 0) {
             _stack.setCallingState(new CustomFoundExc(getDivideZero(_conf, _stack)));
             return Argument.createVoid();
         }
@@ -229,7 +229,7 @@ public final class ApplyCoreMethodUtil {
             return Argument.createVoid();
         }
         int step_ = NumParsers.convertToNumber(_args[1]).intStruct();
-        if (step_ <= 0) {
+        if (step_ == 0) {
             _stack.setCallingState(new CustomFoundExc(getDivideZero(_conf, _stack)));
             return Argument.createVoid();
         }

@@ -817,13 +817,26 @@ public final class ExecTemplates {
             RangeStruct ind_ = (RangeStruct) _index;
             ArrayStruct arr_ = (ArrayStruct) _array;
             int lower_ = ind_.getLower();
+            int step_ = ind_.getStep();
             int upper_;
             if (ind_.isUnlimited()) {
                 upper_ = arr_.getLength();
             } else {
                 upper_ = ind_.getUpper();
             }
-            int step_ = ind_.getStep();
+            if (step_ < 0){
+                int count_ = 0;
+                for (int i = upper_-1; i >= lower_; i+=step_) {
+                    count_++;
+                }
+                ArrayStruct sub_ = new ArrayStruct(count_,arr_.getClassName());
+                int insert_ = 0;
+                for (int i = upper_-1; i >= lower_; i+=step_) {
+                    sub_.set(insert_, arr_.get(i));
+                    insert_++;
+                }
+                return sub_;
+            }
             int count_ = 0;
             for (int i = lower_; i < upper_; i+=step_) {
                 count_++;
