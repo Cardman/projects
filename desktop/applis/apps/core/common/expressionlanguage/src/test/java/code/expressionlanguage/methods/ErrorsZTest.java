@@ -5824,7 +5824,70 @@ public final class ErrorsZTest extends ProcessMethodCommon {
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
                 " static Object <a name=\"m31\">m</a>(){\n" +
                 "  int[] <a name=\"m44\">t</a> = {};\n" +
-                "  return <a href=\"#m44\">t</a>[1???2<a title=\"The number of required operands 2 is different from the number of supplied arguments 4 for the operator ???\" class=\"e\">???</a>3???4];\n" +
+                "  return <a href=\"#m44\">t</a>[1???2???3<a title=\"The number of required operands 3 is different from the number of supplied arguments 4 for the operator ???\" class=\"e\">???</a>4];\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report847Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("class pkg.Ext {\n");
+        xml_.append(" static Object m(){\n");
+        xml_.append("  int[] t = {};\n");
+        xml_.append("  return t[\"1\"???\"2\"???1];\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("src/pkg/Ex", xml_.toString());
+        StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
+                " static Object <a name=\"m31\">m</a>(){\n" +
+                "  int[] <a name=\"m44\">t</a> = {};\n" +
+                "  return <a href=\"#m44\">t</a>[<span class=\"s\">\"1\"</span><a title=\"The operands types $core.String;$core.String for the operator ??? are unexpected.\" class=\"e\">?</a>?<a title=\"The operands types $core.String;$core.String for the operator ??? are unexpected.\" class=\"e\">?</a><span class=\"s\">\"2\"</span>???1];\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report848Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("class pkg.Ext {\n");
+        xml_.append(" static Object m(){\n");
+        xml_.append("  int[] t = {};\n");
+        xml_.append("  return t[\"1\"???\"2\"???\"3\"];\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("src/pkg/Ex", xml_.toString());
+        StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
+                " static Object <a name=\"m31\">m</a>(){\n" +
+                "  int[] <a name=\"m44\">t</a> = {};\n" +
+                "  return <a href=\"#m44\">t</a>[<span class=\"s\">\"1\"</span><a title=\"The operands types $core.String;$core.String for the operator ??? are unexpected.\" class=\"e\">?</a>?<a title=\"The operands types $core.String;$core.String for the operator ??? are unexpected.\" class=\"e\">?</a><span class=\"s\">\"2\"</span>??<a title=\"The operands types $core.String for the operator ??? are unexpected.\" class=\"e\">?</a><span class=\"s\">\"3\"</span>];\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report849Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("class pkg.Ext {\n");
+        xml_.append(" static Object m(){\n");
+        xml_.append("  int[] t = {};\n");
+        xml_.append("  return t[1???2???\"3\"];\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("src/pkg/Ex", xml_.toString());
+        StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
+                " static Object <a name=\"m31\">m</a>(){\n" +
+                "  int[] <a name=\"m44\">t</a> = {};\n" +
+                "  return <a href=\"#m44\">t</a>[1???2??<a title=\"The operands types $core.String for the operator ??? are unexpected.\" class=\"e\">?</a><span class=\"s\">\"3\"</span>];\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());

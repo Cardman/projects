@@ -835,7 +835,7 @@ public final class RendForwardInfos {
         }
         if (_anaNode instanceof RangeOperation) {
             RangeOperation c_ = (RangeOperation) _anaNode;
-            return new RendRangeOperation(new ExecOperationContent(c_.getContent()), c_.getOpOffset());
+            return new RendRangeOperation(new ExecOperationContent(c_.getContent()), c_.getOpOffset(), c_.isImplicitMiddle());
         }
         if (_anaNode instanceof CmpOperation) {
             CmpOperation c_ = (CmpOperation) _anaNode;

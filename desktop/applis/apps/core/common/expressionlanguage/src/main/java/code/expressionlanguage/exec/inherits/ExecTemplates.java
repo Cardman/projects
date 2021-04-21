@@ -823,9 +823,16 @@ public final class ExecTemplates {
             } else {
                 upper_ = ind_.getUpper();
             }
-            ArrayStruct sub_ = new ArrayStruct(upper_ - lower_,arr_.getClassName());
-            for (int i = lower_; i < upper_; i++) {
-                sub_.set(i-lower_, arr_.get(i));
+            int step_ = ind_.getStep();
+            int count_ = 0;
+            for (int i = lower_; i < upper_; i+=step_) {
+                count_++;
+            }
+            ArrayStruct sub_ = new ArrayStruct(count_,arr_.getClassName());
+            int insert_ = 0;
+            for (int i = lower_; i < upper_; i+=step_) {
+                sub_.set(insert_, arr_.get(i));
+                insert_++;
             }
             return sub_;
         }
@@ -863,6 +870,9 @@ public final class ExecTemplates {
         RangeStruct ind_ = (RangeStruct) _index;
         ArrayStruct arr_ = (ArrayStruct) _array;
         if (ind_.isUnlimited()) {
+            if (ind_.getLower() > arr_.getLength()) {
+                return ErrorType.BAD_INDEX;
+            }
             return ErrorType.NOTHING;
         }
         if (ind_.getUpper() > arr_.getLength()) {

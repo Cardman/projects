@@ -8,6 +8,11 @@ public final class AliasParamCore {
     public static final String RANGE_0_RANGE_0="Range0Range0";
     public static final String RANGE_0_RANGE_1="Range0Range1";
     public static final String RANGE_1_RANGE_0="Range1Range0";
+    public static final String RANGE_2_RANGE_0="Range2Range0";
+    public static final String RANGE_2_RANGE_1="Range2Range1";
+    public static final String RANGE_2_RANGE_2="Range2Range2";
+    public static final String RANGE_0_UNLIMITED_STEP_0="Range0UnlimitedStep0";
+    public static final String RANGE_0_UNLIMITED_STEP_1="Range0UnlimitedStep1";
     public static final String OBJECTS_UTIL_0_SAME_REF_0="ObjectsUtil0SameRef0";
     public static final String OBJECTS_UTIL_0_SAME_REF_1="ObjectsUtil0SameRef1";
     public static final String OBJECTS_UTIL_0_GET_PARENT_0="ObjectsUtil0GetParent0";
@@ -23,7 +28,12 @@ public final class AliasParamCore {
     private String aliasEnums0Ordinal0="a";
     private String aliasRange0Range0="a";
     private String aliasRange0Range1="b";
+    private String aliasRange0UnlimitedStep0="a";
+    private String aliasRange0UnlimitedStep1="b";
     private String aliasRange1Range0="a";
+    private String aliasRange2Range0="a";
+    private String aliasRange2Range1="b";
+    private String aliasRange2Range2="c";
     private String aliasObjectsUtil0SameRef0="a";
     private String aliasObjectsUtil0SameRef1="b";
     private String aliasObjectsUtil0GetParent0="a";
@@ -82,12 +92,52 @@ public final class AliasParamCore {
         this.aliasRange0Range1 = _v;
     }
 
+    public String getAliasRange0UnlimitedStep0() {
+        return aliasRange0UnlimitedStep0;
+    }
+
+    public void setAliasRange0UnlimitedStep0(String _v) {
+        this.aliasRange0UnlimitedStep0 = _v;
+    }
+
+    public String getAliasRange0UnlimitedStep1() {
+        return aliasRange0UnlimitedStep1;
+    }
+
+    public void setAliasRange0UnlimitedStep1(String _v) {
+        this.aliasRange0UnlimitedStep1 = _v;
+    }
+
     public String getAliasRange1Range0() {
         return aliasRange1Range0;
     }
 
     public void setAliasRange1Range0(String _v) {
         this.aliasRange1Range0 = _v;
+    }
+
+    public String getAliasRange2Range0() {
+        return aliasRange2Range0;
+    }
+
+    public void setAliasRange2Range0(String _v) {
+        this.aliasRange2Range0 = _v;
+    }
+
+    public String getAliasRange2Range1() {
+        return aliasRange2Range1;
+    }
+
+    public void setAliasRange2Range1(String _v) {
+        this.aliasRange2Range1 = _v;
+    }
+
+    public String getAliasRange2Range2() {
+        return aliasRange2Range2;
+    }
+
+    public void setAliasRange2Range2(String _v) {
+        this.aliasRange2Range2 = _v;
     }
 
     public String getAliasObjectsUtil0SameRef0() {

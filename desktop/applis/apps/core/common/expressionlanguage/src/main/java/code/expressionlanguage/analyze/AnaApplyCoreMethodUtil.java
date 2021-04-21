@@ -42,6 +42,8 @@ public final class AnaApplyCoreMethodUtil {
             RangeStruct rangeStruct_ = NumParsers.convertToRange(_struct);
             if (StringUtil.quickEq(name_, _page.getCoreNames().getAliasRangeLower())) {
                 result_ = new IntStruct(rangeStruct_.getLower());
+            } else if (StringUtil.quickEq(name_, _page.getCoreNames().getAliasRangeUnlimitedStep())) {
+                result_ = rangeUnlimitStep(args_);
             } else if (StringUtil.quickEq(name_, _page.getCoreNames().getAliasRangeUpper())) {
                 result_ = new IntStruct(rangeStruct_.getUpper());
             } else{
@@ -114,10 +116,39 @@ public final class AnaApplyCoreMethodUtil {
     }
 
     public static Struct range(Struct... _args) {
+        if (_args.length == 3) {
+            return rangeBoundsStep(_args);
+        }
         if (_args.length == 2) {
             return rangeBounds(_args);
         }
         return rangeUnlimit(_args);
+    }
+    public static Struct rangeBoundsStep(Struct... _args) {
+        int lower_ = NumParsers.convertToNumber(_args[0]).intStruct();
+        if (lower_ < 0) {
+            return null;
+        }
+        int upper_ = NumParsers.convertToNumber(_args[1]).intStruct();
+        if (upper_ < lower_) {
+            return null;
+        }
+        int step_ = NumParsers.convertToNumber(_args[2]).intStruct();
+        if (step_ <= 0) {
+            return null;
+        }
+        return new RangeStruct(lower_, upper_, step_);
+    }
+    public static Struct rangeUnlimitStep(Struct... _args) {
+        int lower_ = NumParsers.convertToNumber(_args[0]).intStruct();
+        if (lower_ < 0) {
+            return null;
+        }
+        int step_ = NumParsers.convertToNumber(_args[1]).intStruct();
+        if (step_ <= 0) {
+            return null;
+        }
+        return new RangeStruct(lower_, -1, step_);
     }
     public static Struct rangeBounds(Struct... _args) {
         int lower_ = NumParsers.convertToNumber(_args[0]).intStruct();

@@ -54,7 +54,7 @@ public abstract class ReachOperationNode {
         if (_oper instanceof RangeOperation) {
             RangeOperation r_ = (RangeOperation) _oper;
             if (r_.isOkNum()) {
-                return new ReachRangeOperation(_oper);
+                return new ReachRangeOperation((RangeOperation)_oper);
             }
             return new ReachStdOperation(_oper);
         }

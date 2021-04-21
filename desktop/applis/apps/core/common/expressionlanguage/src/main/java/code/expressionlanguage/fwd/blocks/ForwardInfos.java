@@ -1489,7 +1489,7 @@ public final class ForwardInfos {
         }
         if (_anaNode instanceof RangeOperation) {
             RangeOperation c_ = (RangeOperation) _anaNode;
-            return new ExecRangeOperation(new ExecOperationContent(c_.getContent()), c_.getOpOffset());
+            return new ExecRangeOperation(new ExecOperationContent(c_.getContent()), c_.getOpOffset(), c_.isImplicitMiddle());
         }
         if (_anaNode instanceof InstanceOfOperation) {
             InstanceOfOperation c_ = (InstanceOfOperation) _anaNode;

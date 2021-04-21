@@ -654,6 +654,15 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
                 return new Argument(new IntStruct(ExecArrayFieldOperation.getLength(arr_,_conf)));
             }
             if (StringUtil.quickEq(name_,"[:]")) {
+                if (arguments_.size() == 2) {
+                    Struct lower_ = arguments_.get(0).getStruct();
+                    Struct step_ = arguments_.get(1).getStruct();
+                    Argument range_ = ApplyCoreMethodUtil.rangeUnlimitStep(_conf, _stackCall, lower_, step_);
+                    if (_conf.callsOrException(_stackCall)) {
+                        return new Argument();
+                    }
+                    return new Argument(ExecTemplates.getRange(arr_,range_.getStruct(),_conf,_stackCall));
+                }
                 Struct lower_ = arguments_.get(lastIndex_).getStruct();
                 Struct upper_ = new IntStruct(ExecArrayFieldOperation.getLength(arr_,_conf));
                 Argument range_ = ApplyCoreMethodUtil.range(_conf, _stackCall, lower_, upper_);

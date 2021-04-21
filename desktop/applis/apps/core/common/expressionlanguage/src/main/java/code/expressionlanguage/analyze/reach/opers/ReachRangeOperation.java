@@ -3,13 +3,17 @@ package code.expressionlanguage.analyze.reach.opers;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.AnaApplyCoreMethodUtil;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.analyze.opers.OperationNode;
+import code.expressionlanguage.analyze.opers.RangeOperation;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 
 public final class ReachRangeOperation extends ReachMethodOperation implements ReachCalculable {
-    public ReachRangeOperation(OperationNode _info) {
+
+    private final boolean implicitMiddle;
+
+    public ReachRangeOperation(RangeOperation _info) {
         super(_info);
+        implicitMiddle = _info.isImplicitMiddle();
     }
 
     @Override
@@ -29,7 +33,12 @@ public final class ReachRangeOperation extends ReachMethodOperation implements R
         for (int i = 0; i < len_; i++) {
             args_[i] = argsList_.get(i).getStruct();
         }
-        Struct range_ = AnaApplyCoreMethodUtil.range(args_);
+        Struct range_;
+        if (args_.length == 2 && implicitMiddle) {
+            range_ = AnaApplyCoreMethodUtil.rangeUnlimitStep(args_);
+        } else {
+            range_ = AnaApplyCoreMethodUtil.range(args_);
+        }
         if (range_ != null) {
             setSimpleArgumentAna(new Argument(range_));
         }

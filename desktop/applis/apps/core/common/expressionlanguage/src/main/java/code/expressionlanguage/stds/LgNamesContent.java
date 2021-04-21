@@ -310,6 +310,7 @@ public final class LgNamesContent {
     private static final String RANGE_UPPER = "RangeUpper";
     private static final String RANGE_LOWER = "RangeLower";
     private static final String RANGE_UNLIMITED = "RangeUnlimited";
+    private static final String RANGE_UNLIMITED_STEP = "RangeUnlimitedStep";
     private static final String OBJECTS_UTIL = "ObjectsUtil";
     private static final String GET_DECLARED_CLASSES = "GetDeclaredClasses";
     private static final String GET_SUPER_CLASS = "GetSuperClass";
@@ -665,6 +666,7 @@ public final class LgNamesContent {
         getReflect().setAliasGetInterfaces(get(_util,_cust, GET_INTERFACES));
         getCoreNames().setAliasRange(get(_util,_cust, RANGE));
         getCoreNames().setAliasRangeUpper(get(_util,_cust, RANGE_UPPER));
+        getCoreNames().setAliasRangeUnlimitedStep(get(_util,_cust, RANGE_UNLIMITED_STEP));
         getCoreNames().setAliasRangeLower(get(_util,_cust, RANGE_LOWER));
         getCoreNames().setAliasRangeUnlimited(get(_util,_cust, RANGE_UNLIMITED));
         getCoreNames().setAliasObjectsUtil(get(_util,_cust, OBJECTS_UTIL));
@@ -860,7 +862,12 @@ public final class LgNamesContent {
         getCoreNames().getParams().setAliasEnums0Ordinal0(get(_util,_cust, AliasParamCore.ENUMS_0_ORDINAL_0));
         getCoreNames().getParams().setAliasRange0Range0(get(_util,_cust, AliasParamCore.RANGE_0_RANGE_0));
         getCoreNames().getParams().setAliasRange0Range1(get(_util,_cust, AliasParamCore.RANGE_0_RANGE_1));
+        getCoreNames().getParams().setAliasRange0UnlimitedStep0(get(_util,_cust, AliasParamCore.RANGE_0_UNLIMITED_STEP_0));
+        getCoreNames().getParams().setAliasRange0UnlimitedStep1(get(_util,_cust, AliasParamCore.RANGE_0_UNLIMITED_STEP_1));
         getCoreNames().getParams().setAliasRange1Range0(get(_util,_cust, AliasParamCore.RANGE_1_RANGE_0));
+        getCoreNames().getParams().setAliasRange2Range0(get(_util,_cust, AliasParamCore.RANGE_2_RANGE_0));
+        getCoreNames().getParams().setAliasRange2Range1(get(_util,_cust, AliasParamCore.RANGE_2_RANGE_1));
+        getCoreNames().getParams().setAliasRange2Range2(get(_util,_cust, AliasParamCore.RANGE_2_RANGE_2));
         getCoreNames().getParams().setAliasObjectsUtil0SameRef0(get(_util,_cust, AliasParamCore.OBJECTS_UTIL_0_SAME_REF_0));
         getCoreNames().getParams().setAliasObjectsUtil0SameRef1(get(_util,_cust, AliasParamCore.OBJECTS_UTIL_0_SAME_REF_1));
         getCoreNames().getParams().setAliasObjectsUtil0GetParent0(get(_util,_cust, AliasParamCore.OBJECTS_UTIL_0_GET_PARENT_0));
@@ -1517,6 +1524,7 @@ public final class LgNamesContent {
         map_.addEntry(getCoreNames().getAliasRange(), new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(RANGE_LOWER, getCoreNames().getAliasRangeLower()),
                 new KeyValueMemberName(RANGE_UPPER, getCoreNames().getAliasRangeUpper()),
+                new KeyValueMemberName(RANGE_UNLIMITED_STEP, getCoreNames().getAliasRangeUnlimitedStep()),
                 new KeyValueMemberName(RANGE_UNLIMITED, getCoreNames().getAliasRangeUnlimited())));
         map_.addEntry(getCoreNames().getAliasObjectsUtil(), new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(SAME_REF, getCoreNames().getAliasSameRef()),
@@ -1930,6 +1938,8 @@ public final class LgNamesContent {
         map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCore.ERROR_0_TO_STRING_METHOD_0, getCoreNames().getParams().getAliasError0ToStringMethod0())));
         map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCore.ENUMS_0_NAME_0, getCoreNames().getParams().getAliasEnums0Name0())));
         map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCore.ENUMS_0_ORDINAL_0, getCoreNames().getParams().getAliasEnums0Ordinal0())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCore.RANGE_0_UNLIMITED_STEP_0, getCoreNames().getParams().getAliasRange0UnlimitedStep0()),new KeyValueMemberName(AliasParamCore.RANGE_0_UNLIMITED_STEP_1, getCoreNames().getParams().getAliasRange0UnlimitedStep1())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCore.RANGE_2_RANGE_0, getCoreNames().getParams().getAliasRange2Range0()),new KeyValueMemberName(AliasParamCore.RANGE_2_RANGE_1, getCoreNames().getParams().getAliasRange2Range1()),new KeyValueMemberName(AliasParamCore.RANGE_2_RANGE_2, getCoreNames().getParams().getAliasRange2Range2())));
         map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCore.RANGE_0_RANGE_0, getCoreNames().getParams().getAliasRange0Range0()),new KeyValueMemberName(AliasParamCore.RANGE_0_RANGE_1, getCoreNames().getParams().getAliasRange0Range1())));
         map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCore.RANGE_1_RANGE_0, getCoreNames().getParams().getAliasRange1Range0())));
         map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamCore.OBJECTS_UTIL_0_SAME_REF_0, getCoreNames().getParams().getAliasObjectsUtil0SameRef0()),new KeyValueMemberName(AliasParamCore.OBJECTS_UTIL_0_SAME_REF_1, getCoreNames().getParams().getAliasObjectsUtil0SameRef1())));

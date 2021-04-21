@@ -13,9 +13,11 @@ import code.util.IdMap;
 
 public final class RendRangeOperation extends RendMethodOperation implements RendCalculableOperation {
     private final int opOffset;
-    public RendRangeOperation(ExecOperationContent _content, int _opOffset) {
+    private final boolean implicitMiddle;
+    public RendRangeOperation(ExecOperationContent _content, int _opOffset, boolean _implicitMiddle) {
         super(_content);
         opOffset = _opOffset;
+        implicitMiddle = _implicitMiddle;
     }
 
     @Override
@@ -24,10 +26,19 @@ public final class RendRangeOperation extends RendMethodOperation implements Ren
         RendDynOperationNode opTwo_ = getLastNode(this);
         Argument a_ = getArgument(_nodes,opOne_);
         Argument r_;
-        if (getChildrenNodes().size() == 2) {
+        if (getChildrenNodes().size() == 3) {
+            Argument b_ = Argument.getNullableValue(getArgumentPair(_nodes, getNode(getChildrenNodes(),1)).getArgument());
             Argument c_ = getArgument(_nodes, opTwo_);
             setRelativeOffsetPossibleLastPage(getIndexInEl()+opOffset, _rendStack);
-            r_ = ApplyCoreMethodUtil.range(_context,_stack,a_.getStruct(),c_.getStruct());
+            r_ = ApplyCoreMethodUtil.range(_context,_stack,a_.getStruct(),b_.getStruct(),c_.getStruct());
+        } else if (getChildrenNodes().size() == 2) {
+            Argument c_ = getArgument(_nodes, opTwo_);
+            setRelativeOffsetPossibleLastPage(getIndexInEl()+opOffset, _rendStack);
+            if (implicitMiddle) {
+                r_ = ApplyCoreMethodUtil.rangeUnlimitStep(_context,_stack,a_.getStruct(),c_.getStruct());
+            } else {
+                r_ = ApplyCoreMethodUtil.range(_context,_stack,a_.getStruct(),c_.getStruct());
+            }
         } else {
             setRelativeOffsetPossibleLastPage(getIndexInEl()+opOffset, _rendStack);
             r_ = ApplyCoreMethodUtil.range(_context,_stack,a_.getStruct());

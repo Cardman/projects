@@ -928,6 +928,25 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             getArrayBounds(str_, a_);
             if (cloneArray_) {
                 if (StringUtil.quickEq(name_,"[:]")) {
+                    if (methodTypes_.isEmpty()) {
+                        String foundClass_ = StringExpUtil.getPrettyArrayType(_page.getAliasObject());
+                        lambdaCommonContent.setShiftArgument(true);
+                        StringBuilder fct_ = new StringBuilder(_page.getAliasFct());
+                        fct_.append(Templates.TEMPLATE_BEGIN);
+                        String comp_ = lambdaCommonContent.getFoundClass();
+                        fct_.append(comp_);
+                        fct_.append(Templates.TEMPLATE_SEP);
+                        StringList params_ = new StringList();
+                        fct_.append(_page.getAliasPrimInteger());
+                        params_.add(_page.getAliasPrimInteger());
+                        fct_.append(Templates.TEMPLATE_SEP);
+                        MethodId id_ = new MethodId(MethodAccessKind.INSTANCE, name_, params_);
+                        method = new ClassMethodId(foundClass_, id_);
+                        fct_.append(comp_);
+                        fct_.append(Templates.TEMPLATE_END);
+                        setResultClass(new AnaClassArgumentMatching(fct_.toString()));
+                        return;
+                    }
                     String foundClass_ = StringExpUtil.getPrettyArrayType(_page.getAliasObject());
                     lambdaCommonContent.setShiftArgument(true);
                     StringBuilder fct_ = new StringBuilder(_page.getAliasFct());
@@ -936,6 +955,9 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                     fct_.append(comp_);
                     fct_.append(Templates.TEMPLATE_SEP);
                     StringList params_ = new StringList();
+                    fct_.append(_page.getAliasPrimInteger());
+                    params_.add(_page.getAliasPrimInteger());
+                    fct_.append(Templates.TEMPLATE_SEP);
                     fct_.append(_page.getAliasPrimInteger());
                     params_.add(_page.getAliasPrimInteger());
                     fct_.append(Templates.TEMPLATE_SEP);
@@ -1233,11 +1255,30 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         getArrayBounds(bounds_, a_);
         if (cloneArray_) {
             if (StringUtil.quickEq(name_,"[:]")) {
+                if (methodTypes_.isEmpty()) {
+                    String foundClass_ = StringExpUtil.getPrettyArrayType(_page.getAliasObject());
+                    StringBuilder fct_ = new StringBuilder(_page.getAliasFct());
+                    fct_.append(Templates.TEMPLATE_BEGIN);
+                    String comp_ = lambdaCommonContent.getFoundClass();
+                    StringList params_ = new StringList();
+                    fct_.append(_page.getAliasPrimInteger());
+                    params_.add(_page.getAliasPrimInteger());
+                    fct_.append(Templates.TEMPLATE_SEP);
+                    MethodId id_ = new MethodId(MethodAccessKind.INSTANCE, name_, params_);
+                    method = new ClassMethodId(foundClass_, id_);
+                    fct_.append(comp_);
+                    fct_.append(Templates.TEMPLATE_END);
+                    setResultClass(new AnaClassArgumentMatching(fct_.toString()));
+                    return;
+                }
                 String foundClass_ = StringExpUtil.getPrettyArrayType(_page.getAliasObject());
                 StringBuilder fct_ = new StringBuilder(_page.getAliasFct());
                 fct_.append(Templates.TEMPLATE_BEGIN);
                 String comp_ = lambdaCommonContent.getFoundClass();
                 StringList params_ = new StringList();
+                fct_.append(_page.getAliasPrimInteger());
+                params_.add(_page.getAliasPrimInteger());
+                fct_.append(Templates.TEMPLATE_SEP);
                 fct_.append(_page.getAliasPrimInteger());
                 params_.add(_page.getAliasPrimInteger());
                 fct_.append(Templates.TEMPLATE_SEP);

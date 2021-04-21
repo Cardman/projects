@@ -36,7 +36,7 @@ public final class ApplyCoreMethodUtil {
             return processObjectsUtil(_cont, _method, args_, _stackCall);
         }
         if (StringUtil.quickEq(type_, lgNames_.getContent().getCoreNames().getAliasRange())) {
-            return processRange(_cont, _method,_struct);
+            return processRange(_cont, _stackCall,_method,_struct,args_);
         }
         if (StringUtil.quickEq(type_, replType_)) {
             ResultErrorStd result_ = new ResultErrorStd();
@@ -195,10 +195,48 @@ public final class ApplyCoreMethodUtil {
     }
 
     public static Argument range(ContextEl _conf, StackCall _stack, Struct... _args) {
+        if (_args.length == 3) {
+            return rangeBoundsStep(_conf, _stack, _args);
+        }
         if (_args.length == 2) {
             return rangeBounds(_conf, _stack, _args);
         }
         return rangeUnlimit(_conf, _stack, _args);
+    }
+    public static Argument rangeBoundsStep(ContextEl _conf, StackCall _stack, Struct... _args) {
+        int lower_ = NumParsers.convertToNumber(_args[0]).intStruct();
+        if (lower_ < 0) {
+            _stack.setCallingState(new CustomFoundExc(getBadIndex(_conf, getBeginMessage(lower_), _stack)));
+            return Argument.createVoid();
+        }
+        int upper_ = NumParsers.convertToNumber(_args[1]).intStruct();
+        if (upper_ < lower_) {
+            _stack.setCallingState(new CustomFoundExc(getBadIndex(_conf, getEndMessage(lower_, ">", upper_), _stack)));
+            return Argument.createVoid();
+        }
+        int step_ = NumParsers.convertToNumber(_args[2]).intStruct();
+        if (step_ <= 0) {
+            _stack.setCallingState(new CustomFoundExc(getDivideZero(_conf, _stack)));
+            return Argument.createVoid();
+        }
+        return new Argument(new RangeStruct(lower_, upper_,step_));
+    }
+
+    public static Argument rangeUnlimitStep(ContextEl _conf, StackCall _stack, Struct... _args) {
+        int lower_ = NumParsers.convertToNumber(_args[0]).intStruct();
+        if (lower_ < 0) {
+            _stack.setCallingState(new CustomFoundExc(getBadIndex(_conf, getBeginMessage(lower_), _stack)));
+            return Argument.createVoid();
+        }
+        int step_ = NumParsers.convertToNumber(_args[1]).intStruct();
+        if (step_ <= 0) {
+            _stack.setCallingState(new CustomFoundExc(getDivideZero(_conf, _stack)));
+            return Argument.createVoid();
+        }
+        return new Argument(new RangeStruct(lower_, -1,step_));
+    }
+    private static ErrorStruct getDivideZero(ContextEl _cont, StackCall _stackCall) {
+        return new ErrorStruct(_cont, _cont.getStandards().getContent().getCoreNames().getAliasDivisionZero(), _stackCall);
     }
     public static Argument rangeBounds(ContextEl _conf, StackCall _stack, Struct... _args) {
         int lower_ = NumParsers.convertToNumber(_args[0]).intStruct();
@@ -300,7 +338,7 @@ public final class ApplyCoreMethodUtil {
         return result_;
     }
 
-    private static ResultErrorStd processRange(ContextEl _cont, ClassMethodId _method, Struct _struct) {
+    private static ResultErrorStd processRange(ContextEl _cont,StackCall _stack, ClassMethodId _method, Struct _struct,Struct... _args) {
         ResultErrorStd result_ = new ResultErrorStd();
         LgNames lgNames_ = _cont.getStandards();
         String name_ = _method.getConstraints().getName();
@@ -311,6 +349,10 @@ public final class ApplyCoreMethodUtil {
         }
         if (StringUtil.quickEq(name_, lgNames_.getContent().getCoreNames().getAliasRangeUpper())) {
             result_.setResult(new IntStruct(rangeStruct_.getUpper()));
+            return result_;
+        }
+        if (StringUtil.quickEq(name_, lgNames_.getContent().getCoreNames().getAliasRangeUnlimitedStep())) {
+            result_.setResult(rangeUnlimitStep(_cont,_stack,_args).getStruct());
             return result_;
         }
         result_.setResult(BooleanStruct.of(rangeStruct_.isUnlimited()));
