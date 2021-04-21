@@ -3138,7 +3138,7 @@ public final class LinkageUtil {
         RootBlock fieldType_ = ((SettableAbstractFieldOperation) _val).getFieldType();
         int begin_ = _sum + delta_ + _val.getIndexInEl() + ((SettableAbstractFieldOperation) _val).getDelta();
         int idValueOffset_ = ((SettableAbstractFieldOperation)_val).getValueOffset();
-        if (isDecl(_block, _val, indexBlock_, idValueOffset_)) {
+        if (_block instanceof FieldBlock && ElUtil.isDeclaringField(_val) && isDecl(idValueOffset_, ((FieldBlock) _block).getNameErrorsFields().get(indexBlock_))) {
             StringList errs_ = ((FieldBlock) _block).getNameErrorsFields().get(indexBlock_);
             int id_ = ((FieldBlock) _block).getValuesOffset().indexOf(idValueOffset_);
             StringList errCst_ = new StringList();
@@ -3164,16 +3164,10 @@ public final class LinkageUtil {
         }
     }
 
-    private static boolean isDecl(AbsBk _block, OperationNode _val, int _indexBlock, int _idValueOffset) {
-        boolean decl_ = false;
-        if (_block instanceof FieldBlock && ElUtil.isDeclaringField(_val)) {
-            StringList errs_ = ((FieldBlock) _block).getNameErrorsFields().get(_indexBlock);
-            if (!errs_.isEmpty()) {
-                decl_ = true;
-            }
-            if (_idValueOffset > -1) {
-                decl_ = true;
-            }
+    private static boolean isDecl(int _idValueOffset, StringList _errs) {
+        boolean decl_ = !_errs.isEmpty();
+        if (_idValueOffset > -1) {
+            decl_ = true;
         }
         return decl_;
     }
