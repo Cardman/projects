@@ -2849,9 +2849,9 @@ public final class LinkageUtil {
         } else {
             StringList l_ = new StringList();
             MethodOperation.processEmptyError(_val,l_);
-            StrTypes operators_ =  par_.getOperations().getOperators();
             if (leftOperNotUnary(par_)&& !(indexChild_ == 0 && par_ instanceof ArrOperation)) {
                 if (!l_.isEmpty()) {
+                    StrTypes operators_ =  par_.getOperations().getOperators();
                     int s_ = _sum + par_.getIndexInEl() + operators_.getKey(indexChild_);
                     int len_ = operators_.getValue(indexChild_).length();
                     _parts.add(new PartOffset(ExportCst.anchorErr(StringUtil.join(l_,ExportCst.JOIN_ERR)),s_));
@@ -2865,18 +2865,14 @@ public final class LinkageUtil {
             if (!(par_ instanceof TernaryOperation)&&!(par_ instanceof RefTernaryOperation)) {
                 if (leftOperNotUnary(par_) || par_ instanceof UnaryOperation || par_ instanceof UnaryBooleanOperation || par_ instanceof UnaryBinOperation||par_ instanceof SemiAffectationOperation&&!((SemiAffectationOperation)par_).isPost()) {
                     if (_vars.isImplicit()) {
-                        int s_ = _sum + par_.getIndexInEl() + operators_.getKey(indexChild_);
-                        int len_ = operators_.getValue(indexChild_).length();
-                        int off_ = s_ + Math.max(len_, 1);
+                        int off_ = _sum + _val.getIndexInEl();
                         _parts.add(mergeParts(_vars, _currentFileName, _val.getResultClass().getFunction(), off_, new StringList(), new StringList()));
                     }
                 }
             }
             if (!(par_ instanceof ShortTernaryOperation)&&!(par_ instanceof RefShortTernaryOperation)&&middleOper(par_)) {
                 if (_vars.isImplicit() && indexChild_ > 0) {
-                    int s_ = _sum + par_.getIndexInEl() + operators_.getKey(indexChild_-1);
-                    int len_ = operators_.getValue(indexChild_-1).length();
-                    int off_ = s_+Math.max(len_,1);
+                    int off_ = _sum + _val.getIndexInEl();
                     _parts.add(mergeParts(_vars,_currentFileName,_val.getResultClass().getFunction(),off_,new StringList(),new StringList()));
                 }
             }
