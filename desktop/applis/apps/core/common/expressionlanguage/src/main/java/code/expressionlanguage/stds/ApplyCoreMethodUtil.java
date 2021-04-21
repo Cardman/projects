@@ -194,7 +194,13 @@ public final class ApplyCoreMethodUtil {
         return result_;
     }
 
-    public static Argument range(ContextEl _conf, StackCall _stack,Struct... _args) {
+    public static Argument range(ContextEl _conf, StackCall _stack, Struct... _args) {
+        if (_args.length == 2) {
+            return rangeBounds(_conf, _stack, _args);
+        }
+        return rangeUnlimit(_conf, _stack, _args);
+    }
+    public static Argument rangeBounds(ContextEl _conf, StackCall _stack, Struct... _args) {
         int lower_ = NumParsers.convertToNumber(_args[0]).intStruct();
         if (lower_ < 0) {
             _stack.setCallingState(new CustomFoundExc(getBadIndex(_conf, getBeginMessage(lower_), _stack)));
@@ -208,6 +214,14 @@ public final class ApplyCoreMethodUtil {
         return new Argument(new RangeStruct(lower_, upper_));
     }
 
+    public static Argument rangeUnlimit(ContextEl _conf, StackCall _stack,Struct... _args) {
+        int lower_ = NumParsers.convertToNumber(_args[0]).intStruct();
+        if (lower_ < 0) {
+            _stack.setCallingState(new CustomFoundExc(getBadIndex(_conf, getBeginMessage(lower_), _stack)));
+            return Argument.createVoid();
+        }
+        return new Argument(new RangeStruct(lower_));
+    }
     private static ErrorStruct getBadIndex(ContextEl _context, String _message, StackCall _stackCall) {
         return new ErrorStruct(_context, _message, _context.getStandards().getContent().getCoreNames().getAliasBadIndex(), _stackCall);
     }
@@ -295,7 +309,11 @@ public final class ApplyCoreMethodUtil {
             result_.setResult(new IntStruct(rangeStruct_.getLower()));
             return result_;
         }
-        result_.setResult(new IntStruct(rangeStruct_.getUpper()));
+        if (StringUtil.quickEq(name_, lgNames_.getContent().getCoreNames().getAliasRangeUpper())) {
+            result_.setResult(new IntStruct(rangeStruct_.getUpper()));
+            return result_;
+        }
+        result_.setResult(BooleanStruct.of(rangeStruct_.isUnlimited()));
         return result_;
     }
     private static ResultErrorStd processObjectsUtil(ContextEl _cont, ClassMethodId _method, Struct[] _args, StackCall _stackCall) {

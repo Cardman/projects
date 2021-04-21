@@ -42,8 +42,10 @@ public final class AnaApplyCoreMethodUtil {
             RangeStruct rangeStruct_ = NumParsers.convertToRange(_struct);
             if (StringUtil.quickEq(name_, _page.getCoreNames().getAliasRangeLower())) {
                 result_ = new IntStruct(rangeStruct_.getLower());
-            } else {
+            } else if (StringUtil.quickEq(name_, _page.getCoreNames().getAliasRangeUpper())) {
                 result_ = new IntStruct(rangeStruct_.getUpper());
+            } else{
+                result_ = BooleanStruct.of(rangeStruct_.isUnlimited());
             }
             return result_;
         }
@@ -112,6 +114,12 @@ public final class AnaApplyCoreMethodUtil {
     }
 
     public static Struct range(Struct... _args) {
+        if (_args.length == 2) {
+            return rangeBounds(_args);
+        }
+        return rangeUnlimit(_args);
+    }
+    public static Struct rangeBounds(Struct... _args) {
         int lower_ = NumParsers.convertToNumber(_args[0]).intStruct();
         if (lower_ < 0) {
             return null;
@@ -121,6 +129,13 @@ public final class AnaApplyCoreMethodUtil {
             return null;
         }
         return new RangeStruct(lower_, upper_);
+    }
+    public static Struct rangeUnlimit(Struct... _args) {
+        int lower_ = NumParsers.convertToNumber(_args[0]).intStruct();
+        if (lower_ < 0) {
+            return null;
+        }
+        return new RangeStruct(lower_);
     }
     private static Struct[] getObjects(Argument... _args) {
         int len_ = _args.length;

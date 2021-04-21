@@ -18,14 +18,18 @@ public final class ReachRangeOperation extends ReachMethodOperation implements R
             return;
         }
         CustList<ReachOperationNode> childrenNodes_ = getChildrenNodes();
-        if (childrenNodes_.size() != 2) {
-            return;
+        CustList<Argument> argsList_ = new CustList<Argument>();
+        for (ReachOperationNode r: childrenNodes_) {
+            Argument arg_ = r.getArgument();
+            checkNull(arg_,_page);
+            argsList_.add(arg_);
         }
-        Argument first_ = childrenNodes_.first().getArgument();
-        checkNull(first_,_page);
-        Argument second_ = childrenNodes_.last().getArgument();
-        checkNull(second_,_page);
-        Struct range_ = AnaApplyCoreMethodUtil.range(first_.getStruct(), second_.getStruct());
+        int len_ = argsList_.size();
+        Struct[] args_ = new Struct[len_];
+        for (int i = 0; i < len_; i++) {
+            args_[i] = argsList_.get(i).getStruct();
+        }
+        Struct range_ = AnaApplyCoreMethodUtil.range(args_);
         if (range_ != null) {
             setSimpleArgumentAna(new Argument(range_));
         }

@@ -7,6 +7,11 @@ public final class RangeStruct extends WithoutParentStruct implements Displayabl
     private final int lower;
     private final int upper;
 
+    public RangeStruct(int _lower) {
+        this.lower = _lower;
+        this.upper = -1;
+    }
+
     public RangeStruct(int _lower, int _upper) {
         this.lower = _lower;
         this.upper = _upper;
@@ -14,11 +19,17 @@ public final class RangeStruct extends WithoutParentStruct implements Displayabl
 
     @Override
     public StringStruct getDisplayedString(AnalyzedPageEl _an) {
+        if (isUnlimited()) {
+            return new StringStruct(lower+"");
+        }
         return new StringStruct(lower+";"+upper);
     }
 
     @Override
     public StringStruct getDisplayedString(ContextEl _an) {
+        if (isUnlimited()) {
+            return new StringStruct(lower+"");
+        }
         return new StringStruct(lower+";"+upper);
     }
 
@@ -32,7 +43,12 @@ public final class RangeStruct extends WithoutParentStruct implements Displayabl
         if (!(_other instanceof RangeStruct)) {
             return false;
         }
-        return lower == ((RangeStruct)_other).lower && upper == ((RangeStruct)_other).upper;
+        return lower == ((RangeStruct)_other).lower
+                && upper == ((RangeStruct)_other).upper;
+    }
+
+    public boolean isUnlimited() {
+        return getUpper() == -1;
     }
 
     public int getLower() {

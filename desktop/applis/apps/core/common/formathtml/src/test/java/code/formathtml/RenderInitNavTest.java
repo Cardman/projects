@@ -1065,6 +1065,7 @@ public final class RenderInitNavTest extends CommonRender {
         _lgNames.getContent().getCoreNames().setAliasRange("java.lang.Range");
         _lgNames.getContent().getCoreNames().setAliasRangeLower("lower");
         _lgNames.getContent().getCoreNames().setAliasRangeUpper("upper");
+        _lgNames.getContent().getCoreNames().setAliasRangeUnlimited("unlimited");
         _lgNames.getContent().getCoreNames().setAliasObjectsUtil("java.lang.$ObjectsUtil");
         _lgNames.getContent().getCoreNames().setAliasStringUtil("java.lang.$StringUtil");
         _lgNames.getContent().getCoreNames().setAliasStringUtilValueOf("valueOf");

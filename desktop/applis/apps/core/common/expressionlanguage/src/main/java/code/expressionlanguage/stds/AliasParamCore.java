@@ -7,6 +7,7 @@ public final class AliasParamCore {
     public static final String ENUMS_0_ORDINAL_0="Enums0Ordinal0";
     public static final String RANGE_0_RANGE_0="Range0Range0";
     public static final String RANGE_0_RANGE_1="Range0Range1";
+    public static final String RANGE_1_RANGE_0="Range1Range0";
     public static final String OBJECTS_UTIL_0_SAME_REF_0="ObjectsUtil0SameRef0";
     public static final String OBJECTS_UTIL_0_SAME_REF_1="ObjectsUtil0SameRef1";
     public static final String OBJECTS_UTIL_0_GET_PARENT_0="ObjectsUtil0GetParent0";
@@ -22,6 +23,7 @@ public final class AliasParamCore {
     private String aliasEnums0Ordinal0="a";
     private String aliasRange0Range0="a";
     private String aliasRange0Range1="b";
+    private String aliasRange1Range0="a";
     private String aliasObjectsUtil0SameRef0="a";
     private String aliasObjectsUtil0SameRef1="b";
     private String aliasObjectsUtil0GetParent0="a";
@@ -78,6 +80,14 @@ public final class AliasParamCore {
 
     public void setAliasRange0Range1(String _v) {
         this.aliasRange0Range1 = _v;
+    }
+
+    public String getAliasRange1Range0() {
+        return aliasRange1Range0;
+    }
+
+    public void setAliasRange1Range0(String _v) {
+        this.aliasRange1Range0 = _v;
     }
 
     public String getAliasObjectsUtil0SameRef0() {

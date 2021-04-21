@@ -42,6 +42,7 @@ public final class AliasCore {
     private String aliasRange;
     private String aliasRangeLower;
     private String aliasRangeUpper;
+    private String aliasRangeUnlimited;
     private String aliasObjectsUtil;
     private String aliasSameRef;
     private String aliasGetParent;
@@ -206,11 +207,17 @@ public final class AliasCore {
         params_ = new StringList(_lgNames.getPrimTypes().getAliasPrimInteger(),_lgNames.getPrimTypes().getAliasPrimInteger());
         StandardConstructor ctor_ = new StandardConstructor(params_, false, new StringList(params.getAliasRange0Range0(),params.getAliasRange0Range1()));
         constructors_.add( ctor_);
+        params_ = new StringList(_lgNames.getPrimTypes().getAliasPrimInteger());
+        ctor_ = new StandardConstructor(params_, false, new StringList(params.getAliasRange1Range0()));
+        constructors_.add( ctor_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasRangeLower, params_, _lgNames.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL);
         methods_.add( method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasRangeUpper, params_, _lgNames.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL);
+        methods_.add( method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasRangeUnlimited, params_, _lgNames.getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.FINAL);
         methods_.add( method_);
         standards_.addEntry(aliasRange, stdcl_);
         methods_ = new CustList<StandardMethod>();
@@ -471,6 +478,14 @@ public final class AliasCore {
 
     public void setAliasRangeUpper(String _aliasRangeUpper) {
         this.aliasRangeUpper = _aliasRangeUpper;
+    }
+
+    public String getAliasRangeUnlimited() {
+        return aliasRangeUnlimited;
+    }
+
+    public void setAliasRangeUnlimited(String _aliasRangeUnlimited) {
+        this.aliasRangeUnlimited = _aliasRangeUnlimited;
     }
 
     public String getAliasObjectsUtil() {

@@ -3388,6 +3388,14 @@ public final class RenderTextTest extends CommonRender {
         StringMap<String> files_ = new StringMap<String>();
         assertNotNull(getEx(folder_, relative_, html_, files_));
     }
+    @Test
+    public void process145Test() {
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String html_ = "<html><body><c:set className=\"$int\" value=\"v=1\"/>{($new $int[]{2,4,6,8})[v???].length}</body></html>";
+        StringMap<String> files_ = new StringMap<String>();
+        assertEq("<html><body>3</body></html>", getRes2(folder_, relative_, html_, files_));
+    }
     private Struct getExOneBean(String _folder, String _relative, String _html, StringMap<String> _files, StringMap<String> _filesSec, String... _types) {
         return getCommExOneBean(_folder,_relative,_html,_files,_filesSec,_types);
     }

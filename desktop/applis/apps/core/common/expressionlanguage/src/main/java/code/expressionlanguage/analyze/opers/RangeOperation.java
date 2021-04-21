@@ -24,15 +24,8 @@ public final class RangeOperation extends MethodOperation {
     void calculateChildren() {
         StrTypes vs_ = getOperations().getValues();
         if (vs_.size() == 2) {
-            MethodOperation m_ = getParent();
-            while (atMostOne(m_)) {
-                m_ = m_.getParent();
-            }
-            if (m_ instanceof ArrOperation) {
-                AnaClassArgumentMatching class_ = ((ArrOperation)m_).getPreviousResultClass();
-                if (class_.isArray() && vs_.lastValue().trim().isEmpty()) {
-                    vs_.remove(1);
-                }
+            if (vs_.lastValue().trim().isEmpty()) {
+                vs_.remove(1);
             }
         }
         getChildren().addAllEntries(vs_);

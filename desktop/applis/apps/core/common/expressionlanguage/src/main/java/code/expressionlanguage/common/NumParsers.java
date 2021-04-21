@@ -1465,7 +1465,7 @@ public final class NumParsers {
         if (_arg instanceof RangeStruct) {
             return (RangeStruct) _arg;
         }
-        return new RangeStruct(0,0);
+        return new RangeStruct(0);
     }
     public static NumberStruct convertToNumber(Struct _arg) {
         if (_arg instanceof NumberStruct) {

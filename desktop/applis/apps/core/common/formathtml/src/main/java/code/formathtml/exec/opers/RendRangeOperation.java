@@ -6,8 +6,6 @@ import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.stds.ApplyCoreMethodUtil;
-import code.expressionlanguage.structs.ArrayStruct;
-import code.expressionlanguage.structs.IntStruct;
 import code.formathtml.Configuration;
 import code.formathtml.exec.RendStackCall;
 import code.formathtml.util.BeanLgNames;
@@ -25,23 +23,15 @@ public final class RendRangeOperation extends RendMethodOperation implements Ren
         RendDynOperationNode opOne_ = getFirstNode(this);
         RendDynOperationNode opTwo_ = getLastNode(this);
         Argument a_ = getArgument(_nodes,opOne_);
-        Argument c_;
+        Argument r_;
         if (getChildrenNodes().size() == 2) {
-            c_ = getArgument(_nodes,opTwo_);
+            Argument c_ = getArgument(_nodes, opTwo_);
+            setRelativeOffsetPossibleLastPage(getIndexInEl()+opOffset, _rendStack);
+            r_ = ApplyCoreMethodUtil.range(_context,_stack,a_.getStruct(),c_.getStruct());
         } else {
-            RendMethodOperation par_ = getParent();
-            while (par_ instanceof RendIdOperation) {
-                par_ = par_.getParent();
-            }
-            Argument arr_ = getPreviousArgument(_nodes, par_);
-            if (arr_.getStruct() instanceof ArrayStruct) {
-                c_ = new Argument(new IntStruct(((ArrayStruct)arr_.getStruct()).getLength()));
-            } else {
-                c_ = a_;
-            }
+            setRelativeOffsetPossibleLastPage(getIndexInEl()+opOffset, _rendStack);
+            r_ = ApplyCoreMethodUtil.range(_context,_stack,a_.getStruct());
         }
-        setRelativeOffsetPossibleLastPage(getIndexInEl()+opOffset, _rendStack);
-        Argument r_ = ApplyCoreMethodUtil.range(_context,_stack,a_.getStruct(),c_.getStruct());
         setSimpleArgument(r_, _nodes, _context, _stack, _rendStack);
     }
 }
