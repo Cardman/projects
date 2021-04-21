@@ -946,7 +946,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                     setResultClass(new AnaClassArgumentMatching(fct_.toString()));
                     return;
                 }
-                if (name_.startsWith("[]")) {
+                if (isAccess(name_)) {
                     if (methodTypes_.isEmpty()) {
                         lambdaCommonContent.setShiftArgument(true);
                         String foundClass_ = StringExpUtil.getPrettyArrayType(_page.getAliasObject());
@@ -1248,7 +1248,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                 setResultClass(new AnaClassArgumentMatching(fct_.toString()));
                 return;
             }
-            if (name_.startsWith("[]")) {
+            if (isAccess(name_)) {
                 if (methodTypes_.isEmpty()) {
                     String foundClass_ = StringExpUtil.getPrettyArrayType(_page.getAliasObject());
                     MethodId id_ = new MethodId(MethodAccessKind.INSTANCE, name_, new StringList());
@@ -1375,6 +1375,9 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         processAbstract(staticChoiceMethod_, id_, _page);
     }
 
+    private static boolean isAccess(String _arrAccess) {
+        return StringUtil.quickEq(_arrAccess,"[]") || StringUtil.quickEq(_arrAccess,"[]=");
+    }
     private static boolean isSingleRange(AnalyzedPageEl _page, StringList _methodTypes) {
         return _methodTypes.size() == 1 && StringUtil.quickEq(_methodTypes.first(),_page.getAliasRange());
     }
