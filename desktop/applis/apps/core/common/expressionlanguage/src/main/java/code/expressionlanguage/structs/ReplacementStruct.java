@@ -35,4 +35,10 @@ public final class ReplacementStruct extends WithoutParentStruct implements Stru
         return StringUtil.quickEq(instance.getNewString(),other_.instance.getNewString());
     }
 
+    @Override
+    public long randCode() {
+        long r_ = NumParsers.mergeRandCode(1,NumParsers.randCode(instance.getOldString()));
+        r_ = NumParsers.mergeRandCode(r_,NumParsers.randCode(instance.getNewString()));
+        return r_;
+    }
 }

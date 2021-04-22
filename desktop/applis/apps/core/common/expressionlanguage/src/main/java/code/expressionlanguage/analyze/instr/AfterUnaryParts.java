@@ -95,7 +95,7 @@ final class AfterUnaryParts {
             return;
         }
         if (_string.charAt(firstPrintChar_) == MINUS_CHAR || _string.charAt(firstPrintChar_) == PLUS_CHAR
-                || _string.charAt(firstPrintChar_) == NEG_BOOL_CHAR || _string.charAt(firstPrintChar_) == NEG_BOOL) {
+                || _string.charAt(firstPrintChar_) == NEG_BOOL_CHAR || _string.charAt(firstPrintChar_) == NEG_BOOL || _string.charAt(firstPrintChar_) == '*') {
             prio = ElResolver.UNARY_PRIO;
             operators.addEntry(firstPrintChar_, Character.toString(_string.charAt(firstPrintChar_)));
             index = incrementUnary(_string, firstPrintChar_ + 1, lastPrintChar_, _offset, _d);
@@ -649,7 +649,7 @@ final class AfterUnaryParts {
                 if (ch_ != NEG_BOOL) {
                     if (ch_ != PLUS_CHAR) {
                         if (ch_ != NEG_BOOL_CHAR) {
-                            if (!StringUtil.isWhitespace(ch_)) {
+                            if (ch_ != '*' &&!StringUtil.isWhitespace(ch_)) {
                                 int sum_ = _offset + j_;
                                 int indexCast_ = _d.getDelCast().indexOfNb(sum_);
                                 if (indexCast_ > -1) {

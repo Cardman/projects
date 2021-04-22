@@ -15,6 +15,10 @@ public abstract class AbsRealNumberStruct extends NumberStruct {
     }
 
     @Override
+    public long randCode() {
+        return NumParsers.randCode(doubleStruct());
+    }
+    @Override
     public long longStruct() {
         return (long) doubleStruct();
     }

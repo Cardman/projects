@@ -3412,6 +3412,14 @@ public final class RenderTextTest extends CommonRender {
         StringMap<String> files_ = new StringMap<String>();
         assertEq("<html><body>3</body></html>", getRes2(folder_, relative_, html_, files_));
     }
+    @Test
+    public void process148Test() {
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String html_ = "<html><body><c:set className=\"$long\" value=\"v=*$null\"/>0</body></html>";
+        StringMap<String> files_ = new StringMap<String>();
+        assertEq("<html><body>0</body></html>", getRes2(folder_, relative_, html_, files_));
+    }
     private Struct getExOneBean(String _folder, String _relative, String _html, StringMap<String> _files, StringMap<String> _filesSec, String... _types) {
         return getCommExOneBean(_folder,_relative,_html,_files,_filesSec,_types);
     }

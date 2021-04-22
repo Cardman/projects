@@ -24,6 +24,10 @@ public final class NullStruct extends WithoutParentIdStruct implements Displayab
     public String getClassName(ContextEl _contextEl) {
         return "";
     }
+    @Override
+    public long randCode() {
+        return 0;
+    }
 
 
 }

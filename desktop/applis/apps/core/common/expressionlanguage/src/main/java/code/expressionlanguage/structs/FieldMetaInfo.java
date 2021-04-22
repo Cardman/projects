@@ -4,6 +4,7 @@ package code.expressionlanguage.structs;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.AccessEnum;
 import code.expressionlanguage.common.ClassField;
+import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.exec.MetaInfoUtil;
 import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
@@ -181,6 +182,12 @@ public final class FieldMetaInfo extends AbsAnnotatedStruct implements Annotated
         return StringUtil.quickEq(name, f_.name);
     }
 
+    @Override
+    public long randCode() {
+        long r_ = NumParsers.mergeRandCode(1,NumParsers.randCode(declaringClass));
+        r_ = NumParsers.mergeRandCode(r_,NumParsers.randCode(name));
+        return r_;
+    }
     @Override
     public StringStruct getDisplayedString(ContextEl _an) {
         return new StringStruct(StringUtil.concat(declaringClass,".",name));

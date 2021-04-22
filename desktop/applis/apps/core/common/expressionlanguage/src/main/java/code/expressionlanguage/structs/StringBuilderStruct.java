@@ -16,6 +16,10 @@ public final class StringBuilderStruct extends CharSequenceStruct {
     }
 
     @Override
+    public long randCode() {
+        return 1;
+    }
+    @Override
     public String getClassName(ContextEl _contextEl) {
         return _contextEl.getStandards().getContent().getCharSeq().getAliasStringBuilder();
     }

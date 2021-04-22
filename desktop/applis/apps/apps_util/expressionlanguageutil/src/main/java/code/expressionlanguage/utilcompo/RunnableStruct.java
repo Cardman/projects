@@ -4,6 +4,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.StringExpUtil;
+import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.exec.*;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
@@ -86,6 +87,10 @@ public final class RunnableStruct implements WithParentStruct, EnumerableStruct,
         return this == _other;
     }
 
+    @Override
+    public long randCode() {
+        return NumParsers.randCode(className);
+    }
     @Override
     public void run() {
         RunnableContextEl r_ = new RunnableContextEl(InitPhase.NOTHING, executionInfos);

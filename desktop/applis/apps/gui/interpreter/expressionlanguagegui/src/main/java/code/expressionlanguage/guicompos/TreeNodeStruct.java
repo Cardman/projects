@@ -186,4 +186,9 @@ public final class TreeNodeStruct extends WithoutParentStruct implements Struct 
         }
         return treeNode == ((TreeNodeStruct)_other).treeNode;
     }
+
+    @Override
+    public long randCode() {
+        return 1;
+    }
 }

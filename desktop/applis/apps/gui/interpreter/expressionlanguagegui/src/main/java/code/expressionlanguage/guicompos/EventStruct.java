@@ -13,6 +13,7 @@ import code.expressionlanguage.utilcompo.LgNamesWithNewAliases;
 import code.expressionlanguage.utilcompo.RunnableContextEl;
 import code.expressionlanguage.utilcompo.RunnableStruct;
 import code.expressionlanguage.structs.*;
+import code.expressionlanguage.common.NumParsers;
 import code.gui.ListSelection;
 import code.gui.SelectionInfo;
 import code.util.CustList;
@@ -91,6 +92,10 @@ public final class EventStruct implements WithParentStruct,EnumerableStruct,
     @Override
     public boolean sameReference(Struct _other) {
         return this == _other;
+    }
+    @Override
+    public long randCode() {
+        return NumParsers.randCode(className);
     }
 
     @Override

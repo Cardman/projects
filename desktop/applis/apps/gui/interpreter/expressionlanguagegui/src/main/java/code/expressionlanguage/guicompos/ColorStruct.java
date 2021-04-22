@@ -1,6 +1,7 @@
 package code.expressionlanguage.guicompos;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.structs.*;
 
 import java.awt.*;
@@ -40,6 +41,11 @@ public final class ColorStruct extends WithoutParentStruct implements Struct {
             return false;
         }
         return color.getRGB() == ((ColorStruct)_other).color.getRGB();
+    }
+
+    @Override
+    public long randCode() {
+        return NumParsers.randCode(color.getRGB());
     }
 
     public Color getColor() {

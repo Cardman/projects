@@ -10,6 +10,7 @@ import code.expressionlanguage.exec.InitPhase;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.structs.*;
 import code.expressionlanguage.utilcompo.RunnableFunctionalInstance;
+import code.expressionlanguage.common.NumParsers;
 import code.gui.ListSelection;
 import code.gui.SelectionInfo;
 import code.util.CustList;
@@ -40,6 +41,10 @@ public final class EventFunctionalInstance extends WithoutParentIdStruct impleme
         named = _named;
     }
 
+    @Override
+    public long randCode() {
+        return NumParsers.randCode(className);
+    }
     @Override
     public String getClassName(ContextEl _contextEl) {
         return className;

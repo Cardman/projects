@@ -3,6 +3,7 @@ package code.expressionlanguage.structs;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.stds.DisplayedStrings;
+import code.expressionlanguage.common.NumParsers;
 
 public final class BooleanStruct extends WithoutParentIdStruct implements DisplayableStruct,AnaDisplayableStruct {
 
@@ -73,6 +74,10 @@ public final class BooleanStruct extends WithoutParentIdStruct implements Displa
         return _other;
     }
 
+    @Override
+    public long randCode() {
+        return NumParsers.randCode(this);
+    }
     public static boolean isTrue(Struct _other) {
         return _other == TRUE;
     }

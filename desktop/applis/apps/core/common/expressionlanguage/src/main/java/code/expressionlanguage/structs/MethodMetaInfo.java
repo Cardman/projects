@@ -3,6 +3,7 @@ package code.expressionlanguage.structs;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.AccessEnum;
+import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.MetaInfoUtil;
 import code.expressionlanguage.exec.blocks.*;
@@ -526,6 +527,10 @@ public final class MethodMetaInfo extends AbsAnnotatedStruct implements Annotate
         return realId.eq(info_.realId);
     }
 
+    @Override
+    public long randCode() {
+        return NumParsers.randCode(className);
+    }
     @Override
     public StringStruct getDisplayedString(ContextEl _an) {
         return new StringStruct(StringUtil.concat(className,".", getSignature(_an)));

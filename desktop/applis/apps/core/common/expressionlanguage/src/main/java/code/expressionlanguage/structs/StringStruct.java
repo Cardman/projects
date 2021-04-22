@@ -21,6 +21,11 @@ public final class StringStruct extends CharSequenceStruct implements AnaDisplay
     }
 
     @Override
+    public long randCode() {
+        return NumParsers.randCode(instance);
+    }
+
+    @Override
     public String getClassName(ContextEl _contextEl) {
         return _contextEl.getStandards().getContent().getCharSeq().getAliasString();
     }

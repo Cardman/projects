@@ -1430,6 +1430,10 @@ public final class ForwardInfos {
             UnaryOperation m_ = (UnaryOperation) _anaNode;
             return new ExecUnaryOperation(new ExecOperationContent(m_.getContent()), m_.getOper());
         }
+        if (_anaNode instanceof RandCodeOperation) {
+            RandCodeOperation m_ = (RandCodeOperation) _anaNode;
+            return new ExecRandCodeOperation(new ExecOperationContent(m_.getContent()), m_.getOpOffset());
+        }
         if (_anaNode instanceof CastOperation) {
             CastOperation m_ = (CastOperation) _anaNode;
             return new ExecCastOperation(new ExecOperationContent(m_.getContent()), new ExecTypeCheckContent(m_.getTypeCheckContent()));

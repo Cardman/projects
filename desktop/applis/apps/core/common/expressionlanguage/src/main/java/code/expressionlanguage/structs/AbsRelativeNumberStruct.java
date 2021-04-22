@@ -15,6 +15,11 @@ public abstract class AbsRelativeNumberStruct extends NumberStruct {
     }
 
     @Override
+    public long randCode() {
+        return longStruct();
+    }
+
+    @Override
     public StringStruct getDisplayedString(ContextEl _an) {
         return new StringStruct(Long.toString(longStruct()));
     }

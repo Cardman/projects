@@ -2,6 +2,7 @@ package code.expressionlanguage.structs;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.common.NumParsers;
 
 public final class RangeStruct extends WithoutParentStruct implements DisplayableStruct,AnaDisplayableStruct {
     private final int lower;
@@ -69,6 +70,13 @@ public final class RangeStruct extends WithoutParentStruct implements Displayabl
                 && step == ((RangeStruct)_other).step;
     }
 
+    @Override
+    public long randCode() {
+        long r_ = NumParsers.mergeRandCode(1,NumParsers.randCode(lower));
+        r_ = NumParsers.mergeRandCode(r_,NumParsers.randCode(upper));
+        r_ = NumParsers.mergeRandCode(r_,NumParsers.randCode(step));
+        return r_;
+    }
     public boolean isUnlimited() {
         return getUpper() == -1;
     }

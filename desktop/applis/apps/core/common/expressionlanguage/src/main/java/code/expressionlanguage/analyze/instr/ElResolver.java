@@ -1562,6 +1562,10 @@ public final class ElResolver {
                     j_++;
                     continue;
                 }
+                if (curLoc_ == '*') {
+                    j_++;
+                    continue;
+                }
                 if (curLoc_ == NEG_BOOL) {
                     j_++;
                     continue;

@@ -1,6 +1,7 @@
 package code.expressionlanguage.structs;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.exec.ClassFieldStruct;
 import code.expressionlanguage.exec.annotation.ExportAnnotationUtil;
 import code.expressionlanguage.common.ClassField;
@@ -33,6 +34,10 @@ public final class AnnotationStruct extends WithoutParentStruct implements Field
         return StringUtil.quickEq(ExportAnnotationUtil.exportAnnotation(INFINITY, NAN, EXP,a_), ExportAnnotationUtil.exportAnnotation(INFINITY, NAN, EXP,this));
     }
 
+    @Override
+    public long randCode() {
+        return NumParsers.randCode(className);
+    }
     @Override
     public ClassFieldStruct getEntryStruct(ClassField _classField) {
         return ClassFieldStruct.getPair(fields,_classField);

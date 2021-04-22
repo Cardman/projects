@@ -3,6 +3,7 @@ package code.expressionlanguage.structs;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.blocks.ExecAbstractSwitchMethod;
 import code.expressionlanguage.exec.blocks.ExecAnonymousFunctionBlock;
@@ -470,6 +471,12 @@ public final class ClassMetaInfo extends AbsAnnotatedStruct implements Annotated
         return StringUtil.quickEq(name, info_.name);
     }
 
+    @Override
+    public long randCode() {
+        long r_ = NumParsers.mergeRandCode(1,NumParsers.randCode(variableOwner));
+        r_ = NumParsers.mergeRandCode(r_,NumParsers.randCode(name));
+        return r_;
+    }
 
     public StringStruct exportValue() {
         return getDisplayedString();

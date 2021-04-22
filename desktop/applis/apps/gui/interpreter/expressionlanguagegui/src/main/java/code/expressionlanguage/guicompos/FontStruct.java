@@ -1,6 +1,7 @@
 package code.expressionlanguage.guicompos;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.structs.*;
 import code.util.core.StringUtil;
 
@@ -94,5 +95,14 @@ public final class FontStruct extends WithoutParentStruct implements Struct {
             return false;
         }
         return StringUtil.quickEq(family,((FontStruct)_other).family);
+    }
+    @Override
+    public long randCode() {
+        long r_ = NumParsers.mergeRandCode(1,NumParsers.randCode(size));
+        r_ = NumParsers.mergeRandCode(r_,NumParsers.randCode(BooleanStruct.of(bold)));
+        r_ = NumParsers.mergeRandCode(r_,NumParsers.randCode(BooleanStruct.of(italic)));
+        r_ = NumParsers.mergeRandCode(r_,NumParsers.randCode(family));
+        return r_;
+
     }
 }

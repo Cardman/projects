@@ -12087,13 +12087,13 @@ public final class ErrorsTest extends ProcessMethodCommon {
     public void report628Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.MySub {\n");
-        xml_.append(" $double i=1e**;\n");
+        xml_.append(" $double i=1e*/;\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrReadOnly(files_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
-                " $double <a name=\"m36\">i</a><a title=\"The type java.lang.Number cannot be implicitly cast to $double\" class=\"e\">=</a><a title=\"Bad number 1e\" class=\"e\">1e</a><a title=\"The expression part is empty.\" class=\"e\">*</a><a title=\"The expression part is empty.\" class=\"e\">*</a>;\n" +
+                " $double <a name=\"m36\">i</a><a title=\"The type java.lang.Number cannot be implicitly cast to $double\" class=\"e\">=</a><a title=\"Bad number 1e\" class=\"e\">1e</a><a title=\"The expression part is empty.\" class=\"e\">*</a><a title=\"The expression part is empty.\" class=\"e\">/</a>;\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
     }

@@ -12,6 +12,7 @@ import code.util.core.SortConstants;
 import code.util.core.StringUtil;
 
 public final class NumParsers {
+    private static final long RATIO = 31L;
     private static final String LOWER_EQ = "<=";
     private static final String LOWER = "<";
     private static final String GREATER_EQ = ">=";
@@ -2126,5 +2127,66 @@ public final class NumParsers {
             map_ = new StringMap<Struct>();
         }
         return map_;
+    }
+    public static long randCode(Struct _boolean) {
+        if (BooleanStruct.isTrue(_boolean)) {
+            return 1;
+        }
+        return 0;
+    }
+    public static long randCode(double _number) {
+        if (Double.isInfinite(_number)) {
+            return Long.MAX_VALUE;
+        }
+        if (Double.isNaN(_number)) {
+            return Long.MIN_VALUE;
+        }
+        if (_number >= 1.0) {
+            long power_ = 0;
+            double nb_ = _number;
+            while (nb_ > 1.0) {
+                power_++;
+                nb_ /= 2.0;
+            }
+            return power_;
+        }
+        if (_number >= Double.MIN_VALUE) {
+            long power_ = 0;
+            double nb_ = _number;
+            while (nb_ < 1.0) {
+                power_++;
+                nb_ *= 2.0;
+            }
+            return -power_;
+        }
+        if (_number <= -1.0) {
+            long power_ = 0;
+            double nb_ = _number;
+            while (nb_ < -1.0) {
+                power_++;
+                nb_ /= 2.0;
+            }
+            return power_;
+        }
+        if (_number <= -Double.MIN_VALUE) {
+            long power_ = 0;
+            double nb_ = _number;
+            while (nb_ > -1.0) {
+                power_++;
+                nb_ *= 2.0;
+            }
+            return -power_;
+        }
+        return 0;
+    }
+    public static long randCode(String _string) {
+        long r_ = 0L;
+        for(char c: StringUtil.nullToEmpty(_string).toCharArray()) {
+            r_ = mergeRandCode(r_, c);
+        }
+        return r_;
+    }
+    public static long mergeRandCode(long _r, long _c) {
+        return RATIO * _r + _c;
     }
 }

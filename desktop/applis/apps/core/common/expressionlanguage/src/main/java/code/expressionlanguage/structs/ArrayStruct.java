@@ -2,6 +2,7 @@ package code.expressionlanguage.structs;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.common.NumParsers;
 import code.util.CollCapacity;
 import code.util.CustList;
 import code.util.core.StringUtil;
@@ -48,6 +49,10 @@ public final class ArrayStruct extends WithoutParentIdStruct implements Struct {
         return instance;
     }
 
+    @Override
+    public long randCode() {
+        return NumParsers.randCode(className);
+    }
     public CustList<Argument> listArgs() {
         CustList<Argument> args_ = new CustList<Argument>(new CollCapacity(instance.length));
         for (Struct a: instance) {

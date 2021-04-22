@@ -762,14 +762,6 @@ public final class RendForwardInfos {
             SemiAffectationOperation m_ = (SemiAffectationOperation) _anaNode;
             return new RendSemiAffectationOperation(new ExecOperationContent(m_.getContent()), new ExecStaticPostEltContent(m_.getFct().getFunction(), m_.getFct().getClassName(), m_.isPost()), new ExecOperatorContent(m_.getOperatorContent()), FetchMemberUtil.fetchFunctionOpPair(m_.getFct(), _forwards), FetchMemberUtil.fetchImplicits(m_.getConvFrom(), _forwards), FetchMemberUtil.fetchImplicits(m_.getConvTo(), _forwards));
         }
-        if (_anaNode instanceof UnaryBooleanOperation) {
-            UnaryBooleanOperation m_ = (UnaryBooleanOperation) _anaNode;
-            return new RendUnaryBooleanOperation(new ExecOperationContent(m_.getContent()));
-        }
-        if (_anaNode instanceof UnaryBinOperation) {
-            UnaryBinOperation m_ = (UnaryBinOperation) _anaNode;
-            return new RendUnaryBinOperation(new ExecOperationContent(m_.getContent()));
-        }
         if (_anaNode instanceof SymbolOperation) {
             SymbolOperation n_ = (SymbolOperation) _anaNode;
             if (!n_.isOkNum()) {
@@ -783,9 +775,21 @@ public final class RendForwardInfos {
                         new ExecOperationContent(_anaNode.getContent()), n_.getOpOffset(), new ExecStaticEltContent(pair_, fct_.getClassName()));
             }
         }
+        if (_anaNode instanceof UnaryBooleanOperation) {
+            UnaryBooleanOperation m_ = (UnaryBooleanOperation) _anaNode;
+            return new RendUnaryBooleanOperation(new ExecOperationContent(m_.getContent()));
+        }
+        if (_anaNode instanceof UnaryBinOperation) {
+            UnaryBinOperation m_ = (UnaryBinOperation) _anaNode;
+            return new RendUnaryBinOperation(new ExecOperationContent(m_.getContent()));
+        }
         if (_anaNode instanceof UnaryOperation) {
             UnaryOperation m_ = (UnaryOperation) _anaNode;
             return new RendUnaryOperation(new ExecOperationContent(m_.getContent()), m_.getOper());
+        }
+        if (_anaNode instanceof RandCodeOperation) {
+            RandCodeOperation m_ = (RandCodeOperation) _anaNode;
+            return new RendRandCodeOperation(new ExecOperationContent(m_.getContent()), m_.getOpOffset());
         }
         if (_anaNode instanceof CastOperation) {
             CastOperation m_ = (CastOperation) _anaNode;

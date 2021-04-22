@@ -9,4 +9,6 @@ public interface Struct {
     String getClassName(ContextEl _contextEl);
 
     boolean sameReference(Struct _other);
+
+    long randCode();
 }

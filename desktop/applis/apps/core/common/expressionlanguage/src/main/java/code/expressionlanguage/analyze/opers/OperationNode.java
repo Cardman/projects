@@ -378,6 +378,9 @@ public abstract class OperationNode {
             if (value_.startsWith(MINUS) || value_.startsWith(PLUS)) {
                 return new SemiAffectationOperation(_index, _indexChild, _m, _op, false);
             }
+            if (StringUtil.quickEq(value_, "*")) {
+                return new RandCodeOperation(_index, _indexChild, _m, _op);
+            }
             if (StringExpUtil.startsWithKeyWord(value_, _page.getKeyWords().getKeyWordExplicit())) {
                 return new ExplicitOperation(_index, _indexChild, _m, _op);
             }

@@ -10,6 +10,7 @@ import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.calls.util.AbstractReflectElement;
 import code.expressionlanguage.exec.opers.ExecInvokingOperation;
 import code.expressionlanguage.common.ClassField;
+import code.expressionlanguage.common.NumParsers;
 
 import code.expressionlanguage.structs.*;
 import code.util.CustList;
@@ -47,6 +48,11 @@ public final class RunnableFunctionalInstance extends WithoutParentIdStruct impl
     @Override
     public LambdaStruct getFunctional() {
         return functional;
+    }
+
+    @Override
+    public long randCode() {
+        return NumParsers.randCode(className);
     }
 
     @Override

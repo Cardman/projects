@@ -1,6 +1,7 @@
 package code.expressionlanguage.guicompos;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.structs.IntStruct;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.structs.WithoutParentStruct;
@@ -50,5 +51,11 @@ public final class DimensionStruct extends WithoutParentStruct implements Struct
             return false;
         }
         return dimension.height == other_.dimension.height;
+    }
+    @Override
+    public long randCode() {
+        long r_ = NumParsers.mergeRandCode(1,NumParsers.randCode(dimension.width));
+        r_ = NumParsers.mergeRandCode(r_,NumParsers.randCode(dimension.height));
+        return r_;
     }
 }

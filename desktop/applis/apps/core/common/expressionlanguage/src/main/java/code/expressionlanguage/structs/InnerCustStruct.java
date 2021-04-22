@@ -44,6 +44,10 @@ public final class InnerCustStruct implements WithParentStruct {
     }
 
     @Override
+    public long randCode() {
+        return 1;
+    }
+    @Override
     public ClassFieldStruct getEntryStruct(ClassField _classField) {
         return ClassFieldStruct.getPair(fields,_classField);
     }
