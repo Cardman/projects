@@ -50,6 +50,7 @@ public final class CompoundAffectationOperation extends MethodOperation {
     @Override
     public void analyze(AnalyzedPageEl _page) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
+        OperationNode left_ = chidren_.first();
         OperationNode right_ = chidren_.last();
         SettableElResult elt_ = AffectationOperation.tryGetSettable(this);
         if (!isLeftValue(elt_)) {
@@ -98,8 +99,8 @@ public final class CompoundAffectationOperation extends MethodOperation {
                 op_ = "||";
             }
         }
-        AnaClassArgumentMatching clMatchLeft_ = elt_.getResultClass();
-        OperatorConverter cl_ = getBinaryOperatorOrMethod(this,(OperationNode) elt_,right_, op_, _page);
+        AnaClassArgumentMatching clMatchLeft_ = left_.getResultClass();
+        OperatorConverter cl_ = getBinaryOperatorOrMethod(this,(OperationNode) left_,right_, op_, _page);
         if (cl_ != null) {
             ClassMethodId test_ = cl_.getTest();
             if (test_ != null) {
@@ -109,9 +110,9 @@ public final class CompoundAffectationOperation extends MethodOperation {
             fct.infos(cl_,_page);
             Mapping map_ = new Mapping();
             map_.setArg(getResultClass());
-            map_.setParam(elt_.getResultClass());
+            map_.setParam(left_.getResultClass());
             if (!AnaInherits.isCorrectOrNumbers(map_, _page)) {
-                ClassMethodIdReturn res_ = tryGetDeclaredImplicitCast(elt_.getResultClass().getSingleNameOrEmpty(), getResultClass(), _page);
+                ClassMethodIdReturn res_ = tryGetDeclaredImplicitCast(left_.getResultClass().getSingleNameOrEmpty(), getResultClass(), _page);
                 if (res_.isFoundMethod()) {
                     conv.infos(res_);
                 } else {
@@ -121,7 +122,7 @@ public final class CompoundAffectationOperation extends MethodOperation {
                     //oper len
                     cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
                             StringUtil.join(getResultClass().getNames(),ExportCst.JOIN_TYPES),
-                            StringUtil.join(elt_.getResultClass().getNames(),ExportCst.JOIN_TYPES));
+                            StringUtil.join(left_.getResultClass().getNames(),ExportCst.JOIN_TYPES));
                     _page.getLocalizer().addError(cast_);
                     addErr(cast_.getBuiltError());
                 }
@@ -189,7 +190,7 @@ public final class CompoundAffectationOperation extends MethodOperation {
                 getPartOffsetsChildren().add(err_);
                 return;
             }
-            elt_.getResultClass().setUnwrapObject(unwrapped_, _page.getPrimitiveTypes());
+            left_.getResultClass().setUnwrapObject(unwrapped_, _page.getPrimitiveTypes());
             right_.getResultClass().setUnwrapObject(unwrapped_, _page.getPrimitiveTypes());
             return;
         }
@@ -218,7 +219,7 @@ public final class CompoundAffectationOperation extends MethodOperation {
                 return;
             }
             AnaClassArgumentMatching unwrapped_ = AnaTypeUtil.toPrimitive(clMatchLeft_, _page);
-            elt_.getResultClass().setUnwrapObject(unwrapped_, _page.getPrimitiveTypes());
+            left_.getResultClass().setUnwrapObject(unwrapped_, _page.getPrimitiveTypes());
             right_.getResultClass().setUnwrapObject(unwrapped_, _page.getPrimitiveTypes());
             setBool(right_,_page);
             return;
@@ -241,7 +242,7 @@ public final class CompoundAffectationOperation extends MethodOperation {
                 return;
             }
             AnaClassArgumentMatching unwrapped_ = AnaTypeUtil.toPrimitive(clMatchLeft_, _page);
-            elt_.getResultClass().setUnwrapObject(unwrapped_, _page.getPrimitiveTypes());
+            left_.getResultClass().setUnwrapObject(unwrapped_, _page.getPrimitiveTypes());
             right_.getResultClass().setUnwrapObject(unwrapped_, _page.getPrimitiveTypes());
             setBool(right_,_page);
             return;
@@ -290,7 +291,7 @@ public final class CompoundAffectationOperation extends MethodOperation {
             getPartOffsetsChildren().add(err_);
         } else {
             AnaClassArgumentMatching unwrapped_ = AnaTypeUtil.toPrimitive(clMatchLeft_, _page);
-            elt_.getResultClass().setUnwrapObject(unwrapped_, _page.getPrimitiveTypes());
+            left_.getResultClass().setUnwrapObject(unwrapped_, _page.getPrimitiveTypes());
             right_.getResultClass().setUnwrapObject(unwrapped_, _page.getPrimitiveTypes());
         }
     }
