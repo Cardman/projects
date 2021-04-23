@@ -728,118 +728,80 @@ public final class ExecTemplates {
     }
 
     public static Struct getElement(Struct _struct, Struct _index, ContextEl _conf, StackCall _stackCall) {
-        Struct elt_ = gearErrorWhenIndex(_struct, _index, _conf, _stackCall);
-        _stackCall.getInitializingTypeInfos().addSensibleField(_struct, elt_);
-        return elt_;
-    }
-
-    public static Struct getRange(Struct _struct, Struct _index, ContextEl _conf, StackCall _stackCall) {
-        Struct elt_ = gearErrorWhenRange(_struct, _index, _conf, _stackCall);
-        if (elt_ instanceof ArrayStruct) {
-            for (Struct s:((ArrayStruct)elt_).list()){
-                _stackCall.getInitializingTypeInfos().addSensibleField(_struct, s);
-            }
-        }
-        return elt_;
-    }
-    public static void setElement(Struct _struct, Struct _index, Struct _value, ContextEl _conf, StackCall _stackCall) {
-        gearErrorWhenContain(_struct, _index, _value, _conf, _stackCall);
-    }
-
-    private static void gearErrorWhenContain(Struct _array, Struct _index, Struct _value, ContextEl _context, StackCall _stackCall) {
-        LgNames stds_ = _context.getStandards();
-        if (_array == NullStruct.NULL_VALUE) {
+        LgNames stds_ = _conf.getStandards();
+        if (_struct == NullStruct.NULL_VALUE) {
             String npe_ = stds_.getContent().getCoreNames().getAliasNullPe();
-            _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_context, npe_, _stackCall)));
-            return;
+            _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_conf, npe_, _stackCall)));
+            return NullStruct.NULL_VALUE;
         }
-        if (!(_array instanceof ArrayStruct)) {
+        if (!(_struct instanceof ArrayStruct)) {
             String cast_ = stds_.getContent().getCoreNames().getAliasCastType();
-            String type_ = Argument.getNull(_array).getClassName(_context);
-            _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_context, type_, cast_, _stackCall)));
-            return;
+            String type_ = Argument.getNull(_struct).getClassName(_conf);
+            _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_conf, type_, cast_, _stackCall)));
+            return NullStruct.NULL_VALUE;
         }
         if (_index == NullStruct.NULL_VALUE) {
             String npe_ = stds_.getContent().getCoreNames().getAliasNullPe();
-            _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_context, npe_, _stackCall)));
-            return;
+            _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_conf, npe_, _stackCall)));
+            return NullStruct.NULL_VALUE;
         }
         if (!(_index instanceof NumberStruct)) {
             String cast_ = stds_.getContent().getCoreNames().getAliasCastType();
-            String type_ = _array.getClassName(_context);
-            _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_context, type_, cast_, _stackCall)));
-            return;
+            String type_ = _struct.getClassName(_conf);
+            _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_conf, type_, cast_, _stackCall)));
+            return NullStruct.NULL_VALUE;
         }
-        ArrayStruct arr_ = (ArrayStruct) _array;
+        ArrayStruct arr_ = (ArrayStruct) _struct;
         int index_ = NumParsers.convertToNumber(_index).intStruct();
         if (index_ < 0 || index_ >= arr_.getLength()) {
             String cast_ = stds_.getContent().getCoreNames().getAliasBadIndex();
             StringBuilder mess_ = getIndexMessage(_index, arr_);
-            _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_context, mess_.toString(), cast_, _stackCall)));
-            return;
-        }
-        ErrorType errorType_ = safeObjectArr(_value, _context, arr_);
-        if (errorType_ == ErrorType.NPE) {
-            String npe_ = stds_.getContent().getCoreNames().getAliasNullPe();
-            _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_context, npe_, _stackCall)));
-            return;
-        }
-        if (errorType_ != ErrorType.NOTHING) {
-            String cast_ = stds_.getContent().getCoreNames().getAliasStore();
-            StringBuilder mess_ = buildStoreError(_value, _context, arr_);
-            _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_context, mess_.toString(), cast_, _stackCall)));
-            return;
-        }
-        if (_stackCall.getInitializingTypeInfos().isContainedSensibleFields(arr_)) {
-            _stackCall.getInitializingTypeInfos().failInitEnums();
-            return;
-        }
-        arr_.set(index_, _value);
-    }
-
-    private static ErrorType safeObjectArr(Struct _value, ContextEl _context, ArrayStruct _arr) {
-        String arrType_ = _arr.getClassName();
-        String param_ = StringUtil.nullToEmpty(StringExpUtil.getQuickComponentType(arrType_));
-        return ExecInherits.safeObject(param_,_value,_context);
-    }
-    private static Struct gearErrorWhenRange(Struct _array, Struct _index, ContextEl _context, StackCall _stackCall) {
-        LgNames stds_ = _context.getStandards();
-        if (_array == NullStruct.NULL_VALUE) {
-            String npe_ = stds_.getContent().getCoreNames().getAliasNullPe();
-            _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_context, npe_, _stackCall)));
+            _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_conf, mess_.toString(), cast_, _stackCall)));
             return NullStruct.NULL_VALUE;
         }
-        if (!(_array instanceof ArrayStruct)) {
+        Struct elt_ = arr_.get(index_);
+        _stackCall.getInitializingTypeInfos().addSensibleField(arr_, elt_);
+        return elt_;
+    }
+
+    public static Struct getRange(Struct _struct, Struct _index, ContextEl _conf, StackCall _stackCall) {
+        LgNames stds_ = _conf.getStandards();
+        if (_struct == NullStruct.NULL_VALUE) {
+            String npe_ = stds_.getContent().getCoreNames().getAliasNullPe();
+            _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_conf, npe_, _stackCall)));
+            return NullStruct.NULL_VALUE;
+        }
+        if (!(_struct instanceof ArrayStruct)) {
             String cast_ = stds_.getContent().getCoreNames().getAliasCastType();
-            String type_ = Argument.getNull(_array).getClassName(_context);
-            _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_context, type_, cast_, _stackCall)));
+            String type_ = Argument.getNull(_struct).getClassName(_conf);
+            _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_conf, type_, cast_, _stackCall)));
             return NullStruct.NULL_VALUE;
         }
         if (_index == NullStruct.NULL_VALUE) {
             String npe_ = stds_.getContent().getCoreNames().getAliasNullPe();
-            _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_context, npe_, _stackCall)));
+            _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_conf, npe_, _stackCall)));
             return NullStruct.NULL_VALUE;
         }
         if (!(_index instanceof RangeStruct)) {
             String cast_ = stds_.getContent().getCoreNames().getAliasCastType();
-            String type_ = _array.getClassName(_context);
-            _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_context, type_, cast_, _stackCall)));
+            String type_ = _struct.getClassName(_conf);
+            _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_conf, type_, cast_, _stackCall)));
             return NullStruct.NULL_VALUE;
         }
         RangeStruct ind_ = (RangeStruct) _index;
-        ArrayStruct arr_ = (ArrayStruct) _array;
+        ArrayStruct arr_ = (ArrayStruct) _struct;
         if (ind_.isUnlimited()) {
             if (ind_.getLower() > arr_.getLength()) {
                 String cast_ = stds_.getContent().getCoreNames().getAliasBadIndex();
                 StringBuilder mess_ = getIndexMessage(_index, arr_);
-                _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_context, mess_.toString(), cast_, _stackCall)));
+                _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_conf, mess_.toString(), cast_, _stackCall)));
                 return NullStruct.NULL_VALUE;
             }
         } else {
             if (ind_.getUpper() > arr_.getLength()) {
                 String cast_ = stds_.getContent().getCoreNames().getAliasBadIndex();
                 StringBuilder mess_ = getIndexMessage(_index, arr_);
-                _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_context, mess_.toString(), cast_, _stackCall)));
+                _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_conf, mess_.toString(), cast_, _stackCall)));
                 return NullStruct.NULL_VALUE;
             }
         }
@@ -862,6 +824,7 @@ public final class ExecTemplates {
                 sub_.set(insert_, arr_.get(i));
                 insert_++;
             }
+            addSensible(arr_, _stackCall,sub_);
             return sub_;
         }
         int count_ = 0;
@@ -874,42 +837,71 @@ public final class ExecTemplates {
             sub_.set(insert_, arr_.get(i));
             insert_++;
         }
+        addSensible(arr_, _stackCall,sub_);
         return sub_;
     }
 
-    private static Struct gearErrorWhenIndex(Struct _array, Struct _index, ContextEl _context, StackCall _stackCall) {
-        LgNames stds_ = _context.getStandards();
-        if (_array == NullStruct.NULL_VALUE) {
-            String npe_ = stds_.getContent().getCoreNames().getAliasNullPe();
-            _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_context, npe_, _stackCall)));
-            return NullStruct.NULL_VALUE;
+    private static void addSensible(Struct _struct, StackCall _stackCall, ArrayStruct _elt) {
+        for (Struct s: _elt.list()){
+            _stackCall.getInitializingTypeInfos().addSensibleField(_struct, s);
         }
-        if (!(_array instanceof ArrayStruct)) {
+    }
+
+    public static void setElement(Struct _struct, Struct _index, Struct _value, ContextEl _conf, StackCall _stackCall) {
+        LgNames stds_ = _conf.getStandards();
+        if (_struct == NullStruct.NULL_VALUE) {
+            String npe_ = stds_.getContent().getCoreNames().getAliasNullPe();
+            _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_conf, npe_, _stackCall)));
+            return;
+        }
+        if (!(_struct instanceof ArrayStruct)) {
             String cast_ = stds_.getContent().getCoreNames().getAliasCastType();
-            String type_ = Argument.getNull(_array).getClassName(_context);
-            _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_context, type_, cast_, _stackCall)));
-            return NullStruct.NULL_VALUE;
+            String type_ = Argument.getNull(_struct).getClassName(_conf);
+            _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_conf, type_, cast_, _stackCall)));
+            return;
         }
         if (_index == NullStruct.NULL_VALUE) {
             String npe_ = stds_.getContent().getCoreNames().getAliasNullPe();
-            _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_context, npe_, _stackCall)));
-            return NullStruct.NULL_VALUE;
+            _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_conf, npe_, _stackCall)));
+            return;
         }
         if (!(_index instanceof NumberStruct)) {
             String cast_ = stds_.getContent().getCoreNames().getAliasCastType();
-            String type_ = _array.getClassName(_context);
-            _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_context, type_, cast_, _stackCall)));
-            return NullStruct.NULL_VALUE;
+            String type_ = _struct.getClassName(_conf);
+            _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_conf, type_, cast_, _stackCall)));
+            return;
         }
-        ArrayStruct arr_ = (ArrayStruct) _array;
+        ArrayStruct arr_ = (ArrayStruct) _struct;
         int index_ = NumParsers.convertToNumber(_index).intStruct();
         if (index_ < 0 || index_ >= arr_.getLength()) {
             String cast_ = stds_.getContent().getCoreNames().getAliasBadIndex();
             StringBuilder mess_ = getIndexMessage(_index, arr_);
-            _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_context, mess_.toString(), cast_, _stackCall)));
-            return NullStruct.NULL_VALUE;
+            _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_conf, mess_.toString(), cast_, _stackCall)));
+            return;
         }
-        return arr_.get(index_);
+        ErrorType errorType_ = safeObjectArr(_value, _conf, arr_);
+        if (errorType_ == ErrorType.NPE) {
+            String npe_ = stds_.getContent().getCoreNames().getAliasNullPe();
+            _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_conf, npe_, _stackCall)));
+            return;
+        }
+        if (errorType_ != ErrorType.NOTHING) {
+            String cast_ = stds_.getContent().getCoreNames().getAliasStore();
+            StringBuilder mess_ = buildStoreError(_value, _conf, arr_);
+            _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_conf, mess_.toString(), cast_, _stackCall)));
+            return;
+        }
+        if (_stackCall.getInitializingTypeInfos().isContainedSensibleFields(arr_)) {
+            _stackCall.getInitializingTypeInfos().failInitEnums();
+            return;
+        }
+        arr_.set(index_, _value);
+    }
+
+    private static ErrorType safeObjectArr(Struct _value, ContextEl _context, ArrayStruct _arr) {
+        String arrType_ = _arr.getClassName();
+        String param_ = StringUtil.nullToEmpty(StringExpUtil.getQuickComponentType(arrType_));
+        return ExecInherits.safeObject(param_,_value,_context);
     }
 
     private static StringBuilder buildStoreError(Struct _value, ContextEl _context, ArrayStruct _arr) {
