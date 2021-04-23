@@ -756,16 +756,7 @@ public final class LinkageUtil {
     }
     private static void processForMutableIterativeLoopReport(VariablesOffsets _vars, ForMutableIterativeLoop _cond, CustList<PartOffset> _parts, Coverage _cov) {
         OperationNode rootExp_ = _cond.getRootExp();
-        if (_vars.getLastStackElt().noVisited()) {
-            if (rootExp_ != null) {
-                AbstractCoverageResult result_ = _cov.getCoversConditionsForMutable(_cond);
-                String tag_ = headCoverage(result_);
-                int off_ = _cond.getOffset();
-                _parts.add(new PartOffset(tag_, off_));
-                _parts.add(new PartOffset(ExportCst.END_SPAN, off_ + _vars.getKeyWords().getKeyWordFor().length()));
-            }
-            appendVars(_vars,_cond, _parts);
-        }
+        headForMutableReport(_vars, _cond, _parts, _cov, rootExp_);
         OperationNode rootInit_ = _cond.getRootInit();
         if (_vars.getLastStackElt().getIndexLoop() == 0) {
             if (rootInit_ != null) {
@@ -805,10 +796,22 @@ public final class LinkageUtil {
         refLabel(_vars, _parts, _cond.getLabel(), _cond.getLabelOffset());
         processTestCondition(_vars,_cond, _parts);
     }
-    private static void processForMutableIterativeLoopError(VariablesOffsets _vars, ForMutableIterativeLoop _cond, CustList<PartOffset> _parts) {
+
+    private static void headForMutableReport(VariablesOffsets _vars, ForMutableIterativeLoop _cond, CustList<PartOffset> _parts, Coverage _cov, OperationNode _rootExp) {
         if (_vars.getLastStackElt().noVisited()) {
-            appendVars(_vars,_cond, _parts);
+            if (_rootExp != null) {
+                AbstractCoverageResult result_ = _cov.getCoversConditionsForMutable(_cond);
+                String tag_ = headCoverage(result_);
+                int off_ = _cond.getOffset();
+                _parts.add(new PartOffset(tag_, off_));
+                _parts.add(new PartOffset(ExportCst.END_SPAN, off_ + _vars.getKeyWords().getKeyWordFor().length()));
+            }
+            appendVars(_vars, _cond, _parts);
         }
+    }
+
+    private static void processForMutableIterativeLoopError(VariablesOffsets _vars, ForMutableIterativeLoop _cond, CustList<PartOffset> _parts) {
+        headForMutableError(_vars, _cond, _parts);
         if (_vars.getLastStackElt().getIndexLoop() == 0) {
             OperationNode rootInit_ = _cond.getRootInit();
             if (rootInit_ != null) {
@@ -842,6 +845,12 @@ public final class LinkageUtil {
         _vars.getLastStackElt().setIndexLoop(0);
         refLabelError(_vars, _cond,_parts, _cond.getLabel(), _cond.getLabelOffset());
         processTestCondition(_vars,_cond, _parts);
+    }
+
+    private static void headForMutableError(VariablesOffsets _vars, ForMutableIterativeLoop _cond, CustList<PartOffset> _parts) {
+        if (_vars.getLastStackElt().noVisited()) {
+            appendVars(_vars, _cond, _parts);
+        }
     }
 
     private static void processTestCondition(VariablesOffsets _vars, ForMutableIterativeLoop _cond, CustList<PartOffset> _parts) {
@@ -1654,26 +1663,30 @@ public final class LinkageUtil {
             refParams(_vars,_cond, _parts, _cov);
             return;
         }
-        if (k_ == -1) {
+        processNamedOverridableBlockReport(_vars, _cond, _parts, _cov, k_, begName_);
+    }
+
+    private static void processNamedOverridableBlockReport(VariablesOffsets _vars, NamedFunctionBlock _cond, CustList<PartOffset> _parts, Coverage _cov, int _k, int _begName) {
+        if (_k == -1) {
             _parts.addAllElts(_cond.getPartOffsetsReturn());
         }
         NamedCalledFunctionBlock m_ = (NamedCalledFunctionBlock) _cond;
         if (m_.getKind() == MethodKind.GET_INDEX) {
-            if (k_ == -1) {
-                addNameParts(_cond, _parts, begName_, _vars.getKeyWords().getKeyWordThis().length());
+            if (_k == -1) {
+                addNameParts(_cond, _parts, _begName, _vars.getKeyWords().getKeyWordThis().length());
             }
             refParams(_vars,_cond, _parts, _cov);
             return;
         }
         if (m_.getKind() == MethodKind.SET_INDEX) {
-            if (k_ == -1) {
-                addNameParts(_cond, _parts, begName_, _vars.getKeyWords().getKeyWordThis().length());
+            if (_k == -1) {
+                addNameParts(_cond, _parts, _begName, _vars.getKeyWords().getKeyWordThis().length());
             }
             refParams(_vars,_cond, _parts, _cov);
             return;
         }
-        if (k_ == -1) {
-            addNameParts(_cond, _parts, begName_, _cond.getName().length());
+        if (_k == -1) {
+            addNameParts(_cond, _parts, _begName, _cond.getName().length());
         }
         refParams(_vars,_cond, _parts, _cov);
         if (_vars.goesToProcess()) {
@@ -1739,26 +1752,30 @@ public final class LinkageUtil {
             refParamsError(_vars,_cond, _parts);
             return;
         }
-        if (k_ == -1) {
+        processNamedOverridableBlockError(_vars, _cond, _parts, k_, begName_);
+    }
+
+    private static void processNamedOverridableBlockError(VariablesOffsets _vars, NamedFunctionBlock _cond, CustList<PartOffset> _parts, int _k, int _begName) {
+        if (_k == -1) {
             _parts.addAllElts(_cond.getPartOffsetsReturn());
         }
         NamedCalledFunctionBlock m_ = (NamedCalledFunctionBlock) _cond;
         if (m_.getKind() == MethodKind.GET_INDEX) {
-            if (k_ == -1) {
-                addNameParts(_cond, _parts, begName_, _vars.getKeyWords().getKeyWordThis().length());
+            if (_k == -1) {
+                addNameParts(_cond, _parts, _begName, _vars.getKeyWords().getKeyWordThis().length());
             }
             refParamsError(_vars,_cond, _parts);
             return;
         }
         if (m_.getKind() == MethodKind.SET_INDEX) {
-            if (k_ == -1) {
-                addNameParts(_cond, _parts, begName_, _vars.getKeyWords().getKeyWordThis().length());
+            if (_k == -1) {
+                addNameParts(_cond, _parts, _begName, _vars.getKeyWords().getKeyWordThis().length());
             }
             refParamsError(_vars,_cond, _parts);
             return;
         }
-        if (k_ == -1) {
-            addNameParts(_cond, _parts, begName_, _cond.getName().length());
+        if (_k == -1) {
+            addNameParts(_cond, _parts, _begName, _cond.getName().length());
         }
         refParamsError(_vars,_cond, _parts);
         if (_vars.goesToProcess()) {
@@ -2323,11 +2340,9 @@ public final class LinkageUtil {
 
     private static void processConditionError(ConditionBlock _cond, VariablesOffsets _vars, CustList<PartOffset> _parts) {
         int off_ =  _cond.getConditionOffset();
-        if (_vars.getLastStackElt().noVisited()) {
-            if (!_cond.getErr().isEmpty()) {
-                _parts.add(new PartOffset(ExportCst.anchorErr(_cond.getErr()), off_));
-                _parts.add(new PartOffset(ExportCst.END_ANCHOR, off_ + 1));
-            }
+        if (_vars.getLastStackElt().noVisited() && !_cond.getErr().isEmpty()) {
+            _parts.add(new PartOffset(ExportCst.anchorErr(_cond.getErr()), off_));
+            _parts.add(new PartOffset(ExportCst.END_ANCHOR, off_ + 1));
         }
         OperationNode root_ = _cond.getRoot();
         buildNormErr(_vars, _cond, _parts, -1, root_, off_, 0);
@@ -2359,8 +2374,8 @@ public final class LinkageUtil {
         OperationNode val_ = current_;
         while (true) {
             if (!_vars.getVisited().containsObj(val_)) {
-                AbstractCoverageResult result_ = getCovers(_in, val_, _cov);
                 if (!_vars.getVisitedAnnotations().containsObj(val_)) {
+                    AbstractCoverageResult result_ = getCovers(_in, val_, _cov);
                     getBeginOpReport(_in, _parts, _root, val_, addCover_, result_, _cov);
                     leftReport(_in, _vars, val_, _cov,result_, _parts, currentFileName_);
                 }
