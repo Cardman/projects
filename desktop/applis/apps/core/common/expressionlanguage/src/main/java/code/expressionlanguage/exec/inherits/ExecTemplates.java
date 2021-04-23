@@ -724,7 +724,7 @@ public final class ExecTemplates {
         return new ErrorStruct(_conf,mess_.toString(),cast_, _stackCall);
     }
     public static ErrorType safeObject(String _param, Struct _arg, ContextEl _context) {
-        return ExecInherits.safeObject(ErrorType.CAST,_param,_arg,_context);
+        return ExecInherits.safeObject(_param,_arg,_context);
     }
 
     public static Struct getElement(Struct _struct, Struct _index, ContextEl _conf, StackCall _stackCall) {
@@ -742,203 +742,176 @@ public final class ExecTemplates {
         }
         return elt_;
     }
-    public static ErrorType setElement(Struct _struct, Struct _index, Struct _value, ContextEl _conf, StackCall _stackCall) {
-        return gearErrorWhenContain(_struct, _index, _value, _conf, _stackCall);
+    public static void setElement(Struct _struct, Struct _index, Struct _value, ContextEl _conf, StackCall _stackCall) {
+        gearErrorWhenContain(_struct, _index, _value, _conf, _stackCall);
     }
 
-    private static ErrorType gearErrorWhenContain(Struct _array, Struct _index, Struct _value, ContextEl _context, StackCall _stackCall) {
-        ErrorType err_ = getErrorWhenContain(_array, _index, _value, _context);
+    private static void gearErrorWhenContain(Struct _array, Struct _index, Struct _value, ContextEl _context, StackCall _stackCall) {
         LgNames stds_ = _context.getStandards();
-        if (err_ == ErrorType.NOTHING) {
-            ArrayStruct arr_ = (ArrayStruct) _array;
-            if (_stackCall.getInitializingTypeInfos().isContainedSensibleFields(arr_)) {
-                _stackCall.getInitializingTypeInfos().failInitEnums();
-                return err_;
-            }
-            int index_ = NumParsers.convertToNumber(_index).intStruct();
-            arr_.set(index_, _value);
-            return err_;
-        }
-        if (err_ == ErrorType.NPE) {
+        if (_array == NullStruct.NULL_VALUE) {
             String npe_ = stds_.getContent().getCoreNames().getAliasNullPe();
             _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_context, npe_, _stackCall)));
-            return err_;
+            return;
         }
-        if (err_ == ErrorType.BAD_INDEX) {
-            String cast_ = stds_.getContent().getCoreNames().getAliasBadIndex();
-            ArrayStruct arr_ = (ArrayStruct) _array;
-            StringBuilder mess_ = getIndexMessage(_index, arr_);
-            _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_context, mess_.toString(), cast_, _stackCall)));
-            return err_;
+        if (!(_array instanceof ArrayStruct)) {
+            String cast_ = stds_.getContent().getCoreNames().getAliasCastType();
+            String type_ = Argument.getNull(_array).getClassName(_context);
+            _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_context, type_, cast_, _stackCall)));
+            return;
         }
-        if (err_ == ErrorType.CAST) {
+        if (_index == NullStruct.NULL_VALUE) {
+            String npe_ = stds_.getContent().getCoreNames().getAliasNullPe();
+            _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_context, npe_, _stackCall)));
+            return;
+        }
+        if (!(_index instanceof NumberStruct)) {
             String cast_ = stds_.getContent().getCoreNames().getAliasCastType();
             String type_ = _array.getClassName(_context);
             _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_context, type_, cast_, _stackCall)));
-            return err_;
-        }
-        String cast_ = stds_.getContent().getCoreNames().getAliasStore();
-        ArrayStruct arr_ = (ArrayStruct) _array;
-        StringBuilder mess_ = buildStoreError(_value, _context, arr_);
-        _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_context, mess_.toString(), cast_, _stackCall)));
-        return err_;
-    }
-
-    private static ErrorType getErrorWhenContain(Struct _array, Struct _index, Struct _value, ContextEl _context) {
-        if (_array == NullStruct.NULL_VALUE) {
-            return ErrorType.NPE;
-        }
-        if (!(_array instanceof ArrayStruct)) {
-            return ErrorType.CAST;
-        }
-        if (_index == NullStruct.NULL_VALUE) {
-            return ErrorType.NPE;
-        }
-        if (!(_index instanceof NumberStruct)) {
-            return ErrorType.CAST;
+            return;
         }
         ArrayStruct arr_ = (ArrayStruct) _array;
         int index_ = NumParsers.convertToNumber(_index).intStruct();
         if (index_ < 0 || index_ >= arr_.getLength()) {
-            return ErrorType.BAD_INDEX;
+            String cast_ = stds_.getContent().getCoreNames().getAliasBadIndex();
+            StringBuilder mess_ = getIndexMessage(_index, arr_);
+            _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_context, mess_.toString(), cast_, _stackCall)));
+            return;
         }
-        return safeObjectArr(_value, _context, arr_);
+        ErrorType errorType_ = safeObjectArr(_value, _context, arr_);
+        if (errorType_ == ErrorType.NPE) {
+            String npe_ = stds_.getContent().getCoreNames().getAliasNullPe();
+            _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_context, npe_, _stackCall)));
+            return;
+        }
+        if (errorType_ != ErrorType.NOTHING) {
+            String cast_ = stds_.getContent().getCoreNames().getAliasStore();
+            StringBuilder mess_ = buildStoreError(_value, _context, arr_);
+            _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_context, mess_.toString(), cast_, _stackCall)));
+            return;
+        }
+        if (_stackCall.getInitializingTypeInfos().isContainedSensibleFields(arr_)) {
+            _stackCall.getInitializingTypeInfos().failInitEnums();
+            return;
+        }
+        arr_.set(index_, _value);
     }
 
     private static ErrorType safeObjectArr(Struct _value, ContextEl _context, ArrayStruct _arr) {
         String arrType_ = _arr.getClassName();
         String param_ = StringUtil.nullToEmpty(StringExpUtil.getQuickComponentType(arrType_));
-        return ExecInherits.safeObject(ErrorType.STORE,param_,_value,_context);
+        return ExecInherits.safeObject(param_,_value,_context);
     }
     private static Struct gearErrorWhenRange(Struct _array, Struct _index, ContextEl _context, StackCall _stackCall) {
-        ErrorType err_ = getErrorWhenRange(_array, _index);
         LgNames stds_ = _context.getStandards();
-        if (err_ == ErrorType.NOTHING) {
-            RangeStruct ind_ = (RangeStruct) _index;
-            ArrayStruct arr_ = (ArrayStruct) _array;
-            int lower_ = ind_.getLower();
-            int step_ = ind_.getStep();
-            int upper_;
-            if (ind_.isUnlimited()) {
-                upper_ = arr_.getLength();
-            } else {
-                upper_ = ind_.getUpper();
-            }
-            if (step_ < 0){
-                int count_ = 0;
-                for (int i = upper_-1; i >= lower_; i+=step_) {
-                    count_++;
-                }
-                ArrayStruct sub_ = new ArrayStruct(count_,arr_.getClassName());
-                int insert_ = 0;
-                for (int i = upper_-1; i >= lower_; i+=step_) {
-                    sub_.set(insert_, arr_.get(i));
-                    insert_++;
-                }
-                return sub_;
-            }
-            int count_ = 0;
-            for (int i = lower_; i < upper_; i+=step_) {
-                count_++;
-            }
-            ArrayStruct sub_ = new ArrayStruct(count_,arr_.getClassName());
-            int insert_ = 0;
-            for (int i = lower_; i < upper_; i+=step_) {
-                sub_.set(insert_, arr_.get(i));
-                insert_++;
-            }
-            return sub_;
-        }
-        if (err_ == ErrorType.NPE) {
+        if (_array == NullStruct.NULL_VALUE) {
             String npe_ = stds_.getContent().getCoreNames().getAliasNullPe();
             _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_context, npe_, _stackCall)));
             return NullStruct.NULL_VALUE;
         }
-        if (err_ == ErrorType.BAD_INDEX) {
-            String cast_ = stds_.getContent().getCoreNames().getAliasBadIndex();
-            ArrayStruct arr_ = (ArrayStruct) _array;
-            StringBuilder mess_ = getIndexMessage(_index, arr_);
-            _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_context, mess_.toString(), cast_, _stackCall)));
+        if (!(_array instanceof ArrayStruct)) {
+            String cast_ = stds_.getContent().getCoreNames().getAliasCastType();
+            String type_ = Argument.getNull(_array).getClassName(_context);
+            _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_context, type_, cast_, _stackCall)));
             return NullStruct.NULL_VALUE;
         }
-        String cast_ = stds_.getContent().getCoreNames().getAliasCastType();
-        String type_ = _array.getClassName(_context);
-        _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_context, type_, cast_, _stackCall)));
-        return NullStruct.NULL_VALUE;
-    }
-
-    private static ErrorType getErrorWhenRange(Struct _array, Struct _index) {
-        if (_array == NullStruct.NULL_VALUE) {
-            return ErrorType.NPE;
-        }
-        if (!(_array instanceof ArrayStruct)) {
-            return ErrorType.CAST;
-        }
         if (_index == NullStruct.NULL_VALUE) {
-            return ErrorType.NPE;
+            String npe_ = stds_.getContent().getCoreNames().getAliasNullPe();
+            _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_context, npe_, _stackCall)));
+            return NullStruct.NULL_VALUE;
         }
         if (!(_index instanceof RangeStruct)) {
-            return ErrorType.CAST;
+            String cast_ = stds_.getContent().getCoreNames().getAliasCastType();
+            String type_ = _array.getClassName(_context);
+            _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_context, type_, cast_, _stackCall)));
+            return NullStruct.NULL_VALUE;
         }
         RangeStruct ind_ = (RangeStruct) _index;
         ArrayStruct arr_ = (ArrayStruct) _array;
         if (ind_.isUnlimited()) {
             if (ind_.getLower() > arr_.getLength()) {
-                return ErrorType.BAD_INDEX;
+                String cast_ = stds_.getContent().getCoreNames().getAliasBadIndex();
+                StringBuilder mess_ = getIndexMessage(_index, arr_);
+                _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_context, mess_.toString(), cast_, _stackCall)));
+                return NullStruct.NULL_VALUE;
             }
-            return ErrorType.NOTHING;
+        } else {
+            if (ind_.getUpper() > arr_.getLength()) {
+                String cast_ = stds_.getContent().getCoreNames().getAliasBadIndex();
+                StringBuilder mess_ = getIndexMessage(_index, arr_);
+                _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_context, mess_.toString(), cast_, _stackCall)));
+                return NullStruct.NULL_VALUE;
+            }
         }
-        if (ind_.getUpper() > arr_.getLength()) {
-            return ErrorType.BAD_INDEX;
+        int lower_ = ind_.getLower();
+        int step_ = ind_.getStep();
+        int upper_;
+        if (ind_.isUnlimited()) {
+            upper_ = arr_.getLength();
+        } else {
+            upper_ = ind_.getUpper();
         }
-        return ErrorType.NOTHING;
+        if (step_ < 0){
+            int count_ = 0;
+            for (int i = upper_-1; i >= lower_; i+=step_) {
+                count_++;
+            }
+            ArrayStruct sub_ = new ArrayStruct(count_,arr_.getClassName());
+            int insert_ = 0;
+            for (int i = upper_-1; i >= lower_; i+=step_) {
+                sub_.set(insert_, arr_.get(i));
+                insert_++;
+            }
+            return sub_;
+        }
+        int count_ = 0;
+        for (int i = lower_; i < upper_; i+=step_) {
+            count_++;
+        }
+        ArrayStruct sub_ = new ArrayStruct(count_,arr_.getClassName());
+        int insert_ = 0;
+        for (int i = lower_; i < upper_; i+=step_) {
+            sub_.set(insert_, arr_.get(i));
+            insert_++;
+        }
+        return sub_;
     }
+
     private static Struct gearErrorWhenIndex(Struct _array, Struct _index, ContextEl _context, StackCall _stackCall) {
-        ErrorType err_ = getErrorWhenIndex(_array, _index);
         LgNames stds_ = _context.getStandards();
-        if (err_ == ErrorType.NOTHING) {
-            ArrayStruct arr_ = (ArrayStruct) _array;
-            int index_ = NumParsers.convertToNumber(_index).intStruct();
-            return arr_.get(index_);
-        }
-        if (err_ == ErrorType.NPE) {
+        if (_array == NullStruct.NULL_VALUE) {
             String npe_ = stds_.getContent().getCoreNames().getAliasNullPe();
             _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_context, npe_, _stackCall)));
             return NullStruct.NULL_VALUE;
         }
-        if (err_ == ErrorType.BAD_INDEX) {
-            String cast_ = stds_.getContent().getCoreNames().getAliasBadIndex();
-            ArrayStruct arr_ = (ArrayStruct) _array;
-            StringBuilder mess_ = getIndexMessage(_index, arr_);
-            _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_context, mess_.toString(), cast_, _stackCall)));
+        if (!(_array instanceof ArrayStruct)) {
+            String cast_ = stds_.getContent().getCoreNames().getAliasCastType();
+            String type_ = Argument.getNull(_array).getClassName(_context);
+            _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_context, type_, cast_, _stackCall)));
             return NullStruct.NULL_VALUE;
         }
-        String cast_ = stds_.getContent().getCoreNames().getAliasCastType();
-        String type_ = _array.getClassName(_context);
-        _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_context, type_, cast_, _stackCall)));
-        return NullStruct.NULL_VALUE;
-    }
-
-    private static ErrorType getErrorWhenIndex(Struct _array, Struct _index) {
-        if (_array == NullStruct.NULL_VALUE) {
-            return ErrorType.NPE;
-        }
-        if (!(_array instanceof ArrayStruct)) {
-            return ErrorType.CAST;
-        }
         if (_index == NullStruct.NULL_VALUE) {
-            return ErrorType.NPE;
+            String npe_ = stds_.getContent().getCoreNames().getAliasNullPe();
+            _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_context, npe_, _stackCall)));
+            return NullStruct.NULL_VALUE;
         }
         if (!(_index instanceof NumberStruct)) {
-            return ErrorType.CAST;
+            String cast_ = stds_.getContent().getCoreNames().getAliasCastType();
+            String type_ = _array.getClassName(_context);
+            _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_context, type_, cast_, _stackCall)));
+            return NullStruct.NULL_VALUE;
         }
         ArrayStruct arr_ = (ArrayStruct) _array;
         int index_ = NumParsers.convertToNumber(_index).intStruct();
         if (index_ < 0 || index_ >= arr_.getLength()) {
-            return ErrorType.BAD_INDEX;
+            String cast_ = stds_.getContent().getCoreNames().getAliasBadIndex();
+            StringBuilder mess_ = getIndexMessage(_index, arr_);
+            _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_context, mess_.toString(), cast_, _stackCall)));
+            return NullStruct.NULL_VALUE;
         }
-        return ErrorType.NOTHING;
+        return arr_.get(index_);
     }
+
     private static StringBuilder buildStoreError(Struct _value, ContextEl _context, ArrayStruct _arr) {
         String arrType_ = _arr.getClassName();
         String param_ = StringUtil.nullToEmpty(StringExpUtil.getQuickComponentType(arrType_));

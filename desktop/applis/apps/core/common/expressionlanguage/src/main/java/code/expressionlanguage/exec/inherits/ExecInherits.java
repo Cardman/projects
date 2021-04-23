@@ -117,7 +117,7 @@ public final class ExecInherits {
         return StringExpUtil.newMappingPairs(generic_, typesParam_);
     }
 
-    public static ErrorType safeObject(ErrorType _errCast, String _param, Struct _arg, ContextEl _context) {
+    public static ErrorType safeObject(String _param, Struct _arg, ContextEl _context) {
         if (_arg == null) {
             return ErrorType.NPE;
         }
@@ -127,7 +127,7 @@ public final class ExecInherits {
             String a_ = _arg.getClassName(_context);
             param_ = toWrapper(param_, stds_);
             if (!isCorrectExecute(a_, param_, _context)) {
-                return _errCast;
+                return ErrorType.CAST;
             }
             return ErrorType.NOTHING;
         }

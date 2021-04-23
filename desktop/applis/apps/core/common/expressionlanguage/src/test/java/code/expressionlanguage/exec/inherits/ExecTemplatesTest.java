@@ -670,14 +670,16 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         AnalyzedTestContext cont_ = validated(files_);
         ArrayStruct arr_ = defaultArray();
-        assertSame(ErrorType.NPE, ExecTemplates.setElement(arr_, NullStruct.NULL_VALUE, NullStruct.NULL_VALUE, cont_.getContext(), cont_.getStackCall()));
+        ExecTemplates.setElement(arr_, NullStruct.NULL_VALUE, NullStruct.NULL_VALUE, cont_.getContext(), cont_.getStackCall());
+        assertNotNull(cont_.getStackCall().getCallingState());
     }
     @Test
     public void getErrorWhenContain2Test() {
         StringMap<String> files_ = new StringMap<String>();
         AnalyzedTestContext cont_ = validated(files_);
         ArrayStruct arr_ = defaultArray();
-        assertSame(ErrorType.CAST, ExecTemplates.setElement(arr_, new StringStruct(""), NullStruct.NULL_VALUE, cont_.getContext(), cont_.getStackCall()));
+        ExecTemplates.setElement(arr_, new StringStruct(""), NullStruct.NULL_VALUE, cont_.getContext(), cont_.getStackCall());
+        assertNotNull(cont_.getStackCall().getCallingState());
     }
     @Test
     public void getErrorWhenIndex1Test() {
@@ -1198,7 +1200,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
     public void safeObject() {
         StringMap<String> files_ = new StringMap<String>();
         AnalyzedTestContext c_ = validated(files_);
-        assertSame(ErrorType.NPE, ExecInherits.safeObject(ErrorType.CAST,"",null,c_.getContext()));
+        assertSame(ErrorType.NPE, ExecInherits.safeObject("",null,c_.getContext()));
     }
 
 
