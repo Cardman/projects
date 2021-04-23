@@ -248,6 +248,9 @@ public final class FctOperation extends InvokingOperation implements PreAnalyzab
             setResultClass(voidToObject(new AnaClassArgumentMatching(clMeth_.getReturnType()), _page));
             return;
         }
+        if (StringUtil.quickEq(trimMeth_,_page.getKeyWords().getKeyWordNull())) {
+            errLeftValue = true;
+        }
         callFctContent.update(clMeth_);
         standardMethod = clMeth_.getStandardMethod();
         function = clMeth_.getPair();

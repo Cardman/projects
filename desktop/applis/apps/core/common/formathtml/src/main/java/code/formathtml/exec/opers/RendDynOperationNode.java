@@ -7,8 +7,7 @@ import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.util.*;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.inherits.Parameters;
-import code.expressionlanguage.exec.util.ArgumentListCall;
-import code.expressionlanguage.exec.util.ImplicitMethods;
+import code.expressionlanguage.exec.util.*;
 import code.expressionlanguage.exec.variables.AbstractWrapper;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.fwd.opers.*;
@@ -20,6 +19,7 @@ import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.*;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
+import code.formathtml.exec.IdNativeFct;
 import code.formathtml.exec.RendStackCall;
 import code.util.CustList;
 import code.util.IdMap;
@@ -352,8 +352,18 @@ public abstract class RendDynOperationNode {
     public static Argument processString(Argument _argument, ContextEl _context, StackCall _stackCall) {
         Argument out_ = new Argument(_argument.getStruct());
         out_ = ExecOperationNode.processString(out_, _context, _stackCall);
+        return result(new StrNativeFct(),_context, _stackCall, out_);
+    }
+    public static Argument processRandCode(Argument _argument, ContextEl _context, StackCall _stackCall) {
+        Argument out_ = new Argument(_argument.getStruct());
+        out_ = ExecOperationNode.processRandCode(out_, _context, _stackCall);
+        return result(new IdNativeFct(),_context, _stackCall, out_);
+    }
+
+    private static Argument result(NativeFct _nat, ContextEl _context, StackCall _stackCall, Argument _out) {
         CallingState state_ = _stackCall.getCallingState();
         boolean convert_ = false;
+        Argument out_ = _out;
         if (state_ instanceof CustomFoundMethod) {
             CustomFoundMethod method_ = (CustomFoundMethod) state_;
             out_ = ProcessMethod.calculateArgument(method_.getGl(), method_.getClassName(),method_.getPair(), method_.getArguments(), _context, _stackCall).getValue();
@@ -363,7 +373,7 @@ public abstract class RendDynOperationNode {
             return Argument.createVoid();
         }
         if (convert_) {
-            out_ = new Argument(ExecCatOperation.getDisplayable(out_, _context));
+            out_ = new Argument(_nat.compute(out_, _context));
         }
         return out_;
     }

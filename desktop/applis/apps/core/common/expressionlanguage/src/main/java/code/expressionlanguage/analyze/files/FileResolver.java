@@ -1763,6 +1763,15 @@ public final class FileResolver {
                             new OffsetStringInfo(methodNameOffest_+_offset, trimMeth_), parametersType_, offestsTypes_,
                             parametersName_, offestsParams_, new OffsetStringInfo(modifierOffest_+_offset, modifier_),
                              _instructionTrimLocation +_offset, _page, parametersRef_);
+                } else if (StringUtil.quickEq(trimMeth_, _page.getKeyWords().getKeyWordNull())) {
+                    kind_ = MethodKind.RAND_CODE;
+                    ov_ = new NamedCalledFunctionBlock(retRef_, new OffsetAccessInfo(accessOffest_+_offset, accessFct_),
+                            new OffsetStringInfo(typeOffset_+_offset, retType_),
+                            new OffsetStringInfo(methodNameOffest_+_offset, trimMeth_), parametersType_, offestsTypes_,
+                            parametersName_, offestsParams_, new OffsetStringInfo(modifierOffest_+_offset, modifier_),
+                            _instructionTrimLocation +_offset, _page, parametersRef_);
+                    ov_.setDefinition(info_);
+                    ov_.setDefinitionOffset(offsetLast_);
                 } else if (StringUtil.quickEq(trimMeth_, _page.getKeyWords().getKeyWordExplicit())) {
                     kind_ = MethodKind.EXPLICIT_CAST;
                     ov_ = new NamedCalledFunctionBlock(retRef_, new OffsetAccessInfo(accessOffest_+_offset, accessFct_),

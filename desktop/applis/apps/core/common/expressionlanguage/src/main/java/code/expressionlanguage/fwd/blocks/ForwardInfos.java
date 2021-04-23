@@ -32,6 +32,7 @@ public final class ForwardInfos {
         Coverage coverage_ = _context.getCoverage();
         coverage_.setKeyWords(_page.getKeyWords());
         coverage_.putToStringOwner(_page.getAliasObject());
+        coverage_.putRandCodeOwner(_page.getAliasObject());
         _forwards.setAliasBoolean(_page.getAliasBoolean());
         _forwards.setAliasPrimBoolean(_page.getAliasPrimBoolean());
         StringMap<ExecFileBlock> files_ = new StringMap<ExecFileBlock>();
@@ -110,6 +111,13 @@ public final class ForwardInfos {
             String fullName_ = e.getKey().getFullName();
             toStringMethodsToCallBodies_.addEntry(fullName_,FetchMemberUtil.fetchOvTypeFunction(resDyn_.getMemberId(), _forwards));
             coverage_.putToStringOwner(fullName_);
+        }
+        StringMap<ExecTypeFunction> randCodeMethodsToCallBodies_ = _context.getClasses().getRandCodeMethodsToCallBodies();
+        for (EntryCust<RootBlock, ClassMethodIdReturn> e: _page.getRandCodes().entryList()) {
+            ClassMethodIdReturn resDyn_ = e.getValue();
+            String fullName_ = e.getKey().getFullName();
+            randCodeMethodsToCallBodies_.addEntry(fullName_,FetchMemberUtil.fetchOvTypeFunction(resDyn_.getMemberId(), _forwards));
+            coverage_.putRandCodeOwner(fullName_);
         }
         for (EntryCust<RootBlock, Members> e: _forwards.getMembers()) {
             RootBlock root_ = e.getKey();
@@ -679,6 +687,9 @@ public final class ForwardInfos {
         }
         if (_k == MethodKind.TO_STRING) {
             return ExecMethodKind.TO_STRING;
+        }
+        if (_k == MethodKind.RAND_CODE) {
+            return ExecMethodKind.RAND_CODE;
         }
         if (_k == MethodKind.OPERATOR) {
             return ExecMethodKind.OPERATOR;

@@ -8,6 +8,7 @@ public final class ClassesCommon {
     private final StringMap<String> resources;
     private StringMap<StringMap<Struct>> staticFields;
     private final StringMap<ExecTypeFunction> toStringMethodsToCallBodies = new StringMap<ExecTypeFunction>();
+    private final StringMap<ExecTypeFunction> randCodeMethodsToCallBodies = new StringMap<ExecTypeFunction>();
 
     public ClassesCommon(){
         resources = new StringMap<String>();
@@ -20,6 +21,10 @@ public final class ClassesCommon {
 
     public StringMap<ExecTypeFunction> getToStringMethodsToCallBodies() {
         return toStringMethodsToCallBodies;
+    }
+
+    public StringMap<ExecTypeFunction> getRandCodeMethodsToCallBodies() {
+        return randCodeMethodsToCallBodies;
     }
 
     public StringMap<StringMap<Struct>> getStaticFields() {

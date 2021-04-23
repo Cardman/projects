@@ -93,6 +93,7 @@ public final class AnalyzedPageEl {
     private final CustList<RootBlock> prevFoundTypes = new CustList<RootBlock>();
     private final CustList<RootBlock> refFoundTypes = new CustList<RootBlock>();
     private final IdMap<RootBlock,ClassMethodIdReturn> toStr = new IdMap<RootBlock, ClassMethodIdReturn>();
+    private final IdMap<RootBlock,ClassMethodIdReturn> randCodes = new IdMap<RootBlock, ClassMethodIdReturn>();
 
     private int offset;
 
@@ -157,9 +158,11 @@ public final class AnalyzedPageEl {
     private String refFileName = "";
     private int indexBlock;
     private final StringMap<ToStringMethodHeader> toStringMethods = new StringMap<ToStringMethodHeader>();
+    private final StringMap<ToStringMethodHeader> randCodeMethods = new StringMap<ToStringMethodHeader>();
     private final CustList<ClassMetaInfo> classMetaInfos = new CustList<ClassMetaInfo>();
     private boolean variableIssue;
     private final StringList toStringOwners = new StringList();
+    private final StringList randCodeOwners = new StringList();
     private CustList<CommentDelimiters> comments = new CustList<CommentDelimiters>();
     private DefaultAccess defaultAccess;
     private AnalysisMessages analysisMessages;
@@ -1182,6 +1185,10 @@ public final class AnalyzedPageEl {
         return toStringMethods;
     }
 
+    public StringMap<ToStringMethodHeader> getRandCodeMethods() {
+        return randCodeMethods;
+    }
+
     public StringMap<Integer> getCounts() {
         return counts;
     }
@@ -1281,6 +1288,10 @@ public final class AnalyzedPageEl {
         return toStringOwners;
     }
 
+    public StringList getRandCodeOwners() {
+        return randCodeOwners;
+    }
+
     public CustList<CommentDelimiters> getComments() {
         return comments;
     }
@@ -1357,6 +1368,10 @@ public final class AnalyzedPageEl {
 
     public IdMap<RootBlock, ClassMethodIdReturn> getToStr() {
         return toStr;
+    }
+
+    public IdMap<RootBlock, ClassMethodIdReturn> getRandCodes() {
+        return randCodes;
     }
 
     public StringList getPredefinedClasses() {

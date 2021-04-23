@@ -16,6 +16,7 @@ public final class VariablesOffsets {
     private KeyWords keyWords;
     private DisplayedStrings displayedStrings;
     private StringList toStringOwners;
+    private StringList randCodeOwners;
     private boolean implicit;
 
     public boolean hasEltStack() {
@@ -84,6 +85,14 @@ public final class VariablesOffsets {
 
     public void setToStringOwners(StringList _v) {
         this.toStringOwners = _v;
+    }
+
+    public StringList getRandCodeOwners() {
+        return randCodeOwners;
+    }
+
+    public void setRandCodeOwners(StringList _randCodeOwners) {
+        this.randCodeOwners = _randCodeOwners;
     }
 
     public boolean isImplicit() {

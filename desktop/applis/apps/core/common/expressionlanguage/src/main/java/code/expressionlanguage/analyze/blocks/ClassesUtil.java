@@ -73,6 +73,10 @@ public final class ClassesUtil {
             if (resDyn_.isFoundMethod()) {
                 _page.getToStr().addEntry(e,resDyn_);
             }
+            ClassMethodIdReturn resDynRand_ = tryGetDeclaredRandCode(e, _page);
+            if (resDynRand_.isFoundMethod()) {
+                _page.getRandCodes().addEntry(e,resDynRand_);
+            }
         }
         for (RootBlock e: _page.getAllFoundTypes()) {
             _page.setGlobalClass(e.getGenericString());
@@ -139,7 +143,15 @@ public final class ClassesUtil {
         CustList<MethodInfo> methods_;
         methods_ = new CustList<MethodInfo>();
         String baseCurName_ = _class.getFullName();
-        fetchToStringMethods(_class,baseCurName_,methods_, _page);
+        fetchToStringMethods(_class,baseCurName_,methods_, _page.getToStringMethods());
+        return getCustResultExec(methods_, _page);
+    }
+
+    private static ClassMethodIdReturn tryGetDeclaredRandCode(RootBlock _class, AnalyzedPageEl _page) {
+        CustList<MethodInfo> methods_;
+        methods_ = new CustList<MethodInfo>();
+        String baseCurName_ = _class.getFullName();
+        fetchToStringMethods(_class,baseCurName_,methods_, _page.getRandCodeMethods());
         return getCustResultExec(methods_, _page);
     }
 
@@ -202,12 +214,12 @@ public final class ClassesUtil {
         return meths_.getVal(sub_.first());
     }
 
-    private static void fetchToStringMethods(RootBlock _root, String _cl, CustList<MethodInfo> _methods, AnalyzedPageEl _page) {
+    private static void fetchToStringMethods(RootBlock _root, String _cl, CustList<MethodInfo> _methods, StringMap<ToStringMethodHeader> _toStringMethods) {
         StringList geneSuperTypes_ = new StringList();
         geneSuperTypes_.add(_cl);
         geneSuperTypes_.addAllElts(_root.getAllSuperTypes());
         for (String t: geneSuperTypes_) {
-            ToStringMethodHeader toString_ = _page.getToStringMethods().getVal(t);
+            ToStringMethodHeader toString_ = _toStringMethods.getVal(t);
             if (toString_ == null) {
                 continue;
             }
@@ -2520,7 +2532,7 @@ public final class ClassesUtil {
 
     private static boolean isStdOrExplicit(NamedCalledFunctionBlock _method) {
         return _method.getKind() == MethodKind.STD_METHOD || _method.getKind() == MethodKind.TO_STRING || _method.getKind() == MethodKind.EXPLICIT_CAST || _method.getKind() == MethodKind.IMPLICIT_CAST
-                || _method.getKind() == MethodKind.TRUE_OPERATOR || _method.getKind() == MethodKind.FALSE_OPERATOR;
+                || _method.getKind() == MethodKind.TRUE_OPERATOR || _method.getKind() == MethodKind.FALSE_OPERATOR || _method.getKind() == MethodKind.RAND_CODE;
     }
 
     private static void processValueParam(AnalyzedPageEl _page, RootBlock _cl, NamedCalledFunctionBlock _method) {

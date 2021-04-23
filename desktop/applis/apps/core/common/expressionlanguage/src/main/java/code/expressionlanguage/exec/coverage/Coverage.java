@@ -27,6 +27,7 @@ public final class Coverage {
     private final CustList<RootBlock> refFoundTypes = new CustList<RootBlock>();
     private final CustList<OperatorBlock> refOperators = new CustList<OperatorBlock>();
     private final StringList toStringOwners = new StringList();
+    private final StringList randCodeOwners = new StringList();
     private final CustList<TypeCoverageResult> types = new CustList<TypeCoverageResult>();
     private final CustList<FunctionCoverageResult> lambdas = new CustList<FunctionCoverageResult>();
     private final CustList<FunctionCoverageResult> switchMethods = new CustList<FunctionCoverageResult>();
@@ -385,6 +386,13 @@ public final class Coverage {
         toStringOwners.add(_owner);
     }
 
+    public void putRandCodeOwner(String _owner) {
+        if (!isCovering()) {
+            return;
+        }
+        randCodeOwners.add(_owner);
+    }
+
     public void passLoop(ExecBlock _loop, Argument _value, StackCall _stackCall) {
         if (!isCovering()) {
             return;
@@ -691,6 +699,10 @@ public final class Coverage {
 
     public StringList getToStringOwners() {
         return toStringOwners;
+    }
+
+    public StringList getRandCodeOwners() {
+        return randCodeOwners;
     }
 
     public KeyWords getKeyWords() {

@@ -80,13 +80,14 @@ public final class LinkageUtil {
         boolean implicit_ = _analyzing.isImplicit();
         DisplayedStrings displayedStrings_ = _analyzing.getDisplayedStrings();
         StringList toStringOwners_ = _analyzing.getToStringOwners();
+        StringList randCodeOwners_ = _analyzing.getRandCodeOwners();
         for (FileBlock f: _analyzing.getErrors().getFiles()) {
             if (f.isPredefined()) {
                 continue;
             }
             String value_ = f.getContent();
             String fileExp_ = f.getFileName() +ExportCst.EXT;
-            CustList<PartOffset> listStr_ = processError(toStringOwners_,f,fileExp_, keyWords_, displayedStrings_, implicit_);
+            CustList<PartOffset> listStr_ = processError(toStringOwners_,randCodeOwners_,f,fileExp_, keyWords_, displayedStrings_, implicit_);
             StringBuilder xml_ = build(f, value_, listStr_);
             String rel_ = relativize(fileExp_, CSS);
             String cssPart_ = BEGIN_HEAD + encode(_analyzing.isEncodeHeader()) +
@@ -112,13 +113,14 @@ public final class LinkageUtil {
         CustList<RootBlock> refFoundTypes_ = cov_.getRefFoundTypes();
         CustList<OperatorBlock> operators_ = cov_.getRefOperators();
         StringList toStringOwners_ = cov_.getToStringOwners();
+        StringList randCodeOwners_ = cov_.getRandCodeOwners();
         for (FileBlock f: cov_.getFiles()) {
             if (f.isPredefined()) {
                 continue;
             }
             String value_ = f.getContent();
             String fileExp_ = f.getFileName() +ExportCst.EXT;
-            CustList<PartOffset> listStr_ = processReport(toStringOwners_,f,fileExp_, cov_, keyWords_, standards_);
+            CustList<PartOffset> listStr_ = processReport(toStringOwners_,randCodeOwners_,f,fileExp_, cov_, keyWords_, standards_);
             StringBuilder xml_ = build(f, value_, listStr_);
             String rel_ = relativize(fileExp_, CSS);
             String cssPart_ = BEGIN_HEAD +encode(cov_.isDisplayEncode())+
@@ -283,7 +285,7 @@ public final class LinkageUtil {
         return DEF_SPACE;
     }
 
-    private static CustList<PartOffset> processError(StringList _toStringOwers, FileBlock _ex, String _fileExp, KeyWords _keyWords, DisplayedStrings _displayedStrings, boolean _implicit){
+    private static CustList<PartOffset> processError(StringList _toStringOwers, StringList _randCodeOwners, FileBlock _ex, String _fileExp, KeyWords _keyWords, DisplayedStrings _displayedStrings, boolean _implicit){
         CustList<PartOffset> list_ = new CustList<PartOffset>();
         list_.add(new PartOffset(ExportCst.span(TYPE),0));
         VariablesOffsets vars_ = new VariablesOffsets();
@@ -292,6 +294,7 @@ public final class LinkageUtil {
         vars_.setImplicit(_implicit);
         vars_.setDisplayedStrings(_displayedStrings);
         vars_.setToStringOwners(_toStringOwers);
+        vars_.setRandCodeOwners(_randCodeOwners);
         vars_.setCurrentFileName(_fileExp);
         if (_ex.getFirstChild() == null || !_ex.getErrorsFiles().getLi().isEmpty()) {
             processFileBlockError(_ex,list_);
@@ -485,7 +488,7 @@ public final class LinkageUtil {
             _parts.add(new PartOffset(ExportCst.END_ANCHOR, index_+ g.getLength()));
         }
     }
-    private static CustList<PartOffset> processReport(StringList _toStringOwers, FileBlock _ex, String _fileExp, Coverage _coverage, KeyWords _keyWords, LgNames _standards){
+    private static CustList<PartOffset> processReport(StringList _toStringOwers, StringList _randCodeOwners, FileBlock _ex, String _fileExp, Coverage _coverage, KeyWords _keyWords, LgNames _standards){
         CustList<PartOffset> list_ = new CustList<PartOffset>();
         list_.add(new PartOffset(ExportCst.span(TYPE),0));
         VariablesOffsets vars_ = new VariablesOffsets();
@@ -494,6 +497,7 @@ public final class LinkageUtil {
         vars_.setImplicit(_coverage.isImplicit());
         vars_.setDisplayedStrings(_standards.getDisplayedStrings());
         vars_.setToStringOwners(_toStringOwers);
+        vars_.setRandCodeOwners(_randCodeOwners);
         vars_.setCurrentFileName(_fileExp);
         AbsBk child_ = _ex;
         vars_.getLastStackElt().setBlock(child_);
@@ -3430,6 +3434,10 @@ public final class LinkageUtil {
                 int i_ = _sum + _val.getIndexInEl() + par_.getOpOffset();
                 _parts.add(new PartOffset(ExportCst.anchorErr(StringUtil.join(_val.getErrs(),ExportCst.JOIN_ERR)),i_));
                 _parts.add(new PartOffset(ExportCst.END_ANCHOR,i_+1));
+            } else if (_val instanceof RandCodeOperation && canCallRandeCode(_vars,_val.getFirstChild().getResultClass())) {
+                int i_ = _sum + _val.getIndexInEl() + par_.getOpOffset();
+                _parts.add(new PartOffset(ExportCst.HEAD_ITALIC, i_));
+                _parts.add(new PartOffset(ExportCst.FOOT_ITALIC, i_ + 1));
             }
         }
         if (_val instanceof CastOperation) {
@@ -4218,12 +4226,20 @@ public final class LinkageUtil {
         return BEGIN_ENCODE +(int)_ch+ END_ENCODE;
     }
     private static boolean canCallToString(VariablesOffsets _vars, AnaClassArgumentMatching _type) {
+        StringList toStringOwners_ = _vars.getToStringOwners();
+        return canCall(_type, toStringOwners_);
+    }
+    private static boolean canCallRandeCode(VariablesOffsets _vars, AnaClassArgumentMatching _type) {
+        StringList toStringOwners_ = _vars.getRandCodeOwners();
+        return canCall(_type, toStringOwners_);
+    }
+    private static boolean canCall(AnaClassArgumentMatching _type, StringList _randCodeOwners) {
         if (_type.isArray()) {
             return false;
         }
         for (String s: _type.getNames()) {
             String id_ = StringExpUtil.getIdFromAllTypes(s);
-            if (StringUtil.contains(_vars.getToStringOwners(),id_)) {
+            if (StringUtil.contains(_randCodeOwners,id_)) {
                 return true;
             }
         }

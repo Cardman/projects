@@ -801,6 +801,52 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                             }
                         }
                     }
+                } else if (m_.getKind() == MethodKind.RAND_CODE) {
+                    if (m_.getParametersTypes().size() != 0) {
+                        int r_ = m_.getNameOffset();
+                        FoundErrorInterpret badMeth_ = new FoundErrorInterpret();
+                        badMeth_.setFileName(getFile().getFileName());
+                        badMeth_.setIndexFile(r_);
+                        //method name len
+                        badMeth_.buildError(_page.getAnalysisMessages().getBadParams(),
+                                m_.getSignature(_page));
+                        _page.addLocError(badMeth_);
+                        m_.addNameErrors(badMeth_);
+                    } else if (!StringUtil.quickEq(m_.getImportedReturnType(),_page.getAliasPrimLong()) || m_.getId().isRef()) {
+                        int r_ = m_.getNameOffset();
+                        FoundErrorInterpret badMeth_ = new FoundErrorInterpret();
+                        badMeth_.setFileName(getFile().getFileName());
+                        badMeth_.setIndexFile(r_);
+                        //method name len
+                        badMeth_.buildError(_page.getAnalysisMessages().getBadReturnType(),
+                                name_,
+                                _page.getAliasString());
+                        _page.addLocError(badMeth_);
+                        m_.addNameErrors(badMeth_);
+                    } else if (m_.hiddenInstance()) {
+                        int r_ = m_.getNameOffset();
+                        FoundErrorInterpret badMeth_ = new FoundErrorInterpret();
+                        badMeth_.setFileName(getFile().getFileName());
+                        badMeth_.setIndexFile(r_);
+                        //method name len
+                        badMeth_.buildError(_page.getAnalysisMessages().getBadMethodModifier(),
+                                m_.getSignature(_page));
+                        _page.addLocError(badMeth_);
+                        m_.addNameErrors(badMeth_);
+                    } else if (m_.getAccess() != AccessEnum.PUBLIC) {
+                        int r_ = m_.getNameOffset();
+                        FoundErrorInterpret badMeth_ = new FoundErrorInterpret();
+                        badMeth_.setFileName(getFile().getFileName());
+                        badMeth_.setIndexFile(r_);
+                        //method name len
+                        badMeth_.buildError(_page.getAnalysisMessages().getBadAccess(),
+                                name_);
+                        _page.addLocError(badMeth_);
+                        m_.addNameErrors(badMeth_);
+                    } else {
+                        ToStringMethodHeader t_ = new ToStringMethodHeader(getNumberAll(),m_.getNameOverrideNumber(),m_.getName(), m_.getImportedReturnType(), m_.isFinalMethod(),m_.isAbstractMethod());
+                        _page.getRandCodeMethods().addEntry(getFullName(), t_);
+                    }
                 } else if (m_.getKind() == MethodKind.TO_STRING) {
                     if (!StringUtil.quickEq(m_.getImportedReturnType(),_page.getAliasString())) {
                         int r_ = m_.getNameOffset();

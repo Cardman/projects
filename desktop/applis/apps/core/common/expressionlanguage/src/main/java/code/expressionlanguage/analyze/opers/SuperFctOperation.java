@@ -7,7 +7,6 @@ import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.ResolvingTypes;
 import code.expressionlanguage.analyze.util.ClassMethodIdAncestor;
 import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
-import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.inherits.Mapping;
 import code.expressionlanguage.functionid.*;
@@ -176,6 +175,9 @@ public final class SuperFctOperation extends InvokingOperation implements PreAna
         if (!clMeth_.isFoundMethod()) {
             setResultClass(voidToObject(new AnaClassArgumentMatching(clMeth_.getReturnType()), _page));
             return;
+        }
+        if (StringUtil.quickEq(trimMeth_,_page.getKeyWords().getKeyWordNull())) {
+            errLeftValue = true;
         }
         callFctContent.update(clMeth_);
         standardMethod = clMeth_.getStandardMethod();

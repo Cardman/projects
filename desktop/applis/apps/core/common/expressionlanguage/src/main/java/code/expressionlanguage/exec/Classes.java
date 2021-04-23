@@ -81,9 +81,14 @@ public final class Classes {
         ClassesUtil.postValidation(_page);
         if (_page.isGettingErrors()) {
             _page.getToStringOwners().add(_page.getAliasObject());
+            _page.getRandCodeOwners().add(_page.getAliasObject());
             for (EntryCust<RootBlock, ClassMethodIdReturn> e: _page.getToStr().entryList()) {
                 String fullName_ = e.getKey().getFullName();
                 _page.getToStringOwners().add(fullName_);
+            }
+            for (EntryCust<RootBlock, ClassMethodIdReturn> e: _page.getRandCodes().entryList()) {
+                String fullName_ = e.getKey().getFullName();
+                _page.getRandCodeOwners().add(fullName_);
             }
             for (EntryCust<String, FileBlock> f: _page.getFilesBodies().entryList()) {
                 FileBlock content_ = f.getValue();
@@ -238,6 +243,9 @@ public final class Classes {
         return getCommon().getToStringMethodsToCallBodies();
     }
 
+    public StringMap<ExecTypeFunction> getRandCodeMethodsToCallBodies() {
+        return getCommon().getRandCodeMethodsToCallBodies();
+    }
     public StringMap<ExecRootBlock> getClassesBodies() {
         return classesBodies;
     }

@@ -12,9 +12,7 @@ import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.calls.util.CustomFoundMethod;
 import code.expressionlanguage.exec.inherits.ExecInherits;
 import code.expressionlanguage.exec.inherits.Parameters;
-import code.expressionlanguage.exec.util.ArgumentListCall;
-import code.expressionlanguage.exec.util.ExecOverrideInfo;
-import code.expressionlanguage.exec.util.ImplicitMethods;
+import code.expressionlanguage.exec.util.*;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.fwd.opers.*;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
@@ -23,6 +21,7 @@ import code.expressionlanguage.structs.*;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.util.CustList;
 import code.util.IdMap;
+import code.util.StringMap;
 import code.util.core.StringUtil;
 
 public abstract class ExecOperationNode {
@@ -365,23 +364,29 @@ public abstract class ExecOperationNode {
         pair_.setArgument(_arg);
         _conf.getCoverage().passBlockOperation(this, !_possiblePartial, pair_, _stackCall);
     }
+    public static Argument processRandCode(Argument _argument, ContextEl _conf, StackCall _stackCall) {
+        StringMap<ExecTypeFunction> redir_ = _conf.getClasses().getRandCodeMethodsToCallBodies();
+        return getOrRedirect(new RandCodeNativeFct(),_argument, _conf, _stackCall, redir_);
+    }
     public static Argument processString(Argument _argument, ContextEl _conf, StackCall _stackCall) {
+        StringMap<ExecTypeFunction> redir_ = _conf.getClasses().getToStringMethodsToCallBodies();
+        return getOrRedirect(new StrNativeFct(),_argument, _conf, _stackCall, redir_);
+    }
+
+    private static Argument getOrRedirect(NativeFct _nat, Argument _argument, ContextEl _conf, StackCall _stackCall, StringMap<ExecTypeFunction> _redir) {
         Struct struct_ = Argument.getNullableValue(_argument).getStruct();
         String argClassName_ = struct_.getClassName(_conf);
         String idCl_ = StringExpUtil.getIdFromAllTypes(argClassName_);
-        ExecTypeFunction valBody_ = _conf.getClasses().getToStringMethodsToCallBodies().getVal(idCl_);
+        ExecTypeFunction valBody_ = _redir.getVal(idCl_);
         String clCall_ = "";
         ExecTypeFunction p_ = new ExecTypeFunction(null,null);
         if (valBody_ != null) {
             ExecOverrideInfo polymorphMethod_ = ExecInvokingOperation.polymorph(_conf, struct_, valBody_);
             p_ = polymorphMethod_.getPair();
-            clCall_ = polymorphMethod_.getClassName();
-        } else {
-            argClassName_ = " ";
+            clCall_ = ExecInherits.getOverridingFullTypeByBases(argClassName_,polymorphMethod_.getClassName(), _conf);
         }
-        clCall_ = ExecInherits.getOverridingFullTypeByBases(argClassName_,clCall_,_conf);
         if (p_.getFct() == null) {
-            return new Argument(ExecCatOperation.getDisplayable(_argument,_conf));
+            return new Argument(_nat.compute(_argument, _conf));
         }
         Parameters parameters_ = new Parameters();
         Argument out_ = new Argument(struct_);

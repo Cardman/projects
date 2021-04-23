@@ -7,7 +7,6 @@ import code.expressionlanguage.analyze.types.ResolvingTypes;
 import code.expressionlanguage.analyze.util.ClassMethodIdAncestor;
 import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
-import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.functionid.*;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.analyze.instr.PartOffset;
@@ -154,6 +153,9 @@ public final class ChoiceFctOperation extends InvokingOperation implements PreAn
         if (!clMeth_.isFoundMethod()) {
             setResultClass(voidToObject(new AnaClassArgumentMatching(clMeth_.getReturnType()), _page));
             return;
+        }
+        if (StringUtil.quickEq(trimMeth_,_page.getKeyWords().getKeyWordNull())) {
+            errLeftValue = true;
         }
         callFctContent.update(clMeth_);
         standardMethod = clMeth_.getStandardMethod();
