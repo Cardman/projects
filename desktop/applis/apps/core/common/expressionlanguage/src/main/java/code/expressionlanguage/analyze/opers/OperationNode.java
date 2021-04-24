@@ -25,7 +25,6 @@ import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.analyze.instr.PartOffset;
 import code.expressionlanguage.fwd.opers.AnaOperationContent;
 import code.expressionlanguage.linkage.ExportCst;
-import code.expressionlanguage.linkage.LinkageUtil;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.analyze.types.ResolvingImportTypes;
 import code.expressionlanguage.stds.StandardConstructor;
@@ -812,29 +811,25 @@ public abstract class OperationNode {
             formatted_ = AnaInherits.quickFormat(root_, _scope.getFormatted(),genericString_);
         }
         String realType_ = _fi.getType();
-        boolean finalField_ = _fi.isFinalField();
-        int valOffset_ = _fi.getValOffset();
-        FieldInfo if_ = FieldInfo.newFieldInfo(_scopeField.getName(), formatted_, realType_, staticField_, finalField_, _scopeField.isAff(), null,valOffset_, _page);
-        if (if_ == null) {
+        String if_ = FieldInfo.newFieldInfo(formatted_, realType_, staticField_, _scopeField.isAff(), _page);
+        if (if_.isEmpty()) {
             return;
         }
-        if_.setMemberId(_fi.getMemberId());
-        addFieldInfo(_fi, _scope.getAnc(), _ancestors, if_, if_.isStaticField(), _scope.getFullName());
+        addFieldInfo(formatted_,_fi, _scope.getAnc(), _ancestors, _scope.getFullName(), if_);
     }
 
-    public static void addFieldInfo(FieldInfo _fi, int _anc, StringMap<FieldResult> _ancestors, FieldInfo _if, boolean _staticField, String _fullName) {
+    private static void addFieldInfo(String _formatted,FieldInfo _fi, int _anc, StringMap<FieldResult> _ancestors, String _fullName, String _type) {
         FieldResult res_ = new FieldResult();
         res_.setFileName(_fi.getFileName());
         res_.setMemberId(_fi.getMemberId());
         res_.setFieldType(_fi.getFieldType());
-        res_.setType(_fi.getType());
-        res_.setValOffset(_if.getValOffset());
-        res_.setClassField(_if.getClassField());
-        res_.setDeclaringClass(_if.getDeclaringClass());
-        res_.setStaticField(_staticField);
-        res_.setFinalField(_if.isFinalField());
-        res_.setType(_if.getType());
-        res_.setRealType(_if.getRealType());
+        res_.setValOffset(_fi.getValOffset());
+        res_.setClassField(_fi.getClassField());
+        res_.setDeclaringClass(_formatted);
+        res_.setStaticField(_fi.isStaticField());
+        res_.setFinalField(_fi.isFinalField());
+        res_.setType(_type);
+        res_.setRealType(_fi.getRealType());
         res_.setAnc(_anc);
         res_.setStatus(SearchingMemberStatus.UNIQ);
         addIfNotExist(_ancestors, _fullName, res_);

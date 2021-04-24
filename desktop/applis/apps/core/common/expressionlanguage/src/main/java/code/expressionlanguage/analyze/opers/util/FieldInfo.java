@@ -8,7 +8,6 @@ import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.StringExpUtil;
 
 public final class FieldInfo {
-    private final String declaringClass;
     private final String type;
     private final String realType;
     private final boolean staticField;
@@ -18,11 +17,10 @@ public final class FieldInfo {
     private final int valOffset;
     private String fileName;
     private RootBlock fieldType;
-    private MemberId memberId = new MemberId();
+    private final MemberId memberId = new MemberId();
 
     private FieldInfo(String _name, String _declaringClass, String _type, String _realType,
                       boolean _staticField, boolean _finalField, Accessed _accessed, int _valOffset) {
-        declaringClass = _declaringClass;
         String declaringBaseClass_ = StringExpUtil.getIdFromAllTypes(_declaringClass);
         classField = new ClassField(declaringBaseClass_, _name);
         type = _type;
@@ -32,22 +30,20 @@ public final class FieldInfo {
         accessed = _accessed;
         valOffset = _valOffset;
     }
-    public static FieldInfo newFieldInfo(String _name, String _declaringClass, String _type,
-                                         boolean _staticField, boolean _finalField, boolean _aff, Accessed _accessed, int _valOffset, AnalyzedPageEl _page) {
+    public static String newFieldInfo(String _declaringClass, String _type,
+                                      boolean _staticField, boolean _aff, AnalyzedPageEl _page) {
         String formattedType_ = _type;
         if (_staticField) {
-            return new FieldInfo(_name, _declaringClass, formattedType_, _type, true, _finalField, _accessed, _valOffset);
+            return formattedType_;
         }
         if (_aff) {
             formattedType_ = AnaInherits.wildCardFormatParam(_declaringClass, formattedType_, _page);
         } else {
             formattedType_ = AnaInherits.wildCardFormatReturn(_declaringClass, formattedType_, _page);
         }
-        if (formattedType_.isEmpty()) {
-            return null;
-        }
-        return new FieldInfo(_name, _declaringClass, formattedType_, _type, false, _finalField, _accessed, _valOffset);
+        return formattedType_;
     }
+
     public static FieldInfo newFieldMetaInfo(String _name, String _declaringClass, String _type,
                                              boolean _staticField, boolean _finalField, Accessed _accessed, int _valOffset) {
         return new FieldInfo(_name, _declaringClass, _type, _type, _staticField, _finalField, _accessed, _valOffset);
@@ -56,9 +52,7 @@ public final class FieldInfo {
     public ClassField getClassField() {
         return classField;
     }
-    public String getDeclaringClass() {
-        return declaringClass;
-    }
+
     public String getType() {
         return type;
     }
@@ -97,10 +91,6 @@ public final class FieldInfo {
 
     public MemberId getMemberId() {
         return memberId;
-    }
-
-    public void setMemberId(MemberId _memberId) {
-        memberId = _memberId;
     }
 
     public void memberId(int _rootNumber, int _memberNumber) {
