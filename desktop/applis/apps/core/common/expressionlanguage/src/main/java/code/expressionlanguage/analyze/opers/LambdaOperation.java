@@ -2241,12 +2241,12 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         String from_ = "";
         boolean displayErr_ = false;
         if (!StringExpUtil.isOper(operator_)) {
-            sum_ += 1+_args.get(1).length();
-            int offset_ = className.indexOf(',')+1;
+            int offset_ = sum_ + 1;
             offset_ += StringExpUtil.getOffset(_args.get(1));
             if (operator_.isEmpty()) {
                 offset_--;
             }
+            sum_ += 1+_args.get(1).length();
             String type_ = resolveCorrectTypeAccessible(true, operator_, _page, offset_);
             partOffsets.addAllElts(_page.getCurrentParts());
             from_ = type_;
