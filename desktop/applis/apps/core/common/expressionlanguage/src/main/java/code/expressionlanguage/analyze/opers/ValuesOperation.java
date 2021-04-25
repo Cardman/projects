@@ -18,7 +18,7 @@ import code.util.core.StringUtil;
 
 public final class ValuesOperation extends LeafOperation {
 
-    private String className;
+    private final String className;
     private final AnaValuesContent valuesContent;
 
     private final CustList<PartOffset> partOffsets = new CustList<PartOffset>();
@@ -69,8 +69,7 @@ public final class ValuesOperation extends LeafOperation {
             _page.getLocalizer().addError(badAccess_);
             addErr(badAccess_.getBuiltError());
         }
-        className = r_.getWildCardElement();
-        String ret_ = StringExpUtil.getPrettyArrayType(className);
+        String ret_ = StringExpUtil.getPrettyArrayType(r_.getWildCardElement());
         setResultClass(new AnaClassArgumentMatching(ret_));
     }
 
