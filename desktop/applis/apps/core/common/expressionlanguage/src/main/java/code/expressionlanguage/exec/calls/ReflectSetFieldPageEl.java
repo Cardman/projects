@@ -6,12 +6,11 @@ import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
-import code.expressionlanguage.exec.variables.AbstractWrapper;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.ErrorStruct;
 import code.expressionlanguage.structs.FieldMetaInfo;
 
-public final class ReflectSetFieldPageEl extends AbstractReflectPageEl {
+public final class ReflectSetFieldPageEl extends AbstractBasicReflectPageEl {
 
     private boolean initClass;
     private final FieldMetaInfo metaInfo;
@@ -25,19 +24,8 @@ public final class ReflectSetFieldPageEl extends AbstractReflectPageEl {
         setGlobalArgumentStruct(_metaInfo);
         metaInfo = _metaInfo;
     }
-    @Override
-    public void processTagsBase(ContextEl _context, StackCall _stack) {
-        if (!checkCondition(_context, _stack)) {
-            return;
-        }
-        setNullReadWrite();
-    }
-    @Override
-    public void receive(AbstractWrapper _wrap, Argument _argument, ContextEl _context, StackCall _stack) {
-        setWrapper(_wrap);
-        setReturnedArgument(_argument);
-    }
 
+    @Override
     public boolean checkCondition(ContextEl _context, StackCall _stack) {
         LgNames stds_ = _context.getStandards();
         if (!initClass) {
