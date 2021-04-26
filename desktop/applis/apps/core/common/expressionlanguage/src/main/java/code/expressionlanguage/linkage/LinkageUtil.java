@@ -2648,7 +2648,6 @@ public final class LinkageUtil {
     }
 
     private static String getBeginReport(LinkageStackElementIn _in, OperationNode _root, OperationNode _val, AbstractCoverageResult _result, Coverage _cov) {
-        String tag_;
         String full_;
         String fullInit_;
         String partial_;
@@ -2668,127 +2667,106 @@ public final class LinkageUtil {
             none_ = NONE;
         }
         if (_val.getArgument() != null) {
-            OperationNode par_ = _val;
-            OperationNode before_ = _val;
-            while (par_ != _root) {
-                if (par_.getArgument() == null) {
-                    break;
-                }
-                before_ = par_;
-                par_ = par_.getParent();
-            }
-            MethodOperation parentBefore_ = before_.getParent();
-            if (parentBefore_ == null){
-                AbstractCoverageResult resultPar_ = getCovers(_in, par_, _cov);
-                if (resultPar_.isPartialCovered()) {
-                    tag_ = getFullInitReport(resultPar_, fullInit_, full_);
-                    return tag_;
-                }
-                tag_ = ExportCst.span(none_);
-                return tag_;
-            }
-            if (before_.getIndexChild() > 0) {
-                Argument firstArg_ = parentBefore_.getFirstChild().getArgument();
-                if (firstArg_ == null) {
-                    if (parentBefore_ instanceof QuickOperation) {
-                        par_ = before_;
-                    } else if (parentBefore_ instanceof AbstractTernaryOperation) {
-                        par_ = before_;
-                    } else if (parentBefore_ instanceof NullSafeOperation) {
-                        par_ = before_;
-                    } else if (parentBefore_ instanceof CompoundAffectationOperation) {
-                        CompoundAffectationOperation p_ = (CompoundAffectationOperation) parentBefore_;
-                        if (StringUtil.quickEq(p_.getOper(),AbsBk.AND_LOG_EQ)
-                                || StringUtil.quickEq(p_.getOper(),AbsBk.AND_LOG_EQ_SHORT)
-                                || StringUtil.quickEq(p_.getOper(),AbsBk.OR_LOG_EQ)
-                                || StringUtil.quickEq(p_.getOper(),AbsBk.OR_LOG_EQ_SHORT)
-                                || StringUtil.quickEq(p_.getOper(),AbsBk.NULL_EQ)
-                                || StringUtil.quickEq(p_.getOper(),AbsBk.NULL_EQ_SHORT)) {
-                            par_ = before_;
-                        }
-                    }
-                    AbstractCoverageResult resultPar_ = getCovers(_in, par_, _cov);
-                    if (resultPar_.isPartialCovered()) {
-                        tag_ = getFullInitReport(resultPar_, fullInit_, full_);
-                        return tag_;
-                    }
-                    tag_ = ExportCst.span(none_);
-                    return tag_;
-                }
-                if (parentBefore_ instanceof OrOperation) {
-                    if (BooleanStruct.isTrue(Argument.getNullableValue(firstArg_).getStruct())) {
-                        tag_ = ExportCst.span(none_);
-                        return tag_;
-                    }
-                }
-                if (parentBefore_ instanceof AndOperation) {
-                    if (BooleanStruct.isFalse(Argument.getNullableValue(firstArg_).getStruct())) {
-                        tag_ = ExportCst.span(none_);
-                        return tag_;
-                    }
-                }
-                if (parentBefore_ instanceof NullSafeOperation) {
-                    if (!Argument.getNullableValue(firstArg_).isNull()) {
-                        tag_ = ExportCst.span(none_);
-                        return tag_;
-                    }
-                }
-                if (parentBefore_ instanceof AbstractTernaryOperation) {
-                    if (BooleanStruct.isTrue(Argument.getNullableValue(firstArg_).getStruct())) {
-                        if (before_.getIndexChild() == 2) {
-                            tag_ = ExportCst.span(none_);
-                            return tag_;
-                        }
-                    }
-                    if (BooleanStruct.isFalse(Argument.getNullableValue(firstArg_).getStruct())) {
-                        if (before_.getIndexChild() == 1) {
-                            tag_ = ExportCst.span(none_);
-                            return tag_;
-                        }
-                    }
-                }
-            }
-            AbstractCoverageResult resultPar_ = getCovers(_in, par_, _cov);
-            if (resultPar_.isPartialCovered()) {
-                tag_ = getFullInitReport(resultPar_, fullInit_, full_);
-                return tag_;
-            }
-            tag_ = ExportCst.span(none_);
-            return tag_;
+            return procCstCover(_in, _root, _val, _cov, full_, fullInit_, none_);
         }
         if (_result.isFullCovered()) {
-            tag_ = getFullInitReport(_result, fullInit_, full_);
-            return tag_;
+            return getFullInitReport(_result, fullInit_, full_);
         }
         if (_result.isPartialCovered()) {
             return getPartialInitReport(_val, _result, fullInit_, full_, partialInit_, partial_);
         }
-        tag_ = ExportCst.span(none_);
-        return tag_;
+        return ExportCst.span(none_);
+    }
+
+    private static String procCstCover(LinkageStackElementIn _in, OperationNode _root, OperationNode _val, Coverage _cov, String _full, String _fullInit, String _none) {
+        OperationNode par_ = _val;
+        OperationNode before_ = _val;
+        while (par_ != _root) {
+            if (par_.getArgument() == null) {
+                break;
+            }
+            before_ = par_;
+            par_ = par_.getParent();
+        }
+        MethodOperation parentBefore_ = before_.getParent();
+        if (parentBefore_ == null){
+            return covCst(_in, _cov, _full, _fullInit, _none, par_);
+        }
+        if (before_.getIndexChild() > 0) {
+            Argument firstArg_ = parentBefore_.getFirstChild().getArgument();
+            if (firstArg_ == null) {
+                par_ = adjCover(par_,before_,parentBefore_);
+                return covCst(_in, _cov, _full, _fullInit, _none, par_);
+            }
+            if (notCovered(before_,parentBefore_,firstArg_)) {
+                return ExportCst.span(_none);
+            }
+        }
+        return covCst(_in, _cov, _full, _fullInit, _none, par_);
+    }
+
+    private static OperationNode adjCover(OperationNode _par,OperationNode _before,MethodOperation _parentBefore) {
+        OperationNode par_ = _par;
+        if (_parentBefore instanceof QuickOperation) {
+            par_ = _before;
+        } else if (_parentBefore instanceof AbstractTernaryOperation) {
+            par_ = _before;
+        } else if (_parentBefore instanceof NullSafeOperation) {
+            par_ = _before;
+        } else if (_parentBefore instanceof CompoundAffectationOperation) {
+            CompoundAffectationOperation p_ = (CompoundAffectationOperation) _parentBefore;
+            if (StringUtil.quickEq(p_.getOper(),AbsBk.AND_LOG_EQ)
+                    || StringUtil.quickEq(p_.getOper(),AbsBk.AND_LOG_EQ_SHORT)
+                    || StringUtil.quickEq(p_.getOper(),AbsBk.OR_LOG_EQ)
+                    || StringUtil.quickEq(p_.getOper(),AbsBk.OR_LOG_EQ_SHORT)
+                    || StringUtil.quickEq(p_.getOper(),AbsBk.NULL_EQ)
+                    || StringUtil.quickEq(p_.getOper(),AbsBk.NULL_EQ_SHORT)) {
+                par_ = _before;
+            }
+        }
+        return par_;
+    }
+    private static boolean notCovered(OperationNode _before,MethodOperation _parentBefore, Argument _firstArg) {
+        if (_parentBefore instanceof OrOperation && BooleanStruct.isTrue(Argument.getNullableValue(_firstArg).getStruct())) {
+            return true;
+        }
+        if (_parentBefore instanceof AndOperation && BooleanStruct.isFalse(Argument.getNullableValue(_firstArg).getStruct())) {
+            return true;
+        }
+        if (_parentBefore instanceof NullSafeOperation && !Argument.getNullableValue(_firstArg).isNull()) {
+            return true;
+        }
+        if (_parentBefore instanceof AbstractTernaryOperation) {
+            if (BooleanStruct.isTrue(Argument.getNullableValue(_firstArg).getStruct()) && _before.getIndexChild() == 2) {
+                return true;
+            }
+            return BooleanStruct.isFalse(Argument.getNullableValue(_firstArg).getStruct()) && _before.getIndexChild() == 1;
+        }
+        return false;
+    }
+    private static String covCst(LinkageStackElementIn _in, Coverage _cov, String _full, String _fullInit, String _none, OperationNode _par) {
+        AbstractCoverageResult resultPar_ = getCovers(_in, _par, _cov);
+        if (resultPar_.isPartialCovered()) {
+            return getFullInitReport(resultPar_, _fullInit, _full);
+        }
+        return ExportCst.span(_none);
     }
 
     private static String getPartialInitReport(OperationNode _val, AbstractCoverageResult _result, String _fullInit, String _full, String _partialInit, String _partial) {
-        String tag_;
         if (_val instanceof AffectationOperation && _val.getFirstChild().getNextSibling().getArgument() != null) {
-            tag_ = getFullInitReport(_result, _fullInit, _full);
-            return tag_;
+            return getFullInitReport(_result, _fullInit, _full);
         }
         if (_result.isInit()) {
-            tag_ = ExportCst.span(_partialInit);
-            return tag_;
+            return ExportCst.span(_partialInit);
         }
-        tag_ = ExportCst.span(_partial);
-        return tag_;
+        return ExportCst.span(_partial);
     }
 
     private static String getFullInitReport(AbstractCoverageResult _resultPar, String _fullInit, String _full) {
-        String tag_;
         if (_resultPar.isInit()) {
-            tag_ = ExportCst.span(_fullInit);
-        } else {
-            tag_ = ExportCst.span(_full);
+            return ExportCst.span(_fullInit);
         }
-        return tag_;
+        return ExportCst.span(_full);
     }
 
     private static void leftReport(LinkageStackElementIn _in, VariablesOffsets _vars,
