@@ -2433,14 +2433,13 @@ public final class LinkageUtil {
             MethodOperation parent_ = val_.getParent();
             OperationNode nextSiblingOp_ = val_.getNextSibling();
             if (parent_ == null) {
-                getEnd(_parts, addCover_, _in);
+                getEnd(_parts,_root, addCover_, _in);
                 _vars.getLastStackElt().setNullCurrent();
                 return null;
             }
             int offsetEnd_ = getOffsetEnd(sum_, val_, parent_);
             processImplicit(_vars,currentFileName_,offsetEnd_,val_, parent_, _parts);
-            String tag_ = getEndTag(addCover_, val_, _root, fieldLength_);
-            _parts.add(new PartOffset(tag_,offsetEnd_));
+            getEndTag(_parts, _root, fieldLength_, addCover_, val_, offsetEnd_);
             processUnaryRightOperations(_vars, currentFileName_, sum_, offsetEnd_, val_,parent_, _parts);
             if (nextSiblingOp_ != null) {
                 middleReport(_in,_vars,currentFileName_, offsetEnd_,val_,nextSiblingOp_,
@@ -2451,7 +2450,7 @@ public final class LinkageUtil {
             int st_ = end(_vars, parent_, currentFileName_, offsetEnd_, _parts, _root,_in);
             if (st_ > 0) {
                 if (st_ == 1) {
-                    getEnd(_parts, addCover_, _in);
+                    getEnd(_parts,_root, addCover_, _in);
                     _vars.getLastStackElt().setNullCurrent();
                 }
                 return null;
@@ -2460,6 +2459,13 @@ public final class LinkageUtil {
         }
         return val_;
     }
+
+    private static void getEndTag(CustList<PartOffset> _parts, OperationNode _root, int _fieldLength, boolean _addCover, OperationNode _val, int _offsetEnd) {
+        if (addTag(_fieldLength,_root,_val,_addCover)) {
+            _parts.add(new PartOffset(ExportCst.END_SPAN,_offsetEnd));
+        }
+    }
+
     private static void setAnonState(VariablesOffsets _vars, NamedCalledFunctionBlock _block) {
         LinkageStackElement state_ = new LinkageStackElement(_block.getIndexEnd());
         state_.setBlock(_block);
@@ -2619,22 +2625,12 @@ public final class LinkageUtil {
         }
     }
 
-    private static void getEnd(CustList<PartOffset> _parts, boolean _addCover, LinkageStackElementIn _in) {
+    private static void getEnd(CustList<PartOffset> _parts, OperationNode _root, boolean _addCover, LinkageStackElementIn _in) {
         int fieldLength_ = _in.getFieldLength();
-        if (_addCover && fieldLength_ == 0) {
+        if (addTag(fieldLength_,_root,_root,_addCover)) {
             int endBlock_ = _in.getEndBlock();
             _parts.add(new PartOffset(ExportCst.END_SPAN, endBlock_));
         }
-    }
-
-    private static String getEndTag(boolean _addCover, OperationNode _val, OperationNode _root, int _fieldName) {
-        String tag_;
-        if (addTag(_fieldName,_root,_val,_addCover)) {
-            tag_ = ExportCst.END_SPAN;
-        } else {
-            tag_ = EMPTY;
-        }
-        return tag_;
     }
 
     private static boolean addTag(int _fieldName, OperationNode _root, OperationNode _curOp, boolean _addCover) {
