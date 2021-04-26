@@ -349,18 +349,10 @@ public final class LinkageUtil {
     }
 
     private static void processBlockError(CustList<PartOffset> _list, VariablesOffsets _vars, AbsBk _child) {
-        if (_vars.getLastStackElt().noVisited()) {
-            if (beginHeaderBlock(_child)) {
-                addErrBlock(_list, _child);
-            }
+        if (_vars.getLastStackElt().noVisited() && beginHeaderBlock(_child)) {
+            addErrBlock(_list, _child);
         }
-        if (_child instanceof RootBlock) {
-            if (_child instanceof InnerElementBlock) {
-                processInnerElementBlockError(_vars,(InnerElementBlock) _child, _list);
-            } else {
-                processRootBlockError(_vars, (RootBlock) _child, _list);
-            }
-        }
+        processTypeBlockError(_list, _vars, _child);
         if (_child instanceof InternOverrideBlock) {
             processInternOverrideBlock(_vars, _list, (InternOverrideBlock) _child);
         }
@@ -382,6 +374,21 @@ public final class LinkageUtil {
         if (_child instanceof FieldBlock) {
             processFieldBlockError(_vars,(FieldBlock) _child, _list);
         }
+        processDefaultExpError(_list, _vars, _child);
+        processAbruptBlockError(_list, _vars, _child);
+    }
+
+    private static void processTypeBlockError(CustList<PartOffset> _list, VariablesOffsets _vars, AbsBk _child) {
+        if (_child instanceof RootBlock) {
+            if (_child instanceof InnerElementBlock) {
+                processInnerElementBlockError(_vars,(InnerElementBlock) _child, _list);
+            } else {
+                processRootBlockError(_vars, (RootBlock) _child, _list);
+            }
+        }
+    }
+
+    private static void processDefaultExpError(CustList<PartOffset> _list, VariablesOffsets _vars, AbsBk _child) {
         if (_child instanceof WhileCondition) {
             processWhileConditionError(_vars,(WhileCondition) _child, _list);
         }
@@ -420,6 +427,10 @@ public final class LinkageUtil {
         if (_child instanceof Line) {
             processLineError(_vars,(Line) _child, _list);
         }
+        processForLoopError(_list, _vars, _child);
+    }
+
+    private static void processForLoopError(CustList<PartOffset> _list, VariablesOffsets _vars, AbsBk _child) {
         if (_child instanceof ForIterativeLoop) {
             processForIterativeLoopError(_vars,(ForIterativeLoop) _child, _list);
         }
@@ -432,6 +443,9 @@ public final class LinkageUtil {
         if (_child instanceof ForMutableIterativeLoop) {
             processForMutableIterativeLoopError(_vars,(ForMutableIterativeLoop) _child, _list);
         }
+    }
+
+    private static void processAbruptBlockError(CustList<PartOffset> _list, VariablesOffsets _vars, AbsBk _child) {
         if (_child instanceof ReturnMethod) {
             processReturnMethodError(_vars,(ReturnMethod) _child, _list);
         }
@@ -531,6 +545,44 @@ public final class LinkageUtil {
     }
 
     private static void processBlockReport(Coverage _coverage, CustList<PartOffset> _list, VariablesOffsets _vars, AbsBk _child) {
+        processExpReport(_coverage, _list, _vars, _child);
+        if (_child instanceof ElementBlock) {
+            processElementBlockReport(_vars,(ElementBlock) _child, _list, _coverage);
+        }
+        if (_child instanceof FieldBlock) {
+            processFieldBlockReport(_vars,(FieldBlock) _child, _list, _coverage);
+        }
+        if (_child instanceof ConstructorBlock) {
+            processConstructorBlockReport(_vars,(ConstructorBlock) _child, _list, _coverage);
+        }
+        if (_child instanceof NamedCalledFunctionBlock) {
+            processNamedCalledFunctionBlockReport(_coverage, _list, _vars, (NamedCalledFunctionBlock) _child);
+        }
+        if (_child instanceof InternOverrideBlock) {
+            processInternOverrideBlock(_vars, _list, (InternOverrideBlock) _child);
+        }
+        if (_child instanceof SwitchMethodBlock) {
+            processSwitchMethodReport(_vars,(SwitchMethodBlock) _child, _list, _coverage);
+        }
+
+        if (_child instanceof OperatorBlock) {
+            processOverridableBlockReport(_vars,(OperatorBlock) _child, _list, _coverage);
+        }
+        processTypeBlockReport(_coverage, _list, _vars, _child);
+        processFileHeader(_list, _child);
+    }
+
+    private static void processTypeBlockReport(Coverage _coverage, CustList<PartOffset> _list, VariablesOffsets _vars, AbsBk _child) {
+        if (_child instanceof RootBlock) {
+            if (_child instanceof InnerElementBlock) {
+                processInnerElementBlockReport(_vars,(InnerElementBlock) _child, _list, _coverage);
+            } else {
+                processRootBlockReport(_vars,(RootBlock) _child, _list, _coverage);
+            }
+        }
+    }
+
+    private static void processExpReport(Coverage _coverage, CustList<PartOffset> _list, VariablesOffsets _vars, AbsBk _child) {
         if (_child instanceof IfCondition) {
             processIfConditionReport(_vars,(IfCondition) _child, _list, _coverage);
         }
@@ -545,9 +597,6 @@ public final class LinkageUtil {
         }
         if (_child instanceof DoBlock) {
             processDoBlockReport(_vars,(DoBlock) _child, _list);
-        }
-        if (_child instanceof ForMutableIterativeLoop) {
-            processForMutableIterativeLoopReport(_vars,(ForMutableIterativeLoop) _child, _list, _coverage);
         }
         if (_child instanceof SwitchBlock) {
             processSwitchBlockReport(_vars,(SwitchBlock) _child, _list, _coverage);
@@ -573,6 +622,26 @@ public final class LinkageUtil {
         if (_child instanceof Line) {
             processLineReport(_vars,(Line) _child, _list, _coverage);
         }
+        processAbruptBlockReport(_coverage, _list, _vars, _child);
+        processForLoopReport(_coverage, _list, _vars, _child);
+    }
+
+    private static void processForLoopReport(Coverage _coverage, CustList<PartOffset> _list, VariablesOffsets _vars, AbsBk _child) {
+        if (_child instanceof ForMutableIterativeLoop) {
+            processForMutableIterativeLoopReport(_vars,(ForMutableIterativeLoop) _child, _list, _coverage);
+        }
+        if (_child instanceof ForIterativeLoop) {
+            processForIterativeLoopReport(_vars,(ForIterativeLoop) _child, _list, _coverage);
+        }
+        if (_child instanceof ForEachLoop) {
+            processForEachLoopReport(_vars,(ForEachLoop) _child, _list, _coverage);
+        }
+        if (_child instanceof ForEachTable) {
+            processForEachTableReport(_vars,(ForEachTable) _child, _list, _coverage);
+        }
+    }
+
+    private static void processAbruptBlockReport(Coverage _coverage, CustList<PartOffset> _list, VariablesOffsets _vars, AbsBk _child) {
         if (_child instanceof ReturnMethod) {
             processReturnMethodReport(_vars,(ReturnMethod) _child, _list, _coverage);
         }
@@ -585,45 +654,6 @@ public final class LinkageUtil {
         if (_child instanceof ContinueBlock) {
             processContinueBlockReport((ContinueBlock) _child, _list);
         }
-        if (_child instanceof ForIterativeLoop) {
-            processForIterativeLoopReport(_vars,(ForIterativeLoop) _child, _list, _coverage);
-        }
-        if (_child instanceof ForEachLoop) {
-            processForEachLoopReport(_vars,(ForEachLoop) _child, _list, _coverage);
-        }
-        if (_child instanceof ForEachTable) {
-            processForEachTableReport(_vars,(ForEachTable) _child, _list, _coverage);
-        }
-        if (_child instanceof ElementBlock) {
-            processElementBlockReport(_vars,(ElementBlock) _child, _list, _coverage);
-        }
-        if (_child instanceof FieldBlock) {
-            processFieldBlockReport(_vars,(FieldBlock) _child, _list, _coverage);
-        }
-        if (_child instanceof ConstructorBlock) {
-            processConstructorBlockReport(_vars,(ConstructorBlock) _child, _list, _coverage);
-        }
-        if (_child instanceof NamedCalledFunctionBlock) {
-            processNamedCalledFunctionBlockReport(_coverage, _list, _vars, (NamedCalledFunctionBlock) _child);
-        }
-        if (_child instanceof InternOverrideBlock) {
-            processInternOverrideBlock(_vars, _list, (InternOverrideBlock) _child);
-        }
-        if (_child instanceof SwitchMethodBlock) {
-            processSwitchMethodReport(_vars,(SwitchMethodBlock) _child, _list, _coverage);
-        }
-
-        if (_child instanceof OperatorBlock) {
-            processOverridableBlockReport(_vars,(OperatorBlock) _child, _list, _coverage);
-        }
-        if (_child instanceof RootBlock) {
-            if (_child instanceof InnerElementBlock) {
-                processInnerElementBlockReport(_vars,(InnerElementBlock) _child, _list, _coverage);
-            } else {
-                processRootBlockReport(_vars,(RootBlock) _child, _list, _coverage);
-            }
-        }
-        processFileHeader(_list, _child);
     }
 
     private static void processNamedCalledFunctionBlockReport(Coverage _coverage, CustList<PartOffset> _list, VariablesOffsets _vars, NamedCalledFunctionBlock _child) {
