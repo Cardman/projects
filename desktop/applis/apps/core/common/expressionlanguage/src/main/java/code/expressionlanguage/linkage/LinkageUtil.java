@@ -2403,7 +2403,7 @@ public final class LinkageUtil {
                 if (!_vars.getVisitedAnnotations().containsObj(val_)) {
                     AbstractCoverageResult result_ = getCovers(_in, val_, _cov);
                     getBeginOpReport(_in, _parts, _root, val_, addCover_, result_, _cov);
-                    leftReport(_in, _vars, val_, _cov,result_, _parts, currentFileName_);
+                    leftReport(_in, _vars, val_, _cov, _parts, currentFileName_);
                 }
                 OperationNode visitRep_ = visit(_vars, val_, _parts, _in);
                 if (_vars.goesToProcess()) {
@@ -2794,7 +2794,6 @@ public final class LinkageUtil {
     private static void leftReport(LinkageStackElementIn _in, VariablesOffsets _vars,
                                    OperationNode _val,
                                    Coverage _cov,
-                                   AbstractCoverageResult _result,
                                    CustList<PartOffset> _parts, String _currentFileName) {
         MethodOperation par_ = _val.getParent();
         int sum_ = _in.getBeginBlock();
@@ -2827,7 +2826,7 @@ public final class LinkageUtil {
         processLeafType(_vars, sum_,_val, _parts);
         processDynamicCall(sum_, _val, _parts);
         processRichHeader(_vars, _currentFileName, sum_, _val, _parts);
-        processUnaryLeftOperationsCoversReport(_vars, sum_, _val, _result, _parts);
+        processUnaryLeftOperationsCoversReport(_in,_vars, sum_, _val, _cov, _parts);
         if (_val instanceof SwitchOperation) {
             SwitchMethodBlock switchMethod_ = ((SwitchOperation) _val).getSwitchMethod();
             int full_ = 0;
@@ -3456,10 +3455,13 @@ public final class LinkageUtil {
         }
     }
 
-    private static void processUnaryLeftOperationsCoversReport(VariablesOffsets _vars, int _sum, OperationNode _val, AbstractCoverageResult _result, CustList<PartOffset> _parts) {
-        if (_val instanceof UnaryBooleanOperation && ((UnaryBooleanOperation)_val).getFct().getFunction() == null && _result.isStrictPartialCovered()) {
+    private static void processUnaryLeftOperationsCoversReport(LinkageStackElementIn _in, VariablesOffsets _vars, int _sum, OperationNode _val, Coverage _cov, CustList<PartOffset> _parts) {
+        if (_val instanceof UnaryBooleanOperation && ((UnaryBooleanOperation)_val).getFct().getFunction() == null) {
             int offsetOp_ = _val.getOperations().getOperators().firstKey();
-            safeReport(_vars,_result, _sum + _val.getIndexInEl() + offsetOp_,_parts,1);
+            AbstractCoverageResult result_ = getCovers(_in, _val, _cov);
+            if (result_.isStrictPartialCovered()) {
+                safeReport(_vars,result_, _sum + _val.getIndexInEl() + offsetOp_,_parts,1);
+            }
         }
     }
 
