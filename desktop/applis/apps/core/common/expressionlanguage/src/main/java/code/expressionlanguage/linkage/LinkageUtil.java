@@ -1314,11 +1314,9 @@ public final class LinkageUtil {
             int off_ = _cond.getOffset();
             _parts.add(new PartOffset(tagCov_, off_));
             appendVars(_vars,_cond, _parts);
-            String tag_;
             _parts.add(new PartOffset(ExportCst.anchorName(_cond.getVariableNameOffset()), _cond.getVariableNameOffset()));
             _parts.add(new PartOffset(ExportCst.END_ANCHOR, _cond.getVariableNameOffset() + _cond.getVariableName().length()));
-            tag_ = ExportCst.END_SPAN;
-            _parts.add(new PartOffset(tag_, _cond.getVariableNameOffset() + _cond.getVariableName().length()));
+            _parts.add(new PartOffset(ExportCst.END_SPAN, _cond.getVariableNameOffset() + _cond.getVariableName().length()));
         }
         int off_ = _cond.getExpressionOffset();
         int offsetEndBlock_ = off_ + _cond.getExpression().length();
@@ -1352,8 +1350,7 @@ public final class LinkageUtil {
         KeyWords keyWords_ = _vars.getKeyWords();
         String keyWordVar_ = keyWords_.getKeyWordVar();
         if (StringUtil.quickEq(_cond.getClassName().trim(), keyWordVar_)) {
-            String tag_;
-            tag_ = ExportCst.bold(_cond.getImportedClassName());
+            String tag_ = ExportCst.bold(_cond.getImportedClassName());
             _parts.add(new PartOffset(tag_, _cond.getClassNameOffset()));
             _parts.add(new PartOffset(ExportCst.END_BOLD, _cond.getClassNameOffset() + keyWordVar_.length()));
         } else {
@@ -1387,8 +1384,7 @@ public final class LinkageUtil {
 
     private static void appendSecondVar(ForEachTable _cond, CustList<PartOffset> _parts, String _keyWordVar) {
         if (StringUtil.quickEq(_cond.getClassNameSecond().trim(), _keyWordVar)) {
-            String tag_;
-            tag_ = ExportCst.bold(_cond.getImportedClassNameSecond());
+            String tag_ = ExportCst.bold(_cond.getImportedClassNameSecond());
             _parts.add(new PartOffset(tag_, _cond.getClassNameOffsetSecond()));
             _parts.add(new PartOffset(ExportCst.END_BOLD, _cond.getClassNameOffsetSecond() + _keyWordVar.length()));
         } else {
@@ -1429,8 +1425,7 @@ public final class LinkageUtil {
 
     private static void appendFirstVar(ForEachTable _cond, CustList<PartOffset> _parts, String _keyWordVar) {
         if (StringUtil.quickEq(_cond.getClassNameFirst().trim(), _keyWordVar)) {
-            String tag_;
-            tag_ = ExportCst.bold(_cond.getImportedClassNameFirst());
+            String tag_ = ExportCst.bold(_cond.getImportedClassNameFirst());
             _parts.add(new PartOffset(tag_, _cond.getClassNameOffsetFirst()));
             _parts.add(new PartOffset(ExportCst.END_BOLD, _cond.getClassNameOffsetFirst() + _keyWordVar.length()));
         } else {
@@ -2180,7 +2175,7 @@ public final class LinkageUtil {
         Ints annotationsIndexes_ = _cond.getAnnotationsIndexesParams().get(_index);
         StringList annotations_ = _cond.getAnnotationsParams().get(_index);
         CustList<OperationNode> roots_ = _cond.getRootsList().get(_index);
-        annotMethReport(_vars, _cond, _index, _parts, _cov, annotationsIndexes_, annotations_, roots_);
+        annotMethReport(_vars, _cond, _parts, _cov, annotationsIndexes_, annotations_, roots_);
     }
     private static void buildAnnotationsReport(VariablesOffsets _vars, SwitchMethodBlock _cond, CustList<PartOffset> _parts, Coverage _cov) {
         Ints annotationsIndexes_ = _cond.getAnnotationsIndexes();
@@ -2192,14 +2187,15 @@ public final class LinkageUtil {
         Ints annotationsIndexes_ = _cond.getAnnotationsIndexesParams().get(_index);
         StringList annotations_ = _cond.getAnnotationsParams().get(_index);
         CustList<OperationNode> roots_ = _cond.getRootsList().get(_index);
-        annotMethReport(_vars, _cond, _index, _parts, _cov, annotationsIndexes_, annotations_, roots_);
+        annotMethReport(_vars, _cond, _parts, _cov, annotationsIndexes_, annotations_, roots_);
     }
 
-    private static void annotMethReport(VariablesOffsets _vars, AbsBk _cond, int _index, CustList<PartOffset> _parts, Coverage _cov, Ints _annotationsIndexes, StringList _annotations, CustList<OperationNode> _roots) {
+    private static void annotMethReport(VariablesOffsets _vars, AbsBk _cond, CustList<PartOffset> _parts, Coverage _cov, Ints _annotationsIndexes, StringList _annotations, CustList<OperationNode> _roots) {
         int len_ = _annotationsIndexes.size();
+        int index_ = _vars.getLastStackElt().getIndexAnnotationGroup();
         int j_ = _vars.getLastStackElt().getIndexAnnotation();
         for (int i = j_; i < len_; i++) {
-            LinkageStackElementIn in_ = buildAnnotLinkageReport(_cond, _index, _annotationsIndexes, _annotations, i);
+            LinkageStackElementIn in_ = buildAnnotLinkageReport(_cond, index_, _annotationsIndexes, _annotations, i);
             buildAnnotReport(_vars, _parts, _cov, _roots, i, in_);
             if (_vars.goesToProcess()) {
                 return;
@@ -2207,7 +2203,7 @@ public final class LinkageUtil {
             _vars.getLastStackElt().setIndexAnnotation(i + 1);
         }
         _vars.getLastStackElt().setIndexAnnotation(0);
-        _vars.getLastStackElt().setIndexAnnotationGroup(_index + 1);
+        _vars.getLastStackElt().setIndexAnnotationGroup(index_ + 1);
     }
 
     private static void buildAnnotReport(VariablesOffsets _vars, CustList<PartOffset> _parts, Coverage _cov, CustList<OperationNode> _roots, int _i, LinkageStackElementIn _in) {
