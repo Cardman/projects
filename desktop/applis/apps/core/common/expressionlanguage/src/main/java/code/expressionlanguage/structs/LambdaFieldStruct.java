@@ -22,6 +22,8 @@ public final class LambdaFieldStruct extends WithoutParentIdStruct implements La
     private final boolean affect;
     private final boolean staticField;
     private final boolean safeInstance;
+    private final boolean toStrField;
+    private final boolean rdCodField;
     private final boolean instanceField;
     private final Struct metaInfo;
 
@@ -35,6 +37,8 @@ public final class LambdaFieldStruct extends WithoutParentIdStruct implements La
         ancestor = _common.getAncestor();
         affect = _field.isAffField();
         staticField = _field.isStaticField();
+        toStrField = _field.isToStrField();
+        rdCodField = _field.isRdCodField();
         instanceField = _field.isInstanceField();
         safeInstance = _common.isSafeInstance();
     }
@@ -57,6 +61,14 @@ public final class LambdaFieldStruct extends WithoutParentIdStruct implements La
 
     public ClassField getFid() {
         return fid;
+    }
+
+    public boolean isToStrField() {
+        return toStrField;
+    }
+
+    public boolean isRdCodField() {
+        return rdCodField;
     }
 
     public boolean isInstanceField() {

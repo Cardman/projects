@@ -298,6 +298,12 @@ public final class ExecutingUtil {
             CustomReflectMethodDefVal c_ = (CustomReflectMethodDefVal) _ref;
             MethodMetaInfo metaInfo_ = c_.getGl();
             pageLoc_ = new ReflectGetDefaultValuePageEl(metaInfo_);
+        } else if (_ref instanceof CustomReflectLambdaToStr) {
+            CustomReflectLambdaToStr c_ = (CustomReflectLambdaToStr) _ref;
+            pageLoc_ = new LambdaToStrRefectMethodPageEl(c_.getArgument());
+        } else if (_ref instanceof CustomReflectLambdaRdCod) {
+            CustomReflectLambdaRdCod c_ = (CustomReflectLambdaRdCod) _ref;
+            pageLoc_ = new LambdaRdCodRefectMethodPageEl(c_.getArgument());
         } else if (_ref instanceof CustomReflectLambdaMethod) {
             CustomReflectLambdaMethod c_ = (CustomReflectLambdaMethod) _ref;
             MethodMetaInfo metaInfo_ = c_.getGl();

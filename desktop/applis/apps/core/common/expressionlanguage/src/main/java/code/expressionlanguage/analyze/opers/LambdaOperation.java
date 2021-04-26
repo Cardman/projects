@@ -1865,12 +1865,34 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             boolean accessFromSuper_ = false;
             boolean accessSuper_ = true;
             KeyWords keyWords_ = _page.getKeyWords();
+            String keyWordThis_ = keyWords_.getKeyWordThis();
+            String keyWordNull_ = keyWords_.getKeyWordNull();
             String keyWordSuper_ = keyWords_.getKeyWordSuper();
             String keyWordThat_ = keyWords_.getKeyWordThat();
             String keyWordClasschoice_ = keyWords_.getKeyWordClasschoice();
             String keyWordSuperaccess_ = keyWords_.getKeyWordSuperaccess();
             String keyWordParent_ = keyWords_.getKeyWordParent();
             String keyWordInstanceof_ = keyWords_.getKeyWordInstanceof();
+            if (StringUtil.quickEq(fieldName_, keyWordThis_)) {
+                lambdaFieldContent.setFinalField(true);
+                lambdaFieldContent.setToStrField(true);
+                lambdaCommonContent.setReturnFieldType(_page.getAliasString());
+                lambdaCommonContent.setFoundClass(resolved_);
+                lambdaCommonContent.setShiftArgument(true);
+                String fct_ = StringUtil.concat(_page.getAliasFct(),"<",_page.getAliasObject(),",", lambdaCommonContent.getReturnFieldType(),">");
+                setResultClass(new AnaClassArgumentMatching(fct_));
+                return;
+            }
+            if (StringUtil.quickEq(fieldName_, keyWordNull_)) {
+                lambdaFieldContent.setFinalField(true);
+                lambdaFieldContent.setRdCodField(true);
+                lambdaCommonContent.setReturnFieldType(_page.getAliasPrimLong());
+                lambdaCommonContent.setFoundClass(resolved_);
+                lambdaCommonContent.setShiftArgument(true);
+                String fct_ = StringUtil.concat(_page.getAliasFct(),"<",_page.getAliasObject(),",", lambdaCommonContent.getReturnFieldType(),">");
+                setResultClass(new AnaClassArgumentMatching(fct_));
+                return;
+            }
             if (StringUtil.quickEq(fieldName_, keyWordInstanceof_)) {
                 lambdaFieldContent.setFinalField(true);
                 lambdaFieldContent.setInstanceField(true);
@@ -2042,6 +2064,8 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         KeyWords keyWords_ = _page.getKeyWords();
         String keyWordSuper_ = keyWords_.getKeyWordSuper();
         String keyWordThat_ = keyWords_.getKeyWordThat();
+        String keyWordThis_ = keyWords_.getKeyWordThis();
+        String keyWordNull_ = keyWords_.getKeyWordNull();
         String keyWordClasschoice_ = keyWords_.getKeyWordClasschoice();
         String keyWordSuperaccess_ = keyWords_.getKeyWordSuperaccess();
         String keyWordParent_ = keyWords_.getKeyWordParent();
@@ -2049,6 +2073,24 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         StringList bounds_ = new StringList();
         for (String c: previousResultClass.getNames()) {
             bounds_.addAllElts(InvokingOperation.getBounds(c, _page));
+        }
+        if (StringUtil.quickEq(fieldName_, keyWordThis_)) {
+            lambdaFieldContent.setFinalField(true);
+            lambdaFieldContent.setToStrField(true);
+            lambdaCommonContent.setReturnFieldType(_page.getAliasString());
+            lambdaCommonContent.setFoundClass(resolved_);
+            String fct_ = StringUtil.concat(_page.getAliasFct(),"<", lambdaCommonContent.getReturnFieldType(),">");
+            setResultClass(new AnaClassArgumentMatching(fct_));
+            return;
+        }
+        if (StringUtil.quickEq(fieldName_, keyWordNull_)) {
+            lambdaFieldContent.setFinalField(true);
+            lambdaFieldContent.setRdCodField(true);
+            lambdaCommonContent.setReturnFieldType(_page.getAliasPrimLong());
+            lambdaCommonContent.setFoundClass(resolved_);
+            String fct_ = StringUtil.concat(_page.getAliasFct(),"<", lambdaCommonContent.getReturnFieldType(),">");
+            setResultClass(new AnaClassArgumentMatching(fct_));
+            return;
         }
         if (StringUtil.quickEq(fieldName_, keyWordInstanceof_)) {
             lambdaFieldContent.setFinalField(true);

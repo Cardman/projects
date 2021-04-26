@@ -537,6 +537,14 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
                     realInstance_ = ArgumentWrapper.helpArg(ExecHelper.getFirstArgumentWrapper(argumentWrappers_));
                 }
                 Struct struct_ = realInstance_.getStruct();
+                if (l_.isToStrField()) {
+                    _stackCall.setCallingState(new CustomReflectLambdaToStr(realInstance_));
+                    return Argument.createVoid();
+                }
+                if (l_.isRdCodField()) {
+                    _stackCall.setCallingState(new CustomReflectLambdaRdCod(realInstance_));
+                    return Argument.createVoid();
+                }
                 if (l_.isInstanceField()) {
                     String ownerType_ = StringUtil.nullToEmpty(l_.getOwnerType());
                     boolean res_ = ExecTemplates.safeObject(ownerType_, struct_,_conf) == ErrorType.NOTHING;
