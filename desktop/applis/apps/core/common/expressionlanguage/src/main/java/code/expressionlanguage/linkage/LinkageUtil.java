@@ -2695,8 +2695,7 @@ public final class LinkageUtil {
         if (before_.getIndexChild() > 0) {
             Argument firstArg_ = parentBefore_.getFirstChild().getArgument();
             if (firstArg_ == null) {
-                par_ = adjCover(par_,before_,parentBefore_);
-                return covCst(_in, _cov, _full, _fullInit, _none, par_);
+                return covCst(_in, _cov, _full, _fullInit, _none, before_);
             }
             if (notCovered(before_,parentBefore_,firstArg_)) {
                 return ExportCst.span(_none);
@@ -2705,27 +2704,6 @@ public final class LinkageUtil {
         return covCst(_in, _cov, _full, _fullInit, _none, par_);
     }
 
-    private static OperationNode adjCover(OperationNode _par,OperationNode _before,MethodOperation _parentBefore) {
-        OperationNode par_ = _par;
-        if (_parentBefore instanceof QuickOperation) {
-            par_ = _before;
-        } else if (_parentBefore instanceof AbstractTernaryOperation) {
-            par_ = _before;
-        } else if (_parentBefore instanceof NullSafeOperation) {
-            par_ = _before;
-        } else if (_parentBefore instanceof CompoundAffectationOperation) {
-            CompoundAffectationOperation p_ = (CompoundAffectationOperation) _parentBefore;
-            if (StringUtil.quickEq(p_.getOper(),AbsBk.AND_LOG_EQ)
-                    || StringUtil.quickEq(p_.getOper(),AbsBk.AND_LOG_EQ_SHORT)
-                    || StringUtil.quickEq(p_.getOper(),AbsBk.OR_LOG_EQ)
-                    || StringUtil.quickEq(p_.getOper(),AbsBk.OR_LOG_EQ_SHORT)
-                    || StringUtil.quickEq(p_.getOper(),AbsBk.NULL_EQ)
-                    || StringUtil.quickEq(p_.getOper(),AbsBk.NULL_EQ_SHORT)) {
-                par_ = _before;
-            }
-        }
-        return par_;
-    }
     private static boolean notCovered(OperationNode _before,MethodOperation _parentBefore, Argument _firstArg) {
         if (_parentBefore instanceof OrOperation && BooleanStruct.isTrue(Argument.getNullableValue(_firstArg).getStruct())) {
             return true;
