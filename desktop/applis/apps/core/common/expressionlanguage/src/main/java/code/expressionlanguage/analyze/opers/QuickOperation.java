@@ -31,6 +31,7 @@ public abstract class QuickOperation extends MethodOperation {
     private final StringList errSecond = new StringList();
 
     private int opOffset;
+    private int opOff;
 
     public QuickOperation(int _index,
             int _indexChild, MethodOperation _m, OperationsSequence _op) {
@@ -52,6 +53,7 @@ public abstract class QuickOperation extends MethodOperation {
         AnaClassArgumentMatching leftRes_ = left_.getResultClass();
         AnaClassArgumentMatching rightRes_ = right_.getResultClass();
         String oper_ = getOperations().getOperators().firstValue();
+        opOff = getOperations().getOperators().firstKey();
         OperatorConverter opConv_ = getBinaryOperatorOrMethod(this, left_, right_, oper_, _page);
         if (opConv_ != null) {
             fct.infos(opConv_,_page);
@@ -145,5 +147,9 @@ public abstract class QuickOperation extends MethodOperation {
 
     public int getOpOffset() {
         return opOffset;
+    }
+
+    public int getOpOff() {
+        return opOff;
     }
 }

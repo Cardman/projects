@@ -36,12 +36,14 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
     private AnaTypeFct functionGet;
     private AnaTypeFct functionSet;
     private boolean errLeftValue;
+    private final int lastOpOffset;
 
     public ArrOperation(int _index,
             int _indexChild, MethodOperation _m, OperationsSequence _op) {
         super(_index, _indexChild, _m, _op);
         callFctContent = new AnaCallFctContent("");
         arrContent = new AnaArrContent();
+        lastOpOffset = _op.getOperators().lastKey();
     }
 
     @Override
@@ -357,5 +359,9 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
 
     public AnaCallFctContent getCallFctContent() {
         return callFctContent;
+    }
+
+    public int getLastOpOffset() {
+        return lastOpOffset;
     }
 }

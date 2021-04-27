@@ -12,6 +12,7 @@ import code.util.StringMap;
 public final class NullSafeOperation extends MethodOperation {
 
     private int opOffset;
+    private int opOff;
 
     public NullSafeOperation(int _index, int _indexChild, MethodOperation _m, OperationsSequence _op) {
         super(_index, _indexChild, _m, _op);
@@ -30,6 +31,7 @@ public final class NullSafeOperation extends MethodOperation {
         OperationNode opTwo_ = chidren_.first();
         OperationNode opThree_ = chidren_.last();
         opOffset = opThree_.getIndexInEl();
+        opOff = getOperations().getOperators().firstKey();
         AnaClassArgumentMatching clMatchTwo_ = opTwo_.getResultClass();
         AnaClassArgumentMatching clMatchThree_ = opThree_.getResultClass();
         StringMap<StringList> vars_ = _page.getCurrentConstraints().getCurrentConstraints();
@@ -67,5 +69,9 @@ public final class NullSafeOperation extends MethodOperation {
 
     public int getOpOffset() {
         return opOffset;
+    }
+
+    public int getOpOff() {
+        return opOff;
     }
 }

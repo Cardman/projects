@@ -100,7 +100,7 @@ public final class CompoundAffectationOperation extends MethodOperation {
             }
         }
         AnaClassArgumentMatching clMatchLeft_ = left_.getResultClass();
-        OperatorConverter cl_ = getBinaryOperatorOrMethod(this,(OperationNode) left_,right_, op_, _page);
+        OperatorConverter cl_ = getBinaryOperatorOrMethod(this, left_,right_, op_, _page);
         if (cl_ != null) {
             ClassMethodId test_ = cl_.getTest();
             if (test_ != null) {
@@ -304,6 +304,9 @@ public final class CompoundAffectationOperation extends MethodOperation {
         return operatorContent.getOper();
     }
 
+    public int getOpOffset(){
+        return operatorContent.getOpOffset();
+    }
     public ClassMethodIdMemberIdTypeFct getConv() {
         return conv;
     }
