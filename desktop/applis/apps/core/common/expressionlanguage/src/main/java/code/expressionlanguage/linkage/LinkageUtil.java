@@ -3770,24 +3770,11 @@ public final class LinkageUtil {
         MethodOperation.processEmptyError(_curOp,l_);
         MethodOperation.processEmptyError(_nextSiblingOp,l_);
         if (middleOper(_parent)) {
-            int index_ = _curOp.getIndexChild();
             StrTypes operators_ =  _parent.getOperations().getOperators();
-            AnaTypeFct testFct_ = null;
-            if (_vars.isImplicit()&&_parent instanceof ShortTernaryOperation && index_ == 0) {
-                ShortTernaryOperation sh_ = (ShortTernaryOperation) _parent;
-                testFct_ = sh_.getImplFct();
-            }
-            if (_parent instanceof ShortTernaryOperation && index_ == 1) {
-                ShortTernaryOperation sh_ = (ShortTernaryOperation) _parent;
-                testFct_ = sh_.getTestFct();
-            }
-            if (_vars.isImplicit()&&_parent instanceof RefShortTernaryOperation && index_ == 0) {
-                RefShortTernaryOperation sh_ = (RefShortTernaryOperation) _parent;
-                testFct_ = sh_.getImplFct();
-            }
+            AnaTypeFct testFct_ = tryGetTestFct(_vars, _curOp,_parent);
+            int index_ = _curOp.getIndexChild();
             if (_parent instanceof RefShortTernaryOperation && index_ == 1) {
                 RefShortTernaryOperation sh_ = (RefShortTernaryOperation) _parent;
-                testFct_ = sh_.getTestFct();
                 l_.addAllElts(sh_.getChildrenErrors());
             }
             if (testFct_ != null) {
@@ -3805,6 +3792,28 @@ public final class LinkageUtil {
         processCustomOperator(_in,_vars, _curOp,_nextSiblingOp, _parent, _parts);
         processCompoundAffLeftOpError(_in,_vars, _nextSiblingOp, _parent, _parts);
         processCompoundAffRightOp(_in,_vars, _parent, _parts);
+    }
+
+    private static AnaTypeFct tryGetTestFct(VariablesOffsets _vars, OperationNode _curOp, MethodOperation _parent) {
+        int index_ = _curOp.getIndexChild();
+        AnaTypeFct testFct_ = null;
+        if (_vars.isImplicit()&& _parent instanceof ShortTernaryOperation && index_ == 0) {
+            ShortTernaryOperation sh_ = (ShortTernaryOperation) _parent;
+            testFct_ = sh_.getImplFct();
+        }
+        if (_parent instanceof ShortTernaryOperation && index_ == 1) {
+            ShortTernaryOperation sh_ = (ShortTernaryOperation) _parent;
+            testFct_ = sh_.getTestFct();
+        }
+        if (_vars.isImplicit()&& _parent instanceof RefShortTernaryOperation && index_ == 0) {
+            RefShortTernaryOperation sh_ = (RefShortTernaryOperation) _parent;
+            testFct_ = sh_.getImplFct();
+        }
+        if (_parent instanceof RefShortTernaryOperation && index_ == 1) {
+            RefShortTernaryOperation sh_ = (RefShortTernaryOperation) _parent;
+            testFct_ = sh_.getTestFct();
+        }
+        return testFct_;
     }
 
     private static void processLogicAndOrOperationError(LinkageStackElementIn _in, VariablesOffsets _vars, OperationNode _curOp, MethodOperation _parent, CustList<PartOffset> _parts, StringList _list) {
@@ -3958,14 +3967,9 @@ public final class LinkageUtil {
         } else if (hasToCallStringConver(_vars, _nextSiblingOp)){
             _parts.add(new PartOffset(ExportCst.HEAD_ITALIC, begin_));
             _parts.add(new PartOffset(ExportCst.FOOT_ITALIC,begin_+len_));
-        } else if (StringUtil.quickEq(par_.getOper(),AbsBk.NULL_EQ) || StringUtil.quickEq(par_.getOper(),AbsBk.NULL_EQ_SHORT)){
+        } else if (StringUtil.quickEq(par_.getOper(),AbsBk.NULL_EQ) || StringUtil.quickEq(par_.getOper(),AbsBk.NULL_EQ_SHORT)||par_.isRightBool()) {
             AbstractCoverageResult resultLast_ = getCovers(_in, _nextSiblingOp, _cov);
-            safeReport(_vars, resultLast_, begin_,_parts, 1);
-        } else {
-            if (par_.isRightBool()) {
-                AbstractCoverageResult resultLast_ = getCovers(_in, _nextSiblingOp, _cov);
-                safeReport(_vars, resultLast_, begin_,_parts,1);
-            }
+            safeReport(_vars, resultLast_, begin_, _parts, 1);
         }
     }
     private static void processCompoundAffRightOp(LinkageStackElementIn _in, VariablesOffsets _vars, MethodOperation _parentOp, CustList<PartOffset> _parts) {
