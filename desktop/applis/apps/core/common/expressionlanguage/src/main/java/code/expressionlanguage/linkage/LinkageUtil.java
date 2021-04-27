@@ -3303,7 +3303,6 @@ public final class LinkageUtil {
         }
         if (_val instanceof ElementArrayInstancing) {
             _parts.addAllElts(((ElementArrayInstancing)_val).getPartOffsets());
-            _parts.addAllElts(((ElementArrayInstancing)_val).getPartOffsetsErr());
         }
     }
 
@@ -3344,7 +3343,6 @@ public final class LinkageUtil {
                 _parts.add(new PartOffset(ExportCst.END_ANCHOR,begin_+ _vars.getKeyWords().getKeyWordStaticCall().length()));
             }
             _parts.addAllElts(((StaticCallAccessOperation)_val).getPartOffsets());
-            _parts.addAllElts(((StaticCallAccessOperation)_val).getStCallSolved());
         }
         if (_val instanceof ThisOperation) {
             if (!_val.getErrs().isEmpty()) {

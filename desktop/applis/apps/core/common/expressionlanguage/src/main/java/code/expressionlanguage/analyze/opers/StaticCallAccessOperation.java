@@ -17,7 +17,6 @@ import code.util.core.IndexConstants;
 public final class StaticCallAccessOperation extends LeafOperation {
     private CustList<PartOffset> partOffsets;
     private String stCall = "";
-    private final CustList<PartOffset> stCallSolved = new CustList<PartOffset>();
     private boolean implicit;
     private int lt;
     private int gt;
@@ -115,10 +114,6 @@ public final class StaticCallAccessOperation extends LeafOperation {
 
     public String getStCall() {
         return stCall;
-    }
-
-    public CustList<PartOffset> getStCallSolved() {
-        return stCallSolved;
     }
 
     public int getGt() {

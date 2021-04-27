@@ -443,7 +443,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                         setupFct();
                         String foundClass_ = id_.getRealClass();
                         if (!stCall_.getStCall().isEmpty()) {
-                            ContextUtil.appendTitlePartsAbs(stCall_.getLt(), stCall_.getGt(), foundClass_, stCall_.getStCallSolved(), _page);
+                            ContextUtil.appendTitlePartsAbs(stCall_.getLt(), stCall_.getGt(), foundClass_, stCall_.getPartOffsets(), _page);
                         }
                         foundClass_ = StringExpUtil.getIdFromAllTypes(foundClass_);
                         lambdaCommonContent.setFoundClass(id_.getId().getClassName());

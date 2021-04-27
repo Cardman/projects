@@ -18,10 +18,8 @@ import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.inherits.Mapping;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.analyze.instr.PartOffset;
-import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
 import code.expressionlanguage.linkage.ExportCst;
-import code.expressionlanguage.linkage.LinkageUtil;
 import code.expressionlanguage.options.KeyWords;
 import code.maths.litteralcom.StrTypes;
 import code.util.CustList;
@@ -32,7 +30,6 @@ import code.util.core.StringUtil;
 public final class ElementArrayInstancing extends AbstractArrayInstancingOperation implements PreAnalyzableOperation {
 
     private final CustList<PartOffset> partOffsets = new CustList<PartOffset>();
-    private final CustList<PartOffset> partOffsetsErr = new CustList<PartOffset>();
     private String typeInfer = EMPTY_STRING;
     public ElementArrayInstancing(int _index, int _indexChild,
             MethodOperation _m, OperationsSequence _op) {
@@ -272,8 +269,8 @@ public final class ElementArrayInstancing extends AbstractArrayInstancingOperati
             StrTypes operators_ = getOperations().getOperators();
             setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ operators_.firstKey(), _page);
             int i_ = _page.getLocalizer().getCurrentLocationIndex();
-            partOffsetsErr.add(new PartOffset(ExportCst.anchorErr(un_.getBuiltError()),i_));
-            partOffsetsErr.add(new PartOffset(ExportCst.END_ANCHOR,i_+1));
+            partOffsets.add(new PartOffset(ExportCst.anchorErr(un_.getBuiltError()),i_));
+            partOffsets.add(new PartOffset(ExportCst.END_ANCHOR,i_+1));
             String obj_ = _page.getAliasObject();
             obj_ = StringExpUtil.getPrettyArrayType(obj_);
             AnaClassArgumentMatching class_ = new AnaClassArgumentMatching(obj_);
@@ -324,7 +321,4 @@ public final class ElementArrayInstancing extends AbstractArrayInstancingOperati
         return partOffsets;
     }
 
-    public CustList<PartOffset> getPartOffsetsErr() {
-        return partOffsetsErr;
-    }
 }

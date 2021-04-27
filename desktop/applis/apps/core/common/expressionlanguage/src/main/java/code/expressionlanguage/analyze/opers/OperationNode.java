@@ -2899,7 +2899,7 @@ public abstract class OperationNode {
         StaticCallAccessOperation staticCallOp_ = _filter.getStaticCallOp();
         if (staticCallOp_ != null) {
             if (!_filter.getStaticCall().isEmpty()) {
-                ContextUtil.appendTitlePartsAbs(staticCallOp_.getLt(), staticCallOp_.getGt(), m_.getClassName(), staticCallOp_.getStCallSolved(), _page);
+                ContextUtil.appendTitlePartsAbs(staticCallOp_.getLt(), staticCallOp_.getGt(), m_.getClassName(), staticCallOp_.getPartOffsets(), _page);
             }
         }
         CustList<CustList<ImplicitInfos>> implicits_ = m_.getImplicits();
