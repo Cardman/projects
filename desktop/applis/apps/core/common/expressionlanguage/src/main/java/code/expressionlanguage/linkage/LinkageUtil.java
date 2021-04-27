@@ -3176,44 +3176,49 @@ public final class LinkageUtil {
     }
 
     private static void processVariables(int _sum, OperationNode _val, CustList<PartOffset> _parts) {
-        if (_val instanceof RefVariableOperation) {
-            String varName_ = ((RefVariableOperation) _val).getRealVariableName();
-            int delta_ = ((RefVariableOperation) _val).getOff();
-            int id_ = ((RefVariableOperation) _val).getRef();
+        processRefVariable(_sum, _val, _parts);
+        processVariable(_sum, _val, _parts);
+        processMutableLoppVariable(_sum, _val, _parts);
+        processRefParam(_sum, _val, _parts);
+        processFinalVariable(_sum, _val, _parts);
+    }
+
+    private static void processFinalVariable(int _sum, OperationNode _val, CustList<PartOffset> _parts) {
+        if (_val instanceof FinalVariableOperation) {
+            String varName_ = ((FinalVariableOperation) _val).getRealVariableName();
+            int delta_ = ((FinalVariableOperation) _val).getOff();
+            int deltaLoc_ = ((FinalVariableOperation) _val).getDelta() + ((FinalVariableOperation) _val).getAfterOper();
+            int begVar_ = deltaLoc_ + delta_ + _sum + _val.getIndexInEl();
+            int endVar_ = begVar_ + varName_.length();
+            if (!_val.getErrs().isEmpty()) {
+                _parts.add(new PartOffset(ExportCst.anchorErr(StringUtil.join(_val.getErrs(),ExportCst.JOIN_ERR)), begVar_));
+                _parts.add(new PartOffset(ExportCst.END_ANCHOR, endVar_));
+            } else {
+                if (((FinalVariableOperation) _val).isKeyWord()) {
+                    _parts.add(new PartOffset(ExportCst.HEAD_BOLD, begVar_));
+                    _parts.add(new PartOffset(ExportCst.END_BOLD, endVar_));
+                } else {
+                    int id_ = ((FinalVariableOperation) _val).getRef();
+                    _parts.add(new PartOffset(ExportCst.anchorRef(id_), begVar_));
+                    _parts.add(new PartOffset(ExportCst.END_ANCHOR, endVar_));
+                }
+            }
+        }
+    }
+
+    private static void processRefParam(int _sum, OperationNode _val, CustList<PartOffset> _parts) {
+        if (_val instanceof RefParamOperation) {
+            String varName_ = ((RefParamOperation) _val).getRealVariableName();
+            int delta_ = ((RefParamOperation) _val).getOff();
+            int id_ = ((RefParamOperation) _val).getRef();
             int begVar_ = delta_ + _sum + _val.getIndexInEl();
             int endVar_ = begVar_ + varName_.length();
-            if (((RefVariableOperation) _val).isDeclare()) {
-                StringList errs_ = ((RefVariableOperation) _val).getNameErrors();
-                if (!errs_.isEmpty()) {
-                    _parts.add(new PartOffset(ExportCst.anchorErr(StringUtil.join(errs_,ExportCst.JOIN_ERR)), begVar_));
-                } else {
-                    _parts.add(new PartOffset(ExportCst.anchorName(id_), begVar_));
-                }
-
-            } else {
-                _parts.add(new PartOffset(ExportCst.anchorRef(id_), begVar_));
-            }
+            _parts.add(new PartOffset(ExportCst.anchorRef(id_), begVar_));
             _parts.add(new PartOffset(ExportCst.END_ANCHOR, endVar_));
         }
-        if (_val instanceof VariableOperation) {
-            String varName_ = ((VariableOperation) _val).getRealVariableName();
-            int delta_ = ((VariableOperation) _val).getOff();
-            int id_ = ((VariableOperation) _val).getRef();
-            int begVar_ = delta_ + _sum + _val.getIndexInEl();
-            int endVar_ = begVar_ + varName_.length();
-            if (((VariableOperation) _val).isDeclare()) {
-                StringList errs_ = ((VariableOperation) _val).getNameErrors();
-                if (!errs_.isEmpty()) {
-                    _parts.add(new PartOffset(ExportCst.anchorErr(StringUtil.join(errs_,ExportCst.JOIN_ERR)), begVar_));
-                } else {
-                    _parts.add(new PartOffset(ExportCst.anchorName(id_), begVar_));
-                }
+    }
 
-            } else {
-                _parts.add(new PartOffset(ExportCst.anchorRef(id_), begVar_));
-            }
-            _parts.add(new PartOffset(ExportCst.END_ANCHOR, endVar_));
-        }
+    private static void processMutableLoppVariable(int _sum, OperationNode _val, CustList<PartOffset> _parts) {
         if (_val instanceof MutableLoopVariableOperation) {
             String varName_ = ((MutableLoopVariableOperation) _val).getRealVariableName();
             int delta_ = ((MutableLoopVariableOperation) _val).getOff();
@@ -3233,34 +3238,49 @@ public final class LinkageUtil {
             }
             _parts.add(new PartOffset(ExportCst.END_ANCHOR, endVar_));
         }
-        if (_val instanceof RefParamOperation) {
-            String varName_ = ((RefParamOperation) _val).getRealVariableName();
-            int delta_ = ((RefParamOperation) _val).getOff();
-            int id_ = ((RefParamOperation) _val).getRef();
+    }
+
+    private static void processVariable(int _sum, OperationNode _val, CustList<PartOffset> _parts) {
+        if (_val instanceof VariableOperation) {
+            String varName_ = ((VariableOperation) _val).getRealVariableName();
+            int delta_ = ((VariableOperation) _val).getOff();
+            int id_ = ((VariableOperation) _val).getRef();
             int begVar_ = delta_ + _sum + _val.getIndexInEl();
             int endVar_ = begVar_ + varName_.length();
-            _parts.add(new PartOffset(ExportCst.anchorRef(id_), begVar_));
+            if (((VariableOperation) _val).isDeclare()) {
+                StringList errs_ = ((VariableOperation) _val).getNameErrors();
+                if (!errs_.isEmpty()) {
+                    _parts.add(new PartOffset(ExportCst.anchorErr(StringUtil.join(errs_,ExportCst.JOIN_ERR)), begVar_));
+                } else {
+                    _parts.add(new PartOffset(ExportCst.anchorName(id_), begVar_));
+                }
+
+            } else {
+                _parts.add(new PartOffset(ExportCst.anchorRef(id_), begVar_));
+            }
             _parts.add(new PartOffset(ExportCst.END_ANCHOR, endVar_));
         }
-        if (_val instanceof FinalVariableOperation) {
-            String varName_ = ((FinalVariableOperation) _val).getRealVariableName();
-            int delta_ = ((FinalVariableOperation) _val).getOff();
-            int deltaLoc_ = ((FinalVariableOperation)_val).getDelta() + ((FinalVariableOperation)_val).getAfterOper();
-            int begVar_ = deltaLoc_ + delta_ + _sum + _val.getIndexInEl();
+    }
+
+    private static void processRefVariable(int _sum, OperationNode _val, CustList<PartOffset> _parts) {
+        if (_val instanceof RefVariableOperation) {
+            String varName_ = ((RefVariableOperation) _val).getRealVariableName();
+            int delta_ = ((RefVariableOperation) _val).getOff();
+            int id_ = ((RefVariableOperation) _val).getRef();
+            int begVar_ = delta_ + _sum + _val.getIndexInEl();
             int endVar_ = begVar_ + varName_.length();
-            if (!_val.getErrs().isEmpty()) {
-                _parts.add(new PartOffset(ExportCst.anchorErr(StringUtil.join(_val.getErrs(),ExportCst.JOIN_ERR)), begVar_));
-                _parts.add(new PartOffset(ExportCst.END_ANCHOR, endVar_));
-            } else {
-                if (((FinalVariableOperation) _val).isKeyWord()) {
-                    _parts.add(new PartOffset(ExportCst.HEAD_BOLD, begVar_));
-                    _parts.add(new PartOffset(ExportCst.END_BOLD, endVar_));
+            if (((RefVariableOperation) _val).isDeclare()) {
+                StringList errs_ = ((RefVariableOperation) _val).getNameErrors();
+                if (!errs_.isEmpty()) {
+                    _parts.add(new PartOffset(ExportCst.anchorErr(StringUtil.join(errs_,ExportCst.JOIN_ERR)), begVar_));
                 } else {
-                    int id_ = ((FinalVariableOperation) _val).getRef();
-                    _parts.add(new PartOffset(ExportCst.anchorRef(id_), begVar_));
-                    _parts.add(new PartOffset(ExportCst.END_ANCHOR, endVar_));
+                    _parts.add(new PartOffset(ExportCst.anchorName(id_), begVar_));
                 }
+
+            } else {
+                _parts.add(new PartOffset(ExportCst.anchorRef(id_), begVar_));
             }
+            _parts.add(new PartOffset(ExportCst.END_ANCHOR, endVar_));
         }
     }
 
