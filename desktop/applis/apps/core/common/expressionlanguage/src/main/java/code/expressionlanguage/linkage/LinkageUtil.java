@@ -2976,38 +2976,30 @@ public final class LinkageUtil {
             int begCst_ = _sum + off_ + _val.getIndexInEl();
             if (_val.getOperations().getConstType() == ConstType.TEXT_BLOCK) {
                 _parts.add(new PartOffset(ExportCst.span(STRING), begCst_));
-                if (!_val.getErrs().isEmpty()) {
-                    String tag_ = ExportCst.anchorErr(StringUtil.join(_val.getErrs(), ExportCst.JOIN_ERR));
-                    _parts.add(new PartOffset(tag_, begCst_));
-                    _parts.add(new PartOffset(ExportCst.END_ANCHOR, begCst_ + ((ConstantOperation)_val).getBlockLength()));
-                }
+                messageCst(_val, _parts, begCst_, ((ConstantOperation)_val).getBlockLength());
                 _parts.add(new PartOffset(ExportCst.END_SPAN, begCst_ + ((ConstantOperation)_val).getBlockLength()));
             }
             if (_val.getOperations().getConstType() == ConstType.STRING) {
                 _parts.add(new PartOffset(ExportCst.span(STRING), begCst_));
-                if (!_val.getErrs().isEmpty()) {
-                    String tag_ = ExportCst.anchorErr(StringUtil.join(_val.getErrs(), ExportCst.JOIN_ERR));
-                    _parts.add(new PartOffset(tag_, begCst_));
-                    _parts.add(new PartOffset(ExportCst.END_ANCHOR, begCst_ + ((ConstantOperation)_val).getLength()));
-                }
+                messageCst(_val, _parts, begCst_, ((ConstantOperation)_val).getLength());
                 _parts.add(new PartOffset(ExportCst.END_SPAN, begCst_ + ((ConstantOperation)_val).getLength()));
             }
             if (_val.getOperations().getConstType() == ConstType.CHARACTER) {
                 _parts.add(new PartOffset(ExportCst.span(STRING), begCst_));
-                if (!_val.getErrs().isEmpty()) {
-                    String tag_ = ExportCst.anchorErr(StringUtil.join(_val.getErrs(), ExportCst.JOIN_ERR));
-                    _parts.add(new PartOffset(tag_, begCst_));
-                    _parts.add(new PartOffset(ExportCst.END_ANCHOR, begCst_ + ((ConstantOperation)_val).getLength()));
-                }
+                messageCst(_val, _parts, begCst_, ((ConstantOperation)_val).getLength());
                 _parts.add(new PartOffset(ExportCst.END_SPAN, begCst_ + ((ConstantOperation)_val).getLength()));
             }
             if (_val.getOperations().getConstType() == ConstType.NUMBER) {
-                if (!_val.getErrs().isEmpty()) {
-                    String tag_ = ExportCst.anchorErr(StringUtil.join(_val.getErrs(),ExportCst.JOIN_ERR));
-                    _parts.add(new PartOffset(tag_, begCst_));
-                    _parts.add(new PartOffset(ExportCst.END_ANCHOR, begCst_ +((ConstantOperation)_val).getNbLength()));
-                }
+                messageCst(_val, _parts, begCst_, ((ConstantOperation) _val).getNbLength());
             }
+        }
+    }
+
+    private static void messageCst(OperationNode _val, CustList<PartOffset> _parts, int _begCst, int _len) {
+        if (!_val.getErrs().isEmpty()) {
+            String tag_ = ExportCst.anchorErr(StringUtil.join(_val.getErrs(),ExportCst.JOIN_ERR));
+            _parts.add(new PartOffset(tag_, _begCst));
+            _parts.add(new PartOffset(ExportCst.END_ANCHOR, _begCst + _len));
         }
     }
 
