@@ -11338,6 +11338,36 @@ public final class CoverageReportZTest extends ProcessMethodCommon {
                 "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
+    public void coverage657Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static int exmeth(){\n");
+        xml_.append("  int s = 1;\n");
+        xml_.append("  for (int i : {1,2}){\n");
+        xml_.append("   s += ( [ i ] );\n");
+        xml_.append("  }\n");
+        xml_.append("  return s;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("src/pkg/Ex", xml_.toString());
+        ContextEl cont_ = covEn(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        calculateNormal("pkg.Ex", id_, args_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
+                " public static int <a name=\"m41\">exmeth</a>(){\n" +
+                "  int <span class=\"f\"><span class=\"f\"><a name=\"m57\">s</a> </span>=<span class=\"f\"> 1</span></span>;\n" +
+                "  <span class=\"f\">for (int <a name=\"m75\">i</a></span> : <span class=\"f\">{<span class=\"f\">1</span>,<span class=\"f\">2</span>}</span>){\n" +
+                "   <span class=\"f\"><span class=\"f\"><a href=\"#m57\">s</a> </span>+=<span class=\"f\"> ( [ <a href=\"#m75\">i</a> ] )</span></span>;\n" +
+                "  }\n" +
+                "  return <span class=\"f\"><a href=\"#m57\">s</a></span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
     public void coverageComment17Test() {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;

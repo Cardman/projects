@@ -12,13 +12,14 @@ import code.util.core.IndexConstants;
 
 public final class FinalVariableOperation extends LeafOperation {
 
-    private AnaVariableContent variableContent;
+    private final AnaVariableContent variableContent;
     private String realVariableName = EMPTY_STRING;
-    private int delta;
-    private ConstType type;
+    private final int delta;
+    private int afterOper;
+    private final ConstType type;
     private String className = EMPTY_STRING;
     private int ref;
-    private boolean keyWord;
+    private final boolean keyWord;
 
     public FinalVariableOperation(int _indexInEl, int _indexChild,
             MethodOperation _m, OperationsSequence _op) {
@@ -42,6 +43,7 @@ public final class FinalVariableOperation extends LeafOperation {
     public void analyze(AnalyzedPageEl _page) {
         OperationsSequence op_ = getOperations();
         String originalStr_ = op_.getValues().getValue(IndexConstants.FIRST_INDEX);
+        afterOper = StringExpUtil.getOffset(originalStr_);
         String str_ = originalStr_.trim();
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ variableContent.getOff(), _page);
         if (!className.isEmpty()) {
@@ -101,6 +103,10 @@ public final class FinalVariableOperation extends LeafOperation {
 
     public int getDelta() {
         return delta;
+    }
+
+    public int getAfterOper() {
+        return afterOper;
     }
 
     public boolean isKeyWord() {

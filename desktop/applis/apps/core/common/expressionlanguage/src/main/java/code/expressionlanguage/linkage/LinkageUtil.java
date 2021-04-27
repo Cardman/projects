@@ -3245,7 +3245,7 @@ public final class LinkageUtil {
         if (_val instanceof FinalVariableOperation) {
             String varName_ = ((FinalVariableOperation) _val).getRealVariableName();
             int delta_ = ((FinalVariableOperation) _val).getOff();
-            int deltaLoc_ = ((FinalVariableOperation)_val).getDelta();
+            int deltaLoc_ = ((FinalVariableOperation)_val).getDelta() + ((FinalVariableOperation)_val).getAfterOper();
             int begVar_ = deltaLoc_ + delta_ + _sum + _val.getIndexInEl();
             int endVar_ = begVar_ + varName_.length();
             if (!_val.getErrs().isEmpty()) {
