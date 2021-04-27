@@ -1,5 +1,6 @@
 package code.expressionlanguage.linkage;
 
+import code.expressionlanguage.analyze.blocks.FileBlock;
 import code.util.StringList;
 import code.util.core.StringUtil;
 
@@ -105,6 +106,9 @@ public final class ExportCst {
     }
     public static String href(String _href) {
         return HREF_ATTR+DEL_ATTR+_href+DEL_ATTR;
+    }
+    public static String href(FileBlock _file, int _ref) {
+        return href(_file.getRenderFileName(),_ref);
     }
     public static String href(String _file, int _ref) {
         return _file+LOC_REF+PREF_REF+_ref;

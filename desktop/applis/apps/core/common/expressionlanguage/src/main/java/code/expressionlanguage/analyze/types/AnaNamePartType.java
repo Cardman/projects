@@ -385,13 +385,11 @@ final class AnaNamePartType extends AnaLeafPartType {
         if (!_page.isGettingParts()) {
             return;
         }
-        String curr_ = ((AbsBk)_rooted).getFile().getRenderFileName();
         String imported_ = getAnalyzedType();
         String idCl_ = StringExpUtil.getIdFromAllTypes(imported_);
         AnaGeneType g_ = _page.getAnaGeneType(idCl_);
         if (ContextUtil.isFromCustFile(g_)) {
-            String ref_ = ((RootBlock) g_).getFile().getRenderFileName();
-            String rel_ = LinkageUtil.relativize(curr_,ref_);
+            String rel_ = LinkageUtil.relativize(((AbsBk)_rooted).getFile(),((RootBlock) g_).getFile());
             int id_ = ((RootBlock) g_).getIdRowCol();
             setTitleRef(idCl_);
             setHref(ExportCst.href(rel_,id_));

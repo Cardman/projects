@@ -1,5 +1,6 @@
 package code.expressionlanguage.linkage;
 
+import code.expressionlanguage.analyze.blocks.FileBlock;
 import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.stds.DisplayedStrings;
@@ -12,7 +13,7 @@ public final class VariablesOffsets {
     private final IdList<OperationNode> visitedAnnotations = new IdList<OperationNode>();
     private final CustList<LinkageStackElement> stack = new CustList<LinkageStackElement>();
     private LinkageStackElement state;
-    private String currentFileName = "";
+    private FileBlock currentFile;
     private KeyWords keyWords;
     private DisplayedStrings displayedStrings;
     private StringList toStringOwners;
@@ -43,12 +44,12 @@ public final class VariablesOffsets {
         return state != null;
     }
 
-    public String getCurrentFileName() {
-        return currentFileName;
+    public FileBlock getCurrentFile() {
+        return currentFile;
     }
 
-    public void setCurrentFileName(String _currentFileName) {
-        currentFileName = _currentFileName;
+    public void setCurrentFile(FileBlock _currentFile) {
+        this.currentFile = _currentFile;
     }
 
     public IdList<OperationNode> getVisited() {

@@ -1,6 +1,7 @@
 package code.expressionlanguage.analyze.blocks;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.analyze.files.ParsedFctHeader;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.files.OffsetAccessInfo;
@@ -23,11 +24,10 @@ public final class ConstructorBlock extends NamedFunctionBlock implements Return
     private String ctorName = "";
     private int ctorNumber;
 
-    public ConstructorBlock(OffsetAccessInfo _access,
+    public ConstructorBlock(ParsedFctHeader _header, OffsetAccessInfo _access,
                             OffsetStringInfo _retType, OffsetStringInfo _fctName,
-                            StringList _paramTypes, Ints _paramTypesOffset,
-                            StringList _paramNames, Ints _paramNamesOffset, int _leftPar, int _offset, BooleanList _refParams) {
-        super(false, _access, _retType, _fctName, _paramTypes, _paramTypesOffset, _paramNames, _paramNamesOffset, _offset, _refParams);
+                            int _leftPar, int _offset) {
+        super(_header,false, _access, _retType, _fctName, _offset);
         leftPar = _leftPar;
     }
 

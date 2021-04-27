@@ -2,6 +2,7 @@ package code.expressionlanguage.analyze.types;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.AbsBk;
+import code.expressionlanguage.analyze.blocks.FileBlock;
 import code.expressionlanguage.analyze.inherits.AnaInherits;
 import code.expressionlanguage.analyze.blocks.AccessedBlock;
 import code.expressionlanguage.linkage.ExportCst;
@@ -41,10 +42,10 @@ final class AnaVariablePartType extends AnaLeafPartType {
         if (!_page.isGettingParts()) {
             return;
         }
-        String curr_ = ((AbsBk)_rooted).getFile().getRenderFileName();
         String rel_ = "";
-        if (!_page.getRefFileName().isEmpty()) {
-            rel_ = LinkageUtil.relativize(curr_, _page.getRefFileName());
+        FileBlock refFileName_ = _page.getRefFileName();
+        if (refFileName_ != null) {
+            rel_ = LinkageUtil.relativize(((AbsBk)_rooted).getFile(), refFileName_);
         }
         setHref(ExportCst.href(rel_,value));
     }

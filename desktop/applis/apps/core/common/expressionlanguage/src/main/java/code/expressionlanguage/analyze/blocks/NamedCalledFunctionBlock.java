@@ -4,6 +4,7 @@ import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.files.OffsetAccessInfo;
 import code.expressionlanguage.analyze.files.OffsetStringInfo;
+import code.expressionlanguage.analyze.files.ParsedFctHeader;
 import code.expressionlanguage.analyze.inherits.AnaInherits;
 import code.expressionlanguage.analyze.inherits.Mapping;
 import code.expressionlanguage.analyze.instr.ElUtil;
@@ -67,8 +68,8 @@ public final class NamedCalledFunctionBlock extends NamedFunctionBlock {
     private boolean ko;
     private int nameNumber;
 
-    public NamedCalledFunctionBlock(boolean _retRef, OffsetAccessInfo _access, OffsetStringInfo _retType, OffsetStringInfo _defaultValue,OffsetStringInfo _fctName, StringList _paramTypes, Ints _paramTypesOffset, StringList _paramNames, Ints _paramNamesOffset, int _offset, BooleanList _refParams, int _rightPar) {
-        super(_retRef, _access, _retType, _fctName, _paramTypes, _paramTypesOffset, _paramNames, _paramNamesOffset, _offset, _refParams);
+    public NamedCalledFunctionBlock(ParsedFctHeader _header, boolean _retRef, OffsetAccessInfo _access, OffsetStringInfo _retType, OffsetStringInfo _defaultValue, OffsetStringInfo _fctName, int _offset, int _rightPar) {
+        super(_header,_retRef, _access, _retType, _fctName, _offset);
         normalMethod = false;
         abstractMethod = false;
         staticMethod = false;
@@ -80,12 +81,10 @@ public final class NamedCalledFunctionBlock extends NamedFunctionBlock {
         defaultValueOffset = _defaultValue.getOffset();
         rightPar = _rightPar;
     }
-    public NamedCalledFunctionBlock(boolean _retRef, OffsetAccessInfo _access,
-                            OffsetStringInfo _retType, OffsetStringInfo _fctName,
-                            StringList _paramTypes, Ints _paramTypesOffset,
-                            StringList _paramNames, Ints _paramNamesOffset,
-                            OffsetStringInfo _modifier, int _offset, AnalyzedPageEl _page, BooleanList _refParams) {
-        super(_retRef, _access, _retType, _fctName, _paramTypes, _paramTypesOffset, _paramNames, _paramNamesOffset, _offset, _refParams);
+    public NamedCalledFunctionBlock(ParsedFctHeader _header, boolean _retRef, OffsetAccessInfo _access,
+                                    OffsetStringInfo _retType, OffsetStringInfo _fctName,
+                                    OffsetStringInfo _modifier, int _offset, AnalyzedPageEl _page) {
+        super(_header,_retRef, _access, _retType, _fctName, _offset);
         modifierOffset = _modifier.getOffset();
         String modifier_ = _modifier.getInfo();
         KeyWords keyWords_ = _page.getKeyWords();

@@ -1,6 +1,7 @@
 package code.expressionlanguage.analyze.types;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.analyze.blocks.FileBlock;
 import code.expressionlanguage.analyze.inherits.AnaInherits;
 import code.expressionlanguage.common.AnaGeneType;
 import code.expressionlanguage.linkage.ExportCst;
@@ -89,7 +90,7 @@ public final class AnaPartTypeUtil {
 
     public static AnaResultPartType processAnalyze(String _input, String _globalType, AccessedBlock _local, AccessedBlock _rooted, int _loc, CustList<PartOffset> _offs, AnalyzedPageEl _page) {
         _page.setLocalInType(_loc);
-        _page.setRefFileName("");
+        _page.setRefFileName(null);
         AnaResultPartType res_ = processAccessAnalyze(_input, false, _globalType, _local, _rooted, _loc, _offs, _page);
         String analyzedType_ = res_.getResult();
         if (analyzedType_.isEmpty()) {
@@ -101,12 +102,12 @@ public final class AnaPartTypeUtil {
     }
     public static AnaResultPartType processAccAnalyze(String _input, String _globalType, AccessedBlock _local, AccessedBlock _rooted, int _loc, CustList<PartOffset> _offs, AnalyzedPageEl _page) {
         _page.setLocalInType(_loc);
-        _page.setRefFileName("");
+        _page.setRefFileName(null);
         return processAccessAnalyze(_input, false, _globalType, _local, _rooted, _loc, _offs, _page);
     }
     public static AnaResultPartType processAnalyzeHeader(String _input, boolean _rootName, String _globalType, AccessedBlock _local, AccessedBlock _rooted, int _loc, CustList<PartOffset> _offs, AnalyzedPageEl _page) {
         _page.setLocalInType(_loc);
-        _page.setRefFileName("");
+        _page.setRefFileName(null);
         AnaResultPartType res_ = processAccessAnalyze(_input, _rootName, _globalType, _local, _rooted, _loc, _offs, _page);
         String analyzedType_ = res_.getResult();
         if (analyzedType_.isEmpty()) {
@@ -380,7 +381,7 @@ public final class AnaPartTypeUtil {
 
     public static AnaResultPartType processAnalyzeLine(String _input, String _globalType, AccessedBlock _local, AccessedBlock _rooted, int _loc, CustList<PartOffset> _offs, AnalyzedPageEl _page) {
         _page.setLocalInType(_loc);
-        _page.setRefFileName("");
+        _page.setRefFileName(null);
         AnaPartType anaType_ = getAnalyzeLine(_input, new AlwaysReadyTypes(), false, _local, _rooted, _loc, _offs, _page);
         if (anaType_ == null) {
             return new AnaResultPartType("",null);
@@ -390,7 +391,7 @@ public final class AnaPartTypeUtil {
     }
     static AnaResultPartType processAnalyzeLineWithoutErr(String _input, AccessedBlock _local, AccessedBlock _rooted, int _loc, CustList<PartOffset> _offs, AnalyzedPageEl _page) {
         _page.setLocalInType(_loc);
-        _page.setRefFileName("");
+        _page.setRefFileName(null);
         AnaPartType anaType_ = getAnalyzeLine(_input, new AlwaysReadyTypes(), false, _local, _rooted, _loc, _offs, _page);
         if (anaType_ == null) {
             return new AnaResultPartType("",null);
@@ -492,7 +493,7 @@ public final class AnaPartTypeUtil {
         }
     }
 
-    static AnaResultPartType processAnalyzeAccessibleId(String _input, AccessedBlock _rooted, String _refFileName, int _loc, CustList<PartOffset> _offs, AnalyzedPageEl _page) {
+    static AnaResultPartType processAnalyzeAccessibleId(String _input, AccessedBlock _rooted, FileBlock _refFileName, int _loc, CustList<PartOffset> _offs, AnalyzedPageEl _page) {
         _page.setLocalInType(_loc);
         _page.setRefFileName(_refFileName);
         Ints indexes_ = ParserType.getIndexes(_input.trim(), _page);

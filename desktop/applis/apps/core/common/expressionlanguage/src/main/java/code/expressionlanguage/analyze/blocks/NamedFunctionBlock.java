@@ -1,6 +1,7 @@
 package code.expressionlanguage.analyze.blocks;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.analyze.files.ParsedFctHeader;
 import code.expressionlanguage.analyze.reach.opers.ReachOperationUtil;
 import code.expressionlanguage.analyze.syntax.ResultExpression;
 import code.expressionlanguage.analyze.types.ResolvingTypes;
@@ -69,11 +70,9 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
     private boolean retRef;
     private boolean usedRefMethod;
 
-    public NamedFunctionBlock(boolean _retRef, OffsetAccessInfo _access,
+    public NamedFunctionBlock(ParsedFctHeader _header, boolean _retRef, OffsetAccessInfo _access,
                               OffsetStringInfo _retType, OffsetStringInfo _fctName,
-                              StringList _paramTypes, Ints _paramTypesOffset,
-                              StringList _paramNames, Ints _paramNamesOffset,
-                              int _offset, BooleanList _refParams) {
+                              int _offset) {
         super(_offset);
         retRef = _retRef;
         importedParametersTypes = new StringList();
@@ -83,13 +82,13 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
         parametersNames = new StringList();
         usedParameters = new StringMap<AnaLocalVariable>();
         parametersRef = new BooleanList();
-        varargs = setupParam(_paramTypes,_paramNames, _refParams);
+        varargs = setupParam(_header.getParametersType(),_header.getParametersName(), _header.getParametersRef());
         access = _access.getInfo();
         accessOffset = _access.getOffset();
         returnType = _retType.getInfo();
         returnTypeOffset = _retType.getOffset();
-        parametersTypesOffset = _paramTypesOffset;
-        parametersNamesOffset = _paramNamesOffset;
+        parametersTypesOffset = _header.getOffestsTypes();
+        parametersNamesOffset = _header.getOffestsParams();
     }
 
     public NamedFunctionBlock(int _fctName,
@@ -201,15 +200,13 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
         return new StringList(parametersTypes);
     }
 
-    public void setVarargs(StringList _paramTypes, Ints _paramTypesOffset,
-                           StringList _paramNames, Ints _paramNamesOffset,
-                           BooleanList _refParams, boolean _refRef, String _retType, int _retTypeOffset) {
-        varargs = setupParam(_paramTypes,_paramNames, _refParams);
-        parametersTypesOffset = _paramTypesOffset;
-        parametersNamesOffset = _paramNamesOffset;
-        returnType = _retType;
-        retRef = _refRef;
-        returnTypeOffset = _retTypeOffset;
+    public void setVarargs(ParsedFctHeader _header) {
+        varargs = setupParam(_header.getParametersType(), _header.getParametersName(), _header.getParametersRef());
+        parametersTypesOffset = _header.getOffestsTypes();
+        parametersNamesOffset = _header.getOffestsParams();
+        returnType = _header.getReturnType();
+        retRef = _header.isRetRef();
+        returnTypeOffset = _header.getReturnOffest();
     }
 
     public final void buildImportedTypes(AnalyzedPageEl _page) {

@@ -294,15 +294,13 @@ public final class AnonymousLambdaOperation extends
             block.getImportedParametersTypes().clear();
             block.getImportedParametersTypes().addAllElts(feed_);
             block.setImportedReturnType(retType_);
-            block.setVarargs(parse.getParametersType(),parse.getOffestsTypes(),
-                    parse.getParametersName(),parse.getOffestsParams(),
-                    parse.getParametersRef(),parse.isRetRef(), parse.getReturnType(), parse.getReturnOffest());
+            block.setVarargs(parse
+            );
             built_ = true;
         }
         if (!built_) {
-            block.setVarargs(parse.getParametersType(), parse.getOffestsTypes(),
-                    parse.getParametersName(), parse.getOffestsParams(),
-                    parse.getParametersRef(),parse.isRetRef(), parse.getReturnType(), parse.getReturnOffest());
+            block.setVarargs(parse
+            );
             block.buildInternImportedTypes(_page);
         }
         RootBlock.validateParameters(block, _page, _page.getCurrentFile());

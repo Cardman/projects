@@ -155,7 +155,7 @@ public final class AnalyzedPageEl {
     private final CustList<SwitchOperation> allSwitchMethods = new CustList<SwitchOperation>();
     private final StringMap<FileBlock> filesBodies = new StringMap<FileBlock>();
     private int localInType = -1;
-    private String refFileName = "";
+    private FileBlock refFileName;
     private int indexBlock;
     private final StringMap<ToStringMethodHeader> toStringMethods = new StringMap<ToStringMethodHeader>();
     private final StringMap<ToStringMethodHeader> randCodeMethods = new StringMap<ToStringMethodHeader>();
@@ -1165,11 +1165,11 @@ public final class AnalyzedPageEl {
         localInType = _localInType;
     }
 
-    public String getRefFileName() {
+    public FileBlock getRefFileName() {
         return refFileName;
     }
 
-    public void setRefFileName(String _refFileName) {
+    public void setRefFileName(FileBlock _refFileName) {
         refFileName = _refFileName;
     }
 

@@ -3,6 +3,7 @@ package code.expressionlanguage.analyze.types;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.AccessedBlock;
 import code.expressionlanguage.analyze.blocks.AbsBk;
+import code.expressionlanguage.analyze.blocks.FileBlock;
 import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.inherits.AnaInherits;
@@ -73,9 +74,9 @@ public final class ResolvingTypes {
         StringMap<StringList> vars_ = new StringMap<StringList>();
         String idFromType_ = StringExpUtil.getIdFromAllTypes(_fromType);
         AnaGeneType from_ = _page.getAnaGeneType(idFromType_);
-        String ref_ = "";
+        FileBlock ref_ = null;
         if (ContextUtil.isFromCustFile(from_)) {
-            ref_ = ((AbsBk)from_).getFile().getRenderFileName();
+            ref_ = ((AbsBk)from_).getFile();
         }
         _page.getAvailableVariables().clear();
         if (from_ instanceof RootBlock) {
