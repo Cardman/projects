@@ -1558,7 +1558,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                 }
                 StringList names_ = new StringList();
                 StringList types_ = new StringList();
-                int offsetArg_ = className.indexOf('(')+1+_args.first().length()+1+_args.get(1).length()+1-StringExpUtil.getOffset(className);
+                int offsetArg_ = className.indexOf('(')+1+_args.first().length()+1+_args.get(1).length()+1-getClassNameOffset();
                 for (int i = 2; i < _len; i++) {
                     String arg_ = _args.get(i);
                     String name_ = arg_.trim();

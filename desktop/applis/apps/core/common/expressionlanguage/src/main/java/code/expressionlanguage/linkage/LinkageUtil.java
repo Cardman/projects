@@ -3445,115 +3445,15 @@ public final class LinkageUtil {
     }
 
     private static void processUnaryLeftOperationsLinks(VariablesOffsets _vars, String _currentFileName, int _sum, OperationNode _val, CustList<PartOffset> _parts) {
-        if (_val instanceof SymbolOperation && _val.getFirstChild().getNextSibling() == null) {
-            SymbolOperation par_ = (SymbolOperation) _val;
-            AnaTypeFct function_ = par_.getFct().getFunction();
-            if (function_ != null) {
-                addParts(_vars, _currentFileName, function_,
-                        _sum + _val.getIndexInEl() + par_.getOpOffset(), function_.getFunction().getName().length(),
-                        _val.getErrs(),_val.getErrs(),_parts);
-            } else if (!_val.getErrs().isEmpty()){
-                int i_ = _sum + _val.getIndexInEl() + par_.getOpOffset();
-                _parts.add(new PartOffset(ExportCst.anchorErr(StringUtil.join(_val.getErrs(),ExportCst.JOIN_ERR)),i_));
-                _parts.add(new PartOffset(ExportCst.END_ANCHOR,i_+1));
-            } else if (_val instanceof RandCodeOperation && canCallRandeCode(_vars,_val.getFirstChild().getResultClass())) {
-                int i_ = _sum + _val.getIndexInEl() + par_.getOpOffset();
-                _parts.add(new PartOffset(ExportCst.HEAD_ITALIC, i_));
-                _parts.add(new PartOffset(ExportCst.FOOT_ITALIC, i_ + 1));
-            }
-        }
-        if (_val instanceof CastOperation) {
-            int l_;
-            int i_ = _sum + _val.getIndexInEl();
-            if (((CastOperation)_val).isFound()) {
-                i_ += ((CastOperation)_val).getOffset();
-                l_ = 1;
-            } else {
-                l_ = _vars.getKeyWords().getKeyWordCast().length();
-            }
-            if (!_val.getErrs().isEmpty()) {
-                _parts.add(new PartOffset(ExportCst.anchorErr(StringUtil.join(_val.getErrs(),ExportCst.JOIN_ERR)),i_));
-                _parts.add(new PartOffset(ExportCst.END_ANCHOR,i_+l_));
-            }
-            _parts.addAllElts(((CastOperation)_val).getPartOffsets());
-        }
-        if (_val instanceof ExplicitOperation) {
-            int offsetOp_ = _val.getOperations().getOperators().firstKey();
-            AnaTypeFct function_ = ((ExplicitOperation) _val).getFunction();
-            addParts(_vars, _currentFileName, function_,
-                    offsetOp_+_sum + _val.getIndexInEl(),_vars.getKeyWords().getKeyWordExplicit().length(),
-                    _val.getErrs(),_val.getErrs(),
-                    _parts);
-            _parts.addAllElts(((ExplicitOperation)_val).getPartOffsets());
-        }
-        if (_val instanceof ImplicitOperation) {
-            int offsetOp_ = _val.getOperations().getOperators().firstKey();
-            AnaTypeFct function_ = ((ImplicitOperation) _val).getFunction();
-            addParts(_vars, _currentFileName, function_,
-                    offsetOp_+_sum + _val.getIndexInEl(),_vars.getKeyWords().getKeyWordCast().length(),
-                    _val.getErrs(),_val.getErrs(),
-                    _parts);
-            _parts.addAllElts(((ImplicitOperation)_val).getPartOffsets());
-        }
-        if (_val instanceof SemiAffectationOperation) {
-            SemiAffectationOperation par_ = (SemiAffectationOperation) _val;
-            int offsetOp_ = par_.getOpOffset();
-            if(!par_.isPost()) {
-                boolean err_ = true;
-                AnaTypeFct function_ = par_.getFct().getFunction();
-                if (function_ != null) {
-                    addParts(_vars, _currentFileName, function_,
-                            _sum + _val.getIndexInEl()+offsetOp_,1,
-                            _val.getErrs(),_val.getErrs(),_parts);
-                    err_ = false;
-                }
-                SettableElResult settable_ = par_.getSettable();
-                if (settable_ instanceof ArrOperation && ((ArrOperation) settable_).getFunctionSet() != null) {
-                    ArrOperation parArr_ = (ArrOperation) settable_;
-                    addParts(_vars, _currentFileName, parArr_.getFunctionSet(),
-                            _sum + _val.getIndexInEl()+offsetOp_+1,1,
-                            _val.getErrs(),_val.getErrs(),_parts);
-                    err_ = false;
-                }
-                if (err_) {
-                    if (!par_.getErrs().isEmpty()) {
-                        int begin_ = par_.getOpOffset()+_sum + par_.getIndexInEl();
-                        _parts.add(new PartOffset(ExportCst.anchorErr(StringUtil.join(par_.getErrs(),ExportCst.JOIN_ERR)),begin_));
-                        _parts.add(new PartOffset(ExportCst.END_ANCHOR,begin_+ 2));
-                    }
-                }
-                OperationNode ch_ = null;
-                if (settable_ instanceof OperationNode) {
-                    ch_ = par_.getFirstChild();
-                }
-                if (ch_ != null) {
-                    int begin_ = par_.getOpOffset() + _sum + par_.getIndexInEl()+2;
-                    tryAddMergedParts(_vars,par_.getFunctionFrom(),_parts,_currentFileName,begin_, new StringList(), new StringList());
-                    tryAddMergedParts(_vars,par_.getFunctionTo(),_parts,_currentFileName,begin_, new StringList(), new StringList());
-                }
-            }
-        }
-        if (_val instanceof IdOperation) {
-            if (!_val.getErrs().isEmpty()) {
-                int begin_ = _sum + _val.getIndexInEl() + ((IdOperation)_val).getDelta();
-                _parts.add(new PartOffset(ExportCst.anchorErr(StringUtil.join(_val.getErrs(),ExportCst.JOIN_ERR)),begin_));
-                _parts.add(new PartOffset(ExportCst.END_ANCHOR,begin_+ 1));
-            }
-        }
-        if (_val instanceof FirstOptOperation) {
-            if (!_val.getErrs().isEmpty()) {
-                int begin_ = _sum + _val.getIndexInEl() + ((FirstOptOperation)_val).getDelta();
-                _parts.add(new PartOffset(ExportCst.anchorErr(StringUtil.join(_val.getErrs(),ExportCst.JOIN_ERR)),begin_));
-                _parts.add(new PartOffset(ExportCst.END_ANCHOR,begin_+ _vars.getKeyWords().getKeyWordFirstopt().length()));
-            }
-        }
-        if (_val instanceof WrappOperation) {
-            if (!_val.getErrs().isEmpty()) {
-                int begin_ = _sum + _val.getIndexInEl() + ((WrappOperation)_val).getDelta();
-                _parts.add(new PartOffset(ExportCst.anchorErr(StringUtil.join(_val.getErrs(),ExportCst.JOIN_ERR)),begin_));
-                _parts.add(new PartOffset(ExportCst.END_ANCHOR,begin_+ _vars.getKeyWords().getKeyWordThat().length()));
-            }
-        }
+        processUnarySymbol(_vars, _currentFileName, _sum, _val, _parts);
+        processCast(_vars, _currentFileName, _sum, _val, _parts);
+        processPreSemiAffectation(_vars, _currentFileName, _sum, _val, _parts);
+        processUnaryFct(_vars, _sum, _val, _parts);
+        processNamedArgument(_currentFileName, _sum, _val, _parts);
+        processTernayFct(_vars, _currentFileName, _sum, _val, _parts);
+    }
+
+    private static void processNamedArgument(String _currentFileName, int _sum, OperationNode _val, CustList<PartOffset> _parts) {
         if (_val instanceof NamedArgumentOperation) {
             NamedArgumentOperation n_ = (NamedArgumentOperation) _val;
             int firstOff_ = n_.getOffsetTr();
@@ -3632,13 +3532,9 @@ public final class LinkageUtil {
                 }
             }
         }
-        if (_val instanceof DefaultOperation) {
-            if (!_val.getErrs().isEmpty()) {
-                int begin_ = _sum + _val.getIndexInEl() + ((DefaultOperation)_val).getDelta();
-                _parts.add(new PartOffset(ExportCst.anchorErr(StringUtil.join(_val.getErrs(),ExportCst.JOIN_ERR)),begin_));
-                _parts.add(new PartOffset(ExportCst.END_ANCHOR,begin_+ _vars.getKeyWords().getKeyWordDefault().length()));
-            }
-        }
+    }
+
+    private static void processTernayFct(VariablesOffsets _vars, String _currentFileName, int _sum, OperationNode _val, CustList<PartOffset> _parts) {
         if (_val instanceof TernaryOperation) {
             TernaryOperation t_ = (TernaryOperation) _val;
             AnaTypeFct testFct_ = t_.getTestFct();
@@ -3675,6 +3571,126 @@ public final class LinkageUtil {
                 int begin_ = _sum + _val.getIndexInEl();
                 _parts.add(new PartOffset(ExportCst.anchorErr(StringUtil.join(t_.getChildrenErrors(),ExportCst.JOIN_ERR)), begin_));
                 _parts.add(new PartOffset(ExportCst.END_ANCHOR, begin_ +_vars.getKeyWords().getKeyWordBool().length()));
+            }
+        }
+    }
+
+    private static void processUnaryFct(VariablesOffsets _vars, int _sum, OperationNode _val, CustList<PartOffset> _parts) {
+        if (_val instanceof IdOperation && !_val.getErrs().isEmpty()) {
+            int begin_ = _sum + _val.getIndexInEl() + ((IdOperation) _val).getDelta();
+            _parts.add(new PartOffset(ExportCst.anchorErr(StringUtil.join(_val.getErrs(), ExportCst.JOIN_ERR)), begin_));
+            _parts.add(new PartOffset(ExportCst.END_ANCHOR, begin_ + 1));
+        }
+        if (_val instanceof FirstOptOperation && !_val.getErrs().isEmpty()) {
+            int begin_ = _sum + _val.getIndexInEl() + ((FirstOptOperation) _val).getDelta();
+            _parts.add(new PartOffset(ExportCst.anchorErr(StringUtil.join(_val.getErrs(), ExportCst.JOIN_ERR)), begin_));
+            _parts.add(new PartOffset(ExportCst.END_ANCHOR, begin_ + _vars.getKeyWords().getKeyWordFirstopt().length()));
+        }
+        if (_val instanceof WrappOperation && !_val.getErrs().isEmpty()) {
+            int begin_ = _sum + _val.getIndexInEl() + ((WrappOperation) _val).getDelta();
+            _parts.add(new PartOffset(ExportCst.anchorErr(StringUtil.join(_val.getErrs(), ExportCst.JOIN_ERR)), begin_));
+            _parts.add(new PartOffset(ExportCst.END_ANCHOR, begin_ + _vars.getKeyWords().getKeyWordThat().length()));
+        }
+        if (_val instanceof DefaultOperation && !_val.getErrs().isEmpty()) {
+            int begin_ = _sum + _val.getIndexInEl() + ((DefaultOperation) _val).getDelta();
+            _parts.add(new PartOffset(ExportCst.anchorErr(StringUtil.join(_val.getErrs(), ExportCst.JOIN_ERR)), begin_));
+            _parts.add(new PartOffset(ExportCst.END_ANCHOR, begin_ + _vars.getKeyWords().getKeyWordDefault().length()));
+        }
+    }
+
+    private static void processPreSemiAffectation(VariablesOffsets _vars, String _currentFileName, int _sum, OperationNode _val, CustList<PartOffset> _parts) {
+        if (_val instanceof SemiAffectationOperation) {
+            SemiAffectationOperation par_ = (SemiAffectationOperation) _val;
+            int offsetOp_ = par_.getOpOffset();
+            if (par_.isPost()) {
+                return;
+            }
+            boolean err_ = true;
+            AnaTypeFct function_ = par_.getFct().getFunction();
+            if (function_ != null) {
+                addParts(_vars, _currentFileName, function_,
+                        _sum + _val.getIndexInEl()+offsetOp_,1,
+                        _val.getErrs(), _val.getErrs(), _parts);
+                err_ = false;
+            }
+            SettableElResult settable_ = par_.getSettable();
+            if (settable_ instanceof ArrOperation && ((ArrOperation) settable_).getFunctionSet() != null) {
+                ArrOperation parArr_ = (ArrOperation) settable_;
+                addParts(_vars, _currentFileName, parArr_.getFunctionSet(),
+                        _sum + _val.getIndexInEl()+offsetOp_+1,1,
+                        _val.getErrs(), _val.getErrs(), _parts);
+                err_ = false;
+            }
+            if (err_) {
+                if (!par_.getErrs().isEmpty()) {
+                    int begin_ = offsetOp_+ _sum + _val.getIndexInEl();
+                    _parts.add(new PartOffset(ExportCst.anchorErr(StringUtil.join(par_.getErrs(),ExportCst.JOIN_ERR)),begin_));
+                    _parts.add(new PartOffset(ExportCst.END_ANCHOR,begin_+ 2));
+                }
+            }
+            OperationNode ch_ = null;
+            if (settable_ instanceof OperationNode) {
+                ch_ = par_.getFirstChild();
+            }
+            if (ch_ != null) {
+                int begin_ = offsetOp_ + _sum + _val.getIndexInEl()+2;
+                tryAddMergedParts(_vars,par_.getFunctionFrom(), _parts, _currentFileName,begin_, new StringList(), new StringList());
+                tryAddMergedParts(_vars,par_.getFunctionTo(), _parts, _currentFileName,begin_, new StringList(), new StringList());
+            }
+        }
+    }
+
+    private static void processCast(VariablesOffsets _vars, String _currentFileName, int _sum, OperationNode _val, CustList<PartOffset> _parts) {
+        if (_val instanceof CastOperation) {
+            int i_ = _sum + _val.getIndexInEl() + ((CastOperation) _val).getOffset();
+            int l_;
+            if (((CastOperation) _val).isFound()) {
+                l_ = 1;
+            } else {
+                l_ = _vars.getKeyWords().getKeyWordCast().length();
+            }
+            if (!_val.getErrs().isEmpty()) {
+                _parts.add(new PartOffset(ExportCst.anchorErr(StringUtil.join(_val.getErrs(),ExportCst.JOIN_ERR)),i_));
+                _parts.add(new PartOffset(ExportCst.END_ANCHOR,i_+l_));
+            }
+            _parts.addAllElts(((CastOperation) _val).getPartOffsets());
+        }
+        if (_val instanceof ExplicitOperation) {
+            int offsetOp_ = _val.getOperations().getOperators().firstKey();
+            AnaTypeFct function_ = ((ExplicitOperation) _val).getFunction();
+            addParts(_vars, _currentFileName, function_,
+                    offsetOp_+ _sum + _val.getIndexInEl(), _vars.getKeyWords().getKeyWordExplicit().length(),
+                    _val.getErrs(), _val.getErrs(),
+                    _parts);
+            _parts.addAllElts(((ExplicitOperation) _val).getPartOffsets());
+        }
+        if (_val instanceof ImplicitOperation) {
+            int offsetOp_ = _val.getOperations().getOperators().firstKey();
+            AnaTypeFct function_ = ((ImplicitOperation) _val).getFunction();
+            addParts(_vars, _currentFileName, function_,
+                    offsetOp_+ _sum + _val.getIndexInEl(), _vars.getKeyWords().getKeyWordCast().length(),
+                    _val.getErrs(), _val.getErrs(),
+                    _parts);
+            _parts.addAllElts(((ImplicitOperation) _val).getPartOffsets());
+        }
+    }
+
+    private static void processUnarySymbol(VariablesOffsets _vars, String _currentFileName, int _sum, OperationNode _val, CustList<PartOffset> _parts) {
+        if (_val instanceof SymbolOperation && _val.getFirstChild().getNextSibling() == null) {
+            SymbolOperation par_ = (SymbolOperation) _val;
+            AnaTypeFct function_ = par_.getFct().getFunction();
+            if (function_ != null) {
+                addParts(_vars, _currentFileName, function_,
+                        _sum + _val.getIndexInEl() + par_.getOpOffset(), function_.getFunction().getName().length(),
+                        _val.getErrs(), _val.getErrs(), _parts);
+            } else if (!_val.getErrs().isEmpty()){
+                int i_ = _sum + _val.getIndexInEl() + par_.getOpOffset();
+                _parts.add(new PartOffset(ExportCst.anchorErr(StringUtil.join(_val.getErrs(),ExportCst.JOIN_ERR)),i_));
+                _parts.add(new PartOffset(ExportCst.END_ANCHOR,i_+1));
+            } else if (_val instanceof RandCodeOperation && canCallRandeCode(_vars, _val.getFirstChild().getResultClass())) {
+                int i_ = _sum + _val.getIndexInEl() + par_.getOpOffset();
+                _parts.add(new PartOffset(ExportCst.HEAD_ITALIC, i_));
+                _parts.add(new PartOffset(ExportCst.FOOT_ITALIC, i_ + 1));
             }
         }
     }
