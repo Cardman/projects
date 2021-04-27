@@ -133,29 +133,10 @@ public final class LinkageUtil {
             if (t.getFile().isPredefined()) {
                 continue;
             }
-            int countCall_ = 0;
-            int count_ = 0;
-            for (AbsBk b: ClassesUtil.getDirectChildren(t)) {
-                if (AbsBk.isAnnotBlock(b)) {
-                    countCall_++;
-                    count_++;
-                    continue;
-                }
-                if (b instanceof MemberCallingsBlock) {
-                    if (cov_.getFctRes((MemberCallingsBlock) b).isCalled()) {
-                        countCall_++;
-                    }
-                    count_++;
-                }
-            }
-            types_.addEntry(t,countCall_+ExportCst.RATIO_COVERAGE+count_);
+            String ratioCall_ = ratioCall(cov_, t);
+            types_.addEntry(t, ratioCall_);
         }
-        int calledOps_ = 0;
-        for (OperatorBlock b: operators_) {
-            if (cov_.getFctRes(b).isCalled()) {
-                calledOps_++;
-            }
-        }
+        int calledOps_ = getCalledOps(cov_, operators_);
         String callTable_ = "calls"+ExportCst.EXT;
         StringBuilder table_ = new StringBuilder(BEGIN);
         table_.append(BEGIN_HEAD);
@@ -172,16 +153,7 @@ public final class LinkageUtil {
         table_.append(operators_.size());
         table_.append(ETD);
         table_.append(ETR);
-        for (EntryCust<RootBlock,String> e: types_.entryList()) {
-            table_.append(TR);
-            table_.append(TD);
-            table_.append(e.getKey().getFullName());
-            table_.append(ETD);
-            table_.append(TD);
-            table_.append(e.getValue());
-            table_.append(ETD);
-            table_.append(ETR);
-        }
+        buildTable(types_, table_);
         table_.append("</table>");
         table_.append(END_BODY);
         table_.append(END);
@@ -202,6 +174,48 @@ public final class LinkageUtil {
         cssContent_ += ".n2{background-color:silver;}\n";
         files_.addEntry(CSS,cssContent_);
         return files_;
+    }
+
+    private static String ratioCall(Coverage _cov, RootBlock _type) {
+        int countCall_ = 0;
+        int count_ = 0;
+        for (AbsBk b: ClassesUtil.getDirectChildren(_type)) {
+            if (AbsBk.isAnnotBlock(b)) {
+                countCall_++;
+                count_++;
+                continue;
+            }
+            if (b instanceof MemberCallingsBlock) {
+                if (_cov.getFctRes((MemberCallingsBlock) b).isCalled()) {
+                    countCall_++;
+                }
+                count_++;
+            }
+        }
+        return countCall_ + ExportCst.RATIO_COVERAGE + count_;
+    }
+
+    private static int getCalledOps(Coverage _cov, CustList<OperatorBlock> _operators) {
+        int calledOps_ = 0;
+        for (OperatorBlock b: _operators) {
+            if (_cov.getFctRes(b).isCalled()) {
+                calledOps_++;
+            }
+        }
+        return calledOps_;
+    }
+
+    private static void buildTable(IdMap<RootBlock, String> _types, StringBuilder _table) {
+        for (EntryCust<RootBlock,String> e: _types.entryList()) {
+            _table.append(TR);
+            _table.append(TD);
+            _table.append(e.getKey().getFullName());
+            _table.append(ETD);
+            _table.append(TD);
+            _table.append(e.getValue());
+            _table.append(ETD);
+            _table.append(ETR);
+        }
     }
 
     private static String link(String _rel) {
@@ -4237,7 +4251,6 @@ public final class LinkageUtil {
                 +ExportCst.title(_errs,StringExpUtil.getIdFromAllTypes(_id.getClassName()) +ExportCst.SEP_TYPE_MEMBER+ _id.getFieldName())+ExportCst.SEP_ATTR
                 +ExportCst.href(rel_)+classErr(_errs)+ExportCst.END;
     }
-    //
     public static String relativize(String _currentFile,String _refFile) {
         int diffFirst_ = -1;
         int countCommon_ = 0;
