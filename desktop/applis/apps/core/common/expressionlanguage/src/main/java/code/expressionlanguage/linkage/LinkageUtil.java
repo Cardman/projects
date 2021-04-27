@@ -4075,7 +4075,7 @@ public final class LinkageUtil {
         if (_curOp.getIndexChild() == 0&&_parent instanceof SemiAffectationOperation) {
             SemiAffectationOperation par_ = (SemiAffectationOperation) _parent;
             int beginBlock_ = _in.getBeginBlock();
-            int sum_ = _in.getBeginBlock() + par_.getIndexInEl();
+            int sum_ = beginBlock_ + par_.getIndexInEl();
             int opOff_ = sum_+par_.getOpOffset();
             if(par_.isPost()) {
                 tryAddMergedParts(_vars,par_.getFunctionFrom(),_parts, opOff_, new StringList(), new StringList());
@@ -4093,9 +4093,8 @@ public final class LinkageUtil {
                     err_ = false;
                 }
                 if (err_ && !_parent.getErrs().isEmpty()) {
-                    int begin_ = ((SemiAffectationOperation) _parent).getOpOffset() + beginBlock_ + _parent.getIndexInEl();
-                    _parts.add(new PartOffset(ExportCst.anchorErr(StringUtil.join(_parent.getErrs(), ExportCst.JOIN_ERR)), begin_));
-                    _parts.add(new PartOffset(ExportCst.END_ANCHOR, begin_ + 2));
+                    _parts.add(new PartOffset(ExportCst.anchorErr(StringUtil.join(_parent.getErrs(), ExportCst.JOIN_ERR)), opOff_));
+                    _parts.add(new PartOffset(ExportCst.END_ANCHOR, opOff_ + 2));
                 }
             }
         }
@@ -4144,30 +4143,44 @@ public final class LinkageUtil {
 
     private static CustList<PartOffset> addParts(VariablesOffsets _vars, AnaTypeFct _id,
                                                  int _begin, int _length, StringList _errors, StringList _title, int _name) {
+        String head_ = addBeginPart(_vars, _id, _errors, _title, _name);
         CustList<PartOffset> out_ = new CustList<PartOffset>();
+        addEnd(out_,head_,_begin,_length);
+        return out_;
+    }
+
+    private static String addBeginPart(VariablesOffsets _vars, AnaTypeFct _id,
+                                       StringList _errors, StringList _title, int _name) {
         DisplayedStrings dis_ = _vars.getDisplayedStrings();
         String currentFileName_ = _vars.getCurrentFileName();
         String rel_ = getRelativize(currentFileName_, _id);
         if (rel_.isEmpty()) {
             if (!_errors.isEmpty()) {
-                out_.add(new PartOffset(ExportCst.anchorErr(StringUtil.join(_errors,ExportCst.JOIN_ERR)),_begin));
-                out_.add(new PartOffset(ExportCst.END_ANCHOR,_begin+_length));
+                return ExportCst.anchorErr(StringUtil.join(_errors,ExportCst.JOIN_ERR));
             }
-            return out_;
+            return "";
         }
+        return buildLink(_id, _errors, _title, _name, dis_, rel_);
+    }
+    private static void addEnd(CustList<PartOffset> _out, String _head, int _begin, int _length) {
+        if (!_head.isEmpty()) {
+            _out.add(new PartOffset(_head,_begin));
+            _out.add(new PartOffset(ExportCst.END_ANCHOR,_begin+ _length));
+        }
+    }
+    private static String buildLink(AnaTypeFct _id, StringList _errors, StringList _title, int _name, DisplayedStrings _dis, String _rel) {
         NamedFunctionBlock function_ = _id.getFunction();
+        String signature_ = function_.getSignature(_dis);
         String tag_;
         if (function_ instanceof OperatorBlock) {
-            tag_ = ExportCst.BEGIN_ANCHOR+name(_name)+ ExportCst.title(_title,function_.getSignature(dis_))+ExportCst.SEP_ATTR
-                    +ExportCst.href(rel_)+classErr(_errors)+ExportCst.END;
+            tag_ = ExportCst.BEGIN_ANCHOR+name(_name)+ ExportCst.title(_title, signature_)+ExportCst.SEP_ATTR
+                    +ExportCst.href(_rel)+classErr(_errors)+ExportCst.END;
         } else {
             String cl_ = _id.getType().getFullName();
-            tag_ = ExportCst.BEGIN_ANCHOR+name(_name)+ ExportCst.title(_title,cl_ +ExportCst.SEP_TYPE_MEMBER+ function_.getSignature(dis_))+ExportCst.SEP_ATTR
-                    +ExportCst.href(rel_)+classErr(_errors)+ExportCst.END;
+            tag_ = ExportCst.BEGIN_ANCHOR+name(_name)+ ExportCst.title(_title,cl_ +ExportCst.SEP_TYPE_MEMBER+ signature_)+ExportCst.SEP_ATTR
+                    +ExportCst.href(_rel)+classErr(_errors)+ExportCst.END;
         }
-        out_.add(new PartOffset(tag_,_begin));
-        out_.add(new PartOffset(ExportCst.END_ANCHOR,_begin+_length));
-        return out_;
+        return tag_;
     }
 
     private static String name(int _name) {
