@@ -4197,10 +4197,13 @@ public final class LinkageUtil {
     }
 
     private static String getRelativize(String _currentFileName, AnaTypeFct _id) {
-        if (_id == null || _id.getFunction() == null) {
+        if (_id == null) {
             return EMPTY;
         }
         NamedFunctionBlock function_ = _id.getFunction();
+        if (function_ == null) {
+            return EMPTY;
+        }
         if (function_ instanceof OperatorBlock) {
             String file_ = function_.getFile().getRenderFileName();
             return relativize(_currentFileName, ExportCst.href(file_, function_.getNameOffset()));
@@ -4216,22 +4219,25 @@ public final class LinkageUtil {
     }
 
     private static CustList<PartOffset> updateFieldAnchor(RootBlock _type, StringList _errs, ClassField _id, int _begin, int _length, String _currentFileName, int _offset) {
+        String head_ = addBeginFieldPart(_type, _errs, _id, _currentFileName, _offset);
         CustList<PartOffset> out_ = new CustList<PartOffset>();
+        addEnd(out_,head_,_begin,_length);
+        return out_;
+    }
+    private static String addBeginFieldPart(RootBlock _type, StringList _errs, ClassField _id, String _currentFileName, int _offset) {
         if (!ContextUtil.isFromCustFile(_type)) {
             if (!_errs.isEmpty()) {
-                out_.add(new PartOffset(ExportCst.anchorErr(StringUtil.join(_errs,ExportCst.JOIN_ERR)),_begin));
-                out_.add(new PartOffset(ExportCst.END_ANCHOR,_begin+_length));
+                return ExportCst.anchorErr(StringUtil.join(_errs,ExportCst.JOIN_ERR));
             }
-            return out_;
+            return "";
         }
         String file_ = _type.getFile().getRenderFileName();
         String rel_ = relativize(_currentFileName,ExportCst.href(file_,_offset));
-        out_.add(new PartOffset(ExportCst.BEGIN_ANCHOR+ExportCst.SEP_ATTR
+        return ExportCst.BEGIN_ANCHOR+ExportCst.SEP_ATTR
                 +ExportCst.title(_errs,StringExpUtil.getIdFromAllTypes(_id.getClassName()) +ExportCst.SEP_TYPE_MEMBER+ _id.getFieldName())+ExportCst.SEP_ATTR
-                +ExportCst.href(rel_)+classErr(_errs)+ExportCst.END,_begin));
-        out_.add(new PartOffset(ExportCst.END_ANCHOR,_begin+_length));
-        return out_;
+                +ExportCst.href(rel_)+classErr(_errs)+ExportCst.END;
     }
+    //
     public static String relativize(String _currentFile,String _refFile) {
         int diffFirst_ = -1;
         int countCommon_ = 0;
