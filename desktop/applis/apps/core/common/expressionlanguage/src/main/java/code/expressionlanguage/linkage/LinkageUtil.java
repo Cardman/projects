@@ -3454,82 +3454,96 @@ public final class LinkageUtil {
     }
 
     private static void processNamedArgument(String _currentFileName, int _sum, OperationNode _val, CustList<PartOffset> _parts) {
-        if (_val instanceof NamedArgumentOperation) {
-            NamedArgumentOperation n_ = (NamedArgumentOperation) _val;
-            int firstOff_ = n_.getOffsetTr();
-            if (n_.getField() != null) {
-                int begin_ = _sum + _val.getIndexInEl()+firstOff_;
-                updateFieldAnchor(n_.getField(),n_.getErrs(),_parts,
-                        new ClassField(n_.getField().getFullName(),n_.getName()),
-                        begin_,n_.getName().length(),_currentFileName,n_.getRef());
-                return;
+        if (!(_val instanceof NamedArgumentOperation)) {
+            return;
+        }
+        NamedArgumentOperation n_ = (NamedArgumentOperation) _val;
+        int firstOff_ = n_.getOffsetTr();
+        if (n_.getField() != null) {
+            int begin_ = _sum + _val.getIndexInEl()+firstOff_;
+            updateFieldAnchor(n_.getField(),n_.getErrs(),_parts,
+                    new ClassField(n_.getField().getFullName(),n_.getName()),
+                    begin_,n_.getName().length(),_currentFileName,n_.getRef());
+            return;
+        }
+        processNamedArgument(_currentFileName, _sum, _parts, n_);
+    }
+
+    private static void processNamedArgument(String _currentFileName, int _sum, CustList<PartOffset> _parts, NamedArgumentOperation _n) {
+        int firstOff_ = _n.getOffsetTr();
+        CustList<NamedFunctionBlock> customMethods_ = _n.getCustomMethod();
+        int refOne_ = -1;
+        int refTwo_ = -1;
+        String relFileOne_ = EMPTY;
+        String relFileTwo_ = EMPTY;
+        int i_ = 0;
+        CustList<NamedFunctionBlock> cust_ = new CustList<NamedFunctionBlock>();
+        CustList<NamedFunctionBlock> filterSet_ = new CustList<NamedFunctionBlock>();
+        CustList<NamedFunctionBlock> filterGet_ = new CustList<NamedFunctionBlock>();
+        feedFiltersNamedList(_n, customMethods_, cust_, filterSet_, filterGet_);
+        if (_n.getParent() instanceof ArrOperation) {
+            ArrOperation arr_ = (ArrOperation) _n.getParent();
+            if (arr_.getArrContent().isVariable()) {
+                cust_ = filterSet_;
+            } else if (!arr_.isGetAndSet()) {
+                cust_ = filterGet_;
             }
-            CustList<NamedFunctionBlock> customMethods_ = n_.getCustomMethod();
-            int refOne_ = -1;
-            int refTwo_ = -1;
-            String relFileOne_ = EMPTY;
-            String relFileTwo_ = EMPTY;
-            int i_ = 0;
-            CustList<NamedFunctionBlock> cust_ = new CustList<NamedFunctionBlock>();
-            CustList<NamedFunctionBlock> filterSet_ = new CustList<NamedFunctionBlock>();
-            CustList<NamedFunctionBlock> filterGet_ = new CustList<NamedFunctionBlock>();
-            for (NamedFunctionBlock n:customMethods_) {
-                FileBlock file_ = n.getFile();
-                Ints offs_ = new Ints();
-                if (!file_.isPredefined()) {
-                    offs_ = n.getParametersNamesOffset();
-                }
-                if (offs_.isValidIndex(n_.getIndex())) {
-                    if (AbsBk.isOverBlock(n)) {
-                        NamedCalledFunctionBlock ov_ = (NamedCalledFunctionBlock) n;
-                        if (ov_.getKind() == MethodKind.GET_INDEX) {
-                            filterGet_.add(n);
-                        }
-                        if (ov_.getKind() == MethodKind.SET_INDEX) {
-                            filterSet_.add(n);
-                        }
-                    }
-                    cust_.add(n);
-                }
-            }
-            if (_val.getParent() instanceof ArrOperation) {
-                ArrOperation arr_ = (ArrOperation) _val.getParent();
-                if (arr_.getArrContent().isVariable()) {
-                    cust_ = filterSet_;
-                } else if (!arr_.isGetAndSet()) {
-                    cust_ = filterGet_;
-                }
-            }
-            for (NamedFunctionBlock n:cust_) {
-                FileBlock file_ = n.getFile();
-                Ints offs_ = n.getParametersNamesOffset();
-                if (i_ == 0) {
-                    relFileOne_ = file_.getRenderFileName();
-                    refOne_ = offs_.get(n_.getIndex());
-                } else {
-                    relFileTwo_ = file_.getRenderFileName();
-                    refTwo_ = offs_.get(n_.getIndex());
-                }
-                i_++;
-            }
-            if (!_val.getErrs().isEmpty()) {
-                int begin_ = _sum + _val.getIndexInEl()+firstOff_;
-                _parts.add(new PartOffset(ExportCst.anchorErr(StringUtil.join(_val.getErrs(),ExportCst.JOIN_ERR)),begin_));
-                _parts.add(new PartOffset(ExportCst.END_ANCHOR,begin_+ n_.getName().length()));
+        }
+        for (NamedFunctionBlock n:cust_) {
+            FileBlock file_ = n.getFile();
+            Ints offs_ = n.getParametersNamesOffset();
+            if (i_ == 0) {
+                relFileOne_ = file_.getRenderFileName();
+                refOne_ = offs_.get(_n.getIndex());
             } else {
-                if (refOne_ != -1){
-                    int begin_ = _sum + _val.getIndexInEl()+firstOff_;
-                    String rel_ = relativize(_currentFileName, ExportCst.href(relFileOne_, refOne_));
-                    _parts.add(new PartOffset(ExportCst.anchorRef(rel_),begin_));
-                    _parts.add(new PartOffset(ExportCst.END_ANCHOR,begin_+ n_.getName().length()));
-                }
-                if (refTwo_ != -1){
-                    StrTypes vs_ = _val.getOperations().getOperators();
-                    int begin_ = _sum + _val.getIndexInEl()+vs_.firstKey();
-                    String rel_ = relativize(_currentFileName, ExportCst.href(relFileTwo_, refTwo_));
-                    _parts.add(new PartOffset(ExportCst.anchorRef(rel_),begin_));
-                    _parts.add(new PartOffset(ExportCst.END_ANCHOR,begin_+ vs_.firstValue().length()));
-                }
+                relFileTwo_ = file_.getRenderFileName();
+                refTwo_ = offs_.get(_n.getIndex());
+            }
+            i_++;
+        }
+        if (!_n.getErrs().isEmpty()) {
+            int begin_ = _sum + _n.getIndexInEl()+ firstOff_;
+            _parts.add(new PartOffset(ExportCst.anchorErr(StringUtil.join(_n.getErrs(),ExportCst.JOIN_ERR)),begin_));
+            _parts.add(new PartOffset(ExportCst.END_ANCHOR,begin_+ _n.getName().length()));
+        } else {
+            if (refOne_ != -1){
+                int begin_ = _sum + _n.getIndexInEl()+ firstOff_;
+                String rel_ = relativize(_currentFileName, ExportCst.href(relFileOne_, refOne_));
+                _parts.add(new PartOffset(ExportCst.anchorRef(rel_),begin_));
+                _parts.add(new PartOffset(ExportCst.END_ANCHOR,begin_+ _n.getName().length()));
+            }
+            if (refTwo_ != -1){
+                StrTypes vs_ = _n.getOperations().getOperators();
+                int begin_ = _sum + _n.getIndexInEl()+vs_.firstKey();
+                String rel_ = relativize(_currentFileName, ExportCst.href(relFileTwo_, refTwo_));
+                _parts.add(new PartOffset(ExportCst.anchorRef(rel_),begin_));
+                _parts.add(new PartOffset(ExportCst.END_ANCHOR,begin_+ vs_.firstValue().length()));
+            }
+        }
+    }
+
+    private static void feedFiltersNamedList(NamedArgumentOperation _namedArg, CustList<NamedFunctionBlock> _customMethods, CustList<NamedFunctionBlock> _list, CustList<NamedFunctionBlock> _filterSet, CustList<NamedFunctionBlock> _filterGet) {
+        for (NamedFunctionBlock n: _customMethods) {
+            FileBlock file_ = n.getFile();
+            Ints offs_ = new Ints();
+            if (!file_.isPredefined()) {
+                offs_ = n.getParametersNamesOffset();
+            }
+            if (offs_.isValidIndex(_namedArg.getIndex())) {
+                feedFiltersNamed(_filterSet, _filterGet, n);
+                _list.add(n);
+            }
+        }
+    }
+
+    private static void feedFiltersNamed(CustList<NamedFunctionBlock> _filterSet, CustList<NamedFunctionBlock> _filterGet, NamedFunctionBlock _named) {
+        if (AbsBk.isOverBlock(_named)) {
+            NamedCalledFunctionBlock ov_ = (NamedCalledFunctionBlock) _named;
+            if (ov_.getKind() == MethodKind.GET_INDEX) {
+                _filterGet.add(_named);
+            }
+            if (ov_.getKind() == MethodKind.SET_INDEX) {
+                _filterSet.add(_named);
             }
         }
     }
@@ -3599,44 +3613,43 @@ public final class LinkageUtil {
     }
 
     private static void processPreSemiAffectation(VariablesOffsets _vars, String _currentFileName, int _sum, OperationNode _val, CustList<PartOffset> _parts) {
-        if (_val instanceof SemiAffectationOperation) {
-            SemiAffectationOperation par_ = (SemiAffectationOperation) _val;
-            int offsetOp_ = par_.getOpOffset();
-            if (par_.isPost()) {
-                return;
-            }
-            boolean err_ = true;
-            AnaTypeFct function_ = par_.getFct().getFunction();
-            if (function_ != null) {
-                addParts(_vars, _currentFileName, function_,
-                        _sum + _val.getIndexInEl()+offsetOp_,1,
-                        _val.getErrs(), _val.getErrs(), _parts);
-                err_ = false;
-            }
-            SettableElResult settable_ = par_.getSettable();
-            if (settable_ instanceof ArrOperation && ((ArrOperation) settable_).getFunctionSet() != null) {
-                ArrOperation parArr_ = (ArrOperation) settable_;
-                addParts(_vars, _currentFileName, parArr_.getFunctionSet(),
-                        _sum + _val.getIndexInEl()+offsetOp_+1,1,
-                        _val.getErrs(), _val.getErrs(), _parts);
-                err_ = false;
-            }
-            if (err_) {
-                if (!par_.getErrs().isEmpty()) {
-                    int begin_ = offsetOp_+ _sum + _val.getIndexInEl();
-                    _parts.add(new PartOffset(ExportCst.anchorErr(StringUtil.join(par_.getErrs(),ExportCst.JOIN_ERR)),begin_));
-                    _parts.add(new PartOffset(ExportCst.END_ANCHOR,begin_+ 2));
-                }
-            }
-            OperationNode ch_ = null;
-            if (settable_ instanceof OperationNode) {
-                ch_ = par_.getFirstChild();
-            }
-            if (ch_ != null) {
-                int begin_ = offsetOp_ + _sum + _val.getIndexInEl()+2;
-                tryAddMergedParts(_vars,par_.getFunctionFrom(), _parts, _currentFileName,begin_, new StringList(), new StringList());
-                tryAddMergedParts(_vars,par_.getFunctionTo(), _parts, _currentFileName,begin_, new StringList(), new StringList());
-            }
+        if (!(_val instanceof SemiAffectationOperation)) {
+            return;
+        }
+        SemiAffectationOperation par_ = (SemiAffectationOperation) _val;
+        int offsetOp_ = par_.getOpOffset();
+        if (par_.isPost()) {
+            return;
+        }
+        boolean err_ = true;
+        AnaTypeFct function_ = par_.getFct().getFunction();
+        if (function_ != null) {
+            addParts(_vars, _currentFileName, function_,
+                    _sum + _val.getIndexInEl()+offsetOp_,1,
+                    _val.getErrs(), _val.getErrs(), _parts);
+            err_ = false;
+        }
+        SettableElResult settable_ = par_.getSettable();
+        if (settable_ instanceof ArrOperation && ((ArrOperation) settable_).getFunctionSet() != null) {
+            ArrOperation parArr_ = (ArrOperation) settable_;
+            addParts(_vars, _currentFileName, parArr_.getFunctionSet(),
+                    _sum + _val.getIndexInEl()+offsetOp_+1,1,
+                    _val.getErrs(), _val.getErrs(), _parts);
+            err_ = false;
+        }
+        if (err_ && !par_.getErrs().isEmpty()) {
+            int begin_ = offsetOp_ + _sum + _val.getIndexInEl();
+            _parts.add(new PartOffset(ExportCst.anchorErr(StringUtil.join(par_.getErrs(), ExportCst.JOIN_ERR)), begin_));
+            _parts.add(new PartOffset(ExportCst.END_ANCHOR, begin_ + 2));
+        }
+        OperationNode ch_ = null;
+        if (settable_ instanceof OperationNode) {
+            ch_ = par_.getFirstChild();
+        }
+        if (ch_ != null) {
+            int begin_ = offsetOp_ + _sum + _val.getIndexInEl()+2;
+            tryAddMergedParts(_vars,par_.getFunctionFrom(), _parts, _currentFileName,begin_, new StringList(), new StringList());
+            tryAddMergedParts(_vars,par_.getFunctionTo(), _parts, _currentFileName,begin_, new StringList(), new StringList());
         }
     }
 
