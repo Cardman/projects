@@ -3344,12 +3344,10 @@ public final class LinkageUtil {
             }
             _parts.addAllElts(((StaticCallAccessOperation)_val).getPartOffsets());
         }
-        if (_val instanceof ThisOperation) {
-            if (!_val.getErrs().isEmpty()) {
-                int begin_ = _sum + _val.getIndexInEl();
-                _parts.add(new PartOffset(ExportCst.anchorErr(StringUtil.join(_val.getErrs(),ExportCst.JOIN_ERR)),begin_));
-                _parts.add(new PartOffset(ExportCst.END_ANCHOR,begin_+ _vars.getKeyWords().getKeyWordThis().length()));
-            }
+        if (_val instanceof ThisOperation && !_val.getErrs().isEmpty()) {
+            int begin_ = _sum + _val.getIndexInEl();
+            _parts.add(new PartOffset(ExportCst.anchorErr(StringUtil.join(_val.getErrs(), ExportCst.JOIN_ERR)), begin_));
+            _parts.add(new PartOffset(ExportCst.END_ANCHOR, begin_ + _vars.getKeyWords().getKeyWordThis().length()));
         }
     }
 
