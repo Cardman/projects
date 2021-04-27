@@ -277,16 +277,14 @@ public final class FctOperation extends InvokingOperation implements PreAnalyzab
     }
 
     private void setDelta(AnalyzedPageEl _page) {
-        String trimMeth_ = callFctContent.getMethodName().trim();
+        String methodName_ = callFctContent.getMethodName();
+        String trimMeth_ = methodName_.trim();
         KeyWords keyWords_ = _page.getKeyWords();
         String keyWordSuper_ = keyWords_.getKeyWordSuper();
         String keyWordThat_ = keyWords_.getKeyWordThat();
         String keyWordThisaccess_ = keyWords_.getKeyWordThisaccess();
-        int delta_ = StringUtil.getFirstPrintableCharIndex(callFctContent.getMethodName());
-        lengthMethod = callFctContent.getMethodName().length();
-        int deltaEnd_ = lengthMethod- StringUtil.getLastPrintableCharIndex(callFctContent.getMethodName())-1;
-        lengthMethod -= delta_;
-        lengthMethod -= deltaEnd_;
+        int delta_ = StringUtil.getFirstPrintableCharIndex(methodName_);
+        lengthMethod = trimMeth_.length();
         if (StringExpUtil.startsWithKeyWord(trimMeth_, keyWordSuper_)) {
             int after_ = trimMeth_.indexOf('.') + 1;
             delta_ += after_;

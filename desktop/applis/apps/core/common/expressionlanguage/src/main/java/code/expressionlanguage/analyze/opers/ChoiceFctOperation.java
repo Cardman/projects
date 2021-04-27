@@ -81,9 +81,9 @@ public final class ChoiceFctOperation extends InvokingOperation implements PreAn
     @Override
     public void analyze(AnalyzedPageEl _page) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
-        int off_ = StringUtil.getFirstPrintableCharIndex(callFctContent.getMethodName());
+        String methodName_ = callFctContent.getMethodName();
+        int off_ = StringUtil.getFirstPrintableCharIndex(methodName_);
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _page);
-        String trimMeth_;
         int varargOnly_ = lookOnlyForVarArg();
         ClassMethodIdAncestor idMethod_ = lookOnlyForId();
         boolean import_ = false;
@@ -91,8 +91,8 @@ public final class ChoiceFctOperation extends InvokingOperation implements PreAn
             import_ = true;
             setStaticAccess(_page.getStaticContext());
         }
-        String className_ = callFctContent.getMethodName().substring(0, callFctContent.getMethodName().lastIndexOf(PAR_RIGHT));
-        int lenPref_ = callFctContent.getMethodName().indexOf(PAR_LEFT) + 1;
+        String className_ = methodName_.substring(0, methodName_.lastIndexOf(PAR_RIGHT));
+        int lenPref_ = methodName_.indexOf(PAR_LEFT) + 1;
         className_ = className_.substring(lenPref_);
         int loc_ = StringUtil.getFirstPrintableCharIndex(className_)-off_;
         if (typeInfer.isEmpty()) {
@@ -105,14 +105,11 @@ public final class ChoiceFctOperation extends InvokingOperation implements PreAn
         StringList bounds_ = getBounds(clCurName_, _page);
         String varargParam_ = getVarargParam(chidren_);
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _page);
-        lengthMethod = callFctContent.getMethodName().length();
-        int deltaEnd_ = lengthMethod- StringUtil.getLastPrintableCharIndex(callFctContent.getMethodName())-1;
-        delta = callFctContent.getMethodName().lastIndexOf(PAR_RIGHT)+1;
-        String mName_ = callFctContent.getMethodName().substring(delta);
+        delta = methodName_.lastIndexOf(PAR_RIGHT)+1;
+        String mName_ = methodName_.substring(delta);
         delta += StringUtil.getFirstPrintableCharIndex(mName_);
-        lengthMethod -= delta;
-        lengthMethod -= deltaEnd_;
-        trimMeth_ = mName_.trim();
+        String trimMeth_ = mName_.trim();
+        lengthMethod = trimMeth_.length();
         ClassMethodIdAncestor feed_ = null;
         ClassMethodId feedBase_ = null;
         if (idMethod_ != null) {
