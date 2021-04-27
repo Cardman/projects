@@ -94,11 +94,6 @@ public final class ConstructorBlock extends NamedFunctionBlock implements Return
         setImportedReturnType(void_);
     }
 
-    @Override
-    public String getName() {
-        return EMPTY_STRING;
-    }
-
 
     public void checkInterfaces(AnalyzedPageEl _page) {
         AbsBk firstChild_ = getFirstChild();

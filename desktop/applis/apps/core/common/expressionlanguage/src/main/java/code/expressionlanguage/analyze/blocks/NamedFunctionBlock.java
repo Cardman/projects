@@ -106,7 +106,7 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
         parametersRef = new BooleanList();
     }
 
-    public boolean setupParam(StringList _paramTypes, StringList _paramNames, BooleanList _refParams) {
+    public final boolean setupParam(StringList _paramTypes, StringList _paramNames, BooleanList _refParams) {
         int i_ = IndexConstants.FIRST_INDEX;
         int len_ = _paramTypes.size();
         boolean varargs_ = false;
