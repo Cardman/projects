@@ -26,8 +26,9 @@ public final class LinkageStackElementIn {
         setIndexAnnotation(_indexAnnotation);
         setIndexAnnotationLook(_indexAnnotationLook);
     }
-    public void offsets(int _tr, int _begin, int _end) {
+    public void offsets(int _tr, int _trEnd,int _begin, int _end) {
         setTr(_tr);
+        setTrEnd(_trEnd);
         setBeginBlock(_begin);
         setEndBlock(_end);
     }

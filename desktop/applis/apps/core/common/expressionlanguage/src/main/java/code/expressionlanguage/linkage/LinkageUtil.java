@@ -1473,8 +1473,7 @@ public final class LinkageUtil {
             String value_ = _cond.getValue();
             int endBl_ = _cond.getValueOffest() + value_.length() + tr_;
             int diffEnd_ = lastChar_ - endBl_;
-            LinkageStackElementIn in_ = buildLinkageRep(diffBegin_,_cond, blOffset_, endBl_, 0, k_);
-            in_.setTrEnd(diffEnd_);
+            LinkageStackElementIn in_ = buildLinkageRep(diffBegin_,diffEnd_,_cond, blOffset_, endBl_, 0, k_);
             buildNormalReport(_vars, _cov, inst_, in_);
         }
         if (_vars.goesToProcess()) {
@@ -1995,8 +1994,7 @@ public final class LinkageUtil {
             String value_ = _cond.getValue();
             int endBl_ = _cond.getValueOffest() + value_.length() + tr_;
             int diffEnd_ = lastChar_ - endBl_;
-            LinkageStackElementIn in_ = buildLinkageRep(diffBegin_,_cond, blOffset_, endBl_, 0, k_);
-            in_.setTrEnd(diffEnd_);
+            LinkageStackElementIn in_ = buildLinkageRep(diffBegin_,diffEnd_,_cond, blOffset_, endBl_, 0, k_);
             buildNormalReport(_vars, _cov, inst_, in_);
         }
         if (_vars.goesToProcess()) {
@@ -2239,7 +2237,7 @@ public final class LinkageUtil {
         int begin_ = _annotationsIndexes.get(_indexAnnotation);
         int end_ = begin_ + _annotations.get(_indexAnnotation).trim().length();
         LinkageStackElementIn in_ = new LinkageStackElementIn(_cond, 0,_indexAnnotationGroup, _indexAnnotationGroup, _indexAnnotation,_indexAnnotation);
-        adjust(0,begin_, end_, in_);
+        adjust(0,0,begin_, end_, in_);
         return in_;
     }
 
@@ -2379,12 +2377,12 @@ public final class LinkageUtil {
     }
 
     private static LinkageStackElementIn buildLinkageRep(AbsBk _cond, int _begin, int _end, int _indexLoop, int _indexAnnotationGroup) {
-        return buildLinkageRep(0,_cond,_begin,_end,_indexLoop,_indexAnnotationGroup);
+        return buildLinkageRep(0,0,_cond,_begin,_end,_indexLoop,_indexAnnotationGroup);
     }
 
-    private static LinkageStackElementIn buildLinkageRep(int _tr, AbsBk _cond, int _begin, int _end, int _indexLoop, int _indexAnnotationGroup) {
+    private static LinkageStackElementIn buildLinkageRep(int _tr, int _trEnd, AbsBk _cond, int _begin, int _end, int _indexLoop, int _indexAnnotationGroup) {
         LinkageStackElementIn in_ = new LinkageStackElementIn(_cond, _indexLoop, _indexAnnotationGroup,-1, 0,-1);
-        adjust(_tr,_begin, _end, in_);
+        adjust(_tr,_trEnd,_begin, _end, in_);
         return in_;
     }
 
@@ -2402,8 +2400,8 @@ public final class LinkageUtil {
         buildNormErr(_vars, _cond, -1, root_, off_, 0);
     }
 
-    private static void adjust(int _tr, int _begin, int _end, LinkageStackElementIn _in) {
-        _in.offsets(_tr,_begin, _end);
+    private static void adjust(int _tr, int _trEnd,int _begin, int _end, LinkageStackElementIn _in) {
+        _in.offsets(_tr,_trEnd,_begin, _end);
     }
 
     private static LinkageStackElementIn buildLinkageErr(AbsBk _cond, int _indexAnnotationGroup, int _indexAnnotationGroupLook, int _indexAnnotation, int _indexLoop, int _begin, int _indexAnnotationLook) {
