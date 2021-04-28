@@ -790,54 +790,67 @@ public final class ExecTemplates {
         }
         RangeStruct ind_ = (RangeStruct) _index;
         ArrayStruct arr_ = (ArrayStruct) _struct;
-        if (ind_.isUnlimited()) {
-            if (ind_.getLower() > arr_.getLength()) {
+        return getRange(_index, _conf, _stackCall, ind_, arr_);
+    }
+
+    private static WithoutParentIdStruct getRange(Struct _index, ContextEl _conf, StackCall _stackCall, RangeStruct _ind, ArrayStruct _arr) {
+        LgNames stds_ = _conf.getStandards();
+        if (_ind.isUnlimited()) {
+            if (_ind.getLower() > _arr.getLength()) {
                 String cast_ = stds_.getContent().getCoreNames().getAliasBadIndex();
-                StringBuilder mess_ = getIndexMessage(_index, arr_);
+                StringBuilder mess_ = getIndexMessage(_index, _arr);
                 _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_conf, mess_.toString(), cast_, _stackCall)));
                 return NullStruct.NULL_VALUE;
             }
         } else {
-            if (ind_.getUpper() > arr_.getLength()) {
+            if (_ind.getUpper() > _arr.getLength()) {
                 String cast_ = stds_.getContent().getCoreNames().getAliasBadIndex();
-                StringBuilder mess_ = getIndexMessage(_index, arr_);
+                StringBuilder mess_ = getIndexMessage(_index, _arr);
                 _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_conf, mess_.toString(), cast_, _stackCall)));
                 return NullStruct.NULL_VALUE;
             }
         }
-        long lower_ = ind_.getLower();
-        long step_ = ind_.getStep();
+        long lower_ = _ind.getLower();
+        long step_ = _ind.getStep();
         long upper_;
-        if (ind_.isUnlimited()) {
-            upper_ = arr_.getLength();
+        if (_ind.isUnlimited()) {
+            upper_ = _arr.getLength();
         } else {
-            upper_ = ind_.getUpper();
+            upper_ = _ind.getUpper();
         }
         if (step_ < 0){
             int count_ = 0;
-            for (long i = upper_-1L; i >= lower_; i+=step_) {
+            long i_ = upper_-1L;
+            while (i_ >= lower_) {
                 count_++;
+                i_ += step_;
             }
-            ArrayStruct sub_ = new ArrayStruct(count_,arr_.getClassName());
+            ArrayStruct sub_ = new ArrayStruct(count_, _arr.getClassName());
             int insert_ = 0;
-            for (long i = upper_-1L; i >= lower_; i+=step_) {
-                sub_.set(insert_, arr_.get((int) i));
+            i_ = upper_-1L;
+            while (i_ >= lower_) {
+                sub_.set(insert_, _arr.get((int) i_));
                 insert_++;
+                i_ += step_;
             }
-            addSensible(arr_, _stackCall,sub_);
+            addSensible(_arr, _stackCall,sub_);
             return sub_;
         }
         int count_ = 0;
-        for (long i = lower_; i < upper_; i+=step_) {
+        long i_ = lower_;
+        while (i_ < upper_) {
             count_++;
+            i_ += step_;
         }
-        ArrayStruct sub_ = new ArrayStruct(count_,arr_.getClassName());
+        ArrayStruct sub_ = new ArrayStruct(count_, _arr.getClassName());
         int insert_ = 0;
-        for (long i = lower_; i < upper_; i+=step_) {
-            sub_.set(insert_, arr_.get((int) i));
+        i_ = lower_;
+        while (i_ < upper_) {
+            sub_.set(insert_, _arr.get((int) i_));
             insert_++;
+            i_ += step_;
         }
-        addSensible(arr_, _stackCall,sub_);
+        addSensible(_arr, _stackCall,sub_);
         return sub_;
     }
 
