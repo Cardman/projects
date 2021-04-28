@@ -21,17 +21,9 @@ import code.util.core.StringUtil;
 
 public final class ElementBlock extends Leaf implements InnerTypeOrElement{
 
-    private final AnaElementContent elementContent = new AnaElementContent();
-
-    private final String value;
-
-    private final String tempClass;
-
-    private final int tempClassOffset;
+    private final AnaElementContent elementContent;
 
     private String importedClassName;
-
-    private final int valueOffest;
 
     private final StringList annotations = new StringList();
     private final ResultExpression res = new ResultExpression();
@@ -42,7 +34,6 @@ public final class ElementBlock extends Leaf implements InnerTypeOrElement{
     private int trOffset;
     private final StringList nameErrors = new StringList();
     private int fieldNumber;
-    private final EnumBlock parentEnum;
     private final StringList fieldList = new StringList();
     private final CustList<AnonymousTypeBlock> anonymous = new CustList<AnonymousTypeBlock>();
     private final CustList<NamedCalledFunctionBlock> anonymousFct = new CustList<NamedCalledFunctionBlock>();
@@ -52,13 +43,7 @@ public final class ElementBlock extends Leaf implements InnerTypeOrElement{
                         OffsetStringInfo _type,
                         OffsetStringInfo _value, int _offset) {
         super(_offset);
-        parentEnum = _m;
-        elementContent.setFieldNameOffest(_fieldName.getOffset());
-        valueOffest = _value.getOffset();
-        elementContent.setFieldName(_fieldName.getInfo());
-        value = _value.getInfo();
-        tempClass = _type.getInfo();
-        tempClassOffset = _type.getOffset();
+        elementContent = new AnaElementContent(_m, _fieldName, _type, _value);
     }
 
     @Override
@@ -67,14 +52,14 @@ public final class ElementBlock extends Leaf implements InnerTypeOrElement{
     }
 
     public int getValueOffest() {
-        return valueOffest;
+        return elementContent.getValueOffest();
     }
 
     public String getTempClass() {
-        return tempClass;
+        return elementContent.getTempClass();
     }
     public int getTempClassOffset() {
-        return tempClassOffset;
+        return elementContent.getTempClassOffset();
     }
 
     @Override
@@ -95,7 +80,7 @@ public final class ElementBlock extends Leaf implements InnerTypeOrElement{
     @Override
     public void retrieveNames(StringList _fieldNames, AnalyzedPageEl _page) {
         CustList<PartOffsetAffect> fields_ = new CustList<PartOffsetAffect>();
-        fields_.add(new PartOffsetAffect(new PartOffset(elementContent.getFieldName(),valueOffest),true, new StringList()));
+        fields_.add(new PartOffsetAffect(new PartOffset(elementContent.getFieldName(),elementContent.getValueOffest()),true, new StringList()));
         FieldBlock.checkFieldsNames(this,_fieldNames,fields_,_page);
         for (PartOffsetAffect n: fields_) {
             addNameErrors(n.getErrs());
@@ -111,18 +96,18 @@ public final class ElementBlock extends Leaf implements InnerTypeOrElement{
     }
 
     public String getValue() {
-        return value;
+        return elementContent.getValue();
     }
 
     @Override
     public void buildImportedType(AnalyzedPageEl _page) {
-        _page.setGlobalOffset(tempClassOffset);
+        _page.setGlobalOffset(elementContent.getTempClassOffset());
         _page.zeroOffset();
         _page.setCurrentBlock(this);
         int i_ = 1;
         StringList j_ = new StringList();
-        String fullName_ = parentEnum.getFullName();
-        for (String p: StringExpUtil.getAllTypes(StringUtil.concat(fullName_, tempClass)).mid(1)) {
+        String fullName_ = elementContent.getParentEnum().getFullName();
+        for (String p: StringExpUtil.getAllTypes(StringUtil.concat(fullName_, elementContent.getTempClass())).mid(1)) {
             int loc_ = StringUtil.getFirstPrintableCharIndex(p);
             j_.add(ResolvingTypes.resolveCorrectType(i_+loc_,p, _page));
             partOffsets.addAllElts(_page.getCurrentParts());
@@ -168,15 +153,15 @@ public final class ElementBlock extends Leaf implements InnerTypeOrElement{
     }
 
     public String buildVirtualCreate(String _newKeyWord) {
-        return StringUtil.concat(elementContent.getFieldName(),"=", _newKeyWord, PAR_LEFT, value, PAR_RIGHT);
+        return StringUtil.concat(elementContent.getFieldName(),"=", _newKeyWord, PAR_LEFT, elementContent.getValue(), PAR_RIGHT);
     }
 
     public int retrieveTr(String _newKeyWord) {
-        return valueOffest - elementContent.getFieldNameOffest() + diffTr(_newKeyWord);
+        return elementContent.getValueOffest() - elementContent.getFieldNameOffest() + diffTr(_newKeyWord);
     }
 
     public int diffTr(String _newKeyWord) {
-        return -elementContent.getFieldName().length() - 1 - _newKeyWord.length() - 1;
+        return elementContent.diffTr(_newKeyWord);
     }
 
     private int getIndex() {

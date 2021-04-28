@@ -14,6 +14,7 @@ import code.expressionlanguage.exec.coverage.AbstractCoverageResult;
 import code.expressionlanguage.exec.coverage.Coverage;
 import code.expressionlanguage.functionid.*;
 import code.expressionlanguage.analyze.instr.*;
+import code.expressionlanguage.fwd.blocks.AnaElementContent;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.stds.DisplayedStrings;
 import code.expressionlanguage.stds.LgNames;
@@ -1448,30 +1449,34 @@ public final class LinkageUtil {
     }
 
     private static void processElementBlockReport(VariablesOffsets _vars, ElementBlock _cond, Coverage _cov) {
-        AbstractInstancingOperation inst_ = (AbstractInstancingOperation) _cond.getRoot().getFirstChild().getNextSibling();
+        processEnumEltReport(_vars,_cond.getAnnotationsIndexes(), _cond.getAnnotations(),_cond.getElementContent(),_cond,_cond,_cov);
+    }
+
+    private static void processEnumEltReport(VariablesOffsets _vars, Ints _annotIndexes, StringList _annot, AnaElementContent _content, AbsBk _cond, InnerTypeOrElement _inner, Coverage _cov) {
+        AbstractInstancingOperation inst_ = (AbstractInstancingOperation) _inner.getRoot().getFirstChild().getNextSibling();
         int k_ = _vars.getLastStackElt().getIndexAnnotationGroup();
-        String uniqueFieldName_ = _cond.getUniqueFieldName();
+        String uniqueFieldName_ = _inner.getUniqueFieldName();
         if (k_ == -1) {
-            annotReport(_vars, _cond, _cov, _cond.getAnnotationsIndexes(), _cond.getAnnotations(), _cond.getRoots());
+            annotReport(_vars, _cond, _cov, _annotIndexes, _annot, _inner.getRoots());
             if (_vars.goesToProcess()) {
                 return;
             }
             _vars.getLastStackElt().setIndexAnnotationGroup(0);
             k_ = 0;
-            nameIdReport(_vars, inst_, uniqueFieldName_, _cond.getFieldNameOffest());
-            _vars.addParts(_cond.getTypePartOffsets());
+            nameIdReport(_vars, inst_, uniqueFieldName_, _content.getFieldNameOffest());
+            _vars.addParts(_inner.getTypePartOffsets());
         }
         if (inst_.getFirstChild() != null) {
-            int afterName_ = _cond.getFieldNameOffest() + uniqueFieldName_.length();
-            if (!_cond.getTempClass().isEmpty()) {
-                afterName_ = _cond.getTempClassOffset() + _cond.getTempClass().length();
+            int afterName_ = _content.getFieldNameOffest() + uniqueFieldName_.length();
+            if (!_content.getTempClass().isEmpty()) {
+                afterName_ = _content.getTempClassOffset() + _content.getTempClass().length();
             }
             int lastChar_ = _cond.getBegin();
-            int tr_ = _cond.diffTr(_vars.getKeyWords().getKeyWordNew());
-            int blOffset_ = _cond.getValueOffest() + tr_;
+            int tr_ = _content.diffTr(_vars.getKeyWords().getKeyWordNew());
+            int blOffset_ = _content.getValueOffest() + tr_;
             int diffBegin_ = afterName_ - blOffset_ - inst_.getIndexInEl();
-            String value_ = _cond.getValue();
-            int endBl_ = _cond.getValueOffest() + value_.length() + tr_;
+            String value_ = _content.getValue();
+            int endBl_ = _content.getValueOffest() + value_.length() + tr_;
             int diffEnd_ = lastChar_ - endBl_;
             LinkageStackElementIn in_ = buildLinkageRep(diffBegin_,diffEnd_,_cond, blOffset_, endBl_, 0, k_);
             buildNormalReport(_vars, _cov, inst_, in_);
@@ -1481,7 +1486,6 @@ public final class LinkageUtil {
         }
         _vars.getLastStackElt().setIndexAnnotationGroup(-1);
     }
-
     private static void nameIdReport(VariablesOffsets _vars, AbstractInstancingOperation _inst, String _uniqueFieldName, int _fieldNameOffest) {
         AnaTypeFct ctor_ = _inst.getConstructor();
         if (ctor_ != null) {
@@ -1969,38 +1973,7 @@ public final class LinkageUtil {
         _vars.addPart(new PartOffset(ExportCst.END_ANCHOR,endName_));
     }
     private static void processInnerElementBlockReport(VariablesOffsets _vars, InnerElementBlock _cond, Coverage _cov) {
-        AbstractInstancingOperation inst_ = (AbstractInstancingOperation) _cond.getRoot().getFirstChild().getNextSibling();
-        int k_ = _vars.getLastStackElt().getIndexAnnotationGroup();
-        String uniqueFieldName_ = _cond.getUniqueFieldName();
-        if (k_ == -1) {
-            processAnnotationReport(_vars, _cond, _cov);
-            if (_vars.goesToProcess()) {
-                return;
-            }
-            nameIdReport(_vars, inst_, uniqueFieldName_, _cond.getFieldNameOffest());
-            _vars.addParts(_cond.getTypePartOffsets());
-            _vars.getLastStackElt().setIndexAnnotationGroup(0);
-            k_ = 0;
-        }
-        if (inst_.getFirstChild() != null) {
-            int afterName_ = _cond.getFieldNameOffest() + uniqueFieldName_.length();
-            if (!_cond.getTempClass().isEmpty()) {
-                afterName_ = _cond.getTempClassOffset() + _cond.getTempClass().length();
-            }
-            int lastChar_ = _cond.getBegin();
-            int tr_ = _cond.diffTr(_vars.getKeyWords().getKeyWordNew());
-            int blOffset_ = _cond.getValueOffest() + tr_;
-            int diffBegin_ = afterName_ - blOffset_ - inst_.getIndexInEl();
-            String value_ = _cond.getValue();
-            int endBl_ = _cond.getValueOffest() + value_.length() + tr_;
-            int diffEnd_ = lastChar_ - endBl_;
-            LinkageStackElementIn in_ = buildLinkageRep(diffBegin_,diffEnd_,_cond, blOffset_, endBl_, 0, k_);
-            buildNormalReport(_vars, _cov, inst_, in_);
-        }
-        if (_vars.goesToProcess()) {
-            return;
-        }
-        _vars.getLastStackElt().setIndexAnnotationGroup(-1);
+        processEnumEltReport(_vars,_cond.getAnnotationsIndexes(), _cond.getAnnotations(),_cond.getElementContent(),_cond,_cond,_cov);
     }
 
     private static void processInnerElementBlockError(VariablesOffsets _vars, InnerElementBlock _cond) {

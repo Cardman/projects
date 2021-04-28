@@ -21,23 +21,14 @@ import code.util.core.StringUtil;
 
 public final class InnerElementBlock extends RootBlock implements InnerTypeOrElement,UniqueRootedBlock {
 
-    private final AnaElementContent elementContent = new AnaElementContent();
-
-    private final String value;
-
-    private final String tempClass;
-
-    private final int tempClassOffset;
+    private final AnaElementContent elementContent;
 
     private String importedClassName;
-
-    private final int valueOffest;
 
     private final CustList<PartOffset> partOffsets = new CustList<PartOffset>();
     private int trOffset;
     private final ResultExpression res = new ResultExpression();
     private int fieldNumber;
-    private final EnumBlock parentEnum;
     private final StringList fieldList = new StringList();
     private int numberInner = -1;
     private final CustList<AnonymousTypeBlock> anonymous = new CustList<AnonymousTypeBlock>();
@@ -47,17 +38,11 @@ public final class InnerElementBlock extends RootBlock implements InnerTypeOrEle
                              OffsetStringInfo _type,
                              OffsetStringInfo _value, int _offset) {
         super(_fieldName.getOffset(), _pkgName, new OffsetAccessInfo(0,AccessEnum.PUBLIC), "", new IntMap< String>(), _offset, _fieldName.getInfo());
-        parentEnum = _m;
-        elementContent.setFieldNameOffest(_fieldName.getOffset());
-        valueOffest = _value.getOffset();
-        elementContent.setFieldName(_fieldName.getInfo());
-        value = _value.getInfo();
-        tempClass = _type.getInfo();
-        tempClassOffset = _type.getOffset();
+        elementContent = new AnaElementContent(_m, _fieldName, _type, _value);
     }
 
     public EnumBlock getParentEnum() {
-        return parentEnum;
+        return elementContent.getParentEnum();
     }
 
     @Override
@@ -66,15 +51,15 @@ public final class InnerElementBlock extends RootBlock implements InnerTypeOrEle
     }
 
     public String getValue() {
-        return value;
+        return elementContent.getValue();
     }
 
     public String getTempClass() {
-        return tempClass;
+        return elementContent.getTempClass();
     }
 
     public int getTempClassOffset() {
-        return tempClassOffset;
+        return elementContent.getTempClassOffset();
     }
 
     @Override
@@ -90,7 +75,7 @@ public final class InnerElementBlock extends RootBlock implements InnerTypeOrEle
     @Override
     public void retrieveNames(StringList _fieldNames, AnalyzedPageEl _page) {
         CustList<PartOffsetAffect> fields_ = new CustList<PartOffsetAffect>();
-        fields_.add(new PartOffsetAffect(new PartOffset(elementContent.getFieldName(),valueOffest),true, new StringList()));
+        fields_.add(new PartOffsetAffect(new PartOffset(elementContent.getFieldName(),elementContent.getValueOffest()),true, new StringList()));
         FieldBlock.checkFieldsNames(this,_fieldNames,fields_, _page);
         for (PartOffsetAffect n: fields_) {
             getNameErrors().addAllElts(n.getErrs());
@@ -111,7 +96,7 @@ public final class InnerElementBlock extends RootBlock implements InnerTypeOrEle
     }
 
     public int getValueOffest() {
-        return valueOffest;
+        return elementContent.getValueOffest();
     }
 
     public void buildExpressionLanguageReadOnly(AnalyzedPageEl _page) {
@@ -131,15 +116,15 @@ public final class InnerElementBlock extends RootBlock implements InnerTypeOrEle
     }
 
     public String buildVirtualCreate(String _newKeyWord) {
-        return StringUtil.concat(elementContent.getFieldName(),"=", _newKeyWord, PAR_LEFT, value, PAR_RIGHT);
+        return StringUtil.concat(elementContent.getFieldName(),"=", _newKeyWord, PAR_LEFT, elementContent.getValue(), PAR_RIGHT);
     }
 
     public int retrieveTr(String _newKeyWord) {
-        return valueOffest - elementContent.getFieldNameOffest() + diffTr(_newKeyWord);
+        return elementContent.getValueOffest() - elementContent.getFieldNameOffest() + diffTr(_newKeyWord);
     }
 
     public int diffTr(String _newKeyWord) {
-        return -elementContent.getFieldName().length() - 1 - _newKeyWord.length() - 1;
+        return elementContent.diffTr(_newKeyWord);
     }
 
 
@@ -170,13 +155,13 @@ public final class InnerElementBlock extends RootBlock implements InnerTypeOrEle
 
     @Override
     public void buildImportedType(AnalyzedPageEl _page) {
-        _page.setGlobalOffset(tempClassOffset);
+        _page.setGlobalOffset(elementContent.getTempClassOffset());
         _page.zeroOffset();
         _page.setCurrentBlock(this);
         int i_ = 1;
         StringList j_ = new StringList();
-        String fullName_ = parentEnum.getFullName();
-        for (String p: StringExpUtil.getAllTypes(StringUtil.concat(fullName_, tempClass)).mid(1)) {
+        String fullName_ = elementContent.getParentEnum().getFullName();
+        for (String p: StringExpUtil.getAllTypes(StringUtil.concat(fullName_, elementContent.getTempClass())).mid(1)) {
             int loc_ = StringUtil.getFirstPrintableCharIndex(p);
             j_.add(ResolvingTypes.resolveCorrectType(i_+loc_,p, _page));
             partOffsets.addAllElts(_page.getCurrentParts());
