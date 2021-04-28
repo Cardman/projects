@@ -81,21 +81,19 @@ public final class ExportCst {
                 +title(_title)
                 +END;
     }
-    public static String anchorRef(String _title, String _file, int _ref) {
+    public static String anchorRef(String _title, FileBlock _currentFileName, FileBlock _file, int _offset) {
         return BEGIN_ANCHOR+SEP_ATTR
                 +title(_title)+SEP_ATTR
-                +href(href(_file,_ref))+END;
+                + href(_currentFileName, _file, _offset)+END;
     }
+
     public static String anchorRef(int _ref) {
-        return anchorRef("",_ref);
-    }
-    public static String anchorRef(String _file, int _ref) {
         return BEGIN_ANCHOR+SEP_ATTR
-                +href(href(_file,_ref))+END;
+                + href(_ref)+END;
     }
-    public static String anchorRef(String _ref) {
+    public static String anchorRef(FileBlock _currentFileName, FileBlock _file, int _offset) {
         return BEGIN_ANCHOR+SEP_ATTR
-                +href(_ref)+END;
+                +href(_currentFileName, _file, _offset)+END;
     }
     public static String name(int _name) {
         return NAME_ATTR+DEL_ATTR
@@ -104,14 +102,23 @@ public final class ExportCst {
     public static String title(String _title) {
         return TITLE_ATTR+DEL_ATTR+LinkageUtil.transform(_title)+DEL_ATTR;
     }
+    public static String href(FileBlock _currentFileName, FileBlock _file, int _offset) {
+        return href(relativize(_currentFileName, _file, _offset));
+    }
     public static String href(String _href) {
         return HREF_ATTR+DEL_ATTR+_href+DEL_ATTR;
     }
-    public static String href(FileBlock _file, int _ref) {
-        return href(_file.getRenderFileName(),_ref);
+    public static String href(int _ref) {
+        return HREF_ATTR+DEL_ATTR+link(_ref)+DEL_ATTR;
     }
-    public static String href(String _file, int _ref) {
-        return _file+LOC_REF+PREF_REF+_ref;
+    public static String link(FileBlock _file, int _ref) {
+        return link(_file.getRenderFileName(),_ref);
+    }
+    public static String link(String _file, int _ref) {
+        return _file+link(_ref);
+    }
+    public static String link(int _ref) {
+        return LOC_REF+PREF_REF+_ref;
     }
 
     public static String title(StringList _errors, String _link) {
@@ -121,5 +128,9 @@ public final class ExportCst {
             list_.add(_link);
         }
         return title(StringUtil.join(list_,JOIN_ERR));
+    }
+
+    public static String relativize(FileBlock _currentFileName, FileBlock _file, int _offset) {
+        return RelativePathUtil.relativize(_currentFileName, link(_file,_offset));
     }
 }

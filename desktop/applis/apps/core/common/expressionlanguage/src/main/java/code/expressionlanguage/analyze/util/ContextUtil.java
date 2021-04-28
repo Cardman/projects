@@ -204,9 +204,8 @@ public final class ContextUtil {
         }
         AccessedBlock r_ = _page.getImporting();
         int rc_ = _page.getTraceIndex();
-        String rel_ = LinkageUtil.relativize(((AbsBk)r_).getFile(),((RootBlock) g_).getFile());
         int id_ = ((RootBlock) g_).getIdRowCol();
-        _parts.add(new PartOffset(ExportCst.anchorRef(g_.getFullName(),rel_,id_),rc_+_begin));
+        _parts.add(new PartOffset(ExportCst.anchorRef(g_.getFullName(),((AbsBk)r_).getFile(),((RootBlock) g_).getFile(),id_),rc_+_begin));
         _parts.add(new PartOffset(ExportCst.END_ANCHOR,rc_+_end));
     }
 

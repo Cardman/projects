@@ -42,11 +42,11 @@ final class AnaVariablePartType extends AnaLeafPartType {
         if (!_page.isGettingParts()) {
             return;
         }
-        String rel_ = "";
         FileBlock refFileName_ = _page.getRefFileName();
         if (refFileName_ != null) {
-            rel_ = LinkageUtil.relativize(((AbsBk)_rooted).getFile(), refFileName_);
+            setHref(ExportCst.href(((AbsBk)_rooted).getFile(), refFileName_,value));
+        } else {
+            setHref(ExportCst.href(value));
         }
-        setHref(ExportCst.href(rel_,value));
     }
 }

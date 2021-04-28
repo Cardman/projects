@@ -188,7 +188,7 @@ abstract class AnaPartType {
 
     private void appendHref(StringBuilder _pref) {
         if (!href.isEmpty()) {
-            _pref.append(ExportCst.SEP_ATTR).append(ExportCst.href(href));
+            _pref.append(ExportCst.SEP_ATTR).append(href);
         }
     }
 

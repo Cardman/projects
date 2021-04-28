@@ -90,7 +90,7 @@ public final class LinkageUtil {
             String fileExp_ = f.getRenderFileName();
             VariablesOffsets listStr_ = processError(toStringOwners_,randCodeOwners_,f, keyWords_, displayedStrings_, implicit_);
             StringBuilder xml_ = build(f, value_, listStr_);
-            String rel_ = relativize(f, CSS);
+            String rel_ = RelativePathUtil.relativize(f, CSS);
             String cssPart_ = BEGIN_HEAD + encode(_analyzing.isEncodeHeader()) +
                     link(rel_) +
                     END_HEAD;
@@ -123,7 +123,7 @@ public final class LinkageUtil {
             String fileExp_ = f.getRenderFileName();
             VariablesOffsets listStr_ = processReport(toStringOwners_,randCodeOwners_,f, cov_, keyWords_, standards_);
             StringBuilder xml_ = build(f, value_, listStr_);
-            String rel_ = relativize(f, CSS);
+            String rel_ = RelativePathUtil.relativize(f, CSS);
             String cssPart_ = BEGIN_HEAD +encode(cov_.isDisplayEncode())+
                     link(rel_) +
                     END_HEAD;
@@ -3479,10 +3479,10 @@ public final class LinkageUtil {
             Ints offs_ = n.getParametersNamesOffset();
             if (i_ == 0) {
                 int refOne_ = offs_.get(_n.getIndex());
-                relOne_ = relativize(_vars.getCurrentFile(), ExportCst.href(file_, refOne_));
+                relOne_ = ExportCst.anchorRef(_vars.getCurrentFile(), file_, refOne_);
             } else {
                 int refTwo_ = offs_.get(_n.getIndex());
-                relTwo_ = relativize(_vars.getCurrentFile(), ExportCst.href(file_, refTwo_));
+                relTwo_ = ExportCst.anchorRef(_vars.getCurrentFile(), file_, refTwo_);
             }
             i_++;
         }
@@ -3493,13 +3493,13 @@ public final class LinkageUtil {
         } else {
             if (!relOne_.isEmpty()){
                 int begin_ = _sum + _n.getIndexInEl()+ firstOff_;
-                _vars.addPart(new PartOffset(ExportCst.anchorRef(relOne_),begin_));
+                _vars.addPart(new PartOffset(relOne_,begin_));
                 _vars.addPart(new PartOffset(ExportCst.END_ANCHOR,begin_+ _n.getName().length()));
             }
             if (!relTwo_.isEmpty()){
                 StrTypes vs_ = _n.getOperations().getOperators();
                 int begin_ = _sum + _n.getIndexInEl()+vs_.firstKey();
-                _vars.addPart(new PartOffset(ExportCst.anchorRef(relTwo_),begin_));
+                _vars.addPart(new PartOffset(relTwo_,begin_));
                 _vars.addPart(new PartOffset(ExportCst.END_ANCHOR,begin_+ vs_.firstValue().length()));
             }
         }
@@ -4148,11 +4148,11 @@ public final class LinkageUtil {
         String tag_;
         if (function_ instanceof OperatorBlock) {
             tag_ = ExportCst.BEGIN_ANCHOR+name(_name)+ ExportCst.title(_title, signature_)+ExportCst.SEP_ATTR
-                    +ExportCst.href(_rel)+classErr(_errors)+ExportCst.END;
+                    +_rel+classErr(_errors)+ExportCst.END;
         } else {
             String cl_ = _id.getType().getFullName();
             tag_ = ExportCst.BEGIN_ANCHOR+name(_name)+ ExportCst.title(_title,cl_ +ExportCst.SEP_TYPE_MEMBER+ signature_)+ExportCst.SEP_ATTR
-                    +ExportCst.href(_rel)+classErr(_errors)+ExportCst.END;
+                    +_rel+classErr(_errors)+ExportCst.END;
         }
         return tag_;
     }
@@ -4179,12 +4179,12 @@ public final class LinkageUtil {
             return EMPTY;
         }
         if (function_ instanceof OperatorBlock) {
-            return relativize(_block, ExportCst.href(function_.getFile(), function_.getNameOffset()));
+            return ExportCst.href(_block, function_.getFile(), function_.getNameOffset());
         }
         if (!ContextUtil.isFromCustFile(_id.getType())) {
             return EMPTY;
         }
-        return relativize(_block, ExportCst.href(function_.getFile(), function_.getNameOffset()));
+        return ExportCst.href(_block, function_.getFile(), function_.getNameOffset());
     }
 
     private static AbstractCoverageResult getCovers(LinkageStackElementIn _in, OperationNode _oper, Coverage _cov) {
@@ -4202,48 +4202,12 @@ public final class LinkageUtil {
             }
             return "";
         }
-        String rel_ = relativize(_currentFileName,ExportCst.href(_type.getFile(),_offset));
+        String rel_ = ExportCst.href(_currentFileName, _type.getFile(), _offset);
         return ExportCst.BEGIN_ANCHOR+ExportCst.SEP_ATTR
                 +ExportCst.title(_errs,StringExpUtil.getIdFromAllTypes(_id.getClassName()) +ExportCst.SEP_TYPE_MEMBER+ _id.getFieldName())+ExportCst.SEP_ATTR
-                +ExportCst.href(rel_)+classErr(_errs)+ExportCst.END;
+                +rel_+classErr(_errs)+ExportCst.END;
     }
-    public static String relativize(FileBlock _currentFile,FileBlock _refFile) {
-        return relativize(_currentFile,_refFile.getRenderFileName());
-    }
-    private static String relativize(FileBlock _currentFile,String _refFile) {
-        return relativize(_currentFile.getRenderFileName(),_refFile);
-    }
-    private static String relativize(String _currentFile,String _refFile) {
-        int diffFirst_ = -1;
-        int countCommon_ = 0;
-        boolean finished_ = true;
-        int len_ = Math.min(_currentFile.length(),_refFile.length());
-        for (int i =0; i < len_; i++) {
-            char curChar_ = _currentFile.charAt(i);
-            char relChar_ = _refFile.charAt(i);
-            if (curChar_ != relChar_) {
-                finished_ = false;
-                break;
-            }
-            if(curChar_ == SEP_DIR) {
-                diffFirst_ = i;
-                countCommon_++;
-            }
-        }
-        if (finished_) {
-            return _refFile.substring(len_);
-        }
-        String relFile_ = _refFile.substring(diffFirst_ + 1);
-        if (_currentFile.indexOf(SEP_DIR,diffFirst_+1) < 0) {
-            return relFile_;
-        }
-        StringBuilder b_ = new StringBuilder();
-        int count_ = StringUtil.indexesOfChar(_currentFile, SEP_DIR).size() - countCommon_;
-        for (int i = 0; i < count_; i++) {
-            b_.append(PARENT).append(SEP_DIR);
-        }
-        return b_.append(relFile_).toString();
-    }
+
     public static String transform(String _string) {
         StringBuilder str_ = new StringBuilder();
         for (char c: _string.toCharArray()) {
