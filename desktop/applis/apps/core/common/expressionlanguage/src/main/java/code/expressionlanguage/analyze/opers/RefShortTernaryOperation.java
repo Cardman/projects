@@ -3,7 +3,7 @@ package code.expressionlanguage.analyze.opers;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.maths.litteralcom.StrTypes;
 
-public final class RefShortTernaryOperation extends AbstractRefTernaryOperation {
+public final class RefShortTernaryOperation extends AbstractRefTernaryOperation implements ImplementChoice {
 
     public RefShortTernaryOperation(int _index, int _indexChild, MethodOperation _m,
                                     OperationsSequence _op) {

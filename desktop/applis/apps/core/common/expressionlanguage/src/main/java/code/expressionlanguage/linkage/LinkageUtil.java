@@ -3696,8 +3696,7 @@ public final class LinkageUtil {
                                      OperationNode _nextSiblingOp,
                                      MethodOperation _parent,
                                      Coverage _cov) {
-        processTernaryReport(_in, _vars, _curOp, _parent);
-        processRefTernaryReport(_in, _vars, _curOp, _parent);
+        processShortTernaryReport(_in, _vars, _curOp, _parent);
         processCustomOperator(_in,_vars, _curOp,_nextSiblingOp, _parent);
         processCompoundAffLeftOpReport(_in,_vars, _curOp,_nextSiblingOp, _parent, _cov);
         processCompoundAffRightOp(_in,_vars, _parent);
@@ -3708,11 +3707,11 @@ public final class LinkageUtil {
         processLogicAndOrOperationReport(_in,_vars, _curOp, _nextSiblingOp, _parent, _cov);
     }
 
-    private static void processTernaryReport(LinkageStackElementIn _in, VariablesOffsets _vars, OperationNode _curOp, MethodOperation _parent) {
-        if (_parent instanceof ShortTernaryOperation) {
-            ShortTernaryOperation sh_ = (ShortTernaryOperation) _parent;
+    private static void processShortTernaryReport(LinkageStackElementIn _in, VariablesOffsets _vars, OperationNode _curOp, MethodOperation _parent) {
+        if (_parent instanceof ImplementChoice) {
+            ImplementChoice sh_ = (ImplementChoice) _parent;
             int index_ = _curOp.getIndexChild();
-            int operOff_ = _in.getBeginBlock() + sh_.getIndexInEl() + sh_.getOperations().getOperators().getKey(index_);
+            int operOff_ = _in.getBeginBlock() + _parent.getIndexInEl() + _parent.getOperations().getOperators().getKey(index_);
             AnaTypeFct testFct_ = null;
             if (_vars.isImplicit() && index_ == 0) {
                 testFct_ = sh_.getImplFct();
@@ -3726,26 +3725,6 @@ public final class LinkageUtil {
             }
         }
     }
-
-    private static void processRefTernaryReport(LinkageStackElementIn _in, VariablesOffsets _vars, OperationNode _curOp, MethodOperation _parent) {
-        if (_parent instanceof RefShortTernaryOperation) {
-            RefShortTernaryOperation sh_ = (RefShortTernaryOperation) _parent;
-            int index_ = _curOp.getIndexChild();
-            int operOff_ = _in.getBeginBlock() + sh_.getIndexInEl() + sh_.getOperations().getOperators().getKey(index_);
-            AnaTypeFct testFct_ = null;
-            if (_vars.isImplicit() && index_ == 0) {
-                testFct_ = sh_.getImplFct();
-            }
-            if (index_ == 1) {
-                testFct_ = sh_.getTestFct();
-            }
-            if (testFct_ != null) {
-                StringList l_ = new StringList();
-                addParts(_vars, testFct_,operOff_,1,l_,l_);
-            }
-        }
-    }
-
     private static void middleError(LinkageStackElementIn _in,
                                     VariablesOffsets _vars,
                                     OperationNode _curOp,
@@ -3782,20 +3761,12 @@ public final class LinkageUtil {
     private static AnaTypeFct tryGetTestFct(VariablesOffsets _vars, OperationNode _curOp, MethodOperation _parent) {
         int index_ = _curOp.getIndexChild();
         AnaTypeFct testFct_ = null;
-        if (_vars.isImplicit()&& _parent instanceof ShortTernaryOperation && index_ == 0) {
-            ShortTernaryOperation sh_ = (ShortTernaryOperation) _parent;
+        if (_vars.isImplicit()&& _parent instanceof ImplementChoice && index_ == 0) {
+            ImplementChoice sh_ = (ImplementChoice) _parent;
             testFct_ = sh_.getImplFct();
         }
-        if (_parent instanceof ShortTernaryOperation && index_ == 1) {
-            ShortTernaryOperation sh_ = (ShortTernaryOperation) _parent;
-            testFct_ = sh_.getTestFct();
-        }
-        if (_vars.isImplicit()&& _parent instanceof RefShortTernaryOperation && index_ == 0) {
-            RefShortTernaryOperation sh_ = (RefShortTernaryOperation) _parent;
-            testFct_ = sh_.getImplFct();
-        }
-        if (_parent instanceof RefShortTernaryOperation && index_ == 1) {
-            RefShortTernaryOperation sh_ = (RefShortTernaryOperation) _parent;
+        if (_parent instanceof ImplementChoice && index_ == 1) {
+            ImplementChoice sh_ = (ImplementChoice) _parent;
             testFct_ = sh_.getTestFct();
         }
         return testFct_;
@@ -3914,8 +3885,8 @@ public final class LinkageUtil {
         }
         CompoundAffectationOperation par_ = (CompoundAffectationOperation) _parentOp;
         AnaTypeFct function_ = par_.getFct().getFunction();
-        int opDelta_ = par_.getOper().length() - 1;
         AnaTypeFct functionTest_ = par_.getFunctionTest();
+        int opDelta_ = par_.getOper().length() - 1;
         int sum_ = _in.getBeginBlock() + _parentOp.getIndexInEl();
         int begin_ = sum_+par_.getOpOffset();
         int len_ = opDelta_;
