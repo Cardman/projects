@@ -1,6 +1,7 @@
 package code.expressionlanguage.linkage;
 
 import code.expressionlanguage.analyze.blocks.FileBlock;
+import code.expressionlanguage.analyze.instr.PartOffset;
 import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.stds.DisplayedStrings;
@@ -19,6 +20,7 @@ public final class VariablesOffsets {
     private StringList toStringOwners;
     private StringList randCodeOwners;
     private boolean implicit;
+    private final CustList<PartOffset> parts = new CustList<PartOffset>();
 
     public boolean hasEltStack() {
         return !stack.isEmpty();
@@ -102,6 +104,17 @@ public final class VariablesOffsets {
 
     public void setImplicit(boolean _implicit) {
         this.implicit = _implicit;
+    }
+
+    public void addPart(PartOffset _part) {
+        parts.add(_part);
+    }
+
+    public void addParts(CustList<PartOffset> _parts) {
+        parts.addAllElts(_parts);
+    }
+    public CustList<PartOffset> getParts() {
+        return parts;
     }
 
 }

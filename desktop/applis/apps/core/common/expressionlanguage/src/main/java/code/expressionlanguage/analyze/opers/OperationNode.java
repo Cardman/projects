@@ -829,7 +829,7 @@ public abstract class OperationNode {
         res_.setStaticField(_fi.isStaticField());
         res_.setFinalField(_fi.isFinalField());
         res_.setType(_type);
-        res_.setRealType(_fi.getRealType());
+        res_.setRealType(_fi.getType());
         res_.setAnc(_anc);
         res_.setStatus(SearchingMemberStatus.UNIQ);
         addIfNotExist(_ancestors, _fullName, res_);

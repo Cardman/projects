@@ -9,7 +9,6 @@ import code.expressionlanguage.common.StringExpUtil;
 
 public final class FieldInfo {
     private final String type;
-    private final String realType;
     private final boolean staticField;
     private final boolean finalField;
     private final ClassField classField;
@@ -19,12 +18,11 @@ public final class FieldInfo {
     private RootBlock fieldType;
     private final MemberId memberId = new MemberId();
 
-    private FieldInfo(String _name, String _declaringClass, String _type, String _realType,
+    private FieldInfo(String _name, String _declaringClass, String _type,
                       boolean _staticField, boolean _finalField, Accessed _accessed, int _valOffset) {
         String declaringBaseClass_ = StringExpUtil.getIdFromAllTypes(_declaringClass);
         classField = new ClassField(declaringBaseClass_, _name);
         type = _type;
-        realType = _realType;
         staticField = _staticField;
         finalField = _finalField;
         accessed = _accessed;
@@ -46,7 +44,7 @@ public final class FieldInfo {
 
     public static FieldInfo newFieldMetaInfo(String _name, String _declaringClass, String _type,
                                              boolean _staticField, boolean _finalField, Accessed _accessed, int _valOffset) {
-        return new FieldInfo(_name, _declaringClass, _type, _type, _staticField, _finalField, _accessed, _valOffset);
+        return new FieldInfo(_name, _declaringClass, _type, _staticField, _finalField, _accessed, _valOffset);
     }
 
     public ClassField getClassField() {
@@ -56,9 +54,7 @@ public final class FieldInfo {
     public String getType() {
         return type;
     }
-    public String getRealType() {
-        return realType;
-    }
+
     public boolean isStaticField() {
         return staticField;
     }
