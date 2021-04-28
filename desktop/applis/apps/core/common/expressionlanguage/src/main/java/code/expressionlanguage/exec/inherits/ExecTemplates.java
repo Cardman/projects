@@ -805,9 +805,9 @@ public final class ExecTemplates {
                 return NullStruct.NULL_VALUE;
             }
         }
-        int lower_ = ind_.getLower();
-        int step_ = ind_.getStep();
-        int upper_;
+        long lower_ = ind_.getLower();
+        long step_ = ind_.getStep();
+        long upper_;
         if (ind_.isUnlimited()) {
             upper_ = arr_.getLength();
         } else {
@@ -815,26 +815,26 @@ public final class ExecTemplates {
         }
         if (step_ < 0){
             int count_ = 0;
-            for (int i = upper_-1; i >= lower_; i+=step_) {
+            for (long i = upper_-1L; i >= lower_; i+=step_) {
                 count_++;
             }
             ArrayStruct sub_ = new ArrayStruct(count_,arr_.getClassName());
             int insert_ = 0;
-            for (int i = upper_-1; i >= lower_; i+=step_) {
-                sub_.set(insert_, arr_.get(i));
+            for (long i = upper_-1L; i >= lower_; i+=step_) {
+                sub_.set(insert_, arr_.get((int) i));
                 insert_++;
             }
             addSensible(arr_, _stackCall,sub_);
             return sub_;
         }
         int count_ = 0;
-        for (int i = lower_; i < upper_; i+=step_) {
+        for (long i = lower_; i < upper_; i+=step_) {
             count_++;
         }
         ArrayStruct sub_ = new ArrayStruct(count_,arr_.getClassName());
         int insert_ = 0;
-        for (int i = lower_; i < upper_; i+=step_) {
-            sub_.set(insert_, arr_.get(i));
+        for (long i = lower_; i < upper_; i+=step_) {
+            sub_.set(insert_, arr_.get((int) i));
             insert_++;
         }
         addSensible(arr_, _stackCall,sub_);
