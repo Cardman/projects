@@ -9,9 +9,10 @@ public final class LinkageStackElementIn {
     private int indexAnnotationGroupLook=-1;
     private int indexAnnotation;
     private int indexAnnotationLook;
+    private int tr;
+    private int trEnd;
     private int beginBlock;
     private int endBlock;
-    private int fieldLength;
 
     public LinkageStackElementIn(AbsBk _block, int _indexLoop,
                                  int _indexAnnotationGroup,
@@ -25,10 +26,10 @@ public final class LinkageStackElementIn {
         setIndexAnnotation(_indexAnnotation);
         setIndexAnnotationLook(_indexAnnotationLook);
     }
-    public void offsets(int _begin, int _end, int _fieldLength) {
+    public void offsets(int _tr, int _begin, int _end) {
+        setTr(_tr);
         setBeginBlock(_begin);
         setEndBlock(_end);
-        setFieldLength(_fieldLength);
     }
 
     public void offsets(int _begin) {
@@ -90,6 +91,22 @@ public final class LinkageStackElementIn {
         this.beginBlock = _beginBlock;
     }
 
+    public int getTr() {
+        return tr;
+    }
+
+    public void setTr(int _tr) {
+        this.tr = _tr;
+    }
+
+    public int getTrEnd() {
+        return trEnd;
+    }
+
+    public void setTrEnd(int _trEnd) {
+        this.trEnd = _trEnd;
+    }
+
     public int getEndBlock() {
         return endBlock;
     }
@@ -98,11 +115,4 @@ public final class LinkageStackElementIn {
         this.endBlock = _endBlock;
     }
 
-    public int getFieldLength() {
-        return fieldLength;
-    }
-
-    public void setFieldLength(int _fieldLength) {
-        this.fieldLength = _fieldLength;
-    }
 }

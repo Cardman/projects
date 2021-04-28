@@ -1181,7 +1181,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public enum <a name=\"m12\">pkg.ExEnum</a> {\n" +
-                " <a name=\"m26\" title=\"pkg.ExEnum.pkg.ExEnum(int)\" href=\"#m54\">ONE</a>(<span class=\"g\">5</span>);\n" +
+                " <a name=\"m26\" title=\"pkg.ExEnum.pkg.ExEnum(int)\" href=\"#m54\">ONE</a><span class=\"g\">(<span class=\"g\">5</span>)</span>;\n" +
                 " public int <span class=\"g\"><a name=\"m46\">field</a></span>;\n" +
                 " <a name=\"m54\">ExEnum(</a>int <a name=\"m65\">param</a>){\n" +
                 "  <span class=\"g\"><span class=\"g\"><a title=\"pkg.ExEnum.field\" href=\"#m46\">field</a></span>=<span class=\"g\"><a href=\"#m65\">param</a></span></span>;\n" +
@@ -1235,7 +1235,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public enum <a name=\"m12\">pkg.ExEnum</a> {\n" +
-                " <a name=\"m26\" title=\"pkg.ExEnum.pkg.ExEnum(int)\" href=\"#m55\">FOUR</a>(<span class=\"g\">5</span>);\n" +
+                " <a name=\"m26\" title=\"pkg.ExEnum.pkg.ExEnum(int)\" href=\"#m55\">FOUR</a><span class=\"g\">(<span class=\"g\">5</span>)</span>;\n" +
                 " public int <span class=\"g\"><a name=\"m47\">field</a></span>;\n" +
                 " <a name=\"m55\">ExEnum(</a>int <a name=\"m66\">param</a>){\n" +
                 "  <span class=\"g\"><span class=\"g\"><a title=\"pkg.ExEnum.field\" href=\"#m47\">field</a></span>=<span class=\"g\"><a href=\"#m66\">param</a></span></span>;\n" +
@@ -1339,7 +1339,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public enum <a name=\"m12\">pkg.ExEnum</a> {\n" +
-                " <a name=\"m26\" title=\"pkg.ExEnum-FOUR.pkg.ExEnum-FOUR(int)\" href=\"#m37\">FOUR</a>(<span class=\"g\">5</span>){\n" +
+                " <a name=\"m26\" title=\"pkg.ExEnum-FOUR.pkg.ExEnum-FOUR(int)\" href=\"#m37\">FOUR</a><span class=\"g\">(<span class=\"g\">5</span>)</span>{\n" +
                 "  <a name=\"m37\">(</a>int <a name=\"m42\">p</a>){\n" +
                 "   <span class=\"g\"><a title=\"pkg.ExEnum.pkg.ExEnum(int)\" href=\"#m87\">super</a>(<span class=\"g\"><a href=\"#m42\">p</a></span>)</span>;\n" +
                 "  }\n" +

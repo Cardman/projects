@@ -114,7 +114,7 @@ public final class VariablesOffsets {
         parts.addAllElts(_parts);
     }
     public CustList<PartOffset> getParts() {
-        return parts;
+        return parts.getReverse();
     }
 
 }
