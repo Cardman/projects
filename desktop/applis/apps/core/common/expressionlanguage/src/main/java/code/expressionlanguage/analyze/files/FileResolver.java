@@ -1178,8 +1178,6 @@ public final class FileResolver {
                     InnerElementBlock elt_ = new InnerElementBlock((EnumBlock) currentParent_, _pkgName, new OffsetStringInfo(fieldOffest_+_offset, fieldName_.trim()),
                             new OffsetStringInfo(templateOffset_+_offset, tmpPart_.trim()),
                             new OffsetStringInfo(expressionOffest_+_offset, expression_.trim()), instructionTrimLocation_+_offset);
-                    elt_.setupOffsets(fieldName_.trim(),_pkgName);
-                    elt_.setParentType((RootBlock) currentParent_);
                     elt_.getAnnotations().addAllElts(annotations_);
                     elt_.getAnnotationsIndexes().addAllElts(annotationsIndexes_);
                     br_ = elt_;

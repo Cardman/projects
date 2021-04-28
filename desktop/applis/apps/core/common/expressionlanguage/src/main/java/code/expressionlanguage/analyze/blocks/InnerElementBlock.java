@@ -39,6 +39,8 @@ public final class InnerElementBlock extends RootBlock implements InnerTypeOrEle
                              OffsetStringInfo _value, int _offset) {
         super(_fieldName.getOffset(), _pkgName, new OffsetAccessInfo(0,AccessEnum.PUBLIC), "", new IntMap< String>(), _offset, _fieldName.getInfo());
         elementContent = new AnaElementContent(_m, _fieldName, _type, _value);
+        setupOffsets(_fieldName.getInfo().trim(),_pkgName);
+        setParentType(_m);
     }
 
     public EnumBlock getParentEnum() {
