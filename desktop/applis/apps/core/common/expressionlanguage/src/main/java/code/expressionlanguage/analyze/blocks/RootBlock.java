@@ -633,12 +633,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                     }
                     if (m_.getId().getKind() == MethodAccessKind.STATIC_CALL) {
                         if (m_.getParametersTypes().size() == 2) {
-                            if (StringExpUtil.isBinNum(m_.getName())
-                              || StringExpUtil.isEq(m_.getName())
-                              || StringExpUtil.isCmp(m_.getName())
-                              || StringExpUtil.isBitwise(m_.getName())
-                              || StringExpUtil.isLogical(m_.getName())
-                              || StringExpUtil.isShiftOper(m_.getName())) {
+                            if (StringExpUtil.isBin(m_.getName())) {
                                 if (StringUtil.quickEq(m_.getImportedParametersTypes().first(),getGenericString())) {
                                     if (StringUtil.quickEq(m_.getImportedParametersTypes().last(),getGenericString())) {
                                         binaryAll_.add(new MethodHeaderInfo(this, m_, m_.getId(), getNumberAll(), m_.getNameOverrideNumber(),m_.getImportedReturnType(), m_.getAccess()));
@@ -651,8 +646,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                             }
                         }
                         if (m_.getParametersTypes().size() == 1) {
-                            if (StringExpUtil.isUnNum(m_.getName())
-                              || StringExpUtil.isUnOther(m_.getName())) {
+                            if (StringExpUtil.isUn(m_.getName())) {
                                 if (StringUtil.quickEq(m_.getImportedParametersTypes().first(),getGenericString())) {
                                     unary_.add(new MethodHeaderInfo(this, m_, m_.getId(), getNumberAll(), m_.getNameOverrideNumber(),m_.getImportedReturnType(), m_.getAccess()));
                                 }

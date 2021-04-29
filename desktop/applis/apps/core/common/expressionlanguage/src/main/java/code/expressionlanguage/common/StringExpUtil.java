@@ -282,179 +282,6 @@ public final class StringExpUtil {
         return str_.toString();
     }
 
-    public static String getQuickFormattedType(String _type, StringMap<String> _varTypes) {
-        if (_varTypes.isEmpty()) {
-            return _type;
-        }
-        StringBuilder str_ = new StringBuilder();
-        int len_ = _type.length();
-        int diese_ = 0;
-        boolean var_ = false;
-        for (int i = 0; i < len_; i++) {
-            char ch_ = _type.charAt(i);
-            if (ch_ == PREFIX_VAR_TYPE_CHAR) {
-                var_ = true;
-                diese_ = i;
-                continue;
-            }
-            if (!var_) {
-                str_.append(ch_);
-                continue;
-            }
-            if (isDollarWordChar(ch_)) {
-                continue;
-            }
-            quickReplaceType(str_,_type,_varTypes,diese_,i);
-            str_.append(ch_);
-            var_ = false;
-        }
-        if (var_) {
-            quickReplaceType(str_,_type,_varTypes,diese_,len_);
-        }
-        return str_.toString();
-    }
-    private static void quickReplaceType(StringBuilder _str, String _type, StringMap<String> _varTypes, int _diese, int _max) {
-        String sub_ = _type.substring(_diese+1, _max);
-        String value_ = _varTypes.getVal(sub_);
-        if (value_ == null) {
-            _str.append('#');
-            _str.append(sub_);
-            return;
-        }
-        _str.append(value_);
-    }
-
-    public static String getFormattedType(String _type, StringMap<String> _varTypes) {
-        if (_varTypes.isEmpty()) {
-            return _type;
-        }
-        StringBuilder str_ = new StringBuilder();
-        int len_ = _type.length();
-        int diese_ = 0;
-        boolean var_ = false;
-        for (int i = 0; i < len_; i++) {
-            char ch_ = _type.charAt(i);
-            if (ch_ == PREFIX_VAR_TYPE_CHAR) {
-                var_ = true;
-                diese_ = i;
-                continue;
-            }
-            if (!var_) {
-                str_.append(ch_);
-                continue;
-            }
-            if (isDollarWordChar(ch_)) {
-                continue;
-            }
-            String sub_ = _type.substring(diese_+1, i);
-            String val_ = _varTypes.getVal(sub_);
-            if (val_ != null) {
-                tryReplaceType(str_, val_);
-            } else {
-                sub_ = _type.substring(diese_, i);
-                str_.append(sub_);
-            }
-            str_.append(ch_);
-            var_ = false;
-        }
-        if (var_) {
-            String sub_ = _type.substring(diese_+1);
-            String val_ = _varTypes.getVal(sub_);
-            if (val_ != null) {
-                tryReplaceType(str_, val_);
-            } else {
-                sub_ = _type.substring(diese_);
-                str_.append(sub_);
-            }
-        }
-        return str_.toString();
-    }
-    private static void tryReplaceType(StringBuilder _str, String _value) {
-        int j_ = getMaxIndex(_str, _str.length() - 1);
-        if (_value.startsWith(SUB_TYPE)) {
-            if (isSubOrSubChar(_str,j_)) {
-                _str.append(_value.substring(SUB_TYPE.length()));
-            } else {
-                _str.insert(j_ +1, SUB_TYPE);
-                _str.append(_value.substring(SUB_TYPE.length()));
-            }
-        } else if (_value.startsWith(SUP_TYPE)) {
-            if (isSubOrSubChar(_str,j_)) {
-                _str.append(_value.substring(SUP_TYPE.length()));
-            } else {
-                _str.insert(j_ + 1, SUP_TYPE);
-                _str.append(_value.substring(SUP_TYPE.length()));
-            }
-        } else {
-            _str.append(_value);
-        }
-    }
-    public static String getReflectFormattedType(String _type, StringMap<String> _varTypes) {
-        if (_varTypes.isEmpty()) {
-            return _type;
-        }
-        StringBuilder str_ = new StringBuilder();
-        int len_ = _type.length();
-        int diese_ = 0;
-        boolean var_ = false;
-        for (int i = 0; i < len_; i++) {
-            char ch_ = _type.charAt(i);
-            if (ch_ == PREFIX_VAR_TYPE_CHAR) {
-                var_ = true;
-                diese_ = i;
-                continue;
-            }
-            if (!var_) {
-                str_.append(ch_);
-                continue;
-            }
-            if (isDollarWordChar(ch_)) {
-                continue;
-            }
-            String sub_ = _type.substring(diese_+1, i);
-            String value_ = _varTypes.getVal(sub_);
-            if (value_ != null) {
-                replaceReflectedType(str_, value_);
-            } else {
-                sub_ = _type.substring(diese_, i);
-                str_.append(sub_);
-            }
-            str_.append(ch_);
-            var_ = false;
-        }
-        if (var_) {
-            String sub_ = _type.substring(diese_+1);
-            String value_ = _varTypes.getVal(sub_);
-            if (value_ != null) {
-                replaceReflectedType(str_, value_);
-            } else {
-                sub_ = _type.substring(diese_);
-                str_.append(sub_);
-            }
-        }
-        return str_.toString();
-    }
-
-    private static void replaceReflectedType(StringBuilder _str, String _value) {
-        int j_ = getMaxIndex(_str, _str.length() - 1);
-        if (StringUtil.quickEq(_value,SUB_TYPE)) {
-            _str.delete(j_+1,_str.length());
-            _str.append(_value);
-        } else if (_value.startsWith(SUB_TYPE)) {
-            if (isNotChar(_str,j_,SUB_TYPE_CHAR) && isNotChar(_str,j_,SUP_TYPE_CHAR)) {
-                _str.insert(j_ +1, SUB_TYPE);
-            }
-            _str.append(_value.substring(SUB_TYPE.length()));
-        } else if (_value.startsWith(SUP_TYPE)) {
-            if (isNotChar(_str,j_,SUB_TYPE_CHAR) && isNotChar(_str,j_,SUP_TYPE_CHAR)) {
-                _str.insert(j_ +1, SUP_TYPE);
-            }
-            _str.append(_value.substring(SUP_TYPE.length()));
-        } else {
-            _str.append(_value);
-        }
-    }
-
     public static String getWildCardFormattedTypeParam(String _objType, String _type, StringMap<String> _varTypes) {
         StringBuilder str_ = new StringBuilder();
         int len_ = _type.length();
@@ -525,6 +352,170 @@ public final class StringExpUtil {
             var_ = false;
         }
         return str_.toString();
+    }
+
+    public static String getQuickFormattedType(String _type, StringMap<String> _varTypes) {
+        if (_varTypes.isEmpty()) {
+            return _type;
+        }
+        StringBuilder str_ = new StringBuilder();
+        int len_ = _type.length();
+        int diese_ = 0;
+        boolean var_ = false;
+        for (int i = 0; i < len_; i++) {
+            char ch_ = _type.charAt(i);
+            if (ch_ == PREFIX_VAR_TYPE_CHAR) {
+                var_ = true;
+                diese_ = i;
+                continue;
+            }
+            if (!var_) {
+                str_.append(ch_);
+                continue;
+            }
+            if (isDollarWordChar(ch_)) {
+                continue;
+            }
+            quickReplaceType(str_,_type,_varTypes,diese_,i);
+            str_.append(ch_);
+            var_ = false;
+        }
+        if (var_) {
+            quickReplaceType(str_,_type,_varTypes,diese_,len_);
+        }
+        return str_.toString();
+    }
+    private static void quickReplaceType(StringBuilder _str, String _type, StringMap<String> _varTypes, int _diese, int _max) {
+        String sub_ = _type.substring(_diese+1, _max);
+        String value_ = _varTypes.getVal(sub_);
+        if (value_ == null) {
+            _str.append('#');
+            _str.append(sub_);
+            return;
+        }
+        _str.append(value_);
+    }
+
+    public static String getFormattedType(String _type, StringMap<String> _varTypes) {
+        if (_varTypes.isEmpty()) {
+            return _type;
+        }
+        StringBuilder str_ = new StringBuilder();
+        int len_ = _type.length();
+        int diese_ = 0;
+        boolean var_ = false;
+        for (int i = 0; i < len_; i++) {
+            char ch_ = _type.charAt(i);
+            if (ch_ == PREFIX_VAR_TYPE_CHAR) {
+                var_ = true;
+                diese_ = i;
+                continue;
+            }
+            if (!var_) {
+                str_.append(ch_);
+                continue;
+            }
+            if (isDollarWordChar(ch_)) {
+                continue;
+            }
+            tryReplaceType(_type, _varTypes, str_,i, diese_);
+            str_.append(ch_);
+            var_ = false;
+        }
+        if (var_) {
+            tryReplaceType(_type, _varTypes, str_,len_, diese_);
+        }
+        return str_.toString();
+    }
+
+    private static void tryReplaceType(String _type, StringMap<String> _varTypes, StringBuilder _str, int _i, int _diese) {
+        String sub_ = _type.substring(_diese + 1, _i);
+        String val_ = _varTypes.getVal(sub_);
+        if (val_ != null) {
+            tryReplaceType(_str, val_);
+        } else {
+            sub_ = _type.substring(_diese, _i);
+            _str.append(sub_);
+        }
+    }
+
+    private static void tryReplaceType(StringBuilder _str, String _value) {
+        int j_ = getMaxIndex(_str, _str.length() - 1);
+        if (_value.startsWith(SUB_TYPE)) {
+            if (!isSubOrSubChar(_str, j_)) {
+                _str.insert(j_ + 1, SUB_TYPE);
+            }
+            _str.append(_value.substring(SUB_TYPE.length()));
+        } else if (_value.startsWith(SUP_TYPE)) {
+            if (!isSubOrSubChar(_str, j_)) {
+                _str.insert(j_ + 1, SUP_TYPE);
+            }
+            _str.append(_value.substring(SUP_TYPE.length()));
+        } else {
+            _str.append(_value);
+        }
+    }
+    public static String getReflectFormattedType(String _type, StringMap<String> _varTypes) {
+        if (_varTypes.isEmpty()) {
+            return _type;
+        }
+        StringBuilder str_ = new StringBuilder();
+        int len_ = _type.length();
+        int diese_ = 0;
+        boolean var_ = false;
+        for (int i = 0; i < len_; i++) {
+            char ch_ = _type.charAt(i);
+            if (ch_ == PREFIX_VAR_TYPE_CHAR) {
+                var_ = true;
+                diese_ = i;
+                continue;
+            }
+            if (!var_) {
+                str_.append(ch_);
+                continue;
+            }
+            if (isDollarWordChar(ch_)) {
+                continue;
+            }
+            replaceReflectedType(_type, _varTypes, str_, i, diese_);
+            str_.append(ch_);
+            var_ = false;
+        }
+        if (var_) {
+            replaceReflectedType(_type, _varTypes, str_,len_, diese_);
+        }
+        return str_.toString();
+    }
+
+    private static void replaceReflectedType(String _type, StringMap<String> _varTypes, StringBuilder _str, int _i, int _diese) {
+        String sub_ = _type.substring(_diese + 1, _i);
+        String value_ = _varTypes.getVal(sub_);
+        if (value_ != null) {
+            replaceReflectedType(_str, value_);
+        } else {
+            sub_ = _type.substring(_diese, _i);
+            _str.append(sub_);
+        }
+    }
+
+    private static void replaceReflectedType(StringBuilder _str, String _value) {
+        int j_ = getMaxIndex(_str, _str.length() - 1);
+        if (StringUtil.quickEq(_value,SUB_TYPE)) {
+            _str.delete(j_+1,_str.length());
+            _str.append(_value);
+        } else if (_value.startsWith(SUB_TYPE)) {
+            if (isNotChar(_str,j_,SUB_TYPE_CHAR) && isNotChar(_str,j_,SUP_TYPE_CHAR)) {
+                _str.insert(j_ +1, SUB_TYPE);
+            }
+            _str.append(_value.substring(SUB_TYPE.length()));
+        } else if (_value.startsWith(SUP_TYPE)) {
+            if (isNotChar(_str,j_,SUB_TYPE_CHAR) && isNotChar(_str,j_,SUP_TYPE_CHAR)) {
+                _str.insert(j_ +1, SUP_TYPE);
+            }
+            _str.append(_value.substring(SUP_TYPE.length()));
+        } else {
+            _str.append(_value);
+        }
     }
 
     private static int getMaxIndex(StringBuilder _str, int _max) {
@@ -805,12 +796,18 @@ public final class StringExpUtil {
         return j_;
     }
     public static boolean isOper(String _op) {
+        if(isUn(_op)) {
+            return true;
+        }
+        return isBin(_op);
+    }
+    public static boolean isUn(String _op) {
         if(isUnOther(_op)) {
             return true;
         }
-        if(isUnNum(_op)) {
-            return true;
-        }
+        return isUnNum(_op);
+    }
+    public static boolean isBin(String _op) {
         if(isBinNum(_op)) {
             return true;
         }
