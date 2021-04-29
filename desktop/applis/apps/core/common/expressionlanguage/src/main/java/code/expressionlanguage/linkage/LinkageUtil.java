@@ -90,9 +90,8 @@ public final class LinkageUtil {
             String fileExp_ = f.getRenderFileName();
             VariablesOffsets listStr_ = processError(toStringOwners_,randCodeOwners_,f, keyWords_, displayedStrings_, implicit_);
             StringBuilder xml_ = build(f, value_, listStr_);
-            String rel_ = RelativePathUtil.relativize(f, CSS);
             String cssPart_ = BEGIN_HEAD + encode(_analyzing.isEncodeHeader()) +
-                    link(rel_) +
+                    link(f) +
                     END_HEAD;
             files_.addEntry(fileExp_, BEGIN +cssPart_+ BEGIN_BODY_PRE +xml_+ END_BODY_PRE+END);
         }
@@ -123,9 +122,8 @@ public final class LinkageUtil {
             String fileExp_ = f.getRenderFileName();
             VariablesOffsets listStr_ = processReport(toStringOwners_,randCodeOwners_,f, cov_, keyWords_, standards_);
             StringBuilder xml_ = build(f, value_, listStr_);
-            String rel_ = RelativePathUtil.relativize(f, CSS);
             String cssPart_ = BEGIN_HEAD +encode(cov_.isDisplayEncode())+
-                    link(rel_) +
+                    link(f) +
                     END_HEAD;
             files_.addEntry(fileExp_, BEGIN +cssPart_+ BEGIN_BODY_PRE +xml_+END_BODY_PRE+END);
         }
@@ -219,8 +217,8 @@ public final class LinkageUtil {
         }
     }
 
-    private static String link(String _rel) {
-        return "<link href=\"" + _rel + "\" rel=\"stylesheet\" type=\"text/css\"/>";
+    private static String link(FileBlock _file) {
+        return "<link href=\"" + RelativePathUtil.relativize(_file, CSS) + "\" rel=\"stylesheet\" type=\"text/css\"/>";
     }
 
     private static String encode(boolean _encode) {
