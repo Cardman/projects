@@ -260,10 +260,10 @@ public final class ExecTemplates {
         Struct str_ = _arg.getStruct();
         byte cast_ = ExecClassArgumentMatching.getPrimitiveWrapCast(_param, _context.getStandards());
         _arg.setStruct(NumParsers.convertObject(cast_, str_));
-        return checkQuick(_param, _arg, _context, _stackCall);
+        return checkQuick(_param, _arg.getStruct().getClassName(_context), _context, _stackCall);
     }
 
-    public static boolean checkQuick(String _param, Argument _arg, ContextEl _context, StackCall _stackCall) {
+    public static boolean checkQuick(String _param, String _arg, ContextEl _context, StackCall _stackCall) {
         Struct ex_ = checkObjectEx(_param,_arg,_context, _stackCall);
         if (ex_ != null) {
             _stackCall.setCallingState(new CustomFoundExc(ex_));
@@ -272,12 +272,12 @@ public final class ExecTemplates {
         return true;
     }
 
-    public static Struct checkObjectEx(String _param, Argument _arg, ContextEl _context, StackCall _stackCall) {
+    public static Struct checkObjectEx(String _param, String _arg, ContextEl _context, StackCall _stackCall) {
         LgNames stds_ = _context.getStandards();
-        ErrorType err_ = safeObject(_param, _arg.getStruct(), _context);
+        ErrorType err_ = safeObject(_param, _arg, _context);
         if (err_ == ErrorType.CAST) {
             String cast_ = stds_.getContent().getCoreNames().getAliasCastType();
-            return new ErrorStruct(_context, getBadCastMessage(_param, _arg.getStruct().getClassName(_context)),cast_, _stackCall);
+            return new ErrorStruct(_context, getBadCastMessage(_param, _arg),cast_, _stackCall);
         }
         if (err_ == ErrorType.NPE) {
             String npe_ = stds_.getContent().getCoreNames().getAliasNullPe();
@@ -428,7 +428,7 @@ public final class ExecTemplates {
         i_ = IndexConstants.FIRST_INDEX;
         for (Argument a: _firstArgs) {
             String param_ = params_.get(i_);
-            Struct ex_ = checkObjectEx(param_, a, _conf, _stackCall);
+            Struct ex_ = checkObjectEx(param_, a.getStruct().getClassName(_conf), _conf, _stackCall);
             if (ex_ != null) {
                 return ex_;
             }
@@ -439,7 +439,7 @@ public final class ExecTemplates {
             if (str_ instanceof ArrayStruct) {
                 ArrayStruct arr_ = (ArrayStruct) str_;
                 for (Struct s: arr_.list()) {
-                    ErrorType state_ = safeObjectArr(s, _conf, arr_);
+                    ErrorType state_ = safeObjectArr(s.getClassName(_conf), _conf, arr_);
                     if (state_ != ErrorType.NOTHING) {
                         return processError(_conf, arr_, s, state_, _stackCall);
                     }
@@ -499,7 +499,7 @@ public final class ExecTemplates {
             String param_ = params_.getTypesAll().get(i_);
             Argument a_ = a.getValue();
             if (a_ != null) {
-                Struct ex_ = checkObjectEx(param_, a_, _conf, _stackCall);
+                Struct ex_ = checkObjectEx(param_, a_.getStruct().getClassName(_conf), _conf, _stackCall);
                 if (ex_ != null) {
                     p_.setError(ex_);
                     return p_;
@@ -512,7 +512,7 @@ public final class ExecTemplates {
                 AbstractWrapper w_ = a.getWrapper();
                 Struct value_ = getValue(w_, _conf, _stackCall);
                 values_.add(value_);
-                Struct ex_ = checkObjectEx(param_, new Argument(value_), _conf, _stackCall);
+                Struct ex_ = checkObjectEx(param_, value_.getClassName(_conf), _conf, _stackCall);
                 if (ex_ != null) {
                     p_.setError(ex_);
                     return p_;
@@ -559,7 +559,7 @@ public final class ExecTemplates {
         if (str_ instanceof ArrayStruct) {
             ArrayStruct arr_ = (ArrayStruct) str_;
             for (Struct s: arr_.list()) {
-                ErrorType state_ = safeObjectArr(s, _conf, arr_);
+                ErrorType state_ = safeObjectArr(s.getClassName(_conf), _conf, arr_);
                 if (state_ != ErrorType.NOTHING) {
                     Struct struct_ = processError(_conf, arr_, s, state_, _stackCall);
                     p_.setError(struct_);
@@ -570,7 +570,7 @@ public final class ExecTemplates {
         if (_right != null) {
             String type_ = _id.getImportedReturnType();
             type_ = ExecInherits.quickFormat(_rootBlock,_classNameFound, type_);
-            Struct ex_ = checkObjectEx(type_, _right, _conf, _stackCall);
+            Struct ex_ = checkObjectEx(type_, _right.getStruct().getClassName(_conf), _conf, _stackCall);
             if (ex_ != null) {
                 p_.setError(ex_);
                 return p_;
@@ -589,7 +589,7 @@ public final class ExecTemplates {
         }
         String c_ = _id.getImportedParamType();
         c_ = ExecInherits.quickFormat(_rootBlock,_classNameFound, c_);
-        Struct ex_ = checkObjectEx(c_, _value, _conf, _stackCall);
+        Struct ex_ = checkObjectEx(c_, _value.getStruct().getClassName(_conf), _conf, _stackCall);
         if (ex_ != null) {
             p_.setError(ex_);
             return p_;
@@ -601,9 +601,8 @@ public final class ExecTemplates {
 
     private static void possibleCheck(ExecRootBlock _rootBlock, String _classNameFound, Cache _cache, ContextEl _conf, StackCall _stackCall, Parameters _p) {
         if (_cache != null) {
-            _cache.setCache(_rootBlock, _classNameFound, _conf, _stackCall);
             _p.setCache(_cache);
-            Struct err_ = _cache.checkCache(_conf, _stackCall);
+            Struct err_ = _cache.checkCache(_rootBlock, _classNameFound, _conf, _stackCall);
             if (err_ != null) {
                 _p.setError(err_);
             }
@@ -723,7 +722,8 @@ public final class ExecTemplates {
         StringBuilder mess_ = buildStoreError(_s, _conf, _arr);
         return new ErrorStruct(_conf,mess_.toString(),cast_, _stackCall);
     }
-    public static ErrorType safeObject(String _param, Struct _arg, ContextEl _context) {
+
+    public static ErrorType safeObject(String _param, String _arg, ContextEl _context) {
         return ExecInherits.safeObject(_param,_arg,_context);
     }
 
@@ -892,7 +892,8 @@ public final class ExecTemplates {
             _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_conf, mess_.toString(), cast_, _stackCall)));
             return;
         }
-        ErrorType errorType_ = safeObjectArr(_value, _conf, arr_);
+        Struct value_ = Argument.getNull(_value);
+        ErrorType errorType_ = safeObjectArr(value_.getClassName(_conf), _conf, arr_);
         if (errorType_ == ErrorType.NPE) {
             String npe_ = stds_.getContent().getCoreNames().getAliasNullPe();
             _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_conf, npe_, _stackCall)));
@@ -900,7 +901,7 @@ public final class ExecTemplates {
         }
         if (errorType_ != ErrorType.NOTHING) {
             String cast_ = stds_.getContent().getCoreNames().getAliasStore();
-            StringBuilder mess_ = buildStoreError(_value, _conf, arr_);
+            StringBuilder mess_ = buildStoreError(value_, _conf, arr_);
             _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_conf, mess_.toString(), cast_, _stackCall)));
             return;
         }
@@ -908,10 +909,10 @@ public final class ExecTemplates {
             _stackCall.getInitializingTypeInfos().failInitEnums();
             return;
         }
-        arr_.set(index_, _value);
+        arr_.set(index_, value_);
     }
 
-    private static ErrorType safeObjectArr(Struct _value, ContextEl _context, ArrayStruct _arr) {
+    private static ErrorType safeObjectArr(String _value, ContextEl _context, ArrayStruct _arr) {
         String arrType_ = _arr.getClassName();
         String param_ = StringUtil.nullToEmpty(StringExpUtil.getQuickComponentType(arrType_));
         return ExecInherits.safeObject(param_,_value,_context);
@@ -1121,7 +1122,7 @@ public final class ExecTemplates {
 
     public static Argument checkSet(ContextEl _conf, LocalVariable _loc, Argument _right, StackCall _stackCall) {
         String formattedClassVar_ = _loc.getClassName();
-        if (!checkQuick(formattedClassVar_, _right, _conf, _stackCall)) {
+        if (!checkQuick(formattedClassVar_, _right.getStruct().getClassName(_conf), _conf, _stackCall)) {
             return Argument.createVoid();
         }
         _loc.setStruct(_right.getStruct());
@@ -1231,7 +1232,7 @@ public final class ExecTemplates {
         }
         String classNameFound_ = ExecInherits.getSuperGeneric(argClassName_, _className, _conf);
         String fieldType_ = ExecInherits.quickFormat(_rootBlock,classNameFound_, _returnType);
-        if (!checkQuick(fieldType_, _right, _conf, _stackCall)) {
+        if (!checkQuick(fieldType_, _right.getStruct().getClassName(_conf), _conf, _stackCall)) {
             return Argument.createVoid();
         }
         if (_stackCall.getInitializingTypeInfos().isContainedSensibleFields(previous_)) {
@@ -1255,7 +1256,7 @@ public final class ExecTemplates {
         if (_exit.hasToExit(_stackCall, _className)) {
             return Argument.createVoid();
         }
-        if (!checkQuick(_returnType, _right, _conf, _stackCall)) {
+        if (!checkQuick(_returnType, _right.getStruct().getClassName(_conf), _conf, _stackCall)) {
             return Argument.createVoid();
         }
         String className_ = fieldId_.getClassName();

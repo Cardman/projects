@@ -9,6 +9,7 @@ import code.expressionlanguage.exec.MetaInfoUtil;
 import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.exec.util.Cache;
+import code.expressionlanguage.exec.util.ShownCache;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.functionid.MethodModifier;
@@ -177,7 +178,7 @@ public final class MethodMetaInfo extends AbsAnnotatedStruct implements Annotate
         pair = new ExecTypeFunction(_type,_f);
         callee = _f;
         fileName = _f.getFile().getFileName();
-        cache = new Cache(_f, standards_.getContent().getCoreNames().getAliasObject());
+        cache = new ShownCache(_f, standards_.getContent().getCoreNames().getAliasObject());
         setOwner(_type);
         stdCallee = null;
         directCast = false;
@@ -346,7 +347,7 @@ public final class MethodMetaInfo extends AbsAnnotatedStruct implements Annotate
         pair = new ExecTypeFunction(_type,null);
         callee = _f;
         fileName = _f.getFile().getFileName();
-        cache = new Cache(_f, standards_.getContent().getCoreNames().getAliasObject());
+        cache = new ShownCache(_f, standards_.getContent().getCoreNames().getAliasObject());
         setOwner(_type);
         stdCallee = null;
         directCast = false;

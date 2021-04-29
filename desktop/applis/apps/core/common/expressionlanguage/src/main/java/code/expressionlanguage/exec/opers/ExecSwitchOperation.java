@@ -13,6 +13,7 @@ import code.expressionlanguage.exec.inherits.ExecInherits;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.expressionlanguage.exec.util.Cache;
+import code.expressionlanguage.exec.util.HiddenCache;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecArrContent;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
@@ -35,9 +36,9 @@ public final class ExecSwitchOperation extends ExecSettableCallFctOperation {
         Argument instance_ = last_.getGlobalArgument();
         String glClass_ = last_.getGlobalClass();
         if (switchMethod instanceof ExecSwitchInstanceMethod) {
-            ExecTemplates.okArgsSetSwCall(instance_,type,switchMethod,glClass_, new Cache(last_),_conf,_stack,value_);
+            ExecTemplates.okArgsSetSwCall(instance_,type,switchMethod,glClass_, new HiddenCache(last_),_conf,_stack,value_);
             return;
         }
-        _stack.setCallingState(new CustomFoundSwitch(instance_,glClass_,type,switchMethod, new Cache(last_),value_));
+        _stack.setCallingState(new CustomFoundSwitch(instance_,glClass_,type,switchMethod, new HiddenCache(last_),value_));
     }
 }

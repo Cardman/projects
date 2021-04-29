@@ -5,6 +5,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.util.Cache;
+import code.expressionlanguage.exec.util.HiddenCache;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
@@ -50,7 +51,7 @@ public final class ExecCustMethodLambdaOperation extends ExecAbstractLambdaOpera
         String ownerType_ = _common.getFoundClass();
         ownerType_ = _stackCall.formatVarType(ownerType_);
         clArg_ = _stackCall.formatVarType(clArg_);
-        MethodMetaInfo metaInfo_ = buildMetaInfo(_common,null, _conf,new Cache(_lastPage), ownerType_, _anonCont.getMethod().getConstraints(), _anonCont.getPair());
+        MethodMetaInfo metaInfo_ = buildMetaInfo(_common,null, _conf,new HiddenCache(_lastPage), ownerType_, _anonCont.getMethod().getConstraints(), _anonCont.getPair());
         return new LambdaMethodStruct(metaInfo_,_previous,_common,_anonCont,clArg_, ownerType_);
     }
 

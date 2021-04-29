@@ -729,7 +729,7 @@ public final class AliasMath {
 
     private static boolean matchNotNull(ContextEl _cont, Struct _seed, String _type) {
         return _seed != NullStruct.NULL_VALUE
-                && ExecTemplates.safeObject(_type, _seed, _cont) == ErrorType.NOTHING;
+                && ExecTemplates.safeObject(_type, Argument.getNull(_seed).getClassName(_cont), _cont) == ErrorType.NOTHING;
     }
 
     public String getAliasAbs() {

@@ -12,6 +12,7 @@ import code.expressionlanguage.exec.blocks.ExecAnnotationMethodBlock;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.blocks.ExecSwitchInstanceMethod;
+import code.expressionlanguage.exec.util.HiddenCache;
 import code.expressionlanguage.fwd.blocks.*;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.calls.util.CallingState;
@@ -742,7 +743,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         AnalyzedTestContext cont_ = validated(files_);
         AbstractPageEl instancingClass_ = ExecutingUtil.createInstancingClass(cont_.getClasses().getClassBody("pkg.Ex"), "pkg.Ex", null, cont_.getStackCall());
-        instancingClass_.setCache(new Cache());
+        instancingClass_.setCache(new HiddenCache());
         addPage(cont_.getContext(), instancingClass_, cont_.getStackCall());
         ExecTemplates.getIndexLoop(cont_.getContext(),"", 0, cont_.getStackCall().getLastPage().getCache(), cont_.getStackCall().getLastPage().getVars(), cont_.getStackCall());
         assertNotNull(getTrueException(cont_));
@@ -757,7 +758,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         AnalyzedTestContext cont_ = validated(files_);
         AbstractPageEl instancingClass_ = ExecutingUtil.createInstancingClass(cont_.getClasses().getClassBody("pkg.Ex"), "pkg.Ex", null, cont_.getStackCall());
-        Cache cache_ = new Cache();
+        Cache cache_ = new HiddenCache();
         LoopVariable loop_ = new LoopVariable();
         loop_.setIndex(2);
         loop_.setIndexClassName(cont_.getStandards().getContent().getPrimTypes().getAliasPrimInteger());
@@ -792,7 +793,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         AnalyzedTestContext cont_ = validated(files_);
         AbstractPageEl instancingClass_ = ExecutingUtil.createInstancingClass(cont_.getClasses().getClassBody("pkg.Ex"), "pkg.Ex", null, cont_.getStackCall());
-        instancingClass_.setCache(new Cache());
+        instancingClass_.setCache(new HiddenCache());
         addPage(cont_.getContext(), instancingClass_, cont_.getStackCall());
         ExecTemplates.getWrapValue(cont_.getContext(),"", 0, cont_.getStackCall().getLastPage().getCache(), cont_.getStackCall().getLastPage().getRefParams(), cont_.getStackCall());
         assertNull(cont_.getStackCall().getCallingState());
@@ -809,7 +810,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         AnalyzedTestContext cont_ = validated(files_);
         AbstractPageEl instancingClass_ = ExecutingUtil.createInstancingClass(cont_.getClasses().getClassBody("pkg.Ex"), "pkg.Ex", null, cont_.getStackCall());
-        Cache cache_ = new Cache();
+        Cache cache_ = new HiddenCache();
         cache_.addLocalWrapper("myvar",new VariableWrapper(LocalVariable.newLocalVariable(new IntStruct(2),cont_.getContext())));
         instancingClass_.setCache(cache_);
         addPage(cont_.getContext(), instancingClass_, cont_.getStackCall());
@@ -828,7 +829,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         AnalyzedTestContext cont_ = validated(files_);
         AbstractPageEl instancingClass_ = ExecutingUtil.createInstancingClass(cont_.getClasses().getClassBody("pkg.Ex"), "pkg.Ex", null, cont_.getStackCall());
-        Cache cache_ = new Cache();
+        Cache cache_ = new HiddenCache();
         cache_.addLocalWrapper("myvar",new VariableWrapper(LocalVariable.newLocalVariable(new IntStruct(2),cont_.getContext())));
         cache_.setClassLocalValueWrapper(-1,"",cont_.getContext(), cont_.getStackCall());
         instancingClass_.setCache(cache_);
@@ -860,7 +861,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         AnalyzedTestContext cont_ = validated(files_);
         AbstractPageEl instancingClass_ = ExecutingUtil.createInstancingClass(cont_.getClasses().getClassBody("pkg.Ex"), "pkg.Ex", null, cont_.getStackCall());
-        instancingClass_.setCache(new Cache());
+        instancingClass_.setCache(new HiddenCache());
         addPage(cont_.getContext(), instancingClass_, cont_.getStackCall());
         ExecTemplates.setWrapValue(cont_.getContext(),"", null,0, cont_.getStackCall().getLastPage().getCache(), cont_.getStackCall().getLastPage().getRefParams(), cont_.getStackCall());
         assertNull(cont_.getStackCall().getCallingState());
@@ -875,7 +876,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         AnalyzedTestContext cont_ = validated(files_);
         AbstractPageEl instancingClass_ = ExecutingUtil.createInstancingClass(cont_.getClasses().getClassBody("pkg.Ex"), "pkg.Ex", null, cont_.getStackCall());
-        Cache cache_ = new Cache();
+        Cache cache_ = new HiddenCache();
         cache_.addLocalWrapper("myvar",new VariableWrapper(LocalVariable.newLocalVariable(new IntStruct(2),cont_.getContext())));
         instancingClass_.setCache(cache_);
         addPage(cont_.getContext(), instancingClass_, cont_.getStackCall());
@@ -907,7 +908,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         AnalyzedTestContext cont_ = validated(files_);
         AbstractPageEl instancingClass_ = ExecutingUtil.createInstancingClass(cont_.getClasses().getClassBody("pkg.Ex"), "pkg.Ex", null, cont_.getStackCall());
-        instancingClass_.setCache(new Cache());
+        instancingClass_.setCache(new HiddenCache());
         addPage(cont_.getContext(), instancingClass_, cont_.getStackCall());
         ExecTemplates.incrIndexLoop(cont_.getContext(),"", 0, cont_.getStackCall().getLastPage().getCache(), cont_.getStackCall().getLastPage().getVars(), cont_.getStackCall());
         assertNotNull(getTrueException(cont_));
@@ -922,7 +923,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         AnalyzedTestContext cont_ = validated(files_);
         AbstractPageEl instancingClass_ = ExecutingUtil.createInstancingClass(cont_.getClasses().getClassBody("pkg.Ex"), "pkg.Ex", null, cont_.getStackCall());
-        Cache cache_ = new Cache();
+        Cache cache_ = new HiddenCache();
         LoopVariable loop_ = new LoopVariable();
         loop_.setIndex(2);
         loop_.setIndexClassName(cont_.getStandards().getContent().getPrimTypes().getAliasPrimInteger());
@@ -1200,7 +1201,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
     public void safeObject() {
         StringMap<String> files_ = new StringMap<String>();
         AnalyzedTestContext c_ = validated(files_);
-        assertSame(ErrorType.NPE, ExecInherits.safeObject("",null,c_.getContext()));
+        assertNotSame(ErrorType.NOTHING, ExecInherits.safeObject("","",c_.getContext()));
     }
 
 

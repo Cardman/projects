@@ -40,7 +40,7 @@ public final class RendLocalThrowing {
                                 n_ = n_.getNextSibling();
                                 continue;
                             }
-                            if (ExecTemplates.safeObject(name_, _str, _ctx) == ErrorType.NOTHING) {
+                            if (ExecTemplates.safeObject(name_, Argument.getNull(_str).getClassName(_ctx), _ctx) == ErrorType.NOTHING) {
                                 catchElt_ = ca_;
                                 String var_ = ca_.getVariableName();
                                 LocalVariable lv_ = LocalVariable.newLocalVariable(_str,name_);

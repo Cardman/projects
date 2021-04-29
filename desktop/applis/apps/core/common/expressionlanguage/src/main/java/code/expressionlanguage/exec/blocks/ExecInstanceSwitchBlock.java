@@ -69,7 +69,7 @@ public final class ExecInstanceSwitchBlock extends ExecAbstractSwitchBlock {
         AbstractPageEl ip_ = _stackCall.getLastPage();
         type_ = _stackCall.formatVarType(type_);
         Struct struct_ = _arg.getStruct();
-        if (ExecTemplates.safeObject(type_, struct_, _cont) == ErrorType.NOTHING) {
+        if (ExecTemplates.safeObject(type_, struct_.getClassName(_cont), _cont) == ErrorType.NOTHING) {
             String var_ = _s.getVariableName();
             ip_.putValueVar(var_,LocalVariable.newLocalVariable(struct_,type_));
             _if.setExecLastVisitedBlock(_s);

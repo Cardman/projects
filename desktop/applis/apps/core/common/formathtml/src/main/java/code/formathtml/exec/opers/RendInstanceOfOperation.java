@@ -34,7 +34,7 @@ public final class RendInstanceOfOperation extends RendAbstractUnaryOperation {
             argres_ = new Argument(BooleanStruct.of(false));
         } else {
             String str_ = typeCheckContent.getClassName();
-            boolean res_ = ExecTemplates.safeObject(str_, objArg_.getStruct(), _context) == ErrorType.NOTHING;
+            boolean res_ = ExecTemplates.safeObject(str_, objArg_.getStruct().getClassName(_context), _context) == ErrorType.NOTHING;
             argres_ = new Argument(BooleanStruct.of(res_));
         }
         setSimpleArgument(argres_, _nodes, _context, _stack, _rendStack);

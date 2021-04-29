@@ -65,7 +65,7 @@ public final class ExecReturnMethod extends ExecLeaf implements MethodCallingFin
                 }
                 ip_.clearCurrentEls();
                 String type_ = _stack.formatVarType(returnMethod);
-                if (!ExecTemplates.checkQuick(type_,arg_,_cont, _stack)) {
+                if (!ExecTemplates.checkQuick(type_,arg_.getStruct().getClassName(_cont),_cont, _stack)) {
                     return;
                 }
                 ip_.setReturnedArgument(arg_);

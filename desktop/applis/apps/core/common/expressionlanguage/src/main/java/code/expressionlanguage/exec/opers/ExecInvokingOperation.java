@@ -247,7 +247,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
             return tryGetEnumValues(_exit, _cont, _type,  ClassCategory.ENUM, _stackCall);
         }
         Argument arg_ = args_.first();
-        Struct ex_ = ExecTemplates.checkObjectEx(stds_.getContent().getCharSeq().getAliasString(), arg_, _cont, _stackCall);
+        Struct ex_ = ExecTemplates.checkObjectEx(stds_.getContent().getCharSeq().getAliasString(), Argument.getNullableValue(arg_).getStruct().getClassName(_cont), _cont, _stackCall);
         if (ex_ != null) {
             _stackCall.setCallingState(new CustomFoundExc(ex_));
             return Argument.createVoid();
@@ -356,7 +356,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
             if (param_.startsWith("~")) {
                 param_ = param_.substring(1);
             }
-            if (!ExecTemplates.checkQuick(param_, arg_, _conf, _stackCall)) {
+            if (!ExecTemplates.checkQuick(param_, arg_.getStruct().getClassName(_conf), _conf, _stackCall)) {
                 return new Argument();
             }
         }
@@ -456,12 +456,12 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
                 Argument val_ = a.getValue();
                 String param_ = typesAll_.get(i_);
                 if (val_ != null) {
-                    if (!ExecTemplates.checkQuick(param_, val_, _conf, _stackCall)) {
+                    if (!ExecTemplates.checkQuick(param_, val_.getStruct().getClassName(_conf), _conf, _stackCall)) {
                         return new Argument();
                     }
                 } else {
                     Struct value_ = ExecTemplates.getValue(a.getWrapper(), _conf, _stackCall);
-                    if (!ExecTemplates.checkQuick(param_, new Argument(value_), _conf, _stackCall)) {
+                    if (!ExecTemplates.checkQuick(param_, Argument.getNull(value_).getClassName(_conf), _conf, _stackCall)) {
                         return new Argument();
                     }
                 }
@@ -547,7 +547,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
                 }
                 if (l_.isInstanceField()) {
                     String ownerType_ = StringUtil.nullToEmpty(l_.getOwnerType());
-                    boolean res_ = ExecTemplates.safeObject(ownerType_, struct_,_conf) == ErrorType.NOTHING;
+                    boolean res_ = ExecTemplates.safeObject(ownerType_, struct_.getClassName(_conf),_conf) == ErrorType.NOTHING;
                     return new Argument(BooleanStruct.of(res_));
                 }
                 return new Argument(struct_.getParent());

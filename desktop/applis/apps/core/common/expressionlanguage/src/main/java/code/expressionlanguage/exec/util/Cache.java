@@ -4,101 +4,32 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
-import code.expressionlanguage.exec.blocks.WithCache;
-import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
-import code.expressionlanguage.exec.inherits.ExecInherits;
 import code.expressionlanguage.exec.variables.*;
 import code.expressionlanguage.structs.LongStruct;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
-import code.util.EntryCust;
 import code.util.StringList;
 import code.util.core.StringUtil;
 
-public final class Cache {
+public abstract class Cache {
     private final CustList<NamedWrapper> localWrappers = new CustList<NamedWrapper>();
     private final CustList<NamedLoopVariable> loopVariables = new CustList<NamedLoopVariable>();
-    private final CacheInfo cacheInfo = new CacheInfo();
-    private boolean reflection;
 
-
-    public Cache() {
-    }
-    public Cache(WithCache _fct, String _aliasObject) {
-        reflection = true;
-        for (NameAndType v: _fct.getCacheInfo().getCacheLocalNames()) {
-            addLocalWrapper(v.getName(),new VariableWrapper(LocalVariable.newLocalVariable(NullStruct.NULL_VALUE,_aliasObject)));
-            cacheInfo.getCacheLocalNames().add(new NameAndType(v.getName(),v.getType()));
-        }
-        for (NameAndType v: _fct.getCacheInfo().getCacheLoopNames()) {
-            LoopVariable l_ = new LoopVariable();
-            l_.setIndexClassName(_aliasObject);
-            l_.setIndex(-1);
-            addLoop(v.getName(),l_);
-            cacheInfo.getCacheLoopNames().add(new NameAndType(v.getName(),v.getType()));
-        }
-    }
-    public Cache(AbstractPageEl _cont) {
-        for (EntryCust<String, AbstractWrapper> v: _cont.getRefParams().entryList()) {
-            AbstractWrapper value_ = v.getValue();
-            addLocalWrapper(v.getKey(),value_);
-        }
-        for (EntryCust<String,LoopVariable> v: _cont.getVars().entryList()) {
-            LoopVariable value_ = v.getValue();
-            LoopVariable l_ = new LoopVariable();
-            l_.setIndexClassName(value_.getIndexClassName());
-            l_.setIndex(value_.getIndex());
-            addLoop(v.getKey(),l_);
-        }
-        Cache cache_ = _cont.getCache();
-        if (cache_ != null) {
-            for (NamedWrapper v: cache_.localWrappers) {
-                AbstractWrapper value_ = v.getWrapper();
-                addLocalWrapper(v.getName(),value_);
-            }
-            for (NamedLoopVariable v: cache_.loopVariables) {
-                LoopVariable value_ = v.getLocalVariable();
-                LoopVariable l_ = new LoopVariable();
-                l_.setIndexClassName(value_.getIndexClassName());
-                l_.setIndex(value_.getIndex());
-                addLoop(v.getName(),l_);
-            }
-        }
-    }
-    public void setCache(ExecRootBlock _rootBlock, String _globalClass, ContextEl _context, StackCall _stackCall) {
-        int i_ = 0;
-        for (NameAndType v: cacheInfo.getCacheLocalNames()) {
-            String cl_ = ExecInherits.quickFormat(_rootBlock, _globalClass, v.getType());
-            setClassLocalValueWrapper(i_,cl_,_context, _stackCall);
-            i_++;
-        }
-        i_ = 0;
-        for (NameAndType v: cacheInfo.getCacheLoopNames()) {
-            String cl_ = ExecInherits.quickFormat(_rootBlock, _globalClass, v.getType());
-            setClassLoopValue(i_,cl_);
-            i_++;
-        }
-    }
-    public Struct checkCache(ContextEl _context, StackCall _stackCall) {
-        if (reflection) {
-            for (NamedWrapper v: localWrappers) {
-                AbstractWrapper localVariable_ = v.getWrapper();
-                Struct struct_ = ExecTemplates.checkObjectEx(v.getClassName(), new Argument(localVariable_.getValue(_stackCall, _context)), _context, _stackCall);
-                if (struct_ != null) {
-                    return struct_;
-                }
-            }
-        }
-        return null;
-    }
+    public abstract Struct checkCache(ExecRootBlock _rootBlock, String _classNameFound, ContextEl _context, StackCall _stackCall);
     public StringList getLocalWrappers() {
         StringList list_ = new StringList();
         for (NamedWrapper n: localWrappers) {
             list_.add(n.getName());
         }
         return list_;
+    }
+    public CustList<NamedWrapper> locWrappers() {
+        return localWrappers;
+    }
+    public CustList<NamedLoopVariable> loopVars() {
+        return loopVariables;
     }
     public LongStruct getLocalWrapperCount(String _key) {
         long index_ = 0;

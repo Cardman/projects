@@ -117,16 +117,13 @@ public final class ExecInherits {
         return StringExpUtil.newMappingPairs(generic_, typesParam_);
     }
 
-    public static ErrorType safeObject(String _param, Struct _arg, ContextEl _context) {
-        if (_arg == null) {
-            return ErrorType.NPE;
-        }
+    public static ErrorType safeObject(String _param, String _arg, ContextEl _context) {
         LgNames stds_ = _context.getStandards();
+        String arg_ = StringUtil.nullToEmpty(_arg);
         String param_ = StringUtil.nullToEmpty(_param);
-        if (_arg != NullStruct.NULL_VALUE) {
-            String a_ = _arg.getClassName(_context);
+        if (!arg_.isEmpty()) {
             param_ = toWrapper(param_, stds_);
-            if (!isCorrectExecute(a_, param_, _context)) {
+            if (!isCorrectExecute(arg_, param_, _context)) {
                 return ErrorType.CAST;
             }
             return ErrorType.NOTHING;
