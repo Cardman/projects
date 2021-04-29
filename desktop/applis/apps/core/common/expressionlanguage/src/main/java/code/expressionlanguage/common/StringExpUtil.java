@@ -1055,42 +1055,25 @@ public final class StringExpUtil {
     }
 
     public static ArrayResult tryGetArray(String _string, StrTypes _values, StrTypes _operators) {
-        int j_ = _string.length()-1;
-        boolean arr_ = true;
-        while (true) {
-            char locChar_ = _string.charAt(j_);
-            if (!StringUtil.isWhitespace(locChar_)) {
-                if (locChar_ != ']') {
-                    arr_ = false;
-                }
-                break;
-            }
-            j_--;
+        int bk_ = getBackPrintChar(_string, _string.length());
+        if (!nextCharIs(_string, bk_, _string.length(), ']')) {
+            return errOrNone(bk_);
         }
-        if (!arr_) {
-            return ArrayResult.NONE;
+        int bkTwo_ = getBackPrintChar(_string, bk_);
+        if (!nextCharIs(_string, bkTwo_, _string.length(), '[')) {
+            return errOrNone(bkTwo_);
         }
-        j_--;
-        while (j_ >= 0) {
-            char locChar_ = _string.charAt(j_);
-            if (!StringUtil.isWhitespace(locChar_)) {
-                if (locChar_ != '[') {
-                    arr_ = false;
-                }
-                break;
-            }
-            j_--;
+        return errorOrOk(_string, _values, _operators, bkTwo_);
+    }
+
+    private static ArrayResult errOrNone(int _bk) {
+        if (_bk < 0) {
+            return ArrayResult.ERROR;
         }
-        if (!arr_) {
-            return ArrayResult.NONE;
-        }
-        return errorOrOk(_string, _values, _operators, j_);
+        return ArrayResult.NONE;
     }
 
     private static ArrayResult errorOrOk(String _string, StrTypes _values, StrTypes _operators, int _j) {
-        if (_j < 0) {
-            return ArrayResult.ERROR;
-        }
         String str_ = _string.substring(0, _j);
         int last_ = StringUtil.getLastPrintableCharIndex(str_);
         if (last_ < 0) {
