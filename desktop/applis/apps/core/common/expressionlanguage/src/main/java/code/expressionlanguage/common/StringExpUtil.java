@@ -1120,83 +1120,33 @@ public final class StringExpUtil {
                 }
                 return str_.toString();
             }
-            StringBuilder str_ = toLongBase(-(_i+1), radix_);
+            StringBuilder str_ = base(-(_i+1), radix_);
             str_.insert(0,"-");
             int last_ = str_.length() - 1;
             str_.setCharAt(last_, (char) (str_.charAt(last_)+1));
             return str_.toString();
         }
         if (_i >= 0) {
-            return toLongBase(_i, radix_).toString();
+            return base(_i, radix_).toString();
         }
-        StringBuilder str_ = toLongBase(-_i, radix_);
+        StringBuilder str_ = base(-_i, radix_);
         str_.insert(0,"-");
         return str_.toString();
     }
 
     public static String toLongGeneHex(long _i) {
-        if (_i >= 0) {
-            return toLongBase(_i, 16).toString();
-        }
-        StringBuilder str_ = toLongBase(-_i - 1, 16);
-        int len_ = str_.length();
-        int nbZeros_ = 16 - len_;
-        for (int i = 0; i < nbZeros_; i++) {
-            str_.insert(0,'0');
-        }
-        for (int i = 0; i < 16; i++) {
-            char c_ = str_.charAt(i);
-            if (c_ >= '6' &&c_ <= '9') {
-                int s_ = '6' + '9';
-                str_.setCharAt(i,(char)(s_-c_));
-                continue;
-            }
-            int s_ = 'a' + '5';
-            str_.setCharAt(i,(char)(s_-c_));
-        }
-        return str_.toString();
+        return baseHex(_i,16);
     }
 
     public static String toLongGeneOct(long _i) {
-        if (_i >= 0) {
-            return toLongBase(_i, 8).toString();
-        }
-        StringBuilder str_ = toLongBase(-_i - 1, 8);
-        int len_ = str_.length();
-        int nbZeros_ = 22 - len_;
-        for (int i = 0; i < nbZeros_; i++) {
-            str_.insert(0,'0');
-        }
-        char c_ = str_.charAt(0);
-        int s_ = '0' + '1';
-        str_.setCharAt(0,(char)(s_-c_));
-        for (int i = 1; i < 22; i++) {
-            c_ = str_.charAt(i);
-            s_ = '0' + '7';
-            str_.setCharAt(i,(char)(s_-c_));
-        }
-        return str_.toString();
+        return baseOct(_i,'0' + '1',22);
     }
 
     public static String toLongGeneBin(long _i) {
-        if (_i >= 0) {
-            return toLongBase(_i, 2).toString();
-        }
-        StringBuilder str_ = toLongBase(-_i - 1, 2);
-        int len_ = str_.length();
-        int nbZeros_ = 64 - len_;
-        for (int i = 0; i < nbZeros_; i++) {
-            str_.insert(0,'0');
-        }
-        for (int i = 0; i < 64; i++) {
-            char c_ = str_.charAt(i);
-            int s_ = '0' + '1';
-            str_.setCharAt(i,(char)(s_-c_));
-        }
-        return str_.toString();
+        return baseTwo(_i, 64);
     }
 
-    private static StringBuilder toLongBase(long _i, int _base) {
+    private static StringBuilder base(long _i, int _base) {
         StringBuilder str_ = new StringBuilder();
         if (_i == 0) {
             str_.append(0);
@@ -1211,217 +1161,98 @@ public final class StringExpUtil {
         return str_;
     }
     public static String toGeneHex(int _i) {
-        if (_i >= 0) {
-            return toBase(_i, 16).toString();
-        }
-        StringBuilder str_ = toBase(-_i - 1, 16);
-        int len_ = str_.length();
-        int nbZeros_ = 8 - len_;
-        for (int i = 0; i < nbZeros_; i++) {
-            str_.insert(0,'0');
-        }
-        for (int i = 0; i < 8; i++) {
-            char c_ = str_.charAt(i);
-            if (c_ >= '6' &&c_ <= '9') {
-                int s_ = '6' + '9';
-                str_.setCharAt(i,(char)(s_-c_));
-                continue;
-            }
-            int s_ = 'a' + '5';
-            str_.setCharAt(i,(char)(s_-c_));
-        }
-        return str_.toString();
+        return baseHex(_i, 8);
     }
 
     public static String toGeneOct(int _i) {
-        if (_i >= 0) {
-            return toBase(_i, 8).toString();
-        }
-        StringBuilder str_ = toBase(-_i - 1, 8);
-        int len_ = str_.length();
-        int nbZeros_ = 11 - len_;
-        for (int i = 0; i < nbZeros_; i++) {
-            str_.insert(0,'0');
-        }
-        char c_ = str_.charAt(0);
-        int s_ = '0' + '3';
-        str_.setCharAt(0,(char)(s_-c_));
-        for (int i = 1; i < 11; i++) {
-            c_ = str_.charAt(i);
-            s_ = '0' + '7';
-            str_.setCharAt(i,(char)(s_-c_));
-        }
-        return str_.toString();
+        return baseOct(_i,'0'+'3', 11);
     }
 
     public static String toGeneBin(int _i) {
-        if (_i >= 0) {
-            return toBase(_i, 2).toString();
-        }
-        StringBuilder str_ = toBase(-_i - 1, 2);
-        int len_ = str_.length();
-        int nbZeros_ = 32 - len_;
-        for (int i = 0; i < nbZeros_; i++) {
-            str_.insert(0,'0');
-        }
-        for (int i = 0; i < 32; i++) {
-            char c_ = str_.charAt(i);
-            int s_ = '0' + '1';
-            str_.setCharAt(i,(char)(s_-c_));
-        }
-        return str_.toString();
+        return baseTwo(_i, 32);
     }
 
-    private static StringBuilder toBase(int _i, int _base) {
-        return base(_i, _base);
+    public static String toShortGeneHex(int _i) {
+        return baseHex(_i, 4);
     }
 
-    private static StringBuilder base(int _i, int _base) {
-        StringBuilder str_ = new StringBuilder();
-        if (_i == 0) {
-            str_.append(0);
-            return str_;
-        }
-        int q_ = _i;
-        while (q_ > 0) {
-            int r_ = q_ % _base;
-            str_.insert(0, toSingleChar(r_));
-            q_ = q_ / _base;
-        }
-        return str_;
-    }
-
-    public static String toShortGeneHex(short _i) {
-        if (_i >= 0) {
-            return toShortBase(_i, 16).toString();
-        }
-        StringBuilder str_ = toShortBase((short) (-_i - 1), 16);
-        int len_ = str_.length();
-        int nbZeros_ = 4 - len_;
-        for (int i = 0; i < nbZeros_; i++) {
-            str_.insert(0,'0');
-        }
-        for (int i = 0; i < 4; i++) {
-            char c_ = str_.charAt(i);
-            if (c_ >= '6' &&c_ <= '9') {
-                int s_ = '6' + '9';
-                str_.setCharAt(i,(char)(s_-c_));
-                continue;
-            }
-            int s_ = 'a' + '5';
-            str_.setCharAt(i,(char)(s_-c_));
-        }
-        return str_.toString();
-    }
-
-    public static String toShortGeneOct(short _i) {
-        if (_i >= 0) {
-            return toShortBase(_i, 8).toString();
-        }
-        StringBuilder str_ = toShortBase((short) (-_i - 1), 8);
-        int len_ = str_.length();
-        int nbZeros_ = 6 - len_;
-        for (int i = 0; i < nbZeros_; i++) {
-            str_.insert(0,'0');
-        }
-        char c_ = str_.charAt(0);
-        int s_ = '0' + '1';
-        str_.setCharAt(0,(char)(s_-c_));
-        for (int i = 1; i < 6; i++) {
-            c_ = str_.charAt(i);
-            s_ = '0' + '7';
-            str_.setCharAt(i,(char)(s_-c_));
-        }
-        return str_.toString();
+    public static String toShortGeneOct(int _i) {
+        return baseOct(_i,'0'+'1', 6);
     }
 
     public static String toShortGeneBin(short _i) {
+        return baseTwo(_i, 16);
+    }
+
+    public static String toByteGeneHex(int _i) {
+        return baseHex(_i, 2);
+    }
+
+    private static String baseHex(long _i, int _b) {
         if (_i >= 0) {
-            return toShortBase(_i, 2).toString();
+            return base(_i, 16).toString();
         }
-        StringBuilder str_ = toShortBase((short) (-_i - 1), 2);
+        StringBuilder str_ = base(-_i - 1, 16);
         int len_ = str_.length();
-        int nbZeros_ = 16 - len_;
+        int nbZeros_ = _b - len_;
         for (int i = 0; i < nbZeros_; i++) {
             str_.insert(0,'0');
         }
-        for (int i = 0; i < 16; i++) {
-            char c_ = str_.charAt(i);
-            int s_ = '0' + '1';
-            str_.setCharAt(i,(char)(s_-c_));
-        }
-        return str_.toString();
-    }
-
-    private static StringBuilder toShortBase(short _i, int _base) {
-        return base(_i, _base);
-    }
-
-    public static String toByteGeneHex(byte _i) {
-        if (_i >= 0) {
-            return toByteBase(_i, 16).toString();
-        }
-        StringBuilder str_ = toByteBase((byte) (-_i - 1), 16);
-        int len_ = str_.length();
-        int nbZeros_ = 2 - len_;
-        for (int i = 0; i < nbZeros_; i++) {
-            str_.insert(0,'0');
-        }
-        for (int i = 0; i < 2; i++) {
+        for (int i = 0; i < _b; i++) {
             char c_ = str_.charAt(i);
             if (c_ >= '6' &&c_ <= '9') {
-                int s_ = '6' + '9';
-                str_.setCharAt(i,(char)(s_-c_));
+                str_.setCharAt(i,(char)('6' + '9'-c_));
                 continue;
             }
-            int s_ = 'a' + '5';
-            str_.setCharAt(i,(char)(s_-c_));
+            str_.setCharAt(i,(char)('a' + '5'-c_));
         }
         return str_.toString();
     }
 
-    public static String toByteGeneOct(byte _i) {
+    public static String toByteGeneOct(int _i) {
+        return baseOct(_i, '0' + '3', 3);
+    }
+
+    private static String baseOct(long _i, int _sum, int _b) {
         if (_i >= 0) {
-            return toByteBase(_i, 8).toString();
+            return base(_i, 8).toString();
         }
-        StringBuilder str_ = toByteBase((byte) (-_i - 1), 8);
+        StringBuilder str_ = base(-_i - 1, 8);
         int len_ = str_.length();
-        int nbZeros_ = 3 - len_;
+        int nbZeros_ = _b - len_;
         for (int i = 0; i < nbZeros_; i++) {
             str_.insert(0,'0');
         }
         char c_ = str_.charAt(0);
-        int s_ = '0' + '3';
-        str_.setCharAt(0,(char)(s_-c_));
-        for (int i = 1; i < 3; i++) {
+        str_.setCharAt(0,(char)(_sum-c_));
+        for (int i = 1; i < _b; i++) {
             c_ = str_.charAt(i);
-            s_ = '0' + '7';
-            str_.setCharAt(i,(char)(s_-c_));
+            str_.setCharAt(i,(char)('0' + '7'-c_));
         }
         return str_.toString();
     }
 
     public static String toByteGeneBin(byte _i) {
+        return baseTwo(_i, 8);
+    }
+
+    private static String baseTwo(long _i, int _b) {
         if (_i >= 0) {
-            return toByteBase(_i, 2).toString();
+            return base(_i, 2).toString();
         }
-        StringBuilder str_ = toByteBase((byte) (-_i - 1), 2);
+        StringBuilder str_ = base(-_i - 1, 2);
         int len_ = str_.length();
-        int nbZeros_ = 8 - len_;
+        int nbZeros_ = _b - len_;
         for (int i = 0; i < nbZeros_; i++) {
             str_.insert(0,'0');
         }
-        for (int i = 0; i < 8; i++) {
+        for (int i = 0; i < _b; i++) {
             char c_ = str_.charAt(i);
-            int s_ = '0' + '1';
-            str_.setCharAt(i,(char)(s_-c_));
+            str_.setCharAt(i,(char)('0' + '1' -c_));
         }
         return str_.toString();
     }
 
-    private static StringBuilder toByteBase(byte _i, int _base) {
-        return base(_i, _base);
-    }
     private static String toSingleChar(int _i) {
         if (_i < 10) {
             return Long.toString(_i);
