@@ -3217,20 +3217,21 @@ public final class LinkageUtil {
             int offsetNew_ = StringUtil.getFirstPrintableCharIndex(inst_.getMethodName());
             int beginInst_ = offsetNew_ + _sum + _val.getIndexInEl();
             int lengthInst_ = _vars.getKeyWords().getKeyWordNew().length();
+            StringList errs_ = _val.getErrs();
             if (!(inst_ instanceof StandardInstancingOperation)) {
                 addParts(_vars, constructor_,
                         beginInst_, lengthInst_,
-                        _val.getErrs(), _val.getErrs());
+                        errs_, errs_);
             } else {
                 InnerTypeOrElement innerElt_ = ((StandardInstancingOperation) inst_).getInnerElt();
                 if (innerElt_ == null) {
                     addParts(_vars, constructor_,
                             beginInst_, lengthInst_,
-                            _val.getErrs(), _val.getErrs());
+                            errs_, errs_);
                     _vars.addParts(inst_.getPartOffsets());
                 } else {
                     StringList mergedErrs_ = new StringList(((StandardInstancingOperation) inst_).getErrorsFields());
-                    mergedErrs_.addAllElts(inst_.getErrs());
+                    mergedErrs_.addAllElts(errs_);
                     nameId(_vars, inst_, innerElt_.getUniqueFieldName(), mergedErrs_, innerElt_.getFieldNameOffset());
                     _vars.addParts(innerElt_.getTypePartOffsets());
                 }
