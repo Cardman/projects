@@ -1466,21 +1466,19 @@ public final class LinkageUtil {
             nameIdReport(_vars, inst_, uniqueFieldName_, _content.getFieldNameOffest());
             _vars.addParts(_inner.getTypePartOffsets());
         }
-        if (inst_.getFirstChild() != null) {
-            int afterName_ = _content.getFieldNameOffest() + uniqueFieldName_.length();
-            if (!_content.getTempClass().isEmpty()) {
-                afterName_ = _content.getTempClassOffset() + _content.getTempClass().length();
-            }
-            int lastChar_ = _cond.getBegin();
-            int tr_ = _content.diffTr(_vars.getKeyWords().getKeyWordNew());
-            int blOffset_ = _content.getValueOffest() + tr_;
-            int diffBegin_ = afterName_ - blOffset_ - inst_.getIndexInEl();
-            String value_ = _content.getValue();
-            int endBl_ = _content.getValueOffest() + value_.length() + tr_;
-            int diffEnd_ = lastChar_ - endBl_;
-            LinkageStackElementIn in_ = buildLinkageRep(diffBegin_,diffEnd_,_cond, blOffset_, endBl_, 0, k_);
-            buildNormalReport(_vars, _cov, inst_, in_);
+        int afterName_ = _content.getFieldNameOffest() + uniqueFieldName_.length();
+        if (!_content.getTempClass().isEmpty()) {
+            afterName_ = _content.getTempClassOffset() + _content.getTempClass().length();
         }
+        int lastChar_ = _cond.getBegin();
+        int tr_ = _content.diffTr(_vars.getKeyWords().getKeyWordNew());
+        int blOffset_ = _content.getValueOffest() + tr_;
+        int diffBegin_ = afterName_ - blOffset_ - inst_.getIndexInEl();
+        String value_ = _content.getValue();
+        int endBl_ = _content.getValueOffest() + value_.length() + tr_;
+        int diffEnd_ = lastChar_ - endBl_;
+        LinkageStackElementIn in_ = buildLinkageRep(diffBegin_,diffEnd_,_cond, blOffset_, endBl_, 0, k_);
+        buildNormalReport(_vars, _cov, inst_, in_);
         if (_vars.goesToProcess()) {
             return;
         }
@@ -2427,7 +2425,7 @@ public final class LinkageUtil {
         while (true) {
             MethodOperation parent_ = val_.getParent();
             OperationNode nextSiblingOp_ = val_.getNextSibling();
-            if (parent_ == null) {
+            if (parent_ == null || val_ == _root) {
                 getEnd(_vars, addCover_, _in);
                 _vars.getLastStackElt().setNullCurrent();
                 return null;

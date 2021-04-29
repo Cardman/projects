@@ -1046,7 +1046,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public enum <a name=\"m12\">pkg.ExEnum</a> {\n" +
-                " <a name=\"m26\" title=\"pkg.ExEnum.pkg.ExEnum()\" href=\"#m51\">ONE</a>;\n" +
+                " <a name=\"m26\" title=\"pkg.ExEnum.pkg.ExEnum()\" href=\"#m51\">ONE</a><span class=\"g\"></span>;\n" +
                 " public int <span class=\"g\"><a name=\"m43\">field</a></span>;\n" +
                 " <a name=\"m51\">ExEnum(</a>){\n" +
                 "  <span class=\"g\"><span class=\"g\"><a title=\"pkg.ExEnum.field\" href=\"#m43\">field</a></span>=<span class=\"g\">5</span></span>;\n" +
@@ -1082,7 +1082,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public enum <a name=\"m12\">pkg.ExEnum</a> {\n" +
-                " <a name=\"m26\" title=\"pkg.ExEnum.pkg.ExEnum()\" href=\"#m51\">ONE</a>;\n" +
+                " <a name=\"m26\" title=\"pkg.ExEnum.pkg.ExEnum()\" href=\"#m51\">ONE</a><span class=\"g\"></span>;\n" +
                 " public int <span class=\"g\"><a name=\"m43\">field</a></span>;\n" +
                 " <a name=\"m51\">ExEnum(</a>){\n" +
                 "  <span class=\"g\"><span class=\"g\"><a title=\"pkg.ExEnum.field\" href=\"#m43\">field</a></span>=<span class=\"g\">5</span></span>;\n" +
@@ -1127,7 +1127,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public enum <a name=\"m12\">pkg.ExEnum</a> {\n" +
-                " <a name=\"m26\" title=\"pkg.ExEnum.pkg.ExEnum()\" href=\"#m51\">ONE</a>;\n" +
+                " <a name=\"m26\" title=\"pkg.ExEnum.pkg.ExEnum()\" href=\"#m51\">ONE</a><span class=\"g\"></span>;\n" +
                 " public int <span class=\"g\"><a name=\"m43\">field</a></span>;\n" +
                 " <a name=\"m51\">ExEnum(</a>){\n" +
                 "  <span class=\"g\"><span class=\"g\"><a title=\"pkg.ExEnum.field\" href=\"#m43\">field</a></span>=<span class=\"g\">5</span></span>;\n" +
@@ -1285,7 +1285,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public enum <a name=\"m12\">pkg.ExEnum</a> {\n" +
-                " <a name=\"m26\">ONE</a>;\n" +
+                " <a name=\"m26\">ONE</a><span class=\"g\"></span>;\n" +
                 "}\n" +
                 "public class <a name=\"m46\">pkg.Ex</a> {\n" +
                 " public static int <a name=\"m74\">exmeth</a>(){\n" +
@@ -1404,7 +1404,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public enum <a name=\"m12\">pkg.ExEnum</a> {\n" +
-                " <a name=\"m26\" title=\"pkg.ExEnum-FOUR.pkg.ExEnum-FOUR()\" href=\"#m34\">FOUR</a>{\n" +
+                " <a name=\"m26\" title=\"pkg.ExEnum-FOUR.pkg.ExEnum-FOUR()\" href=\"#m34\">FOUR</a><span class=\"g\"></span>{\n" +
                 "  <a name=\"m34\">(</a>){\n" +
                 "   <span class=\"g\"><a title=\"pkg.ExEnum-FOUR.pkg.ExEnum-FOUR(int)\" href=\"#m56\">this</a>(<span class=\"g\">5</span>)</span>;\n" +
                 "  }\n" +
@@ -1463,7 +1463,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public enum <a name=\"m12\">pkg.ExEnum</a> {\n" +
-                " <a name=\"m26\">FOUR</a>{\n" +
+                " <a name=\"m26\">FOUR</a><span class=\"g\"></span>{\n" +
                 "  public int <span class=\"g\"><a name=\"m45\">field</a></span>;\n" +
                 " };\n" +
                 "}\n" +
@@ -3979,7 +3979,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $enum <a name=\"m14\">pkg.ExEnum</a> {\n" +
-                " <a name=\"m28\">ONE</a>,<a name=\"m32\">TWO</a>;\n" +
+                " <a name=\"m28\">ONE</a><span class=\"g\"></span>,<a name=\"m32\">TWO</a><span class=\"g\"></span>;\n" +
                 "}\n" +
                 "$public $class <a name=\"m54\">pkg.Ex</a> {\n" +
                 " $public $static $int <a name=\"m85\">exmeth</a>(){\n" +
@@ -4178,7 +4178,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $enum <a name=\"m14\">pkg.ExEnum</a> {\n" +
-                " <a name=\"m28\">ONE</a>;\n" +
+                " <a name=\"m28\">ONE</a><span class=\"g\"></span>;\n" +
                 "}\n" +
                 "$public $class <a name=\"m50\">pkg.Ex</a> {\n" +
                 " $public $static <a title=\"pkg.ExEnum\" href=\"#m14\">ExEnum</a> <a name=\"m83\">exmeth</a>(){\n" +
@@ -4206,7 +4206,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $enum <a name=\"m14\">pkg.ExEnum</a> {\n" +
-                " <a name=\"m28\">ONE</a>{};\n" +
+                " <a name=\"m28\">ONE</a><span class=\"g\"></span>{};\n" +
                 "}\n" +
                 "$public $class <a name=\"m52\">pkg.Ex</a> {\n" +
                 " $public $static <a title=\"pkg.ExEnum\" href=\"#m14\">ExEnum</a> <a name=\"m85\">exmeth</a>(){\n" +
@@ -4821,7 +4821,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $enum <a name=\"m14\">pkg.ExEnum</a> {\n" +
-                " <a name=\"m28\">ONE</a>{};\n" +
+                " <a name=\"m28\">ONE</a><span class=\"g\"></span>{};\n" +
                 " $public $int <a name=\"m49\">method</a>(){\n" +
                 "  $return <span class=\"f\">5</span>;\n" +
                 " }\n" +
@@ -6057,7 +6057,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $enum <a name=\"m14\">pkg.ExEnum</a> {\n" +
-                "<a name=\"m27\">ONE</a>,<a name=\"m31\">TWO</a>\n" +
+                "<a name=\"m27\">ONE</a><span class=\"g\"></span>,<a name=\"m31\">TWO</a><span class=\"g\">\n</span>" +
                 "}\n" +
                 "$public $class <a name=\"m52\">pkg.Ex</a> {\n" +
                 " $public $static $int <a name=\"m83\">exmeth</a>(){\n" +
@@ -6102,7 +6102,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public enum <a name=\"m12\">pkg.ExEnum</a> {\n" +
-                "<a name=\"m25\">ONE</a>,<a name=\"m29\">TWO</a>\n" +
+                "<a name=\"m25\">ONE</a><span class=\"g\"></span>,<a name=\"m29\">TWO</a><span class=\"g\">\n</span>" +
                 "}\n" +
                 "public class <a name=\"m48\">pkg.Ex</a> {\n" +
                 " public static int <a name=\"m76\">exmeth</a>(){\n" +
@@ -6147,7 +6147,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $enum <a name=\"m14\">pkg.ExEnum</a> {\n" +
-                "<a name=\"m27\">ONE</a>,<a name=\"m31\">TWO</a>\n" +
+                "<a name=\"m27\">ONE</a><span class=\"g\"></span>,<a name=\"m31\">TWO</a><span class=\"g\">\n</span>" +
                 "}\n" +
                 "$public $class <a name=\"m52\">pkg.Ex</a> {\n" +
                 " $public $static $int <a name=\"m83\">exmeth</a>(){\n" +
@@ -6192,7 +6192,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public enum <a name=\"m12\">pkg.ExEnum</a> {\n" +
-                "<a name=\"m25\">ONE</a>,<a name=\"m29\">TWO</a>\n" +
+                "<a name=\"m25\">ONE</a><span class=\"g\"></span>,<a name=\"m29\">TWO</a><span class=\"g\">\n</span>" +
                 "}\n" +
                 "public class <a name=\"m48\">pkg.Ex</a> {\n" +
                 " public static int <a name=\"m76\">exmeth</a>(){\n" +
@@ -6332,7 +6332,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $enum <a name=\"m14\">pkg.ExEnum</a> {\n" +
-                "<a name=\"m27\">ONE</a>,<a name=\"m31\">TWO</a>;\n" +
+                "<a name=\"m27\">ONE</a><span class=\"g\"></span>,<a name=\"m31\">TWO</a><span class=\"g\"></span>;\n" +
                 " $public $static $final $int <span class=\"g\"><span class=\"g\"><a name=\"m65\">THREE</a> </span>=<span class=\"g\"> 9</span></span>;\n" +
                 "}\n" +
                 "$public $class <a name=\"m93\">pkg.Ex</a> {\n" +
@@ -6379,7 +6379,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public enum <a name=\"m12\">pkg.ExEnum</a> {\n" +
-                "<a name=\"m25\">ONE</a>,<a name=\"m29\">TWO</a>;\n" +
+                "<a name=\"m25\">ONE</a><span class=\"g\"></span>,<a name=\"m29\">TWO</a><span class=\"g\"></span>;\n" +
                 " public static final int <span class=\"g\"><span class=\"g\"><a name=\"m59\">THREE</a> </span>=<span class=\"g\"> 9</span></span>;\n" +
                 "}\n" +
                 "public class <a name=\"m85\">pkg.Ex</a> {\n" +
@@ -7392,8 +7392,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public enum <a name=\"m12\">pkg.ExEnum</a>&lt;<a name=\"m23\">T</a>,<a name=\"m25\">S</a>&gt; {\n" +
-                " <a name=\"m31\">ONE</a>&lt;<a title=\"pkg.Ex\" href=\"#m104\">Ex</a>,<a title=\"pkg.ExTwo\" href=\"#m78\">ExTwo</a>&gt;,\n" +
-                " <a name=\"m47\">TWO</a>&lt;<a title=\"pkg.ExTwo\" href=\"#m78\">ExTwo</a>,<a title=\"pkg.Ex\" href=\"#m104\">Ex</a>&gt;{}\n" +
+                " <a name=\"m31\">ONE</a>&lt;<a title=\"pkg.Ex\" href=\"#m104\">Ex</a>,<a title=\"pkg.ExTwo\" href=\"#m78\">ExTwo</a>&gt;<span class=\"g\"></span>,\n" +
+                " <a name=\"m47\">TWO</a>&lt;<a title=\"pkg.ExTwo\" href=\"#m78\">ExTwo</a>,<a title=\"pkg.Ex\" href=\"#m104\">Ex</a>&gt;<span class=\"g\"></span>{}\n" +
                 "}\n" +
                 "public class <a name=\"m78\">pkg.ExTwo</a> {}\n" +
                 "public class <a name=\"m104\">pkg.Ex</a> {\n" +
@@ -7424,8 +7424,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public enum <a name=\"m12\">pkg.ExEnum</a>&lt;<a name=\"m23\">T</a>,<a name=\"m25\">S</a>&gt; {\n" +
-                " <a name=\"m31\">ONE</a>&lt; <a title=\"pkg.Ex\" href=\"#m108\">Ex</a>, <a title=\"pkg.ExTwo\" href=\"#m82\">ExTwo</a>&gt;,\n" +
-                " <a name=\"m49\">TWO</a>&lt; <a title=\"pkg.ExTwo\" href=\"#m82\">ExTwo</a>, <a title=\"pkg.Ex\" href=\"#m108\">Ex</a>&gt;{}\n" +
+                " <a name=\"m31\">ONE</a>&lt; <a title=\"pkg.Ex\" href=\"#m108\">Ex</a>, <a title=\"pkg.ExTwo\" href=\"#m82\">ExTwo</a>&gt;<span class=\"g\"></span>,\n" +
+                " <a name=\"m49\">TWO</a>&lt; <a title=\"pkg.ExTwo\" href=\"#m82\">ExTwo</a>, <a title=\"pkg.Ex\" href=\"#m108\">Ex</a>&gt;<span class=\"g\"></span>{}\n" +
                 "}\n" +
                 "public class <a name=\"m82\">pkg.ExTwo</a> {}\n" +
                 "public class <a name=\"m108\">pkg.Ex</a> {\n" +
@@ -7456,8 +7456,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public enum <a name=\"m12\">pkg.ExEnum</a>&lt;<a name=\"m23\">T</a>,<a name=\"m25\">S</a>&gt; {\n" +
-                " <a name=\"m31\">ONE</a>&lt; <a title=\"pkg.Ex\" href=\"#m112\">Ex</a> , <a title=\"pkg.ExTwo\" href=\"#m86\">ExTwo</a> &gt;,\n" +
-                " <a name=\"m51\">TWO</a>&lt; <a title=\"pkg.ExTwo\" href=\"#m86\">ExTwo</a> , <a title=\"pkg.Ex\" href=\"#m112\">Ex</a> &gt;{}\n" +
+                " <a name=\"m31\">ONE</a>&lt; <a title=\"pkg.Ex\" href=\"#m112\">Ex</a> , <a title=\"pkg.ExTwo\" href=\"#m86\">ExTwo</a> &gt;<span class=\"g\"></span>,\n" +
+                " <a name=\"m51\">TWO</a>&lt; <a title=\"pkg.ExTwo\" href=\"#m86\">ExTwo</a> , <a title=\"pkg.Ex\" href=\"#m112\">Ex</a> &gt;<span class=\"g\"></span>{}\n" +
                 "}\n" +
                 "public class <a name=\"m86\">pkg.ExTwo</a> {}\n" +
                 "public class <a name=\"m112\">pkg.Ex</a> {\n" +
@@ -7852,9 +7852,9 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "}\n" +
                 "public enum <a name=\"m83\">pkg.ExEnum</a>&lt;<a name=\"m94\">T</a>,<a name=\"m96\">S</a>&gt; {\n" +
                 " <span class=\"n2\">@<a title=\"pkg.MyAnnot\" href=\"#m18\">MyAnnot</a></span>\n" +
-                " <a name=\"m112\">ONE</a>&lt;<a title=\"pkg.Ex\" href=\"#m198\">Ex</a>,<a title=\"pkg.ExTwo\" href=\"#m172\">ExTwo</a>&gt;,\n" +
+                " <a name=\"m112\">ONE</a>&lt;<a title=\"pkg.Ex\" href=\"#m198\">Ex</a>,<a title=\"pkg.ExTwo\" href=\"#m172\">ExTwo</a>&gt;<span class=\"g\"></span>,\n" +
                 " <span class=\"n2\">@<a title=\"pkg.MyAnnotTwo\" href=\"#m52\">MyAnnotTwo</a></span>\n" +
-                " <a name=\"m141\">TWO</a>&lt;<a title=\"pkg.ExTwo\" href=\"#m172\">ExTwo</a>,<a title=\"pkg.Ex\" href=\"#m198\">Ex</a>&gt;{}\n" +
+                " <a name=\"m141\">TWO</a>&lt;<a title=\"pkg.ExTwo\" href=\"#m172\">ExTwo</a>,<a title=\"pkg.Ex\" href=\"#m198\">Ex</a>&gt;<span class=\"g\"></span>{}\n" +
                 "}\n" +
                 "public class <a name=\"m172\">pkg.ExTwo</a> {}\n" +
                 "public class <a name=\"m198\">pkg.Ex</a> {\n" +
@@ -10453,7 +10453,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public enum <a name=\"m12\">pkg.Ex</a> {;\n" +
                 "public enum <a name=\"m34\">ExInner</a> {\n" +
-                " <a name=\"m45\">ONE</a>{public int <a name=\"m60\">first</a>(int <a name=\"m70\">add</a>){return <span class=\"g\"><span class=\"g\">4i</span>+<span class=\"g\"><a href=\"#m70\">add</a></span></span>;}};\n" +
+                " <a name=\"m45\">ONE</a><span class=\"g\"></span>{public int <a name=\"m60\">first</a>(int <a name=\"m70\">add</a>){return <span class=\"g\"><span class=\"g\">4i</span>+<span class=\"g\"><a href=\"#m70\">add</a></span></span>;}};\n" +
                 "}\n" +
                 "public static <a title=\"pkg.Ex\" href=\"#m12\">pkg.Ex</a>.<a title=\"pkg.Ex..ExInner\" href=\"#m34\">ExInner</a>..<a title=\"pkg.Ex..ExInner-ONE\" href=\"#m45\">ONE</a> <span class=\"g\"><span class=\"g\"><a name=\"m129\">INSTANCE</a> </span>=<span class=\"g\"><span class=\"g\"> <a title=\"pkg.Ex..ExInner\" href=\"#m34\">ExInner</a></span>.<span class=\"g\"><a title=\"pkg.Ex..ExInner.ONE\" href=\"#m45\">ONE</a></span></span></span>;\n" +
                 "public static int <span class=\"g\"><span class=\"g\"><a name=\"m171\">field</a> </span>=<span class=\"g\"><span class=\"g\"> <a title=\"pkg.Ex.INSTANCE\" href=\"#m129\">INSTANCE</a></span>.<span class=\"g\"><a title=\"pkg.Ex..ExInner-ONE.first(int)\" href=\"#m60\">first</a>(<span class=\"g\">2</span>)</span></span></span>;\n" +
@@ -10484,7 +10484,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public enum <a name=\"m12\">pkg.Ex</a> {;\n" +
                 "public enum <a name=\"m34\">ExInner</a> {\n" +
-                " <a name=\"m45\">ONE</a>{public static int <a name=\"m67\">first</a>(int <a name=\"m77\">add</a>){return <span class=\"g\"><span class=\"g\">4i</span>+<span class=\"g\"><a href=\"#m77\">add</a></span></span>;}};\n" +
+                " <a name=\"m45\">ONE</a><span class=\"g\"></span>{public static int <a name=\"m67\">first</a>(int <a name=\"m77\">add</a>){return <span class=\"g\"><span class=\"g\">4i</span>+<span class=\"g\"><a href=\"#m77\">add</a></span></span>;}};\n" +
                 "}\n" +
                 "public static int <span class=\"g\"><span class=\"g\"><a name=\"m120\">field</a> </span>=<span class=\"g\"><span class=\"g\"> <a title=\"pkg.Ex\" href=\"#m12\">pkg.Ex</a>.<a title=\"pkg.Ex..ExInner\" href=\"#m34\">ExInner</a>..<a title=\"pkg.Ex..ExInner-ONE\" href=\"#m45\">ONE</a></span>.<span class=\"g\"><a title=\"pkg.Ex..ExInner-ONE.static first(int)\" href=\"#m67\">first</a>(<span class=\"g\">2</span>)</span></span></span>;\n" +
                 " public static int <a name=\"m177\">exmeth</a>(){\n" +
@@ -10514,7 +10514,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public enum <a name=\"m12\">pkg.Ex</a> {;\n" +
                 "public enum <a name=\"m34\">ExInner</a> {\n" +
-                " <a name=\"m45\">ONE</a>{public static int <a name=\"m67\">first</a>(int <a name=\"m77\">add</a>){return <span class=\"g\"><span class=\"g\">4i</span>+<span class=\"g\"><a href=\"#m77\">add</a></span></span>;}};\n" +
+                " <a name=\"m45\">ONE</a><span class=\"g\"></span>{public static int <a name=\"m67\">first</a>(int <a name=\"m77\">add</a>){return <span class=\"g\"><span class=\"g\">4i</span>+<span class=\"g\"><a href=\"#m77\">add</a></span></span>;}};\n" +
                 "}\n" +
                 "public static int <span class=\"g\"><span class=\"g\"><a name=\"m120\">field</a> </span>=<span class=\"g\"><span class=\"g\"> <a title=\"pkg.Ex\" href=\"#m12\">Ex</a>.<a title=\"pkg.Ex..ExInner\" href=\"#m34\">ExInner</a>..<a title=\"pkg.Ex..ExInner-ONE\" href=\"#m45\">ONE</a></span>.<span class=\"g\"><a title=\"pkg.Ex..ExInner-ONE.static first(int)\" href=\"#m67\">first</a>(<span class=\"g\">2</span>)</span></span></span>;\n" +
                 " public static int <a name=\"m173\">exmeth</a>(){\n" +
@@ -10544,7 +10544,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public enum <a name=\"m12\">pkg.Ex</a> {;\n" +
                 "public enum <a name=\"m34\">ExInner</a> {\n" +
-                " <a name=\"m45\">ONE</a>{public static int <a name=\"m67\">first</a>(int <a name=\"m77\">add</a>){return <span class=\"g\"><span class=\"g\">4i</span>+<span class=\"g\"><a href=\"#m77\">add</a></span></span>;}};\n" +
+                " <a name=\"m45\">ONE</a><span class=\"g\"></span>{public static int <a name=\"m67\">first</a>(int <a name=\"m77\">add</a>){return <span class=\"g\"><span class=\"g\">4i</span>+<span class=\"g\"><a href=\"#m77\">add</a></span></span>;}};\n" +
                 "}\n" +
                 "public static int <span class=\"g\"><span class=\"g\"><a name=\"m120\">field</a> </span>=<span class=\"g\"><span class=\"g\"> <a title=\"pkg.Ex..ExInner\" href=\"#m34\">ExInner</a>..<a title=\"pkg.Ex..ExInner-ONE\" href=\"#m45\">ONE</a></span>.<span class=\"g\"><a title=\"pkg.Ex..ExInner-ONE.static first(int)\" href=\"#m67\">first</a>(<span class=\"g\">2</span>)</span></span></span>;\n" +
                 " public static int <a name=\"m170\">exmeth</a>(){\n" +
@@ -10576,7 +10576,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\"><span class=\"i\">pkg.Ex.ExInner</span>;\n" +
                 "public enum <a name=\"m28\">pkg.Ex</a> {;\n" +
                 "public enum <a name=\"m50\">ExInner</a> {\n" +
-                " <a name=\"m61\">ONE</a>{public static int <a name=\"m83\">first</a>(int <a name=\"m93\">add</a>){return <span class=\"g\"><span class=\"g\">4i</span>+<span class=\"g\"><a href=\"#m93\">add</a></span></span>;}};\n" +
+                " <a name=\"m61\">ONE</a><span class=\"g\"></span>{public static int <a name=\"m83\">first</a>(int <a name=\"m93\">add</a>){return <span class=\"g\"><span class=\"g\">4i</span>+<span class=\"g\"><a href=\"#m93\">add</a></span></span>;}};\n" +
                 "}\n" +
                 "public static int <span class=\"g\"><span class=\"g\"><a name=\"m136\">field</a> </span>=<span class=\"g\"><span class=\"g\"> static(<a title=\"pkg.Ex..ExInner\" href=\"#m50\">ExInner</a>..<a title=\"pkg.Ex..ExInner-ONE\" href=\"#m61\">ONE</a>)</span>.<span class=\"g\"><a title=\"pkg.Ex..ExInner-ONE.static first(int)\" href=\"#m83\">first</a>(<span class=\"g\">2</span>)</span></span></span>;\n" +
                 " public static int <a name=\"m194\">exmeth</a>(){\n" +
@@ -10672,7 +10672,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\"><span class=\"i\">pkg.Ex.ExInner..ONE</span>;\n" +
                 "public enum <a name=\"m33\">pkg.Ex</a> {;\n" +
                 "public enum <a name=\"m55\">ExInner</a> {\n" +
-                " <a name=\"m66\">ONE</a>{public static int <a name=\"m88\">first</a>(int <a name=\"m98\">add</a>){return <span class=\"g\"><span class=\"g\">4i</span>+<span class=\"g\"><a href=\"#m98\">add</a></span></span>;}};\n" +
+                " <a name=\"m66\">ONE</a><span class=\"g\"></span>{public static int <a name=\"m88\">first</a>(int <a name=\"m98\">add</a>){return <span class=\"g\"><span class=\"g\">4i</span>+<span class=\"g\"><a href=\"#m98\">add</a></span></span>;}};\n" +
                 "}\n" +
                 "public static int <span class=\"g\"><span class=\"g\"><a name=\"m141\">field</a> </span>=<span class=\"g\"><span class=\"g\"> static(<a title=\"pkg.Ex..ExInner-ONE\" href=\"#m66\">ONE</a>)</span>.<span class=\"g\"><a title=\"pkg.Ex..ExInner-ONE.static first(int)\" href=\"#m88\">first</a>(<span class=\"g\">2</span>)</span></span></span>;\n" +
                 " public static int <a name=\"m190\">exmeth</a>(){\n" +
@@ -10707,7 +10707,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\"><span class=\"i\">pkg.Ex.ExInner</span>;\n" +
                 "public enum <a name=\"m28\">pkg.Ex</a> {;\n" +
                 "public enum <a name=\"m50\">ExInner</a> {\n" +
-                " <a name=\"m61\">ONE</a>{};\n" +
+                " <a name=\"m61\">ONE</a><span class=\"g\"></span>{};\n" +
                 "}\n" +
                 "public static boolean <span class=\"q\"><span class=\"g\"><a name=\"m92\">field</a> </span>=<span class=\"q\"> <a title=\"pkg.Ex.static method(pkg.Ex..ExInner-ONE)\" href=\"#m171\">method</a>(<span class=\"g\">$id(<a title=\"pkg.Ex\" href=\"#m28\">Ex</a>,static,<a title=\"pkg.Ex..ExInner\" href=\"#m50\">ExInner</a>..<a title=\"pkg.Ex..ExInner-ONE\" href=\"#m61\">ONE</a>)</span>,<span class=\"g\"><span class=\"g\"><a title=\"pkg.Ex..ExInner\" href=\"#m50\">ExInner</a></span>.<span class=\"g\"><a title=\"pkg.Ex..ExInner.ONE\" href=\"#m61\">ONE</a></span></span>)</span></span>;\n" +
                 "public static boolean <a name=\"m171\">method</a>(<a title=\"pkg.Ex..ExInner\" href=\"#m50\">ExInner</a>..<a title=\"pkg.Ex..ExInner-ONE\" href=\"#m61\">ONE</a> <a name=\"m191\">e</a>){\n" +
@@ -10745,7 +10745,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\"><span class=\"i\">pkg.Ex.ExInner</span>;\n" +
                 "public enum <a name=\"m28\">pkg.Ex</a> {;\n" +
                 "public enum <a name=\"m50\">ExInner</a> {\n" +
-                " <a name=\"m61\">ONE</a>{};\n" +
+                " <a name=\"m61\">ONE</a><span class=\"g\"></span>{};\n" +
                 "}\n" +
                 "public static boolean <span class=\"q\"><span class=\"g\"><a name=\"m92\">field</a> </span>=<span class=\"q\"> classchoice(<a title=\"pkg.Ex\" href=\"#m28\">Ex</a>)<a title=\"pkg.Ex.static method(pkg.Ex..ExInner-ONE)\" href=\"#m186\">method</a>(<span class=\"g\">$id(<a title=\"pkg.Ex\" href=\"#m28\">Ex</a>,static,<a title=\"pkg.Ex..ExInner\" href=\"#m50\">ExInner</a>..<a title=\"pkg.Ex..ExInner-ONE\" href=\"#m61\">ONE</a>)</span>,<span class=\"g\"><span class=\"g\"><a title=\"pkg.Ex..ExInner\" href=\"#m50\">ExInner</a></span>.<span class=\"g\"><a title=\"pkg.Ex..ExInner.ONE\" href=\"#m61\">ONE</a></span></span>)</span></span>;\n" +
                 "public static boolean <a name=\"m186\">method</a>(<a title=\"pkg.Ex..ExInner\" href=\"#m50\">ExInner</a>..<a title=\"pkg.Ex..ExInner-ONE\" href=\"#m61\">ONE</a> <a name=\"m206\">e</a>){\n" +
@@ -10783,7 +10783,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\"><span class=\"i\">pkg.Ex.ExInner</span>;\n" +
                 "public enum <a name=\"m28\">pkg.Ex</a> {;\n" +
                 "public enum <a name=\"m50\">ExInner</a> {\n" +
-                " <a name=\"m61\">ONE</a>{};\n" +
+                " <a name=\"m61\">ONE</a><span class=\"g\"></span>{};\n" +
                 "}\n" +
                 "public static boolean <span class=\"q\"><span class=\"g\"><a name=\"m92\">field</a> </span>=<span class=\"q\"> thisaccess(<a title=\"pkg.Ex\" href=\"#m28\">Ex</a>)<a title=\"pkg.Ex.static method(pkg.Ex..ExInner-ONE)\" href=\"#m185\">method</a>(<span class=\"g\">$id(<a title=\"pkg.Ex\" href=\"#m28\">Ex</a>,static,<a title=\"pkg.Ex..ExInner\" href=\"#m50\">ExInner</a>..<a title=\"pkg.Ex..ExInner-ONE\" href=\"#m61\">ONE</a>)</span>,<span class=\"g\"><span class=\"g\"><a title=\"pkg.Ex..ExInner\" href=\"#m50\">ExInner</a></span>.<span class=\"g\"><a title=\"pkg.Ex..ExInner.ONE\" href=\"#m61\">ONE</a></span></span>)</span></span>;\n" +
                 "public static boolean <a name=\"m185\">method</a>(<a title=\"pkg.Ex..ExInner\" href=\"#m50\">ExInner</a>..<a title=\"pkg.Ex..ExInner-ONE\" href=\"#m61\">ONE</a> <a name=\"m205\">e</a>){\n" +
@@ -10821,7 +10821,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\"><span class=\"i\">pkg.Ex.ExInner</span>;\n" +
                 "public enum <a name=\"m28\">pkg.Ex</a> {;\n" +
                 "public enum <a name=\"m50\">ExInner</a> {\n" +
-                " <a name=\"m61\">ONE</a>{};\n" +
+                " <a name=\"m61\">ONE</a><span class=\"g\"></span>{};\n" +
                 "}\n" +
                 "public static boolean <span class=\"q\"><span class=\"g\"><a name=\"m92\">field</a> </span>=<span class=\"q\"> thisaccess( <a title=\"pkg.Ex\" href=\"#m28\">Ex</a>) <a title=\"pkg.Ex.static method(pkg.Ex..ExInner-ONE)\" href=\"#m187\">method</a>(<span class=\"g\">$id(<a title=\"pkg.Ex\" href=\"#m28\">Ex</a>,static,<a title=\"pkg.Ex..ExInner\" href=\"#m50\">ExInner</a>..<a title=\"pkg.Ex..ExInner-ONE\" href=\"#m61\">ONE</a>)</span>,<span class=\"g\"><span class=\"g\"><a title=\"pkg.Ex..ExInner\" href=\"#m50\">ExInner</a></span>.<span class=\"g\"><a title=\"pkg.Ex..ExInner.ONE\" href=\"#m61\">ONE</a></span></span>)</span></span>;\n" +
                 "public static boolean <a name=\"m187\">method</a>(<a title=\"pkg.Ex..ExInner\" href=\"#m50\">ExInner</a>..<a title=\"pkg.Ex..ExInner-ONE\" href=\"#m61\">ONE</a> <a name=\"m207\">e</a>){\n" +
@@ -12521,7 +12521,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $enum <a name=\"m14\">pkg.ExEnum</a> {\n" +
-                "<a name=\"m27\">ONE</a>,<a name=\"m31\">TWO</a>{}\n" +
+                "<a name=\"m27\">ONE</a><span class=\"g\"></span>,<a name=\"m31\">TWO</a><span class=\"g\"></span>{}\n" +
                 "}\n" +
                 "$public $class <a name=\"m54\">pkg.Ex</a> {\n" +
                 " $public $static $int <a name=\"m85\">exmeth</a>(){\n" +

@@ -1856,7 +1856,7 @@ public final class CoverageReportZTest extends ProcessMethodCommon {
                 "}\n" +
                 "enum <a name=\"m89\">pkg.Ext</a> {\n" +
                 " <span class=\"n2\">@<a title=\"pkg.Annot\" href=\"#m56\">Annot</a>(<span class=\"n2\"><a title=\"pkg.Annot.field()\" href=\"#m73\">field</a>=<span class=\"n2\"><span class=\"n2\">new <a title=\"pkg.Int\" href=\"#m6\">Int</a>()<span class=\"t\"><a name=\"m122\">{</a>}</span></span>.<span class=\"n2\"><a title=\"pkg.Int.FIELD\" href=\"#m34\">FIELD</a></span></span></span>)</span>\n" +
-                " <a name=\"m133\">ONE</a>;\n" +
+                " <a name=\"m133\">ONE</a><span class=\"g\"></span>;\n" +
                 " static int <a name=\"m150\">m</a>(){\n" +
                 "  return <span class=\"f\">0</span>;\n" +
                 " }\n" +
@@ -1896,7 +1896,7 @@ public final class CoverageReportZTest extends ProcessMethodCommon {
                 "}\n" +
                 "enum <a name=\"m89\">pkg.Ext</a> {\n" +
                 " <span class=\"n2\">@<a title=\"pkg.Annot\" href=\"#m56\">Annot</a>(<span class=\"n2\"><a title=\"pkg.Annot.field()\" href=\"#m73\">field</a>=<span class=\"n2\"><span class=\"n2\">new <a title=\"pkg.Int\" href=\"#m6\">Int</a>()<span class=\"t\"><a name=\"m122\">{</a>}</span></span>.<span class=\"n2\"><a title=\"pkg.Int.FIELD\" href=\"#m34\">FIELD</a></span></span></span>)</span>\n" +
-                " <a name=\"m133\">ONE</a>{};\n" +
+                " <a name=\"m133\">ONE</a><span class=\"g\"></span>{};\n" +
                 " static int <a name=\"m152\">m</a>(){\n" +
                 "  return <span class=\"f\">0</span>;\n" +
                 " }\n" +
@@ -1936,7 +1936,7 @@ public final class CoverageReportZTest extends ProcessMethodCommon {
                 " int <a name=\"m106\">field</a>();\n" +
                 "}\n" +
                 "enum <a name=\"m122\">pkg.Ext</a> {\n" +
-                " <a name=\"m133\">ONE</a>{};\n" +
+                " <a name=\"m133\">ONE</a><span class=\"g\"></span>{};\n" +
                 " static int <a name=\"m152\">m</a>(){\n" +
                 "  return <span class=\"f\">0</span>;\n" +
                 " }\n" +
@@ -1976,7 +1976,7 @@ public final class CoverageReportZTest extends ProcessMethodCommon {
                 " int <a name=\"m81\">field</a>()<span class=\"n2\"><span class=\"n2\">new <a title=\"pkg.Int\" href=\"#m6\">Int</a>()<span class=\"t\"><a name=\"m97\">{</a>}</span></span>.<span class=\"n2\"><a title=\"pkg.Int.FIELD\" href=\"#m34\">FIELD</a></span></span>;\n" +
                 "}\n" +
                 "enum <a name=\"m114\">pkg.Ext</a> {\n" +
-                " <a name=\"m125\">ONE</a>{};\n" +
+                " <a name=\"m125\">ONE</a><span class=\"g\"></span>{};\n" +
                 " static int <a name=\"m144\">m</a>(){\n" +
                 "  return <span class=\"f\">0</span>;\n" +
                 " }\n" +
@@ -2016,7 +2016,7 @@ public final class CoverageReportZTest extends ProcessMethodCommon {
                 " int <a name=\"m106\">field</a>()<span class=\"n2\"><span class=\"n2\">new <a title=\"pkg.Int\" href=\"#m6\">Int</a>()<span class=\"t\"><a name=\"m122\">{</a>}</span></span>.<span class=\"n2\"><a title=\"pkg.Int.FIELD\" href=\"#m34\">FIELD</a></span></span>;\n" +
                 "}\n" +
                 "enum <a name=\"m139\">pkg.Ext</a> {\n" +
-                " <a name=\"m150\">ONE</a>{};\n" +
+                " <a name=\"m150\">ONE</a><span class=\"g\"></span>{};\n" +
                 " static int <a name=\"m169\">m</a>(){\n" +
                 "  return <span class=\"f\">0</span>;\n" +
                 " }\n" +
