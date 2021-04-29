@@ -10,10 +10,8 @@ import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.blocks.AccessedBlock;
 import code.expressionlanguage.analyze.inherits.Mapping;
-import code.expressionlanguage.inherits.Templates;
 
 import code.expressionlanguage.analyze.instr.PartOffset;
-import code.expressionlanguage.linkage.LinkageUtil;
 import code.util.*;
 import code.util.core.StringUtil;
 
@@ -32,13 +30,13 @@ final class AnaTemplatePartType extends AnaBinaryType {
 
     private String getSeparator(int _index) {
         if (_index == 0) {
-            return Templates.TEMPLATE_BEGIN;
+            return StringExpUtil.TEMPLATE_BEGIN;
         }
-        return Templates.TEMPLATE_SEP;
+        return StringExpUtil.TEMPLATE_SEP;
     }
 
     String getEnd() {
-        return Templates.TEMPLATE_END;
+        return StringExpUtil.TEMPLATE_END;
     }
     @Override
     void analyze(String _globalType, AccessedBlock _local, AccessedBlock _rooted, AnalyzedPageEl _page) {
@@ -92,15 +90,15 @@ final class AnaTemplatePartType extends AnaBinaryType {
                 break;
             }
             String arg_ = f_.getAnalyzedType();
-            if (StringUtil.quickEq(arg_, Templates.SUB_TYPE)) {
+            if (StringUtil.quickEq(arg_, StringExpUtil.SUB_TYPE)) {
                 i_++;
                 continue;
             }
-            if (arg_.startsWith(Templates.SUB_TYPE)) {
+            if (arg_.startsWith(StringExpUtil.SUB_TYPE)) {
                 i_++;
                 continue;
             }
-            if (arg_.startsWith(Templates.SUP_TYPE)) {
+            if (arg_.startsWith(StringExpUtil.SUP_TYPE)) {
                 i_++;
                 continue;
             }

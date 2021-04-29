@@ -265,7 +265,7 @@ public abstract class BeanNatCommonLgNames extends BeanLgNames {
             return (PairStruct)_arg;
         }
         String typeInst_ = _ctx.getStandards().getCoreNames().getAliasObject();
-        return new PairStruct(StringUtil.concat(TYPE_ENTRY,Templates.TEMPLATE_BEGIN,typeInst_,",",typeInst_,Templates.TEMPLATE_END),NullStruct.NULL_VALUE,NullStruct.NULL_VALUE);
+        return new PairStruct(StringUtil.concat(TYPE_ENTRY,StringExpUtil.TEMPLATE_BEGIN,typeInst_,",",typeInst_,StringExpUtil.TEMPLATE_END),NullStruct.NULL_VALUE,NullStruct.NULL_VALUE);
     }
 
     public static SimpleItrStruct getSimpleItrStruct(Struct _arg, ContextEl _ctx) {
@@ -274,7 +274,7 @@ public abstract class BeanNatCommonLgNames extends BeanLgNames {
         }
         ArrayStruct array_ = ExecArrayFieldOperation.getArray(_arg, _ctx);
         String typeInst_ = StringUtil.nullToEmpty(StringExpUtil.getQuickComponentType(array_.getClassName(_ctx)));
-        return new SimpleItrStruct(StringUtil.concat(TYPE_ITERATOR,Templates.TEMPLATE_BEGIN,typeInst_,Templates.TEMPLATE_END),array_);
+        return new SimpleItrStruct(StringUtil.concat(TYPE_ITERATOR,StringExpUtil.TEMPLATE_BEGIN,typeInst_,StringExpUtil.TEMPLATE_END),array_);
     }
 
 }

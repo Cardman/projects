@@ -19,6 +19,7 @@ public abstract class AbstractReplacingType {
     public static final char LT = '<';
 
     public static final char GT = '>';
+    public static final String PREFIX_VAR_TYPE_STR = "#";
 
     private boolean variable;
     private int diese;

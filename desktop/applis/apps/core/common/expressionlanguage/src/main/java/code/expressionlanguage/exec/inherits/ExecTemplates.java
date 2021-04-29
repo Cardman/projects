@@ -206,7 +206,7 @@ public final class ExecTemplates {
         if (_pr != null) {
             in_ = _pr;
         } else {
-            if (_cl.startsWith(Templates.ARR_BEG_STRING) || _without) {
+            if (_cl.startsWith(AbstractReplacingType.ARR_BEG_STRING) || _without) {
                 in_ = _g;
             }
         }
@@ -951,24 +951,24 @@ public final class ExecTemplates {
             }
             StringList parts_ = new StringList();
             for (String s: _classNames) {
-                if (StringUtil.quickEq(s, Templates.SUB_TYPE)) {
+                if (StringUtil.quickEq(s, StringExpUtil.SUB_TYPE)) {
                     parts_.add(s);
                     continue;
                 }
-                if (s.startsWith(Templates.SUB_TYPE)) {
-                    parts_.add(s.substring(Templates.SUB_TYPE.length()));
+                if (s.startsWith(StringExpUtil.SUB_TYPE)) {
+                    parts_.add(s.substring(StringExpUtil.SUB_TYPE.length()));
                     continue;
                 }
-                if (s.startsWith(Templates.SUP_TYPE)) {
-                    parts_.add(s.substring(Templates.SUP_TYPE.length()));
+                if (s.startsWith(StringExpUtil.SUP_TYPE)) {
+                    parts_.add(s.substring(StringExpUtil.SUP_TYPE.length()));
                     continue;
                 }
                 parts_.add(s);
             }
             StringBuilder str_ = new StringBuilder(fct_);
-            str_.append(Templates.TEMPLATE_BEGIN);
-            str_.append(StringUtil.join(parts_, Templates.TEMPLATE_SEP));
-            str_.append(Templates.TEMPLATE_END);
+            str_.append(StringExpUtil.TEMPLATE_BEGIN);
+            str_.append(StringUtil.join(parts_, StringExpUtil.TEMPLATE_SEP));
+            str_.append(StringExpUtil.TEMPLATE_END);
             return str_.toString();
         }
         GeneType root_ = _context.getClassBody(type_);

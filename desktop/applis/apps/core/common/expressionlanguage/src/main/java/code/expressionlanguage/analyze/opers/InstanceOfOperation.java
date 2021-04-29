@@ -7,7 +7,6 @@ import code.expressionlanguage.analyze.types.ResolvingTypes;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.fwd.opers.AnaTypeCheckContent;
-import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.analyze.instr.PartOffset;
 import code.expressionlanguage.options.KeyWords;
@@ -35,7 +34,7 @@ public final class InstanceOfOperation extends AbstractUnaryOperation {
         String sub_ = typeCheckContent.getClassName().substring(begin_);
         int off_ = StringUtil.getFirstPrintableCharIndex(sub_);
         String compo_ = StringExpUtil.getQuickComponentBaseType(sub_).getComponent();
-        boolean exact_ = compo_.contains(Templates.TEMPLATE_BEGIN);
+        boolean exact_ = compo_.contains(StringExpUtil.TEMPLATE_BEGIN);
         if (sub_.isEmpty()) {
             int rc_ = _page.getLocalizer().getCurrentLocationIndex() + begin_ + off_;
             FoundErrorInterpret un_ = new FoundErrorInterpret();

@@ -4,7 +4,6 @@ import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.common.ArrayResult;
 import code.maths.litteralcom.StrTypes;
 import code.expressionlanguage.common.StringExpUtil;
-import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.types.KindPartType;
 import code.util.Ints;
 import code.util.StringList;
@@ -31,7 +30,7 @@ public final class ParserType {
         StringBuilder id_ = new StringBuilder();
         while (i_ < len_) {
             char curChar_ = _input.charAt(i_);
-            if (curChar_ == Templates.LT) {
+            if (curChar_ == StringExpUtil.LT) {
                 addDot_ = false;
                 id_.delete(0, id_.length());
                 indexes_.add(i_);
@@ -39,7 +38,7 @@ public final class ParserType {
                 i_++;
                 continue;
             }
-            if (curChar_ == Templates.GT) {
+            if (curChar_ == StringExpUtil.GT) {
                 if (count_ == 0) {
                     return null;
                 }
@@ -50,7 +49,7 @@ public final class ParserType {
                 i_++;
                 continue;
             }
-            if (curChar_ == Templates.COMMA) {
+            if (curChar_ == StringExpUtil.COMMA) {
                 if (count_ == 0) {
                     return null;
                 }
@@ -60,8 +59,8 @@ public final class ParserType {
                 i_++;
                 continue;
             }
-            if (curChar_ == Templates.SEP_CLASS_CHAR) {
-                if (StringExpUtil.nextCharIs(_input, i_ + 1, len_, Templates.SEP_CLASS_CHAR)) {
+            if (curChar_ == StringExpUtil.SEP_CLASS_CHAR) {
+                if (StringExpUtil.nextCharIs(_input, i_ + 1, len_, StringExpUtil.SEP_CLASS_CHAR)) {
                     indexes_.add(i_);
                     id_.delete(0,id_.length());
                     i_+=2;
@@ -117,22 +116,22 @@ public final class ParserType {
             _a.setError(true);
             return _a;
         }
-        if (StringUtil.quickEq(_string.trim(), Templates.SUB_TYPE)) {
+        if (StringUtil.quickEq(_string.trim(), StringExpUtil.SUB_TYPE)) {
             _a.setKind(KindPartType.EMPTY_WILD_CARD);
             _a.setupValue(_string);
             return _a;
         }
-        if (_string.trim().startsWith(Templates.SUB_TYPE)) {
+        if (_string.trim().startsWith(StringExpUtil.SUB_TYPE)) {
             _a.setPrio(WILD_CARD_PRIO);
-            _a.setupWildCardValues(Templates.SUB_TYPE, _string);
+            _a.setupWildCardValues(StringExpUtil.SUB_TYPE, _string);
             return _a;
         }
-        if (_string.trim().startsWith(Templates.SUP_TYPE)) {
-            if (StringUtil.quickEq(_string.trim(), Templates.SUP_TYPE)) {
+        if (_string.trim().startsWith(StringExpUtil.SUP_TYPE)) {
+            if (StringUtil.quickEq(_string.trim(), StringExpUtil.SUP_TYPE)) {
                 _a.setError(true);
             }
             _a.setPrio(WILD_CARD_PRIO);
-            _a.setupWildCardValues(Templates.SUP_TYPE, _string);
+            _a.setupWildCardValues(StringExpUtil.SUP_TYPE, _string);
             return _a;
         }
         if (_string.trim().startsWith("~")) {
@@ -164,29 +163,29 @@ public final class ParserType {
                 i_++;
                 continue;
             }
-            if (curChar_ == Templates.LT) {
+            if (curChar_ == StringExpUtil.LT) {
                 if (count_== 0 && prio_ == TMP_PRIO) {
                     operators_.clear();
-                    operators_.addEntry(i_,Templates.TEMPLATE_BEGIN);
+                    operators_.addEntry(i_,StringExpUtil.TEMPLATE_BEGIN);
                 }
                 count_++;
             }
-            if (curChar_ == Templates.COMMA && count_ == 1 && prio_ == TMP_PRIO) {
-                operators_.addEntry(i_, Templates.TEMPLATE_SEP);
+            if (curChar_ == StringExpUtil.COMMA && count_ == 1 && prio_ == TMP_PRIO) {
+                operators_.addEntry(i_, StringExpUtil.TEMPLATE_SEP);
             }
-            if (curChar_ == Templates.GT) {
+            if (curChar_ == StringExpUtil.GT) {
                 count_--;
                 if (count_ == 0 && prio_ == TMP_PRIO) {
-                    operators_.addEntry(i_,Templates.TEMPLATE_END);
+                    operators_.addEntry(i_,StringExpUtil.TEMPLATE_END);
                 }
             }
             if (count_ == 0) {
-                if (curChar_ == Templates.SEP_CLASS_CHAR) {
+                if (curChar_ == StringExpUtil.SEP_CLASS_CHAR) {
                     if (prio_ > INT_PRIO) {
                         operators_.clear();
                         prio_ = INT_PRIO;
                     }
-                    if (StringExpUtil.nextCharIs(_string, i_ + 1, len_, Templates.SEP_CLASS_CHAR)) {
+                    if (StringExpUtil.nextCharIs(_string, i_ + 1, len_, StringExpUtil.SEP_CLASS_CHAR)) {
                         operators_.addEntry(i_,"..");
                     } else {
                         operators_.addEntry(i_,".");
@@ -207,7 +206,7 @@ public final class ParserType {
         return _a;
     }
     private static boolean isTypeLeaf(String _string) {
-        for (String p : StringUtil.splitChars(_string, Templates.SEP_CLASS_CHAR)) {
+        for (String p : StringUtil.splitChars(_string, StringExpUtil.SEP_CLASS_CHAR)) {
             if (!StringExpUtil.isTypeLeafPart(p.trim())) {
                 return false;
             }

@@ -14,7 +14,6 @@ import code.expressionlanguage.analyze.inherits.Mapping;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.fwd.opers.AnaArrContent;
-import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
@@ -74,7 +73,7 @@ public final class CallDynMethodOperation extends InvokingOperation implements P
                 m_.classMethodId(fct_,id_);
                 String retBase_;
                 boolean refRet_;
-                if (StringUtil.quickEq(ret_, Templates.SUB_TYPE)) {
+                if (StringUtil.quickEq(ret_, StringExpUtil.SUB_TYPE)) {
                     retBase_ = _page.getAliasObject();
                     refRet_ = false;
                 } else if (ret_.startsWith("~")) {
@@ -89,7 +88,7 @@ public final class CallDynMethodOperation extends InvokingOperation implements P
                 StringList cls_ = new StringList();
                 BooleanList refs_ = new BooleanList();
                 for (String c: param_) {
-                    if (StringUtil.quickEq(c, Templates.SUB_TYPE)) {
+                    if (StringUtil.quickEq(c, StringExpUtil.SUB_TYPE)) {
                         cls_.add(_page.getAliasObject());
                         refs_.add(false);
                     } else if (c.startsWith("~")) {
@@ -395,7 +394,7 @@ public final class CallDynMethodOperation extends InvokingOperation implements P
         }
         boolean allParamWildCard_ = true;
         for (String p :param_) {
-            if (!StringUtil.quickEq(p, Templates.SUB_TYPE)) {
+            if (!StringUtil.quickEq(p, StringExpUtil.SUB_TYPE)) {
                 allParamWildCard_ = false;
                 break;
             }
@@ -466,7 +465,7 @@ public final class CallDynMethodOperation extends InvokingOperation implements P
             }
         }
         String void_ = _page.getAliasVoid();
-        if (StringUtil.quickEq(ret_, void_) || StringUtil.quickEq(ret_, Templates.SUB_TYPE)) {
+        if (StringUtil.quickEq(ret_, void_) || StringUtil.quickEq(ret_, StringExpUtil.SUB_TYPE)) {
             ret_ = _page.getAliasObject();
         }
         if (!ret_.startsWith("~")) {

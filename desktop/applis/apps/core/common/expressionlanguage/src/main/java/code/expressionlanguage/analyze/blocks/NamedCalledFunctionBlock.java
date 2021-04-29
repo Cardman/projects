@@ -29,7 +29,6 @@ import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.functionid.MethodModifier;
 import code.expressionlanguage.fwd.blocks.AnaAnonFctContent;
-import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.linkage.ExportCst;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.stds.DisplayedStrings;
@@ -216,7 +215,7 @@ public final class NamedCalledFunctionBlock extends NamedFunctionBlock {
         int sum_ = 0;
         for (String o: overrideList_) {
             _page.setOffset(sum_);
-            int indexDef_ = o.indexOf(Templates.EXTENDS_DEF);
+            int indexDef_ = o.indexOf(StringExpUtil.EXTENDS_DEF);
             StringList parts_ = StringUtil.splitInTwo(o, indexDef_);
             if (parts_.size() <= 1) {
                 sum_ += o.length()+1;

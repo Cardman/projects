@@ -18,7 +18,6 @@ import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.functionid.ConstructorId;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.fwd.opers.AnaInstancingCommonContent;
-import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.analyze.instr.PartOffset;
 import code.expressionlanguage.options.KeyWords;
@@ -126,7 +125,7 @@ public abstract class AbstractInstancingOperation extends InvokingOperation {
             typeAff_ = i_.getImportedClassName();
             if (!typeAff_.isEmpty()) {
                 String iter_ = _page.getAliasIterable();
-                typeAff_ = StringUtil.concat(iter_,Templates.TEMPLATE_BEGIN,typeAff_,Templates.TEMPLATE_END);
+                typeAff_ = StringUtil.concat(iter_,StringExpUtil.TEMPLATE_BEGIN,typeAff_,StringExpUtil.TEMPLATE_END);
             }
         } else if (m_ == null && _page.getCurrentAnaBlockForEachTable() != null) {
             ImportForEachTable i_ = _page.getCurrentAnaBlockForEachTable();
@@ -134,7 +133,7 @@ public abstract class AbstractInstancingOperation extends InvokingOperation {
             String typeAffTwo_ = i_.getImportedClassNameSecond();
             if (!typeAffOne_.isEmpty() && !typeAffTwo_.isEmpty()) {
                 String iter_ = _page.getAliasIterableTable();
-                typeAff_ = StringUtil.concat(iter_,Templates.TEMPLATE_BEGIN,typeAffOne_,Templates.TEMPLATE_SEP,typeAffTwo_,Templates.TEMPLATE_END);
+                typeAff_ = StringUtil.concat(iter_,StringExpUtil.TEMPLATE_BEGIN,typeAffOne_,StringExpUtil.TEMPLATE_SEP,typeAffTwo_,StringExpUtil.TEMPLATE_END);
             }
         } else {
             typeAff_ = tryGetTypeAff(m_, par_.getOperationChild().getIndexChild());

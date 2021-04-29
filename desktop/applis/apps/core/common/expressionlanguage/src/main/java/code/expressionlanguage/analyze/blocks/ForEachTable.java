@@ -16,7 +16,6 @@ import code.expressionlanguage.analyze.errors.custom.*;
 import code.expressionlanguage.analyze.files.OffsetStringInfo;
 import code.expressionlanguage.analyze.inherits.Mapping;
 import code.expressionlanguage.functionid.MethodAccessKind;
-import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.analyze.instr.ElUtil;
 import code.expressionlanguage.analyze.instr.PartOffset;
 import code.expressionlanguage.analyze.opers.Calculation;
@@ -233,11 +232,11 @@ public final class ForEachTable extends AbstractForLoop implements Loop,ImportFo
             String type_ = _types.first();
             Mapping mapping_ = new Mapping();
             String paramArg_ = StringExpUtil.getAllTypes(type_).get(1);
-            if (StringUtil.quickEq(paramArg_, Templates.SUB_TYPE)) {
+            if (StringUtil.quickEq(paramArg_, StringExpUtil.SUB_TYPE)) {
                 paramArg_ = _page.getAliasObject();
-            } else if (paramArg_.startsWith(Templates.SUB_TYPE)) {
-                paramArg_ = paramArg_.substring(Templates.SUB_TYPE.length());
-            } else if (paramArg_.startsWith(Templates.SUP_TYPE)){
+            } else if (paramArg_.startsWith(StringExpUtil.SUB_TYPE)) {
+                paramArg_ = paramArg_.substring(StringExpUtil.SUB_TYPE.length());
+            } else if (paramArg_.startsWith(StringExpUtil.SUP_TYPE)){
                 paramArg_ = _page.getAliasObject();
             }
             if (StringUtil.quickEq(classNameFirst.trim(), keyWordVar_)) {
@@ -261,11 +260,11 @@ public final class ForEachTable extends AbstractForLoop implements Loop,ImportFo
             }
             mapping_ = new Mapping();
             paramArg_ = StringExpUtil.getAllTypes(type_).last();
-            if (StringUtil.quickEq(paramArg_, Templates.SUB_TYPE)) {
+            if (StringUtil.quickEq(paramArg_, StringExpUtil.SUB_TYPE)) {
                 paramArg_ = _page.getAliasObject();
-            } else if (paramArg_.startsWith(Templates.SUB_TYPE)) {
-                paramArg_ = paramArg_.substring(Templates.SUB_TYPE.length());
-            } else if (paramArg_.startsWith(Templates.SUP_TYPE)){
+            } else if (paramArg_.startsWith(StringExpUtil.SUB_TYPE)) {
+                paramArg_ = paramArg_.substring(StringExpUtil.SUB_TYPE.length());
+            } else if (paramArg_.startsWith(StringExpUtil.SUP_TYPE)){
                 paramArg_ = _page.getAliasObject();
             }
             if (StringUtil.quickEq(classNameSecond.trim(), keyWordVar_)) {

@@ -1,7 +1,7 @@
 package code.expressionlanguage.exec.types;
 
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.inherits.Templates;
+import code.expressionlanguage.common.AbstractReplacingType;
 import code.util.core.StringUtil;
 
 final class ExecArraryPartType extends ExecParentPartType {
@@ -16,7 +16,7 @@ final class ExecArraryPartType extends ExecParentPartType {
 
     @Override
     String getBegin() {
-        return Templates.ARR_BEG_STRING;
+        return AbstractReplacingType.ARR_BEG_STRING;
     }
 
     @Override

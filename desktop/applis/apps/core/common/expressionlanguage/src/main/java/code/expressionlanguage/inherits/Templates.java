@@ -7,23 +7,12 @@ import code.util.core.StringUtil;
 
 public final class Templates {
 
-    public static final String ARR_BEG_STRING = "[";
-    public static final String TEMPLATE_SEP = ",";
-    public static final String TEMPLATE_END = ">";
-    public static final String TEMPLATE_BEGIN = "<";
-    public static final char EXTENDS_DEF = ':';
-    public static final char SEP_BOUNDS = '&';
     public static final char SEP_CLASS_CHAR = '.';
-    public static final String PREFIX_VAR_TYPE = "#";
-    public static final String SUB_TYPE = "?";
-    public static final String SUP_TYPE = "!";
-    public static final String INNER_TYPE = "..";
 
     public static final char LT = '<';
 
     public static final char GT = '>';
 
-    public static final char COMMA = ',';
     private Templates() {
     }
 

@@ -29,6 +29,8 @@ public final class StringExpUtil {
     public static final char GT = '>';
 
     public static final char COMMA = ',';
+    public static final char EXTENDS_DEF = ':';
+    public static final char SEP_BOUNDS = '&';
 
     private StringExpUtil() {
     }
@@ -222,6 +224,23 @@ public final class StringExpUtil {
         return repl_.formattedType(_type,_varTypes);
     }
 
+    public static StringMap<String> getVarTypes(StringList _paramTypesValues, String _className){
+        StringList types_ = StringExpUtil.getAllTypes(_className);
+        return getVarTypes(_paramTypesValues,types_);
+    }
+    public static StringMap<String> getVarTypes(StringList _paramTypesValues, StringList _typesIn){
+        StringMap<String> varTypes_ = new StringMap<String>();
+        int i_ = IndexConstants.FIRST_INDEX;
+        for (String t: _paramTypesValues) {
+            i_++;
+            if (!_typesIn.isValidIndex(i_)) {
+                return varTypes_;
+            }
+            String arg_ = _typesIn.get(i_);
+            varTypes_.put(t, arg_);
+        }
+        return varTypes_;
+    }
     /** Splits by double dots the input string into parts<br/>
      Sample 1: "int" => ["int"]<br/>
      Sample 2: "int..long" => ["int","long"]<br/>

@@ -8,7 +8,6 @@ import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.errors.custom.GraphicErrorInterpret;
 import code.expressionlanguage.functionid.MethodAccessKind;
-import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.options.KeyWords;
 import code.util.*;
 import code.util.core.IndexConstants;
@@ -1164,7 +1163,7 @@ public final class FileResolver {
                     expressionOffest_ = fieldOffest_;
                     expressionOffest_ += fieldName_.length();
                 }
-                int indexTmp_ = fieldName_.indexOf(Templates.TEMPLATE_BEGIN);
+                int indexTmp_ = fieldName_.indexOf(StringExpUtil.TEMPLATE_BEGIN);
                 String tmpPart_ = EMPTY_STRING;
                 int templateOffset_ = 0;
                 if (indexTmp_ > -1) {

@@ -2,10 +2,7 @@ package code.expressionlanguage.exec;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.common.AccessEnum;
-import code.expressionlanguage.common.FileMetrics;
-import code.expressionlanguage.common.GeneType;
-import code.expressionlanguage.common.StringExpUtil;
+import code.expressionlanguage.common.*;
 import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
@@ -15,7 +12,6 @@ import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.expressionlanguage.functionid.ConstructorId;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
-import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.stds.*;
 import code.expressionlanguage.structs.*;
 import code.util.CustList;
@@ -232,22 +228,22 @@ public final class MetaInfoUtil {
     }
 
     public static ClassMetaInfo getExtendedClassMetaInfo(ContextEl _context, String _name, String _variableOwner) {
-        if (StringUtil.quickEq(_name, Templates.SUB_TYPE)) {
+        if (StringUtil.quickEq(_name, StringExpUtil.SUB_TYPE)) {
             StringList upperBounds_ = new StringList();
             StringList lowerBounds_ = new StringList();
             return new ClassMetaInfo(_name, ClassCategory.WILD_CARD,upperBounds_, lowerBounds_, _variableOwner, AccessEnum.PUBLIC);
         }
-        if (_name.startsWith(Templates.SUB_TYPE)) {
-            StringList upperBounds_ = new StringList(_name.substring(Templates.SUB_TYPE.length()));
+        if (_name.startsWith(StringExpUtil.SUB_TYPE)) {
+            StringList upperBounds_ = new StringList(_name.substring(StringExpUtil.SUB_TYPE.length()));
             StringList lowerBounds_ = new StringList();
             return new ClassMetaInfo(_name, ClassCategory.WILD_CARD,upperBounds_, lowerBounds_, _variableOwner, AccessEnum.PUBLIC);
         }
-        if (_name.startsWith(Templates.SUP_TYPE)) {
+        if (_name.startsWith(StringExpUtil.SUP_TYPE)) {
             StringList upperBounds_ = new StringList();
-            StringList lowerBounds_ = new StringList(_name.substring(Templates.SUB_TYPE.length()));
+            StringList lowerBounds_ = new StringList(_name.substring(StringExpUtil.SUB_TYPE.length()));
             return new ClassMetaInfo(_name, ClassCategory.WILD_CARD,upperBounds_, lowerBounds_, _variableOwner, AccessEnum.PUBLIC);
         }
-        if (_name.startsWith(Templates.PREFIX_VAR_TYPE)) {
+        if (_name.startsWith(AbstractReplacingType.PREFIX_VAR_TYPE_STR)) {
             StringList upperBounds_ = new StringList();
             StringList lowerBounds_ = new StringList();
             return new ClassMetaInfo(_name, ClassCategory.VARIABLE,upperBounds_, lowerBounds_, _variableOwner, AccessEnum.PUBLIC);
@@ -257,7 +253,7 @@ public final class MetaInfoUtil {
             StringList lowerBounds_ = new StringList(_name.substring("~".length()));
             return new ClassMetaInfo(_name, ClassCategory.REF_TYPE,upperBounds_, lowerBounds_, _variableOwner, AccessEnum.PUBLIC);
         }
-        if (_name.startsWith(Templates.ARR_BEG_STRING)&&_name.contains(Templates.PREFIX_VAR_TYPE)) {
+        if (_name.startsWith(AbstractReplacingType.ARR_BEG_STRING)&&_name.contains(AbstractReplacingType.PREFIX_VAR_TYPE_STR)) {
             return new ClassMetaInfo(_name, _context, ClassCategory.ARRAY, _variableOwner);
         }
         return getClassMetaInfo(_context,_name);
@@ -275,7 +271,7 @@ public final class MetaInfoUtil {
         if (ExecClassArgumentMatching.isPrimitive(_name, _context)) {
             return new ClassMetaInfo(_name, _context, ClassCategory.PRIMITIVE,"");
         }
-        if (_name.startsWith(Templates.ARR_BEG_STRING)) {
+        if (_name.startsWith(AbstractReplacingType.ARR_BEG_STRING)) {
             return new ClassMetaInfo(_name, _context, ClassCategory.ARRAY, "");
         }
         String base_ = StringExpUtil.getIdFromAllTypes(_name);

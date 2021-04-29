@@ -9,9 +9,7 @@ import code.maths.litteralcom.StrTypes;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.blocks.AccessedBlock;
-import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.analyze.instr.PartOffset;
-import code.expressionlanguage.linkage.LinkageUtil;
 import code.util.*;
 import code.util.core.StringUtil;
 
@@ -214,7 +212,7 @@ public final class AnaPartTypeUtil {
         if (root_ == null) {
             return false;
         }
-        if (!_exact && !_className.getResult().contains(Templates.TEMPLATE_BEGIN)) {
+        if (!_exact && !_className.getResult().contains(StringExpUtil.TEMPLATE_BEGIN)) {
             appendParts(root_,_parts, _page);
             return true;
         }

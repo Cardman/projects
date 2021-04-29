@@ -14,6 +14,7 @@ import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.analyze.opers.StandardInstancingOperation;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.Delimiters;
+import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.*;
 import code.expressionlanguage.exec.opers.ExecArrayFieldOperation;
 import code.expressionlanguage.functionid.ConstructorId;
@@ -67,7 +68,7 @@ public abstract class BeanTestNatLgNames extends BeanNatCommonLgNames {
     @Override
     public Argument iteratorMultTable(Struct _arg, Configuration _cont, ContextEl _ctx, StackCall _stack, RendStackCall _rendStack) {
         ArrayStruct array_ = ExecArrayFieldOperation.getArray(_arg, _ctx);
-        return new Argument(new SimpleItrStruct(StringUtil.concat(TYPE_ITERATOR,Templates.TEMPLATE_BEGIN, TYPE_ENTRY,Templates.TEMPLATE_BEGIN, "?,?",Templates.TEMPLATE_END,Templates.TEMPLATE_END),array_));
+        return new Argument(new SimpleItrStruct(StringUtil.concat(TYPE_ITERATOR,StringExpUtil.TEMPLATE_BEGIN, TYPE_ENTRY,StringExpUtil.TEMPLATE_BEGIN, "?,?",StringExpUtil.TEMPLATE_END,StringExpUtil.TEMPLATE_END),array_));
     }
 
     @Override
@@ -100,7 +101,7 @@ public abstract class BeanTestNatLgNames extends BeanNatCommonLgNames {
     @Override
     public Argument iteratorList(Struct _arg, Configuration _cont, ContextEl _ctx, StackCall _stack, RendStackCall _rendStack) {
         ArrayStruct array_ = ExecArrayFieldOperation.getArray(_arg, _ctx);
-        return new Argument(new SimpleItrStruct(StringUtil.concat(TYPE_ITERATOR,Templates.TEMPLATE_BEGIN,"?",Templates.TEMPLATE_END),array_));
+        return new Argument(new SimpleItrStruct(StringUtil.concat(TYPE_ITERATOR, StringExpUtil.TEMPLATE_BEGIN,"?",StringExpUtil.TEMPLATE_END),array_));
     }
 
     @Override

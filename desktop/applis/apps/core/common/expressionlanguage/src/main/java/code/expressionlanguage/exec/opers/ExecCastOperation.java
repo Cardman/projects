@@ -12,7 +12,6 @@ import code.expressionlanguage.exec.util.ExecFunctionalInfo;
 import code.expressionlanguage.functionid.IdentifiableUtil;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.fwd.opers.ExecTypeCheckContent;
-import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.stds.LgNames;
@@ -90,6 +89,6 @@ public final class ExecCastOperation extends ExecAbstractUnaryOperation {
         } else {
             paramsReturn_.add(_returnType);
         }
-        return StringUtil.concat(fctBase_, Templates.TEMPLATE_BEGIN, StringUtil.join(paramsReturn_, Templates.TEMPLATE_SEP), Templates.TEMPLATE_END);
+        return StringUtil.concat(fctBase_, StringExpUtil.TEMPLATE_BEGIN, StringUtil.join(paramsReturn_, StringExpUtil.TEMPLATE_SEP), StringExpUtil.TEMPLATE_END);
     }
 }

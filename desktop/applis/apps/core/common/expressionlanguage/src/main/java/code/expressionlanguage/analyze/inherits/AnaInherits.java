@@ -430,21 +430,11 @@ public final class AnaInherits {
     }
 
     public static StringMap<String> getVarTypes(AnaGeneType _root, String _className) {
-        StringList types_ = StringExpUtil.getAllTypes(_className);
         StringMap<String> varTypes_ = new StringMap<String>();
         if (_root == null) {
             return varTypes_;
         }
-        int i_ = IndexConstants.FIRST_INDEX;
-        for (String t: _root.getParamTypesValues()) {
-            i_++;
-            if (!types_.isValidIndex(i_)) {
-                return varTypes_;
-            }
-            String arg_ = types_.get(i_);
-            varTypes_.put(t, arg_);
-        }
-        return varTypes_;
+        return StringExpUtil.getVarTypes(_root.getParamTypesValues(),_className);
     }
 
     public static boolean correctNbParameters(AnaGeneType _info, String _genericClass, AnalyzedPageEl _page) {

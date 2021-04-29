@@ -2,7 +2,7 @@ package code.expressionlanguage.analyze.types;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.AccessedBlock;
-import code.expressionlanguage.inherits.Templates;
+import code.expressionlanguage.common.StringExpUtil;
 
 final class AnaEmptyWildCardPart extends AnaLeafPartType {
 
@@ -29,7 +29,7 @@ final class AnaEmptyWildCardPart extends AnaLeafPartType {
         if (!(getParent() instanceof AnaTemplatePartType)) {
             return;
         }
-        setAnalyzedType(Templates.SUB_TYPE);
+        setAnalyzedType(StringExpUtil.SUB_TYPE);
     }
 
 }

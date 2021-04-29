@@ -5,7 +5,6 @@ import code.expressionlanguage.analyze.files.ParsedAnnotations;
 import code.expressionlanguage.common.Delimiters;
 import code.expressionlanguage.common.StackDelimiters;
 import code.expressionlanguage.common.StringExpUtil;
-import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.options.KeyWords;
 import code.util.core.StringUtil;
 
@@ -199,12 +198,12 @@ public final class DefaultProcessKeyWord implements AbstractProcessKeyWord {
         int len_ = _exp.length();
         while (j_ < len_) {
             char curLoc_ = _exp.charAt(j_);
-            if (curLoc_ == Templates.LT) {
+            if (curLoc_ == StringExpUtil.LT) {
                 count_++;
                 j_++;
                 continue;
             }
-            if (curLoc_ == Templates.GT) {
+            if (curLoc_ == StringExpUtil.GT) {
                 count_--;
                 j_++;
                 continue;

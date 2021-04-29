@@ -1,11 +1,11 @@
 package code.expressionlanguage.exec.types;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.common.AbstractReplacingType;
 import code.expressionlanguage.common.ArrayResult;
 import code.maths.litteralcom.StrTypes;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.inherits.ExecInherits;
-import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.types.KindPartType;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
@@ -15,6 +15,7 @@ public final class ExecPartTypeUtil {
     public static final int ARR_PRIO = 2;
     public static final int INT_PRIO = 3;
     public static final int TMP_PRIO = 4;
+    public static final String INNER_TYPE = "..";
 
     private ExecPartTypeUtil(){
     }
@@ -324,22 +325,22 @@ public final class ExecPartTypeUtil {
             a_.setupValueExec(_string);
             return a_;
         }
-        if (StringUtil.quickEq(_string.trim(), Templates.SUB_TYPE)) {
+        if (StringUtil.quickEq(_string.trim(), StringExpUtil.SUB_TYPE)) {
             a_.setKind(KindPartType.EMPTY_WILD_CARD);
             a_.setupValueExec(_string);
             return a_;
         }
-        if (_string.trim().startsWith(Templates.SUB_TYPE)) {
+        if (_string.trim().startsWith(StringExpUtil.SUB_TYPE)) {
             a_.setPrio(WILD_CARD_PRIO);
-            a_.setupUnaryValuesExec(_string, Templates.SUB_TYPE);
+            a_.setupUnaryValuesExec(_string, StringExpUtil.SUB_TYPE);
             return a_;
         }
-        if (_string.trim().startsWith(Templates.SUP_TYPE)) {
-            if (StringUtil.quickEq(_string.trim(), Templates.SUP_TYPE)) {
+        if (_string.trim().startsWith(StringExpUtil.SUP_TYPE)) {
+            if (StringUtil.quickEq(_string.trim(), StringExpUtil.SUP_TYPE)) {
                 a_.setError(true);
             }
             a_.setPrio(WILD_CARD_PRIO);
-            a_.setupUnaryValuesExec(_string, Templates.SUP_TYPE);
+            a_.setupUnaryValuesExec(_string, StringExpUtil.SUP_TYPE);
             return a_;
         }
         if (_string.trim().startsWith("~")) {
@@ -361,9 +362,9 @@ public final class ExecPartTypeUtil {
             }
             return a_;
         }
-        if (_string.trim().startsWith(Templates.ARR_BEG_STRING)) {
+        if (_string.trim().startsWith(AbstractReplacingType.ARR_BEG_STRING)) {
             a_.setPrio(ARR_PRIO);
-            a_.setupUnaryValuesExec(_string, Templates.ARR_BEG_STRING);
+            a_.setupUnaryValuesExec(_string, AbstractReplacingType.ARR_BEG_STRING);
             return a_;
         }
         int count_ = 0;
@@ -372,30 +373,30 @@ public final class ExecPartTypeUtil {
         int prio_ = TMP_PRIO;
         while (i_ < len_) {
             char curChar_ = _string.charAt(i_);
-            if (curChar_ == Templates.LT) {
+            if (curChar_ == StringExpUtil.LT) {
                 if (count_== 0 && prio_ == TMP_PRIO) {
                     operators_.clear();
-                    operators_.addEntry(i_,Templates.TEMPLATE_BEGIN);
+                    operators_.addEntry(i_,StringExpUtil.TEMPLATE_BEGIN);
                 }
                 count_++;
             }
-            if (curChar_ == Templates.COMMA && count_ == 1 && prio_ == TMP_PRIO) {
-                operators_.addEntry(i_, Templates.TEMPLATE_SEP);
+            if (curChar_ == StringExpUtil.COMMA && count_ == 1 && prio_ == TMP_PRIO) {
+                operators_.addEntry(i_, StringExpUtil.TEMPLATE_SEP);
             }
-            if (curChar_ == Templates.GT) {
+            if (curChar_ == StringExpUtil.GT) {
                 count_--;
                 if (count_ == 0 && prio_ == TMP_PRIO) {
-                    operators_.addEntry(i_,Templates.TEMPLATE_END);
+                    operators_.addEntry(i_,StringExpUtil.TEMPLATE_END);
                 }
             }
             if (count_ == 0) {
-                if (_string.startsWith(Templates.INNER_TYPE,i_) || curChar_ == '-') {
+                if (_string.startsWith(StringExpUtil.INNER_TYPE,i_) || curChar_ == '-') {
                     if (prio_ > INT_PRIO) {
                         operators_.clear();
                         prio_ = INT_PRIO;
                     }
-                    if (curChar_ == Templates.SEP_CLASS_CHAR){
-                        operators_.addEntry(i_,Templates.INNER_TYPE);
+                    if (curChar_ == StringExpUtil.SEP_CLASS_CHAR){
+                        operators_.addEntry(i_, INNER_TYPE);
                         i_++;
                     } else {
                         operators_.addEntry(i_,"-");
@@ -415,16 +416,16 @@ public final class ExecPartTypeUtil {
         int i_ = 0;
         while (i_ < len_) {
             char curChar_ = _input.charAt(i_);
-            if (curChar_ == Templates.LT) {
+            if (curChar_ == StringExpUtil.LT) {
                 count_++;
             }
-            if (curChar_ == Templates.GT) {
+            if (curChar_ == StringExpUtil.GT) {
                 if (count_ == 0) {
                     return false;
                 }
                 count_--;
             }
-            if (curChar_ == Templates.COMMA) {
+            if (curChar_ == StringExpUtil.COMMA) {
                 if (count_ == 0) {
                     return false;
                 }

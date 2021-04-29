@@ -14,7 +14,6 @@ import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.analyze.util.FormattedMethodId;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
-import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.analyze.instr.PartOffset;
 import code.expressionlanguage.analyze.instr.PartOffsetsClassMethodId;
 import code.expressionlanguage.analyze.instr.PartOffsetsClassMethodIdList;
@@ -48,7 +47,7 @@ public final class InternOverrideBlock extends Leaf {
         int sum_ = 0;
         for (String o: overrideList_) {
             _page.setOffset(sum_);
-            int indexDef_ = o.indexOf(Templates.EXTENDS_DEF);
+            int indexDef_ = o.indexOf(StringExpUtil.EXTENDS_DEF);
             StringList parts_ = StringUtil.splitInTwo(o, indexDef_);
             StringList superMethods_ = new StringList();
             String key_ = parts_.first();

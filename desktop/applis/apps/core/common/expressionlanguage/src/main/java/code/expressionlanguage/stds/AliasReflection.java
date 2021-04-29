@@ -12,7 +12,6 @@ import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.expressionlanguage.exec.types.ExecPartTypeUtil;
 import code.expressionlanguage.exec.util.Cache;
 import code.expressionlanguage.functionid.*;
-import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.structs.*;
 import code.util.*;
 import code.util.core.StringUtil;
@@ -1344,18 +1343,18 @@ public final class AliasReflection {
             Struct isUpper_ = _args[0];
             String nameCl_ = instanceClass_.getName();
             if (!(isUpper_ instanceof BooleanStruct)) {
-                result_.setResult(MetaInfoUtil.getExtendedClassMetaInfo(_cont,Templates.SUB_TYPE, instanceClass_));
+                result_.setResult(MetaInfoUtil.getExtendedClassMetaInfo(_cont,StringExpUtil.SUB_TYPE, instanceClass_));
                 return result_;
             }
-            if (StringUtil.quickEq(nameCl_,Templates.SUB_TYPE)) {
-                result_.setResult(MetaInfoUtil.getExtendedClassMetaInfo(_cont,Templates.SUB_TYPE, instanceClass_));
+            if (StringUtil.quickEq(nameCl_,StringExpUtil.SUB_TYPE)) {
+                result_.setResult(MetaInfoUtil.getExtendedClassMetaInfo(_cont,StringExpUtil.SUB_TYPE, instanceClass_));
                 return result_;
             }
             String baseWildCard_ = extractName(nameCl_);
             if (BooleanStruct.isTrue(isUpper_)) {
-                result_.setResult(MetaInfoUtil.getExtendedClassMetaInfo(_cont, StringUtil.concat(Templates.SUB_TYPE,baseWildCard_), instanceClass_));
+                result_.setResult(MetaInfoUtil.getExtendedClassMetaInfo(_cont, StringUtil.concat(StringExpUtil.SUB_TYPE,baseWildCard_), instanceClass_));
             } else {
-                result_.setResult(MetaInfoUtil.getExtendedClassMetaInfo(_cont, StringUtil.concat(Templates.SUP_TYPE,baseWildCard_), instanceClass_));
+                result_.setResult(MetaInfoUtil.getExtendedClassMetaInfo(_cont, StringUtil.concat(StringExpUtil.SUP_TYPE,baseWildCard_), instanceClass_));
             }
             return result_;
         }
@@ -1425,7 +1424,7 @@ public final class AliasReflection {
         }
         if (StringUtil.quickEq(name_, ref_.aliasIsInstance)) {
             String param_ = instanceClass_.getName();
-            if (param_.contains(Templates.PREFIX_VAR_TYPE)) {
+            if (param_.contains(AbstractReplacingType.PREFIX_VAR_TYPE_STR)) {
                 result_.setResult(BooleanStruct.of(false));
                 return result_;
             }
@@ -1801,11 +1800,11 @@ public final class AliasReflection {
         if (StringUtil.quickEq(name_, ref_.aliasGetComponentType)) {
             String clName_ = instanceClass_.getName();
             String baseWildCard_ = baseWildCard(lgNames_, clName_);
-            if (!baseWildCard_.startsWith(Templates.ARR_BEG_STRING)) {
+            if (!baseWildCard_.startsWith(AbstractReplacingType.ARR_BEG_STRING)) {
                 result_.setResult(NullStruct.NULL_VALUE);
                 return result_;
             }
-            String compName_ = baseWildCard_.substring(Templates.ARR_BEG_STRING.length());
+            String compName_ = baseWildCard_.substring(AbstractReplacingType.ARR_BEG_STRING.length());
             return buildClassInfo(_cont, result_, instanceClass_, compName_);
         }
         if (StringUtil.quickEq(name_, ref_.aliasMakeGeneric)) {
@@ -1835,7 +1834,7 @@ public final class AliasReflection {
                 _stackCall.setCallingState(new CustomFoundExc(getClassIssue(_cont, clDyn_, lgNames_.getContent().getCoreNames().getAliasIllegalArg(), _stackCall)));
                 return result_;
             }
-            if (clDyn_.contains(Templates.PREFIX_VAR_TYPE)) {
+            if (clDyn_.contains(AbstractReplacingType.PREFIX_VAR_TYPE_STR)) {
                 _stackCall.setCallingState(new CustomFoundExc(getClassIssue(_cont, clDyn_, lgNames_.getContent().getCoreNames().getAliasIllegalArg(), _stackCall)));
                 return result_;
             }
@@ -1954,10 +1953,10 @@ public final class AliasReflection {
     private static ResultErrorStd buildClassInfo(ContextEl _cont, ResultErrorStd _result, ClassMetaInfo _cl, String _typeName) {
         String clName_ = _cl.getName();
         String pre_ = "";
-        if (clName_.startsWith(Templates.SUB_TYPE)) {
-            pre_ = Templates.SUB_TYPE;
-        } else if (clName_.startsWith(Templates.SUP_TYPE)) {
-            pre_ = Templates.SUP_TYPE;
+        if (clName_.startsWith(StringExpUtil.SUB_TYPE)) {
+            pre_ = StringExpUtil.SUB_TYPE;
+        } else if (clName_.startsWith(StringExpUtil.SUP_TYPE)) {
+            pre_ = StringExpUtil.SUP_TYPE;
         } else if (clName_.startsWith("~")) {
             pre_ = "~";
         }
@@ -1970,10 +1969,10 @@ public final class AliasReflection {
 
     private static String extractName(String _nameCl) {
         String pre_ = _nameCl;
-        if (_nameCl.startsWith(Templates.SUB_TYPE)) {
-            pre_ = _nameCl.substring(Templates.SUB_TYPE.length());
-        } else if (_nameCl.startsWith(Templates.SUP_TYPE)) {
-            pre_ = _nameCl.substring(Templates.SUP_TYPE.length());
+        if (_nameCl.startsWith(StringExpUtil.SUB_TYPE)) {
+            pre_ = _nameCl.substring(StringExpUtil.SUB_TYPE.length());
+        } else if (_nameCl.startsWith(StringExpUtil.SUP_TYPE)) {
+            pre_ = _nameCl.substring(StringExpUtil.SUP_TYPE.length());
         } else if (_nameCl.startsWith("~")) {
             pre_ = _nameCl.substring("~".length());
         }
@@ -1982,12 +1981,12 @@ public final class AliasReflection {
 
     private static String baseWildCard(LgNames _lgNames, String _clName) {
         String baseWildCard_ = _clName;
-        if (StringUtil.quickEq(_clName, Templates.SUB_TYPE)) {
+        if (StringUtil.quickEq(_clName, StringExpUtil.SUB_TYPE)) {
             baseWildCard_ = _lgNames.getContent().getCoreNames().getAliasObject();
-        } else if (_clName.startsWith(Templates.SUB_TYPE)) {
-            baseWildCard_ = _clName.substring(Templates.SUB_TYPE.length());
-        } else if (_clName.startsWith(Templates.SUP_TYPE)) {
-            baseWildCard_ = _clName.substring(Templates.SUP_TYPE.length());
+        } else if (_clName.startsWith(StringExpUtil.SUB_TYPE)) {
+            baseWildCard_ = _clName.substring(StringExpUtil.SUB_TYPE.length());
+        } else if (_clName.startsWith(StringExpUtil.SUP_TYPE)) {
+            baseWildCard_ = _clName.substring(StringExpUtil.SUP_TYPE.length());
         } else if (_clName.startsWith("~")) {
             baseWildCard_ = _clName.substring("~".length());
         }

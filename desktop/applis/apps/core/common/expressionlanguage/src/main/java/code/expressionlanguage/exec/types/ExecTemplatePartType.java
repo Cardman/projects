@@ -6,7 +6,6 @@ import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.common.StringExpUtil;
 
 import code.expressionlanguage.exec.inherits.ExecInherits;
-import code.expressionlanguage.inherits.Templates;
 
 import code.util.CustList;
 import code.util.StringList;
@@ -29,18 +28,18 @@ final class ExecTemplatePartType extends ExecBinaryType {
 
     private static String getSeparator(int _index) {
         if (_index == 0) {
-            return Templates.TEMPLATE_BEGIN;
+            return StringExpUtil.TEMPLATE_BEGIN;
         }
-        return Templates.TEMPLATE_SEP;
+        return StringExpUtil.TEMPLATE_SEP;
     }
 
     @Override
     String getPrettyEnd() {
-        return Templates.TEMPLATE_END;
+        return StringExpUtil.TEMPLATE_END;
     }
     @Override
     String getEnd() {
-        return Templates.TEMPLATE_END;
+        return StringExpUtil.TEMPLATE_END;
     }
 
     @Override
@@ -61,13 +60,13 @@ final class ExecTemplatePartType extends ExecBinaryType {
         for (int i = 0; i < len_; i++) {
             StringList t_ = boundsAll_.get(i);
             String arg_ = ch_.get(i+1).getAnalyzedType();
-            if (StringUtil.quickEq(arg_, Templates.SUB_TYPE)) {
+            if (StringUtil.quickEq(arg_, StringExpUtil.SUB_TYPE)) {
                 continue;
             }
-            if (arg_.startsWith(Templates.SUB_TYPE)) {
+            if (arg_.startsWith(StringExpUtil.SUB_TYPE)) {
                 continue;
             }
-            if (arg_.startsWith(Templates.SUP_TYPE)) {
+            if (arg_.startsWith(StringExpUtil.SUP_TYPE)) {
                 continue;
             }
             String comp_ = arg_;

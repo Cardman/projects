@@ -25,7 +25,6 @@ import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.errors.custom.GraphicErrorInterpret;
 import code.expressionlanguage.analyze.files.FileResolver;
 import code.expressionlanguage.functionid.*;
-import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.linkage.ExportCst;
 import code.expressionlanguage.stds.StandardClass;
 import code.expressionlanguage.stds.StandardType;
@@ -506,7 +505,7 @@ public final class ClassesUtil {
         int tempOff_ = _root.getTemplateDefOffset() + 1;
         for (String p: params_.mid(IndexConstants.SECOND_INDEX)) {
             TypeVar type_ = new TypeVar();
-            int indexDef_ = p.indexOf(Templates.EXTENDS_DEF);
+            int indexDef_ = p.indexOf(StringExpUtil.EXTENDS_DEF);
             StringList parts_ = StringUtil.splitInTwo(p, indexDef_);
             String id_ = parts_.first();
             id_ = id_.trim();
@@ -569,7 +568,7 @@ public final class ClassesUtil {
             if (indexDef_ != IndexConstants.INDEX_NOT_FOUND_ELT) {
                 int begin_ = indexDef_ + tempOff_;
                 Ints ct_ = new Ints();
-                for (String b: StringUtil.splitChars(parts_.last().substring(1), Templates.SEP_BOUNDS)) {
+                for (String b: StringUtil.splitChars(parts_.last().substring(1), StringExpUtil.SEP_BOUNDS)) {
                     int off_ = begin_ + StringUtil.getFirstPrintableCharIndex(b);
                     constraints_.add(b);
                     ct_.add(off_);
@@ -597,14 +596,14 @@ public final class ClassesUtil {
                 for (TypeVar t:_root.getParamTypes()) {
                     vars_.add(StringUtil.concat(AnaInherits.PREFIX_VAR_TYPE,t.getName()));
                 }
-                generic_.append(Templates.TEMPLATE_BEGIN);
-                generic_.append(StringUtil.join(vars_, Templates.TEMPLATE_SEP));
-                generic_.append(Templates.TEMPLATE_END);
+                generic_.append(StringExpUtil.TEMPLATE_BEGIN);
+                generic_.append(StringUtil.join(vars_, StringExpUtil.TEMPLATE_SEP));
+                generic_.append(StringExpUtil.TEMPLATE_END);
             }
             StringBuilder sBuild_ = new StringBuilder(_page.getAliasEnumParam());
-            sBuild_.append(Templates.TEMPLATE_BEGIN);
+            sBuild_.append(StringExpUtil.TEMPLATE_BEGIN);
             sBuild_.append(generic_);
-            sBuild_.append(Templates.TEMPLATE_END);
+            sBuild_.append(StringExpUtil.TEMPLATE_END);
             String type_ = sBuild_.toString();
             _root.getDirectSuperTypes().add(type_);
             _root.getExplicitDirectSuperTypes().put(-1, false);

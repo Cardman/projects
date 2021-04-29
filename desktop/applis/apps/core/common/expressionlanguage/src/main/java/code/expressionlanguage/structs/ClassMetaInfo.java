@@ -3,6 +3,7 @@ package code.expressionlanguage.structs;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.common.AbstractReplacingType;
 import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.blocks.ExecAbstractSwitchMethod;
@@ -13,7 +14,6 @@ import code.expressionlanguage.exec.opers.ExecCastOperation;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.expressionlanguage.exec.util.ExecTypeVar;
-import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.common.AccessEnum;
 import code.expressionlanguage.exec.ClassCategory;
 import code.util.CustList;
@@ -269,10 +269,10 @@ public final class ClassMetaInfo extends AbsAnnotatedStruct implements Annotated
         String id_ = StringExpUtil.getIdFromAllTypes(variableOwner);
         ExecRootBlock g_ = _cont.getClasses().getClassBody(id_);
         String varName_ = "";
-        if (!name.startsWith(Templates.PREFIX_VAR_TYPE)) {
+        if (!name.startsWith(AbstractReplacingType.PREFIX_VAR_TYPE_STR)) {
             g_ = null;
         } else {
-            varName_ = name.substring(Templates.PREFIX_VAR_TYPE.length());
+            varName_ = name.substring(AbstractReplacingType.PREFIX_VAR_TYPE_STR.length());
         }
         if (g_ == null) {
             return list_;
@@ -300,7 +300,7 @@ public final class ClassMetaInfo extends AbsAnnotatedStruct implements Annotated
         StringList upperBounds_ = new StringList();
         StringList lowerBounds_ = new StringList();
         for (ExecTypeVar b: vars_) {
-            String pref_ = StringUtil.concat(Templates.PREFIX_VAR_TYPE, b.getName());
+            String pref_ = StringUtil.concat(AbstractReplacingType.PREFIX_VAR_TYPE_STR, b.getName());
             list_.add(new ClassMetaInfo(pref_, ClassCategory.VARIABLE, upperBounds_, lowerBounds_, name, g_.getAccess()));
         }
         return list_;
@@ -349,7 +349,7 @@ public final class ClassMetaInfo extends AbsAnnotatedStruct implements Annotated
     }
 
     public boolean isVariable() {
-        return name.contains(Templates.PREFIX_VAR_TYPE);
+        return name.contains(AbstractReplacingType.PREFIX_VAR_TYPE_STR);
     }
 
     public boolean isTypeVariable() {

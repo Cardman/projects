@@ -15,10 +15,7 @@ import code.expressionlanguage.inherits.MatchingEnum;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.stds.PrimitiveType;
 import code.expressionlanguage.stds.StandardType;
-import code.expressionlanguage.structs.NullStruct;
-import code.expressionlanguage.structs.Struct;
 import code.util.*;
-import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 
 public final class ExecInherits {
@@ -231,16 +228,7 @@ public final class ExecInherits {
         if (_root == null) {
             return varTypes_;
         }
-        int i_ = IndexConstants.FIRST_INDEX;
-        for (String t: _root.getParamTypesValues()) {
-            i_++;
-            if (!_types.isValidIndex(i_)) {
-                return varTypes_;
-            }
-            String arg_ = _types.get(i_);
-            varTypes_.put(t, arg_);
-        }
-        return varTypes_;
+        return StringExpUtil.getVarTypes(_root.getParamTypesValues(),_types);
     }
 
     public static String toWrapper(String _class, LgNames _stds) {

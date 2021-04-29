@@ -18,7 +18,6 @@ import code.expressionlanguage.analyze.errors.custom.*;
 import code.expressionlanguage.analyze.files.OffsetAccessInfo;
 import code.expressionlanguage.functionid.*;
 import code.expressionlanguage.fwd.blocks.AnaRootBlockContent;
-import code.expressionlanguage.inherits.*;
 import code.expressionlanguage.analyze.instr.ElUtil;
 import code.expressionlanguage.analyze.instr.PartOffset;
 import code.expressionlanguage.analyze.opers.Calculation;
@@ -1942,11 +1941,11 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                 StringList vars_ = new StringList();
                 int count_ = r.rootBlockContent.getParamTypes().size();
                 for (int i = 0; i < count_; i++) {
-                    vars_.add(Templates.SUB_TYPE);
+                    vars_.add(StringExpUtil.SUB_TYPE);
                 }
-                generic_.append(Templates.TEMPLATE_BEGIN);
-                generic_.append(StringUtil.join(vars_, Templates.TEMPLATE_SEP));
-                generic_.append(Templates.TEMPLATE_END);
+                generic_.append(StringExpUtil.TEMPLATE_BEGIN);
+                generic_.append(StringUtil.join(vars_, StringExpUtil.TEMPLATE_SEP));
+                generic_.append(StringExpUtil.TEMPLATE_END);
             }
             previous_ = r;
         }
@@ -2001,9 +2000,9 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                 for (TypeVar t: r.rootBlockContent.getParamTypes()) {
                     vars_.add(StringUtil.concat(AnaInherits.PREFIX_VAR_TYPE,t.getName()));
                 }
-                generic_.append(Templates.TEMPLATE_BEGIN);
-                generic_.append(StringUtil.join(vars_, Templates.TEMPLATE_SEP));
-                generic_.append(Templates.TEMPLATE_END);
+                generic_.append(StringExpUtil.TEMPLATE_BEGIN);
+                generic_.append(StringUtil.join(vars_, StringExpUtil.TEMPLATE_SEP));
+                generic_.append(StringExpUtil.TEMPLATE_END);
             }
             previous_ = r;
         }
