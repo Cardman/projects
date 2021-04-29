@@ -3223,14 +3223,15 @@ public final class LinkageUtil {
                         beginInst_, lengthInst_,
                         errs_, errs_);
             } else {
-                InnerTypeOrElement innerElt_ = ((StandardInstancingOperation) inst_).getInnerElt();
+                StandardInstancingOperation instStd_ = (StandardInstancingOperation) inst_;
+                InnerTypeOrElement innerElt_ = instStd_.getInnerElt();
                 if (innerElt_ == null) {
                     addParts(_vars, constructor_,
                             beginInst_, lengthInst_,
                             errs_, errs_);
                     _vars.addParts(inst_.getPartOffsets());
                 } else {
-                    StringList mergedErrs_ = new StringList(((StandardInstancingOperation) inst_).getErrorsFields());
+                    StringList mergedErrs_ = new StringList(instStd_.getErrorsFields());
                     mergedErrs_.addAllElts(errs_);
                     nameId(_vars, inst_, innerElt_.getUniqueFieldName(), mergedErrs_, innerElt_.getFieldNameOffset());
                     _vars.addParts(innerElt_.getTypePartOffsets());
