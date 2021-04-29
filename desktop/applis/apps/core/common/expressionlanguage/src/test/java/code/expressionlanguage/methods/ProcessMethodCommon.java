@@ -293,6 +293,9 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
         return InitializationLgNames.buildStdOneAna(opt_);
     }
 
+    protected static StringMap<String> export(ContextEl _cont) {
+        return ExecFileBlock.export(_cont);
+    }
     protected static ContextEl covEnReadOnly(StringMap<String> _files) {
         AnalyzedTestContext cont_ = ontextElCoverageReadOnlyEn();
         return validateCovAndRet(_files, cont_);
