@@ -3212,22 +3212,28 @@ public final class LinkageUtil {
 
     private static void processInstances(VariablesOffsets _vars, int _sum, OperationNode _val) {
         if (_val instanceof AbstractInstancingOperation) {
-            AnaTypeFct constructor_ = ((AbstractInstancingOperation) _val).getConstructor();
             AbstractInstancingOperation inst_ = (AbstractInstancingOperation) _val;
-            if (!(inst_ instanceof StandardInstancingOperation)||((StandardInstancingOperation)inst_).getInnerElt() == null) {
-                int offsetNew_ = StringUtil.getFirstPrintableCharIndex(inst_.getMethodName());
+            AnaTypeFct constructor_ = inst_.getConstructor();
+            int offsetNew_ = StringUtil.getFirstPrintableCharIndex(inst_.getMethodName());
+            int beginInst_ = offsetNew_ + _sum + _val.getIndexInEl();
+            int lengthInst_ = _vars.getKeyWords().getKeyWordNew().length();
+            if (!(inst_ instanceof StandardInstancingOperation)) {
                 addParts(_vars, constructor_,
-                        offsetNew_+_sum + _val.getIndexInEl(),_vars.getKeyWords().getKeyWordNew().length(),
-                        _val.getErrs(),_val.getErrs());
-                if (inst_ instanceof StandardInstancingOperation){
-                    _vars.addParts(inst_.getPartOffsets());
-                }
+                        beginInst_, lengthInst_,
+                        _val.getErrs(), _val.getErrs());
             } else {
-                StringList mergedErrs_ = new StringList(((StandardInstancingOperation) inst_).getErrorsFields());
-                mergedErrs_.addAllElts(inst_.getErrs());
                 InnerTypeOrElement innerElt_ = ((StandardInstancingOperation) inst_).getInnerElt();
-                nameId(_vars, inst_, innerElt_.getUniqueFieldName(), mergedErrs_, innerElt_.getFieldNameOffset());
-                _vars.addParts(innerElt_.getTypePartOffsets());
+                if (innerElt_ == null) {
+                    addParts(_vars, constructor_,
+                            beginInst_, lengthInst_,
+                            _val.getErrs(), _val.getErrs());
+                    _vars.addParts(inst_.getPartOffsets());
+                } else {
+                    StringList mergedErrs_ = new StringList(((StandardInstancingOperation) inst_).getErrorsFields());
+                    mergedErrs_.addAllElts(inst_.getErrs());
+                    nameId(_vars, inst_, innerElt_.getUniqueFieldName(), mergedErrs_, innerElt_.getFieldNameOffset());
+                    _vars.addParts(innerElt_.getTypePartOffsets());
+                }
             }
         }
         if (_val instanceof DimensionArrayInstancing) {
