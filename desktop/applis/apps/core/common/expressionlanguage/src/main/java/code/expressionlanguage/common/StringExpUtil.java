@@ -805,13 +805,52 @@ public final class StringExpUtil {
         return j_;
     }
     public static boolean isOper(String _op) {
+        if(isUnOther(_op)) {
+            return true;
+        }
+        if(isUnNum(_op)) {
+            return true;
+        }
+        if(isBinNum(_op)) {
+            return true;
+        }
+        if(isLogical(_op)) {
+            return true;
+        }
+        if(isBitwise(_op)) {
+            return true;
+        }
+        if(isEq(_op)) {
+            return true;
+        }
+        if(isCmp(_op)) {
+            return true;
+        }
+        return isShiftOper(_op);
+    }
+    public static boolean isUnNum(String _op) {
+        if(StringUtil.quickEq(_op, "+")) {
+            return true;
+        }
+        return StringUtil.quickEq(_op, "-");
+    }
+    public static boolean isUnOther(String _op) {
+        if(StringUtil.quickEq(_op, "!")) {
+            return true;
+        }
+        if(StringUtil.quickEq(_op, "~")) {
+            return true;
+        }
+        if(StringUtil.quickEq(_op, "++")) {
+            return true;
+        }
+        return StringUtil.quickEq(_op, "--");
+    }
+    public static boolean isBinNum(String _op) {
         if(StringUtil.quickEq(_op, "+")) {
             return true;
         }
         if(StringUtil.quickEq(_op, "-")) {
-            return true;
-        }
-        if(StringUtil.quickEq(_op, "!")) {
             return true;
         }
         if(StringUtil.quickEq(_op, "*")) {
@@ -820,15 +859,12 @@ public final class StringExpUtil {
         if(StringUtil.quickEq(_op, "/")) {
             return true;
         }
-        if(StringUtil.quickEq(_op, "%")) {
-            return true;
-        }
-        if(StringUtil.quickEq(_op, "==")) {
-            return true;
-        }
-        if(StringUtil.quickEq(_op, "!=")) {
-            return true;
-        }
+        return StringUtil.quickEq(_op, "%");
+    }
+    public static boolean isEq(String _op) {
+        return StringUtil.quickEq(_op, "==") || StringUtil.quickEq(_op, "!=");
+    }
+    public static boolean isCmp(String _op) {
         if(StringUtil.quickEq(_op, "<=")) {
             return true;
         }
@@ -838,27 +874,21 @@ public final class StringExpUtil {
         if(StringUtil.quickEq(_op, ">=")) {
             return true;
         }
-        if(StringUtil.quickEq(_op, "<")) {
-            return true;
-        }
+        return StringUtil.quickEq(_op, "<");
+    }
+    public static boolean isBitwise(String _op) {
         if(StringUtil.quickEq(_op, "&")) {
             return true;
         }
         if(StringUtil.quickEq(_op, "|")) {
             return true;
         }
-        if(StringUtil.quickEq(_op, "&&")) {
-            return true;
-        }
-        if(StringUtil.quickEq(_op, "||")) {
-            return true;
-        }
-        if(StringUtil.quickEq(_op, "^")) {
-            return true;
-        }
-        if(StringUtil.quickEq(_op, "~")) {
-            return true;
-        }
+        return StringUtil.quickEq(_op, "^");
+    }
+    public static boolean isLogical(String _op) {
+        return StringUtil.quickEq(_op, "&&") || StringUtil.quickEq(_op, "||");
+    }
+    public static boolean isShiftOper(String _op) {
         if(StringUtil.quickEq(_op, "<<")) {
             return true;
         }
@@ -874,13 +904,7 @@ public final class StringExpUtil {
         if(StringUtil.quickEq(_op, "<<<<")) {
             return true;
         }
-        if(StringUtil.quickEq(_op, ">>>>")) {
-            return true;
-        }
-        if(StringUtil.quickEq(_op, "++")) {
-            return true;
-        }
-        return StringUtil.quickEq(_op, "--");
+        return StringUtil.quickEq(_op, ">>>>");
     }
     public static boolean startsWithArobaseKeyWord(String _found, String _keyWord) {
         return startsWithArobaseKeyWord(_found,0,_keyWord);

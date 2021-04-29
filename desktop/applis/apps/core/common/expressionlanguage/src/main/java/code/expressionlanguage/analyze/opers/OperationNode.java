@@ -1491,8 +1491,7 @@ public abstract class OperationNode {
             return op_;
         }
         CustList<StringList> groups_ = new CustList<StringList>();
-        if (StringUtil.quickEq(_op,"+")
-                || StringUtil.quickEq(_op,"-")) {
+        if (StringExpUtil.isUnNum(_op)) {
             StringList group_ = new StringList();
             group_.add(_page.getAliasPrimInteger());
             group_.add(_page.getAliasPrimLong());
@@ -1647,11 +1646,7 @@ public abstract class OperationNode {
             }
         }
         CustList<CustList<ParamReturn>> groups_ = new CustList<CustList<ParamReturn>>();
-        if (StringUtil.quickEq(_op,"+")
-                || StringUtil.quickEq(_op,"-")
-                || StringUtil.quickEq(_op,"*")
-                || StringUtil.quickEq(_op,"/")
-                || StringUtil.quickEq(_op,"%")) {
+        if (StringExpUtil.isBinNum(_op)) {
             CustList<ParamReturn> group_ = new CustList<ParamReturn>();
             group_.add(new ParamReturn(_page.getAliasPrimInteger(), _page.getAliasPrimInteger()));
             group_.add(new ParamReturn(_page.getAliasPrimLong(), _page.getAliasPrimLong()));
@@ -1660,10 +1655,7 @@ public abstract class OperationNode {
             group_.add(new ParamReturn(_page.getAliasPrimFloat(), _page.getAliasPrimFloat()));
             group_.add(new ParamReturn(_page.getAliasPrimDouble(), _page.getAliasPrimDouble()));
             groups_.add(group_);
-        } else if (StringUtil.quickEq(_op,"<")
-                || StringUtil.quickEq(_op,"<=")
-                || StringUtil.quickEq(_op,">")
-                || StringUtil.quickEq(_op,">=")) {
+        } else if (StringExpUtil.isCmp(_op)) {
             CustList<ParamReturn> group_ = new CustList<ParamReturn>();
             group_.add(new ParamReturn(_page.getAliasPrimInteger(), _page.getAliasPrimBoolean()));
             group_.add(new ParamReturn(_page.getAliasPrimLong(), _page.getAliasPrimBoolean()));
@@ -1672,25 +1664,17 @@ public abstract class OperationNode {
             group_.add(new ParamReturn(_page.getAliasPrimFloat(), _page.getAliasPrimBoolean()));
             group_.add(new ParamReturn(_page.getAliasPrimDouble(), _page.getAliasPrimBoolean()));
             groups_.add(group_);
-        } else if (StringUtil.quickEq(_op,"&")
-                || StringUtil.quickEq(_op,"|")
-                || StringUtil.quickEq(_op,"^")) {
+        } else if (StringExpUtil.isBitwise(_op)) {
             CustList<ParamReturn> group_ = new CustList<ParamReturn>();
             group_.add(new ParamReturn(_page.getAliasPrimBoolean(), _page.getAliasPrimBoolean()));
             group_.add(new ParamReturn(_page.getAliasPrimInteger(), _page.getAliasPrimInteger()));
             group_.add(new ParamReturn(_page.getAliasPrimLong(), _page.getAliasPrimLong()));
             groups_.add(group_);
-        } else if (StringUtil.quickEq(_op,"&&")
-                || StringUtil.quickEq(_op,"||")) {
+        } else if (StringExpUtil.isLogical(_op)) {
             CustList<ParamReturn> group_ = new CustList<ParamReturn>();
             group_.add(new ParamReturn(_page.getAliasPrimBoolean(), _page.getAliasPrimBoolean()));
             groups_.add(group_);
-        } else if (StringUtil.quickEq(_op,"<<")
-                || StringUtil.quickEq(_op,">>")
-                || StringUtil.quickEq(_op,"<<<")
-                || StringUtil.quickEq(_op,">>>")
-                || StringUtil.quickEq(_op,"<<<<")
-                || StringUtil.quickEq(_op,">>>>")) {
+        } else if (StringExpUtil.isShiftOper(_op)) {
             CustList<ParamReturn> group_ = new CustList<ParamReturn>();
             group_.add(new ParamReturn(_page.getAliasPrimInteger(), _page.getAliasPrimInteger()));
             group_.add(new ParamReturn(_page.getAliasPrimLong(), _page.getAliasPrimLong()));
@@ -1826,15 +1810,13 @@ public abstract class OperationNode {
             }
             return false;
         }
-        if (StringUtil.quickEq(_op,"-") || StringUtil.quickEq(_op,"*")
-                || StringUtil.quickEq(_op,"/") || StringUtil.quickEq(_op,"%")) {
+        if (StringExpUtil.isBinNum(_op)) {
             if (AnaTypeUtil.isIntOrderClass(_left,_right, _page)) {
                 return true;
             }
             return AnaTypeUtil.isFloatOrderClass(_left, _right, _page);
         }
-        if (StringUtil.quickEq(_op,"<") || StringUtil.quickEq(_op,">")
-                || StringUtil.quickEq(_op,"<=") || StringUtil.quickEq(_op,">=")) {
+        if (StringExpUtil.isCmp(_op)) {
             if (AnaTypeUtil.isIntOrderClass(_left,_right, _page)) {
                 return true;
             }
@@ -1844,19 +1826,16 @@ public abstract class OperationNode {
             return _left.matchClass(_page.getAliasString())
                     &&_right.matchClass(_page.getAliasString());
         }
-        if (StringUtil.quickEq(_op,"&") || StringUtil.quickEq(_op,"|")
-                || StringUtil.quickEq(_op,"^")) {
+        if (StringExpUtil.isBitwise(_op)) {
             if (AnaTypeUtil.isIntOrderClass(_left,_right, _page)) {
                 return true;
             }
             return _left.isBoolType(_page)&&_right.isBoolType(_page);
         }
-        if (StringUtil.quickEq(_op,"&&") || StringUtil.quickEq(_op,"||")) {
+        if (StringExpUtil.isLogical(_op)) {
             return _left.isBoolType(_page)&&_right.isBoolType(_page);
         }
-        if (StringUtil.quickEq(_op,"<<") || StringUtil.quickEq(_op,">>")
-                || StringUtil.quickEq(_op,"<<<") || StringUtil.quickEq(_op,">>>")
-                || StringUtil.quickEq(_op,"<<<<") || StringUtil.quickEq(_op,">>>>")) {
+        if (StringExpUtil.isShiftOper(_op)) {
             return AnaTypeUtil.isIntOrderClass(_left,_right, _page);
         }
         if (AnaTypeUtil.isIntOrderClass(_left,_right, _page)) {
