@@ -309,7 +309,7 @@ public final class NumParsers {
             long longValue_ = parseLongSixteen(merged_.toString());
             double parsed_ = (double) longValue_;
             long delta_ = expNbLong_;
-            delta_ -= 4 * dec_.length();
+            delta_ -= 4L * dec_.length();
             double p_ = 1.0;
             long absExpNbLong_ = Math.abs(delta_);
             for (int i = 0; i < absExpNbLong_; i++) {
@@ -347,7 +347,7 @@ public final class NumParsers {
             long longValue_ = parseLongBase(merged_.toString(), 8);
             double parsed_ = (double) longValue_;
             long delta_ = expNbLong_;
-            delta_ -= 3*dec_.length();
+            delta_ -= 3L*dec_.length();
             double p_ = 1.0;
             long absExpNbLong_ = Math.abs(delta_);
             for (int i = 0; i < absExpNbLong_; i++) {
