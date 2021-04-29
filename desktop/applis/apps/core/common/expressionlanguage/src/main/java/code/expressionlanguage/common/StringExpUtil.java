@@ -1059,43 +1059,46 @@ public final class StringExpUtil {
         boolean arr_ = true;
         while (true) {
             char locChar_ = _string.charAt(j_);
-            if (StringUtil.isWhitespace(locChar_)) {
-                j_--;
-                continue;
-            }
-            if (locChar_ != ']') {
-                arr_ = false;
-            }
-            break;
-        }
-        if (arr_) {
-            j_--;
-            while (j_ >= 0) {
-                char locChar_ = _string.charAt(j_);
-                if (StringUtil.isWhitespace(locChar_)) {
-                    j_--;
-                    continue;
+            if (!StringUtil.isWhitespace(locChar_)) {
+                if (locChar_ != ']') {
+                    arr_ = false;
                 }
+                break;
+            }
+            j_--;
+        }
+        if (!arr_) {
+            return ArrayResult.NONE;
+        }
+        j_--;
+        while (j_ >= 0) {
+            char locChar_ = _string.charAt(j_);
+            if (!StringUtil.isWhitespace(locChar_)) {
                 if (locChar_ != '[') {
                     arr_ = false;
                 }
                 break;
             }
+            j_--;
         }
-        if (arr_) {
-            if (j_ >= 0) {
-                String str_ = _string.substring(0, j_);
-                int last_ = StringUtil.getLastPrintableCharIndex(str_);
-                if (last_ < 0) {
-                    return ArrayResult.ERROR;
-                }
-                _values.addEntry(IndexConstants.FIRST_INDEX, str_);
-                _operators.addEntry(j_, _string.substring(j_));
-                return ArrayResult.OK;
-            }
+        if (!arr_) {
+            return ArrayResult.NONE;
+        }
+        return errorOrOk(_string, _values, _operators, j_);
+    }
+
+    private static ArrayResult errorOrOk(String _string, StrTypes _values, StrTypes _operators, int _j) {
+        if (_j < 0) {
             return ArrayResult.ERROR;
         }
-        return ArrayResult.NONE;
+        String str_ = _string.substring(0, _j);
+        int last_ = StringUtil.getLastPrintableCharIndex(str_);
+        if (last_ < 0) {
+            return ArrayResult.ERROR;
+        }
+        _values.addEntry(IndexConstants.FIRST_INDEX, str_);
+        _operators.addEntry(_j, _string.substring(_j));
+        return ArrayResult.OK;
     }
 
     public static boolean customCast(String _type) {
