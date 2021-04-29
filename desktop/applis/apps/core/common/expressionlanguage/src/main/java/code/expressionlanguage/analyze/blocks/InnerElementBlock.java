@@ -110,9 +110,7 @@ public final class InnerElementBlock extends RootBlock implements InnerTypeOrEle
         int trOffset_ = retrieveTr(newKeyWord_);
         trOffset = trOffset_;
         _page.setTranslatedOffset(trOffset_);
-        int index_ = getIndex();
-        _page.setIndexChildType(index_);
-        res.setRoot(ElUtil.getRootAnalyzedOperationsReadOnly(res, fullInstance_, new Calculation(elementContent.getFieldName()), _page));
+        res.setRoot(ElUtil.getRootAnalyzedOperationsReadOnly(res, fullInstance_, new Calculation(this, getNameErrors()), _page));
         ReachOperationUtil.tryCalculate(res.getRoot(), _page);
         _page.setTranslatedOffset(0);
     }
@@ -129,16 +127,6 @@ public final class InnerElementBlock extends RootBlock implements InnerTypeOrEle
         return elementContent.diffTr(_newKeyWord);
     }
 
-
-    private int getIndex() {
-        int index_ = 0;
-        AbsBk n_ = getPreviousSibling();
-        while (n_ != null) {
-            index_++;
-            n_ = n_.getPreviousSibling();
-        }
-        return index_;
-    }
 
     @Override
     public boolean withoutInstance() {

@@ -529,7 +529,7 @@ public final class CoverageReportZTest extends ProcessMethodCommon {
                 " int <a name=\"m25\">field</a>();\n" +
                 "}\n" +
                 "enum <a name=\"m41\">pkg.Ext</a> {\n" +
-                " <a name=\"m52\" title=\"pkg.Ext-ONE.pkg.Ext-ONE(pkg.Int)\" href=\"#m200\">ONE</a><span class=\"g\">(<span class=\"g\"><a title=\"pkg.Ext..Int*1.pkg.Ext..Int*1(int)\" href=\"#m113\">new</a> <a title=\"pkg.Int\" href=\"#m10\">Int</a>(<span class=\"g\">1</span>)<span class=\"t\"><a name=\"m66\">{</a>\n" +
+                " <span class=\"g\"><a name=\"m52\" title=\"pkg.Ext-ONE.pkg.Ext-ONE(pkg.Int)\" href=\"#m200\">ONE</a>(<span class=\"g\"><a title=\"pkg.Ext..Int*1.pkg.Ext..Int*1(int)\" href=\"#m113\">new</a> <a title=\"pkg.Int\" href=\"#m10\">Int</a>(<span class=\"g\">1</span>)<span class=\"t\"><a name=\"m66\">{</a>\n" +
                 "  static int <span class=\"g\"><a name=\"m81\">extField</a></span>;\n" +
                 "  public int <span class=\"g\"><a name=\"m104\">field</a></span>;\n" +
                 "  <a name=\"m113\">public Int(</a>int <a name=\"m128\">p</a>){\n" +
@@ -590,7 +590,7 @@ public final class CoverageReportZTest extends ProcessMethodCommon {
                 " int <a name=\"m25\">field</a>();\n" +
                 "}\n" +
                 "enum <a name=\"m41\">pkg.Ext</a> {\n" +
-                " <a name=\"m52\" title=\"pkg.Ext.pkg.Ext(pkg.Int)\" href=\"#m211\">ONE</a><span class=\"g\">(<span class=\"g\"><a title=\"pkg.Ext..Int*1.pkg.Ext..Int*1(int)\" href=\"#m113\">new</a> <a title=\"pkg.Int\" href=\"#m10\">Int</a>(<span class=\"g\">1</span>)<span class=\"t\"><a name=\"m66\">{</a>\n" +
+                " <span class=\"g\"><a name=\"m52\" title=\"pkg.Ext.pkg.Ext(pkg.Int)\" href=\"#m211\">ONE</a>(<span class=\"g\"><a title=\"pkg.Ext..Int*1.pkg.Ext..Int*1(int)\" href=\"#m113\">new</a> <a title=\"pkg.Int\" href=\"#m10\">Int</a>(<span class=\"g\">1</span>)<span class=\"t\"><a name=\"m66\">{</a>\n" +
                 "  static int <span class=\"g\"><a name=\"m81\">extField</a></span>;\n" +
                 "  public int <span class=\"g\"><a name=\"m104\">field</a></span>;\n" +
                 "  <a name=\"m113\">public Int(</a>int <a name=\"m128\">p</a>){\n" +
@@ -1856,7 +1856,7 @@ public final class CoverageReportZTest extends ProcessMethodCommon {
                 "}\n" +
                 "enum <a name=\"m89\">pkg.Ext</a> {\n" +
                 " <span class=\"n2\">@<a title=\"pkg.Annot\" href=\"#m56\">Annot</a>(<span class=\"n2\"><a title=\"pkg.Annot.field()\" href=\"#m73\">field</a>=<span class=\"n2\"><span class=\"n2\">new <a title=\"pkg.Int\" href=\"#m6\">Int</a>()<span class=\"t\"><a name=\"m122\">{</a>}</span></span>.<span class=\"n2\"><a title=\"pkg.Int.FIELD\" href=\"#m34\">FIELD</a></span></span></span>)</span>\n" +
-                " <a name=\"m133\">ONE</a><span class=\"g\"></span>;\n" +
+                " <span class=\"g\"><a name=\"m133\">ONE</a></span>;\n" +
                 " static int <a name=\"m150\">m</a>(){\n" +
                 "  return <span class=\"f\">0</span>;\n" +
                 " }\n" +
@@ -1896,7 +1896,7 @@ public final class CoverageReportZTest extends ProcessMethodCommon {
                 "}\n" +
                 "enum <a name=\"m89\">pkg.Ext</a> {\n" +
                 " <span class=\"n2\">@<a title=\"pkg.Annot\" href=\"#m56\">Annot</a>(<span class=\"n2\"><a title=\"pkg.Annot.field()\" href=\"#m73\">field</a>=<span class=\"n2\"><span class=\"n2\">new <a title=\"pkg.Int\" href=\"#m6\">Int</a>()<span class=\"t\"><a name=\"m122\">{</a>}</span></span>.<span class=\"n2\"><a title=\"pkg.Int.FIELD\" href=\"#m34\">FIELD</a></span></span></span>)</span>\n" +
-                " <a name=\"m133\">ONE</a><span class=\"g\"></span>{};\n" +
+                " <span class=\"g\"><a name=\"m133\">ONE</a></span>{};\n" +
                 " static int <a name=\"m152\">m</a>(){\n" +
                 "  return <span class=\"f\">0</span>;\n" +
                 " }\n" +
@@ -1936,7 +1936,7 @@ public final class CoverageReportZTest extends ProcessMethodCommon {
                 " int <a name=\"m106\">field</a>();\n" +
                 "}\n" +
                 "enum <a name=\"m122\">pkg.Ext</a> {\n" +
-                " <a name=\"m133\">ONE</a><span class=\"g\"></span>{};\n" +
+                " <span class=\"g\"><a name=\"m133\">ONE</a></span>{};\n" +
                 " static int <a name=\"m152\">m</a>(){\n" +
                 "  return <span class=\"f\">0</span>;\n" +
                 " }\n" +
@@ -1976,7 +1976,7 @@ public final class CoverageReportZTest extends ProcessMethodCommon {
                 " int <a name=\"m81\">field</a>()<span class=\"n2\"><span class=\"n2\">new <a title=\"pkg.Int\" href=\"#m6\">Int</a>()<span class=\"t\"><a name=\"m97\">{</a>}</span></span>.<span class=\"n2\"><a title=\"pkg.Int.FIELD\" href=\"#m34\">FIELD</a></span></span>;\n" +
                 "}\n" +
                 "enum <a name=\"m114\">pkg.Ext</a> {\n" +
-                " <a name=\"m125\">ONE</a><span class=\"g\"></span>{};\n" +
+                " <span class=\"g\"><a name=\"m125\">ONE</a></span>{};\n" +
                 " static int <a name=\"m144\">m</a>(){\n" +
                 "  return <span class=\"f\">0</span>;\n" +
                 " }\n" +
@@ -2016,7 +2016,7 @@ public final class CoverageReportZTest extends ProcessMethodCommon {
                 " int <a name=\"m106\">field</a>()<span class=\"n2\"><span class=\"n2\">new <a title=\"pkg.Int\" href=\"#m6\">Int</a>()<span class=\"t\"><a name=\"m122\">{</a>}</span></span>.<span class=\"n2\"><a title=\"pkg.Int.FIELD\" href=\"#m34\">FIELD</a></span></span>;\n" +
                 "}\n" +
                 "enum <a name=\"m139\">pkg.Ext</a> {\n" +
-                " <a name=\"m150\">ONE</a><span class=\"g\"></span>{};\n" +
+                " <span class=\"g\"><a name=\"m150\">ONE</a></span>{};\n" +
                 " static int <a name=\"m169\">m</a>(){\n" +
                 "  return <span class=\"f\">0</span>;\n" +
                 " }\n" +
@@ -11154,7 +11154,7 @@ public final class CoverageReportZTest extends ProcessMethodCommon {
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public enum <a name=\"m12\">pkg.ExEnum</a> {\n" +
-                " <a name=\"m26\" title=\"pkg.ExEnum.pkg.ExEnum(int)\" href=\"#m55\">ONE</a><span class=\"g\"> (<span class=\"g\">5</span>)</span>;\n" +
+                " <span class=\"g\"><a name=\"m26\" title=\"pkg.ExEnum.pkg.ExEnum(int)\" href=\"#m55\">ONE</a> (<span class=\"g\">5</span>)</span>;\n" +
                 " public int <span class=\"g\"><a name=\"m47\">field</a></span>;\n" +
                 " <a name=\"m55\">ExEnum(</a>int <a name=\"m66\">param</a>){\n" +
                 "  <span class=\"g\"><span class=\"g\"><a title=\"pkg.ExEnum.field\" href=\"#m47\">field</a></span>=<span class=\"g\"><a href=\"#m66\">param</a></span></span>;\n" +
@@ -11190,7 +11190,7 @@ public final class CoverageReportZTest extends ProcessMethodCommon {
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public enum <a name=\"m12\">pkg.ExEnum</a>&lt;<a name=\"m23\">T</a>&gt; {\n" +
-                " <a name=\"m29\" title=\"pkg.ExEnum.pkg.ExEnum(int)\" href=\"#m65\">ONE</a> &lt; <a title=\"pkg.Ex\" href=\"#m117\">Ex</a> &gt;<span class=\"g\"> (<span class=\"g\">5</span>)</span>;\n" +
+                " <span class=\"g\"><a name=\"m29\" title=\"pkg.ExEnum.pkg.ExEnum(int)\" href=\"#m65\">ONE</a> &lt; <a title=\"pkg.Ex\" href=\"#m117\">Ex</a> &gt; (<span class=\"g\">5</span>)</span>;\n" +
                 " public int <span class=\"g\"><a name=\"m57\">field</a></span>;\n" +
                 " <a name=\"m65\">ExEnum(</a>int <a name=\"m76\">param</a>){\n" +
                 "  <span class=\"g\"><span class=\"g\"><a title=\"pkg.ExEnum.field\" href=\"#m57\">field</a></span>=<span class=\"g\"><a href=\"#m76\">param</a></span></span>;\n" +
@@ -11392,7 +11392,7 @@ public final class CoverageReportZTest extends ProcessMethodCommon {
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public enum <a name=\"m12\">pkg.ExEnum</a> {\n" +
-                " <a name=\"m26\" title=\"pkg.ExEnum.pkg.ExEnum(int,int)\" href=\"#m78\">ONE</a><span class=\"g\"> ( <span class=\"g\">5 </span>,<span class=\"g\"> 6</span> )</span>;\n" +
+                " <span class=\"g\"><a name=\"m26\" title=\"pkg.ExEnum.pkg.ExEnum(int,int)\" href=\"#m78\">ONE</a> ( <span class=\"g\">5 </span>,<span class=\"g\"> 6</span> )</span>;\n" +
                 " public int <span class=\"g\"><a name=\"m53\">field</a></span>;\n" +
                 " public int <span class=\"g\"><a name=\"m72\">sec</a></span>;\n" +
                 " <a name=\"m78\">ExEnum(</a>int <a name=\"m89\">param</a>, int <a name=\"m100\">sec</a>){\n" +
@@ -11436,7 +11436,7 @@ public final class CoverageReportZTest extends ProcessMethodCommon {
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public enum <a name=\"m12\">pkg.ExEnum</a> {\n" +
-                " <a name=\"m26\" title=\"pkg.ExEnum-ONE.pkg.ExEnum-ONE(int,int)\" href=\"#m43\">ONE</a><span class=\"g\"> ( <span class=\"g\">5 </span>,<span class=\"g\"> 6</span> )</span>{\n" +
+                " <span class=\"g\"><a name=\"m26\" title=\"pkg.ExEnum-ONE.pkg.ExEnum-ONE(int,int)\" href=\"#m43\">ONE</a> ( <span class=\"g\">5 </span>,<span class=\"g\"> 6</span> )</span>{\n" +
                 "  <a name=\"m43\">ONE(</a>int <a name=\"m51\">param</a>, int <a name=\"m62\">sec</a>){\n" +
                 "   <span class=\"g\"><a title=\"pkg.ExEnum.pkg.ExEnum(int,int)\" href=\"#m134\">super</a>(<span class=\"g\"><a href=\"#m51\">param</a></span>,<span class=\"g\"><a href=\"#m62\">sec</a></span>)</span>;\n" +
                 "  }\n" +
@@ -11480,7 +11480,7 @@ public final class CoverageReportZTest extends ProcessMethodCommon {
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public enum <a name=\"m12\">pkg.ExEnum</a> {\n" +
-                " <a name=\"m26\" title=\"pkg.ExEnum.pkg.ExEnum(int,int)\" href=\"#m78\">ONE</a><span class=\"g\"> ( <span class=\"g\">5 </span>,<span class=\"g\"> 6</span>) </span>;\n" +
+                " <span class=\"g\"><a name=\"m26\" title=\"pkg.ExEnum.pkg.ExEnum(int,int)\" href=\"#m78\">ONE</a> ( <span class=\"g\">5 </span>,<span class=\"g\"> 6</span>) </span>;\n" +
                 " public int <span class=\"g\"><a name=\"m53\">field</a></span>;\n" +
                 " public int <span class=\"g\"><a name=\"m72\">sec</a></span>;\n" +
                 " <a name=\"m78\">ExEnum(</a>int <a name=\"m89\">param</a>, int <a name=\"m100\">sec</a>){\n" +
@@ -11524,7 +11524,7 @@ public final class CoverageReportZTest extends ProcessMethodCommon {
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public enum <a name=\"m12\">pkg.ExEnum</a> {\n" +
-                " <a name=\"m26\" title=\"pkg.ExEnum-ONE.pkg.ExEnum-ONE(int,int)\" href=\"#m43\">ONE</a><span class=\"g\"> ( <span class=\"g\">5 </span>,<span class=\"g\"> 6</span>) </span>{\n" +
+                " <span class=\"g\"><a name=\"m26\" title=\"pkg.ExEnum-ONE.pkg.ExEnum-ONE(int,int)\" href=\"#m43\">ONE</a> ( <span class=\"g\">5 </span>,<span class=\"g\"> 6</span>) </span>{\n" +
                 "  <a name=\"m43\">ONE(</a>int <a name=\"m51\">param</a>, int <a name=\"m62\">sec</a>){\n" +
                 "   <span class=\"g\"><a title=\"pkg.ExEnum.pkg.ExEnum(int,int)\" href=\"#m134\">super</a>(<span class=\"g\"><a href=\"#m51\">param</a></span>,<span class=\"g\"><a href=\"#m62\">sec</a></span>)</span>;\n" +
                 "  }\n" +
@@ -11570,7 +11570,7 @@ public final class CoverageReportZTest extends ProcessMethodCommon {
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public enum <a name=\"m12\">pkg.ExEnum</a>&lt;<a name=\"m23\">T</a>&gt; {\n" +
-                " <a name=\"m29\" title=\"pkg.ExEnum-ONE.pkg.ExEnum-ONE(int)\" href=\"#m47\">ONE</a> &lt; <a title=\"pkg.Ex\" href=\"#m160\">Ex</a> &gt;<span class=\"g\"> (<span class=\"g\">5</span>)</span>{\n" +
+                " <span class=\"g\"><a name=\"m29\" title=\"pkg.ExEnum-ONE.pkg.ExEnum-ONE(int)\" href=\"#m47\">ONE</a> &lt; <a title=\"pkg.Ex\" href=\"#m160\">Ex</a> &gt; (<span class=\"g\">5</span>)</span>{\n" +
                 "  <a name=\"m47\">ONE(</a>int <a name=\"m55\">param</a>){\n" +
                 "   <span class=\"g\"><a title=\"pkg.ExEnum.pkg.ExEnum(int)\" href=\"#m108\">super</a>(<span class=\"g\"><a href=\"#m55\">param</a></span>)</span>;\n" +
                 "  }\n" +

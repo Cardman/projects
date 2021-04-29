@@ -145,9 +145,7 @@ public final class ElementBlock extends Leaf implements InnerTypeOrElement{
         int tr_ = retrieveTr(newKeyWord_);
         trOffset = tr_;
         _page.setTranslatedOffset(tr_);
-        int index_ = getIndex();
-        _page.setIndexChildType(index_);
-        res.setRoot(ElUtil.getRootAnalyzedOperationsReadOnly(res, fullInstance_, new Calculation(elementContent.getFieldName()), _page));
+        res.setRoot(ElUtil.getRootAnalyzedOperationsReadOnly(res, fullInstance_, new Calculation(this, nameErrors), _page));
         ReachOperationUtil.tryCalculate(res.getRoot(), _page);
         _page.setTranslatedOffset(0);
     }
@@ -162,16 +160,6 @@ public final class ElementBlock extends Leaf implements InnerTypeOrElement{
 
     public int diffTr(String _newKeyWord) {
         return elementContent.diffTr(_newKeyWord);
-    }
-
-    private int getIndex() {
-        int index_ = 0;
-        AbsBk n_ = getPreviousSibling();
-        while (n_ != null) {
-            index_++;
-            n_ = n_.getPreviousSibling();
-        }
-        return index_;
     }
 
     public void buildAnnotations(AnalyzedPageEl _page) {

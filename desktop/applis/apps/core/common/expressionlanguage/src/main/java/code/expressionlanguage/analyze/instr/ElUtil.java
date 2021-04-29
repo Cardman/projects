@@ -141,11 +141,9 @@ public final class ElUtil {
             OperationsSequence opTwo_ = ElResolver.getOperationsSequence(IndexConstants.FIRST_INDEX, _el, d_, _page);
             op_ = OperationNode.createOperationNode(IndexConstants.FIRST_INDEX, IndexConstants.FIRST_INDEX, null, opTwo_, _page);
         }
-        String fieldName_ = _calcul.getFieldName();
-        boolean hasFieldName_ = _calcul.isHasFieldName();
         setupStaticContext(hiddenVarTypes_, op_, _page);
-        setSyntheticRoot(op_, hasFieldName_);
-        getSortedDescNodesReadOnly(op_, fieldName_,hasFieldName_, _page);
+        setSyntheticRoot(op_, _calcul);
+        getSortedDescNodesReadOnly(op_, _calcul, _page);
         _res.setRoot(op_);
         return op_;
     }
@@ -184,30 +182,28 @@ public final class ElUtil {
             OperationsSequence opTwo_ = ElResolver.getOperationsSequence(IndexConstants.FIRST_INDEX, _el, d_, _page);
             op_ = OperationNode.createOperationNode(IndexConstants.FIRST_INDEX, IndexConstants.FIRST_INDEX, null, opTwo_, _page);
         }
-        String fieldName_ = _calcul.getFieldName();
-        return getSortedDescNodesReadOnly(op_, fieldName_,false, _page);
+        return getSortedDescNodesReadOnly(op_, _calcul, _page);
     }
 
-    private static void setSyntheticRoot(OperationNode _op, boolean _hasFieldName) {
-        if (_op instanceof AffectationOperation && _hasFieldName) {
+    private static void setSyntheticRoot(OperationNode _op, Calculation _calc) {
+        if (_op instanceof AffectationOperation && _calc.hasFieldName()) {
             ((AffectationOperation) _op).setSynthetic(true);
         }
     }
 
-    private static void setFieldName(OperationNode _op, String _fieldName, boolean _hasFieldName) {
+    private static void setFieldName(OperationNode _op, Calculation _calc) {
         if (_op instanceof StandardInstancingOperation) {
-            ((StandardInstancingOperation) _op).setFieldName(_fieldName);
-            ((StandardInstancingOperation) _op).setHasFieldName(_hasFieldName);
+            ((StandardInstancingOperation) _op).fieldName(_calc);
         }
     }
 
 
-    private static CustList<OperationNode> getSortedDescNodesReadOnly(OperationNode _root, String _fieldName, boolean _hasFieldName, AnalyzedPageEl _page) {
+    private static CustList<OperationNode> getSortedDescNodesReadOnly(OperationNode _root, Calculation _calc, AnalyzedPageEl _page) {
         CustList<OperationNode> list_ = new CustList<OperationNode>();
         OperationNode c_ = _root;
         while (c_ != null) {
             preAnalyze(c_, _page);
-            c_ = getAnalyzedNextReadOnly(c_, _root, list_, _fieldName,_hasFieldName, _page);
+            c_ = getAnalyzedNextReadOnly(c_, _root, list_,_calc, _page);
         }
         return list_;
     }
@@ -248,8 +244,8 @@ public final class ElUtil {
         }
     }
 
-    private static OperationNode getAnalyzedNextReadOnly(OperationNode _current, OperationNode _root, CustList<OperationNode> _sortedNodes, String _fieldName, boolean _hasFieldName, AnalyzedPageEl _page) {
-        OperationNode next_ = createFirstChild(_current, _fieldName,_hasFieldName, _page);
+    private static OperationNode getAnalyzedNextReadOnly(OperationNode _current, OperationNode _root, CustList<OperationNode> _sortedNodes, Calculation _calc, AnalyzedPageEl _page) {
+        OperationNode next_ = createFirstChild(_current, _calc, _page);
         if (next_ != null) {
             ((MethodOperation) _current).appendChild(next_);
             return next_;
@@ -260,7 +256,7 @@ public final class ElUtil {
             retrieveErrorsAnalyze(current_, _page);
             current_.setOrder(_sortedNodes.size());
             _sortedNodes.add(current_);
-            next_ = processNext(current_,_fieldName,_hasFieldName, _page);
+            next_ = createNextSibling(current_, _calc, _page);
             MethodOperation par_ = current_.getParent();
             if (next_ != null) {
                 processDot(next_, current_, par_, _page);
@@ -334,11 +330,7 @@ public final class ElUtil {
         InvokingOperation.tryInfer(_current, _page);
     }
 
-    private static OperationNode processNext(OperationNode _current, String _fieldName, boolean _hasFieldName, AnalyzedPageEl _page) {
-        return createNextSibling(_current, _fieldName,_hasFieldName, _page);
-    }
-
-    private static OperationNode createFirstChild(OperationNode _block, String _fieldName, boolean _hasFieldName, AnalyzedPageEl _page) {
+    private static OperationNode createFirstChild(OperationNode _block, Calculation _calc, AnalyzedPageEl _page) {
         if (!(_block instanceof MethodOperation)) {
             return null;
         }
@@ -352,11 +344,11 @@ public final class ElUtil {
         int offset_ = block_.getIndexInEl()+curKey_;
         OperationsSequence r_ = ElResolver.getOperationsSequence(offset_, value_, d_, _page);
         OperationNode op_ = OperationNode.createOperationNode(offset_, 0, block_, r_, _page);
-        setFieldName(_fieldName, block_, op_,_hasFieldName);
+        setFieldName(_calc, block_, op_);
         return op_;
     }
 
-    private static OperationNode createNextSibling(OperationNode _block, String _fieldName, boolean _hasFieldName, AnalyzedPageEl _page) {
+    private static OperationNode createNextSibling(OperationNode _block, Calculation _calc, AnalyzedPageEl _page) {
         MethodOperation p_ = _block.getParent();
         if (p_ == null) {
             return null;
@@ -372,13 +364,13 @@ public final class ElUtil {
         int offset_ = p_.getIndexInEl()+curKey_;
         OperationsSequence r_ = ElResolver.getOperationsSequence(offset_, value_, d_, _page);
         OperationNode op_ = OperationNode.createOperationNode(offset_, _block.getIndexChild() + 1, p_, r_, _page);
-        setFieldName(_fieldName, p_, op_,_hasFieldName);
+        setFieldName(_calc, p_, op_);
         return op_;
     }
 
-    private static void setFieldName(String _fieldName, MethodOperation _p, OperationNode _c, boolean _hasFieldName) {
+    private static void setFieldName(Calculation _calc, MethodOperation _p, OperationNode _c) {
         if (_p instanceof AffectationOperation && _p.getParent() == null) {
-            setFieldName(_c,_fieldName,_hasFieldName);
+            setFieldName(_c,_calc);
         }
     }
 

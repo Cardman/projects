@@ -1455,7 +1455,6 @@ public final class LinkageUtil {
     private static void processEnumEltReport(VariablesOffsets _vars, Ints _annotIndexes, StringList _annot, AnaElementContent _content, AbsBk _cond, InnerTypeOrElement _inner, Coverage _cov) {
         AbstractInstancingOperation inst_ = (AbstractInstancingOperation) _inner.getRoot().getFirstChild().getNextSibling();
         int k_ = _vars.getLastStackElt().getIndexAnnotationGroup();
-        String uniqueFieldName_ = _inner.getUniqueFieldName();
         if (k_ == -1) {
             annotReport(_vars, _cond, _cov, _annotIndexes, _annot, _inner.getRoots());
             if (_vars.goesToProcess()) {
@@ -1463,13 +1462,8 @@ public final class LinkageUtil {
             }
             _vars.getLastStackElt().setIndexAnnotationGroup(0);
             k_ = 0;
-            nameIdReport(_vars, inst_, uniqueFieldName_, _content.getFieldNameOffest());
-            _vars.addParts(_inner.getTypePartOffsets());
         }
-        int afterName_ = _content.getFieldNameOffest() + uniqueFieldName_.length();
-        if (!_content.getTempClass().isEmpty()) {
-            afterName_ = _content.getTempClassOffset() + _content.getTempClass().length();
-        }
+        int afterName_ = _content.getFieldNameOffest();
         int lastChar_ = _cond.getBegin();
         int tr_ = _content.diffTr(_vars.getKeyWords().getKeyWordNew());
         int blOffset_ = _content.getValueOffest() + tr_;
@@ -1484,57 +1478,48 @@ public final class LinkageUtil {
         }
         _vars.getLastStackElt().setIndexAnnotationGroup(-1);
     }
-    private static void nameIdReport(VariablesOffsets _vars, AbstractInstancingOperation _inst, String _uniqueFieldName, int _fieldNameOffest) {
-        AnaTypeFct ctor_ = _inst.getConstructor();
-        if (ctor_ != null) {
-            StringList list_ = new StringList();
-            addParts(_vars, ctor_, _fieldNameOffest, _uniqueFieldName.length(), list_, list_, _fieldNameOffest);
-        } else {
-            _vars.addPart(new PartOffset(ExportCst.anchorName(_fieldNameOffest), _fieldNameOffest));
-            _vars.addPart(new PartOffset(ExportCst.END_ANCHOR, _fieldNameOffest + _uniqueFieldName.length()));
-        }
-    }
 
     private static void processElementBlockError(VariablesOffsets _vars, ElementBlock _cond) {
-        OperationNode firstChild_ = _cond.getRoot().getFirstChild();
+        processElementBlockErr(_vars,_cond.getAnnotationsIndexes(),_cond,_cond.getNameErrors(),_cond.getElementContent(),_cond);
+    }
+
+    private static void processElementBlockErr(VariablesOffsets _vars, Ints _annotIndexes, AbsBk _cond, StringList _errFields,AnaElementContent _content, InnerTypeOrElement _inn) {
+        OperationNode firstChild_ = _inn.getRoot().getFirstChild();
         StringList errs_ = new StringList();
         OperationNode next_ = fetchNext(firstChild_, errs_);
         addNextErrs(errs_, next_);
         AbstractInstancingOperation inst_ = asInstancing(next_);
-        String uniqueFieldName_ = _cond.getUniqueFieldName();
+        String uniqueFieldName_ = _inn.getUniqueFieldName();
         int k_ = _vars.getLastStackElt().getIndexAnnotationGroup();
         if (k_ == -1) {
-            annotError(_vars, _cond, _cond.getAnnotationsIndexes(), _cond.getRoots());
+            annotError(_vars, _cond, _annotIndexes, _inn.getRoots());
             if (_vars.goesToProcess()) {
                 return;
             }
-            _vars.getLastStackElt().setIndexAnnotationGroup(0);
-            k_ = 0;
-            StringList mergedErrs_ = new StringList(_cond.getNameErrors());
+            StringList mergedErrs_ = new StringList(_errFields);
             if (uniqueFieldName_.trim().isEmpty()) {
                 String err_ = getLineErr(mergedErrs_);
-                String tag_ = ExportCst.anchorNameErr(_cond.getFieldNameOffest(), err_);
-                _vars.addPart(new PartOffset(tag_, _cond.getFieldNameOffest()));
-                _vars.addPart(new PartOffset(ExportCst.END_ANCHOR, _cond.getFieldNameOffest() + 1));
+                String tag_ = ExportCst.anchorNameErr(_content.getFieldNameOffest(), err_);
+                _vars.addPart(new PartOffset(tag_, _content.getFieldNameOffest()));
+                _vars.addPart(new PartOffset(ExportCst.END_ANCHOR, _content.getFieldNameOffest() + 1));
                 _vars.getLastStackElt().setIndexAnnotationGroup(-1);
                 return;
             }
             if (inst_ == null) {
-                errs_.addAllElts(_cond.getRoot().getErrs());
+                errs_.addAllElts(_inn.getRoot().getErrs());
                 mergedErrs_.addAllElts(errs_);
                 String err_ = getLineErr(mergedErrs_);
-                String tag_ = ExportCst.anchorNameErr(_cond.getFieldNameOffest(), err_);
-                _vars.addPart(new PartOffset(tag_, _cond.getFieldNameOffest()));
-                _vars.addPart(new PartOffset(ExportCst.END_ANCHOR, _cond.getFieldNameOffest() + uniqueFieldName_.trim().length()));
+                String tag_ = ExportCst.anchorNameErr(_content.getFieldNameOffest(), err_);
+                _vars.addPart(new PartOffset(tag_, _content.getFieldNameOffest()));
+                _vars.addPart(new PartOffset(ExportCst.END_ANCHOR, _content.getFieldNameOffest() + uniqueFieldName_.trim().length()));
                 _vars.getLastStackElt().setIndexAnnotationGroup(-1);
                 return;
             }
-            mergedErrs_.addAllElts(inst_.getErrs());
-            nameIdError(_vars, inst_, uniqueFieldName_, mergedErrs_, _cond.getFieldNameOffest());
-            _vars.addParts(_cond.getTypePartOffsets());
+            _vars.getLastStackElt().setIndexAnnotationGroup(0);
+            k_ = 0;
         }
-        int tr_ = _cond.diffTr(_vars.getKeyWords().getKeyWordNew());
-        int begin_ = _cond.getValueOffest() + tr_;
+        int tr_ = _content.diffTr(_vars.getKeyWords().getKeyWordNew());
+        int begin_ = _content.getValueOffest() + tr_;
         buildEnumEltError(_vars, _cond, inst_, k_, begin_);
         if (_vars.goesToProcess()) {
             return;
@@ -1563,7 +1548,7 @@ public final class LinkageUtil {
         return next_;
     }
 
-    private static void nameIdError(VariablesOffsets _vars, AbstractInstancingOperation _inst, String _uniqueFieldName, StringList _errs, int _fieldNameOffest) {
+    private static void nameId(VariablesOffsets _vars, AbstractInstancingOperation _inst, String _uniqueFieldName, StringList _errs, int _fieldNameOffest) {
         String err_ = getLineErr(_errs);
         AnaTypeFct ctor_ = _inst.getConstructor();
         if (ctor_ != null) {
@@ -1579,7 +1564,6 @@ public final class LinkageUtil {
             _vars.addPart(new PartOffset(ExportCst.END_ANCHOR, _fieldNameOffest + _uniqueFieldName.length()));
         }
     }
-
     private static void processFieldBlockReport(VariablesOffsets _vars, FieldBlock _cond, Coverage _cov) {
         int k_ = _vars.getLastStackElt().getIndexAnnotationGroup();
         if (k_ == -1) {
@@ -1975,48 +1959,7 @@ public final class LinkageUtil {
     }
 
     private static void processInnerElementBlockError(VariablesOffsets _vars, InnerElementBlock _cond) {
-        OperationNode firstChild_ = _cond.getRoot().getFirstChild();
-        StringList errs_ = new StringList();
-        OperationNode next_ = fetchNext(firstChild_, errs_);
-        addNextErrs(errs_, next_);
-        AbstractInstancingOperation inst_ = asInstancing(next_);
-        int k_ = _vars.getLastStackElt().getIndexAnnotationGroup();
-        String uniqueFieldName_ = _cond.getUniqueFieldName();
-        if (k_ == -1) {
-            processAnnotationError(_vars, _cond);
-            if (_vars.goesToProcess()) {
-                return;
-            }
-            StringList mergedErrs_ = new StringList(_cond.getNameErrors());
-            if (uniqueFieldName_.trim().isEmpty()) {
-                String err_ = getLineErr(mergedErrs_);
-                String tag_ = ExportCst.anchorNameErr(_cond.getFieldNameOffest(), err_);
-                _vars.addPart(new PartOffset(tag_, _cond.getFieldNameOffest()));
-                _vars.addPart(new PartOffset(ExportCst.END_ANCHOR, _cond.getFieldNameOffest() + 1));
-                return;
-            }
-            if (inst_ == null) {
-                errs_.addAllElts(_cond.getRoot().getErrs());
-                mergedErrs_.addAllElts(errs_);
-                String err_ = getLineErr(mergedErrs_);
-                String tag_ = ExportCst.anchorNameErr(_cond.getFieldNameOffest(), err_);
-                _vars.addPart(new PartOffset(tag_, _cond.getFieldNameOffest()));
-                _vars.addPart(new PartOffset(ExportCst.END_ANCHOR, _cond.getFieldNameOffest() + uniqueFieldName_.trim().length()));
-                return;
-            }
-            mergedErrs_.addAllElts(inst_.getErrs());
-            nameIdError(_vars, inst_, uniqueFieldName_, mergedErrs_, _cond.getFieldNameOffest());
-            _vars.addParts(_cond.getTypePartOffsets());
-            _vars.getLastStackElt().setIndexAnnotationGroup(0);
-            k_ = 0;
-        }
-        int tr_ = _cond.diffTr(_vars.getKeyWords().getKeyWordNew());
-        int begin_ = _cond.getValueOffest() + tr_;
-        buildEnumEltError(_vars, _cond, inst_, k_, begin_);
-        if (_vars.goesToProcess()) {
-            return;
-        }
-        _vars.getLastStackElt().setIndexAnnotationGroup(-1);
+        processElementBlockErr(_vars,_cond.getAnnotationsIndexes(),_cond,_cond.getNameErrors(),_cond.getElementContent(),_cond);
     }
 
     private static void addNextErrs(StringList _errs, OperationNode _next) {
@@ -2424,7 +2367,6 @@ public final class LinkageUtil {
         OperationNode val_ = _val;
         while (true) {
             MethodOperation parent_ = val_.getParent();
-            OperationNode nextSiblingOp_ = val_.getNextSibling();
             if (parent_ == null || val_ == _root) {
                 getEnd(_vars, addCover_, _in);
                 _vars.getLastStackElt().setNullCurrent();
@@ -2433,6 +2375,7 @@ public final class LinkageUtil {
             processImplicit(_in,_vars, val_, parent_);
             getEndTag(_vars, _in, val_, parent_);
             processUnaryRightOperations(_in,_vars, val_,parent_);
+            OperationNode nextSiblingOp_ = val_.getNextSibling();
             if (nextSiblingOp_ != null) {
                 middleReport(_in,_vars, val_,nextSiblingOp_,
                         parent_, _cov);
@@ -2547,13 +2490,13 @@ public final class LinkageUtil {
         OperationNode val_ = _val;
         while (true) {
             MethodOperation parent_ = val_.getParent();
-            OperationNode nextSiblingOp_ = val_.getNextSibling();
-            if (parent_ == null) {
+            if (parent_ == null || val_ == _root) {
                 _vars.getLastStackElt().setNullCurrent();
                 return null;
             }
             processImplicit(_in,_vars, val_, parent_);
             processUnaryRightOperations(_in,_vars, val_,parent_);
+            OperationNode nextSiblingOp_ = val_.getNextSibling();
             if (nextSiblingOp_ != null) {
                 middleError(_in,_vars, val_,nextSiblingOp_,
                         parent_);
@@ -3273,7 +3216,7 @@ public final class LinkageUtil {
         if (_val instanceof AbstractInstancingOperation) {
             AnaTypeFct constructor_ = ((AbstractInstancingOperation) _val).getConstructor();
             AbstractInstancingOperation inst_ = (AbstractInstancingOperation) _val;
-            if (!(inst_ instanceof StandardInstancingOperation)||!((StandardInstancingOperation)inst_).isHasFieldName()) {
+            if (!(inst_ instanceof StandardInstancingOperation)||((StandardInstancingOperation)inst_).getInnerElt() == null) {
                 int offsetNew_ = StringUtil.getFirstPrintableCharIndex(inst_.getMethodName());
                 addParts(_vars, constructor_,
                         offsetNew_+_sum + _val.getIndexInEl(),_vars.getKeyWords().getKeyWordNew().length(),
@@ -3281,6 +3224,12 @@ public final class LinkageUtil {
                 if (inst_ instanceof StandardInstancingOperation){
                     _vars.addParts(inst_.getPartOffsets());
                 }
+            } else {
+                StringList mergedErrs_ = new StringList(((StandardInstancingOperation) inst_).getErrorsFields());
+                mergedErrs_.addAllElts(inst_.getErrs());
+                InnerTypeOrElement innerElt_ = ((StandardInstancingOperation) inst_).getInnerElt();
+                nameId(_vars, inst_, innerElt_.getUniqueFieldName(), mergedErrs_, innerElt_.getFieldNameOffset());
+                _vars.addParts(innerElt_.getTypePartOffsets());
             }
         }
         if (_val instanceof DimensionArrayInstancing) {

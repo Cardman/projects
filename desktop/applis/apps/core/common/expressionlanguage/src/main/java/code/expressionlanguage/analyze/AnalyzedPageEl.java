@@ -102,7 +102,6 @@ public final class AnalyzedPageEl {
     private int globalOffset;
 
     private int translatedOffset;
-    private int indexChildType;
 
     private boolean merged;
     private boolean acceptCommaInstr;
@@ -638,14 +637,6 @@ public final class AnalyzedPageEl {
             importingTypes.add(_importingTypes.getImports());
             importingTypes.add(_importingTypes.getFileImports());
         }
-    }
-
-    public int getIndexChildType() {
-        return indexChildType;
-    }
-
-    public void setIndexChildType(int _indexChildType) {
-        indexChildType = _indexChildType;
     }
 
     public boolean isMerged() {

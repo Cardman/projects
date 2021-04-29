@@ -3,6 +3,7 @@ package code.expressionlanguage.analyze.opers;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.InterfacesPart;
 import code.expressionlanguage.analyze.blocks.InfoBlock;
+import code.expressionlanguage.analyze.blocks.InnerTypeOrElement;
 import code.expressionlanguage.analyze.blocks.RecordBlock;
 import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.expressionlanguage.analyze.files.ParsedAnnotations;
@@ -30,11 +31,12 @@ import code.util.core.StringUtil;
 public final class StandardInstancingOperation extends
         AbstractInstancingOperation implements PreAnalyzableOperation,RetrieveConstructor {
 
-    private boolean hasFieldName;
     private final AnaInstancingStdContent instancingStdContent;
 
     private final CustList<ConstructorInfo> ctors = new CustList<ConstructorInfo>();
     private MemberId memberId = new MemberId();
+    private InnerTypeOrElement innerElt;
+    private StringList errorsFields = new StringList();
 
     public StandardInstancingOperation(int _index, int _indexChild,
             MethodOperation _m, OperationsSequence _op) {
@@ -42,12 +44,10 @@ public final class StandardInstancingOperation extends
         instancingStdContent = new AnaInstancingStdContent();
     }
 
-    public void setFieldName(String _fieldName) {
-        instancingStdContent.setFieldName(_fieldName);
-    }
-
-    public void setHasFieldName(boolean _hasFieldName) {
-        hasFieldName = _hasFieldName;
+    public void fieldName(Calculation _calc) {
+        instancingStdContent.setFieldName(_calc.getFieldName());
+        innerElt = _calc.getInnerElt();
+        errorsFields = _calc.getFieldErrors();
     }
 
     @Override
@@ -97,7 +97,7 @@ public final class StandardInstancingOperation extends
             setStaticAccess(_page.getStaticContext());
             if (!getTypeInfer().isEmpty()) {
                 realClassName_ = getTypeInfer();
-            } else if (!hasFieldName) {
+            } else if (innerElt == null) {
                 realClassName_ = ResolvingTypes.resolveCorrectType(0,realClassName_, _page);
                 getPartOffsets().addAllElts(_page.getCurrentParts());
             } else {
@@ -237,7 +237,7 @@ public final class StandardInstancingOperation extends
             setResultClass(new AnaClassArgumentMatching(_realClassName));
             return;
         }
-        instancingStdContent.setBlockIndex(getCurrentChildTypeIndex(g_, instancingStdContent.getFieldName(), _realClassName, _page));
+        instancingStdContent.setBlockIndex(getCurrentChildTypeIndex(g_, _realClassName, _page));
         if (instancingStdContent.getBlockIndex() < -1) {
             return;
         }
@@ -353,9 +353,9 @@ public final class StandardInstancingOperation extends
         out_.setOk(ok_);
         return out_;
     }
-    private int getCurrentChildTypeIndex(AnaGeneType _type, String _fieldName, String _realClassName, AnalyzedPageEl _page) {
+    private int getCurrentChildTypeIndex(AnaGeneType _type, String _realClassName, AnalyzedPageEl _page) {
         if (ContextUtil.isEnumType(_type)) {
-            if (_fieldName.isEmpty()) {
+            if (innerElt == null) {
                 FoundErrorInterpret call_ = new FoundErrorInterpret();
                 String file_ = _page.getLocalizer().getCurrentFileName();
                 int fileIndex_ = _page.getLocalizer().getCurrentLocationIndex();
@@ -368,13 +368,17 @@ public final class StandardInstancingOperation extends
                 addErr(call_.getBuiltError());
                 return -2;
             }
-            return _page.getIndexChildType();
+            return innerElt.getFieldNumber();
         }
         return -1;
     }
 
-    public boolean isHasFieldName() {
-        return hasFieldName;
+    public StringList getErrorsFields() {
+        return errorsFields;
+    }
+
+    public InnerTypeOrElement getInnerElt() {
+        return innerElt;
     }
 
     public AnaInstancingStdContent getInstancingStdContent() {
