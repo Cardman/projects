@@ -932,10 +932,7 @@ public final class StringExpUtil {
             return false;
         }
         for (char c: _string.toCharArray()) {
-            if (c == '*') {
-                continue;
-            }
-            if (c == '+') {
+            if (c == '*' || c == '+') {
                 continue;
             }
             if (!isTypeLeafChar(c)) {
