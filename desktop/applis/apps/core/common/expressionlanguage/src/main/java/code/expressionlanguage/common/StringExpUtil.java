@@ -1273,6 +1273,10 @@ public final class StringExpUtil {
     }
 
     private static StringBuilder toBase(int _i, int _base) {
+        return base(_i, _base);
+    }
+
+    private static StringBuilder base(int _i, int _base) {
         StringBuilder str_ = new StringBuilder();
         if (_i == 0) {
             str_.append(0);
@@ -1350,18 +1354,7 @@ public final class StringExpUtil {
     }
 
     private static StringBuilder toShortBase(short _i, int _base) {
-        StringBuilder str_ = new StringBuilder();
-        if (_i == 0) {
-            str_.append(0);
-            return str_;
-        }
-        int q_ = _i;
-        while (q_ > 0) {
-            int r_ = q_ % _base;
-            str_.insert(0, toSingleChar(r_));
-            q_ = q_ / _base;
-        }
-        return str_;
+        return base(_i, _base);
     }
 
     public static String toByteGeneHex(byte _i) {
@@ -1427,18 +1420,7 @@ public final class StringExpUtil {
     }
 
     private static StringBuilder toByteBase(byte _i, int _base) {
-        StringBuilder str_ = new StringBuilder();
-        if (_i == 0) {
-            str_.append(0);
-            return str_;
-        }
-        int q_ = _i;
-        while (q_ > 0) {
-            int r_ = q_ % _base;
-            str_.insert(0, toSingleChar(r_));
-            q_ = q_ / _base;
-        }
-        return str_;
+        return base(_i, _base);
     }
     private static String toSingleChar(int _i) {
         if (_i < 10) {
