@@ -1,7 +1,6 @@
 package code.expressionlanguage.common;
 
 import code.util.StringMap;
-import code.util.core.StringUtil;
 
 public abstract class AbstractReplacingType {
     public static final String ARR_CLASS = "[";
@@ -10,7 +9,6 @@ public abstract class AbstractReplacingType {
     public static final String TEMPLATE_SEP = ",";
     public static final String TEMPLATE_END = ">";
     public static final String TEMPLATE_BEGIN = "<";
-    public static final char SEP_CLASS_CHAR = '.';
     public static final char SUB_TYPE_CHAR = '?';
     public static final char SUP_TYPE_CHAR = '!';
     public static final String SUB_TYPE = "?";
@@ -22,7 +20,8 @@ public abstract class AbstractReplacingType {
 
     public static final char GT = '>';
 
-    public static final char COMMA = ',';
+    private boolean variable;
+    private int diese;
 
     protected String formattedType(String _type, StringMap<String> _varTypes) {
         if (_varTypes.isEmpty()) {
@@ -30,91 +29,41 @@ public abstract class AbstractReplacingType {
         }
         StringBuilder str_ = new StringBuilder();
         int len_ = _type.length();
-        int diese_ = 0;
-        boolean var_ = false;
+        diese = 0;
+        variable = false;
         for (int i = 0; i < len_; i++) {
             char ch_ = _type.charAt(i);
-            if (ch_ == PREFIX_VAR_TYPE_CHAR) {
-                var_ = true;
-                diese_ = i;
+            if (next(ch_,i,str_)) {
                 continue;
             }
-            if (!var_) {
-                str_.append(ch_);
-                continue;
-            }
-            if (StringExpUtil.isDollarWordChar(ch_)) {
-                continue;
-            }
-            var_ = false;
-            if (replace(_type, _varTypes, str_,i, diese_)) {
+            variable = false;
+            if (replace(_type, _varTypes, str_,i)) {
                 return "";
             }
             str_.append(ch_);
         }
-        if (var_) {
-            replace(_type, _varTypes, str_,len_, diese_);
+        if (variable) {
+            replace(_type, _varTypes, str_,len_);
         }
         return str_.toString();
     }
-    protected static void tryReplaceType(String _type, StringMap<String> _varTypes, StringBuilder _str, int _i, int _diese) {
-        String sub_ = _type.substring(_diese + 1, _i);
-        String val_ = _varTypes.getVal(sub_);
-        if (val_ != null) {
-            tryReplaceType(_str, val_);
-        } else {
-            sub_ = _type.substring(_diese, _i);
-            _str.append(sub_);
+
+    private boolean next(char _ch,int _i,StringBuilder _str) {
+        if (_ch == PREFIX_VAR_TYPE_CHAR) {
+            variable = true;
+            diese = _i;
+            return true;
         }
+        if (!variable) {
+            _str.append(_ch);
+            return true;
+        }
+        return StringExpUtil.isDollarWordChar(_ch);
+    }
+    protected int getDiese() {
+        return diese;
     }
 
-    protected static void tryReplaceType(StringBuilder _str, String _value) {
-        int j_ = getMaxIndex(_str, _str.length() - 1);
-        if (_value.startsWith(SUB_TYPE)) {
-            if (!isSubOrSubChar(_str, j_)) {
-                _str.insert(j_ + 1, SUB_TYPE);
-            }
-            _str.append(_value.substring(SUB_TYPE.length()));
-        } else if (_value.startsWith(SUP_TYPE)) {
-            if (!isSubOrSubChar(_str, j_)) {
-                _str.insert(j_ + 1, SUP_TYPE);
-            }
-            _str.append(_value.substring(SUP_TYPE.length()));
-        } else {
-            _str.append(_value);
-        }
-    }
-
-    protected static void replaceReflectedType(String _type, StringMap<String> _varTypes, StringBuilder _str, int _i, int _diese) {
-        String sub_ = _type.substring(_diese + 1, _i);
-        String value_ = _varTypes.getVal(sub_);
-        if (value_ != null) {
-            replaceReflectedType(_str, value_);
-        } else {
-            sub_ = _type.substring(_diese, _i);
-            _str.append(sub_);
-        }
-    }
-
-    private static void replaceReflectedType(StringBuilder _str, String _value) {
-        int j_ = getMaxIndex(_str, _str.length() - 1);
-        if (StringUtil.quickEq(_value, SUB_TYPE)) {
-            _str.delete(j_+1,_str.length());
-            _str.append(_value);
-        } else if (_value.startsWith(SUB_TYPE)) {
-            if (isNotChar(_str,j_, SUB_TYPE_CHAR) && isNotChar(_str,j_, SUP_TYPE_CHAR)) {
-                _str.insert(j_ +1, SUB_TYPE);
-            }
-            _str.append(_value.substring(SUB_TYPE.length()));
-        } else if (_value.startsWith(SUP_TYPE)) {
-            if (isNotChar(_str,j_, SUB_TYPE_CHAR) && isNotChar(_str,j_, SUP_TYPE_CHAR)) {
-                _str.insert(j_ +1, SUP_TYPE);
-            }
-            _str.append(_value.substring(SUP_TYPE.length()));
-        } else {
-            _str.append(_value);
-        }
-    }
 
     protected static int getMaxIndex(StringBuilder _str, int _max) {
         int j_ = _max;
@@ -143,5 +92,5 @@ public abstract class AbstractReplacingType {
         return _j >= 0 && _str.charAt(_j) == SUP_TYPE_CHAR;
     }
 
-    public abstract boolean replace(String _type, StringMap<String> _varTypes, StringBuilder _str, int _i, int _diese);
+    protected abstract boolean replace(String _type, StringMap<String> _varTypes, StringBuilder _str, int _i);
 }
