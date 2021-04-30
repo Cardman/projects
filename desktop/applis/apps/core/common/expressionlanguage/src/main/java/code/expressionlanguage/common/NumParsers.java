@@ -71,11 +71,7 @@ public final class NumParsers {
             return new LongStruct(longValue_);
         }
         if (isIntSuffix(_suffix)) {
-            if (_nb.length() > 8) {
-                return NullStruct.NULL_VALUE;
-            }
-            int int_ = NumParsers.extractInt(bits_);
-            return new IntStruct(int_);
+            return processBaseInt(_nb, bits_, 8);
         }
         if (isCharSuffix(_suffix)) {
             if (_nb.length() > 4) {
@@ -85,11 +81,7 @@ public final class NumParsers {
             return new CharStruct(int_);
         }
         if (isShortSuffix(_suffix)) {
-            if (_nb.length() > 4) {
-                return NullStruct.NULL_VALUE;
-            }
-            short int_ = NumParsers.extractShort(bits_);
-            return new ShortStruct(int_);
+            return processBaseShort(_nb, bits_, 4);
         }
         if (_nb.length() > 2) {
             return NullStruct.NULL_VALUE;
@@ -108,31 +100,43 @@ public final class NumParsers {
             return new LongStruct(longValue_);
         }
         if (isIntSuffix(_suffix)) {
-            if (_nb.length() > 32) {
-                return NullStruct.NULL_VALUE;
-            }
-            int int_ = NumParsers.extractInt(bits_);
-            return new IntStruct(int_);
+            return processBaseInt(_nb, bits_, 32);
         }
         if (isCharSuffix(_suffix)) {
-            if (_nb.length() > 16) {
-                return NullStruct.NULL_VALUE;
-            }
-            char int_ = (char) NumParsers.extractShort(bits_);
-            return new CharStruct(int_);
+            return processBaseChar(_nb, bits_);
         }
         if (isShortSuffix(_suffix)) {
-            if (_nb.length() > 16) {
-                return NullStruct.NULL_VALUE;
-            }
-            short int_ = NumParsers.extractShort(bits_);
-            return new ShortStruct(int_);
+            return processBaseShort(_nb, bits_, 16);
         }
         if (_nb.length() > 8) {
             return NullStruct.NULL_VALUE;
         }
         byte int_ = NumParsers.extractByte(bits_);
         return new ByteStruct(int_);
+    }
+
+    private static WithoutParentStruct processBaseShort(String _nb, boolean[] _bits, int _max) {
+        if (_nb.length() > _max) {
+            return NullStruct.NULL_VALUE;
+        }
+        short int_ = NumParsers.extractShort(_bits);
+        return new ShortStruct(int_);
+    }
+
+    private static WithoutParentStruct processBaseChar(String _nb, boolean[] _bits) {
+        if (_nb.length() > 16) {
+            return NullStruct.NULL_VALUE;
+        }
+        char int_ = (char) NumParsers.extractShort(_bits);
+        return new CharStruct(int_);
+    }
+
+    private static WithoutParentStruct processBaseInt(String _nb, boolean[] _bits, int _max) {
+        if (_nb.length() > _max) {
+            return NullStruct.NULL_VALUE;
+        }
+        int int_ = NumParsers.extractInt(_bits);
+        return new IntStruct(int_);
     }
 
     private static WithoutParentStruct processEight(char _suffix, String _nb) {
