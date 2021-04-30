@@ -834,27 +834,26 @@ public final class NumParsers {
     }
 
     private static int dig(int _ch, int _radix) {
-        int ch_ = _ch;
-        if (nonParsableChar(ch_)) {
+        int dig_ = dig(_ch);
+        if (dig_ < 0) {
             return -1;
         }
-        if (ch_ >= 'A' && ch_ <= 'Z') {
-            ch_ = ch_ - 'A' + 'a';
-        }
-        int dig_ = Math.min(ch_ - '0', 10) + Math.max(ch_ - 'a', 0);
         if (dig_ >= _radix) {
             return -1;
         }
         return dig_;
     }
-    private static boolean nonParsableChar(int _ch) {
+    private static int dig(int _ch) {
         if (_ch >= '0' && _ch <= '9') {
-            return false;
+            return _ch - '0';
         }
         if (_ch >= 'a' && _ch <= 'z') {
-            return false;
+            return 10 + _ch - 'a';
         }
-        return _ch < 'A' || _ch > 'Z';
+        if (_ch >= 'A' && _ch <= 'Z') {
+            return 10 + _ch - 'A';
+        }
+        return -1;
     }
 
     public static DoubleInfo splitDouble(String _nb) {
