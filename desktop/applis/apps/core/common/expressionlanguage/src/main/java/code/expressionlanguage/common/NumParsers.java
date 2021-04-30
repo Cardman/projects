@@ -1512,13 +1512,7 @@ public final class NumParsers {
     }
 
     private static boolean complement(String _op) {
-        boolean complement_ = false;
-        if (StringUtil.quickEq(_op, LOWER_EQ)) {
-            complement_ = true;
-        } else if (StringUtil.quickEq(_op, GREATER_EQ)) {
-            complement_ = true;
-        }
-        return complement_;
+        return StringUtil.quickEq(_op, LOWER_EQ) || StringUtil.quickEq(_op, GREATER_EQ);
     }
 
     public static BooleanStruct quickCalculateLowerNb(Struct _a, Struct _b) {
