@@ -7,6 +7,7 @@ import code.util.StringMap;
 import code.util.core.StringUtil;
 
 public final class ParseLinesArgUtil {
+    private boolean escaped;
     private ParseLinesArgUtil() {
     }
     public static CustList<CommentDelimiters> buildComments(String _line) {
@@ -60,143 +61,97 @@ public final class ParseLinesArgUtil {
         StringBuilder arg_ = new StringBuilder();
         int len_ = _line.length();
         int i_ = 0;
-        boolean escaped_ = false;
+        ParseLinesArgUtil state_ = new ParseLinesArgUtil();
         while (i_ < len_) {
             char cur_ = _line.charAt(i_);
-            if (escaped_) {
-                escaped_ = false;
-                if (cur_ == 'n') {
-                    arg_.append('\n');
-                    i_++;
-                    continue;
-                }
-                if (cur_ == 'e') {
-                    arg_.append(' ');
-                    i_++;
-                    continue;
-                }
-                if (cur_ == 't') {
-                    arg_.append('\t');
-                    i_++;
-                    continue;
-                }
-                if (cur_ == 'c') {
-                    if (i_ + 2 < len_) {
-                        String sub_ = _line.substring(i_ + 1,i_ + 3);
-                        LongInfo char_ = NumParsers.parseLong(sub_, 16);
-                        if (char_.isValid()) {
-                            long value_ = char_.getValue();
-                            if (value_ >= 0 && value_ < ' ') {
-                                char ch_ = (char) value_;
-                                arg_.append(ch_);
-                                i_ += 3;
-                                continue;
-                            }
-                        }
-                    }
-                }
-                if (cur_ == 'u') {
-                    if (i_ + 4 < len_) {
-                        String sub_ = _line.substring(i_ + 1,i_ + 5);
-                        LongInfo char_ = NumParsers.parseLong(sub_, 16);
-                        if (char_.isValid()) {
-                            long value_ = char_.getValue();
-                            if (value_ >= 0) {
-                                char ch_ = (char) value_;
-                                arg_.append(ch_);
-                                i_ += 5;
-                                continue;
-                            }
-                        }
-                    }
-                }
-                arg_.append(cur_);
-                i_++;
-                continue;
-            }
-            if (cur_ == '\\') {
-                escaped_ = true;
-                i_++;
-                continue;
-            }
-            if (cur_ == ' ') {
-                args_.add(arg_.toString());
-                arg_.delete(0,arg_.length());
-                i_++;
-                continue;
-            }
-            arg_.append(cur_);
-            i_++;
+            i_+=state_.incrParseLineArg(_line,cur_,i_,arg_,args_)+1;
         }
         args_.add(arg_.toString());
         return args_;
+    }
+    private int incrParseLineArg(String _line, char _ch, int _i, StringBuilder _arg, StringList _args) {
+        if (!escaped) {
+            if (_ch == '\\') {
+                escaped = true;
+                return 0;
+            }
+            if (_ch == ' ') {
+                _args.add(_arg.toString());
+                _arg.delete(0, _arg.length());
+                return 0;
+            }
+            _arg.append(_ch);
+            return 0;
+        }
+        return prEsc(_line, _ch, _i, _arg);
     }
     public static String parseValue(String _line) {
         StringBuilder arg_ = new StringBuilder();
         int len_ = _line.length();
         int i_ = 0;
-        boolean escaped_ = false;
+        ParseLinesArgUtil state_ = new ParseLinesArgUtil();
         while (i_ < len_) {
             char cur_ = _line.charAt(i_);
-            if (escaped_) {
-                escaped_ = false;
-                if (cur_ == 'n') {
-                    arg_.append('\n');
-                    i_++;
-                    continue;
-                }
-                if (cur_ == 'e') {
-                    arg_.append(' ');
-                    i_++;
-                    continue;
-                }
-                if (cur_ == 't') {
-                    arg_.append('\t');
-                    i_++;
-                    continue;
-                }
-                if (cur_ == 'c') {
-                    if (i_ + 2 < len_) {
-                        String sub_ = _line.substring(i_ + 1,i_ + 3);
-                        LongInfo char_ = NumParsers.parseLong(sub_, 16);
-                        if (char_.isValid()) {
-                            long value_ = char_.getValue();
-                            if (value_ >= 0 && value_ < ' ') {
-                                char ch_ = (char) value_;
-                                arg_.append(ch_);
-                                i_ += 3;
-                                continue;
-                            }
-                        }
-                    }
-                }
-                if (cur_ == 'u') {
-                    if (i_ + 4 < len_) {
-                        String sub_ = _line.substring(i_ + 1,i_ + 5);
-                        LongInfo char_ = NumParsers.parseLong(sub_, 16);
-                        if (char_.isValid()) {
-                            long value_ = char_.getValue();
-                            if (value_ >= 0) {
-                                char ch_ = (char) value_;
-                                arg_.append(ch_);
-                                i_ += 5;
-                                continue;
-                            }
-                        }
-                    }
-                }
-                arg_.append(cur_);
-                i_++;
-                continue;
-            }
-            if (cur_ == '\\') {
-                escaped_ = true;
-                i_++;
-                continue;
-            }
-            arg_.append(cur_);
-            i_++;
+            i_ += state_.incrParseValue(_line,cur_,i_,arg_)+1;
         }
         return arg_.toString();
+    }
+    private int incrParseValue(String _line, char _ch, int _i, StringBuilder _arg) {
+        if (!escaped) {
+            if (_ch == '\\') {
+                escaped = true;
+                return 0;
+            }
+            _arg.append(_ch);
+            return 0;
+        }
+        return prEsc(_line, _ch, _i, _arg);
+    }
+
+    private int prEsc(String _line, char _ch, int _i, StringBuilder _arg) {
+        escaped = false;
+        if (_ch == 'n') {
+            _arg.append('\n');
+            return 0;
+        }
+        if (_ch == 'e') {
+            _arg.append(' ');
+            return 0;
+        }
+        if (_ch == 't') {
+            _arg.append('\t');
+            return 0;
+        }
+        return specEsc(_line, _ch, _i, _arg);
+    }
+
+    private static int specEsc(String _line, char _ch, int _i, StringBuilder _arg) {
+        int len_ = _line.length();
+        if (_ch == 'c' && _i + 2 < len_) {
+            String sub_ = _line.substring(_i + 1, _i + 3);
+            LongInfo char_ = NumParsers.parseLong(sub_, 16);
+            if (char_.isValid()) {
+                long value_ = char_.getValue();
+                if (value_ >= 0 && value_ < ' ') {
+                    char ch_ = (char) value_;
+                    _arg.append(ch_);
+                    return 2;
+                }
+            }
+        }
+        if (_ch == 'u' && _i + 4 < len_) {
+            String sub_ = _line.substring(_i + 1, _i + 5);
+            LongInfo char_ = NumParsers.parseLong(sub_, 16);
+            if (char_.isValid()) {
+                long value_ = char_.getValue();
+                if (value_ >= 0) {
+                    char ch_ = (char) value_;
+                    _arg.append(ch_);
+                    return 4;
+                }
+            }
+        }
+        _arg.append(_ch);
+        return 0;
     }
 }
