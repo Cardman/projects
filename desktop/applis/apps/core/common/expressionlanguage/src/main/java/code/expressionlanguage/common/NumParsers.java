@@ -33,203 +33,256 @@ public final class NumParsers {
         if (_infosNb.isError()) {
             return NullStruct.NULL_VALUE;
         }
-        if (suffix_ == 'D' || suffix_ == 'd' || suffix_ == 'F' || suffix_ == 'f') {
-            DoubleInfo doubleInfo_ = NumParsers.parseDoubleOrInvalid(_infosNb);
-            if (suffix_ == 'D' || suffix_ == 'd') {
-                return new DoubleStruct(doubleInfo_.getValue());
-            }
-            if (doubleInfo_.outOfRange(Float.MIN_VALUE,Float.MAX_VALUE)) {
-                return NullStruct.NULL_VALUE;
-            }
-            return new FloatStruct((float) doubleInfo_.getValue());
+        if (isDoubleSuffix(suffix_) || isFloatSuffix(suffix_)) {
+            return processDotted(_infosNb, suffix_);
         }
         StringBuilder nbFormatted_ = _infosNb.getIntPart();
         String nb_ = StringUtil.removeChars(StringUtil.removeAllSpaces(nbFormatted_.toString()), '_');
         if (_infosNb.getBase() == 16) {
-            if (nb_.length() > 16) {
-                return NullStruct.NULL_VALUE;
-            }
-            boolean[] bits_ = NumParsers.parseLongSixteenToBits(nb_);
-            if (suffix_ == 'L' || suffix_ == 'l') {
-                long longValue_ = NumParsers.toLong(bits_);
-                return new LongStruct(longValue_);
-            }
-            if (suffix_ == 'I' || suffix_ == 'i') {
-                if (nb_.length() > 8) {
-                    return NullStruct.NULL_VALUE;
-                }
-                int int_ = NumParsers.extractInt(bits_);
-                return new IntStruct(int_);
-            }
-            if (suffix_ == 'C' || suffix_ == 'c') {
-                if (nb_.length() > 4) {
-                    return NullStruct.NULL_VALUE;
-                }
-                char int_ = NumParsers.parseCharSixteen(nb_);
-                return new CharStruct(int_);
-            }
-            if (suffix_ == 'S' || suffix_ == 's') {
-                if (nb_.length() > 4) {
-                    return NullStruct.NULL_VALUE;
-                }
-                short int_ = NumParsers.extractShort(bits_);
-                return new ShortStruct(int_);
-            }
-            if (nb_.length() > 2) {
-                return NullStruct.NULL_VALUE;
-            }
-            byte int_ = NumParsers.extractByte(bits_);
-            return new ByteStruct(int_);
+            return processSixteen(suffix_, nb_);
         }
         if (_infosNb.getBase() == 2) {
-            if (nb_.length() > 64) {
-                return NullStruct.NULL_VALUE;
-            }
-            boolean[] bits_ = NumParsers.parseLongBinaryToBits(nb_);
-            if (suffix_ == 'L' || suffix_ == 'l') {
-                long longValue_ = NumParsers.toLong(bits_);
-                return new LongStruct(longValue_);
-            }
-            if (suffix_ == 'I' || suffix_ == 'i') {
-                if (nb_.length() > 32) {
-                    return NullStruct.NULL_VALUE;
-                }
-                int int_ = NumParsers.extractInt(bits_);
-                return new IntStruct(int_);
-            }
-            if (suffix_ == 'C' || suffix_ == 'c') {
-                if (nb_.length() > 16) {
-                    return NullStruct.NULL_VALUE;
-                }
-                char int_ = (char) NumParsers.extractShort(bits_);
-                return new CharStruct(int_);
-            }
-            if (suffix_ == 'S' || suffix_ == 's') {
-                if (nb_.length() > 16) {
-                    return NullStruct.NULL_VALUE;
-                }
-                short int_ = NumParsers.extractShort(bits_);
-                return new ShortStruct(int_);
-            }
-            if (nb_.length() > 8) {
-                return NullStruct.NULL_VALUE;
-            }
-            byte int_ = NumParsers.extractByte(bits_);
-            return new ByteStruct(int_);
+            return processTwo(suffix_, nb_);
         }
         if (_infosNb.getBase() == 8) {
-            if (suffix_ == 'L' || suffix_ == 'l') {
-                if (nb_.length() > 22) {
-                    return NullStruct.NULL_VALUE;
-                }
-                int sub_ = 0;
-                boolean rev_ = false;
-                if (nb_.length() == 22) {
-                    if (nb_.charAt(0) != '0' && nb_.charAt(0) != '1') {
-                        return NullStruct.NULL_VALUE;
-                    }
-                    rev_ = nb_.charAt(0) == '1';
-                    sub_ = 1;
-                }
-                String subString_ = nb_.substring(sub_);
-                LongInfo lg_ = NumParsers.parseLong(subString_, 8);
-                if (!lg_.isValid()) {
-                    return NullStruct.NULL_VALUE;
-                }
-                boolean[] bitsOutTrunc_ = NumParsers.parseLongOctalToBits(subString_);
-                long longValue_ = NumParsers.toLong(bitsOutTrunc_,rev_,0,63);
-                return new LongStruct(longValue_);
-            }
-            if (suffix_ == 'C' || suffix_ == 'c') {
-                if (nb_.length() > 6) {
-                    return NullStruct.NULL_VALUE;
-                }
-                if (nb_.length() == 6) {
-                    if (nb_.charAt(0) != '0' && nb_.charAt(0) != '1') {
-                        return NullStruct.NULL_VALUE;
-                    }
-                }
-                LongInfo lg_ = NumParsers.parseLong(nb_, 8);
-                if (!lg_.isValid()) {
-                    return NullStruct.NULL_VALUE;
-                }
-                return new CharStruct((char) lg_.getValue());
-            }
-            if (suffix_ == 'I' || suffix_ == 'i') {
-                if (nb_.length() > 11) {
-                    return NullStruct.NULL_VALUE;
-                }
-                if (nb_.length() == 11) {
-                    if (nb_.charAt(0) != '0' && nb_.charAt(0) != '1' && nb_.charAt(0) != '2' && nb_.charAt(0) != '3') {
-                        return NullStruct.NULL_VALUE;
-                    }
-                }
-            } else if (suffix_ == 'S' || suffix_ == 's') {
-                if (nb_.length() > 6) {
-                    return NullStruct.NULL_VALUE;
-                }
-                if (nb_.length() == 6) {
-                    if (nb_.charAt(0) != '0' && nb_.charAt(0) != '1' && nb_.charAt(0) != '2' && nb_.charAt(0) != '3') {
-                        return NullStruct.NULL_VALUE;
-                    }
-                }
-            } else {
-                if (nb_.length() > 3) {
-                    return NullStruct.NULL_VALUE;
-                }
-                if (nb_.length() == 3) {
-                    if (nb_.charAt(0) != '0' && nb_.charAt(0) != '1' && nb_.charAt(0) != '2' && nb_.charAt(0) != '3') {
-                        return NullStruct.NULL_VALUE;
-                    }
-                }
-            }
-            LongInfo lg_ = NumParsers.parseLong(nb_, 8);
-            if (!lg_.isValid()) {
+            return processEight(suffix_, nb_);
+        }
+        return processTen(suffix_, nb_);
+    }
+
+    private static WithoutParentStruct processDotted(NumberInfos _infosNb, char _suffix) {
+        DoubleInfo doubleInfo_ = NumParsers.parseDoubleOrInvalid(_infosNb);
+        if (isDoubleSuffix(_suffix)) {
+            return new DoubleStruct(doubleInfo_.getValue());
+        }
+        if (doubleInfo_.outOfRange(Float.MIN_VALUE,Float.MAX_VALUE)) {
+            return NullStruct.NULL_VALUE;
+        }
+        return new FloatStruct((float) doubleInfo_.getValue());
+    }
+
+    private static WithoutParentStruct processSixteen(char _suffix, String _nb) {
+        if (_nb.length() > 16) {
+            return NullStruct.NULL_VALUE;
+        }
+        boolean[] bits_ = NumParsers.parseLongSixteenToBits(_nb);
+        if (isLongSuffix(_suffix)) {
+            long longValue_ = NumParsers.toLong(bits_);
+            return new LongStruct(longValue_);
+        }
+        if (isIntSuffix(_suffix)) {
+            if (_nb.length() > 8) {
                 return NullStruct.NULL_VALUE;
             }
-            long value_ = lg_.getValue();
-            if (suffix_ == 'I' || suffix_ == 'i') {
-                if (value_ >= Integer.MAX_VALUE + 1L) {
-                    while (value_ >= 0) {
-                        value_ -= Integer.MAX_VALUE;
-                        value_--;
-                    }
-                }
-                return new IntStruct((int) value_);
-            }
-            if (suffix_ == 'S' || suffix_ == 's') {
-                if (value_ >= Short.MAX_VALUE + 1L) {
-                    while (value_ >= 0) {
-                        value_ -= Short.MAX_VALUE;
-                        value_--;
-                    }
-                }
-                return new ShortStruct((short) value_);
-            }
-            if (value_ >= Byte.MAX_VALUE + 1L) {
-                while (value_ >= 0) {
-                    value_ -= Byte.MAX_VALUE;
-                    value_--;
-                }
-            }
-            return new ByteStruct((byte) value_);
+            int int_ = NumParsers.extractInt(bits_);
+            return new IntStruct(int_);
         }
-        LongInfo longValue_ = NumParsers.parseLong(nb_, 10);
+        if (isCharSuffix(_suffix)) {
+            if (_nb.length() > 4) {
+                return NullStruct.NULL_VALUE;
+            }
+            char int_ = NumParsers.parseCharSixteen(_nb);
+            return new CharStruct(int_);
+        }
+        if (isShortSuffix(_suffix)) {
+            if (_nb.length() > 4) {
+                return NullStruct.NULL_VALUE;
+            }
+            short int_ = NumParsers.extractShort(bits_);
+            return new ShortStruct(int_);
+        }
+        if (_nb.length() > 2) {
+            return NullStruct.NULL_VALUE;
+        }
+        byte int_ = NumParsers.extractByte(bits_);
+        return new ByteStruct(int_);
+    }
+
+    private static WithoutParentStruct processTwo(char _suffix, String _nb) {
+        if (_nb.length() > 64) {
+            return NullStruct.NULL_VALUE;
+        }
+        boolean[] bits_ = NumParsers.parseLongBinaryToBits(_nb);
+        if (isLongSuffix(_suffix)) {
+            long longValue_ = NumParsers.toLong(bits_);
+            return new LongStruct(longValue_);
+        }
+        if (isIntSuffix(_suffix)) {
+            if (_nb.length() > 32) {
+                return NullStruct.NULL_VALUE;
+            }
+            int int_ = NumParsers.extractInt(bits_);
+            return new IntStruct(int_);
+        }
+        if (isCharSuffix(_suffix)) {
+            if (_nb.length() > 16) {
+                return NullStruct.NULL_VALUE;
+            }
+            char int_ = (char) NumParsers.extractShort(bits_);
+            return new CharStruct(int_);
+        }
+        if (isShortSuffix(_suffix)) {
+            if (_nb.length() > 16) {
+                return NullStruct.NULL_VALUE;
+            }
+            short int_ = NumParsers.extractShort(bits_);
+            return new ShortStruct(int_);
+        }
+        if (_nb.length() > 8) {
+            return NullStruct.NULL_VALUE;
+        }
+        byte int_ = NumParsers.extractByte(bits_);
+        return new ByteStruct(int_);
+    }
+
+    private static WithoutParentStruct processEight(char _suffix, String _nb) {
+        if (isLongSuffix(_suffix)) {
+            return processEightLong(_nb);
+        }
+        if (isCharSuffix(_suffix)) {
+            return processEightChar(_nb);
+        }
+        LongInfo lg_ = NumParsers.parseLong(_nb, 8);
+        if (!lg_.isValid()) {
+            return NullStruct.NULL_VALUE;
+        }
+        long value_ = lg_.getValue();
+        if (isIntSuffix(_suffix)) {
+            return processEightInt(_nb, value_);
+        }
+        if (isShortSuffix(_suffix)) {
+            return processEightShort(_nb, value_);
+        }
+        return processEightByte(_nb, value_);
+    }
+
+    private static WithoutParentStruct processEightByte(String _nb, long _value) {
+        if (_nb.length() > 3) {
+            return NullStruct.NULL_VALUE;
+        }
+        if (_nb.length() == 3) {
+            if (notFourFirst(_nb)) {
+                return NullStruct.NULL_VALUE;
+            }
+        }
+        long value_ = _value;
+        if (value_ >= Byte.MAX_VALUE + 1L) {
+            while (value_ >= 0) {
+                value_ -= Byte.MAX_VALUE;
+                value_--;
+            }
+        }
+        return new ByteStruct((byte) value_);
+    }
+
+    private static WithoutParentStruct processEightShort(String _nb, long _value) {
+        if (_nb.length() > 6) {
+            return NullStruct.NULL_VALUE;
+        }
+        if (_nb.length() == 6) {
+            if (notFourFirst(_nb)) {
+                return NullStruct.NULL_VALUE;
+            }
+        }
+        long value_ = _value;
+        if (value_ >= Short.MAX_VALUE + 1L) {
+            while (value_ >= 0) {
+                value_ -= Short.MAX_VALUE;
+                value_--;
+            }
+        }
+        return new ShortStruct((short) value_);
+    }
+
+    private static WithoutParentStruct processEightInt(String _nb, long _value) {
+        if (_nb.length() > 11) {
+            return NullStruct.NULL_VALUE;
+        }
+        if (_nb.length() == 11) {
+            if (notFourFirst(_nb)) {
+                return NullStruct.NULL_VALUE;
+            }
+        }
+        long value_ = _value;
+        if (value_ >= Integer.MAX_VALUE + 1L) {
+            while (value_ >= 0) {
+                value_ -= Integer.MAX_VALUE;
+                value_--;
+            }
+        }
+        return new IntStruct((int) value_);
+    }
+
+    private static WithoutParentStruct processEightChar(String _nb) {
+        if (_nb.length() > 6) {
+            return NullStruct.NULL_VALUE;
+        }
+        if (_nb.length() == 6) {
+            if (notTwoFirst(_nb)) {
+                return NullStruct.NULL_VALUE;
+            }
+        }
+        LongInfo lg_ = NumParsers.parseLong(_nb, 8);
+        if (!lg_.isValid()) {
+            return NullStruct.NULL_VALUE;
+        }
+        return new CharStruct((char) lg_.getValue());
+    }
+
+    private static WithoutParentStruct processEightLong(String _nb) {
+        if (_nb.length() > 22) {
+            return NullStruct.NULL_VALUE;
+        }
+        int sub_ = 0;
+        boolean rev_ = false;
+        if (_nb.length() == 22) {
+            if (notTwoFirst(_nb)) {
+                return NullStruct.NULL_VALUE;
+            }
+            rev_ = _nb.charAt(0) == '1';
+            sub_ = 1;
+        }
+        String subString_ = _nb.substring(sub_);
+        LongInfo lg_ = NumParsers.parseLong(subString_, 8);
+        if (!lg_.isValid()) {
+            return NullStruct.NULL_VALUE;
+        }
+        boolean[] bitsOutTrunc_ = NumParsers.parseLongOctalToBits(subString_);
+        long longValue_ = NumParsers.toLong(bitsOutTrunc_,rev_,0,63);
+        return new LongStruct(longValue_);
+    }
+
+    private static boolean notFourFirst(String _nb) {
+        return _nb.charAt(0) != '0' && _nb.charAt(0) != '1' && _nb.charAt(0) != '2' && _nb.charAt(0) != '3';
+    }
+
+    private static boolean notTwoFirst(String _nb) {
+        return _nb.charAt(0) != '0' && _nb.charAt(0) != '1';
+    }
+
+    private static boolean isFloatSuffix(char _suffix) {
+        return _suffix == 'F' || _suffix == 'f';
+    }
+
+    private static boolean isDoubleSuffix(char _suffix) {
+        return _suffix == 'D' || _suffix == 'd';
+    }
+
+    private static WithoutParentStruct processTen(char _suffix, String _nb) {
+        LongInfo longValue_ = NumParsers.parseLong(_nb, 10);
         if (!longValue_.isValid()) {
-            String str_  = StringUtil.concat("-",nb_);
+            String str_  = StringUtil.concat("-", _nb);
             LongInfo oppLongValue_ = NumParsers.parseLong(str_, 10);
-            if (oppLongValue_.isValid()) {
-                if (suffix_ == 'L' || suffix_ == 'l') {
-                    return new LongStruct(Long.MIN_VALUE);
-                }
+            if (oppLongValue_.isValid() && isLongSuffix(_suffix)) {
+                return new LongStruct(Long.MIN_VALUE);
             }
             return NullStruct.NULL_VALUE;
         }
         long value_ = longValue_.getValue();
-        if (suffix_ == 'L' || suffix_ == 'l') {
+        if (isLongSuffix(_suffix)) {
             return new LongStruct(value_);
         }
-        if (suffix_ == 'I' || suffix_ == 'i') {
+        if (isIntSuffix(_suffix)) {
             if (value_ > Integer.MAX_VALUE) {
                 if (value_ == Integer.MAX_VALUE + 1L) {
                     return new IntStruct(Integer.MIN_VALUE);
@@ -238,7 +291,7 @@ public final class NumParsers {
             }
             return new IntStruct((int) value_);
         }
-        if (suffix_ == 'S' || suffix_ == 's') {
+        if (isShortSuffix(_suffix)) {
             if (value_ > Short.MAX_VALUE) {
                 if (value_ == Short.MAX_VALUE + 1L) {
                     return new ShortStruct(Short.MIN_VALUE);
@@ -247,7 +300,7 @@ public final class NumParsers {
             }
             return new ShortStruct((short) value_);
         }
-        if (suffix_ == 'B' || suffix_ == 'b') {
+        if (isByteSuffix(_suffix)) {
             if (value_ > Byte.MAX_VALUE) {
                 if (value_ == Byte.MAX_VALUE + 1L) {
                     return new ByteStruct(Byte.MIN_VALUE);
@@ -260,6 +313,26 @@ public final class NumParsers {
             return NullStruct.NULL_VALUE;
         }
         return new CharStruct((char) value_);
+    }
+
+    private static boolean isCharSuffix(char _suffix) {
+        return _suffix == 'C' || _suffix == 'c';
+    }
+
+    private static boolean isByteSuffix(char _suffix) {
+        return _suffix == 'B' || _suffix == 'b';
+    }
+
+    private static boolean isShortSuffix(char _suffix) {
+        return _suffix == 'S' || _suffix == 's';
+    }
+
+    private static boolean isIntSuffix(char _suffix) {
+        return _suffix == 'I' || _suffix == 'i';
+    }
+
+    private static boolean isLongSuffix(char _suffix) {
+        return _suffix == 'L' || _suffix == 'l';
     }
 
 
