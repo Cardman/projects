@@ -1,17 +1,12 @@
 package code.expressionlanguage.exec.inherits;
 
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.common.DimComp;
-import code.expressionlanguage.common.GeneType;
-import code.expressionlanguage.common.StringExpUtil;
+import code.expressionlanguage.common.*;
 import code.expressionlanguage.exec.ErrorType;
 import code.expressionlanguage.exec.blocks.ExecAnnotationBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
-import code.expressionlanguage.common.MappingPairs;
-import code.expressionlanguage.common.Matching;
-import code.expressionlanguage.common.MatchingEnum;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.stds.PrimitiveType;
 import code.expressionlanguage.stds.StandardType;
@@ -100,9 +95,9 @@ public final class ExecInherits {
                 if (StringUtil.quickEq(baseArrayParam_, fct_)) {
                     return new MappingPairs();
                 }
-                return StringExpUtil.newMappingPairsFct(typesArg_, typesParam_, obj_);
+                return FeedMappingTypePair.newMappingPairsFct(typesArg_, typesParam_, obj_);
             }
-            return StringExpUtil.getMappingFctPairs(dArg_, dParam_, baseArrayParam_, obj_);
+            return FeedMappingTypePair.getMappingFctPairs(dArg_, dParam_, baseArrayParam_, obj_);
         }
         if (StringUtil.quickEq(idBaseArrayParam_, fct_)) {
             return null;
@@ -111,7 +106,7 @@ public final class ExecInherits {
         if (generic_.isEmpty()) {
             return null;
         }
-        return StringExpUtil.newMappingPairs(generic_, typesParam_);
+        return FeedMappingTypePair.newMappingPairs(generic_, typesParam_);
     }
 
     public static ErrorType safeObject(String _param, String _arg, ContextEl _context) {
