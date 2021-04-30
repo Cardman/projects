@@ -121,6 +121,7 @@ public final class FeedMappingTypePair {
         }
         return false;
     }
+    //_arg == _param => false Matching forwarding equalty
     private static boolean stopFct(String _arg, String _param, CustList<Matching> _pairs) {
         Matching match_ = new Matching();
         if (StringUtil.quickEq(_param, StringExpUtil.SUB_TYPE)) {
