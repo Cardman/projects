@@ -2,6 +2,7 @@ package code.expressionlanguage.exec.opers;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
@@ -40,7 +41,7 @@ public final class ExecAnnotationMethodOperation extends ExecInvokingOperation {
             return new Argument();
         }
         String clName_ = argPrev_.getClassName(_conf);
-        Struct ret_ = ExecTemplates.getInstanceField(clName_, _name,_previous,_conf, _stackCall).getStruct();
+        Struct ret_ = ExecTemplates.getInstanceField(_previous,_conf, _stackCall, new ClassField(clName_, _name)).getStruct();
         return swallowCopy(ret_);
     }
 

@@ -3,6 +3,7 @@ package code.expressionlanguage.exec.blocks;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.AccessEnum;
+import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.AbstractInitPageEl;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
@@ -79,7 +80,7 @@ public final class ExecAnnotationMethodBlock extends ExecNamedFunctionBlock impl
         AbstractPageEl ip_ = _stackCall.getLastPage();
         Argument gl_ = ip_.getGlobalArgument();
         Argument arg_ = ExecAnnotationMethodOperation.swallowCopy(_arg.getStruct());
-        ExecTemplates.setInstanceField(_rootBlock,_cl, _name, _returnType, gl_, arg_, _cont, _stackCall);
+        ExecTemplates.setInstanceField(_rootBlock, _returnType, gl_, arg_, _cont, _stackCall, new ClassField(_cl, _name));
     }
 
     public CustList<ExecOperationNode> getOpValue() {

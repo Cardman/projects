@@ -489,14 +489,14 @@ public abstract class BeanCustLgNames extends BeanLgNames {
             }
             Argument mapArg_ = RenderExpUtil.calculateReuse(opsMap, _conf, this, _ctx, _stack, _rendStack);
             ExecRootBlock rootBlock_ = _ctx.getClasses().getClassBody(beanAliases.getAliasBean());
-            ExecTemplates.setInstanceField(rootBlock_, beanAliases.getAliasBean(), beanAliases.getAliasForms(), beanAliases.getAliasStringMapObject(),
-                    new Argument(strBean_),mapArg_, _ctx, _stack);
-            ExecTemplates.setInstanceField(rootBlock_, beanAliases.getAliasBean(), beanAliases.getAliasDataBaseField(), getAliasObject(),
-                    new Argument(strBean_),new Argument(_db), _ctx, _stack);
-            ExecTemplates.setInstanceField(rootBlock_, beanAliases.getAliasBean(), beanAliases.getAliasLanguage(), getAliasString(),
-                    new Argument(strBean_),new Argument(new StringStruct(_language)), _ctx, _stack);
-            ExecTemplates.setInstanceField(rootBlock_, beanAliases.getAliasBean(), beanAliases.getAliasScope(), getAliasString(),
-                    new Argument(strBean_),new Argument(new StringStruct(info_.getScope())), _ctx, _stack);
+            ExecTemplates.setInstanceField(rootBlock_, beanAliases.getAliasStringMapObject(),
+                    new Argument(strBean_),mapArg_, _ctx, _stack, new ClassField(beanAliases.getAliasBean(), beanAliases.getAliasForms()));
+            ExecTemplates.setInstanceField(rootBlock_, getAliasObject(),
+                    new Argument(strBean_),new Argument(_db), _ctx, _stack, new ClassField(beanAliases.getAliasBean(), beanAliases.getAliasDataBaseField()));
+            ExecTemplates.setInstanceField(rootBlock_, getAliasString(),
+                    new Argument(strBean_),new Argument(new StringStruct(_language)), _ctx, _stack, new ClassField(beanAliases.getAliasBean(), beanAliases.getAliasLanguage()));
+            ExecTemplates.setInstanceField(rootBlock_, getAliasString(),
+                    new Argument(strBean_),new Argument(new StringStruct(info_.getScope())), _ctx, _stack, new ClassField(beanAliases.getAliasBean(), beanAliases.getAliasScope()));
             _rendStack.removeLastPage();
             _conf.getBuiltBeans().setValue(index_,strBean_);
             index_++;
@@ -741,7 +741,6 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         int off_ =_rend.getOff();
         ClassField fieldId_ = _rend.getClassField();
         String className_ = fieldId_.getClassName();
-        String fieldName_ = fieldId_.getFieldName();
         boolean staticField_ = _rend.isStaticField();
         Argument previous_;
         if (!staticField_) {
@@ -750,18 +749,18 @@ public abstract class BeanCustLgNames extends BeanLgNames {
             previous_ = new Argument();
         }
         String fieldType_ = _rend.getRealType();
-        return getField(off_, className_, fieldName_, staticField_, previous_, fieldType_, _context, _stack, _rendStack);
+        return getField(off_, staticField_, previous_, fieldType_, _context, _stack, _rendStack, fieldId_);
     }
 
-    private static Argument getField(int _off, String _className, String _fieldName, boolean _staticField, Argument _previous, String _fieldType, ContextEl _context, StackCall _stackCall, RendStackCall _rendStackCall) {
+    private static Argument getField(int _off, boolean _staticField, Argument _previous, String _fieldType, ContextEl _context, StackCall _stackCall, RendStackCall _rendStackCall, ClassField _fieldId) {
         if (_context.callsOrException(_stackCall)) {
             return Argument.createVoid();
         }
         _rendStackCall.setOffset(_off);
         if (_staticField) {
-            return ExecTemplates.getStaticField(_context.getExiting(), _className, _fieldName, _fieldType, _context, _stackCall);
+            return ExecTemplates.getStaticField(_context.getExiting(), _fieldType, _context, _stackCall, _fieldId);
         }
-        return ExecTemplates.getInstanceField(_className, _fieldName, _previous, _context, _stackCall);
+        return ExecTemplates.getInstanceField(_previous, _context, _stackCall, _fieldId);
     }
 
     @Override
@@ -771,7 +770,6 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         boolean isStatic_ = _rend.isStaticField();
         ClassField fieldId_ = _rend.getClassField();
         String className_ = fieldId_.getClassName();
-        String fieldName_ = fieldId_.getFieldName();
         Argument previous_;
         if (!isStatic_) {
             previous_ = new Argument(ExecTemplates.getParent(_rend.getAnc(), className_, _previous.getStruct(), _context, _stack));
@@ -779,18 +777,18 @@ public abstract class BeanCustLgNames extends BeanLgNames {
             previous_ = new Argument();
         }
         //Come from code directly so constant static fields can be initialized here
-        return setField(_right, off_, fieldType_, isStatic_, _rend.getRootBlock(), className_, fieldName_, previous_, _context, _stack, _rendStack);
+        return setField(_right, off_, fieldType_, isStatic_, _rend.getRootBlock(), previous_, _context, _stack, _rendStack, fieldId_);
     }
 
-    private static Argument setField(Argument _right, int _off, String _fieldType, boolean _isStatic, ExecRootBlock _root, String _className, String _fieldName, Argument _previous, ContextEl _context, StackCall _stackCall, RendStackCall _rendStackCall) {
+    private static Argument setField(Argument _right, int _off, String _fieldType, boolean _isStatic, ExecRootBlock _root, Argument _previous, ContextEl _context, StackCall _stackCall, RendStackCall _rendStackCall, ClassField _fieldId) {
         if (_context.callsOrException(_stackCall)) {
             return Argument.createVoid();
         }
         _rendStackCall.setOffset(_off);
         if (_isStatic) {
-            return ExecTemplates.setStaticField(_context.getExiting(), _className, _fieldName, _fieldType, _right, _context, _stackCall);
+            return ExecTemplates.setStaticField(_context.getExiting(), _fieldType, _right, _context, _stackCall, _fieldId);
         }
-        return ExecTemplates.setInstanceField(_root, _className, _fieldName, _fieldType, _previous, _right, _context, _stackCall);
+        return ExecTemplates.setInstanceField(_root, _fieldType, _previous, _right, _context, _stackCall, _fieldId);
     }
 
     @Override

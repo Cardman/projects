@@ -9,7 +9,6 @@ import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.fwd.opers.ExecFieldOperationContent;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.fwd.opers.ExecSettableOperationContent;
-import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.util.IdMap;
@@ -37,7 +36,6 @@ public final class ExecSettableFieldOperation extends
         int off_ = getOff();
         ClassField fieldId_ = settableFieldContent.getClassField();
         String className_ = fieldId_.getClassName();
-        String fieldName_ = fieldId_.getFieldName();
         boolean staticField_ = settableFieldContent.isStaticField();
         if (resultCanBeSet()) {
             Argument arg_ = Argument.createVoid();
@@ -56,9 +54,9 @@ public final class ExecSettableFieldOperation extends
                 String fieldType_ = settableFieldContent.getRealType();
                 _stack.setOffset(off_);
                 if (staticField_) {
-                    arg_ = ExecTemplates.getStaticField(_conf.getExiting(), className_, fieldName_,fieldType_,_conf, _stack);
+                    arg_ = ExecTemplates.getStaticField(_conf.getExiting(), fieldType_,_conf, _stack, fieldId_);
                 } else {
-                    arg_ = ExecTemplates.getInstanceField(className_, fieldName_,prev_,_conf, _stack);
+                    arg_ = ExecTemplates.getInstanceField(prev_,_conf, _stack, fieldId_);
                 }
             }
             setSimpleArgument(arg_, _conf, _nodes, _stack);
@@ -117,7 +115,6 @@ public final class ExecSettableFieldOperation extends
         boolean isStatic_ = settableFieldContent.isStaticField();
         ClassField fieldId_ = settableFieldContent.getClassField();
         String className_ = fieldId_.getClassName();
-        String fieldName_ = fieldId_.getFieldName();
         Argument previous_;
         if (!isStatic_) {
             previous_ = new Argument(ExecTemplates.getParent(settableFieldContent.getAnc(), className_, prev_.getStruct(), _conf, _stackCall));
@@ -130,9 +127,9 @@ public final class ExecSettableFieldOperation extends
         //Come from code directly so constant static fields can be initialized here
         _stackCall.setOffset(off_);
         if (isStatic_) {
-            return ExecTemplates.setStaticField(_conf.getExiting(), className_, fieldName_, fieldType_, _right, _conf, _stackCall);
+            return ExecTemplates.setStaticField(_conf.getExiting(), fieldType_, _right, _conf, _stackCall, fieldId_);
         }
-        return ExecTemplates.setInstanceField(rootBlock, className_, fieldName_, fieldType_, previous_, _right, _conf, _stackCall);
+        return ExecTemplates.setInstanceField(rootBlock, fieldType_, previous_, _right, _conf, _stackCall, fieldId_);
     }
 
     public ExecSettableOperationContent getSettableFieldContent() {

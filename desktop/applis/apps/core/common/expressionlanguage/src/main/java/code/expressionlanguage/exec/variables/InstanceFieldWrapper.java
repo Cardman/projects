@@ -13,15 +13,11 @@ public final class InstanceFieldWrapper extends FieldWrapper {
         super(_container, _fieldType, _rootBlock, _id);
     }
     public void setValue(StackCall _stack, ContextEl _conf, Argument _right) {
-        String className_ = getId().getClassName();
-        String fieldName_ = getId().getFieldName();
-        ExecTemplates.setInstanceField(getRootBlock(), className_, fieldName_, getFieldType(), new Argument(getContainer()), _right, _conf, _stack);
+        ExecTemplates.setInstanceField(getRootBlock(), getFieldType(), new Argument(getContainer()), _right, _conf, _stack, getId());
     }
 
     public Struct getValue(StackCall _stack, ContextEl _conf) {
-        String className_ = getId().getClassName();
-        String fieldName_ = getId().getFieldName();
 
-        return ExecTemplates.getInstanceField(className_, fieldName_, new Argument(getContainer()),  _conf, _stack).getStruct();
+        return ExecTemplates.getInstanceField(new Argument(getContainer()),  _conf, _stack, getId()).getStruct();
     }
 }
