@@ -160,10 +160,8 @@ public final class ExecInherits {
 
     static String getSuperGeneric(GeneType _subType, ContextEl _context, int _dim, String _classParam) {
         String param_ = StringExpUtil.getIdFromAllTypes(_classParam);
-        if (_subType instanceof ExecAnnotationBlock) {
-            if (StringUtil.quickEq(param_, _context.getStandards().getContent().getReflect().getAliasAnnotationType())) {
-                return StringExpUtil.getPrettyArrayType(param_,_dim);
-            }
+        if (_subType instanceof ExecAnnotationBlock && StringUtil.quickEq(param_, _context.getStandards().getContent().getReflect().getAliasAnnotationType())) {
+            return StringExpUtil.getPrettyArrayType(param_, _dim);
         }
         String generic_ = "";
         if (_subType instanceof ExecRootBlock) {
