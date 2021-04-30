@@ -1130,31 +1130,27 @@ public final class NumParsers {
         StringBuilder out_ = new StringBuilder();
         out_.append("\"");
         for (char c: _ch.toStringInstance().toCharArray()) {
-            if (c == '"' || c == '\\') {
-                out_.append("\\");
-                out_.append(c);
-                continue;
-            }
-            if (c == 0) {
-                out_.append("\\u0000");
-                continue;
-            }
-            if (c < 16) {
-                out_.append("\\u000");
-                out_.append(StringExpUtil.toGeneHex(c));
-                continue;
-            }
-            if (c < 31) {
-                out_.append("\\u00");
-                out_.append(StringExpUtil.toGeneHex(c));
-                continue;
-            }
-            out_.append(c);
+            out_.append(exportChar(c));
         }
         out_.append("\"");
         return new StringStruct(out_.toString());
     }
 
+    private static String exportChar(char _char) {
+        if (_char == '"' || _char == '\\') {
+            return "\\"+_char;
+        }
+        if (_char == 0) {
+            return "\\u0000";
+        }
+        if (_char < 16) {
+            return "\\u000"+StringExpUtil.toGeneHex(_char);
+        }
+        if (_char < 31) {
+            return "\\u00"+StringExpUtil.toGeneHex(_char);
+        }
+        return Character.toString(_char);
+    }
     public static boolean sameEq(CharSequenceStruct _current, Struct _other) {
         if (!(_other instanceof CharSequenceStruct)) {
             return false;
