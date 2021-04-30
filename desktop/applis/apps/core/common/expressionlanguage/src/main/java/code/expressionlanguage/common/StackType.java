@@ -43,14 +43,7 @@ final class StackType {
         _id.append(_curChar);
     }
     boolean loopAllPartInnerTypes(String _type, int _i,StringList _types, StringBuilder _out, char _curChar) {
-        if (count > 0) {
-            changeStack(_curChar);
-            _out.append(_curChar);
-            return false;
-        }
-        if (_curChar == StringExpUtil.LT) {
-            _out.append(_curChar);
-            count++;
+        if (changedCount(_out, _curChar)) {
             return false;
         }
         if (_curChar == '-') {
@@ -69,14 +62,7 @@ final class StackType {
         return false;
     }
     boolean loopAllInnerTypes(String _type, int _i,StringList _types, StringBuilder _out, char _curChar) {
-        if (count > 0) {
-            changeStack(_curChar);
-            _out.append(_curChar);
-            return false;
-        }
-        if (_curChar == StringExpUtil.LT) {
-            _out.append(_curChar);
-            count++;
+        if (changedCount(_out, _curChar)) {
             return false;
         }
         if (_curChar == '-') {
@@ -93,6 +79,19 @@ final class StackType {
         return false;
     }
 
+    private boolean changedCount(StringBuilder _out, char _curChar) {
+        if (count > 0) {
+            changeStack(_curChar);
+            _out.append(_curChar);
+            return true;
+        }
+        if (_curChar == StringExpUtil.LT) {
+            _out.append(_curChar);
+            count++;
+            return true;
+        }
+        return false;
+    }
     private void changeStack(char _curChar) {
         if (_curChar == StringExpUtil.LT) {
             count++;
