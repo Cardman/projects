@@ -952,10 +952,8 @@ public final class NumParsers {
         while (i_ < len_) {
             char cur_ = _nb.charAt(i_);
             if (!StringExpUtil.isDigit(cur_)) {
-                if (cur_ != DOT_VAR) {
-                    if (cur_ != EXP && cur_ != EXP_UPP) {
-                        return null;
-                    }
+                if (cur_ != DOT_VAR && isNotExpSymbol(cur_)) {
+                    return null;
                 }
                 break;
             }
@@ -967,7 +965,7 @@ public final class NumParsers {
             while (i_ < len_) {
                 char cur_ = _nb.charAt(i_);
                 if (!StringExpUtil.isDigit(cur_)) {
-                    if (cur_ != EXP && cur_ != EXP_UPP) {
+                    if (isNotExpSymbol(cur_)) {
                         return null;
                     }
                     break;
@@ -1009,6 +1007,10 @@ public final class NumParsers {
             return null;
         }
         return infos_;
+    }
+
+    private static boolean isNotExpSymbol(char _cur) {
+        return _cur != EXP && _cur != EXP_UPP;
     }
 
     public static StringStruct exportValue(NumberStruct _nb, String _infinity, String _nan, String _exp) {
