@@ -515,20 +515,7 @@ public final class NumParsers {
 
     //this long parser is very naive
     public static char parseCharSixteen(String _string) {
-        int result_ = 0;
-        int i_ = 0;
-        int max_ = _string.length();
-        while (i_ < max_) {
-            int ch_ = _string.charAt(i_);
-            if (ch_ >= 'A' && ch_ <= 'F') {
-                ch_ = ch_ - 'A' + 'a';
-            }
-            i_++;
-            int digit_ = Math.min(ch_ - '0', 10) + Math.max(ch_ - 'a', 0);
-            result_ *= HEX_BASE;
-            result_ += digit_;
-        }
-        return (char)result_;
+        return (char)parseLongSixteen(_string);
     }
 
     private static boolean[] toBits(long _l) {
@@ -663,19 +650,7 @@ public final class NumParsers {
     }
 
     private static boolean[] parseLongSixteenToBits(String _string) {
-        StringBuilder str_;
-        if (_string.length() < 16) {
-            str_ = new StringBuilder();
-            int add_ = 16 - _string.length();
-            for (int i = 0; i < add_; i++) {
-                str_.append("0");
-            }
-            for (int i = add_; i < 16; i++) {
-                str_.append(_string.charAt(i - add_));
-            }
-        } else {
-            str_ = new StringBuilder(_string);
-        }
+        StringBuilder str_ = init(_string, 16);
         boolean[] out_ = new boolean[str_.length() * 4];
         int i_ = 0;
         int j_ = 0;
@@ -702,19 +677,7 @@ public final class NumParsers {
     }
 
     private static boolean[] parseLongOctalToBits(String _string) {
-        StringBuilder str_;
-        if (_string.length() < 21) {
-            str_ = new StringBuilder();
-            int add_ = 21 - _string.length();
-            for (int i = 0; i < add_; i++) {
-                str_.append("0");
-            }
-            for (int i = add_; i < 21; i++) {
-                str_.append(_string.charAt(i - add_));
-            }
-        } else {
-            str_ = new StringBuilder(_string);
-        }
+        StringBuilder str_ = init(_string, 21);
         int j_ = 0;
         boolean[] out_ = new boolean[str_.length()*3];
         int i_ = 0;
@@ -737,19 +700,7 @@ public final class NumParsers {
     }
 
     private static boolean[] parseLongBinaryToBits(String _string) {
-        StringBuilder str_;
-        if (_string.length() < 64) {
-            str_ = new StringBuilder();
-            int add_ = 64 - _string.length();
-            for (int i = 0; i < add_; i++) {
-                str_.append("0");
-            }
-            for (int i = add_; i < 64; i++) {
-                str_.append(_string.charAt(i - add_));
-            }
-        } else {
-            str_ = new StringBuilder(_string);
-        }
+        StringBuilder str_ = init(_string, 64);
         boolean[] out_ = new boolean[str_.length()];
         int i_ = 0;
         int max_ = str_.length();
@@ -762,6 +713,23 @@ public final class NumParsers {
             i_++;
         }
         return out_;
+    }
+
+    private static StringBuilder init(String _string, int _nb) {
+        StringBuilder str_;
+        if (_string.length() < _nb) {
+            str_ = new StringBuilder();
+            int add_ = _nb - _string.length();
+            for (int i = 0; i < add_; i++) {
+                str_.append("0");
+            }
+            for (int i = add_; i < _nb; i++) {
+                str_.append(_string.charAt(i - add_));
+            }
+        } else {
+            str_ = new StringBuilder(_string);
+        }
+        return str_;
     }
 
     private static long parseLongSixteen(String _string) {
