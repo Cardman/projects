@@ -260,7 +260,7 @@ public final class StringExpUtilTest extends ProcessMethodCommon {
     }
     @Test
     public void commonCorrectType(){
-        assertTrue(!StringExpUtil.commonCorrectType("Tmp<Type>","Tmp","",new Ints()));
+        assertTrue(!StringExpUtil.commonCorrectType("Tmp<Type>", "",new Ints()));
     }
     @Test
     public void getAllPartInnerTypes1Test(){

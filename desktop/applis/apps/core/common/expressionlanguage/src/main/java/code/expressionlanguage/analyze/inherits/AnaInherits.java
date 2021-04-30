@@ -425,7 +425,7 @@ public final class AnaInherits {
         }
         String fct_ = _page.getAliasFct();
         Ints rep_ = _info.getTypeVarCounts();
-        return StringExpUtil.commonCorrectType(_genericClass, compo_, fct_, rep_);
+        return StringExpUtil.commonCorrectType(_genericClass, fct_, rep_);
     }
 
     /** Splits by single dot the input string into parts regarding packages<br/>

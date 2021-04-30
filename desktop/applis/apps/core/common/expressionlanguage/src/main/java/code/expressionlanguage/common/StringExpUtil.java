@@ -493,10 +493,12 @@ public final class StringExpUtil {
         return Math.max(0, StringUtil.getFirstPrintableCharIndex(_str));
     }
 
-    public static boolean commonCorrectType(String _genericClass, String _compo, String _fct, Ints _rep) {
+    public static boolean commonCorrectType(String _genericClass, String _fct, Ints _rep) {
+        String idCl_ = StringExpUtil.getIdFromAllTypes(_genericClass);
+        String compo_ = StringExpUtil.getQuickComponentBaseType(idCl_).getComponent();
         StringList inners_ = getAllInnerTypes(_genericClass);
         int len_ = inners_.size();
-        if (!StringUtil.quickEq(_compo, _fct)) {
+        if (!StringUtil.quickEq(compo_, _fct)) {
             if (len_ != _rep.size()) {
                 return false;
             }
