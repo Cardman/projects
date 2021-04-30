@@ -1134,18 +1134,11 @@ public final class ExecTemplates {
         String fieldName_ = _meta.getName();
         boolean isStaticField_ = _meta.isStaticField();
         String type_ = _meta.getType();
-        return getField(new DefaultSetOffset(),_conf.getExiting(),baseClass_, fieldName_, isStaticField_,type_, _previous, _conf, -1, _stackCall);
-    }
 
-    public static Argument getField(AbstractSetOffset _setOffset, AbstractExiting _exit, String _className, String _fieldName, boolean _isStaticField, String _ret, Argument _previous, ContextEl _conf, int _possibleOffset, StackCall _stackCall) {
-        if (_possibleOffset > -1) {
-            _setOffset.setOffset(_stackCall, _possibleOffset);
+        if (isStaticField_) {
+            return getStaticField(_conf.getExiting(), baseClass_, fieldName_, type_, _conf, _stackCall);
         }
-
-        if (_isStaticField) {
-            return getStaticField(_exit,_className, _fieldName, _ret, _conf, _stackCall);
-        }
-        return getInstanceField(_className, _fieldName, _previous, _conf, _stackCall);
+        return getInstanceField(baseClass_, fieldName_, _previous, _conf, _stackCall);
     }
 
     public static Argument getInstanceField(String _className, String _fieldName, Argument _previous, ContextEl _conf, StackCall _stackCall) {
@@ -1193,20 +1186,17 @@ public final class ExecTemplates {
         boolean isStaticField_ = _meta.isStaticField();
         boolean isFinalField_ = _meta.isFinalField();
         String type_ = _meta.getType();
-        return setField(new DefaultSetOffset(),_conf.getExiting(),_meta.getDeclaring(),baseClass_, fieldName_, isStaticField_, isFinalField_, true, type_, _previous, _right, _conf, -1, _stackCall);
-    }
-
-    public static Argument setField(AbstractSetOffset _setOffset, AbstractExiting _exit, ExecRootBlock _rootBlock, String _className, String _fieldName,
-                                    boolean _isStaticField, boolean _finalField, boolean _failIfFinal,
-                                    String _returnType, Argument _previous,
-                                    Argument _right, ContextEl _conf, int _possibleOffset, StackCall _stackCall) {
-        if (_possibleOffset > -1) {
-            _setOffset.setOffset(_stackCall, _possibleOffset);
+        if (isStaticField_) {
+            LgNames stds_ = _conf.getStandards();
+            if (isFinalField_) {
+                String npe_;
+                npe_ = stds_.getContent().getCoreNames().getAliasIllegalArg();
+                _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_conf, npe_, _stackCall)));
+                return Argument.createVoid();
+            }
+            return setStaticField(_conf.getExiting(), baseClass_, fieldName_, type_, _right, _conf, _stackCall);
         }
-        if (_isStaticField) {
-            return setStaticField(_exit,_className, _fieldName, _finalField, _failIfFinal, _returnType, _right, _conf, _stackCall);
-        }
-        return setInstanceField(_rootBlock,_className, _fieldName, _returnType, _previous, _right, _conf, _stackCall);
+        return setInstanceField(_meta.getDeclaring(), baseClass_, fieldName_, type_, _previous, _right, _conf, _stackCall);
     }
 
     public static Argument setInstanceField(ExecRootBlock _rootBlock, String _className, String _fieldName, String _returnType, Argument _previous, Argument _right, ContextEl _conf, StackCall _stackCall) {
@@ -1242,16 +1232,9 @@ public final class ExecTemplates {
         return _right;
     }
 
-    private static Argument setStaticField(AbstractExiting _exit, String _className, String _fieldName, boolean _finalField, boolean _failIfFinal, String _returnType, Argument _right, ContextEl _conf, StackCall _stackCall) {
+    public static Argument setStaticField(AbstractExiting _exit, String _className, String _fieldName, String _returnType, Argument _right, ContextEl _conf, StackCall _stackCall) {
         Classes classes_ = _conf.getClasses();
         ClassField fieldId_ = new ClassField(_className, _fieldName);
-        LgNames stds_ = _conf.getStandards();
-        if (_finalField && _failIfFinal) {
-            String npe_;
-            npe_ = stds_.getContent().getCoreNames().getAliasIllegalArg();
-            _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_conf, npe_, _stackCall)));
-            return Argument.createVoid();
-        }
         if (_exit.hasToExit(_stackCall, _className)) {
             return Argument.createVoid();
         }
@@ -1266,7 +1249,6 @@ public final class ExecTemplates {
         NumParsers.getStaticFieldMap(className_, classes_.getStaticFields()).set(fieldId_.getFieldName(), _right.getStruct());
         return _right;
     }
-
     public static Argument trySetArgument(ContextEl _conf, Argument _res, ArgumentsPair _pair, StackCall _stackCall) {
         AbstractWrapper wrapper_ = _pair.getWrapper();
         return trySetArgument(_conf, _res, wrapper_, _stackCall);

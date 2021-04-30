@@ -110,10 +110,6 @@ public final class RendSettableFieldOperation extends
         return settableFieldContent;
     }
 
-    public boolean isFinalField() {
-        return settableFieldContent.isFinalField();
-    }
-
     public boolean isStaticField() {
         return settableFieldContent.isStaticField();
     }

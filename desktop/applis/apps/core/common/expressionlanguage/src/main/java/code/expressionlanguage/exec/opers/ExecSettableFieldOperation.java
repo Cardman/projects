@@ -1,8 +1,6 @@
 package code.expressionlanguage.exec.opers;
 
-import code.expressionlanguage.Argument;
-import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.DefaultSetOffset;
+import code.expressionlanguage.*;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
@@ -11,6 +9,7 @@ import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.fwd.opers.ExecFieldOperationContent;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.fwd.opers.ExecSettableOperationContent;
+import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.util.IdMap;
@@ -55,7 +54,12 @@ public final class ExecSettableFieldOperation extends
                 arg_ = Argument.createVoid();
             } else {
                 String fieldType_ = settableFieldContent.getRealType();
-                arg_ = ExecTemplates.getField(new DefaultSetOffset(), _conf.getExiting(), className_, fieldName_, staticField_, fieldType_, prev_, _conf, off_, _stack);
+                _stack.setOffset(off_);
+                if (staticField_) {
+                    arg_ = ExecTemplates.getStaticField(_conf.getExiting(), className_, fieldName_,fieldType_,_conf, _stack);
+                } else {
+                    arg_ = ExecTemplates.getInstanceField(className_, fieldName_,prev_,_conf, _stack);
+                }
             }
             setSimpleArgument(arg_, _conf, _nodes, _stack);
         }
@@ -111,7 +115,6 @@ public final class ExecSettableFieldOperation extends
         int off_ = getOff();
         String fieldType_ = settableFieldContent.getRealType();
         boolean isStatic_ = settableFieldContent.isStaticField();
-        boolean isFinal_ = settableFieldContent.isFinalField();
         ClassField fieldId_ = settableFieldContent.getClassField();
         String className_ = fieldId_.getClassName();
         String fieldName_ = fieldId_.getFieldName();
@@ -125,7 +128,11 @@ public final class ExecSettableFieldOperation extends
             return Argument.createVoid();
         }
         //Come from code directly so constant static fields can be initialized here
-        return ExecTemplates.setField(new DefaultSetOffset(), _conf.getExiting(),rootBlock,className_, fieldName_, isStatic_, isFinal_, false, fieldType_, previous_, _right, _conf, off_, _stackCall);
+        _stackCall.setOffset(off_);
+        if (isStatic_) {
+            return ExecTemplates.setStaticField(_conf.getExiting(), className_, fieldName_, fieldType_, _right, _conf, _stackCall);
+        }
+        return ExecTemplates.setInstanceField(rootBlock, className_, fieldName_, fieldType_, previous_, _right, _conf, _stackCall);
     }
 
     public ExecSettableOperationContent getSettableFieldContent() {

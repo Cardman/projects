@@ -25,15 +25,18 @@ public final class ExecWrappOperation extends ExecAbstractUnaryOperation {
             ExecSettableFieldOperation ch_ = (ExecSettableFieldOperation)chFirst_;
             ExecSettableOperationContent settableFieldContent_ = ch_.getSettableFieldContent();
             Argument previous_;
+            FieldWrapper f_;
             if (!settableFieldContent_.isStaticField()) {
                 Argument previousArgument_ = ch_.getPreviousArg(ch_,_nodes, _stack);
                 String className_ = settableFieldContent_.getClassField().getClassName();
                 previous_ = new Argument(ExecTemplates.getParent(settableFieldContent_.getAnc(), className_, previousArgument_.getStruct(), _conf, _stack));
+                f_ = new InstanceFieldWrapper(previous_.getStruct(),settableFieldContent_.getRealType(),ch_.getRootBlock(),
+                        settableFieldContent_.getClassField());
             } else {
                 previous_ = new Argument();
+                f_ = new StaticFieldWrapper(previous_.getStruct(),settableFieldContent_.getRealType(),ch_.getRootBlock(),
+                        settableFieldContent_.getClassField());
             }
-            FieldWrapper f_ = new FieldWrapper(previous_.getStruct(),settableFieldContent_.getRealType(),ch_.getRootBlock(),
-                    settableFieldContent_.isStaticField(),settableFieldContent_.isFinalField(),settableFieldContent_.getClassField());
             ArgumentsPair pair_ = ExecHelper.getArgumentPair(_nodes, this);
             pair_.setWrapper(f_);
             setQuickNoConvertSimpleArgument(Argument.createVoid(),_conf,_nodes, _stack);

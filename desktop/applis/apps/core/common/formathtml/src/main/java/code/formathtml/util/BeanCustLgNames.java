@@ -23,7 +23,6 @@ import code.formathtml.analyze.AnalyzingDoc;
 import code.formathtml.analyze.DefaultConverterCheck;
 import code.formathtml.analyze.DefaultReducingOperations;
 import code.formathtml.analyze.blocks.AnaRendDocumentBlock;
-import code.formathtml.exec.AdvancedSetOffset;
 import code.formathtml.exec.RendStackCall;
 import code.formathtml.exec.RenderExpUtil;
 import code.formathtml.exec.blocks.RendBlock;
@@ -758,7 +757,11 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         if (_context.callsOrException(_stackCall)) {
             return Argument.createVoid();
         }
-        return ExecTemplates.getField(new AdvancedSetOffset(_rendStackCall), _context.getExiting(), _className, _fieldName, _staticField, _fieldType, _previous, _context, _off, _stackCall);
+        _rendStackCall.setOffset(_off);
+        if (_staticField) {
+            return ExecTemplates.getStaticField(_context.getExiting(), _className, _fieldName, _fieldType, _context, _stackCall);
+        }
+        return ExecTemplates.getInstanceField(_className, _fieldName, _previous, _context, _stackCall);
     }
 
     @Override
@@ -766,7 +769,6 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         int off_ = _rend.getOff();
         String fieldType_ = _rend.getRealType();
         boolean isStatic_ = _rend.isStaticField();
-        boolean isFinal_ = _rend.isFinalField();
         ClassField fieldId_ = _rend.getClassField();
         String className_ = fieldId_.getClassName();
         String fieldName_ = fieldId_.getFieldName();
@@ -777,14 +779,18 @@ public abstract class BeanCustLgNames extends BeanLgNames {
             previous_ = new Argument();
         }
         //Come from code directly so constant static fields can be initialized here
-        return setField(_right, off_, fieldType_, isStatic_, isFinal_, _rend.getRootBlock(), className_, fieldName_, previous_, _context, _stack, _rendStack);
+        return setField(_right, off_, fieldType_, isStatic_, _rend.getRootBlock(), className_, fieldName_, previous_, _context, _stack, _rendStack);
     }
 
-    private static Argument setField(Argument _right, int _off, String _fieldType, boolean _isStatic, boolean _isFinal, ExecRootBlock _root, String _className, String _fieldName, Argument _previous, ContextEl _context, StackCall _stackCall, RendStackCall _rendStackCall) {
+    private static Argument setField(Argument _right, int _off, String _fieldType, boolean _isStatic, ExecRootBlock _root, String _className, String _fieldName, Argument _previous, ContextEl _context, StackCall _stackCall, RendStackCall _rendStackCall) {
         if (_context.callsOrException(_stackCall)) {
             return Argument.createVoid();
         }
-        return ExecTemplates.setField(new AdvancedSetOffset(_rendStackCall), _context.getExiting(), _root,_className, _fieldName, _isStatic, _isFinal, false, _fieldType, _previous, _right, _context, _off, _stackCall);
+        _rendStackCall.setOffset(_off);
+        if (_isStatic) {
+            return ExecTemplates.setStaticField(_context.getExiting(), _className, _fieldName, _fieldType, _right, _context, _stackCall);
+        }
+        return ExecTemplates.setInstanceField(_root, _className, _fieldName, _fieldType, _previous, _right, _context, _stackCall);
     }
 
     @Override
