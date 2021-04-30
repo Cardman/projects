@@ -83,6 +83,7 @@ public final class FeedMappingTypePair {
         return m_;
     }
 
+    //_arg == _param => false & Matching forwarding equalty
     private static boolean stopFct(String _arg, String _param, CustList<Matching> _pairs, int _i, int _argCall, String _objectType) {
         if (_param.startsWith("~")) {
             if (_arg.startsWith("~")) {
@@ -121,7 +122,7 @@ public final class FeedMappingTypePair {
         }
         return false;
     }
-    //_arg == _param => false Matching forwarding equalty
+    //_arg == _param => false & Matching forwarding equalty
     private static boolean stopFct(String _arg, String _param, CustList<Matching> _pairs) {
         Matching match_ = new Matching();
         if (StringUtil.quickEq(_param, StringExpUtil.SUB_TYPE)) {
