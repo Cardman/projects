@@ -1072,7 +1072,7 @@ public final class NumParsers {
             NumberStruct instance_ = convertToNumber(_struct);
             one_ = instance_.doubleStruct();
         } else {
-            one_ = (convertToNumber(_args[0])).doubleStruct();
+            one_ = convertToNumber(_args[0]).doubleStruct();
         }
         return one_;
     }
@@ -1080,7 +1080,7 @@ public final class NumParsers {
     public static int getRadix(StringList _list, Struct[] _args) {
         int radix_ = DEFAULT_RADIX;
         if (_list.size() != 1) {
-            radix_ = (convertToNumber(_args[1])).intStruct();
+            radix_ = convertToNumber(_args[1]).intStruct();
         }
         return radix_;
     }
