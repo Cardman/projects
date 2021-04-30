@@ -1,10 +1,10 @@
 package code.expressionlanguage.analyze;
 
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.common.*;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.ConstructorId;
-import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.stds.*;
 import code.expressionlanguage.structs.*;
 import code.maths.litteralcom.MathExpUtil;
@@ -277,24 +277,24 @@ public final class AnaApplyCoreMethodUtil {
                 return(args_[0]);
             }
             return(NumParsers.calculateSum(NumParsers.convertToNumber(args_[0]), NumParsers.convertToNumber(args_[1]),
-                    ClassArgumentMatching.getPrimitiveCast(paramList_.first(), _page.getPrimTypes())));
+                    AnaClassArgumentMatching.getPrimitiveCast(paramList_.first(), _page.getPrimTypes())));
         }
         if (StringUtil.quickEq(name_, am_.getAliasMinus())) {
             if (paramList_.size() != 1) {
                 return (NumParsers.calculateDiff(NumParsers.convertToNumber(args_[0]), NumParsers.convertToNumber(args_[1]),
-                        ClassArgumentMatching.getPrimitiveCast(paramList_.first(), _page.getPrimTypes())));
+                        AnaClassArgumentMatching.getPrimitiveCast(paramList_.first(), _page.getPrimTypes())));
             }
             NumberStruct b_ = NumParsers.convertToNumber(_args[0].getStruct());
-            byte cast_ = ClassArgumentMatching.getPrimitiveCast(paramList_.first(), _page.getPrimTypes());
+            byte cast_ = AnaClassArgumentMatching.getPrimitiveCast(paramList_.first(), _page.getPrimTypes());
             return NumParsers.opposite(b_,cast_);
         }
         if (StringUtil.quickEq(name_, am_.getAliasMult())) {
             return(NumParsers.calculateMult(NumParsers.convertToNumber(args_[0]), NumParsers.convertToNumber(args_[1]),
-                    ClassArgumentMatching.getPrimitiveCast(paramList_.first(), _page.getPrimTypes())));
+                    AnaClassArgumentMatching.getPrimitiveCast(paramList_.first(), _page.getPrimTypes())));
         }
         if (StringUtil.quickEq(name_, am_.getAliasBinMod())) {
             Struct arg_ = NumParsers.calculateMod(NumParsers.convertToNumber(args_[0]), NumParsers.convertToNumber(args_[1]),
-                    ClassArgumentMatching.getPrimitiveCast(paramList_.first(), _page.getPrimTypes()));
+                    AnaClassArgumentMatching.getPrimitiveCast(paramList_.first(), _page.getPrimTypes()));
             if (arg_ == NullStruct.NULL_VALUE) {
                 return null;
             }
@@ -302,27 +302,27 @@ public final class AnaApplyCoreMethodUtil {
         }
         if (StringUtil.quickEq(name_, am_.getAliasBinQuot())) {
             Struct arg_ = NumParsers.calculateDiv(NumParsers.convertToNumber(args_[0]), NumParsers.convertToNumber(args_[1]),
-                    ClassArgumentMatching.getPrimitiveCast(paramList_.first(), _page.getPrimTypes()));
+                    AnaClassArgumentMatching.getPrimitiveCast(paramList_.first(), _page.getPrimTypes()));
             if (arg_ == NullStruct.NULL_VALUE) {
                 return null;
             }
             return(arg_);
         }
         if (StringUtil.quickEq(name_, am_.getAliasNegBin())) {
-            byte cast_ = ClassArgumentMatching.getPrimitiveCast(paramList_.first(), _page.getPrimTypes());
+            byte cast_ = AnaClassArgumentMatching.getPrimitiveCast(paramList_.first(), _page.getPrimTypes());
             return NumParsers.negBinNumber(NumParsers.convertToNumber(_args[0].getStruct()),cast_);
         }
         if (StringUtil.quickEq(name_, am_.getAliasNeg())) {
             return(NumParsers.convertToBoolean(_args[0].getStruct()).neg());
         }
         if (StringUtil.quickEq(name_, am_.getAliasAnd())) {
-            return(NumParsers.calculateAnd(args_[0], args_[1], ClassArgumentMatching.getPrimitiveCast(paramList_.first(), _page.getPrimTypes())));
+            return(NumParsers.calculateAnd(args_[0], args_[1], AnaClassArgumentMatching.getPrimitiveCast(paramList_.first(), _page.getPrimTypes())));
         }
         if (StringUtil.quickEq(name_, am_.getAliasOr())) {
-            return(NumParsers.calculateOr(args_[0], args_[1], ClassArgumentMatching.getPrimitiveCast(paramList_.first(), _page.getPrimTypes())));
+            return(NumParsers.calculateOr(args_[0], args_[1], AnaClassArgumentMatching.getPrimitiveCast(paramList_.first(), _page.getPrimTypes())));
         }
         if (StringUtil.quickEq(name_, am_.getAliasXor())) {
-            return(NumParsers.calculateXor(args_[0], args_[1], ClassArgumentMatching.getPrimitiveCast(paramList_.first(), _page.getPrimTypes())));
+            return(NumParsers.calculateXor(args_[0], args_[1], AnaClassArgumentMatching.getPrimitiveCast(paramList_.first(), _page.getPrimTypes())));
         }
         if (StringUtil.quickEq(name_, am_.getAliasLt())) {
             return(NumParsers.quickCalculateLowerNb(args_[0], args_[1]));
@@ -343,22 +343,22 @@ public final class AnaApplyCoreMethodUtil {
             return(NumParsers.quickCalculateGreaterNb(args_[0], args_[1]));
         }
         if (StringUtil.quickEq(name_, am_.getAliasShiftLeft())) {
-            return(NumParsers.calculateShiftLeft(NumParsers.convertToNumber(args_[0]), NumParsers.convertToNumber(args_[1]), ClassArgumentMatching.getPrimitiveCast(paramList_.first(), _page.getPrimTypes())));
+            return(NumParsers.calculateShiftLeft(NumParsers.convertToNumber(args_[0]), NumParsers.convertToNumber(args_[1]), AnaClassArgumentMatching.getPrimitiveCast(paramList_.first(), _page.getPrimTypes())));
         }
         if (StringUtil.quickEq(name_, am_.getAliasShiftRight())) {
-            return(NumParsers.calculateShiftRight(NumParsers.convertToNumber(args_[0]), NumParsers.convertToNumber(args_[1]),ClassArgumentMatching.getPrimitiveCast(paramList_.first(), _page.getPrimTypes())));
+            return(NumParsers.calculateShiftRight(NumParsers.convertToNumber(args_[0]), NumParsers.convertToNumber(args_[1]),AnaClassArgumentMatching.getPrimitiveCast(paramList_.first(), _page.getPrimTypes())));
         }
         if (StringUtil.quickEq(name_, am_.getAliasBitShiftLeft())) {
-            return(NumParsers.calculateBitShiftLeft(NumParsers.convertToNumber(args_[0]), NumParsers.convertToNumber(args_[1]), ClassArgumentMatching.getPrimitiveCast(paramList_.first(), _page.getPrimTypes())));
+            return(NumParsers.calculateBitShiftLeft(NumParsers.convertToNumber(args_[0]), NumParsers.convertToNumber(args_[1]), AnaClassArgumentMatching.getPrimitiveCast(paramList_.first(), _page.getPrimTypes())));
         }
         if (StringUtil.quickEq(name_, am_.getAliasBitShiftRight())) {
-            return(NumParsers.calculateBitShiftRight(NumParsers.convertToNumber(args_[0]), NumParsers.convertToNumber(args_[1]), ClassArgumentMatching.getPrimitiveCast(paramList_.first(), _page.getPrimTypes())));
+            return(NumParsers.calculateBitShiftRight(NumParsers.convertToNumber(args_[0]), NumParsers.convertToNumber(args_[1]), AnaClassArgumentMatching.getPrimitiveCast(paramList_.first(), _page.getPrimTypes())));
         }
         if (StringUtil.quickEq(name_, am_.getAliasRotateLeft())) {
-            return(NumParsers.calculateRotateLeft(NumParsers.convertToNumber(args_[0]), NumParsers.convertToNumber(args_[1]), ClassArgumentMatching.getPrimitiveCast(paramList_.first(), _page.getPrimTypes())));
+            return(NumParsers.calculateRotateLeft(NumParsers.convertToNumber(args_[0]), NumParsers.convertToNumber(args_[1]), AnaClassArgumentMatching.getPrimitiveCast(paramList_.first(), _page.getPrimTypes())));
         }
         if (StringUtil.quickEq(name_, am_.getAliasRotateRight())) {
-            return(NumParsers.calculateRotateRight(NumParsers.convertToNumber(args_[0]), NumParsers.convertToNumber(args_[1]), ClassArgumentMatching.getPrimitiveCast(paramList_.first(), _page.getPrimTypes())));
+            return(NumParsers.calculateRotateRight(NumParsers.convertToNumber(args_[0]), NumParsers.convertToNumber(args_[1]), AnaClassArgumentMatching.getPrimitiveCast(paramList_.first(), _page.getPrimTypes())));
         }
         return null;
     }

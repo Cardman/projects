@@ -1,4 +1,4 @@
-package code.expressionlanguage.inherits;
+package code.expressionlanguage.common;
 
 import code.util.CustList;
 

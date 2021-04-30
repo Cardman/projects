@@ -5,7 +5,7 @@ import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.inherits.AnaInherits;
 import code.expressionlanguage.analyze.opers.DefaultValueOperation;
 import code.expressionlanguage.common.NumParsers;
-import code.expressionlanguage.inherits.ClassArgumentMatching;
+import code.expressionlanguage.common.ClassArgumentMatching;
 
 public final class ReachDefaultValueOperation extends ReachMethodOperation implements ReachCalculable {
 

@@ -11,6 +11,7 @@ public final class PrimitiveTypes {
     public static final byte LONG_WRAP = 5;
     public static final byte FLOAT_WRAP = 6;
     public static final byte DOUBLE_WRAP = 7;
+    public static final byte MAX_WRAP = 8;
     private static final String EMPTY_STRING = "";
     private final StringMap<PrimitiveType> primitiveTypes = new StringMap<PrimitiveType>();
     private String aliasPrimBoolean;
@@ -21,7 +22,7 @@ public final class PrimitiveTypes {
     private String aliasPrimLong;
     private String aliasPrimFloat;
     private String aliasPrimDouble;
-    private byte maxWrap;
+
     public void buildPrimitiveTypes(LgNames _lgNames) {
         primitiveTypes.put(aliasPrimBoolean, new PrimitiveType(aliasPrimBoolean, _lgNames.getContent().getNbAlias().getAliasBoolean(), EMPTY_STRING,false,BOOL_WRAP));
         primitiveTypes.put(aliasPrimChar, new PrimitiveType(aliasPrimChar, _lgNames.getContent().getNbAlias().getAliasCharacter(), aliasPrimInteger,true,CHAR_WRAP));
@@ -31,14 +32,6 @@ public final class PrimitiveTypes {
         primitiveTypes.put(aliasPrimLong, new PrimitiveType(aliasPrimLong, _lgNames.getContent().getNbAlias().getAliasLong(), EMPTY_STRING,true,LONG_WRAP));
         primitiveTypes.put(aliasPrimFloat, new PrimitiveType(aliasPrimFloat, _lgNames.getContent().getNbAlias().getAliasFloat(), aliasPrimDouble,true,FLOAT_WRAP));
         primitiveTypes.put(aliasPrimDouble, new PrimitiveType(aliasPrimDouble, _lgNames.getContent().getNbAlias().getAliasDouble(), EMPTY_STRING,true,DOUBLE_WRAP));
-        maxWrap = (byte)Math.max(BOOL_WRAP,CHAR_WRAP);
-        maxWrap = (byte)Math.max(maxWrap,BYTE_WRAP);
-        maxWrap = (byte)Math.max(maxWrap,SHORT_WRAP);
-        maxWrap = (byte)Math.max(maxWrap,INT_WRAP);
-        maxWrap = (byte)Math.max(maxWrap,LONG_WRAP);
-        maxWrap = (byte)Math.max(maxWrap,FLOAT_WRAP);
-        maxWrap = (byte)Math.max(maxWrap,DOUBLE_WRAP);
-        maxWrap++;
     }
     public String getAliasPrimBoolean() {
         return aliasPrimBoolean;
@@ -92,7 +85,4 @@ public final class PrimitiveTypes {
         return primitiveTypes;
     }
 
-    public byte getMaxWrap() {
-        return maxWrap;
-    }
 }

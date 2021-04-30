@@ -8,8 +8,9 @@ import code.expressionlanguage.analyze.opers.util.OperatorConverter;
 import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
 import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.functionid.ClassMethodId;
-import code.expressionlanguage.inherits.ClassArgumentMatching;
+import code.expressionlanguage.common.ClassArgumentMatching;
 import code.expressionlanguage.stds.PrimitiveType;
+import code.expressionlanguage.stds.PrimitiveTypes;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.StringList;
@@ -113,6 +114,10 @@ public final class AnaClassArgumentMatching {
 
     public byte getPrimitiveCast(AnalyzedPageEl _page) {
         return getPrimitiveCast(className, _page);
+    }
+
+    public static byte getPrimitiveCast(String _className, PrimitiveTypes _page) {
+        return ClassArgumentMatching.getPrimitiveCast(new StringList(_className), _page);
     }
 
     public static byte getPrimitiveCast(StringList _className, AnalyzedPageEl _page) {

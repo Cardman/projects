@@ -11,7 +11,7 @@ import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.exec.stacks.LoopBlockStack;
 import code.expressionlanguage.exec.variables.LocalVariable;
 import code.expressionlanguage.exec.variables.LoopVariable;
-import code.expressionlanguage.inherits.ClassArgumentMatching;
+import code.expressionlanguage.common.ClassArgumentMatching;
 import code.expressionlanguage.exec.ExpressionLanguage;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.stds.PrimitiveTypes;
@@ -163,10 +163,7 @@ public final class ExecForIterativeLoop extends ExecBracedBlock implements ExecL
                 stepValue_ = -stepValue_;
             }
         }
-        boolean finished_ = false;
-        if (stepValue_ == 0 || fromValue_ == toValue_&&!eq) {
-            finished_ = true;
-        }
+        boolean finished_ = stepValue_ == 0 || fromValue_ == toValue_ && !eq;
         LoopBlockStack l_ = new LoopBlockStack();
         l_.setLabel(label);
         l_.setFinished(finished_);

@@ -7,7 +7,7 @@ import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.variables.AbstractWrapper;
 import code.expressionlanguage.exec.variables.LocalVariable;
-import code.expressionlanguage.inherits.ClassArgumentMatching;
+import code.expressionlanguage.common.ClassArgumentMatching;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.stds.PrimitiveTypes;
 import code.expressionlanguage.structs.ErrorStruct;
@@ -138,10 +138,7 @@ public final class RendForIterativeLoop extends RendParentBlock implements RendL
                 stepValue_ = -stepValue_;
             }
         }
-        boolean finished_ = false;
-        if (stepValue_ == 0 || fromValue_ == toValue_&&!eq) {
-            finished_ = true;
-        }
+        boolean finished_ = stepValue_ == 0 || fromValue_ == toValue_ && !eq;
         RendLoopBlockStack l_ = new RendLoopBlockStack();
         l_.setLoop(this);
         l_.setLabel(label);

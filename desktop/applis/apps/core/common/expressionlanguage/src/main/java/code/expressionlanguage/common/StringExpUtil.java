@@ -1,9 +1,5 @@
 package code.expressionlanguage.common;
 
-import code.expressionlanguage.inherits.MappingPairs;
-import code.expressionlanguage.inherits.Matching;
-import code.expressionlanguage.inherits.MatchingEnum;
-
 import code.maths.litteralcom.MathExpUtil;
 import code.maths.litteralcom.StrTypes;
 import code.util.*;
@@ -14,7 +10,6 @@ import code.util.core.StringUtil;
 public final class StringExpUtil {
     public static final String ARR_CLASS = "[";
     public static final char ARR_BEG = '[';
-    public static final String ARR_BEG_STRING = "[";
     public static final String TEMPLATE_SEP = ",";
     public static final String TEMPLATE_END = ">";
     public static final String TEMPLATE_BEGIN = "<";
@@ -43,37 +38,13 @@ public final class StringExpUtil {
      */
     public static StringList getAllSepCommaTypes(String _type) {
         StringList types_ = new StringList();
+        StackType stType_ = new StackType();
         StringBuilder out_ = new StringBuilder();
         int i_ = IndexConstants.FIRST_INDEX;
-        int count_ = 0;
         int len_ = _type.length();
         while (i_ < len_) {
             char curChar_ = _type.charAt(i_);
-            if (count_ > 0) {
-                if (curChar_ == LT) {
-                    count_++;
-                }
-                if (curChar_ == GT) {
-                    count_--;
-                }
-                out_.append(curChar_);
-                i_++;
-                continue;
-            }
-            if (curChar_ == LT) {
-                out_.append(curChar_);
-                if (out_.toString().trim().charAt(0) != LT) {
-                    count_++;
-                }
-                i_++;
-                continue;
-            }
-            if (curChar_ == COMMA) {
-                types_.add(out_.toString());
-                out_.delete(0, out_.length());
-            } else {
-                out_.append(curChar_);
-            }
+            stType_.loopSepComma(types_,out_,curChar_);
             i_++;
         }
         types_.add(out_.toString());
@@ -110,43 +81,14 @@ public final class StringExpUtil {
      */
     public static StringList getAllTypes(String _type) {
         StringList types_ = new StringList();
+        StackType stType_ = new StackType();
         StringBuilder out_ = new StringBuilder();
         StringBuilder id_ = new StringBuilder();
         int i_ = IndexConstants.FIRST_INDEX;
-        int count_ = 0;
         int len_ = _type.length();
         while (i_ < len_) {
             char curChar_ = _type.charAt(i_);
-            if (count_ > 0) {
-                if (curChar_ == LT) {
-                    count_++;
-                }
-                if (curChar_ == GT) {
-                    count_--;
-                }
-                if (count_ == 1 && curChar_ == COMMA) {
-                    types_.add(out_.toString());
-                    out_.delete(0, out_.length());
-                    i_++;
-                    continue;
-                }
-                if (count_ == 0) {
-                    //curChar_ == Templates.GT
-                    types_.add(out_.toString());
-                    out_.delete(0, out_.length());
-                    i_++;
-                    continue;
-                }
-                out_.append(curChar_);
-                i_++;
-                continue;
-            }
-            if (curChar_ == LT) {
-                count_++;
-                i_++;
-                continue;
-            }
-            id_.append(curChar_);
+            stType_.loopAllTypes(types_,id_,out_,curChar_);
             i_++;
         }
         types_.add(0, id_.toString());
@@ -156,42 +98,13 @@ public final class StringExpUtil {
     public static StringList getAllPartInnerTypes(String _type) {
         StringList types_ = new StringList();
         StringBuilder out_ = new StringBuilder();
+        StackType stType_ = new StackType();
         int i_ = IndexConstants.FIRST_INDEX;
-        int count_ = 0;
         int len_ = _type.length();
         while (i_ < len_) {
             char curChar_ = _type.charAt(i_);
-            if (count_ > 0) {
-                if (curChar_ == LT) {
-                    count_++;
-                }
-                if (curChar_ == GT) {
-                    count_--;
-                }
-                out_.append(curChar_);
+            if (stType_.loopAllPartInnerTypes(_type,i_,types_,out_,curChar_)) {
                 i_++;
-                continue;
-            }
-            if (curChar_ == LT) {
-                out_.append(curChar_);
-                count_++;
-                i_++;
-                continue;
-            }
-            if (curChar_ == '-') {
-                types_.add(out_.toString());
-                types_.add("-");
-                out_.delete(0, out_.length());
-                i_++;
-                continue;
-            }
-            if (_type.startsWith(INNER_TYPE,i_)) {
-                types_.add(out_.toString());
-                types_.add(INNER_TYPE);
-                out_.delete(0, out_.length());
-                i_++;
-            } else {
-                out_.append(curChar_);
             }
             i_++;
         }
@@ -249,40 +162,13 @@ public final class StringExpUtil {
     public static StringList getAllInnerTypes(String _type) {
         StringList types_ = new StringList();
         StringBuilder out_ = new StringBuilder();
+        StackType stType_ = new StackType();
         int i_ = IndexConstants.FIRST_INDEX;
-        int count_ = 0;
         int len_ = _type.length();
         while (i_ < len_) {
             char curChar_ = _type.charAt(i_);
-            if (count_ > 0) {
-                if (curChar_ == LT) {
-                    count_++;
-                }
-                if (curChar_ == GT) {
-                    count_--;
-                }
-                out_.append(curChar_);
+            if (stType_.loopAllInnerTypes(_type,i_,types_,out_,curChar_)) {
                 i_++;
-                continue;
-            }
-            if (curChar_ == LT) {
-                out_.append(curChar_);
-                count_++;
-                i_++;
-                continue;
-            }
-            if (curChar_ == '-') {
-                types_.add(out_.toString());
-                out_.delete(0, out_.length());
-                i_++;
-                continue;
-            }
-            if (_type.startsWith(INNER_TYPE,i_)) {
-                types_.add(out_.toString());
-                out_.delete(0, out_.length());
-                i_++;
-            } else {
-                out_.append(curChar_);
             }
             i_++;
         }

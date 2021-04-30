@@ -19,7 +19,6 @@ import code.expressionlanguage.exec.*;
 import code.expressionlanguage.exec.opers.ExecArrayFieldOperation;
 import code.expressionlanguage.functionid.ConstructorId;
 import code.expressionlanguage.fwd.Forwards;
-import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.options.ContextFactory;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.Options;

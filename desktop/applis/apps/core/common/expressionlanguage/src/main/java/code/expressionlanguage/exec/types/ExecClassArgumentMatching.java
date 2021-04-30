@@ -3,7 +3,7 @@ package code.expressionlanguage.exec.types;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.exec.StackCall;
-import code.expressionlanguage.inherits.ClassArgumentMatching;
+import code.expressionlanguage.common.ClassArgumentMatching;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.stds.PrimitiveType;
 import code.expressionlanguage.stds.PrimitiveTypes;

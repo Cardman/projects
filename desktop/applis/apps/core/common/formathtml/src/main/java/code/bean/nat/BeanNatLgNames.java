@@ -17,7 +17,6 @@ import code.formathtml.fwd.DefaultInputBuilder;
 import code.formathtml.fwd.RendForwardInfos;
 import code.expressionlanguage.*;
 import code.expressionlanguage.analyze.errors.AnalysisMessages;
-import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.options.ContextFactory;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.Options;

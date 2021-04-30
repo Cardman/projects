@@ -11,7 +11,6 @@ import code.expressionlanguage.analyze.util.*;
 import code.expressionlanguage.common.*;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.MethodId;
-import code.expressionlanguage.inherits.*;
 
 import code.util.*;
 import code.util.core.IndexConstants;

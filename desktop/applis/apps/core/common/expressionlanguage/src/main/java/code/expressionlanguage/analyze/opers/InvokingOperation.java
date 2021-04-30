@@ -14,7 +14,7 @@ import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.inherits.Mapping;
 import code.expressionlanguage.functionid.*;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
-import code.expressionlanguage.inherits.Matching;
+import code.expressionlanguage.common.Matching;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.stds.StandardConstructor;
 import code.expressionlanguage.stds.StandardType;
